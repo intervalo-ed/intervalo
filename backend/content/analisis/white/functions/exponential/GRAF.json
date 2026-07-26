@@ -203,7 +203,7 @@
       -0.5,
       10
     ],
-    "explanation": "Leer el valor en el eje $Y$: el punto donde $x = 0$ da :.porque $b^0 = 1$ y solo queda el coeficiente $a$ multiplicando.\n\nAquí la curva pasa por $(0.\n\n2)$.\n\nentonces el coeficiente $a = 2$ en la fórmula.\n$$f(x) = 2 \\cdot b^x$.\n$$\n: ese coeficiente estira o achica verticalmente la curva sin mover la asíntota.\n\nconfundir este valor inicial con la base $$\nB$, que en cambio se lee comparando dos puntos consecutivos de la curva.",
+    "explanation": "Leer el valor en el eje $Y$: el punto donde $x = 0$ \n\nda :.porque $b^0 = 1$ y solo queda el coeficiente $a$ multiplicando.\n\nAquí la curva pasa por $(0.\n\n2)$.\n\nentonces el coeficiente $a = 2$ en la fórmula.\n$$f(x) = 2 \\cdot b^x$.\n$$\n: ese coeficiente estira o achica verticalmente la curva sin mover la asíntota.\n\nconfundir este valor inicial con la base $$\nB$, que en cambio se lee comparando dos puntos consecutivos de la curva.",
     "reviewed": false,
     "tags": [
       "lectura-ordenada-origen"
@@ -233,7 +233,7 @@
       -0.5,
       10
     ],
-    "explanation": "El punto $(0.\n\n3)$ indica que $f(0) = a = 3$.\n\nya que al evaluar en $x = 0$ cualquier base elevada a la potencia $0$ da $1$ y solo queda el coeficiente.\n\nEn la fórmula.\n$$f(x) = a \\cdot b^x$$\n.\n\nel coeficiente $a$ es siempre el valor que la función toma cuando $x = 0.\n$$.\n\ny actúa como un factor de escala vertical sobre toda la curva.\n\nNo hay que confundir este coeficiente con la base $$\nB$: $a$ se lee directamente en el eje vertical.\n\nmientras que $b$ requiere comparar dos puntos consecutivos.",
+    "explanation": "El punto $(0.\n\n3)$ indica que $f(0) = a = 3$.\n\nya que al evaluar en $x = 0$ cualquier base elevada a la potencia $0$ \n\nda $1$ y solo queda el coeficiente.\n\nEn la fórmula.\n$$f(x) = a \\cdot b^x$$\n.\n\nel coeficiente $a$ es siempre el valor que la función toma cuando $x = 0.\n$$.\n\ny actúa como un factor de escala vertical sobre toda la curva.\n\nNo hay que confundir este coeficiente con la base $$\nB$: $a$ se lee directamente en el eje vertical.\n\nmientras que $b$ requiere comparar dos puntos consecutivos.",
     "reviewed": false,
     "tags": [
       "lectura-monotonia"
@@ -443,7 +443,7 @@
       -0.5,
       8.5
     ],
-    "explanation": "Si $f(0) = 1$ (no hay coeficiente $a$ multiplicando) y se lee en el gráfico que $f(1) = 2$.\n\nentonces:La base $b$ se puede leer directamente del punto.\n$$(1.\n\nf(1))$$\n.\n\nporque cualquier número elevado a la potencia $1.\n$$ es igual a sí mismo.\n\nEste atajo solo funciona cuando la curva pasa por $$\n(0, 1)$, es decir cuando no hay coeficiente $a$ ni desplazamiento vertical de por medio.",
+    "explanation": "Si $f(0) = 1$ (no hay coeficiente $a$ \n\nmultiplicando) y se lee en el gráfico que $f(1) = 2$.\n\nentonces:La base $b$ se puede leer directamente del punto.\n$$(1.\n\nf(1))$$\n.\n\nporque cualquier número elevado a la potencia $1.\n$$ es igual a sí mismo.\n\nEste atajo solo funciona cuando la curva pasa por $$\n(0, 1)$, es decir cuando no hay coeficiente $a$ ni desplazamiento vertical de por medio.",
     "reviewed": false,
     "tags": [
       "comparar-bases-grafico"
@@ -593,7 +593,7 @@
       -0.5,
       9.5
     ],
-    "explanation": "Para dos bases.\n$$b_1 > b_2 > 1$$\nY $x > 0.\n$$ se cumple:La curva más empinada corresponde a la mayor base, porque un número mayor elevado a una misma potencia positiva da un resultado más grande.\n\nAmbas curvas pasan por el punto fijo $$\n(0.\n\n1)$.\n\npero divergen apenas $x$ se aleja de $0$: para $x < 0$ la relación se invierte y la curva de base mayor queda por debajo.\n\nmás cerca del eje horizontal.",
+    "explanation": "Para dos bases.\n$$b_1 > b_2 > 1$$\nY $x > 0.\n$$ se cumple:La curva más empinada corresponde a la mayor base, porque un número mayor elevado a una misma potencia positiva da un resultado más grande.\n\nAmbas curvas pasan por el punto fijo $$\n(0.\n\n1)$.\n\npero divergen apenas $x$ se aleja de $0$: \n\npara $x < 0$ la relación se invierte y la curva de base mayor queda por debajo.\n\nmás cerca del eje horizontal.",
     "reviewed": false,
     "tags": [
       "lectura-ordenada-origen"
@@ -833,7 +833,7 @@
       -0.5,
       9.0
     ],
-    "explanation": "Para identificar la fórmula conviene revisar dos señales del gráfico a la vez: el punto de corte con el eje vertical y la altura de la asíntota horizontal.\n\nAcá la curva pasa por $(0.\n\n3)$ y se aplana hacia $y = 2$ del lado izquierdo.\n\ny la fórmula $2^x + 2$ cumple ambas condiciones porque : y el $+2$ desplaza la asíntota de $0$ a $2$.\n\nmientras que.\n$.\n$$3 \\cdot 2^x$$\n$\nCambia el punto de corte pero tampoco mueve la asíntota.\n\nUn desplazamiento vertical (sumar una constante) mueve la asíntota; un coeficiente multiplicativo estira la curva pero la deja pegada al eje horizontal.",
+    "explanation": "Para identificar la fórmula conviene revisar dos señales del gráfico a la vez: el punto de corte con el eje vertical y la altura de la asíntota horizontal.\n\nAcá la curva pasa por $(0.\n\n3)$ y se aplana hacia $y = 2$ del lado izquierdo.\n\ny la fórmula $2^x + 2$ cumple ambas condiciones porque : y el $+2$ \n\ndesplaza la asíntota de $0$ a $2$.\n\nmientras que.\n$.\n$$3 \\cdot 2^x$$\n$\nCambia el punto de corte pero tampoco mueve la asíntota.\n\nUn desplazamiento vertical (sumar una constante) mueve la asíntota; un coeficiente multiplicativo estira la curva pero la deja pegada al eje horizontal.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -1343,7 +1343,7 @@
       -0.5,
       8.5
     ],
-    "explanation": "Modelo:\n$$U(t) = 1 \\cdot (1{,}5)^t$.\n$$\n(en miles de usuarios).\n\ndonde el factor $$\n1{,}5$ representa un crecimiento del $50\\%$ mensual.El $50\\%$ de $1000$ es $500$; \n\nsumados al valor inicial dan $1500$ usuarios al cabo del primer mes.\n\nEsta es la señal característica del crecimiento exponencial: el incremento de cada período es proporcional al valor actual, no una cantidad fija como en el crecimiento lineal.",
+    "explanation": "Modelo:\n$$U(t) = 1 \\cdot (1{,}5)^t$.\n$$\n(en miles de usuarios).\n\ndonde el factor $$\n1{,}5$ representa un crecimiento del $50\\%$ mensual.El $50\\%$ de $1000$ es $500$; \n\n\n\nsumados al valor inicial dan $1500$ usuarios al cabo del primer mes.\n\nEsta es la señal característica del crecimiento exponencial: el incremento de cada período es proporcional al valor actual, no una cantidad fija como en el crecimiento lineal.",
     "reviewed": false,
     "tags": [
       "evaluar-contexto"
@@ -1433,7 +1433,7 @@
       -0.5,
       9.0
     ],
-    "explanation": "La curva pasa por $(0, 4)$ y $(1, 2)$:Cada año queda la mitad de lo que había el año anterior: la **vida media** de esta muestra es $1$ año, y corresponde a una base.\n$$b = 0{,}5$.\n$$\nEn el modelo exponencial.\n\nConviene no confundir la vida media con el tiempo que tarda en desaparecer del todo: matemáticamente la cantidad nunca llega exactamente a $$\n0$, solo se acerca cada vez más a esa asíntota.",
+    "explanation": "La curva pasa por $(0, 4)$ y $(1, 2)$:Cada año queda la mitad de lo que había el año anterior: la **vida media** de esta muestra es $1$ año, \n\n\n\ny corresponde a una base.\n$$b = 0{,}5$.\n$$\nEn el modelo exponencial.\n\nConviene no confundir la vida media con el tiempo que tarda en desaparecer del todo: matemáticamente la cantidad nunca llega exactamente a $$\n0$, solo se acerca cada vez más a esa asíntota.",
     "reviewed": false,
     "tags": [
       "comportamiento-infinito-contexto"

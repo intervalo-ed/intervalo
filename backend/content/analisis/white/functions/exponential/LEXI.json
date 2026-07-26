@@ -153,7 +153,7 @@
       -0.5,
       8.5
     ],
-    "explanation": "Para $f(x) = 2^x$.\n\nanalizamos el límite cuando $x$ tiende a $-\\infty$:La función se acerca arbitrariamente a $y = 0$ sin tocarlo nunca.\n\nya que $2^x > 0$ para todo $x \\in \\mathbb{R}$.\n\nLa recta $y = 0$ (el **eje $x$**) es la **asíntota horizontal**.\n\nRecordar: no hay asíntota vertical en las funciones exponenciales.",
+    "explanation": "Para $f(x) = 2^x$.\n\nanalizamos el límite cuando $x$ tiende a $-\\infty$:La \n\nfunción se acerca arbitrariamente a $y = 0$ sin tocarlo nunca.\n\nya que $2^x > 0$ para todo $x \\in \\mathbb{R}$.\n\nLa recta $y = 0$ (el **eje $x$**) es la **asíntota horizontal**.\n\nRecordar: no hay asíntota vertical en las funciones exponenciales.",
     "reviewed": false,
     "tags": [
       "comportamiento-infinito"
@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La regla es simple: una exponencial $b^x$ es creciente si y solo si $b > 1$.\n$$\\begin{aligned} 3^x: \\\\ b &= 3 > 1 \\implies \\text{creciente} \\checkmark \\end{aligned}$$\nLas otras opciones tienen **bases** menores que 1 ($0{,}2$; $0{,}9$; $1/3$).\n\npor lo que son todas decrecientes.\n\nIncluso $0{,}9$, que parece cercano a 1, genera decrecimiento, aunque lento.",
+    "explanation": "La regla es simple: una exponencial $b^x$ es creciente si y solo si $b > 1$.\n$$\\begin{aligned} 3^x: \\\\ b &= 3 > 1 \\implies \\text{creciente} \\checkmark \\end{aligned}$$\nLas otras opciones tienen **bases** menores que 1 ($0{,}2$; $0{,}9$; \n\n$1/3$).\n\npor lo que son todas decrecientes.\n\nIncluso $0{,}9$, que parece cercano a 1, genera decrecimiento, aunque lento.",
     "reviewed": false,
     "tags": [
       "sin-raices-reales"
@@ -708,7 +708,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La base $b = 1$ quedó excluida de la definición porque : para todo $x$:Tampoco permitimos bases negativas porque $(-2)^{1/2}$ no es real (sería $i\\sqrt{2}$, \n\nfuera del alcance del análisis real).\n\nUna base negativa también generaría valores positivos para exponentes pares y negativos para exponentes impares, perdiendo la monotonía que define a la exponencial.\n\nPor eso: $b > 0$ y $b \\neq 1$.",
+    "explanation": "La base $b = 1$ quedó excluida de la definición porque : para todo $x$:Tampoco permitimos bases negativas porque $(-2)^{1/2}$ no es real (sería $i\\sqrt{2}$, \n\n\n\nfuera del alcance del análisis real).\n\nUna base negativa también generaría valores positivos para exponentes pares y negativos para exponentes impares, perdiendo la monotonía que define a la exponencial.\n\nPor eso: $b > 0$ y $b \\neq 1$.",
     "reviewed": false,
     "tags": [
       "exclusion-base-1-o-negativa"
@@ -758,7 +758,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La propiedad de potencias de igual **base** establece que al multiplicar dos potencias con la misma base, los exponentes se suman:\n\nEsto viene de contar cuántas veces se multiplica $b$ por sí mismo: $b^m$ son $m$ factores de $b$ y $b^n$ son $n$ factores más.\n\nen total $m+n$ factores.\n\nCon $m=3$ y $n=4$: :.En la función exponencial esto explica el comportamiento multiplicativo entre valores consecutivos:\n\nCada unidad que avanza $x$, el valor se multiplica por $b$.\n\nNo confundir con multiplicar las bases directamente: $2^3 \\cdot 2^4$ no es $4^7$, porque las bases no cambian al sumar los exponentes.",
+    "explanation": "La propiedad de potencias de igual **base** establece que al multiplicar dos potencias con la misma base, los exponentes se suman:\n\nEsto viene de contar cuántas veces se multiplica $b$ por sí mismo: $b^m$ \n\nson $m$ factores de $b$ \n\ny $b^n$ son $n$ factores más.\n\nen total $m+n$ factores.\n\nCon $m=3$ y $n=4$: :.En la función exponencial esto explica el comportamiento multiplicativo entre valores consecutivos:\n\nCada unidad que avanza $x$, el valor se multiplica por $b$.\n\nNo confundir con multiplicar las bases directamente: $2^3 \\cdot 2^4$ no es $4^7$, porque las bases no cambian al sumar los exponentes.",
     "reviewed": false,
     "tags": [
       "transformacion-horizontal"
@@ -783,7 +783,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La regla de potencia de potencia indica que al elevar una potencia a otro exponente, los exponentes se multiplican entre sí:\n\nA diferencia de la multiplicación de potencias de igual **base** (donde los exponentes se suman), acá hay un exponente aplicado sobre otro exponente, y esa operación multiplica.\n\nCon $m=x$ y $n=2$: :.Un ejemplo concreto es $(2^x)^2 = 2^{2x} = 4^x$.\n\nque muestra cómo convertir entre bases distintas: cualquier potencia de $2$ elevada al cuadrado se puede reescribir como una potencia de $4$.\n\nEsta conversión es útil para comparar exponenciales con distinta base pero relacionadas entre sí, como $4^x$ y $2^x$.",
+    "explanation": "La regla de potencia de potencia indica que al elevar una potencia a otro exponente, los exponentes se multiplican entre sí:\n\nA diferencia de la multiplicación de potencias de igual **base** (donde los exponentes se suman), acá hay un exponente aplicado sobre otro exponente, y esa operación multiplica.\n\nCon $m=x$ y $n=2$: \n\n:.Un ejemplo concreto es $(2^x)^2 = 2^{2x} = 4^x$.\n\nque muestra cómo convertir entre bases distintas: cualquier potencia de $2$ elevada al cuadrado se puede reescribir como una potencia de $4$.\n\nEsta conversión es útil para comparar exponenciales con distinta base pero relacionadas entre sí, como $4^x$ y $2^x$.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-potencias"
@@ -933,7 +933,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando dos exponenciales con distinta **base** parten del mismo **valor inicial**, la de mayor base crece más rápido para $x$ positivo.\n\nEn general, para bases $b_1 > b_2 > 1$ y $x > 0$:\n\nCon $b_1=3$ y $b_2=2$: : para todo $x > 0$.Ambas curvas parten del mismo punto $(0.\n\n1)$.\n\nporque $b^0=1$ sin importar la base.\n\npero a partir de ahí la de base $3$ se despega más rápido.\n\nEsta relación se invierte para $x < 0$: ahí $2^x > 3^x$, porque elevar una base mayor a un exponente negativo produce un resultado más chico.\n\nPor eso la comparación entre bases no es universal para todo $x$, sino que depende del signo del exponente.",
+    "explanation": "Cuando dos exponenciales con distinta **base** parten del mismo **valor inicial**, la de mayor base crece más rápido para $x$ positivo.\n\nEn general, para bases $b_1 > b_2 > 1$ y $x > 0$:\n\nCon $b_1=3$ y $b_2=2$: \n\n: para todo $x > 0$.Ambas curvas parten del mismo punto $(0.\n\n1)$.\n\nporque $b^0=1$ sin importar la base.\n\npero a partir de ahí la de base $3$ se despega más rápido.\n\nEsta relación se invierte para $x < 0$: ahí $2^x > 3^x$, porque elevar una base mayor a un exponente negativo produce un resultado más chico.\n\nPor eso la comparación entre bases no es universal para todo $x$, sino que depende del signo del exponente.",
     "reviewed": false,
     "tags": [
       "comparacion-bases"
@@ -1133,7 +1133,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La exponencial $f(x) = b^x$ con $b > 1$ es **estrictamente creciente en todo $\\mathbb{R}$**:\n$$x_1 < x_2 \\implies b^{x_1} < b^{x_2}$$\nNo tiene máximos ni mínimos locales.\n\nni cambia de dirección.\n\nEsto la diferencia de las polinómicas (que pueden tener múltiples intervalos de crecimiento y decrecimiento).",
+    "explanation": "La exponencial $f(x) = b^x$ con $b > 1$ \n\nes **estrictamente creciente en todo $\\mathbb{R}$**:\n$$x_1 < x_2 \\implies b^{x_1} < b^{x_2}$$\nNo tiene máximos ni mínimos locales.\n\nni cambia de dirección.\n\nEsto la diferencia de las polinómicas (que pueden tener múltiples intervalos de crecimiento y decrecimiento).",
     "reviewed": false,
     "tags": [
       "parametro-base-crecimiento"
@@ -1258,7 +1258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Como $2^0=1$ y la función es estrictamente creciente.\n\ncomparar cualquier $x$ contra $0$ alcanza para saber si : queda por debajo o por encima de $1$:Para $x<0$ la función toma valores positivos pero menores que $1$.\n\npor ejemplo $2^{-1}=0{,}5$ o ::se acerca a $0$ sin llegar nunca a tocarlo.\n\nLa función nunca es negativa ni vale exactamente cero, así que ese caso queda descartado de entrada.\n\nEsta relación entre el signo del exponente y el resultado frente a $1$ es la misma para cualquier exponencial con **base** mayor que $1$: negativo da menos que $1$.\n\npositivo da más que $1$.\n\ncero da exactamente $1$.",
+    "explanation": "Como $2^0=1$ y la función es estrictamente creciente.\n\ncomparar cualquier $x$ contra $0$ \n\nalcanza para saber si : queda por debajo o por encima de $1$:Para $x<0$ \n\nla función toma valores positivos pero menores que $1$.\n\npor ejemplo $2^{-1}=0{,}5$ o ::se acerca a $0$ sin llegar nunca a tocarlo.\n\nLa función nunca es negativa ni vale exactamente cero, así que ese caso queda descartado de entrada.\n\nEsta relación entre el signo del exponente y el resultado frente a $1$ es la misma para cualquier exponencial con **base** mayor que $1$: \n\nnegativo da menos que $1$.\n\npositivo da más que $1$.\n\ncero da exactamente $1$.",
     "reviewed": false,
     "tags": [
       "exclusion-base-1-o-negativa"

@@ -48,7 +48,7 @@
       -3,
       4
     ],
-    "explanation": "Para leer una función logarítmica desde su gráfica, observá dos claves:\n\n1. **Asíntota vertical**: la curva cae a $-\\infty$ en $x = -1$ → el argumento se anula en $x = -1$.\n\nentonces el argumento es $x + 1$. 2. **Intercepto con el eje $X$**: la curva corta en $(0,\\.\n\n0)$ → $\\log_2(0 + 1) = \\log_2(1) = 0$.\n\nConclusión: $f(x) = \\log_2(x + 1)$.",
+    "explanation": "Para leer una función logarítmica desde su gráfica, observá dos claves:\n\n1. **Asíntota vertical**: la curva cae a $-\\infty$ en $x = -1$ \n\n→ el argumento se anula en $x = -1$.\n\nentonces el argumento es $x + 1$. 2. **Intercepto con el eje $X$**: la curva corta en $(0,\\.\n\n0)$ → $\\log_2(0 + 1) = \\log_2(1) = 0$.\n\nConclusión: $f(x) = \\log_2(x + 1)$.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -493,7 +493,7 @@
       -2,
       6
     ],
-    "explanation": "Para reconocer una función logarítmica desde su gráfico conviene revisar tres claves en orden: dónde está la asíntota vertical.\n\nsi hay desplazamiento vertical.\n\ny qué base determina la pendiente de crecimiento.\n\nEn este caso, la asíntota vertical sigue en $x = 0$, así que el argumento no tiene desplazamiento horizontal.\n\nPero en $x = 1$ la curva vale $f(1) = 1$ en vez de $0$.\n\nlo que indica un desplazamiento vertical de $+1$.\n\nLa curva es creciente y pasa por $(2, 2)$, lo que confirma la base $2$.\n\nConclusión: $f(x) = \\log_2(x) + 1$.\n\nDistinguir un desplazamiento vertical (suma una constante) de un escalado (multiplica al logaritmo) es la clave para no confundir estas variantes.",
+    "explanation": "Para reconocer una función logarítmica desde su gráfico conviene revisar tres claves en orden: dónde está la asíntota vertical.\n\nsi hay desplazamiento vertical.\n\ny qué base determina la pendiente de crecimiento.\n\nEn este caso, la asíntota vertical sigue en $x = 0$, así que el argumento no tiene desplazamiento horizontal.\n\nPero en $x = 1$ la curva vale $f(1) = 1$ \n\nen vez de $0$.\n\nlo que indica un desplazamiento vertical de $+1$.\n\nLa curva es creciente y pasa por $(2, 2)$, lo que confirma la base $2$.\n\nConclusión: $f(x) = \\log_2(x) + 1$.\n\nDistinguir un desplazamiento vertical (suma una constante) de un escalado (multiplica al logaritmo) es la clave para no confundir estas variantes.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -573,7 +573,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad de la potencia** de los logaritmos dice que $\\log_b(a^n) = n \\cdot \\log_b(a)$: el exponente del argumento baja y multiplica al logaritmo completo.\n\nVerificación con $x = 100$: $\\log(100^3) = \\log(10^6) = 6$ y $3 \\cdot \\log(100) = 3 \\cdot 2 = 6$.\n\ncoinciden.\n\nEl error más común acá es olvidar el factor $3$ y responder solo $\\log(x)$, o confundir el exponente con un coeficiente que multiplica adentro del argumento.",
+    "explanation": "La **propiedad de la potencia** de los logaritmos dice que $\\log_b(a^n) = n \\cdot \\log_b(a)$: el exponente del argumento baja y multiplica al logaritmo completo.\n\nVerificación con $x = 100$: $\\log(100^3) = \\log(10^6) = 6$ \n\ny $3 \\cdot \\log(100) = 3 \\cdot 2 = 6$.\n\ncoinciden.\n\nEl error más común acá es olvidar el factor $3$ y responder solo $\\log(x)$, o confundir el exponente con un coeficiente que multiplica adentro del argumento.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -623,7 +623,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar la **función inversa**.\n\nse intercambian los roles de $x$ e $y$ en $y = \\log_2(x)$ y se despeja la nueva $y$:\n\nSe verifica que ambas composiciones devuelven la identidad: $\\log_2(2^x) = x$ y $2^{\\log_2(x)} = x$.\n\nEsta relación resume por qué logaritmo y exponencial son funciones inversas entre sí: una deshace exactamente lo que hace la otra, siempre que compartan la misma base.",
+    "explanation": "Para hallar la **función inversa**.\n\nse intercambian los roles de $x$ e $y$ \n\nen $y = \\log_2(x)$ y se despeja la nueva $y$:\n\nSe verifica que ambas composiciones devuelven la identidad: $\\log_2(2^x) = x$ y $2^{\\log_2(x)} = x$.\n\nEsta relación resume por qué logaritmo y exponencial son funciones inversas entre sí: una deshace exactamente lo que hace la otra, siempre que compartan la misma base.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -723,7 +723,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Asíntota vertical en $x = 3$ → el argumento se anula en $x = 3$.\n\no sea argumento $= (x - 3)$.\n\nVerificamos el punto $(4, 0)$: $\\log_2(4 - 3) = \\log_2(1) = 0$ .\n\nLa base $2$ se confirma porque para $x = 5$: $\\log_2(5 - 3) = \\log_2(2) = 1$.\n\nes decir el punto $(5.\n\n1)$.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Asíntota vertical en $x = 3$ → el argumento se anula en $x = 3$.\n\no sea argumento $= (x - 3)$.\n\nVerificamos el punto $(4, 0)$: $\\log_2(4 - 3) = \\log_2(1) = 0$ .\n\nLa base $2$ se confirma porque para $x = 5$: \n\n$\\log_2(5 - 3) = \\log_2(2) = 1$.\n\nes decir el punto $(5.\n\n1)$.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-desde-formula"
@@ -1153,7 +1153,7 @@
       -3,
       5
     ],
-    "explanation": "Identificar la base de una curva logarítmica desde su gráfico se apoya en dos puntos fijos: el logaritmo siempre pasa por $(1,0)$.\n\ny el punto $(b,1)$ revela directamente la base $b$.\n\nEn este gráfico, la asíntota vertical está en $x=0$, así que no hay desplazamiento horizontal, y la curva pasa por $(1,0)$, así que tampoco hay desplazamiento vertical.\n\nPero además pasa por $(3,1)$.\n\nlo que significa $f(3)=1$: la base que cumple eso es exactamente $3$.\n\nConclusión: $f(x) = \\log_3(x)$. leer el punto $(b,1)$ como si fuera $(1,b)$.\n\ninvirtiendo las coordenadas y confundiendo la base con el argumento.",
+    "explanation": "Identificar la base de una curva logarítmica desde su gráfico se apoya en dos puntos fijos: el logaritmo siempre pasa por $(1,0)$.\n\ny el punto $(b,1)$ revela directamente la base $b$.\n\nEn este gráfico, la asíntota vertical está en $x=0$, así que no hay desplazamiento horizontal, y la curva pasa por $(1,0)$, así que tampoco hay desplazamiento vertical.\n\nPero además pasa por $(3,1)$.\n\nlo que significa $f(3)=1$: la base que cumple eso es exactamente $3$.\n\nConclusión: $f(x) = \\log_3(x)$. leer el punto $(b,1)$ \n\ncomo si fuera $(1,b)$.\n\ninvirtiendo las coordenadas y confundiendo la base con el argumento.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"

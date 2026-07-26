@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando una potencia es impar, el signo de $x$ importa: números negativos elevados a potencias impares siguen siendo negativos.\n\nEsta es la razón por la que $\\lim_{x \\to -\\infty}$ de un monomio de grado impar diverge hacia $-\\infty$, \n\nno $+\\infty$.\n\nCuando el numerador tiene grado mayor, conviene simplificar al término dominante para identificar la potencia resultante y su paridad.\n\nComo la potencia resultante es $3$ (impar) y el coeficiente es positivo, cruzar con $x \\to -\\infty$ da $-\\infty$.\n\nCon potencia par, el signo de $x$ no importaría.",
+    "explanation": "Cuando una potencia es impar, el signo de $x$ importa: números negativos elevados a potencias impares siguen siendo negativos.\n\nEsta es la razón por la que $\\lim_{x \\to -\\infty}$ de un monomio de grado impar diverge hacia $-\\infty$, \n\nno $+\\infty$.\n\nCuando el numerador tiene grado mayor, conviene simplificar al término dominante para identificar la potencia resultante y su paridad.\n\nComo la potencia resultante es $3$ (impar) y el coeficiente es positivo, cruzar con $x \\to -\\infty$ \n\nda $-\\infty$.\n\nCon potencia par, el signo de $x$ no importaría.",
     "reviewed": false,
     "tags": [
       "racionales-gana-numerador"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Acercarse desde la izquierda ($x \\to 2^-$) vs. desde la derecha ($x \\to 2^+$) produce resultados opuestos porque un lado del $0$ es positivo y el otro es negativo.\n\nEste cambio de signo en el denominador es lo que produce dos límites distintos que se combinan para decir que el límite bilateral no existe.\n\nCuando $x \\to 2^-$, los valores de $x$ son menores que $2$, \n\nasí que $x-2$ es negativo y tiende a $0^-$.\n\nCon numerador positivo y denominador tendiendo a $0^-$, el cociente diverge a $-\\infty$.\n\nEste resultado, junto con el ítem anterior, muestra que el límite bilateral en $x=2$ no existe.",
+    "explanation": "Acercarse desde la izquierda ($x \\to 2^-$) vs. desde la derecha ($x \\to 2^+$) \n\nproduce resultados opuestos porque un lado del $0$ es positivo y el otro es negativo.\n\nEste cambio de signo en el denominador es lo que produce dos límites distintos que se combinan para decir que el límite bilateral no existe.\n\nCuando $x \\to 2^-$, los valores de $x$ son menores que $2$, \n\n\n\nasí que $x-2$ es negativo y tiende a $0^-$.\n\nCon numerador positivo y denominador tendiendo a $0^-$, el cociente diverge a $-\\infty$.\n\nEste resultado, junto con el ítem anterior, muestra que el límite bilateral en $x=2$ no existe.",
     "reviewed": false,
     "tags": [
       "calculo-asintota-vertical"

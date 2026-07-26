@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **cociente incremental** compara el valor de $f$ en dos puntos cercanos, $a$ y $a+h$, \n\ny $h$ es la distancia entre ambos, un número que se va achicando hasta acercarse a cero.\n\nCuando.\n$$h \\to 0$$\n, el punto $a+h$ se acerca cada vez más a $a$, y el cociente deja de medir una variación entre dos puntos separados para capturar la tasa de cambio justo en $a$.\n\nEs común mezclar $h$ con $a$ o con $x$: conviene recordar que $a$ es el punto de estudio, \n\nfijo durante todo el cálculo, mientras que $h$ es el único que se mueve hacia cero.",
+    "explanation": "El **cociente incremental** compara el valor de $f$ en dos puntos cercanos, $a$ y $a+h$, \n\n\n\ny $h$ es la distancia entre ambos, un número que se va achicando hasta acercarse a cero.\n\nCuando.\n$$h \\to 0$$\n, el punto $a+h$ se acerca cada vez más a $a$, \n\ny el cociente deja de medir una variación entre dos puntos separados para capturar la tasa de cambio justo en $a$.\n\nEs común mezclar $h$ con $a$ o con $x$: conviene recordar que $a$ es el punto de estudio, \n\n\n\nfijo durante todo el cálculo, mientras que $h$ es el único que se mueve hacia cero.",
     "reviewed": false,
     "tags": [
       "anatomia-del-limite"
@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El punto $a$ es el lugar del dominio donde se quiere conocer la **derivada**, y permanece fijo durante todo el cálculo del límite.\n\nEl incremento $h$ es el que se mueve, acercando el punto $a+h$ a $a$ hasta que la distancia entre ambos se hace cero.\n\nSi $a$ cambiara junto con $h$, el cociente ya no describiría la tasa de cambio en un punto concreto sino en varios a la vez, así que fijarlo es lo que le da sentido al resultado.\n$$f'(a)$$\n.",
+    "explanation": "El punto $a$ es el lugar del dominio donde se quiere conocer la **derivada**, y permanece fijo durante todo el cálculo del límite.\n\nEl incremento $h$ es el que se mueve, acercando el punto $a+h$ \n\na $a$ hasta que la distancia entre ambos se hace cero.\n\nSi $a$ cambiara junto con $h$, el cociente ya no describiría la tasa de cambio en un punto concreto sino en varios a la vez, así que fijarlo es lo que le da sentido al resultado.\n$$f'(a)$$\n.",
     "reviewed": false,
     "tags": [
       "anatomia-del-limite"
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El cociente incremental tiene la forma.\n$$\\frac{f(a+h)-f(a)}{h}$$\n, y al sustituir $h=0$ el numerador queda $f(a)-f(a)=0$ y el denominador también queda $0$.\n\nEsa forma una indeterminación $0/0$ es una **indeterminación**: no dice que el límite no exista, sino que hace falta simplificar algebraicamente antes de poder evaluarlo.\n\nPor eso el procedimiento siempre pasa por expandir el numerador, cancelar los términos que se anulan y factorizar $h$ antes de tomar el límite, nunca por sustituir de entrada.",
+    "explanation": "El cociente incremental tiene la forma.\n$$\\frac{f(a+h)-f(a)}{h}$$\n, y al sustituir $h=0$ el numerador queda $f(a)-f(a)=0$ \n\ny el denominador también queda $0$.\n\nEsa forma una indeterminación $0/0$ es una **indeterminación**: no dice que el límite no exista, sino que hace falta simplificar algebraicamente antes de poder evaluarlo.\n\nPor eso el procedimiento siempre pasa por expandir el numerador, cancelar los términos que se anulan y factorizar $h$ antes de tomar el límite, nunca por sustituir de entrada.",
     "reviewed": false,
     "tags": [
       "anatomia-del-limite"
@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **notación de Leibniz** escribe la derivada como un cociente de diferenciales, $\\frac{dy}{dx}$, y resalta la idea de derivada como razón entre una variación infinitesimal de $y$ y una de $x$.\n\nEsta notación convive con otras equivalentes, como $f'(x)$ de Lagrange, todas describen el mismo objeto matemático.\n\nConviene no confundirla con.\n$$\\frac{\\Delta y}{\\Delta x}$$\n, que usa incrementos finitos y describe una tasa promedio, no instantánea.",
+    "explanation": "La **notación de Leibniz** escribe la derivada como un cociente de diferenciales, $\\frac{dy}{dx}$, y resalta la idea de derivada como razón entre una variación infinitesimal de $y$ \n\ny una de $x$.\n\nEsta notación convive con otras equivalentes, como $f'(x)$ de Lagrange, todas describen el mismo objeto matemático.\n\nConviene no confundirla con.\n$$\\frac{\\Delta y}{\\Delta x}$$\n, que usa incrementos finitos y describe una tasa promedio, no instantánea.",
     "reviewed": false,
     "tags": [
       "notacion-formal-derivada"

@@ -383,7 +383,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La asíntota vertical de una racional aparece donde el denominador se anula.\n\nAcá el denominador es.\n$$3x-6$$\n.\n\nasí que resolvemos:La asíntota vertical está en $x=2$. tomar el término independiente ($6$) directamente como la asíntota sin dividir por el coeficiente de $x$ (acá $3$).\n\nlo que confundiría $x=6$ con la raíz real de la ecuación.",
+    "explanation": "La asíntota vertical de una racional aparece donde el denominador se anula.\n\nAcá el denominador es.\n$$3x-6$$\n.\n\nasí que resolvemos:La asíntota vertical está en $x=2$. tomar el término independiente ($6$) \n\ndirectamente como la asíntota sin dividir por el coeficiente de $x$ (acá $3$).\n\nlo que confundiría $x=6$ con la raíz real de la ecuación.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes-form"
@@ -483,7 +483,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el grado del numerador es menor que el del denominador, la función racional tiende a cero a medida que.\n$$|x|$$\nCrece, sin importar los coeficientes exactos.\n\nAcá el numerador $3$ tiene grado $0$ (es una constante) y el denominador : tiene grado $2$.Como $0<2$.\n\nla asíntota horizontal es $y=0$: la curva se aplana hacia el eje $X$ en ambos extremos. intentar armar un cociente de coeficientes principales como si los grados fueran iguales.\n\ncuando en realidad esa regla solo aplica cuando ambos grados coinciden.",
+    "explanation": "Cuando el grado del numerador es menor que el del denominador, la función racional tiende a cero a medida que.\n$$|x|$$\nCrece, sin importar los coeficientes exactos.\n\nAcá el numerador $3$ tiene grado $0$ \n\n(es una constante) y el denominador : tiene grado $2$.Como $0<2$.\n\nla asíntota horizontal es $y=0$: la curva se aplana hacia el eje $X$ en ambos extremos. intentar armar un cociente de coeficientes principales como si los grados fueran iguales.\n\ncuando en realidad esa regla solo aplica cuando ambos grados coinciden.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes-form"
@@ -688,7 +688,7 @@
       -5,
       5
     ],
-    "explanation": "La asíntota vertical es la línea vertical hacia la que la curva se dispara sin nunca tocarla, porque el denominador de la función se anula justo ahí.\n\nEn el gráfico.\n\nobservamos que ambas ramas de la curva tienden a.\n$$+\\infty$$\nO $-\\infty$ a medida que $x$ se acerca a $1$ por izquierda y derecha.\n\nPor eso la asíntota vertical es $x=1$.\n\nque corresponde algebraicamente a resolver el denominador $x-1=0$. al leer el gráfico es confundir el eje donde ocurre el disparo.\n\nbuscando la asíntota en el eje horizontal en vez del vertical.",
+    "explanation": "La asíntota vertical es la línea vertical hacia la que la curva se dispara sin nunca tocarla, porque el denominador de la función se anula justo ahí.\n\nEn el gráfico.\n\nobservamos que ambas ramas de la curva tienden a.\n$$+\\infty$$\nO $-\\infty$ a medida que $x$ \n\nse acerca a $1$ por izquierda y derecha.\n\nPor eso la asíntota vertical es $x=1$.\n\nque corresponde algebraicamente a resolver el denominador $x-1=0$. al leer el gráfico es confundir el eje donde ocurre el disparo.\n\nbuscando la asíntota en el eje horizontal en vez del vertical.",
     "reviewed": false,
     "tags": [
       "evaluacion-en-agujero"
@@ -858,7 +858,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una racional con asíntota vertical en $x=a$ y asíntota horizontal en $y=0$ tiene la forma :.Acá la asíntota vertical es $x=-1$, así que la forma es.\n$$f(x)=\\frac{k}{x+1}$$\n.\n\nUsamos el punto $(1,1)$ para hallar $k$:La fórmula es $f(x)=\\frac{2}{x+1}$. \n\ndejar $k=1$ sin verificar que el punto dado realmente pertenezca a la curva.\n\nlo que produce una fórmula con la asíntota correcta pero que no pasa por el punto indicado.",
+    "explanation": "Una racional con asíntota vertical en $x=a$ y asíntota horizontal en $y=0$ tiene la forma :.Acá la asíntota vertical es $x=-1$, \n\n\n\nasí que la forma es.\n$$f(x)=\\frac{k}{x+1}$$\n.\n\nUsamos el punto $(1,1)$ para hallar $k$:La fórmula es $f(x)=\\frac{2}{x+1}$. \n\n\n\ndejar $k=1$ sin verificar que el punto dado realmente pertenezca a la curva.\n\nlo que produce una fórmula con la asíntota correcta pero que no pasa por el punto indicado.",
     "reviewed": false,
     "tags": [
       "lectura-grafico-directa"
@@ -1083,7 +1083,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para contar las asíntotas verticales, factorizamos el denominador y buscamos todas sus raíces reales, verificando que el numerador no se anule en ninguna de ellas.\n\nAcá : se anula en $x=1$ y en $x=-1$.Evaluamos el numerador : en esos puntos:en $x=1$ da $1+3=4$.\n\ny en $x=-1$ da.\n$$1-3=-2$$\n; ninguno es cero.\n\nasí que ambas raíces del denominador generan asíntotas verticales genuinas.\n\nHay dos AV. quedarse con una sola raíz al factorizar apurado, subestimando la cantidad real de asíntotas.",
+    "explanation": "Para contar las asíntotas verticales, factorizamos el denominador y buscamos todas sus raíces reales, verificando que el numerador no se anule en ninguna de ellas.\n\nAcá : se anula en $x=1$ y en $x=-1$.Evaluamos \n\nel numerador : en esos puntos:en $x=1$ da $1+3=4$.\n\ny en $x=-1$ da.\n$$1-3=-2$$\n; ninguno es cero.\n\nasí que ambas raíces del denominador generan asíntotas verticales genuinas.\n\nHay dos AV. quedarse con una sola raíz al factorizar apurado, subestimando la cantidad real de asíntotas.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes-form"
@@ -1133,7 +1133,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar $f(10)$ sustituimos directamente:\n$$f(10)=\\frac{10-1}{10+1}=\\frac{9}{11}\\approx0{,}82$$\n.\n\nPara hallar el comportamiento cuando $x$ crece mucho.\n\ncomparamos los grados de numerador y denominador: ambos son de grado 1.\n\nasí que la asíntota horizontal es el cociente de coeficientes principales $\\frac{1}{1}=1$.\n\nDividiendo cada término entre $x$.\n\n$\\frac{x-1}{x+1}=\\frac{1-1/x}{1+1/x}\\to1$ cuando $x\\to\\infty$.\n\nEl valor : en $x=10$ ya está bastante cerca de $1$.y a medida que $x$ sigue creciendo.\n\nse acerca aún más sin llegar nunca a tocarlo.",
+    "explanation": "Para evaluar $f(10)$ sustituimos directamente:\n$$f(10)=\\frac{10-1}{10+1}=\\frac{9}{11}\\approx0{,}82$$\n.\n\nPara hallar el comportamiento cuando $x$ crece mucho.\n\ncomparamos los grados de numerador y denominador: ambos son de grado 1.\n\nasí que la asíntota horizontal es el cociente de coeficientes principales $\\frac{1}{1}=1$.\n\nDividiendo cada término entre $x$.\n\n$\\frac{x-1}{x+1}=\\frac{1-1/x}{1+1/x}\\to1$ cuando $x\\to\\infty$.\n\nEl valor : en $x=10$ ya está bastante cerca de $1$.y \n\na medida que $x$ sigue creciendo.\n\nse acerca aún más sin llegar nunca a tocarlo.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal-calculo"
@@ -1158,7 +1158,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar la constante $k$ de una función de la forma.\n$$f(x)=\\frac{k}{x+3}$$\n, usamos el punto dado y despejamos.\n\nSustituimos $x=1$.\n\n$f(1)=2$:El valor de $k$ es $8$. \n\nquedarse en el paso intermedio $\\frac{k}{4}=2$ sin multiplicar ambos lados por $4$.\n\no multiplicar por el valor equivocado del denominador.",
+    "explanation": "Para hallar la constante $k$ de una función de la forma.\n$$f(x)=\\frac{k}{x+3}$$\n, usamos el punto dado y despejamos.\n\nSustituimos $x=1$.\n\n$f(1)=2$:El valor de $k$ es $8$. \n\n\n\nquedarse en el paso intermedio $\\frac{k}{4}=2$ sin multiplicar ambos lados por $4$.\n\no multiplicar por el valor equivocado del denominador.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-calculo"

@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El producto del conjugado genera una diferencia de cuadrados, que es la razón por la que la técnica funciona.\n\nSin esta identidad, no tendríamos una forma de eliminar la raíz y resolver el límite.\n\nLa **diferencia de cuadrados** indica que $(\\sqrt{u} - c)(\\sqrt{u} + c) = u - c^2$, con $u = x+9$ y $c = 3$.\n\nEl radicando pierde la raíz apenas se aplica la identidad, sin necesidad de ningún otro paso algebraico.\n\nRestar $c$ en lugar de $c^2$: conviene elevar al cuadrado el segundo término antes de restar.",
+    "explanation": "El producto del conjugado genera una diferencia de cuadrados, que es la razón por la que la técnica funciona.\n\nSin esta identidad, no tendríamos una forma de eliminar la raíz y resolver el límite.\n\nLa **diferencia de cuadrados** indica que $(\\sqrt{u} - c)(\\sqrt{u} + c) = u - c^2$, con $u = x+9$ \n\ny $c = 3$.\n\nEl radicando pierde la raíz apenas se aplica la identidad, sin necesidad de ningún otro paso algebraico.\n\nRestar $c$ en lugar de $c^2$: conviene elevar al cuadrado el segundo término antes de restar.",
     "reviewed": false,
     "tags": [
       "identidad-fundamental-conjugado"
@@ -200,7 +200,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Reconocer la identidad en sentido inverso-dado un resultado, identificar qué conjugados lo producen-refuerza la comprensión de cómo funciona la racionalización en un límite.\n\nReconocer la **identidad fundamental** en sentido inverso ayuda a identificar qué conjugados generan un resultado dado.\n\nAcá $x - 25$ tiene la forma $u - c^2$ con $u=x$ y $c=5$.\n\nSolo el producto con signos opuestos entre los términos externos produce esa **diferencia de cuadrados**; con signos iguales se obtiene un cuadrado del binomio, que conserva un término con raíz.\n\nPracticar esta lectura inversa ayuda a reconocer rápido el conjugado correcto en un límite nuevo, antes incluso de multiplicar.",
+    "explanation": "Reconocer la identidad en sentido inverso-dado un resultado, identificar qué conjugados lo producen-refuerza la comprensión de cómo funciona la racionalización en un límite.\n\nReconocer la **identidad fundamental** en sentido inverso ayuda a identificar qué conjugados generan un resultado dado.\n\nAcá $x - 25$ tiene la forma $u - c^2$ \n\ncon $u=x$ y $c=5$.\n\nSolo el producto con signos opuestos entre los términos externos produce esa **diferencia de cuadrados**; con signos iguales se obtiene un cuadrado del binomio, que conserva un término con raíz.\n\nPracticar esta lectura inversa ayuda a reconocer rápido el conjugado correcto en un límite nuevo, antes incluso de multiplicar.",
     "reviewed": false,
     "tags": [
       "identidad-fundamental-conjugado"
@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Multiplicar por el conjugado tanto arriba como abajo mantiene la función sin cambios: equivale a multiplicar por 1.\n\nEsta operación es válida porque un límite mide el comportamiento de la función cerca del punto, no en el punto mismo.\n\nAntes de aplicar cualquier técnica hay que verificar si sustituir directamente produce una **indeterminación**.\n\nAl sustituir $x=2$: $\\sqrt{9} = 3$ y el denominador da $3$, \n\nentonces el cociente es $\\tfrac{3}{3} = 1$, un valor finito.\n\nRacionalizar o factorizar solo tiene sentido cuando la sustitución directa falla con una indeterminación $0/0$; si ya da un número, ese número es directamente el límite.",
+    "explanation": "Multiplicar por el conjugado tanto arriba como abajo mantiene la función sin cambios: equivale a multiplicar por 1.\n\nEsta operación es válida porque un límite mide el comportamiento de la función cerca del punto, no en el punto mismo.\n\nAntes de aplicar cualquier técnica hay que verificar si sustituir directamente produce una **indeterminación**.\n\nAl sustituir $x=2$: $\\sqrt{9} = 3$ y el denominador da $3$, \n\n\n\nentonces el cociente es $\\tfrac{3}{3} = 1$, un valor finito.\n\nRacionalizar o factorizar solo tiene sentido cuando la sustitución directa falla con una indeterminación $0/0$; si ya da un número, ese número es directamente el límite.",
     "reviewed": false,
     "tags": [
       "proposito-logico-conjugado"

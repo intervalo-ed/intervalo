@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma canónica.\n$$f(x) = mx + b$$\n, la pendiente es el número que multiplica a $x$, con su signo incluido.\n\nPara : el coeficiente de $x$ es $-3$:la recta baja 3 unidades por cada unidad que avanza $x$.\n\nEl $8$ es la ordenada al origen, el otro parámetro.\n\nAl leer parámetros, arrastrá siempre el signo junto al coeficiente: tomar $3$ en lugar de $-3$ invierte la dirección de la recta.",
+    "explanation": "En la forma canónica.\n$$f(x) = mx + b$$\n, la pendiente es el número que multiplica a $x$, con su signo incluido.\n\nPara : el coeficiente de $x$ es $-3$:la \n\nrecta baja 3 unidades por cada unidad que avanza $x$.\n\nEl $8$ es la ordenada al origen, el otro parámetro.\n\nAl leer parámetros, arrastrá siempre el signo junto al coeficiente: tomar $3$ en lugar de $-3$ invierte la dirección de la recta.",
     "reviewed": false,
     "tags": [
       "pendiente-calculo"
@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Construir la ecuación desde los parámetros es sustituir en el molde:La pendiente $3$ multiplica a $x$ y la ordenada al origen $-2$ va como término independiente.\n\nCada dato tiene su lugar fijo: $m$ siempre pegado a la variable, $b$ siempre suelto.\n\nLos distractores clásicos intercambian los roles o pierden el signo del $-2$: verificá con.\n$$f(0) = -2$$\nY con el ritmo de subida antes de elegir.",
+    "explanation": "Construir la ecuación desde los parámetros es sustituir en el molde:La pendiente $3$ multiplica a $x$ \n\ny la ordenada al origen $-2$ va como término independiente.\n\nCada dato tiene su lugar fijo: $m$ siempre pegado a la variable, $b$ siempre suelto.\n\nLos distractores clásicos intercambian los roles o pierden el signo del $-2$: verificá con.\n$$f(0) = -2$$\nY con el ritmo de subida antes de elegir.",
     "reviewed": false,
     "tags": [
       "armar-formula-mb"
@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Sustituyendo los parámetros en el molde:La pendiente $-1$ hace bajar la recta y la ordenada al origen $4$ marca el corte con el eje $Y$.\n\nCon pendiente $-1$ el coeficiente no se escribe: el signo menos delante de la $x$ ya lo representa.\n\nVerificá los dos rasgos por separado:\n$$f(0) = 4$$\n(el corte) y la recta baja (el signo de $m$); cada distractor falla en uno de los dos.",
+    "explanation": "Sustituyendo los parámetros en el molde:La pendiente $-1$ hace bajar la recta y la ordenada al origen $4$ \n\nmarca el corte con el eje $Y$.\n\nCon pendiente $-1$ el coeficiente no se escribe: el signo menos delante de la $x$ ya lo representa.\n\nVerificá los dos rasgos por separado:\n$$f(0) = 4$$\n(el corte) y la recta baja (el signo de $m$); cada distractor falla en uno de los dos.",
     "reviewed": false,
     "tags": [
       "armar-formula-mb"
@@ -663,7 +663,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El cargo fijo es la ordenada al origen y el precio por kWh es la pendiente:Como la suma es conmutativa, $400 + 12k$ y $12k + 400$ son la misma fórmula: lo que importa es qué número multiplica a $k$.\n\nLa verificación:\n$$F(0) = 400$$\n, la factura con consumo cero.\n\nEl distractor de parámetros cruzados cobraría \\$400 por cada kWh: antes de elegir, identificá cuál monto se repite por unidad de consumo.",
+    "explanation": "El cargo fijo es la ordenada al origen y el precio por kWh es la pendiente:Como la suma es conmutativa, $400 + 12k$ y $12k + 400$ \n\nson la misma fórmula: lo que importa es qué número multiplica a $k$.\n\nLa verificación:\n$$F(0) = 400$$\n, la factura con consumo cero.\n\nEl distractor de parámetros cruzados cobraría \\$400 por cada kWh: antes de elegir, identificá cuál monto se repite por unidad de consumo.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -1088,7 +1088,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función lineal es decreciente exactamente cuando su pendiente es negativa.\n\nRevisando los coeficientes de $x$: $3$, $1$ y $0{,}5$ son positivos (funciones crecientes), mientras que.\n$$-2x + 7$$\nTiene ::es la única decreciente.\n\nEl término independiente no participa en la decisión: un $-5$ suelto no hace decrecer a nadie.\n\nMirá solo el signo del número que multiplica a la $x$.",
+    "explanation": "Una función lineal es decreciente exactamente cuando su pendiente es negativa.\n\nRevisando los coeficientes de $x$: $3$, \n\n$1$ y $0{,}5$ son positivos (funciones crecientes), mientras que.\n$$-2x + 7$$\nTiene ::es la única decreciente.\n\nEl término independiente no participa en la decisión: un $-5$ suelto no hace decrecer a nadie.\n\nMirá solo el signo del número que multiplica a la $x$.",
     "reviewed": false,
     "tags": [
       "propiedades-generales"

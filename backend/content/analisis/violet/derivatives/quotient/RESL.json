@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=\\sin x$.\n\n$v(x)=x$.\n\ncon $u'(x)=\\cos x$ y $v'(x)=1$.\n\nEl término $u'(\\pi/2)v(\\pi/2)$ se anula porque $x=\\pi/2$ anula la derivada de $u$.\n\ny el resultado queda determinado por el segundo término con signo negativo.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $u(x)=\\sin x$.\n\n$v(x)=x$.\n\ncon $u'(x)=\\cos x$ y $v'(x)=1$.\n\nEl término $u'(\\pi/2)v(\\pi/2)$ se anula porque $x=\\pi/2$ \n\nanula la derivada de $u$.\n\ny el resultado queda determinado por el segundo término con signo negativo.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-nula-cociente"
@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=\\cos x$.\n\n$v(x)=x^2+x+1$.\n\ncon $u'(x)=-\\sin x$ y $v'(x)=2x+1$.\n\nEl término $u'(0)v(0)$ se anula porque $x=0$ anula la derivada de $u$.\n\ny el resultado queda determinado por el segundo término con signo negativo.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $u(x)=\\cos x$.\n\n$v(x)=x^2+x+1$.\n\ncon $u'(x)=-\\sin x$ y $v'(x)=2x+1$.\n\nEl término $u'(0)v(0)$ se anula porque $x=0$ \n\nanula la derivada de $u$.\n\ny el resultado queda determinado por el segundo término con signo negativo.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-nula-cociente"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x^2+4$.\n\n$v(x)=e^x$.\n\ncon $u'(x)=2x$ y $v'(x)=e^x$.\n\nEl término $u'(0)v(0)$ se anula porque $x=0$ anula la derivada de $u$.\n\ny el resultado queda determinado por el segundo término con signo negativo.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $u(x)=x^2+4$.\n\n$v(x)=e^x$.\n\ncon $u'(x)=2x$ y $v'(x)=e^x$.\n\nEl término $u'(0)v(0)$ se anula porque $x=0$ \n\nanula la derivada de $u$.\n\ny el resultado queda determinado por el segundo término con signo negativo.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-nula-cociente"
@@ -218,7 +218,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x+1$.\n\n$v(x)=\\cos x+3$.\n\ncon $u'(x)=1$ y $v'(x)=-\\sin x$.\n\nEl término $u(0)v'(0)$ se anula porque $x=0$ anula la derivada de $v$.\n\ny el resultado queda determinado por el primer término del numerador.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $u(x)=x+1$.\n\n$v(x)=\\cos x+3$.\n\ncon $u'(x)=1$ y $v'(x)=-\\sin x$.\n\nEl término $u(0)v'(0)$ se anula porque $x=0$ \n\nanula la derivada de $v$.\n\ny el resultado queda determinado por el primer término del numerador.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-nula-cociente"
@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **tangente horizontal** aparece donde el numerador de la derivada se anula, sin importar el denominador siempre que $v \\neq 0$.\n\nIgualando a cero.\n\n$x(x+2)=0$ da las dos soluciones $x=0$ y $x=-2$.\n\nambas dentro del dominio porque no anulan el denominador $x+1$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "La **tangente horizontal** aparece donde el numerador de la derivada se anula, sin importar el denominador siempre que $v \\neq 0$.\n\nIgualando a cero.\n\n$x(x+2)=0$ da las dos soluciones $x=0$ \n\ny $x=-2$.\n\nambas dentro del dominio porque no anulan el denominador $x+1$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "tangentes-horizontales-cociente"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El denominador $x^2+1$ nunca se anula, así que alcanza con resolver dónde se anula el numerador de la derivada.\n\nIgualando a cero.\n\n$(1-x)(1+x)=0$ da las dos soluciones $x=1$ y $x=-1$.\n\nambas válidas porque el denominador nunca se anula.\n\nLa recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
+    "explanation": "El denominador $x^2+1$ nunca se anula, así que alcanza con resolver dónde se anula el numerador de la derivada.\n\nIgualando a cero.\n\n$(1-x)(1+x)=0$ da las dos soluciones $x=1$ \n\ny $x=-1$.\n\nambas válidas porque el denominador nunca se anula.\n\nLa recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
     "reviewed": false,
     "tags": [
       "tangentes-horizontales-cociente"
@@ -293,7 +293,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de resolver, conviene recordar que $x=3$ queda excluido del dominio porque anula el denominador de $f$.\n\nIgualando a cero.\n\n$x(x-6)=0$ da las soluciones $x=0$ y $x=6$.\n\nambas dentro del dominio porque ninguna coincide con $x=3$.\n\nLa recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
+    "explanation": "Antes de resolver, conviene recordar que $x=3$ queda excluido del dominio porque anula el denominador de $f$.\n\nIgualando a cero.\n\n$x(x-6)=0$ da las soluciones $x=0$ \n\ny $x=6$.\n\nambas dentro del dominio porque ninguna coincide con $x=3$.\n\nLa recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
     "reviewed": false,
     "tags": [
       "tangentes-horizontales-cociente"

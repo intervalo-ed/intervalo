@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $x^2$, la base es la variable $x$ y el exponente es el número fijo $2$, \n\nla estructura típica de la **regla de la potencia**.\n\nEste caso se distingue con claridad de $2^x$, donde los roles de base y exponente están invertidos.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "En $x^2$, la base es la variable $x$ y el exponente es el número fijo $2$, \n\n\n\nla estructura típica de la **regla de la potencia**.\n\nEste caso se distingue con claridad de $2^x$, donde los roles de base y exponente están invertidos.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "suma-resta-terminos-elementales"
@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $2^x$, la variable está en el exponente, pero la base es $2$, distinta de $e$, así que corresponde la **regla exponencial** general.\n$$\\int 2^x\\,dx = \\frac{2^x}{\\ln 2} + C$$\nSolo cuando la base es exactamente $e$ desaparece el factor $\\ln a$ del resultado, para cualquier otra base ese factor es obligatorio.",
+    "explanation": "En $2^x$, la variable está en el exponente, pero la base es $2$, \n\ndistinta de $e$, así que corresponde la **regla exponencial** general.\n$$\\int 2^x\\,dx = \\frac{2^x}{\\ln 2} + C$$\nSolo cuando la base es exactamente $e$ desaparece el factor $\\ln a$ del resultado, para cualquier otra base ese factor es obligatorio.",
     "reviewed": false,
     "tags": [
       "polinomios-fracciones-simples-combinadas"
@@ -315,7 +315,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La expresión $\\frac{1}{x^2}$ equivale a $x^{-2}$, un exponente distinto de $-1$, así que la **regla de la potencia** general sigue aplicando sin excepción.\n$$\\int \\frac{1}{x^2}\\,dx = \\frac{x^{-1}}{-1} + C = -\\frac{1}{x} + C$$\nConfundir cualquier fracción con potencia negativa con el caso del logaritmo , la excepción es exclusivamente $n=-1$.",
+    "explanation": "La expresión $\\frac{1}{x^2}$ equivale a $x^{-2}$, \n\nun exponente distinto de $-1$, así que la **regla de la potencia** general sigue aplicando sin excepción.\n$$\\int \\frac{1}{x^2}\\,dx = \\frac{x^{-1}}{-1} + C = -\\frac{1}{x} + C$$\nConfundir cualquier fracción con potencia negativa con el caso del logaritmo , la excepción es exclusivamente $n=-1$.",
     "reviewed": false,
     "tags": [
       "identificacion-inversa-derivada"

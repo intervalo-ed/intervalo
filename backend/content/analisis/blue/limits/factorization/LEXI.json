@@ -111,7 +111,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para factorizar un **trinomio** de la forma $x^2 + bx + c$ hay que encontrar dos números que sumados den $b$ y multiplicados den $c$.\n\nEl procedimiento es sistemático: primero lista los pares de factores de $c$, luego verifica cuál par suma exactamente $b$.\n\nVericando ambas condiciones simultáneamente: Una confusión típica es probar solo el producto correcto sin verificar también que la suma coincida.\n\n, o invertir los signos cuando el término independiente es positivo pero se olvida revisar el signo del término lineal.\n\nEn límites con indeterminación $0/0$, una factorización correcta del trinomio revela inmediatamente el factor cancelable.",
+    "explanation": "Para factorizar un **trinomio** de la forma $x^2 + bx + c$ hay que encontrar dos números que sumados den $b$ \n\ny multiplicados den $c$.\n\nEl procedimiento es sistemático: primero lista los pares de factores de $c$, luego verifica cuál par suma exactamente $b$.\n\nVericando ambas condiciones simultáneamente: Una confusión típica es probar solo el producto correcto sin verificar también que la suma coincida.\n\n, o invertir los signos cuando el término independiente es positivo pero se olvida revisar el signo del término lineal.\n\nEn límites con indeterminación $0/0$, una factorización correcta del trinomio revela inmediatamente el factor cancelable.",
     "reviewed": false
   },
   {
@@ -157,7 +157,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando la tendencia de un límite es $x \\to a$, el **teorema del factor** exige que $(x-a)$ divida tanto al numerador como al denominador si ambos se anulan en $a$.\n\nLa regla del signo es crítica: el factor siempre es $(x - a)$, con el signo opuesto al valor de tendencia.\n\nPara $x \\to -2$:Un error frecuente es fijarse solo en el número de la tendencia, copiar su signo tal cual y escribir $(x - 2)$ cuando corresponde $(x + 2)$.\n\nEl signo dentro del paréntesis siempre es opuesto al número de tendencia.",
+    "explanation": "Cuando la tendencia de un límite es $x \\to a$, el **teorema del factor** exige que $(x-a)$ \n\ndivida tanto al numerador como al denominador si ambos se anulan en $a$.\n\nLa regla del signo es crítica: el factor siempre es $(x - a)$, con el signo opuesto al valor de tendencia.\n\nPara $x \\to -2$:Un error frecuente es fijarse solo en el número de la tendencia, copiar su signo tal cual y escribir $(x - 2)$ \n\ncuando corresponde $(x + 2)$.\n\nEl signo dentro del paréntesis siempre es opuesto al número de tendencia.",
     "reviewed": false
   },
   {

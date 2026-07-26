@@ -408,7 +408,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Evaluar en $x = -1$:\n\nEl exponente negativo invierte la base en forma de fracción:\n$$b^{-n} = 1/b^n$$\n.\n\nAsí, $3^{-1} = 1/3$ y $3^{-2} = 1/9$.\n\nEvaluar exponenciales en exponentes negativos requiere recordar esta regla y calcular con cuidado.\n\nEs común evaluar $f(0)$ y $f(1)$ para leer rápidamente el coeficiente $a$ y la base $b$ de un gráfico.",
+    "explanation": "Evaluar en $x = -1$:\n\nEl exponente negativo invierte la base en forma de fracción:\n$$b^{-n} = 1/b^n$$\n.\n\nAsí, $3^{-1} = 1/3$ y $3^{-2} = 1/9$.\n\nEvaluar exponenciales en exponentes negativos requiere recordar esta regla y calcular con cuidado.\n\nEs común evaluar $f(0)$ y $f(1)$ \n\npara leer rápidamente el coeficiente $a$ y la base $b$ de un gráfico.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-potencias"
@@ -483,7 +483,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para determinar los parámetros de $f(x)=a\\cdot b^x$ a partir de dos puntos.\n\nprimero se lee $a$ directamente como $f(0)$.\n\ny luego se despeja $b$ dividiendo : sobre $f(0)$.1. $f(0) = a \\cdot b^0 = a \\implies a = 6$.\n2.\n$$f(1) = a \\cdot b = 6b = 12 \\implies b = 2$$\n.\n\nResultado: $f(x) = 6 \\cdot 2^x$.\n\nVerificación: $f(0) = 6$ y $f(1) = 12$. dividir al revés.\n\n$f(0)/f(1)$.\n\no intercambiar los valores de $a$ y $b$ entre sí.",
+    "explanation": "Para determinar los parámetros de $f(x)=a\\cdot b^x$ a partir de dos puntos.\n\nprimero se lee $a$ directamente como $f(0)$.\n\ny luego se despeja $b$ dividiendo : sobre $f(0)$.1. \n\n$f(0) = a \\cdot b^0 = a \\implies a = 6$.\n2.\n$$f(1) = a \\cdot b = 6b = 12 \\implies b = 2$$\n.\n\nResultado: $f(x) = 6 \\cdot 2^x$.\n\nVerificación: $f(0) = 6$ y $f(1) = 12$. dividir al revés.\n\n$f(0)/f(1)$.\n\no intercambiar los valores de $a$ y $b$ entre sí.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -508,7 +508,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar $a$ y $b$ desde dos puntos de una exponencial.\n\nprimero se lee $a$ como el valor en $x=0$.\n\ny luego se obtiene $b$ dividiendo : sobre $f(0)$.1. $f(0) = a = 8$. 2.\n$$f(1) = 8b = 4 \\implies b = 0{,}5$$\n.\n\nResultado: $f(x) = 8 \\cdot (0{,}5)^x$.\n\nComo $b = 0{,}5 < 1$: función **decreciente**.\n\nConfundir el cociente con el producto, o invertir cuál punto va en el numerador, más común al despejar $b$.",
+    "explanation": "Para hallar $a$ y $b$ desde dos puntos de una exponencial.\n\nprimero se lee $a$ como el valor en $x=0$.\n\ny luego se obtiene $b$ dividiendo : sobre $f(0)$.1. \n\n$f(0) = a = 8$. 2.\n$$f(1) = 8b = 4 \\implies b = 0{,}5$$\n.\n\nResultado: $f(x) = 8 \\cdot (0{,}5)^x$.\n\nComo $b = 0{,}5 < 1$: función **decreciente**.\n\nConfundir el cociente con el producto, o invertir cuál punto va en el numerador, más común al despejar $b$.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -558,7 +558,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El desplazamiento vertical $+7$ se suma después de calcular la potencia.\n\nasí que para evaluar.\n$$f(0)$$\nPrimero hay que resolver $2^0$ y recién después sumar la constante.Sin el desplazamiento.\n\n: en $x=0$ vale $1$;acá ese $1$ se convierte en $8$ porque toda la curva subió $7$ unidades.\n\nincluida la asíntota horizontal.\n\nque pasa de $y=0$ a $y=7$.",
+    "explanation": "El desplazamiento vertical $+7$ se suma después de calcular la potencia.\n\nasí que para evaluar.\n$$f(0)$$\nPrimero hay que resolver $2^0$ y recién después sumar la constante.Sin el desplazamiento.\n\n: en $x=0$ vale $1$;acá \n\nese $1$ se convierte en $8$ \n\nporque toda la curva subió $7$ unidades.\n\nincluida la asíntota horizontal.\n\nque pasa de $y=0$ a $y=7$.",
     "reviewed": false,
     "tags": [
       "evaluar-contexto"
@@ -608,7 +608,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La propiedad de potencia de potencia dice que.\n$$(b^m)^n=b^{mn}$$\n.\n\nasí que para convertir $4^x$ a base $2$ conviene escribir $4$ como $2^2$ y aplicar esa regla.Esto permite comparar bases distintas en una misma escala: como el exponente quedó multiplicado por $2$.\n\n$4^x$ crece el doble de rápido que $2^x$ en la escala del exponente. \n\nsumar el $2$ al exponente (:) en vez de multiplicarlo.",
+    "explanation": "La propiedad de potencia de potencia dice que.\n$$(b^m)^n=b^{mn}$$\n.\n\nasí que para convertir $4^x$ a base $2$ \n\nconviene escribir $4$ como $2^2$ \n\ny aplicar esa regla.Esto permite comparar bases distintas en una misma escala: como el exponente quedó multiplicado por $2$.\n\n$4^x$ crece el doble de rápido que $2^x$ en la escala del exponente. \n\nsumar el $2$ al exponente (:) en vez de multiplicarlo.",
     "reviewed": false,
     "tags": [
       "dominio-basico"
@@ -858,7 +858,7 @@
       -0.5,
       8.5
     ],
-    "explanation": "Para distinguir entre varias exponenciales con el mismo punto de partida en $(0,1)$.\n\nconviene comparar cuánto vale cada una en un punto alejado del origen.\n\nya que cuanto mayor es la base.\n\nmás rápido crece la curva.\n\nEn $x=2$.\n$$e^2 \\approx 7{,}39$$\n.\n\n$(1{,}5)^2 = 2{,}25$ y $2^2 = 4$: la curva más empinada corresponde siempre a la mayor base.\n\nComo : es mayor que $2$ y que $1{,}5$.la función $e^x$ crece más rápido que las otras dos para $x>0$.\n\nTodas comparten el punto $(0,1)$, así que la diferencia solo se nota alejándose del origen.",
+    "explanation": "Para distinguir entre varias exponenciales con el mismo punto de partida en $(0,1)$.\n\nconviene comparar cuánto vale cada una en un punto alejado del origen.\n\nya que cuanto mayor es la base.\n\nmás rápido crece la curva.\n\nEn $x=2$.\n$$e^2 \\approx 7{,}39$$\n.\n\n$(1{,}5)^2 = 2{,}25$ y $2^2 = 4$: la curva más empinada corresponde siempre a la mayor base.\n\nComo : es mayor que $2$ y que $1{,}5$.la \n\nfunción $e^x$ crece más rápido que las otras dos para $x>0$.\n\nTodas comparten el punto $(0,1)$, así que la diferencia solo se nota alejándose del origen.",
     "reviewed": false,
     "tags": [
       "leer-base-coeficiente"
@@ -933,7 +933,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el exponente tiene un desplazamiento horizontal, como.\n$$x-3$$\n, hay que sustituir primero el valor de $x$ y resolver la resta dentro del exponente antes de aplicar la potencia.\n\nEl desplazamiento horizontal : mueve el punto de partida:el 'valor inicial' $7$ ocurre en $x=3$ en lugar de en $x=0$.\n\nSi confundís este desplazamiento con un valor inicial distinto de $7$ más común en este tipo de evaluación., obtienes un resultado incorrecto.",
+    "explanation": "Cuando el exponente tiene un desplazamiento horizontal, como.\n$$x-3$$\n, hay que sustituir primero el valor de $x$ y resolver la resta dentro del exponente antes de aplicar la potencia.\n\nEl desplazamiento horizontal : mueve el punto de partida:el 'valor inicial' $7$ ocurre en $x=3$ \n\nen lugar de en $x=0$.\n\nSi confundís este desplazamiento con un valor inicial distinto de $7$ más común en este tipo de evaluación., obtienes un resultado incorrecto.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1033,7 +1033,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para armar la fórmula de una exponencial a partir de un punto y una base.\n\nel valor donde la curva corta el eje vertical es directamente el coeficiente $a$.\n\ny la base dada se coloca tal cual en el exponente.\n\nDatos:\n$$f(0) = 4 \\implies a = 4$$\n; base $b = 3$.\n\nFórmula: $f(x) = 4 \\cdot 3^x$.\n\nVerificación: $f(0) = 4 \\cdot 1 = 4$ y :.intercambiar los roles de $a$ y $b$.\n\nescribiendo el $3$ como coeficiente y el $4$ como base.",
+    "explanation": "Para armar la fórmula de una exponencial a partir de un punto y una base.\n\nel valor donde la curva corta el eje vertical es directamente el coeficiente $a$.\n\ny la base dada se coloca tal cual en el exponente.\n\nDatos:\n$$f(0) = 4 \\implies a = 4$$\n; base $b = 3$.\n\nFórmula: $f(x) = 4 \\cdot 3^x$.\n\nVerificación: $f(0) = 4 \\cdot 1 = 4$ y :.intercambiar los roles de $a$ \n\ny $b$.\n\nescribiendo el $3$ como coeficiente y el $4$ como base.",
     "reviewed": false,
     "tags": [
       "evaluar-contexto"

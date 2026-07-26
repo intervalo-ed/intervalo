@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La notación $x \\to a^-$ describe una dirección de aproximación, no un número negativo.\n\nEl superíndice se lee pegado al símbolo de acercamiento, nunca como si modificara el valor de $a$.\n\nEn el caso $x \\to 2^-$.\n\nlos valores que toma $x$ son cada vez más cercanos a $2$ pero siempre menores: $1{,}9$.\n\nluego $1{,}99$.\n\nluego $1{,}999$.\n\ny así sucesivamente.\n\nFrecuente es leer el superíndice como si aplicara al número $2$, convirtiéndolo en $-2$.\n\nConviene recordar que la dirección va pegada a la flecha de tendencia, no al punto en sí..\n\nEs lo que ocurre directamente.",
+    "explanation": "La notación $x \\to a^-$ describe una dirección de aproximación, no un número negativo.\n\nEl superíndice se lee pegado al símbolo de acercamiento, nunca como si modificara el valor de $a$.\n\nEn el caso $x \\to 2^-$.\n\nlos valores que toma $x$ son cada vez más cercanos a $2$ \n\npero siempre menores: $1{,}9$.\n\nluego $1{,}99$.\n\nluego $1{,}999$.\n\ny así sucesivamente.\n\nFrecuente es leer el superíndice como si aplicara al número $2$, convirtiéndolo en $-2$.\n\nConviene recordar que la dirección va pegada a la flecha de tendencia, no al punto en sí..\n\nEs lo que ocurre directamente.",
     "reviewed": false,
     "tags": [
       "notacion-y-direccion-lateral"
@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El símbolo $x \\to a^+$ indica que la variable se aproxima al punto $a$ desde valores mayores.\n\nLa lectura completa describe el valor al que tiende $f(x)$ cuando $x$ toma valores cada vez más próximos a $a$ por encima.\n\nPor ejemplo, si $f(x) = x+1$, al acercarse por la derecha se calcula:\n \nSiguiendo esa misma dirección de valores mayores que $3$.\n\nConviene no confundir el superíndice de dirección con un exponente: no se está elevando nada al cuadrado ni al positivo, es solo una etiqueta del sentido de aproximación.",
+    "explanation": "El símbolo $x \\to a^+$ indica que la variable se aproxima al punto $a$ desde valores mayores.\n\nLa lectura completa describe el valor al que tiende $f(x)$ cuando $x$ \n\ntoma valores cada vez más próximos a $a$ por encima.\n\nPor ejemplo, si $f(x) = x+1$, al acercarse por la derecha se calcula:\n \nSiguiendo esa misma dirección de valores mayores que $3$.\n\nConviene no confundir el superíndice de dirección con un exponente: no se está elevando nada al cuadrado ni al positivo, es solo una etiqueta del sentido de aproximación.",
     "reviewed": false,
     "tags": [
       "notacion-y-direccion-lateral"
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el punto de tendencia $a$ es negativo, hay que distinguir con cuidado el superíndice de dirección del signo propio de $a$.\n\nEn $x \\to (-2)^+$.\n\nel signo dentro del paréntesis es parte del número $-2$.\n\ny el superíndice $+$ fuera del paréntesis indica acercamiento por la derecha.\n\nAcercarse por la derecha a $-2$ significa tomar valores mayores que $-2$ pero cada vez más próximos:\n \nTodos ubicados a la derecha de $-2$ en la recta numérica.\n\nEste es el único caso donde conviene detenerse a separar visualmente el signo del número (dentro del paréntesis) del signo de la dirección (superíndice fuera).\n\nporque ambos símbolos son iguales pero cumplen roles distintos.",
+    "explanation": "Cuando el punto de tendencia $a$ es negativo, hay que distinguir con cuidado el superíndice de dirección del signo propio de $a$.\n\nEn $x \\to (-2)^+$.\n\nel signo dentro del paréntesis es parte del número $-2$.\n\ny el superíndice $+$ fuera del paréntesis indica acercamiento por la derecha.\n\nAcercarse por la derecha a $-2$ significa tomar valores mayores que $-2$ \n\npero cada vez más próximos:\n \nTodos ubicados a la derecha de $-2$ en la recta numérica.\n\nEste es el único caso donde conviene detenerse a separar visualmente el signo del número (dentro del paréntesis) del signo de la dirección (superíndice fuera).\n\nporque ambos símbolos son iguales pero cumplen roles distintos.",
     "reviewed": false,
     "tags": [
       "notacion-y-direccion-lateral"
@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Los dos **límites laterales** comparten el mismo punto de tendencia $a$: ambos estudian qué pasa con $f(x)$ cuando $x$ se acerca a $a$.\n\nLa única diferencia entre ellos es el lado desde el cual ocurre esa aproximación, izquierda o derecha.\n\nPor ejemplo.\n\nen $a=4$: $\\lim_{x \\to 4^-} f(x)$ recorre valores como $3{,}9$ y $3{,}99$.\n\nmientras que $\\lim_{x \\to 4^+} f(x)$ recorre valores como $4{,}1$ y $4{,}01$.\n\nAmbos apuntan al mismo destino, por caminos opuestos.\n\nQue compartan el punto de tendencia no implica que el resultado numérico coincida: pueden ser iguales o distintos, y esa comparación es justamente lo que determina si el límite bilateral existe.",
+    "explanation": "Los dos **límites laterales** comparten el mismo punto de tendencia $a$: ambos estudian qué pasa con $f(x)$ \n\ncuando $x$ se acerca a $a$.\n\nLa única diferencia entre ellos es el lado desde el cual ocurre esa aproximación, izquierda o derecha.\n\nPor ejemplo.\n\nen $a=4$: $\\lim_{x \\to 4^-} f(x)$ \n\nrecorre valores como $3{,}9$ y $3{,}99$.\n\nmientras que $\\lim_{x \\to 4^+} f(x)$ recorre valores como $4{,}1$ \n\ny $4{,}01$.\n\nAmbos apuntan al mismo destino, por caminos opuestos.\n\nQue compartan el punto de tendencia no implica que el resultado numérico coincida: pueden ser iguales o distintos, y esa comparación es justamente lo que determina si el límite bilateral existe.",
     "reviewed": false,
     "tags": [
       "teorema-existencia-bilateral"
@@ -177,7 +177,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **límite bilateral** depende de cómo la función se comporta en el entorno de $a$: los valores de $f(x)$ cuando $x$ se acerca desde ambos lados.\n\nLa definición del límite bilateral NUNCA menciona qué pasa exactamente en el punto $a$ mismo.\n\nPor eso $f(a)$ puede no existir, estar definida pero diferir del límite, o cualquier otro caso: el límite existe o no según lo que hagan los laterales.\n\nSi $\\lim_{x \\to a^-} f(x) = 5$ y $\\lim_{x \\to a^+} f(x) = 5$.\n\nentonces $\\lim_{x \\to a} f(x) = 5$.\n\nEso es cierto sin importar si $f(a)$ existe, vale 5, vale 100, o está completamente indefinida.\n\nEsta independencia entre el límite y el valor puntual es fundamental para entender conceptos como el **hueco** en una gráfica: la curva puede aproximarse a un valor con total precisión aunque ese",
+    "explanation": "El **límite bilateral** depende de cómo la función se comporta en el entorno de $a$: los valores de $f(x)$ \n\ncuando $x$ se acerca desde ambos lados.\n\nLa definición del límite bilateral NUNCA menciona qué pasa exactamente en el punto $a$ mismo.\n\nPor eso $f(a)$ puede no existir, estar definida pero diferir del límite, o cualquier otro caso: el límite existe o no según lo que hagan los laterales.\n\nSi $\\lim_{x \\to a^-} f(x) = 5$ y $\\lim_{x \\to a^+} f(x) = 5$.\n\nentonces $\\lim_{x \\to a} f(x) = 5$.\n\nEso es cierto sin importar si $f(a)$ existe, vale 5, vale 100, o está completamente indefinida.\n\nEsta independencia entre el límite y el valor puntual es fundamental para entender conceptos como el **hueco** en una gráfica: la curva puede aproximarse a un valor con total precisión aunque ese",
     "reviewed": false,
     "tags": [
       "teorema-existencia-bilateral"
@@ -223,7 +223,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando los dos **límites laterales** apuntan a alturas distintas.\n\nla gráfica de $f$ presenta un **salto** discontinuo en $x=a$: la rama izquierda tiende a una altura y la rama derecha a otra diferente.\n\ny no hay forma de conectarlas de manera continua.\n\nPor ejemplo.\n\nsi $\\lim_{x \\to a^-} f(x) = 2$ y $\\lim_{x \\to a^+} f(x) = 5$.\n\nla función 'salta' desde altura $2$ a altura $5$ exactamente en el punto $x=a$.\n\nEl hueco vertical entre esas dos ramas es precisamente la marca visual de laterales desiguales.\n\nEste **salto** es visualmente distinto de un **hueco**.\n\ndonde ambas ramas sí apuntan al mismo valor (laterales iguales) pero falta o difiere el punto exacto $f(a)$: en ese caso no hay salto.\n\nsolo un punto desconectado.",
+    "explanation": "Cuando los dos **límites laterales** apuntan a alturas distintas.\n\nla gráfica de $f$ presenta un **salto** discontinuo en $x=a$: la rama izquierda tiende a una altura y la rama derecha a otra diferente.\n\ny no hay forma de conectarlas de manera continua.\n\nPor ejemplo.\n\nsi $\\lim_{x \\to a^-} f(x) = 2$ y $\\lim_{x \\to a^+} f(x) = 5$.\n\nla función 'salta' desde altura $2$ a altura $5$ \n\nexactamente en el punto $x=a$.\n\nEl hueco vertical entre esas dos ramas es precisamente la marca visual de laterales desiguales.\n\nEste **salto** es visualmente distinto de un **hueco**.\n\ndonde ambas ramas sí apuntan al mismo valor (laterales iguales) pero falta o difiere el punto exacto $f(a)$: en ese caso no hay salto.\n\nsolo un punto desconectado.",
     "reviewed": false,
     "tags": [
       "discontinuidad-por-salto"

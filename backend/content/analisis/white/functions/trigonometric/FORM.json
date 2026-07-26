@@ -48,7 +48,7 @@
       -2,
       2
     ],
-    "explanation": "$\\cos(0)=1$ (máximo) mientras que.\n$$\\operatorname{sen}(0)=0$$\n.\n\nLa curva que **arranca en su máximo** en $x=0$ con amplitud $1$ es :.no el seno.\n\n\n$2\\cos(x)$ llegaría hasta $y=2$.\n\npero la amplitud del gráfico es $1$. : tendría período $\\pi$ (más corto).pero el gráfico muestra período $2\\pi$.\n\nEl valor en $x=0$ y la amplitud son los dos datos clave para identificar la fórmula.",
+    "explanation": "$\\cos(0)=1$ (máximo) mientras que.\n$$\\operatorname{sen}(0)=0$$\n.\n\nLa curva que **arranca en su máximo** en $x=0$ con amplitud $1$ es :.no el seno.\n\n\n$2\\cos(x)$ llegaría hasta $y=2$.\n\npero la amplitud del gráfico es $1$. : tendría período $\\pi$ \n\n(más corto).pero el gráfico muestra período $2\\pi$.\n\nEl valor en $x=0$ y la amplitud son los dos datos clave para identificar la fórmula.",
     "reviewed": false,
     "tags": [
       "periodo-calculo-form"
@@ -128,7 +128,7 @@
       -1,
       3
     ],
-    "explanation": "Sumar una constante $k$ a una función trigonométrica la **desplaza verticalmente**.\n$$\\operatorname{sen}(x)+1$$\nOscila entre $0$ y $2$ (centrada en $y=1$ en lugar de $y=0$).\n\nEl gráfico muestra exactamente eso: la onda no baja de $y=0$ y llega hasta $y=2$. \n\n: bajaría hasta $y=-2$.$2\\operatorname{sen}(x)$ oscilaría simétricamente entre $-2$ y $2$.",
+    "explanation": "Sumar una constante $k$ a una función trigonométrica la **desplaza verticalmente**.\n$$\\operatorname{sen}(x)+1$$\nOscila entre $0$ y $2$ \n\n(centrada en $y=1$ en lugar de $y=0$).\n\nEl gráfico muestra exactamente eso: la onda no baja de $y=0$ y llega hasta $y=2$. \n\n: bajaría hasta $y=-2$.$2\\operatorname{sen}(x)$ \n\noscilaría simétricamente entre $-2$ y $2$.",
     "reviewed": false,
     "tags": [
       "periodo-calculo-form"
@@ -208,7 +208,7 @@
       -3,
       3
     ],
-    "explanation": "La curva oscila entre $-2$ y $2$ (amplitud $2$) y arranca en su máximo en $x=0$: eso define a :.El coseno \"empieza en el techo\".\n\nel seno \"empieza en el medio\". $\\cos(x)$ tendría amplitud $1$ (llegaría solo hasta $y=1$). : empezaría en $y=0$.\n$$\\cos(2x)$$\nTendría período $\\pi$ (la mitad del visible).\n\nAmplitud y valor en $x=0$ determinan la expresión.",
+    "explanation": "La curva oscila entre $-2$ y $2$ \n\n(amplitud $2$) y arranca en su máximo en $x=0$: eso define a :.El coseno \"empieza en el techo\".\n\nel seno \"empieza en el medio\". $\\cos(x)$ tendría amplitud $1$ (llegaría solo hasta $y=1$). \n\n\n\n: empezaría en $y=0$.\n$$\\cos(2x)$$\nTendría período $\\pi$ (la mitad del visible).\n\nAmplitud y valor en $x=0$ determinan la expresión.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -233,7 +233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "::el seno se anula en todos los **múltiplos enteros de $\\pi$**: $x=0,\\pi,2\\pi,3\\pi,\\ldots$ En $x=\\pi$ el seno completa su primer ciclo y regresa a cero.\n\nNo confundir con $\\operatorname{sen}(\\pi/2)=1$ (máximo) o.\n$$\\operatorname{sen}(3\\pi/2)=-1$$\n(mínimo).\n\nLos ceros del seno son exactamente en $x=k\\pi$ para todo entero $k$.",
+    "explanation": "::el seno se anula en todos los **múltiplos enteros de $\\pi$**: $x=0,\\pi,2\\pi,3\\pi,\\ldots$ \n\nEn $x=\\pi$ el seno completa su primer ciclo y regresa a cero.\n\nNo confundir con $\\operatorname{sen}(\\pi/2)=1$ (máximo) o.\n$$\\operatorname{sen}(3\\pi/2)=-1$$\n(mínimo).\n\nLos ceros del seno son exactamente en $x=k\\pi$ para todo entero $k$.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -308,7 +308,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En.\n$$f(x)=A\\,\\operatorname{sen}(x)$$\n, la **amplitud** es $|A|$: la distancia del eje central al máximo o mínimo.\n\nEl coeficiente $A$ estira o comprime la onda verticalmente.\n\nPara $f(x)=3\\,\\operatorname{sen}(x)$: $|A|=3$.\n\nLa función oscila entre $-3$ y $3$.\n\nLa opción $1$ es la amplitud del seno sin escalar. $6$ sería la amplitud si :.$\\pi$ no es amplitud sino período.\n\nAmplitud $= |A| = 3$: tan fácil como leer el coeficiente delante del seno.\n\nNo hay trampa.",
+    "explanation": "En.\n$$f(x)=A\\,\\operatorname{sen}(x)$$\n, la **amplitud** es $|A|$: la distancia del eje central al máximo o mínimo.\n\nEl coeficiente $A$ estira o comprime la onda verticalmente.\n\nPara $f(x)=3\\,\\operatorname{sen}(x)$: $|A|=3$.\n\nLa función oscila entre $-3$ y $3$.\n\nLa opción $1$ es la amplitud del seno sin escalar. $6$ \n\nsería la amplitud si :.$\\pi$ no es amplitud sino período.\n\nAmplitud $= |A| = 3$: tan fácil como leer el coeficiente delante del seno.\n\nNo hay trampa.",
     "reviewed": false,
     "tags": [
       "lectura-grafico-directa-trig"
@@ -333,7 +333,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **período** de $f(x)=\\operatorname{sen}(Bx)$ es $T=2\\pi/|B|$.\n\nCon $B=4$:\n$.\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{4} \\\\\n&= \\frac{\\pi}{2}:\n\\end{aligned}$$\n$\nLos distractores $8\\pi$ y $4\\pi$ son múltiplos de $\\pi$.\n\nno el cociente. $\\pi$ correspondería a $B=2$.\n\nCon $B=4$ el ciclo se comprime a $\\pi/2$ unidades.",
+    "explanation": "El **período** de $f(x)=\\operatorname{sen}(Bx)$ es $T=2\\pi/|B|$.\n\nCon $B=4$:\n$.\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{4} \\\\\n&= \\frac{\\pi}{2}:\n\\end{aligned}$$\n$\nLos distractores $8\\pi$ y $4\\pi$ \n\nson múltiplos de $\\pi$.\n\nno el cociente. $\\pi$ correspondería a $B=2$.\n\nCon $B=4$ el ciclo se comprime a $\\pi/2$ unidades.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -408,7 +408,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ángulo $\\pi/6=30°$ pertenece al triángulo $30°$-$60°$-$90°$ con proporciones :.El seno es cateto opuesto sobre hipotenusa: $\\operatorname{sen}(30°)=1/2$.\n\nTabla de valores clave:\n$\\operatorname{sen}(\\pi/6)=1/2$.\n$$\\operatorname{sen}(\\pi/4)=\\sqrt{2}/2$$\n.\n\n$\\operatorname{sen}(\\pi/3)=\\sqrt{3}/2$.\n\n$\\operatorname{sen}(\\pi/2)=1$.\n\n$\\operatorname{sen}(30°)=1/2$: el resultado más fácil de la tabla trigonométrica.\n\nEmpezá memorizando este.",
+    "explanation": "El ángulo $\\pi/6=30°$ pertenece al triángulo $30°$-$60°$-$90°$ \n\n\n\ncon proporciones :.El seno es cateto opuesto sobre hipotenusa: $\\operatorname{sen}(30°)=1/2$.\n\nTabla de valores clave:\n$\\operatorname{sen}(\\pi/6)=1/2$.\n$$\\operatorname{sen}(\\pi/4)=\\sqrt{2}/2$$\n.\n\n$\\operatorname{sen}(\\pi/3)=\\sqrt{3}/2$.\n\n$\\operatorname{sen}(\\pi/2)=1$.\n\n$\\operatorname{sen}(30°)=1/2$: el resultado más fácil de la tabla trigonométrica.\n\nEmpezá memorizando este.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -433,7 +433,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ángulo $\\pi/3=60°$ pertenece al triángulo $30°$-$60°$-$90°$ con proporciones :.El coseno es cateto adyacente sobre hipotenusa: $\\cos(60°)=1/2$.\n\nNótese la simetría:\n$$\\cos(\\pi/3)=\\operatorname{sen}(\\pi/6)=1/2$$\n.\n\nporque $60°$ y $30°$ son complementarios.\n\nEl distractor $\\sqrt{3}/2$ es $\\cos(\\pi/6)=\\operatorname{sen}(\\pi/3)$: el ángulo opuesto del mismo triángulo.\n\n$\\cos(60°)=1/2$: el mismo valor que $\\operatorname{sen}(30°)$.\n\nLa tabla trigonométrica tiene más simetrías que un copo de nieve.",
+    "explanation": "El ángulo $\\pi/3=60°$ pertenece al triángulo $30°$-$60°$-$90°$ \n\n\n\ncon proporciones :.El coseno es cateto adyacente sobre hipotenusa: $\\cos(60°)=1/2$.\n\nNótese la simetría:\n$$\\cos(\\pi/3)=\\operatorname{sen}(\\pi/6)=1/2$$\n.\n\nporque $60°$ y $30°$ son complementarios.\n\nEl distractor $\\sqrt{3}/2$ es $\\cos(\\pi/6)=\\operatorname{sen}(\\pi/3)$: el ángulo opuesto del mismo triángulo.\n\n$\\cos(60°)=1/2$: el mismo valor que $\\operatorname{sen}(30°)$.\n\nLa tabla trigonométrica tiene más simetrías que un copo de nieve.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -458,7 +458,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **período** de $f(x)=\\cos(x/3)$ se calcula con $B=1/3$ en $T=2\\pi/|B|$:\n$.\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{1/3} \\\\\n&= 6\\pi:\n\\end{aligned}$$\n$\nLa opción $2\\pi/3$ sería con $B=3$ (no $1/3$).\n\nLa opción $2\\pi$ es el período del coseno sin modificar.\n\nLa opción $3\\pi$ sería con $B=2/3$.\n\nCon $B=1/3$ el ciclo se estira a $6\\pi\\approx18{,}85$ unidades.",
+    "explanation": "El **período** de $f(x)=\\cos(x/3)$ se calcula con $B=1/3$ \n\nen $T=2\\pi/|B|$:\n$.\n\n\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{1/3} \\\\\n&= 6\\pi:\n\\end{aligned}$$\n$\nLa opción $2\\pi/3$ sería con $B=3$ \n\n(no $1/3$).\n\nLa opción $2\\pi$ es el período del coseno sin modificar.\n\nLa opción $3\\pi$ sería con $B=2/3$.\n\nCon $B=1/3$ el ciclo se estira a $6\\pi\\approx18{,}85$ unidades.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -508,7 +508,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(x)-1$ se obtiene desplazando $[-1,1]$ exactamente $1$ unidad hacia abajo:\n$.\n$$\\begin{aligned}\n\\text{imagen} &= [-1-1,\\; 1-1] \\\\\n&= [-2,\\; 0]:\n\\end{aligned}$$\n$\nLa opción $[-1,1]$ es el rango del seno sin desplazamiento. $[-2,1]$ confunde la amplitud. $[0,2]$ sería el resultado de $+1$.\n\nno $-1$.\n\nRestar $1$ baja todo el rango $1$ unidad.",
+    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(x)-1$ se obtiene desplazando $[-1,1]$ \n\nexactamente $1$ unidad hacia abajo:\n$.\n\n\n$$\\begin{aligned}\n\\text{imagen} &= [-1-1,\\; 1-1] \\\\\n&= [-2,\\; 0]:\n\\end{aligned}$$\n$\nLa opción $[-1,1]$ es el rango del seno sin desplazamiento. $[-2,1]$ confunde la amplitud. \n\n$[0,2]$ sería el resultado de $+1$.\n\nno $-1$.\n\nRestar $1$ baja todo el rango $1$ unidad.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -563,7 +563,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La función $f(x)=\\operatorname{sen}(x-\\pi)$ tiene su primer cero positivo cuando el argumento vale $0$: $x-\\pi=0\\Rightarrow x=\\pi$.\n\nEl desfase $-\\pi$ desplaza toda la curva $\\pi$ unidades a la derecha.\n\nEl cero que : tiene en $x=0$ se mueve a $x=\\pi$.Verificación:\n$$\\operatorname{sen}(\\pi-\\pi)=\\operatorname{sen}(0)=0$$\n.\n\nLa onda se corrió $\\pi$ a la derecha: llegó tarde al origen, pero llegó justo a tiempo en $x=\\pi$.",
+    "explanation": "La función $f(x)=\\operatorname{sen}(x-\\pi)$ tiene su primer cero positivo cuando el argumento vale $0$: \n\n$x-\\pi=0\\Rightarrow x=\\pi$.\n\nEl desfase $-\\pi$ desplaza toda la curva $\\pi$ unidades a la derecha.\n\nEl cero que : tiene en $x=0$ se mueve a $x=\\pi$.Verificación:\n$$\\operatorname{sen}(\\pi-\\pi)=\\operatorname{sen}(0)=0$$\n.\n\nLa onda se corrió $\\pi$ a la derecha: llegó tarde al origen, pero llegó justo a tiempo en $x=\\pi$.",
     "reviewed": false,
     "tags": [
       "imagen-rango-form-trig"
@@ -613,7 +613,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $h(x)=3\\cos(x)-1$.\n\nel **máximo** ocurre cuando $\\cos(x)=1$:\n$.\n$$\\begin{aligned}\nh_{\\max} &= 3\\cdot1 - 1 \\\\\n&= 3 - 1 \\\\\n&= 2:\n\\end{aligned}$$\n$\nLa opción $3$ es el valor de $3\\cos(x)$ cuando $\\cos=1$.\n\nolvidando el $-1$.\n\nLa opción $4$ usaría : en vez de $-1$.\n$$+1$$\nLa opción $-4$ es el mínimo ($3\\cdot(-1)-1=-4$).\n\nEl máximo correcto es $2$.",
+    "explanation": "En $h(x)=3\\cos(x)-1$.\n\nel **máximo** ocurre cuando $\\cos(x)=1$:\n$.\n$$\\begin{aligned}\nh_{\\max} &= 3\\cdot1 - 1 \\\\\n&= 3 - 1 \\\\\n&= 2:\n\\end{aligned}$$\n$\nLa opción $3$ es el valor de $3\\cos(x)$ \n\ncuando $\\cos=1$.\n\nolvidando el $-1$.\n\nLa opción $4$ usaría : en vez de $-1$.\n$$+1$$\nLa opción $-4$ es el mínimo ($3\\cdot(-1)-1=-4$).\n\nEl máximo correcto es $2$.",
     "reviewed": false,
     "tags": [
       "periodo-calculo-form"
@@ -638,7 +638,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de $g(x)=2\\cos(x)+1$ se construye en pasos:\n$.\n$$\\begin{aligned}\n\\cos(x) &\\in [-1,1] \\\\\n2\\cos(x) &\\in [-2,2] \\\\\n2\\cos(x)+1 &\\in [-1,3]:\n\\end{aligned}$$\n$\nLa opción $[0,4]$ se obtiene si se suma $2$ en vez de $1$.\n\nLa opción $[-2,2]$ olvida el desplazamiento vertical.\n\nLa opción $[1,3]$ toma $[0,2]+1$ en vez de :.\n$$[-2,2]+1$$\nEl rango final es $[-1,3]$.",
+    "explanation": "La **imagen** de $g(x)=2\\cos(x)+1$ se construye en pasos:\n$.\n$$\\begin{aligned}\n\\cos(x) &\\in [-1,1] \\\\\n2\\cos(x) &\\in [-2,2] \\\\\n2\\cos(x)+1 &\\in [-1,3]:\n\\end{aligned}$$\n$\nLa opción $[0,4]$ se obtiene si se suma $2$ \n\nen vez de $1$.\n\nLa opción $[-2,2]$ olvida el desplazamiento vertical.\n\nLa opción $[1,3]$ toma $[0,2]+1$ en vez de :.\n$$[-2,2]+1$$\nEl rango final es $[-1,3]$.",
     "reviewed": false,
     "tags": [
       "periodo-calculo-form"
@@ -748,7 +748,7 @@
       -4,
       4
     ],
-    "explanation": "Una onda con máximo $M$ y mínimo $m$ tiene **amplitud** $A$ igual a la mitad de la diferencia:\n$.\n$$\\begin{aligned}\nA &= \\frac{M - m}{2} \\\\\n&= \\frac{3 - (-3)}{2} \\\\\n&= \\frac{6}{2} \\\\\n&= 3:\n\\end{aligned}$$\n$\nLa opción $6$ es el rango total (de mínimo a máximo).\n\nno la amplitud.\n\nLa amplitud es la **mitad** del rango total: la distancia del eje central al pico.",
+    "explanation": "Una onda con máximo $M$ y mínimo $m$ \n\ntiene **amplitud** $A$ igual a la mitad de la diferencia:\n$.\n\n\n$$\\begin{aligned}\nA &= \\frac{M - m}{2} \\\\\n&= \\frac{3 - (-3)}{2} \\\\\n&= \\frac{6}{2} \\\\\n&= 3:\n\\end{aligned}$$\n$\nLa opción $6$ es el rango total (de mínimo a máximo).\n\nno la amplitud.\n\nLa amplitud es la **mitad** del rango total: la distancia del eje central al pico.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -773,7 +773,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En.\n$$f(x)=-2\\,\\operatorname{sen}(x)+1$$\n.\n\nel **mínimo** se alcanza cuando $-2\\,\\operatorname{sen}(x)$ es mínimo.\n\nlo que ocurre cuando $\\operatorname{sen}(x)=1$:La fórmula $D-|A|$ funciona independientemente del signo de $A$: siempre restamos $|A|$ del desplazamiento.\n\nLa opción $-2$ ignora el desplazamiento $D=1$.\n\nLa opción $3$ es el máximo, no el mínimo.",
+    "explanation": "En.\n$$f(x)=-2\\,\\operatorname{sen}(x)+1$$\n.\n\nel **mínimo** se alcanza cuando $-2\\,\\operatorname{sen}(x)$ es mínimo.\n\nlo que ocurre cuando $\\operatorname{sen}(x)=1$:La fórmula $D-|A|$ \n\nfunciona independientemente del signo de $A$: siempre restamos $|A|$ del desplazamiento.\n\nLa opción $-2$ ignora el desplazamiento $D=1$.\n\nLa opción $3$ es el máximo, no el mínimo.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -798,7 +798,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar $f(\\pi)=3\\cos(\\pi)$.\n\nse usa el valor estándar $\\cos(\\pi)=-1$:\n$.\n$$\\begin{aligned}\nf(\\pi) &= 3\\cos(\\pi) \\\\\n&= 3 \\cdot (-1) \\\\\n&= -3:\n\\end{aligned}$$\n$\n$\\pi$ radianes ($=180°$) lleva al punto $(-1,0)$ del círculo unitario: coordenada $x=-1$.\n\nluego $\\cos(\\pi)=-1$.\n\nEl factor $3$ da el resultado final $-3$.",
+    "explanation": "Para evaluar $f(\\pi)=3\\cos(\\pi)$.\n\nse usa el valor estándar $\\cos(\\pi)=-1$:\n$.\n$$\\begin{aligned}\nf(\\pi) &= 3\\cos(\\pi) \\\\\n&= 3 \\cdot (-1) \\\\\n&= -3:\n\\end{aligned}$$\n$\n$\\pi$ radianes ($=180°$) \n\nlleva al punto $(-1,0)$ del círculo unitario: coordenada $x=-1$.\n\nluego $\\cos(\\pi)=-1$.\n\nEl factor $3$ da el resultado final $-3$.",
     "reviewed": false,
     "tags": [
       "lectura-grafico-directa-trig"
@@ -873,7 +873,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ángulo $\\pi/4=45°$ corresponde al triángulo isósceles rectángulo con catetos $1$ e hipotenusa :.El coseno es cateto adyacente sobre hipotenusa:La opción $1/2$ corresponde a.\n$$\\cos(60°)=\\cos(\\pi/3)$$\n.\n\nLa opción $\\sqrt{3}/2$ corresponde a $\\cos(30°)=\\cos(\\pi/6)$.\n\nA $45°$, seno y coseno son iguales: ambos $\\sqrt{2}/2$.",
+    "explanation": "El ángulo $\\pi/4=45°$ corresponde al triángulo isósceles rectángulo con catetos $1$ \n\ne hipotenusa :.El coseno es cateto adyacente sobre hipotenusa:La opción $1/2$ corresponde a.\n\n\n$$\\cos(60°)=\\cos(\\pi/3)$$\n.\n\nLa opción $\\sqrt{3}/2$ corresponde a $\\cos(30°)=\\cos(\\pi/6)$.\n\nA $45°$, seno y coseno son iguales: ambos $\\sqrt{2}/2$.",
     "reviewed": false,
     "tags": [
       "lectura-grafico-directa-trig"
@@ -903,7 +903,7 @@
       -1,
       3
     ],
-    "explanation": "El **eje de oscilación** (desplazamiento vertical $D$) es el valor alrededor del cual la función oscila simétricamente.\n\nEn.\n$$f(x)=\\operatorname{sen}(x)+1$$\n.\n\nla curva oscila entre $0$ y $2$ centrada en :.: porque la función suma $1$ al seno estándar:el mínimo pasa de $-1$ a $0$ y el máximo de $1$ a $2$.\n\nEl promedio entre $0$ y $2$ es :.La opción $D=0$ sería el seno sin desplazamiento.\n\nEl eje de oscilación es el valor medio entre el máximo y el mínimo: $(0+2)/2=1$.\n\nSimple.",
+    "explanation": "El **eje de oscilación** (desplazamiento vertical $D$) es el valor alrededor del cual la función oscila simétricamente.\n\nEn.\n$$f(x)=\\operatorname{sen}(x)+1$$\n.\n\nla curva oscila entre $0$ y $2$ \n\ncentrada en :.: porque la función suma $1$ al seno estándar:el mínimo pasa de $-1$ \n\na $0$ y el máximo de $1$ \n\na $2$.\n\nEl promedio entre $0$ y $2$ \n\nes :.La opción $D=0$ sería el seno sin desplazamiento.\n\nEl eje de oscilación es el valor medio entre el máximo y el mínimo: $(0+2)/2=1$.\n\nSimple.",
     "reviewed": false,
     "tags": [
       "lectura-grafico-directa-trig"
@@ -928,7 +928,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **período** de.\n$$f(x)=\\cos(\\pi x)$$\nSe calcula con $B=\\pi$:El resultado $T=2$ (dos unidades en el eje $x$.\n\nno $2\\pi$).\n\nLa opción $\\pi$ confunde el numerador con el resultado.\n\nLa opción $2\\pi$ ignora el $B=\\pi$.\n\nLa opción $1/\\pi$ invierte el cociente.\n\nCon $B=\\pi$, el período es simplemente $2$.",
+    "explanation": "El **período** de.\n$$f(x)=\\cos(\\pi x)$$\nSe calcula con $B=\\pi$:El resultado $T=2$ \n\n(dos unidades en el eje $x$.\n\nno $2\\pi$).\n\nLa opción $\\pi$ confunde el numerador con el resultado.\n\nLa opción $2\\pi$ ignora el $B=\\pi$.\n\nLa opción $1/\\pi$ invierte el cociente.\n\nCon $B=\\pi$, el período es simplemente $2$.",
     "reviewed": false,
     "tags": [
       "imagen-rango-form-trig"
@@ -953,7 +953,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para una onda con máximo $M=5$ y mínimo $m=-5$.\n\nla **amplitud** es:\n$.\n$$\\begin{aligned}\nA &= \\frac{M - m}{2} \\\\\n&= \\frac{5 - (-5)}{2} \\\\\n&= \\frac{10}{2} \\\\\n&= 5:\n\\end{aligned}$$\n$\nLa opción $10$ es el rango total (de $-5$ a $5$).\n\nLa opción : dividiría por $4$ en vez de $2$.\n$$2{,}5$$\nLa amplitud siempre es la **mitad** del rango total: la distancia del eje central al pico.",
+    "explanation": "Para una onda con máximo $M=5$ y mínimo $m=-5$.\n\nla **amplitud** es:\n$.\n$$\\begin{aligned}\nA &= \\frac{M - m}{2} \\\\\n&= \\frac{5 - (-5)}{2} \\\\\n&= \\frac{10}{2} \\\\\n&= 5:\n\\end{aligned}$$\n$\nLa opción $10$ es el rango total (de $-5$ \n\na $5$).\n\nLa opción : dividiría por $4$ en vez de $2$.\n$$2{,}5$$\nLa amplitud siempre es la **mitad** del rango total: la distancia del eje central al pico.",
     "reviewed": false,
     "tags": [
       "imagen-rango-form-trig"
@@ -1028,7 +1028,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de $f(x)=3\\,\\operatorname{sen}(x)-1$ se obtiene escalando y desplazando:\n$.\n$$\\begin{aligned}\n\\operatorname{sen}(x) &\\in [-1,1] \\\\\n3\\,\\operatorname{sen}(x) &\\in [-3,3] \\\\\n3\\,\\operatorname{sen}(x)-1 &\\in [-4,2]:\n\\end{aligned}$$\n$\nLa opción $[-1,3]$ usa $A=1$ en vez de $A=3$.\n\nLa opción $[-3,3]$ olvida el desplazamiento $-1$.\n\nLa imagen correcta $[-4,2]$ suma el desplazamiento al rango escalado.",
+    "explanation": "La **imagen** de $f(x)=3\\,\\operatorname{sen}(x)-1$ se obtiene escalando y desplazando:\n$.\n$$\\begin{aligned}\n\\operatorname{sen}(x) &\\in [-1,1] \\\\\n3\\,\\operatorname{sen}(x) &\\in [-3,3] \\\\\n3\\,\\operatorname{sen}(x)-1 &\\in [-4,2]:\n\\end{aligned}$$\n$\nLa opción $[-1,3]$ usa $A=1$ \n\nen vez de $A=3$.\n\nLa opción $[-3,3]$ olvida el desplazamiento $-1$.\n\nLa imagen correcta $[-4,2]$ suma el desplazamiento al rango escalado.",
     "reviewed": false,
     "tags": [
       "imagen-rango-form-trig"
@@ -1283,7 +1283,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para.\n$$T(h)=10\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{12}(h-6)\\right)+20$$\n.\n\nel **máximo** ocurre cuando $\\operatorname{sen}=1$:El desfase $(h-6)$ desplaza el horario del máximo (ocurre a $h=12$).\n\npero no cambia el valor máximo.\n\nLa opción $10°C$ es solo la amplitud.\n\nLa opción $20°C$ es el eje de oscilación.",
+    "explanation": "Para.\n$$T(h)=10\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{12}(h-6)\\right)+20$$\n.\n\nel **máximo** ocurre cuando $\\operatorname{sen}=1$:El desfase $(h-6)$ \n\ndesplaza el horario del máximo (ocurre a $h=12$).\n\npero no cambia el valor máximo.\n\nLa opción $10°C$ es solo la amplitud.\n\nLa opción $20°C$ es el eje de oscilación.",
     "reviewed": false,
     "tags": [
       "contexto-cotidiano-aplicado-form"

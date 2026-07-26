@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función es **cuadrática** si y solo si puede escribirse como:\n\nEl término $ax^2$ es el que define la familia: la variable $x$ aparece elevada exactamente al cuadrado como término de mayor grado.\n\n$f(x) = 4x - 7$ es lineal ($x$ a la primera potencia). $f(x) = 2^x$ es exponencial ($x$ en el exponente). : es una función **raíz** (potencia $1/2$).Solo.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.$$f(x) = 2x^2 - x + 1$$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nTiene la forma $ax^2 + bx + c$ con $a = 2 \\neq 0$: es **cuadrática**.",
+    "explanation": "Una función es **cuadrática** si y solo si puede escribirse como:\n\nEl término $ax^2$ es el que define la familia: la variable $x$ aparece elevada exactamente al cuadrado como término de mayor grado.\n\n$f(x) = 4x - 7$ es lineal ($x$ a la primera potencia). \n\n$f(x) = 2^x$ es exponencial ($x$ en el exponente). \n\n: es una función **raíz** (potencia $1/2$).Solo.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.$$f(x) = 2x^2 - x + 1$$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nTiene la forma $ax^2 + bx + c$ con $a = 2 \\neq 0$: es **cuadrática**.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"
@@ -123,7 +123,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La diferencia clave entre $x^2$ y $2^x$ es la posición de la variable:\n\nEn una función **cuadrática**, $x$ es la base y el exponente es el número constante $2$: :.En una función **exponencial**, la base es la constante y $x$ es el exponente:\n$$f(x) = 2^x$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\n.\n\nLas demás opciones son cuadráticas: $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nX^2 + 3$ (forma $ax^2 + c$), $-x^2 + 1$ (con $a = -1$), \n\ny : (forma de **vértice**).Solo $2^x$ pertenece a otra familia.",
+    "explanation": "La diferencia clave entre $x^2$ y $2^x$ es la posición de la variable:\n\nEn una función **cuadrática**, $x$ es la base y el exponente es el número constante $2$: :.En una función **exponencial**, \n\nla base es la constante y $x$ es el exponente:\n$$f(x) = 2^x$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\n.\n\nLas demás opciones son cuadráticas: $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nX^2 + 3$ (forma $ax^2 + c$), $-x^2 + 1$ (con $a = -1$), \n\n\n\ny : (forma de **vértice**).Solo $2^x$ pertenece a otra familia.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"
@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función cuadrática puede escribirse en tres formas equivalentes: la forma estándar $f(x) = ax^2 + bx + c$, que muestra directamente los coeficientes $a$, $b$, $c$; la forma de **vértice** $f(x) =$$f(x) = a(x - r_1)(x - r_2)$$\n, donde las **raíces** son $r_1$ y $r_2.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$, útil para resolver.\n\nLas otras opciones corresponden a otras familias: $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nMx + b$ es lineal, : es exponencial, $\\log_a(x)$ es logarítmica.",
+    "explanation": "Una función cuadrática puede escribirse en tres formas equivalentes: la forma estándar $f(x) = ax^2 + bx + c$, que muestra directamente los coeficientes $a$, \n\n$b$, $c$; la forma de **vértice** $f(x) =$$f(x) = a(x - r_1)(x - r_2)$$\n, donde las **raíces** son $r_1$ y $r_2.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$, útil para resolver.\n\nLas otras opciones corresponden a otras familias: $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nMx + b$ es lineal, : es exponencial, $\\log_a(x)$ es logarítmica.",
     "reviewed": false,
     "tags": [
       "formas-de-la-funcion"
@@ -283,7 +283,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando calculás $x^2$, el resultado siempre es no negativo, sin importar el signo de $x$:\n\nEl **dominio** de.\n$$f(x) = x^2$$Es $\\mathbb{R}$ (acepta cualquier $x$), pero la **imagen** es ::el valor $x^2 = 0$ se alcanza solo en $x = 0$, y para todo $x \\neq 0$ se tiene $x^2 > 0.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n\nEsto ilustra una distinción clave: el dominio dice qué valores de $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nX$ acepta $f$; la imagen dice qué valores efectivamente produce.",
+    "explanation": "Cuando calculás $x^2$, el resultado siempre es no negativo, sin importar el signo de $x$:\n\nEl **dominio** de.\n$$f(x) = x^2$$Es $\\mathbb{R}$ (acepta cualquier $x$), \n\npero la **imagen** es ::el valor $x^2 = 0$ se alcanza solo en $x = 0$, \n\ny para todo $x \\neq 0$ se tiene $x^2 > 0.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n\nEsto ilustra una distinción clave: el dominio dice qué valores de $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nX$ acepta $f$; la imagen dice qué valores efectivamente produce.",
     "reviewed": false,
     "tags": [
       "dominio-imagen"
@@ -833,7 +833,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El coeficiente.\n$$b$$\nAcompaña a la $x.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$ de primer grado en la forma estándar :, por eso se llama **coeficiente lineal**.Los tres coeficientes de la forma estándar tienen roles distintos: $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nA$ es el **coeficiente principal**, que acompaña a .$b$ es el coeficiente lineal, que acompaña a $x$; y $c$ es el término independiente, que va solo.\n\nJunto con $a$, el coeficiente $b$ ayuda a ubicar el **vértice**, \n\nya que ::no trabaja solo, siempre lo hace en conjunto con $a$.",
+    "explanation": "El coeficiente.\n$$b$$\nAcompaña a la $x.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$ de primer grado en la forma estándar :, por eso se llama **coeficiente lineal**.Los tres coeficientes de la forma estándar tienen roles distintos: $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nA$ es el **coeficiente principal**, que acompaña a .$b$ es el coeficiente lineal, que acompaña a $x$; \n\ny $c$ es el término independiente, que va solo.\n\nJunto con $a$, el coeficiente $b$ ayuda a ubicar el **vértice**, \n\nya que ::no trabaja solo, siempre lo hace en conjunto con $a$.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"

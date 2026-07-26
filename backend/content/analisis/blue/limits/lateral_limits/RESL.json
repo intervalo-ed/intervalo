@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para un **límite lateral** de una función a trozos, se elige la rama que corresponde a la dirección de aproximación pedida, y se sustituye directamente el punto de tendencia en esa rama.\n\nComo se pide $x \\to 3^-$, se usa la rama $x<3$:La rama $3x-2$, \n\nválida para $x \\geq 3$, no interviene en este cálculo aunque el punto de quiebre sea el mismo.",
+    "explanation": "Para un **límite lateral** de una función a trozos, se elige la rama que corresponde a la dirección de aproximación pedida, y se sustituye directamente el punto de tendencia en esa rama.\n\nComo se pide $x \\to 3^-$, se usa la rama $x<3$:La rama $3x-2$, \n\n\n\nválida para $x \\geq 3$, no interviene en este cálculo aunque el punto de quiebre sea el mismo.",
     "reviewed": false,
     "tags": [
       "trozos-un-lateral"
@@ -343,7 +343,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con $|x|$, conviene reescribir $|x-c|$ por ramas: vale $x-c$ si $x \\geq c$, \n\ny vale $-(x-c)$ si $x<c$.\n\nComo se pide $x \\to c^+$, se usa la rama $x \\geq c$:Por la derecha de $c$ el numerador y el denominador coinciden en signo, \n\nasí que el cociente vale $1$, mientras que por la izquierda cambia a $-1$.",
+    "explanation": "Igual que con $|x|$, conviene reescribir $|x-c|$ por ramas: vale $x-c$ si $x \\geq c$, \n\n\n\ny vale $-(x-c)$ si $x<c$.\n\nComo se pide $x \\to c^+$, se usa la rama $x \\geq c$:Por la derecha de $c$ el numerador y el denominador coinciden en signo, \n\n\n\nasí que el cociente vale $1$, mientras que por la izquierda cambia a $-1$.",
     "reviewed": false,
     "tags": [
       "laterales-valor-absoluto"

@@ -283,7 +283,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En una **función racional** $f(x) = \\dfrac{p(x)}{q(x)}$, la operación problemática es la **división**: no está definida cuando el divisor es cero.\n\nEl **dominio** de $f$ es $\\mathbb{R}$ menos los ceros del denominador:El numerador puede valer cero sin problema (produce $f(x) = 0$.\n\nno una indeterminación).\n\nEjemplo: $f(x) = \\dfrac{x^2}{x - 1}$ tiene dominio.\n$$\\mathbb{R} \\setminus \\{1\\}$$\n.\n\nporque $q(1) = 0$.",
+    "explanation": "En una **función racional** $f(x) = \\dfrac{p(x)}{q(x)}$, la operación problemática es la **división**: no está definida cuando el divisor es cero.\n\nEl **dominio** de $f$ es $\\mathbb{R}$ \n\nmenos los ceros del denominador:El numerador puede valer cero sin problema (produce $f(x) = 0$.\n\nno una indeterminación).\n\nEjemplo: $f(x) = \\dfrac{x^2}{x - 1}$ tiene dominio.\n$$\\mathbb{R} \\setminus \\{1\\}$$\n.\n\nporque $q(1) = 0$.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes"
@@ -383,7 +383,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En.\n$$f(x)=\\frac{2x+1}{x-3}$$\n.\n\nnumerador y denominador tienen ambos grado $1$.\n\nasí que la **asíntota horizontal** es el cociente de los coeficientes principales: $\\frac{2}{1}=2$.\n\nPara $x$ muy grande.\n\nlos términos independientes (: y $-3$) pesan cada vez menos frente a $2x$ y $x$.y la fracción se aproxima a $\\frac{2x}{x}=2$.\n\nPor eso la asíntota horizontal es $y=2$, no el coeficiente de un solo término aislado.",
+    "explanation": "En.\n$$f(x)=\\frac{2x+1}{x-3}$$\n.\n\nnumerador y denominador tienen ambos grado $1$.\n\nasí que la **asíntota horizontal** es el cociente de los coeficientes principales: $\\frac{2}{1}=2$.\n\nPara $x$ muy grande.\n\nlos términos independientes (: y $-3$) pesan cada vez menos frente a $2x$ \n\ny $x$.y la fracción se aproxima a $\\frac{2x}{x}=2$.\n\nPor eso la asíntota horizontal es $y=2$, no el coeficiente de un solo término aislado.",
     "reviewed": false,
     "tags": [
       "cuadrantes-ramas"
@@ -533,7 +533,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Los interceptos con el eje $X$ de : son los valores donde la función vale $0$.y una fracción vale $0$ únicamente cuando su numerador vale $0$ (siempre que el denominador no se anule ahí también).\n\nPor eso se resuelve.\n$$P(x)=0$$\nY se descartan las soluciones que también anulen $Q(x)$.\n\nResolver $Q(x)=0$ da, en cambio, las asíntotas verticales o los agujeros, no los cruces por el eje $X$.",
+    "explanation": "Los interceptos con el eje $X$ de : son los valores donde la función vale $0$.y \n\nuna fracción vale $0$ únicamente cuando su numerador vale $0$ (siempre que el denominador no se anule ahí también).\n\nPor eso se resuelve.\n$$P(x)=0$$\nY se descartan las soluciones que también anulen $Q(x)$.\n\nResolver $Q(x)=0$ da, en cambio, las asíntotas verticales o los agujeros, no los cruces por el eje $X$.",
     "reviewed": false,
     "tags": [
       "imagen-rango"
@@ -608,7 +608,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **asíntota horizontal** solo describe el comportamiento de la **función racional** cuando $x\\to\\pm\\infty$, así que la curva puede cruzarla perfectamente para valores finitos de $x$.\n\nPor ejemplo.\n$$f(x)=\\frac{x}{x^2+1}$$\nTiene asíntota horizontal en $y=0$ pero pasa exactamente por $y=0$ en $x=0$.\n\nLa asíntota vertical es distinta: ahí la función nunca está definida, así que jamás puede cruzarla.",
+    "explanation": "La **asíntota horizontal** solo describe el comportamiento de la **función racional** cuando $x\\to\\pm\\infty$, así que la curva puede cruzarla perfectamente para valores finitos de $x$.\n\nPor ejemplo.\n$$f(x)=\\frac{x}{x^2+1}$$\nTiene asíntota horizontal en $y=0$ pero pasa exactamente por $y=0$ \n\nen $x=0$.\n\nLa asíntota vertical es distinta: ahí la función nunca está definida, así que jamás puede cruzarla.",
     "reviewed": false,
     "tags": [
       "extremos-monotonia"
@@ -708,7 +708,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "\n$$f(x)=\\frac{1}{x}$$\nDecrece de forma estricta en cada uno de los dos tramos de su **dominio**: en $(0,+\\infty)$ los valores bajan desde $+\\infty$ hasta acercarse a $0$.\n\ny en : bajan desde $0$ hasta $-\\infty$.Como nunca cambia de dirección dentro de cada rama, no alcanza ningún valor máximo ni mínimo local.\n\nEsto es típico de $k/x$: al no haber cambio de monotonía, no hay extremos que buscar.",
+    "explanation": "\n$$f(x)=\\frac{1}{x}$$\nDecrece de forma estricta en cada uno de los dos tramos de su **dominio**: en $(0,+\\infty)$ los valores bajan desde $+\\infty$ \n\nhasta acercarse a $0$.\n\ny en : bajan desde $0$ hasta $-\\infty$.Como nunca cambia de dirección dentro de cada rama, no alcanza ningún valor máximo ni mínimo local.\n\nEsto es típico de $k/x$: al no haber cambio de monotonía, no hay extremos que buscar.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal"
@@ -758,7 +758,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Reemplazar $x$ por $x-3$ dentro de una función produce un desplazamiento horizontal: la curva se mueve $3$ unidades hacia la derecha.\n\nEn.\n$$f(x)=\\frac{1}{x-3}$$\nRespecto a $g(x)=\\frac{1}{x}$.\n\nla asíntota vertical se traslada de $x=0$ a $x=3$.\n\ny toda la forma de la curva viaja con ella.\n\nUn desplazamiento vertical, en cambio, se produce sumando o restando una constante fuera de la fracción, no dentro del denominador.",
+    "explanation": "Reemplazar $x$ por $x-3$ \n\ndentro de una función produce un desplazamiento horizontal: la curva se mueve $3$ unidades hacia la derecha.\n\nEn.\n$$f(x)=\\frac{1}{x-3}$$\nRespecto a $g(x)=\\frac{1}{x}$.\n\nla asíntota vertical se traslada de $x=0$ a $x=3$.\n\ny toda la forma de la curva viaja con ella.\n\nUn desplazamiento vertical, en cambio, se produce sumando o restando una constante fuera de la fracción, no dentro del denominador.",
     "reviewed": false,
     "tags": [
       "cuadrantes-ramas"
@@ -933,7 +933,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para clasificar.\n$$f(x)=\\frac{1}{x^2}$$\nComo par o impar se compara $f(-x)$ con $f(x)$: :.Como se cumple $f(-x)=f(x)$, la función es par, y su gráfica es simétrica respecto al eje $Y$.\n\nA diferencia de $\\frac{1}{x}$.\n\nque es impar y solo toma valores de un signo en cada rama.\n\n$\\frac{1}{x^2}$ siempre da valores positivos.\n\nsin importar el signo de $x$.",
+    "explanation": "Para clasificar.\n$$f(x)=\\frac{1}{x^2}$$\nComo par o impar se compara $f(-x)$ con $f(x)$: :.Como se cumple $f(-x)=f(x)$, \n\n\n\nla función es par, y su gráfica es simétrica respecto al eje $Y$.\n\nA diferencia de $\\frac{1}{x}$.\n\nque es impar y solo toma valores de un signo en cada rama.\n\n$\\frac{1}{x^2}$ siempre da valores positivos.\n\nsin importar el signo de $x$.",
     "reviewed": false,
     "tags": [
       "continuidad-en-dominio"
@@ -958,7 +958,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de.\n$$f(x)=\\frac{k}{x-a}+b$$\nCon $k\\neq0$ es todo $\\mathbb{R}$ salvo el valor $b$.\n\nPara cualquier : siempre existe algún $x$ que cumple $f(x)=y$.pero llegar a $f(x)=b$ requeriría $\\frac{k}{x-a}=0$.\n\necuación sin solución cuando $k\\neq0$.\n\nPor eso $b$ (el valor de la asíntota horizontal) queda excluido de la imagen, mientras que $a$ es el valor excluido del dominio.",
+    "explanation": "La **imagen** de.\n$$f(x)=\\frac{k}{x-a}+b$$\nCon $k\\neq0$ es todo $\\mathbb{R}$ \n\nsalvo el valor $b$.\n\nPara cualquier : siempre existe algún $x$ que cumple $f(x)=y$.pero \n\nllegar a $f(x)=b$ requeriría $\\frac{k}{x-a}=0$.\n\necuación sin solución cuando $k\\neq0$.\n\nPor eso $b$ (el valor de la asíntota horizontal) queda excluido de la imagen, mientras que $a$ es el valor excluido del dominio.",
     "reviewed": false,
     "tags": [
       "reconocimiento-funcion-racional"
@@ -1108,7 +1108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **asíntota horizontal**, cuando los grados de numerador y denominador coinciden, es el cociente de los coeficientes principales.\n\nEn.\n$$f(x)=\\frac{-2x+1}{x+5}$$\nEse cociente es $\\frac{-2}{1}=-2$.\n\nasí que su asíntota horizontal es $y=-2$.\n\nLas otras opciones tienen asíntotas distintas: $\\frac{1}{x+2}$ y $\\frac{2}{x}$ tienden a $y=0$ (numerador de grado menor).\n\ny $\\frac{x-2}{x}$ tiende a $y=1$.",
+    "explanation": "La **asíntota horizontal**, cuando los grados de numerador y denominador coinciden, es el cociente de los coeficientes principales.\n\nEn.\n$$f(x)=\\frac{-2x+1}{x+5}$$\nEse cociente es $\\frac{-2}{1}=-2$.\n\nasí que su asíntota horizontal es $y=-2$.\n\nLas otras opciones tienen asíntotas distintas: $\\frac{1}{x+2}$ y $\\frac{2}{x}$ \n\ntienden a $y=0$ (numerador de grado menor).\n\ny $\\frac{x-2}{x}$ tiende a $y=1$.",
     "reviewed": false,
     "tags": [
       "dominio-restriccion"
@@ -1158,7 +1158,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Multiplicar una función por una constante $k>1$ produce un estiramiento vertical: cada valor de la función original se multiplica por $k$.\n\nEn.\n$$f(x)=\\frac{k}{x}=k\\cdot\\frac{1}{x}$$\n.\n\nel punto $(1,1)$ de : pasa a ser $(1,k)$ en $f$.La curva se aleja más de las asíntotas cuanto mayor es $k$, \n\nsin cambiar su posición ni su signo, a diferencia de un desplazamiento o una reflexión.",
+    "explanation": "Multiplicar una función por una constante $k>1$ produce un estiramiento vertical: cada valor de la función original se multiplica por $k$.\n\nEn.\n$$f(x)=\\frac{k}{x}=k\\cdot\\frac{1}{x}$$\n.\n\nel punto $(1,1)$ de : pasa a ser $(1,k)$ en $f$.La curva se aleja más de las asíntotas cuanto mayor es $k$, \n\n\n\nsin cambiar su posición ni su signo, a diferencia de un desplazamiento o una reflexión.",
     "reviewed": false,
     "tags": [
       "asintota-vertical"
@@ -1183,7 +1183,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Los ceros de una función racional son las raíces reales de su numerador (que no anulen también el denominador).\n\nPara ::\n$$x^2-4=(x-2)(x+2)=0$$\nDa $x=2$ y $x=-2$.\n\nEl denominador $x+1$ no se anula en ninguno de esos valores ($3$ y $-1$ respectivamente).\n\nasí que ambas raíces son válidas y la función tiene dos ceros reales.",
+    "explanation": "Los ceros de una función racional son las raíces reales de su numerador (que no anulen también el denominador).\n\nPara ::\n$$x^2-4=(x-2)(x+2)=0$$\nDa $x=2$ y $x=-2$.\n\nEl denominador $x+1$ no se anula en ninguno de esos valores ($3$ \n\ny $-1$ respectivamente).\n\nasí que ambas raíces son válidas y la función tiene dos ceros reales.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal"

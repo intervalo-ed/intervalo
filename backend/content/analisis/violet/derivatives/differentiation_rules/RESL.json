@@ -318,7 +318,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Primero se calculan $f(0)$ y $f'(0)$, y recién después se arma la ecuación punto-pendiente.\n\nEl término $e^x$ aporta $1$ a la pendiente evaluado en $x=0$, \n\nun detalle que conviene no perder al calcular $f'(0)$.\n\nLa recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
+    "explanation": "Primero se calculan $f(0)$ y $f'(0)$, y recién después se arma la ecuación punto-pendiente.\n\nEl término $e^x$ aporta $1$ a la pendiente evaluado en $x=0$, \n\n\n\nun detalle que conviene no perder al calcular $f'(0)$.\n\nLa recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
     "reviewed": false,
     "tags": [
       "tangentes-rapidas"

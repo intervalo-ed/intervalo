@@ -229,7 +229,7 @@
       -8,
       8
     ],
-    "explanation": "Para identificar la **asíntota vertical** en una gráfica, hay que ubicar el valor de $x$ donde la curva se rompe en dos ramas que divergen hacia $+\\infty$ y $-\\infty$, \n\nno el valor donde cruza el eje",
+    "explanation": "Para identificar la **asíntota vertical** en una gráfica, hay que ubicar el valor de $x$ donde la curva se rompe en dos ramas que divergen hacia $+\\infty$ y $-\\infty$, \n\n\n\nno el valor donde cruza el eje",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-vertical"
@@ -257,7 +257,7 @@
       -8,
       8
     ],
-    "explanation": "Una **asíntota vertical** existe en un punto cuando al menos una de las dos ramas laterales diverge a $+\\infty$ o $-\\infty$ cerca de ese valor de $x$.\n\nEn esta gráfica, una rama sube y la otra baja sin cota exactamente en el mismo punto, lo que confirma la asíntota.",
+    "explanation": "Una **asíntota vertical** existe en un punto cuando al menos una de las dos ramas laterales diverge a $+\\infty$ o $-\\infty$ \n\ncerca de ese valor de $x$.\n\nEn esta gráfica, una rama sube y la otra baja sin cota exactamente en el mismo punto, lo que confirma la asíntota.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-vertical"

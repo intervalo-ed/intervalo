@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x-1$, $v(x)=e^x$, con $u'(x)=1$ y :.Con $u(1)=0$, :, $u'(1)=1$ y $v(1)=e$:El término.\n$$u(1)v'(1)$$\nSe anula porque $x=1$ es raíz de $u.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$, así que el resultado final queda determinado solo por $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nU'(1)v(1)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
+    "explanation": "Identificamos $u(x)=x-1$, $v(x)=e^x$, \n\ncon $u'(x)=1$ y :.Con $u(1)=0$, \n\n:, $u'(1)=1$ y $v(1)=e$:El término.\n$$u(1)v'(1)$$\nSe anula porque $x=1$ es raíz de $u.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$, así que el resultado final queda determinado solo por $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nU'(1)v(1)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
     "reviewed": false,
     "tags": [
       "anulacion-por-raiz-producto"
@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos :, $v(x)=x^2$, con $u'(x)=1$ y $v'(x)=2x$.Con $u(-5)=0$, :, $u'(-5)=1$ y $v(-5)=25$:El término.\n$$u(-5)v'(-5)$$\nSe anula porque $x=-5$ es raíz de $u.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$, así que el resultado final queda determinado por $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nU'(-5)v(-5)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
+    "explanation": "Identificamos :, $v(x)=x^2$, con $u'(x)=1$ y $v'(x)=2x$.Con $u(-5)=0$, \n\n\n\n:, $u'(-5)=1$ y $v(-5)=25$:El término.\n$$u(-5)v'(-5)$$\nSe anula porque $x=-5$ es raíz de $u.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$, así que el resultado final queda determinado por $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nU'(-5)v(-5)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
     "reviewed": false,
     "tags": [
       "anulacion-por-raiz-producto"
@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x-4$, $v(x)=e^x$, con $u'(x)=1$ y :.Con $u(4)=0$, :, $u'(4)=1$ y $v(4)=e^4$:El término.\n$$u(4)v'(4)$$\nSe anula porque $x=4$ es raíz de $u.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$, así que el resultado queda determinado por $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nU'(4)v(4)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
+    "explanation": "Identificamos $u(x)=x-4$, $v(x)=e^x$, \n\ncon $u'(x)=1$ y :.Con $u(4)=0$, \n\n:, $u'(4)=1$ y $v(4)=e^4$:El término.\n$$u(4)v'(4)$$\nSe anula porque $x=4$ es raíz de $u.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$, así que el resultado queda determinado por $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nU'(4)v(4)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
     "reviewed": false,
     "tags": [
       "anulacion-por-raiz-producto"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=\\cos x$, $v(x)=x^2+2$, con : y $v'(x)=2x$.Con :,.\n$$v(\\pi)=\\pi^2+2$$\n, $u(\\pi)=-1$ y $v'(\\pi)=2\\pi$:El término $u'(\\pi)v(\\pi)$ se anula porque $x=\\pi$ anula la derivada de $u.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$, así que el resultado queda determinado por $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nU(\\pi)v'(\\pi)$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $u(x)=\\cos x$, $v(x)=x^2+2$, \n\ncon : y $v'(x)=2x$.Con :,.\n$$v(\\pi)=\\pi^2+2$$\n, $u(\\pi)=-1$ y $v'(\\pi)=2\\pi$:El término $u'(\\pi)v(\\pi)$ se anula porque $x=\\pi$ anula la derivada de $u.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$, así que el resultado queda determinado por $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nU(\\pi)v'(\\pi)$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "anulacion-por-derivada-nula-producto"
@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos.\n$$u(x)=x^2$$\n, $v(x)=e^x$, con $u'(x)=2x$ y :.Con $u(0)=0$ y $u'(0)=0$:\n\nComo $u(0)$ y $u'(0).\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$ se anulan a la vez, los dos términos de la suma quedan en cero, sin importar el valor de $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nV$ en ese punto.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
+    "explanation": "Identificamos.\n$$u(x)=x^2$$\n, $v(x)=e^x$, con $u'(x)=2x$ \n\ny :.Con $u(0)=0$ y $u'(0)=0$:\n\nComo $u(0)$ y $u'(0).\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$ se anulan a la vez, los dos términos de la suma quedan en cero, sin importar el valor de $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nV$ en ese punto.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
     "reviewed": false,
     "tags": [
       "anulacion-cruzada-completa"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos :, $v(x)=e^x$, con.\n$$u'(x)=2(x-1)$$\nY $v'(x)=e^x$.Con $u(1)=0$ y $u'(1)=0$:\n\nComo $u(1)$ y $u'(1).\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$ se anulan a la vez, los dos términos de la suma quedan en cero, sin importar el valor de $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nV$ en ese punto.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
+    "explanation": "Identificamos :, $v(x)=e^x$, con.\n$$u'(x)=2(x-1)$$\nY $v'(x)=e^x$.Con $u(1)=0$ \n\ny $u'(1)=0$:\n\nComo $u(1)$ y $u'(1).\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$ se anulan a la vez, los dos términos de la suma quedan en cero, sin importar el valor de $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nV$ en ese punto.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
     "reviewed": false,
     "tags": [
       "anulacion-cruzada-completa"
@@ -293,7 +293,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos.\n$$u(x)=(x+2)^2$$\n, $v(x)=\\cos x$, con $u'(x)=2(x+2)$ y :.Con $u(-2)=0$ y $u'(-2)=0$:\n\nComo $u(-2)$ y $u'(-2).\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$ se anulan a la vez, los dos términos de la suma quedan en cero, sin importar el valor de $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nV$ en ese punto.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
+    "explanation": "Identificamos.\n$$u(x)=(x+2)^2$$\n, $v(x)=\\cos x$, con $u'(x)=2(x+2)$ \n\ny :.Con $u(-2)=0$ y $u'(-2)=0$:\n\nComo $u(-2)$ y $u'(-2).\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$ se anulan a la vez, los dos términos de la suma quedan en cero, sin importar el valor de $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nV$ en ese punto.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
     "reviewed": false,
     "tags": [
       "anulacion-cruzada-completa"

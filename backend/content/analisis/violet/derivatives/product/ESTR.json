@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de aplicar la regla del producto, conviene revisar si alguno de los factores es simplemente una constante.\n\nEn $4\\sin x$, el $4$ no depende de $x$, \n\nasí que corresponde tratarlo como **múltiplo escalar** por linealidad, sin necesidad de derivar dos factores.\n\nLa derivada es $4 \\cdot (\\sin x)' = 4\\cos x$.\n\nAplicar la **regla del producto** acá no sería incorrecto en el resultado, pero es un rodeo innecesario frente a una vía mucho más directa.",
+    "explanation": "Antes de aplicar la regla del producto, conviene revisar si alguno de los factores es simplemente una constante.\n\nEn $4\\sin x$, el $4$ no depende de $x$, \n\n\n\nasí que corresponde tratarlo como **múltiplo escalar** por linealidad, sin necesidad de derivar dos factores.\n\nLa derivada es $4 \\cdot (\\sin x)' = 4\\cos x$.\n\nAplicar la **regla del producto** acá no sería incorrecto en el resultado, pero es un rodeo innecesario frente a una vía mucho más directa.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-alternativas-algebraicas"
@@ -200,7 +200,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **factor** natural para aplicar la regla del producto separa las distintas familias de funciones elementales presentes en la expresión.\n\nCada uno de estos dos factores se deriva con su propia regla elemental: potencia para $u$ (dando $u'=2x$) y logaritmo para $v$ (dando $v'=1/x$).\n\nSeparar cada familia de funciones en su propio factor es lo que permite aplicar la **regla del producto** sin mezclar las derivadas de ambas.",
+    "explanation": "El **factor** natural para aplicar la regla del producto separa las distintas familias de funciones elementales presentes en la expresión.\n\nCada uno de estos dos factores se deriva con su propia regla elemental: potencia para $u$ (dando $u'=2x$) \n\ny logaritmo para $v$ (dando $v'=1/x$).\n\nSeparar cada familia de funciones en su propio factor es lo que permite aplicar la **regla del producto** sin mezclar las derivadas de ambas.",
     "reviewed": false,
     "tags": [
       "identificacion-esqueleto-y-factores"
@@ -223,7 +223,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de identificar los factores, la raíz se reescribe como una potencia fraccionaria, un paso previo obligatorio.\n\nCon esa reescritura, cada factor queda listo para derivarse con su regla elemental: potencia fraccionaria para $u$ (dando $u'=\\frac{1}{2}x^{-1/2}$) y exponencial para $v$ (dando $v'=e^x$).\n\nSeparar cada familia de funciones evita confundir el coeficiente de la derivada de la raíz con una modificación al factor exponencial.",
+    "explanation": "Antes de identificar los factores, la raíz se reescribe como una potencia fraccionaria, un paso previo obligatorio.\n\nCon esa reescritura, cada factor queda listo para derivarse con su regla elemental: potencia fraccionaria para $u$ (dando $u'=\\frac{1}{2}x^{-1/2}$) \n\ny exponencial para $v$ (dando $v'=e^x$).\n\nSeparar cada familia de funciones evita confundir el coeficiente de la derivada de la raíz con una modificación al factor exponencial.",
     "reviewed": false,
     "tags": [
       "identificacion-esqueleto-y-factores"
@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $x\\sin x$ hay dos familias elementales claramente distintas: una potencial y una trigonométrica.\n\nCon esta separación, $u$ se deriva por la regla de la potencia (dando $u'=1$) y $v$ por la derivada trigonométrica del seno (dando $v'=\\cos x$).\n\nSeparar cada familia de funciones es lo que permite aplicar la **regla del producto** combinando correctamente los dos términos $u'v$ y $uv'$ sin mezclar las derivadas.",
+    "explanation": "En $x\\sin x$ hay dos familias elementales claramente distintas: una potencial y una trigonométrica.\n\nCon esta separación, $u$ se deriva por la regla de la potencia (dando $u'=1$) \n\ny $v$ por la derivada trigonométrica del seno (dando $v'=\\cos x$).\n\nSeparar cada familia de funciones es lo que permite aplicar la **regla del producto** combinando correctamente los dos términos $u'v$ y $uv'$ sin mezclar las derivadas.",
     "reviewed": false,
     "tags": [
       "identificacion-esqueleto-y-factores"
@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El corte natural entre familias elementales deja toda la potencia de un lado y la función trigonométrica del otro.\n\nAhí $u$ se deriva por la regla de la potencia (dando $u'=3x^2$) y $v$ por la derivada trigonométrica del coseno (dando $v'=-\\sin x$).\n\nCortar en el medio de una potencia, dejando parte de $x^3$ mezclada con $\\cos x$, complica innecesariamente la identificación de los factores y sus derivadas.",
+    "explanation": "El corte natural entre familias elementales deja toda la potencia de un lado y la función trigonométrica del otro.\n\nAhí $u$ se deriva por la regla de la potencia (dando $u'=3x^2$) \n\ny $v$ por la derivada trigonométrica del coseno (dando $v'=-\\sin x$).\n\nCortar en el medio de una potencia, dejando parte de $x^3$ mezclada con $\\cos x$, complica innecesariamente la identificación de los factores y sus derivadas.",
     "reviewed": false,
     "tags": [
       "identificacion-esqueleto-y-factores"
@@ -292,7 +292,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $e^x\\ln x$ conviven dos familias elementales distintas: la exponencial y la logarítmica, cada una con su propia fórmula de derivación.\n\nCon esta separación, $u$ se deriva con la regla de la exponencial (dando $u'=e^x$) y $v$ con la derivada del logaritmo (dando $v'=1/x$).\n\nSeparar cada familia de funciones es lo que permite aplicar la **regla del producto** sin mezclar ambos procedimientos de derivación.",
+    "explanation": "En $e^x\\ln x$ conviven dos familias elementales distintas: la exponencial y la logarítmica, cada una con su propia fórmula de derivación.\n\nCon esta separación, $u$ se deriva con la regla de la exponencial (dando $u'=e^x$) \n\ny $v$ con la derivada del logaritmo (dando $v'=1/x$).\n\nSeparar cada familia de funciones es lo que permite aplicar la **regla del producto** sin mezclar ambos procedimientos de derivación.",
     "reviewed": false,
     "tags": [
       "identificacion-esqueleto-y-factores"
@@ -315,7 +315,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con cualquier producto de una potencia y una función trigonométrica, el corte va justo en el límite entre ambas familias.\n\nCon esta descomposición, $u$ se deriva por la regla de la potencia (dando $u'=2x$) y $v$ por la derivada trigonométrica de la tangente (dando $v'=\\sec^2 x$).\n\nSeparar cada familia de funciones permite aplicar la **regla del producto** de forma clara, sin confundir los factores ni sus respectivas derivadas.",
+    "explanation": "Igual que con cualquier producto de una potencia y una función trigonométrica, el corte va justo en el límite entre ambas familias.\n\nCon esta descomposición, $u$ se deriva por la regla de la potencia (dando $u'=2x$) \n\ny $v$ por la derivada trigonométrica de la tangente (dando $v'=\\sec^2 x$).\n\nSeparar cada familia de funciones permite aplicar la **regla del producto** de forma clara, sin confundir los factores ni sus respectivas derivadas.",
     "reviewed": false,
     "tags": [
       "identificacion-esqueleto-y-factores"
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Como en cualquier expresión con una raíz, el primer paso es reescribirla como potencia fraccionaria antes de identificar los factores.\n\nCon esa reescritura, $u$ se deriva por la regla de la potencia fraccionaria (dando $u'=\\frac{1}{2}x^{-1/2}$) y $v$ por la derivada trigonométrica del seno (dando $v'=\\cos x$).\n\nSeparar cada familia de funciones evita confundir el coeficiente de la derivada de la raíz con cualquier modificación al factor trigonométrico.",
+    "explanation": "Como en cualquier expresión con una raíz, el primer paso es reescribirla como potencia fraccionaria antes de identificar los factores.\n\nCon esa reescritura, $u$ se deriva por la regla de la potencia fraccionaria (dando $u'=\\frac{1}{2}x^{-1/2}$) \n\ny $v$ por la derivada trigonométrica del seno (dando $v'=\\cos x$).\n\nSeparar cada familia de funciones evita confundir el coeficiente de la derivada de la raíz con cualquier modificación al factor trigonométrico.",
     "reviewed": false,
     "tags": [
       "identificacion-esqueleto-y-factores"
