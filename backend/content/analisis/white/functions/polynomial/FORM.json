@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **grado** de un polinomio se obtiene inspeccionando los exponentes de todos los términos y quedándose con el mayor de ellos, sin importar el orden en que estén escritos.\n\nEn $p(x) = 4x^5 - 3x^3 + x - 7$, los exponentes de cada término son:\n$$\\begin{aligned} 4x^5 &\\to \\text{exponente } 5 \\\\ -3x^3 &\\to \\text{exponente } 3 \\\\ x &\\to \\text{exponente } 1 \\\\ -7 &\\to \\text{exponente } 0 \\end{aligned}$$\nEl mayor de todos es $5$, por lo tanto $\\deg(p) = 5$ y el coeficiente principal es $4$, el número que acompaña a $x^5$.\n\ncontar la cantidad de términos en vez de mirar el exponente máximo: acá hay 4 términos pero el grado es 5, son cosas distintas.",
+    "explanation": "El **grado** de un polinomio se obtiene inspeccionando los exponentes de todos los términos y quedándose con el mayor de ellos, sin importar el orden en que estén escritos.\n\nEn $p(x) = 4x^5 - 3x^3 + x - 7$, los exponentes de cada término son:$$\\begin{aligned} 4x^5 &\\to \\text{exponente } 5 \\\\ -3x^3 &\\to \\text{exponente } 3 \\\\ x &\\to \\text{exponente } 1 \\\\ -7 &\\to \\text{exponente } 0 \\end{aligned}$$El mayor de todos es $5$, por lo tanto $\\deg(p) = 5$ y el coeficiente principal es $4$, el número que acompaña a $x^5$.\n\ncontar la cantidad de términos en vez de mirar el exponente máximo: acá hay 4 términos pero el grado es 5, son cosas distintas.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -98,7 +98,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **coeficiente principal** $a_n$ es el número que multiplica al término de mayor grado del polinomio.\n\nEn $p(x) = -2x^3 + 5x - 1$ el término de mayor grado es $-2x^3$, de grado $3$, así que el coeficiente principal es $-2$.\n\nLos otros términos no compiten por ese lugar: $5x$ es de grado $1$ y aporta el coeficiente $5$, mientras que $-1$ es el término independiente, de grado $0$.\n\nComo el coeficiente principal es negativo y el grado es impar, la curva sube a la izquierda y baja a la derecha.\n\nConfundir el coeficiente principal con el término independiente, tomando el $-1$ en vez del $-2$, es el error más frecuente en este tipo de lectura.",
+    "explanation": "El **coeficiente principal** $a_n$ es el número que multiplica al término de mayor grado del polinomio.\n\nEn $p(x) = -2x^3 + 5x - 1$ el término de mayor grado es $-2x^3$, de grado $3$, así que el coeficiente principal es $-2$.\n\nLos otros términos no compiten por ese lugar:\n\n$5x$ es de grado $1$ y aporta el coeficiente $5$, mientras que $-1$ es el término independiente, de grado $0$.\n\nComo el coeficiente principal es negativo y el grado es impar, la curva sube a la izquierda y baja a la derecha.\n\nConfundir el coeficiente principal con el término independiente, tomando el $-1$ en vez del $-2$, es el error más frecuente en este tipo de lectura.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -178,7 +178,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un **polinomio de grado 2** tiene la forma general $f(x) = ax^2 + bx + c$ con $a \\neq 0$, también llamado polinomio cuadrático.\n\nRevisando cada opción por su mayor exponente: $x^3+2$ tiene grado $3$, $4x-1$ tiene grado $1$ (es lineal), y $x^4$ tiene grado $4$.\n\nLa opción $3x^2-7$ tiene como mayor potencia $x^2$, así que es de grado $2$, aunque le falte el término lineal $bx$ (equivale a $b=0$).\n\nSu gráfica es una parábola con vértice en $(0,-7)$, abierta hacia arriba. Fijarse solo en la cantidad de términos en vez del mayor exponente es la confusión más común al clasificar el grado.",
+    "explanation": "Un **polinomio de grado 2** tiene la forma general $f(x) = ax^2 + bx + c$ con $a \\neq 0$, también llamado polinomio cuadrático.\n\nRevisando cada opción por su mayor exponente:\n\n$x^3+2$ tiene grado $3$, $4x-1$ tiene grado $1$ (es lineal), y $x^4$ tiene grado $4$.\n\nLa opción $3x^2-7$ tiene como mayor potencia $x^2$, así que es de grado $2$, aunque le falte el término lineal $bx$ (equivale a $b=0$).\n\nSu gráfica es una parábola con vértice en $(0,-7)$, abierta hacia arriba. Fijarse solo en la cantidad de términos en vez del mayor exponente es la confusión más común al clasificar el grado.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -233,7 +233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El número de **términos** de un polinomio es la cantidad de monomios distintos que lo componen, sin contar los que tuvieran coeficiente $0$.\n\nEn $p(x) = x^5 - x^3 + x - 1$ cada monomio tiene un grado distinto:\n\nSon $4$ términos en total, ya que ninguno se combina con otro al tener todos grados diferentes.\n\nLos grados $4$ y $2$ están ausentes, no hay término $x^4$ ni $x^2$, y eso no cambia la cuenta: contar espacios vacíos entre exponentes en vez de monomios presentes es el error más común en este tipo de ejercicio.",
+    "explanation": "El número de **términos** de un polinomio es la cantidad de monomios distintos que lo componen, sin contar los que tuvieran coeficiente $0$.\n\nEn $p(x) = x^5 - x^3 + x - 1$ cada monomio tiene un grado distinto:\n\nSon $4$ términos en total, ya que ninguno se combina con otro al tener todos grados diferentes.\n\nLos grados $4$ y $2$ están ausentes, no hay término $x^4$ ni $x^2$, y eso no cambia la cuenta:\n\nContar espacios vacíos entre exponentes en vez de monomios presentes es el error más común en este tipo de ejercicio.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -430,7 +430,7 @@
       "A esta opción le falta el factor $x$, así que no incluye la raíz en $x=0$.",
       "El factor $(x-3)$ correspondería a la raíz $x=3$, pero la raíz dada es $x=-3$."
     ],
-    "explanation": "La forma factorizada de un polinomio con coeficiente principal $a$ y raíces $r_1, r_2, r_3$ es $f(x) = a(x-r_1)(x-r_2)(x-r_3)$, donde cada raíz aparece con el signo cambiado dentro del paréntesis.\n\nCon $a=1$ y raíces $0$, $2$ y $-3$:\n$$f(x) = (x-0)(x-2)(x-(-3)) = x(x-2)(x+3)$$\nSe puede verificar sustituyendo cada raíz:\n$$\\begin{aligned} f(0) &= 0 \\\\ f(2) &= 2 \\cdot 0 \\cdot 5 = 0 \\\\ f(-3) &= (-3)(-5)(0) = 0 \\end{aligned}$$\nLos tres factores se anulan exactamente en las raíces dadas. El error más común es escribir el factor con el mismo signo de la raíz, poniendo $(x+2)$ en vez de $(x-2)$ para una raíz positiva.",
+    "explanation": "La forma factorizada de un polinomio con coeficiente principal $a$ y raíces $r_1, r_2, r_3$ es $f(x) = a(x-r_1)(x-r_2)(x-r_3)$, donde cada raíz aparece con el signo cambiado dentro del paréntesis.\n\nCon $a=1$ y raíces $0$, $2$ y $-3$:$$f(x) = (x-0)(x-2)(x-(-3)) = x(x-2)(x+3)$$Se puede verificar sustituyendo cada raíz:$$\\begin{aligned} f(0) &= 0 \\\\ f(2) &= 2 \\cdot 0 \\cdot 5 = 0 \\\\ f(-3) &= (-3)(-5)(0) = 0 \\end{aligned}$$Los tres factores se anulan exactamente en las raíces dadas. El error más común es escribir el factor con el mismo signo de la raíz, poniendo $(x+2)$ en vez de $(x-2)$ para una raíz positiva.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -605,7 +605,7 @@
       "El signo del término cruzado debe ser negativo, porque el binomio es una resta $(x-5)$, no una suma.",
       "El cuadrado de $5$ siempre da positivo, $25$, sin importar que $b$ tenga signo negativo dentro del binomio."
     ],
-    "explanation": "El patrón $(a-b)^2 = a^2 - 2ab + b^2$ tiene tres términos: el cuadrado del primero, el doble producto con signo negativo, y el cuadrado del segundo, que siempre es positivo sin importar el signo de $b$.\n\nCon $a=x$ y $b=5$:\n\nCada pieza aporta lo suyo: $x^2$ es el cuadrado del primer término, $-10x$ es el doble producto $-2(x)(5)$, y $25$ es el cuadrado de $5$, positivo porque todo cuadrado lo es.\n\nConfundir esta expresión con la diferencia de cuadrados $(x+5)(x-5)=x^2-25$, que no tiene término lineal, es el error más frecuente en esta identidad.",
+    "explanation": "El patrón $(a-b)^2 = a^2 - 2ab + b^2$ tiene tres términos:\n\nEl cuadrado del primero, el doble producto con signo negativo, y el cuadrado del segundo, que siempre es positivo sin importar el signo de $b$.\n\nCon $a=x$ y $b=5$:\n\nCada pieza aporta lo suyo:\n\n$x^2$ es el cuadrado del primer término, $-10x$ es el doble producto $-2(x)(5)$, y $25$ es el cuadrado de $5$, positivo porque todo cuadrado lo es.\n\nConfundir esta expresión con la diferencia de cuadrados $(x+5)(x-5)=x^2-25$, que no tiene término lineal, es el error más frecuente en esta identidad.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -730,7 +730,7 @@
       null,
       "El signo del término central en $(x-3)^2$ es negativo, $-6x$, pero la expresión a factorizar tiene $+6x$."
     ],
-    "explanation": "Para reconocer un **binomio cuadrado perfecto** $a^2+2ab+b^2=(a+b)^2$ hay que identificar los dos cuadrados en los extremos y verificar que el término del medio coincida con el doble producto.\n\nEn $x^2+6x+9$, $a^2=x^2$ da $a=x$ y $b^2=9$ da $b=3$, y el término central $2ab=2(x)(3)=6x$ coincide exactamente con el que aparece en la expresión:\n$$x^2 + 6x + 9 = (x+3)^2$$\nLa opción $(x+3)(x-3)=x^2-9$ corresponde en cambio a la diferencia de cuadrados, sin término lineal, confundir una expresión con término lineal con una diferencia de cuadrados es el error más frecuente al identificar esta identidad.",
+    "explanation": "Para reconocer un **binomio cuadrado perfecto** $a^2+2ab+b^2=(a+b)^2$ hay que identificar los dos cuadrados en los extremos y verificar que el término del medio coincida con el doble producto.\n\nEn $x^2+6x+9$, $a^2=x^2$ da $a=x$ y $b^2=9$ da $b=3$, y el término central $2ab=2(x)(3)=6x$ coincide exactamente con el que aparece en la expresión:$$x^2 + 6x + 9 = (x+3)^2$$La opción $(x+3)(x-3)=x^2-9$ corresponde en cambio a la diferencia de cuadrados, sin término lineal, confundir una expresión con término lineal con una diferencia de cuadrados es el error más frecuente al identificar esta identidad.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

@@ -48,7 +48,7 @@
       -3,
       4
     ],
-    "explanation": "Para leer una función logarítmica desde su gráfica, observá dos claves:\n\n1. **Asíntota vertical**: la curva cae a $-\\infty$ en $x = -1$ → el argumento se anula en $x = -1$, entonces el argumento es $x + 1$. 2. **Intercepto con el eje $X$**: la curva corta en $(0,\\, 0)$ → $\\log_2(0 + 1) = \\log_2(1) = 0$\n\nConclusión: $f(x) = \\log_2(x + 1)$.",
+    "explanation": "Para leer una función logarítmica desde su gráfica, observá dos claves:\n\n1.\n\n**Asíntota vertical**: la curva cae a $-\\infty$ en $x = -1$ → el argumento se anula en $x = -1$, entonces el argumento es $x + 1$.\n\n2.\n\n**Intercepto con el eje $X$**: la curva corta en $(0,\\, 0)$ → $\\log_2(0 + 1) = \\log_2(1) = 0$\n\nConclusión: $f(x) = \\log_2(x + 1)$.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -153,7 +153,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$f(e) = \\ln(e) = \\log_e(e)$. Aplicando la propiedad $\\log_b(b) = 1$:\n\nEsto significa que la gráfica de $f(x) = \\ln(x)$ pasa por el punto $(e,\\, 1)$, donde $e \\approx 2{,}718$.\n\nPuntos clave de $\\ln(x)$: pasa por $(1,\\, 0)$, pasa por $(e,\\, 1)$, asíntota vertical en $x = 0$. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "$f(e) = \\ln(e) = \\log_e(e)$. Aplicando la propiedad $\\log_b(b) = 1$:\n\nEsto significa que la gráfica de $f(x) = \\ln(x)$ pasa por el punto $(e,\\, 1)$, donde $e \\approx 2{,}718$.\n\nPuntos clave de $\\ln(x)$: pasa por $(1,\\, 0)$, pasa por $(e,\\, 1)$, asíntota vertical en $x = 0$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -233,7 +233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para que $f(x) = \\log(x - 3)$ esté definida, el **argumento debe ser positivo**:\n\nNota: se exige estrictamente $> 0$, no $\\geq 0$, porque $\\log(0)$ no existe.\n\nEl **dominio** es $(3, +\\infty)$ y la **asíntota vertical** está en $x = 3$.\n\nRegla general: para $\\log(x - c)$, el dominio es $x > c$. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Para que $f(x) = \\log(x - 3)$ esté definida, el **argumento debe ser positivo**:\n\nNota: se exige estrictamente $> 0$, no $\\geq 0$, porque $\\log(0)$ no existe.\n\nEl **dominio** es $(3, +\\infty)$ y la **asíntota vertical** está en $x = 3$.\n\nRegla general: para $\\log(x - c)$, el dominio es $x > c$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "dominio-desde-formula"
@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$f(1) = \\log_5(1)$.\n\nBuscamos el exponente al que hay que elevar $5$ para obtener $1$:\n\nPor lo tanto $f(1) = 0$.\n\nEsta es la **propiedad universal**: $\\log_b(1) = 0$ para cualquier base válida. Significa que **todas las funciones logarítmicas básicas pasan por el punto $(1,\\, 0)$**. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "$f(1) = \\log_5(1)$.\n\nBuscamos el exponente al que hay que elevar $5$ para obtener $1$:\n\nPor lo tanto $f(1) = 0$.\n\nEsta es la **propiedad universal**: $\\log_b(1) = 0$ para cualquier base válida. Significa que **todas las funciones logarítmicas básicas pasan por el punto $(1,\\, 0)$**.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -493,7 +493,7 @@
       -2,
       6
     ],
-    "explanation": "Para reconocer una función logarítmica desde su gráfico conviene revisar tres claves en orden: dónde está la asíntota vertical, si hay desplazamiento vertical, y qué base determina la pendiente de crecimiento.\n\nEn este caso, la asíntota vertical sigue en $x = 0$, así que el argumento no tiene desplazamiento horizontal.\n\nPero en $x = 1$ la curva vale $f(1) = 1$ en vez de $0$, lo que indica un desplazamiento vertical de $+1$.\n\nLa curva es creciente y pasa por $(2, 2)$, lo que confirma la base $2$.\n\nConclusión: $f(x) = \\log_2(x) + 1$. Distinguir un desplazamiento vertical (suma una constante) de un escalado (multiplica al logaritmo) es la clave para no confundir estas variantes.",
+    "explanation": "Para reconocer una función logarítmica desde su gráfico conviene revisar tres claves en orden:\n\nDónde está la asíntota vertical, si hay desplazamiento vertical, y qué base determina la pendiente de crecimiento.\n\nEn este caso, la asíntota vertical sigue en $x = 0$, así que el argumento no tiene desplazamiento horizontal.\n\nPero en $x = 1$ la curva vale $f(1) = 1$ en vez de $0$, lo que indica un desplazamiento vertical de $+1$.\n\nLa curva es creciente y pasa por $(2, 2)$, lo que confirma la base $2$.\n\nConclusión: $f(x) = \\log_2(x) + 1$. Distinguir un desplazamiento vertical (suma una constante) de un escalado (multiplica al logaritmo) es la clave para no confundir estas variantes.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -598,7 +598,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La propiedad de la potencia permite bajar el exponente del argumento como factor multiplicativo del logaritmo:\n\nTambién puede verse directamente por ser funciones inversas: como $\\ln(x)$ y $e^x$ se cancelan entre sí, $\\ln(e^u) = u$ para cualquier exponente $u$, en este caso $u = 2x$.\n\nReconocer esta cancelación ahorra pasos: no hace falta expandir la potencia si ya se identifica que el logaritmo natural deshace la exponencial de base $e$.",
+    "explanation": "La propiedad de la potencia permite bajar el exponente del argumento como factor multiplicativo del logaritmo:\n\nTambién puede verse directamente por ser funciones inversas:\n\nComo $\\ln(x)$ y $e^x$ se cancelan entre sí, $\\ln(e^u) = u$ para cualquier exponente $u$, en este caso $u = 2x$.\n\nReconocer esta cancelación ahorra pasos: no hace falta expandir la potencia si ya se identifica que el logaritmo natural deshace la exponencial de base $e$.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-log"
@@ -898,7 +898,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **intercepto con el eje $X$** de una función logarítmica aparece siempre donde el argumento vale $1$, porque $\\log_b(1) = 0$ para cualquier base válida.\n\nLa curva pasa por el punto $(2,\\, 0)$.\n\nNo confundir este cruce con la asíntota vertical: la asíntota aparece donde el argumento se anula ($x=1$ en este caso), mientras que el cruce por el eje $X$ aparece donde el argumento vale $1$ más allá, es decir en $x=2$.",
+    "explanation": "El **intercepto con el eje $X$** de una función logarítmica aparece siempre donde el argumento vale $1$, porque $\\log_b(1) = 0$ para cualquier base válida.\n\nLa curva pasa por el punto $(2,\\, 0)$.\n\nNo confundir este cruce con la asíntota vertical:\n\nLa asíntota aparece donde el argumento se anula ($x=1$ en este caso), mientras que el cruce por el eje $X$ aparece donde el argumento vale $1$ más allá, es decir en $x=2$.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -955,7 +955,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $\\ln\\!\\left(\\dfrac{x}{e^2}\\right)$?",
+    "question": "$\\ln\\!\\left(\\dfrac{x}{e^2}\\right)$\n¿Cuánto vale?",
     "options": [
       "$\\ln(x) + 2$",
       "$\\ln(x) - 2$",
@@ -998,7 +998,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para duplicar el capital, se plantea $M = 2M_0$ y se despeja el exponente $t$ que satisface esa igualdad, tal como se hace con cualquier problema de crecimiento exponencial.\n\nComo $7{,}3$ no es un número entero de años, conviene interpretar el resultado como una aproximación: la duplicación efectiva recién se completa en el año $8$, pero la cifra entera más cercana entre las opciones es $7$.\n\nConviene recordar que el logaritmo en base $1{,}1$ es el que deshace exactamente la potencia $(1{,}1)^t$, y ese valor ya viene dado en el enunciado para no tener que calcularlo desde cero.",
+    "explanation": "Para duplicar el capital, se plantea $M = 2M_0$ y se despeja el exponente $t$ que satisface esa igualdad, tal como se hace con cualquier problema de crecimiento exponencial.\n\nComo $7{,}3$ no es un número entero de años, conviene interpretar el resultado como una aproximación:\n\nLa duplicación efectiva recién se completa en el año $8$, pero la cifra entera más cercana entre las opciones es $7$.\n\nConviene recordar que el logaritmo en base $1{,}1$ es el que deshace exactamente la potencia $(1{,}1)^t$, y ese valor ya viene dado en el enunciado para no tener que calcularlo desde cero.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1048,7 +1048,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando se conoce la posición de la **asíntota vertical**, se puede reconstruir el argumento del logaritmo: el argumento debe anularse exactamente ahí.\n\nComo la asíntota está en $x = -1$, el argumento tiene que ser $x + 1$, porque $(-1) + 1 = 0$.\n\nSe verifica con el punto dado: $\\log_2(0 + 1) = \\log_2(1) = 0$, que coincide con el punto $(0, 0)$.\n\nArmar la fórmula a partir de la asíntota y un punto conocido es el proceso inverso de leer un gráfico: primero se fija el desplazamiento horizontal, y después se confirma con el punto que también debe cumplir la ecuación.",
+    "explanation": "Cuando se conoce la posición de la **asíntota vertical**, se puede reconstruir el argumento del logaritmo: el argumento debe anularse exactamente ahí.\n\nComo la asíntota está en $x = -1$, el argumento tiene que ser $x + 1$, porque $(-1) + 1 = 0$.\n\nSe verifica con el punto dado: $\\log_2(0 + 1) = \\log_2(1) = 0$, que coincide con el punto $(0, 0)$.\n\nArmar la fórmula a partir de la asíntota y un punto conocido es el proceso inverso de leer un gráfico:\n\nPrimero se fija el desplazamiento horizontal, y después se confirma con el punto que también debe cumplir la ecuación.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -1080,7 +1080,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $\\log_2\\!\\left(\\dfrac{16}{x}\\right)$?",
+    "question": "$\\log_2\\!\\left(\\dfrac{16}{x}\\right)$\n¿Cuánto vale?",
     "options": [
       "$16 - \\log_2(x)$",
       "$\\dfrac{4}{\\log_2(x)}$",
@@ -1178,7 +1178,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **intercepto con el eje $X$** ocurre donde $f(x) = 0$. Acá conviene despejar primero el logaritmo solo, y recién después convertirlo a su forma exponencial.\n\nLa curva pasa por el punto $(2,\\, 0)$.\n\nUn desplazamiento vertical como este $-1$ cambia dónde ocurre el cruce por el eje $X$, a diferencia de la forma básica $\\log_2(x)$, que cruza en $x=1$: hay que resolver la ecuación completa en vez de asumir que sigue siendo el mismo punto.",
+    "explanation": "El **intercepto con el eje $X$** ocurre donde $f(x) = 0$. Acá conviene despejar primero el logaritmo solo, y recién después convertirlo a su forma exponencial.\n\nLa curva pasa por el punto $(2,\\, 0)$.\n\nUn desplazamiento vertical como este $-1$ cambia dónde ocurre el cruce por el eje $X$, a diferencia de la forma básica $\\log_2(x)$, que cruza en $x=1$:\n\nHay que resolver la ecuación completa en vez de asumir que sigue siendo el mismo punto.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"

@@ -279,7 +279,7 @@
     "question": "Al racionalizar, se multiplica tanto el numerador como el denominador por el **conjugado**.\n\n¿Por qué no alcanza con multiplicar solo el numerador?",
     "options": [
       "Porque el denominador nunca tiene raíces que romper",
-      "Para no alterar la función, ya que equivale a multiplicar por $1$",
+      "Para no alterar la función",
       "Porque así se elimina la variable $x$ del límite"
     ],
     "correct_index": 1,
@@ -326,7 +326,7 @@
     "options": [
       "El límite da siempre $0$",
       "La raíz desaparece igual, sin alterar nada más",
-      "Se modifica la función original, porque ya no se multiplicó por $1$"
+      "Se modifica la función original"
     ],
     "correct_index": 2,
     "has_math": true,

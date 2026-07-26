@@ -415,7 +415,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{2}\\right)$?",
+    "question": "$\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{2}\\right)$\n¿Cuánto vale?",
     "options": [
       "$0$",
       "$\\dfrac{\\sqrt{2}}{2}$",
@@ -440,7 +440,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $\\cos\\!\\left(\\dfrac{\\pi}{2}\\right)$?",
+    "question": "$\\cos\\!\\left(\\dfrac{\\pi}{2}\\right)$\n¿Cuánto vale?",
     "options": [
       "$1$",
       "$0$",
@@ -765,7 +765,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{6}\\right)$?",
+    "question": "$\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{6}\\right)$\n¿Cuánto vale?",
     "options": [
       "$\\dfrac{\\sqrt{3}}{2}$",
       "$\\dfrac{1}{2}$",
@@ -790,7 +790,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $\\cos\\!\\left(\\dfrac{\\pi}{3}\\right)$?",
+    "question": "$\\cos\\!\\left(\\dfrac{\\pi}{3}\\right)$\n¿Cuánto vale?",
     "options": [
       "$\\dfrac{\\sqrt{3}}{2}$",
       "$1$",
@@ -1015,7 +1015,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el **período** de $g(x) = \\operatorname{sen}\\!\\left(\\dfrac{x}{2}\\right)$?",
+    "question": "$g(x) = \\operatorname{sen}\\!\\left(\\dfrac{x}{2}\\right)$\n¿Cuál es el **período** de?",
     "options": [
       "$\\pi$",
       "$2\\pi$",

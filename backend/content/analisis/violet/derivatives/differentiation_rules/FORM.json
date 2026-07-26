@@ -276,7 +276,7 @@
     ]
   },
   {
-    "question": "¿Qué representa el operador $\\frac{d}{dx}[\\cdot]$?",
+    "question": "$\\frac{d}{dx}[\\cdot]$\n¿Qué representa el operador?",
     "options": [
       "Un operador que deriva la expresión que tiene adentro respecto de $x$",
       "Una fracción que se puede simplificar cancelando las $d$",
@@ -322,7 +322,7 @@
     ]
   },
   {
-    "question": "¿Es correcto simplificar $\\frac{dy}{dx}$ cancelando $dy$ con $dx$ como si fuera una fracción algebraica común?",
+    "question": "$\\frac{dy}{dx}$\n¿Es correcto simplificar?",
     "options": [
       "Sí, siempre se puede cancelar como cualquier fracción",
       "Sí, pero solo si $y$ es lineal",

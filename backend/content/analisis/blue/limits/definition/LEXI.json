@@ -186,7 +186,7 @@
   {
     "question": "Una función tiene un hueco en $x=6$, pero para todo valor cercano se comporta como $f(x) = x - 2$. Un alumno responde que $\\lim_{x \\to 6} f(x)$ no se puede calcular porque \"primero hay que evaluar $f(6)$\".\n\n¿Qué confunde esa respuesta?",
     "options": [
-      "Confunde evaluar la función con calcular su tendencia, que no requiere que $f(6)$ exista",
+      "Confunde evaluar la función con calcular su tendencia",
       "Tiene razón, sin $f(6)$ no hay forma de calcular el límite",
       "El error es que debería evaluar $f$ en $x=0$ en lugar de en $x=6$"
     ],

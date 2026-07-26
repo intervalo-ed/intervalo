@@ -350,7 +350,7 @@
     ]
   },
   {
-    "question": "Sabiendo que $\\lim_{x \\to a} f(x) = 6$ y $\\lim_{x \\to a} g(x) = 0$, ¿qué puede afirmarse de $\\lim_{x \\to a} \\frac{f(x)}{g(x)}$?",
+    "question": "Sabiendo que $\\lim_{x \\to a} f(x) = 6$ y $\\lim_{x \\to a} g(x) = 0$,\n$\\lim_{x \\to a} \\frac{f(x)}{g(x)}$\n¿qué puede afirmarse de?",
     "options": [
       "$6$",
       "$0$",

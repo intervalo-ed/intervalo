@@ -1168,7 +1168,7 @@
     "question": "Una función lineal crece en $+10$ por unidad. Una exponencial crece un $10\\%$ por unidad. Para $x$ muy grande, ¿cuál tiene valores mayores?",
     "options": [
       "La lineal, porque $+10$ es mayor que $10\\%$",
-      "La exponencial, porque el crecimiento porcentual acumula más a largo plazo",
+      "La exponencial",
       "Siempre son iguales en el largo plazo",
       "Depende del valor inicial"
     ],

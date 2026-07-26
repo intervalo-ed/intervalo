@@ -275,7 +275,7 @@
     ]
   },
   {
-    "question": "¿Cuál integral resulta de:\n$$\\int \\left(4x-\\frac{1}{x}\\right)\\,dx$$?",
+    "question": "$\\int \\left(4x-\\frac{1}{x}\\right)\\,dx$\n¿Cuál integral resulta de:\n$?",
     "options": [
       "$2x^2-\\ln x+C$",
       "$2x^2+\\ln|x|+C$",
@@ -350,7 +350,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el resultado de resolver:\n$$\\int \\left(x^3-\\frac{4}{x}\\right)\\,dx$$?",
+    "question": "$\\int \\left(x^3-\\frac{4}{x}\\right)\\,dx$\n¿Cuál es el resultado de resolver:\n$?",
     "options": [
       "$\\frac{x^4}{4}+4\\ln|x|+C$",
       "$x^4-4\\ln|x|+C$",

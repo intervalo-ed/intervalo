@@ -26,7 +26,7 @@
     "question": "En esa misma notación:\n$$\\int f(x)\\,dx = F(x) + C$$\n¿qué representa $dx$?",
     "options": [
       "La primitiva de la función",
-      "El diferencial, que marca la variable de integración",
+      "El diferencial",
       "Un factor que multiplica al integrando"
     ],
     "correct_index": 1,
