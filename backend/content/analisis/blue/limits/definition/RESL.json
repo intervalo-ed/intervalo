@@ -368,9 +368,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad de cociente** exige que el límite del denominador sea distinto de $0$.\n\nSi se anula, no se puede separar la división en dos límites por separado, y el resultado queda como una **indeterminación** que requiere otra técnica.\n\nEn este caso, con.\n$$\\lim_{x \\to a} g(x) = 0$$\n, la fracción produce 0/0 si $f$ también tiende a $0$.
-
-O produce $k/0$ si $f$ tiende a algo distinto.\n\nambos casos que no se resuelven por sustitución directa.\n\nAplicar la propiedad de cociente sin chequear antes que el denominador no sea $0$ te lleva a separar una división que no se puede separar; hay que hacerse siempre la pregunta \"¿Puedo separar esta.",
+    "explanation": "La **propiedad de cociente** exige que el límite del denominador sea distinto de $0$.\n\nSi se anula, no se puede separar la división en dos límites por separado, y el resultado queda como una **indeterminación** que requiere otra técnica.\n\nEn este caso, con.\n$$\\lim_{x \\to a} g(x) = 0$$\n, la fracción produce 0/0 si $f$ también tiende a $0$.\n\nO produce $k/0$ si $f$ tiende a algo distinto.\n\nambos casos que no se resuelven por sustitución directa.\n\nAplicar la propiedad de cociente sin chequear antes que el denominador no sea $0$ te lleva a separar una división que no se puede separar; hay que hacerse siempre la pregunta \"¿Puedo separar esta.",
     "reviewed": false,
     "tags": [
       "propiedades-producto-cociente"
