@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el **denominador** de una expresión racional no se anula en el punto de tendencia, la **sustitución directa** es válida y no hace falta ninguna técnica algebraica adicional.\n\n: el destino del cociente está determinado por la sustitución directa de numerador y denominador.$$\\begin{aligned} \\lim_{x \\to 1} \\frac{x+3}{x+2} &= \\frac{1+3}{1+2} \\\\ &= \\frac{4}{3} \\end{aligned}$$El acercamiento de $x$ a $1$ produce cocientes que convergen a $4/3$: en $x=0{,}99$ el cociente es $\\approx 1{,}3267$, en $x=1{,}01$ es $\\approx 1{,}3303$. El destino es $4/3 \\approx 1{,}333$.\n\nAntes de aplicar otra técnica (factorización, etc.), siempre conviene chequear si el denominador se anula en el punto: si no se anula, el trabajo ya terminó.",
+    "explanation": "El límite resuelve algebraicamente simplificando la expresión hasta eliminar las indeterminaciones.\n\nSi aparece $0/0$, factoriza numerador y denominador para cancelar los factores comunes.\n\nSi aparece $\\infty/\\infty$, divide todos los términos por la potencia más alta de $x$.\n\nEn otros casos, aplica identidades específicas: trigonométricas, exponenciales, o logarítmicas según lo que aparezca en la expresión.",
     "reviewed": false,
     "tags": [
       "racionales-radicales-sin-indeterminacion"
@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el **argumento** de una raíz cuadrada es positivo en el punto de tendencia, la **sustitución directa** es válida: se reemplaza dentro de la raíz, se opera, y recién después se aplica la raíz.$$\\begin{aligned} \\lim_{x \\to 4} \\sqrt{x+5} &= \\sqrt{4+5} \\\\ &= \\sqrt{9} \\\\ &= 3 \\end{aligned}$$El acercamiento de $x$ a $4$ produce valores de $\\sqrt{x+5}$ que convergen a $3$: en $x=3{,}99$ se obtiene $\\sqrt{8{,}99} \\approx 2{,}998$, en $x=4{,}01$ se obtiene $\\sqrt{9{,}01} \\approx 3{,}0017$.\n\nEl destino es $3$.\n\nConviene siempre resolver la expresión dentro de la raíz y recién después aplicar la raíz, así se evita mezclar ambas operaciones y perder precisión.",
+    "explanation": "Después de simplificar y eliminar indeterminaciones, reenplaza $x = a$ en la expresión simplificada.\n\nEl resultado es el límite. Por ejemplo, si obtienes $\\lim_{x \\to 2} \\frac{x^2-4}{x-2} = \\lim_{x \\to 2} (x+2) = 4$.\n\nEste valor puede ser diferente (o no existir en absoluto) al evaluarla función en el punto mismo. El límite solo describe la tendencia local, no el valor puntual.",
     "reviewed": false,
     "tags": [
       "racionales-radicales-sin-indeterminacion"

@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **límite** formaliza la idea de **tendencia**: describe qué pasa con $f(x)$ a medida que $x$ toma valores cada vez más próximos a un número $a$\n\n, sin necesitar que $x$ llegue a valer exactamente $a$.\n\nEsta separación entre el proceso (acercamiento) y el destino (número $L$) es el corazón de la noción.\n\nEn $\\lim_{x \\to 3} f(x)$, la flecha $\\to$ indica que se evalúa $f$ en valores como $2{,}9$, $2{,}99$, $2{,}999$, $3{,}01$, cada vez más cercanos a $3$,.\n\nSe observa a qué número se acerca el resultado.\n\n, sin necesidad de calcular $f(3)$.\n\nEl proceso de acercamiento es lo central, no el punto exacto.\n\nSi confundís la tendencia con una igualdad puntual, perderás la diferencia fundamental entre acercarse y llegar: la flecha $x \\to a$ nunca significa $x = a$, siempre describe un movimiento hacia el punto sin alcanzarlo.",
+    "explanation": "El límite de una función describe el valor al que se aproximan las salidas conforme la entrada se acerca a un punto específico.\n\nNotación: $\\lim_{x \\to a} f(x) = L$ indica que $f(x)$ se aproxima a $L$ cuando $x$ tiende a $a$.\n\nLo crucial: el límite puede existir aunque la función no esté definida en $a$, o aunque $f(a) \\neq L$. El límite describe el comportamiento alrededor del punto, no en el punto mismo.\n\nLos límites laterales son componentes: por la izquierda ($x \\to a^-$) y por la derecha ($x \\to a^+$).",
     "reviewed": false,
     "tags": [
       "lectura-notacion"
@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **independencia** entre el límite y el valor de la función en el punto es una de las ideas más importantes del tema: el límite se calcula a partir del comportamiento alrededor de $a$\n\n, sin importar si $f(a)$ existe, cuánto vale, o si está redefinida de forma aislada.\n\nEl límite es sobre el entorno, no sobre el punto exacto.\n\nAcá, aunque $f(4)$ no está definida, para todo $x$ cercano a $4$ la función se comporta como $x+1$, entonces $f(x)$ se acerca a $4+1=5$ cuando $x \\to 4$.\n\nEl hueco en $x=4$ no afecta la convergencia observada en los alrededores, por lo que $\\lim_{x \\to 4} f(x) = 5$.\n\nUn hueco en el dominio nunca es un obstáculo por sí solo para que el límite exista: la definición de límite fue construida a propósito para que el entorno importara, no el punto faltante.",
+    "explanation": "Para calcular un límite algebraicamente, el procedimiento estándar es sustituir el valor directamente.\n\nSi la sustitución da un resultado determinado (como un número), ese es el límite.\n\nSi da una indeterminación (como $0/0$), aplicamos técnicas: factorización para cancelar, racionalización, identidades trigonométricas, o regla de L'Hôpital en cálculo.",
     "reviewed": false,
     "tags": [
       "independencia-limite-valor"
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando una función se redefine artificialmente en un único punto , ese valor queda **aislado** y no participa del cálculo del **límite**.\n\n, que depende exclusivamente del comportamiento en el entorno del punto.\n\nSon dos cálculos distintos y pueden dar resultados distintos.\n\nPara todo $x$ cercano a $1$ pero distinto de $1$, $f(x) = 2x$, entonces $f(x)$ se acerca a $2$ cuando $x \\to 1$, así que $\\lim_{x \\to 1} f(x) = 2$, sin importar que $f(1) = 100$.\n\nEl valor puntual aislado no cambia la tendencia que reina en el vecindario.\n\nEste es el ejemplo más claro de que el límite y la evaluación puntual son conceptos distintos que pueden coincidir, pero no es obligatorio. La definición de límite separa ambas cosas a propósito.",
+    "explanation": "Para que exista el límite bilateral $\\lim_{x \\to a} f(x)$, deben existir y coincidir los dos límites laterales.\n\nSi $\\lim_{x \\to a^-} f(x) \\neq \\lim_{x \\to a^+} f(x)$, el límite bilateral no existe.\n\nEsto ocurre en funciones con discontinuidades tipo \"salto\", donde la función salta de un valor a otro.",
     "reviewed": false,
     "tags": [
       "independencia-limite-valor"

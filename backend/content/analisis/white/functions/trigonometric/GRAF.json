@@ -503,7 +503,7 @@
       -4,
       4
     ],
-    "explanation": "La onda tiene máximo $3$, mínimo $-3$, período $2\\pi$, y en $x=0$ vale $0$.\n\nLas señales apuntan a $f(x)=3\\,\\operatorname{sen}(x)$: amplitud $3$ implica coeficiente $A=3$, período $2\\pi$ implica $B=1$,.\n\n$f(0)=3\\,\\operatorname{sen}(0)=0$ (el seno empieza en cero).\n\nLa opción $3\\cos(x)$ tiene $f(0)=3\\neq0$: descartada. La opción $\\operatorname{sen}(3x)$ tiene amplitud $1$, no $3$. La que arranca en $0$ con amplitud $3$ es $3\\,\\operatorname{sen}(x)$.",
+    "explanation": "El seno es una función periódica que completa un ciclo completo en el intervalo $[0, 2\\pi]$.\n\nSus valores más importantes son: cero en $x = 0, \\pi, 2\\pi$; máximo en $x = \\pi/2$ (donde vale $1$); y mínimo en $x = 3\\pi/2$ (donde vale $-1$).\n\nEste patrón se repite idénticamente en cada período de longitud $2\\pi$. La función nunca sale del rango $[-1, 1]$.",
     "reviewed": false,
     "tags": [
       "monotonia-intervalo-graf-trig"
@@ -953,7 +953,7 @@
       -2,
       4
     ],
-    "explanation": "La **amplitud** de $f(x)=2\\,\\operatorname{sen}(x)+1$ es la distancia del eje de oscilación ($y=D=1$) al máximo o mínimo. Como $A=2$, la amplitud es $|A|=2$.\n\nVerificación desde el gráfico: máximo $=3$, mínimo $=-1$, eje $=1$. Amplitud $= 3-1 = 2$  (o $1-(-1)=2$). La opción $3$ es el valor del máximo, no la amplitud. La opción $1$ es el desplazamiento $D$.\n\nAmplitud $=$ distancia del eje al pico. Aquí $D=1$, máx $=3$: distancia $=2$. Simple.",
+    "explanation": "El coseno comienza en su máximo: $\\cos(0) = 1$.\n\nLuego baja, cruzando el eje en $x = \\pi/2$, alcanzando su mínimo $-1$ en $x = \\pi$.\n\nDespués sube de nuevo, volviendo a cruzar el eje en $x = 3\\pi/2$, y retornando al máximo en $x = 2\\pi$.\n\nEs una forma simétrica al seno, pero desplazada: el coseno es equivalente al seno desplazado $\\pi/2$ unidades hacia la izquierda.",
     "reviewed": false,
     "tags": [
       "ubicacion-maximos-locales"
@@ -1463,7 +1463,7 @@
       -2,
       4
     ],
-    "explanation": "La onda tiene máximo $3$, mínimo $-1$ y período $2\\pi$. Se extraen los parámetros:\n$$\\begin{aligned}\nA &= \\frac{3-(-1)}{2} = 2 \\\\\nD &= \\frac{3+(-1)}{2} = 1 \\\\\nB &= \\frac{2\\pi}{2\\pi} = 1:\n\\end{aligned}$$\nLa curva arranca en $0$ en $x=0$ (patrón del seno). Fórmula: $2\\,\\operatorname{sen}(x)+1$. La opción $2\\cos(x)+1$ tendría $f(0)=3$ (máximo), no $1$. La opción $\\operatorname{sen}(x)+2$ tendría $A=1$.",
+    "explanation": "Identificar una función trigonométrica desde su gráfica requiere evaluar en varios puntos característicos.\n\nVerifica dónde comienza (¿en el origen o en el máximo?), dónde alcanza máximos y mínimos, cuál es el período, y si está desplazada o comprimida.\n\nEl seno comienza en cero, el coseno en $1$, y la tangente tiene asíntotas verticales. Estas características permiten distinguir rápidamente cuál función se grafica.",
     "reviewed": false,
     "tags": [
       "contexto-cotidiano-graf-trig"

@@ -323,7 +323,7 @@
       -4,
       4
     ],
-    "explanation": "Una función es **decreciente** en un intervalo cuando, a medida que $x$ aumenta, el valor de la función disminuye, y esto se evalúa por separado en cada tramo del dominio cuando hay una asíntota vertical de por medio.\n\nLa gráfica de $f(x) = 1/x$ tiene dos ramas separadas por la asíntota vertical $x = 0$. En la rama izquierda $(-\\infty, 0)$, la función va de valores cercanos a $0^-$ hacia $-\\infty$ a medida que $x$ crece hacia $0$. En la rama derecha $(0, +\\infty)$, la función va de $+\\infty$ hacia valores cercanos a $0^+$.\n\nEn ambos tramos la tendencia es decreciente.\n\nTenés que verificar que con confundir 'la curva sube entre las dos ramas' con comportamiento creciente: ese salto es una discontinuidad en la asíntota vertical, no crecimiento real de la función.",
+    "explanation": "Una función es decreciente en un intervalo cuando conforme $x$ aumenta, los valores de $f(x)$ disminuyen.\n\nEn funciones racionales con asíntota vertical, el dominio se divide en intervalos separados. La función es decreciente independientemente en cada tramo.\n\nPor ejemplo, $f(x) = 1/x$ decrece tanto en $(-\\infty, 0)$ como en $(0, \\infty)$. El \"salto\" en la asíntota no es crecimiento: es una discontinuidad.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"

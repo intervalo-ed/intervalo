@@ -983,7 +983,7 @@
       -0.5,
       9.5
     ],
-    "explanation": "Una forma directa de distinguir entre bases parecidas es leer el punto $(1, f(1))$ en el gráfico, porque cualquier base elevada a la potencia $1$ es igual a sí misma.\n\nPara las cuatro opciones, ese valor sería $3$ para base $3$, aproximadamente $2{,}7$ para $e$, $2$ para base $2$ y $1{,}5$ para base $1{,}5$.\n\nCuanto mayor es la base, más alto queda ese punto y más empinada se ve la curva justo después de $x = 0$.\n\nComo esta curva pasa por $(1, 3)$, la más empinada de las cuatro, corresponde a la base $3$, la mayor entre las opciones ofrecidas.",
+    "explanation": "El crecimiento exponencial es más rápido que cualquier crecimiento polinomial. Eventualmente, $2^x$ superará a $x^2$, $x^3$, o cualquier potencia.\n\nEsto es porque la exponencial multiplica repetidamente (crece multiplicativamente), mientras que los polinomios solo elevan a potencia fija (crecen polinomialmente).\n\nEn la práctica, esto significa que los procesos exponenciales dominan a largo plazo: epidemias, inversiones con interés compuesto, y radiactividad.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"

@@ -1155,7 +1155,7 @@
       "Mirá hacia dónde van los extremos de la curva, ambos suben en este gráfico.",
       "Contá cuántas raíces distintas se ven en el gráfico, a esta expresión le falta una."
     ],
-    "explanation": "Un polinomio de grado $4$ con cuatro raíces reales distintas se escribe como el producto de sus cuatro factores lineales, multiplicado por el coeficiente principal que ajusta la escala y el signo.\n\nRaíces $r_1=-1$, $r_2=0$, $r_3=1$, $r_4=2$ dan los factores $(x+1)$, $x$, $(x-1)$, $(x-2)$:\n\nVerificando en $x=0$ se obtiene $f(0) = 0$, como corresponde a una raíz. El coeficiente positivo se confirma además porque los dos extremos de la curva suben en el gráfico.\n\nrepetir por accidente una de las raíces al armar los factores, o dejar afuera alguna. Conviene contar las cuatro raíces del gráfico antes de escribir la expresión factorizada.",
+    "explanation": "El término de mayor grado de un polinomio determina el comportamiento cuando $|x|$ es muy grande.\n\nPara $p(x) = 5x^4 + 2x^3 - x + 7$, cuando $|x| \\to \\infty$, el término $5x^4$ domina completamente.\n\nLos demás términos se vuelven insignificantes en comparación. Por eso, en extremos, el polinomio se comporta como su término principal.",
     "has_math": true,
     "graph_fn": "x*(x-1)*(x+1)*(x-2)/6",
     "graph_view": [

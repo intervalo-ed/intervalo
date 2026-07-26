@@ -953,7 +953,7 @@
       -4,
       6
     ],
-    "explanation": "Claves: 1. Asíntota en $x = 0$, pasa por $(1, 0)$ → sin desplazamiento. 2.\n\nEn $x = 2$: $f(2) = 2\\cdot 1 = 2$ (no $1$) → escala vertical $\\times 2$. 3. $\\log_2(2x) = 1 + \\log_2(x)$ es distinto: en $x=1$ vale $1$, no $0$.\n\nFórmula: $f(x) = 2\\cdot\\log_2(x)$.\n\nLa asíntota vertical es el \"borde del dominio\" de la función logarítmica.\n\nA diferencia de las funciones polinómicas que están definidas en toda la recta, los logaritmos necesitan un argumento positivo, así que siempre hay un límite.\n\nVisualmente, la curva se pega a esta línea sin cruzarla, un comportamiento que aparece también en funciones racionales y exponenciales negativas.",
+    "explanation": "El logaritmo $\\log_b(x)$ es la operación inversa de la exponencial $b^y = x$.\n\nPregunta: ¿a qué potencia debo elevar $b$ para obtener $x$? La respuesta es $\\log_b(x)$.\n\nEl dominio es solo los positivos: $x > 0$. No existen logaritmos de números negativos ni de cero.\n\nEl rango es todos los reales: el logaritmo puede dar cualquier valor. La asíntota vertical está en $x = 0$.",
     "reviewed": false,
     "tags": [
       "lectura-asintota"
