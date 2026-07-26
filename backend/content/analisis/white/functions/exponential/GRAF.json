@@ -833,7 +833,7 @@
       -0.5,
       9.0
     ],
-    "explanation": "Para identificar la fórmula conviene revisar dos señales del gráfico a la vez: el punto de corte con el eje vertical y la altura de la asíntota horizontal.\n\nAcá la curva pasa por $(0.\n\n3)$ y se aplana hacia $y = 2$ del lado izquierdo.\n\ny la fórmula $2^x + 2$ cumple ambas condiciones porque : y el $+2$ desplaza la asíntota de $0$ a $2$.Las otras opciones fallan en alguna de las dos señales: $2^x$ sola no tiene desplazamiento y su asíntota queda en $y = 0$.\n\nmientras que $3 \\cdot 2^x$ cambia el punto de corte pero tampoco mueve la asíntota.\n\nUn desplazamiento vertical (sumar una constante) mueve la asíntota; un coeficiente multiplicativo estira la curva pero la deja pegada al eje horizontal.",
+    "explanation": "Para identificar la fórmula conviene revisar dos señales del gráfico a la vez: el punto de corte con el eje vertical y la altura de la asíntota horizontal.\n\nAcá la curva pasa por $(0.\n\n3)$ y se aplana hacia $y = 2$ del lado izquierdo.\n\ny la fórmula $2^x + 2$ cumple ambas condiciones porque : y el $+2$ desplaza la asíntota de $0$ a $2$.Las otras opciones\n\nfallan en alguna de las dos señales: $2^x$ sola no tiene desplazamiento y su asíntota queda en $y = 0$.\n\nmientras que $3 \\cdot 2^x$ cambia el punto de corte pero tampoco mueve la asíntota.\n\nUn desplazamiento vertical (sumar una constante) mueve la asíntota; un coeficiente multiplicativo estira la curva pero la deja pegada al eje horizontal.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"

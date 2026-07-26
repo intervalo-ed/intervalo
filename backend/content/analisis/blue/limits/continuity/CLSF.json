@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La segunda condición de continuidad exige que el límite bilateral exista, lo que a su vez requiere que el límite lateral izquierdo y el derecho coincidan.\n\nLos límites laterales son los valores hacia los cuales la función se aproxima desde cada lado: el izquierdo es a qué se acerca cuando $x$ se acerca a $a$ por valores menores, y el derecho es a qué se acerca por valores mayores.\n\nAcá el lateral izquierdo vale $3$ y el derecho vale $7$, dos números finitos pero distintos entre sí, así que el límite bilateral no existe aunque $f(a)$ sí esté definida.\n\nCuando ambos laterales son finitos pero no coinciden, la falla se clasifica siempre como **de salto**, sin importar si el valor puntual está definido o no.",
+    "explanation": "La segunda condición de continuidad exige que el límite bilateral exista, lo que a su vez requiere que el límite lateral izquierdo y el derecho coincidan.\n\nLos límites laterales son los valores hacia los cuales la función se aproxima desde cada lado: el izquierdo es a qué se acerca cuando $x$ se acerca a $a$ por valores menores,\n\ny el derecho es a qué se acerca por valores mayores.\n\nAcá el lateral izquierdo vale $3$ y el derecho vale $7$, dos números finitos pero distintos entre sí, así que el límite bilateral no existe aunque $f(a)$ sí esté definida.\n\nCuando ambos laterales son finitos pero no coinciden, la falla se clasifica siempre como **de salto**, sin importar si el valor puntual está definido o no.",
     "reviewed": false,
     "tags": [
       "condiciones-formales-continuidad"
@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La tercera condición de continuidad exige que el límite bilateral coincida exactamente con el valor de la función en ese punto.\n\nEl límite y el valor puntual son dos cosas distintas: el límite es hacia adónde la función se aproxima conforme $x$ se acerca a $a$, mientras que $f(a)$ es el valor que la función realmente toma en ese punto, si está definido.\n\nAcá el límite vale $8$ y $f(a)$ está definida, pero en $2$, un valor distinto.\n\nLas dos primeras condiciones se cumplen, solo falla la comparación final entre ambos.\n\nEste tipo de falla es la que da lugar a la **discontinuidad removible**: el límite ya hizo todo el trabajo, alcanza con redefinir $f(a)=8$ para reparar el punto.",
+    "explanation": "La tercera condición de continuidad exige que el límite bilateral coincida exactamente con el valor de la función en ese punto.\n\nEl límite y el valor puntual son dos cosas distintas: el límite es hacia adónde la función se aproxima conforme $x$ se acerca a $a$,\n\nmientras que $f(a)$ es el valor que la función realmente toma en ese punto, si está definido.\n\nAcá el límite vale $8$ y $f(a)$ está definida, pero en $2$, un valor distinto.\n\nLas dos primeras condiciones se cumplen, solo falla la comparación final entre ambos.\n\nEste tipo de falla es la que da lugar a la **discontinuidad removible**: el límite ya hizo todo el trabajo, alcanza con redefinir $f(a)=8$ para reparar el punto.",
     "reviewed": false,
     "tags": [
       "condiciones-formales-continuidad"

@@ -1463,7 +1463,7 @@
       -3,
       5
     ],
-    "explanation": "Cuando se pregunta por una diferencia de tiempos entre dos factores de crecimiento.\n\nhay que evaluar la función en cada punto por separado y después restar.\n\nno calcular un solo logaritmo de la diferencia.\n\n$t(2) = \\log_2(2) = 1$ y $t(4) = \\log_2(4) = 2$.\n\nPasar de factor $2$ a factor $4$ requiere : año adicional.Esto ilustra que los logaritmos crecen cada vez más lentamente, duplicar el factor solo agrega $1$ período más, sin importar en qué tramo de la curva se esté.",
+    "explanation": "Cuando se pregunta por una diferencia de tiempos entre dos factores de crecimiento.\n\nhay que evaluar la función en cada punto por separado y después restar.\n\nno calcular un solo logaritmo de la diferencia.\n\n$t(2) = \\log_2(2) = 1$ y $t(4) = \\log_2(4) = 2$.\n\nPasar de factor $2$ a factor $4$ requiere : año adicional.Esto ilustra que los logaritmos crecen cada vez más lentamente,\n\nduplicar el factor solo agrega $1$ período más, sin importar en qué tramo de la curva se esté.",
     "reviewed": false,
     "tags": [
       "lectura-valor-puntual"

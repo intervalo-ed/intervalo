@@ -177,7 +177,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El punto $(a, f(a))$ es el **punto de tangencia**, el lugar exacto donde la recta toca a la curva y que sirve de anclaje para toda la ecuación.\n\nA partir de ese punto fijo, la fórmula extiende la recta en ambas direcciones usando la pendiente $f'(a)$. pensar que este punto es la ordenada al origen, que solo coincidiría con $(a, f(a))$ en el caso particular de que $a=0$.",
+    "explanation": "El punto $(a, f(a))$ es el **punto de tangencia**, el lugar exacto donde la recta toca a la curva y que sirve de anclaje para toda la ecuación.\n\nA partir de ese punto fijo, la fórmula extiende la recta en ambas direcciones usando la pendiente $f'(a)$. pensar que este punto es la ordenada al origen,\n\nque solo coincidiría con $(a, f(a))$ en el caso particular de que $a=0$.",
     "reviewed": false,
     "tags": [
       "anatomia-formula-punto-pendiente"

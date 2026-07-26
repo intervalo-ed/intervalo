@@ -315,7 +315,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Si multiplicamos solo el numerador, dejamos de multiplicar por 1: en cambio, multiplicamos la función original por algo distinto a 1, lo que modifica su valor y hace que el límite calculado ya no sea el del problema original.\n\nMultiplicar por el **conjugado** rompe la raíz mediante la **diferencia de cuadrados**, lo que deja expuesto un factor común con el denominador.\n\nSi $u - c^2$ resulta múltiplo de $(x-a)$, ese factor se cancela y la **indeterminación** desaparece antes de sustituir.\n\nSin esa cancelación, sustituir directamente seguiría dando una indeterminación $0/0$: el conjugado es un medio para llegar al factor cancelable, no un fin en sí mismo.",
+    "explanation": "Si multiplicamos solo el numerador, dejamos de multiplicar por 1: en cambio, multiplicamos la función original por algo distinto a 1,\n\nlo que modifica su valor y hace que el límite calculado ya no sea el del problema original.\n\nMultiplicar por el **conjugado** rompe la raíz mediante la **diferencia de cuadrados**, lo que deja expuesto un factor común con el denominador.\n\nSi $u - c^2$ resulta múltiplo de $(x-a)$, ese factor se cancela y la **indeterminación** desaparece antes de sustituir.\n\nSin esa cancelación, sustituir directamente seguiría dando una indeterminación $0/0$: el conjugado es un medio para llegar al factor cancelable, no un fin en sí mismo.",
     "reviewed": false,
     "tags": [
       "proposito-logico-conjugado"

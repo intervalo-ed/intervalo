@@ -113,7 +113,7 @@
       -1,
       11
     ],
-    "explanation": "Leer la altura de una parábola en un instante puntual significa evaluar la función en ese valor de la coordenada horizontal, buscando el punto exacto de la curva que está justo arriba (o abajo) de esa marca en el eje.\n\nAcá se pide la altura a los 2 segundos, así que hay que reemplazar $x$ por 2 en la fórmula del vértice:\n\nLa pelota está a 6 metros en ese instante.\n\nEsa altura todavía no es la máxima, la pelota sigue subiendo camino al vértice; conviene no confundir un punto cualquiera del recorrido con el punto más alto.",
+    "explanation": "Leer la altura de una parábola en un instante puntual significa evaluar la función en ese valor de la coordenada horizontal,\n\nbuscando el punto exacto de la curva que está justo arriba (o abajo) de esa marca en el eje.\n\nAcá se pide la altura a los 2 segundos, así que hay que reemplazar $x$ por 2 en la fórmula del vértice:\n\nLa pelota está a 6 metros en ese instante.\n\nEsa altura todavía no es la máxima, la pelota sigue subiendo camino al vértice; conviene no confundir un punto cualquiera del recorrido con el punto más alto.",
     "reviewed": false,
     "tags": [
       "vertice-x"
@@ -413,7 +413,7 @@
       -1,
       13
     ],
-    "explanation": "El punto más alto de cualquier trayectoria en forma de parábola es su **vértice**, y la coordenada horizontal de ese punto indica en qué momento se alcanza esa altura máxima, sin importar cuál sea el valor de la altura en sí.\n\nAcá el vértice está en $x = 6$, así que el instante del punto más alto es:\n\nEl fuego artificial explota a los 6 segundos de encendida la mecha.\n\nConviene no mezclar esta coordenada horizontal con la altura del vértice: una responde cuándo ocurre el máximo, la otra responde cuánto mide.",
+    "explanation": "El punto más alto de cualquier trayectoria en forma de parábola es su **vértice**,\n\ny la coordenada horizontal de ese punto indica en qué momento se alcanza esa altura máxima, sin importar cuál sea el valor de la altura en sí.\n\nAcá el vértice está en $x = 6$, así que el instante del punto más alto es:\n\nEl fuego artificial explota a los 6 segundos de encendida la mecha.\n\nConviene no mezclar esta coordenada horizontal con la altura del vértice: una responde cuándo ocurre el máximo, la otra responde cuánto mide.",
     "reviewed": false,
     "tags": [
       "lectura-fv"
@@ -983,7 +983,7 @@
       -1,
       11
     ],
-    "explanation": "El **vértice** de una parábola que abre hacia abajo es el punto más alto de todo el arco, y su coordenada horizontal indica a qué distancia del origen se produce ese máximo, sin importar cuánto valga la altura en ese punto.\n\nAcá esa coordenada es:\n\nAsí que el chorro llega a su punto más alto a los 5 metros de la manguera.\n\nUn punto cercano al vértice, un metro antes o después, todavía no es el vértice: solo esa coordenada exacta marca la distancia del máximo.",
+    "explanation": "El **vértice** de una parábola que abre hacia abajo es el punto más alto de todo el arco,\n\ny su coordenada horizontal indica a qué distancia del origen se produce ese máximo, sin importar cuánto valga la altura en ese punto.\n\nAcá esa coordenada es:\n\nAsí que el chorro llega a su punto más alto a los 5 metros de la manguera.\n\nUn punto cercano al vértice, un metro antes o después, todavía no es el vértice: solo esa coordenada exacta marca la distancia del máximo.",
     "reviewed": false,
     "tags": [
       "sube-baja"
@@ -1133,7 +1133,7 @@
       -1,
       11
     ],
-    "explanation": "La **concavidad** de una parábola indica para qué lado abre la curva, y de ahí se desprende si el vértice funciona como techo o como piso.\n\nCuando abre hacia abajo, el vértice queda por encima de todo el resto de la curva y es un máximo; cuando abre hacia arriba, queda por debajo de todo lo demás y es un mínimo.\n\nEn este gráfico la parábola abre hacia abajo, así que el vértice representa la mayor ganancia posible del recital, con un precio de entrada óptimo en el medio: ni tan bajo que deje poco margen, ni tan alto que espante al público.\n\nEl sentido de apertura y el tipo de extremo siempre van juntos: una parábola que abre hacia abajo nunca tiene un mínimo, y una que abre hacia arriba nunca tiene un máximo.",
+    "explanation": "La **concavidad** de una parábola indica para qué lado abre la curva, y de ahí se desprende si el vértice funciona como techo o como piso.\n\nCuando abre hacia abajo, el vértice queda por encima de todo el resto de la curva y es un máximo; cuando abre hacia arriba, queda por debajo de todo lo demás y es un mínimo.\n\nEn este gráfico la parábola abre hacia abajo, así que el vértice representa la mayor ganancia posible del recital,\n\ncon un precio de entrada óptimo en el medio: ni tan bajo que deje poco margen, ni tan alto que espante al público.\n\nEl sentido de apertura y el tipo de extremo siempre van juntos: una parábola que abre hacia abajo nunca tiene un mínimo, y una que abre hacia arriba nunca tiene un máximo.",
     "reviewed": false,
     "tags": [
       "vertice-x"
@@ -1193,7 +1193,7 @@
       -1,
       11
     ],
-    "explanation": "Cuando una cantidad producida depende de una velocidad y existe un punto óptimo, como pasa con las páginas buenas de una impresora, esa relación dibuja una parábola que abre hacia abajo, con un **máximo** en su vértice.\n\nAcá el tope de páginas buenas por minuto es la coordenada vertical del vértice,:\n\nOcho páginas por minuto, a la velocidad marcada por la coordenada horizontal.\n\nImprimir más lento de lo necesario desaprovecha la máquina, y apurarla de más traba el papel; el mejor resultado siempre queda en un punto intermedio, nunca en los extremos.",
+    "explanation": "Cuando una cantidad producida depende de una velocidad y existe un punto óptimo, como pasa con las páginas buenas de una impresora,\n\nesa relación dibuja una parábola que abre hacia abajo, con un **máximo** en su vértice.\n\nAcá el tope de páginas buenas por minuto es la coordenada vertical del vértice,:\n\nOcho páginas por minuto, a la velocidad marcada por la coordenada horizontal.\n\nImprimir más lento de lo necesario desaprovecha la máquina, y apurarla de más traba el papel; el mejor resultado siempre queda en un punto intermedio, nunca en los extremos.",
     "reviewed": false,
     "tags": [
       "vertice-y"
@@ -1493,7 +1493,7 @@
       -1,
       11
     ],
-    "explanation": "Cuando un saldo baja durante unos meses y después se recupera, esa relación con el tiempo dibuja una parábola que abre hacia arriba, con un **mínimo** en el vértice: ningún otro mes registra un saldo más bajo que ese.\n\nAcá el mes de menor saldo es la coordenada horizontal del vértice,:\n\nLa cuenta toca fondo en el quinto mes.\n\nAntes de ese mes el saldo todavía viene bajando, y después empieza a recuperarse poco a poco; el vértice es el único punto exacto donde el descenso se frena y arranca la recuperación.",
+    "explanation": "Cuando un saldo baja durante unos meses y después se recupera, esa relación con el tiempo dibuja una parábola que abre hacia arriba,\n\ncon un **mínimo** en el vértice: ningún otro mes registra un saldo más bajo que ese.\n\nAcá el mes de menor saldo es la coordenada horizontal del vértice,:\n\nLa cuenta toca fondo en el quinto mes.\n\nAntes de ese mes el saldo todavía viene bajando, y después empieza a recuperarse poco a poco; el vértice es el único punto exacto donde el descenso se frena y arranca la recuperación.",
     "reviewed": false,
     "tags": [
       "vertice-x"

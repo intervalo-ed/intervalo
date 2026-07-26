@@ -313,7 +313,7 @@
       -2,
       12
     ],
-    "explanation": "Para comparar dos puntos marcados en una misma gráfica, conviene evaluar el criterio de existencia en cada uno por separado.En $x=-1$ la función pertenece a un único tramo sin interrupciones, así que el límite bilateral existe.\n\nEn $x=2$ hay un salto, así que no existe.\n\nUna misma gráfica puede tener puntos donde el límite bilateral existe y otros donde no, según haya o no un salto en ese punto específico.",
+    "explanation": "Para comparar dos puntos marcados en una misma gráfica, conviene evaluar el criterio de existencia en cada uno por\n\nseparado.En $x=-1$ la función pertenece a un único tramo sin interrupciones, así que el límite bilateral existe.\n\nEn $x=2$ hay un salto, así que no existe.\n\nUna misma gráfica puede tener puntos donde el límite bilateral existe y otros donde no, según haya o no un salto en ese punto específico.",
     "reviewed": false,
     "tags": [
       "diagnostico-bilateral-visual"

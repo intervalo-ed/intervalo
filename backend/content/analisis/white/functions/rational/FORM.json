@@ -358,7 +358,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar el intercepto con el eje $Y$ de cualquier función, evaluamos en $x=0$, siempre que ese punto esté en el dominio.\n\nAcá:El denominador $0-4=-4$ no se anula.\n\nasí que $x=0$ sí pertenece al dominio y el intercepto existe. olvidar el signo negativo del denominador y arrastrar el resultado como positivo; conviene calcular numerador y denominador por separado antes de dividir.",
+    "explanation": "Para hallar el intercepto con el eje $Y$ de cualquier función, evaluamos en $x=0$, siempre que ese punto esté en el dominio.\n\nAcá:El denominador $0-4=-4$ no se anula.\n\nasí que $x=0$ sí pertenece al dominio y el intercepto existe. olvidar el signo negativo del denominador y arrastrar el resultado como positivo;\n\nconviene calcular numerador y denominador por separado antes de dividir.",
     "reviewed": false,
     "tags": [
       "dominio-form"

@@ -321,7 +321,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La sustitución directa de $x=3$ da 0/0.\n\nAquí el numerador es una **diferencia de cuadrados** y el denominador es un **trinomio**, así que ambos necesitan factorización: Esta es la **cancelación múltiple**: el factor problemático $(x-3)$ aparece en ambas partes.\n\nEn límites, la indeterminación nos garantiza que existe un factor común en numerador y denominador.\n\nFactorizar solo una parte deja la indeterminación sin resolver; hace falta factorizar los dos polinomios para localizar qué factor se repite en ambos.",
+    "explanation": "La sustitución directa de $x=3$ da 0/0.\n\nAquí el numerador es una **diferencia de cuadrados** y el denominador es un **trinomio**,\n\nasí que ambos necesitan factorización: Esta es la **cancelación múltiple**: el factor problemático $(x-3)$ aparece en ambas partes.\n\nEn límites, la indeterminación nos garantiza que existe un factor común en numerador y denominador.\n\nFactorizar solo una parte deja la indeterminación sin resolver; hace falta factorizar los dos polinomios para localizar qué factor se repite en ambos.",
     "reviewed": false
   },
   {
@@ -371,7 +371,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La sustitución directa de $x=-2$ da 0/0.\n\nEl numerador es una **diferencia de cuadrados** y el denominador es un **trinomio**, así que ambos se factorizan: Al evaluar el cociente simplificado $\\frac{x-2}{x+3}$ en $x=-2$, obtenemos $\\frac{-2-2}{-2+3} = \\frac{-4}{1} = -4$.\n\nEl límite es negativo porque el numerador del cociente simplificado es negativo y el denominador es positivo.\n\nLa indeterminación original 0/0 se resolvió únicamente mediante factorización completa de ambas partes.",
+    "explanation": "La sustitución directa de $x=-2$ da 0/0.\n\nEl numerador es una **diferencia de cuadrados** y el denominador es un **trinomio**,\n\nasí que ambos se factorizan: Al evaluar el cociente simplificado $\\frac{x-2}{x+3}$ en $x=-2$, obtenemos $\\frac{-2-2}{-2+3} = \\frac{-4}{1} = -4$.\n\nEl límite es negativo porque el numerador del cociente simplificado es negativo y el denominador es positivo.\n\nLa indeterminación original 0/0 se resolvió únicamente mediante factorización completa de ambas partes.",
     "reviewed": false
   }
 ]
