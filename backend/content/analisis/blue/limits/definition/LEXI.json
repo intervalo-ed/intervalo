@@ -3,7 +3,7 @@
     "question": "Considerá la expresión\\n$$\\lim_{x \\to 3} f(x)$$\\n¿Qué describe mejor la flecha $\\to$ en esta notación?",
     "options": [
       "Que $x$ es igual a $3$ en ese instante",
-      "Que $x$ se acerca cada vez más a $3$, sin necesitar llegar a valer $3$",
+      "Que $x$ se acerca cada vez más a $3$",
       "Que $f(x)$ se transforma en el número $3$"
     ],
     "correct_index": 1,
@@ -27,7 +27,7 @@
     "options": [
       "El valor de $x$ en el punto de partida",
       "El valor que toma $f$ exactamente en $a$",
-      "El número al que se aproxima $f(x)$ cuando $x$ tiende a $a$"
+      "El número al que se aproxima $f(x)$ cuando $x$"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -161,11 +161,11 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = x^2$$\nse cumple $\\lim_{x \\to 3} f(x) = 9$ y también $f(3) = 9$.\\n\\n¿Por qué coinciden el límite y la evaluación en este caso?",
+    "question": "Considerá la función:\n$$f(x) = x^2$$\nSe cumple $\\lim_{x \\to 3} f(x) = 9$ y también $f(3) = 9$.\\n\\n¿Por qué coinciden el límite y la evaluación en este caso?",
     "options": [
       "Porque en toda función siempre coinciden, sin excepción",
       "Es una coincidencia numérica sin relación con las propiedades de $f$",
-      "Porque $f$ es continua en $x=3$ y su comportamiento cercano coincide con su valor exacto"
+      "Porque $f$ es continua en $x=3$ y su comportamiento cercano coincide con su"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -210,7 +210,7 @@
     "question": "Al sustituir directamente $x=2$ en una expresión, el resultado es una indeterminación $0/0$.\\n\\n¿Qué significa este resultado?",
     "options": [
       "Que el límite no existe",
-      "Que hay una indeterminación, y se necesita otra técnica para calcular el límite",
+      "Que hay una indeterminación",
       "Que el límite vale exactamente $0$"
     ],
     "correct_index": 1,
@@ -255,7 +255,7 @@
   {
     "question": "Dos ejercicios piden sustituir $x=5$. En el primero, numerador y denominador dan ambos $0$. En el segundo, el numerador da $0$ y el denominador da $2$.\\n\\n¿Qué diferencia hay entre ambos resultados?",
     "options": [
-      "El primero es una indeterminación que exige otra técnica, el segundo ya está resuelto y vale $0$",
+      "El primero es una indeterminación que exige otra técnica",
       "Ambos son indeterminaciones y requieren la misma técnica",
       "El primero vale $0$ directamente y el segundo requiere otra técnica"
     ],
@@ -279,7 +279,7 @@
     "question": "Para poder calcular un límite por sustitución directa, ¿qué condición debe cumplirse en el punto de tendencia?",
     "options": [
       "Que la función sea un polinomio de grado mayor a dos",
-      "Que la expresión esté bien definida ahí, sin división por cero ni raíces de números negativos",
+      "Que la expresión esté bien definida ahí",
       "Que el punto de tendencia sea un número entero"
     ],
     "correct_index": 1,
@@ -303,7 +303,7 @@
     "options": [
       "Que la base del logaritmo sea mayor a $10$",
       "Que $x$ tienda a un número negativo",
-      "Que el argumento $x - 1$ sea positivo en el punto de tendencia"
+      "Que el argumento $x - 1$ sea positivo en el"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -324,7 +324,7 @@
   {
     "question": "Una función tiene un hueco justo en $x=7$, aunque para valores cercanos se comporta como una expresión conocida.\\n\\n¿Es válido calcular $\\lim_{x \\to 7} f(x)$ por sustitución directa evaluando $f(7)$?",
     "options": [
-      "No, porque $f(7)$ no existe, hay que analizar el comportamiento del entorno",
+      "No, porque $f(7)$ no existe",
       "Sí, siempre que el resultado sea un número finito",
       "Sí, porque todo límite se resuelve evaluando el punto exacto"
     ],

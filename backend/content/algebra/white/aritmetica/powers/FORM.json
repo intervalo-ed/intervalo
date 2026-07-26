@@ -15,7 +15,7 @@
       "El denominador tiene una sola potencia, no un producto de dos potencias.",
       "El exponente negativo ya está en la base del numerador, no hace falta invertir nada todavía."
     ],
-    "explanation": "Antes de calcular el resultado final, hay que identificar qué **propiedad de la potenciación** corresponde a cada parte de la expresión.\n\nEn $\\dfrac{a^5 \\cdot a^{-2}}{a^3}$, el numerador multiplica dos potencias de igual base, así que se aplica $a^m \\cdot a^n = a^{m+n}$: $a^5 \\cdot a^{-2} = a^{3}$.\nRecién después se aplica la propiedad del cociente entre el resultado y $a^3$.\nUn error frecuente es aplicar la propiedad del cociente antes de simplificar el producto del numerador.",
+    "explanation": "Antes de calcular el resultado final, hay que identificar qué **propiedad de la potenciación** corresponde a cada parte de la expresión.\n\nEn $\\dfrac{a^5 \\cdot a^{-2}}{a^3}$, el numerador multiplica dos potencias de igual base, así que se aplica $a^m \\cdot a^n = a^{m+n}$: $a^5 \\cdot a^{-2} = a^{3}$.\nRecién después se aplica la propiedad del cociente entre el resultado y $a^3$.\nAplicar la propiedad del cociente antes de simplificar el producto del numerador produce resultados incorrectos debido al orden incorrecto de las operaciones.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

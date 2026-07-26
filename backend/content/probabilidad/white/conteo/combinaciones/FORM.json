@@ -15,7 +15,7 @@
       null,
       "Ese es el arreglo con repetición: acá se eligen 3 cartas distintas del mazo, sin reposición."
     ],
-    "explanation": "Las **combinaciones** eligen $k$ elementos de $n$ sin orden:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nEn el mazo $n=40$ y $k=3$, así que:\n$$\\binom{40}{3} = \\frac{40!}{3!\\,37!} = \\frac{40 \\times 39 \\times 38}{6} = 9880$$\nUn error clásico es confundir la fórmula con la de variación y olvidar dividir por $k!$: recordá que el $k!$ del denominador es exactamente lo que \"borra\" el orden dentro del subgrupo elegido.",
+    "explanation": "Las **combinaciones** eligen $k$ elementos de $n$ sin orden:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nEn el mazo $n=40$ y $k=3$, así que:\n$$\\binom{40}{3} = \\frac{40!}{3!\\,37!} = \\frac{40 \\times 39 \\times 38}{6} = 9880$$\nConfundir la fórmula con la de variación y olvidar dividir por $k!$ termina dando un conteo incorrecto; el $k!$ del denominador es exactamente lo que \"borra\" el orden dentro del subgrupo elegido.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

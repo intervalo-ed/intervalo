@@ -15,7 +15,7 @@
       "El coeficiente de $x^2$ está mal: $3x\\cdot2x=6x^2$, no $5x^2$.",
       "Al distribuir sobre $-5$ el resultado es $-15x$ (con la $x$), no $-15$ solo."
     ],
-    "explanation": "Antes de sumar términos semejantes, hay que identificar la **expresión correcta** tras aplicar la propiedad distributiva.\n\nDistribuyendo $3x$ sobre cada término entre paréntesis:\n$$3x(2x-5) = 3x\\cdot2x - 3x\\cdot5 = 6x^2 - 15x$$\nSumando el término $4x$ que ya estaba afuera del paréntesis:\n$$6x^2 - 15x + 4x$$\nUn error frecuente es distribuir sobre un solo término del paréntesis y olvidar el otro.",
+    "explanation": "Antes de sumar términos semejantes, hay que identificar la **expresión correcta** tras aplicar la propiedad distributiva.\n\nDistribuyendo $3x$ sobre cada término entre paréntesis:\n$$3x(2x-5) = 3x\\cdot2x - 3x\\cdot5 = 6x^2 - 15x$$\nSumando el término $4x$ que ya estaba afuera del paréntesis:\n$$6x^2 - 15x + 4x$$\nDistribuir sobre un solo término del paréntesis produce $6x^2 - 5x + 4x$ en lugar de $6x^2 - 15x + 4x$, perdiendo parte de la expresión correcta.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

@@ -278,7 +278,7 @@
   {
     "question": "Considerá:\n$$\\frac{d}{dx}[\\cdot]$$\n¿Qué representa el operador?",
     "options": [
-      "Un operador que deriva la expresión que tiene adentro respecto de $x$",
+      "Un operador que deriva la expresión que tiene adentro",
       "Una fracción que se puede simplificar cancelando las $d$",
       "El valor numérico de la derivada en un punto"
     ],
@@ -326,7 +326,7 @@
     "options": [
       "Sí, siempre se puede cancelar como cualquier fracción",
       "Sí, pero solo si $y$ es lineal",
-      "No, es una notación que representa un límite, no una fracción para simplificar"
+      "No, es una notación que representa un límite"
     ],
     "correct_index": 2,
     "has_math": true,

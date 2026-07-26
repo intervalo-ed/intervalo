@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **conjugado** es una herramienta algebraica clave para trabajar con raíces en límites. Cuando encontramos una indeterminación 0/0 causada por una raíz cuadrada, el conjugado nos permite transformar la expresión sin cambiar su valor en el límite.\n\nEl **conjugado** de una expresión con raíz cuadrada del tipo $\\sqrt{u} - c$ se construye cambiando únicamente el signo entre los dos términos externos, sin alterar el radicando.\n$$\\sqrt{x+4} - 2 \\;\\to\\; \\sqrt{x+4} + 2$$\nAl multiplicar la expresión original por este conjugado se dispara la **diferencia de cuadrados**, que rompe la raíz y permite cancelar el factor problemático.\n\nEl error más común es tocar el signo de adentro de la raíz en lugar del signo entre los términos externos: conviene revisar ese detalle antes de multiplicar.",
+    "explanation": "El **conjugado** es una herramienta algebraica clave para trabajar con raíces en límites. Cuando encontramos una indeterminación 0/0 causada por una raíz cuadrada, el conjugado nos permite transformar la expresión sin cambiar su valor en el límite.\n\nEl **conjugado** de una expresión con raíz cuadrada del tipo $\\sqrt{u} - c$ se construye cambiando únicamente el signo entre los dos términos externos, sin alterar el radicando.\n$$\\sqrt{x+4} - 2 \\;\\to\\; \\sqrt{x+4} + 2$$\nAl multiplicar la expresión original por este conjugado se dispara la **diferencia de cuadrados**, que rompe la raíz y permite cancelar el factor problemático.\n\nSi olvidas revisar cuál signo corresponde cambiar, multiplicarás por un conjugado incorrecto y la raíz no desaparecerá como es debido.",
     "reviewed": false,
     "tags": [
       "identificacion-del-conjugado"
@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificar el conjugado correctamente es fundamental para resolver límites con raíces. El conjugado prepara la estructura para que, al multiplicar, la raíz desaparezca mediante la diferencia de cuadrados.\n\nEl **conjugado** de una expresión con raíz cuadrada se arma invirtiendo el signo entre los dos términos externos, sin modificar el radicando.\n$$\\sqrt{x+9} + 5 \\;\\to\\; \\sqrt{x+9} - 5$$\nAl multiplicar por este conjugado se genera una **diferencia de cuadrados** que libera el radicando, quedando $(x+9) - 25$.\n\nUn desliz típico es cambiar el signo dentro de la raíz en vez del signo externo: conviene chequear cuál de los dos signos corresponde modificar antes de avanzar.",
+    "explanation": "Identificar el conjugado correctamente es fundamental para resolver límites con raíces. El conjugado prepara la estructura para que, al multiplicar, la raíz desaparezca mediante la diferencia de cuadrados.\n\nEl **conjugado** de una expresión con raíz cuadrada se arma invirtiendo el signo entre los dos términos externos, sin modificar el radicando.\n$$\\sqrt{x+9} + 5 \\;\\to\\; \\sqrt{x+9} - 5$$\nAl multiplicar por este conjugado se genera una **diferencia de cuadrados** que libera el radicando, quedando $(x+9) - 25$.\n\nSi cambias el signo del radicando en lugar del signo externo, tu conjugado no funcionará para romper la raíz cuando lo necesites.",
     "reviewed": false,
     "tags": [
       "identificacion-del-conjugado"
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjugado es la clave para una racionalización exitosa. Construirlo correctamente-solo cambiando el signo externo-asegura que luego podamos aplicar la identidad de diferencia de cuadrados para romper la raíz.\n\nPara armar el **conjugado** de $\\sqrt{u} - c$ se invierte solo el signo entre los dos términos externos, dejando intacto el radicando $u$.\n$$\\sqrt{2x+1} - 3 \\;\\to\\; \\sqrt{2x+1} + 3$$\nAl multiplicar la expresión original por este conjugado, la **diferencia de cuadrados** transforma el numerador en $(2x+1) - 9$, sin raíces.\n\nConfundir el signo interno con el externo es el error más frecuente en este paso: revisar cuál de los dos hay que invertir evita perder el resto del ejercicio.",
+    "explanation": "El conjugado es la clave para una racionalización exitosa. Construirlo correctamente-solo cambiando el signo externo-asegura que luego podamos aplicar la identidad de diferencia de cuadrados para romper la raíz.\n\nPara armar el **conjugado** de $\\sqrt{u} - c$ se invierte solo el signo entre los dos términos externos, dejando intacto el radicando $u$.\n$$\\sqrt{2x+1} - 3 \\;\\to\\; \\sqrt{2x+1} + 3$$\nAl multiplicar la expresión original por este conjugado, la **diferencia de cuadrados** transforma el numerador en $(2x+1) - 9$, sin raíces.\n\nSi inviertes el signo equivocado, perderás la estructura que permite aplicar la diferencia de cuadrados y desbloquear la raíz.",
     "reviewed": false,
     "tags": [
       "identificacion-del-conjugado"
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El producto del conjugado genera una diferencia de cuadrados, que es la razón por la que la técnica funciona. Sin esta identidad, no tendríamos una forma de eliminar la raíz y resolver el límite.\n\nLa **diferencia de cuadrados** indica que $(\\sqrt{u} - c)(\\sqrt{u} + c) = u - c^2$, con $u = x+9$ y $c = 3$.\n$$(\\sqrt{x+9} - 3)(\\sqrt{x+9} + 3) = (x+9) - 3^2 = (x+9) - 9 = x$$\nEl radicando pierde la raíz apenas se aplica la identidad, sin necesidad de ningún otro paso algebraico.\n\nUn error frecuente es restar $c$ en lugar de $c^2$: conviene elevar al cuadrado el segundo término antes de restar.",
+    "explanation": "El producto del conjugado genera una diferencia de cuadrados, que es la razón por la que la técnica funciona. Sin esta identidad, no tendríamos una forma de eliminar la raíz y resolver el límite.\n\nLa **diferencia de cuadrados** indica que $(\\sqrt{u} - c)(\\sqrt{u} + c) = u - c^2$, con $u = x+9$ y $c = 3$.\n$$(\\sqrt{x+9} - 3)(\\sqrt{x+9} + 3) = (x+9) - 3^2 = (x+9) - 9 = x$$\nEl radicando pierde la raíz apenas se aplica la identidad, sin necesidad de ningún otro paso algebraico.\n\nSi restas $c$ sin elevarlo al cuadrado, obtendrás un resultado que no corresponde a la diferencia de cuadrados correcta.",
     "reviewed": false,
     "tags": [
       "identidad-fundamental-conjugado"
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$\\lim_{x \\to 0} \\dfrac{\\sqrt{x+1}-1}{x}$$\nque da la indeterminación una indeterminación $0/0$ y sí tiene una raíz cuadrada, ¿qué técnica corresponde?",
+    "question": "Considerá:\n$$\\lim_{x \\to 0} \\dfrac{\\sqrt{x+1}-1}{x}$$\nQue da la indeterminación una indeterminación $0/0$ y sí tiene una raíz cuadrada, ¿qué técnica corresponde?",
     "options": [
       "Sustitución directa",
       "Indeterminación no resoluble",
@@ -257,7 +257,7 @@
     "options": [
       "Racionalizar",
       "Factorizar",
-      "Sustitución directa"
+      "Sustitución"
     ],
     "correct_index": 2,
     "has_math": true,

@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$x=a$$\nse cumple que $f(a) = 5$ y que el límite bilateral existe y vale $5$.\n\n¿Qué diagnóstico corresponde en ese punto?",
+    "question": "Considerá la función:\n$$x=a$$\nSe cumple que $f(a) = 5$ y que el límite bilateral existe y vale $5$.\n\n¿Qué diagnóstico corresponde en ese punto?",
     "options": [
       "Removible",
       "Continua",
@@ -46,7 +46,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$x=a$$\nel límite lateral izquierdo vale $3$ y el límite lateral derecho vale $7$, mientras que $f(a)$ está definida en $3$.\n\n¿Qué tipo de **discontinuidad** corresponde en ese punto?",
+    "question": "Considerá la función:\n$$x=a$$\nEl límite lateral izquierdo vale $3$ y el límite lateral derecho vale $7$, mientras que $f(a)$ está definida en $3$.\n\n¿Qué tipo de **discontinuidad** corresponde en ese punto?",
     "options": [
       "Removible",
       "Esencial",
@@ -69,7 +69,7 @@
     ]
   },
   {
-    "question": "Dado el límite:\n$$x=a$$\nel límite lateral izquierdo diverge a $+\\infty$, mientras que el límite lateral derecho vale $2$.\n\n¿Qué tipo de discontinuidad corresponde en ese punto?",
+    "question": "Dado el límite:\n$$x=a$$\nEl límite lateral izquierdo diverge a $+\\infty$, mientras que el límite lateral derecho vale $2$.\n\n¿Qué tipo de discontinuidad corresponde en ese punto?",
     "options": [
       "De salto",
       "Esencial",
@@ -92,7 +92,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$x=a$$\nel límite bilateral existe y vale $8$, y además $f(a)$ está definida, pero su valor es $2$.\n\n¿Qué tipo de discontinuidad corresponde?",
+    "question": "Considerá la función:\n$$x=a$$\nEl límite bilateral existe y vale $8$, y además $f(a)$ está definida, pero su valor es $2$.\n\n¿Qué tipo de discontinuidad corresponde?",
     "options": [
       "Esencial",
       "De salto",

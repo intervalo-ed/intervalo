@@ -15,7 +15,7 @@
       "Eso sale de ignorar la resta final por el denominador $2^4$ y quedarse solo con el resultado del numerador.",
       "Eso sale de invertir el orden de la resta entre los exponentes."
     ],
-    "explanation": "Al **multiplicar potencias de igual base** los exponentes se suman, y al dividirlas se restan; estas reglas evitan tener que desarrollar cada potencia por separado.\n\nAplicando la propiedad a la expresión dada:\n$$\\frac{2^5 \\cdot 2^{-2}}{2^4}$$\nEn el numerador los exponentes se suman:\n$$2^5 \\cdot 2^{-2} = 2^{3}$$\nDividiendo por $2^4$ se resta el exponente del denominador:\n$$2^{3} \\div 2^{4} = 2^{-1}$$\nUn error frecuente es olvidar que dividir potencias resta exponentes, no los suma, sobre todo cuando alguno de ellos ya es negativo.",
+    "explanation": "Al **multiplicar potencias de igual base** los exponentes se suman, y al dividirlas se restan; estas reglas evitan tener que desarrollar cada potencia por separado.\n\nAplicando la propiedad a la expresión dada:\n$$\\frac{2^5 \\cdot 2^{-2}}{2^4}$$\nEn el numerador los exponentes se suman:\n$$2^5 \\cdot 2^{-2} = 2^{3}$$\nDividiendo por $2^4$ se resta el exponente del denominador:\n$$2^{3} \\div 2^{4} = 2^{-1}$$\nOlvidar restar los exponentes en una división produce $2^{7}$ en lugar de $2^{-1}$, un resultado completamente incorrecto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

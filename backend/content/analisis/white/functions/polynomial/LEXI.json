@@ -85,7 +85,7 @@
       "Coeficiente constante",
       "Término independiente",
       "Raíz",
-      "Coeficiente principal (o líder)"
+      "Coeficiente principal"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -592,7 +592,7 @@
   {
     "question": "¿Cuál de estas afirmaciones describe a un polinomio par?",
     "options": [
-      "Solo tiene potencias de grado par y $f(-x) = f(x)$",
+      "Solo tiene potencias de grado par y $f(-x) =",
       "Solo tiene potencias de grado impar",
       "Tiene exactamente un número par de términos",
       "Su grado es un número par"
@@ -640,7 +640,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$p(x)$$\ntiene **grado** 3 y $q(x)$ tiene grado 2, ¿cuál es el grado de $p(x) \\cdot q(x)$?",
+    "question": "Considerá la función:\n$$p(x)$$\nTiene **grado** 3 y $q(x)$ tiene grado 2, ¿cuál es el grado de $p(x) \\cdot q(x)$?",
     "options": [
       "$1$",
       "$5$",
@@ -665,7 +665,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$p(x)$$\ntiene **grado** 4 y $q(x)$ tiene grado 4, ¿cuál es el grado de $p(x) + q(x)$?",
+    "question": "Considerá la función:\n$$p(x)$$\nTiene **grado** 4 y $q(x)$ tiene grado 4, ¿cuál es el grado de $p(x) + q(x)$?",
     "options": [
       "Siempre $8$",
       "Siempre $4$",
@@ -695,7 +695,7 @@
       "Raíz",
       "Extremo local",
       "Vértice",
-      "Punto de inflexión"
+      "Punto de"
     ],
     "correct_index": 3,
     "feedback_correct": "El punto donde la curva cambia de concavidad se llama **punto de inflexión**.",
@@ -1130,7 +1130,7 @@
       "Un polinomio de grado impar no se estabiliza en un valor finito hacia los extremos: diverge hacia $+\\infty$ o $-\\infty$, nunca converge a $0$.",
       "El término independiente solo desplaza la curva verticalmente; no cambia hacia dónde va la función cuando $x$ crece sin límite."
     ],
-    "explanation": "Para **grado** **impar** con coef. principal **negativo**:\n$$x \\to +\\infty \\Rightarrow p(x) \\to -\\infty$$\n$$x \\to -\\infty \\Rightarrow p(x) \\to +\\infty$$\nLa curva baja a la derecha y sube a la izquierda. Es como $-x^3$, que cae indefinidamente hacia la derecha.\n\nEl **término independiente** solo desplaza verticalmente la curva; no cambia el comportamiento en los **extremos**.",
+    "explanation": "Para **grado** **impar** con coef. principal **negativo**:\n$$x \\to +\\infty \\Rightarrow p(x) \\to -\\infty$$\n$$X \\to -\\infty \\Rightarrow p(x) \\to +\\infty$$\nLa curva baja a la derecha y sube a la izquierda. Es como $-x^3$, que cae indefinidamente hacia la derecha.\n\nEl **término independiente** solo desplaza verticalmente la curva; no cambia el comportamiento en los **extremos**.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1219,7 +1219,7 @@
     "options": [
       "$x = 1$ es una raíz simple",
       "$x = 1$ es una raíz doble",
-      "$x = 1$ es una raíz triple: la curva cruza el eje con un punto de inflexión",
+      "$x = 1$ es una raíz triple",
       "$x = 1$ es un máximo local"
     ],
     "correct_index": 2,
@@ -1244,7 +1244,7 @@
     "options": [
       "$0$",
       "$1$",
-      "No está definido",
+      "No",
       "$-\\infty$"
     ],
     "correct_index": 2,

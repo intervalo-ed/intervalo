@@ -95,7 +95,7 @@
     "question": "¿Qué representa $C$ en el resultado $F(x) + C$?",
     "options": [
       "El valor numérico de la integral definida",
-      "La constante de integración, parte inseparable del resultado",
+      "La constante de integración",
       "Un valor fijo universal igual para toda integral"
     ],
     "correct_index": 1,
@@ -140,7 +140,7 @@
   {
     "question": "Al escribir una integral indefinida como:\n$$\\int 3x\\,dx$$\n¿qué rol cumple $dx$ en esa expresión?",
     "options": [
-      "Marca que la integración es respecto de la variable $x$",
+      "Marca que la integración es respecto de la",
       "Multiplica aritméticamente al $3x$",
       "Indica el límite superior de la integral"
     ],
@@ -207,9 +207,9 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$F$$\nes una **primitiva** de $f$, ¿qué otra función también es primitiva de $f$?",
+    "question": "Considerá la función:\n$$F$$\nEs una **primitiva** de $f$, ¿qué otra función también es primitiva de $f$?",
     "options": [
-      "$F(x)+5$, para cualquier constante",
+      "$F(x)+5$",
       "$F(x) \\cdot 5$",
       "$F(x)^2$"
     ],
@@ -278,7 +278,7 @@
   {
     "question": "¿Pueden dos primitivas distintas de la misma función $f$ cruzarse en algún punto?",
     "options": [
-      "No, al diferir en una constante, nunca se cruzan",
+      "No, al diferir en una constante",
       "Sí, se cruzan siempre en el origen",
       "Sí, se cruzan en el punto donde $f(x)=0$"
     ],
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$F'(x) = f(x)$$\npara todo $x$, ¿qué se puede afirmar sobre $F$?",
+    "question": "Considerá:\n$$F'(x) = f(x)$$\nPara todo $x$, ¿qué se puede afirmar sobre $F$?",
     "options": [
       "$F$ es la integral definida de $f$",
       "$F$ es una primitiva de $f$",

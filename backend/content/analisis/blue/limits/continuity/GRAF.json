@@ -268,7 +268,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$x=1$$\nhay un círculo abierto sobre la curva y, además, un punto cerrado marcado a otra altura distinta.\n\n¿Qué tipo de discontinuidad hay en $x=1$?",
+    "question": "Considerá:\n$$x=1$$\nHay un círculo abierto sobre la curva y, además, un punto cerrado marcado a otra altura distinta.\n\n¿Qué tipo de discontinuidad hay en $x=1$?",
     "options": [
       "Esencial",
       "Removible",
@@ -296,7 +296,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$x=2$$\ndos ramas llegan a alturas claramente distintas, ambas con puntos cerrados en sus extremos.\n\n¿Qué tipo de discontinuidad hay en $x=2$?",
+    "question": "Considerá:\n$$x=2$$\nDos ramas llegan a alturas claramente distintas, ambas con puntos cerrados en sus extremos.\n\n¿Qué tipo de discontinuidad hay en $x=2$?",
     "options": [
       "Removible",
       "Esencial",
@@ -380,7 +380,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$x=-1$$\ndos ramas rectas llegan a alturas distintas, cada una con su extremo marcado con un punto cerrado.\n\n¿Qué tipo de discontinuidad hay en $x=-1$?",
+    "question": "Considerá:\n$$x=-1$$\nDos ramas rectas llegan a alturas distintas, cada una con su extremo marcado con un punto cerrado.\n\n¿Qué tipo de discontinuidad hay en $x=-1$?",
     "options": [
       "De salto",
       "Esencial",

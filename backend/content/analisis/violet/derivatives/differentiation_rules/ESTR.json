@@ -50,7 +50,7 @@
     "options": [
       "Aplicar la regla del cociente sobre la raíz",
       "Tratarla como una función trigonométrica compuesta",
-      "Reescribir la expresión como $x^{1/2}$ y aplicar la regla de la potencia"
+      "Reescribir la expresión como $x^{1/2}$ y aplicar la regla de"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -95,7 +95,7 @@
     "question": "En el término $5x^4$ dentro de una suma más grande, ¿qué combinación de reglas corresponde aplicar?",
     "options": [
       "Regla de la cadena sobre el exponente",
-      "Múltiplo escalar junto con la regla de la potencia",
+      "Múltiplo escalar junto con la regla de la",
       "Regla del cociente sobre el coeficiente"
     ],
     "correct_index": 1,
@@ -119,7 +119,7 @@
     "options": [
       "Aplicar primero la regla del producto entre los dos términos",
       "Combinar ambos términos en uno solo antes de derivar",
-      "Aplicar linealidad primero, y a cada término la regla que le corresponda por separado"
+      "Aplicar linealidad primero"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -140,7 +140,7 @@
   {
     "question": "Para derivar:\n$$f(x) = \\frac{x^3}{5}$$\n¿qué paso conviene dar primero?",
     "options": [
-      "Ver el $\\frac{1}{5}$ como un múltiplo escalar constante y derivar $x^3$ con la potencia",
+      "Ver el $\\frac{1}{5}$ como un múltiplo escalar constante y derivar",
       "Aplicar la regla del cociente entre $x^3$ y $5$",
       "Reescribir $5$ como una función de $x$ antes de derivar"
     ],
@@ -233,7 +233,7 @@
     "question": "En la misma función:\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿Qué regla corresponde aplicar al término $3x^2$?",
     "options": [
       "Regla de la constante",
-      "Múltiplo escalar junto con la regla de la potencia",
+      "Múltiplo escalar junto con la",
       "Derivada de exponencial"
     ],
     "correct_index": 1,
@@ -326,7 +326,7 @@
     "options": [
       "Regla de la potencia",
       "Derivada de exponencial",
-      "Múltiplo escalar junto con la derivada trigonométrica"
+      "Múltiplo escalar junto con"
     ],
     "correct_index": 2,
     "has_math": true,

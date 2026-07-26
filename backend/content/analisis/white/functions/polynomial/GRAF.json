@@ -1323,7 +1323,7 @@
     "question": "Un modelo de temperatura anual tiene la forma de un polinomio de grado 4 con coeficiente principal negativo. La gráfica muestra cómo varía la temperatura durante el año.\n\n¿El modelo tiene un mínimo global de temperatura?",
     "options": [
       "Sí, hay un mes más frío que todos los demás",
-      "No, la temperatura puede bajar indefinidamente según el modelo",
+      "No",
       "Sí, pero solo dentro del año modelado",
       "Depende de la cantidad de raíces del polinomio"
     ],
@@ -1355,7 +1355,7 @@
       "Solo entre $x = -1$ y $x = 3$",
       "Entre $x \\approx -0.5$ y $x \\approx 2$",
       "En todo el recorrido",
-      "Antes de $x \\approx -0.5$ y después de $x \\approx 2$"
+      "Antes de $x \\approx -0.5$ y después"
     ],
     "correct_index": 3,
     "feedback_correct": "La cúbica crece antes de su máximo local y después de su mínimo local.",

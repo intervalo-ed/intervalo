@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La notación $x \\to a^-$ describe una dirección de aproximación, no un número negativo. El superíndice se lee pegado al símbolo de acercamiento, nunca como si modificara el valor de $a$.\n\nEn el caso $x \\to 2^-$, los valores que toma $x$ son cada vez más cercanos a $2$ pero siempre menores: $1{,}9$, luego $1{,}99$, luego $1{,}999$, y así sucesivamente.\n\nUn error frecuente es leer el superíndice como si aplicara al número $2$, convirtiéndolo en $-2$. Conviene recordar que la dirección va pegada a la flecha de tendencia, no al punto en sí.",
+    "explanation": "La notación $x \\to a^-$ describe una dirección de aproximación, no un número negativo. El superíndice se lee pegado al símbolo de acercamiento, nunca como si modificara el valor de $a$.\n\nEn el caso $x \\to 2^-$, los valores que toma $x$ son cada vez más cercanos a $2$ pero siempre menores: $1{,}9$, luego $1{,}99$, luego $1{,}999$, y así sucesivamente.\n\nSi olvidas que la dirección va pegada a la flecha de tendencia y no al punto en sí, confundirás el símbolo de acercamiento con el número mismo.",
     "reviewed": false,
     "tags": [
       "notacion-y-direccion-lateral"
@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El superíndice de dirección siempre se escribe pegado al punto de tendencia $a$, dentro de la expresión $x \\to a$, nunca pegado a $f(x)$ ni al nombre de la función.\n\nEn el ejemplo, para 'tender a $5$ por la izquierda', el signo va junto al $5$:\n$$\\lim_{x \\to 5^-} f(x)$$\nCon el signo inmediatamente después del $5$.\n\nEste es un error de tipeo frecuente al pasar la notación de un apunte a una calculadora o a un procesador de texto: conviene revisar que el signo quede pegado al número de tendencia, no a la función.",
+    "explanation": "El superíndice de dirección siempre se escribe pegado al punto de tendencia $a$, dentro de la expresión $x \\to a$, nunca pegado a $f(x)$ ni al nombre de la función.\n\nEn el ejemplo, para 'tender a $5$ por la izquierda', el signo va junto al $5$:\n$$\\lim_{x \\to 5^-} f(x)$$\nCon el signo inmediatamente después del $5$.\n\nAl pasar la notación a una calculadora o procesador de texto, si escribís el signo junto a $f(x)$ en lugar del número, tu escritura será ambigua e incomprensible para quien la lea.",
     "reviewed": false,
     "tags": [
       "notacion-y-direccion-lateral"
@@ -96,7 +96,7 @@
     "options": [
       "Ambos deben dar necesariamente el mismo resultado numérico",
       "Ambos requieren que $f(a)$ esté definida para poder calcularse",
-      "Ambos describen un acercamiento al mismo punto $a$, solo cambia el lado desde el que se aproxima"
+      "Ambos describen un acercamiento al mismo punto $a$"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -165,7 +165,7 @@
     "options": [
       "No, si $f(a)$ no existe el límite tampoco puede existir",
       "Solo si $f$ es una función lineal",
-      "Sí, el límite bilateral solo depende de los valores laterales, no de $f(a)$"
+      "Sí, el límite bilateral solo depende de los valores"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -255,7 +255,7 @@
   {
     "question": "Una tarifa de estacionamiento cobra un monto fijo durante la primera hora y un monto mayor a partir de superar ese umbral.\n\nCerca del instante en que se cumple exactamente una hora, la tarifa muestra un **salto**: el costo justo antes del umbral es menor que el costo justo después.\n\n¿Existe el límite bilateral del costo en ese instante?",
     "options": [
-      "No, porque los límites laterales del costo son distintos",
+      "No",
       "Sí, porque el costo está definido en todo momento",
       "Sí, porque ambas tarifas son montos fijos"
     ],
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La inexistencia del **límite bilateral** es una conclusión lógica sobre la relación entre dos números existentes, no sobre la existencia de esos números. El **teorema de existencia** establece que si ambos laterales son números concretos y no coinciden, entonces el bilateral no existe.\n\nLa afirmación de tu compañero invierte la lógica. El caso más representativo de bilateral inexistente es precisamente cuando ambos **límites laterales** existen como números reales perfectamente definidos, pero $\\lim_{x \\to a^-} f(x) \\neq \\lim_{x \\to a^+} f(x)$.\n\nEn otras palabras: no coincidencia de laterales existentes ↔ inexistencia del bilateral. Confundir estas dos afirmaciones es un error frecuente de lógica.",
+    "explanation": "La inexistencia del **límite bilateral** es una conclusión lógica sobre la relación entre dos números existentes, no sobre la existencia de esos números. El **teorema de existencia** establece que si ambos laterales son números concretos y no coinciden, entonces el bilateral no existe.\n\nLa afirmación de tu compañero invierte la lógica. El caso más representativo de bilateral inexistente es precisamente cuando ambos **límites laterales** existen como números reales perfectamente definidos, pero $\\lim_{x \\to a^-} f(x) \\neq \\lim_{x \\to a^+} f(x)$.\n\nEn otras palabras: no coincidencia de laterales existentes ↔ inexistencia del bilateral. Invertir esta lógica te lleva a afirmar incorrectamente que los laterales no existen cuando en realidad es el bilateral el que falta.",
     "reviewed": false,
     "tags": [
       "teorema-existencia-bilateral"

@@ -75,7 +75,7 @@
   {
     "question": "¿Cómo se llama el número $b$ en $f(x) = mx + b$?",
     "options": [
-      "Ordenada al origen",
+      "Ordenada al",
       "Pendiente",
       "Raíz"
     ],
@@ -391,7 +391,7 @@
     "question": "¿Cuál es el nombre del punto donde una recta corta el eje Y?",
     "options": [
       "Vértice",
-      "Ordenada al origen",
+      "Ordenada al",
       "Raíz"
     ],
     "correct_index": 1,
@@ -437,7 +437,7 @@
     "question": "¿Cuál es la diferencia entre **pendiente** positiva y negativa?",
     "options": [
       "Con pendiente positiva no hay raíz",
-      "Con pendiente positiva la recta sube; con negativa baja",
+      "Con pendiente positiva la recta",
       "Solo afecta el dominio"
     ],
     "correct_index": 1,
@@ -461,7 +461,7 @@
     "options": [
       "Es el valor de $f(0)$",
       "Es la raíz de la función",
-      "Es la tasa de cambio de $f$ respecto a $x$"
+      "Es la tasa de cambio de $f$"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -556,7 +556,7 @@
     "question": "¿Cuál es la diferencia entre **dominio** e **imagen** en $f(x) = 2x + 3$?",
     "options": [
       "No hay diferencia",
-      "Dominio = entradas; imagen = salidas",
+      "Dominio = entradas; imagen =",
       "Dominio es $x$; imagen es $m$"
     ],
     "correct_index": 1,
@@ -854,7 +854,7 @@
     "question": "¿A qué familia pertenece $f(x) = \\sqrt{x}$?",
     "options": [
       "Lineal",
-      "Raíz (irracional)",
+      "Raíz",
       "Cuadrática",
       "Constante"
     ],
@@ -1000,7 +1000,7 @@
     "question": "¿Por qué la función $f(x) = mx + b$ con $m > 0$ nunca decrece?",
     "options": [
       "Porque $b > 0$",
-      "Porque la pendiente positiva hace que $f$ suba constantemente",
+      "Porque la pendiente",
       "Porque el dominio es $\\mathbb{R}$"
     ],
     "correct_index": 1,
@@ -1072,7 +1072,7 @@
     "options": [
       "La primera no es lineal",
       "La segunda es más empinada",
-      "Tienen la misma pendiente pero diferente ordenada al origen"
+      "Tienen la misma pendiente pero"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -1191,7 +1191,7 @@
     "options": [
       "Pasa por el origen",
       "Está definida en $\\mathbb{R}$",
-      "Tiene tasa de cambio constante"
+      "Tiene tasa de cambio"
     ],
     "correct_index": 2,
     "has_math": true,

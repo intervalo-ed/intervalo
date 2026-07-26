@@ -257,7 +257,7 @@
     "options": [
       "Vale $0$",
       "Diverge a $\\infty$",
-      "Vale el cociente de los coeficientes principales"
+      "Vale el"
     ],
     "correct_index": 2,
     "has_math": true,

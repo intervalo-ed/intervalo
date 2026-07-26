@@ -15,7 +15,7 @@
       "Ese es el mínimo común múltiplo, no el máximo común divisor.",
       "Ese valor solo considera el factor $2^2$ común, pero falta el $3$ que también divide a ambos."
     ],
-    "explanation": "El **máximo común divisor** se calcula descomponiendo cada número en producto de factores primos y tomando, de los que aparecen en ambas descomposiciones, la potencia menor de cada uno.\n\nAl descomponer los dos lotes en factores primos:\n$$36 = 2^2 \\cdot 3^2$$\n$$60 = 2^2 \\cdot 3 \\cdot 5$$\nLos factores comunes son $2^2$ y $3$, así que:\n$$\\gcd(36, 60) = 2^2 \\cdot 3 = 12$$\nUn error frecuente es confundir el MCD con el mínimo común múltiplo, que se arma multiplicando todos los factores primos con la mayor potencia en lugar de la menor.",
+    "explanation": "El **máximo común divisor** se calcula descomponiendo cada número en producto de factores primos y tomando, de los que aparecen en ambas descomposiciones, la potencia menor de cada uno.\n\nAl descomponer los dos lotes en factores primos:\n$$36 = 2^2 \\cdot 3^2$$\n$$60 = 2^2 \\cdot 3 \\cdot 5$$\nLos factores comunes son $2^2$ y $3$, así que:\n$$\\gcd(36, 60) = 2^2 \\cdot 3 = 12$$\nConfundir el MCD con el mínimo común múltiplo y usar la mayor potencia de cada factor produce 180 en lugar de 12, un valor radicalmente diferente.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

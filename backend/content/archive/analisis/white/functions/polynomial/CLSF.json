@@ -602,7 +602,7 @@
       "Extremos opuestos sí indican grado impar, pero el coeficiente positivo haría subir la curva a la derecha; acá baja, así que el coeficiente es negativo.",
       null
     ],
-    "explanation": "El comportamiento de un polinomio en los extremos se lee combinando dos datos: si ambos extremos van en la misma dirección el grado es par, y si van en sentidos opuestos el grado es impar. El signo del coeficiente principal decide, dentro de cada caso, hacia qué lado apunta la curva.\n\nAcá $p(x) \\to +\\infty$ cuando $x \\to -\\infty$ y $p(x) \\to -\\infty$ cuando $x \\to +\\infty$: los extremos son opuestos, así que el grado es impar. Como la curva sube a la izquierda y baja a la derecha, el coeficiente principal es negativo, como en $-x^3$.\n\nLa confusión típica es mirar solo un extremo y decidir el signo sin comparar los dos; conviene leer siempre el par completo de comportamientos antes de concluir grado y signo.",
+    "explanation": "El comportamiento de un polinomio en los extremos se lee combinando dos datos: si ambos extremos van en la misma dirección el grado es par, y si van en sentidos opuestos el grado es impar. El signo del coeficiente principal decide, dentro de cada caso, hacia qué lado apunta la curva.\n\nAcá $p(x) \\to +\\infty$ cuando $x \\to -\\infty$ y $p(x) \\to -\\infty$ cuando $x \\to +\\infty$: los extremos son opuestos, así que el grado es impar. Como la curva sube a la izquierda y baja a la derecha, el coeficiente principal es negativo, como en $-x^3$.\n\nMirar solo un extremo y decidir el signo sin comparar los dos lleva a conclusiones incompletas e incorrectas. Es necesario leer siempre el par completo de comportamientos en los extremos antes de concluir cuál es el grado y el signo del coeficiente principal.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -668,7 +668,7 @@
       "El signo del coeficiente principal decide hacia dónde apuntan los extremos, no si el grado es par o impar; esa distinción depende únicamente de si los extremos coinciden o se oponen.",
       "El comportamiento en los extremos sí determina la paridad del grado: ambos extremos iguales significan grado par."
     ],
-    "explanation": "El grado de un polinomio se puede leer del comportamiento de sus extremos: si ambos apuntan en la **misma dirección** el grado es par, y si apuntan en **sentidos opuestos** el grado es impar.\n\nAcá los dos extremos de la curva van hacia $+\\infty$, la misma dirección, así que el grado es **par**, como $x^2$ o $x^4$. El signo del coeficiente principal es lo que decide si ambos extremos suben (coeficiente positivo) o ambos bajan (coeficiente negativo), pero no cambia la paridad del grado.\n\nEl error habitual es mezclar las dos preguntas, paridad del grado y signo del coeficiente, y sacar la paridad a partir del signo. Conviene primero comparar los dos extremos entre sí, y recién después mirar hacia dónde apuntan.",
+    "explanation": "El grado de un polinomio se puede leer del comportamiento de sus extremos: si ambos apuntan en la **misma dirección** el grado es par, y si apuntan en **sentidos opuestos** el grado es impar.\n\nAcá los dos extremos de la curva van hacia $+\\infty$, la misma dirección, así que el grado es **par**, como $x^2$ o $x^4$. El signo del coeficiente principal es lo que decide si ambos extremos suben (coeficiente positivo) o ambos bajan (coeficiente negativo), pero no cambia la paridad del grado.\n\nSi se mezclan las dos preguntas, paridad del grado y signo del coeficiente, y se intenta sacar la paridad a partir del signo, se cometen errores en la clasificación. La estrategia correcta es primero comparar los dos extremos entre sí para determinar la paridad, y recién después mirar hacia dónde apuntan para decidir el signo del coeficiente.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -915,7 +915,7 @@
       "El comportamiento en los extremos del gráfico sí revela el signo del coeficiente principal, no hace falta más información.",
       null
     ],
-    "explanation": "El comportamiento de la curva cerca de $x \\to +\\infty$ revela el signo del coeficiente principal: si la curva sube a la derecha el coeficiente es positivo (en grado impar), y si baja a la derecha, es negativo.\n\nEsta curva corresponde a $f(x) = -\\frac{x^3}{4} + x$: baja a la derecha y sube a la izquierda, extremos opuestos propios de grado impar, con coeficiente principal **negativo**.\n\nEl error típico es sacar el signo del coeficiente a partir de la cantidad de raíces o de otras características que no tienen relación directa con ese signo; el dato relevante siempre es la dirección de los extremos.",
+    "explanation": "El comportamiento de la curva cerca de $x \\to +\\infty$ revela el signo del coeficiente principal: si la curva sube a la derecha el coeficiente es positivo (en grado impar), y si baja a la derecha, es negativo.\n\nEsta curva corresponde a $f(x) = -\\frac{x^3}{4} + x$: baja a la derecha y sube a la izquierda, extremos opuestos propios de grado impar, con coeficiente principal **negativo**.\n\nNo saques el signo del coeficiente a partir de la cantidad de raíces o de otras características que no tienen relación directa con ese signo. El dato que realmente importa y te permite determinar el signo es siempre la dirección de los extremos de la gráfica.",
     "has_math": true,
     "graph_fn": "-pow(x,3)/4 + x",
     "graph_view": [
@@ -942,7 +942,7 @@
       null,
       "Ese conteo suma de más: la curva cambia de dirección tres veces, no cuatro."
     ],
-    "explanation": "Cada cambio de dirección de una curva polinómica es un **extremo local**: un pico corresponde a un máximo local y un valle a un mínimo local.\n\nEsta curva tiene un máximo local a la izquierda, un mínimo local en el centro y otro máximo local a la derecha, es decir, tres extremos locales en total. Eso implica que el polinomio tiene grado $\\geq 4$, ya que el máximo de extremos locales para grado $n$ es $n-1$, y $n-1\\geq3$ exige $n\\geq4$.\n\nEl error frecuente es contar los picos y los valles por separado sin sumarlos, o confundir un extremo local con una raíz; conviene marcar cada cambio de dirección uno por uno antes de sumarlos.",
+    "explanation": "Cada cambio de dirección de una curva polinómica es un **extremo local**: un pico corresponde a un máximo local y un valle a un mínimo local.\n\nEsta curva tiene un máximo local a la izquierda, un mínimo local en el centro y otro máximo local a la derecha, es decir, tres extremos locales en total. Eso implica que el polinomio tiene grado $\\geq 4$, ya que el máximo de extremos locales para grado $n$ es $n-1$, y $n-1\\geq3$ exige $n\\geq4$.\n\nContar los picos y los valles por separado sin sumarlos, o confundir un extremo local con una raíz, lleva a un recuento incorrecto del total de extremos. La estrategia apropiada es marcar cada cambio de dirección uno por uno y luego sumarlos para obtener el total exacto de extremos locales.",
     "has_math": true,
     "graph_fn": "-(pow(x,4) - 5*pow(x,2) + 4)/3",
     "graph_view": [
@@ -1035,7 +1035,7 @@
       "Un polinomio de grado 3 o mayor puede tener exactamente dos extremos locales sin problema; esta opción no lo descarta.",
       null
     ],
-    "explanation": "Los polinomios son funciones continuas en todo $\\mathbb{R}$, sin asíntotas verticales, horizontales ni oblicuas: siempre están definidos para cualquier valor real de $x$.\n\nSer continua en $\\mathbb{R}$, tener **dominio** $\\mathbb{R}$ con 3 raíces reales o tener dos extremos locales son propiedades compatibles con un polinomio de grado adecuado. En cambio, una asíntota vertical implica que la función no está definida en ese punto, algo que ningún polinomio puede tener.\n\nEl error típico es pensar que cualquier comportamiento inusual del gráfico (muchas raíces, varios extremos) descarta la familia polinómica; lo único que realmente la excluye es una discontinuidad como una asíntota.",
+    "explanation": "Los polinomios son funciones continuas en todo $\\mathbb{R}$, sin asíntotas verticales, horizontales ni oblicuas: siempre están definidos para cualquier valor real de $x$.\n\nSer continua en $\\mathbb{R}$, tener **dominio** $\\mathbb{R}$ con 3 raíces reales o tener dos extremos locales son propiedades compatibles con un polinomio de grado adecuado. En cambio, una asíntota vertical implica que la función no está definida en ese punto, algo que ningún polinomio puede tener.\n\nSi se asume que cualquier comportamiento inusual del gráfico (muchas raíces, varios extremos) descarta la familia polinómica, se termina rechazando funciones que sí son polinomios. Lo único que realmente excluye a un polinomio de una función es la presencia de una discontinuidad como una asíntota.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1123,7 +1123,7 @@
       "Si ambas fueran simples, la curva cruzaría el eje en los dos puntos; pero en $x=0$ la curva solo toca el eje sin cruzarlo.",
       "Si ambas fueran dobles, la curva tocaría el eje sin cruzarlo en los dos puntos; pero en $x=3$ sí cruza."
     ],
-    "explanation": "La multiplicidad de una raíz se lee en cómo la curva atraviesa el eje $x$: si lo cruza cambiando de signo, la raíz es simple (multiplicidad impar); si solo lo toca y rebota sin cruzar, la raíz tiene multiplicidad par, la más simple de las cuales es la raíz doble.\n\nEn este gráfico, la curva toca el eje en $x=0$ sin cruzarlo, así que ahí hay una raíz doble, y cruza normalmente en $x=3$, donde la raíz es simple. Un polinomio con ese comportamiento es $p(x) = x^2(x-3)$, de grado 3.\n\nEl error más común es invertir los roles y suponer que tocar sin cruzar es la raíz simple; conviene recordar que 'tocar y rebotar' señala multiplicidad par, mientras que 'cruzar' señala multiplicidad impar.",
+    "explanation": "La multiplicidad de una raíz se lee en cómo la curva atraviesa el eje $x$: si lo cruza cambiando de signo, la raíz es simple (multiplicidad impar); si solo lo toca y rebota sin cruzar, la raíz tiene multiplicidad par, la más simple de las cuales es la raíz doble.\n\nEn este gráfico, la curva toca el eje en $x=0$ sin cruzarlo, así que ahí hay una raíz doble, y cruza normalmente en $x=3$, donde la raíz es simple. Un polinomio con ese comportamiento es $p(x) = x^2(x-3)$, de grado 3.\n\nTenés que recordar que los roles no se invierten: 'tocar y rebotar' sin cruzar señala multiplicidad par (típicamente una raíz doble), mientras que 'cruzar' normalmente señala multiplicidad impar (típicamente una raíz simple). Invertir estos roles lleva a identificaciones incorrectas de las multiplicidades.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

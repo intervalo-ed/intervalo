@@ -15,7 +15,7 @@
       "Eso sale de sumar el paréntesis en vez de restarlo.",
       "Eso sale de cambiarle el signo también al término $5x$, que está afuera del paréntesis y no se ve afectado."
     ],
-    "explanation": "La **propiedad distributiva** del signo menos indica que restar un paréntesis equivale a sumar el opuesto de cada uno de sus términos, no solo el del primero.\n\nAplicando esto a la expresión dada:\n$$5x - (3x - 7) = 5x - 3x + 7$$\nAgrupando los términos semejantes:\n$$5x - 3x + 7 = 2x + 7$$\nUn error frecuente es cambiar el signo de un solo término dentro del paréntesis y dejar el otro sin modificar, rompiendo la equivalencia con la expresión original.",
+    "explanation": "La **propiedad distributiva** del signo menos indica que restar un paréntesis equivale a sumar el opuesto de cada uno de sus términos, no solo el del primero.\n\nAplicando esto a la expresión dada:\n$$5x - (3x - 7) = 5x - 3x + 7$$\nAgrupando los términos semejantes:\n$$5x - 3x + 7 = 2x + 7$$\nCambiar el signo de un solo término dentro del paréntesis produce $2x - 7$ en lugar de $2x + 7$, un resultado que no es equivalente a la expresión original.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

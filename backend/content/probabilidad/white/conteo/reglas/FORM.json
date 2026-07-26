@@ -82,7 +82,7 @@
       "Ese resultado cuenta cada rama dos veces, una por cada camino principal, en vez de sumar las sub-rutas de cada rama una sola vez.",
       "Ese resultado mezcla el número de caminos principales con las sub-rutas de ambas ramas en un solo producto, sin corresponder a ningún camino real del mapa."
     ],
-    "explanation": "En un árbol de decisiones, el total de caminos de la raíz a una hoja es la suma de las ramas completas de cada bifurcación, no el producto entre ellas.\n\nAcá hay 2 caminos principales, uno con 4 sub-rutas y otro con 3 sub-rutas, cada camino llevando a un destino distinto dentro de la misma rama:\n$$4 + 3 = 7 \\text{ rutas posibles}$$\nUn error común es contar los nodos intermedios en vez de las ramas completas: lo que importa es cada camino de punta a punta, no los pasos sueltos en el medio.",
+    "explanation": "En un árbol de decisiones, el total de caminos de la raíz a una hoja es la suma de las ramas completas de cada bifurcación, no el producto entre ellas.\n\nAcá hay 2 caminos principales, uno con 4 sub-rutas y otro con 3 sub-rutas, cada camino llevando a un destino distinto dentro de la misma rama:\n$$4 + 3 = 7 \\text{ rutas posibles}$$\nContar los nodos intermedios en vez de las ramas completas termina dando un resultado que no representa ningún camino real; lo que importa es cada camino de punta a punta, no los pasos sueltos en el medio.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

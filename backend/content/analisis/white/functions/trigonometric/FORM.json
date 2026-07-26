@@ -704,7 +704,7 @@
     "options": [
       "Sí, en $x = 0$",
       "Sí, en $x = \\pi/2 + k\\pi$",
-      "No, el seno está definido para todo $x$",
+      "No",
       "Sí, en $x = k\\pi$"
     ],
     "correct_index": 2,

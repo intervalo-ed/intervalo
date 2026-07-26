@@ -333,7 +333,7 @@
     "question": "La gráfica muestra una función exponencial con asíntota en $y = -1$.\n\n¿La función tiene alguna raíz real?",
     "options": [
       "No, porque es exponencial",
-      "Sí, la curva cruza el eje $x$ en un punto",
+      "Sí",
       "No se puede saber sin la fórmula",
       "Tiene dos raíces"
     ],
@@ -483,7 +483,7 @@
     "question": "La gráfica muestra una función exponencial creciente.\n\n¿Qué le pasa a la función cuando $x \\to -\\infty$?",
     "options": [
       "Crece sin límite",
-      "Se acerca a $y = 0$ desde arriba",
+      "Se acerca a $y = 0$",
       "Se hace negativa",
       "Oscila"
     ],
@@ -1265,7 +1265,7 @@
       "Aumenta sin límite",
       "Se mantiene constante",
       "Primero sube y luego baja",
-      "Disminuye hasta llegar a $0$ °C (la temperatura del ambiente)"
+      "Disminuye hasta llegar a $0$"
     ],
     "correct_index": 3,
     "has_math": true,

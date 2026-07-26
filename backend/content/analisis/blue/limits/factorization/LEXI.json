@@ -48,7 +48,7 @@
   {
     "question": "Un enunciado presenta la expresión:\n$$x^2 + 8x + 16$$\n¿Qué caso de factoreo corresponde a esta expresión?",
     "options": [
-      "Trinomio cuadrado perfecto",
+      "Trinomio cuadrado",
       "Trinomio general",
       "Factor común"
     ],
@@ -210,7 +210,7 @@
     "question": "Al calcular un límite por sustitución directa se obtiene 0/0. ¿Qué representa este resultado?",
     "options": [
       "El valor exacto del límite",
-      "Un indicador de que existe un factor común cancelable",
+      "Un indicador de que existe un factor",
       "Que el límite tiende a infinito"
     ],
     "correct_index": 1,
@@ -232,7 +232,7 @@
   {
     "question": "¿Cuánto vale 0/0 dentro del cálculo de un límite?",
     "options": [
-      "No es un valor, es una indeterminación",
+      "No es un",
       "Vale $0$",
       "Vale $1$"
     ],
@@ -257,7 +257,7 @@
     "options": [
       "Concluir que el límite no existe",
       "Concluir que el límite vale $0$",
-      "Factorizar numerador y denominador para buscar el factor cancelable"
+      "Factorizar numerador y denominador"
     ],
     "correct_index": 2,
     "tags": [
@@ -278,7 +278,7 @@
   {
     "question": "Un límite presenta la expresión:\n$$\\frac{x^2-9}{x-3}$$\nQue da 0/0 al sustituir. ¿Qué característica de la expresión permite aplicar **factorización** para salvar la indeterminación?",
     "options": [
-      "Que ambos, numerador y denominador, sean expresiones polinómicas sin raíces",
+      "Que ambos, numerador y denominador",
       "Que el denominador tenga grado mayor al del numerador",
       "Que el límite tienda a un número negativo"
     ],
@@ -326,7 +326,7 @@
     "options": [
       "Que el denominador sea un binomio",
       "Que el numerador tenga grado $2$",
-      "La presencia de una raíz cuadrada en la expresión"
+      "La presencia de una raíz cuadrada en la"
     ],
     "correct_index": 2,
     "tags": [

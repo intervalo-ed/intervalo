@@ -2,7 +2,7 @@
   {
     "question": "¿Cuántas asíntotas tiene esta función racional en total?",
     "options": [
-      "2 (una vertical y una horizontal)",
+      "2",
       "1 (solo vertical)",
       "1 (solo horizontal)",
       "3"
@@ -64,7 +64,7 @@
     "options": [
       "0",
       "1 (en $x = 4$)",
-      "2 (en $x = 2$ y $x = -2$)",
+      "2",
       "3"
     ],
     "correct_index": 2,
@@ -215,7 +215,7 @@
       "2 ramas simétricas respecto al eje $X$",
       "1 rama continua",
       "3 ramas separadas",
-      "2 ramas: una sube y la otra baja hacia la asíntota vertical"
+      "2 ramas"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -242,7 +242,7 @@
   {
     "question": "Considerá:\n$$f(x) = \\dfrac{1}{x-1}$$\n¿Cuántas asíntotas tiene en total?",
     "options": [
-      "2 (una vertical $x=1$ y una horizontal $y=0$)",
+      "2",
       "1 (solo la vertical $x=1$)",
       "3",
       "0"
@@ -305,7 +305,7 @@
       "Solo en $(-\\infty,\\ 0)$",
       "Solo en $(0,\\ +\\infty)$",
       "En ningún intervalo",
-      "En $(-\\infty,\\ 0)$ y en $(0,\\ +\\infty)$, en cada rama por separado"
+      "En $(-\\infty,\\ 0)$ y en $(0,\\"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -422,7 +422,7 @@
   {
     "question": "¿En qué valor cruza el eje $X$ esta función?",
     "options": [
-      "No cruza el eje $X$",
+      "No cruza",
       "$x = 1$",
       "$x = 2$",
       "$x = -1$"
@@ -483,7 +483,7 @@
     "question": "La asíntota horizontal de esta función está en $y = 1$ (no en $y = 0$). ¿Cuánto vale $f(x)$ aproximadamente cuando $x = 100$?",
     "options": [
       "Cerca de $0$",
-      "Cerca de $1$ (por arriba o abajo)",
+      "Cerca de $1$",
       "Cerca de $100$",
       "Indefinido"
     ],
@@ -573,7 +573,7 @@
     "question": "¿Tiene máximo o mínimo esta función racional?",
     "options": [
       "Sí, tiene un mínimo en la AH",
-      "No, la función decrece en cada rama sin extremos",
+      "No",
       "Sí, tiene un máximo en la AV",
       "Sí, tiene un máximo en $y = 0$"
     ],
@@ -815,7 +815,7 @@
       "Las ramas no se acercan a ninguna AV",
       "Una sube y la otra baja",
       "Ambas ramas van hacia abajo",
-      "Ambas ramas van hacia arriba (la función tiende a $+\\infty$ desde ambos lados)"
+      "Ambas ramas van hacia arriba"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -875,7 +875,7 @@
       "4 ramas",
       "2 ramas",
       "1 rama",
-      "3 ramas (2 AV generan 3 ramas)"
+      "3 ramas"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -905,7 +905,7 @@
       "No está definida en ese intervalo",
       "Positiva",
       "Alternada: cambia de signo",
-      "Negativa (la rama del medio está por debajo del eje $X$)"
+      "Negativa"
     ],
     "correct_index": 3,
     "has_math": true,

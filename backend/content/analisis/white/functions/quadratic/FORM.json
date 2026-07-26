@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma estándar $f(x) = ax^2 + bx + c$, cada coeficiente cumple un rol distinto. El **coeficiente cuadrático** $a$ define la concavidad y la apertura de la parábola.\n\nEl coeficiente lineal $b$ desplaza el eje de simetría, y el término independiente $c$ es el valor de $f(0)$.\n\nPara $f(x) = 3x^2 - 6x + 2$ se identifica $a = 3$, $b = -6$ y $c = 2$ comparando término a término con la forma general.\n\nEl coeficiente cuadrático pedido es entonces $a = 3$.\n\nEl error más común es leer el primer número de la expresión sin fijarse qué potencia de $x$ acompaña.\n\nAcá el $-6$ corresponde a $x$, no a $x^2$.",
+    "explanation": "En la forma estándar $f(x) = ax^2 + bx + c$, cada coeficiente cumple un rol distinto. El **coeficiente cuadrático** $a$ define la concavidad y la apertura de la parábola.\n\nEl coeficiente lineal $b$ desplaza el eje de simetría, y el término independiente $c$ es el valor de $f(0)$.\n\nPara $f(x) = 3x^2 - 6x + 2$ se identifica $a = 3$, $b = -6$ y $c = 2$ comparando término a término con la forma general.\n\nEl coeficiente cuadrático pedido es entonces $a = 3$.\n\nSi lees el primer número de la expresión sin fijarse qué potencia de $x$ acompaña, entonces vas a identificar el coeficiente equivocado.\n\nAcá el $-6$ corresponde a $x$, no a $x^2$.",
     "reviewed": false,
     "tags": [
       "leer-coeficientes"
@@ -380,7 +380,7 @@
       "El término independiente de esta función es negativo, $-3$: acá el signo quedó invertido.",
       null
     ],
-    "explanation": "Evaluar una función en $x = 0$ siempre equivale a leer directamente el **término independiente** $c$ de la forma estándar $f(x) = ax^2 + bx + c$, porque todos los términos que tienen $x$ se anulan.\n\nPara $f(x) = x^2 - 2x - 3$, al reemplazar:\n\nEl resultado coincide con $c = -3$.\n\nEste valor también es la **ordenada al origen**: el punto donde la parábola cruza el eje $y$ es $(0, -3)$.\n\nConfundir el signo de $c$ es el error más común al leerlo apurado de la expresión.",
+    "explanation": "Evaluar una función en $x = 0$ siempre equivale a leer directamente el **término independiente** $c$ de la forma estándar $f(x) = ax^2 + bx + c$, porque todos los términos que tienen $x$ se anulan.\n\nPara $f(x) = x^2 - 2x - 3$, al reemplazar:\n\nEl resultado coincide con $c = -3$.\n\nEste valor también es la **ordenada al origen**: el punto donde la parábola cruza el eje $y$ es $(0, -3)$.\n\nSi confundís el signo de $c$, entonces vas a leerlo incorrectamente en la expresión.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -405,7 +405,7 @@
       "Ese es $c$, el término independiente, no el coeficiente lineal.",
       "El coeficiente de $x$ en esta función es negativo: falta el signo menos."
     ],
-    "explanation": "En la forma estándar $f(x) = ax^2 + bx + c$, el **coeficiente lineal** $b$ es el número que acompaña a $x$ elevado a la primera potencia, distinto del coeficiente $a$ que acompaña a $x^2$ y de la constante $c$.\n\nPara $f(x) = 3x^2 - 6x + 2$, el término en $x$ es $-6x$, por lo que $b = -6$, incluyendo el signo negativo como parte del coeficiente.\n\nOmitir el signo y reportar $b = 6$ es el error más frecuente en este tipo de lectura: ese signo determina, entre otras cosas, hacia qué lado se desplaza el eje de simetría de la parábola.",
+    "explanation": "En la forma estándar $f(x) = ax^2 + bx + c$, el **coeficiente lineal** $b$ es el número que acompaña a $x$ elevado a la primera potencia, distinto del coeficiente $a$ que acompaña a $x^2$ y de la constante $c$.\n\nPara $f(x) = 3x^2 - 6x + 2$, el término en $x$ es $-6x$, por lo que $b = -6$, incluyendo el signo negativo como parte del coeficiente.\n\nOmitir el signo y reportar $b = 6$ produce lectura incorrecta: ese signo determina, entre otras cosas, hacia qué lado se desplaza el eje de simetría de la parábola.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -455,7 +455,7 @@
       null,
       "Esta opción invierte el signo tanto de $h$ como de $k$ respecto del vértice pedido."
     ],
-    "explanation": "La **forma de vértice** $f(x) = a(x-h)^2 + k$ permite construir la ecuación de una parábola directamente a partir de su vértice $(h,k)$ y su coeficiente $a$.\n\nCon $(h,k) = (-2, 5)$ y $a = 1$, se reemplaza:\n\nEl signo dentro del paréntesis queda opuesto al de $h$: como $h = -2$, el factor correcto es $(x+2)$, no $(x-2)$.\n\nEste cambio de signo es la trampa más común de la forma de vértice: escribir $(x-h)$ tal cual sin invertir el signo produce el vértice equivocado.",
+    "explanation": "La **forma de vértice** $f(x) = a(x-h)^2 + k$ permite construir la ecuación de una parábola directamente a partir de su vértice $(h,k)$ y su coeficiente $a$.\n\nCon $(h,k) = (-2, 5)$ y $a = 1$, se reemplaza:\n\nEl signo dentro del paréntesis queda opuesto al de $h$: como $h = -2$, el factor correcto es $(x+2)$, no $(x-2)$.\n\nEste cambio de signo es crítico en la forma de vértice: si escribís $(x-h)$ tal cual sin invertir el signo, entonces obtendrás el vértice equivocado.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -530,7 +530,7 @@
       "Estos valores surgen de no dividir por el coeficiente $2$ antes de despejar el cuadrado.",
       "El $-1$ es la coordenada del vértice, no una raíz de la función."
     ],
-    "explanation": "Para hallar las raíces de una función en forma de vértice, se iguala a cero y se despeja $x$ deshaciendo primero el cuadrado.\n\nPara $f(x) = 2(x+1)^2 - 8$:\n\nEsto da $x = 1$ y $x = -3$.\n\nEl vértice es $(-1,-8)$, y las raíces quedan simétricas respecto a $x=-1$, a distancia $2$ de cada lado:\n\nOlvidar dividir por el coeficiente $2$ antes de despejar es el error más común en este tipo de cuenta.",
+    "explanation": "Para hallar las raíces de una función en forma de vértice, se iguala a cero y se despeja $x$ deshaciendo primero el cuadrado.\n\nPara $f(x) = 2(x+1)^2 - 8$:\n\nEsto da $x = 1$ y $x = -3$.\n\nEl vértice es $(-1,-8)$, y las raíces quedan simétricas respecto a $x=-1$, a distancia $2$ de cada lado:\n\nSi olvidás dividir por el coeficiente $2$ antes de despejar, entonces va a ser incorrecta tu solución.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -655,7 +655,7 @@
       "El segundo factor debería anularse en $x=-1$, no en $x=1$: revisá el signo de esa raíz.",
       "El primer factor debería anularse en $x=3$, no en $x=-3$: revisá el signo de esa raíz."
     ],
-    "explanation": "La forma factorizada $f(x)=a(x-r_1)(x-r_2)$ se arma reemplazando cada raíz en su propio factor, con el signo dentro del paréntesis siempre opuesto al de la raíz.\n\nCon $r_1=3$, $r_2=-1$ y $a=1$:\n\nEl patrón se repite siempre: raíz $+3$ da factor $(x-3)$, y raíz $-1$ da factor $(x+1)$.\n\nSumar en vez de invertir el signo dentro del paréntesis es el error más frecuente al armar esta forma.",
+    "explanation": "La forma factorizada $f(x)=a(x-r_1)(x-r_2)$ se arma reemplazando cada raíz en su propio factor, con el signo dentro del paréntesis siempre opuesto al de la raíz.\n\nCon $r_1=3$, $r_2=-1$ y $a=1$:\n\nEl patrón se repite siempre: raíz $+3$ da factor $(x-3)$, y raíz $-1$ da factor $(x+1)$.\n\nSumar en vez de invertir el signo dentro del paréntesis produce una forma incorrecta.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -705,7 +705,7 @@
       null,
       "Esta expresión corresponde a raíces $6$ y $-6$ (una diferencia de cuadrados), no a $0$ y $6$."
     ],
-    "explanation": "Armar la ecuación a partir de las raíces sigue la plantilla $f(x) = a(x-r_1)(x-r_2)$, reemplazando cada raíz con el signo invertido dentro de su factor.\n\nCon $r_1=0$, $r_2=6$ y $a=1$:\n\nLa opción $x(x+6)$ tendría raíces $0$ y $-6$, porque ese factor se anula en $x=-6$ y no en $x=6$:\n\nConfundir el signo de una raíz al escribir su factor es el error más frecuente en este tipo de construcción.\n\nVerificación: $f(0)=0$ y $f(6)=6\\cdot 0=0$.",
+    "explanation": "Armar la ecuación a partir de las raíces sigue la plantilla $f(x) = a(x-r_1)(x-r_2)$, reemplazando cada raíz con el signo invertido dentro de su factor.\n\nCon $r_1=0$, $r_2=6$ y $a=1$:\n\nLa opción $x(x+6)$ tendría raíces $0$ y $-6$, porque ese factor se anula en $x=-6$ y no en $x=6$:\n\nSi confundís el signo de una raíz al escribir su factor, entonces la construcción de la ecuación va a ser incorrecta.\n\nVerificación: $f(0)=0$ y $f(6)=6\\cdot 0=0$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -855,7 +855,7 @@
       null,
       "Estos coeficientes intercambian los roles de $v_0$ y de $\\frac{1}{2}g$: revisá cuál dato corresponde a cada término."
     ],
-    "explanation": "La fórmula general de altura en un tiro vertical es $h(t) = v_0 t - \\frac{1}{2}g t^2$, donde el primer término representa el impulso inicial y el segundo la desaceleración por gravedad.\n\nReemplazando $v_0=20$ y $g=10$:\n\nEl vértice de esta parábola, $t_v = -b/(2a) = -20/(2\\cdot(-5)) = 2$ s, indica el instante de altura máxima.\n\nConfundir el signo del término cuadrático, que siempre resta porque la gravedad frena la subida, es el error más común al armar esta ecuación.",
+    "explanation": "La fórmula general de altura en un tiro vertical es $h(t) = v_0 t - \\frac{1}{2}g t^2$, donde el primer término representa el impulso inicial y el segundo la desaceleración por gravedad.\n\nReemplazando $v_0=20$ y $g=10$:\n\nEl vértice de esta parábola, $t_v = -b/(2a) = -20/(2\\cdot(-5)) = 2$ s, indica el instante de altura máxima.\n\nSi confundís el signo del término cuadrático, que siempre resta porque la gravedad frena la subida, entonces vas a armar la ecuación incorrectamente.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
