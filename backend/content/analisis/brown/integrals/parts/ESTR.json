@@ -188,7 +188,7 @@
     "options": [
       "Requiere una iteración",
       "Es cíclica",
-      "Requiere dos iteraciones"
+      "Dos iteraciones"
     ],
     "correct_index": 2,
     "has_math": true,

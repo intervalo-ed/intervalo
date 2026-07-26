@@ -257,7 +257,7 @@
     "options": [
       "No, hay que integrar por partes",
       "No, hay que usar sustitución",
-      "Sí, es $3\\int x\\,dx + \\int 5\\,dx$"
+      "Sí, es $3\\int x\\,dx + \\int 5\\,dx$ por linealidad"
     ],
     "correct_index": 2,
     "has_math": true,
