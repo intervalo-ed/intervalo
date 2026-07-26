@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La tercera condición de continuidad exige que el límite bilateral coincida exactamente con el valor de la función en ese punto.\n\nEl límite y el valor puntual son dos cosas distintas.\n\nEl límite es hacia adónde la función se aproxima conforme $x$ se acerca a $a$, mientras que $f(a)$ es el valor que la función realmente toma en ese punto, si está definido.\n\nAcá el límite vale $8$ y $f(a)$ está definida,.\n\nEn $2$, un valor distinto.\n\nLas dos primeras condiciones se cumplen, solo falla la comparación final entre ambos.\n\nEste tipo de falla es la que da lugar a la **discontinuidad removible**: el límite ya hizo todo el trabajo, alcanza con redefinir $f(a)=8$ para reparar el punto.",
+    "explanation": "La tercera condición de continuidad exige que el límite bilateral coincida exactamente con el valor de la función en ese punto.\n\nEl límite y el valor puntual son dos cosas distintas.\n\nEl límite es hacia adónde la función se aproxima conforme $x$ se acerca a $a$.\n\nMientras que $f(a)$ es el valor que la función realmente toma en ese punto, si está definido.\n\nAcá el límite vale $8$ y $f(a)$ está definida,.\n\nEn $2$, un valor distinto.\n\nLas dos primeras condiciones se cumplen, solo falla la comparación final entre ambos.\n\nEste tipo de falla es la que da lugar a la **discontinuidad removible**: el límite ya hizo todo el trabajo, alcanza con redefinir $f(a)=8$ para reparar el punto.",
     "reviewed": false,
     "tags": [
       "condiciones-formales-continuidad"
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una raíz de índice par solo está definida cuando su argumento es mayor o igual a $0$, y dentro de ese dominio la función es continua.\n\nPara $f(x) = \\sqrt{x-2}$ el argumento es $x-2$, así que se necesita $x - 2 \\geq 0$, es decir $x \\geq 2$.\n\nFuera de ese conjunto la raíz no arroja un número real, por lo que la pregunta de continuidad ni siquiera se plantea ahí.",
+    "explanation": "Una raíz de índice par solo está definida cuando su argumento es mayor o igual a $0$, y dentro de ese dominio la función es continua.\n\nPara $f(x) = \\sqrt{x-2}$ el argumento es $x-2$.\n\nAsí que se necesita $x - 2 \\geq 0$, es decir $x \\geq 2$.\n\nFuera de ese conjunto la raíz no arroja un número real, por lo que la pregunta de continuidad ni siquiera se plantea ahí.",
     "reviewed": false,
     "tags": [
       "continuidad-por-familias"

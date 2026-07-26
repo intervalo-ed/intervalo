@@ -308,7 +308,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La función exponencial $f(x) = b^x$ (con $b > 0$, $b \\neq 1$) acepta cualquier número real como exponente.\n\nEsto significa que el **valor inicial** $f(0)$ siempre es 1 en la forma canónica sin coeficiente $a$.\n\nCon $f(x) = a \\cdot b^x$, el valor inicial es $f(0) = a \\cdot 1 = a$, así que el parámetro $a$ determina dónde comienza la curva en el eje vertical.\n\nEsto diferencia la exponencial de cualquier función lineal, que tiene un ritmo de cambio constante; en la exponencial, el crecimiento o decaimiento es proporcional al valor actual.",
+    "explanation": "La función exponencial $f(x) = b^x$ (con $b > 0$, $b \\neq 1$) acepta cualquier número real como exponente.\n\nEsto significa que el **valor inicial** $f(0)$ siempre es 1 en la forma canónica sin coeficiente $a$.\n\nCon $f(x) = a \\cdot b^x$, el valor inicial es $f(0) = a \\cdot 1 = a$.\n\nAsí que el parámetro $a$ determina dónde comienza la curva en el eje vertical.\n\nEsto diferencia la exponencial de cualquier función lineal, que tiene un ritmo de cambio constante; en la exponencial, el crecimiento o decaimiento es proporcional al valor actual.",
     "reviewed": false,
     "tags": [
       "valor-inicial-f0"

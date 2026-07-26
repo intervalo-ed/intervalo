@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para una función lineal, la pendiente $f'(x)$ es siempre la misma en todo el dominio, así que $f'(2)=3$ y $f(2)=7$.\n\nEl resultado coincide exactamente con la función original, un caso particular que muestra que la tangente a una recta es la recta misma.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Para una función lineal, la pendiente $f'(x)$ es siempre la misma en todo el dominio.\n\nAsí que $f'(2)=3$ y $f(2)=7$.\n\nEl resultado coincide exactamente con la función original, un caso particular que muestra que la tangente a una recta es la recta misma.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "armado-ecuacion-tangente"

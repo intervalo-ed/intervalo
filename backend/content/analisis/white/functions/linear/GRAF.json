@@ -619,7 +619,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función lineal con **pendiente** no nula es monótona en todo su **dominio**: o crece siempre o decrece siempre.\n\nPara $f(x) = 3x - 7$ la pendiente es $m = 3 > 0$, así que la función es creciente en todo $\\mathbb{R}$, sin tramos de bajada ni mesetas.\n\nEl distractor típico son los intervalos armados con la raíz $x = 7/3$: la raíz marca dónde la función cambia de signo, no dónde cambia de dirección. Las rectas nunca cambian de dirección.",
+    "explanation": "Una función lineal con **pendiente** no nula es monótona en todo su **dominio**: o crece siempre o decrece siempre.\n\nPara $f(x) = 3x - 7$ la pendiente es $m = 3 > 0$.\n\nAsí que la función es creciente en todo $\\mathbb{R}$, sin tramos de bajada ni mesetas.\n\nEl distractor típico son los intervalos armados con la raíz $x = 7/3$: la raíz marca dónde la función cambia de signo, no dónde cambia de dirección. Las rectas nunca cambian de dirección.",
     "reviewed": false,
     "tags": [
       "monotonia-signo-pendiente"

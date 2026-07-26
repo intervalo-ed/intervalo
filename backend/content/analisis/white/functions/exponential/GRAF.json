@@ -233,7 +233,7 @@
       -0.5,
       10
     ],
-    "explanation": "El punto $(0, 3)$ indica que $f(0) = a = 3$, ya que al evaluar en $x = 0$ cualquier base elevada a la potencia $0$ da $1$ y solo queda el coeficiente.\n\nEn la fórmula $f(x) = a \\cdot b^x$, el coeficiente $a$ es siempre el valor que la función toma cuando $x = 0$, y actúa como un factor de escala vertical sobre toda la curva.\n\nNo hay que confundir este coeficiente con la base $b$: $a$ se lee directamente en el eje vertical, mientras que $b$ requiere comparar dos puntos consecutivos.",
+    "explanation": "El punto $(0, 3)$ indica que $f(0) = a = 3$, ya que al evaluar en $x = 0$ cualquier base elevada a la potencia $0$ da $1$ y solo queda el coeficiente.\n\nEn la fórmula $f(x) = a \\cdot b^x$, el coeficiente $a$ es siempre el valor que la función toma cuando $x = 0$, y actúa como un factor de escala vertical sobre toda la curva.\n\nNo hay que confundir este coeficiente con la base $b$: $a$ se lee directamente en el eje vertical.\n\nMientras que $b$ requiere comparar dos puntos consecutivos.",
     "reviewed": false,
     "tags": [
       "lectura-monotonia"
@@ -353,7 +353,7 @@
       -1.5,
       8.5
     ],
-    "explanation": "La función tiene la forma $f(x) = b^x - 1$, con asíntota horizontal en $y = -1$.\n\nCuando $x \\to -\\infty$ la función se acerca a $-1$, un valor negativo, y cuando $x \\to +\\infty$ crece sin límite hacia valores positivos.\n\nComo la curva pasa de valores negativos a valores positivos sin saltos, por continuidad existe algún punto donde $f(x) = 0$.\n\nAquí ocurre cuando $b^x = 1$, es decir en $x = 0$, ya que $f(0) = b^0 - 1 = 1 - 1 = 0$.\n\nUn desplazamiento vertical que baje la asíntota por debajo del eje horizontal siempre genera exactamente una raíz real, a diferencia de la exponencial básica sin desplazar, que nunca cruza el eje.",
+    "explanation": "La función tiene la forma $f(x) = b^x - 1$, con asíntota horizontal en $y = -1$.\n\nCuando $x \\to -\\infty$ la función se acerca a $-1$, un valor negativo, y cuando $x \\to +\\infty$ crece sin límite hacia valores positivos.\n\nComo la curva pasa de valores negativos a valores positivos sin saltos, por continuidad existe algún punto donde $f(x) = 0$.\n\nAquí ocurre cuando $b^x = 1$, es decir en $x = 0$.\n\nA que $f(0) = b^0 - 1 = 1 - 1 = 0$.\n\nUn desplazamiento vertical que baje la asíntota por debajo del eje horizontal siempre genera exactamente una raíz real, a diferencia de la exponencial básica sin desplazar, que nunca cruza el eje.",
     "reviewed": false,
     "tags": [
       "lectura-extremos-locales"
@@ -503,7 +503,7 @@
       -0.5,
       9.5
     ],
-    "explanation": "La exponencial creciente $b^x$ con $b > 1$ tiene dos comportamientos opuestos en los extremos del dominio.\n\nHacia $x \\to +\\infty$ la función crece sin límite, cada vez más rápido, mientras que hacia $x \\to -\\infty$ se acerca a $0$ desde arriba sin nunca tocarlo.\n\nPor eso la asíntota horizontal $y = 0$ queda del lado izquierdo del gráfico cuando la exponencial es creciente, y no del lado derecho como muchas veces se supone por analogía con otras funciones.\n\nConviene recordar que la exponencial nunca cruza esa asíntota ni se vuelve negativa: siempre queda por encima del eje horizontal, sin importar qué tan lejos hacia la izquierda se mire.",
+    "explanation": "La exponencial creciente $b^x$ con $b > 1$ tiene dos comportamientos opuestos en los extremos del dominio.\n\nHacia $x \\to +\\infty$ la función crece sin límite, cada vez más rápido.\n\nMientras que hacia $x \\to -\\infty$ se acerca a $0$ desde arriba sin nunca tocarlo.\n\nPor eso la asíntota horizontal $y = 0$ queda del lado izquierdo del gráfico cuando la exponencial es creciente, y no del lado derecho como muchas veces se supone por analogía con otras funciones.\n\nConviene recordar que la exponencial nunca cruza esa asíntota ni se vuelve negativa: siempre queda por encima del eje horizontal, sin importar qué tan lejos hacia la izquierda se mire.",
     "reviewed": false,
     "tags": [
       "lectura-raices"
@@ -533,7 +533,7 @@
       -0.5,
       8.5
     ],
-    "explanation": "La exponencial decreciente $b^x$ con $0 < b < 1$ también tiene dos comportamientos opuestos en los extremos.\n\nHacia $x \\to +\\infty$ la función se acerca a $0$ sin tocarlo, que es la asíntota del lado derecho, mientras que hacia $x \\to -\\infty$ crece sin límite hacia valores cada vez más grandes.\n\nEsto puede resultar contraintuitivo: una función llamada decreciente termina siendo enorme cuando $x$ es muy negativo, precisamente porque decrecer significa que los valores bajan a medida que $x$ aumenta, no al revés.\n\nUn buen recordatorio práctico es que en toda exponencial, creciente o decreciente, el lado que diverge y el lado que se aplana contra la asíntota siempre son opuestos entre sí.",
+    "explanation": "La exponencial decreciente $b^x$ con $0 < b < 1$ también tiene dos comportamientos opuestos en los extremos.\n\nHacia $x \\to +\\infty$ la función se acerca a $0$ sin tocarlo, que es la asíntota del lado derecho.\n\nMientras que hacia $x \\to -\\infty$ crece sin límite hacia valores cada vez más grandes.\n\nEsto puede resultar contraintuitivo: una función llamada decreciente termina siendo enorme cuando $x$ es muy negativo, precisamente porque decrecer significa que los valores bajan a medida que $x$ aumenta, no al revés.\n\nUn buen recordatorio práctico es que en toda exponencial, creciente o decreciente, el lado que diverge y el lado que se aplana contra la asíntota siempre son opuestos entre sí.",
     "reviewed": false,
     "tags": [
       "lectura-asintota"
@@ -1463,7 +1463,7 @@
       -0.5,
       10
     ],
-    "explanation": "**Datos usados:**\n$t = 0$ $S(0) = 3$\n\nEl punto $(0, 3)$ es donde la curva corta el eje $y$:\n$$S(0) = 3 \\cdot (1{,}2)^0 = 3 \\cdot 1 = 3 \\text{ miles}$$Este es el valor inicial de la curva, los $3000$ seguidores del comienzo, ya que cualquier base elevada a la potencia $0$ da $1$.\n\nSolo queda el coeficiente $a = 3$.\n\nEste valor en $t = 0$ es el punto de partida sobre el que después actúa el crecimiento porcentual de cada mes, no debe confundirse con el valor luego de aplicar algún período de crecimiento.",
+    "explanation": "**Datos usados:**\n$t = 0$ $S(0) = 3$\n\nEl punto $(0, 3)$ es donde la curva corta el eje $y$:\n$$S(0) = 3 \\cdot (1{,}2)^0 = 3 \\cdot 1 = 3 \\text{ miles}$$Este es el valor inicial de la curva, los $3000$ seguidores del comienzo.\n\nA que cualquier base elevada a la potencia $0$ da $1$.\n\nSolo queda el coeficiente $a = 3$.\n\nEste valor en $t = 0$ es el punto de partida sobre el que después actúa el crecimiento porcentual de cada mes, no debe confundirse con el valor luego de aplicar algún período de crecimiento.",
     "reviewed": false,
     "tags": [
       "asintota-contexto"

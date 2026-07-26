@@ -233,7 +233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El signo del **coeficiente principal** $a$ determina la **concavidad** de la **parábola**.\n\nCuando $a < 0$ en $f(x) = ax^2 + bx + c$, el término cuadrático resta en vez de sumar, por lo que la curva se **abre hacia abajo** y el **vértice** queda por encima de todo el resto de la curva.\n\nComparando los dos casos, con $a > 0$ la parábola tiene forma de U y el vértice es un mínimo global, mientras que con $a < 0$ la parábola tiene forma de $\\cap$ y el vértice es un máximo global.\n\nUna parábola con $a < 0$ no decrece en todo su **dominio**, decrece solo a la derecha del vértice y crece a la izquierda.\n\nY la existencia de **raíces** reales depende del discriminante, no del signo de $a$.",
+    "explanation": "El signo del **coeficiente principal** $a$ determina la **concavidad** de la **parábola**.\n\nCuando $a < 0$ en $f(x) = ax^2 + bx + c$, el término cuadrático resta en vez de sumar, por lo que la curva se **abre hacia abajo** y el **vértice** queda por encima de todo el resto de la curva.\n\nComparando los dos casos, con $a > 0$ la parábola tiene forma de U y el vértice es un mínimo global.\n\nMientras que con $a < 0$ la parábola tiene forma de $\\cap$ y el vértice es un máximo global.\n\nUna parábola con $a < 0$ no decrece en todo su **dominio**, decrece solo a la derecha del vértice y crece a la izquierda.\n\nY la existencia de **raíces** reales depende del discriminante, no del signo de $a$.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -683,7 +683,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El valor extremo de una cuadrática, su máximo o su mínimo, es la coordenada $y$ del **vértice**, no la coordenada $x$.\n\nSi el vértice es $(h, k)$, la coordenada $x = h$ dice dónde o cuándo ocurre el extremo, mientras que la coordenada $y = k$ dice cuánto vale ese extremo.\n\nEn problemas de optimización esta diferencia lo es todo: $h$ es el precio que conviene fijar, $k$ es la ganancia que efectivamente se consigue. Mezclarlas lleva a reportar el número equivocado.",
+    "explanation": "El valor extremo de una cuadrática, su máximo o su mínimo, es la coordenada $y$ del **vértice**, no la coordenada $x$.\n\nSi el vértice es $(h, k)$, la coordenada $x = h$ dice dónde o cuándo ocurre el extremo.\n\nMientras que la coordenada $y = k$ dice cuánto vale ese extremo.\n\nEn problemas de optimización esta diferencia lo es todo: $h$ es el precio que conviene fijar, $k$ es la ganancia que efectivamente se consigue. Mezclarlas lleva a reportar el número equivocado.",
     "reviewed": false,
     "tags": [
       "vertice-concepto"
@@ -833,7 +833,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El coeficiente $b$ acompaña a la $x$ de primer grado en la forma estándar $f(x) = ax^2 + bx + c$, por eso se llama **coeficiente lineal**.\n\nLos tres coeficientes de la forma estándar tienen roles distintos: $a$ es el **coeficiente principal**, que acompaña a $x^2$.\n\n$b$ es el coeficiente lineal, que acompaña a $x$.\n\nY $c$ es el término independiente, que va solo.\n\nJunto con $a$, el coeficiente $b$ ayuda a ubicar el **vértice**, ya que $x_v = -\\dfrac{b}{2a}$.\n\nNo trabaja solo, siempre lo hace en conjunto con $a$.",
+    "explanation": "El coeficiente $b$ acompaña a la $x$ de primer grado en la forma estándar $f(x) = ax^2 + bx + c$, por eso se llama **coeficiente lineal**.\n\nLos tres coeficientes de la forma estándar tienen roles distintos: $a$ es el **coeficiente principal**, que acompaña a $x^2$.\n\n$b$ es el coeficiente lineal, que acompaña a $x$.\n\nY $c$ es el término independiente, que va solo.\n\nJunto con $a$, el coeficiente $b$ ayuda a ubicar el **vértice**.\n\nA que $x_v = -\\dfrac{b}{2a}$.\n\nNo trabaja solo, siempre lo hace en conjunto con $a$.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"
@@ -1008,7 +1008,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Esta distinción vale para toda función, y en las cuadráticas se ve con claridad.\n\nEl **dominio** son los valores de $x$ que la función acepta, y la **imagen** son los valores de $y$ que efectivamente produce.\n\nEn una cuadrática el dominio es siempre todo $\\mathbb{R}$, mientras que la imagen queda acotada por el **vértice**, $[k, +\\infty)$ si abre hacia arriba o $(-\\infty, k]$ si abre hacia abajo.\n\nEntran todos los valores de $x$, pero no salen todos los valores de $y$, porque el vértice pone un techo o un piso. Esa asimetría entre dominio e imagen es una marca propia de la **parábola**.",
+    "explanation": "Esta distinción vale para toda función, y en las cuadráticas se ve con claridad.\n\nEl **dominio** son los valores de $x$ que la función acepta, y la **imagen** son los valores de $y$ que efectivamente produce.\n\nEn una cuadrática el dominio es siempre todo $\\mathbb{R}$.\n\nMientras que la imagen queda acotada por el **vértice**, $[k, +\\infty)$ si abre hacia arriba o $(-\\infty, k]$ si abre hacia abajo.\n\nEntran todos los valores de $x$, pero no salen todos los valores de $y$, porque el vértice pone un techo o un piso. Esa asimetría entre dominio e imagen es una marca propia de la **parábola**.",
     "reviewed": false,
     "tags": [
       "dominio-imagen"

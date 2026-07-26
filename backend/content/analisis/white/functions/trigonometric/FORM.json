@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma general $f(x)=A\\cdot\\operatorname{sen}(Bx+C)$, el coeficiente $A$ es la **amplitud**:\n\nDetermina cuánto se aleja la onda del eje central. Aquí $A=3$, así que la onda oscila entre $-3$ y $3$.\n\n$B=2$ controla el período ($T=\\pi$) y $C=\\pi/4$ desplaza la fase horizontalmente.\n\nCada parámetro tiene un rol independiente:\n\nNo confundir amplitud con período ni con fase.",
+    "explanation": "En la forma general $f(x)=A\\cdot\\operatorname{sen}(Bx+C)$, el coeficiente $A$ es la **amplitud**:\n\nDetermina cuánto se aleja la onda del eje central. Aquí $A=3$.\n\nAsí que la onda oscila entre $-3$ y $3$.\n\n$B=2$ controla el período ($T=\\pi$) y $C=\\pi/4$ desplaza la fase horizontalmente.\n\nCada parámetro tiene un rol independiente:\n\nNo confundir amplitud con período ni con fase.",
     "reviewed": false,
     "tags": [
       "amplitud-calculo-form"

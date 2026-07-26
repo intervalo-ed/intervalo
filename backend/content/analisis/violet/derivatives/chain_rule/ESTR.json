@@ -315,7 +315,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $5\\sin x$, el $5$ multiplica a la función seno completa desde afuera, mientras que el argumento del seno sigue siendo $x$ solo.\n\nEsta estructura se resuelve con **múltiplo escalar**, distinta de $\\sin(5x)$, donde el $5$ vive dentro del argumento y exige la **regla de la cadena**.\n\nIdentificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
+    "explanation": "En $5\\sin x$, el $5$ multiplica a la función seno completa desde afuera.\n\nMientras que el argumento del seno sigue siendo $x$ solo.\n\nEsta estructura se resuelve con **múltiplo escalar**, distinta de $\\sin(5x)$, donde el $5$ vive dentro del argumento y exige la **regla de la cadena**.\n\nIdentificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-producto-composicion"

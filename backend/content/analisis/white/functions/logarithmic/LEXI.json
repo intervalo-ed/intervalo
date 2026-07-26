@@ -383,7 +383,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad de la potencia** del logaritmo dice que $\\log_b(x^n) = n \\cdot \\log_b(x)$: el exponente baja y multiplica al logaritmo.\n\nAplicada acá: $\\ln(e^2) = 2 \\cdot \\ln(e) = 2 \\cdot 1 = 2$, porque $\\ln(e) = 1$ siempre.\n\nEste patrón se repite con cualquier exponente: $\\ln(e^n) = n$ para todo $n \\in \\mathbb{R}$.\n\nPor ejemplo, $\\ln(e^3) = 3$, $\\ln(e^{-1}) = -1$ y $\\ln(\\sqrt{e}) = \\ln(e^{1/2}) = \\frac{1}{2}$.\n\nConviene recordar que $\\ln$ y la función $e^{(\\ )}$ se cancelan mutuamente por ser funciones inversas, así que $\\ln(e^n)$ nunca requiere una cuenta larga.",
+    "explanation": "La **propiedad de la potencia** del logaritmo dice que $\\log_b(x^n) = n \\cdot \\log_b(x)$: el exponente baja y multiplica al logaritmo.\n\nAplicada acá: $\\ln(e^2) = 2 \\cdot \\ln(e) = 2 \\cdot 1 = 2$, porque $\\ln(e) = 1$ siempre.\n\nEste patrón se repite con cualquier exponente: $\\ln(e^n) = n$ para todo $n \\in \\mathbb{R}$.\n\nPor ejemplo, $\\ln(e^3) = 3$, $\\ln(e^{-1}) = -1$ y $\\ln(\\sqrt{e}) = \\ln(e^{1/2}) = \\frac{1}{2}$.\n\nConviene recordar que $\\ln$ y la función $e^{(\\ )}$ se cancelan mutuamente por ser funciones inversas.\n\nAsí que $\\ln(e^n)$ nunca requiere una cuenta larga.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-log"
@@ -1158,7 +1158,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$f(x) = \\ln(x)$ tiene **asíntota vertical** en $x = 0$:\n\nLas otras opciones no tienen asíntota vertical: $3^x$ tiene asíntota horizontal en $y=0$, mientras que $x^3-2$.\n\n$2x+1$ están definidas en todo $\\mathbb{R}$, sin ninguna restricción de dominio.\n\nLas propiedades de inyectividad y monotonía de los logaritmos son herramientas poderosas para resolver ecuaciones sin enumerarlas.",
+    "explanation": "$f(x) = \\ln(x)$ tiene **asíntota vertical** en $x = 0$:\n\nLas otras opciones no tienen asíntota vertical: $3^x$ tiene asíntota horizontal en $y=0$.\n\nMientras que $x^3-2$.\n\n$2x+1$ están definidas en todo $\\mathbb{R}$, sin ninguna restricción de dominio.\n\nLas propiedades de inyectividad y monotonía de los logaritmos son herramientas poderosas para resolver ecuaciones sin enumerarlas.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-nombre-concepto"
@@ -1208,7 +1208,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\log(x)$ requiere $x > 0$, así que su **dominio** es exactamente $(0, +\\infty)$.\n\nLas otras funciones tienen dominios distintos: $2^x$ tiene dominio $\\mathbb{R}$, $x^2$ también tiene dominio $\\mathbb{R}$,.\n\n$\\sqrt{x}$ tiene dominio $[0, +\\infty)$, que incluye $x=0$, a diferencia del logaritmo, que excluye el cero por completo.",
+    "explanation": "$\\log(x)$ requiere $x > 0$.\n\nAsí que su **dominio** es exactamente $(0, +\\infty)$.\n\nLas otras funciones tienen dominios distintos: $2^x$ tiene dominio $\\mathbb{R}$, $x^2$ también tiene dominio $\\mathbb{R}$,.\n\n$\\sqrt{x}$ tiene dominio $[0, +\\infty)$, que incluye $x=0$, a diferencia del logaritmo, que excluye el cero por completo.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-log"

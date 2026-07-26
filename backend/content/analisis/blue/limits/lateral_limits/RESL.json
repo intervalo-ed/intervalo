@@ -343,7 +343,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con $|x|$, conviene reescribir $|x-c|$ por ramas: vale $x-c$ si $x \\geq c$, y vale $-(x-c)$ si $x<c$.\n\nComo se pide $x \\to c^+$, se usa la rama $x \\geq c$:\n$$\\lim_{x \\to c^+} \\frac{|x-c|}{x-c} = \\lim_{x \\to c^+} \\frac{x-c}{x-c} = 1$$\nPor la derecha de $c$ el numerador y el denominador coinciden en signo, así que el cociente vale $1$, mientras que por la izquierda cambia a $-1$.",
+    "explanation": "Igual que con $|x|$, conviene reescribir $|x-c|$ por ramas: vale $x-c$ si $x \\geq c$, y vale $-(x-c)$ si $x<c$.\n\nComo se pide $x \\to c^+$, se usa la rama $x \\geq c$:\n$$\\lim_{x \\to c^+} \\frac{|x-c|}{x-c} = \\lim_{x \\to c^+} \\frac{x-c}{x-c} = 1$$\nPor la derecha de $c$ el numerador y el denominador coinciden en signo.\n\nAsí que el cociente vale $1$, mientras que por la izquierda cambia a $-1$.",
     "reviewed": false,
     "tags": [
       "laterales-valor-absoluto"

@@ -23,7 +23,7 @@
       -3,
       5
     ],
-    "explanation": "Toda función logarítmica $\\log_b(x)$ es **estrictamente monótona**: crece si la base $b>1$ y decrece si $0<b<1$, nunca cambia de sentido en su dominio.\n\n$f(x) = \\log_2(x)$ tiene base $2 > 1$, así que es **estrictamente creciente** en todo su dominio $(0, +\\infty)$.\n\nEn el gráfico se observa que al avanzar hacia la derecha la curva siempre sube, aunque cada vez más lentamente.\n\nNo hay que confundir ese crecimiento lento con un tramo que se aplana del todo, la curva sigue subiendo sin techo.",
+    "explanation": "Toda función logarítmica $\\log_b(x)$ es **estrictamente monótona**: crece si la base $b>1$ y decrece si $0<b<1$, nunca cambia de sentido en su dominio.\n\n$f(x) = \\log_2(x)$ tiene base $2 > 1$.\n\nAsí que es **estrictamente creciente** en todo su dominio $(0, +\\infty)$.\n\nEn el gráfico se observa que al avanzar hacia la derecha la curva siempre sube, aunque cada vez más lentamente.\n\nNo hay que confundir ese crecimiento lento con un tramo que se aplana del todo, la curva sigue subiendo sin techo.",
     "reviewed": false,
     "tags": [
       "lectura-monotonia"
@@ -473,7 +473,7 @@
       -3,
       4
     ],
-    "explanation": "El cruce con el eje $X$ de una logarítmica desplazada horizontalmente se calcula igualando el argumento a $1$, ya que $\\log_b(1) = 0$ para cualquier base.\n\n$\\log_2(x - 1) = 0 \\implies x - 1 = 2^0 = 1 \\implies x = 2$.\n\nEl intercepto con el eje $X$ se desplaza de $x = 1$ (de la básica) a $x = 2$ (desplazada en $+1$ unidad horizontal).",
+    "explanation": "El cruce con el eje $X$ de una logarítmica desplazada horizontalmente se calcula igualando el argumento a $1$.\n\nA que $\\log_b(1) = 0$ para cualquier base.\n\n$\\log_2(x - 1) = 0 \\implies x - 1 = 2^0 = 1 \\implies x = 2$.\n\nEl intercepto con el eje $X$ se desplaza de $x = 1$ (de la básica) a $x = 2$ (desplazada en $+1$ unidad horizontal).",
     "reviewed": false,
     "tags": [
       "lectura-raiz-cruce-x"

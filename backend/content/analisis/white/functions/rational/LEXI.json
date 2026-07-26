@@ -1058,7 +1058,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **asíntota oblicua** aparece cuando el grado del numerador supera en exactamente uno al del denominador.\n\nAl hacer la división polinomial en ese caso, el cociente resulta una expresión lineal $ax+b$ más un resto que tiende a cero cuando $x\\to\\pm\\infty$, así que la función se aproxima a la recta $y=ax+b$.\n\nSi los grados son iguales o el denominador tiene grado mayor, en cambio, la asíntota es horizontal, no oblicua.",
+    "explanation": "La **asíntota oblicua** aparece cuando el grado del numerador supera en exactamente uno al del denominador.\n\nAl hacer la división polinomial en ese caso, el cociente resulta una expresión lineal $ax+b$ más un resto que tiende a cero cuando $x\\to\\pm\\infty$.\n\nAsí que la función se aproxima a la recta $y=ax+b$.\n\nSi los grados son iguales o el denominador tiene grado mayor, en cambio, la asíntota es horizontal, no oblicua.",
     "reviewed": false,
     "tags": [
       "comportamiento-en-infinito"
@@ -1108,7 +1108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **asíntota horizontal**, cuando los grados de numerador y denominador coinciden, es el cociente de los coeficientes principales.\n\nEn $f(x)=\\frac{-2x+1}{x+5}$ ese cociente es $\\frac{-2}{1}=-2$, así que su asíntota horizontal es $y=-2$.\n\nLas otras opciones tienen asíntotas distintas: $\\frac{1}{x+2}$ y $\\frac{2}{x}$ tienden a $y=0$ (numerador de grado menor), y $\\frac{x-2}{x}$ tiende a $y=1$.",
+    "explanation": "La **asíntota horizontal**, cuando los grados de numerador y denominador coinciden, es el cociente de los coeficientes principales.\n\nEn $f(x)=\\frac{-2x+1}{x+5}$ ese cociente es $\\frac{-2}{1}=-2$.\n\nAsí que su asíntota horizontal es $y=-2$.\n\nLas otras opciones tienen asíntotas distintas: $\\frac{1}{x+2}$ y $\\frac{2}{x}$ tienden a $y=0$ (numerador de grado menor), y $\\frac{x-2}{x}$ tiende a $y=1$.",
     "reviewed": false,
     "tags": [
       "dominio-restriccion"

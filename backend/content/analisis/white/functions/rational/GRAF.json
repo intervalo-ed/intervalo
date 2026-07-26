@@ -1253,7 +1253,7 @@
       -1,
       8
     ],
-    "explanation": "Un denominador elevado a una potencia **par** nunca es negativo, así que toda la función mantiene el mismo signo en ambos lados de la asíntota vertical. $f(x)=\\frac{1}{x^2}$.\n\nEl denominador $x^2>0$ siempre, así que $f(x)>0$ para todo $x\\neq0$.\n\nLas dos ramas están por encima del eje $X$. En contraste, $1/x$ tiene ramas en el 1.° y 3.\n\n° cuadrante, con una de ellas negativa.",
+    "explanation": "Un denominador elevado a una potencia **par** nunca es negativo, así que toda la función mantiene el mismo signo en ambos lados de la asíntota vertical. $f(x)=\\frac{1}{x^2}$.\n\nEl denominador $x^2>0$ siempre.\n\nAsí que $f(x)>0$ para todo $x\\neq0$.\n\nLas dos ramas están por encima del eje $X$. En contraste, $1/x$ tiene ramas en el 1.° y 3.\n\n° cuadrante, con una de ellas negativa.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"

@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El punto $a$ es el lugar del dominio donde se quiere conocer la **derivada**, y permanece fijo durante todo el cálculo del límite.\n\nEl incremento $h$ es el que se mueve, acercando el punto $a+h$ a $a$ hasta que la distancia entre ambos se hace cero.\n\nSi $a$ cambiara junto con $h$, el cociente ya no describiría la tasa de cambio en un punto concreto sino en varios a la vez, así que fijarlo es lo que le da sentido al resultado $f'(a)$.",
+    "explanation": "El punto $a$ es el lugar del dominio donde se quiere conocer la **derivada**, y permanece fijo durante todo el cálculo del límite.\n\nEl incremento $h$ es el que se mueve, acercando el punto $a+h$ a $a$ hasta que la distancia entre ambos se hace cero.\n\nSi $a$ cambiara junto con $h$, el cociente ya no describiría la tasa de cambio en un punto concreto sino en varios a la vez.\n\nAsí que fijarlo es lo que le da sentido al resultado $f'(a)$.",
     "reviewed": false,
     "tags": [
       "anatomia-del-limite"

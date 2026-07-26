@@ -178,7 +178,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **término independiente** de un polinomio es el término $a_0$: la constante que no acompaña ninguna potencia de $x$.\n\nUna forma práctica de encontrarlo: evaluar el polinomio en $x = 0$, ya que todas las potencias $x^k$ con $k \\geq 1$ se anulan:\n\nEn $p(x) = x^4 - 3x + 7$, el término independiente es $7$.\n\nRepresenta el punto donde la curva **corta al eje $Y$**.",
+    "explanation": "El **término independiente** de un polinomio es el término $a_0$: la constante que no acompaña ninguna potencia de $x$.\n\nUna forma práctica de encontrarlo: evaluar el polinomio en $x = 0$.\n\nA que todas las potencias $x^k$ con $k \\geq 1$ se anulan:\n\nEn $p(x) = x^4 - 3x + 7$, el término independiente es $7$.\n\nRepresenta el punto donde la curva **corta al eje $Y$**.",
     "reviewed": false,
     "tags": [
       "coeficiente-termino-nombre"

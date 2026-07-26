@@ -153,7 +153,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el numerador y el denominador de una racional tienen el **mismo grado**, la asíntota horizontal es el cociente de los coeficientes principales, no el resultado de evaluar la función en algún punto.\n\nAcá ambos son de grado 1: el coeficiente principal del numerador es $3$ y el del denominador es $1$, así que la asíntota horizontal es $y=\\frac{3}{1}=3$.\n\nPodés verificarlo dividiendo cada término entre $x$: $\\frac{3x+1}{x-2}=\\frac{3+1/x}{1-2/x}$, que tiende a $3/1=3$ cuando $x\\to\\infty$.\n\nConfundir esta asíntota con el valor que anula el denominador.",
+    "explanation": "Cuando el numerador y el denominador de una racional tienen el **mismo grado**, la asíntota horizontal es el cociente de los coeficientes principales, no el resultado de evaluar la función en algún punto.\n\nAcá ambos son de grado 1: el coeficiente principal del numerador es $3$ y el del denominador es $1$.\n\nAsí que la asíntota horizontal es $y=\\frac{3}{1}=3$.\n\nPodés verificarlo dividiendo cada término entre $x$: $\\frac{3x+1}{x-2}=\\frac{3+1/x}{1-2/x}$, que tiende a $3/1=3$ cuando $x\\to\\infty$.\n\nConfundir esta asíntota con el valor que anula el denominador.",
     "reviewed": false,
     "tags": [
       "combinado-av-ah-valor"
@@ -458,7 +458,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando numerador y denominador tienen el mismo grado, la asíntota horizontal es el cociente de los coeficientes principales, tomando el del numerador arriba y el del denominador abajo.\n\nAcá ambos son de grado 1: coeficiente principal del numerador $4$, del denominador $2$, así que la asíntota horizontal es $y=\\frac{4}{2}=2$.\n\nPodés verificarlo dividiendo cada término entre $x$: para $x$ grande, $\\frac{4x-1}{2x+3}\\approx\\frac{4x}{2x}=2$.\n\nSi invertís el cociente y pones el denominador arriba, entonces vas a calcular la asíntota incorrectamente.",
+    "explanation": "Cuando numerador y denominador tienen el mismo grado, la asíntota horizontal es el cociente de los coeficientes principales, tomando el del numerador arriba y el del denominador abajo.\n\nAcá ambos son de grado 1: coeficiente principal del numerador $4$, del denominador $2$.\n\nAsí que la asíntota horizontal es $y=\\frac{4}{2}=2$.\n\nPodés verificarlo dividiendo cada término entre $x$: para $x$ grande, $\\frac{4x-1}{2x+3}\\approx\\frac{4x}{2x}=2$.\n\nSi invertís el cociente y pones el denominador arriba, entonces vas a calcular la asíntota incorrectamente.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual"
@@ -508,7 +508,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando numerador y denominador tienen el mismo grado, la asíntota horizontal es el cociente de los coeficientes principales, respetando el signo de cada uno.\n\nAcá ambos son de grado 1: el coeficiente principal del numerador es $-5$ y el del denominador es $1$, así que la asíntota horizontal es $y=\\frac{-5}{1}=-5$.\n\nPodés verificarlo dividiendo cada término entre $x$: para $x$ grande, $\\frac{-5x+2}{x-1}\\approx\\frac{-5x}{x}=-5$.\n\nSi olvidás el signo negativo del numerador, entonces vas a calcular la asíntota incorrectamente.",
+    "explanation": "Cuando numerador y denominador tienen el mismo grado, la asíntota horizontal es el cociente de los coeficientes principales, respetando el signo de cada uno.\n\nAcá ambos son de grado 1: el coeficiente principal del numerador es $-5$ y el del denominador es $1$.\n\nAsí que la asíntota horizontal es $y=\\frac{-5}{1}=-5$.\n\nPodés verificarlo dividiendo cada término entre $x$: para $x$ grande, $\\frac{-5x+2}{x-1}\\approx\\frac{-5x}{x}=-5$.\n\nSi olvidás el signo negativo del numerador, entonces vas a calcular la asíntota incorrectamente.",
     "reviewed": false,
     "tags": [
       "dominio-form"
@@ -633,7 +633,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El intercepto con el eje $Y$ se halla evaluando la función en $x=0$, siempre que ese punto esté en el dominio.\n\nAcá:$$f(0)=\\frac{0^2-4}{0+1}=\\frac{-4}{1}=-4$$El denominador $0+1=1$ no se anula, así que $x=0$ pertenece al dominio y el intercepto existe en $y=-4$.\n\nOlvidar el signo negativo del numerador y reportar el resultado como positivo, o confundir este cálculo con buscar el intercepto con el eje $X$, que requiere igualar el numerador a cero en vez de sustituir $x=0$.",
+    "explanation": "El intercepto con el eje $Y$ se halla evaluando la función en $x=0$, siempre que ese punto esté en el dominio.\n\nAcá:$$f(0)=\\frac{0^2-4}{0+1}=\\frac{-4}{1}=-4$$El denominador $0+1=1$ no se anula.\n\nAsí que $x=0$ pertenece al dominio y el intercepto existe en $y=-4$.\n\nOlvidar el signo negativo del numerador y reportar el resultado como positivo, o confundir este cálculo con buscar el intercepto con el eje $X$, que requiere igualar el numerador a cero en vez de sustituir $x=0$.",
     "reviewed": false,
     "tags": [
       "formula-desde-propiedades"
@@ -808,7 +808,7 @@
       -4,
       6
     ],
-    "explanation": "El enunciado ya adelanta un dato clave: la asíntota horizontal está en $y=1$, no en $y=0$. Eso significa que la hipérbola básica está desplazada verticalmente.\n\nLa asíntota vertical en $x=3$ indica que el denominador es $x-3$, así que partimos de $\\frac{1}{x-3}$, cuya asíntota horizontal natural es $y=0$.\n\nPara llevarla a $y=1$, sumamos $1$ a toda la expresión: $f(x)=\\frac{1}{x-3}+1$.\n\nIgnorar el desplazamiento vertical señalado en el enunciado y elegir la fórmula sin el $+1$, aunque tenga la asíntota vertical correcta.",
+    "explanation": "El enunciado ya adelanta un dato clave: la asíntota horizontal está en $y=1$, no en $y=0$. Eso significa que la hipérbola básica está desplazada verticalmente.\n\nLa asíntota vertical en $x=3$ indica que el denominador es $x-3$.\n\nAsí que partimos de $\\frac{1}{x-3}$, cuya asíntota horizontal natural es $y=0$.\n\nPara llevarla a $y=1$, sumamos $1$ a toda la expresión: $f(x)=\\frac{1}{x-3}+1$.\n\nIgnorar el desplazamiento vertical señalado en el enunciado y elegir la fórmula sin el $+1$, aunque tenga la asíntota vertical correcta.",
     "reviewed": false,
     "tags": [
       "combinado-av-ah-valor"
@@ -983,7 +983,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando un factor del denominador se cancela con uno igual en el numerador, aparece un agujero en vez de una asíntota vertical.\n\nAcá factorizamos: $\\frac{x^2-1}{x-1}=\\frac{(x-1)(x+1)}{x-1}=x+1$ para todo $x\\neq1$.\n\nEl factor $(x-1)$ se cancela, así que el límite de la función cuando $x\\to1$ existe y vale $1+1=2$,.\n\n$f(1)$ en sí **no está definida**, porque en la expresión original el denominador se anula justo ahí.\n\nSi confundís esta situación con una asíntota vertical, entonces interpretarás incorrectamente si el factor se cancela o no.",
+    "explanation": "Cuando un factor del denominador se cancela con uno igual en el numerador, aparece un agujero en vez de una asíntota vertical.\n\nAcá factorizamos: $\\frac{x^2-1}{x-1}=\\frac{(x-1)(x+1)}{x-1}=x+1$ para todo $x\\neq1$.\n\nEl factor $(x-1)$ se cancela.\n\nAsí que el límite de la función cuando $x\\to1$ existe y vale $1+1=2$,.\n\n$f(1)$ en sí **no está definida**, porque en la expresión original el denominador se anula justo ahí.\n\nSi confundís esta situación con una asíntota vertical, entonces interpretarás incorrectamente si el factor se cancela o no.",
     "reviewed": false,
     "tags": [
       "dominio-form"
@@ -1208,7 +1208,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de excluir puntos del dominio, conviene factorizar el denominador para detectar si alguna raíz está repetida.\n\nAcá $x^2+2x+1=(x+1)^2$, un cuadrado perfecto que se anula solo en $x=-1$, aunque sea una raíz **doble**.\n\nEl numerador $x-2$ no se anula en ese punto ($-1-2=-3\\neq0$), así que hay una asíntota vertical en $x=-1$.\n\nEl dominio es $\\mathbb{R}\\setminus\\{-1\\}$: un único valor excluido, no dos.\n\nAsumir que un denominador cuadrático siempre da dos raíces distintas, sin revisar si en realidad es un cuadrado perfecto con raíz doble.",
+    "explanation": "Antes de excluir puntos del dominio, conviene factorizar el denominador para detectar si alguna raíz está repetida.\n\nAcá $x^2+2x+1=(x+1)^2$, un cuadrado perfecto que se anula solo en $x=-1$, aunque sea una raíz **doble**.\n\nEl numerador $x-2$ no se anula en ese punto ($-1-2=-3\\neq0$).\n\nAsí que hay una asíntota vertical en $x=-1$.\n\nEl dominio es $\\mathbb{R}\\setminus\\{-1\\}$: un único valor excluido, no dos.\n\nAsumir que un denominador cuadrático siempre da dos raíces distintas, sin revisar si en realidad es un cuadrado perfecto con raíz doble.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-calculo"

@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x^2-4$, $v(x)=e^x$, con $u'(x)=2x$ y $v'(x)=e^x$.\n\nEl término $u(2)v'(2)$ se anula porque $x=2$ es raíz del **numerador** original, así que el resultado se simplifica a $u'(2)/v(2)$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $u(x)=x^2-4$, $v(x)=e^x$, con $u'(x)=2x$ y $v'(x)=e^x$.\n\nEl término $u(2)v'(2)$ se anula porque $x=2$ es raíz del **numerador** original.\n\nAsí que el resultado se simplifica a $u'(2)/v(2)$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "anulacion-raiz-numerador-cociente"

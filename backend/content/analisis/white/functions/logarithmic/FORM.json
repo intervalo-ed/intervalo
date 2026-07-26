@@ -673,7 +673,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar $f(28) = \\log_3(28 - 1)$, primero se simplifica el argumento y después se calcula el logaritmo.\n\nComo $3^3 = 27$, resulta $\\log_3(27) = 3$, así que $f(28) = 3$.\n\nConviene resolver siempre el argumento antes de pensar en el logaritmo: si se intenta aplicar la base directamente sobre el $28$ sin restar el $1$, se llega a un resultado incorrecto.",
+    "explanation": "Para evaluar $f(28) = \\log_3(28 - 1)$, primero se simplifica el argumento y después se calcula el logaritmo.\n\nComo $3^3 = 27$, resulta $\\log_3(27) = 3$.\n\nAsí que $f(28) = 3$.\n\nConviene resolver siempre el argumento antes de pensar en el logaritmo: si se intenta aplicar la base directamente sobre el $28$ sin restar el $1$, se llega a un resultado incorrecto.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -748,7 +748,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar $f(7) = \\log_2(7 + 1)$, primero se simplifica el argumento sumando dentro del paréntesis, y recién después se calcula el logaritmo.\n\nComo $2^3 = 8$, resulta $\\log_2(8) = 3$, así que $f(7) = 3$.\n\naplicar la base directamente sobre el $7$ sin sumar primero el $1$ del desplazamiento horizontal.",
+    "explanation": "Para evaluar $f(7) = \\log_2(7 + 1)$, primero se simplifica el argumento sumando dentro del paréntesis, y recién después se calcula el logaritmo.\n\nComo $2^3 = 8$, resulta $\\log_2(8) = 3$.\n\nAsí que $f(7) = 3$.\n\naplicar la base directamente sobre el $7$ sin sumar primero el $1$ del desplazamiento horizontal.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -948,7 +948,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar $f(11) = \\log_2(11 - 3)$, primero se simplifica el argumento restando dentro del paréntesis, y recién después se calcula el logaritmo.\n\nComo $2^3 = 8$, resulta $\\log_2(8) = 3$, así que $f(11) = 3$.\n\naplicar la base directamente sobre el $11$ sin restar primero el $3$ del desplazamiento horizontal.",
+    "explanation": "Para evaluar $f(11) = \\log_2(11 - 3)$, primero se simplifica el argumento restando dentro del paréntesis, y recién después se calcula el logaritmo.\n\nComo $2^3 = 8$, resulta $\\log_2(8) = 3$.\n\nAsí que $f(11) = 3$.\n\naplicar la base directamente sobre el $11$ sin restar primero el $3$ del desplazamiento horizontal.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1023,7 +1023,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** de un logaritmo exige que su argumento sea estrictamente positivo.\n\nAcá el argumento es $x^2$, que es positivo para cualquier $x$ distinto de cero, ya que elevar al cuadrado siempre da un resultado no negativo, y solo se anula cuando $x=0$.\n\nPor eso el dominio es $\\mathbb{R} \\setminus \\{0\\} = (-\\infty, 0) \\cup (0, +\\infty)$, es decir, todos los reales excepto cero.\n\nEsto confirma la propiedad $\\log_2(x^2) = 2\\log_2|x|$, que muestra que la función existe tanto para $x$ positivo como negativo.\n\nrestringir el dominio solo a los positivos, como si el argumento fuera $x$ en vez de $x^2$: acá el cuadrado permite que también los negativos generen un argumento válido.",
+    "explanation": "El **dominio** de un logaritmo exige que su argumento sea estrictamente positivo.\n\nAcá el argumento es $x^2$, que es positivo para cualquier $x$ distinto de cero.\n\nA que elevar al cuadrado siempre da un resultado no negativo, y solo se anula cuando $x=0$.\n\nPor eso el dominio es $\\mathbb{R} \\setminus \\{0\\} = (-\\infty, 0) \\cup (0, +\\infty)$, es decir, todos los reales excepto cero.\n\nEsto confirma la propiedad $\\log_2(x^2) = 2\\log_2|x|$, que muestra que la función existe tanto para $x$ positivo como negativo.\n\nrestringir el dominio solo a los positivos, como si el argumento fuera $x$ en vez de $x^2$: acá el cuadrado permite que también los negativos generen un argumento válido.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1178,7 +1178,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **intercepto con el eje $X$** ocurre donde $f(x) = 0$. Acá conviene despejar primero el logaritmo solo, y recién después convertirlo a su forma exponencial.\n\nLa curva pasa por el punto $(2,\\, 0)$.\n\nUn desplazamiento vertical como este $-1$ cambia dónde ocurre el cruce por el eje $X$, a diferencia de la forma básica $\\log_2(x)$, que cruza en $x=1$:\n\nHay que resolver la ecuación completa en vez de asumir que sigue siendo el mismo punto.",
+    "explanation": "El **intercepto con el eje $X$** ocurre donde $f(x) = 0$. Acá conviene despejar primero el logaritmo solo, y recién después convertirlo a su forma exponencial.\n\nLa curva pasa por el punto $(2,\\, 0)$.\n\nUn desplazamiento vertical como este $-1$ cambia dónde ocurre el cruce por el eje $X$.\n\nA diferencia la forma básica $\\log_2(x)$, que cruza en $x=1$:\n\nHay que resolver la ecuación completa en vez de asumir que sigue siendo el mismo punto.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"

@@ -1183,7 +1183,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "**Datos usados:**\n$A(0) = 1000$ $B(0) = 2000$ $t = 0$ $B$\n\nPara comparar dos modelos exponenciales en un instante dado, hay que evaluar ambas fórmulas en ese valor de $t$.\n\nEl coeficiente $a$ de cada una determina directamente cuánto vale la función en $t=0$, sin importar cuál tenga la base mayor.\n\nEn el instante inicial, $B=2000$ es mayor que $A=1000$.\n\nSin embargo, $A$ tiene mayor base ($1{,}5>1{,}2$), así que a largo plazo $A$ terminará superando a $B$.\n\nConfundir el valor inicial con la velocidad de crecimiento al comparar dos exponenciales.",
+    "explanation": "**Datos usados:**\n$A(0) = 1000$ $B(0) = 2000$ $t = 0$ $B$\n\nPara comparar dos modelos exponenciales en un instante dado, hay que evaluar ambas fórmulas en ese valor de $t$.\n\nEl coeficiente $a$ de cada una determina directamente cuánto vale la función en $t=0$, sin importar cuál tenga la base mayor.\n\nEn el instante inicial, $B=2000$ es mayor que $A=1000$.\n\nSin embargo, $A$ tiene mayor base ($1{,}5>1{,}2$).\n\nAsí que a largo plazo $A$ terminará superando a $B$.\n\nConfundir el valor inicial con la velocidad de crecimiento al comparar dos exponenciales.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal-desplazada"

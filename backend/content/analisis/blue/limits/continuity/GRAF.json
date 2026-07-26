@@ -143,7 +143,7 @@
       -5,
       2
     ],
-    "explanation": "Que la función valga $0$ en algún punto, es decir que corte el eje $x$, no tiene ninguna relación con la continuidad de ese punto.\n\nUn cero de la función es un punto donde la función \"pasa por el eje horizontal\", pero eso no genera ninguna ruptura: la función sigue siendo continua ahí.\n\nEl enunciado nombra el cruce como distractor visual.\n\nLa recta $f(x)=x-3$ cruza el eje en $x=3$ sin ningún problema, mientras que el hueco real está marcado en $x=1$, donde el círculo abierto indica que $f(1)$ no está definida.\n\nEste razonamiento muestra que frecuente: hay que buscar específicamente huecos, saltos o asíntotas, no ceros.",
+    "explanation": "Que la función valga $0$ en algún punto, es decir que corte el eje $x$, no tiene ninguna relación con la continuidad de ese punto.\n\nUn cero de la función es un punto donde la función \"pasa por el eje horizontal\", pero eso no genera ninguna ruptura: la función sigue siendo continua ahí.\n\nEl enunciado nombra el cruce como distractor visual.\n\nLa recta $f(x)=x-3$ cruza el eje en $x=3$ sin ningún problema.\n\nMientras que el hueco real está marcado en $x=1$, donde el círculo abierto indica que $f(1)$ no está definida.\n\nEste razonamiento muestra que frecuente: hay que buscar específicamente huecos, saltos o asíntotas, no ceros.",
     "reviewed": false,
     "tags": [
       "diagnostico-visual-falla"
@@ -173,7 +173,7 @@
       -3,
       6
     ],
-    "explanation": "Un salto entre dos ramas se ubica exactamente en el valor de $x$ donde cambia la definición de la función, no en un punto cercano de cualquiera de las dos ramas.\n\nCuando la función \"cambia de rama\", los límites laterales pueden apuntar a valores distintos: la rama izquierda se aproxima a un valor desde un lado, y la rama derecha arranca desde otro.\n\nAcá la rama izquierda se acerca a $y=-1$ cuando $x \\to -3^-$, mientras que la rama derecha arranca en $y=3$ para $x=-3$: el corte está justo ahí.\n\nElegir un valor vecino en vez del punto exacto de quiebre es un desliz típico al leer gráficas con ramas partidas.",
+    "explanation": "Un salto entre dos ramas se ubica exactamente en el valor de $x$ donde cambia la definición de la función, no en un punto cercano de cualquiera de las dos ramas.\n\nCuando la función \"cambia de rama\", los límites laterales pueden apuntar a valores distintos: la rama izquierda se aproxima a un valor desde un lado, y la rama derecha arranca desde otro.\n\nAcá la rama izquierda se acerca a $y=-1$ cuando $x \\to -3^-$.\n\nMientras que la rama derecha arranca en $y=3$ para $x=-3$: el corte está justo ahí.\n\nElegir un valor vecino en vez del punto exacto de quiebre es un desliz típico al leer gráficas con ramas partidas.",
     "reviewed": false,
     "tags": [
       "diagnostico-visual-falla"
