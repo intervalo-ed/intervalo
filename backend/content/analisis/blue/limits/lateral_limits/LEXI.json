@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El símbolo $x \\to a^+$ indica que la variable se aproxima al punto $a$ desde valores mayores. La lectura completa describe el valor al que tiende $f(x)$ cuando $x$ toma valores cada vez más próximos a $a$ por encima.\n\nPor ejemplo, si $f(x) = x+1$, al acercarse por la derecha se calcula:\n$$\\lim_{x \\to 3^+} f(x) = 3{,}01 + 1 \\approx 4$$\nSiguiendo esa misma dirección de valores mayores que $3$.\n\nConviene no confundir el superíndice de dirección con un exponente: no se está elevando nada al cuadrado ni al positivo, es solo una etiqueta del sentido de aproximación.",
+    "explanation": "El símbolo $x \\to a^+$ indica que la variable se aproxima al punto $a$ desde valores mayores. La lectura completa describe el valor al que tiende $f(x)$ cuando $x$ toma valores cada vez más próximos a $a$ por encima.\n\nPor ejemplo, si $f(x) = x+1$, al acercarse por la derecha se calcula:\n \nSiguiendo esa misma dirección de valores mayores que $3$.\n\nConviene no confundir el superíndice de dirección con un exponente: no se está elevando nada al cuadrado ni al positivo, es solo una etiqueta del sentido de aproximación.",
     "reviewed": false,
     "tags": [
       "notacion-y-direccion-lateral"
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el punto de tendencia $a$ es negativo, hay que distinguir con cuidado el superíndice de dirección del signo propio de $a$. En $x \\to (-2)^+$, el signo dentro del paréntesis es parte del número $-2$, y el superíndice $+$ fuera del paréntesis indica acercamiento por la derecha.\n\nAcercarse por la derecha a $-2$ significa tomar valores mayores que $-2$ pero cada vez más próximos:\n$$-1{,}9,\\ -1{,}99,\\ -1{,}999, \\dots$$\nTodos ubicados a la derecha de $-2$ en la recta numérica.\n\nEste es el único caso donde conviene detenerse a separar visualmente el signo del número (dentro del paréntesis) del signo de la dirección (superíndice fuera), porque ambos símbolos son iguales pero cumplen roles distintos.",
+    "explanation": "Cuando el punto de tendencia $a$ es negativo, hay que distinguir con cuidado el superíndice de dirección del signo propio de $a$. En $x \\to (-2)^+$, el signo dentro del paréntesis es parte del número $-2$, y el superíndice $+$ fuera del paréntesis indica acercamiento por la derecha.\n\nAcercarse por la derecha a $-2$ significa tomar valores mayores que $-2$ pero cada vez más próximos:\n \nTodos ubicados a la derecha de $-2$ en la recta numérica.\n\nEste es el único caso donde conviene detenerse a separar visualmente el signo del número (dentro del paréntesis) del signo de la dirección (superíndice fuera), porque ambos símbolos son iguales pero cumplen roles distintos.",
     "reviewed": false,
     "tags": [
       "notacion-y-direccion-lateral"
@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **teorema de existencia** del **límite bilateral** establece el criterio decisivo para determinar si existe un único límite bilateral en un punto. La idea central es que los dos **límites laterales** deben 'apuntar' exactamente al mismo valor: si uno apunta a una altura distinta del otro, no hay acuerdo entre ambas direcciones, y el límite bilateral no existe.\n$$\\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x) \\Rightarrow \\lim_{x \\to a} f(x)$$\nEl límite bilateral existe y vale ese valor común.\n\nSi ambos laterales dan $7$, entonces $\\lim_{x \\to a} f(x) = 7$. Si uno da $7$ y el otro $5$, el bilateral no existe.\n\nEsta condición es totalmente independiente de $f(a)$ y del tipo de función: solo depende de la coincidencia entre los dos laterales.",
+    "explanation": "El **teorema de existencia** del **límite bilateral** establece el criterio decisivo para determinar si existe un único límite bilateral en un punto. La idea central es que los dos **límites laterales** deben 'apuntar' exactamente al mismo valor: si uno apunta a una altura distinta del otro, no hay acuerdo entre ambas direcciones, y el límite bilateral no existe. \nEl límite bilateral existe y vale ese valor común.\n\nSi ambos laterales dan $7$, entonces $\\lim_{x \\to a} f(x) = 7$. Si uno da $7$ y el otro $5$, el bilateral no existe.\n\nEsta condición es totalmente independiente de $f(a)$ y del tipo de función: solo depende de la coincidencia entre los dos laterales.",
     "reviewed": false,
     "tags": [
       "teorema-existencia-bilateral"
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La existencia del **límite bilateral** es garantía de que ambos **límites laterales** coinciden entre sí con ese valor exacto. El **teorema de existencia** funciona en ambas direcciones: si ambos laterales son iguales, el bilateral existe; inversamente, si el bilateral existe, los laterales **tienen que** ser iguales al valor del bilateral.\n\nEn este caso, si $\\lim_{x \\to a} f(x) = 6$, entonces obligatoriamente:\n$$\\lim_{x \\to a^-} f(x) = 6 \\quad \\text{y} \\quad \\lim_{x \\to a^+} f(x) = 6$$\nNo es una deducción que requiera ver la gráfica, es una consecuencia directa de la definición del límite bilateral.",
+    "explanation": "La existencia del **límite bilateral** es garantía de que ambos **límites laterales** coinciden entre sí con ese valor exacto. El **teorema de existencia** funciona en ambas direcciones: si ambos laterales son iguales, el bilateral existe; inversamente, si el bilateral existe, los laterales **tienen que** ser iguales al valor del bilateral.\n\nEn este caso, si $\\lim_{x \\to a} f(x) = 6$, entonces obligatoriamente:\n \nNo es una deducción que requiera ver la gráfica, es una consecuencia directa de la definición del límite bilateral.",
     "reviewed": false,
     "tags": [
       "teorema-existencia-bilateral"
@@ -200,7 +200,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **teorema de existencia** del **límite bilateral** establece una condición única: que los dos **límites laterales** coincidan entre sí. No incluye ningún requisito sobre $f(a)$. Cuando ambos laterales valen el mismo número, el bilateral existe y toma ese valor común.\n$$\\lim_{x \\to a^-} f(x) = 8 = \\lim_{x \\to a^+} f(x) \\Rightarrow \\lim_{x \\to a} f(x) = 8$$\nEsta conclusión no cambia aunque $f(a) = 2$ sea completamente distinto, o incluso aunque $f(a)$ no esté definida.\n\nEste es el caso clásico de un **hueco removible** en la gráfica: el límite bilateral existe y vale $8$ (ambas ramas se aproximan a la misma altura), pero la función tiene un punto desconectado en $f(a) = 2$. El límite existe independientemente del punto faltante o erróneo.",
+    "explanation": "El **teorema de existencia** del **límite bilateral** establece una condición única: que los dos **límites laterales** coincidan entre sí. No incluye ningún requisito sobre $f(a)$. Cuando ambos laterales valen el mismo número, el bilateral existe y toma ese valor común. \nEsta conclusión no cambia aunque $f(a) = 2$ sea completamente distinto, o incluso aunque $f(a)$ no esté definida.\n\nEste es el caso clásico de un **hueco removible** en la gráfica: el límite bilateral existe y vale $8$ (ambas ramas se aproximan a la misma altura), pero la función tiene un punto desconectado en $f(a) = 2$. El límite existe independientemente del punto faltante o erróneo.",
     "reviewed": false,
     "tags": [
       "teorema-existencia-bilateral"
@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un **salto** visible en la gráfica es exactamente la manifestación de que los dos **límites laterales** no coinciden entre sí. El **teorema de existencia** es indiferente: la condición es clara - ambos laterales deben apuntar al mismo valor. Si apuntan a valores distintos, el bilateral no existe, sin excepciones.\n\nNo hay ningún 'rescate' posible: no se puede promediar, no se puede tomar uno de los dos lados, no se puede ignorar el salto. Cuando:\n$$\\lim_{x \\to a^-} f(x) \\neq \\lim_{x \\to a^+} f(x)$$\nEl límite bilateral simplemente no existe.\n\nLos dos laterales individuales siguen siendo números válidos y operables entre sí (se pueden sumar, comparar, etc.), pero no se combinan en un único límite bilateral.",
+    "explanation": "Un **salto** visible en la gráfica es exactamente la manifestación de que los dos **límites laterales** no coinciden entre sí. El **teorema de existencia** es indiferente: la condición es clara - ambos laterales deben apuntar al mismo valor. Si apuntan a valores distintos, el bilateral no existe, sin excepciones.\n\nNo hay ningún 'rescate' posible: no se puede promediar, no se puede tomar uno de los dos lados, no se puede ignorar el salto. Cuando:\n \nEl límite bilateral simplemente no existe.\n\nLos dos laterales individuales siguen siendo números válidos y operables entre sí (se pueden sumar, comparar, etc.), pero no se combinan en un único límite bilateral.",
     "reviewed": false,
     "tags": [
       "discontinuidad-por-salto"
@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Contextos cotidianos como tarifas escalonadas reproducen exactamente el comportamiento de un **salto** matemático: la función $C(t)$ (costo en función del tiempo $t$ en horas) tiende a un valor desde la izquierda y a otro distinto desde la derecha.\n\nEn el umbral $t=1$ hora, si la tarifa inicial era \\$500 y sube a \\$800 justo al completar la hora:\n$$\\lim_{t \\to 1^-} C(t) = 500 \\neq 800 = \\lim_{t \\to 1^+} C(t)$$\nLos dos **límites laterales** son distintos, así que por el **teorema de existencia**, el **límite bilateral** no existe en ese punto.\n\nEste patrón es universal en sistemas de facturación: estacionamiento, transporte, telefonía. El salto es inherente a la estructura de precios por tramos, no es un error, es el comportamiento esperado.",
+    "explanation": "Contextos cotidianos como tarifas escalonadas reproducen exactamente el comportamiento de un **salto** matemático: la función $C(t)$ (costo en función del tiempo $t$ en horas) tiende a un valor desde la izquierda y a otro distinto desde la derecha.\n\nEn el umbral $t=1$ hora, si la tarifa inicial era \\$500 y sube a \\$800 justo al completar la hora:\n \nLos dos **límites laterales** son distintos, así que por el **teorema de existencia**, el **límite bilateral** no existe en ese punto.\n\nEste patrón es universal en sistemas de facturación: estacionamiento, transporte, telefonía. El salto es inherente a la estructura de precios por tramos, no es un error, es el comportamiento esperado.",
     "reviewed": false,
     "tags": [
       "discontinuidad-por-salto"

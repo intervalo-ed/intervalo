@@ -345,7 +345,7 @@
       -1,
       10
     ],
-    "explanation": "La **asimetría en el infinito** es típica de funciones exponenciales crecientes: los dos extremos se comportan de forma radicalmente distinta. Un extremo alcanza una **asíntota horizontal**, mientras el otro diverge sin freno.\n\nEn una función exponencial creciente, la diferencia de comportamiento entre extremos es la norma, no la excepción. Hacia $x \\to -\\infty$ la curva se aplasta hacia $0$, mientras que hacia $x \\to +\\infty$ se dispara sin cota.\n$$\\lim_{x \\to -\\infty} 2^x = 0$$\nAsumir que ambos extremos se comportan igual es un error frecuente al leer gráficas de funciones exponenciales.",
+    "explanation": "La **asimetría en el infinito** es típica de funciones exponenciales crecientes: los dos extremos se comportan de forma radicalmente distinta. Un extremo alcanza una **asíntota horizontal**, mientras el otro diverge sin freno.\n\nEn una función exponencial creciente, la diferencia de comportamiento entre extremos es la norma, no la excepción. Hacia $x \\to -\\infty$ la curva se aplasta hacia $0$, mientras que hacia $x \\to +\\infty$ se dispara sin cota. \nAsumir que ambos extremos se comportan igual es un error frecuente al leer gráficas de funciones exponenciales.",
     "reviewed": false,
     "tags": [
       "asimetria-en-el-infinito"
@@ -375,7 +375,7 @@
       -1,
       10
     ],
-    "explanation": "Mientras un extremo de la gráfica se estabiliza en una **asíntota horizontal**, el otro extremo se abre completamente hacia una **divergencia**. Esta es la esencia de la **asimetría en el infinito**: dos comportamientos cualitativamente diferentes en los dos extremos de $x$.\n\nHacia $x \\to +\\infty$, una función exponencial creciente no se estabiliza en ningún valor, sigue creciendo sin cota.\n$$\\lim_{x \\to +\\infty} 2^x = +\\infty$$\nEsta gráfica confirma que mientras un extremo se aplana en $y=0$, el otro diverge, dos comportamientos completamente distintos en la misma curva.",
+    "explanation": "Mientras un extremo de la gráfica se estabiliza en una **asíntota horizontal**, el otro extremo se abre completamente hacia una **divergencia**. Esta es la esencia de la **asimetría en el infinito**: dos comportamientos cualitativamente diferentes en los dos extremos de $x$.\n\nHacia $x \\to +\\infty$, una función exponencial creciente no se estabiliza en ningún valor, sigue creciendo sin cota.\n \nEsta gráfica confirma que mientras un extremo se aplana en $y=0$, el otro diverge, dos comportamientos completamente distintos en la misma curva.",
     "reviewed": false,
     "tags": [
       "asimetria-en-el-infinito"
@@ -405,7 +405,7 @@
       -8,
       8
     ],
-    "explanation": "En funciones racionales donde el numerador domina en grado, la **asimetría en el infinito** surge de la paridad de la potencia dominante. Con un grado impar en el numerador, los dos extremos divergen en direcciones opuestas, reflejando la inversión de signo que produce una potencia impar.\n\nEn funciones racionales donde el numerador domina en grado, cada extremo se analiza por separado. Acá el grado del numerador es impar, así que el signo del resultado se invierte entre un extremo y el otro.\n$$\\lim_{x \\to -\\infty} \\frac{x^3}{x^2+1} = -\\infty$$\nNo hay que asumir que ambos extremos divergen con el mismo signo, esta es una gráfica típica de un polinomio de grado impar que domina sobre el denominador.",
+    "explanation": "En funciones racionales donde el numerador domina en grado, la **asimetría en el infinito** surge de la paridad de la potencia dominante. Con un grado impar en el numerador, los dos extremos divergen en direcciones opuestas, reflejando la inversión de signo que produce una potencia impar.\n\nEn funciones racionales donde el numerador domina en grado, cada extremo se analiza por separado. Acá el grado del numerador es impar, así que el signo del resultado se invierte entre un extremo y el otro. \nNo hay que asumir que ambos extremos divergen con el mismo signo, esta es una gráfica típica de un polinomio de grado impar que domina sobre el denominador.",
     "reviewed": false,
     "tags": [
       "asimetria-en-el-infinito"
@@ -435,7 +435,7 @@
       -8,
       8
     ],
-    "explanation": "La **asimetría en el infinito** característica de potencias impares es un reflejo directo de cómo el signo de $x$ afecta a una función cuando crece sin límite. Hacia $x \\to +\\infty$, la función sube, mientras que hacia $x \\to -\\infty$, baja: es el espejo exacto de su propio comportamiento.\n\nHacia $x \\to +\\infty$, el numerador de grado impar domina con signo positivo, así que la función crece sin cota.\n$$\\lim_{x \\to +\\infty} \\frac{x^3}{x^2+1} = +\\infty$$\nJunto con la gráfica anterior, esta confirma que ambos extremos divergen pero con signos opuestos, la asimetría completa del comportamiento en el infinito.",
+    "explanation": "La **asimetría en el infinito** característica de potencias impares es un reflejo directo de cómo el signo de $x$ afecta a una función cuando crece sin límite. Hacia $x \\to +\\infty$, la función sube, mientras que hacia $x \\to -\\infty$, baja: es el espejo exacto de su propio comportamiento.\n\nHacia $x \\to +\\infty$, el numerador de grado impar domina con signo positivo, así que la función crece sin cota.\n \nJunto con la gráfica anterior, esta confirma que ambos extremos divergen pero con signos opuestos, la asimetría completa del comportamiento en el infinito.",
     "reviewed": false,
     "tags": [
       "asimetria-en-el-infinito"

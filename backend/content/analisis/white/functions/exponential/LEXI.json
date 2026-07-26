@@ -1008,7 +1008,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para una función $f(x) = b^x$ con **base** $b > 1$, el límite cuando $x \\to -\\infty$ siempre es $0^+$: valores cada vez más chicos pero siempre positivos.\n$$\\lim_{x \\to -\\infty} 3^x = 0^+$$\nCon $b=3$: cuando $x$ es muy negativo, $3^x = \\frac{1}{3^{|x|}}$, una fracción con denominador enorme, por lo que el resultado se acerca a $0$ sin llegar nunca a tocarlo.\n\nEsto explica por qué la **asíntota horizontal** de toda exponencial creciente es $y=0$ hacia la izquierda: cuanto más negativo el exponente, más se divide entre potencias grandes de la base, y el cociente se aproxima a cero pero nunca lo alcanza.",
+    "explanation": "Para una función $f(x) = b^x$ con **base** $b > 1$, el límite cuando $x \\to -\\infty$ siempre es $0^+$: valores cada vez más chicos pero siempre positivos.\n \nCon $b=3$: cuando $x$ es muy negativo, $3^x = \\frac{1}{3^{|x|}}$, una fracción con denominador enorme, por lo que el resultado se acerca a $0$ sin llegar nunca a tocarlo.\n\nEsto explica por qué la **asíntota horizontal** de toda exponencial creciente es $y=0$ hacia la izquierda: cuanto más negativo el exponente, más se divide entre potencias grandes de la base, y el cociente se aproxima a cero pero nunca lo alcanza.",
     "reviewed": false,
     "tags": [
       "imagen-desplazamiento-vertical"

@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función lineal es la que puede escribirse en la forma:\n$$f(x) = mx + b$$\nDonde $m$ y $b$ son constantes reales. El parámetro $m$ es la **pendiente**, que mide la inclinación de la recta, y $b$ es la **ordenada al origen**, el valor de $f(0)$.\n\nEn $f(x) = 5x - 2$ la variable aparece con exponente 1, multiplicada por una constante y con un término independiente: exactamente el molde $mx + b$. Su gráfica es una línea recta.\n\nSi la $x$ aparece elevada al cuadrado, en un exponente o dentro de un logaritmo, la función pertenece a otra familia: el criterio es dónde y cómo aparece la variable.",
+    "explanation": "Una función lineal es la que puede escribirse en la forma:\n \nDonde $m$ y $b$ son constantes reales. El parámetro $m$ es la **pendiente**, que mide la inclinación de la recta, y $b$ es la **ordenada al origen**, el valor de $f(0)$.\n\nEn $f(x) = 5x - 2$ la variable aparece con exponente 1, multiplicada por una constante y con un término independiente: exactamente el molde $mx + b$. Su gráfica es una línea recta.\n\nSi la $x$ aparece elevada al cuadrado, en un exponente o dentro de un logaritmo, la función pertenece a otra familia: el criterio es dónde y cómo aparece la variable.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"
@@ -137,7 +137,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "A veces una función lineal no viene escrita en la forma canónica $f(x) = mx + b$. Reordenando los términos:\n$$f(x) = 4 - x = -x + 4$$\nSe ve que $m = -1$ y $b = 4$: es una función lineal con **pendiente** negativa y **ordenada al origen** $4$.\n\nLa familia no depende del orden en que estén escritos los términos, sino de cómo aparece la variable: acá $x$ tiene exponente 1 y no está dentro de raíces, logaritmos ni exponentes.\n\nCuando el enunciado venga desordenado, reescribí primero en la forma $mx + b$: leer los parámetros sin reordenar es la fuente clásica de errores de signo.",
+    "explanation": "A veces una función lineal no viene escrita en la forma canónica $f(x) = mx + b$. Reordenando los términos:\n \nSe ve que $m = -1$ y $b = 4$: es una función lineal con **pendiente** negativa y **ordenada al origen** $4$.\n\nLa familia no depende del orden en que estén escritos los términos, sino de cómo aparece la variable: acá $x$ tiene exponente 1 y no está dentro de raíces, logaritmos ni exponentes.\n\nCuando el enunciado venga desordenado, reescribí primero en la forma $mx + b$: leer los parámetros sin reordenar es la fuente clásica de errores de signo.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"
