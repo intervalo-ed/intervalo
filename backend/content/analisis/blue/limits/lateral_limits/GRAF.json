@@ -285,7 +285,7 @@
       -2,
       8
     ],
-    "explanation": "Cuando una gráfica combina un hueco con un salto, lo que decide la existencia del límite bilateral es exclusivamente la comparación entre los dos límites laterales, no la presencia del hueco.Como $2 \\neq 5$, el límite bilateral no existe, independientemente de que además haya un hueco en $f(2)$.\n\nEl hueco por sí solo nunca impide la existencia del límite, pero acá el problema real es que las ramas ya son distintas entre sí.",
+    "explanation": "Cuando una gráfica combina un hueco con un salto, lo que decide la existencia del límite bilateral es exclusivamente la comparación entre los dos límites laterales,\n\nno la presencia del hueco.Como $2 \\neq 5$, el límite bilateral no existe, independientemente de que además haya un hueco en $f(2)$.\n\nEl hueco por sí solo nunca impide la existencia del límite, pero acá el problema real es que las ramas ya son distintas entre sí.",
     "reviewed": false,
     "tags": [
       "diagnostico-bilateral-visual"
@@ -403,7 +403,7 @@
       -2,
       11
     ],
-    "explanation": "Para comparar dos límites laterales de puntos distintos de la misma gráfica, se lee cada uno por separado antes de decidir cuál es mayor.Como $8 > 5$, el límite lateral más grande es el de $x \\to 3^-$.\n\nNo hace falta que ambos puntos pertenezcan al mismo salto para poder compararlos: cualquier par de límites laterales existentes son números reales comparables.",
+    "explanation": "Para comparar dos límites laterales de puntos distintos de la misma gráfica,\n\nse lee cada uno por separado antes de decidir cuál es mayor.Como $8 > 5$, el límite lateral más grande es el de $x \\to 3^-$.\n\nNo hace falta que ambos puntos pertenezcan al mismo salto para poder compararlos: cualquier par de límites laterales existentes son números reales comparables.",
     "reviewed": false,
     "tags": [
       "tamano-del-salto-visual"

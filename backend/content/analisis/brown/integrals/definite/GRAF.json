@@ -429,7 +429,7 @@
       -4,
       2
     ],
-    "explanation": "Conviene distinguir entre dos conceptos: la **integral definida** (que computa área con signo) y el área geométrica (la superficie física de la región, siempre positiva).La integral definida puede devolver un valor negativo cuando la región debajo del eje domina sobre la de arriba.\n\nEsto no significa que exista una superficie negativa, solo que el balance neto es negativo.",
+    "explanation": "Conviene distinguir entre dos conceptos: la **integral definida** (que computa área con signo) y el área geométrica (la superficie física de la región,\n\nsiempre positiva).La integral definida puede devolver un valor negativo cuando la región debajo del eje domina sobre la de arriba.\n\nEsto no significa que exista una superficie negativa, solo que el balance neto es negativo.",
     "reviewed": false,
     "tags": [
       "propiedades-limites-integracion"

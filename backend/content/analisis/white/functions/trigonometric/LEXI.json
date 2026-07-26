@@ -1108,7 +1108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La transformación $x\\mapsto -x$ en el argumento de $\\operatorname{sen}$ usa la **paridad** impar: :.Eso equivale a una **reflexión respecto al eje $Y$** combinada con la imparidad del seno, que produce una reflexión respecto al eje $X$.\n\nEn la práctica: $g(x)=\\operatorname{sen}(-x)=-\\operatorname{sen}(x)$.\n\nEs como reflejar la curva verticalmente (eje $X$), no horizontalmente (eje $Y$).\n\nLa reflexión respecto al eje $Y$ de una función impar es idéntica a multiplicar por $-1$.\n\nEl seno es tan impar que voltear su eje $Y$ es lo mismo que darle vuelta entera.",
+    "explanation": "La transformación $x\\mapsto -x$ en el argumento de $\\operatorname{sen}$ usa la **paridad** impar: :\n\nEso equivale a una **reflexión respecto al eje $Y$** combinada con la imparidad del seno, que produce una reflexión respecto al eje $X$.\n\nEn la práctica: $g(x)=\\operatorname{sen}(-x)=-\\operatorname{sen}(x)$.\n\nEs como reflejar la curva verticalmente (eje $X$), no horizontalmente (eje $Y$).\n\nLa reflexión respecto al eje $Y$ de una función impar es idéntica a multiplicar por $-1$.\n\nEl seno es tan impar que voltear su eje $Y$ es lo mismo que darle vuelta entera.",
     "reviewed": false,
     "tags": [
       "transformaciones-trig"

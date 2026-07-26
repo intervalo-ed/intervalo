@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **propiedades de linealidad** del límite permiten separar sumas, restas y escalares término a término.\n\n, siempre que cada límite exista por separado: si $\\lim f$ existe y $\\lim g$ existe, entonces : también existe y se calcula separado.Esta separación funciona porque el límite respeta operaciones lineales.\n\n: cuando una función es la suma o resta de dos funciones con límites conocidos, el resultado es predecible sin necesidad de combinar las funciones antes.\n\nRestar un límite negativo: cuando sustituyes :, eso se convierte en $+2$, no en $-2$.Ese cambio de signo es lo que lleva la respuesta de $6$ a $8$, sin él obtendrías algo completamente distinto.",
+    "explanation": "Las **propiedades de linealidad** del límite permiten separar sumas, restas y escalares término a término.\n\n, siempre que cada límite exista por separado: si $\\lim f$ existe y $\\lim g$ existe, entonces :\n\ntambién existe y se calcula separado.Esta separación funciona porque el límite respeta operaciones lineales.\n\n: cuando una función es la suma o resta de dos funciones con límites conocidos, el resultado es predecible sin necesidad de combinar las funciones antes.\n\nRestar un límite negativo: cuando sustituyes :, eso se convierte en $+2$, no en $-2$.Ese cambio de signo es lo que lleva la respuesta de $6$ a $8$, sin él obtendrías algo completamente distinto.",
     "reviewed": false,
     "tags": [
       "propiedades-suma-escalar"
@@ -293,7 +293,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un error clásico al **combinar escalar y resta** es distribuir el mismo factor sobre ambos términos de la resta, cuando en realidad el escalar solo acompaña a uno de ellos.\n\nLa linealidad preserva la estructura original, no agrega términos nuevos.\n\nCada propiedad actúa sobre el término que le corresponde: el escalar $3$ multiplica a $f$, la resta actúa entre : y $g$, sin interferencias.Antes de operar, conviene marcar con claridad a qué término multiplica cada escalar de la expresión, así se evita la confusión de distribuirlo donde no corresponde.",
+    "explanation": "Un error clásico al **combinar escalar y resta** es distribuir el mismo factor sobre ambos términos de la resta, cuando en realidad el escalar solo acompaña a uno de ellos.\n\nLa linealidad preserva la estructura original, no agrega términos nuevos.\n\nCada propiedad actúa sobre el término que le corresponde: el escalar $3$ multiplica a $f$, la resta actúa entre : y $g$,\n\nsin interferencias.Antes de operar, conviene marcar con claridad a qué término multiplica cada escalar de la expresión, así se evita la confusión de distribuirlo donde no corresponde.",
     "reviewed": false,
     "tags": [
       "propiedades-suma-escalar"

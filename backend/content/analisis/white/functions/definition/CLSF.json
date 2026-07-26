@@ -463,7 +463,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** contiene las entradas de la función y la **imagen** contiene las salidas.\n\nAcá el $104$ es el código que se ingresa a la función.\n\nEl $8$ es el stock que sale, así que pertenece a la imagen. guiarse por el número más chico o más grande; mirá el rol, qué entra y qué sale, no el tamaño.\n\nLa **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir: el resultado combina la derivada de la primera con la segunda, más la primera con la derivada de la segunda.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El **dominio** contiene las entradas de la función y la **imagen** contiene las salidas.\n\nAcá el $104$ es el código que se ingresa a la función.\n\nEl $8$ es el stock que sale, así que pertenece a la imagen. guiarse por el número más chico o más grande; mirá el rol, qué entra y qué sale, no el tamaño.\n\nLa **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir:\n\nel resultado combina la derivada de la primera con la segunda, más la primera con la derivada de la segunda.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "dominio-identificacion"
@@ -938,7 +938,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas realmente alcanzadas, no todas las posibles.\n\nAcá la máquina admite montos de \\$100 a \\$500, pero hoy solo cobra.\n\nEsa es la imagen. dar el rango de lo que la máquina podría cobrar, el **codominio**; la imagen se queda con lo efectivamente cobrado.\n\nLa **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir: el resultado combina la derivada de la primera con la segunda, más la primera con la derivada de la segunda.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El conjunto **imagen** son las salidas realmente alcanzadas, no todas las posibles.\n\nAcá la máquina admite montos de \\$100 a \\$500, pero hoy solo cobra.\n\nEsa es la imagen. dar el rango de lo que la máquina podría cobrar, el **codominio**; la imagen se queda con lo efectivamente cobrado.\n\nLa **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir:\n\nel resultado combina la derivada de la primera con la segunda, más la primera con la derivada de la segunda.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "imagen-identificacion"

@@ -173,7 +173,7 @@
       -1,
       11
     ],
-    "explanation": "Cuando algo se mueve dibujando un arco en el aire, ya sea en el tiempo o en el espacio, ese recorrido es una parábola y su **vértice** concentra el dato del punto más alto: la coordenada vertical dice cuánto sube, y la horizontal dice dónde ocurre eso.\n\nAcá el vértice del chorro está en:\n\nAsí que a 4 metros de la manguera el agua llega a su altura máxima, 8 metros, antes de empezar a caer del otro lado.\n\nEs un buen hábito separar mentalmente las dos coordenadas del vértice, la altura por un lado y la distancia por el otro, para no responder una cuando se pregunta por la otra.",
+    "explanation": "Cuando algo se mueve dibujando un arco en el aire, ya sea en el tiempo o en el espacio,\n\nese recorrido es una parábola y su **vértice** concentra el dato del punto más alto: la coordenada vertical dice cuánto sube, y la horizontal dice dónde ocurre eso.\n\nAcá el vértice del chorro está en:\n\nAsí que a 4 metros de la manguera el agua llega a su altura máxima, 8 metros, antes de empezar a caer del otro lado.\n\nEs un buen hábito separar mentalmente las dos coordenadas del vértice, la altura por un lado y la distancia por el otro, para no responder una cuando se pregunta por la otra.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -563,7 +563,7 @@
       -1,
       13
     ],
-    "explanation": "Leer la altura de una parábola en un instante puntual es evaluar la función en ese valor de la coordenada horizontal, es decir, encontrar el punto de la curva que está exactamente arriba de esa marca en el eje.\n\nAcá se pide la altura a los 4 segundos, así que hay que reemplazar $x$ por 4 en la fórmula:\n\nEl salmón está a 8 metros de altura en ese instante.\n\nEsa altura todavía no es la máxima: el vértice está más adelante, a los 6 segundos, con una altura mayor, así que conviene no confundir un punto cualquiera del recorrido con el punto más alto de todos.",
+    "explanation": "Leer la altura de una parábola en un instante puntual es evaluar la función en ese valor de la coordenada horizontal,\n\nes decir, encontrar el punto de la curva que está exactamente arriba de esa marca en el eje.\n\nAcá se pide la altura a los 4 segundos, así que hay que reemplazar $x$ por 4 en la fórmula:\n\nEl salmón está a 8 metros de altura en ese instante.\n\nEsa altura todavía no es la máxima: el vértice está más adelante, a los 6 segundos, con una altura mayor, así que conviene no confundir un punto cualquiera del recorrido con el punto más alto de todos.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -1313,7 +1313,7 @@
       -1,
       11
     ],
-    "explanation": "La **concavidad** de una parábola indica para qué lado abre la curva, y de eso depende si el vértice funciona como piso o como techo.\n\nCuando abre hacia arriba, el vértice queda por debajo de todo el resto de la curva y es un mínimo; cuando abre hacia abajo, queda por encima de todo lo demás y es un máximo.\n\nEn este gráfico la parábola abre hacia arriba, así que el vértice es el punto más bajo de todo el recorrido, el fondo de la rampa en forma de U por donde pasa el skater antes de volver a subir del otro lado.\n\nEl sentido de apertura y el tipo de extremo van siempre juntos: una parábola que abre hacia arriba nunca tiene un máximo, y una que abre hacia abajo nunca tiene un mínimo.",
+    "explanation": "La **concavidad** de una parábola indica para qué lado abre la curva, y de eso depende si el vértice funciona como piso o como techo.\n\nCuando abre hacia arriba, el vértice queda por debajo de todo el resto de la curva y es un mínimo; cuando abre hacia abajo, queda por encima de todo lo demás y es un máximo.\n\nEn este gráfico la parábola abre hacia arriba, así que el vértice es el punto más bajo de todo el recorrido,\n\nel fondo de la rampa en forma de U por donde pasa el skater antes de volver a subir del otro lado.\n\nEl sentido de apertura y el tipo de extremo van siempre juntos: una parábola que abre hacia arriba nunca tiene un máximo, y una que abre hacia abajo nunca tiene un mínimo.",
     "reviewed": false,
     "tags": [
       "vertice-y"
@@ -1343,7 +1343,7 @@
       -1,
       11
     ],
-    "explanation": "Cuando una magnitud baja durante un tiempo y después se recupera, como el nivel de un río en sequía, esa relación con el tiempo dibuja una parábola que abre hacia arriba, con un **mínimo** en el vértice: ningún otro mes registra un nivel más bajo que ese.\n\nAcá el mes de menor nivel es la coordenada horizontal del vértice,:\n\nEl río toca fondo en el sexto mes.\n\nAntes de ese mes el nivel todavía viene bajando, y después empieza a recuperarse poco a poco; el vértice es el único punto donde el descenso se detiene y arranca la subida.",
+    "explanation": "Cuando una magnitud baja durante un tiempo y después se recupera, como el nivel de un río en sequía,\n\nesa relación con el tiempo dibuja una parábola que abre hacia arriba, con un **mínimo** en el vértice: ningún otro mes registra un nivel más bajo que ese.\n\nAcá el mes de menor nivel es la coordenada horizontal del vértice,:\n\nEl río toca fondo en el sexto mes.\n\nAntes de ese mes el nivel todavía viene bajando, y después empieza a recuperarse poco a poco; el vértice es el único punto donde el descenso se detiene y arranca la subida.",
     "reviewed": false,
     "tags": [
       "lectura-fv"

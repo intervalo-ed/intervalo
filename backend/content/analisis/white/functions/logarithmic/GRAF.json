@@ -1223,7 +1223,7 @@
       -3,
       5
     ],
-    "explanation": "En modelos de crecimiento por factor (inversión, población, deuda), el tiempo necesario para alcanzar un factor $x$ es $t(x) = \\log_b(x)$, el logaritmo del factor en la base de crecimiento por período.\n\nPara $x = 4$ (la inversión creció $4$ veces): :.Son $2$ períodos de duplicación.\n\nNota: no se pide triplicar sino cuadruplicar (el enunciado usa «triplicarse» de forma informal para referirse a un factor $4$).\n\nDe todos modos, $\\log_2(4)=2$ es la lectura correcta del gráfico en ese punto.",
+    "explanation": "En modelos de crecimiento por factor (inversión, población, deuda),\n\nel tiempo necesario para alcanzar un factor $x$ es $t(x) = \\log_b(x)$, el logaritmo del factor en la base de crecimiento por período.\n\nPara $x = 4$ (la inversión creció $4$ veces): :.Son $2$ períodos de duplicación.\n\nNota: no se pide triplicar sino cuadruplicar (el enunciado usa «triplicarse» de forma informal para referirse a un factor $4$).\n\nDe todos modos, $\\log_2(4)=2$ es la lectura correcta del gráfico en ese punto.",
     "reviewed": false,
     "tags": [
       "lectura-valor-puntual"

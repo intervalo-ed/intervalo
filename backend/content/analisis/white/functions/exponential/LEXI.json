@@ -73,7 +73,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **característica definitoria** de una función exponencial es que la variable $x$ aparece en el **exponente**:Contraste con una función polinómica como $x^3$, donde $x$ está en la **base** y el exponente es constante.\n\nEsta diferencia de posición genera comportamientos completamente distintos: las exponenciales crecen o decrecen mucho más rápido que cualquier polinomio.",
+    "explanation": "La **característica definitoria** de una función exponencial es que la variable $x$ aparece en el **exponente**:\n\nontraste con una función polinómica como $x^3$, donde $x$ está en la **base** y el exponente es constante.\n\nEsta diferencia de posición genera comportamientos completamente distintos: las exponenciales crecen o decrecen mucho más rápido que cualquier polinomio.",
     "reviewed": false,
     "tags": [
       "ubicacion-variable-exponente"
@@ -1208,7 +1208,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Resolver $2^x = 8$:\n\nSe usa la **inyectividad** de la exponencial: si dos potencias de la misma base son iguales, entonces los exponentes son iguales.\n\nEl dominio de la exponencial es todo $\\mathbb{R}$ porque no hay restricción: no hay denominador (función racional), no hay radicando (función radical), no hay argumento de logaritmo que deba ser positivo.\n\nCualquier real es un exponente válido en $b^x$.",
+    "explanation": "Resolver $2^x = 8$:\n\nSe usa la **inyectividad** de la exponencial: si dos potencias de la misma base son iguales, entonces los exponentes son iguales.\n\nEl dominio de la exponencial es todo $\\mathbb{R}$ porque no hay restricción: no hay denominador (función racional),\n\nno hay radicando (función radical), no hay argumento de logaritmo que deba ser positivo.\n\nCualquier real es un exponente válido en $b^x$.",
     "reviewed": false,
     "tags": [
       "dominio-imagen-basica"

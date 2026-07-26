@@ -283,7 +283,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **logaritmo natural** $\\ln(x)$ se define como la función inversa de $e^x$: decir : equivale a decir $e^t = x$.Como $e^t > 0$ para todo $t \\in \\mathbb{R}$,\n\nnunca existe un exponente que produzca un resultado negativo o nulo.\n\nPor eso.\n\nsi $x \\leq 0$.\n\nno hay ningún real $t$ que satisfaga $e^t = x$.\n\ny $\\ln(x)$ queda sin definir en ese caso.\n\nEl **dominio** de $\\ln(x)$ es entonces $(0, +\\infty)$: solo admite argumentos estrictamente positivos.\n\nEsta restricción no es exclusiva del logaritmo natural: cualquier : con $b > 0$ y $b \\neq 1$ exige $x > 0$.porque ninguna base positiva elevada a un exponente real puede dar cero ni un número negativo.",
+    "explanation": "El **logaritmo natural** $\\ln(x)$ se define como la función inversa de $e^x$: decir : equivale a decir $e^t = x$.Como $e^t > 0$ para todo $t \\in \\mathbb{R}$,\n\nnunca existe un exponente que produzca un resultado negativo o nulo.\n\nPor eso.\n\nsi $x \\leq 0$.\n\nno hay ningún real $t$ que satisfaga $e^t = x$.\n\ny $\\ln(x)$ queda sin definir en ese caso.\n\nEl **dominio** de $\\ln(x)$ es entonces $(0, +\\infty)$: solo admite argumentos estrictamente positivos.\n\nEsta restricción no es exclusiva del logaritmo natural: cualquier :\n\ncon $b > 0$ y $b \\neq 1$ exige $x > 0$.porque ninguna base positiva elevada a un exponente real puede dar cero ni un número negativo.",
     "reviewed": false,
     "tags": [
       "dominio-razonamiento"
@@ -1258,7 +1258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Usando la **propiedad de la potencia** y sabiendo que $\\ln(e) = 1$:\n\nEsta simplificación también puede verse como una consecuencia directa de que $\\ln$ y la función $e^{(\\ )}$ son inversas entre sí: $\\ln(e^u) = u$ para cualquier :.y con $u = 2x$ el resultado es simplemente $2x$.\n\nConviene distinguir esto de $2\\ln(x)$.\n\nque sería el resultado de aplicar la propiedad de la potencia a $\\ln(x^2)$.\n\nun caso distinto donde el exponente está afuera de la base $e$.",
+    "explanation": "Usando la **propiedad de la potencia** y sabiendo que $\\ln(e) = 1$:\n\nEsta simplificación también puede verse como una consecuencia directa de que $\\ln$ y la función $e^{(\\ )}$ son inversas entre sí: $\\ln(e^u) = u$ para cualquier :\n\ny con $u = 2x$ el resultado es simplemente $2x$.\n\nConviene distinguir esto de $2\\ln(x)$.\n\nque sería el resultado de aplicar la propiedad de la potencia a $\\ln(x^2)$.\n\nun caso distinto donde el exponente está afuera de la base $e$.",
     "reviewed": false,
     "tags": [
       "funcion-inversa-logaritmo"

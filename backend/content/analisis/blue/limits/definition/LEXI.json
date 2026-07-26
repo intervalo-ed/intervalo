@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El resultado de un **límite** es siempre un número $L$ (o, en otros casos, una tendencia al infinito), nunca una igualdad sobre la variable independiente.\n\nLa respuesta debe describir a $f(x)$, no repetir el dato del enunciado.\n\nResponder \"$x=5$\" repite el punto de tendencia que ya está dado en la notación, en lugar de calcular a qué valor se acerca : en el entorno de $5$.Es como si alguien preguntara \"¿cuántos dólares tienes?\" y respondieras \"$100$ dólares\", pero si la pregunta fuera \"¿a cuánto tiende tu saldo?\" no podrías responder \"$x = 100$\".\n\nAntes de responder, conviene preguntarse: ¿el número que obtuve describe el comportamiento de $f(x)$ en el entorno, o solo repite el punto de partida?",
+    "explanation": "El resultado de un **límite** es siempre un número $L$ (o, en otros casos, una tendencia al infinito), nunca una igualdad sobre la variable independiente.\n\nLa respuesta debe describir a $f(x)$, no repetir el dato del enunciado.\n\nResponder \"$x=5$\" repite el punto de tendencia que ya está dado en la notación, en lugar de calcular a qué valor se acerca :\n\nen el entorno de $5$.Es como si alguien preguntara \"¿cuántos dólares tienes?\" y respondieras \"$100$ dólares\", pero si la pregunta fuera \"¿a cuánto tiende tu saldo?\" no podrías responder \"$x = 100$\".\n\nAntes de responder, conviene preguntarse: ¿el número que obtuve describe el comportamiento de $f(x)$ en el entorno, o solo repite el punto de partida?",
     "reviewed": false,
     "tags": [
       "lectura-notacion"
@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **independencia** entre el límite y el valor de la función en el punto es una de las ideas más importantes del tema: el límite se calcula a partir del comportamiento alrededor de $a$\n\n, sin importar si $f(a)$ existe, cuánto vale, o si está redefinida de forma aislada.\n\nEl límite es sobre el entorno, no sobre el punto exacto.\n\nAcá, aunque $f(4)$ no está definida, para todo $x$ cercano a $4$ la función se comporta como $x+1$, entonces $f(x)$ se acerca a $4+1=5$ cuando :.El hueco en $x=4$ no afecta la convergencia observada en los alrededores, por lo que $\\lim_{x \\to 4} f(x) = 5$.\n\nUn hueco en el dominio nunca es un obstáculo por sí solo para que el límite exista: la definición de límite fue construida a propósito para que el entorno importara, no el punto faltante.",
+    "explanation": "La **independencia** entre el límite y el valor de la función en el punto es una de las ideas más importantes del tema: el límite se calcula a partir del comportamiento alrededor de $a$\n\n, sin importar si $f(a)$ existe, cuánto vale, o si está redefinida de forma aislada.\n\nEl límite es sobre el entorno, no sobre el punto exacto.\n\nAcá, aunque $f(4)$ no está definida, para todo $x$ cercano a $4$ la función se comporta como $x+1$, entonces $f(x)$ se acerca a $4+1=5$ cuando :\n\nEl hueco en $x=4$ no afecta la convergencia observada en los alrededores, por lo que $\\lim_{x \\to 4} f(x) = 5$.\n\nUn hueco en el dominio nunca es un obstáculo por sí solo para que el límite exista: la definición de límite fue construida a propósito para que el entorno importara, no el punto faltante.",
     "reviewed": false,
     "tags": [
       "independencia-limite-valor"
@@ -223,7 +223,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando la sustitución directa produce 0/0, se dice que hay una **indeterminación**.\n\n: el resultado todavía no está determinado y hace falta transformar la expresión con otra técnica antes de poder calcular el límite.\n\nNo significa que el límite no exista, significa que la sustitución directa no alcanza.\n\nPor ejemplo.\n\n, si al sustituir $x=2$ tanto el numerador como el denominador dan $0$, no se puede concluir nada todavía sobre el valor del límite solo con ese resultado: necesitarías otra técnica (factorización, racionalización, etc.) que aún no conoces, para revelar cuál es la verdadera tendencia.\n\nInterpretar 0/0 como \"no existe\" es un error muy común: 0/0 es una **pausa**, un estado que exige otro método, no una sentencia final.\n\nLa existencia o valor del límite queda por determinarse, no ya decidida.",
+    "explanation": "Cuando la sustitución directa produce 0/0, se dice que hay una **indeterminación**.\n\n: el resultado todavía no está determinado y hace falta transformar la expresión con otra técnica antes de poder calcular el límite.\n\nNo significa que el límite no exista, significa que la sustitución directa no alcanza.\n\nPor ejemplo.\n\n, si al sustituir $x=2$ tanto el numerador como el denominador dan $0$, no se puede concluir nada todavía sobre el valor del límite solo con ese resultado:\n\nnecesitarías otra técnica (factorización, racionalización, etc.) que aún no conoces, para revelar cuál es la verdadera tendencia.\n\nInterpretar 0/0 como \"no existe\" es un error muy común: 0/0 es una **pausa**, un estado que exige otro método, no una sentencia final.\n\nLa existencia o valor del límite queda por determinarse, no ya decidida.",
     "reviewed": false,
     "tags": [
       "independencia-limite-valor"

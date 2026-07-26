@@ -833,7 +833,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El coeficiente $b$ acompaña a la $x$ de primer grado en la forma estándar :, por eso se llama **coeficiente lineal**.Los tres coeficientes de la forma estándar tienen roles distintos: $a$ es el **coeficiente principal**, que acompaña a .$b$ es el coeficiente lineal, que acompaña a $x$; y $c$ es el término independiente, que va solo.\n\nJunto con $a$, el coeficiente $b$ ayuda a ubicar el **vértice**, ya que ::no trabaja solo, siempre lo hace en conjunto con $a$.",
+    "explanation": "El coeficiente $b$ acompaña a la $x$ de primer grado en la forma estándar :, por eso se llama **coeficiente lineal**.Los tres coeficientes de la forma estándar tienen roles distintos:\n\n$a$ es el **coeficiente principal**, que acompaña a .$b$ es el coeficiente lineal, que acompaña a $x$; y $c$ es el término independiente, que va solo.\n\nJunto con $a$, el coeficiente $b$ ayuda a ubicar el **vértice**, ya que ::no trabaja solo, siempre lo hace en conjunto con $a$.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"

@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Después de expandir el binomio, los dos términos $x^2$ se cancelan entre sí, y en el numerador solo sobreviven los términos que contienen $h$.\n\nEste numerador simplificado es el que se factoriza en el paso siguiente, sacando $h$ como factor común de ambos términos.\n\nLa **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir: el resultado combina la derivada de la primera con la segunda, más la primera con la derivada de la segunda.",
+    "explanation": "Después de expandir el binomio, los dos términos $x^2$ se cancelan entre sí, y en el numerador solo sobreviven los términos que contienen $h$.\n\nEste numerador simplificado es el que se factoriza en el paso siguiente, sacando $h$ como factor común de ambos términos.\n\nLa **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir:\n\nel resultado combina la derivada de la primera con la segunda, más la primera con la derivada de la segunda.",
     "reviewed": false,
     "tags": [
       "pasos-intermedios-del-limite"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Factorizar consiste en identificar el factor que divide exactamente a ambos términos del numerador, en este caso $h$.\n\nEste paso es el que permite cancelar el $h$ del denominador en el paso siguiente, sin factorizar correctamente esa cancelación no es válida.\n\nLa **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir: el resultado combina la derivada de la primera con la segunda, más la primera con la derivada de la segunda.",
+    "explanation": "Factorizar consiste en identificar el factor que divide exactamente a ambos términos del numerador, en este caso $h$.\n\nEste paso es el que permite cancelar el $h$ del denominador en el paso siguiente, sin factorizar correctamente esa cancelación no es válida.\n\nLa **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir:\n\nel resultado combina la derivada de la primera con la segunda, más la primera con la derivada de la segunda.",
     "reviewed": false,
     "tags": [
       "pasos-intermedios-del-limite"

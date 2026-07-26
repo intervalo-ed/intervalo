@@ -1205,7 +1205,7 @@
       null,
       "Este resultado suma en vez de restar el término $3(4)$: revisá el signo de ese término."
     ],
-    "explanation": "Evaluar una función en un valor concreto significa reemplazar $x$ por ese número en toda la expresión y resolver respetando el orden de operaciones: primero las potencias.\n\ndespués las multiplicaciones.\n\ny por último las sumas y restas.\n\nPara $f(x)=x^2-3x+2$ en $x=4$:\n\nHacerlo en ese orden, primero $4^2=16$, luego $3\\times 4=12$ y recién después la resta y la suma, evita el error más común de este tipo de cuenta: restar o sumar antes de resolver la potencia y el producto.",
+    "explanation": "Evaluar una función en un valor concreto significa reemplazar $x$ por ese número en toda la expresión y resolver respetando el orden de operaciones: primero las potencias.\n\ndespués las multiplicaciones.\n\ny por último las sumas y restas.\n\nPara $f(x)=x^2-3x+2$ en $x=4$:\n\nHacerlo en ese orden, primero $4^2=16$, luego $3\\times 4=12$ y recién después la resta y la suma,\n\nevita el error más común de este tipo de cuenta: restar o sumar antes de resolver la potencia y el producto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

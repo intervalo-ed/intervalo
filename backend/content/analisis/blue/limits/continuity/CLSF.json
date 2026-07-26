@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función es **continua** en un punto cuando se cumplen tres condiciones a la vez: que el valor puntual esté definido, que el límite bilateral exista, y que ambos coincidan entre sí.\n\nEl límite bilateral es el valor común al que la función se aproxima desde ambos lados cuando $x$ se acerca a $a$.\n\nAcá $f(a)=5$ está definida, el límite bilateral existe y también vale $5$, así que las tres condiciones se verifican simultáneamente.\n\nConviene no asumir apresuradamente una **discontinuidad**: cuando los tres requisitos se cumplen, el diagnóstico correcto es que la función es continua en ese punto, sin necesidad de clasificar ningún tipo de falla.",
+    "explanation": "Una función es **continua** en un punto cuando se cumplen tres condiciones a la vez: que el valor puntual esté definido, que el límite bilateral exista, y que ambos coincidan entre sí.\n\nEl límite bilateral es el valor común al que la función se aproxima desde ambos lados cuando $x$ se acerca a $a$.\n\nAcá $f(a)=5$ está definida, el límite bilateral existe y también vale $5$, así que las tres condiciones se verifican simultáneamente.\n\nConviene no asumir apresuradamente una **discontinuidad**: cuando los tres requisitos se cumplen,\n\nel diagnóstico correcto es que la función es continua en ese punto, sin necesidad de clasificar ningún tipo de falla.",
     "reviewed": false,
     "tags": [
       "condiciones-formales-continuidad"
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando los dos límites laterales son números finitos pero distintos entre sí, el límite bilateral directamente no existe.\n\nAunque cada rama se aproxime a un valor concreto cuando $x$ se acerca a $a$, el hecho de que estos valores sean diferentes significa que no hay un único \"objetivo\" hacia el cual la función apunta desde ambos lados.\n\nLa función está \"dividida\" en su aproximación.\n\nNo hace falta ni siquiera conocer $f(a)$ para descartar la continuidad: la segunda condición ya falla.\n\nEsta combinación de laterales finitos y distintos es la firma exacta de una **discontinuidad de salto**.",
+    "explanation": "Cuando los dos límites laterales son números finitos pero distintos entre sí, el límite bilateral directamente no existe.\n\nAunque cada rama se aproxime a un valor concreto cuando $x$ se acerca a $a$,\n\nel hecho de que estos valores sean diferentes significa que no hay un único \"objetivo\" hacia el cual la función apunta desde ambos lados.\n\nLa función está \"dividida\" en su aproximación.\n\nNo hace falta ni siquiera conocer $f(a)$ para descartar la continuidad: la segunda condición ya falla.\n\nEsta combinación de laterales finitos y distintos es la firma exacta de una **discontinuidad de salto**.",
     "reviewed": false,
     "tags": [
       "clasificacion-analitica-discontinuidad"
@@ -292,7 +292,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función racional es continua en todo su dominio, y el dominio de una racional excluye los valores que anulan el denominador.\n\nEn $r(x) = \\dfrac{1}{x-3}$, el denominador se anula en $x=3$, así que ese punto queda fuera del dominio y no corresponde preguntarse por la continuidad ahí.\n\nCreer que una racional es continua en toda la recta real por ser una función elemental : la continuidad de una racional siempre se limita a su dominio, nunca a $\\mathbb{R}$ completo si hay raíces en el denominador.",
+    "explanation": "Una función racional es continua en todo su dominio, y el dominio de una racional excluye los valores que anulan el denominador.\n\nEn $r(x) = \\dfrac{1}{x-3}$, el denominador se anula en $x=3$, así que ese punto queda fuera del dominio y no corresponde preguntarse por la continuidad ahí.\n\nCreer que una racional es continua en toda la recta real por ser una función elemental :\n\nla continuidad de una racional siempre se limita a su dominio, nunca a $\\mathbb{R}$ completo si hay raíces en el denominador.",
     "reviewed": false,
     "tags": [
       "continuidad-por-familias"

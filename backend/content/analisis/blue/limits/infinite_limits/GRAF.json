@@ -23,7 +23,7 @@
       -1,
       6
     ],
-    "explanation": "La **asíntota horizontal** de una gráfica es la altura $y=L$ a la que se acerca la curva cuando $x \\to \\pm\\infty$, se lee mirando los extremos izquierdo y derecho del gráfico, no el punto donde cruza el eje vertical.En esta gráfica la curva cruza el eje $y$ en $3$, pero se estabiliza en $2$ hacia ambos extremos, dos lecturas distintas que conviene no mezclar.",
+    "explanation": "La **asíntota horizontal** de una gráfica es la altura $y=L$ a la que se acerca la curva cuando $x \\to \\pm\\infty$, se lee mirando los extremos izquierdo y derecho del gráfico,\n\nno el punto donde cruza el eje vertical.En esta gráfica la curva cruza el eje $y$ en $3$, pero se estabiliza en $2$ hacia ambos extremos, dos lecturas distintas que conviene no mezclar.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-horizontal"
@@ -141,7 +141,7 @@
       -1,
       6
     ],
-    "explanation": "Una **asíntota horizontal** existe cuando la función se acerca a un valor finito a medida que $x$ crece o decrece sin cota.\n\nEn esta gráfica la curva se aplana hacia una altura constante en ambos extremos, lo que confirma la existencia de la asíntota.La curva puede cruzar esa altura en la zona central del gráfico sin que eso afecte la existencia de la asíntota en los extremos.",
+    "explanation": "Una **asíntota horizontal** existe cuando la función se acerca a un valor finito a medida que $x$ crece o decrece sin cota.\n\nEn esta gráfica la curva se aplana hacia una altura constante en ambos extremos,\n\nlo que confirma la existencia de la asíntota.La curva puede cruzar esa altura en la zona central del gráfico sin que eso afecte la existencia de la asíntota en los extremos.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-horizontal"
@@ -169,7 +169,7 @@
       -1,
       4
     ],
-    "explanation": "Una **asíntota horizontal** describe el comportamiento en los extremos de la gráfica, no una barrera que la curva no puede cruzar.\n\nEs común que una función cruce su propia asíntota horizontal en la zona central, mientras se sigue acercando a ella hacia $x \\to \\pm\\infty$.Si confundís la asíntota con una barrera infranqueable, vas a descartar cualquier función que cruce esa altura en el medio, pero eso no afecta la definición de asíntota horizontal.",
+    "explanation": "Una **asíntota horizontal** describe el comportamiento en los extremos de la gráfica, no una barrera que la curva no puede cruzar.\n\nEs común que una función cruce su propia asíntota horizontal en la zona central, mientras se sigue acercando a ella hacia $x \\to \\pm\\infty$.Si confundís la asíntota con una barrera infranqueable,\n\nvas a descartar cualquier función que cruce esa altura en el medio, pero eso no afecta la definición de asíntota horizontal.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-horizontal"
@@ -229,7 +229,7 @@
       -8,
       8
     ],
-    "explanation": "Para identificar la **asíntota vertical** en una gráfica, hay que ubicar el valor de $x$ donde la curva se rompe en dos ramas que divergen hacia $+\\infty$ y $-\\infty$, no el valor donde cruza el eje horizontal.La raíz en $x=-2$ es un punto donde la función vale $0$, un dato completamente distinto de dónde diverge.",
+    "explanation": "Para identificar la **asíntota vertical** en una gráfica, hay que ubicar el valor de $x$ donde la curva se rompe en dos ramas que divergen hacia $+\\infty$ y $-\\infty$,\n\nno el valor donde cruza el eje horizontal.La raíz en $x=-2$ es un punto donde la función vale $0$, un dato completamente distinto de dónde diverge.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-vertical"
@@ -257,7 +257,7 @@
       -8,
       8
     ],
-    "explanation": "Una **asíntota vertical** existe en un punto cuando al menos una de las dos ramas laterales diverge a $+\\infty$ o $-\\infty$ cerca de ese valor de $x$.\n\nEn esta gráfica, una rama sube y la otra baja sin cota exactamente en el mismo punto, lo que confirma la asíntota.No hace falta que ambas ramas vayan en la misma dirección para que exista la asíntota vertical, alcanza con que al menos una diverga al infinito.",
+    "explanation": "Una **asíntota vertical** existe en un punto cuando al menos una de las dos ramas laterales diverge a $+\\infty$ o $-\\infty$ cerca de ese valor de $x$.\n\nEn esta gráfica, una rama sube y la otra baja sin cota exactamente en el mismo punto,\n\nlo que confirma la asíntota.No hace falta que ambas ramas vayan en la misma dirección para que exista la asíntota vertical, alcanza con que al menos una diverga al infinito.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-vertical"

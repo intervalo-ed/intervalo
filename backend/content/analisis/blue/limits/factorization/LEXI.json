@@ -19,7 +19,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **diferencia de cuadrados** es la forma $a^2 - b^2$, que aparece cuando una expresión resta dos términos que son cuadrados perfectos.\n\nEsta estructura factoriza según la identidad algebraica fundamental: el producto de una suma y una diferencia de las mismas cantidades siempre reconstruye la diferencia de sus cuadrados.\n\nIdentificando la estructura paso a paso: En límites indeterminados $0/0$, cuando ambos numerador y denominador contienen una diferencia de cuadrados, factorizar al instante revela el factor cancelable.\n\nConviene revisar siempre primero si hay un signo menos entre dos cuadrados exactos, porque esa combinación es la señal más rápida de este caso frente al trinomio o al factor común.",
+    "explanation": "La **diferencia de cuadrados** es la forma $a^2 - b^2$, que aparece cuando una expresión resta dos términos que son cuadrados perfectos.\n\nEsta estructura factoriza según la identidad algebraica fundamental: el producto de una suma y una diferencia de las mismas cantidades siempre reconstruye la diferencia de sus cuadrados.\n\nIdentificando la estructura paso a paso: En límites indeterminados $0/0$,\n\ncuando ambos numerador y denominador contienen una diferencia de cuadrados, factorizar al instante revela el factor cancelable.\n\nConviene revisar siempre primero si hay un signo menos entre dos cuadrados exactos, porque esa combinación es la señal más rápida de este caso frente al trinomio o al factor común.",
     "reviewed": false
   },
   {

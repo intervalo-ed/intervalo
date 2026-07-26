@@ -21,7 +21,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La sustitución directa de $x=2$ en el numerador da $4 - 4 = 0$, y en el denominador da $0$, así que tenemos una indeterminación 0/0.\n\nCuando ambas partes se anulan en el mismo punto, el **teorema del factor** garantiza que comparten un factor común.\n\nLa **factorización** exhibe ese factor.\n\nEl numerador es una **diferencia de cuadrados**, que factoriza como: La idea central es que el factor $(x-2)$ que causa la indeterminación aparece tanto en numerador como denominador, permitiendo la cancelación.\n\nTras eliminar ese obstáculo, la sustitución directa en la expresión simplificada funciona sin problemas.",
+    "explanation": "La sustitución directa de $x=2$ en el numerador da $4 - 4 = 0$, y en el denominador da $0$, así que tenemos una indeterminación 0/0.\n\nCuando ambas partes se anulan en el mismo punto, el **teorema del factor** garantiza que comparten un factor común.\n\nLa **factorización** exhibe ese factor.\n\nEl numerador es una **diferencia de cuadrados**, que factoriza como:\n\nLa idea central es que el factor $(x-2)$ que causa la indeterminación aparece tanto en numerador como denominador, permitiendo la cancelación.\n\nTras eliminar ese obstáculo, la sustitución directa en la expresión simplificada funciona sin problemas.",
     "reviewed": false
   },
   {
@@ -46,7 +46,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La sustitución directa de $x=0$ da 0/0 en ambas partes.\n\nEl numerador contiene **factor común** $x$ en sus dos términos, que factoriza como: En este tipo de límites, la indeterminación 0/0 surge porque $x$ aparece multiplicando en cada término del numerador.\n\nAl factorizar y extraer $x$ como factor común, exhibimos exactamente el factor que causa el problema en ambas partes del cociente.\n\nUna vez cancelado, la función simplificada es continua en el punto de tendencia y podemos sustituir.",
+    "explanation": "La sustitución directa de $x=0$ da 0/0 en ambas partes.\n\nEl numerador contiene **factor común** $x$ en sus dos términos, que factoriza como:\n\nEn este tipo de límites, la indeterminación 0/0 surge porque $x$ aparece multiplicando en cada término del numerador.\n\nAl factorizar y extraer $x$ como factor común, exhibimos exactamente el factor que causa el problema en ambas partes del cociente.\n\nUna vez cancelado, la función simplificada es continua en el punto de tendencia y podemos sustituir.",
     "reviewed": false
   },
   {
@@ -171,7 +171,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La sustitución directa de $x=2$ da 0/0.\n\nEl numerador es un **trinomio** que factoriza buscando dos números que sumen $-5$ y multipliquen $6$.\n\nEsos números son $-2$ y $-3$: En límites con trinomios, la factorización exige encontrar dos raíces cuyas propiedades (suma del coeficiente lineal, producto del término independiente) se cumplen exactamente.\n\nEl rol del límite es resolver el conflicto 0/0 restaurando la continuidad de la función simplificada.",
+    "explanation": "La sustitución directa de $x=2$ da 0/0.\n\nEl numerador es un **trinomio** que factoriza buscando dos números que sumen $-5$ y multipliquen $6$.\n\nEsos números son $-2$ y $-3$: En límites con trinomios, la factorización exige encontrar dos raíces cuyas propiedades (suma del coeficiente lineal,\n\nproducto del término independiente) se cumplen exactamente.\n\nEl rol del límite es resolver el conflicto 0/0 restaurando la continuidad de la función simplificada.",
     "reviewed": false
   },
   {

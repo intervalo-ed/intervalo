@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos :, $v(x)=e^x$, con $u'(x)=2x$ y $v'(x)=e^x$.Con $u(2)=0$, :, $u'(2)=4$ y $v(2)=e^2$:El término $u(2)v'(2)$ se anula porque $x=2$ es raíz de $u$, así que solo queda el aporte de $u'(2)v(2)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
+    "explanation": "Identificamos :, $v(x)=e^x$, con $u'(x)=2x$ y $v'(x)=e^x$.Con $u(2)=0$, :, $u'(2)=4$ y $v(2)=e^2$:\n\nl término $u(2)v'(2)$ se anula porque $x=2$ es raíz de $u$, así que solo queda el aporte de $u'(2)v(2)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
     "reviewed": false,
     "tags": [
       "anulacion-por-raiz-producto"
@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x-4$, $v(x)=e^x$, con $u'(x)=1$ y :.Con $u(4)=0$, :, $u'(4)=1$ y $v(4)=e^4$:El término $u(4)v'(4)$ se anula porque $x=4$ es raíz de $u$, así que el resultado queda determinado por $u'(4)v(4)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
+    "explanation": "Identificamos $u(x)=x-4$, $v(x)=e^x$, con $u'(x)=1$ y :.Con $u(4)=0$, :, $u'(4)=1$ y $v(4)=e^4$:\n\nl término $u(4)v'(4)$ se anula porque $x=4$ es raíz de $u$, así que el resultado queda determinado por $u'(4)v(4)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
     "reviewed": false,
     "tags": [
       "anulacion-por-raiz-producto"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=\\cos x$, $v(x)=x^2+2$, con : y $v'(x)=2x$.Con :, $v(\\pi)=\\pi^2+2$, $u(\\pi)=-1$ y $v'(\\pi)=2\\pi$:El término $u'(\\pi)v(\\pi)$ se anula porque $x=\\pi$ anula la derivada de $u$, así que el resultado queda determinado por $u(\\pi)v'(\\pi)$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $u(x)=\\cos x$, $v(x)=x^2+2$, con : y $v'(x)=2x$.Con :, $v(\\pi)=\\pi^2+2$, $u(\\pi)=-1$ y $v'(\\pi)=2\\pi$:\n\nl término $u'(\\pi)v(\\pi)$ se anula porque $x=\\pi$ anula la derivada de $u$, así que el resultado queda determinado por $u(\\pi)v'(\\pi)$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "anulacion-por-derivada-nula-producto"

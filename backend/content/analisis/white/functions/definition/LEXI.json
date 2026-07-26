@@ -774,7 +774,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** empaqueta todas las salidas efectivas que se cosechan al usar la función.\n\nAl multiplicar cada número permitido por 2, obtenés:\n\nAgrupando esos resultados surge el conjunto $\\{2, 4, 6\\}$.\n\nLa imagen depende del **dominio**: cambiá las entradas y cambia el conjunto de salidas.\n\nLa **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir: el resultado combina la derivada de la primera con la segunda, más la primera con la derivada de la segunda.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "La **imagen** empaqueta todas las salidas efectivas que se cosechan al usar la función.\n\nAl multiplicar cada número permitido por 2, obtenés:\n\nAgrupando esos resultados surge el conjunto $\\{2, 4, 6\\}$.\n\nLa imagen depende del **dominio**: cambiá las entradas y cambia el conjunto de salidas.\n\nLa **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir:\n\nel resultado combina la derivada de la primera con la segunda, más la primera con la derivada de la segunda.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "codominio"

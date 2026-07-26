@@ -1193,7 +1193,7 @@
       -5,
       5
     ],
-    "explanation": "Para desplazar horizontalmente una hipérbola, hay que reemplazar $x$ por $(x - a)$ dentro del denominador, no sumar o restar un número fuera de la fracción, que en cambio mueve la asíntota horizontal.\n\nDesplazar $\\frac{1}{x}$ cuatro unidades a la derecha equivale a reemplazar $x$ por $x-4$: :.La AV pasa de : a $x=4$ y la AH sigue en $y=0$.Confundir estos dos parámetros más común al armar la fórmula desde el gráfico.",
+    "explanation": "Para desplazar horizontalmente una hipérbola, hay que reemplazar $x$ por $(x - a)$ dentro del denominador, no sumar o restar un número fuera de la fracción, que en cambio mueve la asíntota horizontal.\n\nDesplazar $\\frac{1}{x}$ cuatro unidades a la derecha equivale a reemplazar $x$ por $x-4$: :.La AV pasa de :\n\na $x=4$ y la AH sigue en $y=0$.Confundir estos dos parámetros más común al armar la fórmula desde el gráfico.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"

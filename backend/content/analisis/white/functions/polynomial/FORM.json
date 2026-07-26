@@ -1125,7 +1125,7 @@
       null,
       "El $1$ no corresponde a ningún cálculo directo de $f(0)$ para esta función."
     ],
-    "explanation": "Para evaluar una función en forma factorizada en un punto, se sustituye ese valor en cada factor y se multiplica.\n\nEvaluando $x=0$ en $f(x) = x(x-2)(x+1)/2$:\n\nComo $x=0$ es una de las raíces de $f$.\n\nel factor $x$ se anula sin importar los demás factores.\n\nasí que $f(0)=0$ siempre.\n\nEn el gráfico esto se ve como que la curva pasa exactamente por el origen $(0,0)$, un dato que se puede leer directamente sin calcular nada si se identifica primero cuáles son las raíces de la función.",
+    "explanation": "Para evaluar una función en forma factorizada en un punto, se sustituye ese valor en cada factor y se multiplica.\n\nEvaluando $x=0$ en $f(x) = x(x-2)(x+1)/2$:\n\nComo $x=0$ es una de las raíces de $f$.\n\nel factor $x$ se anula sin importar los demás factores.\n\nasí que $f(0)=0$ siempre.\n\nEn el gráfico esto se ve como que la curva pasa exactamente por el origen $(0,0)$,\n\nun dato que se puede leer directamente sin calcular nada si se identifica primero cuáles son las raíces de la función.",
     "has_math": true,
     "graph_fn": "x*(x-2)*(x+1)/2",
     "graph_view": [

@@ -128,7 +128,7 @@
       -6,
       6
     ],
-    "explanation": "Para reconstruir la fórmula desde el gráfico, primero identificamos la **asíntota vertical**: la curva se dispara cerca de $x=-2$, así que el denominador debe anularse ahí, es decir $x+2=0\\Rightarrow x=-2$.\n\nDespués miramos la asíntota horizontal en $y=0$, que indica que el grado del numerador (0) es menor al del denominador (1), típico de un numerador constante.\n\nJuntando ambos datos, la fórmula es $f(x)=\\frac{1}{x+2}$..\n\nal leer el gráfico es confundir el signo del parámetro dentro del denominador y escribir $x-2$, lo que ubicaría la asíntota en el lado opuesto del eje.",
+    "explanation": "Para reconstruir la fórmula desde el gráfico, primero identificamos la **asíntota vertical**:\n\nla curva se dispara cerca de $x=-2$, así que el denominador debe anularse ahí, es decir $x+2=0\\Rightarrow x=-2$.\n\nDespués miramos la asíntota horizontal en $y=0$, que indica que el grado del numerador (0) es menor al del denominador (1), típico de un numerador constante.\n\nJuntando ambos datos, la fórmula es $f(x)=\\frac{1}{x+2}$..\n\nal leer el gráfico es confundir el signo del parámetro dentro del denominador y escribir $x-2$, lo que ubicaría la asíntota en el lado opuesto del eje.",
     "reviewed": false,
     "tags": [
       "dominio-form"
@@ -1033,7 +1033,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para caracterizar completamente esta función racional hay que resolver tres cosas por separado.\n\nLa asíntota vertical sale de igualar el denominador a cero: $x-3=0\\Rightarrow x=3$.\n\nLa asíntota horizontal sale de comparar los grados de numerador y denominador, que acá son ambos de grado 1, así que se calcula como el cociente de los coeficientes principales: $\\frac{1}{1}=1$, dando $y=1$.\n\nPor último.\n\nel intercepto con el eje $Y$ sale de evaluar $f(0)=\\frac{0+2}{0-3}=\\frac{2}{-3}=-\\frac{2}{3}$. calcular la AH como si el grado del numerador fuera menor.\n\ndando $y=0$ en vez de $y=1$.",
+    "explanation": "Para caracterizar completamente esta función racional hay que resolver tres cosas por separado.\n\nLa asíntota vertical sale de igualar el denominador a cero: $x-3=0\\Rightarrow x=3$.\n\nLa asíntota horizontal sale de comparar los grados de numerador y denominador, que acá son ambos de grado 1,\n\nasí que se calcula como el cociente de los coeficientes principales: $\\frac{1}{1}=1$, dando $y=1$.\n\nPor último.\n\nel intercepto con el eje $Y$ sale de evaluar $f(0)=\\frac{0+2}{0-3}=\\frac{2}{-3}=-\\frac{2}{3}$. calcular la AH como si el grado del numerador fuera menor.\n\ndando $y=0$ en vez de $y=1$.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes-form"
