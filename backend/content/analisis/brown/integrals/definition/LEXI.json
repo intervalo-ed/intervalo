@@ -26,7 +26,7 @@
     "question": "En esa misma notación:\n$$\\int f(x)\\,dx = F(x) + C$$\n¿qué representa $dx$?",
     "options": [
       "La primitiva de la función",
-      "El diferencial",
+      "El diferencial, en este caso",
       "Un factor que multiplica al integrando"
     ],
     "correct_index": 1,
@@ -50,7 +50,7 @@
     "options": [
       "Una sumatoria discreta de términos",
       "El símbolo de la derivada",
-      "El operador integral"
+      "El operador integral, en general"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -95,7 +95,7 @@
     "question": "¿Qué representa $C$ en el resultado $F(x) + C$?",
     "options": [
       "El valor numérico de la integral definida",
-      "La constante de integración",
+      "La constante de integración, en este caso",
       "Un valor fijo universal igual para toda integral"
     ],
     "correct_index": 1,

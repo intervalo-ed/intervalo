@@ -495,7 +495,7 @@
       "Período de duplicación",
       "Tiempo de saturación",
       "Constante de decaimiento",
-      "Vida media"
+      "Vida media, en este caso"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -794,7 +794,7 @@
     "options": [
       "Sí, cuando $x_1$ y $x_2$ son opuestos: $x_2 = -x_1$",
       "Sí, cuando $x_1 \\cdot x_2 = 0$",
-      "No",
+      "No, por definición",
       "Solo si $x_1 + x_2 = 1$"
     ],
     "correct_index": 2,
@@ -1020,7 +1020,7 @@
       "Porque $1^x$ no está definida para $x < 0$",
       "Porque la base debe ser mayor que $e$",
       "Porque $1^x$ da resultados negativos",
-      "Porque $1^x = 1$ para todo $x$"
+      "Porque $1^x = 1$ para todo $x$, en este caso"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -1042,7 +1042,7 @@
   {
     "question": "¿Por qué $f(x) = (-2)^x$ no se considera una función exponencial estándar?",
     "options": [
-      "Porque $-2 < 0$",
+      "Porque $-2 < 0$, para esta función",
       "Porque $(-2)^x$ siempre da valores negativos",
       "Porque no tiene asíntota horizontal",
       "Porque la base $-2$ es menor que $-1$"
@@ -1145,7 +1145,7 @@
       "Uno (mínimo global)",
       "Dos (un máximo y un mínimo)",
       "Infinitos",
-      "Ninguno"
+      "Ninguno, en este caso"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -1168,7 +1168,7 @@
     "question": "Una función lineal crece en $+10$ por unidad. Una exponencial crece un $10\\%$ por unidad. Para $x$ muy grande, ¿cuál tiene valores mayores?",
     "options": [
       "La lineal, porque $+10$ es mayor que $10\\%$",
-      "La exponencial",
+      "La exponencial, para esta función",
       "Siempre son iguales en el largo plazo",
       "Depende del valor inicial"
     ],

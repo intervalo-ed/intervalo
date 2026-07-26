@@ -283,7 +283,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El coseno es una función definida para **todo** $x \\in \\mathbb{R}$: no hay denominador, logaritmo ni raíz que genere restricciones sobre las entradas.\n\nEl **dominio** de $\\cos$ es $\\mathbb{R}$ y su **imagen** es $[-1, 1]$.\n\nEs un error frecuente confundir ambos: la imagen es el rango de valores que produce la función, no el conjunto de entradas válidas.\n\nEl contraste queda claro con $f(x) = \\tan(x)$, cuyo dominio sí excluye $x = \\pi/2 + n\\pi$, porque la tangente lleva a $\\cos(x)$ en el denominador.",
+    "explanation": "El coseno es una función definida para **todo** $x \\in \\mathbb{R}$: no hay denominador, logaritmo ni raíz que genere restricciones sobre las entradas.\n\nEl **dominio** de $\\cos$ es $\\mathbb{R}$ y su **imagen** es $[-1, 1]$.\n\nSi confundís ambos conceptos, entonces vas a intercambiar dominio e imagen.\n\nEl contraste queda claro con $f(x) = \\tan(x)$, cuyo dominio sí excluye $x = \\pi/2 + n\\pi$, porque la tangente lleva a $\\cos(x)$ en el denominador.",
     "reviewed": false,
     "tags": [
       "dominio-form-trig"
@@ -704,7 +704,7 @@
     "options": [
       "Sí, en $x = 0$",
       "Sí, en $x = \\pi/2 + k\\pi$",
-      "No",
+      "No, siempre",
       "Sí, en $x = k\\pi$"
     ],
     "correct_index": 2,

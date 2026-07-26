@@ -71,7 +71,7 @@
   {
     "question": "Considerá la siguiente función:\n$$f(x) = 5x^4 - 2x + 7$$\n¿Qué regla permite derivar cada término por separado antes de combinar los resultados?",
     "options": [
-      "Linealidad",
+      "Linealidad, siempre",
       "Regla del producto",
       "Regla de la cadena"
     ],
@@ -119,7 +119,7 @@
     "options": [
       "Aplicar primero la regla del producto entre los dos términos",
       "Combinar ambos términos en uno solo antes de derivar",
-      "Aplicar linealidad primero"
+      "Aplicar linealidad primero, en el sistema de reales"
     ],
     "correct_index": 2,
     "has_math": true,

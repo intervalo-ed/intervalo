@@ -122,7 +122,7 @@
   {
     "question": "La gráfica de una función se estabiliza en una altura fija a medida que $x \\to \\pm\\infty$.\n\n¿Tiene esta función una **asíntota horizontal**?",
     "options": [
-      "Sí",
+      "Sí, siempre",
       "No",
       "No se puede determinar"
     ],
@@ -151,7 +151,7 @@
     "question": "En la gráfica, la curva cruza la altura $y=2$ en la zona central antes de estabilizarse en esa misma altura hacia los extremos.\n\n¿Sigue siendo $y=2$ la **asíntota horizontal** de esta función, a pesar de que la curva la cruza en el medio?",
     "options": [
       "No",
-      "Sí",
+      "Sí, siempre",
       "No se puede determinar"
     ],
     "correct_index": 1,
@@ -240,7 +240,7 @@
     "options": [
       "No",
       "No se puede determinar",
-      "Sí"
+      "Sí, siempre"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -297,7 +297,7 @@
     "question": "La gráfica de una función es una parábola completa, sin ninguna ruptura visible en su dominio.\n\n¿Tiene esta función una **asíntota vertical**?",
     "options": [
       "Sí",
-      "No",
+      "No, siempre",
       "No se puede determinar"
     ],
     "correct_index": 1,

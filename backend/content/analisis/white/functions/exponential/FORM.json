@@ -1168,7 +1168,7 @@
     "question": "Dos modelos: $A(t) = 1000 \\cdot (1{,}5)^t$ y $B(t) = 2000 \\cdot (1{,}2)^t$.\n\n¿Cuál vale más en $t = 0$?",
     "options": [
       "$A(t)$",
-      "$B(t)$",
+      "$B(t)$, siempre",
       "Son iguales en $t = 0$",
       "Depende de $t$"
     ],

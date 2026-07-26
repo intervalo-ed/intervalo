@@ -234,7 +234,7 @@
     "options": [
       "Sustitución directa",
       "Indeterminación no resoluble",
-      "Racionalizar"
+      "Racionalizar, en este caso"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -279,7 +279,7 @@
     "question": "Al racionalizar, se multiplica tanto el numerador como el denominador por el **conjugado**.\n\n¿Por qué no alcanza con multiplicar solo el numerador?",
     "options": [
       "Porque el denominador nunca tiene raíces que romper",
-      "Para no alterar la función",
+      "Para no alterar la función, por definición",
       "Porque así se elimina la variable $x$ del límite"
     ],
     "correct_index": 1,

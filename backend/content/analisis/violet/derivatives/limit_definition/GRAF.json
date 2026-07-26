@@ -348,7 +348,7 @@
   {
     "question": "En la gráfica se muestra una función a trozos con un salto en $x=1$.\n\n¿Qué le pasa a la diferenciabilidad de $f$ en ese punto?",
     "options": [
-      "Presenta un salto",
+      "Presenta un salto, en este caso",
       "Es diferenciable en $x=1$",
       "Es continua pero no diferenciable en $x=1$"
     ],

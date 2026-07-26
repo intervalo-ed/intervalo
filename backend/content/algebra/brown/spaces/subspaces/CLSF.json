@@ -2,7 +2,7 @@
   {
     "question": "¿Cuál de estos conjuntos de $\\mathbb{R}^2$ es un **subespacio**?",
     "options": [
-      "La recta $y=2x$",
+      "La recta $y=2x$, siempre",
       "La recta $y=2x+1$",
       "El conjunto $\\{(x,y) : x\\geq 0\\}$"
     ],

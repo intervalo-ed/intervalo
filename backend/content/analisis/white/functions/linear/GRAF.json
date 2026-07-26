@@ -484,7 +484,7 @@
     "options": [
       "No, porque tiene división",
       "No, porque $x$ no está multiplicada",
-      "Sí, es lineal"
+      "Sí, es lineal, en este caso"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -951,7 +951,7 @@
   {
     "question": "¿Es $f(x) = 3(x + 2)$ una función lineal?",
     "options": [
-      "Sí, es $3x + 6$",
+      "Sí, es $3x + 6$, en este caso",
       "No, porque tiene paréntesis",
       "No, porque multiplica"
     ],
@@ -1116,7 +1116,7 @@
   {
     "question": "¿Cuántas rectas lineales pasan por dos puntos distintos dados?",
     "options": [
-      "Una",
+      "Una, en este caso",
       "Infinitas",
       "Depende de los puntos"
     ],

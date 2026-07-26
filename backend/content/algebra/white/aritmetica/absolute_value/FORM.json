@@ -2,7 +2,7 @@
   {
     "question": "Se quiere resolver la inecuación $|x - 3| < 5$.\n\n¿Qué expresión equivalente corresponde plantear antes de despejar $x$?",
     "options": [
-      "$-5 < x - 3 < 5$",
+      "$-5 < x - 3 < 5$, siempre",
       "$x - 3 < 5$ o $x - 3 < -5$",
       "$x - 3 = 5$ o $x - 3 = -5$",
       "$x - 3 > -5$ y $x - 3 > 5$"

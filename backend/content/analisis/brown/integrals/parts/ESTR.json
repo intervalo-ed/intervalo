@@ -209,7 +209,7 @@
   {
     "question": "Analizá la integral:\n$$\\int e^x\\sin x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
     "options": [
-      "Es cíclica",
+      "Es cíclica, en este caso",
       "Requiere una iteración",
       "Requiere dos iteraciones"
     ],
@@ -278,7 +278,7 @@
   {
     "question": "Analizá la integral:\n$$\\int e^x\\cos x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
     "options": [
-      "Es cíclica",
+      "Es cíclica, en este caso",
       "Requiere una iteración",
       "Requiere dos iteraciones"
     ],

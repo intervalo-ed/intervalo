@@ -188,7 +188,7 @@
     "options": [
       "Sí, es $\\int x\\,dx \\cdot \\int \\cos x\\,dx$",
       "Sí, es $\\int x\\,dx + \\int \\cos x\\,dx$",
-      "No"
+      "No, en este caso"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -209,7 +209,7 @@
   {
     "question": "Frente a la integral:\n$$\\int \\frac{\\sin x}{x}\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
     "options": [
-      "No",
+      "No, en este caso",
       "Sí, es $\\dfrac{\\int \\sin x\\,dx}{\\int x\\,dx}$",
       "Sí, es $\\int \\sin x\\,dx - \\int x\\,dx$"
     ],
@@ -233,7 +233,7 @@
     "question": "Observá la integral:\n$$\\int e^x \\ln x\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
     "options": [
       "Sí, es $\\int e^x\\,dx + \\int \\ln x\\,dx$",
-      "No",
+      "No, en este caso",
       "Sí, es $\\int e^x\\,dx \\cdot \\int \\ln x\\,dx$"
     ],
     "correct_index": 1,
@@ -257,7 +257,7 @@
     "options": [
       "No, hay que integrar por partes",
       "No, hay que usar sustitución",
-      "Sí, es $3\\int x\\,dx + \\int 5\\,dx$"
+      "Sí, es $3\\int x\\,dx + \\int 5\\,dx$, en este caso"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -278,7 +278,7 @@
   {
     "question": "Considerá la integral:\n$$\\int \\frac{x^2+3}{5}\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
     "options": [
-      "Sí, es $\\dfrac{1}{5}\\int(x^2+3)\\,dx$",
+      "Sí, es $\\dfrac{1}{5}\\int(x^2+3)\\,dx$, en el sistema de números reales",
       "No, hay que aplicar la regla del cociente para integrales",
       "No, el cociente de funciones nunca se puede separar"
     ],
@@ -302,7 +302,7 @@
     "question": "En esta integral:\n$$\\int x^2 \\cdot 4\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
     "options": [
       "No, hay que aplicar integración por partes",
-      "Sí, es $4\\int x^2\\,dx$, el $4$ es un escalar",
+      "Sí, es $4\\int x^2\\,dx$, el $4$ es un escalar, en este caso",
       "No, es un producto de dos funciones, no se puede separar"
     ],
     "correct_index": 1,
@@ -326,7 +326,7 @@
     "options": [
       "Sí, es $\\int \\tan x\\,dx \\cdot \\int \\sec x\\,dx$",
       "Sí, es $\\int \\tan x\\,dx + \\int \\sec x\\,dx$",
-      "No"
+      "No, en este caso"
     ],
     "correct_index": 2,
     "has_math": true,

@@ -77,7 +77,7 @@
   {
     "question": "Se quiere comparar $5!$ y $6!$ sin calcular ambos valores completos.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
     "options": [
-      "$6! = 6 \\times 5!$, así que $6!$ es mayor.",
+      "$6! = 6 \\times 5!$, así que $6!$ es mayor., por definición",
       "$5!$ es mayor, porque $5<6$ aporta menos factores.",
       "Ambos son iguales, porque difieren en un solo factor.",
       "$6!$ es menor, porque tiene un factor más que divide al resultado."

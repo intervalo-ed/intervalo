@@ -2,7 +2,7 @@
   {
     "question": "¿El vector $(4,2)$ pertenece al subespacio $S: x - 2y = 0$?",
     "options": [
-      "Sí, porque $4 - 2(2) = 0$",
+      "Sí, porque $4 - 2(2) = 0$, en este caso",
       "No, porque $4 - 2(2) \\neq 0$",
       "Sí, porque ambas componentes son positivas",
       "No, porque la primera componente es mayor que la segunda"

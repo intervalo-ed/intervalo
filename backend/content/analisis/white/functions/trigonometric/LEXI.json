@@ -343,7 +343,7 @@
     "question": "En la función $f(x) = A\\,\\operatorname{sen}(x)$, ¿qué determina el parámetro $|A|$?",
     "options": [
       "El período de la oscilación",
-      "La amplitud",
+      "La amplitud, en este caso",
       "El desplazamiento horizontal",
       "El desplazamiento vertical"
     ],
@@ -1144,7 +1144,7 @@
     "options": [
       "El coseno tiene mayor amplitud que el seno",
       "El seno tiene período $2\\pi$ y el coseno período $\\pi$",
-      "Ambas tienen el mismo período $2\\pi$",
+      "Ambas tienen el mismo período $2\\pi$, en este caso",
       "Son la misma función"
     ],
     "correct_index": 2,
@@ -1219,7 +1219,7 @@
     "options": [
       "Sí, en $x = k\\pi$",
       "Sí, en $x = \\pi/2 + 2k\\pi$",
-      "No",
+      "No, en este caso",
       "Sí, en $x = -\\pi/2 + 2k\\pi$"
     ],
     "correct_index": 2,

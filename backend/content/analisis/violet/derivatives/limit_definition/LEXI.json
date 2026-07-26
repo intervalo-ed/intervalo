@@ -164,7 +164,7 @@
     "question": "Al tomar el límite cuando $h \\to 0$ del cociente incremental $\\frac{f(a+h)-f(a)}{h}$, la tasa de cambio promedio se transforma en...",
     "options": [
       "La pendiente de una recta secante distinta",
-      "La tasa de cambio instantánea en $a$",
+      "La tasa de cambio instantánea en $a$, en este caso",
       "La tasa de cambio promedio en un intervalo más chico"
     ],
     "correct_index": 1,

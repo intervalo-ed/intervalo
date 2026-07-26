@@ -2,7 +2,7 @@
   {
     "question": "Se lanza un dado de 6 caras, con espacio muestral $\\Omega=\\{1,2,3,4,5,6\\}$. Se propone el conjunto $B=\\{2,4,7\\}$.\n\n¿$B$ es un evento válido de este experimento?",
     "options": [
-      "No, porque $7$ no pertenece a $\\Omega$.",
+      "No, porque $7$ no pertenece a $\\Omega$., en el sistema de reales",
       "Sí, porque tiene el mismo tamaño que otros eventos válidos.",
       "Sí, porque todo conjunto de números es un evento válido."
     ],
@@ -18,7 +18,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["validar-subconjunto"]
+    "tags": [
+      "validar-subconjunto"
+    ]
   },
   {
     "question": "Se lanza una moneda dos veces y se registra la secuencia de caras (C) y cecas (X).\n\nConsiderá el subconjunto $A = \\{CC, CX\\}$.\n\n¿Qué es $A$ respecto del espacio muestral?",
@@ -39,7 +41,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["clasificar-tipo-evento"]
+    "tags": [
+      "clasificar-tipo-evento"
+    ]
   },
   {
     "question": "Se extrae una carta de un mazo español de 40 cartas. Se definen los eventos $A$: sacar una espada, y $B$: sacar un as.\n\n¿$A$ y $B$ son mutuamente excluyentes?",
@@ -60,11 +64,17 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["reconocer-mutuamente-excluyentes"]
+    "tags": [
+      "reconocer-mutuamente-excluyentes"
+    ]
   },
   {
     "question": "Se lanza un dado con $\\Omega=\\{1,2,3,4,5,6\\}$. Se definen $A=\\{1,2,3\\}$ y $B=\\{3,4,5\\}$.\n\n¿Cuál es el resultado de $A\\cap B$?",
-    "options": ["$\\{3\\}$.", "$\\{1,2,3,4,5\\}$.", "$\\{6\\}$."],
+    "options": [
+      "$\\{3\\}$.",
+      "$\\{1,2,3,4,5\\}$.",
+      "$\\{6\\}$."
+    ],
     "correct_index": 0,
     "feedback_correct": "La intersección agrupa los resultados que están en los dos eventos a la vez: solo el $3$.",
     "feedback_incorrect": [
@@ -77,6 +87,8 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["operar-entre-eventos"]
+    "tags": [
+      "operar-entre-eventos"
+    ]
   }
 ]

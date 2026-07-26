@@ -234,7 +234,7 @@
     "options": [
       "No, la materia se repite entre estudiantes",
       "No, faltan materias por elegir",
-      "Sí"
+      "Sí, en el sistema de números reales"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -279,7 +279,7 @@
     "question": "Un comercio aplica un descuento según el monto de compra. Las compras de \\$1000 y de \\$1200 reciben las dos el mismo cupón del 10%. $$\\begin{aligned} 1000 &\\mapsto 10\\% \\\\ 1200 &\\mapsto 10\\% \\end{aligned}$$ ¿Esta asignación define una función?",
     "options": [
       "No, dos montos distintos reciben el mismo cupón",
-      "Sí, cada monto recibe un solo cupón",
+      "Sí, cada monto recibe un solo cupón, en este caso",
       "No, falta que cada cupón tenga un solo monto"
     ],
     "correct_index": 1,
@@ -922,7 +922,7 @@
   {
     "question": "Una máquina puede cobrar montos de \\$100 a \\$500. Los productos cargados hoy cuestan \\$200 y \\$350. $$M : \\{\\text{productos}\\} \\to \\{100, \\dots, 500\\}$$ ¿Cuál es el conjunto **imagen** de $M$?",
     "options": [
-      "$\\{200, 350\\}$",
+      "$\\{200, 350\\}$, siempre",
       "De \\$100 a \\$500",
       "El conjunto de productos",
       "El promedio, \\$275"
@@ -949,7 +949,7 @@
     "options": [
       "$\\{$rojo, verde, azul$\\}$",
       "El conjunto de sabores",
-      "$\\{$rojo, azul$\\}$",
+      "$\\{$rojo, azul$\\}$, siempre",
       "Solo el rojo"
     ],
     "correct_index": 2,
@@ -972,7 +972,7 @@
   {
     "question": "Un examen tiene 3 preguntas y cada una se puntúa con 0, 1 o 2 según la respuesta. $$P : \\{1, 2, 3\\} \\to \\{0, 1, 2\\}$$ ¿Qué representa el conjunto $\\{0, 1, 2\\}$ en esta función?",
     "options": [
-      "El codominio",
+      "El codominio, en este caso",
       "El dominio de la función",
       "El conjunto imagen exacto",
       "El promedio de puntajes"
@@ -1124,7 +1124,7 @@
     "options": [
       "No, el $5$ es menor que el $10$",
       "No, el $10$ ya es imagen de otro",
-      "Sí, porque $f(5) = 10$",
+      "Sí, porque $f(5) = 10$, siempre",
       "Sí, y también lo es el $20$"
     ],
     "correct_index": 2,

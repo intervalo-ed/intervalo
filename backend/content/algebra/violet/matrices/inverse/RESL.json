@@ -2,7 +2,7 @@
   {
     "question": "¿Existe la inversa de $A = \\begin{pmatrix} 2 & 4 \\\\ 1 & 2 \\end{pmatrix}$?",
     "options": [
-      "No, porque $\\det(A)=0$",
+      "No, porque $\\det(A)=0$, en este caso",
       "Sí, porque $A$ es cuadrada",
       "Sí, porque todos sus elementos son positivos",
       "No, porque $A$ no es simétrica"

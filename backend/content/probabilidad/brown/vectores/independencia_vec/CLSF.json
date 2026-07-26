@@ -2,7 +2,7 @@
   {
     "question": "Sean $X$ e $Y$ dos variables aleatorias con densidad conjunta $f(x, y)$ y marginales $f_X(x)$, $f_Y(y)$.\n\nSe observa que para todo par $(x, y)$ se cumple $f(x, y) = f_X(x) \\cdot f_Y(y)$.\n\n¿Qué se puede afirmar?",
     "options": [
-      "$X$ e $Y$ son independientes.",
+      "$X$ e $Y$ son independientes., en este caso",
       "$X$ e $Y$ están perfectamente correlacionadas.",
       "$X$ e $Y$ son mutuamente excluyentes."
     ],

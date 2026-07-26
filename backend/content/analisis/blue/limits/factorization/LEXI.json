@@ -27,7 +27,7 @@
     "options": [
       "Diferencia de cuadrados",
       "Trinomio cuadrado perfecto",
-      "No factoriza en R"
+      "No factoriza en R, siempre"
     ],
     "correct_index": 2,
     "tags": [
@@ -72,7 +72,7 @@
     "question": "Considerá la expresión:\n$$3x^2 + 9x$$\n¿Qué caso de factoreo corresponde a esta expresión?",
     "options": [
       "Trinomio general",
-      "Factor común",
+      "Factor común, siempre",
       "Diferencia de cuadrados"
     ],
     "correct_index": 1,
@@ -278,7 +278,7 @@
   {
     "question": "Un límite presenta la expresión:\n$$\\frac{x^2-9}{x-3}$$\nQue da 0/0 al sustituir. ¿Qué característica de la expresión permite aplicar **factorización** para salvar la indeterminación?",
     "options": [
-      "Que ambos, numerador y denominador",
+      "Que ambos, numerador y denominador, en este caso",
       "Que el denominador tenga grado mayor al del numerador",
       "Que el límite tienda a un número negativo"
     ],

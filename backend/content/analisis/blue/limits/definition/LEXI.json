@@ -96,7 +96,7 @@
     "options": [
       "Que $f(2) = 6$",
       "Que $f$ no está definida en ningún punto cercano a $2$",
-      "Que $\\lim_{x \\to 2} f(x) = 6$"
+      "Que $\\lim_{x \\to 2} f(x) = 6$, en este caso"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -279,7 +279,7 @@
     "question": "Para poder calcular un límite por sustitución directa, ¿qué condición debe cumplirse en el punto de tendencia?",
     "options": [
       "Que la función sea un polinomio de grado mayor a dos",
-      "Que la expresión esté bien definida ahí",
+      "Que la expresión esté bien definida ahí, en este caso",
       "Que el punto de tendencia sea un número entero"
     ],
     "correct_index": 1,
@@ -324,7 +324,7 @@
   {
     "question": "Una función tiene un hueco justo en $x=7$, aunque para valores cercanos se comporta como una expresión conocida.\\n\\n¿Es válido calcular $\\lim_{x \\to 7} f(x)$ por sustitución directa evaluando $f(7)$?",
     "options": [
-      "No, porque $f(7)$ no existe",
+      "No, porque $f(7)$ no existe, en el sistema de reales",
       "Sí, siempre que el resultado sea un número finito",
       "Sí, porque todo límite se resuelve evaluando el punto exacto"
     ],

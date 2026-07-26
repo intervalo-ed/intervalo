@@ -18,12 +18,14 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["reconocer-permutacion-simple"]
+    "tags": [
+      "reconocer-permutacion-simple"
+    ]
   },
   {
     "question": "Se quiere contar de cuántas formas distintas se pueden reordenar todas las letras de la palabra **ANANA**, donde la A se repite 3 veces y la N se repite 2 veces.\n\n¿Qué técnica de conteo corresponde?",
     "options": [
-      "Permutación con repetición.",
+      "Permutación con repetición., en el sistema de reales",
       "Permutación simple, tratando todas las letras como distintas.",
       "Variación, porque se eligen solo algunas letras."
     ],
@@ -39,7 +41,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["reconocer-permutacion-repeticion"]
+    "tags": [
+      "reconocer-permutacion-repeticion"
+    ]
   },
   {
     "question": "En una oficina de 8 empleados se quiere elegir y ordenar solo a 3 de ellos para ocupar 3 puestos distintos de un podio de reconocimiento.\n\n¿Corresponde tratar este problema como una permutación simple de los 8 empleados?",
@@ -60,7 +64,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["distractor-variacion"]
+    "tags": [
+      "distractor-variacion"
+    ]
   },
   {
     "question": "Se quiere formar una fila con las 6 personas de un grupo familiar para sacarse una foto, donde cada posición en la fila es un lugar distinto.\n\n¿Corresponde tratar este problema como una combinación de las 6 personas?",
@@ -81,7 +87,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["distractor-combinacion"]
+    "tags": [
+      "distractor-combinacion"
+    ]
   },
   {
     "question": "Un examen tiene 4 preguntas y cada una se responde eligiendo una opción entre 3 posibles, de forma independiente entre preguntas.\n\n¿Corresponde tratar este problema como una permutación de 4 elementos?",
@@ -102,6 +110,8 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["distractor-regla-producto"]
+    "tags": [
+      "distractor-regla-producto"
+    ]
   }
 ]

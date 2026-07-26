@@ -119,7 +119,7 @@
     "options": [
       "Regla del cociente",
       "Reescribir como potencia negativa",
-      "Múltiplo escalar"
+      "Múltiplo escalar, en general"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -233,7 +233,7 @@
     "question": "¿Qué exponente lleva el **denominador** en la regla del cociente?",
     "options": [
       "Depende del exponente que tenga $v$ en la expresión original",
-      "$2$, siempre al cuadrado",
+      "$2$, siempre al cuadrado, para esta función",
       "$1$, igual que el denominador original"
     ],
     "correct_index": 1,
@@ -257,7 +257,7 @@
     "options": [
       "Únicamente del denominador $v^2$",
       "De ambos por igual, numerador y denominador aportan el signo",
-      "Únicamente del numerador $u'v-uv'$"
+      "Únicamente del numerador $u'v-uv'$, en este caso"
     ],
     "correct_index": 2,
     "has_math": true,

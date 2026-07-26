@@ -183,7 +183,7 @@
     "question": "La gráfica muestra un **salto** en $x=0$.\n\n¿Existe $\\lim_{x \\to 0} f(x)$?",
     "options": [
       "Sí",
-      "No",
+      "No, siempre",
       "No se puede determinar"
     ],
     "correct_index": 1,
@@ -210,7 +210,7 @@
   {
     "question": "La gráfica muestra una parábola continua, sin ningún quiebre visible.\n\n¿Existe $\\lim_{x \\to 1} f(x)$?",
     "options": [
-      "Sí",
+      "Sí, siempre",
       "No",
       "No se puede determinar"
     ],
@@ -240,7 +240,7 @@
     "options": [
       "No",
       "No se puede determinar",
-      "Sí"
+      "Sí, siempre"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -267,7 +267,7 @@
     "question": "La gráfica combina un **hueco** en $x=2$ con un **salto**: las dos ramas no llegan a la misma altura.\n\n¿Existe $\\lim_{x \\to 2} f(x)$?",
     "options": [
       "No se puede determinar",
-      "No",
+      "No, siempre",
       "Sí"
     ],
     "correct_index": 1,

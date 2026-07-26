@@ -2,7 +2,7 @@
   {
     "question": "¿Qué indica que $\\det(A) \\neq 0$ para una matriz cuadrada $A$?",
     "options": [
-      "Que $A$ es inversible",
+      "Que $A$ es inversible, en este caso",
       "Que $A$ es simétrica",
       "Que todos los elementos de $A$ son positivos"
     ],

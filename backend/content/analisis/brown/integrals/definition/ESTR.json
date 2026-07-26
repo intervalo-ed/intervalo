@@ -26,7 +26,7 @@
     "question": "Antes de resolver esta integral:\n$$\\int \\frac{x^3+5x}{x}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Derivar el integrando",
-      "Repartir el denominador",
+      "Repartir el denominador, en este caso",
       "Integrar el numerador y el denominador por separado"
     ],
     "correct_index": 1,
@@ -71,7 +71,7 @@
   {
     "question": "Antes de resolver esta integral:\n$$\\int \\frac{x^4-3x^2}{x^2}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
-      "Repartir el denominador",
+      "Repartir el denominador, en este caso",
       "Integrar el numerador y el denominador por separado",
       "Derivar el integrando"
     ],
@@ -140,7 +140,7 @@
   {
     "question": "Antes de resolver esta integral:\n$$\\int \\frac{6x^2+2x}{2x}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
-      "Repartir el denominador",
+      "Repartir el denominador, en este caso",
       "Integrar el numerador y el denominador por separado",
       "Derivar el integrando"
     ],

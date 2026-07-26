@@ -3,7 +3,7 @@
     "question": "En el estudio de los **límites al infinito**, aparece el cociente $\\frac{5}{x}$ cuando $x \\to +\\infty$.\n\n¿A qué tiende este cociente?",
     "options": [
       "Es una indeterminación",
-      "$0$",
+      "$0$, en general",
       "$+\\infty$"
     ],
     "correct_index": 1,
@@ -117,7 +117,7 @@
   {
     "question": "Cuando $x \\to \\pm\\infty$ y una función se acerca a un valor finito $L$, se dice que tiene una **asíntota horizontal**.\n\n¿Cuál es la recta que describe este comportamiento?",
     "options": [
-      "$y = L$",
+      "$y = L$, en este caso",
       "$x = L$",
       "No se puede determinar sin más datos"
     ],
@@ -141,7 +141,7 @@
     "question": "Cuando $x \\to a$ (un valor finito) y una función diverge a $\\pm\\infty$, se dice que tiene una **asíntota vertical**.\n\n¿Cuál es la recta que describe este comportamiento?",
     "options": [
       "$y = a$",
-      "$x = a$",
+      "$x = a$, en este caso",
       "No se puede determinar sin más datos"
     ],
     "correct_index": 1,
@@ -186,7 +186,7 @@
   {
     "question": "Se busca una recta $x = a$ tal que la función se rompa y diverja a $\\pm\\infty$ exactamente en ese punto.\n\n¿Qué tipo de asíntota describe esa recta?",
     "options": [
-      "Vertical",
+      "Vertical, para esta función",
       "Horizontal",
       "Ninguna, esa recta no se relaciona con asíntotas"
     ],
@@ -209,7 +209,7 @@
   {
     "question": "En una función racional $\\frac{P(x)}{Q(x)}$, el grado del denominador $Q(x)$ es estrictamente mayor que el grado del numerador $P(x)$.\n\n¿Qué sucede con $\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$?",
     "options": [
-      "Vale $0$",
+      "Vale $0$, en este caso",
       "Diverge a $\\infty$",
       "Depende de los coeficientes"
     ],
@@ -232,7 +232,7 @@
   {
     "question": "En una función racional $\\frac{P(x)}{Q(x)}$, el grado del numerador $P(x)$ es estrictamente mayor que el grado del denominador $Q(x)$.\n\n¿Qué sucede con $\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$?",
     "options": [
-      "Diverge",
+      "Diverge, por definición",
       "Vale $0$",
       "Vale el cociente de coeficientes principales"
     ],
@@ -280,7 +280,7 @@
     "options": [
       "La polinómica, si su grado es suficientemente alto",
       "Depende de los coeficientes de cada una",
-      "La exponencial"
+      "La exponencial, en el sistema de reales"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -302,7 +302,7 @@
     "question": "Entre una función polinómica y una función logarítmica, ¿cuál domina el crecimiento cuando $x \\to +\\infty$?",
     "options": [
       "La logarítmica",
-      "La polinómica",
+      "La polinómica, en general",
       "Ninguna, crecen al mismo ritmo"
     ],
     "correct_index": 1,
@@ -326,7 +326,7 @@
     "options": [
       "El polinomio, por tener un grado tan alto",
       "No se puede determinar sin conocer los coeficientes",
-      "La exponencial"
+      "La exponencial, en el sistema de números reales"
     ],
     "correct_index": 2,
     "has_math": true,

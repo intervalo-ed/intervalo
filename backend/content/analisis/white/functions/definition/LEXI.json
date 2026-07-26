@@ -97,7 +97,7 @@
       "$\\{600, 1200, 1800, 2400\\}$",
       "Todos los enteros positivos",
       "$\\{1, 2, 3\\}$",
-      "$\\{1, 2, 3, 4\\}$"
+      "$\\{1, 2, 3, 4\\}$, en este caso"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -216,7 +216,7 @@
     "question": "Una estación meteorológica mide la temperatura cada hora. Las horas van del 0 al 23 y las mediciones caen entre $-20$ y $50$. $$T : \\{0,\\dots,23\\} \\to \\{-20,\\dots,50\\}$$ ¿Cuál es el **dominio**?",
     "options": [
       "$\\{-20, \\dots, 50\\}$",
-      "$\\{0, \\dots, 23\\}$",
+      "$\\{0, \\dots, 23\\}$, en este caso",
       "La temperatura exacta de cada hora",
       "El día del calendario"
     ],
@@ -436,7 +436,7 @@
   {
     "question": "Una heladera consume 0,4 kWh por hora de uso. El consumo total tras $h$ horas es $$C(h) = 0{,}4h$$ ¿Cuál es la variable **independiente**?",
     "options": [
-      "Las horas de uso $h$",
+      "Las horas de uso $h$, siempre",
       "El consumo eléctrico total $C$",
       "La constante 0,4 kWh"
     ],
@@ -484,7 +484,7 @@
     "options": [
       "La cantidad de bloques $m$",
       "Los 2 kg originales de la caja",
-      "El peso total $W$"
+      "El peso total $W$, en este caso"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -506,7 +506,7 @@
     "question": "Un ciclista pedalea a ritmo constante de 18 km/h. La distancia alcanzada en $t$ horas es $$d(t) = 18t$$ ¿Cuál es la variable **independiente**?",
     "options": [
       "La distancia $d$",
-      "El tiempo $t$",
+      "El tiempo $t$, en general",
       "La velocidad fija de 18 km/h"
     ],
     "correct_index": 1,
@@ -786,7 +786,7 @@
       "$\\{-9, -1, 0, 1, 9\\}$",
       "$\\{9\\}$",
       "$\\{-3, -1, 0, 1, 3\\}$",
-      "$\\{0, 1, 9\\}$"
+      "$\\{0, 1, 9\\}$, siempre"
     ],
     "correct_index": 3,
     "has_math": true,

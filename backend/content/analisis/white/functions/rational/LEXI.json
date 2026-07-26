@@ -28,7 +28,7 @@
     "question": "¿Cómo se llaman las líneas que esta curva se aproxima pero nunca llega a tocar?",
     "options": [
       "Tangentes",
-      "Asíntotas",
+      "Asíntotas, siempre",
       "Ejes de simetría",
       "Rectas directrices"
     ],
@@ -320,7 +320,7 @@
       "$(0, +\\infty)$ (solo positivos)",
       "$\\mathbb{R}$ (todos los reales)",
       "$[-1, 1]$",
-      "$\\mathbb{R} \\setminus \\{0\\}$"
+      "$\\mathbb{R} \\setminus \\{0\\}$, en este caso"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -694,7 +694,7 @@
     "options": [
       "Sí, tiene un mínimo en $x = 1$",
       "Sí, tiene un máximo en $x = -1$",
-      "No",
+      "No, en el sistema de reales",
       "Sí, tiene un máximo global en $y = 1$"
     ],
     "correct_index": 2,
@@ -820,7 +820,7 @@
       "1 (en $x = 0$)",
       "2 (en $x = 1$ y $x = -1$)",
       "Ninguna",
-      "3"
+      "3, en general"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -1220,7 +1220,7 @@
       "La función es cero en $x = c$",
       "La función está definida y el valor es 1",
       "Se crea una asíntota vertical en $x = c$",
-      "Se crea un agujero en $x = c$"
+      "Se crea un agujero en $x = c$, en este caso"
     ],
     "correct_index": 3,
     "has_math": true,

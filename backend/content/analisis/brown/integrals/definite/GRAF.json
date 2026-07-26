@@ -270,7 +270,7 @@
   {
     "question": "En la gráfica se muestra $f(x)=x^2-1$.\n\n¿Cuál es el valor de $\\int_2^2 f(x)\\,dx$?",
     "options": [
-      "$0$",
+      "$0$, por definición",
       "$f(2)$",
       "Depende del valor específico de $f(2)$"
     ],
@@ -354,7 +354,7 @@
   {
     "question": "En la gráfica se muestra $f(x)=\\sin x$.\n\n¿Cuál es el valor de $\\int_{\\pi}^{\\pi} f(x)\\,dx$?",
     "options": [
-      "$0$",
+      "$0$, por definición",
       "$f(\\pi)$",
       "Depende del valor específico de $f(\\pi)$"
     ],

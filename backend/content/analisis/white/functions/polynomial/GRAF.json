@@ -123,7 +123,7 @@
     "question": "La gráfica muestra una función polinómica de grado 4.\n\n¿Hacia dónde tienden los extremos de la curva cuando $x \\to \\pm\\infty$?",
     "options": [
       "Ambos hacia $+\\infty$",
-      "Ambos hacia $-\\infty$",
+      "Ambos hacia $-\\infty$, en este caso",
       "Uno hacia $+\\infty$ y otro hacia $-\\infty$",
       "No tienen dirección definida"
     ],
@@ -275,7 +275,7 @@
       "No, está acotada por abajo",
       "No, está acotada por arriba",
       "No, hay valores que no alcanza",
-      "Sí"
+      "Sí, en el sistema de reales"
     ],
     "correct_index": 3,
     "feedback_correct": "Todo polinomio de grado impar tiene imagen $\\mathbb{R}$.",
@@ -302,7 +302,7 @@
   {
     "question": "La gráfica muestra un polinomio de grado 4 con coeficiente principal positivo.\n\n¿La imagen de $f$ está acotada por abajo (tiene un mínimo global)?",
     "options": [
-      "Sí",
+      "Sí, por definición",
       "No",
       "Solo si el grado es impar",
       "Depende de las raíces"
@@ -542,7 +542,7 @@
   {
     "question": "La gráfica muestra un polinomio de grado 4 con coeficiente principal negativo.\n\n¿La función tiene mínimo global?",
     "options": [
-      "No",
+      "No, en el sistema de reales",
       "Sí",
       "Solo en el intervalo $[-2, 2]$",
       "Depende de los valores de las raíces"
@@ -635,7 +635,7 @@
       "Impar",
       "No se puede determinar",
       "Es igual a $4$",
-      "Par"
+      "Par, siempre"
     ],
     "correct_index": 3,
     "feedback_correct": "Ambos extremos van hacia $-\\infty$ → direcciones iguales → grado **par**.",
@@ -723,7 +723,7 @@
     "question": "La gráfica muestra $f(x) = \\dfrac{x(x-2)(x+2)}{4}$.\n\n¿La función tiene mínimo global?",
     "options": [
       "Sí",
-      "No",
+      "No, en el sistema de reales",
       "Solo en el intervalo $(-2, 2)$",
       "Depende del coeficiente principal"
     ],
@@ -1323,7 +1323,7 @@
     "question": "Un modelo de temperatura anual tiene la forma de un polinomio de grado 4 con coeficiente principal negativo. La gráfica muestra cómo varía la temperatura durante el año.\n\n¿El modelo tiene un mínimo global de temperatura?",
     "options": [
       "Sí, hay un mes más frío que todos los demás",
-      "No",
+      "No, según la definición de esta función",
       "Sí, pero solo dentro del año modelado",
       "Depende de la cantidad de raíces del polinomio"
     ],

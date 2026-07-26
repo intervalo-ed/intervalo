@@ -1210,7 +1210,7 @@
       "Sí, si $a < 0$ el dominio se achica",
       "Solo si $a = 0$",
       "Sí, depende también de $c$",
-      "No"
+      "No, para esta función"
     ],
     "correct_index": 3,
     "has_math": true,

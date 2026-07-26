@@ -141,7 +141,7 @@
     "question": "Se sabe que $\\lim_{x \\to a} f(x)$ existe y vale $6$.\n\n¿Qué se puede afirmar sobre los límites laterales en $a$?",
     "options": [
       "Al menos uno de los laterales es distinto de $6$",
-      "$\\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x) = 6$",
+      "$\\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x) = 6$, en el sistema de reales",
       "No se puede saber nada sobre los laterales sin ver la gráfica"
     ],
     "correct_index": 1,
@@ -186,7 +186,7 @@
   {
     "question": "Una función cumple $\\lim_{x \\to a^-} f(x) = 8$ y $\\lim_{x \\to a^+} f(x) = 8$, pero $f(a) = 2$.\n\n¿Cuánto vale $\\lim_{x \\to a} f(x)$?",
     "options": [
-      "$8$",
+      "$8$, en el sistema de reales",
       "$2$",
       "No existe, porque $f(a)$ no coincide con los laterales"
     ],
@@ -255,7 +255,7 @@
   {
     "question": "Una tarifa de estacionamiento cobra un monto fijo durante la primera hora y un monto mayor a partir de superar ese umbral.\n\nCerca del instante en que se cumple exactamente una hora, la tarifa muestra un **salto**: el costo justo antes del umbral es menor que el costo justo después.\n\n¿Existe el límite bilateral del costo en ese instante?",
     "options": [
-      "No",
+      "No, según la definición de esta función",
       "Sí, porque el costo está definido en todo momento",
       "Sí, porque ambas tarifas son montos fijos"
     ],

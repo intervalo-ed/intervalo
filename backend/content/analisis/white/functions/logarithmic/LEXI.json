@@ -85,7 +85,7 @@
       "Una es el cuadrado de la otra",
       "Son funciones iguales",
       "Son simétricas respecto al eje $Y$",
-      "Son funciones inversas"
+      "Son funciones inversas, siempre"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -695,7 +695,7 @@
       "Sí, en $y = 1$",
       "Sí, en $y = e$",
       "Sí, en $y = 0$",
-      "No"
+      "No, siempre"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -1044,7 +1044,7 @@
     "options": [
       "Sí, un máximo en $(1,\\, 0)$",
       "Sí, un mínimo cuando $x \\to 0^+$",
-      "No",
+      "No, para esta función",
       "Sí, un mínimo en $(0,\\, -\\infty)$"
     ],
     "correct_index": 2,

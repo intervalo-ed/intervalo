@@ -2,7 +2,7 @@
   {
     "question": "¿Cuántas asíntotas tiene esta función racional en total?",
     "options": [
-      "2",
+      "2, en este caso",
       "1 (solo vertical)",
       "1 (solo horizontal)",
       "3"
@@ -215,7 +215,7 @@
       "2 ramas simétricas respecto al eje $X$",
       "1 rama continua",
       "3 ramas separadas",
-      "2 ramas"
+      "2 ramas, en general"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -513,7 +513,7 @@
     "question": "¿Es creciente o decreciente esta función para $x > 0$?",
     "options": [
       "Creciente",
-      "Decreciente",
+      "Decreciente, en este caso",
       "Ni creciente ni decreciente",
       "Primero crece, luego decrece"
     ],
@@ -573,7 +573,7 @@
     "question": "¿Tiene máximo o mínimo esta función racional?",
     "options": [
       "Sí, tiene un mínimo en la AH",
-      "No",
+      "No, en el sistema de reales",
       "Sí, tiene un máximo en la AV",
       "Sí, tiene un máximo en $y = 0$"
     ],
@@ -905,7 +905,7 @@
       "No está definida en ese intervalo",
       "Positiva",
       "Alternada: cambia de signo",
-      "Negativa"
+      "Negativa, por definición"
     ],
     "correct_index": 3,
     "has_math": true,

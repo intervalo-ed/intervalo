@@ -18,7 +18,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["elegir-suma-excluyentes"]
+    "tags": [
+      "elegir-suma-excluyentes"
+    ]
   },
   {
     "question": "En una fábrica, $P(A)=0{,}5$ (falla eléctrica) y $P(B)=0{,}4$ (falla mecánica), y se sabe que algunas piezas presentan ambas fallas a la vez.\n\n¿Qué propiedad conviene usar para calcular $P(A\\cup B)$?",
@@ -39,7 +41,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["elegir-regla-general-union"]
+    "tags": [
+      "elegir-regla-general-union"
+    ]
   },
   {
     "question": "En un control de calidad, se sabe que $P(\\text{defectuosa}) = 0{,}08$ y se quiere calcular la probabilidad de que una pieza NO sea defectuosa.\n\n¿Qué propiedad conviene aplicar?",
@@ -60,12 +64,14 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["elegir-complemento"]
+    "tags": [
+      "elegir-complemento"
+    ]
   },
   {
     "question": "Un estudiante calculó que $P(A) = 1{,}15$ para cierto evento de un experimento.\n\n¿Qué propiedad permite afirmar que ese resultado es incorrecto?",
     "options": [
-      "Acotación: toda probabilidad cumple $0\\leq P(A)\\leq 1$.",
+      "Acotación: toda probabilidad cumple $0\\leq P(A)\\leq 1$., en este caso",
       "Aditividad: la suma de dos probabilidades siempre da $1{,}15$.",
       "Regla del complemento: $P(A^c)=1{,}15$ también sería válido."
     ],
@@ -81,6 +87,8 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["elegir-acotacion"]
+    "tags": [
+      "elegir-acotacion"
+    ]
   }
 ]

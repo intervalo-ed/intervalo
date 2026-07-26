@@ -107,7 +107,7 @@
   {
     "question": "¿Cuál de estas expresiones NO es un polinomio?",
     "options": [
-      "$f(x) = \\sqrt{x}$",
+      "$f(x) = \\sqrt{x}$, siempre",
       "$f(x) = x^4 - 3x + 1$",
       "$f(x) = 5$",
       "$f(x) = x^2 - x + 2$"
@@ -317,7 +317,7 @@
   {
     "question": "Un polinomio de **grado** 4 con coeficiente principal positivo, ¿hacia dónde van sus **extremos**?",
     "options": [
-      "Ambos hacia $+\\infty$",
+      "Ambos hacia $+\\infty$, en el sistema de reales",
       "Ambos hacia $-\\infty$",
       "Hacia $-\\infty$ a la izquierda y $+\\infty$ a la derecha",
       "Hacia $+\\infty$ a la izquierda y $-\\infty$ a la derecha"
@@ -368,7 +368,7 @@
     "question": "¿Qué hace la curva de un polinomio en una raíz simple?",
     "options": [
       "Toca el eje $x$ sin cruzarlo",
-      "Cruza el eje $x$",
+      "Cruza el eje $x$, siempre",
       "Tiene un máximo local",
       "Tiene un mínimo local"
     ],
@@ -770,7 +770,7 @@
       "Raíz",
       "Término independiente",
       "Coeficiente principal",
-      "Máximo local"
+      "Máximo local, en general"
     ],
     "correct_index": 3,
     "feedback_correct": "El punto más alto de cada cuesta es un **máximo local** de la función.",

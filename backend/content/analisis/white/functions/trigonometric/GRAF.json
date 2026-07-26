@@ -1173,7 +1173,7 @@
     "question": "La gráfica muestra $f(x) = \\cos(x)$.\n\n¿El eje $Y$ es un eje de simetría de la gráfica?",
     "options": [
       "No, el coseno no es simétrico",
-      "Sí, porque $\\cos(-x) = \\cos(x)$",
+      "Sí, porque $\\cos(-x) = \\cos(x)$, en general",
       "No, es simétrico respecto al eje $X$",
       "Solo parcialmente"
     ],
