@@ -395,7 +395,7 @@
       -1,
       6
     ],
-    "explanation": "El vértice de una parábola es un **vértice suave**, no un pico anguloso, las dos ramas de la curva se acercan a ese punto con la misma pendiente.\n\nEsa pendiente compartida vale cero, así que la función es diferenciable ahí, con $f'(0)=0$, exactamente igual que en cualquier otro punto de la parábola.\n\nConfundir un vértice suave con un quiebre es el error más frecuente de esta sub-familia, la diferencia clave es si la pendiente coincide o no a ambos lados.",
+    "explanation": "El vértice de una parábola es un **vértice suave**, no un pico anguloso, las dos ramas de la curva se acercan a ese punto con la misma pendiente.\n\nEsa pendiente compartida vale cero, así que la función es diferenciable ahí, con $f'(0)=0$, exactamente igual que en cualquier otro punto de la parábola.\n\nConfundir un vértice suave con un quiebre más frecuente de esta sub-familia, la diferencia clave es si la pendiente coincide o no a ambos lados.",
     "reviewed": false,
     "tags": [
       "diagnostico-esquinas-y-saltos"

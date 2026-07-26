@@ -191,7 +191,7 @@
       -4,
       4
     ],
-    "explanation": "Para leer la **pendiente** de una recta en la grilla, hay que contar cuánto sube o baja la recta, $\\Delta y$, por cada paso horizontal, $\\Delta x$.\n\nEn esta recta, por cada unidad que se avanza en $x$, la recta sube $2$ unidades en $y$, así que $f'(a)=2$.\n\nConviene siempre contar el desplazamiento vertical dividido por el horizontal, invertir el orden es el error más común al leer pendientes en una grilla.",
+    "explanation": "Para leer la **pendiente** de una recta en la grilla, hay que contar cuánto sube o baja la recta, $\\Delta y$, por cada paso horizontal, $\\Delta x$.\n\nEn esta recta, por cada unidad que se avanza en $x$, la recta sube $2$ unidades en $y$, así que $f'(a)=2$.\n\nConviene siempre contar el desplazamiento vertical dividido por el horizontal, invertir el orden más común al leer pendientes en una grilla.",
     "reviewed": false,
     "tags": [
       "lectura-de-pendiente"

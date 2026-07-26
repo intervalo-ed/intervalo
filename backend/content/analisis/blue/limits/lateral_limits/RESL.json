@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Al pedir un límite por la izquierda, hay que sustituir exclusivamente en la rama definida para $x$ menores al punto de tendencia, nunca en la del otro lado.\n$$\\lim_{x \\to 0^-} f(x) = 3 \\cdot 0 = 0$$\nUsando la rama $3x$, válida para $x<0$.\n\nTomar por error la rama de $x \\geq 0$ ($x+5=5$) es la confusión clásica de invertir el sentido de la aproximación pedida.",
+    "explanation": "Al pedir un límite por la izquierda, hay que sustituir exclusivamente en la rama definida para $x$ menores al punto de tendencia, nunca en la del otro lado.\n$$\\lim_{x \\to 0^-} f(x) = 3 \\cdot 0 = 0$$\nUsando la rama $3x$, válida para $x<0$.\n\nTomar por error la rama de $x \\geq 0$ ($x+5=5$) clásica de invertir el sentido de la aproximación pedida.",
     "reviewed": false,
     "tags": [
       "trozos-un-lateral"

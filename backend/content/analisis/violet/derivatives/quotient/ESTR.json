@@ -2,7 +2,7 @@
   {
     "question": "Considerá la función:\n$$f(x) = \\frac{5}{x^3}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
-      "Reescribir como potencia negativa",
+      "Negativa",
       "Regla del cociente",
       "Múltiplo escalar"
     ],
@@ -26,7 +26,7 @@
     "question": "Analizá la función:\n$$f(x) = \\frac{7}{x^2}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del producto",
-      "Reescribir como potencia negativa",
+      "Negativa",
       "Regla del cociente"
     ],
     "correct_index": 1,
@@ -50,7 +50,7 @@
     "options": [
       "Regla del cociente",
       "Múltiplo escalar",
-      "Reescribir como potencia negativa"
+      "Negativa"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -164,7 +164,7 @@
     "question": "Analizá la función:\n$$f(x) = \\frac{x^3-8}{x-2}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Múltiplo escalar",
-      "Simplificar el cociente primero",
+      "Simplificar",
       "Regla del cociente"
     ],
     "correct_index": 1,
@@ -200,7 +200,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla del cociente** tiene un orden estricto en la resta del numerador, que no se puede invertir sin cambiar el resultado.\n\nA diferencia de la regla del producto, acá el orden de la resta importa, y el **denominador** siempre queda elevado al cuadrado. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "La **regla del cociente** tiene un orden estricto en la resta del numerador, que no se puede invertir sin cambiar el resultado.\n\nLa regla del producto, acá el orden de la resta importa, y el **denominador** siempre queda elevado al cuadrado. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "anatomia-signos-y-dominio-cociente"

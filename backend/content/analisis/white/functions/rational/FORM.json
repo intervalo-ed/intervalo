@@ -268,7 +268,7 @@
     "question": "Considerá la función:\n$$f(x) = \\dfrac{x + 1}{x - 3}$$\nExpresado en notación de intervalos?",
     "options": [
       "$(-\\infty, 3]$",
-      "$(-\\infty",
+      "Intervalo",
       "$(3, +\\infty)$",
       "$(-3, +\\infty)$"
     ],
@@ -458,7 +458,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando numerador y denominador tienen el mismo grado, la asíntota horizontal es el cociente de los coeficientes principales, tomando el del numerador arriba y el del denominador abajo. Acá ambos son de grado 1: coeficiente principal del numerador $4$, del denominador $2$, así que la asíntota horizontal es $y=\\frac{4}{2}=2$. Podés verificarlo dividiendo cada término entre $x$: para $x$ grande, $\\frac{4x-1}{2x+3}\\approx\\frac{4x}{2x}=2$. Invertir el cociente (poner el denominador arriba) es el error más frecuente en este tipo de cálculo.",
+    "explanation": "Cuando numerador y denominador tienen el mismo grado, la asíntota horizontal es el cociente de los coeficientes principales, tomando el del numerador arriba y el del denominador abajo. Acá ambos son de grado 1: coeficiente principal del numerador $4$, del denominador $2$, así que la asíntota horizontal es $y=\\frac{4}{2}=2$. Podés verificarlo dividiendo cada término entre $x$: para $x$ grande, $\\frac{4x-1}{2x+3}\\approx\\frac{4x}{2x}=2$. Invertir el cociente (poner el denominador arriba) más frecuente en este tipo de cálculo.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual"
@@ -508,7 +508,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando numerador y denominador tienen el mismo grado, la asíntota horizontal es el cociente de los coeficientes principales, respetando el signo de cada uno. Acá ambos son de grado 1: el coeficiente principal del numerador es $-5$ y el del denominador es $1$, así que la asíntota horizontal es $y=\\frac{-5}{1}=-5$. Podés verificarlo dividiendo cada término entre $x$: para $x$ grande, $\\frac{-5x+2}{x-1}\\approx\\frac{-5x}{x}=-5$. Olvidar el signo negativo del numerador es el error más común en este cálculo.",
+    "explanation": "Cuando numerador y denominador tienen el mismo grado, la asíntota horizontal es el cociente de los coeficientes principales, respetando el signo de cada uno. Acá ambos son de grado 1: el coeficiente principal del numerador es $-5$ y el del denominador es $1$, así que la asíntota horizontal es $y=\\frac{-5}{1}=-5$. Podés verificarlo dividiendo cada término entre $x$: para $x$ grande, $\\frac{-5x+2}{x-1}\\approx\\frac{-5x}{x}=-5$. Olvidar el signo negativo del numerador más común en este cálculo.",
     "reviewed": false,
     "tags": [
       "dominio-form"
@@ -544,7 +544,7 @@
     "options": [
       "$(-\\infty, 3) \\cup (3, +\\infty)$",
       "$\\mathbb{R} \\setminus \\{9\\}$",
-      "$(-\\infty",
+      "Intervalo",
       "$\\mathbb{R}$"
     ],
     "correct_index": 2,
@@ -908,7 +908,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El desplazamiento vertical (acá, restar $2$ al final) no afecta la posición de la asíntota vertical, porque esta depende únicamente de dónde se anula el denominador. Resolvemos $x+5=0\\Rightarrow x=-5$: esa es la asíntota vertical. La asíntota horizontal, en cambio, sí se ve afectada por el desplazamiento: pasa de $y=0$ (de la hipérbola básica $\\frac{1}{x+5}$) a $y=-2$. Confundir estos dos efectos es un error frecuente: el desplazamiento vertical mueve la AH, no la AV.",
+    "explanation": "El desplazamiento vertical (acá, restar $2$ al final) no afecta la posición de la asíntota vertical, porque esta depende únicamente de dónde se anula el denominador. Resolvemos $x+5=0\\Rightarrow x=-5$: esa es la asíntota vertical. La asíntota horizontal, en cambio, sí se ve afectada por el desplazamiento: pasa de $y=0$ (de la hipérbola básica $\\frac{1}{x+5}$) a $y=-2$. Confundir estos dos efectos frecuente: el desplazamiento vertical mueve la AH, no la AV.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal-calculo"
@@ -983,7 +983,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando un factor del denominador se cancela con uno igual en el numerador, aparece un agujero en vez de una asíntota vertical. Acá factorizamos: $\\frac{x^2-1}{x-1}=\\frac{(x-1)(x+1)}{x-1}=x+1$ para todo $x\\neq1$. El factor $(x-1)$ se cancela, así que el límite de la función cuando $x\\to1$ existe y vale $1+1=2$, pero $f(1)$ en sí **no está definida**, porque en la expresión original el denominador se anula justo ahí. Confundir esta situación con una asíntota vertical es un error frecuente: la diferencia está en si el factor se cancela o no.",
+    "explanation": "Cuando un factor del denominador se cancela con uno igual en el numerador, aparece un agujero en vez de una asíntota vertical. Acá factorizamos: $\\frac{x^2-1}{x-1}=\\frac{(x-1)(x+1)}{x-1}=x+1$ para todo $x\\neq1$. El factor $(x-1)$ se cancela, así que el límite de la función cuando $x\\to1$ existe y vale $1+1=2$, pero $f(1)$ en sí **no está definida**, porque en la expresión original el denominador se anula justo ahí. Confundir esta situación con una asíntota vertical frecuente: la diferencia está en si el factor se cancela o no.",
     "reviewed": false,
     "tags": [
       "dominio-form"
@@ -1008,7 +1008,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de evaluar, conviene revisar si el denominador se anula en el punto pedido. Acá factorizamos: $\\frac{x^2-25}{x-5}=\\frac{(x-5)(x+5)}{x-5}=x+5$ para todo $x\\neq5$. En $x=5$ el denominador de la expresión original vale cero, así que hay un agujero: $f(5)$ **no está definida**, aunque el límite de la función cuando $x\\to5$ sea $5+5=10$. Confundir el valor del límite con el valor de la función en ese punto exacto es el error clásico de este tipo de ejercicio.",
+    "explanation": "Antes de evaluar, conviene revisar si el denominador se anula en el punto pedido. Acá factorizamos: $\\frac{x^2-25}{x-5}=\\frac{(x-5)(x+5)}{x-5}=x+5$ para todo $x\\neq5$. En $x=5$ el denominador de la expresión original vale cero, así que hay un agujero: $f(5)$ **no está definida**, aunque el límite de la función cuando $x\\to5$ sea $5+5=10$. Confundir el valor del límite con el valor de la función en ese punto exacto clásico de este tipo de ejercicio.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual"
@@ -1169,7 +1169,7 @@
     "options": [
       "$y = 1$",
       "$y = 0$",
-      "No tiene AH",
+      "Sin AH",
       "$y = -1$"
     ],
     "correct_index": 2,

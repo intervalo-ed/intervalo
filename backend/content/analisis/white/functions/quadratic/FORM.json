@@ -380,7 +380,7 @@
       "El término independiente de esta función es negativo, $-3$: acá el signo quedó invertido.",
       null
     ],
-    "explanation": "Evaluar una función en $x = 0$ siempre equivale a leer directamente el **término independiente** $c$ de la forma estándar $f(x) = ax^2 + bx + c$, porque todos los términos que tienen $x$ se anulan.\n\nPara $f(x) = x^2 - 2x - 3$, al reemplazar:\n\nEl resultado coincide con $c = -3$.\n\nEste valor también es la **ordenada al origen**: el punto donde la parábola cruza el eje $y$ es $(0, -3)$.\n\nConfundir el signo de $c$ es el error más común al leerlo apurado de la expresión.",
+    "explanation": "Evaluar una función en $x = 0$ siempre equivale a leer directamente el **término independiente** $c$ de la forma estándar $f(x) = ax^2 + bx + c$, porque todos los términos que tienen $x$ se anulan.\n\nPara $f(x) = x^2 - 2x - 3$, al reemplazar:\n\nEl resultado coincide con $c = -3$.\n\nEste valor también es la **ordenada al origen**: el punto donde la parábola cruza el eje $y$ es $(0, -3)$.\n\nConfundir el signo de $c$ más común al leerlo apurado de la expresión.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -405,7 +405,7 @@
       "Ese es $c$, el término independiente, no el coeficiente lineal.",
       "El coeficiente de $x$ en esta función es negativo: falta el signo menos."
     ],
-    "explanation": "En la forma estándar $f(x) = ax^2 + bx + c$, el **coeficiente lineal** $b$ es el número que acompaña a $x$ elevado a la primera potencia, distinto del coeficiente $a$ que acompaña a $x^2$ y de la constante $c$.\n\nPara $f(x) = 3x^2 - 6x + 2$, el término en $x$ es $-6x$, por lo que $b = -6$, incluyendo el signo negativo como parte del coeficiente.\n\nOmitir el signo y reportar $b = 6$ es el error más frecuente en este tipo de lectura: ese signo determina, entre otras cosas, hacia qué lado se desplaza el eje de simetría de la parábola.",
+    "explanation": "En la forma estándar $f(x) = ax^2 + bx + c$, el **coeficiente lineal** $b$ es el número que acompaña a $x$ elevado a la primera potencia, distinto del coeficiente $a$ que acompaña a $x^2$ y de la constante $c$.\n\nPara $f(x) = 3x^2 - 6x + 2$, el término en $x$ es $-6x$, por lo que $b = -6$, incluyendo el signo negativo como parte del coeficiente.\n\nOmitir el signo y reportar $b = 6$ más frecuente en este tipo de lectura: ese signo determina, entre otras cosas, hacia qué lado se desplaza el eje de simetría de la parábola.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -530,7 +530,7 @@
       "Estos valores surgen de no dividir por el coeficiente $2$ antes de despejar el cuadrado.",
       "El $-1$ es la coordenada del vértice, no una raíz de la función."
     ],
-    "explanation": "Para hallar las raíces de una función en forma de vértice, se iguala a cero y se despeja $x$ deshaciendo primero el cuadrado.\n\nPara $f(x) = 2(x+1)^2 - 8$:\n\nEsto da $x = 1$ y $x = -3$.\n\nEl vértice es $(-1,-8)$, y las raíces quedan simétricas respecto a $x=-1$, a distancia $2$ de cada lado: olvidar dividir por el coeficiente $2$ antes de despejar es el error más común en este tipo de cuenta.",
+    "explanation": "Para hallar las raíces de una función en forma de vértice, se iguala a cero y se despeja $x$ deshaciendo primero el cuadrado.\n\nPara $f(x) = 2(x+1)^2 - 8$:\n\nEsto da $x = 1$ y $x = -3$.\n\nEl vértice es $(-1,-8)$, y las raíces quedan simétricas respecto a $x=-1$, a distancia $2$ de cada lado: olvidar dividir por el coeficiente $2$ antes de despejar más común en este tipo de cuenta.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -655,7 +655,7 @@
       "El segundo factor debería anularse en $x=-1$, no en $x=1$: revisá el signo de esa raíz.",
       "El primer factor debería anularse en $x=3$, no en $x=-3$: revisá el signo de esa raíz."
     ],
-    "explanation": "La forma factorizada $f(x)=a(x-r_1)(x-r_2)$ se arma reemplazando cada raíz en su propio factor, con el signo dentro del paréntesis siempre opuesto al de la raíz.\n\nCon $r_1=3$, $r_2=-1$ y $a=1$:\n\nEl patrón se repite siempre: raíz $+3$ da factor $(x-3)$, y raíz $-1$ da factor $(x+1)$.\n\nSumar en vez de invertir el signo dentro del paréntesis es el error más frecuente al armar esta forma.",
+    "explanation": "La forma factorizada $f(x)=a(x-r_1)(x-r_2)$ se arma reemplazando cada raíz en su propio factor, con el signo dentro del paréntesis siempre opuesto al de la raíz.\n\nCon $r_1=3$, $r_2=-1$ y $a=1$:\n\nEl patrón se repite siempre: raíz $+3$ da factor $(x-3)$, y raíz $-1$ da factor $(x+1)$.\n\nSi sumás en vez de invertir el signo dentro del paréntesis más frecuente al armar esta forma., obtienes un resultado incorrecto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -855,7 +855,7 @@
       null,
       "Estos coeficientes intercambian los roles de $v_0$ y de $\\frac{1}{2}g$: revisá cuál dato corresponde a cada término."
     ],
-    "explanation": "La fórmula general de altura en un tiro vertical es $h(t) = v_0 t - \\frac{1}{2}g t^2$, donde el primer término representa el impulso inicial y el segundo la desaceleración por gravedad.\n\nReemplazando $v_0=20$ y $g=10$:\n\nEl vértice de esta parábola, $t_v = -b/(2a) = -20/(2\\cdot(-5)) = 2$ s, indica el instante de altura máxima.\n\nConfundir el signo del término cuadrático, que siempre resta porque la gravedad frena la subida, es el error más común al armar esta ecuación.",
+    "explanation": "La fórmula general de altura en un tiro vertical es $h(t) = v_0 t - \\frac{1}{2}g t^2$, donde el primer término representa el impulso inicial y el segundo la desaceleración por gravedad.\n\nReemplazando $v_0=20$ y $g=10$:\n\nEl vértice de esta parábola, $t_v = -b/(2a) = -20/(2\\cdot(-5)) = 2$ s, indica el instante de altura máxima.\n\nConfundir el signo del término cuadrático, que siempre resta porque la gravedad frena la subida, más común al armar esta ecuación.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -905,7 +905,7 @@
       null,
       "Esta expresión no representa un producto de precio por cantidad, sino una resta sin sentido para una recaudación."
     ],
-    "explanation": "La recaudación total siempre se calcula como precio por cantidad vendida. Acá la cantidad vendida depende del precio, $100-2p$, así que la recaudación es:\n\nEl producto de dos factores lineales en la misma variable $p$ da siempre una función cuadrática, nunca lineal.\n\nEl vértice de esta parábola indica el precio que maximiza la recaudación:\n\nEl precio óptimo es \\$25. Sumar el precio y la cantidad en vez de multiplicarlos es el error más común al armar este tipo de ecuación de ingresos.",
+    "explanation": "La recaudación total siempre se calcula como precio por cantidad vendida. Acá la cantidad vendida depende del precio, $100-2p$, así que la recaudación es:\n\nEl producto de dos factores lineales en la misma variable $p$ da siempre una función cuadrática, nunca lineal.\n\nEl vértice de esta parábola indica el precio que maximiza la recaudación:\n\nEl precio óptimo es \\$25. Sumar el precio y la cantidad en vez de multiplicarlos más común al armar este tipo de ecuación de ingresos.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -930,7 +930,7 @@
       "Esta expresión tiene el signo general invertido respecto al área real, que debe ser positiva para $x$ entre $0$ y $8$.",
       "Esta expresión no descuenta lo que se pierde al restar el propio ancho del largo: falta el término cuadrático."
     ],
-    "explanation": "Con una cuerda de $16$ metros para cercar un rectángulo, el perímetro cumple $2(x+y)=16$, es decir $x+y=8$, por lo que el largo es $y=8-x$: ese es el semiperímetro que da el enunciado, no el perímetro completo.\n\nEl área en función del ancho $x$ es:\n\nEl área máxima se alcanza en $x=4$ m, formando un cuadrado de $4 \\times 4 = 16$ m².\n\nUsar el perímetro completo, $16$, en vez del semiperímetro, $8$, dentro del paréntesis es el error más común al armar esta ecuación.",
+    "explanation": "Con una cuerda de $16$ metros para cercar un rectángulo, el perímetro cumple $2(x+y)=16$, es decir $x+y=8$, por lo que el largo es $y=8-x$: ese es el semiperímetro que da el enunciado, no el perímetro completo.\n\nEl área en función del ancho $x$ es:\n\nEl área máxima se alcanza en $x=4$ m, formando un cuadrado de $4 \\times 4 = 16$ m².\n\nSi usás el perímetro completo, $16$, en vez del semiperímetro, $8$, dentro del paréntesis más común al armar esta ecuación., obtienes un resultado incorrecto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1030,7 +1030,7 @@
       "Este valor duplica el resultado correcto: revisá el signo de $a$ al aplicar la fórmula del vértice.",
       "Ese es el valor absoluto del coeficiente $a$, no la distancia horizontal del vértice."
     ],
-    "explanation": "La distancia horizontal donde el chorro alcanza su altura máxima es siempre la abscisa del vértice de la parábola.\n\nPara $h(d) = -0{,}25d^2+2d$, con $a=-0{,}25$ y $b=2$:\n\nA $4$ metros del caño, el chorro está en su punto más alto, con altura $h(4)=-0{,}25(16)+2(4)=4$ m.\n\nOlvidar el signo negativo de $a$ o el factor $2$ del denominador al aplicar la fórmula del vértice es el error más frecuente en este tipo de cálculo.",
+    "explanation": "La distancia horizontal donde el chorro alcanza su altura máxima es siempre la abscisa del vértice de la parábola.\n\nPara $h(d) = -0{,}25d^2+2d$, con $a=-0{,}25$ y $b=2$:\n\nA $4$ metros del caño, el chorro está en su punto más alto, con altura $h(4)=-0{,}25(16)+2(4)=4$ m.\n\nOlvidar el signo negativo de $a$ o el factor $2$ del denominador al aplicar la fórmula del vértice más frecuente en este tipo de cálculo.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1115,7 +1115,7 @@
       "Esta expresión no tiene término independiente: el vértice quedaría en $(0,0)$, no en $(0,8)$ como muestra la gráfica.",
       null
     ],
-    "explanation": "Leer una parábola desde su gráfico implica identificar tres datos: la concavidad, la amplitud relativa y el vértice.\n\nAcá la parábola abre hacia abajo, así que $a<0$, y se ve más ancha que $-x^2$, lo que indica $|a|<1$, probablemente $a=-0{,}5$.\n\nEl vértice está sobre el eje $y$ en $(0,k)$, por lo que $h=0$.\n\nCon las raíces en $x=\\pm 4$, se despeja $k$ a partir de $-0{,}5(\\pm 4)^2+k=0$, lo que da $k=8$:\n\nConfundir una parábola más ancha ($|a|<1$) con una más angosta ($|a|>1$) es el error más común al estimar el coeficiente a simple vista.",
+    "explanation": "Leer una parábola desde su gráfico implica identificar tres datos: la concavidad, la amplitud relativa y el vértice.\n\nAcá la parábola abre hacia abajo, así que $a<0$, y se ve más ancha que $-x^2$, lo que indica $|a|<1$, probablemente $a=-0{,}5$.\n\nEl vértice está sobre el eje $y$ en $(0,k)$, por lo que $h=0$.\n\nCon las raíces en $x=\\pm 4$, se despeja $k$ a partir de $-0{,}5(\\pm 4)^2+k=0$, lo que da $k=8$:\n\nConfundir una parábola más ancha ($|a|<1$) con una más angosta ($|a|>1$) más común al estimar el coeficiente a simple vista.",
     "has_math": true,
     "graph_fn": "-0.5*pow(x,2)+8",
     "graph_view": [
@@ -1145,7 +1145,7 @@
       "El segundo factor debería anularse en $x=4$, no en $x=-4$: revisá el signo de esa raíz.",
       null
     ],
-    "explanation": "Para armar la forma factorizada desde las raíces leídas en un gráfico, cada raíz entra en su propio factor con el signo invertido dentro del paréntesis.\n\nCon raíces $r_1=-2$ y $r_2=4$ y $a=1$:\n\nLa opción $(x-2)(x+4)$ tendría raíces $2$ y $-4$, con ambos signos invertidos respecto de las raíces reales.\n\nConfundir el signo de la raíz con el signo dentro del factor es la trampa más frecuente al leer un gráfico y traducirlo a forma factorizada.",
+    "explanation": "Para armar la forma factorizada desde las raíces leídas en un gráfico, cada raíz entra en su propio factor con el signo invertido dentro del paréntesis.\n\nCon raíces $r_1=-2$ y $r_2=4$ y $a=1$:\n\nLa opción $(x-2)(x+4)$ tendría raíces $2$ y $-4$, con ambos signos invertidos respecto de las raíces reales.\n\nConfundir el signo de la raíz con el signo dentro del factor más frecuente al leer un gráfico y traducirlo a forma factorizada.",
     "has_math": true,
     "graph_fn": "pow(x,2)-2*x-8",
     "graph_view": [

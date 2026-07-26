@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Resolviendo $f(x) = 0$:\n$$\\frac{1}{2}x - 3 = 0 \\implies \\frac{1}{2}x = 3 \\implies x = 6$$\nVerificación: $f(6) = \\frac{1}{2} \\cdot 6 - 3 = 0$.\n\nDividir por $\\frac{1}{2}$ es multiplicar por 2: por eso la raíz es el doble del término independiente.\n\nCon pendientes fraccionarias, el error típico es dividir por el numerador o quedarse en el paso intermedio: completá siempre el despeje y verificá sustituyendo.",
+    "explanation": "Resolviendo $f(x) = 0$:\n$$\\frac{1}{2}x - 3 = 0 \\implies \\frac{1}{2}x = 3 \\implies x = 6$$\nVerificación: $f(6) = \\frac{1}{2} \\cdot 6 - 3 = 0$.\n\nDividir por $\\frac{1}{2}$ es multiplicar por 2: por eso la raíz es el doble del término independiente.\n\nCon pendientes fraccionarias, si dividís por el numerador o te quedás en el paso intermedio sin terminar, vas a obtener un resultado incompleto. Hay que completar el despeje siempre y verificar sustituyendo.",
     "reviewed": false,
     "tags": [
       "raiz-calculo"
@@ -273,7 +273,7 @@
       -3,
       5
     ],
-    "explanation": "Para leer la ecuación desde el gráfico se buscan los dos parámetros por separado. El corte con el eje vertical está en $(0, 1)$, así que $b = 1$.\n\nPara la pendiente, avanzá una unidad en $x$ y medí el cambio vertical: la recta sube 2 unidades, así que $m = 2$. La ecuación queda:\n$$y = 2x + 1$$\nCombinando las dos lecturas.\n\nLeé primero el valor en $x = 0$ y después el ritmo de subida: mezclar los dos números del gráfico es el error de lectura más común.",
+    "explanation": "Para leer la ecuación desde el gráfico se buscan los dos parámetros por separado. El corte con el eje vertical está en $(0, 1)$, así que $b = 1$.\n\nPara la pendiente, avanzá una unidad en $x$ y medí el cambio vertical: la recta sube 2 unidades, así que $m = 2$. La ecuación queda:\n$$y = 2x + 1$$\nCombinando las dos lecturas.\n\nLeé primero el valor en $x = 0$ y después el ritmo de subida: si mezclas los dos números del gráfico, terminas confundiendo pendiente con ordenada al origen.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -438,7 +438,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En un costo con parte fija y tarifa por unidad, el fijo es la ordenada al origen y la tarifa es la pendiente:\n$$C(k) = 200k + 500$$\nLos \\$500 se pagan una sola vez y los \\$200 acompañan a cada kilómetro.\n\nPara chequear, evaluá en cero: $C(0) = 500$, el costo de subir al taxi sin recorrer nada.\n\nEl error frecuente es intercambiar la tarifa por km con la bajada de bandera: el número que multiplica a la variable es siempre el que se cobra por unidad.",
+    "explanation": "En un costo con parte fija y tarifa por unidad, el fijo es la ordenada al origen y la tarifa es la pendiente:\n$$C(k) = 200k + 500$$\nLos \\$500 se pagan una sola vez y los \\$200 acompañan a cada kilómetro.\n\nPara chequear, evaluá en cero: $C(0) = 500$, el costo de subir al taxi sin recorrer nada.\n\nSi intercambias la tarifa por km con la bajada de bandera, obtenés una fórmula que cobra los \$500 repetidamente. El número que multiplica a la variable es siempre el que se cobra por unidad.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -488,7 +488,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El volumen parte de 100 litros y pierde 5 por minuto: la tasa es negativa:\n$$V(t) = 100 - 5t$$\nCon $b = 100$ (volumen inicial) y $m = -5$ (pérdida por minuto).\n\nLa verificación rápida: $V(0) = 100$ y $V(1) = 95$, bajó exactamente 5 litros en el primer minuto.\n\nEn procesos que decrecen, revisá dos cosas antes de responder: que el valor inicial esté como término independiente y que el término variable reste.",
+    "explanation": "El volumen parte de 100 litros y pierde 5 por minuto: la tasa es negativa:\n$$V(t) = 100 - 5t$$\nCon $b = 100$ (volumen inicial) y $m = -5$ (pérdida por minuto).\n\nLa verificación rápida: $V(0) = 100$ y $V(1) = 95$, bajó exactamente 5 litros en el primer minuto.\n\nEn procesos que decrecen, si descuidás dónde va el valor inicial o no haces restar el término variable, obtenés una fórmula que sube cuando debería bajar. Hay que verificar ambas cosas antes de responder.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"

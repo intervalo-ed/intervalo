@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **unicidad** exige que una función asigne a cada entrada una sola salida. Acá la entrada es la cuenta y la salida es el saldo.\n\nSi fallara esta propiedad, una misma cuenta podría devolver \\$100 y \\$5000 a la vez.\n\nOjo, no confundas unicidad con inyectividad: acá se exige que cada cuenta tenga un solo saldo, no que cada saldo venga de una sola cuenta.",
+    "explanation": "La **unicidad** exige que una función asigne a cada entrada una sola salida. Acá la entrada es la cuenta y la salida es el saldo.\n\nSi fallara esta propiedad, una misma cuenta podría devolver \\$100 y \\$5000 a la vez.\n\nNo confundas unicidad con inyectividad: acá se exige que cada cuenta tenga un solo saldo, no que cada saldo venga de una sola cuenta.",
     "reviewed": false,
     "tags": [
       "unicidad"
@@ -799,7 +799,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** compila los resultados únicos que expulsa la función al operar. Al elevar las entradas al cuadrado, surgen estos números:\n\nLimpiando los repetidos, las salidas reales forman el conjunto $\\{0, 1, 9\\}$.\n\nOjo con los repetidos: la imagen junta valores distintos, así que $9$ y $1$ se cuentan una sola vez aunque provengan de dos entradas.",
+    "explanation": "La **imagen** compila los resultados únicos que expulsa la función al operar. Al elevar las entradas al cuadrado, surgen estos números:\n\nLimpiando los repetidos, las salidas reales forman el conjunto $\\{0, 1, 9\\}$.\n\nCon los repetidos: la imagen junta valores distintos, así que $9$ y $1$ se cuentan una sola vez aunque provengan de dos entradas.",
     "reviewed": false,
     "tags": [
       "codominio"
@@ -932,7 +932,7 @@
     "question": "Una función transforma cada número en su cubo. Al evaluar el 3 se obtiene 27. $$f(3) = 27$$ ¿Qué sería el 27 respecto del 3 en este caso?",
     "options": [
       "El dominio puntual",
-      "La imagen",
+      "Imagen",
       "La preimagen"
     ],
     "correct_index": 1,
@@ -1001,7 +1001,7 @@
     "question": "Una función transforma cada número en su doble. Por ejemplo, al evaluar el 6 resulta 12. $$f(6) = 12$$ ¿Qué sería el 12 respecto del 6 en este caso?",
     "options": [
       "La preimagen de 6",
-      "La imagen de 6",
+      "Imagen 6",
       "El dominio de la regla"
     ],
     "correct_index": 1,

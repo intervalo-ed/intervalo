@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con una función que incluye un término constante, conviene calcular $f(1)$ con cuidado antes de seguir.\n\nEl signo negativo de $f(1)=-3$ conviene arrastrarlo explícitamente en todo el despeje, perderlo es el error más frecuente de este tipo de ítem. La recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
+    "explanation": "Con una función que incluye un término constante, conviene calcular $f(1)$ con cuidado antes de seguir.\n\nEl signo negativo de $f(1)=-3$ conviene arrastrarlo explícitamente en todo el despeje, perderlo más frecuente de este tipo de ítem. La recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
     "reviewed": false,
     "tags": [
       "armado-ecuacion-tangente"

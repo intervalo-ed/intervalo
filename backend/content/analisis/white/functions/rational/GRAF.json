@@ -63,7 +63,7 @@
     "question": "Sea la función:\n$$f(x) = \\dfrac{1}{x^2 - 4}$$\n¿Cuántas asíntotas verticales tiene?",
     "options": [
       "0",
-      "1 (en $x = 4$)",
+      "1",
       "2",
       "3"
     ],
@@ -243,7 +243,7 @@
     "question": "Para la función:\n$$f(x) = \\dfrac{1}{x-1}$$\n¿Cuántas asíntotas tiene en total?",
     "options": [
       "2",
-      "1 (solo la vertical $x=1$)",
+      "1",
       "3",
       "0"
     ],
@@ -323,7 +323,7 @@
       -4,
       4
     ],
-    "explanation": "Una función es **decreciente** en un intervalo cuando, a medida que $x$ aumenta, el valor de la función disminuye, y esto se evalúa por separado en cada tramo del dominio cuando hay una asíntota vertical de por medio.\n\nLa gráfica de $f(x) = 1/x$ tiene dos ramas separadas por la asíntota vertical $x = 0$. En la rama izquierda $(-\\infty, 0)$, la función va de valores cercanos a $0^-$ hacia $-\\infty$ a medida que $x$ crece hacia $0$. En la rama derecha $(0, +\\infty)$, la función va de $+\\infty$ hacia valores cercanos a $0^+$. En ambos tramos la tendencia es decreciente.\n\nOjo con confundir 'la curva sube entre las dos ramas' con comportamiento creciente: ese salto es una discontinuidad en la asíntota vertical, no crecimiento real de la función.",
+    "explanation": "Una función es **decreciente** en un intervalo cuando, a medida que $x$ aumenta, el valor de la función disminuye, y esto se evalúa por separado en cada tramo del dominio cuando hay una asíntota vertical de por medio.\n\nLa gráfica de $f(x) = 1/x$ tiene dos ramas separadas por la asíntota vertical $x = 0$. En la rama izquierda $(-\\infty, 0)$, la función va de valores cercanos a $0^-$ hacia $-\\infty$ a medida que $x$ crece hacia $0$. En la rama derecha $(0, +\\infty)$, la función va de $+\\infty$ hacia valores cercanos a $0^+$. En ambos tramos la tendencia es decreciente.\n\nCon confundir 'la curva sube entre las dos ramas' con comportamiento creciente: ese salto es una discontinuidad en la asíntota vertical, no crecimiento real de la función.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
@@ -422,7 +422,7 @@
   {
     "question": "¿En qué valor cruza el eje $X$ esta función?",
     "options": [
-      "No cruza el eje $X$",
+      "No cruza",
       "$x = 1$",
       "$x = 2$",
       "$x = -1$"
@@ -455,7 +455,7 @@
       "$y = -2$",
       "$y = 2$",
       "$y = 0$",
-      "No existe (AV en $x = 0$)"
+      "No existe"
     ],
     "correct_index": 1,
     "has_math": true,
@@ -1193,7 +1193,7 @@
       -5,
       5
     ],
-    "explanation": "Para desplazar horizontalmente una hipérbola, hay que reemplazar $x$ por $(x - a)$ dentro del denominador, no sumar o restar un número fuera de la fracción, que en cambio mueve la asíntota horizontal.\nDesplazar $\\frac{1}{x}$ cuatro unidades a la derecha equivale a reemplazar $x$ por $x-4$: $f(x)=\\frac{1}{x-4}$. La AV pasa de $x=0$ a $x=4$ y la AH sigue en $y=0$. Confundir estos dos parámetros es el error más común al armar la fórmula desde el gráfico.",
+    "explanation": "Para desplazar horizontalmente una hipérbola, hay que reemplazar $x$ por $(x - a)$ dentro del denominador, no sumar o restar un número fuera de la fracción, que en cambio mueve la asíntota horizontal.\nDesplazar $\\frac{1}{x}$ cuatro unidades a la derecha equivale a reemplazar $x$ por $x-4$: $f(x)=\\frac{1}{x-4}$. La AV pasa de $x=0$ a $x=4$ y la AH sigue en $y=0$. Confundir estos dos parámetros más común al armar la fórmula desde el gráfico.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"

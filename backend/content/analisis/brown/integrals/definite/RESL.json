@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Armamos la primitiva $F(x)=\\frac{x^3}{3}+x$ y aplicamos la **Regla de Barrow**.\n$$\\begin{aligned} F(2) &= \\frac{8}{3}+2 = \\frac{14}{3} \\\\ F(0) &= 0 \\\\ \\int_0^2 (x^2+1)\\,dx &= \\frac{14}{3}-0 = \\frac{14}{3} \\end{aligned}$$\nLa resta final requiere denominador común entre la fracción y el entero, saltear ese paso es el error aritmético más frecuente acá.",
+    "explanation": "Armamos la primitiva $F(x)=\\frac{x^3}{3}+x$ y aplicamos la **Regla de Barrow**.\n$$\\begin{aligned} F(2) &= \\frac{8}{3}+2 = \\frac{14}{3} \\\\ F(0) &= 0 \\\\ \\int_0^2 (x^2+1)\\,dx &= \\frac{14}{3}-0 = \\frac{14}{3} \\end{aligned}$$\nLa resta final requiere denominador común entre la fracción y el entero, saltear ese paso aritmético más frecuente acá.",
     "reviewed": false,
     "tags": [
       "barrow-con-reglas-directas"
@@ -100,7 +100,7 @@
     ]
   },
   {
-    "question": "Evaluá:\n$$\\int_0^{\\pi/2} \\cos x\\,dx$$",
+    "question": "Calculá:\n$$\\int_0^{\\pi/2} \\cos x\\,dx$$",
     "options": [
       "$1$",
       "$\\pi/2$",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "Evaluá:\n$$\\int_0^2 3x^2\\,dx$$",
+    "question": "Resolvé:\n$$\\int_0^2 3x^2\\,dx$$",
     "options": [
       "$24$",
       "$4$",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "Calculá:\n$$\\int_0^1 2e^{2x}\\,dx$$",
+    "question": "Resolvé:\n$$\\int_0^1 2e^{2x}\\,dx$$",
     "options": [
       "$e^2$",
       "$e^2-1+C$",
@@ -193,14 +193,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Armamos la primitiva $F(x)=e^{2x}$, ya que la sustitución $u=2x$ deja $2\\int e^{2x}\\,dx=e^{2x}$, y aplicamos Barrow.\n$$\\begin{aligned} F(1) &= e^2 \\\\ F(0) &= e^0 = 1 \\\\ \\int_0^1 2e^{2x}\\,dx &= e^2-1 \\end{aligned}$$\nIgual que con la exponencial simple, el error más común es dejar de lado que $F(0)=1$, no cero, aunque el límite inferior sea cero.",
+    "explanation": "Armamos la primitiva $F(x)=e^{2x}$, ya que la sustitución $u=2x$ deja $2\\int e^{2x}\\,dx=e^{2x}$, y aplicamos Barrow.\n$$\\begin{aligned} F(1) &= e^2 \\\\ F(0) &= e^0 = 1 \\\\ \\int_0^1 2e^{2x}\\,dx &= e^2-1 \\end{aligned}$$\nIgual que con la exponencial simple, dejar de lado que $F(0)=1$, no cero, aunque el límite inferior sea cero.",
     "reviewed": false,
     "tags": [
       "barrow-con-sustitucion-y-partes"
     ]
   },
   {
-    "question": "Calculá:\n$$\\int_0^1 xe^x\\,dx$$",
+    "question": "Determiná:\n$$\\int_0^1 xe^x\\,dx$$",
     "options": [
       "$1$",
       "$1+C$",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "Calculá:\n$$\\int_0^2 x(x^2+1)^3\\,dx$$",
+    "question": "Encontrá:\n$$\\int_0^2 x(x^2+1)^3\\,dx$$",
     "options": [
       "$78+C$",
       "$78$",
@@ -325,7 +325,7 @@
     ]
   },
   {
-    "question": "Evaluá:\n$$\\int_0^{\\pi/2} \\sin x\\cos x\\,dx$$",
+    "question": "Determiná:\n$$\\int_0^{\\pi/2} \\sin x\\cos x\\,dx$$",
     "options": [
       "$1$",
       "$1/2$",

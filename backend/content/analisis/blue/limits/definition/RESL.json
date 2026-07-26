@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "Calculá el límite:\\n$$\\lim_{x \\to 1} \\frac{x+3}{x+2}$$",
+    "question": "Calculá el límite:\\n$\n$$\\lim_{x \\to 1} \\frac{x+3}{x+2}$$\n$",
     "options": [
       "$\\tfrac{3}{4}$",
       "$\\tfrac{4}{3}$",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "Calculá el límite:\\n$$\\lim_{x \\to 3} \\frac{x^2-4}{x-1}$$",
+    "question": "Calculá el límite:\\n$\n$$\\lim_{x \\to 3} \\frac{x^2-4}{x-1}$$\n$",
     "options": [
       "$5$",
       "$\\tfrac{5}{4}$",
@@ -325,7 +325,7 @@
     ]
   },
   {
-    "question": "Sabiendo que $\\lim_{x \\to a} f(x) = 8$ y $\\lim_{x \\to a} g(x) = 4$, calculá:\\n$$\\lim_{x \\to a} \\frac{f(x)}{g(x)}$$",
+    "question": "Sabiendo que $\\lim_{x \\to a} f(x) = 8$ y $\\lim_{x \\to a} g(x) = 4$, calculá:\\n$\n$$\\lim_{x \\to a} \\frac{f(x)}{g(x)}$$\n$",
     "options": [
       "$32$",
       "$2$",
@@ -343,14 +343,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad de cociente** permite dividir los límites por separado, siempre que el **límite del denominador sea distinto de $0$**: si $\\lim g \\neq 0$, entonces $\\lim(f/g) = (\\lim f)/(\\lim g)$. Esta condición \"denominador no nulo\" es **obligatoria**: si el denominador tiende a $0$, la propiedad falla y el resultado puede ser una indeterminación o una tendencia al infinito.\n\nLa propiedad exige chequear primero que el límite del denominador no sea $0$, antes de aplicar la división directamente. Saltear este chequeo es un error que genera respuestas sin sentido.",
+    "explanation": "La **propiedad de cociente** permite dividir los límites por separado, siempre que el **límite del denominador sea distinto de $0$**: si $\\lim g \\neq 0$, entonces $\\lim(f/g) = (\\lim f)/(\\lim g)$. Esta condición \"denominador no nulo\" es **obligatoria**: si el denominador tiende a $0$, la propiedad falla y el resultado puede ser una indeterminación o una tendencia al infinito.\n\nLa propiedad exige chequear primero que el límite del denominador no sea $0$, antes de aplicar la división directamente. Saltear este chequeo que genera respuestas sin sentido.",
     "reviewed": false,
     "tags": [
       "propiedades-producto-cociente"
     ]
   },
   {
-    "question": "Observá la siguiente función:\n$$\\lim_{x \\to a} \\frac{f(x)}{g(x)}$$",
+    "question": "Observá la siguiente función:\n$\n$$\\lim_{x \\to a} \\frac{f(x)}{g(x)}$$\n$",
     "options": [
       "$6$",
       "$0$",

@@ -100,7 +100,7 @@
     ]
   },
   {
-    "question": "Una función a trozos está dada por:\n$$f(x) = \\begin{cases} kx + 1, & x < 2 \\\\ x^2 - 3, & x \\geq 2 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=2$?",
+    "question": "Considerá la función a trozos:\n$$f(x) = \\begin{cases} kx + 1, & x < 2 \\\\ x^2 - 3, & x \\geq 2 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=2$?",
     "options": [
       "$k = 1$",
       "$k = 0$",
@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "Una función a trozos está dada por:\n$$f(x) = \\begin{cases} 2x + k, & x < 3 \\\\ x^2 - 2, & x \\geq 3 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=3$?",
+    "question": "Dada la función a trozos:\n$$f(x) = \\begin{cases} 2x + k, & x < 3 \\\\ x^2 - 2, & x \\geq 3 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=3$?",
     "options": [
       "$k = 7$",
       "$k = -1$",

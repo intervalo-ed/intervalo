@@ -343,7 +343,7 @@
     "question": "En la función $f(x) = A\\,\\operatorname{sen}(x)$, ¿qué determina el parámetro $|A|$?",
     "options": [
       "El período de la oscilación",
-      "La amplitud",
+      "Amplitud",
       "El desplazamiento horizontal",
       "El desplazamiento vertical"
     ],
@@ -365,7 +365,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $\\operatorname{sen}(0)$?",
+    "question": "Determiná el valor de $\\operatorname{sen}(0)$?",
     "options": [
       "$1$",
       "$-1$",
@@ -390,7 +390,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $\\cos(0)$?",
+    "question": "Hallá el valor de $\\cos(0)$?",
     "options": [
       "$0$",
       "$-1$",
@@ -465,7 +465,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $\\operatorname{sen}(\\pi)$?",
+    "question": "Calculá: $\\operatorname{sen}(\\pi)$?",
     "options": [
       "$1$",
       "$-1$",
@@ -594,7 +594,7 @@
     "options": [
       "Cambia la amplitud",
       "Comprime el período",
-      "Desplaza la gráfica verticalmente",
+      "Vertical",
       "Refleja la curva"
     ],
     "correct_index": 2,
@@ -1044,7 +1044,7 @@
     "options": [
       "Lineal",
       "Exponencial",
-      "Trigonométrica (seno o coseno)",
+      "Trig",
       "Logarítmica"
     ],
     "correct_index": 2,

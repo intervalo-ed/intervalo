@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El superíndice de dirección siempre se escribe pegado al punto de tendencia $a$, dentro de la expresión $x \\to a$, nunca pegado a $f(x)$ ni al nombre de la función.\n\nEn el ejemplo, para 'tender a $5$ por la izquierda', el signo va junto al $5$:\n$$\\lim_{x \\to 5^-} f(x)$$\nCon el signo inmediatamente después del $5$.\n\nEste es un error de tipeo frecuente al pasar la notación de un apunte a una calculadora o a un procesador de texto: conviene revisar que el signo quede pegado al número de tendencia, no a la función.",
+    "explanation": "El superíndice de dirección siempre se escribe pegado al punto de tendencia $a$, dentro de la expresión $x \\to a$, nunca pegado a $f(x)$ ni al nombre de la función.\n\nEn el ejemplo, para 'tender a $5$ por la izquierda', el signo va junto al $5$:\n$$\\lim_{x \\to 5^-} f(x)$$\nCon el signo inmediatamente después del $5$.\n\nEste de tipeo frecuente al pasar la notación de un apunte a una calculadora o a un procesador de texto: conviene revisar que el signo quede pegado al número de tendencia, no a la función.",
     "reviewed": false,
     "tags": [
       "notacion-y-direccion-lateral"
@@ -255,7 +255,7 @@
   {
     "question": "Una tarifa de estacionamiento cobra un monto fijo durante la primera hora y un monto mayor a partir de superar ese umbral.\n\nCerca del instante en que se cumple exactamente una hora, la tarifa muestra un **salto**: el costo justo antes del umbral es menor que el costo justo después.\n\n¿Existe el límite bilateral del costo en ese instante?",
     "options": [
-      "No, no en general por la regla",
+      "No, no en general",
       "Sí, porque el costo está definido en todo momento",
       "Sí, porque ambas tarifas son montos fijos"
     ],
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La inexistencia del **límite bilateral** es una conclusión lógica sobre la relación entre dos números existentes, no sobre la existencia de esos números. El **teorema de existencia** establece que si ambos laterales son números concretos y no coinciden, entonces el bilateral no existe.\n\nLa afirmación de tu compañero invierte la lógica. El caso más representativo de bilateral inexistente es precisamente cuando ambos **límites laterales** existen como números reales perfectamente definidos, pero $\\lim_{x \\to a^-} f(x) \\neq \\lim_{x \\to a^+} f(x)$.\n\nEn otras palabras: no coincidencia de laterales existentes ↔ inexistencia del bilateral. Confundir estas dos afirmaciones es un error frecuente de lógica.",
+    "explanation": "La inexistencia del **límite bilateral** es una conclusión lógica sobre la relación entre dos números existentes, no sobre la existencia de esos números. El **teorema de existencia** establece que si ambos laterales son números concretos y no coinciden, entonces el bilateral no existe.\n\nLa afirmación de tu compañero invierte la lógica. El caso más representativo de bilateral inexistente es precisamente cuando ambos **límites laterales** existen como números reales perfectamente definidos, pero $\\lim_{x \\to a^-} f(x) \\neq \\lim_{x \\to a^+} f(x)$.\n\nEn otras palabras: no coincidencia de laterales existentes ↔ inexistencia del bilateral. Confundir estas dos afirmaciones frecuente de lógica.",
     "reviewed": false,
     "tags": [
       "teorema-existencia-bilateral"

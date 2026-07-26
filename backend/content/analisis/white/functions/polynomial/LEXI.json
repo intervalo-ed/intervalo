@@ -605,7 +605,7 @@
       "La paridad de un polinomio depende de qué potencias aparecen, no de cuántos términos tiene en total.",
       "Que el grado sea par no alcanza: un polinomio como $x^2+x$ tiene grado par pero incluye una potencia impar, así que no es par."
     ],
-    "explanation": "Se llama **polinomio par** a aquel que cumple $f(-x) = f(x)$ para todo $x$.\n\nEsto implica que su gráfica es simétrica respecto al eje $y$.\n\nEjemplo: $f(x) = x^4 - 2x^2 + 1$.\n\nSolo tiene potencias $x^4$, $x^2$ y $x^0$ (todas pares).\n\nVerificación: $f(-x) = (-x)^4 - 2(-x)^2 + 1 = x^4 - 2x^2 + 1 = f(x)$\n\nCuidado: tener **grado** par no es suficiente. $f(x) = x^2 + x$ tiene grado par pero no es polinomio par porque tiene el término $x$ (potencia impar).",
+    "explanation": "Se llama **polinomio par** a aquel que cumple $f(-x) = f(x)$ para todo $x$.\n\nEsto implica que su gráfica es simétrica respecto al eje $y$.\n\nEjemplo: $f(x) = x^4 - 2x^2 + 1$.\n\nSolo tiene potencias $x^4$, $x^2$ y $x^0$ (todas pares).\n\nVerificación: $f(-x) = (-x)^4 - 2(-x)^2 + 1 = x^4 - 2x^2 + 1 = f(x)$\n\nSi tenés **grado** par no es suficiente. $f(x) = x^2 + x$ tiene grado par pero no es polinomio par porque tiene el término $x$ (potencia impar)., obtienes un resultado incorrecto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -695,7 +695,7 @@
       "Raíz",
       "Extremo local",
       "Vértice",
-      "Punto de inflexión"
+      "Inflexión"
     ],
     "correct_index": 3,
     "feedback_correct": "El punto donde la curva cambia de concavidad se llama **punto de inflexión**.",
@@ -855,7 +855,7 @@
       "Ese es el desarrollo de $(a+b)^2$; acá el binomio es una resta, así que el término central lleva signo negativo.",
       "El cuadrado del segundo término, $b^2$, siempre queda positivo al elevarlo al cuadrado, sin importar que $b$ vaya con signo negativo en el binomio original."
     ],
-    "explanation": "Para expandir $(a-b)^2$ conviene pensarlo como el producto $(a-b)(a-b)$ y aplicar la propiedad distributiva completa, término a término.\n\nAl distribuir se obtiene $a^2 - ab - ab + b^2$, y al agrupar los dos términos cruzados iguales queda $a^2 - 2ab + b^2$.\n\nLos tres términos son: el cuadrado del primero, el doble producto con signo negativo, y el cuadrado del segundo (siempre positivo, porque es un cuadrado).\n\nEl error más común es olvidar el término central $-2ab$ y responder $a^2-b^2$ (que en realidad corresponde a $(a+b)(a-b)$), o cambiarle el signo al $b^2$ del final, que siempre queda positivo sin importar el signo de $b$.",
+    "explanation": "Para expandir $(a-b)^2$ conviene pensarlo como el producto $(a-b)(a-b)$ y aplicar la propiedad distributiva completa, término a término.\n\nAl distribuir se obtiene $a^2 - ab - ab + b^2$, y al agrupar los dos términos cruzados iguales queda $a^2 - 2ab + b^2$.\n\nLos tres términos son: el cuadrado del primero, el doble producto con signo negativo, y el cuadrado del segundo (siempre positivo, porque es un cuadrado).\n\nOlvidar el término central $-2ab$ y responder $a^2-b^2$ (que en realidad corresponde a $(a+b)(a-b)$), o cambiarle el signo al $b^2$ del final, que siempre queda positivo sin importar el signo de $b$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1219,7 +1219,7 @@
     "options": [
       "$x = 1$ es una raíz simple",
       "$x = 1$ es una raíz doble",
-      "$x = 1$ es una raíz",
+      "Raíz",
       "$x = 1$ es un máximo local"
     ],
     "correct_index": 2,
@@ -1244,7 +1244,7 @@
     "options": [
       "$0$",
       "$1$",
-      "No está definido",
+      "No def",
       "$-\\infty$"
     ],
     "correct_index": 2,

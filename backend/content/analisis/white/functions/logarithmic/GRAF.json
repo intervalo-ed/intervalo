@@ -53,7 +53,7 @@
       -3,
       5
     ],
-    "explanation": "Toda logarítmica básica $\\log_b(x)$ tiene **asíntota vertical en $x = 0$**, ya que el argumento no puede ser cero ni negativo.\n\nEn el gráfico, la curva viene de $-\\infty$ abrazando el eje $Y$ por la derecha, sin cruzarlo.\n\nA diferencia de la exponencial, que tiene asíntota horizontal, la logarítmica nunca tiene una recta horizontal límite, su única asíntota es siempre vertical.",
+    "explanation": "Toda logarítmica básica $\\log_b(x)$ tiene **asíntota vertical en $x = 0$**, ya que el argumento no puede ser cero ni negativo.\n\nEn el gráfico, la curva viene de $-\\infty$ abrazando el eje $Y$ por la derecha, sin cruzarlo.\n\nLa exponencial, que tiene asíntota horizontal, la logarítmica nunca tiene una recta horizontal límite, su única asíntota es siempre vertical.",
     "reviewed": false,
     "tags": [
       "lectura-asintota"
@@ -143,7 +143,7 @@
       -3,
       5
     ],
-    "explanation": "El logaritmo requiere argumento **estrictamente positivo**, así que el dominio de cualquier $\\log_b(x)$ básica excluye el cero y los negativos.\n\nLa gráfica confirma que la curva solo existe a la derecha del eje $Y$, sin incluir $x = 0$.\n\nDominio: $(0, +\\infty)$. No incluye $x = 0$ (ahí está la asíntota) ni valores negativos.\n\nOjo con confundir este dominio restringido con la imagen, que en cambio cubre todos los reales.",
+    "explanation": "El logaritmo requiere argumento **estrictamente positivo**, así que el dominio de cualquier $\\log_b(x)$ básica excluye el cero y los negativos.\n\nLa gráfica confirma que la curva solo existe a la derecha del eje $Y$, sin incluir $x = 0$.\n\nDominio: $(0, +\\infty)$. No incluye $x = 0$ (ahí está la asíntota) ni valores negativos.\n\nCon confundir este dominio restringido con la imagen, que en cambio cubre todos los reales.",
     "reviewed": false,
     "tags": [
       "lectura-valor-puntual"
@@ -152,7 +152,7 @@
   {
     "question": "¿Cuál es la imagen (recorrido) de la función del gráfico?",
     "options": [
-      "$\\mathbb{R}$",
+      "Positivos",
       "$(0,\\, +\\infty)$",
       "$[0,\\, +\\infty)$",
       "$(-\\infty,\\, 1)$"
@@ -180,7 +180,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $f(2)$ según el gráfico?",
+    "question": "Determiná el valor de $f(2)$ según el gráfico?",
     "options": [
       "$1$",
       "$2$",
@@ -330,7 +330,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $f(1)$ según el gráfico?",
+    "question": "Hallá el valor de $f(1)$ según el gráfico?",
     "options": [
       "$1$",
       "$0$",
@@ -480,7 +480,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $f(e)$ según el gráfico?",
+    "question": "Calculá: $f(e)$ según el gráfico?",
     "options": [
       "$1$",
       "$e$",
@@ -603,7 +603,7 @@
     "question": "¿La función del gráfico tiene algún extremo local (máximo o mínimo)?",
     "options": [
       "Sí, tiene un mínimo",
-      "No tiene extremos locales",
+      "Sin extremos",
       "Sí, tiene un máximo",
       "Sí, tiene ambos"
     ],

@@ -289,7 +289,7 @@
       -1,
       8
     ],
-    "explanation": "Que el punto cerrado esté desplazado a otra altura no cambia la clasificación: sigue habiendo una sola rama cuyo límite existe, solo que $f(1)$ toma un valor distinto.\n\nEl círculo abierto marca adónde se aproxima la función; el punto cerrado marca dónde está realmente definida. Si hay solo una rama de cada lado pero los dos valores son distintos, la función se aproxima a un valor pero está \"colocada\" en otro. La curva se acerca a $y=4$ desde ambos lados, mientras que el punto cerrado marca $f(1)=7$.\n\nEs fácil caer en este error: acá no hay dos ramas, solo una rama con su valor puntual corrido.",
+    "explanation": "Que el punto cerrado esté desplazado a otra altura no cambia la clasificación: sigue habiendo una sola rama cuyo límite existe, solo que $f(1)$ toma un valor distinto.\n\nEl círculo abierto marca adónde se aproxima la función; el punto cerrado marca dónde está realmente definida. Si hay solo una rama de cada lado pero los dos valores son distintos, la función se aproxima a un valor pero está \"colocada\" en otro. La curva se acerca a $y=4$ desde ambos lados, mientras que el punto cerrado marca $f(1)=7$.\n\nSi confundís las dos ramas con una sola, terminás creyendo que hay dos puntos marcados: solo hay uno puntual con valor corrido.",
     "reviewed": false,
     "tags": [
       "clasificacion-visual-discontinuidad"

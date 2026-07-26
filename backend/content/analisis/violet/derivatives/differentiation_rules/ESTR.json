@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Frente a cualquier suma de términos, el primer paso siempre es reconocer la **linealidad**, que permite derivar cada término por separado.\n\nUna vez identificada la suma, cada término se resuelve con la regla elemental que le corresponda, sin mezclar ni combinar los términos entre sí.\n\nAplicar reglas para productos o composiciones cuando en realidad hay una suma es un error de planificación, no de cálculo.",
+    "explanation": "Frente a cualquier suma de términos, el primer paso siempre es reconocer la **linealidad**, que permite derivar cada término por separado.\n\nUna vez identificada la suma, cada término se resuelve con la regla elemental que le corresponda, sin mezclar ni combinar los términos entre sí.\n\nAplicar reglas para productos o composiciones cuando en realidad hay una suma de planificación, no de cálculo.",
     "reviewed": false,
     "tags": [
       "descomposicion-de-funciones"
@@ -71,7 +71,7 @@
   {
     "question": "Considerá la siguiente función:\n$$f(x) = 5x^4 - 2x + 7$$\n¿Qué regla permite derivar cada término por separado antes de combinar los resultados?",
     "options": [
-      "Linealidad",
+      "Lineal",
       "Regla del producto",
       "Regla de la cadena"
     ],
@@ -233,7 +233,7 @@
     "question": "En la misma función:\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿Qué regla corresponde aplicar al término $3x^2$?",
     "options": [
       "Regla de la constante",
-      "Múltiplo escalar junto con la",
+      "Escalar",
       "Derivada de exponencial"
     ],
     "correct_index": 1,
@@ -326,7 +326,7 @@
     "options": [
       "Regla de la potencia",
       "Derivada de exponencial",
-      "Múltiplo escalar junto con la derivada trigonométrica"
+      "Múltiplo"
     ],
     "correct_index": 2,
     "has_math": true,

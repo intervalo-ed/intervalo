@@ -123,7 +123,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$f(x) = x^3$ es una función **polinómica** de grado 3: la variable $x$ está en la **base** y el exponente $3$ es constante.\n\nLas funciones exponenciales tienen la forma $b^x$, con la **base constante** y el **exponente variable**:\n$$3^x,\\quad e^x,\\quad (0{,}5)^x \\quad \\text{son todas exponenciales}$$\nNo confundir: $x^3$ (polinómica) vs. $3^x$ (exponencial).",
+    "explanation": "$f(x) = x^3$ es una función **polinómica** de grado 3: la variable $x$ está en la **base** y el exponente $3$ es constante.\n\nLas funciones exponenciales tienen la forma $b^x$, con la **base constante** y el **exponente variable**:\n$$3^x,\\quad e^x,\\quad (0{,}5)^x \\quad$$\nson todas exponenciales.\nNo confundir: $x^3$ (polinómica) vs. $3^x$ (exponencial).",
     "reviewed": false,
     "tags": [
       "identificar-exponencial"
@@ -369,7 +369,7 @@
     "options": [
       "El coeficiente $a = 4$",
       "El exponente $x$",
-      "La base $b = 2$ siempre según la regla",
+      "La base $b = 2$ siempre",
       "El producto $a \\cdot b = 8$"
     ],
     "correct_index": 2,
@@ -458,7 +458,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para modelar una **depreciación** del $r\\%$ anual:\n\nCon $r = 0{,}20$ (pierde 20% anual), la base es $0{,}80 < 1$. La función decrece exponencialmente hacia 0 pero nunca lo alcanza.\n\nEsto modela realidades como el enfriamiento de un objeto (Newton) o la desintegración radiactiva, donde el cambio es proporcional al valor actual.\n\nA diferencia de una depreciación lineal (que llega a 0 en tiempo finito), la exponencial **nunca** llega a 0.",
+    "explanation": "Para modelar una **depreciación** del $r\\%$ anual:\n\nCon $r = 0{,}20$ (pierde 20% anual), la base es $0{,}80 < 1$. La función decrece exponencialmente hacia 0 pero nunca lo alcanza.\n\nEsto modela realidades como el enfriamiento de un objeto (Newton) o la desintegración radiactiva, donde el cambio es proporcional al valor actual.\n\nUna depreciación lineal (que llega a 0 en tiempo finito), la exponencial **nunca** llega a 0.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal"
@@ -690,7 +690,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $3^0$?",
+    "question": "Determiná el valor de $3^0$?",
     "options": [
       "$0$",
       "$3$",
@@ -715,7 +715,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $2^{-3}$?",
+    "question": "Hallá el valor de $2^{-3}$?",
     "options": [
       "$-8$",
       "$-6$",
@@ -1119,7 +1119,7 @@
     "options": [
       "En $(-\\infty, 0)$",
       "En $(0, +\\infty)$",
-      "En ninguno: es creciente",
+      "Creciente",
       "Solo donde $f(x) > 1$"
     ],
     "correct_index": 2,

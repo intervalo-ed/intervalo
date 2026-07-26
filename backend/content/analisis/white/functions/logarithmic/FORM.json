@@ -135,7 +135,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $f(e)$ para $f(x) = \\ln(x)$?",
+    "question": "Determiná el valor de $f(e)$ para $f(x) = \\ln(x)$?",
     "options": [
       "$e$",
       "$1$",
@@ -240,7 +240,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $f(1)$ para $f(x) = \\log_5(x)$?",
+    "question": "Hallá el valor de $f(1)$ para $f(x) = \\log_5(x)$?",
     "options": [
       "$1$",
       "$0$",
@@ -340,7 +340,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $f(9)$ para $f(x) = \\log_3(x)$?",
+    "question": "Calculá: $f(9)$ para $f(x) = \\log_3(x)$?",
     "options": [
       "$2$",
       "$3$",
@@ -698,7 +698,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando una expresión suma dos logaritmos, el **dominio** exige que el argumento de cada uno sea positivo por separado, y después hay que quedarse con la condición más restrictiva entre todas.\n\nPara $f(x) = \\log(x - 2) + \\log(x + 2)$, el primer término exige $x - 2 > 0$, es decir $x > 2$, mientras que el segundo exige $x + 2 > 0$, es decir $x > -2$.\n\nAmbas condiciones deben cumplirse simultáneamente, así que se toma la intersección de los dos intervalos.\n\nComo $x > 2$ ya implica $x > -2$, la condición más exigente es $x > 2$, y ese es el dominio final: $(2, +\\infty)$.\n\nEl error más común es quedarse con la condición menos restrictiva en vez de con la que realmente acota el conjunto.",
+    "explanation": "Cuando una expresión suma dos logaritmos, el **dominio** exige que el argumento de cada uno sea positivo por separado, y después hay que quedarse con la condición más restrictiva entre todas.\n\nPara $f(x) = \\log(x - 2) + \\log(x + 2)$, el primer término exige $x - 2 > 0$, es decir $x > 2$, mientras que el segundo exige $x + 2 > 0$, es decir $x > -2$.\n\nAmbas condiciones deben cumplirse simultáneamente, así que se toma la intersección de los dos intervalos.\n\nComo $x > 2$ ya implica $x > -2$, la condición más exigente es $x > 2$, y ese es el dominio final: $(2, +\\infty)$.\n\nQuedarse con la condición menos restrictiva en vez de con la que realmente acota el conjunto.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -848,7 +848,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Resolver este tipo de expresiones requiere aplicar dos propiedades en cadena: primero la del producto, para separar $9$ de $x^2$, y después la de la potencia, para bajar el exponente $2$.\n\nSe usa $\\log_3(9) = 2$ porque $3^2 = 9$, y $\\log_3(x^2) = 2\\log_3(x)$ por la propiedad de la potencia.\n\nEl error más común es aplicar una sola propiedad y olvidar la otra, dejando el $9$ sin convertir o el exponente $2$ sin bajar.",
+    "explanation": "Resolver este tipo de expresiones requiere aplicar dos propiedades en cadena: primero la del producto, para separar $9$ de $x^2$, y después la de la potencia, para bajar el exponente $2$.\n\nSe usa $\\log_3(9) = 2$ porque $3^2 = 9$, y $\\log_3(x^2) = 2\\log_3(x)$ por la propiedad de la potencia.\n\nSi aplicás una sola propiedad y olvidar la otra, dejando el $9$ sin convertir o el exponente $2$ sin bajar., obtienes un resultado incorrecto.",
     "reviewed": false,
     "tags": [
       "evaluar-f"

@@ -48,7 +48,7 @@
   {
     "question": "Un enunciado presenta la expresión:\n$$x^2 + 8x + 16$$\n¿Qué caso de factoreo corresponde a esta expresión?",
     "options": [
-      "Trinomio cuadrado perfecto",
+      "Trinomio perfecto",
       "Trinomio general",
       "Factor común"
     ],
@@ -257,7 +257,7 @@
     "options": [
       "Concluir que el límite no existe",
       "Concluir que el límite vale $0$",
-      "Factorizar numerador"
+      "Factorizar"
     ],
     "correct_index": 2,
     "tags": [

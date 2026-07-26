@@ -190,7 +190,7 @@
       "Tangente",
       "Asíntota",
       "Directriz",
-      "Eje de simetría"
+      "Eje"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -417,7 +417,7 @@
   {
     "question": "Las **raíces** de una función cuadrática también se conocen como...",
     "options": [
-      "Ceros o cortes con el eje $X$",
+      "Ceros",
       "Vértices",
       "Ordenadas al origen",
       "Asíntotas"

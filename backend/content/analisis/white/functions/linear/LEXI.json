@@ -75,7 +75,7 @@
   {
     "question": "¿Cómo se llama el número $b$ en $f(x) = mx + b$?",
     "options": [
-      "Ordenada al origen",
+      "Corte Y",
       "Pendiente",
       "Raíz"
     ],
@@ -89,7 +89,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma $f(x) = mx + b$, el término independiente $b$ se llama **ordenada al origen**. Es el valor que toma la función cuando $x = 0$:\n$$f(0) = m \\cdot 0 + b = b$$\nY geométricamente es el punto $(0, b)$ donde la recta corta el eje $Y$.\n\nNo importa cómo esté escrita la función: $b$ siempre es la constante que no tiene $x$ al lado.\n\nCuidado con cruzarla con la raíz: la ordenada al origen corta el eje vertical; la raíz, el horizontal.",
+    "explanation": "En la forma $f(x) = mx + b$, el término independiente $b$ se llama **ordenada al origen**. Es el valor que toma la función cuando $x = 0$:\n$$f(0) = m \\cdot 0 + b = b$$\nY geométricamente es el punto $(0, b)$ donde la recta corta el eje $Y$.\n\nNo importa cómo esté escrita la función: $b$ siempre es la constante que no tiene $x$ al lado.\n\nCon cruzarla con la raíz: la ordenada al origen corta el eje vertical; la raíz, el horizontal.",
     "reviewed": false,
     "tags": [
       "nombre-parametros"
@@ -112,7 +112,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El signo de la **pendiente** determina la monotonía de una función lineal en forma global: con $m > 0$ la función es creciente, con $m < 0$ decreciente y con $m = 0$ constante.\n\nCon $m > 0$, por cada unidad que aumenta $x$, el valor $f(x)$ sube exactamente $m$ unidades: la recta asciende de izquierda a derecha en todo $\\mathbb{R}$.\n\nA diferencia de una cuadrática o una trigonométrica, una recta con $m \\neq 0$ nunca cambia de dirección: el comportamiento es el mismo en todo el **dominio**.",
+    "explanation": "El signo de la **pendiente** determina la monotonía de una función lineal en forma global: con $m > 0$ la función es creciente, con $m < 0$ decreciente y con $m = 0$ constante.\n\nCon $m > 0$, por cada unidad que aumenta $x$, el valor $f(x)$ sube exactamente $m$ unidades: la recta asciende de izquierda a derecha en todo $\\mathbb{R}$.\n\nUna cuadrática o una trigonométrica, una recta con $m \\neq 0$ nunca cambia de dirección: el comportamiento es el mismo en todo el **dominio**.",
     "reviewed": false,
     "tags": [
       "monotonia-signo-pendiente"
@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para identificar los parámetros conviene reescribir en la forma canónica $f(x) = mx + b$.\n$$f(x) = 7 - 3x = -3x + 7$$\nAhí se lee $m = -3$ (la **pendiente**) y $b = 7$ (la **ordenada al origen**).\n\nLa ordenada al origen es el valor de la función en cero: $f(0) = 7$. El orden en que venga escrita la fórmula no cambia los roles de los parámetros.\n\nCuando la fórmula viene desordenada como $7 - 3x$, el error típico es leer el primer número como pendiente: primero reordená, después identificá.",
+    "explanation": "Para identificar los parámetros conviene reescribir en la forma canónica $f(x) = mx + b$.\n$$f(x) = 7 - 3x = -3x + 7$$\nAhí se lee $m = -3$ (la **pendiente**) y $b = 7$ (la **ordenada al origen**).\n\nLa ordenada al origen es el valor de la función en cero: $f(0) = 7$. El orden en que venga escrita la fórmula no cambia los roles de los parámetros.\n\nCuando la fórmula viene desordenada como $7 - 3x$, leer el primer número como pendiente: primero reordená, después identificá.",
     "reviewed": false,
     "tags": [
       "ordenada-calculo"
@@ -283,7 +283,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma $f(x) = mx + b$, la **pendiente** $m$ es el número que multiplica a $x$. Para $f(x) = 2x + 5$ el coeficiente de $x$ es $2$, así que $m = 2$; el término independiente $5$ es la **ordenada al origen**.\n\nLa pendiente indica que por cada unidad que avanza $x$, el valor $f(x)$ sube $2$ unidades: es la tasa de cambio de la función.\n\nOjo con responder el término completo $2x$: la pendiente es el número solo, sin la variable.",
+    "explanation": "En la forma $f(x) = mx + b$, la **pendiente** $m$ es el número que multiplica a $x$. Para $f(x) = 2x + 5$ el coeficiente de $x$ es $2$, así que $m = 2$; el término independiente $5$ es la **ordenada al origen**.\n\nLa pendiente indica que por cada unidad que avanza $x$, el valor $f(x)$ sube $2$ unidades: es la tasa de cambio de la función.\n\nCon responder el término completo $2x$: la pendiente es el número solo, sin la variable.",
     "reviewed": false,
     "tags": [
       "pendiente-calculo"
@@ -391,7 +391,7 @@
     "question": "¿Cuál es el nombre del punto donde una recta corta el eje Y?",
     "options": [
       "Vértice",
-      "Ordenada al origen",
+      "Corte Y",
       "Raíz"
     ],
     "correct_index": 1,
@@ -556,7 +556,7 @@
     "question": "¿Cuál es la diferencia entre **dominio** e **imagen** en $f(x) = 2x + 3$?",
     "options": [
       "No hay diferencia",
-      "Dominio = entradas; imagen = salidas",
+      "Entrada vs resultado",
       "Dominio es $x$; imagen es $m$"
     ],
     "correct_index": 1,
@@ -605,7 +605,7 @@
     "options": [
       "$(0, +\\infty)$",
       "$(-\\infty, 7/3)$",
-      "$\\mathbb{R}$",
+      "Todos los reales",
       "$(7/3, +\\infty)$"
     ],
     "correct_index": 2,
@@ -629,7 +629,7 @@
     "question": "¿En qué intervalo decrece $f(x) = -2x + 5$?",
     "options": [
       "$(0, +\\infty)$",
-      "$\\mathbb{R}$",
+      "Todos los reales",
       "$(-\\infty, 5/2)$",
       "$(5/2, +\\infty)$"
     ],
@@ -669,7 +669,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La raíz de una función es el valor de $x$ donde $f(x) = 0$. Para $f(x) = 3x - 9$:\n$$3x - 9 = 0 \\implies 3x = 9 \\implies x = 3$$\nVerificación: $f(3) = 3 \\cdot 3 - 9 = 0$.\n\nLa fórmula general para una lineal es $x = -b/m$; acá $x = -(-9)/3 = 3$.\n\nLos errores típicos son de signo al pasar el término restando y de división: dividí siempre el término independiente cambiado de signo por el coeficiente de $x$.",
+    "explanation": "La raíz de una función es el valor de $x$ donde $f(x) = 0$. Para $f(x) = 3x - 9$:\n$$3x - 9 = 0 \\implies 3x = 9 \\implies x = 3$$\nVerificación: $f(3) = 3 \\cdot 3 - 9 = 0$.\n\nLa fórmula general para una lineal es $x = -b/m$; acá $x = -(-9)/3 = 3$.\n\nDe signo al pasar el término restando y de división: dividí siempre el término independiente cambiado de signo por el coeficiente de $x$.",
     "reviewed": false,
     "tags": [
       "raiz-calculo"
@@ -794,7 +794,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la fórmula reordenada:\n$$P(g) = 80g + 1200$$\nLa tarifa por GB es el coeficiente que multiplica a $g$: la **pendiente** $m = 80$. El abono fijo mensual es la **ordenada al origen** $b = 1200$, que se paga aunque no haya consumo extra.\n\nCada GB adicional suma exactamente 80 pesos a la factura: eso es lo que significa la pendiente en este contexto.\n\nLa confusión típica es responder el número más grande por parecer más importante: el rol se decide por la posición en la fórmula, no por el tamaño.",
+    "explanation": "En la fórmula reordenada:\n$$P(g) = 80g + 1200$$\nLa tarifa por GB es el coeficiente que multiplica a $g$: la **pendiente** $m = 80$. El abono fijo mensual es la **ordenada al origen** $b = 1200$, que se paga aunque no haya consumo extra.\n\nCada GB adicional suma exactamente 80 pesos a la factura: eso es lo que significa la pendiente en este contexto.\n\nResponder el número más grande por parecer más importante: el rol se decide por la posición en la fórmula, no por el tamaño.",
     "reviewed": false,
     "tags": [
       "parametros-contexto"
@@ -819,7 +819,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El volumen del tanque sigue la fórmula:\n$$V(t) = -4t + 60$$\nCon **pendiente** $m = -4$ (la tasa de pérdida) y **ordenada al origen** $b = 60$ (el volumen inicial).\n\nLa pendiente es negativa porque la cantidad disminuye con el tiempo: cada hora que pasa, el volumen baja 4 litros.\n\nEn procesos que decrecen (vaciado, depreciación, descarga de batería) el error clásico es escribir la tasa con signo positivo: preguntate siempre si la magnitud sube o baja antes de fijar el signo de $m$.",
+    "explanation": "El volumen del tanque sigue la fórmula:\n$$V(t) = -4t + 60$$\nCon **pendiente** $m = -4$ (la tasa de pérdida) y **ordenada al origen** $b = 60$ (el volumen inicial).\n\nLa pendiente es negativa porque la cantidad disminuye con el tiempo: cada hora que pasa, el volumen baja 4 litros.\n\nEn procesos que decrecen (vaciado, depreciación, descarga de batería) escribir la tasa con signo positivo: preguntate siempre si la magnitud sube o baja antes de fijar el signo de $m$.",
     "reviewed": false,
     "tags": [
       "parametros-contexto"
@@ -853,8 +853,8 @@
   {
     "question": "¿A qué familia pertenece $f(x) = \\sqrt{x}$?",
     "options": [
-      "Lineal",
-      "Raíz de la función",
+      "Raíz o cero de la función",
+      "Cero",
       "Cuadrática",
       "Constante"
     ],
@@ -951,7 +951,7 @@
   {
     "question": "¿Es $f(x) = 3(x + 2)$ una función lineal?",
     "options": [
-      "Sí",
+      "Sí, es una función lineal",
       "No, porque tiene paréntesis",
       "No, porque multiplica"
     ],
@@ -1190,8 +1190,8 @@
     "question": "¿Qué caracteriza matemáticamente a una función lineal entre todas las funciones?",
     "options": [
       "Pasa por el origen",
-      "Está definida en $\\mathbb{R}$",
-      "Tiene tasa de cambio constante"
+      "Constante en toda la función",
+      "Constante"
     ],
     "correct_index": 2,
     "has_math": true,

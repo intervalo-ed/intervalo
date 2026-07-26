@@ -240,7 +240,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $f(2)$ para $f(x) = 2^x$?",
+    "question": "Determiná el valor de $f(2)$ para $f(x) = 2^x$?",
     "options": [
       "$2$",
       "$8$",
@@ -508,7 +508,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar $a$ y $b$ desde dos puntos de una exponencial, primero se lee $a$ como el valor en $x=0$, y luego se obtiene $b$ dividiendo $f(1)$ sobre $f(0)$.\n\n1. $f(0) = a = 8$. 2. $f(1) = 8b = 4 \\implies b = 0{,}5$.\n\nResultado: $f(x) = 8 \\cdot (0{,}5)^x$. Como $b = 0{,}5 < 1$: función **decreciente**.\n\nConfundir el cociente con el producto, o invertir cuál punto va en el numerador, es el error más común al despejar $b$.",
+    "explanation": "Para hallar $a$ y $b$ desde dos puntos de una exponencial, primero se lee $a$ como el valor en $x=0$, y luego se obtiene $b$ dividiendo $f(1)$ sobre $f(0)$.\n\n1. $f(0) = a = 8$. 2. $f(1) = 8b = 4 \\implies b = 0{,}5$.\n\nResultado: $f(x) = 8 \\cdot (0{,}5)^x$. Como $b = 0{,}5 < 1$: función **decreciente**.\n\nConfundir el cociente con el producto, o invertir cuál punto va en el numerador, más común al despejar $b$.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -540,7 +540,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $f(0)$ para $f(x) = 2^x + 7$?",
+    "question": "Hallá el valor de $f(0)$ para $f(x) = 2^x + 7$?",
     "options": [
       "$7$",
       "$2$",
@@ -615,7 +615,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $(3^x)^2$?",
+    "question": "Calculá: $(3^x)^2$?",
     "options": [
       "$9^x$",
       "$3^{x^2}$",
@@ -633,7 +633,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La propiedad de potencia de potencia establece que $(b^m)^n=b^{mn}$: al elevar una potencia a otro exponente, los exponentes se multiplican entre sí, no se suman ni se elevan entre ellos.\n$$(3^x)^2 = 3^{2x} = (3^2)^x = 9^x$$\nVerificación con $x=1$: $(3^1)^2=9=9^1$. El error más frecuente es sumar los exponentes, como si fuera un producto de potencias de igual base, en vez de multiplicarlos.",
+    "explanation": "La propiedad de potencia de potencia establece que $(b^m)^n=b^{mn}$: al elevar una potencia a otro exponente, los exponentes se multiplican entre sí, no se suman ni se elevan entre ellos.\n$$(3^x)^2 = 3^{2x} = (3^2)^x = 9^x$$\nVerificación con $x=1$: $(3^1)^2=9=9^1$. sumar los exponentes, como si fuera un producto de potencias de igual base, en vez de multiplicarlos.",
     "reviewed": false,
     "tags": [
       "evaluar-contexto"
@@ -683,7 +683,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En el modelo de crecimiento exponencial $P(t)=P_0\\cdot(1+r)^t$, la base contiene la tasa de crecimiento sumada a $1$, así que para hallar el porcentaje de crecimiento hay que restarle $1$ a la base, no leerla directamente.\n\nCada período, la población crece un $6\\%$ de su valor actual, no un $106\\%$ ni un $1{,}06\\%$.\n\nConfundir la base completa con la tasa de crecimiento es el error más común de este tipo de lectura.",
+    "explanation": "En el modelo de crecimiento exponencial $P(t)=P_0\\cdot(1+r)^t$, la base contiene la tasa de crecimiento sumada a $1$, así que para hallar el porcentaje de crecimiento hay que restarle $1$ a la base, no leerla directamente.\n\nCada período, la población crece un $6\\%$ de su valor actual, no un $106\\%$ ni un $1{,}06\\%$.\n\nConfundir la base completa con la tasa de crecimiento más común de este tipo de lectura.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -738,7 +738,7 @@
       -0.5,
       10
     ],
-    "explanation": "Para leer una exponencial desde su gráfica hay que identificar tres datos: el valor donde corta el eje vertical (que da $a$), si crece o decrece (que indica si $b$ es mayor o menor que $1$), y un segundo punto para calcular $b$ con precisión.\n\n1.\n\nPunto en $x=0$: $f(0) = 2$ da $a = 2$. 2.\n\nLa curva es creciente: $b > 1$. 3.\n\nEn $x=1$: $f(1) \\approx 3 = 2 \\cdot 1{,}5$ da $b \\approx 1{,}5$.\n\nFórmula: $f(x) = 2 \\cdot (1{,}5)^x$. Confundir el valor de $f(0)$ con la base es el error más frecuente al leer un gráfico.",
+    "explanation": "Para leer una exponencial desde su gráfica hay que identificar tres datos: el valor donde corta el eje vertical (que da $a$), si crece o decrece (que indica si $b$ es mayor o menor que $1$), y un segundo punto para calcular $b$ con precisión.\n\n1.\n\nPunto en $x=0$: $f(0) = 2$ da $a = 2$. 2.\n\nLa curva es creciente: $b > 1$. 3.\n\nEn $x=1$: $f(1) \\approx 3 = 2 \\cdot 1{,}5$ da $b \\approx 1{,}5$.\n\nFórmula: $f(x) = 2 \\cdot (1{,}5)^x$. Confundir el valor de $f(0)$ con la base más frecuente al leer un gráfico.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -828,7 +828,7 @@
       -0.5,
       9.0
     ],
-    "explanation": "Para leer un desplazamiento vertical en una curva decreciente, primero se identifica la altura de la asíntota horizontal y después se verifica que el punto en $x=0$ sea coherente con esa altura más el valor sin desplazar.\n\n1.\n\nAsíntota horizontal: $y = 1$, señal de un desplazamiento $+1$. 2. $f(0) = (0{,}5)^0 + 1 = 1 + 1 = 2$, coincide con el punto $(0,2)$. 3.\n\nLa curva decrece hacia $y=1$ sin cruzarla.\n\nFórmula: $f(x) = (0{,}5)^x + 1$. Confundir la altura de la asíntota con el valor de $f(0)$ es el error más frecuente en este tipo de lectura.",
+    "explanation": "Para leer un desplazamiento vertical en una curva decreciente, primero se identifica la altura de la asíntota horizontal y después se verifica que el punto en $x=0$ sea coherente con esa altura más el valor sin desplazar.\n\n1.\n\nAsíntota horizontal: $y = 1$, señal de un desplazamiento $+1$. 2. $f(0) = (0{,}5)^0 + 1 = 1 + 1 = 2$, coincide con el punto $(0,2)$. 3.\n\nLa curva decrece hacia $y=1$ sin cruzarla.\n\nFórmula: $f(x) = (0{,}5)^x + 1$. Confundir la altura de la asíntota con el valor de $f(0)$ más frecuente en este tipo de lectura.",
     "reviewed": false,
     "tags": [
       "armar-formula-contexto"
@@ -933,7 +933,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el exponente tiene un desplazamiento horizontal, como $x-3$, hay que sustituir primero el valor de $x$ y resolver la resta dentro del exponente antes de aplicar la potencia.\n\nEl desplazamiento horizontal $h=3$ mueve el punto de partida: el 'valor inicial' $7$ ocurre en $x=3$ en lugar de en $x=0$.\n\nConfundir este desplazamiento con un valor inicial distinto de $7$ es el error más común en este tipo de evaluación.",
+    "explanation": "Cuando el exponente tiene un desplazamiento horizontal, como $x-3$, hay que sustituir primero el valor de $x$ y resolver la resta dentro del exponente antes de aplicar la potencia.\n\nEl desplazamiento horizontal $h=3$ mueve el punto de partida: el 'valor inicial' $7$ ocurre en $x=3$ en lugar de en $x=0$.\n\nSi confundís este desplazamiento con un valor inicial distinto de $7$ más común en este tipo de evaluación., obtienes un resultado incorrecto.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1008,7 +1008,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La vida media indica cuánto tarda una cantidad en reducirse a la mitad, así que el modelo es $M(t) = M_0 \\cdot (0{,}5)^t$ cuando $t$ se mide en unidades de vida media, y hay que aplicar la potencia completa según el tiempo transcurrido.\n\nSecuencia completa: $80 \\to 40 \\to 20 \\to 10$ gramos.\n\nConfundir cuántas veces se aplicó la mitad con el número de años, o detenerse antes de completar las tres reducciones, es el error más común en este tipo de ejercicios.",
+    "explanation": "La vida media indica cuánto tarda una cantidad en reducirse a la mitad, así que el modelo es $M(t) = M_0 \\cdot (0{,}5)^t$ cuando $t$ se mide en unidades de vida media, y hay que aplicar la potencia completa según el tiempo transcurrido.\n\nSecuencia completa: $80 \\to 40 \\to 20 \\to 10$ gramos.\n\nConfundir cuántas veces se aplicó la mitad con el número de años, o detenerse antes de completar las tres reducciones, más común en este tipo de ejercicios.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1058,7 +1058,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar $a$ y $b$ a partir de dos puntos, $a$ se lee directamente como $f(0)$, y $b$ se obtiene dividiendo el segundo valor sobre el primero, nunca al revés.\n\n1. $a = f(0) = 10$.\n2. $b = \\dfrac{f(1)}{f(0)} = \\dfrac{8}{10} = 0{,}8$.\n\nResultado: $f(x) = 10 \\cdot (0{,}8)^x$, una exponencial decreciente porque $b<1$.\n\nVerificación: $f(1) = 10 \\cdot 0{,}8 = 8$. Dividir al revés, $f(0)/f(1)$, es el error más común al despejar la base.",
+    "explanation": "Para hallar $a$ y $b$ a partir de dos puntos, $a$ se lee directamente como $f(0)$, y $b$ se obtiene dividiendo el segundo valor sobre el primero, nunca al revés.\n\n1. $a = f(0) = 10$.\n2. $b = \\dfrac{f(1)}{f(0)} = \\dfrac{8}{10} = 0{,}8$.\n\nResultado: $f(x) = 10 \\cdot (0{,}8)^x$, una exponencial decreciente porque $b<1$.\n\nVerificación: $f(1) = 10 \\cdot 0{,}8 = 8$. Dividir al revés, $f(0)/f(1)$, más común al despejar la base.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1158,7 +1158,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La función exponencial acepta cualquier exponente real, no solo números enteros, así que se puede evaluar en tiempos intermedios como un año y medio aplicando la potencia fraccionaria directamente.\n\n$(1{,}2)^{1{,}5} = (1{,}2)^1 \\cdot (1{,}2)^{0{,}5} = 1{,}2 \\cdot \\sqrt{1{,}2} \\approx 1{,}315$.\n\nTratar el exponente no entero como si hubiera que redondearlo a $1$ o a $2$ es el error más común al evaluar en tiempos intermedios.",
+    "explanation": "La función exponencial acepta cualquier exponente real, no solo números enteros, así que se puede evaluar en tiempos intermedios como un año y medio aplicando la potencia fraccionaria directamente.\n\n$(1{,}2)^{1{,}5} = (1{,}2)^1 \\cdot (1{,}2)^{0{,}5} = 1{,}2 \\cdot \\sqrt{1{,}2} \\approx 1{,}315$.\n\nTratar el exponente no entero como si hubiera que redondearlo a $1$ o a $2$ más común al evaluar en tiempos intermedios.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-potencias"
@@ -1208,7 +1208,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La propiedad de producto de potencias de igual base indica que los exponentes se suman, así que primero hay que sumar los dos exponentes tal como están escritos, sin multiplicarlos ni tratarlos como términos cuadráticos.\n\nEl resultado es una constante, $9$, que no depende de $x$: los términos con $x$ se cancelan entre sí al sumar los exponentes.\n\nTratar la suma de exponentes como si fuera un producto que genera $x^2$ es el error más frecuente en este tipo de simplificación.",
+    "explanation": "La propiedad de producto de potencias de igual base indica que los exponentes se suman, así que primero hay que sumar los dos exponentes tal como están escritos, sin multiplicarlos ni tratarlos como términos cuadráticos.\n\nEl resultado es una constante, $9$, que no depende de $x$: los términos con $x$ se cancelan entre sí al sumar los exponentes.\n\nSi tratás la suma de exponentes como si fuera un producto que genera $x^2$ más frecuente en este tipo de simplificación., obtienes un resultado incorrecto.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1258,7 +1258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un exponente negativo no cambia el signo del resultado, invierte la base: $b^{-n}=\\dfrac{1}{b^n}$, un número siempre positivo si la base lo es.\n$$f(-2) = 6 \\cdot 2^{-2} = 6 \\cdot \\frac{1}{4} = \\frac{6}{4} = 1{,}5$$\nEl error más común es pensar que el signo del exponente se traslada al resultado, dando un valor negativo; en realidad, un exponente negativo solo achica el número, sin volverlo negativo.",
+    "explanation": "Un exponente negativo no cambia el signo del resultado, invierte la base: $b^{-n}=\\dfrac{1}{b^n}$, un número siempre positivo si la base lo es.\n$$f(-2) = 6 \\cdot 2^{-2} = 6 \\cdot \\frac{1}{4} = \\frac{6}{4} = 1{,}5$$ pensar que el signo del exponente se traslada al resultado, dando un valor negativo; en realidad, un exponente negativo solo achica el número, sin volverlo negativo.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-potencias"
@@ -1283,7 +1283,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un exponente negativo invierte la base en vez de cambiarle el signo al resultado, siguiendo la regla $b^{-n}=\\dfrac{1}{b^n}$.\n\nEl resultado es positivo y menor que $1$, aproximadamente $0{,}67$.\n\nPensar que el signo negativo del exponente se traslada al resultado final, dando un número negativo, es el error más frecuente al evaluar potencias con exponente negativo.",
+    "explanation": "Un exponente negativo invierte la base en vez de cambiarle el signo al resultado, siguiendo la regla $b^{-n}=\\dfrac{1}{b^n}$.\n\nEl resultado es positivo y menor que $1$, aproximadamente $0{,}67$.\n\nPensar que el signo negativo del exponente se traslada al resultado final, dando un número negativo, más frecuente al evaluar potencias con exponente negativo.",
     "reviewed": false,
     "tags": [
       "comparar-dos-modelos"

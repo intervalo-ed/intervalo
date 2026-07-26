@@ -315,7 +315,7 @@
       -3,
       10
     ],
-    "explanation": "Una **asíntota vertical** requiere que la función diverga a $\\pm\\infty$ cerca de un valor puntual de $x$. Una parábola completa, como la de esta gráfica, está definida y es continua en todo $\\mathbb{R}$, sin ninguna ruptura.\n$$\\text{sin rupturas visibles} \\ \\Rightarrow \\ \\text{sin asíntota vertical}$$\nNo toda función tiene asíntota vertical, los polinomios completos, como las parábolas, nunca la tienen.",
+    "explanation": "Una **asíntota vertical** requiere que la función diverga a $\\pm\\infty$ cerca de un valor puntual de $x$. Una parábola completa, como la de esta gráfica, está definida y es continua en todo $\\mathbb{R}$, sin ninguna ruptura.\n$$\\text{sin rupturas visibles} \\ \\Rightarrow \\$$\nsin asíntota vertical.\nNo toda función tiene asíntota vertical, los polinomios completos, como las parábolas, nunca la tienen.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-vertical"

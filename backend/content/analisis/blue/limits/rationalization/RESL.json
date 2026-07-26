@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale el siguiente límite?\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+16}-4}{x}$$",
+    "question": "Determiná el valor de el siguiente límite?\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+16}-4}{x}$$",
     "options": [
       "$\\frac{1}{4}$",
       "$-\\frac{1}{8}$",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale el siguiente límite?\n$$\\lim_{x \\to 5} \\frac{\\sqrt{x-1}-2}{x-5}$$",
+    "question": "Hallá el valor de el siguiente límite?\n$\n$$\\lim_{x \\to 5} \\frac{\\sqrt{x-1}-2}{x-5}$$\n$",
     "options": [
       "$\\frac{1}{4}$",
       "$\\frac{1}{2}$",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale el siguiente límite?\n$$\\lim_{x \\to 4} \\frac{\\sqrt{x+21}-5}{x-4}$$",
+    "question": "Calculá: el siguiente límite?\n$\n$$\\lim_{x \\to 4} \\frac{\\sqrt{x+21}-5}{x-4}$$\n$",
     "options": [
       "$\\frac{1}{5}$",
       "$\\frac{1}{20}$",
@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale el siguiente límite?\n$$\\lim_{x \\to 1} \\frac{\\sqrt{x+24}-5}{x-1}$$",
+    "question": "¿Cuánto vale el siguiente límite?\n$\n$$\\lim_{x \\to 1} \\frac{\\sqrt{x+24}-5}{x-1}$$\n$",
     "options": [
       "$\\frac{1}{5}$",
       "$\\frac{1}{10}$",
@@ -200,7 +200,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale el siguiente límite?\n$$\\lim_{x \\to 16} \\frac{x-16}{\\sqrt{x}-4}$$",
+    "question": "¿Cuánto vale el siguiente límite?\n$\n$$\\lim_{x \\to 16} \\frac{x-16}{\\sqrt{x}-4}$$\n$",
     "options": [
       "$8$",
       "$4$",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale el siguiente límite?\n$$\\lim_{x \\to 25} \\frac{x-25}{\\sqrt{x}-5}$$",
+    "question": "¿Cuánto vale el siguiente límite?\n$\n$$\\lim_{x \\to 25} \\frac{x-25}{\\sqrt{x}-5}$$\n$",
     "options": [
       "$5$",
       "$-10$",
@@ -275,7 +275,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale el siguiente límite?\n$$\\lim_{x \\to 16} \\frac{x-16}{\\sqrt{x}-4}$$",
+    "question": "¿Cuánto vale el siguiente límite?\n$\n$$\\lim_{x \\to 16} \\frac{x-16}{\\sqrt{x}-4}$$\n$",
     "options": [
       "$8$",
       "$4$",
@@ -350,7 +350,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale el siguiente límite?\n$$\\lim_{x \\to 25} \\frac{25-x}{\\sqrt{x}-5}$$",
+    "question": "¿Cuánto vale el siguiente límite?\n$\n$$\\lim_{x \\to 25} \\frac{25-x}{\\sqrt{x}-5}$$\n$",
     "options": [
       "$10$",
       "$-5$",

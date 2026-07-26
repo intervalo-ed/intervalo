@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjugado es la clave para una racionalización exitosa. Construirlo correctamente-solo cambiando el signo externo-asegura que luego podamos aplicar la identidad de diferencia de cuadrados para romper la raíz.\n\nPara armar el **conjugado** de $\\sqrt{u} - c$ se invierte solo el signo entre los dos términos externos, dejando intacto el radicando $u$.\n \nAl multiplicar la expresión original por este conjugado, la **diferencia de cuadrados** transforma el numerador en $(2x+1) - 9$, sin raíces.\n\nEs fácil caer en este error: revisar cuál de los dos hay que invertir evita perder el resto del ejercicio.",
+    "explanation": "El conjugado es la clave para una racionalización exitosa. Construirlo correctamente-solo cambiando el signo externo-asegura que luego podamos aplicar la identidad de diferencia de cuadrados para romper la raíz.\n\nPara armar el **conjugado** de $\\sqrt{u} - c$ se invierte solo el signo entre los dos términos externos, dejando intacto el radicando $u$.\n \nAl multiplicar la expresión original por este conjugado, la **diferencia de cuadrados** transforma el numerador en $(2x+1) - 9$, sin raíces.\n\nOlvidar cuál de los dos parámetros hay que invertir produce la conjugada incompleta, faltando un factor en el resultado.",
     "reviewed": false,
     "tags": [
       "identificacion-del-conjugado"
@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjugado debe construirse de manera precisa: invirtiendo solo el signo entre los dos términos externos. Esta precisión es lo que permite que la diferencia de cuadrados elimine la raíz después.\n\nArmar el **conjugado** de $\\sqrt{u} + c$ consiste en invertir solo el signo entre los dos términos externos, dejando el radicando $u$ exactamente igual.\n \nMultiplicar por este conjugado produce la **diferencia de cuadrados** $(3x+2) - 1$, que ya no tiene raíces y permite continuar con la simplificación.\n\nUna confusión típica es invertir el signo del radicando en lugar del externo: conviene siempre chequear que ambos radicandos, el original y el del conjugado, coincidan.",
+    "explanation": "El conjugado debe construirse de manera precisa: invirtiendo solo el signo entre los dos términos externos. Esta precisión es lo que permite que la diferencia de cuadrados elimine la raíz después.\n\nArmar el **conjugado** de $\\sqrt{u} + c$ consiste en invertir solo el signo entre los dos términos externos, dejando el radicando $u$ exactamente igual.\n \nMultiplicar por este conjugado produce la **diferencia de cuadrados** $(3x+2) - 1$, que ya no tiene raíces y permite continuar con la simplificación.\n\nInvertir el signo del radicando en lugar del externo: conviene siempre chequear que ambos radicandos, el original y el del conjugado, coincidan.",
     "reviewed": false,
     "tags": [
       "identificacion-del-conjugado"
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El producto del conjugado genera una diferencia de cuadrados, que es la razón por la que la técnica funciona. Sin esta identidad, no tendríamos una forma de eliminar la raíz y resolver el límite.\n\nLa **diferencia de cuadrados** indica que $(\\sqrt{u} - c)(\\sqrt{u} + c) = u - c^2$, con $u = x+9$ y $c = 3$.\n \nEl radicando pierde la raíz apenas se aplica la identidad, sin necesidad de ningún otro paso algebraico.\n\nUn error frecuente es restar $c$ en lugar de $c^2$: conviene elevar al cuadrado el segundo término antes de restar.",
+    "explanation": "El producto del conjugado genera una diferencia de cuadrados, que es la razón por la que la técnica funciona. Sin esta identidad, no tendríamos una forma de eliminar la raíz y resolver el límite.\n\nLa **diferencia de cuadrados** indica que $(\\sqrt{u} - c)(\\sqrt{u} + c) = u - c^2$, con $u = x+9$ y $c = 3$.\n \nEl radicando pierde la raíz apenas se aplica la identidad, sin necesidad de ningún otro paso algebraico.\n\nRestar $c$ en lugar de $c^2$: conviene elevar al cuadrado el segundo término antes de restar.",
     "reviewed": false,
     "tags": [
       "identidad-fundamental-conjugado"
@@ -257,7 +257,7 @@
     "options": [
       "Racionalizar",
       "Factorizar",
-      "Sustitución directa"
+      "Sustituir"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Multiplicar solo una parte de la fracción es un error grave porque no preserva el límite original. Un límite no es solo un número calculado; es el valor al que una función tiende, y modificar la función cambia ese límite.\n\nEl **conjugado** solo sirve como herramienta de transformación si se multiplica por $\\tfrac{\\text{conjugado}}{\\text{conjugado}} = 1$, arriba y abajo por igual.\n \nAl multiplicar solo el numerador, la fracción deja de ser una multiplicación por $1$ y pasa a representar una función distinta a la original.\n\nEste es un error grave porque el límite calculado ya no corresponde al problema planteado, aunque el álgebra intermedia parezca correcta.",
+    "explanation": "Multiplicar solo una parte de la fracción es un error grave porque no preserva el límite original. Un límite no es solo un número calculado; es el valor al que una función tiende, y modificar la función cambia ese límite.\n\nEl **conjugado** solo sirve como herramienta de transformación si se multiplica por $\\tfrac{\\text{conjugado}}{\\text{conjugado}} = 1$, arriba y abajo por igual.\n \nAl multiplicar solo el numerador, la fracción deja de ser una multiplicación por $1$ y pasa a representar una función distinta a la original.\n\nEste grave porque el límite calculado ya no corresponde al problema planteado, aunque el álgebra intermedia parezca correcta.",
     "reviewed": false,
     "tags": [
       "proposito-logico-conjugado"
