@@ -15,7 +15,7 @@
       "Eso sale de sumar los coeficientes en vez de multiplicarlos: $3+2=5$ en vez de $3\\times2=6$.",
       "Eso sale de copiar solo el exponente del primer factor y no sumarle el del segundo."
     ],
-    "explanation": "Para **multiplicar números en notación científica** se multiplican los coeficientes entre sí y se suman los exponentes de las potencias de $10$, porque $10^a \\cdot 10^b = 10^{a+b}$.\n\nAplicando esta regla al producto dado:\n$$(3\\times10^{4}) \\times (2\\times10^{-6})$$\nLos coeficientes se multiplican:\n$$3 \\times 2 = 6$$\nY los exponentes se suman:\n$$4 + (-6) = -2$$\nCombinando ambos resultados:\n$$6\\times10^{-2}$$\nUn error común es sumar los coeficientes en vez de multiplicarlos, o descuidar el signo del exponente negativo al combinarlo con el positivo.",
+    "explanation": "Para **multiplicar números en notación científica** se multiplican los coeficientes entre sí y se suman los exponentes de las potencias de $10$, porque $10^a \\cdot 10^b = 10^{a+b}$.\n\nAplicando esta regla al producto dado:\n$$(3\\times10^{4}) \\times (2\\times10^{-6})$$\nLos coeficientes se multiplican:\n$$3 \\times 2 = 6$$\nY los exponentes se suman:\n$$4 + (-6) = -2$$\nCombinando ambos resultados:\n$$6\\times10^{-2}$$\nSumar los coeficientes en lugar de multiplicarlos produce $5 \times 10^{-2}$ en lugar de $6 \times 10^{-2}$, alterando tanto el coeficiente como la magnitud del resultado.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

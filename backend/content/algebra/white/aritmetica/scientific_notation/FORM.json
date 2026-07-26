@@ -15,7 +15,7 @@
       "Ese exponente corresponde a mover la coma un lugar de más.",
       "El coeficiente ahí no cumple $1 \\leq |a| < 10$, tiene tres dígitos antes de la coma."
     ],
-    "explanation": "Antes de calcular, hay que identificar la **expresión en notación científica** que cumple $a \\times 10^n$ con $1 \\leq |a| < 10$.\n\nPara $47500$, hay que mover la coma hasta dejar un solo dígito antes de ella: $4{,}75$, y contar cuántos lugares se movió (4 hacia la izquierda), lo que da el exponente:\n$$47500 = 4{,}75 \\times 10^{4}$$\nUn error frecuente es dejar más de un dígito antes de la coma en el coeficiente, lo que rompe la condición $1 \\leq |a| < 10$.",
+    "explanation": "Antes de calcular, hay que identificar la **expresión en notación científica** que cumple $a \\times 10^n$ con $1 \\leq |a| < 10$.\n\nPara $47500$, hay que mover la coma hasta dejar un solo dígito antes de ella: $4{,}75$, y contar cuántos lugares se movió (4 hacia la izquierda), lo que da el exponente:\n$$47500 = 4{,}75 \\times 10^{4}$$\nDejar más de un dígito antes de la coma produce $47{,}5 \\times 10^{3}$ o $475 \\times 10^{2}$ en lugar de $4{,}75 \\times 10^{4}$, expresiones que no cumplen la forma estándar de notación científica.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

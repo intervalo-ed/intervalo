@@ -267,7 +267,7 @@
   {
     "question": "¿Cuál es el **dominio** natural de todo polinomio $p(x) = a_n x^n + \\cdots + a_1 x + a_0$?",
     "options": [
-      "$\\mathbb{R}$ (todos los reales)",
+      "$\\mathbb{R}$",
       "$(0, +\\infty)$",
       "$\\mathbb{R} \\setminus \\{0\\}$",
       "Depende del grado del polinomio"

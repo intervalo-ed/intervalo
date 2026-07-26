@@ -3,7 +3,7 @@
     "question": "Considerá la integral:\n$$\\int \\pi\\,dx$$\n¿Qué regla corresponde aplicar?",
     "options": [
       "Regla de la constante",
-      "Regla exponencial (base $e$)",
+      "Regla exponencial",
       "Regla de la potencia"
     ],
     "correct_index": 0,
@@ -27,7 +27,7 @@
     "options": [
       "Regla de la potencia",
       "Regla de la constante",
-      "Regla exponencial (base $e$)"
+      "Regla exponencial"
     ],
     "correct_index": 1,
     "has_math": true,
@@ -49,7 +49,7 @@
     "question": "Observá la integral:\n$$\\int \\ln 5\\,dx$$\n¿Qué regla corresponde aplicar?",
     "options": [
       "Regla del logaritmo",
-      "Regla exponencial (base $a$)",
+      "Regla exponencial",
       "Regla de la constante"
     ],
     "correct_index": 2,
@@ -73,7 +73,7 @@
     "options": [
       "Regla de la constante",
       "Regla de la potencia",
-      "Regla exponencial (base $a$)"
+      "Regla exponencial"
     ],
     "correct_index": 0,
     "has_math": true,
@@ -96,7 +96,7 @@
     "options": [
       "Regla de la potencia",
       "Regla de la constante",
-      "Regla exponencial (base $a$)"
+      "Regla exponencial"
     ],
     "correct_index": 1,
     "has_math": true,
@@ -141,7 +141,7 @@
     "question": "Observá este integrando:\n$$\\int e^{\\ln 4}\\,dx$$\n¿Qué regla corresponde aplicar?",
     "options": [
       "Regla de la constante",
-      "Regla exponencial (base $e$)",
+      "Regla exponencial",
       "Regla del logaritmo"
     ],
     "correct_index": 0,
@@ -163,7 +163,7 @@
   {
     "question": "Reconocé el tipo de función en:\n$$\\int (-7)\\,dx$$\n¿Qué regla corresponde aplicar?",
     "options": [
-      "Regla exponencial (base $e$)",
+      "Regla exponencial",
       "Regla de la constante",
       "Regla de la potencia"
     ],
@@ -234,7 +234,7 @@
     "options": [
       "Regla trigonométrica",
       "Regla de la potencia",
-      "Regla exponencial (base $a$)"
+      "Regla exponencial"
     ],
     "correct_index": 1,
     "has_math": true,
@@ -280,7 +280,7 @@
     "options": [
       "Regla del logaritmo",
       "Regla de la potencia",
-      "Regla exponencial (base $a$)"
+      "Regla exponencial"
     ],
     "correct_index": 0,
     "has_math": true,
@@ -301,7 +301,7 @@
   {
     "question": "Categorizá:\n$$\\int \\frac{1}{x^2}\\,dx$$\n¿Qué regla corresponde aplicar?",
     "options": [
-      "Regla exponencial (base $e$)",
+      "Regla exponencial",
       "Regla de la potencia",
       "Regla del logaritmo"
     ],
@@ -325,7 +325,7 @@
     "question": "Identificá qué regla usar para:\n$$\\int \\cos x\\,dx$$\n¿Qué regla corresponde aplicar?",
     "options": [
       "Regla de la potencia",
-      "Regla exponencial (base $e$)",
+      "Regla exponencial",
       "Regla trigonométrica"
     ],
     "correct_index": 2,

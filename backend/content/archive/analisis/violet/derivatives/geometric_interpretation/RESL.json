@@ -40,7 +40,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **raíz** de una recta es el valor de $x$ donde $y=0$.\n\n$$\\begin{aligned} 2x - 6 &= 0 \\\\ 2x &= 6 \\\\ x &= 3 \\end{aligned}$$\nConviene no confundir la raíz, corte con el eje $x$, con la ordenada al origen, corte con el eje $y$, cada una responde una pregunta distinta.",
+    "explanation": "La **raíz** de una recta es el valor de $x$ donde $y=0$.\n\n$$\\begin{aligned} 2x - 6 &= 0 \\\\ 2x &= 6 \\\\ x &= 3 \\end{aligned}$$\nLa raíz (corte con el eje $x$) y la ordenada al origen (corte con el eje $y$) responden preguntas distintas y no deben mezclarse: la primera busca dónde la recta vale cero, la segunda busca el valor en $x=0$.",
     "reviewed": false
   },
   {
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Evaluar en $x=0$ elimina el término con la pendiente y deja únicamente el término independiente de la ecuación.\n\n$$y = -4\\cdot 0 + 8 = 8$$\nEste valor marca el punto donde la recta cruza el eje vertical, independientemente de qué tan inclinada esté, y no debe confundirse con la raíz, que se calcula igualando toda la recta a cero.",
+    "explanation": "Evaluar en $x=0$ elimina el término con la pendiente y deja únicamente el término independiente de la ecuación.\n\n$$y = -4\\cdot 0 + 8 = 8$$\nEste valor marca el punto donde la recta cruza el eje vertical, independientemente de qué tan inclinada esté, Este valor marca algo distinto de la raíz, que se calcula igualando toda la recta a cero: son dos operaciones diferentes con significados geométricos específicos.",
     "reviewed": false
   },
   {
@@ -150,7 +150,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dos rectas son **paralelas** cuando tienen la misma pendiente, así que la condición es $f'(x)=m$, con $m=6$ la pendiente de la recta dada.\n\n$$\\begin{aligned} 2x &= 6 \\\\ x &= 3 \\end{aligned}$$\nLa condición de paralelismo usa siempre la derivada, no la función original, igualar $f(x)=m$ en vez de $f'(x)=m$ es el error más común de este tipo de ítem.",
+    "explanation": "Dos rectas son **paralelas** cuando tienen la misma pendiente, así que la condición es $f'(x)=m$, con $m=6$ la pendiente de la recta dada.\n\n$$\\begin{aligned} 2x &= 6 \\\\ x &= 3 \\end{aligned}$$\nLa condición de paralelismo requiere igualar la derivada con la pendiente dada: $f'(x)=m$. Si se iguala la función original $f(x)=m$ en su lugar, se obtiene un punto distinto y no se resuelve el problema de encontrar la tangente paralela.",
     "reviewed": false
   },
   {
@@ -238,7 +238,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La condición de **paralelismo** usa la pendiente de la recta dada, $m=-3$, e iguala $f'(x)=m$, nunca $f(x)=m$.\n\n$$\\begin{aligned} 3x + 3 &= -3 \\\\ 3x &= -6 \\\\ x &= -2 \\end{aligned}$$\nConfundir esta condición con la de perpendicularidad, que usaría $-\\tfrac{1}{m}$, es un error clásico cuando se trabaja con paralelismo.",
+    "explanation": "La condición de **paralelismo** usa la pendiente de la recta dada, $m=-3$, e iguala $f'(x)=m$, nunca $f(x)=m$.\n\n$$\\begin{aligned} 3x + 3 &= -3 \\\\ 3x &= -6 \\\\ x &= -2 \\end{aligned}$$\nAl trabajar con paralelismo, es fácil aplicar por equivocación la condición de perpendicularidad, que usaría $-\\tfrac{1}{m}$ en lugar de $m$: mantener clara la diferencia entre ambas condiciones evita cambiar fundamentalmente el significado de lo que se busca.",
     "reviewed": false
   },
   {

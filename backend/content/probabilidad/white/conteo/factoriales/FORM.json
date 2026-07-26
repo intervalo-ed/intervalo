@@ -15,7 +15,7 @@
       "Ese es el arreglo de 2 lugares tomados de 5, no el factorial completo.",
       "Estás elevando al cuadrado un factor consigo mismo cinco veces, no encadenando los naturales previos."
     ],
-    "explanation": "El **factorial** $n!$ es el producto de todos los enteros positivos desde $1$ hasta $n$:\n$$n! = n \\times (n-1) \\times (n-2) \\times \\dots \\times 1$$\nAplicado a $n=5$:\n$$5! = 5 \\times 4 \\times 3 \\times 2 \\times 1 = 120$$\nUna confusión frecuente es leer el símbolo $!$ como una suma; recordá que aparece siempre en contextos multiplicativos (ordenamientos, permutaciones, coeficientes binomiales).",
+    "explanation": "El **factorial** $n!$ es el producto de todos los enteros positivos desde $1$ hasta $n$:\n$$n! = n \\times (n-1) \\times (n-2) \\times \\dots \\times 1$$\nAplicado a $n=5$:\n$$5! = 5 \\times 4 \\times 3 \\times 2 \\times 1 = 120$$\nLeer el símbolo $!$ como una suma lleva a aplicar la operación incorrecta; aparece siempre en contextos multiplicativos (ordenamientos, permutaciones, coeficientes binomiales).",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -33,7 +33,7 @@
       "Ese resultado sale de restar los subíndices, un procedimiento que no corresponde para simplificar el cociente.",
       "Ese resultado también resta los subíndices, sin simplificar factor a factor el producto de factoriales."
     ],
-    "explanation": "El **factorial** cumple $n! = n \\times (n-1)!$, así que un cociente $\\dfrac{n!}{k!}$ con $n>k$ se simplifica cancelando los factores comunes desde $k!$ hacia abajo.\n\nEn $\\dfrac{8!}{6!}$, el $6!$ del denominador cancela los factores de $8!$ desde $6$ hasta $1$, dejando:\n$$\\frac{8!}{6!} = 8 \\times 7$$\nLa confusión típica es restar los subíndices ($8-6=2$) en vez de reconocer que el factorial es un producto que se cancela factor por factor.",
+    "explanation": "El **factorial** cumple $n! = n \\times (n-1)!$, así que un cociente $\\dfrac{n!}{k!}$ con $n>k$ se simplifica cancelando los factores comunes desde $k!$ hacia abajo.\n\nEn $\\dfrac{8!}{6!}$, el $6!$ del denominador cancela los factores de $8!$ desde $6$ hasta $1$, dejando:\n$$\\frac{8!}{6!} = 8 \\times 7$$\nRestar los subíndices ($8-6=2$) en vez de reconocer que el factorial es un producto termina dando un resultado completamente incorrecto que se cancela factor por factor.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -51,7 +51,7 @@
       "Esa expresión invierte los roles: es $6!$ el que se construye a partir de $7!$ y no al revés en esta dirección.",
       "Esa expresión ya asume conocido el resultado que se busca construir, no reduce $7!$ a un factorial menor."
     ],
-    "explanation": "El **factorial** satisface la relación recursiva:\n$$n! = n \\times (n-1)!$$\nEsta relación permite construir un factorial a partir del anterior sin recalcular todo el producto.\n\nCon $n=7$, se obtiene $7! = 7 \\times 6!$, y como $6!=720$, resulta $7! = 7 \\times 720 = 5040$.\n\nUn error común es aplicar la recursión en la dirección equivocada o con el índice incorrecto, conviene siempre verificar que el factor que multiplica sea exactamente $n$.",
+    "explanation": "El **factorial** satisface la relación recursiva:\n$$n! = n \\times (n-1)!$$\nEsta relación permite construir un factorial a partir del anterior sin recalcular todo el producto.\n\nCon $n=7$, se obtiene $7! = 7 \\times 6!$, y como $6!=720$, resulta $7! = 7 \\times 720 = 5040$.\n\nAplicar la recursión en la dirección equivocada o con el índice incorrecto termina dando un resultado falso; siempre verificá que el factor que multiplica sea exactamente $n$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -69,7 +69,7 @@
       null,
       "Ese resultado suma un factor de más, como si alguno de los dos factoriales valiera $2$."
     ],
-    "explanation": "Por convención, el **factorial** de $0$ vale $1$ ($0!=1$), y $1!=1$ por ser el producto de un solo entero positivo.\n\nEntonces:\n$$0! + 1! = 1 + 1 = 2$$\nUna confusión frecuente es tratar $0!$ como $0$ por analogía con la multiplicación por cero, pero el factorial de $0$ se define aparte, precisamente para que las fórmulas de conteo con factoriales funcionen sin casos especiales.",
+    "explanation": "Por convención, el **factorial** de $0$ vale $1$ ($0!=1$), y $1!=1$ por ser el producto de un solo entero positivo.\n\nEntonces:\n$$0! + 1! = 1 + 1 = 2$$\nTratar $0!$ como $0$ por analogía con la multiplicación por cero termina invalidando muchas fórmulas; el factorial de $0$ se define aparte, precisamente para que las fórmulas de conteo con factoriales funcionen sin casos especiales.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

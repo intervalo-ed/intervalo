@@ -187,7 +187,7 @@
     "question": "Considerá la integral:\n$$\\int x^2e^x\\,dx$$\n¿Cómo se comporta al resolverla por **partes**?",
     "options": [
       "Requiere una iteración",
-      "Es cíclica (despejar la original)",
+      "Es cíclica",
       "Requiere dos iteraciones"
     ],
     "correct_index": 2,
@@ -256,7 +256,7 @@
     "question": "Examiná la integral:\n$$\\int x^2\\sin x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
     "options": [
       "Requiere una iteración",
-      "Es cíclica (despejar la original)",
+      "Es cíclica",
       "Requiere dos iteraciones"
     ],
     "correct_index": 2,
@@ -301,7 +301,7 @@
   {
     "question": "Observá la integral:\n$$\\int x\\ln x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
     "options": [
-      "Es cíclica (despejar la original)",
+      "Es cíclica",
       "Requiere una iteración",
       "Requiere dos iteraciones"
     ],

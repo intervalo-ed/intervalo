@@ -10,7 +10,7 @@
       "Ese es $V_{6,2} = 6 \\times 5$: cuenta cada apretón dos veces (una por cada dirección).",
       "Ese es $6^{2}$: cuenta también los saludos de cada uno consigo mismo y los repetidos en ambos sentidos."
     ],
-    "explanation": "Un apretón de manos entre dos personas es un subconjunto de 2 elementos donde el orden no importa (el saludo A→B es el mismo que B→A), así que corresponde una **combinación**:\n$$\\binom{6}{2} = \\frac{6!}{2!\\,4!} = \\frac{6 \\times 5}{2} = 15$$\nEl error típico es aplicar variación ($6 \\times 5 = 30$), que cuenta el apretón A-B como distinto al B-A y duplica el total; siempre que dos elementos sean intercambiables sin cambiar el resultado, va combinación.",
+    "explanation": "Un apretón de manos entre dos personas es un subconjunto de 2 elementos donde el orden no importa (el saludo A→B es el mismo que B→A), así que corresponde una **combinación**:\n$$\\binom{6}{2} = \\frac{6!}{2!\\,4!} = \\frac{6 \\times 5}{2} = 15$$\nAplicar variación ($6 \\times 5 = 30$) termina duplicando el total porque cuenta el apretón A-B como distinto al B-A; siempre que dos elementos sean intercambiables sin cambiar el resultado, va combinación.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -28,7 +28,7 @@
       "La combinación nunca supera a la variación con los mismos $n,k$: ignorar el orden reduce el conteo, no lo aumenta.",
       "El factor que las relaciona es $3!=6$, no $2$: hay que multiplicar por todos los ordenamientos posibles de los 3 elegidos."
     ],
-    "explanation": "Para el mismo $n$ y $k$, la variación multiplica a la combinación por $k!$, la cantidad de formas de ordenar internamente a los elegidos:\n$$V_{n,k} = \\binom{n}{k} \\times k!$$\nCon $n=8$, $k=3$: $\\binom{8}{3}=56$ y $V_{8,3}=56\\times3!=56\\times6=336$.\n\nUn error común es asumir un factor de proporción arbitrario entre ambas; el factor correcto es siempre $k!$, la cantidad de ordenamientos internos del subconjunto elegido.",
+    "explanation": "Para el mismo $n$ y $k$, la variación multiplica a la combinación por $k!$, la cantidad de formas de ordenar internamente a los elegidos:\n$$V_{n,k} = \\binom{n}{k} \\times k!$$\nCon $n=8$, $k=3$: $\\binom{8}{3}=56$ y $V_{8,3}=56\\times3!=56\\times6=336$.\n\nAsumir un factor de proporción arbitrario termina siendo incorrecto; el factor correcto es siempre $k!$, la cantidad de ordenamientos internos del subconjunto elegido.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -64,7 +64,7 @@
       "Ese es $\\binom{8}{4}$, que excluye a la persona en vez de incluirla obligatoriamente.",
       "Ese resultado no corresponde a ninguna de las combinaciones relevantes de este problema."
     ],
-    "explanation": "Cuando una combinación debe incluir obligatoriamente a un elemento, ese elemento ya ocupa un lugar del subconjunto, y solo queda elegir el resto.\n\nCon esa persona fija, quedan $8$ amigos disponibles para completar los $3$ lugares restantes:\n$$\\binom{8}{3} = 56$$\nUn error común es seguir contando como si esa persona todavía compitiera por un lugar, en vez de descontarla tanto del total disponible como de la cantidad a elegir.",
+    "explanation": "Cuando una combinación debe incluir obligatoriamente a un elemento, ese elemento ya ocupa un lugar del subconjunto, y solo queda elegir el resto.\n\nCon esa persona fija, quedan $8$ amigos disponibles para completar los $3$ lugares restantes:\n$$\\binom{8}{3} = 56$$\nSeguir contando como si esa persona todavía compitiera por un lugar termina llegando al resultado incorrecto; hay que descontarla tanto del total disponible como de la cantidad a elegir.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

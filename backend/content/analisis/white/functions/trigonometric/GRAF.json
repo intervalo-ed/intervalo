@@ -215,7 +215,7 @@
       "El coseno no tiene ceros",
       "El coseno tiene mayor amplitud",
       "El seno tiene período más corto",
-      "El coseno comienza en su máximo ($y=1$)"
+      "El coseno comienza en su máximo"
     ],
     "correct_index": 3,
     "has_math": true,

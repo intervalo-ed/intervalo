@@ -187,7 +187,7 @@
     "question": "Observá la función:\n$$f(x) = e^{3x}$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla del producto",
-      "Múltiplo escalar (linealidad)",
+      "Múltiplo escalar",
       "**Regla de la cadena**"
     ],
     "correct_index": 2,
@@ -211,7 +211,7 @@
     "options": [
       "**Regla del producto**",
       "**Regla de la cadena**",
-      "Múltiplo escalar (linealidad)"
+      "Múltiplo escalar"
     ],
     "correct_index": 0,
     "has_math": true,
@@ -279,7 +279,7 @@
     "question": "Examiná la función:\n$$f(x) = \\sin(5x)$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "**Regla de la cadena**",
-      "Múltiplo escalar (linealidad)",
+      "Múltiplo escalar",
       "Regla del producto"
     ],
     "correct_index": 0,

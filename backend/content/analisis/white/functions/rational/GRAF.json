@@ -63,7 +63,7 @@
     "question": "Considerá:\n$$f(x) = \\dfrac{1}{x^2 - 4}$$\n¿Cuántas asíntotas verticales tiene?",
     "options": [
       "0",
-      "1 (en $x = 4$)",
+      "1",
       "2",
       "3"
     ],
@@ -243,7 +243,7 @@
     "question": "Considerá:\n$$f(x) = \\dfrac{1}{x-1}$$\n¿Cuántas asíntotas tiene en total?",
     "options": [
       "2",
-      "1 (solo la vertical $x=1$)",
+      "1",
       "3",
       "0"
     ],
@@ -455,7 +455,7 @@
       "$y = -2$",
       "$y = 2$",
       "$y = 0$",
-      "No existe (AV en $x = 0$)"
+      "No existe"
     ],
     "correct_index": 1,
     "has_math": true,

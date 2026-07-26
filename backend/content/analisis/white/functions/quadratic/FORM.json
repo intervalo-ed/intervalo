@@ -905,7 +905,7 @@
       null,
       "Esta expresión no representa un producto de precio por cantidad, sino una resta sin sentido para una recaudación."
     ],
-    "explanation": "La recaudación total siempre se calcula como precio por cantidad vendida. Acá la cantidad vendida depende del precio, $100-2p$, así que la recaudación es:\n\nEl producto de dos factores lineales en la misma variable $p$ da siempre una función cuadrática, nunca lineal.\n\nEl vértice de esta parábola indica el precio que maximiza la recaudación:\n\nEl precio óptimo es \\$25. Sumar el precio y la cantidad en vez de multiplicarlos es el error más común al armar este tipo de ecuación de ingresos.",
+    "explanation": "La recaudación total siempre se calcula como precio por cantidad vendida. Acá la cantidad vendida depende del precio, $100-2p$, así que la recaudación es:\n\nEl producto de dos factores lineales en la misma variable $p$ da siempre una función cuadrática, nunca lineal.\n\nEl vértice de esta parábola indica el precio que maximiza la recaudación:\n\nEl precio óptimo es \\$25. Sumar el precio y la cantidad en vez de multiplicarlos lleva a una ecuación incorrecta de ingresos.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -930,7 +930,7 @@
       "Esta expresión tiene el signo general invertido respecto al área real, que debe ser positiva para $x$ entre $0$ y $8$.",
       "Esta expresión no descuenta lo que se pierde al restar el propio ancho del largo: falta el término cuadrático."
     ],
-    "explanation": "Con una cuerda de $16$ metros para cercar un rectángulo, el perímetro cumple $2(x+y)=16$, es decir $x+y=8$, por lo que el largo es $y=8-x$:\n\nEse es el semiperímetro que da el enunciado, no el perímetro completo.\n\nEl área en función del ancho $x$ es:\n\nEl área máxima se alcanza en $x=4$ m, formando un cuadrado de $4 \\times 4 = 16$ m².\n\nUsar el perímetro completo, $16$, en vez del semiperímetro, $8$, dentro del paréntesis es el error más común al armar esta ecuación.",
+    "explanation": "Con una cuerda de $16$ metros para cercar un rectángulo, el perímetro cumple $2(x+y)=16$, es decir $x+y=8$, por lo que el largo es $y=8-x$:\n\nEse es el semiperímetro que da el enunciado, no el perímetro completo.\n\nEl área en función del ancho $x$ es:\n\nEl área máxima se alcanza en $x=4$ m, formando un cuadrado de $4 \\times 4 = 16$ m².\n\nSi usas el perímetro completo, $16$, en vez del semiperímetro, $8$, dentro del paréntesis, entonces vas a armar la ecuación incorrectamente.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1030,7 +1030,7 @@
       "Este valor duplica el resultado correcto: revisá el signo de $a$ al aplicar la fórmula del vértice.",
       "Ese es el valor absoluto del coeficiente $a$, no la distancia horizontal del vértice."
     ],
-    "explanation": "La distancia horizontal donde el chorro alcanza su altura máxima es siempre la abscisa del vértice de la parábola.\n\nPara $h(d) = -0{,}25d^2+2d$, con $a=-0{,}25$ y $b=2$:\n\nA $4$ metros del caño, el chorro está en su punto más alto, con altura $h(4)=-0{,}25(16)+2(4)=4$ m.\n\nOlvidar el signo negativo de $a$ o el factor $2$ del denominador al aplicar la fórmula del vértice es el error más frecuente en este tipo de cálculo.",
+    "explanation": "La distancia horizontal donde el chorro alcanza su altura máxima es siempre la abscisa del vértice de la parábola.\n\nPara $h(d) = -0{,}25d^2+2d$, con $a=-0{,}25$ y $b=2$:\n\nA $4$ metros del caño, el chorro está en su punto más alto, con altura $h(4)=-0{,}25(16)+2(4)=4$ m.\n\nSi olvidás el signo negativo de $a$ o el factor $2$ del denominador al aplicar la fórmula del vértice, entonces va a ser incorrecto tu cálculo.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1115,7 +1115,7 @@
       "Esta expresión no tiene término independiente: el vértice quedaría en $(0,0)$, no en $(0,8)$ como muestra la gráfica.",
       null
     ],
-    "explanation": "Leer una parábola desde su gráfico implica identificar tres datos: la concavidad, la amplitud relativa y el vértice.\n\nAcá la parábola abre hacia abajo, así que $a<0$, y se ve más ancha que $-x^2$, lo que indica $|a|<1$, probablemente $a=-0{,}5$.\n\nEl vértice está sobre el eje $y$ en $(0,k)$, por lo que $h=0$.\n\nCon las raíces en $x=\\pm 4$, se despeja $k$ a partir de $-0{,}5(\\pm 4)^2+k=0$, lo que da $k=8$:\n\nConfundir una parábola más ancha ($|a|<1$) con una más angosta ($|a|>1$) es el error más común al estimar el coeficiente a simple vista.",
+    "explanation": "Leer una parábola desde su gráfico implica identificar tres datos: la concavidad, la amplitud relativa y el vértice.\n\nAcá la parábola abre hacia abajo, así que $a<0$, y se ve más ancha que $-x^2$, lo que indica $|a|<1$, probablemente $a=-0{,}5$.\n\nEl vértice está sobre el eje $y$ en $(0,k)$, por lo que $h=0$.\n\nCon las raíces en $x=\\pm 4$, se despeja $k$ a partir de $-0{,}5(\\pm 4)^2+k=0$, lo que da $k=8$:\n\nMezclar una parábola más ancha ($|a|<1$) con una más angosta ($|a|>1$) lleva a mal estimar el coeficiente a simple vista.",
     "has_math": true,
     "graph_fn": "-0.5*pow(x,2)+8",
     "graph_view": [
@@ -1145,7 +1145,7 @@
       "El segundo factor debería anularse en $x=4$, no en $x=-4$: revisá el signo de esa raíz.",
       null
     ],
-    "explanation": "Para armar la forma factorizada desde las raíces leídas en un gráfico, cada raíz entra en su propio factor con el signo invertido dentro del paréntesis.\n\nCon raíces $r_1=-2$ y $r_2=4$ y $a=1$:\n\nLa opción $(x-2)(x+4)$ tendría raíces $2$ y $-4$, con ambos signos invertidos respecto de las raíces reales.\n\nConfundir el signo de la raíz con el signo dentro del factor es la trampa más frecuente al leer un gráfico y traducirlo a forma factorizada.",
+    "explanation": "Para armar la forma factorizada desde las raíces leídas en un gráfico, cada raíz entra en su propio factor con el signo invertido dentro del paréntesis.\n\nCon raíces $r_1=-2$ y $r_2=4$ y $a=1$:\n\nLa opción $(x-2)(x+4)$ tendría raíces $2$ y $-4$, con ambos signos invertidos respecto de las raíces reales.\n\nSi confundís el signo de la raíz con el signo dentro del factor, entonces vas a traducir incorrectamente el gráfico a forma factorizada.",
     "has_math": true,
     "graph_fn": "pow(x,2)-2*x-8",
     "graph_view": [
@@ -1205,7 +1205,7 @@
       null,
       "Este resultado suma en vez de restar el término $3(4)$: revisá el signo de ese término."
     ],
-    "explanation": "Evaluar una función en un valor concreto significa reemplazar $x$ por ese número en toda la expresión y resolver respetando el orden de operaciones:\n\nPrimero las potencias, después las multiplicaciones, y por último las sumas y restas.\n\nPara $f(x)=x^2-3x+2$ en $x=4$:\n\nHacerlo en ese orden, primero $4^2=16$, luego $3\\times 4=12$ y recién después la resta y la suma, evita el error más común de este tipo de cuenta:\n\nRestar o sumar antes de resolver la potencia y el producto.",
+    "explanation": "Evaluar una función en un valor concreto significa reemplazar $x$ por ese número en toda la expresión y resolver respetando el orden de operaciones:\n\nPrimero las potencias, después las multiplicaciones, y por último las sumas y restas.\n\nPara $f(x)=x^2-3x+2$ en $x=4$:\n\nHacerlo en ese orden, primero $4^2=16$, luego $3\\times 4=12$ y recién después la resta y la suma, evita el error más común de este tipo de cuenta:\n\nSi restas o sumas antes de resolver la potencia y el producto, entonces llegás a un resultado incorrecto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1230,7 +1230,7 @@
       null,
       "El $t=2$ s es el instante de altura máxima, el vértice de la parábola, no un momento en que la pelota toca el suelo."
     ],
-    "explanation": "La pelota toca el suelo cuando $h(t)=0$, así que hay que factorizar sacando el factor común $t$ e igualar cada factor a cero por separado.\n\nPara $h(t)=-5t^2+20t$:\n\nEsto da $t=0$, el instante de lanzamiento, y $t=4$ s, el aterrizaje.\n\nAmbas soluciones son válidas y tienen sentido físico distinto: quedarse solo con una de las dos raíces es el error más frecuente en este tipo de ecuación.\n\nEl máximo de altura ocurre en $t=2$ s, justo en el punto medio entre ambas raíces.",
+    "explanation": "La pelota toca el suelo cuando $h(t)=0$, así que hay que factorizar sacando el factor común $t$ e igualar cada factor a cero por separado.\n\nPara $h(t)=-5t^2+20t$:\n\nEsto da $t=0$, el instante de lanzamiento, y $t=4$ s, el aterrizaje.\n\nAmbas soluciones son válidas y tienen sentido físico distinto: quedarse solo con una de las dos raíces produce un análisis incompleto.\n\nEl máximo de altura ocurre en $t=2$ s, justo en el punto medio entre ambas raíces.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1255,7 +1255,7 @@
       "Estos valores parecen salir de dividir los coeficientes originales sin factorizar correctamente el trinomio.",
       "El signo de la segunda raíz quedó invertido: el factor correcto es $(x-3)$, que se anula en $x=3$, no en $x=-3$."
     ],
-    "explanation": "Cuando el coeficiente principal no es $1$, conviene sacar ese factor común antes de factorizar el resto de la expresión en dos binomios.\n\nPara $f(x)=2x^2-8x+6$:\n\nLas raíces son $x=1$ y $x=3$.\n\nOlvidar sacar el factor común $2$ antes de buscar los dos números que suman $-4$ y multiplican $3$ es el error más frecuente al factorizar este tipo de expresión.\n\nVerificación: $f(1)=2-8+6=0$ y $f(3)=18-24+6=0$.",
+    "explanation": "Cuando el coeficiente principal no es $1$, conviene sacar ese factor común antes de factorizar el resto de la expresión en dos binomios.\n\nPara $f(x)=2x^2-8x+6$:\n\nLas raíces son $x=1$ y $x=3$.\n\nSi olvidás sacar el factor común $2$ antes de buscar los dos números que suman $-4$ y multiplican $3$, entonces va a ser incorrecta tu factorización.\n\nVerificación: $f(1)=2-8+6=0$ y $f(3)=18-24+6=0$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

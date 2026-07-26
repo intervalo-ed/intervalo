@@ -140,7 +140,7 @@
   {
     "question": "En la ecuación punto-pendiente de la recta tangente:\n$$y = f'(a)(x-a) + f(a)$$\n¿qué representa $f'(a)$?",
     "options": [
-      "La inclinación (pendiente) de la recta",
+      "La inclinación de la recta",
       "La altura del punto de anclaje",
       "La variable independiente de la recta"
     ],
