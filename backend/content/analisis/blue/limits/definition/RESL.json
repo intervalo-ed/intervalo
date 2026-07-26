@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **propiedades de linealidad** del límite permiten separar sumas, restas y escalares término a término.\n\n, siempre que cada límite exista por separado: si.\n$$\\lim f$$\nExiste y $\\lim g$ existe, entonces : también existe y se calcula separado.Esta separación funciona porque el límite respeta operaciones lineales.\n\n: cuando una función es la suma o resta de dos funciones con límites conocidos, el resultado es predecible sin necesidad de combinar las funciones antes.\n\nRestar un límite negativo: cuando sustituyes :,eso se convierte en $+2$,\n\nno en $-2$.\n\nEse cambio de signo es lo que lleva la respuesta de $6$ a $8$.\n\nsin él obtendrías algo completamente distinto.",
+    "explanation": "Las **propiedades de linealidad** del límite permiten separar sumas, restas y escalares término a término.\n\n, siempre que cada límite exista por separado: si.\n$$\\lim f$$\nExiste y $\\lim g$ existe, entonces : también existe y se calcula separado.Esta separación funciona porque el límite respeta operaciones lineales.\n\n: cuando una función es la suma o resta de dos funciones con límites conocidos, el resultado es predecible sin necesidad de combinar las funciones antes.\n\nRestar un límite negativo: cuando sustituyes :,eso se convierte en $+2$.\n\nno en $-2$.\n\nEse cambio de signo es lo que lleva la respuesta de $6$ a $8$.\n\nsin él obtendrías algo completamente distinto.",
     "reviewed": false,
     "tags": [
       "propiedades-suma-escalar"
