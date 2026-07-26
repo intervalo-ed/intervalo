@@ -113,7 +113,7 @@
       -4,
       2
     ],
-    "explanation": "Cuando una función se estabiliza en una altura negativa, la **asíntota horizontal** sigue siendo una recta $y=L$, solo que con $L$ negativo. El signo no cambia el método de lectura, se sigue mirando el comportamiento en ambos extremos del gráfico.\n$$x \\to \\pm\\infty \\ \\Rightarrow \\ f(x) \\to -2$$\nUn error frecuente es leer solo la magnitud de la altura y olvidar el signo negativo al escribir la ecuación de la recta.",
+    "explanation": "Cuando una función se estabiliza en una altura negativa, la **asíntota horizontal** sigue siendo una recta $y=L$, solo que con $L$ negativo. El signo no cambia el método de lectura, se sigue mirando el comportamiento en ambos extremos del gráfico.\n$$x \\to \\pm\\infty \\ \\Rightarrow \\ f(x) \\to -2$$\nLeer solo la magnitud de la altura da un número sin signo, como 2, pero los extremos muestran claramente que la altura es negativa, no positiva.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-horizontal"
@@ -169,7 +169,7 @@
       -1,
       4
     ],
-    "explanation": "Una **asíntota horizontal** describe el comportamiento en los extremos de la gráfica, no una barrera que la curva no puede cruzar. Es común que una función cruce su propia asíntota horizontal en la zona central, mientras se sigue acercando a ella hacia $x \\to \\pm\\infty$.\n$$x \\to \\pm\\infty \\ \\Rightarrow \\ f(x) \\to 2, \\text{ aunque cruce } y=2 \\text{ en el medio}$$\nConfundir la asíntota con una cota infranqueable es un error clásico, la definición solo habla del comportamiento en los extremos.",
+    "explanation": "Una **asíntota horizontal** describe el comportamiento en los extremos de la gráfica, no una barrera que la curva no puede cruzar. Es común que una función cruce su propia asíntota horizontal en la zona central, mientras se sigue acercando a ella hacia $x \\to \\pm\\infty$.\n$$x \\to \\pm\\infty \\ \\Rightarrow \\ f(x) \\to 2, \\text{ aunque cruce } y=2 \\text{ en el medio}$$\nSi confundís la asíntota con una barrera infranqueable, vas a descartar cualquier función que cruce esa altura en el medio, pero eso no afecta la definición de asíntota horizontal.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-horizontal"
@@ -345,7 +345,7 @@
       -1,
       10
     ],
-    "explanation": "La **asimetría en el infinito** es típica de funciones exponenciales crecientes: los dos extremos se comportan de forma radicalmente distinta. Un extremo alcanza una **asíntota horizontal**, mientras el otro diverge sin freno.\n\nEn una función exponencial creciente, la diferencia de comportamiento entre extremos es la norma, no la excepción. Hacia $x \\to -\\infty$ la curva se aplasta hacia $0$, mientras que hacia $x \\to +\\infty$ se dispara sin cota. \nAsumir que ambos extremos se comportan igual es un error frecuente al leer gráficas de funciones exponenciales.",
+    "explanation": "La **asimetría en el infinito** es típica de funciones exponenciales crecientes: los dos extremos se comportan de forma radicalmente distinta. Un extremo alcanza una **asíntota horizontal**, mientras el otro diverge sin freno.\n\nEn una función exponencial creciente, la diferencia de comportamiento entre extremos es la norma, no la excepción. Hacia $x \\to -\\infty$ la curva se aplasta hacia $0$, mientras que hacia $x \\to +\\infty$ se dispara sin cota. \nPensar que ambos extremos se comportan igual lleva a errores graves al leer gráficas exponenciales; hay que observar el comportamiento en cada lado del gráfico por separado.",
     "reviewed": false,
     "tags": [
       "asimetria-en-el-infinito"

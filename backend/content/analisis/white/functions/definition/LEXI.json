@@ -484,7 +484,7 @@
     "options": [
       "La cantidad de bloques $m$",
       "Los 2 kg originales de la caja",
-      "El peso total $W$ siempre según la regla"
+      "El peso total $W$ siempre"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -506,7 +506,7 @@
     "question": "Un ciclista pedalea a ritmo constante de 18 km/h. La distancia alcanzada en $t$ horas es $$d(t) = 18t$$ ¿Cuál es la variable **independiente**?",
     "options": [
       "La distancia $d$",
-      "El tiempo $t$ siempre según la regla",
+      "El tiempo $t$ siempre",
       "La velocidad fija de 18 km/h"
     ],
     "correct_index": 1,
@@ -932,7 +932,7 @@
     "question": "Una función transforma cada número en su cubo. Al evaluar el 3 se obtiene 27. $$f(3) = 27$$ ¿Qué sería el 27 respecto del 3 en este caso?",
     "options": [
       "El dominio puntual",
-      "La imagen según la propiedad",
+      "La imagen",
       "La preimagen"
     ],
     "correct_index": 1,
@@ -979,7 +979,7 @@
     "options": [
       "Una preimagen de $-2$",
       "El dominio de la regla",
-      "La imagen de $-2$ siempre según la regla"
+      "La imagen de $-2$ siempre"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -1001,7 +1001,7 @@
     "question": "Una función transforma cada número en su doble. Por ejemplo, al evaluar el 6 resulta 12. $$f(6) = 12$$ ¿Qué sería el 12 respecto del 6 en este caso?",
     "options": [
       "La preimagen de 6",
-      "La imagen de 6 según la regla",
+      "La imagen de 6",
       "El dominio de la regla"
     ],
     "correct_index": 1,

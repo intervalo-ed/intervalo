@@ -60,7 +60,7 @@
     "options": [
       "Sí, es tangente",
       "No, es secante",
-      "No"
+      "No, no en general"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -144,7 +144,7 @@
     "options": [
       "Sí, es tangente",
       "No, es secante",
-      "No"
+      "No, no en general"
     ],
     "correct_index": 2,
     "has_math": true,

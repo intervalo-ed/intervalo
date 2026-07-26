@@ -854,7 +854,7 @@
     "question": "¿A qué familia pertenece $f(x) = \\sqrt{x}$?",
     "options": [
       "Lineal",
-      "Raíz",
+      "Raíz de la función",
       "Cuadrática",
       "Constante"
     ],

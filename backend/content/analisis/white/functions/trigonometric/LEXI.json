@@ -343,7 +343,7 @@
     "question": "En la función $f(x) = A\\,\\operatorname{sen}(x)$, ¿qué determina el parámetro $|A|$?",
     "options": [
       "El período de la oscilación",
-      "La amplitud (valor máximo)",
+      "La amplitud",
       "El desplazamiento horizontal",
       "El desplazamiento vertical"
     ],
@@ -1219,7 +1219,7 @@
     "options": [
       "Sí, en $x = k\\pi$",
       "Sí, en $x = \\pi/2 + 2k\\pi$",
-      "No",
+      "No, no en general",
       "Sí, en $x = -\\pi/2 + 2k\\pi$"
     ],
     "correct_index": 2,

@@ -368,7 +368,7 @@
     "question": "¿Qué hace la curva de un polinomio en una raíz simple?",
     "options": [
       "Toca el eje $x$ sin cruzarlo",
-      "Cruza el eje $x$ siempre según la regla",
+      "Cruza el eje $x$ siempre",
       "Tiene un máximo local",
       "Tiene un mínimo local"
     ],
@@ -1219,7 +1219,7 @@
     "options": [
       "$x = 1$ es una raíz simple",
       "$x = 1$ es una raíz doble",
-      "$x = 1$ es una raíz según la regla",
+      "$x = 1$ es una raíz",
       "$x = 1$ es un máximo local"
     ],
     "correct_index": 2,
