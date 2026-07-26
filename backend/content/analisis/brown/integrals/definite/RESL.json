@@ -343,7 +343,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Sustituimos $u=\\sin x$, con $du=\\cos x\\,dx$.\n\ny **actualizamos los límites**: $u(0)=0$, $u(\\pi/2)=1$.\n$$\\begin{aligned} \\int_0^{\\pi/2} \\sin x\\cos x\\,dx &= \\int_0^1 u\\,du \\\\ &= \\left[\\frac{u^2}{2}\\right]_0^1 \\\\ &= \\frac{1}{2} \\end{aligned}$$\nActualizar los límites a valores simples de $u$, entre $0$ y\n$$1$$\n.\n\ndeja una integral mucho más sencilla que la original en $x$.",
+    "explanation": "Sustituimos $u=\\sin x$, con $du=\\cos x\\,dx$.\n\ny **actualizamos los límites**: $u(0)=0$, $u(\\pi/2)=1$.\n$$\\begin{aligned} \\int_0^{\\pi/2} \\sin x\\cos x\\,dx &= \\int_0^1 u\\,du \\\\ &= \\left[\\frac{u^2}{2}\\right]_0^1 \\\\ &= \\frac{1}{2} \\end{aligned}$$\nActualizar los límites a valores simples de $u$, entre $0$ y.\n$$1$$\n.\n\ndeja una integral mucho más sencilla que la original en $x$.",
     "reviewed": false,
     "tags": [
       "barrow-con-sustitucion-y-partes"

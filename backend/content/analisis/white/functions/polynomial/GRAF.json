@@ -405,7 +405,7 @@
       "La curva sí atraviesa el eje horizontal en varios puntos visibles.",
       null
     ],
-    "explanation": "Un polinomio de grado $4$ puede tener entre $0$ \n\ny $4$ raíces reales.\n\ndependiendo de cuántas de sus raíces sean números reales y cuántas resulten complejas.\n\nque siempre aparecen en pares conjugados.\n\nContando los puntos donde la curva **cruza** el eje $x$: $x = -2$.\n\n$x = -1$.\n\n$x = 1$ y $x = 2$.\n\nse llega a **4 raíces reales**.\n\ntodas simples porque la curva atraviesa el eje en cada una.\n\nEste gráfico muestra el máximo posible de raíces reales para un polinomio de grado $4$.\n\nConviene revisar los cuatro cruces con cuidado, especialmente los más cercanos a los bordes del gráfico, para no perder ninguno en el conteo.",
+    "explanation": "Un polinomio de grado $4$ puede tener entre $0$.\n\ny $4$ raíces reales.\n\ndependiendo de cuántas de sus raíces sean números reales y cuántas resulten complejas.\n\nque siempre aparecen en pares conjugados.\n\nContando los puntos donde la curva **cruza** el eje $x$: $x = -2$.\n\n$x = -1$.\n\n$x = 1$ y $x = 2$.\n\nse llega a **4 raíces reales**.\n\ntodas simples porque la curva atraviesa el eje en cada una.\n\nEste gráfico muestra el máximo posible de raíces reales para un polinomio de grado $4$.\n\nConviene revisar los cuatro cruces con cuidado, especialmente los más cercanos a los bordes del gráfico, para no perder ninguno en el conteo.",
     "has_math": true,
     "graph_fn": "(pow(x,2)-1)*(pow(x,2)-4)/4",
     "graph_view": [
@@ -675,7 +675,7 @@
       "La curva también está dibujada para valores negativos de $x$, revisá el lado izquierdo del gráfico.",
       "La curva sigue extendiéndose hacia ambos bordes del gráfico sin cortarse."
     ],
-    "explanation": "Un **polinomio de grado impar** como $f(x) = x^3/8$ tendrá siempre un comportamiento donde va desde $-\\infty$ \n\nhasta $+\\infty$ (o viceversa si el coeficiente principal es negativo).\n\nEl término de mayor potencia domina el comportamiento en los extremos.\n\nPara $f(x) = x^3/8$: cuando $x \\to -\\infty$.\n\nel término $x^3$ es negativo y muy grande en magnitud.\n\nasí que $f(x) \\to -\\infty$.\n\nCuando $x \\to +\\infty$.\n\nel término $x^3$ es positivo y muy grande.\n\nasí que $f(x) \\to +\\infty$.\n\nEsto significa que la gráfica sube desde abajo a la izquierda y continúa subiendo hacia arriba a la derecha.\n\nPor la continuidad del polinomio, debe cruzar el eje $X$ al menos una vez, lo que corresponde a la raíz $x = 0$ que está en el origen.",
+    "explanation": "Un **polinomio de grado impar** como $f(x) = x^3/8$ tendrá siempre un comportamiento donde va desde $-\\infty$.\n\nhasta $+\\infty$ (o viceversa si el coeficiente principal es negativo).\n\nEl término de mayor potencia domina el comportamiento en los extremos.\n\nPara $f(x) = x^3/8$: cuando $x \\to -\\infty$.\n\nel término $x^3$ es negativo y muy grande en magnitud.\n\nasí que $f(x) \\to -\\infty$.\n\nCuando $x \\to +\\infty$.\n\nel término $x^3$ es positivo y muy grande.\n\nasí que $f(x) \\to +\\infty$.\n\nEsto significa que la gráfica sube desde abajo a la izquierda y continúa subiendo hacia arriba a la derecha.\n\nPor la continuidad del polinomio, debe cruzar el eje $X$ al menos una vez, lo que corresponde a la raíz $x = 0$ que está en el origen.",
     "has_math": true,
     "graph_fn": "pow(x,3)/8",
     "graph_view": [
@@ -795,7 +795,7 @@
       "Mirá hacia dónde apunta la curva en el extremo derecho del gráfico, sube, no baja.",
       "Contá todos los puntos donde la curva cruza el eje, a esta expresión le falta una raíz."
     ],
-    "explanation": "Raíces $r_1 = -1$.\n\n$r_2 = 0$.\n\n$r_3 = 3$ → factores $(x - (-1)) = (x+1)$.\n\n$x$.\n\n$(x-3)$.\n\nLa forma factorizada con coef. $a = 1/5$ (escala):\n$$f(x) = \\frac{(x+1) \\cdot x \\cdot (x-3)}{5}$$\nError clásico: invertir signos dentro de los factores.\n\nRaíz $-1$ da factor $(x+1)$.\n\nno $(x-1)$; raíz $3$ \n\nda factor $(x-3)$.\n\nno $(x+3)$.",
+    "explanation": "Raíces $r_1 = -1$.\n\n$r_2 = 0$.\n\n$r_3 = 3$ → factores $(x - (-1)) = (x+1)$.\n\n$x$.\n\n$(x-3)$.\n\nLa forma factorizada con coef. $a = 1/5$ (escala):\n$$f(x) = \\frac{(x+1) \\cdot x \\cdot (x-3)}{5}$$\nError clásico: invertir signos dentro de los factores.\n\nRaíz $-1$ da factor $(x+1)$.\n\nno $(x-1)$; raíz $3$.\n\nda factor $(x-3)$.\n\nno $(x+3)$.",
     "has_math": true,
     "graph_fn": "(x+1)*x*(x-3)/5",
     "graph_view": [
@@ -1035,7 +1035,7 @@
       "Fijate en qué valores exactos del eje la curva toca cero.",
       "Revisá con cuidado los signos de los puntos donde la curva cruza el eje."
     ],
-    "explanation": "En la forma factorizada de un polinomio, cada raíz $r$ da lugar a un factor $(x-r)$, y el signo del coeficiente que multiplica todo el producto determina si la curva sube o baja en cada extremo.\n\nRaíces $-1$.\n\n$0$.\n\n$2$ dan los factores $(x+1)$.\n\n$x$.\n\n$(x-2)$.\n\nCon coeficiente negativo:\n\nLa curva baja a la derecha, confirmando el coeficiente negativo, y en $x = 0$ se cumple $f(0) = 0$ porque esa raíz forma parte del producto.\n\ninvertir el signo dentro de alguno de los factores.\n\npor ejemplo escribir $(x-1)$ en lugar de $(x+1)$ \n\npara la raíz $-1$.\n\nConviene siempre verificar cada factor evaluando la fórmula en su raíz correspondiente.",
+    "explanation": "En la forma factorizada de un polinomio, cada raíz $r$ da lugar a un factor $(x-r)$, y el signo del coeficiente que multiplica todo el producto determina si la curva sube o baja en cada extremo.\n\nRaíces $-1$.\n\n$0$.\n\n$2$ dan los factores $(x+1)$.\n\n$x$.\n\n$(x-2)$.\n\nCon coeficiente negativo:\n\nLa curva baja a la derecha, confirmando el coeficiente negativo, y en $x = 0$ se cumple $f(0) = 0$ porque esa raíz forma parte del producto.\n\ninvertir el signo dentro de alguno de los factores.\n\npor ejemplo escribir $(x-1)$ en lugar de $(x+1)$.\n\npara la raíz $-1$.\n\nConviene siempre verificar cada factor evaluando la fórmula en su raíz correspondiente.",
     "has_math": true,
     "graph_fn": "-(x+1)*x*(x-2)/4",
     "graph_view": [
@@ -1335,7 +1335,7 @@
       "El mínimo global se evalúa en todo el dominio de la función, no solo en la parte del año que se graficó.",
       "La existencia de mínimo global depende del grado y el signo del coeficiente principal, no de las raíces del modelo."
     ],
-    "explanation": "Como modelo matemático, un polinomio de grado 4 con coeficiente principal negativo tiene ambos extremos apuntando hacia $-\\infty$ cuando $x \\to \\pm\\infty$..\n\nEsto significa que matemáticamente no existe un mínimo global: conforme te alejas arbitrariamente en cualquier dirección, la temperatura modelada desciende indefinidamente.\n\nEn la práctica, el modelo es válido solo dentro del rango de datos históricos para el año en cuestión.\n\nFuera de ese rango, la función polinómica sigue sus propias leyes matemáticas, que pueden no corresponder a la realidad física.\n\nMatemáticamente, sin restricción de dominio, no hay piso: el modelo nunca alcanza un valor mínimo absoluto.\n\nEsta diferencia entre el comportamiento matemático de la función y su validez práctica como modelo real es crucial para interpretar resultados correctamente",
+    "explanation": "Como modelo matemático, un polinomio de grado 4 con coeficiente principal negativo tiene ambos extremos apuntando hacia $-\\infty$ cuando $x \\to \\pm\\infty$..\n\nEsto significa que matemáticamente no existe un mínimo global: conforme te alejas arbitrariamente en cualquier dirección, la temperatura modelada desciende indefinidamente.\n\nEn la práctica, el modelo es válido solo dentro del rango de datos históricos para el año en cuestión.\n\nFuera de ese rango, la función polinómica sigue sus propias leyes matemáticas, que pueden no corresponder a la realidad física.\n\nMatemáticamente, sin restricción de dominio, no hay piso: el modelo nunca alcanza un valor mínimo absoluto.\n\nEsta diferencia entre el comportamiento matemático de la función y su validez práctica como modelo real es crucial para interpretar resultados correctamente.",
     "has_math": true,
     "graph_fn": "-(pow(x,2)-1)*(pow(x,2)-4)/4",
     "graph_view": [

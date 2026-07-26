@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un producto entre una potencia y un binomio, conviene distribuir antes de integrar cada término por separado. En este caso, $x^2(x-4) = x^3 - 4x^2$..\n\nLa distribución descompone el producto en dos términos simples que pueden integrarse usando la regla de la potencia de forma inmediata, sin necesidad de ninguna fórmula especial para productos.\n\nLa reescritura de expresiones es una habilidad algebraica fundamental que acelera los cálculos de integrales y reduce errores de cálculo.\n\nAplicar álgebra antes de integrar es siempre preferible a intentar aplicar reglas de integración sobre expresiones no simplificadas",
+    "explanation": "Con un producto entre una potencia y un binomio, conviene distribuir antes de integrar cada término por separado. En este caso, $x^2(x-4) = x^3 - 4x^2$..\n\nLa distribución descompone el producto en dos términos simples que pueden integrarse usando la regla de la potencia de forma inmediata, sin necesidad de ninguna fórmula especial para productos.\n\nLa reescritura de expresiones es una habilidad algebraica fundamental que acelera los cálculos de integrales y reduce errores de cálculo.\n\nAplicar álgebra antes de integrar es siempre preferible a intentar aplicar reglas de integración sobre expresiones no simplificadas.",
     "reviewed": false,
     "tags": [
       "reescritura-potencias-y-raices"
@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En una raíz de índice $n$ sobre una potencia $x^m$.\n\nel exponente fraccionario resultante tiene $m$ arriba y $n$ abajo.\n\nInvertir esta fracción es un error frecuente, conviene recordar que el índice de la raíz siempre va en el denominador del exponente.\n\nReescribir $\\frac{1}{x^2}$ como $x^{-2}$ \n\nte permite usar la fórmula de potencia $\\int x^n\\,dx = \\frac{x^{n+1}}{n+1} + C$ (siempre que $n \\neq -1$).\n\nAquí $n = -2$, así que la integral es $\\frac{x^{-1}}{-1} = -\\frac{1}{x}$.\n\nEste patrón de reescritura es tan útil que conviene practicarlo hasta automatizarlo antes de enfrentar expresiones complicadas con múltiples términos.",
+    "explanation": "En una raíz de índice $n$ sobre una potencia $x^m$.\n\nel exponente fraccionario resultante tiene $m$ arriba y $n$ abajo.\n\nInvertir esta fracción es un error frecuente, conviene recordar que el índice de la raíz siempre va en el denominador del exponente.\n\nReescribir $\\frac{1}{x^2}$ como $x^{-2}$.\n\nte permite usar la fórmula de potencia $\\int x^n\\,dx = \\frac{x^{n+1}}{n+1} + C$ (siempre que $n \\neq -1$).\n\nAquí $n = -2$, así que la integral es $\\frac{x^{-1}}{-1} = -\\frac{1}{x}$.\n\nEste patrón de reescritura es tan útil que conviene practicarlo hasta automatizarlo antes de enfrentar expresiones complicadas con múltiples términos.",
     "reviewed": false,
     "tags": [
       "expansion-distribucion-obligatoria"
@@ -315,7 +315,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con una raíz cuarta sobre $x^3$, el exponente fraccionario resultante conserva el mismo patrón, potencia arriba, índice abajo.\n\nEste patrón se aplica exactamente igual sin importar qué índice o qué potencia aparezcan dentro de la raíz.\n\nReescribir $\\frac{1}{x^2}$ como $x^{-2}$ \n\nte permite usar la fórmula de potencia $\\int x^n\\,dx = \\frac{x^{n+1}}{n+1} + C$ (siempre que $n \\neq -1$).\n\nAquí $n = -2$, así que la integral es $\\frac{x^{-1}}{-1} = -\\frac{1}{x}$.\n\nEste patrón de reescritura es tan útil que conviene practicarlo hasta automatizarlo antes de enfrentar expresiones complicadas con múltiples términos.",
+    "explanation": "Con una raíz cuarta sobre $x^3$, el exponente fraccionario resultante conserva el mismo patrón, potencia arriba, índice abajo.\n\nEste patrón se aplica exactamente igual sin importar qué índice o qué potencia aparezcan dentro de la raíz.\n\nReescribir $\\frac{1}{x^2}$ como $x^{-2}$.\n\nte permite usar la fórmula de potencia $\\int x^n\\,dx = \\frac{x^{n+1}}{n+1} + C$ (siempre que $n \\neq -1$).\n\nAquí $n = -2$, así que la integral es $\\frac{x^{-1}}{-1} = -\\frac{1}{x}$.\n\nEste patrón de reescritura es tan útil que conviene practicarlo hasta automatizarlo antes de enfrentar expresiones complicadas con múltiples términos.",
     "reviewed": false,
     "tags": [
       "concepto-primitiva-traslacion-geometrica"
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Este es el caso más simple de reescritura, una fracción con potencia cuadrada en el denominador.\n\nPracticar este patrón con exponentes chicos ayuda a automatizarlo antes de aplicarlo en expresiones más largas con varios términos.\n\nReescribir $\\frac{1}{x^2}$ como $x^{-2}$ \n\nte permite usar la fórmula de potencia $\\int x^n\\,dx = \\frac{x^{n+1}}{n+1} + C$ (siempre que $n \\neq -1$).\n\nAquí $n = -2$, así que la integral es $\\frac{x^{-1}}{-1} = -\\frac{1}{x}$.\n\nEste patrón de reescritura es tan útil que conviene practicarlo hasta automatizarlo antes de enfrentar expresiones complicadas con múltiples términos.",
+    "explanation": "Este es el caso más simple de reescritura, una fracción con potencia cuadrada en el denominador.\n\nPracticar este patrón con exponentes chicos ayuda a automatizarlo antes de aplicarlo en expresiones más largas con varios términos.\n\nReescribir $\\frac{1}{x^2}$ como $x^{-2}$.\n\nte permite usar la fórmula de potencia $\\int x^n\\,dx = \\frac{x^{n+1}}{n+1} + C$ (siempre que $n \\neq -1$).\n\nAquí $n = -2$, así que la integral es $\\frac{x^{-1}}{-1} = -\\frac{1}{x}$.\n\nEste patrón de reescritura es tan útil que conviene practicarlo hasta automatizarlo antes de enfrentar expresiones complicadas con múltiples términos.",
     "reviewed": false,
     "tags": [
       "extraccion-separacion-terminos"

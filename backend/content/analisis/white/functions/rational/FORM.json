@@ -1008,7 +1008,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de evaluar, revisa si el denominador se anula. Factorizando: $\\frac{x^2-25}{x-5}=\\frac{(x-5)(x+5)}{x-5}=x+5$ para todo $x\\neq5$.\n\nEn $x=5$ el denominador original es cero, hay un agujero: $f(5)$ no está definida. El límite cuando \n$$x\\to5$$ es 10, pero confundir el límite con el valor puntual es un error clásico.",
+    "explanation": "Antes de evaluar, revisa si el denominador se anula. Factorizando: $\\frac{x^2-25}{x-5}=\\frac{(x-5)(x+5)}{x-5}=x+5$ para todo $x\\neq5$.\n\nEn $x=5$ el denominador original es cero, hay un agujero: $f(5)$ no está definida. El límite cuando.\n$$x\\to5$$ es 10, pero confundir el límite con el valor puntual es un error clásico.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual"

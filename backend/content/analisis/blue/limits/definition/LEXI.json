@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **límite** formaliza la idea de **tendencia**: describe qué pasa con $f(x)$ a medida que $x$ \n\ntoma valores cada vez más próximos a un número $a$\n\n, sin necesitar que $x$ llegue a valer exactamente $a$.\n\nEsta separación entre el proceso (acercamiento) y el destino (número $L$) es el corazón de la noción.\n\nEn.\n$$\\lim_{x \\to 3} f(x)$$\n, la flecha $\\to$ indica que se evalúa \n$$f$$ en valores como \n$$2{,}9$$.\n\n$2{,}99$, $2{,}999$.\n\n$3{,}01$, cada vez más cercanos a $3$, y se observa a qué número se acerca el resultado.\n\n, sin necesidad de calcular $f(3).\n$$.\n\nEl proceso de acercamiento es lo central, no el punto exacto.\n\nAsí entonces, la flecha \nX \\to a$ nunca significa $x = a$, siempre describe un movimiento hacia sin llegar al punto.",
+    "explanation": "El **límite** formaliza la idea de **tendencia**: describe qué pasa con $f(x)$ a medida que $x$ \n\ntoma valores cada vez más próximos a un número $a$\n\n, sin necesitar que $x$ llegue a valer exactamente $a$.\n\nEsta separación entre el proceso (acercamiento) y el destino (número $L$) es el corazón de la noción.\n\nEn.\n$$\\lim_{x \\to 3} f(x)$$\n, la flecha $\\to$ indica que se evalúa.\n$$f$$ en valores como \n$$2{,}9$$.\n\n$2{,}99$, $2{,}999$.\n\n$3{,}01$, cada vez más cercanos a $3$, y se observa a qué número se acerca el resultado.\n\n, sin necesidad de calcular $f(3).\n$$.\n\nEl proceso de acercamiento es lo central, no el punto exacto.\n\nAsí entonces, la flecha \nX \\to a$ nunca significa $x = a$, siempre describe un movimiento hacia sin llegar al punto.",
     "reviewed": false,
     "tags": [
       "lectura-notacion"
@@ -177,7 +177,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando una función es **continua** en un punto, el valor al que se aproxima en el entorno coincide exactamente con su evaluación en ese punto.\n\nLa continuidad es la condición bajo la cual ambos conceptos concuerdan.\n\nEn.\n$$f(x)=x^2$$\n, a medida que \nX$ se acerca a $3\n$$, $$f(x)$ se acerca a $9$.\n\ny además $f(3)=9$ coincide con esa tendencia, sin huecos ni redefiniciones que rompan la igualdad.\n\nLa cercanía en el entorno refleja lo que pasa en el punto, por eso coinciden.\n\nEsta coincidencia no es automática en toda función, solo ocurre cuando no hay huecos, saltos ni puntos redefinidos.\n\nPor eso conviene no asumir que límite y evaluación son siempre lo mismo sin chequear si hay continuidad.",
+    "explanation": "Cuando una función es **continua** en un punto, el valor al que se aproxima en el entorno coincide exactamente con su evaluación en ese punto.\n\nLa continuidad es la condición bajo la cual ambos conceptos concuerdan.\n\nEn.\n$$f(x)=x^2$$\n, a medida que \nX$ se acerca a $3.\n$$, $$f(x)$ se acerca a $9$.\n\ny además $f(3)=9$ coincide con esa tendencia, sin huecos ni redefiniciones que rompan la igualdad.\n\nLa cercanía en el entorno refleja lo que pasa en el punto, por eso coinciden.\n\nEsta coincidencia no es automática en toda función, solo ocurre cuando no hay huecos, saltos ni puntos redefinidos.\n\nPor eso conviene no asumir que límite y evaluación son siempre lo mismo sin chequear si hay continuidad.",
     "reviewed": false,
     "tags": [
       "independencia-limite-valor"
