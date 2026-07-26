@@ -953,7 +953,7 @@
       -4,
       6
     ],
-    "explanation": "El logaritmo $\\log_b(x)$ es la operación inversa de la exponencial $b^y = x$.\n\nPregunta: ¿a qué potencia debo elevar $b$ para obtener $x$? La respuesta es $\\log_b(x)$.\n\nEl dominio es solo los positivos: $x > 0$. No existen logaritmos de números negativos ni de cero.\n\nEl rango es todos los reales: el logaritmo puede dar cualquier valor. La asíntota vertical está en $x = 0$.",
+    "explanation": "El logaritmo $\\log_b(x)$ es la operación inversa de la exponencial $b^y = x$.\n\nPregunta: ¿a qué potencia debo elevar $b$ para obtener $x$?\n\nLa respuesta es $\\log_b(x)$.\n\nEl dominio es solo los positivos: $x > 0$. No existen logaritmos de números negativos ni de cero.\n\nEl rango es todos los reales: el logaritmo puede dar cualquier valor. La asíntota vertical está en $x = 0$.",
     "reviewed": false,
     "tags": [
       "lectura-asintota"

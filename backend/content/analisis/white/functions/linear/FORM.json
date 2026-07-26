@@ -388,7 +388,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Pasar por el origen significa que la recta corta el eje vertical en $(0, 0)$: la ordenada al origen es $b = 0$. Subir 3 unidades por cada unidad de avance es la pendiente $m = 3$.\n\nSustituyendo en el molde:$$y = 3x + 0 = 3x$$La ecuación es $y = 3x$, una relación de proporcionalidad directa.\n\nCuando el valor inicial es cero, el término independiente desaparece de la fórmula: no lo reemplaces por otro número ni muevas la pendiente a ese lugar.",
+    "explanation": "Pasar por el origen significa que la recta corta el eje vertical en $(0, 0)$: la ordenada al origen es $b = 0$.\n\nSubir 3 unidades por cada unidad de avance es la pendiente $m = 3$.\n\nSustituyendo en el molde:$$y = 3x + 0 = 3x$$La ecuación es $y = 3x$, una relación de proporcionalidad directa.\n\nCuando el valor inicial es cero, el término independiente desaparece de la fórmula: no lo reemplaces por otro número ni muevas la pendiente a ese lugar.",
     "reviewed": false,
     "tags": [
       "armar-formula-puntos"
@@ -1188,7 +1188,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "**Derivación:**\n$m = (10-4)/(3-0) = 2$\n\nLa pendiente sale del cociente de variaciones entre los dos puntos:$$m = \\frac{10 - 4}{3 - 0} = \\frac{6}{3} = 2$$La recta sube de a 2 por unidad.\n\nComo uno de los puntos es $(0, 4)$, la ordenada al origen se lee directo: $b = 4$. La ecuación queda $f(x) = 2x + 4$.\n\nVerificá con el segundo punto antes de responder: $f(3) = 2 \\cdot 3 + 4 = 10$. Si la opción elegida no reproduce ambos puntos, los parámetros están cruzados.",
+    "explanation": "**Derivación:**\n$m = (10-4)/(3-0) = 2$\n\nLa pendiente sale del cociente de variaciones entre los dos puntos:$$m = \\frac{10 - 4}{3 - 0} = \\frac{6}{3} = 2$$La recta sube de a 2 por unidad.\n\nComo uno de los puntos es $(0, 4)$, la ordenada al origen se lee directo: $b = 4$.\n\nLa ecuación queda $f(x) = 2x + 4$.\n\nVerificá con el segundo punto antes de responder: $f(3) = 2 \\cdot 3 + 4 = 10$. Si la opción elegida no reproduce ambos puntos, los parámetros están cruzados.",
     "reviewed": false,
     "tags": [
       "armar-formula-puntos"

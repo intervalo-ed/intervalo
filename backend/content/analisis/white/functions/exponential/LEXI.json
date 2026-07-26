@@ -98,7 +98,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El comportamiento de $f(x) = b^x$ depende completamente de la **base** $b$:\n$$b > 1 \\implies \\text{función creciente} \\quad (\\text{ej.: } 2^x,\\; 3^x,\\; e^x)$$\nAl aumentar $x$, se multiplica por $b > 1$ repetidamente, lo que genera **crecimiento exponencial**. Cuando $x \\to +\\infty$, $f(x) \\to +\\infty$; cuando $x \\to -\\infty$, $f(x) \\to 0^+$.",
+    "explanation": "El comportamiento de $f(x) = b^x$ depende completamente de la **base** $b$:\n$$b > 1 \\implies \\text{función creciente} \\quad (\\text{ej.: } 2^x,\\; 3^x,\\; e^x)$$\nAl aumentar $x$, se multiplica por $b > 1$ repetidamente, lo que genera **crecimiento exponencial**.\n\nCuando $x \\to +\\infty$, $f(x) \\to +\\infty$; cuando $x \\to -\\infty$, $f(x) \\to 0^+$.",
     "reviewed": false,
     "tags": [
       "monotonia-segun-base"
@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La regla es simple: una exponencial $b^x$ es creciente si y solo si $b > 1$.\n$$\\begin{aligned} 3^x: \\\\ b &= 3 > 1 \\implies \\text{creciente} \\checkmark \\end{aligned}$$\nLas otras opciones tienen **bases** menores que 1 ($0{,}2$; $0{,}9$; $1/3$), por lo que son todas decrecientes. Incluso $0{,}9$, que parece cercano a 1, genera decrecimiento, aunque lento.",
+    "explanation": "La regla es simple: una exponencial $b^x$ es creciente si y solo si $b > 1$.\n$$\\begin{aligned} 3^x: \\\\ b &= 3 > 1 \\implies \\text{creciente} \\checkmark \\end{aligned}$$\nLas otras opciones tienen **bases** menores que 1 ($0{,}2$; $0{,}9$; $1/3$), por lo que son todas decrecientes.\n\nIncluso $0{,}9$, que parece cercano a 1, genera decrecimiento, aunque lento.",
     "reviewed": false,
     "tags": [
       "sin-raices-reales"
@@ -408,7 +408,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En el modelo $f(t) = P_0 \\cdot b^t$, la **tasa de crecimiento por período** es:\n$$r = b - 1$$\nCon $b = 1{,}3$: $r = 1{,}3 - 1 = 0{,}3 = 30\\%$.\n\nInterpretación: cada período, el valor se multiplica por $1{,}3$, es decir, aumenta un $30\\%$. Si $b = 0{,}8$, la tasa sería $-20\\%$ (decae un $20\\%$ por período).",
+    "explanation": "En el modelo $f(t) = P_0 \\cdot b^t$, la **tasa de crecimiento por período** es:\n$$r = b - 1$$\nCon $b = 1{,}3$: $r = 1{,}3 - 1 = 0{,}3 = 30\\%$.\n\nInterpretación: cada período, el valor se multiplica por $1{,}3$, es decir, aumenta un $30\\%$.\n\nSi $b = 0{,}8$, la tasa sería $-20\\%$ (decae un $20\\%$ por período).",
     "reviewed": false,
     "tags": [
       "imagen-desplazamiento-vertical"
@@ -583,7 +583,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Al restar una constante al exponente ($x - h$), la curva se desplaza **horizontalmente** en la dirección opuesta al signo:\n$$g(x) = 2^{x-3} = f(x-3)$$Esta transformación representa un desplazamiento de 3 unidades a la derecha. Verificación.\n\n$g(3) = 2^0 = 1 = f(0)$. El punto $(0, 1)$ de $f$ pasó al punto $(3, 1)$ de $g$.",
+    "explanation": "Al restar una constante al exponente ($x - h$), la curva se desplaza **horizontalmente** en la dirección opuesta al signo:\n$$g(x) = 2^{x-3} = f(x-3)$$Esta transformación representa un desplazamiento de 3 unidades a la derecha. Verificación.\n\n$g(3) = 2^0 = 1 = f(0)$.\n\nEl punto $(0, 1)$ de $f$ pasó al punto $(3, 1)$ de $g$.",
     "reviewed": false,
     "tags": [
       "numero-e-concepto"
@@ -683,7 +683,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Reflexión vertical: multiplicar por $-1$ invierte el signo de todos los valores.\n$$f(x) = 2^x > 0 \\implies g(x) = -2^x < 0 \\text{ para todo } x$$\nLa **imagen** es $(-\\infty, 0)$: siempre negativa, con **asíntota horizontal** $y = 0$ por abajo. Nota: se excluye el $0$ porque $-2^x$ se acerca a $0$ pero nunca llega.",
+    "explanation": "Reflexión vertical: multiplicar por $-1$ invierte el signo de todos los valores.\n$$f(x) = 2^x > 0 \\implies g(x) = -2^x < 0 \\text{ para todo } x$$\nLa **imagen** es $(-\\infty, 0)$: siempre negativa, con **asíntota horizontal** $y = 0$ por abajo.\n\nNota: se excluye el $0$ porque $-2^x$ se acerca a $0$ pero nunca llega.",
     "reviewed": false,
     "tags": [
       "resolver-ecuacion-exponencial-simple"
@@ -758,7 +758,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función exponencial $f(x) = b^x$ con base $b > 0, b \\neq 1$ está definida para todos los valores reales de $x$.\n\nEl dominio es todo $\\mathbb{R}$. Podemos elevar la base a cualquier exponente: entero, fraccionario, irracional, negativo, etc.\n\nEl rango (salida) depende del signo y el valor de la base. Si $b > 1$, el rango es $(0, \\infty)$ (todos los positivos). Si $0 < b < 1$, también es $(0, \\infty)$.",
+    "explanation": "Una función exponencial $f(x) = b^x$ con base $b > 0, b \\neq 1$ está definida para todos los valores reales de $x$.\n\nEl dominio es todo $\\mathbb{R}$. Podemos elevar la base a cualquier exponente: entero, fraccionario, irracional, negativo, etc.\n\nEl rango (salida) depende del signo y el valor de la base. Si $b > 1$, el rango es $(0, \\infty)$ (todos los positivos).\n\nSi $0 < b < 1$, también es $(0, \\infty)$.",
     "reviewed": false,
     "tags": [
       "transformacion-horizontal"

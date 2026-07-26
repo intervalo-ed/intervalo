@@ -48,7 +48,7 @@
       -6,
       6
     ],
-    "explanation": "Las **asíntotas** son rectas a las que la curva se acerca cada vez más sin llegar nunca a tocarlas. En una función racional aparecen de dos tipos.\n\nLa asíntota vertical, en los valores de $x$ donde el denominador se anula (ahí la función se dispara hacia $+\\infty$ o $-\\infty$),.\n\nLa asíntota horizontal, que describe el valor al que se acerca la función cuando $x\\to\\pm\\infty$. En la gráfica de $\\frac{x+1}{x-2}$ se ve la rama vertical en $x=2$ y la aproximación horizontal en $y=1$.\n\nNo hay que confundirlas con tangentes, que sí tocan la curva.",
+    "explanation": "Las **asíntotas** son rectas a las que la curva se acerca cada vez más sin llegar nunca a tocarlas. En una función racional aparecen de dos tipos.\n\nLa asíntota vertical, en los valores de $x$ donde el denominador se anula (ahí la función se dispara hacia $+\\infty$ o $-\\infty$),.\n\nLa asíntota horizontal, que describe el valor al que se acerca la función cuando $x\\to\\pm\\infty$.\n\nEn la gráfica de $\\frac{x+1}{x-2}$ se ve la rama vertical en $x=2$ y la aproximación horizontal en $y=1$.\n\nNo hay que confundirlas con tangentes, que sí tocan la curva.",
     "reviewed": false,
     "tags": [
       "asintota-oblicua"
@@ -178,7 +178,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **asíntota horizontal** describe el valor al que se acerca la función cuando $x\\to\\pm\\infty$. Se determina comparando los grados de numerador.\n\nDenominador: si el del numerador es menor, la función tiende a $0$. En $f(x)=\\frac{1}{x}$, el numerador tiene grado $0$ y el denominador grado $1$, así que la asíntota horizontal es $y=0$.\n\nNo hay que confundirla con la asíntota vertical, que en este caso está en $x=0$.",
+    "explanation": "La **asíntota horizontal** describe el valor al que se acerca la función cuando $x\\to\\pm\\infty$. Se determina comparando los grados de numerador.\n\nDenominador: si el del numerador es menor, la función tiende a $0$.\n\nEn $f(x)=\\frac{1}{x}$, el numerador tiene grado $0$ y el denominador grado $1$, así que la asíntota horizontal es $y=0$.\n\nNo hay que confundirla con la asíntota vertical, que en este caso está en $x=0$.",
     "reviewed": false,
     "tags": [
       "agujero-vs-asintota"
@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función racional** puede combinar dos tipos de asíntotas a la vez: la asíntota vertical, en los ceros del denominador (donde la función se dispara al infinito),.\n\nLa asíntota horizontal, que describe el comportamiento cuando $x\\to\\pm\\infty$. Por ejemplo, $f(x)=\\frac{1}{x-2}$ tiene asíntota vertical en $x=2$ y asíntota horizontal en $y=0$ simultáneamente.\n\nNo son excluyentes entre sí, y la mayoría de las racionales presentan ambas.",
+    "explanation": "Una **función racional** puede combinar dos tipos de asíntotas a la vez: la asíntota vertical, en los ceros del denominador (donde la función se dispara al infinito),.\n\nLa asíntota horizontal, que describe el comportamiento cuando $x\\to\\pm\\infty$.\n\nPor ejemplo, $f(x)=\\frac{1}{x-2}$ tiene asíntota vertical en $x=2$ y asíntota horizontal en $y=0$ simultáneamente.\n\nNo son excluyentes entre sí, y la mayoría de las racionales presentan ambas.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal"
@@ -383,7 +383,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una asíntota vertical ocurre donde el denominador de una función racional se anula pero el numerador no.\n\nCuando $x$ se aproxima a ese punto, la función diverge a infinito. Por ejemplo, en $f(x) = \\frac{1}{x-3}$, hay una asíntota en $x = 3$.\n\nLa gráfica se aproxima indefinidamente a la línea vertical $x = 3$ sin poder cruzarla ni tocarla. Hay discontinuidad en ese punto.",
+    "explanation": "Una asíntota vertical ocurre donde el denominador de una función racional se anula pero el numerador no.\n\nCuando $x$ se aproxima a ese punto, la función diverge a infinito.\n\nPor ejemplo, en $f(x) = \\frac{1}{x-3}$, hay una asíntota en $x = 3$.\n\nLa gráfica se aproxima indefinidamente a la línea vertical $x = 3$ sin poder cruzarla ni tocarla. Hay discontinuidad en ese punto.",
     "reviewed": false,
     "tags": [
       "cuadrantes-ramas"
@@ -483,7 +483,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El intercepto con el eje $Y$ de cualquier función se calcula evaluando $f(0)$. Para $f(x)=\\frac{x+3}{x-1}$.\n\n$f(0)=\\frac{0+3}{0-1}=\\frac{3}{-1}=-3$. El resultado da negativo porque el denominador queda negativo al evaluar en $0$, aunque el numerador sea positivo.\n\nEste intercepto solo dejaría de existir si el denominador se anulara justo en $x=0$, que no es el caso aquí.",
+    "explanation": "El intercepto con el eje $Y$ de cualquier función se calcula evaluando $f(0)$.\n\nPara $f(x)=\\frac{x+3}{x-1}$.\n\n$f(0)=\\frac{0+3}{0-1}=\\frac{3}{-1}=-3$. El resultado da negativo porque el denominador queda negativo al evaluar en $0$, aunque el numerador sea positivo.\n\nEste intercepto solo dejaría de existir si el denominador se anulara justo en $x=0$, que no es el caso aquí.",
     "reviewed": false,
     "tags": [
       "comportamiento-en-infinito"
@@ -583,7 +583,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para determinar si una función es par o impar se compara $f(-x)$ con $f(x)$. En $f(x)=\\frac{1}{x}$.\n\n$f(-x)=\\frac{1}{-x}=-\\frac{1}{x}=-f(x)$. Como se cumple $f(-x)=-f(x)$, la función es impar, no par (que requeriría $f(-x)=f(x)$).\n\nEsta simetría impar se ve en la gráfica: la hipérbola es simétrica respecto al origen, con las ramas en el primer y tercer cuadrante.",
+    "explanation": "Para determinar si una función es par o impar se compara $f(-x)$ con $f(x)$.\n\nEn $f(x)=\\frac{1}{x}$.\n\n$f(-x)=\\frac{1}{-x}=-\\frac{1}{x}=-f(x)$.\n\nComo se cumple $f(-x)=-f(x)$, la función es impar, no par (que requeriría $f(-x)=f(x)$).\n\nEsta simetría impar se ve en la gráfica: la hipérbola es simétrica respecto al origen, con las ramas en el primer y tercer cuadrante.",
     "reviewed": false,
     "tags": [
       "paridad-funcion"
@@ -658,7 +658,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para analizar el comportamiento cerca de una asíntota vertical, observa qué sucede cuando $x$ se acerca desde ambos lados.\n\nCuando $x \\to a^-$ (desde la izquierda), el denominador tiende a cero con un signo. El resultado es $\\infty$ o $-\\infty$ según ese signo.\n\nCuando $x \\to a^+$ (desde la derecha), el signo del denominador es el opuesto, así que el resultado tiene el signo opuesto también.",
+    "explanation": "Para analizar el comportamiento cerca de una asíntota vertical, observa qué sucede cuando $x$ se acerca desde ambos lados.\n\nCuando $x \\to a^-$ (desde la izquierda), el denominador tiende a cero con un signo.\n\nEl resultado es $\\infty$ o $-\\infty$ según ese signo.\n\nCuando $x \\to a^+$ (desde la derecha), el signo del denominador es el opuesto, así que el resultado tiene el signo opuesto también.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes"
@@ -683,7 +683,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cerca de una **asíntota vertical**, el signo de la función depende del lado por el que se aproxima $x$. En $f(x)=\\frac{1}{x-2}$, si $x\\to2^-$ (por la izquierda), el denominador $x-2$ es negativo.\n\nMuy chico en valor absoluto, $x-2\\to0^-$. La fracción $\\frac{1}{x-2}$ tiende entonces a $-\\infty$.\n\nPor eso la rama izquierda de la gráfica baja sin límite hacia abajo, en espejo con lo que ocurre del lado derecho.",
+    "explanation": "Cerca de una **asíntota vertical**, el signo de la función depende del lado por el que se aproxima $x$.\n\nEn $f(x)=\\frac{1}{x-2}$, si $x\\to2^-$ (por la izquierda), el denominador $x-2$ es negativo.\n\nMuy chico en valor absoluto, $x-2\\to0^-$.\n\nLa fracción $\\frac{1}{x-2}$ tiende entonces a $-\\infty$.\n\nPor eso la rama izquierda de la gráfica baja sin límite hacia abajo, en espejo con lo que ocurre del lado derecho.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes"
@@ -758,7 +758,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Reemplazar $x$ por $x-3$ dentro de una función produce un desplazamiento horizontal.\n\nLa curva se mueve $3$ unidades hacia la derecha. En $f(x)=\\frac{1}{x-3}$ respecto a $g(x)=\\frac{1}{x}$, la asíntota vertical se traslada de $x=0$ a $x=3$,.\n\nToda la forma de la curva viaja con ella.\n\nUn desplazamiento vertical, en cambio, se produce sumando o restando una constante fuera de la fracción, no dentro del denominador.",
+    "explanation": "Reemplazar $x$ por $x-3$ dentro de una función produce un desplazamiento horizontal.\n\nLa curva se mueve $3$ unidades hacia la derecha.\n\nEn $f(x)=\\frac{1}{x-3}$ respecto a $g(x)=\\frac{1}{x}$, la asíntota vertical se traslada de $x=0$ a $x=3$,.\n\nToda la forma de la curva viaja con ella.\n\nUn desplazamiento vertical, en cambio, se produce sumando o restando una constante fuera de la fracción, no dentro del denominador.",
     "reviewed": false,
     "tags": [
       "cuadrantes-ramas"
@@ -783,7 +783,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Sumar una constante fuera de la fracción desplaza toda la curva verticalmente. En $f(x)=\\frac{1}{x}+2$ respecto a $g(x)=\\frac{1}{x}$, cada valor de $g$ queda desplazado $2$ unidades hacia arriba,.\n\nLa asíntota horizontal pasa de $y=0$ a $y=2$. La asíntota vertical, en cambio, sigue en $x=0$ porque el denominador no cambió.\n\nEsto contrasta con modificar $x$ dentro del denominador, que produciría un desplazamiento horizontal.",
+    "explanation": "Sumar una constante fuera de la fracción desplaza toda la curva verticalmente. En $f(x)=\\frac{1}{x}+2$ respecto a $g(x)=\\frac{1}{x}$, cada valor de $g$ queda desplazado $2$ unidades hacia arriba,.\n\nLa asíntota horizontal pasa de $y=0$ a $y=2$.\n\nLa asíntota vertical, en cambio, sigue en $x=0$ porque el denominador no cambió.\n\nEsto contrasta con modificar $x$ dentro del denominador, que produciría un desplazamiento horizontal.",
     "reviewed": false,
     "tags": [
       "continuidad-en-dominio"
@@ -883,7 +883,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el grado del numerador es exactamente uno más que el del denominador, aparece una **asíntota oblicua** en vez de horizontal.\n\nPara $f(x)=\\frac{x^2+1}{x}$, dividiendo se obtiene $f(x)=x+\\frac{1}{x}$. Cuando $x\\to\\pm\\infty$, el resto $\\frac{1}{x}\\to0$.\n\nLa función se acerca cada vez más a la recta $y=x$.\n\nEsa recta, obtenida del cociente de la división, es la asíntota oblicua.",
+    "explanation": "Cuando el grado del numerador es exactamente uno más que el del denominador, aparece una **asíntota oblicua** en vez de horizontal.\n\nPara $f(x)=\\frac{x^2+1}{x}$, dividiendo se obtiene $f(x)=x+\\frac{1}{x}$.\n\nCuando $x\\to\\pm\\infty$, el resto $\\frac{1}{x}\\to0$.\n\nLa función se acerca cada vez más a la recta $y=x$.\n\nEsa recta, obtenida del cociente de la división, es la asíntota oblicua.",
     "reviewed": false,
     "tags": [
       "asintota-vertical"
@@ -958,7 +958,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de $f(x)=\\frac{k}{x-a}+b$ con $k\\neq0$ es todo $\\mathbb{R}$ salvo el valor $b$. Para cualquier $y\\neq b$ siempre existe algún $x$ que cumple $f(x)=y$,.\n\nLlegar a $f(x)=b$ requeriría $\\frac{k}{x-a}=0$, ecuación sin solución cuando $k\\neq0$.\n\nPor eso $b$ (el valor de la asíntota horizontal) queda excluido de la imagen, mientras que $a$ es el valor excluido del dominio.",
+    "explanation": "La **imagen** de $f(x)=\\frac{k}{x-a}+b$ con $k\\neq0$ es todo $\\mathbb{R}$ salvo el valor $b$.\n\nPara cualquier $y\\neq b$ siempre existe algún $x$ que cumple $f(x)=y$,.\n\nLlegar a $f(x)=b$ requeriría $\\frac{k}{x-a}=0$, ecuación sin solución cuando $k\\neq0$.\n\nPor eso $b$ (el valor de la asíntota horizontal) queda excluido de la imagen, mientras que $a$ es el valor excluido del dominio.",
     "reviewed": false,
     "tags": [
       "reconocimiento-funcion-racional"
@@ -1133,7 +1133,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para $f(x)=\\frac{1}{x}$, tanto el **dominio** como la **imagen** son $\\mathbb{R}\\setminus\\{0\\}$.\n\nEl dominio excluye $x=0$ porque ahí se anula el denominador. La imagen también excluye $0$, porque $\\frac{1}{x}=0$ no tiene ninguna solución.\n\nLa fracción nunca llega a valer cero, solo se acerca cada vez más.\n\nQue dominio e imagen coincidan acá es una particularidad de $1/x$, no algo garantizado para toda racional.",
+    "explanation": "Para $f(x)=\\frac{1}{x}$, tanto el **dominio** como la **imagen** son $\\mathbb{R}\\setminus\\{0\\}$.\n\nEl dominio excluye $x=0$ porque ahí se anula el denominador.\n\nLa imagen también excluye $0$, porque $\\frac{1}{x}=0$ no tiene ninguna solución.\n\nLa fracción nunca llega a valer cero, solo se acerca cada vez más.\n\nQue dominio e imagen coincidan acá es una particularidad de $1/x$, no algo garantizado para toda racional.",
     "reviewed": false,
     "tags": [
       "asintota-vertical"
@@ -1233,7 +1233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando $P(c)=0$ y $Q(c)=0$, el factor $(x-c)$ aparece en ambos polinomios. Tras cancelar ese factor común, la función está definida cerca de $c$.\n\nNo en $c$ mismo: hay un **agujero** (discontinuidad evitable), no una asíntota. Ejemplo: $\\frac{x-c}{x-c}=1$ para $x\\neq c$, pero no está definida en $c$.\n\nLo importante es distinguir entre asíntota (donde la función se dispara al infinito) y agujero (donde ambos numerador y denominador se anulan simultáneamente).",
+    "explanation": "Cuando $P(c)=0$ y $Q(c)=0$, el factor $(x-c)$ aparece en ambos polinomios.\n\nTras cancelar ese factor común, la función está definida cerca de $c$.\n\nNo en $c$ mismo: hay un **agujero** (discontinuidad evitable), no una asíntota.\n\nEjemplo: $\\frac{x-c}{x-c}=1$ para $x\\neq c$, pero no está definida en $c$.\n\nLo importante es distinguir entre asíntota (donde la función se dispara al infinito) y agujero (donde ambos numerador y denominador se anulan simultáneamente).",
     "reviewed": false,
     "tags": [
       "dominio-restriccion"
@@ -1258,7 +1258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Afirmaciones falsas: pueden tener 0, 1, 2, ...\n\n**asíntotas verticales** (no siempre exactamente una). La **imagen** no siempre es $\\mathbb{R}$ (por ejemplo $\\frac{1}{x^2+1}$ tiene imagen $(0,1]$). Sí pueden cruzar el eje $X$ cuando el numerador tiene raíces.\n\nLo verdadero es que son **continuas en su dominio**.",
+    "explanation": "Afirmaciones falsas: pueden tener 0, 1, 2, ...\n\n**asíntotas verticales** (no siempre exactamente una). La **imagen** no siempre es $\\mathbb{R}$ (por ejemplo $\\frac{1}{x^2+1}$ tiene imagen $(0,1]$).\n\nSí pueden cruzar el eje $X$ cuando el numerador tiene raíces.\n\nLo verdadero es que son **continuas en su dominio**.",
     "reviewed": false,
     "tags": [
       "cuadrantes-ramas"

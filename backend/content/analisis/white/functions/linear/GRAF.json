@@ -66,7 +66,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma canónica $f(x) = mx + b$, el coeficiente $m$ que multiplica a $x$ es la **pendiente**. Mide la tasa de cambio de la función:\n$$m = \\frac{\\Delta y}{\\Delta x}$$\nEs decir, cuántas unidades varía $f(x)$ cuando $x$ aumenta una unidad.\n\nEl otro parámetro, $b$, es la **ordenada al origen**: el valor $f(0)$, donde la recta corta el eje $Y$. Juntos, $m$.\n\n$b$ determinan por completo la recta.\n\nPara no mezclarlos, mirá qué acompaña a cada número: el que multiplica a la variable es la pendiente; el que está solo es la ordenada al origen.",
+    "explanation": "En la forma canónica $f(x) = mx + b$, el coeficiente $m$ que multiplica a $x$ es la **pendiente**. Mide la tasa de cambio de la función:\n$$m = \\frac{\\Delta y}{\\Delta x}$$\nEs decir, cuántas unidades varía $f(x)$ cuando $x$ aumenta una unidad.\n\nEl otro parámetro, $b$, es la **ordenada al origen**: el valor $f(0)$, donde la recta corta el eje $Y$.\n\nJuntos, $m$.\n\n$b$ determinan por completo la recta.\n\nPara no mezclarlos, mirá qué acompaña a cada número: el que multiplica a la variable es la pendiente; el que está solo es la ordenada al origen.",
     "reviewed": false,
     "tags": [
       "nombre-parametros"
@@ -89,7 +89,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma $f(x) = mx + b$, el término independiente $b$ se llama **ordenada al origen**. Es el valor que toma la función cuando $x = 0$:\n$$f(0) = m \\cdot 0 + b = b$$\nY geométricamente es el punto $(0, b)$ donde la recta corta el eje $Y$.\n\nNo importa cómo esté escrita la función: $b$ siempre es la constante que no tiene $x$ al lado.\n\nTenés que verificar que con cruzarla con la raíz: la ordenada al origen corta el eje vertical; la raíz, el horizontal.",
+    "explanation": "En la forma $f(x) = mx + b$, el término independiente $b$ se llama **ordenada al origen**.\n\nEs el valor que toma la función cuando $x = 0$:\n$$f(0) = m \\cdot 0 + b = b$$\nY geométricamente es el punto $(0, b)$ donde la recta corta el eje $Y$.\n\nNo importa cómo esté escrita la función: $b$ siempre es la constante que no tiene $x$ al lado.\n\nTenés que verificar que con cruzarla con la raíz: la ordenada al origen corta el eje vertical; la raíz, el horizontal.",
     "reviewed": false,
     "tags": [
       "nombre-parametros"
@@ -356,7 +356,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de una función es el conjunto de valores que efectivamente salen de ella.\n\nEn $f(x) = 5$ la salida es siempre $5$, sin importar qué entrada uses: $f(0) = 5$, $f(100) = 5$, $f(-3) = 5$. Por eso la imagen es el conjunto unitario $\\{5\\}$.\n\nNo la mezcles con el **dominio**: la función acepta cualquier real como entrada, pero produce una única salida. Con $m = 0$ la imagen colapsa a un punto.",
+    "explanation": "La **imagen** de una función es el conjunto de valores que efectivamente salen de ella.\n\nEn $f(x) = 5$ la salida es siempre $5$, sin importar qué entrada uses: $f(0) = 5$, $f(100) = 5$, $f(-3) = 5$.\n\nPor eso la imagen es el conjunto unitario $\\{5\\}$.\n\nNo la mezcles con el **dominio**: la función acepta cualquier real como entrada, pero produce una única salida. Con $m = 0$ la imagen colapsa a un punto.",
     "reviewed": false,
     "tags": [
       "dominio-imagen"
@@ -427,7 +427,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El valor de $x$ donde la función vale cero se llama raíz (o cero) de la función. Para una lineal $f(x) = mx + b$ con $m \\neq 0$:\n$$mx + b = 0 \\implies x = -\\frac{b}{m}$$\nY geométricamente la recta corta el eje $X$ en el punto $(-b/m, 0)$.\n\nLa raíz es un número, el valor de $x$; el punto del plano es el par $(-b/m, 0)$.\n\nNo la mezcles con la **ordenada al origen**, que es el corte con el eje $Y$: cada corte tiene su nombre y su eje.",
+    "explanation": "El valor de $x$ donde la función vale cero se llama raíz (o cero) de la función.\n\nPara una lineal $f(x) = mx + b$ con $m \\neq 0$:\n$$mx + b = 0 \\implies x = -\\frac{b}{m}$$\nY geométricamente la recta corta el eje $X$ en el punto $(-b/m, 0)$.\n\nLa raíz es un número, el valor de $x$; el punto del plano es el par $(-b/m, 0)$.\n\nNo la mezcles con la **ordenada al origen**, que es el corte con el eje $Y$: cada corte tiene su nombre y su eje.",
     "reviewed": false,
     "tags": [
       "propiedades-generales"
@@ -669,7 +669,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "**Derivación:**\n$3x - 9 = 0 \\implies x = 3$\n\nLa raíz de una función es el valor de $x$ donde $f(x) = 0$. Para $f(x) = 3x - 9$:\n$$3x - 9 = 0 \\implies 3x = 9 \\implies x = 3$$\nVerificación: $f(3) = 3 \\cdot 3 - 9 = 0$.\n\nLa fórmula general para una lineal es $x = -b/m$; acá $x = -(-9)/3 = 3$.\n\nEste razonamiento muestra que de signo al pasar el término restando y de división: dividí siempre el término independiente cambiado de signo por el coeficiente de $x$.",
+    "explanation": "**Derivación:**\n$3x - 9 = 0 \\implies x = 3$\n\nLa raíz de una función es el valor de $x$ donde $f(x) = 0$.\n\nPara $f(x) = 3x - 9$:\n$$3x - 9 = 0 \\implies 3x = 9 \\implies x = 3$$\nVerificación: $f(3) = 3 \\cdot 3 - 9 = 0$.\n\nLa fórmula general para una lineal es $x = -b/m$; acá $x = -(-9)/3 = 3$.\n\nEste razonamiento muestra que de signo al pasar el término restando y de división: dividí siempre el término independiente cambiado de signo por el coeficiente de $x$.",
     "reviewed": false,
     "tags": [
       "raiz-calculo"
@@ -1084,7 +1084,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "**Datos usados:**\n$y = 2x$ $b = 0$ $y = 2x + 3$ $b = 3$ $m$\n\nAmbas rectas comparten la **pendiente** $m = 2$: tienen exactamente la misma inclinación. Lo que cambia es la **ordenada al origen**: $y = 2x$ pasa por $(0, 0)$.\n\n$y = 2x + 3$ pasa por $(0, 3)$.\n\nGeométricamente, la segunda es la primera desplazada 3 unidades hacia arriba. Al tener igual pendiente, son paralelas: nunca se cruzan.\n\nSumar una constante nunca cambia la inclinación de una recta; solo la traslada verticalmente. Empinar requiere tocar el coeficiente de $x$.",
+    "explanation": "**Datos usados:**\n$y = 2x$ $b = 0$ $y = 2x + 3$ $b = 3$ $m$\n\nAmbas rectas comparten la **pendiente** $m = 2$: tienen exactamente la misma inclinación.\n\nLo que cambia es la **ordenada al origen**: $y = 2x$ pasa por $(0, 0)$.\n\n$y = 2x + 3$ pasa por $(0, 3)$.\n\nGeométricamente, la segunda es la primera desplazada 3 unidades hacia arriba. Al tener igual pendiente, son paralelas: nunca se cruzan.\n\nSumar una constante nunca cambia la inclinación de una recta; solo la traslada verticalmente. Empinar requiere tocar el coeficiente de $x$.",
     "reviewed": false,
     "tags": [
       "nombre-parametros"
@@ -1180,7 +1180,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Evaluando la función en los extremos del **dominio** restringido:\n$$\\begin{aligned} f(1) &= -2 \\cdot 1 + 5 = 3 \\\\ f(3) &= -2 \\cdot 3 + 5 = -1 \\end{aligned}$$\nComo $f$ es decreciente ($m = -2 < 0$), el extremo izquierdo da el valor más alto. La **imagen** es $[-1, 3]$.\n\nEl intervalo imagen se escribe siempre de menor a mayor, aunque la función lo recorra al revés.\n\nCon **pendiente** negativa, no asumas que $f(1) < f(3)$: la monotonía invierte el orden de los extremos.",
+    "explanation": "Evaluando la función en los extremos del **dominio** restringido:\n$$\\begin{aligned} f(1) &= -2 \\cdot 1 + 5 = 3 \\\\ f(3) &= -2 \\cdot 3 + 5 = -1 \\end{aligned}$$\nComo $f$ es decreciente ($m = -2 < 0$), el extremo izquierdo da el valor más alto.\n\nLa **imagen** es $[-1, 3]$.\n\nEl intervalo imagen se escribe siempre de menor a mayor, aunque la función lo recorra al revés.\n\nCon **pendiente** negativa, no asumas que $f(1) < f(3)$: la monotonía invierte el orden de los extremos.",
     "reviewed": false,
     "tags": [
       "dominio-imagen"

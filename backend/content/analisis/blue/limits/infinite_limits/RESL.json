@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando una potencia es impar, el signo de $x$ importa: números negativos elevados a potencias impares siguen siendo negativos.\n\nEsta es la razón por la que $\\lim_{x \\to -\\infty}$ de un monomio de grado impar diverge hacia $-\\infty$, no $+\\infty$.\n\nCuando el numerador tiene grado mayor, conviene simplificar al término dominante para identificar la potencia resultante y su paridad.$$\\begin{aligned} \\lim_{x \\to -\\infty} \\frac{x^4-3x}{x+2} &\\approx \\lim_{x \\to -\\infty} \\frac{x^4}{x} \\\\ &= \\lim_{x \\to -\\infty} x^3 = -\\infty \\end{aligned}$$Como la potencia resultante es $3$ (impar) y el coeficiente es positivo, cruzar con $x \\to -\\infty$ da $-\\infty$. Con potencia par, el signo de $x$ no importaría.",
+    "explanation": "Cuando una potencia es impar, el signo de $x$ importa: números negativos elevados a potencias impares siguen siendo negativos.\n\nEsta es la razón por la que $\\lim_{x \\to -\\infty}$ de un monomio de grado impar diverge hacia $-\\infty$, no $+\\infty$.\n\nCuando el numerador tiene grado mayor, conviene simplificar al término dominante para identificar la potencia resultante y su paridad.$$\\begin{aligned} \\lim_{x \\to -\\infty} \\frac{x^4-3x}{x+2} &\\approx \\lim_{x \\to -\\infty} \\frac{x^4}{x} \\\\ &= \\lim_{x \\to -\\infty} x^3 = -\\infty \\end{aligned}$$Como la potencia resultante es $3$ (impar) y el coeficiente es positivo, cruzar con $x \\to -\\infty$ da $-\\infty$.\n\nCon potencia par, el signo de $x$ no importaría.",
     "reviewed": false,
     "tags": [
       "racionales-gana-numerador"
@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Los **límites infinitos** laterales muestran que la función no puede simplemente \"saltarse\" un punto: se ve forzada a diverger.\n\nEl signo de esa divergencia depende de hacia qué lado de cero tiende el denominador cuando $x$ se aproxima de una dirección específica.\n\nPara calcular un límite infinito cerca de una **asíntota vertical**, hay que analizar el signo del denominador cuando se acerca a $0$ desde la dirección indicada.$$x \\to 2^+ \\ \\Rightarrow \\ x - 2 \\to 0^+$$Como el numerador es positivo y el denominador tiende a $0^+$, el cociente completo diverge a $+\\infty$. Cruzar el signo del numerador con el signo del $0$ lateral es el paso clave de este cálculo.",
+    "explanation": "Los **límites infinitos** laterales muestran que la función no puede simplemente \"saltarse\" un punto: se ve forzada a diverger.\n\nEl signo de esa divergencia depende de hacia qué lado de cero tiende el denominador cuando $x$ se aproxima de una dirección específica.\n\nPara calcular un límite infinito cerca de una **asíntota vertical**, hay que analizar el signo del denominador cuando se acerca a $0$ desde la dirección indicada.$$x \\to 2^+ \\ \\Rightarrow \\ x - 2 \\to 0^+$$Como el numerador es positivo y el denominador tiende a $0^+$, el cociente completo diverge a $+\\infty$.\n\nCruzar el signo del numerador con el signo del $0$ lateral es el paso clave de este cálculo.",
     "reviewed": false,
     "tags": [
       "calculo-asintota-vertical"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Acercarse desde la izquierda ($x \\to 2^-$) vs. desde la derecha ($x \\to 2^+$) produce resultados opuestos porque un lado del $0$ es positivo y el otro es negativo.\n\nEste cambio de signo en el denominador es lo que produce dos límites distintos que se combinan para decir que el límite bilateral no existe.\n\nCuando $x \\to 2^-$, los valores de $x$ son menores que $2$, así que $x-2$ es negativo y tiende a $0^-$.$$x \\to 2^- \\ \\Rightarrow \\ x - 2 \\to 0^-$$Con numerador positivo y denominador tendiendo a $0^-$, el cociente diverge a $-\\infty$. Este resultado, junto con el ítem anterior, muestra que el límite bilateral en $x=2$ no existe.",
+    "explanation": "Acercarse desde la izquierda ($x \\to 2^-$) vs. desde la derecha ($x \\to 2^+$) produce resultados opuestos porque un lado del $0$ es positivo y el otro es negativo.\n\nEste cambio de signo en el denominador es lo que produce dos límites distintos que se combinan para decir que el límite bilateral no existe.\n\nCuando $x \\to 2^-$, los valores de $x$ son menores que $2$, así que $x-2$ es negativo y tiende a $0^-$.$$x \\to 2^- \\ \\Rightarrow \\ x - 2 \\to 0^-$$Con numerador positivo y denominador tendiendo a $0^-$, el cociente diverge a $-\\infty$.\n\nEste resultado, junto con el ítem anterior, muestra que el límite bilateral en $x=2$ no existe.",
     "reviewed": false,
     "tags": [
       "calculo-asintota-vertical"

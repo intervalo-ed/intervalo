@@ -533,7 +533,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para escribir el dominio en notación de intervalos, primero resolvemos denominador $=0$ para saber qué punto excluir, y luego partimos la recta real en dos intervalos abiertos alrededor de ese punto.\n\nAcá el denominador es $x+4$, que se anula en $x+4=0\\Rightarrow x=-4$. El dominio es:$$\\text{Dom}(f)=\\mathbb{R}\\setminus\\{-4\\}=(-\\infty,\\,-4)\\cup(-4,\\,+\\infty)$$El punto $-4$ queda fuera de ambos intervalos, que por eso son abiertos en ese extremo. Confundir el signo del denominador llevaría a excluir $x=4$ en vez de $x=-4$.",
+    "explanation": "Para escribir el dominio en notación de intervalos, primero resolvemos denominador $=0$ para saber qué punto excluir, y luego partimos la recta real en dos intervalos abiertos alrededor de ese punto.\n\nAcá el denominador es $x+4$, que se anula en $x+4=0\\Rightarrow x=-4$. El dominio es:$$\\text{Dom}(f)=\\mathbb{R}\\setminus\\{-4\\}=(-\\infty,\\,-4)\\cup(-4,\\,+\\infty)$$El punto $-4$ queda fuera de ambos intervalos, que por eso son abiertos en ese extremo.\n\nConfundir el signo del denominador llevaría a excluir $x=4$ en vez de $x=-4$.",
     "reviewed": false,
     "tags": [
       "combinado-av-ah-valor"
@@ -1158,7 +1158,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar la constante $k$ de una función de la forma $f(x)=\\frac{k}{x+3}$, usamos el punto dado y despejamos. Sustituimos $x=1$, $f(1)=2$:$$\\frac{k}{1+3}=2 \\Rightarrow \\frac{k}{4}=2 \\Rightarrow k=8$$El valor de $k$ es $8$. quedarse en el paso intermedio $\\frac{k}{4}=2$ sin multiplicar ambos lados por $4$, o multiplicar por el valor equivocado del denominador.",
+    "explanation": "Para hallar la constante $k$ de una función de la forma $f(x)=\\frac{k}{x+3}$, usamos el punto dado y despejamos.\n\nSustituimos $x=1$, $f(1)=2$:$$\\frac{k}{1+3}=2 \\Rightarrow \\frac{k}{4}=2 \\Rightarrow k=8$$El valor de $k$ es $8$. quedarse en el paso intermedio $\\frac{k}{4}=2$ sin multiplicar ambos lados por $4$, o multiplicar por el valor equivocado del denominador.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-calculo"

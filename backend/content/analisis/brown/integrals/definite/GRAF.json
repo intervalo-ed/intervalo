@@ -53,7 +53,7 @@
       -2,
       4
     ],
-    "explanation": "Identificamos las dos regiones que separa el cruce por cero en $x=1$. El triángulo de abajo mide $\\tfrac{1}{2}\\cdot 1\\cdot 1 = 0,5$. El triángulo de arriba mide $\\tfrac{1}{2}\\cdot 3\\cdot 3 = 4,5$.\n\nEl **área neta** resulta de restar la región de abajo a la de arriba, $4,5-0,5=4$, no de sumarlas.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Identificamos las dos regiones que separa el cruce por cero en $x=1$.\n\nEl triángulo de abajo mide $\\tfrac{1}{2}\\cdot 1\\cdot 1 = 0,5$. El triángulo de arriba mide $\\tfrac{1}{2}\\cdot 3\\cdot 3 = 4,5$.\n\nEl **área neta** resulta de restar la región de abajo a la de arriba, $4,5-0,5=4$, no de sumarlas.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "lectura-area-con-signos"
