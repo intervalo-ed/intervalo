@@ -233,7 +233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "::el seno se anula en todos los **múltiplos enteros de $\\pi$**: $x=0,\\pi,2\\pi,3\\pi,\\ldots$ En $x=\\pi$ el seno completa su primer ciclo y regresa a cero.\n\nNo confundir con $\\operatorname{sen}(\\pi/2)=1$ (máximo) o $\\operatorname{sen}(3\\pi/2)=-1$ (mínimo).\n\nLos ceros del seno son exactamente en $x=k\\pi$ para todo entero $k$.",
+    "explanation": "Sumar una constante dentro del seno desplaza la onda horizontalmente (fase).\n\nSi escribimos $\\operatorname{sen}(x - c)$ donde $c > 0$, la onda se desplaza $c$ unidades hacia la derecha.\n\nLa función $f(x) = \\operatorname{sen}(2x + \\pi/4)$ tiene una fase de $-\\pi/8$ (desplazada $\\pi/8$ hacia la izquierda).\n\nImportante: la fase no cambia la amplitud ni el período; solo trasla la onda horizontalmente.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -308,7 +308,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x)=A\\,\\operatorname{sen}(x)$, la **amplitud** es $|A|$: la distancia del eje central al máximo o mínimo.\n\nEl coeficiente $A$ estira o comprime la onda verticalmente.\n\nPara $f(x)=3\\,\\operatorname{sen}(x)$: $|A|=3$.\n\nLa función oscila entre $-3$.\n\ny $3$.\n\nLa opción $1$ es la amplitud del seno sin escalar. $6$ sería la amplitud si :.$\\pi$ no es amplitud sino período.\n\nAmplitud $= |A| = 3$: tan fácil como leer el coeficiente delante del seno.\n\nNo hay trampa.",
+    "explanation": "Esta pregunta pide identificar cuál parámetro cambió entre dos senos.\n\nLas transformaciones principales son:\n- Cambiar $A$: se modifica la amplitud (altura de la onda).\n- Cambiar $B$: se modifica el período (ancho horizontal de la onda).\n- Cambiar $C$: se desplaza la onda horizontalmente (fase).\n\nLa clave es comparar los gráficos para ver cuál característica cambió.",
     "reviewed": false,
     "tags": [
       "lectura-grafico-directa-trig"
@@ -333,7 +333,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **período** de $f(x)=\\operatorname{sen}(Bx)$ es $T=2\\pi/|B|$.\n\nCon $B=4$:\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{4} \\\\\n&= \\frac{\\pi}{2}:\n\\end{aligned}$$\nLos distractores $8\\pi$.\n\ny $4\\pi$ son múltiplos de $\\pi$.\n\nno el cociente. $\\pi$ correspondería a $B=2$.\n\nCon $B=4$ el ciclo se comprime a $\\pi/2$ unidades.",
+    "explanation": "Cuando combinamos transformaciones en una función trigonométrica, el período se calcula de acuerdo a $B$.\n\nLa fórmula es: $T = \\frac{2\\pi}{|B|}$.\n\nAunque la amplitud $A$ o la fase $C$ cambien, el período depende únicamente de $B$.\n\nPor eso dos funciones pueden tener igual período pero diferente amplitud o desplazamiento.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -408,7 +408,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ángulo $\\pi/6=30°$ pertenece al triángulo $30°$-$60°$-$90°$ con proporciones :.El seno es cateto opuesto sobre hipotenusa: $\\operatorname{sen}(30°)=1/2$.\n\nTabla de valores clave:\n$\\operatorname{sen}(\\pi/6)=1/2$.\n\n$\\operatorname{sen}(\\pi/4)=\\sqrt{2}/2$.\n\n$\\operatorname{sen}(\\pi/3)=\\sqrt{3}/2$.\n\n$\\operatorname{sen}(\\pi/2)=1$.\n\n$\\operatorname{sen}(30°)=1/2$: el resultado más fácil de la tabla trigonométrica.\n\nEmpezá memorizando este.",
+    "explanation": "Coseno y seno son la misma onda, pero desfasados.\n\nSeno comienza en cero: $\\operatorname{sen}(0) = 0$.\n\nCoseno comienza en el máximo: $\\cos(0) = 1$.\n\nLa relación es: $\\cos(x) = \\operatorname{sen}(x + \\pi/2)$ (coseno es seno desplazado $\\pi/2$ hacia la izquierda).\n\nPara escribir una onda que comience en máximo, usamos coseno; para una que comience en cero, usamos seno.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -433,7 +433,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ángulo $\\pi/3=60°$ pertenece al triángulo $30°$-$60°$-$90°$ con proporciones :.El coseno es cateto adyacente sobre hipotenusa: $\\cos(60°)=1/2$.\n\nNótese la simetría: $\\cos(\\pi/3)=\\operatorname{sen}(\\pi/6)=1/2$.\n\nporque $60°$.\n\ny $30°$ son complementarios.\n\nEl distractor $\\sqrt{3}/2$ es $\\cos(\\pi/6)=\\operatorname{sen}(\\pi/3)$: el ángulo opuesto del mismo triángulo.\n\n$\\cos(60°)=1/2$: el mismo valor que $\\operatorname{sen}(30°)$.\n\nLa tabla trigonométrica tiene más simetrías que un copo de nieve.",
+    "explanation": "Comparar dos ondas significa identificar qué transformación se aplicó.\n\nDadas $f(x) = A_1 \\operatorname{sen}(B_1 x)$ y $g(x) = A_2 \\operatorname{sen}(B_2 x)$:\n\n- Si $A_1 \\neq A_2$: la amplitud cambió.\n- Si $B_1 \\neq B_2$: el período cambió.\n- Si hay desplazamiento vertical: se agregó una constante.\n\nLa clave es observar el gráfico y ver cuál aspecto (altura, ancho, posición) fue modificado.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -458,7 +458,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **período** de $f(x)=\\cos(x/3)$ se calcula con $B=1/3$ en $T=2\\pi/|B|$:\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{1/3} \\\\\n&= 6\\pi:\n\\end{aligned}$$\nLa opción $2\\pi/3$ sería con $B=3$ (no $1/3$).\n\nLa opción $2\\pi$ es el período del coseno sin modificar.\n\nLa opción $3\\pi$ sería con $B=2/3$.\n\nCon $B=1/3$ el ciclo se estira a $6\\pi\\approx18{,}85$ unidades.",
+    "explanation": "Sumar una constante $D$ a una función la desplaza verticalmente sin cambiar su forma.\n\nLa función $f(x) = \\operatorname{sen}(x) + D$ oscila entre $D-1$ y $D+1$.\n\n- Si $D > 0$: la onda se desplaza hacia arriba.\n- Si $D < 0$: la onda se desplaza hacia abajo.\n\nEl período y la amplitud no cambian; solo cambia dónde oscila la onda alrededor del eje horizontal.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -508,7 +508,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(x)-1$ se obtiene desplazando $[-1,1]$ exactamente $1$ unidad hacia abajo:\n$$\\begin{aligned}\n\\text{imagen} &= [-1-1,\\; 1-1] \\\\\n&= [-2,\\; 0]:\n\\end{aligned}$$\nLa opción $[-1,1]$ es el rango del seno sin desplazamiento. $[-2,1]$ confunde la amplitud. $[0,2]$ sería el resultado de $+1$.\n\nno $-1$.\n\nRestar $1$ baja todo el rango $1$ unidad.",
+    "explanation": "La suma de ángulos en trigonometría tiene fórmulas específicas.\n\nPara $\\operatorname{sen}(A + B)$ y $\\operatorname{sen}(A - B)$, no es simplemente $\\operatorname{sen}(A) + \\operatorname{sen}(B)$.\n\nLas fórmulas correctas son:\n$$\\operatorname{sen}(A + B) = \\operatorname{sen}(A)\\cos(B) + \\cos(A)\\operatorname{sen}(B)$$\n$$\\operatorname{sen}(A - B) = \\operatorname{sen}(A)\\cos(B) - \\cos(A)\\operatorname{sen}(B)$$\nLa suma de los argumentos NO es lo mismo que la suma de los valores.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -563,7 +563,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La función $f(x)=\\operatorname{sen}(x-\\pi)$ tiene su primer cero positivo cuando el argumento vale $0$: $x-\\pi=0\\Rightarrow x=\\pi$.\n\nEl desfase $-\\pi$ desplaza toda la curva $\\pi$ unidades a la derecha.\n\nEl cero que : tiene en $x=0$ se mueve a $x=\\pi$.Verificación: $\\operatorname{sen}(\\pi-\\pi)=\\operatorname{sen}(0)=0$ .\n\nLa onda se corrió $\\pi$ a la derecha: llegó tarde al origen, pero llegó justo a tiempo en $x=\\pi$.",
+    "explanation": "Para leer amplitud y período de un gráfico:\n\n**Amplitud**: Medir la distancia del eje central (línea horizontal media) al pico o al valle. Es el valor $A$ en $A \\operatorname{sen}(Bx)$.\n\n**Período**: Medir la distancia horizontal entre dos picos (o dos valles) consecutivos. Es el valor $T$ que satisface $T = \\frac{2\\pi}{B}$.\n\nEjemplo: si los picos están a distancia $\\pi$, entonces el período es $\\pi$, lo que significa $B=2$.",
     "reviewed": false,
     "tags": [
       "imagen-rango-form-trig"
@@ -613,7 +613,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $h(x)=3\\cos(x)-1$.\n\nel **máximo** ocurre cuando $\\cos(x)=1$:\n$$\\begin{aligned}\nh_{\\max} &= 3\\cdot1 - 1 \\\\\n&= 3 - 1 \\\\\n&= 2:\n\\end{aligned}$$\nLa opción $3$ es el valor de $3\\cos(x)$ cuando $\\cos=1$.\n\nolvidando el $-1$.\n\nLa opción $4$ usaría : en vez de $-1$.\n$$+1$$\nLa opción $-4$ es el mínimo ($3\\cdot(-1)-1=-4$).\n\nEl máximo correcto es $2$.",
+    "explanation": "Las funciones trigonométricas naturalmente tienen rango limitado.\n\nPor ejemplo, $\\operatorname{sen}(x)$ siempre toma valores entre $-1$ y $1$, para todo $x$ real.\n\nCuando multiplicamos por $A$, el rango se convierte en $[-A, A]$.\n\nSi queremos invertir una función trigonométrica, primero restringimos el dominio a un intervalo donde sea inyectiva, y luego podemos definir su inversa.",
     "reviewed": false,
     "tags": [
       "periodo-calculo-form"
