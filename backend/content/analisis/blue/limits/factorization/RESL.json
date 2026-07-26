@@ -121,7 +121,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La sustitución directa de $x=5$ da 0/0. El numerador tiene **factor común** $2x$ en ambos términos:$$\\begin{aligned} \\lim_{x \\to 5}\\frac{2x^2-10x}{x-5} &= \\lim_{x \\to 5}\\frac{2x(x-5)}{x-5} \\\\ &= \\lim_{x \\to 5}(2x) \\\\ &= 10 \\end{aligned}$$Un detalle crítico: al extraer factor común $2x$, ambos el coeficiente $2$ y la variable $x$ quedan fuera del paréntesis.\n\nMuchos olvidan el coeficiente durante la cancelación, escribiendo solo $x$ como cociente simplificado. El coeficiente $2$ no se cancela, persiste hasta la evaluación final.",
+    "explanation": "La sustitución directa de $x=5$ da 0/0. El numerador tiene **factor común** $2x$ en ambos términos:$$\\begin{aligned} \\lim_{x \\to 5}\\frac{2x^2-10x}{x-5} &= \\lim_{x \\to 5}\\frac{2x(x-5)}{x-5} \\\\ &= \\lim_{x \\to 5}(2x) \\\\ &= 10 \\end{aligned}$$Un detalle crítico: al extraer factor común $2x$, ambos el coeficiente $2$.\n\nY la variable $x$ quedan fuera del paréntesis.\n\nMuchos olvidan el coeficiente durante la cancelación, escribiendo solo $x$ como cociente simplificado. El coeficiente $2$ no se cancela, persiste hasta la evaluación final.",
     "reviewed": false
   },
   {

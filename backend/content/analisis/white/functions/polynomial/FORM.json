@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **grado** de un polinomio se obtiene inspeccionando los exponentes de todos los términos y quedándose con el mayor de ellos, sin importar el orden en que estén escritos.\n\nEn $p(x) = 4x^5 - 3x^3 + x - 7$, los exponentes de cada término son:$$\\begin{aligned} 4x^5 &\\to \\text{exponente } 5 \\\\ -3x^3 &\\to \\text{exponente } 3 \\\\ x &\\to \\text{exponente } 1 \\\\ -7 &\\to \\text{exponente } 0 \\end{aligned}$$El mayor de todos es $5$, por lo tanto $\\deg(p) = 5$ y el coeficiente principal es $4$, el número que acompaña a $x^5$.\n\ncontar la cantidad de términos en vez de mirar el exponente máximo: acá hay 4 términos pero el grado es 5, son cosas distintas.",
+    "explanation": "El **grado** de un polinomio se obtiene inspeccionando los exponentes de todos los términos y quedándose con el mayor de ellos, sin importar el orden en que estén escritos.\n\nEn $p(x) = 4x^5 - 3x^3 + x - 7$, los exponentes de cada término son:$$\\begin{aligned} 4x^5 &\\to \\text{exponente } 5 \\\\ -3x^3 &\\to \\text{exponente } 3 \\\\ x &\\to \\text{exponente } 1 \\\\ -7 &\\to \\text{exponente } 0 \\end{aligned}$$El mayor de todos es $5$, por lo tanto $\\deg(p) = 5$.\n\nY el coeficiente principal es $4$, el número que acompaña a $x^5$.\n\ncontar la cantidad de términos en vez de mirar el exponente máximo: acá hay 4 términos pero el grado es 5, son cosas distintas.",
     "reviewed": false,
     "tags": [
       "evaluar-f"

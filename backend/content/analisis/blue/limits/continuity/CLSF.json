@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función es **continua** en un punto solo si se cumplen tres condiciones a la vez: que el valor puntual esté definido, que el límite bilateral exista, y que ambos coincidan.\n\nEl límite representa el valor hacia el cual la función \"se aproxima\" cuando $x$ se acerca a $a$ desde ambos lados, independientemente de si el punto $x=a$ está definido.\n\nEn este caso el límite existe y vale $4$, pero $f(a)$ no está definida, así que falla la primera condición desde el arranque.\n\nCuando el límite existe y es finito pero el punto falta o no coincide, la falla siempre se clasifica como **removible**, porque alcanza con redefinir un único valor para arreglarla.",
+    "explanation": "Una función es **continua** en un punto solo si se cumplen tres condiciones a la vez: que el valor puntual esté definido, que el límite bilateral exista, y que ambos coincidan.\n\nEl límite representa el valor hacia el cual la función \"se aproxima\" cuando $x$ se acerca a $a$ desde ambos lados.\n\nIndependientemente de si el punto $x=a$ está definido.\n\nEn este caso el límite existe y vale $4$, pero $f(a)$ no está definida, así que falla la primera condición desde el arranque.\n\nCuando el límite existe y es finito pero el punto falta o no coincide, la falla siempre se clasifica como **removible**, porque alcanza con redefinir un único valor para arreglarla.",
     "reviewed": false,
     "tags": [
       "condiciones-formales-continuidad"

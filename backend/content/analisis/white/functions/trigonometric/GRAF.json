@@ -1403,7 +1403,7 @@
       0,
       30
     ],
-    "explanation": "Para $T(m)=8\\cos\\!\\left(\\tfrac{\\pi}{6}(m-1)\\right)+15$, en enero ($m=1$):\n$$\\begin{aligned}\nT(1) &= 8\\cos\\!\\left(\\frac{\\pi}{6}(1-1)\\right)+15 \\\\\n&= 8\\cos(0)+15 \\\\\n&= 8\\cdot1+15 \\\\\n&= 23\\,°C:\n\\end{aligned}$$En enero ($m=1$) el argumento es $0$ y el coseno vale $1$: la temperatura es el máximo del modelo, $23°C$.\n\nLa opción $15°C$ sería la temperatura media (eje de oscilación).\n\nLa opción $7°C$ sería el mínimo.",
+    "explanation": "Para $T(m)=8\\cos\\!\\left(\\tfrac{\\pi}{6}(m-1)\\right)+15$, en enero ($m=1$):\n$$\\begin{aligned}\nT(1) &= 8\\cos\\!\\left(\\frac{\\pi}{6}(1-1)\\right)+15 \\\\\n&= 8\\cos(0)+15 \\\\\n&= 8\\cdot1+15 \\\\\n&= 23\\,°C:\n\\end{aligned}$$En enero ($m=1$) el argumento es $0$.\n\nY el coseno vale $1$: la temperatura es el máximo del modelo, $23°C$.\n\nLa opción $15°C$ sería la temperatura media (eje de oscilación).\n\nLa opción $7°C$ sería el mínimo.",
     "reviewed": false,
     "tags": [
       "contexto-cotidiano-graf-trig"

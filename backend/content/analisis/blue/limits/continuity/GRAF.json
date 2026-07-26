@@ -53,7 +53,7 @@
       -1,
       7
     ],
-    "explanation": "Un **punto de quiebre** con dos ramas que llegan a alturas distintas se identifica visualmente por el corte brusco entre ambas curvas.\n\nCuando los límites laterales existen pero apuntan a valores diferentes, la función está \"dividida\" en su aproximación: no hay un único valor hacia el cual converja desde ambos lados.\n\nAcá la rama izquierda se acerca a $y=1$ y la derecha arranca en $y=4$, exactamente en $x=0$.\n\nEse salto de altura marca la falla.\n\nConviene mirar el punto exacto del corte y no un valor cercano; un tramo suave a un costado del quiebre sigue siendo perfectamente continuo.",
+    "explanation": "Un **punto de quiebre** con dos ramas que llegan a alturas distintas se identifica visualmente por el corte brusco entre ambas curvas.\n\nCuando los límites laterales existen pero apuntan a valores diferentes, la función está \"dividida\" en su aproximación: no hay un único valor hacia el cual converja desde ambos lados.\n\nAcá la rama izquierda se acerca a $y=1$ y la derecha arranca en $y=4$.\n\nExactamente en $x=0$.\n\nEse salto de altura marca la falla.\n\nConviene mirar el punto exacto del corte y no un valor cercano; un tramo suave a un costado del quiebre sigue siendo perfectamente continuo.",
     "reviewed": false,
     "tags": [
       "diagnostico-visual-falla"
