@@ -83,7 +83,7 @@
       -6,
       6
     ],
-    "explanation": "Cuando una curva escapa hacia $+\\infty$ de un lado y hacia $-\\infty$ del otro, sin llegar nunca a un valor concreto, hay una asíntota vertical en ese $x$.\n\nUna divergencia a infinito significa que el límite lateral no existe como número finito: la función \"escapa\" sin control en esa dirección.\n\nAunque sea solo en un lado, la divergencia determina que hay una discontinuidad esencial.\n\nEn $f(x) = \\dfrac{1}{x-1}$ el denominador se anula en $x=1$, y ahí la gráfica dispara ambas ramas hacia el infinito.\n\nEste tipo de ruptura es la más grave de las tres, porque ningún valor finito de $f(1)$ podría reparar el comportamiento infinito de la curva a su alrededor.",
+    "explanation": "Cuando una curva escapa hacia $+\\infty$ de un lado y hacia $-\\infty$ del otro.\n\nSin llegar nunca a un valor concreto, hay una asíntota vertical en ese $x$.\n\nUna divergencia a infinito significa que el límite lateral no existe como número finito: la función \"escapa\" sin control en esa dirección.\n\nAunque sea solo en un lado, la divergencia determina que hay una discontinuidad esencial.\n\nEn $f(x) = \\dfrac{1}{x-1}$ el denominador se anula en $x=1$, y ahí la gráfica dispara ambas ramas hacia el infinito.\n\nEste tipo de ruptura es la más grave de las tres, porque ningún valor finito de $f(1)$ podría reparar el comportamiento infinito de la curva a su alrededor.",
     "reviewed": false,
     "tags": [
       "diagnostico-visual-falla"
