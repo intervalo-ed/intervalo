@@ -854,7 +854,7 @@
     "question": "¿A qué familia pertenece $f(x) = \\sqrt{x}$?",
     "options": [
       "Raíz o cero de la función",
-      "Cero",
+      "Cero o raíz",
       "Cuadrática",
       "Constante"
     ],
@@ -1191,7 +1191,7 @@
     "options": [
       "Pasa por el origen",
       "Constante en toda la función",
-      "Constante"
+      "Cambio constante"
     ],
     "correct_index": 2,
     "has_math": true,

@@ -27,7 +27,7 @@
     "options": [
       "Diferencia de cuadrados",
       "Trinomio cuadrado perfecto",
-      "No factoriza en R"
+      "No factoriza en los reales"
     ],
     "correct_index": 2,
     "tags": [
@@ -257,7 +257,7 @@
     "options": [
       "Concluir que el límite no existe",
       "Concluir que el límite vale $0$",
-      "Factorizar"
+      "Factorizar ambos polinomios"
     ],
     "correct_index": 2,
     "tags": [

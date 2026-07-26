@@ -278,7 +278,7 @@
   {
     "question": "¿Qué ocurre con la calidad de la **aproximación lineal** de la tangente a medida que uno se aleja del punto de tangencia?",
     "options": [
-      "Error entre",
+      "El error entre rectas",
       "El error se mantiene siempre igual",
       "El error desaparece por completo"
     ],

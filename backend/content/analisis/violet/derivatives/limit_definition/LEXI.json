@@ -1,6 +1,6 @@
 [
   {
-    "question": "La **derivada** de una función en un punto se define mediante el límite:\n$\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$\n$\n¿Qué representa $h$ en esta expresión?",
+    "question": "La **derivada** de una función en un punto se define mediante el límite:\n$:$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$\n$\n¿Qué representa $h$ en esta expresión?",
     "options": [
       "El incremento que tiende a cero",
       "El punto fijo donde se calcula la derivada",
@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "La **derivada** de una función se define mediante el límite:\n$\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$\n$\n¿Qué representa $a$ en esta expresión?",
+    "question": "La **derivada** de una función se define mediante el límite:\n$:$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$\n$\n¿Qué representa $a$ en esta expresión?",
     "options": [
       "La variable independiente que recorre todo el dominio",
       "El punto fijo donde se evalúa la derivada",

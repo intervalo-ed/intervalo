@@ -26,7 +26,7 @@
     "question": "Un depósito registra en qué pasillo está cada medicamento. El medicamento con código 4 figura a la vez en el pasillo 3 y en el pasillo 7. ¿La asignación de códigos a pasillos define una función?",
     "options": [
       "Sí, un objeto puede estar en dos lugares",
-      "No",
+      "No es función",
       "No, porque hay pasillos sin medicamentos"
     ],
     "correct_index": 1,
@@ -279,7 +279,7 @@
     "question": "Un comercio aplica un descuento según el monto de compra. Las compras de \\$1000 y de \\$1200 reciben las dos el mismo cupón del 10%. $$\\begin{aligned} 1000 &\\mapsto 10\\% \\\\ 1200 &\\mapsto 10\\% \\end{aligned}$$ ¿Esta asignación define una función?",
     "options": [
       "No, dos montos distintos reciben el mismo cupón",
-      "Sí",
+      "Sí es función",
       "No, falta que cada cupón tenga un solo monto"
     ],
     "correct_index": 1,
@@ -345,7 +345,7 @@
     ]
   },
   {
-    "question": "Una panadería cobra \\$250 por factura y vende hasta 12 por cliente. El precio de $n$ facturas es $$f(n) = 250\\,n, \\qquad n \\in \\{1, \\dots, 12\\}$$ ¿Cuál de estos conjuntos es el **dominio** de $f$?",
+    "question": "Una panadería cobra \\$250 por factura y vende hasta 12 por cliente. El precio de $n$ facturas es:$$f(n) = 250\\,n, \\qquad n \\in \\{1, \\dots, 12\\}$$ ¿Cuál de estos conjuntos es el **dominio** de $f$?",
     "options": [
       "$\\{1, \\dots, 12\\}$",
       "$\\{250, \\dots, 3000\\}$",
@@ -495,7 +495,7 @@
     ]
   },
   {
-    "question": "Una función transforma $x$ según $$h(x) = \\frac{1}{2x + 4}$$ ¿Qué valor excluye el ****dominio** natural** de esta función?",
+    "question": "Una función transforma $x$ según:$$h(x) = \\frac{1}{2x + 4}$$ ¿Qué valor excluye el ****dominio** natural** de esta función?",
     "options": [
       "$x = -2$",
       "$x = 0$",
@@ -520,7 +520,7 @@
     ]
   },
   {
-    "question": "El lado de un cuadrado a partir de su área $a$, en metros cuadrados, es $$L(a) = \\sqrt{a}$$ ¿Qué condición define el ****dominio** natural** de esta función?",
+    "question": "El lado de un cuadrado a partir de su área $a$, en metros cuadrados, es:$$L(a) = \\sqrt{a}$$ ¿Qué condición define el ****dominio** natural** de esta función?",
     "options": [
       "$a \\neq 0$",
       "$a \\geq 0$",
@@ -545,7 +545,7 @@
     ]
   },
   {
-    "question": "Una función transforma $x$ según $$k(x) = \\sqrt{x + 3}$$ ¿Cuál es la restricción que define el ****dominio** natural**?",
+    "question": "Una función transforma $x$ según:$$k(x) = \\sqrt{x + 3}$$ ¿Cuál es la restricción que define el ****dominio** natural**?",
     "options": [
       "$x \\geq 3$",
       "$x \\geq 0$",
@@ -570,7 +570,7 @@
     ]
   },
   {
-    "question": "Una función transforma $x$ según $$m(x) = \\frac{1}{\\sqrt{x}}$$ ¿Cuál es el ****dominio** natural** de esta función?",
+    "question": "Una función transforma $x$ según:$$m(x) = \\frac{1}{\\sqrt{x}}$$ ¿Cuál es el ****dominio** natural** de esta función?",
     "options": [
       "$x > 0$",
       "$x \\geq 0$",
@@ -595,7 +595,7 @@
     ]
   },
   {
-    "question": "Para recorrer 60 km, el tiempo a $v$ km/h es $$t(v) = \\frac{60}{v}$$ ¿Qué condición define el ****dominio** natural**?",
+    "question": "Para recorrer 60 km, el tiempo a $v$ km/h es:$$t(v) = \\frac{60}{v}$$ ¿Qué condición define el ****dominio** natural**?",
     "options": [
       "$v \\geq 60$",
       "$v \\neq 60$",
@@ -620,7 +620,7 @@
     ]
   },
   {
-    "question": "Una función transforma $x$ según $$f(x) = \\sqrt{16 - x^2}$$ ¿Cuál es el ****dominio** natural**?",
+    "question": "Una función transforma $x$ según:$$f(x) = \\sqrt{16 - x^2}$$ ¿Cuál es el ****dominio** natural**?",
     "options": [
       "$-4 \\leq x \\leq 4$",
       "$x \\leq 4$",
@@ -645,7 +645,7 @@
     ]
   },
   {
-    "question": "Una función racional está dada por $$r(x) = \\frac{1}{x^2 - 9}$$ ¿Qué valores no están en el ****dominio** natural**?",
+    "question": "Una función racional está dada por:$$r(x) = \\frac{1}{x^2 - 9}$$ ¿Qué valores no están en el ****dominio** natural**?",
     "options": [
       "$x = 3$ y $x = -3$",
       "Solo $x = 9$",
@@ -670,7 +670,7 @@
     ]
   },
   {
-    "question": "Una función transforma $x$ según $$g(x) = \\sqrt{5 - x}$$ ¿Cuál es la restricción del ****dominio** natural**?",
+    "question": "Una función transforma $x$ según:$$g(x) = \\sqrt{5 - x}$$ ¿Cuál es la restricción del ****dominio** natural**?",
     "options": [
       "$x \\geq 5$",
       "$x \\leq 5$",
@@ -695,7 +695,7 @@
     ]
   },
   {
-    "question": "Una función transforma $x$ según $$f(x) = \\frac{x + 1}{x - 5}$$ ¿Qué valor no está en el ****dominio** natural**?",
+    "question": "Una función transforma $x$ según:$$f(x) = \\frac{x + 1}{x - 5}$$ ¿Qué valor no está en el ****dominio** natural**?",
     "options": [
       "$x = 1$",
       "$x = -1$",
@@ -720,7 +720,7 @@
     ]
   },
   {
-    "question": "El costo de $k$ kg de fruta a \\$350 el kilo es $$C(k) = 350\\,k$$ ¿Cuál es el ****dominio** natural** de esta función?",
+    "question": "El costo de $k$ kg de fruta a \\$350 el kilo es:$$C(k) = 350\\,k$$ ¿Cuál es el ****dominio** natural** de esta función?",
     "options": [
       "$k \\geq 0$",
       "$k \\geq 350$",
@@ -773,7 +773,7 @@
     "question": "Una tienda convierte medidas de cintura en tallas S, M o L. Las medidas van de 60 a 100 cm, pero en la práctica todos los clientes caen en M o L. $$T : \\{60, \\dots, 100\\} \\to \\{S, M, L\\}$$ ¿Cuál es el conjunto **imagen** de $T$?",
     "options": [
       "$\\{S, M, L\\}$",
-      "{M}",
+      "Conjunto de medicamentos",
       "$\\{60, \\dots, 100\\}$",
       "Solo la talla M"
     ],
@@ -850,7 +850,7 @@
       "$\\{1, \\dots, 20\\}$",
       "$\\{1, \\dots, 7\\}$",
       "El número $20$",
-      "{7}"
+      "Conjunto unitario"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -1024,7 +1024,7 @@
     "options": [
       "El dominio de la función",
       "El color más frecuente",
-      "Colores",
+      "Todos los colores posibles",
       "La imagen garantizada"
     ],
     "correct_index": 2,
@@ -1095,7 +1095,7 @@
     ]
   },
   {
-    "question": "Una función transforma cada número según $$f(x) = x^2 - 4$$ ¿Cuáles son las **preimágenes** del 0?",
+    "question": "Una función transforma cada número según:$$f(x) = x^2 - 4$$ ¿Cuáles son las **preimágenes** del 0?",
     "options": [
       "Solo el $2$",
       "$2$ y $-2$",
@@ -1145,7 +1145,7 @@
     ]
   },
   {
-    "question": "Una función transforma cada número según $$f(x) = x^2 + 1$$ ¿Tiene **preimagen** el valor 0?",
+    "question": "Una función transforma cada número según:$$f(x) = x^2 + 1$$ ¿Tiene **preimagen** el valor 0?",
     "options": [
       "No, porque $x^2 + 1 \\geq 1$ siempre",
       "Sí, el $0$ siempre tiene preimagen",

@@ -92,7 +92,7 @@
     ]
   },
   {
-    "question": "Una heladería cobra \\$600 por bocha y arma conos de hasta 4 bochas. El precio de $n$ bochas es $$f(n) = 600n, \\qquad n \\in \\{1,2,3,4\\}$$ ¿Cuál es el **dominio** de esta función?",
+    "question": "Una heladería cobra \\$600 por bocha y arma conos de hasta 4 bochas. El precio de $n$ bochas es:$$f(n) = 600n, \\qquad n \\in \\{1,2,3,4\\}$$ ¿Cuál es el **dominio** de esta función?",
     "options": [
       "$\\{600, 1200, 1800, 2400\\}$",
       "Todos los enteros positivos",
@@ -117,7 +117,7 @@
     ]
   },
   {
-    "question": "Repartís \\$1200 en partes iguales entre $n$ personas y cada una recibe $$f(n) = \\frac{1200}{n}$$ ¿Cuál es el **dominio** natural de esta función?",
+    "question": "Repartís \\$1200 en partes iguales entre $n$ personas y cada una recibe:$$f(n) = \\frac{1200}{n}$$ ¿Cuál es el **dominio** natural de esta función?",
     "options": [
       "$n \\geq 1$",
       "$n > 0$",
@@ -142,7 +142,7 @@
     ]
   },
   {
-    "question": "El tiempo en segundos que tarda en caer un objeto desde una altura $h$ en metros es $$t(h) = \\sqrt{\\frac{h}{5}}$$ ¿Cuál es el **dominio** natural de esta función?",
+    "question": "El tiempo en segundos que tarda en caer un objeto desde una altura $h$ en metros es:$$t(h) = \\sqrt{\\frac{h}{5}}$$ ¿Cuál es el **dominio** natural de esta función?",
     "options": [
       "$\\mathbb{R}$",
       "$h > 5$",
@@ -238,7 +238,7 @@
     ]
   },
   {
-    "question": "La velocidad promedio de un viaje de 120 km que dura $t$ horas es $$v(t) = \\frac{120}{t}$$ ¿Cuál es el **dominio** natural de esta función?",
+    "question": "La velocidad promedio de un viaje de 120 km que dura $t$ horas es:$$v(t) = \\frac{120}{t}$$ ¿Cuál es el **dominio** natural de esta función?",
     "options": [
       "$t \\geq 120$",
       "$\\mathbb{R}$",
@@ -263,7 +263,7 @@
     ]
   },
   {
-    "question": "Una función transforma cada número $x$ según $$f(x) = \\sqrt{2x - 6}$$ ¿Cuál es el **dominio** natural de esta función?",
+    "question": "Una función transforma cada número $x$ según:$$f(x) = \\sqrt{2x - 6}$$ ¿Cuál es el **dominio** natural de esta función?",
     "options": [
       "$x > 3$",
       "$x > 0$",
@@ -288,7 +288,7 @@
     ]
   },
   {
-    "question": "El costo por asistente para un alquiler de \\$4800 dividido entre $n$ personas es $$c(n) = \\frac{4800}{n}$$ ¿Cuál es el **dominio** natural de esta función?",
+    "question": "El costo por asistente para un alquiler de \\$4800 dividido entre $n$ personas es:$$c(n) = \\frac{4800}{n}$$ ¿Cuál es el **dominio** natural de esta función?",
     "options": [
       "$\\mathbb{R}$",
       "$n \\geq 1$",
@@ -338,7 +338,7 @@
     ]
   },
   {
-    "question": "Una función procesa valores según $$r(x) = \\frac{1}{x - 3}$$ ¿Cuál es el **dominio** natural de esta función?",
+    "question": "Una función procesa valores según:$$r(x) = \\frac{1}{x - 3}$$ ¿Cuál es el **dominio** natural de esta función?",
     "options": [
       "$x > 3$",
       "$\\mathbb{R}$",
@@ -363,7 +363,7 @@
     ]
   },
   {
-    "question": "El radio de una circunferencia en función de su área $A$ es $$r(A) = \\sqrt{\\frac{A}{\\pi}}$$ ¿Cuál es el **dominio** natural?",
+    "question": "El radio de una circunferencia en función de su área $A$ es:$$r(A) = \\sqrt{\\frac{A}{\\pi}}$$ ¿Cuál es el **dominio** natural?",
     "options": [
       "$A \\geq 0$",
       "$A > \\pi$",
@@ -388,7 +388,7 @@
     ]
   },
   {
-    "question": "Un taxi cobra \\$500 fijos más \\$200 por kilómetro. El total por $k$ kilómetros es $$T(k) = 500 + 200k$$ ¿Cuál es la variable **independiente**?",
+    "question": "Un taxi cobra \\$500 fijos más \\$200 por kilómetro. El total por $k$ kilómetros es:$$T(k) = 500 + 200k$$ ¿Cuál es la variable **independiente**?",
     "options": [
       "El costo total $T$",
       "La tarifa base de \\$500",
@@ -434,7 +434,7 @@
     ]
   },
   {
-    "question": "Una heladera consume 0,4 kWh por hora de uso. El consumo total tras $h$ horas es $$C(h) = 0{,}4h$$ ¿Cuál es la variable **independiente**?",
+    "question": "Una heladera consume 0,4 kWh por hora de uso. El consumo total tras $h$ horas es:$$C(h) = 0{,}4h$$ ¿Cuál es la variable **independiente**?",
     "options": [
       "Las horas de uso $h$",
       "El consumo eléctrico total $C$",
@@ -457,7 +457,7 @@
     ]
   },
   {
-    "question": "El total a pagar por $v$ litros de nafta a \\$700 el litro se calcula con $$P(v) = 700v$$ ¿Qué sería el total $P$ en este caso?",
+    "question": "El total a pagar por $v$ litros de nafta a \\$700 el litro se calcula con:$$P(v) = 700v$$ ¿Qué sería el total $P$ en este caso?",
     "options": [
       "Es un parámetro constante",
       "Es la variable dependiente",
@@ -480,7 +480,7 @@
     ]
   },
   {
-    "question": "Una caja de madera pesa 2 kg. Cada bloque que se guarda adentro pesa 0,3 kg. El peso total con $m$ bloques es $$W(m) = 2 + 0{,}3m$$ ¿Cuál es la variable **dependiente**?",
+    "question": "Una caja de madera pesa 2 kg. Cada bloque que se guarda adentro pesa 0,3 kg. El peso total con $m$ bloques es:$$W(m) = 2 + 0{,}3m$$ ¿Cuál es la variable **dependiente**?",
     "options": [
       "La cantidad de bloques $m$",
       "Los 2 kg originales de la caja",
@@ -503,7 +503,7 @@
     ]
   },
   {
-    "question": "Un ciclista pedalea a ritmo constante de 18 km/h. La distancia alcanzada en $t$ horas es $$d(t) = 18t$$ ¿Cuál es la variable **independiente**?",
+    "question": "Un ciclista pedalea a ritmo constante de 18 km/h. La distancia alcanzada en $t$ horas es:$$d(t) = 18t$$ ¿Cuál es la variable **independiente**?",
     "options": [
       "La distancia $d$",
       "El tiempo $t$ siempre",
@@ -526,7 +526,7 @@
     ]
   },
   {
-    "question": "Una tienda hace un descuento del 15% sobre el precio de lista $p$ de cualquier artículo. La rebaja es $$D(p) = 0{,}15p$$ ¿Qué representa $D$?",
+    "question": "Una tienda hace un descuento del 15% sobre el precio de lista $p$ de cualquier artículo. La rebaja es:$$D(p) = 0{,}15p$$ ¿Qué representa $D$?",
     "options": [
       "La variable dependiente",
       "La constante de proporcionalidad",
@@ -549,7 +549,7 @@
     ]
   },
   {
-    "question": "La temperatura en grados Fahrenheit a partir de los Celsius $c$ es $$F(c) = \\frac{9}{5}c + 32$$ ¿Cuál es la variable **independiente**?",
+    "question": "La temperatura en grados Fahrenheit a partir de los Celsius $c$ es:$$F(c) = \\frac{9}{5}c + 32$$ ¿Cuál es la variable **independiente**?",
     "options": [
       "Los grados Fahrenheit $F$",
       "Los grados Celsius $c$",
@@ -572,7 +572,7 @@
     ]
   },
   {
-    "question": "Una cuenta de banco otorga interés sobre un capital. El dinero extra acumulado tras $a$ años es $$I(a) = 300a$$ ¿Cuál es la variable **dependiente**?",
+    "question": "Una cuenta de banco otorga interés sobre un capital. El dinero extra acumulado tras $a$ años es:$$I(a) = 300a$$ ¿Cuál es la variable **dependiente**?",
     "options": [
       "El tiempo en años $a$",
       "La tasa constante de \\$300",
@@ -932,7 +932,7 @@
     "question": "Una función transforma cada número en su cubo. Al evaluar el 3 se obtiene 27. $$f(3) = 27$$ ¿Qué sería el 27 respecto del 3 en este caso?",
     "options": [
       "El dominio puntual",
-      "Imagen",
+      "Imagen de la función",
       "La preimagen"
     ],
     "correct_index": 1,
@@ -1001,7 +1001,7 @@
     "question": "Una función transforma cada número en su doble. Por ejemplo, al evaluar el 6 resulta 12. $$f(6) = 12$$ ¿Qué sería el 12 respecto del 6 en este caso?",
     "options": [
       "La preimagen de 6",
-      "Imagen 6",
+      "Imagen del valor 6",
       "El dominio de la regla"
     ],
     "correct_index": 1,

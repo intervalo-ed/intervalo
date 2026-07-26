@@ -1,6 +1,6 @@
 [
   {
-    "question": "Calculá el siguiente límite al infinito, dividiendo numerador y denominador por la mayor potencia de $x$:\n$\n$$\\lim_{x \\to +\\infty} \\frac{3x^2 + x}{x^2 - 5}$$\n$",
+    "question": "Calculá el siguiente límite al infinito, dividiendo numerador y denominador por la mayor potencia de $x$:\n$:$$\\lim_{x \\to +\\infty} \\frac{3x^2 + x}{x^2 - 5}$$\n$",
     "options": [
       "$3$",
       "$1$",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "Calculá el siguiente límite al infinito, prestando atención al signo del coeficiente principal:\n$\n$$\\lim_{x \\to +\\infty} \\frac{-2x^2 + 7x}{x^2 + 4}$$\n$",
+    "question": "Calculá el siguiente límite al infinito, prestando atención al signo del coeficiente principal:\n$:$$\\lim_{x \\to +\\infty} \\frac{-2x^2 + 7x}{x^2 + 4}$$\n$",
     "options": [
       "$2$",
       "$-2$",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "Calculá el siguiente límite al infinito, comparando el grado del numerador con el del denominador:\n$\n$$\\lim_{x \\to -\\infty} \\frac{5x + 1}{x^3 - 2x}$$\n$",
+    "question": "Calculá el siguiente límite al infinito, comparando el grado del numerador con el del denominador:\n$:$$\\lim_{x \\to -\\infty} \\frac{5x + 1}{x^3 - 2x}$$\n$",
     "options": [
       "$0$",
       "$5$",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "question": "Calculá el siguiente límite al infinito:\n$\n$$\\lim_{x \\to -\\infty} \\frac{4x^3 - x}{-2x^3 + 6}$$\n$",
+    "question": "Calculá el siguiente límite al infinito:\n$:$$\\lim_{x \\to -\\infty} \\frac{4x^3 - x}{-2x^3 + 6}$$\n$",
     "options": [
       "$-2$",
       "$2$",
@@ -100,7 +100,7 @@
     ]
   },
   {
-    "question": "Resolvé el siguiente límite al infinito:\n$\n$$\\lim_{x \\to +\\infty} \\frac{-3x + 2}{x^2 + 1}$$\n$",
+    "question": "Resolvé el siguiente límite al infinito:\n$:$$\\lim_{x \\to +\\infty} \\frac{-3x + 2}{x^2 + 1}$$\n$",
     "options": [
       "$0$",
       "$-3$",
@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "Hallá el siguiente límite al infinito:\n$\n$$\\lim_{x \\to +\\infty} \\frac{x^4 - 6x^2}{-5x^4 + x}$$\n$",
+    "question": "Hallá el siguiente límite al infinito:\n$:$$\\lim_{x \\to +\\infty} \\frac{x^4 - 6x^2}{-5x^4 + x}$$\n$",
     "options": [
       "$\\frac{1}{5}$",
       "$-\\frac{1}{5}$",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "Evaluá el siguiente límite al infinito:\n$\n$$\\lim_{x \\to +\\infty} \\frac{2x^3 - 5x}{x + 1}$$\n$",
+    "question": "Evaluá el siguiente límite al infinito:\n$:$$\\lim_{x \\to +\\infty} \\frac{2x^3 - 5x}{x + 1}$$\n$",
     "options": [
       "$-\\infty$",
       "$2$",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "Resolvé el siguiente límite al infinito:\n$\n$$\\lim_{x \\to -\\infty} \\frac{x^4 - 3x}{x + 2}$$\n$",
+    "question": "Resolvé el siguiente límite al infinito:\n$:$$\\lim_{x \\to -\\infty} \\frac{x^4 - 3x}{x + 2}$$\n$",
     "options": [
       "$+\\infty$",
       "$1$",
@@ -200,7 +200,7 @@
     ]
   },
   {
-    "question": "Hallá el siguiente límite al infinito:\n$\n$$\\lim_{x \\to +\\infty} \\frac{-x^3 + x}{x^2 - 4}$$\n$",
+    "question": "Hallá el siguiente límite al infinito:\n$:$$\\lim_{x \\to +\\infty} \\frac{-x^3 + x}{x^2 - 4}$$\n$",
     "options": [
       "$-\\infty$",
       "$+\\infty$",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "Calculá el siguiente límite lateral, correspondiente a una **asíntota vertical**:\n$\n$$\\lim_{x \\to 2^+} \\frac{1}{x - 2}$$\n$",
+    "question": "Calculá el siguiente límite lateral, correspondiente a una **asíntota vertical**:\n$:$$\\lim_{x \\to 2^+} \\frac{1}{x - 2}$$\n$",
     "options": [
       "$-\\infty$",
       "$+\\infty$",
@@ -250,7 +250,7 @@
     ]
   },
   {
-    "question": "Calculá el siguiente límite lateral:\n$\n$$\\lim_{x \\to 2^-} \\frac{1}{x - 2}$$\n$",
+    "question": "Calculá el siguiente límite lateral:\n$:$$\\lim_{x \\to 2^-} \\frac{1}{x - 2}$$\n$",
     "options": [
       "$+\\infty$",
       "$0$",
@@ -275,7 +275,7 @@
     ]
   },
   {
-    "question": "Resolvé el siguiente límite lateral:\n$\n$$\\lim_{x \\to 2^+} \\frac{-3}{x - 2}$$\n$",
+    "question": "Resolvé el siguiente límite lateral:\n$:$$\\lim_{x \\to 2^+} \\frac{-3}{x - 2}$$\n$",
     "options": [
       "$+\\infty$",
       "$0$",
@@ -300,7 +300,7 @@
     ]
   },
   {
-    "question": "Hallá el siguiente límite lateral:\n$\n$$\\lim_{x \\to 2^-} \\frac{-3}{x - 2}$$\n$",
+    "question": "Hallá el siguiente límite lateral:\n$:$$\\lim_{x \\to 2^-} \\frac{-3}{x - 2}$$\n$",
     "options": [
       "$+\\infty$",
       "$-\\infty$",
@@ -325,7 +325,7 @@
     ]
   },
   {
-    "question": "Calculá el siguiente límite, si existe:\n$\n$$\\lim_{x \\to 3} \\frac{2}{x - 3}$$\n$",
+    "question": "Calculá el siguiente límite, si existe:\n$:$$\\lim_{x \\to 3} \\frac{2}{x - 3}$$\n$",
     "options": [
       "$+\\infty$",
       "No existe",
@@ -350,7 +350,7 @@
     ]
   },
   {
-    "question": "Evaluá el siguiente límite lateral:\n$\n$$\\lim_{x \\to 1^+} \\frac{5}{1 - x}$$\n$",
+    "question": "Evaluá el siguiente límite lateral:\n$:$$\\lim_{x \\to 1^+} \\frac{5}{1 - x}$$\n$",
     "options": [
       "$+\\infty$",
       "$5$",

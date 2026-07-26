@@ -342,7 +342,7 @@
   {
     "question": "Tomá en cuenta la función:\n$$f(x) = \\dfrac{P(x)}{Q(x)}$$\nCuando el grado de $P$ es igual al grado de $Q$?",
     "options": [
-      "Coef",
+      "Cociente de coeficientes",
       "La raíz del denominador",
       "Siempre es $y = 0$",
       "Siempre es $y = 1$"
@@ -620,7 +620,7 @@
       "Son lo mismo: ambos excluyen un punto del dominio",
       "La AV aparece en $x = 0$ y el agujero en otro punto",
       "Solo las funciones cuadráticas tienen agujeros",
-      "Factor"
+      "Factor en la AV"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -1042,7 +1042,7 @@
   {
     "question": "¿Cuándo una **función racional** tiene **asíntota oblicua** en vez de horizontal?",
     "options": [
-      "Mayor",
+      "Grado mayor en numerador",
       "Cuando el grado del denominador es mayor que el del numerador",
       "Cuando los grados del numerador y denominador son iguales",
       "Siempre que tenga más de una asíntota vertical"
@@ -1220,7 +1220,7 @@
       "La función es cero en $x = c$",
       "La función está definida y el valor es 1",
       "Se crea una asíntota vertical en $x = c$",
-      "Agujero"
+      "Hay agujero removible"
     ],
     "correct_index": 3,
     "has_math": true,

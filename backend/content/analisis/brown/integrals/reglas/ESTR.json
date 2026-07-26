@@ -188,7 +188,7 @@
     "options": [
       "Regla exponencial (base $a$)",
       "Regla exponencial (base $e$)",
-      "Aplicable"
+      "Regla es aplicable"
     ],
     "correct_index": 2,
     "has_math": true,

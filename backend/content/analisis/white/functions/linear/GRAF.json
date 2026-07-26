@@ -556,7 +556,7 @@
     "question": "¿Cuál es la diferencia entre **dominio** e **imagen** en $f(x) = 2x + 3$?",
     "options": [
       "No hay diferencia",
-      "Entrada",
+      "Entrada vs salida",
       "Dominio es $x$; imagen es $m$"
     ],
     "correct_index": 1,
@@ -605,7 +605,7 @@
     "options": [
       "$(0, +\\infty)$",
       "$(-\\infty, 7/3)$",
-      "Reales",
+      "Todos los números reales",
       "$(7/3, +\\infty)$"
     ],
     "correct_index": 2,
@@ -629,7 +629,7 @@
     "question": "¿En qué intervalo decrece $f(x) = -2x + 5$?",
     "options": [
       "$(0, +\\infty)$",
-      "Reales",
+      "Todos los números reales",
       "$(-\\infty, 5/2)$",
       "$(5/2, +\\infty)$"
     ],
@@ -854,7 +854,7 @@
     "question": "¿A qué familia pertenece $f(x) = \\sqrt{x}$?",
     "options": [
       "Lineal",
-      "Cero",
+      "Cero o raíz",
       "Cuadrática",
       "Constante"
     ],
@@ -951,7 +951,7 @@
   {
     "question": "¿Es $f(x) = 3(x + 2)$ una función lineal?",
     "options": [
-      "Sí",
+      "Sí, es función",
       "No, porque tiene paréntesis",
       "No, porque multiplica"
     ],
@@ -1191,7 +1191,7 @@
     "options": [
       "Pasa por el origen",
       "Está definida en $\\mathbb{R}$",
-      "Constante"
+      "Cambio constante"
     ],
     "correct_index": 2,
     "has_math": true,

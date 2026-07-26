@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando la función no está en forma estándar, conviene reordenarla primero:\n$$f(x) = 6 - 2x = -2x + 6$$\nAhí se leen los parámetros sin riesgo: $m = -2$ y $b = 6$.\n\nLa pendiente es siempre el coeficiente de $x$, sin importar en qué posición venga escrito el término.\n\nEn fórmulas desordenadas el error típico es doble: tomar el primer número como pendiente o perder el signo del coeficiente. Reordenar antes de leer evita los dos.",
+    "explanation": "Cuando la función no está en forma estándar, conviene reordenarla primero:\n$$f(x) = 6 - 2x = -2x + 6$$\nAhí se leen los parámetros sin riesgo: $m = -2$ y $b = 6$.\n\nLa pendiente es siempre el coeficiente de $x$, sin importar en qué posición venga escrito el término.\n\nEn fórmulas desordenadas, tomar el primer número como pendiente genera una pendiente invertida; hay que reordenar antes.",
     "reviewed": false,
     "tags": [
       "pendiente-calculo"
@@ -438,7 +438,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En un costo con parte fija y tarifa por unidad, el fijo es la ordenada al origen y la tarifa es la pendiente:\n$$C(k) = 200k + 500$$\nLos \\$500 se pagan una sola vez y los \\$200 acompañan a cada kilómetro.\n\nPara chequear, evaluá en cero: $C(0) = 500$, el costo de subir al taxi sin recorrer nada.\n\nSi intercambias la tarifa por km con la bajada de bandera, obtenés una fórmula que cobra los \$500 repetidamente. El número que multiplica a la variable es siempre el que se cobra por unidad.",
+    "explanation": "En un costo con parte fija y tarifa por unidad, el fijo es la ordenada al origen y la tarifa es la pendiente:\n$$C(k) = 200k + 500$$\nLos \\$500 se pagan una sola vez y los \\$200 acompañan a cada kilómetro.\n\nPara chequear, evaluá en cero: $C(0) = 500$, el costo de subir al taxi sin recorrer nada.\n\nSi intercambias la tarifa por km con la bajada de bandera, obtenés una fórmula que cobra los \\$500 repetidamente. El número que multiplica a la variable es siempre el que se cobra por unidad.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -538,7 +538,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El costo del viaje combina el fijo con la tarifa por kilómetro:\n$$C(k) = 600 + 250k$$\nDonde $b = 600$ es la bajada de bandera y $m = 250$ la tarifa que acompaña a cada kilómetro.\n\nLa verificación rápida es evaluar en cero: $C(0) = 600$, lo que cuesta subir al taxi sin viajar.\n\nEl error frecuente es intercambiar la tarifa por km con la bajada de bandera: la que multiplica a la variable es la pendiente, el monto por unidad.",
+    "explanation": "El costo del viaje combina el fijo con la tarifa por kilómetro:\n$$C(k) = 600 + 250k$$\nDonde $b = 600$ es la bajada de bandera y $m = 250$ la tarifa que acompaña a cada kilómetro.\n\nLa verificación rápida es evaluar en cero: $C(0) = 600$, lo que cuesta subir al taxi sin viajar.\n\nSi intercambiás la tarifa por km con la bajada de bandera, obtienes valores completamente erróneos.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -588,7 +588,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El volumen arranca en 80 litros y pierde 4 por minuto: la pendiente es negativa:\n$$V(t) = 80 - 4t$$\nCon $b = 80$ (volumen inicial) y $m = -4$ (tasa de vaciado).\n\nPara verificar, evaluá el arranque: $V(0) = 80$, y un minuto después $V(1) = 76$: bajó 4 litros, como dice el enunciado.\n\nEn procesos que decrecen, el error típico es escribir la tasa sumando: si la cantidad baja, el término con la variable tiene que restar.",
+    "explanation": "El volumen arranca en 80 litros y pierde 4 por minuto: la pendiente es negativa:\n$$V(t) = 80 - 4t$$\nCon $b = 80$ (volumen inicial) y $m = -4$ (tasa de vaciado).\n\nPara verificar, evaluá el arranque: $V(0) = 80$, y un minuto después $V(1) = 76$: bajó 4 litros, como dice el enunciado.\n\nEscribir la tasa sumando en procesos que decrecen da una pendiente positiva cuando debe ser negativa.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -763,7 +763,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El saldo parte de \\$800 y cada viaje descuenta \\$60:\n$$S(v) = 800 - 60v$$\nCon $b = 800$ (la carga inicial) y $m = -60$ (el costo de cada viaje, restando).\n\nVerificación: $S(0) = 800$ y $S(1) = 740$, un viaje descontado.\n\nEn los modelos de saldo, el error típico es el signo del término variable: si la tarjeta se gasta, el viaje resta; revisalo evaluando un caso chico antes de responder.",
+    "explanation": "El saldo parte de \\$800 y cada viaje descuenta \\$60:\n$$S(v) = 800 - 60v$$\nCon $b = 800$ (la carga inicial) y $m = -60$ (el costo de cada viaje, restando).\n\nVerificación: $S(0) = 800$ y $S(1) = 740$, un viaje descontado.\n\nEn modelos de saldo, el signo del término variable determina si aumenta o disminuye; invertirlo produce el efecto opuesto.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -913,7 +913,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma $f(x) = mx + b$, la pendiente es el coeficiente que multiplica a $x$.\n\nPara $f(x) = 7x - 4$, ese coeficiente es $7$: la función sube 7 unidades por cada unidad de $x$. El $-4$ es la ordenada al origen, el valor de $f(0)$.\n\nIntercambiar pendiente y ordenada al origen es el error más clásico del tema: antes de responder, ubicá cuál número está pegado a la $x$ y cuál está suelto.",
+    "explanation": "En la forma $f(x) = mx + b$, la pendiente es el coeficiente que multiplica a $x$.\n\nPara $f(x) = 7x - 4$, ese coeficiente es $7$: la función sube 7 unidades por cada unidad de $x$. El $-4$ es la ordenada al origen, el valor de $f(0)$.\n\nConfundir estos dos parámetros invierte completamente la función: el primero multiplica a $x$, el segundo no.",
     "reviewed": false,
     "tags": [
       "pendiente-calculo"
@@ -1038,7 +1038,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pregunta pide el valor de $v$ que hace $S(v) = 2000$:\n$$\\begin{aligned} 1200 + 80v &= 2000 \\\\ 80v &= 800 \\\\ v &= 10 \\end{aligned}$$\nCon 10 ventas el sueldo llega exactamente a \\$2000.\n\nEl primer paso es descontar el sueldo base: solo los \\$800 restantes se explican por comisiones.\n\nDividir el objetivo completo por la comisión (sin restar el base) es el error típico: el fijo no se gana vendiendo, ya estaba.",
+    "explanation": "La pregunta pide el valor de $v$ que hace $S(v) = 2000$:\n$$\\begin{aligned} 1200 + 80v &= 2000 \\\\ 80v &= 800 \\\\ v &= 10 \\end{aligned}$$\nCon 10 ventas el sueldo llega exactamente a \\$2000.\n\nEl primer paso es descontar el sueldo base: solo los \\$800 restantes se explican por comisiones.\n\nSi dividís el objetivo completo sin restar la base, perdés el descuento inicial en la comisión.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1238,7 +1238,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Evaluar la función en $k = 3$:\n$$C(3) = 700 + 300 \\cdot 3 = 700 + 900 = 1600$$\nEl viaje cuesta \\$1600.\n\nLa tarifa se multiplica por los kilómetros antes de sumar el fijo: son \\$900 de recorrido más \\$700 de bajada de bandera.\n\nLos errores típicos son de conteo (multiplicar por menos kilómetros de los que dice el enunciado) o de omisión (dejar afuera el término fijo): repasá que la cuenta use los dos parámetros.",
+    "explanation": "Evaluar la función en $k = 3$:\n$$C(3) = 700 + 300 \\cdot 3 = 700 + 900 = 1600$$\nEl viaje cuesta \\$1600.\n\nLa tarifa se multiplica por los kilómetros antes de sumar el fijo: son \\$900 de recorrido más \\$700 de bajada de bandera.\n\nLos errores de conteo al multiplicar por kilómetros o minutos, en vez del intervalo correcto, distorsionan completamente el resultado.",
     "reviewed": false,
     "tags": [
       "resolver-ecuacion"

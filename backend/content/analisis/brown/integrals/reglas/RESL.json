@@ -250,7 +250,7 @@
     ]
   },
   {
-    "question": "Encontrá:\n$\n$$\\int \\left(x^{1/2}+\\frac{2}{x}\\right)\\,dx$$\n$",
+    "question": "Encontrá:\n$:$$\\int \\left(x^{1/2}+\\frac{2}{x}\\right)\\,dx$$\n$",
     "options": [
       "$\\frac{1}{2}x^{3/2}+2\\ln|x|+C$",
       "$\\frac{2}{3}x^{3/2}-\\frac{2}{x}+C$",

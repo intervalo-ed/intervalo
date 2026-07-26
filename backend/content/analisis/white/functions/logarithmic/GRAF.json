@@ -603,7 +603,7 @@
     "question": "¿La función del gráfico tiene algún extremo local (máximo o mínimo)?",
     "options": [
       "Sí, tiene un mínimo",
-      "Sin extremos",
+      "Sin extremos locales",
       "Sí, tiene un máximo",
       "Sí, tiene ambos"
     ],

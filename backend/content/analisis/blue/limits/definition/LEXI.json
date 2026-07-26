@@ -1,6 +1,6 @@
 [
   {
-    "question": "Considerá la expresión\\n$$\\lim_{x \\to 3} f(x)$$\\n¿Qué describe mejor la flecha $\\to$ en esta notación?",
+    "question": "Considerá la expresión\\n:$$\\lim_{x \\to 3} f(x)$$\\n¿Qué describe mejor la flecha $\\to$ en esta notación?",
     "options": [
       "Que $x$ es igual a $3$ en ese instante",
       "Que $x$ se acerca a $3$. por la regla",
@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "En la igualdad\\n$$\\lim_{x \\to a} f(x) = L$$\\n¿qué papel cumple la letra $L$?",
+    "question": "En la igualdad\\n:$$\\lim_{x \\to a} f(x) = L$$\\n¿qué papel cumple la letra $L$?",
     "options": [
       "El valor de $x$ en el punto de partida",
       "El valor que toma $f$ exactamente en $a$",

@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "Con la función:\n$$\\frac{P(x)}{Q(x)}$$\nEl grado del denominador $Q(x)$ es estrictamente mayor que el grado del numerador $P(x)$.\n\n¿Qué sucede con\n$$\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$$\n?",
+    "question": "Con la función:$$\\frac{P(x)}{Q(x)}$$\nEl grado del denominador $Q(x)$ es estrictamente mayor que el grado del numerador $P(x)$.\n\n¿Qué sucede con:$$\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$$\n?",
     "options": [
       "Vale $0$ en esta forma",
       "Diverge a $\\infty$",
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "Para la función:\n$$\\frac{P(x)}{Q(x)}$$\nEl grado del numerador $P(x)$ es estrictamente mayor que el grado del denominador $Q(x)$.\n\n¿Qué sucede con\n$$\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$$\n?",
+    "question": "Para la función:$$\\frac{P(x)}{Q(x)}$$\nEl grado del numerador $P(x)$ es estrictamente mayor que el grado del denominador $Q(x)$.\n\n¿Qué sucede con:$$\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$$\n?",
     "options": [
       "Diverge",
       "Vale $0$",
@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "Tomá en cuenta la función:\n$$\\frac{P(x)}{Q(x)}$$\nEl numerador $P(x)$ y el denominador $Q(x)$ tienen exactamente el mismo grado.\n\n¿Qué sucede con\n$$\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$$\n?",
+    "question": "Tomá en cuenta la función:$$\\frac{P(x)}{Q(x)}$$\nEl numerador $P(x)$ y el denominador $Q(x)$ tienen exactamente el mismo grado.\n\n¿Qué sucede con:$$\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$$\n?",
     "options": [
       "Vale $0$",
       "Diverge a $\\infty$",
