@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $\\int 3x\\,dx$,\n\nel $dx$ señala que la variable de integración es $x$.\n\nsin participar como un factor multiplicativo dentro del cálculo.\n$$\\int 3x\\,dx = \\frac{3x^2}{2} + C$$\nEste detalle se vuelve más importante cuando aparecen varias variables en un mismo problema, el diferencial es el que aclara respecto de cuál se integra.",
+    "explanation": "En $\\int 3x\\,dx$,.\n\nel $dx$ señala que la variable de integración es $x$.\n\nsin participar como un factor multiplicativo dentro del cálculo.\n$$\\int 3x\\,dx = \\frac{3x^2}{2} + C$$\nEste detalle se vuelve más importante cuando aparecen varias variables en un mismo problema, el diferencial es el que aclara respecto de cuál se integra.",
     "reviewed": false,
     "tags": [
       "anatomia-notacion-integral"

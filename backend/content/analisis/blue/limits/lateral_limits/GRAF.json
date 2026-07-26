@@ -53,7 +53,7 @@
       -1,
       8
     ],
-    "explanation": "Para el **límite lateral** por la derecha,se sigue la rama activa para $x \\geq 1$ y se observa a qué altura llega al acercarse a $x=1$.\n\nLa gráfica muestra un salto de $3$ unidades hacia arriba exactamente en el punto de quiebre.\n\nLeer el lateral derecho requiere ignorar completamente lo que sucede a la izquierda de $x=1$: la rama izquierda es irrelevante para este cálculo.\n\nSolo importa seguir la rama derecha ($x+4$) hasta el punto de quiebre y leer la altura a la que tiende,\n\nque es $1+4=5$.\n\nEl salto entre las dos ramas confirma que los dos laterales son distintos y que el límite bilateral no existe en este punto.",
+    "explanation": "Para el **límite lateral** por la derecha,se sigue la rama activa para $x \\geq 1$ y se observa a qué altura llega al acercarse a $x=1$.\n\nLa gráfica muestra un salto de $3$ unidades hacia arriba exactamente en el punto de quiebre.\n\nLeer el lateral derecho requiere ignorar completamente lo que sucede a la izquierda de $x=1$: la rama izquierda es irrelevante para este cálculo.\n\nSolo importa seguir la rama derecha ($x+4$) hasta el punto de quiebre y leer la altura a la que tiende,.\n\nque es $1+4=5$.\n\nEl salto entre las dos ramas confirma que los dos laterales son distintos y que el límite bilateral no existe en este punto.",
     "reviewed": false,
     "tags": [
       "lectura-lateral-pura"
@@ -83,7 +83,7 @@
       -2,
       9
     ],
-    "explanation": "Al pedir el límite por la izquierda,\n\n hay que seguir exclusivamente la rama activa para $x<2$,\n\n ignorando por completo hacia dónde va la rama del otro lado.\n\n Tomar por error la rama de $x \\geq 2$ en lugar del lateral correcto invierte el resultado completamente.\n\n El lateral izquierdo se calcula siguiendo solo la rama $f(x)=2x$ para $x<2$,\n\n evaluando qué valor toma conforme $x$ se acerca a $2$ desde la izquierda:\n\n $\\lim_{x \\to 2^-} 2x = 4$.\n\n La rama derecha ($x+5$) es completamente irrelevante para este cálculo y no debe considerarse.\n\n Este es un error muy común:\n\n mezclar las dos ramas al intentar calcular un lateral específico.",
+    "explanation": "Al pedir el límite por la izquierda,.\n\n hay que seguir exclusivamente la rama activa para $x<2$,.\n\n ignorando por completo hacia dónde va la rama del otro lado.\n\n Tomar por error la rama de $x \\geq 2$ en lugar del lateral correcto invierte el resultado completamente.\n\n El lateral izquierdo se calcula siguiendo solo la rama $f(x)=2x$ para $x<2$,.\n\n evaluando qué valor toma conforme $x$ se acerca a $2$ desde la izquierda:\n\n $\\lim_{x \\to 2^-} 2x = 4$.\n\n La rama derecha ($x+5$) es completamente irrelevante para este cálculo y no debe considerarse.\n\n Este es un error muy común:\n\n mezclar las dos ramas al intentar calcular un lateral específico.",
     "reviewed": false,
     "tags": [
       "lectura-lateral-pura"
@@ -403,7 +403,7 @@
       -2,
       11
     ],
-    "explanation": "Para comparar dos límites laterales de puntos distintos de la misma gráfica,\n\n se lee cada uno por separado antes de decidir cuál es mayor.\n\n No hace falta que ambos puntos pertenezcan al mismo salto para poder compararlos:\n\n cualquier par de límites laterales existentes son números reales comparables.\n\n En este caso,\n\n $\\lim_{x \\to 0^+} f(x) = 0+5 = 5$ y $\\lim_{x \\to 3^-} f(x) = 2(3) = 6$ (leídas del gráfico en sus ramas correspondientes).\n\n Comparando los dos números reales obtenidos,\n\n $5 < 6$,\n\n así que el mayor es $8$ (verificar:\n\n cuando $x \\to 3^-$ sobre la rama $2x$,\n\n el valor es $2(3)=6$,\n\n pero si la rama en ese tramo es distinta puede dar $8$).\n\n El método es siempre el mismo:\n\n leer cada lateral de su rama correcta,\n\n obtener números reales,\n\n compararlos.",
+    "explanation": "Para comparar dos límites laterales de puntos distintos de la misma gráfica,.\n\n se lee cada uno por separado antes de decidir cuál es mayor.\n\n No hace falta que ambos puntos pertenezcan al mismo salto para poder compararlos:\n\n cualquier par de límites laterales existentes son números reales comparables.\n\n En este caso,.\n\n $\\lim_{x \\to 0^+} f(x) = 0+5 = 5$ y $\\lim_{x \\to 3^-} f(x) = 2(3) = 6$ (leídas del gráfico en sus ramas correspondientes).\n\n Comparando los dos números reales obtenidos,.\n\n $5 < 6$,.\n\n así que el mayor es $8$ (verificar:\n\n cuando $x \\to 3^-$ sobre la rama $2x$,.\n\n el valor es $2(3)=6$,.\n\n pero si la rama en ese tramo es distinta puede dar $8$).\n\n El método es siempre el mismo:\n\n leer cada lateral de su rama correcta,.\n\n obtener números reales,.\n\n compararlos.",
     "reviewed": false,
     "tags": [
       "tamano-del-salto-visual"

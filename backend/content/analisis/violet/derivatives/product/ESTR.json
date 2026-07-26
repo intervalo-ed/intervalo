@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de aplicar la regla del producto, conviene revisar si alguno de los factores es simplemente una constante.\n\nEn $4\\sin x$,\n\nel $4$ no depende de $x$.\n\nasí que corresponde tratarlo como **múltiplo escalar** por linealidad, sin necesidad de derivar dos factores.\n\nLa derivada es $4 \\cdot (\\sin x)' = 4\\cos x$.\n\nAplicar la **regla del producto** acá no sería incorrecto en el resultado, pero es un rodeo innecesario frente a una vía mucho más directa.",
+    "explanation": "Antes de aplicar la regla del producto, conviene revisar si alguno de los factores es simplemente una constante.\n\nEn $4\\sin x$,.\n\nel $4$ no depende de $x$.\n\nasí que corresponde tratarlo como **múltiplo escalar** por linealidad, sin necesidad de derivar dos factores.\n\nLa derivada es $4 \\cdot (\\sin x)' = 4\\cos x$.\n\nAplicar la **regla del producto** acá no sería incorrecto en el resultado, pero es un rodeo innecesario frente a una vía mucho más directa.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-alternativas-algebraicas"

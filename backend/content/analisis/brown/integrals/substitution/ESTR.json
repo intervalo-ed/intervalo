@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En una **función compuesta** como $\\cos(x^2)$,\n\nreconocemos la interior $x^2$ cuya **derivada** es $2x$.\n\nEsta es la clave: buscar una función compuesta cuya derivada aparezca multiplicada por algo en el integrando.\n\nEl cambio $u=x^2$ produce $du=2x\\,dx$,\n\nque es exactamente el factor $x\\,dx$ que acompaña al coseno en la integral original (multiplicado por 2).\n\nLuego el diferencial se ajusta dividiendo por 2 para obtener $dx=\\frac{du}{2x}$,\n\nsimplificando la integral.\n\nEste patrón de interior + su derivada multiplicando es la piedra angular de la sustitución: encontrar esa combinación permite colapsar la función compuesta en una nueva variable.",
+    "explanation": "En una **función compuesta** como $\\cos(x^2)$,.\n\nreconocemos la interior $x^2$ cuya **derivada** es $2x$.\n\nEsta es la clave: buscar una función compuesta cuya derivada aparezca multiplicada por algo en el integrando.\n\nEl cambio $u=x^2$ produce $du=2x\\,dx$,.\n\nque es exactamente el factor $x\\,dx$ que acompaña al coseno en la integral original (multiplicado por 2).\n\nLuego el diferencial se ajusta dividiendo por 2 para obtener $dx=\\frac{du}{2x}$,.\n\nsimplificando la integral.\n\nEste patrón de interior + su derivada multiplicando es la piedra angular de la sustitución: encontrar esa combinación permite colapsar la función compuesta en una nueva variable.",
     "reviewed": false,
     "tags": [
       "identificacion-anatomica-de-u"
@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la **función compuesta** $\\sin(4x)$,\n\nla interior es la expresión lineal $4x$,\n\ncuya **derivada** es una constante: el coeficiente $4$.\n\nEste es uno de los patrones más frecuentes en sustitución: cuando la interior es un polinomio de grado 1,su derivada es solo un número fijo.\n\nEl cambio $u=4x$ produce $du=4\\,dx$,\n\ny luego dividimos por 4 para obtener $dx=\\frac{1}{4}du$.\n\nLa integral se convierte en $\\frac{1}{4}\\int \\sin u\\,du$,\n\ndonde la constante $4$ del denominador ajusta exactamente el diferencial,\n\npermitiendo aplicar la tabla de antiderivadas de forma directa.",
+    "explanation": "En la **función compuesta** $\\sin(4x)$,.\n\nla interior es la expresión lineal $4x$,.\n\ncuya **derivada** es una constante: el coeficiente $4$.\n\nEste es uno de los patrones más frecuentes en sustitución: cuando la interior es un polinomio de grado 1,su derivada es solo un número fijo.\n\nEl cambio $u=4x$ produce $du=4\\,dx$,.\n\ny luego dividimos por 4 para obtener $dx=\\frac{1}{4}du$.\n\nLa integral se convierte en $\\frac{1}{4}\\int \\sin u\\,du$,.\n\ndonde la constante $4$ del denominador ajusta exactamente el diferencial,.\n\npermitiendo aplicar la tabla de antiderivadas de forma directa.",
     "reviewed": false,
     "tags": [
       "identificacion-anatomica-de-u"
@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la **función compuesta** $\\cos(\\ln x)$,\n\n la interior es la función trascendente $\\ln x$,\n\n cuya **derivada** es $\\frac{1}{x}$,\n\n que aparece exactamente multiplicando al coseno en el integrando.\n\n Este caso ejemplifica la fuerza de la sustitución incluso con funciones no algebraicas:\n\nel cambio $u=\\ln x$ transforma la integral compleja $\\int \\frac{1}{x}\\cos(\\ln x)\\,dx$\n\nen la simple $\\int \\cos u\\,du$.\n\n El factor $\\frac{1}{x}\\,dx$ coincide precisamente con $du$,\n\n permitiendo eliminar la composición de funciones en un paso.\n\n Reconocer que la derivada del logaritmo es precisamente el factor presente es lo que hace posible y evidente esta sustitución.",
+    "explanation": "En la **función compuesta** $\\cos(\\ln x)$,.\n\n la interior es la función trascendente $\\ln x$,.\n\n cuya **derivada** es $\\frac{1}{x}$,.\n\n que aparece exactamente multiplicando al coseno en el integrando.\n\n Este caso ejemplifica la fuerza de la sustitución incluso con funciones no algebraicas:\n\nel cambio $u=\\ln x$ transforma la integral compleja $\\int \\frac{1}{x}\\cos(\\ln x)\\,dx$\n\nen la simple $\\int \\cos u\\,du$.\n\n El factor $\\frac{1}{x}\\,dx$ coincide precisamente con $du$,.\n\n permitiendo eliminar la composición de funciones en un paso.\n\n Reconocer que la derivada del logaritmo es precisamente el factor presente es lo que hace posible y evidente esta sustitución.",
     "reviewed": false,
     "tags": [
       "identificacion-anatomica-de-u"
@@ -177,7 +177,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la **función compuesta** $\\sin^3 x$,\n\nla base $\\sin x$ es la interior cuya **derivada** es $\\cos x$.\n\nque multiplica al integrando.\n$$u = \\sin x \\implies du = \\cos x\\,dx$.\n$$\nCon esta elección, la integral se transforma en $$\n\\int u^3\\,du$, una potencia simple de $u$, dejando clara la estructura después de la sustitución.",
+    "explanation": "En la **función compuesta** $\\sin^3 x$,.\n\nla base $\\sin x$ es la interior cuya **derivada** es $\\cos x$.\n\nque multiplica al integrando.\n$$u = \\sin x \\implies du = \\cos x\\,dx$.\n$$\nCon esta elección, la integral se transforma en $$\n\\int u^3\\,du$, una potencia simple de $u$, dejando clara la estructura después de la sustitución.",
     "reviewed": false,
     "tags": [
       "identificacion-anatomica-de-u"
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Al derivar $u=-x+5$,\n\nse obtiene $du=-dx$,\n\ncon el signo negativo del coeficiente lineal conservado sin cambios.\n\nLa constante $+5$ desaparece completamente en la derivación,\n\ncomo ocurre siempre con los términos constantes.\n\nAl despejar $dx$ de la ecuación $du=-dx$,\n\ninvertimos el signo para obtener $dx=-du$.\n\nEste signo negativo es fácil de perder cuando se trabaja rápidamente,pero es crítico: entra directamente en la integral transformada,pudiendo cambiar el signo del resultado final.\n\nLa recomendación es siempre verificar el despeje escribiendo la igualdad en ambas direcciones antes de sustituir.",
+    "explanation": "Al derivar $u=-x+5$,.\n\nse obtiene $du=-dx$,.\n\ncon el signo negativo del coeficiente lineal conservado sin cambios.\n\nLa constante $+5$ desaparece completamente en la derivación,.\n\ncomo ocurre siempre con los términos constantes.\n\nAl despejar $dx$ de la ecuación $du=-dx$,.\n\ninvertimos el signo para obtener $dx=-du$.\n\nEste signo negativo es fácil de perder cuando se trabaja rápidamente,pero es crítico: entra directamente en la integral transformada,pudiendo cambiar el signo del resultado final.\n\nLa recomendación es siempre verificar el despeje escribiendo la igualdad en ambas direcciones antes de sustituir.",
     "reviewed": false,
     "tags": [
       "ajuste-del-diferencial"

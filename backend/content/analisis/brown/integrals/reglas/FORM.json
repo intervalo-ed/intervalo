@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El caso $n=-1$ es la única excepción de la **regla de la potencia**,\n\ny por eso tiene su propia entrada en la tabla,la **regla del logaritmo**.\n\nCuando intentas aplicar la regla de la potencia $\\int x^n dx = \\frac{x^{n+1}}{n+1} + C$ con $n=-1$,\n\nobtendrías $\\frac{x^0}{0}$,\n\nuna división por cero que indica el fallo.\n\nEn cambio,la primitiva correcta es $\\ln|x| + C$,\n\ncon el valor absoluto para respetar el dominio completo de $\\frac{1}{x}$.\n\nEste patrón de excepción es fundamental en cálculo: memorizar dónde fallan las reglas es tan importante como entender por qué funcionan en general.",
+    "explanation": "El caso $n=-1$ es la única excepción de la **regla de la potencia**,.\n\ny por eso tiene su propia entrada en la tabla,la **regla del logaritmo**.\n\nCuando intentas aplicar la regla de la potencia $\\int x^n dx = \\frac{x^{n+1}}{n+1} + C$ con $n=-1$,.\n\nobtendrías $\\frac{x^0}{0}$,.\n\nuna división por cero que indica el fallo.\n\nEn cambio,la primitiva correcta es $\\ln|x| + C$,.\n\ncon el valor absoluto para respetar el dominio completo de $\\frac{1}{x}$.\n\nEste patrón de excepción es fundamental en cálculo: memorizar dónde fallan las reglas es tan importante como entender por qué funcionan en general.",
     "reviewed": false,
     "tags": [
       "suma-resta-terminos-elementales"

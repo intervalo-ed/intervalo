@@ -73,7 +73,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **grado** de un polinomio se determina identificando el término con la mayor potencia de $x$.\n\nEn $p(x) = x^7 - 3x^4 + 2$ los exponentes que aparecen son $7$.\n\n$4$ y $0$ (el término constante :).\n\nEl término con la mayor potencia domina el comportamiento del polinomio para valores grandes de $x$,\n\nasí que el grado se identifica directamente observando cuál término tiene el exponente más alto.\n\nUn polinomio de grado 3 tiene el término $x^3$ como su mayor poder,\n\nun polinomio de grado 5 tiene $x^5$,\n\ny así sucesivamente.\n\nEsta identificación del grado es esencial para entender el comportamiento gráfico y algebraico del polinomio.",
+    "explanation": "El **grado** de un polinomio se determina identificando el término con la mayor potencia de $x$.\n\nEn $p(x) = x^7 - 3x^4 + 2$ los exponentes que aparecen son $7$.\n\n$4$ y $0$ (el término constante :).\n\nEl término con la mayor potencia domina el comportamiento del polinomio para valores grandes de $x$,.\n\nasí que el grado se identifica directamente observando cuál término tiene el exponente más alto.\n\nUn polinomio de grado 3 tiene el término $x^3$ como su mayor poder,.\n\nun polinomio de grado 5 tiene $x^5$,.\n\ny así sucesivamente.\n\nEsta identificación del grado es esencial para entender el comportamiento gráfico y algebraico del polinomio.",
     "reviewed": false,
     "tags": [
       "grado-identificacion"

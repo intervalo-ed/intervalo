@@ -53,7 +53,7 @@
       -2,
       2
     ],
-    "explanation": "El seno se anula donde cruza el eje $X$: $\\operatorname{sen}(0)=0$.\n\n$\\operatorname{sen}(\\pi)=0$.\n\n$\\operatorname{sen}(2\\pi)=0$.\n\nIncluyendo ambos extremos del intervalo, hay **3 ceros** en $[0,2\\pi]$.\n\nEntre esos ceros.\n\nel seno sube hasta $1$ (en $\\pi/2$)\n\ny baja hasta $-1$ (en :\n\n).\n\nSi no se incluyen los extremos.\n\nquedaría solo $x=\\pi$: un único cero interior.",
+    "explanation": "El seno se anula donde cruza el eje $X$: $\\operatorname{sen}(0)=0$.\n\n$\\operatorname{sen}(\\pi)=0$.\n\n$\\operatorname{sen}(2\\pi)=0$.\n\nIncluyendo ambos extremos del intervalo, hay **3 ceros** en $[0,2\\pi]$.\n\nEntre esos ceros.\n\nel seno sube hasta $1$ (en $\\pi/2$).\n\ny baja hasta $-1$ (en :\n\n).\n\nSi no se incluyen los extremos.\n\nquedaría solo $x=\\pi$: un único cero interior.",
     "reviewed": false,
     "tags": [
       "conteo-maximos"
@@ -653,7 +653,7 @@
       -2,
       2
     ],
-    "explanation": "En $f(x)=\\cos(2x)$, el período es $T=2\\pi/2=\\pi$.\n\nEn el intervalo $[0,2\\pi]$ caben:$$\\begin{aligned}\n\nel largo del intervalo \\text{ciclos} &= \\frac{}{T} \\\\\n&= \\frac{2\\pi}{\\pi} \\\\\n&= 2:\n\\end{aligned}$$\nEl gráfico lo confirma: se ven exactamente dos ondas completas en $[0,2\\pi]$.\n\nLa opción $1$ sería el resultado con $B=1$.\n\nLa opción $4$ necesitaría $B=4$.",
+    "explanation": "En $f(x)=\\cos(2x)$, el período es $T=2\\pi/2=\\pi$.\n\nEn el intervalo $[0,2\\pi]$ caben:$$\\begin{aligned}.\n\nel largo del intervalo \\text{ciclos} &= \\frac{}{T} \\\\\n&= \\frac{2\\pi}{\\pi} \\\\\n&= 2:\n\\end{aligned}$$\nEl gráfico lo confirma: se ven exactamente dos ondas completas en $[0,2\\pi]$.\n\nLa opción $1$ sería el resultado con $B=1$.\n\nLa opción $4$ necesitaría $B=4$.",
     "reviewed": false,
     "tags": [
       "dominio-desde-grafico-trig"

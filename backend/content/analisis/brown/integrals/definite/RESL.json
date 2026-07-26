@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Armamos la primitiva $F(x)=e^{2x}$,\n\nya que la sustitución $u=2x$ deja $2\\int e^{2x}\\,dx=e^{2x}$.\n\ny aplicamos Barrow.\n$$\\begin{aligned} F(1) &= e^2 \\\\ F(0) &= e^0 = 1 \\\\ \\int_0^1 2e^{2x}\\,dx &= e^2-1 \\end{aligned}$$\nIgual que con la exponencial simple, dejar de lado que $F(0)=1$, no cero, aunque el límite inferior sea cero.",
+    "explanation": "Armamos la primitiva $F(x)=e^{2x}$,.\n\nya que la sustitución $u=2x$ deja $2\\int e^{2x}\\,dx=e^{2x}$.\n\ny aplicamos Barrow.\n$$\\begin{aligned} F(1) &= e^2 \\\\ F(0) &= e^0 = 1 \\\\ \\int_0^1 2e^{2x}\\,dx &= e^2-1 \\end{aligned}$$\nIgual que con la exponencial simple, dejar de lado que $F(0)=1$, no cero, aunque el límite inferior sea cero.",
     "reviewed": false,
     "tags": [
       "barrow-con-sustitucion-y-partes"

@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para armar la ecuación punto-pendiente basta con sustituir los datos numéricos en la fórmula general, $y = f'(a)(x-a) + f(a)$.\n\nCon $a=3$,\n\n$f(3)=7$ y $f'(3)=2$.\n\nla pendiente $2$ acompaña siempre a $(x-3)$.\n\ny el valor $7$ se suma al final, sin invertir ninguno de los dos roles.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Para armar la ecuación punto-pendiente basta con sustituir los datos numéricos en la fórmula general, $y = f'(a)(x-a) + f(a)$.\n\nCon $a=3$,.\n\n$f(3)=7$ y $f'(3)=2$.\n\nla pendiente $2$ acompaña siempre a $(x-3)$.\n\ny el valor $7$ se suma al final, sin invertir ninguno de los dos roles.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "anatomia-formula-punto-pendiente"

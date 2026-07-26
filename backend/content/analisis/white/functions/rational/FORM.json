@@ -358,7 +358,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar el intercepto con el eje $Y$ de cualquier función, evaluamos en $x=0$, siempre que ese punto esté en el dominio.\n\nAcá:El denominador.\n$$0-4=-4$$\nNo se anula.\n\nasí que $x=0$ sí pertenece al dominio y el intercepto existe.\n\nAl evaluar $f(0)$,\n\nel término con $x$ desaparece por completo,\n\ndejando solo la constante del numerador dividida por la constante del denominador.\n\nPor ejemplo,en $f(x) = \\frac{2x+5}{x-3}$,\n\nse obtiene $f(0) = \\frac{5}{-3} = -\\frac{5}{3}$.\n\nEste intercepto es fácil de calcular y proporciona información sobre dónde la gráfica cruza el eje $y$,\n\ncomplementando el análisis de raíces y asíntotas.",
+    "explanation": "Para hallar el intercepto con el eje $Y$ de cualquier función, evaluamos en $x=0$, siempre que ese punto esté en el dominio.\n\nAcá:El denominador.\n$$0-4=-4$$\nNo se anula.\n\nasí que $x=0$ sí pertenece al dominio y el intercepto existe.\n\nAl evaluar $f(0)$,.\n\nel término con $x$ desaparece por completo,.\n\ndejando solo la constante del numerador dividida por la constante del denominador.\n\nPor ejemplo,en $f(x) = \\frac{2x+5}{x-3}$,.\n\nse obtiene $f(0) = \\frac{5}{-3} = -\\frac{5}{3}$.\n\nEste intercepto es fácil de calcular y proporciona información sobre dónde la gráfica cruza el eje $y$,.\n\ncomplementando el análisis de raíces y asíntotas.",
     "reviewed": false,
     "tags": [
       "dominio-form"

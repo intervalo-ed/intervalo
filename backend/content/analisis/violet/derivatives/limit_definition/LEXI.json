@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **cociente incremental** compara el valor de $f$ en dos puntos cercanos,\n\n$a$ y $a+h$.\n\ny $h$ es la distancia entre ambos, un número que se va achicando hasta acercarse a cero.\n\nCuando.\n$$h \\to 0$$\n, el punto $a+h$ se acerca cada vez más a $a$.\n\ny el cociente deja de medir una variación entre dos puntos separados para capturar la tasa de cambio justo en $a$.\n\nEs común mezclar $h$ con $a$\n\no con $x$:\n\n conviene recordar que $a$ es el punto de estudio.\n\nfijo durante todo el cálculo, mientras que $h$ es el único que se mueve hacia cero.",
+    "explanation": "El **cociente incremental** compara el valor de $f$ en dos puntos cercanos,.\n\n$a$ y $a+h$.\n\ny $h$ es la distancia entre ambos, un número que se va achicando hasta acercarse a cero.\n\nCuando.\n$$h \\to 0$$\n, el punto $a+h$ se acerca cada vez más a $a$.\n\ny el cociente deja de medir una variación entre dos puntos separados para capturar la tasa de cambio justo en $a$.\n\nEs común mezclar $h$ con $a$\n\no con $x$:\n\n conviene recordar que $a$ es el punto de estudio.\n\nfijo durante todo el cálculo, mientras que $h$ es el único que se mueve hacia cero.",
     "reviewed": false,
     "tags": [
       "anatomia-del-limite"

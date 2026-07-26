@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $x^2$,\n\nla base es la variable $x$ y el exponente es el número fijo $2$.\n\nla estructura típica de la **regla de la potencia**.\n\nEste caso se distingue con claridad de $2^x$, donde los roles de base y exponente están invertidos.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "En $x^2$,.\n\nla base es la variable $x$ y el exponente es el número fijo $2$.\n\nla estructura típica de la **regla de la potencia**.\n\nEste caso se distingue con claridad de $2^x$, donde los roles de base y exponente están invertidos.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "suma-resta-terminos-elementales"
