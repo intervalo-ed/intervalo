@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Armamos la primitiva $F(x)=\\frac{x^3}{3}+x$ y aplicamos la **Regla de Barrow**.\n\nLa resta final requiere denominador común entre la fracción y el entero, saltear ese paso aritmético más frecuente acá.",
+    "explanation": "Armamos la primitiva $F(x)=\\frac{x^3}{3}+x$ y aplicamos la **Regla de Barrow**.\n\nLa resta final requiere denominador común entre la fracción y el entero, saltear ese paso aritmético más frecuente acá.\n\nLa Regla de Barrow es el puente fundamental entre primitivas y definidas: permite convertir un problema de integral definida en una simple resta de valores.\n\nRecordá que la primitiva de cada función elemental está dentro de tu tabla de fórmulas: no intentes inventarlas. Aunque la tabla tiene muchas fórmulas, todas ellas se derivan de las reglas básicas de derivación invertidas.",
     "reviewed": false,
     "tags": [
       "barrow-con-reglas-directas"
@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Armamos la primitiva $F(x)=\\frac{x^4}{4}$ y aplicamos Barrow.\n\nEste es el caso más simple, el límite inferior aporta cero, pero conviene igual escribir ambas evaluaciones para no perder el hábito.",
+    "explanation": "Armamos la primitiva $F(x)=\\frac{x^4}{4}$ y aplicamos Barrow.\n\nEste es el caso más simple, el límite inferior aporta cero, pero conviene igual escribir ambas evaluaciones para no perder el hábito.\n\nLa Regla de Barrow es el puente fundamental entre primitivas y definidas: permite convertir un problema de integral definida en una simple resta de valores.\n\nRecordá que la primitiva de cada función elemental está dentro de tu tabla de fórmulas: no intentes inventarlas. Aunque la tabla tiene muchas fórmulas, todas ellas se derivan de las reglas básicas de derivación invertidas.\n\nCuando el límite inferior es cero, es especialmente importante no asumir que la primitiva también será cero en ese punto. Cada función tiene su propia evaluación: $e^0 = 1$, $\\ln(1) = 0$, $\\sin(0) = 0$, etc. Siempre evalúa explícitamente sin asumir nada.",
     "reviewed": false,
     "tags": [
       "barrow-con-reglas-directas"
@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Armamos la primitiva $F(x)=\\sin x$ y aplicamos Barrow.\n\nConviene no confundir el valor del límite de integración, $\\pi/2$, con el resultado de evaluar la primitiva en ese punto.",
+    "explanation": "Armamos la primitiva $F(x)=\\sin x$ y aplicamos Barrow.\n\nConviene no confundir el valor del límite de integración, $\\pi/2$, con el resultado de evaluar la primitiva en ese punto.\n\nLa Regla de Barrow es el puente fundamental entre primitivas y definidas: permite convertir un problema de integral definida en una simple resta de valores. Sin ella, tendríamos que calcular límites de sumas de Riemann, que es mucho más laborioso. Aplícala siempre en este orden: primero primitiva, luego resta limites.\n\nRecordá que la primitiva de cada función elemental está dentro de tu tabla de fórmulas: no intentes inventarlas. Aunque la tabla tiene muchas fórmulas, todas ellas se derivan de las reglas básicas de derivación invertidas.",
     "reviewed": false,
     "tags": [
       "barrow-con-reglas-directas"
@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Armamos la primitiva $F(x)=\\ln|x|$ y aplicamos Barrow.\n\nCon límites positivos como estos, el valor absoluto dentro del logaritmo no cambia el resultado, pero conviene mantenerlo por hábito.",
+    "explanation": "Armamos la primitiva $F(x)=\\ln|x|$ y aplicamos Barrow.\n\nCon límites positivos como estos, el valor absoluto dentro del logaritmo no cambia el resultado, pero conviene mantenerlo por hábito.\n\nLa Regla de Barrow es el puente fundamental entre primitivas y definidas: permite convertir un problema de integral definida en una simple resta de valores. Aunque la tabla tiene muchas fórmulas, todas ellas se derivan de las reglas básicas de derivación invertidas.",
     "reviewed": false,
     "tags": [
       "barrow-con-reglas-directas"
@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Armamos la primitiva $F(x)=x^3$, ya que $3\\int x^2\\,dx=3\\cdot\\frac{x^3}{3}=x^3$, y aplicamos Barrow.\n\nEl coeficiente $3$ se cancela exactamente con el $3$ que aparece al dividir por el nuevo exponente, dejando una primitiva compacta.",
+    "explanation": "Armamos la primitiva $F(x)=x^3$, ya que $3\\int x^2\\,dx=3\\cdot\\frac{x^3}{3}=x^3$, y aplicamos Barrow.\n\nEl coeficiente $3$ se cancela exactamente con el $3$ que aparece al dividir por el nuevo exponente, dejando una primitiva compacta.\n\nLa Regla de Barrow es el puente fundamental entre primitivas y definidas: permite convertir un problema de integral definida en una simple resta de valores.\n\nRecordá que la primitiva de cada función elemental está dentro de tu tabla de fórmulas: no intentes inventarlas.",
     "reviewed": false,
     "tags": [
       "barrow-con-reglas-directas"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Armamos la primitiva $F(x)=e^{2x}$\n\nya que la sustitución $u=2x$ deja $2\\int e^{2x}\\,dx=e^{2x}$, y aplicamos Barrow.\n\nIgual que con la exponencial simple, dejar de lado que $F(0)=1$, no cero, aunque el límite inferior sea cero.",
+    "explanation": "Armamos la primitiva $F(x)=e^{2x}$\n\nya que la sustitución $u=2x$ deja $2\\int e^{2x}\\,dx=e^{2x}$, y aplicamos Barrow.\n\nIgual que con la exponencial simple, dejar de lado que $F(0)=1$, no cero, aunque el límite inferior sea cero.\n\nLa Regla de Barrow es el puente fundamental entre primitivas y definidas: permite convertir un problema de integral definida en una simple resta de valores.\n\nActualizar los límites de integración a la variable $u$ es un paso crítico que evita volver a $x$ antes de evaluar.\n\nRecordá que la primitiva de cada función elemental está dentro de tu tabla de fórmulas: no intentes inventarlas.\n\nCuando el límite inferior es cero, es especialmente importante no asumir que la primitiva también será cero en ese punto.",
     "reviewed": false,
     "tags": [
       "barrow-con-sustitucion-y-partes"
@@ -218,7 +218,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos partes con $u=x$\n\n$dv=e^x\\,dx$, obteniendo la primitiva $F(x)=xe^x-e^x$.\n\nEl término $uv$ evaluado por separado no alcanza, hace falta restar también la integral remanente para llegar al resultado correcto.",
+    "explanation": "Aplicamos partes con $u=x$\n\n$dv=e^x\\,dx$, obteniendo la primitiva $F(x)=xe^x-e^x$.\n\nEl término $uv$ evaluado por separado no alcanza, hace falta restar también la integral remanente para llegar al resultado correcto.\n\nLa integración por partes es especialmente efectiva cuando el integrando es un producto de funciones de tipos distintos.\n\nRecordá que la primitiva de cada función elemental está dentro de tu tabla de fórmulas: no intentes inventarlas.",
     "reviewed": false,
     "tags": [
       "barrow-con-sustitucion-y-partes"
@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Sustituimos $u=x^2+1$, con $du=2x\\,dx$, y **actualizamos los límites**:\n\n$u(0)=1$, $u(2)=5$.\n\nActualizar los límites a la variable $u$ evita tener que volver a $x$ antes de evaluar, ambos caminos son válidos si se hacen completos.",
+    "explanation": "Sustituimos $u=x^2+1$, con $du=2x\\,dx$, y **actualizamos los límites**:\n\n$u(0)=1$, $u(2)=5$.\n\nActualizar los límites a la variable $u$ evita tener que volver a $x$ antes de evaluar, ambos caminos son válidos si se hacen completos.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "barrow-con-sustitucion-y-partes"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos partes con $u=x$\n\n$dv=\\cos x\\,dx$, obteniendo la primitiva $F(x)=x\\sin x+\\cos x$.\n\nEl término $\\cos x$ de la primitiva aporta un valor distinto de cero en $x=0$, y ese valor es justamente el que resta al final.",
+    "explanation": "Aplicamos partes con $u=x$\n\n$dv=\\cos x\\,dx$, obteniendo la primitiva $F(x)=x\\sin x+\\cos x$.\n\nEl término $\\cos x$ de la primitiva aporta un valor distinto de cero en $x=0$, y ese valor es justamente el que resta al final.\n\nLa integración por partes es especialmente efectiva cuando el integrando es un producto de funciones de tipos distintos.\n\nRecordá que la primitiva de cada función elemental está dentro de tu tabla de fórmulas: no intentes inventarlas.",
     "reviewed": false,
     "tags": [
       "barrow-con-sustitucion-y-partes"
@@ -293,7 +293,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Sustituimos $u=x^2$, con $du=2x\\,dx$, y **actualizamos los límites**:\n\n$u(1)=1$, $u(2)=4$.\n\nEl factor $2x\\,dx$ coincide exactamente con $du$, así que no hace falta ningún ajuste de constante, solo actualizar los límites.",
+    "explanation": "Sustituimos $u=x^2$, con $du=2x\\,dx$, y **actualizamos los límites**:\n\n$u(1)=1$, $u(2)=4$.\n\nEl factor $2x\\,dx$ coincide exactamente con $du$, así que no hace falta ningún ajuste de constante, solo actualizar los límites.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "barrow-con-sustitucion-y-partes"
@@ -318,7 +318,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos partes con el **factor oculto** $dv=1\\,dx$\n\ny $v=x+1$, obteniendo la primitiva $F(x)=(x+1)\\ln(x+1)-x$.\n\nElegir $v=x+1$ en vez de $v=x$ simplifica la integral remanente.\n\ncancelando exactamente el denominador que aparece en $du$.",
+    "explanation": "Aplicamos partes con el **factor oculto** $dv=1\\,dx$\n\ny $v=x+1$, obteniendo la primitiva $F(x)=(x+1)\\ln(x+1)-x$.\n\nElegir $v=x+1$ en vez de $v=x$ simplifica la integral remanente.\n\ncancelando exactamente el denominador que aparece en $du$.\n\nLa integración por partes es especialmente efectiva cuando el integrando es un producto de funciones de tipos distintos.\n\nRecordá que la primitiva de cada función elemental está dentro de tu tabla de fórmulas: no intentes inventarlas.",
     "reviewed": false,
     "tags": [
       "barrow-con-sustitucion-y-partes"
@@ -343,7 +343,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Sustituimos $u=\\sin x$, con $du=\\cos x\\,dx$, y **actualizamos los límites**:\n\n$u(0)=0$, $u(\\pi/2)=1$.\n\n\nActualizar los límites a valores simples de $u$, entre $0$\n\ny $1$, deja una integral mucho más sencilla que la original en $x$.",
+    "explanation": "Sustituimos $u=\\sin x$, con $du=\\cos x\\,dx$, y **actualizamos los límites**:\n\n$u(0)=0$, $u(\\pi/2)=1$.\n\n\nActualizar los límites a valores simples de $u$, entre $0$\n\ny $1$, deja una integral mucho más sencilla que la original en $x$. Este tipo de integral es muy común en aplicaciones, vale la pena dominarla completamente.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "barrow-con-sustitucion-y-partes"
@@ -368,7 +368,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos partes con $u=x$\n\n$dv=e^{-x}\\,dx$, obteniendo la primitiva $F(x)=-xe^{-x}-e^{-x}$.\n\nRestar $F(0)=-1$ es el paso que más se pierde acá, sobre todo porque el límite inferior es cero y parece que no debería aportar nada.",
+    "explanation": "Aplicamos partes con $u=x$\n\n$dv=e^{-x}\\,dx$, obteniendo la primitiva $F(x)=-xe^{-x}-e^{-x}$.\n\nRestar $F(0)=-1$ es el paso que más se pierde acá, sobre todo porque el límite inferior es cero y parece que no debería aportar nada.\n\nLa integración por partes es especialmente efectiva cuando el integrando es un producto de funciones de tipos distintos.\n\nRecordá que la primitiva de cada función elemental está dentro de tu tabla de fórmulas: no intentes inventarlas.\n\nCuando el límite inferior es cero, es especialmente importante no asumir que la primitiva también será cero en ese punto.",
     "reviewed": false,
     "tags": [
       "barrow-con-sustitucion-y-partes"

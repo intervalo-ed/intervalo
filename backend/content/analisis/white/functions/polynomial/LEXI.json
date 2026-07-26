@@ -305,7 +305,7 @@
       "Los extremos en la misma dirección corresponden a grado par; acá el grado es impar, así que van en sentidos opuestos.",
       "Esa dirección se da con coeficiente principal negativo; acá el coeficiente principal es positivo, así que el sentido se invierte."
     ],
-    "explanation": "El comportamiento en los **extremos** depende de dos cosas: **grado** y **signo del coeficiente principal**.\n\nPara grado **impar** con coef. principal **positivo** ($a_n > 0$):\n\nLa curva sube a la derecha y baja a la izquierda. Memorizable: sigue la dirección de $x^3$.",
+    "explanation": "El comportamiento en los **extremos** depende de dos cosas: **grado** y **signo del coeficiente principal**.\n\nPara grado **impar** con coef. principal **positivo** ($a_n > 0$):\n\nLa curva sube a la derecha y baja a la izquierda. Memorizable: sigue la dirección de $x^3$.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -930,7 +930,7 @@
       null,
       "Los signos ahí no alternan de forma correcta: en $(a-b)^3$ los signos van $+,-,+,-$, y el último término también debe llevar signo negativo."
     ],
-    "explanation": "$(a-b)^3$ se obtiene reemplazando.\n\n$b$ por.\n\n$-b$ en.\n\n$(a+b)^3$:\n\nLos signos **alternan**: $+.\n\n-.\n\n+.\n\n-$.\n\nEl error clásico es escribir $-$ en todos los términos o alternarlo mal.\n\nVerificación rápida: para $a=2.\n\nb=1$: $(2-1)^3 = 1$ y $8 - 12 + 6 - 1 = 1$.",
+    "explanation": "$(a-b)^3$ se obtiene reemplazando.\n\n$b$ por.\n\n$-b$ en.\n\n$(a+b)^3$:\n\nLos signos **alternan**: $+.\n\n-.\n\n+.\n\n-$.\n\nEl error clásico es escribir $-$ en todos los términos o alternarlo mal.\n\nVerificación rápida: para $a=2.\n\nb=1$: $(2-1)^3 = 1$ y $8 - 12 + 6 - 1 = 1$.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1130,7 +1130,7 @@
       "Un polinomio de grado impar no se estabiliza en un valor finito hacia los extremos: diverge hacia $+\\infty$ o $-\\infty$, nunca converge a $0$.",
       "El término independiente solo desplaza la curva verticalmente; no cambia hacia dónde va la función cuando $x$ crece sin límite."
     ],
-    "explanation": "Para **grado** **impar** con coef. principal **negativo**:\n\nLa curva baja a la derecha y sube a la izquierda. Es como $-x^3$, que cae indefinidamente hacia la derecha.\n\nEl **término independiente** solo desplaza verticalmente la curva; no cambia el comportamiento en los **extremos**.",
+    "explanation": "Para **grado** **impar** con coef. principal **negativo**:\n\nLa curva baja a la derecha y sube a la izquierda. Es como $-x^3$, que cae indefinidamente hacia la derecha.\n\nEl **término independiente** solo desplaza verticalmente la curva; no cambia el comportamiento en los **extremos**.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **tabla de integrales inmediatas** incluye la primitiva del coseno como uno de sus casos directos, sin necesidad de ningún cálculo intermedio.\n\nEsta primitiva no lleva ningún signo adicional, a diferencia de la del seno, que sí incluye un signo negativo que conviene no perder.",
+    "explanation": "La **tabla de integrales inmediatas** incluye la primitiva del coseno como uno de sus casos directos, sin necesidad de ningún cálculo intermedio.\n\nEsta primitiva no lleva ningún signo adicional, a diferencia de la del seno, que sí incluye un signo negativo que conviene no perder.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "reconocimiento-directo-antiderivadas"
@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla de la constante** convierte cualquier número fijo $k$ en $kx$ al integrarlo, sumando siempre la constante de integración al final.\n\nNo hay que mezclar esta regla con la derivada de una constante, que sí da cero, acá la operación va en el sentido inverso, de derivada a primitiva.",
+    "explanation": "La **regla de la constante** convierte cualquier número fijo $k$ en $kx$ al integrarlo, sumando siempre la constante de integración al final.\n\nNo hay que mezclar esta regla con la derivada de una constante, que sí da cero, acá la operación va en el sentido inverso, de derivada a primitiva.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "reconocimiento-directo-antiderivadas"
@@ -216,7 +216,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pregunta pide pensar en sentido inverso, qué función produce $\\frac{1}{x}$ al ser derivada, en vez de calcular una derivada directamente.\n\nEste es exactamente el caso especial de la **regla del logaritmo**, la única excepción dentro de la familia de potencias que exige valor absoluto.",
+    "explanation": "La pregunta pide pensar en sentido inverso, qué función produce $\\frac{1}{x}$ al ser derivada, en vez de calcular una derivada directamente.\n\nEste es exactamente el caso especial de la **regla del logaritmo**, la única excepción dentro de la familia de potencias que exige valor absoluto.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "constantes-enganosas"
@@ -239,7 +239,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La única función elemental cuya derivada coincide exactamente consigo misma es $e^x$, un caso particular dentro de toda la tabla.\n\nEste pensamiento inverso confirma que la **regla exponencial** de base $e$ es una operación que se auto-preserva, sin ningún factor adicional multiplicando.",
+    "explanation": "La única función elemental cuya derivada coincide exactamente consigo misma es $e^x$, un caso particular dentro de toda la tabla.\n\nEste pensamiento inverso confirma que la **regla exponencial** de base $e$ es una operación que se auto-preserva, sin ningún factor adicional multiplicando.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "discriminacion-de-familias"
@@ -262,7 +262,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El pensamiento inverso pregunta qué función, al derivarse, reproduce exactamente $\\cos x$, sin ningún signo ni coeficiente adicional.\n\nEsta relación es la base de la primitiva del coseno en la **tabla de integrales inmediatas**, y conviene verificarla siempre derivando el resultado propuesto.",
+    "explanation": "El pensamiento inverso pregunta qué función, al derivarse, reproduce exactamente $\\cos x$, sin ningún signo ni coeficiente adicional.\n\nEsta relación es la base de la primitiva del coseno en la **tabla de integrales inmediatas**, y conviene verificarla siempre derivando el resultado propuesto.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "suma-resta-terminos-elementales"
@@ -308,7 +308,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El pensamiento inverso pregunta qué función produce exactamente $\\sec^2 x$ al derivarse, sin ningún ajuste de signo intermedio.\n\nEsta relación es directa y sin ambigüedad de signo, a diferencia de las primitivas trigonométricas del seno y el coseno, que sí requieren revisar el signo con cuidado.",
+    "explanation": "El pensamiento inverso pregunta qué función produce exactamente $\\sec^2 x$ al derivarse, sin ningún ajuste de signo intermedio.\n\nEsta relación es directa y sin ambigüedad de signo, a diferencia de las primitivas trigonométricas del seno y el coseno, que sí requieren revisar el signo con cuidado.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "reconocimiento-directo-antiderivadas"

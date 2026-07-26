@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La regla **LIATE** prioriza Algebraica (A) por sobre Exponencial (E) al elegir $u$, sin importar cuán simple parezca la exponencial.\n\nCon esta elección, $du=dx$ simplifica el polinomio a una constante, y la integral remanente queda de tabla inmediata, lista para resolverse en un solo paso.",
+    "explanation": "La regla **LIATE** prioriza Algebraica (A) por sobre Exponencial (E) al elegir $u$, sin importar cuán simple parezca la exponencial.\n\nCon esta elección, $du=dx$ simplifica el polinomio a una constante, y la integral remanente queda de tabla inmediata, lista para resolverse en un solo paso.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "eleccion-variables-regla-liate"
@@ -200,7 +200,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cada aplicación de **integración por partes** con $u=x^n$ reduce el grado del polinomio en uno, hasta llegar a una constante.\n\nCon grado $2$, hacen falta exactamente dos aplicaciones del método antes de que la integral remanente sea inmediata.",
+    "explanation": "Cada aplicación de **integración por partes** con $u=x^n$ reduce el grado del polinomio en uno, hasta llegar a una constante.\n\nCon grado $2$, hacen falta exactamente dos aplicaciones del método antes de que la integral remanente sea inmediata.\n\nLa integración por partes es especialmente efectiva cuando el integrando es un producto de funciones de tipos distintos.",
     "reviewed": false,
     "tags": [
       "diagnostico-iteracion-y-ciclos"
@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando $u=\\ln x$\n\nsu derivada $du=\\frac{1}{x}\\,dx$ cancela exactamente una potencia de $x$ en la integral remanente, sin importar el grado original.\n\nEsa integral remanente es directamente de tabla, así que $\\int x^n\\ln x\\,dx$ siempre cierra en una única aplicación del método.",
+    "explanation": "Cuando $u=\\ln x$\n\nsu derivada $du=\\frac{1}{x}\\,dx$ cancela exactamente una potencia de $x$ en la integral remanente, sin importar el grado original.\n\nEsa integral remanente es directamente de tabla, así que $\\int x^n\\ln x\\,dx$ siempre cierra en una única aplicación del método.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "diagnostico-iteracion-y-ciclos"
@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con $x^2e^x$\n\nel grado $2$ del polinomio en $x^2\\sin x$ exige repetir el método una vez más.\n\nCada aplicación reduce el grado del polinomio en uno, hasta que la integral remanente quede inmediata de tabla.",
+    "explanation": "Igual que con $x^2e^x$\n\nel grado $2$ del polinomio en $x^2\\sin x$ exige repetir el método una vez más.\n\nCada aplicación reduce el grado del polinomio en uno, hasta que la integral remanente quede inmediata de tabla.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "diagnostico-iteracion-y-ciclos"
@@ -292,7 +292,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con $e^x\\sin x$, el producto de una exponencial y un coseno genera una **integral cíclica**.\n\n(con signo cambiado)\nEl diagnóstico correcto acá no es seguir aplicando el método, sino reconocer el ciclo y despejar la integral original de la ecuación resultante.",
+    "explanation": "Igual que con $e^x\\sin x$, el producto de una exponencial y un coseno genera una **integral cíclica**.\n\n(con signo cambiado)\nEl diagnóstico correcto acá no es seguir aplicando el método, sino reconocer el ciclo y despejar la integral original de la ecuación resultante.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "diagnostico-iteracion-y-ciclos"
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Sin importar cuán grande sea el exponente del polinomio, elegir $u=\\ln x$ deja $du=\\frac{1}{x}\\.\n\ndx$, que cancela una potencia de $x$ en un único paso.\n\nEsta cancelación es la que garantiza que $\\int x^n\\ln x\\,dx$ siempre cierre en una única aplicación del método, cualquiera sea $n$.",
+    "explanation": "Sin importar cuán grande sea el exponente del polinomio, elegir $u=\\ln x$ deja $du=\\frac{1}{x}\\.\n\ndx$, que cancela una potencia de $x$ en un único paso.\n\nEsta cancelación es la que garantiza que $\\int x^n\\ln x\\,dx$ siempre cierre en una única aplicación del método, cualquiera sea $n$.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "diagnostico-iteracion-y-ciclos"

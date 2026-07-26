@@ -98,7 +98,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El comportamiento de $f(x) = b^x$ depende completamente de la **base** $b$:\n\nAl aumentar $x$.\n\nse multiplica por $b > 1$ repetidamente.\n\nlo que genera **crecimiento exponencial**.\n\nCuando $x \\to +\\infty$.\n\n$f(x) \\to +\\infty$; cuando $x \\to -\\infty$.\n\n$f(x) \\to 0^+$.",
+    "explanation": "El comportamiento de $f(x) = b^x$ depende completamente de la **base** $b$:\n\nAl aumentar $x$.\n\nse multiplica por $b > 1$ repetidamente.\n\nlo que genera **crecimiento exponencial**.\n\nCuando $x \\to +\\infty$.\n\n$f(x) \\to +\\infty$; cuando $x \\to -\\infty$.\n\n$f(x) \\to 0^+$.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "monotonia-segun-base"
@@ -123,7 +123,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": ": es una función **polinómica** de grado 3:\n\nLa variable $x$ está en la **base** y el exponente $3$ es constante.\n\nLas funciones exponenciales tienen la forma $b^x$.\n\ncon la **base constante** y el **exponente variable**:\n\nNo confundir: $x^3$ (polinómica) vs. $3^x$ (exponencial).",
+    "explanation": ": es una función **polinómica** de grado 3:\n\nLa variable $x$ está en la **base** y el exponente $3$ es constante.\n\nLas funciones exponenciales tienen la forma $b^x$.\n\ncon la **base constante** y el **exponente variable**:\n\nNo confundir: $x^3$ (polinómica) vs. $3^x$ (exponencial).\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "identificar-exponencial"
@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La regla es simple: una exponencial $b^x$ es creciente si y solo si $b > 1$.\n\nLas otras opciones tienen **bases** menores que 1 ($0{.\n\n}2$; $0{,}9$; $1/3$).\n\npor lo que son todas decrecientes.\n\nIncluso $0{,}9$, que parece cercano a 1, genera decrecimiento, aunque lento.",
+    "explanation": "La regla es simple: una exponencial $b^x$ es creciente si y solo si $b > 1$.\n\nLas otras opciones tienen **bases** menores que 1 ($0{.\n\n}2$; $0{,}9$; $1/3$).\n\npor lo que son todas decrecientes.\n\nIncluso $0{,}9$, que parece cercano a 1, genera decrecimiento, aunque lento.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "sin-raices-reales"
@@ -333,7 +333,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El exponente $x$ no necesita ser entero. Se puede elevar $2$ a cualquier potencia real:\n\nEl **dominio** es $\\mathbb{R}$ completo. Solo hay restricción de dominio si el exponente está dentro de un logaritmo o bajo una raíz par.",
+    "explanation": "El exponente $x$ no necesita ser entero. Se puede elevar $2$ a cualquier potencia real:\n\nEl **dominio** es $\\mathbb{R}$ completo. Solo hay restricción de dominio si el exponente está dentro de un logaritmo o bajo una raíz par.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "periodo-duplicacion-vida-media"
@@ -408,7 +408,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En el modelo $f(t) = P_0 \\cdot b^t$.\n\nla **tasa de crecimiento por período** es:\n\nCon $b = 1{,}3$: $r = 1{,}3 - 1 = 0{,}3 = 30\\%$.\n\nInterpretación: cada período, el valor se multiplica por $1{,}3$, es decir, aumenta un $30\\%$.\n\nSi $b = 0{,}8$.\n\nla tasa sería $-20\\%$ (decae un $20\\%$ por período).",
+    "explanation": "En el modelo $f(t) = P_0 \\cdot b^t$.\n\nla **tasa de crecimiento por período** es:\n\nCon $b = 1{,}3$: $r = 1{,}3 - 1 = 0{,}3 = 30\\%$.\n\nInterpretación: cada período, el valor se multiplica por $1{,}3$, es decir, aumenta un $30\\%$.\n\nSi $b = 0{,}8$.\n\nla tasa sería $-20\\%$ (decae un $20\\%$ por período).\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "imagen-desplazamiento-vertical"
@@ -658,7 +658,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **asíntota horizontal** refleja el límite de la función:\n\nPor eso la asíntota de $g(x) = b^x + k$ es $y = k$.\n\nEn contexto.\n\n$f(x) = 3^{-x} + 20$ modela un enfriamiento hacia $20°C$ de temperatura ambiente.\n\ndonde la asíntota $y = 20$ representa el valor final al que converge el sistema.",
+    "explanation": "La **asíntota horizontal** refleja el límite de la función:\n\nPor eso la asíntota de $g(x) = b^x + k$ es $y = k$.\n\nEn contexto.\n\n$f(x) = 3^{-x} + 20$ modela un enfriamiento hacia $20°C$ de temperatura ambiente.\n\ndonde la asíntota $y = 20$ representa el valor final al que converge el sistema.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "parametro-base-crecimiento"
@@ -683,7 +683,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Reflexión vertical: multiplicar por $-1$ invierte el signo de todos los valores.\n\nLa **imagen** es $(-\\infty.\n\n0)$: siempre negativa.\n\ncon **asíntota horizontal** $y = 0$ por abajo.\n\nNota: se excluye el $0$ porque : se acerca a $0$ pero nunca llega.",
+    "explanation": "Reflexión vertical: multiplicar por $-1$ invierte el signo de todos los valores.\n\nLa **imagen** es $(-\\infty.\n\n0)$: siempre negativa.\n\ncon **asíntota horizontal** $y = 0$ por abajo.\n\nNota: se excluye el $0$ porque : se acerca a $0$ pero nunca llega.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "resolver-ecuacion-exponencial-simple"
@@ -808,7 +808,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función **inyectiva** (o uno a uno) nunca asigna el mismo valor a dos entradas distintas.\n\nLa exponencial $b^x$ es estrictamente monótona, por lo tanto inyectiva:\n\nConsecuencia importante: la ecuación $b^x = b^y$ implica necesariamente $x = y$.",
+    "explanation": "Una función **inyectiva** (o uno a uno) nunca asigna el mismo valor a dos entradas distintas.\n\nLa exponencial $b^x$ es estrictamente monótona, por lo tanto inyectiva:\n\nConsecuencia importante: la ecuación $b^x = b^y$ implica necesariamente $x = y$.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal"
@@ -1108,7 +1108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para $f(x) = 3^x$:\n\nLa entrada puede ser cualquier real, pero la salida es siempre positiva.\n\nNota: la función **inversa**.\n\n$g(x) = \\log_3(x)$.\n\ntiene exactamente los **dominios** e **imágenes** intercambiados: Dom = $(0,+\\infty)$.\n\nIm = $\\mathbb{R}$.",
+    "explanation": "Para $f(x) = 3^x$:\n\nLa entrada puede ser cualquier real, pero la salida es siempre positiva.\n\nNota: la función **inversa**.\n\n$g(x) = \\log_3(x)$.\n\ntiene exactamente los **dominios** e **imágenes** intercambiados: Dom = $(0,+\\infty)$.\n\nIm = $\\mathbb{R}$. Entender el comportamiento de funciones es la base de todo el cálculo.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "inecuacion-exponencial"
@@ -1133,7 +1133,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La exponencial $f(x) = b^x$ con.\n\n$b > 1$ es **estrictamente creciente en todo.\n\n$\\mathbb{R}$**:\n\nNo tiene máximos ni mínimos locales.\n\nni cambia de dirección.\n\nEsto la diferencia de las polinómicas (que pueden tener múltiples intervalos de crecimiento y decrecimiento).",
+    "explanation": "La exponencial $f(x) = b^x$ con.\n\n$b > 1$ es **estrictamente creciente en todo.\n\n$\\mathbb{R}$**:\n\nNo tiene máximos ni mínimos locales.\n\nni cambia de dirección.\n\nEsto la diferencia de las polinómicas (que pueden tener múltiples intervalos de crecimiento y decrecimiento).\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "parametro-base-crecimiento"

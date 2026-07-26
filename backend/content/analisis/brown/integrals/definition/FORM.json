@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **linealidad** del operador integral permite separar sumas y restas, y extraer cada escalar fuera de su propia integral.\n\nTanto el signo de cada término como el escalar que lo acompaña tienen que conservarse exactamente al pasar a la forma separada.",
+    "explanation": "La **linealidad** del operador integral permite separar sumas y restas, y extraer cada escalar fuera de su propia integral.\n\nTanto el signo de cada término como el escalar que lo acompaña tienen que conservarse exactamente al pasar a la forma separada.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "anatomia-notacion-integral"
@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Al separar una suma dentro de una integral, el diferencial $dx$ tiene que acompañar a **cada** término por separado, no solo al último.\n\nDejar el $dx$ pegado solo a uno de los dos términos de escritura frecuente al aplicar la linealidad por primera vez.",
+    "explanation": "Al separar una suma dentro de una integral, el diferencial $dx$ tiene que acompañar a **cada** término por separado, no solo al último.\n\nDejar el $dx$ pegado solo a uno de los dos términos de escritura frecuente al aplicar la linealidad por primera vez.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "concepto-primitiva-traslacion-geometrica"
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con dos términos que llevan coeficientes distintos, cada uno se extrae de forma independiente sin alterar el signo de la resta original.\n\nExtraer los escalares es el primer paso obligatorio de la linealidad, dejarlos adentro de la integral no cuenta como forma armada.",
+    "explanation": "Con dos términos que llevan coeficientes distintos, cada uno se extrae de forma independiente sin alterar el signo de la resta original.\n\nExtraer los escalares es el primer paso obligatorio de la linealidad, dejarlos adentro de la integral no cuenta como forma armada.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "extraccion-separacion-terminos"
@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un único término con un coeficiente constante se resuelve extrayendo ese coeficiente fuera de la integral, sin necesidad de ningún otro paso previo.\n\nEste es el caso más simple de linealidad, apenas un múltiplo escalar, sin ninguna suma o resta de por medio que complique la forma armada.",
+    "explanation": "Un único término con un coeficiente constante se resuelve extrayendo ese coeficiente fuera de la integral, sin necesidad de ningún otro paso previo.\n\nEste es el caso más simple de linealidad, apenas un múltiplo escalar, sin ninguna suma o resta de por medio que complique la forma armada.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "limites-linealidad-falsas-propiedades"
@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con tres términos separados por sumas y restas, cada uno se convierte en su propia integral independiente, incluida la constante.\n\n\nCombinar los exponentes de distintos términos, como si $x^2$\n\ny $x$ se fusionaran en $x^{2+1}$, rompe por completo la estructura de la suma original.",
+    "explanation": "Con tres términos separados por sumas y restas, cada uno se convierte en su propia integral independiente, incluida la constante.\n\n\nCombinar los exponentes de distintos términos, como si $x^2$\n\ny $x$ se fusionaran en $x^{2+1}$, rompe por completo la estructura de la suma original.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "expansion-distribucion-obligatoria"
@@ -177,7 +177,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con tres términos de distinto grado, cada uno se separa en su propia integral y el coeficiente del término del medio se extrae afuera.\n\nAplicar la linealidad completa significa hacer los dos pasos a la vez, separar la suma y extraer cada escalar, ninguno de los dos pasos alcanza por sí solo.",
+    "explanation": "Con tres términos de distinto grado, cada uno se separa en su propia integral y el coeficiente del término del medio se extrae afuera.\n\nAplicar la linealidad completa significa hacer los dos pasos a la vez, separar la suma y extraer cada escalar, ninguno de los dos pasos alcanza por sí solo.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "concepto-primitiva-traslacion-geometrica"
@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El producto de una exponencial y un logaritmo tampoco se puede separar en integrales independientes por linealidad.\n\nCualquier producto de dos funciones distintas de $x$ dentro del integrando queda fuera del alcance de la linealidad, sin importar de qué familias sean esas funciones.",
+    "explanation": "El producto de una exponencial y un logaritmo tampoco se puede separar en integrales independientes por linealidad.\n\nCualquier producto de dos funciones distintas de $x$ dentro del integrando queda fuera del alcance de la linealidad, sin importar de qué familias sean esas funciones.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "expansion-distribucion-obligatoria"
@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un producto o un cociente entre funciones, una suma con un coeficiente escalar sí respeta por completo la **linealidad**.\n\nConviene distinguir siempre la estructura del integrando, sumas y escalares se separan sin problema, productos y cocientes de funciones no.",
+    "explanation": "Un producto o un cociente entre funciones, una suma con un coeficiente escalar sí respeta por completo la **linealidad**.\n\nConviene distinguir siempre la estructura del integrando, sumas y escalares se separan sin problema, productos y cocientes de funciones no.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "reescritura-potencias-y-raices"
@@ -315,7 +315,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aunque la expresión tenga forma de producto, el $4$ es una constante fija, no una función que dependa de $x$.\n\nLa restricción sobre productos aplica cuando ambos factores son funciones de $x$, multiplicar por una constante siempre es un caso de múltiplo escalar.",
+    "explanation": "Aunque la expresión tenga forma de producto, el $4$ es una constante fija, no una función que dependa de $x$.\n\nLa restricción sobre productos aplica cuando ambos factores son funciones de $x$, multiplicar por una constante siempre es un caso de múltiplo escalar.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "concepto-primitiva-traslacion-geometrica"
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El producto de dos funciones trigonométricas distintas tampoco se puede separar en integrales independientes por linealidad.\n\nQue ambas funciones pertenezcan a la misma familia trigonométrica no cambia nada, la restricción sobre productos no distingue entre familias de funciones.",
+    "explanation": "El producto de dos funciones trigonométricas distintas tampoco se puede separar en integrales independientes por linealidad.\n\nQue ambas funciones pertenezcan a la misma familia trigonométrica no cambia nada, la restricción sobre productos no distingue entre familias de funciones.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "extraccion-separacion-terminos"

@@ -73,7 +73,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **período** de $A\\cdot\\operatorname{sen}(Bx)$ es $T=\\dfrac{2\\pi}{B}$.\n\nCon $B=3$: $T=\\dfrac{2\\pi}{3}$.\n\nA mayor $B$, más ciclos por unidad y menor período.\n\nEl coeficiente $A=2$ afecta solo a la amplitud.\n\nno al período.\n\nNo confundir $B$ con la amplitud $A$: son parámetros independientes.",
+    "explanation": "El **período** de $A\\cdot\\operatorname{sen}(Bx)$ es $T=\\dfrac{2\\pi}{B}$.\n\nCon $B=3$: $T=\\dfrac{2\\pi}{3}$.\n\nA mayor $B$, más ciclos por unidad y menor período.\n\nEl coeficiente $A=2$ afecta solo a la amplitud.\n\nno al período.\n\nNo confundir $B$ con la amplitud $A$: son parámetros independientes.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "lectura-grafico-directa-trig"
@@ -98,7 +98,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con $B=\\dfrac{1}{2}$ en $\\cos(x/2)$: período :.\n\nCuando $B<1$.\n\nel período se **estira**: la onda tarda más en completar un ciclo.\n\nSi $B=1$ el período es $2\\pi$ (coseno básico).\n\nSi $B=2$ sería $\\pi$ (más corto).\n\nA menor $B$, mayor período: la onda se extiende horizontalmente.",
+    "explanation": "Con $B=\\dfrac{1}{2}$ en $\\cos(x/2)$: período :.\n\nCuando $B<1$.\n\nel período se **estira**: la onda tarda más en completar un ciclo.\n\nSi $B=1$ el período es $2\\pi$ (coseno básico).\n\nSi $B=2$ sería $\\pi$ (más corto).\n\nA menor $B$, mayor período: la onda se extiende horizontalmente.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "amplitud-calculo-form"
@@ -383,7 +383,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $h(x)=\\cos(x)+D$.\n\nel **mínimo** ocurre cuando $\\cos(x)=-1$: $h_{\\min}=-1+D$.\n\nLa opción $-1$ es el mínimo del coseno sin desplazamiento.\n\nLa opción $-2$ es solo $D$.\n\nEl mínimo real agrega el desplazamiento vertical al mínimo base.",
+    "explanation": "En $h(x)=\\cos(x)+D$.\n\nel **mínimo** ocurre cuando $\\cos(x)=-1$: $h_{\\min}=-1+D$.\n\nLa opción $-1$ es el mínimo del coseno sin desplazamiento.\n\nLa opción $-2$ es solo $D$.\n\nEl mínimo real agrega el desplazamiento vertical al mínimo base.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -508,7 +508,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La suma de ángulos en trigonometría tiene fórmulas específicas.\n\nPara $\\operatorname{sen}(A + B)$\n\ny $\\operatorname{sen}(A - B)$, no es simplemente $\\operatorname{sen}(A) + \\operatorname{sen}(B)$.\n\nLas fórmulas correctas son:\n\nLa suma de los argumentos NO es lo mismo que la suma de los valores.",
+    "explanation": "La suma de ángulos en trigonometría tiene fórmulas específicas.\n\nPara $\\operatorname{sen}(A + B)$\n\ny $\\operatorname{sen}(A - B)$, no es simplemente $\\operatorname{sen}(A) + \\operatorname{sen}(B)$.\n\nLas fórmulas correctas son:\n\nLa suma de los argumentos NO es lo mismo que la suma de los valores.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -538,7 +538,7 @@
       -3,
       3
     ],
-    "explanation": "La función es $f(x)=2\\,\\operatorname{sen}(x)$.\n\nEl seno alcanza su **máximo** cuando el argumento es $\\pi/2$: $\\operatorname{sen}(\\pi/2)=1$.\n\nMultiplicado por $2$:\n\nEste es el valor máximo de $f$.\n\nLa opción $0$ sería $f(0)$ o :.\n\nLa opción $1$ es el máximo del seno sin escalar.",
+    "explanation": "La función es $f(x)=2\\,\\operatorname{sen}(x)$.\n\nEl seno alcanza su **máximo** cuando el argumento es $\\pi/2$: $\\operatorname{sen}(\\pi/2)=1$.\n\nMultiplicado por $2$:\n\nEste es el valor máximo de $f$.\n\nLa opción $0$ sería $f(0)$ o :.\n\nLa opción $1$ es el máximo del seno sin escalar.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "imagen-rango-form-trig"
@@ -588,7 +588,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **período** de $f(x)=\\operatorname{sen}(Bx)$ es $T=2\\pi/B$.\n\nDespejando $B$ a partir de $T=\\pi/3$:\n\nLa opción $3$ es el inverso del período (no es $B$).\n\nLas opciones $1/6$ y $1/3$ son demasiado pequeñas.\n\nUn período corto : exige un $B$ grande ($6$):\n\nLa onda completa 6 ciclos en $2\\pi$.",
+    "explanation": "El **período** de $f(x)=\\operatorname{sen}(Bx)$ es $T=2\\pi/B$.\n\nDespejando $B$ a partir de $T=\\pi/3$:\n\nLa opción $3$ es el inverso del período (no es $B$).\n\nLas opciones $1/6$ y $1/3$ son demasiado pequeñas.\n\nUn período corto : exige un $B$ grande ($6$):\n\nLa onda completa 6 ciclos en $2\\pi$.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "periodo-calculo-form"
@@ -668,7 +668,7 @@
       -2,
       2
     ],
-    "explanation": "La función es $f(x)=\\cos(x)$.\n\nEvaluar en $x=0$:\n\nEl coseno arranca en su **máximo** ($1$) cuando $x=0$: esa es la diferencia visual clave entre coseno y seno.\n\nEl seno vale $0$ en .\n\nEl coseno vale $1$.\n\nLa gráfica confirma el pico inicial.",
+    "explanation": "La función es $f(x)=\\cos(x)$.\n\nEvaluar en $x=0$:\n\nEl coseno arranca en su **máximo** ($1$) cuando $x=0$: esa es la diferencia visual clave entre coseno y seno.\n\nEl seno vale $0$ en .\n\nEl coseno vale $1$.\n\nLa gráfica confirma el pico inicial. Entender el comportamiento de funciones es la base de todo el cálculo.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "extremos-desde-formula"
@@ -693,7 +693,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **período** de $f(x)=2\\,\\operatorname{sen}(3x)$ depende solo del coeficiente $B=3$ del argumento.\n\nno de la amplitud $A=2$:\n\nLa opción $6\\pi$ invierte el cociente.\n\nLa opción $2\\pi$ ignora $B=3$.\n\nLa opción $3\\pi$ usa : en vez de $3$.\n\nLa amplitud $A=2$ no afecta al período.",
+    "explanation": "El **período** de $f(x)=2\\,\\operatorname{sen}(3x)$ depende solo del coeficiente $B=3$ del argumento.\n\nno de la amplitud $A=2$:\n\nLa opción $6\\pi$ invierte el cociente.\n\nLa opción $2\\pi$ ignora $B=3$.\n\nLa opción $3\\pi$ usa : en vez de $3$.\n\nLa amplitud $A=2$ no afecta al período.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "periodo-calculo-form"
@@ -1003,7 +1003,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dada una onda con máximo $6$, mínimo $2$.\n\ny período $2\\pi$\n\nse calculan $A$, $D$.\n\ny $B$:\n\nLuego $f(x)=2\\,\\operatorname{sen}(x)+4$.\n\nLa opción $6\\,\\operatorname{sen}(x)+2$ tiene amplitud $6$.\n\ny mínimo $-4$: No $2$.\n\nLa opción $4\\,\\operatorname{sen}(x)+4$ tiene amplitud $4$:\n\nNo $2$.",
+    "explanation": "Dada una onda con máximo $6$, mínimo $2$.\n\ny período $2\\pi$\n\nse calculan $A$, $D$.\n\ny $B$:\n\nLuego $f(x)=2\\,\\operatorname{sen}(x)+4$.\n\nLa opción $6\\,\\operatorname{sen}(x)+2$ tiene amplitud $6$.\n\ny mínimo $-4$: No $2$.\n\nLa opción $4\\,\\operatorname{sen}(x)+4$ tiene amplitud $4$:\n\nNo $2$.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "imagen-rango-form-trig"
@@ -1083,7 +1083,7 @@
       -2,
       4
     ],
-    "explanation": "La función es $f(x)=2\\,\\operatorname{sen}(x)+1$.\n\nEl **máximo** ocurre cuando $\\operatorname{sen}(x)=1$:\n\nLa opción $1$ es solo el desplazamiento $D$.\n\nLa opción $2$ es solo la amplitud $A$.\n\nLa opción $4$ usaría : en vez de $2+1$.\n\nEl máximo es siempre $A+D=2+1=3$.",
+    "explanation": "La función es $f(x)=2\\,\\operatorname{sen}(x)+1$.\n\nEl **máximo** ocurre cuando $\\operatorname{sen}(x)=1$:\n\nLa opción $1$ es solo el desplazamiento $D$.\n\nLa opción $2$ es solo la amplitud $A$.\n\nLa opción $4$ usaría : en vez de $2+1$.\n\nEl máximo es siempre $A+D=2+1=3$.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-form-trig"
@@ -1108,7 +1108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para $f(x)=\\cos(Bx)$ con amplitud $1$.\n\neje $y=0$ y período $4\\pi$.\n\nse determina $B$:\n\nLuego $f(x)=\\cos(x/2)$.\n\nLa opción $\\cos(4\\pi x)$ tendría período $2\\pi/(4\\pi)=1/2$: demasiado corto.\n\nLa opción $\\cos(2x)$ tendría período $\\pi$.\n\nSolo $\\cos(x/2)$ tiene período $4\\pi$.",
+    "explanation": "Para $f(x)=\\cos(Bx)$ con amplitud $1$.\n\neje $y=0$ y período $4\\pi$.\n\nse determina $B$:\n\nLuego $f(x)=\\cos(x/2)$.\n\nLa opción $\\cos(4\\pi x)$ tendría período $2\\pi/(4\\pi)=1/2$: demasiado corto.\n\nLa opción $\\cos(2x)$ tendría período $\\pi$.\n\nSolo $\\cos(x/2)$ tiene período $4\\pi$.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-form-trig"
@@ -1158,7 +1158,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ángulo $\\pi/4=45°$ corresponde al triángulo isósceles rectángulo ($1, 1, \\sqrt{2}$).\n\nEl seno es cateto opuesto sobre hipotenusa:\n\nA $45°$, seno y coseno son iguales: $\\sqrt{2}/2\\approx0{,}707$.\n\nLa opción $1/2$ es .\n\nLa opción $\\sqrt{3}/2$ es $\\operatorname{sen}(60°)$.",
+    "explanation": "El ángulo $\\pi/4=45°$ corresponde al triángulo isósceles rectángulo ($1, 1, \\sqrt{2}$).\n\nEl seno es cateto opuesto sobre hipotenusa:\n\nA $45°$, seno y coseno son iguales: $\\sqrt{2}/2\\approx0{,}707$.\n\nLa opción $1/2$ es .\n\nLa opción $\\sqrt{3}/2$ es $\\operatorname{sen}(60°)$.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -1183,7 +1183,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **período** de $f(x)=\\cos(2x/3)$ tiene $B=2/3$:\n\nLa opción $4\\pi/3$ invertiría el cociente.\n\nLa opción : confundiría $B=3/2$ con $B=2/3$.\n\nLa opción $6\\pi$ usaría $B=1/3$.\n\nCon $B=2/3$ el período es $3\\pi$.",
+    "explanation": "El **período** de $f(x)=\\cos(2x/3)$ tiene $B=2/3$:\n\nLa opción $4\\pi/3$ invertiría el cociente.\n\nLa opción : confundiría $B=3/2$ con $B=2/3$.\n\nLa opción $6\\pi$ usaría $B=1/3$.\n\nCon $B=2/3$ el período es $3\\pi$. Entender el comportamiento de funciones es la base de todo el cálculo.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -1208,7 +1208,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La función $f(x)=\\operatorname{sen}(x-\\pi/2)$ alcanza su máximo cuando el argumento es $\\pi/2$:\n\nVerificación: $f(\\pi)=\\operatorname{sen}(\\pi-\\pi/2)=\\operatorname{sen}(\\pi/2)=1$ .\n\nEl máximo del seno se desplazó de : a $x=\\pi$ por el desfase $-\\pi/2$.",
+    "explanation": "La función $f(x)=\\operatorname{sen}(x-\\pi/2)$ alcanza su máximo cuando el argumento es $\\pi/2$:\n\nVerificación: $f(\\pi)=\\operatorname{sen}(\\pi-\\pi/2)=\\operatorname{sen}(\\pi/2)=1$ .\n\nEl máximo del seno se desplazó de : a $x=\\pi$ por el desfase $-\\pi/2$.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "primer-extremo-desfase"

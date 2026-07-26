@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El seno oscila siempre entre $-1$ y $1$: su **rango** es :.\n\n\nEl valor máximo absoluto es $1$.\n\nalcanzado en $x=\\pi/2+2k\\pi$ para todo entero $k$.\n\nA diferencia de $e^x$ o $x^2$.\n\nel seno nunca crece hacia ::\n\nEstá acotado.\n\n$2\\pi$ y $\\pi$ son valores del **período**.\n\nno valores de la función.",
+    "explanation": "El seno oscila siempre entre $-1$ y $1$: su **rango** es :.\n\n\nEl valor máximo absoluto es $1$.\n\nalcanzado en $x=\\pi/2+2k\\pi$ para todo entero $k$.\n\nA diferencia de $e^x$ o $x^2$.\n\nel seno nunca crece hacia ::\n\nEstá acotado.\n\n$2\\pi$ y $\\pi$ son valores del **período**.\n\nno valores de la función.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "paridad-funcion"
@@ -683,7 +683,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $g(x)=A\\cos(x)+D$.\n\nel **mínimo** se alcanza cuando $\\cos(x)=-1$: en ese punto $g=D-|A|$.\n\nTanto si $A>0$ como si $A<0$.\n\nsiempre se resta $|A|$ del **desplazamiento** $D$.\n\nLa opción $-1$ es solo.\n\n$D$; la.\n\n$-2$ es : sin el desplazamiento.\n\nEl mínimo real es $-3$.",
+    "explanation": "En $g(x)=A\\cos(x)+D$.\n\nel **mínimo** se alcanza cuando $\\cos(x)=-1$: en ese punto $g=D-|A|$.\n\nTanto si $A>0$ como si $A<0$.\n\nsiempre se resta $|A|$ del **desplazamiento** $D$.\n\nLa opción $-1$ es solo.\n\n$D$; la.\n\n$-2$ es : sin el desplazamiento.\n\nEl mínimo real es $-3$.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "transformaciones-trig"
@@ -1008,7 +1008,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x)=\\operatorname{sen}(2x)$.\n\nel coeficiente $B=2$ **comprime** el **período** a la mitad: $T=2\\pi/B=2\\pi/2=\\pi$.\n\nLos distractores $2\\pi$ (sin modificar.\n\n$B$) y.\n\n$4\\pi$ (como si.\n\n$B=1/2$) son errores frecuentes.\n\n$\\pi/2$ correspondería a.\n\n$B=4$.\n\nCon $B=2$, la respuesta correcta es $\\pi$.",
+    "explanation": "En $f(x)=\\operatorname{sen}(2x)$.\n\nel coeficiente $B=2$ **comprime** el **período** a la mitad: $T=2\\pi/B=2\\pi/2=\\pi$.\n\nLos distractores $2\\pi$ (sin modificar.\n\n$B$) y.\n\n$4\\pi$ (como si.\n\n$B=1/2$) son errores frecuentes.\n\n$\\pi/2$ correspondería a.\n\n$B=4$.\n\nCon $B=2$, la respuesta correcta es $\\pi$.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "periodo-con-b"
@@ -1033,7 +1033,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $g(x)=\\operatorname{sen}(x/2)$.\n\nel coeficiente $B=1/2$ **estira** el **período** al doble: $T=2\\pi/B=2\\pi/(1/2)=4\\pi$.\n\nUn $B$ menor que $1$ hace que la onda tarde más en completar un ciclo.\n\nCon $B=1/2$, la onda va a paso de tortuga: $4\\pi\\approx12{,}57$ unidades por ciclo.",
+    "explanation": "En $g(x)=\\operatorname{sen}(x/2)$.\n\nel coeficiente $B=1/2$ **estira** el **período** al doble: $T=2\\pi/B=2\\pi/(1/2)=4\\pi$.\n\nUn $B$ menor que $1$ hace que la onda tarde más en completar un ciclo.\n\nCon $B=1/2$, la onda va a paso de tortuga: $4\\pi\\approx12{,}57$ unidades por ciclo.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "periodo-con-b"

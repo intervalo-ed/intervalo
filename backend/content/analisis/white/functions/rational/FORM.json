@@ -958,7 +958,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar $f(6)$ en $f(x)=\\frac{3}{x-4}+2$.\n\nsustituimos $x=6$ y resolvemos por partes:\n\nEl resultado es $\\frac{7}{2}$.\n\nsumar el $2$ del desplazamiento vertical antes de simplificar la fracción, o directamente quedarse solo con el valor de la fracción sin sumar el desplazamiento constante.",
+    "explanation": "Para evaluar $f(6)$ en $f(x)=\\frac{3}{x-4}+2$.\n\nsustituimos $x=6$ y resolvemos por partes:\n\nEl resultado es $\\frac{7}{2}$.\n\nsumar el $2$ del desplazamiento vertical antes de simplificar la fracción, o directamente quedarse solo con el valor de la fracción sin sumar el desplazamiento constante.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "combinado-av-ah-valor"

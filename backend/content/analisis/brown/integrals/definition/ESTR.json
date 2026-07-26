@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando un polinomio se divide por un monomio, conviene **repartir** esa división entre cada término del numerador.\n\nCon la expresión repartida, queda un polinomio simple que se integra directamente por linealidad, sin ninguna regla especial de cocientes.",
+    "explanation": "Cuando un polinomio se divide por un monomio, conviene **repartir** esa división entre cada término del numerador.\n\nCon la expresión repartida, queda un polinomio simple que se integra directamente por linealidad, sin ninguna regla especial de cocientes.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "concepto-primitiva-traslacion-geometrica"
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Frente a un producto entre un monomio y un binomio, el paso previo obligatorio es **distribuir** antes de integrar.\n\nCon el producto ya distribuido, cada término se integra por separado usando linealidad, evitando cualquier confusión con reglas de producto que todavía no aplican acá.",
+    "explanation": "Frente a un producto entre un monomio y un binomio, el paso previo obligatorio es **distribuir** antes de integrar.\n\nCon el producto ya distribuido, cada término se integra por separado usando linealidad, evitando cualquier confusión con reglas de producto que todavía no aplican acá.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "extraccion-separacion-terminos"
@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con cualquier cociente entre un polinomio y un monomio, conviene repartir la división término a término.\n\nUna vez repartido, el resultado es un polinomio simple, listo para integrarse por linealidad sin ninguna regla adicional de cocientes.",
+    "explanation": "Igual que con cualquier cociente entre un polinomio y un monomio, conviene repartir la división término a término.\n\nUna vez repartido, el resultado es un polinomio simple, listo para integrarse por linealidad sin ninguna regla adicional de cocientes.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "limites-linealidad-falsas-propiedades"
@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con cualquier binomio al cuadrado, el paso previo es desarrollarlo por completo antes de integrar término a término.\n\nEl signo negativo dentro del binomio no cambia el procedimiento, solo hay que distribuirlo con cuidado al expandir el cuadrado y conservar el término cruzado.",
+    "explanation": "Igual que con cualquier binomio al cuadrado, el paso previo es desarrollarlo por completo antes de integrar término a término.\n\nEl signo negativo dentro del binomio no cambia el procedimiento, solo hay que distribuirlo con cuidado al expandir el cuadrado y conservar el término cruzado.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "expansion-distribucion-obligatoria"
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un denominador que también lleva un coeficiente numérico, la repartición sigue funcionando igual, término a término.\n\nEl resultado queda como un binomio simple, listo para integrarse por linealidad sin ninguna regla adicional de cocientes.",
+    "explanation": "Con un denominador que también lleva un coeficiente numérico, la repartición sigue funcionando igual, término a término.\n\nEl resultado queda como un binomio simple, listo para integrarse por linealidad sin ninguna regla adicional de cocientes.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "anatomia-notacion-integral"
@@ -200,7 +200,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de integrar cualquier fracción con potencia en el denominador, conviene reescribirla como una **potencia negativa**.\n\nEsta reescritura es la que habilita usar directamente la regla de la potencia en el tópico siguiente, sin necesidad de ninguna fórmula especial para fracciones.",
+    "explanation": "Antes de integrar cualquier fracción con potencia en el denominador, conviene reescribirla como una **potencia negativa**.\n\nEsta reescritura es la que habilita usar directamente la regla de la potencia en el tópico siguiente, sin necesidad de ninguna fórmula especial para fracciones.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "extraccion-separacion-terminos"
@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Esta expresión combina dos reescrituras en una sola, la raíz se convierte en exponente fraccionario y el denominador cambia el signo del exponente.\n\nAplicar ambas reescrituras a la vez es lo que deja la expresión lista para la regla de la potencia del tópico siguiente.",
+    "explanation": "Esta expresión combina dos reescrituras en una sola, la raíz se convierte en exponente fraccionario y el denominador cambia el signo del exponente.\n\nAplicar ambas reescrituras a la vez es lo que deja la expresión lista para la regla de la potencia del tópico siguiente.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "reescritura-potencias-y-raices"
@@ -292,7 +292,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con cualquier fracción con potencia en el denominador, conviene reescribirla como potencia negativa antes de integrar.\n\nEl exponente original del denominador pasa arriba con el signo cambiado, un patrón que se repite siempre igual sin importar el valor del exponente.",
+    "explanation": "Igual que con cualquier fracción con potencia en el denominador, conviene reescribirla como potencia negativa antes de integrar.\n\nEl exponente original del denominador pasa arriba con el signo cambiado, un patrón que se repite siempre igual sin importar el valor del exponente.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "anatomia-notacion-integral"

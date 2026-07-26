@@ -315,7 +315,7 @@
       "Esta propiedad depende de la paridad del grado que ya se indica en el enunciado, no hace falta otra condición.",
       "La existencia de un piso en la imagen depende del grado y el signo del coeficiente principal, no de dónde estén las raíces."
     ],
-    "explanation": "Para grado $4$ con coef. positivo:\n\nLa curva siempre vuelve hacia arriba en los extremos: debe existir un **mínimo global**. La imagen está **acotada por abajo**; hay un valor mínimo que $f$ alcanza y nunca baja de allí.",
+    "explanation": "Para grado $4$ con coef. positivo:\n\nLa curva siempre vuelve hacia arriba en los extremos: debe existir un **mínimo global**. La imagen está **acotada por abajo**; hay un valor mínimo que $f$ alcanza y nunca baja de allí.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "has_math": true,
     "graph_fn": "(pow(x,2)-1)*(pow(x,2)-4)/4",
     "graph_view": [
@@ -465,7 +465,7 @@
       null,
       "Entre dos raíces consecutivas la función mantiene el mismo signo en todo el tramo."
     ],
-    "explanation": "Las raíces del polinomio en ese sector son $x = 1$ y $x = 2$.\n\nEntre dos raíces consecutivas, la función tiene signo constante.\n\nEvaluando en $x = 1.5$:\n\nComo $f(1.5) < 0$.\n\nla curva está **por debajo** del eje $x$ en el intervalo $(1.\n\n2)$.",
+    "explanation": "Las raíces del polinomio en ese sector son $x = 1$ y $x = 2$.\n\nEntre dos raíces consecutivas, la función tiene signo constante.\n\nEvaluando en $x = 1.5$:\n\nComo $f(1.5) < 0$.\n\nla curva está **por debajo** del eje $x$ en el intervalo $(1.\n\n2)$. Entender el comportamiento de funciones es la base de todo el cálculo.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "has_math": true,
     "graph_fn": "(pow(x,2)-1)*(pow(x,2)-4)/4",
     "graph_view": [
@@ -795,7 +795,7 @@
       "Mirá hacia dónde apunta la curva en el extremo derecho del gráfico, sube, no baja.",
       "Contá todos los puntos donde la curva cruza el eje, a esta expresión le falta una raíz."
     ],
-    "explanation": "Raíces $r_1 = -1$.\n\n$r_2 = 0$.\n\n$r_3 = 3$ → factores $(x - (-1)) = (x+1)$.\n\n$x$.\n\n$(x-3)$.\n\nLa forma factorizada con coef. $a = 1/5$ (escala):\n\nError clásico: invertir signos dentro de los factores.\n\nRaíz $-1$ da factor $(x+1)$.\n\nno $(x-1)$; raíz.\n\n$3$ da factor.\n\n$(x-3)$.\n\nno $(x+3)$.",
+    "explanation": "Raíces $r_1 = -1$.\n\n$r_2 = 0$.\n\n$r_3 = 3$ → factores $(x - (-1)) = (x+1)$.\n\n$x$.\n\n$(x-3)$.\n\nLa forma factorizada con coef. $a = 1/5$ (escala):\n\nError clásico: invertir signos dentro de los factores.\n\nRaíz $-1$ da factor $(x+1)$.\n\nno $(x-1)$; raíz.\n\n$3$ da factor.\n\n$(x-3)$.\n\nno $(x+3)$.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "has_math": true,
     "graph_fn": "(x+1)*x*(x-3)/5",
     "graph_view": [

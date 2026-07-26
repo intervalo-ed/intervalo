@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\sqrt{2}$ es un **número fijo**, sin ninguna dependencia de $x$, aunque su apariencia recuerde a una expresión algebraica.\n\nLa presencia de una raíz no implica automáticamente una potencia de $x$, hay que verificar primero si la variable está realmente presente.",
+    "explanation": "$\\sqrt{2}$ es un **número fijo**, sin ninguna dependencia de $x$, aunque su apariencia recuerde a una expresión algebraica.\n\nLa presencia de una raíz no implica automáticamente una potencia de $x$, hay que verificar primero si la variable está realmente presente.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "discriminacion-de-familias"
@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El coseno evaluado en un ángulo fijo, $\\pi/3$, da como resultado un **número fijo**, en este caso $\\frac{1}{2}$.\n\nLa presencia de la función trigonométrica en la escritura no implica que la variable de integración esté involucrada, acá el ángulo ya está fijo.",
+    "explanation": "El coseno evaluado en un ángulo fijo, $\\pi/3$, da como resultado un **número fijo**, en este caso $\\frac{1}{2}$.\n\nLa presencia de la función trigonométrica en la escritura no implica que la variable de integración esté involucrada, acá el ángulo ya está fijo.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "polinomios-fracciones-simples-combinadas"
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La expresión $e^{\\ln 4}$ se simplifica por completo a $4$, ya que la exponencial y el logaritmo natural son operaciones inversas.\n\nAntes de decidir la regla, conviene simplificar cualquier combinación de exponencial y logaritmo que resulte en un número fijo sin variable.",
+    "explanation": "La expresión $e^{\\ln 4}$ se simplifica por completo a $4$, ya que la exponencial y el logaritmo natural son operaciones inversas.\n\nAntes de decidir la regla, conviene simplificar cualquier combinación de exponencial y logaritmo que resulte en un número fijo sin variable.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "reconocimiento-directo-antiderivadas"
@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $2^x$, la variable está en el exponente.\n\npero la base es $2$, distinta de $e$, así que corresponde la **regla exponencial** general.\n\nSolo cuando la base es exactamente $e$ desaparece el factor $\\ln a$ del resultado, para cualquier otra base ese factor es obligatorio.",
+    "explanation": "En $2^x$, la variable está en el exponente.\n\npero la base es $2$, distinta de $e$, así que corresponde la **regla exponencial** general.\n\nSolo cuando la base es exactamente $e$ desaparece el factor $\\ln a$ del resultado, para cualquier otra base ese factor es obligatorio.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "polinomios-fracciones-simples-combinadas"
@@ -292,7 +292,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La expresión $\\frac{1}{x}$ equivale a $x^{-1}$, exactamente el exponente que queda excluido de la **regla de la potencia**.\n\nEste caso especial, $n=-1$, tiene su propia entrada en la tabla porque la fórmula general de la potencia produciría una división por cero.",
+    "explanation": "La expresión $\\frac{1}{x}$ equivale a $x^{-1}$, exactamente el exponente que queda excluido de la **regla de la potencia**.\n\nEste caso especial, $n=-1$, tiene su propia entrada en la tabla porque la fórmula general de la potencia produciría una división por cero.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "reconocimiento-directo-antiderivadas"
@@ -315,7 +315,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La expresión $\\frac{1}{x^2}$ equivale a $x^{-2}$\n\nun exponente distinto de $-1$, así que la **regla de la potencia** general sigue aplicando sin excepción.\n\nConfundir cualquier fracción con potencia negativa con el caso del logaritmo , la excepción es exclusivamente $n=-1$.",
+    "explanation": "La expresión $\\frac{1}{x^2}$ equivale a $x^{-2}$\n\nun exponente distinto de $-1$, así que la **regla de la potencia** general sigue aplicando sin excepción.\n\nConfundir cualquier fracción con potencia negativa con el caso del logaritmo , la excepción es exclusivamente $n=-1$.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "identificacion-inversa-derivada"

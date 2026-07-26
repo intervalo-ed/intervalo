@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por **linealidad** los dos términos y aplicamos la fórmula de tabla a cada uno.\n\nEl doble signo negativo, el del enunciado y el de la primitiva del seno, se combina en un resultado final positivo, ese es el paso donde más se pierde el signo.",
+    "explanation": "Separamos por **linealidad** los dos términos y aplicamos la fórmula de tabla a cada uno.\n\nEl doble signo negativo, el del enunciado y el de la primitiva del seno, se combina en un resultado final positivo, ese es el paso donde más se pierde el signo.\n\nRecordá que la primitiva de cada función elemental está dentro de tu tabla de fórmulas: no intentes inventarlas.",
     "reviewed": false,
     "tags": [
       "reconocimiento-directo-antiderivadas"
@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad y aplicamos la **regla de la potencia** y la trigonométrica a cada término.\n\nEl coeficiente $6$ dividido por el nuevo exponente $3$ da $2$, un paso de simplificación que conviene no saltear.",
+    "explanation": "Separamos por linealidad y aplicamos la **regla de la potencia** y la trigonométrica a cada término.\n\nEl coeficiente $6$ dividido por el nuevo exponente $3$ da $2$, un paso de simplificación que conviene no saltear.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "identificacion-inversa-derivada"
@@ -68,7 +68,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad y aplicamos la **regla exponencial** y la de la potencia a cada término.\n\nEl término exponencial no cambia de forma al integrarse, mientras que el término lineal necesita dividir su coeficiente por el nuevo exponente.",
+    "explanation": "Separamos por linealidad y aplicamos la **regla exponencial** y la de la potencia a cada término.\n\nEl término exponencial no cambia de forma al integrarse, mientras que el término lineal necesita dividir su coeficiente por el nuevo exponente.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "constantes-enganosas"
@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad y aplicamos la regla trigonométrica y la de la constante a cada término.\n\nEl doble signo negativo del primer término, el del enunciado y el de la primitiva del seno, se cancela dando un resultado positivo.",
+    "explanation": "Separamos por linealidad y aplicamos la regla trigonométrica y la de la constante a cada término.\n\nEl doble signo negativo del primer término, el del enunciado y el de la primitiva del seno, se cancela dando un resultado positivo.\n\nRecordá que la primitiva de cada función elemental está dentro de tu tabla de fórmulas: no intentes inventarlas.",
     "reviewed": false,
     "tags": [
       "discriminacion-de-familias"
@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad y aplicamos la regla de la potencia y la trigonométrica a cada término.\n\nEl signo negativo del segundo término se conserva sin cambios, la primitiva del coseno no lleva ningún signo extra como sí lleva la del seno.",
+    "explanation": "Separamos por linealidad y aplicamos la regla de la potencia y la trigonométrica a cada término.\n\nEl signo negativo del segundo término se conserva sin cambios, la primitiva del coseno no lleva ningún signo extra como sí lleva la del seno.\n\nRecordá que la primitiva de cada función elemental está dentro de tu tabla de fórmulas: no intentes inventarlas.",
     "reviewed": false,
     "tags": [
       "suma-resta-terminos-elementales"
@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad y aplicamos la regla trigonométrica y la de la potencia a cada término.\n\nLa primitiva de $\\sec^2 x$ es directamente $\\tan x$, sin ningún ajuste de signo adicional que recordar.",
+    "explanation": "Separamos por linealidad y aplicamos la regla trigonométrica y la de la potencia a cada término.\n\nLa primitiva de $\\sec^2 x$ es directamente $\\tan x$, sin ningún ajuste de signo adicional que recordar.\n\nRecordá que la primitiva de cada función elemental está dentro de tu tabla de fórmulas: no intentes inventarlas. Aunque la tabla tiene muchas fórmulas, todas ellas se derivan de las reglas básicas de derivación invertidas.",
     "reviewed": false,
     "tags": [
       "polinomios-fracciones-simples-combinadas"
@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad y aplicamos la regla de la constante y la exponencial a cada término.\n\nLa constante $7$ necesita el factor $x$ que aparece siempre en la regla de la constante, dejarlo de lado .",
+    "explanation": "Separamos por linealidad y aplicamos la regla de la constante y la exponencial a cada término.\n\nLa constante $7$ necesita el factor $x$ que aparece siempre en la regla de la constante, dejarlo de lado . Este tipo de integral es muy común en aplicaciones, vale la pena dominarla completamente.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "reconocimiento-directo-antiderivadas"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad y aplicamos la regla trigonométrica y la de la potencia a cada término.\n\nEl coeficiente $8$ dividido por el nuevo exponente $4$ da $2$, un paso de simplificación que conviene no saltear.",
+    "explanation": "Separamos por linealidad y aplicamos la regla trigonométrica y la de la potencia a cada término.\n\nEl coeficiente $8$ dividido por el nuevo exponente $4$ da $2$, un paso de simplificación que conviene no saltear. Cada primitiva elemental está en tu tabla de fórmulas: no intentes inventarlas caso por caso.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "identificacion-inversa-derivada"
@@ -218,7 +218,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad, reconociendo que $\\frac{5}{x}$ es el caso especial $n=-1$.\n\nEl término $\\frac{5}{x}$ no sigue la regla de la potencia normal, es la excepción que dispara la regla del logaritmo con valor absoluto.",
+    "explanation": "Separamos por linealidad, reconociendo que $\\frac{5}{x}$ es el caso especial $n=-1$.\n\nEl término $\\frac{5}{x}$ no sigue la regla de la potencia normal, es la excepción que dispara la regla del logaritmo con valor absoluto.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "constantes-enganosas"
@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad, reconociendo que $\\frac{3}{x}$ es el caso especial $n=-1$.\n\nEl orden en que aparecen los términos en el enunciado no cambia el procedimiento, cada uno se resuelve con su propia regla.",
+    "explanation": "Separamos por linealidad, reconociendo que $\\frac{3}{x}$ es el caso especial $n=-1$.\n\nEl orden en que aparecen los términos en el enunciado no cambia el procedimiento, cada uno se resuelve con su propia regla.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "discriminacion-de-familias"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad, aplicando la regla de la potencia con exponente fraccionario y el caso especial del logaritmo.\n\nDividir por un exponente fraccionario equivale a multiplicar por su recíproco, $\\frac{1}{3/2}=\\frac{2}{3}$, un paso algebraico que conviene revisar con cuidado.",
+    "explanation": "Separamos por linealidad, aplicando la regla de la potencia con exponente fraccionario y el caso especial del logaritmo.\n\nDividir por un exponente fraccionario equivale a multiplicar por su recíproco, $\\frac{1}{3/2}=\\frac{2}{3}$, un paso algebraico que conviene revisar con cuidado.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "suma-resta-terminos-elementales"
@@ -293,7 +293,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad, aplicando la regla de la potencia y el caso especial del logaritmo.\n\nEl coeficiente $4$ dividido por el nuevo exponente $2$ da $2$, mientras que el término logarítmico conserva su signo negativo original.",
+    "explanation": "Separamos por linealidad, aplicando la regla de la potencia y el caso especial del logaritmo.\n\nEl coeficiente $4$ dividido por el nuevo exponente $2$ da $2$, mientras que el término logarítmico conserva su signo negativo original.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "polinomios-fracciones-simples-combinadas"
@@ -318,7 +318,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad, reconociendo que $x^{-2}$ no es el caso especial del logaritmo, sigue la regla de la potencia normal.\n\nSolo el exponente $-1$ dispara el caso especial del logaritmo, cualquier otro exponente negativo sigue la fórmula general de la potencia.",
+    "explanation": "Separamos por linealidad, reconociendo que $x^{-2}$ no es el caso especial del logaritmo, sigue la regla de la potencia normal.\n\nSolo el exponente $-1$ dispara el caso especial del logaritmo, cualquier otro exponente negativo sigue la fórmula general de la potencia.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "reconocimiento-directo-antiderivadas"
@@ -343,7 +343,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad, reconociendo que $\\frac{6}{x}$ es el caso especial $n=-1$.\n\nEl signo negativo del segundo término se conserva sin cambios, la regla de la potencia no altera el signo en este caso.",
+    "explanation": "Separamos por linealidad, reconociendo que $\\frac{6}{x}$ es el caso especial $n=-1$.\n\nEl signo negativo del segundo término se conserva sin cambios, la regla de la potencia no altera el signo en este caso. Cada primitiva elemental está en tu tabla de fórmulas: no intentes inventarlas caso por caso.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "identificacion-inversa-derivada"
@@ -368,7 +368,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad, reconociendo que $\\frac{4}{x}$ es el caso especial $n=-1$.\n\nEl primer término sigue la regla de la potencia normal, mientras que el segundo dispara el caso especial del logaritmo.",
+    "explanation": "Separamos por linealidad, reconociendo que $\\frac{4}{x}$ es el caso especial $n=-1$.\n\nEl primer término sigue la regla de la potencia normal, mientras que el segundo dispara el caso especial del logaritmo.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "constantes-enganosas"
