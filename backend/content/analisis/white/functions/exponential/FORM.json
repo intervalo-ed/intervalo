@@ -533,7 +533,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La asíntota horizontal de una exponencial $b^x$ sin desplazar es $y=0$.\n\nporque $b^x \\to 0$ cuando : (si $b>1$).Sumar o restar una constante al final de la fórmula desplaza esa asíntota la misma cantidad.\n\nPara $f(x) = 3^x$: $\\lim_{x \\to -\\infty} 3^x = 0$.\n\nPara $f(x) = 3^x - 2$: $\\lim_{x \\to -\\infty}(3^x - 2) = 0 - 2 = -2$.\n\nLa asíntota es $y = -2$ y la imagen de $f$ es $(-2.\n\n+\\infty)$.\n\nEl desplazamiento vertical mueve la asíntota, no hay que confundirlo con el valor de $f(0)$.",
+    "explanation": "La asíntota horizontal de una exponencial $b^x$ sin desplazar es $y=0$.\n\nporque $b^x \\to 0$ cuando : (si $b>1$). Sumar o restar una constante al final de la fórmula desplaza esa asíntota la misma cantidad.\n\nPara $f(x) = 3^x$: $\\lim_{x \\to -\\infty} 3^x = 0$.\n\nPara $f(x) = 3^x - 2$: $\\lim_{x \\to -\\infty}(3^x - 2) = 0 - 2 = -2$.\n\nLa asíntota es $y = -2$ y la imagen de $f$ es $(-2.\n\n+\\infty)$.\n\nEl desplazamiento vertical mueve la asíntota, no hay que confundirlo con el valor de $f(0)$.",
     "reviewed": false,
     "tags": [
       "leer-base-coeficiente"
@@ -558,7 +558,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El desplazamiento vertical $+7$ se suma después de calcular la potencia.\n\nasí que para evaluar $f(0)$ primero hay que resolver $2^0$ y recién después sumar la constante.Sin el desplazamiento.\n\n: en $x=0$ vale $1$;acá ese $1$ se convierte en $8$ porque toda la curva subió $7$ unidades.\n\nincluida la asíntota horizontal.\n\nque pasa de $y=0$ a $y=7$.",
+    "explanation": "El desplazamiento vertical $+7$ se suma después de calcular la potencia.\n\nasí que para evaluar $f(0)$ primero hay que resolver $2^0$ y recién después sumar la constante. Sin el desplazamiento.\n\n: en $x=0$ vale $1$;acá ese $1$ se convierte en $8$ porque toda la curva subió $7$ unidades.\n\nincluida la asíntota horizontal.\n\nque pasa de $y=0$ a $y=7$.",
     "reviewed": false,
     "tags": [
       "evaluar-contexto"
@@ -608,7 +608,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La propiedad de potencia de potencia dice que $(b^m)^n=b^{mn}$.\n\nasí que para convertir $4^x$ a base $2$ conviene escribir $4$ como $2^2$ y aplicar esa regla.Esto permite comparar bases distintas en una misma escala: como el exponente quedó multiplicado por $2$.\n\n$4^x$ crece el doble de rápido que $2^x$ en la escala del exponente. sumar el $2$ al exponente (:) en vez de multiplicarlo.",
+    "explanation": "La propiedad de potencia de potencia dice que $(b^m)^n=b^{mn}$.\n\nasí que para convertir $4^x$ a base $2$ conviene escribir $4$ como $2^2$ y aplicar esa regla. Esto permite comparar bases distintas en una misma escala: como el exponente quedó multiplicado por $2$.\n\n$4^x$ crece el doble de rápido que $2^x$ en la escala del exponente. sumar el $2$ al exponente (:) en vez de multiplicarlo.",
     "reviewed": false,
     "tags": [
       "dominio-basico"
@@ -738,7 +738,7 @@
       -0.5,
       10
     ],
-    "explanation": "Para leer una exponencial desde su gráfica hay que identificar tres datos: el valor donde corta el eje vertical (que da $a$).\n\nsi crece o decrece (que indica si $b$ es mayor o menor que $1$).\n\ny un segundo punto para calcular $b$ con precisión.\n\n1.\n\nPunto en $x=0$: : da $a = 2$.2.\n\nLa curva es creciente: $b > 1$. 3.\n\nEn $x=1$: : da $b \\approx 1{,}5$.Fórmula: $f(x) = 2 \\cdot (1{,}5)^x$.\n\nConfundir el valor de $f(0)$ con la base más frecuente al leer un gráfico.",
+    "explanation": "Para leer una exponencial desde su gráfica hay que identificar tres datos: el valor donde corta el eje vertical (que da $a$).\n\nsi crece o decrece (que indica si $b$ es mayor o menor que $1$).\n\ny un segundo punto para calcular $b$ con precisión.\n\n1.\n\nPunto en $x=0$: : da $a = 2$.2.\n\nLa curva es creciente: $b > 1$. 3.\n\nEn $x=1$: : da $b \\approx 1{,}5$. Fórmula: $f(x) = 2 \\cdot (1{,}5)^x$.\n\nConfundir el valor de $f(0)$ con la base más frecuente al leer un gráfico.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -768,7 +768,7 @@
       -0.5,
       10
     ],
-    "explanation": "Al leer una exponencial en un gráfico conviene identificar primero el corte con el eje vertical.\n\nque da el coeficiente $a$.\n\ny después revisar si la curva sube o baja para saber si la base es mayor o menor que $1$.\n\n1. $f(0) = 3$ da $a = 3$. 2.\n\nLa curva decrece: $b < 1$. 3.\n\nEn $x=1$: : da $b = 0{,}6$.Fórmula: $f(x) = 3 \\cdot (0{,}6)^x$.\n\nConfundir el corte en el eje vertical con la base, o leer mal si la curva sube o baja, son los errores más comunes en este tipo de lectura.",
+    "explanation": "Al leer una exponencial en un gráfico conviene identificar primero el corte con el eje vertical.\n\nque da el coeficiente $a$.\n\ny después revisar si la curva sube o baja para saber si la base es mayor o menor que $1$.\n\n1. $f(0) = 3$ da $a = 3$. 2.\n\nLa curva decrece: $b < 1$. 3.\n\nEn $x=1$: : da $b = 0{,}6$. Fórmula: $f(x) = 3 \\cdot (0{,}6)^x$.\n\nConfundir el corte en el eje vertical con la base, o leer mal si la curva sube o baja, son los errores más comunes en este tipo de lectura.",
     "reviewed": false,
     "tags": [
       "tasa-crecimiento-porcentaje"
@@ -798,7 +798,7 @@
       -0.5,
       9.0
     ],
-    "explanation": "Cuando una exponencial tiene un desplazamiento vertical, la asíntota horizontal se mueve la misma cantidad que se suma o resta al final de la fórmula,\n\ny ese mismo corrimiento afecta el valor de $f(0)$.\n\n1.\n\nAsíntota horizontal: $y = 2$.\n\nseñal de un desplazamiento $+2$. 2. $f(0) = 2^0 + 2 = 1 + 2 = 3$.\n\nque coincide con el corte en $(0,3)$.\n\nFórmula: $f(x) = 2^x + 2$. confundir el valor donde la curva corta el eje vertical con la altura de la asíntota, cuando son dos datos distintos que hay que leer por separado.",
+    "explanation": "Cuando una exponencial tiene un desplazamiento vertical, la asíntota horizontal se mueve la misma cantidad que se suma o resta al final de la fórmula.\n\ny ese mismo corrimiento afecta el valor de $f(0)$.\n\n1.\n\nAsíntota horizontal: $y = 2$.\n\nseñal de un desplazamiento $+2$. 2. $f(0) = 2^0 + 2 = 1 + 2 = 3$.\n\nque coincide con el corte en $(0,3)$.\n\nFórmula: $f(x) = 2^x + 2$. confundir el valor donde la curva corta el eje vertical con la altura de la asíntota, cuando son dos datos distintos que hay que leer por separado.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -958,7 +958,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un desplazamiento horizontal dentro del exponente, primero se sustituye el valor de $x$ y se resuelve la suma antes de evaluar la potencia de $e$.\n\nEl desplazamiento $+1$ en el exponente equivale a multiplicar por $e$: :.Así, el valor inicial de esta función desplazada no es $2$ sino $2e$,\n\nporque el corrimiento horizontal también reescala el coeficiente que multiplica a la exponencial.",
+    "explanation": "Con un desplazamiento horizontal dentro del exponente, primero se sustituye el valor de $x$ y se resuelve la suma antes de evaluar la potencia de $e$.\n\nEl desplazamiento $+1$ en el exponente equivale a multiplicar por $e$: :. Así, el valor inicial de esta función desplazada no es $2$ sino $2e$.\n\nporque el corrimiento horizontal también reescala el coeficiente que multiplica a la exponencial.",
     "reviewed": false,
     "tags": [
       "determinar-a-b-desde-dos-puntos"
@@ -1083,7 +1083,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar el dominio de una función exponencial desplazada.\n\nhay que revisar si el exponente impone alguna restricción sobre los valores de $x$; sumar o restar una constante al final nunca restringe el dominio.\n\nsolo desplaza la curva verticalmente.\n\nEl exponente $-x$ toma valores en $\\mathbb{R}$ para todo :.Como $e^u$ acepta cualquier $u$ real.\n\nel dominio de $f$ es $\\mathbb{R}$.\n\nEl $+3$ solo mueve la asíntota, sin afectar el dominio.\n\nConfundir el rango de valores de $y$ (la imagen) con el conjunto de entradas válidas de $x$ (el dominio) en este tipo de ejercicio.",
+    "explanation": "Para hallar el dominio de una función exponencial desplazada.\n\nhay que revisar si el exponente impone alguna restricción sobre los valores de $x$; sumar o restar una constante al final nunca restringe el dominio.\n\nsolo desplaza la curva verticalmente.\n\nEl exponente $-x$ toma valores en $\\mathbb{R}$ para todo :. Como $e^u$ acepta cualquier $u$ real.\n\nel dominio de $f$ es $\\mathbb{R}$.\n\nEl $+3$ solo mueve la asíntota, sin afectar el dominio.\n\nConfundir el rango de valores de $y$ (la imagen) con el conjunto de entradas válidas de $x$ (el dominio) en este tipo de ejercicio.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-potencias"

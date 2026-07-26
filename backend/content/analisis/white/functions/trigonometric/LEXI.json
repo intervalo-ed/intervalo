@@ -73,7 +73,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **período** de : es $2\\pi$ radianes:la onda completa un ciclo exacto cada $2\\pi$ y se repite indefinidamente.\n\nSi dividís el período por : obtenés $1$ ciclo por unidad de :.Opciones como $\\pi$ corresponderían a $\\operatorname{sen}(2x)$.\n\ny $4\\pi$ a $\\operatorname{sen}(x/2)$.\n\nMemorizar $T=2\\pi$ para el seno (y el coseno) básicos es fundamental.",
+    "explanation": "El **período** de : es $2\\pi$ radianes:la onda completa un ciclo exacto cada $2\\pi$ y se repite indefinidamente.\n\nSi dividís el período por : obtenés $1$ ciclo por unidad de :. Opciones como $\\pi$ corresponderían a $\\operatorname{sen}(2x)$.\n\ny $4\\pi$ a $\\operatorname{sen}(x/2)$.\n\nMemorizar $T=2\\pi$ para el seno (y el coseno) básicos es fundamental.",
     "reviewed": false,
     "tags": [
       "periodo-basico"
@@ -153,7 +153,7 @@
       -2,
       2
     ],
-    "explanation": "En cada **período** $[0,2\\pi]$.\n\nel seno **sube una vez** hasta su máximo en $x=\\pi/2$ (valor $1$) y luego **baja** hasta su mínimo en : (valor $-1$).Hay exactamente **un máximo local** por período.\n\nSi el intervalo fuera $[0,4\\pi]$ habría 2 máximos; en $[0,2\\pi]$ solo hay 1.\n\nIdentificá el máximo buscando el pico más alto de la onda en el gráfico.",
+    "explanation": "En cada **período** $[0,2\\pi]$.\n\nel seno **sube una vez** hasta su máximo en $x=\\pi/2$ (valor $1$) y luego **baja** hasta su mínimo en : (valor $-1$). Hay exactamente **un máximo local** por período.\n\nSi el intervalo fuera $[0,4\\pi]$ habría 2 máximos; en $[0,2\\pi]$ solo hay 1.\n\nIdentificá el máximo buscando el pico más alto de la onda en el gráfico.",
     "reviewed": false,
     "tags": [
       "conteo-extremos-intervalo"
@@ -203,7 +203,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\operatorname{sen}(0)=0$ y ::el seno parte de cero en el origen y alcanza su **máximo** en $x=\\pi/2$.\n\nEl coseno hace lo opuesto: vale $1$ en $x=0$ y se anula en :.El $-\\operatorname{sen}(x)$ parte de $0$ pero baja a $-1$ (mínimo) en $x=\\pi/2$.\n\nEstos valores especiales son la clave para identificar cada función trigonométrica.",
+    "explanation": "$\\operatorname{sen}(0)=0$ y ::el seno parte de cero en el origen y alcanza su **máximo** en $x=\\pi/2$.\n\nEl coseno hace lo opuesto: vale $1$ en $x=0$ y se anula en :. El $-\\operatorname{sen}(x)$ parte de $0$ pero baja a $-1$ (mínimo) en $x=\\pi/2$.\n\nEstos valores especiales son la clave para identificar cada función trigonométrica.",
     "reviewed": false,
     "tags": [
       "identificar-funcion-comportamiento"
@@ -308,7 +308,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** (recorrido) de $f(x)=\\operatorname{sen}(x)$ es el conjunto de todos los valores posibles de $f$.\n\nComo el seno proviene de la coordenada $y$ en el círculo unitario.\n\nesa coordenada oscila entre $-1$ y $1$: la imagen es :.Las opciones : y $[0,1]$ solo cubren la mitad superior.$\\mathbb{R}$ sería el **dominio**.\n\nno la imagen.\n\nNingún valor de : puede superar $1$ ni caer debajo de $-1$.El seno: el único termómetro del universo que nunca llega a $2$.",
+    "explanation": "La **imagen** (recorrido) de $f(x)=\\operatorname{sen}(x)$ es el conjunto de todos los valores posibles de $f$.\n\nComo el seno proviene de la coordenada $y$ en el círculo unitario.\n\nesa coordenada oscila entre $-1$ y $1$: la imagen es :. Las opciones : y $[0,1]$ solo cubren la mitad superior.$\\mathbb{R}$ sería el **dominio**.\n\nno la imagen.\n\nNingún valor de : puede superar $1$ ni caer debajo de $-1$. El seno: el único termómetro del universo que nunca llega a $2$.",
     "reviewed": false,
     "tags": [
       "imagen-basica"
@@ -383,7 +383,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **círculo unitario** asocia cada ángulo $\\theta$ con el punto : sobre la circunferencia de radio $1$.El ángulo $\\theta=0$ corresponde al punto $(1,0)$.\n\ncuya coordenada $y$ es $0$.\n\nPor lo tanto $\\operatorname{sen}(0)=0$.\n\nNótese que $\\cos(0)=1$ (coordenada $x$).\n\nLos valores $1$ y $-1$ son los extremos del seno.\n\nque ocurren en $\\pi/2$ y $3\\pi/2$ respectivamente.\n\n$\\operatorname{sen}(0)=0$: el seno comienza en cero antes de dispararse al techo.",
+    "explanation": "El **círculo unitario** asocia cada ángulo $\\theta$ con el punto : sobre la circunferencia de radio $1$. El ángulo $\\theta=0$ corresponde al punto $(1,0)$.\n\ncuya coordenada $y$ es $0$.\n\nPor lo tanto $\\operatorname{sen}(0)=0$.\n\nNótese que $\\cos(0)=1$ (coordenada $x$).\n\nLos valores $1$ y $-1$ son los extremos del seno.\n\nque ocurren en $\\pi/2$ y $3\\pi/2$ respectivamente.\n\n$\\operatorname{sen}(0)=0$: el seno comienza en cero antes de dispararse al techo.",
     "reviewed": false,
     "tags": [
       "valores-notables"
@@ -433,7 +433,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En el círculo unitario, $\\theta=\\pi/2$ corresponde al punto $P=(0,1)$: el extremo superior de la circunferencia.\n\nEl seno es la coordenada $y$, por lo que $\\operatorname{sen}(\\pi/2)=1$.\n\n$\\pi/2$ radianes $=90°$.\n\nEl triángulo rectángulo estándar de $30°$-$60°$-$90°$ da :.Este es el **máximo global** del seno.\n\n$\\operatorname{sen}(\\pi/2)=1$: el seno en su cima, feliz de haber llegado hasta arriba.",
+    "explanation": "En el círculo unitario, $\\theta=\\pi/2$ corresponde al punto $P=(0,1)$: el extremo superior de la circunferencia.\n\nEl seno es la coordenada $y$, por lo que $\\operatorname{sen}(\\pi/2)=1$.\n\n$\\pi/2$ radianes $=90°$.\n\nEl triángulo rectángulo estándar de $30°$-$60°$-$90°$ da :. Este es el **máximo global** del seno.\n\n$\\operatorname{sen}(\\pi/2)=1$: el seno en su cima, feliz de haber llegado hasta arriba.",
     "reviewed": false,
     "tags": [
       "valores-notables"
@@ -483,7 +483,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En el círculo unitario.\n\n: ($=180°$) corresponde al punto $P=(-1,0)$:el extremo izquierdo de la circunferencia.\n\nEl seno es la coordenada $y=0$, por lo que $\\operatorname{sen}(\\pi)=0$.\n\nLos cruces por cero del seno ocurren en $x=k\\pi$ con : (los múltiplos de $\\pi$).En $\\pi$ la curva ya bajó de su máximo ($\\pi/2$) y regresa al eje $X$ antes de seguir hacia el mínimo.\n\n$\\operatorname{sen}(\\pi)=0$: conviene no confundir este cruce por cero con un extremo, en $x=\\pi$ el seno ya pasó su máximo y todavía no llegó a su mínimo.",
+    "explanation": "En el círculo unitario.\n\n: ($=180°$) corresponde al punto $P=(-1,0)$:el extremo izquierdo de la circunferencia.\n\nEl seno es la coordenada $y=0$, por lo que $\\operatorname{sen}(\\pi)=0$.\n\nLos cruces por cero del seno ocurren en $x=k\\pi$ con : (los múltiplos de $\\pi$). En $\\pi$ la curva ya bajó de su máximo ($\\pi/2$) y regresa al eje $X$ antes de seguir hacia el mínimo.\n\n$\\operatorname{sen}(\\pi)=0$: conviene no confundir este cruce por cero con un extremo, en $x=\\pi$ el seno ya pasó su máximo y todavía no llegó a su mínimo.",
     "reviewed": false,
     "tags": [
       "valores-notables"
@@ -508,7 +508,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función es **par** si $f(-x)=f(x)$ (simétrica respecto al eje $Y$) e **impar** si : (simétrica respecto al origen).Ambas propiedades se verifican desde la definición del círculo unitario.\n\nEl seno es impar: $\\operatorname{sen}(-x)=-\\operatorname{sen}(x)$.\n\nEl coseno es par: $\\cos(-x)=\\cos(x)$.\n\nVisualmente, la gráfica del coseno es un espejo respecto al eje vertical, mientras que la del seno rota $180°$ respecto al origen.\n\nImpar, par… el seno y coseno eligieron sus géneros matemáticos desde el principio y nunca los cambiaron.",
+    "explanation": "Una función es **par** si $f(-x)=f(x)$ (simétrica respecto al eje $Y$) e **impar** si : (simétrica respecto al origen). Ambas propiedades se verifican desde la definición del círculo unitario.\n\nEl seno es impar: $\\operatorname{sen}(-x)=-\\operatorname{sen}(x)$.\n\nEl coseno es par: $\\cos(-x)=\\cos(x)$.\n\nVisualmente, la gráfica del coseno es un espejo respecto al eje vertical, mientras que la del seno rota $180°$ respecto al origen.\n\nImpar, par… el seno y coseno eligieron sus géneros matemáticos desde el principio y nunca los cambiaron.",
     "reviewed": false,
     "tags": [
       "valores-notables"
@@ -583,7 +583,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x)=\\operatorname{sen}(2x)$.\n\nel parámetro $B=2$ duplica la frecuencia: el **período** es $T=2\\pi/2=\\pi$.\n\nEn el intervalo $[0,2\\pi]$ caben exactamente $2\\pi/\\pi=2$ períodos completos.Ciclos en $[0,2\\pi]$: $2\\pi/\\pi=2$.\n\nLa función completa dos oscilaciones donde $\\operatorname{sen}(x)$ solo completa una.\n\nLa función completa ciclos al doble de velocidad.",
+    "explanation": "En $f(x)=\\operatorname{sen}(2x)$.\n\nel parámetro $B=2$ duplica la frecuencia: el **período** es $T=2\\pi/2=\\pi$.\n\nEn el intervalo $[0,2\\pi]$ caben exactamente $2\\pi/\\pi=2$ períodos completos. Ciclos en $[0,2\\pi]$: $2\\pi/\\pi=2$.\n\nLa función completa dos oscilaciones donde $\\operatorname{sen}(x)$ solo completa una.\n\nLa función completa ciclos al doble de velocidad.",
     "reviewed": false,
     "tags": [
       "monotonia-intervalo-lexi"
@@ -608,7 +608,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x)=\\operatorname{sen}(x)+D$.\n\nel parámetro $D$ es el **desplazamiento vertical**: traslada todo el gráfico hacia arriba (si :) o hacia abajo (si $D<0$).El eje de oscilación pasa a ser la recta $y=D$.\n\nLa **amplitud** sigue siendo $1$, el **período** sigue siendo $2\\pi$, y la forma de la onda no cambia.\n\nSolo se mueve el piso: máximo $=1+D$, mínimo $=-1+D$.\n\nConviene no confundir $D$ con $A$: el desplazamiento vertical mueve el eje de oscilación de la onda, mientras que la amplitud define qué tan grande es esa oscilación alrededor del eje.",
+    "explanation": "En $f(x)=\\operatorname{sen}(x)+D$.\n\nel parámetro $D$ es el **desplazamiento vertical**: traslada todo el gráfico hacia arriba (si :) o hacia abajo (si $D<0$). El eje de oscilación pasa a ser la recta $y=D$.\n\nLa **amplitud** sigue siendo $1$, el **período** sigue siendo $2\\pi$, y la forma de la onda no cambia.\n\nSolo se mueve el piso: máximo $=1+D$, mínimo $=-1+D$.\n\nConviene no confundir $D$ con $A$: el desplazamiento vertical mueve el eje de oscilación de la onda, mientras que la amplitud define qué tan grande es esa oscilación alrededor del eje.",
     "reviewed": false,
     "tags": [
       "descripcion-abstracta-otra-familia"
@@ -633,7 +633,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x)=\\operatorname{sen}(x-C)$ con $C>0$.\n\nel gráfico se **desplaza hacia la derecha** $C$ unidades.\n\nEl cruce por cero que en : ocurre en $x=0$ ahora ocurre en $x=C$.Regla: restar $C$ al argumento $\\Rightarrow$ **desplazamiento** hacia la derecha.\n\nSumar $C$ $\\Rightarrow$ desplazamiento hacia la izquierda.\n\nEs contraintuitivo pero se comprueba: $\\operatorname{sen}(0-C)<0$ para $C>0$ si en $0$ la función todavía no llegó a su cero.\n\nConviene fijarse en el signo: restar $C$ dentro del argumento desplaza hacia la derecha, aunque a primera vista el signo negativo sugiera lo contrario.",
+    "explanation": "En $f(x)=\\operatorname{sen}(x-C)$ con $C>0$.\n\nel gráfico se **desplaza hacia la derecha** $C$ unidades.\n\nEl cruce por cero que en : ocurre en $x=0$ ahora ocurre en $x=C$. Regla: restar $C$ al argumento $\\Rightarrow$ **desplazamiento** hacia la derecha.\n\nSumar $C$ $\\Rightarrow$ desplazamiento hacia la izquierda.\n\nEs contraintuitivo pero se comprueba: $\\operatorname{sen}(0-C)<0$ para $C>0$ si en $0$ la función todavía no llegó a su cero.\n\nConviene fijarse en el signo: restar $C$ dentro del argumento desplaza hacia la derecha, aunque a primera vista el signo negativo sugiera lo contrario.",
     "reviewed": false,
     "tags": [
       "imagen-transformada"
@@ -658,7 +658,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x)=A\\,\\operatorname{sen}(x)+D$.\n\nel **máximo** se alcanza cuando $\\operatorname{sen}(x)=1$: en ese punto $f=D+|A|$.La opción $3$ es la **amplitud** ($|A|$).\n\nno el máximo.\n\nLa opción $1$ es el **desplazamiento** ($D$).\n\nEl máximo siempre suma ambos.\n\nPara la función $3\\,\\operatorname{sen}(x)+1$, la cima está en $y=4$.",
+    "explanation": "En $f(x)=A\\,\\operatorname{sen}(x)+D$.\n\nel **máximo** se alcanza cuando $\\operatorname{sen}(x)=1$: en ese punto $f=D+|A|$. La opción $3$ es la **amplitud** ($|A|$).\n\nno el máximo.\n\nLa opción $1$ es el **desplazamiento** ($D$).\n\nEl máximo siempre suma ambos.\n\nPara la función $3\\,\\operatorname{sen}(x)+1$, la cima está en $y=4$.",
     "reviewed": false,
     "tags": [
       "extremos-con-transformacion"
@@ -808,7 +808,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ángulo $\\pi/3=60°$ pertenece al triángulo $30°$-$60°$-$90°$ con proporciones :.El coseno es cateto adyacente sobre hipotenusa: $\\cos(60°)=1/2$.\n\nObservá la simetría: $\\cos(\\pi/3)=\\operatorname{sen}(\\pi/6)=1/2$.\n\nEsto se debe a que $\\cos(\\theta)=\\operatorname{sen}(\\pi/2-\\theta)$: son ángulos complementarios.\n\nEl coseno de : y el seno de $30°$ son gemelos idénticos:ambos valen $1/2$.\n\nLa trigonometría tiene favoritos.",
+    "explanation": "El ángulo $\\pi/3=60°$ pertenece al triángulo $30°$-$60°$-$90°$ con proporciones :. El coseno es cateto adyacente sobre hipotenusa: $\\cos(60°)=1/2$.\n\nObservá la simetría: $\\cos(\\pi/3)=\\operatorname{sen}(\\pi/6)=1/2$.\n\nEsto se debe a que $\\cos(\\theta)=\\operatorname{sen}(\\pi/2-\\theta)$: son ángulos complementarios.\n\nEl coseno de : y el seno de $30°$ son gemelos idénticos:ambos valen $1/2$.\n\nLa trigonometría tiene favoritos.",
     "reviewed": false,
     "tags": [
       "valores-notables"
@@ -833,7 +833,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función $f$ es **periódica** si existe un número $T>0$ tal que : para todo $x$ en el **dominio**.Al **período** mínimo que cumple esto se lo llama el período fundamental.\n\nLas opciones incorrectas confunden la condición: $f(x \\cdot T)=f(x)$ es escala.\n\nno traslación; $f(x+T)=f(x)-T$ no es periódica; $f(x)=T$ es constante.\n\nSolo $f(x+T)=f(x)$ captura la repetición exacta por traslación horizontal.\n\nPeriódica = misma película, pero el proyector avanza $T$ unidades cada vez.",
+    "explanation": "Una función $f$ es **periódica** si existe un número $T>0$ tal que : para todo $x$ en el **dominio**. Al **período** mínimo que cumple esto se lo llama el período fundamental.\n\nLas opciones incorrectas confunden la condición: $f(x \\cdot T)=f(x)$ es escala.\n\nno traslación; $f(x+T)=f(x)-T$ no es periódica; $f(x)=T$ es constante.\n\nSolo $f(x+T)=f(x)$ captura la repetición exacta por traslación horizontal.\n\nPeriódica = misma película, pero el proyector avanza $T$ unidades cada vez.",
     "reviewed": false,
     "tags": [
       "valores-notables"
@@ -958,7 +958,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\operatorname{sen}(x)=0$ cuando el punto en el círculo unitario tiene coordenada $y=0$: eso ocurre en $\\theta=0$ y $\\theta=\\pi$ (y sus repeticiones periódicas).\n\nLa solución general es $x=k\\pi$ con $k\\in\\mathbb{Z}$.\n\nLa opción $x=\\pi/2+k\\pi$ da los **extremos** (máximo y mínimo).\n\nno los ceros. $x=2k\\pi$ solo captura los ceros pares.\n\nomite los impares ($\\pi,3\\pi,\\ldots$). $x=\\pi/4+k\\pi$ no es correcto: :.El seno cruza el eje $X$ en todos los múltiplos de $\\pi$.\n\nHace escala en cada entero de $\\pi$.",
+    "explanation": "$\\operatorname{sen}(x)=0$ cuando el punto en el círculo unitario tiene coordenada $y=0$: eso ocurre en $\\theta=0$ y $\\theta=\\pi$ (y sus repeticiones periódicas).\n\nLa solución general es $x=k\\pi$ con $k\\in\\mathbb{Z}$.\n\nLa opción $x=\\pi/2+k\\pi$ da los **extremos** (máximo y mínimo).\n\nno los ceros. $x=2k\\pi$ solo captura los ceros pares.\n\nomite los impares ($\\pi,3\\pi,\\ldots$). $x=\\pi/4+k\\pi$ no es correcto: :. El seno cruza el eje $X$ en todos los múltiplos de $\\pi$.\n\nHace escala en cada entero de $\\pi$.",
     "reviewed": false,
     "tags": [
       "periodo-con-b"
@@ -1133,7 +1133,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de $f(x)=\\cos(x)+3$ se obtiene desplazando el rango de $\\cos(x)=[-1,1]$ exactamente $3$ unidades hacia arriba.La opción\n\n$[-1,1]$ es el rango sin el **desplazamiento**. $[3,4]$ sería si la **amplitud** fuera $0{,}5$. $\\mathbb{R}$ es el **dominio**.\n\nLa clave es sumar $D$ a ambos extremos del rango base.",
+    "explanation": "La **imagen** de $f(x)=\\cos(x)+3$ se obtiene desplazando el rango de $\\cos(x)=[-1,1]$ exactamente $3$ unidades hacia arriba. La opción\n\n$[-1,1]$ es el rango sin el **desplazamiento**. $[3,4]$ sería si la **amplitud** fuera $0{,}5$. $\\mathbb{R}$ es el **dominio**.\n\nLa clave es sumar $D$ a ambos extremos del rango base.",
     "reviewed": false,
     "tags": [
       "imagen-transformada"

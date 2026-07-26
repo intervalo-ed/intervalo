@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La inexistencia del **límite bilateral** es una conclusión lógica sobre la relación entre dos números existentes, no sobre la existencia de esos números.\n\nEl **teorema de existencia** establece que si ambos laterales son números concretos y no coinciden, entonces el bilateral no existe.\n\nLa afirmación de tu compañero invierte la lógica.\n\nEl caso más representativo de bilateral inexistente es precisamente cuando ambos **límites laterales** existen como números reales perfectamente definidos,\n\npero $\\lim_{x \\to a^-} f(x) \\neq \\lim_{x \\to a^+} f(x)$.\n\nEn otras palabras: no coincidencia de laterales existentes ↔ inexistencia del bilateral.\n\nConfundir estas dos afirmaciones frecuente de lógica.",
+    "explanation": "La inexistencia del **límite bilateral** es una conclusión lógica sobre la relación entre dos números existentes, no sobre la existencia de esos números.\n\nEl **teorema de existencia** establece que si ambos laterales son números concretos y no coinciden, entonces el bilateral no existe.\n\nLa afirmación de tu compañero invierte la lógica.\n\nEl caso más representativo de bilateral inexistente es precisamente cuando ambos **límites laterales** existen como números reales perfectamente definidos.\n\npero $\\lim_{x \\to a^-} f(x) \\neq \\lim_{x \\to a^+} f(x)$.\n\nEn otras palabras: no coincidencia de laterales existentes ↔ inexistencia del bilateral.\n\nConfundir estas dos afirmaciones frecuente de lógica.",
     "reviewed": false,
     "tags": [
       "teorema-existencia-bilateral"

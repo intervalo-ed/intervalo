@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=x$, :, con $du=dx$ y $v=e^x$.Este es el caso más simple de la fórmula, sin ningún ajuste de constante, ya que la exponencial de base $e$ es su propia primitiva.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Elegimos $u=x$, :, con $du=dx$ y $v=e^x$. Este es el caso más simple de la fórmula, sin ningún ajuste de constante, ya que la exponencial de base $e$ es su propia primitiva.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "aplicacion-directa-una-iteracion"

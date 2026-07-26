@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando se calcula $\\frac{f(b)-f(a)}{b-a}$ para dos puntos fijos y separados, sin ningún límite de por medio,\n\nel resultado es una **tasa de cambio promedio**: describe cuánto varió $f$ en promedio a lo largo de todo el intervalo $[a,b]$.\n\nEsa tasa no dice nada sobre qué tan rápido cambia $f$ en un punto puntual del intervalo, solo resume el cambio total repartido de forma uniforme.\n\nRecién al hacer que $b$ se acerque a $a$ mediante un límite, esa tasa promedio se concentra en un único punto y pasa a llamarse instantánea.",
+    "explanation": "Cuando se calcula $\\frac{f(b)-f(a)}{b-a}$ para dos puntos fijos y separados, sin ningún límite de por medio.\n\nel resultado es una **tasa de cambio promedio**: describe cuánto varió $f$ en promedio a lo largo de todo el intervalo $[a,b]$.\n\nEsa tasa no dice nada sobre qué tan rápido cambia $f$ en un punto puntual del intervalo, solo resume el cambio total repartido de forma uniforme.\n\nRecién al hacer que $b$ se acerque a $a$ mediante un límite, esa tasa promedio se concentra en un único punto y pasa a llamarse instantánea.",
     "reviewed": false,
     "tags": [
       "tasa-instantanea-vs-promedio"
@@ -200,7 +200,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una recta que une dos puntos de la curva se llama **secante**, y su pendiente se calcula exactamente igual que la tasa de cambio promedio,\n\ndividiendo la diferencia de alturas por la diferencia de posiciones horizontales.\n\nPor eso, sin tomar ningún límite, hablar de tasa promedio y hablar de pendiente de la secante entre $a$ y $b$ es lo mismo.\n\nConfundir esta secante con la tangente , la tangente aparece recién cuando el segundo punto colapsa sobre el primero.",
+    "explanation": "Una recta que une dos puntos de la curva se llama **secante**, y su pendiente se calcula exactamente igual que la tasa de cambio promedio.\n\ndividiendo la diferencia de alturas por la diferencia de posiciones horizontales.\n\nPor eso, sin tomar ningún límite, hablar de tasa promedio y hablar de pendiente de la secante entre $a$ y $b$ es lo mismo.\n\nConfundir esta secante con la tangente , la tangente aparece recién cuando el segundo punto colapsa sobre el primero.",
     "reviewed": false,
     "tags": [
       "tasa-instantanea-vs-promedio"

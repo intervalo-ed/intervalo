@@ -48,7 +48,7 @@
       -5,
       5
     ],
-    "explanation": "Una **raíz real** de $p(x)$ es un valor : tal que $p(r) = 0$.es decir.\n\nun punto donde la curva corta al eje $X$.\n\nEl **Teorema Fundamental del Álgebra** establece que un polinomio de **grado** $n$ tiene exactamente $n$ **raíces** en :\n\n(contando **multiplicidades**).Por lo tanto, tiene como máximo $n$ raíces reales.\n\nPara : (grado $3$):el máximo es $3$ raíces reales.\n\nEn este caso se alcanzan: $x = -\\sqrt{3},\\; 0,\\; \\sqrt{3}$.",
+    "explanation": "Una **raíz real** de $p(x)$ es un valor : tal que $p(r) = 0$.es decir.\n\nun punto donde la curva corta al eje $X$.\n\nEl **Teorema Fundamental del Álgebra** establece que un polinomio de **grado** $n$ tiene exactamente $n$ **raíces** en :\n\n(contando **multiplicidades**). Por lo tanto, tiene como máximo $n$ raíces reales.\n\nPara : (grado $3$):el máximo es $3$ raíces reales.\n\nEn este caso se alcanzan: $x = -\\sqrt{3},\\; 0,\\; \\sqrt{3}$.",
     "reviewed": false,
     "tags": [
       "raices-cantidad-maxima"
@@ -73,7 +73,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **grado** de un polinomio se determina identificando el término con la mayor potencia de $x$.\n\nEn $p(x) = x^7 - 3x^4 + 2$ los exponentes que aparecen son $7$.\n\n$4$ y $0$ (el término constante :).El mayor es $7$, por lo tanto:No importa el orden en que estén escritos los términos ni los valores de los coeficientes:\n\nsolo importa la mayor potencia con coeficiente distinto de cero.",
+    "explanation": "El **grado** de un polinomio se determina identificando el término con la mayor potencia de $x$.\n\nEn $p(x) = x^7 - 3x^4 + 2$ los exponentes que aparecen son $7$.\n\n$4$ y $0$ (el término constante :). El mayor es $7$, por lo tanto:No importa el orden en que estén escritos los términos ni los valores de los coeficientes:\n\nsolo importa la mayor potencia con coeficiente distinto de cero.",
     "reviewed": false,
     "tags": [
       "grado-identificacion"
@@ -730,7 +730,7 @@
       "Ese total superaría las 3 raíces que tiene el polinomio en total, contando también la real: no puede haber más raíces complejas que el total menos la real.",
       null
     ],
-    "explanation": "El **Teorema Fundamental del Álgebra** dice que un polinomio de **grado** $n$ tiene exactamente $n$ **raíces** en : (contando **multiplicidades**).Si el polinomio tiene coeficientes reales,\n\nlas raíces complejas vienen **en pares conjugados**: si $a + bi$ es raíz, también lo es $a - bi$.\n\nGrado 3 → 3 raíces totales.\n\nSi 1 es real.\n\nquedan 2 que forman un par conjugado: $a + bi$ y $a - bi$ (con :).Siempre un número par de raíces complejas no reales.",
+    "explanation": "El **Teorema Fundamental del Álgebra** dice que un polinomio de **grado** $n$ tiene exactamente $n$ **raíces** en : (contando **multiplicidades**). Si el polinomio tiene coeficientes reales.\n\nlas raíces complejas vienen **en pares conjugados**: si $a + bi$ es raíz, también lo es $a - bi$.\n\nGrado 3 → 3 raíces totales.\n\nSi 1 es real.\n\nquedan 2 que forman un par conjugado: $a + bi$ y $a - bi$ (con :). Siempre un número par de raíces complejas no reales.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -780,7 +780,7 @@
       "El coeficiente principal describe el comportamiento general de la curva en los extremos, no un pico puntual del recorrido.",
       null
     ],
-    "explanation": "En el perfil de altura de una montaña rusa, cada pico es un **máximo local**: el punto más alto en ese tramo, aunque no sea el más alto de todo el recorrido.\n\nAnálogamente, cada valle es un **mínimo local**.\n\nEn matemática.\n\nun máximo local $x_0$ cumple : para todo $x$ cercano.La función puede alcanzar valores mayores en otras partes.",
+    "explanation": "En el perfil de altura de una montaña rusa, cada pico es un **máximo local**: el punto más alto en ese tramo, aunque no sea el más alto de todo el recorrido.\n\nAnálogamente, cada valle es un **mínimo local**.\n\nEn matemática.\n\nun máximo local $x_0$ cumple : para todo $x$ cercano. La función puede alcanzar valores mayores en otras partes.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1055,7 +1055,7 @@
       null,
       "Sí se puede leer directamente: alcanza con mirar la constante sin $x$ en la fórmula, sin necesidad de reemplazar nada."
     ],
-    "explanation": "El **término independiente** $a_0$ de un polinomio es el coeficiente que no acompaña a ninguna potencia de $x$.\n\nSe puede leer directamente de la fórmula como el término sin $x$.\n\nCuando evaluamos en $x = 0$.\n\ntodos los términos que contienen $x$ se anulan automáticamente: : para cualquier $k > 0$.Solo queda el término constante.\n\nEn $p(x) = x^4 - 3x^2 + 5$.\n\nevaluando en $x = 0$ da $p(0) = 0 - 0 + 5 = 5$.\n\nPor lo tanto, $f(0) = 5$ es el **término independiente**.\n\nEste valor corresponde al punto donde la gráfica corta al eje $Y$ (la **ordenada al origen**), que siempre ocurre en $(0, a_0)$.",
+    "explanation": "El **término independiente** $a_0$ de un polinomio es el coeficiente que no acompaña a ninguna potencia de $x$.\n\nSe puede leer directamente de la fórmula como el término sin $x$.\n\nCuando evaluamos en $x = 0$.\n\ntodos los términos que contienen $x$ se anulan automáticamente: : para cualquier $k > 0$. Solo queda el término constante.\n\nEn $p(x) = x^4 - 3x^2 + 5$.\n\nevaluando en $x = 0$ da $p(0) = 0 - 0 + 5 = 5$.\n\nPor lo tanto, $f(0) = 5$ es el **término independiente**.\n\nEste valor corresponde al punto donde la gráfica corta al eje $Y$ (la **ordenada al origen**), que siempre ocurre en $(0, a_0)$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

@@ -171,7 +171,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La sustitución directa de $x=2$ da 0/0.\n\nEl numerador es un **trinomio** que factoriza buscando dos números que sumen $-5$ y multipliquen $6$.\n\nEsos números son $-2$ y $-3$: En límites con trinomios, la factorización exige encontrar dos raíces cuyas propiedades (suma del coeficiente lineal,\n\nproducto del término independiente) se cumplen exactamente.\n\nEl rol del límite es resolver el conflicto 0/0 restaurando la continuidad de la función simplificada.",
+    "explanation": "La sustitución directa de $x=2$ da 0/0.\n\nEl numerador es un **trinomio** que factoriza buscando dos números que sumen $-5$ y multipliquen $6$.\n\nEsos números son $-2$ y $-3$: En límites con trinomios, la factorización exige encontrar dos raíces cuyas propiedades (suma del coeficiente lineal.\n\nproducto del término independiente) se cumplen exactamente.\n\nEl rol del límite es resolver el conflicto 0/0 restaurando la continuidad de la función simplificada.",
     "reviewed": false
   },
   {
@@ -196,7 +196,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La sustitución directa de $x=3$ da 0/0.\n\nEl numerador es un **trinomio** que factoriza buscando dos números que sumen $-1$ y multipliquen $-6$.\n\nComo el producto es negativo, los signos son opuestos: $-3$ y $2$: El proceso es sistemático: factorizar el trinomio por el método de dos números,\n\nidentificar cuál factor coincide con lo que tenemos en el denominador, cancelarlo, y finalmente evaluar.\n\nCada paso está determinado por la estructura algebraica de las expresiones.",
+    "explanation": "La sustitución directa de $x=3$ da 0/0.\n\nEl numerador es un **trinomio** que factoriza buscando dos números que sumen $-1$ y multipliquen $-6$.\n\nComo el producto es negativo, los signos son opuestos: $-3$ y $2$: El proceso es sistemático: factorizar el trinomio por el método de dos números.\n\nidentificar cuál factor coincide con lo que tenemos en el denominador, cancelarlo, y finalmente evaluar.\n\nCada paso está determinado por la estructura algebraica de las expresiones.",
     "reviewed": false
   },
   {
@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La sustitución directa de $x=1$ da 0/0.\n\nEl numerador es un **trinomio cuadrado perfecto**, con doble producto $-2x$ entre $x$ y $1$,\n\nasí que factoriza como $(x-1)^2$: Un caso especial: el numerador es un cuadrado perfecto, que contiene dos apariciones del mismo factor $(x-1)$.\n\nAl cancelar una con el denominador, queda una copia en el cociente simplificado, que evaluada en $x=1$ da exactamente cero.\n\nEl límite puede valer cero sin contradicción; lo importante es que no sea 0/0 después de la cancelación.",
+    "explanation": "La sustitución directa de $x=1$ da 0/0.\n\nEl numerador es un **trinomio cuadrado perfecto**, con doble producto $-2x$ entre $x$ y $1$.\n\nasí que factoriza como $(x-1)^2$: Un caso especial: el numerador es un cuadrado perfecto, que contiene dos apariciones del mismo factor $(x-1)$.\n\nAl cancelar una con el denominador, queda una copia en el cociente simplificado, que evaluada en $x=1$ da exactamente cero.\n\nEl límite puede valer cero sin contradicción; lo importante es que no sea 0/0 después de la cancelación.",
     "reviewed": false
   },
   {
@@ -321,7 +321,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La sustitución directa de $x=3$ da 0/0.\n\nAquí el numerador es una **diferencia de cuadrados** y el denominador es un **trinomio**,\n\nasí que ambos necesitan factorización: Esta es la **cancelación múltiple**: el factor problemático $(x-3)$ aparece en ambas partes.\n\nEn límites, la indeterminación nos garantiza que existe un factor común en numerador y denominador.\n\nFactorizar solo una parte deja la indeterminación sin resolver; hace falta factorizar los dos polinomios para localizar qué factor se repite en ambos.",
+    "explanation": "La sustitución directa de $x=3$ da 0/0.\n\nAquí el numerador es una **diferencia de cuadrados** y el denominador es un **trinomio**.\n\nasí que ambos necesitan factorización: Esta es la **cancelación múltiple**: el factor problemático $(x-3)$ aparece en ambas partes.\n\nEn límites, la indeterminación nos garantiza que existe un factor común en numerador y denominador.\n\nFactorizar solo una parte deja la indeterminación sin resolver; hace falta factorizar los dos polinomios para localizar qué factor se repite en ambos.",
     "reviewed": false
   },
   {
@@ -346,7 +346,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La sustitución directa de $x=2$ da 0/0.\n\nTanto el numerador como el denominador son trinomios (el numerador es una diferencia de cuadrados),\n\nasí que ambos se factorizan: En cancelación múltiple, el protocolo es claro: factorizar numerador,\n\nLa indeterminación 0/0 garantiza que ese factor común existe; nuestro trabajo es exhibirlo mediante factorización completa de ambas partes.",
+    "explanation": "La sustitución directa de $x=2$ da 0/0.\n\nTanto el numerador como el denominador son trinomios (el numerador es una diferencia de cuadrados).\n\nasí que ambos se factorizan: En cancelación múltiple, el protocolo es claro: factorizar numerador.\n\nLa indeterminación 0/0 garantiza que ese factor común existe; nuestro trabajo es exhibirlo mediante factorización completa de ambas partes.",
     "reviewed": false
   },
   {
@@ -371,7 +371,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La sustitución directa de $x=-2$ da 0/0.\n\nEl numerador es una **diferencia de cuadrados** y el denominador es un **trinomio**,\n\nasí que ambos se factorizan: Al evaluar el cociente simplificado $\\frac{x-2}{x+3}$ en $x=-2$, obtenemos $\\frac{-2-2}{-2+3} = \\frac{-4}{1} = -4$.\n\nEl límite es negativo porque el numerador del cociente simplificado es negativo y el denominador es positivo.\n\nLa indeterminación original 0/0 se resolvió únicamente mediante factorización completa de ambas partes.",
+    "explanation": "La sustitución directa de $x=-2$ da 0/0.\n\nEl numerador es una **diferencia de cuadrados** y el denominador es un **trinomio**.\n\nasí que ambos se factorizan: Al evaluar el cociente simplificado $\\frac{x-2}{x+3}$ en $x=-2$, obtenemos $\\frac{-2-2}{-2+3} = \\frac{-4}{1} = -4$.\n\nEl límite es negativo porque el numerador del cociente simplificado es negativo y el denominador es positivo.\n\nLa indeterminación original 0/0 se resolvió únicamente mediante factorización completa de ambas partes.",
     "reviewed": false
   }
 ]

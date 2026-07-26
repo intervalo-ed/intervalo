@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x) = mx + b$, la ordenada al origen es el término independiente, el que no tiene $x$ al lado.\n\nPara : los parámetros son $m = 4$ y $b = -7$.La verificación directa es evaluar en cero:\n\nEl valor donde la recta corta el eje $Y$.\n\nEl signo pertenece al término: leer $7$ en lugar de $-7$ ubica el corte del lado equivocado del eje.",
+    "explanation": "En $f(x) = mx + b$, la ordenada al origen es el término independiente, el que no tiene $x$ al lado.\n\nPara : los parámetros son $m = 4$ y $b = -7$. La verificación directa es evaluar en cero:\n\nEl valor donde la recta corta el eje $Y$.\n\nEl signo pertenece al término: leer $7$ en lugar de $-7$ ubica el corte del lado equivocado del eje.",
     "reviewed": false,
     "tags": [
       "ordenada-calculo"
@@ -68,7 +68,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una pendiente puede ser fraccionaria sin dejar de ser una pendiente: sigue siendo el coeficiente que multiplica a $x$.\n\nEn :, los parámetros son $m = \\frac{1}{2}$ y $b = 5$.La lectura práctica: por cada 2 unidades que avanza $x$, la función sube 1.\n\nNo desarmes la fracción: ni el numerador ni el denominador por separado son la pendiente; el coeficiente completo es $\\frac{1}{2}$.",
+    "explanation": "Una pendiente puede ser fraccionaria sin dejar de ser una pendiente: sigue siendo el coeficiente que multiplica a $x$.\n\nEn :, los parámetros son $m = \\frac{1}{2}$ y $b = 5$. La lectura práctica: por cada 2 unidades que avanza $x$, la función sube 1.\n\nNo desarmes la fracción: ni el numerador ni el denominador por separado son la pendiente; el coeficiente completo es $\\frac{1}{2}$.",
     "reviewed": false,
     "tags": [
       "pendiente-calculo"
@@ -1213,7 +1213,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pregunta invierte la evaluación: se conoce la salida y se busca la entrada:Verificación: $f(5) = 3 \\cdot 5 - 6 = 9$.\n\nEl $-6$ cruza el igual sumando: el lado derecho queda :, no $9 - 6$.No confundas los papeles de los números: el 9 es el resultado que la función debe alcanzar;.\n\nla respuesta es el valor de $x$ que lo produce.",
+    "explanation": "La pregunta invierte la evaluación: se conoce la salida y se busca la entrada:Verificación: $f(5) = 3 \\cdot 5 - 6 = 9$.\n\nEl $-6$ cruza el igual sumando: el lado derecho queda :, no $9 - 6$. No confundas los papeles de los números: el 9 es el resultado que la función debe alcanzar;.\n\nla respuesta es el valor de $x$ que lo produce.",
     "reviewed": false,
     "tags": [
       "resolver-ecuacion"

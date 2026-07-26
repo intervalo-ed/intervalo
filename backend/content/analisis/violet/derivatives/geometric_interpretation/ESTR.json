@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con $f(0)=0$, el término independiente de la tangente desaparece por completo, quedando una recta que pasa por el origen.\n\nCuando $f(a)=0$, conviene verificar dos veces que no se sume ninguna constante de más, ese error es fácil de cometer por costumbre.\n\nEn ejercicios donde se reconoce primero la estructura, el paso a paso es: (1) mirar la forma de la función, (2) identificar qué se multiplica, qué se compone,\n\no qué aparece dividido, (3) elegir la regla que corresponda a esa forma.",
+    "explanation": "Con $f(0)=0$, el término independiente de la tangente desaparece por completo, quedando una recta que pasa por el origen.\n\nCuando $f(a)=0$, conviene verificar dos veces que no se sume ninguna constante de más, ese error es fácil de cometer por costumbre.\n\nEn ejercicios donde se reconoce primero la estructura, el paso a paso es: (1) mirar la forma de la función, (2) identificar qué se multiplica, qué se compone.\n\no qué aparece dividido, (3) elegir la regla que corresponda a esa forma.",
     "reviewed": false,
     "tags": [
       "armado-ecuacion-tangente"

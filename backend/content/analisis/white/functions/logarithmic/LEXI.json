@@ -73,7 +73,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** de $f(x) = \\log(x)$ es $x > 0$, es decir, solo los reales positivos.\n\n¿Por qué?\n\nPorque $\\log(x) = y$ equivale a $10^y = x$.\n\nComo $10^y > 0$ para cualquier $y$ real.\n\nno existe ningún $y$ tal que : o $10^y < 0$.En otras palabras: no se puede calcular el logaritmo de cero ni de números negativos.\n\nNota: $x = 0$ **no** está en el dominio (el logaritmo tiende a $-\\infty$.\n\nno vale $0$ ahí).",
+    "explanation": "El **dominio** de $f(x) = \\log(x)$ es $x > 0$, es decir, solo los reales positivos.\n\n¿Por qué?\n\nPorque $\\log(x) = y$ equivale a $10^y = x$.\n\nComo $10^y > 0$ para cualquier $y$ real.\n\nno existe ningún $y$ tal que : o $10^y < 0$. En otras palabras: no se puede calcular el logaritmo de cero ni de números negativos.\n\nNota: $x = 0$ **no** está en el dominio (el logaritmo tiende a $-\\infty$.\n\nno vale $0$ ahí).",
     "reviewed": false,
     "tags": [
       "evaluar-log-directo"
@@ -283,7 +283,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **logaritmo natural** $\\ln(x)$ se define como la función inversa de $e^x$: decir : equivale a decir $e^t = x$.Como $e^t > 0$ para todo $t \\in \\mathbb{R}$,\n\nnunca existe un exponente que produzca un resultado negativo o nulo.\n\nPor eso.\n\nsi $x \\leq 0$.\n\nno hay ningún real $t$ que satisfaga $e^t = x$.\n\ny $\\ln(x)$ queda sin definir en ese caso.\n\nEl **dominio** de $\\ln(x)$ es entonces $(0, +\\infty)$: solo admite argumentos estrictamente positivos.\n\nEsta restricción no es exclusiva del logaritmo natural: cualquier :\n\ncon $b > 0$ y $b \\neq 1$ exige $x > 0$.porque ninguna base positiva elevada a un exponente real puede dar cero ni un número negativo.",
+    "explanation": "El **logaritmo natural** $\\ln(x)$ se define como la función inversa de $e^x$: decir : equivale a decir $e^t = x$. Como $e^t > 0$ para todo $t \\in \\mathbb{R}$.\n\nnunca existe un exponente que produzca un resultado negativo o nulo.\n\nPor eso.\n\nsi $x \\leq 0$.\n\nno hay ningún real $t$ que satisfaga $e^t = x$.\n\ny $\\ln(x)$ queda sin definir en ese caso.\n\nEl **dominio** de $\\ln(x)$ es entonces $(0, +\\infty)$: solo admite argumentos estrictamente positivos.\n\nEsta restricción no es exclusiva del logaritmo natural: cualquier :\n\ncon $b > 0$ y $b \\neq 1$ exige $x > 0$.porque ninguna base positiva elevada a un exponente real puede dar cero ni un número negativo.",
     "reviewed": false,
     "tags": [
       "dominio-razonamiento"
@@ -708,7 +708,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\displaystyle\\lim_{x \\to +\\infty} \\ln(x) = +\\infty$: la función crece sin cota, aunque muy lentamente.\n\nNo tiene **asíntota horizontal**.\n\nContraste con la exponencial $e^x$: tiene asíntota horizontal en $y = 0$ cuando :.Son inversas: lo que una tiene como asíntota horizontal, la otra lo tiene como asíntota vertical.",
+    "explanation": "$\\displaystyle\\lim_{x \\to +\\infty} \\ln(x) = +\\infty$: la función crece sin cota, aunque muy lentamente.\n\nNo tiene **asíntota horizontal**.\n\nContraste con la exponencial $e^x$: tiene asíntota horizontal en $y = 0$ cuando :. Son inversas: lo que una tiene como asíntota horizontal, la otra lo tiene como asíntota vertical.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-nombre-concepto"

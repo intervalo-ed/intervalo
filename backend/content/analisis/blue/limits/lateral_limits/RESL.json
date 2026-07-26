@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El límite lateral no depende de si el punto de quiebre usa $\\leq$ o $<$ en la definición de la rama, depende exclusivamente de la dirección\n\nde aproximación.Se usa la rama $2x-1$ porque describe los valores $x \\leq 1$, que incluyen a los que se acercan por la izquierda.\n\nQue el punto de quiebre 'pertenezca' a una rama por la convención $\\leq$ no cambia qué rama corresponde al lateral izquierdo o al derecho.",
+    "explanation": "El límite lateral no depende de si el punto de quiebre usa $\\leq$ o $<$ en la definición de la rama, depende exclusivamente de la dirección\n\nde aproximación. Se usa la rama $2x-1$ porque describe los valores $x \\leq 1$, que incluyen a los que se acercan por la izquierda.\n\nQue el punto de quiebre 'pertenezca' a una rama por la convención $\\leq$ no cambia qué rama corresponde al lateral izquierdo o al derecho.",
     "reviewed": false,
     "tags": [
       "trozos-un-lateral"
@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Al pedir un límite por la izquierda, hay que sustituir exclusivamente en la rama definida para $x$ menores al punto de tendencia, nunca en la del otro lado.Usando la rama $3x$, válida para $x<0$.\n\nTomar por error la rama de $x \\geq 0$ ($x+5=5$) clásica de invertir el sentido de la aproximación pedida.",
+    "explanation": "Al pedir un límite por la izquierda, hay que sustituir exclusivamente en la rama definida para $x$ menores al punto de tendencia, nunca en la del otro lado. Usando la rama $3x$, válida para $x<0$.\n\nTomar por error la rama de $x \\geq 0$ ($x+5=5$) clásica de invertir el sentido de la aproximación pedida.",
     "reviewed": false,
     "tags": [
       "trozos-un-lateral"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "No toda función a trozos con dos ramas distintas produce un salto: hay que evaluar siempre antes de decidir,\n\nsin asumir que 'No existe' es la respuesta por defecto.Como ambas ramas coinciden en $2$, el límite bilateral existe y vale $2$.\n\nElegir 'No existe' sin verificar primero ambas ramas es un reflejo apresurado: hay que confirmar la coincidencia o la diferencia antes de responder.",
+    "explanation": "No toda función a trozos con dos ramas distintas produce un salto: hay que evaluar siempre antes de decidir.\n\nsin asumir que 'No existe' es la respuesta por defecto. Como ambas ramas coinciden en $2$, el límite bilateral existe y vale $2$.\n\nElegir 'No existe' sin verificar primero ambas ramas es un reflejo apresurado: hay que confirmar la coincidencia o la diferencia antes de responder.",
     "reviewed": false,
     "tags": [
       "trozos-bilateral"
@@ -293,7 +293,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En una función a trozos de tres ramas, cada punto de quiebre se analiza por separado: solo importan las dos ramas que se encuentran exactamente en ese punto,\n\nlas demás son irrelevantes para ese cálculo.Como ambas coinciden, $\\lim_{x \\to 3} f(x) = 4$.\n\nLa rama del extremo izquierdo, que solo interviene en el otro punto de quiebre ($x=0$), no aporta nada al cálculo del límite en $x=3$.",
+    "explanation": "En una función a trozos de tres ramas, cada punto de quiebre se analiza por separado: solo importan las dos ramas que se encuentran exactamente en ese punto.\n\nlas demás son irrelevantes para ese cálculo. Como ambas coinciden, $\\lim_{x \\to 3} f(x) = 4$.\n\nLa rama del extremo izquierdo, que solo interviene en el otro punto de quiebre ($x=0$), no aporta nada al cálculo del límite en $x=3$.",
     "reviewed": false,
     "tags": [
       "trozos-bilateral"
@@ -368,7 +368,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **límite bilateral** de esta expresión exige comparar los dos laterales, que ya se calcularon por ramas en los casos anteriores.Como $-1 \\neq 1$, el límite bilateral no existe.\n\nEsta expresión es un ejemplo clásico de laterales que difieren exclusivamente en el signo: alcanza con esa diferencia, por mínima que parezca, para que el bilateral no exista.",
+    "explanation": "El **límite bilateral** de esta expresión exige comparar los dos laterales, que ya se calcularon por ramas en los casos anteriores. Como $-1 \\neq 1$, el límite bilateral no existe.\n\nEsta expresión es un ejemplo clásico de laterales que difieren exclusivamente en el signo: alcanza con esa diferencia, por mínima que parezca, para que el bilateral no exista.",
     "reviewed": false,
     "tags": [
       "laterales-valor-absoluto"

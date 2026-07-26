@@ -323,7 +323,7 @@
       -4,
       4
     ],
-    "explanation": "Una función es **decreciente** en un intervalo cuando.\n\na medida que $x$ aumenta.\n\nel valor de la función disminuye.\n\ny esto se evalúa por separado en cada tramo del dominio cuando hay una asíntota vertical de por medio.\n\nLa gráfica de $f(x) = 1/x$ tiene dos ramas separadas por la asíntota vertical $x = 0$.\n\nEn la rama izquierda $(-\\infty.\n\n0)$.\n\nla función va de valores cercanos a $0^-$ hacia : a medida que $x$ crece hacia $0$.En la rama derecha $(0.\n\n+\\infty)$.\n\nla función va de $+\\infty$ hacia valores cercanos a $0^+$.\n\nEn ambos tramos la tendencia es decreciente.\n\nCon confundir 'la curva sube entre las dos ramas' con comportamiento creciente: ese salto es una discontinuidad en la asíntota vertical, no crecimiento real de la función.",
+    "explanation": "Una función es **decreciente** en un intervalo cuando.\n\na medida que $x$ aumenta.\n\nel valor de la función disminuye.\n\ny esto se evalúa por separado en cada tramo del dominio cuando hay una asíntota vertical de por medio.\n\nLa gráfica de $f(x) = 1/x$ tiene dos ramas separadas por la asíntota vertical $x = 0$.\n\nEn la rama izquierda $(-\\infty.\n\n0)$.\n\nla función va de valores cercanos a $0^-$ hacia : a medida que $x$ crece hacia $0$. En la rama derecha $(0.\n\n+\\infty)$.\n\nla función va de $+\\infty$ hacia valores cercanos a $0^+$.\n\nEn ambos tramos la tendencia es decreciente.\n\nCon confundir 'la curva sube entre las dos ramas' con comportamiento creciente: ese salto es una discontinuidad en la asíntota vertical, no crecimiento real de la función.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
@@ -1193,7 +1193,7 @@
       -5,
       5
     ],
-    "explanation": "Para desplazar horizontalmente una hipérbola, hay que reemplazar $x$ por $(x - a)$ dentro del denominador, no sumar o restar un número fuera de la fracción, que en cambio mueve la asíntota horizontal.\n\nDesplazar $\\frac{1}{x}$ cuatro unidades a la derecha equivale a reemplazar $x$ por $x-4$: :.La AV pasa de :\n\na $x=4$ y la AH sigue en $y=0$.Confundir estos dos parámetros más común al armar la fórmula desde el gráfico.",
+    "explanation": "Para desplazar horizontalmente una hipérbola, hay que reemplazar $x$ por $(x - a)$ dentro del denominador, no sumar o restar un número fuera de la fracción, que en cambio mueve la asíntota horizontal.\n\nDesplazar $\\frac{1}{x}$ cuatro unidades a la derecha equivale a reemplazar $x$ por $x-4$: :. La AV pasa de :\n\na $x=4$ y la AH sigue en $y=0$. Confundir estos dos parámetros más común al armar la fórmula desde el gráfico.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
@@ -1343,7 +1343,7 @@
       -5,
       3
     ],
-    "explanation": "Cuando una hipérbola está desplazada tanto horizontal como verticalmente, hay que leer dos parámetros por separado: el denominador fija la AV y un término sumado fuera de la fracción fija la AH.\n\nAV en $x=5$ → denominador $x-5$.\n\nLa AH no es $y=0$ sino $y=-1$ (desplazamiento $-1$): :.Verificamos con $(6,1)$: $f(6)=\\frac{1}{6-5}-1=1-1=0\\neq1$, el punto no coincide exactamente,\n\npero el patrón de AV y AH sí identifica la fórmula correcta entre las opciones.",
+    "explanation": "Cuando una hipérbola está desplazada tanto horizontal como verticalmente, hay que leer dos parámetros por separado: el denominador fija la AV y un término sumado fuera de la fracción fija la AH.\n\nAV en $x=5$ → denominador $x-5$.\n\nLa AH no es $y=0$ sino $y=-1$ (desplazamiento $-1$): :. Verificamos con $(6,1)$: $f(6)=\\frac{1}{6-5}-1=1-1=0\\neq1$, el punto no coincide exactamente.\n\npero el patrón de AV y AH sí identifica la fórmula correcta entre las opciones.",
     "reviewed": false,
     "tags": [
       "direccion-ramas"
@@ -1433,7 +1433,7 @@
       0,
       12
     ],
-    "explanation": "Cuando el dato conocido es el valor de salida de la función, hay que **despejar** la variable de entrada a partir de la ecuación, no simplemente leerla directamente.\n\nBuscamos $t$ tal que $v(t)=30$: : horas.En el gráfico, la intersección con $v=30$ ocurre en $t=2$.\n\nConviene despejar con cuidado en vez de invertir la fracción de memoria, para no confundir qué cantidad queda arriba y cuál abajo.",
+    "explanation": "Cuando el dato conocido es el valor de salida de la función, hay que **despejar** la variable de entrada a partir de la ecuación, no simplemente leerla directamente.\n\nBuscamos $t$ tal que $v(t)=30$: : horas. En el gráfico, la intersección con $v=30$ ocurre en $t=2$.\n\nConviene despejar con cuidado en vez de invertir la fracción de memoria, para no confundir qué cantidad queda arriba y cuál abajo.",
     "reviewed": false,
     "tags": [
       "cantidad-asintotas-totales"

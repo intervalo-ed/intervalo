@@ -1005,7 +1005,7 @@
       "Contá cuántas raíces distintas se ven en el gráfico, a esta expresión le falta una.",
       null
     ],
-    "explanation": "Cada raíz $r$ de un polinomio corresponde a un factor $(x-r)$ en su forma factorizada,\n\ny el coeficiente que multiplica el producto ajusta la escala vertical de la curva sin mover los cruces con el eje.\n\nRaíces $r_1 = -1$.\n\n$r_2 = 0$.\n\n$r_3 = 1$ dan los factores $(x+1)$.\n\n$x$.\n\n$(x-1)$:\n\nCon escala $a = 1/2$:\n\nVerificando las raíces: $f(-1) = (-1)(0)(-2)/2 = 0$; $f(0) = 0$; $f(1) = (1)(2)(0)/2 = 0$.\n\nConviene siempre confirmar la fórmula evaluándola en cada raíz marcada en el gráfico antes de darla por correcta.",
+    "explanation": "Cada raíz $r$ de un polinomio corresponde a un factor $(x-r)$ en su forma factorizada.\n\ny el coeficiente que multiplica el producto ajusta la escala vertical de la curva sin mover los cruces con el eje.\n\nRaíces $r_1 = -1$.\n\n$r_2 = 0$.\n\n$r_3 = 1$ dan los factores $(x+1)$.\n\n$x$.\n\n$(x-1)$:\n\nCon escala $a = 1/2$:\n\nVerificando las raíces: $f(-1) = (-1)(0)(-2)/2 = 0$; $f(0) = 0$; $f(1) = (1)(2)(0)/2 = 0$.\n\nConviene siempre confirmar la fórmula evaluándola en cada raíz marcada en el gráfico antes de darla por correcta.",
     "has_math": true,
     "graph_fn": "x*(x+1)*(x-1)/2",
     "graph_view": [

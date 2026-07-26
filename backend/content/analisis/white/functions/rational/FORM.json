@@ -358,7 +358,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar el intercepto con el eje $Y$ de cualquier función, evaluamos en $x=0$, siempre que ese punto esté en el dominio.\n\nAcá:El denominador $0-4=-4$ no se anula.\n\nasí que $x=0$ sí pertenece al dominio y el intercepto existe. olvidar el signo negativo del denominador y arrastrar el resultado como positivo;\n\nconviene calcular numerador y denominador por separado antes de dividir.",
+    "explanation": "Para hallar el intercepto con el eje $Y$ de cualquier función, evaluamos en $x=0$, siempre que ese punto esté en el dominio.\n\nAcá:El denominador $0-4=-4$ no se anula.\n\nasí que $x=0$ sí pertenece al dominio y el intercepto existe. olvidar el signo negativo del denominador y arrastrar el resultado como positivo.\n\nconviene calcular numerador y denominador por separado antes de dividir.",
     "reviewed": false,
     "tags": [
       "dominio-form"
@@ -483,7 +483,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el grado del numerador es menor que el del denominador, la función racional tiende a cero a medida que $|x|$ crece, sin importar los coeficientes exactos.\n\nAcá el numerador $3$ tiene grado $0$ (es una constante) y el denominador : tiene grado $2$.Como $0<2$.\n\nla asíntota horizontal es $y=0$: la curva se aplana hacia el eje $X$ en ambos extremos. intentar armar un cociente de coeficientes principales como si los grados fueran iguales.\n\ncuando en realidad esa regla solo aplica cuando ambos grados coinciden.",
+    "explanation": "Cuando el grado del numerador es menor que el del denominador, la función racional tiende a cero a medida que $|x|$ crece, sin importar los coeficientes exactos.\n\nAcá el numerador $3$ tiene grado $0$ (es una constante) y el denominador : tiene grado $2$. Como $0<2$.\n\nla asíntota horizontal es $y=0$: la curva se aplana hacia el eje $X$ en ambos extremos. intentar armar un cociente de coeficientes principales como si los grados fueran iguales.\n\ncuando en realidad esa regla solo aplica cuando ambos grados coinciden.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes-form"
@@ -778,7 +778,7 @@
       -5,
       5
     ],
-    "explanation": "Para leer la asíntota vertical en un gráfico.\n\nbuscamos el valor de $x$ donde ambas ramas de la curva se disparan hacia : o $-\\infty$ sin llegar a cruzarlo.En este gráfico, ese comportamiento ocurre cerca de $x=-2$.\n\nAlgebraicamente.\n\neso corresponde a resolver el denominador $x+2=0\\Rightarrow x=-2$. al leer gráficos es confundir el lado del eje donde ocurre el disparo.\n\ntomando el valor con el signo opuesto al que realmente muestra la curva.",
+    "explanation": "Para leer la asíntota vertical en un gráfico.\n\nbuscamos el valor de $x$ donde ambas ramas de la curva se disparan hacia : o $-\\infty$ sin llegar a cruzarlo. En este gráfico, ese comportamiento ocurre cerca de $x=-2$.\n\nAlgebraicamente.\n\neso corresponde a resolver el denominador $x+2=0\\Rightarrow x=-2$. al leer gráficos es confundir el lado del eje donde ocurre el disparo.\n\ntomando el valor con el signo opuesto al que realmente muestra la curva.",
     "reviewed": false,
     "tags": [
       "transformaciones-form"
@@ -858,7 +858,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una racional con asíntota vertical en $x=a$ y asíntota horizontal en $y=0$ tiene la forma :.Acá la asíntota vertical es $x=-1$, así que la forma es $f(x)=\\frac{k}{x+1}$.\n\nUsamos el punto $(1,1)$ para hallar $k$:La fórmula es $f(x)=\\frac{2}{x+1}$. dejar $k=1$ sin verificar que el punto dado realmente pertenezca a la curva.\n\nlo que produce una fórmula con la asíntota correcta pero que no pasa por el punto indicado.",
+    "explanation": "Una racional con asíntota vertical en $x=a$ y asíntota horizontal en $y=0$ tiene la forma :. Acá la asíntota vertical es $x=-1$, así que la forma es $f(x)=\\frac{k}{x+1}$.\n\nUsamos el punto $(1,1)$ para hallar $k$:La fórmula es $f(x)=\\frac{2}{x+1}$. dejar $k=1$ sin verificar que el punto dado realmente pertenezca a la curva.\n\nlo que produce una fórmula con la asíntota correcta pero que no pasa por el punto indicado.",
     "reviewed": false,
     "tags": [
       "lectura-grafico-directa"
@@ -908,7 +908,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El desplazamiento vertical (acá, restar $2$ al final) no afecta la posición de la asíntota vertical, porque esta depende únicamente de dónde se anula el denominador.\n\nResolvemos $x+5=0\\Rightarrow x=-5$: esa es la asíntota vertical.\n\nLa asíntota horizontal.\n\nen cambio.\n\nsí se ve afectada por el desplazamiento: pasa de $y=0$ (de la hipérbola básica :) a $y=-2$.Confundir estos dos efectos frecuente: el desplazamiento vertical mueve la AH, no la AV.",
+    "explanation": "El desplazamiento vertical (acá, restar $2$ al final) no afecta la posición de la asíntota vertical, porque esta depende únicamente de dónde se anula el denominador.\n\nResolvemos $x+5=0\\Rightarrow x=-5$: esa es la asíntota vertical.\n\nLa asíntota horizontal.\n\nen cambio.\n\nsí se ve afectada por el desplazamiento: pasa de $y=0$ (de la hipérbola básica :) a $y=-2$. Confundir estos dos efectos frecuente: el desplazamiento vertical mueve la AH, no la AV.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal-calculo"
@@ -1033,7 +1033,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para caracterizar completamente esta función racional hay que resolver tres cosas por separado.\n\nLa asíntota vertical sale de igualar el denominador a cero: $x-3=0\\Rightarrow x=3$.\n\nLa asíntota horizontal sale de comparar los grados de numerador y denominador, que acá son ambos de grado 1,\n\nasí que se calcula como el cociente de los coeficientes principales: $\\frac{1}{1}=1$, dando $y=1$.\n\nPor último.\n\nel intercepto con el eje $Y$ sale de evaluar $f(0)=\\frac{0+2}{0-3}=\\frac{2}{-3}=-\\frac{2}{3}$. calcular la AH como si el grado del numerador fuera menor.\n\ndando $y=0$ en vez de $y=1$.",
+    "explanation": "Para caracterizar completamente esta función racional hay que resolver tres cosas por separado.\n\nLa asíntota vertical sale de igualar el denominador a cero: $x-3=0\\Rightarrow x=3$.\n\nLa asíntota horizontal sale de comparar los grados de numerador y denominador, que acá son ambos de grado 1.\n\nasí que se calcula como el cociente de los coeficientes principales: $\\frac{1}{1}=1$, dando $y=1$.\n\nPor último.\n\nel intercepto con el eje $Y$ sale de evaluar $f(0)=\\frac{0+2}{0-3}=\\frac{2}{-3}=-\\frac{2}{3}$. calcular la AH como si el grado del numerador fuera menor.\n\ndando $y=0$ en vez de $y=1$.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes-form"
@@ -1083,7 +1083,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para contar las asíntotas verticales, factorizamos el denominador y buscamos todas sus raíces reales, verificando que el numerador no se anule en ninguna de ellas.\n\nAcá : se anula en $x=1$ y en $x=-1$.Evaluamos el numerador : en esos puntos:en $x=1$ da $1+3=4$.\n\ny en $x=-1$ da $1-3=-2$; ninguno es cero.\n\nasí que ambas raíces del denominador generan asíntotas verticales genuinas.\n\nHay dos AV. quedarse con una sola raíz al factorizar apurado, subestimando la cantidad real de asíntotas.",
+    "explanation": "Para contar las asíntotas verticales, factorizamos el denominador y buscamos todas sus raíces reales, verificando que el numerador no se anule en ninguna de ellas.\n\nAcá : se anula en $x=1$ y en $x=-1$. Evaluamos el numerador : en esos puntos:en $x=1$ da $1+3=4$.\n\ny en $x=-1$ da $1-3=-2$; ninguno es cero.\n\nasí que ambas raíces del denominador generan asíntotas verticales genuinas.\n\nHay dos AV. quedarse con una sola raíz al factorizar apurado, subestimando la cantidad real de asíntotas.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes-form"

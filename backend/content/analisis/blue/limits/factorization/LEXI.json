@@ -19,7 +19,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **diferencia de cuadrados** es la forma $a^2 - b^2$, que aparece cuando una expresión resta dos términos que son cuadrados perfectos.\n\nEsta estructura factoriza según la identidad algebraica fundamental: el producto de una suma y una diferencia de las mismas cantidades siempre reconstruye la diferencia de sus cuadrados.\n\nIdentificando la estructura paso a paso: En límites indeterminados $0/0$,\n\ncuando ambos numerador y denominador contienen una diferencia de cuadrados, factorizar al instante revela el factor cancelable.\n\nConviene revisar siempre primero si hay un signo menos entre dos cuadrados exactos, porque esa combinación es la señal más rápida de este caso frente al trinomio o al factor común.",
+    "explanation": "La **diferencia de cuadrados** es la forma $a^2 - b^2$, que aparece cuando una expresión resta dos términos que son cuadrados perfectos.\n\nEsta estructura factoriza según la identidad algebraica fundamental: el producto de una suma y una diferencia de las mismas cantidades siempre reconstruye la diferencia de sus cuadrados.\n\nIdentificando la estructura paso a paso: En límites indeterminados $0/0$.\n\ncuando ambos numerador y denominador contienen una diferencia de cuadrados, factorizar al instante revela el factor cancelable.\n\nConviene revisar siempre primero si hay un signo menos entre dos cuadrados exactos, porque esa combinación es la señal más rápida de este caso frente al trinomio o al factor común.",
     "reviewed": false
   },
   {
@@ -88,7 +88,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **factor común** se extrae cuando todos los términos de una expresión comparten un mismo divisor, que puede incluir tanto un coeficiente numérico como potencias de la variable.\n\nEl máximo común divisor es el que factorizamos, no uno parcial.\n\nIdentificando el factor completo: Conviene extraer siempre el máximo común divisor completo, coeficiente y variable incluidos,\n\nporque dejar una parte adentro del paréntesis es un error frecuente al aplicar este caso.\n\nEn límites indeterminados, un factor común que sale de numerador y denominador es exactamente lo que cancela la indeterminación.",
+    "explanation": "El **factor común** se extrae cuando todos los términos de una expresión comparten un mismo divisor, que puede incluir tanto un coeficiente numérico como potencias de la variable.\n\nEl máximo común divisor es el que factorizamos, no uno parcial.\n\nIdentificando el factor completo: Conviene extraer siempre el máximo común divisor completo, coeficiente y variable incluidos.\n\nporque dejar una parte adentro del paréntesis es un error frecuente al aplicar este caso.\n\nEn límites indeterminados, un factor común que sale de numerador y denominador es exactamente lo que cancela la indeterminación.",
     "reviewed": false
   },
   {
@@ -180,7 +180,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El teorema del factor exige el factor $(x-a)$ para el valor de tendencia $a$.\n\nCuando $a=0$, esa expresión se reduce a $x$, porque $(x - 0) = x$.\n\nEste es un caso particular importante pero a veces invisible.Conviene recordar este caso particular porque, al no tener número visible dentro del paréntesis,\n\nalgunos lo pasan por alto y buscan un factor distinto al correcto, como $(x-1)$ o $(x+1)$.\n\nEn límites con tendencia $x \\to 0$, el factor cancelable es siempre una potencia de $x$ sola.",
+    "explanation": "El teorema del factor exige el factor $(x-a)$ para el valor de tendencia $a$.\n\nCuando $a=0$, esa expresión se reduce a $x$, porque $(x - 0) = x$.\n\nEste es un caso particular importante pero a veces invisible. Conviene recordar este caso particular porque, al no tener número visible dentro del paréntesis.\n\nalgunos lo pasan por alto y buscan un factor distinto al correcto, como $(x-1)$ o $(x+1)$.\n\nEn límites con tendencia $x \\to 0$, el factor cancelable es siempre una potencia de $x$ sola.",
     "reviewed": false
   },
   {
@@ -249,7 +249,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **indeterminación** 0/0 no tiene un valor fijo asignable, porque el cociente de dos cantidades que tienden a cero puede aproximarse a cualquier número según cómo se anulen las expresiones.\n\nNo existe un resultado único.Por eso ninguna de esas opciones es correcta, y la única salida es transformar la expresión mediante **factorización** antes de sustituir de nuevo.\n\nLa indeterminación no es un fracaso del cálculo, es una invitación a usar una técnica algebraica distinta.",
+    "explanation": "La **indeterminación** 0/0 no tiene un valor fijo asignable, porque el cociente de dos cantidades que tienden a cero puede aproximarse a cualquier número según cómo se anulen las expresiones.\n\nNo existe un resultado único. Por eso ninguna de esas opciones es correcta, y la única salida es transformar la expresión mediante **factorización** antes de sustituir de nuevo.\n\nLa indeterminación no es un fracaso del cálculo, es una invitación a usar una técnica algebraica distinta.",
     "reviewed": false
   },
   {
