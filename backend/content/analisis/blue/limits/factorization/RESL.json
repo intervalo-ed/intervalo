@@ -196,7 +196,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La sustitución directa de $x=3$ da 0/0.\n\nEl numerador es un **trinomio** que factoriza buscando dos números que sumen $-1$ y multipliquen $-6$.\n\nComo el producto es negativo, los signos son opuestos: $-3$ y $2$: El proceso es sistemático: factorizar el trinomio por el método de dos números, identificar cuál factor coincide con lo que tenemos en el denominador, cancelarlo, y finalmente evaluar.\n\nCada paso está determinado por la estructura algebraica de las expresiones.",
+    "explanation": "La sustitución directa de $x=3$ da 0/0.\n\nEl numerador es un **trinomio** que factoriza buscando dos números que sumen $-1$ y multipliquen $-6$.\n\nComo el producto es negativo, los signos son opuestos: $-3$ y $2$: El proceso es sistemático: factorizar el trinomio por el método de dos números,\n\nidentificar cuál factor coincide con lo que tenemos en el denominador, cancelarlo, y finalmente evaluar.\n\nCada paso está determinado por la estructura algebraica de las expresiones.",
     "reviewed": false
   },
   {

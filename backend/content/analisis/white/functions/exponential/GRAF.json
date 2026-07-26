@@ -1463,7 +1463,7 @@
       -0.5,
       10
     ],
-    "explanation": "El punto $(0.\n\n3)$ es donde la curva corta el eje $y$:Este es el valor inicial de la curva.\n\nlos $3000$ seguidores del comienzo.\n\nya que cualquier base elevada a la potencia $0$ da $1$ y solo queda el coeficiente :.Este valor en $t = 0$ es el punto de partida sobre el que después actúa el crecimiento porcentual de cada mes, no debe confundirse con el valor luego de aplicar algún período de crecimiento.",
+    "explanation": "El punto $(0.\n\n3)$ es donde la curva corta el eje $y$:Este es el valor inicial de la curva.\n\nlos $3000$ seguidores del comienzo.\n\nya que cualquier base elevada a la potencia $0$ da $1$ y solo queda el coeficiente :.Este valor en $t = 0$ es el punto de partida sobre el\n\nque después actúa el crecimiento porcentual de cada mes, no debe confundirse con el valor luego de aplicar algún período de crecimiento.",
     "reviewed": false,
     "tags": [
       "asintota-contexto"

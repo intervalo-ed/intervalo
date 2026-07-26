@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un producto entre una potencia y un binomio, conviene distribuir antes de integrar cada término por separado.Esta distribución evita tener que aplicar la regla del producto para integrales, una herramienta que no existe de forma directa como sí existe para derivar.\n\nLa reescritura de expresiones es una habilidad algebraica fundamental que acelera los cálculos de integrales.",
+    "explanation": "Con un producto entre una potencia y un binomio, conviene distribuir antes de integrar cada término por separado.Esta distribución evita\n\ntener que aplicar la regla del producto para integrales, una herramienta que no existe de forma directa como sí existe para derivar.\n\nLa reescritura de expresiones es una habilidad algebraica fundamental que acelera los cálculos de integrales.",
     "reviewed": false,
     "tags": [
       "reescritura-potencias-y-raices"
@@ -223,7 +223,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Toda raíz se puede escribir como una **potencia fraccionaria**, un paso previo obligatorio antes de integrar.Con esta reescritura, la expresión queda lista para la regla de la potencia del tópico siguiente, sin necesitar ninguna fórmula especial para raíces.\n\nLa reescritura de expresiones es una habilidad algebraica fundamental que acelera los cálculos de integrales.",
+    "explanation": "Toda raíz se puede escribir como una **potencia fraccionaria**, un paso previo obligatorio antes de integrar.Con esta reescritura,\n\nla expresión queda lista para la regla de la potencia del tópico siguiente, sin necesitar ninguna fórmula especial para raíces.\n\nLa reescritura de expresiones es una habilidad algebraica fundamental que acelera los cálculos de integrales.",
     "reviewed": false,
     "tags": [
       "limites-linealidad-falsas-propiedades"

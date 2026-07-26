@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El límite lateral no depende de si el punto de quiebre usa $\\leq$ o $<$ en la definición de la rama, depende exclusivamente de la dirección de aproximación.Se usa la rama $2x-1$ porque describe los valores $x \\leq 1$, que incluyen a los que se acercan por la izquierda.\n\nQue el punto de quiebre 'pertenezca' a una rama por la convención $\\leq$ no cambia qué rama corresponde al lateral izquierdo o al derecho.",
+    "explanation": "El límite lateral no depende de si el punto de quiebre usa $\\leq$ o $<$ en la definición de la rama, depende exclusivamente de la dirección\n\nde aproximación.Se usa la rama $2x-1$ porque describe los valores $x \\leq 1$, que incluyen a los que se acercan por la izquierda.\n\nQue el punto de quiebre 'pertenezca' a una rama por la convención $\\leq$ no cambia qué rama corresponde al lateral izquierdo o al derecho.",
     "reviewed": false,
     "tags": [
       "trozos-un-lateral"

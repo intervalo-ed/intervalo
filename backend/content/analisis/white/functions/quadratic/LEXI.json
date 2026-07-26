@@ -383,7 +383,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La forma $f(x) = a(x - h)^2 + k$ se llama **forma de vértice** porque deja el vértice a la vista sin necesidad de hacer ninguna cuenta: el vértice es directamente el punto $(h, k)$.\n\nExisten tres formas equivalentes de escribir una cuadrática, y cada una muestra un dato distinto de un vistazo.\n\nLa forma estándar $ax^2 + bx + c$ muestra los coeficientes, la forma de vértice $a(x-h)^2 + k$ muestra el vértice, y la forma factorizada : muestra las **raíces**.Las tres describen la misma **parábola**, solo cambia qué información queda a la vista según lo que necesites leer.",
+    "explanation": "La forma $f(x) = a(x - h)^2 + k$ se llama **forma de vértice** porque deja el vértice a la vista sin necesidad de hacer ninguna cuenta: el vértice es directamente el punto $(h, k)$.\n\nExisten tres formas equivalentes de escribir una cuadrática, y cada una muestra un dato distinto de un vistazo.\n\nLa forma estándar $ax^2 + bx + c$ muestra los coeficientes, la forma de vértice $a(x-h)^2 + k$ muestra el vértice, y la forma factorizada :\n\nmuestra las **raíces**.Las tres describen la misma **parábola**, solo cambia qué información queda a la vista según lo que necesites leer.",
     "reviewed": false,
     "tags": [
       "formas-de-la-funcion"
@@ -1223,7 +1223,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El signo de $a$ decide la **concavidad** (hacia dónde abre) y, con ella, si el **vértice** es máximo o mínimo.\n\nPero no toca el **dominio**.\n\nSea $a$ positivo o negativo, podés evaluar la función en cualquier real: elevar al cuadrado y multiplicar nunca falla.\n\nPor eso:\n\nLo que sí cambia con el signo de $a$ es la **imagen**: hacia arriba queda :, hacia abajo $(-\\infty, k]$.Conviene no mezclar ambos conceptos: el dominio de una cuadrática nunca cambia, pero la imagen sí depende del signo de $a$ y de la posición del vértice.",
+    "explanation": "El signo de $a$ decide la **concavidad** (hacia dónde abre) y, con ella, si el **vértice** es máximo o mínimo.\n\nPero no toca el **dominio**.\n\nSea $a$ positivo o negativo, podés evaluar la función en cualquier real: elevar al cuadrado y multiplicar nunca falla.\n\nPor eso:\n\nLo que sí cambia con el signo de $a$ es la **imagen**: hacia arriba queda :, hacia abajo $(-\\infty, k]$.Conviene no mezclar ambos conceptos: el dominio de una cuadrática nunca cambia,\n\n la imagen sí depende del signo de $a$ y de la posición del vértice.",
     "reviewed": false,
     "tags": [
       "dominio-imagen"
@@ -1273,7 +1273,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Lo que vuelve cuadrática a una función es que su término de mayor grado sea de grado 2: un $ax^2$ con $a \\neq 0$, y ningún término de grado superior.\n\nDe esa sola condición se desprenden todas sus propiedades: la gráfica tiene forma de **parábola** con un único **vértice**, hay a lo sumo dos **raíces**, existe simetría respecto de un eje vertical, y la tasa de cambio no es constante como en lo lineal.\n\nCada familia tiene su propia firma: la recta crece a ritmo fijo, la exponencial multiplica por un factor constante, la logarítmica desacelera.\n\nLa cuadrática es la que tiene a $x^2$ como protagonista.",
+    "explanation": "Lo que vuelve cuadrática a una función es que su término de mayor grado sea de grado 2: un $ax^2$ con $a \\neq 0$, y ningún término de grado superior.\n\nDe esa sola condición se desprenden todas sus propiedades: la gráfica tiene forma de **parábola** con un único **vértice**,\n\nhay a lo sumo dos **raíces**, existe simetría respecto de un eje vertical, y la tasa de cambio no es constante como en lo lineal.\n\nCada familia tiene su propia firma: la recta crece a ritmo fijo, la exponencial multiplica por un factor constante, la logarítmica desacelera.\n\nLa cuadrática es la que tiene a $x^2$ como protagonista.",
     "reviewed": false,
     "tags": [
       "coeficientes-nombre"

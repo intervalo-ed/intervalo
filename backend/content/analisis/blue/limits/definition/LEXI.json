@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$k/0$ con $k \\neq 0$ describe una **tendencia a :**, no una **indeterminación**.: cuando el denominador se acerca a $0$ y el numerador se mantiene distinto de $0$, la fracción crece sin cota porque estás dividiendo una cantidad fija por algo cada vez más pequeño.\n\nEl resultado está determinado a crecer indefinidamente.\n\nEn este caso, con numerador $3$ y denominador tendiendo a $0$, el cociente se dispara hacia $+\\infty$ o $-\\infty$ según el signo del denominador cerca del punto.\n\nLa dirección depende del signo, pero la magnitud creciente es inevitable.\n\nNo confundas este caso con 0/0: solo cuando numerador y denominador tienden a $0$ simultáneamente aparece la verdadera indeterminación.\n\nSi uno se anula y el otro no, el destino ya está fijo.",
+    "explanation": "$k/0$ con $k \\neq 0$ describe una **tendencia a :**, no una **indeterminación**.: cuando el denominador se acerca a $0$ y el numerador\n\nse mantiene distinto de $0$, la fracción crece sin cota porque estás dividiendo una cantidad fija por algo cada vez más pequeño.\n\nEl resultado está determinado a crecer indefinidamente.\n\nEn este caso, con numerador $3$ y denominador tendiendo a $0$, el cociente se dispara hacia $+\\infty$ o $-\\infty$ según el signo del denominador cerca del punto.\n\nLa dirección depende del signo, pero la magnitud creciente es inevitable.\n\nNo confundas este caso con 0/0: solo cuando numerador y denominador tienden a $0$ simultáneamente aparece la verdadera indeterminación.\n\nSi uno se anula y el otro no, el destino ya está fijo.",
     "reviewed": false,
     "tags": [
       "diagnostico-indeterminacion"
