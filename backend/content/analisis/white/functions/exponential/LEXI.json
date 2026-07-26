@@ -283,7 +283,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para la función exponencial $f(x) = a^x$, con $a > 0$ y $a \\neq 1$, la **base** positiva elevada a cualquier exponente real da siempre un resultado positivo: $a^x > 0$ para todo $x \\in \\mathbb{R}$.\n\nCuando $x \\to -\\infty$ (con $a>1$), el valor $a^x$ se acerca a $0$ por arriba sin llegar a tocarlo.\n\nCuando $x \\to +\\infty$, en cambio, $a^x$ crece sin límite hacia $+\\infty$.\n\nPor eso la **imagen** de $f$ es $(0, +\\infty)$: el cero queda excluido porque es un límite asintótico que nunca se alcanza, y los valores negativos son directamente inalcanzables para cualquier base positiva.",
+    "explanation": "Para la función exponencial $f(x) = a^x$, con $a > 0$ y $a \\neq 1$, la **base** positiva elevada a cualquier exponente real da siempre un resultado positivo.\n\n$a^x > 0$ para todo $x \\in \\mathbb{R}$.\n\nCuando $x \\to -\\infty$ (con $a>1$), el valor $a^x$ se acerca a $0$ por arriba sin llegar a tocarlo.\n\nCuando $x \\to +\\infty$, en cambio, $a^x$ crece sin límite hacia $+\\infty$.\n\nPor eso la **imagen** de $f$ es $(0, +\\infty)$: el cero queda excluido porque es un límite asintótico que nunca se alcanza, y los valores negativos son directamente inalcanzables para cualquier base positiva.",
     "reviewed": false,
     "tags": [
       "comparacion-bases"
@@ -583,7 +583,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Al restar una constante al exponente ($x - h$), la curva se desplaza **horizontalmente** en la dirección opuesta al signo:\n$$g(x) = 2^{x-3} = f(x-3)$$\nEsta transformación representa un desplazamiento de 3 unidades a la derecha.\nVerificación: $g(3) = 2^0 = 1 = f(0)$. El punto $(0, 1)$ de $f$ pasó al punto $(3, 1)$ de $g$.",
+    "explanation": "Al restar una constante al exponente ($x - h$), la curva se desplaza **horizontalmente** en la dirección opuesta al signo:\n$$g(x) = 2^{x-3} = f(x-3)$$Esta transformación representa un desplazamiento de 3 unidades a la derecha. Verificación.\n\n$g(3) = 2^0 = 1 = f(0)$. El punto $(0, 1)$ de $f$ pasó al punto $(3, 1)$ de $g$.",
     "reviewed": false,
     "tags": [
       "numero-e-concepto"
@@ -783,7 +783,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La regla de potencia de potencia indica que al elevar una potencia a otro exponente, los exponentes se multiplican entre sí:\n\nA diferencia de la multiplicación de potencias de igual **base** (donde los exponentes se suman), acá hay un exponente aplicado sobre otro exponente, y esa operación multiplica.\n\nCon $m=x$ y $n=2$: $(b^x)^2 = b^{2x}$.\n\nUn ejemplo concreto es $(2^x)^2 = 2^{2x} = 4^x$, que muestra cómo convertir entre bases distintas: cualquier potencia de $2$ elevada al cuadrado se puede reescribir como una potencia de $4$.\n\nEsta conversión es útil para comparar exponenciales con distinta base pero relacionadas entre sí, como $4^x$ y $2^x$.",
+    "explanation": "La regla de potencia de potencia indica que al elevar una potencia a otro exponente, los exponentes se multiplican entre sí:\n\nA diferencia de la multiplicación de potencias de igual **base** (donde los exponentes se suman), acá hay un exponente aplicado sobre otro exponente, y esa operación multiplica.\n\nCon $m=x$ y $n=2$: $(b^x)^2 = b^{2x}$.\n\nUn ejemplo concreto es $(2^x)^2 = 2^{2x} = 4^x$, que muestra cómo convertir entre bases distintas.\n\nCualquier potencia de $2$ elevada al cuadrado se puede reescribir como una potencia de $4$.\n\nEsta conversión es útil para comparar exponenciales con distinta base pero relacionadas entre sí, como $4^x$ y $2^x$.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-potencias"
@@ -1008,7 +1008,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para una función $f(x) = b^x$ con **base** $b > 1$, el límite cuando $x \\to -\\infty$ siempre es $0^+$: valores cada vez más chicos pero siempre positivos.\n$$\\lim_{x \\to -\\infty} 3^x = 0^+$$\nCon $b=3$: cuando $x$ es muy negativo, $3^x = \\frac{1}{3^{|x|}}$, una fracción con denominador enorme, por lo que el resultado se acerca a $0$ sin llegar nunca a tocarlo.\n\nEsto explica por qué la **asíntota horizontal** de toda exponencial creciente es $y=0$ hacia la izquierda: cuanto más negativo el exponente, más se divide entre potencias grandes de la base, y el cociente se aproxima a cero pero nunca lo alcanza.",
+    "explanation": "Para una función $f(x) = b^x$ con **base** $b > 1$, el límite cuando $x \\to -\\infty$ siempre es $0^+$.\n\nValores cada vez más chicos pero siempre positivos.$$\\lim_{x \\to -\\infty} 3^x = 0^+$$\nCon $b=3$: cuando $x$ es muy negativo, $3^x = \\frac{1}{3^{|x|}}$, una fracción con denominador enorme, por lo que el resultado se acerca a $0$ sin llegar nunca a tocarlo.\n\nEsto explica por qué la **asíntota horizontal** de toda exponencial creciente es $y=0$ hacia la izquierda: cuanto más negativo el exponente, más se divide entre potencias grandes de la base, y el cociente se aproxima a cero pero nunca lo alcanza.",
     "reviewed": false,
     "tags": [
       "imagen-desplazamiento-vertical"
@@ -1258,7 +1258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Como $2^0=1$ y la función es estrictamente creciente, comparar cualquier $x$ contra $0$ alcanza para saber si $2^x$ queda por debajo o por encima de $1$:\n\nPara $x<0$ la función toma valores positivos.\n\nMenores que $1$, por ejemplo $2^{-1}=0{,}5$ o $2^{-3}=0{,}125$: se acerca a $0$ sin llegar nunca a tocarlo.\n\nLa función nunca es negativa ni vale exactamente cero, así que ese caso queda descartado de entrada.\n\nEsta relación entre el signo del exponente y el resultado frente a $1$ es la misma para cualquier exponencial con **base** mayor que $1$: negativo da menos que $1$, positivo da más que $1$, cero da exactamente $1$.",
+    "explanation": "Como $2^0=1$ y la función es estrictamente creciente, comparar cualquier $x$ contra $0$ alcanza para saber si $2^x$ queda por debajo o por encima de $1$:\n\nPara $x<0$ la función toma valores positivos.\n\nMenores que $1$, por ejemplo $2^{-1}=0{,}5$ o $2^{-3}=0{,}125$: se acerca a $0$ sin llegar nunca a tocarlo.\n\nLa función nunca es negativa ni vale exactamente cero, así que ese caso queda descartado de entrada.\n\nEsta relación entre el signo del exponente y el resultado frente a $1$ es la misma para cualquier exponencial con **base** mayor que $1$.\n\nNegativo da menos que $1$, positivo da más que $1$, cero da exactamente $1$.",
     "reviewed": false,
     "tags": [
       "exclusion-base-1-o-negativa"

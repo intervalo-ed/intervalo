@@ -233,7 +233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\operatorname{sen}(\\pi)=0$: el seno se anula en todos los **múltiplos enteros de $\\pi$**:\n\n$x=0,\\pi,2\\pi,3\\pi,\\ldots$ En $x=\\pi$ el seno completa su primer ciclo y regresa a cero. No confundir con $\\operatorname{sen}(\\pi/2)=1$ (máximo) o $\\operatorname{sen}(3\\pi/2)=-1$ (mínimo).\n\nLos ceros del seno son exactamente en $x=k\\pi$ para todo entero $k$.",
+    "explanation": "$\\operatorname{sen}(\\pi)=0$: el seno se anula en todos los **múltiplos enteros de $\\pi$**:\n\n$x=0,\\pi,2\\pi,3\\pi,\\ldots$ En $x=\\pi$ el seno completa su primer ciclo y regresa a cero. No confundir con $\\operatorname{sen}(\\pi/2)=1$ (máximo).\n\n$\\operatorname{sen}(3\\pi/2)=-1$ (mínimo).\n\nLos ceros del seno son exactamente en $x=k\\pi$ para todo entero $k$.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -538,7 +538,7 @@
       -3,
       3
     ],
-    "explanation": "La función es $f(x)=2\\,\\operatorname{sen}(x)$. El seno alcanza su **máximo** cuando el argumento es $\\pi/2$: $\\operatorname{sen}(\\pi/2)=1$. Multiplicado por $2$:$$\\begin{aligned}\nf\\!\\left(\\frac{\\pi}{2}\\right) &= 2\\,\\operatorname{sen}\\!\\left(\\frac{\\pi}{2}\\right) \\\\\n&= 2 \\cdot 1 \\\\\n&= 2:\n\\end{aligned}$$Este es el valor máximo de $f$.\n\nLa opción $0$ sería $f(0)$ o $f(\\pi)$.\n\nLa opción $1$ es el máximo del seno sin escalar.",
+    "explanation": "La función es $f(x)=2\\,\\operatorname{sen}(x)$. El seno alcanza su **máximo** cuando el argumento es $\\pi/2$.\n\n$\\operatorname{sen}(\\pi/2)=1$. Multiplicado por $2$:$$\\begin{aligned}\nf\\!\\left(\\frac{\\pi}{2}\\right) &= 2\\,\\operatorname{sen}\\!\\left(\\frac{\\pi}{2}\\right) \\\\\n&= 2 \\cdot 1 \\\\\n&= 2:\n\\end{aligned}$$Este es el valor máximo de $f$.\n\nLa opción $0$ sería $f(0)$ o $f(\\pi)$.\n\nLa opción $1$ es el máximo del seno sin escalar.",
     "reviewed": false,
     "tags": [
       "imagen-rango-form-trig"
@@ -718,7 +718,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La función $f(x)=\\operatorname{sen}(x)$ está definida para **todo** $x\\in\\mathbb{R}$: no hay valores de $x$ que la hagan indefinida ni que creen asíntotas verticales.\n\nContraste con $\\tan(x)=\\operatorname{sen}(x)/\\cos(x)$: la tangente tiene asíntotas en $x=\\pi/2+k\\pi$ porque el denominador $\\cos(x)$ se anula.\n\nEl seno y el coseno **no** tienen denominador; son continuas y definidas en todo $\\mathbb{R}$ sin interrupciones.\n\nEl seno no tiene asíntotas. Es la función más honesta: nunca se va al infinito ni desaparece.",
+    "explanation": "La función $f(x)=\\operatorname{sen}(x)$ está definida para **todo** $x\\in\\mathbb{R}$.\n\nNo hay valores de $x$ que la hagan indefinida ni que creen asíntotas verticales.\n\nContraste con $\\tan(x)=\\operatorname{sen}(x)/\\cos(x)$: la tangente tiene asíntotas en $x=\\pi/2+k\\pi$ porque el denominador $\\cos(x)$ se anula.\n\nEl seno y el coseno **no** tienen denominador; son continuas y definidas en todo $\\mathbb{R}$ sin interrupciones.\n\nEl seno no tiene asíntotas. Es la función más honesta: nunca se va al infinito ni desaparece.",
     "reviewed": false,
     "tags": [
       "asintotas-existencia-trig"
@@ -848,7 +848,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(2x)$ no depende del coeficiente $B=2$ en el argumento: ese solo cambia el período. La amplitud sigue siendo $|A|=1$.\n\nLa imagen sigue siendo $[-1,1]$.\n\nResumen: el coeficiente del argumento ($B$) afecta el **período** ($T=2\\pi/B$); el coeficiente delante del seno ($A$) afecta la **amplitud** y la imagen.\n\nEn $\\operatorname{sen}(2x)$, $A=1$ y la imagen es $[-1,1]$, igual que $\\operatorname{sen}(x)$.\n\n$B$ comprime el período, pero no aplasta ni estira la onda verticalmente. La imagen $[-1,1]$ es inamovible si $A=1$.",
+    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(2x)$ no depende del coeficiente $B=2$ en el argumento.\n\nEse solo cambia el período. La amplitud sigue siendo $|A|=1$.\n\nLa imagen sigue siendo $[-1,1]$.\n\nResumen: el coeficiente del argumento ($B$) afecta el **período** ($T=2\\pi/B$); el coeficiente delante del seno ($A$) afecta la **amplitud** y la imagen.\n\nEn $\\operatorname{sen}(2x)$, $A=1$ y la imagen es $[-1,1]$, igual que $\\operatorname{sen}(x)$.\n\n$B$ comprime el período, pero no aplasta ni estira la onda verticalmente. La imagen $[-1,1]$ es inamovible si $A=1$.",
     "reviewed": false,
     "tags": [
       "lectura-grafico-directa-trig"
@@ -1258,7 +1258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(x/2)$ no depende del coeficiente $B=1/2$ del argumento: ese solo cambia el período. La amplitud sigue siendo $|A|=1$ (no hay coeficiente delante del seno).\n\nImagen $=[-1,1]$, igual que $\\operatorname{sen}(x)$.\n\nEl período cambia a $4\\pi$, pero el rango vertical permanece inalterado.\n\nLa opción $[-2,2]$ sería si $A=2$; la opción $\\mathbb{R}$ sería el dominio.\n\n$\\operatorname{sen}(x/2)$: misma altura que el seno, solo que va más despacio. La imagen $[-1,1]$ no se negocia.",
+    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(x/2)$ no depende del coeficiente $B=1/2$ del argumento.\n\nEse solo cambia el período. La amplitud sigue siendo $|A|=1$ (no hay coeficiente delante del seno).\n\nImagen $=[-1,1]$, igual que $\\operatorname{sen}(x)$.\n\nEl período cambia a $4\\pi$, pero el rango vertical permanece inalterado.\n\nLa opción $[-2,2]$ sería si $A=2$; la opción $\\mathbb{R}$ sería el dominio.\n\n$\\operatorname{sen}(x/2)$: misma altura que el seno, solo que va más despacio. La imagen $[-1,1]$ no se negocia.",
     "reviewed": false,
     "tags": [
       "contexto-cotidiano-aplicado-form"

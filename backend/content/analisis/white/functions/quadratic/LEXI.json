@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función cuadrática puede escribirse en tres formas equivalentes: la forma estándar $f(x) = ax^2 + bx + c$, que muestra directamente los coeficientes $a$, $b$, $c$; la forma de **vértice** $f(x) = a(x-h)^2 + k$, donde el vértice es $(h, k)$, útil para graficar.\n\nY la forma factorizada $f(x) = a(x - r_1)(x - r_2)$, donde las **raíces** son $r_1$ y $r_2$, útil para resolver.\n\nLas otras opciones corresponden a otras familias: $mx + b$ es lineal, $a \\cdot b^x$ es exponencial, $\\log_a(x)$ es logarítmica.\n\nLa condición $a \\neq 0$ es indispensable para que sea cuadrática y no lineal.",
+    "explanation": "Una función cuadrática puede escribirse en tres formas equivalentes: la forma estándar $f(x) = ax^2 + bx + c$, que muestra directamente los coeficientes $a$, $b$, $c$.\n\nLa forma de **vértice** $f(x) = a(x-h)^2 + k$, donde el vértice es $(h, k)$, útil para graficar.\n\nY la forma factorizada $f(x) = a(x - r_1)(x - r_2)$, donde las **raíces** son $r_1$ y $r_2$, útil para resolver.\n\nLas otras opciones corresponden a otras familias: $mx + b$ es lineal, $a \\cdot b^x$ es exponencial, $\\log_a(x)$ es logarítmica.\n\nLa condición $a \\neq 0$ es indispensable para que sea cuadrática y no lineal.",
     "reviewed": false,
     "tags": [
       "formas-de-la-funcion"
@@ -308,7 +308,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma estándar $f(x) = ax^2 + bx + c$, cada coeficiente cumple un rol distinto: $a$ es el **coeficiente principal**, el que acompaña a $x^2$ y define la **concavidad** y la apertura de la curva.\n\nLos otros dos coeficientes acompañan al resto de los términos: $b$ es el coeficiente lineal, que acompaña a $x$, y $c$ es el término independiente, el que aparece solo sin ninguna variable.\n\nEl coeficiente principal es indispensable para que la función sea cuadrática: si $a = 0$, el término $x^2$ desaparece y la función pasa a ser lineal. Sin él, no hay **parábola**.",
+    "explanation": "En la forma estándar $f(x) = ax^2 + bx + c$, cada coeficiente cumple un rol distinto.\n\n$a$ es el **coeficiente principal**, el que acompaña a $x^2$ y define la **concavidad** y la apertura de la curva.\n\nLos otros dos coeficientes acompañan al resto de los términos: $b$ es el coeficiente lineal, que acompaña a $x$, y $c$ es el término independiente, el que aparece solo sin ninguna variable.\n\nEl coeficiente principal es indispensable para que la función sea cuadrática: si $a = 0$, el término $x^2$ desaparece y la función pasa a ser lineal. Sin él, no hay **parábola**.",
     "reviewed": false,
     "tags": [
       "coeficientes-nombre"
@@ -483,7 +483,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** es el conjunto de valores que la función realmente produce. En una cuadrática, el **vértice** marca el extremo.\n\nSi la **parábola** **abre hacia arriba** ($a > 0$), el vértice $(h, k)$ es el punto más bajo: la función nunca baja de $k$, pero sube sin límite.\n\nEntonces:\n\nOjo con el detalle: el valor extremo es $k$, la coordenada $y$ del vértice, no $h$.\n\nLa $h$ vive en el eje horizontal.",
+    "explanation": "La **imagen** es el conjunto de valores que la función realmente produce. En una cuadrática, el **vértice** marca el extremo.\n\nSi la **parábola** **abre hacia arriba** ($a > 0$), el vértice $(h, k)$ es el punto más bajo.\n\nLa función nunca baja de $k$, pero sube sin límite.\n\nEntonces:\n\nOjo con el detalle: el valor extremo es $k$, la coordenada $y$ del vértice, no $h$.\n\nLa $h$ vive en el eje horizontal.",
     "reviewed": false,
     "tags": [
       "dominio-imagen"
@@ -833,7 +833,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El coeficiente $b$ acompaña a la $x$ de primer grado en la forma estándar $f(x) = ax^2 + bx + c$, por eso se llama **coeficiente lineal**.\n\nLos tres coeficientes de la forma estándar tienen roles distintos: $a$ es el **coeficiente principal**, que acompaña a $x^2$; $b$ es el coeficiente lineal, que acompaña a $x$.\n\nY $c$ es el término independiente, que va solo.\n\nJunto con $a$, el coeficiente $b$ ayuda a ubicar el **vértice**, ya que $x_v = -\\dfrac{b}{2a}$: no trabaja solo, siempre lo hace en conjunto con $a$.",
+    "explanation": "El coeficiente $b$ acompaña a la $x$ de primer grado en la forma estándar $f(x) = ax^2 + bx + c$, por eso se llama **coeficiente lineal**.\n\nLos tres coeficientes de la forma estándar tienen roles distintos: $a$ es el **coeficiente principal**, que acompaña a $x^2$.\n\n$b$ es el coeficiente lineal, que acompaña a $x$.\n\nY $c$ es el término independiente, que va solo.\n\nJunto con $a$, el coeficiente $b$ ayuda a ubicar el **vértice**, ya que $x_v = -\\dfrac{b}{2a}$.\n\nNo trabaja solo, siempre lo hace en conjunto con $a$.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"

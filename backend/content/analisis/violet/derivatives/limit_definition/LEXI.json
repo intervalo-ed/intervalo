@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando se calcula $\\frac{f(b)-f(a)}{b-a}$ para dos puntos fijos y separados, sin ningún límite de por medio, el resultado es una **tasa de cambio promedio**: describe cuánto varió $f$ en promedio a lo largo de todo el intervalo $[a,b]$.\n\nEsa tasa no dice nada sobre qué tan rápido cambia $f$ en un punto puntual del intervalo, solo resume el cambio total repartido de forma uniforme.\n\nRecién al hacer que $b$ se acerque a $a$ mediante un límite, esa tasa promedio se concentra en un único punto y pasa a llamarse instantánea.",
+    "explanation": "Cuando se calcula $\\frac{f(b)-f(a)}{b-a}$ para dos puntos fijos y separados, sin ningún límite de por medio, el resultado es una **tasa de cambio promedio**.\n\nDescribe cuánto varió $f$ en promedio a lo largo de todo el intervalo $[a,b]$.\n\nEsa tasa no dice nada sobre qué tan rápido cambia $f$ en un punto puntual del intervalo, solo resume el cambio total repartido de forma uniforme.\n\nRecién al hacer que $b$ se acerque a $a$ mediante un límite, esa tasa promedio se concentra en un único punto y pasa a llamarse instantánea.",
     "reviewed": false,
     "tags": [
       "tasa-instantanea-vs-promedio"

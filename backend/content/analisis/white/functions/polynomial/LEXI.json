@@ -1055,7 +1055,7 @@
       null,
       "Sí se puede leer directamente: alcanza con mirar la constante sin $x$ en la fórmula, sin necesidad de reemplazar nada."
     ],
-    "explanation": "El **término independiente** $a_0$ de un polinomio es el coeficiente que no acompaña a ninguna potencia de $x$.\n\nSe puede leer directamente de la fórmula como el término sin $x$.\n\nCuando evaluamos en $x = 0$, todos los términos que contienen $x$ se anulan automáticamente: $x^k = 0^k = 0$ para cualquier $k > 0$.\n\nSolo queda el término constante.\n\nEn $p(x) = x^4 - 3x^2 + 5$, evaluando en $x = 0$ da $p(0) = 0 - 0 + 5 = 5$.\n\nPor lo tanto, $f(0) = 5$ es el **término independiente**.\n\nEste valor corresponde al punto donde la gráfica corta al eje $Y$ (la **ordenada al origen**), que siempre ocurre en $(0, a_0)$.",
+    "explanation": "El **término independiente** $a_0$ de un polinomio es el coeficiente que no acompaña a ninguna potencia de $x$.\n\nSe puede leer directamente de la fórmula como el término sin $x$.\n\nCuando evaluamos en $x = 0$, todos los términos que contienen $x$ se anulan automáticamente.\n\n$x^k = 0^k = 0$ para cualquier $k > 0$.\n\nSolo queda el término constante.\n\nEn $p(x) = x^4 - 3x^2 + 5$, evaluando en $x = 0$ da $p(0) = 0 - 0 + 5 = 5$.\n\nPor lo tanto, $f(0) = 5$ es el **término independiente**.\n\nEste valor corresponde al punto donde la gráfica corta al eje $Y$ (la **ordenada al origen**), que siempre ocurre en $(0, a_0)$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

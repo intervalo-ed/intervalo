@@ -233,7 +233,7 @@
       -3,
       5
     ],
-    "explanation": "El comportamiento de $f(x) = \\log_a(x)$ depende del valor de la **base** $a$.\n\nCuando $a > 1$, la función es **creciente**, es decir que a mayor $x$ corresponde un mayor $f(x)$, aunque crece cada vez con más lentitud.\n\nCuando $0 < a < 1$, en cambio, la función es decreciente.\n\nEn ambos casos la curva pasa por el punto $(1,\\, 0)$ y tiene una **asíntota vertical** en $x = 0$.\n\nPara $\\log_2(x)$, que tiene base $2 > 1$, se cumple $f(1) = 0$, $f(2) = 1$, $f(4) = 2$ y $f(8) = 3$: los valores suben, aunque cada duplicación del argumento suma solo una unidad al resultado.\n\nConviene mirar siempre el valor de la base antes de decidir si la curva sube o baja, porque a diferencia de la exponencial, acá crecer significa hacerlo cada vez más despacio, nunca de forma acelerada.",
+    "explanation": "El comportamiento de $f(x) = \\log_a(x)$ depende del valor de la **base** $a$.\n\nCuando $a > 1$, la función es **creciente**, es decir que a mayor $x$ corresponde un mayor $f(x)$, aunque crece cada vez con más lentitud.\n\nCuando $0 < a < 1$, en cambio, la función es decreciente.\n\nEn ambos casos la curva pasa por el punto $(1,\\, 0)$ y tiene una **asíntota vertical** en $x = 0$.\n\nPara $\\log_2(x)$, que tiene base $2 > 1$, se cumple $f(1) = 0$, $f(2) = 1$, $f(4) = 2$ y $f(8) = 3$.\n\nLos valores suben, aunque cada duplicación del argumento suma solo una unidad al resultado.\n\nConviene mirar siempre el valor de la base antes de decidir si la curva sube o baja, porque a diferencia de la exponencial, acá crecer significa hacerlo cada vez más despacio, nunca de forma acelerada.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-nombre-concepto"
@@ -583,7 +583,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La inversa de una función exponencial $f(x) = b^x$ es siempre $f^{-1}(x) = \\log_b(x)$, porque una deshace exactamente lo que hace la otra.\n\nPara $b = 3$:\n\nAmbas identidades se cumplen para cualquier $x$ en el dominio correspondiente.\n\nGeométricamente, las gráficas de $f$ y $f^{-1}$ son simétricas respecto a la recta $y = x$: reflejar una sobre esa recta produce la otra.\n\nEsta relación exponencial-logarítmica es la pareja de funciones inversas más común del tema.",
+    "explanation": "La inversa de una función exponencial $f(x) = b^x$ es siempre $f^{-1}(x) = \\log_b(x)$, porque una deshace exactamente lo que hace la otra.\n\nPara $b = 3$:\n\nAmbas identidades se cumplen para cualquier $x$ en el dominio correspondiente.\n\nGeométricamente, las gráficas de $f$ y $f^{-1}$ son simétricas respecto a la recta $y = x$.\n\nReflejar una sobre esa recta produce la otra.\n\nEsta relación exponencial-logarítmica es la pareja de funciones inversas más común del tema.",
     "reviewed": false,
     "tags": [
       "identificar-logaritmica"
@@ -1183,7 +1183,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Por la **propiedad de la potencia**, el exponente $5$ baja y multiplica al logaritmo:\n\nComo $\\log_6(6) = 1$ por ser el logaritmo de la propia base, el resultado final es simplemente $5$.\n\nEste es un caso particular del resultado general $\\log_b(b^n) = n$, válido para cualquier base $b$ y exponente $n$: el logaritmo y la exponencial en la misma base se cancelan mutuamente por ser funciones inversas.",
+    "explanation": "Por la **propiedad de la potencia**, el exponente $5$ baja y multiplica al logaritmo:\n\nComo $\\log_6(6) = 1$ por ser el logaritmo de la propia base, el resultado final es simplemente $5$.\n\nEste es un caso particular del resultado general $\\log_b(b^n) = n$, válido para cualquier base $b$ y exponente $n$.\n\nEl logaritmo y la exponencial en la misma base se cancelan mutuamente por ser funciones inversas.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-log"
@@ -1258,7 +1258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Usando la **propiedad de la potencia** y sabiendo que $\\ln(e) = 1$:\n\nEsta simplificación también puede verse como una consecuencia directa de que $\\ln$ y la función $e^{(\\ )}$ son inversas entre sí: $\\ln(e^u) = u$ para cualquier $u \\in \\mathbb{R}$, y con $u = 2x$ el resultado es simplemente $2x$.\n\nConviene distinguir esto de $2\\ln(x)$, que sería el resultado de aplicar la propiedad de la potencia a $\\ln(x^2)$, un caso distinto donde el exponente está afuera de la base $e$.",
+    "explanation": "Usando la **propiedad de la potencia** y sabiendo que $\\ln(e) = 1$:\n\nEsta simplificación también puede verse como una consecuencia directa de que $\\ln$ y la función $e^{(\\ )}$ son inversas entre sí.\n\n$\\ln(e^u) = u$ para cualquier $u \\in \\mathbb{R}$, y con $u = 2x$ el resultado es simplemente $2x$.\n\nConviene distinguir esto de $2\\ln(x)$, que sería el resultado de aplicar la propiedad de la potencia a $\\ln(x^2)$, un caso distinto donde el exponente está afuera de la base $e$.",
     "reviewed": false,
     "tags": [
       "funcion-inversa-logaritmo"

@@ -318,7 +318,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para resolver un límite con **valor absoluto**, conviene reescribirlo por ramas antes de sustituir: $|x| = -x$ si $x<0$, y $|x| = x$ si $x \\geq 0$.\n\nComo se pide $x \\to 0^-$, se usa la rama $x<0$:\n$$\\lim_{x \\to 0^-} \\frac{|x|}{x} = \\lim_{x \\to 0^-} \\frac{-x}{x} = -1$$\nEl signo del numerador cambia según el lado de aproximación, por eso conviene siempre separar el valor absoluto en sus dos ramas antes de simplificar.",
+    "explanation": "Para resolver un límite con **valor absoluto**, conviene reescribirlo por ramas antes de sustituir.\n\n$|x| = -x$ si $x<0$, y $|x| = x$ si $x \\geq 0$.\n\nComo se pide $x \\to 0^-$, se usa la rama $x<0$:\n$$\\lim_{x \\to 0^-} \\frac{|x|}{x} = \\lim_{x \\to 0^-} \\frac{-x}{x} = -1$$\nEl signo del numerador cambia según el lado de aproximación, por eso conviene siempre separar el valor absoluto en sus dos ramas antes de simplificar.",
     "reviewed": false,
     "tags": [
       "laterales-valor-absoluto"

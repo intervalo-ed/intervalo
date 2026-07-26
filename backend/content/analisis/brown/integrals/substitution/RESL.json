@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=4x+1$, con $du=4\\,dx$, así que $dx=\\frac{1}{4}\\,du$.\n$$\\begin{aligned} \\int e^{4x+1}\\,dx &= \\int e^u \\cdot \\frac{1}{4}\\,du \\\\ &= \\frac{1}{4}e^u + C \\end{aligned}$$\nVolviendo a la variable $x$, reemplazamos $u$ por $4x+1$ para obtener la respuesta final: $\\frac{1}{4}e^{4x+1}+C$. La respuesta nunca queda expresada en la variable auxiliar $u$.",
+    "explanation": "Identificamos $u=4x+1$, con $du=4\\,dx$, así que $dx=\\frac{1}{4}\\,du$.\n$$\\begin{aligned} \\int e^{4x+1}\\,dx &= \\int e^u \\cdot \\frac{1}{4}\\,du \\\\ &= \\frac{1}{4}e^u + C \\end{aligned}$$Volviendo a la variable $x$, reemplazamos $u$ por $4x+1$ para obtener la respuesta final.\n\n$\\frac{1}{4}e^{4x+1}+C$. La respuesta nunca queda expresada en la variable auxiliar $u$.",
     "reviewed": false,
     "tags": [
       "sustitucion-lineal-inmediata"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=\\ln x$, con $du=\\frac{1}{x}\\,dx$, exactamente el resto del integrando.\n$$\\begin{aligned} \\int \\frac{\\ln x}{x}\\,dx &= \\int u\\,du \\\\ &= \\frac{u^2}{2} + C \\end{aligned}$$\nVolviendo a $x$, reemplazamos $u$ por $\\ln x$. El paréntesis alrededor de $\\ln x$ es importante: el cuadrado afecta a todo el logaritmo, no solo al argumento $x$.",
+    "explanation": "Identificamos $u=\\ln x$, con $du=\\frac{1}{x}\\,dx$, exactamente el resto del integrando.\n$$\\begin{aligned} \\int \\frac{\\ln x}{x}\\,dx &= \\int u\\,du \\\\ &= \\frac{u^2}{2} + C \\end{aligned}$$Volviendo a $x$, reemplazamos $u$ por $\\ln x$. El paréntesis alrededor de $\\ln x$ es importante.\n\nEl cuadrado afecta a todo el logaritmo, no solo al argumento $x$.",
     "reviewed": false,
     "tags": [
       "sustitucion-grado-superior-trascendentes"

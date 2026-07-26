@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Diagnosticar correctamente es el primer paso. Un límite con indeterminación 0/0 y una raíz cuadrada reclama la técnica del conjugado específicamente, porque es lo que rompe la raíz y expone el factor cancelable.\n\nEl diagnóstico combina dos señales: la **indeterminación** una indeterminación $0/0$ al sustituir y la presencia de una raíz cuadrada en la expresión.\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+1}-1}{x}$$\nAl sustituir $x=0$ se obtiene una indeterminación $0/0$, y como hay una raíz cuadrada en el numerador, corresponde **racionalizar**: multiplicar arriba y abajo por el conjugado $\\sqrt{x+1}+1$.\n\nNo alcanza con detectar la indeterminación, hay que revisar también si la expresión tiene raíz, porque eso determina si la técnica es racionalizar o factorizar.",
+    "explanation": "Diagnosticar correctamente es el primer paso. Un límite con indeterminación 0/0 y una raíz cuadrada reclama la técnica del conjugado específicamente, porque es lo que rompe la raíz y expone el factor cancelable.\n\nEl diagnóstico combina dos señales: la **indeterminación** una indeterminación $0/0$ al sustituir y la presencia de una raíz cuadrada en la expresión.\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+1}-1}{x}$$Al sustituir $x=0$ se obtiene una indeterminación $0/0$, y como hay una raíz cuadrada en el numerador, corresponde **racionalizar**.\n\nMultiplicar arriba y abajo por el conjugado $\\sqrt{x+1}+1$.\n\nNo alcanza con detectar la indeterminación, hay que revisar también si la expresión tiene raíz, porque eso determina si la técnica es racionalizar o factorizar.",
     "reviewed": false,
     "tags": [
       "diagnostico-racionalizar-vs-factorizar"

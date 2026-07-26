@@ -503,7 +503,7 @@
       -2,
       5
     ],
-    "explanation": "El logaritmo natural $\\ln(x)$ es $\\log_e(x)$, con base el número irracional $e \\approx 2{,}718$.\n\n$\\ln(e) = 1$ porque $e^1 = e$.\n\nEl punto $(e,\\, 1) \\approx (2{,}7,\\, 1)$ es la clave para identificar el logaritmo natural en un gráfico: ninguna otra base entera pasa por $y=1$ tan cerca de $x \\approx 2{,}7$.",
+    "explanation": "El logaritmo natural $\\ln(x)$ es $\\log_e(x)$, con base el número irracional $e \\approx 2{,}718$.\n\n$\\ln(e) = 1$ porque $e^1 = e$.\n\nEl punto $(e,\\, 1) \\approx (2{,}7,\\, 1)$ es la clave para identificar el logaritmo natural en un gráfico.\n\nNinguna otra base entera pasa por $y=1$ tan cerca de $x \\approx 2{,}7$.",
     "reviewed": false,
     "tags": [
       "lectura-valor-puntual"

@@ -1153,7 +1153,7 @@
       -3,
       5
     ],
-    "explanation": "Identificar la base de una curva logarítmica desde su gráfico se apoya en dos puntos fijos: el logaritmo siempre pasa por $(1,0)$, y el punto $(b,1)$ revela directamente la base $b$.\n\nEn este gráfico, la asíntota vertical está en $x=0$, así que no hay desplazamiento horizontal, y la curva pasa por $(1,0)$, así que tampoco hay desplazamiento vertical.\n\nPero además pasa por $(3,1)$, lo que significa $f(3)=1$: la base que cumple eso es exactamente $3$.\n\nConclusión: $f(x) = \\log_3(x)$. leer el punto $(b,1)$ como si fuera $(1,b)$, invirtiendo las coordenadas y confundiendo la base con el argumento.",
+    "explanation": "Identificar la base de una curva logarítmica desde su gráfico se apoya en dos puntos fijos.\n\nEl logaritmo siempre pasa por $(1,0)$, y el punto $(b,1)$ revela directamente la base $b$.\n\nEn este gráfico, la asíntota vertical está en $x=0$, así que no hay desplazamiento horizontal, y la curva pasa por $(1,0)$, así que tampoco hay desplazamiento vertical.\n\nPero además pasa por $(3,1)$, lo que significa $f(3)=1$: la base que cumple eso es exactamente $3$.\n\nConclusión: $f(x) = \\log_3(x)$. leer el punto $(b,1)$ como si fuera $(1,b)$, invirtiendo las coordenadas y confundiendo la base con el argumento.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"

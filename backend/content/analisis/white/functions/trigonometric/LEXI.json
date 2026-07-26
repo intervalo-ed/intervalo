@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las funciones **trigonométricas** básicas son seno, coseno y tangente. Se definen a partir de ángulos y son todas periódicas. Las otras opciones ($e^x$, $x^3$, $\\ln x$) pertenecen a familias distintas: **exponencial**, **polinómica** y **logarítmica**, respectivamente.\n\nIdentificar la familia de una función es el primer paso para analizar su comportamiento.",
+    "explanation": "Las funciones **trigonométricas** básicas son seno, coseno y tangente. Se definen a partir de ángulos y son todas periódicas. Las otras opciones ($e^x$, $x^3$, $\\ln x$) pertenecen a familias distintas.\n\n**exponencial**, **polinómica** y **logarítmica**, respectivamente.\n\nIdentificar la familia de una función es el primer paso para analizar su comportamiento.",
     "reviewed": false,
     "tags": [
       "reconocimiento-trigonometrica"
@@ -558,7 +558,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **período** de $f(x)=\\operatorname{sen}(Bx)$ es $T=2\\pi/|B|$. Al multiplicar el argumento por $B$, la onda se comprime (si $|B|>1$) o se estira (si $|B|<1$) horizontalmente.\n\nRazonamiento: el ciclo completo del seno ocurre cuando el argumento recorre $[0,2\\pi]$. Si el argumento es $Bx$, eso pasa cuando $x$ recorre $[0,2\\pi/B]$. Luego $T=2\\pi/B$.\n\nMayor $B$ = ciclos más cortos y frecuentes. El seno acelera sin perder el ritmo.",
+    "explanation": "El **período** de $f(x)=\\operatorname{sen}(Bx)$ es $T=2\\pi/|B|$. Al multiplicar el argumento por $B$, la onda se comprime (si $|B|>1$).\n\nSe estira (si $|B|<1$) horizontalmente.\n\nRazonamiento: el ciclo completo del seno ocurre cuando el argumento recorre $[0,2\\pi]$. Si el argumento es $Bx$, eso pasa cuando $x$ recorre $[0,2\\pi/B]$. Luego $T=2\\pi/B$.\n\nMayor $B$ = ciclos más cortos y frecuentes. El seno acelera sin perder el ritmo.",
     "reviewed": false,
     "tags": [
       "periodo-basico"
@@ -608,7 +608,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x)=\\operatorname{sen}(x)+D$, el parámetro $D$ es el **desplazamiento vertical**: traslada todo el gráfico hacia arriba (si $D>0$) o hacia abajo (si $D<0$).\n\nEl eje de oscilación pasa a ser la recta $y=D$.\n\nLa **amplitud** sigue siendo $1$, el **período** sigue siendo $2\\pi$, y la forma de la onda no cambia. Solo se mueve el piso: máximo $=1+D$, mínimo $=-1+D$.\n\nConviene no confundir $D$ con $A$: el desplazamiento vertical mueve el eje de oscilación de la onda, mientras que la amplitud define qué tan grande es esa oscilación alrededor del eje.",
+    "explanation": "En $f(x)=\\operatorname{sen}(x)+D$, el parámetro $D$ es el **desplazamiento vertical**.\n\nTraslada todo el gráfico hacia arriba (si $D>0$) o hacia abajo (si $D<0$).\n\nEl eje de oscilación pasa a ser la recta $y=D$.\n\nLa **amplitud** sigue siendo $1$, el **período** sigue siendo $2\\pi$, y la forma de la onda no cambia. Solo se mueve el piso: máximo $=1+D$, mínimo $=-1+D$.\n\nConviene no confundir $D$ con $A$: el desplazamiento vertical mueve el eje de oscilación de la onda, mientras que la amplitud define qué tan grande es esa oscilación alrededor del eje.",
     "reviewed": false,
     "tags": [
       "descripcion-abstracta-otra-familia"
@@ -683,7 +683,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $g(x)=A\\cos(x)+D$, el **mínimo** se alcanza cuando $\\cos(x)=-1$: en ese punto $g=D-|A|$.\n$$\\begin{aligned}\n\\text{mín} &= D - |A| \\\\\n&= -1 - 2 \\\\\n&= -3:\n\\end{aligned}$$\nTanto si $A>0$ como si $A<0$, siempre se resta $|A|$ del **desplazamiento** $D$. La opción $-1$ es solo $D$; la $-2$ es $-|A|$ sin el desplazamiento. El mínimo real es $-3$.",
+    "explanation": "En $g(x)=A\\cos(x)+D$, el **mínimo** se alcanza cuando $\\cos(x)=-1$: en ese punto $g=D-|A|$.\n$$\\begin{aligned}\n\\text{mín} &= D - |A| \\\\\n&= -1 - 2 \\\\\n&= -3:\n\\end{aligned}$$Tanto si $A>0$ como si $A<0$, siempre se resta $|A|$ del **desplazamiento** $D$. La opción $-1$ es solo $D$.\n\nLa $-2$ es $-|A|$ sin el desplazamiento. El mínimo real es $-3$.",
     "reviewed": false,
     "tags": [
       "transformaciones-trig"
@@ -758,7 +758,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Si $f(x)=\\operatorname{sen}(x)$, entonces $g(x)=-\\operatorname{sen}(x)$ refleja cada valor de $f$ respecto al eje $X$: donde $f$ valía $y$, $g$ vale $-y$.\n\nLos máximos de $f$ se convierten en mínimos de $g$ y viceversa.\n\nPropiedades conservadas: mismo **período** ($2\\pi$), misma **amplitud** ($1$), mismo **dominio** ($\\mathbb{R}$), misma **imagen** ($[-1,1]$).\n\nPropiedad cambiada: la monotonía se invierte, donde $f$ crecía, $g$ decrece.\n\nMultiplicar por $-1$: la curva se mira al espejo y sale con todo al revés.",
+    "explanation": "Si $f(x)=\\operatorname{sen}(x)$, entonces $g(x)=-\\operatorname{sen}(x)$ refleja cada valor de $f$ respecto al eje $X$.\n\nDonde $f$ valía $y$, $g$ vale $-y$.\n\nLos máximos de $f$ se convierten en mínimos de $g$ y viceversa.\n\nPropiedades conservadas: mismo **período** ($2\\pi$), misma **amplitud** ($1$), mismo **dominio** ($\\mathbb{R}$), misma **imagen** ($[-1,1]$).\n\nPropiedad cambiada: la monotonía se invierte, donde $f$ crecía, $g$ decrece.\n\nMultiplicar por $-1$: la curva se mira al espejo y sale con todo al revés.",
     "reviewed": false,
     "tags": [
       "descripcion-abstracta-otra-familia"
@@ -1033,7 +1033,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $g(x)=\\operatorname{sen}(x/2)$, el coeficiente $B=1/2$ **estira** el **período** al doble: $T=2\\pi/B=2\\pi/(1/2)=4\\pi$.\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{1/2} \\\\\n&= 4\\pi:\n\\end{aligned}$$\nUn $B$ menor que $1$ hace que la onda tarde más en completar un ciclo. Con $B=1/2$, la onda va a paso de tortuga: $4\\pi\\approx12{,}57$ unidades por ciclo.",
+    "explanation": "En $g(x)=\\operatorname{sen}(x/2)$, el coeficiente $B=1/2$ **estira** el **período** al doble: $T=2\\pi/B=2\\pi/(1/2)=4\\pi$.\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{1/2} \\\\\n&= 4\\pi:\n\\end{aligned}$$Un $B$ menor que $1$ hace que la onda tarde más en completar un ciclo. Con $B=1/2$, la onda va a paso de tortuga.\n\n$4\\pi\\approx12{,}57$ unidades por ciclo.",
     "reviewed": false,
     "tags": [
       "periodo-con-b"
@@ -1108,7 +1108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La transformación $x\\mapsto -x$ en el argumento de $\\operatorname{sen}$ usa la **paridad** impar: $\\operatorname{sen}(-x)=-\\operatorname{sen}(x)$.\n\nEso equivale a una **reflexión respecto al eje $Y$** combinada con la imparidad del seno, que produce una reflexión respecto al eje $X$.\n\nEn la práctica: $g(x)=\\operatorname{sen}(-x)=-\\operatorname{sen}(x)$. Es como reflejar la curva verticalmente (eje $X$), no horizontalmente (eje $Y$).\n\nLa reflexión respecto al eje $Y$ de una función impar es idéntica a multiplicar por $-1$.\n\nEl seno es tan impar que voltear su eje $Y$ es lo mismo que darle vuelta entera.",
+    "explanation": "La transformación $x\\mapsto -x$ en el argumento de $\\operatorname{sen}$ usa la **paridad** impar.\n\n$\\operatorname{sen}(-x)=-\\operatorname{sen}(x)$.\n\nEso equivale a una **reflexión respecto al eje $Y$** combinada con la imparidad del seno, que produce una reflexión respecto al eje $X$.\n\nEn la práctica: $g(x)=\\operatorname{sen}(-x)=-\\operatorname{sen}(x)$. Es como reflejar la curva verticalmente (eje $X$), no horizontalmente (eje $Y$).\n\nLa reflexión respecto al eje $Y$ de una función impar es idéntica a multiplicar por $-1$.\n\nEl seno es tan impar que voltear su eje $Y$ es lo mismo que darle vuelta entera.",
     "reviewed": false,
     "tags": [
       "transformaciones-trig"
@@ -1158,7 +1158,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las funciones $\\operatorname{sen}(x)$ y $\\cos(x)$ tienen exactamente las mismas propiedades globales: **período** $2\\pi$, **amplitud** $1$, **dominio** $\\mathbb{R}$, **imagen** $[-1,1]$.\n\nSe diferencian solo en la **fase inicial**: $\\cos(x)=\\operatorname{sen}(x+\\pi/2)$.\n\nLas afirmaciones incorrectas son: que tienen diferente amplitud (ambas tienen $1$), que tienen diferente período (ambas tienen $2\\pi$), y que son la misma función (están desfasadas $\\pi/2$).\n\nSon gemelas con distinta hora de partida.\n\nSeno y coseno: mismo cuerpo, mismo período, misma amplitud. El coseno solo llegó antes a la fiesta por $\\pi/2$.",
+    "explanation": "Las funciones $\\operatorname{sen}(x)$ y $\\cos(x)$ tienen exactamente las mismas propiedades globales.\n\n**período** $2\\pi$, **amplitud** $1$, **dominio** $\\mathbb{R}$, **imagen** $[-1,1]$.\n\nSe diferencian solo en la **fase inicial**: $\\cos(x)=\\operatorname{sen}(x+\\pi/2)$.\n\nLas afirmaciones incorrectas son: que tienen diferente amplitud (ambas tienen $1$), que tienen diferente período (ambas tienen $2\\pi$), y que son la misma función (están desfasadas $\\pi/2$).\n\nSon gemelas con distinta hora de partida.\n\nSeno y coseno: mismo cuerpo, mismo período, misma amplitud. El coseno solo llegó antes a la fiesta por $\\pi/2$.",
     "reviewed": false,
     "tags": [
       "monotonia-intervalo-lexi"

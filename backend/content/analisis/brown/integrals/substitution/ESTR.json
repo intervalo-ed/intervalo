@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En una **función compuesta** como $\\cos(x^2)$, reconocemos la interior $x^2$ cuya **derivada** es $2x$. Esta es la clave: buscar una función compuesta cuya derivada aparezca multiplicada por algo.\n$$u = x^2 \\implies du = 2x\\,dx$$\nEl factor $x$ del integrando coincide exactamente con la mitad de $du$, lo que confirma que esta elección de $u$ hace que el integrando se transforme correctamente en términos de $u$ y $du$.",
+    "explanation": "En una **función compuesta** como $\\cos(x^2)$, reconocemos la interior $x^2$ cuya **derivada** es $2x$. Esta es la clave.\n\nBuscar una función compuesta cuya derivada aparezca multiplicada por algo.$$u = x^2 \\implies du = 2x\\,dx$$\nEl factor $x$ del integrando coincide exactamente con la mitad de $du$, lo que confirma que esta elección de $u$ hace que el integrando se transforme correctamente en términos de $u$ y $du$.",
     "reviewed": false,
     "tags": [
       "identificacion-anatomica-de-u"

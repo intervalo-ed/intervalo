@@ -658,7 +658,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El intercepto con el eje $Y$ existe solo si $x=0$ pertenece al **dominio** de la función.\n\nAcá el denominador de $f(x)=\\frac{x+3}{x}$ es justamente $x$, que se anula en $x=0$.\n\nComo el punto donde queremos evaluar coincide con el punto excluido del dominio, $f(0)$ **no existe**: la función tiene una asíntota vertical en $x=0$, que es precisamente el eje $Y$.\n\nEvaluar solo el numerador ($0+3=3$) sin verificar antes que el denominador no se anule, dando un resultado que en realidad no corresponde a ningún punto real de la curva.",
+    "explanation": "El intercepto con el eje $Y$ existe solo si $x=0$ pertenece al **dominio** de la función.\n\nAcá el denominador de $f(x)=\\frac{x+3}{x}$ es justamente $x$, que se anula en $x=0$.\n\nComo el punto donde queremos evaluar coincide con el punto excluido del dominio, $f(0)$ **no existe**.\n\nLa función tiene una asíntota vertical en $x=0$, que es precisamente el eje $Y$.\n\nEvaluar solo el numerador ($0+3=3$) sin verificar antes que el denominador no se anule, dando un resultado que en realidad no corresponde a ningún punto real de la curva.",
     "reviewed": false,
     "tags": [
       "evaluacion-desde-grafico"
@@ -933,7 +933,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En una función de la forma $\\frac{k}{x-a}+b$, la asíntota vertical depende solo de $a$ y la asíntota horizontal depende solo de $b$: el numerador $k$ no afecta a ninguna de las dos.\n\nAcá $a=4$: el denominador $x-4$ se anula en $x=4$, así que la AV es $x=4$.\n\nCuando $x\\to\\pm\\infty$, la fracción $\\frac{3}{x-4}$ tiende a $0$, y queda $f(x)\\to2$: la AH es $y=2$.\n\nSumar el numerador al desplazamiento vertical, confundiendo $3$ con parte de la asíntota horizontal.",
+    "explanation": "En una función de la forma $\\frac{k}{x-a}+b$, la asíntota vertical depende solo de $a$ y la asíntota horizontal depende solo de $b$.\n\nEl numerador $k$ no afecta a ninguna de las dos.\n\nAcá $a=4$: el denominador $x-4$ se anula en $x=4$, así que la AV es $x=4$.\n\nCuando $x\\to\\pm\\infty$, la fracción $\\frac{3}{x-4}$ tiende a $0$, y queda $f(x)\\to2$: la AH es $y=2$.\n\nSumar el numerador al desplazamiento vertical, confundiendo $3$ con parte de la asíntota horizontal.",
     "reviewed": false,
     "tags": [
       "hallar-parametro-k"
@@ -1008,7 +1008,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de evaluar, conviene revisar si el denominador se anula en el punto pedido. Acá factorizamos: $\\frac{x^2-25}{x-5}=\\frac{(x-5)(x+5)}{x-5}=x+5$ para todo $x\\neq5$.\n\nEn $x=5$ el denominador de la expresión original vale cero, así que hay un agujero: $f(5)$ **no está definida**, aunque el límite de la función cuando $x\\to5$ sea $5+5=10$.\n\nSi confundís el valor del límite con el valor de la función en ese punto exacto, entonces vas a cometer el error típico de este tipo de ejercicio.",
+    "explanation": "Antes de evaluar, conviene revisar si el denominador se anula en el punto pedido. Acá factorizamos: $\\frac{x^2-25}{x-5}=\\frac{(x-5)(x+5)}{x-5}=x+5$ para todo $x\\neq5$.\n\nEn $x=5$ el denominador de la expresión original vale cero, así que hay un agujero.\n\n$f(5)$ **no está definida**, aunque el límite de la función cuando $x\\to5$ sea $5+5=10$.\n\nSi confundís el valor del límite con el valor de la función en ese punto exacto, entonces vas a cometer el error típico de este tipo de ejercicio.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual"

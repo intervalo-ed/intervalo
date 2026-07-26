@@ -83,7 +83,7 @@
       -2,
       2
     ],
-    "explanation": "$\\operatorname{sen}(2x)$ tiene $B=2$, así que su período es $T=2\\pi/2=\\pi$. La gráfica muestra un **ciclo completo** (sube.\n\nBaja) en un intervalo de longitud $\\pi$. Comparalo con el seno básico $\\operatorname{sen}(x)$: ese necesita $2\\pi$ para completar un ciclo.\n\nPara leer el período de un gráfico, medí la distancia entre dos picos (o dos ceros consecutivos del mismo tipo).",
+    "explanation": "$\\operatorname{sen}(2x)$ tiene $B=2$, así que su período es $T=2\\pi/2=\\pi$. La gráfica muestra un **ciclo completo** (sube.\n\nBaja) en un intervalo de longitud $\\pi$. Comparalo con el seno básico $\\operatorname{sen}(x)$.\n\nEse necesita $2\\pi$ para completar un ciclo.\n\nPara leer el período de un gráfico, medí la distancia entre dos picos (o dos ceros consecutivos del mismo tipo).",
     "reviewed": false,
     "tags": [
       "conteo-maximos"
@@ -143,7 +143,7 @@
       -2,
       2
     ],
-    "explanation": "El coseno tiene período $T=2\\pi$ y **un máximo por período**.\n\nEn el intervalo $[0,4\\pi]$ hay $\\frac{4\\pi}{2\\pi}=2$ períodos, por lo tanto exactamente **2 máximos** (en $x=0$ y $x=2\\pi$). No confundir la cantidad de períodos con la cantidad de máximos: son iguales en el coseno y el seno básicos.\n\nSi el intervalo fuera $[0,6\\pi]$ habría 3 períodos y 3 máximos.",
+    "explanation": "El coseno tiene período $T=2\\pi$ y **un máximo por período**.\n\nEn el intervalo $[0,4\\pi]$ hay $\\frac{4\\pi}{2\\pi}=2$ períodos, por lo tanto exactamente **2 máximos** (en $x=0$ y $x=2\\pi$). No confundir la cantidad de períodos con la cantidad de máximos.\n\nSon iguales en el coseno y el seno básicos.\n\nSi el intervalo fuera $[0,6\\pi]$ habría 3 períodos y 3 máximos.",
     "reviewed": false,
     "tags": [
       "conteo-ceros"
@@ -233,7 +233,7 @@
       -2,
       2
     ],
-    "explanation": "**Datos usados:**\n$\\cos(0) = 1$ $\\operatorname{sen}(0) = 0$\n\nLa diferencia visual clave entre seno y coseno es el **valor en $x=0$**: $\\cos(0)=1$ (máximo) mientras que $\\operatorname{sen}(0)=0$. El coseno arranca desde el techo; el seno desde el eje. Ambos tienen la misma amplitud ($1$) y el mismo período ($2\\pi$).\n\nPara identificarlos en un gráfico, mirá qué valor toman en el eje $Y$: si empieza en el máximo, es coseno.",
+    "explanation": "**Datos usados:**\n$\\cos(0) = 1$ $\\operatorname{sen}(0) = 0$\n\nLa diferencia visual clave entre seno y coseno es el **valor en $x=0$**: $\\cos(0)=1$ (máximo) mientras que $\\operatorname{sen}(0)=0$. El coseno arranca desde el techo.\n\nEl seno desde el eje. Ambos tienen la misma amplitud ($1$) y el mismo período ($2\\pi$).\n\nPara identificarlos en un gráfico, mirá qué valor toman en el eje $Y$: si empieza en el máximo, es coseno.",
     "reviewed": false,
     "tags": [
       "paridad-desde-grafico"
@@ -473,7 +473,7 @@
       -2,
       2
     ],
-    "explanation": "La función $f(x)=-\\operatorname{sen}(x)$ **invierte la monotonía** respecto a $\\operatorname{sen}(x)$: donde el seno crece, $-\\operatorname{sen}$ decrece, y viceversa.\n\nEl seno estándar **decrece** en $[\\pi/2, 3\\pi/2]$. Por lo tanto $-\\operatorname{sen}(x)$ **crece** en $[\\pi/2, 3\\pi/2]$.\n\nVerificación: $-\\operatorname{sen}(\\pi/2)=-1$ (mínimo) y $-\\operatorname{sen}(3\\pi/2)=1$ (máximo): efectivamente crece.\n\nNegarle el seno: lo que subía ahora baja, y lo que bajaba ahora sube. La monotonía se voltea.",
+    "explanation": "La función $f(x)=-\\operatorname{sen}(x)$ **invierte la monotonía** respecto a $\\operatorname{sen}(x)$.\n\nDonde el seno crece, $-\\operatorname{sen}$ decrece, y viceversa.\n\nEl seno estándar **decrece** en $[\\pi/2, 3\\pi/2]$. Por lo tanto $-\\operatorname{sen}(x)$ **crece** en $[\\pi/2, 3\\pi/2]$.\n\nVerificación: $-\\operatorname{sen}(\\pi/2)=-1$ (mínimo) y $-\\operatorname{sen}(3\\pi/2)=1$ (máximo): efectivamente crece.\n\nNegarle el seno: lo que subía ahora baja, y lo que bajaba ahora sube. La monotonía se voltea.",
     "reviewed": false,
     "tags": [
       "monotonia-intervalo-graf-trig"
@@ -683,7 +683,7 @@
       -3,
       3
     ],
-    "explanation": "La onda tiene máximo $2$, mínimo $-2$ y período $2\\pi$. Se reduce a dos candidatos: $2\\,\\operatorname{sen}(x)$ o $2\\cos(x)$. La señal decisiva es el **valor en $x=0$**.\n\nEl gráfico muestra el pico en $x=0$: $f(0)=2$. Verificación: $2\\cos(0)=2$ ; $2\\,\\operatorname{sen}(0)=0$ . La función es $f(x)=2\\cos(x)$.\n\nMáximo en el origen + amplitud $2$: el coseno duplicado. El seno hubiera arrancado en cero, no en el techo.",
+    "explanation": "La onda tiene máximo $2$, mínimo $-2$ y período $2\\pi$. Se reduce a dos candidatos.\n\n$2\\,\\operatorname{sen}(x)$ o $2\\cos(x)$. La señal decisiva es el **valor en $x=0$**.\n\nEl gráfico muestra el pico en $x=0$: $f(0)=2$. Verificación: $2\\cos(0)=2$ ; $2\\,\\operatorname{sen}(0)=0$ . La función es $f(x)=2\\cos(x)$.\n\nMáximo en el origen + amplitud $2$: el coseno duplicado. El seno hubiera arrancado en cero, no en el techo.",
     "reviewed": false,
     "tags": [
       "dominio-desde-grafico-trig"
@@ -773,7 +773,7 @@
       -2,
       2
     ],
-    "explanation": "La curva en $x=0$ vale $0$ y **desciende primero** (hacia el mínimo $-1$ en $x=\\pi/2$). Esa es la firma de $-\\operatorname{sen}(x)$: el seno negado baja antes de subir.\n\nVerificaciones: $-\\operatorname{sen}(0)=0$ ; mínimo en $x=\\pi/2$: $-\\operatorname{sen}(\\pi/2)=-1$ . El seno estándar sube en $[0,\\pi/2]$; $-\\cos(x)$ empieza en $-1$ (no en $0$).\n\n$-\\operatorname{sen}(x)$: el pesimista que en el primer paso baja. Después sube, pero ya estableció el tono.",
+    "explanation": "La curva en $x=0$ vale $0$ y **desciende primero** (hacia el mínimo $-1$ en $x=\\pi/2$). Esa es la firma de $-\\operatorname{sen}(x)$.\n\nEl seno negado baja antes de subir.\n\nVerificaciones: $-\\operatorname{sen}(0)=0$ ; mínimo en $x=\\pi/2$: $-\\operatorname{sen}(\\pi/2)=-1$ . El seno estándar sube en $[0,\\pi/2]$; $-\\cos(x)$ empieza en $-1$ (no en $0$).\n\n$-\\operatorname{sen}(x)$: el pesimista que en el primer paso baja. Después sube, pero ya estableció el tono.",
     "reviewed": false,
     "tags": [
       "imagen-desde-grafico-trig"
@@ -893,7 +893,7 @@
       -2,
       2
     ],
-    "explanation": "Los **máximos locales** de $f(x)=\\operatorname{sen}(x)$ ocurren donde la función alcanza el valor $1$: eso sucede en $x=\\pi/2$ y luego cada $2\\pi$.\n\nSolución general: $x=\\pi/2+2k\\pi$, $k\\in\\mathbb{Z}$. La opción $x=k\\pi$ da los **ceros** del seno (raíces), no los máximos. La opción $x=\\pi/4+k\\pi$ no corresponde a ningún valor especial del seno.\n\nMáximos del seno en $\\pi/2, 5\\pi/2, 9\\pi/2, \\ldots$: cada $2\\pi$, el seno vuelve a tocar el techo.",
+    "explanation": "Los **máximos locales** de $f(x)=\\operatorname{sen}(x)$ ocurren donde la función alcanza el valor $1$.\n\nEso sucede en $x=\\pi/2$ y luego cada $2\\pi$.\n\nSolución general: $x=\\pi/2+2k\\pi$, $k\\in\\mathbb{Z}$. La opción $x=k\\pi$ da los **ceros** del seno (raíces), no los máximos. La opción $x=\\pi/4+k\\pi$ no corresponde a ningún valor especial del seno.\n\nMáximos del seno en $\\pi/2, 5\\pi/2, 9\\pi/2, \\ldots$: cada $2\\pi$, el seno vuelve a tocar el techo.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-grafico"
@@ -1043,7 +1043,7 @@
       -2,
       2
     ],
-    "explanation": "**Datos usados:**\n$\\cos(\\pi) = -1$ $\\cos(3\\pi) = -1$\n\nEl **mínimo** de $f(x)=\\cos(x)$ (valor $-1$) ocurre cuando el punto en el círculo unitario está en $(-1,0)$: eso es $x=\\pi$ y se repite cada $2\\pi$.\n\nSolución general: $x=\\pi+2k\\pi=(2k+1)\\pi$, $k\\in\\mathbb{Z}$. La opción $x=k\\pi$ incluiría también los máximos ($x=2k\\pi$). La opción $x=2k\\pi$ da los **máximos**.\n\nLa opción $x=\\pi/2+k\\pi$ da los ceros.\n\nEl coseno toca el fondo en $\\pi, 3\\pi, 5\\pi, \\ldots$: cada vuelta completa, empieza por el mismo sótano.",
+    "explanation": "**Datos usados:**\n$\\cos(\\pi) = -1$ $\\cos(3\\pi) = -1$\n\nEl **mínimo** de $f(x)=\\cos(x)$ (valor $-1$) ocurre cuando el punto en el círculo unitario está en $(-1,0)$.\n\nEso es $x=\\pi$ y se repite cada $2\\pi$.\n\nSolución general: $x=\\pi+2k\\pi=(2k+1)\\pi$, $k\\in\\mathbb{Z}$. La opción $x=k\\pi$ incluiría también los máximos ($x=2k\\pi$). La opción $x=2k\\pi$ da los **máximos**.\n\nLa opción $x=\\pi/2+k\\pi$ da los ceros.\n\nEl coseno toca el fondo en $\\pi, 3\\pi, 5\\pi, \\ldots$: cada vuelta completa, empieza por el mismo sótano.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-trig"

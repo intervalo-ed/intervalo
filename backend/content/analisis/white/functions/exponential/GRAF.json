@@ -203,7 +203,7 @@
       -0.5,
       10
     ],
-    "explanation": "Leer el valor en el eje $Y$: el punto donde $x = 0$ da $f(0) = a$, porque $b^0 = 1$ y solo queda el coeficiente $a$ multiplicando.\n\nAquí la curva pasa por $(0, 2)$, entonces el coeficiente $a = 2$ en la fórmula $f(x) = 2 \\cdot b^x$: ese coeficiente estira o achica verticalmente la curva sin mover la asíntota.\n\nconfundir este valor inicial con la base $b$, que en cambio se lee comparando dos puntos consecutivos de la curva.",
+    "explanation": "Leer el valor en el eje $Y$: el punto donde $x = 0$ da $f(0) = a$, porque $b^0 = 1$ y solo queda el coeficiente $a$ multiplicando.\n\nAquí la curva pasa por $(0, 2)$, entonces el coeficiente $a = 2$ en la fórmula $f(x) = 2 \\cdot b^x$.\n\nEse coeficiente estira o achica verticalmente la curva sin mover la asíntota.\n\nconfundir este valor inicial con la base $b$, que en cambio se lee comparando dos puntos consecutivos de la curva.",
     "reviewed": false,
     "tags": [
       "lectura-ordenada-origen"
@@ -773,7 +773,7 @@
       -0.5,
       8.5
     ],
-    "explanation": "La clave para distinguir entre fórmulas parecidas es comparar la rapidez del crecimiento en un mismo punto del gráfico.\n\nEn $x = 4$, la base $2$ da $2^4 = 16$, mientras que la base $1{,}5$ da apenas $(1{,}5)^4 \\approx 5{,}06$: una diferencia grande para el mismo valor de $x$.\n\nCuanto mayor es la base, más rápido se dispara la curva hacia la derecha, y cuanto más cerca de $1$ está la base, más suave y lenta es la subida.\n\nComo esta curva crece de forma moderada y no se dispara con la misma rapidez que $2^x$ o $3^x$, corresponde a la menor de las bases ofrecidas, siguiendo el orden $1{,}5 < 2 < 3$.",
+    "explanation": "La clave para distinguir entre fórmulas parecidas es comparar la rapidez del crecimiento en un mismo punto del gráfico.\n\nEn $x = 4$, la base $2$ da $2^4 = 16$, mientras que la base $1{,}5$ da apenas $(1{,}5)^4 \\approx 5{,}06$.\n\nUna diferencia grande para el mismo valor de $x$.\n\nCuanto mayor es la base, más rápido se dispara la curva hacia la derecha, y cuanto más cerca de $1$ está la base, más suave y lenta es la subida.\n\nComo esta curva crece de forma moderada y no se dispara con la misma rapidez que $2^x$ o $3^x$, corresponde a la menor de las bases ofrecidas, siguiendo el orden $1{,}5 < 2 < 3$.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -1073,7 +1073,7 @@
       -0.5,
       8.5
     ],
-    "explanation": "Para distinguir entre bases decrecientes parecidas conviene comparar el valor de la función en un mismo punto positivo, por ejemplo $x = 3$.\n\nAhí, la base $0{,}3$ da $0{,}027$, la base $0{,}5$ da $0{,}125$ y la base $0{,}7$ da $0{,}343$: cuanto más chica es la base, más rápido cae la curva hacia la asíntota.\n\nUna curva muy empinada que cae casi de inmediato corresponde a la base más pequeña entre las opciones, ya que multiplicar repetidamente por un número muy chico reduce el valor mucho más rápido.\n\nComo esta curva decae con mucha rapidez, corresponde a la base menor de las cuatro, es decir $0{,}3$.",
+    "explanation": "Para distinguir entre bases decrecientes parecidas conviene comparar el valor de la función en un mismo punto positivo, por ejemplo $x = 3$.\n\nAhí, la base $0{,}3$ da $0{,}027$, la base $0{,}5$ da $0{,}125$ y la base $0{,}7$ da $0{,}343$.\n\nCuanto más chica es la base, más rápido cae la curva hacia la asíntota.\n\nUna curva muy empinada que cae casi de inmediato corresponde a la base más pequeña entre las opciones, ya que multiplicar repetidamente por un número muy chico reduce el valor mucho más rápido.\n\nComo esta curva decae con mucha rapidez, corresponde a la base menor de las cuatro, es decir $0{,}3$.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"

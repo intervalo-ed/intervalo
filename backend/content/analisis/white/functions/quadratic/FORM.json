@@ -330,7 +330,7 @@
       null,
       "Este valor corresponde al coeficiente de $x$ sin el signo, no al término independiente."
     ],
-    "explanation": "En la forma estándar $f(x) = ax^2 + bx + c$, el **término independiente** $c$ es la constante que no acompaña a ninguna potencia de $x$: es el número que queda solo al final de la expresión.\n\nPara $f(x) = x^2 - 6x + 9$, el término sin $x$ es $9$, por lo que $c = 9$.\n\nAdemás, $c$ coincide siempre con $f(0)$:\n\nAl evaluar $f(0) = 0^2 - 6(0) + 9 = 9$ se confirma el mismo valor, porque reemplazar $x$ por $0$ anula todos los términos que sí tienen $x$.\n\nconfundir $c$ con el coeficiente de $x$ (acá $-6$) por estar cerca en la expresión: fijate siempre cuál de los tres números no tiene ninguna $x$ multiplicando.",
+    "explanation": "En la forma estándar $f(x) = ax^2 + bx + c$, el **término independiente** $c$ es la constante que no acompaña a ninguna potencia de $x$.\n\nEs el número que queda solo al final de la expresión.\n\nPara $f(x) = x^2 - 6x + 9$, el término sin $x$ es $9$, por lo que $c = 9$.\n\nAdemás, $c$ coincide siempre con $f(0)$:\n\nAl evaluar $f(0) = 0^2 - 6(0) + 9 = 9$ se confirma el mismo valor, porque reemplazar $x$ por $0$ anula todos los términos que sí tienen $x$.\n\nconfundir $c$ con el coeficiente de $x$ (acá $-6$) por estar cerca en la expresión.\n\nFijate siempre cuál de los tres números no tiene ninguna $x$ multiplicando.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -355,7 +355,7 @@
       "Este valor surge de calcular $b/a$ en vez de $-b/(2a)$: falta tanto el signo como el factor $2$ del denominador.",
       "Este es el valor de $a$, el coeficiente cuadrático, no la abscisa del eje de simetría."
     ],
-    "explanation": "El **eje de simetría** de una parábola pasa por el vértice y su abscisa se calcula con la fórmula general:\n\nQue se obtiene siempre a partir de los coeficientes $a$ y $b$ de la forma estándar.\n\nPara $f(x) = 4x^2 - 8x + 1$, con $a = 4$ y $b = -8$, se reemplaza directamente:\n\nEl eje de simetría es la recta $x = 1$.\n\ncalcular $b/a$ en vez de $-b/(2a)$, olvidando tanto el signo negativo como el factor $2$ del denominador: eso da $-8/4 = -2$, un valor distinto e incorrecto.",
+    "explanation": "El **eje de simetría** de una parábola pasa por el vértice y su abscisa se calcula con la fórmula general:\n\nQue se obtiene siempre a partir de los coeficientes $a$ y $b$ de la forma estándar.\n\nPara $f(x) = 4x^2 - 8x + 1$, con $a = 4$ y $b = -8$, se reemplaza directamente:\n\nEl eje de simetría es la recta $x = 1$.\n\ncalcular $b/a$ en vez de $-b/(2a)$, olvidando tanto el signo negativo como el factor $2$ del denominador.\n\nEso da $-8/4 = -2$, un valor distinto e incorrecto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -580,7 +580,7 @@
       null,
       "Este valor no corresponde a evaluar $(0-2)^2+3$ completo: revisá el cuadrado de $-2$."
     ],
-    "explanation": "Cuando el vértice no está sobre el eje $y$ (es decir, $h \\neq 0$), el valor de $f(0)$ no coincide con $k$: hay que armar la ecuación completa y evaluar.\n\nCon vértice $(2,3)$ y $a=1$, la ecuación es $f(x) = (x-2)^2+3$.\n\nEvaluando en $x=0$:\n\nLa ordenada al origen es $7$.\n\nConfundir $f(0)=3$ (el valor de $k$, la altura del vértice) con la ordenada al origen real de este tipo de ítem:\n\nSolo coinciden cuando el vértice está exactamente sobre el eje $y$, es decir cuando $h=0$.",
+    "explanation": "Cuando el vértice no está sobre el eje $y$ (es decir, $h \\neq 0$), el valor de $f(0)$ no coincide con $k$.\n\nHay que armar la ecuación completa y evaluar.\n\nCon vértice $(2,3)$ y $a=1$, la ecuación es $f(x) = (x-2)^2+3$.\n\nEvaluando en $x=0$:\n\nLa ordenada al origen es $7$.\n\nConfundir $f(0)=3$ (el valor de $k$, la altura del vértice) con la ordenada al origen real de este tipo de ítem:\n\nSolo coinciden cuando el vértice está exactamente sobre el eje $y$, es decir cuando $h=0$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -755,7 +755,7 @@
       "Este valor sale de sumar $3$ y $7$ sin los signos correctos de cada raíz.",
       "Este valor es el producto de las raíces, no la suma: revisá qué operación pide el enunciado."
     ],
-    "explanation": "Las raíces se leen directamente de la forma factorizada, buscando el valor que anula cada factor: para $f(x) = -(x+3)(x-7)$, el primer factor se anula en $x=-3$ y el segundo en $x=7$.\n\nLa suma de las raíces es $-3+7=4$.\n\nUna propiedad útil para verificar el resultado: la suma de las raíces siempre coincide con el doble de la abscisa del vértice.\n\nAcá el vértice está en $x=(-3+7)/2=2$, y $2\\cdot 2=4$, lo que confirma la suma calculada.",
+    "explanation": "Las raíces se leen directamente de la forma factorizada, buscando el valor que anula cada factor.\n\nPara $f(x) = -(x+3)(x-7)$, el primer factor se anula en $x=-3$ y el segundo en $x=7$.\n\nLa suma de las raíces es $-3+7=4$.\n\nUna propiedad útil para verificar el resultado: la suma de las raíces siempre coincide con el doble de la abscisa del vértice.\n\nAcá el vértice está en $x=(-3+7)/2=2$, y $2\\cdot 2=4$, lo que confirma la suma calculada.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -830,7 +830,7 @@
       "Esta expresión tiene el signo general invertido respecto al área real, que debe ser positiva para $x$ entre $0$ y $10$.",
       null
     ],
-    "explanation": "El área de un rectángulo es siempre base por altura.\n\nAcá el perímetro total de alambre es $20$ m, por lo que $2(x+y)=20$, es decir $y=10-x$: ese es el lado opuesto que da el enunciado.\n\nEl área en función del ancho $x$ es:\n\nLa opción $A(x)=20x-x^2$ surge de usar el perímetro completo como si fuera el lado opuesto, en vez de dividirlo entre dos para obtener $10-x$.\n\nLa función tiene su área máxima en $x=5$, formando un cuadrado, con $25$ m².",
+    "explanation": "El área de un rectángulo es siempre base por altura.\n\nAcá el perímetro total de alambre es $20$ m, por lo que $2(x+y)=20$, es decir $y=10-x$.\n\nEse es el lado opuesto que da el enunciado.\n\nEl área en función del ancho $x$ es:\n\nLa opción $A(x)=20x-x^2$ surge de usar el perímetro completo como si fuera el lado opuesto, en vez de dividirlo entre dos para obtener $10-x$.\n\nLa función tiene su área máxima en $x=5$, formando un cuadrado, con $25$ m².",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

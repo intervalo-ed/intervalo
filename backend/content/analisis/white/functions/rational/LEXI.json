@@ -48,7 +48,7 @@
       -6,
       6
     ],
-    "explanation": "Las **asíntotas** son rectas a las que la curva se acerca cada vez más sin llegar nunca a tocarlas. En una función racional aparecen de dos tipos: la asíntota vertical, en los valores de $x$ donde el denominador se anula (ahí la función se dispara hacia $+\\infty$ o $-\\infty$),.\n\nLa asíntota horizontal, que describe el valor al que se acerca la función cuando $x\\to\\pm\\infty$. En la gráfica de $\\frac{x+1}{x-2}$ se ve la rama vertical en $x=2$ y la aproximación horizontal en $y=1$.\n\nNo hay que confundirlas con tangentes, que sí tocan la curva.",
+    "explanation": "Las **asíntotas** son rectas a las que la curva se acerca cada vez más sin llegar nunca a tocarlas. En una función racional aparecen de dos tipos.\n\nLa asíntota vertical, en los valores de $x$ donde el denominador se anula (ahí la función se dispara hacia $+\\infty$ o $-\\infty$),.\n\nLa asíntota horizontal, que describe el valor al que se acerca la función cuando $x\\to\\pm\\infty$. En la gráfica de $\\frac{x+1}{x-2}$ se ve la rama vertical en $x=2$ y la aproximación horizontal en $y=1$.\n\nNo hay que confundirlas con tangentes, que sí tocan la curva.",
     "reviewed": false,
     "tags": [
       "asintota-oblicua"
@@ -123,7 +123,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\sqrt{x}=x^{1/2}$ tiene un exponente fraccionario, así que no es un polinomio y por lo tanto $f(x)=\\sqrt{x}$ no puede escribirse como cociente de dos polinomios: no es una **función racional**. Las otras tres opciones sí lo son: $\\frac{x+1}{x}$ y $\\frac{3}{x^2}$ tienen polinomios arriba y abajo, y $\\frac{x^2-1}{x-1}$.\n\nTambién, aunque se simplifique a $x+1$ para $x\\neq1$.\n\nSimplificarse no le quita la condición de racional a una expresión.",
+    "explanation": "$\\sqrt{x}=x^{1/2}$ tiene un exponente fraccionario, así que no es un polinomio y por lo tanto $f(x)=\\sqrt{x}$ no puede escribirse como cociente de dos polinomios.\n\nNo es una **función racional**. Las otras tres opciones sí lo son: $\\frac{x+1}{x}$ y $\\frac{3}{x^2}$ tienen polinomios arriba y abajo, y $\\frac{x^2-1}{x-1}$.\n\nTambién, aunque se simplifique a $x+1$ para $x\\neq1$.\n\nSimplificarse no le quita la condición de racional a una expresión.",
     "reviewed": false,
     "tags": [
       "dominio-restriccion"
@@ -203,7 +203,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** natural de una función son todos los valores de $x$ para los que la fórmula tiene sentido. En $f(x)=\\frac{1}{x}$, la única restricción viene del denominador: no puede valer $0$. Cualquier otro real, positivo o negativo, es válido.\n\nPor eso el dominio es $\\mathbb{R}\\setminus\\{0\\}$, y no una restricción de signo como $x>0$ o $x\\geq1$, que no tiene relación con dónde se anula el denominador.",
+    "explanation": "El **dominio** natural de una función son todos los valores de $x$ para los que la fórmula tiene sentido. En $f(x)=\\frac{1}{x}$, la única restricción viene del denominador.\n\nNo puede valer $0$. Cualquier otro real, positivo o negativo, es válido.\n\nPor eso el dominio es $\\mathbb{R}\\setminus\\{0\\}$, y no una restricción de signo como $x>0$ o $x\\geq1$, que no tiene relación con dónde se anula el denominador.",
     "reviewed": false,
     "tags": [
       "dominio-restriccion"
@@ -233,7 +233,7 @@
       -6,
       6
     ],
-    "explanation": "Cada **asíntota vertical** parte la gráfica de una función racional en ramas separadas que no se conectan entre sí. La función $\\frac{x+1}{x-2}$ tiene una única asíntota vertical, en $x=2$ (donde se anula el denominador), y esa sola división del plano genera exactamente dos ramas: una a la izquierda y otra a la derecha de $x=2$.\n\nCada asíntota vertical adicional sumaría una rama más.",
+    "explanation": "Cada **asíntota vertical** parte la gráfica de una función racional en ramas separadas que no se conectan entre sí. La función $\\frac{x+1}{x-2}$ tiene una única asíntota vertical, en $x=2$ (donde se anula el denominador), y esa sola división del plano genera exactamente dos ramas.\n\nUna a la izquierda y otra a la derecha de $x=2$.\n\nCada asíntota vertical adicional sumaría una rama más.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes"
@@ -308,7 +308,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x)=\\frac{1}{x-3}$, cuando $x=3$ el denominador vale $0$ y la división por cero no existe: la función **no está definida** en ese punto. Esto no significa que valga cero ahí ni que alcance un máximo, esos serían resultados de una función sí definida.\n\nEn la gráfica, ese punto excluido corresponde a la asíntota vertical: la curva se acerca a $x=3$ por ambos lados sin llegar nunca a tocarlo.",
+    "explanation": "En $f(x)=\\frac{1}{x-3}$, cuando $x=3$ el denominador vale $0$ y la división por cero no existe.\n\nLa función **no está definida** en ese punto. Esto no significa que valga cero ahí ni que alcance un máximo, esos serían resultados de una función sí definida.\n\nEn la gráfica, ese punto excluido corresponde a la asíntota vertical: la curva se acerca a $x=3$ por ambos lados sin llegar nunca a tocarlo.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal"
@@ -383,7 +383,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x)=\\frac{2x+1}{x-3}$, numerador y denominador tienen ambos grado $1$, así que la **asíntota horizontal** es el cociente de los coeficientes principales: $\\frac{2}{1}=2$. Para $x$ muy grande, los términos independientes ($+1$ y $-3$) pesan cada vez menos frente a $2x$ y $x$, y la fracción se aproxima a $\\frac{2x}{x}=2$.\n\nPor eso la asíntota horizontal es $y=2$, no el coeficiente de un solo término aislado.",
+    "explanation": "En $f(x)=\\frac{2x+1}{x-3}$, numerador y denominador tienen ambos grado $1$, así que la **asíntota horizontal** es el cociente de los coeficientes principales.\n\n$\\frac{2}{1}=2$. Para $x$ muy grande, los términos independientes ($+1$ y $-3$) pesan cada vez menos frente a $2x$ y $x$, y la fracción se aproxima a $\\frac{2x}{x}=2$.\n\nPor eso la asíntota horizontal es $y=2$, no el coeficiente de un solo término aislado.",
     "reviewed": false,
     "tags": [
       "cuadrantes-ramas"
@@ -483,7 +483,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El intercepto con el eje $Y$ de cualquier función se calcula evaluando $f(0)$. Para $f(x)=\\frac{x+3}{x-1}$: $f(0)=\\frac{0+3}{0-1}=\\frac{3}{-1}=-3$. El resultado da negativo porque el denominador queda negativo al evaluar en $0$, aunque el numerador sea positivo.\n\nEste intercepto solo dejaría de existir si el denominador se anulara justo en $x=0$, que no es el caso aquí.",
+    "explanation": "El intercepto con el eje $Y$ de cualquier función se calcula evaluando $f(0)$. Para $f(x)=\\frac{x+3}{x-1}$.\n\n$f(0)=\\frac{0+3}{0-1}=\\frac{3}{-1}=-3$. El resultado da negativo porque el denominador queda negativo al evaluar en $0$, aunque el numerador sea positivo.\n\nEste intercepto solo dejaría de existir si el denominador se anulara justo en $x=0$, que no es el caso aquí.",
     "reviewed": false,
     "tags": [
       "comportamiento-en-infinito"
@@ -558,7 +558,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar el intercepto con el eje $X$ de $f(x)=\\frac{x-4}{x+2}$, se iguala el numerador a cero: $x-4=0\\Rightarrow x=4$. Después hay que verificar que ese valor no anule también el denominador: $4+2=6\\neq0$, así que es válido.\n\nEl intercepto está en $x=4$, y no en $x=-2$, que es justamente el valor excluido del dominio por anular el denominador.",
+    "explanation": "Para hallar el intercepto con el eje $X$ de $f(x)=\\frac{x-4}{x+2}$, se iguala el numerador a cero.\n\n$x-4=0\\Rightarrow x=4$. Después hay que verificar que ese valor no anule también el denominador: $4+2=6\\neq0$, así que es válido.\n\nEl intercepto está en $x=4$, y no en $x=-2$, que es justamente el valor excluido del dominio por anular el denominador.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal"
@@ -583,7 +583,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para determinar si una función es par o impar se compara $f(-x)$ con $f(x)$. En $f(x)=\\frac{1}{x}$: $f(-x)=\\frac{1}{-x}=-\\frac{1}{x}=-f(x)$. Como se cumple $f(-x)=-f(x)$, la función es impar, no par (que requeriría $f(-x)=f(x)$).\n\nEsta simetría impar se ve en la gráfica: la hipérbola es simétrica respecto al origen, con las ramas en el primer y tercer cuadrante.",
+    "explanation": "Para determinar si una función es par o impar se compara $f(-x)$ con $f(x)$. En $f(x)=\\frac{1}{x}$.\n\n$f(-x)=\\frac{1}{-x}=-\\frac{1}{x}=-f(x)$. Como se cumple $f(-x)=-f(x)$, la función es impar, no par (que requeriría $f(-x)=f(x)$).\n\nEsta simetría impar se ve en la gráfica: la hipérbola es simétrica respecto al origen, con las ramas en el primer y tercer cuadrante.",
     "reviewed": false,
     "tags": [
       "paridad-funcion"
@@ -708,7 +708,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$f(x)=\\frac{1}{x}$ decrece de forma estricta en cada uno de los dos tramos de su **dominio**: en $(0,+\\infty)$ los valores bajan desde $+\\infty$ hasta acercarse a $0$,.\n\nEn $(-\\infty,0)$ bajan desde $0$ hasta $-\\infty$. Como nunca cambia de dirección dentro de cada rama, no alcanza ningún valor máximo ni mínimo local.\n\nEsto es típico de $k/x$: al no haber cambio de monotonía, no hay extremos que buscar.",
+    "explanation": "$f(x)=\\frac{1}{x}$ decrece de forma estricta en cada uno de los dos tramos de su **dominio**.\n\nEn $(0,+\\infty)$ los valores bajan desde $+\\infty$ hasta acercarse a $0$,.\n\nEn $(-\\infty,0)$ bajan desde $0$ hasta $-\\infty$. Como nunca cambia de dirección dentro de cada rama, no alcanza ningún valor máximo ni mínimo local.\n\nEsto es típico de $k/x$: al no haber cambio de monotonía, no hay extremos que buscar.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal"
@@ -733,7 +733,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** de una racional excluye los valores que anulan el denominador. En $f(x)=\\frac{x^2-1}{(x-1)(x+3)}$, el denominador se anula en $x=1$ y en $x=-3$, así que ambos quedan fuera del dominio.\n\nAunque el numerador $x^2-1=(x-1)(x+1)$ también se anule en $x=1$, eso solo produce un agujero en ese punto, no reincorpora el valor al dominio: sigue excluido igual que $x=-3$.",
+    "explanation": "El **dominio** de una racional excluye los valores que anulan el denominador. En $f(x)=\\frac{x^2-1}{(x-1)(x+3)}$, el denominador se anula en $x=1$ y en $x=-3$, así que ambos quedan fuera del dominio.\n\nAunque el numerador $x^2-1=(x-1)(x+1)$ también se anule en $x=1$, eso solo produce un agujero en ese punto, no reincorpora el valor al dominio.\n\nSigue excluido igual que $x=-3$.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal"
@@ -758,7 +758,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Reemplazar $x$ por $x-3$ dentro de una función produce un desplazamiento horizontal: la curva se mueve $3$ unidades hacia la derecha. En $f(x)=\\frac{1}{x-3}$ respecto a $g(x)=\\frac{1}{x}$, la asíntota vertical se traslada de $x=0$ a $x=3$,.\n\nToda la forma de la curva viaja con ella.\n\nUn desplazamiento vertical, en cambio, se produce sumando o restando una constante fuera de la fracción, no dentro del denominador.",
+    "explanation": "Reemplazar $x$ por $x-3$ dentro de una función produce un desplazamiento horizontal.\n\nLa curva se mueve $3$ unidades hacia la derecha. En $f(x)=\\frac{1}{x-3}$ respecto a $g(x)=\\frac{1}{x}$, la asíntota vertical se traslada de $x=0$ a $x=3$,.\n\nToda la forma de la curva viaja con ella.\n\nUn desplazamiento vertical, en cambio, se produce sumando o restando una constante fuera de la fracción, no dentro del denominador.",
     "reviewed": false,
     "tags": [
       "cuadrantes-ramas"
@@ -833,7 +833,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **asíntotas verticales** de una racional aparecen en las raíces reales del denominador. Para $f(x)=\\frac{x^2+1}{x^3-x}$, factorizamos: $x^3-x=x(x^2-1)=x(x-1)(x+1)$, que tiene tres raíces reales: $x=0$, $x=1$ y $x=-1$.\n\nEl numerador $x^2+1$ nunca se anula (siempre es al menos $1$), así que ninguna de esas raíces se cancela: las tres generan asíntota vertical.",
+    "explanation": "Las **asíntotas verticales** de una racional aparecen en las raíces reales del denominador. Para $f(x)=\\frac{x^2+1}{x^3-x}$, factorizamos.\n\n$x^3-x=x(x^2-1)=x(x-1)(x+1)$, que tiene tres raíces reales: $x=0$, $x=1$ y $x=-1$.\n\nEl numerador $x^2+1$ nunca se anula (siempre es al menos $1$), así que ninguna de esas raíces se cancela: las tres generan asíntota vertical.",
     "reviewed": false,
     "tags": [
       "paridad-funcion"
@@ -933,7 +933,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para clasificar $f(x)=\\frac{1}{x^2}$ como par o impar se compara $f(-x)$ con $f(x)$: $f(-x)=\\frac{1}{(-x)^2}=\\frac{1}{x^2}=f(x)$. Como se cumple $f(-x)=f(x)$, la función es par,.\n\nSu gráfica es simétrica respecto al eje $Y$.\n\nA diferencia de $\\frac{1}{x}$, que es impar y solo toma valores de un signo en cada rama, $\\frac{1}{x^2}$ siempre da valores positivos, sin importar el signo de $x$.",
+    "explanation": "Para clasificar $f(x)=\\frac{1}{x^2}$ como par o impar se compara $f(-x)$ con $f(x)$.\n\n$f(-x)=\\frac{1}{(-x)^2}=\\frac{1}{x^2}=f(x)$. Como se cumple $f(-x)=f(x)$, la función es par,.\n\nSu gráfica es simétrica respecto al eje $Y$.\n\nA diferencia de $\\frac{1}{x}$, que es impar y solo toma valores de un signo en cada rama, $\\frac{1}{x^2}$ siempre da valores positivos, sin importar el signo de $x$.",
     "reviewed": false,
     "tags": [
       "continuidad-en-dominio"
@@ -983,7 +983,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** de una función racional se determina sobre la expresión original, antes de simplificar. $g(x)=\\frac{x-1}{x(x-1)}$ tiene denominador $x(x-1)$, que se anula en $x=0$.\n\nEn $x=1$: ambos quedan excluidos, aunque la fracción se simplifique a $\\frac{1}{x}$ para $x\\neq1$.\n\nPor eso el dominio de $g$ es $\\mathbb{R}\\setminus\\{0,1\\}$, distinto del de $f(x)=\\frac{1}{x}$, que solo excluye $x=0$: en $x=1$, $g$ tiene un agujero.",
+    "explanation": "El **dominio** de una función racional se determina sobre la expresión original, antes de simplificar. $g(x)=\\frac{x-1}{x(x-1)}$ tiene denominador $x(x-1)$, que se anula en $x=0$.\n\nEn $x=1$: ambos quedan excluidos, aunque la fracción se simplifique a $\\frac{1}{x}$ para $x\\neq1$.\n\nPor eso el dominio de $g$ es $\\mathbb{R}\\setminus\\{0,1\\}$, distinto del de $f(x)=\\frac{1}{x}$, que solo excluye $x=0$.\n\nEn $x=1$, $g$ tiene un agujero.",
     "reviewed": false,
     "tags": [
       "agujero-vs-asintota"
@@ -1083,7 +1083,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando $x\\to+\\infty$ en $f(x)=\\frac{5}{x}$, el denominador crece sin límite mientras el numerador queda fijo en $5$, así que la fracción se hace cada vez más chica: tiende a $0$. Como el numerador es positivo.\n\n$x$ también, el cociente siempre da positivo, por lo que la función se aproxima a $0$ por arriba, es decir $0^+$, y no por debajo.\n\nEn la gráfica esto se ve como la curva aplanándose hacia el eje $X$ desde arriba.",
+    "explanation": "Cuando $x\\to+\\infty$ en $f(x)=\\frac{5}{x}$, el denominador crece sin límite mientras el numerador queda fijo en $5$, así que la fracción se hace cada vez más chica.\n\nTiende a $0$. Como el numerador es positivo.\n\n$x$ también, el cociente siempre da positivo, por lo que la función se aproxima a $0$ por arriba, es decir $0^+$, y no por debajo.\n\nEn la gráfica esto se ve como la curva aplanándose hacia el eje $X$ desde arriba.",
     "reviewed": false,
     "tags": [
       "dominio-restriccion"
@@ -1133,7 +1133,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para $f(x)=\\frac{1}{x}$, tanto el **dominio** como la **imagen** son $\\mathbb{R}\\setminus\\{0\\}$.\n\nEl dominio excluye $x=0$ porque ahí se anula el denominador. La imagen también excluye $0$, porque $\\frac{1}{x}=0$ no tiene ninguna solución: la fracción nunca llega a valer cero, solo se acerca cada vez más.\n\nQue dominio e imagen coincidan acá es una particularidad de $1/x$, no algo garantizado para toda racional.",
+    "explanation": "Para $f(x)=\\frac{1}{x}$, tanto el **dominio** como la **imagen** son $\\mathbb{R}\\setminus\\{0\\}$.\n\nEl dominio excluye $x=0$ porque ahí se anula el denominador. La imagen también excluye $0$, porque $\\frac{1}{x}=0$ no tiene ninguna solución.\n\nLa fracción nunca llega a valer cero, solo se acerca cada vez más.\n\nQue dominio e imagen coincidan acá es una particularidad de $1/x$, no algo garantizado para toda racional.",
     "reviewed": false,
     "tags": [
       "asintota-vertical"
@@ -1183,7 +1183,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Los ceros de una función racional son las raíces reales de su numerador (que no anulen también el denominador). Para $f(x)=\\frac{x^2-4}{x+1}$: $x^2-4=(x-2)(x+2)=0$ da $x=2$ y $x=-2$.\n\nEl denominador $x+1$ no se anula en ninguno de esos valores ($3$ y $-1$ respectivamente), así que ambas raíces son válidas y la función tiene dos ceros reales.",
+    "explanation": "Los ceros de una función racional son las raíces reales de su numerador (que no anulen también el denominador). Para $f(x)=\\frac{x^2-4}{x+1}$.\n\n$x^2-4=(x-2)(x+2)=0$ da $x=2$ y $x=-2$.\n\nEl denominador $x+1$ no se anula en ninguno de esos valores ($3$ y $-1$ respectivamente), así que ambas raíces son válidas y la función tiene dos ceros reales.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal"

@@ -68,7 +68,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una pendiente puede ser fraccionaria sin dejar de ser una pendiente: sigue siendo el coeficiente que multiplica a $x$.\n\nEn $f(x) = \\frac{1}{2}x + 5$, los parámetros son $m = \\frac{1}{2}$ y $b = 5$. La lectura práctica: por cada 2 unidades que avanza $x$, la función sube 1.\n\nNo desarmes la fracción: ni el numerador ni el denominador por separado son la pendiente; el coeficiente completo es $\\frac{1}{2}$.",
+    "explanation": "Una pendiente puede ser fraccionaria sin dejar de ser una pendiente: sigue siendo el coeficiente que multiplica a $x$.\n\nEn $f(x) = \\frac{1}{2}x + 5$, los parámetros son $m = \\frac{1}{2}$ y $b = 5$. La lectura práctica.\n\nPor cada 2 unidades que avanza $x$, la función sube 1.\n\nNo desarmes la fracción: ni el numerador ni el denominador por separado son la pendiente; el coeficiente completo es $\\frac{1}{2}$.",
     "reviewed": false,
     "tags": [
       "pendiente-calculo"
@@ -963,7 +963,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $C(k) = 700 + 180k$, el coeficiente de $k$ es lo que se agrega por cada kilómetro: \\$180. El \\$700 es el costo fijo de subir al auto.\n\nLa diferencia se ve comparando viajes consecutivos: $C(1) = 880$ y $C(2) = 1060$; entre uno y otro hay exactamente \\$180.\n\nLa tarifa por unidad es siempre la pendiente: no la confundas ni con el fijo ni con el costo total de un viaje puntual.",
+    "explanation": "En $C(k) = 700 + 180k$, el coeficiente de $k$ es lo que se agrega por cada kilómetro.\n\n\\$180. El \\$700 es el costo fijo de subir al auto.\n\nLa diferencia se ve comparando viajes consecutivos: $C(1) = 880$ y $C(2) = 1060$; entre uno y otro hay exactamente \\$180.\n\nLa tarifa por unidad es siempre la pendiente: no la confundas ni con el fijo ni con el costo total de un viaje puntual.",
     "reviewed": false,
     "tags": [
       "leer-parametro-contexto"
