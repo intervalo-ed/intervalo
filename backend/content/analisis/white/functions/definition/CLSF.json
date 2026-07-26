@@ -688,7 +688,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido. La raíz cuadrada exige radicando no negativo.\n\nPara $x > 5$ el radicando sería negativo.\n\nOjo con el sentido de la desigualdad: como la $x$ está restando, al despejar queda $x \\leq 5$, no $x \\geq 5$. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido. La raíz cuadrada exige radicando no negativo.\n\nPara $x > 5$ el radicando sería negativo.\n\nTenés que verificar que con el sentido de la desigualdad: como la $x$ está restando, al despejar queda $x \\leq 5$, no $x \\geq 5$. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "dominio-natural"

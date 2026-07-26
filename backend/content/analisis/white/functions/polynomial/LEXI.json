@@ -605,7 +605,7 @@
       "La paridad de un polinomio depende de qué potencias aparecen, no de cuántos términos tiene en total.",
       "Que el grado sea par no alcanza: un polinomio como $x^2+x$ tiene grado par pero incluye una potencia impar, así que no es par."
     ],
-    "explanation": "Se llama **polinomio par** a aquel que cumple $f(-x) = f(x)$ para todo $x$.\n\nEsto implica que su gráfica es simétrica respecto al eje $y$.\n\nEjemplo: $f(x) = x^4 - 2x^2 + 1$.\n\nSolo tiene potencias $x^4$, $x^2$ y $x^0$ (todas pares).\n\nVerificación: $f(-x) = (-x)^4 - 2(-x)^2 + 1 = x^4 - 2x^2 + 1 = f(x)$\n\nCuidado: tener **grado** par no es suficiente. $f(x) = x^2 + x$ tiene grado par pero no es polinomio par porque tiene el término $x$ (potencia impar).",
+    "explanation": "Se llama **polinomio par** a aquel que cumple $f(-x) = f(x)$ para todo $x$.\n\nEsto implica que su gráfica es simétrica respecto al eje $y$.\n\nEjemplo: $f(x) = x^4 - 2x^2 + 1$.\n\nSolo tiene potencias $x^4$, $x^2$ y $x^0$ (todas pares).\n\nVerificación: $f(-x) = (-x)^4 - 2(-x)^2 + 1 = x^4 - 2x^2 + 1 = f(x)$\n\nTenés que verificar que tener **grado** par no es suficiente. $f(x) = x^2 + x$ tiene grado par pero no es polinomio par porque tiene el término $x$ (potencia impar).",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -855,7 +855,7 @@
       "Ese es el desarrollo de $(a+b)^2$; acá el binomio es una resta, así que el término central lleva signo negativo.",
       "El cuadrado del segundo término, $b^2$, siempre queda positivo al elevarlo al cuadrado, sin importar que $b$ vaya con signo negativo en el binomio original."
     ],
-    "explanation": "Para expandir $(a-b)^2$ conviene pensarlo como el producto $(a-b)(a-b)$ y aplicar la propiedad distributiva completa, término a término.\n\nAl distribuir se obtiene $a^2 - ab - ab + b^2$, y al agrupar los dos términos cruzados iguales queda $a^2 - 2ab + b^2$.\n\nLos tres términos son: el cuadrado del primero, el doble producto con signo negativo, y el cuadrado del segundo (siempre positivo, porque es un cuadrado).\n\nEl error más común es olvidar el término central $-2ab$ y responder $a^2-b^2$ (que en realidad corresponde a $(a+b)(a-b)$), o cambiarle el signo al $b^2$ del final, que siempre queda positivo sin importar el signo de $b$.",
+    "explanation": "Para expandir $(a-b)^2$ conviene pensarlo como el producto $(a-b)(a-b)$ y aplicar la propiedad distributiva completa, término a término.\n\nAl distribuir se obtiene $a^2 - ab - ab + b^2$, y al agrupar los dos términos cruzados iguales queda $a^2 - 2ab + b^2$.\n\nLos tres términos son: el cuadrado del primero, el doble producto con signo negativo, y el cuadrado del segundo (siempre positivo, porque es un cuadrado).\n\nEste razonamiento muestra que olvidar el término central $-2ab$ y responder $a^2-b^2$ (que en realidad corresponde a $(a+b)(a-b)$), o cambiarle el signo al $b^2$ del final, que siempre queda positivo sin importar el signo de $b$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

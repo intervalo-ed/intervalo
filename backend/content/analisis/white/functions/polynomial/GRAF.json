@@ -90,7 +90,7 @@
     ]
   },
   {
-    "question": "La gráfica muestra $f(x) = \\dfrac{(x^2-1)(x^2-4)}{4}$.\n\n¿Cuánto vale $f(0)$?",
+    "question": "La gráfica muestra:\n\n$$f(x) = \\dfrac{(x^2-1)(x^2-4)}{4}$$\n\n.\n\n¿Cuánto vale $f(0)$?",
     "options": [
       "$0$",
       "$-1$",
@@ -180,7 +180,7 @@
     ]
   },
   {
-    "question": "La gráfica muestra $f(x) = \\dfrac{x(x-2)(x+2)}{4}$.\n\n¿Cuántos extremos locales tiene?",
+    "question": "La gráfica muestra:\n\n$$f(x) = \\dfrac{x(x-2)(x+2)}{4}$$\n\n.\n\n¿Cuántos extremos locales tiene?",
     "options": [
       "$2$",
       "$0$",
@@ -240,7 +240,7 @@
     ]
   },
   {
-    "question": "La gráfica muestra $f(x) = \\dfrac{x^3}{8}$.\n\n¿La función es creciente en todo $\\mathbb{R}$ (sin ningún extremo local)?",
+    "question": "La gráfica muestra:\n\n$$f(x) = \\dfrac{x^3}{8}$$\n\n.\n\n¿La función es creciente en todo $\\mathbb{R}$ (sin ningún extremo local)?",
     "options": [
       "No, tiene un máximo local",
       "Sí, es siempre creciente",
@@ -330,7 +330,7 @@
     ]
   },
   {
-    "question": "La gráfica muestra $f(x) = \\dfrac{-x(x-2)(x+2)}{4}$.\n\n¿Qué ocurre con $f(x)$ cuando $x \\to -\\infty$?",
+    "question": "La gráfica muestra:\n\n$$f(x) = \\dfrac{-x(x-2)(x+2)}{4}$$\n\n.\n\n¿Qué ocurre con $f(x)$ cuando $x \\to -\\infty$?",
     "options": [
       "$f(x) \\to -\\infty$",
       "$f(x) \\to 0$",
@@ -360,7 +360,7 @@
     ]
   },
   {
-    "question": "La gráfica muestra $f(x) = \\dfrac{x(x-2)(x+2)}{4}$.\n\n¿Cuánto vale $f(0)$?",
+    "question": "La gráfica muestra:\n\n$$f(x) = \\dfrac{x(x-2)(x+2)}{4}$$\n\n.\n\n¿Cuánto vale $f(0)$?",
     "options": [
       "$-4$",
       "$0$",
@@ -420,7 +420,7 @@
     ]
   },
   {
-    "question": "La gráfica muestra $f(x) = \\dfrac{x^3}{8}$.\n\n¿Cuántas raíces reales tiene?",
+    "question": "La gráfica muestra:\n\n$$f(x) = \\dfrac{x^3}{8}$$\n\n.\n\n¿Cuántas raíces reales tiene?",
     "options": [
       "$1$",
       "$0$",
@@ -450,7 +450,7 @@
     ]
   },
   {
-    "question": "La gráfica muestra $f(x) = \\dfrac{(x^2-1)(x^2-4)}{4}$.\n\nEntre $x = 1$ y $x = 2$, ¿la curva está por encima o por debajo del eje $x$?",
+    "question": "La gráfica muestra:\n\n$$f(x) = \\dfrac{(x^2-1)(x^2-4)}{4}$$\n\n.\n\nEntre $x = 1$ y $x = 2$, ¿la curva está por encima o por debajo del eje $x$?",
     "options": [
       "Por encima ($f > 0$)",
       "Exactamente en el eje",
@@ -510,7 +510,7 @@
     ]
   },
   {
-    "question": "La gráfica muestra $f(x) = \\dfrac{x(x-2)(x+2)}{4}$.\n\n¿Qué ocurre con $f(x)$ cuando $x \\to +\\infty$?",
+    "question": "La gráfica muestra:\n\n$$f(x) = \\dfrac{x(x-2)(x+2)}{4}$$\n\n.\n\n¿Qué ocurre con $f(x)$ cuando $x \\to +\\infty$?",
     "options": [
       "$f(x) \\to -\\infty$",
       "$f(x) \\to 0$",
@@ -570,7 +570,7 @@
     ]
   },
   {
-    "question": "La gráfica muestra $f(x) = \\dfrac{-x(x-2)(x+2)}{4}$.\n\n¿Cuántos extremos locales tiene?",
+    "question": "La gráfica muestra:\n\n$$f(x) = \\dfrac{-x(x-2)(x+2)}{4}$$\n\n.\n\n¿Cuántos extremos locales tiene?",
     "options": [
       "$0$",
       "$1$",
@@ -600,7 +600,7 @@
     ]
   },
   {
-    "question": "La gráfica muestra $f(x) = \\dfrac{x^3}{8}$.\n\n¿El grado del polinomio es par o impar?",
+    "question": "La gráfica muestra:\n\n$$f(x) = \\dfrac{x^3}{8}$$\n\n.\n\n¿El grado del polinomio es par o impar?",
     "options": [
       "Par",
       "Impar",
@@ -660,7 +660,7 @@
     ]
   },
   {
-    "question": "La gráfica muestra $f(x) = \\dfrac{x^3}{8}$.\n\n¿El dominio de $f$ es $\\mathbb{R}$?",
+    "question": "La gráfica muestra:\n\n$$f(x) = \\dfrac{x^3}{8}$$\n\n.\n\n¿El dominio de $f$ es $\\mathbb{R}$?",
     "options": [
       "Sí, el dominio es todo $\\mathbb{R}$",
       "No, el dominio excluye $x = 0$",
@@ -720,7 +720,7 @@
     ]
   },
   {
-    "question": "La gráfica muestra $f(x) = \\dfrac{x(x-2)(x+2)}{4}$.\n\n¿La función tiene mínimo global?",
+    "question": "La gráfica muestra:\n\n$$f(x) = \\dfrac{x(x-2)(x+2)}{4}$$\n\n.\n\n¿La función tiene mínimo global?",
     "options": [
       "Sí",
       "No, en el sistema de reales",

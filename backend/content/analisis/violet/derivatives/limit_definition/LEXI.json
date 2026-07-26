@@ -69,7 +69,7 @@
     ]
   },
   {
-    "question": "Dado el cociente incremental $\\frac{f(a+h) - f(a)}{h}$, ¿qué representa el numerador $f(a+h) - f(a)$?",
+    "question": "Dado el cociente incremental:\n\n$$\\frac{f(a+h) - f(a)}{h}$$\n\n, ¿qué representa el numerador $f(a+h) - f(a)$?",
     "options": [
       "La variación del valor de la función entre $a$ y $a+h$",
       "La distancia entre los puntos $a$ y $a+h$ en el eje $x$",
@@ -92,7 +92,7 @@
     ]
   },
   {
-    "question": "En el mismo cociente $\\frac{f(a+h) - f(a)}{h}$, ¿qué representa el denominador $h$?",
+    "question": "En el mismo cociente:\n\n$$\\frac{f(a+h) - f(a)}{h}$$\n\n, ¿qué representa el denominador $h$?",
     "options": [
       "El resultado final del límite",
       "La variación de la variable",
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "question": "Sin tomar ningún límite, el cociente $\\frac{f(b)-f(a)}{b-a}$ representa...",
+    "question": "Sin tomar ningún límite, el cociente:\n\n$$\\frac{f(b)-f(a)}{b-a}$$\n\nRepresenta...",
     "options": [
       "La tasa de cambio promedio de $f$ entre $a$ y $b$",
       "La tasa de cambio instantánea de $f$ en $a$",
@@ -161,7 +161,7 @@
     ]
   },
   {
-    "question": "Al tomar el límite cuando $h \\to 0$ del cociente incremental $\\frac{f(a+h)-f(a)}{h}$, la tasa de cambio promedio se transforma en...",
+    "question": "Al tomar el límite cuando $h \\to 0$ del cociente incremental:\n\n$$\\frac{f(a+h)-f(a)}{h}$$\n\n, la tasa de cambio promedio se transforma en...",
     "options": [
       "La pendiente de una recta secante distinta",
       "La tasa de cambio instantánea en $a$, en este caso",
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "Si se calcula $\\frac{f(a+h)-f(a)}{h}$ para un valor fijo de $h$, sin tomar ningún límite, ¿qué tasa se obtiene?",
+    "question": "Si se calcula:\n\n$$\\frac{f(a+h)-f(a)}{h}$$\n\nPara un valor fijo de $h$, sin tomar ningún límite, ¿qué tasa se obtiene?",
     "options": [
       "La derivada de $f$ en $a+h$",
       "Una tasa de cambio promedio en el",

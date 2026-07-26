@@ -223,7 +223,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Acá $3x$ y $e^x$ son dos factores completamente separados que se multiplican entre sí, una estructura de **producto**, no de composición.\n\nEs fácil confundir esta expresión con $e^{3x}$, pero acá la variable $x$ nunca queda dentro del exponente de una exponencial más grande. Identificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
+    "explanation": "Acá $3x$ y $e^x$ son dos factores completamente separados que se multiplican entre sí, una estructura de **producto**, no de composición.\n\nMirando de cerca, confundir esta expresión con $e^{3x}$, pero acá la variable $x$ nunca queda dentro del exponente de una exponencial más grande. Identificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-producto-composicion"

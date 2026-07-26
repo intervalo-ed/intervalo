@@ -1,6 +1,6 @@
 [
   {
-    "question": "En el estudio de los **límites al infinito**, aparece el cociente $\\frac{5}{x}$ cuando $x \\to +\\infty$.\n\n¿A qué tiende este cociente?",
+    "question": "En el estudio de los **límites al infinito**, aparece el cociente:\n\n$$\\frac{5}{x}$$\n\nCuando $x \\to +\\infty$.",
     "options": [
       "Es una indeterminación",
       "$0$, en general",
@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "Un cociente tiene numerador $3$ fijo y denominador que tiende a $0^+$.\n$\\frac{3}{x}$\n¿Qué le pasa al valor del cociente?",
+    "question": "Un cociente tiene numerador $3$ fijo y denominador que tiende a $0^+$.\n\n$$\\frac{3}{x}$$\n\n¿Qué le pasa al valor del cociente?",
     "options": [
       "Es una indeterminación",
       "Tiende a $0$",
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **asíntota vertical** marca un punto de no definición o un punto de ruptura, donde la función se dispara en una dirección horizontal específica.\n\nEs distinta de la horizontal porque no describe estabilidad sino divergencia.\n\nUna **asíntota vertical** aparece cuando una función diverge a medida que $x$ se acerca a un valor puntual $a$.\n\nSe escribe siempre como una recta vertical, de la forma $x = a$, marcando el punto exacto del eje horizontal donde ocurre la ruptura.$$x \\to a \\ \\Rightarrow \\ f(x) \\to \\pm\\infty \\ \\Rightarrow \\ x = a$$Confundir esta recta con $y = a$ es el error más común al nombrar una asíntota vertical.",
+    "explanation": "La **asíntota vertical** marca un punto de no definición o un punto de ruptura, donde la función se dispara en una dirección horizontal específica.\n\nEs distinta de la horizontal porque no describe estabilidad sino divergencia.\n\nUna **asíntota vertical** aparece cuando una función diverge a medida que $x$ se acerca a un valor puntual $a$.\n\nEste razonamiento muestra que más común al nombrar una asíntota vertical.",
     "reviewed": false,
     "tags": [
       "contraste-asintotas"
@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "En una función racional $\\frac{P(x)}{Q(x)}$, el grado del denominador $Q(x)$ es estrictamente mayor que el grado del numerador $P(x)$.\n\n¿Qué sucede con $\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$?",
+    "question": "En una función racional:\n\n$$\\frac{P(x)}{Q(x)}$$\n\n, el grado del denominador $Q(x)$ es estrictamente mayor que el grado del numerador $P(x)$.\n\n¿Qué sucede con:\n\n$$\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$$\n\n?",
     "options": [
       "Vale $0$, en este caso",
       "Diverge a $\\infty$",
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "En una función racional $\\frac{P(x)}{Q(x)}$, el grado del numerador $P(x)$ es estrictamente mayor que el grado del denominador $Q(x)$.\n\n¿Qué sucede con $\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$?",
+    "question": "En una función racional:\n\n$$\\frac{P(x)}{Q(x)}$$\n\n, el grado del numerador $P(x)$ es estrictamente mayor que el grado del denominador $Q(x)$.\n\n¿Qué sucede con:\n\n$$\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$$\n\n?",
     "options": [
       "Diverge, por definición",
       "Vale $0$",
@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "En una función racional $\\frac{P(x)}{Q(x)}$, el numerador $P(x)$ y el denominador $Q(x)$ tienen exactamente el mismo grado.\n\n¿Qué sucede con $\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$?",
+    "question": "En una función racional:\n\n$$\\frac{P(x)}{Q(x)}$$\n\n, el numerador $P(x)$ y el denominador $Q(x)$ tienen exactamente el mismo grado.\n\n¿Qué sucede con:\n\n$$\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$$\n\n?",
     "options": [
       "Vale $0$",
       "Diverge a $\\infty$",

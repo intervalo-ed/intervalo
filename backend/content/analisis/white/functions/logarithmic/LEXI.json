@@ -408,7 +408,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad del producto** del logaritmo convierte una multiplicación dentro del logaritmo en una suma de logaritmos:\n\nPor ejemplo, $\\log_2(4 \\cdot 8) = \\log_2(4) + \\log_2(8) = 2 + 3 = 5$, que coincide con $\\log_2(32) = 5$ calculado directamente.\n\nEsta propiedad aplica exclusivamente a productos dentro del logaritmo, nunca a sumas: $\\log_b(x+y)$ no se puede separar en $\\log_b(x) + \\log_b(y)$, esa es la confusión más común con esta regla.",
+    "explanation": "La **propiedad del producto** del logaritmo convierte una multiplicación dentro del logaritmo en una suma de logaritmos:\n\nPor ejemplo, $\\log_2(4 \\cdot 8) = \\log_2(4) + \\log_2(8) = 2 + 3 = 5$, que coincide con $\\log_2(32) = 5$ calculado directamente.\n\nEste razonamiento muestra que más común con esta regla.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-log"
@@ -458,7 +458,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad de la potencia** dice que el exponente dentro del logaritmo baja y pasa a multiplicar por fuera:\n\nPor ejemplo, $\\log_2(8) = \\log_2(2^3) = 3 \\cdot \\log_2(2) = 3 \\cdot 1 = 3$, que coincide con el valor directo de $\\log_2(8)$.\n\nEl error más común es olvidar el factor $n$ que multiplica, o confundir la potencia del argumento con una potencia aplicada al resultado del logaritmo, que es una operación distinta.",
+    "explanation": "La **propiedad de la potencia** dice que el exponente dentro del logaritmo baja y pasa a multiplicar por fuera:\n\nPor ejemplo, $\\log_2(8) = \\log_2(2^3) = 3 \\cdot \\log_2(2) = 3 \\cdot 1 = 3$, que coincide con el valor directo de $\\log_2(8)$.\n\nSi olvidas el factor $n$ que multiplica, o confundís la potencia del argumento con una potencia aplicada al resultado del logaritmo, entonces vas a cometer un error.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-log"
@@ -483,7 +483,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **fórmula de cambio de base** permite calcular cualquier logaritmo usando una calculadora que solo tenga logaritmo natural o base $10$:\n\nPor ejemplo, $\\log_2(10) = \\dfrac{\\ln(10)}{\\ln(2)} \\approx \\dfrac{2{,}303}{0{,}693} \\approx 3{,}32$.\n\nEl orden importa: el argumento $x$ va siempre en el numerador y la base $b$ en el denominador. Invertir esa fracción es el error más frecuente al aplicar esta fórmula.",
+    "explanation": "La **fórmula de cambio de base** permite calcular cualquier logaritmo usando una calculadora que solo tenga logaritmo natural o base $10$:\n\nPor ejemplo, $\\log_2(10) = \\dfrac{\\ln(10)}{\\ln(2)} \\approx \\dfrac{2{,}303}{0{,}693} \\approx 3{,}32$.\n\nEl orden importa: el argumento $x$ va siempre en el numerador y la base $b$ en el denominador; si invertís esa fracción, entonces vas a calcular incorrectamente.",
     "reviewed": false,
     "tags": [
       "evaluar-log-directo"
@@ -901,7 +901,7 @@
     "has_math": true,
     "feedback_correct": "Por la propiedad del producto: $\\log_2(4) + \\log_2(8) = \\log_2(32)$. Y $\\log_2(32) = 5$.",
     "feedback_incorrect": [
-      "Sumar los argumentos en vez de multiplicarlos es el error clásico con esta propiedad: la suma de logaritmos corresponde al producto de los argumentos, no a su suma.",
+      "Sumar los argumentos en vez de multiplicarlos produce error típico con esta propiedad: la suma de logaritmos corresponde al producto de los argumentos, no a su suma.",
       "Ese valor numérico no corresponde al resultado de esta suma: revisá el cálculo de $\\log_2(4)$ y $\\log_2(8)$ por separado antes de sumarlos.",
       "Ese resultado duplica el valor correcto: revisá si sumaste $\\log_2(4) = 2$ y $\\log_2(8) = 3$ correctamente.",
       null
@@ -1133,7 +1133,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para resolver una ecuación de la forma $\\log_b(x) = c$, se usa directamente la definición del **logaritmo**:\n\nAcá, $\\log_2(x) = 3$ significa que $2$ elevado a la potencia $3$ debe dar $x$, entonces $x = 2^3 = 8$.\n\nEste tipo de ecuación aparece constantemente al despejar el argumento de un logaritmo, y el error más común es invertir la relación, escribiendo $x = c^b$ en vez de $x = b^c$.",
+    "explanation": "Para resolver una ecuación de la forma $\\log_b(x) = c$, se usa directamente la definición del **logaritmo**:\n\nAcá, $\\log_2(x) = 3$ significa que $2$ elevado a la potencia $3$ debe dar $x$, entonces $x = 2^3 = 8$.\n\nEste tipo de ecuación aparece constantemente al despejar el argumento de un logaritmo; si invertís la relación y escribís $x = c^b$ en vez de $x = b^c$, entonces vas a obtener un resultado incorrecto.",
     "reviewed": false,
     "tags": [
       "evaluar-log-directo"

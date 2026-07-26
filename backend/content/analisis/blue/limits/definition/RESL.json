@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **límite** de una función **constante** es siempre esa misma constante , sin importar a qué valor tienda $x$\n\n, porque $f(x)=8$ no cambia nunca: evaluando en $4{,}99, 5{,}01, 100$ siempre se obtiene $8$.\n\nLa constante es ajena al movimiento de $x$.$$\\lim_{x \\to 5} 8 = 8$$El destino de cualquier aproximación de una constante es ella misma, porque no hay nada que cambie a medida que $x$ se mueve.\n\nConfundir la constante con el punto de tendencia es un error común: recordá que una función constante no depende para nada de $x$, el valor de entrada es irrelevante.",
+    "explanation": "El **límite** de una función **constante** es siempre esa misma constante , sin importar a qué valor tienda $x$\n\n, porque $f(x)=8$ no cambia nunca: evaluando en $4{,}99, 5{,}01, 100$ siempre se obtiene $8$.\n\nLa constante es ajena al movimiento de $x$.$$\\lim_{x \\to 5} 8 = 8$$El destino de cualquier aproximación de una constante es ella misma, porque no hay nada que cambie a medida que $x$ se mueve.\n\nEste razonamiento muestra que común: recordá que una función constante no depende para nada de $x$, el valor de entrada es irrelevante.",
     "reviewed": false,
     "tags": [
       "sustitucion-polinomios-constantes"
@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **propiedades de linealidad** del límite permiten separar sumas, restas y escalares término a término.\n\n, siempre que cada límite exista por separado: si $\\lim f$ existe y $\\lim g$ existe, entonces $\\lim(af + g)$ también existe y se calcula separado.$$\\begin{aligned} \\lim_{x \\to a} [2f(x)-g(x)] &= 2\\lim_{x \\to a} f(x) - \\lim_{x \\to a} g(x) \\\\ &= 2(3) - (-2) \\\\ &= 8 \\end{aligned}$$Esta separación funciona porque el límite respeta operaciones lineales.\n\n: cuando una función es la suma o resta de dos funciones con límites conocidos, el resultado es predecible sin necesidad de combinar las funciones antes.\n\nRestar un límite negativo equivale a sumar su valor absoluto: un detalle de signo que conviene revisar siempre antes de responder, es un error frecuente.",
+    "explanation": "Las **propiedades de linealidad** del límite permiten separar sumas, restas y escalares término a término.\n\n, siempre que cada límite exista por separado: si $\\lim f$ existe y $\\lim g$ existe, entonces $\\lim(af + g)$ también existe y se calcula separado.$$\\begin{aligned} \\lim_{x \\to a} [2f(x)-g(x)] &= 2\\lim_{x \\to a} f(x) - \\lim_{x \\to a} g(x) \\\\ &= 2(3) - (-2) \\\\ &= 8 \\end{aligned}$$Esta separación funciona porque el límite respeta operaciones lineales.\n\n: cuando una función es la suma o resta de dos funciones con límites conocidos, el resultado es predecible sin necesidad de combinar las funciones antes.\n\nEste razonamiento muestra que frecuente.",
     "reviewed": false,
     "tags": [
       "propiedades-suma-escalar"
@@ -343,14 +343,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad de cociente** permite dividir los límites por separado, siempre que el **límite del denominador sea distinto de $0$**: si $\\lim g \\neq 0$, entonces $\\lim(f/g) = (\\lim f)/(\\lim g)$.$$\\begin{aligned} \\lim_{x \\to a} \\frac{f(x)}{g(x)} &= \\frac{\\lim_{x \\to a} f(x)}{\\lim_{x \\to a} g(x)} \\\\ &= \\frac{8}{4} \\\\ &= 2 \\end{aligned}$$Esta condición \"denominador no nulo\" es **obligatoria**: si el denominador tiende a $0$, la propiedad falla y el resultado puede ser una indeterminación o una tendencia al infinito.\n\nLa propiedad exige chequear primero que el límite del denominador no sea $0$, antes de aplicar la división directamente. Saltear este chequeo es un error que genera respuestas sin sentido.",
+    "explanation": "La **propiedad de cociente** permite dividir los límites por separado, siempre que el **límite del denominador sea distinto de $0$**: si $\\lim g \\neq 0$, entonces $\\lim(f/g) = (\\lim f)/(\\lim g)$.$$\\begin{aligned} \\lim_{x \\to a} \\frac{f(x)}{g(x)} &= \\frac{\\lim_{x \\to a} f(x)}{\\lim_{x \\to a} g(x)} \\\\ &= \\frac{8}{4} \\\\ &= 2 \\end{aligned}$$Esta condición \"denominador no nulo\" es **obligatoria**: si el denominador tiende a $0$, la propiedad falla y el resultado puede ser una indeterminación o una tendencia al infinito.\n\nEste razonamiento muestra que que genera respuestas sin sentido.",
     "reviewed": false,
     "tags": [
       "propiedades-producto-cociente"
     ]
   },
   {
-    "question": "Sabiendo que $\\lim_{x \\to a} f(x) = 6$ y $\\lim_{x \\to a} g(x) = 0$,\n$\\lim_{x \\to a} \\frac{f(x)}{g(x)}$\n¿qué puede afirmarse de?",
+    "question": "Sabiendo que $\\lim_{x \\to a} f(x) = 6$ y $\\lim_{x \\to a} g(x) = 0$,:\n\n$$\\lim_{x \\to a} \\frac{f(x)}{g(x)}$$\n\n¿qué puede afirmarse de?",
     "options": [
       "$6$",
       "$0$",

@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para despejar un parámetro que fuerza continuidad, se igualan el límite lateral izquierdo, el derecho y $f(a)$ en una sola ecuación.\n\nEl límite es lo que la función \"quiere ser\" desde ambos lados; $f(a)$ es adónde realmente \"está\". Para que sean continuos, deben coincidir: el parámetro que hace eso es el que buscamos.\n\nCon $k=0$ ambas ramas llegan exactamente a $y=1$ en $x=2$.\n\nEl error más frecuente es igualar solo una rama a un número cualquiera sin verificar que la otra rama, evaluada en el mismo punto, dé el mismo resultado.",
+    "explanation": "Para despejar un parámetro que fuerza continuidad, se igualan el límite lateral izquierdo, el derecho y $f(a)$ en una sola ecuación.\n\nEl límite es lo que la función \"quiere ser\" desde ambos lados; $f(a)$ es adónde realmente \"está\". Para que sean continuos, deben coincidir: el parámetro que hace eso es el que buscamos.\n\nCon $k=0$ ambas ramas llegan exactamente a $y=1$ en $x=2$.\n\nEste razonamiento muestra que igualar solo una rama a un número cualquiera sin verificar que la otra rama, evaluada en el mismo punto, dé el mismo resultado.",
     "reviewed": false,
     "tags": [
       "despeje-parametro-continuidad"

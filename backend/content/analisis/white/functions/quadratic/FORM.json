@@ -940,7 +940,7 @@
     ]
   },
   {
-    "question": "Un objeto cae desde una azotea a 45 metros de altura. La altura restante al tiempo $t$ (con $g = 10$ m/s²) es $h(t) = h_0 - \\frac{1}{2}g t^2$.\n\n¿Cuál es la ecuación concreta de $h(t)$?",
+    "question": "Un objeto cae desde una azotea a 45 metros de altura. La altura restante al tiempo $t$ (con $g = 10$ m/s²) es:\n\n$$h(t) = h_0 - \\frac{1}{2}g t^2$$\n\n.\n\n¿Cuál es la ecuación concreta de $h(t)$?",
     "options": [
       "$h(t) = 45t - 5t^2$",
       "$h(t) = 45 - 5t^2$",

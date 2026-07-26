@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Al separar una suma dentro de una integral, el diferencial $dx$ tiene que acompañar a **cada** término por separado, no solo al último.\n$$\\int (x+\\sin x)\\,dx = \\int x\\,dx + \\int \\sin x\\,dx$$\nDejar el $dx$ pegado solo a uno de los dos términos es un error de escritura frecuente al aplicar la linealidad por primera vez.",
+    "explanation": "Este razonamiento muestra que de escritura frecuente al aplicar la linealidad por primera vez.",
     "reviewed": false,
     "tags": [
       "concepto-primitiva-traslacion-geometrica"
@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "A diferencia de un producto o un cociente entre funciones, una suma con un coeficiente escalar sí respeta por completo la **linealidad**.\n$$\\int (3x+5)\\,dx = 3\\int x\\,dx + \\int 5\\,dx$$\nConviene distinguir siempre la estructura del integrando, sumas y escalares se separan sin problema, productos y cocientes de funciones no.",
+    "explanation": "La diferencia es que un producto o un cociente entre funciones, una suma con un coeficiente escalar sí respeta por completo la **linealidad**.\n$$\\int (3x+5)\\,dx = 3\\int x\\,dx + \\int 5\\,dx$$\nConviene distinguir siempre la estructura del integrando, sumas y escalares se separan sin problema, productos y cocientes de funciones no.",
     "reviewed": false,
     "tags": [
       "reescritura-potencias-y-raices"

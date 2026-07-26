@@ -300,7 +300,7 @@
     ]
   },
   {
-    "question": "Observá la gráfica de $f(x) = \\dfrac{1}{x}$. ¿En cuál de los siguientes intervalos la función es decreciente?",
+    "question": "Observá la gráfica de:\n\n$$f(x) = \\dfrac{1}{x}$$\n\n. ¿En cuál de los siguientes intervalos la función es decreciente?",
     "options": [
       "Solo en $(-\\infty,\\ 0)$",
       "Solo en $(0,\\ +\\infty)$",
@@ -323,7 +323,7 @@
       -4,
       4
     ],
-    "explanation": "Una función es **decreciente** en un intervalo cuando, a medida que $x$ aumenta, el valor de la función disminuye, y esto se evalúa por separado en cada tramo del dominio cuando hay una asíntota vertical de por medio.\n\nLa gráfica de $f(x) = 1/x$ tiene dos ramas separadas por la asíntota vertical $x = 0$. En la rama izquierda $(-\\infty, 0)$, la función va de valores cercanos a $0^-$ hacia $-\\infty$ a medida que $x$ crece hacia $0$. En la rama derecha $(0, +\\infty)$, la función va de $+\\infty$ hacia valores cercanos a $0^+$. En ambos tramos la tendencia es decreciente.\n\nOjo con confundir 'la curva sube entre las dos ramas' con comportamiento creciente: ese salto es una discontinuidad en la asíntota vertical, no crecimiento real de la función.",
+    "explanation": "Una función es **decreciente** en un intervalo cuando, a medida que $x$ aumenta, el valor de la función disminuye, y esto se evalúa por separado en cada tramo del dominio cuando hay una asíntota vertical de por medio.\n\nLa gráfica de $f(x) = 1/x$ tiene dos ramas separadas por la asíntota vertical $x = 0$. En la rama izquierda $(-\\infty, 0)$, la función va de valores cercanos a $0^-$ hacia $-\\infty$ a medida que $x$ crece hacia $0$. En la rama derecha $(0, +\\infty)$, la función va de $+\\infty$ hacia valores cercanos a $0^+$. En ambos tramos la tendencia es decreciente.\n\nTenés que verificar que con confundir 'la curva sube entre las dos ramas' con comportamiento creciente: ese salto es una discontinuidad en la asíntota vertical, no crecimiento real de la función.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
@@ -1193,7 +1193,7 @@
       -5,
       5
     ],
-    "explanation": "Para desplazar horizontalmente una hipérbola, hay que reemplazar $x$ por $(x - a)$ dentro del denominador, no sumar o restar un número fuera de la fracción, que en cambio mueve la asíntota horizontal.\nDesplazar $\\frac{1}{x}$ cuatro unidades a la derecha equivale a reemplazar $x$ por $x-4$: $f(x)=\\frac{1}{x-4}$. La AV pasa de $x=0$ a $x=4$ y la AH sigue en $y=0$. Confundir estos dos parámetros es el error más común al armar la fórmula desde el gráfico.",
+    "explanation": "Este razonamiento muestra que más común al armar la fórmula desde el gráfico.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
@@ -1380,7 +1380,7 @@
     ]
   },
   {
-    "question": "El tiempo que tarda $n$ personas en pintar una pared es $t(n) = \\dfrac{12}{n}$ horas. El gráfico muestra esta función para $n > 0$.\n\n¿Cuánto tiempo tarda si son 4 personas?",
+    "question": "El tiempo que tarda $n$ personas en pintar una pared es:\n\n$$t(n) = \\dfrac{12}{n}$$\n\nHoras. El gráfico muestra esta función para $n > 0$.",
     "options": [
       "$4$ horas",
       "$3$ horas",
@@ -1410,7 +1410,7 @@
     ]
   },
   {
-    "question": "La velocidad promedio para recorrer $60$ km en $t$ horas es $v(t) = \\dfrac{60}{t}$ km/h. El gráfico muestra esta función para $t > 0$.\n\n¿Cuánto tarda en recorrerlos a $30$ km/h?",
+    "question": "La velocidad promedio para recorrer $60$ km en $t$ horas es:\n\n$$v(t) = \\dfrac{60}{t}$$\n\nKm/h. El gráfico muestra esta función para $t > 0$.",
     "options": [
       "$\\dfrac{1}{2}$ hora",
       "$30$ horas",
@@ -1470,7 +1470,7 @@
     ]
   },
   {
-    "question": "La concentración de una sustancia en un tanque (en gramos por litro) es $c(v) = \\dfrac{10}{v}$ donde $v$ es el volumen de agua en litros. El gráfico muestra $c$ para $v > 0$.\n\n¿Cuánto vale la concentración cuando el volumen es $5$ litros?",
+    "question": "La concentración de una sustancia en un tanque (en gramos por litro) es:\n\n$$c(v) = \\dfrac{10}{v}$$\n\nDonde $v$ es el volumen de agua en litros. El gráfico muestra $c$ para $v > 0$.",
     "options": [
       "$2$ g/L",
       "$5$ g/L",

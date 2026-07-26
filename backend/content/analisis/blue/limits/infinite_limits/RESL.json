@@ -218,7 +218,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El signo del coeficiente principal es el \"motor\" que dirige la divergencia.\n\nUn coeficiente principal negativo apunta la divergencia hacia $-\\infty$, mientras que uno positivo la apunta hacia $+\\infty$. No se puede ignorar ese detalle sin cambiar completamente el resultado.\n\nEl signo negativo del coeficiente principal del numerador se combina con la dirección de $x$ para determinar el signo final del resultado divergente.$$\\begin{aligned} \\lim_{x \\to +\\infty} \\frac{-x^3+x}{x^2-4} &\\approx \\lim_{x \\to +\\infty} \\frac{-x^3}{x^2} \\\\ &= \\lim_{x \\to +\\infty} (-x) = -\\infty \\end{aligned}$$Ignorar el signo negativo del coeficiente principal es el error más frecuente en este tipo de ejercicio, conviene arrastrarlo explícitamente en cada paso.",
+    "explanation": "El signo del coeficiente principal es el \"motor\" que dirige la divergencia.\n\nUn coeficiente principal negativo apunta la divergencia hacia $-\\infty$, mientras que uno positivo la apunta hacia $+\\infty$. No se puede ignorar ese detalle sin cambiar completamente el resultado.\n\nEste razonamiento muestra que más frecuente en este tipo de ejercicio, conviene arrastrarlo explícitamente en cada paso.",
     "reviewed": false,
     "tags": [
       "racionales-gana-numerador"

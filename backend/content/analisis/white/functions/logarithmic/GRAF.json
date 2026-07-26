@@ -53,7 +53,7 @@
       -3,
       5
     ],
-    "explanation": "Toda logarítmica básica $\\log_b(x)$ tiene **asíntota vertical en $x = 0$**, ya que el argumento no puede ser cero ni negativo.\n\nEn el gráfico, la curva viene de $-\\infty$ abrazando el eje $Y$ por la derecha, sin cruzarlo.\n\nA diferencia de la exponencial, que tiene asíntota horizontal, la logarítmica nunca tiene una recta horizontal límite, su única asíntota es siempre vertical.",
+    "explanation": "Toda logarítmica básica $\\log_b(x)$ tiene **asíntota vertical en $x = 0$**, ya que el argumento no puede ser cero ni negativo.\n\nEn el gráfico, la curva viene de $-\\infty$ abrazando el eje $Y$ por la derecha, sin cruzarlo.\n\nLa diferencia es que la exponencial, que tiene asíntota horizontal, la logarítmica nunca tiene una recta horizontal límite, su única asíntota es siempre vertical.",
     "reviewed": false,
     "tags": [
       "lectura-asintota"
@@ -143,7 +143,7 @@
       -3,
       5
     ],
-    "explanation": "El logaritmo requiere argumento **estrictamente positivo**, así que el dominio de cualquier $\\log_b(x)$ básica excluye el cero y los negativos.\n\nLa gráfica confirma que la curva solo existe a la derecha del eje $Y$, sin incluir $x = 0$.\n\nDominio: $(0, +\\infty)$. No incluye $x = 0$ (ahí está la asíntota) ni valores negativos.\n\nOjo con confundir este dominio restringido con la imagen, que en cambio cubre todos los reales.",
+    "explanation": "El logaritmo requiere argumento **estrictamente positivo**, así que el dominio de cualquier $\\log_b(x)$ básica excluye el cero y los negativos.\n\nLa gráfica confirma que la curva solo existe a la derecha del eje $Y$, sin incluir $x = 0$.\n\nDominio: $(0, +\\infty)$. No incluye $x = 0$ (ahí está la asíntota) ni valores negativos.\n\nTenés que verificar que con confundir este dominio restringido con la imagen, que en cambio cubre todos los reales.",
     "reviewed": false,
     "tags": [
       "lectura-valor-puntual"

@@ -458,7 +458,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para modelar una **depreciación** del $r\\%$ anual:\n\nCon $r = 0{,}20$ (pierde 20% anual), la base es $0{,}80 < 1$. La función decrece exponencialmente hacia 0 pero nunca lo alcanza.\n\nEsto modela realidades como el enfriamiento de un objeto (Newton) o la desintegración radiactiva, donde el cambio es proporcional al valor actual.\n\nA diferencia de una depreciación lineal (que llega a 0 en tiempo finito), la exponencial **nunca** llega a 0.",
+    "explanation": "Para modelar una **depreciación** del $r\\%$ anual:\n\nCon $r = 0{,}20$ (pierde 20% anual), la base es $0{,}80 < 1$. La función decrece exponencialmente hacia 0 pero nunca lo alcanza.\n\nEsto modela realidades como el enfriamiento de un objeto (Newton) o la desintegración radiactiva, donde el cambio es proporcional al valor actual.\n\nLa diferencia es que una depreciación lineal (que llega a 0 en tiempo finito), la exponencial **nunca** llega a 0.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal"

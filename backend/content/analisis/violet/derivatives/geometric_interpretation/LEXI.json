@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la ecuación punto-pendiente de la **recta tangente**, el coeficiente que multiplica a $(x-a)$ es siempre la **pendiente** de la recta, es decir, $f'(a)$.\n\nEste valor mide qué tan inclinada queda la recta, mientras que el resto de la fórmula se encarga de anclarla en el punto correcto del plano.\n\nConfundir $f'(a)$ con $f(a)$ es el error más frecuente de esta fórmula, uno es la pendiente y el otro es la altura del punto de tangencia.",
+    "explanation": "En la ecuación punto-pendiente de la **recta tangente**, el coeficiente que multiplica a $(x-a)$ es siempre la **pendiente** de la recta, es decir, $f'(a)$.\n\nEste valor mide qué tan inclinada queda la recta, mientras que el resto de la fórmula se encarga de anclarla en el punto correcto del plano.\n\nEste razonamiento muestra que más frecuente de esta fórmula, uno es la pendiente y el otro es la altura del punto de tangencia.",
     "reviewed": false,
     "tags": [
       "anatomia-formula-punto-pendiente"

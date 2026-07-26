@@ -715,7 +715,7 @@
     ]
   },
   {
-    "question": "En el intervalo $\\left[0, \\dfrac{\\pi}{2}\\right]$, $\\operatorname{sen}(x)$ es:",
+    "question": "En el intervalo:\n\n$$\\left[0, \\dfrac{\\pi}{2}\\right]$$\n\n, $\\operatorname{sen}(x)$ es:",
     "options": [
       "Decreciente de $1$ a $0$",
       "Constante en $0$",

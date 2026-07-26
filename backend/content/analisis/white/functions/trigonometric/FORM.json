@@ -308,7 +308,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x)=A\\,\\operatorname{sen}(x)$, la **amplitud** es $|A|$: la distancia del eje central al máximo o mínimo. El coeficiente $A$ estira o comprime la onda verticalmente.\n\nPara $f(x)=3\\,\\operatorname{sen}(x)$: $|A|=3$.\n\nLa función oscila entre $-3$ y $3$.\n\nLa opción $1$ es la amplitud del seno sin escalar.\n\n$6$ sería la amplitud si $A=6$.\n\n$\\pi$ no es amplitud sino período.\n\nAmplitud $= |A| = 3$: tan fácil como leer el coeficiente delante del seno. No hay trampa.",
+    "explanation": "En $f(x)=A\\,\\operatorname{sen}(x)$, la **amplitud** es $|A|$: la distancia del eje central al máximo o mínimo. El coeficiente $A$ estira o comprime la onda verticalmente.\n\nPara $f(x)=3\\,\\operatorname{sen}(x)$: $|A|=3$.\n\nLa función oscila entre $-3$ y $3$.\n\nLa opción $1$ es la amplitud del seno sin escalar.\n\n$6$ sería la amplitud si $A=6$.\n\n$\\pi$ no es amplitud sino período.\n\nAmplitud $= |A| = 3$: es tan directo como leer el coeficiente delante del seno.",
     "reviewed": false,
     "tags": [
       "lectura-grafico-directa-trig"
@@ -390,7 +390,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\operatorname{sen}(x)$$\n$f\\!\\left(\\dfrac{\\pi}{6}\\right)$\n¿cuánto vale?",
+    "question": "Considerá:\n$$f(x) = \\operatorname{sen}(x)$$:\n\n$$f\\!\\left(\\dfrac{\\pi}{6}\\right)$$\n\n¿cuánto vale?",
     "options": [
       "$\\dfrac{\\sqrt{3}}{2}$",
       "$1$",
@@ -415,7 +415,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$g(x) = \\cos(x)$$\n$g\\!\\left(\\dfrac{\\pi}{3}\\right)$\n¿cuánto vale?",
+    "question": "Considerá:\n$$g(x) = \\cos(x)$$:\n\n$$g\\!\\left(\\dfrac{\\pi}{3}\\right)$$\n\n¿cuánto vale?",
     "options": [
       "$\\dfrac{\\sqrt{3}}{2}$",
       "$\\dfrac{1}{2}$",
@@ -515,7 +515,7 @@
     ]
   },
   {
-    "question": "La gráfica muestra $f(x) = 2\\,\\operatorname{sen}(x)$.\n$f\\!\\left(\\dfrac{\\pi}{2}\\right)$\n¿Cuánto vale?",
+    "question": "La gráfica muestra $f(x) = 2\\,\\operatorname{sen}(x)$.\n\n$$f\\!\\left(\\dfrac{\\pi}{2}\\right)$$\n\n¿Cuánto vale?",
     "options": [
       "$2$",
       "$1$",
@@ -570,7 +570,7 @@
     ]
   },
   {
-    "question": "Una función $f(x) = \\operatorname{sen}(Bx)$ tiene período $T = \\dfrac{\\pi}{3}$. ¿Cuál es el valor de $B$?",
+    "question": "Una función $f(x) = \\operatorname{sen}(Bx)$ tiene período:\n\n$$T = \\dfrac{\\pi}{3}$$\n\n. ¿Cuál es el valor de $B$?",
     "options": [
       "$3$",
       "$6$",
@@ -960,7 +960,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\operatorname{sen}(x)$$\n$f\\!\\left(\\dfrac{3\\pi}{2}\\right)$\n¿cuánto vale?",
+    "question": "Considerá:\n$$f(x) = \\operatorname{sen}(x)$$:\n\n$$f\\!\\left(\\dfrac{3\\pi}{2}\\right)$$\n\n¿cuánto vale?",
     "options": [
       "$0$",
       "$1$",
@@ -1215,7 +1215,7 @@
     ]
   },
   {
-    "question": "La función $f(x) = \\dfrac{1}{2}\\,\\operatorname{sen}(x)$ tiene amplitud:",
+    "question": "La función:\n\n$$f(x) = \\dfrac{1}{2}\\,\\operatorname{sen}(x)$$\n\nTiene amplitud:",
     "options": [
       "$\\dfrac{1}{4}$",
       "$2$",
@@ -1265,7 +1265,7 @@
     ]
   },
   {
-    "question": "La temperatura en una ciudad sigue el modelo $T(h) = 10\\,\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{12}(h - 6)\\right) + 20$, donde $h$ es la hora del día ($0 \\leq h < 24$). ¿Cuál es la temperatura máxima?",
+    "question": "La temperatura en una ciudad sigue el modelo:\n\n$$T(h) = 10\\,\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{12}(h - 6)\\right) + 20$$\n\n, donde $h$ es la hora del día ($0 \\leq h < 24$). ¿Cuál es la temperatura máxima?",
     "options": [
       "$10\\,°C$",
       "$30\\,°C$",

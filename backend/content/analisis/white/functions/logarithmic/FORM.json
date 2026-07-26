@@ -573,7 +573,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad de la potencia** de los logaritmos dice que $\\log_b(a^n) = n \\cdot \\log_b(a)$: el exponente del argumento baja y multiplica al logaritmo completo.\n\nVerificación con $x = 100$: $\\log(100^3) = \\log(10^6) = 6$ y $3 \\cdot \\log(100) = 3 \\cdot 2 = 6$, coinciden.\n\nEl error más común acá es olvidar el factor $3$ y responder solo $\\log(x)$, o confundir el exponente con un coeficiente que multiplica adentro del argumento.",
+    "explanation": "La **propiedad de la potencia** de los logaritmos dice que $\\log_b(a^n) = n \\cdot \\log_b(a)$: el exponente del argumento baja y multiplica al logaritmo completo.\n\nVerificación con $x = 100$: $\\log(100^3) = \\log(10^6) = 6$ y $3 \\cdot \\log(100) = 3 \\cdot 2 = 6$, coinciden.\n\nSi olvidas el factor $3$ y responden solo $\\log(x)$, o confundís el exponente con un coeficiente que multiplica adentro del argumento, entonces vas a cometer un error.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -698,7 +698,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando una expresión suma dos logaritmos, el **dominio** exige que el argumento de cada uno sea positivo por separado, y después hay que quedarse con la condición más restrictiva entre todas.\n\nPara $f(x) = \\log(x - 2) + \\log(x + 2)$, el primer término exige $x - 2 > 0$, es decir $x > 2$, mientras que el segundo exige $x + 2 > 0$, es decir $x > -2$.\n\nAmbas condiciones deben cumplirse simultáneamente, así que se toma la intersección de los dos intervalos.\n\nComo $x > 2$ ya implica $x > -2$, la condición más exigente es $x > 2$, y ese es el dominio final: $(2, +\\infty)$.\n\nEl error más común es quedarse con la condición menos restrictiva en vez de con la que realmente acota el conjunto.",
+    "explanation": "Cuando una expresión suma dos logaritmos, el **dominio** exige que el argumento de cada uno sea positivo por separado, y después hay que quedarse con la condición más restrictiva entre todas.\n\nPara $f(x) = \\log(x - 2) + \\log(x + 2)$, el primer término exige $x - 2 > 0$, es decir $x > 2$, mientras que el segundo exige $x + 2 > 0$, es decir $x > -2$.\n\nAmbas condiciones deben cumplirse simultáneamente, así que se toma la intersección de los dos intervalos.\n\nComo $x > 2$ ya implica $x > -2$, la condición más exigente es $x > 2$, y ese es el dominio final: $(2, +\\infty)$.\n\nSi te quedás con la condición menos restrictiva en vez de con la que realmente acota el conjunto, entonces vas a obtener un dominio incorrecto.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -848,7 +848,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Resolver este tipo de expresiones requiere aplicar dos propiedades en cadena: primero la del producto, para separar $9$ de $x^2$, y después la de la potencia, para bajar el exponente $2$.\n\nSe usa $\\log_3(9) = 2$ porque $3^2 = 9$, y $\\log_3(x^2) = 2\\log_3(x)$ por la propiedad de la potencia.\n\nEl error más común es aplicar una sola propiedad y olvidar la otra, dejando el $9$ sin convertir o el exponente $2$ sin bajar.",
+    "explanation": "Resolver este tipo de expresiones requiere aplicar dos propiedades en cadena: primero la del producto, para separar $9$ de $x^2$, y después la de la potencia, para bajar el exponente $2$.\n\nSe usa $\\log_3(9) = 2$ porque $3^2 = 9$, y $\\log_3(x^2) = 2\\log_3(x)$ por la propiedad de la potencia.\n\nAplicar una sola propiedad y olvidar la otra, dejando el $9$ sin convertir o el exponente $2$ sin bajar, produce un resultado incorrecto.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1098,7 +1098,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad del cociente** de los logaritmos dice que $\\log_b(a/c) = \\log_b(a) - \\log_b(c)$: el logaritmo de una división se descompone en una resta.\n\nSe usa $\\log_2(16) = 4$ porque $2^4 = 16$.\n\nEl error más frecuente con esta propiedad es invertir el orden de la resta o confundirla con la del producto, sumando en vez de restar los dos logaritmos.",
+    "explanation": "La **propiedad del cociente** de los logaritmos dice que $\\log_b(a/c) = \\log_b(a) - \\log_b(c)$: el logaritmo de una división se descompone en una resta.\n\nSe usa $\\log_2(16) = 4$ porque $2^4 = 16$.\n\nSi invertís el orden de la resta o confundís esta propiedad con la del producto y sumas en vez de restar los dos logaritmos, entonces vas a cometer un error.",
     "reviewed": false,
     "tags": [
       "evaluar-f"

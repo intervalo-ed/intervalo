@@ -200,7 +200,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla del cociente** tiene un orden estricto en la resta del numerador, que no se puede invertir sin cambiar el resultado.\n\nA diferencia de la regla del producto, acá el orden de la resta importa, y el **denominador** siempre queda elevado al cuadrado. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "La **regla del cociente** tiene un orden estricto en la resta del numerador, que no se puede invertir sin cambiar el resultado.\n\nLa diferencia es que la regla del producto, acá el orden de la resta importa, y el **denominador** siempre queda elevado al cuadrado. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "anatomia-signos-y-dominio-cociente"

@@ -83,7 +83,7 @@
       -2,
       9
     ],
-    "explanation": "Al pedir el límite por la izquierda, hay que seguir exclusivamente la rama activa para $x<2$, ignorando por completo hacia dónde va la rama del otro lado.\n$$\\lim_{x \\to 2^-} f(x) = 2 \\cdot 2 = 4$$\nMientras que por la derecha la rama $x+5$ llega a $7$, el valor del lado contrario.\n\nConfundir el lado contrario con el lateral pedido es el error más común al leer un salto en una gráfica.",
+    "explanation": "Al pedir el límite por la izquierda, hay que seguir exclusivamente la rama activa para $x<2$, ignorando por completo hacia dónde va la rama del otro lado.\n$$\\lim_{x \\to 2^-} f(x) = 2 \\cdot 2 = 4$$\nMientras que por la derecha la rama $x+5$ llega a $7$, el valor del lado contrario.\n\nEste razonamiento muestra que más común al leer un salto en una gráfica.",
     "reviewed": false,
     "tags": [
       "lectura-lateral-pura"

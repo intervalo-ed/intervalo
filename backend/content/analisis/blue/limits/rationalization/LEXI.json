@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjugado debe construirse de manera precisa: invirtiendo solo el signo entre los dos términos externos. Esta precisión es lo que permite que la diferencia de cuadrados elimine la raíz después.\n\nArmar el **conjugado** de $\\sqrt{u} + c$ consiste en invertir solo el signo entre los dos términos externos, dejando el radicando $u$ exactamente igual.\n$$\\sqrt{3x+2} + 1 \\;\\to\\; \\sqrt{3x+2} - 1$$\nMultiplicar por este conjugado produce la **diferencia de cuadrados** $(3x+2) - 1$, que ya no tiene raíces y permite continuar con la simplificación.\n\nUna confusión típica es invertir el signo del radicando en lugar del externo: conviene siempre chequear que ambos radicandos, el original y el del conjugado, coincidan.",
+    "explanation": "El conjugado debe construirse de manera precisa: invirtiendo solo el signo entre los dos términos externos. Esta precisión es lo que permite que la diferencia de cuadrados elimine la raíz después.\n\nArmar el **conjugado** de $\\sqrt{u} + c$ consiste en invertir solo el signo entre los dos términos externos, dejando el radicando $u$ exactamente igual.\n$$\\sqrt{3x+2} + 1 \\;\\to\\; \\sqrt{3x+2} - 1$$\nMultiplicar por este conjugado produce la **diferencia de cuadrados** $(3x+2) - 1$, que ya no tiene raíces y permite continuar con la simplificación.\n\nEste razonamiento muestra que invertir el signo del radicando en lugar del externo: conviene siempre chequear que ambos radicandos, el original y el del conjugado, coincidan.",
     "reviewed": false,
     "tags": [
       "identificacion-del-conjugado"
@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "Antes de resolver un límite, conviene diagnosticar qué técnica corresponde aplicar.\n\nPara $\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$, que da la **indeterminación** una indeterminación $0/0$ y no tiene ninguna raíz cuadrada, ¿qué técnica corresponde?",
+    "question": "Antes de resolver un límite, conviene diagnosticar qué técnica corresponde aplicar.\n\nPara:\n\n$$\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$$\n\n, que da la **indeterminación** una indeterminación $0/0$ y no tiene ninguna raíz cuadrada, ¿qué técnica corresponde?",
     "options": [
       "Racionalizar",
       "Factorizar",
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Multiplicar solo una parte de la fracción es un error grave porque no preserva el límite original. Un límite no es solo un número calculado; es el valor al que una función tiende, y modificar la función cambia ese límite.\n\nEl **conjugado** solo sirve como herramienta de transformación si se multiplica por $\\tfrac{\\text{conjugado}}{\\text{conjugado}} = 1$, arriba y abajo por igual.\n$$\\frac{f(x) \\cdot \\text{conjugado}}{g(x)} \\neq \\frac{f(x)}{g(x)}$$\nAl multiplicar solo el numerador, la fracción deja de ser una multiplicación por $1$ y pasa a representar una función distinta a la original.\n\nEste es un error grave porque el límite calculado ya no corresponde al problema planteado, aunque el álgebra intermedia parezca correcta.",
+    "explanation": "Multiplicar solo una parte de la fracción es un error grave porque no preserva el límite original. Un límite no es solo un número calculado; es el valor al que una función tiende, y modificar la función cambia ese límite.\n\nEl **conjugado** solo sirve como herramienta de transformación si se multiplica por $\\tfrac{\\text{conjugado}}{\\text{conjugado}} = 1$, arriba y abajo por igual.\n$$\\frac{f(x) \\cdot \\text{conjugado}}{g(x)} \\neq \\frac{f(x)}{g(x)}$$\nAl multiplicar solo el numerador, la fracción deja de ser una multiplicación por $1$ y pasa a representar una función distinta a la original.\n\nEste razonamiento muestra que grave porque el límite calculado ya no corresponde al problema planteado, aunque el álgebra intermedia parezca correcta.",
     "reviewed": false,
     "tags": [
       "proposito-logico-conjugado"

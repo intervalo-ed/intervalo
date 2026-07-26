@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función racional** se define como el cociente de dos polinomios, $f(x)=\\dfrac{P(x)}{Q(x)}$, con $Q(x)$ no nulo. En las opciones, $x^2-1$ es un polinomio suelto (familia cuadrática), $3^x$ tiene la variable en el exponente (familia exponencial) y $\\sqrt{x}=x^{1/2}$ tiene exponente fraccionario (familia raíz), ninguna es un cociente de polinomios. Solo $\\dfrac{x+1}{x-2}$ cumple la definición. La confusión más común es dejarse llevar por la presencia de una $x$ en el denominador y no verificar que tanto arriba como abajo haya polinomios genuinos.",
+    "explanation": "Este razonamiento muestra que dejarse llevar por la presencia de una $x$ en el denominador y no verificar que tanto arriba como abajo haya polinomios genuinos.",
     "reviewed": false,
     "tags": [
       "agujero-vs-asintota"
@@ -290,7 +290,7 @@
     ]
   },
   {
-    "question": "Si en $f(x) = \\dfrac{1}{x-3}$ el denominador se anula en $x = 3$, ¿qué pasa en ese punto?",
+    "question": "Si en:\n\n$$f(x) = \\dfrac{1}{x-3}$$\n\nEl denominador se anula en $x = 3$, ¿qué pasa en ese punto?",
     "options": [
       "La función vale cero en $x = 3$",
       "La función alcanza su máximo en $x = 3$",
@@ -390,7 +390,7 @@
     ]
   },
   {
-    "question": "Si el grado del numerador es **menor** que el grado del denominador en $f(x) = \\dfrac{P(x)}{Q(x)}$, ¿cuál es la **asíntota horizontal**?",
+    "question": "Si el grado del numerador es **menor** que el grado del denominador en:\n\n$$f(x) = \\dfrac{P(x)}{Q(x)}$$\n\n, ¿cuál es la **asíntota horizontal**?",
     "options": [
       "$y = 1$",
       "No tiene asíntota horizontal",
@@ -908,7 +908,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x)=\\frac{k}{x-a}+b$, cada parámetro cumple un rol fijo: el denominador $x-a$ se anula en $x=a$, generando la **asíntota vertical** ahí. Cuando $x\\to\\pm\\infty$, el término $\\frac{k}{x-a}\\to0$ y la función se acerca a $b$, generando la asíntota horizontal en $y=b$. Confundir cuál parámetro corresponde a cada asíntota es el error más común al leer esta forma general.",
+    "explanation": "Este razonamiento muestra que más común al leer esta forma general.",
     "reviewed": false,
     "tags": [
       "conteo-ramas"

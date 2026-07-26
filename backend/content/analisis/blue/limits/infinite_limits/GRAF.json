@@ -113,7 +113,7 @@
       -4,
       2
     ],
-    "explanation": "Cuando una función se estabiliza en una altura negativa, la **asíntota horizontal** sigue siendo una recta $y=L$, solo que con $L$ negativo. El signo no cambia el método de lectura, se sigue mirando el comportamiento en ambos extremos del gráfico.\n$$x \\to \\pm\\infty \\ \\Rightarrow \\ f(x) \\to -2$$\nUn error frecuente es leer solo la magnitud de la altura y olvidar el signo negativo al escribir la ecuación de la recta.",
+    "explanation": "Este razonamiento muestra que leer solo la magnitud de la altura y olvidar el signo negativo al escribir la ecuación de la recta.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-horizontal"
@@ -169,7 +169,7 @@
       -1,
       4
     ],
-    "explanation": "Una **asíntota horizontal** describe el comportamiento en los extremos de la gráfica, no una barrera que la curva no puede cruzar. Es común que una función cruce su propia asíntota horizontal en la zona central, mientras se sigue acercando a ella hacia $x \\to \\pm\\infty$.\n$$x \\to \\pm\\infty \\ \\Rightarrow \\ f(x) \\to 2, \\text{ aunque cruce } y=2 \\text{ en el medio}$$\nConfundir la asíntota con una cota infranqueable es un error clásico, la definición solo habla del comportamiento en los extremos.",
+    "explanation": "Este razonamiento muestra que clásico, la definición solo habla del comportamiento en los extremos.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-horizontal"
@@ -345,7 +345,7 @@
       -1,
       10
     ],
-    "explanation": "La **asimetría en el infinito** es típica de funciones exponenciales crecientes: los dos extremos se comportan de forma radicalmente distinta. Un extremo alcanza una **asíntota horizontal**, mientras el otro diverge sin freno.\n\nEn una función exponencial creciente, la diferencia de comportamiento entre extremos es la norma, no la excepción. Hacia $x \\to -\\infty$ la curva se aplasta hacia $0$, mientras que hacia $x \\to +\\infty$ se dispara sin cota.\n$$\\lim_{x \\to -\\infty} 2^x = 0$$\nAsumir que ambos extremos se comportan igual es un error frecuente al leer gráficas de funciones exponenciales.",
+    "explanation": "La **asimetría en el infinito** es típica de funciones exponenciales crecientes: los dos extremos se comportan de forma radicalmente distinta. Un extremo alcanza una **asíntota horizontal**, mientras el otro diverge sin freno.\n\nEste razonamiento muestra que frecuente al leer gráficas de funciones exponenciales.",
     "reviewed": false,
     "tags": [
       "asimetria-en-el-infinito"

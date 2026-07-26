@@ -1215,7 +1215,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $\\dfrac{5^{x+2}}{5^x}$?",
+    "question": "¿Cuánto vale:\n\n$$\\dfrac{5^{x+2}}{5^x}$$\n\n?",
     "options": [
       "$5^2 = 25$",
       "$5^{2x}$",

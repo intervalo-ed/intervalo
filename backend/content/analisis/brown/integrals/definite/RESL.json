@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Armamos la primitiva $F(x)=\\frac{x^3}{3}+x$ y aplicamos la **Regla de Barrow**.\n$$\\begin{aligned} F(2) &= \\frac{8}{3}+2 = \\frac{14}{3} \\\\ F(0) &= 0 \\\\ \\int_0^2 (x^2+1)\\,dx &= \\frac{14}{3}-0 = \\frac{14}{3} \\end{aligned}$$\nLa resta final requiere denominador común entre la fracción y el entero, saltear ese paso es el error aritmético más frecuente acá.",
+    "explanation": "Este razonamiento muestra que aritmético más frecuente acá.",
     "reviewed": false,
     "tags": [
       "barrow-con-reglas-directas"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Armamos la primitiva $F(x)=e^{2x}$, ya que la sustitución $u=2x$ deja $2\\int e^{2x}\\,dx=e^{2x}$, y aplicamos Barrow.\n$$\\begin{aligned} F(1) &= e^2 \\\\ F(0) &= e^0 = 1 \\\\ \\int_0^1 2e^{2x}\\,dx &= e^2-1 \\end{aligned}$$\nIgual que con la exponencial simple, el error más común es dejar de lado que $F(0)=1$, no cero, aunque el límite inferior sea cero.",
+    "explanation": "Este razonamiento muestra que dejar de lado que $F(0)=1$, no cero, aunque el límite inferior sea cero.",
     "reviewed": false,
     "tags": [
       "barrow-con-sustitucion-y-partes"
