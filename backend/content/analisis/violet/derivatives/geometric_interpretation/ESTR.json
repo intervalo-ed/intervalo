@@ -318,7 +318,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **tangente horizontal** aparece exactamente donde la derivada se anula, así que hay que resolver $f'(x)=0$.\n\nAsí entonces, toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "La **tangente horizontal** de una curva aparece exactamente donde la pendiente de la recta tangente es cero, lo que corresponde a resolver la ecuación $f'(x)=0$.\n\nEn este caso, $2x-4=0$ da $x=2$: el punto donde la recta tangente es horizontal. Geométricamente, los puntos con tangente horizontal corresponden a máximos, mínimos o puntos de inflexión horizontal de la función. Resolver la derivada igual a cero es el paso fundamental para encontrar estos puntos críticos.",
     "reviewed": false,
     "tags": [
       "tangentes-horizontales-calculo"

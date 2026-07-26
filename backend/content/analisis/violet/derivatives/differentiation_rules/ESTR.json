@@ -71,7 +71,7 @@
   {
     "question": "Considerá la siguiente función:\n$$f(x) = 5x^4 - 2x + 7$$\n¿Qué regla permite derivar cada término por separado antes de combinar los resultados?",
     "options": [
-      "Linealidad de la derivada",
+      "Linealidad aplicada",
       "Regla del producto",
       "Regla de la cadena"
     ],
@@ -233,7 +233,7 @@
     "question": "En la misma función:\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿Qué regla corresponde aplicar al término $3x^2$?",
     "options": [
       "Regla de la constante",
-      "Escalar",
+      "Escalar por linealidad",
       "Derivada de exponencial"
     ],
     "correct_index": 1,
@@ -257,7 +257,7 @@
     "options": [
       "Dos",
       "Uno",
-      "Tres"
+      "Potencia simple"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -326,7 +326,7 @@
     "options": [
       "Regla de la potencia",
       "Derivada de exponencial",
-      "Múltiplo"
+      "Múltiplo con trig"
     ],
     "correct_index": 2,
     "has_math": true,

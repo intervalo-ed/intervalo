@@ -270,7 +270,7 @@
       "$5$",
       "$2x$",
       "$x$",
-      "$2$"
+      "Cambio"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -1191,7 +1191,7 @@
     "options": [
       "Pasa por el origen",
       "Constante en toda la función",
-      "Cambio constante"
+      "De cambio constante"
     ],
     "correct_index": 2,
     "has_math": true,

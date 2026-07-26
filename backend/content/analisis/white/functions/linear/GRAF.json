@@ -605,7 +605,7 @@
     "options": [
       "$(0, +\\infty)$",
       "$(-\\infty, 7/3)$",
-      "Todos los números reales",
+      "Reales",
       "$(7/3, +\\infty)$"
     ],
     "correct_index": 2,
@@ -629,7 +629,7 @@
     "question": "¿En qué intervalo decrece $f(x) = -2x + 5$?",
     "options": [
       "$(0, +\\infty)$",
-      "Todos los números reales",
+      "Reales",
       "$(-\\infty, 5/2)$",
       "$(5/2, +\\infty)$"
     ],
@@ -951,7 +951,7 @@
   {
     "question": "¿Es $f(x) = 3(x + 2)$ una función lineal?",
     "options": [
-      "Sí, es función",
+      "Sí, es una función lineal",
       "No, porque tiene paréntesis",
       "No, porque multiplica"
     ],

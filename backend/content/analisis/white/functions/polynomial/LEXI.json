@@ -1219,7 +1219,7 @@
     "options": [
       "$x = 1$ es una raíz simple",
       "$x = 1$ es una raíz doble",
-      "Raíz del polinomio",
+      "Es una raíz del polinomio",
       "$x = 1$ es un máximo local"
     ],
     "correct_index": 2,

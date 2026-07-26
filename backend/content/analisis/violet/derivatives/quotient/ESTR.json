@@ -2,7 +2,7 @@
   {
     "question": "Considerá la función:\n$$f(x) = \\frac{5}{x^3}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
-      "Negativa",
+      "Hacer negativa",
       "Regla del cociente",
       "Múltiplo escalar"
     ],
@@ -26,7 +26,7 @@
     "question": "Analizá la función:\n$$f(x) = \\frac{7}{x^2}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del producto",
-      "Negativa",
+      "Hacer negativa",
       "Regla del cociente"
     ],
     "correct_index": 1,
@@ -50,7 +50,7 @@
     "options": [
       "Regla del cociente",
       "Múltiplo escalar",
-      "Negativa"
+      "Hacer negativa"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -164,7 +164,7 @@
     "question": "Analizá la función:\n$$f(x) = \\frac{x^3-8}{x-2}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Múltiplo escalar",
-      "Simplificar",
+      "Simplificar primero",
       "Regla del cociente"
     ],
     "correct_index": 1,
