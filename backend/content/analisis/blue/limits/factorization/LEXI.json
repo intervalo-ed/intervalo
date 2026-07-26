@@ -19,7 +19,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **diferencia de cuadrados** es la forma $a^2 - b^2$, que aparece cuando una expresión resta dos términos que son cuadrados perfectos. Esta estructura factoriza según la identidad algebraica fundamental: el producto de una suma y una diferencia de las mismas cantidades siempre reconstruye la diferencia de sus cuadrados.\nIdentificando la estructura paso a paso:\n$$\\begin{aligned} x^2 - 25 &= x^2 - 5^2 \\\\ &= (x - 5)(x + 5) \\end{aligned}$$\nEn límites indeterminados $0/0$, cuando ambos numerador y denominador contienen una diferencia de cuadrados, factorizar al instante revela el factor cancelable. Conviene revisar siempre primero si hay un signo menos entre dos cuadrados exactos, porque esa combinación es la señal más rápida de este caso frente al trinomio o al factor común.",
+    "explanation": "La **diferencia de cuadrados** es la forma $a^2 - b^2$, que aparece cuando una expresión resta dos términos que son cuadrados perfectos.\n\nEsta estructura factoriza según la identidad algebraica fundamental: el producto de una suma y una diferencia de las mismas cantidades siempre reconstruye la diferencia de sus cuadrados.\n\nIdentificando la estructura paso a paso:$$\\begin{aligned} x^2 - 25 &= x^2 - 5^2 \\\\ &= (x - 5)(x + 5) \\end{aligned}$$En límites indeterminados $0/0$, cuando ambos numerador y denominador contienen una diferencia de cuadrados, factorizar al instante revela el factor cancelable.\n\nConviene revisar siempre primero si hay un signo menos entre dos cuadrados exactos, porque esa combinación es la señal más rápida de este caso frente al trinomio o al factor común.",
     "reviewed": false
   },
   {
@@ -42,7 +42,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una suma de dos cuadrados, como $x^2 + 25$, no admite ninguna **factorización** dentro de los números reales. Por más que busques binomios $(x - a)(x + a)$ reales cuyo producto reconstruya la suma, la estructura algebraica no lo permite: ese producto siempre produce una resta, nunca una suma entre cuadrados.\n$$x^2 + 25 \\neq (x - a)(x + a) \\text{ para ningún } a \\in \\mathbb{R}$$\nEsta observación es crucial en límites: cuando una indeterminación $0/0$ involucra una suma de cuadrados, la factorización no será la herramienta adecuada. Esta expresión actúa como distractor frecuente frente a la diferencia de cuadrados, así que conviene revisar siempre el signo central antes de intentar factorizarla.",
+    "explanation": "Una suma de dos cuadrados, como $x^2 + 25$, no admite ninguna **factorización** dentro de los números reales.\n\nPor más que busques binomios $(x - a)(x + a)$ reales cuyo producto reconstruya la suma, la estructura algebraica no lo permite: ese producto siempre produce una resta, nunca una suma entre cuadrados.$$x^2 + 25 \\neq (x - a)(x + a) \\text{ para ningún } a \\in \\mathbb{R}$$Esta observación es crucial en límites: cuando una indeterminación $0/0$ involucra una suma de cuadrados, la factorización no será la herramienta adecuada.\n\nEsta expresión actúa como distractor frecuente frente a la diferencia de cuadrados, así que conviene revisar siempre el signo central antes de intentar factorizarla.",
     "reviewed": false
   },
   {
@@ -65,7 +65,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **trinomio cuadrado perfecto** tiene la forma $a^2 \\pm 2ab + b^2 = (a \\pm b)^2$, donde el término lineal es exactamente el doble producto de las raíces cuadradas del primer y último término. Reconocer este patrón evita buscar dos números sueltos, como en el trinomio general.\nVerificando la estructura:\n$$\\begin{aligned} x^2 + 8x + 16 &= x^2 + 2(x)(4) + 4^2 \\\\ &= (x + 4)^2 \\end{aligned}$$\nUna forma rápida de detectar este caso es verificar si el término lineal coincide exactamente con el doble del producto de las raíces de los extremos antes de probar con la fórmula del trinomio general. Es un atajo que ahorra tiempo y errores de cálculo.",
+    "explanation": "El **trinomio cuadrado perfecto** tiene la forma $a^2 \\pm 2ab + b^2 = (a \\pm b)^2$, donde el término lineal es exactamente el doble producto de las raíces cuadradas del primer y último término.\n\nReconocer este patrón evita buscar dos números sueltos, como en el trinomio general. Verificando la estructura:$$\\begin{aligned} x^2 + 8x + 16 &= x^2 + 2(x)(4) + 4^2 \\\\ &= (x + 4)^2 \\end{aligned}$$Una forma rápida de detectar este caso es verificar si el término lineal coincide exactamente con el doble del producto de las raíces de los extremos antes de probar con la fórmula del trinomio general.\n\nEs un atajo que ahorra tiempo y errores de cálculo.",
     "reviewed": false
   },
   {
@@ -88,7 +88,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **factor común** se extrae cuando todos los términos de una expresión comparten un mismo divisor, que puede incluir tanto un coeficiente numérico como potencias de la variable. El máximo común divisor es el que factorizamos, no uno parcial.\nIdentificando el factor completo:\n$$3x^2 + 9x = 3x(x + 3)$$\nConviene extraer siempre el máximo común divisor completo, coeficiente y variable incluidos, porque dejar una parte adentro del paréntesis es un error frecuente al aplicar este caso. En límites indeterminados, un factor común que sale de numerador y denominador es exactamente lo que cancela la indeterminación.",
+    "explanation": "El **factor común** se extrae cuando todos los términos de una expresión comparten un mismo divisor, que puede incluir tanto un coeficiente numérico como potencias de la variable.\n\nEl máximo común divisor es el que factorizamos, no uno parcial. Identificando el factor completo:$$3x^2 + 9x = 3x(x + 3)$$Conviene extraer siempre el máximo común divisor completo, coeficiente y variable incluidos, porque dejar una parte adentro del paréntesis es un error frecuente al aplicar este caso.\n\nEn límites indeterminados, un factor común que sale de numerador y denominador es exactamente lo que cancela la indeterminación.",
     "reviewed": false
   },
   {
@@ -111,7 +111,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para factorizar un **trinomio** de la forma $x^2 + bx + c$ hay que encontrar dos números que sumados den $b$ y multiplicados den $c$. El procedimiento es sistemático: primero lista los pares de factores de $c$, luego verifica cuál par suma exactamente $b$.\nVericando ambas condiciones simultáneamente:\n$$\\begin{aligned} 1 + 6 &= 7 \\\\ 1 \\cdot 6 &= 6 \\end{aligned}$$\nUna confusión típica es probar solo el producto correcto sin verificar también que la suma coincida, o invertir los signos cuando el término independiente es positivo pero se olvida revisar el signo del término lineal. En límites con indeterminación $0/0$, una factorización correcta del trinomio revela inmediatamente el factor cancelable.",
+    "explanation": "Para factorizar un **trinomio** de la forma $x^2 + bx + c$ hay que encontrar dos números que sumados den $b$ y multiplicados den $c$.\n\nEl procedimiento es sistemático: primero lista los pares de factores de $c$, luego verifica cuál par suma exactamente $b$. Vericando ambas condiciones simultáneamente:$$\\begin{aligned} 1 + 6 &= 7 \\\\ 1 \\cdot 6 &= 6 \\end{aligned}$$Una confusión típica es probar solo el producto correcto sin verificar también que la suma coincida\n\n, o invertir los signos cuando el término independiente es positivo pero se olvida revisar el signo del término lineal.\n\nEn límites con indeterminación $0/0$, una factorización correcta del trinomio revela inmediatamente el factor cancelable.",
     "reviewed": false
   },
   {
@@ -134,7 +134,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **teorema del factor** garantiza que si una expresión polinómica se anula en $x=a$, entonces $(x-a)$ es uno de sus factores. Esta es la conexión entre raíces y estructura algebraica: cada cero de un polinomio corresponde a un factor lineal específico.\nSi $P(4) = 0$, entonces:\n$$P(x) = (x-4) \\cdot Q(x)$$\nComo tanto el numerador como el denominador se anulan en $x=4$, ambos deben contener el factor $(x-4)$. Ese es precisamente el factor que se cancela para salvar la **indeterminación** $0/0$. La belleza del teorema es que si la sustitución da cero, la factorización automáticamente exhibe cuál factor se repite en ambos polinomios.",
+    "explanation": "El **teorema del factor** garantiza que si una expresión polinómica se anula en $x=a$, entonces $(x-a)$ es uno de sus factores.\n\nEsta es la conexión entre raíces y estructura algebraica: cada cero de un polinomio corresponde a un factor lineal específico. Si $P(4) = 0$, entonces:$$P(x) = (x-4) \\cdot Q(x)$$Como tanto el numerador como el denominador se anulan en $x=4$, ambos deben contener el factor $(x-4)$. Ese es precisamente el factor que se cancela para salvar la **indeterminación** $0/0$.\n\nLa belleza del teorema es que si la sustitución da cero, la factorización automáticamente exhibe cuál factor se repite en ambos polinomios.",
     "reviewed": false
   },
   {
@@ -157,7 +157,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando la tendencia de un límite es $x \\to a$, el **teorema del factor** exige que $(x-a)$ divida tanto al numerador como al denominador si ambos se anulan en $a$. La regla del signo es crítica: el factor siempre es $(x - a)$, con el signo opuesto al valor de tendencia.\nPara $x \\to -2$:\n$$(x - (-2)) = (x + 2)$$\nUn error frecuente es fijarse solo en el número de la tendencia, copiar su signo tal cual y escribir $(x - 2)$ cuando corresponde $(x + 2)$. El signo dentro del paréntesis siempre es opuesto al número de tendencia.",
+    "explanation": "Cuando la tendencia de un límite es $x \\to a$, el **teorema del factor** exige que $(x-a)$ divida tanto al numerador como al denominador si ambos se anulan en $a$.\n\nLa regla del signo es crítica: el factor siempre es $(x - a)$, con el signo opuesto al valor de tendencia. Para $x \\to -2$:$$(x - (-2)) = (x + 2)$$Un error frecuente es fijarse solo en el número de la tendencia, copiar su signo tal cual y escribir $(x - 2)$ cuando corresponde $(x + 2)$.\n\nEl signo dentro del paréntesis siempre es opuesto al número de tendencia.",
     "reviewed": false
   },
   {
@@ -180,7 +180,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El teorema del factor exige el factor $(x-a)$ para el valor de tendencia $a$. Cuando $a=0$, esa expresión se reduce a $x$, porque $(x - 0) = x$. Este es un caso particular importante pero a veces invisible.\n$$\\text{Si } P(0) = 0 \\Rightarrow P(x) = x \\cdot Q(x)$$\nConviene recordar este caso particular porque, al no tener número visible dentro del paréntesis, algunos lo pasan por alto y buscan un factor distinto al correcto, como $(x-1)$ o $(x+1)$. En límites con tendencia $x \\to 0$, el factor cancelable es siempre una potencia de $x$ sola.",
+    "explanation": "El teorema del factor exige el factor $(x-a)$ para el valor de tendencia $a$. Cuando $a=0$, esa expresión se reduce a $x$, porque $(x - 0) = x$.\n\nEste es un caso particular importante pero a veces invisible.$$\\text{Si } P(0) = 0 \\Rightarrow P(x) = x \\cdot Q(x)$$Conviene recordar este caso particular porque, al no tener número visible dentro del paréntesis, algunos lo pasan por alto y buscan un factor distinto al correcto, como $(x-1)$ o $(x+1)$.\n\nEn límites con tendencia $x \\to 0$, el factor cancelable es siempre una potencia de $x$ sola.",
     "reviewed": false
   },
   {
@@ -203,7 +203,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El teorema del factor establece que si un polinomio $P$ cumple $P(a)=0$, entonces $(x-a)$ es uno de sus factores. Esta es una garantía algebraica absoluta: no es una posibilidad ni una probabilidad, es una certeza.\n$$P(a) = 0 \\Leftrightarrow (x-a) \\mid P(x)$$\nPor eso, cuando la sustitución directa da 0/0, se sabe de antemano que $(x-a)$ está presente en ambos términos del cociente. Ese es el factor que hay que aislar mediante la factorización para poder cancelarlo luego. La **indeterminación es una garantía, no una barrera**: nos asegura que la factorización funcionará.",
+    "explanation": "El teorema del factor establece que si un polinomio $P$ cumple $P(a)=0$, entonces $(x-a)$ es uno de sus factores.\n\nEsta es una garantía algebraica absoluta: no es una posibilidad ni una probabilidad, es una certeza.$$P(a) = 0 \\Leftrightarrow (x-a) \\mid P(x)$$Por eso, cuando la sustitución directa da 0/0, se sabe de antemano que $(x-a)$ está presente en ambos términos del cociente.\n\nEse es el factor que hay que aislar mediante la factorización para poder cancelarlo luego. La **indeterminación es una garantía, no una barrera**: nos asegura que la factorización funcionará.",
     "reviewed": false
   },
   {
@@ -226,7 +226,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **indeterminación** 0/0 no es un valor numérico asignable, sino una **señal** de que numerador y denominador comparten un factor que se anula en el valor de tendencia. Es la alarma que dispara la factorización.\n$$\\lim_{x \\to a} \\frac{f(x)}{g(x)} = \\frac{0}{0} \\Rightarrow (x-a) \\text{ es factor común}$$\nUna intuición crucial: cuando vemos 0/0, sabemos que no hemos llegado al valor final del límite, sino que encontramos un punto donde dos expresiones se cancelan simultáneamente. El límite se calcula después de aislar y cancelar ese factor común. Interpretar 0/0 como un resultado final, en vez de como una instrucción para factorizar, es uno de los errores conceptuales más comunes al empezar con límites.",
+    "explanation": "La **indeterminación** 0/0 no es un valor numérico asignable, sino una **señal** de que numerador y denominador comparten un factor que se anula en el valor de tendencia.\n\nEs la alarma que dispara la factorización.$$\\lim_{x \\to a} \\frac{f(x)}{g(x)} = \\frac{0}{0} \\Rightarrow (x-a) \\text{ es factor común}$$Una intuición crucial: cuando vemos 0/0, sabemos que no hemos llegado al valor final del límite, sino que encontramos un punto donde dos expresiones se cancelan simultáneamente.\n\nEl límite se calcula después de aislar y cancelar ese factor común.\n\nInterpretar 0/0 como un resultado final, en vez de como una instrucción para factorizar, es uno de los errores conceptuales más comunes al empezar con límites.",
     "reviewed": false
   },
   {
@@ -249,7 +249,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **indeterminación** 0/0 no tiene un valor fijo asignable, porque el cociente de dos cantidades que tienden a cero puede aproximarse a cualquier número según cómo se anulen las expresiones. No existe un resultado único.\n$$\\frac{0}{0} \\neq 0, \\quad \\frac{0}{0} \\neq 1, \\quad \\frac{0}{0} \\neq \\infty$$\nPor eso ninguna de esas opciones es correcta, y la única salida es transformar la expresión mediante **factorización** antes de sustituir de nuevo. La indeterminación no es un fracaso del cálculo, es una invitación a usar una técnica algebraica distinta.",
+    "explanation": "La **indeterminación** 0/0 no tiene un valor fijo asignable, porque el cociente de dos cantidades que tienden a cero puede aproximarse a cualquier número según cómo se anulen las expresiones.\n\nNo existe un resultado único.$$\\frac{0}{0} \\neq 0, \\quad \\frac{0}{0} \\neq 1, \\quad \\frac{0}{0} \\neq \\infty$$Por eso ninguna de esas opciones es correcta, y la única salida es transformar la expresión mediante **factorización** antes de sustituir de nuevo.\n\nLa indeterminación no es un fracaso del cálculo, es una invitación a usar una técnica algebraica distinta.",
     "reviewed": false
   },
   {
@@ -272,7 +272,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando la sustitución directa produce 0/0, el paso siguiente es aplicar **factorización** al numerador y al denominador para exhibir el factor común que ambos comparten en el valor de tendencia. Es un protocolo automático: si ves 0/0, factoriza.\n$$\\begin{aligned} \\text{0/0} &\\Rightarrow \\text{factorizar} \\\\ &\\Rightarrow \\text{cancelar} \\\\ &\\Rightarrow \\text{sustituir de nuevo} \\end{aligned}$$\nSaltear este proceso y responder directamente que no existe o que vale cero sin factorizar es el error más frecuente frente a esta indeterminación. La indeterminación es un **indicador de trabajo pendiente**, no un veredicto final.",
+    "explanation": "Cuando la sustitución directa produce 0/0, el paso siguiente es aplicar **factorización** al numerador y al denominador para exhibir el factor común que ambos comparten en el valor de tendencia.\n\nEs un protocolo automático: si ves 0/0, factoriza.$$\\begin{aligned} \\text{0/0} &\\Rightarrow \\text{factorizar} \\\\ &\\Rightarrow \\text{cancelar} \\\\ &\\Rightarrow \\text{sustituir de nuevo} \\end{aligned}$$Saltear este proceso y responder directamente que no existe o que vale cero sin factorizar es el error más frecuente frente a esta indeterminación.\n\nLa indeterminación es un **indicador de trabajo pendiente**, no un veredicto final.",
     "reviewed": false
   },
   {
@@ -295,7 +295,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **factorización** se puede aplicar siempre que la expresión sea un cociente de polinomios, sin ninguna raíz de por medio. Si hay raíces cuadradas, raíces cúbicas o cualquier radical en la expresión, la factorización deja de ser la herramienta apropiada.\n$$x^2 - 9 = (x-3)(x+3)$$\nAl reconocer numerador y denominador como productos de polinomios, alcanza con identificar el factor común $(x-3)$ y cancelarlo para salvar la indeterminación. Antes de factorizar conviene chequear rápido que ninguna raíz aparezca en la expresión, esa es la condición de entrada de la técnica.",
+    "explanation": "La **factorización** se puede aplicar siempre que la expresión sea un cociente de polinomios, sin ninguna raíz de por medio.\n\nSi hay raíces cuadradas, raíces cúbicas o cualquier radical en la expresión, la factorización deja de ser la herramienta apropiada.$$x^2 - 9 = (x-3)(x+3)$$Al reconocer numerador y denominador como productos de polinomios, alcanza con identificar el factor común $(x-3)$ y cancelarlo para salvar la indeterminación.\n\nAntes de factorizar conviene chequear rápido que ninguna raíz aparezca en la expresión, esa es la condición de entrada de la técnica.",
     "reviewed": false
   },
   {
@@ -318,7 +318,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **factorización** identifica factores comunes entre expresiones que son productos de polinomios, pero $\\sqrt{x}-2$ no es un polinomio, contiene una raíz. La estructura algebraica es completamente distinta.\n$$\\sqrt{x} - 2 \\neq (x-a)(x-b)$$\nLos métodos de factoreo trabajan sobre productos de polinomios, y esta expresión no tiene esa forma. Cuando aparece una raíz en una indeterminación 0/0, la factorización deja de ser aplicable. Para estas situaciones hace falta otra herramienta, como la **racionalización**, que es el tema de la unidad siguiente. Distinguir cuándo factorizar y cuándo racionalizar es una de las decisiones más importantes en esta unidad.",
+    "explanation": "La **factorización** identifica factores comunes entre expresiones que son productos de polinomios, pero $\\sqrt{x}-2$ no es un polinomio, contiene una raíz.\n\nLa estructura algebraica es completamente distinta.$$\\sqrt{x} - 2 \\neq (x-a)(x-b)$$Los métodos de factoreo trabajan sobre productos de polinomios, y esta expresión no tiene esa forma. Cuando aparece una raíz en una indeterminación 0/0, la factorización deja de ser aplicable.\n\nPara estas situaciones hace falta otra herramienta, como la **racionalización**, que es el tema de la unidad siguiente.\n\nDistinguir cuándo factorizar y cuándo racionalizar es una de las decisiones más importantes en esta unidad.",
     "reviewed": false
   },
   {
@@ -341,7 +341,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La señal que marca el límite de aplicabilidad de la **factorización** es la presencia de un radical dentro de la expresión. Cualquier raíz cuadrada, raíz cúbica o potencia fraccionaria es la alarma de \"factorización no funcionará\".\n$$\\sqrt{\\phantom{x}} \\;\\Rightarrow$$\nCuando aparece un radical, la factorización ya no alcanza como herramienta.\n$$Los métodos de factoreo trabajan exclusivamente sobre productos de polinomios, no sobre radicales. Confundir esta señal con el grado o la forma superficial de la expresión lleva a intentar factorizar donde no corresponde. El protocolo es claro: si ves una raíz en una indeterminación 0/0, la herramienta correcta es la **racionalización**, no la factorización..",
+    "explanation": "La señal que marca el límite de aplicabilidad de la **factorización** es la presencia de un radical dentro de la expresión.\n\nCualquier raíz cuadrada, raíz cúbica o potencia fraccionaria es la alarma de \"factorización no funcionará\".$$\\sqrt{\\phantom{x}} \\;\\Rightarrow$$Cuando aparece un radical, la factorización ya no alcanza como herramienta. $$Los métodos de factoreo trabajan exclusivamente sobre productos de polinomios, no sobre radicales.\n\nConfundir esta señal con el grado o la forma superficial de la expresión lleva a intentar factorizar donde no corresponde.\n\nEl protocolo es claro: si ves una raíz en una indeterminación 0/0, la herramienta correcta es la **racionalización**, no la factorización..",
     "reviewed": false
   }
 ]
