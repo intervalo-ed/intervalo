@@ -180,7 +180,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El teorema del factor exige el factor $(x-a)$ para el valor de tendencia $a$.\n\nCuando $a=0$, esa expresión se reduce a $x$, porque $(x - 0) = x$.\n\nEste es un caso particular importante pero a veces invisible.Conviene recordar este caso particular porque, al no tener número visible dentro del paréntesis, algunos lo pasan por alto y buscan un factor distinto al correcto, como $(x-1)$ o $(x+1)$.\n\nEn límites con tendencia $x \\to 0$, el factor cancelable es siempre una potencia de $x$ sola.",
+    "explanation": "El teorema del factor exige el factor $(x-a)$ para el valor de tendencia $a$.\n\nCuando $a=0$, esa expresión se reduce a $x$, porque $(x - 0) = x$.\n\nEste es un caso particular importante pero a veces invisible.Conviene recordar este caso particular porque, al no tener número visible dentro del paréntesis,\n\nalgunos lo pasan por alto y buscan un factor distinto al correcto, como $(x-1)$ o $(x+1)$.\n\nEn límites con tendencia $x \\to 0$, el factor cancelable es siempre una potencia de $x$ sola.",
     "reviewed": false
   },
   {

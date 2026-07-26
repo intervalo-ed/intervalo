@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La fórmula completa de la regla del cociente combina dos detalles que se pierden con frecuencia, el orden de la resta y el cuadrado del denominador.\n\nVerificar ambos detalles a la vez, orden y exponente, evita los dos errores más comunes al reproducir esta fórmula de memoria.\n\nEn ejercicios donde se reconoce primero la estructura, el paso a paso es: (1) mirar la forma de la función, (2) identificar qué se multiplica, qué se compone, o qué aparece dividido, (3) elegir la regla que corresponda a esa forma.",
+    "explanation": "La fórmula completa de la regla del cociente combina dos detalles que se pierden con frecuencia, el orden de la resta y el cuadrado del denominador.\n\nVerificar ambos detalles a la vez, orden y exponente, evita los dos errores más comunes al reproducir esta fórmula de memoria.\n\nEn ejercicios donde se reconoce primero la estructura, el paso a paso es: (1) mirar la forma de la función, (2) identificar qué se multiplica, qué se compone,\n\no qué aparece dividido, (3) elegir la regla que corresponda a esa forma.",
     "reviewed": false,
     "tags": [
       "anatomia-signos-y-dominio-cociente"

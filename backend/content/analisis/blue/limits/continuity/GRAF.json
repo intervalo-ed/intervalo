@@ -203,7 +203,7 @@
       -3,
       4
     ],
-    "explanation": "En una racional simplificable, la curva puede parecer una recta continua salvo por un único punto puntual removido, marcado con un círculo abierto.\n\nAunque la función se vea como una recta casi en su totalidad, el círculo abierto marca el punto donde falla: el límite existe (la recta \"apunta\" a ese valor), pero $f(x)$ no está definida ahí por una división por cero en la expresión original.\n\nAcá la curva sigue $y = x - 1$ en apariencia, pero en $x=-1$ el denominador original se anula y ese punto queda excluido del dominio.\n\nEl resto de los valores marcados están sobre la misma recta sin ninguna interrupción, así que conviene enfocarse exclusivamente en el círculo abierto.",
+    "explanation": "En una racional simplificable, la curva puede parecer una recta continua salvo por un único punto puntual removido, marcado con un círculo abierto.\n\nAunque la función se vea como una recta casi en su totalidad, el círculo abierto marca el punto donde falla: el límite existe (la recta \"apunta\" a ese valor),\n\npero $f(x)$ no está definida ahí por una división por cero en la expresión original.\n\nAcá la curva sigue $y = x - 1$ en apariencia, pero en $x=-1$ el denominador original se anula y ese punto queda excluido del dominio.\n\nEl resto de los valores marcados están sobre la misma recta sin ninguna interrupción, así que conviene enfocarse exclusivamente en el círculo abierto.",
     "reviewed": false,
     "tags": [
       "diagnostico-visual-falla"

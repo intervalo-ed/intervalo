@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Contextos cotidianos como tarifas escalonadas reproducen exactamente el comportamiento de un **salto** matemático: la función $C(t)$ (costo en función del tiempo $t$ en horas) tiende a un valor desde la izquierda y a otro distinto desde la derecha.\n\nEn el umbral $t=1$ hora.\n\nsi la tarifa inicial era \\$500 y sube a \\$800 justo al completar la hora:\n \nLos dos **límites laterales** son distintos.\n\nasí que por el **teorema de existencia**.\n\nel **límite bilateral** no existe en ese punto.\n\nEste patrón es universal en sistemas de facturación: estacionamiento, transporte, telefonía.\n\nEl salto es inherente a la estructura de precios por tramos, no es un error, es el comportamiento esperado.",
+    "explanation": "Contextos cotidianos como tarifas escalonadas reproducen exactamente el comportamiento de un **salto** matemático: la función\n\n$C(t)$ (costo en función del tiempo $t$ en horas) tiende a un valor desde la izquierda y a otro distinto desde la derecha.\n\nEn el umbral $t=1$ hora.\n\nsi la tarifa inicial era \\$500 y sube a \\$800 justo al completar la hora:\n \nLos dos **límites laterales** son distintos.\n\nasí que por el **teorema de existencia**.\n\nel **límite bilateral** no existe en ese punto.\n\nEste patrón es universal en sistemas de facturación: estacionamiento, transporte, telefonía.\n\nEl salto es inherente a la estructura de precios por tramos, no es un error, es el comportamiento esperado.",
     "reviewed": false,
     "tags": [
       "discontinuidad-por-salto"

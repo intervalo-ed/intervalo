@@ -473,7 +473,7 @@
       -1,
       11
     ],
-    "explanation": "El **vértice** de una parábola que abre hacia abajo es el punto más alto de todo su recorrido, y su coordenada horizontal indica exactamente en qué instante se produce ese máximo, sin importar cuánto valga la altura en ese momento.\n\nAcá esa coordenada es:\n\nAsí que el dardo llega a su punto más alto a los 6 segundos de haber sido lanzado.\n\nUn punto cercano al vértice, un segundo antes o después, todavía no es el vértice: solo la coordenada exacta marca el instante del máximo.",
+    "explanation": "El **vértice** de una parábola que abre hacia abajo es el punto más alto de todo su recorrido,\n\ny su coordenada horizontal indica exactamente en qué instante se produce ese máximo, sin importar cuánto valga la altura en ese momento.\n\nAcá esa coordenada es:\n\nAsí que el dardo llega a su punto más alto a los 6 segundos de haber sido lanzado.\n\nUn punto cercano al vértice, un segundo antes o después, todavía no es el vértice: solo la coordenada exacta marca el instante del máximo.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -953,7 +953,7 @@
       -1,
       11
     ],
-    "explanation": "Cuando el despegue de un salto no ocurre justo en el cero del eje horizontal, la parábola tiene dos **raíces** distintas de cero: una marca el punto de despegue y la otra el punto de aterrizaje, y ninguna de las dos coincide con el vértice.\n\nAcá la parábola corta el eje horizontal en $x = 2$ y en:\n\nLa moto toca el piso otra vez a los 10 metros de distancia horizontal, la segunda de esas dos raíces.\n\nConviene ubicar bien cuál de las dos raíces corresponde al aterrizaje: la primera marca el despegue y la segunda, más adelante en el eje, marca el punto en el que la moto vuelve a tocar el piso.",
+    "explanation": "Cuando el despegue de un salto no ocurre justo en el cero del eje horizontal, la parábola tiene dos **raíces** distintas de cero: una marca el punto de despegue y la otra el punto de aterrizaje,\n\ny ninguna de las dos coincide con el vértice.\n\nAcá la parábola corta el eje horizontal en $x = 2$ y en:\n\nLa moto toca el piso otra vez a los 10 metros de distancia horizontal, la segunda de esas dos raíces.\n\nConviene ubicar bien cuál de las dos raíces corresponde al aterrizaje: la primera marca el despegue y la segunda, más adelante en el eje, marca el punto en el que la moto vuelve a tocar el piso.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"

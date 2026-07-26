@@ -177,7 +177,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un coeficiente distinto de $1$ dentro del binomio, el desarrollo sigue el mismo patrón, cuidando bien el término cruzado.El coeficiente $2$ dentro del binomio termina afectando a los tres términos del trinomio desarrollado, no solo al primero.\n\nLa reescritura de expresiones es una habilidad algebraica fundamental que acelera los cálculos de integrales.",
+    "explanation": "Con un coeficiente distinto de $1$ dentro del binomio, el desarrollo sigue el mismo patrón,\n\ncuidando bien el término cruzado.El coeficiente $2$ dentro del binomio termina afectando a los tres términos del trinomio desarrollado, no solo al primero.\n\nLa reescritura de expresiones es una habilidad algebraica fundamental que acelera los cálculos de integrales.",
     "reviewed": false,
     "tags": [
       "concepto-primitiva-traslacion-geometrica"

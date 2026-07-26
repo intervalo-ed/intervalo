@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La sustitución directa de $x=1$ da 0/0.\n\nEl numerador es un **trinomio cuadrado perfecto**, con doble producto $-2x$ entre $x$ y $1$, así que factoriza como $(x-1)^2$: Un caso especial: el numerador es un cuadrado perfecto, que contiene dos apariciones del mismo factor $(x-1)$.\n\nAl cancelar una con el denominador, queda una copia en el cociente simplificado, que evaluada en $x=1$ da exactamente cero.\n\nEl límite puede valer cero sin contradicción; lo importante es que no sea 0/0 después de la cancelación.",
+    "explanation": "La sustitución directa de $x=1$ da 0/0.\n\nEl numerador es un **trinomio cuadrado perfecto**, con doble producto $-2x$ entre $x$ y $1$,\n\nasí que factoriza como $(x-1)^2$: Un caso especial: el numerador es un cuadrado perfecto, que contiene dos apariciones del mismo factor $(x-1)$.\n\nAl cancelar una con el denominador, queda una copia en el cociente simplificado, que evaluada en $x=1$ da exactamente cero.\n\nEl límite puede valer cero sin contradicción; lo importante es que no sea 0/0 después de la cancelación.",
     "reviewed": false
   },
   {

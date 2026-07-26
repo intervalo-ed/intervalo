@@ -958,7 +958,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un desplazamiento horizontal dentro del exponente, primero se sustituye el valor de $x$ y se resuelve la suma antes de evaluar la potencia de $e$.\n\nEl desplazamiento $+1$ en el exponente equivale a multiplicar por $e$: :.Así, el valor inicial de esta función desplazada no es $2$ sino $2e$, porque el corrimiento horizontal también reescala el coeficiente que multiplica a la exponencial.",
+    "explanation": "Con un desplazamiento horizontal dentro del exponente, primero se sustituye el valor de $x$ y se resuelve la suma antes de evaluar la potencia de $e$.\n\nEl desplazamiento $+1$ en el exponente equivale a multiplicar por $e$: :.Así, el valor inicial de esta función desplazada no es $2$ sino $2e$,\n\nporque el corrimiento horizontal también reescala el coeficiente que multiplica a la exponencial.",
     "reviewed": false,
     "tags": [
       "determinar-a-b-desde-dos-puntos"

@@ -473,7 +473,7 @@
       -0.5,
       8.5
     ],
-    "explanation": "Para una exponencial decreciente que pasa por $(0, 1)$, el valor en $x = 1$ coincide con la base:Aquí $f(1) = 0{,}5 < 1$, lo que confirma que la base cumple $0 < b < 1$, condición necesaria para que la curva decrezca en vez de crecer.\n\nRecordá que este atajo de leer la base directamente en $x = 1$ solo aplica cuando no hay coeficiente $a$ multiplicando ni desplazamiento vertical.",
+    "explanation": "Para una exponencial decreciente que pasa por $(0, 1)$, el valor en $x = 1$ coincide con la base:Aquí $f(1) = 0{,}5 < 1$,\n\nlo que confirma que la base cumple $0 < b < 1$, condición necesaria para que la curva decrezca en vez de crecer.\n\nRecordá que este atajo de leer la base directamente en $x = 1$ solo aplica cuando no hay coeficiente $a$ multiplicando ni desplazamiento vertical.",
     "reviewed": false,
     "tags": [
       "lectura-dominio"

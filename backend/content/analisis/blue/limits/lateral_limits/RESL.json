@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "No toda función a trozos con dos ramas distintas produce un salto: hay que evaluar siempre antes de decidir, sin asumir que 'No existe' es la respuesta por defecto.Como ambas ramas coinciden en $2$, el límite bilateral existe y vale $2$.\n\nElegir 'No existe' sin verificar primero ambas ramas es un reflejo apresurado: hay que confirmar la coincidencia o la diferencia antes de responder.",
+    "explanation": "No toda función a trozos con dos ramas distintas produce un salto: hay que evaluar siempre antes de decidir,\n\nsin asumir que 'No existe' es la respuesta por defecto.Como ambas ramas coinciden en $2$, el límite bilateral existe y vale $2$.\n\nElegir 'No existe' sin verificar primero ambas ramas es un reflejo apresurado: hay que confirmar la coincidencia o la diferencia antes de responder.",
     "reviewed": false,
     "tags": [
       "trozos-bilateral"
@@ -293,7 +293,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En una función a trozos de tres ramas, cada punto de quiebre se analiza por separado: solo importan las dos ramas que se encuentran exactamente en ese punto, las demás son irrelevantes para ese cálculo.Como ambas coinciden, $\\lim_{x \\to 3} f(x) = 4$.\n\nLa rama del extremo izquierdo, que solo interviene en el otro punto de quiebre ($x=0$), no aporta nada al cálculo del límite en $x=3$.",
+    "explanation": "En una función a trozos de tres ramas, cada punto de quiebre se analiza por separado: solo importan las dos ramas que se encuentran exactamente en ese punto,\n\nlas demás son irrelevantes para ese cálculo.Como ambas coinciden, $\\lim_{x \\to 3} f(x) = 4$.\n\nLa rama del extremo izquierdo, que solo interviene en el otro punto de quiebre ($x=0$), no aporta nada al cálculo del límite en $x=3$.",
     "reviewed": false,
     "tags": [
       "trozos-bilateral"

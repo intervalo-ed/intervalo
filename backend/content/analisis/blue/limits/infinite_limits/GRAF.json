@@ -113,7 +113,7 @@
       -4,
       2
     ],
-    "explanation": "Cuando una función se estabiliza en una altura negativa, la **asíntota horizontal** sigue siendo una recta $y=L$, solo que con $L$ negativo.\n\nEl signo no cambia el método de lectura, se sigue mirando el comportamiento en ambos extremos del gráfico.Leer solo la magnitud de la altura da un número sin signo, como 2, pero los extremos muestran claramente que la altura es negativa, no positiva.",
+    "explanation": "Cuando una función se estabiliza en una altura negativa, la **asíntota horizontal** sigue siendo una recta $y=L$, solo que con $L$ negativo.\n\nEl signo no cambia el método de lectura, se sigue mirando el comportamiento en ambos extremos del gráfico.Leer solo la magnitud de la altura da un número sin signo,\n\ncomo 2, pero los extremos muestran claramente que la altura es negativa, no positiva.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-horizontal"

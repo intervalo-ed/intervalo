@@ -83,7 +83,7 @@
       -2,
       9
     ],
-    "explanation": "Al pedir el límite por la izquierda, hay que seguir exclusivamente la rama activa para $x<2$, ignorando por completo hacia dónde va la rama del otro lado.Mientras que por la derecha la rama $x+5$ llega a $7$, el valor del lado contrario.\n\nTomar por error la rama de $x \\geq 0$ en lugar del lateral correcto invierte el resultado completamente.",
+    "explanation": "Al pedir el límite por la izquierda, hay que seguir exclusivamente la rama activa para $x<2$,\n\nignorando por completo hacia dónde va la rama del otro lado.Mientras que por la derecha la rama $x+5$ llega a $7$, el valor del lado contrario.\n\nTomar por error la rama de $x \\geq 0$ en lugar del lateral correcto invierte el resultado completamente.",
     "reviewed": false,
     "tags": [
       "lectura-lateral-pura"
