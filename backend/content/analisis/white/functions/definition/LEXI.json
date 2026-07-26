@@ -1064,7 +1064,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **preimágenes** de un resultado agrupan a todos los candidatos de entrada que fabrican esa misma salida.\n\nAcá se busca destrabar la expresión.\n\nEso alberga dos soluciones distintas: $x=5$ y $x=-5$.\n\nUn mismo valor puede tener varias preimágenes: acá el $25$ proviene tanto de $5$ como de $-5$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Las **preimágenes** de un resultado agrupan a todos los candidatos de entrada que fabrican esa misma salida.\n\nBuscamos destrabar la expresión $x^2 = 25$.\n\nEsto tiene dos soluciones: $x=5$ y $x=-5$.\n\nUn mismo resultado puede venir de múltiples entradas. El valor $25$ proviene tanto de $5$ como de $-5$.\n\nVerifica con un valor específico para evitar errores.",
     "reviewed": false,
     "tags": [
       "preimagen-calculo"
