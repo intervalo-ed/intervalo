@@ -53,7 +53,7 @@
       -2,
       2
     ],
-    "explanation": "El seno se anula donde cruza el eje $X$: $\\operatorname{sen}(0)=0$, $\\operatorname{sen}(\\pi)=0$, $\\operatorname{sen}(2\\pi)=0$. Incluyendo ambos extremos del intervalo, hay **3 ceros** en $[0,2\\pi]$. Entre esos ceros, el seno sube hasta $1$ (en $\\pi/2$) y baja hasta $-1$ (en $3\\pi/2$).\n\nSi no se incluyen los extremos, quedaría solo $x=\\pi$: un único cero interior.",
+    "explanation": "El seno se anula donde cruza el eje $X$: $\\operatorname{sen}(0)=0$, $\\operatorname{sen}(\\pi)=0$, $\\operatorname{sen}(2\\pi)=0$.\n\nIncluyendo ambos extremos del intervalo, hay **3 ceros** en $[0,2\\pi]$. Entre esos ceros, el seno sube hasta $1$ (en $\\pi/2$) y baja hasta $-1$ (en $3\\pi/2$).\n\nSi no se incluyen los extremos, quedaría solo $x=\\pi$: un único cero interior.",
     "reviewed": false,
     "tags": [
       "conteo-maximos"
@@ -293,7 +293,7 @@
       -2,
       2
     ],
-    "explanation": "$\\operatorname{sen}(2x)$ tiene período $\\pi$. En el intervalo visible $[0,2\\pi]$ hay $\\frac{2\\pi}{\\pi}=2$ **ciclos completos**. A mayor $B$, más ciclos caben en el mismo intervalo. En el gráfico contás los picos positivos (o los ceros del mismo tipo): si hay 2 picos, hay 2 ciclos.\n\nComparalo con $\\operatorname{sen}(x)$: en $[0,2\\pi]$ habría solo 1 ciclo completo.",
+    "explanation": "$\\operatorname{sen}(2x)$ tiene período $\\pi$. En el intervalo visible $[0,2\\pi]$ hay $\\frac{2\\pi}{\\pi}=2$ **ciclos completos**.\n\nA mayor $B$, más ciclos caben en el mismo intervalo. En el gráfico contás los picos positivos (o los ceros del mismo tipo): si hay 2 picos, hay 2 ciclos.\n\nComparalo con $\\operatorname{sen}(x)$: en $[0,2\\pi]$ habría solo 1 ciclo completo.",
     "reviewed": false,
     "tags": [
       "amplitud-desde-grafico"

@@ -153,7 +153,7 @@
       -2,
       2
     ],
-    "explanation": "En cada **período** $[0,2\\pi]$, el seno **sube una vez** hasta su máximo en $x=\\pi/2$ (valor $1$) y luego **baja** hasta su mínimo en $x=3\\pi/2$ (valor $-1$). Hay exactamente **un máximo local** por período. Si el intervalo fuera $[0,4\\pi]$ habría 2 máximos; en $[0,2\\pi]$ solo hay 1.\n\nIdentificá el máximo buscando el pico más alto de la onda en el gráfico.",
+    "explanation": "En cada **período** $[0,2\\pi]$, el seno **sube una vez** hasta su máximo en $x=\\pi/2$ (valor $1$) y luego **baja** hasta su mínimo en $x=3\\pi/2$ (valor $-1$).\n\nHay exactamente **un máximo local** por período. Si el intervalo fuera $[0,4\\pi]$ habría 2 máximos; en $[0,2\\pi]$ solo hay 1.\n\nIdentificá el máximo buscando el pico más alto de la onda en el gráfico.",
     "reviewed": false,
     "tags": [
       "conteo-extremos-intervalo"

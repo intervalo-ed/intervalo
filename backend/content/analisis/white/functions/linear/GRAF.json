@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función lineal es la que puede escribirse en la forma:\n$$f(x) = mx + b$$\nDonde $m$ y $b$ son constantes reales. El parámetro $m$ es la **pendiente**, que mide la inclinación de la recta, y $b$ es la **ordenada al origen**, el valor de $f(0)$.\n\nEn $f(x) = 5x - 2$ la variable aparece con exponente 1, multiplicada por una constante y con un término independiente: exactamente el molde $mx + b$. Su gráfica es una línea recta.\n\nSi la $x$ aparece elevada al cuadrado, en un exponente o dentro de un logaritmo, la función pertenece a otra familia: el criterio es dónde y cómo aparece la variable.",
+    "explanation": "Una función lineal es la que puede escribirse en la forma:\n$$f(x) = mx + b$$\nDonde $m$ y $b$ son constantes reales.\n\nEl parámetro $m$ es la **pendiente**, que mide la inclinación de la recta, y $b$ es la **ordenada al origen**, el valor de $f(0)$.\n\nEn $f(x) = 5x - 2$ la variable aparece con exponente 1, multiplicada por una constante y con un término independiente: exactamente el molde $mx + b$. Su gráfica es una línea recta.\n\nSi la $x$ aparece elevada al cuadrado, en un exponente o dentro de un logaritmo, la función pertenece a otra familia: el criterio es dónde y cómo aparece la variable.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"
@@ -210,7 +210,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función lineal $f(x) = mx + b$ con $m \\neq 0$ corta el eje $X$ exactamente una vez. El punto de corte es la raíz, que se obtiene resolviendo:\n$$mx + b = 0 \\implies x = -\\frac{b}{m}$$\nY como $m \\neq 0$, esa ecuación tiene siempre una única solución.\n\nUna recta no puede cruzar el eje dos veces: para volver a cruzarlo tendría que cambiar de dirección, y la **pendiente** constante lo impide.\n\nEl caso sin corte queda reservado a las constantes $f(x) = b$ con $b \\neq 0$: una recta horizontal que nunca toca el eje $X$.",
+    "explanation": "Una función lineal $f(x) = mx + b$ con $m \\neq 0$ corta el eje $X$ exactamente una vez.\n\nEl punto de corte es la raíz, que se obtiene resolviendo:\n$$mx + b = 0 \\implies x = -\\frac{b}{m}$$\nY como $m \\neq 0$, esa ecuación tiene siempre una única solución.\n\nUna recta no puede cruzar el eje dos veces: para volver a cruzarlo tendría que cambiar de dirección, y la **pendiente** constante lo impide.\n\nEl caso sin corte queda reservado a las constantes $f(x) = b$ con $b \\neq 0$: una recta horizontal que nunca toca el eje $X$.",
     "reviewed": false,
     "tags": [
       "propiedades-generales"

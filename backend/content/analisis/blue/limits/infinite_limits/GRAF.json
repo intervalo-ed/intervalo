@@ -113,7 +113,7 @@
       -4,
       2
     ],
-    "explanation": "La **asíntota horizontal** de una función se define como el valor $L$ que cumple $\\lim_{x \\to \\pm\\infty} f(x) = L$, y ese límite determina la altura exacta de la recta, incluyendo su signo.\n\nAl leer en el gráfico que la curva se estabiliza en una altura **negativa**, el signo es parte fundamental de la información: no es lo mismo $y=-2$ que $y=2$. El error común es registrar solo la magnitud (valor absoluto) de esa altura y luego olvidar que era negativa al escribir la ecuación.\n\nEn este caso, observar que las dos ramas descienden asimétricamente hacia abajo confirma que $L=-2$, no $L=2$.",
+    "explanation": "La **asíntota horizontal** de una función se define como el valor $L$ que cumple $\\lim_{x \\to \\pm\\infty} f(x) = L$, y ese límite determina la altura exacta de la recta, incluyendo su signo.\n\nAl leer en el gráfico que la curva se estabiliza en una altura **negativa**, el signo es parte fundamental de la información: no es lo mismo $y=-2$ que $y=2$.\n\nEl error común es registrar solo la magnitud (valor absoluto) de esa altura y luego olvidar que era negativa al escribir la ecuación.\n\nEn este caso, observar que las dos ramas descienden asimétricamente hacia abajo confirma que $L=-2$, no $L=2$.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-horizontal"

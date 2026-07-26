@@ -157,7 +157,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando la tendencia de un límite es $x \\to a$, el **teorema del factor** exige que $(x-a)$ divida tanto al numerador como al denominador si ambos se anulan en $a$.\n\nLa regla del signo es crítica: el factor siempre es $(x - a)$, con el signo opuesto al valor de tendencia. Para $x \\to -2$:$$(x - (-2)) = (x + 2)$$Un error frecuente es fijarse solo en el número de la tendencia, copiar su signo tal cual y escribir $(x - 2)$ cuando corresponde $(x + 2)$.\n\nEl signo dentro del paréntesis siempre es opuesto al número de tendencia.",
+    "explanation": "Cuando la tendencia de un límite es $x \\to a$, el **teorema del factor** exige que $(x-a)$ divida tanto al numerador como al denominador si ambos se anulan en $a$.\n\nLa regla del signo es crítica: el factor siempre es $(x - a)$, con el signo opuesto al valor de tendencia.\n\nPara $x \\to -2$:$$(x - (-2)) = (x + 2)$$Un error frecuente es fijarse solo en el número de la tendencia, copiar su signo tal cual y escribir $(x - 2)$ cuando corresponde $(x + 2)$.\n\nEl signo dentro del paréntesis siempre es opuesto al número de tendencia.",
     "reviewed": false
   },
   {

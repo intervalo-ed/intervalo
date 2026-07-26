@@ -233,7 +233,7 @@
       -6,
       6
     ],
-    "explanation": "Cada **asíntota vertical** parte la gráfica de una función racional en ramas separadas que no se conectan entre sí. La función $\\frac{x+1}{x-2}$ tiene una única asíntota vertical, en $x=2$ (donde se anula el denominador), y esa sola división del plano genera exactamente dos ramas.\n\nUna a la izquierda y otra a la derecha de $x=2$.\n\nCada asíntota vertical adicional sumaría una rama más.",
+    "explanation": "Cada **asíntota vertical** parte la gráfica de una función racional en ramas separadas que no se conectan entre sí.\n\nLa función $\\frac{x+1}{x-2}$ tiene una única asíntota vertical, en $x=2$ (donde se anula el denominador), y esa sola división del plano genera exactamente dos ramas.\n\nUna a la izquierda y otra a la derecha de $x=2$.\n\nCada asíntota vertical adicional sumaría una rama más.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes"
@@ -1008,7 +1008,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cada raíz real del denominador $Q(x)$ que no se cancele con el numerador genera una **asíntota vertical**. Como un polinomio de grado $n$ tiene a lo sumo $n$ raíces reales, una **función racional** puede tener hasta $\\deg(Q)$ asíntotas verticales, ni una cantidad fija como uno o dos.\n\nSi todas las raíces de $Q(x)$ se cancelan con el numerador, en cambio, no hay asíntotas verticales sino agujeros.",
+    "explanation": "Cada raíz real del denominador $Q(x)$ que no se cancele con el numerador genera una **asíntota vertical**.\n\nComo un polinomio de grado $n$ tiene a lo sumo $n$ raíces reales, una **función racional** puede tener hasta $\\deg(Q)$ asíntotas verticales, ni una cantidad fija como uno o dos.\n\nSi todas las raíces de $Q(x)$ se cancelan con el numerador, en cambio, no hay asíntotas verticales sino agujeros.",
     "reviewed": false,
     "tags": [
       "comportamiento-en-infinito"
@@ -1158,7 +1158,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Multiplicar una función por una constante $k>1$ produce un estiramiento vertical: cada valor de la función original se multiplica por $k$. En $f(x)=\\frac{k}{x}=k\\cdot\\frac{1}{x}$, el punto $(1,1)$ de $g(x)=\\frac{1}{x}$ pasa a ser $(1,k)$ en $f$.\n\nLa curva se aleja más de las asíntotas cuanto mayor es $k$, sin cambiar su posición ni su signo, a diferencia de un desplazamiento o una reflexión.",
+    "explanation": "Multiplicar una función por una constante $k>1$ produce un estiramiento vertical: cada valor de la función original se multiplica por $k$.\n\nEn $f(x)=\\frac{k}{x}=k\\cdot\\frac{1}{x}$, el punto $(1,1)$ de $g(x)=\\frac{1}{x}$ pasa a ser $(1,k)$ en $f$.\n\nLa curva se aleja más de las asíntotas cuanto mayor es $k$, sin cambiar su posición ni su signo, a diferencia de un desplazamiento o una reflexión.",
     "reviewed": false,
     "tags": [
       "asintota-vertical"

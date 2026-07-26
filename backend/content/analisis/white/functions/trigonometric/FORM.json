@@ -978,7 +978,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ángulo $3\\pi/2=270°$ corresponde al punto $(0,-1)$ en el círculo unitario: el extremo inferior. El seno es la coordenada $y$:$$\\begin{aligned}\n\\operatorname{sen}\\!\\left(\\frac{3\\pi}{2}\\right) &= -1:\n\\end{aligned}$$Este es el **mínimo global** del seno.\n\nLa opción $0$ sería $\\operatorname{sen}(0)$, $\\operatorname{sen}(\\pi)$ o $\\operatorname{sen}(2\\pi)$.\n\nLa opción $1$ sería $\\operatorname{sen}(\\pi/2)$.\n\nA $270°$ la curva está en el fondo.",
+    "explanation": "El ángulo $3\\pi/2=270°$ corresponde al punto $(0,-1)$ en el círculo unitario: el extremo inferior.\n\nEl seno es la coordenada $y$:$$\\begin{aligned}\n\\operatorname{sen}\\!\\left(\\frac{3\\pi}{2}\\right) &= -1:\n\\end{aligned}$$Este es el **mínimo global** del seno.\n\nLa opción $0$ sería $\\operatorname{sen}(0)$, $\\operatorname{sen}(\\pi)$ o $\\operatorname{sen}(2\\pi)$.\n\nLa opción $1$ sería $\\operatorname{sen}(\\pi/2)$.\n\nA $270°$ la curva está en el fondo.",
     "reviewed": false,
     "tags": [
       "imagen-rango-form-trig"
@@ -1053,7 +1053,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para $I(t)=\\operatorname{sen}(200\\pi t)$, el coeficiente del argumento es $B=200\\pi$. El **período** es:$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{200\\pi} \\\\\n&= \\frac{1}{100}\\,\\text{s}:\n\\end{aligned}$$Período $T=1/100$ s corresponde a frecuencia $f=100\\,Hz$: cien ciclos por segundo.\n\nLa opción $200\\pi$ s es el valor de $B$, no el período.\n\nLa opción $100\\pi$ invierte el cociente. $1/100$ s es la respuesta.",
+    "explanation": "Para $I(t)=\\operatorname{sen}(200\\pi t)$, el coeficiente del argumento es $B=200\\pi$.\n\nEl **período** es:$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{200\\pi} \\\\\n&= \\frac{1}{100}\\,\\text{s}:\n\\end{aligned}$$Período $T=1/100$ s corresponde a frecuencia $f=100\\,Hz$: cien ciclos por segundo.\n\nLa opción $200\\pi$ s es el valor de $B$, no el período.\n\nLa opción $100\\pi$ invierte el cociente. $1/100$ s es la respuesta.",
     "reviewed": false,
     "tags": [
       "imagen-rango-form-trig"

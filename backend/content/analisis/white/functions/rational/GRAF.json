@@ -503,7 +503,7 @@
       -6,
       6
     ],
-    "explanation": "Cuando $x$ toma valores muy grandes, el valor de la función se acerca cada vez más a la altura de su **asíntota horizontal**, sin llegar a tocarla nunca. $f(x)=\\frac{x+1}{x-2}$ tiene AH en $y=1$ (cociente de coeficientes principales). Para $x=100$.\n\n$\\frac{100+1}{100-2}=\\frac{101}{98}\\approx1{,}03$, muy cerca de 1.\n\nConviene no confundir la altura de la asíntota horizontal con el valor de $x$ que se está evaluando.",
+    "explanation": "Cuando $x$ toma valores muy grandes, el valor de la función se acerca cada vez más a la altura de su **asíntota horizontal**, sin llegar a tocarla nunca.\n\n$f(x)=\\frac{x+1}{x-2}$ tiene AH en $y=1$ (cociente de coeficientes principales). Para $x=100$.\n\n$\\frac{100+1}{100-2}=\\frac{101}{98}\\approx1{,}03$, muy cerca de 1.\n\nConviene no confundir la altura de la asíntota horizontal con el valor de $x$ que se está evaluando.",
     "reviewed": false,
     "tags": [
       "valor-asintota-horizontal"
@@ -533,7 +533,7 @@
       -5,
       5
     ],
-    "explanation": "Una función es **decreciente** en un intervalo cuando, a medida que $x$ aumenta, el valor de la función disminuye de manera sostenida en todo el tramo. En la rama derecha ($x>0$) de $f(x)=\\frac{1}{x}$, la curva desciende de izquierda a derecha.\n\nLa función es decreciente en $(0,+\\infty)$.\n\nConviene recorrer la rama completa con la mirada en vez de fijarse en un solo punto para no equivocarse con la tendencia.",
+    "explanation": "Una función es **decreciente** en un intervalo cuando, a medida que $x$ aumenta, el valor de la función disminuye de manera sostenida en todo el tramo.\n\nEn la rama derecha ($x>0$) de $f(x)=\\frac{1}{x}$, la curva desciende de izquierda a derecha.\n\nLa función es decreciente en $(0,+\\infty)$.\n\nConviene recorrer la rama completa con la mirada en vez de fijarse en un solo punto para no equivocarse con la tendencia.",
     "reviewed": false,
     "tags": [
       "existencia-extremos"
