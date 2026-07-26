@@ -98,7 +98,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma de vértice $f(x) = a(x-h)^2 + k$, el vértice es exactamente el punto $(h, k)$.\n\nPara $f(x) = -(x-3)^2 + 2$:\n\nComparando con $a(x-h)^2 + k$, se tiene $a = -1$, $h = 3$, $k = 2$.\n\nTrampa frecuente: el término es $(x - 3)^2$, no $(x + 3)^2$, entonces $h = +3$ (no $h = -3$).\n\nLa regla es que el vértice tiene la coordenada que **anula** el factor: $(x-3) = 0 \\Rightarrow x = 3$.\n\nEl vértice es $(3, 2)$ y, como $a = -1 < 0$, es un **máximo**.",
+    "explanation": "En la forma de vértice $f(x) = a(x-h)^2 + k$, el vértice es exactamente el punto $(h, k)$.\n\nPara $f(x) = -(x-3)^2 + 2$:\n\nComparando con $a(x-h)^2 + k$, se tiene $a = -1$, $h = 3$, $k = 2$.\n\nTrampa frecuente: el término es $(x - 3)^2$, no $(x + 3)^2$.\n\nEntonces  $h = +3$ (no $h = -3$).\n\nLa regla es que el vértice tiene la coordenada que **anula** el factor: $(x-3) = 0 \\Rightarrow x = 3$.\n\nEl vértice es $(3, 2)$ y, como $a = -1 < 0$, es un **máximo**.",
     "reviewed": false,
     "tags": [
       "vertice-desde-forma"
@@ -128,7 +128,7 @@
       -2,
       6
     ],
-    "explanation": "De la gráfica se leen dos datos: el **vértice** y la **concavidad**.\n\nVértice en $(0, 4)$:\n\nEn forma de vértice $a(x-h)^2 + k$, esto da $h = 0$ y $k = 4$, es decir $a(x-0)^2 + 4 = ax^2 + 4$.\n\nLa parábola se abre hacia **abajo**: $a < 0$, y la amplitud parece ser $|a| = 1$, entonces $a = -1$.\n\nResultado: $f(x) = -x^2 + 4$.\n\nVerificación: $f(0) = 4$ , $f(2) = -4 + 4 = 0$ (raíz en $x=2$).\n\nLa opción $x^2 + 4$ tendría $a > 0$ (apertura hacia arriba), incorrecta.",
+    "explanation": "De la gráfica se leen dos datos: el **vértice** y la **concavidad**.\n\nVértice en $(0, 4)$:\n\nEn forma de vértice $a(x-h)^2 + k$, esto da $h = 0$ y $k = 4$, es decir $a(x-0)^2 + 4 = ax^2 + 4$.\n\nLa parábola se abre hacia **abajo**: $a < 0$, y la amplitud parece ser $|a| = 1$.\n\nEntonces  $a = -1$.\n\nResultado: $f(x) = -x^2 + 4$.\n\nVerificación: $f(0) = 4$ , $f(2) = -4 + 4 = 0$ (raíz en $x=2$).\n\nLa opción $x^2 + 4$ tendría $a > 0$ (apertura hacia arriba), incorrecta.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -430,7 +430,7 @@
       "$\\Delta=0$ da una raíz doble, no dos raíces distintas: para dos raíces se necesita $\\Delta>0$.",
       "Una parábola nunca tiene infinitas raíces: como máximo toca el eje $x$ en dos puntos."
     ],
-    "explanation": "El **discriminante** $\\Delta = b^2 - 4ac$ determina cuántas raíces reales tiene una parábola: positivo da dos raíces distintas, cero da una raíz doble, y negativo indica que no hay raíces reales.\n\nPara $f(x) = -x^2 + 4x - 4$, con $a = -1$, $b = 4$, $c = -4$:\n\nComo $\\Delta = 0$, la parábola tiene exactamente una raíz real, donde el vértice toca el eje $x$: $x = -b/(2a) = -4/(-2) = 2$.\n\nConfundir $\\Delta = 0$ con ninguna raíz : en realidad el vértice sí toca el eje, solo que en un único punto en vez de dos.",
+    "explanation": "El **discriminante** $\\Delta = b^2 - 4ac$ determina cuántas raíces reales tiene una parábola: positivo da dos raíces distintas, cero da una raíz doble, y negativo indica que no hay raíces reales.\n\nPara $f(x) = -x^2 + 4x - 4$, con $a = -1$, $b = 4$, $c = -4$:\n\nComo $\\Delta = 0$, la parábola tiene exactamente una raíz real.\n\nDonde  el vértice toca el eje $x$: $x = -b/(2a) = -4/(-2) = 2$.\n\nConfundir $\\Delta = 0$ con ninguna raíz : en realidad el vértice sí toca el eje, solo que en un único punto en vez de dos.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -830,7 +830,7 @@
       "Esta expresión tiene el signo general invertido respecto al área real, que debe ser positiva para $x$ entre $0$ y $10$.",
       null
     ],
-    "explanation": "El área de un rectángulo es siempre base por altura.\n\nAcá el perímetro total de alambre es $20$ m, por lo que $2(x+y)=20$, es decir $y=10-x$.\n\nEse es el lado opuesto que da el enunciado.\n\nEl área en función del ancho $x$ es:\n\nLa opción $A(x)=20x-x^2$ surge de usar el perímetro completo como si fuera el lado opuesto, en vez de dividirlo entre dos para obtener $10-x$.\n\nLa función tiene su área máxima en $x=5$, formando un cuadrado, con $25$ m².",
+    "explanation": "El área de un rectángulo es siempre base por altura.\n\nAcá el perímetro total de alambre es $20$ m, por lo que $2(x+y)=20$.\n\nEs decir  $y=10-x$.\n\nEse es el lado opuesto que da el enunciado.\n\nEl área en función del ancho $x$ es:\n\nLa opción $A(x)=20x-x^2$ surge de usar el perímetro completo como si fuera el lado opuesto, en vez de dividirlo entre dos para obtener $10-x$.\n\nLa función tiene su área máxima en $x=5$, formando un cuadrado, con $25$ m².",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -930,7 +930,7 @@
       "Esta expresión tiene el signo general invertido respecto al área real, que debe ser positiva para $x$ entre $0$ y $8$.",
       "Esta expresión no descuenta lo que se pierde al restar el propio ancho del largo: falta el término cuadrático."
     ],
-    "explanation": "Con una cuerda de $16$ metros para cercar un rectángulo, el perímetro cumple $2(x+y)=16$, es decir $x+y=8$, por lo que el largo es $y=8-x$:\n\nEse es el semiperímetro que da el enunciado, no el perímetro completo.\n\nEl área en función del ancho $x$ es:\n\nEl área máxima se alcanza en $x=4$ m, formando un cuadrado de $4 \\times 4 = 16$ m².\n\nSi usas el perímetro completo, $16$, en vez del semiperímetro, $8$, dentro del paréntesis, entonces vas a armar la ecuación incorrectamente.",
+    "explanation": "Con una cuerda de $16$ metros para cercar un rectángulo, el perímetro cumple $2(x+y)=16$.\n\nEs decir  $x+y=8$, por lo que el largo es $y=8-x$:\n\nEse es el semiperímetro que da el enunciado, no el perímetro completo.\n\nEl área en función del ancho $x$ es:\n\nEl área máxima se alcanza en $x=4$ m, formando un cuadrado de $4 \\times 4 = 16$ m².\n\nSi usas el perímetro completo, $16$, en vez del semiperímetro, $8$, dentro del paréntesis, entonces vas a armar la ecuación incorrectamente.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1085,7 +1085,7 @@
       null,
       "El valor de $k$ quedó positivo: ese vértice está en $(3,1)$, no en $(3,-1)$."
     ],
-    "explanation": "De un gráfico se leen dos datos para armar la forma de vértice: la posición del vértice $(h,k)$ y la concavidad, que indica el signo de $a$.\n\nCon vértice $(3,-1)$ y parábola que abre hacia arriba ($a=1>0$):\n\nLa opción $(x+3)^2-1$ pondría el vértice en $(-3,-1)$, porque el signo de $h$ siempre se invierte dentro del paréntesis.\n\nLa opción $(x-3)^2+1$ pondría el vértice en $(3,1)$, con $k$ positivo en vez de negativo:\n\nRevisar por separado el signo de $h$ y el de $k$ evita ambos errores.",
+    "explanation": "De un gráfico se leen dos datos para armar la forma de vértice: la posición del vértice $(h,k)$ y la concavidad, que indica el signo de $a$.\n\nCon vértice $(3,-1)$ y parábola que abre hacia arriba ($a=1>0$):\n\nLa opción $(x+3)^2-1$ pondría el vértice en $(-3,-1)$.\n\nPorque  el signo de $h$ siempre se invierte dentro del paréntesis.\n\nLa opción $(x-3)^2+1$ pondría el vértice en $(3,1)$, con $k$ positivo en vez de negativo:\n\nRevisar por separado el signo de $h$ y el de $k$ evita ambos errores.",
     "has_math": true,
     "graph_fn": "pow(x-3,2)-1",
     "graph_view": [

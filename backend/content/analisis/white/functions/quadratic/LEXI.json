@@ -208,7 +208,7 @@
       -4,
       6
     ],
-    "explanation": "El **eje de simetría** es la recta vertical $x = x_v$ que pasa por el **vértice** y divide la **parábola** en dos mitades especulares.\n\nSu ecuación se obtiene con:\n\nPara $f(x) = (x-2)^2 - 3$, el vértice es $(2, -3)$, entonces el eje de simetría es $x = 2$.\n\nEsta propiedad es útil: si conocés una **raíz** $r_1$, la otra raíz $r_2$ está en el lado opuesto del eje, y el vértice tiene $x_v = (r_1 + r_2)/2$.\n\nLas asíntotas no existen en cuadráticas (son propias de racionales y logarítmicas).",
+    "explanation": "El **eje de simetría** es la recta vertical $x = x_v$ que pasa por el **vértice** y divide la **parábola** en dos mitades especulares.\n\nSu ecuación se obtiene con:\n\nPara $f(x) = (x-2)^2 - 3$, el vértice es $(2, -3)$.\n\nEntonces  el eje de simetría es $x = 2$.\n\nEsta propiedad es útil: si conocés una **raíz** $r_1$, la otra raíz $r_2$ está en el lado opuesto del eje, y el vértice tiene $x_v = (r_1 + r_2)/2$.\n\nLas asíntotas no existen en cuadráticas (son propias de racionales y logarítmicas).",
     "reviewed": false,
     "tags": [
       "eje-simetria"
@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función cuadrática puede escribirse en tres formas equivalentes: la forma estándar $f(x) = ax^2 + bx + c$, que muestra directamente los coeficientes $a$, $b$, $c$.\n\nLa forma de **vértice** $f(x) = a(x-h)^2 + k$, donde el vértice es $(h, k)$, útil para graficar.\n\nY la forma factorizada $f(x) = a(x - r_1)(x - r_2)$, donde las **raíces** son $r_1$ y $r_2$, útil para resolver.\n\nLas otras opciones corresponden a otras familias: $mx + b$ es lineal, $a \\cdot b^x$ es exponencial, $\\log_a(x)$ es logarítmica.\n\nLa condición $a \\neq 0$ es indispensable para que sea cuadrática y no lineal.",
+    "explanation": "Una función cuadrática puede escribirse en tres formas equivalentes: la forma estándar $f(x) = ax^2 + bx + c$, que muestra directamente los coeficientes $a$, $b$, $c$.\n\nLa forma de **vértice** $f(x) = a(x-h)^2 + k$, donde el vértice es $(h, k)$, útil para graficar.\n\nY la forma factorizada $f(x) = a(x - r_1)(x - r_2)$.\n\nDonde  las **raíces** son $r_1$ y $r_2$, útil para resolver.\n\nLas otras opciones corresponden a otras familias: $mx + b$ es lineal, $a \\cdot b^x$ es exponencial, $\\log_a(x)$ es logarítmica.\n\nLa condición $a \\neq 0$ es indispensable para que sea cuadrática y no lineal.",
     "reviewed": false,
     "tags": [
       "formas-de-la-funcion"
@@ -408,7 +408,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La forma $f(x) = a(x - r_1)(x - r_2)$ se llama **factorizada** porque la **parábola** aparece partida en factores.\n\nSu ventaja es que las **raíces** se leen directo: la función vale $0$ cuando alguno de los factores vale $0$, o sea en $x = r_1$ y en $x = r_2$.\n\nSi querés resolver $f(x) = 0$, esta es la forma que te ahorra trabajo. Si la cuadrática no tiene raíces reales, simplemente no se puede factorizar así con números reales.",
+    "explanation": "La forma $f(x) = a(x - r_1)(x - r_2)$ se llama **factorizada** porque la **parábola** aparece partida en factores.\n\nSu ventaja es que las **raíces** se leen directo: la función vale $0$ cuando alguno de los factores vale $0$.\n\nO sea  en $x = r_1$ y en $x = r_2$.\n\nSi querés resolver $f(x) = 0$, esta es la forma que te ahorra trabajo. Si la cuadrática no tiene raíces reales, simplemente no se puede factorizar así con números reales.",
     "reviewed": false,
     "tags": [
       "formas-de-la-funcion"
@@ -983,7 +983,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **raíz** y el **vértice** son dos puntos notables distintos de la **parábola**, y conviene no mezclarlos.\n\nLa raíz es el valor de $x$ donde $f(x) = 0$, es decir donde la parábola corta el eje $X$; puede haber dos, una o ninguna.\n\nEl vértice, en cambio, es el punto extremo de la parábola, donde alcanza su máximo o su mínimo, y siempre hay exactamente uno.\n\nUna parábola puede no tener raíces, pero siempre tiene vértice. Mezclar ambos lleva a responder dónde toca el suelo cuando la pregunta era por la altura máxima.",
+    "explanation": "La **raíz** y el **vértice** son dos puntos notables distintos de la **parábola**, y conviene no mezclarlos.\n\nLa raíz es el valor de $x$ donde $f(x) = 0$.\n\nEs decir  donde la parábola corta el eje $X$; puede haber dos, una o ninguna.\n\nEl vértice, en cambio, es el punto extremo de la parábola, donde alcanza su máximo o su mínimo, y siempre hay exactamente uno.\n\nUna parábola puede no tener raíces, pero siempre tiene vértice. Mezclar ambos lleva a responder dónde toca el suelo cuando la pregunta era por la altura máxima.",
     "reviewed": false,
     "tags": [
       "raices-discriminante"

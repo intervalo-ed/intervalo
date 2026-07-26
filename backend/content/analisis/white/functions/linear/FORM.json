@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "**Datos usados:**\n$(0, 5)$ $f(0) = 5$ $b = 5$ $m = 2$\n\nUn punto de la forma $(0, k)$ entrega directamente la ordenada al origen: si la recta pasa por $(0, 5)$, entonces $b = 5$.\n\nCon la pendiente dada $m = 2$, la ecuación queda:$$f(x) = 2x + 5$$Sin necesidad de ningún despeje.\n\nEl punto sobre el eje $Y$ es el dato más cómodo para armar la ecuación: no requiere despejar nada. El cuidado está en no cruzarlo con la pendiente, que es el otro número del enunciado.",
+    "explanation": "**Datos usados:**\n$(0, 5)$ $f(0) = 5$ $b = 5$ $m = 2$\n\nUn punto de la forma $(0, k)$ entrega directamente la ordenada al origen: si la recta pasa por $(0, 5)$.\n\nEntonces  $b = 5$.\n\nCon la pendiente dada $m = 2$, la ecuación queda:$$f(x) = 2x + 5$$Sin necesidad de ningún despeje.\n\nEl punto sobre el eje $Y$ es el dato más cómodo para armar la ecuación: no requiere despejar nada. El cuidado está en no cruzarlo con la pendiente, que es el otro número del enunciado.",
     "reviewed": false,
     "tags": [
       "armar-formula-mb"
@@ -1138,7 +1138,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pendiente entre dos puntos es el cociente de las variaciones:$$m = \\frac{y_2 - y_1}{x_2 - x_1} = \\frac{8 - 5}{1 - 0} = 3$$Por cada unidad de avance, la función sube 3.\n\nComo uno de los puntos es $(0, 5)$, además se lee la ordenada al origen $b = 5$: la recta completa es $f(x) = 3x + 5$.\n\nLa pendiente mide el cambio, no los valores en sí: ni el 5 ni el 8 por separado responden la pregunta; lo que importa es la diferencia entre ellos.",
+    "explanation": "La pendiente entre dos puntos es el cociente de las variaciones:$$m = \\frac{y_2 - y_1}{x_2 - x_1} = \\frac{8 - 5}{1 - 0} = 3$$Por cada unidad de avance, la función sube 3.\n\nComo uno de los puntos es $(0, 5)$.\n\nAdemás  se lee la ordenada al origen $b = 5$: la recta completa es $f(x) = 3x + 5$.\n\nLa pendiente mide el cambio, no los valores en sí: ni el 5 ni el 8 por separado responden la pregunta; lo que importa es la diferencia entre ellos.",
     "reviewed": false,
     "tags": [
       "armar-formula-puntos"

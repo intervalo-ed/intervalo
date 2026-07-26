@@ -588,7 +588,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido.\n\nHay dos restricciones a la vez: la raíz exige $x \\geq 0$ y el denominador exige $\\sqrt{x} \\neq 0$, es decir $x \\neq 0$.\n\nCombinando ambas queda $x > 0$. El descuido habitual es aplicar una sola restricción; cuando se apilan raíz y división, hay que cruzar las dos condiciones.",
+    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido.\n\nHay dos restricciones a la vez: la raíz exige $x \\geq 0$ y el denominador exige $\\sqrt{x} \\neq 0$.\n\nEs decir  $x \\neq 0$.\n\nCombinando ambas queda $x > 0$. El descuido habitual es aplicar una sola restricción; cuando se apilan raíz y división, hay que cruzar las dos condiciones.",
     "reviewed": false,
     "tags": [
       "dominio-natural"

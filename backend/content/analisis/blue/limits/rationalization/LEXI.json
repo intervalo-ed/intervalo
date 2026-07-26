@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Multiplicar por el conjugado tanto arriba como abajo mantiene la función sin cambios: equivale a multiplicar por 1.\n\nEsta operación es válida porque un límite mide el comportamiento de la función cerca del punto, no en el punto mismo.\n\nAntes de aplicar cualquier técnica hay que verificar si sustituir directamente produce una **indeterminación**.\n$$\\lim_{x \\to 2} \\frac{\\sqrt{x+7}}{x+1}$$\nAl sustituir $x=2$.\n\n$\\sqrt{9} = 3$ y el denominador da $3$, entonces el cociente es $\\tfrac{3}{3} = 1$, un valor finito.\n\nRacionalizar o factorizar solo tiene sentido cuando la sustitución directa falla con una indeterminación $0/0$; si ya da un número, ese número es directamente el límite.",
+    "explanation": "Multiplicar por el conjugado tanto arriba como abajo mantiene la función sin cambios: equivale a multiplicar por 1.\n\nEsta operación es válida porque un límite mide el comportamiento de la función cerca del punto, no en el punto mismo.\n\nAntes de aplicar cualquier técnica hay que verificar si sustituir directamente produce una **indeterminación**.\n$$\\lim_{x \\to 2} \\frac{\\sqrt{x+7}}{x+1}$$\nAl sustituir $x=2$.\n\n$\\sqrt{9} = 3$ y el denominador da $3$.\n\nEntonces  el cociente es $\\tfrac{3}{3} = 1$, un valor finito.\n\nRacionalizar o factorizar solo tiene sentido cuando la sustitución directa falla con una indeterminación $0/0$; si ya da un número, ese número es directamente el límite.",
     "reviewed": false,
     "tags": [
       "proposito-logico-conjugado"

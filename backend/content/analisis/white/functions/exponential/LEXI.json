@@ -658,7 +658,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **asíntota horizontal** refleja el límite de la función:\n$$\\lim_{x \\to -\\infty} b^x = 0 \\implies \\lim_{x \\to -\\infty}(b^x + k) = k$$\nPor eso la asíntota de $g(x) = b^x + k$ es $y = k$.\n\nEn contexto, $f(x) = 3^{-x} + 20$ modela un enfriamiento hacia $20°C$ de temperatura ambiente, donde la asíntota $y = 20$ representa el valor final al que converge el sistema.",
+    "explanation": "La **asíntota horizontal** refleja el límite de la función:\n$$\\lim_{x \\to -\\infty} b^x = 0 \\implies \\lim_{x \\to -\\infty}(b^x + k) = k$$\nPor eso la asíntota de $g(x) = b^x + k$ es $y = k$.\n\nEn contexto, $f(x) = 3^{-x} + 20$ modela un enfriamiento hacia $20°C$ de temperatura ambiente.\n\nDonde  la asíntota $y = 20$ representa el valor final al que converge el sistema.",
     "reviewed": false,
     "tags": [
       "parametro-base-crecimiento"

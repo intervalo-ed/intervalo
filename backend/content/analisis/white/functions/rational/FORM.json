@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el grado del numerador (aquí $0$, porque el numerador es una constante) es **menor** que el grado del denominador (aquí $1$), la función racional se acerca a cero a medida que $x$ crece en valor absoluto.\n\nConcretamente, $\\frac{5}{x}\\to0$ tanto cuando $x\\to+\\infty$ como cuando $x\\to-\\infty$.\n\nPor eso la asíntota horizontal es $y=0$.\n\nConfundir esta recta con la asíntota vertical, que en este caso es $x=0$ y describe el comportamiento cerca del punto donde el denominador se anula, no en el infinito.",
+    "explanation": "Cuando el grado del numerador (aquí $0$.\n\nPorque  el numerador es una constante) es **menor** que el grado del denominador (aquí $1$), la función racional se acerca a cero a medida que $x$ crece en valor absoluto.\n\nConcretamente, $\\frac{5}{x}\\to0$ tanto cuando $x\\to+\\infty$ como cuando $x\\to-\\infty$.\n\nPor eso la asíntota horizontal es $y=0$.\n\nConfundir esta recta con la asíntota vertical, que en este caso es $x=0$ y describe el comportamiento cerca del punto donde el denominador se anula, no en el infinito.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-calculo"

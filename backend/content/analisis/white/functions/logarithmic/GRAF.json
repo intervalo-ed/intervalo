@@ -203,7 +203,7 @@
       -3,
       5
     ],
-    "explanation": "El punto $(b, 1)$ pertenece siempre a la curva de $\\log_b(x)$, porque $\\log_b(b) = 1$ para cualquier base.\n\nEn el gráfico, en $x = 2$ la curva vale $y = 1$: $\\log_2(2) = 1$ porque $2^1 = 2$.\n\nEse punto $(2, 1)$ es justamente la clave para leer que la base de esta curva es $2$, sin necesidad de memorizar la fórmula.",
+    "explanation": "El punto $(b, 1)$ pertenece siempre a la curva de $\\log_b(x)$.\n\nPorque  $\\log_b(b) = 1$ para cualquier base.\n\nEn el gráfico, en $x = 2$ la curva vale $y = 1$: $\\log_2(2) = 1$ porque $2^1 = 2$.\n\nEse punto $(2, 1)$ es justamente la clave para leer que la base de esta curva es $2$, sin necesidad de memorizar la fórmula.",
     "reviewed": false,
     "tags": [
       "lectura-valor-puntual"
@@ -413,7 +413,7 @@
       -3,
       4
     ],
-    "explanation": "Un desplazamiento **horizontal** (sumar o restar dentro del argumento del logaritmo) sí mueve la asíntota vertical, a diferencia de un desplazamiento vertical afuera del logaritmo.\n\nPara $f(x) = \\log_2(x - 1)$, el argumento se anula cuando $x - 1 = 0$, es decir $x = 1$.\n\nAsíntota vertical: $x = 1$.\n\nLa curva viene de $-\\infty$ abrazando la recta vertical $x = 1$ por la derecha, un corrimiento de $1$ unidad respecto de la básica.",
+    "explanation": "Un desplazamiento **horizontal** (sumar o restar dentro del argumento del logaritmo) sí mueve la asíntota vertical, a diferencia de un desplazamiento vertical afuera del logaritmo.\n\nPara $f(x) = \\log_2(x - 1)$, el argumento se anula cuando $x - 1 = 0$.\n\nEs decir  $x = 1$.\n\nAsíntota vertical: $x = 1$.\n\nLa curva viene de $-\\infty$ abrazando la recta vertical $x = 1$ por la derecha, un corrimiento de $1$ unidad respecto de la básica.",
     "reviewed": false,
     "tags": [
       "lectura-asintota"
@@ -533,7 +533,7 @@
       -2,
       5
     ],
-    "explanation": "La monotonía de una logarítmica depende solo del signo de $b - 1$: si la base supera a $1$ la curva crece, si está entre $0$ y $1$ decrece.\n\n$\\ln(x) = \\log_e(x)$ y $e \\approx 2{,}7 > 1$, por lo que la función es **estrictamente creciente**.\n\nEn el gráfico se observa una curva que siempre sube de izquierda a derecha, sin importar que $e$ sea un número irracional.",
+    "explanation": "La monotonía de una logarítmica depende solo del signo de $b - 1$: si la base supera a $1$ la curva crece.\n\nSi  está entre $0$ y $1$ decrece.\n\n$\\ln(x) = \\log_e(x)$ y $e \\approx 2{,}7 > 1$, por lo que la función es **estrictamente creciente**.\n\nEn el gráfico se observa una curva que siempre sube de izquierda a derecha, sin importar que $e$ sea un número irracional.",
     "reviewed": false,
     "tags": [
       "lectura-monotonia"

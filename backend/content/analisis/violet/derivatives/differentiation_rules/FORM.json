@@ -315,7 +315,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El operador $D$ es otra forma válida de anotar la derivada, equivalente a $f'$ o a $\\frac{df}{dx}$, aunque menos frecuente en los libros introductorios.\n\nCualquiera de estas notaciones describe el mismo objeto matemático, así que conviene reconocerlas todas sin depender de una sola forma de escritura para identificar una derivada.",
+    "explanation": "El operador $D$ es otra forma válida de anotar la derivada.\n\nEquivalente a $f'$ o a $\\frac{df}{dx}$, aunque menos frecuente en los libros introductorios.\n\nCualquiera de estas notaciones describe el mismo objeto matemático, así que conviene reconocerlas todas sin depender de una sola forma de escritura para identificar una derivada.",
     "reviewed": false,
     "tags": [
       "notacion-y-operadores"

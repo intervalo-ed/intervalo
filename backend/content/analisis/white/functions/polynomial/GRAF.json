@@ -15,7 +15,7 @@
       "Fijate si la curva vuelve a cruzar el eje cerca del centro del gráfico, además de los cruces que ya viste.",
       "Contá solo los puntos donde la curva atraviesa el eje, no donde se acerca sin tocarlo."
     ],
-    "explanation": "Una **raíz** es un valor $x$ donde la curva de un polinomio cruza o toca el eje $x$, es decir, donde $f(x) = 0$.\n\nUn polinomio de grado $n$ puede tener como máximo $n$ raíces reales, aunque a veces tiene menos si algunas raíces son complejas o se repiten.\n\nContando los cruces del gráfico: la curva corta el eje en $x = -2$, $x = 0$ y $x = 2$.\n\nSon **3 raíces reales**, todas simples porque la curva atraviesa el eje en cada una sin rebotar.\n\nEl número de raíces reales siempre es menor o igual al grado del polinomio.\n\nConviene recorrer todo el gráfico de punta a punta antes de dar el conteo final, para no perder ningún cruce cercano a los bordes.",
+    "explanation": "Una **raíz** es un valor $x$ donde la curva de un polinomio cruza o toca el eje $x$, es decir.\n\nDonde  $f(x) = 0$.\n\nUn polinomio de grado $n$ puede tener como máximo $n$ raíces reales, aunque a veces tiene menos si algunas raíces son complejas o se repiten.\n\nContando los cruces del gráfico: la curva corta el eje en $x = -2$, $x = 0$ y $x = 2$.\n\nSon **3 raíces reales**, todas simples porque la curva atraviesa el eje en cada una sin rebotar.\n\nEl número de raíces reales siempre es menor o igual al grado del polinomio.\n\nConviene recorrer todo el gráfico de punta a punta antes de dar el conteo final, para no perder ningún cruce cercano a los bordes.",
     "has_math": true,
     "graph_fn": "x*(x-2)*(x+2)/4",
     "graph_view": [
@@ -1155,7 +1155,7 @@
       "Mirá hacia dónde van los extremos de la curva, ambos suben en este gráfico.",
       "Contá cuántas raíces distintas se ven en el gráfico, a esta expresión le falta una."
     ],
-    "explanation": "El término de mayor grado de un polinomio determina el comportamiento cuando $|x|$ es muy grande.\n\nPara $p(x) = 5x^4 + 2x^3 - x + 7$, cuando $|x| \\to \\infty$, el término $5x^4$ domina completamente.\n\nLos demás términos se vuelven insignificantes en comparación. Por eso, en extremos, el polinomio se comporta como su término principal.",
+    "explanation": "El término de mayor grado de un polinomio determina el comportamiento cuando $|x|$ es muy grande.\n\nPara $p(x) = 5x^4 + 2x^3 - x + 7$.\n\nCuando  $|x| \\to \\infty$, el término $5x^4$ domina completamente.\n\nLos demás términos se vuelven insignificantes en comparación. Por eso, en extremos, el polinomio se comporta como su término principal.",
     "has_math": true,
     "graph_fn": "x*(x-1)*(x+1)*(x-2)/6",
     "graph_view": [

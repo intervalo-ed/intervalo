@@ -153,7 +153,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$f(e) = \\ln(e) = \\log_e(e)$. Aplicando la propiedad $\\log_b(b) = 1$:\n\nEsto significa que la gráfica de $f(x) = \\ln(x)$ pasa por el punto $(e,\\, 1)$, donde $e \\approx 2{,}718$.\n\nPuntos clave de $\\ln(x)$: pasa por $(1,\\, 0)$, pasa por $(e,\\, 1)$, asíntota vertical en $x = 0$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "$f(e) = \\ln(e) = \\log_e(e)$. Aplicando la propiedad $\\log_b(b) = 1$:\n\nEsto significa que la gráfica de $f(x) = \\ln(x)$ pasa por el punto $(e,\\, 1)$.\n\nDonde  $e \\approx 2{,}718$.\n\nPuntos clave de $\\ln(x)$: pasa por $(1,\\, 0)$, pasa por $(e,\\, 1)$, asíntota vertical en $x = 0$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -208,7 +208,7 @@
       -4,
       4
     ],
-    "explanation": "La curva es **decreciente** y tiene asíntota vertical en $x = 0$, con dominio $x > 0$.\n\nUna reflexión sobre el eje $X$ (multiplicar por $-1$) convierte una curva creciente en decreciente. Por eso:\n\nVerificación: $f(1) = -\\log_2(1) = 0$ (pasa por $(1, 0)$).\n\nCuando $x > 1$, $\\log_2(x) > 0$, entonces $f(x) < 0$: la curva baja a la derecha.",
+    "explanation": "La curva es **decreciente** y tiene asíntota vertical en $x = 0$, con dominio $x > 0$.\n\nUna reflexión sobre el eje $X$ (multiplicar por $-1$) convierte una curva creciente en decreciente. Por eso:\n\nVerificación: $f(1) = -\\log_2(1) = 0$ (pasa por $(1, 0)$).\n\nCuando $x > 1$, $\\log_2(x) > 0$.\n\nEntonces  $f(x) < 0$: la curva baja a la derecha.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -233,7 +233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para que $f(x) = \\log(x - 3)$ esté definida, el **argumento debe ser positivo**:\n\nNota: se exige estrictamente $> 0$, no $\\geq 0$, porque $\\log(0)$ no existe.\n\nEl **dominio** es $(3, +\\infty)$ y la **asíntota vertical** está en $x = 3$.\n\nRegla general: para $\\log(x - c)$, el dominio es $x > c$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Para que $f(x) = \\log(x - 3)$ esté definida, el **argumento debe ser positivo**:\n\nNota: se exige estrictamente $> 0$, no $\\geq 0$.\n\nPorque  $\\log(0)$ no existe.\n\nEl **dominio** es $(3, +\\infty)$ y la **asíntota vertical** está en $x = 3$.\n\nRegla general: para $\\log(x - c)$, el dominio es $x > c$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "dominio-desde-formula"
@@ -308,7 +308,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **asíntota vertical** de una función logarítmica aparece siempre donde su argumento se anula, porque ahí la función deja de estar definida y los valores caen sin cota.\n\nPara $f(x) = \\log_3(x - 4)$, el argumento es $(x - 4)$. Se anula cuando:\n\nLa asíntota vertical es $x = 4$ y el dominio es $(4, +\\infty)$.\n\nEl intercepto con el eje $X$ ocurre cuando $\\log_3(x - 4) = 0$, es decir $x - 4 = 1 \\implies x = 5$.\n\nusar el signo del término dentro del paréntesis sin invertirlo al despejar: el $-4$ obliga a sumar $4$ de ambos lados, no a restarlo.",
+    "explanation": "La **asíntota vertical** de una función logarítmica aparece siempre donde su argumento se anula, porque ahí la función deja de estar definida y los valores caen sin cota.\n\nPara $f(x) = \\log_3(x - 4)$, el argumento es $(x - 4)$. Se anula cuando:\n\nLa asíntota vertical es $x = 4$ y el dominio es $(4, +\\infty)$.\n\nEl intercepto con el eje $X$ ocurre cuando $\\log_3(x - 4) = 0$.\n\nEs decir  $x - 4 = 1 \\implies x = 5$.\n\nusar el signo del término dentro del paréntesis sin invertirlo al despejar: el $-4$ obliga a sumar $4$ de ambos lados, no a restarlo.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -723,7 +723,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Asíntota vertical en $x = 3$ → el argumento se anula en $x = 3$, o sea argumento $= (x - 3)$.\n\nVerificamos el punto $(4, 0)$: $\\log_2(4 - 3) = \\log_2(1) = 0$ .\n\nLa base $2$ se confirma porque para $x = 5$: $\\log_2(5 - 3) = \\log_2(2) = 1$, es decir el punto $(5, 1)$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Asíntota vertical en $x = 3$ → el argumento se anula en $x = 3$.\n\nO sea  argumento $= (x - 3)$.\n\nVerificamos el punto $(4, 0)$: $\\log_2(4 - 3) = \\log_2(1) = 0$ .\n\nLa base $2$ se confirma porque para $x = 5$: $\\log_2(5 - 3) = \\log_2(2) = 1$, es decir el punto $(5, 1)$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-desde-formula"
@@ -898,7 +898,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **intercepto con el eje $X$** de una función logarítmica aparece siempre donde el argumento vale $1$, porque $\\log_b(1) = 0$ para cualquier base válida.\n\nLa curva pasa por el punto $(2,\\, 0)$.\n\nNo confundir este cruce con la asíntota vertical:\n\nLa asíntota aparece donde el argumento se anula ($x=1$ en este caso), mientras que el cruce por el eje $X$ aparece donde el argumento vale $1$ más allá, es decir en $x=2$.",
+    "explanation": "El **intercepto con el eje $X$** de una función logarítmica aparece siempre donde el argumento vale $1$.\n\nPorque  $\\log_b(1) = 0$ para cualquier base válida.\n\nLa curva pasa por el punto $(2,\\, 0)$.\n\nNo confundir este cruce con la asíntota vertical:\n\nLa asíntota aparece donde el argumento se anula ($x=1$ en este caso), mientras que el cruce por el eje $X$ aparece donde el argumento vale $1$ más allá, es decir en $x=2$.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -1048,7 +1048,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando se conoce la posición de la **asíntota vertical**, se puede reconstruir el argumento del logaritmo: el argumento debe anularse exactamente ahí.\n\nComo la asíntota está en $x = -1$, el argumento tiene que ser $x + 1$, porque $(-1) + 1 = 0$.\n\nSe verifica con el punto dado: $\\log_2(0 + 1) = \\log_2(1) = 0$, que coincide con el punto $(0, 0)$.\n\nArmar la fórmula a partir de la asíntota y un punto conocido es el proceso inverso de leer un gráfico:\n\nPrimero se fija el desplazamiento horizontal, y después se confirma con el punto que también debe cumplir la ecuación.",
+    "explanation": "Cuando se conoce la posición de la **asíntota vertical**, se puede reconstruir el argumento del logaritmo: el argumento debe anularse exactamente ahí.\n\nComo la asíntota está en $x = -1$, el argumento tiene que ser $x + 1$.\n\nPorque  $(-1) + 1 = 0$.\n\nSe verifica con el punto dado: $\\log_2(0 + 1) = \\log_2(1) = 0$, que coincide con el punto $(0, 0)$.\n\nArmar la fórmula a partir de la asíntota y un punto conocido es el proceso inverso de leer un gráfico:\n\nPrimero se fija el desplazamiento horizontal, y después se confirma con el punto que también debe cumplir la ecuación.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -1073,7 +1073,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar una función con un factor multiplicativo delante del logaritmo, primero se calcula el logaritmo y recién después se multiplica por ese factor.\n\nSe usa $\\log_2(4) = 2$ porque $2^2 = 4$, y ese resultado se multiplica por el factor $2$ que acompaña a toda la expresión.\n\naplicar el factor multiplicativo dentro del logaritmo, como si $2 \\cdot \\log_2(x)$ fuera lo mismo que $\\log_2(2x)$, cuando en realidad son expresiones distintas: $2\\log_2(x) = \\log_2(x^2)$.",
+    "explanation": "Para evaluar una función con un factor multiplicativo delante del logaritmo, primero se calcula el logaritmo y recién después se multiplica por ese factor.\n\nSe usa $\\log_2(4) = 2$ porque $2^2 = 4$, y ese resultado se multiplica por el factor $2$ que acompaña a toda la expresión.\n\naplicar el factor multiplicativo dentro del logaritmo, como si $2 \\cdot \\log_2(x)$ fuera lo mismo que $\\log_2(2x)$.\n\nCuando  en realidad son expresiones distintas: $2\\log_2(x) = \\log_2(x^2)$.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1253,7 +1253,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad del cociente**, leída al revés, permite combinar una resta de logaritmos de la misma base en un solo logaritmo de una división.\n\nTambién puede resolverse evaluando cada logaritmo por separado: $\\log_2(8) = 3$ y $\\log_2(4) = 2$, entonces $3 - 2 = 1$.\n\nrestar directamente los argumentos ($8-4=4$) en vez de aplicar la propiedad del cociente sobre los logaritmos.",
+    "explanation": "La **propiedad del cociente**, leída al revés, permite combinar una resta de logaritmos de la misma base en un solo logaritmo de una división.\n\nTambién puede resolverse evaluando cada logaritmo por separado: $\\log_2(8) = 3$ y $\\log_2(4) = 2$.\n\nEntonces  $3 - 2 = 1$.\n\nrestar directamente los argumentos ($8-4=4$) en vez de aplicar la propiedad del cociente sobre los logaritmos.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1278,7 +1278,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "**Derivación:**\n$(0{,}8)^t = 0{,}5 \\implies t = \\log_{0{,}8}(0{,}5) \\approx 3{,}1$\n\nPara que el auto valga la mitad de su valor original, se plantea $V_0/2 = V_0 \\cdot (0{,}8)^t$, es decir $(0{,}8)^t = 0{,}5$, y se despeja $t$ usando cambio de base.\n\nSon unos $3$ años.\n\nEl **cambio de base** $\\log_b(x) = \\ln(x)/\\ln(b)$ es la herramienta clave cuando la calculadora no tiene una tecla directa para logaritmos en bases no estándar como $0{,}8$.",
+    "explanation": "**Derivación:**\n$(0{,}8)^t = 0{,}5 \\implies t = \\log_{0{,}8}(0{,}5) \\approx 3{,}1$\n\nPara que el auto valga la mitad de su valor original, se plantea $V_0/2 = V_0 \\cdot (0{,}8)^t$.\n\nEs decir  $(0{,}8)^t = 0{,}5$, y se despeja $t$ usando cambio de base.\n\nSon unos $3$ años.\n\nEl **cambio de base** $\\log_b(x) = \\ln(x)/\\ln(b)$ es la herramienta clave cuando la calculadora no tiene una tecla directa para logaritmos en bases no estándar como $0{,}8$.",
     "reviewed": false,
     "tags": [
       "evaluar-f"

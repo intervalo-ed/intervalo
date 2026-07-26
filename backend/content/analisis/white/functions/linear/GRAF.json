@@ -66,7 +66,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma canónica $f(x) = mx + b$, el coeficiente $m$ que multiplica a $x$ es la **pendiente**. Mide la tasa de cambio de la función:\n$$m = \\frac{\\Delta y}{\\Delta x}$$\nEs decir, cuántas unidades varía $f(x)$ cuando $x$ aumenta una unidad.\n\nEl otro parámetro, $b$, es la **ordenada al origen**: el valor $f(0)$, donde la recta corta el eje $Y$.\n\nJuntos, $m$.\n\n$b$ determinan por completo la recta.\n\nPara no mezclarlos, mirá qué acompaña a cada número: el que multiplica a la variable es la pendiente; el que está solo es la ordenada al origen.",
+    "explanation": "En la forma canónica $f(x) = mx + b$, el coeficiente $m$ que multiplica a $x$ es la **pendiente**. Mide la tasa de cambio de la función:\n$$m = \\frac{\\Delta y}{\\Delta x}$$\nEs decir, cuántas unidades varía $f(x)$ cuando $x$ aumenta una unidad.\n\nEl otro parámetro, $b$, es la **ordenada al origen**: el valor $f(0)$.\n\nDonde  la recta corta el eje $Y$.\n\nJuntos, $m$.\n\n$b$ determinan por completo la recta.\n\nPara no mezclarlos, mirá qué acompaña a cada número: el que multiplica a la variable es la pendiente; el que está solo es la ordenada al origen.",
     "reviewed": false,
     "tags": [
       "nombre-parametros"
@@ -306,7 +306,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El signo de la **pendiente** fija la monotonía global de una recta. Con $m < 0$, cuando $x$ aumenta el valor $f(x)$ disminuye.\n\nLa función es decreciente en todo $\\mathbb{R}$.\n\nConcretamente, por cada unidad que avanza $x$ la función baja $|m|$ unidades, siempre al mismo ritmo.\n\nLa monotonía de una lineal no cambia por tramos: decrece en todo su **dominio**, sin intervalos de subida.",
+    "explanation": "El signo de la **pendiente** fija la monotonía global de una recta. Con $m < 0$.\n\nCuando  $x$ aumenta el valor $f(x)$ disminuye.\n\nLa función es decreciente en todo $\\mathbb{R}$.\n\nConcretamente, por cada unidad que avanza $x$ la función baja $|m|$ unidades, siempre al mismo ritmo.\n\nLa monotonía de una lineal no cambia por tramos: decrece en todo su **dominio**, sin intervalos de subida.",
     "reviewed": false,
     "tags": [
       "monotonia-signo-pendiente"

@@ -743,7 +743,7 @@
       -2,
       2
     ],
-    "explanation": "**Datos usados:**\n$\\operatorname{sen}(2x) = 0$ $2x = \\pi$\n\nLas raíces de $\\operatorname{sen}(2x)=0$ ocurren cuando el argumento $2x=k\\pi$, es decir $x=k\\pi/2$. La primera raíz positiva **no nula** es:\n$$\\begin{aligned}\nx &= \\frac{\\pi}{2}:\n\\end{aligned}$$La raíz $x=0$ existe pero es la raíz en el origen (no la primera positiva no nula). La opción $x=\\pi$ es la segunda raíz positiva no nula.\n\nLa opción $x=\\pi/4$ no es raíz: $\\operatorname{sen}(2\\cdot\\pi/4)=\\operatorname{sen}(\\pi/2)=1\\neq0$.",
+    "explanation": "**Datos usados:**\n$\\operatorname{sen}(2x) = 0$ $2x = \\pi$\n\nLas raíces de $\\operatorname{sen}(2x)=0$ ocurren cuando el argumento $2x=k\\pi$.\n\nEs decir  $x=k\\pi/2$. La primera raíz positiva **no nula** es:\n$$\\begin{aligned}\nx &= \\frac{\\pi}{2}:\n\\end{aligned}$$La raíz $x=0$ existe pero es la raíz en el origen (no la primera positiva no nula). La opción $x=\\pi$ es la segunda raíz positiva no nula.\n\nLa opción $x=\\pi/4$ no es raíz: $\\operatorname{sen}(2\\cdot\\pi/4)=\\operatorname{sen}(\\pi/2)=1\\neq0$.",
     "reviewed": false,
     "tags": [
       "imagen-desde-grafico-trig"

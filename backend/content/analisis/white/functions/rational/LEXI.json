@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función racional** se define como el cociente de dos polinomios: $f(x)=\\dfrac{P(x)}{Q(x)}$, donde tanto el numerador $P(x)$ como el denominador $Q(x)$ deben ser polinomios reales.\n\nPor ejemplo: $f(x)=\\dfrac{x+1}{x-2}$ es racional porque $P(x)=x+1$ y $Q(x)=x-2$ son ambos polinomios.\n\nEl error conceptual más frecuente es dejarse llevar por la presencia de una $x$ en el denominador y asumir automáticamente que cualquier expresión con esa estructura es una función racional, sin verificar que tanto arriba como abajo haya polinomios genuinos.\n\nPor ejemplo, $f(x)=\\dfrac{1}{\\sin x}$ tiene denominador con variable, pero no es racional porque $\\sin x$ no es un polinomio.",
+    "explanation": "Una **función racional** se define como el cociente de dos polinomios: $f(x)=\\dfrac{P(x)}{Q(x)}$.\n\nDonde  tanto el numerador $P(x)$ como el denominador $Q(x)$ deben ser polinomios reales.\n\nPor ejemplo: $f(x)=\\dfrac{x+1}{x-2}$ es racional porque $P(x)=x+1$ y $Q(x)=x-2$ son ambos polinomios.\n\nEl error conceptual más frecuente es dejarse llevar por la presencia de una $x$ en el denominador y asumir automáticamente que cualquier expresión con esa estructura es una función racional, sin verificar que tanto arriba como abajo haya polinomios genuinos.\n\nPor ejemplo, $f(x)=\\dfrac{1}{\\sin x}$ tiene denominador con variable, pero no es racional porque $\\sin x$ no es un polinomio.",
     "reviewed": false,
     "tags": [
       "agujero-vs-asintota"
@@ -283,7 +283,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En una **función racional** $f(x) = \\dfrac{p(x)}{q(x)}$, la operación problemática es la **división**: no está definida cuando el divisor es cero.\n\nEl **dominio** de $f$ es $\\mathbb{R}$ menos los ceros del denominador:\n$$\\text{Dom}(f) = \\{x \\in \\mathbb{R} : q(x) \\neq 0\\}$$\nEl numerador puede valer cero sin problema (produce $f(x) = 0$, no una indeterminación).\n\nEjemplo: $f(x) = \\dfrac{x^2}{x - 1}$ tiene dominio $\\mathbb{R} \\setminus \\{1\\}$, porque $q(1) = 0$.",
+    "explanation": "En una **función racional** $f(x) = \\dfrac{p(x)}{q(x)}$, la operación problemática es la **división**: no está definida cuando el divisor es cero.\n\nEl **dominio** de $f$ es $\\mathbb{R}$ menos los ceros del denominador:\n$$\\text{Dom}(f) = \\{x \\in \\mathbb{R} : q(x) \\neq 0\\}$$\nEl numerador puede valer cero sin problema (produce $f(x) = 0$, no una indeterminación).\n\nEjemplo: $f(x) = \\dfrac{x^2}{x - 1}$ tiene dominio $\\mathbb{R} \\setminus \\{1\\}$.\n\nPorque  $q(1) = 0$.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes"
@@ -308,7 +308,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x)=\\frac{1}{x-3}$, cuando $x=3$ el denominador vale $0$ y la división por cero no existe.\n\nLa función **no está definida** en ese punto. Esto no significa que valga cero ahí ni que alcance un máximo, esos serían resultados de una función sí definida.\n\nEn la gráfica, ese punto excluido corresponde a la asíntota vertical: la curva se acerca a $x=3$ por ambos lados sin llegar nunca a tocarlo.",
+    "explanation": "En $f(x)=\\frac{1}{x-3}$.\n\nCuando  $x=3$ el denominador vale $0$ y la división por cero no existe.\n\nLa función **no está definida** en ese punto. Esto no significa que valga cero ahí ni que alcance un máximo, esos serían resultados de una función sí definida.\n\nEn la gráfica, ese punto excluido corresponde a la asíntota vertical: la curva se acerca a $x=3$ por ambos lados sin llegar nunca a tocarlo.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal"
@@ -683,7 +683,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cerca de una **asíntota vertical**, el signo de la función depende del lado por el que se aproxima $x$.\n\nEn $f(x)=\\frac{1}{x-2}$, si $x\\to2^-$ (por la izquierda), el denominador $x-2$ es negativo.\n\nMuy chico en valor absoluto, $x-2\\to0^-$.\n\nLa fracción $\\frac{1}{x-2}$ tiende entonces a $-\\infty$.\n\nPor eso la rama izquierda de la gráfica baja sin límite hacia abajo, en espejo con lo que ocurre del lado derecho.",
+    "explanation": "Cerca de una **asíntota vertical**, el signo de la función depende del lado por el que se aproxima $x$.\n\nEn $f(x)=\\frac{1}{x-2}$.\n\nSi  $x\\to2^-$ (por la izquierda), el denominador $x-2$ es negativo.\n\nMuy chico en valor absoluto, $x-2\\to0^-$.\n\nLa fracción $\\frac{1}{x-2}$ tiende entonces a $-\\infty$.\n\nPor eso la rama izquierda de la gráfica baja sin límite hacia abajo, en espejo con lo que ocurre del lado derecho.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes"
@@ -783,7 +783,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Sumar una constante fuera de la fracción desplaza toda la curva verticalmente. En $f(x)=\\frac{1}{x}+2$ respecto a $g(x)=\\frac{1}{x}$, cada valor de $g$ queda desplazado $2$ unidades hacia arriba,.\n\nLa asíntota horizontal pasa de $y=0$ a $y=2$.\n\nLa asíntota vertical, en cambio, sigue en $x=0$ porque el denominador no cambió.\n\nEsto contrasta con modificar $x$ dentro del denominador, que produciría un desplazamiento horizontal.",
+    "explanation": "Sumar una constante fuera de la fracción desplaza toda la curva verticalmente. En $f(x)=\\frac{1}{x}+2$ respecto a $g(x)=\\frac{1}{x}$.\n\nCada  valor de $g$ queda desplazado $2$ unidades hacia arriba,.\n\nLa asíntota horizontal pasa de $y=0$ a $y=2$.\n\nLa asíntota vertical, en cambio, sigue en $x=0$ porque el denominador no cambió.\n\nEsto contrasta con modificar $x$ dentro del denominador, que produciría un desplazamiento horizontal.",
     "reviewed": false,
     "tags": [
       "continuidad-en-dominio"
@@ -1083,7 +1083,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando $x\\to+\\infty$ en $f(x)=\\frac{5}{x}$, el denominador crece sin límite mientras el numerador queda fijo en $5$, así que la fracción se hace cada vez más chica.\n\nTiende a $0$. Como el numerador es positivo.\n\n$x$ también, el cociente siempre da positivo, por lo que la función se aproxima a $0$ por arriba, es decir $0^+$, y no por debajo.\n\nEn la gráfica esto se ve como la curva aplanándose hacia el eje $X$ desde arriba.",
+    "explanation": "Cuando $x\\to+\\infty$ en $f(x)=\\frac{5}{x}$, el denominador crece sin límite mientras el numerador queda fijo en $5$, así que la fracción se hace cada vez más chica.\n\nTiende a $0$. Como el numerador es positivo.\n\n$x$ también, el cociente siempre da positivo, por lo que la función se aproxima a $0$ por arriba.\n\nEs decir  $0^+$, y no por debajo.\n\nEn la gráfica esto se ve como la curva aplanándose hacia el eje $X$ desde arriba.",
     "reviewed": false,
     "tags": [
       "dominio-restriccion"

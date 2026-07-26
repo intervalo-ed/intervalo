@@ -128,7 +128,7 @@
       -0.5,
       9.0
     ],
-    "explanation": "Para distinguir exponenciales en una gráfica, verificar el punto $(1, f(1))$:\n\nSi $f(1) = b$, entonces $b$ es la **base** de la exponencial $f(x) = a \\cdot b^x$.\n\nCon $f(0) = 5$ (la ordenada al origen), tenemos $a = 5$.\n\nAsí que la fórmula es $f(x) = 5 \\cdot (1{,}7)^x$.\n\nEvaluar en dos puntos distintos permite despejar tanto el coeficiente inicial $a$ como la base $b$, una técnica clave para armar modelos exponenciales desde datos reales.",
+    "explanation": "Para distinguir exponenciales en una gráfica, verificar el punto $(1, f(1))$:\n\nSi $f(1) = b$.\n\nEntonces  $b$ es la **base** de la exponencial $f(x) = a \\cdot b^x$.\n\nCon $f(0) = 5$ (la ordenada al origen), tenemos $a = 5$.\n\nAsí que la fórmula es $f(x) = 5 \\cdot (1{,}7)^x$.\n\nEvaluar en dos puntos distintos permite despejar tanto el coeficiente inicial $a$ como la base $b$, una técnica clave para armar modelos exponenciales desde datos reales.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -308,7 +308,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El modelo de crecimiento exponencial general es $B(t) = B_0 \\cdot b^t$, donde $B_0$ es la cantidad inicial y $b$ es el factor por el que se multiplica la cantidad en cada período.\n\nAcá el valor inicial es $B_0 = 300$ y, como la colonia se duplica cada hora, el factor multiplicativo es $b = 2$.\n\nVerificación: $B(0) = 300$, $B(1) = 600$, $B(2) = 1200$, cada hora el valor se duplica.\n\nSi escribís el $2$ como coeficiente y el $300$ como base, entonces invertís los roles de $a$ y $b$.",
+    "explanation": "El modelo de crecimiento exponencial general es $B(t) = B_0 \\cdot b^t$.\n\nDonde  $B_0$ es la cantidad inicial y $b$ es el factor por el que se multiplica la cantidad en cada período.\n\nAcá el valor inicial es $B_0 = 300$ y, como la colonia se duplica cada hora, el factor multiplicativo es $b = 2$.\n\nVerificación: $B(0) = 300$, $B(1) = 600$, $B(2) = 1200$, cada hora el valor se duplica.\n\nSi escribís el $2$ como coeficiente y el $300$ como base.\n\nEntonces  invertís los roles de $a$ y $b$.",
     "reviewed": false,
     "tags": [
       "armar-formula-contexto"
@@ -333,7 +333,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para interés compuesto con tasa $r$ anual, el monto se modela como $M(t) = C_0 \\cdot (1 + r)^t$, así que la base no es la tasa sola sino uno más la tasa.\n\nAcá $C_0 = 2000$ y $r = 0{,}10$, entonces la base es $1 + 0{,}10 = 1{,}10$: $M(t) = 2000 \\cdot (1{,}10)^t$.\n\nEl distractor $2000 + 200t$ corresponde a interés simple, una suma fija de \\$200 por año. El interés compuesto crece más rápido porque cada año los intereses también generan intereses.",
+    "explanation": "Para interés compuesto con tasa $r$ anual, el monto se modela como $M(t) = C_0 \\cdot (1 + r)^t$, así que la base no es la tasa sola sino uno más la tasa.\n\nAcá $C_0 = 2000$ y $r = 0{,}10$.\n\nEntonces  la base es $1 + 0{,}10 = 1{,}10$: $M(t) = 2000 \\cdot (1{,}10)^t$.\n\nEl distractor $2000 + 200t$ corresponde a interés simple, una suma fija de \\$200 por año. El interés compuesto crece más rápido porque cada año los intereses también generan intereses.",
     "reviewed": false,
     "tags": [
       "evaluar-contexto"
@@ -683,7 +683,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En el modelo de crecimiento exponencial $P(t)=P_0\\cdot(1+r)^t$, la base contiene la tasa de crecimiento sumada a $1$, así que para hallar el porcentaje de crecimiento hay que restarle $1$ a la base, no leerla directamente.\n\nCada período, la población crece un $6\\%$ de su valor actual, no un $106\\%$ ni un $1{,}06\\%$.\n\nSi confundís la base completa con la tasa de crecimiento, entonces vas a malinterpretar el porcentaje de crecimiento.",
+    "explanation": "En el modelo de crecimiento exponencial $P(t)=P_0\\cdot(1+r)^t$, la base contiene la tasa de crecimiento sumada a $1$.\n\nAsí que para hallar el porcentaje de crecimiento hay que restarle $1$ a la base, no leerla directamente.\n\nCada período, la población crece un $6\\%$ de su valor actual, no un $106\\%$ ni un $1{,}06\\%$.\n\nSi confundís la base completa con la tasa de crecimiento, entonces vas a malinterpretar el porcentaje de crecimiento.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -738,7 +738,7 @@
       -0.5,
       10
     ],
-    "explanation": "Para leer una exponencial desde su gráfica hay que identificar tres datos:\n\nEl valor donde corta el eje vertical (que da $a$), si crece o decrece (que indica si $b$ es mayor o menor que $1$),.\n\nUn segundo punto para calcular $b$ con precisión.\n\n1.\n\nPunto en $x=0$: $f(0) = 2$ da $a = 2$. 2.\n\nLa curva es creciente: $b > 1$. 3.\n\nEn $x=1$: $f(1) \\approx 3 = 2 \\cdot 1{,}5$ da $b \\approx 1{,}5$.\n\nFórmula: $f(x) = 2 \\cdot (1{,}5)^x$. Si confundís el valor de $f(0)$ con la base, entonces vas a identificar incorrectamente la fórmula desde el gráfico.",
+    "explanation": "Para leer una exponencial desde su gráfica hay que identificar tres datos:\n\nEl valor donde corta el eje vertical (que da $a$).\n\nSi  crece o decrece (que indica si $b$ es mayor o menor que $1$),.\n\nUn segundo punto para calcular $b$ con precisión.\n\n1.\n\nPunto en $x=0$: $f(0) = 2$ da $a = 2$. 2.\n\nLa curva es creciente: $b > 1$. 3.\n\nEn $x=1$: $f(1) \\approx 3 = 2 \\cdot 1{,}5$ da $b \\approx 1{,}5$.\n\nFórmula: $f(x) = 2 \\cdot (1{,}5)^x$. Si confundís el valor de $f(0)$ con la base, entonces vas a identificar incorrectamente la fórmula desde el gráfico.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1133,7 +1133,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Evaluar una función exponencial en $t=0$ siempre da como resultado el coeficiente $a$, sin importar la base ni la tasa, porque cualquier base elevada a la $0$ vale $1$.\n\nEn $t=0$, antes de que transcurra ningún período y de que se generen intereses, el monto es exactamente el capital inicial.\n\nConfundir este punto de partida con un valor ya afectado por la tasa al leer modelos de interés compuesto.",
+    "explanation": "Evaluar una función exponencial en $t=0$ siempre da como resultado el coeficiente $a$, sin importar la base ni la tasa.\n\nPorque  cualquier base elevada a la $0$ vale $1$.\n\nEn $t=0$, antes de que transcurra ningún período y de que se generen intereses, el monto es exactamente el capital inicial.\n\nConfundir este punto de partida con un valor ya afectado por la tasa al leer modelos de interés compuesto.",
     "reviewed": false,
     "tags": [
       "evaluar-contexto"

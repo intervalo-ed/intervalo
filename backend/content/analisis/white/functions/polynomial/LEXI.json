@@ -123,7 +123,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un **polinomio** es una suma de términos de la forma $a_k x^k$, donde los exponentes $k$ deben ser **enteros no negativos** ($0, 1, 2, 3, \\ldots$).\n\nAhora bien, $\\sqrt{x} = x^{1/2}$: el exponente $\\frac{1}{2}$ es fraccionario, lo que viola la condición.\n\nLas otras opciones sí son polinomios: $f(x) = 5$ es un polinomio de **grado** $0$ (constante), y $x^4 - 3x + 1$ y $x^2 - x + 2$ tienen exponentes enteros no negativos.\n\nConclusión: $f(x) = \\sqrt{x}$ **no es un polinomio**.",
+    "explanation": "Un **polinomio** es una suma de términos de la forma $a_k x^k$.\n\nDonde  los exponentes $k$ deben ser **enteros no negativos** ($0, 1, 2, 3, \\ldots$).\n\nAhora bien, $\\sqrt{x} = x^{1/2}$: el exponente $\\frac{1}{2}$ es fraccionario, lo que viola la condición.\n\nLas otras opciones sí son polinomios: $f(x) = 5$ es un polinomio de **grado** $0$ (constante), y $x^4 - 3x + 1$ y $x^2 - x + 2$ tienen exponentes enteros no negativos.\n\nConclusión: $f(x) = \\sqrt{x}$ **no es un polinomio**.",
     "reviewed": false,
     "tags": [
       "identificar-polinomio"
@@ -208,7 +208,7 @@
       -2,
       8
     ],
-    "explanation": "Las **raíces reales** de un polinomio son los valores de $x$ donde la gráfica cruza el eje $X$, es decir, donde $p(x) = 0$.\n\nPara $f(x) = x^4 - 5x^2 + 4$, se puede factorizar como:\n\nLas cuatro raíces son $x = \\pm 1$ y $x = \\pm 2$, todas reales y distintas.\n\nLa gráfica confirma esto: la curva cruza el eje $X$ en exactamente cuatro puntos.",
+    "explanation": "Las **raíces reales** de un polinomio son los valores de $x$ donde la gráfica cruza el eje $X$, es decir.\n\nDonde  $p(x) = 0$.\n\nPara $f(x) = x^4 - 5x^2 + 4$, se puede factorizar como:\n\nLas cuatro raíces son $x = \\pm 1$ y $x = \\pm 2$, todas reales y distintas.\n\nLa gráfica confirma esto: la curva cruza el eje $X$ en exactamente cuatro puntos.",
     "reviewed": false,
     "tags": [
       "raices-cantidad-maxima"

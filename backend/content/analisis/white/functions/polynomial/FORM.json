@@ -305,7 +305,7 @@
       "El $-3$ es el coeficiente del término $-3x^3$, no el término independiente que queda al evaluar en $0$.",
       null
     ],
-    "explanation": "Evaluar un polinomio en $x=0$ anula automáticamente todos los términos que llevan la variable, porque cualquier potencia positiva de $0$ da $0$:\n\nEl resultado siempre coincide con el **término independiente** $a_0$ del polinomio, en este caso $-7$, sin importar cuántos términos con $x$ tenga la expresión.\n\nEsto significa que la curva corta el eje $Y$ en el punto $(0,-7)$, un dato que se lee directamente de la fórmula sin necesidad de graficar.\n\nEste razonamiento muestra que más frecuente en este tipo de evaluación.",
+    "explanation": "Evaluar un polinomio en $x=0$ anula automáticamente todos los términos que llevan la variable.\n\nPorque  cualquier potencia positiva de $0$ da $0$:\n\nEl resultado siempre coincide con el **término independiente** $a_0$ del polinomio, en este caso $-7$, sin importar cuántos términos con $x$ tenga la expresión.\n\nEsto significa que la curva corta el eje $Y$ en el punto $(0,-7)$, un dato que se lee directamente de la fórmula sin necesidad de graficar.\n\nEste razonamiento muestra que más frecuente en este tipo de evaluación.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

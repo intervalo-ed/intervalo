@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **propiedades de linealidad** del límite permiten separar sumas, restas y escalares término a término.\n\n, siempre que cada límite exista por separado: si $\\lim f$ existe y $\\lim g$ existe, entonces $\\lim(af + g)$ también existe y se calcula separado.$$\\begin{aligned} \\lim_{x \\to a} [2f(x)-g(x)] &= 2\\lim_{x \\to a} f(x) - \\lim_{x \\to a} g(x) \\\\ &= 2(3) - (-2) \\\\ &= 8 \\end{aligned}$$Esta separación funciona porque el límite respeta operaciones lineales.\n\n: cuando una función es la suma o resta de dos funciones con límites conocidos, el resultado es predecible sin necesidad de combinar las funciones antes.\n\nEste razonamiento muestra que frecuente.",
+    "explanation": "Las **propiedades de linealidad** del límite permiten separar sumas, restas y escalares término a término.\n\n, siempre que cada límite exista por separado: si $\\lim f$ existe y $\\lim g$ existe.\n\nEntonces  $\\lim(af + g)$ también existe y se calcula separado.$$\\begin{aligned} \\lim_{x \\to a} [2f(x)-g(x)] &= 2\\lim_{x \\to a} f(x) - \\lim_{x \\to a} g(x) \\\\ &= 2(3) - (-2) \\\\ &= 8 \\end{aligned}$$Esta separación funciona porque el límite respeta operaciones lineales.\n\n: cuando una función es la suma o resta de dos funciones con límites conocidos, el resultado es predecible sin necesidad de combinar las funciones antes.\n\nEste razonamiento muestra que frecuente.",
     "reviewed": false,
     "tags": [
       "propiedades-suma-escalar"
@@ -318,7 +318,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad de producto** indica que el límite de un producto de funciones es el **producto** de sus límites por separado.\n\n, siempre que ambos existan: si $\\lim f$ existe y $\\lim g$ existe, entonces $\\lim(f \\cdot g)$ existe y se calcula como el producto de los límites.$$\\begin{aligned} \\lim_{x \\to a} [f(x)\\cdot g(x)] &= \\lim_{x \\to a} f(x) \\cdot \\lim_{x \\to a} g(x) \\\\ &= 2 \\cdot 5 \\\\ &= 10 \\end{aligned}$$Este resultado funciona porque el producto de límites refleja el destino del producto de funciones: cuando ambas convergen a valores fijos, su producto converge al producto de esos valores.\n\nConfundir producto con suma es un desliz común cuando se opera rápido: conviene fijarse bien en el símbolo de la expresión original para no mezclar operaciones.",
+    "explanation": "La **propiedad de producto** indica que el límite de un producto de funciones es el **producto** de sus límites por separado.\n\n, siempre que ambos existan: si $\\lim f$ existe y $\\lim g$ existe.\n\nEntonces  $\\lim(f \\cdot g)$ existe y se calcula como el producto de los límites.$$\\begin{aligned} \\lim_{x \\to a} [f(x)\\cdot g(x)] &= \\lim_{x \\to a} f(x) \\cdot \\lim_{x \\to a} g(x) \\\\ &= 2 \\cdot 5 \\\\ &= 10 \\end{aligned}$$Este resultado funciona porque el producto de límites refleja el destino del producto de funciones: cuando ambas convergen a valores fijos, su producto converge al producto de esos valores.\n\nConfundir producto con suma es un desliz común cuando se opera rápido: conviene fijarse bien en el símbolo de la expresión original para no mezclar operaciones.",
     "reviewed": false,
     "tags": [
       "propiedades-producto-cociente"

@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=e^u$, $h(x)=\\cos x$, con $g'(u)=e^u$ y $h'(x)=-\\sin x$.\n\nCon $h(\\pi)=\\cos\\pi = -1$ y $g'(-1)=e^{-1}$, además $h'(\\pi)=-\\sin\\pi=0$:\n\nEl factor $h'(\\pi)=0$ colapsa todo el producto, sin importar el valor de la capa exterior evaluada en $h(\\pi)$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $g(u)=e^u$, $h(x)=\\cos x$, con $g'(u)=e^u$ y $h'(x)=-\\sin x$.\n\nCon $h(\\pi)=\\cos\\pi = -1$ y $g'(-1)=e^{-1}$.\n\nAdemás  $h'(\\pi)=-\\sin\\pi=0$:\n\nEl factor $h'(\\pi)=0$ colapsa todo el producto, sin importar el valor de la capa exterior evaluada en $h(\\pi)$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-interna-nula"
@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=\\ln u$, $h(x)=\\sin x$, con $g'(u)=\\frac{1}{u}$ y $h'(x)=\\cos x$.\n\nCon $h(\\pi/2)=\\sin(\\pi/2)=1$ y $g'(1)=\\frac{1}{1}=1$, además $h'(\\pi/2)=\\cos(\\pi/2)=0$:\n\nEl factor $h'(\\pi/2)=0$ colapsa todo el producto, sin importar que la capa exterior evaluada en $h(\\pi/2)$ dé un valor distinto de cero.",
+    "explanation": "Identificamos $g(u)=\\ln u$, $h(x)=\\sin x$, con $g'(u)=\\frac{1}{u}$ y $h'(x)=\\cos x$.\n\nCon $h(\\pi/2)=\\sin(\\pi/2)=1$ y $g'(1)=\\frac{1}{1}=1$.\n\nAdemás  $h'(\\pi/2)=\\cos(\\pi/2)=0$:\n\nEl factor $h'(\\pi/2)=0$ colapsa todo el producto, sin importar que la capa exterior evaluada en $h(\\pi/2)$ dé un valor distinto de cero.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-interna-nula"
