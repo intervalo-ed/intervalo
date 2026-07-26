@@ -346,7 +346,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La sustitución directa de $x=2$ da 0/0.\n\nTanto el numerador como el denominador son trinomios (el numerador es una diferencia de cuadrados), así que ambos se factorizan: En cancelación múltiple, el protocolo es claro: factorizar numerador, factorizar denominador, identificar cuál factor aparece en ambos, cancelar únicamente ese factor, y luego evaluar.\n\nLa indeterminación 0/0 garantiza que ese factor común existe; nuestro trabajo es exhibirlo mediante factorización completa de ambas partes.",
+    "explanation": "La sustitución directa de $x=2$ da 0/0.\n\nTanto el numerador como el denominador son trinomios (el numerador es una diferencia de cuadrados),\n\nasí que ambos se factorizan: En cancelación múltiple, el protocolo es claro: factorizar numerador,\n\nLa indeterminación 0/0 garantiza que ese factor común existe; nuestro trabajo es exhibirlo mediante factorización completa de ambas partes.",
     "reviewed": false
   },
   {

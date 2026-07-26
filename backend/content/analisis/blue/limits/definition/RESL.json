@@ -343,7 +343,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad de cociente** permite dividir los límites por separado, siempre que el **límite del denominador sea distinto de $0$**: si $\\lim g \\neq 0$, entonces :.Esta condición \"denominador no nulo\" es **obligatoria**: si el denominador tiende a $0$, la propiedad falla y el resultado puede ser una indeterminación o una tendencia al infinito.\n\nLa propiedad exige chequear primero que el límite del denominador no sea $0$, antes de aplicar la división directamente.\n\nSaltear este chequeo que genera respuestas sin sentido.",
+    "explanation": "La **propiedad de cociente** permite dividir los límites por separado, siempre que el **límite del denominador sea distinto de $0$**: si $\\lim g \\neq 0$,\n\nentonces :.Esta condición \"denominador no nulo\" es **obligatoria**: si el denominador tiende a $0$,\n\nLa propiedad exige chequear primero que el límite del denominador no sea $0$, antes de aplicar la división directamente.\n\nSaltear este chequeo que genera respuestas sin sentido.",
     "reviewed": false,
     "tags": [
       "propiedades-producto-cociente"
