@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **conjugado** es una herramienta algebraica clave para trabajar con raíces en límites. Cuando encontramos una indeterminación 0/0 causada por una raíz cuadrada, el conjugado nos permite transformar la expresión sin cambiar su valor en el límite.\n\nEl **conjugado** de una expresión con raíz cuadrada del tipo $\\sqrt{u} - c$ se construye cambiando únicamente el signo entre los dos términos externos, sin alterar el radicando.\n$$\\sqrt{x+4} - 2 \\;\\to\\; \\sqrt{x+4} + 2$$\nAl multiplicar la expresión original por este conjugado se dispara la **diferencia de cuadrados**, que rompe la raíz y permite cancelar el factor problemático.\n\nEl error más común es tocar el signo de adentro de la raíz en lugar del signo entre los términos externos: conviene revisar ese detalle antes de multiplicar.",
+    "explanation": "El **conjugado** es una herramienta algebraica clave para trabajar con raíces en límites. Cuando encontramos una indeterminación 0/0 causada por una raíz cuadrada, el conjugado nos permite transformar la expresión sin cambiar su valor en el límite.\n\nEl **conjugado** de una expresión con raíz cuadrada del tipo $\\sqrt{u} - c$ se construye cambiando únicamente el signo entre los dos términos externos, sin alterar el radicando.\n$$\\sqrt{x+4} - 2 \\;\\to\\; \\sqrt{x+4} + 2$$\nAl multiplicar la expresión original por este conjugado se dispara la **diferencia de cuadrados**, que rompe la raíz y permite cancelar el factor problemático.\n\nAsí entonces, conviene revisar ese detalle antes de multiplicar.",
     "reviewed": false,
     "tags": [
       "identificacion-del-conjugado"
@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificar el conjugado correctamente es fundamental para resolver límites con raíces. El conjugado prepara la estructura para que, al multiplicar, la raíz desaparezca mediante la diferencia de cuadrados.\n\nEl **conjugado** de una expresión con raíz cuadrada se arma invirtiendo el signo entre los dos términos externos, sin modificar el radicando.\n$$\\sqrt{x+9} + 5 \\;\\to\\; \\sqrt{x+9} - 5$$\nAl multiplicar por este conjugado se genera una **diferencia de cuadrados** que libera el radicando, quedando $(x+9) - 25$.\n\nUn desliz típico es cambiar el signo dentro de la raíz en vez del signo externo: conviene chequear cuál de los dos signos corresponde modificar antes de avanzar.",
+    "explanation": "Identificar el conjugado correctamente es fundamental para resolver límites con raíces. El conjugado prepara la estructura para que, al multiplicar, la raíz desaparezca mediante la diferencia de cuadrados.\n\nEl **conjugado** de una expresión con raíz cuadrada se arma invirtiendo el signo entre los dos términos externos, sin modificar el radicando.\n$$\\sqrt{x+9} + 5 \\;\\to\\; \\sqrt{x+9} - 5$$\nAl multiplicar por este conjugado se genera una **diferencia de cuadrados** que libera el radicando, quedando $(x+9) - 25$.\n\nSi no evitás mezclar los conceptos, sucede que conviene chequear cuál de los dos signos corresponde modificar antes de avanzar.",
     "reviewed": false,
     "tags": [
       "identificacion-del-conjugado"
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjugado es la clave para una racionalización exitosa. Construirlo correctamente-solo cambiando el signo externo-asegura que luego podamos aplicar la identidad de diferencia de cuadrados para romper la raíz.\n\nPara armar el **conjugado** de $\\sqrt{u} - c$ se invierte solo el signo entre los dos términos externos, dejando intacto el radicando $u$.\n$$\\sqrt{2x+1} - 3 \\;\\to\\; \\sqrt{2x+1} + 3$$\nAl multiplicar la expresión original por este conjugado, la **diferencia de cuadrados** transforma el numerador en $(2x+1) - 9$, sin raíces.\n\nConfundir el signo interno con el externo es el error más frecuente en este paso: revisar cuál de los dos hay que invertir evita perder el resto del ejercicio.",
+    "explanation": "El conjugado es la clave para una racionalización exitosa. Construirlo correctamente-solo cambiando el signo externo-asegura que luego podamos aplicar la identidad de diferencia de cuadrados para romper la raíz.\n\nPara armar el **conjugado** de $\\sqrt{u} - c$ se invierte solo el signo entre los dos términos externos, dejando intacto el radicando $u$.\n$$\\sqrt{2x+1} - 3 \\;\\to\\; \\sqrt{2x+1} + 3$$\nAl multiplicar la expresión original por este conjugado, la **diferencia de cuadrados** transforma el numerador en $(2x+1) - 9$, sin raíces.\n\nEs fácil caer en este error: revisar cuál de los dos hay que invertir evita perder el resto del ejercicio.",
     "reviewed": false,
     "tags": [
       "identificacion-del-conjugado"
@@ -210,7 +210,7 @@
     "question": "Estudiá la función:\n$$\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$$\nQue da la **indeterminación** una indeterminación $0/0$ y no tiene ninguna raíz cuadrada, ¿qué técnica corresponde?",
     "options": [
       "Racionalizar",
-      "Factorizar",
+      "Factorizar en el contexto",
       "Sustitución directa"
     ],
     "correct_index": 1,
@@ -234,7 +234,7 @@
     "options": [
       "Sustitución directa",
       "Indeterminación no resoluble",
-      "Racionalizar"
+      "Racionalizar en el contexto"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -279,7 +279,7 @@
     "question": "Al racionalizar, se multiplica tanto el numerador como el denominador por el **conjugado**.\n\n¿Por qué no alcanza con multiplicar solo el numerador?",
     "options": [
       "Porque el denominador nunca tiene raíces que romper",
-      "Para no alterar la función, ya que equivale a multiplicar por $1$",
+      "Para no alterar la función, según la regla",
       "Porque así se elimina la variable $x$ del límite"
     ],
     "correct_index": 1,
@@ -326,7 +326,7 @@
     "options": [
       "El límite da siempre $0$",
       "La raíz desaparece igual, sin alterar nada más",
-      "Se modifica la función original, porque ya no se multiplicó por $1$"
+      "Se modifica la función original,"
     ],
     "correct_index": 2,
     "has_math": true,

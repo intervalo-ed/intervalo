@@ -744,7 +744,7 @@
     "options": [
       "$g$ tiene mayor amplitud",
       "$g$ tiene período doble",
-      "$g$ es la reflexión de $f$ respecto al eje $X$",
+      "$g$ es la reflexión de $f$",
       "$g$ está desplazada hacia la derecha"
     ],
     "correct_index": 2,
@@ -1144,7 +1144,7 @@
     "options": [
       "El coseno tiene mayor amplitud que el seno",
       "El seno tiene período $2\\pi$ y el coseno período $\\pi$",
-      "Ambas tienen el mismo período $2\\pi$ y la misma amplitud $1$",
+      "Ambas tienen el mismo período $2\\pi$",
       "Son la misma función"
     ],
     "correct_index": 2,

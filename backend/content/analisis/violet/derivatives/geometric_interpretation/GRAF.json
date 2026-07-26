@@ -31,7 +31,7 @@
     "question": "En la gráfica se muestra la curva $f(x)=x^2$ junto con otra recta que se une a ella en el punto marcado.\n¿La recta que se une a la curva en ese punto es tangente ahí?",
     "options": [
       "No, es una recta transversal",
-      "No, es secante",
+      "No, es secante en el contexto",
       "Sí, es tangente"
     ],
     "correct_index": 1,
@@ -115,7 +115,7 @@
     "question": "En la gráfica se muestra la curva $f(x)=-x^2+4$ junto con otra recta que se une a ella en el punto marcado.\n¿La recta que se une a la curva en ese punto es tangente ahí?",
     "options": [
       "No, es una recta transversal",
-      "No, es secante",
+      "No, es secante en el contexto",
       "Sí, es tangente"
     ],
     "correct_index": 1,

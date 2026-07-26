@@ -113,7 +113,7 @@
       -1,
       6
     ],
-    "explanation": "Un vértice como el de una V, típico del **valor absoluto**, es un pico pero no una ruptura: ambas ramas llegan al mismo punto y coinciden con el valor de la función ahí, así que es continuo.\n\nLa suavidad (o falta de ella) en una gráfica no determina la continuidad: lo que importa es si hay un \"agujero\", un \"salto\" o una \"explosión al infinito\" en la aproximación. Aunque las dos ramas formen un pico, el límite bilateral existe y coincide con $f(3)$. El único punto donde la gráfica realmente falla es el hueco en $x=3$, donde el círculo abierto muestra que $f(3)$ no coincide con el límite.\n\nConfundir un pico con una discontinuidad es un error clásico de lectura: la suavidad de la curva es un tema aparte, acá solo importa si hay hueco, salto o asíntota.",
+    "explanation": "Un vértice como el de una V, típico del **valor absoluto**, es un pico pero no una ruptura: ambas ramas llegan al mismo punto y coinciden con el valor de la función ahí, así que es continuo.\n\nLa suavidad (o falta de ella) en una gráfica no determina la continuidad: lo que importa es si hay un \"agujero\", un \"salto\" o una \"explosión al infinito\" en la aproximación. Aunque las dos ramas formen un pico, el límite bilateral existe y coincide con $f(3)$. El único punto donde la gráfica realmente falla es el hueco en $x=3$, donde el círculo abierto muestra que $f(3)$ no coincide con el límite.\n\nAsí entonces, la suavidad de la curva es un tema aparte, acá solo importa si hay hueco, salto o asíntota.",
     "reviewed": false,
     "tags": [
       "diagnostico-visual-falla"
@@ -143,7 +143,7 @@
       -5,
       2
     ],
-    "explanation": "Que la función valga $0$ en algún punto, es decir que corte el eje $x$, no tiene ninguna relación con la continuidad de ese punto.\n\nUn cero de la función es un punto donde la función \"pasa por el eje horizontal\", pero eso no genera ninguna ruptura: la función sigue siendo continua ahí. El enunciado nombra el cruce como distractor visual. La recta $f(x)=x-3$ cruza el eje en $x=3$ sin ningún problema, mientras que el hueco real está marcado en $x=1$, donde el círculo abierto indica que $f(1)$ no está definida.\n\nTomar la raíz de la función como si fuera el punto discontinuo es una confusión frecuente: hay que buscar específicamente huecos, saltos o asíntotas, no ceros.",
+    "explanation": "Que la función valga $0$ en algún punto, es decir que corte el eje $x$, no tiene ninguna relación con la continuidad de ese punto.\n\nUn cero de la función es un punto donde la función \"pasa por el eje horizontal\", pero eso no genera ninguna ruptura: la función sigue siendo continua ahí. El enunciado nombra el cruce como distractor visual. La recta $f(x)=x-3$ cruza el eje en $x=3$ sin ningún problema, mientras que el hueco real está marcado en $x=1$, donde el círculo abierto indica que $f(1)$ no está definida.\n\nSi no evitás mezclar los conceptos, sucede que hay que buscar específicamente huecos, saltos o asíntotas, no ceros.",
     "reviewed": false,
     "tags": [
       "diagnostico-visual-falla"
@@ -289,7 +289,7 @@
       -1,
       8
     ],
-    "explanation": "Que el punto cerrado esté desplazado a otra altura no cambia la clasificación: sigue habiendo una sola rama cuyo límite existe, solo que $f(1)$ toma un valor distinto.\n\nEl círculo abierto marca adónde se aproxima la función; el punto cerrado marca dónde está realmente definida. Si hay solo una rama de cada lado pero los dos valores son distintos, la función se aproxima a un valor pero está \"colocada\" en otro. La curva se acerca a $y=4$ desde ambos lados, mientras que el punto cerrado marca $f(1)=7$.\n\nConfundir el punto cerrado desplazado con un salto es un error de lectura: acá no hay dos ramas, solo una rama con su valor puntual corrido.",
+    "explanation": "Que el punto cerrado esté desplazado a otra altura no cambia la clasificación: sigue habiendo una sola rama cuyo límite existe, solo que $f(1)$ toma un valor distinto.\n\nEl círculo abierto marca adónde se aproxima la función; el punto cerrado marca dónde está realmente definida. Si hay solo una rama de cada lado pero los dos valores son distintos, la función se aproxima a un valor pero está \"colocada\" en otro. La curva se acerca a $y=4$ desde ambos lados, mientras que el punto cerrado marca $f(1)=7$.\n\nEs fácil caer en este error: acá no hay dos ramas, solo una rama con su valor puntual corrido.",
     "reviewed": false,
     "tags": [
       "clasificacion-visual-discontinuidad"

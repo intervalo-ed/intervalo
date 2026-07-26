@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá el código 88 aparece con dos precios.\n\nComo una misma entrada tiene dos salidas, la asignación no es función.\n\nEs el caso típico de datos duplicados: no alcanza con que los dos importes existan, la definición exige una sola salida por entrada.",
+    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá el código 88 aparece con dos precios.\n\nComo una misma entrada tiene dos salidas, la asignación no es función.\n\nAsí entonces, no alcanza con que los dos importes existan, la definición exige una sola salida por entrada.",
     "reviewed": false,
     "tags": [
       "unicidad-rota-disfrazada"
@@ -26,7 +26,7 @@
     "question": "Un depósito registra en qué pasillo está cada medicamento. El medicamento con código 4 figura a la vez en el pasillo 3 y en el pasillo 7. ¿La asignación de códigos a pasillos define una función?",
     "options": [
       "Sí, un objeto puede estar en dos lugares",
-      "No, el medicamento 4 tiene dos pasillos asignados",
+      "No, el medicamento 4 tiene dos",
       "No, porque hay pasillos sin medicamentos"
     ],
     "correct_index": 1,
@@ -234,7 +234,7 @@
     "options": [
       "No, la materia se repite entre estudiantes",
       "No, faltan materias por elegir",
-      "Sí, cada estudiante tiene una sola materia favorita"
+      "Sí, cada estudiante tiene una sola"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -255,7 +255,7 @@
   {
     "question": "Una función asigna el valor 0 a todos los números enteros del 1 al 100. $$f(x) = 0, \\qquad x \\in \\{1, \\dots, 100\\}$$ ¿Esta función define una función?",
     "options": [
-      "Sí, cada número tiene una sola salida, el $0$",
+      "Sí, cada número tiene una sola",
       "No, todos comparten la misma salida",
       "No, el conjunto imagen está vacío"
     ],
@@ -773,7 +773,7 @@
     "question": "Una tienda convierte medidas de cintura en tallas S, M o L. Las medidas van de 60 a 100 cm, pero en la práctica todos los clientes caen en M o L. $$T : \\{60, \\dots, 100\\} \\to \\{S, M, L\\}$$ ¿Cuál es el conjunto **imagen** de $T$?",
     "options": [
       "$\\{S, M, L\\}$",
-      "$\\{M, L\\}$",
+      "$\\{M, L\\}$ en esta forma",
       "$\\{60, \\dots, 100\\}$",
       "Solo la talla M"
     ],
@@ -850,7 +850,7 @@
       "$\\{1, \\dots, 20\\}$",
       "$\\{1, \\dots, 7\\}$",
       "El número $20$",
-      "$\\{7\\}$"
+      "$\\{7\\}$ en esta forma"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -922,7 +922,7 @@
   {
     "question": "Una máquina puede cobrar montos de \\$100 a \\$500. Los productos cargados hoy cuestan \\$200 y \\$350. $$M : \\{\\text{productos}\\} \\to \\{100, \\dots, 500\\}$$ ¿Cuál es el conjunto **imagen** de $M$?",
     "options": [
-      "$\\{200, 350\\}$",
+      "$\\{200, 350\\}$ en esta forma",
       "De \\$100 a \\$500",
       "El conjunto de productos",
       "El promedio, \\$275"
@@ -972,7 +972,7 @@
   {
     "question": "Un examen tiene 3 preguntas y cada una se puntúa con 0, 1 o 2 según la respuesta. $$P : \\{1, 2, 3\\} \\to \\{0, 1, 2\\}$$ ¿Qué representa el conjunto $\\{0, 1, 2\\}$ en esta función?",
     "options": [
-      "El codominio, las salidas posibles",
+      "El codominio",
       "El dominio de la función",
       "El conjunto imagen exacto",
       "El promedio de puntajes"
@@ -1124,7 +1124,7 @@
     "options": [
       "No, el $5$ es menor que el $10$",
       "No, el $10$ ya es imagen de otro",
-      "Sí, porque $f(5) = 10$",
+      "Sí, porque $f(5) = 10$ según la regla",
       "Sí, y también lo es el $20$"
     ],
     "correct_index": 2,

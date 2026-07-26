@@ -2,7 +2,7 @@
   {
     "question": "¿La función representada en el gráfico es creciente o decreciente?",
     "options": [
-      "Creciente",
+      "Creciente en el contexto",
       "Decreciente",
       "Primero crece y luego decrece",
       "Ninguna de las anteriores"
@@ -152,7 +152,7 @@
   {
     "question": "¿Cuál es la imagen (recorrido) de la función del gráfico?",
     "options": [
-      "$\\mathbb{R}$",
+      "$\\mathbb{R}$ en esta forma",
       "$(0,\\, +\\infty)$",
       "$[0,\\, +\\infty)$",
       "$(-\\infty,\\, 1)$"

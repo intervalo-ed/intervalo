@@ -153,7 +153,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **número de Euler** $e$ es la base de la exponencial natural:\n$$e = \\lim_{n \\to \\infty}\\left(1 + \\frac{1}{n}\\right)^n \\approx 2{,}71828\\ldots$$\nEs irracional y transcendente. La función $f(x) = e^x$ es especial en cálculo porque es la **única función que es su propia derivada**: $\\frac{d}{dx}e^x = e^x$.\n\nNo confundir con $\\pi \\approx 3{,}14$ (relacionado con el círculo) ni con 10 (base del sistema decimal).",
+    "explanation": "El **número de Euler** $e$ es la base de la exponencial natural:\n$$e = \\lim_{n \\to \\infty}\\left(1 + \\frac{1}{n}\\right)^n \\approx 2{,}71828\\ldots$$\nEs irracional y transcendente. La función $f(x) = e^x$ es especial en cálculo porque es la **única función que es su propia derivada**: $\\frac{d}{dx}e^x = e^x$.\n\nSi no tenés cuidado, con $\\pi \\approx 3{,}14$ (relacionado con el círculo) ni con 10 (base del sistema decimal)..",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-potencias"
@@ -308,7 +308,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El modelo de crecimiento exponencial general es $B(t) = B_0 \\cdot b^t$, donde $B_0$ es la cantidad inicial y $b$ es el factor por el que se multiplica la cantidad en cada período.\n\nAcá el valor inicial es $B_0 = 300$ y, como la colonia se duplica cada hora, el factor multiplicativo es $b = 2$.\n\nVerificación: $B(0) = 300$, $B(1) = 600$, $B(2) = 1200$, cada hora el valor se duplica.\n\nEl error más común es escribir el $2$ como coeficiente y el $300$ como base, invirtiendo los roles de $a$ y $b$.",
+    "explanation": "El modelo de crecimiento exponencial general es $B(t) = B_0 \\cdot b^t$, donde $B_0$ es la cantidad inicial y $b$ es el factor por el que se multiplica la cantidad en cada período.\n\nAcá el valor inicial es $B_0 = 300$ y, como la colonia se duplica cada hora, el factor multiplicativo es $b = 2$.\n\nVerificación: $B(0) = 300$, $B(1) = 600$, $B(2) = 1200$, cada hora el valor se duplica.\n\nLo importante a notar: Más común es escribir el $2$ como coeficiente y el $300$ como base, invirtiendo los roles de $a$ y $b$..",
     "reviewed": false,
     "tags": [
       "armar-formula-contexto"

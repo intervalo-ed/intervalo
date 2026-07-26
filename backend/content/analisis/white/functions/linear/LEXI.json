@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función lineal tiene la forma $f(x) = mx + b$, con la variable $x$ apareciendo solo con exponente 1. Una constante como $f(x) = 5$ también entra en el molde, con **pendiente** $m = 0$.\n\nEn $f(x) = x^2 + 1$ el término $x^2$ tiene exponente 2: la gráfica deja de ser una recta y pasa a ser una parábola. Es una función cuadrática.\n\nEl error típico es descartar $f(x) = 5$ por no tener $x$ a la vista: las constantes son lineales de pendiente cero; la que queda afuera es la que eleva la variable.",
+    "explanation": "Una función lineal tiene la forma $f(x) = mx + b$, con la variable $x$ apareciendo solo con exponente 1. Una constante como $f(x) = 5$ también entra en el molde, con **pendiente** $m = 0$.\n\nEn $f(x) = x^2 + 1$ el término $x^2$ tiene exponente 2: la gráfica deja de ser una recta y pasa a ser una parábola. Es una función cuadrática.\n\nSi no evitás mezclar los conceptos, sucede que las constantes son lineales de pendiente cero; la que queda afuera es la que eleva la variable.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"
@@ -124,7 +124,7 @@
       "Cuadrática sin validar el contexto",
       "Exponencial",
       "Logarítmica",
-      "Lineal"
+      "Lineal en el contexto"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -437,7 +437,7 @@
     "question": "¿Cuál es la diferencia entre **pendiente** positiva y negativa?",
     "options": [
       "Con pendiente positiva no hay raíz",
-      "Con pendiente positiva la recta sube; con negativa baja",
+      "Con pendiente positiva la recta sube;",
       "Solo afecta el dominio"
     ],
     "correct_index": 1,
@@ -461,7 +461,7 @@
     "options": [
       "Es el valor de $f(0)$",
       "Es la raíz de la función",
-      "Es la tasa de cambio de $f$ respecto a $x$"
+      "Es la tasa de cambio de"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -484,7 +484,7 @@
     "options": [
       "No, porque tiene división",
       "No, porque $x$ no está multiplicada",
-      "Sí, es lineal"
+      "Sí, es lineal en el contexto"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -605,7 +605,7 @@
     "options": [
       "$(0, +\\infty)$",
       "$(-\\infty, 7/3)$",
-      "$\\mathbb{R}$",
+      "$\\mathbb{R}$ en esta forma",
       "$(7/3, +\\infty)$"
     ],
     "correct_index": 2,
@@ -629,7 +629,7 @@
     "question": "¿En qué intervalo decrece $f(x) = -2x + 5$?",
     "options": [
       "$(0, +\\infty)$",
-      "$\\mathbb{R}$",
+      "$\\mathbb{R}$ en esta forma",
       "$(-\\infty, 5/2)$",
       "$(5/2, +\\infty)$"
     ],
@@ -951,7 +951,7 @@
   {
     "question": "¿Es $f(x) = 3(x + 2)$ una función lineal?",
     "options": [
-      "Sí, es $3x + 6$",
+      "Sí, es $3x + 6$ siempre según la regla",
       "No, porque tiene paréntesis",
       "No, porque multiplica"
     ],
@@ -1000,7 +1000,7 @@
     "question": "¿Por qué la función $f(x) = mx + b$ con $m > 0$ nunca decrece?",
     "options": [
       "Porque $b > 0$",
-      "Porque la pendiente positiva hace que $f$ suba constantemente",
+      "Porque la pendiente positiva hace",
       "Porque el dominio es $\\mathbb{R}$"
     ],
     "correct_index": 1,
@@ -1072,7 +1072,7 @@
     "options": [
       "La primera no es lineal",
       "La segunda es más empinada",
-      "Tienen la misma pendiente pero diferente ordenada al origen"
+      "Tienen la misma pendiente pero"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -1116,7 +1116,7 @@
   {
     "question": "¿Cuántas rectas lineales pasan por dos puntos distintos dados?",
     "options": [
-      "Una",
+      "Una en el contexto",
       "Infinitas",
       "Depende de los puntos"
     ],

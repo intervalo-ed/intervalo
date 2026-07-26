@@ -348,7 +348,7 @@
   {
     "question": "En la gráfica se muestra una función a trozos con un salto en $x=1$.\n\n¿Qué le pasa a la diferenciabilidad de $f$ en ese punto?",
     "options": [
-      "Presenta un salto, no es continua ni diferenciable",
+      "Presenta un salto. en el contexto",
       "Es diferenciable en $x=1$",
       "Es continua pero no diferenciable en $x=1$"
     ],
@@ -377,7 +377,7 @@
     "question": "En la gráfica se muestra la función $f(x) = x^2$, con un punto marcado en su vértice, $x=0$.\n\n¿Qué le pasa a la diferenciabilidad de $f$ en ese punto?",
     "options": [
       "Presenta un salto, no es continua ahí",
-      "Es diferenciable, con tangente horizontal, $f'(0)=0$",
+      "Es diferenciable, con tangente horizontal, $f' =0$",
       "Presenta un quiebre, no es diferenciable ahí"
     ],
     "correct_index": 1,

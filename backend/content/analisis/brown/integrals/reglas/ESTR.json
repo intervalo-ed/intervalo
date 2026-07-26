@@ -188,7 +188,7 @@
     "options": [
       "Regla exponencial (base $a$)",
       "Regla exponencial (base $e$)",
-      "Regla de la potencia"
+      "Regla de la potencia según la regla"
     ],
     "correct_index": 2,
     "has_math": true,

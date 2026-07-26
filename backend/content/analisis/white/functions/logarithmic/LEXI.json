@@ -643,7 +643,7 @@
     "question": "¿Cómo es $f(x) = -\\log_2(x)$ en comparación con $g(x) = \\log_2(x)$?",
     "options": [
       "Es la misma función",
-      "Es decreciente, reflejo de $g$ sobre el eje $X$",
+      "Es decreciente.",
       "Tiene dominio $x < 0$",
       "Tiene asíntota vertical en $y = 0$"
     ],
@@ -1044,7 +1044,7 @@
     "options": [
       "Sí, un máximo en $(1,\\, 0)$",
       "Sí, un mínimo cuando $x \\to 0^+$",
-      "No, la función es estrictamente creciente sin extremos locales",
+      "No, la función es estrictamente",
       "Sí, un mínimo en $(0,\\, -\\infty)$"
     ],
     "correct_index": 2,

@@ -302,7 +302,7 @@
     "question": "Analizá la función:\n$$f(x) = 5\\sin x$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla del producto",
-      "**Múltiplo escalar (linealidad)**",
+      "**Múltiplo escalar **",
       "**Regla de la cadena**"
     ],
     "correct_index": 1,

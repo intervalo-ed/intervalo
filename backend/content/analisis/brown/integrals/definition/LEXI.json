@@ -26,7 +26,7 @@
     "question": "En esa misma notación:\n$$\\int f(x)\\,dx = F(x) + C$$\n¿qué representa $dx$?",
     "options": [
       "La primitiva de la función",
-      "El diferencial, que marca la variable de integración",
+      "El diferencial. por definición",
       "Un factor que multiplica al integrando"
     ],
     "correct_index": 1,
@@ -50,7 +50,7 @@
     "options": [
       "Una sumatoria discreta de términos",
       "El símbolo de la derivada",
-      "El operador integral"
+      "El operador integral en el contexto"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -95,7 +95,7 @@
     "question": "¿Qué representa $C$ en el resultado $F(x) + C$?",
     "options": [
       "El valor numérico de la integral definida",
-      "La constante de integración, parte inseparable del resultado",
+      "La constante de integración. según la regla",
       "Un valor fijo universal igual para toda integral"
     ],
     "correct_index": 1,
@@ -140,7 +140,7 @@
   {
     "question": "Al escribir una integral indefinida como:\n$$\\int 3x\\,dx$$\n¿qué rol cumple $dx$ en esa expresión?",
     "options": [
-      "Marca que la integración es respecto de la variable $x$",
+      "Marca que la integración es respecto",
       "Multiplica aritméticamente al $3x$",
       "Indica el límite superior de la integral"
     ],
@@ -278,7 +278,7 @@
   {
     "question": "¿Pueden dos primitivas distintas de la misma función $f$ cruzarse en algún punto?",
     "options": [
-      "No, al diferir en una constante, nunca se cruzan",
+      "No, al diferir en una constante",
       "Sí, se cruzan siempre en el origen",
       "Sí, se cruzan en el punto donde $f(x)=0$"
     ],

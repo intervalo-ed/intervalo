@@ -318,7 +318,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **tangente horizontal** aparece exactamente donde la derivada se anula, así que hay que resolver $f'(x)=0$.\n\nUn error frecuente en este paso es resolver $f(x)=0$ en lugar de $f'(x)=0$, la tangente horizontal depende exclusivamente de la derivada. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "La **tangente horizontal** aparece exactamente donde la derivada se anula, así que hay que resolver $f'(x)=0$.\n\nAsí entonces, toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "tangentes-horizontales-calculo"

@@ -188,7 +188,7 @@
     "options": [
       "Sí, es $\\int x\\,dx \\cdot \\int \\cos x\\,dx$",
       "Sí, es $\\int x\\,dx + \\int \\cos x\\,dx$",
-      "No, la integral de un producto no es el producto de las integrales"
+      "No, la integral de un"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -209,7 +209,7 @@
   {
     "question": "Frente a la integral:\n$$\\int \\frac{\\sin x}{x}\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
     "options": [
-      "No, la integral de un cociente no es el cociente de las integrales",
+      "No, la integral de un",
       "Sí, es $\\dfrac{\\int \\sin x\\,dx}{\\int x\\,dx}$",
       "Sí, es $\\int \\sin x\\,dx - \\int x\\,dx$"
     ],
@@ -233,7 +233,7 @@
     "question": "Observá la integral:\n$$\\int e^x \\ln x\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
     "options": [
       "Sí, es $\\int e^x\\,dx + \\int \\ln x\\,dx$",
-      "No, la integral de un producto no es el producto de las integrales",
+      "No, la integral de un",
       "Sí, es $\\int e^x\\,dx \\cdot \\int \\ln x\\,dx$"
     ],
     "correct_index": 1,
@@ -278,7 +278,7 @@
   {
     "question": "Considerá la integral:\n$$\\int \\frac{x^2+3}{5}\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
     "options": [
-      "Sí, es $\\dfrac{1}{5}\\int(x^2+3)\\,dx$",
+      "Sí, es $\\dfrac{1}{5}\\int(x^2+3)\\,dx$ siempre según la regla",
       "No, hay que aplicar la regla del cociente para integrales",
       "No, el cociente de funciones nunca se puede separar"
     ],
@@ -326,7 +326,7 @@
     "options": [
       "Sí, es $\\int \\tan x\\,dx \\cdot \\int \\sec x\\,dx$",
       "Sí, es $\\int \\tan x\\,dx + \\int \\sec x\\,dx$",
-      "No, la integral de un producto no es el producto de las integrales"
+      "No, la integral de un"
     ],
     "correct_index": 2,
     "has_math": true,

@@ -186,7 +186,7 @@
   {
     "question": "Se busca una recta $x = a$ tal que la función se rompa y diverja a $\\pm\\infty$ exactamente en ese punto.\n\n¿Qué tipo de asíntota describe esa recta?",
     "options": [
-      "Vertical",
+      "Una asíntota vertical",
       "Horizontal",
       "Ninguna, esa recta no se relaciona con asíntotas"
     ],
@@ -209,7 +209,7 @@
   {
     "question": "Con la función:\n$$\\frac{P(x)}{Q(x)}$$\nEl grado del denominador $Q(x)$ es estrictamente mayor que el grado del numerador $P(x)$.\n\n¿Qué sucede con $\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$?",
     "options": [
-      "Vale $0$",
+      "Vale $0$ en esta forma",
       "Diverge a $\\infty$",
       "Depende de los coeficientes"
     ],
@@ -280,7 +280,7 @@
     "options": [
       "La polinómica, si su grado es suficientemente alto",
       "Depende de los coeficientes de cada una",
-      "La exponencial"
+      "La exponencial según la propiedad"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -302,7 +302,7 @@
     "question": "Entre una función polinómica y una función logarítmica, ¿cuál domina el crecimiento cuando $x \\to +\\infty$?",
     "options": [
       "La logarítmica",
-      "La polinómica",
+      "La polinómica según la propiedad",
       "Ninguna, crecen al mismo ritmo"
     ],
     "correct_index": 1,

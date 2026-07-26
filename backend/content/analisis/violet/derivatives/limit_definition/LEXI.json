@@ -50,7 +50,7 @@
     "options": [
       "Porque $h$ no puede tomar valores reales",
       "Porque $f(a+h)$ nunca está definida en $a$",
-      "Porque el numerador y el denominador se anulan al mismo tiempo"
+      "Porque el numerador en el contexto"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -95,7 +95,7 @@
     "question": "Tomá en cuenta la función:\n$$\\frac{f(a+h) - f(a)}{h}$$\n¿qué representa el denominador $h$?",
     "options": [
       "El resultado final del límite",
-      "La variación de la variable independiente respecto de $a$",
+      "La variación de la variable independiente",
       "La variación del valor de la función"
     ],
     "correct_index": 1,
@@ -188,7 +188,7 @@
     "options": [
       "La pendiente de la recta tangente en $a$",
       "El área bajo la curva entre $a$ y $b$",
-      "La pendiente de la recta secante que pasa por $(a,f(a))$ y $(b,f(b))$"
+      "La pendiente de la recta secante"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -233,7 +233,7 @@
     "question": "Considerá la función:\n$$\\frac{f(a+h)-f(a)}{h}$$\nPara un valor fijo de $h$, sin tomar ningún límite, ¿qué tasa se obtiene?",
     "options": [
       "La derivada de $f$ en $a+h$",
-      "Una tasa de cambio promedio en el intervalo $[a, a+h]$",
+      "Una tasa de cambio promedio en",
       "La tasa de cambio instantánea en $a$"
     ],
     "correct_index": 1,
@@ -302,7 +302,7 @@
     "question": "Observá la siguiente función:\n$$\\frac{\\Delta y}{\\Delta x}$$\nDe $\\frac{dy}{dx}$?",
     "options": [
       "$\\frac{dy}{dx}$ representa siempre una tasa promedio",
-      "$\\frac{\\Delta y}{\\Delta x}$ es una variación finita y $\\frac{dy}{dx}$ es el límite cuando esa variación tiende a cero",
+      "$\\frac{\\Delta y}{\\Delta x}$ es una variación",
       "Son exactamente la misma expresión escrita con otra letra"
     ],
     "correct_index": 1,

@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **límite** de una función **constante** es siempre esa misma constante , sin importar a qué valor tienda $x$\n\n, porque $f(x)=8$ no cambia nunca: evaluando en $4{,}99, 5{,}01, 100$ siempre se obtiene $8$.\n\nLa constante es ajena al movimiento de $x$.$$\\lim_{x \\to 5} 8 = 8$$El destino de cualquier aproximación de una constante es ella misma, porque no hay nada que cambie a medida que $x$ se mueve.\n\nConfundir la constante con el punto de tendencia es un error común: recordá que una función constante no depende para nada de $x$, el valor de entrada es irrelevante.",
+    "explanation": "El **límite** de una función **constante** es siempre esa misma constante , sin importar a qué valor tienda $x$\n\n, porque $f(x)=8$ no cambia nunca: evaluando en $4{,}99, 5{,}01, 100$ siempre se obtiene $8$.\n\nLa constante es ajena al movimiento de $x$.$$\\lim_{x \\to 5} 8 = 8$$El destino de cualquier aproximación de una constante es ella misma, porque no hay nada que cambie a medida que $x$ se mueve.\n\nAsí entonces, recordá que una función constante no depende para nada de $x$, el valor de entrada es irrelevante.",
     "reviewed": false,
     "tags": [
       "sustitucion-polinomios-constantes"

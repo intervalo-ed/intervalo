@@ -318,7 +318,7 @@
     "question": "¿Por qué el **dominio** de $f(x) = 2^x$ es $\\mathbb{R}$ y no solo los enteros?",
     "options": [
       "Porque $2^x$ solo se define para $x \\geq 0$",
-      "Porque $2^x$ se puede calcular para cualquier real: $2^{0{,}5} = \\sqrt{2}$",
+      "Porque $2^x$ se puede calcular para",
       "Porque la base $2$ es un número entero",
       "Porque toda función exponencial tiene dominio $[0, +\\infty)$"
     ],
@@ -369,7 +369,7 @@
     "options": [
       "El coeficiente $a = 4$",
       "El exponente $x$",
-      "La base $b = 2$",
+      "La base $b = 2$ siempre según la regla",
       "El producto $a \\cdot b = 8$"
     ],
     "correct_index": 2,
@@ -495,7 +495,7 @@
       "Período de duplicación",
       "Tiempo de saturación",
       "Constante de decaimiento",
-      "Vida media"
+      "Vida media en el contexto"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -518,7 +518,7 @@
     "question": "¿Cuál de estas opciones describe mejor al número $e$?",
     "options": [
       "Es igual a $\\pi \\approx 3{,}14$",
-      "Es una constante irracional con $e \\approx 2{,}718$",
+      "Es una constante irracional con",
       "Es un número entero: $e = 3$",
       "Es exactamente $e = 2{,}5$"
     ],
@@ -544,7 +544,7 @@
     "options": [
       "Su derivada es $e$",
       "Su derivada es $x \\cdot e^{x-1}$",
-      "Su derivada es $e^x$, igual a sí misma",
+      "Su derivada es $e^x$.",
       "Su derivada es $0$"
     ],
     "correct_index": 2,
@@ -794,7 +794,7 @@
     "options": [
       "Sí, cuando $x_1$ y $x_2$ son opuestos: $x_2 = -x_1$",
       "Sí, cuando $x_1 \\cdot x_2 = 0$",
-      "No, la función exponencial es estrictamente monótona: no repite valores",
+      "No, la función exponencial es",
       "Solo si $x_1 + x_2 = 1$"
     ],
     "correct_index": 2,
@@ -1020,7 +1020,7 @@
       "Porque $1^x$ no está definida para $x < 0$",
       "Porque la base debe ser mayor que $e$",
       "Porque $1^x$ da resultados negativos",
-      "Porque $1^x = 1$ para todo $x$: sería una función constante, no exponencial"
+      "Porque $1^x = 1$ para todo según la regla"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -1042,7 +1042,7 @@
   {
     "question": "¿Por qué $f(x) = (-2)^x$ no se considera una función exponencial estándar?",
     "options": [
-      "Porque $-2 < 0$, y la potencia de una base negativa a exponentes racionales puede no ser real",
+      "Porque $-2 < 0$, y la según la regla",
       "Porque $(-2)^x$ siempre da valores negativos",
       "Porque no tiene asíntota horizontal",
       "Porque la base $-2$ es menor que $-1$"
@@ -1168,7 +1168,7 @@
     "question": "Una función lineal crece en $+10$ por unidad. Una exponencial crece un $10\\%$ por unidad. Para $x$ muy grande, ¿cuál tiene valores mayores?",
     "options": [
       "La lineal, porque $+10$ es mayor que $10\\%$",
-      "La exponencial, porque el crecimiento porcentual acumula más a largo plazo",
+      "La exponencial, por definición",
       "Siempre son iguales en el largo plazo",
       "Depende del valor inicial"
     ],

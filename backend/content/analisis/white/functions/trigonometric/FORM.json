@@ -138,7 +138,7 @@
     "question": "Considerá la función:\n$$f(x) = A \\cdot \\operatorname{sen}(Bx + C)$$\n¿qué representa $B$?",
     "options": [
       "Es la amplitud",
-      "Afecta el período (período $= 2\\pi/B$)",
+      "Afecta el período",
       "Es el desplazamiento vertical",
       "Es la fase inicial"
     ],
@@ -704,7 +704,7 @@
     "options": [
       "Sí, en $x = 0$",
       "Sí, en $x = \\pi/2 + k\\pi$",
-      "No, el seno está definido para todo $x$",
+      "No, el seno está definido",
       "Sí, en $x = k\\pi$"
     ],
     "correct_index": 2,

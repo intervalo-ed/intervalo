@@ -209,7 +209,7 @@
   {
     "question": "Antes de resolver esta integral:\n$$\\int \\sqrt{x}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
-      "Reescribir la raíz como potencia fraccionaria: $x^{1/2}$",
+      "Reescribir la raíz como potencia fraccionaria:",
       "Dejar la expresión sin reescribir",
       "Reescribir como potencia negativa: $x^{-1/2}$"
     ],

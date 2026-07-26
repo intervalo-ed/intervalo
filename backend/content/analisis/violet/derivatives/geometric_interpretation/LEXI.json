@@ -26,7 +26,7 @@
     "question": "¿Cómo se llama la recta que corta a la curva en dos puntos distintos y representa la tasa de cambio media entre ellos?",
     "options": [
       "Recta transversal confundiendo conceptos",
-      "Secante",
+      "Secante en el contexto",
       "Tangente"
     ],
     "correct_index": 1,
@@ -119,7 +119,7 @@
     "options": [
       "Ya es la recta tangente",
       "Deja de tener pendiente definida",
-      "Sigue siendo una secante, aunque los puntos estén cerca"
+      "Sigue siendo una secante."
     ],
     "correct_index": 2,
     "has_math": false,
@@ -140,7 +140,7 @@
   {
     "question": "En la ecuación punto-pendiente de la recta tangente:\n$$y = f'(a)(x-a) + f(a)$$\n¿qué representa $f'(a)$?",
     "options": [
-      "La inclinación (pendiente) de la recta tangente",
+      "La inclinación de la recta tangente",
       "La altura del punto de anclaje",
       "La variable independiente de la recta"
     ],
@@ -164,7 +164,7 @@
     "question": "En la misma ecuación:\n$$y = f'(a)(x-a) + f(a)$$\n¿qué representa el punto $(a, f(a))$?",
     "options": [
       "La pendiente de la recta",
-      "El punto de anclaje, donde la recta toca a la curva",
+      "El punto de anclaje. según la regla",
       "La ordenada al origen de la recta"
     ],
     "correct_index": 1,
@@ -209,7 +209,7 @@
   {
     "question": "¿Qué papel cumple $a$ dentro de la ecuación punto-pendiente?",
     "options": [
-      "Es la coordenada $x$ del punto de tangencia",
+      "Es la coordenada $x$ del punto de",
       "Es la pendiente de la recta",
       "Es la ordenada al origen de la recta"
     ],
@@ -257,7 +257,7 @@
     "options": [
       "Porque coincide con $f$ en todo su dominio",
       "Porque siempre queda por encima de la curva",
-      "Porque comparte con $f$ el mismo valor y la misma dirección instantánea en ese punto"
+      "Porque comparte con $f$ el mismo"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -278,7 +278,7 @@
   {
     "question": "¿Qué ocurre con la calidad de la **aproximación lineal** de la tangente a medida que uno se aleja del punto de tangencia?",
     "options": [
-      "El error entre la recta y la curva crece",
+      "El error entre la recta y según la regla",
       "El error se mantiene siempre igual",
       "El error desaparece por completo"
     ],

@@ -85,7 +85,7 @@
       "Coeficiente constante",
       "Término independiente",
       "Raíz",
-      "Coeficiente principal (o líder)"
+      "Coeficiente principal"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -267,7 +267,7 @@
   {
     "question": "¿Cuál es el **dominio** natural de todo polinomio $p(x) = a_n x^n + \\cdots + a_1 x + a_0$?",
     "options": [
-      "$\\mathbb{R}$ (todos los reales)",
+      "$\\mathbb{R}$",
       "$(0, +\\infty)$",
       "$\\mathbb{R} \\setminus \\{0\\}$",
       "Depende del grado del polinomio"
@@ -368,7 +368,7 @@
     "question": "¿Qué hace la curva de un polinomio en una raíz simple?",
     "options": [
       "Toca el eje $x$ sin cruzarlo",
-      "Cruza el eje $x$",
+      "Cruza el eje $x$ siempre según la regla",
       "Tiene un máximo local",
       "Tiene un mínimo local"
     ],
@@ -592,7 +592,7 @@
   {
     "question": "¿Cuál de estas afirmaciones describe a un polinomio par?",
     "options": [
-      "Solo tiene potencias de grado par y $f(-x) = f(x)$",
+      "Solo tiene potencias de grado par",
       "Solo tiene potencias de grado impar",
       "Tiene exactamente un número par de términos",
       "Su grado es un número par"
@@ -1020,7 +1020,7 @@
       "$[0, +\\infty)$",
       "$(-\\infty, -7^{1/100}] \\cup [7^{1/100}, +\\infty)$",
       "$\\mathbb{R} \\setminus \\{0\\}$",
-      "$\\mathbb{R}$"
+      "$\\mathbb{R}$ en esta forma"
     ],
     "correct_index": 3,
     "feedback_correct": "Todo polinomio, sin importar su grado, tiene dominio $\\mathbb{R}$.",
@@ -1219,7 +1219,7 @@
     "options": [
       "$x = 1$ es una raíz simple",
       "$x = 1$ es una raíz doble",
-      "$x = 1$ es una raíz triple: la curva cruza el eje con un punto de inflexión",
+      "$x = 1$ es una raíz según la regla",
       "$x = 1$ es un máximo local"
     ],
     "correct_index": 2,

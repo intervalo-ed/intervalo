@@ -243,7 +243,7 @@
     "question": "¿Cuál es la forma estándar de una función cuadrática?",
     "options": [
       "$f(x) = mx + b$",
-      "$f(x) = ax^2 + bx + c$, con $a \\neq 0$",
+      "$f(x) = ax^2 + bx",
       "$f(x) = a \\cdot b^x$",
       "$f(x) = \\log_a(x)$"
     ],
@@ -270,7 +270,7 @@
       "Porque $f$ solo está definida para $x \\geq 0$",
       "Porque el dominio de $f$ es $[0, +\\infty)$",
       "Porque $x^2$ crece más rápido que $x$",
-      "Porque elevar al cuadrado cualquier número real siempre da un resultado mayor o igual a cero"
+      "Porque elevar al cuadrado cualquier"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -567,7 +567,7 @@
   {
     "question": "¿Qué ocurre con una función cuadrática justo en su **vértice**?",
     "options": [
-      "Pasa de crecer a decrecer, o al revés",
+      "Pasa de crecer a decrecer",
       "Corta el eje $X$",
       "Se vuelve constante para siempre",
       "Cambia de familia"
@@ -644,7 +644,7 @@
     "options": [
       "A dónde corta el eje $Y$",
       "A cuántas raíces tiene",
-      "A hacia qué lado se abre, arriba o abajo",
+      "A hacia qué lado se abre.",
       "A su ordenada al origen"
     ],
     "correct_index": 2,
@@ -768,7 +768,7 @@
     "question": "Considerá la función:\n$$f(x) = a(x - h)^2 + k$$\n¿qué representa $k$?",
     "options": [
       "La coordenada $x$ del vértice",
-      "El valor extremo, coordenada $y$ del vértice",
+      "El valor extremo.",
       "El eje de simetría",
       "Una de las raíces"
     ],
@@ -1018,7 +1018,7 @@
     "question": "¿Por qué una función cuadrática no es monótona en todo su **dominio**?",
     "options": [
       "Porque su gráfica es una recta",
-      "Porque crece de un lado del vértice y decrece del otro",
+      "Porque crece de un lado del",
       "Porque no tiene dominio definido",
       "Porque siempre es creciente"
     ],
@@ -1093,7 +1093,7 @@
     "question": "¿Hacia dónde abre la **parábola** del gráfico?",
     "options": [
       "Hacia arriba confundiendo conceptos",
-      "Hacia abajo",
+      "Hacia abajo en el contexto",
       "Hacia la derecha",
       "Hacia la izquierda"
     ],
@@ -1210,7 +1210,7 @@
       "Sí, si $a < 0$ el dominio se achica",
       "Solo si $a = 0$",
       "Sí, depende también de $c$",
-      "No, el dominio es $\\mathbb{R}$ sin importar el signo de $a$"
+      "No, el dominio es $\\mathbb{R}$ sin"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -1260,7 +1260,7 @@
       "Su gráfica es una recta",
       "Su tasa de cambio es constante",
       "Tiene una asíntota horizontal",
-      "Su término de mayor grado es de grado 2"
+      "Su término de mayor grado es"
     ],
     "correct_index": 3,
     "has_math": true,

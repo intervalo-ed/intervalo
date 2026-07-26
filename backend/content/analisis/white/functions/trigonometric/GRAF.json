@@ -33,7 +33,7 @@
     "question": "¿Cuántos ceros tiene $f(x) = \\operatorname{sen}(x)$ en el intervalo $[0,\\, 2\\pi]$ (incluyendo los extremos)?",
     "options": [
       "2",
-      "3 (en $x = 0$, $\\pi$ y $2\\pi$)",
+      "3",
       "1",
       "4"
     ],
@@ -182,7 +182,7 @@
   {
     "question": "¿Cuántos ceros tiene $f(x) = \\cos(x)$ en el intervalo $[0,\\, 2\\pi]$?",
     "options": [
-      "2 (en $x = \\pi/2$ y $x = 3\\pi/2$)",
+      "2",
       "3",
       "1",
       "0"
@@ -215,7 +215,7 @@
       "El coseno no tiene ceros",
       "El coseno tiene mayor amplitud",
       "El seno tiene período más corto",
-      "El coseno comienza en su máximo ($y=1$) en $x=0$; el seno comienza en $y=0$"
+      "El coseno comienza en su máximo"
     ],
     "correct_index": 3,
     "has_math": true,
