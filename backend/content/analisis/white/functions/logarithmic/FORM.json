@@ -48,7 +48,7 @@
       -3,
       4
     ],
-    "explanation": "Para leer una función logarítmica desde su gráfica, observá dos claves:\n\n1. **Asíntota vertical**: la curva cae a $-\\infty$ en $x = -1$ → el argumento se anula en $x = -1$, entonces el argumento es $x + 1$. 2. **Intercepto con el eje $X$**: la curva corta en $(0,\\, 0)$ → $\\log_2(0 + 1) = \\log_2(1) = 0$\n\nConclusión: $f(x) = \\log_2(x + 1)$.",
+    "explanation": "Para leer una función logarítmica desde su gráfica, observá dos claves:\n\n1. **Asíntota vertical**: la curva cae a $-\\infty$ en $x = -1$ → el argumento se anula en $x = -1$.\n\nentonces el argumento es $x + 1$. 2. **Intercepto con el eje $X$**: la curva corta en $(0,\\.\n\n0)$ → $\\log_2(0 + 1) = \\log_2(1) = 0$.\n\nConclusión: $f(x) = \\log_2(x + 1)$.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -98,7 +98,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar $f(4) = \\log_2(4)$, hay que encontrar el exponente al que hay que elevar $2$ para obtener $4$:\n\nComo $2^2 = 4$, resulta $y = 2$. Entonces:\n\nEsto corresponde al punto $(4,\\, 2)$ en la gráfica de $f(x) = \\log_2(x)$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Para evaluar $f(4) = \\log_2(4)$.\n\nhay que encontrar el exponente al que hay que elevar $2$ para obtener $4$:\n\nComo $2^2 = 4$, resulta $y = 2$.\n\nEntonces:\n\nEsto corresponde al punto $(4,\\, 2)$ en la gráfica de $f(x) = \\log_2(x)$.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -128,7 +128,7 @@
       -3,
       4
     ],
-    "explanation": "La gráfica tiene asíntota vertical en $x = 1$ (desplazada 1 unidad a la derecha respecto a la forma básica).\n\nEso significa que el argumento del logaritmo se anula en $x = 1$, es decir, el argumento es $(x - 1)$:\n\nVerificación con el intercepto: $f(x) = 0$ cuando $x - 1 = 1$, es decir, en $x = 2$.\n\nLa curva cruza el eje $X$ en $(2,\\, 0)$",
+    "explanation": "La gráfica tiene asíntota vertical en $x = 1$ (desplazada 1 unidad a la derecha respecto a la forma básica).\n\nEso significa que el argumento del logaritmo se anula en $x = 1$, es decir, el argumento es $(x - 1)$:\n\nVerificación con el intercepto: $f(x) = 0$ cuando $x - 1 = 1$.\n\nes decir.\n\nen $x = 2$.\n\nLa curva cruza el eje $X$ en $(2,\\, 0)$",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -153,7 +153,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$f(e) = \\ln(e) = \\log_e(e)$. Aplicando la propiedad $\\log_b(b) = 1$:\n\nEsto significa que la gráfica de $f(x) = \\ln(x)$ pasa por el punto $(e,\\, 1)$, donde $e \\approx 2{,}718$.\n\nPuntos clave de $\\ln(x)$: pasa por $(1,\\, 0)$, pasa por $(e,\\, 1)$, asíntota vertical en $x = 0$. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "$f(e) = \\ln(e) = \\log_e(e)$.\n\nAplicando la propiedad $\\log_b(b) = 1$:\n\nEsto significa que la gráfica de $f(x) = \\ln(x)$ pasa por el punto $(e,\\.\n\n1)$.\n\ndonde $e \\approx 2{,}718$.\n\nPuntos clave de $\\ln(x)$: pasa por $(1,\\.\n\n0)$.\n\npasa por $(e,\\.\n\n1)$.\n\nasíntota vertical en $x = 0$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -208,7 +208,7 @@
       -4,
       4
     ],
-    "explanation": "La curva es **decreciente** y tiene asíntota vertical en $x = 0$, con dominio $x > 0$.\n\nUna reflexión sobre el eje $X$ (multiplicar por $-1$) convierte una curva creciente en decreciente. Por eso:\n\nVerificación: $f(1) = -\\log_2(1) = 0$ (pasa por $(1, 0)$).\n\nCuando $x > 1$, $\\log_2(x) > 0$, entonces $f(x) < 0$: la curva baja a la derecha.",
+    "explanation": "La curva es **decreciente** y tiene asíntota vertical en $x = 0$, con dominio $x > 0$.\n\nUna reflexión sobre el eje $X$ (multiplicar por $-1$) convierte una curva creciente en decreciente.\n\nPor eso:\n\nVerificación: $f(1) = -\\log_2(1) = 0$ (pasa por $(1, 0)$).\n\nCuando $x > 1$.\n\n$\\log_2(x) > 0$.\n\nentonces $f(x) < 0$: la curva baja a la derecha.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -233,7 +233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para que $f(x) = \\log(x - 3)$ esté definida, el **argumento debe ser positivo**:\n\nNota: se exige estrictamente $> 0$, no $\\geq 0$, porque $\\log(0)$ no existe.\n\nEl **dominio** es $(3, +\\infty)$ y la **asíntota vertical** está en $x = 3$.\n\nRegla general: para $\\log(x - c)$, el dominio es $x > c$. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Para que $f(x) = \\log(x - 3)$ esté definida, el **argumento debe ser positivo**:\n\nNota: se exige estrictamente $> 0$.\n\nno $\\geq 0$.\n\nporque $\\log(0)$ no existe.\n\nEl **dominio** es $(3, +\\infty)$ y la **asíntota vertical** está en $x = 3$.\n\nRegla general: para $\\log(x - c)$, el dominio es $x > c$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "dominio-desde-formula"
@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$f(1) = \\log_5(1)$.\n\nBuscamos el exponente al que hay que elevar $5$ para obtener $1$:\n\nPor lo tanto $f(1) = 0$.\n\nEsta es la **propiedad universal**: $\\log_b(1) = 0$ para cualquier base válida. Significa que **todas las funciones logarítmicas básicas pasan por el punto $(1,\\, 0)$**. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "$f(1) = \\log_5(1)$.\n\nBuscamos el exponente al que hay que elevar $5$ para obtener $1$:\n\nPor lo tanto $f(1) = 0$.\n\nEsta es la **propiedad universal**: $\\log_b(1) = 0$ para cualquier base válida.\n\nSignifica que **todas las funciones logarítmicas básicas pasan por el punto $(1,\\, 0)$**.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -283,7 +283,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para que $f(x) = \\log_2(2x - 6)$ esté definida, imponemos que el argumento sea positivo y despejamos $x$:\n\nEl dominio es $(3, +\\infty)$.\n\nEl proceso es el mismo para cualquier logaritmo con argumento compuesto: planteás la inecuación 'argumento $> 0$' y la resolvés algebraicamente.\n\nEjemplo adicional: si fuera $\\ln(3x + 9)$, harías $3x + 9 > 0 \\Rightarrow x > -3$, dominio $(-3, +\\infty)$.",
+    "explanation": "Para que $f(x) = \\log_2(2x - 6)$ esté definida, imponemos que el argumento sea positivo y despejamos $x$:\n\nEl dominio es $(3, +\\infty)$.\n\nEl proceso es el mismo para cualquier logaritmo con argumento compuesto: planteás la inecuación 'argumento $> 0$' y la resolvés algebraicamente.\n\nEjemplo adicional: si fuera $\\ln(3x + 9)$.\n\nharías $3x + 9 > 0 \\Rightarrow x > -3$.\n\ndominio $(-3.\n\n+\\infty)$.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -308,7 +308,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **asíntota vertical** de una función logarítmica aparece siempre donde su argumento se anula, porque ahí la función deja de estar definida y los valores caen sin cota.\n\nPara $f(x) = \\log_3(x - 4)$, el argumento es $(x - 4)$. Se anula cuando:\n\nLa asíntota vertical es $x = 4$ y el dominio es $(4, +\\infty)$.\n\nEl intercepto con el eje $X$ ocurre cuando $\\log_3(x - 4) = 0$, es decir $x - 4 = 1 \\implies x = 5$.\n\nusar el signo del término dentro del paréntesis sin invertirlo al despejar: el $-4$ obliga a sumar $4$ de ambos lados, no a restarlo.",
+    "explanation": "La **asíntota vertical** de una función logarítmica aparece siempre donde su argumento se anula, porque ahí la función deja de estar definida y los valores caen sin cota.\n\nPara $f(x) = \\log_3(x - 4)$, el argumento es $(x - 4)$.\n\nSe anula cuando:\n\nLa asíntota vertical es $x = 4$ y el dominio es $(4, +\\infty)$.\n\nEl intercepto con el eje $X$ ocurre cuando $\\log_3(x - 4) = 0$.\n\nes decir $x - 4 = 1 \\implies x = 5$.\n\nusar el signo del término dentro del paréntesis sin invertirlo al despejar: el $-4$ obliga a sumar $4$ de ambos lados, no a restarlo.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -333,7 +333,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El argumento debe ser positivo:\n\nDominio: $(2, +\\infty)$. Asíntota vertical: $x = 2$.\n\nNota: no confundir el coeficiente $3$ con la asíntota.\n\nLa asíntota es donde el argumento es cero, es decir $3x = 6 \\implies x = 2$, no $x = 3$ ni $x = 6$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "El argumento debe ser positivo:\n\nDominio: $(2, +\\infty)$.\n\nAsíntota vertical: $x = 2$.\n\nNota: no confundir el coeficiente $3$ con la asíntota.\n\nLa asíntota es donde el argumento es cero.\n\nes decir $3x = 6 \\implies x = 2$.\n\nno $x = 3$ ni $x = 6$.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -358,7 +358,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Evaluar un logaritmo significa encontrar el exponente al que hay que elevar la base para obtener el argumento.\n\nPara $f(9) = \\log_3(9)$, se busca $y$ tal que $3^y = 9$.\n\nPor lo tanto $f(9) = 2$, y el punto $(9,\\, 2)$ pertenece a la gráfica de $f(x) = \\log_3(x)$.\n\nconfundir el resultado del logaritmo con el propio argumento: $\\log_3(9)$ no es $9$, es el exponente que produce ese $9$.",
+    "explanation": "Evaluar un logaritmo significa encontrar el exponente al que hay que elevar la base para obtener el argumento.\n\nPara $f(9) = \\log_3(9)$.\n\nse busca $y$ tal que $3^y = 9$.\n\nPor lo tanto $f(9) = 2$.\n\ny el punto $(9,\\.\n\n2)$ pertenece a la gráfica de $f(x) = \\log_3(x)$.\n\nconfundir el resultado del logaritmo con el propio argumento: $\\log_3(9)$ no es $9$.\n\nes el exponente que produce ese $9$.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -408,7 +408,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el logaritmo se escribe sin base explícita, $\\log(x)$, se sobreentiende base $10$ (logaritmo decimal).\n\nEvaluarlo significa buscar el exponente al que hay que elevar $10$ para obtener el argumento.\n\nEl patrón general es $\\log(10^n) = n$: como $100 = 10^2$, el resultado es directamente el exponente $2$.\n\nConviene memorizar las potencias de $10$ chicas para reconocer este patrón sin tener que resolver la ecuación cada vez.",
+    "explanation": "Cuando el logaritmo se escribe sin base explícita, $\\log(x)$, se sobreentiende base $10$ (logaritmo decimal).\n\nEvaluarlo significa buscar el exponente al que hay que elevar $10$ para obtener el argumento.\n\nEl patrón general es $\\log(10^n) = n$: como $100 = 10^2$.\n\nel resultado es directamente el exponente $2$.\n\nConviene memorizar las potencias de $10$ chicas para reconocer este patrón sin tener que resolver la ecuación cada vez.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -463,7 +463,7 @@
       -3,
       5
     ],
-    "explanation": "Claves para leer el gráfico: 1. Asíntota vertical en $x = 0$ → argumento es $x$ sin desplazamiento. 2.\n\nPasa por $(1, 0)$ → $f(1) = 0$ → no hay desplazamiento vertical. 3.\n\nEs creciente → base $b > 1$. 4.\n\nPasa por $(2, 1)$ → $f(2) = 1$ → base $b = 2$.\n\nConclusión: $f(x) = \\log_2(x)$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Claves para leer el gráfico: 1.\n\nAsíntota vertical en $x = 0$ → argumento es $x$ sin desplazamiento. 2.\n\nPasa por $(1, 0)$ → $f(1) = 0$ → no hay desplazamiento vertical. 3.\n\nEs creciente → base $b > 1$. 4.\n\nPasa por $(2.\n\n1)$ → $f(2) = 1$ → base $b = 2$.\n\nConclusión: $f(x) = \\log_2(x)$.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -493,7 +493,7 @@
       -2,
       6
     ],
-    "explanation": "Para reconocer una función logarítmica desde su gráfico conviene revisar tres claves en orden: dónde está la asíntota vertical, si hay desplazamiento vertical, y qué base determina la pendiente de crecimiento.\n\nEn este caso, la asíntota vertical sigue en $x = 0$, así que el argumento no tiene desplazamiento horizontal.\n\nPero en $x = 1$ la curva vale $f(1) = 1$ en vez de $0$, lo que indica un desplazamiento vertical de $+1$.\n\nLa curva es creciente y pasa por $(2, 2)$, lo que confirma la base $2$.\n\nConclusión: $f(x) = \\log_2(x) + 1$. Distinguir un desplazamiento vertical (suma una constante) de un escalado (multiplica al logaritmo) es la clave para no confundir estas variantes.",
+    "explanation": "Para reconocer una función logarítmica desde su gráfico conviene revisar tres claves en orden: dónde está la asíntota vertical.\n\nsi hay desplazamiento vertical.\n\ny qué base determina la pendiente de crecimiento.\n\nEn este caso, la asíntota vertical sigue en $x = 0$, así que el argumento no tiene desplazamiento horizontal.\n\nPero en $x = 1$ la curva vale $f(1) = 1$ en vez de $0$.\n\nlo que indica un desplazamiento vertical de $+1$.\n\nLa curva es creciente y pasa por $(2, 2)$, lo que confirma la base $2$.\n\nConclusión: $f(x) = \\log_2(x) + 1$.\n\nDistinguir un desplazamiento vertical (suma una constante) de un escalado (multiplica al logaritmo) es la clave para no confundir estas variantes.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -573,7 +573,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad de la potencia** de los logaritmos dice que $\\log_b(a^n) = n \\cdot \\log_b(a)$: el exponente del argumento baja y multiplica al logaritmo completo.\n\nVerificación con $x = 100$: $\\log(100^3) = \\log(10^6) = 6$ y $3 \\cdot \\log(100) = 3 \\cdot 2 = 6$, coinciden.\n\nEl error más común acá es olvidar el factor $3$ y responder solo $\\log(x)$, o confundir el exponente con un coeficiente que multiplica adentro del argumento.",
+    "explanation": "La **propiedad de la potencia** de los logaritmos dice que $\\log_b(a^n) = n \\cdot \\log_b(a)$: el exponente del argumento baja y multiplica al logaritmo completo.\n\nVerificación con $x = 100$: $\\log(100^3) = \\log(10^6) = 6$ y $3 \\cdot \\log(100) = 3 \\cdot 2 = 6$.\n\ncoinciden.\n\nEl error más común acá es olvidar el factor $3$ y responder solo $\\log(x)$, o confundir el exponente con un coeficiente que multiplica adentro del argumento.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -598,7 +598,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La propiedad de la potencia permite bajar el exponente del argumento como factor multiplicativo del logaritmo:\n\nTambién puede verse directamente por ser funciones inversas: como $\\ln(x)$ y $e^x$ se cancelan entre sí, $\\ln(e^u) = u$ para cualquier exponente $u$, en este caso $u = 2x$.\n\nReconocer esta cancelación ahorra pasos: no hace falta expandir la potencia si ya se identifica que el logaritmo natural deshace la exponencial de base $e$.",
+    "explanation": "La propiedad de la potencia permite bajar el exponente del argumento como factor multiplicativo del logaritmo:\n\nTambién puede verse directamente por ser funciones inversas: como $\\ln(x)$ y $e^x$ se cancelan entre sí.\n\n$\\ln(e^u) = u$ para cualquier exponente $u$.\n\nen este caso $u = 2x$.\n\nReconocer esta cancelación ahorra pasos: no hace falta expandir la potencia si ya se identifica que el logaritmo natural deshace la exponencial de base $e$.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-log"
@@ -623,7 +623,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar la **función inversa**, se intercambian los roles de $x$ e $y$ en $y = \\log_2(x)$ y se despeja la nueva $y$:\n\nSe verifica que ambas composiciones devuelven la identidad: $\\log_2(2^x) = x$ y $2^{\\log_2(x)} = x$.\n\nEsta relación resume por qué logaritmo y exponencial son funciones inversas entre sí: una deshace exactamente lo que hace la otra, siempre que compartan la misma base.",
+    "explanation": "Para hallar la **función inversa**.\n\nse intercambian los roles de $x$ e $y$ en $y = \\log_2(x)$ y se despeja la nueva $y$:\n\nSe verifica que ambas composiciones devuelven la identidad: $\\log_2(2^x) = x$ y $2^{\\log_2(x)} = x$.\n\nEsta relación resume por qué logaritmo y exponencial son funciones inversas entre sí: una deshace exactamente lo que hace la otra, siempre que compartan la misma base.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -673,7 +673,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar $f(28) = \\log_3(28 - 1)$, primero se simplifica el argumento y después se calcula el logaritmo.\n\nComo $3^3 = 27$, resulta $\\log_3(27) = 3$, así que $f(28) = 3$.\n\nConviene resolver siempre el argumento antes de pensar en el logaritmo: si se intenta aplicar la base directamente sobre el $28$ sin restar el $1$, se llega a un resultado incorrecto.",
+    "explanation": "Para evaluar $f(28) = \\log_3(28 - 1)$, primero se simplifica el argumento y después se calcula el logaritmo.\n\nComo $3^3 = 27$.\n\nresulta $\\log_3(27) = 3$.\n\nasí que $f(28) = 3$.\n\nConviene resolver siempre el argumento antes de pensar en el logaritmo: si se intenta aplicar la base directamente sobre el $28$ sin restar el $1$, se llega a un resultado incorrecto.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -698,7 +698,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando una expresión suma dos logaritmos, el **dominio** exige que el argumento de cada uno sea positivo por separado, y después hay que quedarse con la condición más restrictiva entre todas.\n\nPara $f(x) = \\log(x - 2) + \\log(x + 2)$, el primer término exige $x - 2 > 0$, es decir $x > 2$, mientras que el segundo exige $x + 2 > 0$, es decir $x > -2$.\n\nAmbas condiciones deben cumplirse simultáneamente, así que se toma la intersección de los dos intervalos.\n\nComo $x > 2$ ya implica $x > -2$, la condición más exigente es $x > 2$, y ese es el dominio final: $(2, +\\infty)$.\n\nQuedarse con la condición menos restrictiva en vez de con la que realmente acota el conjunto.",
+    "explanation": "Cuando una expresión suma dos logaritmos, el **dominio** exige que el argumento de cada uno sea positivo por separado, y después hay que quedarse con la condición más restrictiva entre todas.\n\nPara $f(x) = \\log(x - 2) + \\log(x + 2)$.\n\nel primer término exige $x - 2 > 0$.\n\nes decir $x > 2$.\n\nmientras que el segundo exige $x + 2 > 0$.\n\nes decir $x > -2$.\n\nAmbas condiciones deben cumplirse simultáneamente, así que se toma la intersección de los dos intervalos.\n\nComo $x > 2$ ya implica $x > -2$.\n\nla condición más exigente es $x > 2$.\n\ny ese es el dominio final: $(2.\n\n+\\infty)$.\n\nQuedarse con la condición menos restrictiva en vez de con la que realmente acota el conjunto.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -723,7 +723,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Asíntota vertical en $x = 3$ → el argumento se anula en $x = 3$, o sea argumento $= (x - 3)$.\n\nVerificamos el punto $(4, 0)$: $\\log_2(4 - 3) = \\log_2(1) = 0$ .\n\nLa base $2$ se confirma porque para $x = 5$: $\\log_2(5 - 3) = \\log_2(2) = 1$, es decir el punto $(5, 1)$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Asíntota vertical en $x = 3$ → el argumento se anula en $x = 3$.\n\no sea argumento $= (x - 3)$.\n\nVerificamos el punto $(4, 0)$: $\\log_2(4 - 3) = \\log_2(1) = 0$ .\n\nLa base $2$ se confirma porque para $x = 5$: $\\log_2(5 - 3) = \\log_2(2) = 1$.\n\nes decir el punto $(5.\n\n1)$.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-desde-formula"
@@ -748,7 +748,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar $f(7) = \\log_2(7 + 1)$, primero se simplifica el argumento sumando dentro del paréntesis, y recién después se calcula el logaritmo.\n\nComo $2^3 = 8$, resulta $\\log_2(8) = 3$, así que $f(7) = 3$.\n\naplicar la base directamente sobre el $7$ sin sumar primero el $1$ del desplazamiento horizontal.",
+    "explanation": "Para evaluar $f(7) = \\log_2(7 + 1)$, primero se simplifica el argumento sumando dentro del paréntesis, y recién después se calcula el logaritmo.\n\nComo $2^3 = 8$.\n\nresulta $\\log_2(8) = 3$.\n\nasí que $f(7) = 3$.\n\naplicar la base directamente sobre el $7$ sin sumar primero el $1$ del desplazamiento horizontal.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -848,7 +848,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Resolver este tipo de expresiones requiere aplicar dos propiedades en cadena: primero la del producto, para separar $9$ de $x^2$, y después la de la potencia, para bajar el exponente $2$.\n\nSe usa $\\log_3(9) = 2$ porque $3^2 = 9$, y $\\log_3(x^2) = 2\\log_3(x)$ por la propiedad de la potencia.\n\nSi aplicás una sola propiedad y olvidar la otra, dejando el $9$ sin convertir o el exponente $2$ sin bajar., obtienes un resultado incorrecto.",
+    "explanation": "Resolver este tipo de expresiones requiere aplicar dos propiedades en cadena: primero la del producto.\n\npara separar $9$ de $x^2$.\n\ny después la de la potencia.\n\npara bajar el exponente $2$.\n\nSe usa $\\log_3(9) = 2$ porque $3^2 = 9$.\n\ny $\\log_3(x^2) = 2\\log_3(x)$ por la propiedad de la potencia.\n\nSi aplicás una sola propiedad y olvidar la otra, dejando el $9$ sin convertir o el exponente $2$ sin bajar., obtienes un resultado incorrecto.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -898,7 +898,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **intercepto con el eje $X$** de una función logarítmica aparece siempre donde el argumento vale $1$, porque $\\log_b(1) = 0$ para cualquier base válida.\n\nLa curva pasa por el punto $(2,\\, 0)$.\n\nNo confundir este cruce con la asíntota vertical: la asíntota aparece donde el argumento se anula ($x=1$ en este caso), mientras que el cruce por el eje $X$ aparece donde el argumento vale $1$ más allá, es decir en $x=2$.",
+    "explanation": "El **intercepto con el eje $X$** de una función logarítmica aparece siempre donde el argumento vale $1$.\n\nporque $\\log_b(1) = 0$ para cualquier base válida.\n\nLa curva pasa por el punto $(2,\\, 0)$.\n\nNo confundir este cruce con la asíntota vertical: la asíntota aparece donde el argumento se anula ($x=1$ en este caso).\n\nmientras que el cruce por el eje $X$ aparece donde el argumento vale $1$ más allá.\n\nes decir en $x=2$.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -948,7 +948,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar $f(11) = \\log_2(11 - 3)$, primero se simplifica el argumento restando dentro del paréntesis, y recién después se calcula el logaritmo.\n\nComo $2^3 = 8$, resulta $\\log_2(8) = 3$, así que $f(11) = 3$.\n\naplicar la base directamente sobre el $11$ sin restar primero el $3$ del desplazamiento horizontal.",
+    "explanation": "Para evaluar $f(11) = \\log_2(11 - 3)$, primero se simplifica el argumento restando dentro del paréntesis, y recién después se calcula el logaritmo.\n\nComo $2^3 = 8$.\n\nresulta $\\log_2(8) = 3$.\n\nasí que $f(11) = 3$.\n\naplicar la base directamente sobre el $11$ sin restar primero el $3$ del desplazamiento horizontal.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -998,7 +998,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para duplicar el capital, se plantea $M = 2M_0$ y se despeja el exponente $t$ que satisface esa igualdad, tal como se hace con cualquier problema de crecimiento exponencial.\n\nComo $7{,}3$ no es un número entero de años, conviene interpretar el resultado como una aproximación: la duplicación efectiva recién se completa en el año $8$, pero la cifra entera más cercana entre las opciones es $7$.\n\nConviene recordar que el logaritmo en base $1{,}1$ es el que deshace exactamente la potencia $(1{,}1)^t$, y ese valor ya viene dado en el enunciado para no tener que calcularlo desde cero.",
+    "explanation": "Para duplicar el capital, se plantea $M = 2M_0$ y se despeja el exponente $t$ que satisface esa igualdad, tal como se hace con cualquier problema de crecimiento exponencial.\n\nComo $7{,}3$ no es un número entero de años.\n\nconviene interpretar el resultado como una aproximación: la duplicación efectiva recién se completa en el año $8$.\n\npero la cifra entera más cercana entre las opciones es $7$.\n\nConviene recordar que el logaritmo en base $1{,}1$ es el que deshace exactamente la potencia $(1{,}1)^t$, y ese valor ya viene dado en el enunciado para no tener que calcularlo desde cero.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1023,7 +1023,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** de un logaritmo exige que su argumento sea estrictamente positivo.\n\nAcá el argumento es $x^2$, que es positivo para cualquier $x$ distinto de cero, ya que elevar al cuadrado siempre da un resultado no negativo, y solo se anula cuando $x=0$.\n\nPor eso el dominio es $\\mathbb{R} \\setminus \\{0\\} = (-\\infty, 0) \\cup (0, +\\infty)$, es decir, todos los reales excepto cero.\n\nEsto confirma la propiedad $\\log_2(x^2) = 2\\log_2|x|$, que muestra que la función existe tanto para $x$ positivo como negativo.\n\nrestringir el dominio solo a los positivos, como si el argumento fuera $x$ en vez de $x^2$: acá el cuadrado permite que también los negativos generen un argumento válido.",
+    "explanation": "El **dominio** de un logaritmo exige que su argumento sea estrictamente positivo.\n\nAcá el argumento es $x^2$.\n\nque es positivo para cualquier $x$ distinto de cero.\n\nya que elevar al cuadrado siempre da un resultado no negativo.\n\ny solo se anula cuando $x=0$.\n\nPor eso el dominio es $\\mathbb{R} \\setminus \\{0\\} = (-\\infty, 0) \\cup (0, +\\infty)$, es decir, todos los reales excepto cero.\n\nEsto confirma la propiedad $\\log_2(x^2) = 2\\log_2|x|$, que muestra que la función existe tanto para $x$ positivo como negativo.\n\nrestringir el dominio solo a los positivos, como si el argumento fuera $x$ en vez de $x^2$: acá el cuadrado permite que también los negativos generen un argumento válido.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1048,7 +1048,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando se conoce la posición de la **asíntota vertical**, se puede reconstruir el argumento del logaritmo: el argumento debe anularse exactamente ahí.\n\nComo la asíntota está en $x = -1$, el argumento tiene que ser $x + 1$, porque $(-1) + 1 = 0$.\n\nSe verifica con el punto dado: $\\log_2(0 + 1) = \\log_2(1) = 0$, que coincide con el punto $(0, 0)$.\n\nArmar la fórmula a partir de la asíntota y un punto conocido es el proceso inverso de leer un gráfico: primero se fija el desplazamiento horizontal, y después se confirma con el punto que también debe cumplir la ecuación.",
+    "explanation": "Cuando se conoce la posición de la **asíntota vertical**, se puede reconstruir el argumento del logaritmo: el argumento debe anularse exactamente ahí.\n\nComo la asíntota está en $x = -1$.\n\nel argumento tiene que ser $x + 1$.\n\nporque $(-1) + 1 = 0$.\n\nSe verifica con el punto dado: $\\log_2(0 + 1) = \\log_2(1) = 0$, que coincide con el punto $(0, 0)$.\n\nArmar la fórmula a partir de la asíntota y un punto conocido es el proceso inverso de leer un gráfico: primero se fija el desplazamiento horizontal.\n\ny después se confirma con el punto que también debe cumplir la ecuación.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -1073,7 +1073,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar una función con un factor multiplicativo delante del logaritmo, primero se calcula el logaritmo y recién después se multiplica por ese factor.\n\nSe usa $\\log_2(4) = 2$ porque $2^2 = 4$, y ese resultado se multiplica por el factor $2$ que acompaña a toda la expresión.\n\naplicar el factor multiplicativo dentro del logaritmo, como si $2 \\cdot \\log_2(x)$ fuera lo mismo que $\\log_2(2x)$, cuando en realidad son expresiones distintas: $2\\log_2(x) = \\log_2(x^2)$.",
+    "explanation": "Para evaluar una función con un factor multiplicativo delante del logaritmo, primero se calcula el logaritmo y recién después se multiplica por ese factor.\n\nSe usa $\\log_2(4) = 2$ porque $2^2 = 4$.\n\ny ese resultado se multiplica por el factor $2$ que acompaña a toda la expresión.\n\naplicar el factor multiplicativo dentro del logaritmo.\n\ncomo si $2 \\cdot \\log_2(x)$ fuera lo mismo que $\\log_2(2x)$.\n\ncuando en realidad son expresiones distintas: $2\\log_2(x) = \\log_2(x^2)$.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1123,7 +1123,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para que la deuda se triplique, se plantea $D = 3D_0$ y se despeja el exponente $t$ que satisface esa igualdad.\n\nComo $22{,}5$ no es un número entero de meses, la deuda recién se triplica del todo al completarse el mes $23$, pero el valor entero más cercano entre las opciones es $22$.\n\nEste tipo de problema pide el mismo despeje que duplicar un capital, solo que acá el factor buscado es $3$ en vez de $2$, y la base de la potencia refleja la tasa mensual de la deuda.",
+    "explanation": "Para que la deuda se triplique, se plantea $D = 3D_0$ y se despeja el exponente $t$ que satisface esa igualdad.\n\nComo $22{,}5$ no es un número entero de meses.\n\nla deuda recién se triplica del todo al completarse el mes $23$.\n\npero el valor entero más cercano entre las opciones es $22$.\n\nEste tipo de problema pide el mismo despeje que duplicar un capital, solo que acá el factor buscado es $3$ en vez de $2$, y la base de la potencia refleja la tasa mensual de la deuda.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1153,7 +1153,7 @@
       -3,
       5
     ],
-    "explanation": "Identificar la base de una curva logarítmica desde su gráfico se apoya en dos puntos fijos: el logaritmo siempre pasa por $(1,0)$, y el punto $(b,1)$ revela directamente la base $b$.\n\nEn este gráfico, la asíntota vertical está en $x=0$, así que no hay desplazamiento horizontal, y la curva pasa por $(1,0)$, así que tampoco hay desplazamiento vertical.\n\nPero además pasa por $(3,1)$, lo que significa $f(3)=1$: la base que cumple eso es exactamente $3$.\n\nConclusión: $f(x) = \\log_3(x)$. leer el punto $(b,1)$ como si fuera $(1,b)$, invirtiendo las coordenadas y confundiendo la base con el argumento.",
+    "explanation": "Identificar la base de una curva logarítmica desde su gráfico se apoya en dos puntos fijos: el logaritmo siempre pasa por $(1,0)$.\n\ny el punto $(b,1)$ revela directamente la base $b$.\n\nEn este gráfico, la asíntota vertical está en $x=0$, así que no hay desplazamiento horizontal, y la curva pasa por $(1,0)$, así que tampoco hay desplazamiento vertical.\n\nPero además pasa por $(3,1)$.\n\nlo que significa $f(3)=1$: la base que cumple eso es exactamente $3$.\n\nConclusión: $f(x) = \\log_3(x)$. leer el punto $(b,1)$ como si fuera $(1,b)$.\n\ninvirtiendo las coordenadas y confundiendo la base con el argumento.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -1178,7 +1178,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **intercepto con el eje $X$** ocurre donde $f(x) = 0$. Acá conviene despejar primero el logaritmo solo, y recién después convertirlo a su forma exponencial.\n\nLa curva pasa por el punto $(2,\\, 0)$.\n\nUn desplazamiento vertical como este $-1$ cambia dónde ocurre el cruce por el eje $X$, a diferencia de la forma básica $\\log_2(x)$, que cruza en $x=1$: hay que resolver la ecuación completa en vez de asumir que sigue siendo el mismo punto.",
+    "explanation": "El **intercepto con el eje $X$** ocurre donde $f(x) = 0$.\n\nAcá conviene despejar primero el logaritmo solo, y recién después convertirlo a su forma exponencial.\n\nLa curva pasa por el punto $(2,\\, 0)$.\n\nUn desplazamiento vertical como este $-1$ cambia dónde ocurre el cruce por el eje $X$.\n\na diferencia de la forma básica $\\log_2(x)$.\n\nque cruza en $x=1$: hay que resolver la ecuación completa en vez de asumir que sigue siendo el mismo punto.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -1203,7 +1203,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar $f(e^2-1) = \\ln((e^2-1)+1)$, conviene simplificar primero el argumento antes de aplicar cualquier propiedad del logaritmo.\n\nEl $-1$ y el $+1$ se cancelan entre sí dentro del argumento, dejando simplemente $e^2$, que es donde conviene aplicar la propiedad de la potencia.\n\naplicar el logaritmo directamente sobre $e^2-1$ sin simplificar antes con el $+1$ que viene de la función, complicando innecesariamente la cuenta.",
+    "explanation": "Para evaluar $f(e^2-1) = \\ln((e^2-1)+1)$, conviene simplificar primero el argumento antes de aplicar cualquier propiedad del logaritmo.\n\nEl $-1$ y el $+1$ se cancelan entre sí dentro del argumento.\n\ndejando simplemente $e^2$.\n\nque es donde conviene aplicar la propiedad de la potencia.\n\naplicar el logaritmo directamente sobre $e^2-1$ sin simplificar antes con el $+1$ que viene de la función, complicando innecesariamente la cuenta.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1253,7 +1253,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad del cociente**, leída al revés, permite combinar una resta de logaritmos de la misma base en un solo logaritmo de una división.\n\nTambién puede resolverse evaluando cada logaritmo por separado: $\\log_2(8) = 3$ y $\\log_2(4) = 2$, entonces $3 - 2 = 1$.\n\nrestar directamente los argumentos ($8-4=4$) en vez de aplicar la propiedad del cociente sobre los logaritmos.",
+    "explanation": "La **propiedad del cociente**, leída al revés, permite combinar una resta de logaritmos de la misma base en un solo logaritmo de una división.\n\nTambién puede resolverse evaluando cada logaritmo por separado: $\\log_2(8) = 3$ y $\\log_2(4) = 2$.\n\nentonces $3 - 2 = 1$.\n\nrestar directamente los argumentos ($8-4=4$) en vez de aplicar la propiedad del cociente sobre los logaritmos.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1278,7 +1278,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para que el auto valga la mitad de su valor original, se plantea $V_0/2 = V_0 \\cdot (0{,}8)^t$, es decir $(0{,}8)^t = 0{,}5$, y se despeja $t$ usando cambio de base.\n\nSon unos $3$ años.\n\nEl **cambio de base** $\\log_b(x) = \\ln(x)/\\ln(b)$ es la herramienta clave cuando la calculadora no tiene una tecla directa para logaritmos en bases no estándar como $0{,}8$.",
+    "explanation": "Para que el auto valga la mitad de su valor original.\n\nse plantea $V_0/2 = V_0 \\cdot (0{,}8)^t$.\n\nes decir $(0{,}8)^t = 0{,}5$.\n\ny se despeja $t$ usando cambio de base.\n\nSon unos $3$ años.\n\nEl **cambio de base** $\\log_b(x) = \\ln(x)/\\ln(b)$ es la herramienta clave cuando la calculadora no tiene una tecla directa para logaritmos en bases no estándar como $0{,}8$.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
