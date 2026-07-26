@@ -1024,7 +1024,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Correcto. $B = 1/2$, por lo tanto período $= 2\\pi / (1/2) = 4\\pi$.",
+    "feedback_correct": "Correcto. $B = 1/2$, por lo tanto período $ = 4\\pi$.",
     "feedback_incorrect": [
       "Ese valor correspondería a un coeficiente $B=2$, el doble del que tiene esta función.",
       "Ese es el período del seno sin modificar, sin tener en cuenta que $B=1/2$.",

@@ -36,9 +36,9 @@
     "has_math": true,
     "feedback_correct": "Correcto, el coeficiente $6$ se simplifica al dividir por el nuevo exponente.",
     "feedback_incorrect": [
-      "Falta subir el exponente de $x^2$ a $x^3$ antes de escribir el resultado final.",
+      "Hay que subir el exponente de $x^2$ a $x^3$ antes de escribir el resultado final.",
       null,
-      "Falta dividir el coeficiente $6$ por el nuevo exponente, $3$, ese paso es parte de la regla de la potencia.",
+      "Hay que dividir el coeficiente $6$ por el nuevo exponente, $3$, ese paso es parte de la regla de la potencia.",
       "El signo de la primitiva de $\\cos x$ es positivo, no negativo."
     ],
     "graph_fn": null,
@@ -64,7 +64,7 @@
       "Esa forma sale de aplicar la regla de la potencia al término exponencial, pero $e^x$ se integra con la regla exponencial.",
       "El signo del término con $x$ es negativo, no positivo.",
       null,
-      "Falta dividir el coeficiente $4$ por el nuevo exponente, $2$, ese paso es parte de la regla de la potencia."
+      "Hay que dividir el coeficiente $4$ por el nuevo exponente, $2$, ese paso es parte de la regla de la potencia."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -112,7 +112,7 @@
     "feedback_correct": "Correcto, el exponente sube en uno y el resultado se divide por el nuevo exponente.",
     "feedback_incorrect": [
       null,
-      "Falta dividir por el nuevo exponente, $6$, ese paso es parte de la regla de la potencia.",
+      "Hay que dividir por el nuevo exponente, $6$, ese paso es parte de la regla de la potencia.",
       "El signo de la primitiva de $\\cos x$ es positivo, así que con el signo negativo del enunciado el resultado queda negativo.",
       "Dividiste por el exponente original, $5$, en vez del nuevo exponente, $6$."
     ],
@@ -138,7 +138,7 @@
     "feedback_incorrect": [
       "El signo del primer término es positivo, revisá la regla trigonométrica de $\\sec^2 x$.",
       null,
-      "Falta dividir el término potencial por el nuevo exponente, $3$, ese paso es parte de la regla de la potencia.",
+      "Hay que dividir el término potencial por el nuevo exponente, $3$, ese paso es parte de la regla de la potencia.",
       "Esa expresión es la derivada de $\\sec x$, no la primitiva de $\\sec^2 x$, que es $\\tan x$."
     ],
     "graph_fn": null,
@@ -164,11 +164,11 @@
       "Esa forma sale de aplicar la regla de la potencia al término exponencial, pero $e^x$ se integra con la regla exponencial.",
       "El signo del término exponencial es negativo, revisá el signo original del enunciado.",
       null,
-      "Falta multiplicar la constante $7$ por $x$ al integrarla, la regla de la constante lo exige."
+      "Hay que multiplicar la constante $7$ por $x$ al integrarla, la regla de la constante lo exige."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad y aplicamos la regla de la constante y la exponencial a cada término.\n$$\\begin{aligned} \\int (7-4e^x)\\,dx &= \\int 7\\,dx - 4\\int e^x\\,dx \\\\ &= 7x - 4e^x \\\\ &= 7x-4e^x+C \\end{aligned}$$\nLa constante $7$ necesita el factor $x$ que aparece siempre en la regla de la constante, dejarlo de lado es un error frecuente.",
+    "explanation": "Separamos por linealidad y aplicamos la regla de la constante y la exponencial a cada término.\n$$\\begin{aligned} \\int (7-4e^x)\\,dx &= \\int 7\\,dx - 4\\int e^x\\,dx \\\\ &= 7x - 4e^x \\\\ &= 7x-4e^x+C \\end{aligned}$$\nLa constante $7$ necesita el factor $x$ que aparece siempre en la regla de la constante, dejarlo de lado .",
     "reviewed": false,
     "tags": [
       "reconocimiento-directo-antiderivadas"
@@ -186,7 +186,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, el coeficiente $8$ se simplifica al dividir por el nuevo exponente.",
     "feedback_incorrect": [
-      "Falta dividir el coeficiente $8$ por el nuevo exponente, $4$, ese paso es parte de la regla de la potencia.",
+      "Hay que dividir el coeficiente $8$ por el nuevo exponente, $4$, ese paso es parte de la regla de la potencia.",
       "El signo de la primitiva de $\\cos x$ es positivo, no negativo.",
       "El signo del término potencial es positivo, revisá el signo original del enunciado.",
       null
@@ -212,9 +212,9 @@
     "feedback_correct": "Correcto, el término $\\frac{5}{x}$ integra con logaritmo y valor absoluto.",
     "feedback_incorrect": [
       null,
-      "Falta el valor absoluto en el logaritmo, $\\ln|x|$ respeta el dominio completo de $\\frac{1}{x}$.",
+      "Hay que el valor absoluto en el logaritmo, $\\ln|x|$ respeta el dominio completo de $\\frac{1}{x}$.",
       "Aplicaste la regla de la potencia con $n=-1$, ese exponente es la excepción que exige la regla del logaritmo.",
-      "Falta dividir el primer término por el nuevo exponente, $3$, ese paso es parte de la regla de la potencia."
+      "Hay que dividir el primer término por el nuevo exponente, $3$, ese paso es parte de la regla de la potencia."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -238,8 +238,8 @@
     "feedback_incorrect": [
       "Aplicaste la regla de la potencia con $n=-1$, ese exponente es la excepción que exige la regla del logaritmo.",
       null,
-      "Falta el valor absoluto en el logaritmo, $\\ln|x|$ respeta el dominio completo de $\\frac{1}{x}$.",
-      "Falta dividir el segundo término por el nuevo exponente, $4$, ese paso es parte de la regla de la potencia."
+      "Hay que el valor absoluto en el logaritmo, $\\ln|x|$ respeta el dominio completo de $\\frac{1}{x}$.",
+      "Hay que dividir el segundo término por el nuevo exponente, $4$, ese paso es parte de la regla de la potencia."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -264,7 +264,7 @@
       "Revisá la división del exponente fraccionario, $\\frac{1}{3/2}=\\frac{2}{3}$, no $\\frac{1}{2}$.",
       "El signo del término logarítmico es positivo, revisá el signo original del enunciado.",
       null,
-      "Falta el valor absoluto en el logaritmo, $\\ln|x|$ respeta el dominio completo de $\\frac{1}{x}$."
+      "Hay que el valor absoluto en el logaritmo, $\\ln|x|$ respeta el dominio completo de $\\frac{1}{x}$."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -286,9 +286,9 @@
     "has_math": true,
     "feedback_correct": "Correcto, el coeficiente $4$ se simplifica al dividir por el nuevo exponente.",
     "feedback_incorrect": [
-      "Falta el valor absoluto en el logaritmo, $\\ln|x|$ respeta el dominio completo de $\\frac{1}{x}$.",
+      "Hay que el valor absoluto en el logaritmo, $\\ln|x|$ respeta el dominio completo de $\\frac{1}{x}$.",
       "El signo del término logarítmico es negativo, revisá el signo original del enunciado.",
-      "Falta dividir el coeficiente $4$ por el nuevo exponente, $2$, ese paso es parte de la regla de la potencia.",
+      "Hay que dividir el coeficiente $4$ por el nuevo exponente, $2$, ese paso es parte de la regla de la potencia.",
       null
     ],
     "graph_fn": null,
@@ -314,7 +314,7 @@
       null,
       "El caso del logaritmo es exclusivamente $n=-1$, acá el exponente es $-2$, sigue aplicando la potencia.",
       "Revisá el signo, la regla de la potencia con exponente negativo da un resultado negativo acá.",
-      "Falta dividir el segundo término por el nuevo exponente, $2$, ese paso es parte de la regla de la potencia."
+      "Hay que dividir el segundo término por el nuevo exponente, $2$, ese paso es parte de la regla de la potencia."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -338,7 +338,7 @@
     "feedback_incorrect": [
       "Aplicaste la regla de la potencia con $n=-1$, ese exponente es la excepción que exige la regla del logaritmo.",
       null,
-      "Falta el valor absoluto en el logaritmo, $\\ln|x|$ respeta el dominio completo de $\\frac{1}{x}$.",
+      "Hay que el valor absoluto en el logaritmo, $\\ln|x|$ respeta el dominio completo de $\\frac{1}{x}$.",
       "El signo del término potencial es negativo, revisá el signo original del enunciado."
     ],
     "graph_fn": null,
@@ -362,9 +362,9 @@
     "feedback_correct": "Correcto, el término $\\frac{4}{x}$ integra con logaritmo y valor absoluto.",
     "feedback_incorrect": [
       "El signo del término logarítmico es negativo, revisá el signo original del enunciado.",
-      "Falta dividir el primer término por el nuevo exponente, $4$, ese paso es parte de la regla de la potencia.",
+      "Hay que dividir el primer término por el nuevo exponente, $4$, ese paso es parte de la regla de la potencia.",
       null,
-      "Falta el valor absoluto en el logaritmo, $\\ln|x|$ respeta el dominio completo de $\\frac{1}{x}$."
+      "Hay que el valor absoluto en el logaritmo, $\\ln|x|$ respeta el dominio completo de $\\frac{1}{x}$."
     ],
     "graph_fn": null,
     "graph_view": null,

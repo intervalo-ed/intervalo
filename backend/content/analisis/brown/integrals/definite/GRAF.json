@@ -53,7 +53,7 @@
       -2,
       4
     ],
-    "explanation": "Identificamos las dos regiones que separa el cruce por cero en $x=1$.\nEl triángulo de abajo mide $\\tfrac{1}{2}\\cdot 1\\cdot 1 = 0,5$. El triángulo de arriba mide $\\tfrac{1}{2}\\cdot 3\\cdot 3 = 4,5$.\nEl **área neta** resulta de restar la región de abajo a la de arriba, $4,5-0,5=4$, no de sumarlas.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Identificamos las dos regiones que separa el cruce por cero en $x=1$. El triángulo de abajo mide $\\tfrac{1}{2}\\cdot 1\\cdot 1 = 0,5$. El triángulo de arriba mide $\\tfrac{1}{2}\\cdot 3\\cdot 3 = 4,5$.\n\nEl **área neta** resulta de restar la región de abajo a la de arriba, $4,5-0,5=4$, no de sumarlas.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "lectura-area-con-signos"
@@ -289,7 +289,7 @@
       -2,
       4
     ],
-    "explanation": "Cuando los dos **límites de integración** coinciden, el intervalo sobre el que se integra tiene ancho cero.\n$$\\int_2^2 f(x)\\,dx = 0$$\nEsta propiedad vale para cualquier función, sin importar su forma, no hace falta ningún cálculo adicional para reconocerla.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Cuando los dos **límites de integración** coinciden, el intervalo sobre el que se integra tiene ancho cero.\n\nEsta propiedad vale para cualquier función, sin importar su forma, no hace falta ningún cálculo adicional para reconocerla.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "propiedades-limites-integracion"
@@ -317,7 +317,7 @@
       -1,
       5
     ],
-    "explanation": "La propiedad de **aditividad** permite fraccionar una integral en dos intervalos contiguos y sumar los resultados.\n$$\\int_0^2 f(x)\\,dx + \\int_2^4 f(x)\\,dx = \\int_0^4 f(x)\\,dx$$\nCon los valores dados, $2+6=8$, la integral sobre todo el intervalo es simplemente la suma de sus dos partes.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "La propiedad de **aditividad** permite fraccionar una integral en dos intervalos contiguos y sumar los resultados.\n\nCon los valores dados, $2+6=8$, la integral sobre todo el intervalo es simplemente la suma de sus dos partes.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "propiedades-limites-integracion"

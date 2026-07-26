@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la **función compuesta** $e^{x^2}$, la interior es $x^2$ y su **derivada** es $2x$, que aparece exactamente multiplicando a la exponencial en el integrando.\n$$u = x^2 \\implies du = 2x\\,dx$$\nEste es un caso especial donde el $2x\\,dx$ del integrando coincide exactamente con $du$, sin necesidad de ningún ajuste adicional del **diferencial**. El cambio de variable simplifica la integral inmediatamente.",
+    "explanation": "En la **función compuesta** $e^{x^2}$, la interior es $x^2$ y su **derivada** es $2x$, que aparece exactamente multiplicando a la exponencial en el integrando.\n\nEste es un caso especial donde el $2x\\,dx$ del integrando coincide exactamente con $du$, sin necesidad de ningún ajuste adicional del **diferencial**.\n\nEl cambio de variable simplifica la integral inmediatamente.",
     "reviewed": false,
     "tags": [
       "identificacion-anatomica-de-u"
@@ -263,13 +263,13 @@
     "has_math": true,
     "feedback_correct": "Correcto, el signo negativo se conserva en el despeje.",
     "feedback_incorrect": [
-      "Falta el signo negativo, la derivada de $-2x$ es $-2$, y ese signo se conserva al despejar $dx$.",
+      "Hay que el signo negativo, la derivada de $-2x$ es $-2$, y ese signo se conserva al despejar $dx$.",
       "El coeficiente $-2$ no puede desaparecer del despeje, tiene que dividir a $du$.",
       null
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Al derivar $u=-2x$, se obtiene $du=-2\\,dx$, y el signo negativo se conserva al despejar $dx$.\n$$\\begin{aligned} u &= -2x \\\\ du &= -2\\,dx \\\\ dx &= -\\frac{1}{2}\\,du \\end{aligned}$$\nPerder el signo negativo en el despeje del **diferencial** es un error común, conviene revisarlo con la misma atención que el valor numérico del coeficiente.",
+    "explanation": "Al derivar $u=-2x$, se obtiene $du=-2\\,dx$, y el signo negativo se conserva al despejar $dx$.\n$$\\begin{aligned} u &= -2x \\\\ du &= -2\\,dx \\\\ dx &= -\\frac{1}{2}\\,du \\end{aligned}$$\nPerder el signo negativo en el despeje del **diferencial** , conviene revisarlo con la misma atención que el valor numérico del coeficiente.",
     "reviewed": false,
     "tags": [
       "ajuste-del-diferencial"
@@ -332,7 +332,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, el signo negativo se conserva en el despeje.",
     "feedback_incorrect": [
-      "Falta el signo negativo, la derivada de $-x+5$ es $-1$, y ese signo se conserva al despejar $dx$.",
+      "Hay que el signo negativo, la derivada de $-x+5$ es $-1$, y ese signo se conserva al despejar $dx$.",
       "El término $5$ es una constante y desaparece al derivar, no afecta el ajuste del diferencial.",
       null
     ],

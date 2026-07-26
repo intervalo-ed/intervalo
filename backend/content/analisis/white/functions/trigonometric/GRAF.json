@@ -39,7 +39,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$\\operatorname{sen}(0) = \\operatorname{sen}(\\pi) = \\operatorname{sen}(2\\pi) = 0$: hay 3 ceros en $[0, 2\\pi]$.",
+    "feedback_correct": "$\\operatorname{sen}(0) = 0$: hay 3 ceros en $[0, 2\\pi]$.",
     "feedback_incorrect": [
       "Releé los extremos del intervalo, si contaste solo los cruces interiores te falta sumar los bordes.",
       null,
@@ -429,7 +429,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Correcto. $B = 2$, período $= 2\\pi/2 = \\pi$.",
+    "feedback_correct": "Correcto. $B = 2$, período $ = \\pi$.",
     "feedback_incorrect": [
       "Ese valor sale de estirar el ciclo al doble, en el gráfico el ciclo se ve más corto, no más largo.",
       null,
@@ -579,7 +579,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Correcto. $f(\\pi) = -\\cos(\\pi) = -(-1) = 1$.",
+    "feedback_correct": "Correcto. $f(\\pi) = 1$.",
     "feedback_incorrect": [
       "Ese valor corresponde al coseno sin el signo negativo, fijate qué hace el signo con la altura de la curva en ese punto.",
       "Revisá el punto exacto $x=\\pi$ en el gráfico, ahí la curva no está sobre el eje horizontal.",
@@ -849,7 +849,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto. El seno es $1$ cuando el argumento $= \\pi/2$: $(h-6)\\pi/12 = \\pi/2 \\Rightarrow h = 12$.",
+    "feedback_correct": "Correcto. El seno es $1$ cuando el argumento $= \\pi/2$: $(h-6)\\pi/12 = 12$.",
     "feedback_incorrect": [
       null,
       "Esa hora corresponde a cuando el modelo ya está volviendo hacia el valor medio, no al pico más alto.",
@@ -1059,7 +1059,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Correcto. Mínimo $= D - A = 5 - 3 = 2\\,\\text{m}$.",
+    "feedback_correct": "Correcto. Mínimo $ = 2\\,\\text{m}$.",
     "feedback_incorrect": [
       "Ese valor es la distancia entre el eje de oscilación y los extremos, no el nivel mínimo en sí.",
       null,
@@ -1089,7 +1089,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Correcto. Máximo $= D + A = 5 + 3 = 8\\,\\text{m}$.",
+    "feedback_correct": "Correcto. Máximo $ = 8\\,\\text{m}$.",
     "feedback_incorrect": [
       "Ese valor es el eje de oscilación del modelo, no el punto más alto que alcanza la marea.",
       "Ese valor es la amplitud del modelo, no el nivel máximo en sí.",
@@ -1389,7 +1389,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Correcto. $T(1) = 8\\,\\cos(0) + 15 = 8 + 15 = 23\\,°C$.",
+    "feedback_correct": "Correcto. $T(1) = 23\\,°C$.",
     "feedback_incorrect": [
       "Ese valor es el eje de oscilación del modelo, no la temperatura en el mes puntual que se pide.",
       "Ese valor es el mínimo del modelo, no la temperatura en enero.",
@@ -1449,7 +1449,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Correcto. Amplitud $= (3-(-1))/2 = 2$; eje $= (3+(-1))/2 = 1$.",
+    "feedback_correct": "Correcto. Amplitud $ = 2$; eje $ = 1$.",
     "feedback_incorrect": [
       "Esa fórmula tiene una amplitud menor a la que describe el enunciado, revisá la distancia entre el máximo y el eje central.",
       "Esa fórmula tiene el eje de oscilación desplazado al lado contrario, revisá el promedio entre el máximo y el mínimo.",

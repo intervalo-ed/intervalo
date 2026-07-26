@@ -474,7 +474,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$f(0) = \\frac{0+3}{0-1} = \\frac{3}{-1} = -3$.",
+    "feedback_correct": "$f(0) = -3$.",
     "feedback_incorrect": [
       "Revisá el signo: $0-1=-1$ en el denominador, así que el resultado es negativo, no positivo.",
       null,
@@ -549,7 +549,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$f(x)=0$ cuando $x-4=0$, es decir $x=4$ (y el denominador $4+2=6\\neq0$).",
+    "feedback_correct": "$f(x) = 6\\neq0$).",
     "feedback_incorrect": [
       null,
       "$x=-2$ anula el denominador, no el numerador; ahí la función no está definida.",
@@ -574,7 +574,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$f(-x) = \\frac{1}{-x} = -\\frac{1}{x} = -f(x)$: la función es impar.",
+    "feedback_correct": "$f(-x) = -f(x)$: la función es impar.",
     "feedback_incorrect": [
       "Revisá el signo: $f(-x)=\\frac{1}{-x}=-\\frac{1}{x}$, que es $-f(x)$, no $f(x)$.",
       null,
@@ -824,10 +824,10 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "$x^3 - x = x(x-1)(x+1)$ tiene 3 raíces: $x=0$, $x=1$ y $x=-1$.",
+    "feedback_correct": "$x^3 - x = -1$.",
     "feedback_incorrect": [
       "El denominador factorizado tiene más raíces además de $x=0$.",
-      "Falta contar la raíz en $x=0$ además de las otras dos.",
+      "A esta respuesta le falta un paso clave del razonamiento.",
       "El denominador sí tiene raíces reales una vez factorizado, así que sí hay asíntotas verticales.",
       null
     ],
@@ -924,7 +924,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "$f(-x) = \\frac{1}{(-x)^2} = \\frac{1}{x^2} = f(x)$: la función es par.",
+    "feedback_correct": "$f(-x) = f(x)$: la función es par.",
     "feedback_incorrect": [
       "Revisá el signo: $(-x)^2=x^2$, así que $f(-x)=f(x)$, no $-f(x)$.",
       "Sí cumple una de las dos condiciones de simetría, la de función par.",
@@ -1174,9 +1174,9 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$x^2-4=0$ da $x=2$ y $x=-2$. Ninguna de las dos anula el denominador $x+1$.",
+    "feedback_correct": "$x^2-4 = -2$. Ninguna de las dos anula el denominador $x+1$.",
     "feedback_incorrect": [
-      "Falta la otra raíz: $x^2-4=0$ también se cumple para $x=-2$.",
+      "A esta respuesta le falta un paso clave del razonamiento.",
       null,
       "El numerador sí tiene raíces reales, así que la función sí cruza el eje $X$.",
       "El numerador de grado $2$ tiene a lo sumo dos raíces reales, no tres."

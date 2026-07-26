@@ -89,7 +89,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Con $B = \\frac{1}{2}$: período $= \\frac{2\\pi}{1/2} = 4\\pi$.",
+    "feedback_correct": "Con $B = \\frac{1}{2}$: período $ = 4\\pi$.",
     "feedback_incorrect": [
       "Ese valor duplica de más: con $B=1/2$ el período es $2\\pi/(1/2)=4\\pi$, no el doble de eso.",
       "Ese es el período del coseno sin modificar, pero acá $B=1/2$ lo estira.",
@@ -349,7 +349,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto. Máximo $= D + |A| = 3 + 2 = 5$.",
+    "feedback_correct": "Correcto. Máximo $ = 5$.",
     "feedback_incorrect": [
       null,
       "Ese es solo el desplazamiento vertical $D$, falta sumar la amplitud $A$.",
@@ -374,7 +374,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto. Mínimo $= D - |A| = -2 - 1 = -3$.",
+    "feedback_correct": "Correcto. Mínimo $ = -3$.",
     "feedback_incorrect": [
       null,
       "Ese es el mínimo del coseno sin el desplazamiento vertical, falta restar $2$.",
@@ -449,7 +449,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Correcto. $B = 1/3$, período $= 2\\pi / (1/3) = 6\\pi$.",
+    "feedback_correct": "Correcto. $B = 1/3$, período $ = 6\\pi$.",
     "feedback_incorrect": [
       "Ese resultado sale de usar $B=3$ en vez de $B=1/3$ en el cociente.",
       "Ese es el período del coseno sin modificar, pero acá $B=1/3$ lo estira más.",
@@ -524,7 +524,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto. $f(\\pi/2) = 2 \\cdot \\operatorname{sen}(\\pi/2) = 2 \\cdot 1 = 2$.",
+    "feedback_correct": "Correcto. $f(\\pi/2) = 2$.",
     "feedback_incorrect": [
       null,
       "Ese es el máximo del seno sin escalar, olvidando el coeficiente $2$ que lo multiplica.",
@@ -579,7 +579,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Correcto. $B = 2\\pi / T = 2\\pi / (\\pi/3) = 6$.",
+    "feedback_correct": "Correcto. $B = 6$.",
     "feedback_incorrect": [
       "Ese valor es el denominador del período dado, no el resultado de despejar $B$.",
       null,
@@ -604,7 +604,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto. Máximo $= D + |A| = -1 + 3 = 2$.",
+    "feedback_correct": "Correcto. Máximo $ = 2$.",
     "feedback_incorrect": [
       null,
       "Ese resultado suma el desplazamiento en vez de restarlo: $D=-1$, no $+1$.",
@@ -734,7 +734,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Correcto. Amplitud $= (\\text{máximo} - \\text{mínimo}) / 2 = (3 - (-3)) / 2 = 3$.",
+    "feedback_correct": "Correcto. Amplitud $ = 3$.",
     "feedback_incorrect": [
       "Ese es el rango total entre máximo y mínimo, falta dividirlo a la mitad para obtener la amplitud.",
       "Ese valor ignora la distancia real entre el eje central y el pico.",
@@ -764,7 +764,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Correcto. Con $A = -2$ y $D = 1$: mínimo $= 1 - |-2| = 1 - 2 = -1$.",
+    "feedback_correct": "Correcto. Con $A = -2$ y $D = 1$: mínimo $ = -1$.",
     "feedback_incorrect": [
       "Ese es el máximo de la función, no el mínimo.",
       null,
@@ -789,7 +789,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Correcto. $f(\\pi) = 3 \\cdot \\cos(\\pi) = 3 \\cdot (-1) = -3$.",
+    "feedback_correct": "Correcto. $f(\\pi) = -3$.",
     "feedback_incorrect": [
       "Ese es el valor de $3\\cos(0)$, no de $3\\cos(\\pi)$.",
       "Ese sería el resultado si $\\cos(\\pi)$ valiera $0$, pero en $\\pi$ el coseno vale $-1$.",
@@ -814,7 +814,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto. Amplitud $4$ da $A = 4$; período $\\pi$ da $B = 2\\pi/\\pi = 2$.",
+    "feedback_correct": "Correcto. Amplitud $4$ da $A = 4$; período $\\pi$ da $B = 2$.",
     "feedback_incorrect": [
       null,
       "Con $B=\\pi$ el período de esta opción sería $2$, no $\\pi$ como pide el enunciado.",
@@ -919,7 +919,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Correcto. $B = \\pi$, período $= 2\\pi / \\pi = 2$.",
+    "feedback_correct": "Correcto. $B = \\pi$, período $ = 2$.",
     "feedback_incorrect": [
       "Ese valor confunde el numerador del cociente con el resultado final.",
       "Ese resultado invierte el cociente $2\\pi/B$.",
@@ -944,7 +944,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Correcto. Amplitud $= (\\text{máx} - \\text{mín}) / 2 = (5 - (-5)) / 2 = 5$.",
+    "feedback_correct": "Correcto. Amplitud $ = 5$.",
     "feedback_incorrect": [
       "Ese es el rango total entre máximo y mínimo, falta dividirlo a la mitad.",
       "Ese valor sale de dividir el rango total por $4$ en vez de por $2$.",
@@ -994,7 +994,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Correcto. Amplitud $= (6-2)/2 = 2$; eje $D = (6+2)/2 = 4$.",
+    "feedback_correct": "Correcto. Amplitud $ = 2$; eje $D = 4$.",
     "feedback_incorrect": [
       "Esta opción no tiene el desplazamiento vertical, así que oscilaría entre $-2$ y $2$, no entre $2$ y $6$.",
       "Esta opción tiene la amplitud igual al máximo dado, cuando la amplitud real es la mitad del rango.",
@@ -1044,7 +1044,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Correcto. $B = 200\\pi$, período $= 2\\pi / (200\\pi) = 1/100$ s.",
+    "feedback_correct": "Correcto. $B = 200\\pi$, período $ = 1/100$ s.",
     "feedback_incorrect": [
       "Ese es el valor de $B$, no el período que resulta de dividir $2\\pi$ entre $B$.",
       null,
@@ -1069,7 +1069,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Correcto. Máximo $= D + A = 1 + 2 = 3$.",
+    "feedback_correct": "Correcto. Máximo $ = 3$.",
     "feedback_incorrect": [
       "Ese es solo el desplazamiento vertical $D$, falta sumar la amplitud $A$.",
       null,
@@ -1174,7 +1174,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Correcto. $B = 2/3$, período $= 2\\pi / (2/3) = 3\\pi$.",
+    "feedback_correct": "Correcto. $B = 2/3$, período $ = 3\\pi$.",
     "feedback_incorrect": [
       "Ese resultado invierte el cociente $2\\pi/B$.",
       null,
@@ -1274,7 +1274,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Correcto. Máximo $= D + A = 20 + 10 = 30\\,°C$.",
+    "feedback_correct": "Correcto. Máximo $ = 30\\,°C$.",
     "feedback_incorrect": [
       "Ese es solo el valor de la amplitud $A$, falta sumar el eje de oscilación $D$.",
       null,

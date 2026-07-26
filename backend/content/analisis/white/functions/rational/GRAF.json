@@ -9,7 +9,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$f(x) = \\frac{1}{x}$ tiene asíntota vertical $x = 0$ y asíntota horizontal $y = 0$: 2 en total.",
+    "feedback_correct": "$f(x) = 0$: 2 en total.",
     "feedback_incorrect": [
       null,
       "Estás contando solo la asíntota que aparece donde se anula el denominador, pero fijate qué le pasa a la curva cuando $x$ toma valores muy grandes o muy negativos: ahí aparece otra.",
@@ -23,7 +23,7 @@
       -5,
       5
     ],
-    "explanation": "En una función racional, la **asíntota vertical** aparece en los valores que anulan el denominador (sin anular el numerador), y la **asíntota horizontal** describe el comportamiento de la curva cuando $x\\to\\pm\\infty$.\n$f(x)=\\frac{1}{x}$ tiene AV en $x=0$ (denominador=0) y AH en $y=0$ (grado num < denom). Son 2 asíntotas en total: ambos ejes coordenados actúan como asíntota. Un error frecuente es contar solo una de las dos y olvidar la otra: conviene repasar por separado el denominador y el límite en el infinito.",
+    "explanation": "En una función racional, la **asíntota vertical** aparece en los valores que anulan el denominador (sin anular el numerador), y la **asíntota horizontal** describe el comportamiento de la curva cuando $x\\to\\pm\\infty$.\n$f(x)=\\frac{1}{x}$ tiene AV en $x=0$ (denominador=0) y AH en $y=0$ (grado num < denom). Son 2 asíntotas en total: ambos ejes coordenados actúan como asíntota. contar solo una de las dos y olvidar la otra: conviene repasar por separado el denominador y el límite en el infinito.",
     "reviewed": false,
     "tags": [
       "imagen-desde-grafico"
@@ -69,7 +69,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$x^2 - 4 = (x-2)(x+2) = 0$ en $x = 2$ y $x = -2$: dos asíntotas verticales.",
+    "feedback_correct": "$x^2 - 4 = -2$: dos asíntotas verticales.",
     "feedback_incorrect": [
       "Revisá bien el denominador: sí se anula, solo que hay que factorizarlo para encontrar en qué puntos.",
       "Estás resolviendo $x^2=4$ mal, o tomando solo una de las dos raíces: la ecuación tiene dos soluciones, no una.",
@@ -113,7 +113,7 @@
       -6,
       6
     ],
-    "explanation": "La **asíntota vertical** de una racional se ubica siempre en los valores que anulan el denominador, siempre que el numerador no se anule ahí también.\nEn este caso $x-2=0\\Rightarrow x=2$: en el gráfico se ve que la función explota verticalmente en ese punto. Un error típico es leer el signo opuesto o confundir la raíz del denominador con un cero del numerador.",
+    "explanation": "La **asíntota vertical** de una racional se ubica siempre en los valores que anulan el denominador, siempre que el numerador no se anule ahí también.\nEn este caso $x-2=0\\Rightarrow x=2$: en el gráfico se ve que la función explota verticalmente en ese punto. leer el signo opuesto o confundir la raíz del denominador con un cero del numerador.",
     "reviewed": false,
     "tags": [
       "cuadrantes-ramas"
@@ -173,7 +173,7 @@
       -6,
       6
     ],
-    "explanation": "La **asíntota horizontal** de una racional depende de comparar los grados de numerador y denominador: si son iguales, la AH es el cociente de los coeficientes principales.\nAcá numerador y denominador tienen el mismo grado (ambos lineales), así que $\\frac{x+1}{x-2}\\to\\frac{1}{1}=1$ cuando $x\\to\\infty$. Un error común es usar $y=0$ de memoria sin fijarse primero si los grados realmente son distintos.",
+    "explanation": "La **asíntota horizontal** de una racional depende de comparar los grados de numerador y denominador: si son iguales, la AH es el cociente de los coeficientes principales.\nAcá numerador y denominador tienen el mismo grado (ambos lineales), así que $\\frac{x+1}{x-2}\\to\\frac{1}{1}=1$ cuando $x\\to\\infty$. usar $y=0$ de memoria sin fijarse primero si los grados realmente son distintos.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
@@ -249,7 +249,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$f(x) = \\frac{1}{x-1}$ tiene asíntota vertical en $x=1$ y horizontal en $y=0$: 2 en total.",
+    "feedback_correct": "$f(x) = 0$: 2 en total.",
     "feedback_incorrect": [
       null,
       "Estás contando solo la asíntota que sale de anular el denominador, pero fijate qué pasa con la curva cuando $x$ es muy grande o muy chico: ahí aparece otra.",
@@ -263,7 +263,7 @@
       -5,
       5
     ],
-    "explanation": "Una función racional puede tener a la vez una asíntota vertical (donde se anula el denominador) y una horizontal (el límite de la curva cuando $x\\to\\pm\\infty$), y hay que contar ambas por separado.\n$f(x)=\\frac{1}{x-1}$ tiene AV en $x=1$ y AH en $y=0$ (grado numerador 0 < grado denominador 1). Son 2 asíntotas en total. Un error frecuente es detenerse en la vertical y olvidar revisar también el comportamiento en el infinito.",
+    "explanation": "Una función racional puede tener a la vez una asíntota vertical (donde se anula el denominador) y una horizontal (el límite de la curva cuando $x\\to\\pm\\infty$), y hay que contar ambas por separado.\n$f(x)=\\frac{1}{x-1}$ tiene AV en $x=1$ y AH en $y=0$ (grado numerador 0 < grado denominador 1). Son 2 asíntotas en total. detenerse en la vertical y olvidar revisar también el comportamiento en el infinito.",
     "reviewed": false,
     "tags": [
       "cantidad-ramas"
@@ -383,7 +383,7 @@
       -5,
       5
     ],
-    "explanation": "La **asíntota vertical** de una función racional es la recta vertical a la que se acerca la curva sin tocarla nunca, ubicada donde el denominador se anula.\nLa curva tiene una línea vertical en $x=-1$, la AV, que corresponde a que el denominador $x+1$ se anula en $x=-1$. Un error típico es leer la asíntota con el signo invertido directamente del gráfico sin verificarlo con la ecuación del denominador.",
+    "explanation": "La **asíntota vertical** de una función racional es la recta vertical a la que se acerca la curva sin tocarla nunca, ubicada donde el denominador se anula.\nLa curva tiene una línea vertical en $x=-1$, la AV, que corresponde a que el denominador $x+1$ se anula en $x=-1$. leer la asíntota con el signo invertido directamente del gráfico sin verificarlo con la ecuación del denominador.",
     "reviewed": false,
     "tags": [
       "cuadrantes-ramas"
@@ -609,7 +609,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$\\frac{3x}{x^2-1}=0$ cuando $x=0$ (y el denominador $0-1=-1\\neq0$).",
+    "feedback_correct": "$\\frac{3x}{x^2-1} = -1\\neq0$).",
     "feedback_incorrect": [
       "Estás contando de más: revisá cuántas veces el numerador realmente se anula, sin confundir con las asíntotas verticales.",
       "El numerador sí se anula en algún valor: revisá antes de decir que la curva nunca cruza el eje $X$.",
@@ -669,7 +669,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$f(3) = \\frac{2}{3-1} = \\frac{2}{2} = 1$... espera, la función es $2/(x+1)$: $f(3)=2/4=0.5$.",
+    "feedback_correct": "$f(3) = 0.5$.",
     "feedback_incorrect": [
       "Ese valor es demasiado alto para el punto marcado en el gráfico: revisá bien la altura a la que está la curva en $x=3$.",
       "Ese valor está un poco alto respecto al punto real de la curva en $x=3$: fijate con más precisión.",
@@ -699,7 +699,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$f(-x) = \\frac{1}{-x} = -\\frac{1}{x} = -f(x)$: es impar, simétrica respecto al origen.",
+    "feedback_correct": "$f(-x) = -f(x)$: es impar, simétrica respecto al origen.",
     "feedback_incorrect": [
       "La función sí tiene un tipo de simetría particular: revisá qué pasa al reemplazar $x$ por $-x$.",
       "Esa simetría correspondería a que $f(-x)=f(x)$, pero acá el signo del resultado se invierte al cambiar el signo de $x$.",
@@ -773,7 +773,7 @@
       -5,
       5
     ],
-    "explanation": "Cerca de una **asíntota vertical**, hay que evaluar el signo del denominador por separado para cada lado, ya que ese signo determina si la curva se dispara hacia $+\\infty$ o hacia $-\\infty$.\nCuando $x\\to2^-$: $x-2\\to0^-$ (negativo pequeño), así que $\\frac{1}{x-2}\\to-\\infty$. La rama izquierda baja sin límite al acercarse a la AV. Un error típico es asumir que el límite por la izquierda tiene el mismo signo que por la derecha.",
+    "explanation": "Cerca de una **asíntota vertical**, hay que evaluar el signo del denominador por separado para cada lado, ya que ese signo determina si la curva se dispara hacia $+\\infty$ o hacia $-\\infty$.\nCuando $x\\to2^-$: $x-2\\to0^-$ (negativo pequeño), así que $\\frac{1}{x-2}\\to-\\infty$. La rama izquierda baja sin límite al acercarse a la AV. asumir que el límite por la izquierda tiene el mismo signo que por la derecha.",
     "reviewed": false,
     "tags": [
       "signo-en-intervalo"
@@ -939,7 +939,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "AV en $x=0$, AH en $y=0$, ramas en 1.° y 3.° cuadrante: $f(x)=1/x$.",
+    "feedback_correct": "AV en $x = 1/x$.",
     "feedback_incorrect": [
       null,
       "Ese signo negativo en el numerador pondría las ramas en los cuadrantes opuestos a los que describe el enunciado.",
@@ -953,7 +953,7 @@
       -5,
       5
     ],
-    "explanation": "Para armar la fórmula de una hipérbola a partir del gráfico hay que leer tres datos por separado: dónde está la **asíntota vertical** (el denominador), dónde está la horizontal (el desplazamiento) y en qué cuadrantes caen las ramas (el signo).\nAV en $x=0$ → denominador $x$. AH en $y=0$ → constante sobre lineal, sin desplazamiento. Ramas en 1.° y 3.° → función impar con $k>0$. La fórmula es $f(x)=\\frac{1}{x}$. Un error común es confundir cuál parámetro mueve la AV y cuál la AH.",
+    "explanation": "Para armar la fórmula de una hipérbola a partir del gráfico hay que leer tres datos por separado: dónde está la **asíntota vertical** (el denominador), dónde está la horizontal (el desplazamiento) y en qué cuadrantes caen las ramas (el signo).\nAV en $x=0$ → denominador $x$. AH en $y=0$ → constante sobre lineal, sin desplazamiento. Ramas en 1.° y 3.° → función impar con $k>0$. La fórmula es $f(x)=\\frac{1}{x}$. confundir cuál parámetro mueve la AV y cuál la AH.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
@@ -1029,7 +1029,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "AV en $x=1$, AH en $y=1$: la forma es $k/(x-1)+1$. Con $k=1$: $1/(x-1)+1$.",
+    "feedback_correct": "AV en $x = 1$: $1/(x-1)+1$.",
     "feedback_incorrect": [
       "Esa fórmula tiene el mismo grado en numerador y denominador, así que conviene simplificarla para verificar bien la AH.",
       "Esa fórmula también da AH en $y=1$, pero conviene revisar el desplazamiento vertical explícito que pide el enunciado.",
@@ -1059,7 +1059,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$\\frac{x}{x-2}=\\frac{(x-2)+2}{x-2}=1+\\frac{2}{x-2}$: AV en $x=2$, AH en $y=1$.",
+    "feedback_correct": "$\\frac{x}{x-2} = 1$.",
     "feedback_incorrect": [
       null,
       "Esa fórmula ubica la asíntota vertical en un punto distinto al que muestra el gráfico.",
@@ -1119,7 +1119,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Dos AV en $x=\\pm2$ → denominador $(x-2)(x+2)=x^2-4$. Constante sobre cuadrático → AH en $y=0$.",
+    "feedback_correct": "Dos AV en $x = 0$.",
     "feedback_incorrect": [
       "Esa fórmula solo tiene una asíntota vertical, pero el enunciado pide dos.",
       "Ese denominador nunca se anula para ningún valor real de $x$: no generaría ninguna asíntota vertical.",
@@ -1209,7 +1209,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Coeficientes principales: $3/1=3$ → AH en $y=3$. AV: $x-2=0$.",
+    "feedback_correct": "Coeficientes principales: $3/1 = 0$.",
     "feedback_incorrect": [
       "Esa fórmula tiene la AV correcta, pero el cociente de coeficientes principales no da la AH que pide el enunciado.",
       null,
@@ -1269,7 +1269,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "AV en $x=-1$, AH en $y=-2$: cociente de coeficientes $-2/1=-2$ → $-2x/(x+1)$.",
+    "feedback_correct": "AV en $x = -2$ → $-2x/(x+1)$.",
     "feedback_incorrect": [
       "Esa fórmula ubica la asíntota vertical en un punto distinto al que muestra el gráfico.",
       "Esa fórmula tiene grado menor en el numerador, así que la AH le quedaría en $y=0$, no en $y=-2$.",
@@ -1359,7 +1359,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$\\frac{x+1}{x}=1+\\frac{1}{x}$: AV en $x=0$ y AH en $y=1$.",
+    "feedback_correct": "$\\frac{x+1}{x} = 1$.",
     "feedback_incorrect": [
       "Esa fórmula ubica la asíntota vertical en un punto distinto al que muestra el gráfico.",
       "Esa fórmula también da AV en $x=0$ y AH en $y=1$, pero conviene verificar si es una forma equivalente o distinta de la fracción del gráfico.",
@@ -1419,7 +1419,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$v(t) = 30 \\Rightarrow \\frac{60}{t} = 30 \\Rightarrow t = 2$ horas.",
+    "feedback_correct": "$v(t) = 2$ horas.",
     "feedback_incorrect": [
       "Ese valor sale de invertir la fracción: revisá bien qué va dividido por qué en la ecuación.",
       "Ese valor confunde la velocidad con el tiempo buscado: revisá qué representa cada número de la fórmula.",
