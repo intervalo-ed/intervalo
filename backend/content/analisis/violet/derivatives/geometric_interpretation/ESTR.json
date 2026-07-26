@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para armar la ecuación de la **recta tangente** se sustituyen los datos en la fórmula punto-pendiente y se despeja hasta la forma $y=mx+b$.\n\nEl paso más delicado es distribuir correctamente $3 \\cdot (-2) = -6$ antes de sumar el $5$, saltarlo suele dejar la ordenada al origen mal calculada.",
+    "explanation": "Para armar la ecuación de la **recta tangente** se sustituyen los datos en la fórmula punto-pendiente y se despeja hasta la forma $y=mx+b$.\n\nEl paso más delicado es distribuir correctamente $3 \\cdot (-2) = -6$ antes de sumar el $5$, saltarlo suele dejar la ordenada al origen mal calculada. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "armado-ecuacion-tangente"
@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con pendiente negativa hay que tener especial cuidado al distribuir el signo dentro del paréntesis.\n\nDistribuir $-2 \\cdot (-1) = 2$ es el paso donde más se pierde el signo, conviene escribirlo explícitamente antes de sumar el resto.",
+    "explanation": "Con pendiente negativa hay que tener especial cuidado al distribuir el signo dentro del paréntesis.\n\nDistribuir $-2 \\cdot (-1) = 2$ es el paso donde más se pierde el signo, conviene escribirlo explícitamente antes de sumar el resto. La recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
     "reviewed": false,
     "tags": [
       "armado-ecuacion-tangente"
@@ -68,7 +68,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el punto de tangencia está en $a=0$, la fórmula se simplifica porque $(x-a)$ queda directamente $x$.\n\nEste caso particular sirve para verificar rápido que los roles de $f'(a)$ como pendiente y $f(a)$ como término independiente no se intercambien.",
+    "explanation": "Cuando el punto de tangencia está en $a=0$, la fórmula se simplifica porque $(x-a)$ queda directamente $x$.\n\nEste caso particular sirve para verificar rápido que los roles de $f'(a)$ como pendiente y $f(a)$ como término independiente no se intercambien. La recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
     "reviewed": false,
     "tags": [
       "armado-ecuacion-tangente"
@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un punto de tangencia en $a=-1$ negativo, conviene prestar especial atención al signo dentro del paréntesis $(x-(-1))$.\n\nEl paréntesis $(x-a)$ con $a$ negativo se convierte en $(x+1)$, un doble signo que suele perderse si se apura el paso.",
+    "explanation": "Con un punto de tangencia en $a=-1$ negativo, conviene prestar especial atención al signo dentro del paréntesis $(x-(-1))$.\n\nEl paréntesis $(x-a)$ con $a$ negativo se convierte en $(x+1)$, un doble signo que suele perderse si se apura el paso. La recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
     "reviewed": false,
     "tags": [
       "armado-ecuacion-tangente"
@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de armar la tangente hace falta obtener $f(3)$ y $f'(3)$ a partir de la función dada.\n\nCuando la función se da explícitamente, el primer paso siempre es calcular $f(a)$ y $f'(a)$ antes de sustituir en la fórmula punto-pendiente.",
+    "explanation": "Antes de armar la tangente hace falta obtener $f(3)$ y $f'(3)$ a partir de la función dada.\n\nCuando la función se da explícitamente, el primer paso siempre es calcular $f(a)$ y $f'(a)$ antes de sustituir en la fórmula punto-pendiente. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "armado-ecuacion-tangente"
@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con una función que incluye un término constante, conviene calcular $f(1)$ con cuidado antes de seguir.\n\nEl signo negativo de $f(1)=-3$ conviene arrastrarlo explícitamente en todo el despeje, perderlo es el error más frecuente de este tipo de ítem.",
+    "explanation": "Con una función que incluye un término constante, conviene calcular $f(1)$ con cuidado antes de seguir.\n\nEl signo negativo de $f(1)=-3$ conviene arrastrarlo explícitamente en todo el despeje, perderlo es el error más frecuente de este tipo de ítem. La recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
     "reviewed": false,
     "tags": [
       "armado-ecuacion-tangente"
@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para una función lineal, la pendiente $f'(x)$ es siempre la misma en todo el dominio, así que $f'(2)=3$ y $f(2)=7$.\n\nEl resultado coincide exactamente con la función original, un caso particular que muestra que la tangente a una recta es la recta misma.",
+    "explanation": "Para una función lineal, la pendiente $f'(x)$ es siempre la misma en todo el dominio, así que $f'(2)=3$ y $f(2)=7$.\n\nEl resultado coincide exactamente con la función original, un caso particular que muestra que la tangente a una recta es la recta misma. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "armado-ecuacion-tangente"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con $f(0)=0$, el término independiente de la tangente desaparece por completo, quedando una recta que pasa por el origen.\n\nCuando $f(a)=0$, conviene verificar dos veces que no se sume ninguna constante de más, ese error es fácil de cometer por costumbre.",
+    "explanation": "Con $f(0)=0$, el término independiente de la tangente desaparece por completo, quedando una recta que pasa por el origen.\n\nCuando $f(a)=0$, conviene verificar dos veces que no se sume ninguna constante de más, ese error es fácil de cometer por costumbre. En ejercicios donde se reconoce primero la estructura, el paso a paso es: (1) mirar la forma de la función, (2) identificar qué se multiplica, qué se compone, o qué aparece dividido, (3) elegir la regla que corresponda a esa forma.",
     "reviewed": false,
     "tags": [
       "armado-ecuacion-tangente"
@@ -218,7 +218,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pendiente de la **recta secante** entre dos puntos se calcula con el cociente de las diferencias, $\\frac{f(b)-f(a)}{b-a}$.\n\nConviene siempre restar en el mismo orden en numerador y denominador, invertir el orden en uno solo de los dos cambia el signo del resultado.",
+    "explanation": "La pendiente de la **recta secante** entre dos puntos se calcula con el cociente de las diferencias, $\\frac{f(b)-f(a)}{b-a}$.\n\nConviene siempre restar en el mismo orden en numerador y denominador, invertir el orden en uno solo de los dos cambia el signo del resultado. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "calculo-de-secantes"
@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con estos dos puntos, la función decrece a medida que $x$ aumenta, así que la pendiente de la secante tiene que dar negativa.\n\nEl signo del resultado siempre debería coincidir con el sentido visual del cambio entre los dos puntos, si baja, la pendiente es negativa.",
+    "explanation": "Con estos dos puntos, la función decrece a medida que $x$ aumenta, así que la pendiente de la secante tiene que dar negativa.\n\nEl signo del resultado siempre debería coincidir con el sentido visual del cambio entre los dos puntos, si baja, la pendiente es negativa. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "calculo-de-secantes"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para calcular la pendiente de la secante, se restan primero las alturas y después las posiciones horizontales, siempre en el mismo orden.\n\nEste resultado describe la tasa de cambio media entre los dos puntos dados, no la pendiente instantánea en ninguno de ellos.",
+    "explanation": "Para calcular la pendiente de la secante, se restan primero las alturas y después las posiciones horizontales, siempre en el mismo orden.\n\nEste resultado describe la tasa de cambio media entre los dos puntos dados, no la pendiente instantánea en ninguno de ellos. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "calculo-de-secantes"
@@ -293,7 +293,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Entre estos dos puntos la función cae con fuerza, así que la pendiente de la secante tiene que dar un valor negativo grande.\n\nCuando la caída entre los dos puntos es pronunciada, conviene revisar dos veces la resta del numerador antes de dividir por $\\Delta x$.",
+    "explanation": "Entre estos dos puntos la función cae con fuerza, así que la pendiente de la secante tiene que dar un valor negativo grande.\n\nCuando la caída entre los dos puntos es pronunciada, conviene revisar dos veces la resta del numerador antes de dividir por $\\Delta x$. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "calculo-de-secantes"
@@ -318,7 +318,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **tangente horizontal** aparece exactamente donde la derivada se anula, así que hay que resolver $f'(x)=0$.\n\nUn error frecuente en este paso es resolver $f(x)=0$ en lugar de $f'(x)=0$, la tangente horizontal depende exclusivamente de la derivada.",
+    "explanation": "La **tangente horizontal** aparece exactamente donde la derivada se anula, así que hay que resolver $f'(x)=0$.\n\nUn error frecuente en este paso es resolver $f(x)=0$ en lugar de $f'(x)=0$, la tangente horizontal depende exclusivamente de la derivada. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "tangentes-horizontales-calculo"
@@ -343,7 +343,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para encontrar la tangente horizontal, se iguala la derivada a cero y se despeja $x$ con cuidado en los signos.\n\nCon un coeficiente negativo delante de $x$, conviene despejar paso a paso, dividir de forma apurada suele arrastrar un error de signo.",
+    "explanation": "Para encontrar la tangente horizontal, se iguala la derivada a cero y se despeja $x$ con cuidado en los signos.\n\nCon un coeficiente negativo delante de $x$, conviene despejar paso a paso, dividir de forma apurada suele arrastrar un error de signo. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "tangentes-horizontales-calculo"

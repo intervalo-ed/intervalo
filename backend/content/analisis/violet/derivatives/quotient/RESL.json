@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x^2-4$, $v(x)=e^x$, con $u'(x)=2x$ y $v'(x)=e^x$.\n\nEl término $u(2)v'(2)$ se anula porque $x=2$ es raíz del **numerador** original, así que el resultado se simplifica a $u'(2)/v(2)$.",
+    "explanation": "Identificamos $u(x)=x^2-4$, $v(x)=e^x$, con $u'(x)=2x$ y $v'(x)=e^x$.\n\nEl término $u(2)v'(2)$ se anula porque $x=2$ es raíz del **numerador** original, así que el resultado se simplifica a $u'(2)/v(2)$. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "anulacion-raiz-numerador-cociente"
@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x-1$, $v(x)=e^x$, con $u'(x)=1$ y $v'(x)=e^x$.\n\nEl término $u(1)v'(1)$ se anula porque $x=1$ es raíz del numerador original, y el resultado queda determinado por $u'(1)/v(1)$.",
+    "explanation": "Identificamos $u(x)=x-1$, $v(x)=e^x$, con $u'(x)=1$ y $v'(x)=e^x$.\n\nEl término $u(1)v'(1)$ se anula porque $x=1$ es raíz del numerador original, y el resultado queda determinado por $u'(1)/v(1)$. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "anulacion-raiz-numerador-cociente"
@@ -68,7 +68,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x^2-9$, $v(x)=x$, con $u'(x)=2x$ y $v'(x)=1$.\n\nEl término $u(3)v'(3)$ se anula porque $x=3$ es raíz del numerador original, y el resultado queda determinado por $u'(3)/v(3)$.",
+    "explanation": "Identificamos $u(x)=x^2-9$, $v(x)=x$, con $u'(x)=2x$ y $v'(x)=1$.\n\nEl término $u(3)v'(3)$ se anula porque $x=3$ es raíz del numerador original, y el resultado queda determinado por $u'(3)/v(3)$. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "anulacion-raiz-numerador-cociente"
@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x+5$, $v(x)=x^2$, con $u'(x)=1$ y $v'(x)=2x$.\n\nEl término $u(-5)v'(-5)$ se anula porque $x=-5$ es raíz del numerador original, y el resultado queda determinado por $u'(-5)/v(-5)$.",
+    "explanation": "Identificamos $u(x)=x+5$, $v(x)=x^2$, con $u'(x)=1$ y $v'(x)=2x$.\n\nEl término $u(-5)v'(-5)$ se anula porque $x=-5$ es raíz del numerador original, y el resultado queda determinado por $u'(-5)/v(-5)$. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "anulacion-raiz-numerador-cociente"
@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x-4$, $v(x)=\\ln x$, con $u'(x)=1$ y $v'(x)=\\frac{1}{x}$.\n\nEl término $u(4)v'(4)$ se anula porque $x=4$ es raíz del numerador original, y el resultado queda determinado por $u'(4)/v(4)$.",
+    "explanation": "Identificamos $u(x)=x-4$, $v(x)=\\ln x$, con $u'(x)=1$ y $v'(x)=\\frac{1}{x}$.\n\nEl término $u(4)v'(4)$ se anula porque $x=4$ es raíz del numerador original, y el resultado queda determinado por $u'(4)/v(4)$. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "anulacion-raiz-numerador-cociente"
@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=\\sin x$, $v(x)=x$, con $u'(x)=\\cos x$ y $v'(x)=1$.\n\nEl término $u'(\\pi/2)v(\\pi/2)$ se anula porque $x=\\pi/2$ anula la derivada de $u$, y el resultado queda determinado por el segundo término con signo negativo.",
+    "explanation": "Identificamos $u(x)=\\sin x$, $v(x)=x$, con $u'(x)=\\cos x$ y $v'(x)=1$.\n\nEl término $u'(\\pi/2)v(\\pi/2)$ se anula porque $x=\\pi/2$ anula la derivada de $u$, y el resultado queda determinado por el segundo término con signo negativo. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-nula-cociente"
@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=\\cos x$, $v(x)=x^2+x+1$, con $u'(x)=-\\sin x$ y $v'(x)=2x+1$.\n\nEl término $u'(0)v(0)$ se anula porque $x=0$ anula la derivada de $u$, y el resultado queda determinado por el segundo término con signo negativo.",
+    "explanation": "Identificamos $u(x)=\\cos x$, $v(x)=x^2+x+1$, con $u'(x)=-\\sin x$ y $v'(x)=2x+1$.\n\nEl término $u'(0)v(0)$ se anula porque $x=0$ anula la derivada de $u$, y el resultado queda determinado por el segundo término con signo negativo. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-nula-cociente"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x^2+4$, $v(x)=e^x$, con $u'(x)=2x$ y $v'(x)=e^x$.\n\nEl término $u'(0)v(0)$ se anula porque $x=0$ anula la derivada de $u$, y el resultado queda determinado por el segundo término con signo negativo.",
+    "explanation": "Identificamos $u(x)=x^2+4$, $v(x)=e^x$, con $u'(x)=2x$ y $v'(x)=e^x$.\n\nEl término $u'(0)v(0)$ se anula porque $x=0$ anula la derivada de $u$, y el resultado queda determinado por el segundo término con signo negativo. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-nula-cociente"
@@ -218,7 +218,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x+1$, $v(x)=\\cos x+3$, con $u'(x)=1$ y $v'(x)=-\\sin x$.\n\nEl término $u(0)v'(0)$ se anula porque $x=0$ anula la derivada de $v$, y el resultado queda determinado por el primer término del numerador.",
+    "explanation": "Identificamos $u(x)=x+1$, $v(x)=\\cos x+3$, con $u'(x)=1$ y $v'(x)=-\\sin x$.\n\nEl término $u(0)v'(0)$ se anula porque $x=0$ anula la derivada de $v$, y el resultado queda determinado por el primer término del numerador. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-nula-cociente"
@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **tangente horizontal** aparece donde el numerador de la derivada se anula, sin importar el denominador siempre que $v \\neq 0$.\n\nIgualando a cero, $x(x+2)=0$ da las dos soluciones $x=0$ y $x=-2$, ambas dentro del dominio porque no anulan el denominador $x+1$.",
+    "explanation": "La **tangente horizontal** aparece donde el numerador de la derivada se anula, sin importar el denominador siempre que $v \\neq 0$.\n\nIgualando a cero, $x(x+2)=0$ da las dos soluciones $x=0$ y $x=-2$, ambas dentro del dominio porque no anulan el denominador $x+1$. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "tangentes-horizontales-cociente"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El denominador $x^2+1$ nunca se anula, así que alcanza con resolver dónde se anula el numerador de la derivada.\n\nIgualando a cero, $(1-x)(1+x)=0$ da las dos soluciones $x=1$ y $x=-1$, ambas válidas porque el denominador nunca se anula.",
+    "explanation": "El denominador $x^2+1$ nunca se anula, así que alcanza con resolver dónde se anula el numerador de la derivada.\n\nIgualando a cero, $(1-x)(1+x)=0$ da las dos soluciones $x=1$ y $x=-1$, ambas válidas porque el denominador nunca se anula. La recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
     "reviewed": false,
     "tags": [
       "tangentes-horizontales-cociente"
@@ -293,7 +293,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de resolver, conviene recordar que $x=3$ queda excluido del dominio porque anula el denominador de $f$.\n\nIgualando a cero, $x(x-6)=0$ da las soluciones $x=0$ y $x=6$, ambas dentro del dominio porque ninguna coincide con $x=3$.",
+    "explanation": "Antes de resolver, conviene recordar que $x=3$ queda excluido del dominio porque anula el denominador de $f$.\n\nIgualando a cero, $x(x-6)=0$ da las soluciones $x=0$ y $x=6$, ambas dentro del dominio porque ninguna coincide con $x=3$. La recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
     "reviewed": false,
     "tags": [
       "tangentes-horizontales-cociente"
@@ -318,7 +318,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La fórmula de la **regla del cociente** se aplica directamente con los datos dados, sin necesidad de calcular ninguna derivada.\n\nEl dato $f(2)=0$ anula el segundo término del numerador, dejando el resultado final determinado por $f'(2)g(2)$ dividido por $g(2)^2$.",
+    "explanation": "La fórmula de la **regla del cociente** se aplica directamente con los datos dados, sin necesidad de calcular ninguna derivada.\n\nEl dato $f(2)=0$ anula el segundo término del numerador, dejando el resultado final determinado por $f'(2)g(2)$ dividido por $g(2)^2$. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "evaluacion-datos-abstractos-cociente"
@@ -343,7 +343,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos la fórmula del cociente directamente con los datos dados.\n\nEl dato $f'(1)=0$ anula el primer término del numerador, dejando el resultado final determinado por $-f(1)g'(1)$ dividido por $g(1)^2$.",
+    "explanation": "Aplicamos la fórmula del cociente directamente con los datos dados.\n\nEl dato $f'(1)=0$ anula el primer término del numerador, dejando el resultado final determinado por $-f(1)g'(1)$ dividido por $g(1)^2$. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "evaluacion-datos-abstractos-cociente"
@@ -368,7 +368,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos la fórmula del cociente directamente con los datos dados.\n\nEl dato $g'(0)=0$ anula el segundo término del numerador, dejando el resultado final determinado por $f'(0)g(0)$ dividido por $g(0)^2$.",
+    "explanation": "Aplicamos la fórmula del cociente directamente con los datos dados.\n\nEl dato $g'(0)=0$ anula el segundo término del numerador, dejando el resultado final determinado por $f'(0)g(0)$ dividido por $g(0)^2$. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "evaluacion-datos-abstractos-cociente"

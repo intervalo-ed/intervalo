@@ -955,7 +955,7 @@
       null,
       "El primer factor ahí es una suma en vez de una resta, y el segundo factor tiene el signo del término independiente cambiado."
     ],
-    "explanation": "$a^3 - b^3 = (a-b)(a^2+ab+b^2)$\n\nVerificación distribuyendo:\n$(a-b)(a^2+ab+b^2) = a^3 + a^2b + ab^2 - a^2b - ab^2 - b^3 = a^3 - b^3$ \n\nLos términos cruzados se cancelan. El segundo factor $a^2+ab+b^2$ siempre es positivo (no tiene **raíces** reales), así que no puede factorizarse más en $\\mathbb{R}$.\n\nContraste: $(a-b)^3 = a^3 - 3a^2b + 3ab^2 - b^3$ es distinto de $a^3 - b^3$.",
+    "explanation": "$a^3 - b^3 = (a-b)(a^2+ab+b^2)$\n\nVerificación distribuyendo:\n$(a-b)(a^2+ab+b^2) = a^3 + a^2b + ab^2 - a^2b - ab^2 - b^3 = a^3 - b^3$\n\nLos términos cruzados se cancelan. El segundo factor $a^2+ab+b^2$ siempre es positivo (no tiene **raíces** reales), así que no puede factorizarse más en $\\mathbb{R}$.\n\nContraste: $(a-b)^3 = a^3 - 3a^2b + 3ab^2 - b^3$ es distinto de $a^3 - b^3$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

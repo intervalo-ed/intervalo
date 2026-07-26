@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicando la **regla de la potencia** con $n=5$, el exponente baja multiplicando y se reduce en una unidad.\n\nEl coeficiente y la resta del exponente siempre van juntos, dejar de lado cualquiera de los dos da un resultado incompleto, y conviene revisar ambos pasos antes de dar la respuesta.",
+    "explanation": "Aplicando la **regla de la potencia** con $n=5$, el exponente baja multiplicando y se reduce en una unidad.\n\nEl coeficiente y la resta del exponente siempre van juntos, dejar de lado cualquiera de los dos da un resultado incompleto, y conviene revisar ambos pasos antes de dar la respuesta. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "derivadas-elementales"
@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un coeficiente multiplicando a la potencia, se combina el **múltiplo escalar** con la regla de la potencia en un solo paso.\n\nEl coeficiente original se multiplica por el exponente que baja, no se mantiene aparte del resultado, ese producto es justamente lo que da el nuevo coeficiente.",
+    "explanation": "Con un coeficiente multiplicando a la potencia, se combina el **múltiplo escalar** con la regla de la potencia en un solo paso.\n\nEl coeficiente original se multiplica por el exponente que baja, no se mantiene aparte del resultado, ese producto es justamente lo que da el nuevo coeficiente. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "derivadas-elementales"
@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para una exponencial de base general $a$, la derivada conserva la función original pero agrega un factor multiplicativo $\\ln a$.\n\nEl caso $a=e$ es especial porque $\\ln e = 1$, por eso $(e^x)'=e^x$ sin ningún factor extra visible, mientras que cualquier otra base sí necesita ese factor.",
+    "explanation": "Para una exponencial de base general $a$, la derivada conserva la función original pero agrega un factor multiplicativo $\\ln a$.\n\nEl caso $a=e$ es especial porque $\\ln e = 1$, por eso $(e^x)'=e^x$ sin ningún factor extra visible, mientras que cualquier otra base sí necesita ese factor. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "derivadas-elementales"
@@ -292,7 +292,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El símbolo $\\frac{d}{dx}[\\cdot]$ funciona como un **operador**, toma la expresión que va dentro de los corchetes y devuelve su derivada respecto de $x$.\n\nNo hay que confundir este símbolo con una fracción algebraica, las letras $d$ no representan cantidades que se puedan cancelar entre sí.",
+    "explanation": "El símbolo $\\frac{d}{dx}[\\cdot]$ funciona como un **operador**, toma la expresión que va dentro de los corchetes y devuelve su derivada respecto de $x$.\n\nNo hay que confundir este símbolo con una fracción algebraica, las letras $d$ no representan cantidades que se puedan cancelar entre sí. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "notacion-y-operadores"

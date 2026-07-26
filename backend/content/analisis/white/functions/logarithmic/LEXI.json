@@ -203,7 +203,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad fundamental** es que $\\log_b(b) = 1$ para cualquier base válida $b$.\n\n¿Por qué? Porque $b^1 = b$ siempre. Entonces:\n\nAplicado: $\\log_{10}(10) = 1$ porque $10^1 = 10$.\n\nEsto significa que **todas las funciones logarítmicas básicas pasan por el punto $(b,\\, 1)$**, donde $b$ es la base.",
+    "explanation": "La **propiedad fundamental** es que $\\log_b(b) = 1$ para cualquier base válida $b$.\n\n¿Por qué? Porque $b^1 = b$ siempre. Entonces:\n\nAplicado: $\\log_{10}(10) = 1$ porque $10^1 = 10$.\n\nEsto significa que **todas las funciones logarítmicas básicas pasan por el punto $(b,\\, 1)$**, donde $b$ es la base. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-log"
@@ -683,7 +683,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el argumento se acerca a $0$ por la derecha:\n\nEjemplos: $\\log_2(1) = 0$, $\\log_2(0{,}5) = -1$, $\\log_2(0{,}25) = -2$, $\\log_2(0{,}125) = -3$.\n\nLa curva cae verticalmente al acercarse desde la derecha, eso es precisamente lo que define la **asíntota vertical** en $x = 0$.",
+    "explanation": "Cuando el argumento se acerca a $0$ por la derecha:\n\nEjemplos: $\\log_2(1) = 0$, $\\log_2(0{,}5) = -1$, $\\log_2(0{,}25) = -2$, $\\log_2(0{,}125) = -3$.\n\nLa curva cae verticalmente al acercarse desde la derecha, eso es precisamente lo que define la **asíntota vertical** en $x = 0$. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-nombre-concepto"
@@ -908,7 +908,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Por la **propiedad del producto** del logaritmo:\n\nComo $2^5 = 32$, ese valor equivale numéricamente a $5$.\n\nLas opciones '$5$' y '$\\log_2(32)$' representan el mismo número, pero la fórmula de producto es la forma más directa de llegar ahí sin calcular cada logaritmo por separado.",
+    "explanation": "Por la **propiedad del producto** del logaritmo:\n\nComo $2^5 = 32$, ese valor equivale numéricamente a $5$.\n\nLas opciones '$5$' y '$\\log_2(32)$' representan el mismo número, pero la fórmula de producto es la forma más directa de llegar ahí sin calcular cada logaritmo por separado. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-log"

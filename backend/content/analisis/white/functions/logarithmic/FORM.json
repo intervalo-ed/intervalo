@@ -153,7 +153,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$f(e) = \\ln(e) = \\log_e(e)$. Aplicando la propiedad $\\log_b(b) = 1$:\n\nEsto significa que la gráfica de $f(x) = \\ln(x)$ pasa por el punto $(e,\\, 1)$, donde $e \\approx 2{,}718$.\n\nPuntos clave de $\\ln(x)$: pasa por $(1,\\, 0)$, pasa por $(e,\\, 1)$, asíntota vertical en $x = 0$.",
+    "explanation": "$f(e) = \\ln(e) = \\log_e(e)$. Aplicando la propiedad $\\log_b(b) = 1$:\n\nEsto significa que la gráfica de $f(x) = \\ln(x)$ pasa por el punto $(e,\\, 1)$, donde $e \\approx 2{,}718$.\n\nPuntos clave de $\\ln(x)$: pasa por $(1,\\, 0)$, pasa por $(e,\\, 1)$, asíntota vertical en $x = 0$. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -233,7 +233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para que $f(x) = \\log(x - 3)$ esté definida, el **argumento debe ser positivo**:\n\nNota: se exige estrictamente $> 0$, no $\\geq 0$, porque $\\log(0)$ no existe.\n\nEl **dominio** es $(3, +\\infty)$ y la **asíntota vertical** está en $x = 3$.\n\nRegla general: para $\\log(x - c)$, el dominio es $x > c$.",
+    "explanation": "Para que $f(x) = \\log(x - 3)$ esté definida, el **argumento debe ser positivo**:\n\nNota: se exige estrictamente $> 0$, no $\\geq 0$, porque $\\log(0)$ no existe.\n\nEl **dominio** es $(3, +\\infty)$ y la **asíntota vertical** está en $x = 3$.\n\nRegla general: para $\\log(x - c)$, el dominio es $x > c$. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "dominio-desde-formula"
@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$f(1) = \\log_5(1)$.\n\nBuscamos el exponente al que hay que elevar $5$ para obtener $1$:\n\nPor lo tanto $f(1) = 0$.\n\nEsta es la **propiedad universal**: $\\log_b(1) = 0$ para cualquier base válida. Significa que **todas las funciones logarítmicas básicas pasan por el punto $(1,\\, 0)$**.",
+    "explanation": "$f(1) = \\log_5(1)$.\n\nBuscamos el exponente al que hay que elevar $5$ para obtener $1$:\n\nPor lo tanto $f(1) = 0$.\n\nEsta es la **propiedad universal**: $\\log_b(1) = 0$ para cualquier base válida. Significa que **todas las funciones logarítmicas básicas pasan por el punto $(1,\\, 0)$**. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
