@@ -169,7 +169,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Con $u = x+16$ y $c=4$, la diferencia de cuadrados da $(x+16) - 16 = x$.",
+    "feedback_correct": "La diferencia de cuadrados da como resultado $x$.",
     "feedback_incorrect": [
       "Ese resultado suma $16$ en vez de restarlo: la identidad resta el cuadrado del segundo término, no lo suma.",
       "Ahí se restó $4$ en lugar de $4^2 = 16$: hay que elevar al cuadrado el segundo término antes de restar.",
@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "Antes de resolver un límite, conviene diagnosticar qué técnica corresponde aplicar.\n\nPara $\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$, que da la **indeterminación** una indeterminación $0/0$ y no tiene ninguna raíz cuadrada, ¿qué técnica corresponde?",
+    "question": "Estudiá la función:\n$$\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$$\nQue da la **indeterminación** una indeterminación $0/0$ y no tiene ninguna raíz cuadrada, ¿qué técnica corresponde?",
     "options": [
       "Racionalizar",
       "Factorizar",
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "Para $\\lim_{x \\to 0} \\dfrac{\\sqrt{x+1}-1}{x}$, que da la indeterminación una indeterminación $0/0$ y sí tiene una raíz cuadrada, ¿qué técnica corresponde?",
+    "question": "Examiná la función:\n$$\\lim_{x \\to 0} \\dfrac{\\sqrt{x+1}-1}{x}$$\nQue da la indeterminación una indeterminación $0/0$ y sí tiene una raíz cuadrada, ¿qué técnica corresponde?",
     "options": [
       "Sustitución directa",
       "Indeterminación no resoluble",
@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "Para $\\lim_{x \\to 2} \\dfrac{\\sqrt{x+7}}{x+1}$, ¿qué técnica corresponde aplicar?",
+    "question": "Considerá la función:\n$$\\lim_{x \\to 2} \\dfrac{\\sqrt{x+7}}{x+1}$$\n¿qué técnica corresponde aplicar?",
     "options": [
       "Racionalizar",
       "Factorizar",

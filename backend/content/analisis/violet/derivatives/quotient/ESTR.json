@@ -184,7 +184,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la fórmula correcta de la **regla del cociente** para $\\left(\\frac{u}{v}\\right)'$?",
+    "question": "Dada la función:\n$$\\left(\\frac{u}{v}\\right)'$$\n¿Cuál es la fórmula correcta de la **regla del cociente** para?",
     "options": [
       "$(uv'-u'v)/v^2$",
       "$(u'v+uv')/v^2$",
@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "¿De qué depende el signo de $f'(x)$ cuando $f(x)=\\frac{u(x)}{v(x)}$?",
+    "question": "Sea la función:\n$$f(x)=\\frac{u(x)}{v(x)}$$\n¿De qué depende el signo de $f'(x)$ cuando?",
     "options": [
       "Únicamente del denominador $v^2$",
       "De ambos por igual, numerador y denominador aportan el signo",

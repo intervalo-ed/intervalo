@@ -609,7 +609,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "La curva pasa por $(0, 2)$: la asíntota en $y = 1$ más $b^0 = 1$ da $f(0) = 2$.",
+    "feedback_correct": "$f(0) = 2$ por la asíntota en $y = 1$.",
     "feedback_incorrect": [
       "Ese sería el valor de $b^0$ solo, sin sumar el desplazamiento de la asíntota: fijate cuánto suma la curva por encima de eso.",
       null,
@@ -1449,7 +1449,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "En $t = 0$: $S(0) = 3$ miles $= 3000$ seguidores.",
+    "feedback_correct": "$S(0) = 3000$ seguidores.",
     "feedback_incorrect": [
       "Ese valor correspondería a una curva que arranca en el origen: acá el punto de corte con el eje vertical está por encima de cero.",
       "Ese valor sale de evaluar un mes después del inicio, no en $t = 0$: repasá qué pasa con la base elevada a la potencia $0$.",

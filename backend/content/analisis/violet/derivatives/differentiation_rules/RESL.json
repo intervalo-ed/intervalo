@@ -309,7 +309,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, con $f(0)=1$ y $f'(0)=2$ la ecuación queda $y=2x+1$.",
+    "feedback_correct": "La ecuación de la recta tangente es $y=2x+1$.",
     "feedback_incorrect": [
       null,
       "Revisá el signo del término independiente, $f(0)=1$ se suma, no se resta.",

@@ -232,7 +232,7 @@
   {
     "question": "Decidí qué regla aplica a:\n$$\\int x^2\\,dx$$\n¿Qué regla corresponde aplicar?",
     "options": [
-      "Regla trigonométrica",
+      "Regla trigonométrica aunque la condición falla",
       "Regla de la potencia",
       "Regla exponencial (base $a$)"
     ],
@@ -278,7 +278,7 @@
   {
     "question": "Observá con cuidado:\n$$\\int \\frac{1}{x}\\,dx$$\n¿Qué regla corresponde aplicar?",
     "options": [
-      "Regla del logaritmo",
+      "Regla del logaritmo según la definición",
       "Regla de la potencia",
       "Regla exponencial (base $a$)"
     ],

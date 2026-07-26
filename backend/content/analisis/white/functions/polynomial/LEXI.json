@@ -1098,7 +1098,7 @@
       "$3$"
     ],
     "correct_index": 2,
-    "feedback_correct": "Grado 4 → máximo 4 raíces reales. En este caso se alcanzan: $x = \\pm 1$... pero espera, $x^4 = 1$ da $x = \\pm 1$ en reales: solo 2.",
+    "feedback_correct": "Grado 4 permite máximo 4 raíces reales.",
     "feedback_incorrect": [
       "Esa cifra queda muy por debajo del grado del polinomio, que es lo que fija el máximo posible de raíces reales.",
       "Esa es la cantidad de raíces reales que efectivamente tiene este polinomio en particular, pero la pregunta pide el máximo posible según el grado.",

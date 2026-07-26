@@ -219,7 +219,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "$\\cos(0) = 1$ (máximo) y $\\operatorname{sen}(0) = 0$: esa es la diferencia clave en $x = 0$.",
+    "feedback_correct": "$\\cos(0) = 1$ (máximo) vs $\\operatorname{sen}(0) = 0$.",
     "feedback_incorrect": [
       "Repasá la gráfica del coseno en un ciclo completo, sí cruza el eje horizontal en algún punto.",
       "Compará la altura máxima de ambas curvas, las dos llegan al mismo techo.",
@@ -729,7 +729,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Correcto. $\\operatorname{sen}(2x) = 0$ en $2x = \\pi$, es decir $x = \\pi/2$.",
+    "feedback_correct": "$\\operatorname{sen}(2x) = 0$ en $x = \\pi/2$.",
     "feedback_incorrect": [
       "Ese es el segundo cruce positivo con el eje, no el primero, fijate cuál aparece antes en el gráfico.",
       "Ese punto no está sobre el eje horizontal en el gráfico, revisá dónde la curva realmente lo cruza.",
@@ -810,7 +810,7 @@
     ]
   },
   {
-    "question": "El gráfico de $T(h) = 10\\,\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{12}(h - 6)\\right) + 20$ muestra la temperatura (°C) en función de la hora del día.\n\nSegún la gráfica, ¿cuál es la temperatura a las $6{:}00$ a.m. ($h = 6$)?",
+    "question": "Para la función:\n$$T(h) = 10\\,\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{12}(h - 6)\\right) + 20$$\nMuestra la temperatura (°C) en función de la hora del día.\n\nSegún la gráfica, ¿cuál es la temperatura a las $6{:}00$ a.m. ($h = 6$)?",
     "options": [
       "$30\\,°C$",
       "$10\\,°C$",
@@ -840,7 +840,7 @@
     ]
   },
   {
-    "question": "Usando el mismo modelo $T(h) = 10\\,\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{12}(h - 6)\\right) + 20$, ¿a qué hora ocurre la temperatura máxima?",
+    "question": "Tomá en cuenta la función:\n$$T(h) = 10\\,\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{12}(h - 6)\\right) + 20$$\n¿a qué hora ocurre la temperatura máxima?",
     "options": [
       "$h = 12$ (mediodía)",
       "$h = 18$ (6 p.m.)",
@@ -1029,7 +1029,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Correcto. $\\cos(\\pi) = -1$, $\\cos(3\\pi) = -1$, ...: $x = \\pi + 2k\\pi$.",
+    "feedback_correct": "$\\cos(\\pi) = -1$: $x = \\pi + 2k\\pi$.",
     "feedback_incorrect": [
       "Esos valores incluyen también los puntos donde la curva toca el techo, no solo el piso.",
       "Esos valores marcan los picos hacia arriba, no los mínimos, fijate bien en el gráfico.",
@@ -1050,7 +1050,7 @@
     ]
   },
   {
-    "question": "El nivel del mar (en metros) sigue el modelo $h(t) = 3\\,\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{6}t\\right) + 5$, donde $t$ es la hora del día.\n\nSegún la gráfica, ¿cuál es el nivel mínimo del mar?",
+    "question": "Estudiá la función:\n$$h(t) = 3\\,\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{6}t\\right) + 5$$\nDonde $t$ es la hora del día.\n\nSegún la gráfica, ¿cuál es el nivel mínimo del mar?",
     "options": [
       "$3$ m",
       "$2$ m",
@@ -1080,7 +1080,7 @@
     ]
   },
   {
-    "question": "Usando el mismo modelo de mareas $h(t) = 3\\,\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{6}t\\right) + 5$, ¿cuál es el nivel máximo del mar?",
+    "question": "Examiná la función:\n$$h(t) = 3\\,\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{6}t\\right) + 5$$\n¿cuál es el nivel máximo del mar?",
     "options": [
       "$5$ m",
       "$3$ m",
@@ -1119,7 +1119,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Correcto. El mínimo en $x = 0$ ($f(0) = -1$) y máximo en $x = \\pi$ identifican $-\\cos(x)$.",
+    "feedback_correct": "Mínimo en $x = 0$ ($f(0) = -1$).",
     "feedback_incorrect": [
       "Esa función arranca en el eje horizontal, no en el piso, revisá el valor inicial que describe el enunciado.",
       "Esa función arranca en el eje horizontal y baja primero, no arranca directamente en el piso.",
@@ -1230,7 +1230,7 @@
     ]
   },
   {
-    "question": "La gráfica muestra $f(x) = \\operatorname{sen}\\!\\left(\\dfrac{x}{2}\\right)$.\n\n¿Cuánto vale $f(\\pi)$?",
+    "question": "Considerá la función:\n$$f(x) = \\operatorname{sen}\\!\\left(\\dfrac{x}{2}\\right)$$\n.\n\n¿Cuánto vale $f(\\pi)$?",
     "options": [
       "$0$",
       "$1$",
@@ -1380,7 +1380,7 @@
     ]
   },
   {
-    "question": "La temperatura media mensual de una ciudad sigue $T(m) = 8\\,\\cos\\!\\left(\\dfrac{\\pi}{6}(m-1)\\right) + 15$ (°C), donde $m = 1$ es enero.\n\n¿Cuál es la temperatura en enero ($m = 1$)?",
+    "question": "Observá la siguiente función:\n$$T(m) = 8\\,\\cos\\!\\left(\\dfrac{\\pi}{6}(m-1)\\right) + 15$$\n(°C), donde $m = 1$ es enero.\n\n¿Cuál es la temperatura en enero ($m = 1$)?",
     "options": [
       "$15\\,°C$",
       "$7\\,°C$",

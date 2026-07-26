@@ -250,7 +250,7 @@
     ]
   },
   {
-    "question": "Hallá:\n$$\\int \\left(x^{1/2}+\\frac{2}{x}\\right)\\,dx$$",
+    "question": "Encontrá:\n$$\\int \\left(x^{1/2}+\\frac{2}{x}\\right)\\,dx$$",
     "options": [
       "$\\frac{1}{2}x^{3/2}+2\\ln|x|+C$",
       "$\\frac{2}{3}x^{3/2}-\\frac{2}{x}+C$",
@@ -300,7 +300,7 @@
     ]
   },
   {
-    "question": "Hallá:\n$$\\int \\left(x^{-2}+3x\\right)\\,dx$$",
+    "question": "Determiná:\n$$\\int \\left(x^{-2}+3x\\right)\\,dx$$",
     "options": [
       "$-\\frac{1}{x}+\\frac{3x^2}{2}+C$",
       "$\\ln|x|+\\frac{3x^2}{2}+C$",

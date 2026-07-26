@@ -226,14 +226,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **indeterminación** 0/0 no es un valor numérico asignable, sino una **señal** de que numerador y denominador comparten un factor que se anula en el valor de tendencia.\n\nEs la alarma que dispara la factorización.$$\\lim_{x \\to a} \\frac{f(x)}{g(x)} = \\frac{0}{0} \\Rightarrow (x-a) \\text{ es factor común}$$Una intuición crucial: cuando vemos 0/0, sabemos que no hemos llegado al valor final del límite, sino que encontramos un punto donde dos expresiones se cancelan simultáneamente.\n\nEl límite se calcula después de aislar y cancelar ese factor común.\n\nInterpretar 0/0 como un resultado final, en vez de como una instrucción para factorizar, es uno de los errores conceptuales más comunes al empezar con límites.",
+    "explanation": "La **indeterminación** 0/0 no es un valor numérico asignable, sino una **señal** de que numerador y denominador comparten un factor que se anula en el valor de tendencia.\n\nEs la alarma que dispara la factorización.$$\\lim_{x \\to a} \\frac{f(x)}{g(x)} = \\frac{0}{0} \\Rightarrow (x-a) $$Una intuición crucial: cuando vemos 0/0, sabemos que no hemos llegado al valor final del límite, sino que encontramos un punto donde dos expresiones se cancelan simultáneamente.\n\nEl límite se calcula después de aislar y cancelar ese factor común.\n\nInterpretar 0/0 como un resultado final, en vez de como una instrucción para factorizar, es uno de los errores conceptuales más comunes al empezar con límites.",
     "reviewed": false
   },
   {
     "question": "¿Cuánto vale 0/0 dentro del cálculo de un límite?",
     "options": [
       "No es un valor, es una indeterminación",
-      "Vale $0$",
+      "Vale $0$ sin validar el contexto",
       "Vale $1$"
     ],
     "correct_index": 0,
@@ -272,7 +272,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando la sustitución directa produce 0/0, el paso siguiente es aplicar **factorización** al numerador y al denominador para exhibir el factor común que ambos comparten en el valor de tendencia.\n\nEs un protocolo automático: si ves 0/0, factoriza.$$\\begin{aligned} \\text{0/0} &\\Rightarrow \\text{factorizar} \\\\ &\\Rightarrow \\text{cancelar} \\\\ &\\Rightarrow \\text{sustituir de nuevo} \\end{aligned}$$Saltear este proceso y responder directamente que no existe o que vale cero sin factorizar es el error más frecuente frente a esta indeterminación.\n\nLa indeterminación es un **indicador de trabajo pendiente**, no un veredicto final.",
+    "explanation": "Cuando la sustitución directa produce 0/0, el paso siguiente es aplicar **factorización** al numerador y al denominador para exhibir el factor común que ambos comparten en el valor de tendencia.\n\nEs un protocolo automático: si ves 0/0, factoriza.$$\\begin{aligned} \\text{0/0} &\\Rightarrow \\text{factorizar} \\\\ &\\Rightarrow \\text{cancelar} \\\\ &\\Rightarrow \\text{evaluar} \\end{aligned}$$Saltear este proceso y responder directamente que no existe o que vale cero sin factorizar es el error más frecuente frente a esta indeterminación.\n\nLa indeterminación es un **indicador de trabajo pendiente**, no un veredicto final.",
     "reviewed": false
   },
   {

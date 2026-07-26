@@ -115,7 +115,7 @@
     ]
   },
   {
-    "question": "Observá la función:\n$$f(x) = \\cos(3x+1)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
+    "question": "Para la función:\n$$f(x) = \\cos(3x+1)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "$g(u)=3u+1, h(x)=\\cos x$",
       "No es una composición, la interior es lineal así que no aplica **regla de la cadena**",
@@ -184,7 +184,7 @@
     ]
   },
   {
-    "question": "Observá la función:\n$$f(x) = e^{3x}$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "Dada:\n$$f(x) = e^{3x}$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla del producto",
       "Múltiplo escalar (linealidad)",
@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "Observá la función:\n$$f(x) = \\frac{\\sin x}{x}$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "Considerá:\n$$f(x) = \\frac{\\sin x}{x}$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "**Regla de la cadena**",
       "Regla del producto",

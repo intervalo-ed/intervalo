@@ -60,11 +60,11 @@
     ]
   },
   {
-    "question": "¿Cuántas asíntotas verticales tiene $f(x) = \\dfrac{1}{x^2 - 4}$?",
+    "question": "Sea la función:\n$$f(x) = \\dfrac{1}{x^2 - 4}$$\n¿Cuántas asíntotas verticales tiene?",
     "options": [
       "0",
       "1 (en $x = 4$)",
-      "2 (en $x = 2$ y $x = -2$)",
+      "2",
       "3"
     ],
     "correct_index": 2,
@@ -120,7 +120,7 @@
     ]
   },
   {
-    "question": "¿Cuántas asíntotas verticales tiene $f(x) = \\dfrac{x}{x+1}$?",
+    "question": "Analiza la función:\n$$f(x) = \\dfrac{x}{x+1}$$\n¿Cuántas asíntotas verticales tiene?",
     "options": [
       "1 (en $x = -1$)",
       "2",
@@ -180,7 +180,7 @@
     ]
   },
   {
-    "question": "Para $f(x) = \\dfrac{2x+1}{x-3}$, ¿cuál es la asíntota horizontal?",
+    "question": "Con la función:\n$$f(x) = \\dfrac{2x+1}{x-3}$$\n¿cuál es la asíntota horizontal?",
     "options": [
       "$y = -3$",
       "$y = 1$",
@@ -240,9 +240,9 @@
     ]
   },
   {
-    "question": "¿Cuántas asíntotas tiene en total $f(x) = \\dfrac{1}{x-1}$?",
+    "question": "Para la función:\n$$f(x) = \\dfrac{1}{x-1}$$\n¿Cuántas asíntotas tiene en total?",
     "options": [
-      "2 (una vertical $x=1$ y una horizontal $y=0$)",
+      "2",
       "1 (solo la vertical $x=1$)",
       "3",
       "0"
@@ -300,7 +300,7 @@
     ]
   },
   {
-    "question": "Observá la gráfica de $f(x) = \\dfrac{1}{x}$. ¿En cuál de los siguientes intervalos la función es decreciente?",
+    "question": "Tomá en cuenta la función:\n$$f(x) = \\dfrac{1}{x}$$\n. ¿En cuál de los siguientes intervalos la función es decreciente?",
     "options": [
       "Solo en $(-\\infty,\\ 0)$",
       "Solo en $(0,\\ +\\infty)$",
@@ -1380,7 +1380,7 @@
     ]
   },
   {
-    "question": "El tiempo que tarda $n$ personas en pintar una pared es $t(n) = \\dfrac{12}{n}$ horas. El gráfico muestra esta función para $n > 0$.\n\n¿Cuánto tiempo tarda si son 4 personas?",
+    "question": "Estudiá la función:\n$$t(n) = \\dfrac{12}{n}$$\nHoras. El gráfico muestra esta función para $n > 0$.\n\n¿Cuánto tiempo tarda si son 4 personas?",
     "options": [
       "$4$ horas",
       "$3$ horas",
@@ -1410,7 +1410,7 @@
     ]
   },
   {
-    "question": "La velocidad promedio para recorrer $60$ km en $t$ horas es $v(t) = \\dfrac{60}{t}$ km/h. El gráfico muestra esta función para $t > 0$.\n\n¿Cuánto tarda en recorrerlos a $30$ km/h?",
+    "question": "Examiná la función:\n$$v(t) = \\dfrac{60}{t}$$\nKm/h. El gráfico muestra esta función para $t > 0$.\n\n¿Cuánto tarda en recorrerlos a $30$ km/h?",
     "options": [
       "$\\dfrac{1}{2}$ hora",
       "$30$ horas",
@@ -1470,7 +1470,7 @@
     ]
   },
   {
-    "question": "La concentración de una sustancia en un tanque (en gramos por litro) es $c(v) = \\dfrac{10}{v}$ donde $v$ es el volumen de agua en litros. El gráfico muestra $c$ para $v > 0$.\n\n¿Cuánto vale la concentración cuando el volumen es $5$ litros?",
+    "question": "Considerá la función:\n$$c(v) = \\dfrac{10}{v}$$\nDonde $v$ es el volumen de agua en litros. El gráfico muestra $c$ para $v > 0$.\n\n¿Cuánto vale la concentración cuando el volumen es $5$ litros?",
     "options": [
       "$2$ g/L",
       "$5$ g/L",

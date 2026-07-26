@@ -177,7 +177,7 @@
   {
     "question": "Una función a trozos está definida por:\n$$f(x) = \\begin{cases} x + 1 & \\text{si } x < 1 \\\\ x + 5 & \\text{si } x \\geq 1 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 1} f(x)$?",
     "options": [
-      "$2$",
+      "$2$ sin validar el contexto",
       "$6$",
       "No existe",
       "$4$"
@@ -227,7 +227,7 @@
   {
     "question": "Una función a trozos está definida por:\n$$f(x) = \\begin{cases} x - 2 & \\text{si } x < 5 \\\\ -x + 2 & \\text{si } x \\geq 5 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 5} f(x)$?",
     "options": [
-      "$3$",
+      "$3$ confundiendo conceptos",
       "$-3$",
       "$0$",
       "No existe"
@@ -353,7 +353,7 @@
     "question": "Considerá la misma expresión, con $c \\neq 0$ fijo,:\n$$f(x) = \\frac{|x - c|}{x - c}$$\n¿Cuánto vale $\\lim_{x \\to c} f(x)$?",
     "options": [
       "No existe",
-      "$1$",
+      "$1$ confundiendo conceptos",
       "$-1$",
       "$0$"
     ],

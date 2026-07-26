@@ -1,6 +1,6 @@
 [
   {
-    "question": "En $f(x) = 3 \\cdot (0{,}5)^x$, ¿cuál es la base de la exponencial?",
+    "question": "Considerá la función:\n$$f(x) = 3 \\cdot (0{,}5)^x$$\n¿cuál es la base de la exponencial?",
     "options": [
       "$0{,}5$",
       "$3$",
@@ -55,7 +55,7 @@
     ]
   },
   {
-    "question": "En $f(x) = 4 \\cdot 3^x$, ¿cuál es el factor de escala (coeficiente $a$)?",
+    "question": "Considerá la función:\n$$f(x) = 4 \\cdot 3^x$$\n¿cuál es el factor de escala (coeficiente $a$)?",
     "options": [
       "$x$",
       "$3$",
@@ -80,7 +80,7 @@
     ]
   },
   {
-    "question": "En $f(x) = 5 \\cdot 2^x$, ¿cuánto vale $f(0)$?",
+    "question": "Considerá la función:\n$$f(x) = 5 \\cdot 2^x$$\n¿cuánto vale $f(0)$?",
     "options": [
       "$10$",
       "$1$",
@@ -640,7 +640,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas expresiones equivale a $\\dfrac{2^x}{2^3}$?",
+    "question": "Tomá en cuenta la función:\n$$\\dfrac{2^x}{2^3}$$\n¿Cuál de estas expresiones equivale a?",
     "options": [
       "$2^{x-3}$",
       "$2^{x+3}$",
@@ -915,7 +915,7 @@
     ]
   },
   {
-    "question": "En $f(x) = 7 \\cdot (1{,}2)^{x-3}$, ¿cuánto vale $f(3)$?",
+    "question": "Considerá la función:\n$$f(x) = 7 \\cdot (1{,}2)^{x-3}$$\n¿cuánto vale $f(3)$?",
     "options": [
       "$7$",
       "$21$",
@@ -940,7 +940,7 @@
     ]
   },
   {
-    "question": "En $f(x) = 2 \\cdot e^{x+1}$, ¿cuánto vale $f(0)$?",
+    "question": "Considerá la función:\n$$f(x) = 2 \\cdot e^{x+1}$$\n¿cuánto vale $f(0)$?",
     "options": [
       "$2$",
       "$2e$",
@@ -1024,7 +1024,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$f(0) = 4$ y $b = 3$: $f(x) = 4 \\cdot 3^x$.",
+    "feedback_correct": "$f(x) = 4 \\cdot 3^x$.",
     "feedback_incorrect": [
       "Ahí $a$ y $b$ quedaron invertidos: el $4$ dado en el punto $(0,4)$ tiene que ser el coeficiente, y el $3$ la base.",
       null,
@@ -1174,7 +1174,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$A(0) = 1000$ y $B(0) = 2000$: en $t = 0$, $B$ vale el doble que $A$.",
+    "feedback_correct": "En $t = 0$, $B$ vale el doble que $A$.",
     "feedback_incorrect": [
       "$A$ tiene la base más grande, pero eso determina qué tan rápido crece, no cuánto vale en $t=0$: ahí manda el coeficiente $a$ de cada modelo.",
       null,
@@ -1215,7 +1215,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $\\dfrac{5^{x+2}}{5^x}$?",
+    "question": "Estudiá la función:\n$$\\dfrac{5^{x+2}}{5^x}$$\n¿Cuánto vale?",
     "options": [
       "$5^2 = 25$",
       "$5^{2x}$",
@@ -1242,7 +1242,7 @@
   {
     "question": "Para $f(x) = 6 \\cdot 2^x$, ¿cuánto vale $f(-2)$?",
     "options": [
-      "$-24$",
+      "$-24$ por error común",
       "$24$",
       "$3$",
       "$\\dfrac{6}{4} = 1{,}5$"

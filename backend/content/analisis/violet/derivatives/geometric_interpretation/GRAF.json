@@ -412,7 +412,7 @@
     "options": [
       "No, ninguna tangente es horizontal en esta curva",
       "Sí, pero solo en las raíces de la función",
-      "Sí, en el vértice"
+      "Sí, en el vértice según la definición"
     ],
     "correct_index": 2,
     "has_math": true,

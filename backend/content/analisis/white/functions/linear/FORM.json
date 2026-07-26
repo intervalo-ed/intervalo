@@ -1,6 +1,6 @@
 [
   {
-    "question": "En $f(x) = -3x + 8$, ¿cuál es la pendiente?",
+    "question": "Considerá la función:\n$$f(x) = -3x + 8$$\n¿cuál es la pendiente?",
     "options": [
       "$8$",
       "$-3$",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "En $f(x) = 4x - 7$, ¿cuál es la ordenada al origen?",
+    "question": "Considerá la función:\n$$f(x) = 4x - 7$$\n¿cuál es la ordenada al origen?",
     "options": [
       "$4$",
       "$-7$",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "En $f(x) = \\dfrac{1}{2}x + 5$, ¿cuál es la pendiente?",
+    "question": "Considerá la función:\n$$f(x) = \\dfrac{1}{2}x + 5$$\n¿cuál es la pendiente?",
     "options": [
       "$5$",
       "$\\dfrac{1}{2}$",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "question": "En $f(x) = 6 - 2x$, ¿cuál es la pendiente?",
+    "question": "Considerá la función:\n$$f(x) = 6 - 2x$$\n¿cuál es la pendiente?",
     "options": [
       "$6$",
       "$-2$",
@@ -109,7 +109,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Con $m = 3$ y $b = -2$, la ecuación es $f(x) = 3x - 2$.",
+    "feedback_correct": "$f(x) = 3x - 2$.",
     "feedback_incorrect": [
       "Los parámetros están intercambiados: el $3$ es la pendiente y debe multiplicar a $x$.",
       "El signo de la ordenada al origen no corresponde: $b = -2$.",
@@ -134,7 +134,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Con $m = -1$ y $b = 4$, la ecuación es $f(x) = -x + 4$.",
+    "feedback_correct": "$f(x) = -x + 4$.",
     "feedback_incorrect": [
       null,
       "Los parámetros están intercambiados: el $4$ es la ordenada al origen, no la pendiente.",
@@ -159,7 +159,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Pasar por $(0, 5)$ significa $f(0) = 5$, así que $b = 5$. Con $m = 2$: $f(x) = 2x + 5$.",
+    "feedback_correct": "$f(x) = 2x + 5$.",
     "feedback_incorrect": [
       "Los roles están cruzados: el 5 es el valor de la función en $x = 0$, no la pendiente.",
       null,
@@ -184,7 +184,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "La raíz es donde $f(x) = 0$: $2x - 6 = 0 \\Rightarrow x = 3$.",
+    "feedback_correct": "La raíz es $x = 3$.",
     "feedback_incorrect": [
       null,
       "El signo se dio vuelta en el despeje: de $2x = 6$ sale $x = 3$ positivo.",
@@ -209,7 +209,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "La raíz es donde $f(x) = 0$: $-x + 5 = 0 \\Rightarrow x = 5$.",
+    "feedback_correct": "La raíz es $x = 5$.",
     "feedback_incorrect": [
       "El doble negativo se resuelve positivo: $-x = -5$ da $x = 5$.",
       "$1$ no anula la función: $f(1) = 4$.",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la raíz de $f(x) = \\dfrac{1}{2}x - 3$?",
+    "question": "Observá la siguiente función:\n$$f(x) = \\dfrac{1}{2}x - 3$$\n¿Cuál es la raíz?",
     "options": [
       "$x = 6$",
       "$x = 3$",
@@ -234,7 +234,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "La raíz es donde $f(x) = 0$: $\\dfrac{1}{2}x - 3 = 0 \\Rightarrow x = 6$.",
+    "feedback_correct": "La raíz es $x = 6$.",
     "feedback_incorrect": [
       null,
       "$3$ es el paso intermedio $\\frac{1}{2}x = 3$: queda pendiente multiplicar por 2.",
@@ -404,7 +404,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Pendiente = $\\dfrac{\\text{subida}}{\\text{avance}} = \\dfrac{4}{2} = 2$.",
+    "feedback_correct": "Pendiente $m = 2$.",
     "feedback_incorrect": [
       "La fracción quedó invertida: se divide la subida por el avance, $4/2$.",
       "$4$ es solo la subida, sin dividir por el avance.",
@@ -429,7 +429,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Costo = fijo + tarifa × km = $C(k) = 500 + 200k = 200k + 500$.",
+    "feedback_correct": "$C(k) = 500 + 200k$.",
     "feedback_incorrect": [
       "El \\$500 no depende de los kilómetros: es el término fijo, no el que multiplica a $k$.",
       null,
@@ -454,7 +454,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Costo = fijo + tarifa × hora = $C(h) = 1500 + 300h = 300h + 1500$.",
+    "feedback_correct": "$C(h) = 1500 + 300h$.",
     "feedback_incorrect": [
       null,
       "Los parámetros están cruzados: el \\$1500 se paga una vez, no por cada hora.",
@@ -479,7 +479,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Volumen = inicial - pérdida × tiempo = $V(t) = 100 - 5t$.",
+    "feedback_correct": "$V(t) = 100 - 5t$.",
     "feedback_incorrect": [
       "El orden de la resta importa: así el tanque arranca en $-100$ litros y se llena.",
       "El signo de la tasa está al revés: el volumen baja, el término con $t$ resta.",
@@ -504,7 +504,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Deuda = inicial - reducción × mes = $D(m) = 10000 - 500m$.",
+    "feedback_correct": "$D(m) = 10000 - 500m$.",
     "feedback_incorrect": [
       null,
       "El orden de la resta importa: así la deuda arranca en $-10000$ y crece.",
@@ -979,7 +979,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "La raíz es donde $f(x) = 0$: $2x - 8 = 0 \\Rightarrow x = 4$.",
+    "feedback_correct": "La raíz es $x = 4$.",
     "feedback_incorrect": [
       "$2$ es el coeficiente de $x$, no el valor que anula la función.",
       "El signo quedó al revés: al despejar, el $-8$ pasa sumando.",
@@ -1029,7 +1029,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$1200 + 80v = 2000 \\Rightarrow 80v = 800 \\Rightarrow v = 10$ ventas.",
+    "feedback_correct": "$v = 10$ ventas.",
     "feedback_incorrect": [
       null,
       "$25$ sale de dividir $2000/80$, sin descontar primero el sueldo base.",
@@ -1104,7 +1104,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$m = 2$ y $b = 3$: $f(x) = 2x + 3$.",
+    "feedback_correct": "$f(x) = 2x + 3$.",
     "feedback_incorrect": [
       "Los parámetros están intercambiados: la pendiente 2 debe multiplicar a $x$.",
       "El signo de la ordenada al origen no corresponde: es $+3$.",
@@ -1154,7 +1154,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$f(-1) = -4(-1) + 12 = 4 + 12 = 16$.",
+    "feedback_correct": "$f(-1) = 16$.",
     "feedback_incorrect": [
       "$8$ aparece si $-4 \\cdot (-1)$ se calcula como $-4$: dos negativos multiplicados dan positivo.",
       null,
@@ -1179,7 +1179,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$m = (10-4)/(3-0) = 2$ y $b = 4$ (el punto $(0,4)$ es la ordenada al origen): $f(x) = 2x + 4$.",
+    "feedback_correct": "$f(x) = 2x + 4$.",
     "feedback_incorrect": [
       "Los parámetros están intercambiados: la pendiente sale del cociente $(10-4)/(3-0) = 2$.",
       "El signo de la ordenada no corresponde: el punto $(0, 4)$ da $b = +4$.",
@@ -1204,7 +1204,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$3x - 6 = 9 \\Rightarrow 3x = 15 \\Rightarrow x = 5$.",
+    "feedback_correct": "$x = 5$.",
     "feedback_incorrect": [
       "$1$ sale de restar el 6 en lugar de pasarlo sumando: el despeje correcto da $3x = 15$.",
       "$3$ es el coeficiente de $x$, no la solución.",
@@ -1229,7 +1229,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$C(3) = 700 + 300 \\cdot 3 = 700 + 900 = 1600$.",
+    "feedback_correct": "$C(3) = 1600$.",
     "feedback_incorrect": [
       "\\$1300 cuenta los \\$300 solo dos veces: el viaje tiene 3 kilómetros.",
       "\\$1000 suma el fijo con una sola tarifa, sin multiplicar por los kilómetros.",

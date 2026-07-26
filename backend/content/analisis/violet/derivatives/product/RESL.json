@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "Observá la función:\n$$f(x) = \\cos x \\cdot e^x$$\nCalculá $f'(0)$.",
+    "question": "Para la función:\n$$f(x) = \\cos x \\cdot e^x$$\nCalculá $f'(0)$.",
     "options": [
       "$e$",
       "$1$",
@@ -200,7 +200,7 @@
     ]
   },
   {
-    "question": "Observá la función:\n$$f(x) = \\big((x-1)^2+5\\big)e^x$$\nCalculá $f'(1)$.",
+    "question": "Dada:\n$$f(x) = \\big((x-1)^2+5\\big)e^x$$\nCalculá $f'(1)$.",
     "options": [
       "$5e$",
       "$0$",
@@ -275,7 +275,7 @@
     ]
   },
   {
-    "question": "Observá la función:\n$$f(x) = (x+2)^2 \\cdot \\cos x$$\nCalculá $f'(-2)$.",
+    "question": "Considerá:\n$$f(x) = (x+2)^2 \\cdot \\cos x$$\nCalculá $f'(-2)$.",
     "options": [
       "$4$",
       "$-4$",

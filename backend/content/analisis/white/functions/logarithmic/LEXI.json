@@ -315,7 +315,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $\\log_2\\!\\left(\\dfrac{1}{2}\\right)$?",
+    "question": "Estudiá la función:\n$$\\log_2\\!\\left(\\dfrac{1}{2}\\right)$$\n¿Cuánto vale?",
     "options": [
       "$2$",
       "$1$",
@@ -990,7 +990,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $\\log_2\\!\\left(\\dfrac{1}{4}\\right)$?",
+    "question": "Examiná la función:\n$$\\log_2\\!\\left(\\dfrac{1}{4}\\right)$$\n¿Cuánto vale?",
     "options": [
       "$-2$",
       "$2$",

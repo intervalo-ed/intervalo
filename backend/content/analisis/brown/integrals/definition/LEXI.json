@@ -211,7 +211,7 @@
     "options": [
       "$F(x)+5$, para cualquier constante",
       "$F(x) \\cdot 5$",
-      "$F(x)^2$"
+      "$F(x)^2$ sin validar el contexto"
     ],
     "correct_index": 0,
     "has_math": true,

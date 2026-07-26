@@ -215,7 +215,7 @@
     ]
   },
   {
-    "question": "En $f(x) = ax^2 + bx + c$, ¿qué ocurre cuando $a < 0$?",
+    "question": "Considerá la función:\n$$f(x) = ax^2 + bx + c$$\n¿qué ocurre cuando $a < 0$?",
     "options": [
       "La parábola tiene un máximo y se abre hacia abajo",
       "La parábola tiene un mínimo y se abre hacia arriba",
@@ -290,7 +290,7 @@
     ]
   },
   {
-    "question": "En $f(x) = ax^2 + bx + c$, ¿cómo se llama el coeficiente $a$?",
+    "question": "Considerá la función:\n$$f(x) = ax^2 + bx + c$$\n¿cómo se llama el coeficiente $a$?",
     "options": [
       "Coeficiente principal",
       "Término independiente",
@@ -315,7 +315,7 @@
     ]
   },
   {
-    "question": "En $f(x) = ax^2 + bx + c$, ¿cómo se llama el número $c$?",
+    "question": "Considerá la función:\n$$f(x) = ax^2 + bx + c$$\n¿cómo se llama el número $c$?",
     "options": [
       "Término independiente",
       "Coeficiente principal",
@@ -340,7 +340,7 @@
     ]
   },
   {
-    "question": "En $f(x) = 3x^2 - 6x + 2$, ¿cuál es el término cuadrático?",
+    "question": "Considerá la función:\n$$f(x) = 3x^2 - 6x + 2$$\n¿cuál es el término cuadrático?",
     "options": [
       "$-6x$",
       "$3x^2$",
@@ -765,7 +765,7 @@
     ]
   },
   {
-    "question": "En $f(x) = a(x - h)^2 + k$, ¿qué representa $k$?",
+    "question": "Considerá la función:\n$$f(x) = a(x - h)^2 + k$$\n¿qué representa $k$?",
     "options": [
       "La coordenada $x$ del vértice",
       "El valor extremo, coordenada $y$ del vértice",
@@ -790,7 +790,7 @@
     ]
   },
   {
-    "question": "En $f(x) = a(x - h)^2 + k$, ¿qué representa $h$?",
+    "question": "Considerá la función:\n$$f(x) = a(x - h)^2 + k$$\n¿qué representa $h$?",
     "options": [
       "El valor máximo o mínimo",
       "La ordenada al origen",
@@ -815,7 +815,7 @@
     ]
   },
   {
-    "question": "En $f(x) = ax^2 + bx + c$, ¿cómo se llama el coeficiente $b$?",
+    "question": "Considerá la función:\n$$f(x) = ax^2 + bx + c$$\n¿cómo se llama el coeficiente $b$?",
     "options": [
       "Coeficiente principal",
       "Término independiente",
@@ -1092,7 +1092,7 @@
   {
     "question": "¿Hacia dónde abre la **parábola** del gráfico?",
     "options": [
-      "Hacia arriba",
+      "Hacia arriba confundiendo conceptos",
       "Hacia abajo",
       "Hacia la derecha",
       "Hacia la izquierda"

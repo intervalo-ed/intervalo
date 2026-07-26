@@ -1,6 +1,6 @@
 [
   {
-    "question": "¿Para qué valor de $x$ no está definida $f(x) = \\dfrac{2x + 3}{x - 5}$?",
+    "question": "Sea la función:\n$$f(x) = \\dfrac{2x + 3}{x - 5}$$\n¿Para qué valor de $x$ no está definida?",
     "options": [
       "$x = 5$",
       "$x = 3$",
@@ -55,7 +55,7 @@
     ]
   },
   {
-    "question": "En $f(x) = \\dfrac{x^2 - 1}{x - 1}$, ¿para qué valor de $x$ no está definida?",
+    "question": "Analiza la función:\n$$f(x) = \\dfrac{x^2 - 1}{x - 1}$$\n¿para qué valor de $x$ no está definida?",
     "options": [
       "$x = 0$",
       "$x = -1$",
@@ -80,7 +80,7 @@
     ]
   },
   {
-    "question": "¿Cuáles son los valores excluidos del dominio de $f(x) = \\dfrac{2}{x^2 - 4}$?",
+    "question": "Con la función:\n$$f(x) = \\dfrac{2}{x^2 - 4}$$\n¿Cuáles son los valores excluidos del dominio?",
     "options": [
       "$x = 2$",
       "$x = 4$ y $x = -4$",
@@ -135,7 +135,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la asíntota horizontal de $f(x) = \\dfrac{3x + 1}{x - 2}$ cuando $x \\to \\infty$?",
+    "question": "Para la función:\n$$f(x) = \\dfrac{3x + 1}{x - 2}$$\nCuando $x \\to \\infty$?",
     "options": [
       "$y = 1$",
       "$y = 3$",
@@ -160,7 +160,7 @@
     ]
   },
   {
-    "question": "En $f(x) = \\dfrac{x+1}{x-3}$, ¿cuál es la asíntota vertical?",
+    "question": "Tomá en cuenta la función:\n$$f(x) = \\dfrac{x+1}{x-3}$$\n¿cuál es la asíntota vertical?",
     "options": [
       "$x = 1$",
       "$x = -3$",
@@ -215,7 +215,7 @@
     ]
   },
   {
-    "question": "Para $f(x) = \\dfrac{x-2}{x^2 - 9}$, ¿qué valores excluyen el dominio?",
+    "question": "Estudiá la función:\n$$f(x) = \\dfrac{x-2}{x^2 - 9}$$\n¿qué valores excluyen el dominio?",
     "options": [
       "$x = 3$ y $x = -3$",
       "$x = 9$ y $x = -9$",
@@ -240,7 +240,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la asíntota horizontal de $f(x) = \\dfrac{5}{x}$?",
+    "question": "Examiná la función:\n$$f(x) = \\dfrac{5}{x}$$\n¿Cuál es la asíntota horizontal?",
     "options": [
       "$y = 5$",
       "$y = 0$",
@@ -265,7 +265,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el dominio de $f(x) = \\dfrac{x + 1}{x - 3}$ expresado en notación de intervalos?",
+    "question": "Considerá la función:\n$$f(x) = \\dfrac{x + 1}{x - 3}$$\nExpresado en notación de intervalos?",
     "options": [
       "$(-\\infty, 3]$",
       "$(-\\infty, 3) \\cup (3, +\\infty)$",
@@ -290,7 +290,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $f(3)$ si $f(x) = \\dfrac{2x - 1}{x + 2}$?",
+    "question": "Observá la siguiente función:\n$$f(x) = \\dfrac{2x - 1}{x + 2}$$\n¿Cuánto vale $f(3)$ si?",
     "options": [
       "$1$",
       "$\\dfrac{5}{3}$",
@@ -315,7 +315,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $g(-2)$ si $g(x) = \\dfrac{x^2 + 1}{x + 3}$?",
+    "question": "Dada la función:\n$$g(x) = \\dfrac{x^2 + 1}{x + 3}$$\n¿Cuánto vale $g(-2)$ si?",
     "options": [
       "$\\dfrac{5}{2}$",
       "$5$",
@@ -340,7 +340,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $f(0)$ si $f(x) = \\dfrac{3x + 6}{x - 4}$?",
+    "question": "Sea la función:\n$$f(x) = \\dfrac{3x + 6}{x - 4}$$\n¿Cuánto vale $f(0)$ si?",
     "options": [
       "$\\dfrac{3}{2}$",
       "$6$",
@@ -365,7 +365,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la asíntota vertical de $f(x) = \\dfrac{4}{3x - 6}$?",
+    "question": "Analiza la función:\n$$f(x) = \\dfrac{4}{3x - 6}$$\n¿Cuál es la asíntota vertical?",
     "options": [
       "$x = 6$",
       "$x = 3$",
@@ -390,7 +390,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la asíntota vertical de $f(x) = \\dfrac{x + 3}{2x + 4}$?",
+    "question": "Con la función:\n$$f(x) = \\dfrac{x + 3}{2x + 4}$$\n¿Cuál es la asíntota vertical?",
     "options": [
       "$x = -2$",
       "$x = 2$",
@@ -415,7 +415,7 @@
     ]
   },
   {
-    "question": "¿Cuántas asíntotas verticales tiene $f(x) = \\dfrac{x+1}{x^2 - 4x + 3}$?",
+    "question": "Para la función:\n$$f(x) = \\dfrac{x+1}{x^2 - 4x + 3}$$\n¿Cuántas asíntotas verticales tiene?",
     "options": [
       "1 (en $x = 1$)",
       "2 (en $x = 1$ y $x = 3$)",
@@ -440,7 +440,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la asíntota horizontal de $f(x) = \\dfrac{4x - 1}{2x + 3}$?",
+    "question": "Tomá en cuenta la función:\n$$f(x) = \\dfrac{4x - 1}{2x + 3}$$\n¿Cuál es la asíntota horizontal?",
     "options": [
       "$y = 4$",
       "$y = \\dfrac{1}{2}$",
@@ -465,7 +465,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la asíntota horizontal de $f(x) = \\dfrac{3}{x^2 - 1}$?",
+    "question": "Estudiá la función:\n$$f(x) = \\dfrac{3}{x^2 - 1}$$\n¿Cuál es la asíntota horizontal?",
     "options": [
       "$y = 3$",
       "$y = 1$",
@@ -490,7 +490,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la asíntota horizontal de $f(x) = \\dfrac{-5x + 2}{x - 1}$?",
+    "question": "Examiná la función:\n$$f(x) = \\dfrac{-5x + 2}{x - 1}$$\n¿Cuál es la asíntota horizontal?",
     "options": [
       "$y = -5$",
       "$y = 5$",
@@ -515,7 +515,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el dominio de $f(x) = \\dfrac{x - 1}{x + 4}$ en notación de intervalos?",
+    "question": "Considerá la función:\n$$f(x) = \\dfrac{x - 1}{x + 4}$$\nEn notación de intervalos?",
     "options": [
       "$(-\\infty, 4) \\cup (4, +\\infty)$",
       "$(-\\infty, -4) \\cup (-4, +\\infty)$",
@@ -540,7 +540,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el dominio de $f(x) = \\dfrac{2}{x^2 - 9}$?",
+    "question": "Observá la siguiente función:\n$$f(x) = \\dfrac{2}{x^2 - 9}$$\n¿Cuál es el dominio?",
     "options": [
       "$(-\\infty, 3) \\cup (3, +\\infty)$",
       "$\\mathbb{R} \\setminus \\{9\\}$",
@@ -565,7 +565,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el intercepto con el eje $X$ de $f(x) = \\dfrac{2x - 6}{x + 1}$?",
+    "question": "Dada la función:\n$$f(x) = \\dfrac{2x - 6}{x + 1}$$\n¿Cuál es el intercepto con el eje $X$?",
     "options": [
       "$x = -1$",
       "$x = 6$",
@@ -590,7 +590,7 @@
     ]
   },
   {
-    "question": "¿Tiene intercepto con el eje $X$ la función $f(x) = \\dfrac{5}{x - 2}$?",
+    "question": "Sea la función:\n$$f(x) = \\dfrac{5}{x - 2}$$\n¿Tiene intercepto con el eje $X$ la función?",
     "options": [
       "Sí, en $x = 5$",
       "No, porque el numerador es constante y nunca es cero",
@@ -615,7 +615,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el intercepto con el eje $Y$ de $f(x) = \\dfrac{x^2 - 4}{x + 1}$?",
+    "question": "Analiza la función:\n$$f(x) = \\dfrac{x^2 - 4}{x + 1}$$\n¿Cuál es el intercepto con el eje $Y$?",
     "options": [
       "$4$",
       "$-4$",
@@ -640,7 +640,7 @@
     ]
   },
   {
-    "question": "¿Existe el intercepto con el eje $Y$ de $f(x) = \\dfrac{x + 3}{x}$?",
+    "question": "Con la función:\n$$f(x) = \\dfrac{x + 3}{x}$$\n¿Existe el intercepto con el eje $Y$?",
     "options": [
       "Sí, en $y = 3$",
       "Sí, en $y = 1$",
@@ -865,7 +865,7 @@
     ]
   },
   {
-    "question": "Si $g(x) = \\dfrac{1}{x}$, ¿cómo se obtiene $f(x) = \\dfrac{1}{x} - 3$?",
+    "question": "Para la función:\n$$g(x) = \\dfrac{1}{x}$$\n¿cómo se obtiene $f(x) = \\dfrac{1}{x} - 3$?",
     "options": [
       "Desplazando $g$ 3 unidades hacia la derecha",
       "Multiplicando $g$ por $-3$",
@@ -890,7 +890,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la AV de $f(x) = \\dfrac{1}{x + 5} - 2$?",
+    "question": "Tomá en cuenta la función:\n$$f(x) = \\dfrac{1}{x + 5} - 2$$\n¿Cuál es la AV?",
     "options": [
       "$x = 5$",
       "$x = -2$",
@@ -915,7 +915,7 @@
     ]
   },
   {
-    "question": "¿Cuáles son la AV y la AH de $f(x) = \\dfrac{3}{x - 4} + 2$?",
+    "question": "Estudiá la función:\n$$f(x) = \\dfrac{3}{x - 4} + 2$$\n¿Cuáles son la AV y la AH?",
     "options": [
       "AV: $x = 4$, AH: $y = 2$",
       "AV: $x = -4$, AH: $y = 2$",
@@ -940,7 +940,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $f(6)$ si $f(x) = \\dfrac{3}{x-4} + 2$?",
+    "question": "Examiná la función:\n$$f(x) = \\dfrac{3}{x-4} + 2$$\n¿Cuánto vale $f(6)$ si?",
     "options": [
       "$3$",
       "$\\dfrac{7}{2}$",
@@ -965,7 +965,7 @@
     ]
   },
   {
-    "question": "En $f(x) = \\dfrac{x^2 - 1}{x - 1}$, ¿qué pasa en $x = 1$?",
+    "question": "Considerá la función:\n$$f(x) = \\dfrac{x^2 - 1}{x - 1}$$\n¿qué pasa en $x = 1$?",
     "options": [
       "Hay una asíntota vertical",
       "La función vale $1$ en ese punto",
@@ -990,9 +990,9 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $f(5)$ si $f(x) = \\dfrac{x^2 - 25}{x - 5}$?",
+    "question": "Observá la siguiente función:\n$$f(x) = \\dfrac{x^2 - 25}{x - 5}$$\n¿Cuánto vale $f(5)$ si?",
     "options": [
-      "$10$",
+      "$10$ aunque la condición falla",
       "$0$",
       "$5$",
       "No está definida (agujero en $x = 5$)"
@@ -1015,7 +1015,7 @@
     ]
   },
   {
-    "question": "Para $f(x) = \\dfrac{x + 2}{x - 3}$: ¿cuál es la AV, la AH y el valor $f(0)$?",
+    "question": "Dada la función:\n$$f(x) = \\dfrac{x + 2}{x - 3}$$\n: ¿cuál es la AV, la AH y el valor $f(0)$?",
     "options": [
       "AV: $x=3$, AH: $y=1$, $f(0) = -\\dfrac{2}{3}$",
       "AV: $x=-2$, AH: $y=1$, $f(0) = 2$",
@@ -1040,7 +1040,7 @@
     ]
   },
   {
-    "question": "Para $f(x) = \\dfrac{4}{x + 2}$: ¿cuál es la AV, la AH y el intercepto con el eje $Y$?",
+    "question": "Sea la función:\n$$f(x) = \\dfrac{4}{x + 2}$$\n: ¿cuál es la AV, la AH y el intercepto con el eje $Y$?",
     "options": [
       "AV: $x=2$, AH: $y=0$, intercepto $Y$: $2$",
       "AV: $x=-2$, AH: $y=0$, intercepto $Y$: $2$",
@@ -1065,7 +1065,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la asíntota vertical de $f(x) = \\dfrac{x^2 + 3x}{x^2 - 1}$?",
+    "question": "Analiza la función:\n$$f(x) = \\dfrac{x^2 + 3x}{x^2 - 1}$$\n¿Cuál es la asíntota vertical?",
     "options": [
       "Una sola AV en $x = 0$",
       "No tiene AV",
@@ -1090,7 +1090,7 @@
     ]
   },
   {
-    "question": "Para $f(x) = \\dfrac{2x + 1}{x - 5}$, ¿cuáles son el intercepto con el eje $X$ y el eje $Y$?",
+    "question": "Con la función:\n$$f(x) = \\dfrac{2x + 1}{x - 5}$$\n¿cuáles son el intercepto con el eje $X$ y el eje $Y$?",
     "options": [
       "Eje $X$: $x=5$; eje $Y$: $y=1$",
       "Eje $X$: $x=1$; eje $Y$: $y=5$",
@@ -1115,7 +1115,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $f(10)$ si $f(x) = \\dfrac{x-1}{x+1}$? ¿A qué valor se acerca cuando $x$ crece mucho?",
+    "question": "Para la función:\n$$f(x) = \\dfrac{x-1}{x+1}$$\n? ¿A qué valor se acerca cuando $x$ crece mucho?",
     "options": [
       "$f(10) = \\dfrac{9}{11} \\approx 0{,}82$; cuando $x \\to \\infty$, $f \\to 1$",
       "$f(10) = 9$; cuando $x \\to \\infty$, $f \\to 0$",
@@ -1140,7 +1140,7 @@
     ]
   },
   {
-    "question": "Si $f(x) = \\dfrac{k}{x + 3}$ pasa por el punto $(1, 2)$, ¿cuánto vale $k$?",
+    "question": "Tomá en cuenta la función:\n$$f(x) = \\dfrac{k}{x + 3}$$\nPasa por el punto $(1, 2)$, ¿cuánto vale $k$?",
     "options": [
       "$2$",
       "$8$",
@@ -1165,7 +1165,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la asíntota horizontal de $f(x) = \\dfrac{x^3 - 1}{x^2 + 1}$?",
+    "question": "Estudiá la función:\n$$f(x) = \\dfrac{x^3 - 1}{x^2 + 1}$$\n¿Cuál es la asíntota horizontal?",
     "options": [
       "$y = 1$",
       "$y = 0$",
@@ -1190,7 +1190,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el dominio de $f(x) = \\dfrac{x - 2}{x^2 + 2x + 1}$?",
+    "question": "Examiná la función:\n$$f(x) = \\dfrac{x - 2}{x^2 + 2x + 1}$$\n¿Cuál es el dominio?",
     "options": [
       "$\\mathbb{R} \\setminus \\{2\\}$",
       "$\\mathbb{R}$",
@@ -1215,7 +1215,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el intercepto con el eje $X$ de $f(x) = \\dfrac{x^2 - 9}{x + 5}$?",
+    "question": "Considerá la función:\n$$f(x) = \\dfrac{x^2 - 9}{x + 5}$$\n¿Cuál es el intercepto con el eje $X$?",
     "options": [
       "$x = 9$",
       "$x = -5$",
@@ -1240,7 +1240,7 @@
     ]
   },
   {
-    "question": "¿Cuáles son la AV y la AH de $f(x) = \\dfrac{5x - 10}{2x + 6}$?",
+    "question": "Observá la siguiente función:\n$$f(x) = \\dfrac{5x - 10}{2x + 6}$$\n¿Cuáles son la AV y la AH?",
     "options": [
       "AV: $x = 3$, AH: $y = \\dfrac{5}{2}$",
       "AV: $x = -3$, AH: $y = \\dfrac{2}{5}$",
@@ -1265,7 +1265,7 @@
     ]
   },
   {
-    "question": "Para $f(x) = \\dfrac{3x}{x^2 - 4}$, ¿cuáles son todas las asíntotas?",
+    "question": "Dada la función:\n$$f(x) = \\dfrac{3x}{x^2 - 4}$$\n¿cuáles son todas las asíntotas?",
     "options": [
       "AV: $x=2$; AH: $y=3$",
       "AV: $x=4$; AH: $y=0$",

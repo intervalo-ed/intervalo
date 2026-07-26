@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "Dada la sustitución $u=\\frac{x}{2}$, ¿cómo queda expresado $dx$ en términos de $du$?",
+    "question": "Observá la siguiente función:\n$$u=\\frac{x}{2}$$\n¿cómo queda expresado $dx$ en términos de $du$?",
     "options": [
       "$dx=du$",
       "$dx=2\\,du$",
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "Dada la sustitución $u=\\frac{x}{3}+1$, ¿cómo queda expresado $dx$ en términos de $du$?",
+    "question": "Dada la función:\n$$u=\\frac{x}{3}+1$$\n¿cómo queda expresado $dx$ en términos de $du$?",
     "options": [
       "$dx=du$",
       "$dx=3\\,du$",

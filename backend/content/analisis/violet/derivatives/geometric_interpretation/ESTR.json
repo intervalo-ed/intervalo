@@ -109,7 +109,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, con $f(3)=9$ y $f'(3)=6$ la ecuación queda $y=6x-9$.",
+    "feedback_correct": "La ecuación es $y=6x-9$.",
     "feedback_incorrect": [
       null,
       "Hay que sumar $f(3)=9$ al final, ese término se perdió después de distribuir la pendiente.",
@@ -134,7 +134,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Correcto, con $f(1)=-3$ y $f'(1)=2$ la ecuación queda $y=2x-5$.",
+    "feedback_correct": "La ecuación es $y=2x-5$.",
     "feedback_incorrect": [
       "Revisá la resta final, $-2 + (-3)$ da un resultado distinto de $-1$.",
       null,
@@ -184,7 +184,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Correcto, con $f(0)=0$ y $f'(0)=2$ la ecuación queda $y=2x$.",
+    "feedback_correct": "La ecuación es $y=2x$.",
     "feedback_incorrect": [
       "Sumaste una constante extra, $f(0)=0$, así que no queda ningún término independiente.",
       "Revisá el signo de la pendiente, $f'(0)=2$ es positivo, no negativo.",

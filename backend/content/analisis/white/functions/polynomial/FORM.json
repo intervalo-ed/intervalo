@@ -265,7 +265,7 @@
     ]
   },
   {
-    "question": "En $p(x) = 3x^4 - 2x^3 + x - 8$, ¿cuál es el coeficiente del término de grado $3$?",
+    "question": "Considerá la función:\n$$p(x) = 3x^4 - 2x^3 + x - 8$$\n¿cuál es el coeficiente del término de grado $3$?",
     "options": [
       "$-2$",
       "$3$",
@@ -398,7 +398,7 @@
       "$x = -1,\\ x = -3,\\ x = 5$"
     ],
     "correct_index": 2,
-    "feedback_correct": "Las raíces son los valores que anulan cada factor: $x=1$, $x=-3$, $x=5$.",
+    "feedback_correct": "Las raíces son $1, -3, 5$.",
     "feedback_incorrect": [
       "El $3$ sale de no invertir el signo del factor $(x+3)$, que en realidad da la raíz $x=-3$.",
       "El signo de $x=-1$ invierte el factor $(x-1)$, que en realidad da la raíz $x=+1$, y lo mismo pasa con $x=-5$ frente a $(x-5)$.",
@@ -773,7 +773,7 @@
       "$x^3 + 2x^2 + 2x + 1$"
     ],
     "correct_index": 1,
-    "feedback_correct": "$(x+1)^3 = x^3 + 3x^2 + 3x + 1$: cubo del binomio con $a=x$, $b=1$.",
+    "feedback_correct": "Cubo del binomio con resultado $x^3 + 3x^2 + 3x + 1$.",
     "feedback_incorrect": [
       "Esa expresión corresponde a la factorización de suma de cubos, no a la expansión del cubo de un binomio, que tiene cuatro términos.",
       null,
@@ -1058,7 +1058,7 @@
       "$f(x) = -x^2(x - 3)$"
     ],
     "correct_index": 1,
-    "feedback_correct": "Raíz doble en $x=0$ (toca sin cruzar) y simple en $x=3$ (cruza): $f(x) = x^2(x-3)$.",
+    "feedback_correct": "$f(x) = x^2(x-3)$.",
     "feedback_incorrect": [
       "A esta opción le falta la multiplicidad doble en $x=0$, con raíces simples la curva cruzaría en los dos puntos en vez de tocar en uno.",
       null,
@@ -1198,7 +1198,7 @@
       "$x = 1,\\ x = 4,\\ x = -2$"
     ],
     "correct_index": 1,
-    "feedback_correct": "Los factores se anulan en $x=0$, $x=4$ y $x=-2$.",
+    "feedback_correct": "Los factores se anulan en $0, 4, -2$.",
     "feedback_incorrect": [
       "El signo de la raíz $2$ está invertido, el factor $(x+2)$ da la raíz $x=-2$, no $x=+2$.",
       null,
