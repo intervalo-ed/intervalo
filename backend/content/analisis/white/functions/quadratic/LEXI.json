@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función es **cuadrática** si y solo si puede escribirse como:\n\nEl término $ax^2$ es el que define la familia: la variable $x$ aparece elevada exactamente al cuadrado como término de mayor grado.\n\n$f(x) = 4x - 7$ es lineal ($x$ a la primera potencia). $f(x) = 2^x$ es exponencial ($x$ en el exponente). : es una función **raíz** (potencia $1/2$).Solo $f(x) = 2x^2 - x + 1$ tiene la forma $ax^2 + bx + c$ con $a = 2 \\neq 0$: es **cuadrática**.",
+    "explanation": "Una función es **cuadrática** si puede expresarse en la forma $f(x) = ax^2 + bx + c$ donde $a \\neq 0$.\n\nEl término $ax^2$ es lo que la hace cuadrática (grado 2).\n\nLos parámetros tienen significados específicos:\n- $a$: coeficiente que determina la concavidad (arriba si $a > 0$, abajo si $a < 0$).\n- $b$: coeficiente que afecta el eje de simetría.\n- $c$: término independiente igual a $f(0)$.\n\nEjemplos de funciones cuadráticas: $f(x) = x^2$, $f(x) = -2x^2 + 3x + 1$, $f(x) = (x-3)^2$.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"
@@ -48,7 +48,7 @@
       -2,
       8
     ],
-    "explanation": "El **vértice** es el punto extremo de la **parábola**: el mínimo si $a > 0$ (parábola abierta hacia arriba) o el máximo si $a < 0$ (abierta hacia abajo).\n\nSu coordenada $x$ se calcula con la fórmula:\n\nLuego $y_v = f(x_v)$.\n\nPara $f(x) = x^2 - 4x + 3$: :, $y_v = 4 - 8 + 3 = -1$.El vértice es $(2, -1)$.\n\nLas **raíces** son las intersecciones con el eje $X$, la **ordenada al origen** es el valor $f(0) = c$, y las asíntotas no existen en funciones cuadráticas.",
+    "explanation": "El **vértice** es el punto extremo de una parábola (máximo o mínimo).\n\nUbicación: se encuentra en $x = -\\frac{b}{2a}$, y el valor $y$ se calcula evaluando en la función.\n\nPropiedades del vértice:\n- **Si $a > 0$**: parábola abre hacia arriba, vértice es **mínimo**.\n- **Si $a < 0$**: parábola abre hacia abajo, vértice es **máximo**.\n- Todas las parábolas son simétricas respecto a la línea vertical que pasa por el vértice.\n\nLa forma vértice de la parábola es $f(x) = a(x - h)^2 + k$ donde $(h,k)$ es el vértice.",
     "reviewed": false,
     "tags": [
       "vertice-concepto"
@@ -98,7 +98,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El signo del coeficiente $a$ determina la **concavidad** de la **parábola**:\n\nIntuitivamente: cuando $|x|$ crece, el término $ax^2$ domina.\n\nSi $a > 0$, los valores de $f$ crecen sin límite en ambas direcciones, por lo que el vértice es el punto más bajo.\n\nEsta propiedad es fundamental: determina si el problema tiene solución mínima o máxima (optimización).",
+    "explanation": "La **concavidad** describe hacia dónde abre la parábola.\n\nEl signo del coeficiente $a$ en $f(x) = ax^2 + bx + c$ determina completamente la concavidad:\n- Si $a > 0$: la parábola abre **hacia arriba** (concava hacia arriba, U-shaped).\n- Si $a < 0$: la parábola abre **hacia abajo** (concava hacia abajo, ∩-shaped).\n\nLa magnitud de $a$ (cuán grande es en valor absoluto) controla cuán \"abierta\" o \"cerrada\" es la parábola.\nUn valor $|a|$ más grande → parábola más cerrada.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -123,7 +123,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La diferencia clave entre $x^2$ y $2^x$ es la posición de la variable:\n\nEn una función **cuadrática**, $x$ es la base y el exponente es el número constante $2$: :.En una función **exponencial**, la base es la constante y $x$ es el exponente: $f(x) = 2^x$.\n\nLas demás opciones son cuadráticas: $x^2 + 3$ (forma $ax^2 + c$), $-x^2 + 1$ (con $a = -1$), y : (forma de **vértice**).Solo $2^x$ pertenece a otra familia.",
+    "explanation": "La diferencia fundamental entre $x^2$ y $2^x$ está en qué parte es la variable.\n\nEn $y = x^2$ (función potencia): la **base** es variable, el **exponente** es constante (2).\n→ Crece lentamente para pequeños valores, luego rápidamente.\n\nEn $y = 2^x$ (función exponencial): la **base** es constante (2), el **exponente** es variable.\n→ Crece exponencialmente rápido desde el comienzo.\n\nComparación: Para valores pequeños (x < 2), $x^2 > 2^x$. Para valores grandes (x > 4), $2^x > x^2$ y sigue creciendo mucho más rápido.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"
@@ -153,7 +153,7 @@
       -5,
       6
     ],
-    "explanation": "Las **raíces** (o ceros) de una función cuadrática son los valores de $x$ donde $f(x) = 0$, es decir, los puntos donde la **parábola** intersecta al eje $X$.\n\nEl número de raíces reales se determina con el **discriminante** $\\Delta = b^2 - 4ac$:\n\n(doble, es decir, con multiplicidad 2).\n\nPara $f(x) = x^2 - 4$: :, hay dos raíces:$x = 2$ y $x = -2$.",
+    "explanation": "Los **ceros** o **raíces** de una función cuadrática son los valores de $x$ donde $f(x) = 0$.\n\nGeométricamente: son los puntos donde el gráfico corta al eje $x$.\n\nCantidad de raíces:\n- **Dos raíces reales diferentes**: parábola corta el eje $x$ en dos puntos.\n- **Una raíz real (doble)**: parábola toca el eje $x$ en un solo punto (vértice en el eje).\n- **Sin raíces reales**: parábola no corta el eje $x$ (siempre positiva o siempre negativa).\n\nPara encontrar raíces, usamos la fórmula: $x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$.",
     "reviewed": false,
     "tags": [
       "raices-discriminante"
@@ -178,7 +178,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un polinomio de grado $n$ tiene, a lo sumo, $n$ **raíces** reales distintas.\n\nComo una función cuadrática tiene **grado 2** (el término de mayor grado es $x^2$), el tope de raíces reales que puede alcanzar es **2**.\n\nEl número exacto de raíces depende del discriminante ::con $\\Delta > 0$ la **parábola** corta el eje $X$ en dos puntos distintos y hay dos raíces, con $\\Delta = 0$ la parábola es tangente al eje en el **vértice** y hay una raíz doble, y con $\\Delta < 0$ la parábola no toca el eje y no hay raíces reales.\n\nNingún polinomio de grado 2 puede tener tres o más raíces reales distintas, ese salto solo aparece en polinomios de grado mayor.",
+    "explanation": "El **eje de simetría** es la línea vertical que divide la parábola en dos mitades idénticas.\n\nUbicación: $x = -\\frac{b}{2a}$ (la coordenada $x$ del vértice).\n\nPropiedad: Si reflejas cualquier punto de la parábola sobre este eje, obtienes otro punto en la parábola.\n\nEjemplo: Si la parábola $f(x) = x^2 - 4x + 3$ tiene eje de simetría en $x = 2$:\n- El punto $(0, 3)$ refleja a $(4, 3)$\n- El punto $(1, 0)$ refleja a $(3, 0)$\n\nEl eje de simetría es fundamental para entender y graficar parábolas.",
     "reviewed": false,
     "tags": [
       "raices-discriminante"
@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función cuadrática puede escribirse en tres formas equivalentes: la forma estándar $f(x) = ax^2 + bx + c$, que muestra directamente los coeficientes $a$, $b$, $c$; la forma de **vértice** $f(x) = a(x-h)^2 + k$, donde el vértice es $(h, k)$, útil para graficar; y la forma factorizada $f(x) = a(x - r_1)(x - r_2)$, donde las **raíces** son $r_1$ y $r_2$, útil para resolver.\n\nLas otras opciones corresponden a otras familias: $mx + b$ es lineal, : es exponencial, $\\log_a(x)$ es logarítmica.La condición $a \\neq 0$ es indispensable para que sea cuadrática y no lineal.",
+    "explanation": "Para graficar $f(x) = a(x-h)^2 + k$, comenzamos con $y = x^2$ y aplicamos transformaciones:\n\n1. **Desplazamiento horizontal**: $(x - h)$ desplaza $h$ unidades (derecha si $h > 0$).\n2. **Multiplicación por $a$**: estira (si $|a| > 1$) o comprime (si $|a| < 1$) verticalmente.\n   - Si $a < 0$: también refleja sobre el eje $x$.\n3. **Desplazamiento vertical**: $+k$ desplaza $k$ unidades hacia arriba.\n\nEjemplo: $f(x) = -2(x-1)^2 + 3$ es $y = x^2$ desplazada 1 derecha, escalada por -2, desplazada 3 arriba.",
     "reviewed": false,
     "tags": [
       "formas-de-la-funcion"
