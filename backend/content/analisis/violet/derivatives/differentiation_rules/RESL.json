@@ -12,8 +12,8 @@
     "feedback_correct": "Correcto, el exponente $6$ baja como coeficiente y el nuevo exponente es $5$.",
     "feedback_incorrect": [
       null,
-      "Falta el coeficiente $6$ que baja desde el exponente original.",
-      "Falta restar $1$ al exponente, quedó igual que el original.",
+      "Recordá que: el coeficiente $6$ que baja desde el exponente original.",
+      "Una resta que falta hacer: restar $1$ al exponente, quedó igual que el original.",
       "El coeficiente que baja es el exponente original, $6$, no $5$."
     ],
     "graph_fn": null,
@@ -64,7 +64,7 @@
       "Esa es la función original, la derivada del coseno es $-\\sin x$, una función distinta.",
       "El resultado cambia de función, de coseno pasa a seno, no se mantiene como coseno.",
       null,
-      "Falta el signo negativo, la derivada del coseno es $-\\sin x$."
+      "Recordá que: el signo negativo, la derivada del coseno es $-\\sin x$."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -112,7 +112,7 @@
     "feedback_correct": "Correcto, cada término se derivó con su regla correspondiente.",
     "feedback_incorrect": [
       null,
-      "Falta multiplicar el coeficiente $4$ por el exponente $3$ que baja, quedó incompleto.",
+      "Falta una multiplicación: multiplicar el coeficiente $4$ por el exponente $3$ que baja, quedó incompleto.",
       "Perdiste el signo negativo del término $-2\\sin x$, su derivada es $-2\\cos x$.",
       "El signo del término logarítmico es positivo, la derivada de $\\ln x$ es $\\frac{1}{x}$ sin signo negativo."
     ],
@@ -139,7 +139,7 @@
       "La constante $-4$ tiene derivada cero, no debería aparecer en el resultado final.",
       null,
       "Perdiste el signo negativo del término $3\\cos x$, su derivada es $-3\\sin x$.",
-      "Falta multiplicar el coeficiente $5$ por el exponente $2$ que baja, quedó incompleto."
+      "Falta una multiplicación: multiplicar el coeficiente $5$ por el exponente $2$ que baja, quedó incompleto."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -161,8 +161,8 @@
     "has_math": true,
     "feedback_correct": "Correcto, la potencia y la tangente se derivaron cada una con su regla.",
     "feedback_incorrect": [
-      "Falta el coeficiente $4$ que baja desde el exponente de $x^4$.",
-      "Falta el coeficiente $6$ que multiplica a la derivada de la tangente.",
+      "Recordá que: el coeficiente $4$ que baja desde el exponente de $x^4$.",
+      "Recordá que: el coeficiente $6$ que multiplica a la derivada de la tangente.",
       null,
       "Esa no es la fórmula de la derivada de la tangente, es $\\sec^2 x$, no $\\tan^2 x$."
     ],
@@ -186,9 +186,9 @@
     "has_math": true,
     "feedback_correct": "Correcto, el término exponencial se mantiene y el término lineal deriva a $5$.",
     "feedback_incorrect": [
-      "Falta derivar el término lineal $5x$, cuya derivada es $5$, no $5x$ sin cambios.",
+      "Recordá que: derivar el término lineal $5x$, cuya derivada es $5$, no $5x$ sin cambios.",
       "Esa forma sale de aplicar la regla de la potencia, pero $e^x$ es una exponencial, no una potencia de $x$.",
-      "Falta el coeficiente $2$ que multiplica al término exponencial.",
+      "Recordá que: el coeficiente $2$ que multiplica al término exponencial.",
       null
     ],
     "graph_fn": null,
@@ -213,7 +213,7 @@
     "feedback_incorrect": [
       null,
       "El signo del término trigonométrico es positivo, la derivada de $\\sin x$ es $\\cos x$ sin signo negativo.",
-      "Falta multiplicar el coeficiente $3$ por el exponente $2$ que baja, quedó incompleto.",
+      "Falta una multiplicación: multiplicar el coeficiente $3$ por el exponente $2$ que baja, quedó incompleto.",
       "La constante $7$ tiene derivada cero, no debería aparecer en el resultado final."
     ],
     "graph_fn": null,
@@ -236,7 +236,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, el logaritmo y el coseno se derivaron cada uno con su regla.",
     "feedback_incorrect": [
-      "Falta cambiar la función trigonométrica, la derivada de $\\cos x$ es $-\\sin x$, no $-\\cos x$.",
+      "Recordá que: cambiar la función trigonométrica, la derivada de $\\cos x$ es $-\\sin x$, no $-\\cos x$.",
       null,
       "Perdiste el signo negativo del término $4\\cos x$, su derivada es $-4\\sin x$.",
       "La derivada del logaritmo natural es $\\frac{1}{x}$, no $x$."
@@ -262,9 +262,9 @@
     "feedback_correct": "Correcto, $f'(x)=3x^2$ evaluada en $x=2$ da $12$.",
     "feedback_incorrect": [
       "Ese es el valor de $f(2)$, la función original, no de su derivada $f'(2)$.",
-      "Falta evaluar $x^2$ en $x=2$, ese valor es solo el coeficiente sin evaluar.",
+      "Recordá que: evaluar $x^2$ en $x=2$, ese valor es solo el coeficiente sin evaluar.",
       null,
-      "Falta elevar al cuadrado antes de multiplicar, $3 \\cdot 2^2$, no $3 \\cdot 2$."
+      "Falta una multiplicación: elevar al cuadrado antes de multiplicar, $3 \\cdot 2^2$, no $3 \\cdot 2$."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -313,8 +313,8 @@
     "feedback_incorrect": [
       null,
       "Revisá el signo del término independiente, $f(0)=1$ se suma, no se resta.",
-      "Falta el aporte de $e^x$ a la pendiente, $f'(0)=e^0+1=2$, no solo $1$.",
-      "Falta sumar $f(0)=1$ al final, ese término se perdió en el despeje."
+      "Recordá que: el aporte de $e^x$ a la pendiente, $f'(0)=e^0+1=2$, no solo $1$.",
+      "Hay una suma que falta: sumar $f(0)=1$ al final, ese término se perdió en el despeje."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -336,10 +336,10 @@
     "has_math": true,
     "feedback_correct": "Correcto, cada término de la posición se derivó por separado.",
     "feedback_incorrect": [
-      "Falta derivar el término lineal $-2t$, quedó copiado sin cambios en vez de derivarlo a $-2$.",
+      "Recordá que: derivar el término lineal $-2t$, quedó copiado sin cambios en vez de derivarlo a $-2$.",
       null,
-      "Falta derivar el término lineal $-2t$, cuya derivada es $-2$, no debería desaparecer del resultado.",
-      "Falta multiplicar el coeficiente $1$ por el exponente $3$ que baja, en este caso coincide pero conviene revisarlo igual."
+      "Recordá que: derivar el término lineal $-2t$, cuya derivada es $-2$, no debería desaparecer del resultado.",
+      "Falta una multiplicación: multiplicar el coeficiente $1$ por el exponente $3$ que baja, en este caso coincide pero conviene revisarlo igual."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -361,7 +361,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, $2x=4$ da $x=2$.",
     "feedback_incorrect": [
-      "Falta dividir por el coeficiente $2$, ese valor es directamente la pendiente buscada sin dividir.",
+      "El divisor falta en tu cálculo: dividir por el coeficiente $2$, ese valor es directamente la pendiente buscada sin dividir.",
       "Ese resultado sale de multiplicar en vez de dividir, hay que despejar $x$ dividiendo por $2$.",
       null,
       "Revisá el signo al despejar, $2x=4$ da $x=2$ positivo, no negativo."

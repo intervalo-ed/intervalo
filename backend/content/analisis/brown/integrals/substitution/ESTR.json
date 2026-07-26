@@ -263,7 +263,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, el signo negativo se conserva en el despeje.",
     "feedback_incorrect": [
-      "Falta el signo negativo, la derivada de $-2x$ es $-2$, y ese signo se conserva al despejar $dx$.",
+      "Recordá que: el signo negativo, la derivada de $-2x$ es $-2$, y ese signo se conserva al despejar $dx$.",
       "El coeficiente $-2$ no puede desaparecer del despeje, tiene que dividir a $du$.",
       null
     ],
@@ -332,7 +332,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, el signo negativo se conserva en el despeje.",
     "feedback_incorrect": [
-      "Falta el signo negativo, la derivada de $-x+5$ es $-1$, y ese signo se conserva al despejar $dx$.",
+      "Recordá que: el signo negativo, la derivada de $-x+5$ es $-1$, y ese signo se conserva al despejar $dx$.",
       "El término $5$ es una constante y desaparece al derivar, no afecta el ajuste del diferencial.",
       null
     ],

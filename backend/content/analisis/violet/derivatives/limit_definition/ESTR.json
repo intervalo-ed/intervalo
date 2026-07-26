@@ -13,7 +13,7 @@
     "feedback_incorrect": [
       null,
       "Ese es el valor de la función original, todavía falta desarrollar el cociente incremental completo.",
-      "Falta tomar el límite cuando $h \\to 0$, ese término todavía conserva $h$ sin cancelar.",
+      "Recordá que: tomar el límite cuando $h \\to 0$, ese término todavía conserva $h$ sin cancelar.",
       "Revisá la expansión de $(x+h)^2$, el término cruzado es $2xh$, no $4xh$."
     ],
     "graph_fn": null,
@@ -39,7 +39,7 @@
       "Esa es la constante original de $f$, que se cancela apenas se resta $f(x+h)-f(x)$, no puede ser el resultado de la derivada.",
       "La constante $3$ se cancela al restar $f(x+h)-f(x)$, no debería quedar en el resultado final.",
       null,
-      "Falta tomar el límite cuando $h \\to 0$, ese término todavía conserva $h$ sin cancelar."
+      "Recordá que: tomar el límite cuando $h \\to 0$, ese término todavía conserva $h$ sin cancelar."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -61,10 +61,10 @@
     "has_math": true,
     "feedback_correct": "Correcto, el coeficiente $2$ se duplica al derivar el término cuadrático.",
     "feedback_incorrect": [
-      "Falta tomar el límite cuando $h \\to 0$, ese término todavía conserva $h$ sin cancelar.",
+      "Recordá que: tomar el límite cuando $h \\to 0$, ese término todavía conserva $h$ sin cancelar.",
       "Ese es el valor de la función original, todavía falta desarrollar el cociente incremental completo.",
       null,
-      "Falta multiplicar por el coeficiente $2$ que acompaña al término cuadrático, se perdió en algún paso de la simplificación."
+      "Falta una multiplicación: multiplicar por el coeficiente $2$ que acompaña al término cuadrático, se perdió en algún paso de la simplificación."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -87,8 +87,8 @@
     "feedback_correct": "Correcto, el término lineal $-4x$ aporta $-4$ a la derivada.",
     "feedback_incorrect": [
       "Revisá el signo del término lineal, $-4x$ aporta $-4$ a la derivada, no $+4$.",
-      "Falta tomar el límite cuando $h \\to 0$, ese término todavía conserva $h$ sin cancelar.",
-      "Falta el término $2x$ que aporta la parte cuadrática, solo quedó el aporte del término lineal.",
+      "Recordá que: tomar el límite cuando $h \\to 0$, ese término todavía conserva $h$ sin cancelar.",
+      "Recordá que: el término $2x$ que aporta la parte cuadrática, solo quedó el aporte del término lineal.",
       null
     ],
     "graph_fn": null,
@@ -113,7 +113,7 @@
     "feedback_incorrect": [
       null,
       "Revisá el signo, $-(x+h)^2$ expande con signo negativo en todos sus términos, no solo en algunos.",
-      "Falta tomar el límite cuando $h \\to 0$, ese término todavía conserva $h$ sin cancelar.",
+      "Recordá que: tomar el límite cuando $h \\to 0$, ese término todavía conserva $h$ sin cancelar.",
       "Ese es el valor de la función original, todavía falta desarrollar el cociente incremental completo."
     ],
     "graph_fn": null,
@@ -136,10 +136,10 @@
     "has_math": true,
     "feedback_correct": "Correcto, el término cuadrático aporta $6x$ y el lineal aporta $2$.",
     "feedback_incorrect": [
-      "Falta tomar el límite cuando $h \\to 0$, todavía quedan términos con $h$ sin cancelar.",
+      "Recordá que: tomar el límite cuando $h \\to 0$, todavía quedan términos con $h$ sin cancelar.",
       null,
-      "Falta el aporte del término lineal $2x$, que agrega un $+2$ constante a la derivada.",
-      "Falta duplicar el coeficiente del término cuadrático, $3x^2$ deriva a $6x$, no a $3x$."
+      "Recordá que: el aporte del término lineal $2x$, que agrega un $+2$ constante a la derivada.",
+      "Recordá que: duplicar el coeficiente del término cuadrático, $3x^2$ deriva a $6x$, no a $3x$."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -162,9 +162,9 @@
     "feedback_correct": "Correcto, el término cuadrático aporta $-4x$ y el lineal aporta $1$.",
     "feedback_incorrect": [
       "Revisá el signo del término cuadrático, $-2x^2$ deriva a $-4x$, no a $+4x$.",
-      "Falta duplicar el coeficiente del término cuadrático, $-2x^2$ deriva a $-4x$, no a $-2x$.",
+      "Recordá que: duplicar el coeficiente del término cuadrático, $-2x^2$ deriva a $-4x$, no a $-2x$.",
       null,
-      "Falta el aporte del término lineal $x$, que agrega un $+1$ constante a la derivada."
+      "Recordá que: el aporte del término lineal $x$, que agrega un $+1$ constante a la derivada."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -187,8 +187,8 @@
     "feedback_correct": "Correcto, la parte cuadrática aporta $2x$, la lineal aporta $4$ y la constante se cancela.",
     "feedback_incorrect": [
       "La constante $5$ se cancela al restar $f(x+h)-f(x)$, el término lineal es el que aporta $4$, no la constante.",
-      "Falta tomar el límite cuando $h \\to 0$, ese término todavía conserva $h$ sin cancelar.",
-      "Falta el término $2x$ que aporta la parte cuadrática, solo quedó el aporte del término lineal.",
+      "Recordá que: tomar el límite cuando $h \\to 0$, ese término todavía conserva $h$ sin cancelar.",
+      "Recordá que: el término $2x$ que aporta la parte cuadrática, solo quedó el aporte del término lineal.",
       null
     ],
     "graph_fn": null,
@@ -212,9 +212,9 @@
     "feedback_correct": "Correcto, ese es el numerador completo antes de cancelar los términos $x^2$.",
     "feedback_incorrect": [
       null,
-      "Falta el término cruzado $2xh$ que surge de expandir $(x+h)^2$, es el error más costoso de este paso.",
+      "Recordá que: el término cruzado $2xh$ que surge de expandir $(x+h)^2$, es el error más costoso de este paso.",
       "Ese ya es el numerador simplificado, tras cancelar los $x^2$, todavía falta escribir el paso anterior completo.",
-      "Falta restar $f(x)=x^2$ al final, el numerador completo del cociente incremental incluye esa resta."
+      "Una resta que falta hacer: restar $f(x)=x^2$ al final, el numerador completo del cociente incremental incluye esa resta."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -236,9 +236,9 @@
     "has_math": true,
     "feedback_correct": "Correcto, los dos términos $x^2$ se cancelan y quedan $2xh$ y $h^2$.",
     "feedback_incorrect": [
-      "Falta el término cruzado $2xh$, que es justamente el que se suele perder al expandir el binomio.",
+      "Recordá que: el término cruzado $2xh$, que es justamente el que se suele perder al expandir el binomio.",
       null,
-      "Falta el término $h^2$, que también sobrevive a la cancelación de los $x^2$.",
+      "Recordá que: el término $h^2$, que también sobrevive a la cancelación de los $x^2$.",
       "Todavía no se cancelaron los dos términos $x^2$ que se anulan entre sí."
     ],
     "graph_fn": null,
@@ -336,10 +336,10 @@
     "has_math": true,
     "feedback_correct": "Correcto, el cociente incremental de una función lineal da directamente su coeficiente.",
     "feedback_incorrect": [
-      "Falta tomar el límite cuando $h \\to 0$, ese término todavía conserva $h$ sin cancelar.",
+      "Recordá que: tomar el límite cuando $h \\to 0$, ese término todavía conserva $h$ sin cancelar.",
       null,
       "Ese es el valor de la función original, todavía falta desarrollar el cociente incremental completo.",
-      "Falta el coeficiente $3$ que acompaña a $x$, se perdió en algún paso de la simplificación."
+      "Recordá que: el coeficiente $3$ que acompaña a $x$, se perdió en algún paso de la simplificación."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -362,7 +362,7 @@
     "feedback_correct": "Correcto, la constante se cancela y solo sobrevive el coeficiente de $x$.",
     "feedback_incorrect": [
       "La constante $7$ se cancela al restar $f(x+h)-f(x)$, no puede sobrevivir sola en el resultado.",
-      "Falta tomar el límite cuando $h \\to 0$, ese término todavía conserva $h$ sin cancelar.",
+      "Recordá que: tomar el límite cuando $h \\to 0$, ese término todavía conserva $h$ sin cancelar.",
       null,
       "Ese es el valor de la función original, todavía falta desarrollar el cociente incremental completo."
     ],

@@ -14,7 +14,7 @@
       null,
       "Revisá la suma con denominador común, $\\frac{8}{3}+\\frac{6}{3}=\\frac{14}{3}$, no $\\frac{10}{3}$.",
       "En definidas la $C$ se cancela al restar $F(2)-F(0)$, la respuesta es un número puro.",
-      "Falta sumar el aporte del término constante, $F(2)=\\frac{8}{3}+2$, no solo $\\frac{8}{3}$."
+      "Hay una suma que falta: sumar el aporte del término constante, $F(2)=\\frac{8}{3}+2$, no solo $\\frac{8}{3}$."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -38,7 +38,7 @@
     "feedback_incorrect": [
       "La resta va primero el límite superior menos el inferior, $F(1)-F(0)$, no al revés.",
       null,
-      "Falta restar $F(0)=e^0=1$, ese valor no es cero solo porque el límite inferior es cero.",
+      "Una resta que falta hacer: restar $F(0)=e^0=1$, ese valor no es cero solo porque el límite inferior es cero.",
       "En definidas la $C$ se cancela al restar $F(1)-F(0)$, la respuesta es un número puro."
     ],
     "graph_fn": null,
@@ -86,7 +86,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, $F(1)=\\frac{1}{4}$ y $F(0)=0$.",
     "feedback_incorrect": [
-      "Falta dividir por el nuevo exponente, $4$, ese paso es parte de la regla de la potencia.",
+      "El divisor falta en tu cálculo: dividir por el nuevo exponente, $4$, ese paso es parte de la regla de la potencia.",
       "En definidas la $C$ se cancela al restar $F(1)-F(0)$, la respuesta es un número puro.",
       "El resultado es positivo, ambos valores de la función son positivos en este intervalo.",
       null
@@ -161,7 +161,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, la primitiva $x^3$ evaluada en $2$ da $8$.",
     "feedback_incorrect": [
-      "Falta dividir por el nuevo exponente, ese ajuste ya está incluido dentro del coeficiente $3$ original.",
+      "El divisor falta en tu cálculo: dividir por el nuevo exponente, ese ajuste ya está incluido dentro del coeficiente $3$ original.",
       "Revisá el cálculo de $F(2)=2^3=8$, no $2^2$.",
       null,
       "En definidas la $C$ se cancela al restar $F(2)-F(0)$, la respuesta es un número puro."
@@ -186,7 +186,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, $F(0)=e^0=1$ no se puede omitir de la resta.",
     "feedback_incorrect": [
-      "Falta restar $F(0)=e^0=1$, ese valor no es cero solo porque el límite inferior es cero.",
+      "Una resta que falta hacer: restar $F(0)=e^0=1$, ese valor no es cero solo porque el límite inferior es cero.",
       "En definidas la $C$ se cancela al restar $F(1)-F(0)$, la respuesta es un número puro.",
       "La resta va primero el límite superior menos el inferior, $F(1)-F(0)$, no al revés.",
       null
@@ -213,7 +213,7 @@
     "feedback_incorrect": [
       null,
       "En definidas la $C$ se cancela al restar $F(1)-F(0)$, la respuesta es un número puro.",
-      "Falta restar la integral remanente, solo evaluaste el término $uv$ sin la parte que resta.",
+      "Una resta que falta hacer: restar la integral remanente, solo evaluaste el término $uv$ sin la parte que resta.",
       "Revisá el arrastre del signo negativo de la fórmula de partes en la evaluación final."
     ],
     "graph_fn": null,
@@ -239,7 +239,7 @@
       "En definidas la $C$ se cancela al restar, la respuesta es un número puro.",
       null,
       "Los límites no se actualizaron a la variable $u$, con $u=x^2+1$ los límites correctos son $u=1$ y $u=5$.",
-      "Falta dividir por $8$, ese factor sale de la regla de la potencia combinada con el ajuste del diferencial."
+      "El divisor falta en tu cálculo: dividir por $8$, ese factor sale de la regla de la potencia combinada con el ajuste del diferencial."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -261,7 +261,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, aplicando partes y evaluando en los límites da $\\pi/2-1$.",
     "feedback_incorrect": [
-      "Falta restar el término $\\cos x$ de la primitiva, solo consideraste la parte $x\\sin x$.",
+      "Una resta que falta hacer: restar el término $\\cos x$ de la primitiva, solo consideraste la parte $x\\sin x$.",
       "La resta va primero el límite superior menos el inferior, no al revés.",
       null,
       "En definidas la $C$ se cancela al restar, la respuesta es un número puro."
@@ -313,8 +313,8 @@
     "feedback_incorrect": [
       null,
       "En definidas la $C$ se cancela al restar, la respuesta es un número puro.",
-      "Falta restar el término $-x$ de la primitiva, solo consideraste la parte con el logaritmo.",
-      "Falta el coeficiente $(x+1)$ multiplicando al logaritmo en el término $uv$, no solo $1$."
+      "Una resta que falta hacer: restar el término $-x$ de la primitiva, solo consideraste la parte con el logaritmo.",
+      "Recordá que: el coeficiente $(x+1)$ multiplicando al logaritmo en el término $uv$, no solo $1$."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -336,7 +336,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, actualizando los límites a $u=0$ y $u=1$ y evaluando ahí.",
     "feedback_incorrect": [
-      "Falta dividir por $2$, ese factor sale de la regla de la potencia aplicada a $u^2$.",
+      "El divisor falta en tu cálculo: dividir por $2$, ese factor sale de la regla de la potencia aplicada a $u^2$.",
       null,
       "En definidas la $C$ se cancela al restar, la respuesta es un número puro.",
       "Los límites no se actualizaron a la variable $u$, con $u=\\sin x$ los límites correctos son $u=0$ y $u=1$."
@@ -362,7 +362,7 @@
     "feedback_correct": "Correcto, aplicando partes y restando $F(0)=-1$ correctamente.",
     "feedback_incorrect": [
       "La resta va primero el límite superior menos el inferior, $F(1)-F(0)$, no al revés.",
-      "Falta restar $F(0)=-1$, ese valor no se puede omitir aunque el límite inferior sea cero.",
+      "Una resta que falta hacer: restar $F(0)=-1$, ese valor no se puede omitir aunque el límite inferior sea cero.",
       null,
       "En definidas la $C$ se cancela al restar, la respuesta es un número puro."
     ],

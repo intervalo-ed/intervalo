@@ -11,8 +11,8 @@
     "feedback_correct": "Correcto, el exponente baja como coeficiente y se resta uno al exponente.",
     "feedback_incorrect": [
       null,
-      "Falta multiplicar por el coeficiente $n$, se bajó el exponente correcto pero se perdió el multiplicador.",
-      "Falta restar $1$ al exponente, el coeficiente $n$ está bien pero el exponente quedó sin cambiar."
+      "Falta una multiplicación: multiplicar por el coeficiente $n$, se bajó el exponente correcto pero se perdió el multiplicador.",
+      "Una resta que falta hacer: restar $1$ al exponente, el coeficiente $n$ está bien pero el exponente quedó sin cambiar."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -33,9 +33,9 @@
     "has_math": true,
     "feedback_correct": "Correcto, el exponente $5$ baja como coeficiente y el nuevo exponente es $4$.",
     "feedback_incorrect": [
-      "Falta restar $1$ al exponente, quedó igual que el original.",
+      "Una resta que falta hacer: restar $1$ al exponente, quedó igual que el original.",
       null,
-      "Falta el coeficiente $5$ que baja desde el exponente original."
+      "Recordá que: el coeficiente $5$ que baja desde el exponente original."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -80,8 +80,8 @@
     "feedback_correct": "Correcto, el coeficiente $7$ se multiplica por el $3$ que baja del exponente.",
     "feedback_incorrect": [
       null,
-      "Falta multiplicar el coeficiente $7$ por el exponente $3$ que baja, $7 \\cdot 3 = 21$.",
-      "Falta restar $1$ al exponente, quedó igual que el original."
+      "Falta una multiplicación: multiplicar el coeficiente $7$ por el exponente $3$ que baja, $7 \\cdot 3 = 21$.",
+      "Una resta que falta hacer: restar $1$ al exponente, quedó igual que el original."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -125,7 +125,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, para base general aparece el factor $\\ln a$.",
     "feedback_incorrect": [
-      "Falta el factor $\\ln a$, esa fórmula solo vale cuando la base es exactamente $e$.",
+      "Recordá que: el factor $\\ln a$, esa fórmula solo vale cuando la base es exactamente $e$.",
       "Esa forma sale de aplicar la regla de la potencia, pero $a^x$ no es una potencia de $x$, es una exponencial de base $a$.",
       null
     ],
@@ -194,7 +194,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, la derivada del coseno lleva signo negativo.",
     "feedback_incorrect": [
-      "Falta el signo negativo, la derivada del coseno es $-\\sin x$, no $\\sin x$.",
+      "Recordá que: el signo negativo, la derivada del coseno es $-\\sin x$, no $\\sin x$.",
       "Esa es la función original, la derivada del coseno es $-\\sin x$, una función distinta.",
       null
     ],
@@ -242,7 +242,7 @@
     "feedback_incorrect": [
       "Revisá la resta en el exponente, de $-2$ hay que restar $1$ más, quedando $-3$, no $-1$.",
       null,
-      "Falta el signo negativo que baja junto con el exponente $-2$."
+      "Recordá que: el signo negativo que baja junto con el exponente $-2$."
     ],
     "graph_fn": null,
     "graph_view": null,

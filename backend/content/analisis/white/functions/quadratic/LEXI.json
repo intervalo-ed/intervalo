@@ -354,7 +354,7 @@
       "Ese es el término lineal, el que acompaña a $x$ elevada a la primera potencia.",
       null,
       "Ese es el término independiente, el que no lleva ninguna potencia de $x$.",
-      "Falta el coeficiente $3$; el término cuadrático incluye tanto el coeficiente como la potencia."
+      "Recordá que: el coeficiente $3$; el término cuadrático incluye tanto el coeficiente como la potencia."
     ],
     "graph_fn": null,
     "graph_view": null,

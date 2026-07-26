@@ -86,7 +86,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, la primitiva de $\\sin x$ lleva signo negativo.",
     "feedback_incorrect": [
-      "Falta el signo negativo, la primitiva de $\\sin x$ es $-\\cos x$, porque $(-\\cos x)'=\\sin x$.",
+      "Recordá que: el signo negativo, la primitiva de $\\sin x$ es $-\\cos x$, porque $(-\\cos x)'=\\sin x$.",
       "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa.",
       "Esa es la función original, no su primitiva, revisá la **tabla de integrales inmediatas**.",
       null
@@ -112,7 +112,7 @@
     "feedback_correct": "Correcto, la primitiva de $\\frac{1}{x}$ es el logaritmo natural con valor absoluto.",
     "feedback_incorrect": [
       null,
-      "Falta el valor absoluto, $\\ln|x|$ respeta el dominio de $\\frac{1}{x}$, que incluye valores negativos.",
+      "Recordá que: el valor absoluto, $\\ln|x|$ respeta el dominio de $\\frac{1}{x}$, que incluye valores negativos.",
       "Aplicaste la **regla de la potencia** con $n=-1$, y eso genera una división por cero, ese exponente es la excepción de la tabla.",
       "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa."
     ],

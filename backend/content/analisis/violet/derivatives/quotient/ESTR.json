@@ -332,7 +332,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, numerador con resta en el orden correcto y denominador al cuadrado.",
     "feedback_incorrect": [
-      "Falta elevar el denominador al cuadrado, esa expresión dejó a $v$ sin elevar.",
+      "Recordá que: elevar el denominador al cuadrado, esa expresión dejó a $v$ sin elevar.",
       "Esa fórmula suma los dos términos, en cambio la regla del cociente los resta.",
       null
     ],

@@ -12,8 +12,8 @@
     "feedback_correct": "Correcto, tras distribuir y despejar queda $y=3x-1$.",
     "feedback_incorrect": [
       null,
-      "Falta restar $3 \\cdot 2$ al distribuir, se sumó $f(2)$ directamente sin descontar ese producto.",
-      "Falta sumar $f(2)=5$ al final, ese término se perdió después de distribuir la pendiente.",
+      "Una resta que falta hacer: restar $3 \\cdot 2$ al distribuir, se sumó $f(2)$ directamente sin descontar ese producto.",
+      "Hay una suma que falta: sumar $f(2)=5$ al final, ese término se perdió después de distribuir la pendiente.",
       "Revisá el signo de la pendiente, $f'(2)=3$ es positivo, no negativo."
     ],
     "graph_fn": null,
@@ -38,7 +38,7 @@
     "feedback_incorrect": [
       "Revisá el signo de la pendiente, $f'(1)=-2$ es negativo, no positivo.",
       null,
-      "Falta el término que sale de distribuir $-2 \\cdot (-1)$, se usó $f(1)$ solo, sin ese aporte.",
+      "Recordá que: el término que sale de distribuir $-2 \\cdot (-1)$, se usó $f(1)$ solo, sin ese aporte.",
       "Revisá el signo de la ordenada al origen, el resultado de $2+4$ es positivo, no negativo."
     ],
     "graph_fn": null,
@@ -61,7 +61,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, con $a=0$ la fórmula se simplifica y queda $y=5x+3$.",
     "feedback_incorrect": [
-      "Falta sumar $f(0)=3$ al final, ese término se perdió en el despeje.",
+      "Hay una suma que falta: sumar $f(0)=3$ al final, ese término se perdió en el despeje.",
       "Los roles están invertidos, la pendiente es $f'(0)=5$ y el término independiente es $f(0)=3$, no al revés.",
       null,
       "Revisá el signo del término independiente, $f(0)=3$ se suma, no se resta."
@@ -86,7 +86,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, tras distribuir y despejar queda $y=4x+6$.",
     "feedback_incorrect": [
-      "Falta el término que sale de distribuir $4 \\cdot 1$, se usó $f(-1)$ solo, sin ese aporte.",
+      "Recordá que: el término que sale de distribuir $4 \\cdot 1$, se usó $f(-1)$ solo, sin ese aporte.",
       "Revisá el signo del resultado final, $4+2=6$ es positivo, no negativo.",
       "Revisá el signo completo de la ordenada al origen, se perdió en el despeje.",
       null
@@ -112,7 +112,7 @@
     "feedback_correct": "Correcto, con $f(3)=9$ y $f'(3)=6$ la ecuación queda $y=6x-9$.",
     "feedback_incorrect": [
       null,
-      "Falta sumar $f(3)=9$ al final, ese término se perdió después de distribuir la pendiente.",
+      "Hay una suma que falta: sumar $f(3)=9$ al final, ese término se perdió después de distribuir la pendiente.",
       "Revisá el signo de la ordenada al origen, el resultado de $-18+9$ es negativo, no positivo.",
       "Los roles están invertidos, la pendiente es $f'(3)=6$ y el término independiente sale de $f(3)=9$, no al revés."
     ],
@@ -138,7 +138,7 @@
     "feedback_incorrect": [
       "Revisá la resta final, $-2 + (-3)$ da un resultado distinto de $-1$.",
       null,
-      "Falta sumar $f(1)=-3$ completo al final, ese término se distribuyó mal.",
+      "Hay una suma que falta: sumar $f(1)=-3$ completo al final, ese término se distribuyó mal.",
       "Revisá el signo del término independiente, $f(1)=-3$ es negativo, así que se resta, no se suma."
     ],
     "graph_fn": null,
@@ -164,7 +164,7 @@
       "Revisá el signo de la ordenada al origen, el resultado de $-6+7$ es positivo, no negativo.",
       "Revisá el signo de la pendiente, $f'(2)=3$ es positivo, no negativo.",
       null,
-      "Falta sumar $f(2)=7$ al final, ese término se perdió después de distribuir la pendiente."
+      "Hay una suma que falta: sumar $f(2)=7$ al final, ese término se perdió después de distribuir la pendiente."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -213,7 +213,7 @@
     "feedback_incorrect": [
       null,
       "Ese valor sale de invertir el cociente, la pendiente es $\\frac{\\Delta y}{\\Delta x}$, no $\\frac{\\Delta x}{\\Delta y}$.",
-      "Falta dividir por $\\Delta x = 3$, ese valor es solo el numerador de la pendiente.",
+      "El divisor falta en tu cálculo: dividir por $\\Delta x = 3$, ese valor es solo el numerador de la pendiente.",
       "Revisá el signo, la función crece entre esos dos puntos, así que la pendiente tiene que ser positiva."
     ],
     "graph_fn": null,
@@ -236,7 +236,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, $m=\\frac{1-5}{2-0}=-2$.",
     "feedback_incorrect": [
-      "Falta dividir por $\\Delta x = 2$, ese valor es solo el numerador de la pendiente.",
+      "El divisor falta en tu cálculo: dividir por $\\Delta x = 2$, ese valor es solo el numerador de la pendiente.",
       null,
       "Revisá el signo, la función decrece entre esos dos puntos, así que la pendiente tiene que ser negativa.",
       "Ese valor sale de invertir el cociente, la pendiente es $\\frac{\\Delta y}{\\Delta x}$, no $\\frac{\\Delta x}{\\Delta y}$."
@@ -264,7 +264,7 @@
       "Revisá el signo, la función crece entre esos dos puntos, así que la pendiente tiene que ser positiva.",
       "Ese valor sale de invertir el cociente, la pendiente es $\\frac{\\Delta y}{\\Delta x}$, no $\\frac{\\Delta x}{\\Delta y}$.",
       null,
-      "Falta dividir por $\\Delta x = 2$, ese valor es solo el numerador de la pendiente."
+      "El divisor falta en tu cálculo: dividir por $\\Delta x = 2$, ese valor es solo el numerador de la pendiente."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -287,7 +287,7 @@
     "feedback_correct": "Correcto, $m=\\frac{2-10}{3-1}=-4$.",
     "feedback_incorrect": [
       "Revisá el signo, la función decrece entre esos dos puntos, así que la pendiente tiene que ser negativa.",
-      "Falta dividir por $\\Delta x = 2$, ese valor es solo el numerador de la pendiente.",
+      "El divisor falta en tu cálculo: dividir por $\\Delta x = 2$, ese valor es solo el numerador de la pendiente.",
       "Ese valor sale de invertir el cociente, la pendiente es $\\frac{\\Delta y}{\\Delta x}$, no $\\frac{\\Delta x}{\\Delta y}$.",
       null
     ],
@@ -313,7 +313,7 @@
     "feedback_incorrect": [
       null,
       "Revisá el signo al despejar, $2x=4$ da $x=2$ positivo, no negativo.",
-      "Falta dividir por el coeficiente $2$, ese valor es solo el término independiente cambiado de signo.",
+      "El divisor falta en tu cálculo: dividir por el coeficiente $2$, ese valor es solo el término independiente cambiado de signo.",
       "Ese valor sale de invertir la ecuación, hay que despejar $x$ dividiendo, no invirtiendo la fracción."
     ],
     "graph_fn": null,
@@ -336,10 +336,10 @@
     "has_math": true,
     "feedback_correct": "Correcto, $-3x+9=0$ da $x=3$.",
     "feedback_incorrect": [
-      "Falta dividir por el coeficiente $-3$, ese valor es directamente el término independiente sin dividir.",
+      "El divisor falta en tu cálculo: dividir por el coeficiente $-3$, ese valor es directamente el término independiente sin dividir.",
       null,
       "Revisá el signo al despejar, $-3x=-9$ da $x=3$ positivo, no negativo.",
-      "Falta dividir por el coeficiente $-3$, ese valor es solo el término independiente cambiado de signo."
+      "El divisor falta en tu cálculo: dividir por el coeficiente $-3$, ese valor es solo el término independiente cambiado de signo."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -362,7 +362,7 @@
     "feedback_correct": "Correcto, $4x+8=0$ da $x=-2$.",
     "feedback_incorrect": [
       "Ese resultado sale de multiplicar en vez de dividir, hay que despejar $x$ dividiendo por $4$.",
-      "Falta dividir por el coeficiente $4$, ese valor es directamente el término independiente sin dividir.",
+      "El divisor falta en tu cálculo: dividir por el coeficiente $4$, ese valor es directamente el término independiente sin dividir.",
       null,
       "Revisá el signo al despejar, $4x=-8$ da $x=-2$ negativo, no positivo."
     ],

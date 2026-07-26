@@ -12,7 +12,7 @@
     "feedback_incorrect": [
       null,
       "El signo del segundo término se perdió, la resta original tiene que conservarse en la forma armada.",
-      "Falta extraer el $4$ fuera de la primera integral, la linealidad saca todos los escalares afuera."
+      "Recordá que: extraer el $4$ fuera de la primera integral, la linealidad saca todos los escalares afuera."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -35,7 +35,7 @@
     "feedback_incorrect": [
       "Esa forma no está separada todavía, la linealidad exige partir la suma en dos integrales independientes.",
       null,
-      "Falta el diferencial $dx$ en el primer término, cada integral separada necesita su propio $dx$."
+      "Recordá que: el diferencial $dx$ en el primer término, cada integral separada necesita su propio $dx$."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -57,7 +57,7 @@
     "feedback_correct": "Correcto, cada término conserva su escalar extraído y su signo.",
     "feedback_incorrect": [
       "El signo del segundo término se perdió, la resta original tiene que conservarse en la forma armada.",
-      "Falta extraer los escalares $5$ y $2$ fuera de sus integrales, la linealidad los saca siempre afuera.",
+      "Recordá que: extraer los escalares $5$ y $2$ fuera de sus integrales, la linealidad los saca siempre afuera.",
       null
     ],
     "graph_fn": null,
@@ -104,7 +104,7 @@
     "feedback_incorrect": [
       "Los exponentes no se combinan al separar una suma, cada término mantiene su propio exponente dentro de su propia integral.",
       null,
-      "Falta el símbolo de integral en el último término, cada parte separada necesita su propio $\\int$ y su propio $dx$."
+      "Recordá que: el símbolo de integral en el último término, cada parte separada necesita su propio $\\int$ y su propio $dx$."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -126,7 +126,7 @@
     "feedback_correct": "Correcto, el signo negativo se conserva junto con el escalar extraído.",
     "feedback_incorrect": [
       "El signo negativo del primer término se perdió, la linealidad conserva el signo original de cada parte.",
-      "Falta extraer el $-6$ fuera de la primera integral, dejarlo adentro no cuenta como forma armada por linealidad.",
+      "Recordá que: extraer el $-6$ fuera de la primera integral, dejarlo adentro no cuenta como forma armada por linealidad.",
       null
     ],
     "graph_fn": null,
@@ -150,7 +150,7 @@
     "feedback_incorrect": [
       null,
       "El signo del segundo término se perdió, la resta original tiene que conservarse en la forma armada.",
-      "Falta extraer los escalares $2$ y $9$ fuera de sus integrales, la linealidad los saca siempre afuera."
+      "Recordá que: extraer los escalares $2$ y $9$ fuera de sus integrales, la linealidad los saca siempre afuera."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -171,7 +171,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, los tres términos quedan separados con el escalar del medio extraído.",
     "feedback_incorrect": [
-      "Falta extraer el escalar $2$ fuera de la integral del término del medio, dejarlo adentro no cuenta como forma armada.",
+      "Recordá que: extraer el escalar $2$ fuera de la integral del término del medio, dejarlo adentro no cuenta como forma armada.",
       null,
       "Esa forma no está separada, la linealidad exige partir la suma en integrales independientes, cada una con su diferencial."
     ],

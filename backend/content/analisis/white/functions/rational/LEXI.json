@@ -827,7 +827,7 @@
     "feedback_correct": "$x^3 - x = x(x-1)(x+1)$ tiene 3 raíces: $x=0$, $x=1$ y $x=-1$.",
     "feedback_incorrect": [
       "El denominador factorizado tiene más raíces además de $x=0$.",
-      "Falta contar la raíz en $x=0$ además de las otras dos.",
+      "Recordá que: contar la raíz en $x=0$ además de las otras dos.",
       "El denominador sí tiene raíces reales una vez factorizado, así que sí hay asíntotas verticales.",
       null
     ],
@@ -1176,7 +1176,7 @@
     "has_math": true,
     "feedback_correct": "$x^2-4=0$ da $x=2$ y $x=-2$. Ninguna de las dos anula el denominador $x+1$.",
     "feedback_incorrect": [
-      "Falta la otra raíz: $x^2-4=0$ también se cumple para $x=-2$.",
+      "Recordá que: la otra raíz: $x^2-4=0$ también se cumple para $x=-2$.",
       null,
       "El numerador sí tiene raíces reales, así que la función sí cruza el eje $X$.",
       "El numerador de grado $2$ tiene a lo sumo dos raíces reales, no tres."

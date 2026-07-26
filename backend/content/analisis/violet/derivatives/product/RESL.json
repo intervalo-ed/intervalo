@@ -187,7 +187,7 @@
     "feedback_correct": "Correcto, el término $u'(\\pi)v(\\pi)$ se anula porque $u'(\\pi)=0$, queda solo $u(\\pi)v'(\\pi)$.",
     "feedback_incorrect": [
       "Revisá el signo: $u(\\pi)=\\cos\\pi=-1$ es negativo, así que el producto final también lo es.",
-      "Falta el factor $2$ que aparece al derivar $x^2+2$; ese término se perdió en el cálculo.",
+      "Recordá que: el factor $2$ que aparece al derivar $x^2+2$; ese término se perdió en el cálculo.",
       "Solo se anula el término $u'(\\pi)v(\\pi)$; el otro término, $u(\\pi)v'(\\pi)$, no se anula.",
       null
     ],

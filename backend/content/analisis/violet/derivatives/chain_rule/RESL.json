@@ -236,7 +236,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, el ancla $h(1)=0$ simplifica la exterior a $g'(0)=1$.",
     "feedback_incorrect": [
-      "Falta el factor $h'(1)=2$, la interior también aporta al producto final.",
+      "Recordá que: el factor $h'(1)=2$, la interior también aporta al producto final.",
       "Revisá el signo, ambos factores del producto son positivos en este caso.",
       null,
       "Evaluaste la exterior en $a=1$ en vez de en $h(1)=0$, la derivada exterior se evalúa en el resultado de la interior."
@@ -311,7 +311,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, $g'(h(1))\\cdot h'(1) = 2\\cdot 6 = 12$.",
     "feedback_incorrect": [
-      "Falta el factor $g'(h(1))=2$, ese valor se perdió en el cálculo.",
+      "Recordá que: el factor $g'(h(1))=2$, ese valor se perdió en el cálculo.",
       null,
       "Sumaste los dos valores en vez de multiplicarlos, la **regla de la cadena** multiplica los dos factores.",
       "El dato $h(1)=0$ no anula el resultado completo, solo indica dónde evaluar $g'$."

@@ -12,7 +12,7 @@
     "feedback_correct": "Correcto, el signo negativo de la fórmula y el de la primitiva del seno se combinan correctamente.",
     "feedback_incorrect": [
       null,
-      "Falta el signo negativo del término $uv$, la fórmula es $uv-\\int v\\,du$, con signo negativo.",
+      "Recordá que: el signo negativo del término $uv$, la fórmula es $uv-\\int v\\,du$, con signo negativo.",
       "El signo del segundo término es positivo, revisá el desarrollo de la integral remanente.",
       "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa."
     ],
@@ -36,10 +36,10 @@
     "has_math": true,
     "feedback_correct": "Correcto, el factor $\\frac{1}{2}$ se arrastra en ambos términos, y factorizando $\\frac{e^{2x}}{4}$ queda esta forma compacta.",
     "feedback_incorrect": [
-      "Falta dividir una vez más por $2$ en el segundo término, ese factor sale de integrar $e^{2x}$.",
+      "El divisor falta en tu cálculo: dividir una vez más por $2$ en el segundo término, ese factor sale de integrar $e^{2x}$.",
       null,
-      "Falta el factor $\\frac{1}{2}$ que sale de integrar $e^{2x}$, ese ajuste se arrastra en ambos términos.",
-      "Falta el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
+      "Recordá que: el factor $\\frac{1}{2}$ que sale de integrar $e^{2x}$, ese ajuste se arrastra en ambos términos.",
+      "Recordá que: el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -61,7 +61,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, la primitiva del coseno es el seno sin signo, y la del seno lleva signo negativo.",
     "feedback_incorrect": [
-      "Falta el signo positivo del término $uv$, revisá la fórmula $uv-\\int v\\,du$ con cuidado.",
+      "Recordá que: el signo positivo del término $uv$, revisá la fórmula $uv-\\int v\\,du$ con cuidado.",
       "Confundiste seno con coseno en la elección de $v$, revisá cuál función corresponde a cada rol.",
       null,
       "El signo de la primitiva del coseno es positivo, revisá el desarrollo de la integral remanente."
@@ -86,7 +86,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, la fórmula resta el término $\\int v\\,du$, dejando $-e^x$.",
     "feedback_incorrect": [
-      "Falta el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
+      "Recordá que: el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
       "El orden y el signo de los términos están alterados, revisá el desarrollo completo de la fórmula.",
       "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa.",
       null
@@ -112,8 +112,8 @@
     "feedback_correct": "Correcto, el signo negativo de $v=-e^{-x}$ se traslada a ambos términos.",
     "feedback_incorrect": [
       null,
-      "Falta el signo negativo del término $uv$, revisá el cálculo de $v=-e^{-x}$.",
-      "Falta el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
+      "Recordá que: el signo negativo del término $uv$, revisá el cálculo de $v=-e^{-x}$.",
+      "Recordá que: el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
       "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa."
     ],
     "graph_fn": null,
@@ -138,7 +138,7 @@
     "feedback_incorrect": [
       "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa.",
       null,
-      "Falta el signo negativo del término $uv$, la fórmula es $uv-\\int v\\,du$, con signo negativo.",
+      "Recordá que: el signo negativo del término $uv$, la fórmula es $uv-\\int v\\,du$, con signo negativo.",
       "El signo del segundo término es positivo, revisá el desarrollo de la integral remanente."
     ],
     "graph_fn": null,
@@ -161,10 +161,10 @@
     "has_math": true,
     "feedback_correct": "Correcto, el coeficiente $2$ se conserva en ambos términos del resultado.",
     "feedback_incorrect": [
-      "Falta el coeficiente $2$ en el primer término, ese factor viene de $u=2x$.",
+      "Recordá que: el coeficiente $2$ en el primer término, ese factor viene de $u=2x$.",
       "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa.",
       null,
-      "Falta el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
+      "Recordá que: el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -187,7 +187,7 @@
     "feedback_correct": "Correcto, la primitiva del coseno es el seno sin signo, y la del seno lleva signo negativo.",
     "feedback_incorrect": [
       "El signo de la primitiva del coseno es positivo, revisá el desarrollo de la integral remanente.",
-      "Falta el signo positivo del término $uv$, revisá la fórmula $uv-\\int v\\,du$ con cuidado.",
+      "Recordá que: el signo positivo del término $uv$, revisá la fórmula $uv-\\int v\\,du$ con cuidado.",
       "Confundiste seno con coseno en la elección de $v$, revisá cuál función corresponde a cada rol.",
       null
     ],
@@ -213,8 +213,8 @@
     "feedback_incorrect": [
       null,
       "El logaritmo natural no está en la tabla de integrales inmediatas, hace falta partes con el factor oculto $dv=1\\,dx$.",
-      "Falta el término $uv=x\\ln x$, la fórmula da $uv-\\int v\\,du$, ambos términos aparecen en el resultado.",
-      "Falta el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
+      "Recordá que: el término $uv=x\\ln x$, la fórmula da $uv-\\int v\\,du$, ambos términos aparecen en el resultado.",
+      "Recordá que: el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -236,10 +236,10 @@
     "has_math": true,
     "feedback_correct": "Correcto, la integral remanente se simplifica a $\\frac{x^2}{4}$, y factorizando $\\frac{x^2}{4}$ queda esta forma compacta.",
     "feedback_incorrect": [
-      "Falta el coeficiente $\\frac{1}{2}$ en el primer término, ese factor viene de $v=\\frac{x^2}{2}$.",
+      "Recordá que: el coeficiente $\\frac{1}{2}$ en el primer término, ese factor viene de $v=\\frac{x^2}{2}$.",
       null,
       "Revisá la simplificación de la integral remanente, $\\frac{1}{2}\\int x\\,dx=\\frac{x^2}{4}$, no $x$.",
-      "Falta el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
+      "Recordá que: el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -261,10 +261,10 @@
     "has_math": true,
     "feedback_correct": "Correcto, con el factor oculto $dv=1\\,dx$ se obtiene $uv-\\int v\\,du = x\\ln(2x)-x+C$.",
     "feedback_incorrect": [
-      "Falta el término $uv=x\\ln(2x)$, la fórmula da $uv-\\int v\\,du$, ambos términos aparecen en el resultado.",
-      "Falta el factor $x$ que multiplica al logaritmo en el término $uv$, ese factor viene de $v=x$.",
+      "Recordá que: el término $uv=x\\ln(2x)$, la fórmula da $uv-\\int v\\,du$, ambos términos aparecen en el resultado.",
+      "Recordá que: el factor $x$ que multiplica al logaritmo en el término $uv$, ese factor viene de $v=x$.",
       null,
-      "Falta el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
+      "Recordá que: el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -286,9 +286,9 @@
     "has_math": true,
     "feedback_correct": "Correcto, el coeficiente $3$ se conserva en ambos términos del resultado.",
     "feedback_incorrect": [
-      "Falta el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
-      "Falta el término $uv=3x\\ln x$, la fórmula da $uv-\\int v\\,du$, ambos términos aparecen en el resultado.",
-      "Falta el coeficiente $3$ en ambos términos, ese factor viene de la constante que multiplica al logaritmo.",
+      "Recordá que: el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
+      "Recordá que: el término $uv=3x\\ln x$, la fórmula da $uv-\\int v\\,du$, ambos términos aparecen en el resultado.",
+      "Recordá que: el coeficiente $3$ en ambos términos, ese factor viene de la constante que multiplica al logaritmo.",
       null
     ],
     "graph_fn": null,
@@ -313,8 +313,8 @@
     "feedback_incorrect": [
       null,
       "Revisá la simplificación de la integral remanente, $\\frac{1}{4}\\int x^3\\,dx=\\frac{x^4}{16}$, no $\\frac{x^4}{4}$.",
-      "Falta el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
-      "Falta el coeficiente $\\frac{1}{4}$ en el primer término, ese factor viene de $v=\\frac{x^4}{4}$."
+      "Recordá que: el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
+      "Recordá que: el coeficiente $\\frac{1}{4}$ en el primer término, ese factor viene de $v=\\frac{x^4}{4}$."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -338,8 +338,8 @@
     "feedback_incorrect": [
       "El coeficiente de $\\ln(x-1)$ en el término $uv$ tiene que ser $(x-1)$, no $x$, para que la integral remanente se cancele.",
       null,
-      "Falta el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
-      "Falta el término $uv=(x-1)\\ln(x-1)$, la fórmula da $uv-\\int v\\,du$, ambos términos aparecen en el resultado."
+      "Recordá que: el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
+      "Recordá que: el término $uv=(x-1)\\ln(x-1)$, la fórmula da $uv-\\int v\\,du$, ambos términos aparecen en el resultado."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -361,8 +361,8 @@
     "has_math": true,
     "feedback_correct": "Correcto, la integral remanente se simplifica a $\\frac{x^3}{9}$, y factorizando $\\frac{x^3}{9}$ queda esta forma compacta.",
     "feedback_incorrect": [
-      "Falta el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
-      "Falta el coeficiente $\\frac{1}{3}$ en el primer término, ese factor viene de $v=\\frac{x^3}{3}$.",
+      "Recordá que: el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
+      "Recordá que: el coeficiente $\\frac{1}{3}$ en el primer término, ese factor viene de $v=\\frac{x^3}{3}$.",
       null,
       "Revisá la simplificación de la integral remanente, $\\frac{1}{3}\\int x^2\\,dx=\\frac{x^3}{9}$, no $\\frac{x^3}{3}$."
     ],

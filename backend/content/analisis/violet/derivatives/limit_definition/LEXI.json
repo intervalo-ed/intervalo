@@ -333,7 +333,7 @@
     "feedback_correct": "Correcto, el apóstrofe va pegado a $f$, y recién después se evalúa en $x$.",
     "feedback_incorrect": [
       "El apóstrofe va sobre $f$, no sobre la expresión ya evaluada, así se deriva primero y se evalúa después.",
-      "Falta el paréntesis que indica dónde se evalúa la función derivada, sin él la notación queda ambigua.",
+      "Recordá que: el paréntesis que indica dónde se evalúa la función derivada, sin él la notación queda ambigua.",
       null
     ],
     "graph_fn": null,

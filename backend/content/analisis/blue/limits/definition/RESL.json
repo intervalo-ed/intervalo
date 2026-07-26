@@ -114,7 +114,7 @@
       null,
       "Olvidaste restar el término $2x$ después de elevar al cuadrado.",
       "Sumaste todos los términos en vez de restar el término del medio.",
-      "Falta sumar el $+1$ final después de operar los primeros dos términos."
+      "Hay una suma que falta: sumar el $+1$ final después de operar los primeros dos términos."
     ],
     "graph_fn": null,
     "graph_view": null,

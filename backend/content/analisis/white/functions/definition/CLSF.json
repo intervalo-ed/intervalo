@@ -1181,7 +1181,7 @@
     "has_math": true,
     "feedback_correct": "Tanto el 4 como el $-4$ dan 16, así que el 16 tiene dos preimágenes.",
     "feedback_incorrect": [
-      "Falta una: también $(-4)^2 = 16$.",
+      "Recordá que: una: también $(-4)^2 = 16$.",
       "Solo hay dos soluciones de $x^2 = 16$, no cuatro.",
       "Que 16 sea una imagen no impide que tenga preimágenes; de hecho tiene dos.",
       null
