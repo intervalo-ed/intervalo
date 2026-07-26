@@ -61,10 +61,10 @@
     "has_math": true,
     "feedback_correct": "Correcto, el coeficiente $2$ del interior se combina con el $6$ del exponente nuevo.",
     "feedback_incorrect": [
-      "Falta dividir por el nuevo exponente y por el coeficiente de la sustitución, ambos factores se combinan en el denominador.",
+      "Hay que dividir por el nuevo exponente y por el coeficiente de la sustitución, ambos factores se combinan en el denominador.",
       "El resultado se divide, no se multiplica, revisá el ajuste del diferencial y de la regla de la potencia.",
       null,
-      "Falta dividir también por el coeficiente $2$ de la sustitución, no solo por el nuevo exponente."
+      "Hay que dividir también por el coeficiente $2$ de la sustitución, no solo por el nuevo exponente."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -86,7 +86,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, la primitiva del seno lleva signo negativo, dividida por el coeficiente $5$.",
     "feedback_incorrect": [
-      "Falta el signo negativo, la primitiva de $\\sin u$ es $-\\cos u$, ese signo no se puede omitir.",
+      "Hay que el signo negativo, la primitiva de $\\sin u$ es $-\\cos u$, ese signo no se puede omitir.",
       "Esa es la función original, no su primitiva, la primitiva del seno es el coseno con signo negativo.",
       "Te faltó dividir por el coeficiente $5$, la sustitución $u=5x$ da $du=5\\,dx$, así que $dx=\\frac{1}{5}du$.",
       null
@@ -112,7 +112,7 @@
     "feedback_correct": "Correcto, el signo negativo del coeficiente se conserva al dividir.",
     "feedback_incorrect": [
       null,
-      "Falta el signo negativo, la sustitución $u=-2x$ da $du=-2\\,dx$, ese signo se conserva en el ajuste.",
+      "Hay que el signo negativo, la sustitución $u=-2x$ da $du=-2\\,dx$, ese signo se conserva en el ajuste.",
       "Te faltó dividir por el coeficiente $-2$, la sustitución $u=-2x$ da $dx=-\\frac{1}{2}du$.",
       "El coeficiente tiene que dividir, no multiplicar, revisá el ajuste del diferencial."
     ],
@@ -138,8 +138,8 @@
     "feedback_incorrect": [
       "El resultado se divide, no se multiplica, revisá el ajuste del diferencial y de la regla de la potencia.",
       null,
-      "Falta dividir también por el coeficiente $3$ de la sustitución, no solo por el nuevo exponente.",
-      "Falta dividir por el nuevo exponente y por el coeficiente de la sustitución, ambos factores se combinan en el denominador."
+      "Hay que dividir también por el coeficiente $3$ de la sustitución, no solo por el nuevo exponente.",
+      "Hay que dividir por el nuevo exponente y por el coeficiente de la sustitución, ambos factores se combinan en el denominador."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -186,7 +186,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, el logaritmo lleva valor absoluto y el coeficiente $2$ divide al resultado.",
     "feedback_incorrect": [
-      "Falta el valor absoluto, $\\ln|2x+3|$ respeta el dominio completo de la función original.",
+      "Hay que el valor absoluto, $\\ln|2x+3|$ respeta el dominio completo de la función original.",
       "Te faltó dividir por el coeficiente $2$, la sustitución $u=2x+3$ da $du=2\\,dx$, así que $dx=\\frac{1}{2}du$.",
       "El coeficiente tiene que dividir, no multiplicar, revisá el ajuste del diferencial.",
       null
@@ -238,7 +238,7 @@
     "feedback_incorrect": [
       "Te faltó volver a la variable $x$, la respuesta final no puede quedar expresada en $u$.",
       null,
-      "Falta el valor absoluto, $\\ln|x^2+5|$ respeta el dominio completo de la función original.",
+      "Hay que el valor absoluto, $\\ln|x^2+5|$ respeta el dominio completo de la función original.",
       "No hace falta ningún factor $\\frac{1}{2}$ acá, el numerador $2x\\,dx$ ya coincide exactamente con $du$."
     ],
     "graph_fn": null,
@@ -264,7 +264,7 @@
       "El cuadrado corresponde a $(\\ln x)^2$, todo el logaritmo elevado al cuadrado, no al cuadrado dentro del logaritmo.",
       "Te faltó volver a la variable $x$, la respuesta final no puede quedar expresada en $u$.",
       null,
-      "Falta dividir por el nuevo exponente, $2$, ese paso es parte de la regla de la potencia aplicada a $u$."
+      "Hay que dividir por el nuevo exponente, $2$, ese paso es parte de la regla de la potencia aplicada a $u$."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -286,7 +286,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, la potencia de $u$ se divide por el nuevo exponente antes de volver a $x$.",
     "feedback_incorrect": [
-      "Falta dividir por el nuevo exponente, $4$, ese paso es parte de la regla de la potencia aplicada a $u$.",
+      "Hay que dividir por el nuevo exponente, $4$, ese paso es parte de la regla de la potencia aplicada a $u$.",
       "La sustitución fue $u=\\sin x$, no $u=\\cos x$, el resultado tiene que quedar en términos de seno.",
       "Te faltó volver a la variable $x$, la respuesta final no puede quedar expresada en $u$.",
       null
@@ -338,7 +338,7 @@
     "feedback_incorrect": [
       "Te faltó volver a la variable $x$, la respuesta final no puede quedar expresada en $u$.",
       null,
-      "Falta el valor absoluto, $\\ln|\\sin x|$ respeta el dominio completo de la función original.",
+      "Hay que el valor absoluto, $\\ln|\\sin x|$ respeta el dominio completo de la función original.",
       "La sustitución fue $u=\\sin x$, no $u=\\cos x$, el resultado tiene que quedar en términos de seno."
     ],
     "graph_fn": null,
@@ -361,10 +361,10 @@
     "has_math": true,
     "feedback_correct": "Correcto, el numerador aporta un factor $2$ extra respecto de $du$.",
     "feedback_incorrect": [
-      "Falta el factor $2$ que sobra al comparar el numerador $4x\\,dx$ con $du=2x\\,dx$.",
+      "Hay que el factor $2$ que sobra al comparar el numerador $4x\\,dx$ con $du=2x\\,dx$.",
       "El factor correcto es $2$, no $4$, revisá la comparación entre el numerador y $du$.",
       null,
-      "Falta el valor absoluto, $\\ln|x^2-3|$ respeta el dominio completo de la función original."
+      "Hay que el valor absoluto, $\\ln|x^2-3|$ respeta el dominio completo de la función original."
     ],
     "graph_fn": null,
     "graph_view": null,
