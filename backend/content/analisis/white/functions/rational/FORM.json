@@ -1008,7 +1008,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de evaluar, conviene revisar si el denominador se anula en el punto pedido.\n\nAcá factorizamos:\n$$\\frac{x^2-25}{x-5}=\\frac{(x-5)(x+5)}{x-5}=x+5$$\nPara todo $x\\neq5$.\n\nEn $x=5$ el denominador de la expresión original vale cero.\n\nasí que hay un agujero: $f(5)$ **no está definida**.\n\naunque el límite de la función cuando $x\\to5$ sea $5+5=10$.\n\nConfundir el valor del límite con el valor de la función en ese punto exacto clásico de este tipo de ejercicio.",
+    "explanation": "Antes de evaluar, revisa si el denominador se anula. Factorizando: $\\frac{x^2-25}{x-5}=\\frac{(x-5)(x+5)}{x-5}=x+5$ para todo $x\\neq5$.\n\nEn $x=5$ el denominador original es cero, hay un agujero: $f(5)$ no está definida. El límite cuando \n$$x\\to5$$ es 10, pero confundir el límite con el valor puntual es un error clásico.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual"
@@ -1033,7 +1033,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para caracterizar completamente esta función racional hay que resolver tres cosas por separado.\n\nLa asíntota vertical sale de igualar el denominador a cero: $x-3=0\\Rightarrow x=3$.\n\nLa asíntota horizontal sale de comparar los grados de numerador y denominador, que acá son ambos de grado 1, así que se calcula como el cociente de los coeficientes principales: $\\frac{1}{1}=1$, dando.\n\nPor último.\n\nel intercepto con el eje $Y$ sale de evaluar.\n$$f(0)=\\frac{0+2}{0-3}=\\frac{2}{-3}=-\\frac{2}{3}$$\n. calcular la AH como si el grado del numerador fuera menor.\n\ndando $y=0$ en vez de $y=1$.",
+    "explanation": "Para caracterizar completamente esta función racional hay que resolver tres cosas por separado.\n\nLa asíntota vertical sale de igualar el denominador a cero: $x-3=0\\Rightarrow x=3$.\n\nLa asíntota horizontal sale de comparar los grados de numerador y denominador, ambos grado 1, así que se calcula como el cociente de los coeficientes principales: $\\frac{1}{1}=1$, dando.\n\nPor último.\n\nel intercepto con el eje $Y$ sale de evaluar.\n$$f(0)=\\frac{0+2}{0-3}=\\frac{2}{-3}=-\\frac{2}{3}$$\n. calcular la AH como si el grado del numerador fuera menor.\n\ndando $y=0$ en vez de $y=1$.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes-form"

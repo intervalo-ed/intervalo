@@ -92,7 +92,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = (\\ln x)^2$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
+    "question": "Observá el comportamiento:\n$$f(x) = (\\ln x)^2$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "No es una composición, es un producto $\\ln x \\cdot \\ln x$",
       "$g(u)=u^2, h(x)=\\ln x$",
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "question": "Examiná la función:\n$$f(x) = e^{3x}$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
+    "question": "Considerá esta función:\n$$f(x) = e^{3x}$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "$g(u)=e^u, h(x)=3x$",
       "$g(u)=3u, h(x)=e^x$",
@@ -161,7 +161,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = \\tan^2(x)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
+    "question": "Estudiá esta función:\n$$f(x) = \\tan^2(x)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "No es una composición, es un producto $\\tan x \\cdot \\tan x$",
       "$g(u)=u^2, h(x)=\\tan x$",
@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "Examiná la función:\n$$f(x) = 3x \\cdot e^x$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "Investigá el patrón:\n$$f(x) = 3x \\cdot e^x$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "**Regla del producto**",
       "**Regla de la cadena**",
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = \\ln(x^2)$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "Analizá con cuidado:\n$$f(x) = \\ln(x^2)$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla del cociente",
       "**Regla de la cadena**",
@@ -276,7 +276,7 @@
     ]
   },
   {
-    "question": "Examiná la función:\n$$f(x) = \\sin(5x)$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "Evaluá la función:\n$$f(x) = \\sin(5x)$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "**Regla de la cadena**",
       "Múltiplo escalar",
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = 5\\sin x$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "Examiná en detalle:\n$$f(x) = 5\\sin x$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla del producto",
       "**Múltiplo escalar **",

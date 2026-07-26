@@ -1273,7 +1273,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Lo que vuelve cuadrática a una función es que su término de mayor grado sea de grado 2: un $ax^2$ con.\n$$a \\neq 0$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\n, y ningún término de grado superior.\n\nDe esa sola condición se desprenden todas sus propiedades: la gráfica tiene forma de **parábola** con un único **vértice**, hay a lo sumo dos **raíces**, existe simetría respecto de un eje vertical, y.\n\nCada familia tiene su propia firma: la recta crece a ritmo fijo, la exponencial multiplica por un factor constante, la logarítmica desacelera.\n\nLa cuadrática es la que tiene a $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nX^2$ como protagonista.",
+    "explanation": "Lo que vuelve cuadrática a una función es que su término de mayor grado sea de grado 2: un $ax^2$ con.\n$$a \\neq 0 $$\n, y ningún término de grado superior.\n\nDe esa sola condición se desprenden todas sus propiedades: la gráfica tiene forma de **parábola** con un único **vértice**, hay dos **raíces**, existe simetría respecto de un eje vertical, y.\n\nCada familia tiene su propia firma: la recta crece a ritmo fijo, la exponencial multiplica por un factor constante, la logarítmica desacelera.\n\nLa cuadrática es la que tiene a  \nX^2$ como protagonista.",
     "reviewed": false,
     "tags": [
       "coeficientes-nombre"

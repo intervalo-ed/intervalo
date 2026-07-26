@@ -433,7 +433,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En el círculo unitario, $\\theta=\\pi/2$ corresponde al punto $P=(0,1)$: el extremo superior de la circunferencia.\n\nEl seno es la coordenada $y$, por lo que.\n$$\\operatorname{sen}(\\pi/2)=1$$\n.\n\n$\\pi/2$ radianes $=90°$.\n\nEl triángulo rectángulo estándar de $30°$-$60°$-$90°$ \n\nda :.Este es el **máximo global** del seno.\n\n$\\operatorname{sen}(\\pi/2)=1$: el seno en su cima, feliz de haber llegado hasta arriba.",
+    "explanation": "En el círculo unitario, $\\theta=\\pi/2$ corresponde al punto $P=(0,1)$: el extremo superior de la circunferencia.\n\nEl seno es la coordenada $y$, por lo que.\n$$\\operatorname{sen}(\\pi/2)=1$$\n.\n\n$\\pi/2$ radianes $=90°$.\n\nEl triángulo rectángulo estándar de $30°$-$60°$-\n$$90°$$\n\n\nda :.Este es el **máximo global** del seno.\n\n$\\operatorname{sen}(\\pi/2)=1$: el seno en su cima, feliz de haber llegado hasta arriba.",
     "reviewed": false,
     "tags": [
       "valores-notables"
@@ -808,7 +808,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ángulo $\\pi/3=60°$ pertenece al triángulo $30°$-$60°$-$90°$ \n\ncon proporciones :.El coseno es cateto adyacente sobre hipotenusa: $\\cos(60°)=1/2$.\n\nObservá la simetría: $\\cos(\\pi/3)=\\operatorname{sen}(\\pi/6)=1/2$.\n\nEsto se debe a que.\n$$\\cos(\\theta)=\\operatorname{sen}(\\pi/2-\\theta)$$\n: son ángulos complementarios.\n\nEl coseno de : y el seno de $30°$ son gemelos idénticos:ambos valen $1/2$.\n\nLa trigonometría tiene favoritos.",
+    "explanation": "El ángulo $\\pi/3=60°$ pertenece al triángulo \n$$30°$$-$60°$-\n$$90°$$\n\n\ncon proporciones :.El coseno es cateto adyacente sobre hipotenusa: $\\cos(60°)=1/2$.\n\nObservá la simetría: $\\cos(\\pi/3)=\\operatorname{sen}(\\pi/6)=1/2$.\n\nEsto se debe a que.\n$$\\cos(\\theta)=\\operatorname{sen}(\\pi/2-\\theta)$$\n: son ángulos complementarios.\n\nEl coseno de : y el seno de $30°$ son gemelos idénticos:ambos valen $1/2$.\n\nLa trigonometría tiene favoritos.",
     "reviewed": false,
     "tags": [
       "valores-notables"
@@ -1008,7 +1008,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x)=\\operatorname{sen}(2x)$.\n\nel coeficiente $B=2$ **comprime** el **período** a la mitad: $T=2\\pi/B=2\\pi/2=\\pi$.\n$.\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{2} \\\\\n&= \\pi:\n\\end{aligned}$$\n$\nLos distractores $2\\pi$ (sin modificar $B$) y $4\\pi$ (como si $B=1/2$) son errores frecuentes. \n\n$\\pi/2$ correspondería a $B=4$.\n\nCon $B=2$, la respuesta correcta es $\\pi$.",
+    "explanation": "En $f(x)=\\operatorname{sen}(2x)$.\n\nel coeficiente $B=2$ **comprime** el **período** a la mitad: $T=2\\pi/B=2\\pi/2=\\pi$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{2} \\\\\n&= \\pi:\n\\end{aligned}$$\nLos distractores \n$$2\\pi$$ (sin modificar $B$)\n$$4\\pi$$pi$ (como si\n$$B=1/2$$\n) son errores frecuentes. \n\n$\\pi/2$ correspondería a $B=4$.\n\nCon $B=2$, la respuesta correcta es $\\pi$.",
     "reviewed": false,
     "tags": [
       "periodo-con-b"

@@ -113,7 +113,7 @@
       -1,
       11
     ],
-    "explanation": "Leer la altura de una parábola en un instante puntual significa evaluar la función en ese valor de la coordenada horizontal, buscando el punto exacto de la curva que está justo arriba (o abajo) de esa.\n\nAcá se pide la altura a los 2 segundos, así que hay que reemplazar $x$ por 2 en la fórmula del vértice:\n\nLa pelota está a 6 metros en ese instante.\n\nEsa altura todavía no es la máxima, la pelota sigue subiendo camino al vértice; conviene no confundir un punto cualquiera del recorrido con el punto más alto.",
+    "explanation": "Leer la altura de una parábola en un instante puntual significa evaluar la función en ese valor de la coordenada horizontal, buscando el punto de la curva que está justo arriba (o abajo) de esa.\n\nAcá se pide la altura a los 2 segundos, así que hay que reemplazar $x$ por 2 en la fórmula del vértice:\n\nLa pelota está a 6 metros en ese instante.\n\nEsa altura todavía no es la máxima, la pelota sigue subiendo camino al vértice; conviene no confundir un punto cualquiera del recorrido con el punto más alto.",
     "reviewed": false,
     "tags": [
       "vertice-x"
@@ -1043,7 +1043,7 @@
       -1,
       11
     ],
-    "explanation": "El rendimiento según la velocidad dibuja una parábola hacia abajo, con un **máximo** en el vértice.\n\nLa velocidad de mayor rendimiento es su coordenada horizontal,:\n\n(6 decenas = 60 km/h) Ni a paso de tortuga ni a los pingos, el punto justo está en el medio.\n\nEl vértice de una parábola hacia abajo siempre es el punto que maximiza la función.\n\nEn problemas de optimización como este, el vértice es tu destino natural de búsqueda.\n\nNotá cómo la simetría de la parábola garantiza que el máximo cae exactamente en el eje de simetría $x = -b/(2a)$, sin necesidad de derivadas ni cálculos complicados.",
+    "explanation": "El rendimiento según la velocidad dibuja una parábola hacia abajo con máximo en el vértice.\n\nLa velocidad de mayor rendimiento es su coordenada horizontal: 6 decenas = 60 km/h, el punto justo en el medio.\n\nEl vértice de una parábola hacia abajo maximiza la función; en optimización es tu destino natural. La simetría garantiza que el máximo cae en $x = -b/(2a)$, sin derivadas.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -1073,7 +1073,7 @@
       -1,
       11
     ],
-    "explanation": "Cuando una magnitud depende de un precio y tiene un punto óptimo, como pasa con la recaudación de una función de teatro, esa relación suele dibujar una parábola que abre hacia abajo, con un **máximo**.\n\nAcá el tope de recaudación es la coordenada vertical del vértice,:\n\nOcho mil pesos, con la entrada al precio marcado por la coordenada horizontal.\n\nTanto bajar el precio de más como subirlo de más aleja la recaudación de ese punto óptimo, siempre hacia abajo, nunca hacia arriba.",
+    "explanation": "Cuando una magnitud depende de un precio y tiene un punto óptimo, como pasa con la recaudación de una función de teatro, esa relación dibuja una parábola que abre hacia abajo, con un **máximo**.\n\nAcá el tope de recaudación es la coordenada vertical del vértice,:\n\nOcho mil pesos, con la entrada al precio marcado por la coordenada horizontal.\n\nTanto bajar el precio de más como subirlo de más aleja la recaudación de ese punto óptimo, siempre hacia abajo, nunca hacia arriba.",
     "reviewed": false,
     "tags": [
       "lectura-fv"

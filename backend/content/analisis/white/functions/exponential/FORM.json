@@ -958,7 +958,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un desplazamiento horizontal dentro del exponente, primero se sustituye el valor de $x$ y se resuelve la suma antes de evaluar la potencia de $e$.\n\nEl desplazamiento.\n$$+1$$En el exponente equivale a multiplicar por $e$: :. En la forma general $f(x) = b^{cx}$, el factor $c$ dentro del exponente actúa como un multiplicador del crecimiento o decrecimiento. Si $c>1$, la exponencial crece más rápidamente; si $0<c<1$, crece más lentamente. Este cambio interno en el exponente es diferente a un desplazamiento horizontal exterior, y sus efectos en la gráfica son muy distintos. Reconocer dónde está el factor (dentro del exponente versus fuera) es crucial para analizar correctamente exponenciales complejas.",
+    "explanation": "Con un desplazamiento horizontal dentro del exponente, primero se sustituye el valor de $x$ y se resuelve la suma antes de evaluar la potencia de $e$.\n\nEl desplazamiento.\n$$+1$$En el exponente equivale a multiplicar por $e$: :..\n\nEn la forma general $f(x) = b^{cx}$, el factor $c$ dentro del exponente actúa como un multiplicador del crecimiento o decrecimiento.\n\nSi $c>1$, la exponencial crece más rápidamente; si $0<c<1$, crece más lentamente.\n\nEste cambio interno en el exponente es diferente a un desplazamiento horizontal exterior, y sus efectos en la gráfica son muy distintos.\n\nReconocer dónde está el factor (dentro del exponente versus fuera) es crucial para analizar correctamente exponenciales complejas",
     "reviewed": false,
     "tags": [
       "determinar-a-b-desde-dos-puntos"

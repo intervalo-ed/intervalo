@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad y aplicamos la **regla de la potencia** y la trigonométrica a cada término.\n$$\\begin{aligned} \\int (6x^2+\\cos x)\\,dx &= 6\\int x^2\\,dx + \\int \\cos x\\,dx \\\\ &= 6\\cdot\\frac{x^3}{3} + \\sin x \\\\ &= 2x^3+\\sin x+C \\end{aligned}$$\nEl coeficiente $6$ dividido por el nuevo exponente $3$ da $2$.\n\nun paso de simplificación que conviene no saltear.",
+    "explanation": "Separamos por linealidad y aplicamos la **regla de la potencia** y la trigonométrica a cada término.\n$$\\begin{aligned} \\int (6x^2+\\cos x)\\,dx &= 6\\int x^2\\,dx + \\int \\cos x\\,dx \\\\ &= 6\\cdot\\frac{x^3}{3} + \\sin x \\\\ &= 2x^3+\\sin x+C \\end{aligned}$$\nEl coeficiente $6$ dividido por el nuevo exponente $3$ da\n$$2$$\n.\n\nun paso de simplificación que conviene no saltear.",
     "reviewed": false,
     "tags": [
       "identificacion-inversa-derivada"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad y aplicamos la regla trigonométrica y la de la potencia a cada término.\n$$\\begin{aligned} \\int (3\\cos x+8x^3)\\,dx &= 3\\int \\cos x\\,dx + 8\\int x^3\\,dx \\\\ &= 3\\sin x + 8\\cdot\\frac{x^4}{4} \\\\ &= 3\\sin x+2x^4+C \\end{aligned}$$\nEl coeficiente $8$ dividido por el nuevo exponente $4$ da $2$.\n\nun paso de simplificación que conviene no saltear.",
+    "explanation": "Separamos por linealidad y aplicamos la regla trigonométrica y la de la potencia a cada término.\n$$\\begin{aligned} \\int (3\\cos x+8x^3)\\,dx &= 3\\int \\cos x\\,dx + 8\\int x^3\\,dx \\\\ &= 3\\sin x + 8\\cdot\\frac{x^4}{4} \\\\ &= 3\\sin x+2x^4+C \\end{aligned}$$\nEl coeficiente $8$ dividido por el nuevo exponente $4$ da\n$$2$$\n.\n\nun paso de simplificación que conviene no saltear.",
     "reviewed": false,
     "tags": [
       "identificacion-inversa-derivada"
@@ -293,7 +293,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad, aplicando la regla de la potencia y el caso especial del logaritmo.\n$$\\begin{aligned} \\int \\left(4x-\\frac{1}{x}\\right)\\,dx &= 4\\int x\\,dx - \\int \\frac{1}{x}\\,dx \\\\ &= 4\\cdot\\frac{x^2}{2} - \\ln|x| \\\\ &= 2x^2-\\ln|x|+C \\end{aligned}$$\nEl coeficiente $4$ dividido por el nuevo exponente $2$ da $2$.\n\nmientras que el término logarítmico conserva su signo negativo original.",
+    "explanation": "Separamos por linealidad, aplicando la regla de la potencia y el caso especial del logaritmo.\n$$\\begin{aligned} \\int \\left(4x-\\frac{1}{x}\\right)\\,dx &= 4\\int x\\,dx - \\int \\frac{1}{x}\\,dx \\\\ &= 4\\cdot\\frac{x^2}{2} - \\ln|x| \\\\ &= 2x^2-\\ln|x|+C \\end{aligned}$$\nEl coeficiente $4$ dividido por el nuevo exponente $2$ da\n$$2$$\n.\n\nmientras que el término logarítmico conserva su signo negativo original.",
     "reviewed": false,
     "tags": [
       "polinomios-fracciones-simples-combinadas"

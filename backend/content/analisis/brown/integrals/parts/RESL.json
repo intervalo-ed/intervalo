@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=2x$, $dv=e^x\\,dx$.\n\ncon $du=2\\,dx$ y $v=e^x$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\\begin{aligned} \\int 2xe^x\\,dx &= 2xe^x - \\int e^x(2\\,dx) \\\\ &= 2xe^x - 2\\int e^x\\,dx \\\\ &= 2xe^x-2e^x+C \\end{aligned}$$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nEl coeficiente $2$ de $u$ se traslada al $du$.\n\ny ese mismo factor termina multiplicando a la integral remanente completa.",
+    "explanation": "Elegimos $u=2x$, $dv=e^x\\,dx$.\n\ncon $du=2\\,dx$ y $v=e^x$$\\begin{aligned} \\int 2xe^x\\,dx &= 2xe^x - \\int e^x(2\\,dx) \\\\ &= 2xe^x - 2\\int e^x\\,dx \\\\ &= 2xe^x-2e^x+C \\end{aligned}\nEl coeficiente $2$ de $u$ se traslada al\n$$du$$\n.\n\ny ese mismo factor termina multiplicando a la integral remanente completa.",
     "reviewed": false,
     "tags": [
       "aplicacion-directa-una-iteracion"
@@ -318,7 +318,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=\\ln x$, $dv=x^3\\,dx$.\n\ncon $du=\\frac{1}{x}\\,dx$ y $v=\\frac{x^4}{4}$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\\begin{aligned} \\int x^3\\ln x\\,dx &= \\frac{x^4}{4}\\ln x - \\int \\frac{x^4}{4}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^4}{4}\\ln x - \\frac{1}{4}\\int x^3\\,dx \\\\ &= \\frac{x^4\\ln x}{4}-\\frac{x^4}{16}+C \\\\ &= \\frac{x^4(4\\ln x-1)}{16}+C \\end{aligned}$$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nEl denominador final combina dos factores, el $4$ de la regla de la potencia y el $4$ del factor que arrastra $v$.\n\nambos multiplicados dan $16$.",
+    "explanation": "Elegimos $u=\\ln x$, $dv=x^3\\,dx$.\n\ncon $du=\\frac{1}{x}\\,dx$ y $v=\\frac{x^4}{4}$$\\begin{aligned} \\int x^3\\ln x\\,dx &= \\frac{x^4}{4}\\ln x - \\int \\frac{x^4}{4}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^4}{4}\\ln x - \\frac{1}{4}\\int x^3\\,dx \\\\ &= \\frac{x^4\\ln x}{4}-\\frac{x^4}{16}+C \\\\ &= \\frac{x^4(4\\ln x-1)}{16}+C \\end{aligned}\nEl denominador final combina dos factores, el $4$ de la regla de la potencia y el $4$ del factor que arrastra\n$$v$$\n.\n\nambos multiplicados dan $16$.",
     "reviewed": false,
     "tags": [
       "factor-oculto-reducciones-cortas"

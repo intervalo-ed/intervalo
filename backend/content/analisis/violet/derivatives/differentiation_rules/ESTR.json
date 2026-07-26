@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "En la misma función:\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿Qué regla corresponde aplicar al término $3x^2$?",
+    "question": "Dada la función:\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿Qué regla corresponde aplicar al término $3x^2$?",
     "options": [
       "Regla de la constante",
       "Escalar por linealidad",
@@ -255,9 +255,9 @@
   {
     "question": "Considerá la función:\n$$f(x) = 2e^x - \\cos x + 6$$\n¿Cuántos términos distintos hay que derivar por separado?",
     "options": [
-      "Dos términos",
-      "Un término solamente",
-      "Potencia"
+      "Un término distinto",
+      "Dos términos distintos",
+      "Tres términos distintos"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -276,7 +276,7 @@
     ]
   },
   {
-    "question": "En la misma función:\n$$f(x) = 2e^x - \\cos x + 6$$\n¿Qué regla corresponde aplicar al término $6$?",
+    "question": "Considerá esta función:\n$$f(x) = 2e^x - \\cos x + 6$$\n¿Qué regla corresponde aplicar al término $6$?",
     "options": [
       "Regla de la constante",
       "Múltiplo escalar",
@@ -322,7 +322,7 @@
     ]
   },
   {
-    "question": "En la misma función:\n$$f(x) = x^5 - 4\\tan x + \\ln x$$\n¿Qué regla corresponde aplicar al término $-4\\tan x$?",
+    "question": "Para la siguiente función:\n$$f(x) = x^5 - 4\\tan x + \\ln x$$\n¿Qué regla corresponde aplicar al término $-4\\tan x$?",
     "options": [
       "Regla de la potencia",
       "Derivada de exponencial",

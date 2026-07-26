@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un producto entre una potencia y un binomio, conviene distribuir antes de integrar cada término por separado. En este caso, $x^2(x-4) = x^3 - 4x^2$. La distribución descompone el producto en dos términos simples que pueden integrarse usando la regla de la potencia de forma inmediata, sin necesidad de ninguna fórmula especial para productos. La reescritura de expresiones es una habilidad algebraica fundamental que acelera los cálculos de integrales y reduce errores de cálculo. Aplicar álgebra antes de integrar es siempre preferible a intentar aplicar reglas de integración sobre expresiones no simplificadas.",
+    "explanation": "Con un producto entre una potencia y un binomio, conviene distribuir antes de integrar cada término por separado. En este caso, $x^2(x-4) = x^3 - 4x^2$..\n\nLa distribución descompone el producto en dos términos simples que pueden integrarse usando la regla de la potencia de forma inmediata, sin necesidad de ninguna fórmula especial para productos.\n\nLa reescritura de expresiones es una habilidad algebraica fundamental que acelera los cálculos de integrales y reduce errores de cálculo.\n\nAplicar álgebra antes de integrar es siempre preferible a intentar aplicar reglas de integración sobre expresiones no simplificadas",
     "reviewed": false,
     "tags": [
       "reescritura-potencias-y-raices"
@@ -276,7 +276,7 @@
     ]
   },
   {
-    "question": "Antes de resolver esta integral:\n$$\\int \\frac{1}{x^5}\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "Para resolver la siguiente integral:\n$$\\int \\frac{1}{x^5}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Reescribir como potencia negativa: $x^{-5}$",
       "Dejar la expresión sin reescribir",
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "Antes de resolver esta integral:\n$$\\int \\sqrt[4]{x^3}\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "Antes de integrar:\n$$\\int \\sqrt[4]{x^3}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Reescribir como potencia fraccionaria invertida: $x^{4/3}$",
       "Reescribir la raíz como potencia fraccionaria: $x^{3/4}$",
@@ -322,7 +322,7 @@
     ]
   },
   {
-    "question": "Antes de resolver esta integral:\n$$\\int \\frac{1}{x^2}\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "Preparate para esta integral:\n$$\\int \\frac{1}{x^2}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Dejar la expresión sin reescribir",
       "Subir la variable sin invertir el signo: $x^{2}$",

@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos :, $v(x)=e^x$, con $u'(x)=2x$ y.\n$$v'(x)=e^x$$\n.Con $u(2)=0$, :, $u'(2)=4$ y $v(2)=e^2$:El término $u(2)v'(2)$ se anula porque $x=2$ es raíz de $u.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$, así que solo queda el aporte de $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nU'(2)v(2)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
+    "explanation": "Identificamos :, $v(x)=e^x$, con \n$$u'(x)=2x$$ y.\n$$v'(x)=e^x$$\n.Con $u(2)=0$, \n$$u'(2)=4$$=4$ y $v(2)=e^2$:El té\n$$u(2)v'(2)$$v'(2)$ se anula porque\n$$x=2$$\nes raíz de $u.\n$$, así que solo queda el aporte de \nU'(2)v(2)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
     "reviewed": false,
     "tags": [
       "anulacion-por-raiz-producto"
@@ -68,7 +68,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos.\n$$u(x)=x^2-9$$\n, $v(x)=\\ln x$, con $u'(x)=2x$ y :.Con $u(3)=0$, :, $u'(3)=6$ y $v(3)=\\ln 3$:El término $u(3)v'(3)$ se anula porque $x=3$ es raíz de $u.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$, así que el resultado queda determinado por $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nU'(3)v(3)$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos.\n$$u(x)=x^2-9$$\n, $v(x)=\\ln x$, con \n$$u'(x)=2x$$ y :.Con $u(3)=0$, \n$$u'(3)=6$$=6$ y $v(3)=\\ln 3$:El té\n$$u(3)v'(3)$$v'(3)$ se anula porque\n$$x=3$$\nes raíz de $u.\n$$, así que el resultado queda determinado por \nU'(3)v(3)$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "anulacion-por-raiz-producto"
@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos.\n$$u(x)=\\cos x$$\n, $v(x)=e^x$, con : y $v'(x)=e^x$.Con :, $v(0)=1$, $u(0)=1$ y $v'(0)=1$:El término $u'(0)v(0)$ se anula porque $x=0$ anula la derivada de $u.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$, así que el resultado queda determinado por $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nU(0)v'(0)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
+    "explanation": "Identificamos.\n$$u(x)=\\cos x$$\n, $v(x)=e^x$, con : y \n$$v'(x)=e^x$$.Con :, $v(0)=1\n$$u(0)=1$$=1$ y $v'(0)=1$:El té\n$$u'(0)v(0)$$)v(0)$ se anula porque\n$$x=0$$\nanula la derivada de $u.\n$$, así que el resultado queda determinado por \nU(0)v'(0)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
     "reviewed": false,
     "tags": [
       "anulacion-por-derivada-nula-producto"
@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos :, $v(x)=e^x$, con $u'(x)=2x$ y.\n$$v'(x)=e^x$$\n.Con :, $v(0)=1$, $u(0)=3$ y $v'(0)=1$:El término $u'(0)v(0)$ se anula porque $x=0$ anula la derivada de $u.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$, así que el resultado queda determinado por $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nU(0)v'(0)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
+    "explanation": "Identificamos :, $v(x)=e^x$, con \n$$u'(x)=2x$$ y.\n$$v'(x)=e^x$$\n.Con :, $v(0)=1\n$$u(0)=3$$=3$ y $v'(0)=1$:El té\n$$u'(0)v(0)$$)v(0)$ se anula porque\n$$x=0$$\nanula la derivada de $u.\n$$, así que el resultado queda determinado por \nU(0)v'(0)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
     "reviewed": false,
     "tags": [
       "anulacion-por-derivada-nula-producto"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=\\cos x$, $v(x)=x^2+2$.\n\ncon : y $v'(x)=2x$.Con :,.\n$$v(\\pi)=\\pi^2+2$$\n, $u(\\pi)=-1$ y $v'(\\pi)=2\\pi$:El término $u'(\\pi)v(\\pi)$ se anula porque $x=\\pi$ anula la derivada de $u.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$, así que el resultado queda determinado por $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nU(\\pi)v'(\\pi)$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $u(x)=\\cos x$, $v(x)=x^2+2$.\n\ncon : y $v'(x)=2x$.Con :,.\n$$v(\\pi)=\\pi^2+2$$\n, \n$$u(\\pi)=-1$$ y $v'(\\pi)=2\\pi$:El térmi\n$$u'(\\pi)v(\\pi)$$i)$ se anula porque\n$$x=\\pi$$\nanula la derivada de $u.\n$$, así que el resultado queda determinado por \nU(\\pi)v'(\\pi)$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "anulacion-por-derivada-nula-producto"
@@ -218,7 +218,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos :, $v(x)=e^x$, con.\n$$u'(x)=2(x-1)$$\nY $v'(x)=e^x$.Con :, $v(1)=e$, $u(1)=5$ y $v'(1)=e$:El término $u'(1)v(1)$ se anula porque $x=1$ es el vértice de $u.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$, así que el resultado queda determinado por $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nU(1)v'(1)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
+    "explanation": "Identificamos :, $v(x)=e^x$, con.\n$$u'(x)=2(x-1)$$\nY \n$$v'(x)=e^x$$.Con :, $v(1)=e\n$$u(1)=5$$=5$ y $v'(1)=e$:El té\n$$u'(1)v(1)$$)v(1)$ se anula porque\n$$x=1$$\nes el vértice de $u.\n$$, así que el resultado queda determinado por \nU(1)v'(1)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
     "reviewed": false,
     "tags": [
       "anulacion-por-derivada-nula-producto"

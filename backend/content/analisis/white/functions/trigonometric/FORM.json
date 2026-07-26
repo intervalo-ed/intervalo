@@ -408,7 +408,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ángulo $\\pi/6=30°$ pertenece al triángulo $30°$-$60°$-$90°$ \n\ncon proporciones :.El seno es cateto opuesto sobre hipotenusa: $\\operatorname{sen}(30°)=1/2$.\n\nTabla de valores clave:\n$\\operatorname{sen}(\\pi/6)=1/2$.\n$$\\operatorname{sen}(\\pi/4)=\\sqrt{2}/2$$\n.\n\n$\\operatorname{sen}(\\pi/3)=\\sqrt{3}/2$.\n\n$\\operatorname{sen}(\\pi/2)=1$.\n\n$\\operatorname{sen}(30°)=1/2$: el resultado más fácil de la tabla trigonométrica.\n\nEmpezá memorizando este.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
+    "explanation": "El ángulo $\\pi/6=30°$ pertenece al triángulo \n$$30°$$-$60°$-\n$$90°$$\n\n\ncon proporciones :.El seno es cateto opuesto sobre hipotenusa: $\\operatorname{sen}(30°)=1/2$.\n\nTabla de valores clave:\n$\\operatorname{sen}(\\pi/6)=1/2$.\n$$\\operatorname{sen}(\\pi/4)=\\sqrt{2}/2$$\n.\n\n$\\operatorname{sen}(\\pi/3)=\\sqrt{3}/2$.\n\n$\\operatorname{sen}(\\pi/2)=1$.\n\n$\\operatorname{sen}(30°)=1/2$: el resultado más fácil de la tabla trigonométrica.\n\nEmpezá memorizando este.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -433,7 +433,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ángulo $\\pi/3=60°$ pertenece al triángulo $30°$-$60°$-$90°$ \n\ncon proporciones :.El coseno es cateto adyacente sobre hipotenusa: $\\cos(60°)=1/2$.\n\nNótese la simetría:\n$$\\cos(\\pi/3)=\\operatorname{sen}(\\pi/6)=1/2$$\n.\n\nporque $60°$ y $30°$ son complementarios.\n\nEl distractor $\\sqrt{3}/2$ es $\\cos(\\pi/6)=\\operatorname{sen}(\\pi/3)$: el ángulo opuesto del mismo triángulo.\n\n$\\cos(60°)=1/2$: el mismo valor que $\\operatorname{sen}(30°)$.\n\nLa tabla trigonométrica tiene más simetrías que un copo de nieve.",
+    "explanation": "El ángulo $\\pi/3=60°$ pertenece al triángulo \n$$30°$$-$60°$-\n$$90°$$\n\n\ncon proporciones :.El coseno es cateto adyacente sobre hipotenusa: $\\cos(60°)=1/2$.\n\nNótese la simetría:\n$$\\cos(\\pi/3)=\\operatorname{sen}(\\pi/6)=1/2$$\n.\n\nporque $60°$ y $30°$ son complementarios.\n\nEl distractor $\\sqrt{3}/2$ es $\\cos(\\pi/6)=\\operatorname{sen}(\\pi/3)$: el ángulo opuesto del mismo triángulo.\n\n$\\cos(60°)=1/2$: el mismo valor que $\\operatorname{sen}(30°)$.\n\nLa tabla trigonométrica tiene más simetrías que un copo de nieve.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
