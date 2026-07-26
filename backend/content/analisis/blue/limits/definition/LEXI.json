@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **límite** formaliza la idea de **tendencia**: describe qué pasa con $f(x)$ a medida que $x$ toma valores cada vez más próximos a un número $a$\n\n, sin necesitar que $x$ llegue a valer exactamente $a$.\n\nEsta separación entre el proceso (acercamiento) y el destino (número $L$) es el corazón de la noción.\n\nEn.\n$$\\lim_{x \\to 3} f(x)$$\n, la flecha $\\to$ indica que se evalúa $f$ en valores como $2{,}9$, $2{,}99$, $2{,}999$, $3{,}01$, cada vez más cercanos a $3$, y se observa a qué número se acerca el resultado.\n\n, sin necesidad de calcular $f(3).\n$.\n$.\n$.\n$$.\n\nEl proceso de acercamiento es lo central, no el punto exacto.\n\nAsí entonces, la flecha $$\n$\n$\n$\nX \\to a$ nunca significa $x = a$, siempre describe un movimiento hacia sin llegar al punto.",
+    "explanation": "El **límite** formaliza la idea de **tendencia**: describe qué pasa con $f(x)$ a medida que $x$ toma valores cada vez más próximos a un número $a$\n\n, sin necesitar que $x$ llegue a valer exactamente $a$.\n\nEsta separación entre el proceso (acercamiento) y el destino (número $L$) es el corazón de la noción.\n\nEn.\n$$\\lim_{x \\to 3} f(x)$$\n, la flecha $\\to$ indica que se evalúa $f$ en valores como $2{,}9$, $2{,}99$, $2{,}999$, $3{,}01$, cada vez más cercanos a $3$, y se observa a qué número se acerca el resultado.\n\n, sin necesidad de calcular $f(3).\n$.\n$.\n$.\n$.\n$$.\n\nEl proceso de acercamiento es lo central, no el punto exacto.\n\nAsí entonces, la flecha $$\n$\n$\n$\n$\nX \\to a$ nunca significa $x = a$, siempre describe un movimiento hacia sin llegar al punto.",
     "reviewed": false,
     "tags": [
       "lectura-notacion"
@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La notación.\n$$\\lim_{x \\to a} f(x) = L$$\nTiene tres partes con roles distintos.\n\n: $a$ es el punto de **aproximación**, $x \\to a$ describe el proceso de **acercamiento** progresivo, y $L$ es el número al que se **acerca** $f(x).\n$.\n$.\n$.\n$$ sin necesidad de alcanzarlo.\n\nCada símbolo tiene un propósito distinto en la fórmula.\n\nPor ejemplo.\n\n, si $$\n$\n$\n$\nF(x) = 2x + 1$ y se analiza la tendencia cuando $x \\to 3$, los valores de $f(x)$ se acercan a $7$ a medida que $x$ se acerca a $3$: evaluando en $2{,}9, 2{,}99, 3{,}01$ se obtiene :.El destino de esa aproximación es $L = 7$.\n\n$L$ es siempre un número fijo, el destino de la aproximación, nunca una expresión que dependa de $x$.\n\nEs el valor estable al que converge : conforme $x$ se cierra sobre $a$.",
+    "explanation": "La notación.\n$$\\lim_{x \\to a} f(x) = L$$\nTiene tres partes con roles distintos.\n\n: $a$ es el punto de **aproximación**, $x \\to a$ describe el proceso de **acercamiento** progresivo, y $L$ es el número al que se **acerca** $f(x).\n$.\n$.\n$.\n$.\n$$ sin necesidad de alcanzarlo.\n\nCada símbolo tiene un propósito distinto en la fórmula.\n\nPor ejemplo.\n\n, si $$\n$\n$\n$\n$\nF(x) = 2x + 1$ y se analiza la tendencia cuando $x \\to 3$, los valores de $f(x)$ se acercan a $7$ a medida que $x$ se acerca a $3$: evaluando en $2{,}9, 2{,}99, 3{,}01$ se obtiene :.El destino de esa aproximación es $L = 7$.\n\n$L$ es siempre un número fijo, el destino de la aproximación, nunca una expresión que dependa de $x$.\n\nEs el valor estable al que converge : conforme $x$ se cierra sobre $a$.",
     "reviewed": false,
     "tags": [
       "lectura-notacion"
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Calcular un **límite** es un proceso de **aproximación** espacial: se estudia qué pasa con $f(x)$ para valores de $x$ cercanos a un punto $a$, en un entorno alrededor de $a$\n\n, sin necesitar que $f$ esté siquiera definida exactamente en $a$.\n\nEl límite mira en todo el vecindario del punto, no en el punto mismo.\n\nSi $f$ tiene un hueco en $x=2$ pero se comporta de forma predecible alrededor (ej.\n\n$f(x) = x+1$ para todo $x \\neq 2$), igual existe.\n$.\n$.\n$.\n$.\n$$\\lim_{x \\to 2} f(x) = 3$$\n$\n$\n$\n$\n, porque el análisis se hace sobre el entorno, no sobre el punto aislado.\n\nLa definición de límite fue diseñada a propósito para ignorar lo que pasa exactamente en el punto.\n\nInterpretar el límite como lo que sucede exactamente en el punto (en lugar de cómo se aproxima la función) genera la confusión más común.",
+    "explanation": "Calcular un **límite** es un proceso de **aproximación** espacial: se estudia qué pasa con $f(x)$ para valores de $x$ cercanos a un punto $a$, en un entorno alrededor de $a$\n\n, sin necesitar que $f$ esté siquiera definida exactamente en $a$.\n\nEl límite mira en todo el vecindario del punto, no en el punto mismo.\n\nSi $f$ tiene un hueco en $x=2$ pero se comporta de forma predecible alrededor (ej.\n\n$f(x) = x+1$ para todo $x \\neq 2$), igual existe.\n$.\n$.\n$.\n$.\n$.\n$$\\lim_{x \\to 2} f(x) = 3$$\n$\n$\n$\n$\n$\n, porque el análisis se hace sobre el entorno, no sobre el punto aislado.\n\nLa definición de límite fue diseñada a propósito para ignorar lo que pasa exactamente en el punto.\n\nInterpretar el límite como lo que sucede exactamente en el punto (en lugar de cómo se aproxima la función) genera la confusión más común.",
     "reviewed": false,
     "tags": [
       "independencia-limite-valor"
@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El resultado de un **límite** es siempre un número $L$ (o, en otros casos, una tendencia al infinito), nunca una igualdad sobre la variable independiente.\n\nLa respuesta debe describir a $f(x)$, no repetir el dato del enunciado.\n\nResponder \"$x=5$\" repite el punto de tendencia que ya está dado en la notación, en lugar de calcular a qué valor se acerca : en el entorno de $5$.Es como si alguien preguntara \"¿cuántos dólares tienes?\" y respondieras \"$100$ dólares\", pero si la pregunta fuera \"¿a cuánto tiende tu saldo?\" no podrías responder \".\n$$x = 100$.\n$.\n$.\n$.\n$$\n\".\n\nAntes de responder, conviene preguntarse: ¿el número que obtuve describe el comportamiento de $$\n$\n$\n$\nF(x)$ en el entorno, o solo repite el punto de partida?",
+    "explanation": "El resultado de un **límite** es siempre un número $L$ (o, en otros casos, una tendencia al infinito), nunca una igualdad sobre la variable independiente.\n\nLa respuesta debe describir a $f(x)$, no repetir el dato del enunciado.\n\nResponder \"$x=5$\" repite el punto de tendencia que ya está dado en la notación, en lugar de calcular a qué valor se acerca : en el entorno de $5$.Es como si alguien preguntara \"¿cuántos dólares tienes?\" y respondieras \"$100$ dólares\", pero si la pregunta fuera \"¿a cuánto tiende tu saldo?\" no podrías responder \".\n$$x = 100$.\n$.\n$.\n$.\n$.\n$$\n\".\n\nAntes de responder, conviene preguntarse: ¿el número que obtuve describe el comportamiento de $$\n$\n$\n$\n$\nF(x)$ en el entorno, o solo repite el punto de partida?",
     "reviewed": false,
     "tags": [
       "lectura-notacion"
@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una tabla de valores es una forma **numérica** de estimar una **tendencia**.\n\n: si $f(x)$ se acerca cada vez más a un número a medida que $x$ se acerca a $a$ desde ambos lados, esa convergencia sugiere que el límite existe y vale ese número.\n\nLas tablas son el primer método práctico para reconocer límites.\n\nEn este caso, los valores para $x=1{,}9$ y.\n$$x=1{,}99$.\n$.\n$.\n$.\n$$\n, acercándose desde la izquierda, y $$\n$\n$\n$\nX=2{,}01$ y $x=2{,}1$, desde la derecha, convergen a $6$: esto sugiere :.La convergencia bilateral es la señal clave.\n\nUna tabla es evidencia numérica, no una demostración algebraica, pero alcanza para reconocer el valor esperado del límite y para descartar opciones incorrectas.",
+    "explanation": "Una tabla de valores es una forma **numérica** de estimar una **tendencia**.\n\n: si $f(x)$ se acerca cada vez más a un número a medida que $x$ se acerca a $a$ desde ambos lados, esa convergencia sugiere que el límite existe y vale ese número.\n\nLas tablas son el primer método práctico para reconocer límites.\n\nEn este caso, los valores para $x=1{,}9$ y.\n$$x=1{,}99$.\n$.\n$.\n$.\n$.\n$$\n, acercándose desde la izquierda, y $$\n$\n$\n$\n$\nX=2{,}01$ y $x=2{,}1$, desde la derecha, convergen a $6$: esto sugiere :.La convergencia bilateral es la señal clave.\n\nUna tabla es evidencia numérica, no una demostración algebraica, pero alcanza para reconocer el valor esperado del límite y para descartar opciones incorrectas.",
     "reviewed": false,
     "tags": [
       "independencia-limite-valor"
@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **independencia** entre el límite y el valor de la función en el punto es una de las ideas más importantes del tema: el límite se calcula a partir del comportamiento alrededor de $a$\n\n, sin importar si $f(a)$ existe, cuánto vale, o si está redefinida de forma aislada.\n\nEl límite es sobre el entorno, no sobre el punto exacto.\n\nAcá, aunque $f(4)$ no está definida, para todo $x$ cercano a $4$ la función se comporta como $x+1$, entonces $f(x)$ se acerca a $4+1=5$ cuando :.El hueco en $x=4$ no afecta la convergencia observada en los alrededores, por lo que.\n$.\n$.\n$.\n$.\n$$\\lim_{x \\to 4} f(x) = 5$$\n$\n$\n$\n$\n.\n\nUn hueco en el dominio nunca es un obstáculo por sí solo para que el límite exista: la definición de límite fue construida a propósito para que el entorno importara, no el punto faltante.",
+    "explanation": "La **independencia** entre el límite y el valor de la función en el punto es una de las ideas más importantes del tema: el límite se calcula a partir del comportamiento alrededor de $a$\n\n, sin importar si $f(a)$ existe, cuánto vale, o si está redefinida de forma aislada.\n\nEl límite es sobre el entorno, no sobre el punto exacto.\n\nAcá, aunque $f(4)$ no está definida, para todo $x$ cercano a $4$ la función se comporta como $x+1$, entonces $f(x)$ se acerca a $4+1=5$ cuando :.El hueco en $x=4$ no afecta la convergencia observada en los alrededores, por lo que.\n$.\n$.\n$.\n$.\n$.\n$$\\lim_{x \\to 4} f(x) = 5$$\n$\n$\n$\n$\n$\n.\n\nUn hueco en el dominio nunca es un obstáculo por sí solo para que el límite exista: la definición de límite fue construida a propósito para que el entorno importara, no el punto faltante.",
     "reviewed": false,
     "tags": [
       "independencia-limite-valor"
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando una función se redefine artificialmente en un único punto , ese valor queda **aislado** y no participa del cálculo del **límite**.\n\n, que depende exclusivamente del comportamiento en el entorno del punto.\n\nSon dos cálculos distintos y pueden dar resultados distintos.\n\nPara todo $x$ cercano a $1$ pero distinto de $1$, $f(x) = 2x$, entonces $f(x)$ se acerca a $2$ cuando $x \\to 1$, así que :, sin importar que.\n$.\n$.\n$.\n$.\n$$f(1) = 100$$\n$\n$\n$\n$\n.El valor puntual aislado no cambia la tendencia que reina en el vecindario.\n\nEste es el ejemplo más claro de que el límite y la evaluación puntual son conceptos distintos que pueden coincidir, pero no es obligatorio.\n\nLa definición de límite separa ambas cosas a propósito.",
+    "explanation": "Cuando una función se redefine artificialmente en un único punto , ese valor queda **aislado** y no participa del cálculo del **límite**.\n\n, que depende exclusivamente del comportamiento en el entorno del punto.\n\nSon dos cálculos distintos y pueden dar resultados distintos.\n\nPara todo $x$ cercano a $1$ pero distinto de $1$, $f(x) = 2x$, entonces $f(x)$ se acerca a $2$ cuando $x \\to 1$, así que :, sin importar que.\n$.\n$.\n$.\n$.\n$.\n$$f(1) = 100$$\n$\n$\n$\n$\n$\n.El valor puntual aislado no cambia la tendencia que reina en el vecindario.\n\nEste es el ejemplo más claro de que el límite y la evaluación puntual son conceptos distintos que pueden coincidir, pero no es obligatorio.\n\nLa definición de límite separa ambas cosas a propósito.",
     "reviewed": false,
     "tags": [
       "independencia-limite-valor"
@@ -177,7 +177,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando una función es **continua** en un punto, el valor al que se aproxima en el entorno coincide exactamente con su evaluación en ese punto.\n\nLa continuidad es la condición bajo la cual ambos conceptos concuerdan.\n\nEn.\n$$f(x)=x^2$.\n$.\n$.\n$.\n$$\n, a medida que $$\n$\n$\n$\nX$ se acerca a $3$, $f(x)$ se acerca a $9$, y además $f(3)=9$ coincide con esa tendencia, sin huecos ni redefiniciones que rompan la igualdad.\n\nLa cercanía en el entorno refleja lo que pasa en el punto, por eso coinciden.\n\nEsta coincidencia no es automática en toda función, solo ocurre cuando no hay huecos, saltos ni puntos redefinidos.\n\nPor eso conviene no asumir que límite y evaluación son siempre lo mismo sin chequear si hay continuidad.",
+    "explanation": "Cuando una función es **continua** en un punto, el valor al que se aproxima en el entorno coincide exactamente con su evaluación en ese punto.\n\nLa continuidad es la condición bajo la cual ambos conceptos concuerdan.\n\nEn.\n$$f(x)=x^2$.\n$.\n$.\n$.\n$.\n$$\n, a medida que $$\n$\n$\n$\n$\nX$ se acerca a $3$, $f(x)$ se acerca a $9$, y además $f(3)=9$ coincide con esa tendencia, sin huecos ni redefiniciones que rompan la igualdad.\n\nLa cercanía en el entorno refleja lo que pasa en el punto, por eso coinciden.\n\nEsta coincidencia no es automática en toda función, solo ocurre cuando no hay huecos, saltos ni puntos redefinidos.\n\nPor eso conviene no asumir que límite y evaluación son siempre lo mismo sin chequear si hay continuidad.",
     "reviewed": false,
     "tags": [
       "independencia-limite-valor"
@@ -200,7 +200,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Evaluar una función y calcular un **límite** son dos operaciones **distintas por su naturaleza**: evaluar exige un valor fijo en el dominio donde se ejecuta un cálculo puntual.\n\n, mientras que el límite se apoya en la **aproximación** progresiva desde el entorno , sin necesidad del punto exacto.\n\nPreguntarse \"¿cuánto da en $x=a$?\" es distinto de \"¿a qué tiende mientras me acerco a $a$?\".\n\nAunque $f(6)$ no exista , para todo $x$ cercano a $6$ la función se comporta como $x - 2$ , entonces $f(x)$ se acerca a $4$ cuando $x \\to 6$\n\n, por lo que.\n$.\n$.\n$.\n$.\n$$\\lim_{x \\to 6} f(x) = 4$$\n$\n$\n$\n$\nSin necesidad de evaluar en el punto.\n\nEl entorno se analiza con independencia del punto aislado.\n\nCuando el dominio tiene un hueco, conviene detenerse antes de sustituir directo y preguntar primero: \"¿puedo evaluar en el punto?\".\n\nSi no, el límite se estudia por otra vía.",
+    "explanation": "Evaluar una función y calcular un **límite** son dos operaciones **distintas por su naturaleza**: evaluar exige un valor fijo en el dominio donde se ejecuta un cálculo puntual.\n\n, mientras que el límite se apoya en la **aproximación** progresiva desde el entorno , sin necesidad del punto exacto.\n\nPreguntarse \"¿cuánto da en $x=a$?\" es distinto de \"¿a qué tiende mientras me acerco a $a$?\".\n\nAunque $f(6)$ no exista , para todo $x$ cercano a $6$ la función se comporta como $x - 2$ , entonces $f(x)$ se acerca a $4$ cuando $x \\to 6$\n\n, por lo que.\n$.\n$.\n$.\n$.\n$.\n$$\\lim_{x \\to 6} f(x) = 4$$\n$\n$\n$\n$\n$\nSin necesidad de evaluar en el punto.\n\nEl entorno se analiza con independencia del punto aislado.\n\nCuando el dominio tiene un hueco, conviene detenerse antes de sustituir directo y preguntar primero: \"¿puedo evaluar en el punto?\".\n\nSi no, el límite se estudia por otra vía.",
     "reviewed": false,
     "tags": [
       "lectura-notacion"
@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$k/0$ con.\n$$k \\neq 0$$\nDescribe una **tendencia a :**, no una **indeterminación**.: cuando el denominador se acerca a $0$ y el numerador se mantiene distinto de $0$, la fracción crece sin cota porque estás dividiendo una cantidad fija por algo cada vez más pequeño.\n\nEl resultado está determinado a crecer indefinidamente.\n\nEn este caso, con numerador $3$ y denominador tendiendo a $0$, el cociente se dispara hacia $+\\infty$ o $-\\infty.\n$.\n$.\n$.\n$$ según el signo del denominador cerca del punto.\n\nLa dirección depende del signo, pero la magnitud creciente es inevitable.\n\nNo confundas este caso con 0/0: solo cuando numerador y denominador tienden a $$\n$\n$\n$\n0$ simultáneamente aparece la verdadera indeterminación.\n\nSi uno se anula y el otro no, el destino ya está fijo.",
+    "explanation": "$k/0$ con.\n$$k \\neq 0$$\nDescribe una **tendencia a :**, no una **indeterminación**.: cuando el denominador se acerca a $0$ y el numerador se mantiene distinto de $0$, la fracción crece sin cota porque estás dividiendo una cantidad fija por algo cada vez más pequeño.\n\nEl resultado está determinado a crecer indefinidamente.\n\nEn este caso, con numerador $3$ y denominador tendiendo a $0$, el cociente se dispara hacia $+\\infty$ o $-\\infty.\n$.\n$.\n$.\n$.\n$$ según el signo del denominador cerca del punto.\n\nLa dirección depende del signo, pero la magnitud creciente es inevitable.\n\nNo confundas este caso con 0/0: solo cuando numerador y denominador tienden a $$\n$\n$\n$\n$\n0$ simultáneamente aparece la verdadera indeterminación.\n\nSi uno se anula y el otro no, el destino ya está fijo.",
     "reviewed": false,
     "tags": [
       "diagnostico-indeterminacion"
@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La diferencia entre **0/0** y **0/$k$** (con.\n$$k \\neq 0$.\n$.\n$.\n$.\n$$\n) es central para decidir si la **sustitución directa** alcanza o si hace falta otra técnica.\n\nEl estado de cada término por separado determina si el resultado está cerrado o abierto.\n\nEn el primer caso, ambos términos tienden a $$\n$\n$\n$\n0$ simultáneamente.\n\n: la \"carrera\" entre el numerador y denominador acerca quedarse sin resolver, diferentes funciones pueden comportarse de formas distintas al acercarse.\n\nEn el segundo, el numerador tiende a $0$ pero el denominador no, así que el cociente completo tiende a $0$, sin ambigüedad.\n\nAntes de declarar una indeterminación conviene revisar los dos términos por separado: un denominador distinto de $0$ ya cierra el cálculo sin necesidad de otra técnica.",
+    "explanation": "La diferencia entre **0/0** y **0/$k$** (con.\n$$k \\neq 0$.\n$.\n$.\n$.\n$.\n$$\n) es central para decidir si la **sustitución directa** alcanza o si hace falta otra técnica.\n\nEl estado de cada término por separado determina si el resultado está cerrado o abierto.\n\nEn el primer caso, ambos términos tienden a $$\n$\n$\n$\n$\n0$ simultáneamente.\n\n: la \"carrera\" entre el numerador y denominador acerca quedarse sin resolver, diferentes funciones pueden comportarse de formas distintas al acercarse.\n\nEn el segundo, el numerador tiende a $0$ pero el denominador no, así que el cociente completo tiende a $0$, sin ambigüedad.\n\nAntes de declarar una indeterminación conviene revisar los dos términos por separado: un denominador distinto de $0$ ya cierra el cálculo sin necesidad de otra técnica.",
     "reviewed": false,
     "tags": [
       "diagnostico-indeterminacion"
@@ -292,7 +292,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **sustitución directa** es válida cuando la expresión está bien definida en el punto de tendencia, es decir.\n\n, cuando no aparece una división por cero ni una raíz de un número negativo (dentro del dominio real) ni ninguna otra operación prohibida en ese punto.\n\nLa legalidad de la sustitución depende de que el punto esté en el dominio.\n\nPor ejemplo, en.\n$$\\lim_{x \\to 2}\\frac{x+1}{x-5}$$\n, el denominador no se anula en $x=2$ (da $-3$, distinto de $0.\n$.\n$.\n$.\n$$), así que alcanza con reemplazar $$\n$\n$\n$\nX$ por $2$ para obtener el resultado.\n\nLa expresión tiene sentido en ese punto.\n\nAntes de sustituir directo, conviene chequear rápido que ninguna operación prohibida aparezca justo en el punto de tendencia: división por cero, raíz de negativo, logaritmo de negativo, etc.",
+    "explanation": "La **sustitución directa** es válida cuando la expresión está bien definida en el punto de tendencia, es decir.\n\n, cuando no aparece una división por cero ni una raíz de un número negativo (dentro del dominio real) ni ninguna otra operación prohibida en ese punto.\n\nLa legalidad de la sustitución depende de que el punto esté en el dominio.\n\nPor ejemplo, en.\n$$\\lim_{x \\to 2}\\frac{x+1}{x-5}$$\n, el denominador no se anula en $x=2$ (da $-3$, distinto de $0.\n$.\n$.\n$.\n$.\n$$), así que alcanza con reemplazar $$\n$\n$\n$\n$\nX$ por $2$ para obtener el resultado.\n\nLa expresión tiene sentido en ese punto.\n\nAntes de sustituir directo, conviene chequear rápido que ninguna operación prohibida aparezca justo en el punto de tendencia: división por cero, raíz de negativo, logaritmo de negativo, etc.",
     "reviewed": false,
     "tags": [
       "diagnostico-indeterminacion"
@@ -315,7 +315,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El logaritmo (de cualquier base) solo está definido cuando su argumento es **positivo**.\n\n, así que antes de sustituir directo en un límite con logaritmo hay que verificar que el argumento sea positivo en el punto de tendencia.\n\nEs una restricción del dominio que limita la validez de la sustitución.\n\nEn $x \\to 3$, el argumento de.\n$$\\log(x-1)$$\nVale $3-1=2.\n$.\n$.\n$.\n$$, que es positivo, entonces la sustitución directa es legal y :.El dominio se respeta en el punto.\n\nSi el argumento diera $$\n$\n$\n$\n0$ o un número negativo en el punto , la sustitución directa dejaría de ser válida y habría que analizar el caso como una indeterminación o una tendencia especial.\n\n, no un cálculo directo.",
+    "explanation": "El logaritmo (de cualquier base) solo está definido cuando su argumento es **positivo**.\n\n, así que antes de sustituir directo en un límite con logaritmo hay que verificar que el argumento sea positivo en el punto de tendencia.\n\nEs una restricción del dominio que limita la validez de la sustitución.\n\nEn $x \\to 3$, el argumento de.\n$$\\log(x-1)$$\nVale $3-1=2.\n$.\n$.\n$.\n$.\n$$, que es positivo, entonces la sustitución directa es legal y :.El dominio se respeta en el punto.\n\nSi el argumento diera $$\n$\n$\n$\n$\n0$ o un número negativo en el punto , la sustitución directa dejaría de ser válida y habría que analizar el caso como una indeterminación o una tendencia especial.\n\n, no un cálculo directo.",
     "reviewed": false,
     "tags": [
       "condiciones-sustitucion-directa"
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **sustitución directa** requiere que la expresión esté **definida** en el punto de tendencia.\n\nSi hay un hueco, esa condición fundamental falla y no puede aplicarse el método directo de reemplazar y operar.\n\nEl punto debe pertenecer al dominio.\n\nEn este caso, aunque.\n$$f(7)$.\n$.\n$.\n$.\n$$\nNo exista, el comportamiento de $$\n$\n$\n$\nF$ para valores cercanos a $7$ sigue siendo analizable a través del límite.\n\nEl análisis del entorno es el que permite calcular el límite, no una evaluación puntual inexistente.\n\nAnte un hueco, conviene detenerse antes de sustituir directo y preguntar: \"¿La expresión está definida en el punto?\".\n\nSi no, busca otra vía (analizar el entorno, usar una técnica algebraica, etc.).",
+    "explanation": "La **sustitución directa** requiere que la expresión esté **definida** en el punto de tendencia.\n\nSi hay un hueco, esa condición fundamental falla y no puede aplicarse el método directo de reemplazar y operar.\n\nEl punto debe pertenecer al dominio.\n\nEn este caso, aunque.\n$$f(7)$.\n$.\n$.\n$.\n$.\n$$\nNo exista, el comportamiento de $$\n$\n$\n$\n$\nF$ para valores cercanos a $7$ sigue siendo analizable a través del límite.\n\nEl análisis del entorno es el que permite calcular el límite, no una evaluación puntual inexistente.\n\nAnte un hueco, conviene detenerse antes de sustituir directo y preguntar: \"¿La expresión está definida en el punto?\".\n\nSi no, busca otra vía (analizar el entorno, usar una técnica algebraica, etc.).",
     "reviewed": false,
     "tags": [
       "condiciones-sustitucion-directa"
