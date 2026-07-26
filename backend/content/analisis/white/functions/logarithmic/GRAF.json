@@ -203,7 +203,7 @@
       -3,
       5
     ],
-    "explanation": "El punto $(b.\n\n1)$ pertenece siempre a la curva de $\\log_b(x)$.\n\nporque.\n$$\\log_b(b) = 1$$\nPara cualquier base.\n\nEn el gráfico.\n\nen $x = 2$ la curva vale $y = 1$: : porque $2^1 = 2$.Ese punto $(2.\n\n1).\n$$ es justamente la clave para leer que la base de esta curva es $$\n2$, sin necesidad de memorizar la fórmula.",
+    "explanation": "El punto $(b.\n\n1)$ pertenece siempre a la curva de $\\log_b(x)$.\n\nporque.\n$$\\log_b(b) = 1$$\nPara cualquier base.\n\nEn el gráfico.\n\nen $x = 2$ la curva vale $y = 1$:\n\n :\n\n porque $2^1 = 2$.\n\nEse punto $(2.\n\n1).\n$$ es justamente la clave para leer que la base de esta curva es $$\n2$, sin necesidad de memorizar la fórmula.",
     "reviewed": false,
     "tags": [
       "lectura-valor-puntual"
@@ -953,7 +953,7 @@
       -4,
       6
     ],
-    "explanation": "Claves: 1.\n\nAsíntota en $x = 0$, pasa por $(1, 0)$ → sin desplazamiento. 2.\n\nEn $x = 2$: $f(2) = 2\\cdot 1 = 2$ (no $1$) → escala vertical $\\times 2$. \n\n3. : es distinto:en $x=1$ vale $1$.\n\nno $0$.\n\nFórmula:\n$.\n$$f(x) = 2\\cdot\\log_2(x)$$\n$\n.\n\nLa asíntota vertical es el \"borde del dominio\" de la función logarítmica.\n\nA diferencia de las funciones polinómicas que están definidas en toda la recta, los logaritmos necesitan un argumento positivo, así que siempre hay un límite.\n\nVisualmente, la curva se pega a esta línea sin cruzarla, un comportamiento que aparece también en funciones racionales y exponenciales negativas.",
+    "explanation": "Claves: 1.\n\nAsíntota en $x = 0$, pasa por $(1, 0)$ → sin desplazamiento. 2.\n\nEn $x = 2$:\n\n$f(2) = 2\\cdot 1 = 2$ (no $1$)\n\n→ escala vertical $\\times 2$.\n\n3. : es distinto:en $x=1$ vale $1$.\n\nno $0$.\n\nFórmula:\n$.\n$$f(x) = 2\\cdot\\log_2(x)$$\n$\n.\n\nLa asíntota vertical es el \"borde del dominio\" de la función logarítmica.\n\nA diferencia de las funciones polinómicas que están definidas en toda la recta, los logaritmos necesitan un argumento positivo, así que siempre hay un límite.\n\nVisualmente, la curva se pega a esta línea sin cruzarla, un comportamiento que aparece también en funciones racionales y exponenciales negativas.",
     "reviewed": false,
     "tags": [
       "lectura-asintota"

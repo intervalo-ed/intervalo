@@ -683,7 +683,7 @@
       -5,
       5
     ],
-    "explanation": "Leer un valor aproximado de $f(3)$ en un gráfico significa ubicar el punto de la curva cuya coordenada $x$ es $3$ y leer su altura correspondiente en el eje $Y$. \n\n::en la gráfica.\n\nel punto $(3.\n\n1)$ está en la rama derecha.\n\na la derecha de la AV en $x=1$.\n\nConviene ubicar primero la asíntota vertical para no confundir de rama al leer el punto.",
+    "explanation": "Leer un valor aproximado de $f(3)$ en un gráfico significa ubicar el punto de la curva cuya coordenada $x$\n\nes $3$ y leer su altura correspondiente en el eje $Y$\n\n.\n\n::en la gráfica.\n\nel punto $(3.\n\n1)$ está en la rama derecha.\n\na la derecha de la AV en $x=1$.\n\nConviene ubicar primero la asíntota vertical para no confundir de rama al leer el punto.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"

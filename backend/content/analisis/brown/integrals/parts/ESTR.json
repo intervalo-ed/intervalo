@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando $u=\\ln x$, su derivada $du=\\frac{1}{x}\\,dx$ cancela exactamente una potencia de $x$ en la integral remanente.\n\nsin importar el grado original.\n$$\\int \\frac{x^{n+1}}{n+1}\\cdot\\frac{1}{x}\\,dx = \\frac{1}{n+1}\\int x^n\\,dx$$\nEsa integral remanente es directamente de tabla, así que $\\int x^n\\ln x\\,dx$ siempre cierra en una única aplicación del método.",
+    "explanation": "Cuando $u=\\ln x$,\n\nsu derivada $du=\\frac{1}{x}\\,dx$ cancela exactamente una potencia de $x$ en la integral remanente.\n\nsin importar el grado original.\n$$\\int \\frac{x^{n+1}}{n+1}\\cdot\\frac{1}{x}\\,dx = \\frac{1}{n+1}\\int x^n\\,dx$$\nEsa integral remanente es directamente de tabla, así que $\\int x^n\\ln x\\,dx$ siempre cierra en una única aplicación del método.",
     "reviewed": false,
     "tags": [
       "diagnostico-iteracion-y-ciclos"

@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos :, $v(x)=x^2$, con $u'(x)=1$ y $v'(x)=2x$.Con $u(-5)=0$.\n\n:, $u'(-5)=1$ y $v(-5)=25$:El término.\n$$u(-5)v'(-5)$$\nSe anula porque $x=-5$ es raíz de $u.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$, así que el resultado final queda determinado por $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nU'(-5)v(-5)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
+    "explanation": "Identificamos :,$v(x)=x^2$,\n\ncon $u'(x)=1$ y $v'(x)=2x$.\n\nCon $u(-5)=0$.\n\n:, $u'(-5)=1$ y $v(-5)=25$:El término.\n$$u(-5)v'(-5)$$\nSe anula porque $x=-5$ es raíz de $u.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$, así que el resultado final queda determinado por $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nU'(-5)v(-5)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente.\n\nDominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
     "reviewed": false,
     "tags": [
       "anulacion-por-raiz-producto"

@@ -177,7 +177,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un coeficiente distinto de $1$ dentro del binomio, el desarrollo sigue el mismo patrón, cuidando bien el término cruzado. Para $(2x+1)^2$, el desarrollo es $(2x)^2 + 2 \\cdot 2x \\cdot 1 + 1^2 = 4x^2 + 4x + 1$. El coeficiente 2 multiplicado se aplica en cada término del binomio, incluyendo el término cruzado donde aparece $2 \\cdot (2x) \\cdot 1 = 4x$. Una vez desarrollado completamente el trinomio, cada término se integra por separado usando la regla de la potencia. La reescritura de expresiones es una habilidad algebraica fundamental que acelera los cálculos de integrales y reduce errores comunes al omitir o calcular mal el término cruzado.",
+    "explanation": "Con un coeficiente distinto de $1$ dentro del binomio,\n\nel desarrollo sigue el mismo patrón,cuidando bien el término cruzado.\n\nPara $(2x+1)^2$,\n\nel desarrollo es $(2x)^2 + 2 \\cdot 2x \\cdot 1 + 1^2 = 4x^2 + 4x + 1$.\n\nEl coeficiente 2 multiplicado se aplica en cada término del binomio,incluyendo el término cruzado donde aparece $2 \\cdot (2x) \\cdot 1 = 4x$.\n\nUna vez desarrollado completamente el trinomio,cada término se integra por separado usando la regla de la potencia.\n\nLa reescritura de expresiones es una habilidad algebraica fundamental que acelera los cálculos de integrales y reduce errores comunes al omitir o calcular mal el término cruzado.",
     "reviewed": false,
     "tags": [
       "concepto-primitiva-traslacion-geometrica"
@@ -223,7 +223,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Toda raíz se puede escribir como una **potencia fraccionaria**, un paso previo obligatorio antes de integrar. Por ejemplo, $\\sqrt{x} = x^{1/2}$ y $\\sqrt[3]{x} = x^{1/3}$. El índice de la raíz se convierte en el denominador del exponente fraccionario. Esta transformación permite aplicar la regla de la potencia $\\int x^n\\,dx = \\frac{x^{n+1}}{n+1} + C$ sin necesidad de ninguna fórmula especial. Integrar raíces directamente sin esta reescritura es mucho más difícil y propenso a errores. La reescritura de expresiones es una habilidad algebraica fundamental que acelera los cálculos de integrales y es la clave para manejar cualquier expresión con radicales dentro de una integral.",
+    "explanation": "Toda raíz se puede escribir como una **potencia fraccionaria**,un paso previo obligatorio antes de integrar.\n\nPor ejemplo,$\\sqrt{x} = x^{1/2}$ y $\\sqrt[3]{x} = x^{1/3}$.\n\nEl índice de la raíz se convierte en el denominador del exponente fraccionario.\n\nEsta transformación permite aplicar la regla de la potencia $\\int x^n\\,dx = \\frac{x^{n+1}}{n+1} + C$ sin necesidad de ninguna fórmula especial.\n\nIntegrar raíces directamente sin esta reescritura es mucho más difícil y propenso a errores.\n\nLa reescritura de expresiones es una habilidad algebraica fundamental que acelera los cálculos de integrales y es la clave para manejar cualquier expresión con radicales dentro de una integral.",
     "reviewed": false,
     "tags": [
       "limites-linealidad-falsas-propiedades"

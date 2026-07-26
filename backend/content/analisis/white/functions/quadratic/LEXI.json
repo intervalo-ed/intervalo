@@ -123,7 +123,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La diferencia clave entre $x^2$ y $2^x$ es la posición de la variable:\n\nEn una función **cuadrática**, $x$ es la base y el exponente es el número constante $2$: :.En una función **exponencial**.\n\nla base es la constante y $x$ es el exponente:\n$$f(x) = 2^x$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\n.\n\nLas demás opciones son cuadráticas: $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nX^2 + 3$ (forma $ax^2 + c$), $-x^2 + 1$ (con $a = -1$).\n\ny : (forma de **vértice**).Solo $2^x$ pertenece a otra familia.",
+    "explanation": "La diferencia clave entre $x^2$ y $2^x$ es la posición de la variable:\n\nEn una función **cuadrática**, $x$ es la base y el exponente es el número constante $2$: :.En una función **exponencial**.\n\nla base es la constante y $x$ es el exponente:\n$$f(x) = 2^x$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\n.\n\nLas demás opciones son cuadráticas:\n\n$$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nX^2 + 3$ (forma $ax^2 + c$), $-x^2\n\n+ 1$ (con $a = -1$).\n\ny : (forma de **vértice**).Solo $2^x$ pertenece a otra familia.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"

@@ -177,7 +177,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con $\\sin^2(x)$, la notación $\\tan^2(x)$ significa $(\\tan x)^2$.\n\ncon el cuadrado como **capa exterior**.\n\nEsta convención de notación, exponente pegado al nombre de la función trigonométrica, es la misma en seno, coseno y tangente.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Igual que con $\\sin^2(x)$,\n\nla notación $\\tan^2(x)$ significa $(\\tan x)^2$.\n\ncon el cuadrado como **capa exterior**.\n\nEsta convención de notación, exponente pegado al nombre de la función trigonométrica, es la misma en seno, coseno y tangente.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "identificacion-capas-jerarquia"
@@ -292,7 +292,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $\\sin(5x)$, el $5$ multiplica a $x$ dentro del argumento del seno.\n\nformando la **capa interior** de una composición.\n\nAunque el $5$ recuerde a un múltiplo escalar, acá está atrapado dentro del argumento del seno, no multiplicando a la función completa desde afuera.\n\nIdentificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
+    "explanation": "En $\\sin(5x)$,\n\nel $5$ multiplica a $x$ dentro del argumento del seno.\n\nformando la **capa interior** de una composición.\n\nAunque el $5$ recuerde a un múltiplo escalar, acá está atrapado dentro del argumento del seno, no multiplicando a la función completa desde afuera.\n\nIdentificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-producto-composicion"

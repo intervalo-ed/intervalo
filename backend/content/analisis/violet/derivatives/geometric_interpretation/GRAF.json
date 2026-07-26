@@ -191,7 +191,7 @@
       -4,
       4
     ],
-    "explanation": "Para leer la **pendiente** de una recta en la grilla, hay que contar cuánto sube o baja la recta, $\\Delta y$, por cada paso horizontal, $\\Delta x$.\n\nEn esta recta, por cada unidad que se avanza en $x$, la recta sube $2$ unidades en $y$.\n\nasí que $f'(a)=2$.\n\nConviene siempre contar el desplazamiento vertical dividido por el horizontal, invertir el orden más común al leer pendientes en una grilla.",
+    "explanation": "Para leer la **pendiente** de una recta en la grilla, hay que contar cuánto sube o baja la recta, $\\Delta y$, por cada paso horizontal, $\\Delta x$.\n\nEn esta recta,por cada unidad que se avanza en $x$,\n\nla recta sube $2$ unidades en $y$.\n\nasí que $f'(a)=2$.\n\nConviene siempre contar el desplazamiento vertical dividido por el horizontal, invertir el orden más común al leer pendientes en una grilla.",
     "reviewed": false,
     "tags": [
       "lectura-de-pendiente"
@@ -221,7 +221,7 @@
       -3,
       3
     ],
-    "explanation": "Esta recta desciende a medida que $x$ crece, así que su pendiente es negativa.\n\nContando la grilla, por cada unidad que avanza en $x$, la recta baja exactamente $1$ unidad en $y$.\n\nlo que da $f'(a)=-1$.\n\nUna pendiente de $-1$ forma un ángulo de $45°$ hacia abajo, útil como referencia visual rápida para comparar con otras pendientes.",
+    "explanation": "Esta recta desciende a medida que $x$ crece, así que su pendiente es negativa.\n\nContando la grilla,por cada unidad que avanza en $x$,\n\nla recta baja exactamente $1$ unidad en $y$.\n\nlo que da $f'(a)=-1$.\n\nUna pendiente de $-1$ forma un ángulo de $45°$ hacia abajo, útil como referencia visual rápida para comparar con otras pendientes.",
     "reviewed": false,
     "tags": [
       "lectura-de-pendiente"
@@ -251,7 +251,7 @@
       -2,
       4
     ],
-    "explanation": "En esta recta, el avance horizontal es más grande que la subida vertical, señal de que la pendiente es un número entre $0$ y $1$.\n\nContando con cuidado la grilla, la recta sube $1$ unidad por cada $2$ unidades de avance en $x$.\n\nlo que da $f'(a)=0,5$.\n\nPendientes fraccionarias como esta son más fáciles de leer contando varios pasos horizontales seguidos, en vez de uno solo.",
+    "explanation": "En esta recta, el avance horizontal es más grande que la subida vertical, señal de que la pendiente es un número entre $0$ y $1$.\n\nContando con cuidado la grilla,\n\nla recta sube $1$ unidad por cada $2$\n\nunidades de avance en $x$.\n\nlo que da $f'(a)=0,5$.\n\nPendientes fraccionarias como esta son más fáciles de leer contando varios pasos horizontales seguidos, en vez de uno solo.",
     "reviewed": false,
     "tags": [
       "lectura-de-pendiente"
@@ -281,7 +281,7 @@
       -4,
       4
     ],
-    "explanation": "Esta recta desciende con bastante inclinación, señal de que su pendiente tiene un valor absoluto mayor a $1$.\n\nContando la grilla, por cada unidad de avance en $x$, la recta baja $2$ unidades en $y$.\n\nlo que da $f'(a)=-2$.\n\nCuanto más empinada se ve la recta, mayor es el valor absoluto de su pendiente, sin importar si sube o baja.",
+    "explanation": "Esta recta desciende con bastante inclinación, señal de que su pendiente tiene un valor absoluto mayor a $1$.\n\nContando la grilla,por cada unidad de avance en $x$,\n\nla recta baja $2$ unidades en $y$.\n\nlo que da $f'(a)=-2$.\n\nCuanto más empinada se ve la recta, mayor es el valor absoluto de su pendiente, sin importar si sube o baja.",
     "reviewed": false,
     "tags": [
       "lectura-de-pendiente"
@@ -341,7 +341,7 @@
       -6,
       6
     ],
-    "explanation": "La **recta tangente** es horizontal únicamente en el vértice de la parábola, el punto donde la curva deja de bajar y empieza a subir.\n\nEsta parábola tiene su vértice en $x=3$, mientras que $x=1$ y $x=5$ son sus raíces.\n\npuntos donde $f(x)=0$ pero la tangente no es horizontal.\n\nConfundir raíces con el punto de tangente horizontal , conviene siempre ubicar primero el vértice antes de responder.",
+    "explanation": "La **recta tangente** es horizontal únicamente en el vértice de la parábola, el punto donde la curva deja de bajar y empieza a subir.\n\nEsta parábola tiene su vértice en $x=3$,\n\nmientras que $x=1$ y $x=5$ son sus raíces.\n\npuntos donde $f(x)=0$ pero la tangente no es horizontal.\n\nConfundir raíces con el punto de tangente horizontal , conviene siempre ubicar primero el vértice antes de responder.",
     "reviewed": false,
     "tags": [
       "extremos-tangentes-horizontales"

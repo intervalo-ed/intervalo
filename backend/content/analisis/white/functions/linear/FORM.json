@@ -1213,7 +1213,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pregunta invierte la evaluación: se conoce la salida y se busca la entrada:Verificación:\n$$f(5) = 3 \\cdot 5 - 6 = 9$$\n.\n\nEl $-6$ cruza el igual sumando: el lado derecho queda :, no $9 - 6$. Cuando se conoce la salida $f(x)$ y se busca la entrada $x$, se invierte el proceso: en vez de evaluar la función, se despeja la variable de la ecuación lineal. Por ejemplo, si $f(x) = 2x+3$ y se pregunta qué valor de $x$ produce $f(x)=7$, se resuelve $7 = 2x+3$ obteniendo $x=2$. Este pensamiento inverso es fundamental para resolver ecuaciones.",
+    "explanation": "La pregunta invierte la evaluación: se conoce la salida y se busca la entrada:Verificación:\n$$f(5) = 3 \\cdot 5 - 6 = 9$$\n.\n\nEl $-6$ cruza el igual sumando:\n\n el lado derecho queda :\n\n,\n\n no $9 - 6$.\n\n Cuando se conoce la salida $f(x)$ y se busca la entrada $x$,\n\n se invierte el proceso:\n\n en vez de evaluar la función,\n\n se despeja la variable de la ecuación lineal.\n\n Por ejemplo,\n\nsi $f(x) = 2x+3$ y se pregunta qué valor de $x$\n\nproduce $f(x)=7$,\n\n se resuelve $7 = 2x+3$ obteniendo $x=2$.\n\n Este pensamiento inverso es fundamental para resolver ecuaciones.",
     "reviewed": false,
     "tags": [
       "resolver-ecuacion"

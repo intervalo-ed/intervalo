@@ -83,7 +83,7 @@
       -1,
       7
     ],
-    "explanation": "Un punto marcado en el interior de una curva, como $f(1)=3$, es un valor puntual de la función y no debe confundirse con la **asíntota horizontal**, que describe el comportamiento sostenido en los extremos. La asíntota horizontal se define por lo que sucede cuando $x \\to \\pm\\infty$, no por valores en puntos específicos del interior del dominio. Por eso, aunque la curva pase por el punto $(1,3)$, la asíntota horizontal es determinada exclusivamente por hacia dónde se acerca la curva conforme $x$ crece o decrece indefinidamente.",
+    "explanation": "Un punto marcado en el interior de una curva,como $f(1)=3$,\n\nes un valor puntual de la función y no debe confundirse con la **asíntota horizontal**,que describe el comportamiento sostenido en los extremos.\n\nLa asíntota horizontal se define por lo que sucede cuando $x \\to \\pm\\infty$,\n\nno por valores en puntos específicos del interior del dominio.\n\nPor eso,aunque la curva pase por el punto $(1,3)$,\n\nla asíntota horizontal es determinada exclusivamente por hacia dónde se acerca la curva conforme $x$ crece o decrece indefinidamente.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-horizontal"
@@ -113,7 +113,7 @@
       -4,
       2
     ],
-    "explanation": "Cuando una función se estabiliza en una altura negativa, la **asíntota horizontal** sigue siendo una recta $y=L$, solo que con $L$ negativo. El signo no cambia el método de lectura, se sigue mirando el comportamiento en ambos extremos del gráfico. La definición de asíntota horizontal es igual independientemente de si el valor límite es positivo, negativo o cero. La única diferencia es que en esta gráfica, conforme $x \\to \\pm\\infty$, la curva desciende hacia una altura fija por debajo del eje $x$, mientras que en gráficas con límite positivo sube hacia una altura por encima. El procedimiento de lectura es idéntico.",
+    "explanation": "Cuando una función se estabiliza en una altura negativa,la **asíntota horizontal** sigue siendo una recta $y=L$,\n\nsolo que con $L$ negativo.\n\nEl signo no cambia el método de lectura,se sigue mirando el comportamiento en ambos extremos del gráfico.\n\nLa definición de asíntota horizontal es igual independientemente de si el valor límite es positivo,negativo o cero.\n\nLa única diferencia es que en esta gráfica,conforme $x \\to \\pm\\infty$,\n\nla curva desciende hacia una altura fija por debajo del eje $x$,\n\nmientras que en gráficas con límite positivo sube hacia una altura por encima.\n\nEl procedimiento de lectura es idéntico.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-horizontal"
@@ -141,7 +141,7 @@
       -1,
       6
     ],
-    "explanation": "Una **asíntota horizontal** existe cuando la función se acerca a un valor finito a medida que $x$ crece o decrece sin cota. En esta gráfica la curva se aplana hacia una altura constante en ambos extremos, lo que confirma la existencia de la asíntota. La característica definidora es que la distancia vertical entre la curva y la recta $y=L$ se hace arbitrariamente pequeña conforme $x \\to \\pm\\infty$. Este comportamiento es observable en el gráfico: en las zonas muy lejanas a izquierda y derecha, la curva prácticamente se confunde con la línea horizontal. La visualización gráfica de este aplastamiento hacia una altura fija es lo que permite identificar la asíntota directamente del dibujo.",
+    "explanation": "Una **asíntota horizontal** existe cuando la función se acerca a un valor finito a medida que $x$ crece o decrece sin cota.\n\nEn esta gráfica la curva se aplana hacia una altura constante en ambos extremos,lo que confirma la existencia de la asíntota.\n\nLa característica definidora es que la distancia vertical entre la curva y la recta $y=L$ se hace arbitrariamente pequeña conforme $x \\to \\pm\\infty$.\n\nEste comportamiento es observable en el gráfico: en las zonas muy lejanas a izquierda y derecha,la curva prácticamente se confunde con la línea horizontal.\n\nLa visualización gráfica de este aplastamiento hacia una altura fija es lo que permite identificar la asíntota directamente del dibujo.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-horizontal"
@@ -229,7 +229,7 @@
       -8,
       8
     ],
-    "explanation": "Para identificar la **asíntota vertical** en una gráfica, hay que ubicar el valor de $x$ donde la curva se rompe en dos ramas que divergen hacia $+\\infty$ y $-\\infty$, no el valor donde cruza el eje. La asíntota vertical es la línea vertical en $x=a$ que marca exactamente dónde la función se vuelve indefinida y tiene un comportamiento explosivo (divergencia). Confundir la raíz (cruce con el eje $x$) con la asíntota vertical (ruptura con divergencia a infinito) es un error frecuente: ambas son puntos especiales del gráfico pero de naturaleza completamente diferente. La raíz es un valor donde $f(x)=0$, mientras que la asíntota vertical es un valor donde $f(x)$ tiende a $\\pm\\infty$.",
+    "explanation": "Para identificar la **asíntota vertical** en una gráfica,\n\nhay que ubicar el valor de $x$ donde la curva se rompe en dos ramas que divergen hacia $+\\infty$\n\ny $-\\infty$,\n\n no el valor donde cruza el eje.\n\n La asíntota vertical es la línea vertical en $x=a$ que marca exactamente dónde la función se vuelve indefinida y tiene un comportamiento explosivo (divergencia).\n\n Confundir la raíz (cruce con el eje $x$) con la asíntota vertical (ruptura con divergencia a infinito) es un error frecuente:\n\n ambas son puntos especiales del gráfico pero de naturaleza completamente diferente.\n\n La raíz es un valor donde $f(x)=0$,\n\n mientras que la asíntota vertical es un valor donde $f(x)$ tiende a $\\pm\\infty$.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-vertical"
@@ -257,7 +257,7 @@
       -8,
       8
     ],
-    "explanation": "Una **asíntota vertical** existe en un punto cuando al menos una de las dos ramas laterales diverge a $+\\infty$ o $-\\infty$ cerca de ese valor de $x$. En esta gráfica, una rama sube y la otra baja sin cota exactamente en el mismo punto, lo que confirma la asíntota. El comportamiento explosivo de las ramas (crecimiento o decrecimiento sin límite) es lo que distingue una asíntota vertical de otros puntos especiales. Si ambas ramas permanecen acotadas o si una sube y la otra se acerca a un valor finito, no hay asíntota vertical. Solo divergencias a infinito califican. Este gráfico ejemplifica el caso más común: una rama hacia $+\\infty$ y la otra hacia $-\\infty$ en el mismo punto, formando la característica ruptura vertical de una asíntota.",
+    "explanation": "Una **asíntota vertical** existe en un punto cuando al menos una de las dos ramas laterales diverge a $+\\infty$ o $-\\infty$\n\ncerca de ese valor de $x$.\n\n En esta gráfica,\n\n una rama sube y la otra baja sin cota exactamente en el mismo punto,\n\n lo que confirma la asíntota.\n\n El comportamiento explosivo de las ramas (crecimiento o decrecimiento sin límite) es lo que distingue una asíntota vertical de otros puntos especiales.\n\n Si ambas ramas permanecen acotadas o si una sube y la otra se acerca a un valor finito,\n\n no hay asíntota vertical.\n\n Solo divergencias a infinito califican.\n\n Este gráfico ejemplifica el caso más común:\n\n una rama hacia $+\\infty$ y la otra hacia $-\\infty$ en el mismo punto,\n\n formando la característica ruptura vertical de una asíntota.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-vertical"

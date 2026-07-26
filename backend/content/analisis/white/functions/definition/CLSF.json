@@ -200,7 +200,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** pide que cada entrada tenga una **única** salida, no que cada salida venga de una sola entrada.\n\nAcá $-4$ y $4$ comparten la salida $16$.\n\npero cada uno tiene una sola salida.\n\nLa condición se cumple, así que es función.\n\nLa confusión central es leer la **unicidad** al revés: mira las salidas por entrada, no las entradas por salida.",
+    "explanation": "Una **función** pide que cada entrada tenga una **única** salida, no que cada salida venga de una sola entrada.\n\nAcá $-4$ y $4$\n\ncomparten la salida $16$.\n\npero cada uno tiene una sola salida.\n\nLa condición se cumple, así que es función.\n\nLa confusión central es leer la **unicidad** al revés: mira las salidas por entrada, no las entradas por salida.",
     "reviewed": false,
     "tags": [
       "trampa-inyectividad"

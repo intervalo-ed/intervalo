@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Acercarse desde la izquierda ($x \\to 2^-$) vs. desde la derecha ($x \\to 2^+$).\n\nproduce resultados opuestos porque un lado del $0$ es positivo y el otro es negativo.\n\nEste cambio de signo en el denominador es lo que produce dos límites distintos que se combinan para decir que el límite bilateral no existe.\n\nCuando $x \\to 2^-$, los valores de $x$ son menores que $2$.\n\nasí que $x-2$ es negativo y tiende a $0^-$.\n\nCon numerador positivo y denominador tendiendo a $0^-$, el cociente diverge a $-\\infty$.\n\nEste resultado, junto con el ítem anterior, muestra que el límite bilateral en $x=2$ no existe.",
+    "explanation": "Acercarse desde la izquierda ($x \\to 2^-$) vs. desde la derecha ($x \\to 2^+$).\n\nproduce resultados opuestos porque un lado del $0$ es positivo y el otro es negativo.\n\nEste cambio de signo en el denominador es lo que produce dos límites distintos que se combinan para decir que el límite bilateral no existe.\n\nCuando $x \\to 2^-$,\n\nlos valores de $x$ son menores que $2$.\n\nasí que $x-2$ es negativo y tiende a $0^-$.\n\nCon numerador positivo y denominador tendiendo a $0^-$, el cociente diverge a $-\\infty$.\n\nEste resultado, junto con el ítem anterior, muestra que el límite bilateral en $x=2$ no existe.",
     "reviewed": false,
     "tags": [
       "calculo-asintota-vertical"
