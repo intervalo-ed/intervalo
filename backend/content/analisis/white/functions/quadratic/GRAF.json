@@ -173,7 +173,7 @@
       -1,
       11
     ],
-    "explanation": "Cuando algo se mueve dibujando un arco en el aire, ya sea en el tiempo o en el espacio, ese recorrido es una parábola y su **vértice** concentra el dato del punto más alto: la coordenada vertical dice cuánto sube, y la horizontal dice dónde ocurre eso.\n\nAcá el vértice del chorro está en:\n\nAsí que a 4 metros de la manguera el agua llega a su altura máxima, 8 metros, antes de empezar a caer del otro lado.\n\nEs un buen hábito separar mentalmente las dos coordenadas del vértice, la altura por un lado y la distancia por el otro, para no responder una cuando se pregunta por la otra.",
+    "explanation": "Cuando algo se mueve dibujando un arco en el aire, ya sea en el tiempo o en el espacio, ese recorrido es una parábola y su **vértice** concentra el dato del punto más alto:\n\nla coordenada vertical dice cuánto sube, y la horizontal dice dónde ocurre eso.\n\nAcá el vértice del chorro está en:\n\nAsí que a 4 metros de la manguera el agua llega a su altura máxima, 8 metros, antes de empezar a caer del otro lado.\n\nEs un buen hábito separar mentalmente las dos coordenadas del vértice, la altura por un lado y la distancia por el otro, para no responder una cuando se pregunta por la otra.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -563,7 +563,7 @@
       -1,
       13
     ],
-    "explanation": "Leer la altura de una parábola en un instante puntual es evaluar la función en ese valor de la coordenada horizontal, es decir, encontrar el punto de la curva que está exactamente arriba de esa marca en el eje.\n\nAcá se pide la altura a los 4 segundos, así que hay que reemplazar $x$ por 4 en la fórmula:\n\nEl salmón está a 8 metros de altura en ese instante.\n\nEsa altura todavía no es la máxima: el vértice está más adelante, a los 6 segundos, con una altura mayor, así que conviene no confundir un punto cualquiera del recorrido con el punto más alto de todos.",
+    "explanation": "Leer la altura de una parábola en un instante puntual es evaluar la función en ese valor de la coordenada horizontal, es decir, encontrar el punto de la curva que está exactamente arriba de esa marca en el eje.\n\nAcá se pide la altura a los 4 segundos, así que hay que reemplazar $x$ por 4 en la fórmula:\n\nEl salmón está a 8 metros de altura en ese instante.\n\nEsa altura todavía no es la máxima:\n\nel vértice está más adelante, a los 6 segundos, con una altura mayor, así que conviene no confundir un punto cualquiera del recorrido con el punto más alto de todos.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -953,7 +953,7 @@
       -1,
       11
     ],
-    "explanation": "Cuando el despegue de un salto no ocurre justo en el cero del eje horizontal, la parábola tiene dos **raíces** distintas de cero: una marca el punto de despegue y la otra el punto de aterrizaje, y ninguna de las dos coincide con el vértice.\n\nAcá la parábola corta el eje horizontal en $x = 2$ y en:\n\nLa moto toca el piso otra vez a los 10 metros de distancia horizontal, la segunda de esas dos raíces.\n\nConviene ubicar bien cuál de las dos raíces corresponde al aterrizaje: la primera marca el despegue y la segunda, más adelante en el eje, marca el punto en el que la moto vuelve a tocar el piso.",
+    "explanation": "Cuando el despegue de un salto no ocurre justo en el cero del eje horizontal, la parábola tiene dos **raíces** distintas de cero:\n\nuna marca el punto de despegue y la otra el punto de aterrizaje, y ninguna de las dos coincide con el vértice.\n\nAcá la parábola corta el eje horizontal en $x = 2$ y en:\n\nLa moto toca el piso otra vez a los 10 metros de distancia horizontal, la segunda de esas dos raíces.\n\nConviene ubicar bien cuál de las dos raíces corresponde al aterrizaje: la primera marca el despegue y la segunda, más adelante en el eje, marca el punto en el que la moto vuelve a tocar el piso.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -1103,7 +1103,7 @@
       -1,
       13
     ],
-    "explanation": "Cuando una ganancia depende de una cantidad que tiene un punto óptimo, como pasa con las mesas de un bar, esa relación dibuja una parábola que abre hacia abajo, con un **máximo** en el vértice: ni con muy pocas mesas ni con demasiadas se logra el mejor resultado.\n\nAcá la cantidad ideal es la coordenada horizontal del vértice,:\n\nSeis mesas dan la mayor ganancia de la noche.\n\nPoner menos mesas desaprovecha el espacio disponible, y poner de más termina espantando a los clientes por lo apretado del lugar; el óptimo está siempre en algún punto intermedio.",
+    "explanation": "Cuando una ganancia depende de una cantidad que tiene un punto óptimo, como pasa con las mesas de un bar, esa relación dibuja una parábola que abre hacia abajo, con un **máximo** en el vértice:\n\nni con muy pocas mesas ni con demasiadas se logra el mejor resultado.\n\nAcá la cantidad ideal es la coordenada horizontal del vértice,:\n\nSeis mesas dan la mayor ganancia de la noche.\n\nPoner menos mesas desaprovecha el espacio disponible, y poner de más termina espantando a los clientes por lo apretado del lugar; el óptimo está siempre en algún punto intermedio.",
     "reviewed": false,
     "tags": [
       "ordenada-origen"
@@ -1133,7 +1133,7 @@
       -1,
       11
     ],
-    "explanation": "La **concavidad** de una parábola indica para qué lado abre la curva, y de ahí se desprende si el vértice funciona como techo o como piso.\n\nCuando abre hacia abajo, el vértice queda por encima de todo el resto de la curva y es un máximo; cuando abre hacia arriba, queda por debajo de todo lo demás y es un mínimo.\n\nEn este gráfico la parábola abre hacia abajo, así que el vértice representa la mayor ganancia posible del recital, con un precio de entrada óptimo en el medio: ni tan bajo que deje poco margen, ni tan alto que espante al público.\n\nEl sentido de apertura y el tipo de extremo siempre van juntos: una parábola que abre hacia abajo nunca tiene un mínimo, y una que abre hacia arriba nunca tiene un máximo.",
+    "explanation": "La **concavidad** de una parábola indica para qué lado abre la curva, y de ahí se desprende si el vértice funciona como techo o como piso.\n\nCuando abre hacia abajo, el vértice queda por encima de todo el resto de la curva y es un máximo; cuando abre hacia arriba, queda por debajo de todo lo demás y es un mínimo.\n\nEn este gráfico la parábola abre hacia abajo, así que el vértice representa la mayor ganancia posible del recital, con un precio de entrada óptimo en el medio:\n\nni tan bajo que deje poco margen, ni tan alto que espante al público.\n\nEl sentido de apertura y el tipo de extremo siempre van juntos: una parábola que abre hacia abajo nunca tiene un mínimo, y una que abre hacia arriba nunca tiene un máximo.",
     "reviewed": false,
     "tags": [
       "vertice-x"
@@ -1283,7 +1283,7 @@
       -1,
       13
     ],
-    "explanation": "Cuando una magnitud baja y después se recupera, como la temperatura durante una madrugada, esa relación con la hora suele dibujar una parábola que abre hacia arriba, con un **mínimo** en el vértice: ningún otro momento de la noche registra un valor más bajo que ese.\n\nAcá la temperatura mínima es la coordenada vertical del vértice,:\n\nUn grado, en la hora marcada por la coordenada horizontal.\n\nComo el vértice queda por encima del eje horizontal, la temperatura nunca llega a cero ni a valores negativos en este gráfico, se queda siempre por encima de su piso mínimo.",
+    "explanation": "Cuando una magnitud baja y después se recupera, como la temperatura durante una madrugada, esa relación con la hora suele dibujar una parábola que abre hacia arriba, con un **mínimo** en el vértice:\n\nningún otro momento de la noche registra un valor más bajo que ese.\n\nAcá la temperatura mínima es la coordenada vertical del vértice,:\n\nUn grado, en la hora marcada por la coordenada horizontal.\n\nComo el vértice queda por encima del eje horizontal, la temperatura nunca llega a cero ni a valores negativos en este gráfico, se queda siempre por encima de su piso mínimo.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -1373,7 +1373,7 @@
       -1,
       11
     ],
-    "explanation": "Cuando algo cuelga sujeto en sus dos extremos, como una guirnalda entre dos columnas, la curva que forma abre hacia arriba y su **vértice** es el punto más bajo de todo el recorrido, un mínimo: no hay ningún punto de la guirnalda que quede por debajo de esa altura.\n\nAcá la altura mínima es la coordenada vertical del vértice,:\n\nDos metros, justo en el medio de las dos columnas.\n\nCerca de cada columna la guirnalda cuelga más alta, y solo en el punto medio llega a su altura más baja; ese patrón se repite en cualquier cable o cuerda sujeta por los dos extremos.",
+    "explanation": "Cuando algo cuelga sujeto en sus dos extremos, como una guirnalda entre dos columnas, la curva que forma abre hacia arriba y su **vértice** es el punto más bajo de todo el recorrido, un mínimo:\n\nno hay ningún punto de la guirnalda que quede por debajo de esa altura.\n\nAcá la altura mínima es la coordenada vertical del vértice,:\n\nDos metros, justo en el medio de las dos columnas.\n\nCerca de cada columna la guirnalda cuelga más alta, y solo en el punto medio llega a su altura más baja; ese patrón se repite en cualquier cable o cuerda sujeta por los dos extremos.",
     "reviewed": false,
     "tags": [
       "vertice-x"
@@ -1403,7 +1403,7 @@
       -1,
       11
     ],
-    "explanation": "Cuando una velocidad baja para tomar una curva cerrada y después se recupera, esa relación con el tiempo dibuja una parábola que abre hacia arriba, con un **mínimo** en el vértice: ningún otro instante de la maniobra registra una velocidad más baja que esa.\n\nAcá la velocidad mínima es la coordenada vertical del vértice,:\n\n(2 decenas = 20 km/h) En lo más cerrado de la curva.\n\nAntes de ese instante el auto todavía viene frenando, y después empieza a acelerar de nuevo; el vértice es el único punto exacto donde deja de bajar la velocidad.",
+    "explanation": "Cuando una velocidad baja para tomar una curva cerrada y después se recupera, esa relación con el tiempo dibuja una parábola que abre hacia arriba, con un **mínimo** en el vértice:\n\nningún otro instante de la maniobra registra una velocidad más baja que esa.\n\nAcá la velocidad mínima es la coordenada vertical del vértice,:\n\n(2 decenas = 20 km/h) En lo más cerrado de la curva.\n\nAntes de ese instante el auto todavía viene frenando, y después empieza a acelerar de nuevo; el vértice es el único punto exacto donde deja de bajar la velocidad.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -1493,7 +1493,7 @@
       -1,
       11
     ],
-    "explanation": "Cuando un saldo baja durante unos meses y después se recupera, esa relación con el tiempo dibuja una parábola que abre hacia arriba, con un **mínimo** en el vértice: ningún otro mes registra un saldo más bajo que ese.\n\nAcá el mes de menor saldo es la coordenada horizontal del vértice,:\n\nLa cuenta toca fondo en el quinto mes.\n\nAntes de ese mes el saldo todavía viene bajando, y después empieza a recuperarse poco a poco; el vértice es el único punto exacto donde el descenso se frena y arranca la recuperación.",
+    "explanation": "Cuando un saldo baja durante unos meses y después se recupera, esa relación con el tiempo dibuja una parábola que abre hacia arriba, con un **mínimo** en el vértice:\n\nningún otro mes registra un saldo más bajo que ese.\n\nAcá el mes de menor saldo es la coordenada horizontal del vértice,:\n\nLa cuenta toca fondo en el quinto mes.\n\nAntes de ese mes el saldo todavía viene bajando, y después empieza a recuperarse poco a poco; el vértice es el único punto exacto donde el descenso se frena y arranca la recuperación.",
     "reviewed": false,
     "tags": [
       "vertice-x"

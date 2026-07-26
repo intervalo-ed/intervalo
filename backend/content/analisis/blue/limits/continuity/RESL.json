@@ -1,6 +1,6 @@
 [
   {
-    "question": "Una **función a trozos** está dada por:\n$$f(x) = \\begin{cases} 2x + 1, & x < 1 \\\\ x^2 + 2, & x \\geq 1 \\end{cases}$$\n¿Cómo se clasifica $f$ en el **punto de quiebre** $x=1$?",
+    "question": "Analizá la función a trozos:\n$$f(x) = \\begin{cases} 2x + 1, & x < 1 \\\\ x^2 + 2, & x \\geq 1 \\end{cases}$$\n¿Cómo se clasifica $f$ en el **punto de quiebre** $x=1$?",
     "options": [
       "Continua",
       "Removible",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "Una función a trozos está dada por:\n$$f(x) = \\begin{cases} x + 4, & x < 2 \\\\ 3x - 1, & x \\geq 2 \\end{cases}$$\n¿Cómo se clasifica $f$ en $x=2$?",
+    "question": "Verificá la clasificación en la función a trozos:\n$$f(x) = \\begin{cases} x + 4, & x < 2 \\\\ 3x - 1, & x \\geq 2 \\end{cases}$$\n¿Cómo se clasifica $f$ en $x=2$?",
     "options": [
       "Continua",
       "De salto",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "Una función a trozos está dada por:\n$$f(x) = \\begin{cases} kx - 2, & x < 4 \\\\ 3x + 2, & x \\geq 4 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=4$?",
+    "question": "Hallá el parámetro que hace continua esta función a trozos:\n$$f(x) = \\begin{cases} kx - 2, & x < 4 \\\\ 3x + 2, & x \\geq 4 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=4$?",
     "options": [
       "$k = 3$",
       "$k = 3{,}5$",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "Una función a trozos está dada por:\n$$f(x) = \\begin{cases} x^2 + 1, & x < 1 \\\\ kx + 3, & x \\geq 1 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=1$?",
+    "question": "Encontrá $k$ para que sea continua la función a trozos:\n$$f(x) = \\begin{cases} x^2 + 1, & x < 1 \\\\ kx + 3, & x \\geq 1 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=1$?",
     "options": [
       "$k = -1$",
       "$k = 1$",
@@ -200,7 +200,7 @@
     ]
   },
   {
-    "question": "Una función a trozos está dada por:\n$$f(x) = \\begin{cases} kx - 1, & x < -1 \\\\ x^2 + 3, & x \\geq -1 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=-1$?",
+    "question": "Determiná el valor de $k$ en la función a trozos:\n$$f(x) = \\begin{cases} kx - 1, & x < -1 \\\\ x^2 + 3, & x \\geq -1 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=-1$?",
     "options": [
       "$k = 5$",
       "$k = -3$",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "Una función a trozos está dada por:\n$$f(x) = \\begin{cases} 5x + k, & x < 2 \\\\ x^2 + x, & x \\geq 2 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=2$?",
+    "question": "Para continuidad en $x=-1$, encontrá el parámetro de esta función a trozos:\n$$f(x) = \\begin{cases} 5x + k, & x < 2 \\\\ x^2 + x, & x \\geq 2 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=2$?",
     "options": [
       "$k = 4$",
       "$k = -10$",
@@ -250,7 +250,7 @@
     ]
   },
   {
-    "question": "Una función a trozos está dada por:\n$$f(x) = \\begin{cases} kx + 7, & x < 1 \\\\ 4x + 5, & x \\geq 1 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=1$?",
+    "question": "Calculá $k$ para que sea continua la siguiente función a trozos:\n$$f(x) = \\begin{cases} kx + 7, & x < 1 \\\\ 4x + 5, & x \\geq 1 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=1$?",
     "options": [
       "$k = 2$",
       "$k = 9$",
@@ -275,7 +275,7 @@
     ]
   },
   {
-    "question": "Una función a trozos está dada por:\n$$f(x) = \\begin{cases} x^2 - 2, & x < 2 \\\\ kx + 1, & x \\geq 2 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=2$?",
+    "question": "Con la función a trozos dada, hallá el valor de $k$:\n$$f(x) = \\begin{cases} x^2 - 2, & x < 2 \\\\ kx + 1, & x \\geq 2 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=2$?",
     "options": [
       "$k = 1$",
       "$k = 0{,}5$",

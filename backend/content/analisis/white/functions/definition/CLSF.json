@@ -26,7 +26,7 @@
     "question": "Un depósito registra en qué pasillo está cada medicamento. El medicamento con código 4 figura a la vez en el pasillo 3 y en el pasillo 7. ¿La asignación de códigos a pasillos define una función?",
     "options": [
       "Sí, un objeto puede estar en dos lugares",
-      "No es función aquí",
+      "No es función en este punto del dominio",
       "No, porque hay pasillos sin medicamentos"
     ],
     "correct_index": 1,
@@ -279,7 +279,7 @@
     "question": "Un comercio aplica un descuento según el monto de compra. Las compras de \\$1000 y de \\$1200 reciben las dos el mismo cupón del 10%. $$\\begin{aligned} 1000 &\\mapsto 10\\% \\\\ 1200 &\\mapsto 10\\% \\end{aligned}$$ ¿Esta asignación define una función?",
     "options": [
       "No, dos montos distintos reciben el mismo cupón",
-      "Sí es función aquí",
+      "Sí es función, cada monto tiene un único cupón",
       "No, falta que cada cupón tenga un solo monto"
     ],
     "correct_index": 1,
@@ -613,7 +613,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** combina lo que permite la fórmula y lo que permite el contexto.\n\nDividir entre cero no está definido y una velocidad negativa no tiene sentido físico.\n\nEse es el dominio natural.\n\nCuidado con quedarse solo con $v \\neq 0$; el contexto agrega que la velocidad tampoco puede ser negativa.",
+    "explanation": "El ****dominio** natural** combina lo que permite la fórmula y lo que permite el contexto.\n\nDividir entre cero no está definido y una velocidad negativa no tiene sentido físico.\n\nEse es el dominio natural.\n\nConviene verificar que no solo solo con $v \\neq 0$; el contexto agrega que la velocidad tampoco puede ser negativa.",
     "reviewed": false,
     "tags": [
       "dominio-natural"

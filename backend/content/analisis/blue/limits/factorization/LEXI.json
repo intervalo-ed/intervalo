@@ -19,7 +19,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **diferencia de cuadrados** es la forma $a^2 - b^2$, que aparece cuando una expresión resta dos términos que son cuadrados perfectos.\n\nEsta estructura factoriza según la identidad algebraica fundamental: el producto de una suma y una diferencia de las mismas cantidades siempre reconstruye la diferencia de sus cuadrados.\n\nIdentificando la estructura paso a paso: En límites indeterminados $0/0$, cuando ambos numerador y denominador contienen una diferencia de cuadrados, factorizar al instante revela el factor cancelable.\n\nConviene revisar siempre primero si hay un signo menos entre dos cuadrados exactos, porque esa combinación es la señal más rápida de este caso frente al trinomio o al factor común.",
+    "explanation": "La **diferencia de cuadrados** es la forma $a^2 - b^2$, que aparece cuando una expresión resta dos términos que son cuadrados perfectos.\n\nEsta estructura factoriza según la identidad algebraica fundamental: el producto de una suma y una diferencia de las mismas cantidades siempre reconstruye la diferencia de sus cuadrados.\n\nIdentificando la estructura paso a paso:\n\nEn límites indeterminados $0/0$, cuando ambos numerador y denominador contienen una diferencia de cuadrados, factorizar al instante revela el factor cancelable.\n\nConviene revisar siempre primero si hay un signo menos entre dos cuadrados exactos, porque esa combinación es la señal más rápida de este caso frente al trinomio o al factor común.",
     "reviewed": false
   },
   {
@@ -65,7 +65,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **trinomio cuadrado perfecto** tiene la forma $a^2 \\pm 2ab + b^2 = (a \\pm b)^2$, donde el término lineal es exactamente el doble producto de las raíces cuadradas del primer y último término.\n\nReconocer este patrón evita buscar dos números sueltos, como en el trinomio general.\n\nVerificando la estructura: Una forma rápida de detectar este caso es verificar si el término lineal coincide exactamente con el doble del producto de las raíces de los extremos antes de probar con la fórmula del trinomio general.\n\nEs un atajo que ahorra tiempo y errores de cálculo.",
+    "explanation": "El **trinomio cuadrado perfecto** tiene la forma $a^2 \\pm 2ab + b^2 = (a \\pm b)^2$, donde el término lineal es exactamente el doble producto de las raíces cuadradas del primer y último término.\n\nReconocer este patrón evita buscar dos números sueltos, como en el trinomio general.\n\nVerificando la estructura:\n\nUna forma rápida de detectar este caso es verificar si el término lineal coincide exactamente con el doble del producto de las raíces de los extremos antes de probar con la fórmula del trinomio general.\n\nEs un atajo que ahorra tiempo y errores de cálculo.",
     "reviewed": false
   },
   {
@@ -88,7 +88,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **factor común** se extrae cuando todos los términos de una expresión comparten un mismo divisor, que puede incluir tanto un coeficiente numérico como potencias de la variable.\n\nEl máximo común divisor es el que factorizamos, no uno parcial.\n\nIdentificando el factor completo: Conviene extraer siempre el máximo común divisor completo, coeficiente y variable incluidos, porque dejar una parte adentro del paréntesis es un error frecuente al aplicar este caso.\n\nEn límites indeterminados, un factor común que sale de numerador y denominador es exactamente lo que cancela la indeterminación.",
+    "explanation": "El **factor común** se extrae cuando todos los términos de una expresión comparten un mismo divisor, que puede incluir tanto un coeficiente numérico como potencias de la variable.\n\nEl máximo común divisor es el que factorizamos, no uno parcial.\n\nIdentificando el factor completo:\n\nConviene extraer siempre el máximo común divisor completo, coeficiente y variable incluidos, porque dejar una parte adentro del paréntesis es un error frecuente al aplicar este caso.\n\nEn límites indeterminados, un factor común que sale de numerador y denominador es exactamente lo que cancela la indeterminación.",
     "reviewed": false
   },
   {
@@ -180,7 +180,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El teorema del factor exige el factor $(x-a)$ para el valor de tendencia $a$.\n\nCuando $a=0$, esa expresión se reduce a $x$, porque $(x - 0) = x$.\n\nEste es un caso particular importante pero a veces invisible.Conviene recordar este caso particular porque, al no tener número visible dentro del paréntesis, algunos lo pasan por alto y buscan un factor distinto al correcto, como $(x-1)$ o $(x+1)$.\n\nEn límites con tendencia $x \\to 0$, el factor cancelable es siempre una potencia de $x$ sola.",
+    "explanation": "El teorema del factor exige el factor $(x-a)$ para el valor de tendencia $a$.\n\nCuando $a=0$, esa expresión se reduce a $x$, porque $(x - 0) = x$.\n\nEste es un caso particular importante pero a veces invisible.\n\nConviene recordar este caso particular porque, al no tener número visible dentro del paréntesis, algunos lo pasan por alto y buscan un factor distinto al correcto, como $(x-1)$ o $(x+1)$.\n\nEn límites con tendencia $x \\to 0$, el factor cancelable es siempre una potencia de $x$ sola.",
     "reviewed": false
   },
   {
