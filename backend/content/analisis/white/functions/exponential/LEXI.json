@@ -123,7 +123,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": ": es una función **polinómica** de grado 3:\n$$f(x) = x^3$$\nla variable $x$ está en la **base** y el exponente $3$ es constante.\n\nLas funciones exponenciales tienen la forma $b^x$.\n\ncon la **base constante** y el **exponente variable**:\n$$3^x,\\quad e^x,\\quad (0{,}5)^x \\quad \\text{son todas exponenciales}$$\nNo confundir: $x^3$ (polinómica) vs. $3^x$ (exponencial).",
+    "explanation": ": es una función **polinómica** de grado 3:\n$$f(x) = x^3$$\nLa variable $x$ está en la **base** y el exponente $3$ es constante.\n\nLas funciones exponenciales tienen la forma $b^x$.\n\ncon la **base constante** y el **exponente variable**:\n$$3^x,\\quad e^x,\\quad (0{,}5)^x \\quad \\text{son todas exponenciales}$$\nNo confundir: $x^3$ (polinómica) vs. $3^x$ (exponencial).",
     "reviewed": false,
     "tags": [
       "identificar-exponencial"

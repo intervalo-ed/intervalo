@@ -1258,7 +1258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Afirmaciones falsas: pueden tener 0, 1, 2, ... **asíntotas verticales** (no siempre exactamente una).\n\nLa **imagen** no siempre es $\\mathbb{R}$ (por ejemplo : tiene imagen $(0,1]$).\n$$\\frac{1}{x^2+1}$$\n\n\nSí pueden cruzar el eje $X$ cuando el numerador tiene raíces.\n\nLo verdadero es que son **continuas en su dominio**.",
+    "explanation": "Afirmaciones falsas: pueden tener 0, 1, 2, ... **asíntotas verticales** (no siempre exactamente una).\n\nLa **imagen** no siempre es $\\mathbb{R}$ (por ejemplo : tiene imagen $(0,1]$).\n$$\\frac{1}{x^2+1}$$\n\nSí pueden cruzar el eje $X$ cuando el numerador tiene raíces.\n\nLo verdadero es que son **continuas en su dominio**.",
     "reviewed": false,
     "tags": [
       "cuadrantes-ramas"

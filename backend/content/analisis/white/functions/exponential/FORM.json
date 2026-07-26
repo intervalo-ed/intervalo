@@ -358,7 +358,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Si pierde el $20\\%$ anual.\n\nqueda el $80\\% = 0{,}80$:\n$$V(t) = 40000 \\cdot (0{,}80)^t$$\nBase $b = 0{,}80 < 1$: exponencial decreciente.\n\nComparación con el distractor A (:):\n$$40000 - 8000t$$\nese modelo lineal llegaría a $0$ en $t = 5$ años y daría valores negativos después.\n\nEl modelo exponencial siempre da positivo.",
+    "explanation": "Si pierde el $20\\%$ anual.\n\nqueda el $80\\% = 0{,}80$:\n$$V(t) = 40000 \\cdot (0{,}80)^t$$\nBase $b = 0{,}80 < 1$: exponencial decreciente.\n\nComparación con el distractor A (:):\n$$40000 - 8000t$$\nEse modelo lineal llegaría a $0$ en $t = 5$ años y daría valores negativos después.\n\nEl modelo exponencial siempre da positivo.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
