@@ -1205,7 +1205,7 @@
       "Los signos de las raíces $4$ y $2$ están ambos invertidos respecto de lo que indican sus factores.",
       "El factor $x$ da la raíz $x=0$, no $x=1$, ya que se anula cuando la variable vale cero."
     ],
-    "explanation": "**Datos usados:**\n$x=0$ $x=4$\n\nLas raíces de un polinomio en forma factorizada se obtienen igualando cada factor a cero y despejando la variable, y el signo de cada raíz siempre queda opuesto al signo que aparece dentro del factor.\n\nPara $f(x) = x(x-4)(x+2)$:\n\nLas raíces son $x=0$, $x=4$ y $x=-2$.\n\nEl factor $(x+2)$ da la raíz $x=-2$, no $x=+2$, el signo dentro del paréntesis se invierte al despejar.\n\nEste razonamiento muestra que de signo más común al pasar de la forma factorizada a las raíces.",
+    "explanation": "**Datos usados:**\n$x=0$ $x=4$\n\nLas raíces de un polinomio en forma factorizada se obtienen igualando cada factor a cero y despejando la variable, y el signo de cada raíz siempre queda opuesto al signo que aparece dentro del factor.\n\nPara $f(x) = x(x-4)(x+2)$:\n\nLas raíces son:\n$$x = 0, \\quad x = 4, \\quad x = -2$$\nEl factor $(x+2)$ da la raíz $x=-2$, no $x=+2$, el signo dentro del paréntesis se invierte al despejar.\n\nEste razonamiento muestra que de signo más común al pasar de la forma factorizada a las raíces.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
