@@ -368,7 +368,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad de cociente** exige que el límite del denominador sea distinto de $0$.\n\nSi se anula, no se puede separar la división en dos límites por separado, y el resultado queda como una **indeterminación** que requiere otra técnica.$$\\lim_{x \\to a} \\frac{f(x)}{g(x)} \\neq \\frac{\\lim_{x \\to a} f(x)}{\\lim_{x \\to a} g(x)}$$En este caso, con $\\lim_{x \\to a} g(x) = 0$, la fracción produce 0/0 (si $f$ también tiende a $0$) o $k/0$ (si $f$ tiende a algo distinto), ambos casos que no se resuelven por sustitución directa.\n\nAplicar la propiedad de cociente sin chequear antes que el denominador no sea $0$ es un error frecuente que detrás se esconde la pregunta: \"¿Puedo separar esta división?\".\n\nSi el denominador tiende a $0$, la respuesta es no.",
+    "explanation": "La **propiedad de cociente** exige que el límite del denominador sea distinto de $0$.\n\nSi se anula, no se puede separar la división en dos límites por separado, y el resultado queda como una **indeterminación** que requiere otra técnica.$$\\lim_{x \\to a} \\frac{f(x)}{g(x)} \\neq \\frac{\\lim_{x \\to a} f(x)}{\\lim_{x \\to a} g(x)}$$En este caso, con $\\lim_{x \\to a} g(x) = 0$, la fracción produce 0/0 (si $f$ también tiende a $0$) o $k/0$ (si $f$ tiende a algo distinto), ambos casos que no se resuelven por sustitución directa.\n\nAplicar la propiedad de cociente sin chequear antes que el denominador no sea $0$ te lleva a separar una división que no se puede separar; hay que hacerse siempre la pregunta \"¿Puedo separar esta división?\" y responder con honestidad antes de operar.",
     "reviewed": false,
     "tags": [
       "propiedades-producto-cociente"
