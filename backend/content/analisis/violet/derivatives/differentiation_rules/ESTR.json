@@ -233,7 +233,7 @@
     "question": "En la misma función:\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿Qué regla corresponde aplicar al término $3x^2$?",
     "options": [
       "Regla de la constante",
-      "Múltiplo escalar junto con la",
+      "Múltiplo escalar junto",
       "Derivada de exponencial"
     ],
     "correct_index": 1,

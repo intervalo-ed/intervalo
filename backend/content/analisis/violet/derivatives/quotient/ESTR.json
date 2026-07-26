@@ -26,7 +26,7 @@
     "question": "Analizá la función:\n$$f(x) = \\frac{7}{x^2}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del producto",
-      "Reescribir como potencia",
+      "Reescribir como",
       "Regla del cociente"
     ],
     "correct_index": 1,
@@ -164,7 +164,7 @@
     "question": "Analizá la función:\n$$f(x) = \\frac{x^3-8}{x-2}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Múltiplo escalar",
-      "Simplificar el cociente",
+      "Simplificar el",
       "Regla del cociente"
     ],
     "correct_index": 1,

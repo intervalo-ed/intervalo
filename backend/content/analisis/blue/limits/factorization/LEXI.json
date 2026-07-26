@@ -210,7 +210,7 @@
     "question": "Al calcular un límite por sustitución directa se obtiene 0/0. ¿Qué representa este resultado?",
     "options": [
       "El valor exacto del límite",
-      "Un indicador de que existe un factor",
+      "Un indicador de que existe un",
       "Que el límite tiende a infinito"
     ],
     "correct_index": 1,

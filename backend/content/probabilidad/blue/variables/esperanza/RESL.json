@@ -15,7 +15,7 @@
       "Ese es $(0+1+2)/2$: no corresponde a esperanza ni a promedio simple.",
       "Ese es la suma pura de los valores $0+1+2$, sin ponderar por probabilidad."
     ],
-    "explanation": "La **esperanza** es la suma ponderada de los valores por sus probabilidades:\n$$E[X] = \\sum_x x \\cdot p(x)$$\n\nCon los datos:\n$$E[X] = 0 \\cdot 0{,}2 + 1 \\cdot 0{,}5 + 2 \\cdot 0{,}3 = 0 + 0{,}5 + 0{,}6 = 1{,}1$$\n\nUn error clásico es promediar los valores como si fueran equiprobables ($(0+1+2)/3 = 1$); la esperanza pondera por la probabilidad de cada valor, así que los valores más probables (acá el $1$ y el $2$) empujan el promedio hacia arriba.",
+    "explanation": "La **esperanza** es la suma ponderada de los valores por sus probabilidades:\n$$E[X] = \\sum_x x \\cdot p(x)$$\n\nCon los datos:\n$$E[X] = 0 \\cdot 0{,}2 + 1 \\cdot 0{,}5 + 2 \\cdot 0{,}3 = 0 + 0{,}5 + 0{,}6 = 1{,}1$$\n\nSi promediás los valores como si fueran equiprobables ($(0+1+2)/3 = 1$), ignorás las probabilidades reales y terminas con un resultado incorrecto; la esperanza pondera por la probabilidad de cada valor, así que los valores más probables (acá el $1$ y el $2$) empujan el promedio hacia arriba.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

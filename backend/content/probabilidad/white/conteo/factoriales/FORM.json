@@ -92,7 +92,7 @@
       "No hace falta ningún factor adicional: el problema es que la suma de factoriales nunca colapsa al factorial de la suma de índices.",
       "Que los índices sumen 7 no implica que los factoriales se comporten igual: el factorial no se distribuye sobre la suma."
     ],
-    "explanation": "El **factorial** no se distribuye sobre la suma: $a! + b!$ no es en general igual a $(a+b)!$, porque cada factorial es un producto independiente de números distintos.\n\nEvaluando por separado, $4!=24$ y $3!=6$, así que $4!+3!=30$, un valor muy lejano a $7!=5040$.\n\nLa trampa clásica es guiarse por la coincidencia de que los índices suman 7 y asumir que los factoriales también se combinan así; siempre hay que expandir cada factorial antes de sumar o restar.",
+    "explanation": "El **factorial** no se distribuye sobre la suma: $a! + b!$ no es en general igual a $(a+b)!$, porque cada factorial es un producto independiente de números distintos.\n\nEvaluando por separado, $4!=24$ y $3!=6$, así que $4!+3!=30$, un valor muy lejano a $7!=5040$.\n\nGuiarse por la coincidencia de que los índices suman 7 y asumir que los factoriales también se combinan así termina siendo falso; siempre hay que expandir cada factorial antes de sumar o restar.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

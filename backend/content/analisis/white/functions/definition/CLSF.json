@@ -26,7 +26,7 @@
     "question": "Un depósito registra en qué pasillo está cada medicamento. El medicamento con código 4 figura a la vez en el pasillo 3 y en el pasillo 7. ¿La asignación de códigos a pasillos define una función?",
     "options": [
       "Sí, un objeto puede estar en dos lugares",
-      "No, el medicamento 4 tiene dos pasillos asignados",
+      "No, el medicamento 4 tiene dos pasillos",
       "No, porque hay pasillos sin medicamentos"
     ],
     "correct_index": 1,
