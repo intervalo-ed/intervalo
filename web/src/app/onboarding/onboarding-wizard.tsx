@@ -18,7 +18,7 @@ import { useGridLayout } from "@/lib/latex-visual-length"
 import { ONBOARDING_UNIVERSITIES, UNIVERSITY_TAG_BY_KEY, matchUniversities } from "@/lib/university-tags"
 import { ChevronLeft, LayersIcon, TargetIcon } from "lucide-react"
 import { useSignIn, useSignUp } from "@clerk/nextjs"
-import { useEffect, useLayoutEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 const CAREERS = [
   { value: "E", label: "Ingeniería", emoji: "⚙️" },
@@ -56,6 +56,9 @@ type OnboardingExercise = {
   options: string[]
   correctIndex: number
   feedback: string
+  // Un mensaje por opción incorrecta (mismo índice que `options`), explicando el
+  // error puntual de esa alternativa. `null` en el índice correcto.
+  feedbackIncorrect: (string | null)[]
   explanation: string
 }
 
@@ -68,17 +71,29 @@ const ONBOARDING_EXERCISES: Record<CourseId, OnboardingExercise> = {
     options: ["\\$1400", "\\$1100", "\\$800", "\\$900"],
     correctIndex: 0,
     feedback: "$C(3) = 500 + 300 \\cdot 3 = 500 + 900 = 1400$.",
+    feedbackIncorrect: [
+      null,
+      "Ese resultado sale de usar 2 kilómetros en vez de 3.",
+      "Ese resultado sale de considerar un solo kilómetro recorrido.",
+      "Ese resultado es solo la parte variable ($300 \\times 3$), sin sumar los \\$500 fijos.",
+    ],
     explanation:
       "Evaluamos la función en $k = 3$:\n$$\\begin{aligned} C(3) &= 500 + 300 \\cdot 3 \\\\ &= 500 + 900 \\\\ &= 1400 \\end{aligned}$$\nEl viaje cuesta \\$1400.\n\nLa tarifa por kilómetro se multiplica primero por los kilómetros recorridos, y recién después se suma el fijo: son \\$900 de recorrido más \\$500 de bajada de bandera.",
   },
   algebra: {
     question:
-      "Cuando multiplicás potencias de la misma base, los exponentes se suman.\n$$2^2 \\cdot 2^3 = 2^x$$\n¿Cuál es el valor de $x$?",
+      "Un mensaje se reenvía y cada contacto lo manda a $2^2$ personas, que a su vez lo reenvían a $2^3$ personas más cada una.\n$$2^2 \\cdot 2^3 = 2^x$$\n¿Cuál es el valor de $x$?",
     options: ["$5$", "$6$", "$32$", "$8$"],
     correctIndex: 0,
     feedback: "Los exponentes se suman: $2^2 \\cdot 2^3 = 2^{2+3} = 2^5$.",
+    feedbackIncorrect: [
+      null,
+      "Ese resultado sale de multiplicar los exponentes ($2 \\times 3 = 6$) en vez de sumarlos.",
+      "Ese resultado es $2^5$, el valor final de la potencia, no el exponente $x$.",
+      "Ese resultado corresponde solo al segundo factor ($2^3$), sin tener en cuenta el primero.",
+    ],
     explanation:
-      "Una potencia encadena multiplicaciones: $2^2 \\cdot 2^3 = (2 \\cdot 2)(2 \\cdot 2 \\cdot 2) = 2^5$.\n\nPor eso los exponentes **se suman**: $x = 2 + 3 = 5$. Esperemos que no te hayas equivocado en esta.",
+      "Una potencia encadena multiplicaciones:\n$$\\begin{aligned} 2^2 \\cdot 2^3 &= (2 \\cdot 2)(2 \\cdot 2 \\cdot 2) \\\\ &= 2^{2+3} \\\\ &= 2^5 \\end{aligned}$$\nPor eso los exponentes **se suman**: $x = 5$.\n\nCada ronda de reenvíos multiplica a la anterior, no la suma: los $2^2$ contactos del primer envío se convierten en $2^5$ personas recién después de que cada uno reenvía a $2^3$ más.",
   },
   probabilidad: {
     question:
@@ -86,6 +101,12 @@ const ONBOARDING_EXERCISES: Record<CourseId, OnboardingExercise> = {
     options: ["$11$", "$6$", "$10$", "$30$"],
     correctIndex: 0,
     feedback: "El combo tiene $3 \\times 2 = 6$ variantes, más los 5 platos únicos: $6+5=11$.",
+    feedbackIncorrect: [
+      null,
+      "Ese resultado cuenta solo las variantes del combo ($3 \\times 2 = 6$) y se olvida de sumar los 5 platos únicos.",
+      "Ese resultado suma $3+2+5$ directamente, sin multiplicar primero entrada y bebida dentro del combo.",
+      "Ese resultado multiplica las 3 partes juntas ($3 \\times 2 \\times 5$) en vez de sumar los platos únicos como alternativa aparte.",
+    ],
     explanation:
       "Evaluamos primero el combo y después sumamos la alternativa:\n$$3 \\times 2 + 5 = 11$$\nHay 11 opciones en total.\n\nEl combo multiplica 3 entradas por 2 bebidas, dos decisiones dentro de la misma elección, y ese resultado se suma con los 5 platos únicos, una alternativa aparte.",
   },
@@ -161,50 +182,58 @@ const UNIT_GRID_ROW_LEAD = 5
 // rectángulos 2x3) de un solo color, dos piezas seguidas nunca comparten color, y
 // la primera pieza usa siempre la segunda unidad, en modo libre la gente tiende a
 // encadenar varios ejercicios seguidos del mismo tema antes de cambiar.
-// Fila de chips (uno por unidad) de ancho uniforme, medido con el ancho real
-// renderizado del chip más largo (no una estimación en `ch`, que subestima o
-// sobrestima según la fuente). Se mide en un primer pase sin ancho fijo y se aplica
-// el máximo a todos antes del paint (useLayoutEffect), sin flash visual.
-function UnitChipsRow({ units }: { units: { name: string; color: string }[] }) {
-  const rowRef = useRef<HTMLDivElement>(null)
-  const [chipWidth, setChipWidth] = useState<number | null>(null)
-  const [measuredKey, setMeasuredKey] = useState<string | null>(null)
-  const unitsKey = units.map((u) => u.name).join("|")
+// Fila de cuadraditos, un grupo de color por unidad, con el nombre debajo de
+// cada grupo. Mismo tamaño y radio de cuadradito que UnitGrid (UNIT_SQ_PX,
+// gap-px interno), con la cantidad por unidad calculada para llenar el ancho
+// disponible en vez de estirar los cuadraditos.
+const UNIT_BAR_GROUP_GAP_PX = 8
 
-  // Patrón oficial de React para "ajustar estado cuando cambia una prop": el reset
-  // ocurre sincrónicamente durante el render, no en un efecto dedicado solo a eso
-  // (ver "you-might-not-need-an-effect" en la doc de React).
-  if (unitsKey !== measuredKey) {
-    setMeasuredKey(unitsKey)
-    setChipWidth(null)
-  }
+function UnitSegmentedBar({ units }: { units: { name: string; color: string }[] }) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [perUnit, setPerUnit] = useState(1)
 
-  useLayoutEffect(() => {
-    if (chipWidth !== null) return
-    const chips = rowRef.current?.querySelectorAll<HTMLElement>(".unit-chip")
-    if (!chips || !chips.length) return
-    const max = Math.max(...Array.from(chips, (c) => c.getBoundingClientRect().width))
-    if (max > 0) setChipWidth(Math.ceil(max))
-  }, [chipWidth, unitsKey])
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+    const n = units.length
+    const compute = () => {
+      const w = el.clientWidth
+      const raw =
+        (w - (n - 1) * UNIT_BAR_GROUP_GAP_PX + n * UNIT_GAP_PX) / (n * (UNIT_SQ_PX + UNIT_GAP_PX))
+      setPerUnit(Math.max(1, Math.floor(raw)))
+    }
+    compute()
+    const ro = new ResizeObserver(compute)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [units.length])
 
   return (
-    <div ref={rowRef} className="mx-auto grid w-fit grid-cols-[max-content_max-content] gap-2">
-      {units.map((u, i, arr) => {
-        const isLoneLast = arr.length % 2 === 1 && i === arr.length - 1
-        return (
-          <span
+    <div ref={containerRef} className="mx-auto w-full max-w-sm">
+      <div className="flex justify-center gap-2">
+        {units.map((u) => (
+          <div key={u.name} className="flex gap-px">
+            {Array.from({ length: perUnit }).map((_, i) => (
+              <div
+                key={i}
+                className="h-2.5 w-2.5 rounded-[1px]"
+                style={{ background: u.color }}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
+      <div className="mt-2 flex justify-center gap-2">
+        {units.map((u) => (
+          <div
             key={u.name}
-            className={cn(
-              "unit-chip inline-flex items-center justify-center gap-2 rounded-md border border-white/10 bg-white/5 px-3 py-2 text-sm",
-              isLoneLast && "col-span-2 justify-self-center",
-            )}
-            style={{ color: u.color, width: chipWidth ?? undefined }}
+            className="text-center text-xs font-medium leading-tight"
+            style={{ color: u.color, width: perUnit * (UNIT_SQ_PX + UNIT_GAP_PX) - UNIT_GAP_PX }}
           >
-            <span className="size-2.5 shrink-0 rounded-[2px]" style={{ background: u.color }} />
             {u.name}
-          </span>
-        )
-      })}
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
@@ -771,7 +800,7 @@ export default function OnboardingWizard() {
               {/* ── SLIDE 1: Bienvenida ── */}
               {step === 1 && (
                 <div className="flex flex-col gap-5">
-                  <h2 className="text-2xl font-bold">Hola, {name}.</h2>
+                  <h2 className="text-2xl font-bold">Hola, {name}</h2>
                   <div className="flex flex-col gap-3 leading-relaxed text-foreground/85">
                     <p>
                       <strong className="text-foreground">Intervalo</strong> está pensado para
@@ -845,11 +874,12 @@ export default function OnboardingWizard() {
                       <strong className="text-foreground">unidades correlativas</strong>:
                     </p>
                   </div>
-                  <UnitChipsRow units={currentUnits} />
+                  <UnitSegmentedBar units={currentUnits} />
                   <p className="leading-relaxed text-foreground/85">
                     Dentro de cada unidad hay una serie de{" "}
                     <strong className="text-foreground">temas</strong>, y cada uno contempla distintos{" "}
-                    <strong className="text-foreground">tipos</strong> de ejercicios para practicar.
+                    <strong className="text-foreground">tipos</strong> de{" "}
+                    <strong className="text-foreground">ejercicios</strong>.
                   </p>
                   <p className="font-medium text-foreground/90">
                     ¿Vamos con uno de prueba?
@@ -948,11 +978,21 @@ export default function OnboardingWizard() {
                     <strong className="text-foreground">
                       Repasar <LayersIcon className="inline size-[18px] align-[-3px]" />
                     </strong>{" "}
-                    arma sesiones de repaso según cómo te va en los distintos tipos de ejercicios.
+                    arma sesiones de repaso{" "}
+                    <strong className="text-foreground">personalizadas</strong> según tu{" "}
+                    <strong className="text-foreground">desempeño</strong> en cada tipo de
+                    ejercicio.
                   </p>
                   <p>
-                    Los que te cuesten van a aparecer <strong className="text-foreground">más
-                    seguido</strong>, y los que ya incorporaste, cada vez menos.
+                    Los <strong className="text-foreground">conceptos</strong> que{" "}
+                    <strong className="text-foreground">te cuesten</strong>, van a aparecer{" "}
+                    <strong className="text-foreground">más</strong> seguido.
+                  </p>
+                  <p>
+                    Los que{" "}
+                    <strong className="text-foreground">ya incorporaste</strong>, van a aparecer
+                    cada vez{" "}
+                    <strong className="text-foreground">menos</strong>.
                   </p>
                   <UnitGrid units={currentUnits} pace="regular" />
                   <p>
@@ -975,8 +1015,9 @@ export default function OnboardingWizard() {
                   </p>
                   <UnitGrid units={currentUnits} pace="bursty" />
                   <p>
-                    Ideal para reforzar un tema visto en clase, o volver sobre algo que te costó en
-                    una sesión de repaso.
+                    Ideal para <strong className="text-foreground">reforzar</strong> un tema visto
+                    en clase, o hacer <strong className="text-foreground">énfasis</strong> en
+                    determinados temas para acompañar las guías de estudio.
                   </p>
                 </div>
               )}
@@ -1057,7 +1098,7 @@ export default function OnboardingWizard() {
                                 alt={u}
                                 className={cn(
                                   "w-auto max-w-full object-contain transition-[filter,opacity]",
-                                  u === "UNSAM" || u === "UNC" ? "h-[22px]" : "h-6",
+                                  u === "UNSAM" || u === "UNC" ? "h-[20px]" : "h-[23px]",
                                   isSel ? "opacity-100 brightness-150" : "opacity-90",
                                 )}
                               />
@@ -1116,7 +1157,7 @@ export default function OnboardingWizard() {
                   <div className="flex flex-col gap-2">
                     <h2 className="text-2xl font-bold">¡Ya casi estamos!</h2>
                     <p className="leading-relaxed text-foreground/85">
-                      Registrate para poder repasar los ítems que desbloqueaste hoy.
+                      Registrate para poder guardar tu progreso.
                     </p>
                   </div>
                   <Button
@@ -1314,7 +1355,13 @@ function PinnedCTA({
               >
                 <div className="pt-4 pb-3 text-sm">
                   <span className="font-semibold text-orange-400">¿Seguro?</span>
-                  <div className="mt-0.5 text-foreground/85">Revisá tu respuesta e intentalo una vez más.</div>
+                  <div className="mt-0.5 text-foreground/85">
+                    {exerciseSelection !== null && exercise.feedbackIncorrect[exerciseSelection] ? (
+                      <MathText text={exercise.feedbackIncorrect[exerciseSelection]!} />
+                    ) : (
+                      "Revisá tu respuesta e intentalo una vez más."
+                    )}
+                  </div>
                 </div>
               </motion.div>
             )}
