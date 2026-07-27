@@ -105,19 +105,9 @@ export const UNIVERSITY_TAG_BY_KEY: Record<string, UniversityTag> = Object.fromE
   UNIVERSITY_TAGS.map((u) => [u.key, u]),
 )
 
-// Los accesos directos del step de universidad del onboarding (grilla 3×3).
-// Se excluyen ITBA, UNLaM y UNS de las 12 tags; el resto entra a "Otra".
-export const ONBOARDING_UNIVERSITIES = [
-  "UBA",
-  "UTN",
-  "UNSAM",
-  "UNLP",
-  "UNC",
-  "UNR",
-  "UNL",
-  "UNT",
-  "UADE",
-]
+// Los accesos directos del step de universidad del onboarding. El resto de las
+// tags (incluidas UBA, UTN, etc.) entra por el campo "Otra".
+export const ONBOARDING_UNIVERSITIES = ["UNSAM", "UNC", "UADE"]
 
 function normalize(s: string): string {
   return s
