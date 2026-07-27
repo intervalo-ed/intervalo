@@ -6,7 +6,14 @@ import { useSfx } from "@/lib/audio/useSfx"
 import { saveOnboarding } from "@/lib/onboarding/storage"
 import { cn } from "@/lib/utils"
 import MathText from "@/components/math-text"
-import { BELT_BAR_COLORS, BELT_HEX, CATALOGS, type BeltKey, type CourseId } from "@/lib/catalog"
+import {
+  BELT_BAR_COLORS,
+  BELT_HEX,
+  CATALOGS,
+  COURSE_LABEL,
+  type BeltKey,
+  type CourseId,
+} from "@/lib/catalog"
 import { useGridLayout } from "@/lib/latex-visual-length"
 import { ONBOARDING_UNIVERSITIES, UNIVERSITY_TAG_BY_KEY, matchUniversities } from "@/lib/university-tags"
 import { ChevronLeft, LayersIcon, TargetIcon } from "lucide-react"
@@ -40,6 +47,8 @@ const COURSES: { value: CourseId; emoji: string; label: string }[] = [
 // El gris se atenúa sin seleccionar y se lleva a blanco (brightness) al seleccionar.
 const UNIVERSITY_LOGOS: Partial<Record<string, string>> = {
   UNSAM: "/universities/unsam.png",
+  UNC: "/universities/unc.png",
+  UADE: "/universities/uade.png",
 }
 
 type OnboardingExercise = {
@@ -55,12 +64,12 @@ type OnboardingExercise = {
 const ONBOARDING_EXERCISES: Record<CourseId, OnboardingExercise> = {
   analisis: {
     question:
-      "Una función transforma cada número en ese número más 2.\n$$f(x) = x + 2$$\n¿Cuál es el valor de $f(2)$?",
-    options: ["$4$", "$0$", "$2$", "$6$"],
+      "Un tachero cobra \\$500 fijos al subir, más \\$300 por cada kilómetro recorrido.\n$$C(k) = 500 + 300k$$\n¿Cuánto cuesta un viaje de 3 kilómetros?",
+    options: ["\\$1400", "\\$1100", "\\$800", "\\$900"],
     correctIndex: 0,
-    feedback: "La imagen del 2 es $f(2) = 2 + 2 = 4$.",
+    feedback: "$C(3) = 500 + 300 \\cdot 3 = 500 + 900 = 1400$.",
     explanation:
-      "La **imagen** de un valor $x$ es lo que devuelve la función al aplicarla, es decir $f(x)$.\n\nAcá la función suma 2, así que\n$$f(2) = 2 + 2 = 4$$\nLa imagen del 2 es 4. Esperemos que no te hayas equivocado en esta.",
+      "Evaluamos la función en $k = 3$:\n$$\\begin{aligned} C(3) &= 500 + 300 \\cdot 3 \\\\ &= 500 + 900 \\\\ &= 1400 \\end{aligned}$$\nEl viaje cuesta \\$1400.\n\nLa tarifa por kilómetro se multiplica primero por los kilómetros recorridos, y recién después se suma el fijo: son \\$900 de recorrido más \\$500 de bajada de bandera.",
   },
   algebra: {
     question:
@@ -73,12 +82,12 @@ const ONBOARDING_EXERCISES: Record<CourseId, OnboardingExercise> = {
   },
   probabilidad: {
     question:
-      "Tirás una moneda dos veces y anotás el resultado de cada tiro.\n¿Cuántos resultados posibles hay en total?",
-    options: ["$4$", "$2$", "$3$", "$8$"],
+      "Un puesto de comida arma un combo con 3 entradas y 2 bebidas, o vende 5 platos únicos sin combo, que ya incluyen todo.\n\n¿Cuántas opciones distintas para comer hay en total?",
+    options: ["$11$", "$6$", "$10$", "$30$"],
     correctIndex: 0,
-    feedback: "Cada tiro tiene 2 opciones: $2 \\cdot 2 = 4$ resultados.",
+    feedback: "El combo tiene $3 \\times 2 = 6$ variantes, más los 5 platos únicos: $6+5=11$.",
     explanation:
-      "El primer tiro puede salir de 2 formas y, por cada una, el segundo también: cara-cara, cara-ceca, ceca-cara y ceca-ceca.\n\nPor la **regla del producto**, $2 \\cdot 2 = 4$. Ojo: cara-ceca y ceca-cara son resultados distintos — el orden importa.",
+      "Evaluamos primero el combo y después sumamos la alternativa:\n$$3 \\times 2 + 5 = 11$$\nHay 11 opciones en total.\n\nEl combo multiplica 3 entradas por 2 bebidas, dos decisiones dentro de la misma elección, y ese resultado se suma con los 5 platos únicos, una alternativa aparte.",
   },
 }
 
@@ -102,9 +111,17 @@ const UNIT_GAP_PX = 1
 // unidad, y a medida que avanza el progreso el peso se traslada a las siguientes,
 // con solapamiento (mezcla transitoria) entre unidades vecinas. Generaliza a N
 // unidades el mismo espíritu de la matriz de probabilidades (WP) del ProgressGrid.
-function pickUnitColor(units: { color: string }[], p: number): string {
+// `unlockedCount` acota qué unidades pueden aparecer todavía: las unidades desde
+// `unlockedCount` en adelante están en 0 (bloqueadas) hasta que el llamador las
+// desbloquee, lo que produce un progreso más clusterizado (una unidad "agota" su
+// racha antes de que la siguiente empiece a asomar) en vez de mezcla desde el inicio.
+function pickUnitColor(
+  units: { color: string }[],
+  p: number,
+  unlockedCount: number,
+): { color: string; index: number } {
   const n = units.length
-  if (n <= 1) return units[0].color
+  if (n <= 1) return { color: units[0].color, index: 0 }
   // Ancho de la campana relativo a la distancia entre unidades vecinas: cuanto más
   // ancha, más solapan colores no vecinos, igual de generoso que el WP de la
   // landing (ahí el color inicial todavía pesaba ~50% a mitad de camino del
@@ -112,6 +129,7 @@ function pickUnitColor(units: { color: string }[], p: number): string {
   const spacing = 1 / (n - 1)
   const sigma = spacing
   const weights = units.map((_, i) => {
+    if (i >= unlockedCount) return 0
     const center = i / (n - 1)
     return Math.exp(-((p - center) ** 2) / (2 * sigma * sigma))
   })
@@ -119,27 +137,30 @@ function pickUnitColor(units: { color: string }[], p: number): string {
   let r = Math.random() * sum
   for (let i = 0; i < n; i++) {
     r -= weights[i]
-    if (r <= 0) return units[i].color
+    if (r <= 0) return { color: units[i].color, index: i }
   }
-  return units[n - 1].color
+  return { color: units[unlockedCount - 1].color, index: unlockedCount - 1 }
 }
 
-// Techo del ciclo creciente de "bursty": 1,2,3,...,8,1,2,3,...
-const UNIT_GRID_BURST_MAX = 8
+// Cantidad de cuadraditos de una unidad que tienen que aparecer antes de que la
+// unidad siguiente se desbloquee y pueda empezar a mezclarse.
+const UNIT_COLOR_UNLOCK_THRESHOLD = 21
 
-// Grilla animada de cuadraditos de tamaño fijo (ancho completo, muchas columnas). En
-// ambos modos se llena columna por columna, de izquierda a derecha (una unidad se
-// agota antes de pasar a la siguiente), y los cuadraditos aparecen de a uno. Lo que
-// cambia entre modos es el largo de las "rachas" seguidas de la misma unidad:
+// Máxima diferencia de columnas entre la fila más adelantada y la más atrasada.
+const UNIT_GRID_ROW_LEAD = 5
+
+// Grilla animada de cuadraditos de tamaño fijo (ancho completo, muchas columnas),
+// llenada fila por fila de izquierda a derecha, un cuadradito a la vez. Lo que
+// cambia entre modos es la forma en la que se agrupan los cuadraditos del mismo
+// color:
 //
-// `pace="regular"` (Repasar): rachas cortas y mezcladas, largo aleatorio 1-5 —
-// una sesión de repaso mezcla varios temas.
-// `pace="bursty"` (Practicar): rachas que crecen en ciclo 1,2,3,...,8,1,2,... —
-// en modo libre la gente tiende a encadenar varios ejercicios seguidos del mismo
-// tema antes de cambiar.
-//
-// En ambos modos el color de cada cuadradito sigue el mismo patrón probabilístico y
-// mezclado (pickUnitColor) según el progreso global de llenado.
+// `pace="regular"` (Repasar): cuadraditos sueltos, de a uno, elegidos con el
+// patrón probabilístico y mezclado de `pickUnitColor` según el progreso global de
+// llenado, una sesión de repaso mezcla varios temas.
+// `pace="bursty"` (Practicar): piezas tipo Tetris (líneas de 2-3-4, cuadrados 2x2,
+// rectángulos 2x3) de un solo color, dos piezas seguidas nunca comparten color, y
+// la primera pieza usa siempre la segunda unidad, en modo libre la gente tiende a
+// encadenar varios ejercicios seguidos del mismo tema antes de cambiar.
 // Fila de chips (uno por unidad) de ancho uniforme, medido con el ancho real
 // renderizado del chip más largo (no una estimación en `ch`, que subestima o
 // sobrestima según la fuente). Se mide en un primer pase sin ancho fijo y se aplica
@@ -219,45 +240,204 @@ function UnitGrid({
     if (!grid || !total) return
     const sqs = Array.from(grid.querySelectorAll<HTMLDivElement>(".unit-sq"))
 
-    // Orden de índices DOM (row*cols+col) a recorrer: columna por columna, de
-    // izquierda a derecha, de arriba a abajo dentro de cada una.
-    const order: number[] = []
-    for (let c = 0; c < cols; c++) {
-      for (let r = 0; r < rows; r++) order.push(r * cols + c)
+    // Como el Tetris de la landing pero horizontal: cada fila se llena de
+    // izquierda a derecha, y la fila que recibe el próximo cuadradito se elige
+    // al azar (probabilidad uniforme) entre las filas que todavía tienen lugar.
+    const rowFilled = new Array(rows).fill(0)
+
+    // Desbloqueo progresivo de colores: solo la primera unidad puede aparecer al
+    // inicio, y cada unidad siguiente se habilita recién cuando la anterior ya
+    // puso UNIT_COLOR_UNLOCK_THRESHOLD cuadraditos. En "bursty" arranca desbloqueada
+    // la segunda unidad también, porque la primera pieza usa esa unidad a la fuerza.
+    const unitCounts = new Array(units.length).fill(0)
+    let unlocked = Math.min(pace === "bursty" ? 2 : 1, units.length)
+
+    // Mínimo global entre TODAS las filas con lugar, no solo entre las candidatas
+    // de una pieza puntual: si se calculara solo sobre las candidatas, una fila ya
+    // muy adelantada podría quedar afuera del cálculo (por no tener lugar para esa
+    // pieza en particular) y el resto seguiría de largo sin respetar el tope real.
+    function globalMinFilled(): number {
+      let min = cols
+      for (let r = 0; r < rows; r++) if (rowFilled[r] < cols) min = Math.min(min, rowFilled[r])
+      return min
+    }
+
+    // `extra` es cuánto va a avanzar la fila si se elige (1 para un cuadradito
+    // suelto, el largo/ancho completo de una pieza): filtra para que la fila no
+    // termine pasado el tope, no solo que no lo esté ya antes de sumarle la pieza.
+    function rowsWithinLead(candidates: number[], extra: number): number[] {
+      if (!candidates.length) return candidates
+      const minFilled = globalMinFilled()
+      const ok = candidates.filter((r) => rowFilled[r] + extra - minFilled <= UNIT_GRID_ROW_LEAD)
+      if (ok.length) return ok
+      // Ningún candidato entra en el tope (puede pasar si las únicas filas con
+      // lugar para esta pieza ya están adelantadas): en vez de caer en cualquiera
+      // (lo que dejaba avanzar sin límite a las filas ya adelantadas), quedarse
+      // con las candidatas menos avanzadas para acercarse lo más posible al tope.
+      const minCand = Math.min(...candidates.map((r) => rowFilled[r]))
+      return candidates.filter((r) => rowFilled[r] === minCand)
+    }
+
+    function spawnSquareRegular(p: number) {
+      // Tope de "parejura" entre filas: ninguna fila puede ir más de
+      // UNIT_GRID_ROW_LEAD columnas por delante de la fila más atrasada.
+      const notFull = Array.from({ length: rows }, (_, r) => r).filter((r) => rowFilled[r] < cols)
+      if (!notFull.length) return
+      const avail = rowsWithinLead(notFull, 1)
+      const r = avail[Math.floor(Math.random() * avail.length)]
+      const c = rowFilled[r]
+      const { color, index } = pickUnitColor(units, p, unlocked)
+      sqs[r * cols + c].style.background = color
+      rowFilled[r]++
+      unitCounts[index]++
+      if (index === unlocked - 1 && unitCounts[index] >= UNIT_COLOR_UNLOCK_THRESHOLD) {
+        unlocked = Math.min(unlocked + 1, units.length)
+      }
+    }
+
+    // ── "bursty" (Practicar): en vez de una racha de cuadraditos sueltos del mismo
+    // color, arma piezas tipo Tetris (líneas de 2-3-4, cuadrados 2x2, rectángulos
+    // 2x3) que se pintan de a un cuadradito, izquierda a derecha dentro de la pieza.
+    let pieceQueue: { r: number; c: number; color: string; index: number }[] = []
+    let lastPieceIndex = -1
+    let firstPiece = true
+
+    function lineRow(len: number): number | null {
+      const cand = []
+      for (let r = 0; r < rows; r++) if (rowFilled[r] + len <= cols) cand.push(r)
+      if (!cand.length) return null
+      const pool = rowsWithinLead(cand, len)
+      return pool[Math.floor(Math.random() * pool.length)]
+    }
+
+    function blockRow(width: number): number | null {
+      const cand = []
+      for (let r = 0; r < rows - 1; r++) {
+        if (rowFilled[r] === rowFilled[r + 1] && rowFilled[r] + width <= cols) cand.push(r)
+      }
+      if (!cand.length) return null
+      const pool = rowsWithinLead(cand, width)
+      return pool[Math.floor(Math.random() * pool.length)]
+    }
+
+    function pickPieceIndex(p: number): number {
+      if (firstPiece) {
+        firstPiece = false
+        return Math.min(1, units.length - 1)
+      }
+      for (let tries = 0; tries < 6; tries++) {
+        const { index } = pickUnitColor(units, p, unlocked)
+        if (index !== lastPieceIndex || units.length <= 1) return index
+      }
+      return (lastPieceIndex + 1) % unlocked
+    }
+
+    function buildPiece(): number {
+      const p = filled / (total - 1)
+      const index = pickPieceIndex(p)
+      const color = units[index].color
+      lastPieceIndex = index
+
+      let cells: { r: number; c: number }[] | null = null
+      const roll = Math.random()
+      if (roll < 0.55) {
+        const len = [2, 2, 3, 3, 3, 4][Math.floor(Math.random() * 6)]
+        const r = lineRow(len)
+        if (r !== null) {
+          const c0 = rowFilled[r]
+          cells = Array.from({ length: len }, (_, i) => ({ r, c: c0 + i }))
+          rowFilled[r] += len
+        }
+      } else if (roll < 0.8) {
+        const r = blockRow(2)
+        if (r !== null) {
+          const c0 = rowFilled[r]
+          cells = []
+          for (let off = 0; off < 2; off++) {
+            cells.push({ r, c: c0 + off }, { r: r + 1, c: c0 + off })
+          }
+          rowFilled[r] += 2
+          rowFilled[r + 1] += 2
+        }
+      } else {
+        const r = blockRow(3)
+        if (r !== null) {
+          const c0 = rowFilled[r]
+          cells = []
+          for (let off = 0; off < 3; off++) {
+            cells.push({ r, c: c0 + off }, { r: r + 1, c: c0 + off })
+          }
+          rowFilled[r] += 3
+          rowFilled[r + 1] += 3
+        }
+      }
+      // Sin lugar para la forma elegida: probar líneas cada vez más cortas.
+      for (let len = 2; len >= 1 && !cells; len--) {
+        const r = lineRow(len)
+        if (r === null) continue
+        const c0 = rowFilled[r]
+        cells = Array.from({ length: len }, (_, i) => ({ r, c: c0 + i }))
+        rowFilled[r] += len
+      }
+      if (!cells) return 0
+
+      pieceQueue = cells.map((cell) => ({ ...cell, color, index }))
+      return pieceQueue.length
+    }
+
+    function spawnSquareBursty() {
+      const cell = pieceQueue.shift()
+      if (!cell) return
+      sqs[cell.r * cols + cell.c].style.background = cell.color
+      unitCounts[cell.index]++
+      if (cell.index === unlocked - 1 && unitCounts[cell.index] >= UNIT_COLOR_UNLOCK_THRESHOLD) {
+        unlocked = Math.min(unlocked + 1, units.length)
+      }
     }
 
     let filled = 0
     let batchLeft = 0 // cuadraditos que faltan del bache actual
-    let burstIdx = 0 // contador del ciclo creciente (solo "bursty")
-    let stepDelay = 0 // frames hasta el próximo cuadradito
+    let pauseLeft = 0 // frames hasta el próximo bache
+    let spawnCredit = 0 // acumulador fraccional de cuadraditos a spawnear este frame
     let rafId = 0
 
     function nextBatchSize(): number {
-      if (pace === "bursty") {
-        burstIdx++
-        return ((burstIdx - 1) % UNIT_GRID_BURST_MAX) + 1
-      }
+      if (pace === "bursty") return buildPiece()
       return 1 + Math.floor(Math.random() * 5)
     }
 
+    // Mismo ritmo que la landing (marketing-home.tsx, ProgressGrid): un cuadradito
+    // cada 2 frames dentro del bache, pausa de 12-20 frames entre baches. Acá al
+    // triple de velocidad: 1.5 cuadraditos/frame (acumulador fraccional) y pausa /3.
     function step() {
       if (filled >= total) return
-      if (stepDelay > 0) {
-        stepDelay--
+      if (pauseLeft > 0) {
+        pauseLeft--
         rafId = requestAnimationFrame(step)
         return
       }
       if (batchLeft === 0) {
         batchLeft = Math.min(nextBatchSize(), total - filled)
-        stepDelay = 10 + Math.floor(Math.random() * 5) // pausa entre baches
+        pauseLeft = 3 + Math.floor(Math.random() * 3)
+        spawnCredit = 0
+        if (batchLeft === 0 && filled < total) {
+          // No entró ninguna forma en el espacio libre restante: reintentar el
+          // próximo frame en vez de trabar la animación.
+          rafId = requestAnimationFrame(step)
+          return
+        }
         rafId = requestAnimationFrame(step)
         return
       }
-      const p = filled / (total - 1)
-      sqs[order[filled]].style.background = pickUnitColor(units, p)
-      filled++
-      batchLeft--
-      stepDelay = 3 + Math.floor(Math.random() * 3) // cuadradito a cuadradito, dentro del bache
+      // Un poquito más rápido cada vez que se desbloquea una unidad siguiente.
+      spawnCredit += 2.2 * (1 + 0.08 * (unlocked - 1))
+      while (spawnCredit >= 1 && batchLeft > 0 && filled < total) {
+        if (pace === "bursty") spawnSquareBursty()
+        else spawnSquareRegular(filled / (total - 1))
+        filled++
+        batchLeft--
+        spawnCredit -= 1
+      }
       rafId = requestAnimationFrame(step)
     }
     rafId = requestAnimationFrame(step)
@@ -658,17 +838,18 @@ export default function OnboardingWizard() {
               {/* ── SLIDE 4: Curso + unidades ── */}
               {step === 4 && (
                 <div className="flex flex-col gap-6 pt-6">
+                  <h2 className="text-left text-2xl font-bold">{COURSE_LABEL[courseKey]}</h2>
                   <div className="flex flex-col gap-3 leading-relaxed text-foreground/85">
                     <p>
-                      ¡Excelente! Los contenidos de este curso están divididos en{" "}
-                      {currentUnits.length} unidades correlativas:
+                      Los contenidos de este curso se dividen en las siguientes{" "}
+                      <strong className="text-foreground">unidades correlativas</strong>:
                     </p>
                   </div>
                   <UnitChipsRow units={currentUnits} />
                   <p className="leading-relaxed text-foreground/85">
-                    Dentro de cada unidad hay varios <strong className="text-foreground">temas</strong>,
-                    y cada uno trae distintos <strong className="text-foreground">tipos</strong> de
-                    ejercicios para practicar.
+                    Dentro de cada unidad hay una serie de{" "}
+                    <strong className="text-foreground">temas</strong>, y cada uno contempla distintos{" "}
+                    <strong className="text-foreground">tipos</strong> de ejercicios para practicar.
                   </p>
                   <p className="font-medium text-foreground/90">
                     ¿Vamos con uno de prueba?
@@ -741,13 +922,20 @@ export default function OnboardingWizard() {
                     <strong className="text-foreground">primer ejercicio</strong>.
                   </p>
                   <p>
-                    Los ejercicios de intervalo están pensados para que trabajes las principales{" "}
-                    <strong className="text-foreground">definiciones y propiedades</strong> de cada
+                    Cada ejercicio está pensado para reforzar las principales{" "}
+                    <strong className="text-foreground">definiciones y propiedades</strong> de un
                     tema.
                   </p>
                   <p>
-                    Vas a encontrarlos en dos modos, <strong className="text-foreground">Repasar</strong>{" "}
-                    y <strong className="text-foreground">Practicar</strong>.
+                    Vas a encontrarlos en dos modos,{" "}
+                    <strong className="text-foreground">
+                      Repasar <LayersIcon className="inline size-[18px] align-[-3px]" />
+                    </strong>{" "}
+                    y{" "}
+                    <strong className="text-foreground">
+                      Practicar <TargetIcon className="inline size-[18px] align-[-3px]" />
+                    </strong>
+                    .
                   </p>
                 </div>
               )}
@@ -778,20 +966,17 @@ export default function OnboardingWizard() {
               {step === 8 && (
                 <div className="flex flex-col gap-4 leading-relaxed text-foreground/85">
                   <p>
-                    En el modo{" "}
+                    El modo{" "}
                     <strong className="text-foreground">
                       Practicar <TargetIcon className="inline size-[18px] align-[-3px]" />
-                    </strong>
-                    . Elegís uno o varios temas y resolvés todos los ejercicios que quieras.
-                  </p>
-                  <p>
-                    Te permite <strong className="text-foreground">enfocarte</strong> en lo que más
-                    te cuesta, independientemente del modo Repasar.
+                    </strong>{" "}
+                    te permite elegir uno o varios temas y resolver todos los ejercicios que
+                    quieras.
                   </p>
                   <UnitGrid units={currentUnits} pace="bursty" />
                   <p>
-                    Ideal para reforzar un tema de clase, o volver sobre algo que te costó en una
-                    sesión de repaso.
+                    Ideal para reforzar un tema visto en clase, o volver sobre algo que te costó en
+                    una sesión de repaso.
                   </p>
                 </div>
               )}
@@ -871,7 +1056,8 @@ export default function OnboardingWizard() {
                                 src={logo}
                                 alt={u}
                                 className={cn(
-                                  "h-8 w-auto max-w-full object-contain transition-[filter,opacity]",
+                                  "w-auto max-w-full object-contain transition-[filter,opacity]",
+                                  u === "UNSAM" || u === "UNC" ? "h-[22px]" : "h-6",
                                   isSel ? "opacity-100 brightness-150" : "opacity-90",
                                 )}
                               />
