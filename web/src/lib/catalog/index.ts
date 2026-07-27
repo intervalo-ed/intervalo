@@ -54,9 +54,9 @@ export function beltOrderFor({ course }: { course: CourseId }): BeltKey[] {
 // oscuro (#131324), donde el negro y el azul puros quedan ilegibles.
 export const BELT_HEX: Record<BeltKey, { solid: string; onDark: string }> = {
   white: { solid: "#FAFAFA", onDark: "#FAFAFA" },
-  blue: { solid: "#0A3180", onDark: "#4486E8" },
-  violet: { solid: "#730F8C", onDark: "#C07BC9" },
-  brown: { solid: "#674011", onDark: "#C57C38" },
+  blue: { solid: "#0A3180", onDark: "#3A72C4" },
+  violet: { solid: "#730F8C", onDark: "#A369AB" },
+  brown: { solid: "#674011", onDark: "#9C6B3E" },
 }
 
 // Negro histórico ("Aplicaciones"): ya no es una unidad del curso, pero sigue
