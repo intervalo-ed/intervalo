@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una matriz necesita al menos dos filas o dos columnas para distinguirse de un vector.\n\n$\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$ tiene 2 filas y 2 columnas: es una matriz de $2\\times2$.\n\n$(1,2,3)$ es un vector (una sola fila), y $5$ es apenas un escalar, sin estructura de filas ni columnas.",
+    "explanation": "Una matriz necesita al menos dos filas o dos columnas para distinguirse de un vector.\n\n$\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$ tiene 2 filas y 2 columnas: es una matriz de $2\\times2$.\n\n$(1,2,3)$ es un vector (una sola fila), y $5$ es apenas un escalar, sin estructura de filas ni columnas. para distinguirse de un vector. Una matriz es un arreglo rectangular de números organizados en filas y columnas, con su propia álgebra de operaciones. Una matriz $1 \\times n$ es esencialmente un vector fila, y una matriz $m \\times 1$ es un vector columna, pero matrices verdaderas tienen dimensiones mayores. Las matrices permiten representar transformaciones lineales, sistemas de ecuaciones, y otras estructuras matemáticas de forma compacta y manipulable.",
     "reviewed": false
   }
 ]

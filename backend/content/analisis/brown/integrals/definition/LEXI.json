@@ -1,6 +1,6 @@
 [
   {
-    "question": "En la notación\n$$\\int f(x)\\,dx = F(x) + C$$\n¿qué es $f(x)$?",
+    "question": "En la notación integral estándar:\n$$\\int f(x)\\,dx = F(x) + C$$\n¿qué es $f(x)$?",
     "options": [
       "$f(x)$ es el integrando",
       "$f(x)$ es la primitiva",
@@ -16,14 +16,17 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **integrando** es la función que se coloca dentro del símbolo de integral, la que se va a integrar.\n$$\\int \\underbrace{f(x)}_{\\text{integrando}}\\,dx$$\nConfundir el integrando con la primitiva es un error de dirección, uno es la entrada de la operación y el otro es su resultado.",
-    "reviewed": false
+    "explanation": "El **integrando** es la función que se coloca dentro del símbolo de integral, la que se va a integrar.\n\nConfundir el integrando con la primitiva es un error de dirección, uno es la entrada de la operación y el otro es su resultado.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "reviewed": false,
+    "tags": [
+      "anatomia-notacion-integral"
+    ]
   },
   {
-    "question": "En la misma notación\n$$\\int f(x)\\,dx = F(x) + C$$\n¿qué representa $dx$?",
+    "question": "En esa misma notación:\n$$\\int f(x)\\,dx = F(x) + C$$\n¿qué representa $dx$?",
     "options": [
       "La primitiva de la función",
-      "El diferencial, que marca la variable de integración",
+      "El diferencial. por definición",
       "Un factor que multiplica al integrando"
     ],
     "correct_index": 1,
@@ -36,15 +39,18 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **diferencial** $dx$ indica respecto de qué variable se está integrando, sin actuar como un número que se pueda multiplicar o cancelar.\n$$\\int 3x\\,dx$$\nLeer $dx$ como si fuera un factor aritmético es un error frecuente, su función es puramente notacional, marca la variable del proceso.",
-    "reviewed": false
+    "explanation": "El **diferencial** $dx$ indica respecto de qué variable se está integrando, sin actuar como un número que se pueda multiplicar o cancelar.\n\nLeer $dx$ como si fuera un factor aritmético es un error frecuente, su función es puramente notacional, marca la variable del proceso.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "reviewed": false,
+    "tags": [
+      "concepto-primitiva-traslacion-geometrica"
+    ]
   },
   {
     "question": "¿Qué representa el símbolo $\\int$ en la notación de la integral?",
     "options": [
       "Una sumatoria discreta de términos",
       "El símbolo de la derivada",
-      "El operador integral"
+      "El operador integral en el contexto"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -56,11 +62,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El símbolo $\\int$ es el **operador integral**, distinto de cualquier sumatoria discreta como $\\sum$.\n$$\\int f(x)\\,dx$$\nAunque históricamente el símbolo evoque una suma continua, en la notación operativa de este curso se trata simplemente como el operador que produce la primitiva.",
-    "reviewed": false
+    "explanation": "El símbolo $\\int$ es el **operador integral**, distinto de cualquier sumatoria discreta como $\\sum$.\n\nAunque históricamente el símbolo evoque una suma continua, en la notación operativa de este curso se trata simplemente como el operador que produce la primitiva.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "reviewed": false,
+    "tags": [
+      "extraccion-separacion-terminos"
+    ]
   },
   {
-    "question": "En\n$$\\int f(x)\\,dx = F(x) + C$$\n¿qué es $F(x)$?",
+    "question": "En:\n$$\\int f(x)\\,dx = F(x) + C$$\n¿qué es $F(x)$?",
     "options": [
       "La primitiva de $f$",
       "El integrando",
@@ -76,14 +85,17 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **primitiva** $F(x)$ es el resultado de aplicar la integración al integrando $f(x)$.\n$$\\int f(x)\\,dx = F(x) + C$$\nEs la función de salida de todo el proceso, mientras que $f(x)$ es la de entrada, invertir estos roles es la confusión más común de esta notación.",
-    "reviewed": false
+    "explanation": "La **primitiva** $F(x)$ es el resultado de aplicar la integración al integrando $f(x)$.\n\nEs la función de salida de todo el proceso, mientras que $f(x)$ es la de entrada, invertir estos roles es la confusión más común de esta notación.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "reviewed": false,
+    "tags": [
+      "limites-linealidad-falsas-propiedades"
+    ]
   },
   {
     "question": "¿Qué representa $C$ en el resultado $F(x) + C$?",
     "options": [
       "El valor numérico de la integral definida",
-      "La constante de integración, parte inseparable del resultado",
+      "La constante de integración. según la regla",
       "Un valor fijo universal igual para toda integral"
     ],
     "correct_index": 1,
@@ -97,7 +109,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **constante de integración** $C$ representa que existen infinitas primitivas para una misma función, todas difiriendo entre sí por un valor constante.\n$$\\int f(x)\\,dx = F(x) + C$$\nOmitir esta constante deja incompleto el resultado, la integral indefinida siempre describe una familia completa de funciones, no una sola.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "expansion-distribucion-obligatoria"
+    ]
   },
   {
     "question": "¿Cuál de las siguientes afirmaciones describe correctamente al **integrando**?",
@@ -117,12 +132,15 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El **integrando** es siempre la función que se coloca dentro del símbolo de integral, la entrada de todo el proceso.\n$$\\int \\underbrace{f(x)}_{\\text{integrando}}\\,dx = \\underbrace{F(x)}_{\\text{primitiva}} + C$$\nDistinguir entrada de salida en esta notación es la base para leer correctamente cualquier expresión integral más adelante.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "reescritura-potencias-y-raices"
+    ]
   },
   {
-    "question": "Al escribir\n$$\\int 3x\\,dx$$\n¿qué rol cumple $dx$ en esa expresión?",
+    "question": "Al escribir una integral indefinida como:\n$$\\int 3x\\,dx$$\n¿qué rol cumple $dx$ en esa expresión?",
     "options": [
-      "Marca que la integración es respecto de la variable $x$",
+      "Marca que la integración es respecto",
       "Multiplica aritméticamente al $3x$",
       "Indica el límite superior de la integral"
     ],
@@ -136,11 +154,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $\\int 3x\\,dx$, el $dx$ señala que la variable de integración es $x$, sin participar como un factor multiplicativo dentro del cálculo.\n$$\\int 3x\\,dx = \\frac{3x^2}{2} + C$$\nEste detalle se vuelve más importante cuando aparecen varias variables en un mismo problema, el diferencial es el que aclara respecto de cuál se integra.",
-    "reviewed": false
+    "explanation": "En $\\int 3x\\,dx$,.\n\nel $dx$ señala que la variable de integración es $x$.\n\nsin participar como un factor multiplicativo dentro del cálculo.\n$$\\int 3x\\,dx = \\frac{3x^2}{2} + C$$\nEste detalle se vuelve más importante cuando aparecen varias variables en un mismo problema, el diferencial es el que aclara respecto de cuál se integra.",
+    "reviewed": false,
+    "tags": [
+      "anatomia-notacion-integral"
+    ]
   },
   {
-    "question": "¿Cuál de las siguientes opciones nombra correctamente los cuatro elementos de\n$$\\int f(x)\\,dx = F(x) + C$$?",
+    "question": "¿Cuál de las siguientes opciones nombra correctamente los cuatro elementos de:\n$$\\int f(x)\\,dx = F(x) + C$$?",
     "options": [
       "Integrando $f(x)$, primitiva $dx$, diferencial $F(x)$, constante $C$",
       "Integrando $f(x)$, diferencial $dx$, primitiva $F(x)$, constante $C$",
@@ -157,7 +178,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Cada pieza de la notación integral cumple un rol fijo y distinto dentro de la expresión completa.\n$$\\int \\underbrace{f(x)}_{\\text{integrando}}\\,\\underbrace{dx}_{\\text{diferencial}} = \\underbrace{F(x)}_{\\text{primitiva}} + \\underbrace{C}_{\\text{constante}}$$\nMemorizar esta anatomía completa evita mezclar entrada, salida y notación cuando aparecen expresiones más largas.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "concepto-primitiva-traslacion-geometrica"
+    ]
   },
   {
     "question": "¿Cuál es la relación correcta entre una función $f$ y su **primitiva** $F$?",
@@ -176,15 +200,18 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **primitiva** de $f$ es cualquier función $F$ cuya derivada, al calcularla, devuelve exactamente $f$.\n$$F'(x) = f(x)$$\nEsta relación es la definición operativa de todo el tópico, integrar es literalmente buscar una función que, al derivarla, reproduzca la función original.",
-    "reviewed": false
+    "explanation": "Una **primitiva** de $f$ es cualquier función $F$ cuya derivada.\n\nal calcularla, devuelve exactamente $f$.\n\nEsta relación es la definición operativa de todo el tópico, integrar es literalmente buscar una función que, al derivarla, reproduzca la función original.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "reviewed": false,
+    "tags": [
+      "extraccion-separacion-terminos"
+    ]
   },
   {
     "question": "Si $F$ es una **primitiva** de $f$, ¿qué otra función también es primitiva de $f$?",
     "options": [
       "$F(x)+5$, para cualquier constante",
       "$F(x) \\cdot 5$",
-      "$F(x)^2$"
+      "$F(x)^2$ sin validar el contexto"
     ],
     "correct_index": 0,
     "has_math": true,
@@ -196,8 +223,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Sumar cualquier constante a una **primitiva** no cambia su derivada, porque la derivada de una constante es cero.\n$$(F(x)+5)' = F'(x) = f(x)$$\nEste es exactamente el motivo por el que la integral indefinida siempre se escribe con un $+C$ al final, hay infinitas primitivas posibles.",
-    "reviewed": false
+    "explanation": "Sumar cualquier constante a una **primitiva** no cambia su derivada, porque la derivada de una constante es cero.\n\nEste es exactamente el motivo por el que la integral indefinida siempre se escribe con un $+C$ al final, hay infinitas primitivas posibles.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "reviewed": false,
+    "tags": [
+      "limites-linealidad-falsas-propiedades"
+    ]
   },
   {
     "question": "Geométricamente, ¿cómo se relacionan las gráficas de todas las primitivas de una misma función $f$?",
@@ -217,10 +247,13 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Como todas las **primitivas** de una misma función difieren únicamente en el valor de $C$, sus gráficas son copias desplazadas verticalmente unas de otras.\n$$F(x)+C_1 \\quad \\text{y} \\quad F(x)+C_2$$\nAl ser un desplazamiento puramente vertical, estas curvas jamás se cruzan entre sí, sin importar qué valores tomen $C_1$ y $C_2$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "expansion-distribucion-obligatoria"
+    ]
   },
   {
-    "question": "¿Es correcto afirmar que\n$$\\int f(x)\\,dx$$\nda como resultado un único número, el área bajo la curva?",
+    "question": "¿Es correcto afirmar que:\n$$\\int f(x)\\,dx$$\nDa como resultado un único número, el área bajo la curva?",
     "options": [
       "Sí, siempre da el área bajo la curva de $f$",
       "Sí, pero solo cuando $f$ es positiva",
@@ -236,13 +269,16 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **integral indefinida** $\\int f(x)\\,dx$ devuelve una familia entera de funciones, $F(x)+C$, no un número.\n$$\\int f(x)\\,dx = F(x)+C$$\nEl área bajo la curva es el resultado de una operación distinta, la integral definida con límites de integración, que se estudia en un tópico posterior.",
-    "reviewed": false
+    "explanation": "La **integral indefinida** $\\int f(x)\\,dx$ devuelve una familia entera de funciones, $F(x)+C$, no un número.\n\nEl área bajo la curva es el resultado de una operación distinta, la integral definida con límites de integración, que se estudia en un tópico posterior.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "reviewed": false,
+    "tags": [
+      "reescritura-potencias-y-raices"
+    ]
   },
   {
     "question": "¿Pueden dos primitivas distintas de la misma función $f$ cruzarse en algún punto?",
     "options": [
-      "No, al diferir en una constante, nunca se cruzan",
+      "No, al diferir en una constante",
       "Sí, se cruzan siempre en el origen",
       "Sí, se cruzan en el punto donde $f(x)=0$"
     ],
@@ -256,8 +292,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dos primitivas de la misma función $f$ difieren siempre en una constante fija, sin importar el valor de $x$.\n$$F_1(x) - F_2(x) = C_1 - C_2, \\quad \\text{constante para todo } x$$\nComo esa distancia vertical nunca cambia, las curvas de ambas primitivas jamás llegan a tocarse en ningún punto del dominio.",
-    "reviewed": false
+    "explanation": "Dos primitivas de la misma función $f$ difieren siempre en una constante fija, sin importar el valor de $x$.\n$$F_1(x) - F_2(x) = C_1 - C_2, \\quad \\text{constante}$$\nEsta diferencia es constante para todo $x$. Como esa distancia vertical nunca cambia, las curvas de ambas primitivas jamás llegan a tocarse en ningún punto del dominio.",
+    "reviewed": false,
+    "tags": [
+      "anatomia-notacion-integral"
+    ]
   },
   {
     "question": "Si $F'(x) = f(x)$ para todo $x$, ¿qué se puede afirmar sobre $F$?",
@@ -276,8 +315,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La condición $F'(x)=f(x)$ es exactamente la definición operativa de **primitiva**: una función cuya derivada reproduce a $f$.\n$$F'(x) = f(x) \\iff F \\text{ es primitiva de } f$$\nEsta equivalencia es el punto de partida de todo el cinturón de integrales, integrar y derivar son operaciones inversas entre sí.",
-    "reviewed": false
+    "explanation": "La condición $F'(x)=f(x)$ es exactamente la definición operativa de **primitiva**: una función cuya derivada reproduce a $f$.\n$$F'(x) = f(x) \\iff F \\text{ es primitiva}$$\n$F$ es primitiva de $f$. Esta equivalencia es el punto de partida de todo el cinturón de integrales, integrar y derivar son operaciones inversas entre sí.",
+    "reviewed": false,
+    "tags": [
+      "concepto-primitiva-traslacion-geometrica"
+    ]
   },
   {
     "question": "¿Qué distingue a la constante $C$ entre dos primitivas distintas $F_1(x)=F(x)+C_1$ y $F_2(x)=F(x)+C_2$?",
@@ -296,7 +338,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Como $F_1$ y $F_2$ comparten la misma derivada $f$, sus gráficas tienen exactamente la misma forma, solo desplazada verticalmente.\n$$F_1(x) - F_2(x) = C_1-C_2$$\nEsta diferencia constante es la que garantiza que ambas curvas sean paralelas, con la misma pendiente en cada punto del dominio.",
-    "reviewed": false
+    "explanation": "Como $F_1$ y $F_2$\n\ncomparten la misma derivada $f$.\n\nsus gráficas tienen exactamente la misma forma, solo desplazada verticalmente.\n\nEsta diferencia constante es la que garantiza que ambas curvas sean paralelas, con la misma pendiente en cada punto del dominio.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "reviewed": false,
+    "tags": [
+      "extraccion-separacion-terminos"
+    ]
   }
 ]

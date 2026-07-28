@@ -1,6 +1,6 @@
 [
   {
-    "question": "Calculá la derivada de\n$$f(x) = x^6$$",
+    "question": "Calculá la derivada de:\n$$f(x) = x^6$$",
     "options": [
       "$6x^5$",
       "$x^5$",
@@ -12,17 +12,20 @@
     "feedback_correct": "Correcto, el exponente $6$ baja como coeficiente y el nuevo exponente es $5$.",
     "feedback_incorrect": [
       null,
-      "Falta el coeficiente $6$ que baja desde el exponente original.",
-      "Falta restar $1$ al exponente, quedó igual que el original.",
+      "Hay que el coeficiente $6$ que baja desde el exponente original.",
+      "Hay que restar $1$ al exponente, quedó igual que el original.",
       "El coeficiente que baja es el exponente original, $6$, no $5$."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos un único término, una potencia de $x$ con exponente $6$.\n\n$$\\begin{aligned} f'(x) &= 6x^{6-1} \\\\ &= 6x^5 \\end{aligned}$$\nEl coeficiente que baja siempre coincide con el exponente original, y el nuevo exponente queda uno menos que el de partida.",
-    "reviewed": false
+    "explanation": "Identificamos un único término, una potencia de $x$ con exponente $6$.\n\nEl coeficiente que baja siempre coincide con el exponente original, y el nuevo exponente queda uno menos que el de partida.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "reviewed": false,
+    "tags": [
+      "derivadas-elementales-aplicacion"
+    ]
   },
   {
-    "question": "Calculá la derivada de\n$$f(x) = \\ln x$$",
+    "question": "Resolvé la derivada de:\n$$f(x) = \\ln x$$",
     "options": [
       "$-1/x$",
       "$1/x$",
@@ -40,11 +43,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos un único término en la expresión, la función logaritmo natural, sin ningún coeficiente que la acompañe.\n\n$$f'(x) = \\frac{1}{x}$$\nEsta fórmula elemental se aplica directamente, sin necesidad de ningún paso algebraico adicional, ni de reescribir la expresión de ninguna forma.",
-    "reviewed": false
+    "explanation": "Identificamos un único término en la expresión, la función logaritmo natural, sin ningún coeficiente que la acompañe.\n\nEsta fórmula elemental se aplica directamente, sin necesidad de ningún paso algebraico adicional, ni de reescribir la expresión de ninguna forma.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "reviewed": false,
+    "tags": [
+      "derivadas-elementales-aplicacion"
+    ]
   },
   {
-    "question": "Calculá la derivada de\n$$f(x) = \\cos x$$",
+    "question": "Hallá la derivada de:\n$$f(x) = \\cos x$$",
     "options": [
       "$\\cos x$",
       "$-\\cos x$",
@@ -58,15 +64,18 @@
       "Esa es la función original, la derivada del coseno es $-\\sin x$, una función distinta.",
       "El resultado cambia de función, de coseno pasa a seno, no se mantiene como coseno.",
       null,
-      "Falta el signo negativo, la derivada del coseno es $-\\sin x$."
+      "Hay que el signo negativo, la derivada del coseno es $-\\sin x$."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos un único término en la expresión, la función coseno, sin ningún coeficiente ni argumento compuesto.\n\n$$f'(x) = -\\sin x$$\nEl signo negativo de esta fórmula es el detalle que más se pierde al aplicarla, conviene revisarlo siempre antes de dar la respuesta final, sobre todo al combinarla con otros términos.",
-    "reviewed": false
+    "explanation": "Identificamos un único término en la expresión, la función coseno, sin ningún coeficiente ni argumento compuesto.\n\nEl signo negativo de esta fórmula es el detalle que más se pierde al aplicarla, conviene revisarlo siempre antes de dar la respuesta final, sobre todo al combinarla con otros términos.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "reviewed": false,
+    "tags": [
+      "derivadas-elementales-aplicacion"
+    ]
   },
   {
-    "question": "Calculá la derivada de\n$$f(x) = e^x$$",
+    "question": "Evaluá la derivada de:\n$$f(x) = e^x$$",
     "options": [
       "$xe^{x-1}$",
       "$e^{x-1}$",
@@ -84,11 +93,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos un único término en la expresión, la función exponencial de base $e$, sin ningún coeficiente que la acompañe.\n\n$$f'(x) = e^x$$\nEsta es la única derivada elemental que coincide exactamente con la función original, un caso especial que conviene recordar bien y no confundir con la regla de la potencia.",
-    "reviewed": false
+    "explanation": "Identificamos un único término en la expresión, la función exponencial de base $e$, sin ningún coeficiente que la acompañe.\n\nEsta es la única derivada elemental que coincide exactamente con la función original, un caso especial que conviene recordar bien y no confundir con la regla de la potencia.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "reviewed": false,
+    "tags": [
+      "derivadas-elementales-aplicacion"
+    ]
   },
   {
-    "question": "Calculá la derivada de\n$$f(x) = 4x^3 - 2\\sin x + \\ln x$$",
+    "question": "Resolvé la derivada de:\n$$f(x) = 4x^3 - 2\\sin x + \\ln x$$",
     "options": [
       "$12x^2-2\\cos x+1/x$",
       "$4x^2-2\\cos x+1/x$",
@@ -100,17 +112,20 @@
     "feedback_correct": "Correcto, cada término se derivó con su regla correspondiente.",
     "feedback_incorrect": [
       null,
-      "Falta multiplicar el coeficiente $4$ por el exponente $3$ que baja, quedó incompleto.",
+      "Hay que multiplicar el coeficiente $4$ por el exponente $3$ que baja, quedó incompleto.",
       "Perdiste el signo negativo del término $-2\\sin x$, su derivada es $-2\\cos x$.",
       "El signo del término logarítmico es positivo, la derivada de $\\ln x$ es $\\frac{1}{x}$ sin signo negativo."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos tres términos, uno potencial, uno trigonométrico y uno logarítmico, cada uno con su propia regla.\n\n$$\\begin{aligned} f'(x) &= (4x^3)' - (2\\sin x)' + (\\ln x)' \\\\ &= 12x^2 - 2\\cos x + \\frac{1}{x} \\end{aligned}$$\nCombinamos los tres resultados por linealidad, sin alterar ninguno de los signos originales de la expresión.",
-    "reviewed": false
+    "explanation": "Identificamos tres términos, uno potencial, uno trigonométrico y uno logarítmico, cada uno con su propia regla.\n\nCombinamos los tres resultados por linealidad, sin alterar ninguno de los signos originales de la expresión.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "reviewed": false,
+    "tags": [
+      "derivadas-elementales-aplicacion"
+    ]
   },
   {
-    "question": "Calculá la derivada de\n$$f(x) = 5x^2 + 3\\cos x - 4$$",
+    "question": "Hallá la derivada de:\n$$f(x) = 5x^2 + 3\\cos x - 4$$",
     "options": [
       "$10x-3\\sin x-4$",
       "$10x-3\\sin x$",
@@ -124,15 +139,18 @@
       "La constante $-4$ tiene derivada cero, no debería aparecer en el resultado final.",
       null,
       "Perdiste el signo negativo del término $3\\cos x$, su derivada es $-3\\sin x$.",
-      "Falta multiplicar el coeficiente $5$ por el exponente $2$ que baja, quedó incompleto."
+      "Hay que multiplicar el coeficiente $5$ por el exponente $2$ que baja, quedó incompleto."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos tres términos, uno potencial, uno trigonométrico y una constante.\n\n$$\\begin{aligned} f'(x) &= (5x^2)' + (3\\cos x)' - (4)' \\\\ &= 10x - 3\\sin x - 0 \\\\ &= 10x-3\\sin x \\end{aligned}$$\nLa constante desaparece por completo del resultado, mientras que el coseno aporta su derivada con signo negativo.",
-    "reviewed": false
+    "explanation": "Identificamos tres términos, uno potencial, uno trigonométrico y una constante.\n\nLa constante desaparece por completo del resultado, mientras que el coseno aporta su derivada con signo negativo.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "reviewed": false,
+    "tags": [
+      "combinaciones-lineales"
+    ]
   },
   {
-    "question": "Calculá la derivada de\n$$f(x) = x^4 - 6\\tan x$$",
+    "question": "Evaluá la derivada de:\n$$f(x) = x^4 - 6\\tan x$$",
     "options": [
       "$x^3-6\\sec^2x$",
       "$4x^3-\\sec^2x$",
@@ -143,18 +161,21 @@
     "has_math": true,
     "feedback_correct": "Correcto, la potencia y la tangente se derivaron cada una con su regla.",
     "feedback_incorrect": [
-      "Falta el coeficiente $4$ que baja desde el exponente de $x^4$.",
-      "Falta el coeficiente $6$ que multiplica a la derivada de la tangente.",
+      "Hay que el coeficiente $4$ que baja desde el exponente de $x^4$.",
+      "Hay que el coeficiente $6$ que multiplica a la derivada de la tangente.",
       null,
       "Esa no es la fórmula de la derivada de la tangente, es $\\sec^2 x$, no $\\tan^2 x$."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos dos términos, uno potencial y uno trigonométrico.\n\n$$\\begin{aligned} f'(x) &= (x^4)' - (6\\tan x)' \\\\ &= 4x^3 - 6\\sec^2 x \\end{aligned}$$\nEl coeficiente $6$ se conserva multiplicando al resultado de derivar la tangente, sin alterar la fórmula elemental de esa función.",
-    "reviewed": false
+    "explanation": "Identificamos dos términos, uno potencial y uno trigonométrico.\n\nEl coeficiente $6$ se conserva multiplicando al resultado de derivar la tangente, sin alterar la fórmula elemental de esa función.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "reviewed": false,
+    "tags": [
+      "combinaciones-lineales"
+    ]
   },
   {
-    "question": "Calculá la derivada de\n$$f(x) = 2e^x + 5x$$",
+    "question": "Resolvé la derivada de:\n$$f(x) = 2e^x + 5x$$",
     "options": [
       "$2e^x+5x$",
       "$2xe^{x-1}+5$",
@@ -165,18 +186,21 @@
     "has_math": true,
     "feedback_correct": "Correcto, el término exponencial se mantiene y el término lineal deriva a $5$.",
     "feedback_incorrect": [
-      "Falta derivar el término lineal $5x$, cuya derivada es $5$, no $5x$ sin cambios.",
+      "Hay que derivar el término lineal $5x$, cuya derivada es $5$, no $5x$ sin cambios.",
       "Esa forma sale de aplicar la regla de la potencia, pero $e^x$ es una exponencial, no una potencia de $x$.",
-      "Falta el coeficiente $2$ que multiplica al término exponencial.",
+      "Hay que el coeficiente $2$ que multiplica al término exponencial.",
       null
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos dos términos, uno exponencial y uno lineal.\n\n$$\\begin{aligned} f'(x) &= (2e^x)' + (5x)' \\\\ &= 2e^x + 5 \\end{aligned}$$\nEl término exponencial se mantiene igual a sí mismo multiplicado por su coeficiente, mientras que el término lineal deriva a su propio coeficiente.",
-    "reviewed": false
+    "explanation": "Identificamos dos términos, uno exponencial y uno lineal.\n\nEl término exponencial se mantiene igual a sí mismo multiplicado por su coeficiente, mientras que el término lineal deriva a su propio coeficiente.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "reviewed": false,
+    "tags": [
+      "combinaciones-lineales"
+    ]
   },
   {
-    "question": "Calculá la derivada de\n$$f(x) = 7 - 3x^2 + \\sin x$$",
+    "question": "Hallá la derivada de:\n$$f(x) = 7 - 3x^2 + \\sin x$$",
     "options": [
       "$-6x+\\cos x$",
       "$-6x-\\cos x$",
@@ -189,16 +213,19 @@
     "feedback_incorrect": [
       null,
       "El signo del término trigonométrico es positivo, la derivada de $\\sin x$ es $\\cos x$ sin signo negativo.",
-      "Falta multiplicar el coeficiente $3$ por el exponente $2$ que baja, quedó incompleto.",
+      "Hay que multiplicar el coeficiente $3$ por el exponente $2$ que baja, quedó incompleto.",
       "La constante $7$ tiene derivada cero, no debería aparecer en el resultado final."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos tres términos, una constante, uno potencial con signo negativo y uno trigonométrico.\n\n$$\\begin{aligned} f'(x) &= (7)' - (3x^2)' + (\\sin x)' \\\\ &= 0 - 6x + \\cos x \\\\ &= -6x+\\cos x \\end{aligned}$$\nLa constante inicial se cancela por completo, dejando solo los dos términos que sí dependen de $x$.",
-    "reviewed": false
+    "explanation": "Identificamos tres términos, una constante, uno potencial con signo negativo y uno trigonométrico.\n\nLa constante inicial se cancela por completo, dejando solo los dos términos que sí dependen de $x$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "reviewed": false,
+    "tags": [
+      "combinaciones-lineales"
+    ]
   },
   {
-    "question": "Calculá la derivada de\n$$f(x) = \\ln x + 4\\cos x$$",
+    "question": "Evaluá la derivada de:\n$$f(x) = \\ln x + 4\\cos x$$",
     "options": [
       "$1/x-4\\cos x$",
       "$1/x-4\\sin x$",
@@ -209,18 +236,21 @@
     "has_math": true,
     "feedback_correct": "Correcto, el logaritmo y el coseno se derivaron cada uno con su regla.",
     "feedback_incorrect": [
-      "Falta cambiar la función trigonométrica, la derivada de $\\cos x$ es $-\\sin x$, no $-\\cos x$.",
+      "Hay que cambiar la función trigonométrica, la derivada de $\\cos x$ es $-\\sin x$, no $-\\cos x$.",
       null,
       "Perdiste el signo negativo del término $4\\cos x$, su derivada es $-4\\sin x$.",
       "La derivada del logaritmo natural es $\\frac{1}{x}$, no $x$."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos dos términos, uno logarítmico y uno trigonométrico.\n\n$$\\begin{aligned} f'(x) &= (\\ln x)' + (4\\cos x)' \\\\ &= \\frac{1}{x} - 4\\sin x \\end{aligned}$$\nEl coeficiente $4$ se conserva multiplicando al resultado de derivar el coseno, junto con el signo negativo propio de esa fórmula.",
-    "reviewed": false
+    "explanation": "Identificamos dos términos, uno logarítmico y uno trigonométrico.\n\nEl coeficiente $4$ se conserva multiplicando al resultado de derivar el coseno, junto con el signo negativo propio de esa fórmula.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "reviewed": false,
+    "tags": [
+      "combinaciones-lineales"
+    ]
   },
   {
-    "question": "Sabiendo que\n$$f(x) = x^3$$\nhallá $f'(2)$.",
+    "question": "Sabiendo que:\n$$f(x) = x^3$$\nHallá $f'(2)$.",
     "options": [
       "$8$",
       "$3$",
@@ -232,17 +262,20 @@
     "feedback_correct": "Correcto, $f'(x)=3x^2$ evaluada en $x=2$ da $12$.",
     "feedback_incorrect": [
       "Ese es el valor de $f(2)$, la función original, no de su derivada $f'(2)$.",
-      "Falta evaluar $x^2$ en $x=2$, ese valor es solo el coeficiente sin evaluar.",
+      "Hay que evaluar $x^2$ en $x=2$, ese valor es solo el coeficiente sin evaluar.",
       null,
-      "Falta elevar al cuadrado antes de multiplicar, $3 \\cdot 2^2$, no $3 \\cdot 2$."
+      "Hay que elevar al cuadrado antes de multiplicar, $3 \\cdot 2^2$, no $3 \\cdot 2$."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Primero se deriva la función completa, y recién después se sustituye el valor puntual.\n\n$$\\begin{aligned} f'(x) &= 3x^2 \\\\ f'(2) &= 3 \\cdot 2^2 = 12 \\end{aligned}$$\nEvaluar antes de derivar es un error común en este tipo de ítem, siempre hay que derivar la función completa primero.",
-    "reviewed": false
+    "explanation": "Primero se deriva la función completa, y recién después se sustituye el valor puntual.\n\nEvaluar antes de derivar es un error común en este tipo de ítem, siempre hay que derivar la función completa primero.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "reviewed": false,
+    "tags": [
+      "tangentes-rapidas"
+    ]
   },
   {
-    "question": "Sabiendo que\n$$f(x) = \\sin x$$\nhallá $f'(0)$.",
+    "question": "Dado que:\n$$f(x) = \\sin x$$\nHallá $f'(0)$.",
     "options": [
       "$0$",
       "$-1$",
@@ -260,11 +293,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Primero se deriva la función completa, y recién después se sustituye el valor puntual.\n\n$$\\begin{aligned} f'(x) &= \\cos x \\\\ f'(0) &= \\cos 0 = 1 \\end{aligned}$$\nConfundir $f(0)$ con $f'(0)$ es el error más común en este tipo de ítem, siempre hay que derivar primero.",
-    "reviewed": false
+    "explanation": "Primero se deriva la función completa, y recién después se sustituye el valor puntual.\n\nConfundir $f(0)$ con $f'(0)$ es el error más común en este tipo de ítem, siempre hay que derivar primero.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "reviewed": false,
+    "tags": [
+      "tangentes-rapidas"
+    ]
   },
   {
-    "question": "Sabiendo que\n$$f(x) = e^x + x$$\nhallá la ecuación de la recta tangente en $x=0$, en la forma $y=mx+b$.",
+    "question": "Si se sabe que:\n$$f(x) = e^x + x$$\nHallá la ecuación de la recta tangente en $x=0$, en la forma $y=mx+b$.",
     "options": [
       "$y=2x+1$",
       "$y=2x-1$",
@@ -273,20 +309,23 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, con $f(0)=1$ y $f'(0)=2$ la ecuación queda $y=2x+1$.",
+    "feedback_correct": "La ecuación de la recta tangente es $y=2x+1$.",
     "feedback_incorrect": [
       null,
       "Revisá el signo del término independiente, $f(0)=1$ se suma, no se resta.",
-      "Falta el aporte de $e^x$ a la pendiente, $f'(0)=e^0+1=2$, no solo $1$.",
-      "Falta sumar $f(0)=1$ al final, ese término se perdió en el despeje."
+      "Hay que el aporte de $e^x$ a la pendiente, $f'(0)=e^0+1=2$, no solo $1$.",
+      "Hay que sumar $f(0)=1$ al final, ese término se perdió en el despeje."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Primero se calculan $f(0)$ y $f'(0)$, y recién después se arma la ecuación punto-pendiente.\n\n$$\\begin{aligned} f(0) &= e^0+0 = 1, \\quad f'(x) = e^x+1, \\quad f'(0)=2 \\\\ y &= 2(x-0)+1 \\\\ &= 2x+1 \\end{aligned}$$\nEl término $e^x$ aporta $1$ a la pendiente evaluado en $x=0$, un detalle que conviene no perder al calcular $f'(0)$.",
-    "reviewed": false
+    "explanation": "Primero se calculan $f(0)$ y $f'(0)$, y recién después se arma la ecuación punto-pendiente.\n\nEl término $e^x$ aporta $1$\n\na la pendiente evaluado en $x=0$.\n\nun detalle que conviene no perder al calcular $f'(0)$.\n\nLa recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
+    "reviewed": false,
+    "tags": [
+      "tangentes-rapidas"
+    ]
   },
   {
-    "question": "Una partícula tiene posición\n$$s(t) = t^3 - 2t$$\nHallá la velocidad $v(t) = s'(t)$.",
+    "question": "Una partícula tiene posición:\n$$s(t) = t^3 - 2t$$\nHallá la velocidad $v(t) = s'(t)$.",
     "options": [
       "$v(t)=3t^2-2t$",
       "$v(t)=3t^2-2$",
@@ -297,18 +336,21 @@
     "has_math": true,
     "feedback_correct": "Correcto, cada término de la posición se derivó por separado.",
     "feedback_incorrect": [
-      "Falta derivar el término lineal $-2t$, quedó copiado sin cambios en vez de derivarlo a $-2$.",
+      "Hay que derivar el término lineal $-2t$, quedó copiado sin cambios en vez de derivarlo a $-2$.",
       null,
-      "Falta derivar el término lineal $-2t$, cuya derivada es $-2$, no debería desaparecer del resultado.",
-      "Falta multiplicar el coeficiente $1$ por el exponente $3$ que baja, en este caso coincide pero conviene revisarlo igual."
+      "Hay que derivar el término lineal $-2t$, cuya derivada es $-2$, no debería desaparecer del resultado.",
+      "Hay que multiplicar el coeficiente $1$ por el exponente $3$ que baja, en este caso coincide pero conviene revisarlo igual."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **velocidad** es la derivada de la posición respecto del tiempo, así que se deriva $s(t)$ término a término.\n\n$$\\begin{aligned} v(t) &= (t^3)' - (2t)' \\\\ &= 3t^2 - 2 \\end{aligned}$$\nEste mismo procedimiento, derivar la posición para obtener la velocidad, es la aplicación más directa de las reglas de derivación a un contexto físico.",
-    "reviewed": false
+    "explanation": "La **velocidad** es la derivada de la posición respecto del tiempo, así que se deriva $s(t)$ término a término.\n\nEste mismo procedimiento, derivar la posición para obtener la velocidad, es la aplicación más directa de las reglas de derivación a un contexto físico.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "reviewed": false,
+    "tags": [
+      "razones-de-cambio"
+    ]
   },
   {
-    "question": "Sabiendo que\n$$f(x) = x^2$$\nhallá el valor de $x$ donde la tangente a $f$ es paralela a la recta $y=4x+1$.",
+    "question": "Considerando que:\n$$f(x) = x^2$$\nHallá el valor de $x$ donde la tangente a $f$ es paralela a la recta $y=4x+1$.",
     "options": [
       "$x=4$",
       "$x=8$",
@@ -319,14 +361,17 @@
     "has_math": true,
     "feedback_correct": "Correcto, $2x=4$ da $x=2$.",
     "feedback_incorrect": [
-      "Falta dividir por el coeficiente $2$, ese valor es directamente la pendiente buscada sin dividir.",
+      "Hay que dividir por el coeficiente $2$, ese valor es directamente la pendiente buscada sin dividir.",
       "Ese resultado sale de multiplicar en vez de dividir, hay que despejar $x$ dividiendo por $2$.",
       null,
       "Revisá el signo al despejar, $2x=4$ da $x=2$ positivo, no negativo."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La condición de **paralelismo** exige que $f'(x)$ iguale la pendiente $m=4$ de la recta dada.\n\n$$\\begin{aligned} f'(x) &= 2x \\\\ 2x &= 4 \\\\ x &= 2 \\end{aligned}$$\nEsta misma condición, igualar la derivada a la pendiente buscada, es la que se usa para encontrar cualquier punto de tangencia con una inclinación dada.",
-    "reviewed": false
+    "explanation": "La condición de **paralelismo** exige que $f'(x)$ iguale la pendiente $m=4$ de la recta dada.\n\nEsta misma condición, igualar la derivada a la pendiente buscada, es la que se usa para encontrar cualquier punto de tangencia con una inclinación dada.\n\nLa recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
+    "reviewed": false,
+    "tags": [
+      "razones-de-cambio"
+    ]
   }
 ]

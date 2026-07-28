@@ -37,8 +37,8 @@ ALL_CHECKS = ["options", "explanations", "questions", "feedbacks", "structure"]
 
 # --- Umbrales calibrables -----------------------------------------------------
 
-LONGEST_RATIO = 1.5      # correcta más larga: > ratio x mediana de distractores
-SHORTEST_RATIO = 0.6     # correcta más corta: < ratio x mediana de distractores
+LONGEST_RATIO = 1.2      # correcta más larga: > ratio x mediana de distractores
+SHORTEST_RATIO = 0.8     # correcta más corta: < ratio x mediana de distractores
 MIN_ABS_GAP = 5          # y la diferencia absoluta (render) supera este piso
 OPENER_REPEAT_FRACTION = 0.3   # misma apertura en >=30% de los ítems del archivo
 OPENER_REPEAT_MIN = 3
@@ -52,6 +52,30 @@ ACCUSATORY_STARTS = [
     "Confunde", "Confundís", "Invierte", "Invertís", "Olvida", "Olvidás",
     "Ignora", "Ignorás", "Interpreta", "Falla en", "Se olvidó", "Falta",
 ]
+
+# Regla 34: el cierre de `explanation` no se anuncia como advertencia de
+# diagnóstico ("La confusión típica es...", "Un error común es...", "Es un
+# error frecuente...", "X es la trampa habitual"), va en voz narrativa
+# directa. Busca en todo el último párrafo (no solo al inicio) porque el
+# rótulo puede aparecer como segunda oración o como predicado al final.
+DIAGNOSTIC_CLOSE_RE = re.compile(
+    r"(?:"
+    r"\b(el|la|los|las|una?|este|esta|estos|estas)\s+(confusi[oó]n(es)?|error(es)?|trampa(s)?)\b"
+    r"(?:\s+(?:m[aá]s\s+)?(?:t[ií]pic[oa]s?|com[uú]n(?:es)?|frecuente(?:s)?|cl[aá]sico(?:a)?s?|habitual(?:es)?|grave(?:s)?))?"
+    r"\s+(?:es|son)\b"
+    r"|"
+    r"(?<!no )es\s+(?:un|una|la|el|los|las)\s+(?:m[aá]s\s+)?(?:t[ií]pic[oa]s?|com[uú]n(?:es)?|frecuente(?:s)?|cl[aá]sico(?:a)?s?|habitual(?:es)?|grave(?:s)?)?\s*(confusi[oó]n(es)?|error(es)?|trampa(s)?)\b"
+    r")",
+    re.IGNORECASE,
+)
+# Regla 34 (cont.): filler genérico que reemplaza la rotulación sin cambiar
+# el problema de fondo, marcador breve tipo "Ojo:"/"Cuidado con..." (regla
+# 34 solo admite las 4 familias: consecuencia directa, segunda persona,
+# gerundio/infinitivo al frente, u otros caso a caso), y comparación/
+# contraste tipo "A diferencia de X, acá...".
+FILLER_CLOSE_RE = re.compile(r"^es\s+(f[aá]cil|tentador)\b", re.IGNORECASE)
+MARKER_CLOSE_RE = re.compile(r"^(ojo|atenci[oó]n|cuidado)\b", re.IGNORECASE)
+CONTRAST_CLOSE_RE = re.compile(r"^a\s+diferencia\s+de\b", re.IGNORECASE)
 
 EMDASH = "—"
 ENDASH = "–"
@@ -83,6 +107,19 @@ def strip_math(s: str) -> str:
 
 def paragraphs(s: str) -> list[str]:
     return [p for p in s.split("\n\n") if p.strip()]
+
+
+def prose_segments(p: str) -> list[str]:
+    r"""Tramos de prosa de un párrafo, separados por las fórmulas centradas.
+
+    Una fórmula `$$...$$` es un corte de lectura: KaTeX displayMode le agrega
+    margen vertical, así que el ojo ve bloques separados. Como el formato
+    obliga a un solo `\n` junto a `$$` (nunca `\n\n`), sin este corte la prosa
+    de antes y la de después se medirían como un único párrafo, y el remedio
+    que la regla 21 propone ("sacá la fórmula central a un bloque `$$...$$`")
+    nunca bajaría el conteo.
+    """
+    return [s for s in DISPLAY_RE.split(p) if s.strip()]
 
 
 def word_count(s: str) -> int:
@@ -222,21 +259,39 @@ def check_explanations(items, file, F: Findings) -> None:
                   f"explanation de {len(text)} chars (mínimo {EXPLANATION_MIN})")
         _check_text_common(text, "explanations", file, label, F)
         _check_display_flow(text, "explanations", file, label, F)
-        for p in paragraphs(text):
+        paras = paragraphs(text)
+        for p in paras:
             stripped = p.rstrip()
             if not stripped.endswith((".", ":", "?", "!", "$")):
                 F.add("ERROR", "explanations", "17", file, label,
                       f"párrafo sin puntuación terminal: ...{stripped[-40:]!r}")
-            prose = DISPLAY_RE.sub(" ", p)
-            prose_flat = re.sub(r"\s+", " ", prose).strip()
-            if len(prose_flat) > PARAGRAPH_PROSE_MAX:
-                F.add("WARNING", "explanations", "párrafos", file, label,
-                      f"párrafo de prosa de {len(prose_flat)} chars (máx {PARAGRAPH_PROSE_MAX}): "
-                      f"{prose_flat[:60]!r}...")
-            inline_count = len(INLINE_RE.findall(prose))
-            if inline_count >= INLINE_FRAGMENTS_WARN:
-                F.add("WARNING", "explanations", "21", file, label,
-                      f"{inline_count} fragmentos LaTeX inline en el mismo párrafo")
+            # El largo de prosa y la densidad de inline se miden por tramo
+            # entre fórmulas centradas, no sobre el párrafo entero (ver
+            # prose_segments).
+            for prose in prose_segments(p):
+                prose_flat = re.sub(r"\s+", " ", prose).strip()
+                if len(prose_flat) > PARAGRAPH_PROSE_MAX:
+                    F.add("WARNING", "explanations", "párrafos", file, label,
+                          f"tramo de prosa de {len(prose_flat)} chars (máx {PARAGRAPH_PROSE_MAX}): "
+                          f"{prose_flat[:60]!r}...")
+                inline_count = len(INLINE_RE.findall(prose))
+                if inline_count >= INLINE_FRAGMENTS_WARN:
+                    F.add("WARNING", "explanations", "21", file, label,
+                          f"{inline_count} fragmentos LaTeX inline en el mismo tramo de prosa")
+        if paras:
+            last = re.sub(r"^\*\*([^*]+)\*\*", r"\1", paras[-1].strip())
+            if DIAGNOSTIC_CLOSE_RE.search(last):
+                F.add("WARNING", "explanations", "34", file, label,
+                      f"cierre anunciado como advertencia de diagnóstico: {last[:70]!r}...")
+            elif FILLER_CLOSE_RE.match(last):
+                F.add("WARNING", "explanations", "34", file, label,
+                      f"cierre con filler genérico 'Es fácil/tentador' (no es una de las 4 familias permitidas): {last[:70]!r}...")
+            elif MARKER_CLOSE_RE.match(last):
+                F.add("WARNING", "explanations", "34", file, label,
+                      f"cierre con marcador breve tipo 'Ojo/Cuidado/Atención' (prohibido explícito): {last[:70]!r}...")
+            elif CONTRAST_CLOSE_RE.match(last):
+                F.add("WARNING", "explanations", "34", file, label,
+                      f"cierre por comparación/contraste 'A diferencia de...' (prohibido explícito): {last[:70]!r}...")
 
 
 def check_questions(items, file, F: Findings) -> None:
@@ -315,15 +370,18 @@ def check_feedbacks(items, file, F: Findings) -> None:
 
 # --- Structure: tags contra la tabla del topic-context ------------------------
 
-SLUG_CELL_RE = re.compile(r"`([a-z0-9]+(?:-[a-z0-9]+)+)`")
+SLUG_CELL_RE = re.compile(r"`([a-z0-9]+(?:-[a-z0-9]+)*)`")
 
 
 def parse_distribution(topic_context: Path) -> dict[str, int]:
-    """Extrae {slug: cantidad} de las tablas markdown con columna Slug/Cant."""
+    """Extrae {slug: cantidad} de las tablas markdown con columna Slug/Cant y menciones en prose."""
     targets: dict[str, int] = {}
     if not topic_context.exists():
         return targets
-    for line in topic_context.read_text(encoding="utf-8").splitlines():
+    text = topic_context.read_text(encoding="utf-8")
+
+    # Parse tablas markdown
+    for line in text.splitlines():
         if not line.strip().startswith("|"):
             continue
         cells = [c.strip() for c in line.strip().strip("|").split("|")]
@@ -333,13 +391,22 @@ def parse_distribution(topic_context: Path) -> dict[str, int]:
             m = SLUG_CELL_RE.fullmatch(c)
             if m:
                 slug = m.group(1)
-        # la celda de cantidad es la última numérica de la fila
+        # la celda de cantidad es la última numérica de la fila (puede tener ~ al inicio)
         for c in reversed(cells):
-            if re.fullmatch(r"\d+", c):
-                count = int(c)
+            m = re.fullmatch(r"~?(\d+)", c)
+            if m:
+                count = int(m.group(1))
                 break
         if slug and count is not None:
             targets[slug] = targets.get(slug, 0) + count
+
+    # Parse menciones inline: "(NN ejercicios):* ... slug único `slug`"
+    for m in re.finditer(r"\((\d+)\s+ejercicios[^`]*slug\s+único\s+`([a-z0-9]+(?:-[a-z0-9]+)*)`", text):
+        count_str, slug = m.groups()
+        count = int(count_str)
+        if slug and count:
+            targets[slug] = targets.get(slug, 0) + count
+
     return targets
 
 
