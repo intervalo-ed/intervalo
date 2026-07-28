@@ -1,5 +1,6 @@
 "use client"
 
+import { CourseSwitcher } from "@/components/course-switcher"
 import { Wordmark } from "@/components/wordmark"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
@@ -13,15 +14,18 @@ import { Spinner } from "@/components/ui/spinner"
 import { exerciseTypeInfo } from "@/lib/catalog/exercise-types"
 import {
   BELT_HEX,
-  BELT_ORDER,
   beltInfo,
+  beltOrderFor,
+  COURSE_ORDER,
   topicsForBelt,
   topicShortLabel,
   type BeltKey,
+  type CourseId,
 } from "@/lib/catalog"
 import { ChevronLeft } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { parseAsStringLiteral, useQueryState } from "nuqs"
 import { useMemo, useState } from "react"
 import { useStartTest, type TestItem } from "./UseStartTest"
 
@@ -32,11 +36,11 @@ function itemId({ belt, topic, exercise_type }: TestItem) {
   return `${belt}/${topic}/${exercise_type}`
 }
 
-// All (belt, topic, exercise_type) items in the catalog, flattened.
-function allItems(): TestItem[] {
+// All (belt, topic, exercise_type) items in the catalog for a course, flattened.
+function allItems({ course }: { course: CourseId }): TestItem[] {
   const out: TestItem[] = []
-  for (const belt of BELT_ORDER) {
-    for (const t of topicsForBelt({ belt })) {
+  for (const belt of beltOrderFor({ course })) {
+    for (const t of topicsForBelt({ belt, course })) {
       for (const et of t.skills) {
         out.push({ belt, topic: t.key, exercise_type: et })
       }
@@ -49,11 +53,32 @@ export default function TestConfig() {
   const router = useRouter()
   const startTest = useStartTest()
 
-  const items = useMemo(allItems, [])
+  const [course, setCourse] = useQueryState(
+    "course",
+    parseAsStringLiteral(COURSE_ORDER).withDefault("analisis"),
+  )
+  const items = useMemo(() => allItems({ course }), [course])
   const [selected, setSelected] = useState<Set<string>>(new Set())
   const [shuffle, setShuffle] = useState(true)
   const [onlyMath, setOnlyMath] = useState(false)
   const [onlyGraph, setOnlyGraph] = useState(false)
+
+  function selectCourse(next: CourseId) {
+    setCourse(next)
+    // Los items dependen del curso: limpiamos la selección para no arrastrar
+    // items de otro curso.
+    setSelected(new Set())
+  }
+
+  function prevCourse() {
+    const idx = COURSE_ORDER.indexOf(course)
+    selectCourse(COURSE_ORDER[(idx - 1 + COURSE_ORDER.length) % COURSE_ORDER.length])
+  }
+
+  function nextCourse() {
+    const idx = COURSE_ORDER.indexOf(course)
+    selectCourse(COURSE_ORDER[(idx + 1) % COURSE_ORDER.length])
+  }
 
   function toggle(it: TestItem) {
     const id = itemId(it)
@@ -88,6 +113,7 @@ export default function TestConfig() {
         items: selectedItems,
         shuffle,
         filters: { has_math: onlyMath, has_graph: onlyGraph },
+        course,
       },
       { onSuccess: (p) => router.push(`/session/${p.session_id}`) },
     )
@@ -112,6 +138,8 @@ export default function TestConfig() {
       </ScreenHeader>
 
       <ScreenBody className="gap-4 py-4">
+        <CourseSwitcher course={course} onPrev={prevCourse} onNext={nextCourse} />
+
         <section className="flex flex-col gap-3 rounded-md border border-white/10 p-4">
           <div className="flex flex-col gap-0.5">
             <h2 className="font-sans text-lg font-semibold leading-tight">
@@ -149,8 +177,8 @@ export default function TestConfig() {
           </div>
         </section>
 
-        {BELT_ORDER.map((belt) => {
-          const topics = topicsForBelt({ belt }).filter(
+        {beltOrderFor({ course }).map((belt) => {
+          const topics = topicsForBelt({ belt, course }).filter(
             (t) => t.skills.length > 0,
           )
           if (topics.length === 0) return null
@@ -163,7 +191,7 @@ export default function TestConfig() {
                 className="font-sans text-base font-semibold leading-tight"
                 style={{ color: BELT_HEX[belt].onDark }}
               >
-                {beltInfo({ belt }).headline}
+                {beltInfo({ belt, course }).headline}
               </h3>
               <div className="flex flex-col gap-3">
                 {topics.map((t) => {
@@ -178,7 +206,7 @@ export default function TestConfig() {
                         onClick={() => toggleTopic(topicItems)}
                         className="text-left text-sm font-medium text-foreground/80"
                       >
-                        {topicShortLabel({ topic: t.key })}
+                        {topicShortLabel({ topic: t.key, course, fallback: t.name })}
                       </button>
                       <div className="flex flex-wrap gap-1.5">
                         {topicItems.map((it) => {
@@ -194,7 +222,7 @@ export default function TestConfig() {
                                   : "border-white/15 text-foreground/70 hover:border-white/40")
                               }
                             >
-                              {exerciseTypeInfo({ type: it.exercise_type }).label}
+                              {exerciseTypeInfo({ type: it.exercise_type, course }).label}
                             </button>
                           )
                         })}

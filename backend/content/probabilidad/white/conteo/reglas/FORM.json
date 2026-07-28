@@ -1,7 +1,7 @@
 [
   {
     "question": "Un menú de cafetería ofrece 4 sándwiches distintos y 3 bebidas distintas.\n\nCada combo se arma eligiendo un sándwich y una bebida.\n\n¿Qué expresión cuenta la cantidad de combos posibles?",
-    "options": ["$4 + 3$", "$4 \\times 3$", "$4^{3}$", "$\\binom{4}{3}$"],
+    "options": ["$4 + 3$", "$4 \\times 3$", "$4^{3}$", "$\\dbinom{4}{3}$"],
     "correct_index": 1,
     "feedback_correct": "Elegir sándwich Y bebida es una secuencia de dos decisiones independientes: se multiplican.",
     "feedback_incorrect": [
@@ -10,7 +10,7 @@
       "Ese es el arreglo con repetición de 3 lugares eligiendo entre 4, distinto del caso: acá hay solo dos decisiones.",
       "El binomial cuenta subconjuntos de 3 elementos elegidos entre 4, no una secuencia de decisiones independientes."
     ],
-    "explanation": "La **regla del producto** dice que si una decisión tiene $m$ opciones y una segunda decisión (independiente) tiene $n$ opciones, la secuencia completa tiene $m \\times n$ resultados.\n\nAcá cada combo se arma con una decisión de sándwich (4 opciones) seguida de una decisión de bebida (3 opciones), así que:\n$$4 \\times 3 = 12 \\text{ combos}$$\nEl error clásico es confundir la regla del producto con la de la suma: la suma solo aplica cuando las alternativas son mutuamente excluyentes (elegís una o la otra, no las dos).",
+    "explanation": "La **regla del producto** dice que si una decisión tiene cierta cantidad de opciones y una segunda decisión independiente tiene otra cantidad, la secuencia completa multiplica ambas cantidades.\n\nAcá cada combo se arma con una decisión de sándwich (4 opciones) seguida de una decisión de bebida (3 opciones), así que:\n$$4 \\times 3 = 12$$\nSon 12 combos posibles.\n\nEl error clásico es confundir la regla del producto con la de la suma: la suma solo aplica cuando las alternativas son mutuamente excluyentes (elegís una o la otra, no las dos).",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -28,7 +28,7 @@
       null,
       "Ese resultado corresponde a elegir 5 veces entre 3 opciones con repetición, un escenario distinto al de elegir un único medio de viaje."
     ],
-    "explanation": "La **regla de la suma** aplica cuando el resultado sale de una sola de varias alternativas mutuamente excluyentes: se cuenta cada alternativa por separado y se suman.\n\nAcá el viaje es en micro (3 opciones) o en vuelo (5 opciones), nunca las dos cosas a la vez, así que:\n$$3 + 5 = 8 \\text{ opciones de viaje}$$\nEl error clásico es multiplicar en cuanto aparecen dos conjuntos de opciones: el producto solo corresponde cuando se toma un elemento de cada conjunto en la misma elección, no cuando se elige uno u otro.",
+    "explanation": "La **regla de la suma** aplica cuando el resultado sale de una sola de varias alternativas mutuamente excluyentes: se cuenta cada alternativa por separado y se suman.\n\nAcá el viaje es en micro (3 opciones) o en vuelo (5 opciones), nunca las dos cosas a la vez, así que:\n$$3 + 5 = 8$$\nHay 8 opciones de viaje en total.\n\nEl error clásico es multiplicar en cuanto aparecen dos conjuntos: el producto corresponde cuando se toma un elemento de cada uno, no cuando se elige uno u otro.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -46,7 +46,7 @@
       "Estás multiplicando también por los 4 platos únicos, pero esos son una alternativa aparte, no una tercera decisión del mismo combo.",
       "Estás sumando entrada y postre antes de multiplicar por los platos únicos, una combinación que no representa ninguna de las dos alternativas del enunciado."
     ],
-    "explanation": "Cuando un problema combina una **regla del producto** dentro de una de las alternativas de una **regla de la suma**, primero se resuelve el producto de cada rama y después se suman las ramas excluyentes entre sí.\n\nEl combo tiene $2 \\times 3 = 6$ variantes, y el restaurante ofrece además $4$ platos únicos como alternativa aparte:\n$$2 \\times 3 + 4 = 10 \\text{ opciones}$$\nUn error común es sumar todos los números sueltos sin distinguir qué decisiones son secuenciales (van multiplicadas) y cuáles son alternativas excluyentes (van sumadas).",
+    "explanation": "Cuando un problema combina una **regla del producto** dentro de una alternativa de una **regla de la suma**, primero se resuelve cada producto y después se suman las ramas excluyentes.\n\nEl combo tiene $2 \\times 3 = 6$ variantes, y el restaurante ofrece además $4$ platos únicos como alternativa aparte:\n$$2 \\times 3 + 4 = 10$$\nHay 10 opciones en total.\n\nUn error común es sumar todos los números sueltos sin distinguir qué decisiones son secuenciales (van multiplicadas) y cuáles son alternativas excluyentes (van sumadas).",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -64,7 +64,7 @@
       "Esa expresión suma las opciones de cada dígito en vez de multiplicarlas, tratando la contraseña como si fuera una elección única entre alternativas.",
       null
     ],
-    "explanation": "La **regla del producto** con una restricción puntual solo reduce las opciones del paso afectado, dejando el resto sin cambios.\n\nEl primer dígito no puede ser $0$, así que tiene $9$ opciones; los otros dos dígitos sí aceptan cualquier valor del $0$ al $9$, con $10$ opciones cada uno:\n$$9 \\times 10 \\times 10 = 900 \\text{ contraseñas}$$\nUn error frecuente es aplicar la restricción a todos los dígitos por igual, cuando en realidad solo pesa sobre el paso que el enunciado menciona explícitamente.",
+    "explanation": "La **regla del producto** con una restricción puntual solo reduce las opciones del paso afectado, dejando el resto sin cambios.\n\nEl primer dígito no puede ser $0$, así que tiene 9 opciones; los otros dos dígitos aceptan cualquier valor del 0 al 9, con 10 opciones cada uno:\n$$9 \\times 10 \\times 10 = 900$$\nHay 900 contraseñas posibles.\n\nUn error frecuente es aplicar la restricción a todos los dígitos por igual, cuando en realidad solo pesa sobre el paso que el enunciado menciona explícitamente.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -82,7 +82,7 @@
       "Ese resultado cuenta cada rama dos veces, una por cada camino principal, en vez de sumar las sub-rutas de cada rama una sola vez.",
       "Ese resultado mezcla el número de caminos principales con las sub-rutas de ambas ramas en un solo producto, sin corresponder a ningún camino real del mapa."
     ],
-    "explanation": "En un árbol de decisiones, el total de caminos de la raíz a una hoja es la suma de las ramas completas de cada bifurcación, no el producto entre ellas.\n\nAcá hay 2 caminos principales, uno con 4 sub-rutas y otro con 3 sub-rutas, cada camino llevando a un destino distinto dentro de la misma rama:\n$$4 + 3 = 7 \\text{ rutas posibles}$$\nUn error común es contar los nodos intermedios en vez de las ramas completas: lo que importa es cada camino de punta a punta, no los pasos sueltos en el medio.",
+    "explanation": "En un árbol de decisiones, el total de caminos de la raíz a una hoja es la suma de las ramas completas de cada bifurcación, no el producto entre ellas.\n\nAcá hay 2 caminos principales, uno con 4 sub-rutas y otro con 3 sub-rutas, cada camino llevando a un destino distinto dentro de la misma rama:\n$$4 + 3 = 7$$\nHay 7 rutas posibles en total.\n\nUn error común es contar los nodos intermedios en vez de las ramas completas: lo que importa es cada camino de punta a punta, no los pasos sueltos en el medio.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

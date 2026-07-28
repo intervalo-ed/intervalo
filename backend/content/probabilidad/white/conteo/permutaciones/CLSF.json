@@ -13,7 +13,7 @@
       "En combinación el orden NO importa; acá dos fotos con las mismas personas en distinto orden cuentan distinto.",
       "En variación se elige un subconjunto ordenado; acá se usan todas las personas, no solo 3."
     ],
-    "explanation": "Una **permutación** cuenta los ordenamientos posibles de un conjunto de $n$ elementos cuando se usan **todos** y el orden importa:\n$$P_n = n!$$\nEn una foto de las 5 personas del equipo, cada disposición es distinta si cambia el orden, así que la técnica es la permutación de 5 elementos y hay $5! = 120$ fotos distintas.\n\nLa confusión típica es confundir con combinaciones: el criterio decisivo es preguntarse si intercambiar dos elementos produce un resultado distinto. Si sí, hay orden y toca permutar o variar.",
+    "explanation": "Una **permutación** cuenta los ordenamientos posibles de un conjunto de elementos distintos cuando se usan todos y el orden importa:\n$$P_n = n!$$\nCon 5 personas:\n$$5! = 120$$\nEl resultado es 120.\n\nEn una foto del equipo, cada disposición es distinta si cambia el orden, así que hay 120 fotos distintas.\n\nLa confusión típica es confundir con combinaciones: el criterio decisivo es preguntarse si intercambiar dos elementos produce un resultado distinto. Si sí, hay orden y toca permutar o variar.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -24,8 +24,8 @@
     "question": "Se quiere contar de cuántas formas distintas se pueden reordenar todas las letras de la palabra **ANANA**, donde la A se repite 3 veces y la N se repite 2 veces.\n\n¿Qué técnica de conteo corresponde?",
     "options": [
       "Permutación con repetición.",
-      "Permutación simple, tratando todas las letras como distintas.",
-      "Variación, porque se eligen solo algunas letras."
+      "Permutación simple, sin repetición.",
+      "Variación de un subconjunto."
     ],
     "correct_index": 0,
     "feedback_correct": "Hay grupos de letras idénticas, así que corresponde permutación con repetición, dividiendo por el factorial de cada grupo.",
@@ -34,7 +34,7 @@
       "Tratar todas las letras como distintas cuenta de más: intercambiar dos A entre sí no genera una palabra diferente.",
       "Acá se usan todas las letras de la palabra, no se elige un subconjunto menor."
     ],
-    "explanation": "Cuando se ordenan $n$ elementos entre los cuales hay grupos indistinguibles, corresponde una **permutación con repetición**, que divide el total de reordenamientos por el factorial de cada grupo repetido.\n\nEn ANANA hay $n=5$ letras, con la A repetida 3 veces y la N repetida 2 veces, así que el conteo usa $\\dfrac{5!}{3!\\,2!}$.\n\nLa confusión típica es tratar las letras repetidas como si fueran distinguibles, lo que sobrecuenta reordenamientos que en realidad forman la misma palabra.",
+    "explanation": "Cuando se ordenan elementos con grupos indistinguibles, corresponde una **permutación con repetición**: se divide el total de reordenamientos por el factorial de cada grupo repetido.\n\nEsa división es necesaria porque tratar los elementos repetidos como distintos multiplica cada arreglo real por todas las formas de reordenarlos internamente, que en realidad no cambian la palabra.\n\nSi las 3 A fueran distintas entre sí, habría 3! formas de ordenarlas sin que la palabra cambie; lo mismo pasa con las 2 N, que aportan 2! órdenes internos idénticos.\n\nEn ANANA hay 5 letras, con la A repetida 3 veces y la N repetida 2 veces, así que el conteo es:\n$$\\dfrac{5!}{3!\\,2!}$$\nEse cociente da la cantidad de anagramas distintos.\n\nLa confusión típica es tratar las letras repetidas como si fueran distinguibles, lo que sobrecuenta reordenamientos que en realidad forman la misma palabra.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -45,17 +45,15 @@
     "question": "En una oficina de 8 empleados se quiere elegir y ordenar solo a 3 de ellos para ocupar 3 puestos distintos de un podio de reconocimiento.\n\n¿Corresponde tratar este problema como una permutación simple de los 8 empleados?",
     "options": [
       "No, porque no se usan los 8 elementos, solo un subconjunto de 3.",
-      "Sí, porque el orden de los puestos importa.",
-      "Sí, porque cada empleado puede ocupar un solo puesto."
+      "Sí, porque el orden de los puestos importa."
     ],
     "correct_index": 0,
     "feedback_correct": "La permutación simple exige usar TODOS los elementos; acá solo se eligen y ordenan 3 de los 8.",
     "feedback_incorrect": [
       null,
-      "Que el orden importe es necesario pero no alcanza: además hay que usar todos los elementos disponibles, y acá sobran 5 empleados sin puesto.",
-      "Que cada empleado ocupe un solo puesto es cierto, pero no alcanza para ser permutación simple si quedan empleados sin usar."
+      "Que el orden importe es necesario pero no alcanza: además hay que usar todos los elementos disponibles, y acá sobran 5 empleados sin puesto."
     ],
-    "explanation": "La **permutación** de $n$ elementos cuenta los ordenamientos que usan **todos** los elementos disponibles. Cuando el problema elige y ordena solo un subconjunto de $k<n$ elementos, la técnica cambia.\n\nAcá hay $8$ empleados pero solo se ordenan $3$ de ellos, quedando $5$ sin usar en el podio.\n\nConfundir ambas técnicas es común: el criterio decisivo es preguntarse si sobran elementos sin asignar al final del conteo.",
+    "explanation": "La **permutación** de $n$ elementos cuenta los ordenamientos que usan **todos** los elementos disponibles. Cuando el problema elige y ordena solo un subconjunto de $k<n$ elementos, la técnica cambia.\n\nAcá hay 8 empleados pero solo se ordenan 3 de ellos, quedando 5 sin usar en el podio.\n\nConfundir ambas técnicas es común: el criterio decisivo es preguntarse si sobran elementos sin asignar al final del conteo.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -66,14 +64,12 @@
     "question": "Se quiere formar una fila con las 6 personas de un grupo familiar para sacarse una foto, donde cada posición en la fila es un lugar distinto.\n\n¿Corresponde tratar este problema como una combinación de las 6 personas?",
     "options": [
       "No, porque el orden en la fila sí importa.",
-      "Sí, porque se usan las 6 personas completas.",
       "Sí, porque una fila es un subconjunto sin roles definidos."
     ],
     "correct_index": 0,
     "feedback_correct": "En una fila cada posición es distinguible, así que dos órdenes distintos de las mismas personas son fotos diferentes.",
     "feedback_incorrect": [
       null,
-      "Usar todos los elementos es necesario para permutación, pero no hace que el problema sea una combinación, que además ignora el orden.",
       "Una fila sí asigna un lugar distinto a cada persona, no es un subconjunto sin roles como en una combinación."
     ],
     "explanation": "Una **combinación** ignora el orden dentro del subconjunto elegido, mientras que una **permutación** ordena todos los elementos en posiciones distinguibles.\n\nEn una fila para una foto, cambiar el orden de las 6 personas produce una disposición distinta, así que el orden sí importa.\n\nEl criterio para descartar combinación es siempre el mismo: si intercambiar dos elementos cambia el resultado, no es combinación.",
@@ -86,16 +82,14 @@
   {
     "question": "Un examen tiene 4 preguntas y cada una se responde eligiendo una opción entre 3 posibles, de forma independiente entre preguntas.\n\n¿Corresponde tratar este problema como una permutación de 4 elementos?",
     "options": [
-      "No, porque cada pregunta tiene sus propias opciones y no se está reordenando un mismo conjunto.",
-      "Sí, porque hay 4 posiciones a llenar en orden.",
-      "Sí, porque el orden de las respuestas importa."
+      "No: cada pregunta tiene sus propias opciones y no se reordena un mismo conjunto.",
+      "Sí, porque hay 4 posiciones que se llenan siguiendo un orden determinado."
     ],
     "correct_index": 0,
     "feedback_correct": "Cada pregunta elige entre las mismas 3 opciones de forma independiente: es la regla del producto, no una permutación de un conjunto fijo.",
     "feedback_incorrect": [
       null,
-      "Tener 4 posiciones no alcanza: en una permutación esas posiciones se llenan repartiendo un mismo conjunto de elementos, sin repetición entre ellas.",
-      "El orden de las preguntas está fijo de antemano, lo que varía es la respuesta elegida en cada una, de forma independiente."
+      "Tener 4 posiciones no alcanza: en una permutación esas posiciones se llenan repartiendo un mismo conjunto de elementos, sin repetición entre ellas."
     ],
     "explanation": "La **permutación** reordena un mismo conjunto de elementos distintos, sin reponer ninguno. Cuando cada paso elige entre sus propias opciones repetibles, corresponde la regla del producto en cambio.\n\nAcá cada una de las 4 preguntas elige independientemente entre las mismas 3 opciones, así que el conteo es $3\\times3\\times3\\times3$, no un reordenamiento de 4 elementos distintos.\n\nLa pista para distinguirlos es notar si las \"posiciones\" comparten un mismo conjunto de elementos que se reparte sin repetición, o si cada una tiene sus propias opciones repetibles.",
     "has_math": true,

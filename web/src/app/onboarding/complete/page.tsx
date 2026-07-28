@@ -41,12 +41,18 @@ export default function OnboardingCompletePage() {
       university: data.university,
       career: data.career,
       name: data.name || user?.fullName || user?.firstName || null,
+      course: data.course,
+      motivation: data.motivation,
       introItemCorrect: data.introItemCorrect,
     })
     await user?.update({ unsafeMetadata: { onboarded: true } })
     const session = await startSession.mutateAsync({
       userName: user?.fullName ?? user?.firstName ?? "",
+      course: data.course,
     })
+    // El dashboard resuelve el curso activo con last_course; sembramos el elegido
+    // para que abra ahí de entrada (antes de que responda el back).
+    window.localStorage.setItem("intervalo:last_course", data.course)
     clearOnboarding()
     // Mostramos la pantalla "¡Una cosa más!" (instalar la app) antes de entrar a
     // la primera sesión; al tocar Continuar se navega a la sesión.

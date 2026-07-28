@@ -59,9 +59,9 @@ export default function AboutPage() {
             real.
           </p>
 
-          <p className="max-w-[44rem] text-[clamp(1rem,3vw,1.2rem)] leading-[1.8] text-[#A4B3C6]">
-            Repasar con frecuencia determina si lo que entendiste va a estar disponible cuando lo
-            necesitás.
+          <p className="max-w-[44rem] text-[clamp(1rem,3vw,1.2rem)] font-semibold leading-[1.8] text-[#F6F8FC]">
+            Repasar con frecuencia determina si lo que entendimos va a estar disponible cuando lo
+            necesitamos.
           </p>
         </div>
       </section>
@@ -74,9 +74,9 @@ export default function AboutPage() {
           </h2>
 
           <p className="mb-10 max-w-[44rem] text-[clamp(1rem,3vw,1.2rem)] leading-[1.8] text-[#A4B3C6]">
-            <span className="font-semibold text-[#F6F8FC]">Intervalo</span> convierte el repaso
-            en un hábito sostenido, a través de una interfaz gamificada y un algoritmo que
-            automatiza las decisiones de qué y cuándo repasar.
+            <span className="font-semibold text-[#F6F8FC]">Intervalo</span> convierte el repaso de
+            conceptos en algo dinámico, entretenido y eficiente, a través de una interfaz
+            gamificada y un algoritmo que automatiza las decisiones de qué y cuándo repasar.
           </p>
 
           <div className="flex flex-col gap-8">
@@ -85,7 +85,7 @@ export default function AboutPage() {
                 <IconWrap>
                   <Ghost className="size-5" />
                 </IconWrap>
-                <h3 className="font-sans text-[clamp(1rem,3vw,1.2rem)] leading-[1.8] text-[#A4B3C6]">
+                <h3 className="font-sans text-[1.15rem] font-semibold text-[#F6F8FC]">
                   Gamificación
                 </h3>
               </div>
@@ -106,7 +106,7 @@ export default function AboutPage() {
                 <IconWrap>
                   <Cpu className="size-5" />
                 </IconWrap>
-                <h3 className="font-sans text-[clamp(1rem,3vw,1.2rem)] leading-[1.8] text-[#A4B3C6]">
+                <h3 className="font-sans text-[1.15rem] font-semibold text-[#F6F8FC]">
                   Algoritmo
                 </h3>
               </div>
@@ -133,34 +133,32 @@ export default function AboutPage() {
             La estructura de fondo
           </h2>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div className="flex flex-col gap-3.5 border border-[#38385A] bg-[#1E1E34] p-6 transition-colors hover:border-[rgba(126,128,247,0.4)]">
+          <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-3.5">
               <div className="flex items-center gap-3.5">
                 <IconWrap>
                   <BookOpen className="size-5" />
                 </IconWrap>
                 <h3 className="font-sans text-[1.15rem] font-semibold text-[#F6F8FC]">Cursos</h3>
               </div>
-              <p className="text-[0.875rem] leading-[1.75] text-[#A4B3C6]">
-                Cada curso corresponde a una materia y contiene el banco de problemas, los
-                cinturones y el seguimiento de progreso asociados a ella.
+              <p className="max-w-[44rem] text-[clamp(1rem,3vw,1.2rem)] leading-[1.8] text-[#A4B3C6]">
+                Cada curso agrupa el banco de ejercicios y el progreso de una materia.
               </p>
             </div>
 
-            <div className="flex flex-col gap-3.5 border border-[#38385A] bg-[#1E1E34] p-6 transition-colors hover:border-[rgba(126,128,247,0.4)]">
+            <div className="flex flex-col gap-3.5">
               <div className="flex items-center gap-3.5">
                 <IconWrap>
                   <Layers className="size-5" />
                 </IconWrap>
                 <h3 className="font-sans text-[1.15rem] font-semibold text-[#F6F8FC]">Temas</h3>
               </div>
-              <p className="text-[0.875rem] leading-[1.75] text-[#A4B3C6]">
-                Cada curso se divide en temas que agrupan los contenidos conceptuales. Los temas
-                permiten organizar el estudio y visualizar el progreso por área de conocimiento.
+              <p className="max-w-[44rem] text-[clamp(1rem,3vw,1.2rem)] leading-[1.8] text-[#A4B3C6]">
+                Cada curso se divide en temas, que organizan los contenidos y el progreso por área.
               </p>
             </div>
 
-            <div className="flex flex-col gap-3.5 border border-[#38385A] bg-[#1E1E34] p-6 transition-colors hover:border-[rgba(126,128,247,0.4)]">
+            <div className="flex flex-col gap-3.5">
               <div className="flex items-center gap-3.5">
                 <IconWrap>
                   <Zap className="size-5" />
@@ -169,22 +167,23 @@ export default function AboutPage() {
                   Habilidades
                 </h3>
               </div>
-              <p className="text-[0.875rem] leading-[1.75] text-[#A4B3C6]">
-                Dentro de cada tema se definen habilidades específicas a desarrollar. Una
-                habilidad representa un tipo de competencia que el estudiante debe dominar.
+              <p className="max-w-[44rem] text-[clamp(1rem,3vw,1.2rem)] leading-[1.8] text-[#A4B3C6]">
+                Cada tema define habilidades puntuales que el estudiante tiene que dominar.
               </p>
             </div>
 
-            <div className="flex flex-col gap-3.5 border border-[#38385A] bg-[#1E1E34] p-6 transition-colors hover:border-[rgba(126,128,247,0.4)]">
+            <div className="flex flex-col gap-3.5">
               <div className="flex items-center gap-3.5">
                 <IconWrap>
                   <HelpCircle className="size-5" />
                 </IconWrap>
-                <h3 className="font-sans text-[1.15rem] font-semibold text-[#F6F8FC]">Items</h3>
+                <h3 className="font-sans text-[1.15rem] font-semibold text-[#F6F8FC]">
+                  Ejercicios
+                </h3>
               </div>
-              <p className="text-[0.875rem] leading-[1.75] text-[#A4B3C6]">
-                Los items son las unidades mínimas de práctica. Cada item corresponde a un
-                problema concreto que ejercita una habilidad dentro de un tema.
+              <p className="max-w-[44rem] text-[clamp(1rem,3vw,1.2rem)] leading-[1.8] text-[#A4B3C6]">
+                Los ejercicios son la unidad mínima de práctica: cada uno ejercita una habilidad
+                concreta.
               </p>
             </div>
           </div>
