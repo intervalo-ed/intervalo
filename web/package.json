@@ -64,6 +64,10 @@
     "unrs-resolver"
   ],
   "patchedDependencies": {
-    "@web-kits/audio@0.1.0": "patches/@web-kits%2Faudio@0.1.0.patch"
+    "@web-kits/audio@0.1.0": "patches/@web-kits%2Faudio@0.1.0.patch",
+    "use-resize-observer@9.1.0": "patches/use-resize-observer@9.1.0.patch"
+  },
+  "overrides": {
+    "@napi-rs/wasm-runtime": "1.1.6"
   }
 }
