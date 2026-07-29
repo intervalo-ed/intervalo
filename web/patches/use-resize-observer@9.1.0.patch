@@ -1,0 +1,15 @@
+diff --git a/package.json b/package.json
+index f30f1a35b6bbc501bd40ff17d984f531628c7c1c..eb224055c125de6c3d61169775130ba958837501 100644
+--- a/package.json
++++ b/package.json
+@@ -72,8 +72,8 @@
+     "package.json"
+   ],
+   "peerDependencies": {
+-    "react": "16.8.0 - 18",
+-    "react-dom": "16.8.0 - 18"
++    "react": "16.8.0 - 19",
++    "react-dom": "16.8.0 - 19"
+   },
+   "devDependencies": {
+     "@babel/core": "^7.7.7",
