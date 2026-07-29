@@ -584,6 +584,8 @@ export default function OnboardingWizard() {
   const [wrongOptions, setWrongOptions] = useState<number[]>([])
   const [shakeIdx, setShakeIdx] = useState<number | null>(null)
   const [showWhy, setShowWhy] = useState(false)
+  const [authPending, setAuthPending] = useState(false)
+  const [authError, setAuthError] = useState<string | null>(null)
   const wrongResetRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [career, setCareer] = useState("")
   const [university, setUniversity] = useState("")
@@ -721,12 +723,25 @@ export default function OnboardingWizard() {
     }, 2000)
   }
 
+  // `sso()` no lanza: resuelve con `{ error }`. Sin chequearlo, cualquier fallo
+  // (red, captcha, sesión ya activa) deja el botón muerto en silencio.
+  function handleSsoError(error: { code: string }) {
+    // Sesión ya activa: no hay nada que autenticar, directo al home.
+    if (error.code === "session_exists") {
+      window.location.assign("/")
+      return
+    }
+    console.error("Google SSO error", error)
+    setAuthPending(false)
+    setAuthError("No pudimos conectar con Google. Probá de nuevo.")
+  }
+
   // Final del onboarding = registro: arranca un sign-UP con Google. Un usuario
   // nuevo completa el sign-up de una (sin el error "External Account not found"
   // que da el sign-in al no encontrar cuenta). Si la cuenta ya existía, el
   // callback /sso-callback transfiere el sign-up a sign-in.
-  function onFinish() {
-    if (!signUp) return
+  async function onFinish() {
+    if (!signUp || authPending) return
     saveOnboarding({
       name: name.trim(),
       career,
@@ -736,23 +751,29 @@ export default function OnboardingWizard() {
       introItemCorrect: firstTryCorrect,
     })
     const origin = window.location.origin
-    signUp.sso({
+    setAuthPending(true)
+    setAuthError(null)
+    const { error } = await signUp.sso({
       strategy: "oauth_google",
       redirectUrl: `${origin}/onboarding/complete`,
       redirectCallbackUrl: `${origin}/sso-callback`,
     })
+    if (error) handleSsoError(error)
   }
 
   // Cuenta existente: login directo con Google, sin guardar onboarding ni pasar
   // por /onboarding/complete; vuelve al home.
-  function onSignInGoogle() {
-    if (!signIn) return
+  async function onSignInGoogle() {
+    if (!signIn || authPending) return
     const origin = window.location.origin
-    signIn.sso({
+    setAuthPending(true)
+    setAuthError(null)
+    const { error } = await signIn.sso({
       strategy: "oauth_google",
       redirectUrl: `${origin}/`,
       redirectCallbackUrl: `${origin}/sso-callback`,
     })
+    if (error) handleSsoError(error)
   }
 
   return (
@@ -794,6 +815,9 @@ export default function OnboardingWizard() {
                   sfx={sfx}
                   onNext={() => goNext()}
                   onSignIn={onSignInGoogle}
+                  authReady={signIn !== null}
+                  authPending={authPending}
+                  authError={authError}
                 />
               )}
 
@@ -1163,11 +1187,13 @@ export default function OnboardingWizard() {
                   <Button
                     size="lg"
                     className="h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+                    disabled={signUp === null || authPending}
                     onClick={onFinish}
                   >
                     <GoogleIcon className="size-5" />
-                    Continuar con Google
+                    {authPending ? "Conectando..." : "Continuar con Google"}
                   </Button>
+                  {authError && <p className="text-sm text-red-500">{authError}</p>}
                 </div>
               )}
               </>
@@ -1401,12 +1427,18 @@ function Slide0({
   sfx,
   onNext,
   onSignIn,
+  authReady,
+  authPending,
+  authError,
 }: {
   name: string
   setName: (v: string) => void
   sfx: ReturnType<typeof useSfx>
   onNext: () => void
   onSignIn: () => void
+  authReady: boolean
+  authPending: boolean
+  authError: string | null
 }) {
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -1449,10 +1481,17 @@ function Slide0({
           <Button size="lg" className="h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black" disabled={!name.trim()} onClick={handleContinue}>
             Continuar
           </Button>
-          <Button variant="outline" size="lg" className="h-12 w-full rounded-md gap-2" onClick={onSignIn}>
+          <Button
+            variant="outline"
+            size="lg"
+            className="h-12 w-full rounded-md gap-2"
+            disabled={!authReady || authPending}
+            onClick={onSignIn}
+          >
             <GoogleIcon className="size-5" />
-            Ya tengo una cuenta
+            {authPending ? "Conectando..." : "Ya tengo una cuenta"}
           </Button>
+          {authError && <p className="text-center text-sm text-red-500">{authError}</p>}
         </div>
       </motion.div>
     </div>
