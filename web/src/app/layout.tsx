@@ -79,7 +79,12 @@ export default async function RootLayout({
 }>) {
   // El splash es el loader del shell de la app: solo lo mostramos a usuarios
   // logueados. La landing y el onboarding (públicos) no lo muestran.
-  const { userId } = await auth()
+  //
+  // Este layout también envuelve el 404 de las rutas que el matcher del proxy
+  // excluye (assets inexistentes como /apple-touch-icon.png o /foo.js). Ahí
+  // clerkMiddleware nunca corrió y auth() tira, convirtiendo ese 404 en un 500;
+  // para decidir el splash alcanza con tratarlo como deslogueado.
+  const { userId } = await auth().catch(() => ({ userId: null }))
 
   return (
     <html

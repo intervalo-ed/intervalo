@@ -17,7 +17,7 @@ import {
 import { useGridLayout } from "@/lib/latex-visual-length"
 import { ONBOARDING_UNIVERSITIES, UNIVERSITY_TAG_BY_KEY, matchUniversities } from "@/lib/university-tags"
 import { ChevronLeft, LayersIcon, TargetIcon } from "lucide-react"
-import { useSignIn, useSignUp } from "@clerk/nextjs"
+import { useSignIn } from "@clerk/nextjs"
 import { useEffect, useRef, useState } from "react"
 
 const CAREERS = [
@@ -571,7 +571,6 @@ function IntroLogo({ onDone }: { onDone: () => void }) {
 
 export default function OnboardingWizard() {
   const { signIn } = useSignIn()
-  const { signUp } = useSignUp()
   const sfx = useSfx()
   const [step, setStep] = useState(-1) // -1 = intro animada del logo
   const [prevStep, setPrevStep] = useState(-1)
@@ -723,9 +722,48 @@ export default function OnboardingWizard() {
     }, 2000)
   }
 
-  // `sso()` no lanza: resuelve con `{ error }`. Sin chequearlo, cualquier fallo
-  // (red, captcha, sesión ya activa) deja el botón muerto en silencio.
-  function handleSsoError(error: { code: string }) {
+  // Un solo flujo de Google para los dos botones: se arranca siempre como
+  // sign-in y /sso-callback resuelve el resto (transfiere a sign-up si la
+  // cuenta no existe y elige el destino). Al usuario no le tiene que importar
+  // si ya tenía cuenta o no.
+  async function authenticateWithGoogle() {
+    if (!signIn || authPending) return
+    setAuthPending(true)
+    setAuthError(null)
+
+    const origin = window.location.origin
+    const callbackUrl = `${origin}/sso-callback`
+    const completeUrl = `${origin}/onboarding/complete`
+
+    // sso() reusa el sign-in que ya esté en el cliente. Si ese quedó terminado
+    // por un intento anterior (volver del callback y apretar "atrás", sesión ya
+    // activa), no pide un redirect nuevo: no navega a ningún lado y tampoco
+    // devuelve error, así que el botón se queda en "Conectando..." para siempre.
+    // El create() explícito arranca siempre un intento limpio.
+    const created = await signIn.create({
+      strategy: "oauth_google",
+      redirectUrl: callbackUrl,
+      actionCompleteRedirectUrl: completeUrl,
+    })
+    if (created.error) return failGoogleSso(created.error)
+
+    // `sso()` no lanza: resuelve con `{ error }`. Sin chequearlo, cualquier
+    // fallo (red, captcha, sesión ya activa) deja el botón muerto en silencio.
+    const { error } = await signIn.sso({
+      strategy: "oauth_google",
+      redirectUrl: completeUrl,
+      redirectCallbackUrl: callbackUrl,
+    })
+    if (error) return failGoogleSso(error)
+
+    // Resolvió sin error pero sin redirect que seguir: no nos vamos a ningún
+    // lado, así que soltamos el botón en vez de dejarlo colgado.
+    if (!signIn.firstFactorVerification.externalVerificationRedirectURL) {
+      failGoogleSso({ code: "no_external_verification_redirect" })
+    }
+  }
+
+  function failGoogleSso(error: { code: string }) {
     // Sesión ya activa: no hay nada que autenticar, directo al home.
     if (error.code === "session_exists") {
       window.location.assign("/")
@@ -736,12 +774,9 @@ export default function OnboardingWizard() {
     setAuthError("No pudimos conectar con Google. Probá de nuevo.")
   }
 
-  // Final del onboarding = registro: arranca un sign-UP con Google. Un usuario
-  // nuevo completa el sign-up de una (sin el error "External Account not found"
-  // que da el sign-in al no encontrar cuenta). Si la cuenta ya existía, el
-  // callback /sso-callback transfiere el sign-up a sign-in.
+  // Final del onboarding: guardamos lo elegido antes de irnos a Google para que
+  // /onboarding/complete lo encuentre al volver.
   async function onFinish() {
-    if (!signUp || authPending) return
     saveOnboarding({
       name: name.trim(),
       career,
@@ -750,30 +785,7 @@ export default function OnboardingWizard() {
       motivation,
       introItemCorrect: firstTryCorrect,
     })
-    const origin = window.location.origin
-    setAuthPending(true)
-    setAuthError(null)
-    const { error } = await signUp.sso({
-      strategy: "oauth_google",
-      redirectUrl: `${origin}/onboarding/complete`,
-      redirectCallbackUrl: `${origin}/sso-callback`,
-    })
-    if (error) handleSsoError(error)
-  }
-
-  // Cuenta existente: login directo con Google, sin guardar onboarding ni pasar
-  // por /onboarding/complete; vuelve al home.
-  async function onSignInGoogle() {
-    if (!signIn || authPending) return
-    const origin = window.location.origin
-    setAuthPending(true)
-    setAuthError(null)
-    const { error } = await signIn.sso({
-      strategy: "oauth_google",
-      redirectUrl: `${origin}/`,
-      redirectCallbackUrl: `${origin}/sso-callback`,
-    })
-    if (error) handleSsoError(error)
+    await authenticateWithGoogle()
   }
 
   return (
@@ -814,7 +826,7 @@ export default function OnboardingWizard() {
                   setName={setName}
                   sfx={sfx}
                   onNext={() => goNext()}
-                  onSignIn={onSignInGoogle}
+                  onSignIn={authenticateWithGoogle}
                   authReady={signIn !== null}
                   authPending={authPending}
                   authError={authError}
@@ -1187,7 +1199,7 @@ export default function OnboardingWizard() {
                   <Button
                     size="lg"
                     className="h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
-                    disabled={signUp === null || authPending}
+                    disabled={signIn === null || authPending}
                     onClick={onFinish}
                   >
                     <GoogleIcon className="size-5" />
