@@ -8,6 +8,7 @@
         "@base-ui/react": "1.6.0",
         "@clerk/localizations": "4.13.8",
         "@clerk/nextjs": "7.6.2",
+        "@clerk/react": "6.12.8",
         "@clerk/themes": "^2.4.57",
         "@tanstack/react-hotkeys": "0.10.0",
         "@tanstack/react-query": "5.101.4",
@@ -34,6 +35,7 @@
         "vaul": "1.1.2",
       },
       "devDependencies": {
+        "@clerk/eslint-plugin": "0.2.0",
         "@tailwindcss/postcss": "^4",
         "@types/node": "^20",
         "@types/react": "^19",
@@ -129,6 +131,8 @@
     "@clack/prompts": ["@clack/prompts@0.9.1", "", { "dependencies": { "@clack/core": "0.4.1", "picocolors": "^1.0.0", "sisteransi": "^1.0.5" } }, "sha512-JIpyaboYZeWYlyP0H+OoPPxd6nqueG/CmN6ixBiNFsIDHREevjIf0n0Ohh5gr5C8pEDknzgvz+pIJ8dMhzWIeg=="],
 
     "@clerk/backend": ["@clerk/backend@3.13.2", "", { "dependencies": { "@clerk/shared": "^4.25.8", "standardwebhooks": "^1.0.0", "tslib": "2.8.1" } }, "sha512-z6rPQzEj1SbGmjMoyGnECY1R7YrcD4dJILlWLXFvSUsWxb8csAYzcXp50T2kVtV3ThlcjOMrI0oDQyqvTdt65A=="],
+
+    "@clerk/eslint-plugin": ["@clerk/eslint-plugin@0.2.0", "", { "peerDependencies": { "eslint": ">=9" }, "bin": { "clerk-next-fix-auth-protection": "dist/next/fix-auth-protection-cli.js" } }, "sha512-j9o85RYTAOG8Sm++oCDYatw0XYOY4avOTj1aNFQooU+hQdjn/fVAPwPYNCMklXogguO/1bJpb+lQEdG68x75Cg=="],
 
     "@clerk/localizations": ["@clerk/localizations@4.13.8", "", { "dependencies": { "@clerk/shared": "^4.25.8" } }, "sha512-xM5XlvlvKEKpHwojsqGhrK023izLpnE5ExPdA8qOIQDTWzC3/2CIngliijYL1hyA485zkgew0yHOXwHTJRmoVw=="],
 

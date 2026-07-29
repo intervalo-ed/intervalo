@@ -6,8 +6,7 @@ export default async function AppLayout({
 }: {
   children: React.ReactNode
 }) {
-  const { userId, getToken } = await auth()
-  if (!userId) redirect("/sign-in")
+  const { getToken } = await auth.protect({ unauthenticatedUrl: "/sign-in" })
 
   try {
     const token = await getToken()

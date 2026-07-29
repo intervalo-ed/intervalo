@@ -1,9 +1,12 @@
 import { Wordmark } from "@/components/wordmark"
 import { Screen, ScreenBody, ScreenHeader } from "@/components/ui/screen"
+import { auth } from "@clerk/nextjs/server"
 import Link from "next/link"
 import { ProfileContent } from "./profile-content"
 
-export default function ProfilePage() {
+export default async function ProfilePage() {
+  await auth.protect({ unauthenticatedUrl: "/sign-in" })
+
   return (
     <Screen>
       <ScreenHeader innerClassName="justify-center">
