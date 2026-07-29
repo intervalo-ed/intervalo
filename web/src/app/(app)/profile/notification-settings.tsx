@@ -12,17 +12,19 @@ import { useApi } from "@/lib/api/useApi"
 import {
   getTimezone,
   isPushSupported,
-  subscribeToPush,
   unsubscribeFromPush,
 } from "@/lib/push/register"
+import {
+  DEFAULT_REMINDER_TIME,
+  REMINDER_TIME_OPTIONS,
+  useEnableNotifications,
+} from "@/lib/push/UseEnableNotifications"
 import { queryKeys } from "@/lib/query/keys"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useNotificationSettingsQuery } from "./UseNotificationSettings"
 import { BellIcon, BellOffIcon } from "lucide-react"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
-
-const DEFAULT_TIME = "19:00"
 
 // iOS (iPhone/iPad/iPod). Incluye los iPad recientes, que reportan UA de Mac pero
 // son táctiles. Solo se llama en el cliente (post-mount), tras chequear navigator.
@@ -34,17 +36,11 @@ function detectIOS(): boolean {
   return iOSDevice || iPadOS
 }
 
-// Horarios de recordatorio: en punto, de 08:00 a 22:00 (paso de 1 hora).
-const TIME_OPTIONS: string[] = Array.from(
-  { length: 22 - 8 + 1 },
-  (_, i) => `${String(8 + i).padStart(2, "0")}:00`,
-)
-
 export function NotificationSettings() {
   const api = useApi()
   const queryClient = useQueryClient()
   const [supported, setSupported] = useState(true)
-  const [time, setTime] = useState(DEFAULT_TIME)
+  const [time, setTime] = useState(DEFAULT_REMINDER_TIME)
   const [isIOS, setIsIOS] = useState(false)
 
   useEffect(() => {
@@ -63,30 +59,7 @@ export function NotificationSettings() {
   const invalidate = () =>
     queryClient.invalidateQueries({ queryKey: queryKeys.notificationSettings() })
 
-  const enable = useMutation({
-    mutationFn: async (chosenTime: string) => {
-      const sub = await subscribeToPush()
-      const subRes = await api.POST("/push/subscribe", { body: sub })
-      if (subRes.error) throw subRes.error
-      const { error } = await api.PUT("/user/notification-settings", {
-        body: { enabled: true, time: chosenTime, timezone: getTimezone() },
-      })
-      if (error) throw error
-    },
-    onSuccess: () => {
-      invalidate()
-      toast.success("Recordatorios activados")
-    },
-    onError: (err: Error) => {
-      if (err.message === "permission-denied") {
-        toast.error("Tenés que permitir las notificaciones en el navegador.")
-      } else if (err.message === "unsupported") {
-        toast.error("Tu navegador no soporta notificaciones.")
-      } else {
-        toast.error("No pudimos activar los recordatorios.")
-      }
-    },
-  })
+  const enable = useEnableNotifications()
 
   const disable = useMutation({
     mutationFn: async () => {
@@ -141,7 +114,7 @@ export function NotificationSettings() {
           onClick={() => enable.mutate(time)}
         >
           <BellIcon className="size-5" />
-          Activar recordatorios diarios
+          Activar notificaciones
         </Button>
       ) : (
         <>
@@ -162,7 +135,7 @@ export function NotificationSettings() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {TIME_OPTIONS.map((opt) => (
+                {REMINDER_TIME_OPTIONS.map((opt) => (
                   <SelectItem key={opt} value={opt}>
                     {opt}
                   </SelectItem>

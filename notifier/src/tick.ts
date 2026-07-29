@@ -108,3 +108,27 @@ export const runTick = (
       yield* Console.log(`pruned ${deadIds.length} dead subscription(s)`)
     }
   }).pipe(Effect.mapError((e) => (e instanceof Error ? e : new Error(String(e)))))
+
+interface EmailRunResult {
+  bounce_sent: number
+  winback_sent: number
+}
+
+/** One scheduler tick for lifecycle emails: the backend resolves recipients
+ * and sends via Resend itself, so this just triggers the batch. */
+export const runEmailTick = (
+  config: NotifierConfig,
+): Effect.Effect<void, Error, HttpClient.HttpClient> =>
+  Effect.gen(function* () {
+    const client = yield* HttpClient.HttpClient
+
+    const res = yield* client.execute(
+      HttpClientRequest.post(`${config.apiBaseUrl}/internal/emails/run`).pipe(
+        HttpClientRequest.setHeader("X-Internal-Secret", config.secret),
+      ),
+    )
+    const result = (yield* res.json) as unknown as EmailRunResult
+    yield* Console.log(
+      `email tick: ${result.bounce_sent} bounce, ${result.winback_sent} win-back sent`,
+    )
+  }).pipe(Effect.mapError((e) => (e instanceof Error ? e : new Error(String(e)))))

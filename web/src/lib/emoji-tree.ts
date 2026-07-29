@@ -96,25 +96,33 @@ export function layoutTree(root: EmojiNode): TreeLayout {
   }
 }
 
-// Conjunto de ids "vivos": alcanzables dado el camino comprometido. Al elegir un
-// nodo en un cruce, las ramas hermanas (y sus subárboles) dejan de estar vivas.
-export function aliveSet(layout: TreeLayout, path: string[]): Set<string> {
-  const byId = new Map(layout.nodes.map((n) => [n.node.id, n]))
-  const alive = new Set<string>()
-  // Procesar por profundidad ascendente: el padre antes que el hijo.
-  const ordered = [...layout.nodes].sort((a, b) => a.depth - b.depth)
-  for (const ln of ordered) {
-    if (ln.parentId === null) {
-      alive.add(ln.node.id) // raíz
-      continue
-    }
-    const parent = byId.get(ln.parentId)!
-    if (!alive.has(parent.node.id)) continue
-    // Si el padre está a una profundidad ya decidida, solo el hijo elegido vive.
-    const decided = parent.depth < path.length
-    if (!decided || path[parent.depth] === ln.node.id) {
-      alive.add(ln.node.id)
-    }
+// Profundidad máxima desbloqueada dado el XP total (0 = raíz/gratis, siempre
+// desbloqueada). Mismo cálculo que unlocked_depth() en backend/emoji_tree.py.
+export function unlockedDepth(totalXp: number): number {
+  let depth = 0
+  for (const [d, threshold] of Object.entries(DEPTH_XP)) {
+    if (totalXp >= threshold) depth = Math.max(depth, Number(d))
   }
-  return alive
+  return depth
+}
+
+// Conjunto de ids desbloqueados: todo nodo cuya profundidad sea <= la
+// alcanzada por XP, sin importar de qué rama del árbol cuelgue (el desbloqueo
+// es automático por nivel completo, no una elección de camino).
+export function unlockedNodeIds(
+  bucket: string | null | undefined,
+  totalXp: number,
+): Set<string> {
+  const root = getRoot(bucket)
+  const unlocked = new Set<string>()
+  if (!root) return unlocked
+  const maxDepth = unlockedDepth(totalXp)
+  const stack: { node: EmojiNode; depth: number }[] = [{ node: root, depth: 0 }]
+  while (stack.length) {
+    const { node, depth } = stack.pop()!
+    if (depth > maxDepth) continue
+    unlocked.add(node.id)
+    for (const c of node.children ?? []) stack.push({ node: c, depth: depth + 1 })
+  }
+  return unlocked
 }

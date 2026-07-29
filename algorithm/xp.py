@@ -29,12 +29,113 @@ XP_TABLE: list[int] = _build_xp_table()
 
 # ── Constantes de otorgamiento ─────────────────────────────────────────────────
 
-XP_CORRECT          = 5    # respuesta correcta
-XP_WRONG            = 1    # respuesta incorrecta (intento)
-XP_STREAK_INTERVAL  = 5    # cada cuántas correctas seguidas se otorga bonus
-XP_STREAK_BONUS     = 5    # bonus por cada múltiplo del intervalo
-XP_TOPIC_MASTERED   = 50   # graduar un topic (learning → review)
-XP_BELT_PROMOTED    = 200  # promocionar a un cinturón (todos los topics dominados)
+# XP base por ejercicio en Repaso según el intento en el que se acierta.
+# Con 4 opciones, el 4to intento es acierto por descarte y no paga.
+XP_BY_ATTEMPT = {1: 8, 2: 2, 3: 1, 4: 0}
+XP_STREAK_INTERVAL  = 5    # cada cuántas correctas limpias seguidas se otorga bonus
+XP_STREAK_BONUS     = 5    # bonus por cada múltiplo del intervalo (fijo, sin multiplicadores)
+
+# Práctica (zen) es volumen ilimitado a elección del usuario: paga plano y sin
+# ajuste de dificultad, aunque sí escala con el multiplicador de racha diaria
+# (ver practice_xp_split) — su base es mucho menor que la de Repaso, así que no
+# se vuelve farmeable.
+XP_PRACTICE_CORRECT = 3    # acierto al primer intento
+XP_PRACTICE_WRONG   = 0
+
+# ── Dificultad personal por ítem ───────────────────────────────────────────────
+
+# El XP del primer intento se pondera por qué tan difícil le resulta el ítem al
+# estudiante: precisión rodante = proporción de aciertos al primer intento en
+# sus últimas DIFFICULTY_WINDOW respuestas.
+DIFFICULTY_WINDOW      = 10
+DIFFICULTY_MIN_SAMPLES = 3   # con menos respuestas el ajuste queda neutro
+
+
+def difficulty_multiplier(first_try_rate: float, samples: int) -> float:
+    """×0.5 (ítem dominado) a ×1.5 (ítem que le cuesta), lineal en la precisión."""
+    if samples < DIFFICULTY_MIN_SAMPLES:
+        return 1.0
+    return 1.5 - first_try_rate
+
+
+# ── Racha de días y multiplicador de XP ────────────────────────────────────────
+
+# (días acumulados mínimos, multiplicador). La racha cuenta días distintos con
+# al menos una sesión completada, no necesariamente consecutivos.
+STREAK_TIERS: list[tuple[int, float]] = [
+    (0, 1.0),
+    (3, 1.2),
+    (9, 1.4),
+    (18, 1.6),
+    (30, 1.8),
+    (45, 2.0),
+]
+
+# Días consecutivos de inactividad tras los cuales la racha se resetea a 0.
+STREAK_RESET_AFTER_DAYS = 30
+
+
+@dataclass
+class StreakInfo:
+    days: int
+    multiplier: float
+    next_threshold: int | None   # días del próximo tramo; None en el máximo
+    next_multiplier: float | None
+    days_to_next: int            # 0 en el tramo máximo
+    is_max: bool
+
+
+def streak_info(days: int) -> StreakInfo:
+    multiplier = STREAK_TIERS[0][1]
+    next_threshold: int | None = None
+    next_multiplier: float | None = None
+    for threshold, mult in STREAK_TIERS:
+        if days >= threshold:
+            multiplier = mult
+        elif next_threshold is None:
+            next_threshold = threshold
+            next_multiplier = mult
+    return StreakInfo(
+        days=days,
+        multiplier=multiplier,
+        next_threshold=next_threshold,
+        next_multiplier=next_multiplier,
+        days_to_next=(next_threshold - days) if next_threshold is not None else 0,
+        is_max=next_threshold is None,
+    )
+
+
+def streak_multiplier(days: int) -> float:
+    return streak_info(days).multiplier
+
+
+def review_xp_base(attempts: int, difficulty: float) -> int:
+    """XP base de un ejercicio de Repaso (por intento × dificultad del ítem,
+    solo primer intento), sin el multiplicador de racha diaria."""
+    base = XP_BY_ATTEMPT.get(attempts, 0)
+    if attempts == 1:
+        return round(base * difficulty)
+    return base
+
+
+def review_xp_split(
+    attempts: int,
+    difficulty: float,
+    streak_mult: float,
+) -> tuple[int, int]:
+    """(xp_base, xp_final) de un ejercicio de Repaso. xp_final aplica el
+    multiplicador de racha diaria sobre la base."""
+    base = review_xp_base(attempts, difficulty)
+    return base, round(base * streak_mult)
+
+
+def practice_xp_split(first_try: bool, streak_mult: float) -> tuple[int, int]:
+    """(xp_base, xp_final) de un ejercicio de Práctica. A diferencia de Repaso,
+    no ajusta por dificultad del ítem, pero también escala con el multiplicador
+    de racha diaria — su base ya es mucho menor, así que no se vuelve
+    farmeable."""
+    base = XP_PRACTICE_CORRECT if first_try else XP_PRACTICE_WRONG
+    return base, round(base * streak_mult)
 
 
 # ── Funciones de cálculo ───────────────────────────────────────────────────────

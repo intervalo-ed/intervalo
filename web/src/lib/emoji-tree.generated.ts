@@ -828,7 +828,7 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
   "M": {
     "id": "M",
     "emoji": "📐",
-    "label": "Matemáticas",
+    "label": "Matemática",
     "children": [
       {
         "id": "m-pura",
@@ -838,7 +838,7 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
           {
             "id": "m-matematica",
             "emoji": "📐",
-            "label": "Matemáticas",
+            "label": "Matemática",
             "children": [
               {
                 "id": "m-analisis",

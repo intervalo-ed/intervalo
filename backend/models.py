@@ -41,6 +41,12 @@ class User(Base):
     # carga del home. NULL → fallback a Argentina (ver session_store.user_today).
     timezone = Column(String(64), nullable=True)
 
+    # Racha global de días de actividad: días distintos (no necesariamente
+    # consecutivos) con al menos una sesión completada. Define el multiplicador
+    # de XP del modo Repaso. 30 días seguidos sin actividad resetean a 0.
+    streak_days = Column(Integer, nullable=False, default=0, server_default="0")
+    streak_last_date = Column(Date, nullable=True)
+
     # Desbloqueo de emojis (badges) por carrera. `emoji_path` es la cadena
     # append-only de ids de nodos ya desbloqueados (JSON-en-texto, desde
     # profundidad 1; un solo track irreversible). `emoji_worn` es el id del nodo
@@ -48,6 +54,13 @@ class User(Base):
     # Ver emoji_tree.py.
     emoji_path = Column(Text, nullable=True)
     emoji_worn = Column(String(64), nullable=True)
+
+    # Emails automáticos de retención (bounce + win-back). `email_unsubscribed`
+    # es un opt-out global; los `*_sent_at` son la idempotencia de cada tipo de
+    # mail (ver lifecycle_emails.py).
+    email_unsubscribed = Column(Boolean, nullable=False, default=False, server_default="false")
+    bounce_email_sent_at = Column(DateTime, nullable=True)
+    winback_email_sent_at = Column(DateTime, nullable=True)
 
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -251,6 +264,10 @@ class Answer(Base):
     response_time_ms = Column(Integer, nullable=True)
     quality_score = Column(Integer, nullable=True)
     xp_earned = Column(Integer, default=0)
+    # XP de esta respuesta antes del multiplicador de racha diaria (por intento
+    # y dificultad personal del ítem). xp_earned - xp_base = XP extra ganado
+    # gracias al multiplicador, mostrado en el resumen de sesión.
+    xp_base = Column(Integer, nullable=False, default=0, server_default="0")
 
     # Iteración de progreso del curso (ver CourseProgress). Reiniciar el curso
     # incrementa la iteración; las respuestas viejas quedan etiquetadas.

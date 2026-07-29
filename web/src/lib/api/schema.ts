@@ -424,6 +424,47 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/internal/emails/run": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Internal Run Lifecycle Emails
+         * @description Worker-facing: send due bounce/win-back emails now (best-effort per user).
+         */
+        post: operations["internal_run_lifecycle_emails_internal_emails_run_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/email/unsubscribe": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Email Unsubscribe
+         * @description No-login unsubscribe link clicked from an email. Marks the user opted
+         *     out of lifecycle emails and shows a minimal confirmation page.
+         */
+        get: operations["email_unsubscribe_email_unsubscribe_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/leaderboard": {
         parameters: {
             query?: never;
@@ -515,31 +556,14 @@ export interface paths {
         };
         /**
          * Get Emoji State
-         * @description Estado del árbol de desbloqueo del usuario (bucket, XP, camino, vestido).
+         * @description Estado del árbol de desbloqueo del usuario (bucket, XP, vestido). El
+         *     conjunto desbloqueado se deriva client-side de total_xp — no hay elección
+         *     ni endpoint de unlock, todo lo de la profundidad alcanzada se desbloquea
+         *     solo.
          */
         get: operations["get_emoji_state_user_emoji_tree_get"];
         put?: never;
         post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/user/emoji/unlock": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Unlock Emoji
-         * @description Desbloquea el siguiente nodo del camino (irreversible, sin reset).
-         */
-        post: operations["unlock_emoji_user_emoji_unlock_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -556,7 +580,8 @@ export interface paths {
         get?: never;
         /**
          * Set Worn Emoji
-         * @description Viste un emoji ya desbloqueado del camino. None = raíz del bucket (default).
+         * @description Viste un emoji ya desbloqueado (profundidad alcanzada por XP). None =
+         *     raíz del bucket (default).
          */
         put: operations["set_worn_emoji_user_emoji_worn_put"];
         post?: never;
@@ -756,6 +781,13 @@ export interface components {
             /** Subscriptions */
             subscriptions: components["schemas"]["PushSubscriptionOut"][];
         };
+        /** EmailRunResponse */
+        EmailRunResponse: {
+            /** Bounce Sent */
+            bounce_sent: number;
+            /** Winback Sent */
+            winback_sent: number;
+        };
         /** EmojiStateResponse */
         EmojiStateResponse: {
             /** Bucket */
@@ -765,18 +797,8 @@ export interface components {
              * @default 0
              */
             total_xp: number;
-            /**
-             * Path
-             * @default []
-             */
-            path: string[];
             /** Worn */
             worn?: string | null;
-        };
-        /** EmojiUnlockRequest */
-        EmojiUnlockRequest: {
-            /** Node Id */
-            node_id: string;
         };
         /** EmojiWornRequest */
         EmojiWornRequest: {
@@ -1056,6 +1078,7 @@ export interface components {
             /** Xp Earned */
             xp_earned: number;
             level_info: components["schemas"]["LevelInfoWithMissing"];
+            streak: components["schemas"]["StreakInfo"];
         };
         /** SimpleResponse */
         SimpleResponse: {
@@ -1101,6 +1124,25 @@ export interface components {
             count: number;
             /** Course */
             course?: string | null;
+        };
+        /** StreakInfo */
+        StreakInfo: {
+            /** Days */
+            days: number;
+            /** Multiplier */
+            multiplier: number;
+            /** Next Threshold */
+            next_threshold: number | null;
+            /** Next Multiplier */
+            next_multiplier: number | null;
+            /** Days To Next */
+            days_to_next: number;
+            /** Is Max */
+            is_max: boolean;
+            /** Counted Today */
+            counted_today: boolean;
+            /** Xp Bonus */
+            xp_bonus: number;
         };
         /** SummaryItem */
         SummaryItem: {
@@ -2030,6 +2072,68 @@ export interface operations {
             };
         };
     };
+    internal_run_lifecycle_emails_internal_emails_run_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "x-internal-secret"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EmailRunResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    email_unsubscribe_email_unsubscribe_get: {
+        parameters: {
+            query: {
+                token: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "text/html": string;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     get_leaderboard_leaderboard_get: {
         parameters: {
             query?: {
@@ -2145,41 +2249,6 @@ export interface operations {
             cookie?: never;
         };
         requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["EmojiStateResponse"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    unlock_emoji_user_emoji_unlock_post: {
-        parameters: {
-            query?: never;
-            header?: {
-                authorization?: string;
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["EmojiUnlockRequest"];
-            };
-        };
         responses: {
             /** @description Successful Response */
             200: {

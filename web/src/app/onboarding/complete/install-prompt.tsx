@@ -25,7 +25,9 @@ export function OnboardingInstallPrompt({
     <main className="flex min-h-dvh flex-col bg-background px-4 py-8">
       <div className="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center gap-5">
         <div className="flex flex-col gap-3">
-          <h2 className="text-2xl font-bold tracking-tight">¡Una cosa más!</h2>
+          <h2 className="text-2xl font-sans font-bold tracking-tight">
+            ¡Una cosa más!
+          </h2>
           <p className="leading-relaxed text-foreground/85">
             Instalá la app para tener una mejor experiencia y poder establecer
             recordatorios para tus repasos.
@@ -33,7 +35,7 @@ export function OnboardingInstallPrompt({
         </div>
 
         <div className="flex justify-center py-2">
-          <AppIcon className="size-20 rounded-2xl" />
+          <AppIcon className="size-20 rounded-2xl border border-white/20" />
         </div>
 
         <div className="grid grid-cols-2 gap-2">

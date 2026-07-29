@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils"
 import MathText from "@/components/math-text"
 import {
   BELT_BAR_COLORS,
-  BELT_HEX,
+  BELT_ONDARK_VIVID,
   CATALOGS,
   COURSE_LABEL,
   type BeltKey,
@@ -24,7 +24,7 @@ const CAREERS = [
   { value: "E", label: "Ingeniería", emoji: "⚙️" },
   { value: "S", label: "Ciencia", emoji: "🔬" },
   { value: "T", label: "Tecnología", emoji: "🤖" },
-  { value: "M", label: "Matemáticas", emoji: "📐" },
+  { value: "M", label: "Matemática", emoji: "📐" },
 ]
 
 // Pregunta de motivación (slide 2). El slug se persiste en la inscripción.
@@ -67,7 +67,7 @@ type OnboardingExercise = {
 const ONBOARDING_EXERCISES: Record<CourseId, OnboardingExercise> = {
   analisis: {
     question:
-      "Un tachero cobra \\$500 fijos al subir, más \\$300 por cada kilómetro recorrido.\n$$C(k) = 500 + 300k$$\n¿Cuánto cuesta un viaje de 3 kilómetros?",
+      "Un taxista cobra \\$500 fijos al subir, más \\$300 por cada kilómetro recorrido.\n$$C(k) = 500 + 300k$$\n¿Cuánto cuesta un viaje de 3 kilómetros?",
     options: ["\\$1400", "\\$1100", "\\$800", "\\$900"],
     correctIndex: 0,
     feedback: "$C(3) = 500 + 300 \\cdot 3 = 500 + 900 = 1400$.",
@@ -115,7 +115,7 @@ const ONBOARDING_EXERCISES: Record<CourseId, OnboardingExercise> = {
 // Unidades del curso, con el color de su cinturón, para los chips de la slide 4.
 function courseUnits(course: CourseId): { name: string; color: string }[] {
   return CATALOGS[course].belts.flatMap((b) =>
-    b.units.map((u) => ({ name: u.name, color: BELT_HEX[b.key as BeltKey].onDark })),
+    b.units.map((u) => ({ name: u.name, color: BELT_ONDARK_VIVID[b.key as BeltKey] })),
   )
 }
 
@@ -435,9 +435,9 @@ function UnitGrid({
       return 1 + Math.floor(Math.random() * 5)
     }
 
-    // Mismo ritmo que la landing (marketing-home.tsx, ProgressGrid): un cuadradito
-    // cada 2 frames dentro del bache, pausa de 12-20 frames entre baches. Acá al
-    // triple de velocidad: 1.5 cuadraditos/frame (acumulador fraccional) y pausa /3.
+    // Basado en el ritmo de la landing (marketing-home.tsx, ProgressGrid), pero
+    // acelerado ~4.5x acá: acumulador fraccional de cuadraditos/frame más alto y
+    // pausa entre baches recortada a un frame fijo.
     function step() {
       if (filled >= total) return
       if (pauseLeft > 0) {
@@ -447,7 +447,7 @@ function UnitGrid({
       }
       if (batchLeft === 0) {
         batchLeft = Math.min(nextBatchSize(), total - filled)
-        pauseLeft = 3 + Math.floor(Math.random() * 3)
+        pauseLeft = 1
         spawnCredit = 0
         if (batchLeft === 0 && filled < total) {
           // No entró ninguna forma en el espacio libre restante: reintentar el
@@ -459,7 +459,7 @@ function UnitGrid({
         return
       }
       // Un poquito más rápido cada vez que se desbloquea una unidad siguiente.
-      spawnCredit += 2.2 * (1 + 0.08 * (unlocked - 1))
+      spawnCredit += 6.6 * (1 + 0.08 * (unlocked - 1))
       while (spawnCredit >= 1 && batchLeft > 0 && filled < total) {
         if (pace === "bursty") spawnSquareBursty()
         else spawnSquareRegular(filled / (total - 1))
@@ -490,7 +490,7 @@ function UnitGrid({
   )
 }
 
-const TOTAL_STEPS = 13
+const TOTAL_STEPS = 12
 
 function randomDelay(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min
@@ -639,7 +639,7 @@ export default function OnboardingWizard() {
       setShowWhy(false)
       return
     }
-    if (step === 11 && showOther) {
+    if (step === 10 && showOther) {
       setShowOther(false)
       return
     }
@@ -844,12 +844,11 @@ export default function OnboardingWizard() {
                       <strong className="text-foreground">durante y después</strong> de tu cursada.
                     </p>
                     <p>
-                      <strong className="text-foreground">Prioriza</strong> lo que necesitás repasar
-                      y omite lo que ya incorporaste.
+                      Su propósito principal es <strong className="text-foreground">incentivarte</strong>{" "}
+                      a repasar todos los días los conceptos que{" "}
+                      <strong className="text-foreground">más necesitás reforzar</strong>.
                     </p>
-                    <p>
-                      Este tutorial dura <strong>menos de 5 minutos</strong>.
-                    </p>
+                    <p>¿Arrancamos?</p>
                   </div>
                 </div>
               )}
@@ -883,7 +882,7 @@ export default function OnboardingWizard() {
                   <div className="flex flex-col gap-2 text-center">
                     <h2 className="text-2xl font-bold">¿Por dónde empezamos?</h2>
                     <p className="text-foreground/85">
-                      Marcá la que te trajo hasta acá. Podés cambiar cuando quieras.
+                      Podés probar los otros después.
                     </p>
                   </div>
                   <div className="flex flex-col gap-2.5">
@@ -1058,27 +1057,8 @@ export default function OnboardingWizard() {
                 </div>
               )}
 
-              {/* ── SLIDE 9: Cierre ── */}
+              {/* ── SLIDE 9: Carrera ── */}
               {step === 9 && (
-                <div className="flex flex-col gap-4 leading-relaxed text-foreground/85">
-                  <p>
-                    Repasar un poco todos los días nos permite{" "}
-                    <strong className="text-foreground">internalizar</strong> lo que ya nos costó
-                    tiempo y esfuerzo entender.
-                  </p>
-                  <p>
-                    Ya sea para entender nuevos conceptos, para rendir un examen, o para plantear
-                    y resolver problemas de la vida real, siempre es mejor partir desde bases
-                    sólidas.
-                  </p>
-                  <p className="font-medium text-foreground/90">
-                    ¿Listo para tu primera sesión de repaso?
-                  </p>
-                </div>
-              )}
-
-              {/* ── SLIDE 10: Carrera ── */}
-              {step === 10 && (
                 <div className="flex flex-col gap-5">
                   <div className="flex flex-col gap-2 text-center">
                     <h2 className="text-2xl font-bold">¿Qué estudiás?</h2>
@@ -1107,8 +1087,8 @@ export default function OnboardingWizard() {
                 </div>
               )}
 
-              {/* ── SLIDE 11: Universidad ── */}
-              {step === 11 && (
+              {/* ── SLIDE 10: Universidad ── */}
+              {step === 10 && (
                 <div className="flex flex-col gap-5 text-center">
                   <h2 className="text-2xl font-bold">¿Dónde?</h2>
                   <div className="flex flex-col gap-2.5">
@@ -1187,8 +1167,8 @@ export default function OnboardingWizard() {
                 </div>
               )}
 
-              {/* ── SLIDE 12: Registro ── */}
-              {step === 12 && (
+              {/* ── SLIDE 11: Registro ── */}
+              {step === 11 && (
                 <div className="flex flex-1 flex-col items-center justify-center gap-6 text-center translate-y-[20px]">
                   <div className="flex flex-col gap-2">
                     <h2 className="text-2xl font-bold">¡Ya casi estamos!</h2>
@@ -1295,7 +1275,6 @@ function PinnedCTA({
     case 6:
     case 7:
     case 8:
-    case 9:
       content = (
         <Button size="lg" className={ctaCls} onClick={() => { sfx.continue(); goNext() }}>
           Continuar
@@ -1326,14 +1305,14 @@ function PinnedCTA({
     case 5:
       // handled separately below (footer del ejercicio)
       break
-    case 10:
+    case 9:
       content = (
         <Button size="lg" className={ctaCls} disabled={!career} onClick={() => { sfx.continue(); goNext() }}>
           Continuar
         </Button>
       )
       break
-    case 11:
+    case 10:
       if (showOther) {
         content = (
           <Button size="lg" className={ctaCls} disabled={!universityOther.trim()} onClick={confirmOther}>

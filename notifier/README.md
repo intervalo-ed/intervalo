@@ -1,13 +1,17 @@
 # Intervalo notifier
 
 Tiny [Effect](https://effect.website) worker that sends the daily "you have
-pendings" web-push. It never touches the database — it calls the FastAPI
-backend's internal endpoints and sends the pushes with
-[`web-push`](https://github.com/web-push-libs/web-push).
+pendings" web-push, and separately triggers the lifecycle-email batch
+(bounce/win-back). It never touches the database — it calls the FastAPI
+backend's internal endpoints; pushes go out via
+[`web-push`](https://github.com/web-push-libs/web-push), emails are sent
+entirely backend-side via Resend (this worker just triggers the run).
 
 ## How it works
 
-Every 15 minutes (`Schedule.cron("*/15 * * * *")`):
+Two independent cron loops run concurrently:
+
+**Push, every 15 minutes** (`Schedule.cron("*/15 * * * *")`):
 
 1. `GET {API_BASE_URL}/internal/notifications/due` (header `X-Internal-Secret`)
    — the backend returns users whose chosen local time matches now, who haven't
@@ -18,6 +22,14 @@ Every 15 minutes (`Schedule.cron("*/15 * * * *")`):
    `POST /internal/push/prune` for deletion.
 
 The notification message itself is rendered by `web/public/sw.js`.
+
+**Emails, once an hour** (`Schedule.cron("0 * * * *")`):
+
+1. `POST {API_BASE_URL}/internal/emails/run` (header `X-Internal-Secret`) —
+   the backend resolves who's due for the "never finished a session" or
+   "5 days inactive" email, sends via Resend, and marks each as sent
+   (idempotent, safe to call again before the next hour). No VAPID/web-push
+   involved here — it's a plain trigger call.
 
 ## Env
 

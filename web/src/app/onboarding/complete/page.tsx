@@ -3,7 +3,6 @@
 import { useUser } from "@clerk/nextjs"
 import { useRouter } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
-import { useStartSession } from "@/app/UseStartSession"
 import { useEnrollMutation } from "@/app/onboarding/UseEnrollMutation"
 import { Button } from "@/components/ui/button"
 import { Spinner } from "@/components/ui/spinner"
@@ -16,12 +15,11 @@ export default function OnboardingCompletePage() {
   const { isLoaded, isSignedIn, user } = useUser()
   const api = useApi()
   const enroll = useEnrollMutation()
-  const startSession = useStartSession()
   const startedRef = useRef(false)
   const [statusError, setStatusError] = useState<string | null>(null)
-  const [pendingSessionId, setPendingSessionId] = useState<string | null>(null)
+  const [showInstallPrompt, setShowInstallPrompt] = useState(false)
 
-  const failure = enroll.error ?? startSession.error
+  const failure = enroll.error
   const errorMessage =
     statusError ??
     (failure
@@ -30,7 +28,7 @@ export default function OnboardingCompletePage() {
         : "No pudimos guardar tu progreso. Probá de nuevo."
       : null)
 
-  // New user: enroll, mark onboarded, start the first session and jump into it.
+  // New user: enroll, mark onboarded, then show the install prompt.
   async function runOnboarding() {
     const data = readOnboarding()
     if (!data) {
@@ -46,17 +44,13 @@ export default function OnboardingCompletePage() {
       introItemCorrect: data.introItemCorrect,
     })
     await user?.update({ unsafeMetadata: { onboarded: true } })
-    const session = await startSession.mutateAsync({
-      userName: user?.fullName ?? user?.firstName ?? "",
-      course: data.course,
-    })
     // El dashboard resuelve el curso activo con last_course; sembramos el elegido
     // para que abra ahí de entrada (antes de que responda el back).
     window.localStorage.setItem("intervalo:last_course", data.course)
     clearOnboarding()
-    // Mostramos la pantalla "¡Una cosa más!" (instalar la app) antes de entrar a
-    // la primera sesión; al tocar Continuar se navega a la sesión.
-    setPendingSessionId(session.session_id)
+    // Mostramos la pantalla "¡Una cosa más!" (instalar la app); al tocar
+    // Continuar se navega al dashboard, donde el usuario arranca su repaso.
+    setShowInstallPrompt(true)
   }
 
   // The DB is authoritative for new-vs-returning. Returning users go straight
@@ -78,7 +72,7 @@ export default function OnboardingCompletePage() {
     } catch (err) {
       // Surfaced via errorMessage; allow a retry.
       startedRef.current = false
-      if (!enroll.error && !startSession.error) {
+      if (!enroll.error) {
         setStatusError(
           err instanceof Error
             ? err.message
@@ -104,12 +98,8 @@ export default function OnboardingCompletePage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoaded, isSignedIn])
 
-  if (pendingSessionId) {
-    return (
-      <OnboardingInstallPrompt
-        onContinue={() => router.push(`/session/${pendingSessionId}`)}
-      />
-    )
+  if (showInstallPrompt) {
+    return <OnboardingInstallPrompt onContinue={() => router.push("/")} />
   }
 
   return (
