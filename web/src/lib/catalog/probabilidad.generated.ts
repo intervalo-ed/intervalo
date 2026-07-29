@@ -312,7 +312,7 @@ export const catalog: Catalog = {
         {
           "key": "distribuciones",
           "name": "Distribuciones",
-          "description": "Las **distribuciones de probabilidad** son los modelos paramétricos que describen el comportamiento de una variable aleatoria, tanto en el caso discreto, de soporte contable, como en el continuo, de soporte real.\n$$P(X = k) = p(k) \\qquad P(a \\leq X \\leq b) = \\int_a^b f(x)\\,dx$$\nCada familia paramétrica describe una situación experimental distinta.",
+          "description": "Las **distribuciones de probabilidad** son los modelos paramétricos que describen el comportamiento de una variable aleatoria, tanto en el caso discreto, de soporte contable, como en el continuo, de soporte real.\n$$\\begin{gathered} P(X = k) = p(k) \\\\ P(a \\leq X \\leq b) = \\int_a^b f(x)\\,dx \\end{gathered}$$\nCada familia paramétrica describe una situación experimental distinta.",
           "topics": [
             {
               "key": "binomial",

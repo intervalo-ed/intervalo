@@ -137,6 +137,21 @@ const COURSE_TRACKS: CourseTrack[] = [
           { t2: "Sistemas", t3: "Resolución", qt: "¿Cuál es la solución del siguiente sistema?", q: "\\begin{cases} x+y=3 \\\\ x-y=1 \\end{cases}" },
         ],
       },
+      {
+        name: "Espacios",
+        belt: "brown",
+        exprs: [
+          "T(\\alpha\\vec{u} + \\vec{v}) = \\alpha T(\\vec{u}) + T(\\vec{v})",
+          "\\alpha\\vec{u} + \\vec{v} \\in S",
+          "\\dim(V) = \\dim(\\ker T) + \\dim(\\operatorname{Im} T)",
+          "\\ker(T) = \\{\\vec{v} : T(\\vec{v}) = \\vec{0}\\}",
+        ],
+        questions: [
+          { t2: "Subespacios", t3: "Clasificación", qt: "¿El siguiente conjunto es un subespacio?", q: "S = \\{(x,y) : x = 2y\\}" },
+          { t2: "Núcleo", t3: "Formulación", qt: "¿Cómo se define el núcleo de una transformación?", q: "\\ker(T)" },
+          { t2: "Dimensión", t3: "Resolución", qt: "¿Cuál es la dimensión de la imagen?", q: "\\dim(\\operatorname{Im} T)" },
+        ],
+      },
     ],
   },
   {
@@ -198,6 +213,21 @@ const COURSE_TRACKS: CourseTrack[] = [
           { t2: "Poisson", t3: "Resolución", qt: "¿Cuál es la probabilidad en la siguiente Poisson?", q: "P(X=2) = \\dfrac{3^2 e^{-3}}{2!}" },
         ],
       },
+      {
+        name: "Vectores",
+        belt: "brown",
+        exprs: [
+          "(X, Y) : \\Omega \\to \\mathbb{R}^2",
+          "p(x, y) = P(X = x, Y = y)",
+          "\\operatorname{Cov}(X,Y) = E[XY] - E[X]E[Y]",
+          "f_X(x) = \\displaystyle\\int f(x,y)\\, dy",
+        ],
+        questions: [
+          { t2: "Conjunta", t3: "Formulación", qt: "¿Cómo se nota la distribución conjunta?", q: "p(x, y) = P(X = x, Y = y)" },
+          { t2: "Covarianza", t3: "Resolución", qt: "¿Cuánto vale la siguiente covarianza?", q: "\\operatorname{Cov}(X,Y),\\ E[XY]=6" },
+          { t2: "Marginal", t3: "Formulación", qt: "¿Cómo se obtiene la marginal de $X$?", q: "f_X(x)" },
+        ],
+      },
     ],
   },
 ]
@@ -219,6 +249,18 @@ function getTrackUnit(tick: number) {
   const occurrence = Math.floor(tick / COURSE_TRACKS.length)
   const unit = track.units[occurrence % track.units.length]
   return { course: track.course, unit }
+}
+
+// Leyenda del ProgressGrid para el curso vigente: una entrada por color de
+// cinturón (en orden white→brown, los mismos 4 colores que pinta la grilla).
+// Si un curso tiene más de una unidad del mismo cinturón (p.ej. Probabilidad
+// con Conteo y Probabilidad en blanco), se muestran juntas como "unidad1 / unidad2".
+function courseLegend(tick: number): { belt: BeltKey; label: string }[] {
+  const track = COURSE_TRACKS[tick % COURSE_TRACKS.length]
+  return BELT_ORDER.map((belt) => {
+    const names = track.units.filter((u) => u.belt === belt).map((u) => u.name)
+    return names.length ? { belt, label: names.join(" / ") } : null
+  }).filter((x): x is { belt: BeltKey; label: string } => x !== null)
 }
 
 // Pseudo-aleatorio determinístico a partir de un entero: mismo `seed` siempre
@@ -304,9 +346,10 @@ function QuestionLoop({ tick }: { tick: number }) {
   )
 }
 
-function ProgressGrid() {
+function ProgressGrid({ tick }: { tick: number }) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const gridRef = useRef<HTMLDivElement>(null)
+  const legend = courseLegend(tick)
 
   useEffect(() => {
     const COLS = 26
@@ -406,6 +449,20 @@ function ProgressGrid() {
   return (
     <div ref={sectionRef} className="px-10 py-12" style={GRID_BG_STYLE}>
       <div className="mx-auto w-fit">
+        <div className="mb-5 flex flex-col gap-[0.55rem]">
+          {legend.map((l) => (
+            <div
+              key={l.belt}
+              className="flex items-center gap-1.5 font-mono text-[0.6rem] uppercase tracking-[0.1em] text-[#768899]"
+            >
+              <span
+                className="h-2.5 w-2.5 shrink-0 rounded-[2px] transition-colors duration-300"
+                style={{ background: BELT_ONDARK_VIVID[l.belt] }}
+              />
+              {l.label}
+            </div>
+          ))}
+        </div>
         <div
           ref={gridRef}
           className="grid w-fit gap-px"
@@ -515,7 +572,7 @@ export default function MarketingHome() {
         </div>
       </section>
 
-      <ProgressGrid />
+      <ProgressGrid tick={tick} />
 
       <footer>
         <div className="flex flex-col items-center gap-5 bg-[#7E80F7] px-6 py-16 text-center">
