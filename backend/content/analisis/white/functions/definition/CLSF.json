@@ -495,7 +495,7 @@
     ]
   },
   {
-    "question": "Una función transforma $x$ según:$$h(x) = \\frac{1}{2x + 4}$$ ¿Qué valor excluye el ****dominio** natural** de esta función?",
+    "question": "Una función transforma $x$ según:$$h(x) = \\frac{1}{2x + 4}$$ ¿Qué valor excluye el **dominio natural** de esta función?",
     "options": [
       "$x = -2$",
       "$x = 0$",
@@ -513,14 +513,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** excluye los valores donde la función no está definida.\n\nUna división no admite denominador cero.\n\nPor eso $x = -2$ queda fuera del dominio natural. probar valores al azar; conviene igualar el denominador a cero y resolver, ahí está el **único** punto prohibido.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El **dominio natural** excluye los valores donde la función no está definida.\n\nUna división no admite denominador cero.\n\nPor eso $x = -2$ queda fuera del dominio natural. probar valores al azar; conviene igualar el denominador a cero y resolver, ahí está el **único** punto prohibido.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "dominio-natural"
     ]
   },
   {
-    "question": "El lado de un cuadrado a partir de su área $a$, en metros cuadrados, es:$$L(a) = \\sqrt{a}$$ ¿Qué condición define el ****dominio** natural** de esta función?",
+    "question": "El lado de un cuadrado a partir de su área $a$, en metros cuadrados, es:$$L(a) = \\sqrt{a}$$ ¿Qué condición define el **dominio natural** de esta función?",
     "options": [
       "$a \\neq 0$",
       "$a \\geq 0$",
@@ -538,14 +538,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido.\n\nLa raíz cuadrada no admite radicando negativo.\n\nPara $a < 0$ la raíz no está definida en los reales.\n\nOjo con excluir el $0$: $\\sqrt{0} = 0$ existe.\n\nasí que la condición es $a \\geq 0$, no $a > 0$.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "El **dominio natural** es el mayor conjunto donde la función tiene sentido.\n\nLa raíz cuadrada no admite radicando negativo.\n\nPara $a < 0$ la raíz no está definida en los reales.\n\nOjo con excluir el $0$: $\\sqrt{0} = 0$ existe.\n\nasí que la condición es $a \\geq 0$, no $a > 0$.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "dominio-natural"
     ]
   },
   {
-    "question": "Una función transforma $x$ según:$$k(x) = \\sqrt{x + 3}$$ ¿Cuál es la restricción que define el ****dominio** natural**?",
+    "question": "Una función transforma $x$ según:$$k(x) = \\sqrt{x + 3}$$ ¿Cuál es la restricción que define el **dominio natural**?",
     "options": [
       "$x \\geq 3$",
       "$x \\geq 0$",
@@ -563,14 +563,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido.\n\nLa raíz cuadrada exige radicando no negativo.\n\nPara $x < -3$ el radicando sería negativo. leer el $3$ como la cota; la restricción sale de despejar el radicando completo, no del número suelto.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El **dominio natural** es el mayor conjunto donde la función tiene sentido.\n\nLa raíz cuadrada exige radicando no negativo.\n\nPara $x < -3$ el radicando sería negativo. leer el $3$ como la cota; la restricción sale de despejar el radicando completo, no del número suelto.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "dominio-natural"
     ]
   },
   {
-    "question": "Una función transforma $x$ según:$$m(x) = \\frac{1}{\\sqrt{x}}$$ ¿Cuál es el ****dominio** natural** de esta función?",
+    "question": "Una función transforma $x$ según:$$m(x) = \\frac{1}{\\sqrt{x}}$$ ¿Cuál es el **dominio natural** de esta función?",
     "options": [
       "$x > 0$",
       "$x \\geq 0$",
@@ -588,14 +588,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido.\n\nHay dos restricciones a la vez: la raíz exige $x \\geq 0$ y el denominador exige $\\sqrt{x} \\neq 0$.\n\nes decir $x \\neq 0$.\n\nCombinando ambas queda $x > 0$.\n\nEl descuido habitual es aplicar una sola restricción; cuando se apilan raíz y división, hay que cruzar las dos condiciones.",
+    "explanation": "El **dominio natural** es el mayor conjunto donde la función tiene sentido.\n\nHay dos restricciones a la vez: la raíz exige $x \\geq 0$ y el denominador exige $\\sqrt{x} \\neq 0$.\n\nes decir $x \\neq 0$.\n\nCombinando ambas queda $x > 0$.\n\nEl descuido habitual es aplicar una sola restricción; cuando se apilan raíz y división, hay que cruzar las dos condiciones.",
     "reviewed": false,
     "tags": [
       "dominio-natural"
     ]
   },
   {
-    "question": "Para recorrer 60 km, el tiempo a $v$ km/h es:$$t(v) = \\frac{60}{v}$$ ¿Qué condición define el ****dominio** natural**?",
+    "question": "Para recorrer 60 km, el tiempo a $v$ km/h es:$$t(v) = \\frac{60}{v}$$ ¿Qué condición define el **dominio natural**?",
     "options": [
       "$v \\geq 60$",
       "$v \\neq 60$",
@@ -613,14 +613,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** combina lo que permite la fórmula y lo que permite el contexto.\n\nDividir entre cero no está definido y una velocidad negativa no tiene sentido físico.\n\nEse es el dominio natural.\n\nConviene verificar que no solo solo con $v \\neq 0$; el contexto agrega que la velocidad tampoco puede ser negativa.",
+    "explanation": "El **dominio natural** combina lo que permite la fórmula y lo que permite el contexto.\n\nDividir entre cero no está definido y una velocidad negativa no tiene sentido físico.\n\nEse es el dominio natural.\n\nConviene verificar que no solo solo con $v \\neq 0$; el contexto agrega que la velocidad tampoco puede ser negativa.",
     "reviewed": false,
     "tags": [
       "dominio-natural"
     ]
   },
   {
-    "question": "Una función transforma $x$ según:$$f(x) = \\sqrt{16 - x^2}$$ ¿Cuál es el ****dominio** natural**?",
+    "question": "Una función transforma $x$ según:$$f(x) = \\sqrt{16 - x^2}$$ ¿Cuál es el **dominio natural**?",
     "options": [
       "$-4 \\leq x \\leq 4$",
       "$x \\leq 4$",
@@ -638,14 +638,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido.\n\nLa raíz exige radicando no negativo.\n\nFuera de ese intervalo el radicando es negativo. quedarse con una sola desigualdad; $x^2 \\leq 16$ acota por los dos lados, no solo por arriba.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El **dominio natural** es el mayor conjunto donde la función tiene sentido.\n\nLa raíz exige radicando no negativo.\n\nFuera de ese intervalo el radicando es negativo. quedarse con una sola desigualdad; $x^2 \\leq 16$ acota por los dos lados, no solo por arriba.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "dominio-natural"
     ]
   },
   {
-    "question": "Una función racional está dada por:$$r(x) = \\frac{1}{x^2 - 9}$$ ¿Qué valores no están en el ****dominio** natural**?",
+    "question": "Una función racional está dada por:$$r(x) = \\frac{1}{x^2 - 9}$$ ¿Qué valores no están en el **dominio natural**?",
     "options": [
       "$x = 3$ y $x = -3$",
       "Solo $x = 9$",
@@ -663,14 +663,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** excluye los valores donde el denominador es cero.\n\nPor eso esos dos valores quedan afuera.\n\nLa confusión clásica es despejar mal la raíz y quedarse con un solo valor; $x^2 = 9$ tiene dos soluciones, $\\pm 3$.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "El **dominio natural** excluye los valores donde el denominador es cero.\n\nPor eso esos dos valores quedan afuera.\n\nLa confusión clásica es despejar mal la raíz y quedarse con un solo valor; $x^2 = 9$ tiene dos soluciones, $\\pm 3$.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "dominio-natural"
     ]
   },
   {
-    "question": "Una función transforma $x$ según:$$g(x) = \\sqrt{5 - x}$$ ¿Cuál es la restricción del ****dominio** natural**?",
+    "question": "Una función transforma $x$ según:$$g(x) = \\sqrt{5 - x}$$ ¿Cuál es la restricción del **dominio natural**?",
     "options": [
       "$x \\geq 5$",
       "$x \\leq 5$",
@@ -688,14 +688,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido.\n\nLa raíz cuadrada exige radicando no negativo.\n\nPara $x > 5$ el radicando sería negativo.\n\nCon el sentido de la desigualdad: como la $x$ está restando, al despejar queda $x \\leq 5$.\n\nno $x \\geq 5$.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El **dominio natural** es el mayor conjunto donde la función tiene sentido.\n\nLa raíz cuadrada exige radicando no negativo.\n\nPara $x > 5$ el radicando sería negativo.\n\nCon el sentido de la desigualdad: como la $x$ está restando, al despejar queda $x \\leq 5$.\n\nno $x \\geq 5$.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "dominio-natural"
     ]
   },
   {
-    "question": "Una función transforma $x$ según:$$f(x) = \\frac{x + 1}{x - 5}$$ ¿Qué valor no está en el ****dominio** natural**?",
+    "question": "Una función transforma $x$ según:$$f(x) = \\frac{x + 1}{x - 5}$$ ¿Qué valor no está en el **dominio natural**?",
     "options": [
       "$x = 1$",
       "$x = -1$",
@@ -713,14 +713,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** excluye los valores donde la función no está definida.\n\nEl denominador no puede ser cero.\n\nPor eso $x = 5$ no pertenece al dominio natural.\n\nEl numerador no impone restricciones: aunque se anule, la función sigue definida; solo el denominador cero rompe la división.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El **dominio natural** excluye los valores donde la función no está definida.\n\nEl denominador no puede ser cero.\n\nPor eso $x = 5$ no pertenece al dominio natural.\n\nEl numerador no impone restricciones: aunque se anule, la función sigue definida; solo el denominador cero rompe la división.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "dominio-natural"
     ]
   },
   {
-    "question": "El costo de $k$ kg de fruta a \\$350 el kilo es:$$C(k) = 350\\,k$$ ¿Cuál es el ****dominio** natural** de esta función?",
+    "question": "El costo de $k$ kg de fruta a \\$350 el kilo es:$$C(k) = 350\\,k$$ ¿Cuál es el **dominio natural** de esta función?",
     "options": [
       "$k \\geq 0$",
       "$k \\geq 350$",
@@ -738,7 +738,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** combina la fórmula y el contexto.\n\nAlgebraicamente la fórmula funciona para cualquier real, pero comprar kilos negativos no tiene sentido.\n\nEse es el dominio natural.\n\nEl descuido habitual es tomar todos los reales por mirar solo la fórmula; en contextos concretos el sentido físico también restringe.",
+    "explanation": "El **dominio natural** combina la fórmula y el contexto.\n\nAlgebraicamente la fórmula funciona para cualquier real, pero comprar kilos negativos no tiene sentido.\n\nEse es el dominio natural.\n\nEl descuido habitual es tomar todos los reales por mirar solo la fórmula; en contextos concretos el sentido físico también restringe.",
     "reviewed": false,
     "tags": [
       "dominio-natural"

@@ -2,7 +2,7 @@
 
 import { useSplash } from "@/app/splash-context"
 import { Wordmark } from "@/components/wordmark"
-import { BELT_HEX, BELT_ORDER, type BeltKey } from "@/lib/catalog"
+import { BELT_ONDARK_VIVID, BELT_ORDER, type BeltKey } from "@/lib/catalog"
 import katex from "katex"
 import "katex/dist/katex.min.css"
 import { ChevronDown } from "lucide-react"
@@ -242,7 +242,7 @@ function renderMath(expr: string) {
 
 function NotationCycler({ tick }: { tick: number }) {
   const { unit } = getTrackUnit(tick)
-  const color = BELT_HEX[unit.belt].solid
+  const color = BELT_ONDARK_VIVID[unit.belt]
   const expr = useMemo(() => pickSeeded(unit.exprs, tick), [unit, tick])
 
   return (
@@ -264,7 +264,7 @@ function NotationCycler({ tick }: { tick: number }) {
 
 function QuestionLoop({ tick }: { tick: number }) {
   const { unit } = getTrackUnit(tick)
-  const color = BELT_HEX[unit.belt].solid
+  const color = BELT_ONDARK_VIVID[unit.belt]
   const item = useMemo(() => pickSeeded(unit.questions, tick), [unit, tick])
 
   return (
@@ -312,7 +312,7 @@ function ProgressGrid() {
     const COLS = 26
     const ROWS = 40
     const TOTAL = COLS * ROWS
-    const COLORS = BELT_ORDER.map((b) => BELT_HEX[b].solid)
+    const COLORS = BELT_ORDER.map((b) => BELT_ONDARK_VIVID[b])
     const WP: number[][] = [
       [0.0, 1.0, 0.0, 0.0, 0.0],
       [0.15, 0.8, 0.2, 0.0, 0.0],
@@ -349,13 +349,19 @@ function ProgressGrid() {
     let animated = false
     let rafId = 0
 
+    // Tope de "parejura" entre columnas: ninguna columna puede ir más de
+    // MAX_COL_LEAD filas por delante de la columna disponible menos llena.
+    const MAX_COL_LEAD = 5
+
     function spawnSquare() {
       const avail: number[] = []
       for (let c = 0; c < COLS; c++) {
         if (colHeights[c] < ROWS) avail.push(c)
       }
       if (!avail.length) return
-      const col = avail[Math.floor(Math.random() * avail.length)]
+      const minHeight = Math.min(...avail.map((c) => colHeights[c]))
+      const withinLead = avail.filter((c) => colHeights[c] - minHeight <= MAX_COL_LEAD)
+      const col = withinLead[Math.floor(Math.random() * withinLead.length)]
       const row = colHeights[col]
       sqs[row * COLS + col].style.background = pickColor(fillIdx / (TOTAL - 1))
       colHeights[col]++

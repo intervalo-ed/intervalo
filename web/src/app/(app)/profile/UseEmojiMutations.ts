@@ -24,22 +24,6 @@ function useOnEmojiSuccess() {
   }
 }
 
-// Desbloquea el siguiente nodo del camino (irreversible).
-export function useUnlockEmoji() {
-  const api = useApi()
-  const onSuccess = useOnEmojiSuccess()
-  return useMutation({
-    mutationFn: async (nodeId: string) => {
-      const { data, error } = await api.POST("/user/emoji/unlock", {
-        body: { node_id: nodeId },
-      })
-      if (error) throw new Error(messageFromError(error))
-      return data
-    },
-    onSuccess,
-  })
-}
-
 // Viste un emoji ya desbloqueado. null = raíz del bucket (default).
 export function useSetWornEmoji() {
   const api = useApi()

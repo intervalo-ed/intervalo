@@ -131,14 +131,22 @@ class SimpleResponse(BaseModel):
     success: bool
 
 
+# ── Lifecycle emails ─────────────────────────────────────────────────────────────
+
+class EmailRunResponse(BaseModel):
+    bounce_sent: int
+    winback_sent: int
+
+
 # ── Emoji unlock tree (badges) ──────────────────────────────────────────────────
 
 class EmojiStateResponse(BaseModel):
     # Estado dinámico del árbol de desbloqueo del usuario. La estructura estática
     # del árbol vive en el front (emoji-tree.generated.ts); acá solo va el estado.
+    # El conjunto desbloqueado no se persiste: se deriva de total_xp (todo nodo
+    # con depth <= profundidad alcanzada está desbloqueado, en cualquier rama).
     bucket: str | None = None      # E/S/T/M/Otra (de la enrollment); None si no hay
     total_xp: int = 0
-    path: list[str] = []           # ids desbloqueados, en orden (append-only)
     worn: str | None = None        # id vestido; None → raíz del bucket (default)
 
 
@@ -265,6 +273,17 @@ class BeltProgressInfo(BaseModel):
     promoted: bool
 
 
+class StreakInfo(BaseModel):
+    days: int                   # días de actividad acumulados (racha global)
+    multiplier: float           # multiplicador de XP de Repaso vigente
+    next_threshold: int | None  # días del próximo tramo; None en el máximo
+    next_multiplier: float | None
+    days_to_next: int           # 0 en el tramo máximo
+    is_max: bool
+    counted_today: bool         # esta sesión fue la primera completada del día
+    xp_bonus: int                # XP extra ganado en esta sesión gracias al multiplicador
+
+
 class SessionSummaryResponse(BaseModel):
     session_id: str
     user_name: str
@@ -279,3 +298,4 @@ class SessionSummaryResponse(BaseModel):
     belt_progress: BeltProgressInfo
     xp_earned: int
     level_info: LevelInfoWithMissing
+    streak: StreakInfo
