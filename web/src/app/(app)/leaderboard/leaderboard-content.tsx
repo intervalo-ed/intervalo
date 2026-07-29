@@ -37,7 +37,7 @@ const CAREER_META: { key: string; name: string }[] = [
   { key: "S", name: "Ciencia" },
   { key: "T", name: "Tecnología" },
   { key: "E", name: "Ingeniería" },
-  { key: "M", name: "Matemáticas" },
+  { key: "M", name: "Matemática" },
   { key: "Otra", name: "Otra" },
 ]
 const CAREER_NAME: Record<string, string> = Object.fromEntries(

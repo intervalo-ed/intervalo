@@ -4,10 +4,19 @@ import { useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { motion } from "motion/react"
 import { useQueryClient } from "@tanstack/react-query"
+import { BellIcon, ClockIcon, DownloadIcon } from "lucide-react"
 import { CountUp } from "@/components/count-up"
 import { XpDots } from "@/components/xp-dots"
 import { Alert, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
+import { InstallDialog } from "@/components/install-dialog"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { Screen, ScreenBody } from "@/components/ui/screen"
 import { cn } from "@/lib/utils"
 import { BELT_VIVID_COLORS } from "@/lib/catalog"
@@ -15,7 +24,17 @@ import { queryKeys } from "@/lib/query/keys"
 import { clearSession } from "@/lib/session/storage"
 import { setRankingNews } from "@/lib/nav/ranking-news"
 import { setProfileNews } from "@/lib/nav/profile-news"
+import { markNotifyHintSeen, useNotifyHintUnseen } from "@/lib/nav/notify-hint-seen"
+import { isPushSupported } from "@/lib/push/register"
+import {
+  DEFAULT_REMINDER_TIME,
+  REMINDER_TIME_OPTIONS,
+  useEnableNotifications,
+} from "@/lib/push/UseEnableNotifications"
+import { useNotificationSettingsQuery } from "@/app/(app)/profile/UseNotificationSettings"
+import { isStandalone, usePlatform } from "@/lib/platform/detect"
 import { useSfx, useTick } from "@/lib/audio/useSfx"
+import type { components } from "@/lib/api/schema"
 import { useSummary } from "./UseSummary"
 
 const ctaCls =
@@ -40,6 +59,16 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   //   t=1800ms → la bolita explota en el confeti + "¡Listo!" + las cards
   const [showBall, setShowBall] = useState(false)
   const [exploded, setExploded] = useState(false)
+  // Panel de racha: aparece tras Continuar, siempre (una por sesión). El de
+  // notificaciones lo sigue, pero solo una vez por dispositivo y si el
+  // navegador soporta push.
+  const [phase, setPhase] = useState<"summary" | "streak" | "notify">("summary")
+  const [pushSupported, setPushSupported] = useState(false)
+  useEffect(() => {
+    setPushSupported(isPushSupported())
+  }, [])
+  const notifyUnseen = useNotifyHintUnseen()
+  const shouldShowNotify = pushSupported && notifyUnseen
   const sfxRef = useRef(sfx)
   sfxRef.current = sfx
   useEffect(() => {
@@ -53,6 +82,29 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
       clearTimeout(t2)
     }
   }, [])
+
+  function onContinue() {
+    if (phase === "summary") {
+      sfx.continue()
+      setPhase("streak")
+      return
+    }
+    if (phase === "streak") {
+      if (shouldShowNotify) {
+        sfx.continue()
+        setPhase("notify")
+        return
+      }
+      goHome()
+      return
+    }
+    // Desde la pestaña de notificaciones el destino es Perfil, donde se puede
+    // ajustar el horario (o activar, si se instaló la app recién).
+    markNotifyHintSeen()
+    sfx.continue()
+    router.push("/profile")
+    router.refresh()
+  }
 
   function goHome() {
     sfx.continue()
@@ -113,7 +165,16 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
             count={Math.min(140, Math.max(10, (data?.xp_earned ?? 0) * 2))}
           />
         )}
-        <div className="relative w-full -translate-y-[15px]">
+        {phase === "streak" && data && (
+          <StreakPane streak={data.streak} tick={tick} />
+        )}
+        {phase === "notify" && <NotifyHintPane />}
+        <div
+          className={cn(
+            "relative w-full -translate-y-[15px]",
+            phase !== "summary" && "hidden",
+          )}
+        >
           {data && exploded && (
             <motion.span
               className="block text-center text-3xl font-bold tracking-tight"
@@ -227,7 +288,7 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
           <Button
             size="lg"
             className={ctaCls}
-            onClick={goHome}
+            onClick={onContinue}
             disabled={!showButton}
           >
             Continuar
@@ -391,6 +452,275 @@ function Metric({
       <span className={cn("text-sm leading-tight text-foreground/60")}>
         {label}
       </span>
+    </div>
+  )
+}
+
+type StreakInfo = components["schemas"]["StreakInfo"]
+
+// Panel de racha diaria: mismo lenguaje visual que el resumen (número grande
+// con spring, card Metric, conteo con ticks). Aparece una vez por día, tras la
+// primera sesión completada.
+function StreakPane({
+  streak,
+  tick,
+}: {
+  streak: StreakInfo
+  tick: (rate: number) => void
+}) {
+  const [showRight, setShowRight] = useState(false)
+  const [showFooter, setShowFooter] = useState(false)
+  const dayWord = streak.days_to_next === 1 ? "día" : "días"
+  return (
+    <div className="flex w-full translate-y-[15px] flex-col items-center gap-8">
+      {/* Mismas cards del conteo del resumen: izquierda multiplicador, derecha
+          días de actividad con conteo. */}
+      <div className="grid w-full grid-cols-2 gap-2">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        >
+          <Metric
+            label={
+              <>
+                Multiplicador
+                <br />
+                de XP
+              </>
+            }
+            value={
+              <MultiplierCount
+                value={streak.multiplier}
+                tick={tick}
+                onDone={() => setShowRight(true)}
+              />
+            }
+          />
+        </motion.div>
+
+        {showRight && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+          >
+            <Metric
+              label={
+                <>
+                  Días de
+                  <br />
+                  actividad
+                </>
+              }
+              value={
+                <CountUp
+                  variant="steps"
+                  value={streak.days}
+                  duration={1000}
+                  steps={Math.min(5, Math.max(2, streak.days))}
+                  stepEase={(x) => 1 - Math.pow(1 - x, 1.7)}
+                  onStep={(step, total) => {
+                    tick(0.9 + ((step - 1) / Math.max(1, total - 1)) * 0.6)
+                  }}
+                  onDone={() => setShowFooter(true)}
+                />
+              }
+            />
+          </motion.div>
+        )}
+      </div>
+
+      {/* Siempre montado (solo cambia la opacidad): si apareciera recién al
+          final, su alto empujaría las cards hacia arriba al entrar. */}
+      <motion.p
+        className="max-w-[21rem] text-center text-sm leading-relaxed text-foreground/60"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: showFooter ? 1 : 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
+        {streak.is_max ? (
+          <>
+            Alcanzaste la{" "}
+            <span className="font-medium text-foreground">racha máxima</span>.
+            Volvé mañana para mantenerla.
+          </>
+        ) : (
+          <>
+            {streak.days_to_next === 1 ? "Te falta " : "Te faltan "}
+            <span className="font-medium text-foreground">
+              {streak.days_to_next} {dayWord}
+            </span>{" "}
+            de actividad para desbloquear{" "}
+            <span className="font-medium text-foreground">
+              ×{streak.next_multiplier?.toFixed(1)}
+            </span>
+            . Volvé mañana y sumás el próximo.
+          </>
+        )}
+      </motion.p>
+    </div>
+  )
+}
+
+// Décimas entre dos tramos consecutivos de racha (×1.0, ×1.2, ×1.4…).
+const STREAK_TIER_STEP = 2
+
+// Multiplicador: arranca en 0 y da un salto por cada tramo alcanzado
+// (0 → ×1.0 la primera vez; 0 → ×1.0 → ×1.2 → ×1.4… si ya escaló tramos), con
+// el mismo tick de reloj ascendente del conteo de XP. Se cuenta en décimas para
+// no arrastrar error de punto flotante.
+function MultiplierCount({
+  value,
+  tick,
+  onDone,
+}: {
+  value: number
+  tick: (rate: number) => void
+  onDone?: () => void
+}) {
+  const [tenths, setTenths] = useState(0)
+  const tickRef = useRef(tick)
+  tickRef.current = tick
+  const onDoneRef = useRef(onDone)
+  onDoneRef.current = onDone
+
+  useEffect(() => {
+    const target = Math.round(value * 10)
+    const stops: number[] = []
+    for (let t = 10; t <= target; t += STREAK_TIER_STEP) stops.push(t)
+    if (stops.length === 0) stops.push(target)
+
+    setTenths(0)
+    const duration = Math.min(1300, 450 * stops.length)
+    const ease = (x: number) => 1 - Math.pow(1 - x, 1.7)
+    const start = performance.now()
+    let k = 0
+    let timer: ReturnType<typeof setTimeout>
+    const run = () => {
+      setTenths(stops[k])
+      tickRef.current(0.9 + (k / Math.max(1, stops.length - 1)) * 0.6)
+      k++
+      if (k >= stops.length) {
+        onDoneRef.current?.()
+        return
+      }
+      schedule()
+    }
+    const schedule = () => {
+      const at = ease((k + 1) / stops.length) * duration
+      timer = setTimeout(run, Math.max(0, at - (performance.now() - start)))
+    }
+    schedule()
+    return () => clearTimeout(timer)
+  }, [value])
+
+  return <>×{(tenths / 10).toFixed(1)}</>
+}
+
+// Pestaña de notificaciones: una única vez por dispositivo (ver
+// notify-hint-seen.ts), solo si el navegador soporta push. Instalada como PWA
+// permite activar los recordatorios acá mismo (elegir horario + suscribirse);
+// desde el navegador, push no funciona todavía, así que ofrece los pasos de
+// instalación en el diálogo compartido. El CTA "Continuar" del summary lleva a
+// Perfil en ambos casos.
+function NotifyHintPane() {
+  const platform = usePlatform()
+  const needsInstall = platform !== null && !isStandalone()
+  const [time, setTime] = useState(DEFAULT_REMINDER_TIME)
+  const [installOpen, setInstallOpen] = useState(false)
+  const settings = useNotificationSettingsQuery()
+  const enable = useEnableNotifications()
+  const enabled = settings.data?.enabled ?? false
+
+  return (
+    <div className="flex w-full translate-y-[15px] flex-col items-center gap-5 text-center">
+      <motion.div
+        className="flex size-14 items-center justify-center rounded-full bg-primary/15 text-primary"
+        initial={{ opacity: 0, scale: 0.4 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ type: "spring", stiffness: 600, damping: 18 }}
+      >
+        <BellIcon className="size-7" />
+      </motion.div>
+      <motion.div
+        className="flex flex-col gap-1.5"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+      >
+        <p className="text-base font-medium">Activá los recordatorios</p>
+        <p className="max-w-[21rem] text-sm leading-relaxed text-foreground/60">
+          {needsInstall
+            ? "Primero instalá Intervalo en tu pantalla de inicio para poder activarlos."
+            : "Te avisamos una vez por día, y solo si tenés temas pendientes para repasar."}
+        </p>
+      </motion.div>
+      <motion.div
+        className="flex w-full max-w-[21rem] flex-col gap-2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
+        {needsInstall ? (
+          <>
+            <Button
+              variant="outline"
+              size="lg"
+              className="h-12 w-full rounded-md"
+              onClick={() => setInstallOpen(true)}
+            >
+              <DownloadIcon className="size-5" />
+              Cómo instalar
+            </Button>
+            <InstallDialog
+              platform={platform ?? "all"}
+              open={installOpen}
+              onOpenChange={setInstallOpen}
+            />
+          </>
+        ) : enabled ? (
+          <p className="text-sm text-foreground/60">
+            Ya los tenés activados. Podés cambiar el horario desde tu perfil.
+          </p>
+        ) : (
+          <>
+            <div className="flex h-12 w-full items-center justify-between gap-3 rounded-md border border-input px-3">
+              <span className="flex items-center gap-2 text-sm">
+                <ClockIcon className="size-5" />
+                Recordarme a las
+              </span>
+              <Select
+                value={time}
+                onValueChange={(value) => {
+                  if (!value) return
+                  setTime(value)
+                }}
+              >
+                <SelectTrigger size="sm" disabled={enable.isPending}>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {REMINDER_TIME_OPTIONS.map((opt) => (
+                    <SelectItem key={opt} value={opt}>
+                      {opt}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <Button
+              size="lg"
+              className="h-12 w-full rounded-md"
+              disabled={enable.isPending || settings.isLoading}
+              onClick={() => enable.mutate(time)}
+            >
+              <BellIcon className="size-5" />
+              Activar notificaciones
+            </Button>
+          </>
+        )}
+      </motion.div>
     </div>
   )
 }

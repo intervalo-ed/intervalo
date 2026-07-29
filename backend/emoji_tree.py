@@ -6,9 +6,11 @@ bucket de carrera (E/S/T/M/Otra). La raíz de cada bucket es su emoji "gratis"
 (profundidad 0). Cada nivel más profundo se desbloquea por XP; el umbral lo
 define la profundidad del nodo (no se guarda en el JSON).
 
-El camino del usuario es una cadena append-only (un solo track irreversible):
-un nodo solo es desbloqueable si su padre es la punta del camino ya recorrido
-(o la raíz del bucket si el camino está vacío).
+El desbloqueo es automático y no requiere elección: al cruzar el umbral de XP
+de una profundidad, TODOS los nodos de esa profundidad (de cualquier rama del
+árbol del bucket) quedan desbloqueados. No hay estado propio que persistir —
+"desbloqueado" se deriva puramente de total_xp vía unlocked_depth(). Lo único
+que el usuario elige es qué emoji ya desbloqueado mostrar (ver can_wear).
 """
 
 import json
@@ -60,42 +62,35 @@ def emoji_for(node_id: str | None) -> str | None:
     return node["emoji"] if node else None
 
 
-def can_unlock(
-    committed_path: list[str],
-    node_id: str,
-    total_xp: int,
-    bucket: str | None,
-) -> tuple[bool, str | None]:
-    """¿Puede el usuario desbloquear `node_id` ahora? Devuelve (ok, motivo)."""
-    node = node_by_id.get(node_id)
-    if node is None:
-        return False, "Ese emoji no existe."
-    if node["bucket"] != bucket:
-        return False, "Ese emoji no es de tu carrera."
-    if node_id in committed_path:
-        return False, "Ya lo tenés desbloqueado."
-    tip = committed_path[-1] if committed_path else _roots.get(bucket or "")
-    if node["parent"] != tip:
-        return False, "Tenés que desbloquear el paso anterior primero."
-    threshold = DEPTH_XP.get(node["depth"])
-    if threshold is None:
-        return False, "Ese emoji no es desbloqueable."
-    if total_xp < threshold:
-        return False, f"Te faltan {threshold - total_xp} XP."
-    return True, None
+def unlocked_depth(total_xp: int) -> int:
+    """Profundidad máxima desbloqueada dado el XP total (0 = raíz/gratis,
+    siempre desbloqueada)."""
+    depth = 0
+    for d, threshold in sorted(DEPTH_XP.items()):
+        if total_xp >= threshold:
+            depth = d
+    return depth
 
 
 def can_wear(
-    committed_path: list[str],
     node_id: str | None,
     bucket: str | None,
+    total_xp: int,
 ) -> tuple[bool, str | None]:
-    """¿Puede vestir `node_id`? None o la raíz del bucket = emoji por defecto."""
+    """¿Puede vestir `node_id`? None o la raíz del bucket = emoji por defecto.
+    Cualquier otro nodo debe estar a una profundidad ya desbloqueada por XP."""
     if node_id is None or node_id == _roots.get(bucket or ""):
         return True, None
-    if node_id in committed_path:
-        return True, None
-    return False, "Todavía no desbloqueaste ese emoji."
+    node = node_by_id.get(node_id)
+    if node is None or node["bucket"] != bucket:
+        return False, "Ese emoji no existe."
+    if node["depth"] > unlocked_depth(total_xp):
+        threshold = DEPTH_XP.get(node["depth"])
+        missing = (threshold - total_xp) if threshold is not None else None
+        return False, (
+            f"Te faltan {missing} XP." if missing else "Todavía no desbloqueaste ese emoji."
+        )
+    return True, None
 
 
 def normalize_worn(node_id: str | None, bucket: str | None) -> str | None:

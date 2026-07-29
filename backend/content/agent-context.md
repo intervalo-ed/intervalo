@@ -221,6 +221,26 @@ Primera decisión (luego revisada): "CLSF = solo ¿es función?". **Revisada jul
 - **`feedback_incorrect` faltaba en casi todos los ejercicios del JSON viejo** (string vacío ""). Ahora requerido en todos, array del mismo largo que `options`, `null` en el correcto.
 - **Nombres propios se colaron** (ejercicio del DNI usaba "Lucía"). Reforzado en el checklist del topic.
 
+### 18. Negrita anidada rota al envolver una frase multi-palabra (bug detectado ago-2026)
+
+En `CLSF.json` (definition), 20 ocurrencias de `**dominio natural**` quedaron escritas como
+`****dominio** natural**` — cuatro asteriscos antes de "dominio", `**` después de "dominio", espacio,
+"natural", y `**` de cierre. El resultado visible: el frontend muestra literalmente los asteriscos
+sobrantes en vez de renderizar la frase en negrita (KaTeX/Markdown no colapsa `****` en un solo
+delimitador). Todas las apariciones seguían el mismo patrón, en `question` y en `explanation`.
+
+Hipótesis de origen: al envolver una frase de dos palabras en negrita, el generador parece haber
+envuelto primero la palabra clave sola (`**dominio**`) y después, en una pasada posterior, haber
+intentado extender la negrita a la frase completa sin sacar los delimitadores internos, resultando
+en asteriscos duplicados/anidados en vez de un único par envolviendo toda la frase.
+
+**Cómo prevenirlo:**
+- Al poner en negrita una frase de más de una palabra, el par `**...**` va una sola vez, envolviendo
+  la frase completa — nunca asteriscos anidados o duplicados alrededor de una sub-palabra.
+- Pasada mecánica de verificación: buscar `\*{3,}` (tres o más asteriscos seguidos) en todo el JSON
+  antes de dar por cerrado un batch; cualquier match es un bug de negrita mal formada, sin
+  excepciones legítimas (el frontend nunca usa `***` para nada).
+
 ---
 
 ## Estructura recomendada para un `topic-context.md`

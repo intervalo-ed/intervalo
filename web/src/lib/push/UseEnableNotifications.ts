@@ -1,0 +1,53 @@
+"use client"
+
+import { useApi } from "@/lib/api/useApi"
+import { getTimezone, subscribeToPush } from "@/lib/push/register"
+import { queryKeys } from "@/lib/query/keys"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { toast } from "sonner"
+
+export const DEFAULT_REMINDER_TIME = "19:00"
+
+// Horarios de recordatorio: en punto, de 08:00 a 22:00 (paso de 1 hora).
+export const REMINDER_TIME_OPTIONS: string[] = Array.from(
+  { length: 22 - 8 + 1 },
+  (_, i) => `${String(8 + i).padStart(2, "0")}:00`,
+)
+
+// Activación de recordatorios push (permiso del navegador + suscripción +
+// persistencia). Compartida entre los ajustes del perfil y la pestaña de
+// notificaciones del resumen de sesión.
+export function useEnableNotifications({
+  onSuccess,
+}: { onSuccess?: () => void } = {}) {
+  const api = useApi()
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async (chosenTime: string) => {
+      const sub = await subscribeToPush()
+      const subRes = await api.POST("/push/subscribe", { body: sub })
+      if (subRes.error) throw subRes.error
+      const { error } = await api.PUT("/user/notification-settings", {
+        body: { enabled: true, time: chosenTime, timezone: getTimezone() },
+      })
+      if (error) throw error
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.notificationSettings(),
+      })
+      toast.success("Recordatorios activados")
+      onSuccess?.()
+    },
+    onError: (err: Error) => {
+      if (err.message === "permission-denied") {
+        toast.error("Tenés que permitir las notificaciones en el navegador.")
+      } else if (err.message === "unsupported") {
+        toast.error("Tu navegador no soporta notificaciones.")
+      } else {
+        toast.error("No pudimos activar los recordatorios.")
+      }
+    },
+  })
+}
