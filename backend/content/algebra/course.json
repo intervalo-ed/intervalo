@@ -183,28 +183,6 @@
                 "LEXI",
                 "RESL"
               ]
-            },
-            {
-              "key": "lines",
-              "name": "Rectas",
-              "tooltip": "Una **recta** en el espacio queda determinada unívocamente por un punto de paso y un vector director que marca su orientación.\n$$L: \\vec{x} = \\vec{p} + t\\vec{d}$$\nAl variar el parámetro escalar $t$, se recorren todos los puntos que pertenecen a la recta, generando un subespacio unidimensional desplazado desde el origen.",
-              "short_description": "Una **recta** en el espacio queda determinada unívocamente por un punto de paso y un vector director que marca su orientación.\n$$L: \\vec{x} = \\vec{p} + t\\vec{d}$$",
-              "skills": [
-                "LEXI",
-                "FORM",
-                "RESL"
-              ]
-            },
-            {
-              "key": "planes",
-              "name": "Planos",
-              "tooltip": "Un **plano** en el espacio requiere un punto de paso y un vector normal que define su inclinación respecto a los ejes.\n$$\\pi: \\vec{n} \\cdot (\\vec{x} - \\vec{p}) = 0$$\nLa ecuación refleja que cualquier vector contenido dentro del plano es ortogonal al vector normal. Las intersecciones entre planos modelan geométricamente los sistemas de ecuaciones.",
-              "short_description": "Un **plano** en el espacio requiere un punto de paso y un vector normal que define su inclinación respecto a los ejes.\n$$\\pi: \\vec{n} \\cdot (\\vec{x} - \\vec{p}) = 0$$",
-              "skills": [
-                "LEXI",
-                "FORM",
-                "RESL"
-              ]
             }
           ]
         }
@@ -269,28 +247,6 @@
                 "LEXI",
                 "RESL"
               ]
-            },
-            {
-              "key": "systems",
-              "name": "Sistemas",
-              "tooltip": "Un **sistema de ecuaciones lineales** puede expresarse de forma compacta mediante una ecuación matricial.\n$$A\\vec{x} = \\vec{b}$$\nAquí, la matriz concentra los coeficientes, el vector agrupa las incógnitas y el segundo vector representa los términos independientes. Permite abordar sistemas lineales de forma global.",
-              "short_description": "Un **sistema de ecuaciones lineales** puede expresarse de forma compacta mediante una ecuación matricial.\n$$A\\vec{x} = \\vec{b}$$",
-              "skills": [
-                "LEXI",
-                "FORM",
-                "RESL"
-              ]
-            },
-            {
-              "key": "elimination",
-              "name": "Eliminación",
-              "tooltip": "La **eliminación de Gauss** es un algoritmo sistemático que transforma la matriz de un sistema en una forma escalonada mediante operaciones por fila.\n$$\\begin{pmatrix} A | \\vec{b} \\end{pmatrix} \\to \\begin{pmatrix} U | \\vec{c} \\end{pmatrix}$$\nEl proceso preserva el conjunto de soluciones del sistema original mientras despeja progresivamente las variables, facilitando su resolución mediante sustitución inversa.",
-              "short_description": "La **eliminación de Gauss** es un algoritmo que transforma la matriz en una forma escalonada mediante operaciones por fila.\n$$\\begin{pmatrix} A | \\vec{b} \\end{pmatrix} \\to \\begin{pmatrix} U | \\vec{c} \\end{pmatrix}$$",
-              "skills": [
-                "LEXI",
-                "ESTR",
-                "RESL"
-              ]
             }
           ]
         }
@@ -298,8 +254,8 @@
     },
     {
       "key": "brown",
-      "headline": "Espacios y transformaciones lineales",
-      "description": "Una **transformación lineal** es una función entre espacios vectoriales que preserva las operaciones esenciales de suma y multiplicación escalar, mapeando rectas en rectas y manteniendo el origen inalterado.\n$$T(\\alpha\\vec{u} + \\vec{v}) = \\alpha T(\\vec{u}) + T(\\vec{v})$$\nEsta unidad cubre la definición, el núcleo (kernel), la imagen, el teorema de la dimensión y la matriz asociada a la transformación.",
+      "headline": "Espacios",
+      "description": "Un **espacio vectorial** es un conjunto de elementos sobre un cuerpo que cumple los axiomas de clausura y linealidad.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$\nEsta unidad introduce los conceptos fundamentales de subespacios, combinaciones lineales, independencia, generadores, bases y dimensión.",
       "units": [
         {
           "key": "spaces",
@@ -382,7 +338,14 @@
               ]
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "key": "black",
+      "headline": "Transformaciones lineales",
+      "description": "Una **transformación lineal** es una función entre espacios vectoriales que preserva las operaciones esenciales de suma y multiplicación escalar, mapeando rectas en rectas y manteniendo el origen inalterado.\n$$T(\\alpha\\vec{u} + \\vec{v}) = \\alpha T(\\vec{u}) + T(\\vec{v})$$\nEsta unidad cubre la definición, el núcleo (kernel), la imagen, el teorema de la dimensión y la matriz asociada a la transformación.",
+      "units": [
         {
           "key": "transformations",
           "name": "Transformaciones",

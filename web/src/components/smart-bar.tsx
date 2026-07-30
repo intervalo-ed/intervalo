@@ -1,7 +1,7 @@
 "use client"
 
 import { usePathname } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useUser } from "@clerk/nextjs"
 import { AppIcon } from "@/components/app-icon"
 import { Button } from "@/components/ui/button"
@@ -47,6 +47,16 @@ export function SmartBarGate() {
   const [mounted, setMounted] = useState(false)
   const [standalone, setStandalone] = useState(false)
 
+  // Clerk puede reportar `isLoaded: false` un instante durante navegaciones
+  // que disparan un round-trip de `auth.protect()` en el server (p. ej. entrar
+  // a /practice desde afuera del grupo (app)), aunque la sesión siga
+  // vigente — eso hacía parpadear/desaparecer la barra (la tab bar no sufre
+  // esto porque solo depende del pathname). Una vez que vimos al usuario
+  // logueado, lo dejamos "enganchado" y no volvemos a ocultar la barra por
+  // esta razón.
+  const everSignedInRef = useRef(false)
+  if (isLoaded && isSignedIn) everSignedInRef.current = true
+
   useEffect(() => {
     // Detección post-montaje (standalone/instalada) para evitar mismatch SSR.
     /* eslint-disable react-hooks/set-state-in-effect */
@@ -55,7 +65,7 @@ export function SmartBarGate() {
     /* eslint-enable react-hooks/set-state-in-effect */
   }, [])
 
-  if (!mounted || !isLoaded || !isSignedIn || standalone) return null
+  if (!mounted || !everSignedInRef.current || standalone) return null
   if (HIDDEN_PREFIXES.some((p) => pathname.startsWith(p))) return null
 
   return <SmartBar />

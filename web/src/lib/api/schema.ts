@@ -1079,6 +1079,8 @@ export interface components {
             xp_earned: number;
             level_info: components["schemas"]["LevelInfoWithMissing"];
             streak: components["schemas"]["StreakInfo"];
+            /** Session Number */
+            session_number: number;
         };
         /** SimpleResponse */
         SimpleResponse: {
@@ -1141,7 +1143,10 @@ export interface components {
             is_max: boolean;
             /** Counted Today */
             counted_today: boolean;
-            /** Xp Bonus */
+            /**
+             * Xp Bonus
+             * @default 0
+             */
             xp_bonus: number;
         };
         /** SummaryItem */
@@ -1280,6 +1285,7 @@ export interface components {
              * @default 30
              */
             session_size_max: number;
+            streak: components["schemas"]["StreakInfo"];
         };
         /** UserResponse */
         UserResponse: {

@@ -24,7 +24,6 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Screen, ScreenBody, ScreenHeader } from "@/components/ui/screen"
-import { Spinner } from "@/components/ui/spinner"
 import { useSfx } from "@/lib/audio/useSfx"
 import { topicShortLabel } from "@/lib/catalog"
 import { exerciseTypeInfo } from "@/lib/catalog/exercise-types"
@@ -110,17 +109,11 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
     })
   }
 
+  // Es un solo frame (el payload viene de sessionStorage): sin spinner ni
+  // texto, para no destellar contenido entre la pantalla de origen (que ya se
+  // desvaneció) y el fade-in del primer ejercicio.
   if (payload === undefined) {
-    return (
-      <Screen>
-        <ScreenBody className="items-center justify-center text-sm text-muted-foreground">
-          <div className="flex items-center gap-2">
-            <Spinner />
-            <span>Cargando sesión…</span>
-          </div>
-        </ScreenBody>
-      </Screen>
-    )
+    return <Screen>{null}</Screen>
   }
 
   if (payload === null) {
@@ -298,6 +291,15 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
   }
 
   return (
+    // Fade-in leve y rápido al aparecer el primer ejercicio (una sola vez: esta
+    // rama solo se monta al pasar de "cargando" a sesión lista, no en cada
+    // ejercicio — la navegación entre ejercicios sigue con el slide horizontal).
+    <motion.div
+      className="h-full"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.18, ease: "easeOut" }}
+    >
     <Screen>
       <ScreenHeader>
         <Button
@@ -728,6 +730,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
           resumen. */}
       {finishing && <div className="fixed inset-0 z-50 bg-background" />}
     </Screen>
+    </motion.div>
   )
 }
 

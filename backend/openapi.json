@@ -2817,6 +2817,10 @@
           },
           "streak": {
             "$ref": "#/components/schemas/StreakInfo"
+          },
+          "session_number": {
+            "type": "integer",
+            "title": "Session Number"
           }
         },
         "type": "object",
@@ -2834,7 +2838,8 @@
           "belt_progress",
           "xp_earned",
           "level_info",
-          "streak"
+          "streak",
+          "session_number"
         ],
         "title": "SessionSummaryResponse"
       },
@@ -3029,7 +3034,8 @@
           },
           "xp_bonus": {
             "type": "integer",
-            "title": "Xp Bonus"
+            "title": "Xp Bonus",
+            "default": 0
           }
         },
         "type": "object",
@@ -3040,8 +3046,7 @@
           "next_multiplier",
           "days_to_next",
           "is_max",
-          "counted_today",
-          "xp_bonus"
+          "counted_today"
         ],
         "title": "StreakInfo"
       },
@@ -3336,13 +3341,17 @@
             "type": "integer",
             "title": "Session Size Max",
             "default": 30
+          },
+          "streak": {
+            "$ref": "#/components/schemas/StreakInfo"
           }
         },
         "type": "object",
         "required": [
           "topic_states",
           "level_info",
-          "main_session_done_today"
+          "main_session_done_today",
+          "streak"
         ],
         "title": "UserProgressResponse"
       },

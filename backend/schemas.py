@@ -79,6 +79,17 @@ class LevelInfoWithMissing(BaseModel):
     progress_pct: float
 
 
+class StreakInfo(BaseModel):
+    days: int                   # días de actividad acumulados (racha global)
+    multiplier: float           # multiplicador de XP de Repaso vigente
+    next_threshold: int | None  # días del próximo tramo; None en el máximo
+    next_multiplier: float | None
+    days_to_next: int           # 0 en el tramo máximo
+    is_max: bool
+    counted_today: bool         # esta sesión fue la primera completada del día
+    xp_bonus: int = 0           # XP extra ganado en esta sesión gracias al multiplicador (solo summary)
+
+
 class UserProgressResponse(BaseModel):
     topic_states: dict[str, TopicProgress]
     level_info: LevelInfo
@@ -89,6 +100,7 @@ class UserProgressResponse(BaseModel):
     iteration: int = 1            # iteración de progreso vigente
     session_size: int = 8         # máx de ejercicios por sesión de repaso
     session_size_max: int = 30    # tope superior del selector de session_size
+    streak: StreakInfo
 
 
 class PracticeStatsResponse(BaseModel):
@@ -273,17 +285,6 @@ class BeltProgressInfo(BaseModel):
     promoted: bool
 
 
-class StreakInfo(BaseModel):
-    days: int                   # días de actividad acumulados (racha global)
-    multiplier: float           # multiplicador de XP de Repaso vigente
-    next_threshold: int | None  # días del próximo tramo; None en el máximo
-    next_multiplier: float | None
-    days_to_next: int           # 0 en el tramo máximo
-    is_max: bool
-    counted_today: bool         # esta sesión fue la primera completada del día
-    xp_bonus: int                # XP extra ganado en esta sesión gracias al multiplicador
-
-
 class SessionSummaryResponse(BaseModel):
     session_id: str
     user_name: str
@@ -299,3 +300,4 @@ class SessionSummaryResponse(BaseModel):
     xp_earned: int
     level_info: LevelInfoWithMissing
     streak: StreakInfo
+    session_number: int  # nº de orden de esta sesión entre todas las terminadas por el usuario
