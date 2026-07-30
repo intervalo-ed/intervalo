@@ -2,7 +2,6 @@
 
 import MathText from "@/components/math-text"
 import { CountUp } from "@/components/count-up"
-import { XpDots } from "@/components/xp-dots"
 import {
   BeltGrid,
   ITEM_COLORS,
@@ -66,11 +65,19 @@ import { CourseEditorRow, type TopicEditState } from "./course-editor-row"
 import { EditorStepper } from "./editor-stepper"
 import { useDebouncedStepper } from "./UseDebouncedStepper"
 import { useCourseEditor } from "./UseCourseEditor"
-import { useLeaderboard } from "./(app)/leaderboard/UseLeaderboard"
 import { useStartSession } from "./UseStartSession"
 import { useUserProgress } from "./UseUserProgress"
+import { startSessionTransition } from "@/lib/nav/session-transition"
 
 const LAST_COURSE_KEY = "intervalo:last_course"
+
+// Transición hacia una sesión: fade-out del dashboard, pausa forzada sobre el
+// fondo vacío, recién ahí se navega. Mismo timing en dashboard-entry.tsx y
+// practice-config.tsx. El prefetch (ver onRepasar) corre en paralelo con esta
+// pausa, así que cuando el push finalmente dispara, la ruta ya está resuelta
+// y no hay ningún hueco para que asome un loading.tsx/skeleton.
+const FADE_OUT_MS = 200
+const FORCED_DELAY_MS = 500
 
 function isCourseId(v: unknown): v is CourseId {
   return typeof v === "string" && (COURSE_ORDER as string[]).includes(v)
@@ -102,7 +109,6 @@ const BELT_COLOR: Record<BeltKey, string> = {
 }
 
 export default function DashboardEntry() {
-  const leaderboard = useLeaderboard()
   const { user } = useUser()
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -226,7 +232,6 @@ export default function DashboardEntry() {
   const canRepasar =
     totals !== null && (!mainSessionDoneToday || totals.pendientes > 0)
 
-  const totalXp = leaderboard.data?.pages[0]?.me.total_xp
   const unitTotals = data
     ? courseUnitTotals({ topicStates: data.topic_states, course })
     : null
@@ -244,18 +249,34 @@ export default function DashboardEntry() {
     if (contentReady) markReady()
   }, [contentReady, markReady])
 
+  // Al terminar de cargar la sesión: se desvanece todo el contenido (queda solo
+  // el fondo), una pausa forzada, y recién ahí se navega — el runner hace su
+  // propio fade-in al llegar. Todo esto pasa DESPUÉS de que la sesión ya está
+  // lista, así que no hay margen para que se llegue a ver ningún skeleton de
+  // ruteo en el medio.
+  const [leaving, setLeaving] = useState(false)
+
   function onRepasar() {
     sfx.start()
     startSession.mutate(
       { userName: user?.fullName ?? user?.firstName ?? "", course },
       {
-        onSuccess: (payload) => router.push(`/session/${payload.session_id}`),
+        onSuccess: (payload) => {
+          const url = `/session/${payload.session_id}`
+          // Arranca a resolver la ruta (layout (app) + página) ya mismo, en
+          // paralelo con el fade-out/pausa — para cuando el push dispare, ya
+          // no queda nada async pendiente y no hay hueco para un skeleton.
+          router.prefetch(url)
+          setLeaving(true)
+          startSessionTransition()
+          setTimeout(() => router.push(url), FADE_OUT_MS + FORCED_DELAY_MS)
+        },
       },
     )
   }
 
   return (
-    <Screen>
+    <Screen className={cn("transition-opacity duration-200", leaving && "opacity-0")}>
       <ScreenHeader innerClassName="justify-center">
         <Link href="/" aria-label="Intervalo">
           <Wordmark textClass="text-[15px]" barClass="h-[3px]" />
@@ -305,17 +326,8 @@ export default function DashboardEntry() {
             ) : (
               <div className="grid grid-cols-3 gap-2">
               <Metric
-                label="Experiencia total"
-                value={
-                  totalXp !== undefined ? (
-                    <span className="inline-flex items-center gap-1.5">
-                      {totalXp.toLocaleString("es")}
-                      <XpDots className="size-[0.85em] text-primary" />
-                    </span>
-                  ) : (
-                    "…"
-                  )
-                }
+                label="Multiplicador de XP"
+                value={data ? `×${data.streak.multiplier.toFixed(1)}` : "…"}
               />
               <Metric
                 label="Ítems desbloqueados"

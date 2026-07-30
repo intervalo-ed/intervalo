@@ -2,7 +2,7 @@
 // Source: backend/content/algebra/course.json
 // Do not edit by hand; rerun `bun run scripts/sync-catalog.ts`.
 
-export type BeltKey = "white" | "blue" | "violet"
+export type BeltKey = "white" | "blue" | "violet" | "brown"
 
 export interface Topic {
   key: string
@@ -225,28 +225,6 @@ export const catalog: Catalog = {
                 "LEXI",
                 "RESL"
               ]
-            },
-            {
-              "key": "lines",
-              "name": "Rectas",
-              "tooltip": "Una **recta** en el espacio queda determinada unívocamente por un punto de paso y un vector director que marca su orientación.\n$$L: \\vec{x} = \\vec{p} + t\\vec{d}$$\nAl variar el parámetro escalar $t$, se recorren todos los puntos que pertenecen a la recta, generando un subespacio unidimensional desplazado desde el origen.",
-              "short_description": "Una **recta** en el espacio queda determinada unívocamente por un punto de paso y un vector director que marca su orientación.\n$$L: \\vec{x} = \\vec{p} + t\\vec{d}$$",
-              "skills": [
-                "LEXI",
-                "FORM",
-                "RESL"
-              ]
-            },
-            {
-              "key": "planes",
-              "name": "Planos",
-              "tooltip": "Un **plano** en el espacio requiere un punto de paso y un vector normal que define su inclinación respecto a los ejes.\n$$\\pi: \\vec{n} \\cdot (\\vec{x} - \\vec{p}) = 0$$\nLa ecuación refleja que cualquier vector contenido dentro del plano es ortogonal al vector normal. Las intersecciones entre planos modelan geométricamente los sistemas de ecuaciones.",
-              "short_description": "Un **plano** en el espacio requiere un punto de paso y un vector normal que define su inclinación respecto a los ejes.\n$$\\pi: \\vec{n} \\cdot (\\vec{x} - \\vec{p}) = 0$$",
-              "skills": [
-                "LEXI",
-                "FORM",
-                "RESL"
-              ]
             }
           ]
         }
@@ -311,26 +289,93 @@ export const catalog: Catalog = {
                 "LEXI",
                 "RESL"
               ]
-            },
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "brown",
+      "headline": "Espacios",
+      "description": "Un **espacio vectorial** es un conjunto de elementos sobre un cuerpo que cumple los axiomas de clausura y linealidad.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$\nEsta unidad introduce los conceptos fundamentales de subespacios, combinaciones lineales, independencia, generadores, bases y dimensión.",
+      "units": [
+        {
+          "key": "spaces",
+          "name": "Espacios",
+          "description": "Un espacio vectorial es un conjunto de elementos sobre un cuerpo que cumple los axiomas de clausura y linealidad.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$\nEsta unidad introduce los conceptos fundamentales de subespacios, combinaciones, bases y dimensión.",
+          "topics": [
             {
-              "key": "systems",
-              "name": "Sistemas",
-              "tooltip": "Un **sistema de ecuaciones lineales** puede expresarse de forma compacta mediante una ecuación matricial.\n$$A\\vec{x} = \\vec{b}$$\nAquí, la matriz concentra los coeficientes, el vector agrupa las incógnitas y el segundo vector representa los términos independientes. Permite abordar sistemas lineales de forma global.",
-              "short_description": "Un **sistema de ecuaciones lineales** puede expresarse de forma compacta mediante una ecuación matricial.\n$$A\\vec{x} = \\vec{b}$$",
+              "key": "definition",
+              "name": "Definición",
+              "tooltip": "Un **espacio vectorial** es un conjunto $V$ con dos operaciones, suma y producto por escalar, que satisfacen un conjunto de axiomas: clausura, asociatividad, existencia de neutro y opuesto, y distributividad.\n$$\\vec{u}+\\vec{v} \\in V, \\quad \\alpha\\vec{v} \\in V$$\n$\\mathbb{R}^n$ es el ejemplo prototípico, pero la definición abstracta permite trabajar con otros conjuntos, como polinomios o matrices, bajo la misma estructura.",
+              "short_description": "Un **espacio vectorial** es un conjunto $V$ con operaciones de suma y producto por escalar que satisface un conjunto de axiomas de clausura y linealidad.\n$$\\vec{u}+\\vec{v} \\in V, \\quad \\alpha\\vec{v} \\in V$$",
               "skills": [
                 "LEXI",
-                "FORM",
+                "CLSF"
+              ]
+            },
+            {
+              "key": "subspaces",
+              "name": "Subespacios",
+              "tooltip": "Un **subespacio vectorial** es un subconjunto de un espacio mayor que se comporta como un espacio vectorial por sí mismo.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$\nPara calificar como tal, debe ser cerrado bajo la suma y el producto por escalar, lo que exige geométricamente que incluya al vector nulo. Rectas y planos por el origen son ejemplos clásicos.",
+              "short_description": "Un **subespacio vectorial** es un subconjunto de un espacio mayor cerrado bajo sumas y productos escalares.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$",
+              "skills": [
+                "LEXI",
+                "CLSF",
                 "RESL"
               ]
             },
             {
-              "key": "elimination",
-              "name": "Eliminación",
-              "tooltip": "La **eliminación de Gauss** es un algoritmo sistemático que transforma la matriz de un sistema en una forma escalonada mediante operaciones por fila.\n$$\\begin{pmatrix} A | \\vec{b} \\end{pmatrix} \\to \\begin{pmatrix} U | \\vec{c} \\end{pmatrix}$$\nEl proceso preserva el conjunto de soluciones del sistema original mientras despeja progresivamente las variables, facilitando su resolución mediante sustitución inversa.",
-              "short_description": "La **eliminación de Gauss** es un algoritmo que transforma la matriz en una forma escalonada mediante operaciones por fila.\n$$\\begin{pmatrix} A | \\vec{b} \\end{pmatrix} \\to \\begin{pmatrix} U | \\vec{c} \\end{pmatrix}$$",
+              "key": "combinations",
+              "name": "Combinaciones",
+              "tooltip": "Una **combinación lineal** es el vector resultante de sumar un conjunto de vectores previamente multiplicados por escalares.\n$$\\vec{v} = c_1\\vec{v}_1 + c_2\\vec{v}_2 + \\dots + c_k\\vec{v}_k$$\nEs la forma fundamental de moverse dentro de un espacio vectorial: cada escalar dicta la intensidad del desplazamiento en la dirección de su vector correspondiente.",
+              "short_description": "Una **combinación lineal** es la suma de vectores previamente multiplicados por coeficientes escalares.\n$$\\vec{v} = c_1\\vec{v}_1 + c_2\\vec{v}_2 + \\dots + c_k\\vec{v}_k$$",
+              "skills": [
+                "LEXI",
+                "RESL"
+              ]
+            },
+            {
+              "key": "independence",
+              "name": "Independencia",
+              "tooltip": "Un conjunto de vectores es **linealmente independiente** si ninguno de ellos puede expresarse como combinación lineal del resto.\n$$c_1\\vec{v}_1 + \\dots + c_k\\vec{v}_k = \\vec{0} \\implies c_i = 0$$\nLa única forma de obtener el vector nulo es con coeficientes nulos. Asegura que cada vector aporta una nueva dimensión útil.",
+              "short_description": "Un conjunto es **linealmente independiente** si ningún vector puede expresarse en función de los otros.\n$$c_1\\vec{v}_1 + \\dots + c_k\\vec{v}_k = \\vec{0} \\implies c_i = 0$$",
+              "skills": [
+                "LEXI",
+                "CLSF",
+                "RESL"
+              ]
+            },
+            {
+              "key": "generators",
+              "name": "Generadores",
+              "tooltip": "Un conjunto de **generadores** es un grupo de vectores cuyas combinaciones lineales permiten construir cualquier vector de un espacio dado.\n$$\\text{gen}(\\{\\vec{v}_1, \\dots, \\vec{v}_k\\}) = V$$\nAbarcan todo el subespacio, pero no necesariamente con eficiencia: pueden existir elementos redundantes que no comprometan el espacio cubierto.",
+              "short_description": "Un conjunto de **generadores** es un grupo de vectores cuyas combinaciones generan todo un espacio.\n$$\\text{gen}(\\{\\vec{v}_1, \\dots, \\vec{v}_k\\}) = V$$",
+              "skills": [
+                "LEXI",
+                "CLSF",
+                "RESL"
+              ]
+            },
+            {
+              "key": "bases",
+              "name": "Bases",
+              "tooltip": "Una **base** es un conjunto de vectores que actúa como sistema de referencia óptimo: genera todo el espacio y es linealmente independiente.\n$$V = \\text{gen}(B) \\quad \\text{y} \\quad B \\text{ es L.I.}$$\nGarantiza que cualquier vector del espacio se escriba de forma única como combinación lineal de los vectores de la base.",
+              "short_description": "Una **base** es un conjunto linealmente independiente que genera la totalidad de un espacio.\n$$V = \\text{gen}(B) \\quad \\text{y} \\quad B \\text{ es L.I.}$$",
               "skills": [
                 "LEXI",
                 "ESTR",
+                "RESL"
+              ]
+            },
+            {
+              "key": "dimension",
+              "name": "Dimensión",
+              "tooltip": "La **dimensión** de un espacio vectorial es la cantidad exacta de vectores que contiene cualquiera de sus bases.\n$$\\dim(V) = n$$\nEs una propiedad intrínseca del espacio que representa sus grados de libertad. Aunque existan infinitas bases, todas poseen la misma cantidad de elementos.",
+              "short_description": "La **dimensión** de un espacio vectorial es la cantidad de elementos que posee cualquiera de sus bases.\n$$\\dim(V) = n$$",
+              "skills": [
+                "LEXI",
+                "CLSF",
                 "RESL"
               ]
             }

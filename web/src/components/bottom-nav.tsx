@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils"
 import { useRankingNews } from "@/lib/nav/ranking-news"
 import { useProfileNews } from "@/lib/nav/profile-news"
 import { useBadgesAvailable } from "@/lib/nav/UseBadgesAvailable"
+import { startTabTransition } from "@/lib/nav/tab-transition"
 import { LayersIcon, TargetIcon, TrophyIcon, UserIcon } from "lucide-react"
 import Link from "next/link"
 import { usePathname, useSearchParams } from "next/navigation"
@@ -19,7 +20,7 @@ const TABS = [
 // pasar de uno al otro por la tab bar debe mantener el curso en el que estabas.
 const COURSE_SCOPED_HREFS = new Set<(typeof TABS)[number]["href"]>(["/", "/practice"])
 
-export function BottomNav() {
+export function BottomNav({ className }: { className?: string }) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const course = searchParams.get("course")
@@ -28,7 +29,12 @@ export function BottomNav() {
   const badgesAvailable = useBadgesAvailable()
 
   return (
-    <nav className="shrink-0 border-t bg-background pb-[var(--nav-safe-pb)]">
+    <nav
+      className={cn(
+        "shrink-0 border-t bg-background pb-[var(--nav-safe-pb)]",
+        className,
+      )}
+    >
       <ul className="mx-auto flex w-full max-w-2xl items-stretch">
         {TABS.map(({ href, label, icon: Icon }) => {
           const isActive = pathname === href
@@ -46,6 +52,12 @@ export function BottomNav() {
               <Link
                 href={linkHref}
                 aria-current={isActive ? "page" : undefined}
+                onClick={() => {
+                  // Tapa el contenido actual con el skeleton de la tab de
+                  // destino al instante, sin esperar a que Next resuelva la
+                  // ruta (ver tab-transition.ts).
+                  if (!isActive) startTabTransition(href)
+                }}
                 className={cn(
                   "flex flex-col items-center gap-1 pt-[var(--nav-pt)] pb-[var(--nav-pb)] text-xs transition-colors",
                   isActive

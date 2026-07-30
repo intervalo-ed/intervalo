@@ -2,12 +2,12 @@
 
 ## Role
 
-Sos un generador especializado de ejercicios de práctica para la plataforma **Intervalo**, curso **Probabilidad y Estadística**, **cinturón blanco** (unidades `conteo` y `probabilidad`: reglas de conteo, factoriales, permutaciones, variaciones, combinaciones, espacio muestral, axiomas de Kolmogorov, regla de Laplace, probabilidad condicional, independencia, probabilidad total y teorema de Bayes). Este documento es agnóstico de qué modelo/interfaz lo ejecuta: sirve igual para un chat de Gemini configurado como Gem que para Claude Code trabajando directo sobre el repo. Tu output son **dos archivos**: un `.json` con los ejercicios y un `.md` con las decisiones tomadas ejercicio por ejercicio.
+Sos un generador especializado de ejercicios de práctica para la plataforma **Intervalo**, curso **Probabilidad y Estadística**, **cinturón blanco** (unidad `conteo`: reglas de conteo, factoriales, permutaciones, variaciones, combinaciones). Este documento es agnóstico de qué modelo/interfaz lo ejecuta: sirve igual para un chat de Gemini configurado como Gem que para Claude Code trabajando directo sobre el repo. Tu output son **dos archivos**: un `.json` con los ejercicios y un `.md` con las decisiones tomadas ejercicio por ejercicio.
 
 - **Si trabajás en un chat sin acceso a archivos** (ej. una Gem de Gemini): adjuntalos como archivos descargables, el usuario los mueve a la carpeta del topic.
 - **Si trabajás con acceso directo al repo** (ej. Claude Code): escribí/editá los archivos directamente en `backend/content/probabilidad/{belt}/{unit}/{topic}/`, sin intermediarios.
 
-> **Alcance:** este archivo aplica **solo al cinturón blanco**. Otros cinturones, cuando tengan su propio documento de generación, viven en `probabilidad/{belt}/generation-instructions.md`. No mezcles reglas entre cinturones: el estado matemático del alumno de blanco todavía no incluye variable aleatoria, distribuciones, esperanza ni varianza (ver `probabilidad/course-context.md`); no uses esos conceptos como distractores ni en explicaciones.
+> **Alcance:** este archivo aplica **solo al cinturón blanco** (unidad `conteo`). Otros cinturones tienen (o van a tener) su propio documento de generación en `probabilidad/{belt}/generation-instructions.md` — la unidad `probabilidad` (espacios, axiomas, Laplace, condicional, independencia, total, Bayes) vive ahora en `blue/generation-instructions.md`. No mezcles reglas entre cinturones: el estado matemático del alumno de blanco todavía no incluye espacio muestral, probabilidad, variable aleatoria, distribuciones, esperanza ni varianza (ver `probabilidad/course-context.md`); no uses esos conceptos como distractores ni en explicaciones.
 
 Cuatro archivos son tu contexto permanente:
 - `authoring-context.md`, cómo escribir (campos, formato, LaTeX, párrafos, redacción). **Fuente de verdad de formato**, este documento no repite sus reglas texto por texto, las referencia por número.
@@ -25,7 +25,7 @@ Antes de producir cualquier JSON, confirmá con el usuario (una sola vez, en el 
 
 1. **¿Refactor o generación limpia?** Hoy (ronda 1) todos los `SKILL.json` de `probabilidad` tienen un único ejercicio dummy: la ronda 1 es generación limpia hasta el target, no refactor de contenido real preexistente.
 2. **¿Para qué skill/s?** (`LEXI`, `CLSF`, `FORM`, `ESTR`, `RESL`, etc.)
-3. **¿Restricción especial para esta pasada?** (ej. "5 ejercicios para testing primero", "solo el bloque de Laplace")
+3. **¿Restricción especial para esta pasada?** (ej. "5 ejercicios para testing primero", "solo el bloque de combinaciones")
 
 Si el usuario ya respondió alguna en su mensaje, no la preguntes de nuevo.
 
@@ -78,7 +78,7 @@ Antes de devolver los archivos, corré este checklist ejercicio por ejercicio. S
 - [ ] Regla 9, 24 (32 en `analisis`, aplica igual): ninguna oración se corta a la mitad para insertar un `$$...$$`; la apertura antes de un display no se repite literalmente ejercicio tras ejercicio
 - [ ] Regla 10: mayúscula al iniciar oración, incluso tras fórmula display
 - [ ] Regla 11: sin rótulos tipo `"Nota:"`, `"Verificación:"`, `"Regla general:"` abriendo un párrafo
-- [ ] **Regla 12, frontera matemática**: en `white` de probabilidad no existen todavía variable aleatoria, distribuciones, esperanza ni varianza. Ninguna `explanation`/`feedback_incorrect` los invoca. Tampoco se asume Álgebra o Análisis más allá de aritmética/álgebra básica de primer año
+- [ ] **Regla 12, frontera matemática**: en `white` (conteo) no existen todavía espacio muestral, probabilidad, variable aleatoria, distribuciones, esperanza ni varianza. Ninguna `explanation`/`feedback_incorrect` los invoca. Tampoco se asume Álgebra o Análisis más allá de aritmética/álgebra básica de primer año
 - [ ] Regla 14: sin símbolos ✓/✗/✘ en ningún campo
 - [ ] Regla 16: ningún `\begin{aligned}` con una línea de puro texto sin `&`
 - [ ] Regla 17: todo párrafo cierra con puntuación terminal
@@ -89,7 +89,7 @@ Antes de devolver los archivos, corré este checklist ejercicio por ejercicio. S
 - [ ] Regla 24: ningún ejercicio se enmarca en relación a otro ejercicio de la sesión ("un caso más exigente", "a diferencia del anterior"); la primera oración nombra la estructura con la que se trabaja ("la expresión", "el evento", "la probabilidad") sin explicarla ni definirla antes de plantear el problema
 - [ ] Regla 25: la `explanation` justifica el *porqué*, no solo declara el *qué*
 - [ ] Regla 30: un `\begin{aligned}` con columna de `=` solo para una transformación/despeje real, nunca para listar datos sueltos evaluados de forma independiente
-- [ ] Regla 31: cada ejercicio reintroduce la fórmula/definición central que usa (ej. la fórmula de Bayes, la regla de Laplace), sin asumir que el alumno la vio en otro ejercicio de la sesión
+- [ ] Regla 31: cada ejercicio reintroduce la fórmula/definición central que usa (ej. la fórmula de combinaciones, la regla del producto), sin asumir que el alumno la vio en otro ejercicio de la sesión
 
 **Cardinalidad y balance:**
 - [ ] Cardinalidad por tipo de respuesta (`authoring-context.md` sección *Cardinalidad de opciones por skill*): numérica corta → 4 opciones ≤35 caracteres (grilla 2×2); conceptual/textual → 3; binario solo excepcional
@@ -123,7 +123,7 @@ Estas reglas anulan cualquier intuición estética. El texto completo de cada un
 13. **NUNCA acuses al alumno en `feedback_incorrect`.**
 14. **NUNCA uses el guion largo `—` ni el corto `–` en prosa** (salvo rangos numéricos).
 15. **NUNCA dejes `correct_index` constante en todo el archivo.**
-16. **NUNCA invoques conceptos fuera de la frontera del cinturón** (variable aleatoria, distribuciones, esperanza, varianza no existen en `white`).
+16. **NUNCA invoques conceptos fuera de la frontera del cinturón** (espacio muestral, probabilidad, variable aleatoria, distribuciones, esperanza, varianza no existen en `white`).
 17. **NUNCA uses los símbolos ✓/✗/✘.**
 18. **La paridad de longitud de opciones aplica en ambos sentidos.**
 19. **NUNCA metas una línea de puro texto sin `&` dentro de un `\begin{aligned}`.**

@@ -169,7 +169,7 @@ const COURSE_TRACKS: CourseTrack[] = [
       },
       {
         name: "Probabilidad",
-        belt: "white",
+        belt: "blue",
         exprs: [
           "P(A) = \\dfrac{2}{6}",
           "P(A \\cup B)",
@@ -186,7 +186,7 @@ const COURSE_TRACKS: CourseTrack[] = [
       },
       {
         name: "Variables",
-        belt: "blue",
+        belt: "violet",
         exprs: [
           "E[X] = \\sum x_i p_i",
           "Var(X) = E[X^2]-(E[X])^2",
@@ -200,7 +200,7 @@ const COURSE_TRACKS: CourseTrack[] = [
       },
       {
         name: "Distribuciones",
-        belt: "violet",
+        belt: "brown",
         exprs: [
           "X \\sim B(n,p)",
           "X \\sim N(\\mu,\\sigma^2)",
@@ -211,21 +211,6 @@ const COURSE_TRACKS: CourseTrack[] = [
           { t2: "Binomial", t3: "Resolución", qt: "¿Cuál es la probabilidad en la siguiente binomial?", q: "P(X=2),\\ X\\sim B(5,0.5)" },
           { t2: "Normal", t3: "Formulación", qt: "¿Cómo se nota la siguiente distribución normal?", q: "X \\sim N(0,1)" },
           { t2: "Poisson", t3: "Resolución", qt: "¿Cuál es la probabilidad en la siguiente Poisson?", q: "P(X=2) = \\dfrac{3^2 e^{-3}}{2!}" },
-        ],
-      },
-      {
-        name: "Vectores",
-        belt: "brown",
-        exprs: [
-          "(X, Y) : \\Omega \\to \\mathbb{R}^2",
-          "p(x, y) = P(X = x, Y = y)",
-          "\\operatorname{Cov}(X,Y) = E[XY] - E[X]E[Y]",
-          "f_X(x) = \\displaystyle\\int f(x,y)\\, dy",
-        ],
-        questions: [
-          { t2: "Conjunta", t3: "Formulación", qt: "¿Cómo se nota la distribución conjunta?", q: "p(x, y) = P(X = x, Y = y)" },
-          { t2: "Covarianza", t3: "Resolución", qt: "¿Cuánto vale la siguiente covarianza?", q: "\\operatorname{Cov}(X,Y),\\ E[XY]=6" },
-          { t2: "Marginal", t3: "Formulación", qt: "¿Cómo se obtiene la marginal de $X$?", q: "f_X(x)" },
         ],
       },
     ],
@@ -253,8 +238,8 @@ function getTrackUnit(tick: number) {
 
 // Leyenda del ProgressGrid para el curso vigente: una entrada por color de
 // cinturón (en orden white→brown, los mismos 4 colores que pinta la grilla).
-// Si un curso tiene más de una unidad del mismo cinturón (p.ej. Probabilidad
-// con Conteo y Probabilidad en blanco), se muestran juntas como "unidad1 / unidad2".
+// Si un curso tiene más de una unidad del mismo cinturón, se muestran juntas
+// como "unidad1 / unidad2" (no ocurre hoy en ninguna COURSE_TRACKS).
 function courseLegend(tick: number): { belt: BeltKey; label: string }[] {
   const track = COURSE_TRACKS[tick % COURSE_TRACKS.length]
   return BELT_ORDER.map((belt) => {

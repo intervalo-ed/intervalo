@@ -44,32 +44,32 @@ contenido real todavía.
 | white/conteo | permutaciones | CLSF, FORM, RESL | 50 |
 | white/conteo | variaciones | CLSF, FORM, RESL | 50 |
 | white/conteo | combinaciones | CLSF, FORM, RESL | 50 |
-| white/probabilidad | espacios | LEXI, CLSF | 50 |
-| white/probabilidad | axiomas | LEXI, ESTR, RESL | 50 |
-| white/probabilidad | laplace | FORM, RESL | 50 |
-| white/probabilidad | condicional | ESTR, FORM, RESL | 50 |
-| white/probabilidad | independencia | CLSF, FORM, RESL | 50 |
-| white/probabilidad | total | ESTR, FORM, RESL | 50 |
-| white/probabilidad | bayes | ESTR, FORM, RESL | 50 |
-| blue/variables | definicion_var | LEXI, CLSF | 15 |
-| blue/variables | puntual | FORM, GRAF, RESL | 15 |
-| blue/variables | densidad | FORM, GRAF, RESL | 15 |
-| blue/variables | acumulada | FORM, GRAF, RESL | 15 |
-| blue/variables | esperanza | FORM, RESL | 15 |
-| blue/variables | varianza | FORM, RESL | 15 |
-| violet/distribuciones | binomial | CLSF, FORM | 15 |
-| violet/distribuciones | geometrica | CLSF, FORM | 15 |
-| violet/distribuciones | negativa | CLSF, FORM | 15 |
-| violet/distribuciones | hipergeometrica | CLSF, FORM | 15 |
-| violet/distribuciones | poisson | CLSF, FORM | 15 |
-| violet/distribuciones | uniforme | GRAF, FORM | 15 |
-| violet/distribuciones | exponencial | GRAF, FORM | 15 |
-| violet/distribuciones | normal | GRAF, FORM | 15 |
-| brown/vectores | conjunta | CLSF, FORM, RESL | 15 |
-| brown/vectores | marginales | FORM, RESL | 15 |
-| brown/vectores | covarianza | FORM, RESL | 15 |
-| brown/vectores | correlacion | FORM, RESL | 15 |
-| brown/vectores | independencia_vec | CLSF, FORM, RESL | 15 |
+| blue/probabilidad | espacios | LEXI, CLSF | 50 |
+| blue/probabilidad | axiomas | LEXI, ESTR, RESL | 50 |
+| blue/probabilidad | laplace | FORM, RESL | 50 |
+| blue/probabilidad | condicional | ESTR, FORM, RESL | 50 |
+| blue/probabilidad | independencia | CLSF, FORM, RESL | 50 |
+| blue/probabilidad | total | ESTR, FORM, RESL | 50 |
+| blue/probabilidad | bayes | ESTR, FORM, RESL | 50 |
+| violet/variables | definicion_var | LEXI, CLSF | 15 |
+| violet/variables | puntual | FORM, GRAF, RESL | 15 |
+| violet/variables | densidad | FORM, GRAF, RESL | 15 |
+| violet/variables | acumulada | FORM, GRAF, RESL | 15 |
+| violet/variables | esperanza | FORM, RESL | 15 |
+| violet/variables | varianza | FORM, RESL | 15 |
+| brown/distribuciones | binomial | CLSF, FORM | 15 |
+| brown/distribuciones | geometrica | CLSF, FORM | 15 |
+| brown/distribuciones | negativa | CLSF, FORM | 15 |
+| brown/distribuciones | hipergeometrica | CLSF, FORM | 15 |
+| brown/distribuciones | poisson | CLSF, FORM | 15 |
+| brown/distribuciones | uniforme | GRAF, FORM | 15 |
+| brown/distribuciones | exponencial | GRAF, FORM | 15 |
+| brown/distribuciones | normal | GRAF, FORM | 15 |
+
+`vectores` (vectores aleatorios) quedó sin cinturón asignado en `course.json`
+tras correr las unidades un cinturón hacia abajo (jul-2026); el contenido sigue
+en disco en `backend/content/probabilidad/brown/vectores/`, pendiente de
+retomar en una ronda futura. No forma parte del alcance de esta tabla.
 
 **Por qué 50 en `white` y 15 en el resto:** mismo criterio que usó `analisis` en su
 ronda 1 (ver tabla de alcance de
@@ -80,11 +80,11 @@ arrancan en un set más chico (15) para no bloquear el lanzamiento del curso
 completo, y se expanden a 50 en una ronda futura si el volumen de uso lo justifica.
 
 **Orden sugerido:** por unidad, `white → blue → violet → brown`, y dentro de cada
-unidad en el orden de la tabla (`conteo` antes que `probabilidad` porque Laplace y
-Bayes usan combinatoria; dentro de `probabilidad`, `espacios → axiomas → laplace →
-condicional → independencia → total → bayes` porque cada uno depende
-conceptualmente del anterior). Cerrá un topic completo (todas sus skills) antes de
-pasar al siguiente.
+unidad en el orden de la tabla (`conteo` (white) antes que `probabilidad` (blue)
+porque Laplace y Bayes usan combinatoria; dentro de `probabilidad`, `espacios →
+axiomas → laplace → condicional → independencia → total → bayes` porque cada uno
+depende conceptualmente del anterior). Cerrá un topic completo (todas sus skills)
+antes de pasar al siguiente.
 
 ---
 
@@ -111,9 +111,10 @@ seguí, no la pises.
    resumen.
 2. `backend/content/probabilidad/course-context.md` (qué sabe el alumno en cada
    belt, frontera matemática dura).
-3. `backend/content/probabilidad/white/generation-instructions.md` (para topics de
-   `white`; belts posteriores tendrán el suyo si hace falta, hoy referencian este
-   mismo mientras no haya reglas específicas de `blue`/`violet`/`brown`).
+3. El `generation-instructions.md` del belt del topic: `white/generation-instructions.md`
+   (unidad `conteo`) o `blue/generation-instructions.md` (unidad `probabilidad`).
+   `violet`/`brown` todavía no tienen el suyo propio; referencian estos dos mientras
+   no haya reglas específicas.
 4. El `topic-context.md` del topic: distribución por sub-familia con slugs de
    `tags`, confusiones fuente, reglas duras propias del topic.
 
@@ -129,9 +130,9 @@ paso.
 
 ### 3. Generar (cuando la ronda 1 arranque para ese topic)
 
-Seguí el "Paso 2" (planning) y "Paso 3" (generación) de
-`white/generation-instructions.md`: plan numerado en el chat antes de escribir un
-solo ejercicio, después generación siguiendo el plan.
+Seguí el "Paso 2" (planning) y "Paso 3" (generación) del `generation-instructions.md`
+del belt correspondiente: plan numerado en el chat antes de escribir un solo
+ejercicio, después generación siguiendo el plan.
 
 ### 4. Seedear (formato + integridad)
 

@@ -1,39 +1,26 @@
 "use client"
 
 import { usePathname } from "next/navigation"
-import Link from "next/link"
-import { Wordmark } from "@/components/wordmark"
-import { Screen, ScreenBody, ScreenHeader } from "@/components/ui/screen"
-import {
-  LeaderboardSkeleton,
-  PracticeSkeleton,
-  ProfileSkeleton,
-} from "@/components/tab-skeletons"
+import { Screen } from "@/components/ui/screen"
+import { TabLoadingShell, type TabRoute } from "@/components/tab-loading-shell"
 
-// Mismo shell y skeleton que cada pantalla muestra una vez montada, elegido por
-// pathname (server no sabe todavía a cuál de las 3 rutas del grupo se entra):
-// cero movimiento al pasar de este fallback de ruteo al skeleton real.
+const TAB_ROUTES = new Set<string>(["/practice", "/leaderboard", "/profile"])
+
+// Mismo shell/skeleton que el overlay de transición de tabs (ver
+// tab-transition.ts) — este boundary solo debería llegar a pintarse en casos
+// borde (navegación directa, refresh) porque el overlay client-side ya tapa
+// el contenido antes de que Next dispare esta ruta.
 export default function Loading() {
   const pathname = usePathname()
-  const isPractice = pathname === "/practice"
-  const body = isPractice ? (
-    <PracticeSkeleton />
-  ) : pathname === "/profile" ? (
-    <ProfileSkeleton />
-  ) : (
-    <LeaderboardSkeleton />
-  )
 
-  return (
-    <Screen>
-      <ScreenHeader innerClassName="justify-center">
-        <Link href="/" aria-label="Intervalo">
-          <Wordmark textClass="text-[15px]" barClass="h-[3px]" />
-        </Link>
-      </ScreenHeader>
-      <ScreenBody className={isPractice ? "gap-4 py-4" : undefined}>
-        {body}
-      </ScreenBody>
-    </Screen>
-  )
+  // Entrar a una sesión no debería mostrar un skeleton de otra pestaña (venía
+  // cayendo acá en el LeaderboardSkeleton): pantalla vacía, el runner se hace
+  // cargo del resto con su propio fade-in.
+  if (pathname?.startsWith("/session")) {
+    return <Screen>{null}</Screen>
+  }
+
+  if (!TAB_ROUTES.has(pathname)) return <Screen>{null}</Screen>
+
+  return <TabLoadingShell tab={pathname as TabRoute} />
 }
