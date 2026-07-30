@@ -1214,6 +1214,13 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
         for key in catalog_keys
     )
 
+    # Racha global de días, para mostrar el multiplicador de XP vigente fuera
+    # del summary (indicador de Repasar/Practicar). `counted_today` acá refleja
+    # si ya se completó alguna sesión hoy (no cuenta un día nuevo como el
+    # summary, solo informa).
+    si = streak_info(user.streak_days if user else 0)
+    streak_counted_today = bool(user and user.streak_last_date == today)
+
     return {
         "topic_states": topic_states,
         "level_info": {
@@ -1229,6 +1236,15 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
         "iteration": cp.iteration,
         "session_size": cp.session_size,
         "session_size_max": SESSION_SIZE_MAX,
+        "streak": {
+            "days": si.days,
+            "multiplier": si.multiplier,
+            "next_threshold": si.next_threshold,
+            "next_multiplier": si.next_multiplier,
+            "days_to_next": si.days_to_next,
+            "is_max": si.is_max,
+            "counted_today": streak_counted_today,
+        },
     }
 
 
@@ -1334,6 +1350,19 @@ def get_summary_db(
     total_xp = user.total_xp if user else 0
     lp = level_progress(total_xp)
 
+    # Nº de orden de esta sesión entre TODAS las sesiones terminadas por el
+    # usuario (cualquier curso/modo), para el subtítulo "Completaste tu sesión
+    # número n." del resumen.
+    session_number = (
+        db.query(SessionModel)
+        .filter(
+            SessionModel.user_id == user_id,
+            SessionModel.finished_at.isnot(None),
+            SessionModel.id <= db_session.id,
+        )
+        .count()
+    )
+
     return {
         "session_id": str(session_id_db),
         "user_name": "",
@@ -1368,6 +1397,7 @@ def get_summary_db(
             "counted_today": streak_counted_today,
             "xp_bonus": xp_bonus_total,
         },
+        "session_number": session_number,
     }
 
 

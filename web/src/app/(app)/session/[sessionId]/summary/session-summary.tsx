@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
-import { motion } from "motion/react"
+import { AnimatePresence, motion } from "motion/react"
 import { useQueryClient } from "@tanstack/react-query"
 import { BellIcon, ClockIcon, DownloadIcon } from "lucide-react"
 import { CountUp } from "@/components/count-up"
@@ -40,6 +40,15 @@ import { useSummary } from "./UseSummary"
 const ctaCls =
   "h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
 
+// Mismo deslizamiento horizontal que entre ejercicios de la sesión (ver
+// session-runner.tsx): cada fase (resumen → racha → notificaciones) entra
+// desde la derecha, sin fundido.
+const slideVariants = {
+  enter: { x: "100%", opacity: 1 },
+  center: { x: "0%", opacity: 1 },
+  exit: { x: "-100%", opacity: 1 },
+}
+
 export default function SessionSummary({ sessionId }: { sessionId: string }) {
   const { data, isError, error } = useSummary({ sessionId })
   const qc = useQueryClient()
@@ -59,16 +68,20 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   //   t=1800ms → la bolita explota en el confeti + "¡Listo!" + las cards
   const [showBall, setShowBall] = useState(false)
   const [exploded, setExploded] = useState(false)
-  // Panel de racha: aparece tras Continuar, siempre (una por sesión). El de
-  // notificaciones lo sigue, pero solo una vez por dispositivo y si el
-  // navegador soporta push.
+  // Panel de racha: aparece tras Continuar, solo si esta sesión fue la primera
+  // completada hoy (`counted_today`, una vez por día de actividad). El de
+  // notificaciones lo sigue, pero solo una vez por dispositivo, si el
+  // navegador soporta push y todavía no están activadas.
   const [phase, setPhase] = useState<"summary" | "streak" | "notify">("summary")
   const [pushSupported, setPushSupported] = useState(false)
   useEffect(() => {
     setPushSupported(isPushSupported())
   }, [])
   const notifyUnseen = useNotifyHintUnseen()
-  const shouldShowNotify = pushSupported && notifyUnseen
+  const settings = useNotificationSettingsQuery()
+  const notifAlreadyEnabled = settings.data?.enabled === true
+  const shouldShowStreak = data?.streak.counted_today === true
+  const shouldShowNotify = pushSupported && notifyUnseen && !notifAlreadyEnabled
   const sfxRef = useRef(sfx)
   sfxRef.current = sfx
   useEffect(() => {
@@ -83,10 +96,29 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
     }
   }, [])
 
+  // El botón Continuar queda gris 3s al entrar a la pestaña de notificaciones,
+  // salvo que el usuario ya las haya activado ahí mismo (`notifJustEnabled`).
+  const [notifWaiting, setNotifWaiting] = useState(false)
+  const [notifJustEnabled, setNotifJustEnabled] = useState(false)
+  useEffect(() => {
+    if (phase !== "notify") return
+    setNotifWaiting(true)
+    const t = setTimeout(() => setNotifWaiting(false), 3000)
+    return () => clearTimeout(t)
+  }, [phase])
+  const notifyButtonDisabled =
+    phase === "notify" && notifWaiting && !notifJustEnabled
+
   function onContinue() {
     if (phase === "summary") {
       sfx.continue()
-      setPhase("streak")
+      if (shouldShowStreak) {
+        setPhase("streak")
+      } else if (shouldShowNotify) {
+        setPhase("notify")
+      } else {
+        goHome()
+      }
       return
     }
     if (phase === "streak") {
@@ -165,31 +197,69 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
             count={Math.min(140, Math.max(10, (data?.xp_earned ?? 0) * 2))}
           />
         )}
-        {phase === "streak" && data && (
-          <StreakPane streak={data.streak} tick={tick} />
-        )}
-        {phase === "notify" && <NotifyHintPane />}
-        <div
-          className={cn(
-            "relative w-full -translate-y-[15px]",
-            phase !== "summary" && "hidden",
-          )}
-        >
-          {data && exploded && (
-            <motion.span
-              className="block text-center text-3xl font-bold tracking-tight"
-              initial={{ opacity: 0, scale: 0.4 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ type: "spring", stiffness: 600, damping: 18 }}
-              onAnimationStart={() => setShowConfetti(true)}
-              onAnimationComplete={() => setShowCards(true)}
+        {/* Cada fase (resumen → racha → notificaciones) entra deslizándose
+            desde la derecha, igual que entre ejercicios de la sesión — salvo la
+            fase inicial (resumen), que no desliza (aparece tal cual, como
+            siempre). Ojo: NO usar `initial={false}` en el AnimatePresence acá,
+            porque ese flag suprime la animación de entrada de TODOS los
+            motion.* anidados en su primer render (el spring de "¡Listo!" y las
+            cards dejarían de animar y sus onAnimationComplete no dispararían
+            nunca, colgando el resumen). En cambio, el propio wrapper de fase
+            recibe `initial={false}` solo quando es la fase "summary" — eso
+            únicamente apaga SU animación de deslizamiento, sin afectar a sus
+            hijos. */}
+        {/* `min-h-full` fija la altura de la fila al espacio disponible, igual
+            que en session-runner.tsx: sin esto, el cambio de fase (contenidos
+            de distinta altura) resizea la fila del grid y el contenido
+            saliente se ve "saltar" verticalmente antes de deslizar. */}
+        <div className="grid min-h-full w-full grid-cols-1 items-center">
+          <AnimatePresence mode="sync">
+            <motion.div
+              key={phase}
+              variants={slideVariants}
+              initial={phase === "summary" ? false : "enter"}
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.28, ease: "easeInOut" }}
+              className="col-start-1 row-start-1 w-full"
             >
-              ¡Listo!
-            </motion.span>
+              {phase === "streak" && data && (
+                <StreakPane streak={data.streak} tick={tick} />
+              )}
+              {phase === "notify" && (
+                <NotifyHintPane
+                  enabled={notifAlreadyEnabled}
+                  settingsLoading={settings.isLoading}
+                  onEnabled={() => setNotifJustEnabled(true)}
+                />
+              )}
+              {phase === "summary" && (
+                <div className="relative w-full -translate-y-[15px]">
+                  {data && exploded && (
+            <>
+              <motion.span
+                className="block text-center text-3xl font-bold tracking-tight"
+                initial={{ opacity: 0, scale: 0.4 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ type: "spring", stiffness: 600, damping: 18 }}
+                onAnimationStart={() => setShowConfetti(true)}
+                onAnimationComplete={() => setShowCards(true)}
+              >
+                ¡Listo!
+              </motion.span>
+              <motion.p
+                className="mt-1.5 text-center text-sm text-foreground/60"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4, ease: "easeOut", delay: 0.15 }}
+              >
+                Completaste tu sesión número {data.session_number}.
+              </motion.p>
+            </>
           )}
 
           {data && showCards && (
-            <div className="absolute inset-x-0 top-full mt-8 grid translate-y-[35px] grid-cols-2 gap-2">
+            <div className="absolute inset-x-0 top-full mt-2 grid translate-y-[9px] grid-cols-2 gap-2">
               {/* Carga primero la card izquierda (aparece + cuenta) y, al
                   terminar su conteo, recién aparece la derecha. */}
               <motion.div
@@ -275,6 +345,10 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
               )}
             </div>
           )}
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </ScreenBody>
 
@@ -289,7 +363,7 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
             size="lg"
             className={ctaCls}
             onClick={onContinue}
-            disabled={!showButton}
+            disabled={!showButton || notifyButtonDisabled}
           >
             Continuar
           </Button>
@@ -468,18 +542,24 @@ function StreakPane({
   streak: StreakInfo
   tick: (rate: number) => void
 }) {
+  const [showCount, setShowCount] = useState(false)
   const [showRight, setShowRight] = useState(false)
   const [showFooter, setShowFooter] = useState(false)
   const dayWord = streak.days_to_next === 1 ? "día" : "días"
   return (
     <div className="flex w-full translate-y-[15px] flex-col items-center gap-8">
-      {/* Mismas cards del conteo del resumen: izquierda multiplicador, derecha
-          días de actividad con conteo. */}
+      {/* Misma mecánica que las cards de "Experiencia obtenida"/"Ejercicios
+          correctos" del resumen: nada montado al arrancar. El container
+          izquierdo aparece (fade + slide-up) mostrando el multiplicador en
+          ×0.0 y, recién cuando termina de entrar (onAnimationComplete),
+          arranca el conteo con ruido; al terminar (con sus tramos si
+          corresponde), se monta y aparece el derecho. */}
       <div className="grid w-full grid-cols-2 gap-2">
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
+          onAnimationComplete={() => setShowCount(true)}
         >
           <Metric
             label={
@@ -493,6 +573,7 @@ function StreakPane({
               <MultiplierCount
                 value={streak.multiplier}
                 tick={tick}
+                start={showCount}
                 onDone={() => setShowRight(true)}
               />
             }
@@ -501,8 +582,8 @@ function StreakPane({
 
         {showRight && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
           >
             <Metric
@@ -574,10 +655,15 @@ function MultiplierCount({
   value,
   tick,
   onDone,
+  start,
 }: {
   value: number
   tick: (rate: number) => void
   onDone?: () => void
+  // El conteo no arranca hasta que este flag pase a true (recién cuando
+  // terminó de entrar el container, no a un delay fijo en paralelo con el
+  // fade).
+  start: boolean
 }) {
   const [tenths, setTenths] = useState(0)
   const tickRef = useRef(tick)
@@ -586,6 +672,7 @@ function MultiplierCount({
   onDoneRef.current = onDone
 
   useEffect(() => {
+    if (!start) return
     const target = Math.round(value * 10)
     const stops: number[] = []
     for (let t = 10; t <= target; t += STREAK_TIER_STEP) stops.push(t)
@@ -594,7 +681,6 @@ function MultiplierCount({
     setTenths(0)
     const duration = Math.min(1300, 450 * stops.length)
     const ease = (x: number) => 1 - Math.pow(1 - x, 1.7)
-    const start = performance.now()
     let k = 0
     let timer: ReturnType<typeof setTimeout>
     const run = () => {
@@ -607,13 +693,14 @@ function MultiplierCount({
       }
       schedule()
     }
+    const start_ = performance.now()
     const schedule = () => {
       const at = ease((k + 1) / stops.length) * duration
-      timer = setTimeout(run, Math.max(0, at - (performance.now() - start)))
+      timer = setTimeout(run, Math.max(0, at - (performance.now() - start_)))
     }
-    schedule()
+    run()
     return () => clearTimeout(timer)
-  }, [value])
+  }, [value, start])
 
   return <>×{(tenths / 10).toFixed(1)}</>
 }
@@ -624,14 +711,20 @@ function MultiplierCount({
 // desde el navegador, push no funciona todavía, así que ofrece los pasos de
 // instalación en el diálogo compartido. El CTA "Continuar" del summary lleva a
 // Perfil en ambos casos.
-function NotifyHintPane() {
+function NotifyHintPane({
+  enabled,
+  settingsLoading,
+  onEnabled,
+}: {
+  enabled: boolean
+  settingsLoading: boolean
+  onEnabled: () => void
+}) {
   const platform = usePlatform()
   const needsInstall = platform !== null && !isStandalone()
   const [time, setTime] = useState(DEFAULT_REMINDER_TIME)
   const [installOpen, setInstallOpen] = useState(false)
-  const settings = useNotificationSettingsQuery()
-  const enable = useEnableNotifications()
-  const enabled = settings.data?.enabled ?? false
+  const enable = useEnableNotifications({ onSuccess: onEnabled })
 
   return (
     <div className="flex w-full translate-y-[15px] flex-col items-center gap-5 text-center">
@@ -712,7 +805,7 @@ function NotifyHintPane() {
             <Button
               size="lg"
               className="h-12 w-full rounded-md"
-              disabled={enable.isPending || settings.isLoading}
+              disabled={enable.isPending || settingsLoading}
               onClick={() => enable.mutate(time)}
             >
               <BellIcon className="size-5" />

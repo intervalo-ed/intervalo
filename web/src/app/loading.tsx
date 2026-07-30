@@ -1,24 +1,18 @@
 "use client"
 
-import { Wordmark } from "@/components/wordmark"
-import { Screen, ScreenBody, ScreenHeader } from "@/components/ui/screen"
-import { DashboardSkeleton } from "@/components/tab-skeletons"
-import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { Screen } from "@/components/ui/screen"
+import { TabLoadingShell } from "@/components/tab-loading-shell"
 
-// Mismo shell (Screen/ScreenHeader/ScreenBody) y skeleton que dashboard-entry.tsx
-// muestra una vez montado: cero movimiento al pasar de este fallback de ruteo
-// (server, mientras corre el chequeo de onboarding) al skeleton real del cliente.
+// Mismo shell/skeleton que el overlay de transición de tabs (ver
+// tab-transition.ts) — este boundary solo debería llegar a pintarse en casos
+// borde (navegación directa, refresh) porque el overlay client-side ya tapa
+// el contenido antes de que Next dispare esta ruta. Solo tiene sentido para
+// "/" — chequeamos el pathname por las dudas de que este boundary raíz
+// llegue a intervenir en la navegación hacia otra ruta (p. ej. /session/...).
 export default function Loading() {
-  return (
-    <Screen>
-      <ScreenHeader innerClassName="justify-center">
-        <Link href="/" aria-label="Intervalo">
-          <Wordmark textClass="text-[15px]" barClass="h-[3px]" />
-        </Link>
-      </ScreenHeader>
-      <ScreenBody className="gap-4 py-4 no-scrollbar">
-        <DashboardSkeleton />
-      </ScreenBody>
-    </Screen>
-  )
+  const pathname = usePathname()
+  if (pathname !== "/") return <Screen>{null}</Screen>
+
+  return <TabLoadingShell tab="/" />
 }
