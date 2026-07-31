@@ -159,7 +159,7 @@ _VARIANTS: dict[str, list[Variant]] = {
         Variant("practice_cta", lambda ctx: True, _practice_cta),
         Variant(
             "practice_yesterday",
-            lambda ctx: ctx.get("exercises_yesterday") is not None,
+            lambda ctx: (ctx.get("exercises_yesterday") or 0) > 0,
             _practice_yesterday,
         ),
         Variant(

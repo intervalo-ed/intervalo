@@ -2,6 +2,19 @@
 // The backend decides the copy (varied by category, see backend/notification_copy.py) and
 // sends it already rendered: an encrypted payload { title, body }. This worker just shows it.
 
+// Sin esto, una versión nueva del SW queda "esperando" hasta que el usuario
+// cierre todas las pestañas/instancias de la PWA controladas por la vieja —
+// en el peor caso, un push de días después de un deploy todavía se renderiza
+// con el código viejo (nos pasó: pushes con payload {title, body} nuevo
+// mostrados con el fallback del SW anterior, que esperaba {count}).
+self.addEventListener("install", function (event) {
+  self.skipWaiting()
+})
+
+self.addEventListener("activate", function (event) {
+  event.waitUntil(self.clients.claim())
+})
+
 self.addEventListener("push", function (event) {
   let title = "Intervalo"
   let body = "Tenés repasos pendientes hoy 📚"
