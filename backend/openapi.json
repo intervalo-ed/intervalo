@@ -1957,6 +1957,14 @@
             "type": "integer",
             "title": "Pending Count"
           },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "body": {
+            "type": "string",
+            "title": "Body"
+          },
           "subscriptions": {
             "items": {
               "$ref": "#/components/schemas/PushSubscriptionOut"
@@ -1969,6 +1977,8 @@
         "required": [
           "user_id",
           "pending_count",
+          "title",
+          "body",
           "subscriptions"
         ],
         "title": "DueNotification"

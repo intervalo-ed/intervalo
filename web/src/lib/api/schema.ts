@@ -778,6 +778,10 @@ export interface components {
             user_id: number;
             /** Pending Count */
             pending_count: number;
+            /** Title */
+            title: string;
+            /** Body */
+            body: string;
             /** Subscriptions */
             subscriptions: components["schemas"]["PushSubscriptionOut"][];
         };
