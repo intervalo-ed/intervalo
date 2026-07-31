@@ -179,6 +179,8 @@ class PushSubscriptionOut(BaseModel):
 class DueNotification(BaseModel):
     user_id: int
     pending_count: int
+    title: str
+    body: str
     subscriptions: list[PushSubscriptionOut]
 
 
