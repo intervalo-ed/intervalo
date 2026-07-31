@@ -1,21 +1,20 @@
 // Push service worker for Intervalo daily reminders.
-// The worker sends an encrypted payload { count } — render a localized message.
+// The backend decides the copy (varied by category, see backend/notification_copy.py) and
+// sends it already rendered: an encrypted payload { title, body }. This worker just shows it.
 
 self.addEventListener("push", function (event) {
-  let count = 0
+  let title = "Intervalo"
+  let body = "Tenés repasos pendientes hoy 📚"
   try {
-    if (event.data) count = event.data.json().count ?? 0
+    if (event.data) {
+      const data = event.data.json()
+      if (data.title) title = data.title
+      if (data.body) body = data.body
+    }
   } catch (_) {}
 
-  const body =
-    count === 1
-      ? "Tenés 1 tema pendiente para repasar hoy 📚"
-      : count > 1
-        ? `Tenés ${count} temas pendientes para repasar hoy 📚`
-        : "Tenés repasos pendientes hoy 📚"
-
   event.waitUntil(
-    self.registration.showNotification("Intervalo", {
+    self.registration.showNotification(title, {
       body,
       icon: "/icons/icon-192.png",
       badge: "/icons/icon-192.png",

@@ -36,6 +36,18 @@ class User(Base):
     notify_timezone = Column(String(64), nullable=True)
     notify_last_sent_on = Column(Date, nullable=True)
 
+    # Rotación de copy: última categoría/variante enviada, para no repetirla en
+    # el próximo envío (ver notification_copy.py). Se setea junto con
+    # notify_last_sent_on en la misma transacción de claim (due_notifications).
+    notify_last_category = Column(String(32), nullable=True)
+    notify_last_variant_key = Column(String(64), nullable=True)
+
+    # Detección de "te pasaron en el ranking": rank global (por total_xp) tal
+    # como estaba la última vez que se chequeó a este usuario en
+    # due_notifications — no un valor live. Solo se refresca para candidatos
+    # efectivamente due, nunca en un full scan.
+    notify_last_rank = Column(Integer, nullable=True)
+
     # IANA timezone del usuario (p.ej. "America/Argentina/Buenos_Aires"); define el
     # "día" de la repetición espaciada. Se autocompleta desde el navegador en cada
     # carga del home. NULL → fallback a Argentina (ver session_store.user_today).
