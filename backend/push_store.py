@@ -129,6 +129,21 @@ def pending_topic_count(db: DBSession, user_id: int, today: date) -> int:
 
 # ── Ranking / universidad — helpers de contexto para el copy ──────────────────
 
+def _local_day_bounds_utc(day: date, tz: ZoneInfo) -> tuple[datetime, datetime]:
+    """Medianoche a medianoche del `day` en `tz`, expresado en UTC naive (para
+    comparar contra columnas DateTime que guardan datetime.utcnow()). Mismo
+    patrón que session_store._user_day_start_utc — sin esto, comparar contra
+    los límites del día calendario en UTC desplaza la ventana hasta 3hs
+    (Argentina) respecto al día real del usuario, sobre todo cerca de la
+    medianoche."""
+    start_local = datetime.combine(day, time.min, tzinfo=tz)
+    end_local = datetime.combine(day, time.max, tzinfo=tz)
+    return (
+        start_local.astimezone(ZoneInfo("UTC")).replace(tzinfo=None),
+        end_local.astimezone(ZoneInfo("UTC")).replace(tzinfo=None),
+    )
+
+
 def _university_user_ids(db: DBSession, university: str) -> list[int]:
     return [
         e.user_id
@@ -188,7 +203,10 @@ def _podium_gap(
     db: DBSession, user: User, *, university: str | None = None
 ) -> tuple[int, int] | tuple[None, None]:
     """(xp_gap, threshold) hasta la próxima marca de podio, o (None, None) si
-    ya está en el top 10 o no hay suficientes usuarios en el scope."""
+    ya está en el top 10, no hay suficientes usuarios en el scope, o el
+    usuario está empatado en XP con quien ocupa esa posición (gap 0 — el
+    rank no lo refleja por el desempate de id, pero "estás a 0 XP" no tiene
+    sentido como copy)."""
     rank = _current_rank(db, user, university=university)
     if rank <= 10:
         return None, None
@@ -199,10 +217,13 @@ def _podium_gap(
     row = q.offset(threshold - 1).limit(1).first()
     if row is None:
         return None, None
-    return max(row[0] - user.total_xp, 0), threshold
+    gap = row[0] - user.total_xp
+    if gap <= 0:
+        return None, None
+    return gap, threshold
 
 
-def university_weekly_xp(db: DBSession, university: str, since: date) -> int:
+def university_weekly_xp(db: DBSession, university: str, since: datetime) -> int:
     """Suma de Answer.xp_earned para usuarios de esa universidad, respondidas
     desde `since`. Reusa el mismo mapeo Enrollment→university que
     GET /leaderboard/universities."""
@@ -217,7 +238,7 @@ def university_weekly_xp(db: DBSession, university: str, since: date) -> int:
     )
 
 
-def _is_top_contributor(db: DBSession, user: User, university: str, since: date) -> bool:
+def _is_top_contributor(db: DBSession, user: User, university: str, since: datetime) -> bool:
     user_ids = _university_user_ids(db, university)
     if not user_ids:
         return False
@@ -256,14 +277,19 @@ def _rival_university_gap(db: DBSession, own_university: str) -> tuple[int, str]
         return None, None  # no está en el ranking, o ya es la #1
     rival_uni, rival_xp = totals[idx - 1]
     own_xp = totals[idx][1]
-    return rival_xp - own_xp, rival_uni
+    gap = rival_xp - own_xp
+    if gap <= 0:
+        return None, None  # empate en XP total — "a 0 XP de alcanzar" no aplica
+    return gap, rival_uni
 
 
-def _social_active_today(db: DBSession, user: User, university: str, local_today: date) -> int:
+def _social_active_today(
+    db: DBSession, user: User, university: str, local_today: date, tz: ZoneInfo
+) -> int:
     user_ids = [uid for uid in _university_user_ids(db, university) if uid != user.id]
     if not user_ids:
         return 0
-    day_start = datetime.combine(local_today, time.min)
+    day_start, _ = _local_day_bounds_utc(local_today, tz)
     count = (
         db.query(func.count(func.distinct(SessionModel.user_id)))
         .filter(
@@ -276,9 +302,8 @@ def _social_active_today(db: DBSession, user: User, university: str, local_today
     return count or 0
 
 
-def _exercises_on(db: DBSession, user_id: int, day: date) -> int:
-    day_start = datetime.combine(day, time.min)
-    day_end = datetime.combine(day, time.max)
+def _exercises_on(db: DBSession, user_id: int, day: date, tz: ZoneInfo) -> int:
+    day_start, day_end = _local_day_bounds_utc(day, tz)
     return (
         db.query(func.count(Answer.id))
         .filter(
@@ -291,7 +316,7 @@ def _exercises_on(db: DBSession, user_id: int, day: date) -> int:
     )
 
 
-def _days_inactive(db: DBSession, user_id: int, local_today: date) -> int | None:
+def _days_inactive(db: DBSession, user_id: int, local_today: date, tz: ZoneInfo) -> int | None:
     last_finished = (
         db.query(func.max(SessionModel.finished_at))
         .filter(SessionModel.user_id == user_id, SessionModel.finished_at.isnot(None))
@@ -299,21 +324,25 @@ def _days_inactive(db: DBSession, user_id: int, local_today: date) -> int | None
     )
     if last_finished is None:
         return None
-    days = (local_today - last_finished.date()).days
+    last_local_date = last_finished.replace(tzinfo=ZoneInfo("UTC")).astimezone(tz).date()
+    days = (local_today - last_local_date).days
     return days if days > 0 else None
 
 
-def _personal_best(db: DBSession, user_id: int) -> int | None:
-    """Máximo histórico de ejercicios resueltos en un mismo día (agrupado por
-    la fecha de answered_at)."""
-    rows = (
-        db.query(func.count(Answer.id))
-        .filter(Answer.user_id == user_id)
-        .group_by(func.date(Answer.answered_at))
-        .all()
-    )
-    counts = [c for (c,) in rows]
-    return max(counts) if counts else None
+def _personal_best(db: DBSession, user_id: int, tz: ZoneInfo) -> int | None:
+    """Máximo histórico de ejercicios resueltos en un mismo día calendario DEL
+    USUARIO. Agrupa en Python (no en SQL) porque el día local depende de la tz
+    de cada usuario, no es un simple func.date() sobre el timestamp UTC
+    guardado — cerca de la medianoche eso desplazaba respuestas al día
+    calendario equivocado."""
+    rows = db.query(Answer.answered_at).filter(Answer.user_id == user_id).all()
+    if not rows:
+        return None
+    counts: dict[date, int] = {}
+    for (answered_at,) in rows:
+        local_date = answered_at.replace(tzinfo=ZoneInfo("UTC")).astimezone(tz).date()
+        counts[local_date] = counts.get(local_date, 0) + 1
+    return max(counts.values())
 
 
 # ── Due-now resolution (worker-facing) ───────────────────────────────────────────
@@ -388,7 +417,7 @@ def due_notifications(db: DBSession, force: bool = False) -> list[dict]:
         )
         university = enrollment.university if enrollment and enrollment.university else None
 
-        week_start = local_today - timedelta(days=7)
+        week_start_utc, _ = _local_day_bounds_utc(local_today - timedelta(days=7), tz)
         xp_this_week = None
         is_top_contributor = False
         social_count = None
@@ -397,9 +426,9 @@ def due_notifications(db: DBSession, force: bool = False) -> list[dict]:
         podium_gap_university = None
         podium_threshold_university = None
         if university is not None:
-            xp_this_week = university_weekly_xp(db, university, week_start)
-            is_top_contributor = _is_top_contributor(db, user, university, week_start)
-            social_count = _social_active_today(db, user, university, local_today)
+            xp_this_week = university_weekly_xp(db, university, week_start_utc)
+            is_top_contributor = _is_top_contributor(db, user, university, week_start_utc)
+            social_count = _social_active_today(db, user, university, local_today, tz)
             xp_gap_rival, rival_university = _rival_university_gap(db, university)
             podium_gap_university, podium_threshold_university = _podium_gap(
                 db, user, university=university
@@ -413,7 +442,9 @@ def due_notifications(db: DBSession, force: bool = False) -> list[dict]:
 
         context = {
             "count": count,
-            "exercises_yesterday": _exercises_on(db, user.id, local_today - timedelta(days=1)),
+            "exercises_yesterday": _exercises_on(
+                db, user.id, local_today - timedelta(days=1), tz
+            ),
             "days_to_next_tier": days_to_next_tier,
             "next_multiplier": next_multiplier,
             "university": university,
@@ -428,8 +459,8 @@ def due_notifications(db: DBSession, force: bool = False) -> list[dict]:
             "podium_threshold_general": podium_threshold_general,
             "podium_gap_university": podium_gap_university,
             "podium_threshold_university": podium_threshold_university,
-            "days_inactive": _days_inactive(db, user.id, local_today),
-            "personal_best": _personal_best(db, user.id),
+            "days_inactive": _days_inactive(db, user.id, local_today, tz),
+            "personal_best": _personal_best(db, user.id, tz),
         }
         category, variant = notification_copy.choose_variant(
             context=context,

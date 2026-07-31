@@ -171,7 +171,7 @@ _VARIANTS: dict[str, list[Variant]] = {
     CATEGORY_UNIVERSITY: [
         Variant(
             "university_weekly_xp",
-            lambda ctx: ctx.get("xp_this_week") is not None and ctx.get("university") is not None,
+            lambda ctx: (ctx.get("xp_this_week") or 0) > 0 and ctx.get("university") is not None,
             _university_weekly_xp,
         ),
         Variant(
@@ -181,7 +181,7 @@ _VARIANTS: dict[str, list[Variant]] = {
         ),
         Variant(
             "university_rival_gap",
-            lambda ctx: ctx.get("xp_gap_rival") is not None and ctx.get("rival_university") is not None,
+            lambda ctx: (ctx.get("xp_gap_rival") or 0) > 0 and ctx.get("rival_university") is not None,
             _university_rival_gap,
         ),
     ],
@@ -203,12 +203,12 @@ _VARIANTS: dict[str, list[Variant]] = {
     CATEGORY_PODIUM: [
         Variant(
             "podium_general",
-            lambda ctx: ctx.get("podium_gap_general") is not None,
+            lambda ctx: (ctx.get("podium_gap_general") or 0) > 0,
             _podium_general,
         ),
         Variant(
             "podium_university",
-            lambda ctx: ctx.get("podium_gap_university") is not None and ctx.get("university") is not None,
+            lambda ctx: (ctx.get("podium_gap_university") or 0) > 0 and ctx.get("university") is not None,
             _podium_university,
         ),
     ],
