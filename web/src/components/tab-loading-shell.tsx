@@ -38,7 +38,9 @@ export function TabLoadingShell({ tab }: { tab: TabRoute }) {
       </ScreenHeader>
       <ScreenBody
         className={
-          tab === "/practice" || tab === "/" ? "gap-4 py-4 no-scrollbar" : undefined
+          tab === "/practice" || tab === "/"
+            ? "gap-4 py-4 no-scrollbar"
+            : "py-4"
         }
       >
         {body}

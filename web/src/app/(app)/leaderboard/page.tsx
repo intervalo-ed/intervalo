@@ -14,7 +14,7 @@ export default async function LeaderboardPage() {
           <Wordmark textClass="text-[15px]" barClass="h-[3px]" />
         </Link>
       </ScreenHeader>
-      <ScreenBody>
+      <ScreenBody className="py-4">
         <LeaderboardContent />
       </ScreenBody>
     </Screen>

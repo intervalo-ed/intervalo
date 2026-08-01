@@ -14,7 +14,7 @@ export default async function ProfilePage() {
           <Wordmark textClass="text-[15px]" barClass="h-[3px]" />
         </Link>
       </ScreenHeader>
-      <ScreenBody>
+      <ScreenBody className="py-4">
         <ProfileContent />
       </ScreenBody>
     </Screen>
