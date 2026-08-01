@@ -14,7 +14,7 @@ Concepto: la **probabilidad condicional** $P(A \mid B) = \dfrac{P(A \cap B)}{P(B
 
 ---
 
-## ESTR, 50 ejercicios
+## ESTR, 15 ejercicios
 
 Elegir el **planteo**, sin calcular.
 
@@ -22,16 +22,16 @@ Elegir el **planteo**, sin calcular.
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Reconocer que hace falta la fórmula condicional (se pide un evento dado que otro ya ocurrió) | 20 | `reconocer-condicional` |
-| Distractor: en realidad es probabilidad simple, no hay condición real en la pregunta | 12 | `distractor-probabilidad-simple` |
-| Reconocer si corresponde $P(A|B)$ o $P(B|A)$ según cuál evento aparece como condición en el enunciado | 18 | `reconocer-direccion-condicional` |
-| **Total** | **50** | |
+| Reconocer que hace falta la fórmula condicional (se pide un evento dado que otro ya ocurrió) | 6 | `reconocer-condicional` |
+| Distractor: en realidad es probabilidad simple, no hay condición real en la pregunta | 4 | `distractor-probabilidad-simple` |
+| Reconocer si corresponde $P(A|B)$ o $P(B|A)$ según cuál evento aparece como condición en el enunciado | 5 | `reconocer-direccion-condicional` |
+| **Total** | **15** | |
 
 **Cardinalidad**: conceptual → 3 opciones.
 
 ---
 
-## FORM, 50 ejercicios
+## FORM, 15 ejercicios
 
 Trabajar la **fórmula** en sí (no el planteo textual, eso es `ESTR`).
 
@@ -39,25 +39,25 @@ Trabajar la **fórmula** en sí (no el planteo textual, eso es `ESTR`).
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| $P(A\mid B) = \dfrac{P(A\cap B)}{P(B)}$ directa | 20 | `formula-directa` |
-| Despejar $P(A \cap B)$ desde $P(A\mid B)$ y $P(B)$ conocidos | 15 | `despejar-interseccion` |
-| Identificar la fórmula incorrecta entre variantes (cociente invertido, con $P(A)$ en vez de $P(A\cap B)$) | 15 | `identificar-formula-correcta` |
-| **Total** | **50** | |
+| $P(A\mid B) = \dfrac{P(A\cap B)}{P(B)}$ directa | 6 | `formula-directa` |
+| Despejar $P(A \cap B)$ desde $P(A\mid B)$ y $P(B)$ conocidos | 5 | `despejar-interseccion` |
+| Identificar la fórmula incorrecta entre variantes (cociente invertido, con $P(A)$ en vez de $P(A\cap B)$) | 4 | `identificar-formula-correcta` |
+| **Total** | **15** | |
 
 **Cardinalidad**: conceptual → 3 opciones.
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 15 ejercicios
 
 ### Distribución objetivo
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Calcular $P(A\mid B)$ desde probabilidades ya dadas | 18 | `resl-desde-datos` |
-| Calcular $P(A\mid B)$ contando directamente en un espacio muestral chico enumerado (dados, cartas, tabla de contingencia 2x2) | 18 | `resl-conteo-directo` |
-| Despejar $P(A\cap B)$ desde $P(A\mid B)$ conocido (regla de la multiplicación) | 14 | `resl-despejar-interseccion` |
-| **Total** | **50** | |
+| Calcular $P(A\mid B)$ desde probabilidades ya dadas | 6 | `resl-desde-datos` |
+| Calcular $P(A\mid B)$ contando directamente en un espacio muestral chico enumerado (dados, cartas, tabla de contingencia 2x2) | 5 | `resl-conteo-directo` |
+| Despejar $P(A\cap B)$ desde $P(A\mid B)$ conocido (regla de la multiplicación) | 4 | `resl-despejar-interseccion` |
+| **Total** | **15** | |
 
 **Cardinalidad**: numérica corta → 4 opciones (grilla 2×2).
 

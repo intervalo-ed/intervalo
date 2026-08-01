@@ -16,20 +16,20 @@ Concepto: los **axiomas de Kolmogorov** ($P(A) \geq 0$; $P(\Omega) = 1$; $P(A \c
 
 ---
 
-## LEXI, 50 ejercicios
+## LEXI, 15 ejercicios
 
 ### Distribución objetivo
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Nombre/definición del complemento de probabilidad $P(A^c) = 1-P(A)$ | 16 | `definicion-complemento-prob` |
-| Nombre/definición de la regla general de la unión | 16 | `definicion-regla-union` |
-| Rango de $P(A) \in [0,1]$ | 18 | `definicion-rango-probabilidad` |
-| **Total** | **50** | |
+| Nombre/definición del complemento de probabilidad $P(A^c) = 1-P(A)$ | 5 | `definicion-complemento-prob` |
+| Nombre/definición de la regla general de la unión | 5 | `definicion-regla-union` |
+| Rango de $P(A) \in [0,1]$ | 5 | `definicion-rango-probabilidad` |
+| **Total** | **15** | |
 
 ---
 
-## ESTR, 50 ejercicios
+## ESTR, 15 ejercicios
 
 Elegir **qué propiedad conviene aplicar**, sin calcular.
 
@@ -37,25 +37,25 @@ Elegir **qué propiedad conviene aplicar**, sin calcular.
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Elegir suma simple para eventos mutuamente excluyentes | 12 | `elegir-suma-excluyentes` |
-| Elegir la regla general de la unión (resta la intersección) para eventos no excluyentes | 12 | `elegir-regla-general-union` |
-| Elegir el complemento cuando conviene calcular el evento contrario | 13 | `elegir-complemento` |
-| Elegir monotonía/acotación para descartar un valor de probabilidad imposible | 13 | `elegir-acotacion` |
-| **Total** | **50** | |
+| Elegir suma simple para eventos mutuamente excluyentes | 4 | `elegir-suma-excluyentes` |
+| Elegir la regla general de la unión (resta la intersección) para eventos no excluyentes | 3 | `elegir-regla-general-union` |
+| Elegir el complemento cuando conviene calcular el evento contrario | 4 | `elegir-complemento` |
+| Elegir monotonía/acotación para descartar un valor de probabilidad imposible | 4 | `elegir-acotacion` |
+| **Total** | **15** | |
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 15 ejercicios
 
 ### Distribución objetivo
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| $P(A \cup B)$, eventos mutuamente excluyentes | 10 | `resl-union-excluyentes` |
-| $P(A \cup B)$, regla general (con intersección) | 14 | `resl-union-general` |
-| $P(A^c) = 1 - P(A)$ | 12 | `resl-complemento` |
-| Despejar una incógnita ($P(A)$, $P(B)$ o $P(A \cap B)$) desde la fórmula general de la unión | 14 | `resl-despeje-union` |
-| **Total** | **50** | |
+| $P(A \cup B)$, eventos mutuamente excluyentes | 3 | `resl-union-excluyentes` |
+| $P(A \cup B)$, regla general (con intersección) | 4 | `resl-union-general` |
+| $P(A^c) = 1 - P(A)$ | 4 | `resl-complemento` |
+| Despejar una incógnita ($P(A)$, $P(B)$ o $P(A \cap B)$) desde la fórmula general de la unión | 4 | `resl-despeje-union` |
+| **Total** | **15** | |
 
 **Cardinalidad**: numérica corta → 4 opciones (grilla 2×2).
 
