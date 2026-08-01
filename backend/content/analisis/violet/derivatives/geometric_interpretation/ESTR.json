@@ -12,14 +12,17 @@
     "feedback_correct": "Correcto, tras distribuir y despejar queda $y=3x-1$.",
     "feedback_incorrect": [
       null,
-      "Falta restar $3 \\cdot 2$ al distribuir, se sumó $f(2)$ directamente sin descontar ese producto.",
-      "Falta sumar $f(2)=5$ al final, ese término se perdió después de distribuir la pendiente.",
+      "Hay que restar $3 \\cdot 2$ al distribuir, se sumó $f(2)$ directamente sin descontar ese producto.",
+      "Hay que sumar $f(2)=5$ al final, ese término se perdió después de distribuir la pendiente.",
       "Revisá el signo de la pendiente, $f'(2)=3$ es positivo, no negativo."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para armar la ecuación de la **recta tangente** se sustituyen los datos en la fórmula punto-pendiente y se despeja hasta la forma $y=mx+b$.\n\n$$\\begin{aligned} y &= f'(2)(x-2) + f(2) \\\\ &= 3(x-2) + 5 \\\\ &= 3x - 6 + 5 \\\\ &= 3x - 1 \\end{aligned}$$\nEl paso más delicado es distribuir correctamente $3 \\cdot (-2) = -6$ antes de sumar el $5$, saltarlo suele dejar la ordenada al origen mal calculada.",
-    "reviewed": false
+    "explanation": "Para armar la ecuación de la **recta tangente** se sustituyen los datos en la fórmula punto-pendiente y se despeja hasta la forma $y=mx+b$.\n\nEl paso más delicado es distribuir correctamente $3 \\cdot (-2) = -6$ antes de sumar el $5$, saltarlo suele dejar la ordenada al origen mal calculada.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "reviewed": false,
+    "tags": [
+      "armado-ecuacion-tangente"
+    ]
   },
   {
     "question": "Sabiendo que $f(1)=4$ y $f'(1)=-2$, hallá la ecuación de la recta tangente en $x=1$, en la forma $y=mx+b$.",
@@ -35,13 +38,16 @@
     "feedback_incorrect": [
       "Revisá el signo de la pendiente, $f'(1)=-2$ es negativo, no positivo.",
       null,
-      "Falta el término que sale de distribuir $-2 \\cdot (-1)$, se usó $f(1)$ solo, sin ese aporte.",
+      "Hay que el término que sale de distribuir $-2 \\cdot (-1)$, se usó $f(1)$ solo, sin ese aporte.",
       "Revisá el signo de la ordenada al origen, el resultado de $2+4$ es positivo, no negativo."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con pendiente negativa hay que tener especial cuidado al distribuir el signo dentro del paréntesis.\n\n$$\\begin{aligned} y &= f'(1)(x-1) + f(1) \\\\ &= -2(x-1) + 4 \\\\ &= -2x + 2 + 4 \\\\ &= -2x + 6 \\end{aligned}$$\nDistribuir $-2 \\cdot (-1) = 2$ es el paso donde más se pierde el signo, conviene escribirlo explícitamente antes de sumar el resto.",
-    "reviewed": false
+    "explanation": "Con pendiente negativa hay que tener especial cuidado al distribuir el signo dentro del paréntesis.\n\nDistribuir $-2 \\cdot (-1) = 2$ es el paso donde más se pierde el signo, conviene escribirlo explícitamente antes de sumar el resto.\n\nLa recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
+    "reviewed": false,
+    "tags": [
+      "armado-ecuacion-tangente"
+    ]
   },
   {
     "question": "Sabiendo que $f(0)=3$ y $f'(0)=5$, hallá la ecuación de la recta tangente en $x=0$, en la forma $y=mx+b$.",
@@ -55,15 +61,18 @@
     "has_math": true,
     "feedback_correct": "Correcto, con $a=0$ la fórmula se simplifica y queda $y=5x+3$.",
     "feedback_incorrect": [
-      "Falta sumar $f(0)=3$ al final, ese término se perdió en el despeje.",
+      "Hay que sumar $f(0)=3$ al final, ese término se perdió en el despeje.",
       "Los roles están invertidos, la pendiente es $f'(0)=5$ y el término independiente es $f(0)=3$, no al revés.",
       null,
       "Revisá el signo del término independiente, $f(0)=3$ se suma, no se resta."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el punto de tangencia está en $a=0$, la fórmula se simplifica porque $(x-a)$ queda directamente $x$.\n\n$$\\begin{aligned} y &= f'(0)(x-0) + f(0) \\\\ &= 5x + 3 \\end{aligned}$$\nEste caso particular sirve para verificar rápido que los roles de $f'(a)$ como pendiente y $f(a)$ como término independiente no se intercambien.",
-    "reviewed": false
+    "explanation": "Cuando el punto de tangencia está en $a=0$, la fórmula se simplifica porque $(x-a)$ \n\nqueda directamente $x$.\n\nEste caso particular sirve para verificar rápido que los roles de $f'(a)$ como pendiente y $f(a)$ como término independiente no se intercambien.\n\nLa recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
+    "reviewed": false,
+    "tags": [
+      "armado-ecuacion-tangente"
+    ]
   },
   {
     "question": "Sabiendo que $f(-1)=2$ y $f'(-1)=4$, hallá la ecuación de la recta tangente en $x=-1$, en la forma $y=mx+b$.",
@@ -77,18 +86,21 @@
     "has_math": true,
     "feedback_correct": "Correcto, tras distribuir y despejar queda $y=4x+6$.",
     "feedback_incorrect": [
-      "Falta el término que sale de distribuir $4 \\cdot 1$, se usó $f(-1)$ solo, sin ese aporte.",
+      "Hay que el término que sale de distribuir $4 \\cdot 1$, se usó $f(-1)$ solo, sin ese aporte.",
       "Revisá el signo del resultado final, $4+2=6$ es positivo, no negativo.",
       "Revisá el signo completo de la ordenada al origen, se perdió en el despeje.",
       null
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un punto de tangencia en $a=-1$ negativo, conviene prestar especial atención al signo dentro del paréntesis $(x-(-1))$.\n\n$$\\begin{aligned} y &= f'(-1)(x-(-1)) + f(-1) \\\\ &= 4(x+1) + 2 \\\\ &= 4x + 4 + 2 \\\\ &= 4x + 6 \\end{aligned}$$\nEl paréntesis $(x-a)$ con $a$ negativo se convierte en $(x+1)$, un doble signo que suele perderse si se apura el paso.",
-    "reviewed": false
+    "explanation": "Con un punto de tangencia en $a=-1$ negativo, conviene prestar especial atención al signo dentro del paréntesis $(x-(-1))$.\n\nEl paréntesis $(x-a)$ con $a$\n\nnegativo se convierte en $(x+1)$.\n\nun doble signo que suele perderse si se apura el paso.\n\nLa recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
+    "reviewed": false,
+    "tags": [
+      "armado-ecuacion-tangente"
+    ]
   },
   {
-    "question": "Considerá la función\n$$f(x) = x^2$$\nHallá la ecuación de la recta tangente en $x=3$, en la forma $y=mx+b$.",
+    "question": "Considerá la función:\n$$f(x)=x^2$$\nHallá la ecuación de la recta tangente en $x=3$, en la forma $y=mx+b$.",
     "options": [
       "$y=6x-9$",
       "$y=6x-18$",
@@ -97,20 +109,23 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, con $f(3)=9$ y $f'(3)=6$ la ecuación queda $y=6x-9$.",
+    "feedback_correct": "La ecuación es $y=6x-9$.",
     "feedback_incorrect": [
       null,
-      "Falta sumar $f(3)=9$ al final, ese término se perdió después de distribuir la pendiente.",
+      "Hay que sumar $f(3)=9$ al final, ese término se perdió después de distribuir la pendiente.",
       "Revisá el signo de la ordenada al origen, el resultado de $-18+9$ es negativo, no positivo.",
       "Los roles están invertidos, la pendiente es $f'(3)=6$ y el término independiente sale de $f(3)=9$, no al revés."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de armar la tangente hace falta obtener $f(3)$ y $f'(3)$ a partir de la función dada.\n\n$$\\begin{aligned} f(3) &= 3^2 = 9, \\quad f'(3) = 2\\cdot 3 = 6 \\\\ y &= 6(x-3)+9 \\\\ &= 6x-18+9 \\\\ &= 6x-9 \\end{aligned}$$\nCuando la función se da explícitamente, el primer paso siempre es calcular $f(a)$ y $f'(a)$ antes de sustituir en la fórmula punto-pendiente.",
-    "reviewed": false
+    "explanation": "Antes de armar la tangente hace falta obtener $f(3)$ y $f'(3)$ a partir de la función dada.\n\nCuando la función se da explícitamente, el primer paso siempre es calcular $f(a)$ y $f'(a)$ antes de sustituir en la fórmula punto-pendiente.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "reviewed": false,
+    "tags": [
+      "armado-ecuacion-tangente"
+    ]
   },
   {
-    "question": "Considerá la función\n$$f(x) = x^2 - 4$$\nHallá la ecuación de la recta tangente en $x=1$, en la forma $y=mx+b$.",
+    "question": "Analizá la función:\n$$f(x)=x^2-4$$\nHallá la ecuación de la recta tangente en $x=1$, en la forma $y=mx+b$.",
     "options": [
       "$y=2x-1$",
       "$y=2x-5$",
@@ -119,20 +134,23 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Correcto, con $f(1)=-3$ y $f'(1)=2$ la ecuación queda $y=2x-5$.",
+    "feedback_correct": "La ecuación es $y=2x-5$.",
     "feedback_incorrect": [
       "Revisá la resta final, $-2 + (-3)$ da un resultado distinto de $-1$.",
       null,
-      "Falta sumar $f(1)=-3$ completo al final, ese término se distribuyó mal.",
+      "Hay que sumar $f(1)=-3$ completo al final, ese término se distribuyó mal.",
       "Revisá el signo del término independiente, $f(1)=-3$ es negativo, así que se resta, no se suma."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con una función que incluye un término constante, conviene calcular $f(1)$ con cuidado antes de seguir.\n\n$$\\begin{aligned} f(1) &= 1^2-4 = -3, \\quad f'(1) = 2\\cdot 1 = 2 \\\\ y &= 2(x-1) + (-3) \\\\ &= 2x-2-3 \\\\ &= 2x-5 \\end{aligned}$$\nEl signo negativo de $f(1)=-3$ conviene arrastrarlo explícitamente en todo el despeje, perderlo es el error más frecuente de este tipo de ítem.",
-    "reviewed": false
+    "explanation": "Con una función que incluye un término constante, conviene calcular $f(1)$ con cuidado antes de seguir.\n\nEl signo negativo de $f(1)=-3$ conviene arrastrarlo explícitamente en todo el despeje, perderlo más frecuente de este tipo de ítem.\n\nLa recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
+    "reviewed": false,
+    "tags": [
+      "armado-ecuacion-tangente"
+    ]
   },
   {
-    "question": "Considerá la función lineal\n$$f(x) = 3x + 1$$\nHallá la ecuación de la recta tangente en $x=2$, en la forma $y=mx+b$.",
+    "question": "Considerá la función lineal:\n$$f(x)=3x+1$$\nHallá la ecuación de la recta tangente en $x=2$, en la forma $y=mx+b$.",
     "options": [
       "$y=3x+7$",
       "$y=-3x+1$",
@@ -146,15 +164,18 @@
       "Revisá el signo de la ordenada al origen, el resultado de $-6+7$ es positivo, no negativo.",
       "Revisá el signo de la pendiente, $f'(2)=3$ es positivo, no negativo.",
       null,
-      "Falta sumar $f(2)=7$ al final, ese término se perdió después de distribuir la pendiente."
+      "Hay que sumar $f(2)=7$ al final, ese término se perdió después de distribuir la pendiente."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para una función lineal, la pendiente $f'(x)$ es siempre la misma en todo el dominio, así que $f'(2)=3$ y $f(2)=7$.\n\n$$\\begin{aligned} y &= 3(x-2) + 7 \\\\ &= 3x-6+7 \\\\ &= 3x+1 \\end{aligned}$$\nEl resultado coincide exactamente con la función original, un caso particular que muestra que la tangente a una recta es la recta misma.",
-    "reviewed": false
+    "explanation": "Para una función lineal, la pendiente $f'(x)$ es siempre la misma en todo el dominio, así que $f'(2)=3$ \n\ny $f(2)=7$.\n\nEl resultado coincide exactamente con la función original, un caso particular que muestra que la tangente a una recta es la recta misma.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "reviewed": false,
+    "tags": [
+      "armado-ecuacion-tangente"
+    ]
   },
   {
-    "question": "Considerá la función\n$$f(x) = -x^2 + 2x$$\nHallá la ecuación de la recta tangente en $x=0$, en la forma $y=mx+b$.",
+    "question": "Observá la función:\n$$f(x)=-x^2+2x$$\nHallá la ecuación de la recta tangente en $x=0$, en la forma $y=mx+b$.",
     "options": [
       "$y=2x+2$",
       "$y=-2x$",
@@ -163,7 +184,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Correcto, con $f(0)=0$ y $f'(0)=2$ la ecuación queda $y=2x$.",
+    "feedback_correct": "La ecuación es $y=2x$.",
     "feedback_incorrect": [
       "Sumaste una constante extra, $f(0)=0$, así que no queda ningún término independiente.",
       "Revisá el signo de la pendiente, $f'(0)=2$ es positivo, no negativo.",
@@ -172,8 +193,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con $f(0)=0$, el término independiente de la tangente desaparece por completo, quedando una recta que pasa por el origen.\n\n$$\\begin{aligned} f(0) &= 0, \\quad f'(x) = -2x+2, \\quad f'(0)=2 \\\\ y &= 2(x-0) + 0 \\\\ &= 2x \\end{aligned}$$\nCuando $f(a)=0$, conviene verificar dos veces que no se sume ninguna constante de más, ese error es fácil de cometer por costumbre.",
-    "reviewed": false
+    "explanation": "Con $f(0)=0$, el término independiente de la tangente desaparece por completo, quedando una recta que pasa por el origen.\n\nCuando $f(a)=0$, conviene verificar dos veces que no se sume ninguna constante de más, ese error es fácil de cometer por costumbre.\n\nEn ejercicios donde se reconoce primero la estructura, el paso a paso es: (1) mirar la forma de la función, (2) identificar qué se multiplica, qué se compone, o qué aparece dividido, (3) elegir la.",
+    "reviewed": false,
+    "tags": [
+      "armado-ecuacion-tangente"
+    ]
   },
   {
     "question": "Una curva pasa por los puntos $(1,3)$ y $(4,12)$. Calculá la pendiente de la recta secante entre esos dos puntos.",
@@ -189,13 +213,16 @@
     "feedback_incorrect": [
       null,
       "Ese valor sale de invertir el cociente, la pendiente es $\\frac{\\Delta y}{\\Delta x}$, no $\\frac{\\Delta x}{\\Delta y}$.",
-      "Falta dividir por $\\Delta x = 3$, ese valor es solo el numerador de la pendiente.",
+      "Hay que dividir por $\\Delta x = 3$, ese valor es solo el numerador de la pendiente.",
       "Revisá el signo, la función crece entre esos dos puntos, así que la pendiente tiene que ser positiva."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pendiente de la **recta secante** entre dos puntos se calcula con el cociente de las diferencias, $\\frac{f(b)-f(a)}{b-a}$.\n\n$$m = \\frac{12-3}{4-1} = \\frac{9}{3} = 3$$\nConviene siempre restar en el mismo orden en numerador y denominador, invertir el orden en uno solo de los dos cambia el signo del resultado.",
-    "reviewed": false
+    "explanation": "La pendiente de la **recta secante** entre dos puntos se calcula con el cociente de las diferencias, $\\frac{f(b)-f(a)}{b-a}$.\n\nConviene siempre restar en el mismo orden en numerador y denominador, invertir el orden en uno solo de los dos cambia el signo del resultado.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "reviewed": false,
+    "tags": [
+      "calculo-de-secantes"
+    ]
   },
   {
     "question": "Una curva pasa por los puntos $(0,5)$ y $(2,1)$. Calculá la pendiente de la recta secante entre esos dos puntos.",
@@ -209,15 +236,18 @@
     "has_math": true,
     "feedback_correct": "Correcto, $m=\\frac{1-5}{2-0}=-2$.",
     "feedback_incorrect": [
-      "Falta dividir por $\\Delta x = 2$, ese valor es solo el numerador de la pendiente.",
+      "Hay que dividir por $\\Delta x = 2$, ese valor es solo el numerador de la pendiente.",
       null,
       "Revisá el signo, la función decrece entre esos dos puntos, así que la pendiente tiene que ser negativa.",
       "Ese valor sale de invertir el cociente, la pendiente es $\\frac{\\Delta y}{\\Delta x}$, no $\\frac{\\Delta x}{\\Delta y}$."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con estos dos puntos, la función decrece a medida que $x$ aumenta, así que la pendiente de la secante tiene que dar negativa.\n\n$$m = \\frac{1-5}{2-0} = \\frac{-4}{2} = -2$$\nEl signo del resultado siempre debería coincidir con el sentido visual del cambio entre los dos puntos, si baja, la pendiente es negativa.",
-    "reviewed": false
+    "explanation": "Con estos dos puntos, la función decrece a medida que $x$ aumenta, así que la pendiente de la secante tiene que dar negativa.\n\nEl signo del resultado siempre debería coincidir con el sentido visual del cambio entre los dos puntos, si baja, la pendiente es negativa.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "reviewed": false,
+    "tags": [
+      "calculo-de-secantes"
+    ]
   },
   {
     "question": "Una curva pasa por los puntos $(1,2)$ y $(3,10)$. Calculá la pendiente de la recta secante entre esos dos puntos.",
@@ -234,12 +264,15 @@
       "Revisá el signo, la función crece entre esos dos puntos, así que la pendiente tiene que ser positiva.",
       "Ese valor sale de invertir el cociente, la pendiente es $\\frac{\\Delta y}{\\Delta x}$, no $\\frac{\\Delta x}{\\Delta y}$.",
       null,
-      "Falta dividir por $\\Delta x = 2$, ese valor es solo el numerador de la pendiente."
+      "Hay que dividir por $\\Delta x = 2$, ese valor es solo el numerador de la pendiente."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para calcular la pendiente de la secante, se restan primero las alturas y después las posiciones horizontales, siempre en el mismo orden.\n\n$$m = \\frac{10-2}{3-1} = \\frac{8}{2} = 4$$\nEste resultado describe la tasa de cambio media entre los dos puntos dados, no la pendiente instantánea en ninguno de ellos.",
-    "reviewed": false
+    "explanation": "Para calcular la pendiente de la secante, se restan primero las alturas y después las posiciones horizontales, siempre en el mismo orden.\n\nEste resultado describe la tasa de cambio media entre los dos puntos dados, no la pendiente instantánea en ninguno de ellos.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "reviewed": false,
+    "tags": [
+      "calculo-de-secantes"
+    ]
   },
   {
     "question": "Una curva pasa por los puntos $(1,10)$ y $(3,2)$. Calculá la pendiente de la recta secante entre esos dos puntos.",
@@ -254,17 +287,20 @@
     "feedback_correct": "Correcto, $m=\\frac{2-10}{3-1}=-4$.",
     "feedback_incorrect": [
       "Revisá el signo, la función decrece entre esos dos puntos, así que la pendiente tiene que ser negativa.",
-      "Falta dividir por $\\Delta x = 2$, ese valor es solo el numerador de la pendiente.",
+      "Hay que dividir por $\\Delta x = 2$, ese valor es solo el numerador de la pendiente.",
       "Ese valor sale de invertir el cociente, la pendiente es $\\frac{\\Delta y}{\\Delta x}$, no $\\frac{\\Delta x}{\\Delta y}$.",
       null
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Entre estos dos puntos la función cae con fuerza, así que la pendiente de la secante tiene que dar un valor negativo grande.\n\n$$m = \\frac{2-10}{3-1} = \\frac{-8}{2} = -4$$\nCuando la caída entre los dos puntos es pronunciada, conviene revisar dos veces la resta del numerador antes de dividir por $\\Delta x$.",
-    "reviewed": false
+    "explanation": "Entre estos dos puntos la función cae con fuerza, así que la pendiente de la secante tiene que dar un valor negativo grande.\n\nCuando la caída entre los dos puntos es pronunciada, conviene revisar dos veces la resta del numerador antes de dividir por $\\Delta x$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "reviewed": false,
+    "tags": [
+      "calculo-de-secantes"
+    ]
   },
   {
-    "question": "Sabiendo que\n$$f'(x) = 2x - 4$$\nhallá el valor de $x$ donde la recta tangente a $f$ es horizontal.",
+    "question": "Sabiendo que:\n$$f'(x)=2x-4$$\nHallá el valor de $x$ donde la recta tangente a $f$ es horizontal.",
     "options": [
       "$x=2$",
       "$x=-2$",
@@ -277,16 +313,19 @@
     "feedback_incorrect": [
       null,
       "Revisá el signo al despejar, $2x=4$ da $x=2$ positivo, no negativo.",
-      "Falta dividir por el coeficiente $2$, ese valor es solo el término independiente cambiado de signo.",
+      "Hay que dividir por el coeficiente $2$, ese valor es solo el término independiente cambiado de signo.",
       "Ese valor sale de invertir la ecuación, hay que despejar $x$ dividiendo, no invirtiendo la fracción."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **tangente horizontal** aparece exactamente donde la derivada se anula, así que hay que resolver $f'(x)=0$.\n\n$$\\begin{aligned} 2x - 4 &= 0 \\\\ 2x &= 4 \\\\ x &= 2 \\end{aligned}$$\nUn error frecuente en este paso es resolver $f(x)=0$ en lugar de $f'(x)=0$, la tangente horizontal depende exclusivamente de la derivada.",
-    "reviewed": false
+    "explanation": "La **tangente horizontal** de una curva aparece exactamente donde la pendiente de la recta tangente es cero, lo que corresponde a resolver la ecuación $f'(x)=0$.\n\nEn este caso, $2x-4=0$ da $x=2$: el punto donde la recta tangente es horizontal.\n\nGeométricamente, los puntos con tangente horizontal corresponden a máximos, mínimos o puntos de inflexión horizontal de la función.\n\nResolver la derivada igual a cero es el paso fundamental para encontrar estos puntos críticos.",
+    "reviewed": false,
+    "tags": [
+      "tangentes-horizontales-calculo"
+    ]
   },
   {
-    "question": "Sabiendo que\n$$f'(x) = -3x + 9$$\nhallá el valor de $x$ donde la recta tangente a $f$ es horizontal.",
+    "question": "Sabiendo que:\n$$f'(x)=-3x+9$$\nHallá el valor de $x$ donde la recta tangente a $f$ es horizontal.",
     "options": [
       "$x=9$",
       "$x=3$",
@@ -297,18 +336,21 @@
     "has_math": true,
     "feedback_correct": "Correcto, $-3x+9=0$ da $x=3$.",
     "feedback_incorrect": [
-      "Falta dividir por el coeficiente $-3$, ese valor es directamente el término independiente sin dividir.",
+      "Hay que dividir por el coeficiente $-3$, ese valor es directamente el término independiente sin dividir.",
       null,
       "Revisá el signo al despejar, $-3x=-9$ da $x=3$ positivo, no negativo.",
-      "Falta dividir por el coeficiente $-3$, ese valor es solo el término independiente cambiado de signo."
+      "Hay que dividir por el coeficiente $-3$, ese valor es solo el término independiente cambiado de signo."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para encontrar la tangente horizontal, se iguala la derivada a cero y se despeja $x$ con cuidado en los signos.\n\n$$\\begin{aligned} -3x + 9 &= 0 \\\\ -3x &= -9 \\\\ x &= 3 \\end{aligned}$$\nCon un coeficiente negativo delante de $x$, conviene despejar paso a paso, dividir de forma apurada suele arrastrar un error de signo.",
-    "reviewed": false
+    "explanation": "Para encontrar la tangente horizontal, se iguala la derivada a cero y se despeja $x$ con cuidado en los signos.\n\nCon un coeficiente negativo delante de $x$, conviene despejar paso a paso, dividir de forma apurada suele arrastrar un error de signo.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "reviewed": false,
+    "tags": [
+      "tangentes-horizontales-calculo"
+    ]
   },
   {
-    "question": "Sabiendo que\n$$f'(x) = 4x + 8$$\nhallá el valor de $x$ donde la recta tangente a $f$ es horizontal.",
+    "question": "Sabiendo que:\n$$f'(x)=4x+8$$\nHallá el valor de $x$ donde la recta tangente a $f$ es horizontal.",
     "options": [
       "$x=-32$",
       "$x=8$",
@@ -320,13 +362,16 @@
     "feedback_correct": "Correcto, $4x+8=0$ da $x=-2$.",
     "feedback_incorrect": [
       "Ese resultado sale de multiplicar en vez de dividir, hay que despejar $x$ dividiendo por $4$.",
-      "Falta dividir por el coeficiente $4$, ese valor es directamente el término independiente sin dividir.",
+      "Hay que dividir por el coeficiente $4$, ese valor es directamente el término independiente sin dividir.",
       null,
       "Revisá el signo al despejar, $4x=-8$ da $x=-2$ negativo, no positivo."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con esta derivada, la tangente horizontal aparece en el valor de $x$ que anula $f'(x)=4x+8$.\n\n$$\\begin{aligned} 4x + 8 &= 0 \\\\ 4x &= -8 \\\\ x &= -2 \\end{aligned}$$\nVerificar el resultado sustituyéndolo de nuevo en $f'(x)$ es una forma rápida de confirmar que efectivamente da cero.",
-    "reviewed": false
+    "explanation": "Con esta derivada, la tangente horizontal aparece en el valor de $x$ que anula $f'(x)=4x+8$.\n\nVerificar el resultado sustituyéndolo de nuevo en $f'(x)$ es una forma rápida de confirmar que efectivamente da cero.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "reviewed": false,
+    "tags": [
+      "tangentes-horizontales-calculo"
+    ]
   }
 ]

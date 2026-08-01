@@ -31,7 +31,7 @@ Estas reglas son las que más se violan y las que más rompen el render o la coh
     - **Reincidencia confirmada en `violet/derivatives/quotient`**: paréntesis aclaratorio solo en la opción correcta (`"Múltiplo escalar (linealidad)"` contra `"Regla del cociente"`, `"Regla del producto"` sin ninguna glosa) y relleno textual asimétrico en opciones numéricas (`"$x=0$ solamente"` contra `"$x=1$ y $x=-2$"`, donde "solamente" no tiene equivalente en la opción de 2 valores). En ambos casos, sacar el agregado en vez de repetirlo en las demás: ni la glosa entre paréntesis ni "solamente" aportan distracción real, son puro relleno de paridad.
 5. **Sin adjetivos decorativos en enunciados** ("moderno", "automatizado", "eficiente"). Redacción al grano.
 6. **NUNCA usar guion largo `—` (em-dash, U+2014) en ningún campo del ejercicio.** Ni en `question`, `options`, `feedback_correct`, `feedback_incorrect` o `explanation`. Usá `,` (coma), `:` (dos puntos), `;` (punto y coma) o `.` (punto) según corresponda. El guion medio `–` también prohibido en prosa (salvo rangos numéricos "2–4"). Solo el guion `-` común es válido, y solo uniendo palabras compuestas.
-7. **El cierre de la `explanation` es una advertencia de la confusión típica o un consejo práctico, no un chiste.** Por defecto, la tercera parte señala el error clásico del concepto o da una pista para no volver a caer, en voz neutra, y **solo cuando aporta** (si no, la explicación cierra en la aplicación). El humor dejó de ser obligatorio: es **excepcional** y solo se admite como **analogía cotidiana exagerada** (una consecuencia práctica o escena burocrática absurda) enunciada en tono formal. Los antropomorfismos ("la raíz cuadrada detesta los negativos", "la función se cansa de emitir respuestas") están **prohibidos en todo el campo**. Ver *Estructura de la explicación* para el detalle de las 3 partes.
+7. **El cierre de la `explanation` continúa en voz narrativa directa, nunca se anuncia como advertencia de diagnóstico ni como chiste.** Por defecto, la tercera parte dice la confusión o el consejo práctico **solo cuando aporta** (si no, la explicación cierra en la aplicación), sin rotularse antes de decirse: prohibido abrir con "La confusión típica es...", "Un error común/frecuente/clásico es...", "La trampa es..." (ver regla 34 para el detalle). El humor no es obligatorio: es **excepcional** y solo se admite como **analogía cotidiana exagerada** (una consecuencia práctica o escena burocrática absurda) enunciada en tono formal. Los antropomorfismos ("la raíz cuadrada detesta los negativos", "la función se cansa de emitir respuestas") están **prohibidos en todo el campo**. Ver *Estructura de la explicación* para el detalle de las 3 partes.
 8. **"Función", nunca "regla", para nombrar el objeto matemático.** "Regla" se reserva para procedimientos con nombre propio ("regla del producto", "regla de la cadena"). Ver *Vocabulario: términos prohibidos y su reemplazo formal*.
 9. **Nunca cortar una oración a la mitad para insertar una fórmula display en el medio.** El fragmento antes de `$$...$$` debe cerrar en un signo de puntuación válido (`.` o `:`), no continuar la misma oración después de la fórmula. Ver *Sin preámbulos colgantes* más abajo.
 10. **Toda oración empieza con mayúscula**, incluida la primera palabra después de una fórmula display o de un `\n\n`. Aplica a `question`, `explanation`, `feedback_correct` y `feedback_incorrect`. Una variable en minúscula (`$b$`, `$x$`) al arrancar la oración no exime de la mayúscula: si la oración empieza en prosa, empieza en mayúscula ("Con $b = 300$…" no "con $b = 300$…").
@@ -128,10 +128,10 @@ Estas reglas son las que más se violan y las que más rompen el render o la coh
     - **Consecuencia directa**: qué pasa si se hace mal, sin nombrar el error como tal. ✅ `Restar los índices en vez de expandir da un número parecido por casualidad.` / ✅ `Dividir solo por uno de los dos factores deja el resultado dos veces más grande de lo que debería.`
     - **Segunda persona**: dirigirse directo al alumno. ✅ `Si te salteás este paso, terminás contando cada anagrama dos veces.` / ✅ `Fijate que acá el orden importa antes de elegir la fórmula.`
     - **Gerundio/infinitivo al frente**: la acción incorrecta como sujeto de la oración. ✅ `Confundir esta fórmula con la de variación es fácil de arrastrar de un ejercicio a otro.` / ✅ `Tratar las letras repetidas como distintas sobrecuenta reordenamientos que en realidad forman la misma palabra.`
-    - **Otros, caso a caso**: sin plantilla fija (una analogía puntual, la razón de por qué se lee mal un símbolo, etc.), siempre que no repita ninguna de las anteriores.
-    - **Prohibido explícitamente**: el marcador breve tipo "Ojo:"/"Atención:" y la comparación/contraste tipo "A diferencia de X, acá...".
-    - ❌ `Un error clásico es restar directamente los índices ($5-4=1$) sin expandir ningún factorial, tratando al símbolo $!$ como una operación lineal.`
+    - **Otros, caso a caso**: sin plantilla fija, siempre que no repita ninguna de las anteriores.
+    - **Prohibido explícitamente**: el marcador breve tipo "Ojo:"/"Atención:"/"Cuidado con..." y la comparación/contraste tipo "A diferencia de X, acá...".
     - ❌ `Es fácil restar directamente los índices ($5-4=1$) sin expandir ningún factorial.` (mismo filler genérico, solo cambió la palabra rotuladora)
+    - ❌ `Un error clásico es restar directamente los índices ($5-4=1$) sin expandir ningún factorial, tratando al símbolo $!$ como una operación lineal.`
     - ✅ `Restar los índices directo ($5-4=1$) da un número parecido por casualidad: el $!$ no es una operación lineal, hay que expandir cada factorial antes de simplificar.`
 35. **Todas las opciones de un mismo ítem usan la misma puntuación de conector (coma o dos puntos), nunca mezcladas.** Cuando una opción arranca con un juicio corto ("Es verdadera", "Sí", "No", "Es falsa") seguido de la razón, el signo que conecta ambas partes tiene que ser el mismo en las 4 opciones. Si la correcta usa `:` y los distractores usan `,` (o viceversa), el signo distinto delata la respuesta antes de leer el contenido. **Preferencia: coma**, salvo que la cláusula que sigue sea una fórmula/enumeración que necesite dos puntos por razones ajenas a esto.
     - ❌ `["Es verdadera, porque $4+3=7$.", "Es verdadera, por la relación recursiva del factorial.", "Es falsa, porque falta multiplicar ambos lados por $2!$.", "Es falsa: los factoriales no se suman igual que sus índices."]` (la correcta es la única con `:`)
@@ -367,6 +367,16 @@ Al elevar al cuadrado se obtiene\n$$0^2 = 0, \quad (\pm 1)^2 = 1$$\nLas salidas 
 ```
 Una función transforma cada entrada en una única salida.\n\nAcá el 9 podría transformarse en 3 o en $-3$.
 ```
+
+**Cómo se miden los límites de párrafo cuando hay una fórmula centrada en el medio.**
+El tope de 200 caracteres de prosa y el umbral de 2+ inline de la regla 21 aplican a
+**cada tramo de prosa entre bloques `$$...$$`**, no al párrafo completo. Una fórmula
+centrada ya corta la lectura (displayMode agrega margen vertical), así que la prosa de
+antes y la de después son tramos separados a los ojos del lector. Sin este criterio, la
+regla del `\n` simple pegado a `$$` haría que un párrafo bien escrito se midiera como un
+solo bloque largo, y el remedio que la propia regla 21 recomienda ("sacá la fórmula
+central a un bloque `$$...$$`") nunca bajaría el conteo. `validate_content.py` lo
+implementa así en `prose_segments()`.
 
 ### Fórmulas anchas: partir en pasos, nunca scroll horizontal
 

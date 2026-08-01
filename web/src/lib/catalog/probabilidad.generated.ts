@@ -2,7 +2,7 @@
 // Source: backend/content/probabilidad/course.json
 // Do not edit by hand; rerun `bun run scripts/sync-catalog.ts`.
 
-export type BeltKey = "white" | "blue" | "violet"
+export type BeltKey = "white" | "blue" | "violet" | "brown"
 
 export interface Topic {
   key: string
@@ -80,7 +80,7 @@ export const catalog: Catalog = {
     {
       "key": "white",
       "headline": "Conteo",
-      "description": "Trabajás las bases del cálculo de probabilidades: contás combinaciones y permutaciones y dominás los axiomas y teoremas fundamentales de la incertidumbre.",
+      "description": "Trabajás las bases del conteo combinatorio: contás combinaciones y permutaciones sin necesidad de enumerarlas, la herramienta que después vas a usar para calcular probabilidades.",
       "units": [
         {
           "key": "conteo",
@@ -142,7 +142,14 @@ export const catalog: Catalog = {
               ]
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "key": "blue",
+      "headline": "Probabilidad",
+      "description": "La **probabilidad** es una medida numérica que asigna a cada evento posible de un experimento aleatorio un valor entre $0$ y $1$, cuantificando su grado de incertidumbre. Sus axiomas y teoremas permiten combinar, condicionar e invertir información sobre eventos.",
+      "units": [
         {
           "key": "probabilidad",
           "name": "Probabilidad",
@@ -228,7 +235,7 @@ export const catalog: Catalog = {
       ]
     },
     {
-      "key": "blue",
+      "key": "violet",
       "headline": "Variables",
       "description": "Explorás cómo traducir experimentos aleatorios a funciones matemáticas: variables aleatorias, sus distribuciones puntual, de densidad y acumulada, y sus resúmenes numéricos como la esperanza y la varianza.",
       "units": [
@@ -305,14 +312,14 @@ export const catalog: Catalog = {
       ]
     },
     {
-      "key": "violet",
+      "key": "brown",
       "headline": "Distribuciones",
       "description": "Aprendés a identificar y aplicar los modelos probabilísticos clásicos, desde pruebas de Bernoulli hasta la distribución Normal y el Teorema Central del Límite.",
       "units": [
         {
           "key": "distribuciones",
           "name": "Distribuciones",
-          "description": "Las **distribuciones de probabilidad** son los modelos paramétricos que describen el comportamiento de una variable aleatoria, tanto en el caso discreto, de soporte contable, como en el continuo, de soporte real.\n$$P(X = k) = p(k) \\qquad P(a \\leq X \\leq b) = \\int_a^b f(x)\\,dx$$\nCada familia paramétrica describe una situación experimental distinta.",
+          "description": "Las **distribuciones de probabilidad** son los modelos paramétricos que describen el comportamiento de una variable aleatoria, tanto en el caso discreto, de soporte contable, como en el continuo, de soporte real.\n$$\\begin{gathered} P(X = k) = p(k) \\\\ P(a \\leq X \\leq b) = \\int_a^b f(x)\\,dx \\end{gathered}$$\nCada familia paramétrica describe una situación experimental distinta.",
           "topics": [
             {
               "key": "binomial",

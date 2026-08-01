@@ -1103,6 +1103,86 @@
         }
       }
     },
+    "/internal/emails/run": {
+      "post": {
+        "summary": "Internal Run Lifecycle Emails",
+        "description": "Worker-facing: send due bounce/win-back emails now (best-effort per user).",
+        "operationId": "internal_run_lifecycle_emails_internal_emails_run_post",
+        "parameters": [
+          {
+            "name": "x-internal-secret",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Internal-Secret"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailRunResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/email/unsubscribe": {
+      "get": {
+        "summary": "Email Unsubscribe",
+        "description": "No-login unsubscribe link clicked from an email. Marks the user opted\nout of lifecycle emails and shows a minimal confirmation page.",
+        "operationId": "email_unsubscribe_email_unsubscribe_get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/leaderboard": {
       "get": {
         "summary": "Get Leaderboard",
@@ -1355,7 +1435,7 @@
     "/user/emoji-tree": {
       "get": {
         "summary": "Get Emoji State",
-        "description": "Estado del \u00e1rbol de desbloqueo del usuario (bucket, XP, camino, vestido).",
+        "description": "Estado del \u00e1rbol de desbloqueo del usuario (bucket, XP, vestido). El\nconjunto desbloqueado se deriva client-side de total_xp \u2014 no hay elecci\u00f3n\nni endpoint de unlock, todo lo de la profundidad alcanzada se desbloquea\nsolo.",
         "operationId": "get_emoji_state_user_emoji_tree_get",
         "parameters": [
           {
@@ -1392,60 +1472,10 @@
         }
       }
     },
-    "/user/emoji/unlock": {
-      "post": {
-        "summary": "Unlock Emoji",
-        "description": "Desbloquea el siguiente nodo del camino (irreversible, sin reset).",
-        "operationId": "unlock_emoji_user_emoji_unlock_post",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "title": "Authorization"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EmojiUnlockRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EmojiStateResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/user/emoji/worn": {
       "put": {
         "summary": "Set Worn Emoji",
-        "description": "Viste un emoji ya desbloqueado del camino. None = ra\u00edz del bucket (default).",
+        "description": "Viste un emoji ya desbloqueado (profundidad alcanzada por XP). None =\nra\u00edz del bucket (default).",
         "operationId": "set_worn_emoji_user_emoji_worn_put",
         "parameters": [
           {
@@ -1927,6 +1957,14 @@
             "type": "integer",
             "title": "Pending Count"
           },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "body": {
+            "type": "string",
+            "title": "Body"
+          },
           "subscriptions": {
             "items": {
               "$ref": "#/components/schemas/PushSubscriptionOut"
@@ -1939,9 +1977,29 @@
         "required": [
           "user_id",
           "pending_count",
+          "title",
+          "body",
           "subscriptions"
         ],
         "title": "DueNotification"
+      },
+      "EmailRunResponse": {
+        "properties": {
+          "bounce_sent": {
+            "type": "integer",
+            "title": "Bounce Sent"
+          },
+          "winback_sent": {
+            "type": "integer",
+            "title": "Winback Sent"
+          }
+        },
+        "type": "object",
+        "required": [
+          "bounce_sent",
+          "winback_sent"
+        ],
+        "title": "EmailRunResponse"
       },
       "EmojiStateResponse": {
         "properties": {
@@ -1961,14 +2019,6 @@
             "title": "Total Xp",
             "default": 0
           },
-          "path": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Path",
-            "default": []
-          },
           "worn": {
             "anyOf": [
               {
@@ -1983,19 +2033,6 @@
         },
         "type": "object",
         "title": "EmojiStateResponse"
-      },
-      "EmojiUnlockRequest": {
-        "properties": {
-          "node_id": {
-            "type": "string",
-            "title": "Node Id"
-          }
-        },
-        "type": "object",
-        "required": [
-          "node_id"
-        ],
-        "title": "EmojiUnlockRequest"
       },
       "EmojiWornRequest": {
         "properties": {
@@ -2034,6 +2071,28 @@
               }
             ],
             "title": "Name"
+          },
+          "course": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Course"
+          },
+          "motivation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Motivation"
           },
           "intro_item_correct": {
             "anyOf": [
@@ -2765,6 +2824,13 @@
           },
           "level_info": {
             "$ref": "#/components/schemas/LevelInfoWithMissing"
+          },
+          "streak": {
+            "$ref": "#/components/schemas/StreakInfo"
+          },
+          "session_number": {
+            "type": "integer",
+            "title": "Session Number"
           }
         },
         "type": "object",
@@ -2781,7 +2847,9 @@
           "topic_states",
           "belt_progress",
           "xp_earned",
-          "level_info"
+          "level_info",
+          "streak",
+          "session_number"
         ],
         "title": "SessionSummaryResponse"
       },
@@ -2929,6 +2997,68 @@
           "count"
         ],
         "title": "StartZenSessionRequest"
+      },
+      "StreakInfo": {
+        "properties": {
+          "days": {
+            "type": "integer",
+            "title": "Days"
+          },
+          "multiplier": {
+            "type": "number",
+            "title": "Multiplier"
+          },
+          "next_threshold": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Threshold"
+          },
+          "next_multiplier": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Multiplier"
+          },
+          "days_to_next": {
+            "type": "integer",
+            "title": "Days To Next"
+          },
+          "is_max": {
+            "type": "boolean",
+            "title": "Is Max"
+          },
+          "counted_today": {
+            "type": "boolean",
+            "title": "Counted Today"
+          },
+          "xp_bonus": {
+            "type": "integer",
+            "title": "Xp Bonus",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "days",
+          "multiplier",
+          "next_threshold",
+          "next_multiplier",
+          "days_to_next",
+          "is_max",
+          "counted_today"
+        ],
+        "title": "StreakInfo"
       },
       "SummaryItem": {
         "properties": {
@@ -3221,13 +3351,17 @@
             "type": "integer",
             "title": "Session Size Max",
             "default": 30
+          },
+          "streak": {
+            "$ref": "#/components/schemas/StreakInfo"
           }
         },
         "type": "object",
         "required": [
           "topic_states",
           "level_info",
-          "main_session_done_today"
+          "main_session_done_today",
+          "streak"
         ],
         "title": "UserProgressResponse"
       },

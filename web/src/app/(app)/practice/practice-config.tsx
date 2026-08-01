@@ -35,17 +35,27 @@ import { useUser } from "@clerk/nextjs"
 import { CheckIcon, ChevronDown, Info, RotateCcwIcon, SettingsIcon, X } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { parseAsInteger, parseAsStringLiteral, useQueryState } from "nuqs"
-import { useMemo, useState, useSyncExternalStore } from "react"
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react"
 import { EditorStepper } from "@/app/editor-stepper"
+import { useUserProgress } from "@/app/UseUserProgress"
 import { usePracticeStats } from "./UsePracticeStats"
 import { useStartPractice } from "./UseStartPractice"
+import { startSessionTransition } from "@/lib/nav/session-transition"
 
 const ctaCls =
   "h-12 w-full shrink-0 rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
 
 const DEFAULT_COUNT = 10
+
+// Transición hacia una sesión: fade-out de esta pantalla, pausa forzada sobre
+// el fondo vacío, recién ahí se navega. Mismo timing en dashboard-entry.tsx.
+// El prefetch (ver onStart) corre en paralelo con esta pausa, así que cuando
+// el push finalmente dispara, la ruta ya está resuelta y no hay ningún hueco
+// para que asome un loading.tsx/skeleton.
+const FADE_OUT_MS = 200
+const FORCED_DELAY_MS = 500
 
 // Mismo lenguaje visual que el modo editor de repaso (dashboard-entry.tsx):
 // rojo para restablecer, verde para guardar/cerrar.
@@ -137,14 +147,48 @@ export default function PracticeConfig() {
     parseAsInteger.withDefault(DEFAULT_COUNT),
   )
   const [editing, setEditing] = useState(false)
+  // clearOnDefault:false mantiene ?course= en la URL aunque sea el curso default
+  // (analisis); si no, nuqs lo borra y la tab bar no puede pasarlo a "/".
   const [course, setCourse] = useQueryState(
     "course",
-    parseAsStringLiteral(COURSE_ORDER).withDefault("analisis"),
+    parseAsStringLiteral(COURSE_ORDER)
+      .withDefault("analisis")
+      .withOptions({ clearOnDefault: false }),
   )
   const beltOrder = useMemo(() => beltOrderFor({ course }), [course])
 
-  const statsQuery = usePracticeStats({ course })
-  const sessionsCompleted = statsQuery.data?.sessions_completed ?? 0
+  // La URL de /practice siempre debe tener ?course= para que la tab bar lo pueda
+  // pasar a "/" (y viceversa) sin perderlo. Si se entró sin el parámetro, se
+  // escribe el curso resuelto (mismo criterio que dashboard-entry.tsx).
+  const rawCourse = useSearchParams().get("course")
+  useEffect(() => {
+    if (rawCourse === null) void setCourse(course)
+  }, [rawCourse, course, setCourse])
+
+  // Prefetch de los 3 cursos (mismo patrón que dashboard-entry.tsx): React
+  // Query cachea por queryKey y los hooks se resuelven en paralelo, así que
+  // cambiar de curso solo alterna qué `data` se lee — nunca dispara un fetch
+  // nuevo ni pisa el contenido con el skeleton a mitad de sesión.
+  const analisisStats = usePracticeStats({ course: "analisis" })
+  const probabilidadStats = usePracticeStats({ course: "probabilidad" })
+  const algebraStats = usePracticeStats({ course: "algebra" })
+  const statsByCourse: Record<CourseId, typeof analisisStats> = {
+    analisis: analisisStats,
+    probabilidad: probabilidadStats,
+    algebra: algebraStats,
+  }
+  const statsQuery = statsByCourse[course]
+
+  const analisisProgress = useUserProgress({ course: "analisis" })
+  const probabilidadProgress = useUserProgress({ course: "probabilidad" })
+  const algebraProgress = useUserProgress({ course: "algebra" })
+  const progressByCourse: Record<CourseId, typeof analisisProgress> = {
+    analisis: analisisProgress,
+    probabilidad: probabilidadProgress,
+    algebra: algebraProgress,
+  }
+  const progressQuery = progressByCourse[course]
+
   const answered = statsQuery.data?.exercises_answered ?? 0
   const exercisesCorrect = statsQuery.data?.exercises_correct ?? 0
   const accuracyPct = answered
@@ -239,6 +283,13 @@ export default function PracticeConfig() {
   )
   const canStart = selectedItems.length > 0 && (count ?? 0) >= 1
 
+  // Al terminar de cargar la sesión: se desvanece todo el contenido (queda solo
+  // el fondo), una pausa forzada, y recién ahí se navega — el runner hace su
+  // propio fade-in al llegar. Todo esto pasa DESPUÉS de que la sesión ya está
+  // lista, así que no hay margen para que se llegue a ver ningún skeleton de
+  // ruteo en el medio.
+  const [leaving, setLeaving] = useState(false)
+
   function onStart() {
     if (!canStart) return
     sfx.start()
@@ -250,20 +301,26 @@ export default function PracticeConfig() {
         course,
       },
       {
-        onSuccess: (payload) => router.push(`/session/${payload.session_id}`),
+        onSuccess: (payload) => {
+          const url = `/session/${payload.session_id}`
+          router.prefetch(url)
+          setLeaving(true)
+          startSessionTransition()
+          setTimeout(() => router.push(url), FADE_OUT_MS + FORCED_DELAY_MS)
+        },
       },
     )
   }
 
   return (
-    <Screen>
+    <Screen className={cn("transition-opacity duration-200", leaving && "opacity-0")}>
       <ScreenHeader innerClassName="justify-center">
         <Link href="/" aria-label="Intervalo">
           <Wordmark textClass="text-[15px]" barClass="h-[3px]" />
         </Link>
       </ScreenHeader>
 
-      <ScreenBody className="gap-4 py-4">
+      <ScreenBody className="gap-4 py-4 no-scrollbar">
         {statsQuery.isPending ? (
           <PracticeSkeleton />
         ) : (
@@ -289,9 +346,11 @@ export default function PracticeConfig() {
               ) : (
                 <div className="grid grid-cols-3 gap-2">
                   <Metric
-                    label="Sesiones completadas"
+                    label="Multiplicador de XP"
                     value={
-                      <CountUp variant="ease" value={sessionsCompleted} duration={1000} />
+                      progressQuery.data
+                        ? `×${progressQuery.data.streak.multiplier.toFixed(1)}`
+                        : "…"
                     }
                   />
                   <Metric
@@ -344,7 +403,7 @@ export default function PracticeConfig() {
             )}
 
             {!hintDismissed && (
-              <div className="flex items-start justify-between gap-3 rounded-md border border-white/10 bg-white/[0.01] p-4">
+              <div className="flex items-start justify-between gap-3 rounded-md border border-white/10 bg-white/[0.01] p-3">
                 <p className="text-sm text-foreground/60">
                   Elegí los temas que querés practicar.
                   <br />

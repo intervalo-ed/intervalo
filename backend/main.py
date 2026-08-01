@@ -1,4 +1,3 @@
-import json
 import os
 import re
 import sys
@@ -15,6 +14,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from fastapi import FastAPI, HTTPException, Depends, Header, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
@@ -32,6 +32,7 @@ from schemas import (
     AnswerResponse,
     BeltEntry,
     DueNotification,
+    EmailRunResponse,
     EmojiStateResponse,
     EnrollmentResponse,
     FeedbackRequest,
@@ -341,7 +342,12 @@ class EnrollmentRequest(BaseModel):
     university: str
     career: str
     name: str | None = None
-    # Resultado del ejercicio de prueba del onboarding (white/definition/LEXI).
+    # Curso elegido en el onboarding (slug). None → analisis, por compatibilidad
+    # con clientes/datos viejos que no mandaban curso.
+    course: str | None = None
+    # Motivación elegida en el onboarding (slug corto: cursada/bases/conceptos).
+    motivation: str | None = None
+    # Resultado del ejercicio de prueba del onboarding (primer ítem del curso).
     # True = acertó al primer intento, False = falló alguna vez, None = sin dato.
     intro_item_correct: bool | None = None
 
@@ -353,15 +359,10 @@ def enroll_user(
     db: Session = Depends(get_db)
 ):
     """Enroll user in a course with onboarding data."""
-    from models import Enrollment, Course
+    from models import Enrollment
 
-    # Default course_id to 1 for now (analisis-1)
-    course_id = 1
-
-    # Check if course exists
-    course = db.query(Course).filter(Course.id == course_id).first()
-    if not course:
-        raise HTTPException(status_code=400, detail="Course not found")
+    # Curso elegido en el onboarding (slug → id). Default analisis para compat.
+    course_id = _resolve_course_id(body.course, db)
 
     # Check if already enrolled
     existing = db.query(Enrollment).filter(
@@ -373,6 +374,7 @@ def enroll_user(
         # Update enrollment
         existing.university = body.university
         existing.career = body.career
+        existing.motivation = body.motivation
     else:
         # Create new enrollment
         enrollment = Enrollment(
@@ -380,6 +382,7 @@ def enroll_user(
             course_id=course_id,
             university=body.university,
             career=body.career,
+            motivation=body.motivation,
         )
         db.add(enrollment)
 
@@ -390,8 +393,8 @@ def enroll_user(
     db.commit()
 
     # Solo en una alta nueva: persistir el resultado del ejercicio de prueba del
-    # onboarding sobre el ítem white/definition/LEXI (acierto → mañana, fuera de
-    # la 1ª sesión; fallo → hoy, dentro). En re-enrollment no se toca el progreso.
+    # onboarding sobre el primer ítem del curso (acierto → mañana, fuera de la 1ª
+    # sesión; fallo → hoy, dentro). En re-enrollment no se toca el progreso.
     if not existing and body.intro_item_correct is not None:
         from session_store import seed_intro_item
         seed_intro_item(current_user.id, course_id, body.intro_item_correct, db)
@@ -719,6 +722,48 @@ def internal_prune_push(
     return {"success": True}
 
 
+# ── Lifecycle emails ─────────────────────────────────────────────────────────────
+
+@app.post(
+    "/internal/emails/run",
+    response_model=EmailRunResponse,
+    dependencies=[Depends(require_internal_secret)],
+)
+def internal_run_lifecycle_emails(db: Session = Depends(get_db)):
+    """Worker-facing: send due bounce/win-back emails now (best-effort per user)."""
+    import lifecycle_emails
+
+    return lifecycle_emails.run_lifecycle_emails(db)
+
+
+@app.get("/email/unsubscribe", response_class=HTMLResponse)
+def email_unsubscribe(token: str, db: Session = Depends(get_db)):
+    """No-login unsubscribe link clicked from an email. Marks the user opted
+    out of lifecycle emails and shows a minimal confirmation page."""
+    import lifecycle_emails
+
+    user_id = lifecycle_emails.verify_unsubscribe_token(token)
+    if user_id is None:
+        return HTMLResponse(
+            "<html><body style='font-family:sans-serif;background:#131324;color:#f6f8fc;"
+            "text-align:center;padding:64px 24px;'>Ese link no es válido.</body></html>",
+            status_code=400,
+        )
+
+    user = db.query(User).filter(User.id == user_id).first()
+    if user is not None:
+        user.email_unsubscribed = True
+        db.commit()
+
+    return HTMLResponse(
+        "<html><body style='font-family:sans-serif;background:#131324;color:#f6f8fc;"
+        "text-align:center;padding:64px 24px;'>"
+        "<p style='font-size:20px;font-weight:700;margin:0 0 8px;'>intervalo</p>"
+        "<p>Te desuscribiste de estos emails. No vas a recibir más.</p>"
+        "</body></html>"
+    )
+
+
 # ── Leaderboard ───────────────────────────────────────────────────────────────
 
 # Filas a cada lado del usuario en la ventana centrada (`around_me`).
@@ -986,22 +1031,10 @@ def _emoji_bucket(db: Session, user: User) -> str | None:
     return e.career if e else None
 
 
-def _emoji_path(user: User) -> list[str]:
-    """Camino desbloqueado del usuario (lista de ids), parseado del JSON-en-texto."""
-    if not user.emoji_path:
-        return []
-    try:
-        value = json.loads(user.emoji_path)
-    except (json.JSONDecodeError, TypeError):
-        return []
-    return value if isinstance(value, list) else []
-
-
 def _emoji_state(db: Session, user: User) -> EmojiStateResponse:
     return EmojiStateResponse(
         bucket=_emoji_bucket(db, user),
         total_xp=user.total_xp,
-        path=_emoji_path(user),
         worn=user.emoji_worn,
     )
 
@@ -1011,31 +1044,10 @@ def get_emoji_state(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Estado del árbol de desbloqueo del usuario (bucket, XP, camino, vestido)."""
-    return _emoji_state(db, current_user)
-
-
-class EmojiUnlockRequest(BaseModel):
-    node_id: str
-
-
-@app.post("/user/emoji/unlock", response_model=EmojiStateResponse)
-def unlock_emoji(
-    body: EmojiUnlockRequest,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db),
-):
-    """Desbloquea el siguiente nodo del camino (irreversible, sin reset)."""
-    bucket = _emoji_bucket(db, current_user)
-    path = _emoji_path(current_user)
-    ok, reason = emoji_tree.can_unlock(path, body.node_id, current_user.total_xp, bucket)
-    if not ok:
-        raise HTTPException(status_code=422, detail=reason)
-
-    path.append(body.node_id)
-    current_user.emoji_path = json.dumps(path)
-    db.commit()
-    db.refresh(current_user)
+    """Estado del árbol de desbloqueo del usuario (bucket, XP, vestido). El
+    conjunto desbloqueado se deriva client-side de total_xp — no hay elección
+    ni endpoint de unlock, todo lo de la profundidad alcanzada se desbloquea
+    solo."""
     return _emoji_state(db, current_user)
 
 
@@ -1049,10 +1061,10 @@ def set_worn_emoji(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Viste un emoji ya desbloqueado del camino. None = raíz del bucket (default)."""
+    """Viste un emoji ya desbloqueado (profundidad alcanzada por XP). None =
+    raíz del bucket (default)."""
     bucket = _emoji_bucket(db, current_user)
-    path = _emoji_path(current_user)
-    ok, reason = emoji_tree.can_wear(path, body.node_id, bucket)
+    ok, reason = emoji_tree.can_wear(body.node_id, bucket, current_user.total_xp)
     if not ok:
         raise HTTPException(status_code=422, detail=reason)
 

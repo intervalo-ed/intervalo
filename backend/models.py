@@ -36,10 +36,28 @@ class User(Base):
     notify_timezone = Column(String(64), nullable=True)
     notify_last_sent_on = Column(Date, nullable=True)
 
+    # Rotación de copy: última categoría/variante enviada, para no repetirla en
+    # el próximo envío (ver notification_copy.py). Se setea junto con
+    # notify_last_sent_on en la misma transacción de claim (due_notifications).
+    notify_last_category = Column(String(32), nullable=True)
+    notify_last_variant_key = Column(String(64), nullable=True)
+
+    # Detección de "te pasaron en el ranking": rank global (por total_xp) tal
+    # como estaba la última vez que se chequeó a este usuario en
+    # due_notifications — no un valor live. Solo se refresca para candidatos
+    # efectivamente due, nunca en un full scan.
+    notify_last_rank = Column(Integer, nullable=True)
+
     # IANA timezone del usuario (p.ej. "America/Argentina/Buenos_Aires"); define el
     # "día" de la repetición espaciada. Se autocompleta desde el navegador en cada
     # carga del home. NULL → fallback a Argentina (ver session_store.user_today).
     timezone = Column(String(64), nullable=True)
+
+    # Racha global de días de actividad: días distintos (no necesariamente
+    # consecutivos) con al menos una sesión completada. Define el multiplicador
+    # de XP del modo Repaso. 30 días seguidos sin actividad resetean a 0.
+    streak_days = Column(Integer, nullable=False, default=0, server_default="0")
+    streak_last_date = Column(Date, nullable=True)
 
     # Desbloqueo de emojis (badges) por carrera. `emoji_path` es la cadena
     # append-only de ids de nodos ya desbloqueados (JSON-en-texto, desde
@@ -48,6 +66,13 @@ class User(Base):
     # Ver emoji_tree.py.
     emoji_path = Column(Text, nullable=True)
     emoji_worn = Column(String(64), nullable=True)
+
+    # Emails automáticos de retención (bounce + win-back). `email_unsubscribed`
+    # es un opt-out global; los `*_sent_at` son la idempotencia de cada tipo de
+    # mail (ver lifecycle_emails.py).
+    email_unsubscribed = Column(Boolean, nullable=False, default=False, server_default="false")
+    bounce_email_sent_at = Column(DateTime, nullable=True)
+    winback_email_sent_at = Column(DateTime, nullable=True)
 
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -86,6 +111,7 @@ class Enrollment(Base):
     course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
     university = Column(String(100), nullable=True)
     career = Column(String(200), nullable=True)
+    motivation = Column(String(50), nullable=True)
     enrolled_at = Column(DateTime, default=datetime.utcnow)
 
     __table_args__ = (UniqueConstraint("user_id", "course_id", name="unique_user_course"),)
@@ -250,6 +276,10 @@ class Answer(Base):
     response_time_ms = Column(Integer, nullable=True)
     quality_score = Column(Integer, nullable=True)
     xp_earned = Column(Integer, default=0)
+    # XP de esta respuesta antes del multiplicador de racha diaria (por intento
+    # y dificultad personal del ítem). xp_earned - xp_base = XP extra ganado
+    # gracias al multiplicador, mostrado en el resumen de sesión.
+    xp_base = Column(Integer, nullable=False, default=0, server_default="0")
 
     # Iteración de progreso del curso (ver CourseProgress). Reiniciar el curso
     # incrementa la iteración; las respuestas viejas quedan etiquetadas.

@@ -25,20 +25,24 @@ from algorithm import (
     SM2UnitState,
     TopicKey,
     UnitKey,
-    XP_BELT_PROMOTED,
-    XP_CORRECT,
+    DIFFICULTY_MIN_SAMPLES,
+    DIFFICULTY_WINDOW,
+    STREAK_RESET_AFTER_DAYS,
     XP_STREAK_BONUS,
     XP_STREAK_INTERVAL,
-    XP_TOPIC_MASTERED,
-    XP_WRONG,
     belt_progress,
+    difficulty_multiplier,
     build_session,
     default_catalog,
     is_topic_mastered,
     level_progress,
     load_belt_catalogs,
+    practice_xp_split,
     quality_from_attempts,
     quality_from_time,
+    review_xp_split,
+    streak_info,
+    streak_multiplier,
     update_unit_state,
 )
 from exercise_bank import get_exercise_db, list_exercises_db, topic_exercise_types
@@ -286,29 +290,41 @@ def _create_topic_units(
     return types
 
 
-# Ítem del ejercicio de prueba del onboarding: belt white, tema definición, léxico.
-_INTRO_ITEM = TopicKey(belt=Belt.WHITE, topic="definition")
-_INTRO_ITEM_EXERCISE_TYPE = "LEXI"
+# Ítem del ejercicio de prueba del onboarding, por curso: el primer ítem real de
+# cada curso (primer skill del primer tema del cinturón blanco). Mapea uno a uno
+# con el ejercicio que muestra el wizard en el front (ver ONBOARDING_EXERCISES).
+_INTRO_ITEM_BY_COURSE: dict[str, tuple[TopicKey, str]] = {
+    "analisis": (TopicKey(belt=Belt.WHITE, topic="definition"), "LEXI"),
+    "algebra": (TopicKey(belt=Belt.WHITE, topic="powers"), "LEXI"),
+    "probabilidad": (TopicKey(belt=Belt.WHITE, topic="reglas"), "FORM"),
+}
+# Fallback para cursos no mapeados (o datos viejos sin curso).
+_INTRO_ITEM_DEFAULT = _INTRO_ITEM_BY_COURSE["analisis"]
 
 
 def seed_intro_item(user_id: int, course_id: int, correct: bool, db: DBSession) -> None:
-    """Persiste el resultado del ejercicio de prueba del onboarding sobre el ítem
-    white/definition/LEXI, aplicándole el mismo update SM-2 que una respuesta real.
+    """Persiste el resultado del ejercicio de prueba del onboarding sobre el primer
+    ítem del curso, aplicándole el mismo update SM-2 que una respuesta real.
 
     Acierto al primer intento (calidad 5) lo agenda para mañana, así queda fuera de
     la primera sesión. Fallo (calidad 0) lo deja pendiente para hoy, así aparece en
-    la primera sesión. Crea las units del tema definición si todavía no existen; el
-    resto de los temas los desbloquea la primera sesión (_ensure_active_units)."""
-    if not _topic_has_any_units(user_id, course_id, _INTRO_ITEM, db):
-        _create_topic_units(user_id, course_id, _INTRO_ITEM, db)
+    la primera sesión. Crea las units del tema si todavía no existen; el resto de los
+    temas los desbloquea la primera sesión (_ensure_active_units)."""
+    course = db.query(Course).filter(Course.id == course_id).first()
+    intro_item, intro_type = _INTRO_ITEM_BY_COURSE.get(
+        course.slug if course else "", _INTRO_ITEM_DEFAULT
+    )
+
+    if not _topic_has_any_units(user_id, course_id, intro_item, db):
+        _create_topic_units(user_id, course_id, intro_item, db)
         db.flush()
 
     row = db.query(UnitState).filter(
         UnitState.user_id == user_id,
         UnitState.course_id == course_id,
-        UnitState.belt == _INTRO_ITEM.belt.value,
-        UnitState.topic == _INTRO_ITEM.topic,
-        UnitState.exercise_type == _INTRO_ITEM_EXERCISE_TYPE,
+        UnitState.belt == intro_item.belt.value,
+        UnitState.topic == intro_item.topic,
+        UnitState.exercise_type == intro_type,
     ).first()
     if row is None:
         return
@@ -954,6 +970,35 @@ def _reconstruct_session_state(
     )
 
 
+def _unit_difficulty(
+    user_id: int,
+    course_id: int,
+    unit_key: UnitKey,
+    db: DBSession,
+) -> float:
+    """Multiplicador de dificultad personal del ítem (×0.5 dominado → ×1.5 le
+    cuesta), según la precisión al primer intento (quality_score == 5) en las
+    últimas DIFFICULTY_WINDOW respuestas del usuario en ese ítem."""
+    rows = (
+        db.query(Answer.quality_score)
+        .filter(
+            Answer.user_id == user_id,
+            Answer.course_id == course_id,
+            Answer.belt == unit_key.belt.value,
+            Answer.topic == unit_key.topic,
+            Answer.exercise_type == unit_key.exercise_type,
+        )
+        .order_by(Answer.id.desc())
+        .limit(DIFFICULTY_WINDOW)
+        .all()
+    )
+    samples = len(rows)
+    if samples < DIFFICULTY_MIN_SAMPLES:
+        return 1.0
+    first_try_rate = sum(1 for (q,) in rows if q == 5) / samples
+    return difficulty_multiplier(first_try_rate, samples)
+
+
 def record_answer_db(
     session_id_db: int,
     user_id: int,
@@ -1011,14 +1056,30 @@ def record_answer_db(
     )
     state.unit_states[unit_key] = new_state
 
-    if first_try:
-        state.streak += 1
-        xp_earned = XP_CORRECT
-        if state.streak % XP_STREAK_INTERVAL == 0:
-            xp_earned += XP_STREAK_BONUS
+    user = db.query(User).filter(User.id == user_id).first()
+    streak_mult = streak_multiplier(user.streak_days if user else 0)
+
+    # Práctica (zen) paga plano y sin ajuste de dificultad (volumen ilimitado a
+    # elección del usuario), pero sí escala con el multiplicador de racha diaria
+    # — su base es mucho menor que la de Repaso, así que no se vuelve farmeable.
+    # Repaso paga por intento, ponderado por la dificultad personal del ítem
+    # (solo 1er intento) y el mismo multiplicador de racha.
+    if db_session.mode == "zen":
+        xp_base, xp_earned = practice_xp_split(first_try, streak_mult)
     else:
-        state.streak = 0
-        xp_earned = XP_WRONG
+        difficulty = (
+            _unit_difficulty(user_id, course_id, unit_key, db) if first_try else 1.0
+        )
+        xp_base, xp_earned = review_xp_split(attempts, difficulty, streak_mult)
+        if first_try:
+            state.streak += 1
+            if state.streak % XP_STREAK_INTERVAL == 0:
+                # Bonus de combo interno a la sesión: no lo multiplica la racha
+                # diaria, así que va a la base (no cuenta como "extra").
+                xp_earned += XP_STREAK_BONUS
+                xp_base += XP_STREAK_BONUS
+        else:
+            state.streak = 0
 
     db_us = db.query(UnitState).filter(
         UnitState.user_id == user_id,
@@ -1046,19 +1107,10 @@ def record_answer_db(
             topic_key = unit_key.topic_key
             # Maestría/promoción ignoran las units catch-up (repaso extra): un ítem
             # agregado después no debe condicionar ni despromocionar lo ya logrado.
+            # Ya no otorgan XP propio: solo desbloquean units nuevas.
             expected_types = _mastery_types(user_id, course_id, topic_key, db)
             if is_topic_mastered(state.unit_states, topic_key, expected_types):
-                xp_earned += XP_TOPIC_MASTERED
                 _ensure_active_units(user_id, course_id, db)
-
-                belt_catalog = _get_catalog(course_id, topic_key.belt, db)
-                belt_types_map = _belt_mastery_types(
-                    user_id, course_id, belt_catalog, db,
-                )
-                if belt_progress(
-                    state.unit_states, belt_catalog, topic_types=belt_types_map,
-                ).promoted:
-                    xp_earned += XP_BELT_PROMOTED
 
     state.xp_session += xp_earned
 
@@ -1074,11 +1126,11 @@ def record_answer_db(
         response_time_ms=int(response_time_s * 1000),
         quality_score=quality,
         xp_earned=xp_earned,
+        xp_base=xp_base,
         answered_at=datetime.utcnow(),
         iteration=_get_course_progress(user_id, course_id, db).iteration,
     ))
 
-    user = db.query(User).filter(User.id == user_id).first()
     if user:
         user.total_xp = (user.total_xp or 0) + xp_earned
 
@@ -1162,6 +1214,13 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
         for key in catalog_keys
     )
 
+    # Racha global de días, para mostrar el multiplicador de XP vigente fuera
+    # del summary (indicador de Repasar/Practicar). `counted_today` acá refleja
+    # si ya se completó alguna sesión hoy (no cuenta un día nuevo como el
+    # summary, solo informa).
+    si = streak_info(user.streak_days if user else 0)
+    streak_counted_today = bool(user and user.streak_last_date == today)
+
     return {
         "topic_states": topic_states,
         "level_info": {
@@ -1177,6 +1236,15 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
         "iteration": cp.iteration,
         "session_size": cp.session_size,
         "session_size_max": SESSION_SIZE_MAX,
+        "streak": {
+            "days": si.days,
+            "multiplier": si.multiplier,
+            "next_threshold": si.next_threshold,
+            "next_multiplier": si.next_multiplier,
+            "days_to_next": si.days_to_next,
+            "is_max": si.is_max,
+            "counted_today": streak_counted_today,
+        },
     }
 
 
@@ -1255,13 +1323,45 @@ def get_summary_db(
     bp = belt_progress(unit_states_map, belt_catalog, topic_types=belt_types_map)
 
     xp_earned = sum(a.xp_earned or 0 for a in answers)
+    xp_base_total = sum(a.xp_base or 0 for a in answers)
+    xp_bonus_total = max(0, xp_earned - xp_base_total)
     db_session.finished_at = datetime.utcnow()
     db_session.xp_earned = xp_earned
+
+    # Racha global de días: completar cualquier sesión suma el día (una sola vez
+    # por día; refetch del summary no re-cuenta). Más de STREAK_RESET_AFTER_DAYS
+    # días sin actividad resetean el acumulado antes de contar el día de hoy.
+    user = db.query(User).filter(User.id == user_id).first()
+    streak_counted_today = False
+    if user and user.streak_last_date != today:
+        inactive_days = (
+            (today - user.streak_last_date).days
+            if user.streak_last_date is not None
+            else 0
+        )
+        if inactive_days > STREAK_RESET_AFTER_DAYS:
+            user.streak_days = 0
+        user.streak_days = (user.streak_days or 0) + 1
+        user.streak_last_date = today
+        streak_counted_today = True
     db.commit()
 
-    user = db.query(User).filter(User.id == user_id).first()
+    si = streak_info(user.streak_days if user else 0)
     total_xp = user.total_xp if user else 0
     lp = level_progress(total_xp)
+
+    # Nº de orden de esta sesión entre TODAS las sesiones terminadas por el
+    # usuario (cualquier curso/modo), para el subtítulo "Completaste tu sesión
+    # número n." del resumen.
+    session_number = (
+        db.query(SessionModel)
+        .filter(
+            SessionModel.user_id == user_id,
+            SessionModel.finished_at.isnot(None),
+            SessionModel.id <= db_session.id,
+        )
+        .count()
+    )
 
     return {
         "session_id": str(session_id_db),
@@ -1287,6 +1387,17 @@ def get_summary_db(
             "xp_missing": lp.xp_missing,
             "progress_pct": lp.progress_pct,
         },
+        "streak": {
+            "days": si.days,
+            "multiplier": si.multiplier,
+            "next_threshold": si.next_threshold,
+            "next_multiplier": si.next_multiplier,
+            "days_to_next": si.days_to_next,
+            "is_max": si.is_max,
+            "counted_today": streak_counted_today,
+            "xp_bonus": xp_bonus_total,
+        },
+        "session_number": session_number,
     }
 
 

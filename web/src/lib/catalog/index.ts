@@ -54,29 +54,29 @@ export function beltOrderFor({ course }: { course: CourseId }): BeltKey[] {
 // oscuro (#131324), donde el negro y el azul puros quedan ilegibles.
 export const BELT_HEX: Record<BeltKey, { solid: string; onDark: string }> = {
   white: { solid: "#FAFAFA", onDark: "#FAFAFA" },
-  blue: { solid: "#0A3180", onDark: "#5C86E8" },
-  violet: { solid: "#730F8C", onDark: "#C07BD4" },
-  brown: { solid: "#674011", onDark: "#C58A4A" },
+  blue: { solid: "#0A3180", onDark: "#4486E8" },
+  violet: { solid: "#730F8C", onDark: "#C07BC9" },
+  brown: { solid: "#674011", onDark: "#C57C38" },
 }
 
-// Negro histórico ("Aplicaciones"): ya no es una unidad del curso, pero sigue
-// formando parte de la identidad visual de la marca (el logo y la secuencia de
-// colores). Por eso vive acá como color fijo y no en BELT_HEX (que es Record por
-// BeltKey y sigue al curso activo).
-const BRAND_BLACK = { solid: "#272727", onDark: "#C9CDD6" }
+// Paleta vívida usada por el onboarding (cubos de la grilla, chips de unidad) y
+// por la landing (cubos/puntos de la rotación de cursos). Vive separada de
+// `BELT_HEX.onDark` para que un ajuste de paleta en el resto de la app (repasar,
+// practicar, ranking) no le pegue a estas dos superficies de marca.
+export const BELT_ONDARK_VIVID: Record<BeltKey, string> = {
+  white: BELT_HEX.white.onDark,
+  blue: "#3A72C4",
+  violet: "#A369AB",
+  brown: "#9C6B3E",
+}
 
-// Arreglos ordenados (blanco→negro) para los lugares que pintan los 5 cinturones
-// como una secuencia de marca (logo, cubos de la landing, partículas, onboarding,
-// splash, resumen). Incluyen SIEMPRE el negro aunque el curso ya no lo use.
-// `BAR` = colores exactos; `VIVID` = versión legible/avivada.
-export const BELT_BAR_COLORS = [
-  ...BELT_ORDER.map((b) => BELT_HEX[b].solid),
-  BRAND_BLACK.solid,
-]
-export const BELT_VIVID_COLORS = [
-  ...BELT_ORDER.map((b) => BELT_HEX[b].onDark),
-  BRAND_BLACK.onDark,
-]
+// Arreglos ordenados (blanco→marrón) para los lugares que pintan los cinturones
+// del curso como una secuencia de marca (logo, cubos de la landing, partículas,
+// onboarding, splash, resumen). `BAR` = colores exactos; `VIVID` = versión
+// legible/avivada. Ya no incluyen el negro histórico ("Aplicaciones"): esa
+// unidad no forma parte de ningún curso activo, así que se sacó de la marca.
+export const BELT_BAR_COLORS = BELT_ORDER.map((b) => BELT_HEX[b].solid)
+export const BELT_VIVID_COLORS = BELT_ORDER.map((b) => BELT_HEX[b].onDark)
 
 export function beltAssetPath({ belt }: { belt: BeltKey }): string {
   return BELT_ASSET[belt]

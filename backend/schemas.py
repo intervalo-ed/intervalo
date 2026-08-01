@@ -79,6 +79,17 @@ class LevelInfoWithMissing(BaseModel):
     progress_pct: float
 
 
+class StreakInfo(BaseModel):
+    days: int                   # días de actividad acumulados (racha global)
+    multiplier: float           # multiplicador de XP de Repaso vigente
+    next_threshold: int | None  # días del próximo tramo; None en el máximo
+    next_multiplier: float | None
+    days_to_next: int           # 0 en el tramo máximo
+    is_max: bool
+    counted_today: bool         # esta sesión fue la primera completada del día
+    xp_bonus: int = 0           # XP extra ganado en esta sesión gracias al multiplicador (solo summary)
+
+
 class UserProgressResponse(BaseModel):
     topic_states: dict[str, TopicProgress]
     level_info: LevelInfo
@@ -89,6 +100,7 @@ class UserProgressResponse(BaseModel):
     iteration: int = 1            # iteración de progreso vigente
     session_size: int = 8         # máx de ejercicios por sesión de repaso
     session_size_max: int = 30    # tope superior del selector de session_size
+    streak: StreakInfo
 
 
 class PracticeStatsResponse(BaseModel):
@@ -131,14 +143,22 @@ class SimpleResponse(BaseModel):
     success: bool
 
 
+# ── Lifecycle emails ─────────────────────────────────────────────────────────────
+
+class EmailRunResponse(BaseModel):
+    bounce_sent: int
+    winback_sent: int
+
+
 # ── Emoji unlock tree (badges) ──────────────────────────────────────────────────
 
 class EmojiStateResponse(BaseModel):
     # Estado dinámico del árbol de desbloqueo del usuario. La estructura estática
     # del árbol vive en el front (emoji-tree.generated.ts); acá solo va el estado.
+    # El conjunto desbloqueado no se persiste: se deriva de total_xp (todo nodo
+    # con depth <= profundidad alcanzada está desbloqueado, en cualquier rama).
     bucket: str | None = None      # E/S/T/M/Otra (de la enrollment); None si no hay
     total_xp: int = 0
-    path: list[str] = []           # ids desbloqueados, en orden (append-only)
     worn: str | None = None        # id vestido; None → raíz del bucket (default)
 
 
@@ -159,6 +179,8 @@ class PushSubscriptionOut(BaseModel):
 class DueNotification(BaseModel):
     user_id: int
     pending_count: int
+    title: str
+    body: str
     subscriptions: list[PushSubscriptionOut]
 
 
@@ -279,3 +301,5 @@ class SessionSummaryResponse(BaseModel):
     belt_progress: BeltProgressInfo
     xp_earned: int
     level_info: LevelInfoWithMissing
+    streak: StreakInfo
+    session_number: int  # nº de orden de esta sesión entre todas las terminadas por el usuario

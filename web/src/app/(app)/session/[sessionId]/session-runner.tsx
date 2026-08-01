@@ -24,10 +24,10 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Screen, ScreenBody, ScreenHeader } from "@/components/ui/screen"
-import { Spinner } from "@/components/ui/spinner"
 import { useSfx } from "@/lib/audio/useSfx"
 import { topicShortLabel } from "@/lib/catalog"
 import { exerciseTypeInfo } from "@/lib/catalog/exercise-types"
+import { latexVisualLength } from "@/lib/latex-visual-length"
 import { cn } from "@/lib/utils"
 import { Braces, ChevronLeft, Eye, EyeOff, SkipForward, X } from "lucide-react"
 import { animate, AnimatePresence, motion } from "motion/react"
@@ -37,38 +37,6 @@ import { useRef, useState } from "react"
 import { useAnswer } from "./UseAnswer"
 import { useSessionPayload } from "./UseSessionPayload"
 import type { SessionExercise } from "@/lib/api/types"
-
-// Funciones que LaTeX renderiza como palabra completa (ej. \cos x -> "cos x"),
-// a diferencia de comandos como \times o \pi que renderizan como un solo símbolo.
-const LATEX_NAMED_FUNCTIONS =
-  /\\(sin|cos|tan|cot|sec|csc|ln|log|lim|exp|min|max|gcd|lcm|det|dim|ker|sinh|cosh|tanh|arcsin|arccos|arctan)\b/g
-
-// Estima el ancho visual renderizado de una opción con LaTeX, en vez de contar
-// caracteres de código fuente (que sobrestima el peso de comandos como \sqrt o
-// \frac, cortos en pantalla pero largos en texto plano).
-//
-// \dfrac fuerza displaystyle (numerador/denominador a tamaño completo), más
-// ancho por carácter que el textstyle comprimido de \frac inline: se pesa
-// 1.4x (incluida una raíz anidada dentro, ej. 3√5/5) para que la grilla 2x2
-// no subestime su ancho real.
-function latexVisualLength(option: string): number {
-  let s = option.replace(/\$/g, "")
-  // Comandos de espaciado (\,, \;, \:, \!) renderizan un hueco angosto, no un
-  // caracter: si no se descartan antes de medir, inflan el ancho estimado de
-  // fracciones como k!\,(n-k)! muy por encima de su ancho real en pantalla.
-  s = s.replace(/\\[,;:!]/g, "")
-  s = s.replace(/\\operatorname\{([^{}]*)\}/g, (_, inner) => "x".repeat(inner.length))
-  s = s.replace(/\\sqrt\{([^{}]*)\}/g, (_, inner) => "x".repeat(inner.length + 1))
-  s = s.replace(
-    /\\(d)?frac\{([^{}]*)\}\{([^{}]*)\}/g,
-    (_, isDisplay, num, den) =>
-      "x".repeat(Math.ceil(Math.max(num.length, den.length) * (isDisplay ? 1.4 : 1))),
-  )
-  s = s.replace(LATEX_NAMED_FUNCTIONS, (_, name) => "x".repeat(name.length))
-  s = s.replace(/\\[a-zA-Z]+/g, "x")
-  s = s.replace(/(?<!\\)[{}]/g, "")
-  return s.length
-}
 
 const ctaCls =
   "h-[var(--cta-h)] flex-1 rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
@@ -141,17 +109,11 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
     })
   }
 
+  // Es un solo frame (el payload viene de sessionStorage): sin spinner ni
+  // texto, para no destellar contenido entre la pantalla de origen (que ya se
+  // desvaneció) y el fade-in del primer ejercicio.
   if (payload === undefined) {
-    return (
-      <Screen>
-        <ScreenBody className="items-center justify-center text-sm text-muted-foreground">
-          <div className="flex items-center gap-2">
-            <Spinner />
-            <span>Cargando sesión…</span>
-          </div>
-        </ScreenBody>
-      </Screen>
-    )
+    return <Screen>{null}</Screen>
   }
 
   if (payload === null) {
@@ -329,6 +291,15 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
   }
 
   return (
+    // Fade-in leve y rápido al aparecer el primer ejercicio (una sola vez: esta
+    // rama solo se monta al pasar de "cargando" a sesión lista, no en cada
+    // ejercicio — la navegación entre ejercicios sigue con el slide horizontal).
+    <motion.div
+      className="h-full"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.18, ease: "easeOut" }}
+    >
     <Screen>
       <ScreenHeader>
         <Button
@@ -759,6 +730,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
           resumen. */}
       {finishing && <div className="fixed inset-0 z-50 bg-background" />}
     </Screen>
+    </motion.div>
   )
 }
 
