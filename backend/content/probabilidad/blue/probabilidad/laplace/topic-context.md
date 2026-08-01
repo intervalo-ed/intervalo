@@ -64,6 +64,9 @@ Calcular el **valor** de la probabilidad.
 - **Equiprobabilidad explícita**: cada enunciado deja claro (dado balanceado, moneda balanceada, bolas indistinguibles al tacto, extracción al azar) que el espacio es equiprobable, salvo en la sub-familia `reconocer-no-equiprobable`, donde el enunciado da una pista de que no lo es (ej. "el dado está cargado", "las bolas tienen distinto tamaño y por eso no salen con igual chance").
 - **Consistencia favorables/posibles**: si los posibles se cuentan con combinaciones (sin orden), los favorables se cuentan con la misma convención, nunca mezclando una técnica con orden y otra sin orden para el mismo evento.
 - **Reutilizar contextos de `conteo`** (cartas, urnas, comités) está permitido y es deseable: refuerza que Laplace es la aplicación práctica de esas técnicas, no un tema nuevo desconectado.
+- **Combinatoria en ambos lados de una fracción, notación horizontal (regla 42):** en `formula-con-combinaciones`, una opción como $\dfrac{\dbinom{5}{3}}{\dbinom{8}{3}}$ apila dos fracciones binomiales y arma una caja muy alta que domina la grilla 2×2. Escribirla horizontal: $\binom{5}{3}/\binom{8}{3}$.
+- **Corolario de consistencia dentro del mismo array de opciones:** si alguna opción usa notación horizontal por combinatoria, las demás opciones que sean fracciones simples (sin `\binom`) van horizontales también, nunca `\dfrac` apilada — mezclar los dos estilos rompe el patrón visual de la grilla (caso real: `formula-con-combinaciones` tenía $\binom{5}{3}/\binom{8}{3}$ junto a $\dfrac{5}{8}$ apilada).
+- **Distractores con peso real (criterio editorial, no automatizable):** los distractores de `reconocer-no-equiprobable` (y por extensión, cualquier sub-familia de este topic) tienen que representar un error de razonamiento plausible, no una opción tan literalmente absurda que se descarta sin pensar el concepto (ej. "la regla de Laplace solo aplica a dados o monedas" es débil; un distractor que aplique mal el criterio de equiprobabilidad es más fuerte).
 
 ## Checklist del topic
 
@@ -72,3 +75,5 @@ Calcular el **valor** de la probabilidad.
 - [ ] Favorables y posibles se cuentan con la misma convención de orden/reposición
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
 - [ ] Cardinalidad: numérica → 4 opciones, fracciones en notación de barra
+- [ ] Ninguna opción apila dos fracciones binomiales (`\dbinom` en numerador y denominador); notación horizontal
+- [ ] Los distractores representan un error de razonamiento plausible, no una opción trivialmente absurda

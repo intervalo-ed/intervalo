@@ -20,6 +20,7 @@ type BoolFn = (x: number) => boolean
 
 const DEFAULT_VIEW: [number, number, number, number] = [-4, 4, -4, 4]
 const LINE_COLOR = "#4453E6"
+const SHADE_OPACITY = 0.18
 const AXIS_COLOR = "#6b7280"
 const TICK_PX = 1.5 // half-length of the small axis tick marks, in pixels
 const LABEL_GAP = 7 // distance from axis to numeric label, same on both axes
@@ -285,6 +286,18 @@ function toView(
   return DEFAULT_VIEW
 }
 
+function toShade(graphShade: unknown[] | null | undefined): [number, number] | null {
+  if (
+    Array.isArray(graphShade) &&
+    graphShade.length === 2 &&
+    graphShade.every((v) => typeof v === "number" && Number.isFinite(v))
+  ) {
+    const [a, b] = graphShade as [number, number]
+    return a <= b ? [a, b] : [b, a]
+  }
+  return null
+}
+
 // Divisor controls grid density: higher = finer steps for the same range.
 // 6 ≈ ~6 major intervals; 8 ≈ ~8, making the grid visibly denser by default.
 const GRID_DENSITY = 15
@@ -379,6 +392,7 @@ function GraphContent({
   widthPx,
   heightPx,
   piX,
+  shade,
 }: {
   fn: RealFn
   boundaryXs: number[]
@@ -386,6 +400,7 @@ function GraphContent({
   widthPx: number
   heightPx: number
   piX: boolean
+  shade: [number, number] | null
 }) {
   const { xPaneRange, yPaneRange } = usePaneContext()
   const [xMin, xMax] = xPaneRange
@@ -554,6 +569,18 @@ function GraphContent({
           </g>
         )
       })}
+      {shade && (
+        <Plot.Inequality
+          y={{
+            "<=": (x: number) => (x >= shade[0] && x <= shade[1] ? fn(x) : 0),
+            ">=": 0,
+          }}
+          fillColor={LINE_COLOR}
+          fillOpacity={SHADE_OPACITY}
+          upperOpacity={0}
+          lowerOpacity={0}
+        />
+      )}
       {branches.map(([d0, d1], k) => (
         <Plot.OfX
           key={k}
@@ -590,12 +617,17 @@ function GraphContent({
 export default function MathGraph({
   graphFn,
   graphView,
+  graphShade,
+  graphFreeAspect,
 }: {
   graphFn: string
   graphView?: unknown[] | null
+  graphShade?: unknown[] | null
+  graphFreeAspect?: boolean | null
 }) {
   const build = useMemo(() => buildFn(graphFn), [graphFn])
   const piX = useMemo(() => isAngleTrig(graphFn), [graphFn])
+  const shade = useMemo(() => toShade(graphShade), [graphShade])
   const [resetKey, setResetKey] = useState(0)
   const [locked, setLocked] = useState(true)
   const infoUnseen = useGraphInfoUnseen()
@@ -664,6 +696,7 @@ export default function MathGraph({
         viewBox={{ x: [xmin, xmax], y: [ymin, ymax] }}
         pan={!locked}
         zoom={locked ? false : { min: 0.3, max: 6 }}
+        preserveAspectRatio={graphFreeAspect ? false : "contain"}
       >
         <GraphContent
           fn={build.fn}
@@ -672,6 +705,7 @@ export default function MathGraph({
           widthPx={width}
           heightPx={height}
           piX={piX}
+          shade={shade}
         />
       </Mafs>
 

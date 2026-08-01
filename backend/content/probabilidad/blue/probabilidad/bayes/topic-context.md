@@ -6,9 +6,11 @@ Skills en este topic: `ESTR`, `FORM`, `RESL`.
 
 Este topic tiene 3 ítems (uno por skill): `ESTR`, `FORM`, `RESL`.
 
-Concepto: el **teorema de Bayes** $P(A\mid B) = \dfrac{P(B\mid A)\cdot P(A)}{P(B)}$, donde el denominador $P(B)$ se calcula con probabilidad total. Cierra la unidad `probabilidad`: combina `condicional`, `independencia` (para descartar) y `total` en un solo cálculo.
+Concepto: el **teorema de Bayes** invierte una probabilidad condicional, permitiendo actualizar la probabilidad de un evento a la luz de una nueva observación. Su formulación es $P(A \mid B) = \dfrac{P(B \mid A) \cdot P(A)}{P(B)}$. Combina una probabilidad a priori $P(A)$ con la verosimilitud $P(B \mid A)$ para obtener la probabilidad a posteriori de la hipótesis $A$.
 
-**Frontera con el resto de la unidad:** el rasgo distintivo frente a `condicional`/`total` es que acá el dato viene en una dirección ($P(B\mid A)$) y se pide la dirección contraria ($P(A\mid B)$). Si el enunciado pide la misma dirección del dato, es un ejercicio de `condicional`, no de `bayes`.
+**Frontera con el resto de la unidad:** este es el clímax del cinturón azul. Combina todo lo visto: condicional (es el objetivo final), regla del producto (numerador) y probabilidad total (denominador).
+
+**Contextos variados.** Tests diagnósticos, control de calidad, urnas/cajas, filtros de spam. Ningún experimento debe superar ~30% de los ítems de una misma sub-familia.
 
 ---
 
@@ -18,10 +20,11 @@ Concepto: el **teorema de Bayes** $P(A\mid B) = \dfrac{P(B\mid A)\cdot P(A)}{P(B
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Reconocer que hace falta Bayes (se pide el condicional invertido respecto del dato) | 22 | `reconocer-bayes` |
-| Distractor: alcanza con la fórmula condicional directa, no hace falta invertir | 14 | `distractor-condicional-directa` |
-| Reconocer que primero hay que calcular el denominador con probabilidad total | 14 | `reconocer-denominador-total` |
+| Identificar el rol lógico (priori, verosimilitud, posteriori) del dato en texto, sin glosas explicativas en las opciones | 25 | `estr-direccion-condicional-bayes` |
+| Identificar qué dato falta en el texto para poder aplicar el teorema (ej. la probabilidad a priori poblacional) | 25 | `estr-identificar-dato-faltante` |
 | **Total** | **50** | |
+
+**Cardinalidad**: conceptual/textual → 3 opciones. Para `estr-direccion-condicional-bayes`, las opciones deben ser solo los nombres teóricos, obligando al alumno a deducir el rol.
 
 ---
 
@@ -31,10 +34,11 @@ Concepto: el **teorema de Bayes** $P(A\mid B) = \dfrac{P(B\mid A)\cdot P(A)}{P(B
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Fórmula de Bayes con 2 escenarios (denominador con 2 términos) | 20 | `formula-dos-escenarios` |
-| Fórmula de Bayes con 3 o más escenarios | 15 | `formula-tres-o-mas-escenarios` |
-| Identificar la fórmula incorrecta entre variantes (numerador/denominador invertido, factor faltante en el denominador) | 15 | `identificar-formula-correcta` |
+| Identificar el numerador (la rama favorable) para invertir la probabilidad pedida | 25 | `form-identificar-numerador` |
+| Armar el teorema reconociendo la fracción completa (rama específica sobre probabilidad total) | 25 | `form-armar-teorema` |
 | **Total** | **50** | |
+
+**Cardinalidad**: expresiones formales/simbólicas → 3 opciones.
 
 ---
 
@@ -44,12 +48,11 @@ Concepto: el **teorema de Bayes** $P(A\mid B) = \dfrac{P(B\mid A)\cdot P(A)}{P(B
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Cálculo con 2 escenarios (test diagnóstico, control de calidad) | 20 | `resl-dos-escenarios` |
-| Cálculo con urnas/cajas elegidas al azar (2 opciones equiprobables a priori) | 16 | `resl-urnas` |
-| Cálculo con 3 o más escenarios | 14 | `resl-tres-o-mas-escenarios` |
+| Reconocer el cálculo dejando la fracción indicada (con los productos y sumas explícitos, sin simplificar) | 25 | `resl-fraccion-indicada` |
+| Resolver numéricamente el problema usando frecuencias naturales (cantidades enteras) en vez de decimales | 25 | `resl-frecuencias-naturales` |
 | **Total** | **50** | |
 
-**Cardinalidad**: numérica corta → 4 opciones (grilla 2×2).
+**Cardinalidad**: expresiones numéricas y fracciones → 4 opciones (grilla 2×2).
 
 ---
 
@@ -57,25 +60,34 @@ Concepto: el **teorema de Bayes** $P(A\mid B) = \dfrac{P(B\mid A)\cdot P(A)}{P(B
 
 | Concepto preguntado | Confusión a diagnosticar |
 |---|---|
-| Dirección del condicional | Confundir el dato $P(B\mid A)$ con la incógnita $P(A\mid B)$, respondiendo directamente el dato sin invertir |
-| Denominador | Olvidar calcular $P(B)$ por probabilidad total, usando solo $P(B\mid A)\cdot P(A)$ sin normalizar (queda un número que no es una probabilidad válida) |
-| Prior vs. posterior | Confundir el prior $P(A)$ con el resultado final $P(A\mid B)$ (creer que la probabilidad de estar enfermo dado un test positivo es la misma que la prevalencia general de la enfermedad) |
-| 3+ escenarios | Omitir algún término del denominador al armar la probabilidad total |
-| Reconocimiento ESTR | Tratar un problema de Bayes como si bastara con la condicional directa, sin notar que el dato y la incógnita están en direcciones opuestas |
-| Urnas/cajas | Olvidar ponderar por la probabilidad de elegir cada urna cuando no son equiprobables |
+| Priori vs. verosimilitud | Confundir la probabilidad a priori de un evento con su tasa de acierto/falla (verosimilitud) |
+| Fracción armada | Dividir solo por la probabilidad de la otra rama o por la verosimilitud, olvidando que el denominador de Bayes es siempre la probabilidad total |
+| Inversión pura | Asumir que $P(A \mid B) = P(B \mid A)$, respondiendo con el valor de la verosimilitud directo |
+| Frecuencias naturales | Usar el total absoluto del grupo (espacio muestral original) en vez del total del subgrupo que cumple la condición para formar el denominador |
+| Dato faltante | No notar que falta la probabilidad a priori poblacional y asumir un valor arbitrario o equiprobable sin que el enunciado lo respalde |
 
 ---
 
 ## Reglas específicas del topic
 
+- **Carga aritmética:** para evitar operaciones mentales pesadas, los cálculos directos se resuelven exclusivamente mediante contextos de **frecuencias naturales** (cantidades enteras) donde la fracción se arma rápidamente, por ejemplo diez camionetas sobre quince vehículos totales.
+- **Fracciones indicadas:** cuando el enunciado plantee porcentajes decimales o no redondos, la respuesta en RESL debe ser la expresión de la fracción sin resolver. Si la fracción completa (numerador + denominador con 2+ términos cada uno) supera el ancho de un bloque display, partirla en un paso de armado y otro de fracción, o usar `\begin{aligned}`, en vez de dejarla en una sola línea que puede cortarse contra el borde de pantalla (regla 38).
+- **Fórmula abstracta siempre en sumatoria (regla 40):** en `explanation`, la fórmula general de Bayes va con `\sum_i P(D\mid A_i)\cdot P(A_i)` en el denominador, nunca nombrando las ramas sumadas una por una, sin importar cuántos escenarios tenga el problema concreto. No aplica a `options` en `form-armar-teorema`, donde comparar variantes con nombres es el punto del ejercicio.
+- **Párrafo de intuición (regla 44):** en `form-identificar-numerador` y `form-armar-teorema`, la `explanation` no se queda solo en el mecanismo ("el numerador es la rama X"); agrega una oración de por qué esa rama es la favorable y por qué el denominador suma todas las de la partición.
+- **Contexto breve antes de la notación (nota de redacción):** si el enunciado arranca directo con "Se quiere calcular $P(\dots\mid\dots)$...", agregar una oración previa de contexto (qué representa el test/escenario), sin sacar información ni superar la regla 36.
+- **Opciones ESTR exigentes:** en `estr-direccion-condicional-bayes`, las opciones deben nombrar el concepto crudo (por ejemplo "la verosimilitud") o a lo sumo la notación simbólica (por ejemplo "la verosimilitud $P(M \mid S)$"). Nunca dar la definición masticada.
 - **Reintroducir la fórmula completa** (regla crítica 31) en cada ejercicio, con el denominador desarrollado explícitamente cuando el escenario lo amerita.
-- **Contextos válidos**: tests diagnósticos (enfermedad/sano, positivo/negativo), control de calidad (línea de producción/defecto), urnas o cajas elegidas al azar antes de extraer, filtros de spam.
-- **El resultado suele ser contraintuitivo** (ej. un test con alta sensibilidad puede tener baja probabilidad posterior si la enfermedad es rara): esto es contenido, no un error a evitar; la `explanation` puede señalarlo como advertencia del cierre (regla crítica 7), nunca como sorpresa retórica vacía.
+- **El resultado suele ser contraintuitivo** (un test con alta sensibilidad puede tener baja probabilidad posterior si la enfermedad es rara): esto es contenido, no un error a evitar; la `explanation` puede señalarlo como parte del cierre (regla crítica 7), nunca como sorpresa retórica vacía.
+- **Sin aclaraciones entre paréntesis en ningún campo del ejercicio** (regla crítica del `authoring-context.md`): toda aclaración va como oración propia en la prosa.
 
 ## Checklist del topic
 
-- [ ] Cada ejercicio reintroduce la fórmula de Bayes con su denominador desarrollado
-- [ ] La dirección del condicional pedido es siempre la opuesta a la del dato principal
-- [ ] Los ejercicios de urnas/cajas no equiprobables ponderan correctamente por la probabilidad de elegir cada una
+- [ ] Los problemas de `resl-frecuencias-naturales` usan enteros que conducen a sumas mentales sencillas
+- [ ] En ESTR, las opciones de roles lógicos no están justificadas ni masticadas
+- [ ] El denominador en los problemas correctos de `resl-fraccion-indicada` representa siempre la suma de todas las ramas
+- [ ] Cada ejercicio reintroduce la fórmula de Bayes antes de la pregunta
+- [ ] Ningún campo usa paréntesis para aclaraciones (`question`, `options`, `feedback_correct`, `feedback_incorrect`, `explanation`)
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
-- [ ] Cardinalidad: ESTR/FORM conceptual → 3 opciones; RESL numérico → 4 opciones ≤35 caracteres
+- [ ] Cardinalidad: ESTR/FORM conceptual → 3 opciones; RESL expresiones numéricas → 4 opciones
+- [ ] La fórmula abstracta de Bayes en `explanation` usa `\sum_i` en el denominador, no ramas nombradas sumadas
+- [ ] Cada `explanation` de FORM suma una oración de intuición, no solo el mecanismo

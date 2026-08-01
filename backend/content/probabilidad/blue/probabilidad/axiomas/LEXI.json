@@ -1,63 +1,19 @@
 [
   {
-    "question": "¿Cuál de las siguientes afirmaciones corresponde al segundo axioma de Kolmogorov?",
+    "question": "En un control de calidad, la probabilidad de que una pieza elegida al azar esté defectuosa es $0{,}05$.\n\n¿Qué expresión da la probabilidad de que la pieza elegida esté en buen estado?",
     "options": [
-      "$P(\\Omega) = 1$.",
-      "$P(A) \\geq 0$ para todo evento $A$.",
-      "$P(A \\cup B) = P(A) + P(B)$ si $A \\cap B = \\emptyset$."
+      "$1-0{,}05$",
+      "$0{,}05$",
+      "$1+0{,}05$"
     ],
     "correct_index": 0,
-    "feedback_correct": "El segundo axioma establece que la probabilidad del evento seguro es 1.",
+    "feedback_correct": "El complemento de un evento se calcula restando su probabilidad de 1.",
     "feedback_incorrect": [
       null,
-      "Esa es la propiedad de no negatividad, el primer axioma.",
-      "Esa es la propiedad de aditividad para eventos excluyentes, el tercer axioma."
+      "Ese valor es la probabilidad de que la pieza sí esté defectuosa, el evento contrario al pedido.",
+      "Sumar en vez de restar da un valor mayor a 1, y ninguna probabilidad puede superar 1."
     ],
-    "explanation": "Los **axiomas de Kolmogorov** son tres reglas básicas que definen qué es una probabilidad válida. El segundo axioma establece que la probabilidad del espacio muestral completo vale $1$:\n$$P(\\Omega) = 1$$\nEsto refleja que, al realizar el experimento, algún resultado del espacio ocurre con certeza.\n\nLa confusión típica es mezclar el orden o el contenido de los tres axiomas; conviene asociar cada uno a su idea: no negatividad, certeza del espacio total, y aditividad para excluyentes.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": ["reconocer-axioma"]
-  },
-  {
-    "question": "¿Cuál de las siguientes propiedades NO forma parte de los **axiomas de Kolmogorov** de la probabilidad?",
-    "options": [
-      "$P(A) \\geq 0$ para todo evento $A$.",
-      "$P(\\Omega) = 1$.",
-      "$P(A \\cup B) = P(A) + P(B)$ si $A \\cap B = \\emptyset$.",
-      "$P(A^c) = 1 - P(A)$."
-    ],
-    "correct_index": 3,
-    "feedback_correct": "El complemento no es axioma: es un teorema que se deduce de los otros.",
-    "feedback_incorrect": [
-      "Es el axioma de no negatividad, sí forma parte del sistema.",
-      "Es el axioma de certidumbre, sí forma parte del sistema.",
-      "Es el axioma de aditividad para excluyentes, sí forma parte del sistema.",
-      null
-    ],
-    "explanation": "Los tres **axiomas de Kolmogorov** son:\n$$\\begin{aligned} &1)\\ P(A) \\geq 0 \\\\ &2)\\ P(\\Omega) = 1 \\\\ &3)\\ P(A \\cup B) = P(A) + P(B) \\text{ si } A \\cap B = \\emptyset \\end{aligned}$$\nLa fórmula del complemento $P(A^c) = 1 - P(A)$ es cierta, pero es una **consecuencia** de los axiomas 2 y 3 (aplicando aditividad a $\\Omega = A \\cup A^c$), no un axioma independiente.\n\nUna confusión típica es tratar toda propiedad conocida de la probabilidad como axioma; recordá que los axiomas son la base mínima desde la que se demuestra todo el resto.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": ["axioma-vs-derivada"]
-  },
-  {
-    "question": "Sabiendo que $P(A)=0{,}4$, ¿cuál es la fórmula que permite calcular $P(A^c)$?",
-    "options": [
-      "$P(A^c) = 1 - P(A)$.",
-      "$P(A^c) = P(A)$.",
-      "$P(A^c) = P(\\Omega) + P(A)$."
-    ],
-    "correct_index": 0,
-    "feedback_correct": "El complemento de $A$ se calcula restando su probabilidad a $1$.",
-    "feedback_incorrect": [
-      null,
-      "Esa igualdad solo se cumple si $P(A)=0{,}5$, no en general.",
-      "Esa suma puede superar $1$, algo imposible para una probabilidad."
-    ],
-    "explanation": "La **regla del complemento** dice que la probabilidad de que un evento NO ocurra es $1$ menos la probabilidad de que sí ocurra:\n$$P(A^c) = 1 - P(A)$$\nSe deduce de los axiomas, ya que $A$ y $A^c$ son mutuamente excluyentes y juntos cubren todo $\\Omega$.\n\nLa confusión típica es calcular directamente $P(A)$ cuando la pregunta pide el complemento, olvidando restar de $1$.",
+    "explanation": "El **complemento** de un evento $A$ cumple $P(A^c) = 1 - P(A)$.\n\nEse resultado dice que la probabilidad de que no ocurra $A$ es lo que le falta a $P(A)$ para llegar a 1.\n\nLa pieza defectuosa tiene probabilidad $0{,}05$, así que la probabilidad de que esté en buen estado es:\n$$1 - 0{,}05 = 0{,}95$$\nRestar de 1 funciona porque el evento y su complemento juntos cubren todo el espacio muestral, sin superposición.\n\nSumar en vez de restar produciría un valor mayor a 1, algo que ningún axioma permite.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -65,20 +21,20 @@
     "tags": ["definicion-complemento-prob"]
   },
   {
-    "question": "Dados dos eventos $A$ y $B$ que pueden ocurrir a la vez (no necesariamente excluyentes), ¿cuál es la fórmula general para $P(A\\cup B)$?",
+    "question": "En una encuesta se sabe que $P(A) = 0{,}4$ y $P(B) = 0{,}3$, y ambos eventos comparten algunos resultados.\n\n¿Qué expresión corresponde a la regla general de la unión $P(A \\cup B)$?",
     "options": [
-      "$P(A) + P(B) - P(A\\cap B)$.",
-      "$P(A) + P(B)$.",
-      "$P(A)\\cdot P(B)$."
+      "$P(A)+P(B)+P(A\\cap B)$",
+      "$P(A)+P(B)-P(A\\cap B)$",
+      "$P(A)-P(B)-P(A\\cap B)$"
     ],
-    "correct_index": 0,
-    "feedback_correct": "La regla general resta la intersección para no contarla dos veces.",
+    "correct_index": 1,
+    "feedback_correct": "La regla general resta la intersección para no contar dos veces los resultados compartidos.",
     "feedback_incorrect": [
+      "Sumar la intersección en vez de restarla cuenta esos resultados compartidos tres veces en total.",
       null,
-      "Esa suma solo vale si los eventos son mutuamente excluyentes, un caso particular.",
-      "Ese producto corresponde a otra propiedad (independencia), no a la unión de dos eventos."
+      "Restar $P(B)$ en vez de sumarlo deja afuera resultados que sí pertenecen a la unión."
     ],
-    "explanation": "La **regla general de la unión** calcula $P(A\\cup B)$ para dos eventos cualesquiera, sean o no excluyentes:\n$$P(A\\cup B) = P(A) + P(B) - P(A\\cap B)$$\nRestar $P(A\\cap B)$ evita contar dos veces los resultados que pertenecen a ambos eventos a la vez.\n\nLa confusión típica es usar la suma simple $P(A)+P(B)$ sin restar la intersección, válida solo cuando los eventos son mutuamente excluyentes.",
+    "explanation": "La **regla general de la unión** vale tanto si los eventos comparten resultados como si no:\n$$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$$\nSumar $P(A)$ y $P(B)$ cuenta dos veces los resultados que caen en la intersección.\n\nPor eso hay que restar esa intersección una vez para corregir ese doble conteo.\n\nCuando los eventos no comparten ningún resultado, la intersección vale $0$ y la fórmula se reduce a la simple suma.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -86,20 +42,20 @@
     "tags": ["definicion-regla-union"]
   },
   {
-    "question": "¿Cuál es el rango de valores posibles para $P(A)$, la probabilidad de cualquier evento $A$?",
+    "question": "Un estudio calcula la probabilidad de que un equipo gane su próximo partido.\n\nPara eso, suma dos estimaciones de distintos analistas: $0{,}7$ y $0{,}5$.\n\n¿Por qué ese resultado no puede ser correcto?",
     "options": [
-      "$0 \\leq P(A) \\leq 1$.",
-      "$-1 \\leq P(A) \\leq 1$.",
-      "$P(A)$ puede ser cualquier número real."
+      "Porque las probabilidades de partidos deportivos siempre son menores a 0,5.",
+      "Porque 1,2 no es un número entero.",
+      "Porque todo valor de probabilidad debe estar entre 0 y 1."
     ],
-    "correct_index": 0,
-    "feedback_correct": "Por los axiomas, toda probabilidad está acotada entre $0$ y $1$.",
+    "correct_index": 2,
+    "feedback_correct": "El axioma de acotación exige que toda probabilidad esté en el intervalo $[0,1]$.",
     "feedback_incorrect": [
-      null,
-      "Los valores negativos no son posibles: el primer axioma exige $P(A)\\geq 0$.",
-      "La probabilidad siempre está acotada por el segundo axioma, $P(\\Omega)=1$, que fija el máximo."
+      "No existe esa restricción, una probabilidad puede tomar cualquier valor entre 0 y 1 según el evento.",
+      "Los decimales son válidos para expresar probabilidades, el problema es que 1,2 supera el máximo permitido.",
+      null
     ],
-    "explanation": "Los axiomas de Kolmogorov garantizan que toda probabilidad está acotada:\n$$0 \\leq P(A) \\leq 1$$\nEl mínimo $0$ corresponde al evento imposible y el máximo $1$ al evento seguro; ningún evento puede tener una probabilidad fuera de ese rango.\n\nLa confusión típica es aceptar como válido un resultado calculado fuera de $[0,1]$, en vez de usarlo como señal de que hubo un error en el cálculo.",
+    "explanation": "Uno de los axiomas de Kolmogorov exige que $0 \\leq P(A) \\leq 1$ para cualquier evento $A$, sin excepción.\n\nSumando las dos estimaciones:\n$$0{,}7 + 0{,}5 = 1{,}2$$\nEse resultado supera el máximo permitido, así que no puede representar una probabilidad válida sin importar el contexto del enunciado.\n\nDetectar valores fuera de $[0,1]$ es una forma rápida de descartar un resultado antes de seguir revisando el resto del cálculo.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

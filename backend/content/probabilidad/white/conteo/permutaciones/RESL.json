@@ -1,6 +1,6 @@
 [
   {
-    "question": "¿De cuántas maneras distintas se pueden ordenar los 4 finalistas de una carrera en el podio (1º, 2º, 3º y 4º puesto)?",
+    "question": "¿De cuántas maneras distintas se pueden ordenar los 4 finalistas de una carrera, asignando el 1º, 2º, 3º y 4º puesto del podio?",
     "options": ["$4$", "$16$", "$24$", "$256$"],
     "correct_index": 2,
     "feedback_correct": "Es una permutación de 4 elementos: $4! = 24$.",
@@ -10,7 +10,7 @@
       null,
       "Ese es $4^{4}$: cuenta como si cada puesto pudiera ser cualquiera de los 4 finalistas con repetición, pero un mismo corredor no puede ocupar dos puestos."
     ],
-    "explanation": "El número de **permutaciones** de elementos distintos es su factorial: el producto de todos los enteros positivos desde 1 hasta esa cantidad.\n\nAcá se ordenan los 4 finalistas en 4 puestos, así que:\n$$P_4 = 4! = 4 \\times 3 \\times 2 \\times 1 = 24$$\nSon 24 podios posibles.\n\nLa confusión típica es aplicar potencias ($4^4$ o $4^2$), tratando cada puesto como una decisión con repetición.\n\nEn un podio cada corredor ocupa un solo lugar: tras asignar el 1er puesto solo quedan 3 opciones para el 2º, y así sucesivamente.",
+    "explanation": "El número de **permutaciones** de elementos distintos es su factorial: el producto de todos los enteros positivos desde 1 hasta esa cantidad.\n\nAcá se ordenan los 4 finalistas en 4 puestos, así que:\n$$P_4 = 4!$$\n$$4! = 4 \\times 3 \\times 2 \\times 1 = 24$$\nSon 24 podios posibles.\n\nAplicar potencias, como $4^4$ o $4^2$, trata cada puesto como una decisión con repetición.\n\nEn un podio cada corredor ocupa un solo lugar: tras asignar el 1er puesto solo quedan 3 opciones para el 2º, y así sucesivamente.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -25,10 +25,10 @@
     "feedback_incorrect": [
       "Ese resultado sale de dividir de más, como si hubiera un tercer grupo repetido además de las N y las A.",
       null,
-      "Ese resultado solo divide por uno de los dos grupos repetidos ($2!$), olvidando dividir también por el otro.",
+      "Ese resultado solo divide por uno de los dos grupos repetidos, $2!$, olvidando dividir también por el otro.",
       "Ese es $4!$ completo, sin dividir por ningún grupo repetido."
     ],
-    "explanation": "La **permutación con repetición** divide el factorial total por el factorial de cada grupo de elementos idénticos.\n\nEn NANA hay 4 letras con dos grupos repetidos (dos N y dos A), así que:\n$$\\frac{4!}{2!\\,2!} = \\frac{24}{4} = 6$$\nHay 6 anagramas distintos.\n\nUn error común es dividir solo por uno de los grupos repetidos, olvidando que cada grupo idéntico aporta su propio factorial en el denominador.",
+    "explanation": "La **permutación con repetición** divide el factorial total por el factorial de cada grupo de elementos idénticos.\n\nEn NANA hay 4 letras con dos grupos repetidos, dos N y dos A, así que:\n$$\\frac{4!}{2!\\,2!} = \\frac{24}{4} = 6$$\nHay 6 anagramas distintos.\n\nDividir solo por uno de los grupos repetidos deja el resultado inflado, porque cada grupo idéntico aporta su propio factorial en el denominador.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -36,7 +36,7 @@
     "tags": ["resl-con-repeticion"]
   },
   {
-    "question": "Se comparan dos formas de ordenar las letras de **ROMA** (todas distintas) contra las de **ANANA** (con letras repetidas).\n\n¿Cuál de las siguientes afirmaciones es correcta?",
+    "question": "Se comparan dos formas de ordenar letras.\n\n**ROMA** tiene sus 4 letras todas distintas; **ANANA** tiene letras repetidas.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
     "options": [
       "ROMA tiene más ordenamientos distintos que ANANA.",
       "Ambas tienen la misma cantidad de ordenamientos distintos.",
@@ -44,14 +44,14 @@
       "No se pueden comparar porque tienen distinta cantidad de letras."
     ],
     "correct_index": 0,
-    "feedback_correct": "ROMA tiene $4!=24$ ordenamientos, mientras que ANANA (5 letras con repetición) tiene $\\dfrac{5!}{3!\\,2!}=10$.",
+    "feedback_correct": "ROMA tiene $4!=24$ ordenamientos, mientras que ANANA, con 5 letras con repetición, tiene $\\dfrac{5!}{3!\\,2!}=10$.",
     "feedback_incorrect": [
       null,
       "Aunque ambas palabras cuentan reordenamientos, las repeticiones de ANANA reducen su cantidad de anagramas distintos por debajo de los de ROMA.",
       "Las repeticiones en ANANA reducen la cantidad de anagramas distintos, no la aumentan por encima de una palabra sin repeticiones.",
       "Sí se pueden comparar: cada palabra tiene su propio conteo de anagramas, sin importar que difieran en la cantidad de letras."
     ],
-    "explanation": "Cuando una palabra tiene letras repetidas, su cantidad de anagramas distintos se reduce, porque se divide por el factorial de cada grupo idéntico.\n\nROMA tiene 4 letras distintas: $4!=24$ anagramas.\n\nANANA tiene 5 letras con la A repetida 3 veces y la N repetida 2 veces:\n$$\\frac{5!}{3!\\,2!} = \\frac{120}{12} = 10$$\nTiene 10 anagramas distintos.\n\nUn error común es asumir que más letras siempre implica más anagramas, sin notar que las repeticiones bajan el conteo real.",
+    "explanation": "Cuando una palabra tiene letras repetidas, su cantidad de anagramas distintos se reduce, porque se divide por el factorial de cada grupo idéntico.\n\nROMA tiene 4 letras distintas: $4!=24$ anagramas.\n\nANANA tiene 5 letras con la A repetida 3 veces y la N repetida 2 veces:\n$$\\frac{5!}{3!\\,2!} = \\frac{120}{12} = 10$$\nTiene 10 anagramas distintos.\n\nAsumir que más letras siempre implica más anagramas ignora que las repeticiones bajan el conteo real.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

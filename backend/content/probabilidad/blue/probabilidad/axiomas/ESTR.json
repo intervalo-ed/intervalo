@@ -1,19 +1,19 @@
 [
   {
-    "question": "En un experimento, $P(A) = 0{,}6$ y $P(B) = 0{,}3$, con $A$ y $B$ eventos mutuamente excluyentes.\n\n¿Qué propiedad conviene usar para calcular $P(A \\cup B)$?",
+    "question": "Se sabe que $P(A) = 0{,}3$ y $P(B) = 0{,}2$, siendo ambos eventos mutuamente excluyentes.\n\n¿Qué propiedad conviene aplicar para calcular $P(A \\cup B)$?",
     "options": [
-      "Aditividad de los axiomas: $P(A \\cup B) = P(A) + P(B)$.",
-      "Regla del complemento: $P(A \\cup B) = 1 - P(A \\cap B)$.",
-      "Probabilidad condicional: $P(A \\cup B) = P(A|B) \\cdot P(B)$."
+      "Sumar directamente $P(A)+P(B)$.",
+      "Aplicar la regla general y restar $P(A\\cap B)$.",
+      "Multiplicar $P(A)$ por $P(B)$."
     ],
     "correct_index": 0,
-    "feedback_correct": "Excluyentes ($A \\cap B = \\emptyset$) permite sumar directo por aditividad.",
+    "feedback_correct": "Al ser mutuamente excluyentes, $P(A\\cap B)=0$ y la unión es la suma simple.",
     "feedback_incorrect": [
       null,
-      "El complemento se aplica al evento contrario, no a una unión de eventos dados.",
-      "La condicional relaciona un evento condicionado a otro, no calcula uniones."
+      "Restar $P(A\\cap B)$ no hace falta acá porque ese valor ya es 0 al ser mutuamente excluyentes.",
+      "Multiplicar corresponde a otra situación, no a calcular la probabilidad de una unión."
     ],
-    "explanation": "El tercer **axioma** de Kolmogorov (aditividad) establece que cuando dos eventos son mutuamente excluyentes ($A \\cap B = \\emptyset$), la probabilidad de la unión es la suma:\n$$P(A \\cup B) = P(A) + P(B) = 0{,}6 + 0{,}3 = 0{,}9$$\nSi no fueran excluyentes, habría que restar el solapamiento con la fórmula general $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$.\n\nLa confusión típica es aplicar la suma directa sin verificar la exclusión: siempre revisar si los eventos pueden ocurrir a la vez antes de sumar sus probabilidades.",
+    "explanation": "Cuando dos eventos son **mutuamente excluyentes**, su intersección vale $0$ porque nunca ocurren a la vez.\n\nLa regla general de la unión sigue siendo válida:\n$$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$$\nPero con $P(A\\cap B)=0$ se reduce a la suma directa:\n$$P(A \\cup B) = 0{,}3 + 0{,}2 = 0{,}5$$\nAplicar la resta de todos modos no cambia el resultado, pero reconocer que ya es 0 ahorra un paso innecesario.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -21,20 +21,20 @@
     "tags": ["elegir-suma-excluyentes"]
   },
   {
-    "question": "En una fábrica, $P(A)=0{,}5$ (falla eléctrica) y $P(B)=0{,}4$ (falla mecánica), y se sabe que algunas piezas presentan ambas fallas a la vez.\n\n¿Qué propiedad conviene usar para calcular $P(A\\cup B)$?",
+    "question": "En un control de calidad, $P(A) = 0{,}25$ y $P(B) = 0{,}15$, y algunas piezas tienen ambos defectos a la vez.\n\n¿Qué propiedad conviene aplicar para calcular $P(A \\cup B)$?",
     "options": [
-      "Regla general de la unión: $P(A\\cup B)=P(A)+P(B)-P(A\\cap B)$.",
-      "Aditividad simple: $P(A\\cup B)=P(A)+P(B)$.",
-      "Complemento: $P(A\\cup B)=1-P(A)$."
+      "La suma simple $P(A)+P(B)$, sin restar nada.",
+      "La regla general, restando $P(A\\cap B)$.",
+      "El complemento de $A$."
     ],
-    "correct_index": 0,
-    "feedback_correct": "Como pueden ocurrir ambas fallas a la vez, hay que restar la intersección con la regla general.",
+    "correct_index": 1,
+    "feedback_correct": "Como algunas piezas comparten ambos defectos, hay que restar esa intersección.",
     "feedback_incorrect": [
+      "Sumar sin restar cuenta dos veces las piezas que tienen ambos defectos a la vez.",
       null,
-      "La suma simple solo vale si los eventos son mutuamente excluyentes; acá se solapan.",
-      "El complemento se aplica a un solo evento, no calcula la unión de dos eventos distintos."
+      "El complemento de $A$ no calcula la unión de dos eventos distintos."
     ],
-    "explanation": "Cuando dos eventos pueden ocurrir simultáneamente, conviene usar la **regla general de la unión**, que resta la intersección para no contarla dos veces:\n$$P(A\\cup B) = P(A) + P(B) - P(A\\cap B)$$\nEn este caso, algunas piezas tienen ambas fallas a la vez, así que los eventos no son excluyentes.\n\nLa confusión típica es sumar directamente $P(A)+P(B)$ sin restar la intersección, lo que sobreestima la probabilidad real de la unión.",
+    "explanation": "Cuando dos eventos pueden ocurrir a la vez, la **regla general de la unión** exige restar la intersección para no contar dos veces esos casos compartidos.\n\nAcá algunas piezas tienen defecto de pintura y mecánico a la vez, así que sumar $P(A)+P(B)$ sobreestima la proporción real de piezas con al menos un defecto.\n\nRestar $P(A\\cap B)$ corrige exactamente ese doble conteo, sin importar qué tan grande sea la superposición.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -42,20 +42,20 @@
     "tags": ["elegir-regla-general-union"]
   },
   {
-    "question": "En un control de calidad, se sabe que $P(\\text{defectuosa}) = 0{,}08$ y se quiere calcular la probabilidad de que una pieza NO sea defectuosa.\n\n¿Qué propiedad conviene aplicar?",
+    "question": "En una encuesta, $P(A) = 0{,}65$, donde $A$ es que la persona usa transporte público.\n\n¿Qué propiedad conviene aplicar para calcular la probabilidad de que la persona no lo use?",
     "options": [
-      "Regla del complemento: $P(\\text{no defectuosa}) = 1 - P(\\text{defectuosa})$.",
-      "Aditividad: sumar $P(\\text{defectuosa})$ dos veces.",
-      "Regla general de la unión entre dos eventos."
+      "La regla general de la unión entre dos eventos.",
+      "La suma de $P(A)$ con otro evento cualquiera.",
+      "El complemento de $A$, calculado como $1-P(A)$."
     ],
-    "correct_index": 0,
-    "feedback_correct": "El evento contrario a defectuosa se calcula restando de $1$ con la regla del complemento.",
+    "correct_index": 2,
+    "feedback_correct": "El complemento reúne el caso contrario, sin necesidad de otro evento.",
     "feedback_incorrect": [
-      null,
-      "Sumar dos veces la misma probabilidad no representa el evento contrario, ni tiene sentido con un solo evento.",
-      "La regla de la unión combina dos eventos distintos; acá solo hay un evento y su contrario."
+      "La regla general de la unión combina dos eventos distintos, y acá solo hay un evento y su contrario.",
+      "Sumar con otro evento no calcula el contrario de $A$, hace falta el complemento.",
+      null
     ],
-    "explanation": "Cuando se pregunta por el evento contrario a uno ya conocido, conviene aplicar directamente la **regla del complemento**:\n$$P(A^c) = 1 - P(A)$$\nCon $P(\\text{defectuosa})=0{,}08$, la probabilidad de que no sea defectuosa es $1-0{,}08=0{,}92$.\n\nLa confusión típica es intentar calcular el evento contrario con otra propiedad (unión, aditividad) cuando el complemento resuelve el caso de forma directa.",
+    "explanation": "El **complemento** $A^c$ de un evento reúne todos los resultados que no están en $A$.\n\nEsa relación cumple $P(A^c)=1-P(A)$.\n\nCon $P(A)=0{,}65$ para usar transporte público, la probabilidad de no usarlo es:\n$$P(A^c) = 1 - 0{,}65 = 0{,}35$$\nNo hace falta ningún otro evento ni fórmula de unión, alcanza con restar de 1 la probabilidad conocida.\n\nConfundir el complemento con una unión suele pasar cuando el enunciado menciona la negación, pero acá no hay dos eventos combinándose, solo uno y su contrario.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -63,20 +63,20 @@
     "tags": ["elegir-complemento"]
   },
   {
-    "question": "Un estudiante calculó que $P(A) = 1{,}15$ para cierto evento de un experimento.\n\n¿Qué propiedad permite afirmar que ese resultado es incorrecto?",
+    "question": "Un estudio calcula la probabilidad de un evento a partir de dos muestras distintas.\n\nPara eso, suma las probabilidades parciales $0{,}65$ y $0{,}50$.\n\n¿Qué propiedad permite descartar ese resultado sin más información?",
     "options": [
-      "Acotación: toda probabilidad cumple $0\\leq P(A)\\leq 1$.",
-      "Aditividad: la suma de dos probabilidades siempre da $1{,}15$.",
-      "Regla del complemento: $P(A^c)=1{,}15$ también sería válido."
+      "La acotación, válida para toda probabilidad.",
+      "La regla general de la unión entre eventos.",
+      "El complemento de un evento cualquiera."
     ],
     "correct_index": 0,
-    "feedback_correct": "Por acotación, ningún valor de $P(A)$ puede superar $1$; el resultado es incorrecto.",
+    "feedback_correct": "El axioma de acotación descarta directamente cualquier valor fuera de $[0,1]$.",
     "feedback_incorrect": [
       null,
-      "La aditividad no garantiza ningún valor fijo de suma; no sirve para descartar este resultado.",
-      "El complemento de un valor mayor a 1 daría un número negativo, también inválido, no una confirmación."
+      "La regla general de la unión combina dos eventos, y acá solo hay un valor de probabilidad para revisar.",
+      "El complemento no evalúa si el propio valor de $P(A)$ es válido."
     ],
-    "explanation": "Los axiomas de Kolmogorov garantizan que toda probabilidad está acotada: $0\\leq P(A)\\leq 1$. Cualquier valor fuera de ese rango señala un error en el cálculo, no una probabilidad válida.\n\nComo $1{,}15 > 1$, el resultado calculado no puede ser correcto, sin necesidad de rehacer el cálculo completo para detectarlo.\n\nLa confusión típica es aceptar un resultado numérico sin chequear primero que caiga dentro del rango $[0,1]$, el filtro más rápido para detectar errores.",
+    "explanation": "El axioma de **acotación** fija que $0 \\leq P(A) \\leq 1$ para cualquier evento, sin excepciones.\n\nSumando las dos probabilidades parciales:\n$$0{,}65 + 0{,}50 = 1{,}15$$\nEse resultado ya supera el máximo permitido, así que se puede descartar sin necesitar ningún dato adicional del estudio.\n\nRevisar la acotación antes que cualquier otra propiedad es la forma más rápida de detectar un resultado imposible.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

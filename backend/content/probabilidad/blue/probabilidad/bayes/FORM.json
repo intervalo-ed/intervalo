@@ -1,67 +1,44 @@
 [
   {
-    "question": "El **teorema de Bayes** relaciona el condicional $P(A|B)$ con su inverso $P(B|A)$.\n\n¿Cuál es la fórmula correcta?",
+    "question": "Un test diagnóstico se usa para estimar si un paciente tiene una enfermedad a partir de un resultado positivo.\n\nSe quiere calcular $P(\\text{enfermo} \\mid \\text{positivo})$ con el teorema de Bayes.\n\nSe conocen la verosimilitud, la probabilidad a priori y la probabilidad total de la evidencia.\n\n¿Qué expresión corresponde al numerador de la fórmula?",
     "options": [
-      "$P(A|B) = P(B|A) \\cdot P(A)$",
-      "$P(A|B) = \\dfrac{P(B|A) \\cdot P(A)}{P(B)}$",
-      "$P(A|B) = \\dfrac{P(A) \\cdot P(B)}{P(B|A)}$",
-      "$P(A|B) = P(A) + P(B|A)$"
-    ],
-    "correct_index": 1,
-    "feedback_correct": "Regla estándar de Bayes: verosimilitud por a priori, dividido por la probabilidad total.",
-    "feedback_incorrect": [
-      "Falta dividir por $P(B)$; sin el denominador no queda una probabilidad bien normalizada.",
-      null,
-      "Estás invirtiendo la fracción; recordá que el denominador es la probabilidad de la evidencia $B$.",
-      "Bayes no suma: relaciona multiplicativamente la verosimilitud, la a priori y la probabilidad total."
-    ],
-    "explanation": "El **teorema de Bayes** se deduce de la definición del condicional aplicada dos veces:\n$$P(A|B) = \\frac{P(A \\cap B)}{P(B)} = \\frac{P(B|A) \\cdot P(A)}{P(B)}$$\nCada componente tiene un nombre estándar: $P(A)$ es la a priori, $P(B|A)$ es la verosimilitud, y $P(B)$ es la probabilidad total de la evidencia.\n\nLa confusión típica es olvidar dividir por $P(B)$ (queda una cantidad no normalizada) o invertir numerador y denominador; la clave conceptual es que Bayes es una manera de reordenar $P(A \\cap B) = P(A|B) P(B) = P(B|A) P(A)$.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": ["formula-dos-escenarios"]
-  },
-  {
-    "question": "Sean $A_1, A_2, A_3$ una partición de $\\Omega$ y $B$ la evidencia observada.\n\n¿Qué expresión corresponde al teorema de Bayes para $P(A_1|B)$ con 3 escenarios?",
-    "options": [
-      "$\\dfrac{P(B|A_1)P(A_1)}{P(B|A_1)P(A_1)+P(B|A_2)P(A_2)+P(B|A_3)P(A_3)}$",
-      "$\\dfrac{P(B|A_1)P(A_1)}{P(B|A_1)}$",
-      "$P(B|A_1)P(A_1)+P(B|A_2)P(A_2)+P(B|A_3)P(A_3)$"
+      "$P(\\text{positivo}\\mid\\text{enfermo}) \\cdot P(\\text{enfermo})$",
+      "$P(\\text{positivo})$",
+      "$P(\\text{enfermo}) \\cdot P(\\text{positivo})$"
     ],
     "correct_index": 0,
-    "feedback_correct": "El numerador es el escenario de interés y el denominador suma los 3 escenarios con probabilidad total.",
+    "feedback_correct": "El numerador de Bayes es siempre el producto de la verosimilitud por la a priori de la rama que se busca.",
     "feedback_incorrect": [
       null,
-      "Ese denominador se simplifica incorrectamente, cancelando información de los otros escenarios.",
-      "Esa expresión es solo el denominador (probabilidad total de $B$), sin el cociente que da la probabilidad pedida."
+      "Esa expresión es el denominador de Bayes, no el numerador.",
+      "Ese producto multiplica dos probabilidades que no están condicionadas entre sí, no corresponde a la rama favorable."
     ],
-    "explanation": "Con 3 (o más) escenarios en la partición, el **teorema de Bayes** mantiene la misma estructura: el escenario de interés en el numerador, y todos los escenarios sumados con probabilidad total en el denominador.\n$$P(A_1|B) = \\frac{P(B|A_1)P(A_1)}{P(B|A_1)P(A_1)+P(B|A_2)P(A_2)+P(B|A_3)P(A_3)}$$\nLa confusión típica es omitir alguno de los términos del denominador al aumentar la cantidad de escenarios, dejando la normalización incompleta.",
+    "explanation": "En el **teorema de Bayes**, el numerador siempre es el producto de la verosimilitud por la probabilidad a priori de la rama que se está buscando invertir:\n$$P(\\text{positivo}\\mid\\text{enfermo}) \\cdot P(\\text{enfermo})$$\nEse numerador representa la rama favorable, la que combina estar enfermo y dar positivo.\n\nIntuitivamente, multiplicar ambos factores responde a una sola pregunta: de toda la población, qué fracción está enferma y además da positivo, la combinación exacta que se busca aislar.\n\nConfundir el numerador con el denominador completo, o multiplicar probabilidades que no están condicionadas entre sí, entrega una expresión que no corresponde a ninguna rama real del problema.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["formula-tres-o-mas-escenarios"]
+    "tags": ["form-identificar-numerador"]
   },
   {
-    "question": "Entre las siguientes expresiones, se busca identificar cuál corresponde correctamente al teorema de Bayes con 2 escenarios $A_1, A_2$.\n\n¿Cuál es la expresión correcta?",
+    "question": "En una fábrica hay dos líneas de producción, $A_1$ y $A_2$, cada una con su propia proporción de producción.\n\nSe conoce además la probabilidad de que una pieza defectuosa $D$ salga de cada línea. Se quiere calcular $P(A_1\\mid D)$.\n\n¿Cuál es la expresión completa del teorema de Bayes para este caso?",
     "options": [
-      "$\\dfrac{P(B|A_1)P(A_1)}{P(B|A_1)P(A_1)+P(B|A_2)P(A_2)}$",
-      "$\\dfrac{P(A_1)}{P(B|A_1)P(A_1)+P(B|A_2)P(A_2)}$",
-      "$\\dfrac{P(B|A_1)P(A_1)+P(B|A_2)P(A_2)}{P(B|A_1)P(A_1)}$"
+      "$\\dfrac{P(D\\mid A_2)P(A_2)}{\\sum_i P(D\\mid A_i)P(A_i)}$",
+      "$\\dfrac{P(A_1)P(D\\mid A_2)}{\\sum_i P(D\\mid A_i)P(A_i)}$",
+      "$\\dfrac{P(D\\mid A_1)P(A_1)}{\\sum_i P(D\\mid A_i)P(A_i)}$"
     ],
-    "correct_index": 0,
-    "feedback_correct": "El numerador debe incluir el condicional $P(B|A_1)$ junto con el peso $P(A_1)$.",
+    "correct_index": 2,
+    "feedback_correct": "El numerador es la rama de la línea $A_1$, y el denominador suma la probabilidad total de las dos líneas.",
     "feedback_incorrect": [
-      null,
-      "Ese numerador olvida multiplicar por $P(B|A_1)$, un factor imprescindible de Bayes.",
-      "Esa expresión invierte numerador y denominador respecto de la fórmula correcta."
+      "Ese numerador usa la rama de la línea $A_2$ en vez de $A_1$, la que en realidad se está buscando.",
+      "Ese numerador combina el peso de $A_1$ con la verosimilitud de $A_2$, mezclando las dos ramas en vez de usar solo la de interés.",
+      null
     ],
-    "explanation": "El **teorema de Bayes** con 2 escenarios pone en el numerador el condicional y el peso del escenario de interés, y en el denominador la probabilidad total de la evidencia:\n$$P(A_1|B) = \\frac{P(B|A_1)P(A_1)}{P(B|A_1)P(A_1)+P(B|A_2)P(A_2)}$$\nLas otras variantes omiten un factor en el numerador o invierten la fracción completa.\n\nLa confusión típica es olvidar que el numerador necesita el producto completo $P(B|A_1)P(A_1)$, no solo uno de los dos factores.",
+    "explanation": "El **teorema de Bayes** arma la fracción completa dividiendo la rama favorable por la probabilidad total de la evidencia, que suma todas las ramas de la partición:\n$$P(A_1\\mid D)$$\n$$= \\dfrac{P(D\\mid A_1)P(A_1)}{\\sum_i P(D\\mid A_i)P(A_i)}$$\nEl denominador reconstruye $P(D)$ combinando ambas líneas con probabilidad total.\n\nIntuitivamente, el denominador reparte el 100% de las piezas defectuosas entre las dos líneas, y el numerador aísla justo la porción que efectivamente vino de $A_1$.\n\nConfundir la rama de interés en el numerador, usando la línea equivocada o mezclando pesos y verosimilitudes entre líneas distintas, entrega una expresión que no corresponde a la probabilidad buscada.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["identificar-formula-correcta"]
+    "tags": ["form-armar-teorema"]
   }
 ]

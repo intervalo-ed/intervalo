@@ -10,15 +10,65 @@
     "correct_index": 1,
     "feedback_correct": "Esperanza del cuadrado de la desviación respecto de la media.",
     "feedback_incorrect": [
-      "Esa expresión vale 0 (por definición de esperanza), no la varianza.",
+      "Esa expresión vale 0 por definición de esperanza, no representa la varianza.",
       null,
-      "Ese es el cuadrado de la esperanza; aparece en la fórmula alternativa $Var(X) = E[X^{2}] - (E[X])^{2}$ pero no es la definición.",
+      "Ese es el cuadrado de la esperanza; aparece en la fórmula alternativa, pero no es la definición.",
       "El producto de la esperanza consigo misma da $\\mu^{2}$, no la dispersión."
     ],
-    "explanation": "La **varianza** mide la dispersión promedio de una variable aleatoria respecto de su esperanza:\n$$Var(X) = E[(X - \\mu)^{2}]$$\n\nUna fórmula equivalente muy usada en cálculos es:\n$$Var(X) = E[X^{2}] - (E[X])^{2}$$\n\nLa confusión típica es escribir $E[X] - \\mu$ (que siempre da 0) o $E[X^{2}]$ solo (sin restar $\\mu^{2}$): sin el cuadrado y sin el ajuste por la media, no queda una medida de dispersión.",
+    "explanation": "La **varianza** mide la dispersión promedio de una variable aleatoria respecto de su esperanza:\n$$Var(X) = E[(X - \\mu)^{2}]$$\nUna fórmula equivalente, más práctica para calcular, es:\n$$Var(X) = E[X^{2}] - (E[X])^{2}$$\nUn valor grande indica que los datos se alejan mucho, en promedio, del centro de la distribución; uno cercano a cero indica valores concentrados.\n\nRestar la esperanza antes de elevar al cuadrado, y luego restar el cuadrado de la esperanza al final, son ambos pasos necesarios para que quede una medida de dispersión.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": ["definicion-varianza"]
+  },
+  {
+    "question": "¿Qué expresión es equivalente a $Var(X)=E[(X-\\mu)^{2}]$ y suele ser más práctica para calcular?",
+    "options": [
+      "$E[X^{2}]-(E[X])^{2}$",
+      "$(E[X])^{2}-E[X^{2}]$",
+      "$E[X^{2}]-E[X]$",
+      "$(E[X])^{2}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Forma operativa equivalente a la definición, útil para el cálculo directo.",
+    "feedback_incorrect": [
+      null,
+      "Esa resta está invertida, el segundo momento va primero.",
+      "Ese resultado no eleva $E[X]$ al cuadrado antes de restarlo.",
+      "Ese es solo el cuadrado de la esperanza, sin el segundo momento."
+    ],
+    "explanation": "La fórmula operativa de la varianza evita trabajar directamente con la desviación al cuadrado:\n$$Var(X) = E[X^{2}] - (E[X])^{2}$$\nAmbas fórmulas miden lo mismo, cuánto se dispersan los valores respecto de la esperanza, pero esta versión solo requiere calcular dos esperanzas simples.\n\nInvertir la resta, o no elevar la esperanza al cuadrado, deja de representar una dispersión válida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": ["formula-operativa"]
+  },
+  {
+    "question": "¿Cómo se relaciona $Var(aX+b)$ con $Var(X)$?",
+    "options": [
+      "$a^{2}\\,Var(X)$",
+      "$a\\,Var(X)$",
+      "$a^{2}\\,Var(X)+b$",
+      "$Var(X)+b^{2}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El desplazamiento $b$ no afecta la dispersión; el factor $a$ se eleva al cuadrado.",
+    "feedback_incorrect": [
+      null,
+      "Ese resultado no eleva $a$ al cuadrado, y la varianza escala de forma cuadrática.",
+      "El desplazamiento $b$ no suma dispersión, solo mueve todos los valores por igual.",
+      "$b$ no aporta a la varianza; el escalado depende exclusivamente de $a^{2}$."
+    ],
+    "explanation": "La varianza cumple la propiedad de escalado:\n$$Var(aX+b) = a^{2}\\,Var(X)$$\nUn desplazamiento constante mueve todos los valores por igual, así que no cambia cuánto se dispersan entre sí.\n\nEscalar por un factor sí estira o comprime esa dispersión, y por eso ese factor aparece al cuadrado.\n\nOlvidar elevar el factor al cuadrado, o incluir el desplazamiento en el resultado, ignora que la varianza mide dispersión relativa entre los valores, no su ubicación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": ["propiedad-escalado"]
   }
 ]

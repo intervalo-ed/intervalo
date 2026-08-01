@@ -1,21 +1,16 @@
 [
   {
-    "question": "En una urna hay 8 bolas: 3 rojas y 5 azules, todas indistinguibles al tacto.\n\nSe extrae una bola al azar.\n\n¿Qué expresión da la probabilidad de que sea roja?",
-    "options": [
-      "$\\dfrac{3}{5}$",
-      "$\\dfrac{3}{8}$",
-      "$\\dfrac{5}{8}$",
-      "$\\dfrac{8}{3}$"
-    ],
-    "correct_index": 1,
-    "feedback_correct": "Regla de Laplace: casos favorables ($3$ rojas) sobre casos posibles ($8$ bolas).",
+    "question": "Se lanza un dado equilibrado de 6 caras.\n\n¿Qué expresión da la probabilidad de obtener un múltiplo de 3?",
+    "options": ["$\\dfrac{2}{6}$", "$\\dfrac{3}{6}$", "$\\dfrac{6}{2}$", "$\\dfrac{1}{6}$"],
+    "correct_index": 0,
+    "feedback_correct": "Hay 2 múltiplos de 3 entre 1 y 6, el 3 y el 6, sobre 6 caras posibles.",
     "feedback_incorrect": [
-      "Estás dividiendo rojas por azules; el denominador de Laplace es el TOTAL de casos, no los desfavorables.",
       null,
-      "Esa es la probabilidad de sacar una azul, no una roja.",
-      "Estás invirtiendo la fracción; la probabilidad nunca supera 1 así que el numerador es siempre ≤ denominador."
+      "Ese numerador cuenta la mitad de las caras, no específicamente los múltiplos de 3.",
+      "Estás invirtiendo la fracción, el denominador de Laplace es siempre el total de casos posibles.",
+      "Ese numerador corresponde a un solo múltiplo de 3, cuando hay dos entre 1 y 6."
     ],
-    "explanation": "La **regla de Laplace** aplica cuando el espacio muestral es finito y todos los resultados son equiprobables:\n$$P(A) = \\frac{\\text{Casos favorables}}{\\text{Casos posibles}}$$\nEn la urna, hay 3 casos favorables (sacar cualquier bola roja) sobre 8 casos posibles (cualquier bola del total), así que:\n$$P(\\text{roja}) = \\frac{3}{8}$$\nLa confusión típica es poner en el denominador solo los casos desfavorables ($3/5$) o invertir la fracción; recordá que el denominador siempre representa el total del espacio muestral, no una parte.",
+    "explanation": "La **regla de Laplace** aplica cuando el espacio muestral es finito y equiprobable:\n$$P(A) = \\dfrac{\\text{favorables}}{\\text{posibles}}$$\nEntre las 6 caras del dado, los múltiplos de 3 son el 3 y el 6, dos casos favorables sobre 6 posibles:\n$$P(\\text{múltiplo de }3) = \\frac{2}{6}$$\nContar bien los favorables antes de armar la fracción evita quedarse con un número que no corresponde al evento pedido.\n\nInvertir favorables y posibles es un desliz frecuente al recordar la fórmula de memoria.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -23,22 +18,22 @@
     "tags": ["formula-conteo-simple"]
   },
   {
-    "question": "De una urna con 10 bolas numeradas del 1 al 10, se extraen 3 bolas al azar sin reposición.\n\n¿Qué expresión da la probabilidad de que las 3 bolas extraídas sean todas pares (hay 5 bolas pares en la urna)?",
+    "question": "De un grupo de 8 personas, 5 mujeres y 3 hombres, se elige un comité de 3 personas al azar.\n\n¿Qué expresión da la probabilidad de que el comité esté formado solo por mujeres?",
     "options": [
-      "$\\dfrac{\\binom{5}{3}}{\\binom{10}{3}}$",
-      "$\\dfrac{5}{10}$",
-      "$\\dfrac{\\binom{5}{3}}{\\binom{5}{3}}$",
-      "$\\dfrac{3}{10}$"
+      "$5/8$",
+      "$\\binom{5}{3}/\\binom{8}{3}$",
+      "$\\binom{5}{3}/\\binom{3}{3}$",
+      "$3/8$"
     ],
-    "correct_index": 0,
-    "feedback_correct": "Favorables: elegir 3 de las 5 pares. Posibles: elegir 3 de las 10 totales.",
+    "correct_index": 1,
+    "feedback_correct": "Favorables: elegir 3 de las 5 mujeres. Posibles: elegir 3 de las 8 personas totales.",
     "feedback_incorrect": [
+      "Esa fracción compara personas individuales, no las formas de elegir el comité completo de 3.",
       null,
-      "Esa fracción compara cantidades individuales, no combina las formas de elegir 3 bolas a la vez.",
-      "Ese cociente da siempre 1, porque el numerador y el denominador cuentan el mismo grupo.",
-      "Ese valor no surge de contar formas de elegir 3 bolas entre las disponibles."
+      "Ese cociente no representa los casos posibles, que son todas las formas de elegir 3 personas entre las 8 totales.",
+      "Ese valor corresponde a la proporción de hombres en el grupo, no a la probabilidad del comité pedido."
     ],
-    "explanation": "Cuando se extraen varios elementos sin reposición y el orden no importa, favorables y posibles se cuentan con **combinaciones**.\n\nLos casos posibles son todas las formas de elegir 3 bolas de las 10 totales, $\\binom{10}{3}$. Los favorables son las formas de elegir 3 bolas entre las 5 pares, $\\binom{5}{3}$:\n$$P(\\text{las 3 pares}) = \\frac{\\binom{5}{3}}{\\binom{10}{3}}$$\nLa confusión típica es comparar cantidades individuales de bolas ($5/10$) en vez de contar las formas de elegir el subconjunto completo con combinaciones.",
+    "explanation": "Cuando se elige un subconjunto de personas sin importar el orden, favorables y posibles se cuentan con **combinaciones**.\n\nLos comités posibles son todas las formas de elegir 3 personas de las 8 totales, y los favorables son las formas de elegir 3 entre las 5 mujeres:\n$$P(\\text{solo mujeres}) = \\frac{\\binom{5}{3}}{\\binom{8}{3}}$$\nContar con la misma convención de orden en favorables y posibles evita mezclar dos técnicas incompatibles.\n\nComparar cantidades individuales de personas en vez de combinaciones completas es una simplificación que no representa el conteo real.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -46,22 +41,22 @@
     "tags": ["formula-con-combinaciones"]
   },
   {
-    "question": "Se lanza una moneda equilibrada 4 veces.\n\n¿Qué expresión da la probabilidad de obtener al menos una cara?",
+    "question": "Se lanza un dado equilibrado de 6 caras 3 veces.\n\n¿Qué expresión da la probabilidad de obtener al menos un 6?",
     "options": [
-      "$1-\\dfrac{1}{16}$",
-      "$\\dfrac{1}{16}$",
-      "$\\dfrac{4}{16}$",
-      "$1-\\dfrac{4}{16}$"
+      "$\\left(\\dfrac{1}{6}\\right)^{3}$",
+      "$\\dfrac{3}{6}$",
+      "$1-\\left(\\dfrac{5}{6}\\right)^{3}$",
+      "$1-\\dfrac{1}{6}$"
     ],
-    "correct_index": 0,
-    "feedback_correct": "Al menos una cara es el complemento de ninguna cara (todas cecas), que tiene probabilidad $1/16$.",
+    "correct_index": 2,
+    "feedback_correct": "Al menos un 6 es el complemento de ningún 6 en las 3 tiradas.",
     "feedback_incorrect": [
+      "Ese valor es la probabilidad de que salgan tres 6 seguidos, no de que salga al menos uno.",
+      "Esa fracción no corresponde a ningún conteo de las 3 tiradas del dado.",
       null,
-      "Esa es la probabilidad de que NO salga ninguna cara, el evento complementario al pedido.",
-      "Ese numerador no corresponde a contar las secuencias sin ninguna cara.",
-      "Ese resto no descuenta la probabilidad correcta del evento «ninguna cara»."
+      "Ese resto usa una sola tirada, mientras que el evento involucra las 3 tiradas completas."
     ],
-    "explanation": "\"Al menos uno\" conviene resolverlo con el **complemento**: en vez de contar directamente todos los casos con una o más caras, se calcula el caso contrario (ninguna cara) y se resta de $1$.\n\nCon 4 lanzamientos hay $2^4=16$ secuencias posibles, y solo una tiene ninguna cara (todas ceca), así que:\n$$P(\\text{al menos una cara}) = 1 - \\frac{1}{16}$$\nLa confusión típica es intentar sumar directamente las probabilidades de \"exactamente 1 cara\", \"exactamente 2\", etc., un camino mucho más largo que usar el complemento.",
+    "explanation": "Al menos uno conviene resolverlo con el **complemento**: se calcula la probabilidad de que ningún resultado cumpla la condición y se resta de 1.\n\nEn cada tirada, la probabilidad de no sacar un 6 es:\n$$\\frac{5}{6}$$\nComo las 3 tiradas son independientes entre sí:\n$$P(\\text{ningún 6}) = \\left(\\frac{5}{6}\\right)^{3}$$\nRestando ese valor de 1 se obtiene la probabilidad de que aparezca al menos un 6 en las 3 tiradas.\n\nIntentar sumar directamente las probabilidades de sacar exactamente uno, dos o tres 6 es un camino mucho más largo que usar el complemento.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -69,20 +64,20 @@
     "tags": ["formula-con-complemento"]
   },
   {
-    "question": "Un dado está cargado de forma que el número 6 sale con el doble de frecuencia que cualquier otro número.\n\n¿Por qué NO se puede usar la regla de Laplace para calcular $P(6)$ como $1/6$?",
+    "question": "Una urna tiene bolitas de distinto tamaño, por lo que unas se extraen con más facilidad que otras al tacto.\n\n¿Por qué no se puede usar la regla de Laplace para calcular la probabilidad de sacar una bolita de un color determinado?",
     "options": [
-      "Porque el espacio muestral no es equiprobable: los resultados no tienen la misma chance.",
-      "Porque el dado tiene más de 6 caras.",
-      "Porque la regla de Laplace solo aplica a monedas, no a dados."
+      "Porque faltan datos sobre cuántas bolitas hay de cada color.",
+      "Porque el espacio muestral no es equiprobable en este caso.",
+      "Porque el tamaño de una bolita no afecta la probabilidad de extraerla."
     ],
-    "correct_index": 0,
-    "feedback_correct": "Laplace exige equiprobabilidad; acá el 6 tiene más chance que los demás números.",
+    "correct_index": 1,
+    "feedback_correct": "Laplace exige que todos los resultados tengan la misma chance, y acá no la tienen.",
     "feedback_incorrect": [
+      "Ese dato no es necesario para decidir si aplica Laplace; el problema es que las bolitas no tienen la misma chance de salir, sin importar cuántas haya de cada color.",
       null,
-      "El dado sigue teniendo 6 caras; el problema no es la cantidad de resultados.",
-      "La regla de Laplace aplica a cualquier experimento con resultados igual de probables, no está restringida a un tipo de objeto."
+      "Ese es justamente el error: el tamaño sí afecta la chance de extracción al tacto, por eso el espacio deja de ser equiprobable."
     ],
-    "explanation": "La **regla de Laplace** $P(A)=\\text{favorables}/\\text{posibles}$ solo es válida cuando el espacio muestral es **equiprobable**: todos los resultados tienen exactamente la misma chance de ocurrir.\n\nComo el dado está cargado y el 6 sale con el doble de frecuencia que los demás números, los 6 resultados ya no son igual de probables, así que $1/6$ subestima la probabilidad real de sacar un 6.\n\nLa confusión típica es aplicar Laplace de forma automática por tratarse de un dado, sin verificar primero si el enunciado garantiza que todos los resultados son igual de probables.",
+    "explanation": "La **regla de Laplace** solo es válida cuando el espacio muestral es equiprobable, con todos los resultados igual de probables:\n$$P(A)=\\dfrac{\\text{favorables}}{\\text{posibles}}$$\nComo las bolitas tienen distinto tamaño, algunas se extraen con más facilidad que otras al tacto, así que ya no todas comparten la misma chance de salir.\n\nAplicar Laplace de forma automática sin verificar la equiprobabilidad del enunciado lleva a un resultado que no refleja las chances reales.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

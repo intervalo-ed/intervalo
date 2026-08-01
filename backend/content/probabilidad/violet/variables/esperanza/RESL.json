@@ -1,19 +1,83 @@
 [
   {
-    "question": "Sea $X$ una variable aleatoria discreta con función de probabilidad puntual dada por:\n$$\\begin{aligned} p(0) &= 0{,}2 \\\\ p(1) &= 0{,}5 \\\\ p(2) &= 0{,}3 \\end{aligned}$$\n\n¿Cuánto vale $E[X]$?",
+    "question": "La cantidad de clientes que llegan a una caja durante un minuto tiene función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 0{,}2 \\\\ p(1) &= 0{,}5 \\\\ p(2) &= 0{,}3 \\end{aligned}$$\n¿Cuánto vale $E[X]$?",
     "options": ["$1{,}0$", "$1{,}1$", "$1{,}5$", "$3{,}0$"],
     "correct_index": 1,
     "feedback_correct": "$0 \\cdot 0{,}2 + 1 \\cdot 0{,}5 + 2 \\cdot 0{,}3 = 1{,}1$.",
     "feedback_incorrect": [
-      "Ese resultado sale de asumir equiprobabilidad (promedio simple $(0+1+2)/3=1$), sin usar los pesos.",
+      "Ese resultado sale de asumir equiprobabilidad, el promedio simple $(0+1+2)/3=1$ sin usar los pesos.",
       null,
-      "Ese es $(0+1+2)/2$: no corresponde a esperanza ni a promedio simple.",
+      "Ese es $(0+1+2)/2$, no corresponde a esperanza ni a promedio simple.",
       "Ese es la suma pura de los valores $0+1+2$, sin ponderar por probabilidad."
     ],
-    "explanation": "La **esperanza** es la suma ponderada de los valores por sus probabilidades:\n$$E[X] = \\sum_x x \\cdot p(x)$$\n\nCon los datos:\n$$E[X] = 0 \\cdot 0{,}2 + 1 \\cdot 0{,}5 + 2 \\cdot 0{,}3 = 0 + 0{,}5 + 0{,}6 = 1{,}1$$\n\nUn error clásico es promediar los valores como si fueran equiprobables ($(0+1+2)/3 = 1$); la esperanza pondera por la probabilidad de cada valor, así que los valores más probables (acá el $1$ y el $2$) empujan el promedio hacia arriba.",
+    "explanation": "La **esperanza** es la suma ponderada de los valores por sus probabilidades:\n$$E[X] = \\sum_x x \\cdot p(x)$$\nCon los datos del problema:\n$$\\begin{aligned} E[X] &= 0 \\cdot 0{,}2 + 1 \\cdot 0{,}5 + 2 \\cdot 0{,}3 \\\\ &= 0 + 0{,}5 + 0{,}6 \\\\ &= 1{,}1 \\end{aligned}$$\nEste resultado es el promedio de clientes por minuto a largo plazo, tras registrar muchos minutos, no la cantidad exacta del próximo minuto.\n\nPromediar sin ponderar da un resultado distinto, porque trata los tres valores como igual de probables.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": ["resl-discreta"]
+  },
+  {
+    "question": "El tiempo que un cliente espera en la fila de un banco tiene una esperanza de 4 minutos.\n\nUn cajero cobra \\$2 por minuto de espera más un cargo fijo de \\$1.\n\n¿Cuál es el costo esperado?",
+    "options": ["\\$8", "\\$9", "\\$10", "\\$1"],
+    "correct_index": 1,
+    "feedback_correct": "$2 \\cdot 4 + 1 = 9$.",
+    "feedback_incorrect": [
+      "Ese valor olvida sumar el cargo fijo de \\$1.",
+      null,
+      "Ese valor suma el cargo fijo dos veces, cuando se suma una sola vez.",
+      "Ese es solo el cargo fijo, sin la parte variable del costo."
+    ],
+    "explanation": "La **linealidad de la esperanza** permite calcular $E[aX+b]$ escalando y desplazando $E[X]$, sin recalcular desde cero:\n$$E[aX+b] = a \\cdot E[X] + b$$\nCon los valores del problema:\n$$E[2X+1] = 2 \\cdot 4 + 1 = 9$$\nEste costo es el promedio que pagaría el cliente a largo plazo, si el mismo proceso de espera se repitiera muchas veces.\n\nOlvidar el cargo fijo, o aplicarlo más de una vez, deja la parte constante mal aplicada: se suma una sola vez, después de escalar la parte variable.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": ["resl-linealidad"]
+  },
+  {
+    "question": "El tiempo que un cliente espera en un cajero automático se modela con una densidad uniforme sobre $[0,5]$ minutos.\n\n¿Cuánto vale $E[X]$?",
+    "options": ["$2{,}0$", "$2{,}5$", "$5{,}0$", "$0{,}5$"],
+    "correct_index": 1,
+    "feedback_correct": "Punto medio del intervalo: $(0+5)/2=2{,}5$.",
+    "feedback_incorrect": [
+      "Ese valor no es el punto medio del intervalo $[0,5]$.",
+      null,
+      "Ese es el extremo superior del intervalo, no su punto medio.",
+      "Ese valor no corresponde al punto medio ni a ningún extremo del intervalo."
+    ],
+    "explanation": "Para una densidad **uniforme** sobre un intervalo $[a,b]$, la esperanza coincide con el punto medio del intervalo:\n$$E[X] = \\frac{a+b}{2}$$\nCon $a=0$ y $b=5$:\n$$E[X] = \\frac{0+5}{2} = 2{,}5$$\nEste resultado es el tiempo de espera promedio a largo plazo, no el tiempo que esperará necesariamente el próximo cliente.\n\nUsar un extremo del intervalo en vez de su punto medio ignora que la densidad uniforme reparte la probabilidad por igual a ambos lados del centro.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": ["resl-continua-uniforme"]
+  },
+  {
+    "question": "El tiempo de espera en la fila de un supermercado tiene esperanza $E[X]=3$ minutos.\n\n¿Qué significa este valor?",
+    "options": [
+      "Es el tiempo que esperará exactamente cada cliente",
+      "Es el tiempo más frecuente entre los clientes",
+      "Es el promedio a largo plazo de tiempos de espera",
+      "Es el tiempo máximo que puede esperar un cliente"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El promedio a largo plazo tras observar muchos clientes, no el resultado de un único cliente.",
+    "feedback_incorrect": [
+      "Cada cliente puede esperar un tiempo distinto, la esperanza no fija ese valor.",
+      "Ese es el valor que más se repite, la moda, y no necesariamente coincide con la esperanza.",
+      null,
+      "La esperanza es un promedio, no un tope máximo del tiempo de espera."
+    ],
+    "explanation": "La **esperanza** es el promedio ponderado de los tiempos de espera posibles por su probabilidad:\n$$E[X] = \\sum_x x \\cdot p(x)$$\nEste valor representa el promedio de tiempos de espera a largo plazo, tras registrar a muchos clientes, no el tiempo de un cliente en particular.\n\nLa moda, el resultado de una observación puntual y el máximo posible son conceptos distintos del promedio.\n\nCliente a cliente el tiempo real varía, y solo al acumular muchas observaciones ese promedio se estabiliza.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": ["resl-interpretacion"]
   }
 ]

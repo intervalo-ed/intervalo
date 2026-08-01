@@ -1,16 +1,16 @@
 [
   {
-    "question": "En una rifa, $P(A)=0{,}25$ (ganar el primer premio) y $P(B)=0{,}15$ (ganar el segundo premio), eventos mutuamente excluyentes.\n\nCalculá $P(A\\cup B)$.",
-    "options": ["$0{,}40$", "$0{,}0375$", "$0{,}10$", "$1{,}00$"],
+    "question": "Se sabe que $P(A) = 0{,}2$ y $P(B) = 0{,}25$, siendo ambos eventos mutuamente excluyentes.\n\n¿Cuál es el valor de $P(A \\cup B)$?",
+    "options": ["$0{,}45$", "$0{,}05$", "$0{,}55$", "$0{,}2$"],
     "correct_index": 0,
-    "feedback_correct": "$P(A\\cup B) = 0{,}25+0{,}15=0{,}40$ por ser eventos excluyentes.",
+    "feedback_correct": "Al ser mutuamente excluyentes, la unión es la suma simple de ambas probabilidades.",
     "feedback_incorrect": [
       null,
-      "Ese valor sale de multiplicar las probabilidades, un cálculo que no corresponde a la unión.",
-      "Ese valor sale de restar en vez de sumar las probabilidades.",
-      "La probabilidad de la unión no llega a cubrir todo el espacio muestral, no puede ser $1$."
+      "Ese valor sale de multiplicar $P(A)$ por $P(B)$, una operación que no corresponde a la unión.",
+      "Ese valor sale de restar la suma de 1, un cálculo que no corresponde a este evento.",
+      "Ese valor es solo $P(A)$, falta sumar la probabilidad de $B$."
     ],
-    "explanation": "Cuando dos eventos son mutuamente excluyentes, la probabilidad de la unión es simplemente la suma de sus probabilidades individuales, por el axioma de aditividad:\n$$P(A\\cup B) = P(A)+P(B) = 0{,}25+0{,}15 = 0{,}40$$\nComo los premios son excluyentes (no se puede ganar los dos con el mismo número), no hace falta restar ninguna intersección.\n\nLa confusión típica es multiplicar las probabilidades en vez de sumarlas, un procedimiento que corresponde a otra propiedad (independencia), no a la unión de eventos excluyentes.",
+    "explanation": "Como $A$ y $B$ son mutuamente excluyentes, su intersección vale cero.\n\nPor eso $P(A\\cap B) = 0$ y la regla general de la unión se reduce a la suma directa.\n\nCon $P(A)=0{,}2$ y $P(B)=0{,}25$:\n$$P(A \\cup B) = 0{,}2 + 0{,}25 = 0{,}45$$\nNo hace falta restar nada porque los dos eventos nunca ocurren a la vez.\n\nMultiplicar en vez de sumar confunde la unión con la intersección de eventos independientes, y da un resultado mucho menor al real.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -18,17 +18,17 @@
     "tags": ["resl-union-excluyentes"]
   },
   {
-    "question": "En una encuesta se sabe que $P(A) = 0{,}7$ y $P(B) = 0{,}5$, con $P(A \\cap B) = 0{,}3$.\n\nCalculá $P(A \\cup B)$.",
-    "options": ["$0{,}5$", "$0{,}7$", "$0{,}9$", "$1{,}2$"],
-    "correct_index": 2,
-    "feedback_correct": "$P(A \\cup B) = 0{,}7 + 0{,}5 - 0{,}3 = 0{,}9$.",
+    "question": "En un control de calidad, $P(A) = 0{,}3$ y $P(B) = 0{,}2$.\n\nAdemás, $P(A \\cap B) = 0{,}1$.\n\n¿Cuál es el valor de $P(A \\cup B)$?",
+    "options": ["$0{,}5$", "$0{,}4$", "$0{,}06$", "$0{,}1$"],
+    "correct_index": 1,
+    "feedback_correct": "Restar la intersección evita contar dos veces las piezas con ambos defectos.",
     "feedback_incorrect": [
-      "Ese es $P(B)$ solo, sin sumar la contribución de $A$ ni descontar la intersección.",
-      "Ese es $P(A)$ solo, sin sumar la contribución de $B$ ni descontar la intersección.",
+      "Ese valor suma $P(A)+P(B)$ sin restar la intersección, contando dos veces los casos compartidos.",
       null,
-      "Estás sumando sin restar la intersección; una probabilidad no puede superar 1."
+      "Ese valor sale de multiplicar $P(A)$ por $P(B)$, un cálculo que no corresponde a la unión.",
+      "Ese valor es solo $P(A\\cap B)$, falta sumar los casos exclusivos de cada evento."
     ],
-    "explanation": "La regla de la **suma** para dos eventos que pueden solaparse se deduce de los axiomas y descuenta el solapamiento contado dos veces:\n$$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$$\nCon los valores dados:\n$$0{,}7 + 0{,}5 - 0{,}3 = 0{,}9$$\nLa confusión típica es sumar sin restar la intersección y obtener valores mayores que 1: cada vez que aparece $P(A) + P(B) > 1$, es señal de que hay que descontar la parte compartida.",
+    "explanation": "La regla general de la unión resta la intersección para no contar dos veces los resultados compartidos entre $A$ y $B$.\n\nCon los valores dados:\n$$P(A \\cup B) = 0{,}3 + 0{,}2 - 0{,}1 = 0{,}4$$\nLas piezas con ambos defectos a la vez quedaban contadas dos veces al sumar $P(A)$ y $P(B)$ directamente.\n\nRestar $P(A\\cap B)$ corrige ese exceso.\n\nOlvidarse de restar la intersección en eventos que sí se superponen deja el resultado sobreestimado.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -36,17 +36,17 @@
     "tags": ["resl-union-general"]
   },
   {
-    "question": "En una línea de producción, $P(\\text{defectuosa}) = 0{,}12$.\n\nCalculá la probabilidad de que una pieza elegida al azar NO sea defectuosa.",
-    "options": ["$0{,}88$", "$0{,}12$", "$1{,}12$", "$0{,}24$"],
-    "correct_index": 0,
-    "feedback_correct": "$P(\\text{no defectuosa}) = 1-0{,}12=0{,}88$.",
+    "question": "En una encuesta, $P(A) = 0{,}72$, donde $A$ es que la persona usa cierta red social.\n\n¿Cuál es el valor de $P(A^c)$?",
+    "options": ["$0{,}72$", "$1{,}72$", "$0{,}28$", "$0{,}32$"],
+    "correct_index": 2,
+    "feedback_correct": "El complemento se obtiene restando la probabilidad dada de 1.",
     "feedback_incorrect": [
+      "Ese es el valor de $P(A)$, no el de su complemento.",
+      "Sumar en vez de restar da un valor mayor a 1, imposible para una probabilidad.",
       null,
-      "Ese es el valor de $P(\\text{defectuosa})$, no el de su complemento.",
-      "Ese resultado suma en vez de restar; una probabilidad nunca supera $1$.",
-      "Ese resultado sale de duplicar $P(\\text{defectuosa})$ en vez de restarla de $1$."
+      "Ese valor no sale de restar $0{,}72$ de $1$ correctamente."
     ],
-    "explanation": "La **regla del complemento** calcula la probabilidad del evento contrario restando de $1$:\n$$P(A^c) = 1 - P(A)$$\nCon $P(\\text{defectuosa})=0{,}12$, la probabilidad de que no sea defectuosa es:\n$$1 - 0{,}12 = 0{,}88$$\nLa confusión típica es responder directamente el valor dado en el enunciado, olvidando que la pregunta pide el evento contrario.",
+    "explanation": "El complemento cumple $P(A^c) = 1 - P(A)$, la parte del espacio muestral que queda afuera de $A$.\n\nCon $P(A) = 0{,}72$:\n$$P(A^c) = 1 - 0{,}72 = 0{,}28$$\nEste valor representa a las personas que no usan esa red social, sin necesitar ningún otro dato de la encuesta.\n\nRepetir el valor de $P(A)$ como si fuera su propio complemento es un desliz común cuando se pasa por alto la resta.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -54,17 +54,17 @@
     "tags": ["resl-complemento"]
   },
   {
-    "question": "Se sabe que $P(A\\cup B)=0{,}8$, $P(A)=0{,}5$ y $P(B)=0{,}45$.\n\nCalculá $P(A\\cap B)$.",
-    "options": ["$0{,}15$", "$0{,}85$", "$0{,}05$", "$1{,}75$"],
-    "correct_index": 0,
-    "feedback_correct": "Despejando: $P(A\\cap B)=P(A)+P(B)-P(A\\cup B)=0{,}5+0{,}45-0{,}8=0{,}15$.",
+    "question": "En un estudio de mercado sobre dos productos, se sabe que $P(A \\cup B) = 0{,}6$.\n\nAdemás, $P(A) = 0{,}4$ y $P(B) = 0{,}35$.\n\n¿Cuál es el valor de $P(A \\cap B)$?",
+    "options": ["$0{,}6$", "$0{,}75$", "$0{,}05$", "$0{,}15$"],
+    "correct_index": 3,
+    "feedback_correct": "Despejando la fórmula general, la intersección sale de restar la unión de la suma de ambas.",
     "feedback_incorrect": [
-      null,
-      "Ese resultado suma en vez de restar $P(A\\cup B)$.",
-      "Ese resultado invierte el signo de $P(A\\cup B)$ en el despeje.",
-      "Ese resultado suma los tres valores en vez de despejar correctamente la incógnita."
+      "Ese es el valor dado de $P(A\\cup B)$, no el de la intersección despejada.",
+      "Ese valor sale de sumar los tres datos sin despejar correctamente la fórmula.",
+      "Ese valor no corresponde a despejar $P(A\\cap B)$ desde la fórmula general de la unión.",
+      null
     ],
-    "explanation": "De la regla general de la unión $P(A\\cup B) = P(A)+P(B)-P(A\\cap B)$ se puede despejar la intersección reordenando los términos:\n$$P(A\\cap B) = P(A)+P(B)-P(A\\cup B)$$\nCon los valores dados:\n$$0{,}5+0{,}45-0{,}8 = 0{,}15$$\nLa confusión típica es equivocar el signo al despejar, sumando $P(A\\cup B)$ en vez de restarlo; conviene siempre verificar el despeje sustituyendo el resultado de nuevo en la fórmula original.",
+    "explanation": "La regla general de la unión de partida es:\n$$P(A\\cup B) = P(A)+P(B)-P(A\\cap B)$$\nDespejando la intersección:\n$$P(A\\cap B) = P(A) + P(B) - P(A\\cup B)$$\nCon los datos del estudio:\n$$\\begin{aligned} P(A) &= 0{,}4 \\\\ P(B) &= 0{,}35 \\\\ P(A\\cup B) &= 0{,}6 \\end{aligned}$$\nReemplazando:\n$$P(A\\cap B) = 0{,}4 + 0{,}35 - 0{,}6 = 0{,}15$$\nDespejar bien el término que falta evita quedarse con alguno de los datos originales como si fuera la respuesta.\n\nInvertir un signo al despejar deja alguno de los datos originales disfrazado de respuesta final.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

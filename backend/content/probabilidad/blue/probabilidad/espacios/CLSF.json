@@ -1,19 +1,19 @@
 [
   {
-    "question": "Se lanza un dado de 6 caras, con espacio muestral $\\Omega=\\{1,2,3,4,5,6\\}$. Se propone el conjunto $B=\\{2,4,7\\}$.\n\n¿$B$ es un evento válido de este experimento?",
+    "question": "De una urna con 6 bolitas numeradas del 1 al 6 se extrae una al azar.\n\n¿Cuál de los siguientes conjuntos es un evento válido para este experimento?",
     "options": [
-      "No, porque $7$ no pertenece a $\\Omega$.",
-      "Sí, porque tiene el mismo tamaño que otros eventos válidos.",
-      "Sí, porque todo conjunto de números es un evento válido."
+      "$\\{2,4,7\\}$",
+      "$\\{rojo, azul\\}$",
+      "$\\{2,4,6\\}$"
     ],
-    "correct_index": 0,
-    "feedback_correct": "Un evento debe ser subconjunto de $\\Omega$; como $7\\notin\\Omega$, $B$ no es válido.",
+    "correct_index": 2,
+    "feedback_correct": "Los tres elementos pertenecen al espacio muestral $\\{1,\\dots,6\\}$.",
     "feedback_incorrect": [
-      null,
-      "El tamaño del conjunto no garantiza validez: lo que importa es que cada elemento pertenezca a $\\Omega$.",
-      "Un evento debe cumplir $A\\subseteq\\Omega$: no cualquier conjunto de números califica, solo los formados por resultados posibles."
+      "El 7 no pertenece al espacio muestral $\\{1,\\dots,6\\}$, así que ese conjunto no es un subconjunto válido.",
+      "Esos colores no forman parte de los resultados posibles de esta urna, que son números.",
+      null
     ],
-    "explanation": "Un **evento** válido debe ser un subconjunto del espacio muestral: $A\\subseteq\\Omega$, es decir, cada uno de sus elementos debe ser un resultado posible del experimento.\n\nCon $\\Omega=\\{1,2,3,4,5,6\\}$, el conjunto $B=\\{2,4,7\\}$ incluye el $7$, que no es un resultado posible del dado, así que $B$ no es un evento válido.\n\nLa confusión típica es evaluar solo la forma del conjunto (cantidad de elementos, tipo de dato) sin verificar que cada elemento pertenezca efectivamente a $\\Omega$.",
+    "explanation": "Un evento es válido cuando es un **subconjunto** del espacio muestral $\\Omega$, es decir cuando todos sus elementos pertenecen a $\\Omega$.\n\nAcá $\\Omega=\\{1,2,3,4,5,6\\}$, y el conjunto $\\{2,4,6\\}$ solo tiene números que están dentro de esa lista.\n\nUn conjunto con un elemento fuera de $\\Omega$, como un número que la urna no tiene, deja de ser un evento posible de ese experimento.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -21,20 +21,20 @@
     "tags": ["validar-subconjunto"]
   },
   {
-    "question": "Se lanza una moneda dos veces y se registra la secuencia de caras (C) y cecas (X).\n\nConsiderá el subconjunto $A = \\{CC, CX\\}$.\n\n¿Qué es $A$ respecto del espacio muestral?",
+    "question": "Se lanzan dos monedas equilibradas y se registra la cara de cada una, usando C para cara y X para ceca.\n\nSe considera el siguiente evento:\n$$B = \\{CX, XC\\}$$\n¿Cómo se clasifica este evento?",
     "options": [
-      "Un evento elemental.",
-      "Un evento compuesto.",
-      "El espacio muestral completo."
+      "Compuesto, porque agrupa más de un resultado posible.",
+      "Elemental, porque describe una sola combinación de caras.",
+      "El espacio muestral completo del experimento."
     ],
-    "correct_index": 1,
-    "feedback_correct": "Agrupa 2 resultados del espacio, así que es un evento compuesto.",
+    "correct_index": 0,
+    "feedback_correct": "Un evento con 2 o más resultados distintos es compuesto.",
     "feedback_incorrect": [
-      "Un evento elemental contiene un único resultado; acá $A$ tiene dos.",
       null,
-      "El espacio muestral tiene 4 resultados ($CC, CX, XC, XX$); $A$ es solo un subconjunto."
+      "Un evento elemental tiene un único resultado, y acá hay dos, $CX$ y $XC$.",
+      "El espacio muestral completo tiene 4 resultados, $B$ agrupa solo 2 de ellos."
     ],
-    "explanation": "El **espacio muestral** del experimento es $\\Omega = \\{CC, CX, XC, XX\\}$ (los 4 resultados posibles).\n\nUn **evento** es cualquier subconjunto de $\\Omega$: cuando contiene un solo resultado se llama **elemental**, y cuando agrupa 2 o más se llama **compuesto**. Como $A = \\{CC, CX\\}$ tiene dos resultados, es un evento compuesto (todas las secuencias que empiezan con cara).\n\nLa confusión típica es leer \"evento\" como sinónimo de \"resultado individual\": los eventos son colecciones de resultados, no elementos sueltos del espacio.",
+    "explanation": "Un evento **compuesto** agrupa 2 o más resultados del espacio muestral, a diferencia de un suceso elemental que tiene uno solo.\n\nCon dos monedas, $\\Omega=\\{CC,CX,XC,XX\\}$, y $B=\\{CX,XC\\}$ junta dos resultados distintos, una cara y una ceca en cualquier orden.\n\nContar cuántos resultados agrupa un conjunto es el criterio directo para distinguir un evento elemental de uno compuesto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -42,20 +42,20 @@
     "tags": ["clasificar-tipo-evento"]
   },
   {
-    "question": "Se extrae una carta de un mazo español de 40 cartas. Se definen los eventos $A$: sacar una espada, y $B$: sacar un as.\n\n¿$A$ y $B$ son mutuamente excluyentes?",
+    "question": "De un mazo de 40 cartas españolas se extrae una al azar.\n\nSean $A$ el evento de que sea una carta de oro y $B$ el evento de que sea un 7 de cualquier palo.\n\n¿$A$ y $B$ son mutuamente excluyentes?",
     "options": [
-      "No, porque el as de espadas pertenece a ambos eventos.",
-      "Sí, porque espada y as son categorías distintas.",
-      "Sí, porque ningún as es una espada."
+      "Sí, porque son dos eventos definidos de forma distinta.",
+      "No, porque el 7 de oro pertenece a los dos eventos a la vez.",
+      "Sí, porque ninguna carta puede tener dos características a la vez."
     ],
-    "correct_index": 0,
-    "feedback_correct": "El as de espadas pertenece a $A$ y a $B$ a la vez, así que $A\\cap B\\neq\\emptyset$.",
+    "correct_index": 1,
+    "feedback_correct": "El 7 de oro cumple las dos condiciones al mismo tiempo, así que $A$ y $B$ no son excluyentes.",
     "feedback_incorrect": [
+      "Que estén definidos de forma distinta no alcanza, hay que revisar si comparten algún resultado.",
       null,
-      "Que las categorías tengan nombres distintos no implica que sus conjuntos de cartas no se crucen: hay que revisar la intersección concreta.",
-      "El mazo sí tiene un as de espadas, una carta que pertenece a los dos eventos a la vez."
+      "El 7 de oro es justamente una carta con las dos características a la vez, palo y valor."
     ],
-    "explanation": "Dos eventos son **mutuamente excluyentes** cuando su intersección es vacía: $A\\cap B=\\emptyset$. Para verificarlo hay que revisar si existe algún resultado que pertenezca a ambos a la vez, no alcanza con que las categorías suenen distintas.\n\nCon $A$ = espada y $B$ = as, la carta as de espadas pertenece a los dos eventos simultáneamente, así que $A\\cap B=\\{\\text{as de espadas}\\}\\neq\\emptyset$.\n\nLa confusión típica es asumir exclusión mutua por la sola diferencia nominal entre categorías, sin listar explícitamente los resultados compartidos.",
+    "explanation": "Dos eventos son mutuamente excluyentes solo si su intersección es vacía, sin ningún resultado en común.\n\nEn el mazo de 40 cartas, $A$ son las 10 cartas de oro y $B$ son los 4 sietes del mazo. La carta 7 de oro pertenece a ambos conjuntos a la vez.\n\nQue dos eventos parezcan distintos por cómo se describen no garantiza que su intersección sea vacía, hay que revisar los resultados concretos que comparten.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -63,16 +63,20 @@
     "tags": ["reconocer-mutuamente-excluyentes"]
   },
   {
-    "question": "Se lanza un dado con $\\Omega=\\{1,2,3,4,5,6\\}$. Se definen $A=\\{1,2,3\\}$ y $B=\\{3,4,5\\}$.\n\n¿Cuál es el resultado de $A\\cap B$?",
-    "options": ["$\\{3\\}$.", "$\\{1,2,3,4,5\\}$.", "$\\{6\\}$."],
-    "correct_index": 0,
-    "feedback_correct": "La intersección agrupa los resultados que están en los dos eventos a la vez: solo el $3$.",
-    "feedback_incorrect": [
-      null,
-      "Ese conjunto es la unión $A\\cup B$, no la intersección: agrupa todos los resultados de ambos eventos sin repetir.",
-      "Ese es el complemento de $A\\cup B$ respecto de $\\Omega$, no la intersección entre $A$ y $B$."
+    "question": "Un experimento tiene espacio muestral $\\Omega=\\{1,2,3,4\\}$.\n\nSe definen los eventos $A=\\{1,2,3\\}$ y $B=\\{2,3,4\\}$.\n\n¿Cuál es el resultado de $A \\cap B$?",
+    "options": [
+      "$\\{1,2,3,4\\}$",
+      "$\\{1,4\\}$",
+      "$\\{2,3\\}$"
     ],
-    "explanation": "La **intersección** $A\\cap B$ agrupa únicamente los resultados que pertenecen a $A$ y a $B$ a la vez.\n\nCon $A=\\{1,2,3\\}$ y $B=\\{3,4,5\\}$, el único resultado compartido por ambos es el $3$, así que $A\\cap B=\\{3\\}$.\n\nLa confusión típica es calcular la unión (todos los resultados de cualquiera de los dos eventos) cuando se pide la intersección, o viceversa: conviene siempre preguntarse si se buscan los elementos compartidos o el total combinado.",
+    "correct_index": 2,
+    "feedback_correct": "El 2 y el 3 son los únicos elementos que aparecen en los dos conjuntos a la vez.",
+    "feedback_incorrect": [
+      "Ese conjunto es la unión $A \\cup B$, no la intersección.",
+      "Esos elementos están en uno solo de los dos conjuntos, no en los dos a la vez.",
+      null
+    ],
+    "explanation": "La **intersección** $A \\cap B$ reúne solo los resultados que pertenecen a los dos eventos a la vez.\n\nCon $A=\\{1,2,3\\}$ y $B=\\{2,3,4\\}$, los elementos presentes en ambos conjuntos son el 2 y el 3:\n$$A \\cap B = \\{2,3\\}$$\nCualquier elemento que esté en uno solo de los dos conjuntos, como el 1 o el 4, queda afuera de la intersección.\n\nConfundir intersección con unión es habitual cuando ambos conjuntos comparten varios elementos.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

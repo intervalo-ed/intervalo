@@ -2,23 +2,64 @@
   {
     "question": "Sea $X$ una variable aleatoria discreta con función de probabilidad puntual $p(x)$.\n\n¿Qué condición debe cumplir $p(x)$ sobre todo el dominio de $X$?",
     "options": [
-      "$\\sum p(x) = 0$",
       "$\\sum p(x) = 1$",
       "$\\int p(x)\\,dx = 1$",
-      "$p(x) = 1$ para todo $x$"
+      "$p(x) = 1$"
     ],
-    "correct_index": 1,
-    "feedback_correct": "Suma total 1: la probabilidad se reparte entre todos los valores posibles.",
+    "correct_index": 0,
+    "feedback_correct": "Suma total 1, la probabilidad se reparte entre todos los valores posibles.",
     "feedback_incorrect": [
-      "La suma debe ser 1; si diera 0 no habría probabilidad asignada a ningún valor.",
       null,
-      "La integral se usa para variables continuas; en discretas se suma sobre los valores del dominio.",
-      "Cada $p(x)$ es la probabilidad de un valor puntual, no puede ser 1 para todos (se pasaría de 1 al sumar)."
+      "La integral se usa para variables continuas, en discretas se suma sobre los valores del dominio.",
+      "Cada $p(x)$ es la probabilidad de un valor puntual, no puede valer 1 para cada uno a la vez."
     ],
-    "explanation": "La **función de probabilidad puntual** de una variable aleatoria discreta cumple dos propiedades:\n$$\\begin{aligned} &p(x) \\geq 0 \\text{ para todo } x \\\\ &\\sum_x p(x) = 1 \\end{aligned}$$\n\nLa segunda propiedad refleja que $X$ debe tomar algún valor, así que la probabilidad total repartida entre todos los valores del dominio es 1.\n\nLa confusión típica es usar integrales para variables discretas: los símbolos $\\sum$ y $\\int$ juegan el mismo rol conceptual (barrer todos los valores), pero uno se aplica a valores aislados y el otro a un continuo.",
+    "explanation": "La **función de probabilidad puntual** de una variable aleatoria discreta cumple dos propiedades:\n$$\\begin{aligned} &p(x) \\geq 0 \\text{ para todo } x \\\\ &\\sum_x p(x) = 1 \\end{aligned}$$\nLa segunda propiedad refleja que $X$ debe tomar algún valor, así que la probabilidad total repartida entre todos los valores del dominio es 1.\n\nUsar integrales para variables discretas confunde dos herramientas: $\\sum$ y $\\int$ barren todos los valores, pero uno se aplica a valores aislados y el otro a un continuo.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["condicion-normalizacion"]
+  },
+  {
+    "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{x_1,x_2,x_3\\}$.\n\nSe conocen $p(x_1)$ y $p(x_2)$ de su función de probabilidad puntual.\n\n¿Cómo se calcula $p(x_3)$?",
+    "options": [
+      "$p(x_3) = 1 - p(x_1) - p(x_2)$",
+      "$p(x_3) = p(x_1) + p(x_2)$",
+      "$p(x_3) = 1 - p(x_1) \\cdot p(x_2)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La normalización obliga a que las tres probabilidades sumen 1, la faltante es 1 menos la suma del resto.",
+    "feedback_incorrect": [
+      null,
+      "Esa suma no usa la condición de normalización, solo combina los valores conocidos sin restar de 1.",
+      "El producto no corresponde a la condición de normalización, que es una suma igual a 1, no un producto."
+    ],
+    "explanation": "La condición de normalización obliga a que todas las probabilidades puntuales sumen 1 sobre el dominio de $X$:\n$$\\sum_x p(x) = 1$$\nCon dominio $\\{x_1,x_2,x_3\\}$, despejando el valor faltante:\n$$p(x_3) = 1 - p(x_1) - p(x_2)$$\nSumar en vez de restar de 1 el resto de las probabilidades conocidas invierte la operación del despeje y da un valor que no cierra la condición de normalización.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["despejar-valor-faltante"]
+  },
+  {
+    "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{0,1,2,3\\}$.\n\nSu función de probabilidad puntual es $p(x)$.\n\n¿Cómo se expresa $P(X\\leq 2)$ en términos de $p(x)$?",
+    "options": [
+      "$P(X\\leq 2) = p(0)+p(1)+p(2)$",
+      "$P(X\\leq 2) = p(2)$",
+      "$P(X\\leq 2) = p(0)\\cdot p(1)\\cdot p(2)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El evento compuesto agrupa todos los valores del dominio hasta 2, así que se suman sus probabilidades puntuales.",
+    "feedback_incorrect": [
+      null,
+      "Esa expresión toma solo el valor puntual en 2, ignorando los valores 0 y 1 que también cumplen $X\\leq 2$.",
+      "El producto no corresponde a un evento compuesto, la unión de valores puntuales se expresa como una suma."
+    ],
+    "explanation": "Un evento compuesto como $X\\leq 2$ agrupa varios valores del dominio de $X$, y su probabilidad se calcula sumando la función de probabilidad puntual sobre todos esos valores:\n$$P(X\\leq 2) = p(0) + p(1) + p(2)$$\nCada término de la suma corresponde a uno de los valores que cumple la condición pedida.\n\nTomar un único valor puntual como si representara todo el evento compuesto ignora que el evento agrupa más de un resultado posible de $X$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-evento-compuesto"]
   }
 ]

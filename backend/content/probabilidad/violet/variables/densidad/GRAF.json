@@ -1,6 +1,6 @@
 [
   {
-    "question": "El gráfico de la densidad de una variable aleatoria continua $X$ es un rectángulo de altura $h$ sobre el intervalo $[0, 4]$, y vale 0 fuera de ese intervalo.\n\n¿Cuánto vale $h$?",
+    "question": "Un colectivo llega en un instante aleatorio dentro de una franja horaria de $4$ minutos.\n\nEl gráfico de su densidad es un rectángulo sobre $[0,4]$ con altura $h$, y vale 0 fuera de ese intervalo.\n\n¿Cuánto vale $h$?",
     "options": [
       "$\\dfrac{1}{2}$",
       "$\\dfrac{1}{4}$",
@@ -8,17 +8,62 @@
       "$4$"
     ],
     "correct_index": 1,
-    "feedback_correct": "El área total debe ser 1: $h \\cdot 4 = 1 \\Rightarrow h = 1/4$.",
+    "feedback_correct": "El área total debe ser 1, $h \\cdot 4 = 1 \\Rightarrow h = 1/4$.",
     "feedback_incorrect": [
-      "Ese es $1/2$: el área de un rectángulo de altura $1/2$ sobre $[0,4]$ sería 2, no 1.",
+      "Ese es $1/2$, el área de un rectángulo de altura $1/2$ sobre $[0,4]$ sería 2, no 1.",
       null,
       "Si $h=1$, el área del rectángulo sería 4, no la unidad requerida.",
-      "Estás confundiendo la altura con el ancho del rectángulo; la altura debe hacer que el área total dé 1."
+      "Estás confundiendo la altura con el ancho del rectángulo, la altura debe hacer que el área total dé 1."
     ],
-    "explanation": "La **densidad** de una variable continua siempre encierra un área total igual a 1:\n$$\\int_{-\\infty}^{\\infty} f(x)\\,dx = 1$$\n\nPara un rectángulo de base 4 y altura $h$ sobre $[0, 4]$:\n$$h \\cdot 4 = 1 \\Rightarrow h = \\frac{1}{4}$$\n\nLa confusión típica es asumir que la altura de una densidad debe ser 1 (como si fuera una probabilidad); la densidad puede tomar cualquier valor no negativo, lo que debe ser 1 es el área acumulada bajo la curva.",
+    "explanation": "La **densidad** de una variable continua siempre encierra un área total igual a 1:\n$$\\int_{-\\infty}^{\\infty} f(x)\\,dx = 1$$\nPara un rectángulo de base 4 y altura $h$ sobre $[0, 4]$:\n$$h \\cdot 4 = 1 \\Rightarrow h = \\frac{1}{4}$$\nAsumir que la altura de una densidad debe ser 1, como si fuera una probabilidad, ignora que la densidad puede tomar cualquier valor no negativo, y lo que debe ser 1 es el área acumulada bajo la curva.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["lectura-altura-uniforme"]
+  },
+  {
+    "question": "El tiempo que un cliente espera en la fila de un cajero automático se modela con una densidad uniforme sobre $[0,5]$ minutos.\n\nEl gráfico de esa densidad es un rectángulo de altura $1/5$.\n\n¿Cuánto vale $P(1\\leq X\\leq 3)$?",
+    "options": [
+      "$\\dfrac{1}{5}$",
+      "$\\dfrac{2}{5}$",
+      "$\\dfrac{3}{5}$",
+      "$1$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El área del rectángulo de base 2 y altura $1/5$ da $2/5$.",
+    "feedback_incorrect": [
+      "Esa es la altura del rectángulo, no el área del tramo pedido.",
+      null,
+      "Esa área correspondería a un tramo de base 3, no de base 2.",
+      "Ese es el área total del rectángulo completo, no la restringida al intervalo pedido."
+    ],
+    "explanation": "La probabilidad de un intervalo bajo una densidad uniforme es el área del rectángulo que lo cubre.\n\nCon altura $1/5$ y el tramo $[1,3]$ de base 2:\n$$P(1\\leq X\\leq 3) = \\frac{1}{5} \\cdot 2 = \\frac{2}{5}$$\nTomar la altura sola como si fuera la probabilidad, sin multiplicarla por el ancho del tramo pedido, deja el cálculo incompleto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["lectura-area-probabilidad"]
+  },
+  {
+    "question": "Dos sensores registran dónde cae una pelota a lo largo de una pista, con densidad uniforme.\n\nEl sensor $A$ cubre una pista de $2$ metros.\n\nEl sensor $B$ cubre una pista de $10$ metros.\n\n¿Cuál densidad está más concentrada?",
+    "options": [
+      "La densidad $A$.",
+      "La densidad $B$.",
+      "Ambas están igual de concentradas."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La misma probabilidad total repartida en un intervalo más angosto da una densidad más concentrada.",
+    "feedback_incorrect": [
+      null,
+      "La densidad $B$ reparte la misma probabilidad total en un intervalo más ancho, está más dispersa, no más concentrada.",
+      "Repartir la misma probabilidad en intervalos de distinto largo nunca da el mismo grado de concentración."
+    ],
+    "explanation": "Dos densidades uniformes reparten la misma probabilidad total, igual a 1, pero sobre intervalos de distinto largo.\n\nLa densidad $A$ reparte esa probabilidad en un intervalo de longitud 2, mientras que la densidad $B$ la reparte en un intervalo de longitud 10.\n\nUna densidad concentrada en un intervalo angosto describe valores en un rango acotado, mientras que un intervalo más ancho reparte la misma probabilidad sobre un rango más disperso.",
+    "has_math": false,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["comparacion-forma"]
   }
 ]
