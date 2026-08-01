@@ -26,26 +26,14 @@ import { BellIcon, BellOffIcon } from "lucide-react"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
 
-// iOS (iPhone/iPad/iPod). Incluye los iPad recientes, que reportan UA de Mac pero
-// son táctiles. Solo se llama en el cliente (post-mount), tras chequear navigator.
-function detectIOS(): boolean {
-  if (typeof navigator === "undefined") return false
-  const ua = navigator.userAgent
-  const iOSDevice = /iPad|iPhone|iPod/.test(ua)
-  const iPadOS = /Macintosh/.test(ua) && navigator.maxTouchPoints > 1
-  return iOSDevice || iPadOS
-}
-
 export function NotificationSettings() {
   const api = useApi()
   const queryClient = useQueryClient()
   const [supported, setSupported] = useState(true)
   const [time, setTime] = useState(DEFAULT_REMINDER_TIME)
-  const [isIOS, setIsIOS] = useState(false)
 
   useEffect(() => {
     setSupported(isPushSupported())
-    setIsIOS(detectIOS())
   }, [])
 
   const settings = useNotificationSettingsQuery()
@@ -156,10 +144,8 @@ export function NotificationSettings() {
         </>
       )}
       <p className="text-xs/relaxed text-muted-foreground">
-        Te enviamos una sola notificación por día, y únicamente si tenés temas
-        pendientes para repasar.
-        {isIOS &&
-          " En iPhone, primero agregá Intervalo a la pantalla de inicio."}
+        Te enviamos una sola notificación por día. Primero agregá Intervalo a
+        la pantalla de inicio.
       </p>
     </div>
   )

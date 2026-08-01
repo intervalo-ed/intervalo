@@ -352,10 +352,73 @@ export default function PracticeConfig() {
                         ? `×${progressQuery.data.streak.multiplier.toFixed(1)}`
                         : "…"
                     }
+                    valueColor="#5457e5"
+                    info={
+                      progressQuery.data
+                        ? {
+                            title: "Multiplicador de XP",
+                            body: (
+                              <>
+                                <p>
+                                  Cuantos más días seguidos practicás, más
+                                  alto es tu multiplicador y más XP sumás por
+                                  cada ejercicio.
+                                </p>
+                                {progressQuery.data.streak.is_max ? (
+                                  <>
+                                    <p>
+                                      Alcanzaste la{" "}
+                                      <span className="font-medium text-foreground">
+                                        racha máxima
+                                      </span>
+                                      .
+                                    </p>
+                                    <p>Volvé mañana para mantenerla.</p>
+                                  </>
+                                ) : (
+                                  <>
+                                    <p>
+                                      {progressQuery.data.streak
+                                        .days_to_next === 1
+                                        ? "Te falta "
+                                        : "Te faltan "}
+                                      <span className="font-medium text-foreground">
+                                        {progressQuery.data.streak.days_to_next}{" "}
+                                        {progressQuery.data.streak
+                                          .days_to_next === 1
+                                          ? "día"
+                                          : "días"}
+                                      </span>{" "}
+                                      de actividad para desbloquear{" "}
+                                      <span className="font-medium text-foreground">
+                                        ×
+                                        {progressQuery.data.streak.next_multiplier?.toFixed(
+                                          1,
+                                        )}
+                                      </span>
+                                      .
+                                    </p>
+                                    <p>Volvé mañana y sumás el próximo.</p>
+                                  </>
+                                )}
+                              </>
+                            ),
+                          }
+                        : undefined
+                    }
                   />
                   <Metric
                     label="Ejercicios completados"
                     value={<CountUp variant="ease" value={answered} duration={1000} />}
+                    info={{
+                      title: "Ejercicios completados",
+                      body: (
+                        <p>
+                          Es la cantidad total de ejercicios que resolviste en
+                          este curso, acertados o no.
+                        </p>
+                      ),
+                    }}
                   />
                   <Metric
                     label="Ejercicios acertados"
@@ -364,6 +427,15 @@ export default function PracticeConfig() {
                         <CountUp variant="ease" value={accuracyPct} duration={1000} />%
                       </span>
                     }
+                    info={{
+                      title: "Ejercicios acertados",
+                      body: (
+                        <p>
+                          Acertaste {exercisesCorrect} de {answered} ejercicios
+                          hechos en este curso.
+                        </p>
+                      ),
+                    }}
                   />
                 </div>
               )}

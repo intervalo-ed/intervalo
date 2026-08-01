@@ -3,6 +3,10 @@
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { COURSE_LABEL, type CourseId } from "@/lib/catalog"
+import {
+  markEditorGearSeen,
+  useEditorGearSeen,
+} from "@/lib/nav/editor-gear-seen"
 import { ChevronLeft, ChevronRight, SettingsIcon } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 
@@ -23,6 +27,7 @@ export function CourseSwitcher({
   editing?: boolean
   onToggleEdit?: () => void
 }) {
+  const gearSeen = useEditorGearSeen()
   return (
     <div className="flex h-9 shrink-0 items-center justify-between gap-2 rounded-md border border-white/10 bg-white/[0.03] px-1">
       <Button
@@ -54,17 +59,27 @@ export function CourseSwitcher({
           {onToggleEdit && (
             <button
               type="button"
-              onClick={onToggleEdit}
+              onClick={() => {
+                markEditorGearSeen()
+                onToggleEdit()
+              }}
               aria-label={editing ? "Salir del editor" : "Editar curso"}
               aria-pressed={editing}
               className={cn(
-                "flex size-6 items-center justify-center transition-colors",
+                "relative flex size-6 items-center justify-center transition-colors",
                 editing
                   ? "text-[#7E80F7]"
                   : "text-foreground/50 hover:text-foreground",
               )}
             >
               <SettingsIcon className="size-4" />
+              {!gearSeen && !editing && (
+                <span
+                  aria-hidden
+                  className="absolute right-[2px] top-[2px] rounded-full ring-1 ring-background"
+                  style={{ width: 4, height: 4, backgroundColor: "#EC4869" }}
+                />
+              )}
             </button>
           )}
         </motion.div>

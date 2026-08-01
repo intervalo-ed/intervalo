@@ -56,7 +56,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { topicShortLabel } from "@/lib/catalog"
 import { useUser } from "@clerk/nextjs"
-import { CheckIcon, InfoIcon, RotateCcwIcon } from "lucide-react"
+import { CheckIcon, InfoIcon, RotateCcwIcon, SettingsIcon } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
@@ -328,6 +328,55 @@ export default function DashboardEntry() {
               <Metric
                 label="Multiplicador de XP"
                 value={data ? `×${data.streak.multiplier.toFixed(1)}` : "…"}
+                valueColor="#5457e5"
+                info={
+                  data
+                    ? {
+                        title: "Multiplicador de XP",
+                        body: (
+                          <>
+                            <p>
+                              Cuantos más días seguidos practicás, más alto es
+                              tu multiplicador y más XP sumás por cada
+                              ejercicio.
+                            </p>
+                            {data.streak.is_max ? (
+                              <>
+                                <p>
+                                  Alcanzaste la{" "}
+                                  <span className="font-medium text-foreground">
+                                    racha máxima
+                                  </span>
+                                  .
+                                </p>
+                                <p>Volvé mañana para mantenerla.</p>
+                              </>
+                            ) : (
+                              <>
+                                <p>
+                                  {data.streak.days_to_next === 1
+                                    ? "Te falta "
+                                    : "Te faltan "}
+                                  <span className="font-medium text-foreground">
+                                    {data.streak.days_to_next}{" "}
+                                    {data.streak.days_to_next === 1
+                                      ? "día"
+                                      : "días"}
+                                  </span>{" "}
+                                  de actividad para desbloquear{" "}
+                                  <span className="font-medium text-foreground">
+                                    ×{data.streak.next_multiplier?.toFixed(1)}
+                                  </span>
+                                  .
+                                </p>
+                                <p>Volvé mañana y sumás el próximo.</p>
+                              </>
+                            )}
+                          </>
+                        ),
+                      }
+                    : undefined
+                }
               />
               <Metric
                 label="Ítems desbloqueados"
@@ -344,6 +393,24 @@ export default function DashboardEntry() {
                     </span>
                   </>
                 }
+                info={{
+                  title: "Ítems desbloqueados",
+                  body: (
+                    <>
+                      <p>
+                        Son los temas que ya podés repasar dentro de tu
+                        progreso actual en este curso.
+                      </p>
+                      <p>
+                        Desde{" "}
+                        <SettingsIcon className="inline size-3.5 align-middle" />{" "}
+                        podés ajustar la cantidad de ítems activos: subirla
+                        desbloquea más, bajarla vuelve a bloquear los
+                        últimos.
+                      </p>
+                    </>
+                  ),
+                }}
               />
               <Metric
                 label="Ítems pendientes"
@@ -354,6 +421,16 @@ export default function DashboardEntry() {
                     duration={1000}
                   />
                 }
+                info={{
+                  title: "Ítems pendientes",
+                  body: (
+                    <p>
+                      Son los ítems desbloqueados que te tocan hoy: los que
+                      todavía no empezaste y los que ya tenés vencidos para
+                      repasar.
+                    </p>
+                  ),
+                }}
                 accent={
                   pendingItems > 0
                     ? ITEM_COLORS.pendiente
