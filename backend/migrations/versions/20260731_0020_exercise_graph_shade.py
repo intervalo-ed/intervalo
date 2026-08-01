@@ -6,7 +6,7 @@ probabilidad). Formato igual a graph_view: string JSON de una lista
 [xMin, xMax], o null si el ejercicio no sombrea nada.
 
 Revision ID: 20260731_0020
-Revises: 20260731_0019
+Revises: 20260801_0021
 Create Date: 2026-07-31
 """
 from typing import Sequence, Union
@@ -15,7 +15,7 @@ import sqlalchemy as sa
 from alembic import op
 
 revision: str = "20260731_0020"
-down_revision: Union[str, Sequence[str], None] = "20260731_0019"
+down_revision: Union[str, Sequence[str], None] = "20260801_0021"
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
