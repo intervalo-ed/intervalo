@@ -671,6 +671,30 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/session/feedback": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Submit Session Feedback
+         * @description Micro-encuesta post-ejercicio (dificultad/explicación) y reporte de
+         *     problemas de contenido. Flujo en dos pasos para no perder la impression si
+         *     el usuario cierra/navega antes de responder (ver feedback_survey.py):
+         *     "impression" crea la fila (answered_at=None), "answer" la completa. "report"
+         *     (canal C, siempre disponible) crea la fila ya resuelta en un solo paso.
+         */
+        post: operations["submit_session_feedback_session_feedback_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/session/{session_id}/summary": {
         parameters: {
             query?: never;
@@ -1034,6 +1058,35 @@ export interface components {
             /** Explanation */
             explanation?: string | null;
         };
+        /** SessionFeedbackRequest */
+        SessionFeedbackRequest: {
+            /** Action */
+            action: string;
+            /** Session Id */
+            session_id: string;
+            /** Exercise External Id */
+            exercise_external_id?: string | null;
+            /** Question Type */
+            question_type?: string | null;
+            /** Feedback Id */
+            feedback_id?: number | null;
+            /** Value */
+            value?: string | null;
+            /** Free Text */
+            free_text?: string | null;
+        };
+        /** SessionFeedbackResponse */
+        SessionFeedbackResponse: {
+            /** Success */
+            success: boolean;
+            /** Feedback Id */
+            feedback_id: number;
+            /**
+             * Xp Earned
+             * @default 0
+             */
+            xp_earned: number;
+        };
         /** SessionStartResponse */
         SessionStartResponse: {
             /** Session Id */
@@ -1049,6 +1102,7 @@ export interface components {
             mode: string;
             /** Exercises */
             exercises: components["schemas"]["SessionExercise"][];
+            survey?: components["schemas"]["SessionSurvey"] | null;
         };
         /** SessionSummaryResponse */
         SessionSummaryResponse: {
@@ -1081,6 +1135,18 @@ export interface components {
             streak: components["schemas"]["StreakInfo"];
             /** Session Number */
             session_number: number;
+        };
+        /**
+         * SessionSurvey
+         * @description Marca qué ejercicio de la sesión (si alguno) lleva micro-encuesta de
+         *     feedback y de qué tipo. Ver feedback_survey.py. `exercise_id` es el slot
+         *     de sesión (ej. "ex_003"), no la clave real del ejercicio.
+         */
+        SessionSurvey: {
+            /** Exercise Id */
+            exercise_id: string;
+            /** Type */
+            type: string;
         };
         /** SimpleResponse */
         SimpleResponse: {
@@ -2438,6 +2504,41 @@ export interface operations {
                 };
                 content: {
                     "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    submit_session_feedback_session_feedback_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SessionFeedbackRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SessionFeedbackResponse"];
                 };
             };
             /** @description Validation Error */
