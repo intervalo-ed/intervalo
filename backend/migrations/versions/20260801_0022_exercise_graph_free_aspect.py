@@ -7,7 +7,7 @@ Boolean, default None/false: sin el flag, el gráfico se comporta exactamente
 igual que hoy (preserveAspectRatio="contain"), opt-in explícito por ejercicio.
 
 Revision ID: 20260801_0022
-Revises: 20260801_0021
+Revises: 20260731_0020
 Create Date: 2026-08-01
 """
 from typing import Sequence, Union
@@ -16,7 +16,7 @@ import sqlalchemy as sa
 from alembic import op
 
 revision: str = "20260801_0022"
-down_revision: Union[str, Sequence[str], None] = "20260801_0021"
+down_revision: Union[str, Sequence[str], None] = "20260731_0020"
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
