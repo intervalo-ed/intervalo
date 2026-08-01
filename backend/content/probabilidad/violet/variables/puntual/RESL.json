@@ -10,15 +10,62 @@
     "correct_index": 1,
     "feedback_correct": "2 resultados favorables $CX, XC$ sobre 4 posibles.",
     "feedback_incorrect": [
-      "Esa es la probabilidad de un único resultado (por ejemplo $CX$); $X=1$ agrupa dos resultados favorables.",
+      "Esa es la probabilidad de un único resultado, por ejemplo $CX$; $X=1$ agrupa dos resultados favorables.",
       null,
       "Ese es $P(X \\geq 1)$; la puntual pide exactamente 1 cara, no al menos 1.",
       "Ese sería si toda la probabilidad se concentrara en $X=1$; hay resultados con 0 y 2 caras también."
     ],
-    "explanation": "El espacio muestral del experimento es $\\Omega = \\{CC, CX, XC, XX\\}$ con 4 resultados equiprobables.\n\nLos resultados con exactamente 1 cara son $CX$ y $XC$, así que la **función de probabilidad puntual** en $x=1$ es:\n$$p(1) = P(X=1) = \\frac{2}{4} = \\frac{1}{2}$$\n\nLa confusión típica es identificar $X=1$ con un único resultado del espacio muestral; el valor de la variable puede provenir de varios resultados distintos y la puntual suma la probabilidad de todos ellos.",
+    "explanation": "El espacio muestral del experimento es $\\Omega = \\{CC, CX, XC, XX\\}$ con 4 resultados equiprobables.\n\nLos resultados con exactamente 1 cara son $\\{CX, XC\\}$, así que la **función de probabilidad puntual** en $x=1$ es:\n$$\\begin{aligned} p(1) &= P(X=1) \\\\ &= \\frac{2}{4} = \\frac{1}{2} \\end{aligned}$$\nIdentificar $X=1$ con un único resultado del espacio muestral pasa por alto que el valor de la variable puede provenir de varios resultados distintos, y la puntual suma la probabilidad de todos ellos.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["resl-puntual-directo"]
+  },
+  {
+    "question": "Sea $X$ la cantidad de caras al lanzar 3 monedas balanceadas.\n\n¿Cuál es $P(X\\leq 1)$?",
+    "options": [
+      "$\\dfrac{1}{8}$",
+      "$\\dfrac{3}{8}$",
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{7}{8}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$P(X\\leq 1) = \\dfrac{1}{8}+\\dfrac{3}{8} = \\dfrac{1}{2}$.",
+    "feedback_incorrect": [
+      "Ese es solo $P(X=0)$, falta sumar $P(X=1)$.",
+      "Ese es solo $P(X=1)$, falta sumar $P(X=0)$.",
+      null,
+      "Ese es $P(X\\geq 1)$, el complemento del evento pedido."
+    ],
+    "explanation": "El espacio muestral de lanzar 3 monedas tiene 8 resultados equiprobables.\n\nLos resultados con 0 o 1 cara suman 4 de los 8 posibles, así que:\n$$\\begin{aligned} P(X\\leq 1) &= P(X=0) + P(X=1) \\\\ &= \\frac{1}{8} + \\frac{3}{8} = \\frac{1}{2} \\end{aligned}$$\nSumar solo uno de los dos valores puntuales en vez de ambos deja afuera parte del evento compuesto que pide el enunciado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-evento-compuesto"]
+  },
+  {
+    "question": "Se define una función $p(x)$ sobre el dominio $\\{0,1,2\\}$.\n\nSus valores son:\n$$\\begin{aligned} p(0) &= 0{,}3 \\\\ p(1) &= 0{,}5 \\\\ p(2) &= 0{,}3 \\end{aligned}$$\n¿Es $p(x)$ una función de probabilidad puntual válida?",
+    "options": [
+      "Sí, porque cada valor es no negativo.",
+      "No, porque la suma de las probabilidades no da 1.",
+      "Sí, porque hay exactamente 3 valores en el dominio.",
+      "No, porque el dominio debería ser infinito."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$0{,}3+0{,}5+0{,}3=1{,}1$, no cumple la condición de normalización.",
+    "feedback_incorrect": [
+      "La no negatividad es necesaria pero no alcanza, también hace falta que la suma total dé 1.",
+      null,
+      "La cantidad de valores del dominio no es la condición que define validez, la condición es que la suma dé 1.",
+      "El dominio puede ser finito sin problema, lo que falla acá es que la suma de probabilidades supera 1."
+    ],
+    "explanation": "Una **función de probabilidad puntual** válida debe cumplir dos condiciones a la vez, cada valor no negativo y la suma total sobre el dominio igual a 1.\n\nSumando los valores dados:\n$$0{,}3 + 0{,}5 + 0{,}3 = 1{,}1$$\nComo la suma supera 1, esta función no es una función de probabilidad puntual válida, aunque cada valor individual sea no negativo.\n\nAceptar una función solo porque sus valores son no negativos, sin revisar la suma total, deja pasar funciones que reparten más probabilidad de la que existe.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-verificar-validez"]
   }
 ]

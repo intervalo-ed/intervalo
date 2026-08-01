@@ -2,21 +2,64 @@
   {
     "question": "¿Cuál es la definición correcta de **variable aleatoria**?",
     "options": [
-      "Una función que asigna un valor numérico real a cada resultado del espacio muestral.",
-      "Un subconjunto del espacio muestral con probabilidad positiva.",
-      "Un experimento cuyo resultado no se puede predecir."
+      "Una función que asigna un número real a cada resultado del espacio muestral.",
+      "Un subconjunto del espacio muestral con probabilidad positiva asignada.",
+      "Un experimento cuyo resultado no se puede predecir de antemano."
     ],
     "correct_index": 0,
-    "feedback_correct": "Es la definición estándar: la variable es una función $X: \\Omega \\to \\mathbb{R}$.",
+    "feedback_correct": "Es la definición estándar, la variable es una función $X: \\Omega \\to \\mathbb{R}$.",
     "feedback_incorrect": [
       null,
       "Un subconjunto del espacio muestral es un evento, no una variable aleatoria.",
-      "Ese es el concepto de experimento aleatorio, no de la variable numérica asociada a sus resultados."
+      "Ese es el concepto de experimento aleatorio, no la variable numérica asociada a sus resultados."
     ],
-    "explanation": "Una **variable aleatoria** es una función que asigna un número real a cada resultado del espacio muestral:\n$$X : \\Omega \\to \\mathbb{R}$$\n\nAl lanzar dos monedas, si $X$ = cantidad de caras, entonces $X(CC)=2$, $X(CX)=X(XC)=1$, $X(XX)=0$, mapeando los resultados a $\\{0, 1, 2\\}$.\n\nLa confusión típica es identificar la variable aleatoria con el evento o con el experimento en sí: son cosas distintas. La variable es siempre una función numérica, y los eventos son subconjuntos del espacio.",
+    "explanation": "Una **variable aleatoria** es una función que asigna un número real a cada resultado del espacio muestral:\n$$X : \\Omega \\to \\mathbb{R}$$\nAl lanzar dos monedas, la cantidad de caras $X$ toma valores en $\\{0,1,2\\}$ según el resultado obtenido.\n\nIdentificar la variable aleatoria con el evento o con el experimento en sí confunde dos objetos distintos: la variable es siempre una función numérica, y los eventos son subconjuntos del espacio.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["definicion-variable-aleatoria"]
+  },
+  {
+    "question": "¿Cuál de las siguientes afirmaciones distingue correctamente una variable **discreta** de una variable **continua**?",
+    "options": [
+      "La discreta toma valores aislados y contables, la continua toma cualquier valor de un intervalo.",
+      "La discreta siempre toma valores enteros, la continua siempre toma valores decimales.",
+      "La discreta se obtiene por mediciones, la continua se obtiene por conteos de unidades."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Es la distinción por naturaleza del conjunto de valores, contable frente a un intervalo real.",
+    "feedback_incorrect": [
+      null,
+      "Una variable discreta no siempre es entera, y una continua no siempre se reporta con decimales.",
+      "Es al revés, los conteos son discretos y las mediciones son continuas."
+    ],
+    "explanation": "Una **variable aleatoria** se clasifica como discreta cuando sus valores son aislados o contables, o como continua cuando puede tomar cualquier valor de un intervalo real.\n\nLa distinción depende de cuántos valores puede tomar la variable, no de si esos valores tienen parte decimal.\n\nCreer que discreta equivale a entera y continua equivale a decimal no es correcto: el dinero en pesos con centavos sigue siendo discreto, porque cuenta unidades mínimas de a centavo.",
+    "has_math": false,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-discreta-continua"]
+  },
+  {
+    "question": "Se lanza un dado equilibrado y $X$ es el número que queda hacia arriba.\n\n¿Cómo se llama el conjunto $\\{1,2,3,4,5,6\\}$ de valores que puede tomar $X$?",
+    "options": [
+      "El soporte de la variable aleatoria.",
+      "El espacio muestral del experimento.",
+      "El dominio de la variable aleatoria."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El soporte es el conjunto de valores numéricos que efectivamente puede tomar $X$.",
+    "feedback_incorrect": [
+      null,
+      "El espacio muestral son los resultados originales del experimento, no los valores numéricos de $X$.",
+      "El dominio de $X$ es el espacio muestral $\\Omega$, el conjunto de valores numéricos que toma se llama soporte."
+    ],
+    "explanation": "Toda **variable aleatoria** $X:\\Omega\\to\\mathbb{R}$ tiene un dominio y un soporte bien diferenciados.\n\nEl dominio es el espacio muestral $\\Omega$ del experimento, mientras que el **soporte** es el conjunto de valores numéricos que $X$ efectivamente puede tomar.\n\nAl lanzar el dado, $X$ toma cada uno de los valores del conjunto $\\{1,2,3,4,5,6\\}$, y ese conjunto es justamente el soporte de la variable, distinto del espacio muestral original.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-soporte"]
   }
 ]

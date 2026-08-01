@@ -1,22 +1,57 @@
 [
   {
-    "question": "Se mide la duración exacta, en horas, de una batería antes de agotarse.\n\n¿Qué tipo de variable aleatoria representa esa duración?",
-    "options": [
-      "Discreta.",
-      "Continua.",
-      "Categórica."
+    "question": "Se cuenta la cantidad de llamadas que recibe un call center en una hora.\n\n¿Qué tipo de variable aleatoria representa esa cantidad?",
+    "options": ["Discreta.", "Continua.", "Categórica."],
+    "correct_index": 0,
+    "feedback_correct": "La cantidad de llamadas es un conteo, toma valores aislados y contables.",
+    "feedback_incorrect": [
+      null,
+      "Una variable continua toma cualquier valor de un intervalo real, un conteo de llamadas no admite valores intermedios.",
+      "Categórica clasifica en etiquetas sin orden numérico, acá el valor es un número que efectivamente se cuenta."
     ],
+    "explanation": "Una **variable aleatoria** se clasifica como discreta cuando sus valores son aislados o contables, o como continua cuando puede tomar cualquier valor de un intervalo real.\n\nLa cantidad de llamadas en una hora solo puede tomar valores enteros no negativos, nunca un valor intermedio entre dos conteos consecutivos, así que es una variable discreta.\n\nReconocer un conteo como discreto es directo apenas se identifica que el valor surge de contar unidades enteras y no de medir una magnitud continua.",
+    "has_math": false,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["clasificar-discreta"]
+  },
+  {
+    "question": "Se mide la duración exacta, en horas, de una batería antes de agotarse.\n\n¿Qué tipo de variable aleatoria representa esa duración?",
+    "options": ["Discreta.", "Continua.", "Categórica."],
     "correct_index": 1,
     "feedback_correct": "La duración puede tomar cualquier valor en un intervalo real, es continua.",
     "feedback_incorrect": [
-      "Una variable discreta toma valores aislados (0, 1, 2…); una duración puede tomar cualquier decimal.",
+      "Una variable discreta toma valores aislados, una duración puede tomar cualquier decimal intermedio.",
       null,
-      "Categórica clasifica en etiquetas sin orden numérico; acá el valor es un número real medido en horas."
+      "Categórica clasifica en etiquetas sin orden numérico, acá el valor es un número real medido en horas."
     ],
-    "explanation": "Una **variable aleatoria** se clasifica según los valores que puede tomar:\n$$\\begin{aligned} &\\textbf{Discreta:} \\text{ valores aislados o contables (}0, 1, 2, \\dots\\text{)} \\\\ &\\textbf{Continua:} \\text{ cualquier valor en un intervalo real} \\end{aligned}$$\n\nLa duración de la batería puede ser $2{,}3$ horas, $2{,}31$ horas o $\\pi$ horas: cualquier valor de un intervalo continuo, así que es una variable continua.\n\nLa confusión típica es tratar como discreta cualquier magnitud que se reporta con pocos decimales; recordá que lo discreto/continuo depende del rango posible de valores, no de cómo se registran.",
+    "explanation": "Una **variable aleatoria** se clasifica como discreta cuando sus valores son aislados o contables, o como continua cuando puede tomar cualquier valor de un intervalo real.\n\nLa duración de la batería puede ser $2{,}3$ horas o $2{,}31$ horas, cualquier valor de un intervalo continuo, así que es una variable continua.\n\nTratar como discreta cualquier magnitud que se reporta con pocos decimales lleva a una clasificación errónea: lo discreto o continuo depende del rango posible de valores, no de cómo se registran.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["clasificar-continua"]
+  },
+  {
+    "question": "Se registra la edad de una persona en años cumplidos.\n\n¿Qué tipo de variable aleatoria representa esa edad?",
+    "options": [
+      "Discreta, porque se redondea a un número entero.",
+      "Continua, porque el tiempo avanza en cualquier instante.",
+      "Categórica, porque no tiene un orden numérico."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El tiempo transcurrido es una magnitud continua, aunque se registre redondeada a un entero.",
+    "feedback_incorrect": [
+      "El redondeo a años enteros es solo la forma de registro, la magnitud subyacente sigue siendo continua.",
+      null,
+      "Categórica clasifica en etiquetas sin orden numérico, acá el valor mide un tiempo transcurrido real."
+    ],
+    "explanation": "Una **variable aleatoria** se clasifica según la naturaleza real de la magnitud que representa, no según cómo se registra el dato.\n\nLa edad de una persona avanza de forma continua en el tiempo, y entre cumplir 20 y 21 años hay infinitos instantes posibles, aunque el registro habitual redondee ese valor a años enteros.\n\nClasificar una variable como discreta solo porque su valor se reporta con un número entero ignora que el redondeo es una convención de registro, no una propiedad de la magnitud medida.",
+    "has_math": false,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["clasificar-caso-borde"]
   }
 ]

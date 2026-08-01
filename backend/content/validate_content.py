@@ -43,10 +43,15 @@ MIN_ABS_GAP = 5          # y la diferencia absoluta (render) supera este piso
 OPENER_REPEAT_FRACTION = 0.3   # misma apertura en >=30% de los ítems del archivo
 OPENER_REPEAT_MIN = 3
 PARAGRAPH_PROSE_MAX = 200      # regla: párrafo de prosa <=200 chars (warning)
+QUESTION_PROSE_MAX = 130       # regla 36: en question el umbral es más estricto (~3 renglones en móvil)
 INLINE_FRAGMENTS_WARN = 3      # regla 21 dice 2+; se marca desde 3 para bajar ruido
 EXPLANATION_MIN = 300
 FEEDBACK_CORRECT_MAX = 160
 CORRECT_INDEX_SKEW = 0.5
+INLINE_EQUATION_MAX = 18       # regla 35: ecuación inline más ancha que esto → display
+DISPLAY_RENDER_MAX = 40        # regla 38: display sin aligned más ancho que esto → verticalizar
+OPTION_RENDER_MAX = 35         # regla 39: opción más ancha que la grilla 2×2
+CHAIN_FACTORS_MIN = 3          # regla 41: 3+ factores P(...) multiplicados sin "+" → verticalizar
 
 ACCUSATORY_STARTS = [
     "Confunde", "Confundís", "Invierte", "Invertís", "Olvida", "Olvidás",
@@ -87,6 +92,27 @@ DISPLAY_RE = re.compile(r"\$\$.*?\$\$", re.DOTALL)
 INLINE_RE = re.compile(r"(?<!\$)\$(?!\$)([^$\n]+)\$(?!\$)")
 TEXTCMD_RE = re.compile(r"\\text\{([^{}]*)\}")
 LATEX_CMD_RE = re.compile(r"\\[a-zA-Z]+")
+# Opción que es enteramente una fórmula LaTeX (un solo $...$, sin prosa
+# alrededor salvo un punto final opcional). Distingue "$15/24$" (aplica
+# regla 39) de "Regla de la suma: son alternativas excluyentes." (no aplica).
+PURE_FORMULA_OPTION_RE = re.compile(r"\$[^$]+\$\.?")
+# Regla 40: rama nombrada/subindicada de partición dentro de un condicional,
+# ej. "P(B\mid A_1)". Cuenta cuántas ramas distintas se suman explícitamente
+# en vez de usar \sum_i.
+PARTITION_TERM_RE = re.compile(r"P\([^()]*\\mid[^()]*\)")
+# Regla 42: \frac{...}{...} / \dfrac{...}{...} con un nivel de anidado (para
+# poder capturar \binom{n}{k} completo dentro del numerador/denominador).
+FRAC_RE = re.compile(r"\\d?frac\{((?:[^{}]|\{[^{}]*\})*)\}\{((?:[^{}]|\{[^{}]*\})*)\}")
+
+
+# Comandos que KaTeX renderiza como símbolo con espaciado de relación/operador
+# a ambos lados (p.ej. "\mid" → "∣" con medspace, "\cdot"/"\times" → "·"/"×"
+# con espaciado de operador binario). LATEX_CMD_RE los borraba a longitud 0,
+# que subestimaba sistemáticamente el ancho real de cadenas con varios
+# "P(...\mid...)" encadenados (regla 38/39 no disparaban en casos que sí
+# desbordaban en pantalla).
+RENDER_WEIGHT_CMDS = {"mid": 3, "cdot": 2, "times": 2}
+WEIGHTED_CMD_RE = re.compile(r"\\(" + "|".join(RENDER_WEIGHT_CMDS) + r")\b")
 
 
 def render_len(s: str) -> int:
@@ -94,6 +120,7 @@ def render_len(s: str) -> int:
     t = s
     t = t.replace("$$", "").replace("$", "")
     t = TEXTCMD_RE.sub(lambda m: m.group(1), t)
+    t = WEIGHTED_CMD_RE.sub(lambda m: "x" * RENDER_WEIGHT_CMDS[m.group(1)], t)
     t = LATEX_CMD_RE.sub("", t)
     t = re.sub(r"[{}^_&]|\\\\|\\[,;!:]", "", t)
     t = re.sub(r"\s+", " ", t).strip()
@@ -181,6 +208,29 @@ def check_options(items, file, F: Findings) -> None:
                   f"la correcta es la única notablemente más corta "
                   f"(render {rends[ci]} vs mediana {med_rend:.0f}): {opts[ci]!r}")
 
+        # Regla 39: ancho absoluto de opciones que son una fórmula LaTeX pura
+        # (grilla 2x2 / lectura compacta ≤35 chars de render). No aplica a
+        # opciones de prosa conceptual, que legítimamente son más largas.
+        for j, o in enumerate(opts):
+            if not PURE_FORMULA_OPTION_RE.fullmatch(o.strip()):
+                continue
+            rl_opt = render_len(o)
+            if rl_opt > OPTION_RENDER_MAX:
+                F.add("WARNING", "options", "39", file, label,
+                      f"opción #{j} de {rl_opt} chars de render (máx {OPTION_RENDER_MAX} para una fórmula pura): {o!r}")
+
+        # Regla 42: combinatoria (\binom/\dbinom) en ambos lados de una
+        # fracción dentro de una opción. Apilada con \dfrac queda una caja
+        # muy alta que domina la grilla 2x2; conviene notación horizontal
+        # (ej. "$\binom{5}{3}/\binom{8}{3}$").
+        for j, o in enumerate(opts):
+            for m in FRAC_RE.finditer(o):
+                num, den = m.group(1), m.group(2)
+                if "binom" in num and "binom" in den:
+                    F.add("WARNING", "options", "42", file, label,
+                          f"opción #{j} con combinatoria en ambos lados de una fracción apilada, "
+                          f"usar notación horizontal: {o!r}")
+
         # Glosa entre paréntesis fuera de zona math, en una sola opción.
         has_paren = [("(" in strip_math(o)) for o in opts]
         if sum(has_paren) == 1:
@@ -196,10 +246,106 @@ def check_options(items, file, F: Findings) -> None:
                   "relleno 'solamente' en algunas opciones y no en todas")
 
 
+def _check_display_width(text, field, file, label, F: Findings) -> None:
+    """Regla 38: bloques display sin `aligned` que quedan demasiado anchos, o
+    que encadenan 3+ igualdades en una sola línea (deberían partirse en pasos
+    o pasar a `aligned`)."""
+    for m in DISPLAY_RE.finditer(text):
+        inner = m.group(0)[2:-2]
+        if "aligned" in inner:
+            continue
+        rl = render_len(inner)
+        if rl > DISPLAY_RENDER_MAX:
+            F.add("WARNING", field, "38", file, label,
+                  f"bloque display de {rl} chars sin aligned, conviene verticalizar: {inner[:50]!r}...")
+        if inner.count("=") >= 3:
+            F.add("WARNING", field, "38", file, label,
+                  "bloque display con 3+ igualdades encadenadas en una sola línea, "
+                  "partir en pasos (varios $$...$$) o usar aligned")
+        # Regla 41: cadena de 3+ factores P(...) multiplicados por \cdot, sin
+        # "+" ni fracción ni sumatoria, ej. P(C_1)\cdot P(C_2)\cdot P(C_3).
+        # No es un problema de ancho (puede medir bien por debajo de
+        # DISPLAY_RENDER_MAX) sino de lectura: la cadena de multiplicaciones
+        # se lee mejor verticalizada. Requiere \cdot explícito para no
+        # confundirse con una fracción simple tipo P(A\mid B)=P(A\cap B)/P(B),
+        # que también menciona 3 "P(" pero no es una cadena de factores.
+        cdot_count = inner.count("\\cdot")
+        if (cdot_count >= CHAIN_FACTORS_MIN - 1 and "+" not in inner
+                and "\\sum" not in inner and "frac" not in inner):
+            F.add("WARNING", field, "41", file, label,
+                  f"cadena de {cdot_count + 1} factores P(...) multiplicados "
+                  "en una sola línea, conviene verticalizar (varios $$...$$) o usar aligned")
+
+
+def _check_missing_sumatoria(text, field, file, label, F: Findings) -> None:
+    """Regla 40: la fórmula abstracta de una partición (probabilidad total o
+    Bayes) que suma 2+ ramas nombradas/subindicadas explícitamente (ej.
+    P(B\\mid A_1)P(A_1) + P(B\\mid A_2)P(A_2)) debería usar notación de
+    sumatoria (\\sum_i), sin importar cuántos escenarios tenga el problema
+    concreto. Solo aplica a `explanation`: en `options`, comparar variantes
+    con nombres es a menudo el punto del ejercicio (identificar la fórmula
+    correcta entre términos cruzados/invertidos)."""
+    if field != "explanations":
+        return
+    if "\\sum" in text or "+" not in text:
+        return
+    if len(PARTITION_TERM_RE.findall(text)) >= 2:
+        F.add("WARNING", field, "40", file, label,
+              "fórmula de partición con ramas nombradas sumadas explícitamente, "
+              "considerar notación de sumatoria (\\sum_i) en vez de nombrarlas todas")
+
+
+def _check_duplicate_formula(text, field, file, label, F: Findings) -> None:
+    """Regla 35: una fórmula no trivial no debería tejerse inline y repetirse
+    también en un bloque display dentro del mismo campo (redundancia)."""
+    displays = [re.sub(r"\s+", "", m.group(0)[2:-2]) for m in DISPLAY_RE.finditer(text)]
+    if not displays:
+        return
+    for m in INLINE_RE.finditer(text):
+        frag_norm = re.sub(r"\s+", "", m.group(1))
+        if len(frag_norm) < 8:
+            continue  # evita falsos positivos con fragmentos triviales como "P(A)"
+        if any(frag_norm in d for d in displays):
+            F.add("WARNING", field, "35", file, label,
+                  f"la fórmula ${m.group(1)[:40]}$ aparece tejida inline y repetida en un bloque display")
+            break
+
+
+def _check_prose_parens(text, field, file, label, F: Findings, level: str = "WARNING") -> None:
+    """Regla 37: sin paréntesis aclaratorios en la prosa (fuera de zona
+    matemática). ERROR en question (regla dura authoring-context.md:419),
+    WARNING en explanation/feedbacks (extensión de los topic-contexts)."""
+    if "(" in strip_math(text):
+        F.add(level, field, "37", file, label,
+              "paréntesis aclaratorio en la prosa, fuera de zona matemática")
+
+
+def _check_inline_equation(text, field, file, label, F: Findings) -> None:
+    """Regla 35: ecuación con `=` tejida inline que ya es lo bastante ancha
+    como para merecer un bloque display propio."""
+    for m in INLINE_RE.finditer(text):
+        frag = m.group(1)
+        if "=" not in frag:
+            continue
+        rl = render_len(frag)
+        if rl > INLINE_EQUATION_MAX:
+            F.add("WARNING", field, "35", file, label,
+                  f"ecuación tejida inline (render {rl} > {INLINE_EQUATION_MAX}), "
+                  f"mover a bloque display: ${frag[:40]}$")
+
+
 def _check_text_common(text, field, file, label, F: Findings) -> None:
     """Checks compartidos entre explanation / question / feedbacks."""
     if "\n\n$$" in text or "$$\n\n" in text:
         F.add("ERROR", field, "2", file, label, r"\n\n pegado a un bloque $$...$$")
+    _check_display_width(text, field, file, label, F)
+    _check_duplicate_formula(text, field, file, label, F)
+    _check_missing_sumatoria(text, field, file, label, F)
+    if field != "feedbacks":
+        # feedback_correct/incorrect son por diseño una sola oración corta e
+        # inline (nunca llevan bloques $$...$$ propios); su ancho ya lo cubre
+        # el chequeo específico de "3+ igualdades" en check_feedbacks.
+        _check_inline_equation(text, field, file, label, F)
     if EMDASH in text:
         F.add("ERROR", field, "6", file, label, "em-dash (—) en el texto")
     if ENDASH in text and not re.search(r"\d" + ENDASH + r"\d", text):
@@ -259,6 +405,12 @@ def check_explanations(items, file, F: Findings) -> None:
                   f"explanation de {len(text)} chars (mínimo {EXPLANATION_MIN})")
         _check_text_common(text, "explanations", file, label, F)
         _check_display_flow(text, "explanations", file, label, F)
+        _check_prose_parens(text, "explanations", file, label, F, level="WARNING")
+        for m in INLINE_RE.finditer(text):
+            if re.search(r"\\[dt]?frac", m.group(1)):
+                F.add("WARNING", "explanations", "18", file, label,
+                      f"fracción tejida inline en la explicación: ${m.group(1)[:40]}$")
+                break
         paras = paragraphs(text)
         for p in paras:
             stripped = p.rstrip()
@@ -304,6 +456,7 @@ def check_questions(items, file, F: Findings) -> None:
             continue
         _check_text_common(text, "questions", file, label, F)
         _check_display_flow(text, "questions", file, label, F)
+        _check_prose_parens(text, "questions", file, label, F, level="ERROR")
         lines = text.split("\n")
         if len(lines) > 1 and lines[1].strip().startswith("$$"):
             openers[lines[0].strip()] += 1
@@ -313,6 +466,31 @@ def check_questions(items, file, F: Findings) -> None:
                 F.add("WARNING", "questions", "18", file, label,
                       f"fracción tejida inline en el enunciado: ${m.group(1)[:40]}$")
                 break
+        # Regla 36: largo de párrafo/densidad inline en el enunciado, y la
+        # pregunta "¿...?" mezclada dentro del párrafo del enunciado en vez
+        # de ir en su propio párrafo final.
+        for p in paragraphs(text):
+            # Ojo: se mide por tramo de prosa (separado por bloques $$...$$),
+            # no por párrafo entero. Un párrafo de "intro: $$fórmula$$
+            # ¿pregunta?" es el patrón correcto (la fórmula ya corta la
+            # lectura); lo que viola la regla es "¿" apareciendo a mitad de
+            # un tramo de prosa continuo, sin ningún corte antes.
+            for prose in prose_segments(p):
+                prose_stripped = prose.strip()
+                if "¿" in prose_stripped and not prose_stripped.startswith("¿"):
+                    F.add("WARNING", "questions", "36", file, label,
+                          f"la pregunta '¿...?' está mezclada con el enunciado en el mismo tramo de prosa: "
+                          f"{prose_stripped[:60]!r}...")
+            for prose in prose_segments(p):
+                prose_flat = re.sub(r"\s+", " ", prose).strip()
+                if len(prose_flat) > QUESTION_PROSE_MAX:
+                    F.add("WARNING", "questions", "36", file, label,
+                          f"párrafo del enunciado de {len(prose_flat)} chars (máx {QUESTION_PROSE_MAX}): "
+                          f"{prose_flat[:60]!r}...")
+                inline_count = len(INLINE_RE.findall(prose))
+                if inline_count >= INLINE_FRAGMENTS_WARN:
+                    F.add("WARNING", "questions", "21", file, label,
+                          f"{inline_count} fragmentos LaTeX inline en el mismo tramo del enunciado")
     total = len(items)
     threshold = max(OPENER_REPEAT_MIN, int(total * OPENER_REPEAT_FRACTION))
     for opener, count in openers.items():
@@ -329,6 +507,7 @@ def check_feedbacks(items, file, F: Findings) -> None:
         fc = it.get("feedback_correct")
         if isinstance(fc, str) and fc.strip():
             _check_text_common(fc, "feedbacks", file, label, F)
+            _check_prose_parens(fc, "feedbacks", file, label, F, level="WARNING")
             if not fc.rstrip().endswith((".", "?", "!", "$")):
                 F.add("ERROR", "feedbacks", "17", file, label,
                       "feedback_correct sin puntuación terminal")
@@ -357,6 +536,7 @@ def check_feedbacks(items, file, F: Findings) -> None:
                       f"feedback_incorrect[{j}] vacío o null fuera del índice correcto")
                 continue
             _check_text_common(entry, "feedbacks", file, label, F)
+            _check_prose_parens(entry, "feedbacks", file, label, F, level="WARNING")
             if not entry.rstrip().endswith((".", "?", "!", "$")):
                 F.add("ERROR", "feedbacks", "17", file, label,
                       f"feedback_incorrect[{j}] sin puntuación terminal")

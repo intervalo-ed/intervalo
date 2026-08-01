@@ -133,6 +133,46 @@ Estas reglas son las que más se violan y las que más rompen el render o la coh
     - ❌ `Es fácil restar directamente los índices ($5-4=1$) sin expandir ningún factorial.` (mismo filler genérico, solo cambió la palabra rotuladora)
     - ❌ `Un error clásico es restar directamente los índices ($5-4=1$) sin expandir ningún factorial, tratando al símbolo $!$ como una operación lineal.`
     - ✅ `Restar los índices directo ($5-4=1$) da un número parecido por casualidad: el $!$ no es una operación lineal, hay que expandir cada factorial antes de simplificar.`
+35. **Ninguna ecuación (con `=`) va tejida inline en la prosa: si tiene entidad propia, va en su propio bloque `$$...$$`.** Aplica a `question` y `explanation`. Un fragmento inline que ya es una fórmula abstracta completa (la definición de una regla, no un valor puntual) es el caso más común: nombrarla en prosa y después repetirla en un párrafo separado también es redundante, no solo un problema de ancho. Regla mecánica de `validate_content.py`: fragmento `$...$` con `=` y render >18 caracteres → revisar. **Excepción explícita: `feedback_correct`/`feedback_incorrect`.** Esos campos son por diseño una sola oración corta con la ecuación tejida inline (`"$P(A\mid B) = \dfrac{0{,}18}{0{,}45} = 0{,}4$."`); no llevan bloques `$$...$$` propios. Ahí el único límite de ancho es la regla de "fórmulas anchas" (3+ igualdades → mover la derivación a `explanation`), no esta regla 35.
+    - ❌ `"explanation": "La regla general de la unión dice que $P(A \cup B) = P(A) + P(B) - P(A \cap B)$, válida siempre.\n\n...\n$$P(A\cup B) = P(A)+P(B)-P(A\cap B)$$"` (la fórmula abstracta va tejida inline Y se repite en display dos líneas después)
+    - ✅ `"explanation": "La **regla general de la unión** permite calcular $P(A\cup B)$ para dos eventos cualesquiera:\n$$P(A\cup B) = P(A)+P(B)-P(A\cap B)$$\nRestar la intersección evita contar dos veces..."` (la fórmula aparece una sola vez, en su bloque display)
+    - Mismo criterio para la fórmula de Laplace: nunca `$P(A) = \text{favorables}/\text{posibles}$` tejida en un párrafo; siempre en `$$P(A) = \dfrac{\text{favorables}}{\text{posibles}}$$`.
+36. **Párrafos del enunciado (`question`) ≤ ~130 caracteres de prosa (unos 3 renglones en móvil), y la pregunta `¿...?` siempre en su propio tramo de prosa (después de un `\n\n` o de un bloque `$$...$$`), nunca encadenada con el planteo en la misma oración.** Extiende la regla ya vigente para `explanation` (párrafos ≤200) con un umbral más estricto porque el enunciado se lee bajo presión de tiempo. (Umbral bajado de 160 a 130 tras confirmar casos reales de ~150-158 caracteres que quedaban por debajo del umbral viejo.)
+    - ❌ `"question": "En una empresa, el 60% del personal trabaja en el turno mañana. De quienes trabajan en el turno mañana, el 25% usa el comedor. Se quiere calcular la probabilidad de que un empleado use el comedor, sabiendo que trabaja en el turno mañana. ¿Cuál es el planteo correcto?"` (un solo párrafo larguísimo con la pregunta pegada al final)
+    - ✅ Partir el contexto en 1-2 párrafos cortos con `\n\n`, y dejar `¿...?` como último párrafo, solo.
+37. **Sin paréntesis aclaratorios en ningún campo del ejercicio, no solo en `options`.** La regla ya existía para el enunciado (`authoring-context.md:419`) y para options (regla 4); se extiende explícitamente a `explanation` y `feedback_correct`/`feedback_incorrect`. Un dato dado entre paréntesis ("A (35%)", "el complemento (1-P(A))") es una aclaración disfrazada de notación: se integra en la prosa como cláusula propia.
+    - ❌ `"question": "...se proponen los escenarios $A_1$ (35%), $A_2$ (40%) y $A_3$ (20%)..."`
+    - ✅ `"question": "...el escenario $A_1$ tiene una probabilidad de 35%, el $A_2$ de 40% y el $A_3$ de 20%..."`
+38. **Los bloques `$$...$$` sin `aligned` se verticalizan si quedan demasiado anchos, y nunca encadenan 3+ igualdades en una sola línea.** Mismo criterio que ya aplicaba a `feedback_correct` (regla de "fórmulas anchas"), extendido a cualquier bloque display de cualquier campo. Una cadena `$$a = b = c = d$$` se lee mal comprimida; se parte en pasos (`$$a=b$$` seguido de `$$b=c$$`, cada uno con su `\n`) o se pasa a `\begin{aligned}`.
+    - ❌ `"$$P(B) = 0{,}1\times0{,}6 + P(B\mid A_2)\times0{,}4 \Rightarrow P(B\mid A_2)=0{,}2$$"` (2 igualdades encadenadas en una sola línea, además de la del enunciado)
+    - **Nota de calibración**: `\mid`, `\cdot` y `\times` renderizan como símbolos con espaciado real (no chars de ancho 0); una fórmula con 2+ `P(...\mid...)` unidos por estos operadores puede desbordar aunque el conteo de caracteres crudo parezca corto. Ante la duda, contar los operadores de este tipo como ~2-3 chars cada uno antes de decidir si hace falta verticalizar.
+    - ✅ `"$$0{,}14 = 0{,}1\times0{,}6 + P(B\mid A_2)\times0{,}4$$\n$$0{,}08 = P(B\mid A_2)\times0{,}4$$\n$$P(B\mid A_2) = 0{,}2$$"` (un paso por línea)
+39. **Una opción que es enteramente una fórmula LaTeX (`$...$`) no supera ~35 caracteres de render.** No aplica a opciones de prosa conceptual (esas legítimamente rondan 50-90 caracteres); aplica a opciones tipo `$P(B\mid A_1)P(A_2)+P(B\mid A_2)P(A_3)+P(B\mid A_3)P(A_1)$`, que además de romper la grilla 2×2 se vuelven ilegibles de un vistazo. Si el diseño de la sub-familia exige una fórmula con muchos términos, achicar la cantidad de escenarios del ejercicio en vez de aceptar la opción larga.
+40. **La fórmula abstracta de una partición (probabilidad total, teorema de Bayes) en `explanation` siempre usa notación de sumatoria (`\sum_i`), nunca nombra las ramas una por una sumadas explícitamente — incluso con solo 2 escenarios concretos en el problema.** No es un problema de ancho (una suma de 2 ramas nombradas puede medir bien por debajo del límite de la regla 38): es una convención de generalidad y consistencia, para que la fórmula abstracta se vea igual sin importar cuántos escenarios tenga el caso concreto. **No aplica a `options`**: un ejercicio que pide identificar/distinguir la fórmula correcta entre variantes con ramas cruzadas o invertidas necesita nombrarlas explícitamente ahí, esa comparación es el punto del ejercicio.
+    - ❌ `"explanation": "El teorema de la probabilidad total pondera cada condicional por el peso del escenario:\n$$P(T) = P(T\mid X) \cdot P(X) + P(T\mid Y) \cdot P(Y)$$..."`
+    - ✅ `"explanation": "El teorema de la probabilidad total pondera cada condicional por el peso de su escenario:\n$$P(T) = \sum_i P(T\mid A_i) \cdot P(A_i)$$\nCon 2 escenarios, la suma simplemente tiene 2 términos."`
+41. **Una cadena de 3+ factores `P(...)` multiplicados por `\cdot` en una sola línea display (sin `+`, sin fracción, sin `\sum`) se verticaliza**, aunque mida por debajo del límite de ancho de la regla 38 — es un problema de lectura (cuántos términos hay que procesar de un vistazo), no solo de ancho.
+    - ❌ `"$$P(C_1 \cap C_2 \cap C_3) = P(C_1) \cdot P(C_2) \cdot P(C_3)$$"`
+    - ✅ `"$$P(C_1 \cap C_2 \cap C_3)$$\n$$= P(C_1) \cdot P(C_2) \cdot P(C_3)$$"` (o `\begin{aligned}`)
+42. **Una opción con combinatoria (`\binom`/`\dbinom`) en el numerador Y el denominador de una fracción apilada (`\dfrac`/`\frac`) se escribe horizontal, no apilada.** Dos fracciones binomiales apiladas dentro de una opción arman una caja muy alta que domina visualmente la grilla 2×2, llamando la atención por su tamaño en vez de por su contenido.
+    - ❌ `"$\dfrac{\dbinom{5}{3}}{\dbinom{8}{3}}$"`
+    - ✅ `"$\binom{5}{3}/\binom{8}{3}$"` (notación horizontal, sin apilar)
+    - **Corolario de consistencia**: si alguna opción del mismo array usa notación horizontal (obligatoria por combinatoria), las demás opciones que también sean fracciones (aunque no tengan `\binom`) se escriben horizontales también, nunca `\dfrac` apilada — mezclar los dos estilos en la misma grilla rompe el patrón visual. Ej.: si dos opciones son `$\binom{5}{3}/\binom{8}{3}$`, las opciones `$5/8$` van horizontales, no `$\dfrac{5}{8}$`.
+43. **Enmarcar en un contexto cotidiano y amigable para el estudiante STEM todo ejercicio que corresponda, no dejarlo en abstracto ("Sea $X$ una variable aleatoria...") cuando existe un escenario concreto disponible.** Cada `topic-context.md` documenta una tabla de "Contextos variados" (monedas, dados, clientes en fila, tiempos de espera, mediciones, etc.): esos contextos están para usarse en los ejercicios reales, no solo para quedar documentados sin aplicarse. Aplica sobre todo a `RESL` y `GRAF` (donde el ejercicio calcula o lee algo concreto) y a `CLSF` cuando clasifica un caso. **Excepción intencional: `LEXI` y `FORM` pueden quedar en abstracto por diseño**, porque su objetivo es reconocer una definición o fórmula general, no aplicarla a un caso, siempre que el propio `topic-context.md` lo aclare explícitamente para ese ítem. Variar el contexto entre ejercicios de una misma sub-familia (tope ~30%, misma regla que ya rige "Contextos variados") para no repetir siempre el mismo experimento.
+    - ❌ `Sea $X$ una variable aleatoria continua con densidad $f(x)=1/4$ para $0\leq x\leq 4$. Calculá $P(1\leq X\leq 3)$.`
+    - ✅ `El tiempo que un cliente espera en la fila de un banco se modela con una densidad uniforme entre 0 y 4 minutos. Calculá $P(1\leq X\leq 3)$, la probabilidad de esperar entre 1 y 3 minutos.`
+
+**Nota de dificultad (no automatizable, criterio editorial):** un valor "sospechoso" que el ejercicio pide detectar (una probabilidad fuera de $[0,1]$, un resultado imposible) no debería aparecer literal y aislado en el enunciado — eso lo vuelve trivial de detectar a simple vista sin razonar la regla. Camuflarlo con una operación mínima (ej. pedir $P(A)+P(B)$ de dos datos que individualmente parecen válidos, y que la suma supere 1) obliga a aplicar el axioma en vez de solo leer el número.
+
+**Regla 43 (no automatizable, criterio editorial): si `explanation` despeja/deriva una fórmula a partir de otra, mostrar primero la fórmula base de la que parte, y recién después el despeje — nunca solo el resultado derivado.** Un ejercicio que pide $P(A\cap B)$ a partir de $P(A\mid B)$ y $P(B)$ está despejando la fórmula condicional; la explicación reintroduce esa fórmula base antes de mostrar el despeje, aunque el ejercicio en sí no la pregunte directamente.
+- ❌ `"explanation": "Despejando la intersección de la fórmula condicional se obtiene la regla de la multiplicación:\n$$P(A \cap B) = P(A \mid B) \cdot P(B)$$..."` (nunca muestra de dónde sale)
+- ✅ `"explanation": "La fórmula condicional es $P(A\mid B) = \dfrac{P(A\cap B)}{P(B)}$. Despejando la intersección:\n$$P(A \cap B) = P(A \mid B) \cdot P(B)$$..."`
+
+**Regla 44 (no automatizable, criterio editorial): toda `explanation` que introduce una fórmula nueva por primera vez agrega un párrafo de intuición — el *por qué* se arma así, no solo el mecanismo de cómo se arma.** Aplica a todo el curso, no solo a ejercicios `FORM`. Una explicación que solo dice "el numerador es la rama X, el denominador es la suma de las ramas" describe el mecanismo pero no por qué esa es la cuenta correcta (qué representa cada rama, por qué se suman las demás). Agregar una oración que conecte la fórmula con la idea intuitiva detrás.
+
+**Nota de diseño numérico en `RESL` (no automatizable, criterio editorial): preferir decimales de una cifra o valores que permitan cálculo mental directo.** Evitar que un despeje algebraico de varios pasos (ej. $P(B)=P(B\mid A_1)P(A_1)+P(B\mid A_2)P(A_2)$ despejando el segundo condicional) combinado con decimales de dos cifras sea la única vía a la respuesta — eso empuja al alumno a adivinar por descarte entre las opciones en vez de calcular. Mismo criterio para una división simple: $0{,}18/0{,}45=0{,}4$ es menos intuitiva que una división con decimales más redondos.
+
+**Nota de contexto en preguntas directas (no automatizable, criterio editorial):** una pregunta que arranca literal con la notación a calcular (`"Se quiere calcular $P(\text{enfermo}\mid\text{positivo})$..."`) se beneficia de una oración breve de contexto antes, sin sacar información ni alargar el enunciado más allá de la regla 36.
 
 ---
 
@@ -147,7 +187,7 @@ Estas reglas son las que más se violan y las que más rompen el render o la coh
 | `feedback_incorrect` | **`array<string\|null>` paralelo a `options`**: un texto corto por distractor (índice correcto = `null`). Ver sección *Pistas de feedback_incorrect* más abajo. **Legacy:** en belts no refactorizados todavía es `""` (string vacío). |
 | `explanation` | texto del botón "¿Por qué?". Párrafos ≤200 caracteres (ideal ~100), mínimo 300 caracteres en total. Estructura de 3 partes: ver *Estructura de la explicación* más abajo. |
 | `has_math` | `true` si hay LaTeX en cualquier campo. |
-| `graph_fn`, `graph_view` | ver sección Gráficos. `null` si no hay gráfico. |
+| `graph_fn`, `graph_view`, `graph_shade` | ver sección Gráficos. `null` si no aplica. |
 | `reviewed` | `false` hasta revisión manual. |
 | `tags` | **opcional.** `array<string>` con un slug de sub-familia/arquetipo. Ver sección *Etiquetas (tags)* más abajo. **Legacy:** ausente en ejercicios todavía no tageados. |
 
@@ -520,13 +560,15 @@ Registro formal y sencillo, sin jerga ni informalismos, en `question`, `options`
 
 ---
 
-## Gráficos (`graph_fn`, `graph_view`)
+## Gráficos (`graph_fn`, `graph_view`, `graph_shade`, `graph_free_aspect`)
 
 El componente `web/src/components/math-graph.tsx` renderiza con **relación de aspecto 1:1** (misma escala px/unidad en ambos ejes) y grilla cuadrada dinámica.
 
 - **Pendientes legibles a 1:1**: `|m| ≤ 2`. Con 1:1, `m=2 → 63°`, todavía legible cuadrito a cuadrito. Pendientes grandes (ej. `m=15`) salen casi verticales e ilegibles.
 - **`graph_view` cuadrado**: `[xmin, xmax, ymin, ymax]` con `xRange ≈ yRange`. Los puntos clave deben caer dentro de la vista.
 - Si un contexto cotidiano exige magnitudes dispares, **rediseñar el ejercicio** con números chicos en vez de romper el 1:1.
+- **`graph_shade`** (opcional): `[xMin, xMax]` o `null`. Sombrea en azul el área entre la curva de `graph_fn` y el eje $x$, restringida a ese tramo — pensado para visualizar $P(a\leq X\leq b)$ como área bajo una densidad en `probabilidad`. Usar solo cuando el sombreado sea el foco pedagógico del ejercicio (ej. `densidad`/`acumulada`); no agregarlo a gráficos donde la pregunta es sobre otra lectura (pendiente, raíz, asíntota, etc.).
+- **Excepción opt-in — `graph_free_aspect`** (`boolean`/`null`, default `false`/ausente): cuando es `true`, el componente pasa `preserveAspectRatio={false}` a `<Mafs>` y **desactiva** el forzado 1:1 — Mafs deja de expandir automáticamente el eje más corto para igualar la proporción, y `graph_view` se muestra tal cual está escrito. Pensado exclusivamente para `probabilidad` (variables aleatorias: `densidad`/`acumulada`), donde el eje $y$ suele ser $[0,1]$ y forzar 1:1 infla ese eje muy por encima, desperdiciando espacio vertical y dejando la curva como una franja fina. **`analisis` nunca usa este campo** — ahí el 1:1 sigue siendo obligatorio (reglas de arriba sin cambios). Con `graph_free_aspect: true` no aplica la regla de "`graph_view` cuadrado": elegir `xRange`/`yRange` de forma independiente, cada uno con su propio margen prolijo (~10-15% del rango de datos), sin colchón extra pensado para compensar una auto-expansión que ya no ocurre.
 
 ### Qué lee cada GRAF por tema
 
@@ -625,6 +667,16 @@ Están duplicadas arriba a propósito, para que también estén disponibles al f
 - NUNCA declarar una fórmula combinatoria con numerador y denominador ($V_{n,k}=\dfrac{n!}{(n-k)!}$, $\binom{n}{k}$, permutación con repetición) sin razonar intuitivamente por qué se arma así, en especial qué cancela el denominador.
 - NUNCA usar `\binom{n}{k}` chico en `options` o en un `feedback_correct`/`feedback_incorrect` corto autocontenido; usar `\dbinom{n}{k}` ahí (salvo que esté tejido dentro de un párrafo de prosa de `explanation`/`question`, donde se queda compacto).
 - NUNCA arrancar la explicación de un ejercicio que compara dos fórmulas/técnicas directo en el cálculo numérico; primero derivar algebraicamente la relación entre ambas (el despeje), y dejar la sustitución numérica como confirmación breve al final.
+- NUNCA tejer una ecuación (con `=`) inline en `question`/`explanation`/`feedback_correct`/`feedback_incorrect` si ya tiene entidad propia (una fórmula abstracta completa, no un valor puntual corto); va en su propio `$$...$$`.
+- NUNCA dejar un párrafo del enunciado (`question`) que supere ~130 caracteres de prosa, ni encadenar la pregunta `¿...?` en la misma oración que el planteo; la pregunta va en su propio tramo, después de un `\n\n` o de un bloque `$$...$$`.
+- NUNCA usar paréntesis para aclaraciones en `explanation` o `feedback_correct`/`feedback_incorrect`, igual que ya estaba prohibido en `question` y `options`.
+- NUNCA encadenar 3+ igualdades en un solo bloque `$$...$$` sin `aligned`; partir en pasos o verticalizar.
+- NUNCA dejar una opción que es enteramente una fórmula LaTeX con más de ~35 caracteres de render; si el diseño lo exige, achicar el ejercicio (menos escenarios/términos), no la opción.
+- NUNCA nombrar ramas de una partición sumadas explícitamente ($P(B\mid A_1)P(A_1)+P(B\mid A_2)P(A_2)$) en la fórmula abstracta de `explanation`; usar `\sum_i` sin importar la cantidad de escenarios del problema concreto (no aplica a `options` que comparan variantes con nombres).
+- NUNCA dejar una cadena de 3+ factores `P(...)` multiplicados por `\cdot` en una sola línea display sin `+`/fracción/`\sum`; verticalizar aunque mida corto.
+- NUNCA apilar dos fracciones combinatorias (`\dbinom` en numerador Y denominador) dentro de una opción; escribir horizontal (`\binom{n}{k}/\binom{m}{j}`).
+- NUNCA mostrar solo el resultado de un despeje en `explanation` sin antes reintroducir la fórmula base de la que parte.
+- NUNCA declarar una fórmula nueva en `explanation` solo con el mecanismo ("el numerador es X, el denominador es Y"); sumar una oración de intuición sobre el *por qué*.
 
 **SIEMPRE:**
 - SIEMPRE `\n\n` entre contexto y pregunta.
@@ -634,3 +686,4 @@ Están duplicadas arriba a propósito, para que también estén disponibles al f
 - SIEMPRE `\$` para pesos (en JSON: `\\$`).
 - SIEMPRE párrafos de `explanation` ≤200 caracteres (ideal ~100); cortar con `\n\n` si se pasa.
 - SIEMPRE mayúscula al empezar una oración, incluso si arranca con una variable en minúscula (`$b$`, `$x$`) o después de una fórmula display.
+- SIEMPRE camuflar un valor "sospechoso" que el ejercicio pide detectar (fuera de rango, imposible) con una operación mínima, en vez de mostrarlo literal y aislado en el enunciado.

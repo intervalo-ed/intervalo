@@ -1,39 +1,16 @@
 [
   {
-    "question": "Se extrae una carta de un mazo español de 40 cartas.\n\n¿Cuál es la probabilidad de que sea una figura (10, 11 o 12 de cualquier palo, 12 cartas en total)?",
-    "options": ["$12/40$", "$3/40$", "$4/40$", "$10/40$"],
+    "question": "De una urna con 4 bolas rojas y 6 azules se extraen 2 bolas al azar sin reposición.\n\n¿Cuál es la probabilidad de que ambas sean rojas?",
+    "options": ["$6/45$", "$4/10$", "$2/45$", "$12/45$"],
     "correct_index": 0,
-    "feedback_correct": "Hay 12 figuras entre las 40 cartas: $P=12/40$.",
+    "feedback_correct": "$\\binom{4}{2}=6$ formas de elegir 2 rojas sobre $\\binom{10}{2}=45$ formas totales.",
     "feedback_incorrect": [
       null,
-      "Ese numerador cuenta solo un tipo de figura por palo, olvidando los otros 3 palos.",
-      "Ese numerador cuenta solo los palos, no las 12 cartas de figura en total.",
-      "Ese numerador corresponde a un valor distinto de carta, no a la cantidad total de figuras."
+      "Esa fracción compara cantidades individuales de bolas, no formas de elegir 2 a la vez.",
+      "Ese numerador no corresponde a ninguna forma válida de elegir 2 bolas rojas.",
+      "Ese numerador sale de contar mal las combinaciones de 2 rojas entre las 4 disponibles."
     ],
-    "explanation": "Con la **regla de Laplace**, la probabilidad se calcula contando los casos favorables sobre los posibles.\n\nEn un mazo de 40 cartas, hay 3 figuras (10, 11, 12) por cada uno de los 4 palos, es decir $3\\times 4=12$ cartas favorables sobre 40 posibles:\n$$P(\\text{figura}) = \\frac{12}{40}$$\nLa confusión típica es contar solo un palo o solo un valor de figura, en vez de multiplicar correctamente valores por palos.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": ["resl-conteo-simple"]
-  },
-  {
-    "question": "De un grupo de 12 personas (7 mujeres y 5 hombres), se elige un comité de 3 personas al azar.\n\n¿Cuál es la probabilidad de que el comité esté formado solo por mujeres?",
-    "options": [
-      "$\\dfrac{35}{220}$",
-      "$\\dfrac{7}{12}$",
-      "$\\dfrac{1}{220}$",
-      "$\\dfrac{21}{220}$"
-    ],
-    "correct_index": 0,
-    "feedback_correct": "$\\binom{7}{3}=35$ comités posibles solo de mujeres sobre $\\binom{12}{3}=220$ comités totales.",
-    "feedback_incorrect": [
-      null,
-      "Esa fracción compara personas individuales, no cuenta las formas de armar el comité completo.",
-      "Ese numerador no corresponde a ninguna forma válida de elegir 3 personas.",
-      "Ese numerador corresponde a $\\binom{7}{2}$, no a elegir las 3 personas del comité entre las mujeres."
-    ],
-    "explanation": "Cuando se elige un subconjunto de personas sin importar el orden, favorables y posibles se cuentan con **combinaciones**.\n\nLos comités posibles son $\\binom{12}{3}=220$, y los favorables (comités de solo mujeres) son $\\binom{7}{3}=35$:\n$$P(\\text{solo mujeres}) = \\frac{35}{220}$$\nLa confusión típica es comparar la cantidad de mujeres con el total de personas ($7/12$) en vez de contar las combinaciones completas de 3 personas.",
+    "explanation": "Cuando se extraen varios elementos sin reposición y el orden no importa, favorables y posibles se cuentan con **combinaciones**.\n\nLos casos posibles son todas las formas de elegir 2 bolas de las 10 totales, $\\binom{10}{2}=45$, y los favorables son las formas de elegir 2 entre las 4 rojas, $\\binom{4}{2}=6$:\n$$P(\\text{ambas rojas}) = \\frac{6}{45}$$\nComparar la cantidad de bolas rojas con el total, en vez de contar las combinaciones completas, es una simplificación que no representa el conteo real.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -41,22 +18,17 @@
     "tags": ["resl-con-combinaciones"]
   },
   {
-    "question": "En una caja hay 10 bombillas, de las cuales 2 están fundidas. Se eligen 3 bombillas al azar.\n\n¿Cuál es la probabilidad de que al menos una esté fundida?",
-    "options": [
-      "$1-\\dfrac{\\binom{8}{3}}{\\binom{10}{3}}$",
-      "$\\dfrac{\\binom{2}{3}}{\\binom{10}{3}}$",
-      "$\\dfrac{2}{10}$",
-      "$\\dfrac{\\binom{8}{3}}{\\binom{10}{3}}$"
-    ],
-    "correct_index": 0,
-    "feedback_correct": "Al menos una fundida es el complemento de ninguna fundida (las 3 sanas).",
+    "question": "En una caja hay 12 piezas, de las cuales 3 están defectuosas. Se eligen 2 piezas al azar.\n\n¿Cuál es la probabilidad de que al menos una esté defectuosa?",
+    "options": ["$36/66$", "$1-36/66$", "$3/12$", "$1-3/12$"],
+    "correct_index": 1,
+    "feedback_correct": "Al menos una defectuosa es el complemento de que ninguna lo esté.",
     "feedback_incorrect": [
+      "Ese cociente es la probabilidad de que ninguna esté defectuosa, el evento complementario al pedido.",
       null,
-      "$\\binom{2}{3}$ no existe como conteo válido: no se pueden elegir 3 bombillas entre solo 2 fundidas.",
-      "Esa fracción compara cantidades individuales, no formas de elegir 3 bombillas.",
-      "Ese cociente es la probabilidad de que NINGUNA esté fundida, el evento complementario al pedido."
+      "Esa fracción compara cantidades individuales de piezas, no formas de elegir 2 a la vez.",
+      "Ese resto no descuenta la probabilidad correcta del evento sin ninguna defectuosa."
     ],
-    "explanation": "\"Al menos una\" conviene resolverlo con el **complemento**: se calcula la probabilidad de que ninguna esté fundida (las 3 elegidas son sanas) y se resta de $1$.\n\nHay $\\binom{8}{3}$ formas de elegir 3 bombillas sanas entre las 8 que no están fundidas, sobre $\\binom{10}{3}$ formas totales:\n$$P(\\text{al menos una fundida}) = 1 - \\frac{\\binom{8}{3}}{\\binom{10}{3}}$$\nLa confusión típica es intentar contar directamente los casos con 1, 2 o 3 fundidas por separado, un camino mucho más largo que el complemento.",
+    "explanation": "Al menos una conviene resolverlo con el **complemento**: se calcula la probabilidad de que ninguna esté defectuosa y se resta de 1.\n\nHay $\\binom{9}{2}=36$ formas de elegir 2 piezas sanas entre las 9 sin defecto, sobre $\\binom{12}{2}=66$ formas totales.\n\nLa probabilidad de que al menos una esté defectuosa es:\n$$1 - \\frac{36}{66}$$\nIntentar contar directamente los casos con 1 o 2 piezas defectuosas por separado es un camino mucho más largo que el complemento.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -64,26 +36,39 @@
     "tags": ["resl-con-complemento"]
   },
   {
-    "question": "Se lanzan dos dados de 6 caras y se observa la suma de los valores.\n\n¿Cuál es la probabilidad de obtener una suma igual a 7?",
-    "options": [
-      "$\\dfrac{1}{6}$",
-      "$\\dfrac{6}{36}$",
-      "$\\dfrac{1}{12}$",
-      "$\\dfrac{7}{36}$"
-    ],
-    "correct_index": 0,
-    "feedback_correct": "6 pares $(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)$ sobre 36 pares posibles = $1/6$.",
+    "question": "Se lanzan dos dados de 6 caras y se observa la suma de los valores.\n\n¿Cuál es la probabilidad de obtener una suma igual a 8?",
+    "options": ["$1/6$", "$4/36$", "$5/36$", "$8/36$"],
+    "correct_index": 2,
+    "feedback_correct": "5 pares $(2,6),(3,5),(4,4),(5,3),(6,2)$ dan suma 8, sobre 36 pares posibles.",
     "feedback_incorrect": [
+      "Ese valor corresponde a la probabilidad de la suma 7, no de la suma 8.",
+      "Ese resultado sale de contar solo algunos de los pares que suman 8, faltan pares por incluir.",
       null,
-      "Es la misma probabilidad ($6/36 = 1/6$), pero mirá si podés simplificar la fracción como pide la respuesta.",
-      "Ese resultado sale de contar solo 3 pares (no considerar $(a,b)$ y $(b,a)$ como distintos).",
-      "Estás poniendo el valor 7 en el numerador; los favorables son los PARES cuya suma da 7, no el número 7."
+      "Estás poniendo el valor 8 en el numerador, los favorables son los pares cuya suma da 8, no el número 8."
     ],
-    "explanation": "La **regla de Laplace** exige contar bien casos favorables y posibles. Con dos dados hay $6 \\times 6 = 36$ pares ordenados posibles, todos equiprobables.\n\nLos pares que suman 7 son:\n$$\\begin{aligned} (1,6),\\ (2,5),\\ (3,4),\\\\ (4,3),\\ (5,2),\\ (6,1) \\end{aligned}$$\nSon 6 pares favorables, así que:\n$$P(\\text{suma}=7) = \\frac{6}{36} = \\frac{1}{6}$$\nLa confusión típica es contar solo las combinaciones no ordenadas y obtener 3 pares; en dos dados distinguibles $(1,6)$ y $(6,1)$ son resultados distintos del espacio muestral.",
+    "explanation": "La **regla de Laplace** exige contar bien los casos favorables y posibles. Con dos dados hay $6\\times 6=36$ pares ordenados posibles, todos equiprobables.\n\nLos pares que suman 8 son:\n$$\\begin{aligned} (2,6),\\ (3,5),\\ (4,4),\\\\ (5,3),\\ (6,2) \\end{aligned}$$\nSon 5 pares favorables, así que:\n$$P(\\text{suma}=8) = \\frac{5}{36}$$\nContar solo las combinaciones no ordenadas y perder pares como $(6,2)$ separado de $(2,6)$ es un desliz común, en dos dados distinguibles ambos son resultados distintos.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
     "tags": ["resl-suma-valores"]
+  },
+  {
+    "question": "Se extrae una carta de un mazo español de 40 cartas.\n\n¿Cuál es la probabilidad de que sea un as de cualquier palo?",
+    "options": ["$1/40$", "$10/40$", "$4/10$", "$4/40$"],
+    "correct_index": 3,
+    "feedback_correct": "Hay 4 ases entre las 40 cartas, uno por cada palo.",
+    "feedback_incorrect": [
+      "Ese numerador cuenta un solo as, cuando hay uno por cada uno de los 4 palos.",
+      "Ese numerador no corresponde a la cantidad de ases del mazo.",
+      "Estás usando un denominador que no es el total de cartas del mazo.",
+      null
+    ],
+    "explanation": "Con la **regla de Laplace**, la probabilidad se calcula contando los casos favorables sobre los posibles.\n\nEn un mazo de 40 cartas hay un as por cada uno de los 4 palos, así que hay 4 casos favorables sobre 40 posibles:\n$$P(\\text{as}) = \\frac{4}{40}$$\nSimplificando, esa fracción equivale a $1/10$, aunque cualquiera de las dos formas es una respuesta válida.\n\nContar solo un as en vez de los 4 palos es un desliz común al no recorrer el mazo completo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-conteo-simple"]
   }
 ]

@@ -1,6 +1,6 @@
 [
   {
-    "question": "Sea $X$ una variable aleatoria continua con densidad\n$$f(x) = \\frac{1}{4} \\quad \\text{para } 0 \\leq x \\leq 4$$\ny $0$ fuera de ese intervalo.\n\n¿Cuánto vale $F(3) = P(X \\leq 3)$?",
+    "question": "Un colectivo llega en un instante aleatorio dentro de una franja horaria de $4$ minutos, con densidad:\n$$f(x) = \\frac{1}{4} \\quad \\text{para } 0 \\leq x \\leq 4$$\nFuera de ese intervalo, $f(x)=0$.\n\n¿Cuánto vale $F(3) = P(X \\leq 3)$?",
     "options": [
       "$\\dfrac{1}{4}$",
       "$\\dfrac{1}{2}$",
@@ -8,17 +8,57 @@
       "$1$"
     ],
     "correct_index": 2,
-    "feedback_correct": "$F(3) = \\int_0^3 \\frac{1}{4}\\,dx = 3/4$.",
+    "feedback_correct": "$F(3)$ es el área de un rectángulo de base 3 y altura $1/4$: $3\\cdot\\frac14=\\frac34$.",
     "feedback_incorrect": [
       "Ese es el valor de la densidad $f(3)$, no la acumulada hasta 3.",
       "Ese es $F(2)$, la acumulada hasta la mitad del intervalo, no hasta 3.",
       null,
       "Ese es $F(4)$, cuando ya se acumula toda la probabilidad. En $x=3$ falta acumular el último cuarto."
     ],
-    "explanation": "La **función de distribución acumulada** de una variable continua se obtiene integrando la densidad desde $-\\infty$ hasta $x$:\n$$F(x) = \\int_{-\\infty}^{x} f(t)\\,dt$$\n\nPara la densidad uniforme sobre $[0, 4]$:\n$$F(3) = \\int_0^3 \\frac{1}{4}\\,dt = \\frac{3}{4}$$\n\nLa confusión típica es reportar el valor de la densidad ($f(3) = 1/4$) en lugar del área acumulada: recordá que la acumulada es la que integra, no la altura puntual de la densidad.",
+    "explanation": "La **función de distribución acumulada** de una variable continua es el área bajo la densidad desde el extremo izquierdo del dominio hasta el punto $x$.\n\nPara esta densidad uniforme, el área hasta $x=3$ es un rectángulo de base 3 y altura $1/4$:\n$$F(3) = 3 \\cdot \\frac14 = \\frac34$$\nReportar el valor de la densidad $f(3)=1/4$ en lugar del área acumulada confunde la altura de la curva con el área que encierra hasta ese punto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": ["resl-acumulada-desde-densidad"]
+  },
+  {
+    "question": "El tiempo que un cliente espera en la fila de un supermercado tiene función de distribución acumulada $F(x)$.\n\nSe sabe que $F(2)=0{,}3$ y $F(6)=0{,}9$.\n\nCalculá $P(2 < X \\leq 6)$, la probabilidad de esperar entre 2 y 6 minutos.",
+    "options": ["$0{,}3$", "$0{,}6$", "$0{,}9$", "$1{,}2$"],
+    "correct_index": 1,
+    "feedback_correct": "Es la diferencia $F(6)-F(2)$, que da $0{,}6$.",
+    "feedback_incorrect": [
+      "Ese es $F(2)$, la acumulada hasta 2, no la probabilidad del intervalo.",
+      null,
+      "Ese es $F(6)$, la acumulada hasta 6, sin descontar la parte anterior a 2.",
+      "Estás sumando $F(2)+F(6)$; para un intervalo hay que restar las acumuladas, no sumarlas."
+    ],
+    "explanation": "La probabilidad de un intervalo se calcula como diferencia de la **función de distribución acumulada** en los extremos:\n$$P(a < X \\leq b) = F(b) - F(a)$$\nCon los valores dados:\n$$P(2 < X \\leq 6) = 0{,}9 - 0{,}3 = 0{,}6$$\nSumar los dos valores de $F$ en vez de restarlos cuenta dos veces la parte que ambos comparten, en lugar de aislar solo el tramo pedido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": ["resl-diferencia-acumulada"]
+  },
+  {
+    "question": "La cantidad de clientes que llegan a una caja durante un minuto tiene función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 0{,}2 \\\\ p(1) &= 0{,}5 \\\\ p(2) &= 0{,}3 \\end{aligned}$$\n¿Cuánto vale $F(1) = P(X \\leq 1)$?",
+    "options": ["$0{,}2$", "$0{,}5$", "$0{,}7$", "$1$"],
+    "correct_index": 2,
+    "feedback_correct": "Es la suma $p(0)+p(1)$, que da $0{,}7$.",
+    "feedback_incorrect": [
+      "Ese es solo $p(0)$, falta sumar $p(1)$.",
+      "Ese es solo $p(1)$, falta sumar $p(0)$.",
+      null,
+      "Esa es la suma de las tres probabilidades, pero $F(1)$ no incluye $p(2)$."
+    ],
+    "explanation": "La **función de distribución acumulada** de una variable discreta suma todos los valores de la puntual hasta el punto pedido inclusive:\n$$F(x) = \\sum_{k \\leq x} p(k)$$\nPara $F(1)$ se suman los valores hasta $x=1$ inclusive:\n$$F(1) = 0{,}2 + 0{,}5 = 0{,}7$$\nQuedarse con un único valor puntual en vez de sumar todos los anteriores hasta $x$ inclusive deja afuera parte de la probabilidad acumulada real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": ["resl-acumulada-desde-puntual"]
   }
 ]

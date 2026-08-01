@@ -1,6 +1,6 @@
 [
   {
-    "question": "Considerá el siguiente problema: se quiere contar de cuántas maneras se pueden ordenar en fila las 5 personas de un equipo de fútbol sala para una foto.\n\n¿Qué técnica de conteo corresponde?",
+    "question": "Se quiere contar de cuántas maneras se pueden ordenar en fila las 5 personas de un equipo de fútbol sala.\n\nEs para sacarse una foto.\n\n¿Qué técnica de conteo corresponde?",
     "options": [
       "Permutación de 5 elementos.",
       "Combinación de 5 tomados de 5.",
@@ -13,7 +13,7 @@
       "En combinación el orden NO importa; acá dos fotos con las mismas personas en distinto orden cuentan distinto.",
       "En variación se elige un subconjunto ordenado; acá se usan todas las personas, no solo 3."
     ],
-    "explanation": "Una **permutación** cuenta los ordenamientos posibles de un conjunto de elementos distintos cuando se usan todos y el orden importa:\n$$P_n = n!$$\nCon 5 personas:\n$$5! = 120$$\nEl resultado es 120.\n\nEn una foto del equipo, cada disposición es distinta si cambia el orden, así que hay 120 fotos distintas.\n\nLa confusión típica es confundir con combinaciones: el criterio decisivo es preguntarse si intercambiar dos elementos produce un resultado distinto. Si sí, hay orden y toca permutar o variar.",
+    "explanation": "Una **permutación** cuenta los ordenamientos posibles de un conjunto de elementos distintos cuando se usan todos y el orden importa:\n$$P_n = n!$$\nCon 5 personas:\n$$5! = 120$$\nEl resultado es 120.\n\nEn una foto del equipo, cada disposición es distinta si cambia el orden, así que hay 120 fotos distintas.\n\nConfundir esto con combinaciones es fácil sin revisar el criterio decisivo, que es preguntarse si intercambiar dos elementos produce un resultado distinto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -21,7 +21,7 @@
     "tags": ["reconocer-permutacion-simple"]
   },
   {
-    "question": "Se quiere contar de cuántas formas distintas se pueden reordenar todas las letras de la palabra **ANANA**, donde la A se repite 3 veces y la N se repite 2 veces.\n\n¿Qué técnica de conteo corresponde?",
+    "question": "Se quiere contar de cuántas formas distintas se pueden reordenar todas las letras de la palabra **ANANA**.\n\nLa A se repite 3 veces y la N se repite 2 veces.\n\n¿Qué técnica de conteo corresponde?",
     "options": [
       "Permutación con repetición.",
       "Permutación simple, sin repetición.",
@@ -34,7 +34,7 @@
       "Tratar todas las letras como distintas cuenta de más: intercambiar dos A entre sí no genera una palabra diferente.",
       "Acá se usan todas las letras de la palabra, no se elige un subconjunto menor."
     ],
-    "explanation": "Cuando se ordenan elementos con grupos indistinguibles, corresponde una **permutación con repetición**: se divide el total de reordenamientos por el factorial de cada grupo repetido.\n\nEsa división es necesaria porque tratar los elementos repetidos como distintos multiplica cada arreglo real por todas las formas de reordenarlos internamente, que en realidad no cambian la palabra.\n\nSi las 3 A fueran distintas entre sí, habría 3! formas de ordenarlas sin que la palabra cambie; lo mismo pasa con las 2 N, que aportan 2! órdenes internos idénticos.\n\nEn ANANA hay 5 letras, con la A repetida 3 veces y la N repetida 2 veces, así que el conteo es:\n$$\\dfrac{5!}{3!\\,2!}$$\nEse cociente da la cantidad de anagramas distintos.\n\nLa confusión típica es tratar las letras repetidas como si fueran distinguibles, lo que sobrecuenta reordenamientos que en realidad forman la misma palabra.",
+    "explanation": "Cuando se ordenan elementos con grupos indistinguibles, corresponde una **permutación con repetición**: se divide el total de reordenamientos por el factorial de cada grupo repetido.\n\nEsa división es necesaria porque tratar los elementos repetidos como distintos multiplica cada arreglo real por todas las formas de reordenarlos internamente, que en realidad no cambian la palabra.\n\nSi las 3 A fueran distintas entre sí, habría 3! formas de ordenarlas sin que la palabra cambie; lo mismo pasa con las 2 N, que aportan 2! órdenes internos idénticos.\n\nEn ANANA hay 5 letras, con la A repetida 3 veces y la N repetida 2 veces, así que el conteo es:\n$$\\dfrac{5!}{3!\\,2!}$$\nEse cociente da la cantidad de anagramas distintos.\n\nTratar las letras repetidas como si fueran distinguibles sobrecuenta reordenamientos que en realidad forman la misma palabra.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -42,9 +42,9 @@
     "tags": ["reconocer-permutacion-repeticion"]
   },
   {
-    "question": "En una oficina de 8 empleados se quiere elegir y ordenar solo a 3 de ellos para ocupar 3 puestos distintos de un podio de reconocimiento.\n\n¿Corresponde tratar este problema como una permutación simple de los 8 empleados?",
+    "question": "En una oficina de 8 empleados se quiere elegir y ordenar solo a 3 de ellos.\n\nEs para ocupar 3 puestos distintos de un podio de reconocimiento.\n\n¿Corresponde tratar este problema como una permutación simple de los 8 empleados?",
     "options": [
-      "No, porque no se usan los 8 elementos, solo un subconjunto de 3.",
+      "No, porque solo se usan 3 de los 8 elementos.",
       "Sí, porque el orden de los puestos importa."
     ],
     "correct_index": 0,
@@ -61,9 +61,9 @@
     "tags": ["distractor-variacion"]
   },
   {
-    "question": "Se quiere formar una fila con las 6 personas de un grupo familiar para sacarse una foto, donde cada posición en la fila es un lugar distinto.\n\n¿Corresponde tratar este problema como una combinación de las 6 personas?",
+    "question": "Se quiere formar una fila con las 6 personas de un grupo familiar para sacarse una foto.\n\nCada posición en la fila es un lugar distinto.\n\n¿Corresponde tratar este problema como una combinación de las 6 personas?",
     "options": [
-      "No, porque el orden en la fila sí importa.",
+      "No, porque el orden de las personas en la fila sí importa.",
       "Sí, porque una fila es un subconjunto sin roles definidos."
     ],
     "correct_index": 0,

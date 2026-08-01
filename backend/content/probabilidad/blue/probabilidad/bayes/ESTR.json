@@ -1,65 +1,44 @@
 [
   {
-    "question": "Un test médico da positivo o negativo. Se conocen:\n\n$P(\\text{enfermo}) = 0{,}01$\n$P(\\text{positivo}|\\text{enfermo}) = 0{,}95$\n$P(\\text{positivo}|\\text{sano}) = 0{,}05$\n\nSe quiere saber la probabilidad de estar enfermo dado que el test dio positivo. ¿Qué estrategia se aplica?",
+    "question": "En un test diagnóstico se sabe que el 2% de la población tiene cierta enfermedad.\n\nEntre quienes tienen la enfermedad, el test da positivo el 90% de las veces.\n\nSe quiere calcular la probabilidad de tener la enfermedad sabiendo que el test dio positivo.\n\n¿Qué rol cumple el dato de que el test da positivo el 90% de las veces entre los enfermos?",
     "options": [
-      "Regla de Laplace: casos favorables sobre posibles.",
-      "Teorema de Bayes: invertir el condicional usando la a priori.",
-      "Independencia: multiplicar las probabilidades individuales."
+      "La probabilidad a priori.",
+      "La verosimilitud del test.",
+      "La probabilidad a posteriori."
     ],
     "correct_index": 1,
-    "feedback_correct": "El problema pide invertir un condicional conocido, exactamente lo que hace Bayes.",
+    "feedback_correct": "Es la probabilidad de observar la evidencia dado que la hipótesis es cierta: la verosimilitud.",
     "feedback_incorrect": [
-      "Laplace supone equiprobabilidad y no ayuda a invertir un condicional dado.",
+      "La a priori es la probabilidad de la enfermedad antes de conocer el resultado del test, no la tasa de acierto del test.",
       null,
-      "No corresponde independencia: precisamente el interés está en cómo la evidencia (test positivo) actualiza la probabilidad de estar enfermo."
+      "La a posteriori es justamente lo que se busca calcular, no un dato que ya viene dado."
     ],
-    "explanation": "El **teorema de Bayes** invierte un condicional conocido usando la probabilidad a priori y la probabilidad total de la evidencia:\n$$P(E|+) = \\frac{P(+|E) \\cdot P(E)}{P(+)}$$\nAcá $P(+) = P(+|E) \\cdot P(E) + P(+|S) \\cdot P(S) = 0{,}95 \\cdot 0{,}01 + 0{,}05 \\cdot 0{,}99 \\approx 0{,}0590$, y entonces:\n$$P(E|+) = \\frac{0{,}0095}{0{,}0590} \\approx 0{,}161$$\nLa confusión típica es asumir que el test positivo implica alta probabilidad de enfermedad; cuando la a priori $P(E)$ es muy baja, la evidencia positiva sube la probabilidad pero no la lleva cerca de 1.",
+    "explanation": "En el **teorema de Bayes**, cada dato cumple un rol lógico distinto.\n\nLa a priori es la probabilidad de la hipótesis antes de la evidencia, y la verosimilitud es la probabilidad de la evidencia dado que la hipótesis es cierta.\n\nLa a posteriori es la probabilidad de la hipótesis ya actualizada después de la evidencia.\n\nAcá el dato de que el test da positivo el 90% de las veces entre los enfermos describe qué tan probable es la evidencia si la hipótesis, tener la enfermedad, ya es cierta:\n$$P(\\text{positivo} \\mid \\text{enfermo})$$\nEse es exactamente el rol de la verosimilitud.\n\nConfundir la verosimilitud con la a priori invierte la dirección del condicional: la a priori nunca depende de un resultado de test, describe la población general antes de cualquier evidencia.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["reconocer-bayes"]
+    "tags": ["estr-direccion-condicional-bayes"]
   },
   {
-    "question": "Se sabe que $P(\\text{positivo}|\\text{enfermo})=0{,}9$ y se pregunta directamente por esa misma probabilidad: la chance de que el test dé positivo sabiendo que el paciente está enfermo.\n\n¿Qué estrategia corresponde?",
+    "question": "En un test diagnóstico se sabe que, entre los enfermos, el test da positivo el 90% de las veces.\n\nEntre los sanos, en cambio, da positivo el 5% de las veces.\n\nSe quiere calcular la probabilidad de tener la enfermedad sabiendo que el test dio positivo.\n\n¿Qué dato falta para poder aplicar el teorema de Bayes?",
     "options": [
-      "Usar directamente el dato $P(\\text{positivo}|\\text{enfermo})=0{,}9$, sin aplicar Bayes.",
-      "Aplicar el teorema de Bayes para invertir el condicional.",
-      "Calcular primero $P(\\text{positivo})$ con probabilidad total antes de responder."
+      "La probabilidad a priori de la enfermedad.",
+      "La probabilidad de que el test dé negativo en un sano.",
+      "La cantidad total de personas testeadas."
     ],
     "correct_index": 0,
-    "feedback_correct": "La pregunta pide la misma dirección del dato: no hace falta invertir nada.",
+    "feedback_correct": "Sin la prevalencia de la enfermedad en la población, no se puede ponderar la verosimilitud para armar la fórmula de Bayes.",
     "feedback_incorrect": [
       null,
-      "Bayes invierte la dirección del condicional; acá la pregunta ya está en la misma dirección que el dato, no hace falta invertir.",
-      "No hace falta calcular la probabilidad total de la evidencia si no se necesita invertir el condicional."
+      "Ese dato se deduce directamente del complemento de la tasa de falsos positivos, no hace falta que venga dado.",
+      "La cantidad total de personas no es necesaria si se trabaja con probabilidades y proporciones, no con conteos absolutos."
     ],
-    "explanation": "El **teorema de Bayes** solo es necesario cuando el dato viene en una dirección y se pide la dirección contraria. Si la pregunta pide exactamente lo mismo que ya está dado, no hace falta ningún cálculo adicional.\n\nAcá el dato es $P(\\text{positivo}|\\text{enfermo})$ y la pregunta pide justamente esa misma probabilidad, así que la respuesta es directamente $0{,}9$.\n\nLa confusión típica es aplicar Bayes automáticamente ante cualquier problema con condicionales, sin verificar primero si el dato y la pregunta ya apuntan en la misma dirección.",
+    "explanation": "Para aplicar el **teorema de Bayes** hace falta conocer la probabilidad a priori de la hipótesis, además de la verosimilitud de la evidencia bajo cada escenario de la partición.\n\nAcá ya se conocen las dos verosimilitudes, la tasa de positivos entre enfermos y entre sanos.\n\nFalta la probabilidad a priori de tener la enfermedad en la población general, sin la cual no se puede ponderar cada escenario.\n\nAsumir una prevalencia arbitraria o equiprobable cuando el enunciado no la da lleva a un resultado que no corresponde a la población real que describe el problema.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["distractor-condicional-directa"]
-  },
-  {
-    "question": "Para calcular $P(\\text{enfermo}|\\text{positivo})$ con el teorema de Bayes, se necesita el denominador $P(\\text{positivo})$.\n\n¿Cómo se obtiene ese denominador?",
-    "options": [
-      "Con el teorema de la probabilidad total, sumando sobre enfermo y sano.",
-      "Es un dato que siempre viene directamente en el enunciado.",
-      "Se calcula como el complemento de $P(\\text{enfermo})$."
-    ],
-    "correct_index": 0,
-    "feedback_correct": "El denominador de Bayes es la probabilidad total de la evidencia, sumando todos los escenarios posibles.",
-    "feedback_incorrect": [
-      null,
-      "A veces el enunciado da $P(\\text{positivo})$ directamente, pero en general hay que calcularlo combinando los escenarios con probabilidad total.",
-      "El complemento de $P(\\text{enfermo})$ es $P(\\text{sano})$, no la probabilidad de que el test dé positivo."
-    ],
-    "explanation": "En el **teorema de Bayes**, el denominador $P(B)$ representa la probabilidad total de la evidencia, considerando todos los escenarios posibles que podrían producirla:\n$$P(B) = P(B|\\text{enfermo})P(\\text{enfermo}) + P(B|\\text{sano})P(\\text{sano})$$\nSe calcula exactamente con el teorema de la probabilidad total, combinando cada escenario con su probabilidad condicional de dar esa evidencia.\n\nLa confusión típica es tratar el denominador como un dato dado sin más, en vez de reconocer que casi siempre hay que construirlo combinando los escenarios de la partición.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": ["reconocer-denominador-total"]
+    "tags": ["estr-identificar-dato-faltante"]
   }
 ]

@@ -66,6 +66,7 @@ Concepto: el **espacio muestral** $\Omega$, el **evento** ($A \subseteq \Omega$)
 - **El distractor de independencia nunca nombra la palabra**: si se usa como confusión en `mutuamente-excluyentes`, se describe la situación sin adelantar el término técnico, que se define recién en `independencia`.
 - **Complemento siempre sobre $\Omega$ explícito**: el enunciado enumera o define $\Omega$ antes de preguntar por el complemento de un evento.
 - **Sin aclaraciones entre paréntesis en ningún campo del ejercicio** (regla crítica del `authoring-context.md`): toda aclaración va como oración propia en la prosa, nunca `(así)` al lado de un término u opción.
+- **Párrafo de intuición (regla 44):** aunque este topic es puramente definicional, la `explanation` de CLSF no se queda solo en "sí/no es evento válido"; agrega una oración de por qué el criterio (subconjunto de $\Omega$, intersección vacía, etc.) es el que decide.
 
 ## Checklist del topic
 

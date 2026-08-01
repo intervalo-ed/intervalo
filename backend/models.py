@@ -323,6 +323,11 @@ class Exercise(Base):
     feedback_incorrect = Column(Text, nullable=False)
     graph_fn = Column(String(500), nullable=True)
     graph_view = Column(String(100), nullable=True)
+    graph_shade = Column(String(100), nullable=True)
+    # true desactiva el aspecto 1:1 forzado de Mafs (solo probabilidad, ver
+    # authoring-context.md sección Gráficos); ausente/false = comportamiento
+    # actual sin cambios.
+    graph_free_aspect = Column(Boolean, nullable=True)
     explanation = Column(Text, nullable=True)
     tags = Column(Text, nullable=True)
     # Estado editorial del contenido (viene del JSON de autoría, ver

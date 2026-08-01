@@ -10,15 +10,61 @@
     "correct_index": 1,
     "feedback_correct": "Definición estándar de la acumulada.",
     "feedback_incorrect": [
-      "Esa es la puntual $p(x)$ (para discretas) o $0$ (para continuas), no la acumulada.",
+      "Esa es la puntual, no la acumulada: mide solo la probabilidad en el punto $x$, no la acumulada hasta ahí.",
       null,
       "Ese es el complemento de la acumulada: $P(X > x) = 1 - F(x)$.",
       "Ese es un valor fijo evaluado en 0, no una función que dependa de $x$."
     ],
-    "explanation": "La **función de distribución acumulada** de una variable aleatoria mide la probabilidad de que la variable tome un valor menor o igual a un umbral $x$:\n$$F(x) = P(X \\leq x)$$\n\nEs una función no decreciente que arranca en 0 cuando $x \\to -\\infty$ y tiende a 1 cuando $x \\to \\infty$.\n\nUna confusión frecuente es leer $F(x)$ como $P(X = x)$: la acumulada suma (o integra) toda la probabilidad hasta $x$ inclusive, no solo la puntual en $x$.",
+    "explanation": "La **función de distribución acumulada** de una variable aleatoria mide la probabilidad de que la variable tome un valor menor o igual a un umbral $x$:\n$$F(x) = P(X \\leq x)$$\nEs una función no decreciente que arranca en 0 en los valores más chicos y tiende a 1 en los más grandes.\n\nLeer $F(x)$ como $P(X=x)$ deja afuera la mayor parte de la probabilidad, que se acumula sumando o integrando todo lo anterior hasta ese punto inclusive.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": ["definicion-acumulada"]
+  },
+  {
+    "question": "Sea $X$ una variable aleatoria con función de distribución acumulada $F(x)$.\n\n¿Cómo se expresa $P(a < X \\leq b)$ en términos de $F$?",
+    "options": [
+      "$F(b) - F(a)$",
+      "$F(b) + F(a)$",
+      "$F(a) - F(b)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La probabilidad de un intervalo es la diferencia de las acumuladas en sus extremos.",
+    "feedback_incorrect": [
+      null,
+      "Sumar las acumuladas no da la probabilidad del intervalo, hay que restar.",
+      "Esa resta da un valor negativo, porque $F$ es no decreciente y $F(b) \\geq F(a)$."
+    ],
+    "explanation": "La **función de distribución acumulada** permite calcular la probabilidad de cualquier intervalo como una diferencia de valores de $F$:\n$$P(a < X \\leq b) = F(b) - F(a)$$\nEsa resta funciona porque $F(b)$ ya incluye la probabilidad acumulada hasta el extremo inferior, así que descontar $F(a)$ deja solo la parte del intervalo pedido.\n\nSumar las dos acumuladas en vez de restarlas cuenta dos veces la porción común a ambas, en lugar de aislar el tramo del medio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": ["propiedad-diferencia"]
+  },
+  {
+    "question": "Sea $F(x)$ la función de distribución acumulada de una variable aleatoria $X$.\n\n¿Cuál de las siguientes afirmaciones es siempre verdadera?",
+    "options": [
+      "$F$ es no decreciente y $F(x) \\in [0,1]$ para todo $x$",
+      "$F$ es siempre decreciente",
+      "$F(x)$ puede superar $1$ si $X$ toma valores grandes"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$F$ nunca decrece y siempre toma valores entre 0 y 1.",
+    "feedback_incorrect": [
+      null,
+      "$F$ acumula probabilidad a medida que $x$ crece, por eso nunca decrece.",
+      "$F(x)$ es una probabilidad acumulada, nunca puede superar 1 sin importar cuán grande sea $x$."
+    ],
+    "explanation": "Toda **función de distribución acumulada** cumple dos propiedades generales sobre todo su dominio:\n$$F \\text{ no decreciente}, \\qquad F(x) \\in [0,1] \\text{ para todo } x$$\nAdemás, tiende a 0 cuando $x \\to -\\infty$ y a 1 cuando $x \\to \\infty$, porque en esos extremos acumula nada o toda la probabilidad disponible.\n\nCreer que $F$ puede decrecer o superar 1 rompe su interpretación como probabilidad acumulada, que solo puede crecer o mantenerse igual a medida que se suma más dominio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": ["propiedades-generales"]
   }
 ]

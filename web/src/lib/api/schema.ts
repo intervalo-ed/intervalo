@@ -1055,6 +1055,10 @@ export interface components {
             graph_fn: string;
             /** Graph View */
             graph_view?: unknown[] | null;
+            /** Graph Shade */
+            graph_shade?: unknown[] | null;
+            /** Graph Free Aspect */
+            graph_free_aspect?: boolean | null;
             /** Feedback Correct */
             feedback_correct: string;
             /** Feedback Incorrect */
