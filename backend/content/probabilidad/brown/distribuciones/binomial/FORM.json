@@ -1,24 +1,71 @@
 [
   {
-    "question": "Sea $X \\sim Bin(n, p)$.\n\n¿Cuál es la fórmula de $P(X=k)$?",
+    "question": "Una fábrica de bombitas de luz produce en tandas de 25 unidades.\n\nCada bombita tiene una probabilidad de $0{,}04$ de salir defectuosa, en forma independiente de las demás.\n\n¿Cuáles son los parámetros $n$ y $p$ de la binomial que modela la cantidad de bombitas defectuosas por tanda?",
     "options": [
-      "$p^{k}(1-p)^{n-k}$",
-      "$\\binom{n}{k} p^{k}(1-p)^{n-k}$",
-      "$\\dfrac{e^{-\\lambda}\\lambda^{k}}{k!}$",
-      "$(1-p)^{k-1} p$"
+      "$n=25$, $p=0{,}04$",
+      "$n=25$, $p=0{,}96$",
+      "$n=0{,}04$, $p=25$",
+      "$n=25$, $p=1/25$"
     ],
-    "correct_index": 1,
-    "feedback_correct": "Fórmula estándar de la binomial.",
+    "correct_index": 0,
+    "feedback_correct": "$n=25$ bombitas por tanda, $p=0{,}04$ la probabilidad de defecto de cada una.",
     "feedback_incorrect": [
-      "Ese es solo el producto de las probabilidades de una secuencia específica; falta $\\binom{n}{k}$ que cuenta cuántas secuencias tienen $k$ éxitos.",
       null,
-      "Esa es la fórmula de Poisson con parámetro $\\lambda$, no de la binomial.",
-      "Esa es la puntual de la geométrica (cantidad de ensayos hasta el primer éxito)."
+      "Ese es el complemento: $0{,}96$ es la probabilidad de que la bombita salga bien, no de que salga defectuosa.",
+      "Los roles están invertidos: $n$ es la cantidad de bombitas por tanda, $p$ la probabilidad de defecto de cada una.",
+      "Esa fracción no representa la probabilidad de defecto dada en el enunciado, que ya viene expresada como $0{,}04$."
     ],
-    "explanation": "La **binomial** cuenta las formas de ubicar $k$ éxitos en $n$ ensayos y las combina con la probabilidad de cada secuencia particular:\n$$P(X=k) = \\binom{n}{k} p^{k}(1-p)^{n-k}$$\n\nCada elemento tiene rol propio: $\\binom{n}{k}$ cuenta ubicaciones posibles, $p^{k}$ pesa los éxitos y $(1-p)^{n-k}$ pesa los fracasos.\n\nLa confusión típica es olvidar el $\\binom{n}{k}$ y quedarse solo con las probabilidades: sin el coeficiente combinatorio se calcularía la probabilidad de una única secuencia ordenada específica, no la del total de secuencias con $k$ éxitos.",
+    "explanation": "Para armar $X\\sim Bin(n,p)$ hace falta leer dos datos del contexto: cuántos ensayos hay y cuál es la probabilidad de éxito de cada uno.\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá cada tanda tiene $n=25$ bombitas, y cada una sale defectuosa con $p=0{,}04$.\n\nAsí queda definida la binomial de esta tanda.\n\n$n$ siempre corresponde a la cantidad de veces que se repite el experimento, mientras que $p$ es la probabilidad de un resultado puntual en cada repetición.\n\nInvertir esos dos roles arma una binomial con 4% de ensayos y 25 de probabilidad de éxito, un objeto que no tiene sentido como modelo.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["identificar-parametros"]
+  },
+  {
+    "question": "Un estudiante responde al azar 5 preguntas de verdadero o falso de un examen.\n\nCada una tiene probabilidad $0{,}5$ de acertar, en forma independiente.\n\nSea $X$ la cantidad de respuestas correctas. Calculá $P(X=3)$.",
+    "options": [
+      "$\\dfrac{5}{16}$",
+      "$\\dfrac{1}{8}$",
+      "$\\dfrac{1}{32}$",
+      "$\\dfrac{15}{32}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$\\binom{5}{3}(0{,}5)^{3}(0{,}5)^{2}=10\\cdot\\dfrac{1}{32}=\\dfrac{5}{16}$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor corresponde a $(0{,}5)^{3}$ solo, sin multiplicar por $\\binom{5}{3}$, que cuenta cuántos ordenamientos tienen exactamente 3 aciertos.",
+      "Ese valor es $(0{,}5)^{5}$, la probabilidad de una secuencia puntual de 5 respuestas, sin contar cuántas secuencias tienen 3 aciertos.",
+      "Ese valor sale de usar $\\binom{5}{2}$ en vez de $\\binom{5}{3}$, invirtiendo qué cantidad de posiciones se elige."
+    ],
+    "explanation": "Con $X\\sim Bin(n,p)$, la probabilidad puntual es:\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá $n=5$ y $p=0{,}5$, y se pregunta por exactamente 3 aciertos.\n$$P(X=3) = \\binom{5}{3}(0{,}5)^{3}(0{,}5)^{2}$$\nEl coeficiente $\\binom{5}{3}=10$ cuenta de cuántas formas distintas pueden ubicarse los 3 aciertos entre las 5 preguntas.\n\nCon $p=0{,}5$ acertar y fallar valen lo mismo, así que cada una de esas 10 formas pesa igual y el resultado depende solo del coeficiente combinatorio.\n\nEse resultado compara qué tan probable es sacar justo 3 aciertos frente a los demás valores posibles entre 0 y 5.\n\nOlvidar el coeficiente deja solo la probabilidad de una secuencia puntual, no la de las 10 formas que dan exactamente 3 aciertos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-directa"]
+  },
+  {
+    "question": "Una plataforma de streaming falla al cargar un video con probabilidad $0{,}1$, en forma independiente cada vez.\n\nUn usuario mira 40 videos en una semana.\n\nSea $X$ la cantidad de fallas de carga en esa semana.\n\n¿Cuánto valen su esperanza y su varianza?",
+    "options": [
+      "$E[X]=4$, $\\mathrm{Var}(X)=3{,}6$",
+      "$E[X]=4$, $\\mathrm{Var}(X)=4$",
+      "$E[X]=0{,}1$, $\\mathrm{Var}(X)=3{,}6$",
+      "$E[X]=40$, $\\mathrm{Var}(X)=0{,}1$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$E[X]=4$ y $\\mathrm{Var}(X)=3{,}6$.",
+    "feedback_incorrect": [
+      null,
+      "Esa varianza sale de olvidar el factor $(1-p)=0{,}9$ y calcular solo $np$ de nuevo, en vez de $np(1-p)$.",
+      "Ese valor de $E[X]$ es solo $p$, sin multiplicar por la cantidad de videos $n=40$.",
+      "Los roles quedaron invertidos: $n=40$ es la cantidad de videos, no la esperanza, y $p=0{,}1$ es la probabilidad de falla, no la varianza."
+    ],
+    "explanation": "Para $X\\sim Bin(n,p)$, la esperanza y la varianza tienen forma cerrada.\n$$E[X] = np$$\n$$\\mathrm{Var}(X) = np(1-p)$$\nAcá $n=40$ y $p=0{,}1$.\n$$E[X] = 40\\cdot0{,}1 = 4$$\n$$\\mathrm{Var}(X) = 40(0{,}1)(0{,}9) = 3{,}6$$\n$E[X]=4$ no significa que todas las semanas vayan a fallar exactamente 4 cargas.\n\nEs el promedio de fallas si se repitiera esa misma semana de 40 videos muchísimas veces.\n\nLa varianza describe cuánto varía ese número de una semana a otra, no el promedio en sí.\n\nUna varianza de $3{,}6$ dice que hay bastante vaivén semana a semana alrededor del promedio de 4.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["esperanza-varianza"]
   }
 ]

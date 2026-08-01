@@ -1,24 +1,71 @@
 [
   {
-    "question": "Sea $X$ la cantidad de ensayos hasta obtener el $r$-ésimo éxito, con probabilidad $p$ por ensayo.\n\n¿Cuál es la fórmula de $P(X=k)$?",
+    "question": "Una editorial revisa manuscritos recibidos hasta aceptar 4 para publicar.\n\nCada manuscrito se acepta con probabilidad $0{,}05$, en forma independiente.\n\n¿Cuáles son los parámetros $r$ y $p$ de la binomial negativa que modela esta situación?",
     "options": [
-      "$\\binom{k-1}{r-1} p^{r}(1-p)^{k-r}$",
-      "$\\binom{k}{r} p^{r}(1-p)^{k-r}$",
-      "$(1-p)^{k-1} p$",
-      "$\\binom{k-1}{r} p^{k}$"
+      "$r=4$, $p=0{,}05$",
+      "$r=4$, $p=0{,}95$",
+      "$r=0{,}05$, $p=4$",
+      "$r=1$, $p=0{,}05$"
     ],
     "correct_index": 0,
-    "feedback_correct": "Fórmula estándar de la binomial negativa.",
+    "feedback_correct": "$r=4$ aceptaciones buscadas, $p=0{,}05$ la probabilidad de aceptar cada manuscrito.",
     "feedback_incorrect": [
-      "Esa es la binomial: $n$ ensayos totales y se cuentan éxitos, pero acá el último ensayo debe ser éxito, no cualquiera.",
       null,
-      "Esa es la geométrica ($r=1$); acá $r$ éxitos, no uno.",
-      "El exponente de $p$ debe ser $r$ (los éxitos exactos), no $k$."
+      "Ese es el complemento: $0{,}95$ es la probabilidad de rechazar un manuscrito, no de aceptarlo.",
+      "Los roles están invertidos: $r$ es la cantidad de aceptaciones buscadas, $p$ la probabilidad de aceptar cada uno.",
+      "Ese valor de $r$ corresponde a la geométrica, que busca un único éxito; acá se buscan 4."
     ],
-    "explanation": "La **binomial negativa** modela la cantidad de ensayos hasta el $r$-ésimo éxito:\n$$P(X=k) = \\binom{k-1}{r-1} p^{r}(1-p)^{k-r}$$\n\nLa clave está en el coeficiente $\\binom{k-1}{r-1}$: el último ensayo (el $k$-ésimo) debe ser el $r$-ésimo éxito, y los $r-1$ éxitos anteriores pueden estar en cualquiera de los $k-1$ ensayos previos.\n\nLa confusión típica es escribir $\\binom{k}{r}$ (fórmula de la binomial): eso permitiría que el éxito $r$ estuviera en cualquier lugar de los $k$, pero acá el último ensayo tiene que ser éxito por definición del proceso.",
+    "explanation": "Para armar $X\\sim BN(r,p)$ hace falta leer dos datos del contexto.\n$$P(X=k) = \\binom{k-1}{r-1}p^{r}(1-p)^{k-r}$$\nAcá $r=4,\\, p=0{,}05$.\n\nLa cantidad de éxitos que hacen falta acumular y la probabilidad de un resultado puntual son roles distintos, aunque acá ambos números sean chicos.\n\nConfundir esos roles arma una binomial negativa que busca una fracción de éxito, un objeto que no tiene sentido como modelo.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["identificar-parametros"]
+  },
+  {
+    "question": "Un jugador de dardos tira al blanco central hasta acertar 2 veces.\n\nCada tiro acierta con probabilidad $0{,}5$, en forma independiente del resto.\n\nSea $X$ la cantidad de tiros hasta el segundo acierto. Calculá $P(X=4)$.",
+    "options": [
+      "$3/16$",
+      "$1/16$",
+      "$3/8$",
+      "$1/2$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$\\binom{3}{1}(0{,}5)^{2}(0{,}5)^{2}=3(0{,}0625)=3/16$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor es $(0{,}5)^{4}$ solo, sin multiplicar por $\\binom{3}{1}$, que cuenta en qué posición cae el primer acierto entre los primeros 3 tiros.",
+      "Ese valor sale de repartir mal el exponente entre aciertos y fallos.",
+      "Ese valor es $p$ solo, la probabilidad de un único tiro, no de la secuencia completa hasta el cuarto."
+    ],
+    "explanation": "Con $X\\sim BN(r,p)$, la probabilidad puntual es:\n$$P(X=k) = \\binom{k-1}{r-1}p^{r}(1-p)^{k-r}$$\nAcá $r=2,\\, p=0{,}5$ y se pregunta por el cuarto tiro.\n$$P(X=4) = \\binom{3}{1}(0{,}5)^{2}(0{,}5)^{2}$$\nEl coeficiente $\\binom{3}{1}=3$ cuenta en qué posición de los primeros 3 tiros cae el primer acierto, ya que el cuarto tiro tiene que ser el segundo acierto.\n\nMultiplicando da $3/16$.\n\nCada factor separa dos roles distintos: cuántas formas hay de ubicar el primer acierto entre los tiros previos, y qué probabilidad tiene esa secuencia completa de aciertos y fallos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-directa"]
+  },
+  {
+    "question": "Un reclutador entrevista candidatos hasta encontrar 3 que cumplan el perfil técnico buscado.\n\nCada candidato cumple el perfil con probabilidad $0{,}3$, en forma independiente.\n\nSea $X$ la cantidad de candidatos entrevistados hasta la tercera coincidencia.\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$10$",
+      "$0{,}9$",
+      "$3$",
+      "$0{,}3$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$E[X]=3/0{,}3=10$ candidatos en promedio hasta la tercera coincidencia.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor es $r\\cdot p$, no $r/p$: multiplicar en vez de dividir invierte el resultado.",
+      "Ese es $r$ solo, la cantidad de coincidencias buscadas, no el promedio de candidatos entrevistados.",
+      "Ese es $p$ solo, la probabilidad de un candidato puntual, no la esperanza de $X$."
+    ],
+    "explanation": "Para $X\\sim BN(r,p)$, la esperanza tiene forma cerrada.\n$$E[X] = r/p$$\nAcá $r=3,\\, p=0{,}3$.\n$$E[X] = 3/0{,}3 = 10$$\nEn promedio hacen falta 10 candidatos entrevistados para encontrar 3 que cumplan el perfil, si se repitiera este proceso muchas veces.\n\nEsta fórmula es simplemente $r$ veces el promedio de una geométrica: cada uno de los 3 éxitos buscados hereda, en promedio, el mismo $1/p$ de espera que si se buscara uno solo.\n\nAcumular más éxitos alarga el proceso de manera proporcional, sin cambiar la naturaleza de cada tramo entre un éxito y el siguiente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["esperanza-y-relacion-geometrica"]
   }
 ]

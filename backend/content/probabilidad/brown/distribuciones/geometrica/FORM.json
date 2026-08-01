@@ -1,24 +1,71 @@
 [
   {
-    "question": "Sea $X \\sim Geom(p)$ la cantidad de ensayos hasta el primer éxito, con probabilidad $p$ por ensayo.\n\n¿Cuál es $P(X=k)$?",
+    "question": "Un vendedor de seguros llama a clientes potenciales hasta lograr la primera venta.\n\nCada llamada termina en venta con probabilidad $0{,}15$, en forma independiente.\n\n¿Cuál es el parámetro $p$ de la geométrica que modela la cantidad de llamadas hasta la primera venta?",
     "options": [
-      "$p^{k}(1-p)^{k}$",
-      "$(1-p)^{k-1} p$",
-      "$\\binom{k}{1} p (1-p)^{k-1}$",
-      "$\\dfrac{p^{k}}{k!}$"
+      "$p=0{,}15$",
+      "$p=0{,}85$",
+      "$p=6{,}67$",
+      "$p=0{,}015$"
     ],
-    "correct_index": 1,
-    "feedback_correct": "$k-1$ fracasos seguidos de un éxito.",
+    "correct_index": 0,
+    "feedback_correct": "$p=0{,}15$ es la probabilidad de que una llamada termine en venta.",
     "feedback_incorrect": [
-      "Esa fórmula no tiene interpretación probabilística estándar; el éxito solo ocurre 1 vez (el último), no $k$.",
       null,
-      "El binomial no aporta información nueva ($\\binom{k}{1}=k$), y el éxito no se \"ubica\", siempre está al final.",
-      "Ese es un pedazo mal armado de Poisson; no aparece en la geométrica."
+      "Ese es el complemento: $0{,}85$ es la probabilidad de que la llamada no termine en venta.",
+      "Ese valor es $1/p$, la cantidad esperada de llamadas hasta la venta, no la probabilidad $p$ en sí.",
+      "Correr el punto decimal cambia el orden de magnitud: el enunciado da la probabilidad como $0{,}15$, no $0{,}015$."
     ],
-    "explanation": "La distribución **geométrica** modela ensayos independientes con probabilidad de éxito $p$ hasta que ocurre el primer éxito:\n$$P(X=k) = (1-p)^{k-1} p$$\n\nLos primeros $k-1$ ensayos son fracasos (cada uno con probabilidad $1-p$) y el $k$-ésimo es el primer éxito (probabilidad $p$).\n\nLa confusión típica es sumar un $\\binom{k}{1}$ como en la binomial: en la geométrica el éxito no puede ir en cualquier lugar, siempre está en la última posición porque se detiene ahí, así que no hay combinaciones que contar.",
+    "explanation": "Para armar $X\\sim Geom(p)$ hace falta identificar la probabilidad de éxito de cada ensayo.\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá cada llamada termina en venta con $p=0{,}15$.\n\nEso no depende de cuántas llamadas ya se hicieron antes.\n\n$p$ es siempre la probabilidad de un único resultado puntual, nunca el promedio de ensayos que hacen falta para lograrlo.\n\nConfundirlo con $E[X]=1/p$ es fácil porque ambos hablan de la misma venta, pero uno es una probabilidad y el otro es un conteo esperado.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["identificar-parametros"]
+  },
+  {
+    "question": "Un router intenta conectarse a una red wifi inestable, un intento por vez, hasta lograr la primera conexión exitosa.\n\nCada intento conecta con probabilidad $0{,}5$, en forma independiente del resto.\n\nSea $X$ la cantidad de intentos hasta la primera conexión. Calculá $P(X=3)$.",
+    "options": [
+      "$1/8$",
+      "$1/4$",
+      "$1/16$",
+      "$1/2$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$(0{,}5)^{2}(0{,}5)=1/8$: dos fallos seguidos de una conexión en el tercer intento.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor es $(1-p)^{k-1}$ solo, sin multiplicar por $p$, la probabilidad del acierto final.",
+      "Ese valor sale de usar $(1-p)^{k}$ en vez de $(1-p)^{k-1}$, un fallo de más en la cuenta.",
+      "Ese valor es $p$ solo, la probabilidad de un único intento, no de la secuencia completa hasta el tercero."
+    ],
+    "explanation": "Con $X\\sim Geom(p)$, la probabilidad puntual es:\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá $p=0{,}5$ y se pregunta por el tercer intento.\n$$P(X=3) = (0{,}5)^{2}(0{,}5)$$\nLos primeros 2 intentos fallan y el tercero conecta.\n\nCada factor $(1-p)$ representa un fallo que hay que sostener antes del único acierto final, por eso los fallos se multiplican entre sí y recién al final se agrega la probabilidad de acierto.\n\nContar un fallo de más, o directamente olvidar el factor de éxito, son los dos desvíos más comunes de esta cuenta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-directa"]
+  },
+  {
+    "question": "Un cajero de banco ofrece un seguro adicional a cada cliente que atiende.\n\nCada cliente lo acepta con probabilidad $0{,}2$, en forma independiente del resto.\n\nSea $X$ la cantidad de clientes atendidos hasta lograr la primera aceptación.\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$5$",
+      "$0{,}2$",
+      "$0{,}8$",
+      "$1{,}25$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$E[X]=1/0{,}2=5$ clientes en promedio hasta la primera aceptación.",
+    "feedback_incorrect": [
+      null,
+      "Ese es $p$, la probabilidad de un cliente puntual, no el promedio de clientes hasta lograr uno.",
+      "Ese es el complemento $1-p$, la probabilidad de que un cliente no acepte, no la esperanza de $X$.",
+      "Ese valor sale de usar $1/(1-p)$ en vez de $1/p$, invirtiendo qué probabilidad va en el denominador."
+    ],
+    "explanation": "Para $X\\sim Geom(p)$, la esperanza tiene forma cerrada.\n$$E[X] = 1/p$$\nAcá $p=0{,}2$.\n$$E[X] = 1/0{,}2 = 5$$\nEn promedio hacen falta 5 clientes atendidos para lograr una aceptación, si se repitiera este proceso una y otra vez.\n\nLa geométrica además tiene pérdida de memoria: si ya se atendió a varios clientes seguidos sin ninguna aceptación, la probabilidad de que el próximo acepte sigue siendo $0{,}2$.\n\nEl proceso no arrastra ningún historial, cada cliente nuevo empieza la cuenta desde cero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["esperanza-y-perdida-memoria"]
   }
 ]
