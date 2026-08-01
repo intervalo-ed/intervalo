@@ -325,6 +325,10 @@ class Exercise(Base):
     graph_view = Column(String(100), nullable=True)
     explanation = Column(Text, nullable=True)
     tags = Column(Text, nullable=True)
+    # Estado editorial del contenido (viene del JSON de autoría, ver
+    # seed_content.py). Usado por feedback_survey.py para priorizar ítems no
+    # revisados a la hora de elegir qué ejercicio lleva la micro-encuesta.
+    reviewed = Column(Boolean, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -362,6 +366,39 @@ class Feedback(Base):
     categoria = Column(String(20), nullable=False)  # error | idea | comentario
     mensaje = Column(Text, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
+
+
+class ExerciseFeedback(Base):
+    """Micro-encuesta post-ejercicio (dificultad/explicación) y reporte de
+    problemas de contenido. `exercise_external_id` es la clave real del
+    ejercicio (Exercise.external_id), no el slot de sesión (Answer.exercise_id),
+    para poder agregar respuestas del mismo ítem entre sesiones/usuarios.
+    `answered_at` NULL = impression mostrada pero no respondida (skip),
+    necesario para el kill-switch de feedback_survey.py."""
+    __tablename__ = "exercise_feedback"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    session_id = Column(Integer, ForeignKey("sessions.id"), nullable=False)
+    course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
+    exercise_external_id = Column(String(100), nullable=False)
+
+    question_type = Column(String(1), nullable=False)  # "A" | "B" | "C"
+    value = Column(String(30), nullable=True)  # muy_facil|justo|muy_dificil / util|no_util / categoría de reporte
+    free_text = Column(Text, nullable=True)
+
+    shown_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    answered_at = Column(DateTime, nullable=True)
+
+    __table_args__ = (
+        Index("idx_exfb_user_course", "user_id", "course_id"),
+        Index("idx_exfb_session", "session_id"),
+        Index("idx_exfb_user_item", "user_id", "exercise_external_id"),
+    )
+
+    user = relationship("User")
+    session = relationship("Session")
+    course = relationship("Course")
 
 
 class PushSubscription(Base):

@@ -29,14 +29,68 @@ import { topicShortLabel } from "@/lib/catalog"
 import { exerciseTypeInfo } from "@/lib/catalog/exercise-types"
 import { latexVisualLength } from "@/lib/latex-visual-length"
 import { cn } from "@/lib/utils"
-import { Braces, ChevronLeft, Eye, EyeOff, SkipForward, X } from "lucide-react"
+import { Braces, ChevronLeft, Eye, EyeOff, Flag, SkipForward, X } from "lucide-react"
 import { animate, AnimatePresence, motion } from "motion/react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useRef, useState } from "react"
 import { useAnswer } from "./UseAnswer"
+import { useSessionFeedback } from "./UseSessionFeedback"
 import { useSessionPayload } from "./UseSessionPayload"
+import { ReportPane } from "./report-pane"
+import { SurveyPane } from "./survey-pane"
 import type { SessionExercise } from "@/lib/api/types"
+
+// Banner de agradecimiento tras enviar feedback: título (pool genérico,
+// compartido entre canales) + subtítulo específico del canal (Core Drives del
+// diseño — CD4 Alfred Effect para A/B, CD3/CD1 para reportes). El subtítulo de
+// A y B además varía según si la respuesta fue "positiva" (justo/muy_facil,
+// útil) o "negativa" (muy difícil, no útil): agradecer distinto ante una queja
+// que ante un elogio. "¡Buen ojo!" es un título exclusivo de C, pareado
+// siempre con el mismo subtítulo (no se combina al azar con los demás).
+const THANKS_TITLES = ["¡Gracias!", "¡Recibido!", "¡Anotado!", "¡Listo!"]
+
+const SURVEY_THANKS_A_POS = ["Esto nos ayuda a elegir mejor qué mostrarte."]
+const SURVEY_THANKS_A_NEG = [
+  "Nos ayuda a calibrar la dificultad de lo que te mostramos.",
+  "Esto nos ayuda a mejorar el ejercicio.",
+  "Tomamos nota para ajustar lo que te mostramos.",
+]
+const SURVEY_THANKS_B_POS = [
+  "Sabemos qué explicaciones funcionan gracias a vos.",
+  "Nos ayuda a decidir qué explicaciones mantener.",
+  "Ayudás a que más estudiantes entiendan este tema.",
+]
+const SURVEY_THANKS_B_NEG = [
+  "Vamos a mejorar esta explicación.",
+  "Nos ayuda a saber qué explicaciones reescribir.",
+  "Ayudás a que la próxima explicación sea mejor.",
+]
+const REPORT_THANKS = [
+  "Lo revisamos.",
+  "Reportes como este mejoran el material para todos.",
+  "Tu reporte queda en la cola de revisión.",
+]
+const REPORT_TITLE_SPECIAL = "¡Buen ojo!"
+const REPORT_SUBTITLE_SPECIAL = "Lo mandamos a revisión."
+
+function pickFrom<T>(pool: T[]): T {
+  return pool[Math.floor(Math.random() * pool.length)]
+}
+
+function surveyThanksPool(type: "A" | "B", value: string | null): string[] {
+  const negative = type === "A" ? value === "muy_dificil" : value === "no_util"
+  if (type === "A") return negative ? SURVEY_THANKS_A_NEG : SURVEY_THANKS_A_POS
+  return negative ? SURVEY_THANKS_B_NEG : SURVEY_THANKS_B_POS
+}
+
+function pickReportThanks(): { title: string; subtitle: string } {
+  const title = pickFrom([...THANKS_TITLES, REPORT_TITLE_SPECIAL])
+  if (title === REPORT_TITLE_SPECIAL) {
+    return { title, subtitle: REPORT_SUBTITLE_SPECIAL }
+  }
+  return { title, subtitle: pickFrom(REPORT_THANKS) }
+}
 
 const ctaCls =
   "h-[var(--cta-h)] flex-1 rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
@@ -57,6 +111,23 @@ type ExState = {
   result: "correct" | "wrong" | null
   xp: number | null
   showWhy: boolean
+  // Micro-encuesta (canal A/B): slide propio, ver survey-pane.tsx.
+  showSurvey: boolean
+  surveyValue: string | null
+  surveyFreeText: string
+  surveySubmitted: boolean
+  surveyThanksTitle: string | null
+  surveyThanksMsg: string | null
+  surveyThanksXp: number | null
+  // Reporte de problema (canal C, siempre disponible): slide propio, ver
+  // report-pane.tsx. Vuelve a `showWhy` (question o explicación) al cerrarse.
+  showReport: boolean
+  reportValue: string | null
+  reportFreeText: string
+  reportSubmitted: boolean
+  reportThanksTitle: string | null
+  reportThanksMsg: string | null
+  reportThanksXp: number | null
 }
 const DEFAULT_EX: ExState = {
   selection: null,
@@ -64,6 +135,20 @@ const DEFAULT_EX: ExState = {
   result: null,
   xp: null,
   showWhy: false,
+  showSurvey: false,
+  surveyValue: null,
+  surveyFreeText: "",
+  surveySubmitted: false,
+  surveyThanksTitle: null,
+  surveyThanksMsg: null,
+  surveyThanksXp: null,
+  showReport: false,
+  reportValue: null,
+  reportFreeText: "",
+  reportSubmitted: false,
+  reportThanksTitle: null,
+  reportThanksMsg: null,
+  reportThanksXp: null,
 }
 
 export default function SessionRunner({ sessionId }: { sessionId: string }) {
@@ -71,6 +156,14 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
   const router = useRouter()
   const sfx = useSfx()
   const answer = useAnswer()
+  const feedback = useSessionFeedback()
+  // Qué ejercicios ya dispararon (o descartaron) la micro-encuesta asignada a
+  // la sesión, para no volver a ofrecerla si el usuario navega para atrás y
+  // adelante sobre el mismo ejercicio. La impression del feedback ("A"/"B")
+  // es async; se resuelve acá y se usa recién al enviar la respuesta.
+  const surveyFiredRef = useRef<Set<number>>(new Set())
+  const surveyImpressionRef = useRef<Record<number, Promise<number>>>({})
+  const surveyTypeRef = useRef<Record<number, "A" | "B">>({})
   const [idx, setIdx] = useState(0)
   const [dir, setDir] = useState<1 | -1>(1)
   const [states, setStates] = useState<Record<number, ExState>>({})
@@ -157,7 +250,8 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
   // Resuelto recién después de haber fallado al menos una vez → acento lima.
   const solvedAfterError = solved && cur.wrongOptions.length > 0
   const continueLabel = isLast ? "Finalizar" : "Continuar"
-  const canGoBack = isTest ? idx > 0 || cur.showWhy : idx > 0 || cur.showWhy
+  const canGoBack =
+    idx > 0 || cur.showWhy || cur.showSurvey || cur.showReport
 
   function patch(p: Partial<ExState>) {
     setStates((s) => ({ ...s, [idx]: { ...(s[idx] ?? DEFAULT_EX), ...p } }))
@@ -219,6 +313,31 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
   }
 
   function goBack() {
+    // Volver desde el reporte o la encuesta no envía nada (queda como skip
+    // logueado si ya se había disparado la impression) y cae en la pantalla
+    // que estaba debajo (explicación o enunciado, según `cur.showWhy`).
+    if (cur.showReport) {
+      setDir(-1)
+      scrollToTop()
+      patch({
+        showReport: false,
+        reportSubmitted: false,
+        reportValue: null,
+        reportFreeText: "",
+      })
+      return
+    }
+    if (cur.showSurvey) {
+      setDir(-1)
+      scrollToTop()
+      patch({
+        showSurvey: false,
+        surveySubmitted: false,
+        surveyValue: null,
+        surveyFreeText: "",
+      })
+      return
+    }
     if (cur.showWhy) {
       setDir(-1)
       scrollToTop()
@@ -228,15 +347,112 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
     if (idx > 0) navTo(idx - 1, -1)
   }
 
+  function goToSummary() {
+    // Sonido de "carga" ascendente: arranca al tocar y sigue sonando (sin
+    // cortarse) durante la transición al resumen, donde se carga la bolita.
+    setFinishing(true)
+    sfx.charge()
+    router.push(`/session/${sessionId}/summary`)
+  }
+
   function onContinue() {
-    if (isLast) {
-      // Sonido de "carga" ascendente: arranca al tocar y sigue sonando (sin
-      // cortarse) durante la transición al resumen, donde se carga la bolita.
-      setFinishing(true)
-      sfx.charge()
-      router.push(`/session/${sessionId}/summary`)
+    // Canal C (reporte): seleccionar categoría + Continuar envía; un segundo
+    // Continuar (ya con el banner de agradecimiento mostrado) vuelve a donde
+    // estaba, sin avanzar de ejercicio.
+    if (cur.showReport) {
+      if (!cur.reportSubmitted) {
+        if (!cur.reportValue) return
+        feedback.mutate(
+          {
+            action: "report",
+            session_id: sessionId,
+            exercise_external_id: exercise.external_id || exercise.id,
+            value: cur.reportValue,
+            free_text: cur.reportFreeText.trim() || undefined,
+          },
+          { onSuccess: (r) => patch({ reportThanksXp: r.xp_earned || null }) },
+        )
+        sfx.feedback()
+        const { title, subtitle } = pickReportThanks()
+        patch({ reportSubmitted: true, reportThanksTitle: title, reportThanksMsg: subtitle })
+        return
+      }
+      patch({
+        showReport: false,
+        reportSubmitted: false,
+        reportValue: null,
+        reportFreeText: "",
+        reportThanksTitle: null,
+        reportThanksMsg: null,
+        reportThanksXp: null,
+      })
       return
     }
+
+    // Canal A/B (encuesta): seleccionar + Continuar envía la respuesta y
+    // muestra el banner; un segundo Continuar avanza al siguiente ejercicio.
+    // Sin selección, Continuar la saltea (skip) y avanza directo.
+    if (cur.showSurvey) {
+      if (!cur.surveySubmitted) {
+        if (cur.surveyValue) {
+          const value = cur.surveyValue
+          const freeText = cur.surveyFreeText.trim() || undefined
+          const surveyType = surveyTypeRef.current[idx] ?? "A"
+          surveyImpressionRef.current[idx]?.then((feedback_id) => {
+            feedback.mutate(
+              { action: "answer", session_id: sessionId, feedback_id, value, free_text: freeText },
+              { onSuccess: (r) => patch({ surveyThanksXp: r.xp_earned || null }) },
+            )
+          })
+          sfx.feedback()
+          patch({
+            surveySubmitted: true,
+            surveyThanksTitle: pickFrom(THANKS_TITLES),
+            surveyThanksMsg: pickFrom(surveyThanksPool(surveyType, value)),
+          })
+          return
+        }
+        sfx.continue()
+        if (isLast) goToSummary()
+        else navTo(idx + 1, 1)
+        return
+      }
+      sfx.continue()
+      if (isLast) goToSummary()
+      else navTo(idx + 1, 1)
+      return
+    }
+
+    if (isLast) {
+      goToSummary()
+      return
+    }
+
+    // ¿el ejercicio que estamos dejando es el marcado por el backend para
+    // llevar la micro-encuesta? "A" dispara siempre; "B" solo si el usuario
+    // realmente abrió "¿Por qué?" (si no la abrió, esta sesión queda sin
+    // encuesta — no se loguea impression y la alternancia no se consume).
+    const survey = payload!.survey
+    const isMarked = !isTest && survey?.exercise_id === exercise.id && !surveyFiredRef.current.has(idx)
+    const shouldFireSurvey = isMarked && (survey!.type === "A" || (survey!.type === "B" && cur.showWhy))
+    if (shouldFireSurvey && survey) {
+      const type: "A" | "B" = survey.type as "A" | "B"
+      surveyFiredRef.current.add(idx)
+      surveyTypeRef.current[idx] = type
+      surveyImpressionRef.current[idx] = feedback
+        .mutateAsync({
+          action: "impression",
+          session_id: sessionId,
+          exercise_external_id: exercise.external_id || exercise.id,
+          question_type: type,
+        })
+        .then((r) => r.feedback_id)
+      setDir(1)
+      scrollToTop()
+      patch({ showSurvey: true })
+      return
+    }
+
     sfx.continue()
     navTo(idx + 1, 1)
   }
@@ -288,6 +504,16 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
     setDir(1)
     scrollToTop()
     patch({ showWhy: true })
+  }
+
+  // `cur.showWhy` ya indica si veníamos del enunciado o de la explicación —
+  // al volver (goBack) cae naturalmente en la pantalla correcta sin guardar
+  // un origen aparte.
+  function openReport() {
+    sfx.continue()
+    setDir(1)
+    scrollToTop()
+    patch({ showReport: true })
   }
 
   return (
@@ -387,7 +613,15 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
         <div className="grid min-h-full w-full grid-cols-1">
           <AnimatePresence mode="sync" initial={false} custom={{ dir }}>
             <motion.div
-              key={cur.showWhy ? `why-${idx}` : `q-${idx}`}
+              key={
+                cur.showReport
+                  ? `report-${idx}`
+                  : cur.showSurvey
+                    ? `survey-${idx}`
+                    : cur.showWhy
+                      ? `why-${idx}`
+                      : `q-${idx}`
+              }
               custom={{ dir }}
               variants={slideVariants}
               initial="enter"
@@ -401,7 +635,10 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
               dragSnapToOrigin
               onDragEnd={(_, info) => {
                 if (info.offset.x > 80 && canGoBack) goBack()
-                else if (info.offset.x < -80 && (solved || cur.showWhy))
+                else if (
+                  info.offset.x < -80 &&
+                  (solved || cur.showWhy || cur.showSurvey || cur.showReport)
+                )
                   onContinue()
               }}
               className="col-start-1 row-start-1 flex min-h-full min-w-0 flex-col"
@@ -411,9 +648,27 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                   y el contenido scrollea. */}
               <div className="min-h-[40px] flex-[2.5]" />
               <div className="flex flex-col gap-5">
-              {cur.showWhy ? (
+              {cur.showReport ? (
+                <ReportPane
+                  value={cur.reportValue}
+                  freeText={cur.reportFreeText}
+                  submitted={cur.reportSubmitted}
+                  onSelect={(v) => patch({ reportValue: v })}
+                  onFreeTextChange={(t) => patch({ reportFreeText: t })}
+                />
+              ) : cur.showSurvey ? (
+                <SurveyPane
+                  type={surveyTypeRef.current[idx] ?? "A"}
+                  value={cur.surveyValue}
+                  freeText={cur.surveyFreeText}
+                  submitted={cur.surveySubmitted}
+                  onSelect={(v) => patch({ surveyValue: v })}
+                  onFreeTextChange={(t) => patch({ surveyFreeText: t })}
+                />
+              ) : cur.showWhy ? (
                 <div className="flex flex-col gap-3 leading-relaxed text-foreground/80">
                   <MathText text={exercise.explanation ?? ""} />
+                  {!isTest && <ReportFlagButton onClick={openReport} />}
                   {isTest && <TestFeedbackBox
                     idx={idx}
                     value={feedbackByIdx[idx] ?? ""}
@@ -516,6 +771,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                       </div>
                     )
                   })()}
+                  {!isTest && <ReportFlagButton onClick={openReport} />}
                   {isTest && noAnswer && (
                     <div className="flex flex-col gap-3 border-t border-white/10 pt-4 text-sm text-foreground/80">
                       <div className="flex flex-col gap-1">
@@ -598,7 +854,57 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
       {/* Capa 2 — feedback: sale desde abajo, por delante del fondo del
           contenedor pero por detrás de los botones (asoma por encima de ellos). */}
       <AnimatePresence initial={false}>
-        {footerReady && !cur.showWhy && cur.result === "correct" && (
+        {footerReady && cur.showSurvey && cur.surveySubmitted && (
+          <motion.div
+            key="survey-thanks"
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="pointer-events-none fixed inset-x-0 bottom-0 z-30 bg-background"
+          >
+            <div className="border-t border-green-500/50 bg-green-500/10 px-5 pt-6 pb-[calc(var(--cta-pt)_+_var(--cta-h)_+_var(--cta-pb))]">
+              <div className="mx-auto w-full max-w-2xl text-[15px]">
+                <span className="font-semibold text-green-400">{cur.surveyThanksTitle}</span>
+                {cur.surveyThanksXp ? (
+                  <span className="ml-1.5 inline-flex items-center gap-0.5 font-semibold text-green-400">
+                    +{cur.surveyThanksXp}
+                    <XpDots className="-ml-px size-[0.95em]" />
+                  </span>
+                ) : null}
+                <div className="mt-3 text-foreground/85">{cur.surveyThanksMsg}</div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+        {footerReady && cur.showReport && cur.reportSubmitted && (
+          <motion.div
+            key="report-thanks"
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="pointer-events-none fixed inset-x-0 bottom-0 z-30 bg-background"
+          >
+            <div className="border-t border-green-500/50 bg-green-500/10 px-5 pt-6 pb-[calc(var(--cta-pt)_+_var(--cta-h)_+_var(--cta-pb))]">
+              <div className="mx-auto w-full max-w-2xl text-[15px]">
+                <span className="font-semibold text-green-400">{cur.reportThanksTitle}</span>
+                {cur.reportThanksXp ? (
+                  <span className="ml-1.5 inline-flex items-center gap-0.5 font-semibold text-green-400">
+                    +{cur.reportThanksXp}
+                    <XpDots className="-ml-px size-[0.95em]" />
+                  </span>
+                ) : null}
+                <div className="mt-3 text-foreground/85">{cur.reportThanksMsg}</div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+        {footerReady &&
+          !cur.showWhy &&
+          !cur.showSurvey &&
+          !cur.showReport &&
+          cur.result === "correct" && (
           <motion.div
             key="correct"
             initial={{ y: "100%" }}
@@ -640,7 +946,11 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
             </div>
           </motion.div>
         )}
-        {footerReady && !cur.showWhy && cur.result === "wrong" && (
+        {footerReady &&
+          !cur.showWhy &&
+          !cur.showSurvey &&
+          !cur.showReport &&
+          cur.result === "wrong" && (
           <motion.div
             key="wrong"
             initial={{ y: "100%" }}
@@ -673,7 +983,20 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
       <div className="fixed inset-x-0 bottom-0 z-40 px-5 pt-[var(--cta-pt)] pb-[var(--cta-pb)]">
         <div className="mx-auto w-full max-w-2xl">
           <div className="flex gap-2">
-            {cur.showWhy ? (
+            {cur.showReport ? (
+              <Button
+                size="lg"
+                className={ctaCls}
+                disabled={!cur.reportValue && !cur.reportSubmitted}
+                onClick={onContinue}
+              >
+                {cur.reportSubmitted ? "Continuar" : "Enviar"}
+              </Button>
+            ) : cur.showSurvey ? (
+              <Button size="lg" className={ctaCls} onClick={onContinue}>
+                {cur.surveySubmitted || !cur.surveyValue ? "Continuar" : "Enviar"}
+              </Button>
+            ) : cur.showWhy ? (
               <Button size="lg" className={ctaCls} onClick={onContinue}>
                 {continueLabel}
               </Button>
@@ -731,6 +1054,20 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
       {finishing && <div className="fixed inset-0 z-50 bg-background" />}
     </Screen>
     </motion.div>
+  )
+}
+
+function ReportFlagButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label="Reportar un problema"
+      className="flex items-center gap-1.5 self-start text-sm text-foreground/40 transition-colors hover:text-foreground/70"
+    >
+      <Flag className="size-5" />
+      Reportar
+    </button>
   )
 }
 
