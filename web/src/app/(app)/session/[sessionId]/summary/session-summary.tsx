@@ -103,7 +103,7 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   useEffect(() => {
     if (phase !== "notify") return
     setNotifWaiting(true)
-    const t = setTimeout(() => setNotifWaiting(false), 3000)
+    const t = setTimeout(() => setNotifWaiting(false), 4000)
     return () => clearTimeout(t)
   }, [phase])
   const notifyButtonDisabled =
@@ -228,7 +228,6 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
               )}
               {phase === "notify" && (
                 <NotifyHintPane
-                  enabled={notifAlreadyEnabled}
                   settingsLoading={settings.isLoading}
                   onEnabled={() => setNotifJustEnabled(true)}
                 />
@@ -413,6 +412,10 @@ function ChargeBall() {
 // Colores de los cinturones, avivados para que resalten sobre el fondo oscuro.
 const BELT_COLORS = BELT_VIVID_COLORS
 
+// Energía retenida en cada rebote contra los bordes de la pantalla (0-1): más
+// bajo = pierde más velocidad por choque, hasta casi frenar en x.
+const WALL_RESTITUTION = 0.65
+
 type Particle = {
   id: number
   x: number
@@ -463,17 +466,28 @@ function Confetti({ count }: { count: number }) {
       let anyAlive = false
       stateRef.current = stateRef.current.map((p) => {
         if (!p.alive) return p
-        const nx = p.x + p.vx * dt
+        let nx = p.x + p.vx * dt
         const ny = p.y + p.vy * dt
         // Frenado del aire para que la explosión sea veloz al inicio y se calme.
         const drag = Math.pow(0.12, dt)
-        const alive = nx > -15 && nx < 115 && ny < 120
+        let vx = p.vx * drag
+        // Rebote en las paredes (bordes de la pantalla): refleja posición y
+        // velocidad, perdiendo energía en cada choque (WALL_RESTITUTION) para
+        // que no rebote para siempre.
+        if (nx < 0) {
+          nx = -nx
+          vx = -vx * WALL_RESTITUTION
+        } else if (nx > 100) {
+          nx = 200 - nx
+          vx = -vx * WALL_RESTITUTION
+        }
+        const alive = ny < 120
         if (alive) anyAlive = true
         return {
           ...p,
           x: nx,
           y: ny,
-          vx: p.vx * drag,
+          vx,
           vy: p.vy * drag + p.grav * dt,
           rot: p.rot + p.vrot * dt,
           alive,
@@ -712,11 +726,9 @@ function MultiplierCount({
 // instalación en el diálogo compartido. El CTA "Continuar" del summary lleva a
 // Perfil en ambos casos.
 function NotifyHintPane({
-  enabled,
   settingsLoading,
   onEnabled,
 }: {
-  enabled: boolean
   settingsLoading: boolean
   onEnabled: () => void
 }) {
@@ -734,7 +746,15 @@ function NotifyHintPane({
         animate={{ opacity: 1, scale: 1 }}
         transition={{ type: "spring", stiffness: 600, damping: 18 }}
       >
-        <BellIcon className="size-7" />
+        {/* Campanazo: entra con el spring de arriba y, ya asentada, "suena"
+            una vez (delay ≈ cuando termina el spring) en vez de agitarse en
+            loop todo el tiempo que la pestaña está visible. */}
+        <motion.div
+          animate={{ rotate: [0, -15, 12, -8, 5, 0] }}
+          transition={{ duration: 0.5, delay: 0.4, ease: "easeInOut" }}
+        >
+          <BellIcon className="size-7" />
+        </motion.div>
       </motion.div>
       <motion.div
         className="flex flex-col gap-1.5"
@@ -745,8 +765,8 @@ function NotifyHintPane({
         <p className="text-base font-medium">Activá los recordatorios</p>
         <p className="max-w-[21rem] text-sm leading-relaxed text-foreground/60">
           {needsInstall
-            ? "Primero instalá Intervalo en tu pantalla de inicio para poder activarlos."
-            : "Te avisamos una vez por día, y solo si tenés temas pendientes para repasar."}
+            ? "Primero agregá Intervalo a tu pantalla de inicio para poder recibir recordatorios."
+            : "Un solo recordatorio por día, a la hora que elijas."}
         </p>
       </motion.div>
       <motion.div
@@ -764,7 +784,7 @@ function NotifyHintPane({
               onClick={() => setInstallOpen(true)}
             >
               <DownloadIcon className="size-5" />
-              Cómo instalar
+              Agregar
             </Button>
             <InstallDialog
               platform={platform ?? "all"}
@@ -772,10 +792,6 @@ function NotifyHintPane({
               onOpenChange={setInstallOpen}
             />
           </>
-        ) : enabled ? (
-          <p className="text-sm text-foreground/60">
-            Ya los tenés activados. Podés cambiar el horario desde tu perfil.
-          </p>
         ) : (
           <>
             <div className="flex h-12 w-full items-center justify-between gap-3 rounded-md border border-input px-3">

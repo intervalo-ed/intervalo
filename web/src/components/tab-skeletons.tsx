@@ -47,7 +47,7 @@ export function DashboardSkeleton() {
       </div>
 
       {/* botón Repasar */}
-      <Skeleton className="h-12 w-full" />
+      <Skeleton className="h-12 w-full shrink-0" />
 
       {/* contenedores de unidad (p-4, gap-3; header título + ícono info) */}
       {beltRows.map((nRows, b) => (
@@ -80,7 +80,7 @@ export function DashboardSkeleton() {
 export function PracticeSkeleton() {
   const unitRows = [1, 1, 1, 1, 1]
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
         <CourseSwitcherSkeleton />
         <div className="grid grid-cols-3 gap-2">
@@ -93,18 +93,22 @@ export function PracticeSkeleton() {
       {/* botón Practicar */}
       <Skeleton className="h-12 w-full shrink-0" />
 
-      {/* tarjetas de unidad (p-4; título + switch + chevron) */}
-      {unitRows.map((_, i) => (
-        <div
-          key={i}
-          className="flex items-center gap-2 rounded-md border border-white/10 bg-white/[0.01] p-4"
-        >
-          <Skeleton className="h-[18px] w-28" />
-          <div className="flex-1" />
-          <Skeleton className="h-6 w-11 rounded-full" />
-          <Skeleton className="size-4" />
-        </div>
-      ))}
+      {/* tarjetas de unidad (p-4; título + switch + chevron), separadas
+          entre sí por gap-3 como en la lista real (motion.div de
+          practice-config.tsx), no por el gap-4 de las secciones de arriba. */}
+      <div className="flex flex-col gap-3">
+        {unitRows.map((_, i) => (
+          <div
+            key={i}
+            className="flex items-center gap-2 rounded-md border border-white/10 bg-white/[0.01] p-4"
+          >
+            <Skeleton className="h-[18px] w-28" />
+            <div className="flex-1" />
+            <Skeleton className="h-6 w-11 rounded-full" />
+            <Skeleton className="size-4" />
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

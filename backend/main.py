@@ -224,6 +224,22 @@ class PrunePushRequest(BaseModel):
     subscription_ids: list[int]
 
 
+class SessionFeedbackRequest(BaseModel):
+    action: str  # "impression" | "answer" | "report"
+    session_id: str
+    exercise_external_id: str | None = None  # impression / report
+    question_type: str | None = None  # "A" | "B" (impression) — "C" implícito en report
+    feedback_id: int | None = None  # answer
+    value: str | None = None
+    free_text: str | None = None
+
+
+class SessionFeedbackResponse(BaseModel):
+    success: bool
+    feedback_id: int
+    xp_earned: int = 0
+
+
 # ── Endpoints ─────────────────────────────────────────────────────────────────
 
 # ── Health check ──────────────────────────────────────────────────────────────
@@ -1169,6 +1185,104 @@ def submit_answer(
         raise HTTPException(status_code=400, detail="Invalid session_id format")
 
     return result
+
+
+FEEDBACK_XP = 1  # XP fijo por responder una encuesta o enviar un reporte (no por la impression).
+
+
+@app.post("/session/feedback", response_model=SessionFeedbackResponse)
+def submit_session_feedback(
+    body: SessionFeedbackRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Micro-encuesta post-ejercicio (dificultad/explicación) y reporte de
+    problemas de contenido. Flujo en dos pasos para no perder la impression si
+    el usuario cierra/navega antes de responder (ver feedback_survey.py):
+    "impression" crea la fila (answered_at=None), "answer" la completa. "report"
+    (canal C, siempre disponible) crea la fila ya resuelta en un solo paso."""
+    from datetime import datetime
+    from models import Exercise, ExerciseFeedback, Session as SessionModel
+
+    try:
+        session_id_db = int(body.session_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid session_id format")
+
+    session_row = (
+        db.query(SessionModel)
+        .filter(SessionModel.id == session_id_db, SessionModel.user_id == current_user.id)
+        .first()
+    )
+    if session_row is None:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    if body.action == "impression":
+        if not body.exercise_external_id or body.question_type not in ("A", "B"):
+            raise HTTPException(status_code=422, detail="Missing exercise_external_id/question_type")
+        exists = (
+            db.query(Exercise.id)
+            .filter(Exercise.course_id == session_row.course_id, Exercise.external_id == body.exercise_external_id)
+            .first()
+        )
+        if exists is None:
+            raise HTTPException(status_code=404, detail="Exercise not found")
+        entry = ExerciseFeedback(
+            user_id=current_user.id,
+            session_id=session_row.id,
+            course_id=session_row.course_id,
+            exercise_external_id=body.exercise_external_id,
+            question_type=body.question_type,
+        )
+        db.add(entry)
+        db.commit()
+        return {"success": True, "feedback_id": entry.id}
+
+    if body.action == "answer":
+        if body.feedback_id is None:
+            raise HTTPException(status_code=422, detail="Missing feedback_id")
+        entry = (
+            db.query(ExerciseFeedback)
+            .filter(ExerciseFeedback.id == body.feedback_id, ExerciseFeedback.user_id == current_user.id)
+            .first()
+        )
+        if entry is None:
+            raise HTTPException(status_code=404, detail="Feedback impression not found")
+        entry.value = body.value
+        entry.free_text = body.free_text
+        entry.answered_at = datetime.utcnow()
+        current_user.total_xp = (current_user.total_xp or 0) + FEEDBACK_XP
+        db.commit()
+        return {"success": True, "feedback_id": entry.id, "xp_earned": FEEDBACK_XP}
+
+    if body.action == "report":
+        if not body.exercise_external_id:
+            raise HTTPException(status_code=422, detail="Missing exercise_external_id")
+        exists = (
+            db.query(Exercise.id)
+            .filter(Exercise.course_id == session_row.course_id, Exercise.external_id == body.exercise_external_id)
+            .first()
+        )
+        if exists is None:
+            raise HTTPException(status_code=404, detail="Exercise not found")
+        now = datetime.utcnow()
+        entry = ExerciseFeedback(
+            user_id=current_user.id,
+            session_id=session_row.id,
+            course_id=session_row.course_id,
+            exercise_external_id=body.exercise_external_id,
+            question_type="C",
+            value=body.value,
+            free_text=body.free_text,
+            shown_at=now,
+            answered_at=now,
+        )
+        db.add(entry)
+        current_user.total_xp = (current_user.total_xp or 0) + FEEDBACK_XP
+        db.commit()
+        return {"success": True, "feedback_id": entry.id, "xp_earned": FEEDBACK_XP}
+
+    raise HTTPException(status_code=422, detail="Invalid action")
 
 
 @app.get("/session/{session_id}/summary", response_model=SessionSummaryResponse)

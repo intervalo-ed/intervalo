@@ -261,12 +261,21 @@ class SessionExercise(BaseModel):
     explanation: str | None = None
 
 
+class SessionSurvey(BaseModel):
+    """Marca qué ejercicio de la sesión (si alguno) lleva micro-encuesta de
+    feedback y de qué tipo. Ver feedback_survey.py. `exercise_id` es el slot
+    de sesión (ej. "ex_003"), no la clave real del ejercicio."""
+    exercise_id: str
+    type: str  # "A" (dificultad) | "B" (explicación)
+
+
 class SessionStartResponse(BaseModel):
     session_id: str
     user_name: str
     total: int
     mode: str = "main"
     exercises: list[SessionExercise]
+    survey: SessionSurvey | None = None
 
 
 class AnswerResponse(BaseModel):
