@@ -323,6 +323,7 @@ class Exercise(Base):
     feedback_incorrect = Column(Text, nullable=False)
     graph_fn = Column(String(500), nullable=True)
     graph_view = Column(String(100), nullable=True)
+    graph_shade = Column(String(100), nullable=True)
     explanation = Column(Text, nullable=True)
     tags = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)

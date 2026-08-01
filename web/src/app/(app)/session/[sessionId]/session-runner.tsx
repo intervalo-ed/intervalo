@@ -433,6 +433,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                     <MathGraph
                       graphFn={exercise.graph_fn}
                       graphView={exercise.graph_view}
+                      graphShade={exercise.graph_shade}
                     />
                   )}
 

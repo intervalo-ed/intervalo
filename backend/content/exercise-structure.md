@@ -34,6 +34,7 @@ campos:
 | `tags` | `array<string>` | Slug de la sub-familia del ejercicio (de la tabla del `topic-context.md`). |
 | `has_math` | `bool` | `true` si hay LaTeX en cualquier campo. |
 | `graph_fn`, `graph_view` | `string`/`array`/`null` | Gráfico embebido (solo skills `GRAF`). |
+| `graph_shade` | `array`/`null` | `[xMin, xMax]` opcional: sombrea el área bajo `graph_fn` en ese tramo. |
 | `correct_index`, `reviewed` | | metadata. `external_id` **no va en el JSON** (lo infiere el seeder de la ruta). |
 
 Los **cuatro componentes que redactás** son `question`, `options`, `feedback_*` y

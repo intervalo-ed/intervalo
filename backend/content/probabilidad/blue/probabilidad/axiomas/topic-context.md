@@ -79,6 +79,8 @@ Elegir **qué propiedad conviene aplicar**, sin calcular.
 - **Nunca invocar conteo, combinatoria ni condicional/independencia** para justificar un resultado en este topic; solo los axiomas y sus propiedades derivadas.
 - **Decimales con coma** (`0,6`), siguiendo la convención transversal del curso.
 - **Contextos variados** (ver arriba): no concentrar todos los ítems de una sub-familia en el mismo experimento.
+- **Despeje: fórmula base antes del resultado (regla 43):** en `resl-despeje-union`, la `explanation` reintroduce primero la fórmula general de la unión $P(A\cup B)=P(A)+P(B)-P(A\cap B)$ y recién después muestra el despeje de la incógnita, nunca solo el resultado del despeje.
+- **Párrafo de intuición (regla 44):** en ESTR (elegir qué propiedad conviene aplicar), la `explanation` no se queda en "se aplica la regla general de la unión"; agrega una oración de por qué esa propiedad es la que corresponde al caso (por qué hay que restar la intersección, por qué el complemento simplifica el cálculo, etc.).
 - **Sin aclaraciones entre paréntesis en ningún campo del ejercicio** (regla crítica del `authoring-context.md`): toda aclaración va como oración propia en la prosa.
 
 ## Checklist del topic
@@ -87,6 +89,7 @@ Elegir **qué propiedad conviene aplicar**, sin calcular.
 - [ ] Ningún ejercicio usa condicional, independencia o Laplace para justificar el resultado
 - [ ] Ningún ítem evalúa "reconocer el axioma" ni "axioma vs. derivada" como término dedicado
 - [ ] Los ejercicios de "unión general" especifican que los eventos NO son mutuamente excluyentes (o dan $P(A\cap B) \neq 0$)
+- [ ] `resl-despeje-union` reintroduce la fórmula general antes del despeje
 - [ ] Contextos variados dentro de cada sub-familia (no más de ~30% del mismo experimento)
 - [ ] Ningún campo usa paréntesis para aclaraciones (`question`, `options`, `feedback_correct`, `feedback_incorrect`, `explanation`)
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target

@@ -14,36 +14,42 @@ Concepto: la **función de densidad** $f(x)$ de una variable continua, con $P(a\
 
 ## FORM, 15 ejercicios
 
-| Sub-familia | Cantidad | Slug |
-|---|---:|---|
-| Expresión $P(a\leq X\leq b)=\int_a^b f(x)\,dx$ | 6 | `formula-probabilidad-area` |
-| Condición de normalización $\int f(x)\,dx=1$ sobre todo el dominio | 5 | `condicion-normalizacion` |
-| Reconocer que $P(X=x)=0$ para cualquier valor puntual de una continua | 4 | `probabilidad-puntual-nula` |
-| **Total** | **15** | |
+| Sub-familia | Cantidad | Slug | Objetivo pedagógico | Conceptos que toca |
+|---|---:|---|---|---|
+| Expresión $P(a\leq X\leq b)=\int_a^b f(x)\,dx$ | 6 | `formula-probabilidad-area` | Reconocer que $P(a\leq X\leq b)$ se expresa como el área bajo la densidad, vía integral | $\int_a^b f(x)\,dx$, contraste con suma discreta y con evaluación puntual |
+| Condición de normalización $\int f(x)\,dx=1$ sobre todo el dominio | 5 | `condicion-normalizacion` | Reconocer la condición de normalización de una densidad sobre todo su dominio | $\int_{-\infty}^{\infty} f(x)\,dx=1$ |
+| Reconocer que $P(X=x)=0$ para cualquier valor puntual de una continua | 4 | `probabilidad-puntual-nula` | Reconocer que $P(X=x)=0$ para cualquier valor puntual de una variable continua | Distinción $f(x)$ (densidad) vs. $P(X=x)$ (probabilidad puntual, siempre 0) |
+| **Total** | **15** | | | |
 
 ---
 
 ## GRAF, 15 ejercicios
 
-| Sub-familia | Cantidad | Slug |
-|---|---:|---|
-| Leer la altura $h$ de una densidad uniforme (rectángulo) desde la condición de área $=1$ | 6 | `lectura-altura-uniforme` |
-| Leer una probabilidad como área bajo la curva (rectángulo o triángulo simple) | 6 | `lectura-area-probabilidad` |
-| Comparar dos densidades por su forma (cuál está más concentrada/dispersa) | 3 | `comparacion-forma` |
-| **Total** | **15** | |
+| Sub-familia | Cantidad | Slug | Objetivo pedagógico | Conceptos que toca |
+|---|---:|---|---|---|
+| Leer la altura $h$ de una densidad uniforme (rectángulo) desde la condición de área $=1$ | 6 | `lectura-altura-uniforme` | Calcular la altura $h$ de una densidad uniforme (rectángulo) desde la condición de área total = 1 | Área de rectángulo, normalización aplicada geométricamente |
+| Leer una probabilidad como área bajo la curva (rectángulo o triángulo simple) | 6 | `lectura-area-probabilidad` | Leer una probabilidad como área bajo la curva (rectángulo o triángulo simple) | Área geométrica como probabilidad de un intervalo |
+| Comparar dos densidades por su forma (cuál está más concentrada/dispersa) | 3 | `comparacion-forma` | Comparar dos densidades por su forma para identificar cuál está más concentrada o dispersa | Forma de la curva vs. dispersión, sin confundir con "más probable en promedio" |
+| **Total** | **15** | | | |
 
 ---
 
 ## RESL, 15 ejercicios
 
-| Sub-familia | Cantidad | Slug |
-|---|---:|---|
-| Calcular una probabilidad como área de un rectángulo (densidad uniforme) | 6 | `resl-area-rectangulo` |
-| Calcular la constante $k$ de normalización despejando de $\int f=1$ (densidad lineal $f(x)=kx$) | 5 | `resl-constante-normalizacion` |
-| Calcular una probabilidad como área de un triángulo (densidad lineal $f(x)=kx$) | 4 | `resl-area-triangulo` |
-| **Total** | **15** | |
+| Sub-familia | Cantidad | Slug | Objetivo pedagógico | Conceptos que toca |
+|---|---:|---|---|---|
+| Calcular una probabilidad como área de un rectángulo (densidad uniforme) | 6 | `resl-area-rectangulo` | Calcular una probabilidad como área de un rectángulo (densidad uniforme) | Área = base × altura, restringida al tramo $[a,b]$ pedido |
+| Calcular la constante $k$ de normalización despejando de $\int f=1$ (densidad lineal $f(x)=kx$) | 5 | `resl-constante-normalizacion` | Calcular la constante $k$ de normalización despejando de $\int f=1$ en una densidad lineal | Despeje de $k$ en $f(x)=kx$, integral de una recta |
+| Calcular una probabilidad como área de un triángulo (densidad lineal $f(x)=kx$) | 4 | `resl-area-triangulo` | Calcular una probabilidad como área de un triángulo (densidad lineal $f(x)=kx$) | Área de triángulo, densidad no uniforme sesgada |
+| **Total** | **15** | | | |
 
 **Cardinalidad**: numérica corta → 4 opciones (grilla 2×2).
+
+### Contextos variados
+
+- **Uniforme**: tiempo de espera entre eventos equiprobable en un intervalo, posición de un punto al azar en un segmento, hora de llegada dentro de una franja horaria.
+- **Lineal simple**: cualquier magnitud continua acotada donde la densidad crece o decrece linealmente en su intervalo (ej. tiempos donde valores más altos son más probables).
+- Ningún experimento debe superar ~30% de los ítems de una misma sub-familia.
 
 ---
 
@@ -62,7 +68,8 @@ Concepto: la **función de densidad** $f(x)$ de una variable continua, con $P(a\
 
 ## Reglas específicas del topic
 
-- **Solo densidades uniformes o lineales simples**, con intervalos de longitud entera chica (2 a 5). Nunca pedir una antiderivada no trivial (ver nota de dependencia arriba).
+- **Solo densidades uniformes o lineales simples**, con intervalos de longitud entera chica (2 a 5). Nunca pedir una antiderivada no trivial (ver nota de dependencia arriba). Contextos: ver tabla de "Contextos variados" más arriba.
+- **Contextos cotidianos (regla crítica 43)**: `GRAF` y `RESL` usan siempre un contexto concreto de la tabla de arriba (tiempo de espera, posición al azar, hora de llegada), nunca "una variable aleatoria continua $X$" abstracta sin nombrar. `FORM` es la excepción intencional: evalúa reconocer la fórmula/condición en general, no aplicarla a un caso, así que queda abstracto.
 - **Cada ejercicio reintroduce** la condición de normalización o la fórmula de probabilidad como área cuando la usa (regla crítica 31).
 - **En `explanation`**, cuando se calcule un área, mostrar la fórmula geométrica (base × altura, o base × altura / 2) antes que notación de integral, salvo que el ejercicio pida explícitamente reconocer la notación $\int$ (sub-familia `formula-probabilidad-area`).
 

@@ -1,6 +1,42 @@
 [
   {
-    "question": "Sea $X$ una variable aleatoria continua con densidad\n$$f(x) = 2x \\quad \\text{para } 0 \\leq x \\leq 1$$\ny $0$ fuera de ese intervalo.\n\nCalculá $P(0 \\leq X \\leq 1/2)$.",
+    "question": "El tiempo que un cliente espera en la fila de un banco se modela con una densidad uniforme sobre $0\\leq x\\leq 3$ minutos.\n\nSu densidad es $f(x)=1/3$.\n\nCalculá $P(1\\leq X\\leq 3)$, la probabilidad de esperar entre 1 y 3 minutos.",
+    "options": ["$\\dfrac{1}{3}$", "$\\dfrac{2}{3}$", "$1$", "$\\dfrac{1}{9}$"],
+    "correct_index": 1,
+    "feedback_correct": "Área del rectángulo de base 2 y altura $1/3$, da $2/3$.",
+    "feedback_incorrect": [
+      "Esa es la altura del rectángulo, no el área del tramo pedido.",
+      null,
+      "Ese sería el área total del rectángulo completo, no la restringida al intervalo pedido.",
+      "Ese producto multiplica mal la base y la altura del rectángulo."
+    ],
+    "explanation": "La probabilidad de un intervalo bajo una densidad uniforme es el área del rectángulo que lo cubre.\n\nCon altura $1/3$ y el tramo $[1,3]$ de base 2:\n$$P(1\\leq X\\leq 3) = \\frac{1}{3} \\cdot 2 = \\frac{2}{3}$$\nUsar el ancho total del dominio en vez del tramo pedido cambia por completo el resultado del área calculada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-area-rectangulo"]
+  },
+  {
+    "question": "La probabilidad de que un cliente abandone la fila crece cuanto más tiempo espera, en la ventana $0\\leq x\\leq 2$.\n\nEsa densidad es $f(x)=kx$.\n\nCalculá el valor de $k$ que hace válida esta densidad.",
+    "options": ["$\\dfrac{1}{2}$", "$\\dfrac{1}{4}$", "$1$", "$2$"],
+    "correct_index": 0,
+    "feedback_correct": "El área del triángulo debe dar 1, $2k=1 \\Rightarrow k=1/2$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor no cierra el área del triángulo en 1, revisá el cálculo.",
+      "Con $k=1$ el área total sería 2, no 1.",
+      "Con $k=2$ el área total sería 4, no 1."
+    ],
+    "explanation": "Para que $f(x)=kx$ sea una densidad válida en $[0,2]$, el área bajo la curva debe ser 1.\n\nEsa área es un triángulo de base 2 y altura $f(2)=2k$:\n$$\\frac{1}{2} \\cdot 2 \\cdot 2k = 1$$\nDespejando la constante:\n$$2k = 1 \\Rightarrow k = \\frac{1}{2}$$\nOlvidar el factor $1/2$ del área del triángulo lleva a un valor de $k$ que no cierra la condición de normalización.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-constante-normalizacion"]
+  },
+  {
+    "question": "El tiempo de reacción ante una alarma es más probable cerca del final de la ventana de $1$ minuto, con densidad:\n$$f(x) = 2x \\quad \\text{para } 0 \\leq x \\leq 1$$\nY vale $0$ fuera de ese intervalo.\n\nCalculá $P(0 \\leq X \\leq 1/2)$.",
     "options": [
       "$\\dfrac{1}{2}$",
       "$\\dfrac{1}{4}$",
@@ -8,17 +44,18 @@
       "$1$"
     ],
     "correct_index": 1,
-    "feedback_correct": "$\\int_0^{1/2} 2x\\,dx = x^2 \\Big|_0^{1/2} = 1/4$.",
+    "feedback_correct": "Área del triángulo de base $1/2$ y altura $1$, da $1/4$.",
     "feedback_incorrect": [
-      "Ese sería $P(0 \\leq X \\leq 1/\\sqrt{2})$; verificá el límite superior de integración.",
+      "Esa sería la probabilidad si la densidad fuera uniforme sobre $[0,1]$, pero acá crece linealmente.",
       null,
-      "Ese es $P(1/2 \\leq X \\leq 1)$, el complemento del intervalo pedido.",
-      "Ese es el área total bajo la densidad ($P(0 \\leq X \\leq 1)$), no la restringida al intervalo pedido."
+      "Esa es $P(1/2 \\leq X \\leq 1)$, el complemento del intervalo pedido.",
+      "Ese es el área total bajo toda la densidad, no la restringida al intervalo pedido."
     ],
-    "explanation": "Para una variable continua la probabilidad es el área bajo la **densidad**:\n$$P(0 \\leq X \\leq 1/2) = \\int_0^{1/2} 2x\\,dx$$\n\nCalculando la integral:\n$$\\int_0^{1/2} 2x\\,dx = x^2 \\Big|_0^{1/2} = \\frac{1}{4}$$\n\nLa confusión típica es asumir que si el intervalo pedido es la \"mitad izquierda\" del dominio, la probabilidad debería ser $1/2$; en una densidad no uniforme la probabilidad se concentra donde $f$ es mayor, y acá $f(x)=2x$ está sesgada hacia la derecha, así que la mitad izquierda tiene menos área.",
+    "explanation": "La probabilidad de un intervalo bajo una densidad lineal se calcula como el área de la región que encierra, que en este caso es un triángulo.\n\nLa densidad crece linealmente entre $x=0$ y $x=1/2$.\n\nEse tramo forma un triángulo de base $1/2$ y altura $1$:\n$$P\\left(0\\leq X\\leq \\frac{1}{2}\\right) = \\frac{1}{2} \\cdot \\frac{1}{2} \\cdot 1 = \\frac{1}{4}$$\nAsumir que la mitad izquierda del dominio da la mitad de la probabilidad ignora que la densidad no es uniforme, ya que $f(x)=2x$ crece hacia la derecha y ahí se concentra más probabilidad.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["resl-area-triangulo"]
   }
 ]

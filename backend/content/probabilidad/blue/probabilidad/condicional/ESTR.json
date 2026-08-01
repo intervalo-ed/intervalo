@@ -1,19 +1,19 @@
 [
   {
-    "question": "En un grupo, se sabe que $P(A) = 0{,}4$, $P(B) = 0{,}5$ y $P(A \\cap B) = 0{,}2$.\n\nSe quiere calcular la probabilidad de $A$ dado que ocurrió $B$.\n\n¿Qué estrategia corresponde?",
+    "question": "En una encuesta, el 30% de los encuestados usa transporte público. Entre quienes usan transporte público, el 65% llega a horario.\n\nSe quiere calcular la probabilidad de que un encuestado llegue a horario, sabiendo que usa transporte público.\n\n¿Qué tipo de cálculo corresponde?",
     "options": [
-      "Aplicar la fórmula de probabilidad condicional $P(A|B) = P(A \\cap B) / P(B)$.",
-      "Aplicar la regla del complemento $P(A|B) = 1 - P(B)$.",
-      "Multiplicar directamente $P(A) \\cdot P(B)$ por independencia."
+      "Probabilidad simple de llegar a horario, sin usar el dato de transporte público.",
+      "Probabilidad condicional, porque el dato de llegar a horario ya está restringido a quienes usan transporte público.",
+      "Probabilidad de la intersección entre usar transporte público y llegar a horario, sobre el total de encuestados."
     ],
-    "correct_index": 0,
-    "feedback_correct": "La definición de condicional es exactamente esa razón entre intersección y condición.",
+    "correct_index": 1,
+    "feedback_correct": "Restringir el cálculo a un grupo que ya ocurrió es la señal de una probabilidad condicional.",
     "feedback_incorrect": [
+      "Ignorar el dato de transporte público deja afuera la restricción que el enunciado ya estableció.",
       null,
-      "El complemento se aplica al evento contrario, no a un condicional; además el condicional no está determinado solo por $P(B)$.",
-      "Podés multiplicar $P(A) \\cdot P(B)$ solo si sabés que $A$ y $B$ son independientes, y $0{,}4 \\cdot 0{,}5 = 0{,}2$ coincide, pero eso es una consecuencia, no la fórmula del condicional."
+      "La intersección no restringe el espacio muestral al grupo de transporte público, cuenta sobre el total de encuestados."
     ],
-    "explanation": "La **probabilidad condicional** mide la probabilidad de un evento sabiendo que ya ocurrió otro:\n$$P(A|B) = \\frac{P(A \\cap B)}{P(B)}, \\quad P(B) > 0$$\nCon los datos: $P(A|B) = 0{,}2 / 0{,}5 = 0{,}4$.\n\nLa lectura conceptual es que el espacio muestral \"se reduce\" a $B$ y la probabilidad de $A$ se recalcula sobre esa restricción. La confusión típica es mezclar independencia (que multiplica) con condicional (que divide): el condicional siempre normaliza por la condición conocida.",
+    "explanation": "La **probabilidad condicional** aparece cuando el enunciado ya restringe el espacio muestral a un subgrupo, y pide una probabilidad dentro de ese subgrupo.\n\nAcá el enunciado ya fija que el encuestado usa transporte público, y pregunta la probabilidad de llegar a horario dentro de ese subgrupo.\n\nLlamando $A$ a llegar a horario y $B$ a usar transporte público, corresponde:\n$$P(A \\mid B)$$\nHay que aplicar la fórmula condicional, no una probabilidad simple ni una intersección cruda.\n\nCalcular la intersección sobre el total de encuestados, sin restringir al subgrupo que ya ocurrió, ignora la condición que el propio enunciado impone.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -21,20 +21,20 @@
     "tags": ["reconocer-condicional"]
   },
   {
-    "question": "En una fábrica, $P(\\text{defectuosa})=0{,}05$.\n\nSe elige una pieza al azar de toda la producción y se pregunta por la probabilidad de que sea defectuosa.\n\n¿Qué estrategia corresponde?",
+    "question": "En un curso, el 45% de los estudiantes aprobó el parcial.\n\nSe quiere calcular la probabilidad de que un estudiante elegido al azar haya aprobado el parcial.\n\n¿Qué tipo de cálculo corresponde?",
     "options": [
-      "Usar directamente $P(\\text{defectuosa})=0{,}05$, sin condicional.",
-      "Aplicar $P(A|B)=P(A\\cap B)/P(B)$ con algún evento $B$.",
-      "Calcular el complemento de la probabilidad dada."
+      "Probabilidad condicional, porque hace falta dividir por la probabilidad de otro evento.",
+      "Probabilidad de la intersección entre dos eventos distintos.",
+      "Probabilidad simple, porque la pregunta no restringe a ningún subgrupo previo."
     ],
-    "correct_index": 0,
-    "feedback_correct": "No hay ninguna condición previa mencionada: es probabilidad simple, no condicional.",
+    "correct_index": 2,
+    "feedback_correct": "No hay ningún evento previo que restrinja el espacio muestral, así que alcanza con la probabilidad simple del enunciado.",
     "feedback_incorrect": [
-      null,
-      "No hay ningún evento $B$ que ya se sepa que ocurrió; aplicar la fórmula condicional acá no tiene sentido.",
-      "La pregunta no pide el evento contrario, pide directamente la probabilidad de ser defectuosa."
+      "Tratar como condicional una pregunta que no impone ninguna restricción agrega una fórmula que no corresponde.",
+      "No hay dos eventos en juego, sino un único evento sobre el total del curso.",
+      null
     ],
-    "explanation": "No toda pregunta con probabilidades es un problema de **condicional**: hace falta que el enunciado indique que ya se sabe que ocurrió otro evento antes de preguntar por el primero.\n\nAcá se pregunta por $P(\\text{defectuosa})$ sobre toda la producción, sin ninguna restricción previa, así que el dato $0{,}05$ ya es la respuesta directa.\n\nLa confusión típica es aplicar la fórmula condicional por reflejo ante cualquier problema de probabilidad, sin verificar primero si el enunciado realmente impone una condición.",
+    "explanation": "Antes de aplicar la **fórmula condicional** hay que revisar si el enunciado realmente restringe el espacio muestral a un subgrupo.\n\nAcá no hay ningún evento previo del cual partir. La pregunta pide la probabilidad de aprobar sobre el total del curso, sin condicionar a ningún subgrupo.\n\nBuscar una fórmula condicional cuando el enunciado no impone ninguna restricción agrega un paso innecesario y suele llevar a dividir por un dato que ni siquiera aparece.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -42,16 +42,20 @@
     "tags": ["distractor-probabilidad-simple"]
   },
   {
-    "question": "En un hospital, se sabe que entre los pacientes que dieron positivo en un test ($B$), cierta proporción realmente tiene la enfermedad ($A$).\n\nSe pregunta: dado que un paciente dio positivo, ¿cuál es la probabilidad de que tenga la enfermedad?\n\n¿Qué expresión corresponde?",
-    "options": ["$P(A|B)$", "$P(B|A)$", "$P(A\\cap B)$"],
+    "question": "En una empresa, el 60% del personal trabaja en el turno mañana. De quienes trabajan en el turno mañana, el 25% usa el comedor.\n\nSe quiere calcular la probabilidad de que un empleado use el comedor, sabiendo que trabaja en el turno mañana.\n\n¿Cuál es el planteo correcto?",
+    "options": [
+      "$P(\\text{comedor} \\mid \\text{mañana})$",
+      "$P(\\text{mañana} \\mid \\text{comedor})$",
+      "$P(\\text{comedor} \\cap \\text{mañana})$"
+    ],
     "correct_index": 0,
-    "feedback_correct": "La condición dada es «dio positivo» ($B$), y se pregunta por «tiene la enfermedad» ($A$): es $P(A|B)$.",
+    "feedback_correct": "El evento condicionante es trabajar en el turno mañana, así que va después de la barra.",
     "feedback_incorrect": [
       null,
-      "Esa expresión pregunta lo opuesto: la probabilidad de dar positivo sabiendo que tiene la enfermedad, no lo que pide el enunciado.",
-      "La intersección no restringe el espacio a la condición conocida, solo da la probabilidad de que ambos eventos ocurran a la vez."
+      "Esta expresión invierte el condicionante: pregunta la probabilidad de trabajar en el turno mañana dado que usa el comedor, al revés de lo pedido.",
+      "Esta expresión es la intersección, no restringe el cálculo al subgrupo que ya trabaja en el turno mañana."
     ],
-    "explanation": "Al identificar un condicional, hay que distinguir cuál evento aparece como **condición** (lo que ya se sabe que ocurrió) y cuál es la **incógnita** (lo que se pregunta).\n\nAcá la condición es «dio positivo» ($B$) y la incógnita es «tiene la enfermedad» ($A$), así que la expresión correcta es $P(A|B)$.\n\nLa confusión típica es invertir el orden y calcular $P(B|A)$ (probabilidad de dar positivo sabiendo que tiene la enfermedad), que es una pregunta distinta con un valor generalmente distinto.",
+    "explanation": "La **dirección del condicional** depende de cuál evento ya se sabe que ocurrió: ese va después de la barra $\\mid$.\n\nAcá ya se sabe que el empleado trabaja en el turno mañana, y se pregunta por el comedor dentro de ese subgrupo:\n$$P(\\text{comedor} \\mid \\text{mañana})$$\nInvertir el orden cambia la pregunta.\n\nConfundir cuál evento es la condición y cuál es el de interés lleva a plantear la probabilidad en la dirección contraria a la que pide el enunciado.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

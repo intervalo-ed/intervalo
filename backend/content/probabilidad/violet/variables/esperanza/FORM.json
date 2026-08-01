@@ -1,24 +1,68 @@
 [
   {
-    "question": "Sea $X$ una variable aleatoria discreta con función de probabilidad puntual $p(x)$.\n\n¿Qué expresión define su **esperanza** $E[X]$?",
+    "question": "La cantidad de fallas detectadas por lote en una fábrica es una variable aleatoria discreta $X$.\n\nSu función de probabilidad puntual es $p(x)$.\n\n¿Qué expresión define su **esperanza** $E[X]$?",
     "options": [
       "$\\sum_x p(x)$",
       "$\\sum_x x \\cdot p(x)$",
-      "$\\max_x p(x)$",
       "$\\dfrac{1}{n}\\sum_x x$"
     ],
     "correct_index": 1,
     "feedback_correct": "Promedio ponderado de los valores por sus probabilidades.",
     "feedback_incorrect": [
-      "Esa suma da 1 (propiedad de la puntual), no la esperanza.",
+      "Esa suma da 1, es la propiedad de normalización de la puntual, no la esperanza.",
       null,
-      "Ese es el valor más probable (moda), no la esperanza.",
       "Ese es el promedio aritmético simple, ignora el peso de cada valor."
     ],
-    "explanation": "La **esperanza** de una variable aleatoria discreta es el promedio ponderado de los valores por sus probabilidades:\n$$E[X] = \\sum_x x \\cdot p(x)$$\n\nRepresenta el valor promedio a largo plazo tras muchas repeticiones del experimento.\n\nLa confusión típica es reemplazarla por un promedio aritmético $\\frac{1}{n}\\sum x$: eso trata a todos los valores como equiprobables, cuando en realidad cada uno debe pesarse por su probabilidad puntual $p(x)$.",
+    "explanation": "La **esperanza** de una variable aleatoria discreta es el promedio ponderado de los valores por sus probabilidades:\n$$E[X] = \\sum_x x \\cdot p(x)$$\nRepresenta el promedio de fallas por lote a largo plazo, tras observar muchos lotes.\n\nPromediar los valores sin ponderar por $p(x)$ trata a todos como igual de probables, cuando en realidad cada uno pesa distinto según su probabilidad puntual.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": ["formula-discreta"]
+  },
+  {
+    "question": "El tiempo de espera en la fila de un banco es una variable aleatoria $X$.\n\nUn cajero transforma ese tiempo en un costo $Y=aX+b$, con tarifa por minuto y un cargo fijo.\n\n¿Cómo se calcula $E[Y]$ a partir de $E[X]$?",
+    "options": [
+      "$E[Y] = a \\cdot E[X] + b$",
+      "$E[Y] = a \\cdot E[X]$",
+      "$E[Y] = a \\cdot (E[X] + b)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La esperanza de una transformación lineal aplica la misma transformación a $E[X]$.",
+    "feedback_incorrect": [
+      null,
+      "Esa expresión olvida sumar el cargo fijo $b$.",
+      "Esa expresión multiplica $b$ también por $a$, cuando $b$ se suma sin escalar."
+    ],
+    "explanation": "La **esperanza** cumple la propiedad de **linealidad**: transformar $X$ de forma lineal transforma $E[X]$ de la misma manera:\n$$E[aX+b] = a \\cdot E[X] + b$$\nAsí, el costo esperado se obtiene escalando el tiempo esperado por la tarifa y sumando el cargo fijo, sin recalcular la esperanza desde cero.\n\nOlvidar el término $b$, o multiplicarlo también por $a$, rompe la linealidad: el cargo fijo se suma una sola vez, tal cual, después de escalar la parte variable.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": ["propiedad-linealidad"]
+  },
+  {
+    "question": "El tiempo de espera en un cajero automático es una variable aleatoria continua $X$ con densidad $f(x)$.\n\n¿Qué expresión define su **esperanza** $E[X]$?",
+    "options": [
+      "$\\displaystyle \\int x f(x)\\,dx$",
+      "$\\displaystyle \\int f(x)\\,dx$",
+      "$\\displaystyle \\int x\\,dx$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Análogo continuo de la suma ponderada: integrar $x$ pesado por la densidad.",
+    "feedback_incorrect": [
+      null,
+      "Esa integral da 1, es la normalización de la densidad, no la esperanza.",
+      "Esa integral no pondera por la densidad $f(x)$, no representa una probabilidad."
+    ],
+    "explanation": "La **esperanza** de una variable aleatoria continua es el análogo de la suma ponderada discreta, cambiando la suma por una integral:\n$$E[X] = \\int x \\cdot f(x)\\,dx$$\nRepresenta el tiempo de espera promedio a largo plazo, ponderando cada valor posible por la densidad en ese punto.\n\nOmitir el factor $x$ dentro de la integral, o la propia densidad $f(x)$, cambia por completo lo que mide la integral.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": ["formula-continua"]
   }
 ]

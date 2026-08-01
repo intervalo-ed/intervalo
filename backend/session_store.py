@@ -191,6 +191,7 @@ class ExerciseInSession:
     has_math: bool = False
     graph_fn: str = ""
     graph_view: list | None = None
+    graph_shade: list | None = None
     explanation: str | None = None
     external_id: str = ""
 
@@ -452,6 +453,7 @@ def _exercise_to_dict(ex: ExerciseInSession) -> dict:
         "belt": ex.topic_key.belt.value,
         "graph_fn": ex.graph_fn,
         "graph_view": ex.graph_view,
+        "graph_shade": ex.graph_shade,
         "feedback_correct": ex.feedback_correct,
         "feedback_incorrect": ex.feedback_incorrect,
         "explanation": ex.explanation,
@@ -501,6 +503,7 @@ def _build_exercise(
         has_math=ex.get("has_math", False),
         graph_fn=ex.get("graph_fn", ""),
         graph_view=ex.get("graph_view"),
+        graph_shade=ex.get("graph_shade"),
         explanation=ex.get("explanation"),
         external_id=ex.get("external_id", ""),
     )
@@ -766,12 +769,16 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
         exercises=exercises,
     )
 
+    from feedback_survey import assign_survey
+    survey = assign_survey(user_id, course_id, exercises, db)
+
     return {
         "session_id": session_id_str,
         "user_name": "",
         "total": len(exercises),
         "mode": "main",
         "exercises": [_exercise_to_dict(ex) for ex in exercises],
+        "survey": survey,
     }
 
 
@@ -890,6 +897,7 @@ def create_test_session_db(
                     has_math=ex.get("has_math", False),
                     graph_fn=ex.get("graph_fn", ""),
                     graph_view=ex.get("graph_view"),
+                    graph_shade=ex.get("graph_shade"),
                     explanation=ex.get("explanation"),
                     external_id=ex.get("external_id", ""),
                 )

@@ -1,19 +1,57 @@
 [
   {
-    "question": "Un gráfico muestra la función de distribución acumulada $F(x)$ de una variable continua $X$.\n\nSe observa que $F(2) = 0{,}3$ y $F(5) = 0{,}8$.\n\n¿Cuánto vale $P(2 < X \\leq 5)$?",
-    "options": ["$0{,}3$", "$0{,}5$", "$0{,}8$", "$1{,}1$"],
+    "question": "El tiempo que un cliente espera en la fila de un banco se modela con una densidad uniforme sobre $[0,4]$ minutos.\n\nEl área sombreada de azul representa $P(1 < X \\leq 3)$.\n\n¿Cuánto vale esa probabilidad?",
+    "options": ["$\\dfrac{1}{4}$", "$\\dfrac{1}{2}$", "$\\dfrac{3}{4}$", "$1$"],
     "correct_index": 1,
-    "feedback_correct": "$P(2 < X \\leq 5) = F(5) - F(2) = 0{,}8 - 0{,}3 = 0{,}5$.",
+    "feedback_correct": "Rectángulo de base 2 y altura $1/4$: $2\\cdot\\frac14=\\frac12$.",
     "feedback_incorrect": [
-      "Ese es $F(2)$, la probabilidad acumulada hasta 2, no el intervalo entre 2 y 5.",
+      "Ese es solo la altura de la densidad, no el área del rectángulo sombreado.",
       null,
-      "Ese es $F(5)$, la probabilidad acumulada hasta 5, sin descontar la parte anterior a 2.",
-      "Estás sumando $F(2) + F(5)$; para un intervalo hay que RESTAR las acumuladas, no sumarlas."
+      "Ese valor correspondería a una base de 3, pero el tramo sombreado tiene base 2.",
+      "Ese es el área total bajo toda la densidad, no la del tramo sombreado."
     ],
-    "explanation": "La probabilidad de un intervalo se calcula como diferencia de la **función de distribución acumulada** en los extremos:\n$$P(a < X \\leq b) = F(b) - F(a)$$\n\nCon los valores del gráfico:\n$$P(2 < X \\leq 5) = 0{,}8 - 0{,}3 = 0{,}5$$\n\nLa confusión típica es sumar los dos valores de $F$ pensando en \"acumulación\": recordá que $F(x)$ ya integra desde $-\\infty$ hasta $x$, así que para un intervalo hay que restar la parte que sobra por debajo de $a$.",
+    "explanation": "La probabilidad de un intervalo bajo una densidad uniforme es el área que encierra sobre ese tramo:\n$$P(a < X \\leq b) = F(b) - F(a)$$\nEsa diferencia de acumuladas es exactamente el área sombreada entre la densidad y el eje $x$:\n$$P(1 < X \\leq 3) = \\frac14 \\cdot 2 = \\frac12$$\nConfundir la altura de la densidad con el área sombreada ignora que la probabilidad de un intervalo depende también de su ancho, no solo de cuán alta es la densidad.",
+    "has_math": true,
+    "graph_fn": "Piecewise((1/4, (x>=0)&(x<=4)))",
+    "graph_view": [-1, 5, -0.05, 0.35],
+    "graph_shade": [1, 3],
+    "reviewed": false,
+    "tags": ["lectura-diferencia-acumulada"]
+  },
+  {
+    "question": "El tiempo que tarda en confirmarse un pago online tiene función de distribución acumulada $F(x)$.\n\nSe observa que $F(3)=0{,}98$, y que $F(x)$ apenas cambia para pagos que tardan más de 3 segundos.\n\n¿A qué valor se acerca $F(x)$ cuando $x$ crece indefinidamente hacia la derecha?",
+    "options": ["$0$", "$1$", "El valor de $x$"],
+    "correct_index": 1,
+    "feedback_correct": "$F(x)$ siempre tiende a 1 cuando $x$ crece sin límite, porque acumula toda la probabilidad disponible.",
+    "feedback_incorrect": [
+      "Ese es el límite de $F(x)$ cuando $x$ tiende a menos infinito, no a más infinito.",
+      null,
+      "$F(x)$ es una probabilidad, no puede crecer indefinidamente junto con $x$."
+    ],
+    "explanation": "Toda función de distribución acumulada tiende a 1 cuando $x$ crece sin límite, porque en ese extremo ya se acumuló toda la probabilidad de $X$:\n$$\\lim_{x\\to\\infty} F(x) = 1$$\nQue $F(3)$ ya valga $0{,}98$ y casi no cambie después confirma que la curva se está aplanando cerca de 1.\n\nEl límite opuesto da $F\\to 0$: la acumulada solo crece de izquierda a derecha, nunca al revés.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": ["lectura-limites-acumulada"]
+  },
+  {
+    "question": "El gráfico muestra $F(x)$, la cantidad de fallas detectadas en una inspección, con varios saltos verticales.\n\n¿Qué tipo de variable representa?",
+    "options": ["Discreta", "Continua", "Mixta"],
+    "correct_index": 0,
+    "feedback_correct": "Los saltos verticales son propios de la acumulada de una variable discreta.",
+    "feedback_incorrect": [
+      null,
+      "Una variable continua tiene una acumulada sin saltos, una curva suave.",
+      "Una variable mixta combina tramos continuos con saltos, pero acá toda la curva sube solo en saltos."
+    ],
+    "explanation": "La forma de $F(x)$ distingue el tipo de variable: una acumulada continua es una curva suave, mientras que una discreta sube en saltos verticales en cada valor posible de $X$.\n\nEn este gráfico, $F$ sube en tres saltos, cada uno de tamaño $p(x)$:\n$$F(x) = \\sum_{k\\leq x} p(k)$$\nLeer una acumulada escalonada como si fuera continua ignora que cada salto representa una probabilidad puntual concentrada en un único valor, algo que una variable continua no tiene.",
+    "has_math": true,
+    "graph_fn": "Piecewise((0, x<0), (0.3, (x>=0)&(x<1)), (0.7, (x>=1)&(x<2)), (1, x>=2))",
+    "graph_view": [-2, 4, -0.3, 1.3],
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": ["lectura-discreta-vs-continua"]
   }
 ]

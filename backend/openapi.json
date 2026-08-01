@@ -2679,6 +2679,18 @@
             ],
             "title": "Graph View"
           },
+          "graph_shade": {
+            "anyOf": [
+              {
+                "items": {},
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Graph Shade"
+          },
           "feedback_correct": {
             "type": "string",
             "title": "Feedback Correct"

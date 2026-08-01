@@ -2,23 +2,60 @@
   {
     "question": "Sea $X$ una variable aleatoria continua con función de **densidad** $f(x)$.\n\n¿Qué expresión da $P(a \\leq X \\leq b)$?",
     "options": [
-      "$f(b) - f(a)$",
       "$\\displaystyle \\int_a^b f(x)\\,dx$",
-      "$\\displaystyle \\sum_{x=a}^{b} f(x)$",
-      "$f(a) \\cdot f(b)$"
+      "$f(b) - f(a)$",
+      "$\\displaystyle \\sum_{x=a}^{b} f(x)$"
     ],
-    "correct_index": 1,
+    "correct_index": 0,
     "feedback_correct": "La probabilidad continua es el área bajo la densidad entre $a$ y $b$.",
     "feedback_incorrect": [
-      "Esa es la variación de valores de $f$, no una probabilidad; la densidad no es probabilidad acumulada.",
       null,
-      "La suma discreta aplica a puntuales, no a densidades continuas.",
-      "El producto no aparece en la definición de probabilidad; el área bajo la curva se calcula con integral."
+      "Esa es la variación de valores de $f$, no una probabilidad; la densidad no es probabilidad acumulada.",
+      "La suma discreta aplica a puntuales, no a densidades continuas."
     ],
-    "explanation": "En una variable aleatoria continua la probabilidad puntual es cero ($P(X=x)=0$) y la probabilidad de un intervalo se calcula como el **área bajo la curva de densidad**:\n$$P(a \\leq X \\leq b) = \\int_a^b f(x)\\,dx$$\n\nLa densidad total tiene que integrar 1 sobre todo el dominio ($\\int_{-\\infty}^{\\infty} f(x)\\,dx = 1$).\n\nLa confusión típica es leer $f(x)$ como si fuera una probabilidad puntual: $f(x)$ es una densidad y puede superar 1 sin problema; lo que representa una probabilidad es el área que encierra bajo la curva.",
+    "explanation": "En una variable aleatoria continua, la probabilidad de un intervalo se calcula como el **área bajo la curva de densidad**:\n$$P(a \\leq X \\leq b) = \\int_a^b f(x)\\,dx$$\nLa densidad total tiene que integrar 1 sobre todo el dominio.\n\nLeer $f(x)$ como una probabilidad puntual confunde dos objetos: $f(x)$ es una densidad y puede superar 1, y lo que representa una probabilidad es el área bajo la curva.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["formula-probabilidad-area"]
+  },
+  {
+    "question": "Sea $X$ una variable aleatoria continua con función de **densidad** $f(x)$.\n\n¿Qué condición debe cumplir $f(x)$ sobre todo el dominio de $X$?",
+    "options": [
+      "$\\displaystyle \\int_{-\\infty}^{\\infty} f(x)\\,dx = 1$",
+      "$\\displaystyle \\int_{-\\infty}^{\\infty} f(x)\\,dx = 0$",
+      "$f(x) = 1$ para todo $x$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El área total bajo la densidad debe ser 1, así se reparte toda la probabilidad.",
+    "feedback_incorrect": [
+      null,
+      "Si el área total fuera 0, no habría probabilidad asignada a ningún intervalo.",
+      "La densidad no tiene que valer 1 en cada punto, lo que debe ser 1 es el área acumulada bajo toda la curva."
+    ],
+    "explanation": "Toda **función de densidad** de una variable continua cumple una condición de normalización sobre todo su dominio:\n$$\\int_{-\\infty}^{\\infty} f(x)\\,dx = 1$$\nEsta condición refleja que $X$ debe tomar algún valor real, así que el área total bajo la curva reparte toda la probabilidad disponible.\n\nCreer que la altura $f(x)$ debe valer 1 en cada punto confunde la densidad con una probabilidad puntual, cuando en realidad puede tomar cualquier valor no negativo mientras el área total cierre en 1.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["condicion-normalizacion"]
+  },
+  {
+    "question": "Sea $X$ una variable aleatoria continua con función de **densidad** $f(x)$.\n\n¿Cuánto vale $P(X=3)$?",
+    "options": ["$0$", "$f(3)$", "$1$"],
+    "correct_index": 0,
+    "feedback_correct": "Para una variable continua, la probabilidad de cualquier valor puntual es siempre 0.",
+    "feedback_incorrect": [
+      null,
+      "$f(3)$ es la altura de la densidad en ese punto, no una probabilidad puntual.",
+      "El área de un único punto, sin ancho, es 0, no 1."
+    ],
+    "explanation": "En una variable aleatoria continua, la probabilidad de cualquier valor puntual es siempre cero:\n$$P(X=x) = 0 \\quad \\text{para todo } x$$\nEsto ocurre porque un único punto no tiene ancho, y el área bajo la curva de densidad sobre un intervalo de ancho cero es nula.\n\nConfundir $f(x)$ con $P(X=x)$ asigna probabilidad a un valor puntual, cuando solo un intervalo con ancho positivo encierra área y, por lo tanto, probabilidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["probabilidad-puntual-nula"]
   }
 ]
