@@ -1,19 +1,83 @@
 [
   {
-    "question": "Sea $X$ una variable aleatoria discreta con función de probabilidad puntual\n$$\\begin{aligned} p(0) &= 0{,}5 \\\\ p(2) &= 0{,}5 \\end{aligned}$$\n\n¿Cuánto vale $Var(X)$?",
+    "question": "Un call center registra $X$, la cantidad de llamadas perdidas por turno, con función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 0{,}5 \\\\ p(2) &= 0{,}5 \\end{aligned}$$\n¿Cuánto vale $Var(X)$?",
     "options": ["$0$", "$1$", "$2$", "$4$"],
     "correct_index": 1,
-    "feedback_correct": "$E[X]=1$, $E[X^2]=2$, $Var(X)=2-1=1$.",
+    "feedback_correct": "$Var(X) = 2 - 1^{2} = 1$.",
     "feedback_incorrect": [
       "Ese sería si los dos valores fueran idénticos y no hubiera dispersión; acá $X$ toma 0 o 2.",
       null,
       "Ese es $E[X^{2}]$: falta restar $(E[X])^{2}=1$.",
       "Ese es $E[X^{2}]^{2}$; recordá restar $\\mu^{2}$, no elevar al cuadrado $E[X^{2}]$."
     ],
-    "explanation": "La **varianza** se calcula con la fórmula alternativa:\n$$Var(X) = E[X^{2}] - (E[X])^{2}$$\n\nPrimero la esperanza y el segundo momento:\n$$\\begin{aligned} E[X] &= 0 \\cdot 0{,}5 + 2 \\cdot 0{,}5 = 1 \\\\ E[X^{2}] &= 0 \\cdot 0{,}5 + 4 \\cdot 0{,}5 = 2 \\end{aligned}$$\n\nEntonces $Var(X) = 2 - 1^{2} = 1$.\n\nLa confusión típica es reportar $E[X^{2}]$ como la varianza sin restar $\\mu^{2}$: el ajuste por la media al cuadrado es lo que centra la dispersión respecto de la esperanza.",
+    "explanation": "La **varianza** se calcula con la fórmula operativa:\n$$Var(X) = E[X^{2}] - (E[X])^{2}$$\nPrimero la esperanza y el segundo momento:\n$$\\begin{aligned} E[X] &= 0 \\cdot 0{,}5 + 2 \\cdot 0{,}5 = 1 \\\\ E[X^{2}] &= 0 \\cdot 0{,}5 + 4 \\cdot 0{,}5 = 2 \\end{aligned}$$\n$$Var(X) = 2 - 1^{2} = 1$$\nEste valor indica cuánto varía, en promedio, la cantidad de llamadas perdidas por turno respecto de su esperanza.\n\nLa dispersión acá es moderada: los dos valores posibles están a igual distancia del centro.\n\nReportar el segundo momento sin restar el cuadrado de la esperanza deja el resultado incompleto, sin ajustar por el centro de la distribución.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": ["resl-varianza-discreta"]
+  },
+  {
+    "question": "El tiempo de armado de un mueble tiene varianza $Var(X)=4$ minutos².\n\n¿Cuál es la desviación estándar $\\sigma$?",
+    "options": ["$1$", "$2$", "$4$", "$16$"],
+    "correct_index": 1,
+    "feedback_correct": "$\\sigma=\\sqrt{4}=2$.",
+    "feedback_incorrect": [
+      "Ese valor no corresponde a la raíz cuadrada de $4$.",
+      null,
+      "Ese es el propio $Var(X)$, falta aplicar la raíz cuadrada.",
+      "Ese es $Var(X)^{2}$, no su raíz cuadrada."
+    ],
+    "explanation": "La **desviación estándar** es la raíz cuadrada de la varianza:\n$$\\sigma = \\sqrt{Var(X)}$$\nCon $Var(X)=4$:\n$$\\sigma = \\sqrt{4} = 2$$\nLa varianza queda en unidades al cuadrado, mientras que la desviación estándar vuelve a la unidad original del problema, minutos en este caso.\n\nConfundir ambas medidas ignora que describen la misma dispersión en escalas distintas: una al cuadrado, la otra en la unidad original.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": ["resl-desviacion-estandar"]
+  },
+  {
+    "question": "El costo de envío es $Y=3X+2$ dólares, con $Var(X)=5$.\n\n¿Cuánto vale $Var(Y)$?",
+    "options": ["$45$", "$15$", "$47$", "$25$"],
+    "correct_index": 0,
+    "feedback_correct": "$Var(Y)=9\\cdot5=45$.",
+    "feedback_incorrect": [
+      null,
+      "Ese resultado no eleva el factor $3$ al cuadrado antes de multiplicar.",
+      "Ese resultado suma el término $+2$, que no afecta la varianza.",
+      "Ese valor no corresponde a $3^{2}\\cdot 5$."
+    ],
+    "explanation": "La varianza escala según la propiedad:\n$$Var(aX+b) = a^{2}\\,Var(X)$$\nCon $a=3$ y $Var(X)=5$:\n$$Var(Y) = 9\\cdot 5 = 45$$\nEl cargo fijo desplaza todos los costos por igual, así que no cambia cuánto varían entre sí.\n\nEscalar por el factor $3$ sí estira esa dispersión, y por eso entra al cuadrado en el resultado.\n\nOlvidar elevar el factor al cuadrado, o incluir el cargo fijo en el cálculo, ignora que la varianza mide dispersión relativa entre los valores, no su ubicación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": ["resl-varianza-escalada"]
+  },
+  {
+    "question": "Dos máquinas producen piezas con el mismo diámetro promedio, pero distinta varianza.\n\nLa Máquina A tiene $Var(X)=0{,}5$ y la Máquina B tiene $Var(X)=4$.\n\n¿Qué significa esto?",
+    "options": [
+      "La Máquina A es más consistente, sus piezas varían menos",
+      "La Máquina B produce piezas de mayor diámetro en promedio",
+      "La Máquina A produce más piezas por unidad de tiempo",
+      "No hay ninguna diferencia real entre las máquinas"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Menor varianza significa piezas más consistentes, más cerca del promedio.",
+    "feedback_incorrect": [
+      null,
+      "El promedio $E[X]$ es igual en ambas, la varianza no lo cambia.",
+      "La varianza mide dispersión, no cantidad producida.",
+      "Una varianza mucho mayor sí indica una diferencia real: más dispersión en la Máquina B."
+    ],
+    "explanation": "La **varianza** mide cuánto se dispersan los valores respecto de su esperanza, sin importar cuál sea esa esperanza:\n$$Var(X) = E[(X-\\mu)^{2}]$$\nComo ambas máquinas comparten el mismo promedio, la diferencia está solo en la dispersión.\n\n$Var(X)=0{,}5$ en la Máquina A indica piezas concentradas cerca del promedio; $Var(X)=4$ en la Máquina B indica piezas mucho más alejadas de él.\n\nConfundir varianza con el valor promedio, o con la cantidad producida, ignora que la varianza describe consistencia.\n\nDescribe qué tan lejos, en promedio, cae cada pieza respecto del centro de la distribución.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": ["resl-interpretacion"]
   }
 ]

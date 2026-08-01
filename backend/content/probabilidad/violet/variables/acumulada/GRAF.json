@@ -13,8 +13,9 @@
     "explanation": "La probabilidad de un intervalo bajo una densidad uniforme es el área que encierra sobre ese tramo:\n$$P(a < X \\leq b) = F(b) - F(a)$$\nEsa diferencia de acumuladas es exactamente el área sombreada entre la densidad y el eje $x$:\n$$P(1 < X \\leq 3) = \\frac14 \\cdot 2 = \\frac12$$\nConfundir la altura de la densidad con el área sombreada ignora que la probabilidad de un intervalo depende también de su ancho, no solo de cuán alta es la densidad.",
     "has_math": true,
     "graph_fn": "Piecewise((1/4, (x>=0)&(x<=4)))",
-    "graph_view": [-1, 5, -0.05, 0.35],
+    "graph_view": [-0.5, 4.5, -0.03, 0.28],
     "graph_shade": [1, 3],
+    "graph_free_aspect": true,
     "reviewed": false,
     "tags": ["lectura-diferencia-acumulada"]
   },
@@ -49,8 +50,9 @@
     "explanation": "La forma de $F(x)$ distingue el tipo de variable: una acumulada continua es una curva suave, mientras que una discreta sube en saltos verticales en cada valor posible de $X$.\n\nEn este gráfico, $F$ sube en tres saltos, cada uno de tamaño $p(x)$:\n$$F(x) = \\sum_{k\\leq x} p(k)$$\nLeer una acumulada escalonada como si fuera continua ignora que cada salto representa una probabilidad puntual concentrada en un único valor, algo que una variable continua no tiene.",
     "has_math": true,
     "graph_fn": "Piecewise((0, x<0), (0.3, (x>=0)&(x<1)), (0.7, (x>=1)&(x<2)), (1, x>=2))",
-    "graph_view": [-2, 4, -0.3, 1.3],
+    "graph_view": [-2.5, 4.5, -0.12, 1.12],
     "graph_shade": null,
+    "graph_free_aspect": true,
     "reviewed": false,
     "tags": ["lectura-discreta-vs-continua"]
   }

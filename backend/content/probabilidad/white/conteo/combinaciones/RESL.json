@@ -7,10 +7,10 @@
     "feedback_incorrect": [
       "Ese es $6 \\times 2$: aparece si se cuenta cada persona dando 2 saludos, pero eso no es el total.",
       null,
-      "Ese es $V_{6,2} = 6 \\times 5$: cuenta cada apretón dos veces (una por cada dirección).",
+      "Ese es $V_{6,2} = 6 \\times 5$: cuenta cada apretón dos veces, una por cada dirección.",
       "Ese es $6^{2}$: cuenta también los saludos de cada uno consigo mismo y los repetidos en ambos sentidos."
     ],
-    "explanation": "Un apretón de manos entre dos personas es un subconjunto de 2 elementos donde el orden no importa (A→B es lo mismo que B→A), así que corresponde una **combinación**:\n$$\\binom{6}{2} = \\frac{6!}{2!\\,4!} = \\frac{6 \\times 5}{2} = 15$$\nHay 15 apretones de manos.\n\nEl error típico es aplicar variación ($6 \\times 5 = 30$), que cuenta el apretón A-B como distinto al B-A y duplica el total.\n\nSiempre que dos elementos sean intercambiables sin cambiar el resultado, va combinación.",
+    "explanation": "Un apretón de manos entre dos personas es un subconjunto de 2 elementos donde el orden no importa, ya que A saludando a B es lo mismo que B saludando a A, así que corresponde una **combinación**:\n$$\\binom{6}{2} = \\frac{6!}{2!\\,4!}$$\n$$= \\frac{6 \\times 5}{2} = 15$$\nHay 15 apretones de manos.\n\nAplicar variación, con $6 \\times 5 = 30$, cuenta el apretón A-B como distinto al B-A y duplica el total.\n\nSiempre que dos elementos sean intercambiables sin cambiar el resultado, va combinación.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -18,7 +18,7 @@
     "tags": ["resl-directo"]
   },
   {
-    "question": "Con $n=8$ y $k=3$, se quiere comparar $\\binom{8}{3}$ contra $V_{8,3}$.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
+    "question": "Con 8 elementos tomados de a 3, se quiere comparar el resultado de la combinación contra el de la variación.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
     "options": ["$V_{8,3}$ es 6 veces mayor que $\\dbinom{8}{3}$.", "Ambas dan el mismo resultado.", "$\\dbinom{8}{3}$ es mayor que $V_{8,3}$.", "$V_{8,3}$ es el doble de $\\dbinom{8}{3}$."],
     "correct_index": 0,
     "feedback_correct": "La variación multiplica a la combinación por $3!=6$.",
@@ -28,7 +28,7 @@
       "La combinación nunca supera a la variación con los mismos $n,k$: ignorar el orden reduce el conteo, no lo aumenta.",
       "El factor que las relaciona es $3!=6$, no $2$: hay que multiplicar por todos los ordenamientos posibles de los 3 elegidos."
     ],
-    "explanation": "Las dos fórmulas comparten el mismo numerador y el mismo factor $(n-k)!$ en el denominador:\n$$V_{n,k} = \\dfrac{n!}{(n-k)!}$$\n$$\\binom{n}{k} = \\dfrac{n!}{k!\\,(n-k)!}$$\nLa única diferencia es el $k!$ extra que divide al binomial.\n\nDividir una fórmula por la otra cancela todo lo demás:\n$$\\dfrac{V_{n,k}}{\\binom{n}{k}} = k!$$\nPor eso la variación es $k!$ veces la combinación.\n\nLa variación cuenta cada subconjunto elegido tantas veces como formas de ordenarlo internamente; el binomial ya perdió esa información al dividir por $k!$.\n\nCon 8 y 3 ($k!=6$): la combinación vale 56 y la variación $56\\times6=336$.\n\nAsumir cualquier otro factor entre ambas no funciona: el correcto siempre es $k!$, nunca un número que dependa del contexto.",
+    "explanation": "Las dos fórmulas comparten el mismo numerador y el mismo factor $(n-k)!$ en el denominador:\n$$V_{n,k} = \\dfrac{n!}{(n-k)!}$$\n$$\\binom{n}{k} = \\dfrac{n!}{k!\\,(n-k)!}$$\nLa única diferencia es el $k!$ extra que divide al binomial.\n\nDividir una fórmula por la otra cancela todo lo demás:\n$$\\dfrac{V_{n,k}}{\\binom{n}{k}} = k!$$\nPor eso la variación es $k!$ veces la combinación.\n\nLa variación cuenta cada subconjunto elegido tantas veces como formas de ordenarlo internamente; el binomial ya perdió esa información al dividir por $k!$.\n\nCon 8 y 3, y $k!=6$, la combinación vale 56 y la variación $56\\times6=336$.\n\nAsumir un factor de proporción arbitrario entre ambas da un resultado incorrecto; el factor correcto siempre es $k!$, nunca un número que dependa del contexto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -64,7 +64,7 @@
       "Ese es $\\dbinom{8}{4}$, que excluye a la persona en vez de incluirla obligatoriamente.",
       "Ese resultado no corresponde a ninguna de las combinaciones relevantes de este problema."
     ],
-    "explanation": "Cuando una combinación debe incluir obligatoriamente a un elemento, ese elemento ya ocupa un lugar del subconjunto, y solo queda elegir el resto.\n\nCon esa persona fija, quedan 8 amigos disponibles para completar los 3 lugares restantes:\n$$\\binom{8}{3} = 56$$\nHay 56 equipos posibles.\n\nContar a esa persona como si todavía compitiera por un lugar infla el resultado: hay que descontarla tanto del total disponible como de la cantidad a elegir.",
+    "explanation": "Cuando una combinación debe incluir obligatoriamente a un elemento, ese elemento ya ocupa un lugar del subconjunto, y solo queda elegir el resto.\n\nCon esa persona fija, quedan 8 amigos disponibles para completar los 3 lugares restantes:\n$$\\binom{8}{3} = 56$$\nHay 56 equipos posibles.\n\nSeguir contando como si esa persona todavía compitiera por un lugar infla el resultado, en vez de descontarla tanto del total disponible como de la cantidad a elegir.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

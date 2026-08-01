@@ -689,6 +689,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                       graphFn={exercise.graph_fn}
                       graphView={exercise.graph_view}
                       graphShade={exercise.graph_shade}
+                      graphFreeAspect={exercise.graph_free_aspect}
                     />
                   )}
 

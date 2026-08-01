@@ -192,6 +192,7 @@ class ExerciseInSession:
     graph_fn: str = ""
     graph_view: list | None = None
     graph_shade: list | None = None
+    graph_free_aspect: bool = False
     explanation: str | None = None
     external_id: str = ""
 
@@ -454,6 +455,7 @@ def _exercise_to_dict(ex: ExerciseInSession) -> dict:
         "graph_fn": ex.graph_fn,
         "graph_view": ex.graph_view,
         "graph_shade": ex.graph_shade,
+        "graph_free_aspect": ex.graph_free_aspect,
         "feedback_correct": ex.feedback_correct,
         "feedback_incorrect": ex.feedback_incorrect,
         "explanation": ex.explanation,
@@ -504,6 +506,7 @@ def _build_exercise(
         graph_fn=ex.get("graph_fn", ""),
         graph_view=ex.get("graph_view"),
         graph_shade=ex.get("graph_shade"),
+        graph_free_aspect=bool(ex.get("graph_free_aspect", False)),
         explanation=ex.get("explanation"),
         external_id=ex.get("external_id", ""),
     )
@@ -898,6 +901,7 @@ def create_test_session_db(
                     graph_fn=ex.get("graph_fn", ""),
                     graph_view=ex.get("graph_view"),
                     graph_shade=ex.get("graph_shade"),
+                    graph_free_aspect=bool(ex.get("graph_free_aspect", False)),
                     explanation=ex.get("explanation"),
                     external_id=ex.get("external_id", ""),
                 )

@@ -92,9 +92,6 @@ DISPLAY_RE = re.compile(r"\$\$.*?\$\$", re.DOTALL)
 INLINE_RE = re.compile(r"(?<!\$)\$(?!\$)([^$\n]+)\$(?!\$)")
 TEXTCMD_RE = re.compile(r"\\text\{([^{}]*)\}")
 LATEX_CMD_RE = re.compile(r"\\[a-zA-Z]+")
-# Regla 45: primer signo que conecta el juicio corto ("Sí"/"No"/"Es
-# verdadera"/"Es falsa") con la razón que sigue, fuera de zonas math.
-CONNECTOR_RE = re.compile(r"[,:]")
 # Opción que es enteramente una fórmula LaTeX (un solo $...$, sin prosa
 # alrededor salvo un punto final opcional). Distingue "$15/24$" (aplica
 # regla 39) de "Regla de la suma: son alternativas excluyentes." (no aplica).
@@ -241,19 +238,6 @@ def check_options(items, file, F: Findings) -> None:
             role = "la correcta" if which == ci else f"un distractor (#{which})"
             F.add("WARNING", "options", "4", file, label,
                   f"paréntesis aclaratorio solo en {role}: {opts[which]!r}")
-
-        # Puntuación de conector inconsistente entre opciones (regla 35).
-        styles: dict[int, str] = {}
-        for i, o in enumerate(opts):
-            m = CONNECTOR_RE.search(strip_math(o))
-            if m:
-                styles[i] = m.group(0)
-        distinct = set(styles.values())
-        if len(distinct) > 1:
-            ci_style = styles.get(ci)
-            F.add("WARNING", "options", "35", file, label,
-                  f"puntuación de conector mezclada entre opciones {styles} "
-                  f"(la correcta usa {ci_style!r}); preferí ',' en todas")
 
         # Relleno "solamente" asimétrico.
         has_only = ["solamente" in o.lower() for o in opts]

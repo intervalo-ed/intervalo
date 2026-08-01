@@ -35,6 +35,7 @@ campos:
 | `has_math` | `bool` | `true` si hay LaTeX en cualquier campo. |
 | `graph_fn`, `graph_view` | `string`/`array`/`null` | Gráfico embebido (solo skills `GRAF`). |
 | `graph_shade` | `array`/`null` | `[xMin, xMax]` opcional: sombrea el área bajo `graph_fn` en ese tramo. |
+| `graph_free_aspect` | `boolean`/`null` | `true` desactiva el aspecto 1:1 forzado de Mafs (solo `probabilidad`; nunca en `analisis`). Ver sección Gráficos de `authoring-context.md`. |
 | `correct_index`, `reviewed` | | metadata. `external_id` **no va en el JSON** (lo infiere el seeder de la ruta). |
 
 Los **cuatro componentes que redactás** son `question`, `options`, `feedback_*` y

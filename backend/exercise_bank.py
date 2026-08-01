@@ -67,6 +67,7 @@ def _row_to_dict(row: Exercise) -> dict:
         "graph_fn": row.graph_fn or "",
         "graph_view": gv,
         "graph_shade": gs,
+        "graph_free_aspect": row.graph_free_aspect or False,
         "explanation": row.explanation,
     }
 

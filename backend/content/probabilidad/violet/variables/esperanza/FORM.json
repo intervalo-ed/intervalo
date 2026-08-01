@@ -13,7 +13,7 @@
       null,
       "Ese es el promedio aritmético simple, ignora el peso de cada valor."
     ],
-    "explanation": "La **esperanza** de una variable aleatoria discreta es el promedio ponderado de los valores por sus probabilidades:\n$$E[X] = \\sum_x x \\cdot p(x)$$\nRepresenta el promedio de fallas por lote a largo plazo, tras observar muchos lotes.\n\nPromediar los valores sin ponderar por $p(x)$ trata a todos como igual de probables, cuando en realidad cada uno pesa distinto según su probabilidad puntual.",
+    "explanation": "La **esperanza** de una variable aleatoria discreta es el promedio ponderado de los valores por sus probabilidades:\n$$E[X] = \\sum_x x \\cdot p(x)$$\nRepresenta el promedio de fallas por lote a largo plazo, tras observar muchos lotes, no el resultado de un lote puntual.\n\nPromediar sin ponderar por las probabilidades trata a todos los valores como igual de probables, cuando cada uno pesa distinto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -35,7 +35,7 @@
       "Esa expresión olvida sumar el cargo fijo $b$.",
       "Esa expresión multiplica $b$ también por $a$, cuando $b$ se suma sin escalar."
     ],
-    "explanation": "La **esperanza** cumple la propiedad de **linealidad**: transformar $X$ de forma lineal transforma $E[X]$ de la misma manera:\n$$E[aX+b] = a \\cdot E[X] + b$$\nAsí, el costo esperado se obtiene escalando el tiempo esperado por la tarifa y sumando el cargo fijo, sin recalcular la esperanza desde cero.\n\nOlvidar el término $b$, o multiplicarlo también por $a$, rompe la linealidad: el cargo fijo se suma una sola vez, tal cual, después de escalar la parte variable.",
+    "explanation": "La **esperanza** cumple la propiedad de **linealidad**: transformar $X$ de forma lineal transforma $E[X]$ de la misma manera:\n$$E[aX+b] = a \\cdot E[X] + b$$\nEl costo esperado se obtiene escalando el tiempo esperado por la tarifa y sumando el cargo fijo, sin recalcular la esperanza desde cero.\n\nOlvidar el cargo fijo, o multiplicarlo también por la tarifa, deja la parte constante mal aplicada: se suma una sola vez, después de escalar la parte variable.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -57,7 +57,7 @@
       "Esa integral da 1, es la normalización de la densidad, no la esperanza.",
       "Esa integral no pondera por la densidad $f(x)$, no representa una probabilidad."
     ],
-    "explanation": "La **esperanza** de una variable aleatoria continua es el análogo de la suma ponderada discreta, cambiando la suma por una integral:\n$$E[X] = \\int x \\cdot f(x)\\,dx$$\nRepresenta el tiempo de espera promedio a largo plazo, ponderando cada valor posible por la densidad en ese punto.\n\nOmitir el factor $x$ dentro de la integral, o la propia densidad $f(x)$, cambia por completo lo que mide la integral.",
+    "explanation": "La **esperanza** de una variable aleatoria continua es el análogo de la suma ponderada discreta, cambiando la suma por una integral:\n$$E[X] = \\int x \\cdot f(x)\\,dx$$\nRepresenta el tiempo de espera promedio a largo plazo, ponderando cada valor posible por la densidad en cada punto.\n\nOmitir el factor que multiplica dentro de la integral, o la propia densidad, cambia por completo lo que mide la integral.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

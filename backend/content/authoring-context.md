@@ -174,10 +174,6 @@ Estas reglas son las que más se violan y las que más rompen el render o la coh
 
 **Nota de contexto en preguntas directas (no automatizable, criterio editorial):** una pregunta que arranca literal con la notación a calcular (`"Se quiere calcular $P(\text{enfermo}\mid\text{positivo})$..."`) se beneficia de una oración breve de contexto antes, sin sacar información ni alargar el enunciado más allá de la regla 36.
 
-45. **Todas las opciones de un mismo ítem usan la misma puntuación de conector (coma o dos puntos), nunca mezcladas.** Cuando una opción arranca con un juicio corto ("Es verdadera", "Sí", "No", "Es falsa") seguido de la razón, el signo que conecta ambas partes tiene que ser el mismo en las 4 opciones. Si la correcta usa `:` y los distractores usan `,` (o viceversa), el signo distinto delata la respuesta antes de leer el contenido. **Preferencia: coma**, salvo que la cláusula que sigue sea una fórmula/enumeración que necesite dos puntos por razones ajenas a esto.
-    - ❌ `["Es verdadera, porque $4+3=7$.", "Es verdadera, por la relación recursiva del factorial.", "Es falsa, porque falta multiplicar ambos lados por $2!$.", "Es falsa: los factoriales no se suman igual que sus índices."]` (la correcta es la única con `:`)
-    - ✅ `["Es verdadera, porque $4+3=7$.", "Es verdadera, por la relación recursiva del factorial.", "Es falsa, porque falta multiplicar ambos lados por $2!$.", "Es falsa, porque los factoriales no se suman igual que sus índices."]`
-
 ---
 
 ## Campos del ejercicio
@@ -564,7 +560,7 @@ Registro formal y sencillo, sin jerga ni informalismos, en `question`, `options`
 
 ---
 
-## Gráficos (`graph_fn`, `graph_view`, `graph_shade`)
+## Gráficos (`graph_fn`, `graph_view`, `graph_shade`, `graph_free_aspect`)
 
 El componente `web/src/components/math-graph.tsx` renderiza con **relación de aspecto 1:1** (misma escala px/unidad en ambos ejes) y grilla cuadrada dinámica.
 
@@ -572,6 +568,7 @@ El componente `web/src/components/math-graph.tsx` renderiza con **relación de a
 - **`graph_view` cuadrado**: `[xmin, xmax, ymin, ymax]` con `xRange ≈ yRange`. Los puntos clave deben caer dentro de la vista.
 - Si un contexto cotidiano exige magnitudes dispares, **rediseñar el ejercicio** con números chicos en vez de romper el 1:1.
 - **`graph_shade`** (opcional): `[xMin, xMax]` o `null`. Sombrea en azul el área entre la curva de `graph_fn` y el eje $x$, restringida a ese tramo — pensado para visualizar $P(a\leq X\leq b)$ como área bajo una densidad en `probabilidad`. Usar solo cuando el sombreado sea el foco pedagógico del ejercicio (ej. `densidad`/`acumulada`); no agregarlo a gráficos donde la pregunta es sobre otra lectura (pendiente, raíz, asíntota, etc.).
+- **Excepción opt-in — `graph_free_aspect`** (`boolean`/`null`, default `false`/ausente): cuando es `true`, el componente pasa `preserveAspectRatio={false}` a `<Mafs>` y **desactiva** el forzado 1:1 — Mafs deja de expandir automáticamente el eje más corto para igualar la proporción, y `graph_view` se muestra tal cual está escrito. Pensado exclusivamente para `probabilidad` (variables aleatorias: `densidad`/`acumulada`), donde el eje $y$ suele ser $[0,1]$ y forzar 1:1 infla ese eje muy por encima, desperdiciando espacio vertical y dejando la curva como una franja fina. **`analisis` nunca usa este campo** — ahí el 1:1 sigue siendo obligatorio (reglas de arriba sin cambios). Con `graph_free_aspect: true` no aplica la regla de "`graph_view` cuadrado": elegir `xRange`/`yRange` de forma independiente, cada uno con su propio margen prolijo (~10-15% del rango de datos), sin colchón extra pensado para compensar una auto-expansión que ya no ocurre.
 
 ### Qué lee cada GRAF por tema
 

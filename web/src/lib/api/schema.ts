@@ -1057,6 +1057,8 @@ export interface components {
             graph_view?: unknown[] | null;
             /** Graph Shade */
             graph_shade?: unknown[] | null;
+            /** Graph Free Aspect */
+            graph_free_aspect?: boolean | null;
             /** Feedback Correct */
             feedback_correct: string;
             /** Feedback Incorrect */

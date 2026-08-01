@@ -618,10 +618,12 @@ export default function MathGraph({
   graphFn,
   graphView,
   graphShade,
+  graphFreeAspect,
 }: {
   graphFn: string
   graphView?: unknown[] | null
   graphShade?: unknown[] | null
+  graphFreeAspect?: boolean | null
 }) {
   const build = useMemo(() => buildFn(graphFn), [graphFn])
   const piX = useMemo(() => isAngleTrig(graphFn), [graphFn])
@@ -694,6 +696,7 @@ export default function MathGraph({
         viewBox={{ x: [xmin, xmax], y: [ymin, ymax] }}
         pan={!locked}
         zoom={locked ? false : { min: 0.3, max: 6 }}
+        preserveAspectRatio={graphFreeAspect ? false : "contain"}
       >
         <GraphContent
           fn={build.fn}

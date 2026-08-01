@@ -2741,6 +2741,17 @@
             ],
             "title": "Graph Shade"
           },
+          "graph_free_aspect": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Graph Free Aspect"
+          },
           "feedback_correct": {
             "type": "string",
             "title": "Feedback Correct"
