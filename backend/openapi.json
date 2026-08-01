@@ -1716,6 +1716,56 @@
         }
       }
     },
+    "/session/feedback": {
+      "post": {
+        "summary": "Submit Session Feedback",
+        "description": "Micro-encuesta post-ejercicio (dificultad/explicaci\u00f3n) y reporte de\nproblemas de contenido. Flujo en dos pasos para no perder la impression si\nel usuario cierra/navega antes de responder (ver feedback_survey.py):\n\"impression\" crea la fila (answered_at=None), \"answer\" la completa. \"report\"\n(canal C, siempre disponible) crea la fila ya resuelta en un solo paso.",
+        "operationId": "submit_session_feedback_session_feedback_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SessionFeedbackRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionFeedbackResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/session/{session_id}/summary": {
       "get": {
         "summary": "Session Summary",
@@ -2731,6 +2781,102 @@
         ],
         "title": "SessionExercise"
       },
+      "SessionFeedbackRequest": {
+        "properties": {
+          "action": {
+            "type": "string",
+            "title": "Action"
+          },
+          "session_id": {
+            "type": "string",
+            "title": "Session Id"
+          },
+          "exercise_external_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Exercise External Id"
+          },
+          "question_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Question Type"
+          },
+          "feedback_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Feedback Id"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          },
+          "free_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Free Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "action",
+          "session_id"
+        ],
+        "title": "SessionFeedbackRequest"
+      },
+      "SessionFeedbackResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success"
+          },
+          "feedback_id": {
+            "type": "integer",
+            "title": "Feedback Id"
+          },
+          "xp_earned": {
+            "type": "integer",
+            "title": "Xp Earned",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "success",
+          "feedback_id"
+        ],
+        "title": "SessionFeedbackResponse"
+      },
       "SessionStartResponse": {
         "properties": {
           "session_id": {
@@ -2756,6 +2902,16 @@
             },
             "type": "array",
             "title": "Exercises"
+          },
+          "survey": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SessionSurvey"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -2852,6 +3008,25 @@
           "session_number"
         ],
         "title": "SessionSummaryResponse"
+      },
+      "SessionSurvey": {
+        "properties": {
+          "exercise_id": {
+            "type": "string",
+            "title": "Exercise Id"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "exercise_id",
+          "type"
+        ],
+        "title": "SessionSurvey",
+        "description": "Marca qu\u00e9 ejercicio de la sesi\u00f3n (si alguno) lleva micro-encuesta de\nfeedback y de qu\u00e9 tipo. Ver feedback_survey.py. `exercise_id` es el slot\nde sesi\u00f3n (ej. \"ex_003\"), no la clave real del ejercicio."
       },
       "SimpleResponse": {
         "properties": {

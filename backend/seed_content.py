@@ -271,6 +271,7 @@ def seed_exercises(
                     graph_view=_serialize_graph_view(entry.get("graph_view")),
                     explanation=entry.get("explanation"),
                     tags=_serialize_tags(entry.get("tags")),
+                    reviewed=entry.get("reviewed"),
                 ))
                 inserted += 1
             else:
@@ -291,6 +292,7 @@ def seed_exercises(
                     "graph_view":         _serialize_graph_view(entry.get("graph_view")),
                     "explanation":        entry.get("explanation"),
                     "tags":               _serialize_tags(entry.get("tags")),
+                    "reviewed":           entry.get("reviewed"),
                 }
                 changed = False
                 for k, v in fields.items():

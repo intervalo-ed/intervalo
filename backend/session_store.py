@@ -766,12 +766,16 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
         exercises=exercises,
     )
 
+    from feedback_survey import assign_survey
+    survey = assign_survey(user_id, course_id, exercises, db)
+
     return {
         "session_id": session_id_str,
         "user_name": "",
         "total": len(exercises),
         "mode": "main",
         "exercises": [_exercise_to_dict(ex) for ex in exercises],
+        "survey": survey,
     }
 
 
