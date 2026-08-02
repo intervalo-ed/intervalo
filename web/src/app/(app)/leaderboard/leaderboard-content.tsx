@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
 import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
-import { BELT_HEX, type BeltKey } from "@/lib/catalog"
+import { BELT_UNIT_TEXT_COLORS, type BeltKey } from "@/lib/catalog"
 import { UNIVERSITY_TAG_BY_KEY } from "@/lib/university-tags"
 import { ChevronDownIcon, LayersIcon, UsersIcon } from "lucide-react"
 import { ALL, useLeaderboard } from "./UseLeaderboard"
@@ -23,12 +23,12 @@ import { useLeaderboardSummary } from "./UseLeaderboardSummary"
 import { useUniversityLeaderboard } from "./UseUniversityLeaderboard"
 
 // Color del nombre según el máximo cinturón del usuario (mismo color que los
-// títulos de unidad en el inicio: variante onDark). Blanco para sin cinturón.
+// títulos de unidad en practicar/repasar). Blanco para sin cinturón. El marrón
+// se aclara un poco más acá — pedido puntual del ranking, no afecta
+// practicar/repasar.
 const BELT_TEXT: Record<string, string> = {
-  white: BELT_HEX.white.onDark,
-  blue: BELT_HEX.blue.onDark,
-  violet: BELT_HEX.violet.onDark,
-  brown: BELT_HEX.brown.onDark,
+  ...BELT_UNIT_TEXT_COLORS,
+  brown: "rgb(170, 120, 68)",
 }
 
 // Cinturón "de vidriera" para el ranking: la mayoría de las cuentas de acá

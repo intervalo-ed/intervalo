@@ -29,7 +29,7 @@ import { cn } from "@/lib/utils"
 import type { components } from "@/lib/api/schema"
 import {
   beltOrderFor,
-  BELT_HEX,
+  BELT_UNIT_TEXT_COLORS,
   COURSE_ORDER,
   getBelt,
   type BeltKey,
@@ -100,14 +100,8 @@ const resetCourseCls =
 const saveEditCls =
   "h-9 w-full justify-center rounded-md border-green-500/30 bg-transparent text-green-400 hover:bg-green-500/10 hover:text-green-400"
 
-// Color del título de cada unidad, tomado del cinturón correspondiente
-// (variante `onDark`, legible sobre el fondo oscuro).
-const BELT_COLOR: Record<BeltKey, string> = {
-  white: BELT_HEX.white.onDark,
-  blue: BELT_HEX.blue.onDark,
-  violet: BELT_HEX.violet.onDark,
-  brown: BELT_HEX.brown.onDark,
-}
+// Color del título de cada unidad, tomado del cinturón correspondiente.
+const BELT_COLOR: Record<BeltKey, string> = BELT_UNIT_TEXT_COLORS
 
 export default function DashboardEntry() {
   const { user } = useUser()
