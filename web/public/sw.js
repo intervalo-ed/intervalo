@@ -19,27 +19,45 @@ self.addEventListener("activate", function (event) {
 // register.ts) — un service worker no puede leer process.env.
 const API_BASE = new URL(self.location.href).searchParams.get("apiBase")
 
-// Reporta al backend cuando el payload de un push no se pudo decodear, para
-// poder ver la causa real la próxima vez que llegue el fallback genérico en
-// vez de tener que adivinarla (nos pasó dos veces sin ninguna pista).
-// Best-effort: si el fetch falla, no bloquea la notificación igual.
-function reportDecodeFailure(error, rawPreview) {
+// Reporta al backend qué pasó con cada push recibido (éxito o fallo de
+// decodificación) — no solo los fallos, para poder distinguir "no llegó
+// ningún push event" de "llegó pero no se pudo leer". GET simple, sin
+// headers custom ni body: es un "simple request" de CORS (sin preflight),
+// con keepalive para sobrevivir aunque el SW se cierre apenas termina el
+// evento. Estuvimos varias rondas sin que llegara NINGÚN reporte (con la
+// versión POST + JSON, que sí dispara preflight) mientras el bug seguía
+// pasando, así que esta es la vía con menos superficie de falla posible.
+// Best-effort: si igual falla, no bloquea la notificación.
+function beacon(params) {
   if (!API_BASE) return Promise.resolve()
-  return self.registration.pushManager
-    .getSubscription()
-    .then((sub) =>
-      fetch(`${API_BASE}/push/diagnostic`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          error: String(error),
-          endpoint: sub ? sub.endpoint : null,
-          raw_preview: rawPreview,
-        }),
-      }),
-    )
-    .catch(() => {})
+  const qs = new URLSearchParams(params).toString()
+  return fetch(`${API_BASE}/push/diagnostic?${qs}`, {
+    method: "GET",
+    keepalive: true,
+  }).catch(() => {})
 }
+
+// self.registration.pushManager.getSubscription() a veces no resuelve
+// (reportes de que ciertas APIs quedan colgadas en un SW despertado por un
+// push en iOS) — con timeout para que el beacon salga igual, sin endpoint.
+function getSubscriptionEndpoint() {
+  return Promise.race([
+    self.registration.pushManager
+      .getSubscription()
+      .then((sub) => (sub ? sub.endpoint : null)),
+    new Promise((resolve) => setTimeout(() => resolve(null), 1500)),
+  ]).catch(() => null)
+}
+
+// Cualquier excepción no capturada en el SW (fuera del try/catch del propio
+// handler de push) o promesa rechazada sin catch también se reporta, por si
+// la causa real está en otro lado del script.
+self.addEventListener("error", function (e) {
+  beacon({ event: "sw_error", error: String((e && e.message) || e) })
+})
+self.addEventListener("unhandledrejection", function (e) {
+  beacon({ event: "sw_unhandledrejection", error: String(e.reason) })
+})
 
 self.addEventListener("push", function (event) {
   let title = "Intervalo"
@@ -67,16 +85,32 @@ self.addEventListener("push", function (event) {
   }
 
   if (decodeError) {
-    event.waitUntil(reportDecodeFailure(decodeError, raw ? raw.slice(0, 200) : null))
+    // DEBUG TEMPORAL: ningún reporte de red llegó a aparecer en los logs del
+    // backend en varias rondas de prueba en vivo, así que además mostramos
+    // el error real directo en el cuerpo de la notificación — cero
+    // dependencia de red, no se puede perder en el camino. Revertir apenas
+    // tengamos la causa real confirmada.
+    body = `[debug] ${decodeError} | raw=${raw != null ? JSON.stringify(raw).slice(0, 120) : "null"}`
   }
 
   event.waitUntil(
-    self.registration.showNotification(title, {
-      body,
-      icon: "/icons/icon-192.png",
-      badge: "/icons/icon-192.png",
-      data: { url: "/" },
-    }),
+    Promise.all([
+      getSubscriptionEndpoint().then((endpoint) =>
+        beacon({
+          event: decodeError ? "decode_fail" : "ok",
+          error: decodeError || "",
+          endpoint: endpoint || "",
+          raw_len: raw != null ? String(raw.length) : "-1",
+          ua: (self.navigator && self.navigator.userAgent) || "",
+        }),
+      ),
+      self.registration.showNotification(title, {
+        body,
+        icon: "/icons/icon-192.png",
+        badge: "/icons/icon-192.png",
+        data: { url: "/" },
+      }),
+    ]),
   )
 })
 

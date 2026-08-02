@@ -919,15 +919,117 @@
         "description": "Client-reported failure when a push event's payload couldn't be\ndecoded (sw.js falls back to generic copy in that case, see sw.js). No\nauth here \u2014 the service worker has no Clerk session \u2014 so we correlate\nthe report to a user via the subscription endpoint instead. Logs only,\nto diagnose recurring generic-fallback notifications.",
         "operationId": "push_diagnostic_push_diagnostic_post",
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/PushDiagnosticRequest"
               }
             }
-          },
-          "required": true
+          }
         },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimpleResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Push Diagnostic Beacon",
+        "description": "GET twin of push_diagnostic, reporting on EVERY push the service\nworker receives (not just decode failures) \u2014 see sw.js's `beacon()`. A\nplain GET with no custom headers is a CORS \"simple request\" (no\npreflight), so it's the fallback channel in case the POST version's\nJSON body / Content-Type ever gets blocked in the service worker's\nfetch context \u2014 we had zero of those land while chasing a recurring\ngeneric-fallback bug with no other client-side signal at all.",
+        "operationId": "push_diagnostic_beacon_push_diagnostic_get",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Event"
+            }
+          },
+          {
+            "name": "error",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Error"
+            }
+          },
+          {
+            "name": "endpoint",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Endpoint"
+            }
+          },
+          {
+            "name": "raw_len",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Raw Len"
+            }
+          },
+          {
+            "name": "ua",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ua"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful Response",
