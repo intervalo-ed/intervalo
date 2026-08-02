@@ -67,6 +67,11 @@ self.addEventListener("push", function (event) {
   }
 
   if (decodeError) {
+    // DEBUG TEMPORAL: el reporte a /push/diagnostic nunca llegó al backend en
+    // ningún intento, así que en vez de confiar en esa red mostramos el error
+    // real directo en el cuerpo de la notificación — cero dependencias de
+    // red, no se puede perder en el camino. Revertir apenas tengamos la causa.
+    body = `[debug] ${decodeError} | raw=${raw != null ? JSON.stringify(raw).slice(0, 120) : "null"}`
     event.waitUntil(reportDecodeFailure(decodeError, raw ? raw.slice(0, 200) : null))
   }
 
