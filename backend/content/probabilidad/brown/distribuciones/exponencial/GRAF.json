@@ -1,22 +1,71 @@
 [
   {
-    "question": "Un gráfico muestra la densidad de una variable aleatoria continua no negativa.\n\nLa curva arranca en un valor positivo en $x=0$ y decae de forma monótona hacia 0 a medida que $x$ crece, sin cruzar el eje.\n\n¿Qué distribución representa?",
+    "question": "La vida útil de un componente electrónico antes de fallar se modela con una densidad exponencial de tasa $\\lambda=0{,}5$ por año.\n\n¿Qué forma tiene esa densidad?",
     "options": [
-      "Uniforme sobre $[0, \\infty)$.",
-      "Exponencial con tasa $\\lambda > 0$.",
-      "Normal centrada en 0."
+      "Decae monótonamente desde un valor positivo en $x=0$.",
+      "Una campana simétrica centrada en el valor promedio.",
+      "Un rectángulo de altura constante en todo su dominio."
     ],
-    "correct_index": 1,
-    "feedback_correct": "Decae exponencialmente desde un valor positivo en 0: es la exponencial.",
+    "correct_index": 0,
+    "feedback_correct": "La exponencial decae monótona desde $\\lambda$ en $x=0$, sin cruzar nunca el eje.",
     "feedback_incorrect": [
-      "La uniforme sobre un intervalo infinito no sería una densidad válida; además no decae, es constante.",
       null,
-      "La normal es simétrica en forma de campana con soporte en toda la recta, no monótona decreciente."
+      "Una campana simétrica es la normal, la exponencial no es simétrica.",
+      "Un rectángulo de altura constante es la uniforme, la exponencial decae en vez de mantenerse plana."
     ],
-    "explanation": "La distribución **exponencial** modela tiempos de espera continuos con densidad:\n$$f(x) = \\lambda e^{-\\lambda x} \\text{ para } x \\geq 0$$\n\nSu gráfico arranca en $f(0) = \\lambda$ y decae monótonamente hacia 0, sin nunca tocar el eje horizontal.\n\nUna confusión frecuente es leer un decaimiento monótono como \"cola de normal\": la normal tiene forma de campana simétrica alrededor de la media, no una monotonía decreciente desde el origen.",
+    "explanation": "La densidad **exponencial** decae monótonamente desde $\\lambda$ en $x=0$.\n$$f(x) = \\lambda e^{-\\lambda x}, \\; x\\geq 0$$\nAcá $\\lambda=0{,}5$, así que la curva arranca ahí y decae hacia 0 a medida que $x$ crece.\n\nLa densidad nunca es negativa, porque una vida útil no puede ser negativa.\n\nNinguna parte de la curva sube ni se aplana en un valor constante, siempre sigue bajando hacia el eje sin tocarlo nunca.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": ["reconocer-forma"]
+  },
+  {
+    "question": "Dos sucursales miden el tiempo entre llegadas de clientes, en minutos.\n\nLa sucursal A tiene tasa $\\lambda_A=0{,}2$.\n$$f_A(x) = 0{,}2\\,e^{-0{,}2x}$$\nLa sucursal B tiene tasa $\\lambda_B=1$.\n$$f_B(x) = e^{-x}$$\n¿Cuál de las dos densidades decae más rápido a medida que $x$ crece?",
+    "options": [
+      "$f_B$, porque su $\\lambda$ es mayor.",
+      "$f_A$, porque su $\\lambda$ es menor.",
+      "Ambas decaen igual de rápido, porque las dos son exponenciales."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Una $\\lambda$ mayor hace que la curva baje más rápido hacia 0.",
+    "feedback_incorrect": [
+      null,
+      "Una $\\lambda$ menor hace que la curva decaiga más lento, no más rápido.",
+      "El ritmo de decaimiento depende de $\\lambda$, así que tasas distintas dan decaimientos distintos."
+    ],
+    "explanation": "La velocidad de decaimiento de la exponencial está gobernada por $\\lambda$ en el exponente.\n$$f(x) = \\lambda e^{-\\lambda x}$$\nAcá $\\lambda_A=0{,}2,\\, \\lambda_B=1$.\n\nCuanto mayor es $\\lambda$, más rápido cae el exponente a medida que $x$ crece.\n\nEso también significa que la sucursal B tiene clientes llegando más seguido en promedio, con un tiempo de espera menor entre uno y otro.\n\nUna tasa mayor siempre corresponde a una espera promedio menor, y una curva que se pega más rápido al eje.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": ["efecto-parametro"]
+  },
+  {
+    "question": "El tiempo entre fallas de una máquina de una línea de producción sigue una densidad exponencial de tasa $\\lambda=0{,}5$ por hora.\n\nEl gráfico sombrea el área bajo la densidad correspondiente a un cierto tramo de tiempo.\n\n¿Qué probabilidad representa mejor esa área sombreada?",
+    "options": [
+      "$P(1\\leq X\\leq 3)$",
+      "$P(X\\leq 3)$",
+      "$P(X\\geq 1)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El sombreado arranca en $x=1$, no en el origen, y termina en $x=3$, sin seguir hacia la derecha.",
+    "feedback_incorrect": [
+      null,
+      "Esa opción sombrearía desde el origen hasta 3, pero el sombreado del gráfico arranca más a la derecha, en 1.",
+      "Esa opción sombrearía desde 1 hasta el infinito, pero el sombreado del gráfico termina antes, en 3."
+    ],
+    "explanation": "La densidad **exponencial** de tasa $\\lambda$ decae desde el origen.\n$$f(x) = \\lambda e^{-\\lambda x}, \\; x\\geq 0$$\nAcá $\\lambda=0{,}5$ por hora.\n\nEn una variable continua, el área bajo la densidad entre dos valores es la probabilidad de que $X$ caiga en ese tramo.\n\nEl sombreado del gráfico no arranca en el origen ni se extiende sin límite hacia la derecha: tiene un borde izquierdo y uno derecho bien definidos, en $x=1$ y $x=3$.\n\nEsos dos bordes son los que determinan qué probabilidad puntual representa el área, y solo se identifican mirando el gráfico.",
+    "has_math": true,
+    "graph_fn": "Piecewise((0.5*exp(-0.5*x), x>=0))",
+    "graph_view": [-0.5, 8, -0.03, 0.6],
+    "graph_shade": [1, 3],
+    "graph_free_aspect": true,
+    "reviewed": false,
+    "tags": ["probabilidad-como-area"]
   }
 ]

@@ -1,22 +1,65 @@
 [
   {
-    "question": "Un centro de atención recibe en promedio 5 llamadas por hora, con las llegadas distribuidas de forma independiente en el tiempo.\n\nSea $X$ la cantidad de llamadas recibidas en una hora.\n\n¿Qué distribución modela $X$?",
+    "question": "Una caja de supermercado recibe en promedio 3 clientes por minuto, llegando de forma independiente entre sí.\n\nSea $X$ la cantidad de clientes que llegan en un minuto.\n\n¿Qué distribución sigue $X$?",
     "options": [
-      "Binomial con $n$ fijo.",
-      "Poisson con $\\lambda = 5$.",
-      "Geométrica con $p = 1/5$."
+      "$Poisson(3)$",
+      "$Bin(10,\\, 0{,}3)$",
+      "$Geom(1/3)$"
     ],
-    "correct_index": 1,
-    "feedback_correct": "Conteo de eventos por unidad de tiempo con tasa promedio: Poisson.",
+    "correct_index": 0,
+    "feedback_correct": "Conteo de eventos en un intervalo fijo con tasa promedio conocida: es Poisson.",
     "feedback_incorrect": [
-      "Binomial requiere un $n$ fijo de ensayos; acá no hay una cantidad predefinida de \"intentos\".",
       null,
-      "Geométrica cuenta ensayos hasta el primer éxito, no eventos en un intervalo."
+      "La binomial exige un número fijo de ensayos discretos, acá no hay un $n$ de intentos, solo una tasa continua de llegada.",
+      "La geométrica cuenta minutos hasta el primer cliente, no la cantidad de clientes en un minuto fijo."
     ],
-    "explanation": "La distribución de **Poisson** modela la cantidad de eventos que ocurren en un intervalo (de tiempo, longitud, área) cuando ocurren con tasa promedio $\\lambda$:\n$$P(X=k) = \\frac{e^{-\\lambda}\\lambda^{k}}{k!}$$\n\nAcá $\\lambda = 5$ llamadas por hora, así que $X \\sim Pois(5)$.\n\nLa confusión típica es forzar la binomial cuando el intervalo es continuo: la binomial pide un número fijo de ensayos discretos; Poisson aparece precisamente cuando lo natural es una tasa por unidad de tiempo o espacio, no un conteo entre ensayos.",
+    "explanation": "La distribución de **Poisson** modela la cantidad de eventos en un intervalo fijo, a tasa promedio $\\lambda$.\n$$P(X=k) = \\frac{e^{-\\lambda}\\lambda^{k}}{k!}$$\nAcá $\\lambda=3$ clientes por minuto.\n\nNo hay una cantidad fija de intentos discretos como en la binomial, solo una tasa de ocurrencia dentro del intervalo.\n\nLo que define este mecanismo es contar cuántos eventos caen dentro de una ventana de tiempo fija, en vez de esperar hasta el primero o contar sobre un número prefijado de intentos.\n\nPreguntar cuántos minutos hay que esperar hasta el primer cliente convertiría el mismo escenario en geométrico.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["reconocer-poisson"]
+  },
+  {
+    "question": "Se inspecciona un lote de 50 tornillos y se cuenta cuántos están mal roscados.\n\nCada tornillo tiene, en forma independiente, un $4\\%$ de probabilidad de estar mal roscado.\n\n¿Qué distribución modela exactamente la cantidad de tornillos mal roscados?",
+    "options": [
+      "$Bin(50,\\, 0{,}04)$",
+      "$Poisson(2)$",
+      "$Geom(0{,}04)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Hay un número fijo de 50 ensayos discretos con la misma probabilidad cada uno: es binomial, no Poisson.",
+    "feedback_incorrect": [
+      null,
+      "Poisson modela una tasa continua sin un $n$ discreto de ensayos, acá sí hay 50 tornillos fijos y contables uno por uno.",
+      "La geométrica cuenta tornillos hasta el primer mal roscado, no la cantidad de mal roscados en 50 tornillos fijos."
+    ],
+    "explanation": "La distribución **binomial** modela la cantidad de éxitos en $n$ ensayos discretos fijos con la misma probabilidad de éxito $p$ cada uno.\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá hay $n=50$ tornillos, cada uno con $p=0{,}04$ de estar mal roscado.\n\nPoisson describe una tasa promedio de ocurrencia sobre un intervalo, sin un número discreto de intentos identificables uno por uno.\n\nAcá en cambio cada tornillo es un ensayo identificable y contable, así que el mecanismo binomial encaja mejor aunque la probabilidad de éxito sea chica.\n\nCon muchos ensayos y una probabilidad de éxito muy chica, Poisson puede aproximar razonablemente a la binomial.\n\nPero eso es una aproximación distinta a decir que la situación es Poisson desde el planteo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["distractor-vecino"]
+  },
+  {
+    "question": "Una máquina falla en promedio 2 veces por hora en el turno día y 5 veces por hora en el turno noche.\n\nSe quiere modelar la cantidad de fallas en un intervalo de 16 horas que combina ambos turnos.\n\n¿Se puede modelar esa cantidad de fallas con una única distribución de Poisson de tasa constante?",
+    "options": [
+      "No, la tasa de fallas no es la misma a lo largo de esas 16 horas.",
+      "Sí, alcanza con promediar las dos tasas en una sola $\\lambda$.",
+      "Sí, porque las fallas siguen siendo eventos independientes entre sí."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La independencia es necesaria, pero Poisson también exige que $\\lambda$ sea constante dentro del intervalo, y acá cambia entre turnos.",
+    "feedback_incorrect": [
+      null,
+      "Promediar las tasas no reconstruye el mismo proceso: cada turno sigue su propia Poisson, y sumarlas no es lo mismo que una Poisson con la tasa promedio.",
+      "Que las fallas sean independientes es necesario pero no alcanza: también hace falta que la tasa de ocurrencia no cambie dentro del intervalo."
+    ],
+    "explanation": "La distribución de **Poisson** exige que la tasa $\\lambda$ se mantenga constante a lo largo de todo el intervalo considerado.\n$$P(X=k) = \\frac{e^{-\\lambda}\\lambda^{k}}{k!}$$\nAcá la máquina falla en promedio 2 veces por hora de día y 5 veces por hora de noche.\n\nEsas 16 horas mezclan dos tasas distintas dentro del mismo intervalo, así que no hay un único $\\lambda$ que describa todo el período.\n\nLo correcto sería modelar cada turno con su propia Poisson y después sumar esas dos variables, en vez de forzar una tasa única para todo el intervalo.\n\nTratar un intervalo de tasa cambiante como si tuviera una tasa fija subestima o sobreestima las fallas según en qué turno se concentre la actividad real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["supuesto-violado"]
   }
 ]

@@ -140,9 +140,9 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
 
   function goHome() {
     sfx.continue()
-    // La sesión de práctica (zen) vuelve a Practicar; el resto (repaso, test)
+    // La sesión de práctica vuelve a Practicar; el resto (repaso, test)
     // vuelve a Repasar. En ambos casos, al curso en el que se estaba.
-    const base = data?.mode === "zen" ? "/practice" : "/"
+    const base = data?.mode === "practice" ? "/practice" : "/"
     const dest = data?.course ? `${base}?course=${data.course}` : base
     router.push(dest)
     // Bust the App Router segment cache so the destination RSC re-runs on arrival.

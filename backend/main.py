@@ -162,14 +162,14 @@ class StartSessionRequest(BaseModel):
     course: str | None = None
 
 
-class ZenSessionItem(BaseModel):
+class PracticeSessionItem(BaseModel):
     belt: str
     topic: str
 
 
-class StartZenSessionRequest(BaseModel):
+class StartPracticeSessionRequest(BaseModel):
     user_name: str
-    items: list[ZenSessionItem]
+    items: list[PracticeSessionItem]
     count: int
     course: str | None = None
 
@@ -508,8 +508,8 @@ def get_practice_stats(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Stats del usuario para un curso en la iteración vigente, SOLO modo práctica
-    (zen): sesiones de práctica completadas y ejercicios acertados en ellas."""
+    """Stats del usuario para un curso en la iteración vigente, SOLO modo práctica:
+    sesiones de práctica completadas y ejercicios acertados en ellas."""
     from models import Session as SessionModel
     from session_store import _get_course_progress
     course_id = _resolve_course_id(course, db)
@@ -519,7 +519,7 @@ def get_practice_stats(
         SessionModel.user_id == current_user.id,
         SessionModel.course_id == course_id,
         SessionModel.iteration == iteration,
-        SessionModel.mode == "zen",
+        SessionModel.mode == "practice",
         SessionModel.finished_at.isnot(None),
     ).scalar()
 
@@ -532,7 +532,7 @@ def get_practice_stats(
         Answer.user_id == current_user.id,
         Answer.course_id == course_id,
         Answer.iteration == iteration,
-        SessionModel.mode == "zen",
+        SessionModel.mode == "practice",
     ).one()
 
     return PracticeStatsResponse(
@@ -1111,14 +1111,14 @@ def start_session(
     return result
 
 
-@app.post("/session/start-zen")
-def start_zen_session(
-    body: StartZenSessionRequest,
+@app.post("/session/start-practice")
+def start_practice_session(
+    body: StartPracticeSessionRequest,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Start a Zen session: random exercises from selected (belt, topic) items, no SM-2 logic."""
-    from session_store import create_zen_session_db
+    """Start a Practice session: random exercises from selected (belt, topic) items, no SM-2 logic."""
+    from session_store import create_practice_session_db
 
     if not body.items:
         raise HTTPException(status_code=400, detail="Seleccioná al menos un tema.")
@@ -1126,7 +1126,7 @@ def start_zen_session(
         raise HTTPException(status_code=400, detail="El número de ejercicios debe ser al menos 1.")
     course_id = _resolve_course_id(body.course, db)
     try:
-        return create_zen_session_db(
+        return create_practice_session_db(
             user_id=current_user.id, course_id=course_id,
             items=[i.model_dump() for i in body.items], count=body.count, db=db,
         )

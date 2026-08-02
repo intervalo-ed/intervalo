@@ -242,8 +242,9 @@ class Session(Base):
     # Reiniciar el curso incrementa la iteración; el histórico queda etiquetado.
     iteration = Column(Integer, nullable=False, default=1, server_default="1")
 
-    # "main" for the daily spaced-repetition session, "zen" for free practice.
-    # Only "main" sessions count toward the 1-per-day gate.
+    # "main" for the daily spaced-repetition session, "practice" for free practice.
+    # "main" sessions are gated to one per day, except the user can keep starting
+    # new ones while pending (due) items remain — see create_session_db.
     mode = Column(String(16), nullable=False, default="main", server_default="main")
 
     created_at = Column(DateTime, default=datetime.utcnow)

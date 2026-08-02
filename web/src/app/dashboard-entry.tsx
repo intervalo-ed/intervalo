@@ -11,6 +11,7 @@ import {
 import { Metric } from "@/components/metric-card"
 import { DashboardSkeleton } from "@/components/tab-skeletons"
 import { Wordmark } from "@/components/wordmark"
+import { XpDots } from "@/components/xp-dots"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
@@ -327,8 +328,12 @@ export default function DashboardEntry() {
               <div className="grid grid-cols-3 gap-2">
               <Metric
                 label="Multiplicador de XP"
-                value={data ? `×${data.streak.multiplier.toFixed(1)}` : "…"}
-                valueColor="#5457e5"
+                value={
+                  <span className="inline-flex items-center gap-1.5">
+                    {data ? `×${data.streak.multiplier.toFixed(1)}` : "…"}
+                    <XpDots className="size-[0.8em] text-[#5457e5]" />
+                  </span>
+                }
                 info={
                   data
                     ? {

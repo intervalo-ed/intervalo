@@ -785,14 +785,14 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
     }
 
 
-def create_zen_session_db(
+def create_practice_session_db(
     user_id: int,
     course_id: int,
     items: list[dict],
     count: int,
     db: DBSession,
 ) -> dict:
-    """Zen mode: random exercises from selected (belt, topic) items, no SR tracking."""
+    """Practice mode: random exercises from selected (belt, topic) items, no SR tracking."""
     slug = _get_course_slug(course_id, db)
     all_catalogs = load_belt_catalogs(slug)
 
@@ -828,7 +828,7 @@ def create_zen_session_db(
     db_session = SessionModel(
         user_id=user_id, course_id=course_id,
         started_at=datetime.utcnow(), exercises_total=len(exercises),
-        mode="zen",
+        mode="practice",
         iteration=_get_course_progress(user_id, course_id, db).iteration,
     )
     db.add(db_session)
@@ -847,7 +847,7 @@ def create_zen_session_db(
         "session_id": session_id_str,
         "user_name": "",
         "total": len(exercises),
-        "mode": "zen",
+        "mode": "practice",
         "exercises": [_exercise_to_dict(ex) for ex in exercises],
     }
 
@@ -1071,12 +1071,12 @@ def record_answer_db(
     user = db.query(User).filter(User.id == user_id).first()
     streak_mult = streak_multiplier(user.streak_days if user else 0)
 
-    # Práctica (zen) paga plano y sin ajuste de dificultad (volumen ilimitado a
+    # Práctica paga plano y sin ajuste de dificultad (volumen ilimitado a
     # elección del usuario), pero sí escala con el multiplicador de racha diaria
     # — su base es mucho menor que la de Repaso, así que no se vuelve farmeable.
     # Repaso paga por intento, ponderado por la dificultad personal del ítem
     # (solo 1er intento) y el mismo multiplicador de racha.
-    if db_session.mode == "zen":
+    if db_session.mode == "practice":
         xp_base, xp_earned = practice_xp_split(first_try, streak_mult)
     else:
         difficulty = (
@@ -1101,9 +1101,9 @@ def record_answer_db(
         UnitState.exercise_type == unit_key.exercise_type,
     ).first()
 
-    # Zen mode is free practice: it only awards XP and must not touch the
+    # Practice mode is free practice: it only awards XP and must not touch the
     # student's spaced-repetition progress (phase, interval, due date, mastery).
-    if db_us and db_session.mode not in ("zen", "test"):
+    if db_us and db_session.mode not in ("practice", "test"):
         old_phase = db_us.phase
         db_us.phase = new_state.phase
         db_us.step_index = new_state.step_index

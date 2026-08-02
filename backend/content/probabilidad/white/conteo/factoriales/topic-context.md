@@ -12,7 +12,7 @@ Concepto: el **factorial** $n! = n \times (n-1) \times \cdots \times 1$, con la 
 
 ---
 
-## FORM, 50 ejercicios
+## FORM, 15 ejercicios
 
 Identificar o armar la **expresión** equivalente (no calcular el valor numérico).
 
@@ -20,16 +20,16 @@ Identificar o armar la **expresión** equivalente (no calcular el valor numéric
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Expresión expandida de $n!$ para un $n$ concreto | 12 | `expansion-directa` |
-| Simplificación de un cociente de factoriales $\dfrac{n!}{k!}$ dejando el producto de los términos que no se cancelan | 14 | `cociente-simplificado` |
-| Relación recursiva $n! = n \cdot (n-1)!$ aplicada para reescribir una expresión | 10 | `relacion-recursiva` |
-| Caso especial $0! = 1$ y $1! = 1$ | 6 | `casos-especiales` |
-| Expresión con suma/resta de factoriales sin simplificar todavía (identificar que no se puede sumar/restar los $n$ antes de expandir) | 8 | `suma-resta-factoriales` |
-| **Total** | **50** | |
+| Expresión expandida de $n!$ para un $n$ concreto | 4 | `expansion-directa` |
+| Simplificación de un cociente de factoriales $\dfrac{n!}{k!}$ dejando el producto de los términos que no se cancelan | 4 | `cociente-simplificado` |
+| Relación recursiva $n! = n \cdot (n-1)!$ aplicada para reescribir una expresión | 3 | `relacion-recursiva` |
+| Caso especial $0! = 1$ y $1! = 1$ | 2 | `casos-especiales` |
+| Expresión con suma/resta de factoriales sin simplificar todavía (identificar que no se puede sumar/restar los $n$ antes de expandir) | 2 | `suma-resta-factoriales` |
+| **Total** | **15** | |
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 15 ejercicios
 
 Calcular el **valor numérico**.
 
@@ -37,12 +37,12 @@ Calcular el **valor numérico**.
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Factorial completo de un número chico ($n \leq 7$) | 10 | `factorial-directo` |
-| Cociente de factoriales con cancelación ($\dfrac{n!}{k!}$, $n>k$) | 16 | `cociente-factoriales` |
-| Expresión con suma o resta de factoriales ya expandidos (ej. $4! + 3!$, $5! - 4!$) | 10 | `suma-resta-evaluada` |
-| Comparación entre dos factoriales (cuál es mayor, o la razón entre ambos) | 8 | `comparacion-factoriales` |
-| Factorial dentro de una fracción con producto simple en el denominador (ej. $\dfrac{6!}{2! \cdot 3!}$, preparación directa para `combinaciones`, sin nombrar todavía el binomial) | 6 | `fraccion-producto-denominador` |
-| **Total** | **50** | |
+| Factorial completo de un número chico ($n \leq 7$) | 3 | `factorial-directo` |
+| Cociente de factoriales con cancelación ($\dfrac{n!}{k!}$, $n>k$) | 5 | `cociente-factoriales` |
+| Expresión con suma o resta de factoriales ya expandidos (ej. $4! + 3!$, $5! - 4!$) | 3 | `suma-resta-evaluada` |
+| Comparación entre dos factoriales (cuál es mayor, o la razón entre ambos) | 2 | `comparacion-factoriales` |
+| Factorial dentro de una fracción con producto simple en el denominador (ej. $\dfrac{6!}{2! \cdot 3!}$, preparación directa para `combinaciones`, sin nombrar todavía el binomial) | 2 | `fraccion-producto-denominador` |
+| **Total** | **15** | |
 
 **Cardinalidad**: numérica corta → 4 opciones (grilla 2×2).
 

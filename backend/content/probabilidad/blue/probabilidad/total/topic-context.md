@@ -14,46 +14,46 @@ Concepto: el **teorema de la probabilidad total** $P(B) = \sum_i P(B\mid A_i)\cd
 
 ---
 
-## ESTR, 50 ejercicios
+## ESTR, 15 ejercicios
 
 ### Distribución objetivo
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Reconocer que hace falta partición + probabilidad total (el evento final depende de escenarios previos con probabilidades distintas) | 22 | `reconocer-probabilidad-total` |
-| Distractor: alcanza con una probabilidad condicional simple, no hace falta descomponer en escenarios | 14 | `distractor-condicional-simple` |
-| Reconocer si una partición propuesta realmente cubre $\Omega$ (verificar que las probabilidades de los escenarios sumen $1$) | 14 | `verificar-particion` |
-| **Total** | **50** | |
+| Reconocer que hace falta partición + probabilidad total (el evento final depende de escenarios previos con probabilidades distintas) | 7 | `reconocer-probabilidad-total` |
+| Distractor: alcanza con una probabilidad condicional simple, no hace falta descomponer en escenarios | 4 | `distractor-condicional-simple` |
+| Reconocer si una partición propuesta realmente cubre $\Omega$ (verificar que las probabilidades de los escenarios sumen $1$) | 4 | `verificar-particion` |
+| **Total** | **15** | |
 
 **Cardinalidad**: conceptual/textual → 3 opciones.
 
 ---
 
-## FORM, 50 ejercicios
+## FORM, 15 ejercicios
 
 ### Distribución objetivo
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Fórmula general con 2 escenarios | 18 | `formula-dos-escenarios` |
-| Fórmula general con 3 o más escenarios | 16 | `formula-tres-o-mas-escenarios` |
-| Identificar la fórmula incorrecta entre variantes (términos invertidos, producto mal armado) | 16 | `identificar-formula-correcta` |
-| **Total** | **50** | |
+| Fórmula general con 2 escenarios | 5 | `formula-dos-escenarios` |
+| Fórmula general con 3 o más escenarios | 5 | `formula-tres-o-mas-escenarios` |
+| Identificar la fórmula incorrecta entre variantes (términos invertidos, producto mal armado) | 5 | `identificar-formula-correcta` |
+| **Total** | **15** | |
 
 **Cardinalidad**: conceptual → 3 opciones.
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 15 ejercicios
 
 ### Distribución objetivo
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Cálculo con 2 escenarios (líneas de producción, canales de envío, dos proveedores) | 20 | `resl-dos-escenarios` |
-| Cálculo con 3 o más escenarios | 16 | `resl-tres-o-mas-escenarios` |
-| Despejar una probabilidad condicional desconocida a partir de $P(B)$ total ya conocido | 14 | `resl-despejar-condicional` |
-| **Total** | **50** | |
+| Cálculo con 2 escenarios (líneas de producción, canales de envío, dos proveedores) | 6 | `resl-dos-escenarios` |
+| Cálculo con 3 o más escenarios | 5 | `resl-tres-o-mas-escenarios` |
+| Despejar una probabilidad condicional desconocida a partir de $P(B)$ total ya conocido | 4 | `resl-despejar-condicional` |
+| **Total** | **15** | |
 
 **Cardinalidad**: numérica corta → 4 opciones (grilla 2×2).
 

@@ -12,7 +12,7 @@ Concepto: las **combinaciones** cuentan las formas de elegir $k$ elementos de un
 
 ---
 
-## CLSF, 50 ejercicios
+## CLSF, 15 ejercicios
 
 Reconocer la **técnica**, sin calcular.
 
@@ -20,15 +20,15 @@ Reconocer la **técnica**, sin calcular.
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Reconocer combinación (elegir $k<n$, el orden no importa, sin roles distintos entre los elegidos) | 20 | `reconocer-combinacion` |
-| Distractor: en realidad es variación (los elegidos sí tienen roles/posiciones distintas) | 16 | `distractor-variacion` |
-| Distractor: en realidad es regla de la suma o del producto (no se está seleccionando un subconjunto de un mismo total) | 8 | `distractor-regla-basica` |
-| Combinación con condición adicional (ej. "el comité debe incluir a una persona en particular", "excluir a alguien") reconocida como combinación igual, ajustando el conteo | 6 | `combinacion-con-condicion` |
-| **Total** | **50** | |
+| Reconocer combinación (elegir $k<n$, el orden no importa, sin roles distintos entre los elegidos) | 6 | `reconocer-combinacion` |
+| Distractor: en realidad es variación (los elegidos sí tienen roles/posiciones distintas) | 5 | `distractor-variacion` |
+| Distractor: en realidad es regla de la suma o del producto (no se está seleccionando un subconjunto de un mismo total) | 2 | `distractor-regla-basica` |
+| Combinación con condición adicional (ej. "el comité debe incluir a una persona en particular", "excluir a alguien") reconocida como combinación igual, ajustando el conteo | 2 | `combinacion-con-condicion` |
+| **Total** | **15** | |
 
 ---
 
-## FORM, 50 ejercicios
+## FORM, 15 ejercicios
 
 Armar la **expresión**.
 
@@ -36,15 +36,15 @@ Armar la **expresión**.
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| $\binom{n}{k} = \dfrac{n!}{k!\,(n-k)!}$ directa | 22 | `formula-directa` |
-| Identificar la fórmula incorrecta entre variantes parecidas (confundir con $V_{n,k}$ o con $n!$) | 12 | `identificar-formula-correcta` |
-| Propiedad $\binom{n}{k} = \binom{n}{n-k}$ (simetría) | 8 | `propiedad-simetria` |
-| Combinación con condición adicional (elegir el resto del grupo tras fijar a alguien: $\binom{n-1}{k-1}$) | 8 | `formula-con-condicion` |
-| **Total** | **50** | |
+| $\binom{n}{k} = \dfrac{n!}{k!\,(n-k)!}$ directa | 7 | `formula-directa` |
+| Identificar la fórmula incorrecta entre variantes parecidas (confundir con $V_{n,k}$ o con $n!$) | 4 | `identificar-formula-correcta` |
+| Propiedad $\binom{n}{k} = \binom{n}{n-k}$ (simetría) | 2 | `propiedad-simetria` |
+| Combinación con condición adicional (elegir el resto del grupo tras fijar a alguien: $\binom{n-1}{k-1}$) | 2 | `formula-con-condicion` |
+| **Total** | **15** | |
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 15 ejercicios
 
 Calcular el **resultado numérico**.
 
@@ -52,11 +52,11 @@ Calcular el **resultado numérico**.
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| $\binom{n}{k}$ con $n,k$ chicos ($n \leq 12$) | 22 | `resl-directo` |
-| Comparación entre $\binom{n}{k}$ y $V_{n,k}$ del mismo $n,k$ | 10 | `resl-comparacion-variacion` |
-| Aplicación de la simetría $\binom{n}{k} = \binom{n}{n-k}$ para simplificar el cálculo | 8 | `resl-simetria` |
-| Combinación con condición (persona fija/excluida) | 10 | `resl-con-condicion` |
-| **Total** | **50** | |
+| $\binom{n}{k}$ con $n,k$ chicos ($n \leq 12$) | 7 | `resl-directo` |
+| Comparación entre $\binom{n}{k}$ y $V_{n,k}$ del mismo $n,k$ | 3 | `resl-comparacion-variacion` |
+| Aplicación de la simetría $\binom{n}{k} = \binom{n}{n-k}$ para simplificar el cálculo | 2 | `resl-simetria` |
+| Combinación con condición (persona fija/excluida) | 3 | `resl-con-condicion` |
+| **Total** | **15** | |
 
 **Cardinalidad**: numérica corta → 4 opciones (grilla 2×2).
 

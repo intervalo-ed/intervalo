@@ -3,7 +3,7 @@ import { catalog as catalogProbabilidad } from "./probabilidad.generated"
 import { catalog as catalogAlgebra } from "./algebra.generated"
 
 // A partir de este archivo, `catalog`, `BeltKey`, `Belt`, `Unit`, `Topic` siguen
-// refiriéndose al curso `analisis` para que los consumidores mono-curso (zen,
+// refiriéndose al curso `analisis` para que los consumidores mono-curso (práctica,
 // onboarding, resto de la app) sigan funcionando sin cambios. Los helpers con
 // parámetro `course` permiten operar sobre cualquier curso soportado.
 export const catalog = catalogAnalisis
@@ -56,7 +56,7 @@ export const BELT_HEX: Record<BeltKey, { solid: string; onDark: string }> = {
   white: { solid: "#FAFAFA", onDark: "#FAFAFA" },
   blue: { solid: "#0A3180", onDark: "#4486E8" },
   violet: { solid: "#730F8C", onDark: "#C07BC9" },
-  brown: { solid: "#674011", onDark: "#C57C38" },
+  brown: { solid: "#7D4E28", onDark: "#A8703C" },
 }
 
 // Paleta vívida usada por el onboarding (cubos de la grilla, chips de unidad) y
@@ -67,7 +67,7 @@ export const BELT_ONDARK_VIVID: Record<BeltKey, string> = {
   white: BELT_HEX.white.onDark,
   blue: "#3A72C4",
   violet: "#A369AB",
-  brown: "#9C6B3E",
+  brown: "#7D4E28",
 }
 
 // Arreglos ordenados (blanco→marrón) para los lugares que pintan los cinturones
@@ -145,7 +145,7 @@ export function topicLabel({
   return topic
 }
 
-// Nombres cortos para mostrar en la grilla y el modo zen (el catálogo usa
+// Nombres cortos para mostrar en la grilla y el modo práctica (el catálogo usa
 // "Funciones lineales", etc.). Si un tema no está acá, cae al name del catálogo.
 const TOPIC_SHORT_LABEL: Record<string, string> = {
   linear: "Lineales",

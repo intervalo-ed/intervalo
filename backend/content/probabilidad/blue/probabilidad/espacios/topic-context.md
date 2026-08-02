@@ -18,32 +18,32 @@ Concepto: el **espacio muestral** $\Omega$, el **evento** ($A \subseteq \Omega$)
 
 ---
 
-## LEXI, 50 ejercicios
+## LEXI, 15 ejercicios
 
 ### Distribución objetivo
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Nombre/definición de espacio muestral $\Omega$ | 10 | `definicion-espacio-muestral` |
-| Nombre/definición de evento | 10 | `definicion-evento` |
-| Suceso elemental | 8 | `definicion-suceso-elemental` |
-| Complemento de un evento | 11 | `definicion-complemento` |
-| Eventos mutuamente excluyentes | 11 | `definicion-mutuamente-excluyentes` |
-| **Total** | **50** | |
+| Nombre/definición de espacio muestral $\Omega$ | 3 | `definicion-espacio-muestral` |
+| Nombre/definición de evento | 3 | `definicion-evento` |
+| Suceso elemental | 3 | `definicion-suceso-elemental` |
+| Complemento de un evento | 3 | `definicion-complemento` |
+| Eventos mutuamente excluyentes | 3 | `definicion-mutuamente-excluyentes` |
+| **Total** | **15** | |
 
 ---
 
-## CLSF, 50 ejercicios
+## CLSF, 15 ejercicios
 
 ### Distribución objetivo
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Determinar si un conjunto dado es un evento válido ($A \subseteq \Omega$) | 10 | `validar-subconjunto` |
-| Clasificar el tipo de evento (elemental o compuesto) en un caso concreto | 14 | `clasificar-tipo-evento` |
-| Reconocer si dos eventos dados (enumerados explícitamente) son mutuamente excluyentes o no | 14 | `reconocer-mutuamente-excluyentes` |
-| Identificar el resultado de una operación entre eventos (unión, intersección, complemento) dado $\Omega$ explícito | 12 | `operar-entre-eventos` |
-| **Total** | **50** | |
+| Determinar si un conjunto dado es un evento válido ($A \subseteq \Omega$) | 3 | `validar-subconjunto` |
+| Clasificar el tipo de evento (elemental o compuesto) en un caso concreto | 4 | `clasificar-tipo-evento` |
+| Reconocer si dos eventos dados (enumerados explícitamente) son mutuamente excluyentes o no | 4 | `reconocer-mutuamente-excluyentes` |
+| Identificar el resultado de una operación entre eventos (unión, intersección, complemento) dado $\Omega$ explícito | 4 | `operar-entre-eventos` |
+| **Total** | **15** | |
 
 ---
 
