@@ -36,7 +36,15 @@ function urlBase64ToUint8Array(base64String: string): Uint8Array {
   return output
 }
 
-async function getRegistration(): Promise<ServiceWorkerRegistration> {
+/**
+ * Register (or update-check) the service worker. Safe to call on every app
+ * load: `updateViaCache: "none"` makes the browser re-fetch sw.js bypassing
+ * HTTP cache, so a device that subscribed long ago still picks up sw.js
+ * changes — subscribing itself only happens once (see `subscribeToPush`),
+ * so without this, an already-subscribed device could run a stale sw.js
+ * indefinitely.
+ */
+export async function getRegistration(): Promise<ServiceWorkerRegistration> {
   await navigator.serviceWorker.register(
     `/sw.js?apiBase=${encodeURIComponent(API_BASE_URL)}`,
     { scope: "/", updateViaCache: "none" },
