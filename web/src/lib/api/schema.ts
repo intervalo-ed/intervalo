@@ -373,7 +373,17 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        /**
+         * Push Diagnostic Beacon
+         * @description GET twin of push_diagnostic, reporting on EVERY push the service
+         *     worker receives (not just decode failures) — see sw.js's `beacon()`. A
+         *     plain GET with no custom headers is a CORS "simple request" (no
+         *     preflight), so it's the fallback channel in case the POST version's
+         *     JSON body / Content-Type ever gets blocked in the service worker's
+         *     fetch context — we had zero of those land while chasing a recurring
+         *     generic-fallback bug with no other client-side signal at all.
+         */
+        get: operations["push_diagnostic_beacon_push_diagnostic_get"];
         put?: never;
         /**
          * Push Diagnostic
@@ -2032,6 +2042,41 @@ export interface operations {
                 "application/json": components["schemas"]["PushUnsubscribeRequest"];
             };
         };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SimpleResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    push_diagnostic_beacon_push_diagnostic_get: {
+        parameters: {
+            query: {
+                event: string;
+                error?: string | null;
+                endpoint?: string | null;
+                raw_len?: string | null;
+                ua?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
         responses: {
             /** @description Successful Response */
             200: {
