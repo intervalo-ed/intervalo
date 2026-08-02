@@ -360,7 +360,7 @@
     "/user/practice-stats": {
       "get": {
         "summary": "Get Practice Stats",
-        "description": "Stats del usuario para un curso en la iteraci\u00f3n vigente, SOLO modo pr\u00e1ctica\n(zen): sesiones de pr\u00e1ctica completadas y ejercicios acertados en ellas.",
+        "description": "Stats del usuario para un curso en la iteraci\u00f3n vigente, SOLO modo pr\u00e1ctica:\nsesiones de pr\u00e1ctica completadas y ejercicios acertados en ellas.",
         "operationId": "get_practice_stats_user_practice_stats_get",
         "parameters": [
           {
@@ -1572,11 +1572,11 @@
         }
       }
     },
-    "/session/start-zen": {
+    "/session/start-practice": {
       "post": {
-        "summary": "Start Zen Session",
-        "description": "Start a Zen session: random exercises from selected (belt, topic) items, no SM-2 logic.",
-        "operationId": "start_zen_session_session_start_zen_post",
+        "summary": "Start Practice Session",
+        "description": "Start a Practice session: random exercises from selected (belt, topic) items, no SM-2 logic.",
+        "operationId": "start_practice_session_session_start_practice_post",
         "parameters": [
           {
             "name": "authorization",
@@ -1593,7 +1593,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StartZenSessionRequest"
+                "$ref": "#/components/schemas/StartPracticeSessionRequest"
               }
             }
           }
@@ -2555,6 +2555,24 @@
         ],
         "title": "NotificationSettingsRequest"
       },
+      "PracticeSessionItem": {
+        "properties": {
+          "belt": {
+            "type": "string",
+            "title": "Belt"
+          },
+          "topic": {
+            "type": "string",
+            "title": "Topic"
+          }
+        },
+        "type": "object",
+        "required": [
+          "belt",
+          "topic"
+        ],
+        "title": "PracticeSessionItem"
+      },
       "PracticeStatsResponse": {
         "properties": {
           "sessions_completed": {
@@ -3093,6 +3111,43 @@
         ],
         "title": "SkillProgress"
       },
+      "StartPracticeSessionRequest": {
+        "properties": {
+          "user_name": {
+            "type": "string",
+            "title": "User Name"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/PracticeSessionItem"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          },
+          "course": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Course"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_name",
+          "items",
+          "count"
+        ],
+        "title": "StartPracticeSessionRequest"
+      },
       "StartSessionRequest": {
         "properties": {
           "user_name": {
@@ -3158,43 +3213,6 @@
           "items"
         ],
         "title": "StartTestSessionRequest"
-      },
-      "StartZenSessionRequest": {
-        "properties": {
-          "user_name": {
-            "type": "string",
-            "title": "User Name"
-          },
-          "items": {
-            "items": {
-              "$ref": "#/components/schemas/ZenSessionItem"
-            },
-            "type": "array",
-            "title": "Items"
-          },
-          "count": {
-            "type": "integer",
-            "title": "Count"
-          },
-          "course": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Course"
-          }
-        },
-        "type": "object",
-        "required": [
-          "user_name",
-          "items",
-          "count"
-        ],
-        "title": "StartZenSessionRequest"
       },
       "StreakInfo": {
         "properties": {
@@ -3676,24 +3694,6 @@
           "type"
         ],
         "title": "ValidationError"
-      },
-      "ZenSessionItem": {
-        "properties": {
-          "belt": {
-            "type": "string",
-            "title": "Belt"
-          },
-          "topic": {
-            "type": "string",
-            "title": "Topic"
-          }
-        },
-        "type": "object",
-        "required": [
-          "belt",
-          "topic"
-        ],
-        "title": "ZenSessionItem"
       }
     }
   }

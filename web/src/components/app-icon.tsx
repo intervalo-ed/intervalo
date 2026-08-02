@@ -24,7 +24,7 @@ export function AppIcon({ className }: { className?: string }) {
       <rect x="512" y="724" width="159.25" height="40" fill="#730F8C" />
       <path
         d="M671.25 724H820.5C826.023 724 830.5 728.477 830.5 734V754C830.5 759.523 826.023 764 820.5 764H671.25V724Z"
-        fill="#674011"
+        fill="#7D4E28"
       />
     </svg>
   )

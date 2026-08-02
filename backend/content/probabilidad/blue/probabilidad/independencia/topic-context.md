@@ -14,7 +14,7 @@ Concepto: dos eventos $A$ y $B$ son **independientes** cuando $P(A \cap B) = P(A
 
 ---
 
-## CLSF, 50 ejercicios
+## CLSF, 15 ejercicios
 
 Reconocer si dos eventos son **independientes o dependientes**, sin calcular.
 
@@ -22,40 +22,40 @@ Reconocer si dos eventos son **independientes o dependientes**, sin calcular.
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Reconocer independencia desde el contexto (experimentos físicamente separados: dados distintos, monedas distintas, con reposición) | 18 | `reconocer-independencia` |
-| Reconocer dependencia (mismo experimento, extracción sin reposición, o un evento que afecta al otro) | 18 | `reconocer-dependencia` |
-| Distractor: confundir independencia con mutuamente excluyentes | 14 | `distractor-mutuamente-excluyentes` |
-| **Total** | **50** | |
+| Reconocer independencia desde el contexto (experimentos físicamente separados: dados distintos, monedas distintas, con reposición) | 6 | `reconocer-independencia` |
+| Reconocer dependencia (mismo experimento, extracción sin reposición, o un evento que afecta al otro) | 5 | `reconocer-dependencia` |
+| Distractor: confundir independencia con mutuamente excluyentes | 4 | `distractor-mutuamente-excluyentes` |
+| **Total** | **15** | |
 
 **Cardinalidad**: conceptual → 3 opciones.
 
 ---
 
-## FORM, 50 ejercicios
+## FORM, 15 ejercicios
 
 ### Distribución objetivo
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| $P(A\cap B) = P(A)\cdot P(B)$ directa, 2 eventos | 20 | `formula-directa` |
-| Verificar independencia comparando $P(A\cap B)$ contra $P(A)\cdot P(B)$ | 15 | `formula-verificacion` |
-| Extensión a 3 eventos independientes en un orden exacto, producto de las 3 probabilidades | 15 | `formula-tres-eventos` |
-| **Total** | **50** | |
+| $P(A\cap B) = P(A)\cdot P(B)$ directa, 2 eventos | 6 | `formula-directa` |
+| Verificar independencia comparando $P(A\cap B)$ contra $P(A)\cdot P(B)$ | 5 | `formula-verificacion` |
+| Extensión a 3 eventos independientes en un orden exacto, producto de las 3 probabilidades | 4 | `formula-tres-eventos` |
+| **Total** | **15** | |
 
 **Cardinalidad**: conceptual → 3 opciones.
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 15 ejercicios
 
 ### Distribución objetivo
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Calcular $P(A\cap B)$ para eventos independientes dados | 16 | `resl-interseccion` |
-| Verificar si dos eventos son independientes con datos numéricos (calcular ambos lados de la igualdad) | 16 | `resl-verificacion` |
-| Calcular la probabilidad de una secuencia exacta y ordenada de un experimento independiente repetido (2-4 repeticiones) | 18 | `resl-repeticion` |
-| **Total** | **50** | |
+| Calcular $P(A\cap B)$ para eventos independientes dados | 5 | `resl-interseccion` |
+| Verificar si dos eventos son independientes con datos numéricos (calcular ambos lados de la igualdad) | 5 | `resl-verificacion` |
+| Calcular la probabilidad de una secuencia exacta y ordenada de un experimento independiente repetido (2-4 repeticiones) | 5 | `resl-repeticion` |
+| **Total** | **15** | |
 
 **Cardinalidad**: numérica corta → 4 opciones (grilla 2×2).
 

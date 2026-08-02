@@ -188,8 +188,8 @@ export interface paths {
         };
         /**
          * Get Practice Stats
-         * @description Stats del usuario para un curso en la iteración vigente, SOLO modo práctica
-         *     (zen): sesiones de práctica completadas y ejercicios acertados en ellas.
+         * @description Stats del usuario para un curso en la iteración vigente, SOLO modo práctica:
+         *     sesiones de práctica completadas y ejercicios acertados en ellas.
          */
         get: operations["get_practice_stats_user_practice_stats_get"];
         put?: never;
@@ -611,7 +611,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/session/start-zen": {
+    "/session/start-practice": {
         parameters: {
             query?: never;
             header?: never;
@@ -621,10 +621,10 @@ export interface paths {
         get?: never;
         put?: never;
         /**
-         * Start Zen Session
-         * @description Start a Zen session: random exercises from selected (belt, topic) items, no SM-2 logic.
+         * Start Practice Session
+         * @description Start a Practice session: random exercises from selected (belt, topic) items, no SM-2 logic.
          */
-        post: operations["start_zen_session_session_start_zen_post"];
+        post: operations["start_practice_session_session_start_practice_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -982,6 +982,13 @@ export interface components {
             /** Timezone */
             timezone?: string | null;
         };
+        /** PracticeSessionItem */
+        PracticeSessionItem: {
+            /** Belt */
+            belt: string;
+            /** Topic */
+            topic: string;
+        };
         /** PracticeStatsResponse */
         PracticeStatsResponse: {
             /** Sessions Completed */
@@ -1170,6 +1177,17 @@ export interface components {
             /** Next Review */
             next_review?: string | null;
         };
+        /** StartPracticeSessionRequest */
+        StartPracticeSessionRequest: {
+            /** User Name */
+            user_name: string;
+            /** Items */
+            items: components["schemas"]["PracticeSessionItem"][];
+            /** Count */
+            count: number;
+            /** Course */
+            course?: string | null;
+        };
         /** StartSessionRequest */
         StartSessionRequest: {
             /** User Name */
@@ -1189,17 +1207,6 @@ export interface components {
              */
             shuffle: boolean;
             filters?: components["schemas"]["TestFilters"] | null;
-        };
-        /** StartZenSessionRequest */
-        StartZenSessionRequest: {
-            /** User Name */
-            user_name: string;
-            /** Items */
-            items: components["schemas"]["ZenSessionItem"][];
-            /** Count */
-            count: number;
-            /** Course */
-            course?: string | null;
         };
         /** StreakInfo */
         StreakInfo: {
@@ -1395,13 +1402,6 @@ export interface components {
             input?: unknown;
             /** Context */
             ctx?: Record<string, never>;
-        };
-        /** ZenSessionItem */
-        ZenSessionItem: {
-            /** Belt */
-            belt: string;
-            /** Topic */
-            topic: string;
         };
     };
     responses: never;
@@ -2420,7 +2420,7 @@ export interface operations {
             };
         };
     };
-    start_zen_session_session_start_zen_post: {
+    start_practice_session_session_start_practice_post: {
         parameters: {
             query?: never;
             header?: {
@@ -2431,7 +2431,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["StartZenSessionRequest"];
+                "application/json": components["schemas"]["StartPracticeSessionRequest"];
             };
         };
         responses: {

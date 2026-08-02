@@ -1,24 +1,71 @@
 [
   {
-    "question": "Sea $X \\sim Pois(\\lambda)$.\n\n¿Cuál es la fórmula de $P(X=k)$?",
+    "question": "Un canal de soporte recibe mensajes con una tasa promedio de 4 por cuarto de hora, en forma independiente entre sí.\n\n¿Cuál es el parámetro $\\lambda$ de la Poisson que modela la cantidad de mensajes en un cuarto de hora?",
     "options": [
-      "$\\lambda^{k} e^{-\\lambda}$",
-      "$\\dfrac{e^{-\\lambda}\\lambda^{k}}{k!}$",
-      "$\\binom{n}{k}\\lambda^{k}(1-\\lambda)^{n-k}$",
-      "$(1-\\lambda)^{k-1}\\lambda$"
+      "$\\lambda=4$",
+      "$\\lambda=0{,}25$",
+      "$\\lambda=1$",
+      "$\\lambda=16$"
     ],
-    "correct_index": 1,
-    "feedback_correct": "Fórmula estándar de Poisson.",
+    "correct_index": 0,
+    "feedback_correct": "$\\lambda=4$ es la tasa promedio de mensajes en un cuarto de hora, el mismo intervalo de la pregunta.",
     "feedback_incorrect": [
-      "Falta dividir por $k!$; sin la corrección factorial no queda una probabilidad bien normalizada.",
       null,
-      "Esa fórmula mezcla binomial con Poisson; en Poisson no hay $n$ fijo.",
-      "Esa es la fórmula de la geométrica (con parámetro $\\lambda$ como si fuera probabilidad, cosa que no es)."
+      "Ese valor invierte la tasa: $1/4$ no es una cantidad de eventos por intervalo.",
+      "Ese valor no corresponde a ningún dato del enunciado.",
+      "Ese valor sería la tasa equivalente para una hora completa, no para el cuarto de hora que pide la pregunta."
     ],
-    "explanation": "La distribución de **Poisson** con tasa promedio $\\lambda$ tiene función de probabilidad puntual:\n$$P(X=k) = \\frac{e^{-\\lambda}\\lambda^{k}}{k!}$$\n\nSu esperanza y varianza son ambas iguales a $\\lambda$, propiedad característica y útil para verificar rápido.\n\nLa confusión típica es olvidar el $k!$ del denominador (el resultado dejaría de ser una probabilidad) o mezclar la fórmula con la binomial: recordá que Poisson no tiene $n$ ni $p$, solo un parámetro $\\lambda$ que actúa como tasa promedio.",
+    "explanation": "Para armar $X\\sim Pois(\\lambda)$ hace falta identificar la tasa promedio y a qué intervalo corresponde.\n$$P(X=k) = \\frac{e^{-\\lambda}\\lambda^{k}}{k!}$$\nAcá la tasa ya viene dada en el mismo intervalo que pide la pregunta: 4 mensajes por cuarto de hora.\n\n$\\lambda$ siempre está atado a un intervalo concreto de tiempo, longitud o área, nunca es un número suelto sin esa referencia.\n\nCuando el intervalo de la pregunta coincide con el de la tasa dada, $\\lambda$ se lee directo del enunciado sin ningún reescalado.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["identificar-parametros"]
+  },
+  {
+    "question": "Un sismógrafo registra en promedio 2 sismos leves por semana, de forma independiente entre sí.\n\nSea $X$ la cantidad de sismos leves en una semana. Calculá $P(X=3)$.",
+    "options": [
+      "$\\dfrac{8e^{-2}}{6}$",
+      "$\\dfrac{8e^{-2}}{1}$",
+      "$\\dfrac{8e^{-2}}{3}$",
+      "$\\dfrac{2e^{-2}}{6}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$\\dfrac{e^{-2}2^{3}}{3!}=\\dfrac{8e^{-2}}{6}$: tasa elevada al cubo, sobre $3!=6$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor olvida dividir por $3!=6$, sin la corrección factorial no queda una probabilidad bien normalizada.",
+      "Ese valor usa $3$ en vez de $3!=6$ en el denominador, olvidando expandir el factorial.",
+      "Ese valor usa $\\lambda^{1}$ en vez de $\\lambda^{3}$, perdiendo el exponente correcto."
+    ],
+    "explanation": "Con $X\\sim Pois(\\lambda)$, la probabilidad puntual es:\n$$P(X=k) = \\frac{e^{-\\lambda}\\lambda^{k}}{k!}$$\nAcá $\\lambda=2$ y se pregunta por 3 sismos en la semana.\n$$P(X=3) = \\frac{e^{-2}2^{3}}{3!}$$\nEl numerador combina la probabilidad base de que no ocurra ningún evento con $\\lambda$ elevado a la cantidad de eventos buscada.\n\nEl factorial en el denominador ajusta la normalización de la fórmula, y es lo que más se olvida al aplicarla de memoria.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-directa"]
+  },
+  {
+    "question": "Un local de fotocopias recibe en promedio 6 pedidos por hora.\n\nSe quiere estudiar la cantidad de pedidos en un turno de 3 horas.\n\n¿Cuánto valen, en ese orden, $\\lambda, E[X], \\mathrm{Var}(X)$ para ese turno?",
+    "options": [
+      "$(18,\\,18,\\,18)$",
+      "$(6,\\,6,\\,6)$",
+      "$(18,\\,18,\\,\\sqrt{18})$",
+      "$(2,\\,2,\\,2)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$\\lambda=18$ para el turno completo; su esperanza y su varianza valen $18$ también.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor no reescala $\\lambda$ para las 3 horas del turno, se quedó con la tasa de una sola hora.",
+      "La varianza de Poisson es $\\lambda$ mismo, no $\\sqrt{\\lambda}$; esa fórmula corresponde a la desviación estándar.",
+      "Ese valor divide la tasa por 3 en vez de multiplicarla, como si el turno fuera más corto que una hora."
+    ],
+    "explanation": "Para $X\\sim Pois(\\lambda)$, ajustar el intervalo implica reescalar $\\lambda$ en la misma proporción.\n\nAcá la tasa es de 6 pedidos por hora, y el turno dura 3 horas.\n$$\\lambda = 6\\cdot3 = 18$$\nCon esa tasa ya ajustada al turno completo, la esperanza y la varianza son ambas iguales a $\\lambda$.\n$$E[X] = \\mathrm{Var}(X) = \\lambda$$\nEn este turno de 3 horas, ambas valen 18.\n\nQue esperanza y varianza compartan el mismo valor es una propiedad exclusiva de Poisson: la dispersión alrededor del promedio crece al mismo ritmo que el propio promedio, ni más ni menos.\n\nDuplicar la duración del turno duplica tanto la cantidad esperada de pedidos como cuánto puede variar ese número de un turno a otro.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["esperanza-varianza-y-ajuste-tasa"]
   }
 ]

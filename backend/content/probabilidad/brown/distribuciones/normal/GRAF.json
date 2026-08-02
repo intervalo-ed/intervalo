@@ -1,21 +1,73 @@
 [
   {
-    "question": "El gráfico de la densidad de una variable aleatoria continua tiene forma de campana simétrica centrada en 0, con máximo en $x=0$ y colas que decaen suavemente hacia ambos lados sin tocar el eje.\n\n¿Qué distribución representa?",
+    "question": "Las estaturas de una población adulta se modelan con una normal de media $\\mu=170$ cm y desviación $\\sigma=8$ cm.\n\n¿Qué forma tiene esa densidad?",
     "options": [
-      "Uniforme.",
-      "Exponencial.",
-      "Normal estándar."
+      "Una campana simétrica con máximo en 170.",
+      "Un rectángulo de altura constante entre 162 y 178.",
+      "Una curva que decae monótonamente desde 170."
     ],
-    "correct_index": 2,
-    "feedback_correct": "Campana simétrica centrada en 0: normal estándar $N(0,1)$.",
+    "correct_index": 0,
+    "feedback_correct": "Densidad simétrica con pico en la media: es la forma característica de la normal.",
     "feedback_incorrect": [
-      "La uniforme tiene densidad constante en forma de rectángulo, no una campana.",
-      "La exponencial decae monótonamente desde el origen; no es simétrica ni tiene forma de campana."
+      null,
+      "Un rectángulo de altura constante es la uniforme, la normal tiene forma de campana, no plana.",
+      "Una curva que decae monótonamente es la exponencial, la normal sube hasta el centro y después baja."
     ],
-    "explanation": "La distribución **normal** con media $\\mu$ y desviación $\\sigma$ tiene densidad:\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\n\nCuando $\\mu = 0$ y $\\sigma = 1$ se llama normal estándar $N(0,1)$: es la campana simétrica centrada en 0.\n\nLa confusión típica es leer cualquier curva unimodal como normal; la firma de la normal es la **simetría** alrededor de la media y las colas que decaen sin cortarse, lo que la distingue de la exponencial (asimétrica) o de la uniforme (constante).",
+    "explanation": "La densidad **normal** tiene forma de campana simétrica centrada en $\\mu$.\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\nAcá $\\mu=170$ y $\\sigma=8$, así que el pico de la campana está en 170 cm.\n\nLa curva sube desde ambos lados hacia ese centro y después baja en espejo, con la misma forma a la izquierda y a la derecha.\n\nNinguna otra distribución de esta unidad tiene ese pico central con caída simétrica hacia ambos lados.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": ["reconocer-forma"]
+  },
+  {
+    "question": "El error de un instrumento de medición de precisión, en milímetros, sigue una distribución normal.\n\nEl gráfico muestra su densidad.\n\n¿Cuál es la media $\\mu$ de ese error, según el gráfico?",
+    "options": [
+      "$1{,}5$",
+      "$1$",
+      "$2$",
+      "$0{,}5$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El máximo de la campana está exactamente en $\\mu=1{,}5$, el eje de simetría de la curva.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor es un punto de inflexión de la curva, no el máximo.",
+      "Ese valor es el otro punto de inflexión de la curva, no el máximo.",
+      "Ese valor es la desviación estándar, no la media."
+    ],
+    "explanation": "La densidad **normal** alcanza su máximo exactamente en $\\mu$, el centro de simetría de la campana.\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\nAcá el pico del gráfico está en $1{,}5$, así que $\\mu=1{,}5$.\n\nEl punto más alto de la curva es el único lugar donde ambas mitades simétricas se encuentran, por eso identifica a la media sin ambigüedad.\n\nLos puntos donde la curva cambia de curvatura, un poco antes y después del pico, quedan a una desviación estándar del centro, no en el centro mismo.",
+    "has_math": true,
+    "graph_fn": "(1/(0.5*sqrt(2*pi)))*exp(-((x-1.5)^2)/(2*0.5^2))",
+    "graph_view": [-1, 4, -0.05, 0.95],
+    "graph_shade": null,
+    "graph_free_aspect": true,
+    "reviewed": false,
+    "tags": ["identificar-media"]
+  },
+  {
+    "question": "Dos máquinas de envasado llenan bolsas con el mismo peso promedio, pero distinta variabilidad.\n\nLa máquina A tiene $\\sigma_A=2$ gramos.\n$$X_A \\sim N(500,\\, 2^{2})$$\nLa máquina B tiene $\\sigma_B=10$ gramos.\n$$X_B \\sim N(500,\\, 10^{2})$$\n¿Cuál de las dos curvas se ve más achatada y ancha?",
+    "options": [
+      "$X_B$, porque su $\\sigma$ es mayor.",
+      "$X_A$, porque su $\\sigma$ es menor.",
+      "Ambas tienen la misma forma, porque comparten la misma media."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Un $\\sigma$ mayor reparte los valores en un rango más ancho, así que la curva se achata.",
+    "feedback_incorrect": [
+      null,
+      "Un $\\sigma$ menor concentra los valores cerca de la media, dando una curva más alta y angosta, no más achatada.",
+      "La forma depende de $\\sigma$, no de $\\mu$; compartir la media no implica compartir la dispersión."
+    ],
+    "explanation": "La dispersión de la normal está gobernada por $\\sigma$, no por $\\mu$.\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\nAcá $\\sigma_A=2,\\, \\sigma_B=10$.\n\nCuanto mayor es $\\sigma$, más repartidos quedan los valores alrededor de la media, y la curva se ve más achatada y ancha.\n\nEl área bajo cada curva sigue siendo 1 en los dos casos, así que ensanchar la campana obliga a bajar su altura máxima.\n\nEn la práctica, eso significa que las bolsas de la máquina B varían más de peso entre sí que las de la máquina A, aunque en promedio pesen lo mismo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": ["comparar-dispersion"]
   }
 ]

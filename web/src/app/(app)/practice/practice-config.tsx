@@ -6,6 +6,7 @@ import MathText from "@/components/math-text"
 import { Metric, accuracyColor } from "@/components/metric-card"
 import { PracticeSkeleton } from "@/components/tab-skeletons"
 import { Wordmark } from "@/components/wordmark"
+import { XpDots } from "@/components/xp-dots"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
@@ -348,11 +349,13 @@ export default function PracticeConfig() {
                   <Metric
                     label="Multiplicador de XP"
                     value={
-                      progressQuery.data
-                        ? `×${progressQuery.data.streak.multiplier.toFixed(1)}`
-                        : "…"
+                      <span className="inline-flex items-center gap-1.5">
+                        {progressQuery.data
+                          ? `×${progressQuery.data.streak.multiplier.toFixed(1)}`
+                          : "…"}
+                        <XpDots className="size-[0.8em] text-[#5457e5]" />
+                      </span>
                     }
-                    valueColor="#5457e5"
                     info={
                       progressQuery.data
                         ? {
