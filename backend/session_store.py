@@ -45,12 +45,18 @@ from algorithm import (
     streak_multiplier,
     update_unit_state,
 )
-from exercise_bank import get_exercise_db, list_exercises_db, topic_exercise_types
+from exercise_bank import (
+    get_exercise_db,
+    list_exercises_db,
+    mark_exercise_served,
+    topic_exercise_types,
+)
 from sqlalchemy.orm import Session as DBSession
 from models import (
     Answer,
     Course,
     CourseProgress,
+    ItemExerciseCycle,
     Session as SessionModel,
     UnitState,
     UnitStateArchive,
@@ -485,14 +491,23 @@ def _build_exercise(
     unit_key: UnitKey,
     course_id: int,
     db: DBSession,
+    user_id: int,
+    exclude_by_unit: dict[UnitKey, set[str]] | None = None,
 ) -> ExerciseInSession:
+    extra_exclude = frozenset(
+        (exclude_by_unit or {}).get(unit_key, frozenset())
+    )
     ex = get_exercise_db(
         course_id,
         unit_key.belt.value,
         unit_key.topic,
         unit_key.exercise_type,
         db,
+        user_id,
+        extra_exclude=extra_exclude,
     )
+    if exclude_by_unit is not None and ex.get("external_id"):
+        exclude_by_unit.setdefault(unit_key, set()).add(ex["external_id"])
     shuffled, new_correct_index, shuffled_feedback = _shuffle_options(ex)
     return ExerciseInSession(
         exercise_id=f"ex_{idx:03d}",
@@ -746,8 +761,9 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
         config=SM2Config(max_session_exercises=session_size),
     )
 
+    exclude_by_unit: dict[UnitKey, set[str]] = {}
     exercises = [
-        _build_exercise(idx, su.key, course_id, db)
+        _build_exercise(idx, su.key, course_id, db, user_id, exclude_by_unit)
         for idx, su in enumerate(session_units)
     ]
 
@@ -820,8 +836,9 @@ def create_practice_session_db(
         raise ValueError("No hay ejercicios disponibles para los temas seleccionados.")
 
     sampled = random.choices(candidate_units, k=count)
+    exclude_by_unit: dict[UnitKey, set[str]] = {}
     exercises = [
-        _build_exercise(idx, uk, course_id, db)
+        _build_exercise(idx, uk, course_id, db, user_id, exclude_by_unit)
         for idx, uk in enumerate(sampled)
     ]
 
@@ -955,8 +972,9 @@ def _reconstruct_session_state(
     unit_states, unit_attempted = _rows_to_unit_states(rows, user_today(db, user_id))
 
     session_units = build_session(unit_states, unit_attempted=unit_attempted)
+    exclude_by_unit: dict[UnitKey, set[str]] = {}
     exercises = [
-        _build_exercise(idx, su.key, course_id, db)
+        _build_exercise(idx, su.key, course_id, db, user_id, exclude_by_unit)
         for idx, su in enumerate(session_units)
     ]
 
@@ -1019,6 +1037,7 @@ def record_answer_db(
     attempts: int,
     response_time_s: float,
     db: DBSession,
+    exercise_external_id: str | None = None,
 ) -> dict:
     """Record an answer, update SM-2 state for the unit, return feedback."""
     db_session = db.query(SessionModel).filter(
@@ -1040,6 +1059,14 @@ def record_answer_db(
     exercise = next((e for e in state.exercises if e.exercise_id == exercise_id), None)
     if exercise is None:
         raise KeyError(f"Ejercicio '{exercise_id}' no encontrado en la sesión.")
+
+    # Identidad exacta del ejercicio que vio el usuario. La fuente autoritativa es
+    # el external_id que reporta el cliente (lo que efectivamente renderizó): la
+    # caché en memoria puede enfriarse y _reconstruct_session_state re-sortea los
+    # ejercicios al azar, así que el external_id del slot en memoria no es
+    # confiable tras un reinicio. Si el cliente no lo manda (compat), caemos al de
+    # memoria.
+    resolved_external_id = exercise_external_id or exercise.external_id or None
 
     unit_key = exercise.unit_key
     is_correct = attempts <= 3
@@ -1131,6 +1158,7 @@ def record_answer_db(
         user_id=user_id,
         course_id=course_id,
         exercise_id=exercise_id,
+        exercise_external_id=resolved_external_id,
         belt=unit_key.belt.value,
         topic=unit_key.topic,
         exercise_type=unit_key.exercise_type,
@@ -1142,6 +1170,18 @@ def record_answer_db(
         answered_at=datetime.utcnow(),
         iteration=_get_course_progress(user_id, course_id, db).iteration,
     ))
+
+    # El ejercicio quedó efectivamente completado por el usuario: avanza el
+    # ciclo de no-repetición del ítem (ver ItemExerciseCycle).
+    mark_exercise_served(
+        user_id,
+        course_id,
+        unit_key.belt.value,
+        unit_key.topic,
+        unit_key.exercise_type,
+        resolved_external_id,
+        db,
+    )
 
     if user:
         user.total_xp = (user.total_xp or 0) + xp_earned
@@ -1598,6 +1638,10 @@ def reset_course(user_id: int, course_id: int, db: DBSession) -> int:
             is_catchup=r.is_catchup, suspended=r.suspended,
         ))
         db.delete(r)
+    db.query(ItemExerciseCycle).filter(
+        ItemExerciseCycle.user_id == user_id,
+        ItemExerciseCycle.course_id == course_id,
+    ).delete()
     cp.iteration += 1
     slug = _get_course_slug(course_id, db)
     cp.active_cap = ACTIVE_CAP_DEFAULTS.get(slug, ACTIVE_CAP_DEFAULT_FALLBACK)

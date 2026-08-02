@@ -11,8 +11,7 @@ import json
 import random
 
 from sqlalchemy.orm import Session as DBSession
-from sqlalchemy import func
-from models import Exercise
+from models import Exercise, ItemExerciseCycle
 
 
 def _normalize_graph_view(gv):
@@ -72,15 +71,55 @@ def _row_to_dict(row: Exercise) -> dict:
     }
 
 
+def _get_or_create_cycle(
+    user_id: int,
+    course_id: int,
+    belt: str,
+    topic: str,
+    exercise_type: str,
+    db: DBSession,
+) -> ItemExerciseCycle:
+    cycle = (
+        db.query(ItemExerciseCycle)
+        .filter(
+            ItemExerciseCycle.user_id == user_id,
+            ItemExerciseCycle.course_id == course_id,
+            ItemExerciseCycle.belt == belt,
+            ItemExerciseCycle.topic == topic,
+            ItemExerciseCycle.exercise_type == exercise_type,
+        )
+        .first()
+    )
+    if cycle is None:
+        cycle = ItemExerciseCycle(
+            user_id=user_id,
+            course_id=course_id,
+            belt=belt,
+            topic=topic,
+            exercise_type=exercise_type,
+            served_external_ids="[]",
+        )
+        db.add(cycle)
+        db.flush()
+    return cycle
+
+
 def get_exercise_db(
     course_id: int,
     belt: str,
     topic: str,
     exercise_type: str,
     db: DBSession,
+    user_id: int,
+    extra_exclude: frozenset[str] = frozenset(),
 ) -> dict:
-    """Returns a random exercise for the (course, belt, topic, exercise_type) unit."""
-    row = (
+    """Returns an exercise for the (course, belt, topic, exercise_type) unit,
+    avoiding repeats for this user until every exercise in the item's pool has
+    been served (the "cycle"). `extra_exclude` additionally excludes
+    external_ids already picked earlier in the SAME session being built (e.g.
+    practice sessions can sample the same unit more than once before any
+    answer is persisted)."""
+    pool = (
         db.query(Exercise)
         .filter(
             Exercise.course_id == course_id,
@@ -88,18 +127,54 @@ def get_exercise_db(
             Exercise.topic == topic,
             Exercise.exercise_type == exercise_type,
         )
-        .order_by(func.random())
-        .first()
+        .all()
     )
 
-    if row is None:
+    if not pool:
         raise LookupError(
             f"No hay ejercicios en BD para course_id={course_id} "
             f"belt={belt!r} topic={topic!r} exercise_type={exercise_type!r}. "
             f"Revisá el seeder (backend/seed_content.py)."
         )
 
+    cycle = _get_or_create_cycle(user_id, course_id, belt, topic, exercise_type, db)
+    served = set(json.loads(cycle.served_external_ids or "[]"))
+    excluded = served | extra_exclude
+
+    available = [r for r in pool if r.external_id not in excluded]
+    if not available:
+        # Ciclo agotado: se sirvieron todos los del pool (salvo quizás los
+        # excluidos por extra_exclude). Arranca un ciclo nuevo.
+        cycle.served_external_ids = "[]"
+        available = [r for r in pool if r.external_id not in extra_exclude]
+    if not available:
+        # Pool de 1 ejercicio ya excluido por extra_exclude dentro de esta
+        # misma sesión: no hay otra opción, repetir.
+        available = pool
+
+    row = random.choice(available)
     return _row_to_dict(row)
+
+
+def mark_exercise_served(
+    user_id: int,
+    course_id: int,
+    belt: str,
+    topic: str,
+    exercise_type: str,
+    external_id: str | None,
+    db: DBSession,
+) -> None:
+    """Registra un external_id como servido en el ciclo vigente del ítem. Se
+    llama al registrar una respuesta (el ejercicio quedó efectivamente
+    completado por el usuario), no al elegirlo."""
+    if not external_id:
+        return
+    cycle = _get_or_create_cycle(user_id, course_id, belt, topic, exercise_type, db)
+    served = set(json.loads(cycle.served_external_ids or "[]"))
+    if external_id not in served:
+        served.add(external_id)
+        cycle.served_external_ids = json.dumps(sorted(served))
 
 
 def list_exercises_db(
