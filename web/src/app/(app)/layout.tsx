@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
 import { Suspense } from "react"
+import { ServiceWorkerUpdater } from "@/lib/push/service-worker-updater"
 
 // El chequeo de enrollment/progress pega al backend sin cache (`no-store`):
 // si viviera inline en AppLayout, Next bloquea TODA la navegación hasta que
@@ -38,6 +39,7 @@ export default async function AppLayout({
       <Suspense fallback={null}>
         <EnrollmentGate />
       </Suspense>
+      <ServiceWorkerUpdater />
       {children}
     </>
   )
