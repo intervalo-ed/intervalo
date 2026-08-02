@@ -913,6 +913,45 @@
         }
       }
     },
+    "/push/diagnostic": {
+      "post": {
+        "summary": "Push Diagnostic",
+        "description": "Client-reported failure when a push event's payload couldn't be\ndecoded (sw.js falls back to generic copy in that case, see sw.js). No\nauth here \u2014 the service worker has no Clerk session \u2014 so we correlate\nthe report to a user via the subscription endpoint instead. Logs only,\nto diagnose recurring generic-fallback notifications.",
+        "operationId": "push_diagnostic_push_diagnostic_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PushDiagnosticRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimpleResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/user/notification-settings": {
       "get": {
         "summary": "Get Notification Settings",
@@ -2622,6 +2661,41 @@
           "subscription_ids"
         ],
         "title": "PrunePushRequest"
+      },
+      "PushDiagnosticRequest": {
+        "properties": {
+          "error": {
+            "type": "string",
+            "title": "Error"
+          },
+          "endpoint": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Endpoint"
+          },
+          "raw_preview": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Raw Preview"
+          }
+        },
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "title": "PushDiagnosticRequest"
       },
       "PushKeys": {
         "properties": {
