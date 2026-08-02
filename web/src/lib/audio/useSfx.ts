@@ -39,8 +39,8 @@ const SOUND_VOLUME: Record<SfxName, number> = {
 }
 
 // Sonidos muteados temporalmente (hasta nuevo aviso): `iterate` (botones
-// play/pausa del onboarding y seleccionadores del modo zen). Para reactivarlos,
-// vaciar este set.
+// play/pausa del onboarding y seleccionadores del modo práctica). Para
+// reactivarlos, vaciar este set.
 const MUTED_SFX = new Set<SfxName>(["iterate"])
 
 // Tick suelto a un pitch dado (1 = original). Pensado para las secuencias de

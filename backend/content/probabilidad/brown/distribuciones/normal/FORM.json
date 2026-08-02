@@ -1,24 +1,77 @@
 [
   {
-    "question": "Sea $X \\sim N(\\mu, \\sigma^{2})$.\n\n¿Qué transformación estandariza $X$ a una normal $N(0, 1)$?",
+    "question": "La duración de la batería de un dispositivo entre cargas sigue una densidad normal.\n$$f(x) = \\frac{1}{5\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-20}{5}\\right)^{2}}$$\n¿Cuáles son $\\mu$ y $\\sigma$ para esta variable?",
     "options": [
-      "$Z = X - \\mu$",
-      "$Z = X / \\sigma$",
-      "$Z = \\dfrac{X - \\mu}{\\sigma}$",
-      "$Z = \\dfrac{X - \\mu}{\\sigma^{2}}$"
+      "$\\mu=20$, $\\sigma=5$",
+      "$\\mu=5$, $\\sigma=20$",
+      "$\\mu=20$, $\\sigma=25$",
+      "$\\mu=0$, $\\sigma=1$"
     ],
-    "correct_index": 2,
-    "feedback_correct": "Estandarización: centrar en $\\mu$ y escalar por $\\sigma$.",
+    "correct_index": 0,
+    "feedback_correct": "$\\mu=20$ es el centro, $\\sigma=5$ la desviación, leídos directo de la fórmula.",
     "feedback_incorrect": [
-      "Solo centrar en $\\mu$ elimina la media pero deja la desviación en $\\sigma$, no en 1.",
-      "Solo escalar por $\\sigma$ deja la media desplazada en $\\mu/\\sigma$, no en 0.",
       null,
-      "Estás dividiendo por la varianza $\\sigma^{2}$; la estandarización usa $\\sigma$ (desvío estándar), no su cuadrado."
+      "Los roles están invertidos: $\\mu$ es el centro de la campana, $\\sigma$ mide la dispersión.",
+      "Ese valor es $\\sigma^{2}$, la varianza, no $\\sigma$ mismo.",
+      "Esos son los parámetros de la normal estándar $N(0,1)$, no los de esta variable en particular."
     ],
-    "explanation": "Para llevar $X \\sim N(\\mu, \\sigma^{2})$ a la escala estándar se aplica:\n$$Z = \\frac{X - \\mu}{\\sigma}$$\n\nDe esa forma $Z \\sim N(0, 1)$ y las probabilidades pueden buscarse en tablas o calcularse con software.\n\nLa confusión típica es dividir por $\\sigma^{2}$ (la varianza) en lugar de $\\sigma$ (el desvío estándar): recordá que la estandarización unifica las unidades y la escala de dispersión es la desviación estándar, con las mismas unidades que la variable.",
+    "explanation": "La densidad **normal** general tiene esta forma, con $\\mu$ y $\\sigma$ como parámetros.\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\nAcá el numerador dentro del cuadrado resta $20$, y el denominador de ese cociente vale $5$.\n\nEso identifica $\\mu=20,\\, \\sigma=5$ para esta variable.\n\nEl centro siempre aparece restando dentro del cuadrado, y la dispersión siempre aparece dividiendo esa resta y multiplicando afuera de la raíz.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": ["identificar-parametros"]
+  },
+  {
+    "question": "El tiempo que tarda un corredor en completar una carrera de una población entrenada sigue $N(50, 6^{2})$, en minutos.\n\nUn corredor en particular tardó 62 minutos.\n\nCalculá su valor $Z$ estandarizado.",
+    "options": [
+      "$2$",
+      "$-2$",
+      "$12$",
+      "$1/2$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$Z=(62-50)/6=2$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor invierte el signo: 62 está por encima de 50, así que $Z$ debe ser positivo.",
+      "Ese valor es solo $x-\\mu$, sin dividir por $\\sigma$.",
+      "Ese valor invierte la fracción, dividiendo $\\sigma$ por $x-\\mu$ en vez de al revés."
+    ],
+    "explanation": "La estandarización centra en $\\mu$ y escala por $\\sigma$.\n$$Z = \\frac{X-\\mu}{\\sigma}$$\nAcá $\\mu=50,\\, \\sigma=6$ y el corredor tardó $x=62$ minutos.\n$$Z = \\frac{62-50}{6} = 2$$\n$Z=2$ dice que ese tiempo está 2 desviaciones estándar por encima del promedio del grupo.\n\nEstandarizar convierte cualquier valor a esa misma vara común, sin importar en qué unidades ni escala venía la variable original.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": ["formula-estandarizacion"]
+  },
+  {
+    "question": "El peso de los paquetes despachados por una fábrica sigue una normal de media $\\mu=12$ kg.\n\n¿Cuánto vale $P(X<12)$?",
+    "options": [
+      "$0{,}5$",
+      "$1$",
+      "$0$",
+      "$0{,}25$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Por simetría, la mitad de la campana queda a cada lado de $\\mu$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor implicaría que todo el peso está por debajo de la media, imposible en una distribución simétrica.",
+      "Ese valor implicaría que ningún paquete pesa menos que el promedio, lo cual contradice la simetría de la normal.",
+      "Ese valor no corresponde a ninguna mitad simétrica de la campana."
+    ],
+    "explanation": "La densidad **normal** es simétrica respecto de $\\mu$.\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\nEsa simetría reparte exactamente la mitad del área bajo la curva a cada lado del centro.\n$$P(X<\\mu) = 0{,}5$$\nDa igual cuán ancha o angosta sea la campana, mientras se mantenga simétrica alrededor de $\\mu$, esa mitad no cambia.\n\nEn el contexto, la mitad de los paquetes pesa menos que el promedio de fábrica, y la otra mitad pesa más.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": ["propiedad-simetria"]
   }
 ]

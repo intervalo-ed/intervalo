@@ -1,24 +1,77 @@
 [
   {
-    "question": "Sea $X \\sim Exp(\\lambda)$ una variable exponencial con tasa $\\lambda$.\n\n¿Cuál es su función de densidad?",
+    "question": "El tiempo entre sismos leves sucesivos registrados por un sismógrafo sigue una exponencial de tasa $\\lambda=0{,}1$ por día.\n\n¿Cuál es la densidad $f(x)$ de ese tiempo entre sismos?",
     "options": [
-      "$f(x) = \\lambda e^{-\\lambda x}$ para $x \\geq 0$",
-      "$f(x) = e^{-\\lambda x}$ para $x \\geq 0$",
-      "$f(x) = \\dfrac{1}{\\lambda} e^{-\\lambda x}$ para $x \\geq 0$",
-      "$f(x) = \\lambda x e^{-\\lambda}$ para $x \\geq 0$"
+      "$0{,}1e^{-0{,}1x}$",
+      "$e^{-0{,}1x}$",
+      "$0{,}1e^{0{,}1x}$",
+      "$e^{-x}/0{,}1$"
     ],
     "correct_index": 0,
-    "feedback_correct": "Densidad estándar de la exponencial.",
+    "feedback_correct": "$f(x)=\\lambda e^{-\\lambda x}$ con $\\lambda=0{,}1$.",
     "feedback_incorrect": [
-      "Falta el factor $\\lambda$ afuera; sin ese factor la densidad no integra 1.",
       null,
-      "Ese factor $1/\\lambda$ aparece en la esperanza $E[X]=1/\\lambda$, pero no en la densidad.",
-      "Esa expresión mezcla mal los factores; el exponente no debe ser una constante $-\\lambda$."
+      "Esa expresión no tiene el factor $\\lambda$ multiplicando afuera, y sin él la función no integra 1.",
+      "El signo del exponente está invertido, así crecería sin límite en vez de decaer.",
+      "Esa expresión no corresponde a la forma $\\lambda e^{-\\lambda x}$ de la densidad exponencial."
     ],
-    "explanation": "La densidad de la **exponencial** con tasa $\\lambda$ es:\n$$f(x) = \\lambda e^{-\\lambda x} \\text{ para } x \\geq 0$$\n\nSu esperanza es $E[X] = 1/\\lambda$ y su varianza es $Var(X) = 1/\\lambda^{2}$. La función acumulada es $F(x) = 1 - e^{-\\lambda x}$.\n\nLa confusión típica es confundir $\\lambda$ (la tasa) con $1/\\lambda$ (el tiempo medio de espera): en la fórmula de la densidad aparece $\\lambda$ como factor multiplicativo, mientras que $1/\\lambda$ solo aparece en momentos como la esperanza.",
+    "explanation": "La densidad **exponencial** de tasa $\\lambda$ tiene esta forma.\n$$f(x) = \\lambda e^{-\\lambda x}, \\; x\\geq 0$$\nAcá $\\lambda=0{,}1$ sismos por día.\n$$f(x) = 0{,}1\\,e^{-0{,}1x}$$\nEl factor $\\lambda$ que multiplica afuera y el signo negativo en el exponente son ambos necesarios para que el área bajo toda la curva sea exactamente 1.\n\nCambiar cualquiera de los dos rompe esa condición y la función deja de ser una densidad válida.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": ["formula-densidad"]
+  },
+  {
+    "question": "El tiempo entre llegadas sucesivas de clientes a un local sigue una exponencial de tasa $\\lambda=0{,}5$ por minuto.\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$2$",
+      "$0{,}5$",
+      "$0{,}25$",
+      "$4$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$E[X]=1/0{,}5=2$ minutos en promedio entre clientes.",
+    "feedback_incorrect": [
+      null,
+      "Ese es $\\lambda$ mismo, no su inverso.",
+      "Ese valor es $\\lambda^{2}$, no $1/\\lambda$.",
+      "Ese valor sale de invertir $\\lambda^{2}$ en vez de $\\lambda$."
+    ],
+    "explanation": "Para la exponencial, la esperanza tiene forma cerrada.\n$$E[X] = 1/\\lambda$$\nAcá $\\lambda=0{,}5$.\n$$E[X] = 1/0{,}5 = 2$$\nEn promedio pasan 2 minutos entre un cliente y el siguiente, si se repitiera este proceso muchísimas veces.\n\nLa exponencial además tiene pérdida de memoria: si ya pasó 1 minuto sin que llegue nadie, el tiempo que falta para el próximo cliente sigue teniendo la misma distribución de siempre.\n\nEl reloj no arrastra ningún historial, cada instante vuelve a arrancar la espera desde cero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": ["esperanza-y-perdida-memoria"]
+  },
+  {
+    "question": "La duración de una llamada de atención al cliente sigue una exponencial de tasa $\\lambda=0{,}25$ por minuto.\n\nSe sabe que $e^{-1}\\approx 0{,}37$.\n\nCalculá $P(X\\leq 4)$, la probabilidad de que la llamada dure a lo sumo 4 minutos.",
+    "options": [
+      "$0{,}63$",
+      "$0{,}37$",
+      "$1{,}37$",
+      "$0{,}25$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$P(X\\leq4)=1-0{,}37=0{,}63$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor es $e^{-\\lambda x}$ solo, la probabilidad de que dure más de 4 minutos, no de que dure a lo sumo 4.",
+      "Ese valor suma en vez de restar, un resultado mayor a 1 no puede ser una probabilidad.",
+      "Ese valor es la tasa $\\lambda$, no una probabilidad acumulada."
+    ],
+    "explanation": "La probabilidad acumulada de la exponencial ya viene resuelta en forma cerrada.\n$$P(X\\leq x) = 1-e^{-\\lambda x}$$\nAcá $\\lambda=0{,}25,\\, x=4$, así que $\\lambda x=1$.\n$$P(X\\leq4) = 1-e^{-1}$$\n$$1-0{,}37 = 0{,}63$$\n63% de las llamadas terminan en 4 minutos o menos, con un 37% que se extiende más allá.\n\nEl área que faltaría hasta el total corresponde a que la llamada dure más de 4 minutos, la cola larga que ya se dio como dato.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": ["probabilidad-acumulada-cerrada"]
   }
 ]

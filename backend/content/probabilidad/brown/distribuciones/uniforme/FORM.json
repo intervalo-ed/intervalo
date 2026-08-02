@@ -1,24 +1,77 @@
 [
   {
-    "question": "Sea $X \\sim U(a, b)$ una variable aleatoria uniforme continua sobre $[a, b]$.\n\n¿Cuál es su función de densidad?",
+    "question": "El nivel de líquido restante en un dispensador antes de la próxima recarga se modela como uniforme entre 0 y 8 litros.\n\n¿Cuál es su densidad $f(x)$ dentro de ese intervalo?",
     "options": [
-      "$f(x) = \\dfrac{1}{b-a}$ sobre $[a, b]$",
-      "$f(x) = \\dfrac{x-a}{b-a}$ sobre $[a, b]$",
-      "$f(x) = \\dfrac{1}{b+a}$ sobre $[a, b]$",
-      "$f(x) = e^{-(b-a)}$ sobre $[a, b]$"
+      "$1/8$",
+      "$8$",
+      "$1/4$",
+      "$1$"
     ],
     "correct_index": 0,
-    "feedback_correct": "Densidad constante $1/(b-a)$ sobre el intervalo.",
+    "feedback_correct": "$f(x)=1/(8-0)=1/8$ en el intervalo.",
     "feedback_incorrect": [
-      "Esa es la función de distribución acumulada $F(x)$ de la uniforme, no la densidad.",
-      "Esa expresión no integra 1 y no representa la densidad uniforme.",
-      "Esa es la exponencial evaluada en el ancho del intervalo, no una densidad uniforme.",
-      "Esa expresión evaluada como constante daría distintas de la densidad estándar."
+      null,
+      "Esa es la longitud del intervalo $b-a=8$, no su inverso.",
+      "Ese valor no corresponde a $1/(b-a)$ con estos extremos.",
+      "Esa altura daría un área mayor a 1 bajo el rectángulo, no es una densidad válida."
     ],
-    "explanation": "La distribución **uniforme continua** sobre $[a, b]$ tiene densidad constante:\n$$f(x) = \\frac{1}{b-a} \\text{ para } a \\leq x \\leq b$$\n\ny 0 fuera de ese intervalo. Su función de distribución acumulada crece linealmente:\n$$F(x) = \\frac{x-a}{b-a}$$\n\nLa confusión típica es intercambiar densidad y acumulada: la densidad es constante en cada punto del intervalo, la acumulada crece linealmente de 0 en $a$ a 1 en $b$.",
+    "explanation": "La densidad **uniforme** en $[a,b]$ es constante.\n$$f(x) = \\frac{1}{b-a} \\text{ para } a\\leq x\\leq b$$\nAcá el nivel del dispensador va de $a=0$ a $b=8$ litros.\n$$f(x) = \\frac{1}{8-0} = \\frac{1}{8}$$\nEsa altura constante asegura que el área total del rectángulo sea exactamente 1, la probabilidad total del experimento.\n\nCambiar el ancho del intervalo sin ajustar la altura rompería esa condición.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": ["formula-densidad"]
+  },
+  {
+    "question": "El tiempo que tarda en descargarse un archivo se modela como uniforme entre 2 y 10 segundos.\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$6$",
+      "$8$",
+      "$4$",
+      "$12$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$E[X]=(2+10)/2=6$: el punto medio del intervalo.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor es $b-a$, la longitud del intervalo, no su punto medio.",
+      "Ese valor usa la diferencia $(b-a)/2$ en vez de la suma $(a+b)/2$.",
+      "Ese valor es $a+b$ sin dividir entre 2."
+    ],
+    "explanation": "Para la uniforme, la esperanza tiene forma cerrada.\n$$E[X] = \\frac{a+b}{2}$$\nAcá $a=2$ y $b=10$.\n$$E[X] = \\frac{2+10}{2} = 6$$\n$E[X]=6$ es el punto medio del intervalo, precisamente porque la densidad es pareja: no hay ningún valor más probable que otro, así que el promedio a largo plazo cae justo en el centro.\n\nSi el intervalo fuera muy angosto o muy ancho, igual el promedio seguiría cayendo en su punto medio, nunca desplazado hacia un extremo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": ["formula-esperanza"]
+  },
+  {
+    "question": "El tiempo de espera en la fila de un cajero automático se modela como uniforme entre 0 y 6 minutos.\n\nSea $X$ ese tiempo de espera. Calculá $P(2\\leq X\\leq5)$.",
+    "options": [
+      "$1/2$",
+      "$1/3$",
+      "$3/4$",
+      "$5/6$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$P(2\\leq X\\leq5)=(5-2)/6=1/2$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor usa el extremo inferior 2 sobre el dominio 6, en vez del ancho del subintervalo 3.",
+      "Ese valor no sale de aplicar la fórmula con estos datos.",
+      "Ese valor usa el extremo superior 5 sobre el dominio 6, en vez del ancho del subintervalo 3."
+    ],
+    "explanation": "La probabilidad de un subintervalo en la uniforme es proporcional a su longitud.\n$$P(c\\leq X\\leq d) = \\frac{d-c}{b-a}$$\nAcá el subintervalo va de 2 a 5, sobre un dominio de 0 a 6.\n$$P(2\\leq X\\leq5) = \\frac{5-2}{6-0} = \\frac{1}{2}$$\nLo único que importa es cuánto mide el tramo, 3 minutos, comparado con el total de 6.\n\nCorrer ese tramo hacia otra parte del intervalo, sin cambiar su ancho, no altera la probabilidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": ["formula-probabilidad-subintervalo"]
   }
 ]

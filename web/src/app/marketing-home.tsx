@@ -257,6 +257,41 @@ function pickSeeded<T>(items: T[], seed: number): T {
   return items[Math.floor(r * items.length)]
 }
 
+const PROGRESS_GRID_BG_RGB: [number, number, number] = [19, 19, 36] // #131324
+
+function hexToRgb(hex: string): [number, number, number] {
+  const n = parseInt(hex.slice(1), 16)
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255]
+}
+
+// Muestra una intensidad de la campana normal (Box-Muller), centrada en un
+// tono medio-alto: la mayoría de los cuadraditos caen cerca del centro
+// (opacos, legibles) y solo unos pocos llegan a los extremos (tenues o a
+// brillo pleno).
+function sampleNormalIntensity(mean = 0.68, stddev = 0.16, min = 0.58, max = 1.0): number {
+  let u = 0
+  let v = 0
+  while (u === 0) u = Math.random()
+  while (v === 0) v = Math.random()
+  const z = Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v)
+  return Math.min(max, Math.max(min, mean + z * stddev))
+}
+
+function mixWithBg(hex: string, alpha: number): string {
+  const [r, g, b] = hexToRgb(hex)
+  const mix = (channel: number, bg: number) => Math.round(channel * alpha + bg * (1 - alpha))
+  return `rgb(${mix(r, PROGRESS_GRID_BG_RGB[0])}, ${mix(g, PROGRESS_GRID_BG_RGB[1])}, ${mix(b, PROGRESS_GRID_BG_RGB[2])})`
+}
+
+function tintGridColor(hex: string): string {
+  return mixWithBg(hex, sampleNormalIntensity())
+}
+
+// Cuadraditos "sin actividad": mismo color plano para todos (no el color de
+// la unidad, atenuado) — una versión apenas más clara que el fondo, para que
+// se lean como parte de la misma grilla en vez de un hueco.
+const PROGRESS_GRID_INACTIVE_COLOR = mixWithBg("#FFFFFF", 0.12)
+
 const GRID_BG_STYLE = {
   backgroundImage:
     "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)",
@@ -370,6 +405,23 @@ function ProgressGrid({ tick }: { tick: number }) {
     if (!grid || !section) return
 
     const sqs = Array.from(grid.querySelectorAll<HTMLDivElement>(".sq"))
+
+    // Cuadraditos "sin actividad": por columna, rachas cortas de 1 a 3 filas
+    // seguidas que quedan sin pintar (nunca en blancos sueltos), simulando
+    // días sin repasar en vez de ruido al azar cuadradito por cuadradito.
+    const skipMask: boolean[][] = Array.from({ length: ROWS }, () => new Array(COLS).fill(false))
+    for (let c = 0; c < COLS; c++) {
+      let r = 0
+      while (r < ROWS) {
+        if (Math.random() < 0.05) {
+          const len = 1 + Math.floor(Math.random() * 3)
+          for (let i = 0; i < len && r < ROWS; i++, r++) skipMask[r][c] = true
+        } else {
+          r++
+        }
+      }
+    }
+
     const colHeights = new Array(COLS).fill(0)
     let fillIdx = 0
     let batchLeft = 0
@@ -391,7 +443,10 @@ function ProgressGrid({ tick }: { tick: number }) {
       const withinLead = avail.filter((c) => colHeights[c] - minHeight <= MAX_COL_LEAD)
       const col = withinLead[Math.floor(Math.random() * withinLead.length)]
       const row = colHeights[col]
-      sqs[row * COLS + col].style.background = pickColor(fillIdx / (TOTAL - 1))
+      const color = pickColor(fillIdx / (TOTAL - 1))
+      sqs[row * COLS + col].style.background = skipMask[row][col]
+        ? PROGRESS_GRID_INACTIVE_COLOR
+        : tintGridColor(color)
       colHeights[col]++
       fillIdx++
     }
@@ -450,11 +505,11 @@ function ProgressGrid({ tick }: { tick: number }) {
         </div>
         <div
           ref={gridRef}
-          className="grid w-fit gap-px"
-          style={{ gridTemplateColumns: "repeat(26, 10px)" }}
+          className="grid w-fit place-items-center"
+          style={{ gridTemplateColumns: "repeat(26, 10px)", gridAutoRows: "10px" }}
         >
           {Array.from({ length: 26 * 40 }).map((_, i) => (
-            <div key={i} className="sq h-2.5 w-2.5 rounded-[1px]" />
+            <div key={i} className="sq h-2 w-2 rounded-[2px]" />
           ))}
         </div>
       </div>

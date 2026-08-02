@@ -1,22 +1,65 @@
 [
   {
-    "question": "De una urna con 5 bolas rojas y 5 bolas azules se extraen 3 bolas **sin reposición** y se cuenta la cantidad de rojas obtenidas.\n\n¿Qué distribución sigue esa cantidad?",
+    "question": "Una empresa sortea 3 nombres de una lista de 12 empleados para un bono, sin repetir nombres.\n\nDe esos 12 empleados, 4 pertenecen al área de ventas.\n\n¿Qué distribución sigue la cantidad de empleados de ventas entre los 3 sorteados?",
     "options": [
-      "Binomial con $n=3$ y $p=0{,}5$.",
-      "Hipergeométrica.",
-      "Geométrica."
+      "$Hip(12,4,3)$",
+      "$Bin(3,\\, 1/3)$",
+      "$Geom(1/3)$"
     ],
-    "correct_index": 1,
-    "feedback_correct": "Extracciones sin reposición desde población finita: hipergeométrica.",
+    "correct_index": 0,
+    "feedback_correct": "Sorteo sin reposición de una población fija de 12: es hipergeométrica.",
     "feedback_incorrect": [
-      "La binomial requiere ensayos independientes con la misma $p$; sin reposición la probabilidad cambia en cada extracción.",
       null,
-      "La geométrica cuenta ensayos hasta el primer éxito, no éxitos en una muestra fija."
+      "La binomial exige que la proporción de ventas se mantenga igual en cada sorteo, pero acá cambia porque los nombres no se reponen.",
+      "La geométrica cuenta sorteos hasta el primer empleado de ventas, no la cantidad en una muestra fija de 3."
     ],
-    "explanation": "La distribución **hipergeométrica** modela el conteo de éxitos al extraer una muestra sin reposición de una población finita:\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\n\ndonde $N$ es la población total, $K$ el número de \"éxitos\" en la población, $n$ el tamaño de la muestra y $k$ el número de éxitos observados.\n\nAcá $N=10$, $K=5$, $n=3$ y $X \\sim H(10, 5, 3)$.\n\nLa confusión típica es aplicar binomial: la binomial exige independencia y probabilidad constante entre ensayos, que se pierde cuando la población se achica en cada extracción. Con reposición sí valdría binomial.",
+    "explanation": "La distribución **hipergeométrica** cuenta éxitos al extraer una muestra sin reposición de una población finita.\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá $N=12$ empleados en total y $K=4$ son de ventas.\n\nSe sortean $n=3$ nombres sin repetir, así que la cantidad de empleados de ventas entre los 3 sigue esa fórmula.\n\nCada nombre sorteado saca a esa persona de la lista para el resto del sorteo, así que la proporción de ventas restante cambia sorteo a sorteo.\n\nSi el sorteo repusiera cada nombre antes del siguiente, la proporción se mantendría siempre igual, y ahí sí correspondería binomial.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["reconocer-hipergeometrica"]
+  },
+  {
+    "question": "Un control de calidad extrae 4 piezas de un lote de 15 sin reponerlas, para inspeccionarlas una por una.\n\nDel lote, 5 piezas están fuera de norma.\n\n¿Qué distribución sigue la cantidad de piezas fuera de norma entre las 4 inspeccionadas?",
+    "options": [
+      "$Hip(15,5,4)$",
+      "$Bin(4,\\, 1/3)$",
+      "$Geom(1/3)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Extracción sin reposición de un lote finito: es hipergeométrica, no binomial.",
+    "feedback_incorrect": [
+      null,
+      "La binomial exige que la proporción fuera de norma se mantenga igual en cada extracción, pero acá cambia porque las piezas no se reponen.",
+      "La geométrica cuenta extracciones hasta la primera pieza fuera de norma, no la cantidad en una muestra fija de 4."
+    ],
+    "explanation": "La distribución **hipergeométrica** cuenta éxitos al extraer una muestra sin reposición de una población finita.\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá $N=15$ piezas en total y $K=5$ están fuera de norma.\n\nSe inspeccionan $n=4$ piezas sin devolverlas al lote.\n\nLa diferencia con la binomial está en qué le pasa a la proporción fuera de norma entre una extracción y la siguiente: en la binomial se mantiene fija, acá cambia porque el lote se va achicando.\n\nCon un lote enorme frente a la muestra, esa proporción casi no cambia, y ahí la binomial es una buena aproximación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["distractor-vecino"]
+  },
+  {
+    "question": "Un inspector revisa cajas de un envío para detectar cuáles están dañadas, sacándolas sin reponerlas.\n\nA mitad de la inspección, el proveedor agrega 3 cajas nuevas sin daños al lote que falta revisar.\n\n¿Se puede seguir modelando la cantidad de cajas dañadas encontradas con una única hipergeométrica de parámetros fijos?",
+    "options": [
+      "No, la población y los éxitos cambian a mitad de camino.",
+      "Sí, la extracción sigue siendo sin reposición en todo momento.",
+      "Sí, las cajas nuevas agregadas también podrían salir dañadas."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Sin reposición es necesario, pero además $N$ y $K$ deben quedar fijos desde el arranque, y acá cambian a mitad de camino.",
+    "feedback_incorrect": [
+      null,
+      "Que la extracción sea sin reposición es necesario pero no alcanza: además $N$ y $K$ tienen que quedar fijos desde el principio.",
+      "Que las cajas nuevas puedan estar dañadas o no importa menos que el hecho de que $N$ y $K$ cambian a mitad de la inspección."
+    ],
+    "explanation": "La distribución **hipergeométrica** exige que la población $N$ y la cantidad de éxitos $K$ queden fijas desde el arranque de la extracción.\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá la extracción sí es sin reposición.\n\nPero el proveedor agrega cajas nuevas a mitad de camino, así que tanto la población total como la cantidad de cajas sin daños cambian mientras la inspección todavía está en curso.\n\nLa fórmula hipergeométrica calcula sus binomiales con $N$ y $K$ fijos de una sola vez, y no está pensada para actualizarse cuando la población cambia a mitad de un mismo experimento.\n\nHabría que tratar la inspección como dos etapas separadas, cada una con su propia hipergeométrica, en vez de forzar una sola.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["supuesto-violado"]
   }
 ]

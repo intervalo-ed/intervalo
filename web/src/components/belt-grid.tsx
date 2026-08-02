@@ -25,9 +25,11 @@ function topicLabel(topic: Topic): string {
 // Paleta de estados de ítem. Fuente de verdad de colores, espejada del onboarding.
 export const ITEM_COLORS = {
   nuevo: "#3B82F6", // azul
-  pendiente: "#F6B012", // ámbar amarillento
-  aprendiendo: "#6BC02A", // verde-lima
-  graduado: "#2BB35F", // verde fresco
+  pendiente: "#F2B705", // amarillo
+  aprendiendo: "#8BC34A", // verde-lima
+  lejano: "#43A047", // verde césped
+  lejanoMas: "#2E7D32", // verde pino (más maduro, misma categoría "Lejano"; usado para el relleno)
+  lejanoMasAccent: "#4CAF50", // variante más brillante del pino, para contorno y texto
 } as const
 
 // Estado de un ítem en la grilla. `days` = días restantes hasta el próximo repaso.
@@ -36,7 +38,8 @@ export type Cell =
   | { kind: "nuevo" }
   | { kind: "pendiente" } // repaso para hoy → 0 días
   | { kind: "aprendiendo"; days: number } // days > 0
-  | { kind: "graduado"; days: number } // days > 0
+  | { kind: "lejano"; days: number } // days > 0
+  | { kind: "lejano_mas"; days: number } // days > 0, variante más madura
 
 export function cellColor(cell: Cell): string | null {
   switch (cell.kind) {
@@ -46,11 +49,20 @@ export function cellColor(cell: Cell): string | null {
       return ITEM_COLORS.pendiente
     case "aprendiendo":
       return ITEM_COLORS.aprendiendo
-    case "graduado":
-      return ITEM_COLORS.graduado
+    case "lejano":
+      return ITEM_COLORS.lejano
+    case "lejano_mas":
+      return ITEM_COLORS.lejanoMas
     case "empty":
       return null
   }
+}
+
+// Color de texto/contorno. Igual a cellColor salvo en "lejano_mas", donde el
+// relleno usa el pino oscuro pero el texto/borde se ve más brillante.
+export function cellAccentColor(cell: Cell): string | null {
+  if (cell.kind === "lejano_mas") return ITEM_COLORS.lejanoMasAccent
+  return cellColor(cell)
 }
 
 export function cellLabel(cell: Cell): string {
@@ -58,7 +70,8 @@ export function cellLabel(cell: Cell): string {
     case "pendiente":
       return "0d"
     case "aprendiendo":
-    case "graduado":
+    case "lejano":
+    case "lejano_mas":
       return `${cell.days}d`
     case "nuevo":
     case "empty":
@@ -85,22 +98,27 @@ const STATE_INFO: Record<
     description: "Tenés un repaso para hacer hoy.",
     color: ITEM_COLORS.pendiente,
   },
-  // Visibles por días restantes; ocultan el estado interno (aprendiendo/graduado).
+  // Visibles por días restantes; ocultan el estado interno (aprendiendo/lejano).
   // La descripción se calcula con stateDescription() según los días.
   aprendiendo: {
     label: "Próximo",
     description: "",
     color: ITEM_COLORS.aprendiendo,
   },
-  graduado: {
-    label: "Consolidado",
+  lejano: {
+    label: "Lejano",
     description: "",
-    color: ITEM_COLORS.graduado,
+    color: ITEM_COLORS.lejano,
+  },
+  lejano_mas: {
+    label: "Lejano",
+    description: "",
+    color: ITEM_COLORS.lejanoMasAccent,
   },
 }
 
 function stateDescription(cell: Cell): string {
-  if (cell.kind === "aprendiendo" || cell.kind === "graduado") {
+  if (cell.kind === "aprendiendo" || cell.kind === "lejano" || cell.kind === "lejano_mas") {
     return cell.days === 1
       ? "Mañana vas a volver a repasar este ítem."
       : `Dentro de ${cell.days} días vas a volver a repasar este ítem.`
@@ -127,9 +145,13 @@ function daysUntil(nextReview: string | null | undefined): number | null {
   return Math.round((target.getTime() - today.getTime()) / DAY_MS)
 }
 
-// A partir de cuántos días de intervalo se considera "consolidado" (verde) en
-// vez de "próximo" (lima). Por debajo de esto el repaso es cercano.
+// A partir de cuántos días de intervalo se considera "lejano" (verde) en vez de
+// "próximo" (lima). Por debajo de esto el repaso es cercano.
 const CONSOLIDATED_DAYS = 3
+
+// A partir de cuántos días un "lejano" pasa a la variante más madura
+// "lejano_mas" (mismo texto "Lejano", color más oscuro para dar variedad).
+const LEJANO_MAS_DAYS = 14
 
 // Mapea el progreso real de un tema → una celda por cada exercise_type esperado,
 // usando el `next_review` PROPIO de cada unit. Temas bloqueados → "empty".
@@ -155,7 +177,12 @@ export function topicToCells({
     if (days <= 0) {
       return { typeId, cell: { kind: "pendiente" } as Cell }
     }
-    const kind = days >= CONSOLIDATED_DAYS ? "graduado" : "aprendiendo"
+    const kind =
+      days >= LEJANO_MAS_DAYS
+        ? "lejano_mas"
+        : days >= CONSOLIDATED_DAYS
+          ? "lejano"
+          : "aprendiendo"
     return { typeId, cell: { kind, days } as Cell }
   })
 }
@@ -234,6 +261,7 @@ function ItemPill({
   showState?: boolean
 }) {
   const color = cellColor(cell)
+  const accentColor = cellAccentColor(cell)
   const label = cellLabel(cell)
   const painted = color !== null
   const skill = exerciseTypeInfo({ type: typeId })
@@ -245,8 +273,8 @@ function ItemPill({
         style={
           painted
             ? {
-                color,
-                borderColor: `${color}99`,
+                color: accentColor ?? undefined,
+                borderColor: `${accentColor}99`,
                 backgroundColor: `${color}33`,
               }
             : undefined
