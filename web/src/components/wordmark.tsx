@@ -1,7 +1,7 @@
-import { BELT_BAR_COLORS } from "@/lib/catalog"
+import { BELT_LEGEND_BAR_COLORS } from "@/lib/catalog"
 import { cn } from "@/lib/utils"
 
-const BELT_COLORS = BELT_BAR_COLORS
+const BELT_COLORS = BELT_LEGEND_BAR_COLORS
 
 export function Wordmark({
   textClass,

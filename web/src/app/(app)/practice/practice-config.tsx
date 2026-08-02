@@ -23,7 +23,7 @@ import { Switch } from "@/components/ui/switch"
 import { useSfx } from "@/lib/audio/useSfx"
 import { cn } from "@/lib/utils"
 import {
-  BELT_HEX,
+  BELT_UNIT_TEXT_COLORS,
   beltOrderFor,
   COURSE_ORDER,
   getBelt,
@@ -568,7 +568,7 @@ function PracticeUnitCard({
       <div className="flex items-center gap-2 p-4">
         <span
           className="text-base font-semibold leading-tight"
-          style={{ color: BELT_HEX[belt].onDark }}
+          style={{ color: BELT_UNIT_TEXT_COLORS[belt] }}
         >
           {unit.name}
         </span>
