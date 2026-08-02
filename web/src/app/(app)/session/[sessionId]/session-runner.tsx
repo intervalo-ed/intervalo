@@ -447,6 +447,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
           question_type: type,
         })
         .then((r) => r.feedback_id)
+      sfx.continue()
       setDir(1)
       scrollToTop()
       patch({ showSurvey: true })
