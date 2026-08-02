@@ -708,6 +708,39 @@ def push_diagnostic(
     return {"success": True}
 
 
+@app.get("/push/diagnostic", response_model=SimpleResponse)
+def push_diagnostic_beacon(
+    event: str,
+    error: str | None = None,
+    endpoint: str | None = None,
+    raw_len: str | None = None,
+    ua: str | None = None,
+    db: Session = Depends(get_db),
+):
+    """GET twin of push_diagnostic, reporting on EVERY push the service
+    worker receives (not just decode failures) — see sw.js's `beacon()`. A
+    plain GET with no custom headers is a CORS "simple request" (no
+    preflight), so it's the fallback channel in case the POST version's
+    JSON body / Content-Type ever gets blocked in the service worker's
+    fetch context — we had zero of those land while chasing a recurring
+    generic-fallback bug with no other client-side signal at all."""
+    import logging
+
+    import push_store
+
+    user_id = push_store.user_id_for_endpoint(db, endpoint) if endpoint else None
+    logging.warning(
+        "push beacon event=%s user=%s endpoint=...%s error=%s raw_len=%s ua=%s",
+        event,
+        user_id,
+        (endpoint or "")[-24:],
+        error,
+        raw_len,
+        ua,
+    )
+    return {"success": True}
+
+
 @app.get("/user/notification-settings", response_model=NotificationSettings)
 def get_notification_settings(
     current_user: User = Depends(get_current_user),
