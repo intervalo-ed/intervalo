@@ -23,13 +23,8 @@ import { useLeaderboardSummary } from "./UseLeaderboardSummary"
 import { useUniversityLeaderboard } from "./UseUniversityLeaderboard"
 
 // Color del nombre según el máximo cinturón del usuario (mismo color que los
-// títulos de unidad en practicar/repasar). Blanco para sin cinturón. El marrón
-// se aclara un poco más acá — pedido puntual del ranking, no afecta
-// practicar/repasar.
-const BELT_TEXT: Record<string, string> = {
-  ...BELT_UNIT_TEXT_COLORS,
-  brown: "rgb(170, 120, 68)",
-}
+// títulos de unidad en practicar/repasar). Blanco para sin cinturón.
+const BELT_TEXT: Record<string, string> = BELT_UNIT_TEXT_COLORS
 
 // Cinturón "de vidriera" para el ranking: la mayoría de las cuentas de acá
 // (demo/dev) todavía no tienen progreso real en unit_states, así que
