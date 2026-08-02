@@ -1891,6 +1891,17 @@
             "type": "string",
             "title": "Exercise Id"
           },
+          "exercise_external_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Exercise External Id"
+          },
           "answer_index": {
             "type": "integer",
             "title": "Answer Index"
