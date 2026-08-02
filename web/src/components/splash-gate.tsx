@@ -1,7 +1,7 @@
 "use client"
 
 import { useSplash } from "@/app/splash-context"
-import { BELT_BAR_COLORS } from "@/lib/catalog"
+import { BELT_LEGEND_BAR_COLORS } from "@/lib/catalog"
 import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import { useEffect, useRef, useState } from "react"
 
@@ -12,7 +12,7 @@ const MAX_SPLASH = 5000
 
 // Misma animación que la intro del onboarding (ver IntroLogo en onboarding-wizard).
 const WORD = "intervalo"
-const BELT_COLORS = BELT_BAR_COLORS
+const BELT_COLORS = BELT_LEGEND_BAR_COLORS
 
 // Ritmo de la intro. Antes la animación arrancaba apenas montaba (durante la
 // hidratación, con la fuente todavía cargando) y se sentía apurada. Ahora:

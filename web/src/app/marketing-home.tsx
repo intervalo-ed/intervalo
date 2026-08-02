@@ -2,7 +2,7 @@
 
 import { useSplash } from "@/app/splash-context"
 import { Wordmark } from "@/components/wordmark"
-import { BELT_ONDARK_VIVID, BELT_ORDER, type BeltKey } from "@/lib/catalog"
+import { BELT_LEGEND_COLORS, BELT_ONDARK_VIVID, BELT_ORDER, type BeltKey } from "@/lib/catalog"
 import katex from "katex"
 import "katex/dist/katex.min.css"
 import { ChevronDown } from "lucide-react"
@@ -25,11 +25,11 @@ const COURSE_TRACKS: CourseTrack[] = [
         name: "Funciones",
         belt: "white",
         exprs: [
-          "f(x) = x^2 - 3x + 2",
-          "y = \\sqrt{x^2 + 1}",
-          "f(x) = \\dfrac{1}{x - 2}",
+          "f(x) = ax^2 + bx + c",
+          "y = \\sqrt{x}",
+          "f(x) = \\dfrac{c}{x - a}",
           "g(x) = e^x \\cdot \\ln(x)",
-          "h(x) = \\sin(x) + \\cos(2x)",
+          "h(x) = \\sin(x) + \\cos(x)",
         ],
         questions: [
           { t2: "Polinomios", t3: "Léxico", qt: "¿Cuál es el grado del siguiente polinomio?", q: "3x^4 - 2x + 1" },
@@ -41,10 +41,10 @@ const COURSE_TRACKS: CourseTrack[] = [
         name: "Límites",
         belt: "blue",
         exprs: [
-          "\\lim_{x \\to 0} \\dfrac{\\sin x}{x} = 1",
-          "\\lim_{x \\to \\infty} \\left(1 + \\dfrac{1}{x}\\right)^x = e",
-          "\\lim_{x \\to 2} \\dfrac{x^2 - 4}{x - 2}",
-          "\\lim_{x \\to 0^+} \\ln(x) = -\\infty",
+          "\\lim_{x \\to a} f(x) = L",
+          "\\lim_{x\\to a^+} f(x) = \\lim_{x\\to a^-} f(x)",
+          "\\lim_{x \\to a} \\dfrac{f(x)-f(a)}{x-a}",
+          "\\lim_{x \\to \\infty} \\ln(x) = \\infty",
         ],
         questions: [
           { t2: "Directa", t3: "Resolución", qt: "¿Cuál es el resultado del siguiente límite?", q: "\\lim_{x \\to 3}(x^2 + 1)" },
@@ -56,7 +56,7 @@ const COURSE_TRACKS: CourseTrack[] = [
         name: "Derivadas",
         belt: "violet",
         exprs: [
-          "f'(x) = 2x - 3",
+          "f'(x) = \\dfrac{d}{dx}f(x)",
           "\\dfrac{d}{dx}\\left[x^n\\right] = nx^{n-1}",
           "\\dfrac{\\partial f}{\\partial x}",
           "\\dfrac{dy}{dx} = \\cos(x)",
@@ -72,9 +72,9 @@ const COURSE_TRACKS: CourseTrack[] = [
         name: "Integrales",
         belt: "brown",
         exprs: [
-          "\\int x^2 \\, dx = \\dfrac{x^3}{3} + C",
-          "\\displaystyle\\int_0^1 x^2 \\, dx = \\dfrac{1}{3}",
-          "\\int \\dfrac{1}{x} \\, dx = \\ln|x| + C",
+          "\\int x^n \\, dx = \\dfrac{x^{n+1}}{n+1} + C",
+          "\\int f'(x) \\, dx = f(x) + C",
+          "\\int \\dfrac{dx}{x} = \\ln|x| + C",
           "\\displaystyle\\int_a^b f(x) \\, dx = F(b) - F(a)",
         ],
         questions: [
@@ -92,12 +92,12 @@ const COURSE_TRACKS: CourseTrack[] = [
         name: "Aritmética",
         belt: "white",
         exprs: [
-          "2^2 \\cdot 2^3 = 2^5",
-          "\\sqrt{81} = 9",
-          "3\\times10^4",
-          "|-5| = 5",
-          "5x - (3x-7) = 2x+7",
-          "\\log_2 8 = 3",
+          "a^m \\cdot a^n = a^{m+n}",
+          "\\sqrt{a^2} = |a|",
+          "a(b+c) = ab + ac",
+          "|-a| = |a|",
+          "a^2 - b^2 = (a-b)(a+b)",
+          "\\log_a(xy) = \\log_a x + \\log_a y",
         ],
         questions: [
           { t2: "Potenciación", t3: "Resolución", qt: "¿Cuál es el resultado de la siguiente potencia?", q: "2^3 \\cdot 2^2" },
@@ -109,11 +109,11 @@ const COURSE_TRACKS: CourseTrack[] = [
         name: "Vectores",
         belt: "blue",
         exprs: [
-          "\\vec{v} = (3, 4)",
-          "\\|\\vec{v}\\| = \\sqrt{3^2+4^2}",
+          "\\vec{v} = (a, b)",
+          "\\|\\vec{v}\\| = \\sqrt{a^2+b^2}",
           "\\vec{u} \\cdot \\vec{v}",
           "\\vec{u} \\times \\vec{v}",
-          "\\vec{u} + \\vec{v} = (5, 1)",
+          "\\vec{u} + \\vec{v} = \\vec{v} + \\vec{u}",
         ],
         questions: [
           { t2: "Norma", t3: "Resolución", qt: "¿Cuál es la norma del siguiente vector?", q: "\\vec{v} = (3, 4)" },
@@ -125,7 +125,7 @@ const COURSE_TRACKS: CourseTrack[] = [
         name: "Matrices",
         belt: "violet",
         exprs: [
-          "A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}",
+          "A = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}",
           "\\det(A) = ad-bc",
           "A^{T}",
           "A^{-1}",
@@ -143,8 +143,8 @@ const COURSE_TRACKS: CourseTrack[] = [
         exprs: [
           "T(\\alpha\\vec{u} + \\vec{v}) = \\alpha T(\\vec{u}) + T(\\vec{v})",
           "\\alpha\\vec{u} + \\vec{v} \\in S",
-          "\\dim(V) = \\dim(\\ker T) + \\dim(\\operatorname{Im} T)",
-          "\\ker(T) = \\{\\vec{v} : T(\\vec{v}) = \\vec{0}\\}",
+          "T: V \\to W",
+          "V = U \\oplus W",
         ],
         questions: [
           { t2: "Subespacios", t3: "Clasificación", qt: "¿El siguiente conjunto es un subespacio?", q: "S = \\{(x,y) : x = 2y\\}" },
@@ -160,7 +160,12 @@ const COURSE_TRACKS: CourseTrack[] = [
       {
         name: "Conteo",
         belt: "white",
-        exprs: ["5! = 120", "\\binom{5}{2} = 10", "3 \\times 2 = 6", "P(5,2) = 20"],
+        exprs: [
+          "n! = n\\cdot(n-1)!",
+          "\\binom{n}{k} = \\dfrac{n!}{k!(n-k)!}",
+          "|A \\times B| = |A|\\cdot|B|",
+          "P(n,k) = \\dfrac{n!}{(n-k)!}",
+        ],
         questions: [
           { t2: "Factorial", t3: "Resolución", qt: "¿Cuánto vale el siguiente factorial?", q: "5!" },
           { t2: "Combinaciones", t3: "Resolución", qt: "¿Cuántas combinaciones hay?", q: "\\binom{6}{2}" },
@@ -171,10 +176,10 @@ const COURSE_TRACKS: CourseTrack[] = [
         name: "Probabilidad",
         belt: "blue",
         exprs: [
-          "P(A) = \\dfrac{2}{6}",
+          "P(A) = \\dfrac{|A|}{|\\Omega|}",
           "P(A \\cup B)",
           "P(A|B) = \\dfrac{P(A \\cap B)}{P(B)}",
-          "P(A^c) = 1-P(A)",
+          "P(A^c) = P(\\Omega)-P(A)",
           "P(A|B) = \\dfrac{P(B|A)P(A)}{P(B)}",
         ],
         questions: [
@@ -257,6 +262,14 @@ function pickSeeded<T>(items: T[], seed: number): T {
   return items[Math.floor(r * items.length)]
 }
 
+// Mismo tamaño de cuadradito que la leyenda (h-2.5 w-2.5 = 10px), con el
+// mismo gap de 2px que tenía la grilla antes (pitch 12px). Menos columnas y
+// filas que antes (26x40 a 8px) para que la grilla siga ocupando un ancho
+// similar con cuadraditos más grandes.
+const GRID_COLS = 22
+const GRID_ROWS = 33
+const GRID_CELL_PX = 12
+
 const PROGRESS_GRID_BG_RGB: [number, number, number] = [19, 19, 36] // #131324
 
 function hexToRgb(hex: string): [number, number, number] {
@@ -304,7 +317,7 @@ function renderMath(expr: string) {
 
 function NotationCycler({ tick }: { tick: number }) {
   const { unit } = getTrackUnit(tick)
-  const color = BELT_ONDARK_VIVID[unit.belt]
+  const color = BELT_LEGEND_COLORS[unit.belt]
   const expr = useMemo(() => pickSeeded(unit.exprs, tick), [unit, tick])
 
   return (
@@ -326,7 +339,7 @@ function NotationCycler({ tick }: { tick: number }) {
 
 function QuestionLoop({ tick }: { tick: number }) {
   const { unit } = getTrackUnit(tick)
-  const color = BELT_ONDARK_VIVID[unit.belt]
+  const color = BELT_LEGEND_COLORS[unit.belt]
   const item = useMemo(() => pickSeeded(unit.questions, tick), [unit, tick])
 
   return (
@@ -334,7 +347,7 @@ function QuestionLoop({ tick }: { tick: number }) {
       {/* Tags: 1º renglón de la grilla */}
       <div className="row-start-1 flex flex-wrap items-center justify-center gap-2">
         <span
-          className="h-2.5 w-2.5 shrink-0 rounded-[2px] transition-colors duration-300"
+          className="h-2.5 w-2.5 shrink-0 -translate-y-px rounded-[2px] transition-colors duration-300"
           style={{ background: color }}
         />
         <span className="font-mono text-[0.62rem] uppercase tracking-[0.13em] text-[#768899]">
@@ -372,8 +385,8 @@ function ProgressGrid({ tick }: { tick: number }) {
   const legend = courseLegend(tick)
 
   useEffect(() => {
-    const COLS = 26
-    const ROWS = 40
+    const COLS = GRID_COLS
+    const ROWS = GRID_ROWS
     const TOTAL = COLS * ROWS
     const COLORS = BELT_ORDER.map((b) => BELT_ONDARK_VIVID[b])
     const WP: number[][] = [
@@ -497,7 +510,7 @@ function ProgressGrid({ tick }: { tick: number }) {
             >
               <span
                 className="h-2.5 w-2.5 shrink-0 rounded-[2px] transition-colors duration-300"
-                style={{ background: BELT_ONDARK_VIVID[l.belt] }}
+                style={{ background: BELT_LEGEND_COLORS[l.belt] }}
               />
               {l.label}
             </div>
@@ -506,10 +519,13 @@ function ProgressGrid({ tick }: { tick: number }) {
         <div
           ref={gridRef}
           className="grid w-fit place-items-center"
-          style={{ gridTemplateColumns: "repeat(26, 10px)", gridAutoRows: "10px" }}
+          style={{
+            gridTemplateColumns: `repeat(${GRID_COLS}, ${GRID_CELL_PX}px)`,
+            gridAutoRows: `${GRID_CELL_PX}px`,
+          }}
         >
-          {Array.from({ length: 26 * 40 }).map((_, i) => (
-            <div key={i} className="sq h-2 w-2 rounded-[2px]" />
+          {Array.from({ length: GRID_COLS * GRID_ROWS }).map((_, i) => (
+            <div key={i} className="sq h-2.5 w-2.5 rounded-[2px]" />
           ))}
         </div>
       </div>

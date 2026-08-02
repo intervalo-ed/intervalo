@@ -7,8 +7,8 @@ import { saveOnboarding } from "@/lib/onboarding/storage"
 import { cn } from "@/lib/utils"
 import MathText from "@/components/math-text"
 import {
-  BELT_BAR_COLORS,
   BELT_HEX,
+  BELT_LEGEND_BAR_COLORS,
   BELT_ONDARK_VIVID,
   CATALOGS,
   COURSE_LABEL,
@@ -113,19 +113,27 @@ const ONBOARDING_EXERCISES: Record<CourseId, OnboardingExercise> = {
   },
 }
 
+// Intensidad de los cuadraditos de UnitSegmentedBar (slide 4): más apagada que
+// BELT_LEGEND_COLORS (logo, landing, UnitGrid) — pedido puntual para que esta
+// fila en particular se vea menos saturada, sin afectar esas otras superficies.
+const SEGMENTED_BAR_TINT_ALPHA = 0.7
+
 // Unidades del curso. `textColor` (nombres/chips) es el mismo color que usa la
 // home para los títulos de unidad (BELT_HEX.onDark); `gridColor` (cuadraditos
 // de UnitGrid, a los que se les aplican intensidades variables — ver
 // tintGridColor) usa la paleta separada BELT_ONDARK_VIVID, pensada para leerse
-// bien en bloques de color en vez de texto chico.
+// bien en bloques de color en vez de texto chico; `legendColor` (cuadraditos
+// fijos de UnitSegmentedBar, la "leyenda" de la slide 4) usa su propia
+// intensidad más apagada (SEGMENTED_BAR_TINT_ALPHA), no BELT_LEGEND_COLORS.
 function courseUnits(
   course: CourseId,
-): { name: string; textColor: string; gridColor: string }[] {
+): { name: string; textColor: string; gridColor: string; legendColor: string }[] {
   return CATALOGS[course].belts.flatMap((b) =>
     b.units.map((u) => ({
       name: u.name,
       textColor: BELT_HEX[b.key as BeltKey].onDark,
       gridColor: BELT_ONDARK_VIVID[b.key as BeltKey],
+      legendColor: mixWithBg(BELT_ONDARK_VIVID[b.key as BeltKey], SEGMENTED_BAR_TINT_ALPHA),
     })),
   )
 }
@@ -245,7 +253,7 @@ const UNIT_BAR_GROUP_GAP_PX = 8
 function UnitSegmentedBar({
   units,
 }: {
-  units: { name: string; textColor: string; gridColor: string }[]
+  units: { name: string; textColor: string; gridColor: string; legendColor: string }[]
 }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [perUnit, setPerUnit] = useState(1)
@@ -275,7 +283,7 @@ function UnitSegmentedBar({
               <div
                 key={i}
                 className="h-2.5 w-2.5 rounded-[2px]"
-                style={{ background: u.gridColor }}
+                style={{ background: u.legendColor }}
               />
             ))}
           </div>
@@ -594,7 +602,7 @@ const slideVariants = {
   exit: (c: SlideCustom) => ({ x: c.dir > 0 ? "-100%" : "100%", opacity: 1 }),
 }
 
-const INTRO_BELT_COLORS = BELT_BAR_COLORS
+const INTRO_BELT_COLORS = BELT_LEGEND_BAR_COLORS
 
 // Intro: escribe "intervalo" con typewriter y revela los 5 colores del cinturón uno a uno.
 function IntroLogo({ onDone }: { onDone: () => void }) {
