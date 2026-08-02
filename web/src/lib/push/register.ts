@@ -6,6 +6,13 @@
 
 const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
 
+// sw.js es un archivo estático (no pasa por el bundler de Next, no puede leer
+// process.env), así que le pasamos la URL del backend como query string de su
+// propia URL de registro — es lo único que un service worker puede leer de
+// forma estable entre reactivaciones (una notificación push puede despertarlo
+// sin que haya habido ningún postMessage previo).
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000"
+
 export type SerializedSubscription = {
   endpoint: string
   keys: { p256dh: string; auth: string }
@@ -30,10 +37,10 @@ function urlBase64ToUint8Array(base64String: string): Uint8Array {
 }
 
 async function getRegistration(): Promise<ServiceWorkerRegistration> {
-  await navigator.serviceWorker.register("/sw.js", {
-    scope: "/",
-    updateViaCache: "none",
-  })
+  await navigator.serviceWorker.register(
+    `/sw.js?apiBase=${encodeURIComponent(API_BASE_URL)}`,
+    { scope: "/", updateViaCache: "none" },
+  )
   return navigator.serviceWorker.ready
 }
 

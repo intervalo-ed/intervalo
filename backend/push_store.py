@@ -83,6 +83,18 @@ def upsert_subscription(
     db.commit()
 
 
+def user_id_for_endpoint(db: DBSession, endpoint: str) -> int | None:
+    """Look up which user owns a subscription endpoint. Used by the
+    unauthenticated /push/diagnostic report (the service worker has no Clerk
+    session to identify the user with)."""
+    sub = (
+        db.query(PushSubscription)
+        .filter(PushSubscription.endpoint == endpoint)
+        .first()
+    )
+    return sub.user_id if sub else None
+
+
 def delete_subscription(db: DBSession, user_id: int, endpoint: str) -> None:
     db.query(PushSubscription).filter(
         PushSubscription.user_id == user_id,
