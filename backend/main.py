@@ -229,6 +229,12 @@ class PrunePushRequest(BaseModel):
     subscription_ids: list[int]
 
 
+class PushDiagnosticRequest(BaseModel):
+    error: str
+    endpoint: str | None = None
+    raw_preview: str | None = None
+
+
 class SessionFeedbackRequest(BaseModel):
     action: str  # "impression" | "answer" | "report"
     session_id: str
@@ -674,6 +680,31 @@ def push_unsubscribe(
     import push_store
 
     push_store.delete_subscription(db, current_user.id, body.endpoint)
+    return {"success": True}
+
+
+@app.post("/push/diagnostic", response_model=SimpleResponse)
+def push_diagnostic(
+    body: PushDiagnosticRequest,
+    db: Session = Depends(get_db),
+):
+    """Client-reported failure when a push event's payload couldn't be
+    decoded (sw.js falls back to generic copy in that case, see sw.js). No
+    auth here — the service worker has no Clerk session — so we correlate
+    the report to a user via the subscription endpoint instead. Logs only,
+    to diagnose recurring generic-fallback notifications."""
+    import logging
+
+    import push_store
+
+    user_id = push_store.user_id_for_endpoint(db, body.endpoint) if body.endpoint else None
+    logging.warning(
+        "push decode failed user=%s endpoint=...%s error=%s raw=%r",
+        user_id,
+        (body.endpoint or "")[-24:],
+        body.error,
+        (body.raw_preview or "")[:200],
+    )
     return {"success": True}
 
 

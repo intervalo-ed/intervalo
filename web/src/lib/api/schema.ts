@@ -366,6 +366,30 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/push/diagnostic": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Push Diagnostic
+         * @description Client-reported failure when a push event's payload couldn't be
+         *     decoded (sw.js falls back to generic copy in that case, see sw.js). No
+         *     auth here — the service worker has no Clerk session — so we correlate
+         *     the report to a user via the subscription endpoint instead. Logs only,
+         *     to diagnose recurring generic-fallback notifications.
+         */
+        post: operations["push_diagnostic_push_diagnostic_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/user/notification-settings": {
         parameters: {
             query?: never;
@@ -1004,6 +1028,15 @@ export interface components {
         PrunePushRequest: {
             /** Subscription Ids */
             subscription_ids: number[];
+        };
+        /** PushDiagnosticRequest */
+        PushDiagnosticRequest: {
+            /** Error */
+            error: string;
+            /** Endpoint */
+            endpoint?: string | null;
+            /** Raw Preview */
+            raw_preview?: string | null;
         };
         /** PushKeys */
         PushKeys: {
@@ -1997,6 +2030,39 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": components["schemas"]["PushUnsubscribeRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SimpleResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    push_diagnostic_push_diagnostic_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PushDiagnosticRequest"];
             };
         };
         responses: {

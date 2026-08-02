@@ -15,16 +15,60 @@ self.addEventListener("activate", function (event) {
   event.waitUntil(self.clients.claim())
 })
 
+// URL del backend, pasada como query string al registrar el SW (ver
+// register.ts) — un service worker no puede leer process.env.
+const API_BASE = new URL(self.location.href).searchParams.get("apiBase")
+
+// Reporta al backend cuando el payload de un push no se pudo decodear, para
+// poder ver la causa real la próxima vez que llegue el fallback genérico en
+// vez de tener que adivinarla (nos pasó dos veces sin ninguna pista).
+// Best-effort: si el fetch falla, no bloquea la notificación igual.
+function reportDecodeFailure(error, rawPreview) {
+  if (!API_BASE) return Promise.resolve()
+  return self.registration.pushManager
+    .getSubscription()
+    .then((sub) =>
+      fetch(`${API_BASE}/push/diagnostic`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          error: String(error),
+          endpoint: sub ? sub.endpoint : null,
+          raw_preview: rawPreview,
+        }),
+      }),
+    )
+    .catch(() => {})
+}
+
 self.addEventListener("push", function (event) {
   let title = "Intervalo"
   let body = "Tenés repasos pendientes hoy 📚"
-  try {
-    if (event.data) {
-      const data = event.data.json()
-      if (data.title) title = data.title
-      if (data.body) body = data.body
+  let raw = null
+  let decodeError = null
+
+  if (event.data) {
+    try {
+      raw = event.data.text()
+    } catch (e) {
+      decodeError = `text() failed: ${e}`
     }
-  } catch (_) {}
+    if (raw != null) {
+      try {
+        const data = JSON.parse(raw)
+        if (data.title) title = data.title
+        if (data.body) body = data.body
+      } catch (e) {
+        decodeError = `JSON.parse failed: ${e}`
+      }
+    }
+  } else {
+    decodeError = "push event sin event.data"
+  }
+
+  if (decodeError) {
+    event.waitUntil(reportDecodeFailure(decodeError, raw ? raw.slice(0, 200) : null))
+  }
 
   event.waitUntil(
     self.registration.showNotification(title, {
