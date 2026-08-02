@@ -195,6 +195,11 @@ class StartTestSessionRequest(BaseModel):
 class AnswerRequest(BaseModel):
     session_id: str
     exercise_id: str
+    # Identificador estable del ejercicio real (p. ej. "white_definition_clsf_01").
+    # El cliente lo reporta para poder auditar exactamente qué ejercicio se sirvió
+    # y para avanzar el ciclo de no-repetición por ítem; opcional por
+    # compatibilidad con clientes viejos.
+    exercise_external_id: str | None = None
     answer_index: int
     attempts: int
     response_time_s: float
@@ -1178,6 +1183,7 @@ def submit_answer(
             body.attempts,
             body.response_time_s,
             db,
+            exercise_external_id=body.exercise_external_id,
         )
     except KeyError as exc:
         raise HTTPException(status_code=404, detail=str(exc))

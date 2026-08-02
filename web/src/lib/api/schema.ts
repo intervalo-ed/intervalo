@@ -753,6 +753,8 @@ export interface components {
             session_id: string;
             /** Exercise Id */
             exercise_id: string;
+            /** Exercise External Id */
+            exercise_external_id?: string | null;
             /** Answer Index */
             answer_index: number;
             /** Attempts */
