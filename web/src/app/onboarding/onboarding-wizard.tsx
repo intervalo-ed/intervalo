@@ -19,6 +19,7 @@ import { useGridLayout } from "@/lib/latex-visual-length"
 import { ONBOARDING_UNIVERSITIES, UNIVERSITY_TAG_BY_KEY, matchUniversities } from "@/lib/university-tags"
 import { ChevronLeft, LayersIcon, TargetIcon } from "lucide-react"
 import { useSignIn } from "@clerk/nextjs"
+import { useRouter } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 
 const CAREERS = [
@@ -667,7 +668,8 @@ function IntroLogo({ onDone }: { onDone: () => void }) {
   )
 }
 
-export default function OnboardingWizard() {
+export default function OnboardingWizard({ alreadySignedIn = false }: { alreadySignedIn?: boolean }) {
+  const router = useRouter()
   const { signIn } = useSignIn()
   const sfx = useSfx()
   const [step, setStep] = useState(-1) // -1 = intro animada del logo
@@ -872,18 +874,30 @@ export default function OnboardingWizard() {
     setAuthError("No pudimos conectar con Google. Probá de nuevo.")
   }
 
-  // Final del onboarding: guardamos lo elegido antes de irnos a Google para que
-  // /onboarding/complete lo encuentre al volver.
-  async function onFinish() {
-    saveOnboarding({
+  function onboardingPayload() {
+    return {
       name: name.trim(),
       career,
       university,
       course: courseKey,
       motivation,
       introItemCorrect: firstTryCorrect,
-    })
+    }
+  }
+
+  // Final del onboarding: guardamos lo elegido antes de irnos a Google para que
+  // /onboarding/complete lo encuentre al volver.
+  async function onFinish() {
+    saveOnboarding(onboardingPayload())
     await authenticateWithGoogle()
+  }
+
+  // Vino ya autenticado (atajo "Ya tengo una cuenta" de una cuenta nueva): no
+  // hay que volver a pasar por Google, solo guardar las respuestas —
+  // /onboarding/complete hace el enroll y muestra "instalá la app".
+  function finishAlreadySignedIn() {
+    saveOnboarding(onboardingPayload())
+    router.push("/onboarding/complete")
   }
 
   return (
@@ -928,6 +942,7 @@ export default function OnboardingWizard() {
                   authReady={signIn !== null}
                   authPending={authPending}
                   authError={authError}
+                  hideSignIn={alreadySignedIn}
                 />
               )}
 
@@ -1271,18 +1286,28 @@ export default function OnboardingWizard() {
                   <div className="flex flex-col gap-2">
                     <h2 className="text-2xl font-bold">¡Ya casi estamos!</h2>
                     <p className="leading-relaxed text-foreground/85">
-                      Registrate para poder guardar tu progreso.
+                      {alreadySignedIn ? "Ya podés arrancar." : "Registrate para poder guardar tu progreso."}
                     </p>
                   </div>
-                  <Button
-                    size="lg"
-                    className="h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
-                    disabled={signIn === null || authPending}
-                    onClick={onFinish}
-                  >
-                    <GoogleIcon className="size-5" />
-                    {authPending ? "Conectando..." : "Continuar con Google"}
-                  </Button>
+                  {alreadySignedIn ? (
+                    <Button
+                      size="lg"
+                      className="h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+                      onClick={finishAlreadySignedIn}
+                    >
+                      Continuar
+                    </Button>
+                  ) : (
+                    <Button
+                      size="lg"
+                      className="h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+                      disabled={signIn === null || authPending}
+                      onClick={onFinish}
+                    >
+                      <GoogleIcon className="size-5" />
+                      {authPending ? "Conectando..." : "Continuar con Google"}
+                    </Button>
+                  )}
                   {authError && <p className="text-sm text-red-500">{authError}</p>}
                 </div>
               )}
@@ -1519,6 +1544,7 @@ function Slide0({
   authReady,
   authPending,
   authError,
+  hideSignIn,
 }: {
   name: string
   setName: (v: string) => void
@@ -1528,6 +1554,7 @@ function Slide0({
   authReady: boolean
   authPending: boolean
   authError: string | null
+  hideSignIn: boolean
 }) {
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -1570,16 +1597,18 @@ function Slide0({
           <Button size="lg" className="h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black" disabled={!name.trim()} onClick={handleContinue}>
             Continuar
           </Button>
-          <Button
-            variant="outline"
-            size="lg"
-            className="h-12 w-full rounded-md gap-2"
-            disabled={!authReady || authPending}
-            onClick={onSignIn}
-          >
-            <GoogleIcon className="size-5" />
-            {authPending ? "Conectando..." : "Ya tengo una cuenta"}
-          </Button>
+          {!hideSignIn && (
+            <Button
+              variant="outline"
+              size="lg"
+              className="h-12 w-full rounded-md gap-2"
+              disabled={!authReady || authPending}
+              onClick={onSignIn}
+            >
+              <GoogleIcon className="size-5" />
+              {authPending ? "Conectando..." : "Ya tengo una cuenta"}
+            </Button>
+          )}
           {authError && <p className="text-center text-sm text-red-500">{authError}</p>}
         </div>
       </motion.div>
