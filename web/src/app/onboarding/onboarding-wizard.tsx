@@ -114,27 +114,20 @@ const ONBOARDING_EXERCISES: Record<CourseId, OnboardingExercise> = {
   },
 }
 
-// Intensidad de los cuadraditos de UnitSegmentedBar (slide 4): más apagada que
-// BELT_LEGEND_COLORS (logo, landing, UnitGrid) — pedido puntual para que esta
-// fila en particular se vea menos saturada, sin afectar esas otras superficies.
-const SEGMENTED_BAR_TINT_ALPHA = 0.7
-
 // Unidades del curso. `textColor` (nombres/chips) es el mismo color que usa la
 // home para los títulos de unidad (BELT_HEX.onDark); `gridColor` (cuadraditos
-// de UnitGrid, a los que se les aplican intensidades variables — ver
-// tintGridColor) usa la paleta separada BELT_ONDARK_VIVID, pensada para leerse
-// bien en bloques de color en vez de texto chico; `legendColor` (cuadraditos
-// fijos de UnitSegmentedBar, la "leyenda" de la slide 4) usa su propia
-// intensidad más apagada (SEGMENTED_BAR_TINT_ALPHA), no BELT_LEGEND_COLORS.
+// de UnitGrid y de la leyenda de UnitSegmentedBar, a los que se les aplican
+// intensidades variables — ver tintGridColor/seededTintGridColor) usa la
+// paleta separada BELT_ONDARK_VIVID, pensada para leerse bien en bloques de
+// color en vez de texto chico.
 function courseUnits(
   course: CourseId,
-): { name: string; textColor: string; gridColor: string; legendColor: string }[] {
+): { name: string; textColor: string; gridColor: string }[] {
   return CATALOGS[course].belts.flatMap((b) =>
     b.units.map((u) => ({
       name: u.name,
       textColor: BELT_HEX[b.key as BeltKey].onDark,
       gridColor: BELT_ONDARK_VIVID[b.key as BeltKey],
-      legendColor: mixWithBg(BELT_ONDARK_VIVID[b.key as BeltKey], SEGMENTED_BAR_TINT_ALPHA),
     })),
   )
 }
@@ -175,6 +168,24 @@ function sampleNormalIntensity(mean = 0.68, stddev = 0.16, min = 0.58, max = 1.0
   return Math.min(max, Math.max(min, mean + z * stddev))
 }
 
+// [0,1) determinístico a partir de un entero — mismo patrón que pickSeeded en
+// marketing-home.tsx, para que el server y el cliente rendericen el mismo
+// valor (Math.random() en JSX estático rompería la hidratación).
+function seededUnit(seed: number): number {
+  const x = Math.sin(seed * 12.9898) * 43758.5453
+  return x - Math.floor(x)
+}
+
+// Misma campana que sampleNormalIntensity, pero determinística por `seed` en
+// vez de Math.random() — para cuadraditos que no viven dentro de una animación
+// (UnitSegmentedBar) y necesitan la misma intensidad en cada render.
+function seededNormalIntensity(seed: number, mean = 0.68, stddev = 0.16, min = 0.58, max = 1.0): number {
+  const u = seededUnit(seed) || 1e-6
+  const v = seededUnit(seed + 1000)
+  const z = Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v)
+  return Math.min(max, Math.max(min, mean + z * stddev))
+}
+
 function mixWithBg(hex: string, alpha: number): string {
   const [r, g, b] = hexToRgb(hex)
   const mix = (channel: number, bg: number) => Math.round(channel * alpha + bg * (1 - alpha))
@@ -183,6 +194,10 @@ function mixWithBg(hex: string, alpha: number): string {
 
 function tintGridColor(hex: string): string {
   return mixWithBg(hex, sampleNormalIntensity())
+}
+
+function seededTintGridColor(hex: string, seed: number): string {
+  return mixWithBg(hex, seededNormalIntensity(seed))
 }
 
 // Cuadraditos "sin actividad": mismo color plano para todos (no el color de
@@ -254,7 +269,7 @@ const UNIT_BAR_GROUP_GAP_PX = 8
 function UnitSegmentedBar({
   units,
 }: {
-  units: { name: string; textColor: string; gridColor: string; legendColor: string }[]
+  units: { name: string; textColor: string; gridColor: string }[]
 }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [perUnit, setPerUnit] = useState(1)
@@ -278,13 +293,13 @@ function UnitSegmentedBar({
   return (
     <div ref={containerRef} className="mx-auto w-full max-w-sm">
       <div className="flex justify-center gap-2">
-        {units.map((u) => (
+        {units.map((u, ui) => (
           <div key={u.name} className="flex gap-px">
             {Array.from({ length: perUnit }).map((_, i) => (
               <div
                 key={i}
                 className="h-2.5 w-2.5 rounded-[2px]"
-                style={{ background: u.legendColor }}
+                style={{ background: seededTintGridColor(u.gridColor, ui * 97 + i) }}
               />
             ))}
           </div>
@@ -514,7 +529,6 @@ function UnitGrid({
 
     let filled = 0
     let batchLeft = 0 // cuadraditos que faltan del bache actual
-    let pauseLeft = 0 // frames hasta el próximo bache
     let spawnCredit = 0 // acumulador fraccional de cuadraditos a spawnear este frame
     let rafId = 0
 
@@ -524,18 +538,12 @@ function UnitGrid({
     }
 
     // Basado en el ritmo de la landing (marketing-home.tsx, ProgressGrid), pero
-    // acelerado ~4.5x acá: acumulador fraccional de cuadraditos/frame más alto y
-    // pausa entre baches recortada a un frame fijo.
+    // sin la pausa fija entre baches: al agotarse uno, arma el siguiente y lo
+    // dibuja en el mismo frame en vez de perder un ciclo sin pintar nada.
     function step() {
       if (filled >= total) return
-      if (pauseLeft > 0) {
-        pauseLeft--
-        rafId = requestAnimationFrame(step)
-        return
-      }
       if (batchLeft === 0) {
         batchLeft = Math.min(nextBatchSize(), total - filled)
-        pauseLeft = 1
         spawnCredit = 0
         if (batchLeft === 0 && filled < total) {
           // No entró ninguna forma en el espacio libre restante: reintentar el
@@ -543,11 +551,9 @@ function UnitGrid({
           rafId = requestAnimationFrame(step)
           return
         }
-        rafId = requestAnimationFrame(step)
-        return
       }
       // Un poquito más rápido cada vez que se desbloquea una unidad siguiente.
-      spawnCredit += 6.6 * (1 + 0.08 * (unlocked - 1))
+      spawnCredit += 60 * (1 + 0.08 * (unlocked - 1))
       while (spawnCredit >= 1 && batchLeft > 0 && filled < total) {
         if (pace === "bursty") spawnSquareBursty()
         else spawnSquareRegular(filled / (total - 1))
