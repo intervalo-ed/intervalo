@@ -672,11 +672,11 @@ export default function MarketingHome() {
           <section className="border-y border-[#38385A] bg-[#1A1A2A] px-6 py-12">
             <div className="mx-auto max-w-[960px]">
               <h2 className="mb-2.5 font-sans text-[clamp(1.45rem,5vw,2rem)] font-bold leading-[1.2] tracking-[-0.01em] text-[#F6F8FC]">
-                Universidades que ya están repasando
+                Sumá a tu universidad al ranking
               </h2>
               <p className="max-w-[520px] text-[clamp(0.875rem,2.5vw,1rem)] leading-[1.75] text-[#A4B3C6]">
-                Cada facultad suma a su propia comunidad — este es el ranking
-                por estudiantes y XP acumulado.
+                Cada ejercicio que resolvés suma XP para tu facultad. Así va
+                la tabla, actualizada en tiempo real.
               </p>
             </div>
           </section>
