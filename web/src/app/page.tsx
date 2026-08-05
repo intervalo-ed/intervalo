@@ -20,7 +20,12 @@ export default async function Home() {
     })
     if (res.ok) {
       const status = await res.json()
-      if (!status.enrolled && !status.has_progress) redirect("/onboarding/complete")
+      // Antes solo entraba acá sin enrollment NI progreso — pero eso dejaba
+      // pasar a cuentas con progreso real (unit_states) que nunca llegaron a
+      // enrolarse (ej. el bug de "Ya tengo una cuenta"), sin universidad ni
+      // carrera para siempre. /onboarding/complete decide entre el wizard
+      // completo o el formulario corto de recuperación según el caso.
+      if (!status.enrolled) redirect("/onboarding/complete")
     }
   } catch {
     // Si el backend no responde, deja pasar al dashboard

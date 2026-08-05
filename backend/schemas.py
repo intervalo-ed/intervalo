@@ -233,6 +233,20 @@ class UniversityLeaderboardResponse(BaseModel):
     career_totals: dict[str, int]  # agregado global por carrera (llaves E,S,T,M,Otra)
 
 
+class PublicUniversityStat(BaseModel):
+    university: str
+    students: int
+    total_xp: int
+
+
+class PublicUniversityLeaderboardResponse(BaseModel):
+    # Snapshot agregado sin auth para la landing (marketing-home.tsx) — un
+    # visitante sin cuenta no tiene sesión para pegarle a /leaderboard/universities.
+    # Sin PII: solo universidad + conteos, top 8 por XP (mismo orden que
+    # /leaderboard/universities).
+    rows: list[PublicUniversityStat]
+
+
 class LeaderboardSummaryResponse(BaseModel):
     # Números generales de la cabecera del leaderboard, SIEMPRE globales (sin
     # filtros de carrera/universidad).

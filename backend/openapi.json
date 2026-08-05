@@ -248,7 +248,7 @@
     "/user/status": {
       "get": {
         "summary": "Get User Status",
-        "description": "Authoritative new-vs-returning check, read from the DB.\n\nA returning user has an enrollment and/or learning state, regardless of\nwhat their Clerk `onboarded` metadata says. The frontend uses this to\ndecide whether to run onboarding or send the user straight to the dashboard.",
+        "description": "Authoritative new-vs-returning check, read from the DB.\n\nA returning user has an enrollment and/or learning state, regardless of\nwhat their Clerk `onboarded` metadata says. The frontend uses this to\ndecide whether to run onboarding or send the user straight to the dashboard.\n\nNinguno de los dos chequeos filtra por curso: antes miraban solo\ncourse_id=1 y perd\u00edan a usuarios enrolados/con progreso \u00fanicamente en\notro curso (ej. \u00e1lgebra), a quienes se les volv\u00eda a pedir universidad/\ncarrera pese a tenerlas cargadas.",
         "operationId": "get_user_status_user_status_get",
         "parameters": [
           {
@@ -1573,6 +1573,25 @@
         }
       }
     },
+    "/public/university-leaderboard": {
+      "get": {
+        "summary": "Get Public University Leaderboard",
+        "description": "Snapshot agregado sin auth de las universidades top (por XP, mismo\norden que /leaderboard/universities), para la landing (marketing-home.tsx)\n\u2014 un visitante sin cuenta no tiene sesi\u00f3n para pegarle a ese endpoint. Sin\nPII: solo universidad + conteos, los mismos n\u00fameros que ya ve cualquier\nusuario logueado en el leaderboard.",
+        "operationId": "get_public_university_leaderboard_public_university_leaderboard_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicUniversityLeaderboardResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/user/emoji-tree": {
       "get": {
         "summary": "Get Emoji State",
@@ -2763,6 +2782,45 @@
           "subscription_ids"
         ],
         "title": "PrunePushRequest"
+      },
+      "PublicUniversityLeaderboardResponse": {
+        "properties": {
+          "rows": {
+            "items": {
+              "$ref": "#/components/schemas/PublicUniversityStat"
+            },
+            "type": "array",
+            "title": "Rows"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rows"
+        ],
+        "title": "PublicUniversityLeaderboardResponse"
+      },
+      "PublicUniversityStat": {
+        "properties": {
+          "university": {
+            "type": "string",
+            "title": "University"
+          },
+          "students": {
+            "type": "integer",
+            "title": "Students"
+          },
+          "total_xp": {
+            "type": "integer",
+            "title": "Total Xp"
+          }
+        },
+        "type": "object",
+        "required": [
+          "university",
+          "students",
+          "total_xp"
+        ],
+        "title": "PublicUniversityStat"
       },
       "PushDiagnosticRequest": {
         "properties": {

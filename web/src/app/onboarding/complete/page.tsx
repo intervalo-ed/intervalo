@@ -9,6 +9,7 @@ import { Spinner } from "@/components/ui/spinner"
 import { useApi } from "@/lib/api/useApi"
 import { clearOnboarding, readOnboarding } from "@/lib/onboarding/storage"
 import { OnboardingInstallPrompt } from "./install-prompt"
+import { RecoverProfileForm } from "./recover-profile-form"
 
 export default function OnboardingCompletePage() {
   const router = useRouter()
@@ -18,6 +19,7 @@ export default function OnboardingCompletePage() {
   const startedRef = useRef(false)
   const [statusError, setStatusError] = useState<string | null>(null)
   const [showInstallPrompt, setShowInstallPrompt] = useState(false)
+  const [showRecoverForm, setShowRecoverForm] = useState(false)
 
   const failure = enroll.error
   const errorMessage =
@@ -56,16 +58,26 @@ export default function OnboardingCompletePage() {
   // The DB is authoritative for new-vs-returning. Returning users go straight
   // to the dashboard (and get their Clerk flag backfilled); only genuinely new
   // users run onboarding. Clerk's `onboarded` flag is just a fast path.
+  //
+  // Un tercer caso: gente con progreso real (unit_states) pero sin Enrollment
+  // — cuentas que quedaron a medio hacer por el bug de "Ya tengo una cuenta"
+  // arrastrado desde antes de ese fix. A esas no las hacemos repetir todo el
+  // wizard (perderían el hilo de algo que ya vienen usando); les pedimos solo
+  // carrera + universidad con RecoverProfileForm.
   async function run() {
     startedRef.current = true
     try {
       const { data: status, error } = await api.GET("/user/status")
       if (error) throw error
-      if (status.enrolled || status.has_progress) {
+      if (status.enrolled) {
         if (user?.unsafeMetadata?.onboarded !== true) {
           await user?.update({ unsafeMetadata: { onboarded: true } })
         }
         router.replace("/")
+        return
+      }
+      if (status.has_progress) {
+        setShowRecoverForm(true)
         return
       }
       await runOnboarding()
@@ -97,6 +109,10 @@ export default function OnboardingCompletePage() {
     void run()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoaded, isSignedIn])
+
+  if (showRecoverForm) {
+    return <RecoverProfileForm onDone={() => router.replace("/")} />
+  }
 
   if (showInstallPrompt) {
     return <OnboardingInstallPrompt onContinue={() => router.push("/")} />
