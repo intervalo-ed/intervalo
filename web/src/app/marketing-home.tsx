@@ -437,8 +437,6 @@ function ProgressGrid({ tick }: { tick: number }) {
 
     const colHeights = new Array(COLS).fill(0)
     let fillIdx = 0
-    let batchLeft = 0
-    let pauseLeft = 0
     let animated = false
     let rafId = 0
 
@@ -446,9 +444,8 @@ function ProgressGrid({ tick }: { tick: number }) {
     // MAX_COL_LEAD filas por delante de la columna disponible menos llena.
     const MAX_COL_LEAD = 5
 
-    // Corre la lógica de un frame GRID_SPEED veces por rAF en vez de una sola
-    // vez: comprime toda la animación (ráfagas + pausas) al mismo ritmo
-    // relativo, en 1/GRID_SPEED del tiempo.
+    // Cuadraditos spawneados por frame — generación continua, sin ráfagas ni
+    // pausas en el medio.
     const GRID_SPEED = 3
 
     function spawnSquare() {
@@ -472,17 +469,7 @@ function ProgressGrid({ tick }: { tick: number }) {
     function step() {
       for (let i = 0; i < GRID_SPEED; i++) {
         if (fillIdx >= TOTAL) return
-        if (pauseLeft > 0) {
-          pauseLeft--
-          continue
-        }
-        if (batchLeft === 0) {
-          batchLeft = Math.floor(Math.random() * 6) + 15
-          pauseLeft = Math.floor(Math.random() * 9) + 12
-          continue
-        }
         spawnSquare()
-        batchLeft--
       }
       rafId = requestAnimationFrame(step)
     }
