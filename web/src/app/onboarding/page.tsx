@@ -21,7 +21,11 @@ export default async function OnboardingPage() {
       })
       if (res.ok) {
         const status = await res.json()
-        if (status.enrolled || status.has_progress) redirect("/")
+        if (status.enrolled) redirect("/")
+        // Progreso real sin Enrollment: no lo hacemos repetir el wizard
+        // entero, /onboarding/complete le muestra el formulario corto de
+        // recuperación (solo carrera + universidad).
+        if (status.has_progress) redirect("/onboarding/complete")
         alreadySignedIn = true
       }
     } catch {

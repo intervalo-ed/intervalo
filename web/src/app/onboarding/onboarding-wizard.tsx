@@ -22,7 +22,7 @@ import { useSignIn } from "@clerk/nextjs"
 import { useRouter } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 
-const CAREERS = [
+export const CAREERS = [
   { value: "E", label: "Ingeniería", emoji: "⚙️" },
   { value: "S", label: "Ciencia", emoji: "🔬" },
   { value: "T", label: "Tecnología", emoji: "🤖" },
@@ -1657,7 +1657,7 @@ function ProgressBar({ step, onBack }: { step: number; onBack: () => void }) {
   )
 }
 
-function OptionButton({
+export function OptionButton({
   children,
   selected,
   onClick,
@@ -1725,7 +1725,7 @@ function ChoiceRow({
   )
 }
 
-function CareerCard({
+export function CareerCard({
   emoji,
   label,
   selected,
