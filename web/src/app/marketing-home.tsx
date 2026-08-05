@@ -547,7 +547,7 @@ function UniversityRankingCards({
       {rows.map((row, i) => (
         <div
           key={row.university}
-          className="flex items-center gap-2 rounded-lg border border-[#38385A] bg-white/[0.02] px-4 py-3"
+          className="flex items-center gap-2 rounded-lg border border-[#38385A] bg-[#1A1A2A] px-4 py-3"
         >
           <span className="w-4 shrink-0 text-center text-sm font-semibold tabular-nums text-[#768899]">
             {i + 1}
@@ -681,7 +681,7 @@ export default function MarketingHome() {
             </div>
           </section>
 
-          <section className="px-6 pb-20 pt-10" style={GRID_BG_STYLE}>
+          <section className="px-6 py-10" style={GRID_BG_STYLE}>
             <UniversityRankingCards rows={uniLeaderboard.rows} />
           </section>
         </>
