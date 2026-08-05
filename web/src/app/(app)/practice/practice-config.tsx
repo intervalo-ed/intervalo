@@ -593,11 +593,11 @@ function PracticeUnitCard({
           </Dialog>
         )}
         <div className="flex-1" />
-        <Switch checked={checked} onCheckedChange={onToggleUnit} />
+        <Switch checked={checked} onCheckedChange={onToggleUnit} className="mr-1.5" />
         <button
           type="button"
           aria-label={expanded ? "Contraer" : "Expandir"}
-          className="text-foreground/40 outline-none transition-colors hover:text-foreground/70"
+          className="-m-2 p-2 text-foreground/40 outline-none transition-colors hover:text-foreground/70"
           onClick={onToggleExpanded}
         >
           <ChevronDown
@@ -645,6 +645,7 @@ function PracticeUnitCard({
                   <Switch
                     checked={enabled.has(topicKey(belt, t.key))}
                     onCheckedChange={() => onToggleTopic(t.key)}
+                    className="mr-1.5"
                   />
                 </div>
               ))}
