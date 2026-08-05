@@ -16,7 +16,7 @@ import {
 import { cn } from "@/lib/utils"
 import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
 import { BELT_UNIT_TEXT_COLORS } from "@/lib/catalog"
-import { UNIVERSITY_TAG_BY_KEY } from "@/lib/university-tags"
+import { UniTag } from "@/components/university-tag"
 import { ChevronDownIcon, LayersIcon, UsersIcon } from "lucide-react"
 import { ALL, useLeaderboard } from "./UseLeaderboard"
 import { useLeaderboardSummary } from "./UseLeaderboardSummary"
@@ -470,31 +470,5 @@ function ListSkeleton() {
         ))}
       </div>
     </div>
-  )
-}
-
-function UniTag({ university }: { university: string }) {
-  const cfg = UNIVERSITY_TAG_BY_KEY[university]
-  if (!cfg) {
-    return (
-      <span className="inline-flex shrink-0 items-center justify-center rounded bg-white/10 px-1 py-1 text-center text-[0.55rem] leading-none text-foreground/70">
-        {university}
-      </span>
-    )
-  }
-  return (
-    <span
-      className="inline-flex shrink-0 items-center justify-center rounded-md border px-1 py-1 text-center leading-none"
-      style={{
-        color: cfg.color,
-        borderColor: `${cfg.color}99`,
-        backgroundColor: `${cfg.color}33`,
-        fontSize: cfg.tagFontSize,
-        transform: cfg.tagDy ? `translateY(${cfg.tagDy}px)` : undefined,
-        ...cfg.font,
-      }}
-    >
-      {university}
-    </span>
   )
 }

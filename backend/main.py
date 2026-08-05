@@ -46,6 +46,8 @@ from schemas import (
     CourseResetResponse,
     NotificationSettings,
     PracticeStatsResponse,
+    PublicUniversityLeaderboardResponse,
+    PublicUniversityStat,
     SessionStartResponse,
     TopicActionRequest,
     SessionSummaryResponse,
@@ -1110,6 +1112,32 @@ def get_leaderboard_summary(
         total_exercises=total_exercises,
         universities=universities,
     )
+
+
+@app.get("/public/university-leaderboard", response_model=PublicUniversityLeaderboardResponse)
+def get_public_university_leaderboard(db: Session = Depends(get_db)):
+    """Snapshot agregado sin auth de las universidades top (por XP, mismo
+    orden que /leaderboard/universities), para la landing (marketing-home.tsx)
+    — un visitante sin cuenta no tiene sesión para pegarle a ese endpoint. Sin
+    PII: solo universidad + conteos, los mismos números que ya ve cualquier
+    usuario logueado en el leaderboard."""
+    enrollments = _enrollments_by_user(db)
+    xp_by_user = dict(db.query(User.id, User.total_xp).all())
+
+    by_uni: dict[str, dict] = {}
+    for uid, e in enrollments.items():
+        if not e.university:
+            continue
+        agg = by_uni.setdefault(e.university, {"students": 0, "total_xp": 0})
+        agg["students"] += 1
+        agg["total_xp"] += xp_by_user.get(uid, 0)
+
+    rows = [
+        PublicUniversityStat(university=u, students=a["students"], total_xp=a["total_xp"])
+        for u, a in by_uni.items()
+    ]
+    rows.sort(key=lambda r: r.total_xp, reverse=True)
+    return PublicUniversityLeaderboardResponse(rows=rows[:8])
 
 
 # ── Emoji unlock tree (badges) ──────────────────────────────────────────────────
