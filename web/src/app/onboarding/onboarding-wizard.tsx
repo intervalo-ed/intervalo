@@ -9,7 +9,6 @@ import MathText from "@/components/math-text"
 import {
   BELT_HEX,
   BELT_LEGEND_BAR_COLORS,
-  BELT_LEGEND_COLORS,
   BELT_ONDARK_VIVID,
   CATALOGS,
   COURSE_LABEL,
@@ -117,20 +116,18 @@ const ONBOARDING_EXERCISES: Record<CourseId, OnboardingExercise> = {
 
 // Unidades del curso. `textColor` (nombres/chips) es el mismo color que usa la
 // home para los títulos de unidad (BELT_HEX.onDark); `gridColor` (cuadraditos
-// de UnitGrid, a los que se les aplican intensidades variables — ver
-// tintGridColor) usa la paleta separada BELT_ONDARK_VIVID, pensada para leerse
-// bien en bloques de color en vez de texto chico; `legendColor` (cuadraditos
-// fijos de UnitSegmentedBar, la "leyenda" de la slide 4) usa BELT_LEGEND_COLORS,
-// la misma paleta de leyenda que el logo y la landing.
+// de UnitGrid y de la leyenda de UnitSegmentedBar, a los que se les aplican
+// intensidades variables — ver tintGridColor/seededTintGridColor) usa la
+// paleta separada BELT_ONDARK_VIVID, pensada para leerse bien en bloques de
+// color en vez de texto chico.
 function courseUnits(
   course: CourseId,
-): { name: string; textColor: string; gridColor: string; legendColor: string }[] {
+): { name: string; textColor: string; gridColor: string }[] {
   return CATALOGS[course].belts.flatMap((b) =>
     b.units.map((u) => ({
       name: u.name,
       textColor: BELT_HEX[b.key as BeltKey].onDark,
       gridColor: BELT_ONDARK_VIVID[b.key as BeltKey],
-      legendColor: BELT_LEGEND_COLORS[b.key as BeltKey],
     })),
   )
 }
@@ -171,6 +168,24 @@ function sampleNormalIntensity(mean = 0.68, stddev = 0.16, min = 0.58, max = 1.0
   return Math.min(max, Math.max(min, mean + z * stddev))
 }
 
+// [0,1) determinístico a partir de un entero — mismo patrón que pickSeeded en
+// marketing-home.tsx, para que el server y el cliente rendericen el mismo
+// valor (Math.random() en JSX estático rompería la hidratación).
+function seededUnit(seed: number): number {
+  const x = Math.sin(seed * 12.9898) * 43758.5453
+  return x - Math.floor(x)
+}
+
+// Misma campana que sampleNormalIntensity, pero determinística por `seed` en
+// vez de Math.random() — para cuadraditos que no viven dentro de una animación
+// (UnitSegmentedBar) y necesitan la misma intensidad en cada render.
+function seededNormalIntensity(seed: number, mean = 0.68, stddev = 0.16, min = 0.58, max = 1.0): number {
+  const u = seededUnit(seed) || 1e-6
+  const v = seededUnit(seed + 1000)
+  const z = Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v)
+  return Math.min(max, Math.max(min, mean + z * stddev))
+}
+
 function mixWithBg(hex: string, alpha: number): string {
   const [r, g, b] = hexToRgb(hex)
   const mix = (channel: number, bg: number) => Math.round(channel * alpha + bg * (1 - alpha))
@@ -179,6 +194,10 @@ function mixWithBg(hex: string, alpha: number): string {
 
 function tintGridColor(hex: string): string {
   return mixWithBg(hex, sampleNormalIntensity())
+}
+
+function seededTintGridColor(hex: string, seed: number): string {
+  return mixWithBg(hex, seededNormalIntensity(seed))
 }
 
 // Cuadraditos "sin actividad": mismo color plano para todos (no el color de
@@ -247,10 +266,15 @@ const UNIT_GRID_ROW_LEAD = 5
 // disponible en vez de estirar los cuadraditos.
 const UNIT_BAR_GROUP_GAP_PX = 8
 
+// Menos cuadraditos por unidad que los que entrarían llenando todo el ancho
+// (UNIT_BAR_COUNT_TRIM) — una fila más corta se siente menos como una franja
+// de color sólida.
+const UNIT_BAR_COUNT_TRIM = 2
+
 function UnitSegmentedBar({
   units,
 }: {
-  units: { name: string; textColor: string; gridColor: string; legendColor: string }[]
+  units: { name: string; textColor: string; gridColor: string }[]
 }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [perUnit, setPerUnit] = useState(1)
@@ -263,7 +287,7 @@ function UnitSegmentedBar({
       const w = el.clientWidth
       const raw =
         (w - (n - 1) * UNIT_BAR_GROUP_GAP_PX + n * UNIT_GAP_PX) / (n * (UNIT_SQ_PX + UNIT_GAP_PX))
-      setPerUnit(Math.max(1, Math.floor(raw)))
+      setPerUnit(Math.max(1, Math.floor(raw) - UNIT_BAR_COUNT_TRIM))
     }
     compute()
     const ro = new ResizeObserver(compute)
@@ -274,13 +298,13 @@ function UnitSegmentedBar({
   return (
     <div ref={containerRef} className="mx-auto w-full max-w-sm">
       <div className="flex justify-center gap-2">
-        {units.map((u) => (
+        {units.map((u, ui) => (
           <div key={u.name} className="flex gap-px">
             {Array.from({ length: perUnit }).map((_, i) => (
               <div
                 key={i}
                 className="h-2.5 w-2.5 rounded-[2px]"
-                style={{ background: u.legendColor }}
+                style={{ background: seededTintGridColor(u.gridColor, ui * 97 + i) }}
               />
             ))}
           </div>
