@@ -139,7 +139,7 @@ def _reactivation(context: dict) -> tuple[str, str]:
     days = context["days_inactive"]
     return (
         "Intervalo",
-        f"Hace {days} días que no practicás. Retomá antes de perder terreno 👀",
+        f"Hace {days} días que no practicás. ¿Volvemos? 👀",
     )
 
 
@@ -153,20 +153,30 @@ def _personal_best(context: dict) -> tuple[str, str]:
     )
 
 
+def _practice_has_yesterday(ctx: dict) -> bool:
+    return (ctx.get("exercises_yesterday") or 0) > 0
+
+
+def _practice_has_next_tier(ctx: dict) -> bool:
+    return ctx.get("days_to_next_tier") is not None
+
+
 _VARIANTS: dict[str, list[Variant]] = {
     CATEGORY_PRACTICE: [
-        Variant("practice_reminder", lambda ctx: True, _practice_reminder),
-        Variant("practice_cta", lambda ctx: True, _practice_cta),
+        # reminder/cta son el fallback genérico: solo aparecen cuando ninguna
+        # variante más específica (yesterday/next_tier) aplica.
         Variant(
-            "practice_yesterday",
-            lambda ctx: (ctx.get("exercises_yesterday") or 0) > 0,
-            _practice_yesterday,
+            "practice_reminder",
+            lambda ctx: not (_practice_has_yesterday(ctx) or _practice_has_next_tier(ctx)),
+            _practice_reminder,
         ),
         Variant(
-            "practice_next_tier",
-            lambda ctx: ctx.get("days_to_next_tier") is not None,
-            _practice_next_tier,
+            "practice_cta",
+            lambda ctx: not (_practice_has_yesterday(ctx) or _practice_has_next_tier(ctx)),
+            _practice_cta,
         ),
+        Variant("practice_yesterday", _practice_has_yesterday, _practice_yesterday),
+        Variant("practice_next_tier", _practice_has_next_tier, _practice_next_tier),
     ],
     CATEGORY_UNIVERSITY: [
         Variant(
@@ -188,7 +198,7 @@ _VARIANTS: dict[str, list[Variant]] = {
     CATEGORY_SOCIAL: [
         Variant(
             "social_active_today",
-            lambda ctx: bool(ctx.get("social_count")) and ctx.get("university") is not None,
+            lambda ctx: (ctx.get("social_count") or 0) > 5 and ctx.get("university") is not None,
             _social_active_today,
         ),
     ],
@@ -215,7 +225,7 @@ _VARIANTS: dict[str, list[Variant]] = {
     CATEGORY_REACTIVATION: [
         Variant(
             "reactivation_days",
-            lambda ctx: ctx.get("days_inactive") is not None,
+            lambda ctx: (ctx.get("days_inactive") or 0) > 1,
             _reactivation,
         ),
     ],
