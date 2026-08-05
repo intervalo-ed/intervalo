@@ -15,45 +15,16 @@ import {
 } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
 import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
-import { BELT_UNIT_TEXT_COLORS, type BeltKey } from "@/lib/catalog"
+import { BELT_UNIT_TEXT_COLORS } from "@/lib/catalog"
 import { UNIVERSITY_TAG_BY_KEY } from "@/lib/university-tags"
 import { ChevronDownIcon, LayersIcon, UsersIcon } from "lucide-react"
 import { ALL, useLeaderboard } from "./UseLeaderboard"
 import { useLeaderboardSummary } from "./UseLeaderboardSummary"
 import { useUniversityLeaderboard } from "./UseUniversityLeaderboard"
 
-// Color del nombre según el máximo cinturón del usuario (mismo color que los
-// títulos de unidad en practicar/repasar). Blanco para sin cinturón.
+// Color del nombre según el máximo cinturón real del usuario (mismo color que
+// los títulos de unidad en practicar/repasar). Blanco para sin cinturón.
 const BELT_TEXT: Record<string, string> = BELT_UNIT_TEXT_COLORS
-
-// Cinturón "de vidriera" para el ranking: la mayoría de las cuentas de acá
-// (demo/dev) todavía no tienen progreso real en unit_states, así que
-// entry.belt viene vacío/blanco para casi todas. En vez de eso, derivamos un
-// cinturón a partir del XP total (para que el ranking se vea variado y con
-// algo de correlación), con un poco de mezcla entre tramos vecinos vía un
-// random determinístico por usuario (mismo resultado en cada render/página).
-const DISPLAY_BELT_TIERS: { min: number; belt: BeltKey }[] = [
-  { min: 0, belt: "white" },
-  { min: 1500, belt: "blue" },
-  { min: 3500, belt: "violet" },
-  { min: 5500, belt: "brown" },
-]
-
-function seededRandom(seed: number): number {
-  const x = Math.sin(seed) * 10000
-  return x - Math.floor(x)
-}
-
-function deriveDisplayBelt(userId: number, totalXp: number): BeltKey {
-  let tier = 0
-  for (let i = 0; i < DISPLAY_BELT_TIERS.length; i++) {
-    if (totalXp >= DISPLAY_BELT_TIERS[i].min) tier = i
-  }
-  const r = seededRandom(userId)
-  if (r < 0.2) tier = Math.max(0, tier - 1)
-  else if (r > 0.8) tier = Math.min(DISPLAY_BELT_TIERS.length - 1, tier + 1)
-  return DISPLAY_BELT_TIERS[tier].belt
-}
 
 // Carreras en orden fijo + catch-all "Otra". Nombre completo, sin abreviar y
 // sin emoji, tanto en el valor colapsado del filtro como en el desplegable.
@@ -345,7 +316,7 @@ function IndividualRanking({
               <span
                 className="truncate text-sm font-medium"
                 style={{
-                  color: BELT_TEXT[deriveDisplayBelt(entry.user_id, entry.total_xp)],
+                  color: BELT_TEXT[entry.belt] ?? BELT_TEXT.white,
                 }}
               >
                 {entry.username ?? entry.name}
