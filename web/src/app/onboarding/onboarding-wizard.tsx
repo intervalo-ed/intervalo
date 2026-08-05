@@ -9,6 +9,7 @@ import MathText from "@/components/math-text"
 import {
   BELT_HEX,
   BELT_LEGEND_BAR_COLORS,
+  BELT_LEGEND_COLORS,
   BELT_ONDARK_VIVID,
   CATALOGS,
   COURSE_LABEL,
@@ -114,18 +115,13 @@ const ONBOARDING_EXERCISES: Record<CourseId, OnboardingExercise> = {
   },
 }
 
-// Intensidad de los cuadraditos de UnitSegmentedBar (slide 4): más apagada que
-// BELT_LEGEND_COLORS (logo, landing, UnitGrid) — pedido puntual para que esta
-// fila en particular se vea menos saturada, sin afectar esas otras superficies.
-const SEGMENTED_BAR_TINT_ALPHA = 0.7
-
 // Unidades del curso. `textColor` (nombres/chips) es el mismo color que usa la
 // home para los títulos de unidad (BELT_HEX.onDark); `gridColor` (cuadraditos
 // de UnitGrid, a los que se les aplican intensidades variables — ver
 // tintGridColor) usa la paleta separada BELT_ONDARK_VIVID, pensada para leerse
 // bien en bloques de color en vez de texto chico; `legendColor` (cuadraditos
-// fijos de UnitSegmentedBar, la "leyenda" de la slide 4) usa su propia
-// intensidad más apagada (SEGMENTED_BAR_TINT_ALPHA), no BELT_LEGEND_COLORS.
+// fijos de UnitSegmentedBar, la "leyenda" de la slide 4) usa BELT_LEGEND_COLORS,
+// la misma paleta de leyenda que el logo y la landing.
 function courseUnits(
   course: CourseId,
 ): { name: string; textColor: string; gridColor: string; legendColor: string }[] {
@@ -134,7 +130,7 @@ function courseUnits(
       name: u.name,
       textColor: BELT_HEX[b.key as BeltKey].onDark,
       gridColor: BELT_ONDARK_VIVID[b.key as BeltKey],
-      legendColor: mixWithBg(BELT_ONDARK_VIVID[b.key as BeltKey], SEGMENTED_BAR_TINT_ALPHA),
+      legendColor: BELT_LEGEND_COLORS[b.key as BeltKey],
     })),
   )
 }
@@ -524,8 +520,8 @@ function UnitGrid({
     }
 
     // Basado en el ritmo de la landing (marketing-home.tsx, ProgressGrid), pero
-    // acelerado ~4.5x acá: acumulador fraccional de cuadraditos/frame más alto y
-    // pausa entre baches recortada a un frame fijo.
+    // acelerado ~9x acá (4.5x + otro 2x): acumulador fraccional de
+    // cuadraditos/frame más alto y pausa entre baches recortada a un frame fijo.
     function step() {
       if (filled >= total) return
       if (pauseLeft > 0) {
@@ -547,7 +543,7 @@ function UnitGrid({
         return
       }
       // Un poquito más rápido cada vez que se desbloquea una unidad siguiente.
-      spawnCredit += 6.6 * (1 + 0.08 * (unlocked - 1))
+      spawnCredit += 13.2 * (1 + 0.08 * (unlocked - 1))
       while (spawnCredit >= 1 && batchLeft > 0 && filled < total) {
         if (pace === "bursty") spawnSquareBursty()
         else spawnSquareRegular(filled / (total - 1))
