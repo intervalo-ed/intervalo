@@ -437,14 +437,16 @@ function ProgressGrid({ tick }: { tick: number }) {
 
     const colHeights = new Array(COLS).fill(0)
     let fillIdx = 0
-    let batchLeft = 0
-    let pauseLeft = 0
     let animated = false
     let rafId = 0
 
     // Tope de "parejura" entre columnas: ninguna columna puede ir más de
     // MAX_COL_LEAD filas por delante de la columna disponible menos llena.
     const MAX_COL_LEAD = 5
+
+    // Cuadraditos spawneados por frame — generación continua, sin ráfagas ni
+    // pausas en el medio.
+    const GRID_SPEED = 3
 
     function spawnSquare() {
       const avail: number[] = []
@@ -465,20 +467,10 @@ function ProgressGrid({ tick }: { tick: number }) {
     }
 
     function step() {
-      if (fillIdx >= TOTAL) return
-      if (pauseLeft > 0) {
-        pauseLeft--
-        rafId = requestAnimationFrame(step)
-        return
+      for (let i = 0; i < GRID_SPEED; i++) {
+        if (fillIdx >= TOTAL) return
+        spawnSquare()
       }
-      if (batchLeft === 0) {
-        batchLeft = Math.floor(Math.random() * 6) + 15
-        pauseLeft = Math.floor(Math.random() * 9) + 12
-        rafId = requestAnimationFrame(step)
-        return
-      }
-      spawnSquare()
-      batchLeft--
       rafId = requestAnimationFrame(step)
     }
 
