@@ -675,7 +675,7 @@ export default function MarketingHome() {
                 Hacé que tu universidad suba en el ranking
               </h2>
               <p className="max-w-[520px] text-[clamp(0.875rem,2.5vw,1rem)] leading-[1.75] text-[#A4B3C6]">
-                Cada ejercicio que resolvés suma XP para tu facultad.
+                Cada ejercicio que resolvés suma XP para tu universidad.
               </p>
             </div>
           </section>
