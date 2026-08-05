@@ -510,7 +510,6 @@ function UnitGrid({
 
     let filled = 0
     let batchLeft = 0 // cuadraditos que faltan del bache actual
-    let pauseLeft = 0 // frames hasta el próximo bache
     let spawnCredit = 0 // acumulador fraccional de cuadraditos a spawnear este frame
     let rafId = 0
 
@@ -520,18 +519,12 @@ function UnitGrid({
     }
 
     // Basado en el ritmo de la landing (marketing-home.tsx, ProgressGrid), pero
-    // acelerado ~41x acá: acumulador fraccional de cuadraditos/frame más alto
-    // y pausa entre baches recortada a un frame fijo.
+    // sin la pausa fija entre baches: al agotarse uno, arma el siguiente y lo
+    // dibuja en el mismo frame en vez de perder un ciclo sin pintar nada.
     function step() {
       if (filled >= total) return
-      if (pauseLeft > 0) {
-        pauseLeft--
-        rafId = requestAnimationFrame(step)
-        return
-      }
       if (batchLeft === 0) {
         batchLeft = Math.min(nextBatchSize(), total - filled)
-        pauseLeft = 1
         spawnCredit = 0
         if (batchLeft === 0 && filled < total) {
           // No entró ninguna forma en el espacio libre restante: reintentar el
@@ -539,8 +532,6 @@ function UnitGrid({
           rafId = requestAnimationFrame(step)
           return
         }
-        rafId = requestAnimationFrame(step)
-        return
       }
       // Un poquito más rápido cada vez que se desbloquea una unidad siguiente.
       spawnCredit += 60 * (1 + 0.08 * (unlocked - 1))
