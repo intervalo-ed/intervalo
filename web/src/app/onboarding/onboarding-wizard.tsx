@@ -520,7 +520,7 @@ function UnitGrid({
     }
 
     // Basado en el ritmo de la landing (marketing-home.tsx, ProgressGrid), pero
-    // acelerado ~27x acá: acumulador fraccional de cuadraditos/frame más alto
+    // acelerado ~41x acá: acumulador fraccional de cuadraditos/frame más alto
     // y pausa entre baches recortada a un frame fijo.
     function step() {
       if (filled >= total) return
@@ -543,7 +543,7 @@ function UnitGrid({
         return
       }
       // Un poquito más rápido cada vez que se desbloquea una unidad siguiente.
-      spawnCredit += 40 * (1 + 0.08 * (unlocked - 1))
+      spawnCredit += 60 * (1 + 0.08 * (unlocked - 1))
       while (spawnCredit >= 1 && batchLeft > 0 && filled < total) {
         if (pace === "bursty") spawnSquareBursty()
         else spawnSquareRegular(filled / (total - 1))
