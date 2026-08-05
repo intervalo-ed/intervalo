@@ -266,11 +266,6 @@ const UNIT_GRID_ROW_LEAD = 5
 // disponible en vez de estirar los cuadraditos.
 const UNIT_BAR_GROUP_GAP_PX = 8
 
-// Menos cuadraditos por unidad que los que entrarían llenando todo el ancho
-// (UNIT_BAR_COUNT_TRIM) — una fila más corta se siente menos como una franja
-// de color sólida.
-const UNIT_BAR_COUNT_TRIM = 2
-
 function UnitSegmentedBar({
   units,
 }: {
@@ -287,7 +282,7 @@ function UnitSegmentedBar({
       const w = el.clientWidth
       const raw =
         (w - (n - 1) * UNIT_BAR_GROUP_GAP_PX + n * UNIT_GAP_PX) / (n * (UNIT_SQ_PX + UNIT_GAP_PX))
-      setPerUnit(Math.max(1, Math.floor(raw) - UNIT_BAR_COUNT_TRIM))
+      setPerUnit(Math.max(1, Math.floor(raw)))
     }
     compute()
     const ro = new ResizeObserver(compute)
