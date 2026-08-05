@@ -621,27 +621,29 @@ function PracticeUnitCard({
                   key={t.key}
                   className="flex items-center justify-between gap-3 rounded-md px-1 py-2"
                 >
-                  <Dialog>
-                    <DialogTrigger
-                      aria-label={`Más sobre ${topicShortLabel({ topic: t.key, course, fallback: t.name })}`}
-                      className="flex flex-1 items-center gap-1.5 text-left outline-none"
-                    >
-                      <span className="text-sm">
-                        {topicShortLabel({ topic: t.key, course, fallback: t.name })}
-                      </span>
-                      <Info className="size-3.5 shrink-0 text-foreground/40" />
-                    </DialogTrigger>
-                    <DialogContent className="max-h-[80vh] overflow-y-auto">
-                      <DialogHeader className="gap-0.5">
-                        <DialogTitle className="font-sans text-sm font-semibold text-foreground">
-                          {topicShortLabel({ topic: t.key, course, fallback: t.name })}
-                        </DialogTitle>
-                        <DialogDescription className="text-sm leading-relaxed text-foreground/80">
-                          <MathText text={t.tooltip} />
-                        </DialogDescription>
-                      </DialogHeader>
-                    </DialogContent>
-                  </Dialog>
+                  <div className="flex flex-1 items-center gap-1.5">
+                    <span className="text-sm">
+                      {topicShortLabel({ topic: t.key, course, fallback: t.name })}
+                    </span>
+                    <Dialog>
+                      <DialogTrigger
+                        aria-label={`Más sobre ${topicShortLabel({ topic: t.key, course, fallback: t.name })}`}
+                        className="shrink-0 text-foreground/40 outline-none transition-colors hover:text-foreground/70"
+                      >
+                        <Info className="size-3.5" />
+                      </DialogTrigger>
+                      <DialogContent className="max-h-[80vh] overflow-y-auto">
+                        <DialogHeader className="gap-0.5">
+                          <DialogTitle className="font-sans text-sm font-semibold text-foreground">
+                            {topicShortLabel({ topic: t.key, course, fallback: t.name })}
+                          </DialogTitle>
+                          <DialogDescription className="text-sm leading-relaxed text-foreground/80">
+                            <MathText text={t.tooltip} />
+                          </DialogDescription>
+                        </DialogHeader>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
                   <Switch
                     checked={enabled.has(topicKey(belt, t.key))}
                     onCheckedChange={() => onToggleTopic(t.key)}
