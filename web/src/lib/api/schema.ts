@@ -142,6 +142,11 @@ export interface paths {
          *     A returning user has an enrollment and/or learning state, regardless of
          *     what their Clerk `onboarded` metadata says. The frontend uses this to
          *     decide whether to run onboarding or send the user straight to the dashboard.
+         *
+         *     Ninguno de los dos chequeos filtra por curso: antes miraban solo
+         *     course_id=1 y perdían a usuarios enrolados/con progreso únicamente en
+         *     otro curso (ej. álgebra), a quienes se les volvía a pedir universidad/
+         *     carrera pese a tenerlas cargadas.
          */
         get: operations["get_user_status_user_status_get"];
         put?: never;
@@ -573,6 +578,30 @@ export interface paths {
          *     pasan, igual que el scope de `/leaderboard`.
          */
         get: operations["get_leaderboard_summary_leaderboard_summary_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/public/university-leaderboard": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Public University Leaderboard
+         * @description Snapshot agregado sin auth de las universidades top (por XP, mismo
+         *     orden que /leaderboard/universities), para la landing (marketing-home.tsx)
+         *     — un visitante sin cuenta no tiene sesión para pegarle a ese endpoint. Sin
+         *     PII: solo universidad + conteos, los mismos números que ya ve cualquier
+         *     usuario logueado en el leaderboard.
+         */
+        get: operations["get_public_university_leaderboard_public_university_leaderboard_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1038,6 +1067,20 @@ export interface components {
         PrunePushRequest: {
             /** Subscription Ids */
             subscription_ids: number[];
+        };
+        /** PublicUniversityLeaderboardResponse */
+        PublicUniversityLeaderboardResponse: {
+            /** Rows */
+            rows: components["schemas"]["PublicUniversityStat"][];
+        };
+        /** PublicUniversityStat */
+        PublicUniversityStat: {
+            /** University */
+            university: string;
+            /** Students */
+            students: number;
+            /** Total Xp */
+            total_xp: number;
         };
         /** PushDiagnosticRequest */
         PushDiagnosticRequest: {
@@ -2428,6 +2471,26 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_public_university_leaderboard_public_university_leaderboard_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PublicUniversityLeaderboardResponse"];
                 };
             };
         };

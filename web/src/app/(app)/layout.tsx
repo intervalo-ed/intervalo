@@ -19,7 +19,9 @@ async function EnrollmentGate() {
     })
     if (res.ok) {
       const status = await res.json()
-      if (!status.enrolled && !status.has_progress) redirect("/onboarding/complete")
+      // Ver comentario equivalente en app/page.tsx: no alcanza con "sin
+      // progreso", hay cuentas con progreso real pero sin Enrollment.
+      if (!status.enrolled) redirect("/onboarding/complete")
     }
   } catch {
     // Si el backend no responde, deja pasar

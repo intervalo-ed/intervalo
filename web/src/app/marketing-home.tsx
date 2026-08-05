@@ -1,11 +1,15 @@
 ﻿"use client"
 
 import { useSplash } from "@/app/splash-context"
+import { usePublicUniversityLeaderboard } from "@/app/UsePublicUniversityLeaderboard"
+import { CountUp } from "@/components/count-up"
+import { UniTag } from "@/components/university-tag"
+import { XpDots } from "@/components/xp-dots"
 import { Wordmark } from "@/components/wordmark"
 import { BELT_LEGEND_COLORS, BELT_ONDARK_VIVID, BELT_ORDER, type BeltKey } from "@/lib/catalog"
 import katex from "katex"
 import "katex/dist/katex.min.css"
-import { ChevronDown } from "lucide-react"
+import { ChevronDown, UsersIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useMemo, useRef, useState } from "react"
@@ -437,14 +441,16 @@ function ProgressGrid({ tick }: { tick: number }) {
 
     const colHeights = new Array(COLS).fill(0)
     let fillIdx = 0
-    let batchLeft = 0
-    let pauseLeft = 0
     let animated = false
     let rafId = 0
 
     // Tope de "parejura" entre columnas: ninguna columna puede ir más de
     // MAX_COL_LEAD filas por delante de la columna disponible menos llena.
     const MAX_COL_LEAD = 5
+
+    // Cuadraditos spawneados por frame — generación continua, sin ráfagas ni
+    // pausas en el medio.
+    const GRID_SPEED = 3
 
     function spawnSquare() {
       const avail: number[] = []
@@ -465,20 +471,10 @@ function ProgressGrid({ tick }: { tick: number }) {
     }
 
     function step() {
-      if (fillIdx >= TOTAL) return
-      if (pauseLeft > 0) {
-        pauseLeft--
-        rafId = requestAnimationFrame(step)
-        return
+      for (let i = 0; i < GRID_SPEED; i++) {
+        if (fillIdx >= TOTAL) return
+        spawnSquare()
       }
-      if (batchLeft === 0) {
-        batchLeft = Math.floor(Math.random() * 6) + 15
-        pauseLeft = Math.floor(Math.random() * 9) + 12
-        rafId = requestAnimationFrame(step)
-        return
-      }
-      spawnSquare()
-      batchLeft--
       rafId = requestAnimationFrame(step)
     }
 
@@ -533,11 +529,52 @@ function ProgressGrid({ tick }: { tick: number }) {
   )
 }
 
+const fmt = (n: number) => n.toLocaleString("es")
+
+// Filas tipo leaderboard (mismo formato que UniversityRanking en
+// leaderboard-content.tsx) que se revelan de a una, en orden, cuando la
+// Mismo formato de fila que UniversityRanking en leaderboard-content.tsx
+// (rank, tag de universidad, estudiantes + XP juntos) — esa lista real no
+// tiene scroll-reveal, solo el conteo animado de CountUp al montar, así que
+// acá tampoco: nada de IntersectionObserver, se anima solo con aparecer.
+function UniversityRankingCards({
+  rows,
+}: {
+  rows: { university: string; students: number; total_xp: number }[]
+}) {
+  return (
+    <div className="mx-auto flex max-w-[520px] flex-col gap-2">
+      {rows.map((row, i) => (
+        <div
+          key={row.university}
+          className="flex items-center gap-2 rounded-lg border border-[#38385A] bg-[#1A1A2A] px-4 py-3"
+        >
+          <span className="w-4 shrink-0 text-center text-sm font-semibold tabular-nums text-[#768899]">
+            {i + 1}
+          </span>
+          <span className="flex min-w-0 flex-1 items-center">
+            <UniTag university={row.university} />
+          </span>
+          <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold tabular-nums text-[#F6F8FC]">
+            <CountUp value={row.students} format={fmt} />
+            <UsersIcon className="size-[0.9em] text-[#F6F8FC]" />
+          </span>
+          <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold tabular-nums text-[#F6F8FC]">
+            <CountUp value={row.total_xp} format={fmt} />
+            <XpDots className="size-[0.85em] text-[#F6F8FC]" />
+          </span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 export default function MarketingHome() {
   const { markReady } = useSplash()
   useEffect(() => markReady(), [markReady])
   const tick = useCourseTick()
   const course = COURSE_TRACKS[tick % COURSE_TRACKS.length].course
+  const { data: uniLeaderboard } = usePublicUniversityLeaderboard()
 
   return (
     <main className="bg-[#131324] font-sans text-[#F6F8FC]">
@@ -629,6 +666,25 @@ export default function MarketingHome() {
       </section>
 
       <ProgressGrid tick={tick} />
+
+      {uniLeaderboard && uniLeaderboard.rows.length > 0 && (
+        <>
+          <section className="border-y border-[#38385A] bg-[#1A1A2A] px-6 py-12">
+            <div className="mx-auto max-w-[960px]">
+              <h2 className="mb-2.5 font-sans text-[clamp(1.45rem,5vw,2rem)] font-bold leading-[1.2] tracking-[-0.01em] text-[#F6F8FC]">
+                Tu universidad también compite
+              </h2>
+              <p className="max-w-[520px] text-[clamp(0.875rem,2.5vw,1rem)] leading-[1.75] text-[#A4B3C6]">
+                Cada ejercicio que resolvés suma XP para tu universidad.
+              </p>
+            </div>
+          </section>
+
+          <section className="px-6 py-10" style={GRID_BG_STYLE}>
+            <UniversityRankingCards rows={uniLeaderboard.rows} />
+          </section>
+        </>
+      )}
 
       <footer>
         <div className="flex flex-col items-center gap-5 bg-[#7E80F7] px-6 py-16 text-center">

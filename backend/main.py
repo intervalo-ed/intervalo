@@ -46,6 +46,8 @@ from schemas import (
     CourseResetResponse,
     NotificationSettings,
     PracticeStatsResponse,
+    PublicUniversityLeaderboardResponse,
+    PublicUniversityStat,
     SessionStartResponse,
     TopicActionRequest,
     SessionSummaryResponse,
@@ -442,19 +444,20 @@ def get_user_status(
     A returning user has an enrollment and/or learning state, regardless of
     what their Clerk `onboarded` metadata says. The frontend uses this to
     decide whether to run onboarding or send the user straight to the dashboard.
+
+    Ninguno de los dos chequeos filtra por curso: antes miraban solo
+    course_id=1 y perdían a usuarios enrolados/con progreso únicamente en
+    otro curso (ej. álgebra), a quienes se les volvía a pedir universidad/
+    carrera pese a tenerlas cargadas.
     """
     from models import Enrollment, UnitState
 
-    course_id = 1  # Default course
-
     enrolled = db.query(Enrollment.id).filter(
         Enrollment.user_id == current_user.id,
-        Enrollment.course_id == course_id,
     ).first() is not None
 
     has_progress = db.query(UnitState.id).filter(
         UnitState.user_id == current_user.id,
-        UnitState.course_id == course_id,
     ).first() is not None
 
     return UserStatusResponse(enrolled=enrolled, has_progress=has_progress)
@@ -860,6 +863,19 @@ AROUND_WINDOW = 30
 BELT_RANK = {"white": 0, "blue": 1, "violet": 2, "brown": 3}
 
 
+def _enrollments_by_user(db: Session) -> dict[int, Enrollment]:
+    """Un Enrollment por usuario (universidad/carrera/motivación de perfil),
+    sin importar en qué curso — antes esto filtraba por course_id=1 y perdía
+    a usuarios enrolados únicamente en otro curso (ej. álgebra), que quedaban
+    sin tag de universidad en el leaderboard pese a tener los datos cargados.
+    Se queda con el enrollment más antiguo de cada usuario (sus respuestas
+    originales de onboarding)."""
+    by_user: dict[int, Enrollment] = {}
+    for e in db.query(Enrollment).order_by(Enrollment.enrolled_at.asc()).all():
+        by_user.setdefault(e.user_id, e)
+    return by_user
+
+
 @app.get("/leaderboard", response_model=LeaderboardResponse)
 def get_leaderboard(
     university: str | None = Query(default=None),
@@ -888,11 +904,8 @@ def get_leaderboard(
         .all()
     )
 
-    # Career + university come from the user's enrollment (course 1 for now).
-    enrollments = {
-        e.user_id: e
-        for e in db.query(Enrollment).filter(Enrollment.course_id == 1).all()
-    }
+    # Career + university vienen del enrollment del usuario, sin importar curso.
+    enrollments = _enrollments_by_user(db)
 
     # Ejercicios hechos por usuario, para poder filtrar el total por universidad.
     exercises_by_user = dict(
@@ -1013,10 +1026,7 @@ def get_university_leaderboard(
     carrera. `university`: limita a esa universidad (aislarla).
     """
     users = db.query(User).all()
-    enrollments = {
-        e.user_id: e
-        for e in db.query(Enrollment).filter(Enrollment.course_id == 1).all()
-    }
+    enrollments = _enrollments_by_user(db)
 
     # Agregación por universidad + agregado global por carrera.
     by_uni: dict[str, dict] = {}
@@ -1076,7 +1086,7 @@ def get_leaderboard_summary(
     `universities` siempre lista el set completo (para poblar el filtro), pero
     `total_students`/`total_exercises` respetan `career`/`university` si se
     pasan, igual que el scope de `/leaderboard`."""
-    enrollments = db.query(Enrollment).filter(Enrollment.course_id == 1).all()
+    enrollments = list(_enrollments_by_user(db).values())
     universities = sorted({e.university for e in enrollments if e.university})
 
     if university is None and career is None:
@@ -1104,13 +1114,41 @@ def get_leaderboard_summary(
     )
 
 
+@app.get("/public/university-leaderboard", response_model=PublicUniversityLeaderboardResponse)
+def get_public_university_leaderboard(db: Session = Depends(get_db)):
+    """Snapshot agregado sin auth de las universidades top (por XP, mismo
+    orden que /leaderboard/universities), para la landing (marketing-home.tsx)
+    — un visitante sin cuenta no tiene sesión para pegarle a ese endpoint. Sin
+    PII: solo universidad + conteos, los mismos números que ya ve cualquier
+    usuario logueado en el leaderboard."""
+    enrollments = _enrollments_by_user(db)
+    xp_by_user = dict(db.query(User.id, User.total_xp).all())
+
+    by_uni: dict[str, dict] = {}
+    for uid, e in enrollments.items():
+        if not e.university:
+            continue
+        agg = by_uni.setdefault(e.university, {"students": 0, "total_xp": 0})
+        agg["students"] += 1
+        agg["total_xp"] += xp_by_user.get(uid, 0)
+
+    rows = [
+        PublicUniversityStat(university=u, students=a["students"], total_xp=a["total_xp"])
+        for u, a in by_uni.items()
+    ]
+    rows.sort(key=lambda r: r.total_xp, reverse=True)
+    return PublicUniversityLeaderboardResponse(rows=rows[:8])
+
+
 # ── Emoji unlock tree (badges) ──────────────────────────────────────────────────
 
 def _emoji_bucket(db: Session, user: User) -> str | None:
-    """Bucket de carrera del usuario (E/S/T/M/Otra), de su enrollment (curso 1)."""
+    """Bucket de carrera del usuario (E/S/T/M/Otra), de su enrollment más
+    antiguo (sin importar curso — ver _enrollments_by_user)."""
     e = (
         db.query(Enrollment)
-        .filter(Enrollment.user_id == user.id, Enrollment.course_id == 1)
+        .filter(Enrollment.user_id == user.id)
+        .order_by(Enrollment.enrolled_at.asc())
         .first()
     )
     return e.career if e else None
