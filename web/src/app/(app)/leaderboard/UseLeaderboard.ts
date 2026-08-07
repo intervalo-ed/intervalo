@@ -3,6 +3,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query"
 import { useApi } from "@/lib/api/useApi"
 import { queryKeys } from "@/lib/query/keys"
+import { setLastKnownRank } from "@/lib/nav/ranking-rank"
 
 // Valor del filtro "sin universidad" y tamaño de cada página al scrollear.
 export const ALL = "all"
@@ -38,6 +39,11 @@ export function useLeaderboard(
         },
       })
       if (error) throw error
+      // Guarda el rank global (sin filtros) como base para detectar, al
+      // terminar la próxima sesión, si el usuario avanzó lugares.
+      if (university === ALL && career === ALL && typeof data.me.rank === "number") {
+        setLastKnownRank(data.me.rank)
+      }
       return data
     },
     // Hacia abajo: desde el rank (1-based) de la última fila cargada, que es el
