@@ -75,5 +75,233 @@
     "graph_view": null,
     "reviewed": false,
     "tags": ["formula-con-condicion"]
+  },
+  {
+    "question": "Se quiere expresar la cantidad de formas de elegir 4 jugadores de un plantel de 15, sin importar el orden.\n\n¿Qué expresión corresponde?",
+    "options": [
+      "$\\dfrac{15!}{4!}$",
+      "$\\dfrac{15!}{4!\\,11!}$",
+      "$\\dfrac{15!}{11!}$",
+      "$15^{4}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Combinación: $\\dbinom{15}{4} = \\dfrac{15!}{4!\\,11!}$.",
+    "feedback_incorrect": [
+      "Ese cociente no divide por $(n-k)! = 11!$, así que no cancela los jugadores no elegidos.",
+      null,
+      "Esa es la variación $V_{15,4}$: cuenta el orden, pero acá el orden no importa.",
+      "Ese es el arreglo con repetición: acá se eligen 4 jugadores distintos del plantel, sin reposición."
+    ],
+    "explanation": "Las **combinaciones** eligen elementos de un total sin orden:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nEn el plantel hay 15 jugadores y se eligen 4:\n$$\\binom{15}{4} = \\frac{15!}{4!\\,11!}$$\n$$= \\frac{15\\times14\\times13\\times12}{24} = 1365$$\nHay 1365 planteles titulares posibles.\n\nConfundir la fórmula con la de variación y olvidar dividir por $k!$ deja el orden interno sin cancelar: recordá que ese factor es exactamente lo que elimina el orden dentro del subgrupo elegido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-directa"]
+  },
+  {
+    "question": "Se quiere expresar la cantidad de formas de elegir 2 números ganadores de una rifa con 30 boletos, sin importar el orden.\n\n¿Qué expresión corresponde?",
+    "options": [
+      "$\\dfrac{30!}{2!}$",
+      "$\\dfrac{30!}{28!}$",
+      "$\\dfrac{30!}{2!\\,28!}$",
+      "$30^{2}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Combinación: $\\dbinom{30}{2} = \\dfrac{30!}{2!\\,28!}$.",
+    "feedback_incorrect": [
+      "Ese cociente no divide por $(n-k)! = 28!$, así que no cancela los boletos no elegidos.",
+      "Esa es la variación $V_{30,2}$: cuenta el orden, pero acá el orden no importa.",
+      null,
+      "Ese es el arreglo con repetición: acá se eligen 2 boletos distintos de la rifa, sin reposición."
+    ],
+    "explanation": "Las **combinaciones** eligen elementos de un total sin orden:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nEn la rifa hay 30 boletos y se eligen 2:\n$$\\binom{30}{2} = \\frac{30!}{2!\\,28!}$$\n$$= \\frac{30\\times29}{2} = 435$$\nHay 435 pares de boletos ganadores posibles.\n\nConfundir la fórmula con la de variación y olvidar dividir por $k!$ deja el orden interno sin cancelar: recordá que ese factor es exactamente lo que elimina el orden dentro del subgrupo elegido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-directa"]
+  },
+  {
+    "question": "Se quiere expresar la cantidad de formas de elegir 6 libros de una biblioteca de 20 para donar, sin importar el orden.\n\n¿Qué expresión corresponde?",
+    "options": [
+      "$\\dfrac{20!}{6!}$",
+      "$\\dfrac{20!}{14!}$",
+      "$20^{6}$",
+      "$\\dfrac{20!}{6!\\,14!}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Combinación: $\\dbinom{20}{6} = \\dfrac{20!}{6!\\,14!}$.",
+    "feedback_incorrect": [
+      "Ese cociente no divide por $(n-k)! = 14!$, así que no cancela los libros no elegidos.",
+      "Esa es la variación $V_{20,6}$: cuenta el orden, pero acá el orden no importa.",
+      "Ese es el arreglo con repetición: acá se eligen 6 libros distintos de la biblioteca, sin reposición.",
+      null
+    ],
+    "explanation": "Las **combinaciones** eligen elementos de un total sin orden:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nEn la biblioteca hay 20 libros y se eligen 6:\n$$\\binom{20}{6} = \\frac{20!}{6!\\,14!}$$\n$$= 38760$$\nHay 38760 grupos de libros posibles para donar.\n\nConfundir la fórmula con la de variación y olvidar dividir por $k!$ deja el orden interno sin cancelar: recordá que ese factor es exactamente lo que elimina el orden dentro del subgrupo elegido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-directa"]
+  },
+  {
+    "question": "Se quiere expresar la cantidad de formas de elegir 5 ingredientes de una lista de 12 para armar una pizza, sin importar el orden.\n\n¿Qué expresión corresponde?",
+    "options": [
+      "$\\dfrac{12!}{5!}$",
+      "$\\dfrac{12!}{5!\\,7!}$",
+      "$\\dfrac{12!}{7!}$",
+      "$12^{5}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Combinación: $\\dbinom{12}{5} = \\dfrac{12!}{5!\\,7!}$.",
+    "feedback_incorrect": [
+      "Ese cociente no divide por $(n-k)! = 7!$, así que no cancela los ingredientes no elegidos.",
+      null,
+      "Esa es la variación $V_{12,5}$: cuenta el orden, pero acá el orden no importa.",
+      "Ese es el arreglo con repetición: acá se eligen 5 ingredientes distintos de la lista, sin reposición."
+    ],
+    "explanation": "Las **combinaciones** eligen elementos de un total sin orden:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nEn la lista hay 12 ingredientes y se eligen 5:\n$$\\binom{12}{5} = \\frac{12!}{5!\\,7!}$$\n$$= 792$$\nHay 792 combinaciones de ingredientes posibles.\n\nConfundir la fórmula con la de variación y olvidar dividir por $k!$ deja el orden interno sin cancelar: recordá que ese factor es exactamente lo que elimina el orden dentro del subgrupo elegido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-directa"]
+  },
+  {
+    "question": "Se quiere expresar la cantidad de formas de elegir un jurado de 3 personas entre 18 candidatos, sin importar el orden.\n\n¿Qué expresión corresponde?",
+    "options": [
+      "$\\dfrac{18!}{3!}$",
+      "$\\dfrac{18!}{15!}$",
+      "$18^{3}$",
+      "$\\dfrac{18!}{3!\\,15!}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Combinación: $\\dbinom{18}{3} = \\dfrac{18!}{3!\\,15!}$.",
+    "feedback_incorrect": [
+      "Ese cociente no divide por $(n-k)! = 15!$, así que no cancela los candidatos no elegidos.",
+      "Esa es la variación $V_{18,3}$: cuenta el orden, pero acá el orden no importa.",
+      "Ese es el arreglo con repetición: acá se eligen 3 candidatos distintos, sin reposición.",
+      null
+    ],
+    "explanation": "Las **combinaciones** eligen elementos de un total sin orden:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nEntre los 18 candidatos se eligen 3:\n$$\\binom{18}{3} = \\frac{18!}{3!\\,15!}$$\n$$= \\frac{18\\times17\\times16}{6} = 816$$\nHay 816 jurados posibles.\n\nConfundir la fórmula con la de variación y olvidar dividir por $k!$ deja el orden interno sin cancelar: recordá que ese factor es exactamente lo que elimina el orden dentro del subgrupo elegido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-directa"]
+  },
+  {
+    "question": "Se quiere expresar la cantidad de formas de elegir 4 cartas de un mazo de 48, sin importar el orden.\n\n¿Qué expresión corresponde?",
+    "options": [
+      "$\\dfrac{48!}{4!}$",
+      "$\\dfrac{48!}{44!}$",
+      "$\\dfrac{48!}{4!\\,44!}$",
+      "$48^{4}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Combinación: $\\dbinom{48}{4} = \\dfrac{48!}{4!\\,44!}$.",
+    "feedback_incorrect": [
+      "Ese cociente no divide por $(n-k)! = 44!$, así que no cancela las cartas no elegidas.",
+      "Esa es la variación $V_{48,4}$: cuenta el orden, pero acá el orden no importa.",
+      null,
+      "Ese es el arreglo con repetición: acá se eligen 4 cartas distintas del mazo, sin reposición."
+    ],
+    "explanation": "Las **combinaciones** eligen elementos de un total sin orden:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nEn el mazo hay 48 cartas y se eligen 4:\n$$\\binom{48}{4} = \\frac{48!}{4!\\,44!}$$\n$$= 194580$$\nHay 194580 manos posibles.\n\nConfundir la fórmula con la de variación y olvidar dividir por $k!$ deja el orden interno sin cancelar: recordá que ese factor es exactamente lo que elimina el orden dentro del subgrupo elegido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-directa"]
+  },
+  {
+    "question": "Un equipo se arma eligiendo $k$ jugadores entre $n$ candidatos, sin diferenciar roles entre los elegidos.\n\n¿Qué expresión general cuenta la cantidad de equipos posibles?",
+    "options": ["$\\dfrac{n!}{k!\\,(n-k)!}$", "$\\dfrac{n!}{(n-k)!}$", "$n!$", "$\\dfrac{n!}{k!}$"],
+    "correct_index": 0,
+    "feedback_correct": "Sin roles distintos entre los jugadores elegidos, la cantidad de equipos se cuenta con la combinación de $n$ tomados de $k$.",
+    "feedback_incorrect": [
+      null,
+      "Esa es la variación, que distingue el orden entre los jugadores elegidos, cuando acá no hay roles que los diferencien.",
+      "Esa es la permutación completa, que usa los $n$ candidatos enteros, no un subconjunto de $k$.",
+      "Esa expresión no cancela los candidatos no elegidos, le falta dividir también por $(n-k)!$."
+    ],
+    "explanation": "La **combinación** de $n$ elementos tomados de a $k$, sin diferenciar roles entre los elegidos, se define como:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nEl denominador cancela dos cosas a la vez: el $k!$ elimina los reordenamientos internos del subgrupo elegido, y el $(n-k)!$ descarta los candidatos que quedaron afuera.\n\nOlvidar alguno de los dos factores del denominador deja el conteo mal ajustado; conviene recordar qué cancela cada uno.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["identificar-formula-correcta"]
+  },
+  {
+    "question": "De una rifa con $n$ boletos se sortean $k$ premios idénticos, todos entregan el mismo premio.\n\n¿Qué expresión general cuenta la cantidad de grupos de ganadores posibles?",
+    "options": ["$\\dfrac{n!}{(n-k)!}$", "$\\dfrac{n!}{k!\\,(n-k)!}$", "$n!$", "$\\dfrac{n!}{k!}$"],
+    "correct_index": 1,
+    "feedback_correct": "Con premios idénticos, el orden entre los boletos ganadores no importa: corresponde la combinación de $n$ tomados de $k$.",
+    "feedback_incorrect": [
+      "Esa es la variación, que distingue el orden entre los ganadores, útil si los premios fueran distintos entre sí.",
+      null,
+      "Esa es la permutación completa, que ordena los $n$ boletos enteros, no un subconjunto de $k$.",
+      "Esa expresión no cancela los boletos no elegidos, le falta dividir también por $(n-k)!$."
+    ],
+    "explanation": "La **combinación** de $n$ elementos tomados de a $k$, cuando el orden entre los elegidos no importa, se define como:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nEl factorial $k!$ del denominador cancela los reordenamientos internos entre los boletos ganadores.\n\nY el factorial $(n-k)!$ cancela a los boletos que no salieron sorteados.\n\nOlvidar alguno de los dos factores del denominador deja el conteo mal ajustado; conviene recordar qué cancela cada uno.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["identificar-formula-correcta"]
+  },
+  {
+    "question": "Se quiere identificar la expresión que corresponde a $\\binom{9}{4}$, la combinación de 9 libros tomados de a 4.\n\n¿Cuál es la expresión correcta?",
+    "options": ["$\\dfrac{9!}{5!}$", "$9!$", "$\\dfrac{9!}{4!\\,5!}$", "$\\dfrac{9!}{4!}$"],
+    "correct_index": 2,
+    "feedback_correct": "La combinación de 9 tomados de 4 divide por $4!$ y por $5!$ para ignorar el orden y los libros no elegidos.",
+    "feedback_incorrect": [
+      "Esa es la variación $V_{9,4}$, que no divide por $4!$ y por lo tanto sí distingue el orden entre los libros elegidos.",
+      "Esa es la permutación completa de los 9 libros, no la elección de un subconjunto de 4.",
+      null,
+      "Esa expresión no cancela los libros no elegidos, le falta dividir también por $5!$."
+    ],
+    "explanation": "La **combinación** de elementos tomados de un total, sin importar el orden, se define como:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nCon $n=9,\\,k=4$, el denominador queda $4!\\,5!$.\n\nEl factorial $4!$ cancela el orden interno de los 4 libros elegidos, y el factorial $5!$ cancela los 5 libros que quedan afuera.\n\nOlvidar alguno de los dos factores del denominador deja el conteo mal ajustado; conviene recordar que uno cancela el orden interno y el otro los elementos no elegidos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["identificar-formula-correcta"]
+  },
+  {
+    "question": "Sabiendo que $\\binom{14}{5} = 2002$, se quiere calcular $\\binom{14}{9}$ sin repetir todo el cálculo desde cero.\n\n¿Cuál es el valor de $\\binom{14}{9}$?",
+    "options": ["$18018$", "$2002$", "$1001$", "$3003$"],
+    "correct_index": 1,
+    "feedback_correct": "Por simetría, $\\dbinom{14}{9}=\\dbinom{14}{5}=2002$.",
+    "feedback_incorrect": [
+      "Ese resultado no corresponde a ninguna combinación de 14 elementos con estos parámetros.",
+      null,
+      "Ese valor sería el de $\\dbinom{14}{4}$, no el de $\\dbinom{14}{9}$.",
+      "Ese valor sería el de $\\dbinom{14}{6}$, no el de $\\dbinom{14}{9}$."
+    ],
+    "explanation": "La **combinación** cumple la propiedad de simetría:\n$$\\binom{n}{k} = \\binom{n}{n-k}$$\nElegir $k$ elementos para incluir equivale a elegir $n-k$ elementos para dejar afuera.\n\nCon 14 y 9, se cumple $14-9=5$, así que $\\binom{14}{9}=\\binom{14}{5}=2002$.\n\nNo reconocer esta simetría lleva a recalcular todo el cociente de factoriales, cuando alcanza con identificar el par $k$ y $n-k$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["propiedad-simetria"]
+  },
+  {
+    "question": "De un grupo de $n$ personas se arma un comité de $k$ integrantes que debe incluir obligatoriamente a una persona en particular.\n\n¿Qué expresión cuenta la cantidad de comités posibles?",
+    "options": ["$\\dbinom{n-1}{k}$", "$\\dbinom{n}{k}$", "$\\dbinom{n}{k-1}$", "$\\dbinom{n-1}{k-1}$"],
+    "correct_index": 3,
+    "feedback_correct": "Como esa persona ya ocupa un lugar del comité, solo falta elegir los otros $k-1$ integrantes entre las $n-1$ personas restantes.",
+    "feedback_incorrect": [
+      "Esa expresión corresponde al caso de excluir obligatoriamente a una persona, no al de incluirla.",
+      "Esa expresión no fija a la persona obligatoria, sigue contando comités que podrían no incluirla.",
+      "Esa expresión no descuenta a la persona que ya está fija, mezcla mal la cantidad de personas disponibles con la cantidad a elegir.",
+      null
+    ],
+    "explanation": "Cuando una combinación exige incluir un elemento fijo, ese elemento ya no se elige: solo se cuenta cuántas formas hay de completar el resto del subconjunto.\n\nCon la persona fija ya dentro del comité, quedan $n-1$ personas disponibles para completar los $k-1$ lugares restantes:\n$$\\binom{n-1}{k-1}$$\nAsí se cuenta el resto del comité.\n\nSeguir contando como si la persona obligatoria todavía compitiera por un lugar infla el resultado, cuando en realidad ya ocupa uno de los $k$ desde el principio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-con-condicion"]
   }
 ]

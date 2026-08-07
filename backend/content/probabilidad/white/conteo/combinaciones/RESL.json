@@ -70,5 +70,203 @@
     "graph_view": null,
     "reviewed": false,
     "tags": ["resl-con-condicion"]
+  },
+  {
+    "question": "Un mazo especial tiene 8 cartas y se eligen 3 para armar una mano, sin importar el orden.\n\n¿Cuántas manos distintas se pueden formar?",
+    "options": ["$336$", "$24$", "$56$", "$512$"],
+    "correct_index": 2,
+    "feedback_correct": "$\\dbinom{8}{3} = \\dfrac{8\\times7\\times6}{6} = 56$.",
+    "feedback_incorrect": [
+      "Ese es $V_{8,3} = 8\\times7\\times6$: cuenta el orden entre las 3 cartas, pero acá no importa.",
+      "Ese es $\\dbinom{8}{3}$ sin terminar de dividir, falta cancelar todo el $3!=6$ del denominador.",
+      null,
+      "Ese es $8^{3}$: cuenta también repetir la misma carta más de una vez, cuando acá cada carta sale una sola vez."
+    ],
+    "explanation": "Elegir un subconjunto de un total sin importar el orden es una **combinación**:\n$$\\binom{8}{3} = \\frac{8!}{3!\\,5!}$$\n$$= \\frac{8\\times7\\times6}{6} = 56$$\nHay 56 manos posibles.\n\nEl denominador cancela dos cosas a la vez: el $3!$ elimina los reordenamientos internos de las 3 cartas elegidas, y el $5!$ descarta las 5 cartas que quedaron afuera del mazo.\n\nAplicar variación en vez de combinación multiplica el resultado por $3!=6$, contando cada mano una vez por cada orden posible de recibirla.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-directo"]
+  },
+  {
+    "question": "De un grupo de 9 personas se arma un comité de 4 integrantes, sin roles distintos entre ellos.\n\n¿Cuántos comités distintos se pueden formar?",
+    "options": ["$3024$", "$126$", "$36$", "$6561$"],
+    "correct_index": 1,
+    "feedback_correct": "$\\dbinom{9}{4} = \\dfrac{9\\times8\\times7\\times6}{24} = 126$.",
+    "feedback_incorrect": [
+      "Ese es $V_{9,4} = 9\\times8\\times7\\times6$: cuenta el orden entre los 4 elegidos, pero acá no importa.",
+      null,
+      "Ese es $\\dbinom{9}{2}$, no $\\dbinom{9}{4}$: faltan dos personas por elegir.",
+      "Ese es $9^{4}$: cuenta también repetir a la misma persona más de una vez, cuando acá cada persona entra una sola vez."
+    ],
+    "explanation": "Elegir un subconjunto de un total sin importar el orden es una **combinación**:\n$$\\binom{9}{4} = \\frac{9!}{4!\\,5!}$$\n$$= \\frac{9\\times8\\times7\\times6}{24} = 126$$\nHay 126 comités posibles.\n\nEl denominador cancela dos cosas a la vez: el $4!$ elimina los reordenamientos internos de las 4 personas elegidas, y el $5!$ descarta a las 5 que quedaron afuera del grupo.\n\nAplicar variación en vez de combinación multiplica el resultado por $4!=24$, contando cada comité una vez por cada orden posible de elegir a sus integrantes.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-directo"]
+  },
+  {
+    "question": "De un sorteo con 10 números se extraen 2 números ganadores, sin importar el orden en que salen.\n\n¿Cuántos pares de números ganadores son posibles?",
+    "options": ["$90$", "$20$", "$100$", "$45$"],
+    "correct_index": 3,
+    "feedback_correct": "$\\dbinom{10}{2} = \\dfrac{10\\times9}{2} = 45$.",
+    "feedback_incorrect": [
+      "Ese es $V_{10,2} = 10\\times9$: cuenta el orden entre los 2 números, pero acá no importa.",
+      "Ese es $10\\times2$: no corresponde a ninguna forma de contar pares de números.",
+      "Ese es $10^{2}$: cuenta también repetir el mismo número dos veces, cuando acá los 2 números son distintos.",
+      null
+    ],
+    "explanation": "Elegir un subconjunto de un total sin importar el orden es una **combinación**:\n$$\\binom{10}{2} = \\frac{10!}{2!\\,8!}$$\n$$= \\frac{10\\times9}{2} = 45$$\nHay 45 pares de números posibles.\n\nEl denominador cancela dos cosas a la vez: el $2!$ elimina el orden entre los 2 números elegidos, y el $8!$ descarta los 8 números que no salieron.\n\nAplicar variación en vez de combinación multiplica el resultado por $2!=2$, contando cada par una vez por cada orden posible de extracción.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-directo"]
+  },
+  {
+    "question": "Una heladería ofrece 7 sabores y un cliente elige 3 para armar un pote, sin que el orden de elección altere el pote.\n\n¿Cuántos potes distintos se pueden armar?",
+    "options": ["$210$", "$21$", "$35$", "$343$"],
+    "correct_index": 2,
+    "feedback_correct": "$\\dbinom{7}{3} = \\dfrac{7\\times6\\times5}{6} = 35$.",
+    "feedback_incorrect": [
+      "Ese es $V_{7,3} = 7\\times6\\times5$: cuenta el orden entre los 3 sabores, pero acá no importa.",
+      "Ese es $\\dbinom{7}{2}$, no $\\dbinom{7}{3}$: falta un sabor por elegir.",
+      null,
+      "Ese es $7^{3}$: cuenta también repetir el mismo sabor más de una vez, cuando acá cada sabor entra una sola vez."
+    ],
+    "explanation": "Elegir un subconjunto de un total sin importar el orden es una **combinación**:\n$$\\binom{7}{3} = \\frac{7!}{3!\\,4!}$$\n$$= \\frac{7\\times6\\times5}{6} = 35$$\nHay 35 potes posibles.\n\nEl denominador cancela dos cosas a la vez: el $3!$ elimina los reordenamientos internos de los 3 sabores elegidos, y el $4!$ descarta los 4 sabores que quedaron afuera.\n\nAplicar variación en vez de combinación multiplica el resultado por $3!=6$, contando cada pote una vez por cada orden posible de elegir sus sabores.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-directo"]
+  },
+  {
+    "question": "De un curso de 11 estudiantes se elige una delegación de 5, sin roles distintos entre ellos.\n\n¿Cuántas delegaciones distintas se pueden formar?",
+    "options": ["$55440$", "$462$", "$66$", "$161051$"],
+    "correct_index": 1,
+    "feedback_correct": "$\\dbinom{11}{5} = \\dfrac{11\\times10\\times9\\times8\\times7}{120} = 462$.",
+    "feedback_incorrect": [
+      "Ese es $V_{11,5} = 11\\times10\\times9\\times8\\times7$: cuenta el orden entre los 5 elegidos, pero acá no importa.",
+      null,
+      "Ese es $\\dbinom{11}{2}$, no $\\dbinom{11}{5}$: faltan tres estudiantes por elegir.",
+      "Ese es $11^{5}$: cuenta también repetir al mismo estudiante más de una vez, cuando acá cada uno entra una sola vez."
+    ],
+    "explanation": "Elegir un subconjunto de un total sin importar el orden es una **combinación**:\n$$\\binom{11}{5} = \\frac{11!}{5!\\,6!}$$\n$$= \\frac{11\\times10\\times9\\times8\\times7}{120} = 462$$\nHay 462 delegaciones posibles.\n\nEl denominador cancela dos cosas a la vez: el $5!$ elimina los reordenamientos internos de los 5 elegidos, y el $6!$ descarta a los 6 estudiantes que quedaron afuera.\n\nAplicar variación en vez de combinación multiplica el resultado por $5!=120$, contando cada delegación una vez por cada orden posible de elegir a sus integrantes.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-directo"]
+  },
+  {
+    "question": "En una reunión de 9 personas, todas se saludan estrechando la mano una única vez con cada una.\n\n¿Cuántos apretones de manos se dan en total?",
+    "options": ["$36$", "$72$", "$81$", "$45$"],
+    "correct_index": 0,
+    "feedback_correct": "$\\dbinom{9}{2} = \\dfrac{9\\times8}{2} = 36$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es $V_{9,2} = 9\\times8$: cuenta cada apretón dos veces, una por cada dirección.",
+      "Ese es $9^{2}$: cuenta también los saludos de cada uno consigo mismo y los repetidos en ambos sentidos.",
+      "Ese sería el resultado con 10 personas, no con las 9 de esta reunión."
+    ],
+    "explanation": "Un apretón de manos entre dos personas es un subconjunto de 2 elementos donde el orden no importa, ya que A saludando a B es lo mismo que B saludando a A, así que corresponde una **combinación**:\n$$\\binom{9}{2} = \\frac{9!}{2!\\,7!}$$\n$$= \\frac{9\\times8}{2} = 36$$\nHay 36 apretones de manos.\n\nAplicar variación, con $9\\times8=72$, cuenta el apretón A-B como distinto al B-A y duplica el total.\n\nSiempre que dos elementos sean intercambiables sin cambiar el resultado, va combinación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-directo"]
+  },
+  {
+    "question": "Con 7 elementos tomados de a 2, se quiere comparar el resultado de la combinación contra el de la variación.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
+    "options": ["Ambas dan el mismo resultado.", "$\\dbinom{7}{2}$ es mayor que $V_{7,2}$.", "$V_{7,2}$ es el doble de $\\dbinom{7}{2}$.", "$V_{7,2}$ es 6 veces mayor que $\\dbinom{7}{2}$."],
+    "correct_index": 2,
+    "feedback_correct": "La variación multiplica a la combinación por $2!=2$.",
+    "feedback_incorrect": [
+      "No dan lo mismo: la variación distingue el orden entre los 2 elegidos y la combinación no.",
+      "La combinación nunca supera a la variación con los mismos $n,k$: ignorar el orden reduce el conteo, no lo aumenta.",
+      null,
+      "El factor que las relaciona es $2!=2$, no $6$: con $k=2$ solo hay 2 formas de ordenar el par elegido."
+    ],
+    "explanation": "Las dos fórmulas comparten el mismo numerador y el mismo factor $(n-k)!$ en el denominador:\n$$V_{n,k} = \\dfrac{n!}{(n-k)!}$$\n$$\\binom{n}{k} = \\dfrac{n!}{k!\\,(n-k)!}$$\nLa única diferencia es el $k!$ extra que divide al binomial.\n\nDividir una fórmula por la otra cancela todo lo demás:\n$$\\dfrac{V_{n,k}}{\\binom{n}{k}} = k!$$\nPor eso la variación es $k!$ veces la combinación.\n\nLa variación cuenta cada subconjunto elegido tantas veces como formas de ordenarlo internamente; el binomial ya perdió esa información al dividir por $k!$.\n\nCon 7 y 2, y $k!=2$, la combinación vale 21 y la variación $21\\times2=42$.\n\nAsumir un factor de proporción arbitrario entre ambas da un resultado incorrecto; el factor correcto siempre es $k!$, nunca un número que dependa del contexto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-comparacion-variacion"]
+  },
+  {
+    "question": "Con 10 elementos tomados de a 4, se quiere comparar el resultado de la combinación contra el de la variación.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
+    "options": ["Ambas dan el mismo resultado.", "$\\dbinom{10}{4}$ es mayor que $V_{10,4}$.", "$V_{10,4}$ es el doble de $\\dbinom{10}{4}$.", "$V_{10,4}$ es 24 veces mayor que $\\dbinom{10}{4}$."],
+    "correct_index": 3,
+    "feedback_correct": "La variación multiplica a la combinación por $4!=24$.",
+    "feedback_incorrect": [
+      "No dan lo mismo: la variación distingue el orden entre los 4 elegidos y la combinación no.",
+      "La combinación nunca supera a la variación con los mismos $n,k$: ignorar el orden reduce el conteo, no lo aumenta.",
+      "El factor que las relaciona es $4!=24$, no $2$: hay que multiplicar por todos los ordenamientos posibles de los 4 elegidos.",
+      null
+    ],
+    "explanation": "Las dos fórmulas comparten el mismo numerador y el mismo factor $(n-k)!$ en el denominador:\n$$V_{n,k} = \\dfrac{n!}{(n-k)!}$$\n$$\\binom{n}{k} = \\dfrac{n!}{k!\\,(n-k)!}$$\nLa única diferencia es el $k!$ extra que divide al binomial.\n\nDividir una fórmula por la otra cancela todo lo demás:\n$$\\dfrac{V_{n,k}}{\\binom{n}{k}} = k!$$\nPor eso la variación es $k!$ veces la combinación.\n\nLa variación cuenta cada subconjunto elegido tantas veces como formas de ordenarlo internamente; el binomial ya perdió esa información al dividir por $k!$.\n\nCon 10 y 4, y $k!=24$, la combinación vale 210 y la variación $210\\times24=5040$.\n\nAsumir un factor de proporción arbitrario entre ambas da un resultado incorrecto; el factor correcto siempre es $k!$, nunca un número que dependa del contexto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-comparacion-variacion"]
+  },
+  {
+    "question": "Sabiendo que $\\binom{9}{2}=36$, se quiere calcular $\\binom{9}{7}$ aplicando la propiedad de simetría.\n\n¿Cuál es el valor de $\\binom{9}{7}$?",
+    "options": ["$252$", "$36$", "$84$", "$9$"],
+    "correct_index": 1,
+    "feedback_correct": "Por simetría $\\dbinom{9}{7}=\\dbinom{9}{2}$, ya que $9-7=2$, así que ambos valen $36$.",
+    "feedback_incorrect": [
+      "Ese valor no corresponde a ninguna combinación con estos parámetros, ni siquiera aplicando la simetría.",
+      null,
+      "Ese sería el valor de $\\dbinom{9}{3}$, no el de $\\dbinom{9}{7}$.",
+      "Ese sería el valor de $\\dbinom{9}{1}$, no el de $\\dbinom{9}{7}$."
+    ],
+    "explanation": "La propiedad de simetría de la combinación establece que:\n$$\\binom{n}{k} = \\binom{n}{n-k}$$\nCon 9 y 7, se cumple $9-7=2$, así que $\\binom{9}{7}=\\binom{9}{2}=36$.\n\nAplicar esta propiedad ahorra calcular el cociente de factoriales desde cero cuando el valor elegido está cerca del total; conviene revisar si el complemento es más chico y fácil de calcular.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-simetria"]
+  },
+  {
+    "question": "De un grupo de 11 amigos se arma un equipo de 5 integrantes que debe incluir obligatoriamente a uno de ellos en particular.\n\n¿Cuántos equipos distintos se pueden formar?",
+    "options": ["$462$", "$330$", "$210$", "$126$"],
+    "correct_index": 2,
+    "feedback_correct": "Con esa persona ya fija, se eligen los otros 4 entre los 10 restantes: $\\dbinom{10}{4}=210$.",
+    "feedback_incorrect": [
+      "Ese es $\\dbinom{11}{5}$, que no fija a nadie y permite equipos sin esa persona.",
+      "Ese resultado no corresponde a ninguna de las combinaciones relevantes de este problema.",
+      null,
+      "Ese es $\\dbinom{9}{4}$, que descuenta una persona de más del grupo disponible."
+    ],
+    "explanation": "Cuando una combinación debe incluir obligatoriamente a un elemento, ese elemento ya ocupa un lugar del subconjunto, y solo queda elegir el resto.\n\nCon esa persona fija, quedan 10 amigos disponibles para completar los 4 lugares restantes:\n$$\\binom{10}{4} = 210$$\nHay 210 equipos posibles.\n\nSeguir contando como si esa persona todavía compitiera por un lugar infla el resultado, en vez de descontarla tanto del total disponible como de la cantidad a elegir.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-con-condicion"]
+  },
+  {
+    "question": "De un grupo de 10 amigos se arma un equipo de 4 integrantes que debe excluir obligatoriamente a uno de ellos en particular.\n\n¿Cuántos equipos distintos se pueden formar?",
+    "options": ["$210$", "$70$", "$84$", "$126$"],
+    "correct_index": 3,
+    "feedback_correct": "Con esa persona excluida, se eligen los 4 integrantes entre los 9 restantes: $\\dbinom{9}{4}=126$.",
+    "feedback_incorrect": [
+      "Ese es $\\dbinom{10}{4}$, que no descarta a la persona excluida, sigue contando equipos donde podría participar.",
+      "Ese resultado no corresponde a ninguna de las combinaciones relevantes de este problema.",
+      "Ese es $\\dbinom{9}{3}$, que reduce en uno la cantidad de integrantes a elegir, un ajuste que no corresponde a excluir a una persona del total disponible.",
+      null
+    ],
+    "explanation": "Cuando una combinación excluye obligatoriamente a un elemento, ese elemento simplemente se saca del conjunto disponible antes de elegir.\n\nCon la persona excluida, quedan 9 amigos disponibles para elegir los 4 integrantes del equipo:\n$$\\binom{9}{4} = 126$$\nHay 126 equipos posibles.\n\nSeguir contando como si esa persona todavía estuviera disponible infla el resultado, cuando en realidad ya está descartada del total.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-con-condicion"]
   }
 ]
