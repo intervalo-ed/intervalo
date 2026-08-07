@@ -10,6 +10,7 @@ import { BELT_LEGEND_COLORS, BELT_ONDARK_VIVID, BELT_ORDER, type BeltKey } from 
 import katex from "katex"
 import "katex/dist/katex.min.css"
 import { ChevronDown, UsersIcon } from "lucide-react"
+import { AnimatePresence, motion } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useMemo, useRef, useState } from "react"
@@ -319,24 +320,32 @@ function renderMath(expr: string) {
   return katex.renderToString(expr, { throwOnError: false, displayMode: true })
 }
 
-function NotationCycler({ tick }: { tick: number }) {
+function NotationCycler({ tick, className = "" }: { tick: number; className?: string }) {
   const { unit } = getTrackUnit(tick)
   const color = BELT_LEGEND_COLORS[unit.belt]
   const expr = useMemo(() => pickSeeded(unit.exprs, tick), [unit, tick])
 
   return (
-    <div className="flex w-[90%] max-w-[480px] flex-col items-center gap-2">
-      <div className="flex items-center gap-2 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-[#768899]">
-        <span
-          className="h-2.5 w-2.5 shrink-0 rounded-[2px] transition-colors duration-300"
-          style={{ background: color }}
-        />
-        <span>{unit.name}</span>
-      </div>
-      <div
-        className="flex h-[72px] shrink-0 items-center justify-center text-[1.45rem] leading-none text-[#F6F8FC] [&_.katex-display]:m-0"
-        dangerouslySetInnerHTML={{ __html: renderMath(expr) }}
-      />
+    <div className={`flex w-[90%] max-w-[480px] flex-col items-center gap-4 ${className}`}>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={`${unit.name}-${expr}`}
+          className="flex flex-col items-center gap-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+        >
+          <div className="flex items-center gap-2 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-[#768899]">
+            <span className="h-2.5 w-2.5 shrink-0 rounded-[2px]" style={{ background: color }} />
+            <span>{unit.name}</span>
+          </div>
+          <div
+            className="flex h-[72px] shrink-0 items-center justify-center text-[1.45rem] leading-none text-[#F6F8FC] [&_.katex-display]:m-0"
+            dangerouslySetInnerHTML={{ __html: renderMath(expr) }}
+          />
+        </motion.div>
+      </AnimatePresence>
     </div>
   )
 }
@@ -441,16 +450,17 @@ function ProgressGrid({ tick }: { tick: number }) {
 
     const colHeights = new Array(COLS).fill(0)
     let fillIdx = 0
-    let animated = false
     let rafId = 0
+    let catchingUp = false
+
+    // Cuadraditos por frame al ponerse al día con el scroll — deja un
+    // pequeño delay entre bajar y ver la grilla completarse, en vez de
+    // saltar directo al punto exacto.
+    const CATCHUP_SPEED = 3
 
     // Tope de "parejura" entre columnas: ninguna columna puede ir más de
     // MAX_COL_LEAD filas por delante de la columna disponible menos llena.
     const MAX_COL_LEAD = 5
-
-    // Cuadraditos spawneados por frame — generación continua, sin ráfagas ni
-    // pausas en el medio.
-    const GRID_SPEED = 3
 
     function spawnSquare() {
       const avail: number[] = []
@@ -470,27 +480,38 @@ function ProgressGrid({ tick }: { tick: number }) {
       fillIdx++
     }
 
-    function step() {
-      for (let i = 0; i < GRID_SPEED; i++) {
-        if (fillIdx >= TOTAL) return
-        spawnSquare()
-      }
-      rafId = requestAnimationFrame(step)
+    // La generación no corre sola: acompaña cuánto bajó el usuario. Se
+    // pinta hasta el punto que marca el scroll (nunca se despinta al subir).
+    function scrollTarget() {
+      const rect = section!.getBoundingClientRect()
+      const vh = window.innerHeight
+      const progress = Math.min(1, Math.max(0, (vh - rect.top) / vh))
+      return Math.floor(progress * TOTAL)
     }
 
-    const obs = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !animated) {
-          animated = true
-          rafId = requestAnimationFrame(step)
-        }
-      },
-      { threshold: 0.1 },
-    )
-    obs.observe(section)
+    function catchUp() {
+      const target = scrollTarget()
+      for (let i = 0; i < CATCHUP_SPEED && fillIdx < target; i++) spawnSquare()
+      if (fillIdx < target) {
+        rafId = requestAnimationFrame(catchUp)
+      } else {
+        catchingUp = false
+      }
+    }
+
+    function onScroll() {
+      if (catchingUp) return
+      catchingUp = true
+      rafId = requestAnimationFrame(catchUp)
+    }
+
+    onScroll()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    window.addEventListener("resize", onScroll)
 
     return () => {
-      obs.disconnect()
+      window.removeEventListener("scroll", onScroll)
+      window.removeEventListener("resize", onScroll)
       if (rafId) cancelAnimationFrame(rafId)
     }
   }, [])
@@ -590,27 +611,33 @@ export default function MarketingHome() {
           />
         </div>
 
-        {/* Placeholder invisible: reserva el mismo espacio en el flex que el h1
-            de abajo, para que el resto de los elementos (párrafo, fórmula) no
-            se muevan cuando el h1 real se reposiciona con `absolute`. */}
-        <div
-          aria-hidden
-          className="invisible font-sans text-[clamp(1.6rem,6vw,2.25rem)] font-bold leading-[1.2] tracking-[-0.01em]"
-        >
-          <span className="block">Repasá {course}</span>
-          <span className="block">todos los días.</span>
-        </div>
-        <h1 className="absolute top-[26%] left-1/2 w-full -translate-x-1/2 px-5 font-sans text-[clamp(1.6rem,6vw,2.25rem)] font-bold leading-[1.2] tracking-[-0.01em] text-[#F6F8FC]">
+        {/* h1 vive en el flujo normal del flex (no `absolute`): el ancho de
+            la palabra resaltada cambia, pero como el salto de línea está
+            forzado por los `span.block`, la altura nunca varía, así que no
+            hace falta placeholder ni posicionamiento independiente. */}
+        <h1 className="-mt-8 font-sans text-[clamp(1.6rem,6vw,2.25rem)] font-bold leading-[1.2] tracking-[-0.01em] text-[#F6F8FC]">
           <span className="block">
-            Repasá <span className="text-[#5457E5] transition-colors duration-300">{course}</span>
+            Repasá{" "}
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={course}
+                className="inline-block text-[#5457E5]"
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.25 }}
+              >
+                {course}
+              </motion.span>
+            </AnimatePresence>
           </span>
           <span className="block">todos los días.</span>
         </h1>
-        <p className="-mt-6 max-w-[28rem] text-[clamp(1.1rem,3.5vw,1.35rem)] leading-[1.75] text-[#A4B3C6] max-md:text-[0.93rem]">
+        <p className="max-w-[28rem] text-[clamp(1.1rem,3.5vw,1.35rem)] leading-[1.75] text-[#A4B3C6] max-md:text-[0.93rem]">
           Ejercitá las definiciones y propiedades que tanto cuestan entender de
           forma efectiva.
         </p>
-        <NotationCycler tick={tick} />
+        <NotationCycler tick={tick} className="mt-8" />
 
         <div className="absolute bottom-[3%] left-1/2 flex -translate-x-1/2 flex-col items-center gap-6">
           <Link
