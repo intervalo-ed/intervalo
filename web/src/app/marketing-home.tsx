@@ -153,7 +153,12 @@ const COURSE_TRACKS: CourseTrack[] = [
         ],
         questions: [
           { t2: "Subespacios", t3: "Clasificación", qt: "¿El siguiente conjunto es un subespacio?", q: "S = \\{(x,y) : x = 2y\\}" },
-          { t2: "Núcleo", t3: "Formulación", qt: "¿Cómo se define el núcleo de una transformación?", q: "\\ker(T)" },
+          {
+            t2: "Linealidad",
+            t3: "Formulación",
+            qt: "¿Qué propiedad cumple toda transformación lineal?",
+            q: "T(\\alpha \\vec{u} + \\vec{v}) = \\alpha T(\\vec{u}) + T(\\vec{v})",
+          },
           { t2: "Dimensión", t3: "Resolución", qt: "¿Cuál es la dimensión de la imagen?", q: "\\dim(\\operatorname{Im} T)" },
         ],
       },
@@ -191,7 +196,12 @@ const COURSE_TRACKS: CourseTrack[] = [
           { t2: "Laplace", t3: "Resolución", qt: "¿Cuál es la probabilidad del siguiente evento?", q: "P(A) = \\dfrac{2}{6}" },
           { t2: "Condicional", t3: "Formulación", qt: "¿Cómo se calcula la siguiente probabilidad condicional?", q: "P(A|B)" },
           { t2: "Axiomas", t3: "Resolución", qt: "¿Cuánto vale la probabilidad del complemento?", q: "P(A^c) = 1-0.3" },
-          { t2: "Bayes", t3: "Formulación", qt: "¿Cómo se calcula la siguiente probabilidad con Bayes?", q: "P(A|B) = \\dfrac{P(B|A)P(A)}{P(B)}" },
+          {
+            t2: "Unión",
+            t3: "Resolución",
+            qt: "¿Cómo se calcula la probabilidad de la unión?",
+            q: "P(A \\cup B) = P(A)+P(B)-P(A\\cap B)",
+          },
         ],
       },
       {
@@ -354,40 +364,63 @@ function QuestionLoop({ tick }: { tick: number }) {
   const { unit } = getTrackUnit(tick)
   const color = BELT_LEGEND_COLORS[unit.belt]
   const item = useMemo(() => pickSeeded(unit.questions, tick), [unit, tick])
+  const contentKey = `${unit.name}-${item.qt}`
 
   return (
-    <div className="mx-auto grid h-[160px] max-w-[600px] grid-rows-[40px_40px_40px_1fr] text-center">
+    <div className="mx-auto grid h-[160px] max-w-[600px] grid-rows-[40px_24px_40px_1fr] text-center">
       {/* Tags: 1º renglón de la grilla */}
-      <div className="row-start-1 flex flex-wrap items-center justify-center gap-2">
-        <span
-          className="h-2.5 w-2.5 shrink-0 -translate-y-px rounded-[2px] transition-colors duration-300"
-          style={{ background: color }}
-        />
-        <span className="font-mono text-[0.62rem] uppercase tracking-[0.13em] text-[#768899]">
-          {unit.name.toUpperCase()}
-        </span>
-        <span aria-hidden className="text-[0.5rem] text-[#38385A]">
-          ◆
-        </span>
-        <span className="font-mono text-[0.62rem] uppercase tracking-[0.13em] text-[#768899]">
-          {item.t2.toUpperCase()}
-        </span>
-        <span aria-hidden className="text-[0.5rem] text-[#38385A]">
-          ◆
-        </span>
-        <span className="font-mono text-[0.62rem] uppercase tracking-[0.13em] text-[#768899]">
-          {item.t3.toUpperCase()}
-        </span>
-      </div>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={`tags-${contentKey}`}
+          className="row-start-1 flex flex-wrap items-center justify-center gap-2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+        >
+          <span className="h-2.5 w-2.5 shrink-0 -translate-y-px rounded-[2px]" style={{ background: color }} />
+          <span className="font-mono text-[0.62rem] uppercase tracking-[0.13em] text-[#768899]">
+            {unit.name.toUpperCase()}
+          </span>
+          <span aria-hidden className="text-[0.5rem] text-[#38385A]">
+            ◆
+          </span>
+          <span className="font-mono text-[0.62rem] uppercase tracking-[0.13em] text-[#768899]">
+            {item.t2.toUpperCase()}
+          </span>
+          <span aria-hidden className="text-[0.5rem] text-[#38385A]">
+            ◆
+          </span>
+          <span className="font-mono text-[0.62rem] uppercase tracking-[0.13em] text-[#768899]">
+            {item.t3.toUpperCase()}
+          </span>
+        </motion.div>
+      </AnimatePresence>
       {/* Pregunta: 3º renglón, pegada a la fórmula */}
-      <div className="row-start-3 flex items-center justify-center text-[clamp(1.1rem,3.6vw,1.45rem)] leading-[1.4] text-[#F6F8FC]">
-        {item.qt}
-      </div>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={`q-${contentKey}`}
+          className="row-start-3 flex items-center justify-center text-[clamp(1.1rem,3.6vw,1.45rem)] leading-[1.4] text-[#F6F8FC]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+        >
+          {item.qt}
+        </motion.div>
+      </AnimatePresence>
       {/* Fórmula: arriba del espacio restante, cerca de la pregunta */}
-      <div
-        className="row-start-4 mx-auto flex max-w-[520px] items-start justify-center pt-2 font-medium leading-[1.5] text-[#F6F8FC] [&_.katex-display]:m-0 [&_.katex]:text-[clamp(1.25rem,4vw,1.5rem)]"
-        dangerouslySetInnerHTML={{ __html: renderMath(item.q) }}
-      />
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={`formula-${contentKey}`}
+          className="row-start-4 mx-auto flex max-w-[520px] items-start justify-center pt-2 text-[clamp(1.25rem,4.2vw,1.55rem)] font-medium leading-[1.5] text-[#F6F8FC] [&_.katex-display]:m-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          dangerouslySetInnerHTML={{ __html: renderMath(item.q) }}
+        />
+      </AnimatePresence>
     </div>
   )
 }
