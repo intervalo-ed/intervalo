@@ -82,5 +82,236 @@
     "graph_view": null,
     "reviewed": false,
     "tags": ["operar-entre-eventos"]
+  },
+  {
+    "question": "Se lanza un dado equilibrado de 6 caras y se anota el número que sale.\n\n¿Cuál de los siguientes conjuntos es un evento válido para este experimento?",
+    "options": [
+      "$\\{2,4,6\\}$",
+      "$\\{2,4,7\\}$",
+      "$\\{rojo,azul\\}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Los tres elementos pertenecen al espacio muestral $\\{1,\\dots,6\\}$.",
+    "feedback_incorrect": [
+      null,
+      "El 7 no pertenece al espacio muestral $\\{1,\\dots,6\\}$, así que ese conjunto no es un subconjunto válido.",
+      "Esos colores no forman parte de los resultados posibles de este dado, que son números."
+    ],
+    "explanation": "Un evento es válido cuando es un **subconjunto** del espacio muestral $\\Omega$, es decir cuando todos sus elementos pertenecen a $\\Omega$.\n\nCon un dado equilibrado, $\\Omega=\\{1,2,3,4,5,6\\}$, y el conjunto $\\{2,4,6\\}$ solo tiene números que están dentro de esa lista.\n\nUn conjunto con un elemento fuera de $\\Omega$, como el 7 o un color, deja de ser un evento posible de este experimento.\n\nRevisar cada elemento contra $\\Omega$ es el único criterio confiable, no alcanza con que el conjunto parezca razonable a simple vista.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["validar-subconjunto"]
+  },
+  {
+    "question": "De un mazo de 40 cartas españolas se extrae una carta y se anota su palo, entre oro, copa, espada y basto.\n\n¿Cuál de los siguientes conjuntos es un evento válido para este experimento?",
+    "options": [
+      "$\\{oro,trébol\\}$",
+      "$\\{oro,copa\\}$",
+      "$\\{1,2,3\\}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Oro y copa son dos de los cuatro palos posibles del espacio muestral.",
+    "feedback_incorrect": [
+      "El trébol no es un palo del mazo español, así que ese conjunto no es un subconjunto válido.",
+      null,
+      "Esos números no forman parte del espacio muestral de este experimento, que son los cuatro palos."
+    ],
+    "explanation": "Un evento es válido cuando es un **subconjunto** del espacio muestral $\\Omega$ de un experimento.\n\nAcá se anota el palo de la carta, así que el espacio muestral tiene los cuatro palos del mazo español:\n$$\\Omega=\\{oro,copa,espada,basto\\}$$\nEl conjunto $\\{oro,copa\\}$ solo tiene elementos que pertenecen a esa lista, así que es un evento válido.\n\nUn conjunto con un elemento que no es un palo real del mazo, como el trébol, o con números en vez de palos, queda fuera del espacio muestral de este experimento.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["validar-subconjunto"]
+  },
+  {
+    "question": "Se lanza un dado equilibrado de 6 caras y se registra el número obtenido.\n\nSe considera el evento $A=\\{4\\}$.\n\n¿Cómo se clasifica este evento?",
+    "options": [
+      "Compuesto, porque agrupa más de un resultado posible.",
+      "El espacio muestral completo del experimento.",
+      "Elemental, porque describe un único resultado."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Un evento con un único resultado del espacio muestral es elemental.",
+    "feedback_incorrect": [
+      "Un evento compuesto agrupa 2 o más resultados, y acá solo hay uno, el número 4.",
+      "El espacio muestral completo tiene los 6 números del dado, $A$ agrupa solo uno de ellos.",
+      null
+    ],
+    "explanation": "Un evento **elemental** tiene un único resultado del espacio muestral, a diferencia de un evento compuesto que agrupa dos o más.\n\nCon el dado, $\\Omega=\\{1,2,3,4,5,6\\}$, y $A=\\{4\\}$ contiene un solo número, sin agrupar ningún otro resultado junto a él.\n\nComo $A$ no se puede descomponer en resultados más chicos, es un suceso elemental.\n\nContar cuántos resultados agrupa un conjunto es el criterio directo para distinguir un evento elemental de uno compuesto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["clasificar-tipo-evento"]
+  },
+  {
+    "question": "Una urna contiene 7 bolitas numeradas del 1 al 7. Se extrae una al azar y se anota el número obtenido.\n\nSe considera el evento $C=\\{2,5,7\\}$.\n\n¿Cómo se clasifica este evento?",
+    "options": [
+      "Compuesto, porque agrupa más de un resultado posible.",
+      "Elemental, porque describe un único resultado.",
+      "El espacio muestral completo del experimento."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Un evento con 2 o más resultados distintos es compuesto.",
+    "feedback_incorrect": [
+      null,
+      "Un evento elemental tiene un único resultado, y acá hay tres números distintos.",
+      "El espacio muestral completo tiene las 7 bolitas, $C$ agrupa solo 3 de ellas."
+    ],
+    "explanation": "Un evento **compuesto** agrupa 2 o más resultados del espacio muestral, a diferencia de un suceso elemental que tiene uno solo.\n\nCon la urna de 7 bolitas, $\\Omega=\\{1,2,3,4,5,6,7\\}$, y $C=\\{2,5,7\\}$ junta tres números distintos.\n\nComo $C$ agrupa más de un resultado, es un evento compuesto y no un suceso elemental.\n\nContar cuántos resultados agrupa un conjunto sigue siendo el criterio directo para clasificarlo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["clasificar-tipo-evento"]
+  },
+  {
+    "question": "En una encuesta, un cliente elige un único método de pago entre efectivo, tarjeta o transferencia.\n\nSe considera el evento $D=\\{transferencia\\}$.\n\n¿Cómo se clasifica este evento?",
+    "options": [
+      "Compuesto, porque agrupa más de un resultado posible.",
+      "Elemental, porque describe un único resultado.",
+      "El espacio muestral completo del experimento."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Un evento con un único resultado del espacio muestral es elemental.",
+    "feedback_incorrect": [
+      "Un evento compuesto agrupa 2 o más resultados, y acá solo hay uno, transferencia.",
+      null,
+      "El espacio muestral completo tiene los tres métodos de pago, $D$ agrupa solo uno de ellos."
+    ],
+    "explanation": "Un evento **elemental** tiene un único resultado del espacio muestral.\n\nEn esta encuesta, el espacio muestral es:\n$$\\Omega=\\{efectivo,tarjeta,transferencia\\}$$\nY el evento $D=\\{transferencia\\}$ contiene un solo método de pago, sin agrupar los otros dos.\n\nComo $D$ no se puede descomponer en resultados más chicos, es un suceso elemental.\n\nSi el evento incluyera dos o más métodos de pago a la vez, ya pasaría a ser compuesto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["clasificar-tipo-evento"]
+  },
+  {
+    "question": "Se lanza un dado equilibrado de 6 caras.\n\nSean $A$ el evento de obtener un número par y $B$ el evento de obtener un número mayor a 4.\n\n¿$A$ y $B$ son mutuamente excluyentes?",
+    "options": [
+      "Sí, porque son dos eventos definidos de forma distinta.",
+      "Sí, porque ninguna cara puede tener dos características a la vez.",
+      "No, porque el 6 pertenece a los dos eventos a la vez."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El 6 cumple las dos condiciones al mismo tiempo, así que $A$ y $B$ no son excluyentes.",
+    "feedback_incorrect": [
+      "Que estén definidos de forma distinta no alcanza, hay que revisar si comparten algún resultado.",
+      "El 6 es justamente una cara con las dos características a la vez, ser par y ser mayor a 4.",
+      null
+    ],
+    "explanation": "Dos eventos son **mutuamente excluyentes** solo si su intersección es vacía, sin ningún resultado en común.\n\nCon el dado, $A=\\{2,4,6\\}$ son los pares y $B=\\{5,6\\}$ los mayores a 4. El número 6 pertenece a ambos conjuntos a la vez.\n\nQue dos eventos parezcan distintos por cómo se describen no garantiza que su intersección sea vacía, hay que revisar los resultados concretos que comparten.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-mutuamente-excluyentes"]
+  },
+  {
+    "question": "Una urna contiene bolitas rojas, azules y verdes, de las cuales se extrae una al azar.\n\nSean $A$ el evento de que la bolita sea roja y $B$ el evento de que sea azul.\n\n¿$A$ y $B$ son mutuamente excluyentes?",
+    "options": [
+      "Sí, porque una misma bolita tiene un único color.",
+      "No, porque algunas bolitas son rojas y azules a la vez.",
+      "Son el mismo evento, porque ambos describen un color de bolita."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Como cada bolita tiene un único color, $A$ y $B$ no pueden ocurrir juntos en la misma extracción.",
+    "feedback_incorrect": [
+      null,
+      "Ninguna bolita de esta urna tiene dos colores a la vez, cada una es de un único color.",
+      "Son eventos distintos: uno agrupa las bolitas rojas, y el otro las azules."
+    ],
+    "explanation": "Dos eventos son **mutuamente excluyentes** cuando no pueden ocurrir al mismo tiempo, es decir cuando su intersección es vacía.\n\nEn esta urna, cada bolita tiene un único color, así que ninguna bolita puede pertenecer a $A$, ser roja, y a $B$, ser azul, a la vez.\n\nComo no existe ningún resultado en la intersección de $A$ y $B$, los dos eventos son mutuamente excluyentes.\n\nSi alguna bolita tuviera dos colores pintados a la vez, esta conclusión cambiaría por completo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-mutuamente-excluyentes"]
+  },
+  {
+    "question": "En una encuesta, cada estudiante responde si aprobó el examen o no lo aprobó.\n\nSean $A$ el evento de que haya aprobado y $B$ el evento de que no haya aprobado.\n\n¿$A$ y $B$ son mutuamente excluyentes?",
+    "options": [
+      "No, porque un estudiante podría aprobar y no aprobar a la vez.",
+      "Sí, porque ninguna respuesta cumple las dos condiciones a la vez.",
+      "Son el mismo evento, porque ambos describen el resultado del examen."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada estudiante responde una sola cosa, así que $A$ y $B$ no pueden darse a la vez.",
+    "feedback_incorrect": [
+      "El enunciado dice que cada estudiante responde una sola cosa, así que no puede quedarse con las dos respuestas a la vez.",
+      null,
+      "Son eventos distintos: uno agrupa a quienes aprobaron, y el otro a quienes no."
+    ],
+    "explanation": "Dos eventos son **mutuamente excluyentes** cuando no pueden ocurrir al mismo tiempo, es decir cuando su intersección es vacía.\n\nComo cada estudiante da una única respuesta, si ocurre $A$, que aprobó, entonces no puede ocurrir $B$, que no aprobó, en la misma encuesta.\n\nVerificar que dos eventos son mutuamente excluyentes exige confirmar que no comparten ningún resultado, no alcanza con que parezcan opuestos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-mutuamente-excluyentes"]
+  },
+  {
+    "question": "Se lanza un dado equilibrado de 6 caras, con espacio muestral $\\Omega=\\{1,2,3,4,5,6\\}$.\n\nSe definen los eventos $A=\\{1,2\\}$ y $B=\\{2,3,4\\}$.\n\n¿Cuál es el resultado de $A \\cup B$?",
+    "options": [
+      "$\\{2\\}$",
+      "$\\{1,3,4\\}$",
+      "$\\{1,2,3,4\\}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Todos los elementos que están en $A$, en $B$, o en ambos, forman la unión.",
+    "feedback_incorrect": [
+      "Ese conjunto es la intersección $A \\cap B$, no la unión.",
+      "Esa lista deja afuera al 2, que sí pertenece a la unión de los dos conjuntos.",
+      null
+    ],
+    "explanation": "La **unión** $A \\cup B$ reúne todos los resultados que pertenecen a alguno de los dos eventos, o a ambos a la vez.\n\nCon $A=\\{1,2\\}$ y $B=\\{2,3,4\\}$, juntando todos los elementos sin repetir el 2:\n$$A \\cup B = \\{1,2,3,4\\}$$\nEl 2 aparece en los dos conjuntos originales, pero en la unión se cuenta una sola vez.\n\nConfundir unión con intersección es habitual cuando dos conjuntos comparten algún elemento.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["operar-entre-eventos"]
+  },
+  {
+    "question": "Una urna contiene 5 bolitas numeradas del 1 al 5, de las cuales se extrae una al azar.\n\nSe define el evento $A=\\{1,3,5\\}$.\n\n¿Cuál es el resultado del complemento $A^c$?",
+    "options": [
+      "$\\{2,4\\}$",
+      "$\\{1,3,5\\}$",
+      "$\\{1,2,3,4,5\\}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Los resultados que no pertenecen a $A$ son el 2 y el 4.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el propio conjunto $A$, el complemento reúne justamente lo que $A$ deja afuera.",
+      "Ese es el espacio muestral completo, no lo que queda tras sacar los elementos de $A$."
+    ],
+    "explanation": "El **complemento** $A^c$ de un evento reúne los resultados del espacio muestral que no pertenecen a él.\n\nCon la urna de 5 bolitas, el espacio muestral es:\n$$\\Omega=\\{1,2,3,4,5\\}$$\nY el evento es $A=\\{1,3,5\\}$. Los resultados que quedan afuera de $A$ son:\n$$A^c = \\{2,4\\}$$\nEsos dos números son los únicos que no aparecen en $A$.\n\nComo un evento y su complemento cubren todo el espacio muestral sin superponerse, cualquier resultado que no esté en $A$ tiene que estar en $A^c$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["operar-entre-eventos"]
+  },
+  {
+    "question": "En una encuesta, cada cliente puede elegir más de un método de pago entre los disponibles.\n\nEl espacio muestral de métodos es:\n$$\\Omega=\\{efectivo,tarjeta,transferencia,cheque\\}$$\nSe definen los eventos:\n$$A=\\{efectivo,tarjeta\\}$$\n$$B=\\{tarjeta,transferencia\\}$$\n¿Cuál es el resultado de $A \\cap B$?",
+    "options": [
+      "$\\{efectivo\\}$",
+      "$\\{tarjeta\\}$",
+      "$\\{transferencia\\}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Tarjeta es el único método que aparece en los dos conjuntos a la vez.",
+    "feedback_incorrect": [
+      "Efectivo solo pertenece a $A$, no está en los dos eventos a la vez.",
+      null,
+      "Transferencia solo pertenece a $B$, no está en los dos eventos a la vez."
+    ],
+    "explanation": "La **intersección** $A \\cap B$ reúne solo los resultados que pertenecen a los dos eventos a la vez.\n\nLos eventos del ejemplo son:\n$$A=\\{efectivo,tarjeta\\}$$\n$$B=\\{tarjeta,transferencia\\}$$\nEl único elemento presente en ambos conjuntos es tarjeta:\n$$A \\cap B = \\{tarjeta\\}$$\nEfectivo solo está en $A$, y transferencia solo está en $B$, así que ninguno de los dos entra en la intersección.\n\nConfundir intersección con unión es habitual cuando ambos conjuntos comparten un elemento y también tienen otros propios.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["operar-entre-eventos"]
   }
 ]

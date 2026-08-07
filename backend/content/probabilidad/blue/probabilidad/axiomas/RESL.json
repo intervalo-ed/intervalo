@@ -70,5 +70,203 @@
     "graph_view": null,
     "reviewed": false,
     "tags": ["resl-despeje-union"]
+  },
+  {
+    "question": "En una urna, $P(A) = 0{,}3$ y $P(B) = 0{,}4$, siendo ambos eventos mutuamente excluyentes.\n\n¿Cuál es el valor de $P(A \\cup B)$?",
+    "options": ["$0{,}7$", "$0{,}12$", "$0{,}1$", "$0{,}3$"],
+    "correct_index": 0,
+    "feedback_correct": "Al ser mutuamente excluyentes, la unión es la suma simple de ambas probabilidades.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor sale de multiplicar $P(A)$ por $P(B)$, una operación que no corresponde a la unión.",
+      "Ese valor sale de restar $P(A)$ de $P(B)$, un cálculo que no corresponde a este evento.",
+      "Ese valor es solo $P(A)$, falta sumar la probabilidad de $B$."
+    ],
+    "explanation": "Como $A$ y $B$ son mutuamente excluyentes, su intersección vale cero.\n\nPor eso $P(A\\cap B) = 0$ y la regla general de la unión se reduce a la suma directa.\n\nCon $P(A)=0{,}3$ y $P(B)=0{,}4$:\n$$P(A \\cup B) = 0{,}3 + 0{,}4 = 0{,}7$$\nNo hace falta restar nada porque los dos eventos nunca ocurren a la vez.\n\nMultiplicar en vez de sumar confunde la unión con la intersección de eventos independientes, y da un resultado mucho menor al real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-union-excluyentes"]
+  },
+  {
+    "question": "Con un mazo de cartas de truco, $P(A) = 0{,}45$ y $P(B) = 0{,}3$, siendo ambos eventos mutuamente excluyentes.\n\n¿Cuál es el valor de $P(A \\cup B)$?",
+    "options": ["$0{,}135$", "$0{,}75$", "$0{,}15$", "$0{,}45$"],
+    "correct_index": 1,
+    "feedback_correct": "Al ser mutuamente excluyentes, la unión es la suma simple de ambas probabilidades.",
+    "feedback_incorrect": [
+      "Ese valor sale de multiplicar $P(A)$ por $P(B)$, una operación que no corresponde a la unión.",
+      null,
+      "Ese valor sale de restar $P(B)$ de $P(A)$, un cálculo que no corresponde a este evento.",
+      "Ese valor es solo $P(A)$, falta sumar la probabilidad de $B$."
+    ],
+    "explanation": "Como $A$ y $B$ son mutuamente excluyentes, su intersección vale cero.\n\nPor eso $P(A\\cap B) = 0$ y la regla general de la unión se reduce a la suma directa.\n\nCon $P(A)=0{,}45$ y $P(B)=0{,}3$:\n$$P(A \\cup B) = 0{,}45 + 0{,}3 = 0{,}75$$\nNo hace falta restar nada porque los dos eventos nunca ocurren a la vez.\n\nMultiplicar en vez de sumar confunde la unión con la intersección de eventos independientes, y da un resultado mucho menor al real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-union-excluyentes"]
+  },
+  {
+    "question": "En una encuesta, $P(A) = 0{,}5$ y $P(B) = 0{,}35$.\n\nAdemás, $P(A \\cap B) = 0{,}15$.\n\n¿Cuál es el valor de $P(A \\cup B)$?",
+    "options": ["$0{,}85$", "$0{,}7$", "$0{,}175$", "$0{,}15$"],
+    "correct_index": 1,
+    "feedback_correct": "Restar la intersección evita contar dos veces a las personas que cumplen ambas condiciones.",
+    "feedback_incorrect": [
+      "Ese valor suma $P(A)+P(B)$ sin restar la intersección, contando dos veces los casos compartidos.",
+      null,
+      "Ese valor sale de multiplicar $P(A)$ por $P(B)$, un cálculo que no corresponde a la unión.",
+      "Ese valor es solo $P(A\\cap B)$, falta sumar los casos exclusivos de cada evento."
+    ],
+    "explanation": "La regla general de la unión resta la intersección para no contar dos veces los resultados compartidos entre $A$ y $B$.\n\nCon los valores dados:\n$$P(A \\cup B) = 0{,}5 + 0{,}35 - 0{,}15 = 0{,}7$$\nLas personas que cumplen ambas condiciones a la vez quedaban contadas dos veces al sumar $P(A)$ y $P(B)$ directamente.\n\nRestar $P(A\\cap B)$ corrige ese exceso.\n\nOlvidarse de restar la intersección en eventos que sí se superponen deja el resultado sobreestimado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-union-general"]
+  },
+  {
+    "question": "En una urna, $P(A) = 0{,}4$ y $P(B) = 0{,}3$.\n\nAdemás, $P(A \\cap B) = 0{,}1$.\n\n¿Cuál es el valor de $P(A \\cup B)$?",
+    "options": ["$0{,}12$", "$0{,}7$", "$0{,}6$", "$0{,}1$"],
+    "correct_index": 2,
+    "feedback_correct": "Restar la intersección evita contar dos veces las bolitas que cumplen ambas condiciones.",
+    "feedback_incorrect": [
+      "Ese valor sale de multiplicar $P(A)$ por $P(B)$, un cálculo que no corresponde a la unión.",
+      "Ese valor suma $P(A)+P(B)$ sin restar la intersección, contando dos veces los casos compartidos.",
+      null,
+      "Ese valor es solo $P(A\\cap B)$, falta sumar los casos exclusivos de cada evento."
+    ],
+    "explanation": "La regla general de la unión resta la intersección para no contar dos veces los resultados compartidos entre $A$ y $B$.\n\nCon los valores dados:\n$$P(A \\cup B) = 0{,}4 + 0{,}3 - 0{,}1 = 0{,}6$$\nLas bolitas que cumplen ambas condiciones a la vez quedaban contadas dos veces al sumar $P(A)$ y $P(B)$ directamente.\n\nRestar $P(A\\cap B)$ corrige ese exceso.\n\nOlvidarse de restar la intersección en eventos que sí se superponen deja el resultado sobreestimado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-union-general"]
+  },
+  {
+    "question": "Con un mazo de cartas de truco, $P(A) = 0{,}55$ y $P(B) = 0{,}25$.\n\nAdemás, $P(A \\cap B) = 0{,}1$.\n\n¿Cuál es el valor de $P(A \\cup B)$?",
+    "options": ["$0{,}7$", "$0{,}8$", "$0{,}1375$", "$0{,}1$"],
+    "correct_index": 0,
+    "feedback_correct": "Restar la intersección evita contar dos veces las cartas que cumplen ambas condiciones.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor suma $P(A)+P(B)$ sin restar la intersección, contando dos veces los casos compartidos.",
+      "Ese valor sale de multiplicar $P(A)$ por $P(B)$, un cálculo que no corresponde a la unión.",
+      "Ese valor es solo $P(A\\cap B)$, falta sumar los casos exclusivos de cada evento."
+    ],
+    "explanation": "La regla general de la unión resta la intersección para no contar dos veces los resultados compartidos entre $A$ y $B$.\n\nCon los valores dados:\n$$P(A \\cup B) = 0{,}55 + 0{,}25 - 0{,}1 = 0{,}7$$\nLas cartas que cumplen ambas condiciones a la vez quedaban contadas dos veces al sumar $P(A)$ y $P(B)$ directamente.\n\nRestar $P(A\\cap B)$ corrige ese exceso.\n\nOlvidarse de restar la intersección en eventos que sí se superponen deja el resultado sobreestimado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-union-general"]
+  },
+  {
+    "question": "En un control de calidad, $P(A) = 0{,}15$, donde $A$ es que una pieza tenga un defecto.\n\n¿Cuál es el valor de $P(A^c)$?",
+    "options": ["$0{,}85$", "$1{,}15$", "$0{,}15$", "$0{,}75$"],
+    "correct_index": 0,
+    "feedback_correct": "El complemento se obtiene restando la probabilidad dada de 1.",
+    "feedback_incorrect": [
+      null,
+      "Sumar en vez de restar da un valor mayor a 1, imposible para una probabilidad.",
+      "Ese es el valor de $P(A)$, no el de su complemento.",
+      "Ese valor no sale de restar $0{,}15$ de $1$ correctamente."
+    ],
+    "explanation": "El complemento cumple $P(A^c) = 1 - P(A)$, la parte del espacio muestral que queda afuera de $A$.\n\nCon $P(A) = 0{,}15$:\n$$P(A^c) = 1 - 0{,}15 = 0{,}85$$\nEste valor representa a las piezas sin ese defecto, sin necesitar ningún otro dato del control.\n\nRepetir el valor de $P(A)$ como si fuera su propio complemento es un desliz común cuando se pasa por alto la resta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-complemento"]
+  },
+  {
+    "question": "En una urna, $P(A) = 0{,}42$, donde $A$ es sacar una bolita numerada.\n\n¿Cuál es el valor de $P(A^c)$?",
+    "options": ["$1{,}42$", "$0{,}42$", "$0{,}58$", "$0{,}48$"],
+    "correct_index": 2,
+    "feedback_correct": "El complemento se obtiene restando la probabilidad dada de 1.",
+    "feedback_incorrect": [
+      "Sumar en vez de restar da un valor mayor a 1, imposible para una probabilidad.",
+      "Ese es el valor de $P(A)$, no el de su complemento.",
+      null,
+      "Ese valor no sale de restar $0{,}42$ de $1$ correctamente."
+    ],
+    "explanation": "El complemento cumple $P(A^c) = 1 - P(A)$, la parte del espacio muestral que queda afuera de $A$.\n\nCon $P(A) = 0{,}42$:\n$$P(A^c) = 1 - 0{,}42 = 0{,}58$$\nEste valor representa a las bolitas no numeradas, sin necesitar ningún otro dato de la urna.\n\nRepetir el valor de $P(A)$ como si fuera su propio complemento es un desliz común cuando se pasa por alto la resta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-complemento"]
+  },
+  {
+    "question": "Con un mazo de cartas de truco, $P(A) = 0{,}6$, donde $A$ es sacar una carta de copa o basto.\n\n¿Cuál es el valor de $P(A^c)$?",
+    "options": ["$0{,}4$", "$0{,}6$", "$1{,}6$", "$0{,}5$"],
+    "correct_index": 0,
+    "feedback_correct": "El complemento se obtiene restando la probabilidad dada de 1.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el valor de $P(A)$, no el de su complemento.",
+      "Sumar en vez de restar da un valor mayor a 1, imposible para una probabilidad.",
+      "Ese valor no sale de restar $0{,}6$ de $1$ correctamente."
+    ],
+    "explanation": "El complemento cumple $P(A^c) = 1 - P(A)$, la parte del espacio muestral que queda afuera de $A$.\n\nCon $P(A) = 0{,}6$:\n$$P(A^c) = 1 - 0{,}6 = 0{,}4$$\nEste valor representa las cartas que no son de copa ni de basto, sin necesitar ningún otro dato del mazo.\n\nRepetir el valor de $P(A)$ como si fuera su propio complemento es un desliz común cuando se pasa por alto la resta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-complemento"]
+  },
+  {
+    "question": "En una encuesta sobre dos hábitos de consumo, se sabe que $P(A \\cup B) = 0{,}7$.\n\nAdemás, $P(A) = 0{,}5$ y $P(B) = 0{,}45$.\n\n¿Cuál es el valor de $P(A \\cap B)$?",
+    "options": ["$0{,}7$", "$1{,}65$", "$0{,}95$", "$0{,}25$"],
+    "correct_index": 3,
+    "feedback_correct": "Despejando la fórmula general, la intersección sale de restar la unión de la suma de ambas.",
+    "feedback_incorrect": [
+      "Ese es el valor dado de $P(A\\cup B)$, no el de la intersección despejada.",
+      "Ese valor sale de sumar los tres datos sin despejar correctamente la fórmula.",
+      "Ese valor suma $P(A)$ y $P(B)$ sin restar la unión dada, un paso que no corresponde al despeje.",
+      null
+    ],
+    "explanation": "La regla general de la unión de partida es:\n$$P(A\\cup B) = P(A)+P(B)-P(A\\cap B)$$\nDespejando la intersección:\n$$P(A\\cap B) = P(A) + P(B) - P(A\\cup B)$$\nCon los datos de la encuesta:\n$$\\begin{aligned} P(A) &= 0{,}5 \\\\ P(B) &= 0{,}45 \\\\ P(A\\cup B) &= 0{,}7 \\end{aligned}$$\nReemplazando:\n$$P(A\\cap B) = 0{,}5 + 0{,}45 - 0{,}7 = 0{,}25$$\nDespejar bien el término que falta evita quedarse con alguno de los datos originales como si fuera la respuesta.\n\nInvertir un signo al despejar deja alguno de los datos originales disfrazado de respuesta final.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-despeje-union"]
+  },
+  {
+    "question": "En un control de calidad sobre dos tipos de defecto, se sabe que $P(A \\cup B) = 0{,}55$.\n\nAdemás, $P(A) = 0{,}3$ y $P(B) = 0{,}35$.\n\n¿Cuál es el valor de $P(A \\cap B)$?",
+    "options": ["$0{,}1$", "$0{,}55$", "$1{,}2$", "$0{,}65$"],
+    "correct_index": 0,
+    "feedback_correct": "Despejando la fórmula general, la intersección sale de restar la unión de la suma de ambas.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el valor dado de $P(A\\cup B)$, no el de la intersección despejada.",
+      "Ese valor sale de sumar los tres datos sin despejar correctamente la fórmula.",
+      "Ese valor no corresponde a despejar $P(A\\cap B)$ desde la fórmula general de la unión."
+    ],
+    "explanation": "La regla general de la unión de partida es:\n$$P(A\\cup B) = P(A)+P(B)-P(A\\cap B)$$\nDespejando la intersección:\n$$P(A\\cap B) = P(A) + P(B) - P(A\\cup B)$$\nCon los datos del control de calidad:\n$$\\begin{aligned} P(A) &= 0{,}3 \\\\ P(B) &= 0{,}35 \\\\ P(A\\cup B) &= 0{,}55 \\end{aligned}$$\nReemplazando:\n$$P(A\\cap B) = 0{,}3 + 0{,}35 - 0{,}55 = 0{,}1$$\nDespejar bien el término que falta evita quedarse con alguno de los datos originales como si fuera la respuesta.\n\nInvertir un signo al despejar deja alguno de los datos originales disfrazado de respuesta final.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-despeje-union"]
+  },
+  {
+    "question": "En una urna con dos criterios de selección, se sabe que $P(A \\cup B) = 0{,}65$.\n\nAdemás, $P(A) = 0{,}55$ y $P(B) = 0{,}4$.\n\n¿Cuál es el valor de $P(A \\cap B)$?",
+    "options": ["$1{,}6$", "$0{,}65$", "$0{,}3$", "$0{,}95$"],
+    "correct_index": 2,
+    "feedback_correct": "Despejando la fórmula general, la intersección sale de restar la unión de la suma de ambas.",
+    "feedback_incorrect": [
+      "Ese valor sale de sumar los tres datos sin despejar correctamente la fórmula.",
+      "Ese es el valor dado de $P(A\\cup B)$, no el de la intersección despejada.",
+      null,
+      "Ese valor suma $P(A)$ y $P(B)$ sin restar la unión dada, un paso que no corresponde al despeje."
+    ],
+    "explanation": "La regla general de la unión de partida es:\n$$P(A\\cup B) = P(A)+P(B)-P(A\\cap B)$$\nDespejando la intersección:\n$$P(A\\cap B) = P(A) + P(B) - P(A\\cup B)$$\nCon los datos de la urna:\n$$\\begin{aligned} P(A) &= 0{,}55 \\\\ P(B) &= 0{,}4 \\\\ P(A\\cup B) &= 0{,}65 \\end{aligned}$$\nReemplazando:\n$$P(A\\cap B) = 0{,}55 + 0{,}4 - 0{,}65 = 0{,}3$$\nDespejar bien el término que falta evita quedarse con alguno de los datos originales como si fuera la respuesta.\n\nInvertir un signo al despejar deja alguno de los datos originales disfrazado de respuesta final.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-despeje-union"]
   }
 ]

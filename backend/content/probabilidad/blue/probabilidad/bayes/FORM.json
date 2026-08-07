@@ -18,7 +18,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["form-identificar-numerador"]
+    "tags": [
+      "form-identificar-numerador"
+    ]
   },
   {
     "question": "En una fábrica hay dos líneas de producción, $A_1$ y $A_2$, cada una con su propia proporción de producción.\n\nSe conoce además la probabilidad de que una pieza defectuosa $D$ salga de cada línea. Se quiere calcular $P(A_1\\mid D)$.\n\n¿Cuál es la expresión completa del teorema de Bayes para este caso?",
@@ -39,6 +41,307 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["form-armar-teorema"]
+    "tags": [
+      "form-armar-teorema"
+    ]
+  },
+  {
+    "question": "Un test rápido se usa para determinar si una persona tiene gripe a partir de un resultado positivo.\n\nSe quiere calcular $P(\\text{gripe} \\mid \\text{positivo})$ con el teorema de Bayes.\n\nSe conocen la verosimilitud, la probabilidad a priori y la probabilidad total de la evidencia.\n\n¿Qué expresión corresponde al numerador de la fórmula?",
+    "options": [
+      "$P(\\text{positivo})$",
+      "$P(\\text{positivo}\\mid\\text{gripe}) \\cdot P(\\text{gripe})$",
+      "$P(\\text{gripe}) \\cdot P(\\text{positivo})$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El numerador de Bayes es siempre el producto de la verosimilitud por la a priori de la rama que se busca.",
+    "feedback_incorrect": [
+      "Esa expresión es el denominador de Bayes, no el numerador.",
+      null,
+      "Ese producto multiplica dos probabilidades que no están condicionadas entre sí, no corresponde a la rama favorable."
+    ],
+    "explanation": "En el **teorema de Bayes**, el numerador siempre es el producto de la verosimilitud por la probabilidad a priori de la rama que se está buscando invertir:\n$$P(\\text{positivo}\\mid\\text{gripe}) \\cdot P(\\text{gripe})$$\nEse numerador representa la rama favorable, la que combina tener gripe y dar positivo.\n\nIntuitivamente, multiplicar ambos factores responde a una sola pregunta: de toda la población, qué fracción tiene gripe y además da positivo, la combinación exacta que se busca aislar.\n\nConfundir el numerador con el denominador completo, o multiplicar probabilidades que no están condicionadas entre sí, entrega una expresión que no corresponde a ninguna rama real del problema.",
+    "tags": [
+      "form-identificar-numerador"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Una fábrica arma piezas que pueden venir de dos máquinas, la máquina $M_1$ y la máquina $M_2$.\n\nSe quiere calcular $P(M_1 \\mid \\text{defectuosa})$ con el teorema de Bayes.\n\nSe conocen la verosimilitud, la probabilidad a priori y la probabilidad total de la evidencia.\n\n¿Qué expresión corresponde al numerador de la fórmula?",
+    "options": [
+      "$P(\\text{defectuosa})$",
+      "$P(M_1) \\cdot P(\\text{defectuosa}\\mid M_2)$",
+      "$P(\\text{defectuosa}\\mid M_1) \\cdot P(M_1)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El numerador de Bayes es siempre el producto de la verosimilitud por la a priori de la rama que se busca.",
+    "feedback_incorrect": [
+      "Esa expresión es el denominador de Bayes, no el numerador.",
+      "Ese producto mezcla el peso de $M_1$ con la verosimilitud de $M_2$, combinando dos ramas distintas en vez de usar solo la de interés.",
+      null
+    ],
+    "explanation": "En el **teorema de Bayes**, el numerador siempre es el producto de la verosimilitud por la probabilidad a priori de la rama que se está buscando invertir:\n$$P(\\text{defectuosa}\\mid M_1) \\cdot P(M_1)$$\nEse numerador representa la rama favorable, la que combina que la pieza venga de $M_1$ y además sea defectuosa.\n\nIntuitivamente, multiplicar ambos factores responde a una sola pregunta: de todas las piezas, qué fracción viene de $M_1$ y además sale defectuosa, la combinación exacta que se busca aislar.\n\nConfundir el numerador con el denominador completo, o mezclar el peso de una rama con la verosimilitud de otra, entrega una expresión que no corresponde a ninguna rama real del problema.",
+    "tags": [
+      "form-identificar-numerador"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Un lote de tornillos puede provenir del proveedor $R$ o del proveedor $S$.\n\nSe quiere calcular $P(R \\mid F)$ con el teorema de Bayes, donde $F$ es el evento de que el tornillo falle.\n\nSe conocen la verosimilitud, la probabilidad a priori y la probabilidad total de la evidencia.\n\n¿Qué expresión corresponde al numerador de la fórmula?",
+    "options": [
+      "$P(F\\mid R) \\cdot P(R)$",
+      "$P(R) \\cdot P(F\\mid S)$",
+      "$P(F)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El numerador de Bayes es siempre el producto de la verosimilitud por la a priori de la rama que se busca.",
+    "feedback_incorrect": [
+      null,
+      "Ese producto combina el peso de $R$ con la verosimilitud de $S$, mezclando las dos ramas en vez de usar solo la de interés.",
+      "Esa expresión es el denominador de Bayes, no el numerador."
+    ],
+    "explanation": "En el **teorema de Bayes**, el numerador siempre es el producto de la verosimilitud por la probabilidad a priori de la rama que se está buscando invertir:\n$$P(F\\mid R) \\cdot P(R)$$\nEse numerador representa la rama favorable, la que combina que el tornillo venga del proveedor $R$ y además falle.\n\nIntuitivamente, multiplicar ambos factores responde a una sola pregunta: de todos los tornillos, qué fracción viene de $R$ y además falla, la combinación exacta que se busca aislar.\n\nConfundir el numerador con el denominador completo, o multiplicar dos probabilidades a priori sin ninguna verosimilitud, entrega una expresión que no corresponde a ninguna rama real del problema.",
+    "tags": [
+      "form-identificar-numerador"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Hay dos urnas, la urna $A$ y la urna $B$, y se elige una al azar antes de sacar una bolita.\n\nSe quiere calcular $P(A \\mid \\text{roja})$ con el teorema de Bayes.\n\nSe conocen la verosimilitud, la probabilidad a priori y la probabilidad total de la evidencia.\n\n¿Qué expresión corresponde al numerador de la fórmula?",
+    "options": [
+      "$P(\\text{roja})$",
+      "$P(\\text{roja}\\mid A) \\cdot P(A)$",
+      "$P(A) \\cdot P(\\text{roja}\\mid B)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El numerador de Bayes es siempre el producto de la verosimilitud por la a priori de la rama que se busca.",
+    "feedback_incorrect": [
+      "Esa expresión es el denominador de Bayes, no el numerador.",
+      null,
+      "Ese producto mezcla el peso de la urna $A$ con la verosimilitud de la urna $B$, combinando dos ramas distintas en vez de usar solo la de interés."
+    ],
+    "explanation": "En el **teorema de Bayes**, el numerador siempre es el producto de la verosimilitud por la probabilidad a priori de la rama que se está buscando invertir:\n$$P(\\text{roja}\\mid A) \\cdot P(A)$$\nEse numerador representa la rama favorable, la que combina haber elegido la urna $A$ y además sacar una bolita roja.\n\nIntuitivamente, multiplicar ambos factores responde a una sola pregunta: de todos los sorteos posibles, qué fracción elige la urna $A$ y además saca roja, la combinación exacta que se busca aislar.\n\nConfundir el numerador con el denominador completo, o mezclar el peso de una urna con la verosimilitud de otra, entrega una expresión que no corresponde a ninguna rama real del problema.",
+    "tags": [
+      "form-identificar-numerador"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Hay tres cajas con fichas, y se elige una al azar antes de sacar una ficha.\n\nSe quiere calcular $P(C_2 \\mid \\text{verde})$ con el teorema de Bayes.\n\nSe conocen la verosimilitud, la probabilidad a priori y la probabilidad total de la evidencia.\n\n¿Qué expresión corresponde al numerador de la fórmula?",
+    "options": [
+      "$P(C_2) \\cdot P(\\text{verde}\\mid C_1)$",
+      "$P(\\text{verde})$",
+      "$P(\\text{verde}\\mid C_2) \\cdot P(C_2)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El numerador de Bayes es siempre el producto de la verosimilitud por la a priori de la rama que se busca.",
+    "feedback_incorrect": [
+      "Ese producto mezcla el peso de la caja $C_2$ con la verosimilitud de la caja $C_1$, combinando dos ramas distintas en vez de usar solo la de interés.",
+      "Esa expresión es el denominador de Bayes, no el numerador.",
+      null
+    ],
+    "explanation": "En el **teorema de Bayes**, el numerador siempre es el producto de la verosimilitud por la probabilidad a priori de la rama que se está buscando invertir:\n$$P(\\text{verde}\\mid C_2) \\cdot P(C_2)$$\nEse numerador representa la rama favorable, la que combina haber elegido la caja $C_2$ y además sacar una ficha verde.\n\nIntuitivamente, multiplicar ambos factores responde a una sola pregunta: de todos los sorteos posibles, qué fracción elige la caja $C_2$ y además saca verde, la combinación exacta que se busca aislar.\n\nConfundir el numerador con el denominador completo, o mezclar el peso de una caja con la verosimilitud de otra, entrega una expresión que no corresponde a ninguna rama real del problema.",
+    "tags": [
+      "form-identificar-numerador"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Un filtro de spam analiza si un correo contiene un archivo adjunto sospechoso.\n\nSe quiere calcular $P(\\text{spam} \\mid \\text{adjunto})$ con el teorema de Bayes.\n\nSe conocen la verosimilitud, la probabilidad a priori y la probabilidad total de la evidencia.\n\n¿Qué expresión corresponde al numerador de la fórmula?",
+    "options": [
+      "$P(\\text{adjunto}\\mid\\text{spam}) \\cdot P(\\text{spam})$",
+      "$P(\\text{adjunto})$",
+      "$P(\\text{spam}) \\cdot P(\\text{adjunto})$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El numerador de Bayes es siempre el producto de la verosimilitud por la a priori de la rama que se busca.",
+    "feedback_incorrect": [
+      null,
+      "Esa expresión es el denominador de Bayes, no el numerador.",
+      "Ese producto multiplica dos probabilidades que no están condicionadas entre sí, no corresponde a la rama favorable."
+    ],
+    "explanation": "En el **teorema de Bayes**, el numerador siempre es el producto de la verosimilitud por la probabilidad a priori de la rama que se está buscando invertir:\n$$P(\\text{adjunto}\\mid\\text{spam}) \\cdot P(\\text{spam})$$\nEse numerador representa la rama favorable, la que combina que el correo sea spam y además tenga el adjunto sospechoso.\n\nIntuitivamente, multiplicar ambos factores responde a una sola pregunta: de todos los correos, qué fracción es spam y además tiene ese adjunto, la combinación exacta que se busca aislar.\n\nConfundir el numerador con el denominador completo, o multiplicar probabilidades que no están condicionadas entre sí, entrega una expresión que no corresponde a ninguna rama real del problema.",
+    "tags": [
+      "form-identificar-numerador"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Un filtro de spam revisa si el remitente de un correo no está en la lista de contactos conocidos.\n\nSe quiere calcular $P(\\text{spam} \\mid \\text{desconocido})$ con el teorema de Bayes.\n\nSe conocen la verosimilitud, la probabilidad a priori y la probabilidad total de la evidencia.\n\n¿Qué expresión corresponde al numerador de la fórmula?",
+    "options": [
+      "$P(\\text{spam}) \\cdot P(\\text{desconocido}\\mid\\overline{\\text{spam}})$",
+      "$P(\\text{desconocido}\\mid\\text{spam}) \\cdot P(\\text{spam})$",
+      "$P(\\text{desconocido})$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El numerador de Bayes es siempre el producto de la verosimilitud por la a priori de la rama que se busca.",
+    "feedback_incorrect": [
+      "Ese producto mezcla el peso de ser spam con la verosimilitud de no serlo, combinando dos ramas distintas en vez de usar solo la de interés.",
+      null,
+      "Esa expresión es el denominador de Bayes, no el numerador."
+    ],
+    "explanation": "En el **teorema de Bayes**, el numerador siempre es el producto de la verosimilitud por la probabilidad a priori de la rama que se está buscando invertir:\n$$P(\\text{desconocido}\\mid\\text{spam}) \\cdot P(\\text{spam})$$\nEse numerador representa la rama favorable, la que combina que el correo sea spam y además venga de un remitente desconocido.\n\nIntuitivamente, multiplicar ambos factores responde a una sola pregunta: de todos los correos, qué fracción es spam y además tiene remitente desconocido, la combinación exacta que se busca aislar.\n\nConfundir el numerador con el denominador completo, o mezclar el peso de una rama con la verosimilitud de la otra, entrega una expresión que no corresponde a ninguna rama real del problema.",
+    "tags": [
+      "form-identificar-numerador"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "En un chequeo médico, un paciente puede pertenecer al grupo de riesgo $A_1$ o al grupo sin riesgo $A_2$.\n\nCada grupo tiene su propia proporción poblacional.\n\nSe conoce la probabilidad de que el chequeo dé positivo $T$ en cada uno. Se quiere calcular $P(A_1\\mid T)$.\n\n¿Cuál es la expresión completa del teorema de Bayes para este caso?",
+    "options": [
+      "$\\dfrac{P(T\\mid A_1)P(A_1)}{\\sum_i P(T\\mid A_i)P(A_i)}$",
+      "$\\dfrac{P(T\\mid A_2)P(A_2)}{\\sum_i P(T\\mid A_i)P(A_i)}$",
+      "$\\dfrac{P(A_1)P(T\\mid A_2)}{\\sum_i P(T\\mid A_i)P(A_i)}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El numerador es la rama del grupo $A_1$, y el denominador suma la probabilidad total de ambos grupos.",
+    "feedback_incorrect": [
+      null,
+      "Ese numerador usa la rama del grupo $A_2$ en vez de $A_1$, la que en realidad se está buscando.",
+      "Ese numerador combina el peso de $A_1$ con la verosimilitud de $A_2$, mezclando las dos ramas en vez de usar solo la de interés."
+    ],
+    "explanation": "El **teorema de Bayes** arma la fracción completa dividiendo la rama favorable por la probabilidad total de la evidencia, que suma todas las ramas de la partición:\n$$P(A_1\\mid T)$$\n$$= \\dfrac{P(T\\mid A_1)P(A_1)}{\\sum_i P(T\\mid A_i)P(A_i)}$$\nEl denominador reconstruye $P(T)$ combinando ambos grupos con probabilidad total.\n\nIntuitivamente, el denominador reparte el 100% de los resultados positivos entre los dos grupos, y el numerador aísla justo la porción que efectivamente vino del grupo $A_1$.\n\nConfundir la rama de interés en el numerador, usando el grupo equivocado o mezclando pesos y verosimilitudes entre grupos distintos, entrega una expresión que no corresponde a la probabilidad buscada.",
+    "tags": [
+      "form-armar-teorema"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "En una campaña de detección, una persona puede tener el virus $B_1$ o no tenerlo $B_2$.\n\nCada grupo tiene su propia proporción poblacional.\n\nSe conoce la probabilidad de un resultado positivo $R$ en cada uno. Se quiere calcular $P(B_1\\mid R)$.\n\n¿Cuál es la expresión completa del teorema de Bayes para este caso?",
+    "options": [
+      "$\\dfrac{P(B_1)P(R\\mid B_2)}{\\sum_i P(R\\mid B_i)P(B_i)}$",
+      "$\\dfrac{P(R\\mid B_1)P(B_1)}{\\sum_i P(R\\mid B_i)P(B_i)}$",
+      "$\\dfrac{P(R\\mid B_2)P(B_2)}{\\sum_i P(R\\mid B_i)P(B_i)}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El numerador es la rama de tener el virus $B_1$, y el denominador suma la probabilidad total de ambos grupos.",
+    "feedback_incorrect": [
+      "Ese numerador combina el peso de $B_1$ con la verosimilitud de $B_2$, mezclando las dos ramas en vez de usar solo la de interés.",
+      null,
+      "Ese numerador usa la rama de $B_2$ en vez de $B_1$, la que en realidad se está buscando."
+    ],
+    "explanation": "El **teorema de Bayes** arma la fracción completa dividiendo la rama favorable por la probabilidad total de la evidencia, que suma todas las ramas de la partición:\n$$P(B_1\\mid R)$$\n$$= \\dfrac{P(R\\mid B_1)P(B_1)}{\\sum_i P(R\\mid B_i)P(B_i)}$$\nEl denominador reconstruye $P(R)$ combinando ambos grupos con probabilidad total.\n\nIntuitivamente, el denominador reparte el 100% de los resultados positivos entre los dos grupos, y el numerador aísla justo la porción que efectivamente tiene el virus.\n\nConfundir la rama de interés en el numerador, usando el grupo equivocado o mezclando pesos y verosimilitudes entre grupos distintos, entrega una expresión que no corresponde a la probabilidad buscada.",
+    "tags": [
+      "form-armar-teorema"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Hay dos urnas, la urna $U_1$ y la urna $U_2$, y se elige una al azar antes de sacar una bolita.\n\nSe conoce la probabilidad de sacar una bolita verde $V$ de cada urna. Se quiere calcular $P(U_1\\mid V)$.\n\n¿Cuál es la expresión completa del teorema de Bayes para este caso?",
+    "options": [
+      "$\\dfrac{P(V\\mid U_2)P(U_2)}{\\sum_i P(V\\mid U_i)P(U_i)}$",
+      "$\\dfrac{P(U_1)P(V\\mid U_2)}{\\sum_i P(V\\mid U_i)P(U_i)}$",
+      "$\\dfrac{P(V\\mid U_1)P(U_1)}{\\sum_i P(V\\mid U_i)P(U_i)}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El numerador es la rama de la urna $U_1$, y el denominador suma la probabilidad total de ambas urnas.",
+    "feedback_incorrect": [
+      "Ese numerador usa la rama de la urna $U_2$ en vez de $U_1$, la que en realidad se está buscando.",
+      "Ese numerador combina el peso de $U_1$ con la verosimilitud de $U_2$, mezclando las dos ramas en vez de usar solo la de interés.",
+      null
+    ],
+    "explanation": "El **teorema de Bayes** arma la fracción completa dividiendo la rama favorable por la probabilidad total de la evidencia, que suma todas las ramas de la partición:\n$$P(U_1\\mid V)$$\n$$= \\dfrac{P(V\\mid U_1)P(U_1)}{\\sum_i P(V\\mid U_i)P(U_i)}$$\nEl denominador reconstruye $P(V)$ combinando ambas urnas con probabilidad total.\n\nIntuitivamente, el denominador reparte el 100% de las bolitas verdes sacadas entre las dos urnas, y el numerador aísla justo la porción que efectivamente vino de la urna $U_1$.\n\nConfundir la rama de interés en el numerador, usando la urna equivocada o mezclando pesos y verosimilitudes entre urnas distintas, entrega una expresión que no corresponde a la probabilidad buscada.",
+    "tags": [
+      "form-armar-teorema"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Hay tres cajas $\\{C_1, C_2, C_3\\}$, y se elige una al azar antes de sacar una ficha.\n\nSe conoce la probabilidad de sacar una ficha negra $N$ de cada caja. Se quiere calcular $P(C_2\\mid N)$.\n\n¿Cuál es la expresión completa del teorema de Bayes para este caso?",
+    "options": [
+      "$\\dfrac{P(N\\mid C_2)P(C_2)}{\\sum_i P(N\\mid C_i)P(C_i)}$",
+      "$\\dfrac{P(N\\mid C_1)P(C_1)}{\\sum_i P(N\\mid C_i)P(C_i)}$",
+      "$\\dfrac{P(C_2)P(N\\mid C_1)}{\\sum_i P(N\\mid C_i)P(C_i)}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El numerador es la rama de la caja $C_2$, y el denominador suma la probabilidad total de las tres cajas.",
+    "feedback_incorrect": [
+      null,
+      "Ese numerador usa la rama de la caja $C_1$ en vez de $C_2$, la que en realidad se está buscando.",
+      "Ese numerador combina el peso de $C_2$ con la verosimilitud de $C_1$, mezclando las dos ramas en vez de usar solo la de interés."
+    ],
+    "explanation": "El **teorema de Bayes** arma la fracción completa dividiendo la rama favorable por la probabilidad total de la evidencia, que suma todas las ramas de la partición:\n$$P(C_2\\mid N)$$\n$$= \\dfrac{P(N\\mid C_2)P(C_2)}{\\sum_i P(N\\mid C_i)P(C_i)}$$\nEl denominador reconstruye $P(N)$ combinando las tres cajas con probabilidad total.\n\nIntuitivamente, el denominador reparte el 100% de las fichas negras sacadas entre las tres cajas, y el numerador aísla justo la porción que efectivamente vino de la caja $C_2$.\n\nConfundir la rama de interés en el numerador, usando la caja equivocada o mezclando pesos y verosimilitudes entre cajas distintas, entrega una expresión que no corresponde a la probabilidad buscada.",
+    "tags": [
+      "form-armar-teorema"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "En un taller, un motor puede haber sido ensamblado por el turno $T_1$ o el turno $T_2$.\n\nCada turno tiene su propia proporción de producción.\n\nSe conoce la probabilidad de que un motor falle $F$ según el turno. Se quiere calcular $P(T_2\\mid F)$.\n\n¿Cuál es la expresión completa del teorema de Bayes para este caso?",
+    "options": [
+      "$\\dfrac{P(F\\mid T_1)P(T_1)}{\\sum_i P(F\\mid T_i)P(T_i)}$",
+      "$\\dfrac{P(F\\mid T_2)P(T_2)}{\\sum_i P(F\\mid T_i)P(T_i)}$",
+      "$\\dfrac{P(T_2)P(F\\mid T_1)}{\\sum_i P(F\\mid T_i)P(T_i)}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El numerador es la rama del turno $T_2$, y el denominador suma la probabilidad total de ambos turnos.",
+    "feedback_incorrect": [
+      "Ese numerador usa la rama del turno $T_1$ en vez de $T_2$, la que en realidad se está buscando.",
+      null,
+      "Ese numerador combina el peso de $T_2$ con la verosimilitud de $T_1$, mezclando las dos ramas en vez de usar solo la de interés."
+    ],
+    "explanation": "El **teorema de Bayes** arma la fracción completa dividiendo la rama favorable por la probabilidad total de la evidencia, que suma todas las ramas de la partición:\n$$P(T_2\\mid F)$$\n$$= \\dfrac{P(F\\mid T_2)P(T_2)}{\\sum_i P(F\\mid T_i)P(T_i)}$$\nEl denominador reconstruye $P(F)$ combinando ambos turnos con probabilidad total.\n\nIntuitivamente, el denominador reparte el 100% de los motores fallados entre los dos turnos, y el numerador aísla justo la porción que efectivamente vino del turno $T_2$.\n\nConfundir la rama de interés en el numerador, usando el turno equivocado o mezclando pesos y verosimilitudes entre turnos distintos, entrega una expresión que no corresponde a la probabilidad buscada.",
+    "tags": [
+      "form-armar-teorema"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Un filtro de spam clasifica correos como spam $S_1$ o no spam $S_2$, cada categoría con su propia proporción.\n\nSe conoce la probabilidad de que aparezca cierto enlace $E$ en cada categoría. Se quiere calcular $P(S_1\\mid E)$.\n\n¿Cuál es la expresión completa del teorema de Bayes para este caso?",
+    "options": [
+      "$\\dfrac{P(S_1)P(E\\mid S_2)}{\\sum_i P(E\\mid S_i)P(S_i)}$",
+      "$\\dfrac{P(E\\mid S_2)P(S_2)}{\\sum_i P(E\\mid S_i)P(S_i)}$",
+      "$\\dfrac{P(E\\mid S_1)P(S_1)}{\\sum_i P(E\\mid S_i)P(S_i)}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El numerador es la rama de ser spam $S_1$, y el denominador suma la probabilidad total de ambas categorías.",
+    "feedback_incorrect": [
+      "Ese numerador combina el peso de $S_1$ con la verosimilitud de $S_2$, mezclando las dos ramas en vez de usar solo la de interés.",
+      "Ese numerador usa la rama de $S_2$ en vez de $S_1$, la que en realidad se está buscando.",
+      null
+    ],
+    "explanation": "El **teorema de Bayes** arma la fracción completa dividiendo la rama favorable por la probabilidad total de la evidencia, que suma todas las ramas de la partición:\n$$P(S_1\\mid E)$$\n$$= \\dfrac{P(E\\mid S_1)P(S_1)}{\\sum_i P(E\\mid S_i)P(S_i)}$$\nEl denominador reconstruye $P(E)$ combinando ambas categorías con probabilidad total.\n\nIntuitivamente, el denominador reparte el 100% de los correos con ese enlace entre las dos categorías, y el numerador aísla justo la porción que efectivamente es spam.\n\nConfundir la rama de interés en el numerador, usando la categoría equivocada o mezclando sus pesos y verosimilitudes, entrega una expresión que no corresponde a la probabilidad buscada.",
+    "tags": [
+      "form-armar-teorema"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
   }
 ]

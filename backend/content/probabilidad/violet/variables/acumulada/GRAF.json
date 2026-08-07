@@ -1,7 +1,12 @@
 [
   {
     "question": "El tiempo que un cliente espera en la fila de un banco se modela con una densidad uniforme sobre $[0,4]$ minutos.\n\nEl área sombreada de azul representa $P(1 < X \\leq 3)$.\n\n¿Cuánto vale esa probabilidad?",
-    "options": ["$\\dfrac{1}{4}$", "$\\dfrac{1}{2}$", "$\\dfrac{3}{4}$", "$1$"],
+    "options": [
+      "$\\dfrac{1}{4}$",
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{3}{4}$",
+      "$1$"
+    ],
     "correct_index": 1,
     "feedback_correct": "Rectángulo de base 2 y altura $1/4$: $2\\cdot\\frac14=\\frac12$.",
     "feedback_incorrect": [
@@ -13,15 +18,29 @@
     "explanation": "La probabilidad de un intervalo bajo una densidad uniforme es el área que encierra sobre ese tramo:\n$$P(a < X \\leq b) = F(b) - F(a)$$\nEsa diferencia de acumuladas es exactamente el área sombreada entre la densidad y el eje $x$:\n$$P(1 < X \\leq 3) = \\frac14 \\cdot 2 = \\frac12$$\nConfundir la altura de la densidad con el área sombreada ignora que la probabilidad de un intervalo depende también de su ancho, no solo de cuán alta es la densidad.",
     "has_math": true,
     "graph_fn": "Piecewise((1/4, (x>=0)&(x<=4)))",
-    "graph_view": [-0.5, 4.5, -0.03, 0.28],
-    "graph_shade": [1, 3],
+    "graph_view": [
+      -0.5,
+      4.5,
+      -0.03,
+      0.28
+    ],
+    "graph_shade": [
+      1,
+      3
+    ],
     "graph_free_aspect": true,
     "reviewed": false,
-    "tags": ["lectura-diferencia-acumulada"]
+    "tags": [
+      "lectura-diferencia-acumulada"
+    ]
   },
   {
     "question": "El tiempo que tarda en confirmarse un pago online tiene función de distribución acumulada $F(x)$.\n\nSe observa que $F(3)=0{,}98$, y que $F(x)$ apenas cambia para pagos que tardan más de 3 segundos.\n\n¿A qué valor se acerca $F(x)$ cuando $x$ crece indefinidamente hacia la derecha?",
-    "options": ["$0$", "$1$", "El valor de $x$"],
+    "options": [
+      "$0$",
+      "$1$",
+      "El valor de $x$"
+    ],
     "correct_index": 1,
     "feedback_correct": "$F(x)$ siempre tiende a 1 cuando $x$ crece sin límite, porque acumula toda la probabilidad disponible.",
     "feedback_incorrect": [
@@ -35,11 +54,17 @@
     "graph_view": null,
     "graph_shade": null,
     "reviewed": false,
-    "tags": ["lectura-limites-acumulada"]
+    "tags": [
+      "lectura-limites-acumulada"
+    ]
   },
   {
     "question": "El gráfico muestra $F(x)$, la cantidad de fallas detectadas en una inspección, con varios saltos verticales.\n\n¿Qué tipo de variable representa?",
-    "options": ["Discreta", "Continua", "Mixta"],
+    "options": [
+      "Discreta",
+      "Continua",
+      "Mixta"
+    ],
     "correct_index": 0,
     "feedback_correct": "Los saltos verticales son propios de la acumulada de una variable discreta.",
     "feedback_incorrect": [
@@ -50,10 +75,372 @@
     "explanation": "La forma de $F(x)$ distingue el tipo de variable: una acumulada continua es una curva suave, mientras que una discreta sube en saltos verticales en cada valor posible de $X$.\n\nEn este gráfico, $F$ sube en tres saltos, cada uno de tamaño $p(x)$:\n$$F(x) = \\sum_{k\\leq x} p(k)$$\nLeer una acumulada escalonada como si fuera continua ignora que cada salto representa una probabilidad puntual concentrada en un único valor, algo que una variable continua no tiene.",
     "has_math": true,
     "graph_fn": "Piecewise((0, x<0), (0.3, (x>=0)&(x<1)), (0.7, (x>=1)&(x<2)), (1, x>=2))",
-    "graph_view": [-2.5, 4.5, -0.12, 1.12],
+    "graph_view": [
+      -2.5,
+      4.5,
+      -0.12,
+      1.12
+    ],
     "graph_shade": null,
     "graph_free_aspect": true,
     "reviewed": false,
-    "tags": ["lectura-discreta-vs-continua"]
+    "tags": [
+      "lectura-discreta-vs-continua"
+    ]
+  },
+  {
+    "question": "La posición donde cae una moneda lanzada sobre una regla de $5$ cm se modela con una densidad uniforme sobre $[0,5]$.\n\nEl área sombreada de azul representa $P(1 < X \\leq 4)$.\n\n¿Cuánto vale esa probabilidad?",
+    "options": [
+      "$\\dfrac{3}{5}$",
+      "$\\dfrac{1}{5}$",
+      "$\\dfrac{2}{5}$",
+      "$\\dfrac{4}{5}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Rectángulo de base 3 y altura $1/5$: $3\\cdot\\frac15=\\frac35$.",
+    "feedback_incorrect": [
+      null,
+      "Esa es solo la altura de la densidad, no el área del rectángulo sombreado.",
+      "Ese valor correspondería a una base de 2, pero el tramo sombreado tiene base 3.",
+      "Ese sería el área si la base fuera 4, pero el tramo sombreado va de 1 a 4, con base 3."
+    ],
+    "explanation": "La probabilidad de un intervalo bajo una densidad uniforme es el área que encierra sobre ese tramo:\n$$P(a < X \\leq b) = F(b) - F(a)$$\nEsa diferencia de acumuladas es exactamente el área sombreada entre la densidad y el eje $x$:\n$$P(1 < X \\leq 4) = \\frac15 \\cdot 3 = \\frac35$$\nLeer solo la altura de la densidad en vez de multiplicarla por el ancho del tramo ignora que la probabilidad de un intervalo depende también de cuánto mide ese intervalo.",
+    "has_math": true,
+    "graph_fn": "Piecewise((1/5, (x>=0)&(x<=5)))",
+    "graph_view": [
+      -0.6,
+      5.6,
+      -0.03,
+      0.25
+    ],
+    "graph_shade": [
+      1,
+      4
+    ],
+    "graph_free_aspect": true,
+    "reviewed": false,
+    "tags": [
+      "lectura-diferencia-acumulada"
+    ]
+  },
+  {
+    "question": "La hora en la que llega un paquete dentro de una franja horaria de $6$ horas se modela con una densidad uniforme sobre $[0,6]$.\n\nEl área sombreada de azul representa $P(1 < X \\leq 5)$.\n\n¿Cuánto vale esa probabilidad?",
+    "options": [
+      "$\\dfrac{1}{6}$",
+      "$\\dfrac{2}{3}$",
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{5}{6}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Rectángulo de base 4 y altura $1/6$: $4\\cdot\\frac16=\\frac23$.",
+    "feedback_incorrect": [
+      "Esa es la altura de la densidad, no el área sombreada.",
+      null,
+      "Ese valor no corresponde a la base real del tramo sombreado, que va de 1 a 5.",
+      "Ese sería el área desde 1 hasta 6, pero el sombreado termina en 5, no en 6."
+    ],
+    "explanation": "La probabilidad de un intervalo bajo una densidad uniforme es el área que encierra sobre ese tramo:\n$$P(a < X \\leq b) = F(b) - F(a)$$\nEsa diferencia de acumuladas es exactamente el área sombreada entre la densidad y el eje $x$:\n$$P(1 < X \\leq 5) = \\frac16 \\cdot 4 = \\frac23$$\nCalcular el área usando solo un extremo del intervalo, sin restar la parte anterior al primer extremo, sobreestima la probabilidad real del tramo pedido.",
+    "has_math": true,
+    "graph_fn": "Piecewise((1/6, (x>=0)&(x<=6)))",
+    "graph_view": [
+      -0.7,
+      6.7,
+      -0.02,
+      0.2
+    ],
+    "graph_shade": [
+      1,
+      5
+    ],
+    "graph_free_aspect": true,
+    "reviewed": false,
+    "tags": [
+      "lectura-diferencia-acumulada"
+    ]
+  },
+  {
+    "question": "El tiempo que tarda una impresora 3D en completar una pieza se modela con una densidad uniforme sobre $[0,10]$ minutos.\n\nEl área sombreada de azul representa $P(2 < X \\leq 8)$.\n\n¿Cuánto vale esa probabilidad?",
+    "options": [
+      "$\\dfrac{2}{5}$",
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{4}{5}$",
+      "$\\dfrac{3}{5}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Rectángulo de base 6 y altura $1/10$: $6\\cdot\\frac1{10}=\\frac35$.",
+    "feedback_incorrect": [
+      "Ese valor correspondería a una base de 4, pero el tramo sombreado tiene base 6.",
+      "Ese sería el área si la base fuera 5, pero el tramo sombreado va de 2 a 8, con base 6.",
+      "Ese valor correspondería a una base de 8, pero el sombreado arranca en 2, no en 0.",
+      null
+    ],
+    "explanation": "La probabilidad de un intervalo bajo una densidad uniforme es el área que encierra sobre ese tramo:\n$$P(a < X \\leq b) = F(b) - F(a)$$\nEsa diferencia de acumuladas es exactamente el área sombreada entre la densidad y el eje $x$:\n$$P(2 < X \\leq 8) = \\frac1{10} \\cdot 6 = \\frac35$$\nQuedarse con la base equivocada del rectángulo, en vez de medir exactamente el tramo entre los dos extremos sombreados, cambia el resultado aunque la altura de la densidad esté bien identificada.",
+    "has_math": true,
+    "graph_fn": "Piecewise((1/10, (x>=0)&(x<=10)))",
+    "graph_view": [
+      -1.2,
+      11.2,
+      -0.015,
+      0.13
+    ],
+    "graph_shade": [
+      2,
+      8
+    ],
+    "graph_free_aspect": true,
+    "reviewed": false,
+    "tags": [
+      "lectura-diferencia-acumulada"
+    ]
+  },
+  {
+    "question": "El tiempo que un peatón espera en un semáforo se modela con una densidad uniforme sobre $[0,8]$ segundos.\n\nEl área acumulada entre la densidad y el eje $x$ sobre el tramo $(2,6]$ representa esa probabilidad.\n\nEn notación, es $P(2 < X \\leq 6)$.\n\n¿Cuánto vale esa probabilidad?",
+    "options": [
+      "$\\dfrac{1}{4}$",
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{3}{4}$",
+      "$1$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Rectángulo de base 4 y altura $1/8$: $4\\cdot\\frac18=\\frac12$.",
+    "feedback_incorrect": [
+      "Esa sería el área si la base fuera 2, pero el tramo va de 2 a 6, con base 4.",
+      null,
+      "Ese valor correspondería a una base de 6, pero el tramo sombreado tiene base 4.",
+      "Ese es el área bajo toda la densidad, no la del tramo entre 2 y 6."
+    ],
+    "explanation": "La probabilidad de un intervalo bajo una densidad uniforme es el área que encierra sobre ese tramo:\n$$P(a < X \\leq b) = F(b) - F(a)$$\nCon densidad $1/8$ y un tramo de base 4:\n$$P(2 < X \\leq 6) = \\frac18 \\cdot 4 = \\frac12$$\nImaginar el rectángulo sombreado sin verlo en un gráfico exige multiplicar la altura de la densidad por el ancho exacto del tramo pedido, no solo recordar la altura.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-diferencia-acumulada"
+    ]
+  },
+  {
+    "question": "La posición de una partícula dentro de un tubo de $12$ cm de longitud se modela con una densidad uniforme sobre $[0,12]$.\n\nEl área acumulada entre la densidad y el eje $x$ sobre el tramo $(3,9]$ representa esa probabilidad.\n\nEn notación, es $P(3 < X \\leq 9)$.\n\n¿Cuánto vale esa probabilidad?",
+    "options": [
+      "$\\dfrac{1}{4}$",
+      "$\\dfrac{1}{3}$",
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{3}{4}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Rectángulo de base 6 y altura $1/12$: $6\\cdot\\frac{1}{12}=\\frac12$.",
+    "feedback_incorrect": [
+      "Ese valor correspondería a una base de 3, pero el tramo sombreado tiene base 6.",
+      "Ese valor correspondería a una base de 4, pero el tramo sombreado va de 3 a 9, con base 6.",
+      null,
+      "Ese sería el área si la base fuera 9, pero el sombreado arranca en 3, no en 0."
+    ],
+    "explanation": "La probabilidad de un intervalo bajo una densidad uniforme es el área que encierra sobre ese tramo:\n$$P(a < X \\leq b) = F(b) - F(a)$$\nCon densidad $1/12$ y un tramo de base 6:\n$$P(3 < X \\leq 9) = \\frac{1}{12} \\cdot 6 = \\frac12$$\nSin un gráfico a la vista, calcular el ancho exacto del tramo antes de multiplicar por la altura evita quedarse con la base de todo el dominio en vez de la del tramo pedido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-diferencia-acumulada"
+    ]
+  },
+  {
+    "question": "El gráfico muestra $F(x)$, el tiempo que tarda en descargarse un archivo, en segundos.\n\n¿A qué valor se acerca $F(x)$ para $x$ mucho mayor a 5?",
+    "options": [
+      "$0$",
+      "$1$",
+      "El valor de $x$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Para $x$ grande, ya se acumuló toda la probabilidad disponible.",
+    "feedback_incorrect": [
+      "Ese es el límite hacia la izquierda, no hacia la derecha.",
+      null,
+      "$F(x)$ es una probabilidad acotada, no puede crecer junto con $x$ sin límite."
+    ],
+    "explanation": "Toda función de distribución acumulada tiende a 1 cuando $x$ crece sin límite, porque en ese extremo ya se acumuló toda la probabilidad de $X$.\n$$\\lim_{x\\to\\infty} F(x) = 1$$\nEn el gráfico, la curva sube desde 0 y se aplana justo en 1 a partir de $x=5$, coherente con que el archivo siempre termina de descargarse dentro de esos 5 segundos.\n\nUna curva que siguiera subiendo más allá de 1 dejaría de representar una probabilidad válida.",
+    "has_math": true,
+    "graph_fn": "Piecewise((0, x<0), (x/5, (x>=0)&(x<=5)), (1, x>5))",
+    "graph_view": [
+      -2,
+      7,
+      -0.12,
+      1.12
+    ],
+    "graph_shade": null,
+    "graph_free_aspect": true,
+    "reviewed": false,
+    "tags": [
+      "lectura-limites-acumulada"
+    ]
+  },
+  {
+    "question": "El gráfico muestra $F(x)$, la posición de una partícula sobre un riel de $7$ metros.\n\n¿A qué valor se acerca $F(x)$ para $x$ mucho menor a 0?",
+    "options": [
+      "$0$",
+      "$1$",
+      "$-1$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Antes de arrancar el riel todavía no se acumuló ninguna probabilidad.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el límite hacia la derecha, no hacia la izquierda.",
+      "$F(x)$ nunca toma valores negativos, sin importar cuán chico sea $x$."
+    ],
+    "explanation": "Toda función de distribución acumulada tiende a 0 cuando $x$ decrece sin límite, porque en ese extremo todavía no se acumuló ninguna probabilidad.\n$$\\lim_{x\\to -\\infty} F(x) = 0$$\nEn el gráfico, la curva queda completamente plana en 0 para todo $x$ menor a 0, coherente con que la partícula nunca aparece antes del inicio del riel.\n\nAsignarle a $F$ un valor negativo en ese tramo rompería su interpretación como probabilidad acumulada.",
+    "has_math": true,
+    "graph_fn": "Piecewise((0, x<0), (x/7, (x>=0)&(x<=7)), (1, x>7))",
+    "graph_view": [
+      -3,
+      9,
+      -0.12,
+      1.12
+    ],
+    "graph_shade": null,
+    "graph_free_aspect": true,
+    "reviewed": false,
+    "tags": [
+      "lectura-limites-acumulada"
+    ]
+  },
+  {
+    "question": "El gráfico muestra $F(x)$, la hora de arribo de un tren dentro de una franja de $10$ minutos.\n\n¿Qué valor toma $F(x)$ para cualquier $x$ menor a 0?",
+    "options": [
+      "$0$",
+      "$1$",
+      "Depende del valor exacto de $x$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Antes del inicio de la franja no hay probabilidad acumulada todavía.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el valor que toma $F$ recién a partir de $x=10$, no antes de 0.",
+      "El tramo antes de 0 es plano en el gráfico, así que $F$ vale lo mismo para cualquier $x$ negativo."
+    ],
+    "explanation": "Toda función de distribución acumulada vale 0 en todo el tramo anterior al valor mínimo posible de la variable.\n$$F(x) = 0 \\quad \\text{para } x < 0$$\nEn el gráfico, la curva se mantiene completamente plana en 0 para todo $x$ negativo, porque el tren nunca llega antes del inicio de la franja horaria.\n\nUna acumulada que valga distinto de 0 antes del mínimo posible de la variable estaría contando probabilidad de algo que no puede ocurrir.",
+    "has_math": true,
+    "graph_fn": "Piecewise((0, x<0), (x/10, (x>=0)&(x<=10)), (1, x>10))",
+    "graph_view": [
+      -3,
+      13,
+      -0.12,
+      1.12
+    ],
+    "graph_shade": null,
+    "graph_free_aspect": true,
+    "reviewed": false,
+    "tags": [
+      "lectura-limites-acumulada"
+    ]
+  },
+  {
+    "question": "El tiempo que tarda un ascensor en llegar a destino tiene función de distribución acumulada $F(x)$.\n\nSe sabe que $F(x)=0$ para todo $x$ menor a 2, y que recién después empieza a crecer.\n\n¿A qué valor tiende $F(x)$ cuando $x$ decrece sin límite hacia la izquierda?",
+    "options": [
+      "$0$",
+      "$1$",
+      "$2$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$F(x)$ ya vale 0 desde $x=2$ hacia la izquierda, así que ese límite también es 0.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el límite hacia la derecha, cuando $x$ crece sin límite, no hacia la izquierda.",
+      "$F(x)$ no puede tender al valor 2, porque $F$ mide probabilidad, no una posición en el eje $x$."
+    ],
+    "explanation": "Toda función de distribución acumulada tiende a 0 cuando $x$ decrece sin límite, porque en ese extremo todavía no se acumuló ninguna probabilidad.\n$$\\lim_{x\\to -\\infty} F(x) = 0$$\nQue $F(x)$ ya valga 0 para todo $x$ menor a 2 confirma ese comportamiento.\n\nA medida que $x$ sigue bajando, ese valor no cambia.\n\nEl límite opuesto da $F\\to 1$: la acumulada solo crece de izquierda a derecha, nunca al revés.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-limites-acumulada"
+    ]
+  },
+  {
+    "question": "El gráfico muestra $F(x)$, la cantidad de caras al lanzar dos monedas, con saltos verticales en cada valor posible.\n\n¿Qué tipo de variable representa?",
+    "options": [
+      "Continua",
+      "Discreta",
+      "Mixta"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los saltos verticales, uno por cada valor posible de caras, son propios de una variable discreta.",
+    "feedback_incorrect": [
+      "Una variable continua tiene una acumulada sin saltos, una curva suave.",
+      null,
+      "Una variable mixta combina tramos continuos con saltos, pero acá toda la curva sube solo en saltos."
+    ],
+    "explanation": "La forma de $F(x)$ distingue el tipo de variable: una acumulada continua es una curva suave, mientras que una discreta sube en saltos verticales en cada valor posible de $X$.\n\nEn este gráfico, $F$ sube en tres saltos, uno por cada cantidad posible de caras entre 0 y 2:\n$$F(x) = \\sum_{k\\leq x} p(k)$$\nLeer una acumulada escalonada como si tuviera tramos suaves ignora que cada salto concentra toda su probabilidad en un único valor puntual.",
+    "has_math": true,
+    "graph_fn": "Piecewise((0, x<0), (0.25, (x>=0)&(x<1)), (0.75, (x>=1)&(x<2)), (1, x>=2))",
+    "graph_view": [
+      -2.5,
+      4.5,
+      -0.12,
+      1.12
+    ],
+    "graph_shade": null,
+    "graph_free_aspect": true,
+    "reviewed": false,
+    "tags": [
+      "lectura-discreta-vs-continua"
+    ]
+  },
+  {
+    "question": "El gráfico muestra $F(x)$, el tiempo de espera en un cajero automático, como una curva suave sin saltos.\n\n¿Qué tipo de variable representa?",
+    "options": [
+      "Discreta",
+      "Mixta",
+      "Continua"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Una curva suave y sin saltos verticales es propia de una variable continua.",
+    "feedback_incorrect": [
+      "Una variable discreta muestra saltos verticales en cada valor posible, no una curva suave.",
+      "Una variable mixta combinaría tramos suaves con algún salto, pero acá no hay ningún salto.",
+      null
+    ],
+    "explanation": "La forma de $F(x)$ distingue el tipo de variable: una acumulada continua sube de forma gradual, sin saltos, mientras que una discreta lo hace en escalones.\n\nEn este gráfico, $F$ crece de manera lineal y continua desde 0 hasta 1 sin ningún salto vertical, coherente con un tiempo de espera que puede tomar cualquier valor dentro del intervalo.\n\nBuscar saltos verticales en una curva que sube de forma suave lleva a clasificar mal una variable continua como si fuera discreta.",
+    "has_math": true,
+    "graph_fn": "Piecewise((0, x<0), (x/5, (x>=0)&(x<=5)), (1, x>5))",
+    "graph_view": [
+      -2,
+      7,
+      -0.12,
+      1.12
+    ],
+    "graph_shade": null,
+    "graph_free_aspect": true,
+    "reviewed": false,
+    "tags": [
+      "lectura-discreta-vs-continua"
+    ]
+  },
+  {
+    "question": "La cantidad de defectos por lote toma valores en $\\{0,1,2\\}$.\n\nSu función de distribución acumulada $F(x)$ sube solo en esos tres saltos, sin ningún tramo curvo entre medio.\n\n¿Qué tipo de variable representa?",
+    "options": [
+      "Discreta",
+      "Continua",
+      "Mixta"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Subir solo en saltos, sin ningún tramo curvo, es propio de una variable discreta.",
+    "feedback_incorrect": [
+      null,
+      "Una variable continua no tiene saltos en ningún punto, solo curva suave.",
+      "Una variable mixta necesitaría al menos un tramo continuo entre los saltos, que acá no aparece."
+    ],
+    "explanation": "La forma de $F(x)$ distingue el tipo de variable, ya que una acumulada discreta sube únicamente en saltos verticales.\n\nCada salto corresponde a un valor posible de $X$, sin ningún tramo curvo entre medio.\n\nCon los defectos por lote tomando valores en $\\{0,1,2\\}$, $F$ da tres saltos, cada uno del tamaño de la probabilidad puntual de ese valor:\n$$F(x) = \\sum_{k\\leq x} p(k)$$\nDescribir esos saltos como si fueran una curva continua ignora que toda la probabilidad de cada valor está concentrada en un único punto, no repartida en un intervalo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-discreta-vs-continua"
+    ]
   }
 ]

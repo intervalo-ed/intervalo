@@ -103,5 +103,215 @@
     "graph_view": null,
     "reviewed": false,
     "tags": ["definicion-mutuamente-excluyentes"]
+  },
+  {
+    "question": "Se lanza una moneda equilibrada dos veces seguidas y se anota cada lanzamiento como C si sale cara o X si sale ceca, en orden.\n\n¿Cuál de las siguientes opciones nombra el espacio muestral de este experimento?",
+    "options": [
+      "$\\{C,X\\}$",
+      "$\\{CC\\}$",
+      "$\\{CC,CX,XC,XX\\}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El espacio muestral reúne las cuatro combinaciones posibles de los dos lanzamientos, no solo el primero.",
+    "feedback_incorrect": [
+      "Ese conjunto solo describe los dos resultados de un único lanzamiento, pero acá hay dos lanzamientos en orden.",
+      "Ese es apenas uno de los cuatro resultados posibles del experimento completo.",
+      null
+    ],
+    "explanation": "El **espacio muestral** $\\Omega$ reúne todos los resultados posibles de un experimento, sin repetir ninguno y sin dejar ninguno afuera.\n\nCon dos lanzamientos en orden, cada uno puede salir cara o ceca, y hay que combinar ambos lanzamientos:\n$$\\Omega = \\{CC,CX,XC,XX\\}$$\nCX y XC son resultados distintos porque el orden de los lanzamientos importa.\n\nContar solo los resultados posibles de un lanzamiento aislado deja afuera la mitad del experimento real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-espacio-muestral"]
+  },
+  {
+    "question": "Una urna contiene 4 bolitas: 2 rojas y 2 azules, todas del mismo tamaño. Se extrae una bolita al azar y se anota su color.\n\n¿Cuál de las siguientes opciones nombra el espacio muestral de este experimento?",
+    "options": [
+      "$\\{rojo,rojo,azul,azul\\}$",
+      "$\\{rojo,azul\\}$",
+      "$\\{4\\}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El espacio muestral lista cada color posible una sola vez, sin importar cuántas bolitas hay de cada uno.",
+    "feedback_incorrect": [
+      "Repetir cada color según la cantidad de bolitas confunde el espacio muestral con el conteo de bolitas de la urna.",
+      null,
+      "Ese número es la cantidad total de bolitas en la urna, no un resultado posible de la extracción."
+    ],
+    "explanation": "El **espacio muestral** $\\Omega$ reúne los resultados posibles de un experimento, cada uno contado una sola vez.\n\nAcá el resultado que importa es el color observado, no la bolita física en particular, así que:\n$$\\Omega = \\{rojo,azul\\}$$\nAunque haya 2 bolitas rojas, el color rojo aparece una sola vez en el espacio muestral.\n\nLa cantidad de bolitas de cada color afecta más adelante qué tan probable es cada resultado, pero no cambia la lista de resultados posibles.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-espacio-muestral"]
+  },
+  {
+    "question": "Se lanza un dado equilibrado de 6 caras y se registra el número obtenido.\n\nSe considera el conjunto $A=\\{2,4,6\\}$, los resultados pares.\n\n¿Qué es $A$ respecto del espacio muestral de este experimento?",
+    "options": [
+      "Un evento, porque es un subconjunto del espacio muestral.",
+      "El espacio muestral completo del experimento.",
+      "Un suceso elemental, por tener un único resultado."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$A$ agrupa 3 de los 6 resultados posibles, así que es un subconjunto válido del espacio muestral.",
+    "feedback_incorrect": [
+      null,
+      "El espacio muestral completo tiene los 6 números, $A$ agrupa solo 3 de ellos.",
+      "Un suceso elemental tiene un único resultado, y $A$ agrupa tres números distintos."
+    ],
+    "explanation": "Un **evento** es cualquier subconjunto del espacio muestral $\\Omega$, sin importar cuántos resultados agrupe.\n\nCon un dado equilibrado, el espacio muestral es:\n$$\\Omega=\\{1,2,3,4,5,6\\}$$\nY el evento en cuestión, $A=\\{2,4,6\\}$, junta 3 de esos 6 resultados posibles.\n\nComo todos los elementos de $A$ pertenecen al espacio muestral, $A$ es un evento válido de este experimento.\n\nUn evento puede agrupar cualquier cantidad de resultados, desde uno solo hasta el espacio muestral entero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-evento"]
+  },
+  {
+    "question": "En una encuesta, cada estudiante responde si aprobó el examen o no lo aprobó.\n\nSe considera el conjunto $B=\\{aprobó\\}$.\n\n¿Qué es $B$ respecto del espacio muestral de este experimento?",
+    "options": [
+      "El espacio muestral completo del experimento.",
+      "Una descripción del experimento, no un resultado.",
+      "Un evento, un subconjunto del espacio muestral."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$B$ agrupa una parte de las respuestas posibles, así que es un subconjunto del espacio muestral.",
+    "feedback_incorrect": [
+      "El espacio muestral tiene las dos respuestas posibles, $B$ se queda solo con una de ellas.",
+      "$B$ sí describe un resultado concreto de la encuesta, el de aprobar el examen.",
+      null
+    ],
+    "explanation": "Un **evento** es cualquier subconjunto del espacio muestral $\\Omega$ de un experimento.\n\nEn esta encuesta, cada estudiante responde una sola cosa entre dos opciones, así que el espacio muestral es:\n$$\\Omega=\\{aprobó,no aprobó\\}$$\nEl conjunto $B=\\{aprobó\\}$ contiene un único elemento de $\\Omega$, y eso alcanza para que sea un subconjunto válido.\n\nNo hace falta que un evento agrupe varias respuestas para contar como tal, con estar contenido en $\\Omega$ es suficiente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-evento"]
+  },
+  {
+    "question": "De un mazo de 40 cartas españolas se extrae una carta al azar.\n\nSe considera el resultado de que la carta extraída sea el as de espada.\n\n¿Qué es este resultado dentro del espacio muestral de este experimento?",
+    "options": [
+      "Un evento compuesto, porque agrupa varios resultados posibles.",
+      "Un suceso elemental, por tener un único resultado.",
+      "El espacio muestral completo del experimento."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Un solo resultado que no se puede partir en resultados más chicos es un suceso elemental.",
+    "feedback_incorrect": [
+      "Un evento compuesto agrupa 2 o más resultados, y acá solo hay una carta posible.",
+      null,
+      "El espacio muestral completo tiene las 40 cartas del mazo, no solo el as de espada."
+    ],
+    "explanation": "Un **suceso elemental** es un evento formado por un único resultado del espacio muestral, el nivel más chico en el que se puede descomponer un experimento.\n\nEn el mazo de 40 cartas, el espacio muestral tiene una carta por cada combinación de palo y valor, y el as de espada es una sola de esas 40 cartas.\n\nComo ese resultado no agrupa ninguna otra carta junto a él, es un suceso elemental.\n\nUn evento con 2 o más cartas, como todos los ases del mazo, ya deja de ser elemental.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-suceso-elemental"]
+  },
+  {
+    "question": "Se lanza una moneda equilibrada una sola vez y se anota si sale cara o ceca.\n\nSe considera el resultado $\\{cara\\}$.\n\n¿Qué es $\\{cara\\}$ dentro del espacio muestral de este experimento?",
+    "options": [
+      "Un suceso elemental, por tener un único resultado.",
+      "Un evento compuesto, porque agrupa varios resultados posibles.",
+      "El espacio muestral completo del experimento."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Un solo resultado que no admite subdivisión más chica es un suceso elemental.",
+    "feedback_incorrect": [
+      null,
+      "Un evento compuesto agrupa 2 o más resultados, y acá solo hay uno, cara.",
+      "El espacio muestral completo incluye cara y ceca, $\\{cara\\}$ deja afuera la ceca."
+    ],
+    "explanation": "Un **suceso elemental** es un evento formado por un único resultado del espacio muestral.\n\nCon una moneda lanzada una vez, el espacio muestral es $\\Omega=\\{cara,ceca\\}$, y $\\{cara\\}$ contiene solo ese resultado, sin agrupar la ceca junto a él.\n\nAunque el espacio muestral entero tenga pocos resultados, lo que define a un suceso elemental es que el evento en sí tenga un único resultado, no el tamaño de $\\Omega$.\n\nSi el evento incluyera cara y ceca a la vez, ya sería el espacio muestral completo, no un suceso elemental.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-suceso-elemental"]
+  },
+  {
+    "question": "Se lanza un dado equilibrado de 6 caras.\n\nSea $A=\\{5,6\\}$ el evento de obtener un número mayor a 4.\n\n¿Qué representa el complemento $A^c$?",
+    "options": [
+      "Que el resultado sea mayor a 4 y par a la vez.",
+      "Que no se lance el dado en todo el experimento.",
+      "Que el resultado sea un número menor o igual a 4."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El complemento de $A$ son todos los resultados de $\\Omega$ que no están en $A$.",
+    "feedback_incorrect": [
+      "El complemento no agrega una condición extra sobre $A$, reúne los resultados que quedan fuera de él.",
+      "El complemento sigue lanzando el dado, solo cambia la condición sobre el número obtenido.",
+      null
+    ],
+    "explanation": "El **complemento** de un evento se escribe $A^c$ y reúne todos los resultados del espacio muestral que no pertenecen al evento original.\n\nCon el dado equilibrado, el espacio muestral es:\n$$\\Omega=\\{1,2,3,4,5,6\\}$$\nY el evento en cuestión es $A=\\{5,6\\}$. Los resultados que quedan afuera de $A$ son:\n$$A^c = \\{1,2,3,4\\}$$\nEsos son justamente los números menores o iguales a 4.\n\nEl complemento nunca cambia el experimento en sí, solo invierte qué parte del espacio muestral cuenta como favorable.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-complemento"]
+  },
+  {
+    "question": "Una urna contiene 8 bolitas numeradas del 1 al 8, de las cuales se extrae una al azar.\n\nSea $A=\\{2,4,6,8\\}$ el evento de obtener un número par.\n\n¿Qué representa el complemento $A^c$?",
+    "options": [
+      "Que el número obtenido sea par y mayor a 6 a la vez.",
+      "Que el número obtenido sea impar, no par.",
+      "Que no se extraiga ninguna bolita de la urna."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El complemento de los pares son los resultados que faltan del espacio muestral, los impares.",
+    "feedback_incorrect": [
+      "El complemento no suma una condición sobre $A$, junta lo que queda afuera de él.",
+      null,
+      "El complemento sigue siendo una extracción de la urna, solo cambia qué número cuenta como favorable."
+    ],
+    "explanation": "El **complemento** $A^c$ de un evento reúne todos los resultados del espacio muestral que no pertenecen a él.\n\nCon la urna de 8 bolitas, el espacio muestral es:\n$$\\Omega=\\{1,2,3,4,5,6,7,8\\}$$\nY el evento de los pares es $A=\\{2,4,6,8\\}$. Los resultados que quedan afuera son:\n$$A^c = \\{1,3,5,7\\}$$\nEsos números son justamente los impares del 1 al 8.\n\nComo un evento y su complemento cubren todo el espacio muestral sin superponerse, cualquier resultado que no sea par tiene que ser impar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-complemento"]
+  },
+  {
+    "question": "Se lanzan dos monedas equilibradas y se registra la cara de cada una, en orden.\n\nSean $A$ el evento de que las dos monedas coincidan y $B$ el evento de que salgan distintas.\n\n¿Qué relación tienen $A$ y $B$?",
+    "options": [
+      "Son mutuamente excluyentes, porque no pueden ocurrir los dos a la vez.",
+      "No son mutuamente excluyentes, porque un mismo resultado puede coincidir y diferir a la vez.",
+      "Son el mismo evento, porque ambos describen una comparación entre monedas."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Cada resultado de las dos monedas o coincide o difiere, nunca las dos cosas a la vez, así que $A$ y $B$ no comparten resultados.",
+    "feedback_incorrect": [
+      null,
+      "Ningún resultado concreto puede coincidir y diferir al mismo tiempo, así que esa combinación nunca ocurre.",
+      "Son eventos distintos: uno agrupa los resultados iguales, y el otro los distintos."
+    ],
+    "explanation": "Dos eventos son **mutuamente excluyentes** cuando su intersección es vacía, sin ningún resultado en común.\n\nCon dos monedas, el espacio muestral es:\n$$\\Omega=\\{CC,CX,XC,XX\\}$$\nEl evento $A=\\{CC,XX\\}$ agrupa los resultados iguales, mientras que $B=\\{CX,XC\\}$ agrupa los distintos.\n\nNingún resultado puede pertenecer a los dos conjuntos a la vez, porque cada combinación o coincide o difiere.\n\nVerificar que dos eventos son mutuamente excluyentes exige revisar los resultados concretos que comparten, no alcanza con que parezcan opuestos por su descripción.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-mutuamente-excluyentes"]
+  },
+  {
+    "question": "De un mazo de 40 cartas españolas se extrae una carta al azar.\n\nSean $A$ el evento de que la carta sea de espada y $B$ el evento de que la carta sea de basto.\n\n¿Qué relación tienen $A$ y $B$?",
+    "options": [
+      "No son mutuamente excluyentes, porque algunas cartas son de espada y de basto a la vez.",
+      "Son el mismo evento, porque ambos son palos del mazo.",
+      "Son mutuamente excluyentes, porque no pueden ocurrir los dos a la vez."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Cada carta pertenece a un único palo, así que $A$ y $B$ no pueden ocurrir juntos.",
+    "feedback_incorrect": [
+      "Ninguna carta española pertenece a dos palos a la vez, cada una tiene un único palo.",
+      "Son eventos distintos: uno agrupa las cartas de espada, y el otro las de basto.",
+      null
+    ],
+    "explanation": "Dos eventos son **mutuamente excluyentes** cuando no pueden ocurrir al mismo tiempo, es decir cuando su intersección es vacía.\n\nEn el mazo de 40 cartas, cada carta tiene un único palo entre oro, copa, espada y basto, así que ninguna carta pertenece a $A$, ser de espada, y a $B$, ser de basto, a la vez.\n\nComo no existe ningún resultado en la intersección de $A$ y $B$, los dos eventos son mutuamente excluyentes.\n\nSi el mazo tuviera cartas con más de un palo impreso, esta conclusión cambiaría por completo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-mutuamente-excluyentes"]
   }
 ]

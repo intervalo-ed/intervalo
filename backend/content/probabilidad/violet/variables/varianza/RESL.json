@@ -1,7 +1,12 @@
 [
   {
     "question": "Un call center registra $X$, la cantidad de llamadas perdidas por turno, con función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 0{,}5 \\\\ p(2) &= 0{,}5 \\end{aligned}$$\n¿Cuánto vale $Var(X)$?",
-    "options": ["$0$", "$1$", "$2$", "$4$"],
+    "options": [
+      "$0$",
+      "$1$",
+      "$2$",
+      "$4$"
+    ],
     "correct_index": 1,
     "feedback_correct": "$Var(X) = 2 - 1^{2} = 1$.",
     "feedback_incorrect": [
@@ -16,11 +21,18 @@
     "graph_view": null,
     "graph_shade": null,
     "reviewed": false,
-    "tags": ["resl-varianza-discreta"]
+    "tags": [
+      "resl-varianza-discreta"
+    ]
   },
   {
     "question": "El tiempo de armado de un mueble tiene varianza $Var(X)=4$ minutos².\n\n¿Cuál es la desviación estándar $\\sigma$?",
-    "options": ["$1$", "$2$", "$4$", "$16$"],
+    "options": [
+      "$1$",
+      "$2$",
+      "$4$",
+      "$16$"
+    ],
     "correct_index": 1,
     "feedback_correct": "$\\sigma=\\sqrt{4}=2$.",
     "feedback_incorrect": [
@@ -35,11 +47,18 @@
     "graph_view": null,
     "graph_shade": null,
     "reviewed": false,
-    "tags": ["resl-desviacion-estandar"]
+    "tags": [
+      "resl-desviacion-estandar"
+    ]
   },
   {
     "question": "El costo de envío es $Y=3X+2$ dólares, con $Var(X)=5$.\n\n¿Cuánto vale $Var(Y)$?",
-    "options": ["$45$", "$15$", "$47$", "$25$"],
+    "options": [
+      "$45$",
+      "$15$",
+      "$47$",
+      "$25$"
+    ],
     "correct_index": 0,
     "feedback_correct": "$Var(Y)=9\\cdot5=45$.",
     "feedback_incorrect": [
@@ -54,7 +73,9 @@
     "graph_view": null,
     "graph_shade": null,
     "reviewed": false,
-    "tags": ["resl-varianza-escalada"]
+    "tags": [
+      "resl-varianza-escalada"
+    ]
   },
   {
     "question": "Dos máquinas producen piezas con el mismo diámetro promedio, pero distinta varianza.\n\nLa Máquina A tiene $Var(X)=0{,}5$ y la Máquina B tiene $Var(X)=4$.\n\n¿Qué significa esto?",
@@ -78,6 +99,294 @@
     "graph_view": null,
     "graph_shade": null,
     "reviewed": false,
-    "tags": ["resl-interpretacion"]
+    "tags": [
+      "resl-interpretacion"
+    ]
+  },
+  {
+    "question": "Un control de calidad registra $X$, la cantidad de piezas defectuosas halladas por lote, con función de probabilidad puntual:\n$$\\begin{aligned} p(2) &= 0{,}5 \\\\ p(6) &= 0{,}5 \\end{aligned}$$\n¿Cuánto vale $Var(X)$?",
+    "options": [
+      "$24$",
+      "$4$",
+      "$20$",
+      "$16$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$Var(X) = 20 - 4^{2} = 4$.",
+    "feedback_incorrect": [
+      "Esa suma los dos términos en vez de restar $(E[X])^{2}$ del segundo momento.",
+      null,
+      "Ese es $E[X^{2}]$, falta restar $(E[X])^{2}=16$.",
+      "Ese es $(E[X])^{2}$, falta restar del segundo momento $E[X^{2}]=20$."
+    ],
+    "explanation": "La **varianza** se calcula con la fórmula operativa:\n$$Var(X) = E[X^{2}] - (E[X])^{2}$$\nPrimero la esperanza y el segundo momento:\n$$\\begin{aligned} E[X] &= 2 \\cdot 0{,}5 + 6 \\cdot 0{,}5 = 4 \\\\ E[X^{2}] &= 4 \\cdot 0{,}5 + 36 \\cdot 0{,}5 = 20 \\end{aligned}$$\n$$Var(X) = 20 - 4^{2} = 4$$\nEste valor indica cuánto varía, en promedio, la cantidad de piezas defectuosas entre lotes respecto de su esperanza.\n\nLa dispersión acá es considerable: los dos valores posibles están bastante alejados del centro.\n\nRestar en el orden inverso, o quedarse solo con el segundo momento sin ajustar por el cuadrado de la esperanza, deja un resultado que ya no describe la dispersión real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-varianza-discreta"
+    ]
+  },
+  {
+    "question": "Un arquero registra $X$, la cantidad de goles recibidos en un partido, con función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 0{,}2 \\\\ p(1) &= 0{,}2 \\\\ p(2) &= 0{,}6 \\end{aligned}$$\n¿Cuánto vale $Var(X)$?",
+    "options": [
+      "$2{,}6$",
+      "$1{,}96$",
+      "$0{,}64$",
+      "$0{,}44$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$Var(X) = 2{,}6 - 1{,}4^{2} = 0{,}64$.",
+    "feedback_incorrect": [
+      "Ese es $E[X^{2}]$, falta restar $(E[X])^{2}=1{,}96$.",
+      "Ese es $(E[X])^{2}$, falta restar del segundo momento $E[X^{2}]=2{,}6$.",
+      null,
+      "Ese valor no corresponde a $2{,}6-1{,}96$; revisá la resta."
+    ],
+    "explanation": "La **varianza** se calcula con la fórmula operativa:\n$$Var(X) = E[X^{2}] - (E[X])^{2}$$\nPrimero la esperanza y el segundo momento:\n$$\\begin{aligned} E[X] &= 0\\cdot 0{,}2 + 1\\cdot 0{,}2 + 2\\cdot 0{,}6 = 1{,}4 \\\\ E[X^{2}] &= 0\\cdot 0{,}2 + 1\\cdot 0{,}2 + 4\\cdot 0{,}6 = 2{,}6 \\end{aligned}$$\n$$Var(X) = 2{,}6 - 1{,}4^{2} = 0{,}64$$\nEste valor indica cuánto varía, en promedio, la cantidad de goles recibidos respecto de la esperanza de $1{,}4$.\n\nLa dispersión acá es moderada, la mayoría de los partidos terminan cerca de ese promedio, con ocasionales desvíos.\n\nDejar el resultado en el segundo momento sin restar el cuadrado de la esperanza, o restar en el orden inverso, no describe correctamente cuánto se aleja $X$ de su centro.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-varianza-discreta"
+    ]
+  },
+  {
+    "question": "Una caja registra $X$, la cantidad de clientes que llegan por minuto, con función de probabilidad puntual:\n$$\\begin{aligned} p(1) &= 0{,}75 \\\\ p(5) &= 0{,}25 \\end{aligned}$$\n¿Cuánto vale $Var(X)$?",
+    "options": [
+      "$3$",
+      "$7$",
+      "$4$",
+      "$11$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$Var(X) = 7 - 2^{2} = 3$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es $E[X^{2}]$, falta restar $(E[X])^{2}=4$.",
+      "Ese es $(E[X])^{2}$, no el resultado de restarlo del segundo momento.",
+      "Esa suma los dos términos en vez de restarlos: $7+4=11$."
+    ],
+    "explanation": "La **varianza** se calcula con la fórmula operativa:\n$$Var(X) = E[X^{2}] - (E[X])^{2}$$\nPrimero la esperanza y el segundo momento:\n$$\\begin{aligned} E[X] &= 1\\cdot 0{,}75 + 5\\cdot 0{,}25 = 2 \\\\ E[X^{2}] &= 1\\cdot 0{,}75 + 25\\cdot 0{,}25 = 7 \\end{aligned}$$\n$$Var(X) = 7 - 2^{2} = 3$$\nEste valor indica cuánto varía, en promedio, la cantidad de clientes que llegan por minuto respecto de su esperanza de $2$.\n\nLa mayoría de los minutos se acercan al valor más probable, pero el valor menos frecuente pesa lo suficiente como para generar una dispersión real.\n\nQuedarse con el segundo momento sin restar el cuadrado de la esperanza, o sumar ambos términos en vez de restarlos, infla el resultado muy por encima de la dispersión real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-varianza-discreta"
+    ]
+  },
+  {
+    "question": "Una central telefónica registra $X$, la cantidad de llamadas recibidas en un lapso breve, con función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 1/3 \\\\ p(3) &= 1/3 \\\\ p(6) &= 1/3 \\end{aligned}$$\n¿Cuánto vale $Var(X)$?",
+    "options": [
+      "$15$",
+      "$9$",
+      "$24$",
+      "$6$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$Var(X) = 15 - 3^{2} = 6$.",
+    "feedback_incorrect": [
+      "Ese es $E[X^{2}]$, falta restar $(E[X])^{2}=9$.",
+      "Ese es $(E[X])^{2}$, no el resultado de restarlo del segundo momento.",
+      "Esa suma los dos términos en vez de restarlos: $15+9=24$.",
+      null
+    ],
+    "explanation": "La **varianza** se calcula con la fórmula operativa:\n$$Var(X) = E[X^{2}] - (E[X])^{2}$$\nPrimero la esperanza y el segundo momento:\n$$\\begin{aligned} E[X] &= 0\\cdot \\dfrac{1}{3} + 3\\cdot \\dfrac{1}{3} + 6\\cdot \\dfrac{1}{3} = 3 \\\\ E[X^{2}] &= 0\\cdot \\dfrac{1}{3} + 9\\cdot \\dfrac{1}{3} + 36\\cdot \\dfrac{1}{3} = 15 \\end{aligned}$$\n$$Var(X) = 15 - 3^{2} = 6$$\nEste valor indica cuánto varía, en promedio, la cantidad de llamadas recibidas respecto de la esperanza de $3$.\n\nCon los tres valores igual de probables y bien separados entre sí, la dispersión resulta considerable.\n\nDejar el resultado en el segundo momento sin restar el cuadrado de la esperanza, o sumar ambos términos, sobreestima cuánto se aleja $X$ de su centro.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-varianza-discreta"
+    ]
+  },
+  {
+    "question": "El tiempo de espera en la fila de un banco tiene $Var(X)=9$ minutos².\n\n¿Cuál es la desviación estándar $\\sigma$?",
+    "options": [
+      "$9$",
+      "$3$",
+      "$4{,}5$",
+      "$81$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$\\sigma=\\sqrt{9}=3$.",
+    "feedback_incorrect": [
+      "Ese es el propio $Var(X)$, falta aplicar la raíz cuadrada.",
+      null,
+      "Ese valor no corresponde a la raíz cuadrada de $9$.",
+      "Ese es $Var(X)^{2}$, no su raíz cuadrada."
+    ],
+    "explanation": "La **desviación estándar** es la raíz cuadrada de la varianza:\n$$\\sigma = \\sqrt{Var(X)}$$\nCon $Var(X)=9$:\n$$\\sigma = \\sqrt{9} = 3$$\nLa varianza queda en minutos al cuadrado, una unidad sin interpretación directa, mientras que $\\sigma=3$ minutos sí se puede comparar con el tiempo de espera promedio.\n\nSi reportás $Var(X)=9$ como si fuera la dispersión en minutos, estás mezclando una magnitud al cuadrado con la escala real del problema.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-desviacion-estandar"
+    ]
+  },
+  {
+    "question": "El peso de los paquetes que despacha una empresa de correo tiene $Var(X)=2{,}25$ kg².\n\n¿Cuál es la desviación estándar $\\sigma$?",
+    "options": [
+      "$2{,}25$",
+      "$1{,}25$",
+      "$1{,}5$",
+      "$5{,}0625$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$\\sigma=\\sqrt{2{,}25}=1{,}5$.",
+    "feedback_incorrect": [
+      "Ese es el propio $Var(X)$, falta aplicar la raíz cuadrada.",
+      "Ese valor no corresponde a la raíz cuadrada de $2{,}25$.",
+      null,
+      "Ese es $Var(X)^{2}$, no su raíz cuadrada."
+    ],
+    "explanation": "La **desviación estándar** es la raíz cuadrada de la varianza:\n$$\\sigma = \\sqrt{Var(X)}$$\nCon $Var(X)=2{,}25$:\n$$\\sigma = \\sqrt{2{,}25} = 1{,}5$$\nLa varianza queda en kilogramos al cuadrado, mientras que $\\sigma=1{,}5$ kilogramos vuelve a la unidad original del peso de los paquetes.\n\nQuedarse con $Var(X)=2{,}25$ en vez de sacar la raíz deja una cifra en kilogramos al cuadrado, que no se puede comparar directamente contra el peso promedio de un paquete.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-desviacion-estandar"
+    ]
+  },
+  {
+    "question": "La duración de las llamadas en un call center tiene $Var(X)=25$ segundos².\n\n¿Cuál es la desviación estándar $\\sigma$?",
+    "options": [
+      "$5$",
+      "$25$",
+      "$12{,}5$",
+      "$625$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$\\sigma=\\sqrt{25}=5$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el propio $Var(X)$, falta aplicar la raíz cuadrada.",
+      "Ese valor no corresponde a la raíz cuadrada de $25$.",
+      "Ese es $Var(X)^{2}$, no su raíz cuadrada."
+    ],
+    "explanation": "La **desviación estándar** es la raíz cuadrada de la varianza:\n$$\\sigma = \\sqrt{Var(X)}$$\nCon $Var(X)=25$:\n$$\\sigma = \\sqrt{25} = 5$$\nLa varianza queda en segundos al cuadrado, mientras que $\\sigma=5$ segundos vuelve a la unidad original de duración de las llamadas.\n\nReportar la varianza como si fuera la dispersión típica sobreestima notablemente cuánto varía la duración real de las llamadas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-desviacion-estandar"
+    ]
+  },
+  {
+    "question": "El peso neto en gramos de un producto se calcula como $Y=2X-5$.\n\nLa medición original $X$ tiene $Var(X)=10$ gramos².\n\n¿Cuánto vale $Var(Y)$?",
+    "options": [
+      "$20$",
+      "$35$",
+      "$15$",
+      "$40$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$Var(Y)=2^{2}\\cdot 10=40$.",
+    "feedback_incorrect": [
+      "Ese resultado no eleva el factor $2$ al cuadrado antes de multiplicar.",
+      "Ese resultado resta el término $-5$, que no afecta la varianza.",
+      "Ese valor no corresponde a $2^{2}\\cdot 10$.",
+      null
+    ],
+    "explanation": "La varianza escala según la propiedad:\n$$Var(aX+b) = a^{2}\\,Var(X)$$\nCon $a=2$ y $Var(X)=10$:\n$$Var(Y) = 2^{2}\\cdot 10 = 40$$\nEl ajuste fijo de $-5$ gramos desplaza todas las mediciones por igual, así que no cambia cuánto varían entre sí.\n\nEscalar por el factor $2$ sí estira esa dispersión, y por eso entra al cuadrado en el resultado.\n\nSi sumás el ajuste de $-5$ a la varianza calculada, terminás inflando una dispersión que en realidad no cambió.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-varianza-escalada"
+    ]
+  },
+  {
+    "question": "El puntaje ajustado de un examen se calcula como $Y=4X+10$.\n\nEl puntaje original $X$ tiene $Var(X)=3$.\n\n¿Cuánto vale $Var(Y)$?",
+    "options": [
+      "$12$",
+      "$48$",
+      "$58$",
+      "$22$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$Var(Y)=4^{2}\\cdot 3=48$.",
+    "feedback_incorrect": [
+      "Ese resultado no eleva el factor $4$ al cuadrado antes de multiplicar.",
+      null,
+      "Ese resultado suma el término $+10$, que no afecta la varianza.",
+      "Ese valor no corresponde a $4^{2}\\cdot 3$."
+    ],
+    "explanation": "La varianza escala según la propiedad:\n$$Var(aX+b) = a^{2}\\,Var(X)$$\nCon $a=4$ y $Var(X)=3$:\n$$Var(Y) = 4^{2}\\cdot 3 = 48$$\nEl bono fijo de $10$ puntos desplaza todos los puntajes por igual, así que no cambia cuánto varían entre sí.\n\nEscalar por el factor $4$ sí estira esa dispersión, y por eso entra al cuadrado en el resultado.\n\nSumar el bono de $10$ puntos al resultado de $Var(Y)$ agrega puntos donde no corresponde, porque el bono no separa más ni menos a los alumnos entre sí.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-varianza-escalada"
+    ]
+  },
+  {
+    "question": "Dos rutas de entrega tienen el mismo tiempo promedio, pero distinta varianza.\n\nLa Ruta A tiene $Var(X)=1$ y la Ruta B tiene $Var(X)=9$.\n\n¿Qué significa esto?",
+    "options": [
+      "La Ruta B entrega en promedio más rápido que la Ruta A",
+      "La Ruta A entrega más pedidos por día",
+      "La Ruta A es más consistente, sus tiempos varían menos",
+      "No hay ninguna diferencia real entre ambas rutas"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Menor varianza significa tiempos de entrega más consistentes, más cerca del promedio.",
+    "feedback_incorrect": [
+      "El promedio $E[X]$ es igual en ambas rutas, la varianza no lo cambia.",
+      "La varianza mide dispersión, no cantidad de pedidos entregados.",
+      null,
+      "Una varianza mucho mayor sí indica una diferencia real: más dispersión en la Ruta B."
+    ],
+    "explanation": "La **varianza** mide cuánto se dispersan los valores respecto de su esperanza, sin importar cuál sea esa esperanza:\n$$Var(X) = E[(X-\\mu)^{2}]$$\nComo ambas rutas comparten el mismo tiempo promedio de entrega, la diferencia está solo en la dispersión.\n\n$Var(X)=1$ en la Ruta A indica tiempos de entrega concentrados cerca del promedio; $Var(X)=9$ en la Ruta B indica tiempos mucho más variables.\n\nConfundir varianza con velocidad promedio, o con cantidad de pedidos, ignora que la varianza describe consistencia, no ubicación ni volumen.\n\nUna dispersión menor le permite a un cliente confiar más en la hora estimada de entrega, aunque el promedio sea idéntico al de la otra ruta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-interpretacion"
+    ]
+  },
+  {
+    "question": "Dos grupos de un examen tienen el mismo puntaje promedio, pero distinta varianza.\n\nEl Grupo 1 tiene $Var(X)=2$ y el Grupo 2 tiene $Var(X)=20$.\n\n¿Qué implica esta diferencia?",
+    "options": [
+      "Los puntajes del Grupo 1 están más cerca del promedio entre sí",
+      "El Grupo 2 obtuvo en promedio mejores resultados finales",
+      "El Grupo 1 tiene más alumnos que el Grupo 2",
+      "Ambos grupos tuvieron exactamente el mismo desempeño"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Menor varianza significa puntajes más parejos entre los alumnos, más cerca del promedio común.",
+    "feedback_incorrect": [
+      null,
+      "El promedio $E[X]$ es igual en ambos grupos, la varianza no lo cambia.",
+      "La varianza no dice nada sobre la cantidad de alumnos en cada grupo.",
+      "Una varianza diez veces mayor sí marca una diferencia real: puntajes mucho más dispersos en el Grupo 2."
+    ],
+    "explanation": "La **varianza** mide cuánto se dispersan los valores respecto de su esperanza, sin importar cuál sea esa esperanza:\n$$Var(X) = E[(X-\\mu)^{2}]$$\nComo ambos grupos comparten el mismo puntaje promedio, la diferencia está solo en qué tan parejos son los resultados individuales.\n\n$Var(X)=2$ en el Grupo 1 indica puntajes agrupados cerca del promedio; $Var(X)=20$ en el Grupo 2 indica puntajes mucho más repartidos entre notas altas y bajas.\n\nConfundir varianza con el nivel promedio, o con la cantidad de alumnos, ignora que la varianza describe qué tan parejo fue el desempeño, no qué tan bueno.\n\nUn grupo con menor varianza permite predecir con más confianza el puntaje de un alumno cualquiera, aun sin conocerlo individualmente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-interpretacion"
+    ]
   }
 ]

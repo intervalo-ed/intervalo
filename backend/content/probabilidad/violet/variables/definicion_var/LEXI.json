@@ -18,7 +18,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["definicion-variable-aleatoria"]
+    "tags": [
+      "definicion-variable-aleatoria"
+    ]
   },
   {
     "question": "¿Cuál de las siguientes afirmaciones distingue correctamente una variable **discreta** de una variable **continua**?",
@@ -39,7 +41,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["definicion-discreta-continua"]
+    "tags": [
+      "definicion-discreta-continua"
+    ]
   },
   {
     "question": "Se lanza un dado equilibrado y $X$ es el número que queda hacia arriba.\n\n¿Cómo se llama el conjunto $\\{1,2,3,4,5,6\\}$ de valores que puede tomar $X$?",
@@ -60,6 +64,284 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["definicion-soporte"]
+    "tags": [
+      "definicion-soporte"
+    ]
+  },
+  {
+    "question": "Toda **variable aleatoria** se define mediante la notación:\n$$X:\\Omega\\to\\mathbb{R}$$\n¿Qué representa $\\Omega$ en esa notación?",
+    "options": [
+      "El conjunto de valores numéricos que toma $X$.",
+      "El espacio muestral del experimento aleatorio.",
+      "El conjunto de todos los eventos posibles."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$\\Omega$ es el dominio de la función, el espacio muestral del experimento.",
+    "feedback_incorrect": [
+      "Ese conjunto de valores numéricos es el codominio o el soporte de $X$, no $\\Omega$.",
+      null,
+      "Los eventos son subconjuntos de $\\Omega$, no el espacio muestral en sí."
+    ],
+    "explanation": "Una **variable aleatoria** es una función que asigna un número real a cada resultado posible de un experimento, en notación $X:\\Omega\\to\\mathbb{R}$.\n\nEn esa notación, $\\Omega$ ocupa el lugar del dominio, el espacio muestral con todos los resultados posibles antes de aplicar la función.\n\nEl símbolo $\\mathbb{R}$ del otro lado es el codominio, donde caen los valores numéricos que produce $X$.\n\nConfundir el espacio muestral con el conjunto de valores numéricos borra la distinción entre lo que entra a la función y lo que sale de ella.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "definicion-variable-aleatoria"
+    ]
+  },
+  {
+    "question": "Un **evento** es un subconjunto del espacio muestral con una probabilidad asociada.\n\n¿En qué se diferencia de una variable aleatoria?",
+    "options": [
+      "Son el mismo objeto matemático, cambia el nombre usado según el contexto.",
+      "El evento asigna valores numéricos al resultado y la variable asigna probabilidades.",
+      "La variable aleatoria es una función numérica, el evento es un conjunto de resultados."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La variable aleatoria transforma resultados en números; el evento es un subconjunto de resultados.",
+    "feedback_incorrect": [
+      "No son el mismo objeto, uno es un conjunto y el otro una función numérica.",
+      "Es al revés, la variable asigna números y la probabilidad se calcula sobre eventos.",
+      null
+    ],
+    "explanation": "Una **variable aleatoria** es una función $X:\\Omega\\to\\mathbb{R}$ que asigna un número real a cada resultado del espacio muestral.\n\nUn evento, en cambio, es simplemente un subconjunto de ese espacio muestral.\n\nPor ejemplo, al lanzar un dado, sacar un número par es un evento, un subconjunto $\\{2,4,6\\}$ de resultados.\n\nEn cambio, definir $X$ como el número que queda hacia arriba es una variable aleatoria, una función que convierte cada resultado en un valor numérico.\n\nTratar ambos objetos como intercambiables ignora que uno clasifica resultados y el otro los transforma en números.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "definicion-variable-aleatoria"
+    ]
+  },
+  {
+    "question": "Al lanzar dos dados, se define $X$ como la suma de los números obtenidos.\n\n¿Cuál de las siguientes afirmaciones describe correctamente a la **variable aleatoria** $X$?",
+    "options": [
+      "$X$ es la función que asigna la suma de resultados a cada par.",
+      "$X$ es el resultado concreto que se obtuvo en una tirada particular.",
+      "$X$ es el experimento aleatorio de lanzar los dos dados en conjunto."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$X$ es la función completa, no un valor puntual ni el experimento en sí.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor puntual es una realización de $X$, no la variable aleatoria completa.",
+      "El experimento es la acción de lanzar los dados, $X$ es la función que actúa sobre sus resultados."
+    ],
+    "explanation": "Una **variable aleatoria** es una función que asigna un número real a cada resultado posible de un experimento, no un valor aislado ni el experimento mismo.\n\nAl lanzar dos dados, $X$ está definida para todos los pares posibles de resultados, asignando a cada uno la suma correspondiente.\n\nEl par $(3,5)$ se transforma en $X=8$.\n\nDe la misma forma, el par $(1,1)$ se transforma en $X=2$.\n\nLlamar $X$ solo al número que salió en una tirada particular reduce la función completa a uno de sus valores.\n\nConfundir la variable con el acto de lanzar los dados mezcla la herramienta matemática con el procedimiento físico que la origina.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "definicion-variable-aleatoria"
+    ]
+  },
+  {
+    "question": "Considerá una **variable aleatoria** $X:\\Omega\\to\\mathbb{R}$.\n\n¿Cuál es el dominio de $X$?",
+    "options": [
+      "El conjunto de números reales $\\mathbb{R}$.",
+      "El espacio muestral $\\Omega$, el dominio de $X$.",
+      "El soporte de $X$, sus valores posibles."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El dominio de toda variable aleatoria es el espacio muestral del experimento.",
+    "feedback_incorrect": [
+      "$\\mathbb{R}$ es el codominio de $X$, el conjunto donde caen sus valores, no el dominio.",
+      null,
+      "El soporte es el conjunto de valores que toma $X$, no el conjunto sobre el que está definida."
+    ],
+    "explanation": "Una **variable aleatoria** $X:\\Omega\\to\\mathbb{R}$ es una función, y como toda función tiene un dominio y un codominio bien definidos.\n\nEl dominio de $X$ es el espacio muestral $\\Omega$, el conjunto de todos los resultados posibles del experimento.\n\nEl codominio es $\\mathbb{R}$, el conjunto de números reales donde caen los valores que produce $X$.\n\nUbicar el dominio en $\\mathbb{R}$ en vez de en $\\Omega$ invierte el sentido de la función: primero ocurre un resultado del experimento, y recién después ese resultado se transforma en un número.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "definicion-variable-aleatoria"
+    ]
+  },
+  {
+    "question": "Toda **variable aleatoria** $X:\\Omega\\to\\mathbb{R}$ tiene como codominio al conjunto de números reales.\n\n¿Es correcto afirmar que $X$ siempre toma efectivamente todos los valores de $\\mathbb{R}$?",
+    "options": [
+      "No, $X$ solo toma los valores de su soporte, un subconjunto de $\\mathbb{R}$.",
+      "Sí, toda variable aleatoria recorre absolutamente todos los números reales.",
+      "No, el codominio de $X$ nunca es $\\mathbb{R}$, sino el espacio muestral."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El codominio declarado es $\\mathbb{R}$, pero los valores efectivos forman el soporte, un subconjunto.",
+    "feedback_incorrect": [
+      null,
+      "El codominio es $\\mathbb{R}$, pero eso no implica que $X$ tome cada uno de sus valores.",
+      "El espacio muestral $\\Omega$ es el dominio, no el codominio; el codominio sigue siendo $\\mathbb{R}$."
+    ],
+    "explanation": "Una **variable aleatoria** se define formalmente como $X:\\Omega\\to\\mathbb{R}$, lo que fija a $\\mathbb{R}$ como codominio declarado de la función.\n\nSin embargo, el codominio es solo el conjunto de llegada permitido, no la lista de valores que $X$ efectivamente produce.\n\nAl lanzar un dado, por ejemplo, la variable nunca toma el valor $7{,}5$, aunque pertenezca a $\\mathbb{R}$.\n\nLos valores realmente alcanzados forman el soporte, un subconjunto del codominio.\n\nAsumir que toda variable recorre la totalidad de los reales confunde el conjunto de llegada declarado con el conjunto de valores que la función realmente toma.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "definicion-variable-aleatoria"
+    ]
+  },
+  {
+    "question": "¿Cuál es la definición de una **variable discreta**?",
+    "options": [
+      "Una variable cuyos valores son siempre números enteros positivos.",
+      "Una variable que solo puede tomar dos valores posibles.",
+      "Una variable cuyos valores forman un conjunto contable."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Discreta significa conjunto contable de valores, no una cantidad ni un signo particular.",
+    "feedback_incorrect": [
+      "Una variable discreta puede tomar valores negativos o no enteros, lo que importa es que sean contables.",
+      "Tomar solo dos valores es un caso particular, no la definición general de discreta.",
+      null
+    ],
+    "explanation": "Una **variable aleatoria** se llama discreta cuando el conjunto de valores que puede tomar es contable, ya sea finito o infinito numerable, como los números naturales.\n\nEsa definición no dice nada sobre el signo ni sobre si los valores son enteros.\n\nUna variable con valores $\\{-2,-1,0,1,2\\}$ también es discreta, porque sigue siendo un conjunto contable de valores aislados.\n\nReducir discreta a siempre entera y positiva deja afuera casos legítimos que cumplen la definición real: lo que importa es poder enumerar los valores uno por uno, no su signo o forma.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "definicion-discreta-continua"
+    ]
+  },
+  {
+    "question": "¿Cuál es la definición de una **variable continua**?",
+    "options": [
+      "Una variable cuyos valores recorren un intervalo real.",
+      "Una variable que se mide con instrumentos de alta precisión.",
+      "Una variable cuyos valores son siempre números positivos."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Continua significa que entre dos valores posibles siempre hay otro valor intermedio posible.",
+    "feedback_incorrect": [
+      null,
+      "La precisión del instrumento no define la naturaleza matemática de la variable.",
+      "El signo de los valores no tiene relación con ser discreta o continua."
+    ],
+    "explanation": "Una **variable aleatoria** se llama continua cuando su conjunto de valores posibles recorre un intervalo real completo, sin huecos entre un valor y el siguiente.\n\nEntre dos valores cualesquiera de ese intervalo, como $2{,}1$ y $2{,}2$, siempre existe otro valor intermedio posible, y eso ocurre entre cualquier par que se elija, sin fin.\n\nEsa densidad de valores intermedios es lo que distingue a lo continuo de lo discreto.\n\nAsociar continua con medición precisa o con el signo de los valores deja afuera la propiedad matemática real.\n\nLo que define a la variable es la estructura del conjunto de valores, no el instrumento usado ni si son positivos o negativos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "definicion-discreta-continua"
+    ]
+  },
+  {
+    "question": "¿Puede una **variable discreta** tomar valores con parte decimal, y seguir siendo discreta?",
+    "options": [
+      "No, cualquier valor con decimales hace que la variable sea continua.",
+      "Sí, si esos valores decimales forman igual un conjunto contable y aislado.",
+      "No, una variable discreta solo puede tomar números naturales."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Lo que define discreta es que los valores sean contables y aislados, no que sean enteros.",
+    "feedback_incorrect": [
+      "Tener parte decimal no vuelve continua a una variable si sus valores siguen siendo contables y aislados.",
+      null,
+      "Una variable discreta puede tomar valores negativos, fraccionarios o decimales, mientras sean contables."
+    ],
+    "explanation": "Una **variable aleatoria** se clasifica como discreta según la naturaleza del conjunto de sus valores posibles, contable y aislado, no según si esos valores llevan parte decimal.\n\nUna variable con valores posibles $\\{0{,}5;\\ 1{,}0;\\ 1{,}5\\}$ sigue siendo discreta, porque son valores aislados y contables, aunque no sean enteros.\n\nEntre $0{,}5$ y $1{,}0$ no hay ningún otro valor posible de la variable, y eso la sigue distinguiendo de una continua.\n\nAsumir que tener decimales equivale a ser continua ignora la definición real y lleva a clasificar mal cualquier variable discreta que, por la unidad que usa, se exprese con decimales.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "definicion-discreta-continua"
+    ]
+  },
+  {
+    "question": "Una **variable discreta** tiene, por definición, un conjunto de valores contable.\n\n¿Qué significa que ese conjunto sea contable?",
+    "options": [
+      "Que la cantidad de valores es siempre finita.",
+      "Que cada valor aparece con la misma probabilidad.",
+      "Que sus valores se pueden enumerar uno por uno."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Contable incluye tanto conjuntos finitos como infinitos que se pueden enumerar en orden.",
+    "feedback_incorrect": [
+      "Un conjunto contable puede ser infinito, como los números naturales, y seguir siendo discreto.",
+      "La probabilidad de cada valor es un dato aparte, no forma parte de la definición de contable.",
+      null
+    ],
+    "explanation": "Una **variable aleatoria** discreta tiene un conjunto de valores contable, lo que significa que se puede armar una lista ordenada, donde a cada valor le corresponde una posición.\n\nEsa lista puede terminar, como en un dado con seis caras, o seguir para siempre, como la cantidad de intentos hasta un primer éxito.\n\nEn ambos casos el conjunto sigue siendo contable, porque se puede enumerar valor por valor.\n\nLimitar contable a finito deja afuera variables discretas legítimas cuyo conjunto de valores es infinito pero perfectamente enumerable.",
+    "has_math": false,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "definicion-discreta-continua"
+    ]
+  },
+  {
+    "question": "Se lanza una moneda dos veces y $X$ es la cantidad de caras obtenidas.\n\n¿Cuál es el dominio de la **variable aleatoria** $X$?",
+    "options": [
+      "El espacio muestral de las cuatro tiradas posibles.",
+      "El conjunto $\\{0,1,2\\}$ de valores que puede tomar $X$.",
+      "El conjunto de números reales $\\mathbb{R}$."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El dominio de $X$ es el espacio muestral, los resultados originales de las dos tiradas.",
+    "feedback_incorrect": [
+      null,
+      "Ese conjunto de valores numéricos es el soporte de $X$, no su dominio.",
+      "$\\mathbb{R}$ es el codominio declarado de $X$, no su dominio."
+    ],
+    "explanation": "Toda **variable aleatoria** $X:\\Omega\\to\\mathbb{R}$ tiene su dominio en el espacio muestral $\\Omega$ del experimento que la origina.\n\nAl lanzar una moneda dos veces, el espacio muestral tiene cuatro resultados posibles, como cara-cara o cara-seca.\n\n$X$ transforma cada uno de esos resultados en la cantidad de caras que contiene.\n\nEl dominio de $X$ son esos cuatro resultados, no los valores $\\{0,1,2\\}$ que produce la función.\n\nConfundir el dominio con el soporte pasa por alto que uno describe de dónde parte la función y el otro a dónde efectivamente llega.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "definicion-soporte"
+    ]
+  },
+  {
+    "question": "Una ruleta tiene 4 sectores numerados del 1 al 4, y $X$ es el número que indica la flecha al detenerse.\n\n¿Cómo se llama el conjunto $\\{1,2,3,4\\}$ de valores que puede tomar $X$?",
+    "options": [
+      "El espacio muestral del experimento.",
+      "El soporte de la variable aleatoria.",
+      "El codominio declarado de la variable aleatoria."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El soporte agrupa los valores numéricos que $X$ efectivamente puede tomar.",
+    "feedback_incorrect": [
+      "El espacio muestral son los sectores físicos de la ruleta, previos a aplicar la función $X$.",
+      null,
+      "El codominio declarado es $\\mathbb{R}$ completo, el soporte es solo la parte que $X$ realmente alcanza."
+    ],
+    "explanation": "El **soporte** de una variable aleatoria $X$ es el conjunto de valores numéricos que la función efectivamente toma, un subconjunto del codominio declarado $\\mathbb{R}$.\n\nEn la ruleta de 4 sectores, cada sector numerado es un resultado distinto del espacio muestral, y $X$ asigna a cada uno el número que ya trae impreso.\n\nEl soporte $\\{1,2,3,4\\}$ es esa lista de valores que $X$ puede producir.\n\nEsa lista es distinta tanto del espacio muestral físico como del codominio teórico $\\mathbb{R}$.\n\nLlamar espacio muestral al conjunto de valores numéricos mezcla los resultados del experimento con los números que la función les asigna, dos etapas separadas de la misma variable.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "definicion-soporte"
+    ]
+  },
+  {
+    "question": "Una urna tiene 5 bolillas numeradas del 1 al 5, y $X$ es el número de la bolilla que se extrae al azar.\n\n¿Cuál es el soporte de la **variable aleatoria** $X$?",
+    "options": [
+      "El conjunto de las 5 bolillas físicas dentro de la urna.",
+      "El conjunto de todos los números reales.",
+      "El conjunto de valores posibles $\\{1,2,3,4,5\\}$."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El soporte es el conjunto de valores numéricos que $X$ puede tomar tras la extracción.",
+    "feedback_incorrect": [
+      "Las bolillas físicas forman el espacio muestral, el dominio de $X$, no su soporte.",
+      "El conjunto de todos los reales es el codominio declarado, mucho más amplio que el soporte real.",
+      null
+    ],
+    "explanation": "El **soporte** de una variable aleatoria es el conjunto de valores numéricos que efectivamente puede tomar, distinto del espacio muestral que le da origen.\n\nEn la urna, las 5 bolillas físicas forman el espacio muestral, el dominio de $X$.\n\nAl extraer una, la función $X$ le asigna el número impreso, y esos cinco números posibles forman el soporte de la variable.\n\nConfundir las bolillas físicas con sus números impresos borra la distinción entre el objeto sorteado y el valor numérico que la variable aleatoria le hace corresponder.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "definicion-soporte"
+    ]
   }
 ]

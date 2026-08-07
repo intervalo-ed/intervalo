@@ -3,24 +3,26 @@
     "question": "Un colectivo llega en un instante aleatorio dentro de una franja horaria de $4$ minutos.\n\nEl gráfico de su densidad es un rectángulo sobre $[0,4]$ con altura $h$, y vale 0 fuera de ese intervalo.\n\n¿Cuánto vale $h$?",
     "options": [
       "$\\dfrac{1}{2}$",
-      "$\\dfrac{1}{4}$",
+      "$4$",
       "$1$",
-      "$4$"
+      "$\\dfrac{1}{4}$"
     ],
-    "correct_index": 1,
+    "correct_index": 3,
     "feedback_correct": "El área total debe ser 1, $h \\cdot 4 = 1 \\Rightarrow h = 1/4$.",
     "feedback_incorrect": [
       "Ese es $1/2$, el área de un rectángulo de altura $1/2$ sobre $[0,4]$ sería 2, no 1.",
-      null,
+      "Estás confundiendo la altura con el ancho del rectángulo, la altura debe hacer que el área total dé 1.",
       "Si $h=1$, el área del rectángulo sería 4, no la unidad requerida.",
-      "Estás confundiendo la altura con el ancho del rectángulo, la altura debe hacer que el área total dé 1."
+      null
     ],
     "explanation": "La **densidad** de una variable continua siempre encierra un área total igual a 1:\n$$\\int_{-\\infty}^{\\infty} f(x)\\,dx = 1$$\nPara un rectángulo de base 4 y altura $h$ sobre $[0, 4]$:\n$$h \\cdot 4 = 1 \\Rightarrow h = \\frac{1}{4}$$\nAsumir que la altura de una densidad debe ser 1, como si fuera una probabilidad, ignora que la densidad puede tomar cualquier valor no negativo, y lo que debe ser 1 es el área acumulada bajo la curva.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["lectura-altura-uniforme"]
+    "tags": [
+      "lectura-altura-uniforme"
+    ]
   },
   {
     "question": "El tiempo que un cliente espera en la fila de un cajero automático se modela con una densidad uniforme sobre $[0,5]$ minutos.\n\nEl gráfico de esa densidad es un rectángulo de altura $1/5$.\n\n¿Cuánto vale $P(1\\leq X\\leq 3)$?",
@@ -43,7 +45,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["lectura-area-probabilidad"]
+    "tags": [
+      "lectura-area-probabilidad"
+    ]
   },
   {
     "question": "Dos sensores registran dónde cae una pelota a lo largo de una pista, con densidad uniforme.\n\nEl sensor $A$ cubre una pista de $2$ metros.\n\nEl sensor $B$ cubre una pista de $10$ metros.\n\n¿Cuál densidad está más concentrada?",
@@ -64,6 +68,304 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["comparacion-forma"]
+    "tags": [
+      "comparacion-forma"
+    ]
+  },
+  {
+    "question": "El tiempo entre dos llamadas a una central telefónica se modela con densidad uniforme en $[0,6]$ minutos.\n\nEl gráfico es un rectángulo de altura $h$ sobre $[0,6]$, y vale 0 fuera de ese intervalo.\n\n¿Cuánto vale $h$?",
+    "options": [
+      "$\\dfrac{1}{3}$",
+      "$6$",
+      "$1$",
+      "$\\dfrac{1}{6}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El área total debe ser 1, $h \\cdot 6 = 1 \\Rightarrow h = 1/6$.",
+    "feedback_incorrect": [
+      "Ese valor daría un área total de 2, no 1, sobre un intervalo de largo 6.",
+      "Ese es el largo del intervalo, no la altura que hace que el área dé 1.",
+      "Con $h=1$ el área del rectángulo sería 6, no la unidad requerida.",
+      null
+    ],
+    "explanation": "La **densidad** de una variable continua siempre encierra un área total igual a 1:\n$$\\int_{-\\infty}^{\\infty} f(x)\\,dx = 1$$\nPara un rectángulo de base 6 y altura $h$ sobre $[0, 6]$:\n$$h \\cdot 6 = 1 \\Rightarrow h = \\frac{1}{6}$$\nUsar $h=1$ como si la altura tuviera que coincidir con una probabilidad ignora que la densidad puede tomar cualquier valor no negativo, mientras el área total cierre en 1.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-altura-uniforme"
+    ]
+  },
+  {
+    "question": "Un punto cae al azar sobre un segmento de $10$ centímetros, con la misma chance en cualquier posición.\n\nEl gráfico de su densidad es un rectángulo sobre $[0,10]$ con altura $h$, y vale 0 fuera de ese intervalo.\n\n¿Cuánto vale $h$?",
+    "options": [
+      "$\\dfrac{1}{5}$",
+      "$\\dfrac{1}{10}$",
+      "$1$",
+      "$10$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El área total debe ser 1, $h \\cdot 10 = 1 \\Rightarrow h = 1/10$.",
+    "feedback_incorrect": [
+      "Ese valor daría un área de 2, no de 1, sobre un intervalo de largo 10.",
+      null,
+      "Con $h=1$ el área del rectángulo sería 10, no la unidad requerida.",
+      "Ese es el largo del segmento, no la altura que hace que el área dé 1."
+    ],
+    "explanation": "La **densidad** de una variable continua siempre encierra un área total igual a 1:\n$$\\int_{-\\infty}^{\\infty} f(x)\\,dx = 1$$\nPara un rectángulo de base 10 y altura $h$ sobre $[0, 10]$:\n$$h \\cdot 10 = 1 \\Rightarrow h = \\frac{1}{10}$$\nAsumir que la altura crece junto con el largo del intervalo invierte la relación real, cuanto más ancho el rectángulo, más chica tiene que ser su altura para mantener el área en 1.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-altura-uniforme"
+    ]
+  },
+  {
+    "question": "Un tren llega en un instante aleatorio dentro de una franja horaria de $8$ minutos.\n\nEl gráfico de su densidad es un rectángulo sobre $[0,8]$ con altura $h$, y vale 0 fuera de ese intervalo.\n\n¿Cuánto vale $h$?",
+    "options": [
+      "$\\dfrac{1}{4}$",
+      "$\\dfrac{1}{8}$",
+      "$1$",
+      "$8$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El área total debe ser 1, $h \\cdot 8 = 1 \\Rightarrow h = 1/8$.",
+    "feedback_incorrect": [
+      "Ese valor daría un área de 2, no de 1, sobre un intervalo de largo 8.",
+      null,
+      "Con $h=1$ el área del rectángulo sería 8, no la unidad requerida.",
+      "Ese es el largo de la franja, no la altura que hace que el área dé 1."
+    ],
+    "explanation": "La **densidad** de una variable continua siempre encierra un área total igual a 1:\n$$\\int_{-\\infty}^{\\infty} f(x)\\,dx = 1$$\nPara un rectángulo de base 8 y altura $h$ sobre $[0, 8]$:\n$$h \\cdot 8 = 1 \\Rightarrow h = \\frac{1}{8}$$\nConfundir la altura con el largo de la franja lleva a un área que no cierra en 1, sin importar qué tan angosta o ancha sea esa franja.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-altura-uniforme"
+    ]
+  },
+  {
+    "question": "El tiempo entre dos mensajes consecutivos en un chat grupal se modela con una densidad uniforme en $[0,3]$ minutos.\n\nEl gráfico de esa densidad es un rectángulo de altura $h$ sobre $[0,3]$, y vale 0 fuera de ese intervalo.\n\n¿Cuánto vale $h$?",
+    "options": [
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{1}{3}$",
+      "$1$",
+      "$3$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El área total debe ser 1, $h \\cdot 3 = 1 \\Rightarrow h = 1/3$.",
+    "feedback_incorrect": [
+      "Ese valor deja un área distinta de 1 sobre un intervalo de largo 3.",
+      null,
+      "Con $h=1$ el área del rectángulo sería 3, no la unidad requerida.",
+      "Ese es el largo del intervalo, no la altura que hace que el área dé 1."
+    ],
+    "explanation": "La **densidad** de una variable continua siempre encierra un área total igual a 1:\n$$\\int_{-\\infty}^{\\infty} f(x)\\,dx = 1$$\nPara un rectángulo de base 3 y altura $h$ sobre $[0, 3]$:\n$$h \\cdot 3 = 1 \\Rightarrow h = \\frac{1}{3}$$\nOlvidar multiplicar la altura por el largo del intervalo, y dejarla directamente en $1$, ignora que el área depende de ambos factores.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-altura-uniforme"
+    ]
+  },
+  {
+    "question": "Un punto cae al azar sobre una varilla de $5$ metros, con la misma chance en cualquier posición.\n\nEl gráfico de su densidad es un rectángulo sobre $[0,5]$ con altura $h$, y vale 0 fuera de ese intervalo.\n\n¿Cuánto vale $h$?",
+    "options": [
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{1}{5}$",
+      "$1$",
+      "$5$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El área total debe ser 1, $h \\cdot 5 = 1 \\Rightarrow h = 1/5$.",
+    "feedback_incorrect": [
+      "Ese valor deja un área distinta de 1 sobre un intervalo de largo 5.",
+      null,
+      "Con $h=1$ el área del rectángulo sería 5, no la unidad requerida.",
+      "Ese es el largo de la varilla, no la altura que hace que el área dé 1."
+    ],
+    "explanation": "La **densidad** de una variable continua siempre encierra un área total igual a 1:\n$$\\int_{-\\infty}^{\\infty} f(x)\\,dx = 1$$\nPara un rectángulo de base 5 y altura $h$ sobre $[0, 5]$:\n$$h \\cdot 5 = 1 \\Rightarrow h = \\frac{1}{5}$$\nCuanto más largo el intervalo, más chica tiene que ser la altura para que el rectángulo mantenga área 1, y no al revés.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-altura-uniforme"
+    ]
+  },
+  {
+    "question": "El tiempo que un cliente espera en la fila de un supermercado se modela con una densidad uniforme sobre $[0,4]$ minutos.\n\nEl gráfico de esa densidad es un rectángulo de altura $1/4$.\n\n¿Cuánto vale $P(1\\leq X\\leq 3)$?",
+    "options": [
+      "$\\dfrac{1}{4}$",
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{3}{4}$",
+      "$1$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El área del rectángulo de base 2 y altura $1/4$ da $1/2$.",
+    "feedback_incorrect": [
+      "Esa es la altura del rectángulo, no el área del tramo pedido.",
+      null,
+      "Esa área correspondería a un tramo de base 3, no de base 2.",
+      "Ese es el área total del rectángulo completo, no la restringida al intervalo pedido."
+    ],
+    "explanation": "La probabilidad de un intervalo bajo una densidad uniforme es el área del rectángulo que lo cubre.\n\nCon altura $1/4$ y el tramo $[1,3]$ de base 2:\n$$P(1\\leq X\\leq 3) = \\frac{1}{4} \\cdot 2 = \\frac{1}{2}$$\nMultiplicar la altura solo por uno de los extremos del intervalo, en vez de por el ancho completo del tramo, deja el cálculo incompleto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-area-probabilidad"
+    ]
+  },
+  {
+    "question": "Un avión aterriza en un instante aleatorio dentro de una franja horaria de $7$ minutos.\n\nEl gráfico de esa densidad es un rectángulo de altura $1/7$.\n\n¿Cuánto vale $P(2\\leq X\\leq 5)$?",
+    "options": [
+      "$\\dfrac{1}{7}$",
+      "$\\dfrac{2}{7}$",
+      "$\\dfrac{3}{7}$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El área del rectángulo de base 3 y altura $1/7$ da $3/7$.",
+    "feedback_incorrect": [
+      "Esa es la altura del rectángulo, no el área del tramo pedido.",
+      "Esa área correspondería a un tramo de base 2, no de base 3.",
+      null,
+      "Ese es el área total del rectángulo completo, no la restringida al intervalo pedido."
+    ],
+    "explanation": "La probabilidad de un intervalo bajo una densidad uniforme es el área del rectángulo que lo cubre.\n\nCon altura $1/7$ y el tramo $[2,5]$ de base 3:\n$$P(2\\leq X\\leq 5) = \\frac{1}{7} \\cdot 3 = \\frac{3}{7}$$\nTomar el ancho de todo el dominio en vez del tramo pedido infla el resultado por encima de lo que corresponde.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-area-probabilidad"
+    ]
+  },
+  {
+    "question": "Un punto cae al azar sobre un cable de $12$ metros, con la misma chance en cualquier posición.\n\nEl gráfico de esa densidad es un rectángulo de altura $1/12$.\n\n¿Cuánto vale $P(2\\leq X\\leq 5)$?",
+    "options": [
+      "$\\dfrac{1}{12}$",
+      "$\\dfrac{1}{4}$",
+      "$\\dfrac{1}{3}$",
+      "$1$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El área del rectángulo de base 3 y altura $1/12$ da $1/4$.",
+    "feedback_incorrect": [
+      "Esa es la altura del rectángulo, no el área del tramo pedido.",
+      null,
+      "Esa área correspondería a un tramo de base 4, no de base 3.",
+      "Ese es el área total del rectángulo completo, no la restringida al intervalo pedido."
+    ],
+    "explanation": "La probabilidad de un intervalo bajo una densidad uniforme es el área del rectángulo que lo cubre.\n\nCon altura $1/12$ y el tramo $[2,5]$ de base 3:\n$$P(2\\leq X\\leq 5) = \\frac{1}{12} \\cdot 3 = \\frac{1}{4}$$\nTomar la altura como si fuera directamente la probabilidad del tramo, sin multiplicarla por el ancho pedido, deja afuera la mitad de la cuenta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-area-probabilidad"
+    ]
+  },
+  {
+    "question": "Un colectivo llega en un instante aleatorio dentro de una franja horaria de $6$ minutos.\n\nEl gráfico de esa densidad es un rectángulo de altura $1/6$.\n\n¿Cuánto vale $P(1\\leq X\\leq 4)$?",
+    "options": [
+      "$\\dfrac{1}{6}$",
+      "$\\dfrac{1}{3}$",
+      "$\\dfrac{1}{2}$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El área del rectángulo de base 3 y altura $1/6$ da $1/2$.",
+    "feedback_incorrect": [
+      "Esa es la altura del rectángulo, no el área del tramo pedido.",
+      "Esa área correspondería a un tramo de base 2, no de base 3.",
+      null,
+      "Ese es el área total del rectángulo completo, no la restringida al intervalo pedido."
+    ],
+    "explanation": "La probabilidad de un intervalo bajo una densidad uniforme es el área del rectángulo que lo cubre.\n\nCon altura $1/6$ y el tramo $[1,4]$ de base 3:\n$$P(1\\leq X\\leq 4) = \\frac{1}{6} \\cdot 3 = \\frac{1}{2}$$\nUsar solo el ancho total de la franja, en vez del tramo específico que pide la pregunta, cambia por completo el resultado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-area-probabilidad"
+    ]
+  },
+  {
+    "question": "Un punto cae al azar sobre una cuerda de $9$ metros, con la misma chance en cualquier posición.\n\nEl gráfico de esa densidad es un rectángulo de altura $1/9$.\n\n¿Cuánto vale $P(3\\leq X\\leq 6)$?",
+    "options": [
+      "$\\dfrac{1}{9}$",
+      "$\\dfrac{2}{9}$",
+      "$\\dfrac{1}{3}$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El área del rectángulo de base 3 y altura $1/9$ da $1/3$.",
+    "feedback_incorrect": [
+      "Esa es la altura del rectángulo, no el área del tramo pedido.",
+      "Esa área correspondería a un tramo de base 2, no de base 3.",
+      null,
+      "Ese es el área total del rectángulo completo, no la restringida al intervalo pedido."
+    ],
+    "explanation": "La probabilidad de un intervalo bajo una densidad uniforme es el área del rectángulo que lo cubre.\n\nCon altura $1/9$ y el tramo $[3,6]$ de base 3:\n$$P(3\\leq X\\leq 6) = \\frac{1}{9} \\cdot 3 = \\frac{1}{3}$$\nOlvidar multiplicar por el ancho del tramo, y dejar la respuesta como la altura sola, subestima la probabilidad real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-area-probabilidad"
+    ]
+  },
+  {
+    "question": "Dos relojes miden el tiempo de espera hasta la próxima alarma, ambos con densidad uniforme.\n\nEl reloj $P$ mide sobre una ventana de $3$ minutos.\n\nEl reloj $Q$ mide sobre una ventana de $9$ minutos.\n\n¿Cuál densidad está más concentrada?",
+    "options": [
+      "La densidad $P$.",
+      "La densidad $Q$.",
+      "Ambas están igual de concentradas."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La misma probabilidad total repartida en una ventana más angosta da una densidad más concentrada.",
+    "feedback_incorrect": [
+      null,
+      "La densidad $Q$ reparte la misma probabilidad total en una ventana más ancha, está más dispersa, no más concentrada.",
+      "Repartir la misma probabilidad en ventanas de distinto largo nunca da el mismo grado de concentración."
+    ],
+    "explanation": "Dos densidades uniformes reparten la misma probabilidad total, igual a 1, pero sobre ventanas de distinto largo.\n\nLa densidad $P$ reparte esa probabilidad en una ventana de longitud 3, mientras que la densidad $Q$ la reparte en una ventana de longitud 9.\n\nUna densidad concentrada en una ventana angosta describe valores en un rango acotado, mientras que una ventana más ancha reparte la misma probabilidad sobre un rango más disperso.",
+    "has_math": false,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "comparacion-forma"
+    ]
+  },
+  {
+    "question": "Dos puntos caen al azar sobre segmentos distintos, ambos con densidad uniforme.\n\nEl punto $M$ cae sobre un segmento de $4$ metros.\n\nEl punto $N$ cae sobre un segmento de $20$ metros.\n\n¿Cuál densidad está más concentrada?",
+    "options": [
+      "La densidad $M$.",
+      "La densidad $N$.",
+      "Ambas están igual de concentradas."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La misma probabilidad total repartida en un segmento más corto da una densidad más concentrada.",
+    "feedback_incorrect": [
+      null,
+      "La densidad $N$ reparte la misma probabilidad total en un segmento más largo, está más dispersa, no más concentrada.",
+      "Repartir la misma probabilidad en segmentos de distinto largo nunca da el mismo grado de concentración."
+    ],
+    "explanation": "Dos densidades uniformes reparten la misma probabilidad total, igual a 1, pero sobre segmentos de distinto largo.\n\nLa densidad $M$ reparte esa probabilidad en un segmento de longitud 4, mientras que la densidad $N$ la reparte en un segmento de longitud 20.\n\nUna densidad concentrada en un segmento corto describe valores en un rango acotado, mientras que un segmento más largo reparte la misma probabilidad sobre un rango más disperso.",
+    "has_math": false,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "comparacion-forma"
+    ]
   }
 ]
