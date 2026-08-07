@@ -22,7 +22,9 @@ import { cn } from "@/lib/utils"
 import { BELT_VIVID_COLORS } from "@/lib/catalog"
 import { queryKeys } from "@/lib/query/keys"
 import { clearSession } from "@/lib/session/storage"
+import { useApi } from "@/lib/api/useApi"
 import { setRankingNews } from "@/lib/nav/ranking-news"
+import { getLastKnownRank, setLastKnownRank } from "@/lib/nav/ranking-rank"
 import { setProfileNews } from "@/lib/nav/profile-news"
 import { markNotifyHintSeen, useNotifyHintUnseen } from "@/lib/nav/notify-hint-seen"
 import { isPushSupported } from "@/lib/push/register"
@@ -52,6 +54,7 @@ const slideVariants = {
 export default function SessionSummary({ sessionId }: { sessionId: string }) {
   const { data, isError, error } = useSummary({ sessionId })
   const qc = useQueryClient()
+  const api = useApi()
   const router = useRouter()
   const sfx = useSfx()
   const tick = useTick() // reloj — conteo de XP y de ejercicios (mismo sonido)
@@ -156,15 +159,28 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   useEffect(() => {
     if (!data) return
     clearSession({ id: sessionId })
-    // Terminó la sesión → cambió tu XP/posición (ranking) y podés tener un badge
-    // nuevo desbloqueable (perfil): reaparecen ambos puntitos.
-    setRankingNews(true)
+    // Terminó la sesión → podés tener un badge nuevo desbloqueable (perfil):
+    // ese puntito siempre reaparece. El de ranking, en cambio, solo reaparece
+    // si de verdad avanzaste lugares respecto de la última posición conocida
+    // (ver ranking-rank.ts) — si no mejoraste, no hay novedad que mostrar.
+    const previousRank = getLastKnownRank()
+    api
+      .GET("/leaderboard", { params: { query: { around_me: true } } })
+      .then(({ data: lb, error: lbError }) => {
+        if (lbError) return
+        const newRank = lb.me.rank
+        if (typeof newRank !== "number") return
+        if (typeof previousRank === "number" && newRank < previousRank) {
+          setRankingNews(true)
+        }
+        setLastKnownRank(newRank)
+      })
     setProfileNews(true)
     qc.invalidateQueries({
       queryKey: queryKeys.userProgress(),
       refetchType: "all",
     })
-  }, [data, sessionId, qc])
+  }, [data, sessionId, qc, api])
 
   if (isError) {
     return (
