@@ -20,21 +20,23 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["identificar-parametros"]
+    "tags": [
+      "identificar-parametros"
+    ]
   },
   {
     "question": "Un router intenta conectarse a una red wifi inestable, un intento por vez, hasta lograr la primera conexión exitosa.\n\nCada intento conecta con probabilidad $0{,}5$, en forma independiente del resto.\n\nSea $X$ la cantidad de intentos hasta la primera conexión. Calculá $P(X=3)$.",
     "options": [
-      "$1/8$",
       "$1/4$",
+      "$1/8$",
       "$1/16$",
       "$1/2$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "feedback_correct": "$(0{,}5)^{2}(0{,}5)=1/8$: dos fallos seguidos de una conexión en el tercer intento.",
     "feedback_incorrect": [
-      null,
       "Ese valor es $(1-p)^{k-1}$ solo, sin multiplicar por $p$, la probabilidad del acierto final.",
+      null,
       "Ese valor sale de usar $(1-p)^{k}$ en vez de $(1-p)^{k-1}$, un fallo de más en la cuenta.",
       "Ese valor es $p$ solo, la probabilidad de un único intento, no de la secuencia completa hasta el tercero."
     ],
@@ -43,22 +45,24 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["formula-directa"]
+    "tags": [
+      "formula-directa"
+    ]
   },
   {
     "question": "Un cajero de banco ofrece un seguro adicional a cada cliente que atiende.\n\nCada cliente lo acepta con probabilidad $0{,}2$, en forma independiente del resto.\n\nSea $X$ la cantidad de clientes atendidos hasta lograr la primera aceptación.\n\n¿Cuánto vale $E[X]$?",
     "options": [
-      "$5$",
       "$0{,}2$",
       "$0{,}8$",
+      "$5$",
       "$1{,}25$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "feedback_correct": "$E[X]=1/0{,}2=5$ clientes en promedio hasta la primera aceptación.",
     "feedback_incorrect": [
-      null,
       "Ese es $p$, la probabilidad de un cliente puntual, no el promedio de clientes hasta lograr uno.",
       "Ese es el complemento $1-p$, la probabilidad de que un cliente no acepte, no la esperanza de $X$.",
+      null,
       "Ese valor sale de usar $1/(1-p)$ en vez de $1/p$, invirtiendo qué probabilidad va en el denominador."
     ],
     "explanation": "Para $X\\sim Geom(p)$, la esperanza tiene forma cerrada.\n$$E[X] = 1/p$$\nAcá $p=0{,}2$.\n$$E[X] = 1/0{,}2 = 5$$\nEn promedio hacen falta 5 clientes atendidos para lograr una aceptación, si se repitiera este proceso una y otra vez.\n\nLa geométrica además tiene pérdida de memoria: si ya se atendió a varios clientes seguidos sin ninguna aceptación, la probabilidad de que el próximo acepte sigue siendo $0{,}2$.\n\nEl proceso no arrastra ningún historial, cada cliente nuevo empieza la cuenta desde cero.",
@@ -66,6 +70,308 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["esperanza-y-perdida-memoria"]
+    "tags": [
+      "esperanza-y-perdida-memoria"
+    ]
+  },
+  {
+    "question": "Un conductor intenta arrancar el auto en una mañana fría hasta lograrlo por primera vez.\n\nCada intento enciende el motor con probabilidad $0{,}6$, en forma independiente.\n\n¿Cuál es el parámetro $p$ de la geométrica que modela la cantidad de intentos hasta el primer arranque?",
+    "options": [
+      "$p=0{,}4$",
+      "$p=1{,}67$",
+      "$p=0{,}06$",
+      "$p=0{,}6$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$p=0{,}6$ es la probabilidad de que un intento encienda el motor.",
+    "feedback_incorrect": [
+      "Ese es el complemento: $0{,}4$ es la probabilidad de que el intento falle.",
+      "Ese valor es $1/p$, la cantidad esperada de intentos hasta el arranque, no la probabilidad $p$ en sí.",
+      "Correr el punto decimal cambia el orden de magnitud: el enunciado da la probabilidad como $0{,}6$, no $0{,}06$.",
+      null
+    ],
+    "explanation": "Para armar $X\\sim Geom(p)$ hace falta identificar la probabilidad de éxito de cada ensayo.\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá cada intento enciende el motor con $p=0{,}6$.\n\nEso no depende de cuántos intentos ya se hicieron antes.\n\n$p$ es siempre la probabilidad de un único resultado puntual, nunca el promedio de intentos que hacen falta para lograrlo.\n\nConfundirlo con $E[X]=1/p$ es fácil porque ambos hablan del mismo arranque, pero uno es una probabilidad y el otro es un conteo esperado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-parametros"
+    ]
+  },
+  {
+    "question": "Un jugador tira al aro repetidamente hasta encestar el primer tiro.\n\nCada tiro entra con probabilidad $0{,}4$, en forma independiente.\n\n¿Cuál es el parámetro $p$ de la geométrica que modela la cantidad de tiros hasta el primer acierto?",
+    "options": [
+      "$p=0{,}4$",
+      "$p=0{,}6$",
+      "$p=2{,}5$",
+      "$p=0{,}04$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$p=0{,}4$ es la probabilidad de que un tiro entre al aro.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el complemento: $0{,}6$ es la probabilidad de que el tiro falle.",
+      "Ese valor es $1/p$, la cantidad esperada de tiros hasta encestar, no la probabilidad $p$ en sí.",
+      "Correr el punto decimal cambia el orden de magnitud: el enunciado da la probabilidad como $0{,}4$, no $0{,}04$."
+    ],
+    "explanation": "Para armar $X\\sim Geom(p)$ hace falta identificar la probabilidad de éxito de cada ensayo.\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá cada tiro entra al aro con $p=0{,}4$.\n\nEso no depende de cuántos tiros ya se lanzaron antes.\n\n$p$ es siempre la probabilidad de un único resultado puntual, nunca el promedio de tiros que hacen falta para lograrlo.\n\nConfundirlo con $E[X]=1/p$ es fácil porque ambos hablan del mismo acierto, pero uno es una probabilidad y el otro es un conteo esperado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-parametros"
+    ]
+  },
+  {
+    "question": "En un juego de mesa, un jugador tira un dado equilibrado hasta obtener el primer $6$.\n\nCada tirada tiene probabilidad $1/6$ de dar $6$, en forma independiente.\n\n¿Cuál es el parámetro $p$ de la geométrica que modela la cantidad de tiradas hasta el primer $6$?",
+    "options": [
+      "$p=5/6$",
+      "$p=1/6$",
+      "$p=6$",
+      "$p=1/36$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$p=1/6$ es la probabilidad de que una tirada dé $6$.",
+    "feedback_incorrect": [
+      "Ese es el complemento: $5/6$ es la probabilidad de que la tirada no dé $6$.",
+      null,
+      "Ese valor es $1/p$, la cantidad esperada de tiradas hasta el primer $6$, no la probabilidad $p$ en sí.",
+      "Ese valor sale de multiplicar $p$ por sí mismo, no de leer directamente la probabilidad de un único resultado."
+    ],
+    "explanation": "Para armar $X\\sim Geom(p)$ hace falta identificar la probabilidad de éxito de cada ensayo.\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá cada tirada da $6$ con $p=1/6$.\n\nEso no depende de cuántas tiradas ya se hicieron antes.\n\n$p$ es siempre la probabilidad de un único resultado puntual, nunca el promedio de tiradas que hacen falta para lograrlo.\n\nConfundirlo con $E[X]=1/p$ es fácil porque ambos hablan del mismo resultado buscado, pero uno es una probabilidad y el otro es un conteo esperado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-parametros"
+    ]
+  },
+  {
+    "question": "Un conductor intenta arrancar el auto, un intento por vez, hasta lograrlo por primera vez.\n\nCada intento enciende con probabilidad $0{,}6$, en forma independiente del resto.\n\nSea $X$ la cantidad de intentos hasta el primer arranque. Calculá $P(X=2)$.",
+    "options": [
+      "$0{,}4$",
+      "$0{,}16$",
+      "$0{,}24$",
+      "$0{,}6$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$(0{,}4)^{1}(0{,}6)=0{,}24$: un fallo seguido de un arranque en el segundo intento.",
+    "feedback_incorrect": [
+      "Ese valor es $(1-p)^{k-1}$ solo, sin multiplicar por $p$, la probabilidad del arranque final.",
+      "Ese valor sale de usar $(1-p)^{k}$ en vez de $(1-p)^{k-1}$, un fallo de más en la cuenta.",
+      null,
+      "Ese valor es $p$ solo, la probabilidad de un único intento, no de la secuencia completa hasta el segundo."
+    ],
+    "explanation": "Con $X\\sim Geom(p)$, la probabilidad puntual es:\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá $p=0{,}6$ y se pregunta por el segundo intento.\n$$P(X=2) = (0{,}4)^{1}(0{,}6)$$\nEl primer intento falla y el segundo enciende.\n\nCada factor $(1-p)$ representa un fallo que hay que sostener antes del único acierto final, por eso los fallos se multiplican entre sí y recién al final se agrega la probabilidad de acierto.\n\nContar un fallo de más, o directamente olvidar el factor de éxito, son los dos desvíos más comunes de esta cuenta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-directa"
+    ]
+  },
+  {
+    "question": "Un jugador tira al aro, un tiro por vez, hasta encestar el primero.\n\nCada tiro entra con probabilidad $0{,}4$, en forma independiente del resto.\n\nSea $X$ la cantidad de tiros hasta el primer acierto. Calculá $P(X=3)$.",
+    "options": [
+      "$0{,}36$",
+      "$0{,}216$",
+      "$0{,}4$",
+      "$0{,}144$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$(0{,}6)^{2}(0{,}4)=0{,}144$: dos fallos seguidos de un acierto en el tercer tiro.",
+    "feedback_incorrect": [
+      "Ese valor es $(1-p)^{k-1}$ solo, sin multiplicar por $p$, la probabilidad del acierto final.",
+      "Ese valor sale de usar $(1-p)^{k}$ en vez de $(1-p)^{k-1}$, un fallo de más en la cuenta.",
+      "Ese valor es $p$ solo, la probabilidad de un único tiro, no de la secuencia completa hasta el tercero.",
+      null
+    ],
+    "explanation": "Con $X\\sim Geom(p)$, la probabilidad puntual es:\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá $p=0{,}4$ y se pregunta por el tercer tiro.\n$$P(X=3) = (0{,}6)^{2}(0{,}4)$$\nLos primeros 2 tiros fallan y el tercero encesta.\n\nCada factor $(1-p)$ representa un fallo que hay que sostener antes del único acierto final, por eso los fallos se multiplican entre sí y recién al final se agrega la probabilidad de acierto.\n\nContar un fallo de más, o directamente olvidar el factor de éxito, son los dos desvíos más comunes de esta cuenta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-directa"
+    ]
+  },
+  {
+    "question": "Un call center llama a un mismo cliente, una llamada por vez, hasta que atiende por primera vez.\n\nCada llamada es atendida con probabilidad $0{,}3$, en forma independiente del resto.\n\nSea $X$ la cantidad de llamadas hasta el primer atendido. Calculá $P(X=2)$.",
+    "options": [
+      "$0{,}21$",
+      "$0{,}7$",
+      "$0{,}49$",
+      "$0{,}3$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$(0{,}7)^{1}(0{,}3)=0{,}21$: un fallo seguido de un atendido en la segunda llamada.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor es $(1-p)^{k-1}$ solo, sin multiplicar por $p$, la probabilidad del atendido final.",
+      "Ese valor sale de usar $(1-p)^{k}$ en vez de $(1-p)^{k-1}$, un fallo de más en la cuenta.",
+      "Ese valor es $p$ solo, la probabilidad de una única llamada, no de la secuencia completa hasta la segunda."
+    ],
+    "explanation": "Con $X\\sim Geom(p)$, la probabilidad puntual es:\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá $p=0{,}3$ y se pregunta por la segunda llamada.\n$$P(X=2) = (0{,}7)^{1}(0{,}3)$$\nLa primera llamada no es atendida y la segunda sí.\n\nCada factor $(1-p)$ representa un fallo que hay que sostener antes del único acierto final, por eso los fallos se multiplican entre sí y recién al final se agrega la probabilidad de acierto.\n\nContar un fallo de más, o directamente olvidar el factor de éxito, son los dos desvíos más comunes de esta cuenta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-directa"
+    ]
+  },
+  {
+    "question": "Un sistema prueba dígitos al azar, con reposición, hasta acertar la primera cifra correcta de una clave.\n\nCada intento acierta con probabilidad $0{,}2$, en forma independiente.\n\nSea $X$ la cantidad de intentos hasta el primer acierto. Calculá $P(X=2)$.",
+    "options": [
+      "$0{,}8$",
+      "$0{,}16$",
+      "$0{,}64$",
+      "$0{,}2$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$(0{,}8)^{1}(0{,}2)=0{,}16$: un fallo seguido de un acierto en el segundo intento.",
+    "feedback_incorrect": [
+      "Ese valor es $(1-p)^{k-1}$ solo, sin multiplicar por $p$, la probabilidad del acierto final.",
+      null,
+      "Ese valor sale de usar $(1-p)^{k}$ en vez de $(1-p)^{k-1}$, un fallo de más en la cuenta.",
+      "Ese valor es $p$ solo, la probabilidad de un único intento, no de la secuencia completa hasta el segundo."
+    ],
+    "explanation": "Con $X\\sim Geom(p)$, la probabilidad puntual es:\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá $p=0{,}2$ y se pregunta por el segundo intento.\n$$P(X=2) = (0{,}8)^{1}(0{,}2)$$\nEl primer intento falla y el segundo acierta la cifra.\n\nCada factor $(1-p)$ representa un fallo que hay que sostener antes del único acierto final, por eso los fallos se multiplican entre sí y recién al final se agrega la probabilidad de acierto.\n\nContar un fallo de más, o directamente olvidar el factor de éxito, son los dos desvíos más comunes de esta cuenta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-directa"
+    ]
+  },
+  {
+    "question": "Un egresado se postula a puestos de trabajo, uno por vez, hasta recibir la primera respuesta positiva.\n\nCada postulación recibe respuesta positiva con probabilidad $0{,}1$, en forma independiente del resto.\n\nSea $X$ la cantidad de postulaciones hasta la primera respuesta positiva. Calculá $P(X=2)$.",
+    "options": [
+      "$0{,}9$",
+      "$0{,}81$",
+      "$0{,}09$",
+      "$0{,}1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$(0{,}9)^{1}(0{,}1)=0{,}09$: un fallo seguido de una respuesta positiva en la segunda postulación.",
+    "feedback_incorrect": [
+      "Ese valor es $(1-p)^{k-1}$ solo, sin multiplicar por $p$, la probabilidad de la respuesta positiva final.",
+      "Ese valor sale de usar $(1-p)^{k}$ en vez de $(1-p)^{k-1}$, un fallo de más en la cuenta.",
+      null,
+      "Ese valor es $p$ solo, la probabilidad de una única postulación, no de la secuencia completa hasta la segunda."
+    ],
+    "explanation": "Con $X\\sim Geom(p)$, la probabilidad puntual es:\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá $p=0{,}1$ y se pregunta por la segunda postulación.\n$$P(X=2) = (0{,}9)^{1}(0{,}1)$$\nLa primera postulación no recibe respuesta positiva y la segunda sí.\n\nCada factor $(1-p)$ representa un fallo que hay que sostener antes del único acierto final, por eso los fallos se multiplican entre sí y recién al final se agrega la probabilidad de acierto.\n\nContar un fallo de más, o directamente olvidar el factor de éxito, son los dos desvíos más comunes de esta cuenta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-directa"
+    ]
+  },
+  {
+    "question": "Un conductor intenta arrancar el auto, un intento por vez, hasta lograrlo por primera vez.\n\nCada intento enciende con probabilidad $0{,}25$, en forma independiente del resto.\n\nSea $X$ la cantidad de intentos hasta el primer arranque exitoso.\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$0{,}25$",
+      "$0{,}75$",
+      "$1{,}33$",
+      "$4$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$E[X]=1/0{,}25=4$ intentos en promedio hasta el primer arranque exitoso.",
+    "feedback_incorrect": [
+      "Ese es $p$, la probabilidad de un intento puntual, no el promedio de intentos hasta lograr uno.",
+      "Ese es el complemento $1-p$, la probabilidad de que un intento falle, no la esperanza de $X$.",
+      "Ese valor sale de usar $1/(1-p)$ en vez de $1/p$, invirtiendo qué probabilidad va en el denominador.",
+      null
+    ],
+    "explanation": "Para $X\\sim Geom(p)$, la esperanza tiene forma cerrada.\n$$E[X] = 1/p$$\nAcá $p=0{,}25$.\n$$E[X] = 1/0{,}25 = 4$$\nEn promedio hacen falta 4 intentos para lograr el primer arranque exitoso, si se repitiera este proceso una y otra vez.\n\nLa geométrica además tiene pérdida de memoria: si ya se probó varias veces sin éxito, la probabilidad de que el próximo intento encienda sigue siendo $0{,}25$.\n\nEl proceso no arrastra ningún historial, cada intento nuevo empieza la cuenta desde cero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "esperanza-y-perdida-memoria"
+    ]
+  },
+  {
+    "question": "En un juego de mesa, un jugador tira un dado equilibrado hasta obtener el primer $6$.\n\nCada tirada tiene probabilidad $1/6$ de dar $6$, en forma independiente del resto.\n\nSea $X$ la cantidad de tiradas hasta obtener el primer $6$.\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$6$",
+      "$1/6$",
+      "$5/6$",
+      "$6/5$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$E[X]=1/(1/6)=6$ tiradas en promedio hasta el primer $6$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es $p$, la probabilidad de una tirada puntual, no el promedio de tiradas hasta lograr un $6$.",
+      "Ese es el complemento $1-p$, la probabilidad de que una tirada no dé $6$, no la esperanza de $X$.",
+      "Ese valor sale de usar $1/(1-p)$ en vez de $1/p$, invirtiendo qué probabilidad va en el denominador."
+    ],
+    "explanation": "Para $X\\sim Geom(p)$, la esperanza tiene forma cerrada.\n$$E[X] = 1/p$$\nAcá $p=1/6$.\n$$E[X] = 1/(1/6) = 6$$\nEn promedio hacen falta 6 tiradas para obtener el primer $6$, si se repitiera este proceso una y otra vez.\n\nLa geométrica además tiene pérdida de memoria: si ya salieron varias tiradas seguidas sin acertar el número buscado, la probabilidad de que la próxima tirada dé $6$ sigue siendo $1/6$.\n\nEl proceso no arrastra ningún historial, cada tirada nueva empieza la cuenta desde cero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "esperanza-y-perdida-memoria"
+    ]
+  },
+  {
+    "question": "Un sistema prueba dígitos al azar, con reposición, hasta acertar la primera cifra correcta de una clave más larga.\n\nCada intento acierta con probabilidad $0{,}05$, en forma independiente del resto.\n\nSea $X$ la cantidad de intentos hasta el primer acierto.\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$0{,}05$",
+      "$20$",
+      "$0{,}95$",
+      "$1{,}05$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$E[X]=1/0{,}05=20$ intentos en promedio hasta el primer acierto.",
+    "feedback_incorrect": [
+      "Ese es $p$, la probabilidad de un intento puntual, no el promedio de intentos hasta lograr uno.",
+      null,
+      "Ese es el complemento $1-p$, la probabilidad de que un intento falle, no la esperanza de $X$.",
+      "Ese valor sale de usar $1/(1-p)$ en vez de $1/p$, invirtiendo qué probabilidad va en el denominador."
+    ],
+    "explanation": "Para $X\\sim Geom(p)$, la esperanza tiene forma cerrada.\n$$E[X] = 1/p$$\nAcá $p=0{,}05$.\n$$E[X] = 1/0{,}05 = 20$$\nEn promedio hacen falta 20 intentos para acertar la cifra, si se repitiera este proceso una y otra vez.\n\nLa geométrica además tiene pérdida de memoria: si ya se probó varias cifras sin éxito, la probabilidad de que el próximo intento acierte sigue siendo $0{,}05$.\n\nEl proceso no arrastra ningún historial, cada intento nuevo empieza la cuenta desde cero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "esperanza-y-perdida-memoria"
+    ]
+  },
+  {
+    "question": "Un egresado se postula a puestos de trabajo, uno por vez, hasta recibir la primera respuesta positiva.\n\nCada postulación recibe respuesta positiva con probabilidad $0{,}4$, en forma independiente del resto.\n\nSea $X$ la cantidad de postulaciones hasta la primera respuesta positiva.\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$0{,}4$",
+      "$0{,}6$",
+      "$2{,}5$",
+      "$1{,}67$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$E[X]=1/0{,}4=2{,}5$ postulaciones en promedio hasta la primera respuesta positiva.",
+    "feedback_incorrect": [
+      "Ese es $p$, la probabilidad de una postulación puntual, no el promedio de postulaciones hasta lograr una respuesta positiva.",
+      "Ese es el complemento $1-p$, la probabilidad de que una postulación no reciba respuesta positiva, no la esperanza de $X$.",
+      null,
+      "Ese valor sale de usar $1/(1-p)$ en vez de $1/p$, invirtiendo qué probabilidad va en el denominador."
+    ],
+    "explanation": "Para $X\\sim Geom(p)$, la esperanza tiene forma cerrada.\n$$E[X] = 1/p$$\nAcá $p=0{,}4$.\n$$E[X] = 1/0{,}4 = 2{,}5$$\nEn promedio hacen falta 2,5 postulaciones para lograr la primera respuesta positiva, si se repitiera este proceso una y otra vez.\n\nLa geométrica además tiene pérdida de memoria: si ya se postuló varias veces sin respuesta, la probabilidad de que la próxima postulación reciba una respuesta positiva sigue siendo $0{,}4$.\n\nEl proceso no arrastra ningún historial, cada postulación nueva empieza la cuenta desde cero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "esperanza-y-perdida-memoria"
+    ]
   }
 ]

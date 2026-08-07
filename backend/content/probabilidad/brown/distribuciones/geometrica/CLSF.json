@@ -18,20 +18,22 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["reconocer-geometrica"]
+    "tags": [
+      "reconocer-geometrica"
+    ]
   },
   {
     "question": "Un reclutador revisa currículums recibidos hasta encontrar el primero que cumple los requisitos del puesto.\n\nCada currículum cumple los requisitos con probabilidad $0{,}25$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de currículums revisados hasta encontrar el segundo que cumple los requisitos?",
     "options": [
-      "$BinNeg(2,\\, 0{,}25)$",
       "$Geom(0{,}25)$",
+      "$BinNeg(2,\\, 0{,}25)$",
       "$Bin(8,\\, 0{,}25)$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "feedback_correct": "Ensayos hasta acumular 2 éxitos, no 1: es binomial negativa con $r=2$, no geométrica.",
     "feedback_incorrect": [
-      null,
       "La geométrica es el caso particular con $r=1$, acá se pide el segundo currículum que cumple, no el primero.",
+      null,
       "La binomial exige un número fijo de currículums revisados de antemano, acá el conteo se detiene al llegar al segundo éxito."
     ],
     "explanation": "La distribución **binomial negativa** cuenta ensayos hasta acumular $r$ éxitos.\n$$P(X=k) = \\binom{k-1}{r-1}p^{r}(1-p)^{k-r}$$\nAcá cada currículum es un ensayo con $p=0{,}25$ de cumplir los requisitos, y se busca un segundo éxito.\n\nLa geométrica es apenas el caso más simple de este mecanismo, cuando alcanza con un único éxito.\n\nEn cuanto el enunciado pide un segundo, tercer o más éxito, la fórmula geométrica ya no combina correctamente esos casos y hace falta la versión general.\n\nUsar la fórmula geométrica acá subestima la cantidad de currículums que hace falta revisar en promedio.",
@@ -39,27 +41,307 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["distractor-vecino"]
+    "tags": [
+      "distractor-vecino"
+    ]
   },
   {
     "question": "Un tirador va mejorando su puntería con la práctica: cada vez que erra, su probabilidad de acierto en el próximo tiro sube.\n\nTira al blanco hasta acertar por primera vez.\n\n¿Se puede modelar la cantidad de tiros hasta el primer acierto como una distribución geométrica?",
     "options": [
-      "No, la probabilidad de acierto no es la misma en cada tiro.",
       "Sí, porque se busca un primer éxito y no un total fijo.",
-      "Sí, porque cada tiro tiene solo dos resultados posibles."
+      "Sí, porque cada tiro tiene solo dos resultados posibles.",
+      "No, la probabilidad de acierto no es la misma en cada tiro."
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "feedback_correct": "Buscar el primer éxito es necesario, pero también hace falta que $p$ sea la misma en cada tiro.",
     "feedback_incorrect": [
-      null,
       "Buscar un primer éxito es necesario pero no alcanza: la geométrica también exige que la probabilidad de acierto no cambie de un tiro a otro.",
-      "Tener dos resultados posibles por tiro es necesario pero no alcanza: hace falta además que esos dos resultados mantengan siempre la misma probabilidad."
+      "Tener dos resultados posibles por tiro es necesario pero no alcanza: hace falta además que esos dos resultados mantengan siempre la misma probabilidad.",
+      null
     ],
     "explanation": "La distribución **geométrica** exige dos condiciones a la vez: contar ensayos hasta el primer éxito, y que la probabilidad de éxito $p$ sea la misma en todos.\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá el tirador sí busca su primer acierto.\n\nPero su probabilidad de acierto sube con cada tiro errado, así que $p$ no es constante.\n\nLa pérdida de memoria de la geométrica depende de que el pasado no influya en el próximo intento, y acá sí influye porque el tirador aprende de sus errores.\n\nNinguna distribución de esta unidad modela directamente una probabilidad que mejora con la práctica.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["supuesto-violado"]
+    "tags": [
+      "supuesto-violado"
+    ]
+  },
+  {
+    "question": "En una mañana fría, un conductor intenta arrancar el auto una y otra vez hasta lograrlo por primera vez.\n\nCada intento enciende el motor con probabilidad $0{,}6$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de intentos hasta el primer arranque exitoso?",
+    "options": [
+      "$Geom(0{,}6)$",
+      "$Bin(4,\\, 0{,}6)$",
+      "$BinNeg(3,\\, 0{,}6)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Ensayos hasta el primer arranque exitoso, con probabilidad constante en cada intento: es geométrica.",
+    "feedback_incorrect": [
+      null,
+      "La binomial cuenta arranques exitosos en un número fijo de intentos, acá el conteo se detiene apenas ocurre el primero.",
+      "La binomial negativa busca un tercer éxito o más, acá alcanza con el primero."
+    ],
+    "explanation": "La distribución **geométrica** modela la cantidad de ensayos hasta el primer éxito.\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá cada intento de arranque es un ensayo con $p=0{,}6$ de encender el motor.\n\nEl conteo termina apenas ocurre el primer arranque exitoso, sin un total de intentos fijado de antemano.\n\nLo que caracteriza este mecanismo es que la cantidad de ensayos es aleatoria: podría ser 1, 2 o muchos más, según cuándo aparezca el primer éxito.\n\nSi en cambio se preguntara cuántos arranques exitosos hay en 4 intentos fijos, el mismo motor pasaría a modelarse como binomial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-geometrica"
+    ]
+  },
+  {
+    "question": "Un call center llama a un mismo cliente repetidamente hasta que atiende el teléfono por primera vez.\n\nCada llamada tiene probabilidad $0{,}3$ de ser atendida, en forma independiente.\n\n¿Qué distribución sigue la cantidad de llamadas hasta que el cliente atiende por primera vez?",
+    "options": [
+      "$Bin(6,\\, 0{,}3)$",
+      "$Geom(0{,}3)$",
+      "$BinNeg(2,\\, 0{,}3)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Ensayos hasta el primer atendido, con la misma probabilidad en cada llamada: es geométrica.",
+    "feedback_incorrect": [
+      "La binomial cuenta llamadas atendidas en un número fijo de intentos, acá se detiene apenas atiende una vez.",
+      null,
+      "La binomial negativa busca un segundo atendido o más, acá se busca el primero."
+    ],
+    "explanation": "La distribución **geométrica** modela la cantidad de ensayos hasta el primer éxito.\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá cada llamada es un ensayo con $p=0{,}3$ de que el cliente atienda.\n\nEl call center deja de llamar apenas logra el primer atendido, sin un total de llamadas fijado de antemano.\n\nLa cantidad de llamadas necesarias es aleatoria porque depende de cuándo ocurra ese primer éxito, no de un número acordado previamente.\n\nPreguntar cuántas llamadas atendidas hay en un bloque fijo de 6 intentos convertiría el mismo escenario en binomial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-geometrica"
+    ]
+  },
+  {
+    "question": "Un sistema prueba dígitos al azar, con reposición, para adivinar la primera cifra correcta de una clave.\n\nCada intento acierta el dígito con probabilidad $0{,}1$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de intentos hasta acertar la cifra por primera vez?",
+    "options": [
+      "$Bin(10,\\, 0{,}1)$",
+      "$BinNeg(2,\\, 0{,}1)$",
+      "$Geom(0{,}1)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Ensayos hasta el primer acierto, con probabilidad constante por la reposición: es geométrica.",
+    "feedback_incorrect": [
+      "La binomial cuenta aciertos en un número fijo de intentos, acá no hay un $n$ prefijado, se para al primer acierto.",
+      "La binomial negativa busca un segundo acierto o más, acá alcanza con el primero.",
+      null
+    ],
+    "explanation": "La distribución **geométrica** modela la cantidad de ensayos hasta el primer éxito.\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá cada intento es un ensayo con $p=0{,}1$ de acertar el dígito, gracias a la reposición del espacio de búsqueda.\n\nEl sistema prueba dígitos hasta acertar por primera vez, sin un total de intentos fijado de antemano.\n\nComo cada prueba repone el espacio de búsqueda completo, la probabilidad de acierto no cambia entre un intento y el siguiente.\n\nSin reposición, cada intento fallido reduciría las cifras posibles restantes y el modelo geométrico ya no aplicaría.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-geometrica"
+    ]
+  },
+  {
+    "question": "En un juego de mesa, un jugador tira un dado equilibrado, una vez por ronda, hasta obtener el primer $6$.\n\nCada tirada tiene probabilidad $1/6$ de dar $6$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de tiradas hasta obtener el primer $6$?",
+    "options": [
+      "$Geom(1/6)$",
+      "$Bin(6,\\, 1/6)$",
+      "$BinNeg(2,\\, 1/6)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Ensayos hasta el primer $6$, con la misma probabilidad en cada tirada: es geométrica.",
+    "feedback_incorrect": [
+      null,
+      "La binomial cuenta cuántos $6$ salen en un número fijo de tiradas, acá se detiene apenas sale el primero.",
+      "La binomial negativa busca un segundo $6$ o más, acá se busca el primero."
+    ],
+    "explanation": "La distribución **geométrica** modela la cantidad de ensayos hasta el primer éxito.\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá cada tirada es un ensayo con $p=1/6$ de obtener el número buscado.\n\nEl jugador deja de tirar apenas sale el primer $6$, sin un total de tiradas fijado de antemano.\n\nLa cantidad de tiradas necesarias varía de partida en partida, porque depende únicamente de cuándo aparezca ese primer resultado.\n\nSi el juego pidiera contar cuántos $6$ salen en 6 tiradas fijas, el mismo dado se modelaría como binomial en cambio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-geometrica"
+    ]
+  },
+  {
+    "question": "Un egresado se postula a distintos puestos de trabajo hasta recibir la primera respuesta positiva.\n\nCada postulación recibe respuesta positiva con probabilidad $0{,}2$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de postulaciones hasta la primera respuesta positiva?",
+    "options": [
+      "$Bin(5,\\, 0{,}2)$",
+      "$Geom(0{,}2)$",
+      "$BinNeg(2,\\, 0{,}2)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Ensayos hasta la primera respuesta positiva, con probabilidad constante: es geométrica.",
+    "feedback_incorrect": [
+      "La binomial cuenta respuestas positivas en un número fijo de postulaciones, acá no hay un $n$ prefijado.",
+      null,
+      "La binomial negativa busca una segunda respuesta positiva o más, acá alcanza con la primera."
+    ],
+    "explanation": "La distribución **geométrica** modela la cantidad de ensayos hasta el primer éxito.\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá cada postulación es un ensayo con $p=0{,}2$ de recibir una respuesta positiva.\n\nEl egresado deja de postularse apenas logra la primera aceptación, sin un total de postulaciones fijado de antemano.\n\nLa cantidad de postulaciones necesarias es aleatoria, porque depende de cuándo aparezca esa primera respuesta favorable.\n\nSi en cambio se preguntara cuántas respuestas positivas hay entre 5 postulaciones fijas, el mismo escenario pasaría a ser binomial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-geometrica"
+    ]
+  },
+  {
+    "question": "Un mecánico prueba encender un auto exactamente 5 veces en un test de calidad de la batería.\n\nCada intento enciende con probabilidad $0{,}6$, en forma independiente entre intentos.\n\n¿Qué distribución sigue la cantidad de intentos que logran encender, entre esos 5?",
+    "options": [
+      "$Geom(0{,}6)$",
+      "$BinNeg(2,\\, 0{,}6)$",
+      "$Bin(5,\\, 0{,}6)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Se cuenta el total de éxitos en un número fijo de 5 intentos: es binomial, no geométrica.",
+    "feedback_incorrect": [
+      "La geométrica cuenta ensayos hasta el primer éxito, sin un $n$ fijo, acá el test tiene exactamente 5 intentos prefijados.",
+      "La binomial negativa busca un segundo éxito o más deteniendo el conteo ahí, acá los 5 intentos están fijos de antemano y se cuentan todos los éxitos.",
+      null
+    ],
+    "explanation": "La distribución **binomial** cuenta la cantidad de éxitos en un número fijo $n$ de ensayos independientes.\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá el test tiene $n=5$ intentos fijados de antemano, cada uno con $p=0{,}6$ de encender.\n\nLa pregunta busca cuántos de esos 5 intentos terminan en éxito, no cuándo ocurre el primero.\n\nLa geométrica en cambio se detiene apenas aparece el primer éxito, sin un total de ensayos prefijado, por eso no aplica acá.\n\nGuiarse solo por la palabra intentos sin notar que el enunciado prefija su cantidad total lleva a aplicar la fórmula geométrica en un escenario que en realidad es binomial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-vecino"
+    ]
+  },
+  {
+    "question": "Un jugador tira exactamente 8 veces al aro en un ejercicio de entrenamiento.\n\nCada tiro entra con probabilidad $0{,}5$, en forma independiente entre tiros.\n\n¿Qué distribución sigue la cantidad de tiros que entran, entre esos 8?",
+    "options": [
+      "$Bin(8,\\, 0{,}5)$",
+      "$Geom(0{,}5)$",
+      "$BinNeg(3,\\, 0{,}5)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Se cuenta el total de aciertos en un número fijo de 8 tiros: es binomial, no geométrica.",
+    "feedback_incorrect": [
+      null,
+      "La geométrica se detiene apenas ocurre el primer acierto, sin un $n$ fijo, acá el entrenamiento tiene exactamente 8 tiros prefijados.",
+      "La binomial negativa busca un tercer acierto o más deteniendo el conteo ahí, acá los 8 tiros están fijos y se cuentan todos los aciertos."
+    ],
+    "explanation": "La distribución **binomial** cuenta la cantidad de éxitos en un número fijo $n$ de ensayos independientes.\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá el entrenamiento tiene $n=8$ tiros fijados de antemano, cada uno con $p=0{,}5$ de encestar.\n\nLa pregunta busca cuántos de esos 8 tiros entran, no cuándo ocurre el primer acierto.\n\nLa geométrica en cambio corta el conteo apenas aparece el primer éxito, sin un total de tiros prefijado, por eso no aplica acá.\n\nFijar la vista solo en la palabra tiros sin registrar que el enunciado prefija su cantidad total empuja a usar la fórmula geométrica en un escenario que en realidad es binomial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-vecino"
+    ]
+  },
+  {
+    "question": "Un vendedor llama a distintos clientes hasta lograr su tercera venta.\n\nCada llamada termina en venta con probabilidad $0{,}3$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de llamadas hasta lograr la tercera venta?",
+    "options": [
+      "$Geom(0{,}3)$",
+      "$BinNeg(3,\\, 0{,}3)$",
+      "$Bin(10,\\, 0{,}3)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Ensayos hasta acumular 3 éxitos, no 1: es binomial negativa con $r=3$, no geométrica.",
+    "feedback_incorrect": [
+      "La geométrica es el caso particular con $r=1$, acá se pide la tercera venta, no la primera.",
+      null,
+      "La binomial exige un número fijo de llamadas prefijado de antemano, acá el conteo se detiene al llegar a la tercera venta."
+    ],
+    "explanation": "La distribución **binomial negativa** cuenta ensayos hasta acumular $r$ éxitos.\n$$P(X=k) = \\binom{k-1}{r-1}p^{r}(1-p)^{k-r}$$\nAcá cada llamada es un ensayo con $p=0{,}3$ de terminar en venta, y se busca la tercera.\n\nLa geométrica es apenas el caso más simple de este mismo mecanismo, cuando alcanza con un único éxito.\n\nEn cuanto el enunciado pide una tercera venta, la fórmula geométrica ya no combina correctamente esos casos y hace falta la versión general.\n\nAplicar la fórmula geométrica acá subestima seriamente la cantidad de llamadas que hacen falta en promedio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-vecino"
+    ]
+  },
+  {
+    "question": "Un sistema prueba dígitos al azar, con reposición, hasta acertar la segunda cifra correcta de una clave.\n\nCada intento acierta con probabilidad $0{,}1$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de intentos hasta el segundo acierto?",
+    "options": [
+      "$Geom(0{,}1)$",
+      "$Bin(20,\\, 0{,}1)$",
+      "$BinNeg(2,\\, 0{,}1)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Ensayos hasta acumular 2 éxitos, no 1: es binomial negativa con $r=2$, no geométrica.",
+    "feedback_incorrect": [
+      "La geométrica es el caso particular con $r=1$, acá se pide el segundo acierto, no el primero.",
+      "La binomial exige un número fijo de intentos prefijado de antemano, acá el conteo se detiene al llegar al segundo acierto.",
+      null
+    ],
+    "explanation": "La distribución **binomial negativa** cuenta ensayos hasta acumular $r$ éxitos.\n$$P(X=k) = \\binom{k-1}{r-1}p^{r}(1-p)^{k-r}$$\nAcá cada intento es un ensayo con $p=0{,}1$ de acertar la cifra, y se busca el segundo acierto.\n\nLa geométrica es apenas el caso más simple de este mismo mecanismo, cuando alcanza con un único éxito.\n\nEn cuanto el enunciado pide un segundo acierto, la fórmula geométrica ya no combina correctamente esos casos y hace falta la versión general.\n\nAplicar la fórmula geométrica acá subestima la cantidad de intentos que hacen falta en promedio para llegar al segundo acierto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-vecino"
+    ]
+  },
+  {
+    "question": "Un vendedor se pone cada vez más nervioso después de cada rechazo.\n\nSu probabilidad de cerrar la venta en la próxima llamada baja con cada rechazo acumulado.\n\nLlama a clientes hasta lograr su primera venta.\n\n¿Se puede modelar la cantidad de llamadas hasta la primera venta como una distribución geométrica?",
+    "options": [
+      "No, la probabilidad de venta no es la misma en cada llamada.",
+      "Sí, porque se busca un primer éxito y no un total fijo.",
+      "Sí, porque cada llamada tiene solo dos resultados posibles."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Buscar la primera venta es necesario, pero también hace falta que $p$ sea la misma en cada llamada.",
+    "feedback_incorrect": [
+      null,
+      "Buscar una primera venta es necesario pero no alcanza: la geométrica también exige que la probabilidad de venta no cambie de una llamada a otra.",
+      "Tener dos resultados posibles por llamada es necesario pero no alcanza: hace falta además que esos dos resultados mantengan siempre la misma probabilidad."
+    ],
+    "explanation": "La distribución **geométrica** exige dos condiciones a la vez: contar ensayos hasta el primer éxito, y que la probabilidad de éxito $p$ sea la misma en todos.\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá el vendedor sí busca su primera venta.\n\nPero su probabilidad de cerrarla baja con cada rechazo acumulado, así que $p$ no es constante.\n\nLa pérdida de memoria de la geométrica depende de que el pasado no influya en el próximo intento, y acá sí influye porque los rechazos afectan al vendedor.\n\nNinguna distribución de esta unidad modela directamente una probabilidad que empeora con la frustración acumulada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "supuesto-violado"
+    ]
+  },
+  {
+    "question": "Una batería se va descargando con cada intento fallido, así que la probabilidad de encender el auto baja en cada intento sucesivo.\n\nEl conductor intenta arrancar hasta lograrlo por primera vez.\n\n¿Se puede modelar la cantidad de intentos hasta el primer arranque exitoso como una distribución geométrica?",
+    "options": [
+      "Sí, porque se busca un primer éxito y no un total fijo.",
+      "No, la probabilidad de arranque no es la misma en cada intento.",
+      "Sí, porque cada intento tiene solo dos resultados posibles."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Buscar el primer arranque es necesario, pero también hace falta que $p$ sea la misma en cada intento.",
+    "feedback_incorrect": [
+      "Buscar un primer arranque es necesario pero no alcanza: la geométrica también exige que la probabilidad de encender no cambie de un intento a otro.",
+      null,
+      "Tener dos resultados posibles por intento es necesario pero no alcanza: hace falta además que esos dos resultados mantengan siempre la misma probabilidad."
+    ],
+    "explanation": "La distribución **geométrica** exige dos condiciones a la vez: contar ensayos hasta el primer éxito, y que la probabilidad de éxito $p$ sea la misma en todos.\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá el conductor sí busca su primer arranque exitoso.\n\nPero la batería se descarga con cada intento fallido, así que su probabilidad de encender baja en cada nuevo intento.\n\nLa pérdida de memoria de la geométrica depende de que el pasado no influya en el próximo intento, y acá sí influye porque la batería arrastra el desgaste acumulado.\n\nNinguna distribución de esta unidad modela directamente una probabilidad que empeora por el deterioro físico del sistema.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "supuesto-violado"
+    ]
+  },
+  {
+    "question": "Un candidato mejora su desempeño en las entrevistas con cada postulación.\n\nSu probabilidad de recibir una respuesta positiva sube con la práctica acumulada.\n\nSe postula a puestos hasta lograr la primera respuesta positiva.\n\n¿Se puede modelar la cantidad de postulaciones hasta la primera respuesta positiva como una distribución geométrica?",
+    "options": [
+      "Sí, porque se busca un primer éxito y no un total fijo.",
+      "Sí, porque cada postulación tiene solo dos resultados posibles.",
+      "No, la probabilidad de éxito no es la misma en cada postulación."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Buscar la primera respuesta positiva es necesario, pero también hace falta que $p$ sea la misma en cada postulación.",
+    "feedback_incorrect": [
+      "Buscar una primera respuesta positiva es necesario pero no alcanza: la geométrica también exige que la probabilidad de éxito no cambie de una postulación a otra.",
+      "Tener dos resultados posibles por postulación es necesario pero no alcanza: hace falta además que esos dos resultados mantengan siempre la misma probabilidad.",
+      null
+    ],
+    "explanation": "La distribución **geométrica** exige dos condiciones a la vez: contar ensayos hasta el primer éxito, y que la probabilidad de éxito $p$ sea la misma en todos.\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá el candidato sí busca su primera respuesta positiva.\n\nPero su desempeño mejora con la práctica acumulada, así que $p$ sube con cada nueva postulación.\n\nLa pérdida de memoria de la geométrica depende de que el pasado no influya en el próximo intento, y acá sí influye porque el candidato aprende de cada entrevista.\n\nNinguna distribución de esta unidad modela directamente una probabilidad que mejora con la experiencia acumulada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "supuesto-violado"
+    ]
   }
 ]
