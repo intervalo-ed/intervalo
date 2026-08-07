@@ -1,7 +1,11 @@
 [
   {
     "question": "Se cuenta la cantidad de llamadas que recibe un call center en una hora.\n\n¿Qué tipo de variable aleatoria representa esa cantidad?",
-    "options": ["Discreta.", "Continua.", "Categórica."],
+    "options": [
+      "Discreta.",
+      "Continua.",
+      "Categórica."
+    ],
     "correct_index": 0,
     "feedback_correct": "La cantidad de llamadas es un conteo, toma valores aislados y contables.",
     "feedback_incorrect": [
@@ -14,11 +18,17 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["clasificar-discreta"]
+    "tags": [
+      "clasificar-discreta"
+    ]
   },
   {
     "question": "Se mide la duración exacta, en horas, de una batería antes de agotarse.\n\n¿Qué tipo de variable aleatoria representa esa duración?",
-    "options": ["Discreta.", "Continua.", "Categórica."],
+    "options": [
+      "Discreta.",
+      "Continua.",
+      "Categórica."
+    ],
     "correct_index": 1,
     "feedback_correct": "La duración puede tomar cualquier valor en un intervalo real, es continua.",
     "feedback_incorrect": [
@@ -31,7 +41,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["clasificar-continua"]
+    "tags": [
+      "clasificar-continua"
+    ]
   },
   {
     "question": "Se registra la edad de una persona en años cumplidos.\n\n¿Qué tipo de variable aleatoria representa esa edad?",
@@ -52,6 +64,284 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["clasificar-caso-borde"]
+    "tags": [
+      "clasificar-caso-borde"
+    ]
+  },
+  {
+    "question": "Un local comercial registra la cantidad de clientes que ingresan en una hora.\n\n¿Qué tipo de **variable aleatoria** representa esa cantidad?",
+    "options": [
+      "Discreta.",
+      "Continua.",
+      "Categórica."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La cantidad de clientes es un conteo, toma valores aislados y contables.",
+    "feedback_incorrect": [
+      null,
+      "Un conteo de clientes no admite valores intermedios entre dos enteros consecutivos, no es continua.",
+      "Categórica clasifica en etiquetas sin orden numérico, acá el valor es un número que se cuenta."
+    ],
+    "explanation": "Una **variable aleatoria** se clasifica como discreta cuando sus valores son aislados o contables, o como continua cuando puede tomar cualquier valor de un intervalo real.\n\nLa cantidad de clientes que ingresan en una hora solo puede ser $0,1,2,\\dots$, nunca un valor intermedio como $3{,}5$ clientes, así que es una variable discreta.\n\nCualquier magnitud que surge de contar unidades completas, sin fracciones posibles, es discreta por definición, sin importar cuán grande pueda llegar a ser el conteo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-discreta"
+    ]
+  },
+  {
+    "question": "En un control de calidad se cuenta la cantidad de artículos defectuosos en un lote de producción.\n\n¿Qué tipo de **variable aleatoria** representa esa cantidad?",
+    "options": [
+      "Continua.",
+      "Discreta.",
+      "Categórica."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La cantidad de artículos defectuosos es un conteo, toma valores aislados y contables.",
+    "feedback_incorrect": [
+      "Un conteo de artículos no admite valores intermedios entre dos enteros consecutivos, no es continua.",
+      null,
+      "Categórica clasifica en etiquetas sin orden numérico, acá el valor es un número que se cuenta."
+    ],
+    "explanation": "Una **variable aleatoria** se clasifica como discreta cuando sus valores son aislados o contables, o como continua cuando puede tomar cualquier valor de un intervalo real.\n\nLa cantidad de artículos defectuosos en un lote solo puede tomar valores enteros no negativos, nunca un valor fraccionario entre dos conteos.\n\nPor ejemplo, un lote puede tener $0,1,2,\\dots$ artículos defectuosos, y nada entre medio, así que es una variable discreta.\n\nPensar que cualquier variable ligada a un proceso de producción es continua por naturaleza ignora lo decisivo.\n\nLo que importa es si el valor surge de contar unidades enteras, como en este caso, o de medir una magnitud.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-discreta"
+    ]
+  },
+  {
+    "question": "Se lanza una moneda 5 veces y se cuenta la cantidad de caras obtenidas.\n\n¿Qué tipo de **variable aleatoria** representa esa cantidad?",
+    "options": [
+      "Discreta.",
+      "Continua.",
+      "Categórica."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La cantidad de caras en 5 tiradas es un conteo, toma valores aislados entre 0 y 5.",
+    "feedback_incorrect": [
+      null,
+      "Un conteo de caras no admite valores intermedios entre dos enteros, no es continua.",
+      "Categórica clasifica en etiquetas sin orden numérico, acá el valor es un número que se cuenta."
+    ],
+    "explanation": "Una **variable aleatoria** se clasifica como discreta cuando sus valores son aislados o contables, o como continua cuando puede tomar cualquier valor de un intervalo real.\n\nAl lanzar la moneda 5 veces, la cantidad de caras solo puede ser un valor entre $0$ y $5$, un conjunto finito y contable de valores posibles.\n\nNo hay ningún valor intermedio entre dos conteos consecutivos, así que es una variable discreta.\n\nContar repeticiones de un evento, como la aparición de cara en cada tirada, siempre produce una variable discreta, sin importar cuántas veces se repita el experimento.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-discreta"
+    ]
+  },
+  {
+    "question": "Se registra la cantidad de mensajes que recibe un teléfono durante un día.\n\n¿Qué tipo de **variable aleatoria** representa esa cantidad?",
+    "options": [
+      "Continua.",
+      "Categórica.",
+      "Discreta."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La cantidad de mensajes recibidos es un conteo, toma valores aislados y contables.",
+    "feedback_incorrect": [
+      "Un conteo de mensajes no admite valores intermedios entre dos enteros consecutivos, no es continua.",
+      "Categórica clasifica en etiquetas sin orden numérico, acá el valor es un número que se cuenta.",
+      null
+    ],
+    "explanation": "Una **variable aleatoria** se clasifica como discreta cuando sus valores son aislados o contables, o como continua cuando puede tomar cualquier valor de un intervalo real.\n\nLa cantidad de mensajes recibidos en un día solo puede tomar valores enteros no negativos, $0,1,2,\\dots$, nunca un valor intermedio como $4{,}5$ mensajes, así que es una variable discreta.\n\nCualquier cantidad que se acumula recibiendo unidades completas, un mensaje a la vez, es discreta por la forma en que se genera el dato, no por el rango que pueda alcanzar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-discreta"
+    ]
+  },
+  {
+    "question": "En un peaje se cuenta la cantidad de autos que cruzan durante un minuto.\n\n¿Qué tipo de **variable aleatoria** representa esa cantidad?",
+    "options": [
+      "Continua.",
+      "Discreta.",
+      "Categórica."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La cantidad de autos que cruzan es un conteo, toma valores aislados y contables.",
+    "feedback_incorrect": [
+      "Un conteo de autos no admite valores intermedios entre dos enteros consecutivos, no es continua.",
+      null,
+      "Categórica clasifica en etiquetas sin orden numérico, acá el valor es un número que se cuenta."
+    ],
+    "explanation": "Una **variable aleatoria** se clasifica como discreta cuando sus valores son aislados o contables, o como continua cuando puede tomar cualquier valor de un intervalo real.\n\nLa cantidad de autos que cruzan un peaje en un minuto solo puede ser $0,1,2,\\dots$, un conteo de unidades completas sin valores intermedios posibles, así que es una variable discreta.\n\nMedir el tiempo entre autos sería una variable continua, pero contar cuántos autos pasan en un intervalo fijo siempre da un conteo, y todo conteo es discreto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-discreta"
+    ]
+  },
+  {
+    "question": "Se mide el tiempo que un cliente espera en la fila de un banco, en minutos.\n\n¿Qué tipo de **variable aleatoria** representa ese tiempo?",
+    "options": [
+      "Discreta.",
+      "Continua.",
+      "Categórica."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El tiempo de espera puede tomar cualquier valor en un intervalo real, es continua.",
+    "feedback_incorrect": [
+      "Una variable discreta toma valores aislados, un tiempo de espera puede tomar cualquier decimal intermedio.",
+      null,
+      "Categórica clasifica en etiquetas sin orden numérico, acá el valor es un tiempo medido en minutos."
+    ],
+    "explanation": "Una **variable aleatoria** se clasifica como discreta cuando sus valores son aislados o contables, o como continua cuando puede tomar cualquier valor de un intervalo real.\n\nEl tiempo que un cliente espera en la fila puede tomar valores como $3;\\ 3{,}2;\\ 3{,}27$ minutos, cualquier valor dentro de un intervalo continuo, así que es una variable continua.\n\nUn tiempo de espera nunca salta de un valor a otro sin pasar por los intermedios, y esa densidad de valores posibles es justamente lo que caracteriza a una variable continua.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-continua"
+    ]
+  },
+  {
+    "question": "Se mide el peso exacto de un paquete en una balanza de precisión, en kilogramos.\n\n¿Qué tipo de **variable aleatoria** representa ese peso?",
+    "options": [
+      "Continua.",
+      "Discreta.",
+      "Categórica."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El peso puede tomar cualquier valor en un intervalo real, es continua.",
+    "feedback_incorrect": [
+      null,
+      "Una variable discreta toma valores aislados, un peso puede tomar cualquier decimal intermedio.",
+      "Categórica clasifica en etiquetas sin orden numérico, acá el valor es un número real medido en kilogramos."
+    ],
+    "explanation": "Una **variable aleatoria** se clasifica como discreta cuando sus valores son aislados o contables, o como continua cuando puede tomar cualquier valor de un intervalo real.\n\nEl peso de un paquete puede ser $2{,}4$ kilogramos, $2{,}41$ kilogramos o cualquier valor intermedio que la balanza logre distinguir.\n\nNo hay ningún salto entre un valor posible y el siguiente, así que es una variable continua.\n\nToda magnitud física medida con instrumentos, como el peso, admite en principio infinitos valores intermedios, lo que la distingue de un conteo de unidades enteras.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-continua"
+    ]
+  },
+  {
+    "question": "Se mide la altura de una persona adulta, en centímetros.\n\n¿Qué tipo de **variable aleatoria** representa esa altura?",
+    "options": [
+      "Discreta.",
+      "Categórica.",
+      "Continua."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La altura puede tomar cualquier valor en un intervalo real, es continua.",
+    "feedback_incorrect": [
+      "Una variable discreta toma valores aislados, una altura puede tomar cualquier decimal intermedio.",
+      "Categórica clasifica en etiquetas sin orden numérico, acá el valor es un número real medido en centímetros.",
+      null
+    ],
+    "explanation": "Una **variable aleatoria** se clasifica como discreta cuando sus valores son aislados o contables, o como continua cuando puede tomar cualquier valor de un intervalo real.\n\nLa altura de una persona puede ser $170$ centímetros, $170{,}3$ centímetros o cualquier valor intermedio que el instrumento de medición alcance a distinguir, así que es una variable continua.\n\nRedondear la altura a un número entero de centímetros al anotarla no cambia la naturaleza real de la magnitud, que sigue admitiendo cualquier valor dentro de un intervalo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-continua"
+    ]
+  },
+  {
+    "question": "Se mide la temperatura ambiente en un laboratorio, en grados Celsius.\n\n¿Qué tipo de **variable aleatoria** representa esa temperatura?",
+    "options": [
+      "Discreta.",
+      "Continua.",
+      "Categórica."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La temperatura puede tomar cualquier valor en un intervalo real, es continua.",
+    "feedback_incorrect": [
+      "Una variable discreta toma valores aislados, una temperatura puede tomar cualquier decimal intermedio.",
+      null,
+      "Categórica clasifica en etiquetas sin orden numérico, acá el valor es un número real medido en grados."
+    ],
+    "explanation": "Una **variable aleatoria** se clasifica como discreta cuando sus valores son aislados o contables, o como continua cuando puede tomar cualquier valor de un intervalo real.\n\nLa temperatura del laboratorio puede ser $21$ grados, $21{,}5$ grados o cualquier valor intermedio que el termómetro logre captar.\n\nNo hay ningún salto entre un valor y el siguiente, así que es una variable continua.\n\nAsumir que la temperatura solo toma valores enteros porque así se suele reportar ignora que la magnitud física real puede variar en cualquier fracción de grado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-continua"
+    ]
+  },
+  {
+    "question": "Se mide la distancia recorrida por un auto en un viaje, en kilómetros.\n\n¿Qué tipo de **variable aleatoria** representa esa distancia?",
+    "options": [
+      "Continua.",
+      "Discreta.",
+      "Categórica."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La distancia puede tomar cualquier valor en un intervalo real, es continua.",
+    "feedback_incorrect": [
+      null,
+      "Una variable discreta toma valores aislados, una distancia puede tomar cualquier decimal intermedio.",
+      "Categórica clasifica en etiquetas sin orden numérico, acá el valor es un número real medido en kilómetros."
+    ],
+    "explanation": "Una **variable aleatoria** se clasifica como discreta cuando sus valores son aislados o contables, o como continua cuando puede tomar cualquier valor de un intervalo real.\n\nLa distancia recorrida en un viaje puede ser $120$ kilómetros, $120{,}4$ kilómetros o cualquier valor intermedio que el odómetro registre.\n\nNo hay ningún salto entre un valor posible y el siguiente, así que es una variable continua.\n\nUna magnitud que se acumula de forma gradual, como la distancia recorrida, siempre admite valores intermedios entre dos valores posibles, algo que ningún conteo de unidades enteras permite.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-continua"
+    ]
+  },
+  {
+    "question": "Se registra el monto que paga cada cliente en una caja, en pesos con centavos.\n\n¿Qué tipo de **variable aleatoria** representa ese monto?",
+    "options": [
+      "Discreta, es un múltiplo exacto del centavo.",
+      "Continua, porque el monto se expresa con decimales.",
+      "Categórica, porque no tiene un orden numérico."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El monto solo puede tomar valores en pasos fijos de un centavo, es un conteo de esas unidades mínimas.",
+    "feedback_incorrect": [
+      null,
+      "Tener parte decimal no vuelve continua a una variable si sus valores siguen dando pasos fijos de a centavo.",
+      "Categórica clasifica en etiquetas sin orden numérico, acá el valor es un monto de dinero perfectamente ordenable."
+    ],
+    "explanation": "Una **variable aleatoria** se clasifica según la naturaleza real de la magnitud que representa, no según si su valor se escribe con decimales.\n\nEl monto que paga un cliente nunca puede caer entre \\$10{,}45 y \\$10{,}46, porque el centavo es la unidad mínima indivisible.\n\nEl dinero avanza en pasos fijos y contables, igual que un conteo de monedas.\n\nCreer que cualquier variable con decimales visibles es continua ignora que lo decisivo es si existen valores intermedios posibles entre dos consecutivos, y en el dinero esos intermedios no existen.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-caso-borde"
+    ]
+  },
+  {
+    "question": "Un examen se califica con un número entero del 1 al 10.\n\n¿Qué tipo de **variable aleatoria** representa esa calificación?",
+    "options": [
+      "Continua, porque mide qué tan bien rindió el estudiante.",
+      "Categórica, porque distingue niveles de desempeño.",
+      "Discreta, solo toma diez valores enteros posibles."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La escala tiene un conjunto fijo y contable de valores posibles, es discreta.",
+    "feedback_incorrect": [
+      "Medir el desempeño no vuelve continua a la variable si la escala fuerza valores enteros fijos.",
+      "La escala tiene orden numérico real, del 1 al 10, no son etiquetas sin orden.",
+      null
+    ],
+    "explanation": "Una **variable aleatoria** se clasifica según la naturaleza real de sus valores posibles, no según qué tan matizado parezca el concepto que mide.\n\nAunque la calificación busca reflejar un desempeño que en la realidad admite matices continuos, la escala del examen fuerza el resultado a uno de los diez valores enteros posibles.\n\nNo hay ningún valor intermedio disponible entre un $7$ y un $8$, así que la variable es discreta.\n\nQue el desempeño se sienta como algo graduable de forma continua no alcanza para clasificar la variable.\n\nLo que cuenta es el conjunto de valores que la escala realmente permite tomar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-caso-borde"
+    ]
   }
 ]
