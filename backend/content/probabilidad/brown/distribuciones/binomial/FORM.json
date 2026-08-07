@@ -25,16 +25,16 @@
   {
     "question": "Un estudiante responde al azar 5 preguntas de verdadero o falso de un examen.\n\nCada una tiene probabilidad $0{,}5$ de acertar, en forma independiente.\n\nSea $X$ la cantidad de respuestas correctas. Calculá $P(X=3)$.",
     "options": [
-      "$\\dfrac{5}{16}$",
       "$\\dfrac{1}{8}$",
+      "$\\dfrac{5}{16}$",
       "$\\dfrac{1}{32}$",
       "$\\dfrac{15}{32}$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "feedback_correct": "$\\binom{5}{3}(0{,}5)^{3}(0{,}5)^{2}=10\\cdot\\dfrac{1}{32}=\\dfrac{5}{16}$.",
     "feedback_incorrect": [
-      null,
       "Ese valor corresponde a $(0{,}5)^{3}$ solo, sin multiplicar por $\\binom{5}{3}$, que cuenta cuántos ordenamientos tienen exactamente 3 aciertos.",
+      null,
       "Ese valor es $(0{,}5)^{5}$, la probabilidad de una secuencia puntual de 5 respuestas, sin contar cuántas secuencias tienen 3 aciertos.",
       "Ese valor sale de usar $\\binom{5}{2}$ en vez de $\\binom{5}{3}$, invirtiendo qué cantidad de posiciones se elige."
     ],
@@ -62,6 +62,278 @@
       "Los roles quedaron invertidos: $n=40$ es la cantidad de videos, no la esperanza, y $p=0{,}1$ es la probabilidad de falla, no la varianza."
     ],
     "explanation": "Para $X\\sim Bin(n,p)$, la esperanza y la varianza tienen forma cerrada.\n$$E[X] = np$$\n$$\\mathrm{Var}(X) = np(1-p)$$\nAcá $n=40$ y $p=0{,}1$.\n$$E[X] = 40\\cdot0{,}1 = 4$$\n$$\\mathrm{Var}(X) = 40(0{,}1)(0{,}9) = 3{,}6$$\n$E[X]=4$ no significa que todas las semanas vayan a fallar exactamente 4 cargas.\n\nEs el promedio de fallas si se repitiera esa misma semana de 40 videos muchísimas veces.\n\nLa varianza describe cuánto varía ese número de una semana a otra, no el promedio en sí.\n\nUna varianza de $3{,}6$ dice que hay bastante vaivén semana a semana alrededor del promedio de 4.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["esperanza-varianza"]
+  },
+  {
+    "question": "Una encuestadora consulta a 30 personas sobre un tema puntual.\n\nCada persona responde que sí con probabilidad $0{,}6$, en forma independiente del resto.\n\n¿Cuáles son los parámetros $n$ y $p$ de la binomial que modela la cantidad total de respuestas afirmativas?",
+    "options": [
+      "$n=30$, $p=0{,}4$",
+      "$n=0{,}6$, $p=30$",
+      "$n=30$, $p=0{,}6$",
+      "$n=30$, $p=1/5$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$n=30$ personas consultadas, $p=0{,}6$ la probabilidad de responder que sí.",
+    "feedback_incorrect": [
+      "Ese es el complemento: $0{,}4$ es la probabilidad de responder que no, no que sí.",
+      "Los roles están invertidos: $n$ es la cantidad de personas consultadas, $p$ la probabilidad de responder que sí.",
+      null,
+      "Esa fracción no representa la probabilidad dada en el enunciado, que ya viene expresada como $0{,}6$."
+    ],
+    "explanation": "Para armar $X\\sim Bin(n,p)$ hace falta leer dos datos del contexto: cuántos ensayos hay y cuál es la probabilidad de éxito de cada uno.\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá se consulta a $n=30$ personas, y cada una responde que sí con $p=0{,}6$.\n\nAsí queda definida la binomial de esta encuesta.\n\n$n$ siempre corresponde a la cantidad de veces que se repite el experimento, mientras que $p$ es la probabilidad de un resultado puntual en cada repetición.\n\nInvertir esos dos roles arma una binomial con 0,6 personas y 30 de probabilidad de éxito, un objeto que no tiene sentido como modelo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["identificar-parametros"]
+  },
+  {
+    "question": "Un jugador de básquet tiene un 85% de acierto en tiros libres, y tira 15 veces en un entrenamiento.\n\nCada tiro es independiente, con la misma probabilidad de acierto.\n\n¿Cuáles son los parámetros $n$ y $p$ de la binomial que modela la cantidad de tiros convertidos?",
+    "options": [
+      "$n=15$, $p=0{,}85$",
+      "$n=15$, $p=0{,}15$",
+      "$n=0{,}85$, $p=15$",
+      "$n=15$, $p=1/15$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$n=15$ tiros lanzados, $p=0{,}85$ la probabilidad de acierto de cada uno.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el complemento: $0{,}15$ es la probabilidad de errar el tiro, no de convertirlo.",
+      "Los roles están invertidos: $n$ es la cantidad de tiros, $p$ la probabilidad de acierto de cada uno.",
+      "Esa fracción no representa la probabilidad de acierto dada en el enunciado, que ya viene expresada como $0{,}85$."
+    ],
+    "explanation": "Para armar $X\\sim Bin(n,p)$ hace falta leer dos datos del contexto: cuántos ensayos hay y cuál es la probabilidad de éxito de cada uno.\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá el jugador tira $n=15$ veces, y cada tiro se convierte con $p=0{,}85$.\n\nAsí queda definida la binomial de este entrenamiento.\n\n$n$ siempre corresponde a la cantidad de veces que se repite el experimento, mientras que $p$ es la probabilidad de un resultado puntual en cada repetición.\n\nInvertir esos dos roles arma una binomial con 0,85 tiros y 15 de probabilidad de acierto, un objeto que no tiene sentido como modelo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["identificar-parametros"]
+  },
+  {
+    "question": "Un correo despacha 20 paquetes en un día.\n\nCada paquete llega a tiempo con probabilidad $0{,}9$, en forma independiente de los demás.\n\n¿Cuáles son los parámetros $n$ y $p$ de la binomial que modela la cantidad de paquetes que llegan a tiempo?",
+    "options": [
+      "$n=20$, $p=0{,}1$",
+      "$n=0{,}9$, $p=20$",
+      "$n=20$, $p=1/20$",
+      "$n=20$, $p=0{,}9$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$n=20$ paquetes despachados, $p=0{,}9$ la probabilidad de llegar a tiempo de cada uno.",
+    "feedback_incorrect": [
+      "Ese es el complemento: $0{,}1$ es la probabilidad de que el paquete llegue tarde, no de que llegue a tiempo.",
+      "Los roles están invertidos: $n$ es la cantidad de paquetes despachados, $p$ la probabilidad de que cada uno llegue a tiempo.",
+      "Esa fracción no representa la probabilidad dada en el enunciado, que ya viene expresada como $0{,}9$.",
+      null
+    ],
+    "explanation": "Para armar $X\\sim Bin(n,p)$ hace falta leer dos datos del contexto: cuántos ensayos hay y cuál es la probabilidad de éxito de cada uno.\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá se despachan $n=20$ paquetes, y cada uno llega a tiempo con $p=0{,}9$.\n\nAsí queda definida la binomial de este día de despachos.\n\n$n$ siempre corresponde a la cantidad de veces que se repite el experimento, mientras que $p$ es la probabilidad de un resultado puntual en cada repetición.\n\nInvertir esos dos roles arma una binomial con 0,9 paquetes y 20 de probabilidad de éxito, un objeto que no tiene sentido como modelo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["identificar-parametros"]
+  },
+  {
+    "question": "Una encuestadora consulta a 6 personas, y cada una responde que sí con probabilidad $0{,}5$, en forma independiente.\n\nSea $X$ la cantidad de respuestas afirmativas. Calculá $P(X=4)$.",
+    "options": [
+      "$\\dfrac{15}{64}$",
+      "$\\dfrac{1}{64}$",
+      "$\\dfrac{5}{16}$",
+      "$\\dfrac{3}{32}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$\\binom{6}{4}(0{,}5)^{4}(0{,}5)^{2}=15\\cdot\\dfrac{1}{64}=\\dfrac{15}{64}$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor corresponde a $(0{,}5)^{6}$ solo, sin multiplicar por $\\binom{6}{4}$, que cuenta cuántos ordenamientos tienen exactamente 4 respuestas afirmativas.",
+      "Ese valor sale de usar $\\binom{6}{3}$ en vez de $\\binom{6}{4}$, contando mal cuántos ordenamientos tienen 4 respuestas afirmativas.",
+      "Ese valor sale de usar $\\binom{6}{1}$ en vez de $\\binom{6}{4}$, contando mal cuántos ordenamientos tienen 4 respuestas afirmativas."
+    ],
+    "explanation": "Con $X\\sim Bin(n,p)$, la probabilidad puntual es:\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá $n=6$ y $p=0{,}5$, y se pregunta por exactamente 4 respuestas afirmativas.\n$$P(X=4) = \\binom{6}{4}(0{,}5)^{4}(0{,}5)^{2}$$\nEl coeficiente $\\binom{6}{4}=15$ cuenta de cuántas formas distintas pueden ubicarse las 4 respuestas afirmativas entre las 6 personas.\n\nCon $p=0{,}5$ responder sí o no vale lo mismo, así que cada una de esas 15 formas pesa igual y el resultado depende solo del coeficiente combinatorio.\n\nOlvidar el coeficiente deja solo la probabilidad de un orden puntual de respuestas, no la de las 15 formas que dan exactamente 4 afirmativas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-directa"]
+  },
+  {
+    "question": "Un jugador de básquet acierta cada tiro libre con probabilidad $0{,}4$, en forma independiente, y tira 5 veces.\n\nSea $X$ la cantidad de tiros convertidos. Calculá $P(X=2)$.",
+    "options": [
+      "$0{,}2304$",
+      "$0{,}3456$",
+      "$0{,}0346$",
+      "$0{,}1728$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$\\binom{5}{2}(0{,}4)^{2}(0{,}6)^{3}=10\\cdot0{,}16\\cdot0{,}216=0{,}3456$.",
+    "feedback_incorrect": [
+      "Ese valor sale de invertir los exponentes, usando $(0{,}4)^{3}(0{,}6)^{2}$ en vez de $(0{,}4)^{2}(0{,}6)^{3}$.",
+      null,
+      "Ese valor corresponde a $(0{,}4)^{2}(0{,}6)^{3}$ solo, sin multiplicar por $\\binom{5}{2}$, que cuenta cuántos ordenamientos tienen exactamente 2 aciertos.",
+      "Ese valor sale de usar $\\binom{5}{1}$ en vez de $\\binom{5}{2}$, contando mal cuántos ordenamientos tienen 2 aciertos."
+    ],
+    "explanation": "Con $X\\sim Bin(n,p)$, la probabilidad puntual es:\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá $n=5$ y $p=0{,}4$, y se pregunta por exactamente 2 aciertos.\n$$P(X=2) = \\binom{5}{2}(0{,}4)^{2}(0{,}6)^{3}$$\nEl coeficiente $\\binom{5}{2}=10$ cuenta de cuántas formas distintas pueden ubicarse los 2 aciertos entre los 5 tiros.\n\nCada una de esas 10 formas pesa lo mismo, la probabilidad de acierto al cuadrado por la de fallar al cubo, porque exactamente 2 tiros aciertan y los otros 3 fallan, sin importar en qué orden.\n\nInvertir los exponentes cambia cuántos tiros se supone que aciertan y cuántos fallan, lo que arma una tanda con más aciertos de los que en realidad pide la pregunta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-directa"]
+  },
+  {
+    "question": "Una línea de producción fabrica 6 piezas, y cada una sale defectuosa con probabilidad $0{,}5$, en forma independiente.\n\nSea $X$ la cantidad de piezas defectuosas. Calculá $P(X=1)$.",
+    "options": [
+      "$\\dfrac{3}{32}$",
+      "$\\dfrac{1}{64}$",
+      "$\\dfrac{15}{64}$",
+      "$\\dfrac{5}{16}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$\\binom{6}{1}(0{,}5)^{1}(0{,}5)^{5}=6\\cdot\\dfrac{1}{64}=\\dfrac{3}{32}$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor corresponde a $(0{,}5)^{6}$ solo, sin multiplicar por $\\binom{6}{1}$, que cuenta cuántas posiciones puede ocupar la única defectuosa.",
+      "Ese valor sale de usar $\\binom{6}{2}$ en vez de $\\binom{6}{1}$, contando mal cuántas posiciones puede ocupar la defectuosa.",
+      "Ese valor sale de usar $\\binom{6}{3}$ en vez de $\\binom{6}{1}$, contando mal cuántas posiciones puede ocupar la defectuosa."
+    ],
+    "explanation": "Con $X\\sim Bin(n,p)$, la probabilidad puntual es:\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá $n=6$ y $p=0{,}5$, y se pregunta por exactamente 1 pieza defectuosa.\n$$P(X=1) = \\binom{6}{1}(0{,}5)^{1}(0{,}5)^{5}$$\nEl coeficiente $\\binom{6}{1}=6$ cuenta de cuántas formas distintas puede ubicarse la única pieza defectuosa entre las 6 fabricadas.\n\nCon $p=0{,}5$ salir buena o defectuosa vale lo mismo, así que cada una de esas 6 formas pesa igual y el resultado depende solo del coeficiente combinatorio.\n\nOlvidar el coeficiente deja solo la probabilidad de un orden puntual de piezas, no la de las 6 formas que dan exactamente 1 defectuosa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-directa"]
+  },
+  {
+    "question": "Un jugador de casino apuesta siempre al mismo color en 6 tiradas de la ruleta.\n\nCada tirada sale ese color con probabilidad $0{,}6$, en forma independiente.\n\nSea $X$ la cantidad de tiradas ganadoras. Calculá $P(X=4)$.",
+    "options": [
+      "$0{,}1382$",
+      "$0{,}0207$",
+      "$0{,}3110$",
+      "$0{,}4147$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$\\binom{6}{4}(0{,}6)^{4}(0{,}4)^{2}=15\\cdot0{,}1296\\cdot0{,}16\\approx0{,}3110$.",
+    "feedback_incorrect": [
+      "Ese valor sale de invertir los exponentes, usando $(0{,}6)^{2}(0{,}4)^{4}$ en vez de $(0{,}6)^{4}(0{,}4)^{2}$.",
+      "Ese valor corresponde a $(0{,}6)^{4}(0{,}4)^{2}$ solo, sin multiplicar por $\\binom{6}{4}$, que cuenta cuántos ordenamientos tienen exactamente 4 tiradas ganadoras.",
+      null,
+      "Ese valor sale de usar $\\binom{6}{3}$ en vez de $\\binom{6}{4}$, contando mal cuántos ordenamientos tienen 4 tiradas ganadoras."
+    ],
+    "explanation": "Con $X\\sim Bin(n,p)$, la probabilidad puntual es:\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá $n=6$ y $p=0{,}6$, y se pregunta por exactamente 4 tiradas ganadoras.\n$$P(X=4) = \\binom{6}{4}(0{,}6)^{4}(0{,}4)^{2}$$\nEl coeficiente $\\binom{6}{4}=15$ cuenta de cuántas formas distintas pueden ubicarse las 4 tiradas ganadoras entre las 6.\n\nCada una de esas 15 formas pesa lo mismo, la probabilidad de ganar a la cuarta por la de perder al cuadrado, porque exactamente 4 tiradas ganan y las otras 2 pierden, sin importar en qué orden.\n\nInvertir los exponentes cambia cuántas tiradas se supone que ganan y cuántas pierden, lo que arma una serie con menos tiradas ganadoras de las que en realidad pide la pregunta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-directa"]
+  },
+  {
+    "question": "Un centro de salud vacuna a 5 pacientes, y cada uno presenta una reacción leve con probabilidad $0{,}2$, en forma independiente.\n\nSea $X$ la cantidad de pacientes con reacción leve. Calculá $P(X=2)$.",
+    "options": [
+      "$0{,}2048$",
+      "$0{,}0512$",
+      "$0{,}0205$",
+      "$0{,}1024$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$\\binom{5}{2}(0{,}2)^{2}(0{,}8)^{3}=10\\cdot0{,}04\\cdot0{,}512=0{,}2048$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor sale de invertir los exponentes, usando $(0{,}2)^{3}(0{,}8)^{2}$ en vez de $(0{,}2)^{2}(0{,}8)^{3}$.",
+      "Ese valor corresponde a $(0{,}2)^{2}(0{,}8)^{3}$ solo, sin multiplicar por $\\binom{5}{2}$, que cuenta cuántos ordenamientos tienen exactamente 2 pacientes con reacción.",
+      "Ese valor sale de usar $\\binom{5}{1}$ en vez de $\\binom{5}{2}$, contando mal cuántos ordenamientos tienen 2 pacientes con reacción."
+    ],
+    "explanation": "Con $X\\sim Bin(n,p)$, la probabilidad puntual es:\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá $n=5$ y $p=0{,}2$, y se pregunta por exactamente 2 pacientes con reacción.\n$$P(X=2) = \\binom{5}{2}(0{,}2)^{2}(0{,}8)^{3}$$\nEl coeficiente $\\binom{5}{2}=10$ cuenta de cuántas formas distintas pueden ubicarse los 2 pacientes con reacción entre los 5 vacunados.\n\nCada una de esas 10 formas pesa lo mismo: la probabilidad de reacción al cuadrado por la de no reaccionar al cubo.\n\nExactamente 2 pacientes reaccionan y los otros 3 no, sin importar en qué orden.\n\nInvertir los exponentes cambia cuántos pacientes se supone que reaccionan y cuántos no, lo que arma un grupo con más reacciones de las que en realidad pide la pregunta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-directa"]
+  },
+  {
+    "question": "Una línea de producción fabrica 50 piezas por tanda, y cada una sale defectuosa con probabilidad $0{,}02$, en forma independiente.\n\nSea $X$ la cantidad de piezas defectuosas por tanda.\n\n¿Cuánto valen su esperanza y su varianza?",
+    "options": [
+      "$E[X]=1$, $\\mathrm{Var}(X)=1$",
+      "$E[X]=0{,}02$, $\\mathrm{Var}(X)=0{,}98$",
+      "$E[X]=50$, $\\mathrm{Var}(X)=0{,}02$",
+      "$E[X]=1$, $\\mathrm{Var}(X)=0{,}98$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$E[X]=1$ y $\\mathrm{Var}(X)=0{,}98$.",
+    "feedback_incorrect": [
+      "Esa varianza sale de olvidar el factor $(1-p)=0{,}98$ y calcular solo $np$ de nuevo, en vez de $np(1-p)$.",
+      "Ese valor de $E[X]$ es solo $p$, sin multiplicar por la cantidad de piezas $n=50$.",
+      "Los roles quedaron invertidos: $n=50$ es la cantidad de piezas, no la esperanza, y $p=0{,}02$ es la probabilidad de defecto, no la varianza.",
+      null
+    ],
+    "explanation": "Para $X\\sim Bin(n,p)$, la esperanza y la varianza tienen forma cerrada.\n$$E[X] = np$$\n$$\\mathrm{Var}(X) = np(1-p)$$\nAcá $n=50$ y $p=0{,}02$.\n$$E[X] = 50\\cdot0{,}02 = 1$$\n$$\\mathrm{Var}(X) = 50(0{,}02)(0{,}98) = 0{,}98$$\n$E[X]=1$ no significa que todas las tandas vayan a tener exactamente 1 pieza defectuosa.\n\nEs el promedio de defectuosas si se repitiera esa misma tanda de 50 piezas muchísimas veces.\n\nLa varianza describe cuánto varía ese número de una tanda a otra, no el promedio en sí.\n\nUna varianza de $0{,}98$ dice que hay bastante vaivén tanda a tanda alrededor del promedio de 1.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["esperanza-varianza"]
+  },
+  {
+    "question": "Un jugador de básquet con 75% de acierto tira 20 libres, en forma independiente cada uno.\n\nSea $X$ la cantidad de tiros convertidos, con $E[X]=15$.\n\n¿Qué significa ese valor de $E[X]$ en este contexto?",
+    "options": [
+      "El promedio de tiros convertidos si se repitiera esta tanda de 20 tiros muchísimas veces.",
+      "La cantidad exacta de tiros que el jugador va a convertir en esta tanda puntual.",
+      "La probabilidad de que el jugador convierta los 20 tiros de la tanda."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$E[X]$ es el promedio a largo plazo, no un resultado garantizado en una tanda puntual.",
+    "feedback_incorrect": [
+      null,
+      "$E[X]$ describe el promedio a largo plazo, no lo que ocurre necesariamente en esta tanda puntual, que puede variar tanda a tanda.",
+      "Eso sería $P(X=20)$, un valor mucho más chico que 1, que además no es lo que mide la esperanza."
+    ],
+    "explanation": "Para $X\\sim Bin(n,p)$, la esperanza tiene forma cerrada.\n$$E[X] = np$$\nAcá $n=20$ y $p=0{,}75$.\n$$E[X] = 20\\cdot0{,}75 = 15$$\nEse número no es una promesa sobre esta tanda puntual de 20 tiros, es el promedio de tiros convertidos si el jugador repitiera esa misma tanda una y otra vez.\n\nEn una tanda concreta puede convertir 13, 15 o 17, y ninguno de esos resultados contradice que el promedio a largo plazo sea 15.\n\nConfundir la esperanza con un resultado garantizado lleva a sorprenderse cuando una tanda puntual se aleja del promedio, cuando esa variación alrededor de 15 es justamente lo que mide la varianza.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["esperanza-varianza"]
+  },
+  {
+    "question": "Un correo despacha 60 paquetes por día, y cada uno llega a tiempo con probabilidad $0{,}95$, en forma independiente.\n\nSea $X$ la cantidad de paquetes que llegan a tiempo.\n\n¿Cuánto valen su esperanza y su varianza?",
+    "options": [
+      "$E[X]=57$, $\\mathrm{Var}(X)=3$",
+      "$E[X]=57$, $\\mathrm{Var}(X)=2{,}85$",
+      "$E[X]=0{,}95$, $\\mathrm{Var}(X)=2{,}85$",
+      "$E[X]=60$, $\\mathrm{Var}(X)=0{,}95$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$E[X]=57$ y $\\mathrm{Var}(X)=2{,}85$.",
+    "feedback_incorrect": [
+      "Esa varianza sale de redondear $np(1-p)$ en vez de calcularlo con precisión: $60\\cdot0{,}95\\cdot0{,}05=2{,}85$ exacto.",
+      null,
+      "Ese valor de $E[X]$ es solo $p$, sin multiplicar por la cantidad de paquetes $n=60$.",
+      "Los roles quedaron invertidos: $n=60$ es la cantidad de paquetes, no la esperanza, y $p=0{,}95$ es la probabilidad de llegar a tiempo, no la varianza."
+    ],
+    "explanation": "Para $X\\sim Bin(n,p)$, la esperanza y la varianza tienen forma cerrada.\n$$E[X] = np$$\n$$\\mathrm{Var}(X) = np(1-p)$$\nAcá $n=60$ y $p=0{,}95$.\n$$E[X] = 60\\cdot0{,}95 = 57$$\n$$\\mathrm{Var}(X) = 60(0{,}95)(0{,}05) = 2{,}85$$\n$E[X]=57$ no significa que todos los días lleguen a tiempo exactamente 57 paquetes.\n\nEs el promedio de paquetes a tiempo si se repitiera ese mismo día de 60 despachos muchísimas veces.\n\nLa varianza describe cuánto varía ese número de un día a otro, no el promedio en sí.\n\nUna varianza baja como $2{,}85$ indica que los días reales suelen quedar bastante cerca del promedio de 57.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["esperanza-varianza"]
+  },
+  {
+    "question": "Un hospital vacuna a 200 pacientes contra la gripe, cada uno con probabilidad $0{,}03$ de reacción leve, en forma independiente.\n\nSea $X$ la cantidad de pacientes con reacción, con $\\mathrm{Var}(X)=5{,}82$.\n\nSi el hospital usara una vacuna con mayor $\\mathrm{Var}(X)$ pero el mismo $E[X]=6$.\n\n¿Qué indicaría eso?",
+    "options": [
+      "Que en promedio se esperan más reacciones que con la vacuna anterior.",
+      "Que la cantidad de reacciones varía más de una tanda de 200 pacientes a otra.",
+      "Que la probabilidad de reacción $p$ de esa vacuna es mayor que $0{,}03$."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Una varianza mayor indica más dispersión entre tandas, no un promedio de reacciones más alto.",
+    "feedback_incorrect": [
+      "El promedio de reacciones sigue siendo $E[X]=6$ en ambas vacunas, la varianza no lo cambia.",
+      null,
+      "$p$ no queda determinado solo por la varianza: con $E[X]=np$ fijo en 6, un $p$ mayor implicaría además un $n$ distinto para mantener ese mismo promedio."
+    ],
+    "explanation": "Para $X\\sim Bin(n,p)$, la esperanza y la varianza miden cosas distintas.\n$$E[X] = np$$\n$$\\mathrm{Var}(X) = np(1-p)$$\nAcá $n=200$ y $p=0{,}03$.\n$$E[X] = 6$$\n$$\\mathrm{Var}(X) = 5{,}82$$\n$E[X]$ resume el promedio de reacciones a largo plazo, mientras que la varianza resume cuánto se aleja una tanda puntual de ese promedio.\n\nDos vacunas pueden compartir el mismo promedio y aun así tener tandas muy distintas.\n\nCon varianza chica, casi todas las tandas de 200 pacientes rondan las 6 reacciones; con varianza grande, algunas tandas tienen bastantes menos y otras bastantes más.\n\nLeer una varianza mayor como si implicara más reacciones en promedio confunde qué tan disperso es el resultado con cuál es ese resultado esperado.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
