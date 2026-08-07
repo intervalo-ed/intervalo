@@ -1,7 +1,12 @@
 [
   {
     "question": "Un formulario de identificación pide una letra vocal, con 5 posibles, seguida de dos dígitos del 0 al 9, con repetición permitida.\n\n¿Cuántos códigos distintos se pueden armar?",
-    "options": ["$25$", "$100$", "$500$", "$1000$"],
+    "options": [
+      "$25$",
+      "$100$",
+      "$500$",
+      "$1000$"
+    ],
     "correct_index": 2,
     "feedback_correct": "Tres decisiones independientes: $5 \\times 10 \\times 10 = 500$.",
     "feedback_incorrect": [
@@ -15,11 +20,18 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["producto-puro"]
+    "tags": [
+      "producto-puro"
+    ]
   },
   {
     "question": "Una tienda ofrece 6 modelos de zapatillas o 4 modelos de ojotas, y cada compra es de un solo tipo de calzado.\n\n¿Cuántas opciones de calzado hay en total?",
-    "options": ["$10$", "$20$", "$24$", "$2$"],
+    "options": [
+      "$10$",
+      "$20$",
+      "$24$",
+      "$2$"
+    ],
     "correct_index": 0,
     "feedback_correct": "Como se elige zapatillas O ojotas, se suman los modelos: $6+4=10$.",
     "feedback_incorrect": [
@@ -33,11 +45,18 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["suma-pura"]
+    "tags": [
+      "suma-pura"
+    ]
   },
   {
     "question": "Un puesto de comida arma un combo con 3 entradas y 2 bebidas, o vende 5 platos únicos sin combo, que ya incluyen todo.\n\n¿Cuántas opciones distintas para comer hay en total?",
-    "options": ["$6$", "$11$", "$10$", "$30$"],
+    "options": [
+      "$6$",
+      "$11$",
+      "$10$",
+      "$30$"
+    ],
     "correct_index": 1,
     "feedback_correct": "El combo tiene $3\\times2=6$ variantes, más los 5 platos únicos: $6+5=11$.",
     "feedback_incorrect": [
@@ -51,11 +70,18 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["producto-y-suma"]
+    "tags": [
+      "producto-y-suma"
+    ]
   },
   {
     "question": "Una contraseña de 3 dígitos no puede empezar con cero, y los otros dos dígitos aceptan cualquier valor entre 0 y 9 con repetición.\n\n¿Cuántas contraseñas distintas hay?",
-    "options": ["$1000$", "$729$", "$810$", "$900$"],
+    "options": [
+      "$1000$",
+      "$729$",
+      "$810$",
+      "$900$"
+    ],
     "correct_index": 3,
     "feedback_correct": "El primer dígito tiene 9 opciones, sin el cero, y los otros dos, 10 cada uno: $9\\times10\\times10=900$.",
     "feedback_incorrect": [
@@ -69,6 +95,283 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["producto-con-restriccion"]
+    "tags": [
+      "producto-con-restriccion"
+    ]
+  },
+  {
+    "question": "Una clave de acceso combina una letra entre 6 consonantes y, después, dos dígitos del 0 al 9 con repetición permitida.\n\n¿Cuántas claves distintas se pueden armar?",
+    "options": [
+      "$600$",
+      "$60$",
+      "$100$",
+      "$1000$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Tres decisiones independientes: $6\\times10\\times10=600$.",
+    "feedback_incorrect": [
+      null,
+      "Ese resultado sale de multiplicar solo la letra por un dígito, olvidando el segundo dígito.",
+      "Estás contando solo los dos dígitos, $10\\times10$, sin la letra inicial.",
+      "Estás usando la letra como si tuviera 10 opciones, cuando en realidad son 6."
+    ],
+    "explanation": "La **regla del producto** encadena decisiones independientes: cada decisión aporta su propia cantidad de opciones, y el total es el producto de todas.\n\nAcá hay tres decisiones independientes, ya que permitir repetición mantiene el número de opciones en cada dígito:\n$$6 \\times 10 \\times 10 = 600$$\nSon 600 claves posibles.\n\nSi te olvidás de alguna de las tres decisiones al armar el producto, el resultado queda incompleto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "producto-puro"
+    ]
+  },
+  {
+    "question": "Una patente de moto se arma con una letra entre 5 disponibles y, después, un número de dos cifras entre 00 y 99.\n\n¿Cuántas patentes distintas se pueden armar?",
+    "options": [
+      "$105$",
+      "$500$",
+      "$50$",
+      "$1000$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Dos decisiones independientes: $5\\times100=500$.",
+    "feedback_incorrect": [
+      "Ese resultado suma las opciones de letra y número en vez de multiplicarlas.",
+      null,
+      "Ese resultado sale de considerar el número como si tuviera un solo dígito, $5\\times10$, en vez de dos cifras.",
+      "Estás usando la letra como si tuviera 10 opciones, cuando en realidad son 5."
+    ],
+    "explanation": "Encadenar dos decisiones independientes, una seguida de la otra, es el escenario que pide la **regla del producto**: se multiplican las opciones de cada paso.\n\nAcá la patente combina una letra entre 5 opciones y un número entre 100 opciones, así que:\n$$5 \\times 100 = 500$$\nSon 500 patentes posibles.\n\nSumar en vez de multiplicar acá trata dos decisiones que se toman juntas como si fueran alternativas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "producto-puro"
+    ]
+  },
+  {
+    "question": "Una señal naval se arma izando primero una bandera entre 4 colores y después otra entre 3 colores distintos.\n\n¿Cuántas señales distintas se pueden armar?",
+    "options": [
+      "$7$",
+      "$81$",
+      "$12$",
+      "$64$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Dos decisiones independientes: $4\\times3=12$.",
+    "feedback_incorrect": [
+      "Ese resultado suma los colores de ambas banderas en vez de multiplicarlos.",
+      "Ese resultado eleva 3 a la cuarta, un cálculo que no corresponde a dos decisiones fijas.",
+      null,
+      "Ese resultado eleva 4 a la tercera, un cálculo que no corresponde a dos decisiones fijas."
+    ],
+    "explanation": "Si el resultado depende de tomar una decisión y después otra, ambas con sus propias opciones, la **regla del producto** multiplica esas cantidades.\n\nAcá la señal combina una primera bandera entre 4 colores y una segunda entre 3 colores, así que:\n$$4 \\times 3 = 12$$\nSon 12 señales posibles.\n\nTratar las dos banderas como alternativas sueltas en vez de decisiones consecutivas da un total mucho menor del real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "producto-puro"
+    ]
+  },
+  {
+    "question": "Un viaje entre dos ciudades pasa siempre por una ciudad intermedia.\n\nHay 3 rutas para el primer tramo y 5 rutas para el segundo tramo.\n\n¿Cuántas formas distintas de viajar hay?",
+    "options": [
+      "$8$",
+      "$125$",
+      "$243$",
+      "$15$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Dos decisiones independientes: $3\\times5=15$.",
+    "feedback_incorrect": [
+      "Ese resultado suma las rutas de ambos tramos en vez de multiplicarlas.",
+      "Ese resultado eleva 5 al cubo, un cálculo que no corresponde a dos tramos fijos.",
+      "Ese resultado eleva 3 a la quinta, un cálculo que no corresponde a dos tramos fijos.",
+      null
+    ],
+    "explanation": "La **regla del producto** se aplica cuando el resultado final requiere completar varias decisiones consecutivas, cada una con su propio número de opciones.\n\nAcá el viaje combina una ruta del primer tramo entre 3 opciones y una ruta del segundo tramo entre 5 opciones, así que:\n$$3 \\times 5 = 15$$\nHay 15 formas de viajar en total.\n\nConfundir esta situación con una alternativa excluyente pasa por alto que el viaje siempre necesita completar los dos tramos, no uno solo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "producto-puro"
+    ]
+  },
+  {
+    "question": "Un puesto de comida vende dos tipos de plato.\n\nHay un plato de pastas con 5 variantes o un plato de parrilla con 7 variantes, y cada cliente elige un solo tipo.\n\n¿Cuántas opciones de plato hay en total?",
+    "options": [
+      "$12$",
+      "$35$",
+      "$2$",
+      "$24$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Como se elige pastas O parrilla, se suman los modelos: $5+7=12$.",
+    "feedback_incorrect": [
+      null,
+      "Ese resultado multiplica $5\\times7$, como si cada compra combinara un plato de cada tipo, pero la compra es de un solo tipo.",
+      "Ese resultado resta las variantes de un conjunto al otro, en vez de sumarlas.",
+      "Ese resultado sale de contar cada variante dos veces, una de más, en vez de sumar cada conjunto una sola vez."
+    ],
+    "explanation": "Cuando el resultado sale de una sola de varias alternativas mutuamente excluyentes, se aplica la **regla de la suma**: se cuenta cada alternativa por separado y se suman.\n\nAcá el cliente elige entre 5 variantes de pastas o 7 variantes de parrilla, nunca las dos cosas a la vez:\n$$5 + 7 = 12$$\nHay 12 opciones de plato en total.\n\nMultiplicar apenas aparecen dos conjuntos confunde una alternativa excluyente con una combinación de ambos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "suma-pura"
+    ]
+  },
+  {
+    "question": "Una clave de acceso usa un solo símbolo.\n\nEse símbolo puede ser una letra entre 20 opciones o uno de 6 símbolos especiales, nunca los dos a la vez.\n\n¿Cuántos símbolos distintos hay en total?",
+    "options": [
+      "$26$",
+      "$120$",
+      "$14$",
+      "$36$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Como el símbolo es letra O especial, nunca ambos, se suman las dos categorías: $20+6=26$.",
+    "feedback_incorrect": [
+      null,
+      "Ese resultado multiplica $20\\times6$, como si cada clave combinara una letra y un símbolo especial a la vez.",
+      "Ese resultado resta los símbolos especiales de las letras, en vez de sumarlos.",
+      "Ese resultado suma el doble de los símbolos especiales, contándolos dos veces."
+    ],
+    "explanation": "Cuando el resultado sale de una sola de varias alternativas mutuamente excluyentes, se aplica la **regla de la suma**: se cuenta cada alternativa por separado y se suman.\n\nAcá el símbolo es una letra entre 20 opciones o un carácter especial entre 6 opciones, nunca las dos cosas a la vez:\n$$20 + 6 = 26$$\nHay 26 símbolos posibles en total.\n\nSi tratás las dos categorías como pasos de una misma clave, terminás multiplicando en vez de sumando.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "suma-pura"
+    ]
+  },
+  {
+    "question": "Un viaje entre dos ciudades se arma eligiendo entre 2 rutas de auto y 3 horarios de salida.\n\nComo alternativa, se puede tomar directamente uno de 4 vuelos sin escalas.\n\n¿Cuántas formas distintas de viajar hay en total?",
+    "options": [
+      "$9$",
+      "$10$",
+      "$24$",
+      "$20$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El viaje en auto tiene $2\\times3=6$ variantes, más los 4 vuelos: $6+4=10$.",
+    "feedback_incorrect": [
+      "Ese resultado suma $2+3+4$ directamente, sin multiplicar primero ruta y horario del viaje en auto.",
+      null,
+      "Ese resultado multiplica las 3 partes juntas, $2\\times3\\times4$, en vez de sumar los vuelos como alternativa aparte.",
+      "Ese resultado suma $(2+3)\\times4$, mezclando la suma de ruta y horario con el producto de los vuelos."
+    ],
+    "explanation": "Cuando un problema combina una **regla del producto** dentro de una rama y una **regla de la suma** entre ramas, primero se resuelve cada producto y después se suman las ramas excluyentes.\n\nEl viaje en auto tiene $2 \\times 3 = 6$ variantes, y existen además $4$ vuelos sin escalas como alternativa aparte:\n$$2 \\times 3 + 4 = 10$$\nHay 10 formas de viajar en total.\n\nSumar todos los números sueltos por igual, sin distinguir qué decisiones son secuenciales y cuáles son alternativas, da un resultado que no representa ninguna de las dos ramas reales.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "producto-y-suma"
+    ]
+  },
+  {
+    "question": "Una señal se arma con una bandera entre 3 colores seguida de un patrón entre 2.\n\nComo alternativa, se puede mostrar directamente una de 5 luces fijas sin bandera.\n\n¿Cuántas señales distintas hay en total?",
+    "options": [
+      "$10$",
+      "$11$",
+      "$30$",
+      "$16$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La bandera con patrón tiene $3\\times2=6$ variantes, más las 5 luces fijas: $6+5=11$.",
+    "feedback_incorrect": [
+      "Ese resultado suma $3+2+5$ directamente, sin multiplicar primero color y patrón de la bandera.",
+      null,
+      "Ese resultado multiplica las 3 partes juntas, $3\\times2\\times5$, en vez de sumar las luces fijas como alternativa aparte.",
+      "Ese resultado suma $(3+2)\\times5$, mezclando la suma de color y patrón con el producto de las luces."
+    ],
+    "explanation": "Cuando un problema combina una **regla del producto** dentro de una rama y una **regla de la suma** entre ramas, primero se resuelve cada producto y después se suman las ramas excluyentes.\n\nLa bandera con patrón tiene $3 \\times 2 = 6$ variantes, y existen además $5$ luces fijas como alternativa aparte:\n$$3 \\times 2 + 5 = 11$$\nHay 11 señales posibles en total.\n\nResolver solo una de las dos ramas y dar el conteo por terminado deja afuera la mitad de las opciones reales.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "producto-y-suma"
+    ]
+  },
+  {
+    "question": "Una clave puede ser una letra entre 4 vocales seguida de un dígito entre 10.\n\nComo alternativa, también puede ser directamente un código de 2 dígitos entre 00 y 99 sin letra.\n\n¿Cuántas claves distintas hay en total?",
+    "options": [
+      "$114$",
+      "$140$",
+      "$400$",
+      "$104$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La primera opción tiene $4\\times10=40$ claves, más los 100 códigos de 2 dígitos: $40+100=140$.",
+    "feedback_incorrect": [
+      "Ese resultado suma $4+10+100$ directamente, sin multiplicar primero letra y dígito de la primera opción.",
+      null,
+      "Ese resultado multiplica las 3 partes juntas, $4\\times10\\times100$, en vez de sumar los códigos como alternativa aparte.",
+      "Ese resultado suma $4+100$ y agrega el dígito por separado, sin multiplicar letra y dígito de la primera opción."
+    ],
+    "explanation": "Cuando un problema combina una **regla del producto** dentro de una rama y una **regla de la suma** entre ramas, primero se resuelve cada producto y después se suman las ramas excluyentes.\n\nLa primera opción tiene $4 \\times 10 = 40$ claves, y el código de 2 dígitos es una alternativa aparte con $100$ opciones:\n$$4 \\times 10 + 100 = 140$$\nHay 140 claves posibles en total.\n\nTratar todos los números del enunciado como si fueran la misma operación, sin separar la parte secuencial de la alternativa, deja el conteo mal armado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "producto-y-suma"
+    ]
+  },
+  {
+    "question": "Una placa de 3 letras usa el alfabeto de 26 letras.\n\nLa primera letra no puede repetirse en la segunda posición.\n\nLa tercera letra sí puede repetirse con cualquiera de las anteriores.\n\n¿Cuántas placas distintas hay?",
+    "options": [
+      "$17576$",
+      "$16900$",
+      "$16250$",
+      "$16224$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La primera letra tiene 26 opciones, la segunda 25 al no poder repetir la primera, y la tercera vuelve a tener 26: $26\\times25\\times26=16900$.",
+    "feedback_incorrect": [
+      "Ese resultado ignora la restricción entre la primera y la segunda letra, como si pudieran repetirse.",
+      null,
+      "Ese resultado aplica la restricción también a la tercera letra, pero ella sí puede repetirse con cualquiera de las anteriores.",
+      "Ese resultado le resta dos opciones a la segunda letra en vez de solo una."
+    ],
+    "explanation": "Una restricción puntual en la **regla del producto** solo reduce las opciones del paso afectado, dejando el resto sin cambios.\n\nLa primera letra tiene 26 opciones, la segunda no puede repetir a la primera y le quedan 25, y la tercera acepta cualquier letra otra vez con 26 opciones:\n$$26 \\times 25 \\times 26 = 16900$$\nHay 16900 placas posibles.\n\nAplicar la restricción a un paso que el enunciado no menciona reduce el conteo más de lo que corresponde.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "producto-con-restriccion"
+    ]
+  },
+  {
+    "question": "Una clave de 3 dígitos no puede terminar en 0, pero los otros dos dígitos aceptan cualquier valor entre 0 y 9 con repetición.\n\n¿Cuántas claves distintas hay?",
+    "options": [
+      "$1000$",
+      "$900$",
+      "$729$",
+      "$810$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El último dígito tiene 9 opciones, sin el 0, y los otros dos, 10 cada uno: $10\\times10\\times9=900$.",
+    "feedback_incorrect": [
+      "Ese resultado ignora la restricción del último dígito, como si el 0 también estuviera permitido ahí.",
+      null,
+      "Ese resultado aplica la restricción de 9 opciones a los tres dígitos, pero solo el último tiene esa limitación.",
+      "Ese resultado aplica la restricción a los primeros dos dígitos, $9\\times9\\times10$, en vez de al último."
+    ],
+    "explanation": "Una restricción puntual en la **regla del producto** solo reduce las opciones del paso afectado, dejando el resto sin cambios.\n\nEl último dígito no puede ser 0, así que tiene 9 opciones, y los otros dos aceptan cualquier valor del 0 al 9, con 10 opciones cada uno:\n$$10 \\times 10 \\times 9 = 900$$\nHay 900 claves posibles.\n\nAplicar la restricción a un paso que el enunciado no menciona sobreestima o subestima cuánto se reduce el conteo real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "producto-con-restriccion"
+    ]
   }
 ]
