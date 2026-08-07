@@ -35,7 +35,7 @@ XP_BY_ATTEMPT = {1: 8, 2: 2, 3: 1, 4: 0}
 XP_STREAK_INTERVAL  = 5    # cada cuántas correctas limpias seguidas se otorga bonus
 XP_STREAK_BONUS     = 5    # bonus por cada múltiplo del intervalo (fijo, sin multiplicadores)
 
-# Práctica (zen) es volumen ilimitado a elección del usuario: paga plano y sin
+# Práctica es volumen ilimitado a elección del usuario: paga plano y sin
 # ajuste de dificultad, aunque sí escala con el multiplicador de racha diaria
 # (ver practice_xp_split) — su base es mucho menor que la de Repaso, así que no
 # se vuelve farmeable.

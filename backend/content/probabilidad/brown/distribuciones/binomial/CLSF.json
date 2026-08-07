@@ -18,20 +18,22 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["reconocer-binomial"]
+    "tags": [
+      "reconocer-binomial"
+    ]
   },
   {
     "question": "Un mazo de 8 cartas tiene 3 cartas rojas.\n\nSe extraen 4 cartas del mazo sin devolverlas, y se cuenta cuántas de esas 4 son rojas.\n\n¿Qué distribución sigue esa cantidad de cartas rojas?",
     "options": [
-      "$Bin(4,\\, 3/8)$",
       "$Hip(8,3,4)$",
+      "$Bin(4,\\, 3/8)$",
       "$Geom(3/8)$"
     ],
-    "correct_index": 1,
+    "correct_index": 0,
     "feedback_correct": "Extracción sin reposición de una población finita: la proporción de rojas cambia en cada extracción, es hipergeométrica.",
     "feedback_incorrect": [
-      "La binomial exige $p$ constante en cada extracción, pero acá la proporción de rojas cambia al no reponer las cartas.",
       null,
+      "La binomial exige $p$ constante en cada extracción, pero acá la proporción de rojas cambia al no reponer las cartas.",
       "La geométrica cuenta extracciones hasta la primera roja, no la cantidad de rojas en 4 extracciones fijas."
     ],
     "explanation": "La distribución **hipergeométrica** cuenta éxitos al extraer sin reposición de una población finita.\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá $N=8$ cartas en total y $K=3$ son rojas.\n\nSe extraen $n=4$ cartas sin devolverlas, así que la cantidad de rojas extraídas sigue esa fórmula.\n\nLa diferencia clave con la binomial está en qué le pasa a la probabilidad de éxito entre una extracción y la siguiente: en la binomial se mantiene fija, acá cambia porque el mazo se va achicando.\n\nSi cada carta se repusiera al mazo antes de la próxima extracción, la proporción de rojas volvería a ser siempre la misma, y ahí sí correspondería modelarlo como binomial.",
@@ -39,7 +41,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["distractor-vecino"]
+    "tags": [
+      "distractor-vecino"
+    ]
   },
   {
     "question": "Un arquero pierde confianza con cada penal errado, y patea 5 penales en total.\n\nSi convierte el anterior, la probabilidad de convertir el siguiente es $0{,}7$; si lo erra, baja a $0{,}4$.\n\n¿Se puede modelar la cantidad de penales convertidos como una distribución binomial?",
@@ -60,7 +64,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["supuesto-violado"]
+    "tags": [
+      "supuesto-violado"
+    ]
   },
   {
     "question": "Una línea de producción fabrica 20 piezas en un turno.\n\nCada pieza sale defectuosa con probabilidad $0{,}05$, en forma independiente de las demás.\n\n¿Qué distribución sigue la cantidad total de piezas defectuosas del turno?",
@@ -81,20 +87,22 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["reconocer-binomial"]
+    "tags": [
+      "reconocer-binomial"
+    ]
   },
   {
     "question": "Una encuestadora consulta a 15 personas si piensan votar en las próximas elecciones.\n\nCada persona responde que sí con probabilidad $0{,}5$, en forma independiente del resto.\n\n¿Qué distribución sigue la cantidad de personas que responden que sí?",
     "options": [
-      "$Bin(15,\\, 0{,}5)$",
       "$Geom(0{,}5)$",
+      "$Bin(15,\\, 0{,}5)$",
       "$Hip(15,7,5)$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "feedback_correct": "$n=15$ personas fijas, independientes, misma probabilidad de responder que sí: es binomial.",
     "feedback_incorrect": [
-      null,
       "La geométrica cuenta personas consultadas hasta la primera que responde que sí, no el total en las 15 fijas.",
+      null,
       "La hipergeométrica exige extraer sin reposición de una población finita, y acá cada persona responde de forma independiente de las demás."
     ],
     "explanation": "La distribución **binomial** modela la cantidad de éxitos en $n$ ensayos independientes con la misma probabilidad de éxito $p$ cada uno.\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá cada persona consultada es un ensayo con $p=0{,}5$ de responder que sí.\n\nLa encuesta fija $n=15$ personas de antemano, y cada respuesta es independiente de las demás, así que $X\\sim Bin(15, 0{,}5)$.\n\nLo que define al mecanismo binomial es que la cantidad de ensayos queda fija desde el arranque, sin depender de lo que responda cada persona en particular.\n\nSi en cambio se preguntara cuántas personas hay que consultar hasta lograr la primera respuesta afirmativa, el mismo sondeo pasaría a modelarse como geométrico.",
@@ -102,7 +110,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["reconocer-binomial"]
+    "tags": [
+      "reconocer-binomial"
+    ]
   },
   {
     "question": "Un jugador de básquet con 75% de acierto en tiros libres tira 12 veces en un entrenamiento.\n\nCada tiro es independiente del resto, con la misma probabilidad de acierto.\n\n¿Qué distribución sigue la cantidad total de tiros convertidos?",
@@ -123,7 +133,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["reconocer-binomial"]
+    "tags": [
+      "reconocer-binomial"
+    ]
   },
   {
     "question": "Un jugador de casino apuesta siempre al mismo color en 8 tiradas de la ruleta.\n\nCada tirada tiene probabilidad $0{,}45$ de salir ese color, en forma independiente de las anteriores.\n\n¿Qué distribución sigue la cantidad de tiradas ganadoras?",
@@ -144,7 +156,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["reconocer-binomial"]
+    "tags": [
+      "reconocer-binomial"
+    ]
   },
   {
     "question": "Un centro de salud vacuna a 18 pacientes contra la gripe.\n\nCada paciente presenta una reacción leve con probabilidad $0{,}02$, en forma independiente del resto.\n\n¿Qué distribución sigue la cantidad de pacientes con reacción leve?",
@@ -165,7 +179,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["reconocer-binomial"]
+    "tags": [
+      "reconocer-binomial"
+    ]
   },
   {
     "question": "Un correo despacha paquetes uno por uno, cada uno con probabilidad $0{,}1$ de llegar tarde, en forma independiente.\n\nSe cuenta cuántos paquetes hay que despachar hasta que aparece el primero que llega tarde.\n\n¿Qué distribución sigue esa cantidad de paquetes?",
@@ -186,7 +202,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["distractor-vecino"]
+    "tags": [
+      "distractor-vecino"
+    ]
   },
   {
     "question": "Un lote de 12 piezas contiene 4 defectuosas.\n\nSe eligen 5 piezas al azar sin reposición para inspeccionarlas, y se cuenta cuántas de esas 5 son defectuosas.\n\n¿Qué distribución sigue esa cantidad de piezas defectuosas?",
@@ -207,7 +225,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["distractor-vecino"]
+    "tags": [
+      "distractor-vecino"
+    ]
   },
   {
     "question": "Un jugador de básquet tira libres hasta convertir el primero.\n\nCada tiro es independiente, con probabilidad $0{,}6$ de acierto.\n\nSe cuenta cuántos tiros hace falta hasta ese primer acierto.\n\n¿Qué distribución sigue esa cantidad de tiros?",
@@ -228,7 +248,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["distractor-vecino"]
+    "tags": [
+      "distractor-vecino"
+    ]
   },
   {
     "question": "De un grupo de 10 pacientes ya vacunados, 3 tuvieron una reacción leve.\n\nSe eligen 4 pacientes al azar sin reposición para una revisión, y se cuenta cuántos de esos 4 tuvieron reacción.\n\n¿Qué distribución sigue esa cantidad de pacientes con reacción?",
@@ -249,7 +271,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["distractor-vecino"]
+    "tags": [
+      "distractor-vecino"
+    ]
   },
   {
     "question": "Un vendedor hace 6 llamadas en total, y gana confianza con cada venta lograda.\n\nSi la llamada anterior terminó en venta, la probabilidad de vender en la siguiente es $0{,}6$; si no vendió, baja a $0{,}3$.\n\n¿Se puede modelar la cantidad de ventas como una distribución binomial?",
@@ -270,7 +294,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["supuesto-violado"]
+    "tags": [
+      "supuesto-violado"
+    ]
   },
   {
     "question": "Un jugador de básquet tira 10 libres seguidos, y se cansa con cada tiro adicional.\n\nSu probabilidad de acierto arranca en $0{,}8$ y baja $0{,}05$ por cada tiro ya lanzado, sin importar si acertó o no.\n\n¿Se puede modelar la cantidad de tiros convertidos como una distribución binomial?",
@@ -291,7 +317,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["supuesto-violado"]
+    "tags": [
+      "supuesto-violado"
+    ]
   },
   {
     "question": "Una máquina fabrica 15 piezas en una tanda, y se desgasta con el uso.\n\nLa probabilidad de que una pieza salga defectuosa arranca en $0{,}02$ y sube $0{,}01$ por cada pieza ya fabricada en la tanda.\n\n¿Se puede modelar la cantidad de piezas defectuosas como una distribución binomial?",
@@ -312,6 +340,8 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["supuesto-violado"]
+    "tags": [
+      "supuesto-violado"
+    ]
   }
 ]

@@ -41,7 +41,22 @@ _PODIUM_STEP_THRESHOLDS = [10, 20, 30, 50]
 def upsert_subscription(
     db: DBSession, user_id: int, endpoint: str, p256dh: str, auth: str
 ) -> None:
-    """Store (or refresh) a browser push subscription, keyed by (user, endpoint)."""
+    """Store (or refresh) a browser push subscription, keyed by (user, endpoint).
+
+    Also deletes any OTHER subscriptions for this user. A new endpoint means the
+    browser's previous PushManager subscription was invalidated (permiso de iOS
+    desactivado/reactivado, reinstall de la PWA, etc.) — su registro a nivel OS
+    ya no existe, así que la fila vieja queda huérfana: el notifier le sigue
+    mandando pushes que no llegan a ningún lado (Apple no siempre devuelve
+    404/410 para que el prune automático las limpie), y si por lo que sea sí
+    llegan a un Service Worker desincronizado, el payload no decodea bien y cae
+    en el fallback genérico de sw.js. Este flujo es de un solo dispositivo por
+    usuario, así que no tiene sentido acumular endpoints muertos."""
+    db.query(PushSubscription).filter(
+        PushSubscription.user_id == user_id,
+        PushSubscription.endpoint != endpoint,
+    ).delete()
+
     existing = (
         db.query(PushSubscription)
         .filter(
@@ -66,6 +81,18 @@ def upsert_subscription(
             )
         )
     db.commit()
+
+
+def user_id_for_endpoint(db: DBSession, endpoint: str) -> int | None:
+    """Look up which user owns a subscription endpoint. Used by the
+    unauthenticated /push/diagnostic report (the service worker has no Clerk
+    session to identify the user with)."""
+    sub = (
+        db.query(PushSubscription)
+        .filter(PushSubscription.endpoint == endpoint)
+        .first()
+    )
+    return sub.user_id if sub else None
 
 
 def delete_subscription(db: DBSession, user_id: int, endpoint: str) -> None:

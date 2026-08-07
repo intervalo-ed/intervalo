@@ -11,7 +11,8 @@ const BG  = "#131324"
 const FG  = "#F6F8FC"
 
 // Colores de cinturón (exactos, mismos que BELT_BAR_COLORS en catalog/index.ts)
-const BELT = ["#FAFAFA", "#0A3180", "#730F8C", "#674011", "#272727"]
+// — 4 colores, sin el 5º segmento gris histórico.
+const BELT = ["#FAFAFA", "#0A3180", "#730F8C", "#7D4E28"]
 
 // Paths del wordmark "intervalo" (de src/components/logo.tsx, currentColor → FG)
 const GLYPHS = [
@@ -38,7 +39,7 @@ const GLYPH_PX_H = GLYPH_H * scale  // ~121.5px
 const BAR_H  = 22
 const BAR_RX = 3
 const GAP    = 18  // espacio entre glyph y barra
-const SEG_W  = LOGO_W / 5
+const SEG_W  = LOGO_W / BELT.length
 
 // Posición centrada en el canvas 1200×630
 const TOTAL_H = GLYPH_PX_H + GAP + BAR_H

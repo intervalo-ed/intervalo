@@ -22,7 +22,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["identificar-parametros"]
+    "tags": [
+      "identificar-parametros"
+    ]
   },
   {
     "question": "El tiempo que tarda un corredor en completar una carrera de una población entrenada sigue $N(50, 6^{2})$, en minutos.\n\nUn corredor en particular tardó 62 minutos.\n\nCalculá su valor $Z$ estandarizado.",
@@ -47,7 +49,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["formula-estandarizacion"]
+    "tags": [
+      "formula-estandarizacion"
+    ]
   },
   {
     "question": "El peso de los paquetes despachados por una fábrica sigue una normal de media $\\mu=12$ kg.\n\n¿Cuánto vale $P(X<12)$?",
@@ -72,7 +76,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["propiedad-simetria"]
+    "tags": [
+      "propiedad-simetria"
+    ]
   },
   {
     "question": "El puntaje de un examen estandarizado, en una población de rendidores, sigue una densidad normal.\n$$f(x) = \\frac{1}{100\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-500}{100}\\right)^{2}}$$\n¿Cuáles son $\\mu$ y $\\sigma$ para esta variable?",
@@ -97,7 +103,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["identificar-parametros"]
+    "tags": [
+      "identificar-parametros"
+    ]
   },
   {
     "question": "Las estaturas de una población adulta siguen la distribución normal:\n$$X \\sim N(170,\\, 8^{2})$$\n¿Cuáles son $\\mu$ y $\\sigma$ para esta variable?",
@@ -122,7 +130,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["identificar-parametros"]
+    "tags": [
+      "identificar-parametros"
+    ]
   },
   {
     "question": "La temperatura corporal medida en un consultorio a lo largo de un día sigue una densidad normal.\n$$f(x) = \\frac{1}{0{,}3\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-36{,}5}{0{,}3}\\right)^{2}}$$\n¿Cuáles son $\\mu$ y $\\sigma$ para esta variable?",
@@ -147,7 +157,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["identificar-parametros"]
+    "tags": [
+      "identificar-parametros"
+    ]
   },
   {
     "question": "Las estaturas de una población adulta siguen $N(170, 8^{2})$, en centímetros.\n\nUna persona en particular mide 154 cm.\n\nCalculá su valor $Z$ estandarizado.",
@@ -172,7 +184,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["formula-estandarizacion"]
+    "tags": [
+      "formula-estandarizacion"
+    ]
   },
   {
     "question": "El peso de los paquetes despachados por una fábrica sigue $N(25, 2^{2})$, en kilogramos.\n\nUn paquete en particular pesa 28 kg.\n\nCalculá su valor $Z$ estandarizado.",
@@ -197,7 +211,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["formula-estandarizacion"]
+    "tags": [
+      "formula-estandarizacion"
+    ]
   },
   {
     "question": "El puntaje de un examen estandarizado, en una población de rendidores, sigue $N(500, 100^{2})$.\n\nUn rendidor en particular obtuvo 350 puntos.\n\nCalculá su valor $Z$ estandarizado.",
@@ -222,7 +238,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["formula-estandarizacion"]
+    "tags": [
+      "formula-estandarizacion"
+    ]
   },
   {
     "question": "La duración de la batería de un dispositivo entre cargas sigue $N(18, 3^{2})$, en horas, con datos de fabricación.\n\nUn dispositivo en particular duró 27 horas.\n\nCalculá su valor $Z$ estandarizado.",
@@ -247,7 +265,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["formula-estandarizacion"]
+    "tags": [
+      "formula-estandarizacion"
+    ]
   },
   {
     "question": "La temperatura corporal medida en un consultorio a lo largo de un día sigue $N(36{,}5, 0{,}3^{2})$, en grados Celsius.\n\nUna medición en particular dio 36,65°C.\n\nCalculá su valor $Z$ estandarizado.",
@@ -272,7 +292,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["formula-estandarizacion"]
+    "tags": [
+      "formula-estandarizacion"
+    ]
   },
   {
     "question": "Las estaturas de una población adulta siguen una normal de media $\\mu=170$ cm.\n\n¿Cuánto vale $P(X>170)$?",
@@ -297,7 +319,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["propiedad-simetria"]
+    "tags": [
+      "propiedad-simetria"
+    ]
   },
   {
     "question": "El tiempo que tarda un corredor en completar una carrera de una población entrenada sigue una normal de media $\\mu=50$ minutos.\n\n¿Qué fracción de esa población termina en menos de 50 minutos?",
@@ -320,7 +344,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["propiedad-simetria"]
+    "tags": [
+      "propiedad-simetria"
+    ]
   },
   {
     "question": "El puntaje de un examen estandarizado, en una población de rendidores, sigue una normal de media $\\mu=500$ puntos.\n\n¿Cuánto vale $P(X<500)$?",
@@ -345,7 +371,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["propiedad-simetria"]
+    "tags": [
+      "propiedad-simetria"
+    ]
   },
   {
     "question": "La duración de la batería de un dispositivo entre cargas sigue una normal de media $\\mu=15$ horas.\n\n¿Cuánto vale $P(X>15)$?",
@@ -370,6 +398,8 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["propiedad-simetria"]
+    "tags": [
+      "propiedad-simetria"
+    ]
   }
 ]

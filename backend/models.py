@@ -222,6 +222,35 @@ class UnitStateArchive(Base):
     )
 
 
+class ItemExerciseCycle(Base):
+    """Ejercicios ya servidos en el ciclo actual de un ítem (belt+topic+
+    exercise_type) para un usuario. Garantiza que no se repita un ejercicio
+    hasta haber completado todos los del ítem: se resetea (vacía) cuando el
+    ciclo se agota, o cuando el usuario reinicia el curso (ver reset_course)."""
+    __tablename__ = "item_exercise_cycles"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
+
+    belt = Column(String(20), nullable=False)
+    topic = Column(String(50), nullable=False)
+    exercise_type = Column(String(20), nullable=False)
+
+    # JSON-encoded list de Exercise.external_id ya servidos en el ciclo vigente.
+    served_external_ids = Column(Text, nullable=False, default="[]", server_default="[]")
+
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    __table_args__ = (
+        UniqueConstraint(
+            "user_id", "course_id", "belt", "topic", "exercise_type",
+            name="unique_user_course_item_cycle",
+        ),
+        Index("idx_item_exercise_cycles_user_course", "user_id", "course_id"),
+    )
+
+
 class Session(Base):
     __tablename__ = "sessions"
 
@@ -242,8 +271,9 @@ class Session(Base):
     # Reiniciar el curso incrementa la iteración; el histórico queda etiquetado.
     iteration = Column(Integer, nullable=False, default=1, server_default="1")
 
-    # "main" for the daily spaced-repetition session, "zen" for free practice.
-    # Only "main" sessions count toward the 1-per-day gate.
+    # "main" for the daily spaced-repetition session, "practice" for free practice.
+    # "main" sessions are gated to one per day, except the user can keep starting
+    # new ones while pending (due) items remain — see create_session_db.
     mode = Column(String(16), nullable=False, default="main", server_default="main")
 
     created_at = Column(DateTime, default=datetime.utcnow)
@@ -268,6 +298,12 @@ class Answer(Base):
     course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
 
     exercise_id = Column(String(20), nullable=True)
+    # Identificador estable del ejercicio real que vio el usuario (p. ej.
+    # "white_definition_clsf_01"). exercise_id es solo el slot posicional de la
+    # sesión ("ex_000"); este campo permite saber con certeza qué ejercicio se
+    # sirvió, y es lo que alimenta el ciclo de no-repetición por ítem
+    # (ver ItemExerciseCycle). Lo reporta el cliente al responder.
+    exercise_external_id = Column(String(100), nullable=True)
     belt = Column(String(20), nullable=False)
     topic = Column(String(50), nullable=False)
     exercise_type = Column(String(20), nullable=False)
@@ -295,6 +331,7 @@ class Answer(Base):
         Index("idx_answers_user_course", "user_id", "course_id"),
         Index("idx_answers_answered_at", "answered_at"),
         Index("idx_answers_belt_topic", "belt", "topic"),
+        Index("idx_answers_exercise_external_id", "exercise_external_id"),
     )
 
     session = relationship("Session", back_populates="answers")

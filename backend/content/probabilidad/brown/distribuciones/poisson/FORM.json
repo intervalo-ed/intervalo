@@ -27,16 +27,16 @@
   {
     "question": "Un sismógrafo registra en promedio 2 sismos leves por semana, de forma independiente entre sí.\n\nSea $X$ la cantidad de sismos leves en una semana. Calculá $P(X=3)$.",
     "options": [
-      "$\\dfrac{8e^{-2}}{1}$",
       "$\\dfrac{8e^{-2}}{6}$",
+      "$\\dfrac{8e^{-2}}{1}$",
       "$\\dfrac{8e^{-2}}{3}$",
       "$\\dfrac{2e^{-2}}{6}$"
     ],
-    "correct_index": 1,
+    "correct_index": 0,
     "feedback_correct": "$\\dfrac{e^{-2}2^{3}}{3!}=\\dfrac{8e^{-2}}{6}$: tasa elevada al cubo, sobre $3!=6$.",
     "feedback_incorrect": [
-      "Ese valor olvida dividir por $3!=6$, sin la corrección factorial no queda una probabilidad bien normalizada.",
       null,
+      "Ese valor olvida dividir por $3!=6$, sin la corrección factorial no queda una probabilidad bien normalizada.",
       "Ese valor usa $3$ en vez de $3!=6$ en el denominador, olvidando expandir el factorial.",
       "Ese valor usa $\\lambda^{1}$ en vez de $\\lambda^{3}$, perdiendo el exponente correcto."
     ],
@@ -52,17 +52,17 @@
   {
     "question": "Un local de fotocopias recibe en promedio 6 pedidos por hora.\n\nSe quiere estudiar la cantidad de pedidos en un turno de 3 horas.\n\n¿Cuánto valen, en ese orden, $\\lambda, E[X], \\mathrm{Var}(X)$ para ese turno?",
     "options": [
-      "$(18,\\,18,\\,\\sqrt{18})$",
-      "$(6,\\,6,\\,6)$",
       "$(18,\\,18,\\,18)$",
+      "$(6,\\,6,\\,6)$",
+      "$(18,\\,18,\\,\\sqrt{18})$",
       "$(2,\\,2,\\,2)$"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "feedback_correct": "$\\lambda=18$ para el turno completo; su esperanza y su varianza valen $18$ también.",
     "feedback_incorrect": [
-      "La varianza de Poisson es $\\lambda$ mismo, no $\\sqrt{\\lambda}$; esa fórmula corresponde a la desviación estándar.",
-      "Ese valor no reescala $\\lambda$ para las 3 horas del turno, se quedó con la tasa de una sola hora.",
       null,
+      "Ese valor no reescala $\\lambda$ para las 3 horas del turno, se quedó con la tasa de una sola hora.",
+      "La varianza de Poisson es $\\lambda$ mismo, no $\\sqrt{\\lambda}$; esa fórmula corresponde a la desviación estándar.",
       "Ese valor divide la tasa por 3 en vez de multiplicarla, como si el turno fuera más corto que una hora."
     ],
     "explanation": "Para $X\\sim Pois(\\lambda)$, ajustar el intervalo implica reescalar $\\lambda$ en la misma proporción.\n\nAcá la tasa es de 6 pedidos por hora, y el turno dura 3 horas.\n$$\\lambda = 6\\cdot3 = 18$$\nCon esa tasa ya ajustada al turno completo, la esperanza y la varianza son ambas iguales a $\\lambda$.\n$$E[X] = \\mathrm{Var}(X) = \\lambda$$\nEn este turno de 3 horas, ambas valen 18.\n\nQue esperanza y varianza compartan el mismo valor es una propiedad exclusiva de Poisson: la dispersión alrededor del promedio crece al mismo ritmo que el propio promedio, ni más ni menos.\n\nDuplicar la duración del turno duplica tanto la cantidad esperada de pedidos como cuánto puede variar ese número de un turno a otro.",

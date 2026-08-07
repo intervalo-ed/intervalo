@@ -3,7 +3,7 @@ import { catalog as catalogProbabilidad } from "./probabilidad.generated"
 import { catalog as catalogAlgebra } from "./algebra.generated"
 
 // A partir de este archivo, `catalog`, `BeltKey`, `Belt`, `Unit`, `Topic` siguen
-// refiriéndose al curso `analisis` para que los consumidores mono-curso (zen,
+// refiriéndose al curso `analisis` para que los consumidores mono-curso (práctica,
 // onboarding, resto de la app) sigan funcionando sin cambios. Los helpers con
 // parámetro `course` permiten operar sobre cualquier curso soportado.
 export const catalog = catalogAnalisis
@@ -56,18 +56,22 @@ export const BELT_HEX: Record<BeltKey, { solid: string; onDark: string }> = {
   white: { solid: "#FAFAFA", onDark: "#FAFAFA" },
   blue: { solid: "#0A3180", onDark: "#4486E8" },
   violet: { solid: "#730F8C", onDark: "#C07BC9" },
-  brown: { solid: "#674011", onDark: "#C57C38" },
+  brown: { solid: "#7D4E28", onDark: "#A8703C" },
 }
 
 // Paleta vívida usada por el onboarding (cubos de la grilla, chips de unidad) y
 // por la landing (cubos/puntos de la rotación de cursos). Vive separada de
 // `BELT_HEX.onDark` para que un ajuste de paleta en el resto de la app (repasar,
-// practicar, ranking) no le pegue a estas dos superficies de marca.
+// practicar, ranking) no le pegue a estas dos superficies de marca. "Variante
+// joya" (5a) elegida a mano por el usuario para intensificar el logo, los
+// cuadraditos de la landing y las leyendas de landing/onboarding — las cuatro
+// superficies derivan de esta misma paleta (ver BELT_LEGEND_COLORS,
+// BELT_LEGEND_BAR_COLORS y tintGridColor en marketing-home/onboarding-wizard).
 export const BELT_ONDARK_VIVID: Record<BeltKey, string> = {
-  white: BELT_HEX.white.onDark,
-  blue: "#3A72C4",
-  violet: "#A369AB",
-  brown: "#9C6B3E",
+  white: "#FFFFFF",
+  blue: "#1B63D6",
+  violet: "#9B2FC9",
+  brown: "#8B4A1F",
 }
 
 // Arreglos ordenados (blanco→marrón) para los lugares que pintan los cinturones
@@ -77,6 +81,63 @@ export const BELT_ONDARK_VIVID: Record<BeltKey, string> = {
 // unidad no forma parte de ningún curso activo, así que se sacó de la marca.
 export const BELT_BAR_COLORS = BELT_ORDER.map((b) => BELT_HEX[b].solid)
 export const BELT_VIVID_COLORS = BELT_ORDER.map((b) => BELT_HEX[b].onDark)
+
+// Fondo oscuro estándar de las superficies de marca (landing, onboarding,
+// splash) — mismo valor que PROGRESS_GRID_BG_RGB/ONBOARDING_BG_RGB en esos
+// componentes.
+const LEGEND_BG_RGB: [number, number, number] = [19, 19, 36] // #131324
+
+// Intensidad fija de las leyendas (cuadraditos, tags, logo): por encima del
+// promedio de intensidad que usan las grillas animadas de la landing/
+// onboarding (mean=0.68 en sus respectivos sampleNormalIntensity), para que
+// se destaquen un poco sobre esos colores en vez de un tono plano ajeno a
+// ellas.
+const LEGEND_TINT_ALPHA = 0.9
+
+function hexToRgb(hex: string): [number, number, number] {
+  const n = parseInt(hex.slice(1), 16)
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255]
+}
+
+function mixWithLegendBg(hex: string): string {
+  const [r, g, b] = hexToRgb(hex)
+  const mix = (channel: number, bg: number) =>
+    Math.round(channel * LEGEND_TINT_ALPHA + bg * (1 - LEGEND_TINT_ALPHA))
+  return `rgb(${mix(r, LEGEND_BG_RGB[0])}, ${mix(g, LEGEND_BG_RGB[1])}, ${mix(b, LEGEND_BG_RGB[2])})`
+}
+
+// `BELT_ONDARK_VIVID` atenuado a LEGEND_TINT_ALPHA — fuente de verdad para
+// toda superficie "leyenda" de marca: barra del logo (Wordmark), cuadraditos
+// de leyenda de la landing (ProgressGrid, NotationCycler, QuestionLoop) y del
+// onboarding (UnitSegmentedBar).
+export const BELT_LEGEND_COLORS: Record<BeltKey, string> = {
+  white: mixWithLegendBg(BELT_ONDARK_VIVID.white),
+  blue: mixWithLegendBg(BELT_ONDARK_VIVID.blue),
+  violet: mixWithLegendBg(BELT_ONDARK_VIVID.violet),
+  brown: mixWithLegendBg(BELT_ONDARK_VIVID.brown),
+}
+
+export const BELT_LEGEND_BAR_COLORS = BELT_ORDER.map((b) => BELT_LEGEND_COLORS[b])
+
+function mixHex(hexA: string, hexB: string, t: number): string {
+  const [ra, ga, ba] = hexToRgb(hexA)
+  const [rb, gb, bb] = hexToRgb(hexB)
+  const mix = (a: number, b: number) => Math.round(a * (1 - t) + b * t)
+  return `rgb(${mix(ra, rb)}, ${mix(ga, gb)}, ${mix(ba, bb)})`
+}
+
+// Blend 70/30 entre el texto de unidad "viejo" (BELT_HEX.onDark, más apagado,
+// 70%) y la paleta vívida del logo (BELT_ONDARK_VIVID, 30%) — pedido puntual
+// para los títulos de unidad en practicar/repasar/ranking, que con la vívida
+// completa quedaban demasiado intensos. Solo esas superficies usan esto.
+const UNIT_TEXT_VIVID_WEIGHT = 0.3
+
+export const BELT_UNIT_TEXT_COLORS: Record<BeltKey, string> = {
+  white: mixHex(BELT_HEX.white.onDark, BELT_ONDARK_VIVID.white, UNIT_TEXT_VIVID_WEIGHT),
+  blue: mixHex(BELT_HEX.blue.onDark, BELT_ONDARK_VIVID.blue, UNIT_TEXT_VIVID_WEIGHT),
+  violet: mixHex(BELT_HEX.violet.onDark, BELT_ONDARK_VIVID.violet, UNIT_TEXT_VIVID_WEIGHT),
+  brown: mixHex(BELT_HEX.brown.onDark, BELT_ONDARK_VIVID.brown, UNIT_TEXT_VIVID_WEIGHT),
+}
 
 export function beltAssetPath({ belt }: { belt: BeltKey }): string {
   return BELT_ASSET[belt]
@@ -145,7 +206,7 @@ export function topicLabel({
   return topic
 }
 
-// Nombres cortos para mostrar en la grilla y el modo zen (el catálogo usa
+// Nombres cortos para mostrar en la grilla y el modo práctica (el catálogo usa
 // "Funciones lineales", etc.). Si un tema no está acá, cae al name del catálogo.
 const TOPIC_SHORT_LABEL: Record<string, string> = {
   linear: "Lineales",

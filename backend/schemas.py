@@ -104,7 +104,7 @@ class UserProgressResponse(BaseModel):
 
 
 class PracticeStatsResponse(BaseModel):
-    # Stats del usuario para un curso (iteración vigente), solo modo práctica (zen).
+    # Stats del usuario para un curso (iteración vigente), solo modo práctica.
     sessions_completed: int   # sesiones de práctica terminadas
     exercises_answered: int   # ejercicios respondidos en sesiones de práctica
     exercises_correct: int    # ejercicios acertados en sesiones de práctica
@@ -231,6 +231,20 @@ class UniversityLeaderboardResponse(BaseModel):
     total_students: int            # estudiantes con universidad (suma de rows)
     total_universities: int        # universidades distintas
     career_totals: dict[str, int]  # agregado global por carrera (llaves E,S,T,M,Otra)
+
+
+class PublicUniversityStat(BaseModel):
+    university: str
+    students: int
+    total_xp: int
+
+
+class PublicUniversityLeaderboardResponse(BaseModel):
+    # Snapshot agregado sin auth para la landing (marketing-home.tsx) — un
+    # visitante sin cuenta no tiene sesión para pegarle a /leaderboard/universities.
+    # Sin PII: solo universidad + conteos, top 8 por XP (mismo orden que
+    # /leaderboard/universities).
+    rows: list[PublicUniversityStat]
 
 
 class LeaderboardSummaryResponse(BaseModel):

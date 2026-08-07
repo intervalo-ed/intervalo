@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
 import { Suspense } from "react"
+import { ServiceWorkerUpdater } from "@/lib/push/service-worker-updater"
 
 // El chequeo de enrollment/progress pega al backend sin cache (`no-store`):
 // si viviera inline en AppLayout, Next bloquea TODA la navegación hasta que
@@ -18,7 +19,9 @@ async function EnrollmentGate() {
     })
     if (res.ok) {
       const status = await res.json()
-      if (!status.enrolled && !status.has_progress) redirect("/onboarding/complete")
+      // Ver comentario equivalente en app/page.tsx: no alcanza con "sin
+      // progreso", hay cuentas con progreso real pero sin Enrollment.
+      if (!status.enrolled) redirect("/onboarding/complete")
     }
   } catch {
     // Si el backend no responde, deja pasar
@@ -38,6 +41,7 @@ export default async function AppLayout({
       <Suspense fallback={null}>
         <EnrollmentGate />
       </Suspense>
+      <ServiceWorkerUpdater />
       {children}
     </>
   )

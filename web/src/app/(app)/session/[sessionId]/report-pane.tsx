@@ -56,7 +56,7 @@ export function ReportPane({
         disabled={submitted}
         onChange={(e) => onFreeTextChange(e.target.value)}
         placeholder="Contanos qué pasó (opcional)"
-        className="min-h-20 rounded-md border border-white/10 bg-white/5 p-2 text-sm text-foreground/85 outline-none focus:border-white/40 disabled:opacity-60"
+        className="min-h-20 rounded-md border border-white/10 bg-white/5 p-2 text-base text-foreground/85 outline-none focus:border-white/40 disabled:opacity-60"
       />
     </div>
   )

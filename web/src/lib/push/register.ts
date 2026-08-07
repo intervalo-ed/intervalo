@@ -6,6 +6,13 @@
 
 const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
 
+// sw.js es un archivo estático (no pasa por el bundler de Next, no puede leer
+// process.env), así que le pasamos la URL del backend como query string de su
+// propia URL de registro — es lo único que un service worker puede leer de
+// forma estable entre reactivaciones (una notificación push puede despertarlo
+// sin que haya habido ningún postMessage previo).
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000"
+
 export type SerializedSubscription = {
   endpoint: string
   keys: { p256dh: string; auth: string }
@@ -29,11 +36,19 @@ function urlBase64ToUint8Array(base64String: string): Uint8Array {
   return output
 }
 
-async function getRegistration(): Promise<ServiceWorkerRegistration> {
-  await navigator.serviceWorker.register("/sw.js", {
-    scope: "/",
-    updateViaCache: "none",
-  })
+/**
+ * Register (or update-check) the service worker. Safe to call on every app
+ * load: `updateViaCache: "none"` makes the browser re-fetch sw.js bypassing
+ * HTTP cache, so a device that subscribed long ago still picks up sw.js
+ * changes — subscribing itself only happens once (see `subscribeToPush`),
+ * so without this, an already-subscribed device could run a stale sw.js
+ * indefinitely.
+ */
+export async function getRegistration(): Promise<ServiceWorkerRegistration> {
+  await navigator.serviceWorker.register(
+    `/sw.js?apiBase=${encodeURIComponent(API_BASE_URL)}`,
+    { scope: "/", updateViaCache: "none" },
+  )
   return navigator.serviceWorker.ready
 }
 

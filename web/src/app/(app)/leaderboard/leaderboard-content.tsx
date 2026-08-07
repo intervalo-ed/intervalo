@@ -15,21 +15,16 @@ import {
 } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
 import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
-import { BELT_HEX } from "@/lib/catalog"
-import { UNIVERSITY_TAG_BY_KEY } from "@/lib/university-tags"
+import { BELT_UNIT_TEXT_COLORS } from "@/lib/catalog"
+import { UniTag } from "@/components/university-tag"
 import { ChevronDownIcon, LayersIcon, UsersIcon } from "lucide-react"
 import { ALL, useLeaderboard } from "./UseLeaderboard"
 import { useLeaderboardSummary } from "./UseLeaderboardSummary"
 import { useUniversityLeaderboard } from "./UseUniversityLeaderboard"
 
-// Color del nombre según el máximo cinturón del usuario (mismo color que los
-// títulos de unidad en el inicio: variante onDark). Blanco para sin cinturón.
-const BELT_TEXT: Record<string, string> = {
-  white: BELT_HEX.white.onDark,
-  blue: BELT_HEX.blue.onDark,
-  violet: BELT_HEX.violet.onDark,
-  brown: BELT_HEX.brown.onDark,
-}
+// Color del nombre según el máximo cinturón real del usuario (mismo color que
+// los títulos de unidad en practicar/repasar). Blanco para sin cinturón.
+const BELT_TEXT: Record<string, string> = BELT_UNIT_TEXT_COLORS
 
 // Carreras en orden fijo + catch-all "Otra". Nombre completo, sin abreviar y
 // sin emoji, tanto en el valor colapsado del filtro como en el desplegable.
@@ -320,7 +315,9 @@ function IndividualRanking({
             <span className="flex min-w-0 flex-1 items-center gap-1.5">
               <span
                 className="truncate text-sm font-medium"
-                style={{ color: BELT_TEXT[entry.belt] }}
+                style={{
+                  color: BELT_TEXT[entry.belt] ?? BELT_TEXT.white,
+                }}
               >
                 {entry.username ?? entry.name}
               </span>
@@ -473,31 +470,5 @@ function ListSkeleton() {
         ))}
       </div>
     </div>
-  )
-}
-
-function UniTag({ university }: { university: string }) {
-  const cfg = UNIVERSITY_TAG_BY_KEY[university]
-  if (!cfg) {
-    return (
-      <span className="inline-flex shrink-0 items-center justify-center rounded bg-white/10 px-1 py-1 text-center text-[0.55rem] leading-none text-foreground/70">
-        {university}
-      </span>
-    )
-  }
-  return (
-    <span
-      className="inline-flex shrink-0 items-center justify-center rounded-md border px-1 py-1 text-center leading-none"
-      style={{
-        color: cfg.color,
-        borderColor: `${cfg.color}99`,
-        backgroundColor: `${cfg.color}33`,
-        fontSize: cfg.tagFontSize,
-        transform: cfg.tagDy ? `translateY(${cfg.tagDy}px)` : undefined,
-        ...cfg.font,
-      }}
-    >
-      {university}
-    </span>
   )
 }

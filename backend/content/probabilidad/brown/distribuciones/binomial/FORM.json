@@ -20,21 +20,23 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["identificar-parametros"]
+    "tags": [
+      "identificar-parametros"
+    ]
   },
   {
     "question": "Un estudiante responde al azar 5 preguntas de verdadero o falso de un examen.\n\nCada una tiene probabilidad $0{,}5$ de acertar, en forma independiente.\n\nSea $X$ la cantidad de respuestas correctas. Calculá $P(X=3)$.",
     "options": [
-      "$\\dfrac{1}{8}$",
       "$\\dfrac{5}{16}$",
+      "$\\dfrac{1}{8}$",
       "$\\dfrac{1}{32}$",
       "$\\dfrac{15}{32}$"
     ],
-    "correct_index": 1,
+    "correct_index": 0,
     "feedback_correct": "$\\binom{5}{3}(0{,}5)^{3}(0{,}5)^{2}=10\\cdot\\dfrac{1}{32}=\\dfrac{5}{16}$.",
     "feedback_incorrect": [
-      "Ese valor corresponde a $(0{,}5)^{3}$ solo, sin multiplicar por $\\binom{5}{3}$, que cuenta cuántos ordenamientos tienen exactamente 3 aciertos.",
       null,
+      "Ese valor corresponde a $(0{,}5)^{3}$ solo, sin multiplicar por $\\binom{5}{3}$, que cuenta cuántos ordenamientos tienen exactamente 3 aciertos.",
       "Ese valor es $(0{,}5)^{5}$, la probabilidad de una secuencia puntual de 5 respuestas, sin contar cuántas secuencias tienen 3 aciertos.",
       "Ese valor sale de usar $\\binom{5}{2}$ en vez de $\\binom{5}{3}$, invirtiendo qué cantidad de posiciones se elige."
     ],
@@ -43,7 +45,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["formula-directa"]
+    "tags": [
+      "formula-directa"
+    ]
   },
   {
     "question": "Una plataforma de streaming falla al cargar un video con probabilidad $0{,}1$, en forma independiente cada vez.\n\nUn usuario mira 40 videos en una semana.\n\nSea $X$ la cantidad de fallas de carga en esa semana.\n\n¿Cuánto valen su esperanza y su varianza?",
@@ -66,7 +70,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["esperanza-varianza"]
+    "tags": [
+      "esperanza-varianza"
+    ]
   },
   {
     "question": "Una encuestadora consulta a 30 personas sobre un tema puntual.\n\nCada persona responde que sí con probabilidad $0{,}6$, en forma independiente del resto.\n\n¿Cuáles son los parámetros $n$ y $p$ de la binomial que modela la cantidad total de respuestas afirmativas?",
@@ -89,21 +95,23 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["identificar-parametros"]
+    "tags": [
+      "identificar-parametros"
+    ]
   },
   {
     "question": "Un jugador de básquet tiene un 85% de acierto en tiros libres, y tira 15 veces en un entrenamiento.\n\nCada tiro es independiente, con la misma probabilidad de acierto.\n\n¿Cuáles son los parámetros $n$ y $p$ de la binomial que modela la cantidad de tiros convertidos?",
     "options": [
-      "$n=15$, $p=0{,}85$",
       "$n=15$, $p=0{,}15$",
+      "$n=15$, $p=0{,}85$",
       "$n=0{,}85$, $p=15$",
       "$n=15$, $p=1/15$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "feedback_correct": "$n=15$ tiros lanzados, $p=0{,}85$ la probabilidad de acierto de cada uno.",
     "feedback_incorrect": [
-      null,
       "Ese es el complemento: $0{,}15$ es la probabilidad de errar el tiro, no de convertirlo.",
+      null,
       "Los roles están invertidos: $n$ es la cantidad de tiros, $p$ la probabilidad de acierto de cada uno.",
       "Esa fracción no representa la probabilidad de acierto dada en el enunciado, que ya viene expresada como $0{,}85$."
     ],
@@ -112,7 +120,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["identificar-parametros"]
+    "tags": [
+      "identificar-parametros"
+    ]
   },
   {
     "question": "Un correo despacha 20 paquetes en un día.\n\nCada paquete llega a tiempo con probabilidad $0{,}9$, en forma independiente de los demás.\n\n¿Cuáles son los parámetros $n$ y $p$ de la binomial que modela la cantidad de paquetes que llegan a tiempo?",
@@ -135,7 +145,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["identificar-parametros"]
+    "tags": [
+      "identificar-parametros"
+    ]
   },
   {
     "question": "Una encuestadora consulta a 6 personas, y cada una responde que sí con probabilidad $0{,}5$, en forma independiente.\n\nSea $X$ la cantidad de respuestas afirmativas. Calculá $P(X=4)$.",
@@ -158,7 +170,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["formula-directa"]
+    "tags": [
+      "formula-directa"
+    ]
   },
   {
     "question": "Un jugador de básquet acierta cada tiro libre con probabilidad $0{,}4$, en forma independiente, y tira 5 veces.\n\nSea $X$ la cantidad de tiros convertidos. Calculá $P(X=2)$.",
@@ -181,7 +195,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["formula-directa"]
+    "tags": [
+      "formula-directa"
+    ]
   },
   {
     "question": "Una línea de producción fabrica 6 piezas, y cada una sale defectuosa con probabilidad $0{,}5$, en forma independiente.\n\nSea $X$ la cantidad de piezas defectuosas. Calculá $P(X=1)$.",
@@ -204,7 +220,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["formula-directa"]
+    "tags": [
+      "formula-directa"
+    ]
   },
   {
     "question": "Un jugador de casino apuesta siempre al mismo color en 6 tiradas de la ruleta.\n\nCada tirada sale ese color con probabilidad $0{,}6$, en forma independiente.\n\nSea $X$ la cantidad de tiradas ganadoras. Calculá $P(X=4)$.",
@@ -227,7 +245,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["formula-directa"]
+    "tags": [
+      "formula-directa"
+    ]
   },
   {
     "question": "Un centro de salud vacuna a 5 pacientes, y cada uno presenta una reacción leve con probabilidad $0{,}2$, en forma independiente.\n\nSea $X$ la cantidad de pacientes con reacción leve. Calculá $P(X=2)$.",
@@ -250,7 +270,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["formula-directa"]
+    "tags": [
+      "formula-directa"
+    ]
   },
   {
     "question": "Una línea de producción fabrica 50 piezas por tanda, y cada una sale defectuosa con probabilidad $0{,}02$, en forma independiente.\n\nSea $X$ la cantidad de piezas defectuosas por tanda.\n\n¿Cuánto valen su esperanza y su varianza?",
@@ -273,7 +295,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["esperanza-varianza"]
+    "tags": [
+      "esperanza-varianza"
+    ]
   },
   {
     "question": "Un jugador de básquet con 75% de acierto tira 20 libres, en forma independiente cada uno.\n\nSea $X$ la cantidad de tiros convertidos, con $E[X]=15$.\n\n¿Qué significa ese valor de $E[X]$ en este contexto?",
@@ -294,7 +318,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["esperanza-varianza"]
+    "tags": [
+      "esperanza-varianza"
+    ]
   },
   {
     "question": "Un correo despacha 60 paquetes por día, y cada uno llega a tiempo con probabilidad $0{,}95$, en forma independiente.\n\nSea $X$ la cantidad de paquetes que llegan a tiempo.\n\n¿Cuánto valen su esperanza y su varianza?",
@@ -317,7 +343,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["esperanza-varianza"]
+    "tags": [
+      "esperanza-varianza"
+    ]
   },
   {
     "question": "Un hospital vacuna a 200 pacientes contra la gripe, cada uno con probabilidad $0{,}03$ de reacción leve, en forma independiente.\n\nSea $X$ la cantidad de pacientes con reacción, con $\\mathrm{Var}(X)=5{,}82$.\n\nSi el hospital usara una vacuna con mayor $\\mathrm{Var}(X)$ pero el mismo $E[X]=6$.\n\n¿Qué indicaría eso?",
@@ -338,6 +366,8 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["esperanza-varianza"]
+    "tags": [
+      "esperanza-varianza"
+    ]
   }
 ]

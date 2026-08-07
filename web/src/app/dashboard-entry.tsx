@@ -11,6 +11,7 @@ import {
 import { Metric } from "@/components/metric-card"
 import { DashboardSkeleton } from "@/components/tab-skeletons"
 import { Wordmark } from "@/components/wordmark"
+import { XpDots } from "@/components/xp-dots"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
@@ -28,7 +29,7 @@ import { cn } from "@/lib/utils"
 import type { components } from "@/lib/api/schema"
 import {
   beltOrderFor,
-  BELT_HEX,
+  BELT_UNIT_TEXT_COLORS,
   COURSE_ORDER,
   getBelt,
   type BeltKey,
@@ -99,14 +100,8 @@ const resetCourseCls =
 const saveEditCls =
   "h-9 w-full justify-center rounded-md border-green-500/30 bg-transparent text-green-400 hover:bg-green-500/10 hover:text-green-400"
 
-// Color del título de cada unidad, tomado del cinturón correspondiente
-// (variante `onDark`, legible sobre el fondo oscuro).
-const BELT_COLOR: Record<BeltKey, string> = {
-  white: BELT_HEX.white.onDark,
-  blue: BELT_HEX.blue.onDark,
-  violet: BELT_HEX.violet.onDark,
-  brown: BELT_HEX.brown.onDark,
-}
+// Color del título de cada unidad, tomado del cinturón correspondiente.
+const BELT_COLOR: Record<BeltKey, string> = BELT_UNIT_TEXT_COLORS
 
 export default function DashboardEntry() {
   const { user } = useUser()
@@ -327,8 +322,12 @@ export default function DashboardEntry() {
               <div className="grid grid-cols-3 gap-2">
               <Metric
                 label="Multiplicador de XP"
-                value={data ? `×${data.streak.multiplier.toFixed(1)}` : "…"}
-                valueColor="#5457e5"
+                value={
+                  <span className="inline-flex items-center gap-1.5">
+                    {data ? `×${data.streak.multiplier.toFixed(1)}` : "…"}
+                    <XpDots className="size-[0.8em] text-[#5457e5]" />
+                  </span>
+                }
                 info={
                   data
                     ? {

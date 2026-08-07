@@ -25,15 +25,15 @@
   {
     "question": "Se inspecciona un lote de 50 tornillos y se cuenta cuántos están mal roscados.\n\nCada tornillo tiene, en forma independiente, un $4\\%$ de probabilidad de estar mal roscado.\n\n¿Qué distribución modela exactamente la cantidad de tornillos mal roscados?",
     "options": [
-      "$Poisson(2)$",
       "$Bin(50,\\, 0{,}04)$",
+      "$Poisson(2)$",
       "$Geom(0{,}04)$"
     ],
-    "correct_index": 1,
+    "correct_index": 0,
     "feedback_correct": "Hay un número fijo de 50 ensayos discretos con la misma probabilidad cada uno: es binomial, no Poisson.",
     "feedback_incorrect": [
-      "Poisson modela una tasa continua sin un $n$ discreto de ensayos, acá sí hay 50 tornillos fijos y contables uno por uno.",
       null,
+      "Poisson modela una tasa continua sin un $n$ discreto de ensayos, acá sí hay 50 tornillos fijos y contables uno por uno.",
       "La geométrica cuenta tornillos hasta el primer mal roscado, no la cantidad de mal roscados en 50 tornillos fijos."
     ],
     "explanation": "La distribución **binomial** modela la cantidad de éxitos en $n$ ensayos discretos fijos con la misma probabilidad de éxito $p$ cada uno.\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá hay $n=50$ tornillos, cada uno con $p=0{,}04$ de estar mal roscado.\n\nPoisson describe una tasa promedio de ocurrencia sobre un intervalo, sin un número discreto de intentos identificables uno por uno.\n\nAcá en cambio cada tornillo es un ensayo identificable y contable, así que el mecanismo binomial encaja mejor aunque la probabilidad de éxito sea chica.\n\nCon muchos ensayos y una probabilidad de éxito muy chica, Poisson puede aproximar razonablemente a la binomial.\n\nPero eso es una aproximación distinta a decir que la situación es Poisson desde el planteo.",
@@ -48,16 +48,16 @@
   {
     "question": "Una máquina falla en promedio 2 veces por hora en el turno día y 5 veces por hora en el turno noche.\n\nSe quiere modelar la cantidad de fallas en un intervalo de 16 horas que combina ambos turnos.\n\n¿Se puede modelar esa cantidad de fallas con una única distribución de Poisson de tasa constante?",
     "options": [
-      "Sí, porque las fallas siguen siendo eventos independientes entre sí.",
+      "No, la tasa de fallas no es la misma a lo largo de esas 16 horas.",
       "Sí, alcanza con promediar las dos tasas en una sola $\\lambda$.",
-      "No, la tasa de fallas no es la misma a lo largo de esas 16 horas."
+      "Sí, porque las fallas siguen siendo eventos independientes entre sí."
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "feedback_correct": "La independencia es necesaria, pero Poisson también exige que $\\lambda$ sea constante dentro del intervalo, y acá cambia entre turnos.",
     "feedback_incorrect": [
-      "Que las fallas sean independientes es necesario pero no alcanza: también hace falta que la tasa de ocurrencia no cambie dentro del intervalo.",
+      null,
       "Promediar las tasas no reconstruye el mismo proceso: cada turno sigue su propia Poisson, y sumarlas no es lo mismo que una Poisson con la tasa promedio.",
-      null
+      "Que las fallas sean independientes es necesario pero no alcanza: también hace falta que la tasa de ocurrencia no cambie dentro del intervalo."
     ],
     "explanation": "La distribución de **Poisson** exige que la tasa $\\lambda$ se mantenga constante a lo largo de todo el intervalo considerado.\n$$P(X=k) = \\frac{e^{-\\lambda}\\lambda^{k}}{k!}$$\nAcá la máquina falla en promedio 2 veces por hora de día y 5 veces por hora de noche.\n\nEsas 16 horas mezclan dos tasas distintas dentro del mismo intervalo, así que no hay un único $\\lambda$ que describa todo el período.\n\nLo correcto sería modelar cada turno con su propia Poisson y después sumar esas dos variables, en vez de forzar una tasa única para todo el intervalo.\n\nTratar un intervalo de tasa cambiante como si tuviera una tasa fija subestima o sobreestima las fallas según en qué turno se concentre la actividad real.",
     "has_math": true,

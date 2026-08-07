@@ -20,7 +20,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["reconocer-forma"]
+    "tags": [
+      "reconocer-forma"
+    ]
   },
   {
     "question": "El error de un instrumento de medición de precisión, en milímetros, sigue una distribución normal.\n\nEl gráfico muestra su densidad.\n\n¿Cuál es la media $\\mu$ de ese error, según el gráfico?",
@@ -41,11 +43,18 @@
     "explanation": "La densidad **normal** alcanza su máximo exactamente en $\\mu$, el centro de simetría de la campana.\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\nAcá el pico del gráfico está en $1{,}5$, así que $\\mu=1{,}5$.\n\nEl punto más alto de la curva es el único lugar donde ambas mitades simétricas se encuentran, por eso identifica a la media sin ambigüedad.\n\nLos puntos donde la curva cambia de curvatura, un poco antes y después del pico, quedan a una desviación estándar del centro, no en el centro mismo.",
     "has_math": true,
     "graph_fn": "(1/(0.5*sqrt(2*pi)))*exp(-((x-1.5)^2)/(2*0.5^2))",
-    "graph_view": [-1, 4, -0.05, 0.95],
+    "graph_view": [
+      -1,
+      4,
+      -0.05,
+      0.95
+    ],
     "graph_shade": null,
     "graph_free_aspect": true,
     "reviewed": false,
-    "tags": ["identificar-media"]
+    "tags": [
+      "identificar-media"
+    ]
   },
   {
     "question": "Dos máquinas de envasado llenan bolsas con el mismo peso promedio, pero distinta variabilidad.\n\nLa máquina A tiene $\\sigma_A=2$ gramos.\n$$X_A \\sim N(500,\\, 2^{2})$$\nLa máquina B tiene $\\sigma_B=10$ gramos.\n$$X_B \\sim N(500,\\, 10^{2})$$\n¿Cuál de las dos curvas se ve más achatada y ancha?",
@@ -68,7 +77,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["comparar-dispersion"]
+    "tags": [
+      "comparar-dispersion"
+    ]
   },
   {
     "question": "El tiempo que tarda un corredor en completar una carrera de una población entrenada sigue una distribución normal.\n\nSu media es $\\mu=50$ minutos y su desviación $\\sigma=6$ minutos.\n\n¿Qué forma tiene esa densidad?",
@@ -91,7 +102,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["reconocer-forma"]
+    "tags": [
+      "reconocer-forma"
+    ]
   },
   {
     "question": "El peso de los paquetes despachados por una fábrica sigue una distribución normal, con media y desviación de proceso conocidas.\n\nSu media es $\\mu=25$ kg y su desviación $\\sigma=2$ kg.\n\n¿Qué forma tiene esa densidad?",
@@ -114,7 +127,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["reconocer-forma"]
+    "tags": [
+      "reconocer-forma"
+    ]
   },
   {
     "question": "El puntaje de un examen estandarizado, en una población de rendidores, sigue una distribución normal.\n\nSu media es $\\mu=500$ puntos y su desviación $\\sigma=80$ puntos.\n\n¿Qué forma tiene esa densidad?",
@@ -137,7 +152,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["reconocer-forma"]
+    "tags": [
+      "reconocer-forma"
+    ]
   },
   {
     "question": "La temperatura corporal medida en un consultorio a lo largo de un día sigue una distribución normal.\n\nSu media es $\\mu=36{,}5$°C y su desviación $\\sigma=0{,}3$°C.\n\n¿Qué forma tiene esa densidad?",
@@ -160,7 +177,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["reconocer-forma"]
+    "tags": [
+      "reconocer-forma"
+    ]
   },
   {
     "question": "La diferencia entre la hora real y la hora programada de salida de un colectivo urbano, en minutos, sigue una distribución normal.\n\nEl gráfico muestra su densidad.\n\n¿Cuál es la media $\\mu$ de esa diferencia, según el gráfico?",
@@ -181,11 +200,18 @@
     "explanation": "La **densidad normal** alcanza su máximo exactamente en $\\mu$, el centro de simetría de la campana.\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\nEn el gráfico, el pico de la curva está en $3$, así que $\\mu=3$.\n\nEse punto más alto es el único lugar donde ambas mitades simétricas de la curva se encuentran, por eso identifica a la media sin ambigüedad.\n\nLos puntos donde la curva cambia de curvatura, un poco antes y después del pico, quedan a una desviación estándar del centro, no en el centro mismo.",
     "has_math": true,
     "graph_fn": "(1/(1*sqrt(2*pi)))*exp(-((x-3)^2)/(2*1^2))",
-    "graph_view": [-2, 8, -0.05, 0.46],
+    "graph_view": [
+      -2,
+      8,
+      -0.05,
+      0.46
+    ],
     "graph_shade": null,
     "graph_free_aspect": true,
     "reviewed": false,
-    "tags": ["identificar-media"]
+    "tags": [
+      "identificar-media"
+    ]
   },
   {
     "question": "La desviación de una pieza fabricada respecto de la medida de referencia, en milímetros, sigue una distribución normal.\n\nEl gráfico muestra su densidad.\n\n¿Cuál es la media $\\mu$ de esa desviación, según el gráfico?",
@@ -206,11 +232,18 @@
     "explanation": "El punto más alto de una **densidad normal** coincide siempre con $\\mu$, el eje de simetría de la campana.\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\nEn el gráfico, el pico de la curva se ubica en $-2$, así que $\\mu=-2$.\n\nA ambos lados de ese pico, la curva desciende en espejo, y las dos mitades solo coinciden en ese único punto central.\n\nLos puntos donde la curvatura cambia, apenas antes y después del pico, están a una desviación estándar de distancia, no marcan el centro.",
     "has_math": true,
     "graph_fn": "(1/(0.8*sqrt(2*pi)))*exp(-((x+2)^2)/(2*0.8^2))",
-    "graph_view": [-6, 2, -0.05, 0.58],
+    "graph_view": [
+      -6,
+      2,
+      -0.05,
+      0.58
+    ],
     "graph_shade": null,
     "graph_free_aspect": true,
     "reviewed": false,
-    "tags": ["identificar-media"]
+    "tags": [
+      "identificar-media"
+    ]
   },
   {
     "question": "El error de lectura de un termómetro digital, en grados Celsius, sigue una distribución normal.\n\nEl gráfico muestra su densidad.\n\n¿Cuál es la media $\\mu$ de ese error, según el gráfico?",
@@ -231,11 +264,18 @@
     "explanation": "En una **densidad normal**, el valor de $\\mu$ es exactamente el punto donde la curva llega a su altura máxima.\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\nAcá el gráfico muestra el pico en $0{,}8$, así que $\\mu=0{,}8$.\n\nComo la campana es simétrica, ese pico es el único punto donde las dos mitades de la curva se tocan.\n\nLos dos puntos donde la curva cambia de curvatura, apenas antes y después del pico, marcan una desviación estándar de distancia del centro, no el centro en sí.",
     "has_math": true,
     "graph_fn": "(1/(0.5*sqrt(2*pi)))*exp(-((x-0.8)^2)/(2*0.5^2))",
-    "graph_view": [-1.7, 3.3, -0.05, 0.92],
+    "graph_view": [
+      -1.7,
+      3.3,
+      -0.05,
+      0.92
+    ],
     "graph_shade": null,
     "graph_free_aspect": true,
     "reviewed": false,
-    "tags": ["identificar-media"]
+    "tags": [
+      "identificar-media"
+    ]
   },
   {
     "question": "La diferencia entre el peso real y el peso declarado de un paquete pequeño, en gramos, sigue una distribución normal.\n\nEl gráfico muestra su densidad.\n\n¿Cuál es la media $\\mu$ de esa diferencia, según el gráfico?",
@@ -256,11 +296,18 @@
     "explanation": "La **densidad normal** tiene su único máximo justo en $\\mu$, el centro de simetría de la campana.\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\nEn este gráfico, el pico de la curva aparece en $-1{,}2$, así que $\\mu=-1{,}2$.\n\nEse es el único punto donde ambas mitades simétricas de la curva se encuentran, sin importar qué tan ancha o angosta sea la campana.\n\nLos puntos donde la curva cambia de curvatura, apenas antes y después del pico, quedan a una desviación estándar de ese centro, no en el centro mismo.",
     "has_math": true,
     "graph_fn": "(1/(1.5*sqrt(2*pi)))*exp(-((x+1.2)^2)/(2*1.5^2))",
-    "graph_view": [-8.7, 6.3, -0.05, 0.31],
+    "graph_view": [
+      -8.7,
+      6.3,
+      -0.05,
+      0.31
+    ],
     "graph_shade": null,
     "graph_free_aspect": true,
     "reviewed": false,
-    "tags": ["identificar-media"]
+    "tags": [
+      "identificar-media"
+    ]
   },
   {
     "question": "Dos versiones de un examen estandarizado producen puntajes con la misma media, pero distinta variabilidad.\n\nLa versión A tiene $\\sigma_A=15$ puntos.\n$$X_A \\sim N(500,\\, 15^{2})$$\nLa versión B tiene $\\sigma_B=60$ puntos.\n$$X_B \\sim N(500,\\, 60^{2})$$\n¿Cuál de las dos curvas se ve más achatada y ancha?",
@@ -283,7 +330,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["comparar-dispersion"]
+    "tags": [
+      "comparar-dispersion"
+    ]
   },
   {
     "question": "Dos equipos deportivos tienen la misma estatura promedio entre sus jugadores, pero distinta variabilidad.\n\nEl equipo A tiene $\\sigma_A=3$ cm.\n$$X_A \\sim N(180,\\, 3^{2})$$\nEl equipo B tiene $\\sigma_B=12$ cm.\n$$X_B \\sim N(180,\\, 12^{2})$$\n¿Cuál de las dos curvas se ve más achatada y ancha?",
@@ -306,7 +355,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["comparar-dispersion"]
+    "tags": [
+      "comparar-dispersion"
+    ]
   },
   {
     "question": "Dos modelos de dispositivo tienen la misma duración de batería promedio, pero distinta variabilidad de fabricación.\n\nEl modelo A tiene $\\sigma_A=1$ hora.\n$$X_A \\sim N(20,\\, 1^{2})$$\nEl modelo B tiene $\\sigma_B=5$ horas.\n$$X_B \\sim N(20,\\, 5^{2})$$\n¿Cuál de las dos curvas se ve más achatada y ancha?",
@@ -329,7 +380,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["comparar-dispersion"]
+    "tags": [
+      "comparar-dispersion"
+    ]
   },
   {
     "question": "Dos grupos etarios tienen la misma temperatura corporal promedio, pero distinta variabilidad de medición.\n\nEl grupo de adultos tiene $\\sigma_1=0{,}2$°C.\n$$X_1 \\sim N(36{,}5,\\, 0{,}2^{2})$$\nEl grupo de niños tiene $\\sigma_2=0{,}6$°C.\n$$X_2 \\sim N(36{,}5,\\, 0{,}6^{2})$$\n¿Cuál de las dos curvas se ve más achatada y ancha?",
@@ -352,6 +405,8 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["comparar-dispersion"]
+    "tags": [
+      "comparar-dispersion"
+    ]
   }
 ]
