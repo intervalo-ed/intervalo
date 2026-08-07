@@ -107,6 +107,15 @@ const slideVariants = {
 // Estado por ejercicio: persiste al navegar para atrás/adelante.
 type ExState = {
   selection: number | null
+  // Modo práctica: opciones ocultas detrás de un botón "Opciones" hasta que
+  // el estudiante lo toca; persiste para no re-esconderlas al volver atrás
+  // (goBack/swipe) sobre un ejercicio ya abierto. En test siempre están
+  // visibles (ver `revealed` en OptionsArea).
+  optionsOpen: boolean
+  // Alto (px) del spacer superior en el momento justo de abrir las opciones,
+  // para congelarlo ahí (ver openOptions) y que el párrafo de arriba no se
+  // corra cuando el centrado vertical recalcula por el crecimiento del grid.
+  spacerFrozenH: number | null
   wrongOptions: number[]
   result: "correct" | "wrong" | null
   xp: number | null
@@ -131,6 +140,8 @@ type ExState = {
 }
 const DEFAULT_EX: ExState = {
   selection: null,
+  optionsOpen: false,
+  spacerFrozenH: null,
   wrongOptions: [],
   result: null,
   xp: null,
@@ -187,6 +198,14 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
   const startedAt = useRef(Date.now())
   const wrongResetRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const bodyRef = useRef<HTMLDivElement>(null)
+  // Spacer superior del centrado vertical (ver openOptions): se mide al abrir
+  // las opciones para congelarlo y que el párrafo no se corra. Un Map keyed
+  // por idx en vez de un único useRef: mientras se navega, el slide saliente
+  // queda montado un rato (desliza hacia afuera) al mismo tiempo que el
+  // entrante — si compartieran un solo ref object, el saliente lo pisa con
+  // null al desmontarse (más tarde) y el freeze deja de funcionar desde el
+  // segundo ejercicio en adelante.
+  const spacerRefs = useRef<Map<number, HTMLDivElement>>(new Map())
 
   // Vuelve el scroll arriba con una animación suave, en simultáneo con el
   // deslizamiento horizontal del slide (misma duración/curva).
@@ -501,6 +520,17 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
     }, 8000)
   }
 
+  // A diferencia de openWhy/openReport, esto no navega de slide: el reveal
+  // pasa dentro del mismo ejercicio, así que no toca setDir/scrollToTop.
+  // Congela el spacer superior en su alto actual: si no, al crecer el grid
+  // de opciones el centrado vertical recalcula y el párrafo de arriba salta
+  // hacia arriba junto con el resto del contenido.
+  function openOptions() {
+    sfx.continue()
+    const h = spacerRefs.current.get(idx)?.getBoundingClientRect().height ?? null
+    patch({ optionsOpen: true, spacerFrozenH: h })
+  }
+
   function openWhy() {
     sfx.continue()
     setDir(1)
@@ -647,8 +677,21 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
             >
               {/* Centrado vertical sesgado hacia arriba (2.5:3) con margen mínimo
                   de 40px arriba; si el ejercicio es largo, los spacers colapsan
-                  y el contenido scrollea. */}
-              <div className="min-h-[40px] flex-[2.5]" />
+                  y el contenido scrollea. Se congela (openOptions) al abrir las
+                  opciones en práctica para que el párrafo no se corra cuando el
+                  grid de opciones crece — ver ExState.spacerFrozenH. */}
+              <div
+                ref={(el) => {
+                  if (el) spacerRefs.current.set(idx, el)
+                  else spacerRefs.current.delete(idx)
+                }}
+                className={cur.spacerFrozenH == null ? "min-h-[40px] flex-[2.5]" : undefined}
+                style={
+                  cur.spacerFrozenH != null
+                    ? { height: cur.spacerFrozenH, flex: "0 0 auto" }
+                    : undefined
+                }
+              />
               <div className="flex flex-col gap-5">
               {cur.showReport ? (
                 <ReportPane
@@ -695,86 +738,17 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                     />
                   )}
 
-                  {(() => {
-                    const hasLatex = exercise.options.some((o) => o.includes("$"))
-                    const limit = hasLatex ? 12 : 25
-                    const useGrid =
-                      exercise.options.length === 4 &&
-                      exercise.options.every((o) =>
-                        (hasLatex ? latexVisualLength(o) : o.length) <= limit,
-                      )
-                    return (
-                      <div className={useGrid ? "grid grid-cols-2 gap-2" : "flex flex-col gap-2"}>
-                        {exercise.options.map((opt, i) => {
-                          const isSelected = cur.selection === i
-                          const isCorrectOpt = i === exercise.correct_index
-                          const isWrong = cur.wrongOptions.includes(i)
-                          const isShaking = shakeIdx === i
-
-                          let borderCls = "border-white/10"
-                          let textCls = "text-foreground/80"
-                          let extraCls = ""
-                          if (isTest && noAnswer) {
-                            if (isCorrectOpt) {
-                              borderCls = "border-green-500/50"
-                              textCls = "text-green-400 font-medium"
-                            } else {
-                              extraCls = "opacity-60"
-                            }
-                          } else if (isShaking) {
-                            borderCls = "border-[#E3690B]"
-                            textCls = "text-[#E3690B] font-medium"
-                          } else if (isWrong) {
-                            extraCls = "opacity-40"
-                          } else if (solved && isSelected && isCorrectOpt) {
-                            if (solvedAfterError) {
-                              borderCls = "border-[#D9F99D]/50"
-                              textCls = "text-[#D9F99D] font-medium"
-                            } else {
-                              borderCls = "border-green-500/50"
-                              textCls = "text-green-400 font-medium"
-                            }
-                          } else if (solved) {
-                            extraCls = "opacity-40"
-                          } else if (isSelected) {
-                            borderCls = "border-[#7e80f7]"
-                            textCls = "text-[#c4c6ff]"
-                          }
-
-                          return (
-                            <button
-                              key={i}
-                              disabled={solved || isWrong || (isTest && noAnswer)}
-                              onClick={() => handlePick(i)}
-                              className={cn(
-                                "w-full rounded-md border bg-white/5 px-4 py-3.5 text-base transition-[color,border-color,opacity] duration-200 disabled:pointer-events-none",
-                                useGrid ? "text-center" : "text-left",
-                                borderCls,
-                                textCls,
-                                extraCls,
-                              )}
-                            >
-                              <motion.span
-                                className="block"
-                                animate={
-                                  isShaking
-                                    ? { x: [0, -8, 8, -6, 6, -3, 0] }
-                                    : { x: 0 }
-                                }
-                                transition={
-                                  isShaking
-                                    ? { duration: 0.4, ease: "easeInOut" }
-                                    : { duration: 0 }
-                                }
-                              >
-                                <MathText text={opt} />
-                              </motion.span>
-                            </button>
-                          )
-                        })}
-                      </div>
-                    )
-                  })()}
+                  <OptionsArea
+                    exercise={exercise}
+                    isTest={isTest}
+                    noAnswer={noAnswer}
+                    cur={cur}
+                    solved={solved}
+                    solvedAfterError={solvedAfterError}
+                    shakeIdx={shakeIdx}
+                    onReveal={openOptions}
+                    onPick={handlePick}
+                  />
                   {!isTest && <ReportFlagButton onClick={openReport} />}
                   {isTest && noAnswer && (
                     <div className="flex flex-col gap-3 border-t border-white/10 pt-4 text-sm text-foreground/80">
@@ -1061,9 +1035,203 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
   )
 }
 
+// Curva de easing compartida con la barra de progreso (línea ~576) y con
+// ReportFlagButton, para que el despliegue del grid y el corrimiento de
+// "Reportar" se lean como un solo movimiento coordinado.
+const OPTIONS_LAYOUT_TRANSITION = { layout: { duration: 0.35, ease: [0.32, 0.72, 0, 1] as const } }
+
+// Ritmo con el que se asoman las opciones: una tras otra (no todas juntas) y
+// cada una se asienta con una escala suave. FRAGMENT_SPAN es lo que tarda
+// desde que arranca la primera hasta que arranca la última — fijo, con 4
+// opciones (el caso de referencia) da el mismo FRAGMENT_STAGGER de antes
+// (0.33 / 3 = 0.11). El intervalo entre una y la siguiente
+// (staggerChildren) se recalcula según cuántas opciones haya para que ese
+// recorrido total dure siempre lo mismo — si no, con 3 opciones en vez de 4
+// el mismo intervalo fijo hacía que la secuencia entera terminara antes,
+// sintiéndose más rápida.
+const FRAGMENT_SPAN = 0.33
+const FRAGMENT_SETTLE = 0.26
+function fragmentStagger(optionCount: number): number {
+  return FRAGMENT_SPAN / Math.max(optionCount - 1, 1)
+}
+
+type OptionsPhase = "closed" | "open"
+
+function OptionsArea({
+  exercise,
+  isTest,
+  noAnswer,
+  cur,
+  solved,
+  solvedAfterError,
+  shakeIdx,
+  onReveal,
+  onPick,
+}: {
+  exercise: SessionExercise
+  isTest: boolean
+  noAnswer: boolean
+  cur: ExState
+  solved: boolean
+  solvedAfterError: boolean
+  shakeIdx: number | null
+  onReveal: () => void
+  onPick: (i: number) => void
+}) {
+  // Si ya estaba abierto (volver atrás sobre un ejercicio ya visto), arranca
+  // directo en "open", sin repetir la animación. Test: siempre "open".
+  const [phase, setPhase] = useState<OptionsPhase>(() =>
+    isTest || cur.optionsOpen ? "open" : "closed",
+  )
+  const areaRef = useRef<HTMLDivElement>(null)
+
+  function handleReveal() {
+    onReveal()
+    setPhase("open")
+    // Si el grid recién revelado queda parcialmente tapado por el borde de
+    // la pantalla, un scroll suave lo trae a la vista — no pasa nada si ya
+    // estaba visible.
+    requestAnimationFrame(() =>
+      areaRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" }),
+    )
+  }
+
+  const hasLatex = exercise.options.some((o) => o.includes("$"))
+  const limit = hasLatex ? 12 : 25
+  const useGrid =
+    exercise.options.length === 4 &&
+    exercise.options.every((o) => (hasLatex ? latexVisualLength(o) : o.length) <= limit)
+
+  return (
+    // Condicional sin AnimatePresence: el botón desaparece al instante (un
+    // solo commit de React, sin período de exit ni fade de por medio) y en
+    // el mismo tick ya está montado el grid, que arranca su propia entrada
+    // (stagger de abajo). AnimatePresence + exit llegaba a colgarse un rato
+    // (el botón compartido — cva `transition-all` — seguía interpolando su
+    // propio opacity por CSS aunque Framer pidiera duration:0).
+    <motion.div ref={areaRef} layout transition={OPTIONS_LAYOUT_TRANSITION} className="relative">
+      {phase === "closed" ? (
+        <Button
+          variant="outline"
+          size="lg"
+          className="h-[var(--cta-h)] w-full rounded-md bg-background dark:bg-background"
+          onClick={handleReveal}
+        >
+          Opciones
+        </Button>
+      ) : (
+        <motion.div
+          className={useGrid ? "grid grid-cols-2 gap-2" : "flex flex-col gap-2"}
+          variants={{
+            hidden: {},
+            show: {
+              transition: {
+                staggerChildren: fragmentStagger(exercise.options.length),
+                delayChildren: 0.02,
+              },
+            },
+          }}
+          initial="hidden"
+          animate="show"
+        >
+            {exercise.options.map((opt, i) => {
+                const isSelected = cur.selection === i
+                const isCorrectOpt = i === exercise.correct_index
+                const isWrong = cur.wrongOptions.includes(i)
+                const isShaking = shakeIdx === i
+
+                let borderCls = "border-white/10"
+                let textCls = "text-foreground/80"
+                // El opacity final lo maneja el `variants` de motion.button de
+                // abajo (no una clase de Tailwind): al animar `opacity` con
+                // Framer, ese valor inline pisa cualquier `opacity-*` de
+                // Tailwind, así que el apagado de una opción incorrecta tiene
+                // que ir acá, no en una clase.
+                let dimOpacity = 1
+                if (isTest && noAnswer) {
+                  if (isCorrectOpt) {
+                    borderCls = "border-green-500/50"
+                    textCls = "text-green-400 font-medium"
+                  } else {
+                    dimOpacity = 0.6
+                  }
+                } else if (isShaking) {
+                  borderCls = "border-[#E3690B]"
+                  textCls = "text-[#E3690B] font-medium"
+                } else if (isWrong) {
+                  dimOpacity = 0.4
+                } else if (solved && isSelected && isCorrectOpt) {
+                  if (solvedAfterError) {
+                    borderCls = "border-[#D9F99D]/50"
+                    textCls = "text-[#D9F99D] font-medium"
+                  } else {
+                    borderCls = "border-green-500/50"
+                    textCls = "text-green-400 font-medium"
+                  }
+                } else if (solved) {
+                  dimOpacity = 0.4
+                } else if (isSelected) {
+                  borderCls = "border-[#7e80f7]"
+                  textCls = "text-[#c4c6ff]"
+                }
+
+                return (
+                  <motion.button
+                    key={i}
+                    // La pieza "aparece" de golpe (no se desvanece desde la
+                    // nada) y solo la escala se asienta despacio. El opacity
+                    // final del estado "show" es `dimOpacity`, no un 1 fijo,
+                    // para que las opciones incorrectas/no elegidas sigan
+                    // pudiendo apagarse visualmente.
+                    variants={{
+                      hidden: { opacity: 0, scale: 1.06 },
+                      show: {
+                        opacity: dimOpacity,
+                        scale: 1,
+                        transition: {
+                          opacity: { duration: 0.2 },
+                          scale: { duration: FRAGMENT_SETTLE, ease: [0.22, 1, 0.36, 1] },
+                        },
+                      },
+                    }}
+                    disabled={solved || isWrong || (isTest && noAnswer)}
+                    onClick={() => onPick(i)}
+                    className={cn(
+                      "w-full rounded-md border bg-white/5 px-4 py-3.5 text-base transition-[color,border-color] duration-200 disabled:pointer-events-none",
+                      useGrid ? "text-center" : "text-left",
+                      borderCls,
+                      textCls,
+                    )}
+                  >
+                    <motion.span
+                      className="block"
+                      animate={
+                        isShaking
+                          ? { x: [0, -8, 8, -6, 6, -3, 0] }
+                          : { x: 0 }
+                      }
+                      transition={
+                        isShaking
+                          ? { duration: 0.4, ease: "easeInOut" }
+                          : { duration: 0 }
+                      }
+                    >
+                      <MathText text={opt} />
+                    </motion.span>
+                  </motion.button>
+                )
+              })}
+        </motion.div>
+      )}
+    </motion.div>
+  )
+}
+
 function ReportFlagButton({ onClick }: { onClick: () => void }) {
   return (
-    <button
+    <motion.button
+      layout
+      transition={OPTIONS_LAYOUT_TRANSITION}
       type="button"
       onClick={onClick}
       aria-label="Reportar un problema"
@@ -1071,7 +1239,7 @@ function ReportFlagButton({ onClick }: { onClick: () => void }) {
     >
       <Flag className="size-5" />
       Reportar
-    </button>
+    </motion.button>
   )
 }
 

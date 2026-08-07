@@ -447,13 +447,30 @@ type Particle = {
 }
 
 // Explosión radial: todas las partículas (cuadraditos) nacen en el centro de la
-// pantalla y salen disparadas en todas direcciones a gran velocidad, con algo de
-// gravedad y rotación. RAF puro, sin dependencias.
+// pantalla y salen disparadas mayormente hacia arriba y a los costados (unas
+// pocas también hacia abajo) a velocidad muy variable, con gravedad bien
+// despareja y algo de rotación. RAF puro, sin dependencias.
 function Confetti({ count }: { count: number }) {
   const stateRef = useRef<Particle[]>(
     Array.from({ length: count }, (_, i) => {
-      const angle = Math.random() * Math.PI * 2
-      const speed = 90 + Math.random() * 150 // % de viewport por segundo
+      // Ángulo: casi siempre se evita el cono "hacia abajo" (90° ± DOWN_CONE,
+      // con y creciendo hacia abajo), eligiendo uniforme en el arco permitido
+      // (360 - 2*DOWN_CONE°) que arranca después del cono y "da la vuelta"
+      // por 0°. Una minoría (DOWN_CHANCE) sale de un ángulo cualquiera,
+      // cono incluido, para que también salgan poquitos hacia abajo.
+      const DOWN_CONE = 50
+      const DOWN_CHANCE = 0.12
+      let angle: number
+      if (Math.random() < DOWN_CHANCE) {
+        angle = Math.random() * Math.PI * 2
+      } else {
+        const startDeg = 90 + DOWN_CONE
+        const spanDeg = 360 - DOWN_CONE * 2
+        angle = (((startDeg + Math.random() * spanDeg) % 360) * Math.PI) / 180
+      }
+      // Fuerza bien despareja: algunas partículas casi no se mueven, otras
+      // salen disparadas muy fuerte.
+      const speed = 15 + Math.random() * 300 // % de viewport por segundo
       return {
         id: i,
         x: 50,
@@ -464,8 +481,9 @@ function Confetti({ count }: { count: number }) {
         size: 6 + Math.random() * 9,
         rot: Math.random() * 360,
         vrot: (Math.random() - 0.5) * 900,
-        // Gravedad propia de cada partícula: unas caen pesado, otras flotan.
-        grav: 45 + Math.random() * 130,
+        // Gravedad propia de cada partícula, con mucha varianza: unas caen
+        // como piedra, otras casi flotan.
+        grav: 30 + Math.random() * 180,
         alive: true,
       }
     }),
