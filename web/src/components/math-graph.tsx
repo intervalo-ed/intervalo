@@ -383,6 +383,21 @@ function axisTicks(min: number, max: number, step: number): number[] {
   return ticks
 }
 
+// Histéresis: solo se cambia de paso cuando el rango pasa claramente el umbral
+// de transición (±5%), para que el ruido de FP no lo haga oscilar justo en el
+// valor límite.
+function useSteppedRange(naturalStep: number, range: number, density: number): number {
+  const ref = useRef(naturalStep)
+  if (naturalStep !== ref.current) {
+    const goingUp = naturalStep > ref.current
+    const threshold = goingUp ? density * ref.current * 1.05 : density * naturalStep * 0.95
+    if (goingUp ? range > threshold : range < threshold) {
+      ref.current = naturalStep
+    }
+  }
+  return ref.current
+}
+
 // Runs inside <Mafs> — has access to the live viewport via usePaneContext.
 // Grid, ticks, and the function plot all update dynamically as the user pans/zooms.
 function GraphContent({
@@ -392,6 +407,7 @@ function GraphContent({
   widthPx,
   heightPx,
   piX,
+  freeAspect,
   shade,
 }: {
   fn: RealFn
@@ -400,6 +416,7 @@ function GraphContent({
   widthPx: number
   heightPx: number
   piX: boolean
+  freeAspect: boolean
   shade: [number, number] | null
 }) {
   const { xPaneRange, yPaneRange } = usePaneContext()
@@ -414,41 +431,36 @@ function GraphContent({
   const pxPerUnit = viewTransform[0]
   const pxPerUnitY = Math.abs(viewTransform[4])
   const xRange = widthPx / pxPerUnit
-  const density = piX ? PI_GRID_DENSITY : GRID_DENSITY
-  const naturalStep = piX ? piStep(xRange) : niceStep(xRange)
+  const yRange = heightPx / pxPerUnitY
 
-  // Hysteresis: only commit a new step when xRange is clearly past the transition
-  // boundary (±5%), preventing oscillation from FP noise at exact boundary values.
-  const stepRef = useRef(naturalStep)
-  if (naturalStep !== stepRef.current) {
-    const goingUp = naturalStep > stepRef.current
-    const threshold = goingUp
-      ? density * stepRef.current * 1.05
-      : density * naturalStep * 0.95
-    if (goingUp ? xRange > threshold : xRange < threshold) {
-      stepRef.current = naturalStep
-    }
-  }
-  const xStep = stepRef.current
+  // Con aspecto fijo (el default) ambos ejes tienen la MISMA escala en px por
+  // unidad, así que la grilla tiene que ser cuadrada: un solo paso para los
+  // dos. Dejar que cada eje eligiera el suyo a partir de su propio rango los
+  // desfasaba apenas uno cruzaba un escalón de la escalera 1-2-5 y el otro no
+  // — y los rangos SIEMPRE difieren, porque Mafs con preserveAspectRatio
+  // "contain" estira el eje más corto hasta llenar la caja (480x420). Ej. real:
+  // view [-1,6,-1,12] termina en xSpan 16 / ySpan 14, que con GRID_DENSITY=15
+  // caen a cada lado del umbral (16/15 > 1 → paso 2; 14/15 < 1 → paso 1) y
+  // dejaban celdas rectangulares de 2x1 con x etiquetado de 2 en 2 e y de 1 en 1.
+  // Se toma el rango más chico para que el paso compartido sea el más fino de
+  // los dos candidatos (ningún eje queda con la grilla más rala de lo que su
+  // propio rango pediría; en px la separación es idéntica en ambos).
+  //
+  // Aspecto libre: las escalas son genuinamente distintas y cada eje elige el
+  // suyo. Ídem eje x en π (sinusoides): es otra escala a propósito.
+  const squareGrid = !freeAspect && !piX
+  const xStepRange = squareGrid ? Math.min(xRange, yRange) : xRange
+  const yStepRange = squareGrid ? Math.min(xRange, yRange) : yRange
+
+  const density = piX ? PI_GRID_DENSITY : GRID_DENSITY
+  const xStep = useSteppedRange(
+    piX ? piStep(xStepRange) : niceStep(xStepRange),
+    xStepRange,
+    density,
+  )
   const xSubdivisions = piX ? piSubdivisions(xStep) : niceSubdivisions(xStep)
 
-  // El eje y siempre es decimal (amplitud), con su propio paso según su rango.
-  // En vistas cuadradas 1:1 coincide con el de x; en sinusoides (anchas) queda
-  // con marcas decimales mientras x va en π. Misma histéresis que x (mismo
-  // problema de panes cuantizados), usando el alto en px en vez del ancho.
-  const yRange = heightPx / pxPerUnitY
-  const naturalYStep = niceStep(yRange)
-  const yStepRef = useRef(naturalYStep)
-  if (naturalYStep !== yStepRef.current) {
-    const goingUp = naturalYStep > yStepRef.current
-    const threshold = goingUp
-      ? GRID_DENSITY * yStepRef.current * 1.05
-      : GRID_DENSITY * naturalYStep * 0.95
-    if (goingUp ? yRange > threshold : yRange < threshold) {
-      yStepRef.current = naturalYStep
-    }
-  }
-  const yStep = yStepRef.current
+  const yStep = useSteppedRange(niceStep(yStepRange), yStepRange, GRID_DENSITY)
   const ySubdivisions = niceSubdivisions(yStep)
 
   const margin = (yMax - yMin) * 0.1
@@ -705,6 +717,7 @@ export default function MathGraph({
           widthPx={width}
           heightPx={height}
           piX={piX}
+          freeAspect={!!graphFreeAspect}
           shade={shade}
         />
       </Mafs>
