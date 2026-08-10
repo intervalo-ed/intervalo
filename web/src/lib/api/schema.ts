@@ -1310,6 +1310,13 @@ export interface components {
             days_to_next: number;
             /** Is Max */
             is_max: boolean;
+            /**
+             * Tier Reached
+             * @default false
+             */
+            tier_reached: boolean;
+            /** Prev Multiplier */
+            prev_multiplier?: number | null;
             /** Counted Today */
             counted_today: boolean;
             /**

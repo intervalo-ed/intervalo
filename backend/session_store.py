@@ -1343,6 +1343,8 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
             "next_multiplier": si.next_multiplier,
             "days_to_next": si.days_to_next,
             "is_max": si.is_max,
+            "tier_reached": si.tier_reached,
+            "prev_multiplier": si.prev_multiplier,
             "counted_today": streak_counted_today,
         },
     }
@@ -1496,6 +1498,8 @@ def get_summary_db(
             "next_multiplier": si.next_multiplier,
             "days_to_next": si.days_to_next,
             "is_max": si.is_max,
+            "tier_reached": si.tier_reached,
+            "prev_multiplier": si.prev_multiplier,
             "counted_today": streak_counted_today,
             "xp_bonus": xp_bonus_total,
         },

@@ -86,6 +86,8 @@ class StreakInfo(BaseModel):
     next_multiplier: float | None
     days_to_next: int           # 0 en el tramo máximo
     is_max: bool
+    tier_reached: bool = False  # el total cae justo en un piso: hoy se desbloqueó el multiplicador
+    prev_multiplier: float | None = None  # multiplicador del tramo anterior; None en el base
     counted_today: bool         # esta sesión fue la primera completada del día
     xp_bonus: int = 0           # XP extra ganado en esta sesión gracias al multiplicador (solo summary)
 

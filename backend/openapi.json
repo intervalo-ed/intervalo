@@ -3499,6 +3499,22 @@
             "type": "boolean",
             "title": "Is Max"
           },
+          "tier_reached": {
+            "type": "boolean",
+            "title": "Tier Reached",
+            "default": false
+          },
+          "prev_multiplier": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Prev Multiplier"
+          },
           "counted_today": {
             "type": "boolean",
             "title": "Counted Today"

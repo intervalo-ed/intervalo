@@ -83,14 +83,24 @@ class StreakInfo:
     next_multiplier: float | None
     days_to_next: int            # 0 en el tramo máximo
     is_max: bool
+    # El total cae justo en el piso de un tramo, o sea que ese día se desbloqueó
+    # el multiplicador. El tramo base (0 días, ×1.0) no cuenta como hito. El
+    # cliente no puede deducirlo solo: no conoce STREAK_TIERS.
+    tier_reached: bool
+    # Multiplicador del tramo anterior al vigente; None en el tramo base. Sirve
+    # para mostrar el tramo recién completado el día que se alcanza un hito.
+    prev_multiplier: float | None
 
 
 def streak_info(days: int) -> StreakInfo:
     multiplier = STREAK_TIERS[0][1]
+    prev_multiplier: float | None = None
     next_threshold: int | None = None
     next_multiplier: float | None = None
-    for threshold, mult in STREAK_TIERS:
+    for i, (threshold, mult) in enumerate(STREAK_TIERS):
         if days >= threshold:
+            if i > 0:
+                prev_multiplier = multiplier
             multiplier = mult
         elif next_threshold is None:
             next_threshold = threshold
@@ -102,6 +112,8 @@ def streak_info(days: int) -> StreakInfo:
         next_multiplier=next_multiplier,
         days_to_next=(next_threshold - days) if next_threshold is not None else 0,
         is_max=next_threshold is None,
+        tier_reached=days > 0 and any(days == t for t, _ in STREAK_TIERS),
+        prev_multiplier=prev_multiplier,
     )
 
 
