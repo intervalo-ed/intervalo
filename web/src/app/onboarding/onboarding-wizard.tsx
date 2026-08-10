@@ -687,6 +687,8 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
   const [exerciseSelection, setExerciseSelection] = useState<number | null>(null)
   const [exerciseCorrect, setExerciseCorrect] = useState<boolean | null>(null)
   const [wrongOptions, setWrongOptions] = useState<number[]>([])
+  const [introItemResponseTimeMs, setIntroItemResponseTimeMs] = useState<number | null>(null)
+  const exerciseStartRef = useRef<number | null>(null)
   const [shakeIdx, setShakeIdx] = useState<number | null>(null)
   const [showWhy, setShowWhy] = useState(false)
   const [authPending, setAuthPending] = useState(false)
@@ -715,6 +717,14 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
   // Acierto limpio = correcto sin ningún error previo. Decide el estado inicial
   // del ítem (mañana vs hoy) y se persiste al registrarse.
   const firstTryCorrect = exerciseCorrect === true && wrongOptions.length === 0
+
+  // Arranca el cronómetro del ejercicio de prueba al entrar a esa slide, para
+  // poder mandar cuánto tardó en responder junto con el resto del payload.
+  useEffect(() => {
+    if (step === 5) {
+      exerciseStartRef.current = Date.now()
+    }
+  }, [step])
 
   function goNext(target?: number) {
     setPrevStep(step)
@@ -755,6 +765,7 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
       setExerciseSelection(null)
       setExerciseCorrect(null)
       setWrongOptions([])
+      setIntroItemResponseTimeMs(null)
     }
     setPrevStep(step)
     setDirection(-1)
@@ -813,17 +824,23 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
     if (isCorrect) {
       setExerciseCorrect(true)
       sfx.correct?.()
+      if (exerciseStartRef.current !== null) {
+        setIntroItemResponseTimeMs(Date.now() - exerciseStartRef.current)
+      }
       return
     }
     sfx.wrong?.()
     const wrongIdx = exerciseSelection
     setExerciseCorrect(false)
     setWrongOptions((prev) => [...prev, wrongIdx])
-    setExerciseSelection(null)
     setShakeIdx(wrongIdx)
     setTimeout(() => setShakeIdx(null), 450)
     wrongResetRef.current = setTimeout(() => {
       setExerciseCorrect(null)
+      // Recién acá soltamos la selección: hasta este momento el panel de
+      // feedback (más abajo) la necesita para mostrar el mensaje específico
+      // de feedbackIncorrect[exerciseSelection], no el genérico.
+      setExerciseSelection(null)
       wrongResetRef.current = null
     }, 2000)
   }
@@ -888,6 +905,10 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
       course: courseKey,
       motivation,
       introItemCorrect: firstTryCorrect,
+      // Intentos hasta acertar (el wizard exige acertar para avanzar, así que
+      // siempre está definido cuando llegamos acá) y tiempo de respuesta.
+      introItemAttempts: exerciseCorrect === true ? wrongOptions.length + 1 : undefined,
+      introItemResponseTimeMs: introItemResponseTimeMs ?? undefined,
     }
   }
 

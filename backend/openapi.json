@@ -2325,6 +2325,28 @@
               }
             ],
             "title": "Intro Item Correct"
+          },
+          "attempts": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Attempts"
+          },
+          "response_time_ms": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Response Time Ms"
           }
         },
         "type": "object",

@@ -337,14 +337,27 @@ _INTRO_ITEM_BY_COURSE: dict[str, tuple[TopicKey, str]] = {
 _INTRO_ITEM_DEFAULT = _INTRO_ITEM_BY_COURSE["analisis"]
 
 
-def seed_intro_item(user_id: int, course_id: int, correct: bool, db: DBSession) -> None:
+def seed_intro_item(
+    user_id: int,
+    course_id: int,
+    correct: bool,
+    db: DBSession,
+    *,
+    attempts: int | None = None,
+    response_time_ms: int | None = None,
+) -> None:
     """Persiste el resultado del ejercicio de prueba del onboarding sobre el primer
     ítem del curso, aplicándole el mismo update SM-2 que una respuesta real.
 
     Acierto al primer intento (calidad 5) lo agenda para mañana, así queda fuera de
     la primera sesión. Fallo (calidad 0) lo deja pendiente para hoy, así aparece en
     la primera sesión. Crea las units del tema si todavía no existen; el resto de los
-    temas los desbloquea la primera sesión (_ensure_active_units)."""
+    temas los desbloquea la primera sesión (_ensure_active_units).
+
+    Además deja una fila en Answer (con una Session sintética mode="onboarding")
+    para poder auditar después intentos y tiempo de respuesta junto con el resto
+    de las respuestas. No otorga XP ni cuenta para el progreso real del usuario
+    más allá del seed de UnitState de arriba."""
     course = db.query(Course).filter(Course.id == course_id).first()
     intro_item, intro_type = _INTRO_ITEM_BY_COURSE.get(
         course.slug if course else "", _INTRO_ITEM_DEFAULT
@@ -375,6 +388,37 @@ def seed_intro_item(user_id: int, course_id: int, correct: bool, db: DBSession) 
     row.next_due = new_state.next_review
     row.attempted = True
     row.last_reviewed_at = datetime.utcnow()
+
+    onboarding_session = SessionModel(
+        user_id=user_id,
+        course_id=course_id,
+        mode="onboarding",
+        exercises_total=1,
+        exercises_correct=1 if correct else 0,
+        started_at=datetime.utcnow(),
+        finished_at=datetime.utcnow(),
+        iteration=_get_course_progress(user_id, course_id, db).iteration,
+    )
+    db.add(onboarding_session)
+    db.flush()
+
+    db.add(Answer(
+        session_id=onboarding_session.id,
+        user_id=user_id,
+        course_id=course_id,
+        exercise_id=None,
+        exercise_external_id=None,
+        belt=intro_item.belt.value,
+        topic=intro_item.topic,
+        exercise_type=intro_type,
+        is_correct=correct,
+        response_time_ms=response_time_ms,
+        quality_score=quality_from_attempts(attempts) if attempts is not None else None,
+        xp_earned=0,
+        xp_base=0,
+        answered_at=datetime.utcnow(),
+        iteration=onboarding_session.iteration,
+    ))
     db.commit()
 
 

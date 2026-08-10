@@ -912,6 +912,10 @@ export interface components {
             motivation?: string | null;
             /** Intro Item Correct */
             intro_item_correct?: boolean | null;
+            /** Attempts */
+            attempts?: number | null;
+            /** Response Time Ms */
+            response_time_ms?: number | null;
         };
         /** EnrollmentResponse */
         EnrollmentResponse: {

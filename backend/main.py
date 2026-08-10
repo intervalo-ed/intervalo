@@ -379,6 +379,10 @@ class EnrollmentRequest(BaseModel):
     # Resultado del ejercicio de prueba del onboarding (primer ítem del curso).
     # True = acertó al primer intento, False = falló alguna vez, None = sin dato.
     intro_item_correct: bool | None = None
+    # Cantidad de intentos hasta acertar (o intentos totales si nunca acertó).
+    attempts: int | None = None
+    # Tiempo total que tardó en responder el ejercicio de prueba, en ms.
+    response_time_ms: int | None = None
 
 
 @app.post("/user/enroll", response_model=EnrollmentResponse)
@@ -426,7 +430,14 @@ def enroll_user(
     # sesión; fallo → hoy, dentro). En re-enrollment no se toca el progreso.
     if not existing and body.intro_item_correct is not None:
         from session_store import seed_intro_item
-        seed_intro_item(current_user.id, course_id, body.intro_item_correct, db)
+        seed_intro_item(
+            current_user.id,
+            course_id,
+            body.intro_item_correct,
+            db,
+            attempts=body.attempts,
+            response_time_ms=body.response_time_ms,
+        )
 
     return {
         "success": True,
