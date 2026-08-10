@@ -305,8 +305,9 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
             count={Math.min(140, Math.max(10, (data?.xp_earned ?? 0) * 2))}
           />
         )}
-        {/* La lluvia acompaña a cada explosión con la paleta de su momento, y
-            se limita a su fase para no superponer las dos. */}
+        {/* La lluvia releva a cada explosión con la paleta de su momento (entra
+            por arriba unos segundos después, ver RAIN_DELAY_MS), y se limita a
+            su fase para no superponer las dos. */}
         {showConfetti && phase === "summary" && <ConfettiRain />}
         {/* Festejo del hito. Va acá y no dentro de StreakPane a propósito:
             Confetti es `fixed inset-0`, y el slide de la fase tiene transform
@@ -531,6 +532,7 @@ type Particle = {
   vrot: number
   grav: number
   fall: number // velocidad final de caída, una vez gastado el envión
+  drag: number // fracción de velocidad conservada por segundo
   sway: number
   phase: number
   alive: boolean
@@ -566,21 +568,9 @@ function Confetti({
 }) {
   const stateRef = useRef<Particle[]>(
     Array.from({ length: count }, (_, i) => {
-      // Ángulo: casi siempre se evita el cono "hacia abajo" (90° ± DOWN_CONE,
-      // con y creciendo hacia abajo), eligiendo uniforme en el arco permitido
-      // (360 - 2*DOWN_CONE°) que arranca después del cono y "da la vuelta"
-      // por 0°. Una minoría (DOWN_CHANCE) sale de un ángulo cualquiera,
-      // cono incluido, para que también salgan poquitos hacia abajo.
-      const DOWN_CONE = 50
-      const DOWN_CHANCE = 0.12
-      let angle: number
-      if (Math.random() < DOWN_CHANCE) {
-        angle = Math.random() * Math.PI * 2
-      } else {
-        const startDeg = 90 + DOWN_CONE
-        const spanDeg = 360 - DOWN_CONE * 2
-        angle = (((startDeg + Math.random() * spanDeg) % 360) * Math.PI) / 180
-      }
+      // Radial puro: cualquier dirección con la misma probabilidad, sin sesgo
+      // hacia arriba ni hacia abajo.
+      const angle = Math.random() * Math.PI * 2
       // Curva de potencia en vez de uniforme: la mayoría sale con fuerza
       // media y unas pocas se van muy lejos, que es lo que da la sensación de
       // estallido despatarrado. El piso igual es alto para que ninguna se
@@ -603,6 +593,11 @@ function Confetti({
         // Al apagarse el envión inicial, la partícula deja de acelerar y pasa
         // a caer como las de la lluvia: velocidad final propia + vaivén.
         fall: RAIN_FALL_MIN + Math.random() * RAIN_FALL_SPAN,
+        // Frenado del aire propio de cada una (fracción de velocidad que
+        // conserva por segundo). Es lo que hace que no todas pasen a planear
+        // al mismo tiempo: con 0.03 el envión se apaga casi enseguida, con
+        // 0.45 la partícula sigue de largo un buen rato.
+        drag: 0.03 + Math.random() * 0.42,
         sway: 1.5 + Math.random() * 4,
         phase: Math.random() * Math.PI * 2,
         alive: true,
@@ -625,8 +620,10 @@ function Confetti({
         if (!p.alive) return p
         let nx = p.x + p.vx * dt
         const ny = p.y + p.vy * dt
-        // Frenado del aire para que la explosión sea veloz al inicio y se calme.
-        const drag = Math.pow(0.12, dt)
+        // Frenado del aire para que la explosión sea veloz al inicio y se
+        // calme. Propio de cada partícula (ver Particle.drag), así cada una
+        // pasa a planear en su momento y no todas juntas.
+        const drag = Math.pow(p.drag, dt)
         let vx = p.vx * drag
         // Rebote en las paredes (bordes de la pantalla): refleja posición y
         // velocidad, perdiendo energía en cada choque (WALL_RESTITUTION) para
@@ -640,10 +637,15 @@ function Confetti({
         }
         const alive = ny < 120
         if (alive) anyAlive = true
-        // La caída no acelera indefinidamente: se frena en la velocidad final
-        // de la partícula, la misma escala que usa la lluvia. A partir de ahí
-        // baja planeando y el vaivén del render la termina de volver hoja.
-        const vy = Math.min(p.fall, p.vy * drag + p.grav * dt)
+        // Dos regímenes, según si a la partícula todavía le queda envión:
+        // mientras baje más rápido que su velocidad final solo la frena el
+        // aire (un tope duro acá le cortaría el tiro en seco a las que salen
+        // disparadas hacia abajo); una vez por debajo, la gravedad la lleva
+        // hasta esa velocidad final y no más. De ahí en adelante planea, y el
+        // vaivén del render la termina de volver hoja.
+        const decayed = p.vy * drag
+        const vy =
+          decayed >= p.fall ? decayed : Math.min(p.fall, decayed + p.grav * dt)
         // La rotación también se va calmando, si no bajarían trompeando.
         const vrot = p.vrot * Math.pow(0.35, dt)
         return {
@@ -695,6 +697,17 @@ function Confetti({
 // pantalla compite con el contenido en vez de acompañarlo.
 const RAIN_COUNT = 14
 
+// La lluvia no acompaña a la explosión: la releva. Espera a que el estallido se
+// esté apagando y recién ahí empieza a entrar por el borde de arriba, así se
+// leen como dos momentos y no como una sola nube encimada.
+const RAIN_DELAY_MS = 2000
+
+// Alto de la franja (en % de viewport) por encima de la pantalla donde nacen
+// las partículas. Al montar es ancha para que entren escalonadas en vez de
+// aparecer las 14 como una fila; en los renacimientos alcanza con poco.
+const RAIN_SPAWN_BAND_INITIAL = 60
+const RAIN_SPAWN_BAND_RECYCLE = 15
+
 type RainParticle = {
   id: number
   x: number
@@ -708,17 +721,19 @@ type RainParticle = {
   vrot: number
 }
 
-// Nace arriba de la pantalla, a una altura al azar dentro de una franja, para
-// que al montar la lluvia ya esté repartida en vez de entrar toda junta.
+// Siempre nace por encima del borde superior, a una altura al azar dentro de
+// una franja: la lluvia se ve entrar por arriba en vez de materializarse en
+// medio de la pantalla, y las partículas llegan escalonadas.
 function newRainParticle(
   id: number,
   colors: readonly string[],
   initial: boolean,
 ): RainParticle {
+  const band = initial ? RAIN_SPAWN_BAND_INITIAL : RAIN_SPAWN_BAND_RECYCLE
   return {
     id,
     x: Math.random() * 100,
-    y: initial ? Math.random() * 110 : -10 - Math.random() * 15,
+    y: -10 - Math.random() * band,
     vy: RAIN_FALL_MIN + Math.random() * RAIN_FALL_SPAN, // % de viewport/s
     sway: 1.5 + Math.random() * 4,
     phase: Math.random() * Math.PI * 2,
@@ -743,8 +758,17 @@ function ConfettiRain({ colors = BELT_COLORS }: { colors?: readonly string[] }) 
   const rafRef = useRef<number | null>(null)
   const lastRef = useRef<number | null>(null)
   const tRef = useRef(0)
+  // Se monta junto con la explosión pero no corre ni se dibuja hasta que pasa
+  // la espera: así el componente puede vivir atado a su fase y el retraso queda
+  // acá adentro, sin timers en cada lugar donde se usa.
+  const [started, setStarted] = useState(false)
+  useEffect(() => {
+    const t = setTimeout(() => setStarted(true), RAIN_DELAY_MS)
+    return () => clearTimeout(t)
+  }, [])
 
   useEffect(() => {
+    if (!started) return
     const animate = (ts: number) => {
       if (lastRef.current === null) lastRef.current = ts
       const dt = Math.min((ts - lastRef.current) / 1000, 0.05)
@@ -762,7 +786,9 @@ function ConfettiRain({ colors = BELT_COLORS }: { colors?: readonly string[] }) 
     return () => {
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
     }
-  }, [colors])
+  }, [colors, started])
+
+  if (!started) return null
 
   return (
     <div className="pointer-events-none fixed inset-0 z-40 overflow-hidden">
