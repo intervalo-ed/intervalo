@@ -20,7 +20,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["reconocer-forma"]
+    "tags": [
+      "reconocer-forma"
+    ]
   },
   {
     "question": "Dos sensores miden el tiempo de respuesta de un sistema, en segundos.\n\nEl sensor A tiene tiempos uniformes entre 0 y 4.\n$$f_A(x) = \\frac{1}{4} \\text{ para } 0\\leq x\\leq 4$$\nEl sensor B entre 0 y 10.\n$$f_B(x) = \\frac{1}{10} \\text{ para } 0\\leq x\\leq 10$$\n¿Cuál de las dos densidades tiene mayor altura?",
@@ -43,7 +45,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["efecto-parametro"]
+    "tags": [
+      "efecto-parametro"
+    ]
   },
   {
     "question": "Un sensor detecta la posición de una partícula en un canal de 4 mm de largo, con la misma densidad en cualquier punto del canal.\n\nSea $X$ la posición donde se detecta, en milímetros desde el extremo izquierdo.\n\nEl gráfico muestra el área sombreada bajo la densidad.\n\n¿Qué probabilidad representa esa área sombreada?",
@@ -64,10 +68,362 @@
     "explanation": "En la uniforme, la probabilidad de un subintervalo es el área del rectángulo sombreado sobre él.\n$$P(c\\leq X\\leq d) = \\frac{d-c}{b-a}$$\nAcá el sombreado va de 1 a 3, un ancho de 2, sobre un dominio total de 4 mm.\n$$P(1\\leq X\\leq 3) = \\frac{3-1}{4} = \\frac{1}{2}$$\nEl área no depende de en qué parte del canal esté el sombreado, solo de su ancho, porque la densidad es igual de alta en todos lados.\n\nCorrer el sombreado hacia la izquierda o la derecha sin cambiar su ancho no altera esa probabilidad.",
     "has_math": true,
     "graph_fn": "Piecewise((1/4, (x>=0)&(x<=4)))",
-    "graph_view": [-0.5, 4.5, -0.02, 0.29],
-    "graph_shade": [1, 3],
+    "graph_view": [
+      -0.5,
+      4.5,
+      -0.02,
+      0.29
+    ],
+    "graph_shade": [
+      1,
+      3
+    ],
     "graph_free_aspect": true,
     "reviewed": false,
-    "tags": ["probabilidad-como-area"]
+    "tags": [
+      "probabilidad-como-area"
+    ]
+  },
+  {
+    "question": "El tiempo que un cliente espera en la fila de un banco se modela como uniforme entre 0 y 7 minutos.\n\nNingún instante dentro de ese rango es más probable que otro.\n\nSea $X$ ese tiempo de espera.\n\n¿Qué forma tiene la densidad de $X$?",
+    "options": [
+      "Un rectángulo de altura constante entre 0 y 7.",
+      "Una curva que decae desde un valor alto en 0.",
+      "Una campana simétrica centrada en 3,5."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Densidad constante en un intervalo: es un rectángulo, característico de la uniforme.",
+    "feedback_incorrect": [
+      null,
+      "Una curva que decae es la exponencial, acá ningún instante es más probable que otro.",
+      "Una campana simétrica es la normal, no la uniforme, que no tiene un valor más probable que otro."
+    ],
+    "explanation": "La distribución **uniforme** continua tiene densidad constante en todo su intervalo.\n$$f(x) = \\frac{1}{b-a} \\text{ para } a\\leq x\\leq b$$\nAcá el cliente puede esperar cualquier minuto entre 0 y 7 con la misma densidad.\n\nNo hay ningún instante dentro de esa franja que sea más probable que otro, por eso la densidad no sube ni baja, se mantiene plana.\n\nSi algunos instantes fueran más probables, la curva tendría que subir ahí y bajar en otro lado, como pasa en la normal o en la exponencial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-forma"
+    ]
+  },
+  {
+    "question": "Un puntero gira libremente y se detiene en cualquier posición de una escala de 5 cm de largo.\n\nNinguna posición de la escala es más probable que otra.\n\nSea $X$ la posición donde se detiene, en centímetros.\n\n¿Qué forma tiene la densidad de $X$?",
+    "options": [
+      "Una campana simétrica centrada en 2,5.",
+      "Un rectángulo de altura constante entre 0 y 5.",
+      "Una curva que decae desde un valor alto en 0."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Densidad constante en un intervalo: es un rectángulo, característico de la uniforme.",
+    "feedback_incorrect": [
+      "Una campana simétrica es la normal, no la uniforme, que no favorece ninguna posición.",
+      null,
+      "Una curva que decae es la exponencial, acá ninguna posición es más probable que otra."
+    ],
+    "explanation": "La distribución **uniforme** continua tiene densidad constante en todo su intervalo.\n$$f(x) = \\frac{1}{b-a} \\text{ para } a\\leq x\\leq b$$\nAcá el puntero se puede detener en cualquier centímetro entre 0 y 5 con la misma densidad.\n\nNinguna posición de la escala es más probable que otra, por eso la densidad no sube ni baja, se mantiene plana.\n\nSi algunas posiciones fueran más probables, la curva tendría que subir ahí y bajar en otro lado, como pasa en la normal o en la exponencial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-forma"
+    ]
+  },
+  {
+    "question": "Un dardo cae en cualquier punto de una franja de 6 mm de ancho, con la misma densidad en toda la franja.\n\nSea $X$ la posición donde cae, en milímetros desde el borde izquierdo.\n\n¿Qué forma tiene la densidad de $X$?",
+    "options": [
+      "Una curva que decae desde un valor alto en 0.",
+      "Una campana simétrica centrada en 3.",
+      "Un rectángulo de altura constante entre 0 y 6."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Densidad constante en un intervalo: es un rectángulo, característico de la uniforme.",
+    "feedback_incorrect": [
+      "Una curva que decae es la exponencial, acá ningún punto de la franja es más probable que otro.",
+      "Una campana simétrica es la normal, no la uniforme, que no favorece ningún punto de la franja.",
+      null
+    ],
+    "explanation": "La distribución **uniforme** continua tiene densidad constante en todo su intervalo.\n$$f(x) = \\frac{1}{b-a} \\text{ para } a\\leq x\\leq b$$\nAcá el dardo puede caer en cualquier milímetro entre 0 y 6 con la misma densidad.\n\nNingún punto de la franja es más probable que otro, por eso la densidad no sube ni baja, se mantiene plana.\n\nSi algunos puntos fueran más probables, la curva tendría que subir ahí y bajar en otro lado, como pasa en la normal o en la exponencial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-forma"
+    ]
+  },
+  {
+    "question": "El nivel de líquido restante en un dispensador antes de la próxima recarga se modela como uniforme entre 0 y 5 litros.\n\nNingún nivel dentro de ese rango es más probable que otro.\n\nSea $X$ ese nivel restante.\n\n¿Qué forma tiene la densidad de $X$?",
+    "options": [
+      "Una curva que decae desde un valor alto en 0.",
+      "Un rectángulo de altura constante entre 0 y 5.",
+      "Una campana simétrica centrada en 2,5."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Densidad constante en un intervalo: es un rectángulo, característico de la uniforme.",
+    "feedback_incorrect": [
+      "Una curva que decae es la exponencial, acá ningún nivel es más probable que otro.",
+      null,
+      "Una campana simétrica es la normal, no la uniforme, que no favorece ningún nivel."
+    ],
+    "explanation": "La distribución **uniforme** continua tiene densidad constante en todo su intervalo.\n$$f(x) = \\frac{1}{b-a} \\text{ para } a\\leq x\\leq b$$\nAcá el nivel del dispensador puede ser cualquier valor entre 0 y 5 litros con la misma densidad.\n\nNingún nivel dentro de ese rango es más probable que otro, por eso la densidad no sube ni baja, se mantiene plana.\n\nSi algunos niveles fueran más probables, la curva tendría que subir ahí y bajar en otro lado, como pasa en la normal o en la exponencial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-forma"
+    ]
+  },
+  {
+    "question": "Dos sucursales bancarias miden el tiempo de espera en fila, en minutos.\n\nLa sucursal X tiene tiempos uniformes entre 0 y 5.\n$$f_X(x) = \\frac{1}{5} \\text{ para } 0\\leq x\\leq 5$$\nLa sucursal Y entre 0 y 8.\n$$f_Y(x) = \\frac{1}{8} \\text{ para } 0\\leq x\\leq 8$$\n¿Cuál de las dos densidades tiene mayor altura?",
+    "options": [
+      "$f_X$, porque su intervalo es más angosto.",
+      "$f_Y$, porque su intervalo es más ancho.",
+      "Ambas tienen la misma altura, porque las dos son uniformes."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Un intervalo más angosto necesita una altura mayor para que el área siga siendo 1.",
+    "feedback_incorrect": [
+      null,
+      "Un intervalo más ancho reparte la misma área total en una base más larga, así que la altura tiene que ser menor, no mayor.",
+      "La altura de la uniforme depende del ancho del intervalo, así que intervalos distintos dan alturas distintas."
+    ],
+    "explanation": "La altura de la densidad **uniforme** es siempre el inverso de la longitud del intervalo.\n$$f(x) = \\frac{1}{b-a}$$\nLa sucursal X tiene un intervalo de longitud 5, y la sucursal Y de longitud 8.\n$$f_X = \\frac{1}{5} = 0{,}2$$\n$$f_Y = \\frac{1}{8} = 0{,}125$$\nComo el área bajo cada rectángulo tiene que valer 1 sin importar el ancho, un intervalo más angosto se compensa con una altura mayor, y uno más ancho con una altura menor.\n\nAchicar el intervalo de una sucursal sin cambiar nada más siempre hace que su densidad suba.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "efecto-parametro"
+    ]
+  },
+  {
+    "question": "Un termómetro digital registra la temperatura uniforme entre 0 y 4 grados dentro de un proceso.\n$$f(x) = \\frac{1}{4} \\text{ para } 0\\leq x\\leq 4$$\nSi el rango se ampliara al doble, entre 0 y 8 grados, sin cambiar el resto del proceso.\n\n¿Qué pasa con la altura de la densidad?",
+    "options": [
+      "Aumenta al doble.",
+      "Baja a la mitad.",
+      "Permanece igual."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Duplicar el ancho del intervalo obliga a reducir la altura a la mitad para que el área siga siendo 1.",
+    "feedback_incorrect": [
+      "Duplicar el ancho no aumenta la altura, la reduce, porque el área bajo el rectángulo tiene que seguir valiendo 1.",
+      null,
+      "La altura sí cambia: un intervalo más ancho reparte la misma área en una base mayor, así que baja."
+    ],
+    "explanation": "La altura de la densidad **uniforme** es siempre el inverso de la longitud del intervalo.\n$$f(x) = \\frac{1}{b-a}$$\nAntes del cambio, la longitud es 4.\n$$f(x) = \\frac{1}{4} = 0{,}25$$\nAl duplicar el rango a 8, la nueva altura es la mitad de la anterior.\n$$f(x) = \\frac{1}{8} = 0{,}125$$\nEl área bajo el rectángulo siempre tiene que valer 1, así que si la base se duplica, la altura se tiene que reducir a la mitad para compensar.\n\nAmpliar un rango sin ajustar la altura rompería esa condición.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "efecto-parametro"
+    ]
+  },
+  {
+    "question": "Dos detectores registran dónde impacta una partícula dentro de un canal, en milímetros.\n\nEl detector A cubre un canal de 0 a 3.\n$$f_A(x) = \\frac{1}{3} \\text{ para } 0\\leq x\\leq 3$$\nEl detector B cubre uno de 0 a 6.\n$$f_B(x) = \\frac{1}{6} \\text{ para } 0\\leq x\\leq 6$$\n¿Cuál de las dos densidades tiene mayor altura?",
+    "options": [
+      "$f_B$, porque su intervalo es más ancho.",
+      "Ambas tienen la misma altura, porque las dos son uniformes.",
+      "$f_A$, porque su intervalo es más angosto."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Un intervalo más angosto necesita una altura mayor para que el área siga siendo 1.",
+    "feedback_incorrect": [
+      "Un intervalo más ancho reparte la misma área total en una base más larga, así que la altura tiene que ser menor, no mayor.",
+      "La altura de la uniforme depende del ancho del intervalo, así que intervalos distintos dan alturas distintas.",
+      null
+    ],
+    "explanation": "La altura de la densidad **uniforme** es siempre el inverso de la longitud del intervalo.\n$$f(x) = \\frac{1}{b-a}$$\nEl detector A tiene un canal de longitud 3, y el detector B de longitud 6.\n$$f_A = \\frac{1}{3} \\approx 0{,}33$$\n$$f_B = \\frac{1}{6} \\approx 0{,}17$$\nComo el área bajo cada rectángulo tiene que valer 1 sin importar el ancho, un intervalo más angosto se compensa con una altura mayor, y uno más ancho con una altura menor.\n\nAmpliar el canal de un detector sin cambiar nada más siempre hace que su densidad baje.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "efecto-parametro"
+    ]
+  },
+  {
+    "question": "Un dispensador tenía un nivel de líquido uniforme entre 0 y 8 litros, con densidad $f(x)=1/8$.\n\nSe reemplaza por un modelo nuevo, uniforme entre 0 y 4 litros.\n\n¿Cuánto vale la nueva altura de la densidad?",
+    "options": [
+      "$1/16$",
+      "$1/8$",
+      "$1/2$",
+      "$1/4$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$f(x)=1/(4-0)=1/4$: el intervalo se achicó a la mitad, la altura se duplicó.",
+    "feedback_incorrect": [
+      "Ese valor divide la altura anterior en vez de calcular $1/(b-a)$ con el nuevo intervalo.",
+      "Esa es la altura anterior, antes de achicar el intervalo.",
+      "Ese valor no corresponde a $1/(b-a)$ con el nuevo intervalo de longitud 4.",
+      null
+    ],
+    "explanation": "La altura de la densidad **uniforme** es siempre el inverso de la longitud del intervalo.\n$$f(x) = \\frac{1}{b-a}$$\nEl modelo viejo tenía longitud 8, con altura $1/8$. El modelo nuevo tiene longitud 4.\n$$f(x) = \\frac{1}{4-0} = \\frac{1}{4}$$\nEl área bajo el rectángulo siempre tiene que valer 1, así que al achicar el intervalo a la mitad, la altura se tiene que duplicar para compensar.\n\nReducir el rango de un dispensador sin ajustar la altura dejaría un área distinta de 1, algo que no puede pasar en una densidad válida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "efecto-parametro"
+    ]
+  },
+  {
+    "question": "El tiempo que un cliente espera en la fila de un banco se modela como uniforme entre 0 y 6 minutos.\n\nSea $X$ ese tiempo de espera, en minutos.\n\nEl gráfico muestra el área sombreada bajo la densidad.\n\n¿Qué probabilidad representa esa área sombreada?",
+    "options": [
+      "$1/6$",
+      "$1/2$",
+      "$5/6$",
+      "$1/3$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El área sombreada es $3\\cdot\\dfrac{1}{6}=1/2$.",
+    "feedback_incorrect": [
+      "Ese valor es solo la altura de la densidad, sin multiplicar por el ancho del sombreado.",
+      null,
+      "Ese valor usa el extremo superior del sombreado sobre el dominio total, no el ancho real sombreado.",
+      "Ese valor no sale de aplicar la fórmula con el ancho real del sombreado."
+    ],
+    "explanation": "En la **uniforme**, la probabilidad de un subintervalo es el área del rectángulo sombreado sobre él.\n$$P(c\\leq X\\leq d) = \\frac{d-c}{b-a}$$\nAcá el sombreado va de 2 a 5, un ancho de 3, sobre un dominio total de 6 minutos.\n$$P(2\\leq X\\leq 5) = \\frac{5-2}{6} = \\frac{1}{2}$$\nEl área no depende de en qué parte de la fila esté el sombreado, solo de su ancho, porque la densidad es igual de alta en todos lados.\n\nCorrer el sombreado hacia la izquierda o la derecha sin cambiar su ancho no altera esa probabilidad.",
+    "has_math": true,
+    "graph_fn": "Piecewise((1/6, (x>=0)&(x<=6)))",
+    "graph_view": [
+      -0.5,
+      6.5,
+      -0.02,
+      0.2
+    ],
+    "graph_shade": [
+      2,
+      5
+    ],
+    "graph_free_aspect": true,
+    "reviewed": false,
+    "tags": [
+      "probabilidad-como-area"
+    ]
+  },
+  {
+    "question": "Un puntero gira libremente y se detiene en cualquier posición de una escala de 5 cm, con la misma densidad en toda la escala.\n\nSea $X$ la posición donde se detiene, en centímetros.\n\nEl gráfico muestra el área sombreada bajo la densidad.\n\n¿Qué probabilidad representa esa área sombreada?",
+    "options": [
+      "$1/5$",
+      "$3/5$",
+      "$2/5$",
+      "$4/5$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El área sombreada es $2\\cdot\\dfrac{1}{5}=2/5$.",
+    "feedback_incorrect": [
+      "Ese valor es solo la altura de la densidad, sin multiplicar por el ancho del sombreado.",
+      "Ese valor corresponde al tramo sin sombrear, no al sombreado.",
+      null,
+      "Ese valor no sale de aplicar la fórmula con el ancho real del sombreado."
+    ],
+    "explanation": "En la **uniforme**, la probabilidad de un subintervalo es el área del rectángulo sombreado sobre él.\n$$P(c\\leq X\\leq d) = \\frac{d-c}{b-a}$$\nAcá el sombreado va de 0 a 2, un ancho de 2, sobre un dominio total de 5 cm.\n$$P(0\\leq X\\leq 2) = \\frac{2-0}{5} = \\frac{2}{5}$$\nEl área no depende de en qué parte de la escala esté el sombreado, solo de su ancho, porque la densidad es igual de alta en todos lados.\n\nCorrer el sombreado hacia otro tramo de la escala sin cambiar su ancho no altera esa probabilidad.",
+    "has_math": true,
+    "graph_fn": "Piecewise((1/5, (x>=0)&(x<=5)))",
+    "graph_view": [
+      -0.5,
+      5.5,
+      -0.02,
+      0.24
+    ],
+    "graph_shade": [
+      0,
+      2
+    ],
+    "graph_free_aspect": true,
+    "reviewed": false,
+    "tags": [
+      "probabilidad-como-area"
+    ]
+  },
+  {
+    "question": "Un dispensador tiene un nivel de líquido restante uniforme entre 0 y 3 litros antes de la próxima recarga.\n\nSea $X$ ese nivel restante, en litros.\n\nEl gráfico muestra el área sombreada bajo la densidad.\n\n¿Qué probabilidad representa esa área sombreada?",
+    "options": [
+      "$2/3$",
+      "$1/6$",
+      "$1/9$",
+      "$1/3$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El área sombreada es $1\\cdot\\dfrac{1}{3}=1/3$.",
+    "feedback_incorrect": [
+      "Ese valor corresponde al tramo sin sombrear, no al sombreado.",
+      "Ese valor es la mitad de la altura de la densidad, no el área sombreada real.",
+      "Ese valor no sale de aplicar la fórmula con el ancho real del sombreado.",
+      null
+    ],
+    "explanation": "En la **uniforme**, la probabilidad de un subintervalo es el área del rectángulo sombreado sobre él.\n$$P(c\\leq X\\leq d) = \\frac{d-c}{b-a}$$\nAcá el sombreado va de 1 a 2, un ancho de 1, sobre un dominio total de 3 litros.\n$$P(1\\leq X\\leq 2) = \\frac{2-1}{3} = \\frac{1}{3}$$\nEl área no depende de en qué parte del rango esté el sombreado, solo de su ancho, porque la densidad es igual de alta en todos lados.\n\nCorrer el sombreado hacia otro tramo del dispensador sin cambiar su ancho no altera esa probabilidad.",
+    "has_math": true,
+    "graph_fn": "Piecewise((1/3, (x>=0)&(x<=3)))",
+    "graph_view": [
+      -0.5,
+      3.5,
+      -0.02,
+      0.39
+    ],
+    "graph_shade": [
+      1,
+      2
+    ],
+    "graph_free_aspect": true,
+    "reviewed": false,
+    "tags": [
+      "probabilidad-como-area"
+    ]
+  },
+  {
+    "question": "El tiempo que tarda en descargarse un archivo chico se modela como uniforme entre 2 y 7 segundos.\n\nSea $X$ ese tiempo de descarga, en segundos.\n\nEl gráfico muestra el área sombreada bajo la densidad.\n\n¿Qué probabilidad representa esa área sombreada?",
+    "options": [
+      "$3/5$",
+      "$1/5$",
+      "$2/5$",
+      "$4/5$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El área sombreada es $3\\cdot\\dfrac{1}{5}=3/5$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor es solo la altura de la densidad, sin multiplicar por el ancho del sombreado.",
+      "Ese valor corresponde al tramo sin sombrear, no al sombreado.",
+      "Ese valor usa el ancho total del dominio como si fuera el ancho sombreado."
+    ],
+    "explanation": "En la **uniforme**, la probabilidad de un subintervalo es el área del rectángulo sombreado sobre él.\n$$P(c\\leq X\\leq d) = \\frac{d-c}{b-a}$$\nAcá el sombreado va de 3 a 6, un ancho de 3, sobre un dominio total de 5 segundos, ya que el intervalo completo va de 2 a 7.\n$$P(3\\leq X\\leq 6) = \\frac{6-3}{7-2} = \\frac{3}{5}$$\nEl área no depende de en qué parte del rango esté el sombreado, solo de su ancho, porque la densidad es igual de alta en todos lados.\n\nCorrer el sombreado hacia otro tramo de la descarga sin cambiar su ancho no altera esa probabilidad.",
+    "has_math": true,
+    "graph_fn": "Piecewise((1/5, (x>=2)&(x<=7)))",
+    "graph_view": [
+      1.5,
+      7.5,
+      -0.02,
+      0.24
+    ],
+    "graph_shade": [
+      3,
+      6
+    ],
+    "graph_free_aspect": true,
+    "reviewed": false,
+    "tags": [
+      "probabilidad-como-area"
+    ]
   }
 ]

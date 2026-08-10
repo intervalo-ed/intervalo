@@ -1,7 +1,12 @@
 [
   {
     "question": "Un gráfico de barras muestra la función de probabilidad puntual de $X$, la cantidad de caras al lanzar 3 monedas.\n\nLas alturas de las barras son:\n$$\\begin{aligned} p(0) &= 0{,}2 \\\\ p(1) &= 0{,}3 \\\\ p(2) &= 0{,}4 \\\\ p(3) &= ? \\end{aligned}$$\n¿Cuánto debe valer $p(3)$?",
-    "options": ["$0{,}0$", "$0{,}1$", "$0{,}3$", "$0{,}9$"],
+    "options": [
+      "$0{,}0$",
+      "$0{,}1$",
+      "$0{,}3$",
+      "$0{,}9$"
+    ],
     "correct_index": 1,
     "feedback_correct": "$0{,}2 + 0{,}3 + 0{,}4 + 0{,}1 = 1$.",
     "feedback_incorrect": [
@@ -15,11 +20,18 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["lectura-barra-faltante"]
+    "tags": [
+      "lectura-barra-faltante"
+    ]
   },
   {
-    "question": "Un gráfico de barras muestra la función de probabilidad puntual de la cantidad de clientes que llegan a una caja en un minuto.\n\nEl dominio es $\\{0,1,2,3\\}$, y la barra sobre $x=2$ tiene una altura de $0{,}4$.\n\n¿Cuánto vale $P(X=2)$?",
-    "options": ["$0{,}2$", "$0{,}4$", "$0{,}6$", "$1$"],
+    "question": "Un gráfico de barras muestra la función de probabilidad puntual de la cantidad de clientes que llegan a una caja en un minuto.\n\nEl dominio es $\\{0,1,2,3\\}$.\n\nLa barra sobre $x=2$ tiene una altura de $0{,}4$.\n\n¿Cuánto vale $P(X=2)$?",
+    "options": [
+      "$0{,}2$",
+      "$0{,}4$",
+      "$0{,}6$",
+      "$1$"
+    ],
     "correct_index": 1,
     "feedback_correct": "La altura de la barra en $x=2$ es directamente $P(X=2)$.",
     "feedback_incorrect": [
@@ -33,11 +45,18 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["lectura-puntual-directa"]
+    "tags": [
+      "lectura-puntual-directa"
+    ]
   },
   {
     "question": "Un gráfico de barras muestra la función de probabilidad puntual de la cantidad de piezas defectuosas en una muestra de 3.\n\nEl dominio es $\\{0, 1, 2, 3\\}$ y las alturas de las barras son:\n$$\\begin{aligned} p(0) &= 0{,}1 \\\\ p(1) &= 0{,}3 \\\\ p(2) &= 0{,}4 \\\\ p(3) &= 0{,}2 \\end{aligned}$$\n¿Cuánto vale $P(X\\geq 2)$?",
-    "options": ["$0{,}4$", "$0{,}6$", "$0{,}2$", "$1$"],
+    "options": [
+      "$0{,}4$",
+      "$0{,}6$",
+      "$0{,}2$",
+      "$1$"
+    ],
     "correct_index": 1,
     "feedback_correct": "$P(X\\geq 2)=p(2)+p(3)=0{,}6$.",
     "feedback_incorrect": [
@@ -51,6 +70,308 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["lectura-evento-compuesto"]
+    "tags": [
+      "lectura-evento-compuesto"
+    ]
+  },
+  {
+    "question": "Un gráfico de barras muestra la función de probabilidad puntual de $X$, la cantidad de aciertos en 3 tiros libres al arco.\n\nLas alturas de las barras son:\n$$\\begin{aligned} p(0) &= 0{,}1 \\\\ p(1) &= 0{,}3 \\\\ p(2) &= 0{,}4 \\\\ p(3) &= ? \\end{aligned}$$\n¿Cuánto debe valer $p(3)$?",
+    "options": [
+      "$0{,}2$",
+      "$0{,}1$",
+      "$0{,}4$",
+      "$0{,}8$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$0{,}1+0{,}3+0{,}4+0{,}2=1$.",
+    "feedback_incorrect": [
+      null,
+      "Esa altura repite la de $p(0)$, pero la suma total no llegaría a 1.",
+      "Esa altura repite la de $p(1)$, pero la suma total superaría 1.",
+      "Ese es el resultado de sumar las otras tres alturas, no el valor faltante que completa 1."
+    ],
+    "explanation": "La **función de probabilidad puntual** debe sumar 1 sobre todo el dominio de $X$:\n$$\\sum_x p(x) = 1$$\nDespejando la altura faltante:\n$$p(3) = 1 - (0{,}1 + 0{,}3 + 0{,}4) = 0{,}2$$\nLeer una barra ya dibujada como si fuera la que falta, sin sumar el resto de las alturas, no cierra la condición de normalización.\n\nSolo el valor que efectivamente completa la suma en 1 puede ser el correcto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-barra-faltante"
+    ]
+  },
+  {
+    "question": "Un gráfico de barras muestra la función de probabilidad puntual de $X$.\n\nEn este caso, $X$ es la cantidad de llamadas que recibe un conmutador en un minuto.\n\nLas alturas de las barras son:\n$$\\begin{aligned} p(0) &= 0{,}05 \\\\ p(1) &= 0{,}15 \\\\ p(2) &= 0{,}35 \\\\ p(3) &= 0{,}25 \\\\ p(4) &= ? \\end{aligned}$$\n¿Cuánto debe valer $p(4)$?",
+    "options": [
+      "$0{,}2$",
+      "$0{,}1$",
+      "$0{,}3$",
+      "$0{,}8$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$0{,}05+0{,}15+0{,}35+0{,}25+0{,}2=1$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor no completa la suma de las otras cuatro alturas hasta 1.",
+      "Esa altura haría que la suma total superara 1.",
+      "Ese valor es la suma de las otras cuatro alturas, no el valor faltante que completa 1."
+    ],
+    "explanation": "En este gráfico, la **función de probabilidad puntual** tiene 5 barras, y todas juntas deben sumar 1:\n$$\\sum_x p(x) = 1$$\nDespejando la altura que falta:\n$$p(4) = 1 - (0{,}05+0{,}15+0{,}35+0{,}25) = 0{,}2$$\nOlvidar alguna de las cuatro barras ya dibujadas al sumar da un valor faltante incorrecto, porque la resta tiene que partir de la suma completa del resto del dominio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-barra-faltante"
+    ]
+  },
+  {
+    "question": "Un gráfico de barras muestra la función de probabilidad puntual de $X$.\n\nEn este caso, $X$ es el resultado de tirar un dado trucado de 4 caras numeradas del 1 al 4.\n\nLas alturas de las barras son:\n$$\\begin{aligned} p(1) &= 0{,}1 \\\\ p(2) &= 0{,}2 \\\\ p(3) &= 0{,}3 \\\\ p(4) &= ? \\end{aligned}$$\n¿Cuánto debe valer $p(4)$?",
+    "options": [
+      "$0{,}2$",
+      "$0{,}3$",
+      "$0{,}4$",
+      "$0{,}6$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$0{,}1+0{,}2+0{,}3+0{,}4=1$.",
+    "feedback_incorrect": [
+      "Esa altura repite la de $p(2)$, pero la suma total no llegaría a 1.",
+      "Esa altura repite la de $p(3)$, pero la suma total no llegaría a 1.",
+      null,
+      "Ese valor es la suma de las otras tres alturas, no el valor faltante que completa 1."
+    ],
+    "explanation": "Al igual que en cualquier **función de probabilidad puntual**, las cuatro alturas de este gráfico deben sumar 1:\n$$\\sum_x p(x) = 1$$\nDespejando la barra faltante:\n$$p(4) = 1 - (0{,}1 + 0{,}2 + 0{,}3) = 0{,}4$$\nQue el dado esté trucado no cambia la condición de normalización, solo hace que las alturas no sean todas iguales entre sí como en un dado equilibrado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-barra-faltante"
+    ]
+  },
+  {
+    "question": "Un gráfico de barras muestra la función de probabilidad puntual de $X$.\n\nEn este caso, $X$ es la cantidad de clientes que abandonan la fila de un banco en una hora.\n\nLas alturas de las barras son:\n$$\\begin{aligned} p(0) &= 0{,}4 \\\\ p(1) &= 0{,}3 \\\\ p(2) &= 0{,}2 \\\\ p(3) &= ? \\end{aligned}$$\n¿Cuánto debe valer $p(3)$?",
+    "options": [
+      "$0{,}0$",
+      "$0{,}1$",
+      "$0{,}3$",
+      "$0{,}9$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$0{,}4+0{,}3+0{,}2+0{,}1=1$.",
+    "feedback_incorrect": [
+      "Si $p(3)=0$, la suma total daría 0,9 y no cerraría en 1.",
+      null,
+      "Esa altura repite la de $p(1)$, pero la suma total superaría 1.",
+      "Ese es la suma de las otras tres alturas, no el valor faltante para completar 1."
+    ],
+    "explanation": "La condición que fija la altura de una barra faltante es siempre la misma: la **función de probabilidad puntual** suma 1 sobre todo el dominio de $X$.\n$$\\sum_x p(x) = 1$$\nDespejando la altura faltante:\n$$p(3) = 1 - (0{,}4 + 0{,}3 + 0{,}2) = 0{,}1$$\nAsumir que la barra que falta mide 0 porque las demás ya se ven altas es una lectura apurada; hay que sumar el resto y recién ahí restar de 1 para confirmarlo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-barra-faltante"
+    ]
+  },
+  {
+    "question": "Un gráfico de barras muestra la función de probabilidad puntual de $X$.\n\nEn este caso, $X$ es el resultado de tirar un dado trucado de 4 caras numeradas del 1 al 4.\n\nLa barra sobre $x=1$ tiene una altura de $0{,}4$.\n\n¿Cuánto vale $P(X=1)$?",
+    "options": [
+      "$0{,}4$",
+      "$0{,}1$",
+      "$0{,}6$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La altura de la barra en $x=1$ es directamente $P(X=1)$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor no corresponde a la altura leída sobre $x=1$ en el gráfico.",
+      "Ese valor suma otra barra al leído, la puntual pide solo la altura en $x=1$.",
+      "Ese sería el total del gráfico, no la altura de una sola barra."
+    ],
+    "explanation": "En un gráfico de barras de la **función de probabilidad puntual**, la altura de cada barra es directamente $P(X=x)$ para ese valor de $x$.\n\nComo la barra sobre $x=1$ mide $0{,}4$, se lee directamente:\n$$P(X=1) = 0{,}4$$\nConfundir la altura de la barra con su posición en el eje $x$ hace perder de vista que el eje horizontal marca los valores posibles, y la altura es la que da la probabilidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-puntual-directa"
+    ]
+  },
+  {
+    "question": "Un gráfico de barras muestra la función de probabilidad puntual de $X$, la cantidad de caras al lanzar 3 monedas balanceadas.\n\nEl dominio es $\\{0,1,2,3\\}$.\n\nLa barra sobre $x=2$ tiene una altura de $0{,}4$.\n\n¿Cuánto vale $P(X=2)$?",
+    "options": [
+      "$0{,}1$",
+      "$0{,}3$",
+      "$0{,}4$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La altura de la barra en $x=2$ es directamente $P(X=2)$.",
+    "feedback_incorrect": [
+      "Ese valor no corresponde a la altura leída sobre $x=2$ en el gráfico.",
+      "Ese valor corresponde a otra barra del gráfico, no a la que está sobre $x=2$.",
+      null,
+      "Ese sería el total del gráfico, no la altura de una sola barra."
+    ],
+    "explanation": "La lectura de una **función de probabilidad puntual** en un gráfico de barras es directa: la altura sobre cada valor de $x$ es $P(X=x)$.\n\nComo la barra sobre $x=2$ mide $0{,}4$, se lee directamente:\n$$P(X=2) = 0{,}4$$\nMirar una barra vecina en vez de la que corresponde al valor pedido lleva a leer una altura distinta de la pedida, sobre todo cuando el gráfico tiene varias barras parecidas en tamaño.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-puntual-directa"
+    ]
+  },
+  {
+    "question": "Un gráfico de barras muestra la función de probabilidad puntual de $X$.\n\nEn este caso, $X$ es la cantidad de llamadas que recibe un conmutador en un minuto.\n\nEl dominio es $\\{0,1,2,3,4\\}$.\n\nLa barra sobre $x=1$ tiene una altura de $0{,}3$.\n\n¿Cuánto vale $P(X=1)$?",
+    "options": [
+      "$0{,}3$",
+      "$0{,}2$",
+      "$0{,}5$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La altura de la barra en $x=1$ es directamente $P(X=1)$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor no corresponde a la altura leída sobre $x=1$ en el gráfico.",
+      "Ese valor suma otra barra a la leída, la puntual pide solo la altura en $x=1$.",
+      "Ese sería el total del gráfico, no la altura de una sola barra."
+    ],
+    "explanation": "En cualquier gráfico de barras de una **función de probabilidad puntual**, cada altura se lee directamente como $P(X=x)$ para el valor de $x$ correspondiente.\n\nComo la barra sobre $x=1$ mide $0{,}3$, se lee directamente:\n$$P(X=1) = 0{,}3$$\nSumar la altura leída con la de otra barra vecina responde a una pregunta distinta, la de un evento compuesto, no la de un valor puntual único.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-puntual-directa"
+    ]
+  },
+  {
+    "question": "Un gráfico de barras muestra la función de probabilidad puntual de $X$, la cantidad de aciertos en 4 tiros libres al arco.\n\nEl dominio es $\\{0,1,2,3,4\\}$.\n\nLa barra sobre $x=3$ tiene una altura de $0{,}35$.\n\n¿Cuánto vale $P(X=3)$?",
+    "options": [
+      "$0{,}2$",
+      "$0{,}25$",
+      "$1$",
+      "$0{,}35$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "La altura de la barra en $x=3$ es directamente $P(X=3)$.",
+    "feedback_incorrect": [
+      "Ese valor no corresponde a la altura leída sobre $x=3$ en el gráfico.",
+      "Ese valor corresponde a otra barra del gráfico, no a la que está sobre $x=3$.",
+      "Ese sería el total del gráfico, no la altura de una sola barra.",
+      null
+    ],
+    "explanation": "La **función de probabilidad puntual** se lee de un gráfico de barras tomando la altura exacta sobre el valor de $x$ que interesa.\n\nComo la barra sobre $x=3$ mide $0{,}35$, se lee directamente:\n$$P(X=3) = 0{,}35$$\nDescartar la altura exacta por parecer un número poco redondo lleva a elegir otra barra: la altura de la barra es la respuesta, sin importar si el decimal resulta cómodo o no.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-puntual-directa"
+    ]
+  },
+  {
+    "question": "Un gráfico de barras muestra la función de probabilidad puntual de $X$, la cantidad de caras al lanzar 3 monedas balanceadas.\n\nEl dominio es $\\{0,1,2,3\\}$ y las alturas de las barras son:\n$$\\begin{aligned} p(0) &= 0{,}1 \\\\ p(1) &= 0{,}3 \\\\ p(2) &= 0{,}4 \\\\ p(3) &= 0{,}2 \\end{aligned}$$\n¿Cuánto vale $P(X\\leq 1)$?",
+    "options": [
+      "$0{,}1$",
+      "$0{,}3$",
+      "$0{,}4$",
+      "$0{,}7$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$P(X\\leq 1)=p(0)+p(1)=0{,}4$.",
+    "feedback_incorrect": [
+      "Ese valor es solo $p(0)$, el evento $X\\leq 1$ también incluye la barra en $x=1$.",
+      "Ese valor es solo $p(1)$, falta sumar la barra en $x=0$.",
+      null,
+      "Ese es el total de todas las barras salvo $p(3)$, no la suma restringida a $X\\leq 1$."
+    ],
+    "explanation": "El evento $X\\leq 1$ agrupa las barras con $x\\in\\{0,1\\}$, así que su probabilidad se obtiene sumando esas dos alturas del gráfico.\n\nSumando las dos barras que forman el evento:\n$$\\begin{aligned} P(X\\leq 1) &= p(0) + p(1) \\\\ &= 0{,}1 + 0{,}3 \\\\ &= 0{,}4 \\end{aligned}$$\nLeer solo una de las dos barras como si representara todo el evento compuesto deja afuera parte de la probabilidad pedida, ya que el evento incluye ambos valores del dominio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-evento-compuesto"
+    ]
+  },
+  {
+    "question": "Un gráfico de barras muestra la función de probabilidad puntual de $X$.\n\nEn este caso, $X$ es la cantidad de llamadas que recibe un conmutador en un minuto.\n\nEl dominio es $\\{0,1,2,3,4\\}$ y las alturas de las barras son:\n$$\\begin{aligned} p(0) &= 0{,}2 \\\\ p(1) &= 0{,}3 \\\\ p(2) &= 0{,}25 \\\\ p(3) &= 0{,}15 \\\\ p(4) &= 0{,}1 \\end{aligned}$$\n¿Cuánto vale $P(X\\leq 2)$?",
+    "options": [
+      "$0{,}3$",
+      "$0{,}4$",
+      "$0{,}6$",
+      "$0{,}7$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$P(X\\geq 3)=p(3)+p(4)=0{,}7$.",
+    "feedback_incorrect": [
+      "Ese valor es solo $p(3)$, el evento $X\\geq 3$ también incluye la barra en $x=4$.",
+      "Ese valor es solo $p(4)$, falta sumar la barra en $x=3$.",
+      "Ese valor es la suma de $p(2)$ y $p(4)$, esas dos barras no forman el evento $X\\geq 3$.",
+      null
+    ],
+    "explanation": "El evento $X\\geq 3$ agrupa las barras con $x\\in\\{3,4\\}$, así que su probabilidad se obtiene sumando esas dos alturas del gráfico.\n\nSumando las dos barras que forman el evento:\n$$\\begin{aligned} P(X\\geq 3) &= p(3) + p(4) \\\\ &= 0{,}3 + 0{,}4 \\\\ &= 0{,}7 \\end{aligned}$$\nLeer una sola de las dos barras extremas ignora que el evento agrupa dos resultados posibles, no uno solo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-evento-compuesto"
+    ]
+  },
+  {
+    "question": "Un gráfico de barras muestra la función de probabilidad puntual de $X$.\n\nEn este caso, $X$ es la cantidad de aciertos en 3 tiros libres al arco.\n\nEl dominio es $\\{0,1,2,3\\}$ y las alturas de las barras son:\n$$\\begin{aligned} p(0) &= 0{,}1 \\\\ p(1) &= 0{,}2 \\\\ p(2) &= 0{,}3 \\\\ p(3) &= 0{,}4 \\end{aligned}$$\n¿Cuánto vale $P(X\\geq 2)$?",
+    "options": [
+      "$0{,}25$",
+      "$0{,}5$",
+      "$0{,}75$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$P(X\\leq 2)=p(0)+p(1)+p(2)=0{,}75$.",
+    "feedback_incorrect": [
+      "Ese valor es solo $p(2)$, el evento $X\\leq 2$ también incluye las barras en $x=0$ y $x=1$.",
+      "Esa suma deja afuera la barra en $x=2$, que también cumple $X\\leq 2$.",
+      null,
+      "Ese es el total de todas las barras, no la suma restringida a $X\\leq 2$."
+    ],
+    "explanation": "El evento $X\\leq 2$ agrupa las barras con $x\\in\\{0,1,2\\}$, así que su probabilidad se obtiene sumando esas tres alturas del gráfico.\n\nSumando las tres barras que forman el evento:\n$$\\begin{aligned} P(X\\leq 2) &= p(0) + p(1) + p(2) \\\\ &= 0{,}2 + 0{,}3 + 0{,}25 \\\\ &= 0{,}75 \\end{aligned}$$\nDejar afuera alguna de las tres barras que cumplen la condición subestima la probabilidad real del evento compuesto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-evento-compuesto"
+    ]
+  },
+  {
+    "question": "Un gráfico de barras muestra la función de probabilidad puntual de $X$, la cantidad de aciertos en 3 tiros libres al arco.\n\nEl dominio es $\\{0,1,2,3\\}$ y las alturas de las barras son:\n$$\\begin{aligned} p(0) &= 0{,}1 \\\\ p(1) &= 0{,}2 \\\\ p(2) &= 0{,}3 \\\\ p(3) &= 0{,}4 \\end{aligned}$$\n¿Cuánto vale $P(X\\geq 2)$?",
+    "options": [
+      "$0{,}3$",
+      "$0{,}4$",
+      "$0{,}6$",
+      "$0{,}7$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$P(X\\geq 2)=p(2)+p(3)=0{,}7$.",
+    "feedback_incorrect": [
+      "Ese valor es solo $p(2)$, el evento $X\\geq 2$ también incluye la barra en $x=3$.",
+      "Ese valor es solo $p(3)$, falta sumar la barra en $x=2$.",
+      "Ese valor es la suma de $p(1)$ y $p(3)$, esas dos barras no forman el evento $X\\geq 2$.",
+      null
+    ],
+    "explanation": "El evento $X\\geq 2$ agrupa las barras con $x\\in\\{2,3\\}$, así que su probabilidad se obtiene sumando esas dos alturas del gráfico.\n\nSumando las dos barras que forman el evento:\n$$\\begin{aligned} P(X\\geq 2) &= p(2) + p(3) \\\\ &= 0{,}3 + 0{,}4 \\\\ &= 0{,}7 \\end{aligned}$$\nTomar una barra vecina fuera del rango pedido, como $p(1)$, mezcla resultados que no cumplen la condición del evento con los que sí la cumplen.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "lectura-evento-compuesto"
+    ]
   }
 ]

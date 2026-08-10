@@ -20,11 +20,18 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["formula-directa"]
+    "tags": [
+      "formula-directa"
+    ]
   },
   {
     "question": "Entre las siguientes expresiones, se busca identificar cuál corresponde a la variación de $n$ elementos tomados de a $k$.\n\n¿Cuál es la expresión correcta?",
-    "options": ["$\\dfrac{n!}{(n-k)!}$", "$n!$", "$\\dbinom{n}{k}$", "$\\dfrac{n!}{k!}$"],
+    "options": [
+      "$\\dfrac{n!}{(n-k)!}$",
+      "$n!$",
+      "$\\dbinom{n}{k}$",
+      "$\\dfrac{n!}{k!}$"
+    ],
     "correct_index": 0,
     "feedback_correct": "La variación de $n$ tomados de $k$ es $\\dfrac{n!}{(n-k)!}$, que cancela los elementos no elegidos.",
     "feedback_incorrect": [
@@ -38,11 +45,18 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["identificar-formula-correcta"]
+    "tags": [
+      "identificar-formula-correcta"
+    ]
   },
   {
     "question": "Se quiere armar la expresión de la variación de 9 elementos tomados de a 3 como un producto directo de factores decrecientes.\n\nEsto es, sin pasar por el cociente de factoriales.\n\n¿Cuál es la expresión correcta?",
-    "options": ["$9\\times 8\\times 7$", "$9\\times 8$", "$9\\times 8\\times 7\\times 6$", "$9\\times 7\\times 5$"],
+    "options": [
+      "$9\\times 8\\times 7$",
+      "$9\\times 8$",
+      "$9\\times 8\\times 7\\times 6$",
+      "$9\\times 7\\times 5$"
+    ],
     "correct_index": 0,
     "feedback_correct": "Se multiplican 3 factores decrecientes empezando en 9: $9\\times8\\times7$.",
     "feedback_incorrect": [
@@ -56,6 +70,308 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["producto-decreciente"]
+    "tags": [
+      "producto-decreciente"
+    ]
+  },
+  {
+    "question": "Se quiere calcular la cantidad de podios distintos, eligiendo y ordenando 3 corredores para el 1°, 2° y 3° puesto.\n\nHay un total de 10 corredores en la carrera, y ninguno puede ocupar dos puestos.\n\n¿Qué expresión corresponde?",
+    "options": [
+      "$\\dfrac{10!}{3!}$",
+      "$\\dfrac{10!}{7!}$",
+      "$\\dfrac{10!}{3!\\,7!}$",
+      "$10^{3}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Variación: $V_{10,3} = \\dfrac{10!}{7!}$.",
+    "feedback_incorrect": [
+      "Estás dividiendo por $k!=3!$ en vez de $(n-k)!=7!$; el cociente de variación cancela los factores que no se usan.",
+      null,
+      "Esa expresión es la combinación $\\dbinom{10}{3}$, que ignora el orden; acá el orden de las medallas sí importa.",
+      "Ese es el arreglo con repetición: acá los corredores premiados no se repiten."
+    ],
+    "explanation": "Las **variaciones** cuentan cuántas formas hay de elegir y ordenar elementos de un total, cuando el orden importa y no hay repetición.\n\nEn este caso hay 10 corredores y se eligen 3 para el podio:\n$$V_{10,3} = \\frac{10!}{7!}$$\n$$= 10 \\times 9 \\times 8 = 720$$\nHay 720 podios distintos.\n\nDividir por $k!$, la fórmula de combinación, en vez de $(n-k)!$ mezcla dos técnicas distintas: verificá siempre que el denominador represente los elementos no seleccionados.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-directa"
+    ]
+  },
+  {
+    "question": "Se quiere calcular la cantidad de claves distintas que se pueden armar eligiendo y ordenando 4 dígitos.\n\nHay un total de 9 dígitos disponibles, y ninguno se repite dentro de la misma clave.\n\n¿Qué expresión corresponde?",
+    "options": [
+      "$\\dfrac{9!}{4!}$",
+      "$\\dfrac{9!}{4!\\,5!}$",
+      "$\\dfrac{9!}{5!}$",
+      "$9^{4}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Variación: $V_{9,4} = \\dfrac{9!}{5!}$.",
+    "feedback_incorrect": [
+      "Estás dividiendo por $k!=4!$ en vez de $(n-k)!=5!$; el cociente de variación cancela los factores que no se usan.",
+      "Esa expresión es la combinación $\\dbinom{9}{4}$, que ignora el orden; acá el orden de los dígitos sí importa.",
+      null,
+      "Ese es el arreglo con repetición: acá los dígitos no se repiten en la misma clave."
+    ],
+    "explanation": "Las **variaciones** cuentan cuántas formas hay de elegir y ordenar elementos de un total, cuando el orden importa y no hay repetición.\n\nEn este caso hay 9 dígitos y se eligen 4 para la clave:\n$$V_{9,4} = \\frac{9!}{5!}$$\n$$= 9 \\times 8 \\times 7 \\times 6 = 3024$$\nHay 3024 claves distintas.\n\nDividir por $k!$, la fórmula de combinación, en vez de $(n-k)!$ mezcla dos técnicas distintas: verificá siempre que el denominador represente los elementos no seleccionados.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-directa"
+    ]
+  },
+  {
+    "question": "Se quiere calcular la cantidad de formas distintas de asignar presidente y secretario de un comité.\n\nHay un total de 12 integrantes disponibles, y ninguno puede ocupar los dos cargos.\n\n¿Qué expresión corresponde?",
+    "options": [
+      "$\\dfrac{12!}{2!}$",
+      "$\\dfrac{12!}{10!}$",
+      "$\\dfrac{12!}{2!\\,10!}$",
+      "$12^{2}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Variación: $V_{12,2} = \\dfrac{12!}{10!}$.",
+    "feedback_incorrect": [
+      "Estás dividiendo por $k!=2!$ en vez de $(n-k)!=10!$; el cociente de variación cancela los factores que no se usan.",
+      null,
+      "Esa expresión es la combinación $\\dbinom{12}{2}$, que ignora el orden; acá presidente y secretario son cargos distintos.",
+      "Ese es el arreglo con repetición: acá la misma persona no puede ocupar los dos cargos."
+    ],
+    "explanation": "Las **variaciones** cuentan cuántas formas hay de elegir y ordenar elementos de un total, cuando el orden importa y no hay repetición.\n\nEn este caso hay 12 integrantes y se eligen 2 para los cargos:\n$$V_{12,2} = \\frac{12!}{10!}$$\n$$= 12 \\times 11 = 132$$\nHay 132 asignaciones distintas.\n\nDividir por $k!$, la fórmula de combinación, en vez de $(n-k)!$ mezcla dos técnicas distintas: verificá siempre que el denominador represente los elementos no seleccionados.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-directa"
+    ]
+  },
+  {
+    "question": "Se quiere calcular la cantidad de banderas distintas que se pueden armar eligiendo y ordenando 6 franjas de colores.\n\nHay un total de 8 colores disponibles, y no se repiten dentro de una misma bandera.\n\n¿Qué expresión corresponde?",
+    "options": [
+      "$\\dfrac{8!}{6!}$",
+      "$\\dfrac{8!}{6!\\,2!}$",
+      "$\\dfrac{8!}{2!}$",
+      "$8^{6}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Variación: $V_{8,6} = \\dfrac{8!}{2!}$.",
+    "feedback_incorrect": [
+      "Estás dividiendo por $k!=6!$ en vez de $(n-k)!=2!$; el cociente de variación cancela los factores que no se usan.",
+      "Esa expresión es la combinación $\\dbinom{8}{6}$, que ignora el orden; acá el orden de las franjas sí importa.",
+      null,
+      "Ese es el arreglo con repetición: acá los colores no se repiten en la misma bandera."
+    ],
+    "explanation": "Las **variaciones** cuentan cuántas formas hay de elegir y ordenar elementos de un total, cuando el orden importa y no hay repetición.\n\nEn este caso hay 8 colores y se eligen 6 franjas:\n$$V_{8,6} = \\frac{8!}{2!}$$\n$$= 8 \\times 7 \\times 6 \\times 5 \\times 4 \\times 3 = 20160$$\nHay 20160 banderas distintas.\n\nDividir por $k!$, la fórmula de combinación, en vez de $(n-k)!$ mezcla dos técnicas distintas: verificá siempre que el denominador represente los elementos no seleccionados.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-directa"
+    ]
+  },
+  {
+    "question": "Se quiere calcular la cantidad de contraseñas distintas que se pueden armar eligiendo y ordenando 3 caracteres.\n\nHay un total de 11 caracteres disponibles, y ninguno se repite dentro de la misma contraseña.\n\n¿Qué expresión corresponde?",
+    "options": [
+      "$\\dfrac{11!}{3!}$",
+      "$\\dfrac{11!}{8!}$",
+      "$\\dfrac{11!}{3!\\,8!}$",
+      "$11^{3}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Variación: $V_{11,3} = \\dfrac{11!}{8!}$.",
+    "feedback_incorrect": [
+      "Estás dividiendo por $k!=3!$ en vez de $(n-k)!=8!$; el cociente de variación cancela los factores que no se usan.",
+      null,
+      "Esa expresión es la combinación $\\dbinom{11}{3}$, que ignora el orden; acá el orden de los caracteres sí importa.",
+      "Ese es el arreglo con repetición: acá los caracteres no se repiten en la misma contraseña."
+    ],
+    "explanation": "Las **variaciones** cuentan cuántas formas hay de elegir y ordenar elementos de un total, cuando el orden importa y no hay repetición.\n\nEn este caso hay 11 caracteres y se eligen 3 para la contraseña:\n$$V_{11,3} = \\frac{11!}{8!}$$\n$$= 11 \\times 10 \\times 9 = 990$$\nHay 990 contraseñas distintas.\n\nDividir por $k!$, la fórmula de combinación, en vez de $(n-k)!$ mezcla dos técnicas distintas: verificá siempre que el denominador represente los elementos no seleccionados.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-directa"
+    ]
+  },
+  {
+    "question": "Se quiere calcular la cantidad de formas distintas de asignar capitán y vicecapitán de un equipo.\n\nHay un total de 10 integrantes disponibles, y ninguno puede ocupar los dos cargos.\n\n¿Qué expresión corresponde?",
+    "options": [
+      "$\\dfrac{10!}{2!}$",
+      "$\\dfrac{10!}{2!\\,8!}$",
+      "$\\dfrac{10!}{8!}$",
+      "$10^{2}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Variación: $V_{10,2} = \\dfrac{10!}{8!}$.",
+    "feedback_incorrect": [
+      "Estás dividiendo por $k!=2!$ en vez de $(n-k)!=8!$; el cociente de variación cancela los factores que no se usan.",
+      "Esa expresión es la combinación $\\dbinom{10}{2}$, que ignora el orden; acá capitán y vicecapitán son cargos distintos.",
+      null,
+      "Ese es el arreglo con repetición: acá la misma persona no puede ocupar los dos cargos."
+    ],
+    "explanation": "Las **variaciones** cuentan cuántas formas hay de elegir y ordenar elementos de un total, cuando el orden importa y no hay repetición.\n\nEn este caso hay 10 integrantes y se eligen 2 para los cargos:\n$$V_{10,2} = \\frac{10!}{8!}$$\n$$= 10 \\times 9 = 90$$\nHay 90 asignaciones distintas.\n\nDividir por $k!$, la fórmula de combinación, en vez de $(n-k)!$ mezcla dos técnicas distintas: verificá siempre que el denominador represente los elementos no seleccionados.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-directa"
+    ]
+  },
+  {
+    "question": "En un torneo de 8 equipos se van a asignar los 3 primeros puestos del podio, cada uno distinto.\n\nEntre las siguientes expresiones, se busca identificar cuál corresponde a esta variación.\n\n¿Cuál es la expresión correcta?",
+    "options": [
+      "$8!$",
+      "$\\dfrac{8!}{5!}$",
+      "$\\dbinom{8}{3}$",
+      "$\\dfrac{8!}{3!}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La variación de 8 tomados de 3 es $\\dfrac{8!}{5!}$, que cancela los elementos no elegidos.",
+    "feedback_incorrect": [
+      "Esa es la permutación completa, que usa los 8 equipos enteros, no solo los 3 del podio.",
+      null,
+      "Esa es la combinación, que además divide por $3!$ para ignorar el orden entre los elegidos.",
+      "Esa expresión divide por el factorial de los elementos elegidos en vez de por el de los no elegidos, un cociente distinto al de variación."
+    ],
+    "explanation": "Elegir y ordenar algunos elementos de un total multiplica opciones decrecientes: la primera posición tiene todas las opciones, la siguiente una menos, y así sucesivamente.\n\nCon 8 equipos y 3 puestos:\n$$V_{8,3} = \\dfrac{8!}{5!}$$\n$$= 8\\times7\\times6 = 336$$\nEl denominador $5!$ cancela las órdenes internas de los 5 equipos que quedan fuera del podio.\n\nSi además no importara el orden entre los 3 elegidos, habría que dividir también por $3!$, y ahí se llega a la combinación $\\dbinom{8}{3}$.\n\nConfundir el cociente, dividiendo por $k!$ en vez de por $(n-k)!$, cancela los elementos equivocados.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-formula-correcta"
+    ]
+  },
+  {
+    "question": "Se arma una clave de acceso eligiendo y ordenando 4 dígitos distintos entre 10 disponibles.\n\nEntre las siguientes expresiones, se busca identificar cuál corresponde a esta variación.\n\n¿Cuál es la expresión correcta?",
+    "options": [
+      "$\\dbinom{10}{4}$",
+      "$10!$",
+      "$\\dfrac{10!}{4!}$",
+      "$\\dfrac{10!}{6!}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "La variación de 10 tomados de 4 es $\\dfrac{10!}{6!}$, que cancela los elementos no elegidos.",
+    "feedback_incorrect": [
+      "Esa es la combinación, que además divide por $4!$ para ignorar el orden entre los elegidos.",
+      "Esa es la permutación completa, que usa los 10 dígitos enteros, no solo los 4 de la clave.",
+      "Esa expresión divide por el factorial de los elementos elegidos en vez de por el de los no elegidos, un cociente distinto al de variación.",
+      null
+    ],
+    "explanation": "Elegir y ordenar algunos elementos de un total multiplica opciones decrecientes: la primera posición tiene todas las opciones, la siguiente una menos, y así sucesivamente.\n\nCon 10 dígitos y 4 posiciones:\n$$V_{10,4} = \\dfrac{10!}{6!}$$\n$$= 10\\times9\\times8\\times7 = 5040$$\nEl denominador $6!$ cancela las órdenes internas de los 6 dígitos que no entraron en la clave.\n\nSi además no importara el orden entre los 4 elegidos, habría que dividir también por $4!$, y ahí se llega a la combinación $\\dbinom{10}{4}$.\n\nConfundir el cociente, dividiendo por $k!$ en vez de por $(n-k)!$, cancela los elementos equivocados.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-formula-correcta"
+    ]
+  },
+  {
+    "question": "Un comité de 7 integrantes va a asignar dos cargos distintos, presidente y tesorero.\n\nEntre las siguientes expresiones, se busca identificar cuál corresponde a esta variación.\n\n¿Cuál es la expresión correcta?",
+    "options": [
+      "$\\dfrac{7!}{5!}$",
+      "$\\dfrac{7!}{2!}$",
+      "$7!$",
+      "$\\dbinom{7}{2}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La variación de 7 tomados de 2 es $\\dfrac{7!}{5!}$, que cancela los elementos no elegidos.",
+    "feedback_incorrect": [
+      null,
+      "Esa expresión divide por el factorial de los elementos elegidos en vez de por el de los no elegidos, un cociente distinto al de variación.",
+      "Esa es la permutación completa, que usa los 7 integrantes enteros, no solo los 2 de los cargos.",
+      "Esa es la combinación, que además divide por $2!$ para ignorar el orden entre los elegidos."
+    ],
+    "explanation": "Elegir y ordenar algunos elementos de un total multiplica opciones decrecientes: la primera posición tiene todas las opciones, la siguiente una menos, y así sucesivamente.\n\nCon 7 integrantes y 2 cargos:\n$$V_{7,2} = \\dfrac{7!}{5!}$$\n$$= 7\\times6 = 42$$\nEl denominador $5!$ cancela las órdenes internas de los 5 integrantes que no ocupan ningún cargo.\n\nSi además no importara el orden entre los 2 elegidos, habría que dividir también por $2!$, y ahí se llega a la combinación $\\dbinom{7}{2}$.\n\nConfundir el cociente, dividiendo por $k!$ en vez de por $(n-k)!$, cancela los elementos equivocados.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-formula-correcta"
+    ]
+  },
+  {
+    "question": "Se quiere armar la expresión de la variación de 10 elementos tomados de a 4 como un producto directo de factores decrecientes.\n\nEsto es, sin pasar por el cociente de factoriales.\n\n¿Cuál es la expresión correcta?",
+    "options": [
+      "$10\\times 9\\times 8\\times 7$",
+      "$10\\times 9\\times 8$",
+      "$10\\times 9\\times 8\\times 7\\times 6$",
+      "$10\\times 8\\times 6\\times 4$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Se multiplican 4 factores decrecientes empezando en 10: $10\\times9\\times8\\times7$.",
+    "feedback_incorrect": [
+      null,
+      "Ese producto tiene un factor de menos: hay que multiplicar exactamente $k=4$ factores decrecientes, no $3$.",
+      "Ese producto tiene un factor de más: hay que detenerse justo en $k=4$ factores, no seguir hasta el quinto.",
+      "Esos factores no son consecutivos decrecientes desde 10, sino que saltean números."
+    ],
+    "explanation": "La variación se puede escribir como un producto de factores decrecientes, sin pasar por el cociente de factoriales:\n$$V_{n,k} = n \\times (n-1) \\times \\cdots \\times (n-k+1)$$\nCon 10 y 4 se multiplican 4 factores decrecientes desde el 10:\n$$10 \\times 9 \\times 8 \\times 7 = 5040$$\nEl resultado es 5040.\n\nMultiplicar un factor de más o de menos altera el resultado entero; conviene contar explícitamente que la cantidad de factores coincida con la cantidad elegida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "producto-decreciente"
+    ]
+  },
+  {
+    "question": "Se quiere armar la expresión de la variación de 7 elementos tomados de a 2 como un producto directo de factores decrecientes.\n\nEsto es, sin pasar por el cociente de factoriales.\n\n¿Cuál es la expresión correcta?",
+    "options": [
+      "$7$",
+      "$7\\times 6$",
+      "$7\\times 6\\times 5$",
+      "$7\\times 5$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Se multiplican 2 factores decrecientes empezando en 7: $7\\times6$.",
+    "feedback_incorrect": [
+      "Ese producto tiene un factor de menos: hay que multiplicar exactamente $k=2$ factores decrecientes, no $1$.",
+      null,
+      "Ese producto tiene un factor de más: hay que detenerse justo en $k=2$ factores, no seguir hasta el tercero.",
+      "Esos factores no son consecutivos decrecientes desde 7, sino que saltean un número."
+    ],
+    "explanation": "La variación se puede escribir como un producto de factores decrecientes, sin pasar por el cociente de factoriales:\n$$V_{n,k} = n \\times (n-1) \\times \\cdots \\times (n-k+1)$$\nCon 7 y 2 se multiplican 2 factores decrecientes desde el 7:\n$$7 \\times 6 = 42$$\nEl resultado es 42.\n\nMultiplicar un factor de más o de menos altera el resultado entero; conviene contar explícitamente que la cantidad de factores coincida con la cantidad elegida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "producto-decreciente"
+    ]
+  },
+  {
+    "question": "Se quiere armar la expresión de la variación de 12 elementos tomados de a 3 como un producto directo de factores decrecientes.\n\nEsto es, sin pasar por el cociente de factoriales.\n\n¿Cuál es la expresión correcta?",
+    "options": [
+      "$12\\times 11$",
+      "$12\\times 11\\times 10$",
+      "$12\\times 11\\times 10\\times 9$",
+      "$12\\times 10\\times 8$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Se multiplican 3 factores decrecientes empezando en 12: $12\\times11\\times10$.",
+    "feedback_incorrect": [
+      "Ese producto tiene un factor de menos: hay que multiplicar exactamente $k=3$ factores decrecientes, no $2$.",
+      null,
+      "Ese producto tiene un factor de más: hay que detenerse justo en $k=3$ factores, no seguir hasta el cuarto.",
+      "Esos factores no son consecutivos decrecientes desde 12, sino que saltean números."
+    ],
+    "explanation": "La variación se puede escribir como un producto de factores decrecientes, sin pasar por el cociente de factoriales:\n$$V_{n,k} = n \\times (n-1) \\times \\cdots \\times (n-k+1)$$\nCon 12 y 3 se multiplican 3 factores decrecientes desde el 12:\n$$12 \\times 11 \\times 10 = 1320$$\nEl resultado es 1320.\n\nMultiplicar un factor de más o de menos altera el resultado entero; conviene contar explícitamente que la cantidad de factores coincida con la cantidad elegida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "producto-decreciente"
+    ]
   }
 ]

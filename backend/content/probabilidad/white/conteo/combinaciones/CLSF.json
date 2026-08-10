@@ -78,5 +78,226 @@
     "graph_view": null,
     "reviewed": false,
     "tags": ["combinacion-con-condicion"]
+  },
+  {
+    "question": "Un jugador arma su mano tomando 5 cartas de un mazo de 52, sin que el orden en que las recibe importe.\n\n¿Qué técnica de conteo corresponde para contar las manos posibles?",
+    "options": [
+      "Combinación de 52 tomados de 5.",
+      "Variación de 52 tomados de 5.",
+      "Permutación de 52 elementos."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Las 5 cartas de la mano no tienen roles distintos entre sí: es una combinación.",
+    "feedback_incorrect": [
+      null,
+      "En variación el orden entre los elegidos importa; acá las 5 cartas de la mano son intercambiables entre sí.",
+      "La permutación completa ordena las 52 cartas del mazo; acá solo se elige un subconjunto de 5, sin ordenar el resto."
+    ],
+    "explanation": "Las **combinaciones** cuentan las formas de elegir un subconjunto de elementos de un total, sin importar el orden dentro del subconjunto.\n\nEn una mano de cartas, recibir primero el as de espadas y después el rey de copas forma la misma mano que recibirlos al revés: los 5 naipes no tienen roles diferenciados entre sí.\n\nPor eso corresponde combinación de 52 tomados de 5, no variación.\n\nSi las cartas tuvieran una posición fija, como la primera boca arriba y el resto boca abajo, ahí sí el orden importaría y correspondería variación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-combinacion"]
+  },
+  {
+    "question": "De una urna con 20 bolitas numeradas se extraen 3 al mismo tiempo, sin que el orden de extracción se registre.\n\n¿Qué técnica de conteo corresponde para contar los resultados posibles?",
+    "options": [
+      "Variación de 20 tomados de 3.",
+      "Combinación de 20 tomados de 3.",
+      "Permutación de 20 elementos."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Las 3 bolitas extraídas juntas no tienen un orden registrado: es una combinación.",
+    "feedback_incorrect": [
+      "En variación el orden de extracción sí se registra; acá las 3 bolitas salen juntas, sin distinguir cuál salió primero.",
+      null,
+      "La permutación completa ordena las 20 bolitas de la urna; acá solo se elige un subconjunto de 3."
+    ],
+    "explanation": "Las **combinaciones** cuentan subconjuntos de un total sin importar el orden en que se eligieron sus elementos.\n\nSi las 3 bolitas se extraen juntas y solo importa qué números salieron, no en qué instante salió cada uno, cualquier orden de extracción arma el mismo resultado.\n\nPor eso corresponde combinación de 20 tomados de 3.\n\nSi el sorteo registrara un primer, segundo y tercer premio distintos según el orden de salida, ahí sí correspondería variación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-combinacion"]
+  },
+  {
+    "question": "Una heladería ofrece 10 sabores y un cliente arma un pote eligiendo 4 sabores, sin que el orden en que los pide altere el pote.\n\n¿Qué técnica de conteo corresponde para contar los potes posibles?",
+    "options": [
+      "Variación de 10 tomados de 4.",
+      "Permutación de 10 elementos.",
+      "Combinación de 10 tomados de 4."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Los 4 sabores del pote no tienen un orden que los distinga entre sí: es una combinación.",
+    "feedback_incorrect": [
+      "En variación el orden en que se eligen los elementos importa; acá pedir dulce de leche antes que chocolate arma el mismo pote que pedirlos al revés.",
+      "La permutación completa ordena los 10 sabores disponibles; acá solo se elige un subconjunto de 4.",
+      null
+    ],
+    "explanation": "Las **combinaciones** cuentan las formas de elegir un subconjunto de un total, sin importar el orden de elección.\n\nUn pote con dulce de leche, chocolate, frutilla y limón es el mismo pote sin importar en qué orden se pidieron esos sabores.\n\nPor eso corresponde combinación de 10 tomados de 4.\n\nSi cada sabor ocupara una capa fija dentro del pote, como la base y la cobertura, ahí sí el orden importaría y correspondería variación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-combinacion"]
+  },
+  {
+    "question": "De un curso de 25 estudiantes se elige una delegación de 3 para representarlo, sin roles distintos entre sí.\n\n¿Qué técnica de conteo corresponde para contar las delegaciones posibles?",
+    "options": [
+      "Permutación de 25 elementos.",
+      "Combinación de 25 tomados de 3.",
+      "Variación de 25 tomados de 3."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los 3 integrantes de la delegación son intercambiables entre sí: es una combinación.",
+    "feedback_incorrect": [
+      "La permutación completa ordena los 25 estudiantes del curso; acá solo se elige un subconjunto de 3.",
+      null,
+      "En variación el orden entre los elegidos importa; acá los 3 delegados no tienen un rol que los distinga entre sí."
+    ],
+    "explanation": "Las **combinaciones** cuentan subconjuntos de un total sin importar el orden ni un rol distinto entre los elegidos.\n\nSi los 3 delegados solo representan al curso sin ocupar cargos diferentes entre sí, elegir primero a uno u otro no cambia qué delegación queda formada.\n\nPor eso corresponde combinación de 25 tomados de 3.\n\nSi la delegación tuviera un vocero y dos acompañantes con roles distintos, ahí sí correspondería variación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-combinacion"]
+  },
+  {
+    "question": "De un grupo de 15 personas se elige una pareja de 2 para jugar dobles, sin posiciones distintas entre sí.\n\n¿Qué técnica de conteo corresponde para contar las parejas posibles?",
+    "options": [
+      "Permutación de 15 elementos.",
+      "Variación de 15 tomados de 2.",
+      "Combinación de 15 tomados de 2."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Las 2 personas de la pareja son intercambiables entre sí: es una combinación.",
+    "feedback_incorrect": [
+      "La permutación completa ordena las 15 personas del grupo; acá solo se elige un subconjunto de 2.",
+      "En variación el orden entre los elegidos importa; acá las 2 personas de la pareja no ocupan posiciones distintas.",
+      null
+    ],
+    "explanation": "Las **combinaciones** cuentan subconjuntos de un total sin importar el orden en que se eligen sus elementos.\n\nSi Juan y Ana forman pareja de dobles, da igual si se eligió primero a Juan o primero a Ana, la pareja formada es la misma.\n\nPor eso corresponde combinación de 15 tomados de 2.\n\nSi la pareja tuviera un jugador de fondo y otro de red con roles distintos, ahí sí correspondería variación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-combinacion"]
+  },
+  {
+    "question": "En una carrera de 8 corredores se van a entregar medalla de oro, plata y bronce a 3 de ellos, cada medalla un premio distinto.\n\n¿Corresponde tratar este problema como una combinación de 8 tomados de 3?",
+    "options": [
+      "Sí, porque se eligen solo 3 corredores de los 8 que participan.",
+      "No, porque oro, plata y bronce son premios distintos, no intercambiables."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Con premios distintos entre los elegidos, intercambiarlos cambia el resultado: corresponde variación, no combinación.",
+    "feedback_incorrect": [
+      "Elegir un subconjunto menor es parte de ambas técnicas; lo que decide entre combinación y variación es si los premios asignados son distintos.",
+      null
+    ],
+    "explanation": "La **combinación** aplica cuando los elegidos no tienen roles diferenciados entre sí; si cada uno recibe un premio distinto, como oro, plata y bronce, corresponde **variación**.\n\nAcá los 3 premios son distintos entre sí, así que asignar el oro a A y la plata a B es un resultado distinto de asignar el oro a B y la plata a A.\n\nEl criterio decisivo sigue siendo el mismo: si intercambiar a los elegidos entre sus roles cambia el resultado, no es combinación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["distractor-variacion"]
+  },
+  {
+    "question": "En una comisión de 12 personas se van a elegir un presidente y un secretario, dos cargos distintos entre sí.\n\n¿Corresponde tratar este problema como una combinación de 12 tomados de 2?",
+    "options": [
+      "No, porque presidente y secretario son cargos distintos, no intercambiables.",
+      "Sí, porque se eligen solo 2 personas de las 12 disponibles en la comisión."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Con cargos distintos entre los elegidos, intercambiarlos cambia el resultado: corresponde variación, no combinación.",
+    "feedback_incorrect": [
+      null,
+      "Elegir un subconjunto menor es parte de ambas técnicas; lo que decide entre combinación y variación es si los cargos asignados son distintos."
+    ],
+    "explanation": "La **combinación** aplica cuando los elegidos no tienen roles diferenciados entre sí; si cada uno ocupa un cargo distinto, como presidente y secretario, corresponde **variación**.\n\nAcá presidente y secretario son cargos distintos, así que nombrar a A presidente y a B secretario es un resultado distinto de nombrar a B presidente y a A secretario.\n\nEl criterio decisivo sigue siendo el mismo: si intercambiar a los elegidos entre sus roles cambia el resultado, no es combinación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["distractor-variacion"]
+  },
+  {
+    "question": "De una estantería con 9 libros se eligen 3 para exhibir en una vidriera, ubicados en una posición fija de izquierda a derecha.\n\n¿Corresponde tratar este problema como una combinación de 9 tomados de 3?",
+    "options": [
+      "Sí, porque se eligen solo 3 libros de los 9 disponibles en la estantería.",
+      "No, porque cada posición de la vidriera es distinta de las otras."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Con posiciones distintas entre los elegidos, intercambiarlos cambia el resultado: corresponde variación, no combinación.",
+    "feedback_incorrect": [
+      "Elegir un subconjunto menor es parte de ambas técnicas; lo que decide entre combinación y variación es si las posiciones asignadas son distintas.",
+      null
+    ],
+    "explanation": "La **combinación** aplica cuando los elegidos no tienen roles diferenciados entre sí; si cada uno ocupa una posición distinta, como izquierda, centro y derecha, corresponde **variación**.\n\nAcá las 3 posiciones de la vidriera son distintas entre sí, así que ubicar un libro a la izquierda y otro al centro es un resultado distinto de ubicarlos al revés.\n\nEl criterio decisivo sigue siendo el mismo: si intercambiar a los elegidos entre sus posiciones cambia el resultado, no es combinación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["distractor-variacion"]
+  },
+  {
+    "question": "Entre 14 candidatos se van a elegir un capitán para el equipo A y un capitán para el equipo B, dos roles distintos entre sí.\n\n¿Corresponde tratar este problema como una combinación de 14 tomados de 2?",
+    "options": [
+      "No, porque capitán de A y capitán de B son roles distintos entre sí.",
+      "Sí, porque se eligen solo 2 candidatos de los 14 disponibles."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Con roles distintos entre los elegidos, intercambiarlos cambia el resultado: corresponde variación, no combinación.",
+    "feedback_incorrect": [
+      null,
+      "Elegir un subconjunto menor es parte de ambas técnicas; lo que decide entre combinación y variación es si los roles asignados son distintos."
+    ],
+    "explanation": "La **combinación** aplica cuando los elegidos no tienen roles diferenciados entre sí; si cada uno ocupa un rol distinto, como capitán de un equipo u otro, corresponde **variación**.\n\nAcá capitán del equipo A y capitán del equipo B son roles distintos, así que asignar a C como capitán de A es un resultado distinto de asignarlo como capitán de B.\n\nEl criterio decisivo sigue siendo el mismo: si intercambiar a los elegidos entre sus roles cambia el resultado, no es combinación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["distractor-variacion"]
+  },
+  {
+    "question": "Un restaurante ofrece 6 platos principales y 4 bebidas, y un cliente arma su pedido eligiendo un plato y una bebida.\n\n¿Corresponde tratar este problema como una combinación de 10 tomados de 2?",
+    "options": [
+      "Sí, porque en total se eligen 2 elementos entre las opciones de la carta.",
+      "No, porque los platos y las bebidas son conjuntos distintos."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La combinación elige un subconjunto de un mismo conjunto; acá hay dos conjuntos separados y se elige un elemento de cada uno.",
+    "feedback_incorrect": [
+      "Que se elijan 2 elementos en total no alcanza: la combinación exige que ambos salgan del mismo conjunto de opciones.",
+      null
+    ],
+    "explanation": "La **combinación** elige un subconjunto dentro de un único conjunto. Si los elementos provienen de conjuntos distintos, corresponde la regla del producto.\n\nAcá el plato sale de un conjunto de 6 opciones y la bebida de otro conjunto de 4 opciones, decisiones independientes que se multiplican: $6\\times4=24$.\n\nLa pista para no confundirlos es preguntarse si los elementos elegidos compiten dentro de un mismo total, o si provienen de categorías separadas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["distractor-regla-basica"]
+  },
+  {
+    "question": "De un grupo de 11 personas se arma una comisión de 5 que debe excluir obligatoriamente a una persona en particular.\n\n¿Cómo se cuenta la cantidad de comisiones posibles?",
+    "options": [
+      "Eligiendo los 5 integrantes entre las 11 personas: $\\dbinom{11}{5}$.",
+      "Eligiendo los 5 integrantes entre las otras 10 personas: $\\dbinom{10}{5}$.",
+      "Eligiendo los 4 integrantes restantes entre las otras 10 personas: $\\dbinom{10}{4}$."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Como esa persona queda afuera desde el principio, la comisión se arma eligiendo los 5 integrantes entre las 10 personas restantes.",
+    "feedback_incorrect": [
+      "Ese conteo no descarta a la persona excluida, sigue contando comisiones donde podría participar.",
+      null,
+      "Ese conteo reduce en uno la cantidad de integrantes a elegir, un ajuste que no corresponde a excluir a una persona del total disponible."
+    ],
+    "explanation": "Cuando una combinación excluye obligatoriamente a un elemento, ese elemento simplemente se saca del conjunto disponible antes de elegir.\n\nCon la persona excluida, quedan 10 personas disponibles para elegir los 5 integrantes de la comisión:\n$$\\binom{10}{5}$$\nAsí se cuenta la comisión sin esa persona.\n\nConfundir este caso con el de incluir a alguien obligatoriamente cambia el resultado; conviene distinguir si el elemento fijo ocupa un lugar o directamente no está disponible.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["combinacion-con-condicion"]
   }
 ]

@@ -18,7 +18,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["reconocer-condicional"]
+    "tags": [
+      "reconocer-condicional"
+    ]
   },
   {
     "question": "En un curso, el 45% de los estudiantes aprobó el parcial.\n\nSe quiere calcular la probabilidad de que un estudiante elegido al azar haya aprobado el parcial.\n\n¿Qué tipo de cálculo corresponde?",
@@ -39,7 +41,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["distractor-probabilidad-simple"]
+    "tags": [
+      "distractor-probabilidad-simple"
+    ]
   },
   {
     "question": "En una empresa, el 60% del personal trabaja en el turno mañana. De quienes trabajan en el turno mañana, el 25% usa el comedor.\n\nSe quiere calcular la probabilidad de que un empleado use el comedor, sabiendo que trabaja en el turno mañana.\n\n¿Cuál es el planteo correcto?",
@@ -60,6 +64,284 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["reconocer-direccion-condicional"]
+    "tags": [
+      "reconocer-direccion-condicional"
+    ]
+  },
+  {
+    "question": "En una encuesta a usuarios de una plataforma de streaming, el 55% mira series los fines de semana.\n\nEntre quienes miran series los fines de semana, el 40% también deja reseñas.\n\nSe quiere calcular la probabilidad de que un usuario deje reseñas, sabiendo que mira series los fines de semana.\n\n¿Qué tipo de cálculo corresponde?",
+    "options": [
+      "Probabilidad simple de dejar reseñas, sin usar el dato de mirar series los fines de semana.",
+      "Probabilidad de la intersección entre mirar series los fines de semana y dejar reseñas, sobre el total de usuarios.",
+      "Probabilidad condicional, porque el dato de dejar reseñas ya está restringido a quienes miran series los fines de semana."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Restringir el cálculo a un grupo que ya ocurrió es la señal de una probabilidad condicional.",
+    "feedback_incorrect": [
+      "Ignorar el dato de mirar series los fines de semana deja afuera la restricción que el enunciado ya estableció.",
+      "La intersección no restringe el espacio muestral al grupo que mira series los fines de semana, cuenta sobre el total de usuarios.",
+      null
+    ],
+    "explanation": "La **probabilidad condicional** aparece cuando el enunciado ya restringe el espacio muestral a un subgrupo, y pide una probabilidad dentro de ese subgrupo.\n\nAcá el enunciado ya fija que el usuario mira series los fines de semana, y pregunta la probabilidad de dejar reseñas dentro de ese subgrupo.\n\nLlamando $A$ a dejar reseñas y $B$ a mirar series los fines de semana, corresponde:\n$$P(A \\mid B)$$\nHay que aplicar la fórmula condicional, no una probabilidad simple ni una intersección cruda.\n\nCalcular la intersección sobre el total de usuarios, sin restringir al subgrupo que ya ocurrió, ignora la condición que el propio enunciado impone.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-condicional"
+    ]
+  },
+  {
+    "question": "Se lanza un dado equilibrado de 6 caras y se sabe que el resultado fue un número par.\n\nSe quiere calcular la probabilidad de que el resultado haya sido mayor a 4, sabiendo que fue par.\n\n¿Qué tipo de cálculo corresponde?",
+    "options": [
+      "Probabilidad condicional, porque el evento mayor a 4 se calcula ya sabiendo que el resultado fue par.",
+      "Probabilidad simple de que el resultado sea mayor a 4, sobre las 6 caras del dado.",
+      "Probabilidad de la intersección entre ser par y ser mayor a 4, sobre las 6 caras del dado."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Ya se sabe que el resultado fue par, así que el cálculo se restringe a ese subgrupo de caras.",
+    "feedback_incorrect": [
+      null,
+      "Usar las 6 caras del dado como total ignora que ya se sabe que el resultado fue par.",
+      "La intersección no restringe el conteo a los resultados pares, que ya es el dato conocido."
+    ],
+    "explanation": "La **probabilidad condicional** se usa cuando el enunciado ya fija que ocurrió un evento, y pregunta por otro dentro de ese subgrupo.\n\nAcá ya se sabe que el resultado fue par, y se pregunta la probabilidad de que además sea mayor a 4 dentro de ese subgrupo.\n\nLlamando $A$ a ser mayor a 4 y $B$ a ser par:\n$$P(A \\mid B)$$\nEl cálculo debe restringirse a las caras pares, no al total de las 6 caras.\n\nTratar la pregunta como una probabilidad simple sobre las 6 caras del dado ignora el dato de que ya salió un número par.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-condicional"
+    ]
+  },
+  {
+    "question": "Se lanzan dos monedas equilibradas y se sabe que al menos una tirada salió cara.\n\nSe quiere calcular la probabilidad de que las dos tiradas hayan salido cara, sabiendo que al menos una salió cara.\n\n¿Qué tipo de cálculo corresponde?",
+    "options": [
+      "Probabilidad de la intersección entre las dos tiradas, sobre los cuatro resultados posibles del experimento.",
+      "Probabilidad condicional, porque el resultado de las dos caras se calcula ya sabiendo que al menos una tirada salió cara.",
+      "Probabilidad simple de que las dos tiradas salgan cara, sin usar el dato de que al menos una ya salió cara."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El dato de que al menos una tirada salió cara restringe el espacio a un subgrupo de resultados posibles.",
+    "feedback_incorrect": [
+      "La intersección sobre los cuatro resultados posibles no restringe el conteo al subgrupo donde ya salió al menos una cara.",
+      null,
+      "Ignorar el dato de que al menos una tirada salió cara deja afuera la restricción que el enunciado ya estableció."
+    ],
+    "explanation": "La **probabilidad condicional** aparece cuando ya se sabe que ocurrió un evento, y la pregunta pide una probabilidad restringida a ese subgrupo.\n\nAcá ya se sabe que al menos una tirada salió cara, y se pregunta la probabilidad de que las dos hayan salido cara dentro de ese subgrupo.\n\nLlamando $A$ a que las dos tiradas salgan cara y $B$ a que al menos una salga cara:\n$$P(A \\mid B)$$\nEl cálculo se restringe a los resultados donde ya ocurrió $B$, no al total de resultados posibles.\n\nCalcular la probabilidad simple sobre los cuatro resultados del experimento, sin restringir al subgrupo dado, ignora la condición que el enunciado ya fija.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-condicional"
+    ]
+  },
+  {
+    "question": "De un mazo reducido de 12 cartas, 4 son figuras, y entre las figuras, 2 son de espadas.\n\nSe quiere calcular la probabilidad de que una carta sea de espadas, sabiendo que es figura.\n\n¿Qué tipo de cálculo corresponde?",
+    "options": [
+      "Probabilidad condicional, porque el dato de ser espadas ya está restringido a las cartas que son figura.",
+      "Probabilidad simple de que la carta sea de espadas, sobre las 12 cartas del mazo.",
+      "Probabilidad de la intersección entre ser figura y ser de espadas, sobre las 12 cartas del mazo."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Ya se sabe que la carta es figura, así que el cálculo se restringe a ese subgrupo de cartas.",
+    "feedback_incorrect": [
+      null,
+      "Usar las 12 cartas del mazo como total ignora que ya se sabe que la carta es figura.",
+      "La intersección no restringe el conteo a las cartas que son figura, que ya es el dato conocido."
+    ],
+    "explanation": "La **probabilidad condicional** se aplica cuando el enunciado ya restringe el espacio muestral a un subgrupo conocido.\n\nAcá ya se sabe que la carta es figura, y se pregunta la probabilidad de que además sea de espadas dentro de ese subgrupo.\n\nLlamando $A$ a ser de espadas y $B$ a ser figura:\n$$P(A \\mid B)$$\nEl cálculo se restringe a las cartas figura, no al total del mazo.\n\nTratar la pregunta como una probabilidad simple sobre las 12 cartas del mazo ignora el dato de que la carta ya es figura.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-condicional"
+    ]
+  },
+  {
+    "question": "En una tabla de 200 clientas, 120 son mujeres, y entre las mujeres, 45 usan la versión premium de una aplicación.\n\nSe quiere calcular la probabilidad de que una clienta use la versión premium, sabiendo que es mujer.\n\n¿Qué tipo de cálculo corresponde?",
+    "options": [
+      "Probabilidad de la intersección entre ser mujer y usar la versión premium, sobre las 200 clientas.",
+      "Probabilidad condicional, porque el subgrupo de referencia ya son las clientas mujeres.",
+      "Probabilidad simple de usar la versión premium, sobre el total de 200 clientas."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Ya se sabe que la clienta es mujer, así que el cálculo se restringe a ese subgrupo de la tabla.",
+    "feedback_incorrect": [
+      "La intersección sobre las 200 clientas no restringe el conteo al subgrupo que ya es mujer.",
+      null,
+      "Usar las 200 clientas como total ignora que ya se sabe que la clienta es mujer."
+    ],
+    "explanation": "La **probabilidad condicional** aparece cuando el enunciado ya restringe el espacio muestral a un subgrupo, y pide una probabilidad dentro de él.\n\nAcá ya se sabe que la clienta es mujer, y se pregunta la probabilidad de que use la versión premium dentro de ese subgrupo.\n\nLlamando $A$ a usar la versión premium y $B$ a ser mujer:\n$$P(A \\mid B)$$\nEl cálculo se restringe a las 120 clientas mujeres, no a las 200 clientas totales.\n\nCalcular la probabilidad simple sobre el total de clientas, sin restringir al subgrupo dado, ignora la condición que el enunciado ya fija.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-condicional"
+    ]
+  },
+  {
+    "question": "Se lanza un dado equilibrado de 6 caras.\n\nSe quiere calcular la probabilidad de que el resultado sea un número par.\n\n¿Qué tipo de cálculo corresponde?",
+    "options": [
+      "Probabilidad condicional, porque hay que dividir por la probabilidad de otro evento previo.",
+      "Probabilidad de la intersección entre ser par y ser impar, sobre las 6 caras del dado.",
+      "Probabilidad simple, porque la pregunta no restringe a ningún resultado previo del dado."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "No hay ningún evento previo que restrinja el espacio muestral, así que alcanza con la probabilidad simple del enunciado.",
+    "feedback_incorrect": [
+      "Tratar como condicional una pregunta que no impone ninguna restricción agrega una fórmula que no corresponde.",
+      "No hay dos eventos superpuestos en juego, sino un único evento sobre el total de caras del dado.",
+      null
+    ],
+    "explanation": "Antes de aplicar la **fórmula condicional** hay que revisar si el enunciado realmente restringe el espacio muestral a un subgrupo.\n\nAcá no hay ningún evento previo del cual partir. La pregunta pide la probabilidad de obtener un número par sobre el total de las 6 caras, sin condicionar a ningún resultado anterior.\n\nBuscar una fórmula condicional cuando el enunciado no impone ninguna restricción agrega un paso innecesario y suele llevar a dividir por un dato que ni siquiera aparece.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-probabilidad-simple"
+    ]
+  },
+  {
+    "question": "De un mazo reducido de 10 cartas, 3 son ases.\n\nSe quiere calcular la probabilidad de que la carta extraída sea un as.\n\n¿Qué tipo de cálculo corresponde?",
+    "options": [
+      "Probabilidad simple, porque la pregunta no restringe a ningún subgrupo de cartas ya extraídas.",
+      "Probabilidad condicional, porque hace falta dividir por la probabilidad de otro evento.",
+      "Probabilidad de la intersección entre ser as y ser figura, sobre las 10 cartas del mazo."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "No hay ningún evento previo que restrinja el mazo, así que alcanza con la probabilidad simple sobre las 10 cartas.",
+    "feedback_incorrect": [
+      null,
+      "Tratar como condicional una pregunta que no impone ninguna restricción agrega una fórmula que no corresponde.",
+      "No hay dos eventos superpuestos en juego, sino un único evento sobre el total de cartas del mazo."
+    ],
+    "explanation": "Antes de aplicar la **fórmula condicional** conviene revisar si el enunciado realmente restringe el espacio muestral a un subgrupo.\n\nAcá no hay ningún evento previo del cual partir. La pregunta pide la probabilidad de que la carta sea as sobre el total de las 10 cartas del mazo, sin condicionar a ninguna extracción anterior.\n\nBuscar una fórmula condicional cuando el enunciado no impone ninguna restricción agrega un paso innecesario y suele llevar a dividir por un dato que ni siquiera aparece.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-probabilidad-simple"
+    ]
+  },
+  {
+    "question": "En una tabla de 150 empleados, 80 trabajan en producción.\n\nSe quiere calcular la probabilidad de que un empleado elegido al azar trabaje en producción.\n\n¿Qué tipo de cálculo corresponde?",
+    "options": [
+      "Probabilidad de la intersección entre trabajar en producción y otro evento no mencionado en el enunciado.",
+      "Probabilidad simple, porque la pregunta no restringe a ningún subgrupo previo de empleados.",
+      "Probabilidad condicional, porque el enunciado ya fija un subgrupo del que partir."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "No hay ningún subgrupo previo que restrinja el conteo, así que alcanza con la probabilidad simple sobre los 150 empleados.",
+    "feedback_incorrect": [
+      "No hay un segundo evento definido en el enunciado con el cual formar una intersección.",
+      null,
+      "Tratar como condicional una pregunta que no impone ninguna restricción agrega una fórmula que no corresponde."
+    ],
+    "explanation": "Antes de aplicar la **fórmula condicional** conviene revisar si el enunciado realmente restringe el espacio muestral a un subgrupo.\n\nAcá no hay ningún subgrupo previo del cual partir. La pregunta pide la probabilidad de trabajar en producción sobre el total de los 150 empleados, sin condicionar a ningún dato anterior.\n\nBuscar una fórmula condicional cuando el enunciado no impone ninguna restricción agrega un paso innecesario y suele llevar a dividir por un dato que ni siquiera aparece.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-probabilidad-simple"
+    ]
+  },
+  {
+    "question": "De un mazo reducido, el 40% de las cartas son rojas, y entre las rojas, el 25% son figuras.\n\nSe quiere calcular la probabilidad de que una carta sea figura, sabiendo que es roja.\n\n¿Cuál es el planteo correcto?",
+    "options": [
+      "$P(\\text{roja} \\mid \\text{figura})$",
+      "$P(\\text{figura} \\cap \\text{roja})$",
+      "$P(\\text{figura} \\mid \\text{roja})$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El evento condicionante es ser roja, así que va después de la barra.",
+    "feedback_incorrect": [
+      "Esta expresión invierte el condicionante: pregunta la probabilidad de ser roja dado que es figura, al revés de lo pedido.",
+      "Esta expresión es la intersección, no restringe el cálculo al subgrupo de cartas rojas.",
+      null
+    ],
+    "explanation": "La **dirección del condicional** depende de cuál evento ya se sabe que ocurrió: ese evento va después de la barra $\\mid$.\n\nAcá ya se sabe que la carta es roja, y se pregunta por ser figura dentro de ese subgrupo:\n$$P(\\text{figura} \\mid \\text{roja})$$\nInvertir el orden cambia por completo la pregunta.\n\nConfundir cuál evento es la condición y cuál es el de interés lleva a plantear la probabilidad en la dirección contraria a la que pide el enunciado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-direccion-condicional"
+    ]
+  },
+  {
+    "question": "Se lanza un dado equilibrado de 6 caras. El 50% de los resultados son pares, y entre los pares, un tercio es mayor a 4.\n\nSe quiere calcular la probabilidad de que el resultado sea mayor a 4, sabiendo que es par.\n\n¿Cuál es el planteo correcto?",
+    "options": [
+      "$P(X>4 \\mid \\text{par})$",
+      "$P(\\text{par} \\mid X>4)$",
+      "$P(X>4 \\cap \\text{par})$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El evento condicionante es ser par, así que va después de la barra.",
+    "feedback_incorrect": [
+      null,
+      "Esta expresión invierte el condicionante: pregunta la probabilidad de ser par dado que es mayor a 4, al revés de lo pedido.",
+      "Esta expresión es la intersección, no restringe el cálculo al subgrupo de resultados pares."
+    ],
+    "explanation": "La **dirección del condicional** depende de cuál evento ya se sabe que ocurrió: ese evento va después de la barra $\\mid$.\n\nAcá ya se sabe que el resultado es par, y se pregunta por ser mayor a 4 dentro de ese subgrupo:\n$$P(X>4 \\mid \\text{par})$$\nInvertir el orden cambia por completo la pregunta.\n\nConfundir cuál evento es la condición y cuál es el de interés lleva a plantear la probabilidad en la dirección contraria a la que pide el enunciado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-direccion-condicional"
+    ]
+  },
+  {
+    "question": "En una encuesta, el 70% de los encuestados practica algún deporte.\n\nEntre quienes practican algún deporte, el 35% también sigue una dieta especial.\n\nSe quiere calcular la probabilidad de que un encuestado siga una dieta especial, sabiendo que practica algún deporte.\n\n¿Cuál es el planteo correcto?",
+    "options": [
+      "$P(\\text{dieta} \\mid \\text{deporte})$",
+      "$P(\\text{deporte} \\cap \\text{dieta})$",
+      "$P(\\text{deporte} \\mid \\text{dieta})$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El evento condicionante es practicar deporte, así que va después de la barra.",
+    "feedback_incorrect": [
+      null,
+      "Esta expresión es la intersección, no restringe el cálculo al subgrupo que ya practica algún deporte.",
+      "Esta expresión invierte el condicionante: pregunta la probabilidad de practicar deporte dado que sigue una dieta especial, al revés de lo pedido."
+    ],
+    "explanation": "La **dirección del condicional** depende de cuál evento ya se sabe que ocurrió: ese evento va después de la barra $\\mid$.\n\nAcá ya se sabe que el encuestado practica algún deporte, y se pregunta por la dieta especial dentro de ese subgrupo:\n$$P(\\text{dieta} \\mid \\text{deporte})$$\nInvertir el orden cambia por completo la pregunta.\n\nConfundir cuál evento es la condición y cuál es el de interés lleva a plantear la probabilidad en la dirección contraria a la que pide el enunciado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-direccion-condicional"
+    ]
+  },
+  {
+    "question": "En una tabla de 300 pacientes, 180 son fumadores, y entre los fumadores, 90 presentan tos crónica.\n\nSe quiere calcular la probabilidad de que un paciente presente tos crónica, sabiendo que es fumador.\n\n¿Cuál es el planteo correcto?",
+    "options": [
+      "$P(\\text{fumador} \\mid \\text{tos})$",
+      "$P(\\text{tos} \\mid \\text{fumador})$",
+      "$P(\\text{tos} \\cap \\text{fumador})$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El evento condicionante es ser fumador, así que va después de la barra.",
+    "feedback_incorrect": [
+      "Esta expresión invierte el condicionante: pregunta la probabilidad de ser fumador dado que presenta tos crónica, al revés de lo pedido.",
+      null,
+      "Esta expresión es la intersección, no restringe el cálculo al subgrupo de pacientes fumadores."
+    ],
+    "explanation": "La **dirección del condicional** depende de cuál evento ya se sabe que ocurrió: ese evento va después de la barra $\\mid$.\n\nAcá ya se sabe que el paciente es fumador, y se pregunta por la tos crónica dentro de ese subgrupo:\n$$P(\\text{tos} \\mid \\text{fumador})$$\nInvertir el orden cambia por completo la pregunta.\n\nConfundir cuál evento es la condición y cuál es el de interés lleva a plantear la probabilidad en la dirección contraria a la que pide el enunciado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-direccion-condicional"
+    ]
   }
 ]

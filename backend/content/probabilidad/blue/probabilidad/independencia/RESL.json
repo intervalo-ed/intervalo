@@ -60,5 +60,233 @@
     "graph_view": null,
     "reviewed": false,
     "tags": ["resl-repeticion"]
+  },
+  {
+    "question": "Se sabe que $P(A)=0{,}4$ y $P(B)=0{,}5$, siendo ambos eventos independientes.\n\nCalculá $P(A\\cap B)$.",
+    "options": ["$0{,}9$", "$0{,}1$", "$0{,}2$", "$0{,}8$"],
+    "correct_index": 2,
+    "feedback_correct": "$P(A\\cap B)=P(A)\\cdot P(B)=0{,}2$.",
+    "feedback_incorrect": [
+      "Ese resultado suma en vez de multiplicar las probabilidades dadas.",
+      "Ese resultado resta en vez de multiplicar las probabilidades dadas.",
+      null,
+      "Ese resultado divide en vez de multiplicar las probabilidades dadas."
+    ],
+    "explanation": "Para eventos **independientes**, la probabilidad de la intersección es el producto de las probabilidades individuales:\n$$P(A\\cap B) = P(A)\\cdot P(B)$$\nCon los datos:\n$$P(A\\cap B) = 0{,}4 \\times 0{,}5 = 0{,}2$$\nSumar o restar las probabilidades en vez de multiplicarlas, o dividir una entre la otra, se aleja de la única operación que define la intersección de eventos independientes.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-interseccion"]
+  },
+  {
+    "question": "Se sabe que $P(A)=0{,}8$ y $P(B)=0{,}25$, siendo ambos eventos independientes.\n\nCalculá $P(A\\cap B)$.",
+    "options": ["$0{,}2$", "$1{,}05$", "$0{,}55$", "$0{,}1$"],
+    "correct_index": 0,
+    "feedback_correct": "$P(A\\cap B)=P(A)\\cdot P(B)=0{,}2$.",
+    "feedback_incorrect": [
+      null,
+      "Ese resultado suma en vez de multiplicar las probabilidades dadas, y supera $1$, algo imposible.",
+      "Ese resultado resta en vez de multiplicar las probabilidades dadas.",
+      "Ese resultado sale de dividir el producto correcto a la mitad, en vez de multiplicar los datos originales."
+    ],
+    "explanation": "Para eventos **independientes**, la probabilidad de la intersección es el producto de las probabilidades individuales:\n$$P(A\\cap B) = P(A)\\cdot P(B)$$\nCon los datos:\n$$P(A\\cap B) = 0{,}8 \\times 0{,}25 = 0{,}2$$\nSumar las probabilidades en vez de multiplicarlas puede dar un resultado mayor a $1$, una señal clara de que algo está mal en el planteo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-interseccion"]
+  },
+  {
+    "question": "Se sabe que $P(A)=0{,}35$ y $P(B)=0{,}4$, siendo ambos eventos independientes.\n\nCalculá $P(A\\cap B)$.",
+    "options": ["$0{,}75$", "$0{,}05$", "$0{,}16$", "$0{,}14$"],
+    "correct_index": 3,
+    "feedback_correct": "$P(A\\cap B)=P(A)\\cdot P(B)=0{,}14$.",
+    "feedback_incorrect": [
+      "Ese resultado suma en vez de multiplicar las probabilidades dadas.",
+      "Ese resultado resta en vez de multiplicar las probabilidades dadas.",
+      "Ese resultado sale de multiplicar $0{,}4$ por sí mismo en vez de multiplicar los dos datos distintos dados.",
+      null
+    ],
+    "explanation": "Para eventos **independientes**, la probabilidad de la intersección es el producto de las probabilidades individuales:\n$$P(A\\cap B) = P(A)\\cdot P(B)$$\nCon los datos:\n$$P(A\\cap B) = 0{,}35 \\times 0{,}4 = 0{,}14$$\nSumar o restar las probabilidades dadas, o multiplicar por error el mismo dato dos veces, se aleja de la única operación que define la intersección de eventos independientes.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-interseccion"]
+  },
+  {
+    "question": "Se sabe que $P(A)=0{,}15$ y $P(B)=0{,}6$, siendo ambos eventos independientes.\n\nCalculá $P(A\\cap B)$.",
+    "options": ["$0{,}75$", "$0{,}45$", "$0{,}9$", "$0{,}09$"],
+    "correct_index": 3,
+    "feedback_correct": "$P(A\\cap B)=P(A)\\cdot P(B)=0{,}09$.",
+    "feedback_incorrect": [
+      "Ese resultado suma en vez de multiplicar las probabilidades dadas.",
+      "Ese resultado resta en vez de multiplicar las probabilidades dadas.",
+      "Ese resultado corrió mal la coma decimal del producto correcto.",
+      null
+    ],
+    "explanation": "Para eventos **independientes**, la probabilidad de la intersección es el producto de las probabilidades individuales:\n$$P(A\\cap B) = P(A)\\cdot P(B)$$\nCon los datos:\n$$P(A\\cap B) = 0{,}15 \\times 0{,}6 = 0{,}09$$\nSumar o restar las probabilidades dadas, o correr mal la coma decimal del producto, se aleja de la única operación que define la intersección de eventos independientes.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-interseccion"]
+  },
+  {
+    "question": "En un experimento, $P(A)=0{,}5$ y $P(B)=0{,}6$.\n\nAdemás, $P(A\\cap B)=0{,}3$.\n\n¿Los eventos $A$ y $B$ son independientes?",
+    "options": [
+      "Sí, porque $0{,}5\\times 0{,}6=0{,}3$ coincide con $P(A\\cap B)$.",
+      "No, porque $P(A)\\neq P(B)$.",
+      "No, porque $P(A\\cap B)$ es menor que $P(A)$ y $P(B)$."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El producto de las probabilidades individuales coincide exactamente con la intersección dada.",
+    "feedback_incorrect": [
+      null,
+      "Que $P(A)$ y $P(B)$ tengan valores distintos no es el criterio de independencia; lo que importa es la igualdad con el producto.",
+      "Que $P(A\\cap B)$ sea menor que cada probabilidad individual es normal y esperable, no indica dependencia por sí solo."
+    ],
+    "explanation": "Para verificar independencia se compara la intersección contra el producto de las probabilidades individuales:\n$$P(A)\\cdot P(B) = 0{,}5\\times 0{,}6 = 0{,}3$$\nComo este producto coincide exactamente con el valor dado de la intersección, los eventos son independientes.\n\nComparar los valores de $P(A)$ y $P(B)$ entre sí, o su tamaño relativo a la intersección, en vez de verificar la igualdad con el producto, deja de lado el único criterio válido de independencia.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-verificacion"]
+  },
+  {
+    "question": "En un experimento, $P(A)=0{,}7$ y $P(B)=0{,}2$.\n\nAdemás, $P(A\\cap B)=0{,}1$.\n\n¿Los eventos $A$ y $B$ son independientes?",
+    "options": [
+      "No, porque $0{,}7\\times 0{,}2=0{,}14$ no coincide con $P(A\\cap B)$.",
+      "Sí, porque $P(A\\cap B)$ es menor que $P(A)$ y $P(B)$.",
+      "No, porque $P(A)$ es distinto de $P(B)$ en este experimento."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El producto de las probabilidades individuales no coincide con la intersección dada, así que los eventos son dependientes.",
+    "feedback_incorrect": [
+      null,
+      "Que $P(A\\cap B)$ sea menor que cada probabilidad individual es normal y esperable, no indica independencia por sí solo.",
+      "Que $P(A)$ y $P(B)$ tengan valores distintos no es el criterio de dependencia; lo que importa es la desigualdad con el producto."
+    ],
+    "explanation": "Para verificar independencia se compara la intersección contra el producto de las probabilidades individuales:\n$$P(A)\\cdot P(B) = 0{,}7\\times 0{,}2 = 0{,}14$$\nComo este producto no coincide con el valor dado de la intersección, $0{,}1$, los eventos no son independientes.\n\nComparar los valores de $P(A)$ y $P(B)$ entre sí, o su tamaño relativo a la intersección, en vez de verificar la igualdad con el producto, deja de lado el único criterio válido de independencia.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-verificacion"]
+  },
+  {
+    "question": "En un experimento, $P(A)=0{,}4$ y $P(B)=0{,}9$.\n\nAdemás, $P(A\\cap B)=0{,}36$.\n\n¿Los eventos $A$ y $B$ son independientes?",
+    "options": [
+      "No, porque $P(A\\cap B)$ es menor que $P(A)$ y $P(B)$.",
+      "No, porque $P(A)\\neq P(B)$.",
+      "Sí, porque $0{,}4\\times 0{,}9=0{,}36$ coincide con $P(A\\cap B)$."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El producto de las probabilidades individuales coincide exactamente con la intersección dada.",
+    "feedback_incorrect": [
+      "Que $P(A\\cap B)$ sea menor que cada probabilidad individual es normal y esperable, no indica dependencia por sí solo.",
+      "Que $P(A)$ y $P(B)$ tengan valores distintos no es el criterio de independencia; lo que importa es la igualdad con el producto.",
+      null
+    ],
+    "explanation": "Para verificar independencia se compara la intersección contra el producto de las probabilidades individuales:\n$$P(A)\\cdot P(B) = 0{,}4\\times 0{,}9 = 0{,}36$$\nComo este producto coincide exactamente con el valor dado de la intersección, los eventos son independientes.\n\nComparar los valores de $P(A)$ y $P(B)$ entre sí, o su tamaño relativo a la intersección, en vez de verificar la igualdad con el producto, deja de lado el único criterio válido de independencia.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-verificacion"]
+  },
+  {
+    "question": "En un experimento, $P(A)=0{,}25$ y $P(B)=0{,}8$.\n\nAdemás, $P(A\\cap B)=0{,}15$.\n\n¿Los eventos $A$ y $B$ son independientes?",
+    "options": [
+      "Sí, porque $P(A\\cap B)$ es menor que $P(A)$ y $P(B)$.",
+      "No, porque $0{,}25\\times 0{,}8=0{,}2$ no coincide con $P(A\\cap B)$.",
+      "No, porque $P(A)$ es distinto de $P(B)$ en este experimento."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El producto de las probabilidades individuales no coincide con la intersección dada, así que los eventos son dependientes.",
+    "feedback_incorrect": [
+      "Que $P(A\\cap B)$ sea menor que cada probabilidad individual es normal y esperable, no indica independencia por sí solo.",
+      null,
+      "Que $P(A)$ y $P(B)$ tengan valores distintos no es el criterio de dependencia; lo que importa es la desigualdad con el producto."
+    ],
+    "explanation": "Para verificar independencia se compara la intersección contra el producto de las probabilidades individuales:\n$$P(A)\\cdot P(B) = 0{,}25\\times 0{,}8 = 0{,}2$$\nComo este producto no coincide con el valor dado de la intersección, $0{,}15$, los eventos no son independientes.\n\nComparar los valores de $P(A)$ y $P(B)$ entre sí, o su tamaño relativo a la intersección, en vez de verificar la igualdad con el producto, deja de lado el único criterio válido de independencia.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-verificacion"]
+  },
+  {
+    "question": "Se lanza un dado balanceado 2 veces de forma independiente.\n\n¿Cuál es la probabilidad de que ambas veces salga un número mayor a 4, en ese orden?",
+    "options": ["$\\dfrac{1}{3}$", "$\\dfrac{2}{3}$", "$\\dfrac{1}{9}$", "$\\dfrac{1}{6}$"],
+    "correct_index": 2,
+    "feedback_correct": "$(1/3)^2 = 1/9$ por independencia de las tiradas.",
+    "feedback_incorrect": [
+      "Esa es la probabilidad de un número mayor a 4 en una sola tirada, no en las dos seguidas.",
+      "Ese valor corresponde al complemento, la probabilidad de no sacar un número mayor a 4 en una tirada.",
+      null,
+      "Ese resultado sale de dividir la probabilidad de una tirada entre 2 en vez de elevarla al cuadrado."
+    ],
+    "explanation": "Cuando los eventos son **independientes**, la probabilidad de que ocurran todos a la vez, en el orden exacto pedido, es el producto de sus probabilidades individuales.\n\nSacar un número mayor a 4 son los resultados 5 o 6, así que:\n$$P(\\text{mayor a }4) = 2/6 = 1/3$$\nCon las 2 tiradas independientes:\n$$P(D_1\\cap D_2) = (1/3)\\cdot (1/3) = 1/9$$\nSumar las probabilidades en vez de multiplicarlas, o quedarse con la probabilidad de una sola tirada, ignora que hacen falta las 2 tiradas a la vez, en el orden exacto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-repeticion"]
+  },
+  {
+    "question": "Una urna tiene 5 bolas, 3 rojas y 2 azules. Se extrae una bola, se anota el color y se la devuelve a la urna.\n\nEl proceso se repite una segunda vez.\n\n¿Cuál es la probabilidad de que ambas extracciones den bola roja, en ese orden?",
+    "options": ["$\\dfrac{3}{5}$", "$\\dfrac{6}{5}$", "$\\dfrac{9}{25}$", "$\\dfrac{3}{25}$"],
+    "correct_index": 2,
+    "feedback_correct": "$(3/5)^2 = 9/25$ por independencia entre extracciones con reposición.",
+    "feedback_incorrect": [
+      "Esa es la probabilidad de bola roja en una sola extracción, no en las dos seguidas.",
+      "Ese resultado suma en vez de multiplicar las probabilidades de cada extracción, y supera $1$, algo imposible.",
+      null,
+      "Ese resultado sale de multiplicar el numerador por sí mismo pero no el denominador."
+    ],
+    "explanation": "Cuando hay **reposición**, cada extracción parte de la misma composición de la urna, así que las extracciones son independientes.\n\nCon $P(\\text{roja}) = 3/5$ en cada extracción, la probabilidad de que ambas den roja, en ese orden, es el producto:\n$$P(R_1\\cap R_2) = (3/5)\\cdot (3/5) = 9/25$$\nSumar las probabilidades en vez de multiplicarlas, o multiplicar solo el numerador sin elevar también el denominador al cuadrado, ignora la regla de combinación correcta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-repeticion"]
+  },
+  {
+    "question": "Una máquina expendedora falla con probabilidad $0{,}1$ en cada uso, de forma independiente entre usos.\n\n¿Cuál es la probabilidad de que falle en los próximos 2 usos, en ese orden?",
+    "options": ["$0{,}2$", "$0{,}01$", "$0{,}19$", "$0{,}1$"],
+    "correct_index": 1,
+    "feedback_correct": "$0{,}1\\times 0{,}1 = 0{,}01$ por independencia entre usos.",
+    "feedback_incorrect": [
+      "Ese resultado suma en vez de multiplicar las probabilidades de cada uso.",
+      null,
+      "Ese resultado sale de restar la probabilidad de fallar a $1$ dos veces en vez de multiplicar los datos originales.",
+      "Esa es la probabilidad de falla en un solo uso, no en los dos seguidos."
+    ],
+    "explanation": "Cuando los eventos son **independientes**, la probabilidad de que ocurran todos a la vez, en el orden exacto pedido, es el producto de sus probabilidades individuales.\n\nCon $P(\\text{falla}) = 0{,}1$ en cada uso:\n$$P(F_1\\cap F_2) = 0{,}1\\times 0{,}1 = 0{,}01$$\nSumar las probabilidades en vez de multiplicarlas, o confundir el complemento de fallar con el evento pedido, ignora que hacen falta las 2 fallas seguidas, en el orden exacto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-repeticion"]
+  },
+  {
+    "question": "Se encuesta a 4 personas distintas, sin contacto entre ellas. La probabilidad de que cada una responda que sí es $0{,}5$.\n\n¿Cuál es la probabilidad de que las 4 respondan que sí, en ese orden?",
+    "options": ["$\\dfrac{1}{16}$", "$\\dfrac{1}{2}$", "$\\dfrac{1}{8}$", "$\\dfrac{1}{4}$"],
+    "correct_index": 0,
+    "feedback_correct": "$(1/2)^4 = 1/16$ por independencia entre las 4 personas.",
+    "feedback_incorrect": [
+      null,
+      "Esa es la probabilidad de que una sola persona responda que sí, no las 4 a la vez.",
+      "Ese resultado corresponde a elevar $(1/2)$ al cubo en vez de a la cuarta potencia.",
+      "Ese resultado sale de multiplicar solo 2 de las 4 probabilidades en vez de las 4."
+    ],
+    "explanation": "Cuando los eventos son **independientes**, la probabilidad de que ocurran todos a la vez, en el orden exacto pedido, es el producto de sus probabilidades individuales.\n\nCon $P(\\text{sí}) = 1/2$ para cada una de las 4 personas:\n$$P(A_1\\cap A_2\\cap A_3\\cap A_4)$$\n$$= (1/2)^4 = 1/16$$\nQuedarse con una potencia menor, o multiplicar solo algunas de las probabilidades, ignora que hacen falta las 4 respuestas a la vez, en el orden exacto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-repeticion"]
   }
 ]

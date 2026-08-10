@@ -57,5 +57,221 @@
     "graph_view": null,
     "reviewed": false,
     "tags": ["identificar-formula-correcta"]
+  },
+  {
+    "question": "Se quiere anotar el orden de llegada de los 5 corredores de una carrera, usando a todos.\n\n¿Qué expresión cuenta la cantidad de órdenes posibles?",
+    "options": ["$\\dbinom{5}{5}$", "$5^{5}$", "$5!$", "$\\dfrac{5!}{2!}$"],
+    "correct_index": 2,
+    "feedback_correct": "Se ordenan todos los corredores distintos: la permutación simple es $5!$.",
+    "feedback_incorrect": [
+      "Ese binomial vale $1$: cuenta subconjuntos de 5 elegidos entre 5, no los distintos órdenes posibles.",
+      "Esa potencia permitiría repetir corredores en varias posiciones, algo que no corresponde al ordenar personas distintas sin reposición.",
+      null,
+      "Esa expresión divide como si hubiera un grupo de elementos repetidos, pero acá los 5 corredores son todos distintos."
+    ],
+    "explanation": "La **permutación simple** de elementos distintos, usando todos, se calcula como:\n$$P_n = n!$$\nCon 5 corredores ordenándose por su llegada, la expresión correcta es $5!$.\n\nAplicar el binomial o una potencia acá mezcla fórmulas reservadas para subconjuntos o decisiones con repetición, no para ordenar un conjunto fijo de elementos distintos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-simple"]
+  },
+  {
+    "question": "Una playlist tiene 7 canciones y se quiere definir el orden completo de reproducción, usando todas.\n\n¿Qué expresión cuenta la cantidad de órdenes posibles?",
+    "options": ["$\\dbinom{7}{7}$", "$7!$", "$7^{7}$", "$\\dfrac{7!}{3!}$"],
+    "correct_index": 1,
+    "feedback_correct": "Se ordenan las 7 canciones completas: la permutación simple es $7!$.",
+    "feedback_incorrect": [
+      "Ese binomial vale $1$: cuenta subconjuntos de 7 elegidos entre 7, no los distintos órdenes de reproducción.",
+      null,
+      "Esa potencia permitiría repetir canciones en varias posiciones, algo que no corresponde al ordenar una playlist sin repetir temas.",
+      "Esa expresión divide como si hubiera un grupo de canciones repetidas, pero acá las 7 son todas distintas."
+    ],
+    "explanation": "La **permutación simple** cuenta los ordenamientos de un conjunto de elementos distintos, usando todos:\n$$P_n = n!$$\nCon 7 canciones ordenándose en la playlist, la expresión correcta es $7!$.\n\nUsar un binomial o una potencia acá corresponde a otras situaciones, elegir un subconjunto sin ordenarlo o repetir elementos, que no aplican cuando se ordena un conjunto fijo completo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-simple"]
+  },
+  {
+    "question": "Se quiere armar un ranking interno con 4 candidatos, asignando un puesto distinto a cada uno.\n\n¿Qué expresión cuenta la cantidad de rankings posibles?",
+    "options": ["$\\dbinom{4}{4}$", "$4^{4}$", "$\\dfrac{4!}{2!}$", "$4!$"],
+    "correct_index": 3,
+    "feedback_correct": "Se ordenan los 4 candidatos completos: la permutación simple es $4!$.",
+    "feedback_incorrect": [
+      "Ese binomial vale $1$: cuenta subconjuntos de 4 elegidos entre 4, no los distintos rankings posibles.",
+      "Esa potencia permitiría repetir candidatos en varios puestos, algo que no corresponde a un ranking sin repetición.",
+      "Esa expresión divide como si hubiera un grupo de candidatos repetidos, pero acá los 4 son todos distintos.",
+      null
+    ],
+    "explanation": "La **permutación simple** de $n$ elementos distintos, usando todos, es:\n$$P_n = n!$$\nCon 4 candidatos armando un ranking completo, la expresión correcta es $4!$.\n\nEl binomial y la potencia corresponden a otras situaciones, subconjuntos sin orden o decisiones con repetición, y no aplican a un ranking que ubica a todos los candidatos sin repetir puestos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-simple"]
+  },
+  {
+    "question": "Se quiere formar una fila con las 8 personas de un grupo para una foto grupal, usando a todas.\n\n¿Qué expresión cuenta la cantidad de filas posibles?",
+    "options": ["$8!$", "$\\dbinom{8}{8}$", "$8^{8}$", "$\\dfrac{8!}{2!}$"],
+    "correct_index": 0,
+    "feedback_correct": "Se ordenan las 8 personas completas: la permutación simple es $8!$.",
+    "feedback_incorrect": [
+      null,
+      "Ese binomial vale $1$: cuenta subconjuntos de 8 elegidos entre 8, no las distintas filas posibles.",
+      "Esa potencia permitiría repetir personas en varias posiciones, algo que no corresponde a una fila sin reposición.",
+      "Esa expresión divide como si hubiera un grupo de personas repetidas, pero acá las 8 son todas distintas."
+    ],
+    "explanation": "La **permutación simple** de elementos distintos, usando todos, se calcula como:\n$$P_n = n!$$\nCon 8 personas formando la fila completa, la expresión correcta es $8!$.\n\nAplicar el binomial o una potencia mezcla fórmulas reservadas para subconjuntos sin orden o decisiones con repetición, no para ordenar un grupo fijo de personas distintas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-simple"]
+  },
+  {
+    "question": "Se quiere ordenar 3 libros distintos en una estantería, usando los 3 en algún orden.\n\n¿Qué expresión cuenta la cantidad de órdenes posibles?",
+    "options": ["$\\dbinom{3}{3}$", "$3^{3}$", "$3!$", "$\\dfrac{3!}{2!}$"],
+    "correct_index": 2,
+    "feedback_correct": "Se ordenan los 3 libros completos: la permutación simple es $3!$.",
+    "feedback_incorrect": [
+      "Ese binomial vale $1$: cuenta subconjuntos de 3 elegidos entre 3, no los distintos órdenes posibles.",
+      "Esa potencia permitiría repetir libros en varias posiciones, algo que no corresponde a ordenar libros distintos sin reposición.",
+      null,
+      "Esa expresión divide como si hubiera un grupo de libros repetidos, pero acá los 3 son todos distintos."
+    ],
+    "explanation": "La **permutación simple** de $n$ elementos distintos, usando todos, se calcula como:\n$$P_n = n!$$\nCon 3 libros ordenándose en la estantería, la expresión correcta es $3!$.\n\nEl binomial y la potencia corresponden a otras situaciones, subconjuntos sin orden o repetición de elementos, que no aplican al ordenar un grupo fijo de libros distintos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-simple"]
+  },
+  {
+    "question": "Se quiere contar de cuántas maneras se pueden ordenar todas las letras de la palabra **TOMATE**.\n\nLa T se repite 2 veces.\n\n¿Qué expresión aplica?",
+    "options": ["$6!$", "$\\dfrac{6!}{2!}$", "$\\dfrac{6!}{2!\\,2!}$", "$\\dbinom{6}{2}$"],
+    "correct_index": 1,
+    "feedback_correct": "Permutación con repetición: se divide por el factorial del grupo repetido.",
+    "feedback_incorrect": [
+      "Ese conteo trata las dos T como distintas y cuenta el doble de anagramas reales.",
+      null,
+      "Estás dividiendo también por el $2!$ de otro grupo repetido, pero solo hay un grupo de letras iguales, las dos T.",
+      "El binomial cuenta subconjuntos sin orden; acá se están ordenando todas las letras."
+    ],
+    "explanation": "La **permutación con repetición** se usa para ordenar elementos entre los cuales hay grupos indistinguibles: se divide el factorial total por el factorial de cada grupo repetido.\n\nEn TOMATE hay 6 letras con un solo grupo repetido, las dos T, así que:\n$$\\frac{6!}{2!} = \\frac{720}{2} = 360$$\nSon 360 anagramas distintos.\n\nOlvidar dividir y contar los reordenamientos como si las T fueran distintas duplica el resultado real; solo se divide por los grupos con al menos 2 elementos idénticos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-con-repeticion"]
+  },
+  {
+    "question": "Se quiere contar de cuántas maneras se pueden ordenar todas las letras de la palabra **TERROR**.\n\nLa R se repite 3 veces.\n\n¿Qué expresión aplica?",
+    "options": ["$6!$", "$\\dfrac{6!}{3!\\,2!}$", "$\\dfrac{6!}{3!}$", "$\\dbinom{6}{3}$"],
+    "correct_index": 2,
+    "feedback_correct": "Permutación con repetición: se divide por el factorial del grupo repetido.",
+    "feedback_incorrect": [
+      "Ese conteo trata las tres R como distintas y multiplica de más los anagramas reales.",
+      "Estás dividiendo también por el $2!$ de otro grupo repetido, pero solo hay un grupo de letras iguales, las tres R.",
+      null,
+      "El binomial cuenta subconjuntos sin orden; acá se están ordenando todas las letras."
+    ],
+    "explanation": "La **permutación con repetición** divide el factorial total por el factorial de cada grupo de letras idénticas.\n\nEn TERROR hay 6 letras con un solo grupo repetido, las tres R, así que:\n$$\\frac{6!}{3!} = \\frac{720}{6} = 120$$\nSon 120 anagramas distintos.\n\nCada una de las 3! formas de reordenar las R entre sí produce la misma palabra, y por eso hay que cancelarlas dividiendo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-con-repeticion"]
+  },
+  {
+    "question": "Se quiere contar de cuántas maneras se pueden ordenar todas las letras de la palabra **CUELLO**.\n\nLa L se repite 2 veces.\n\n¿Qué expresión aplica?",
+    "options": ["$6!$", "$\\dfrac{6!}{2!\\,2!}$", "$\\dbinom{6}{2}$", "$\\dfrac{6!}{2!}$"],
+    "correct_index": 3,
+    "feedback_correct": "Permutación con repetición: se divide por el factorial del grupo repetido.",
+    "feedback_incorrect": [
+      "Ese conteo trata las dos L como distintas y cuenta el doble de anagramas reales.",
+      "Estás dividiendo también por el $2!$ de otro grupo repetido, pero solo hay un grupo de letras iguales, las dos L.",
+      "El binomial cuenta subconjuntos sin orden; acá se están ordenando todas las letras.",
+      null
+    ],
+    "explanation": "La **permutación con repetición** se aplica cuando, al ordenar un conjunto de elementos, alguno se repite y hay que dividir por su factorial.\n\nEn CUELLO hay 6 letras con un solo grupo repetido, las dos L, así que:\n$$\\frac{6!}{2!} = \\frac{720}{2} = 360$$\nSon 360 anagramas distintos.\n\nCada palabra real queda contada 2! veces si no se divide, porque intercambiar las dos L entre sí no cambia el anagrama.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-con-repeticion"]
+  },
+  {
+    "question": "Se quiere contar de cuántas maneras se pueden ordenar todas las letras de la palabra **ARROZ**.\n\nLa R se repite 2 veces.\n\n¿Qué expresión aplica?",
+    "options": ["$\\dfrac{5!}{2!}$", "$5!$", "$\\dfrac{5!}{2!\\,2!}$", "$\\dbinom{5}{2}$"],
+    "correct_index": 0,
+    "feedback_correct": "Permutación con repetición: se divide por el factorial del grupo repetido.",
+    "feedback_incorrect": [
+      null,
+      "Ese conteo trata las dos R como distintas y cuenta el doble de anagramas reales.",
+      "Estás dividiendo también por el $2!$ de otro grupo repetido, pero solo hay un grupo de letras iguales, las dos R.",
+      "El binomial cuenta subconjuntos sin orden; acá se están ordenando todas las letras."
+    ],
+    "explanation": "La **permutación con repetición** divide el factorial total por el factorial de cada grupo de letras idénticas.\n\nEn ARROZ hay 5 letras con un solo grupo repetido, las dos R, así que:\n$$\\frac{5!}{2!} = \\frac{120}{2} = 60$$\nSon 60 anagramas distintos.\n\nSin esa división, cada anagrama real quedaría contado dos veces, una por cada forma de intercambiar las R entre sí.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-con-repeticion"]
+  },
+  {
+    "question": "Se quiere contar de cuántas maneras se pueden ordenar todas las letras de la palabra **ELLOS**.\n\nLa L se repite 2 veces.\n\n¿Qué expresión aplica?",
+    "options": ["$5!$", "$\\dfrac{5!}{2!}$", "$\\dfrac{5!}{2!\\,2!}$", "$\\dbinom{5}{2}$"],
+    "correct_index": 1,
+    "feedback_correct": "Permutación con repetición: se divide por el factorial del grupo repetido.",
+    "feedback_incorrect": [
+      "Ese conteo trata las dos L como distintas y cuenta el doble de anagramas reales.",
+      null,
+      "Estás dividiendo también por el $2!$ de otro grupo repetido, pero solo hay un grupo de letras iguales, las dos L.",
+      "El binomial cuenta subconjuntos sin orden; acá se están ordenando todas las letras."
+    ],
+    "explanation": "La **permutación con repetición** aparece cuando hay grupos de elementos indistinguibles dentro del conjunto a ordenar.\n\nEn ELLOS hay 5 letras con un solo grupo repetido, las dos L, así que:\n$$\\frac{5!}{2!} = \\frac{120}{2} = 60$$\nSon 60 anagramas distintos.\n\nTratar las dos L como si fueran distinguibles infla el conteo, porque intercambiarlas entre sí no cambia la palabra resultante.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-con-repeticion"]
+  },
+  {
+    "question": "Se quiere contar de cuántas maneras se pueden ordenar todas las letras de la palabra **BURRO**.\n\nLa R se repite 2 veces.\n\n¿Qué expresión aplica?",
+    "options": ["$5!$", "$\\dbinom{5}{2}$", "$\\dfrac{5!}{2!}$", "$\\dfrac{5!}{2!\\,2!}$"],
+    "correct_index": 2,
+    "feedback_correct": "Permutación con repetición: se divide por el factorial del grupo repetido.",
+    "feedback_incorrect": [
+      "Ese conteo trata las dos R como distintas y cuenta el doble de anagramas reales.",
+      "El binomial cuenta subconjuntos sin orden; acá se están ordenando todas las letras.",
+      null,
+      "Estás dividiendo también por el $2!$ de otro grupo repetido, pero solo hay un grupo de letras iguales, las dos R."
+    ],
+    "explanation": "La **permutación con repetición** se usa cuando, al ordenar un conjunto de elementos, alguno se repite y hay que descartar sus reordenamientos internos.\n\nEn BURRO hay 5 letras con un solo grupo repetido, las dos R, así que:\n$$\\frac{5!}{2!} = \\frac{120}{2} = 60$$\nSon 60 anagramas distintos.\n\nConfundir esta fórmula con la simple es fácil de arrastrar de un ejercicio a otro si no se revisa antes si hay letras repetidas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-con-repeticion"]
+  },
+  {
+    "question": "Se quiere identificar qué expresión cuenta las formas de ordenar a los 5 integrantes de un jurado, usando a todos.\n\n¿Cuál es la expresión correcta?",
+    "options": ["$\\dbinom{5}{2}$", "$\\dfrac{5!}{2!}$", "$5^{5}$", "$5!$"],
+    "correct_index": 3,
+    "feedback_correct": "La permutación simple de 5 elementos distintos, usando todos, es $5!$.",
+    "feedback_incorrect": [
+      "Ese binomial es la fórmula de la combinación, que elige un subconjunto sin ordenar ni usar a todos los integrantes.",
+      "Esa expresión divide como si hubiera un grupo de integrantes repetidos, pero acá los 5 son todos distintos.",
+      "Esa potencia permitiría repetir integrantes en varias posiciones, algo que la permutación simple no admite.",
+      null
+    ],
+    "explanation": "Ordenar todos los elementos de un conjunto distinto entre sí es una secuencia de decisiones: el primer lugar tiene $n$ opciones, el segundo $n-1$, y así hasta el último con una sola opción:\n$$P_n = n!$$\nCon 5 integrantes, la expresión correcta es $5!$.\n\nEl binomial corresponde a elegir un subconjunto sin ordenarlo, y la división por un factorial extra correspondería a un grupo de integrantes repetidos, que no existe acá.\n\nRevisar si se usan todos los elementos, sin repetición y con orden, es el chequeo que separa esta fórmula de las demás.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["identificar-formula-correcta"]
   }
 ]

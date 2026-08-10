@@ -61,5 +61,257 @@
     "graph_view": null,
     "reviewed": false,
     "tags": ["formula-tres-eventos"]
+  },
+  {
+    "question": "Se sabe que $P(A) = 0{,}6$ y $P(B) = 0{,}5$, siendo ambos eventos independientes.\n\n¿Qué expresión da $P(A \\cap B)$?",
+    "options": [
+      "$0{,}6 + 0{,}5$",
+      "$0{,}6 \\cdot 0{,}5$",
+      "$0{,}6 - 0{,}5$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Independencia implica $P(A \\cap B) = P(A) \\cdot P(B) = 0{,}3$.",
+    "feedback_incorrect": [
+      "La suma corresponde a la unión de eventos excluyentes, no a la intersección de independientes.",
+      null,
+      "La resta no aparece en la fórmula de intersección de independientes."
+    ],
+    "explanation": "La **independencia** de dos eventos $A$ y $B$ equivale a la condición:\n$$P(A \\cap B) = P(A) \\cdot P(B)$$\nCon los datos:\n$$P(A \\cap B) = 0{,}6 \\cdot 0{,}5 = 0{,}3$$\nAplicar la suma pensando en una probabilidad total, o restar buscando un complemento, deja afuera la marca distintiva de independencia: la multiplicación de las probabilidades individuales.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-directa"]
+  },
+  {
+    "question": "Se sabe que $P(A) = 0{,}25$ y $P(B) = 0{,}8$, siendo ambos eventos independientes.\n\n¿Qué expresión da $P(A \\cap B)$?",
+    "options": [
+      "$0{,}25 \\cdot 0{,}8$",
+      "$0{,}25 - 0{,}8$",
+      "$0{,}25 + 0{,}8$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Independencia implica $P(A \\cap B) = P(A) \\cdot P(B) = 0{,}2$.",
+    "feedback_incorrect": [
+      null,
+      "La resta no aparece en la fórmula de intersección de independientes.",
+      "La suma corresponde a la unión de eventos excluyentes, no a la intersección de independientes."
+    ],
+    "explanation": "La **independencia** de dos eventos $A$ y $B$ equivale a la condición:\n$$P(A \\cap B) = P(A) \\cdot P(B)$$\nCon los datos:\n$$P(A \\cap B) = 0{,}25 \\cdot 0{,}8 = 0{,}2$$\nRestar los datos buscando algún complemento, o sumarlos pensando en una unión, deja afuera la marca distintiva de independencia: la multiplicación de las probabilidades individuales.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-directa"]
+  },
+  {
+    "question": "Se sabe que $P(A) = 0{,}7$ y $P(B) = 0{,}2$, siendo ambos eventos independientes.\n\n¿Qué expresión da $P(A \\cap B)$?",
+    "options": [
+      "$0{,}7 - 0{,}2$",
+      "$0{,}7 + 0{,}2$",
+      "$0{,}7 \\cdot 0{,}2$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Independencia implica $P(A \\cap B) = P(A) \\cdot P(B) = 0{,}14$.",
+    "feedback_incorrect": [
+      "La resta no aparece en la fórmula de intersección de independientes.",
+      "La suma corresponde a la unión de eventos excluyentes, no a la intersección de independientes.",
+      null
+    ],
+    "explanation": "La **independencia** de dos eventos $A$ y $B$ equivale a la condición:\n$$P(A \\cap B) = P(A) \\cdot P(B)$$\nCon los datos:\n$$P(A \\cap B) = 0{,}7 \\cdot 0{,}2 = 0{,}14$$\nRestar o sumar las probabilidades dadas en vez de multiplicarlas deja afuera la marca distintiva de independencia: el producto de las probabilidades individuales.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-directa"]
+  },
+  {
+    "question": "Se sabe que $P(A) = 0{,}9$ y $P(B) = 0{,}1$, siendo ambos eventos independientes.\n\n¿Qué expresión da $P(A \\cap B)$?",
+    "options": [
+      "$0{,}9 \\cdot 0{,}1$",
+      "$0{,}9 / 0{,}1$",
+      "$0{,}9 + 0{,}1$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Independencia implica $P(A \\cap B) = P(A) \\cdot P(B) = 0{,}09$.",
+    "feedback_incorrect": [
+      null,
+      "La división no aparece en la fórmula de intersección de independientes, y además daría un resultado mayor a $1$.",
+      "La suma corresponde a la unión de eventos excluyentes, no a la intersección de independientes."
+    ],
+    "explanation": "La **independencia** de dos eventos $A$ y $B$ equivale a la condición:\n$$P(A \\cap B) = P(A) \\cdot P(B)$$\nCon los datos:\n$$P(A \\cap B) = 0{,}9 \\cdot 0{,}1 = 0{,}09$$\nDividir o sumar las probabilidades dadas en vez de multiplicarlas deja afuera la marca distintiva de independencia: el producto de las probabilidades individuales.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-directa"]
+  },
+  {
+    "question": "Se sabe que $P(A) = 0{,}45$ y $P(B) = 0{,}6$, siendo ambos eventos independientes.\n\n¿Qué expresión da $P(A \\cap B)$?",
+    "options": [
+      "$0{,}45 + 0{,}6$",
+      "$0{,}45 \\cdot 0{,}6$",
+      "$0{,}45 - 0{,}6$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Independencia implica $P(A \\cap B) = P(A) \\cdot P(B) = 0{,}27$.",
+    "feedback_incorrect": [
+      "La suma corresponde a la unión de eventos excluyentes, no a la intersección de independientes.",
+      null,
+      "La resta no aparece en la fórmula de intersección de independientes."
+    ],
+    "explanation": "La **independencia** de dos eventos $A$ y $B$ equivale a la condición:\n$$P(A \\cap B) = P(A) \\cdot P(B)$$\nCon los datos:\n$$P(A \\cap B) = 0{,}45 \\cdot 0{,}6 = 0{,}27$$\nSumar o restar las probabilidades dadas en vez de multiplicarlas deja afuera la marca distintiva de independencia: el producto de las probabilidades individuales.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-directa"]
+  },
+  {
+    "question": "En un experimento, $P(A)=0{,}3$ y $P(B)=0{,}6$.\n\nAdemás, se sabe que $P(A\\cap B)=0{,}18$.\n\n¿Qué comparación permite verificar si ambos eventos son independientes?",
+    "options": [
+      "Comparar $P(A\\cap B)$ con $P(A)\\cdot P(B)$.",
+      "Comparar $P(A\\cap B)$ con $P(A)+P(B)$.",
+      "Comparar $P(A)$ con $P(B)$."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Son independientes si y solo si $P(A\\cap B)=P(A)\\cdot P(B)$.",
+    "feedback_incorrect": [
+      null,
+      "Esa suma corresponde a otra propiedad, la unión de excluyentes, no al criterio de independencia.",
+      "Comparar $P(A)$ con $P(B)$ no dice nada sobre si se afectan entre sí, solo compara sus tamaños individuales."
+    ],
+    "explanation": "Para **verificar** si dos eventos son independientes, se compara la probabilidad de su intersección contra el producto de sus probabilidades individuales:\n$$P(A\\cap B) \\overset{?}{=} P(A)\\cdot P(B)$$\nEn este caso:\n$$P(A)\\cdot P(B)=0{,}3\\times 0{,}6=0{,}18$$\nEse resultado coincide con $P(A\\cap B)=0{,}18$, así que los eventos son independientes.\n\nComparar directamente $P(A)$ con $P(B)$, o usar la suma en vez del producto, deja de lado que el criterio de independencia siempre se apoya en la multiplicación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-verificacion"]
+  },
+  {
+    "question": "En un experimento, $P(A)=0{,}8$ y $P(B)=0{,}25$.\n\nAdemás, se sabe que $P(A\\cap B)=0{,}2$.\n\n¿Qué comparación permite verificar si ambos eventos son independientes?",
+    "options": [
+      "Comparar $P(A)$ con $P(B)$.",
+      "Comparar $P(A\\cap B)$ con $P(A)+P(B)$.",
+      "Comparar $P(A\\cap B)$ con $P(A)\\cdot P(B)$."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Son independientes si y solo si $P(A\\cap B)=P(A)\\cdot P(B)$.",
+    "feedback_incorrect": [
+      "Comparar $P(A)$ con $P(B)$ no dice nada sobre si se afectan entre sí, solo compara sus tamaños individuales.",
+      "Esa suma corresponde a otra propiedad, la unión de excluyentes, no al criterio de independencia.",
+      null
+    ],
+    "explanation": "Para **verificar** si dos eventos son independientes, se compara la probabilidad de su intersección contra el producto de sus probabilidades individuales:\n$$P(A\\cap B) \\overset{?}{=} P(A)\\cdot P(B)$$\nEn este caso:\n$$P(A)\\cdot P(B)=0{,}8\\times 0{,}25=0{,}2$$\nEse resultado coincide con $P(A\\cap B)=0{,}2$, así que los eventos son independientes.\n\nComparar directamente $P(A)$ con $P(B)$, o usar la suma en vez del producto, deja de lado que el criterio de independencia siempre se apoya en la multiplicación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-verificacion"]
+  },
+  {
+    "question": "En un experimento, $P(A)=0{,}5$ y $P(B)=0{,}5$.\n\nAdemás, se sabe que $P(A\\cap B)=0{,}3$.\n\n¿Qué comparación permite verificar si ambos eventos son independientes?",
+    "options": [
+      "Comparar $P(A\\cap B)$ con $P(A)+P(B)$.",
+      "Comparar $P(A\\cap B)$ con $P(A)\\cdot P(B)$.",
+      "Comparar $P(A)$ con $P(B)$."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Son independientes si y solo si $P(A\\cap B)=P(A)\\cdot P(B)$.",
+    "feedback_incorrect": [
+      "Esa suma corresponde a otra propiedad, la unión de excluyentes, no al criterio de independencia.",
+      null,
+      "Comparar $P(A)$ con $P(B)$ no dice nada sobre si se afectan entre sí, solo compara sus tamaños individuales."
+    ],
+    "explanation": "Para **verificar** si dos eventos son independientes, se compara la probabilidad de su intersección contra el producto de sus probabilidades individuales:\n$$P(A\\cap B) \\overset{?}{=} P(A)\\cdot P(B)$$\nEn este caso:\n$$P(A)\\cdot P(B)=0{,}5\\times 0{,}5=0{,}25$$\nEse resultado no coincide con $P(A\\cap B)=0{,}3$, así que los eventos no son independientes.\n\nComparar directamente $P(A)$ con $P(B)$, o usar la suma en vez del producto, deja de lado que el criterio de independencia siempre se apoya en la multiplicación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-verificacion"]
+  },
+  {
+    "question": "En un experimento, $P(A)=0{,}9$ y $P(B)=0{,}2$.\n\nAdemás, se sabe que $P(A\\cap B)=0{,}18$.\n\n¿Qué comparación permite verificar si ambos eventos son independientes?",
+    "options": [
+      "Comparar $P(A\\cap B)$ con $P(A)-P(B)$.",
+      "Comparar $P(A)$ con $P(B)$.",
+      "Comparar $P(A\\cap B)$ con $P(A)\\cdot P(B)$."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Son independientes si y solo si $P(A\\cap B)=P(A)\\cdot P(B)$.",
+    "feedback_incorrect": [
+      "La resta no forma parte del criterio de independencia entre dos eventos.",
+      "Comparar $P(A)$ con $P(B)$ no dice nada sobre si se afectan entre sí, solo compara sus tamaños individuales.",
+      null
+    ],
+    "explanation": "Para **verificar** si dos eventos son independientes, se compara la probabilidad de su intersección contra el producto de sus probabilidades individuales:\n$$P(A\\cap B) \\overset{?}{=} P(A)\\cdot P(B)$$\nEn este caso:\n$$P(A)\\cdot P(B)=0{,}9\\times 0{,}2=0{,}18$$\nEse resultado coincide con $P(A\\cap B)=0{,}18$, así que los eventos son independientes.\n\nComparar directamente $P(A)$ con $P(B)$, o usar la resta en vez del producto, deja de lado que el criterio de independencia siempre se apoya en la multiplicación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-verificacion"]
+  },
+  {
+    "question": "Se lanzan 3 dados balanceados de forma independiente y en un orden fijo.\n\nLlamamos $D_1, D_2, D_3$ al evento de que cada dado, respectivamente, salga 6.\n\n¿Qué expresión da $P(D_1\\cap D_2\\cap D_3)$?",
+    "options": [
+      "$P(D_1)\\cdot P(D_2)+P(D_3)$",
+      "$P(D_1)+P(D_2)+P(D_3)$",
+      "$P(D_1)\\cdot P(D_2)\\cdot P(D_3)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Con independencia mutua entre los 3 dados, la intersección es el producto de las 3 probabilidades.",
+    "feedback_incorrect": [
+      "Esa expresión mezcla producto y suma sin ningún criterio válido para 3 eventos independientes.",
+      "Esa suma corresponde a una unión de eventos excluyentes, no a la intersección de eventos independientes.",
+      null
+    ],
+    "explanation": "Cuando 3 o más eventos son mutuamente independientes, la probabilidad de que ocurran todos a la vez, en el orden exacto planteado, es el producto de sus probabilidades individuales.\n\nEsto extiende directamente la regla de 2 eventos:\n$$P(D_1\\cap D_2\\cap D_3) = P(D_1)\\cdot P(D_2)$$\n$$\\cdot\\, P(D_3)$$\nCon los 3 dados, cada uno con $P(6)=1/6$:\n$$P(D_1\\cap D_2\\cap D_3)=(1/6)^3=1/216$$\nMezclar suma y producto en la misma expresión, o sumar directamente las 3 probabilidades, ignora que la conjunción de eventos independientes siempre se resuelve multiplicando.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-tres-eventos"]
+  },
+  {
+    "question": "Los eventos $A, B, C$ son independientes, con estas probabilidades:\n$$\\begin{aligned} P(A) &= 0{,}5 \\\\ P(B) &= 0{,}4 \\\\ P(C) &= 0{,}2 \\end{aligned}$$\n¿Qué expresión da su intersección $P(A\\cap B\\cap C)$?",
+    "options": [
+      "$P(A)\\cdot P(B)\\cdot P(C)$",
+      "$P(A)+P(B)+P(C)$",
+      "$P(A)\\cdot P(B)+P(C)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Con independencia mutua, la intersección de los 3 eventos es el producto de sus 3 probabilidades.",
+    "feedback_incorrect": [
+      null,
+      "Esa suma corresponde a una unión de eventos excluyentes, no a la intersección de eventos independientes.",
+      "Esa expresión mezcla producto y suma sin ningún criterio válido para 3 eventos independientes."
+    ],
+    "explanation": "Cuando 3 eventos son mutuamente independientes, la probabilidad de que ocurran los 3 a la vez es el producto de sus probabilidades individuales.\n\nEsto extiende la regla de 2 eventos:\n$$P(A\\cap B\\cap C) = P(A)\\cdot P(B)$$\n$$\\cdot\\, P(C)$$\nCon los datos:\n$$P(A\\cap B\\cap C)=0{,}5\\times 0{,}4\\times 0{,}2=0{,}04$$\nSumar las 3 probabilidades en vez de multiplicarlas agranda cada vez más la desviación a medida que aumenta la cantidad de eventos independientes en juego.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-tres-eventos"]
+  },
+  {
+    "question": "Se encuesta a 3 personas distintas, sin ningún contacto entre ellas, sobre si usarían un nuevo servicio.\n\nLlamamos $A, B, C$ al evento de que cada persona, respectivamente, responda que sí.\n\n¿Qué expresión da $P(A\\cap B\\cap C)$?",
+    "options": [
+      "$P(A)+P(B)+P(C)$",
+      "$P(A)\\cdot P(B)+P(C)$",
+      "$P(A)\\cdot P(B)\\cdot P(C)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Sin contacto entre las 3 personas, la intersección de sus respuestas es el producto de las 3 probabilidades.",
+    "feedback_incorrect": [
+      "Esa suma corresponde a una unión de eventos excluyentes, no a la intersección de eventos independientes.",
+      "Esa expresión mezcla producto y suma sin ningún criterio válido para 3 eventos independientes.",
+      null
+    ],
+    "explanation": "Cuando 3 eventos son mutuamente independientes, la probabilidad de que ocurran los 3 a la vez es el producto de sus probabilidades individuales.\n\nSin contacto entre las 3 personas encuestadas, la respuesta de una no informa nada sobre la de las otras, así que:\n$$P(A\\cap B\\cap C) = P(A)\\cdot P(B)$$\n$$\\cdot\\, P(C)$$\nSumar las 3 probabilidades en vez de multiplicarlas ignora que la conjunción de eventos independientes siempre se resuelve con el producto, nunca con la suma.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-tres-eventos"]
   }
 ]

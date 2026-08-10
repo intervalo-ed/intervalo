@@ -18,7 +18,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["reconocer-variacion"]
+    "tags": [
+      "reconocer-variacion"
+    ]
   },
   {
     "question": "En un curso de 10 estudiantes se quiere elegir una pareja de 2 representantes, sin diferenciar roles entre ellos.\n\n¿Corresponde tratar este problema como una variación de 10 tomados de 2?",
@@ -37,7 +39,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["distractor-combinacion"]
+    "tags": [
+      "distractor-combinacion"
+    ]
   },
   {
     "question": "En una carrera de 5 corredores se quiere asignar los puestos 1º, 2º, 3º, 4º y 5º completos, usando a todos los corredores.\n\n¿Corresponde tratar este problema como una variación de 5 tomados de 3?",
@@ -56,7 +60,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["distractor-permutacion"]
+    "tags": [
+      "distractor-permutacion"
+    ]
   },
   {
     "question": "Un examen de 3 preguntas se responde eligiendo una opción en cada una.\n\nLas mismas 4 opciones están disponibles, de forma independiente entre preguntas.\n\n¿Corresponde tratar este problema como una variación de 4 tomados de 3?",
@@ -75,6 +81,249 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["distractor-regla-producto"]
+    "tags": [
+      "distractor-regla-producto"
+    ]
+  },
+  {
+    "question": "Un club de fotografía tiene 12 socios y va a elegir presidente y vicepresidente entre ellos.\n\nSon dos cargos distintos, así que asignarle presidente a una persona y vicepresidente a otra no es lo mismo que al revés.\n\n¿Qué técnica de conteo aplica?",
+    "options": [
+      "Variación de 12 tomados de 2.",
+      "Combinación de 12 tomados de 2.",
+      "Permutación de 12 elementos."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Se eligen y ordenan 2 socios de los 12 disponibles: es una variación.",
+    "feedback_incorrect": [
+      null,
+      "En combinación NO importa el orden; acá sí, porque presidente y vicepresidente son cargos distintos.",
+      "La permutación completa ordena TODOS los elementos; acá solo se eligen 2 de los 12."
+    ],
+    "explanation": "Las **variaciones** cuentan las formas de elegir y ordenar algunos elementos de un total, cuando el orden entre los elegidos importa.\n\nAcá se eligen 2 socios entre 12 y el orden importa, porque presidente y vicepresidente son roles distintos.\n\nCorresponde una variación de 12 tomados de 2.\n\nEl criterio para distinguir combinación de variación es siempre el mismo: preguntarse si intercambiar a los dos elegidos cambia el resultado.\n\nSi los dos cargos fueran intercambiables, sin distinguir cuál es cuál, correspondería combinación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-variacion"
+    ]
+  },
+  {
+    "question": "En una carrera de 10 atletas se van a entregar medallas de oro, plata y bronce a los 3 primeros en llegar.\n\nCada medalla es distinta, así que el orden de llegada determina quién recibe cada una.\n\n¿Qué técnica de conteo aplica?",
+    "options": [
+      "Combinación de 10 tomados de 3.",
+      "Permutación de 10 elementos.",
+      "Variación de 10 tomados de 3."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Se eligen y ordenan 3 atletas de los 10 disponibles: es una variación.",
+    "feedback_incorrect": [
+      "En combinación NO importa el orden; acá sí, porque oro, plata y bronce son medallas distintas.",
+      "La permutación completa ordena TODOS los elementos; acá solo se premia a 3 de los 10 atletas.",
+      null
+    ],
+    "explanation": "Las **variaciones** cuentan las formas de elegir y ordenar algunos elementos de un total, cuando el orden entre los elegidos importa.\n\nAcá se eligen 3 atletas entre 10 y el orden importa, porque oro, plata y bronce son medallas distintas entre sí.\n\nCorresponde una variación de 10 tomados de 3.\n\nEl criterio para distinguir combinación de variación es siempre el mismo: preguntarse si cambiar el orden de los elegidos cambia el resultado.\n\nSi las tres medallas fueran idénticas, sin distinguir el color, correspondería combinación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-variacion"
+    ]
+  },
+  {
+    "question": "Se va a diseñar la bandera de un club eligiendo y ordenando 4 franjas de colores.\n\nHay 9 colores disponibles y ninguno se repite dentro de la misma bandera.\n\n¿Qué técnica de conteo aplica?",
+    "options": [
+      "Variación de 9 tomados de 4.",
+      "Combinación de 9 tomados de 4.",
+      "Permutación de 9 elementos."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Se eligen y ordenan 4 colores de los 9 disponibles: es una variación.",
+    "feedback_incorrect": [
+      null,
+      "En combinación NO importa el orden; acá sí, porque cada franja ocupa una posición distinta en la bandera.",
+      "La permutación completa ordena TODOS los elementos; acá solo se eligen 4 de los 9 colores."
+    ],
+    "explanation": "Las **variaciones** cuentan las formas de elegir y ordenar algunos elementos de un total, cuando el orden entre los elegidos importa.\n\nAcá se eligen 4 colores entre 9 y el orden importa, porque cada franja ocupa una posición distinta dentro de la bandera.\n\nCorresponde una variación de 9 tomados de 4.\n\nEl criterio para distinguir combinación de variación es siempre el mismo: preguntarse si cambiar el orden de los elegidos cambia el resultado.\n\nSi solo importara qué colores aparecen, sin fijar su posición, correspondería combinación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-variacion"
+    ]
+  },
+  {
+    "question": "Se arma una clave de acceso eligiendo y ordenando 3 dígitos distintos entre los 10 dígitos del 0 al 9.\n\nNinguno de los dígitos se repite dentro de la misma clave.\n\n¿Qué técnica de conteo aplica?",
+    "options": [
+      "Permutación de 10 elementos.",
+      "Variación de 10 tomados de 3.",
+      "Combinación de 10 tomados de 3."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Se eligen y ordenan 3 dígitos de los 10 disponibles: es una variación.",
+    "feedback_incorrect": [
+      "La permutación completa ordena TODOS los elementos; acá solo se usan 3 de los 10 dígitos.",
+      null,
+      "En combinación NO importa el orden; acá sí, porque cambiar el orden de los dígitos arma una clave distinta."
+    ],
+    "explanation": "Las **variaciones** cuentan las formas de elegir y ordenar algunos elementos de un total, cuando el orden entre los elegidos importa.\n\nAcá se eligen 3 dígitos entre 10 y el orden importa, porque cambiar la posición de dos dígitos arma una clave distinta.\n\nCorresponde una variación de 10 tomados de 3.\n\nEl criterio para distinguir combinación de variación es siempre el mismo: preguntarse si cambiar el orden de los elegidos cambia el resultado.\n\nSi solo importara qué dígitos aparecen, sin fijar su posición, correspondería combinación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-variacion"
+    ]
+  },
+  {
+    "question": "Un equipo de debate de 8 integrantes va a elegir capitán y vicecapitán entre ellos.\n\nSon dos cargos distintos, así que asignar capitán a una persona y vicecapitán a otra no es lo mismo que al revés.\n\n¿Qué técnica de conteo aplica?",
+    "options": [
+      "Combinación de 8 tomados de 2.",
+      "Permutación de 8 elementos.",
+      "Variación de 8 tomados de 2."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Se eligen y ordenan 2 integrantes de los 8 disponibles: es una variación.",
+    "feedback_incorrect": [
+      "En combinación NO importa el orden; acá sí, porque capitán y vicecapitán son cargos distintos.",
+      "La permutación completa ordena TODOS los elementos; acá solo se eligen 2 de los 8 integrantes.",
+      null
+    ],
+    "explanation": "Las **variaciones** cuentan las formas de elegir y ordenar algunos elementos de un total, cuando el orden entre los elegidos importa.\n\nAcá se eligen 2 integrantes entre 8 y el orden importa, porque capitán y vicecapitán son roles distintos.\n\nCorresponde una variación de 8 tomados de 2.\n\nEl criterio para distinguir combinación de variación es siempre el mismo: preguntarse si intercambiar a los dos elegidos cambia el resultado.\n\nSi los dos cargos fueran intercambiables, correspondería combinación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-variacion"
+    ]
+  },
+  {
+    "question": "Un departamento académico tiene 12 profesores y va a formar un comité de 3 integrantes, sin diferenciar roles entre ellos.\n\n¿Corresponde tratar este problema como una variación de 12 tomados de 3?",
+    "options": [
+      "Sí, porque se eligen solo 3 profesores de los 12 disponibles.",
+      "No, porque los integrantes del comité no tienen roles distintos."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sin roles distintos entre los elegidos, intercambiarlos no cambia el resultado: corresponde combinación, no variación.",
+    "feedback_incorrect": [
+      "Elegir un subconjunto menor es necesario para variación, pero no alcanza: además hace falta que el orden entre los elegidos importe.",
+      null
+    ],
+    "explanation": "La **variación** exige que el orden entre los $k$ elegidos importe, es decir, que intercambiarlos produzca un resultado distinto. La **combinación** aplica cuando esos roles son intercambiables.\n\nAcá los 3 integrantes del comité no tienen roles diferenciados entre sí, así que el grupo $\\{A,B,C\\}$ es el mismo resultado sin importar el orden en que se los eligió.\n\nEl criterio decisivo sigue siendo el mismo: si cambiar el orden de los elegidos genera un resultado distinto, es variación; si no, es combinación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-combinacion"
+    ]
+  },
+  {
+    "question": "Una heladería ofrece 6 sabores y se van a elegir 2 sabores para un pote mixto, sin diferenciar cuál va primero.\n\n¿Corresponde tratar este problema como una variación de 6 tomados de 2?",
+    "options": [
+      "No, porque los dos sabores elegidos no tienen un orden entre sí.",
+      "Sí, porque se eligen solo 2 sabores de los 6 disponibles."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Sin un orden entre los sabores elegidos, intercambiarlos no cambia el resultado: corresponde combinación, no variación.",
+    "feedback_incorrect": [
+      null,
+      "Elegir un subconjunto menor es necesario para variación, pero no alcanza: además hace falta que el orden entre los elegidos importe."
+    ],
+    "explanation": "La **variación** exige que el orden entre los $k$ elegidos importe, es decir, que intercambiarlos produzca un resultado distinto. La **combinación** aplica cuando esos roles son intercambiables.\n\nAcá los 2 sabores del pote no tienen un orden que los distinga, así que elegir primero uno y después el otro da el mismo pote que al revés.\n\nEl criterio decisivo sigue siendo el mismo: si cambiar el orden de los elegidos genera un resultado distinto, es variación; si no, es combinación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-combinacion"
+    ]
+  },
+  {
+    "question": "Una biblioteca tiene 10 libros disponibles y va a donar 4 de ellos a una escuela, sin diferenciar el orden en que se eligen.\n\n¿Corresponde tratar este problema como una variación de 10 tomados de 4?",
+    "options": [
+      "Sí, porque se eligen solo 4 libros de los 10 disponibles.",
+      "No, porque los 4 libros donados no tienen un orden entre sí."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sin un orden entre los libros elegidos, intercambiarlos no cambia el resultado: corresponde combinación, no variación.",
+    "feedback_incorrect": [
+      "Elegir un subconjunto menor es necesario para variación, pero no alcanza: además hace falta que el orden entre los elegidos importe.",
+      null
+    ],
+    "explanation": "La **variación** exige que el orden entre los $k$ elegidos importe, es decir, que intercambiarlos produzca un resultado distinto. La **combinación** aplica cuando esos roles son intercambiables.\n\nAcá los 4 libros donados forman un mismo lote sin importar en qué orden se los sacó del estante.\n\nEl criterio decisivo sigue siendo el mismo: si cambiar el orden de los elegidos genera un resultado distinto, es variación; si no, es combinación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-combinacion"
+    ]
+  },
+  {
+    "question": "Una clase tiene 14 estudiantes y se van a elegir 3 para representar a la clase en una feria, con el mismo rol para los 3.\n\n¿Corresponde tratar este problema como una variación de 14 tomados de 3?",
+    "options": [
+      "Sí, porque se eligen solo 3 estudiantes de los 14 disponibles.",
+      "No, porque los 3 estudiantes elegidos no tienen roles distintos."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sin roles distintos entre los elegidos, intercambiarlos no cambia el resultado: corresponde combinación, no variación.",
+    "feedback_incorrect": [
+      "Elegir un subconjunto menor es necesario para variación, pero no alcanza: además hace falta que el orden entre los elegidos importe.",
+      null
+    ],
+    "explanation": "La **variación** exige que el orden entre los $k$ elegidos importe, es decir, que intercambiarlos produzca un resultado distinto. La **combinación** aplica cuando esos roles son intercambiables.\n\nAcá los 3 estudiantes elegidos comparten el mismo rol de representantes, así que el grupo elegido es el mismo sin importar el orden en que se los seleccionó.\n\nEl criterio decisivo sigue siendo el mismo: si cambiar el orden de los elegidos genera un resultado distinto, es variación; si no, es combinación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-combinacion"
+    ]
+  },
+  {
+    "question": "Una familia de 6 integrantes va a repartir 6 tareas del hogar distintas, una tarea para cada integrante.\n\n¿Corresponde tratar este problema como una variación de 6 tomados de 4?",
+    "options": [
+      "No, porque se usan los 6 integrantes, no un subconjunto.",
+      "Sí, porque el orden en que se asignan las tareas importa."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Cuando se asignan TODOS los elementos disponibles, la técnica correcta es la permutación, no la variación de un subconjunto menor.",
+    "feedback_incorrect": [
+      null,
+      "Que el orden importe es necesario para variación, pero acá además se usan todos los elementos, lo que la convierte en permutación."
+    ],
+    "explanation": "La **variación** elige y ordena un subconjunto de $k<n$ elementos, dejando elementos sin usar. Cuando se usan todos los elementos, con $k=n$, el conteo colapsa a la **permutación**.\n\nAcá se reparten las 6 tareas entre los 6 integrantes de la familia, sin que sobre ninguno, así que corresponde permutación de 6 elementos, no variación de un subconjunto.\n\nLa pista para distinguirlos es preguntarse si sobran elementos sin asignar al terminar el conteo; si no sobra ninguno, es permutación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-permutacion"
+    ]
+  },
+  {
+    "question": "Se arma un código de acceso de 4 dígitos, eligiendo cada dígito libremente entre 0 y 9.\n\nUn mismo dígito puede repetirse en más de una posición del código.\n\n¿Corresponde tratar este problema como una variación de 10 tomados de 4?",
+    "options": [
+      "Sí, porque hay 4 posiciones que se llenan siguiendo un orden fijo.",
+      "No, porque los dígitos se repiten libremente en cada posición."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "En la variación los elementos elegidos no se reponen; acá los 10 dígitos están disponibles en cada posición sin agotarse.",
+    "feedback_incorrect": [
+      "Tener 4 posiciones no alcanza: en la variación esas posiciones agotan elementos de un mismo conjunto sin reposición, algo que acá no ocurre.",
+      null
+    ],
+    "explanation": "La **variación** elige elementos de un conjunto que se va agotando, sin reposición. Cuando cada posición vuelve a tener las mismas opciones completas disponibles, corresponde la regla del producto.\n\nAcá cada una de las 4 posiciones del código elige independientemente entre los mismos 10 dígitos, sin que elegir uno lo saque del conjunto: el conteo es $10\\times10\\times10\\times10$, no una variación.\n\nLa pista para distinguirlos es notar si el conjunto de opciones se reduce a medida que se elige, o si se repite completo en cada paso.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-regla-producto"
+    ]
   }
 ]

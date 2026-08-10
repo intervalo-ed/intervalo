@@ -61,5 +61,257 @@
     "graph_view": null,
     "reviewed": false,
     "tags": ["identificar-formula-correcta"]
+  },
+  {
+    "question": "Sean $C_1, C_2$ una partición del espacio muestral y $E$ un evento cualquiera.\n\n¿Qué expresión corresponde al teorema de la probabilidad total para $P(E)$?",
+    "options": [
+      "$P(E\\mid C_1) + P(E\\mid C_2)$",
+      "$P(E\\mid C_1)P(C_1) + P(E\\mid C_2)P(C_2)$",
+      "$P(E\\mid C_1)P(C_2) + P(E\\mid C_2)P(C_1)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Suma ponderada por el peso de cada escenario de la partición.",
+    "feedback_incorrect": [
+      "Esa suma no pondera cada condicional por el peso de su propio escenario, solo los suma sueltos.",
+      null,
+      "Esa expresión cruza los pesos entre escenarios: cada condicional debe multiplicarse por el peso de su propio escenario, no el del otro."
+    ],
+    "explanation": "El **teorema de la probabilidad total** aplica cuando $\\{C_1, C_2\\}$ es una partición del espacio muestral, excluyentes y cubriendo todo $\\Omega$:\n$$P(E) = \\sum_i P(E\\mid C_i) \\cdot P(C_i)$$\nCada término suma la contribución de $E$ dentro de cada escenario, pesada por qué tan probable es ese escenario.\n\nSumar las condicionales sin multiplicarlas por el peso de su propio escenario trata a los dos escenarios como si aportaran por igual, aunque uno sea mucho más frecuente que el otro.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-dos-escenarios"]
+  },
+  {
+    "question": "Sean $A_1, A_2$ una partición del espacio muestral y $D$ un evento cualquiera.\n\n¿Qué expresión corresponde al teorema de la probabilidad total para $P(D)$?",
+    "options": [
+      "$P(D\\mid A_1)P(A_1) \\cdot P(D\\mid A_2)P(A_2)$",
+      "$P(D\\mid A_1)P(A_1) + P(D\\mid A_2)P(A_2)$",
+      "$P(A_1) + P(A_2)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Suma ponderada por el peso de cada escenario de la partición.",
+    "feedback_incorrect": [
+      "Esa expresión multiplica ambos términos entre sí en vez de sumarlos, la probabilidad total es una suma de contribuciones.",
+      null,
+      "Esa expresión suma solo los pesos de los escenarios, sin incluir ninguna condicional del evento $D$."
+    ],
+    "explanation": "El **teorema de la probabilidad total** aplica cuando $\\{A_1, A_2\\}$ es una partición del espacio muestral, excluyentes y cubriendo todo $\\Omega$:\n$$P(D) = \\sum_i P(D\\mid A_i) \\cdot P(A_i)$$\nCada término suma la contribución de $D$ dentro de cada escenario, pesada por qué tan probable es ese escenario.\n\nMultiplicar los dos términos en vez de sumarlos, o sumar solo los pesos sin ninguna condicional, arma una expresión que ya no representa una probabilidad total.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-dos-escenarios"]
+  },
+  {
+    "question": "Sean $B_1, B_2$ una partición del espacio muestral y $F$ un evento cualquiera.\n\n¿Qué expresión corresponde al teorema de la probabilidad total para $P(F)$?",
+    "options": [
+      "$P(B_1\\mid F)P(F) + P(B_2\\mid F)P(F)$",
+      "$\\dfrac{P(F\\mid B_1)}{P(B_1)} + \\dfrac{P(F\\mid B_2)}{P(B_2)}$",
+      "$P(F\\mid B_1)P(B_1) + P(F\\mid B_2)P(B_2)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Suma ponderada por el peso de cada escenario de la partición.",
+    "feedback_incorrect": [
+      "Esa expresión invierte el condicional, usando $P(B_i\\mid F)$ en vez de $P(F\\mid B_i)$.",
+      "Esa expresión divide en vez de multiplicar cada condicional por el peso de su escenario.",
+      null
+    ],
+    "explanation": "El **teorema de la probabilidad total** aplica cuando $\\{B_1, B_2\\}$ es una partición del espacio muestral, excluyentes y cubriendo todo $\\Omega$:\n$$P(F) = \\sum_i P(F\\mid B_i) \\cdot P(B_i)$$\nCada término suma la contribución de $F$ dentro de cada escenario, pesada por qué tan probable es ese escenario.\n\nInvertir el condicional o dividir en vez de multiplicar arma expresiones que ya no describen la misma cantidad que la probabilidad total.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-dos-escenarios"]
+  },
+  {
+    "question": "Sean $H_1, H_2$ una partición del espacio muestral y $G$ un evento cualquiera.\n\n¿Qué expresión corresponde al teorema de la probabilidad total para $P(G)$?",
+    "options": [
+      "$P(G\\mid H_1)P(H_2) + P(G\\mid H_2)P(H_1)$",
+      "$P(G) = P(H_1) \\cdot P(H_2)$",
+      "$P(G\\mid H_1)P(H_1) + P(G\\mid H_2)P(H_2)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Suma ponderada por el peso de cada escenario de la partición.",
+    "feedback_incorrect": [
+      "Esa expresión cruza los pesos entre escenarios: cada condicional debe multiplicarse por el peso de su propio escenario, no el del otro.",
+      "Esa expresión ni siquiera incluye una condicional del evento $G$, solo multiplica los pesos de la partición entre sí.",
+      null
+    ],
+    "explanation": "El **teorema de la probabilidad total** aplica cuando $\\{H_1, H_2\\}$ es una partición del espacio muestral, excluyentes y cubriendo todo $\\Omega$:\n$$P(G) = \\sum_i P(G\\mid H_i) \\cdot P(H_i)$$\nCada término suma la contribución de $G$ dentro de cada escenario, pesada por qué tan probable es ese escenario.\n\nCruzar los pesos entre escenarios, o multiplicar los pesos entre sí sin ninguna condicional de por medio, deja una expresión que no representa la mezcla real entre escenarios.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-dos-escenarios"]
+  },
+  {
+    "question": "Sean $A_1, A_2, A_3$ una partición del espacio muestral en tres escenarios y $B$ un evento cualquiera.\n\n¿Qué expresión corresponde al teorema de la probabilidad total para $P(B)$?",
+    "options": [
+      "$P(B\\mid A_1)P(A_1) + P(B\\mid A_2)P(A_2) + P(B\\mid A_3)P(A_3)$",
+      "$P(B\\mid A_1) + P(B\\mid A_2) + P(B\\mid A_3)$",
+      "$P(B\\mid A_1)P(A_1) + P(B\\mid A_2)P(A_2)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Se suma la contribución de cada uno de los tres escenarios, ponderada por su propio peso.",
+    "feedback_incorrect": [
+      null,
+      "Esa suma no pondera ninguna condicional por el peso de su escenario, solo las suma sueltas.",
+      "Esa expresión deja afuera al tercer escenario $A_3$, la suma queda incompleta."
+    ],
+    "explanation": "El **teorema de la probabilidad total** se extiende directamente a cualquier cantidad de escenarios de la partición: cada uno aporta su condicional ponderado por su propio peso.\n$$P(B) = \\sum_i P(B\\mid A_i) \\cdot P(A_i)$$\nCon tres escenarios en la partición, la suma tiene un término por cada uno de ellos.\n\nOlvidar sumar el término de alguno de los escenarios, o sumar las condicionales sin ponderarlas, deja el cálculo incompleto o mal armado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-tres-o-mas-escenarios"]
+  },
+  {
+    "question": "Sean $A_1, \\dots, A_n$ una partición del espacio muestral en varios escenarios y $D$ un evento cualquiera.\n\n¿Qué expresión corresponde al teorema de la probabilidad total para $P(D)$?",
+    "options": [
+      "$\\sum_i \\dfrac{P(D\\mid A_i)}{P(A_i)}$",
+      "$\\sum_i P(D\\mid A_i) \\cdot P(A_i)$",
+      "$\\sum_i P(A_i\\mid D)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Se suma la contribución de cada escenario, ponderada por el peso de ese escenario.",
+    "feedback_incorrect": [
+      "Esa expresión divide en vez de multiplicar cada condicional por el peso de su escenario.",
+      null,
+      "Esa expresión invierte el condicional y ni siquiera lo multiplica por ningún peso."
+    ],
+    "explanation": "El **teorema de la probabilidad total** se extiende directamente a cualquier cantidad de escenarios de la partición: cada uno aporta su condicional ponderado por su propio peso.\n$$P(D) = \\sum_i P(D\\mid A_i) \\cdot P(A_i)$$\nSin importar cuántos escenarios tenga la partición, la suma repite el mismo patrón de multiplicar y sumar en cada término.\n\nDividir en vez de multiplicar, o invertir el condicional dentro de la suma, produce una expresión que ya no calcula la misma cantidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-tres-o-mas-escenarios"]
+  },
+  {
+    "question": "Sean $A_1, A_2, A_3, A_4$ una partición del espacio muestral en cuatro escenarios y $F$ un evento cualquiera.\n\n¿Qué expresión corresponde al teorema de la probabilidad total para $P(F)$?",
+    "options": [
+      "$\\prod_i P(F\\mid A_i)$",
+      "$\\sum_i P(A_i)$",
+      "$\\sum_i P(F\\mid A_i)P(A_i)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Se suma la contribución de cada uno de los cuatro escenarios, ponderada por su propio peso.",
+    "feedback_incorrect": [
+      "Ese producto no corresponde a la fórmula: la probabilidad total es una suma de contribuciones, no un producto entre escenarios.",
+      "Esa suma ni siquiera incluye una condicional del evento $F$, solo suma los pesos de la partición.",
+      null
+    ],
+    "explanation": "El **teorema de la probabilidad total** se extiende directamente a cualquier cantidad de escenarios de la partición: cada uno aporta su condicional ponderado por su propio peso.\n$$P(F) = \\sum_i P(F\\mid A_i)P(A_i)$$\nCon cuatro escenarios, la suma agrega un término más por cada uno respecto del caso de 2 o 3.\n\nMultiplicar las condicionales entre sí en vez de sumarlas, o sumar solo los pesos sin ninguna condicional, arma expresiones que ya no representan una probabilidad total.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-tres-o-mas-escenarios"]
+  },
+  {
+    "question": "Sean $A_1, \\dots, A_5$ una partición del espacio muestral en cinco escenarios y $G$ un evento cualquiera.\n\n¿Qué expresión corresponde al teorema de la probabilidad total para $P(G)$?",
+    "options": [
+      "$\\displaystyle\\sum_{i=1}^{5} P(G\\mid A_i) \\cdot P(A_i)$",
+      "$P(G\\mid A_1)P(A_1) + P(G\\mid A_2)P(A_2)$",
+      "$\\displaystyle\\sum_{i=1}^{5} P(G\\mid A_i)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Se suma la contribución de cada uno de los cinco escenarios, ponderada por su propio peso.",
+    "feedback_incorrect": [
+      null,
+      "Esa expresión solo incluye dos de los cinco escenarios, la suma queda incompleta.",
+      "Esa suma no pondera ninguna condicional por el peso de su escenario, solo las suma sueltas."
+    ],
+    "explanation": "El **teorema de la probabilidad total** se extiende directamente a cualquier cantidad de escenarios de la partición: cada uno aporta su condicional ponderado por su propio peso.\n$$P(G) = \\sum_i P(G\\mid A_i) \\cdot P(A_i)$$\nCon cinco escenarios, la suma tiene cinco términos, uno por cada $A_i$ de la partición.\n\nDetener la suma antes de llegar al último escenario, o sumar las condicionales sin ponderarlas, deja el cálculo incompleto o mal armado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-tres-o-mas-escenarios"]
+  },
+  {
+    "question": "Se busca identificar cuál expresión corresponde correctamente al teorema de la probabilidad total con 2 escenarios $C_1, C_2$.\n\n¿Cuál es la expresión correcta?",
+    "options": [
+      "$P(E\\mid C_1)P(C_1)+P(E\\mid C_2)P(C_2)$",
+      "$P(C_1\\mid E)P(C_1)+P(C_2\\mid E)P(C_2)$",
+      "$P(E\\mid C_1)P(C_2)+P(E\\mid C_2)P(C_1)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Cada condicional se pondera por el peso de su propio escenario, en el orden correcto.",
+    "feedback_incorrect": [
+      null,
+      "Esa expresión invierte el condicional, usando $P(C_i\\mid E)$ en vez de $P(E\\mid C_i)$.",
+      "Esa expresión cruza los pesos: cada condicional debe multiplicarse por el peso de su propio escenario, no el del otro."
+    ],
+    "explanation": "El **teorema de la probabilidad total** pondera cada condicional exactamente por el peso de su propio escenario:\n$$P(E) = P(E\\mid C_1)P(C_1)+P(E\\mid C_2)P(C_2)$$\nLas otras variantes invierten el condicional o cruzan los pesos entre escenarios, dos errores distintos que rompen la fórmula.\n\nConfundir la dirección del condicional, o multiplicar cada término por el peso del otro escenario, arma expresiones parecidas a simple vista pero que calculan cantidades distintas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["identificar-formula-correcta"]
+  },
+  {
+    "question": "Se busca identificar cuál expresión corresponde correctamente al teorema de la probabilidad total con 2 escenarios $H_1, H_2$.\n\n¿Cuál es la expresión correcta?",
+    "options": [
+      "$P(D\\mid H_1)P(H_1)+P(D\\mid H_2)P(H_2)$",
+      "$P(D\\mid H_1)+P(D\\mid H_2)$",
+      "$P(D\\mid H_1)P(H_2)+P(D\\mid H_2)P(H_1)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Cada condicional se pondera por el peso de su propio escenario, en el orden correcto.",
+    "feedback_incorrect": [
+      null,
+      "Esa suma no pondera ninguna condicional por el peso de su escenario, solo las suma sueltas.",
+      "Esa expresión cruza los pesos: cada condicional debe multiplicarse por el peso de su propio escenario, no el del otro."
+    ],
+    "explanation": "El **teorema de la probabilidad total** pondera cada condicional exactamente por el peso de su propio escenario:\n$$P(D) = P(D\\mid H_1)P(H_1)+P(D\\mid H_2)P(H_2)$$\nLas otras variantes omiten la ponderación o cruzan los pesos entre escenarios, dos errores distintos que rompen la fórmula.\n\nSumar las condicionales sin peso alguno, o multiplicar cada término por el peso del otro escenario, produce expresiones que ya no representan la mezcla real entre los dos escenarios.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["identificar-formula-correcta"]
+  },
+  {
+    "question": "Se busca identificar la expresión correcta del teorema de la probabilidad total con 3 escenarios $A_1, A_2, A_3$.\n\n¿Cuál es la expresión correcta?",
+    "options": [
+      "$P(F\\mid A_1)P(A_1)+P(F\\mid A_2)P(A_2)+P(F\\mid A_3)P(A_3)$",
+      "$P(A_1\\mid F)P(A_1)+P(A_2\\mid F)P(A_2)+P(A_3\\mid F)P(A_3)$",
+      "$P(F\\mid A_1)P(A_1)+P(F\\mid A_2)P(A_2)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Cada condicional se pondera por el peso de su propio escenario, incluidos los tres términos.",
+    "feedback_incorrect": [
+      null,
+      "Esa expresión invierte el condicional en los tres términos, usando $P(A_i\\mid F)$ en vez de $P(F\\mid A_i)$.",
+      "Esa expresión deja afuera al tercer escenario $A_3$, la suma queda incompleta."
+    ],
+    "explanation": "El **teorema de la probabilidad total** pondera cada condicional exactamente por el peso de su propio escenario, sin importar cuántos escenarios tenga la partición:\n$$P(F) = P(F\\mid A_1)P(A_1)+P(F\\mid A_2)P(A_2)$$\n$$+\\, P(F\\mid A_3)P(A_3)$$\nLas otras variantes invierten el condicional en los tres términos o dejan un escenario afuera de la suma.\n\nInvertir la dirección del condicional en todos los términos a la vez, o cortar la suma antes de llegar al último escenario, son dos formas distintas de romper la fórmula.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["identificar-formula-correcta"]
+  },
+  {
+    "question": "Se busca identificar cuál expresión corresponde correctamente al teorema de la probabilidad total con 2 escenarios $B_1, B_2$.\n\n¿Cuál es la expresión correcta?",
+    "options": [
+      "$P(B_1)\\cdot P(B_2)$",
+      "$P(G\\mid B_1)P(B_1)+P(G\\mid B_2)P(B_2)$",
+      "$\\dfrac{P(G\\mid B_1)}{P(B_1)}+\\dfrac{P(G\\mid B_2)}{P(B_2)}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada condicional se pondera por el peso de su propio escenario, en el orden correcto.",
+    "feedback_incorrect": [
+      "Esa expresión ni siquiera incluye una condicional del evento $G$, solo multiplica los pesos de la partición entre sí.",
+      null,
+      "Esa expresión divide en vez de multiplicar cada condicional por el peso de su escenario."
+    ],
+    "explanation": "El **teorema de la probabilidad total** pondera cada condicional exactamente por el peso de su propio escenario:\n$$P(G) = P(G\\mid B_1)P(B_1)+P(G\\mid B_2)P(B_2)$$\nLas otras variantes ni siquiera incluyen la condicional del evento $G$, o dividen en vez de multiplicar cada término.\n\nMultiplicar solo los pesos de la partición entre sí, o dividir cada condicional por su peso en vez de multiplicarla, produce expresiones que no calculan la probabilidad total.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["identificar-formula-correcta"]
   }
 ]

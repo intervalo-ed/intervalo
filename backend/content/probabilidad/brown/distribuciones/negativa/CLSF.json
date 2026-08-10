@@ -18,7 +18,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["reconocer-negativa"]
+    "tags": [
+      "reconocer-negativa"
+    ]
   },
   {
     "question": "Un inspector de calidad revisa piezas de una línea de producción, una por una, hasta detectar la segunda pieza defectuosa.\n\nCada pieza sale defectuosa con probabilidad $0{,}1$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de piezas revisadas hasta detectar la segunda defectuosa?",
@@ -39,7 +41,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["distractor-vecino"]
+    "tags": [
+      "distractor-vecino"
+    ]
   },
   {
     "question": "Un vendedor busca cerrar 2 ventas en el día.\n\nGana confianza con cada venta cerrada: su probabilidad de cerrar la siguiente sube después de cada éxito.\n\n¿Se puede modelar la cantidad de intentos hasta cerrar la segunda venta como una binomial negativa?",
@@ -60,6 +64,284 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["supuesto-violado"]
+    "tags": [
+      "supuesto-violado"
+    ]
+  },
+  {
+    "question": "Una persona envía currículums a distintas empresas hasta recibir 4 respuestas positivas.\n\nCada envío recibe respuesta positiva con probabilidad $0{,}2$, en forma independiente.\n\n¿Qué distribución sigue la cantidad total de currículums enviados hasta la cuarta respuesta positiva?",
+    "options": [
+      "$Geom(0{,}2)$",
+      "$BinNeg(4,\\, 0{,}2)$",
+      "$Bin(20,\\, 0{,}2)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Envíos hasta acumular 4 respuestas positivas, con $r=4>1$: es binomial negativa.",
+    "feedback_incorrect": [
+      "La geométrica es el caso particular $r=1$, acá se buscan 4 respuestas positivas, no una.",
+      null,
+      "La binomial exige un número fijo de envíos de antemano, acá el conteo se detiene al llegar a la cuarta respuesta positiva."
+    ],
+    "explanation": "La distribución **binomial negativa** cuenta ensayos hasta acumular $r$ éxitos.\n$$P(X=k) = \\binom{k-1}{r-1}p^{r}(1-p)^{k-r}$$\nAcá cada envío es un ensayo con $p=0{,}2$ de recibir respuesta positiva, y se busca acumular la cuarta.\n\nEl conteo se detiene apenas llega esa cuarta respuesta, sin importar cuántos currículums hicieron falta enviar para llegar ahí.\n\nRepetir cuatro veces el mecanismo de la geométrica, esperar una respuesta y volver a empezar, es exactamente lo que modela esta distribución.\n\nPreguntar por la cantidad de respuestas positivas en 20 envíos fijos convertiría el mismo escenario en binomial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-negativa"
+    ]
+  },
+  {
+    "question": "En un sorteo se extrae una bolilla con reposición hasta que el número 7 salga por tercera vez.\n\nEn cada extracción, el 7 sale con probabilidad $0{,}1$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de extracciones hasta que el 7 salga la tercera vez?",
+    "options": [
+      "$BinNeg(3,\\, 0{,}1)$",
+      "$Bin(30,\\, 0{,}1)$",
+      "$Geom(0{,}1)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Extracciones hasta acumular 3 apariciones del número 7, con $r=3>1$: es binomial negativa.",
+    "feedback_incorrect": [
+      null,
+      "La binomial exige un número fijo de extracciones de antemano, acá el conteo se detiene al llegar a la tercera aparición del 7.",
+      "La geométrica es el caso particular $r=1$, acá se buscan 3 apariciones del número 7, no una."
+    ],
+    "explanation": "La distribución **binomial negativa** cuenta ensayos hasta acumular $r$ éxitos.\n$$P(X=k) = \\binom{k-1}{r-1}p^{r}(1-p)^{k-r}$$\nAcá cada extracción es un ensayo con $p=0{,}1$ de que salga el número 7, y se busca acumular la tercera aparición.\n\nEl conteo se detiene apenas ocurre esa tercera aparición, sin importar cuántas extracciones hicieron falta para llegar ahí.\n\nRepetir tres veces el mecanismo de la geométrica, esperar que el número salga y volver a empezar, es exactamente lo que modela esta distribución.\n\nFijar de antemano 30 extracciones y preguntar cuántas veces salió el 7 convertiría el mismo escenario en binomial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-negativa"
+    ]
+  },
+  {
+    "question": "Un inspector revisa piezas de una línea de producción hasta detectar la quinta pieza defectuosa.\n\nCada pieza sale defectuosa con probabilidad $0{,}05$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de piezas revisadas hasta detectar la quinta defectuosa?",
+    "options": [
+      "$Bin(100,\\, 0{,}05)$",
+      "$Geom(0{,}05)$",
+      "$BinNeg(5,\\, 0{,}05)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Piezas revisadas hasta acumular 5 defectuosas, con $r=5>1$: es binomial negativa.",
+    "feedback_incorrect": [
+      "La binomial exige un número fijo de piezas revisadas de antemano, acá el conteo se detiene al llegar a la quinta defectuosa.",
+      "La geométrica es el caso particular $r=1$, acá se buscan 5 piezas defectuosas, no una.",
+      null
+    ],
+    "explanation": "La distribución **binomial negativa** cuenta ensayos hasta acumular $r$ éxitos.\n$$P(X=k) = \\binom{k-1}{r-1}p^{r}(1-p)^{k-r}$$\nAcá cada pieza revisada es un ensayo con $p=0{,}05$ de salir defectuosa, y se busca acumular la quinta.\n\nEl conteo se detiene apenas aparece esa quinta pieza defectuosa, sin importar cuántas piezas hicieron falta revisar para llegar ahí.\n\nRepetir cinco veces el mecanismo de la geométrica, esperar una pieza defectuosa y volver a empezar, es exactamente lo que modela esta distribución.\n\nFijar de antemano 100 piezas revisadas y preguntar cuántas salieron defectuosas convertiría el mismo escenario en binomial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-negativa"
+    ]
+  },
+  {
+    "question": "Un community manager publica posts hasta lograr que 2 de ellos superen las mil interacciones.\n\nCada post supera las mil interacciones con probabilidad $0{,}3$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de posts publicados hasta el segundo que supera las mil interacciones?",
+    "options": [
+      "$Geom(0{,}3)$",
+      "$Bin(7,\\, 0{,}3)$",
+      "$BinNeg(2,\\, 0{,}3)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Posts hasta acumular 2 que superan las mil interacciones, con $r=2>1$: es binomial negativa.",
+    "feedback_incorrect": [
+      "La geométrica es el caso particular $r=1$, acá se buscan 2 posts que superen las mil interacciones, no uno.",
+      "La binomial exige un número fijo de posts de antemano, acá el conteo se detiene al llegar al segundo post exitoso.",
+      null
+    ],
+    "explanation": "La distribución **binomial negativa** cuenta ensayos hasta acumular $r$ éxitos.\n$$P(X=k) = \\binom{k-1}{r-1}p^{r}(1-p)^{k-r}$$\nAcá cada post publicado es un ensayo con $p=0{,}3$ de superar las mil interacciones, y se busca acumular el segundo.\n\nEl conteo se detiene apenas se publica ese segundo post exitoso, sin importar cuántos posts hicieron falta para llegar ahí.\n\nRepetir dos veces el mecanismo de la geométrica, esperar un post exitoso y volver a empezar, es exactamente lo que modela esta distribución.\n\nFijar de antemano 7 posts publicados y preguntar cuántos superaron las mil interacciones convertiría el mismo escenario en binomial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-negativa"
+    ]
+  },
+  {
+    "question": "Un vendedor llama a clientes potenciales hasta cerrar 4 pólizas de seguro.\n\nCada llamado cierra una póliza con probabilidad $0{,}25$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de llamados hasta cerrar la cuarta póliza?",
+    "options": [
+      "$BinNeg(4,\\, 0{,}25)$",
+      "$Geom(0{,}25)$",
+      "$Bin(16,\\, 0{,}25)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Llamados hasta acumular 4 pólizas cerradas, con $r=4>1$: es binomial negativa.",
+    "feedback_incorrect": [
+      null,
+      "La geométrica es el caso particular $r=1$, acá se buscan 4 pólizas cerradas, no una.",
+      "La binomial exige un número fijo de llamados de antemano, acá el conteo se detiene al llegar a la cuarta póliza cerrada."
+    ],
+    "explanation": "La distribución **binomial negativa** cuenta ensayos hasta acumular $r$ éxitos.\n$$P(X=k) = \\binom{k-1}{r-1}p^{r}(1-p)^{k-r}$$\nAcá cada llamado es un ensayo con $p=0{,}25$ de cerrar una póliza, y se busca acumular la cuarta.\n\nEl conteo se detiene apenas se cierra esa cuarta póliza, sin importar cuántos llamados hicieron falta para llegar ahí.\n\nRepetir cuatro veces el mecanismo de la geométrica, esperar una póliza cerrada y volver a empezar, es exactamente lo que modela esta distribución.\n\nFijar de antemano 16 llamados y preguntar cuántas pólizas se cerraron convertiría el mismo escenario en binomial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-negativa"
+    ]
+  },
+  {
+    "question": "Un vendedor llama a clientes hasta lograr su primera venta del día.\n\nCada llamado termina en venta con probabilidad $0{,}3$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de llamados hasta esa primera venta?",
+    "options": [
+      "$BinNeg(1,\\, 0{,}3)$",
+      "$Geom(0{,}3)$",
+      "$Bin(3,\\, 0{,}3)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Se busca un único éxito, $r=1$: ese caso particular ya tiene nombre propio, geométrica.",
+    "feedback_incorrect": [
+      "Con $r=1$ la fórmula de binomial negativa colapsa exactamente en la geométrica; la convención de esta unidad usa ese nombre en vez de escribir $r=1$ explícito.",
+      null,
+      "La binomial exige un número fijo de llamados de antemano, acá el conteo se detiene apenas ocurre la primera venta."
+    ],
+    "explanation": "La distribución **binomial negativa** generaliza a la geométrica contando ensayos hasta acumular $r$ éxitos.\n$$P(X=k) = \\binom{k-1}{r-1}p^{r}(1-p)^{k-r}$$\nCuando $r=1$, el binomio del frente vale 1.\n$$\\binom{k-1}{0}=1$$\nLa fórmula se reduce entonces a $p(1-p)^{k-1}$, que es exactamente la geométrica.\n\nAcá el vendedor busca una única venta, así que el modelo tiene nombre propio: geométrica.\n\nLa binomial negativa aporta algo nuevo recién cuando se buscan 2 o más éxitos, con uno solo ambos nombres describen lo mismo, pero la convención reserva geométrica para ese caso puntual.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-vecino"
+    ]
+  },
+  {
+    "question": "Un arquero pica 8 penales durante un entrenamiento.\n\nCada penal lo convierte con probabilidad $0{,}5$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de penales convertidos entre esos 8?",
+    "options": [
+      "$BinNeg(8,\\, 0{,}5)$",
+      "$Geom(0{,}5)$",
+      "$Bin(8,\\, 0{,}5)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Los 8 penales están fijos de antemano y lo aleatorio es cuántos se convierten: es binomial, no binomial negativa.",
+    "feedback_incorrect": [
+      "La binomial negativa fija de antemano la cantidad de éxitos buscados y deja aleatoria la cantidad de ensayos; acá es al revés, los 8 penales están fijos y lo aleatorio es la cantidad de goles.",
+      "La geométrica cuenta ensayos hasta un único éxito y se detiene ahí; acá se patean los 8 penales completos, sin detenerse en el primer gol.",
+      null
+    ],
+    "explanation": "La distribución **binomial** cuenta éxitos en un número fijo de ensayos.\n$$P(Y=j) = \\binom{n}{j}p^{j}(1-p)^{n-j}$$\nAcá los 8 penales están fijos de antemano, y lo aleatorio es cuántos de ellos se convierten.\n\nLa binomial negativa hace lo opuesto: fija de antemano la cantidad de éxitos buscados y deja aleatoria la cantidad de ensayos necesarios para alcanzarlos.\n\nQue el enunciado fije un número de intentos, en vez de un número de éxitos, es la señal que distingue a esta binomial de su vecina negativa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-vecino"
+    ]
+  },
+  {
+    "question": "En un sorteo se extrae una bolilla con reposición hasta que salga el número 7 por primera vez.\n\nEn cada extracción, el 7 sale con probabilidad $0{,}1$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de extracciones hasta esa primera aparición del 7?",
+    "options": [
+      "$BinNeg(1,\\, 0{,}1)$",
+      "$Geom(0{,}1)$",
+      "$Bin(10,\\, 0{,}1)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Se busca una única aparición del número 7, $r=1$: ese caso particular ya tiene nombre propio, geométrica.",
+    "feedback_incorrect": [
+      "Con $r=1$ la fórmula de binomial negativa colapsa exactamente en la geométrica; la convención de esta unidad usa ese nombre en vez de escribir $r=1$ explícito.",
+      null,
+      "La binomial exige un número fijo de extracciones de antemano, acá el conteo se detiene apenas sale el primer 7."
+    ],
+    "explanation": "La distribución **binomial negativa** generaliza a la geométrica contando ensayos hasta acumular $r$ éxitos.\n$$P(X=k) = \\binom{k-1}{r-1}p^{r}(1-p)^{k-r}$$\nCuando $r=1$, el binomio del frente vale 1.\n$$\\binom{k-1}{0}=1$$\nLa fórmula se reduce entonces a $p(1-p)^{k-1}$, que es exactamente la geométrica.\n\nAcá se busca la primera aparición del número 7, así que el modelo tiene nombre propio: geométrica.\n\nLa binomial negativa aporta algo nuevo recién cuando se buscan 2 o más éxitos, con uno solo ambos nombres describen lo mismo, pero la convención reserva geométrica para ese caso puntual.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-vecino"
+    ]
+  },
+  {
+    "question": "Un community manager publica 6 posts durante la semana.\n\nCada post supera las mil interacciones con probabilidad $0{,}25$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de posts, entre esos 6, que superan las mil interacciones?",
+    "options": [
+      "$BinNeg(6,\\, 0{,}25)$",
+      "$Geom(0{,}25)$",
+      "$Bin(6,\\, 0{,}25)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Los 6 posts están fijos de antemano y lo aleatorio es cuántos superan las mil interacciones: es binomial, no binomial negativa.",
+    "feedback_incorrect": [
+      "La binomial negativa fija de antemano la cantidad de éxitos buscados y deja aleatoria la cantidad de ensayos; acá es al revés, los 6 posts están fijos y lo aleatorio es cuántos superan las mil interacciones.",
+      "La geométrica cuenta ensayos hasta un único éxito y se detiene ahí; acá se publican los 6 posts completos, sin detenerse en el primer éxito.",
+      null
+    ],
+    "explanation": "La distribución **binomial** cuenta éxitos en un número fijo de ensayos.\n$$P(Y=j) = \\binom{n}{j}p^{j}(1-p)^{n-j}$$\nAcá los 6 posts están fijos de antemano, y lo aleatorio es cuántos de ellos superan las mil interacciones.\n\nLa binomial negativa hace lo opuesto: fija de antemano la cantidad de éxitos buscados y deja aleatoria la cantidad de ensayos necesarios para alcanzarlos.\n\nQue el enunciado fije un número de posts publicados, en vez de un número de posts exitosos buscados, es la señal que distingue a esta binomial de su vecina negativa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-vecino"
+    ]
+  },
+  {
+    "question": "Un arquero pica penales buscando convertir 3.\n\nSe cansa con cada intento: su probabilidad de convertir baja después de cada penal pateado.\n\n¿Se puede modelar la cantidad de penales hasta convertir el tercero como una binomial negativa?",
+    "options": [
+      "Sí, porque busca un número fijo de 3 éxitos.",
+      "No, la probabilidad de éxito no es la misma en cada intento.",
+      "Sí, porque cada penal tiene solo dos resultados posibles."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Buscar 3 éxitos fijos es necesario, pero también hace falta que $p$ sea la misma en todos los intentos.",
+    "feedback_incorrect": [
+      "Buscar un número fijo de éxitos es necesario pero no alcanza: también hace falta que la probabilidad de éxito no cambie de un intento a otro.",
+      null,
+      "Tener dos resultados posibles por intento es necesario pero no alcanza: hace falta además que esos dos resultados mantengan siempre la misma probabilidad."
+    ],
+    "explanation": "La distribución **binomial negativa** exige dos condiciones a la vez: contar ensayos hasta acumular $r$ éxitos fijos, y que la probabilidad de éxito $p$ sea la misma en todos.\n$$P(X=k) = \\binom{k-1}{r-1}p^{r}(1-p)^{k-r}$$\nAcá el arquero sí busca un número fijo de 3 goles.\n\nPero su probabilidad de convertir baja con el cansancio a medida que patea más penales, así que $p$ no es constante.\n\nUna probabilidad que empeora con el cansancio rompe la independencia entre ensayos que la fórmula necesita para combinarse correctamente.\n\nNinguna distribución de esta unidad modela directamente una probabilidad que cambia con el desgaste físico.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "supuesto-violado"
+    ]
+  },
+  {
+    "question": "Una máquina inspecciona piezas hasta detectar 3 defectuosas.\n\nSe recalibra después de cada pieza revisada, y eso cambia la probabilidad de detectar un defecto en la siguiente.\n\n¿Se puede modelar la cantidad de piezas revisadas hasta detectar la tercera defectuosa como una binomial negativa?",
+    "options": [
+      "Sí, porque cada pieza es un ensayo con dos resultados posibles.",
+      "Sí, porque se buscan 3 piezas defectuosas, un número fijo.",
+      "No, la probabilidad de detectar un defecto no es constante."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Buscar 3 defectuosas fijas es necesario, pero también hace falta que $p$ sea la misma en cada pieza revisada.",
+    "feedback_incorrect": [
+      "Tener dos resultados posibles por ensayo es necesario pero no alcanza: hace falta además que esos dos resultados mantengan siempre la misma probabilidad.",
+      "Buscar un número fijo de defectuosas es necesario pero no alcanza: también hace falta que la probabilidad de detectar cada una no cambie de pieza a pieza.",
+      null
+    ],
+    "explanation": "La distribución **binomial negativa** exige dos condiciones a la vez: contar ensayos hasta acumular $r$ éxitos fijos, y que la probabilidad de éxito $p$ sea la misma en todos.\n$$P(X=k) = \\binom{k-1}{r-1}p^{r}(1-p)^{k-r}$$\nAcá la máquina sí busca un número fijo de 3 piezas defectuosas.\n\nPero la recalibración después de cada pieza cambia la probabilidad de detectar la siguiente, así que $p$ no es constante.\n\nUna probabilidad que se ajusta con cada medición rompe la independencia entre ensayos que la fórmula necesita para combinarse correctamente.\n\nNinguna distribución de esta unidad modela directamente una probabilidad que cambia con recalibraciones sucesivas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "supuesto-violado"
+    ]
+  },
+  {
+    "question": "Un influencer publica posts buscando que 4 de ellos superen cierto nivel de interacción.\n\nSuma seguidores con cada post exitoso, y eso hace que la probabilidad de que el siguiente post también triunfe aumente.\n\n¿Se puede modelar la cantidad de posts hasta el cuarto exitoso como una binomial negativa?",
+    "options": [
+      "No, la probabilidad de éxito no es la misma en cada post.",
+      "Sí, porque busca un número fijo de 4 éxitos.",
+      "Sí, porque cada post tiene solo dos resultados posibles."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Buscar 4 éxitos fijos es necesario, pero también hace falta que $p$ sea la misma en todos los posts.",
+    "feedback_incorrect": [
+      null,
+      "Buscar un número fijo de éxitos es necesario pero no alcanza: también hace falta que la probabilidad de éxito no cambie de un post a otro.",
+      "Tener dos resultados posibles por post es necesario pero no alcanza: hace falta además que esos dos resultados mantengan siempre la misma probabilidad."
+    ],
+    "explanation": "La distribución **binomial negativa** exige dos condiciones a la vez: contar ensayos hasta acumular $r$ éxitos fijos, y que la probabilidad de éxito $p$ sea la misma en todos.\n$$P(X=k) = \\binom{k-1}{r-1}p^{r}(1-p)^{k-r}$$\nAcá el influencer sí busca un número fijo de 4 posts exitosos.\n\nPero cada post exitoso le suma seguidores y eso mejora la probabilidad del siguiente, así que $p$ no es constante.\n\nUna probabilidad que crece con el éxito acumulado rompe la independencia entre ensayos que la fórmula necesita para combinarse correctamente.\n\nNinguna distribución de esta unidad modela directamente una probabilidad que cambia con el crecimiento de audiencia.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "supuesto-violado"
+    ]
   }
 ]

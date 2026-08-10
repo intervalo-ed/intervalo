@@ -18,7 +18,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["reconocer-hipergeometrica"]
+    "tags": [
+      "reconocer-hipergeometrica"
+    ]
   },
   {
     "question": "Un control de calidad extrae 4 piezas de un lote de 15 sin reponerlas, para inspeccionarlas una por una.\n\nDel lote, 5 piezas están fuera de norma.\n\n¿Qué distribución sigue la cantidad de piezas fuera de norma entre las 4 inspeccionadas?",
@@ -39,7 +41,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["distractor-vecino"]
+    "tags": [
+      "distractor-vecino"
+    ]
   },
   {
     "question": "Un inspector revisa cajas de un envío para detectar cuáles están dañadas, sacándolas sin reponerlas.\n\nA mitad de la inspección, el proveedor agrega 3 cajas nuevas sin daños al lote que falta revisar.\n\n¿Se puede seguir modelando la cantidad de cajas dañadas encontradas con una única hipergeométrica de parámetros fijos?",
@@ -60,6 +64,284 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["supuesto-violado"]
+    "tags": [
+      "supuesto-violado"
+    ]
+  },
+  {
+    "question": "Una urna contiene 14 bochas, de las cuales 5 son rojas y el resto azules.\n\nSe extraen 4 bochas sin reposición, una tras otra.\n\n¿Qué distribución sigue la cantidad de bochas rojas entre las 4 extraídas?",
+    "options": [
+      "$Bin(4,\\, 5/14)$",
+      "$Hip(14,5,4)$",
+      "$Geom(5/14)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Extracción sin reposición de una urna finita: es hipergeométrica.",
+    "feedback_incorrect": [
+      "La binomial exige que la proporción de rojas se mantenga igual en cada extracción, pero acá cambia porque las bochas no se reponen.",
+      null,
+      "La geométrica cuenta extracciones hasta la primera bocha roja, no la cantidad en una muestra fija de 4."
+    ],
+    "explanation": "La distribución **hipergeométrica** cuenta éxitos al extraer una muestra sin reposición de una población finita.\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá $N=14$ bochas en total y $K=5$ son rojas.\n\nSe extraen $n=4$ bochas sin devolverlas a la urna, así que la cantidad de rojas entre esas 4 sigue esa fórmula.\n\nCada bocha extraída cambia la composición de la urna para la siguiente extracción, porque ya no vuelve a entrar en juego.\n\nSi cada bocha se devolviera antes de la siguiente extracción, la proporción de rojas se mantendría constante, y ahí correspondería binomial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-hipergeometrica"
+    ]
+  },
+  {
+    "question": "Un mazo de 16 cartas tiene 6 cartas con figura.\n\nSe reparten 3 cartas sin reponer al mazo.\n\n¿Qué distribución sigue la cantidad de cartas con figura entre las 3 repartidas?",
+    "options": [
+      "$Geom(3/8)$",
+      "$Bin(3,\\, 3/8)$",
+      "$Hip(16,6,3)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Reparto sin reposición de un mazo finito: es hipergeométrica.",
+    "feedback_incorrect": [
+      "La geométrica cuenta cartas repartidas hasta la primera con figura, no la cantidad en una muestra fija de 3.",
+      "La binomial exige que la proporción de figuras se mantenga igual en cada carta repartida, pero acá cambia porque las cartas no vuelven al mazo.",
+      null
+    ],
+    "explanation": "La distribución **hipergeométrica** cuenta éxitos al extraer una muestra sin reposición de una población finita.\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá $N=16$ cartas en total y $K=6$ tienen figura.\n\nSe reparten $n=3$ cartas sin devolverlas al mazo, así que la cantidad de figuras entre esas 3 sigue esa fórmula.\n\nCada carta repartida achica el mazo restante y cambia la proporción de figuras que queda disponible para la siguiente carta.\n\nCon un mazo mucho más grande frente a las 3 cartas repartidas, esa proporción casi no cambiaría, y ahí la binomial sería una buena aproximación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-hipergeometrica"
+    ]
+  },
+  {
+    "question": "Un panel de 17 candidatos para jurado tiene 7 con experiencia previa.\n\nSe eligen 5 jurados al azar, sin repetir candidatos.\n\n¿Qué distribución sigue la cantidad de jurados con experiencia entre los 5 elegidos?",
+    "options": [
+      "$Hip(17,7,5)$",
+      "$Geom(7/17)$",
+      "$Bin(5,\\, 7/17)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Selección sin reposición de un panel finito: es hipergeométrica.",
+    "feedback_incorrect": [
+      null,
+      "La geométrica cuenta elecciones hasta el primer jurado con experiencia, no la cantidad en una muestra fija de 5.",
+      "La binomial exige que la proporción de jurados con experiencia se mantenga igual en cada elección, pero acá cambia porque los candidatos no vuelven a estar disponibles."
+    ],
+    "explanation": "La distribución **hipergeométrica** cuenta éxitos al extraer una muestra sin reposición de una población finita.\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá $N=17$ candidatos en total y $K=7$ tienen experiencia previa.\n\nSe eligen $n=5$ jurados sin repetir candidatos, así que la cantidad con experiencia entre esos 5 sigue esa fórmula.\n\nCada candidato elegido sale del panel para las siguientes elecciones, así que la proporción de experimentados restante cambia elección a elección.\n\nSi el panel repusiera cada candidato antes de la siguiente elección, la proporción se mantendría siempre igual, y ahí sí correspondería binomial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-hipergeometrica"
+    ]
+  },
+  {
+    "question": "Un estanque cerrado tiene 20 peces, de los cuales 6 están marcados de una campaña anterior.\n\nSe pescan 4 peces al azar, sin devolverlos al agua.\n\n¿Qué distribución sigue la cantidad de peces marcados entre los 4 pescados?",
+    "options": [
+      "$Bin(4,\\, 3/10)$",
+      "$Geom(3/10)$",
+      "$Hip(20,6,4)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Pesca sin reposición de un estanque cerrado: es hipergeométrica.",
+    "feedback_incorrect": [
+      "La binomial exige que la proporción de peces marcados se mantenga igual en cada pesca, pero acá cambia porque los peces pescados no vuelven al agua.",
+      "La geométrica cuenta pescas hasta el primer pez marcado, no la cantidad en una muestra fija de 4.",
+      null
+    ],
+    "explanation": "La distribución **hipergeométrica** cuenta éxitos al extraer una muestra sin reposición de una población finita.\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá $N=20$ peces en total y $K=6$ están marcados.\n\nSe pescan $n=4$ peces sin devolverlos, así que la cantidad de marcados entre esos 4 sigue esa fórmula.\n\nCada pez pescado sale del estanque para las siguientes pescas, así que la proporción de marcados restante cambia pesca a pesca.\n\nCon un estanque enorme frente a la muestra pescada, esa proporción casi no cambiaría, y ahí la binomial sería una buena aproximación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-hipergeometrica"
+    ]
+  },
+  {
+    "question": "Un lote de 13 piezas tiene 4 piezas fuera de norma.\n\nSe extraen 5 piezas del lote sin reponerlas, para un ensayo destructivo.\n\n¿Qué distribución sigue la cantidad de piezas fuera de norma entre las 5 extraídas?",
+    "options": [
+      "$Geom(4/13)$",
+      "$Hip(13,4,5)$",
+      "$Bin(5,\\, 4/13)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Extracción sin reposición de un lote finito: es hipergeométrica.",
+    "feedback_incorrect": [
+      "La geométrica cuenta extracciones hasta la primera pieza fuera de norma, no la cantidad en una muestra fija de 5.",
+      null,
+      "La binomial exige que la proporción fuera de norma se mantenga igual en cada extracción, pero acá cambia porque las piezas no se reponen."
+    ],
+    "explanation": "La distribución **hipergeométrica** cuenta éxitos al extraer una muestra sin reposición de una población finita.\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá $N=13$ piezas en total y $K=4$ están fuera de norma.\n\nSe extraen $n=5$ piezas sin devolverlas al lote, así que la cantidad fuera de norma entre esas 5 sigue esa fórmula.\n\nAl tratarse de un ensayo destructivo, cada pieza extraída no puede volver al lote, así que la proporción fuera de norma cambia con cada extracción.\n\nSi las piezas se repusieran entre extracciones, la proporción se mantendría constante, y ahí correspondería binomial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-hipergeometrica"
+    ]
+  },
+  {
+    "question": "Una urna contiene 16 bochas, de las cuales 6 son rojas y el resto azules.\n\nSe extraen 4 bochas al azar, devolviendo cada bocha a la urna antes de la siguiente extracción.\n\n¿Qué distribución sigue la cantidad de bochas rojas entre las 4 extraídas?",
+    "options": [
+      "$Hip(16,6,4)$",
+      "$Bin(4,\\, 6/16)$",
+      "$Geom(6/16)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada bocha vuelve a la urna antes de la siguiente extracción: la proporción se mantiene igual, es binomial.",
+    "feedback_incorrect": [
+      "La hipergeométrica es para extracciones sin reposición, donde la proporción de rojas cambia extracción a extracción. Acá cada bocha vuelve a entrar en juego.",
+      null,
+      "La geométrica cuenta extracciones hasta la primera bocha roja, no la cantidad en una muestra fija de 4."
+    ],
+    "explanation": "La distribución **hipergeométrica** exige que la muestra se extraiga sin reposición, de una población finita cuya composición cambia con cada extracción.\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá $N=16$ bochas con $K=6$ rojas, pero cada bocha extraída vuelve a la urna antes de la siguiente extracción.\n\nComo la urna queda igual después de cada extracción, la proporción de rojas se mantiene siempre en $6/16$, sin importar qué haya salido antes.\n\nEsa proporción constante es exactamente la condición que pide la distribución binomial, no la hipergeométrica.\n\nConfundir ambas es fácil cuando el enunciado menciona una urna, pero la clave está en si el elemento extraído vuelve o no a estar disponible.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-vecino"
+    ]
+  },
+  {
+    "question": "Un mazo de 15 cartas tiene 5 ases.\n\nSe arma una mano de 3 cartas elegidas al azar sin reposición.\n\n¿Qué representa la cantidad de manos distintas de 3 cartas que tienen exactamente 2 ases?",
+    "options": [
+      "Es la distribución $Hip(15,5,3)$",
+      "Es la distribución $Bin(3,\\, 1/3)$",
+      "Un conteo fijo, no aleatorio"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Contar cuántas manos hay con esa composición es un número fijo, no una variable aleatoria con distribución de probabilidad.",
+    "feedback_incorrect": [
+      "La hipergeométrica describe la probabilidad de una mano al azar, no la cantidad total de manos posibles con esa composición.",
+      "La binomial tampoco aplica: acá no hay ninguna variable aleatoria en juego, solo un conteo de combinaciones.",
+      null
+    ],
+    "explanation": "La distribución **hipergeométrica** modela la cantidad de éxitos al extraer una muestra al azar, y solo tiene sentido cuando hay una extracción concreta con resultado incierto.\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá la pregunta no describe una extracción particular: pide cuántas manos de 3 cartas, entre todas las posibles, tienen exactamente 2 ases.\n\nEse número sale de $\\binom{5}{2}\\binom{10}{1}$, un conteo combinatorio fijo que no depende de ningún azar.\n\nUna variable aleatoria hipergeométrica aparecería recién si se preguntara por la probabilidad de una mano al azar con 2 ases, no por cuántas manos con esa composición existen en total.\n\nMezclar ambas preguntas, cuántas hay y qué tan probable es una, lleva a tratar un número fijo como si tuviera una distribución de probabilidad detrás.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-vecino"
+    ]
+  },
+  {
+    "question": "Un panel de 17 candidatos para jurado tiene 6 con experiencia previa.\n\nSe eligen 4 jurados al azar, uno por vez, pero cada candidato entrevistado vuelve a estar disponible para la siguiente elección.\n\n¿Qué distribución sigue la cantidad de jurados con experiencia entre los 4 elegidos?",
+    "options": [
+      "$Geom(6/17)$",
+      "$Hip(17,6,4)$",
+      "$Bin(4,\\, 6/17)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Cada candidato vuelve a estar disponible: la proporción con experiencia se mantiene igual, es binomial.",
+    "feedback_incorrect": [
+      "La geométrica cuenta elecciones hasta el primer jurado con experiencia, no la cantidad en una muestra fija de 4.",
+      "La hipergeométrica es para elecciones sin reposición, donde la proporción con experiencia cambia elección a elección. Acá cada candidato vuelve a estar disponible.",
+      null
+    ],
+    "explanation": "La distribución **hipergeométrica** exige que la muestra se extraiga sin reposición, de una población finita cuya composición cambia con cada elección.\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá $N=17$ candidatos con $K=6$ con experiencia, pero cada candidato entrevistado vuelve a estar disponible antes de la siguiente elección.\n\nComo el panel queda igual después de cada elección, la proporción con experiencia se mantiene siempre en $6/17$, sin importar quién haya sido elegido antes.\n\nEsa proporción constante es exactamente la condición que pide la distribución binomial, no la hipergeométrica.\n\nQue el panel sea finito no alcanza para que sea hipergeométrica, lo que importa es si cada elemento vuelve o no a estar disponible.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-vecino"
+    ]
+  },
+  {
+    "question": "Un estanque cerrado tiene 18 peces, de los cuales 7 están marcados.\n\nSe pesca un grupo de 5 peces sin reposición.\n\n¿Qué representa la cantidad de grupos distintos de 5 peces que tienen exactamente 3 marcados?",
+    "options": [
+      "Es la distribución $Bin(5,\\, 7/18)$",
+      "Un conteo fijo, no aleatorio",
+      "Es la distribución $Hip(18,7,5)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Contar cuántos grupos hay con esa composición es un número fijo, no una variable aleatoria con distribución de probabilidad.",
+    "feedback_incorrect": [
+      "La binomial tampoco aplica: acá no hay ninguna variable aleatoria en juego, solo un conteo de combinaciones.",
+      null,
+      "La hipergeométrica describe la probabilidad de un grupo pescado al azar, no la cantidad total de grupos posibles con esa composición."
+    ],
+    "explanation": "La distribución **hipergeométrica** modela la cantidad de éxitos al extraer una muestra al azar, y solo tiene sentido cuando hay una extracción concreta con resultado incierto.\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá la pregunta no describe una pesca particular: pide cuántos grupos de 5 peces, entre todos los posibles, tienen exactamente 3 marcados.\n\nEse número sale de $\\binom{7}{3}\\binom{11}{2}$, un conteo combinatorio fijo que no depende de ningún azar.\n\nUna variable aleatoria hipergeométrica aparecería recién si se preguntara por la probabilidad de un grupo pescado al azar con 3 marcados, no por cuántos grupos existen en total.\n\nMezclar ambas preguntas, cuántos hay y qué tan probable es uno, lleva a tratar un número fijo como si tuviera una distribución de probabilidad detrás.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-vecino"
+    ]
+  },
+  {
+    "question": "Un pescador cuenta peces marcados a medida que los pesca de un estanque cerrado, sin devolverlos al agua.\n\nA mitad de la jornada, se liberan 5 peces recién marcados de otra campaña dentro del mismo estanque.\n\n¿Se puede seguir modelando la cantidad de peces marcados pescados con una única hipergeométrica de parámetros fijos?",
+    "options": [
+      "No, la población y los marcados cambian a mitad de camino.",
+      "Sí, la pesca sigue siendo sin reposición en todo momento.",
+      "Sí, los peces liberados también podrían ser pescados después."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Sin reposición es necesario, pero además $N$ y $K$ deben quedar fijos desde el arranque, y acá cambian a mitad de camino.",
+    "feedback_incorrect": [
+      null,
+      "Que la pesca sea sin reposición es necesario pero no alcanza: además $N$ y $K$ tienen que quedar fijos desde el principio.",
+      "Que los peces liberados puedan ser pescados después importa menos que el hecho de que $N$ y $K$ cambian a mitad de la jornada."
+    ],
+    "explanation": "La distribución **hipergeométrica** exige que la población $N$ y la cantidad de éxitos $K$ queden fijas desde el arranque de la extracción.\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá la pesca sí es sin reposición.\n\nPero se liberan peces marcados nuevos a mitad de la jornada, así que tanto la población total como la cantidad de marcados cambian mientras la pesca todavía está en curso.\n\nLa fórmula hipergeométrica calcula sus combinaciones con $N$ y $K$ fijos de una sola vez, y no está pensada para actualizarse cuando la población cambia a mitad de un mismo experimento.\n\nHabría que tratar la jornada como dos etapas separadas, cada una con su propia hipergeométrica, en vez de forzar una sola.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "supuesto-violado"
+    ]
+  },
+  {
+    "question": "Una empresa sortea nombres de una lista fija de empleados para un bono, sin repetir nombres ya sorteados.\n\nA mitad del sorteo, se suman a la lista 4 empleados recién transferidos de otra sucursal.\n\n¿Se puede seguir modelando la cantidad de empleados sorteados de cierto equipo con una única hipergeométrica de parámetros fijos?",
+    "options": [
+      "Sí, el sorteo sigue siendo sin reposición en todo momento.",
+      "No, la población y los del equipo cambian a mitad de camino.",
+      "Sí, los empleados transferidos también podrían pertenecer al equipo."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sin reposición es necesario, pero además $N$ y $K$ deben quedar fijos desde el arranque, y acá cambian a mitad de camino.",
+    "feedback_incorrect": [
+      "Que el sorteo sea sin reposición es necesario pero no alcanza: además $N$ y $K$ tienen que quedar fijos desde el principio.",
+      null,
+      "Que los empleados transferidos puedan pertenecer al equipo importa menos que el hecho de que $N$ y $K$ cambian a mitad del sorteo."
+    ],
+    "explanation": "La distribución **hipergeométrica** exige que la población $N$ y la cantidad de éxitos $K$ queden fijas desde el arranque de la extracción.\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá el sorteo sí es sin reposición.\n\nPero se suman empleados transferidos a mitad del sorteo, así que tanto la lista total como la cantidad del equipo buscado cambian mientras el sorteo todavía está en curso.\n\nLa fórmula hipergeométrica calcula sus combinaciones con $N$ y $K$ fijos de una sola vez, y no está pensada para actualizarse cuando la población cambia a mitad de un mismo experimento.\n\nHabría que tratar el sorteo como dos etapas separadas, cada una con su propia hipergeométrica, en vez de forzar una sola.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "supuesto-violado"
+    ]
+  },
+  {
+    "question": "Un comité entrevista candidatos de un panel fijo para elegir jurados, sin repetir candidatos ya entrevistados.\n\nA mitad de las entrevistas, se incorporan 3 candidatos nuevos con experiencia previa al panel restante.\n\n¿Se puede seguir modelando la cantidad de jurados con experiencia elegidos con una única hipergeométrica de parámetros fijos?",
+    "options": [
+      "Sí, los candidatos nuevos también podrían tener experiencia.",
+      "Sí, la elección sigue siendo sin reposición en todo momento.",
+      "No, la población y los con experiencia cambian a mitad de camino."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Sin reposición es necesario, pero además $N$ y $K$ deben quedar fijos desde el arranque, y acá cambian a mitad de camino.",
+    "feedback_incorrect": [
+      "Que los candidatos nuevos puedan tener experiencia importa menos que el hecho de que $N$ y $K$ cambian a mitad de las entrevistas.",
+      "Que la elección sea sin reposición es necesario pero no alcanza: además $N$ y $K$ tienen que quedar fijos desde el principio.",
+      null
+    ],
+    "explanation": "La distribución **hipergeométrica** exige que la población $N$ y la cantidad de éxitos $K$ queden fijas desde el arranque de la extracción.\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá la elección sí es sin reposición.\n\nPero se incorporan candidatos nuevos con experiencia a mitad de las entrevistas, así que tanto el panel total como la cantidad con experiencia cambian mientras la elección todavía está en curso.\n\nLa fórmula hipergeométrica calcula sus combinaciones con $N$ y $K$ fijos de una sola vez, y no está pensada para actualizarse cuando la población cambia a mitad de un mismo experimento.\n\nHabría que tratar las entrevistas como dos etapas separadas, cada una con su propia hipergeométrica, en vez de forzar una sola.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "supuesto-violado"
+    ]
   }
 ]

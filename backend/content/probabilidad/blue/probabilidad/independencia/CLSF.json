@@ -61,5 +61,257 @@
     "graph_view": null,
     "reviewed": false,
     "tags": ["distractor-mutuamente-excluyentes"]
+  },
+  {
+    "question": "Se lanzan al mismo tiempo una moneda roja y una moneda azul, ambas balanceadas.\n\nDefinimos $A$ = la moneda roja sale cara y $B$ = la moneda azul sale cara.\n\n¿Cuál es la relación entre $A$ y $B$?",
+    "options": [
+      "Son dependientes, porque ambas monedas se lanzan a la vez.",
+      "Son mutuamente excluyentes, porque no pueden salir cara las dos.",
+      "Son independientes, porque una moneda no afecta a la otra."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Cada moneda es un experimento físico separado, así que el resultado de una no cambia la probabilidad de la otra.",
+    "feedback_incorrect": [
+      "Lanzarse en el mismo instante no crea ninguna conexión física entre los resultados de las dos monedas.",
+      "Ambas monedas pueden salir cara a la vez sin ningún problema, así que no son excluyentes.",
+      null
+    ],
+    "explanation": "Dos eventos son **independientes** cuando el resultado de uno no aporta información sobre la probabilidad del otro, sin importar si ocurren en el mismo instante o no.\n\nLa moneda roja y la moneda azul son objetos físicos separados: el resultado de una no altera de ninguna forma las condiciones de la otra.\n\nFormalmente:\n$$P(A\\cap B) = P(A)\\cdot P(B)$$\nSuponer que lanzarlas juntas, al mismo tiempo, ya las vuelve dependientes confunde la simultaneidad temporal con una conexión causal real entre los resultados.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-independencia"]
+  },
+  {
+    "question": "De una urna con 8 bolas, 3 verdes y 5 blancas, se extrae una bola, se anota el color y se la devuelve a la urna.\n\nLuego se extrae una segunda bola. Definimos $A$ = la primera bola es verde y $B$ = la segunda bola es verde.\n\n¿Cuál es la relación entre $A$ y $B$?",
+    "options": [
+      "Son independientes, porque la reposición repone la composición de la urna.",
+      "Son dependientes, porque ambas bolas provienen de la misma urna extraída.",
+      "Son mutuamente excluyentes, porque las dos bolas no podrían ser verdes."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Devolver la bola a la urna restaura la composición original antes de la segunda extracción.",
+    "feedback_incorrect": [
+      null,
+      "Que las dos extracciones compartan la misma urna no genera dependencia si la composición se restaura entre una y otra.",
+      "Ambas extracciones pueden dar verde perfectamente, así que no son excluyentes."
+    ],
+    "explanation": "Dos eventos son **independientes** cuando la ocurrencia de uno no cambia la probabilidad del otro.\n\nCon reposición, después de extraer y anotar la primera bola, esta vuelve a la urna, así que la segunda extracción parte otra vez de 3 verdes de 8 bolas, igual que la primera.\n\nFormalmente:\n$$P(B\\mid A) = P(B)$$\nCreer que compartir la misma urna ya alcanza para volver dependientes a las extracciones ignora que la reposición es justamente lo que restaura las condiciones originales.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-independencia"]
+  },
+  {
+    "question": "Una fábrica produce piezas en dos líneas de producción separadas, cada una con su propia maquinaria.\n\nDefinimos $A$ = una pieza de la línea 1 sale defectuosa y $B$ = una pieza de la línea 2 sale defectuosa.\n\n¿Cuál es la relación entre $A$ y $B$?",
+    "options": [
+      "Son dependientes, porque pertenecen a la misma fábrica.",
+      "Son independientes, porque cada línea funciona con maquinaria separada.",
+      "Son mutuamente excluyentes, porque no pueden fallar las dos líneas a la vez."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada línea de producción es un proceso físico separado, así que una falla no afecta la probabilidad de falla de la otra.",
+    "feedback_incorrect": [
+      "Pertenecer a la misma fábrica no conecta físicamente a las dos líneas si cada una tiene su propia maquinaria.",
+      null,
+      "Las dos líneas pueden fallar a la vez sin ningún problema, así que no son excluyentes."
+    ],
+    "explanation": "Dos eventos son **independientes** cuando el proceso físico que los genera está separado, de modo que uno no influye en el otro.\n\nAcá cada línea de producción tiene su propia maquinaria, así que una falla en la línea 1 no cambia en nada la probabilidad de falla en la línea 2:\n$$P(A\\cap B) = P(A)\\cdot P(B)$$\nAgrupar ambas líneas bajo el nombre de la misma fábrica no las conecta causalmente si cada una opera de forma separada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-independencia"]
+  },
+  {
+    "question": "Dos clientes compran en dos locales distintos de una misma cadena, sin ningún contacto entre ellos.\n\nDefinimos $A$ = el cliente del local 1 compra un producto en oferta y $B$ = el cliente del local 2 compra un producto en oferta.\n\n¿Cuál es la relación entre $A$ y $B$?",
+    "options": [
+      "Son independientes, porque las decisiones de cada cliente no se afectan entre sí.",
+      "Son dependientes, porque los dos locales pertenecen a la misma cadena.",
+      "Son mutuamente excluyentes, porque no pueden comprar en oferta los dos a la vez."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Las decisiones de compra de cada cliente ocurren sin ningún contacto entre ellos.",
+    "feedback_incorrect": [
+      null,
+      "Pertenecer a la misma cadena comercial no conecta las decisiones individuales de cada cliente si no hay contacto entre ellos.",
+      "Ambos clientes pueden comprar en oferta a la vez sin ningún problema, así que no son excluyentes."
+    ],
+    "explanation": "Dos eventos son **independientes** cuando no existe ningún mecanismo que conecte la ocurrencia de uno con la del otro.\n\nAcá los dos clientes actúan sin contacto entre sí, en locales distintos, así que la decisión de uno no informa nada sobre la decisión del otro:\n$$P(A\\cap B) = P(A)\\cdot P(B)$$\nQue ambos locales pertenezcan a la misma cadena es un dato administrativo, no una conexión física entre las decisiones de compra de cada cliente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-independencia"]
+  },
+  {
+    "question": "Se lanzan a la vez un dado balanceado y una moneda balanceada.\n\nDefinimos $A$ = el dado sale un número par y $B$ = la moneda sale cara.\n\n¿Cuál es la relación entre $A$ y $B$?",
+    "options": [
+      "Son mutuamente excluyentes, porque son resultados de objetos distintos.",
+      "Son independientes, porque el dado y la moneda son objetos separados.",
+      "Son dependientes, porque se lanzan en el mismo instante."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El dado y la moneda son objetos físicos separados, así que el resultado de uno no afecta al otro.",
+    "feedback_incorrect": [
+      "Ser resultados de objetos distintos no implica que no puedan ocurrir juntos: pueden salir par en el dado y cara en la moneda a la vez.",
+      null,
+      "Lanzarse en el mismo instante no crea ninguna conexión física entre el dado y la moneda."
+    ],
+    "explanation": "Dos eventos son **independientes** cuando provienen de mecanismos físicos separados, sin importar si se ejecutan al mismo tiempo.\n\nEl dado y la moneda no comparten ningún vínculo físico, así que:\n$$P(A\\cap B) = P(A)\\cdot P(B)$$\nCon $P(A)=1/2$ y $P(B)=1/2$.\n\nConfundir la simultaneidad del lanzamiento con una conexión causal hace parecer dependientes a dos objetos que en realidad no se afectan entre sí.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-independencia"]
+  },
+  {
+    "question": "De un mazo de 40 cartas se extraen 2 cartas, una después de la otra, sin devolver la primera al mazo.\n\nDefinimos $A$ = la primera carta es de espadas y $B$ = la segunda carta es de espadas.\n\n¿Cuál es la relación entre $A$ y $B$?",
+    "options": [
+      "Son independientes, porque cada extracción del mazo ocurre al azar.",
+      "Son mutuamente excluyentes, porque las dos cartas no podrían ser de espadas.",
+      "Son dependientes, porque la primera extracción cambia la composición del mazo."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Sin reposición, sacar una espada deja 9 espadas de 39 cartas, cambiando la probabilidad de la segunda extracción.",
+    "feedback_incorrect": [
+      "Que la extracción sea al azar no implica independencia: la composición del mazo cambió después de la primera carta.",
+      "Ambas extracciones pueden dar espadas perfectamente, así que no son excluyentes.",
+      null
+    ],
+    "explanation": "Dos eventos son **dependientes** cuando la ocurrencia de uno modifica la probabilidad del otro.\n\nSin reposición, extraer la primera carta reduce el mazo a 39 cartas, y si esa carta fue de espadas, quedan 9 espadas en vez de las 10 originales para la segunda extracción:\n$$P(B\\mid A) \\neq P(B)$$\nSuponer que el azar de la extracción alcanza para garantizar independencia deja de lado que la composición del mazo cambió entre una extracción y la otra.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-dependencia"]
+  },
+  {
+    "question": "Un lote tiene 20 piezas, 3 defectuosas. Se inspeccionan 2 piezas, una tras otra, sin devolver la primera al lote.\n\nDefinimos $A$ = la primera pieza inspeccionada es defectuosa y $B$ = la segunda pieza inspeccionada es defectuosa.\n\n¿Cuál es la relación entre $A$ y $B$?",
+    "options": [
+      "Son dependientes, porque la primera inspección cambia el lote restante.",
+      "Son independientes, porque cada pieza se elige al azar del lote.",
+      "Son mutuamente excluyentes, porque no pueden ser las dos defectuosas."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Al retirar la primera pieza sin reponerla, el lote restante queda con una pieza menos y, si era defectuosa, con 2 defectuosas de 19.",
+    "feedback_incorrect": [
+      null,
+      "Elegir al azar cada pieza no evita que el lote cambie de tamaño y composición entre una inspección y la otra.",
+      "Ambas piezas pueden salir defectuosas perfectamente, así que no son excluyentes."
+    ],
+    "explanation": "Dos eventos son **dependientes** cuando el primero altera las condiciones bajo las que ocurre el segundo.\n\nAcá, sin reposición, inspeccionar y retirar la primera pieza deja el lote en 19 piezas.\n\nSi esa pieza era defectuosa, quedan 2 defectuosas de 19 para la segunda inspección, en vez de las 3 de 20 originales:\n$$P(B\\mid A) \\neq P(B)$$\nPensar que el azar de la elección basta para asegurar independencia ignora que el tamaño y la composición del lote cambiaron tras la primera inspección.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-dependencia"]
+  },
+  {
+    "question": "Una bolsa tiene 12 caramelos, 5 de menta. Se sacan 2 caramelos, uno después del otro, sin devolver el primero a la bolsa.\n\nDefinimos $A$ = el primer caramelo es de menta y $B$ = el segundo caramelo es de menta.\n\n¿Cuál es la relación entre $A$ y $B$?",
+    "options": [
+      "Son independientes, porque cada caramelo se elige al azar de la bolsa.",
+      "Son mutuamente excluyentes, porque los dos caramelos no podrían ser de menta.",
+      "Son dependientes, porque sacar el primero cambia la composición de la bolsa."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Sin reposición, sacar un caramelo de menta deja 4 de menta entre 11 restantes, cambiando la probabilidad de la segunda extracción.",
+    "feedback_incorrect": [
+      "Elegir al azar no evita que la composición de la bolsa cambie entre una extracción y la otra.",
+      "Ambos caramelos pueden ser de menta perfectamente, así que no son excluyentes.",
+      null
+    ],
+    "explanation": "Dos eventos son **dependientes** cuando la ocurrencia de uno cambia la probabilidad del otro.\n\nAl sacar el primer caramelo sin devolverlo, la bolsa queda con 11 caramelos. Si el primero era de menta, quedan 4 de menta entre esos 11, en vez de los 5 de 12 originales:\n$$P(B\\mid A) \\neq P(B)$$\nSuponer que elegir al azar alcanza para garantizar independencia deja de lado que la bolsa tiene una unidad menos, y potencialmente una menta menos, para la segunda extracción.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-dependencia"]
+  },
+  {
+    "question": "En una rifa con 50 números, se sortean 2 números ganadores, uno después del otro, sin devolver el primero al bolillero.\n\nDefinimos $A$ = el primer número sorteado es par y $B$ = el segundo número sorteado es par.\n\n¿Cuál es la relación entre $A$ y $B$?",
+    "options": [
+      "Son mutuamente excluyentes, porque los dos números no podrían ser pares.",
+      "Son dependientes, porque el primer sorteo cambia la cantidad de números pares restantes.",
+      "Son independientes, porque el sorteo de cada número es completamente al azar."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sin reposición, sacar un número par deja un par menos entre los 49 números restantes, cambiando la probabilidad del segundo sorteo.",
+    "feedback_incorrect": [
+      "Ambos números pueden ser pares perfectamente, así que no son excluyentes.",
+      null,
+      "Que el sorteo sea al azar no evita que la cantidad de números pares restantes cambie tras el primer sorteo."
+    ],
+    "explanation": "Dos eventos son **dependientes** cuando el primero modifica las condiciones del segundo.\n\nEl bolillero tiene 25 números pares de 50. Si el primer número sorteado es par, quedan 24 pares entre los 49 restantes para el segundo sorteo, en vez de los 25 de 50 originales:\n$$P(B\\mid A) \\neq P(B)$$\nCreer que el azar del sorteo por sí solo asegura independencia ignora que no devolver el número al bolillero cambia su composición para el siguiente sorteo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-dependencia"]
+  },
+  {
+    "question": "Se lanzan a la vez una moneda roja y una moneda azul, ambas balanceadas.\n\nDefinimos $A$ = la moneda roja sale cara y $B$ = la moneda azul sale seca.\n\n¿Cuál es la relación correcta entre $A$ y $B$?",
+    "options": [
+      "Son mutuamente excluyentes, porque piden resultados opuestos.",
+      "No pueden ser independientes porque describen caras distintas de una moneda.",
+      "Son independientes, aunque no son mutuamente excluyentes."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Las monedas son físicamente separadas: $P(A\\cap B)=P(A)\\cdot P(B)$, y además pueden ocurrir juntas.",
+    "feedback_incorrect": [
+      "Pedir cara en una moneda y seca en la otra no impide que ocurran juntas: son monedas distintas, así que sí pueden coexistir.",
+      "Que los resultados suenen opuestos en apariencia no implica dependencia ni exclusión mutua entre monedas distintas.",
+      null
+    ],
+    "explanation": "Independencia y mutua exclusión son conceptos distintos: dos eventos mutuamente excluyentes casi nunca son independientes, salvo el caso trivial de probabilidad $0$.\n\nAcá $A$, la moneda roja sale cara, y $B$, la moneda azul sale seca, son sobre monedas distintas, así que pueden ocurrir juntas y son independientes:\n$$P(A\\cap B)=P(A)\\cdot P(B)$$\n$$=(1/2)(1/2)=1/4$$\nPensar que pedir resultados que suenan opuestos, como cara y seca, implica exclusión mutua ignora que acá se aplican a monedas físicamente separadas, que sí pueden ocurrir juntas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["distractor-mutuamente-excluyentes"]
+  },
+  {
+    "question": "Dos estudiantes rinden el mismo examen en aulas separadas, sin ningún contacto entre ellos.\n\nDefinimos $A$ = el estudiante 1 aprueba y $B$ = el estudiante 2 desaprueba.\n\n¿Cuál es la relación correcta entre $A$ y $B$?",
+    "options": [
+      "No pueden ser independientes porque describen resultados opuestos.",
+      "Son mutuamente excluyentes, porque uno aprueba y el otro no.",
+      "Son independientes, aunque no son mutuamente excluyentes."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Los estudiantes rinden sin contacto entre sí: $P(A\\cap B)=P(A)\\cdot P(B)$, y además pueden ocurrir juntos.",
+    "feedback_incorrect": [
+      "Describir resultados que suenan opuestos, como aprobar y desaprobar, no implica dependencia si son sobre personas distintas.",
+      "Que uno apruebe y el otro no describa un resultado distinto no impide que ambos ocurran a la vez: son estudiantes distintos.",
+      null
+    ],
+    "explanation": "Independencia y mutua exclusión son conceptos distintos: dos eventos mutuamente excluyentes casi nunca son independientes, salvo el caso trivial de probabilidad $0$.\n\nAcá $A$, el estudiante 1 aprueba, y $B$, el estudiante 2 desaprueba, son sobre personas distintas sin contacto entre sí, así que pueden ocurrir juntos y son independientes:\n$$P(A\\cap B)=P(A)\\cdot P(B)$$\nPensar que nombrar resultados que suenan opuestos, como aprobar y desaprobar, ya alcanza para volverlos excluyentes ignora que acá describen a dos personas distintas, que sí pueden coexistir.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["distractor-mutuamente-excluyentes"]
+  },
+  {
+    "question": "Se encuesta a una persona en una ciudad y a otra persona en una ciudad distinta, sin ningún contacto entre ellas.\n\nDefinimos $A$ = la primera persona responde que sí y $B$ = la segunda persona responde que no.\n\n¿Cuál es la relación correcta entre $A$ y $B$?",
+    "options": [
+      "Son independientes, aunque no son mutuamente excluyentes.",
+      "Son mutuamente excluyentes, porque las respuestas son opuestas.",
+      "No pueden ser independientes porque una respuesta contradice a la otra."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Las dos personas responden sin ningún contacto entre sí: $P(A\\cap B)=P(A)\\cdot P(B)$, y además pueden ocurrir juntas.",
+    "feedback_incorrect": [
+      null,
+      "Que las respuestas suenen opuestas, sí y no, no impide que ocurran juntas si son de personas distintas sin contacto entre sí.",
+      "Una respuesta no contradice a la otra si provienen de personas distintas: cada una responde según su propia opinión."
+    ],
+    "explanation": "Independencia y mutua exclusión son conceptos distintos: dos eventos mutuamente excluyentes casi nunca son independientes, salvo el caso trivial de probabilidad $0$.\n\nAcá $A$, la primera persona responde que sí, y $B$, la segunda responde que no, son sobre personas distintas sin contacto entre sí, así que pueden ocurrir juntas y son independientes:\n$$P(A\\cap B)=P(A)\\cdot P(B)$$\nCreer que respuestas que suenan opuestas, como sí y no, ya bastan para volverlas excluyentes ignora que acá provienen de dos personas distintas, que sí pueden coexistir.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["distractor-mutuamente-excluyentes"]
   }
 ]
