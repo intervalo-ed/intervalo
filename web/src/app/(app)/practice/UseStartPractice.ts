@@ -19,9 +19,7 @@ export function useStartPractice() {
       count: number
       course?: string
     }) => {
-      // El modo se renombró a "practice" en el front; el endpoint del back sigue
-      // siendo /session/start-zen (sin cambios de API).
-      const { data, error } = await api.POST("/session/start-zen", {
+      const { data, error } = await api.POST("/session/start-practice", {
         body: { user_name: userName, items, count, course },
       })
       if (error) throw error

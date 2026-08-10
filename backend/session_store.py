@@ -45,12 +45,19 @@ from algorithm import (
     streak_multiplier,
     update_unit_state,
 )
-from exercise_bank import get_exercise_db, list_exercises_db, topic_exercise_types
+from exercise_bank import (
+    get_exercise_db,
+    list_exercises_db,
+    mark_exercise_served,
+    topic_exercise_types,
+)
 from sqlalchemy.orm import Session as DBSession
 from models import (
     Answer,
     Course,
     CourseProgress,
+    Exercise,
+    ItemExerciseCycle,
     Session as SessionModel,
     UnitState,
     UnitStateArchive,
@@ -251,15 +258,41 @@ def _get_session(session_id: str) -> Optional[SessionState]:
     return _sessions.get(session_id)
 
 
+def _current_exercise_types(course_id: int, db: DBSession) -> set[tuple[str, str, str]]:
+    """(belt, topic, exercise_type) combos con contenido real hoy en `exercises`.
+
+    Podar contenido (sacar un exercise_type de un topic, o un topic entero)
+    dejaba huérfanas las `unit_states` de los usuarios que ya lo tenían activo:
+    seguían contando como activas/pendientes y podían ser elegidas por
+    `build_session`, que fallaba al no encontrar ejercicios para servir. Todo
+    lo que consulta o cuenta unit_states para "qué está vigente hoy" filtra
+    por este set, así un prune de contenido no requiere cirugía manual de
+    datos por usuario."""
+    rows = (
+        db.query(Exercise.belt, Exercise.topic, Exercise.exercise_type)
+        .filter(Exercise.course_id == course_id)
+        .distinct()
+        .all()
+    )
+    return {(r[0], r[1], r[2]) for r in rows}
+
+
 def _topic_has_any_units(
-    user_id: int, course_id: int, topic_key: TopicKey, db: DBSession,
+    user_id: int,
+    course_id: int,
+    topic_key: TopicKey,
+    db: DBSession,
+    *,
+    current: set[tuple[str, str, str]] | None = None,
 ) -> bool:
-    return db.query(UnitState).filter(
+    current = current if current is not None else _current_exercise_types(course_id, db)
+    rows = db.query(UnitState).filter(
         UnitState.user_id == user_id,
         UnitState.course_id == course_id,
         UnitState.belt == topic_key.belt.value,
         UnitState.topic == topic_key.topic,
-    ).first() is not None
+    ).all()
+    return any((r.belt, r.topic, r.exercise_type) in current for r in rows)
 
 
 def _create_topic_units(
@@ -485,14 +518,23 @@ def _build_exercise(
     unit_key: UnitKey,
     course_id: int,
     db: DBSession,
+    user_id: int,
+    exclude_by_unit: dict[UnitKey, set[str]] | None = None,
 ) -> ExerciseInSession:
+    extra_exclude = frozenset(
+        (exclude_by_unit or {}).get(unit_key, frozenset())
+    )
     ex = get_exercise_db(
         course_id,
         unit_key.belt.value,
         unit_key.topic,
         unit_key.exercise_type,
         db,
+        user_id,
+        extra_exclude=extra_exclude,
     )
+    if exclude_by_unit is not None and ex.get("external_id"):
+        exclude_by_unit.setdefault(unit_key, set()).add(ex["external_id"])
     shuffled, new_correct_index, shuffled_feedback = _shuffle_options(ex)
     return ExerciseInSession(
         exercise_id=f"ex_{idx:03d}",
@@ -571,15 +613,28 @@ def _active_cap(user_id: int, course_id: int, db: DBSession) -> int:
     return _get_course_progress(user_id, course_id, db).active_cap
 
 
-def _active_unit_count(user_id: int, course_id: int, db: DBSession) -> int:
+def _active_unit_count(
+    user_id: int,
+    course_id: int,
+    db: DBSession,
+    *,
+    current: set[tuple[str, str, str]] | None = None,
+) -> int:
     """Units activas = en fase de aprendizaje (nuevo + aprendiendo), no graduadas
-    ni suspendidas. Las suspendidas liberan cupo (se ceden a temas siguientes)."""
-    return db.query(UnitState).filter(
+    ni suspendidas. Las suspendidas liberan cupo (se ceden a temas siguientes).
+
+    Excluye units cuyo exercise_type ya no tiene contenido en `exercises`
+    (topic/skill podado del catálogo): sin esto, esas filas huérfanas seguían
+    ocupando cupo del active_cap para siempre, aunque la grilla ya no las
+    mostrara."""
+    current = current if current is not None else _current_exercise_types(course_id, db)
+    rows = db.query(UnitState).filter(
         UnitState.user_id == user_id,
         UnitState.course_id == course_id,
         UnitState.phase != "review",
         UnitState.suspended.is_(False),
-    ).count()
+    ).all()
+    return sum(1 for r in rows if (r.belt, r.topic, r.exercise_type) in current)
 
 
 def _fill_catchup_units(user_id: int, course_id: int, db: DBSession) -> None:
@@ -649,14 +704,15 @@ def _ensure_active_units(
     _fill_catchup_units(user_id, course_id, db)
 
     cap = _active_cap(user_id, course_id, db)
-    active = _active_unit_count(user_id, course_id, db)
+    current_types = _current_exercise_types(course_id, db)
+    active = _active_unit_count(user_id, course_id, db, current=current_types)
     if active >= cap:
         return
     changed = False
     for tk in _all_topic_keys(course_id, db):
         if active >= cap:
             break
-        if _topic_has_any_units(user_id, course_id, tk, db):
+        if _topic_has_any_units(user_id, course_id, tk, db, current=current_types):
             continue
         types = topic_exercise_types(course_id, tk.belt.value, tk.topic, db)
         # Mantener el orden del catálogo: si el próximo tema no entra completo,
@@ -676,11 +732,16 @@ def _load_unit_states(
     db: DBSession,
 ) -> tuple[dict[UnitKey, SM2UnitState], dict[UnitKey, bool]]:
     # Las suspendidas se excluyen de sesiones, resumen y cálculo de maestría.
+    # Las huérfanas (exercise_type podado del catálogo) también: build_session
+    # las podía elegir como candidatas y `get_exercise_db` no encontraba nada
+    # que servir.
+    current = _current_exercise_types(course_id, db)
     rows = db.query(UnitState).filter(
         UnitState.user_id == user_id,
         UnitState.course_id == course_id,
         UnitState.suspended.is_(False),
     ).all()
+    rows = [r for r in rows if (r.belt, r.topic, r.exercise_type) in current]
     return _rows_to_unit_states(rows, user_today(db, user_id))
 
 
@@ -746,8 +807,9 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
         config=SM2Config(max_session_exercises=session_size),
     )
 
+    exclude_by_unit: dict[UnitKey, set[str]] = {}
     exercises = [
-        _build_exercise(idx, su.key, course_id, db)
+        _build_exercise(idx, su.key, course_id, db, user_id, exclude_by_unit)
         for idx, su in enumerate(session_units)
     ]
 
@@ -785,14 +847,14 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
     }
 
 
-def create_zen_session_db(
+def create_practice_session_db(
     user_id: int,
     course_id: int,
     items: list[dict],
     count: int,
     db: DBSession,
 ) -> dict:
-    """Zen mode: random exercises from selected (belt, topic) items, no SR tracking."""
+    """Practice mode: random exercises from selected (belt, topic) items, no SR tracking."""
     slug = _get_course_slug(course_id, db)
     all_catalogs = load_belt_catalogs(slug)
 
@@ -820,15 +882,16 @@ def create_zen_session_db(
         raise ValueError("No hay ejercicios disponibles para los temas seleccionados.")
 
     sampled = random.choices(candidate_units, k=count)
+    exclude_by_unit: dict[UnitKey, set[str]] = {}
     exercises = [
-        _build_exercise(idx, uk, course_id, db)
+        _build_exercise(idx, uk, course_id, db, user_id, exclude_by_unit)
         for idx, uk in enumerate(sampled)
     ]
 
     db_session = SessionModel(
         user_id=user_id, course_id=course_id,
         started_at=datetime.utcnow(), exercises_total=len(exercises),
-        mode="zen",
+        mode="practice",
         iteration=_get_course_progress(user_id, course_id, db).iteration,
     )
     db.add(db_session)
@@ -847,7 +910,7 @@ def create_zen_session_db(
         "session_id": session_id_str,
         "user_name": "",
         "total": len(exercises),
-        "mode": "zen",
+        "mode": "practice",
         "exercises": [_exercise_to_dict(ex) for ex in exercises],
     }
 
@@ -955,8 +1018,9 @@ def _reconstruct_session_state(
     unit_states, unit_attempted = _rows_to_unit_states(rows, user_today(db, user_id))
 
     session_units = build_session(unit_states, unit_attempted=unit_attempted)
+    exclude_by_unit: dict[UnitKey, set[str]] = {}
     exercises = [
-        _build_exercise(idx, su.key, course_id, db)
+        _build_exercise(idx, su.key, course_id, db, user_id, exclude_by_unit)
         for idx, su in enumerate(session_units)
     ]
 
@@ -1019,6 +1083,7 @@ def record_answer_db(
     attempts: int,
     response_time_s: float,
     db: DBSession,
+    exercise_external_id: str | None = None,
 ) -> dict:
     """Record an answer, update SM-2 state for the unit, return feedback."""
     db_session = db.query(SessionModel).filter(
@@ -1040,6 +1105,14 @@ def record_answer_db(
     exercise = next((e for e in state.exercises if e.exercise_id == exercise_id), None)
     if exercise is None:
         raise KeyError(f"Ejercicio '{exercise_id}' no encontrado en la sesión.")
+
+    # Identidad exacta del ejercicio que vio el usuario. La fuente autoritativa es
+    # el external_id que reporta el cliente (lo que efectivamente renderizó): la
+    # caché en memoria puede enfriarse y _reconstruct_session_state re-sortea los
+    # ejercicios al azar, así que el external_id del slot en memoria no es
+    # confiable tras un reinicio. Si el cliente no lo manda (compat), caemos al de
+    # memoria.
+    resolved_external_id = exercise_external_id or exercise.external_id or None
 
     unit_key = exercise.unit_key
     is_correct = attempts <= 3
@@ -1071,12 +1144,12 @@ def record_answer_db(
     user = db.query(User).filter(User.id == user_id).first()
     streak_mult = streak_multiplier(user.streak_days if user else 0)
 
-    # Práctica (zen) paga plano y sin ajuste de dificultad (volumen ilimitado a
+    # Práctica paga plano y sin ajuste de dificultad (volumen ilimitado a
     # elección del usuario), pero sí escala con el multiplicador de racha diaria
     # — su base es mucho menor que la de Repaso, así que no se vuelve farmeable.
     # Repaso paga por intento, ponderado por la dificultad personal del ítem
     # (solo 1er intento) y el mismo multiplicador de racha.
-    if db_session.mode == "zen":
+    if db_session.mode == "practice":
         xp_base, xp_earned = practice_xp_split(first_try, streak_mult)
     else:
         difficulty = (
@@ -1101,9 +1174,9 @@ def record_answer_db(
         UnitState.exercise_type == unit_key.exercise_type,
     ).first()
 
-    # Zen mode is free practice: it only awards XP and must not touch the
+    # Practice mode is free practice: it only awards XP and must not touch the
     # student's spaced-repetition progress (phase, interval, due date, mastery).
-    if db_us and db_session.mode not in ("zen", "test"):
+    if db_us and db_session.mode not in ("practice", "test"):
         old_phase = db_us.phase
         db_us.phase = new_state.phase
         db_us.step_index = new_state.step_index
@@ -1131,6 +1204,7 @@ def record_answer_db(
         user_id=user_id,
         course_id=course_id,
         exercise_id=exercise_id,
+        exercise_external_id=resolved_external_id,
         belt=unit_key.belt.value,
         topic=unit_key.topic,
         exercise_type=unit_key.exercise_type,
@@ -1142,6 +1216,18 @@ def record_answer_db(
         answered_at=datetime.utcnow(),
         iteration=_get_course_progress(user_id, course_id, db).iteration,
     ))
+
+    # El ejercicio quedó efectivamente completado por el usuario: avanza el
+    # ciclo de no-repetición del ítem (ver ItemExerciseCycle).
+    mark_exercise_served(
+        user_id,
+        course_id,
+        unit_key.belt.value,
+        unit_key.topic,
+        unit_key.exercise_type,
+        resolved_external_id,
+        db,
+    )
 
     if user:
         user.total_xp = (user.total_xp or 0) + xp_earned
@@ -1189,6 +1275,8 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
     rows = db.query(UnitState).filter(
         UnitState.user_id == user_id, UnitState.course_id == course_id,
     ).all()
+    current_types = _current_exercise_types(course_id, db)
+    rows = [r for r in rows if (r.belt, r.topic, r.exercise_type) in current_types]
     rows_by_topic = _topic_rows_index(rows)
 
     today = user_today(db, user_id)
@@ -1297,6 +1385,8 @@ def get_summary_db(
         UnitState.user_id == user_id, UnitState.course_id == course_id,
         UnitState.suspended.is_(False),
     ).all()
+    current_types = _current_exercise_types(course_id, db)
+    rows = [r for r in rows if (r.belt, r.topic, r.exercise_type) in current_types]
     rows_by_topic = _topic_rows_index(rows)
 
     failed_in_session: set[tuple[str, str]] = set()
@@ -1495,23 +1585,41 @@ def reset_topic(user_id: int, course_id: int, belt: str, topic: str, db: DBSessi
 
 
 def _relock_last_items(user_id: int, course_id: int, cap: int, db: DBSession) -> list[str]:
-    """Borra ítems en aprendizaje desde el final del orden de catálogo hasta que
-    la cantidad activa no supere `cap`. Devuelve 'belt/topic' de los tocados."""
+    """Suspende ítems en aprendizaje desde el final del orden de catálogo hasta
+    que la cantidad activa no supere `cap`. Devuelve 'belt/topic' de los
+    tocados.
+
+    Usa suspensión (mismo mecanismo que `suspend_topic`), no borrado: un ítem
+    en aprendizaje puede tener intentos reales (`attempted`, `step_index`
+    avanzado), y borrarlo perdía ese progreso para siempre. Suspendido, el
+    progreso queda intacto y recuperable con "Adelantar" (`advance_topic`) si
+    el usuario vuelve a subir el cap.
+
+    Las filas huérfanas (exercise_type podado del catálogo) no cuentan para
+    `active` (ver `_active_unit_count`), así que tampoco se tocan acá: si se
+    suspendieran igual, `active` bajaría por una unit que nunca estuvo
+    ocupando cupo real, y el loop se frenaría un tema antes de lo que
+    corresponde."""
     keys = _all_topic_keys(course_id, db)
-    active = _active_unit_count(user_id, course_id, db)
+    current_types = _current_exercise_types(course_id, db)
+    active = _active_unit_count(user_id, course_id, db, current=current_types)
     touched: list[str] = []
     for tk in reversed(keys):
         if active <= cap:
             break
         rows = _topic_rows(user_id, course_id, tk.belt.value, tk.topic, db)
-        learning = [r for r in rows if r.phase != "review" and not r.suspended]
+        learning = [
+            r for r in rows
+            if r.phase != "review" and not r.suspended
+            and (r.belt, r.topic, r.exercise_type) in current_types
+        ]
         if not learning:
             continue
         removed = False
         for r in learning:
             if active <= cap:
                 break
-            db.delete(r)
+            r.suspended = True
             active -= 1
             removed = True
         if removed:
@@ -1549,7 +1657,8 @@ def cap_change_preview(user_id: int, course_id: int, value: int, db: DBSession) 
     """Sin aplicar: qué temas se desbloquean/re-bloquean al cambiar el cap."""
     total = _course_total_items(course_id, db)
     value = max(1, min(int(value), total))
-    active = _active_unit_count(user_id, course_id, db)
+    current_types = _current_exercise_types(course_id, db)
+    active = _active_unit_count(user_id, course_id, db, current=current_types)
     keys = _all_topic_keys(course_id, db)
     unlock: list[str] = []
     lock: list[str] = []
@@ -1558,7 +1667,7 @@ def cap_change_preview(user_id: int, course_id: int, value: int, db: DBSession) 
         for tk in keys:
             if remaining <= 0:
                 break
-            if _topic_has_any_units(user_id, course_id, tk, db):
+            if _topic_has_any_units(user_id, course_id, tk, db, current=current_types):
                 continue
             n = len(topic_exercise_types(course_id, tk.belt.value, tk.topic, db))
             if n > remaining:
@@ -1571,7 +1680,11 @@ def cap_change_preview(user_id: int, course_id: int, value: int, db: DBSession) 
             if remaining <= 0:
                 break
             rows = _topic_rows(user_id, course_id, tk.belt.value, tk.topic, db)
-            learning = [r for r in rows if r.phase != "review" and not r.suspended]
+            learning = [
+                r for r in rows
+                if r.phase != "review" and not r.suspended
+                and (r.belt, r.topic, r.exercise_type) in current_types
+            ]
             if not learning:
                 continue
             lock.append(f"{tk.belt.value}/{tk.topic}")
@@ -1598,6 +1711,10 @@ def reset_course(user_id: int, course_id: int, db: DBSession) -> int:
             is_catchup=r.is_catchup, suspended=r.suspended,
         ))
         db.delete(r)
+    db.query(ItemExerciseCycle).filter(
+        ItemExerciseCycle.user_id == user_id,
+        ItemExerciseCycle.course_id == course_id,
+    ).delete()
     cp.iteration += 1
     slug = _get_course_slug(course_id, db)
     cp.active_cap = ACTIVE_CAP_DEFAULTS.get(slug, ACTIVE_CAP_DEFAULT_FALLBACK)

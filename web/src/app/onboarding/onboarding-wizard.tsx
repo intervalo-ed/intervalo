@@ -7,7 +7,8 @@ import { saveOnboarding } from "@/lib/onboarding/storage"
 import { cn } from "@/lib/utils"
 import MathText from "@/components/math-text"
 import {
-  BELT_BAR_COLORS,
+  BELT_HEX,
+  BELT_LEGEND_BAR_COLORS,
   BELT_ONDARK_VIVID,
   CATALOGS,
   COURSE_LABEL,
@@ -18,9 +19,10 @@ import { useGridLayout } from "@/lib/latex-visual-length"
 import { ONBOARDING_UNIVERSITIES, UNIVERSITY_TAG_BY_KEY, matchUniversities } from "@/lib/university-tags"
 import { ChevronLeft, LayersIcon, TargetIcon } from "lucide-react"
 import { useSignIn } from "@clerk/nextjs"
+import { useRouter } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 
-const CAREERS = [
+export const CAREERS = [
   { value: "E", label: "Ingeniería", emoji: "⚙️" },
   { value: "S", label: "Ciencia", emoji: "🔬" },
   { value: "T", label: "Tecnología", emoji: "🤖" },
@@ -112,10 +114,21 @@ const ONBOARDING_EXERCISES: Record<CourseId, OnboardingExercise> = {
   },
 }
 
-// Unidades del curso, con el color de su cinturón, para los chips de la slide 4.
-function courseUnits(course: CourseId): { name: string; color: string }[] {
+// Unidades del curso. `textColor` (nombres/chips) es el mismo color que usa la
+// home para los títulos de unidad (BELT_HEX.onDark); `gridColor` (cuadraditos
+// de UnitGrid y de la leyenda de UnitSegmentedBar, a los que se les aplican
+// intensidades variables — ver tintGridColor/seededTintGridColor) usa la
+// paleta separada BELT_ONDARK_VIVID, pensada para leerse bien en bloques de
+// color en vez de texto chico.
+function courseUnits(
+  course: CourseId,
+): { name: string; textColor: string; gridColor: string }[] {
   return CATALOGS[course].belts.flatMap((b) =>
-    b.units.map((u) => ({ name: u.name, color: BELT_ONDARK_VIVID[b.key as BeltKey] })),
+    b.units.map((u) => ({
+      name: u.name,
+      textColor: BELT_HEX[b.key as BeltKey].onDark,
+      gridColor: BELT_ONDARK_VIVID[b.key as BeltKey],
+    })),
   )
 }
 
@@ -126,6 +139,71 @@ const UNIT_GRID_ROWS = 7
 // entran en el ancho disponible.
 const UNIT_SQ_PX = 10
 const UNIT_GAP_PX = 1
+
+// La separación entre cuadraditos de UnitGrid NO sale de un gap de grilla:
+// sale de que el cuadradito visible (UNIT_GRID_SQ_PX) es más chico que el
+// paso de la grilla (UNIT_SQ_PX), centrado en su celda — "come" el propio
+// borde del cuadradito en vez de abrir hueco entre celdas. Radio mínimo,
+// apenas perceptible en un cuadradito tan chico.
+const UNIT_GRID_SQ_PX = 8
+const UNIT_GRID_RADIUS_PX = 2
+
+const ONBOARDING_BG_RGB: [number, number, number] = [19, 19, 36] // #131324
+
+function hexToRgb(hex: string): [number, number, number] {
+  const n = parseInt(hex.slice(1), 16)
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255]
+}
+
+// Muestra una intensidad de la campana normal (Box-Muller), centrada en un
+// tono medio-alto: la mayoría de los cuadraditos caen cerca del centro
+// (opacos, legibles) y solo unos pocos llegan a los extremos (tenues o a
+// brillo pleno), en vez de niveles discretos parejos.
+function sampleNormalIntensity(mean = 0.68, stddev = 0.16, min = 0.58, max = 1.0): number {
+  let u = 0
+  let v = 0
+  while (u === 0) u = Math.random()
+  while (v === 0) v = Math.random()
+  const z = Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v)
+  return Math.min(max, Math.max(min, mean + z * stddev))
+}
+
+// [0,1) determinístico a partir de un entero — mismo patrón que pickSeeded en
+// marketing-home.tsx, para que el server y el cliente rendericen el mismo
+// valor (Math.random() en JSX estático rompería la hidratación).
+function seededUnit(seed: number): number {
+  const x = Math.sin(seed * 12.9898) * 43758.5453
+  return x - Math.floor(x)
+}
+
+// Misma campana que sampleNormalIntensity, pero determinística por `seed` en
+// vez de Math.random() — para cuadraditos que no viven dentro de una animación
+// (UnitSegmentedBar) y necesitan la misma intensidad en cada render.
+function seededNormalIntensity(seed: number, mean = 0.68, stddev = 0.16, min = 0.58, max = 1.0): number {
+  const u = seededUnit(seed) || 1e-6
+  const v = seededUnit(seed + 1000)
+  const z = Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v)
+  return Math.min(max, Math.max(min, mean + z * stddev))
+}
+
+function mixWithBg(hex: string, alpha: number): string {
+  const [r, g, b] = hexToRgb(hex)
+  const mix = (channel: number, bg: number) => Math.round(channel * alpha + bg * (1 - alpha))
+  return `rgb(${mix(r, ONBOARDING_BG_RGB[0])}, ${mix(g, ONBOARDING_BG_RGB[1])}, ${mix(b, ONBOARDING_BG_RGB[2])})`
+}
+
+function tintGridColor(hex: string): string {
+  return mixWithBg(hex, sampleNormalIntensity())
+}
+
+function seededTintGridColor(hex: string, seed: number): string {
+  return mixWithBg(hex, seededNormalIntensity(seed))
+}
+
+// Cuadraditos "sin actividad": mismo color plano para todos (no el color de
+// la unidad, atenuado) — una versión apenas más clara que el fondo, para que
+// se lean como parte de la misma grilla en vez de un hueco.
+const UNIT_GRID_INACTIVE_COLOR = mixWithBg("#FFFFFF", 0.12)
 
 // Elige el color de un cuadradito según el progreso `p` (0..1) de la grilla, con una
 // curva gaussiana por unidad centrada en i/(n-1): al principio domina la primera
@@ -188,7 +266,11 @@ const UNIT_GRID_ROW_LEAD = 5
 // disponible en vez de estirar los cuadraditos.
 const UNIT_BAR_GROUP_GAP_PX = 8
 
-function UnitSegmentedBar({ units }: { units: { name: string; color: string }[] }) {
+function UnitSegmentedBar({
+  units,
+}: {
+  units: { name: string; textColor: string; gridColor: string }[]
+}) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [perUnit, setPerUnit] = useState(1)
 
@@ -211,13 +293,13 @@ function UnitSegmentedBar({ units }: { units: { name: string; color: string }[] 
   return (
     <div ref={containerRef} className="mx-auto w-full max-w-sm">
       <div className="flex justify-center gap-2">
-        {units.map((u) => (
+        {units.map((u, ui) => (
           <div key={u.name} className="flex gap-px">
             {Array.from({ length: perUnit }).map((_, i) => (
               <div
                 key={i}
-                className="h-2.5 w-2.5 rounded-[1px]"
-                style={{ background: u.color }}
+                className="h-2.5 w-2.5 rounded-[2px]"
+                style={{ background: seededTintGridColor(u.gridColor, ui * 97 + i) }}
               />
             ))}
           </div>
@@ -228,7 +310,7 @@ function UnitSegmentedBar({ units }: { units: { name: string; color: string }[] 
           <div
             key={u.name}
             className="text-center text-xs font-medium leading-tight"
-            style={{ color: u.color, width: perUnit * (UNIT_SQ_PX + UNIT_GAP_PX) - UNIT_GAP_PX }}
+            style={{ color: u.textColor, width: perUnit * (UNIT_SQ_PX + UNIT_GAP_PX) - UNIT_GAP_PX }}
           >
             {u.name}
           </div>
@@ -242,19 +324,20 @@ function UnitGrid({
   units,
   pace,
 }: {
-  units: { name: string; color: string }[]
+  units: { name: string; textColor: string; gridColor: string }[]
   pace: "regular" | "bursty"
 }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const gridRef = useRef<HTMLDivElement>(null)
   const [cols, setCols] = useState(0)
+  const gridUnits = units.map((u) => ({ color: u.gridColor }))
 
   useEffect(() => {
     const el = containerRef.current
     if (!el) return
     const compute = () => {
       const w = el.clientWidth
-      setCols(Math.max(units.length, Math.floor((w + UNIT_GAP_PX) / (UNIT_SQ_PX + UNIT_GAP_PX))))
+      setCols(Math.max(units.length, Math.floor(w / UNIT_SQ_PX)))
     }
     compute()
     const ro = new ResizeObserver(compute)
@@ -268,6 +351,22 @@ function UnitGrid({
     const grid = gridRef.current
     if (!grid || !total) return
     const sqs = Array.from(grid.querySelectorAll<HTMLDivElement>(".unit-sq"))
+
+    // Cuadraditos "sin actividad": por fila, rachas cortas de 1 a 3 columnas
+    // seguidas que quedan sin pintar (nunca en blancos sueltos), simulando
+    // días sin repasar en vez de ruido al azar cuadradito por cuadradito.
+    const skipMask: boolean[][] = Array.from({ length: rows }, () => new Array(cols).fill(false))
+    for (let r = 0; r < rows; r++) {
+      let c = 0
+      while (c < cols) {
+        if (Math.random() < 0.05) {
+          const len = 1 + Math.floor(Math.random() * 3)
+          for (let i = 0; i < len && c < cols; i++, c++) skipMask[r][c] = true
+        } else {
+          c++
+        }
+      }
+    }
 
     // Como el Tetris de la landing pero horizontal: cada fila se llena de
     // izquierda a derecha, y la fila que recibe el próximo cuadradito se elige
@@ -315,8 +414,10 @@ function UnitGrid({
       const avail = rowsWithinLead(notFull, 1)
       const r = avail[Math.floor(Math.random() * avail.length)]
       const c = rowFilled[r]
-      const { color, index } = pickUnitColor(units, p, unlocked)
-      sqs[r * cols + c].style.background = color
+      const { color, index } = pickUnitColor(gridUnits, p, unlocked)
+      sqs[r * cols + c].style.background = skipMask[r][c]
+        ? UNIT_GRID_INACTIVE_COLOR
+        : tintGridColor(color)
       rowFilled[r]++
       unitCounts[index]++
       if (index === unlocked - 1 && unitCounts[index] >= UNIT_COLOR_UNLOCK_THRESHOLD) {
@@ -355,7 +456,7 @@ function UnitGrid({
         return Math.min(1, units.length - 1)
       }
       for (let tries = 0; tries < 6; tries++) {
-        const { index } = pickUnitColor(units, p, unlocked)
+        const { index } = pickUnitColor(gridUnits, p, unlocked)
         if (index !== lastPieceIndex || units.length <= 1) return index
       }
       return (lastPieceIndex + 1) % unlocked
@@ -364,7 +465,7 @@ function UnitGrid({
     function buildPiece(): number {
       const p = filled / (total - 1)
       const index = pickPieceIndex(p)
-      const color = units[index].color
+      const color = units[index].gridColor
       lastPieceIndex = index
 
       let cells: { r: number; c: number }[] | null = null
@@ -417,7 +518,9 @@ function UnitGrid({
     function spawnSquareBursty() {
       const cell = pieceQueue.shift()
       if (!cell) return
-      sqs[cell.r * cols + cell.c].style.background = cell.color
+      sqs[cell.r * cols + cell.c].style.background = skipMask[cell.r][cell.c]
+        ? UNIT_GRID_INACTIVE_COLOR
+        : tintGridColor(cell.color)
       unitCounts[cell.index]++
       if (cell.index === unlocked - 1 && unitCounts[cell.index] >= UNIT_COLOR_UNLOCK_THRESHOLD) {
         unlocked = Math.min(unlocked + 1, units.length)
@@ -426,7 +529,6 @@ function UnitGrid({
 
     let filled = 0
     let batchLeft = 0 // cuadraditos que faltan del bache actual
-    let pauseLeft = 0 // frames hasta el próximo bache
     let spawnCredit = 0 // acumulador fraccional de cuadraditos a spawnear este frame
     let rafId = 0
 
@@ -436,18 +538,12 @@ function UnitGrid({
     }
 
     // Basado en el ritmo de la landing (marketing-home.tsx, ProgressGrid), pero
-    // acelerado ~4.5x acá: acumulador fraccional de cuadraditos/frame más alto y
-    // pausa entre baches recortada a un frame fijo.
+    // sin la pausa fija entre baches: al agotarse uno, arma el siguiente y lo
+    // dibuja en el mismo frame en vez de perder un ciclo sin pintar nada.
     function step() {
       if (filled >= total) return
-      if (pauseLeft > 0) {
-        pauseLeft--
-        rafId = requestAnimationFrame(step)
-        return
-      }
       if (batchLeft === 0) {
         batchLeft = Math.min(nextBatchSize(), total - filled)
-        pauseLeft = 1
         spawnCredit = 0
         if (batchLeft === 0 && filled < total) {
           // No entró ninguna forma en el espacio libre restante: reintentar el
@@ -455,11 +551,9 @@ function UnitGrid({
           rafId = requestAnimationFrame(step)
           return
         }
-        rafId = requestAnimationFrame(step)
-        return
       }
       // Un poquito más rápido cada vez que se desbloquea una unidad siguiente.
-      spawnCredit += 6.6 * (1 + 0.08 * (unlocked - 1))
+      spawnCredit += 60 * (1 + 0.08 * (unlocked - 1))
       while (spawnCredit >= 1 && batchLeft > 0 && filled < total) {
         if (pace === "bursty") spawnSquareBursty()
         else spawnSquareRegular(filled / (total - 1))
@@ -478,11 +572,22 @@ function UnitGrid({
       <div ref={containerRef} className="w-full min-w-0">
         <div
           ref={gridRef}
-          className="grid gap-px"
-          style={{ gridTemplateColumns: `repeat(${cols}, ${UNIT_SQ_PX}px)` }}
+          className="grid place-items-center"
+          style={{
+            gridTemplateColumns: `repeat(${cols}, ${UNIT_SQ_PX}px)`,
+            gridAutoRows: `${UNIT_SQ_PX}px`,
+          }}
         >
           {Array.from({ length: cols * UNIT_GRID_ROWS }).map((_, i) => (
-            <div key={i} className="unit-sq h-2.5 w-2.5 rounded-[1px] bg-white/[0.06]" />
+            <div
+              key={i}
+              className="unit-sq bg-white/[0.06]"
+              style={{
+                width: UNIT_GRID_SQ_PX,
+                height: UNIT_GRID_SQ_PX,
+                borderRadius: UNIT_GRID_RADIUS_PX,
+              }}
+            />
           ))}
         </div>
       </div>
@@ -504,7 +609,7 @@ const slideVariants = {
   exit: (c: SlideCustom) => ({ x: c.dir > 0 ? "-100%" : "100%", opacity: 1 }),
 }
 
-const INTRO_BELT_COLORS = BELT_BAR_COLORS
+const INTRO_BELT_COLORS = BELT_LEGEND_BAR_COLORS
 
 // Intro: escribe "intervalo" con typewriter y revela los 5 colores del cinturón uno a uno.
 function IntroLogo({ onDone }: { onDone: () => void }) {
@@ -569,7 +674,8 @@ function IntroLogo({ onDone }: { onDone: () => void }) {
   )
 }
 
-export default function OnboardingWizard() {
+export default function OnboardingWizard({ alreadySignedIn = false }: { alreadySignedIn?: boolean }) {
+  const router = useRouter()
   const { signIn } = useSignIn()
   const sfx = useSfx()
   const [step, setStep] = useState(-1) // -1 = intro animada del logo
@@ -774,18 +880,30 @@ export default function OnboardingWizard() {
     setAuthError("No pudimos conectar con Google. Probá de nuevo.")
   }
 
-  // Final del onboarding: guardamos lo elegido antes de irnos a Google para que
-  // /onboarding/complete lo encuentre al volver.
-  async function onFinish() {
-    saveOnboarding({
+  function onboardingPayload() {
+    return {
       name: name.trim(),
       career,
       university,
       course: courseKey,
       motivation,
       introItemCorrect: firstTryCorrect,
-    })
+    }
+  }
+
+  // Final del onboarding: guardamos lo elegido antes de irnos a Google para que
+  // /onboarding/complete lo encuentre al volver.
+  async function onFinish() {
+    saveOnboarding(onboardingPayload())
     await authenticateWithGoogle()
+  }
+
+  // Vino ya autenticado (atajo "Ya tengo una cuenta" de una cuenta nueva): no
+  // hay que volver a pasar por Google, solo guardar las respuestas —
+  // /onboarding/complete hace el enroll y muestra "instalá la app".
+  function finishAlreadySignedIn() {
+    saveOnboarding(onboardingPayload())
+    router.push("/onboarding/complete")
   }
 
   return (
@@ -830,6 +948,7 @@ export default function OnboardingWizard() {
                   authReady={signIn !== null}
                   authPending={authPending}
                   authError={authError}
+                  hideSignIn={alreadySignedIn}
                 />
               )}
 
@@ -1173,18 +1292,28 @@ export default function OnboardingWizard() {
                   <div className="flex flex-col gap-2">
                     <h2 className="text-2xl font-bold">¡Ya casi estamos!</h2>
                     <p className="leading-relaxed text-foreground/85">
-                      Registrate para poder guardar tu progreso.
+                      {alreadySignedIn ? "Ya podés arrancar." : "Registrate para poder guardar tu progreso."}
                     </p>
                   </div>
-                  <Button
-                    size="lg"
-                    className="h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
-                    disabled={signIn === null || authPending}
-                    onClick={onFinish}
-                  >
-                    <GoogleIcon className="size-5" />
-                    {authPending ? "Conectando..." : "Continuar con Google"}
-                  </Button>
+                  {alreadySignedIn ? (
+                    <Button
+                      size="lg"
+                      className="h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+                      onClick={finishAlreadySignedIn}
+                    >
+                      Continuar
+                    </Button>
+                  ) : (
+                    <Button
+                      size="lg"
+                      className="h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+                      disabled={signIn === null || authPending}
+                      onClick={onFinish}
+                    >
+                      <GoogleIcon className="size-5" />
+                      {authPending ? "Conectando..." : "Continuar con Google"}
+                    </Button>
+                  )}
                   {authError && <p className="text-sm text-red-500">{authError}</p>}
                 </div>
               )}
@@ -1421,6 +1550,7 @@ function Slide0({
   authReady,
   authPending,
   authError,
+  hideSignIn,
 }: {
   name: string
   setName: (v: string) => void
@@ -1430,6 +1560,7 @@ function Slide0({
   authReady: boolean
   authPending: boolean
   authError: string | null
+  hideSignIn: boolean
 }) {
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -1472,16 +1603,18 @@ function Slide0({
           <Button size="lg" className="h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black" disabled={!name.trim()} onClick={handleContinue}>
             Continuar
           </Button>
-          <Button
-            variant="outline"
-            size="lg"
-            className="h-12 w-full rounded-md gap-2"
-            disabled={!authReady || authPending}
-            onClick={onSignIn}
-          >
-            <GoogleIcon className="size-5" />
-            {authPending ? "Conectando..." : "Ya tengo una cuenta"}
-          </Button>
+          {!hideSignIn && (
+            <Button
+              variant="outline"
+              size="lg"
+              className="h-12 w-full rounded-md gap-2"
+              disabled={!authReady || authPending}
+              onClick={onSignIn}
+            >
+              <GoogleIcon className="size-5" />
+              {authPending ? "Conectando..." : "Ya tengo una cuenta"}
+            </Button>
+          )}
           {authError && <p className="text-center text-sm text-red-500">{authError}</p>}
         </div>
       </motion.div>
@@ -1530,7 +1663,7 @@ function ProgressBar({ step, onBack }: { step: number; onBack: () => void }) {
   )
 }
 
-function OptionButton({
+export function OptionButton({
   children,
   selected,
   onClick,
@@ -1598,7 +1731,7 @@ function ChoiceRow({
   )
 }
 
-function CareerCard({
+export function CareerCard({
   emoji,
   label,
   selected,

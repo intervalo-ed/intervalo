@@ -12,7 +12,7 @@ Concepto: las **variaciones** cuentan las formas de elegir y ordenar $k$ element
 
 ---
 
-## CLSF, 50 ejercicios
+## CLSF, 15 ejercicios
 
 Reconocer la **técnica**, sin calcular.
 
@@ -20,15 +20,15 @@ Reconocer la **técnica**, sin calcular.
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Reconocer variación (elegir y ordenar $k<n$, el orden importa) | 20 | `reconocer-variacion` |
-| Distractor: en realidad es combinación (orden no importa) | 16 | `distractor-combinacion` |
-| Distractor: en realidad es permutación ($k=n$, se usan todos) | 8 | `distractor-permutacion` |
-| Distractor: en realidad es regla del producto simple (los $k$ lugares no salen todos del mismo conjunto de $n$) | 6 | `distractor-regla-producto` |
-| **Total** | **50** | |
+| Reconocer variación (elegir y ordenar $k<n$, el orden importa) | 6 | `reconocer-variacion` |
+| Distractor: en realidad es combinación (orden no importa) | 5 | `distractor-combinacion` |
+| Distractor: en realidad es permutación ($k=n$, se usan todos) | 2 | `distractor-permutacion` |
+| Distractor: en realidad es regla del producto simple (los $k$ lugares no salen todos del mismo conjunto de $n$) | 2 | `distractor-regla-producto` |
+| **Total** | **15** | |
 
 ---
 
-## FORM, 50 ejercicios
+## FORM, 15 ejercicios
 
 Armar la **expresión**.
 
@@ -36,14 +36,14 @@ Armar la **expresión**.
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| $V_{n,k} = \dfrac{n!}{(n-k)!}$ directa | 24 | `formula-directa` |
-| Identificar la fórmula incorrecta entre variantes parecidas (confundir con $\binom{n}{k}$ o con $n!$) | 14 | `identificar-formula-correcta` |
-| Armar la expresión como producto directo de opciones decrecientes ($n \times (n-1) \times \cdots \times (n-k+1)$, sin pasar por el cociente de factoriales) | 12 | `producto-decreciente` |
-| **Total** | **50** | |
+| $V_{n,k} = \dfrac{n!}{(n-k)!}$ directa | 7 | `formula-directa` |
+| Identificar la fórmula incorrecta entre variantes parecidas (confundir con $\binom{n}{k}$ o con $n!$) | 4 | `identificar-formula-correcta` |
+| Armar la expresión como producto directo de opciones decrecientes ($n \times (n-1) \times \cdots \times (n-k+1)$, sin pasar por el cociente de factoriales) | 4 | `producto-decreciente` |
+| **Total** | **15** | |
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 15 ejercicios
 
 Calcular el **resultado numérico**.
 
@@ -51,10 +51,10 @@ Calcular el **resultado numérico**.
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| $V_{n,k}$ con $n, k$ chicos ($n \leq 9$) | 26 | `resl-directo` |
-| Comparación entre $V_{n,k}$ y $\binom{n}{k}$ del mismo $n,k$ (mismo par de datos, técnica distinta) | 12 | `resl-comparacion-combinacion` |
-| $k$ dado como parte del contexto (ej. "elegir 2 cargos distintos de 8 personas") sin la notación $V_{n,k}$ explícita en el enunciado | 12 | `resl-desde-contexto` |
-| **Total** | **50** | |
+| $V_{n,k}$ con $n, k$ chicos ($n \leq 9$) | 8 | `resl-directo` |
+| Comparación entre $V_{n,k}$ y $\binom{n}{k}$ del mismo $n,k$ (mismo par de datos, técnica distinta) | 4 | `resl-comparacion-combinacion` |
+| $k$ dado como parte del contexto (ej. "elegir 2 cargos distintos de 8 personas") sin la notación $V_{n,k}$ explícita en el enunciado | 3 | `resl-desde-contexto` |
+| **Total** | **15** | |
 
 **Cardinalidad**: numérica corta → 4 opciones (grilla 2×2).
 

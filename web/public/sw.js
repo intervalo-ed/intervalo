@@ -15,24 +15,102 @@ self.addEventListener("activate", function (event) {
   event.waitUntil(self.clients.claim())
 })
 
+// URL del backend, pasada como query string al registrar el SW (ver
+// register.ts) — un service worker no puede leer process.env.
+const API_BASE = new URL(self.location.href).searchParams.get("apiBase")
+
+// Reporta al backend qué pasó con cada push recibido (éxito o fallo de
+// decodificación) — no solo los fallos, para poder distinguir "no llegó
+// ningún push event" de "llegó pero no se pudo leer". GET simple, sin
+// headers custom ni body: es un "simple request" de CORS (sin preflight),
+// con keepalive para sobrevivir aunque el SW se cierre apenas termina el
+// evento. Estuvimos varias rondas sin que llegara NINGÚN reporte (con la
+// versión POST + JSON, que sí dispara preflight) mientras el bug seguía
+// pasando, así que esta es la vía con menos superficie de falla posible.
+// Best-effort: si igual falla, no bloquea la notificación.
+function beacon(params) {
+  if (!API_BASE) return Promise.resolve()
+  const qs = new URLSearchParams(params).toString()
+  return fetch(`${API_BASE}/push/diagnostic?${qs}`, {
+    method: "GET",
+    keepalive: true,
+  }).catch(() => {})
+}
+
+// self.registration.pushManager.getSubscription() a veces no resuelve
+// (reportes de que ciertas APIs quedan colgadas en un SW despertado por un
+// push en iOS) — con timeout para que el beacon salga igual, sin endpoint.
+function getSubscriptionEndpoint() {
+  return Promise.race([
+    self.registration.pushManager
+      .getSubscription()
+      .then((sub) => (sub ? sub.endpoint : null)),
+    new Promise((resolve) => setTimeout(() => resolve(null), 1500)),
+  ]).catch(() => null)
+}
+
+// Cualquier excepción no capturada en el SW (fuera del try/catch del propio
+// handler de push) o promesa rechazada sin catch también se reporta, por si
+// la causa real está en otro lado del script.
+self.addEventListener("error", function (e) {
+  beacon({ event: "sw_error", error: String((e && e.message) || e) })
+})
+self.addEventListener("unhandledrejection", function (e) {
+  beacon({ event: "sw_unhandledrejection", error: String(e.reason) })
+})
+
 self.addEventListener("push", function (event) {
   let title = "Intervalo"
   let body = "Tenés repasos pendientes hoy 📚"
-  try {
-    if (event.data) {
-      const data = event.data.json()
-      if (data.title) title = data.title
-      if (data.body) body = data.body
+  let raw = null
+  let decodeError = null
+
+  if (event.data) {
+    try {
+      raw = event.data.text()
+    } catch (e) {
+      decodeError = `text() failed: ${e}`
     }
-  } catch (_) {}
+    if (raw != null) {
+      try {
+        const data = JSON.parse(raw)
+        if (data.title) title = data.title
+        if (data.body) body = data.body
+      } catch (e) {
+        decodeError = `JSON.parse failed: ${e}`
+      }
+    }
+  } else {
+    decodeError = "push event sin event.data"
+  }
+
+  if (decodeError) {
+    // DEBUG TEMPORAL: ningún reporte de red llegó a aparecer en los logs del
+    // backend en varias rondas de prueba en vivo, así que además mostramos
+    // el error real directo en el cuerpo de la notificación — cero
+    // dependencia de red, no se puede perder en el camino. Revertir apenas
+    // tengamos la causa real confirmada.
+    body = `[debug] ${decodeError} | raw=${raw != null ? JSON.stringify(raw).slice(0, 120) : "null"}`
+  }
 
   event.waitUntil(
-    self.registration.showNotification(title, {
-      body,
-      icon: "/icons/icon-192.png",
-      badge: "/icons/icon-192.png",
-      data: { url: "/" },
-    }),
+    Promise.all([
+      getSubscriptionEndpoint().then((endpoint) =>
+        beacon({
+          event: decodeError ? "decode_fail" : "ok",
+          error: decodeError || "",
+          endpoint: endpoint || "",
+          raw_len: raw != null ? String(raw.length) : "-1",
+          ua: (self.navigator && self.navigator.userAgent) || "",
+        }),
+      ),
+      self.registration.showNotification(title, {
+        body,
+        icon: "/icons/icon-192.png",
+        badge: "/icons/icon-192.png",
+        data: { url: "/" },
+      }),
+    ]),
   )
 })
 

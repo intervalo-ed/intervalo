@@ -142,6 +142,11 @@ export interface paths {
          *     A returning user has an enrollment and/or learning state, regardless of
          *     what their Clerk `onboarded` metadata says. The frontend uses this to
          *     decide whether to run onboarding or send the user straight to the dashboard.
+         *
+         *     Ninguno de los dos chequeos filtra por curso: antes miraban solo
+         *     course_id=1 y perdían a usuarios enrolados/con progreso únicamente en
+         *     otro curso (ej. álgebra), a quienes se les volvía a pedir universidad/
+         *     carrera pese a tenerlas cargadas.
          */
         get: operations["get_user_status_user_status_get"];
         put?: never;
@@ -188,8 +193,8 @@ export interface paths {
         };
         /**
          * Get Practice Stats
-         * @description Stats del usuario para un curso en la iteración vigente, SOLO modo práctica
-         *     (zen): sesiones de práctica completadas y ejercicios acertados en ellas.
+         * @description Stats del usuario para un curso en la iteración vigente, SOLO modo práctica:
+         *     sesiones de práctica completadas y ejercicios acertados en ellas.
          */
         get: operations["get_practice_stats_user_practice_stats_get"];
         put?: never;
@@ -361,6 +366,40 @@ export interface paths {
          * @description Remove a browser PushSubscription (called when the user unsubscribes).
          */
         delete: operations["push_unsubscribe_push_subscribe_delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/push/diagnostic": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Push Diagnostic Beacon
+         * @description GET twin of push_diagnostic, reporting on EVERY push the service
+         *     worker receives (not just decode failures) — see sw.js's `beacon()`. A
+         *     plain GET with no custom headers is a CORS "simple request" (no
+         *     preflight), so it's the fallback channel in case the POST version's
+         *     JSON body / Content-Type ever gets blocked in the service worker's
+         *     fetch context — we had zero of those land while chasing a recurring
+         *     generic-fallback bug with no other client-side signal at all.
+         */
+        get: operations["push_diagnostic_beacon_push_diagnostic_get"];
+        put?: never;
+        /**
+         * Push Diagnostic
+         * @description Client-reported failure when a push event's payload couldn't be
+         *     decoded (sw.js falls back to generic copy in that case, see sw.js). No
+         *     auth here — the service worker has no Clerk session — so we correlate
+         *     the report to a user via the subscription endpoint instead. Logs only,
+         *     to diagnose recurring generic-fallback notifications.
+         */
+        post: operations["push_diagnostic_push_diagnostic_post"];
+        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
@@ -547,6 +586,30 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/public/university-leaderboard": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Public University Leaderboard
+         * @description Snapshot agregado sin auth de las universidades top (por XP, mismo
+         *     orden que /leaderboard/universities), para la landing (marketing-home.tsx)
+         *     — un visitante sin cuenta no tiene sesión para pegarle a ese endpoint. Sin
+         *     PII: solo universidad + conteos, los mismos números que ya ve cualquier
+         *     usuario logueado en el leaderboard.
+         */
+        get: operations["get_public_university_leaderboard_public_university_leaderboard_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/user/emoji-tree": {
         parameters: {
             query?: never;
@@ -611,7 +674,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/session/start-zen": {
+    "/session/start-practice": {
         parameters: {
             query?: never;
             header?: never;
@@ -621,10 +684,10 @@ export interface paths {
         get?: never;
         put?: never;
         /**
-         * Start Zen Session
-         * @description Start a Zen session: random exercises from selected (belt, topic) items, no SM-2 logic.
+         * Start Practice Session
+         * @description Start a Practice session: random exercises from selected (belt, topic) items, no SM-2 logic.
          */
-        post: operations["start_zen_session_session_start_zen_post"];
+        post: operations["start_practice_session_session_start_practice_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -753,6 +816,8 @@ export interface components {
             session_id: string;
             /** Exercise Id */
             exercise_id: string;
+            /** Exercise External Id */
+            exercise_external_id?: string | null;
             /** Answer Index */
             answer_index: number;
             /** Attempts */
@@ -982,6 +1047,13 @@ export interface components {
             /** Timezone */
             timezone?: string | null;
         };
+        /** PracticeSessionItem */
+        PracticeSessionItem: {
+            /** Belt */
+            belt: string;
+            /** Topic */
+            topic: string;
+        };
         /** PracticeStatsResponse */
         PracticeStatsResponse: {
             /** Sessions Completed */
@@ -995,6 +1067,29 @@ export interface components {
         PrunePushRequest: {
             /** Subscription Ids */
             subscription_ids: number[];
+        };
+        /** PublicUniversityLeaderboardResponse */
+        PublicUniversityLeaderboardResponse: {
+            /** Rows */
+            rows: components["schemas"]["PublicUniversityStat"][];
+        };
+        /** PublicUniversityStat */
+        PublicUniversityStat: {
+            /** University */
+            university: string;
+            /** Students */
+            students: number;
+            /** Total Xp */
+            total_xp: number;
+        };
+        /** PushDiagnosticRequest */
+        PushDiagnosticRequest: {
+            /** Error */
+            error: string;
+            /** Endpoint */
+            endpoint?: string | null;
+            /** Raw Preview */
+            raw_preview?: string | null;
         };
         /** PushKeys */
         PushKeys: {
@@ -1170,6 +1265,17 @@ export interface components {
             /** Next Review */
             next_review?: string | null;
         };
+        /** StartPracticeSessionRequest */
+        StartPracticeSessionRequest: {
+            /** User Name */
+            user_name: string;
+            /** Items */
+            items: components["schemas"]["PracticeSessionItem"][];
+            /** Count */
+            count: number;
+            /** Course */
+            course?: string | null;
+        };
         /** StartSessionRequest */
         StartSessionRequest: {
             /** User Name */
@@ -1189,17 +1295,6 @@ export interface components {
              */
             shuffle: boolean;
             filters?: components["schemas"]["TestFilters"] | null;
-        };
-        /** StartZenSessionRequest */
-        StartZenSessionRequest: {
-            /** User Name */
-            user_name: string;
-            /** Items */
-            items: components["schemas"]["ZenSessionItem"][];
-            /** Count */
-            count: number;
-            /** Course */
-            course?: string | null;
         };
         /** StreakInfo */
         StreakInfo: {
@@ -1395,13 +1490,6 @@ export interface components {
             input?: unknown;
             /** Context */
             ctx?: Record<string, never>;
-        };
-        /** ZenSessionItem */
-        ZenSessionItem: {
-            /** Belt */
-            belt: string;
-            /** Topic */
-            topic: string;
         };
     };
     responses: never;
@@ -2018,6 +2106,74 @@ export interface operations {
             };
         };
     };
+    push_diagnostic_beacon_push_diagnostic_get: {
+        parameters: {
+            query: {
+                event: string;
+                error?: string | null;
+                endpoint?: string | null;
+                raw_len?: string | null;
+                ua?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SimpleResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    push_diagnostic_push_diagnostic_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PushDiagnosticRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SimpleResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     get_notification_settings_user_notification_settings_get: {
         parameters: {
             query?: never;
@@ -2319,6 +2475,26 @@ export interface operations {
             };
         };
     };
+    get_public_university_leaderboard_public_university_leaderboard_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PublicUniversityLeaderboardResponse"];
+                };
+            };
+        };
+    };
     get_emoji_state_user_emoji_tree_get: {
         parameters: {
             query?: never;
@@ -2420,7 +2596,7 @@ export interface operations {
             };
         };
     };
-    start_zen_session_session_start_zen_post: {
+    start_practice_session_session_start_practice_post: {
         parameters: {
             query?: never;
             header?: {
@@ -2431,7 +2607,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["StartZenSessionRequest"];
+                "application/json": components["schemas"]["StartPracticeSessionRequest"];
             };
         };
         responses: {

@@ -46,6 +46,8 @@ from schemas import (
     CourseResetResponse,
     NotificationSettings,
     PracticeStatsResponse,
+    PublicUniversityLeaderboardResponse,
+    PublicUniversityStat,
     SessionStartResponse,
     TopicActionRequest,
     SessionSummaryResponse,
@@ -162,14 +164,14 @@ class StartSessionRequest(BaseModel):
     course: str | None = None
 
 
-class ZenSessionItem(BaseModel):
+class PracticeSessionItem(BaseModel):
     belt: str
     topic: str
 
 
-class StartZenSessionRequest(BaseModel):
+class StartPracticeSessionRequest(BaseModel):
     user_name: str
-    items: list[ZenSessionItem]
+    items: list[PracticeSessionItem]
     count: int
     course: str | None = None
 
@@ -195,6 +197,11 @@ class StartTestSessionRequest(BaseModel):
 class AnswerRequest(BaseModel):
     session_id: str
     exercise_id: str
+    # Identificador estable del ejercicio real (p. ej. "white_definition_clsf_01").
+    # El cliente lo reporta para poder auditar exactamente qué ejercicio se sirvió
+    # y para avanzar el ciclo de no-repetición por ítem; opcional por
+    # compatibilidad con clientes viejos.
+    exercise_external_id: str | None = None
     answer_index: int
     attempts: int
     response_time_s: float
@@ -222,6 +229,12 @@ class NotificationSettingsRequest(BaseModel):
 
 class PrunePushRequest(BaseModel):
     subscription_ids: list[int]
+
+
+class PushDiagnosticRequest(BaseModel):
+    error: str
+    endpoint: str | None = None
+    raw_preview: str | None = None
 
 
 class SessionFeedbackRequest(BaseModel):
@@ -431,19 +444,20 @@ def get_user_status(
     A returning user has an enrollment and/or learning state, regardless of
     what their Clerk `onboarded` metadata says. The frontend uses this to
     decide whether to run onboarding or send the user straight to the dashboard.
+
+    Ninguno de los dos chequeos filtra por curso: antes miraban solo
+    course_id=1 y perdían a usuarios enrolados/con progreso únicamente en
+    otro curso (ej. álgebra), a quienes se les volvía a pedir universidad/
+    carrera pese a tenerlas cargadas.
     """
     from models import Enrollment, UnitState
 
-    course_id = 1  # Default course
-
     enrolled = db.query(Enrollment.id).filter(
         Enrollment.user_id == current_user.id,
-        Enrollment.course_id == course_id,
     ).first() is not None
 
     has_progress = db.query(UnitState.id).filter(
         UnitState.user_id == current_user.id,
-        UnitState.course_id == course_id,
     ).first() is not None
 
     return UserStatusResponse(enrolled=enrolled, has_progress=has_progress)
@@ -508,8 +522,8 @@ def get_practice_stats(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Stats del usuario para un curso en la iteración vigente, SOLO modo práctica
-    (zen): sesiones de práctica completadas y ejercicios acertados en ellas."""
+    """Stats del usuario para un curso en la iteración vigente, SOLO modo práctica:
+    sesiones de práctica completadas y ejercicios acertados en ellas."""
     from models import Session as SessionModel
     from session_store import _get_course_progress
     course_id = _resolve_course_id(course, db)
@@ -519,7 +533,7 @@ def get_practice_stats(
         SessionModel.user_id == current_user.id,
         SessionModel.course_id == course_id,
         SessionModel.iteration == iteration,
-        SessionModel.mode == "zen",
+        SessionModel.mode == "practice",
         SessionModel.finished_at.isnot(None),
     ).scalar()
 
@@ -532,7 +546,7 @@ def get_practice_stats(
         Answer.user_id == current_user.id,
         Answer.course_id == course_id,
         Answer.iteration == iteration,
-        SessionModel.mode == "zen",
+        SessionModel.mode == "practice",
     ).one()
 
     return PracticeStatsResponse(
@@ -672,6 +686,64 @@ def push_unsubscribe(
     return {"success": True}
 
 
+@app.post("/push/diagnostic", response_model=SimpleResponse)
+def push_diagnostic(
+    body: PushDiagnosticRequest,
+    db: Session = Depends(get_db),
+):
+    """Client-reported failure when a push event's payload couldn't be
+    decoded (sw.js falls back to generic copy in that case, see sw.js). No
+    auth here — the service worker has no Clerk session — so we correlate
+    the report to a user via the subscription endpoint instead. Logs only,
+    to diagnose recurring generic-fallback notifications."""
+    import logging
+
+    import push_store
+
+    user_id = push_store.user_id_for_endpoint(db, body.endpoint) if body.endpoint else None
+    logging.warning(
+        "push decode failed user=%s endpoint=...%s error=%s raw=%r",
+        user_id,
+        (body.endpoint or "")[-24:],
+        body.error,
+        (body.raw_preview or "")[:200],
+    )
+    return {"success": True}
+
+
+@app.get("/push/diagnostic", response_model=SimpleResponse)
+def push_diagnostic_beacon(
+    event: str,
+    error: str | None = None,
+    endpoint: str | None = None,
+    raw_len: str | None = None,
+    ua: str | None = None,
+    db: Session = Depends(get_db),
+):
+    """GET twin of push_diagnostic, reporting on EVERY push the service
+    worker receives (not just decode failures) — see sw.js's `beacon()`. A
+    plain GET with no custom headers is a CORS "simple request" (no
+    preflight), so it's the fallback channel in case the POST version's
+    JSON body / Content-Type ever gets blocked in the service worker's
+    fetch context — we had zero of those land while chasing a recurring
+    generic-fallback bug with no other client-side signal at all."""
+    import logging
+
+    import push_store
+
+    user_id = push_store.user_id_for_endpoint(db, endpoint) if endpoint else None
+    logging.warning(
+        "push beacon event=%s user=%s endpoint=...%s error=%s raw_len=%s ua=%s",
+        event,
+        user_id,
+        (endpoint or "")[-24:],
+        error,
+        raw_len,
+        ua,
+    )
+    return {"success": True}
+
+
 @app.get("/user/notification-settings", response_model=NotificationSettings)
 def get_notification_settings(
     current_user: User = Depends(get_current_user),
@@ -791,6 +863,19 @@ AROUND_WINDOW = 30
 BELT_RANK = {"white": 0, "blue": 1, "violet": 2, "brown": 3}
 
 
+def _enrollments_by_user(db: Session) -> dict[int, Enrollment]:
+    """Un Enrollment por usuario (universidad/carrera/motivación de perfil),
+    sin importar en qué curso — antes esto filtraba por course_id=1 y perdía
+    a usuarios enrolados únicamente en otro curso (ej. álgebra), que quedaban
+    sin tag de universidad en el leaderboard pese a tener los datos cargados.
+    Se queda con el enrollment más antiguo de cada usuario (sus respuestas
+    originales de onboarding)."""
+    by_user: dict[int, Enrollment] = {}
+    for e in db.query(Enrollment).order_by(Enrollment.enrolled_at.asc()).all():
+        by_user.setdefault(e.user_id, e)
+    return by_user
+
+
 @app.get("/leaderboard", response_model=LeaderboardResponse)
 def get_leaderboard(
     university: str | None = Query(default=None),
@@ -819,11 +904,8 @@ def get_leaderboard(
         .all()
     )
 
-    # Career + university come from the user's enrollment (course 1 for now).
-    enrollments = {
-        e.user_id: e
-        for e in db.query(Enrollment).filter(Enrollment.course_id == 1).all()
-    }
+    # Career + university vienen del enrollment del usuario, sin importar curso.
+    enrollments = _enrollments_by_user(db)
 
     # Ejercicios hechos por usuario, para poder filtrar el total por universidad.
     exercises_by_user = dict(
@@ -944,10 +1026,7 @@ def get_university_leaderboard(
     carrera. `university`: limita a esa universidad (aislarla).
     """
     users = db.query(User).all()
-    enrollments = {
-        e.user_id: e
-        for e in db.query(Enrollment).filter(Enrollment.course_id == 1).all()
-    }
+    enrollments = _enrollments_by_user(db)
 
     # Agregación por universidad + agregado global por carrera.
     by_uni: dict[str, dict] = {}
@@ -1007,7 +1086,7 @@ def get_leaderboard_summary(
     `universities` siempre lista el set completo (para poblar el filtro), pero
     `total_students`/`total_exercises` respetan `career`/`university` si se
     pasan, igual que el scope de `/leaderboard`."""
-    enrollments = db.query(Enrollment).filter(Enrollment.course_id == 1).all()
+    enrollments = list(_enrollments_by_user(db).values())
     universities = sorted({e.university for e in enrollments if e.university})
 
     if university is None and career is None:
@@ -1035,13 +1114,41 @@ def get_leaderboard_summary(
     )
 
 
+@app.get("/public/university-leaderboard", response_model=PublicUniversityLeaderboardResponse)
+def get_public_university_leaderboard(db: Session = Depends(get_db)):
+    """Snapshot agregado sin auth de las universidades top (por XP, mismo
+    orden que /leaderboard/universities), para la landing (marketing-home.tsx)
+    — un visitante sin cuenta no tiene sesión para pegarle a ese endpoint. Sin
+    PII: solo universidad + conteos, los mismos números que ya ve cualquier
+    usuario logueado en el leaderboard."""
+    enrollments = _enrollments_by_user(db)
+    xp_by_user = dict(db.query(User.id, User.total_xp).all())
+
+    by_uni: dict[str, dict] = {}
+    for uid, e in enrollments.items():
+        if not e.university:
+            continue
+        agg = by_uni.setdefault(e.university, {"students": 0, "total_xp": 0})
+        agg["students"] += 1
+        agg["total_xp"] += xp_by_user.get(uid, 0)
+
+    rows = [
+        PublicUniversityStat(university=u, students=a["students"], total_xp=a["total_xp"])
+        for u, a in by_uni.items()
+    ]
+    rows.sort(key=lambda r: r.total_xp, reverse=True)
+    return PublicUniversityLeaderboardResponse(rows=rows[:8])
+
+
 # ── Emoji unlock tree (badges) ──────────────────────────────────────────────────
 
 def _emoji_bucket(db: Session, user: User) -> str | None:
-    """Bucket de carrera del usuario (E/S/T/M/Otra), de su enrollment (curso 1)."""
+    """Bucket de carrera del usuario (E/S/T/M/Otra), de su enrollment más
+    antiguo (sin importar curso — ver _enrollments_by_user)."""
     e = (
         db.query(Enrollment)
-        .filter(Enrollment.user_id == user.id, Enrollment.course_id == 1)
+        .filter(Enrollment.user_id == user.id)
+        .order_by(Enrollment.enrolled_at.asc())
         .first()
     )
     return e.career if e else None
@@ -1111,14 +1218,14 @@ def start_session(
     return result
 
 
-@app.post("/session/start-zen")
-def start_zen_session(
-    body: StartZenSessionRequest,
+@app.post("/session/start-practice")
+def start_practice_session(
+    body: StartPracticeSessionRequest,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Start a Zen session: random exercises from selected (belt, topic) items, no SM-2 logic."""
-    from session_store import create_zen_session_db
+    """Start a Practice session: random exercises from selected (belt, topic) items, no SM-2 logic."""
+    from session_store import create_practice_session_db
 
     if not body.items:
         raise HTTPException(status_code=400, detail="Seleccioná al menos un tema.")
@@ -1126,7 +1233,7 @@ def start_zen_session(
         raise HTTPException(status_code=400, detail="El número de ejercicios debe ser al menos 1.")
     course_id = _resolve_course_id(body.course, db)
     try:
-        return create_zen_session_db(
+        return create_practice_session_db(
             user_id=current_user.id, course_id=course_id,
             items=[i.model_dump() for i in body.items], count=body.count, db=db,
         )
@@ -1178,6 +1285,7 @@ def submit_answer(
             body.attempts,
             body.response_time_s,
             db,
+            exercise_external_id=body.exercise_external_id,
         )
     except KeyError as exc:
         raise HTTPException(status_code=404, detail=str(exc))

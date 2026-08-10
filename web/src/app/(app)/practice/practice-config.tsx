@@ -6,6 +6,7 @@ import MathText from "@/components/math-text"
 import { Metric, accuracyColor } from "@/components/metric-card"
 import { PracticeSkeleton } from "@/components/tab-skeletons"
 import { Wordmark } from "@/components/wordmark"
+import { XpDots } from "@/components/xp-dots"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
@@ -22,7 +23,7 @@ import { Switch } from "@/components/ui/switch"
 import { useSfx } from "@/lib/audio/useSfx"
 import { cn } from "@/lib/utils"
 import {
-  BELT_HEX,
+  BELT_UNIT_TEXT_COLORS,
   beltOrderFor,
   COURSE_ORDER,
   getBelt,
@@ -348,11 +349,13 @@ export default function PracticeConfig() {
                   <Metric
                     label="Multiplicador de XP"
                     value={
-                      progressQuery.data
-                        ? `×${progressQuery.data.streak.multiplier.toFixed(1)}`
-                        : "…"
+                      <span className="inline-flex items-center gap-1.5">
+                        {progressQuery.data
+                          ? `×${progressQuery.data.streak.multiplier.toFixed(1)}`
+                          : "…"}
+                        <XpDots className="size-[0.8em] text-[#5457e5]" />
+                      </span>
                     }
-                    valueColor="#5457e5"
                     info={
                       progressQuery.data
                         ? {
@@ -565,7 +568,7 @@ function PracticeUnitCard({
       <div className="flex items-center gap-2 p-4">
         <span
           className="text-base font-semibold leading-tight"
-          style={{ color: BELT_HEX[belt].onDark }}
+          style={{ color: BELT_UNIT_TEXT_COLORS[belt] }}
         >
           {unit.name}
         </span>
@@ -590,11 +593,11 @@ function PracticeUnitCard({
           </Dialog>
         )}
         <div className="flex-1" />
-        <Switch checked={checked} onCheckedChange={onToggleUnit} />
+        <Switch checked={checked} onCheckedChange={onToggleUnit} className="mr-1.5" />
         <button
           type="button"
           aria-label={expanded ? "Contraer" : "Expandir"}
-          className="text-foreground/40 outline-none transition-colors hover:text-foreground/70"
+          className="-m-2 p-2 text-foreground/40 outline-none transition-colors hover:text-foreground/70"
           onClick={onToggleExpanded}
         >
           <ChevronDown
@@ -618,30 +621,33 @@ function PracticeUnitCard({
                   key={t.key}
                   className="flex items-center justify-between gap-3 rounded-md px-1 py-2"
                 >
-                  <Dialog>
-                    <DialogTrigger
-                      aria-label={`Más sobre ${topicShortLabel({ topic: t.key, course, fallback: t.name })}`}
-                      className="flex flex-1 items-center gap-1.5 text-left outline-none"
-                    >
-                      <span className="text-sm">
-                        {topicShortLabel({ topic: t.key, course, fallback: t.name })}
-                      </span>
-                      <Info className="size-3.5 shrink-0 text-foreground/40" />
-                    </DialogTrigger>
-                    <DialogContent className="max-h-[80vh] overflow-y-auto">
-                      <DialogHeader className="gap-0.5">
-                        <DialogTitle className="font-sans text-sm font-semibold text-foreground">
-                          {topicShortLabel({ topic: t.key, course, fallback: t.name })}
-                        </DialogTitle>
-                        <DialogDescription className="text-sm leading-relaxed text-foreground/80">
-                          <MathText text={t.tooltip} />
-                        </DialogDescription>
-                      </DialogHeader>
-                    </DialogContent>
-                  </Dialog>
+                  <div className="flex flex-1 items-center gap-1.5">
+                    <span className="text-sm">
+                      {topicShortLabel({ topic: t.key, course, fallback: t.name })}
+                    </span>
+                    <Dialog>
+                      <DialogTrigger
+                        aria-label={`Más sobre ${topicShortLabel({ topic: t.key, course, fallback: t.name })}`}
+                        className="shrink-0 text-foreground/40 outline-none transition-colors hover:text-foreground/70"
+                      >
+                        <Info className="size-3.5" />
+                      </DialogTrigger>
+                      <DialogContent className="max-h-[80vh] overflow-y-auto">
+                        <DialogHeader className="gap-0.5">
+                          <DialogTitle className="font-sans text-sm font-semibold text-foreground">
+                            {topicShortLabel({ topic: t.key, course, fallback: t.name })}
+                          </DialogTitle>
+                          <DialogDescription className="text-sm leading-relaxed text-foreground/80">
+                            <MathText text={t.tooltip} />
+                          </DialogDescription>
+                        </DialogHeader>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
                   <Switch
                     checked={enabled.has(topicKey(belt, t.key))}
                     onCheckedChange={() => onToggleTopic(t.key)}
+                    className="mr-1.5"
                   />
                 </div>
               ))}

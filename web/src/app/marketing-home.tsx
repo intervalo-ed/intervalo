@@ -1,11 +1,16 @@
 ﻿"use client"
 
 import { useSplash } from "@/app/splash-context"
+import { usePublicUniversityLeaderboard } from "@/app/UsePublicUniversityLeaderboard"
+import { CountUp } from "@/components/count-up"
+import { UniTag } from "@/components/university-tag"
+import { XpDots } from "@/components/xp-dots"
 import { Wordmark } from "@/components/wordmark"
-import { BELT_ONDARK_VIVID, BELT_ORDER, type BeltKey } from "@/lib/catalog"
+import { BELT_LEGEND_COLORS, BELT_ONDARK_VIVID, BELT_ORDER, type BeltKey } from "@/lib/catalog"
 import katex from "katex"
 import "katex/dist/katex.min.css"
-import { ChevronDown } from "lucide-react"
+import { ChevronDown, UsersIcon } from "lucide-react"
+import { AnimatePresence, motion } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useMemo, useRef, useState } from "react"
@@ -25,11 +30,11 @@ const COURSE_TRACKS: CourseTrack[] = [
         name: "Funciones",
         belt: "white",
         exprs: [
-          "f(x) = x^2 - 3x + 2",
-          "y = \\sqrt{x^2 + 1}",
-          "f(x) = \\dfrac{1}{x - 2}",
+          "f(x) = ax^2 + bx + c",
+          "y = \\sqrt{x}",
+          "f(x) = \\dfrac{c}{x - a}",
           "g(x) = e^x \\cdot \\ln(x)",
-          "h(x) = \\sin(x) + \\cos(2x)",
+          "h(x) = \\sin(x) + \\cos(x)",
         ],
         questions: [
           { t2: "Polinomios", t3: "Léxico", qt: "¿Cuál es el grado del siguiente polinomio?", q: "3x^4 - 2x + 1" },
@@ -41,10 +46,10 @@ const COURSE_TRACKS: CourseTrack[] = [
         name: "Límites",
         belt: "blue",
         exprs: [
-          "\\lim_{x \\to 0} \\dfrac{\\sin x}{x} = 1",
-          "\\lim_{x \\to \\infty} \\left(1 + \\dfrac{1}{x}\\right)^x = e",
-          "\\lim_{x \\to 2} \\dfrac{x^2 - 4}{x - 2}",
-          "\\lim_{x \\to 0^+} \\ln(x) = -\\infty",
+          "\\lim_{x \\to a} f(x) = L",
+          "\\lim_{x\\to a^+} f(x) = \\lim_{x\\to a^-} f(x)",
+          "\\lim_{x \\to a} \\dfrac{f(x)-f(a)}{x-a}",
+          "\\lim_{x \\to \\infty} \\ln(x) = \\infty",
         ],
         questions: [
           { t2: "Directa", t3: "Resolución", qt: "¿Cuál es el resultado del siguiente límite?", q: "\\lim_{x \\to 3}(x^2 + 1)" },
@@ -56,7 +61,7 @@ const COURSE_TRACKS: CourseTrack[] = [
         name: "Derivadas",
         belt: "violet",
         exprs: [
-          "f'(x) = 2x - 3",
+          "f'(x) = \\dfrac{d}{dx}f(x)",
           "\\dfrac{d}{dx}\\left[x^n\\right] = nx^{n-1}",
           "\\dfrac{\\partial f}{\\partial x}",
           "\\dfrac{dy}{dx} = \\cos(x)",
@@ -72,9 +77,9 @@ const COURSE_TRACKS: CourseTrack[] = [
         name: "Integrales",
         belt: "brown",
         exprs: [
-          "\\int x^2 \\, dx = \\dfrac{x^3}{3} + C",
-          "\\displaystyle\\int_0^1 x^2 \\, dx = \\dfrac{1}{3}",
-          "\\int \\dfrac{1}{x} \\, dx = \\ln|x| + C",
+          "\\int x^n \\, dx = \\dfrac{x^{n+1}}{n+1} + C",
+          "\\int f'(x) \\, dx = f(x) + C",
+          "\\int \\dfrac{dx}{x} = \\ln|x| + C",
           "\\displaystyle\\int_a^b f(x) \\, dx = F(b) - F(a)",
         ],
         questions: [
@@ -92,12 +97,12 @@ const COURSE_TRACKS: CourseTrack[] = [
         name: "Aritmética",
         belt: "white",
         exprs: [
-          "2^2 \\cdot 2^3 = 2^5",
-          "\\sqrt{81} = 9",
-          "3\\times10^4",
-          "|-5| = 5",
-          "5x - (3x-7) = 2x+7",
-          "\\log_2 8 = 3",
+          "a^m \\cdot a^n = a^{m+n}",
+          "\\sqrt{a^2} = |a|",
+          "a(b+c) = ab + ac",
+          "|-a| = |a|",
+          "a^2 - b^2 = (a-b)(a+b)",
+          "\\log_a(xy) = \\log_a x + \\log_a y",
         ],
         questions: [
           { t2: "Potenciación", t3: "Resolución", qt: "¿Cuál es el resultado de la siguiente potencia?", q: "2^3 \\cdot 2^2" },
@@ -109,11 +114,11 @@ const COURSE_TRACKS: CourseTrack[] = [
         name: "Vectores",
         belt: "blue",
         exprs: [
-          "\\vec{v} = (3, 4)",
-          "\\|\\vec{v}\\| = \\sqrt{3^2+4^2}",
+          "\\vec{v} = (a, b)",
+          "\\|\\vec{v}\\| = \\sqrt{a^2+b^2}",
           "\\vec{u} \\cdot \\vec{v}",
           "\\vec{u} \\times \\vec{v}",
-          "\\vec{u} + \\vec{v} = (5, 1)",
+          "\\vec{u} + \\vec{v} = \\vec{v} + \\vec{u}",
         ],
         questions: [
           { t2: "Norma", t3: "Resolución", qt: "¿Cuál es la norma del siguiente vector?", q: "\\vec{v} = (3, 4)" },
@@ -125,7 +130,7 @@ const COURSE_TRACKS: CourseTrack[] = [
         name: "Matrices",
         belt: "violet",
         exprs: [
-          "A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}",
+          "A = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}",
           "\\det(A) = ad-bc",
           "A^{T}",
           "A^{-1}",
@@ -143,12 +148,17 @@ const COURSE_TRACKS: CourseTrack[] = [
         exprs: [
           "T(\\alpha\\vec{u} + \\vec{v}) = \\alpha T(\\vec{u}) + T(\\vec{v})",
           "\\alpha\\vec{u} + \\vec{v} \\in S",
-          "\\dim(V) = \\dim(\\ker T) + \\dim(\\operatorname{Im} T)",
-          "\\ker(T) = \\{\\vec{v} : T(\\vec{v}) = \\vec{0}\\}",
+          "T: V \\to W",
+          "V = U \\oplus W",
         ],
         questions: [
           { t2: "Subespacios", t3: "Clasificación", qt: "¿El siguiente conjunto es un subespacio?", q: "S = \\{(x,y) : x = 2y\\}" },
-          { t2: "Núcleo", t3: "Formulación", qt: "¿Cómo se define el núcleo de una transformación?", q: "\\ker(T)" },
+          {
+            t2: "Linealidad",
+            t3: "Formulación",
+            qt: "¿Qué propiedad cumple toda transformación lineal?",
+            q: "T(\\alpha \\vec{u} + \\vec{v}) = \\alpha T(\\vec{u}) + T(\\vec{v})",
+          },
           { t2: "Dimensión", t3: "Resolución", qt: "¿Cuál es la dimensión de la imagen?", q: "\\dim(\\operatorname{Im} T)" },
         ],
       },
@@ -160,7 +170,12 @@ const COURSE_TRACKS: CourseTrack[] = [
       {
         name: "Conteo",
         belt: "white",
-        exprs: ["5! = 120", "\\binom{5}{2} = 10", "3 \\times 2 = 6", "P(5,2) = 20"],
+        exprs: [
+          "n! = n\\cdot(n-1)!",
+          "\\binom{n}{k} = \\dfrac{n!}{k!(n-k)!}",
+          "|A \\times B| = |A|\\cdot|B|",
+          "P(n,k) = \\dfrac{n!}{(n-k)!}",
+        ],
         questions: [
           { t2: "Factorial", t3: "Resolución", qt: "¿Cuánto vale el siguiente factorial?", q: "5!" },
           { t2: "Combinaciones", t3: "Resolución", qt: "¿Cuántas combinaciones hay?", q: "\\binom{6}{2}" },
@@ -171,17 +186,22 @@ const COURSE_TRACKS: CourseTrack[] = [
         name: "Probabilidad",
         belt: "blue",
         exprs: [
-          "P(A) = \\dfrac{2}{6}",
+          "P(A) = \\dfrac{|A|}{|\\Omega|}",
           "P(A \\cup B)",
           "P(A|B) = \\dfrac{P(A \\cap B)}{P(B)}",
-          "P(A^c) = 1-P(A)",
+          "P(A^c) = P(\\Omega)-P(A)",
           "P(A|B) = \\dfrac{P(B|A)P(A)}{P(B)}",
         ],
         questions: [
           { t2: "Laplace", t3: "Resolución", qt: "¿Cuál es la probabilidad del siguiente evento?", q: "P(A) = \\dfrac{2}{6}" },
           { t2: "Condicional", t3: "Formulación", qt: "¿Cómo se calcula la siguiente probabilidad condicional?", q: "P(A|B)" },
           { t2: "Axiomas", t3: "Resolución", qt: "¿Cuánto vale la probabilidad del complemento?", q: "P(A^c) = 1-0.3" },
-          { t2: "Bayes", t3: "Formulación", qt: "¿Cómo se calcula la siguiente probabilidad con Bayes?", q: "P(A|B) = \\dfrac{P(B|A)P(A)}{P(B)}" },
+          {
+            t2: "Unión",
+            t3: "Resolución",
+            qt: "¿Cómo se calcula la probabilidad de la unión?",
+            q: "P(A \\cup B) = P(A)+P(B)-P(A\\cap B)",
+          },
         ],
       },
       {
@@ -257,6 +277,49 @@ function pickSeeded<T>(items: T[], seed: number): T {
   return items[Math.floor(r * items.length)]
 }
 
+// Mismo tamaño de cuadradito que la leyenda (h-2.5 w-2.5 = 10px), con el
+// mismo gap de 2px que tenía la grilla antes (pitch 12px). Menos columnas y
+// filas que antes (26x40 a 8px) para que la grilla siga ocupando un ancho
+// similar con cuadraditos más grandes.
+const GRID_COLS = 22
+const GRID_ROWS = 33
+const GRID_CELL_PX = 12
+
+const PROGRESS_GRID_BG_RGB: [number, number, number] = [19, 19, 36] // #131324
+
+function hexToRgb(hex: string): [number, number, number] {
+  const n = parseInt(hex.slice(1), 16)
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255]
+}
+
+// Muestra una intensidad de la campana normal (Box-Muller), centrada en un
+// tono medio-alto: la mayoría de los cuadraditos caen cerca del centro
+// (opacos, legibles) y solo unos pocos llegan a los extremos (tenues o a
+// brillo pleno).
+function sampleNormalIntensity(mean = 0.68, stddev = 0.16, min = 0.58, max = 1.0): number {
+  let u = 0
+  let v = 0
+  while (u === 0) u = Math.random()
+  while (v === 0) v = Math.random()
+  const z = Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v)
+  return Math.min(max, Math.max(min, mean + z * stddev))
+}
+
+function mixWithBg(hex: string, alpha: number): string {
+  const [r, g, b] = hexToRgb(hex)
+  const mix = (channel: number, bg: number) => Math.round(channel * alpha + bg * (1 - alpha))
+  return `rgb(${mix(r, PROGRESS_GRID_BG_RGB[0])}, ${mix(g, PROGRESS_GRID_BG_RGB[1])}, ${mix(b, PROGRESS_GRID_BG_RGB[2])})`
+}
+
+function tintGridColor(hex: string): string {
+  return mixWithBg(hex, sampleNormalIntensity())
+}
+
+// Cuadraditos "sin actividad": mismo color plano para todos (no el color de
+// la unidad, atenuado) — una versión apenas más clara que el fondo, para que
+// se lean como parte de la misma grilla en vez de un hueco.
+const PROGRESS_GRID_INACTIVE_COLOR = mixWithBg("#FFFFFF", 0.12)
+
 const GRID_BG_STYLE = {
   backgroundImage:
     "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)",
@@ -267,66 +330,97 @@ function renderMath(expr: string) {
   return katex.renderToString(expr, { throwOnError: false, displayMode: true })
 }
 
-function NotationCycler({ tick }: { tick: number }) {
+function NotationCycler({ tick, className = "" }: { tick: number; className?: string }) {
   const { unit } = getTrackUnit(tick)
-  const color = BELT_ONDARK_VIVID[unit.belt]
+  const color = BELT_LEGEND_COLORS[unit.belt]
   const expr = useMemo(() => pickSeeded(unit.exprs, tick), [unit, tick])
 
   return (
-    <div className="flex w-[90%] max-w-[480px] flex-col items-center gap-2">
-      <div className="flex items-center gap-2 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-[#768899]">
-        <span
-          className="h-2.5 w-2.5 shrink-0 rounded-[2px] transition-colors duration-300"
-          style={{ background: color }}
-        />
-        <span>{unit.name}</span>
-      </div>
-      <div
-        className="flex h-[72px] shrink-0 items-center justify-center text-[1.45rem] leading-none text-[#F6F8FC] [&_.katex-display]:m-0"
-        dangerouslySetInnerHTML={{ __html: renderMath(expr) }}
-      />
+    <div className={`flex w-[90%] max-w-[480px] flex-col items-center gap-4 ${className}`}>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={`${unit.name}-${expr}`}
+          className="flex flex-col items-center gap-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+        >
+          <div className="flex items-center gap-2 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-[#768899]">
+            <span className="h-2.5 w-2.5 shrink-0 rounded-[2px]" style={{ background: color }} />
+            <span>{unit.name}</span>
+          </div>
+          <div
+            className="flex h-[72px] shrink-0 items-center justify-center text-[1.45rem] leading-none text-[#F6F8FC] [&_.katex-display]:m-0"
+            dangerouslySetInnerHTML={{ __html: renderMath(expr) }}
+          />
+        </motion.div>
+      </AnimatePresence>
     </div>
   )
 }
 
 function QuestionLoop({ tick }: { tick: number }) {
   const { unit } = getTrackUnit(tick)
-  const color = BELT_ONDARK_VIVID[unit.belt]
+  const color = BELT_LEGEND_COLORS[unit.belt]
   const item = useMemo(() => pickSeeded(unit.questions, tick), [unit, tick])
+  const contentKey = `${unit.name}-${item.qt}`
 
   return (
-    <div className="mx-auto grid h-[160px] max-w-[600px] grid-rows-[40px_40px_40px_1fr] text-center">
+    <div className="mx-auto grid h-[160px] max-w-[600px] grid-rows-[40px_24px_40px_1fr] text-center">
       {/* Tags: 1º renglón de la grilla */}
-      <div className="row-start-1 flex flex-wrap items-center justify-center gap-2">
-        <span
-          className="h-2.5 w-2.5 shrink-0 rounded-[2px] transition-colors duration-300"
-          style={{ background: color }}
-        />
-        <span className="font-mono text-[0.62rem] uppercase tracking-[0.13em] text-[#768899]">
-          {unit.name.toUpperCase()}
-        </span>
-        <span aria-hidden className="text-[0.5rem] text-[#38385A]">
-          ◆
-        </span>
-        <span className="font-mono text-[0.62rem] uppercase tracking-[0.13em] text-[#768899]">
-          {item.t2.toUpperCase()}
-        </span>
-        <span aria-hidden className="text-[0.5rem] text-[#38385A]">
-          ◆
-        </span>
-        <span className="font-mono text-[0.62rem] uppercase tracking-[0.13em] text-[#768899]">
-          {item.t3.toUpperCase()}
-        </span>
-      </div>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={`tags-${contentKey}`}
+          className="row-start-1 flex flex-wrap items-center justify-center gap-2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+        >
+          <span className="h-2.5 w-2.5 shrink-0 -translate-y-px rounded-[2px]" style={{ background: color }} />
+          <span className="font-mono text-[0.62rem] uppercase tracking-[0.13em] text-[#768899]">
+            {unit.name.toUpperCase()}
+          </span>
+          <span aria-hidden className="text-[0.5rem] text-[#38385A]">
+            ◆
+          </span>
+          <span className="font-mono text-[0.62rem] uppercase tracking-[0.13em] text-[#768899]">
+            {item.t2.toUpperCase()}
+          </span>
+          <span aria-hidden className="text-[0.5rem] text-[#38385A]">
+            ◆
+          </span>
+          <span className="font-mono text-[0.62rem] uppercase tracking-[0.13em] text-[#768899]">
+            {item.t3.toUpperCase()}
+          </span>
+        </motion.div>
+      </AnimatePresence>
       {/* Pregunta: 3º renglón, pegada a la fórmula */}
-      <div className="row-start-3 flex items-center justify-center text-[clamp(1.1rem,3.6vw,1.45rem)] leading-[1.4] text-[#F6F8FC]">
-        {item.qt}
-      </div>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={`q-${contentKey}`}
+          className="row-start-3 flex items-center justify-center text-[clamp(1.1rem,3.6vw,1.45rem)] leading-[1.4] text-[#F6F8FC]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+        >
+          {item.qt}
+        </motion.div>
+      </AnimatePresence>
       {/* Fórmula: arriba del espacio restante, cerca de la pregunta */}
-      <div
-        className="row-start-4 mx-auto flex max-w-[520px] items-start justify-center pt-2 font-medium leading-[1.5] text-[#F6F8FC] [&_.katex-display]:m-0 [&_.katex]:text-[clamp(1.25rem,4vw,1.5rem)]"
-        dangerouslySetInnerHTML={{ __html: renderMath(item.q) }}
-      />
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={`formula-${contentKey}`}
+          className="row-start-4 mx-auto flex max-w-[520px] items-start justify-center pt-2 text-[clamp(1.25rem,4.2vw,1.55rem)] font-medium leading-[1.5] text-[#F6F8FC] [&_.katex-display]:m-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          dangerouslySetInnerHTML={{ __html: renderMath(item.q) }}
+        />
+      </AnimatePresence>
     </div>
   )
 }
@@ -337,8 +431,8 @@ function ProgressGrid({ tick }: { tick: number }) {
   const legend = courseLegend(tick)
 
   useEffect(() => {
-    const COLS = 26
-    const ROWS = 40
+    const COLS = GRID_COLS
+    const ROWS = GRID_ROWS
     const TOTAL = COLS * ROWS
     const COLORS = BELT_ORDER.map((b) => BELT_ONDARK_VIVID[b])
     const WP: number[][] = [
@@ -370,12 +464,32 @@ function ProgressGrid({ tick }: { tick: number }) {
     if (!grid || !section) return
 
     const sqs = Array.from(grid.querySelectorAll<HTMLDivElement>(".sq"))
+
+    // Cuadraditos "sin actividad": por columna, rachas cortas de 1 a 3 filas
+    // seguidas que quedan sin pintar (nunca en blancos sueltos), simulando
+    // días sin repasar en vez de ruido al azar cuadradito por cuadradito.
+    const skipMask: boolean[][] = Array.from({ length: ROWS }, () => new Array(COLS).fill(false))
+    for (let c = 0; c < COLS; c++) {
+      let r = 0
+      while (r < ROWS) {
+        if (Math.random() < 0.05) {
+          const len = 1 + Math.floor(Math.random() * 3)
+          for (let i = 0; i < len && r < ROWS; i++, r++) skipMask[r][c] = true
+        } else {
+          r++
+        }
+      }
+    }
+
     const colHeights = new Array(COLS).fill(0)
     let fillIdx = 0
-    let batchLeft = 0
-    let pauseLeft = 0
-    let animated = false
     let rafId = 0
+    let catchingUp = false
+
+    // Cuadraditos por frame al ponerse al día con el scroll — deja un
+    // pequeño delay entre bajar y ver la grilla completarse, en vez de
+    // saltar directo al punto exacto.
+    const CATCHUP_SPEED = 3
 
     // Tope de "parejura" entre columnas: ninguna columna puede ir más de
     // MAX_COL_LEAD filas por delante de la columna disponible menos llena.
@@ -391,42 +505,46 @@ function ProgressGrid({ tick }: { tick: number }) {
       const withinLead = avail.filter((c) => colHeights[c] - minHeight <= MAX_COL_LEAD)
       const col = withinLead[Math.floor(Math.random() * withinLead.length)]
       const row = colHeights[col]
-      sqs[row * COLS + col].style.background = pickColor(fillIdx / (TOTAL - 1))
+      const color = pickColor(fillIdx / (TOTAL - 1))
+      sqs[row * COLS + col].style.background = skipMask[row][col]
+        ? PROGRESS_GRID_INACTIVE_COLOR
+        : tintGridColor(color)
       colHeights[col]++
       fillIdx++
     }
 
-    function step() {
-      if (fillIdx >= TOTAL) return
-      if (pauseLeft > 0) {
-        pauseLeft--
-        rafId = requestAnimationFrame(step)
-        return
-      }
-      if (batchLeft === 0) {
-        batchLeft = Math.floor(Math.random() * 6) + 15
-        pauseLeft = Math.floor(Math.random() * 9) + 12
-        rafId = requestAnimationFrame(step)
-        return
-      }
-      spawnSquare()
-      batchLeft--
-      rafId = requestAnimationFrame(step)
+    // La generación no corre sola: acompaña cuánto bajó el usuario. Se
+    // pinta hasta el punto que marca el scroll (nunca se despinta al subir).
+    function scrollTarget() {
+      const rect = section!.getBoundingClientRect()
+      const vh = window.innerHeight
+      const progress = Math.min(1, Math.max(0, (vh - rect.top) / vh))
+      return Math.floor(progress * TOTAL)
     }
 
-    const obs = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !animated) {
-          animated = true
-          rafId = requestAnimationFrame(step)
-        }
-      },
-      { threshold: 0.1 },
-    )
-    obs.observe(section)
+    function catchUp() {
+      const target = scrollTarget()
+      for (let i = 0; i < CATCHUP_SPEED && fillIdx < target; i++) spawnSquare()
+      if (fillIdx < target) {
+        rafId = requestAnimationFrame(catchUp)
+      } else {
+        catchingUp = false
+      }
+    }
+
+    function onScroll() {
+      if (catchingUp) return
+      catchingUp = true
+      rafId = requestAnimationFrame(catchUp)
+    }
+
+    onScroll()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    window.addEventListener("resize", onScroll)
 
     return () => {
-      obs.disconnect()
+      window.removeEventListener("scroll", onScroll)
+      window.removeEventListener("resize", onScroll)
       if (rafId) cancelAnimationFrame(rafId)
     }
   }, [])
@@ -442,7 +560,7 @@ function ProgressGrid({ tick }: { tick: number }) {
             >
               <span
                 className="h-2.5 w-2.5 shrink-0 rounded-[2px] transition-colors duration-300"
-                style={{ background: BELT_ONDARK_VIVID[l.belt] }}
+                style={{ background: BELT_LEGEND_COLORS[l.belt] }}
               />
               {l.label}
             </div>
@@ -450,14 +568,57 @@ function ProgressGrid({ tick }: { tick: number }) {
         </div>
         <div
           ref={gridRef}
-          className="grid w-fit gap-px"
-          style={{ gridTemplateColumns: "repeat(26, 10px)" }}
+          className="grid w-fit place-items-center"
+          style={{
+            gridTemplateColumns: `repeat(${GRID_COLS}, ${GRID_CELL_PX}px)`,
+            gridAutoRows: `${GRID_CELL_PX}px`,
+          }}
         >
-          {Array.from({ length: 26 * 40 }).map((_, i) => (
-            <div key={i} className="sq h-2.5 w-2.5 rounded-[1px]" />
+          {Array.from({ length: GRID_COLS * GRID_ROWS }).map((_, i) => (
+            <div key={i} className="sq h-2.5 w-2.5 rounded-[2px]" />
           ))}
         </div>
       </div>
+    </div>
+  )
+}
+
+const fmt = (n: number) => n.toLocaleString("es")
+
+// Filas tipo leaderboard (mismo formato que UniversityRanking en
+// leaderboard-content.tsx) que se revelan de a una, en orden, cuando la
+// Mismo formato de fila que UniversityRanking en leaderboard-content.tsx
+// (rank, tag de universidad, estudiantes + XP juntos) — esa lista real no
+// tiene scroll-reveal, solo el conteo animado de CountUp al montar, así que
+// acá tampoco: nada de IntersectionObserver, se anima solo con aparecer.
+function UniversityRankingCards({
+  rows,
+}: {
+  rows: { university: string; students: number; total_xp: number }[]
+}) {
+  return (
+    <div className="mx-auto flex max-w-[520px] flex-col gap-2">
+      {rows.map((row, i) => (
+        <div
+          key={row.university}
+          className="flex items-center gap-2 rounded-lg border border-[#38385A] bg-[#1A1A2A] px-4 py-3"
+        >
+          <span className="w-4 shrink-0 text-center text-sm font-semibold tabular-nums text-[#768899]">
+            {i + 1}
+          </span>
+          <span className="flex min-w-0 flex-1 items-center">
+            <UniTag university={row.university} />
+          </span>
+          <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold tabular-nums text-[#F6F8FC]">
+            <CountUp value={row.students} format={fmt} />
+            <UsersIcon className="size-[0.9em] text-[#F6F8FC]" />
+          </span>
+          <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold tabular-nums text-[#F6F8FC]">
+            <CountUp value={row.total_xp} format={fmt} />
+            <XpDots className="size-[0.85em] text-[#F6F8FC]" />
+          </span>
+        </div>
+      ))}
     </div>
   )
 }
@@ -467,6 +628,7 @@ export default function MarketingHome() {
   useEffect(() => markReady(), [markReady])
   const tick = useCourseTick()
   const course = COURSE_TRACKS[tick % COURSE_TRACKS.length].course
+  const { data: uniLeaderboard } = usePublicUniversityLeaderboard()
 
   return (
     <main className="bg-[#131324] font-sans text-[#F6F8FC]">
@@ -482,27 +644,33 @@ export default function MarketingHome() {
           />
         </div>
 
-        {/* Placeholder invisible: reserva el mismo espacio en el flex que el h1
-            de abajo, para que el resto de los elementos (párrafo, fórmula) no
-            se muevan cuando el h1 real se reposiciona con `absolute`. */}
-        <div
-          aria-hidden
-          className="invisible font-sans text-[clamp(1.6rem,6vw,2.25rem)] font-bold leading-[1.2] tracking-[-0.01em]"
-        >
-          <span className="block">Repasá {course}</span>
-          <span className="block">todos los días.</span>
-        </div>
-        <h1 className="absolute top-[26%] left-1/2 w-full -translate-x-1/2 px-5 font-sans text-[clamp(1.6rem,6vw,2.25rem)] font-bold leading-[1.2] tracking-[-0.01em] text-[#F6F8FC]">
+        {/* h1 vive en el flujo normal del flex (no `absolute`): el ancho de
+            la palabra resaltada cambia, pero como el salto de línea está
+            forzado por los `span.block`, la altura nunca varía, así que no
+            hace falta placeholder ni posicionamiento independiente. */}
+        <h1 className="-mt-8 font-sans text-[clamp(1.6rem,6vw,2.25rem)] font-bold leading-[1.2] tracking-[-0.01em] text-[#F6F8FC]">
           <span className="block">
-            Repasá <span className="text-[#5457E5] transition-colors duration-300">{course}</span>
+            Repasá{" "}
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={course}
+                className="inline-block text-[#5457E5]"
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.25 }}
+              >
+                {course}
+              </motion.span>
+            </AnimatePresence>
           </span>
           <span className="block">todos los días.</span>
         </h1>
-        <p className="-mt-6 max-w-[28rem] text-[clamp(1.1rem,3.5vw,1.35rem)] leading-[1.75] text-[#A4B3C6] max-md:text-[0.93rem]">
+        <p className="max-w-[28rem] text-[clamp(1.1rem,3.5vw,1.35rem)] leading-[1.75] text-[#A4B3C6] max-md:text-[0.93rem]">
           Ejercitá las definiciones y propiedades que tanto cuestan entender de
           forma efectiva.
         </p>
-        <NotationCycler tick={tick} />
+        <NotationCycler tick={tick} className="mt-8" />
 
         <div className="absolute bottom-[3%] left-1/2 flex -translate-x-1/2 flex-col items-center gap-6">
           <Link
@@ -558,6 +726,25 @@ export default function MarketingHome() {
       </section>
 
       <ProgressGrid tick={tick} />
+
+      {uniLeaderboard && uniLeaderboard.rows.length > 0 && (
+        <>
+          <section className="border-y border-[#38385A] bg-[#1A1A2A] px-6 py-12">
+            <div className="mx-auto max-w-[960px]">
+              <h2 className="mb-2.5 font-sans text-[clamp(1.45rem,5vw,2rem)] font-bold leading-[1.2] tracking-[-0.01em] text-[#F6F8FC]">
+                Tu universidad también compite
+              </h2>
+              <p className="max-w-[520px] text-[clamp(0.875rem,2.5vw,1rem)] leading-[1.75] text-[#A4B3C6]">
+                Cada ejercicio que resolvés suma XP para tu universidad.
+              </p>
+            </div>
+          </section>
+
+          <section className="px-6 py-10" style={GRID_BG_STYLE}>
+            <UniversityRankingCards rows={uniLeaderboard.rows} />
+          </section>
+        </>
+      )}
 
       <footer>
         <div className="flex flex-col items-center gap-5 bg-[#7E80F7] px-6 py-16 text-center">

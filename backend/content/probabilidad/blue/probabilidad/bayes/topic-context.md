@@ -14,43 +14,43 @@ Concepto: el **teorema de Bayes** invierte una probabilidad condicional, permiti
 
 ---
 
-## ESTR, 50 ejercicios
+## ESTR, 15 ejercicios
 
 ### Distribución objetivo
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Identificar el rol lógico (priori, verosimilitud, posteriori) del dato en texto, sin glosas explicativas en las opciones | 25 | `estr-direccion-condicional-bayes` |
-| Identificar qué dato falta en el texto para poder aplicar el teorema (ej. la probabilidad a priori poblacional) | 25 | `estr-identificar-dato-faltante` |
-| **Total** | **50** | |
+| Identificar el rol lógico (priori, verosimilitud, posteriori) del dato en texto, sin glosas explicativas en las opciones | 8 | `estr-direccion-condicional-bayes` |
+| Identificar qué dato falta en el texto para poder aplicar el teorema (ej. la probabilidad a priori poblacional) | 7 | `estr-identificar-dato-faltante` |
+| **Total** | **15** | |
 
 **Cardinalidad**: conceptual/textual → 3 opciones. Para `estr-direccion-condicional-bayes`, las opciones deben ser solo los nombres teóricos, obligando al alumno a deducir el rol.
 
 ---
 
-## FORM, 50 ejercicios
+## FORM, 15 ejercicios
 
 ### Distribución objetivo
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Identificar el numerador (la rama favorable) para invertir la probabilidad pedida | 25 | `form-identificar-numerador` |
-| Armar el teorema reconociendo la fracción completa (rama específica sobre probabilidad total) | 25 | `form-armar-teorema` |
-| **Total** | **50** | |
+| Identificar el numerador (la rama favorable) para invertir la probabilidad pedida | 8 | `form-identificar-numerador` |
+| Armar el teorema reconociendo la fracción completa (rama específica sobre probabilidad total) | 7 | `form-armar-teorema` |
+| **Total** | **15** | |
 
 **Cardinalidad**: expresiones formales/simbólicas → 3 opciones.
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 15 ejercicios
 
 ### Distribución objetivo
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Reconocer el cálculo dejando la fracción indicada (con los productos y sumas explícitos, sin simplificar) | 25 | `resl-fraccion-indicada` |
-| Resolver numéricamente el problema usando frecuencias naturales (cantidades enteras) en vez de decimales | 25 | `resl-frecuencias-naturales` |
-| **Total** | **50** | |
+| Reconocer el cálculo dejando la fracción indicada (con los productos y sumas explícitos, sin simplificar) | 8 | `resl-fraccion-indicada` |
+| Resolver numéricamente el problema usando frecuencias naturales (cantidades enteras) en vez de decimales | 7 | `resl-frecuencias-naturales` |
+| **Total** | **15** | |
 
 **Cardinalidad**: expresiones numéricas y fracciones → 4 opciones (grilla 2×2).
 

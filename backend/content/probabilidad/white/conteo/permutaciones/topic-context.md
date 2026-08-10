@@ -12,7 +12,7 @@ Concepto: las **permutaciones** cuentan las formas de ordenar $n$ elementos dist
 
 ---
 
-## CLSF, 50 ejercicios
+## CLSF, 15 ejercicios
 
 Reconocer la **técnica** que corresponde, sin calcular.
 
@@ -20,16 +20,16 @@ Reconocer la **técnica** que corresponde, sin calcular.
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Reconocer permutación simple (ordenar todos los $n$ elementos distintos) | 16 | `reconocer-permutacion-simple` |
-| Reconocer permutación con repetición (anagrama con elementos idénticos) | 10 | `reconocer-permutacion-repeticion` |
-| Distractor: en realidad es variación (se elige y ordena un subconjunto $k<n$) | 12 | `distractor-variacion` |
-| Distractor: en realidad es combinación (el orden no importa) | 8 | `distractor-combinacion` |
-| Distractor: en realidad es regla del producto simple (elementos de conjuntos distintos entre sí, no un mismo conjunto a reordenar) | 4 | `distractor-regla-producto` |
-| **Total** | **50** | |
+| Reconocer permutación simple (ordenar todos los $n$ elementos distintos) | 5 | `reconocer-permutacion-simple` |
+| Reconocer permutación con repetición (anagrama con elementos idénticos) | 3 | `reconocer-permutacion-repeticion` |
+| Distractor: en realidad es variación (se elige y ordena un subconjunto $k<n$) | 4 | `distractor-variacion` |
+| Distractor: en realidad es combinación (el orden no importa) | 2 | `distractor-combinacion` |
+| Distractor: en realidad es regla del producto simple (elementos de conjuntos distintos entre sí, no un mismo conjunto a reordenar) | 1 | `distractor-regla-producto` |
+| **Total** | **15** | |
 
 ---
 
-## FORM, 50 ejercicios
+## FORM, 15 ejercicios
 
 Armar la **expresión**.
 
@@ -37,14 +37,14 @@ Armar la **expresión**.
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| $P_n = n!$ simple | 20 | `formula-simple` |
-| Permutación con repetición $\dfrac{n!}{a! \, b! \cdots}$ | 22 | `formula-con-repeticion` |
-| Identificar la fórmula incorrecta entre variantes parecidas (ej. confundir con $\binom{n}{k}$ o $\dfrac{n!}{(n-k)!}$) | 8 | `identificar-formula-correcta` |
-| **Total** | **50** | |
+| $P_n = n!$ simple | 6 | `formula-simple` |
+| Permutación con repetición $\dfrac{n!}{a! \, b! \cdots}$ | 7 | `formula-con-repeticion` |
+| Identificar la fórmula incorrecta entre variantes parecidas (ej. confundir con $\binom{n}{k}$ o $\dfrac{n!}{(n-k)!}$) | 2 | `identificar-formula-correcta` |
+| **Total** | **15** | |
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 15 ejercicios
 
 Calcular el **resultado numérico**.
 
@@ -52,10 +52,10 @@ Calcular el **resultado numérico**.
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Permutación simple, $n \leq 7$ | 22 | `resl-simple` |
-| Permutación con repetición | 22 | `resl-con-repeticion` |
-| Comparación entre dos permutaciones (con y sin repetición del mismo conjunto, o dos $n$ distintos) | 6 | `resl-comparacion` |
-| **Total** | **50** | |
+| Permutación simple, $n \leq 7$ | 7 | `resl-simple` |
+| Permutación con repetición | 6 | `resl-con-repeticion` |
+| Comparación entre dos permutaciones (con y sin repetición del mismo conjunto, o dos $n$ distintos) | 2 | `resl-comparacion` |
+| **Total** | **15** | |
 
 **Cardinalidad**: numérica corta → 4 opciones (grilla 2×2).
 

@@ -12,7 +12,7 @@ Concepto: la **regla del producto** (decisiones secuenciales o independientes, s
 
 ---
 
-## FORM, 50 ejercicios
+## FORM, 15 ejercicios
 
 Armar la **expresión** que cuenta el total (no calcular el valor numérico, eso es `RESL`).
 
@@ -20,18 +20,18 @@ Armar la **expresión** que cuenta el total (no calcular el valor numérico, eso
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Regla del producto pura, 2-3 decisiones secuenciales con repetición permitida entre pasos | 15 | `producto-puro` |
-| Regla de la suma pura, alternativas mutuamente excluyentes ("o") | 10 | `suma-pura` |
-| Combinación producto + suma (ej. suma de dos productos, o producto con un paso que tiene alternativas) | 12 | `producto-y-suma` |
-| Producto con restricción (un paso con menos opciones por una condición, ej. primer dígito no puede ser $0$, o un carácter no se repite) | 8 | `producto-con-restriccion` |
-| Armar la expresión desde un diagrama de árbol descrito en prosa (contar ramas) | 5 | `desde-arbol` |
-| **Total** | **50** | |
+| Regla del producto pura, 2-3 decisiones secuenciales con repetición permitida entre pasos | 5 | `producto-puro` |
+| Regla de la suma pura, alternativas mutuamente excluyentes ("o") | 3 | `suma-pura` |
+| Combinación producto + suma (ej. suma de dos productos, o producto con un paso que tiene alternativas) | 4 | `producto-y-suma` |
+| Producto con restricción (un paso con menos opciones por una condición, ej. primer dígito no puede ser $0$, o un carácter no se repite) | 2 | `producto-con-restriccion` |
+| Armar la expresión desde un diagrama de árbol descrito en prosa (contar ramas) | 1 | `desde-arbol` |
+| **Total** | **15** | |
 
 Cantidades exactas, no aproximadas. Sin bucket "contexto general": si un ejercicio no encaja en una fila, no se genera.
 
 ---
 
-## ESTR, 50 ejercicios
+## ESTR, 15 ejercicios
 
 Elegir **qué regla conviene aplicar**, sin calcular el resultado. Los distractores son la regla equivocada, no un número.
 
@@ -39,17 +39,17 @@ Elegir **qué regla conviene aplicar**, sin calcular el resultado. Los distracto
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Reconocer que aplica la regla del producto (tareas secuenciales o independientes, conectadas por "y") | 15 | `reconocer-producto` |
-| Reconocer que aplica la regla de la suma (alternativas excluyentes, conectadas por "o") | 15 | `reconocer-suma` |
-| Reconocer que hace falta combinar ambas reglas en el mismo problema | 12 | `reconocer-combinada` |
-| Reconocer que el problema **no** se resuelve con producto/suma directos porque involucra ordenar o elegir un subconjunto sin reposición (frontera con el resto de la unidad, sin nombrar todavía permutación/variación/combinación) | 8 | `reconocer-fuera-de-alcance` |
-| **Total** | **50** | |
+| Reconocer que aplica la regla del producto (tareas secuenciales o independientes, conectadas por "y") | 5 | `reconocer-producto` |
+| Reconocer que aplica la regla de la suma (alternativas excluyentes, conectadas por "o") | 4 | `reconocer-suma` |
+| Reconocer que hace falta combinar ambas reglas en el mismo problema | 4 | `reconocer-combinada` |
+| Reconocer que el problema **no** se resuelve con producto/suma directos porque involucra ordenar o elegir un subconjunto sin reposición (frontera con el resto de la unidad, sin nombrar todavía permutación/variación/combinación) | 2 | `reconocer-fuera-de-alcance` |
+| **Total** | **15** | |
 
 **Sobre la última fila:** el distractor correcto para esta sub-familia describe la situación ("hay que elegir un subconjunto y después importa el orden en el que quedaron elegidos") sin usar los términos técnicos `permutación`/`variación`/`combinación`, que todavía no se introdujeron en este topic.
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 15 ejercicios
 
 Calcular el **resultado numérico**.
 
@@ -57,11 +57,11 @@ Calcular el **resultado numérico**.
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Producto puro | 15 | `producto-puro` |
-| Suma pura | 10 | `suma-pura` |
-| Combinación producto + suma | 15 | `producto-y-suma` |
-| Producto con restricción | 10 | `producto-con-restriccion` |
-| **Total** | **50** | |
+| Producto puro | 5 | `producto-puro` |
+| Suma pura | 3 | `suma-pura` |
+| Combinación producto + suma | 4 | `producto-y-suma` |
+| Producto con restricción | 3 | `producto-con-restriccion` |
+| **Total** | **15** | |
 
 **Cardinalidad**: siguiendo `authoring-context.md`, respuesta numérica corta → 4 opciones (grilla 2×2). Los distractores numéricos salen de las confusiones de la tabla de abajo, no de errores aritméticos arbitrarios.
 

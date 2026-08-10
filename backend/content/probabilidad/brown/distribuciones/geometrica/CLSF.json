@@ -1,22 +1,65 @@
 [
   {
-    "question": "Se lanza un dado balanceado repetidamente hasta obtener el primer 6.\n\nSea $X$ la cantidad de lanzamientos necesarios.\n\n¿Qué distribución sigue $X$?",
+    "question": "Un jugador de básquet tira al aro repetidamente hasta encestar el primer tiro.\n\nCada tiro tiene la misma probabilidad de acierto $0{,}4$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de tiros hasta encestar el primero?",
     "options": [
-      "Binomial con $n$ fijo.",
-      "Geométrica con $p = 1/6$.",
-      "Poisson con $\\lambda = 1/6$."
+      "$Geom(0{,}4)$",
+      "$Bin(5,\\, 0{,}4)$",
+      "$BinNeg(2,\\, 0{,}4)$"
     ],
-    "correct_index": 1,
-    "feedback_correct": "Ensayos independientes hasta el primer éxito: geométrica.",
+    "correct_index": 0,
+    "feedback_correct": "Ensayos hasta el primer acierto, con la misma probabilidad en cada tiro: es geométrica.",
     "feedback_incorrect": [
-      "La binomial cuenta éxitos en un $n$ fijo; acá $n$ no es fijo, es el objeto de estudio.",
       null,
-      "Poisson modela conteos en un intervalo continuo; no cuenta ensayos hasta un evento discreto."
+      "La binomial cuenta aciertos en un número fijo de tiros, acá no hay un $n$ fijo, se para al primer acierto.",
+      "La binomial negativa busca el segundo acierto o más, acá se busca el primero."
     ],
-    "explanation": "La distribución **geométrica** modela la cantidad de ensayos independientes hasta obtener el primer éxito, donde cada ensayo tiene probabilidad de éxito $p$:\n$$P(X=k) = (1-p)^{k-1} p$$\n\nEn este caso $p = 1/6$ (probabilidad de sacar 6 en un dado) y $X \\sim Geom(1/6)$.\n\nLa confusión típica es aplicar binomial pensando en \"cuántos éxitos hay\": en binomial se fija el número de ensayos y se cuentan éxitos; en geométrica se fija el número de éxitos (uno) y se cuenta cuántos ensayos hicieron falta.",
+    "explanation": "La distribución **geométrica** modela la cantidad de ensayos hasta el primer éxito.\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá cada tiro es un ensayo con $p=0{,}4$ de encestar.\n\nEl conteo se detiene apenas ocurre el primer acierto.\n\nLo que define este mecanismo es que la cantidad de intentos no está fija de antemano, termina apenas aparece el primer éxito.\n\nPreguntar por la cantidad total de aciertos en 5 tiros fijos convertiría el mismo escenario en binomial.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["reconocer-geometrica"]
+  },
+  {
+    "question": "Un reclutador revisa currículums recibidos hasta encontrar el primero que cumple los requisitos del puesto.\n\nCada currículum cumple los requisitos con probabilidad $0{,}25$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de currículums revisados hasta encontrar el segundo que cumple los requisitos?",
+    "options": [
+      "$BinNeg(2,\\, 0{,}25)$",
+      "$Geom(0{,}25)$",
+      "$Bin(8,\\, 0{,}25)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Ensayos hasta acumular 2 éxitos, no 1: es binomial negativa con $r=2$, no geométrica.",
+    "feedback_incorrect": [
+      null,
+      "La geométrica es el caso particular con $r=1$, acá se pide el segundo currículum que cumple, no el primero.",
+      "La binomial exige un número fijo de currículums revisados de antemano, acá el conteo se detiene al llegar al segundo éxito."
+    ],
+    "explanation": "La distribución **binomial negativa** cuenta ensayos hasta acumular $r$ éxitos.\n$$P(X=k) = \\binom{k-1}{r-1}p^{r}(1-p)^{k-r}$$\nAcá cada currículum es un ensayo con $p=0{,}25$ de cumplir los requisitos, y se busca un segundo éxito.\n\nLa geométrica es apenas el caso más simple de este mecanismo, cuando alcanza con un único éxito.\n\nEn cuanto el enunciado pide un segundo, tercer o más éxito, la fórmula geométrica ya no combina correctamente esos casos y hace falta la versión general.\n\nUsar la fórmula geométrica acá subestima la cantidad de currículums que hace falta revisar en promedio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["distractor-vecino"]
+  },
+  {
+    "question": "Un tirador va mejorando su puntería con la práctica: cada vez que erra, su probabilidad de acierto en el próximo tiro sube.\n\nTira al blanco hasta acertar por primera vez.\n\n¿Se puede modelar la cantidad de tiros hasta el primer acierto como una distribución geométrica?",
+    "options": [
+      "No, la probabilidad de acierto no es la misma en cada tiro.",
+      "Sí, porque se busca un primer éxito y no un total fijo.",
+      "Sí, porque cada tiro tiene solo dos resultados posibles."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Buscar el primer éxito es necesario, pero también hace falta que $p$ sea la misma en cada tiro.",
+    "feedback_incorrect": [
+      null,
+      "Buscar un primer éxito es necesario pero no alcanza: la geométrica también exige que la probabilidad de acierto no cambie de un tiro a otro.",
+      "Tener dos resultados posibles por tiro es necesario pero no alcanza: hace falta además que esos dos resultados mantengan siempre la misma probabilidad."
+    ],
+    "explanation": "La distribución **geométrica** exige dos condiciones a la vez: contar ensayos hasta el primer éxito, y que la probabilidad de éxito $p$ sea la misma en todos.\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá el tirador sí busca su primer acierto.\n\nPero su probabilidad de acierto sube con cada tiro errado, así que $p$ no es constante.\n\nLa pérdida de memoria de la geométrica depende de que el pasado no influya en el próximo intento, y acá sí influye porque el tirador aprende de sus errores.\n\nNinguna distribución de esta unidad modela directamente una probabilidad que mejora con la práctica.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["supuesto-violado"]
   }
 ]

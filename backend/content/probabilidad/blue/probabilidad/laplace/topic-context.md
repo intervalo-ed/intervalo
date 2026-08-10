@@ -12,7 +12,7 @@ Concepto: la **regla de Laplace** asigna $P(A) = \dfrac{\#\text{favorables}}{\#\
 
 ---
 
-## FORM, 50 ejercicios
+## FORM, 15 ejercicios
 
 Armar la **expresión** (fracción de conteo), sin resolver el número final.
 
@@ -20,15 +20,15 @@ Armar la **expresión** (fracción de conteo), sin resolver el número final.
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Expresión directa por conteo simple (dados, monedas, cartas) | 15 | `formula-conteo-simple` |
-| Expresión usando combinaciones para contar favorables y/o posibles (extracción sin reposición) | 15 | `formula-con-combinaciones` |
-| Expresión con evento compuesto, usando complemento en el conteo ("al menos uno", "ninguno") | 12 | `formula-con-complemento` |
-| Reconocer que Laplace **no aplica** (espacio no equiprobable) y por qué la expresión de favorables/posibles sería incorrecta | 8 | `reconocer-no-equiprobable` |
-| **Total** | **50** | |
+| Expresión directa por conteo simple (dados, monedas, cartas) | 5 | `formula-conteo-simple` |
+| Expresión usando combinaciones para contar favorables y/o posibles (extracción sin reposición) | 4 | `formula-con-combinaciones` |
+| Expresión con evento compuesto, usando complemento en el conteo ("al menos uno", "ninguno") | 4 | `formula-con-complemento` |
+| Reconocer que Laplace **no aplica** (espacio no equiprobable) y por qué la expresión de favorables/posibles sería incorrecta | 2 | `reconocer-no-equiprobable` |
+| **Total** | **15** | |
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 15 ejercicios
 
 Calcular el **valor** de la probabilidad.
 
@@ -36,11 +36,11 @@ Calcular el **valor** de la probabilidad.
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Conteo simple (dados, monedas, cartas) | 15 | `resl-conteo-simple` |
-| Con combinaciones (extracción sin reposición) | 15 | `resl-con-combinaciones` |
-| Con complemento en el conteo ("al menos uno", "ninguno") | 12 | `resl-con-complemento` |
-| Evento compuesto por suma de valores (ej. suma de dos dados) | 8 | `resl-suma-valores` |
-| **Total** | **50** | |
+| Conteo simple (dados, monedas, cartas) | 5 | `resl-conteo-simple` |
+| Con combinaciones (extracción sin reposición) | 4 | `resl-con-combinaciones` |
+| Con complemento en el conteo ("al menos uno", "ninguno") | 4 | `resl-con-complemento` |
+| Evento compuesto por suma de valores (ej. suma de dos dados) | 2 | `resl-suma-valores` |
+| **Total** | **15** | |
 
 **Cardinalidad**: numérica corta → 4 opciones (grilla 2×2). Preferir fracciones cortas en notación de barra (`7/36`) en vez de `\dfrac{}{}`.
 
