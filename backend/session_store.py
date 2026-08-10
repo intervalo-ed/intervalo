@@ -56,6 +56,7 @@ from models import (
     Answer,
     Course,
     CourseProgress,
+    Exercise,
     ItemExerciseCycle,
     Session as SessionModel,
     UnitState,
@@ -257,15 +258,41 @@ def _get_session(session_id: str) -> Optional[SessionState]:
     return _sessions.get(session_id)
 
 
+def _current_exercise_types(course_id: int, db: DBSession) -> set[tuple[str, str, str]]:
+    """(belt, topic, exercise_type) combos con contenido real hoy en `exercises`.
+
+    Podar contenido (sacar un exercise_type de un topic, o un topic entero)
+    dejaba huérfanas las `unit_states` de los usuarios que ya lo tenían activo:
+    seguían contando como activas/pendientes y podían ser elegidas por
+    `build_session`, que fallaba al no encontrar ejercicios para servir. Todo
+    lo que consulta o cuenta unit_states para "qué está vigente hoy" filtra
+    por este set, así un prune de contenido no requiere cirugía manual de
+    datos por usuario."""
+    rows = (
+        db.query(Exercise.belt, Exercise.topic, Exercise.exercise_type)
+        .filter(Exercise.course_id == course_id)
+        .distinct()
+        .all()
+    )
+    return {(r[0], r[1], r[2]) for r in rows}
+
+
 def _topic_has_any_units(
-    user_id: int, course_id: int, topic_key: TopicKey, db: DBSession,
+    user_id: int,
+    course_id: int,
+    topic_key: TopicKey,
+    db: DBSession,
+    *,
+    current: set[tuple[str, str, str]] | None = None,
 ) -> bool:
-    return db.query(UnitState).filter(
+    current = current if current is not None else _current_exercise_types(course_id, db)
+    rows = db.query(UnitState).filter(
         UnitState.user_id == user_id,
         UnitState.course_id == course_id,
         UnitState.belt == topic_key.belt.value,
         UnitState.topic == topic_key.topic,
-    ).first() is not None
+    ).all()
+    return any((r.belt, r.topic, r.exercise_type) in current for r in rows)
 
 
 def _create_topic_units(
@@ -586,15 +613,28 @@ def _active_cap(user_id: int, course_id: int, db: DBSession) -> int:
     return _get_course_progress(user_id, course_id, db).active_cap
 
 
-def _active_unit_count(user_id: int, course_id: int, db: DBSession) -> int:
+def _active_unit_count(
+    user_id: int,
+    course_id: int,
+    db: DBSession,
+    *,
+    current: set[tuple[str, str, str]] | None = None,
+) -> int:
     """Units activas = en fase de aprendizaje (nuevo + aprendiendo), no graduadas
-    ni suspendidas. Las suspendidas liberan cupo (se ceden a temas siguientes)."""
-    return db.query(UnitState).filter(
+    ni suspendidas. Las suspendidas liberan cupo (se ceden a temas siguientes).
+
+    Excluye units cuyo exercise_type ya no tiene contenido en `exercises`
+    (topic/skill podado del catálogo): sin esto, esas filas huérfanas seguían
+    ocupando cupo del active_cap para siempre, aunque la grilla ya no las
+    mostrara."""
+    current = current if current is not None else _current_exercise_types(course_id, db)
+    rows = db.query(UnitState).filter(
         UnitState.user_id == user_id,
         UnitState.course_id == course_id,
         UnitState.phase != "review",
         UnitState.suspended.is_(False),
-    ).count()
+    ).all()
+    return sum(1 for r in rows if (r.belt, r.topic, r.exercise_type) in current)
 
 
 def _fill_catchup_units(user_id: int, course_id: int, db: DBSession) -> None:
@@ -664,14 +704,15 @@ def _ensure_active_units(
     _fill_catchup_units(user_id, course_id, db)
 
     cap = _active_cap(user_id, course_id, db)
-    active = _active_unit_count(user_id, course_id, db)
+    current_types = _current_exercise_types(course_id, db)
+    active = _active_unit_count(user_id, course_id, db, current=current_types)
     if active >= cap:
         return
     changed = False
     for tk in _all_topic_keys(course_id, db):
         if active >= cap:
             break
-        if _topic_has_any_units(user_id, course_id, tk, db):
+        if _topic_has_any_units(user_id, course_id, tk, db, current=current_types):
             continue
         types = topic_exercise_types(course_id, tk.belt.value, tk.topic, db)
         # Mantener el orden del catálogo: si el próximo tema no entra completo,
@@ -691,11 +732,16 @@ def _load_unit_states(
     db: DBSession,
 ) -> tuple[dict[UnitKey, SM2UnitState], dict[UnitKey, bool]]:
     # Las suspendidas se excluyen de sesiones, resumen y cálculo de maestría.
+    # Las huérfanas (exercise_type podado del catálogo) también: build_session
+    # las podía elegir como candidatas y `get_exercise_db` no encontraba nada
+    # que servir.
+    current = _current_exercise_types(course_id, db)
     rows = db.query(UnitState).filter(
         UnitState.user_id == user_id,
         UnitState.course_id == course_id,
         UnitState.suspended.is_(False),
     ).all()
+    rows = [r for r in rows if (r.belt, r.topic, r.exercise_type) in current]
     return _rows_to_unit_states(rows, user_today(db, user_id))
 
 
@@ -1229,6 +1275,8 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
     rows = db.query(UnitState).filter(
         UnitState.user_id == user_id, UnitState.course_id == course_id,
     ).all()
+    current_types = _current_exercise_types(course_id, db)
+    rows = [r for r in rows if (r.belt, r.topic, r.exercise_type) in current_types]
     rows_by_topic = _topic_rows_index(rows)
 
     today = user_today(db, user_id)
@@ -1337,6 +1385,8 @@ def get_summary_db(
         UnitState.user_id == user_id, UnitState.course_id == course_id,
         UnitState.suspended.is_(False),
     ).all()
+    current_types = _current_exercise_types(course_id, db)
+    rows = [r for r in rows if (r.belt, r.topic, r.exercise_type) in current_types]
     rows_by_topic = _topic_rows_index(rows)
 
     failed_in_session: set[tuple[str, str]] = set()
@@ -1535,23 +1585,41 @@ def reset_topic(user_id: int, course_id: int, belt: str, topic: str, db: DBSessi
 
 
 def _relock_last_items(user_id: int, course_id: int, cap: int, db: DBSession) -> list[str]:
-    """Borra ítems en aprendizaje desde el final del orden de catálogo hasta que
-    la cantidad activa no supere `cap`. Devuelve 'belt/topic' de los tocados."""
+    """Suspende ítems en aprendizaje desde el final del orden de catálogo hasta
+    que la cantidad activa no supere `cap`. Devuelve 'belt/topic' de los
+    tocados.
+
+    Usa suspensión (mismo mecanismo que `suspend_topic`), no borrado: un ítem
+    en aprendizaje puede tener intentos reales (`attempted`, `step_index`
+    avanzado), y borrarlo perdía ese progreso para siempre. Suspendido, el
+    progreso queda intacto y recuperable con "Adelantar" (`advance_topic`) si
+    el usuario vuelve a subir el cap.
+
+    Las filas huérfanas (exercise_type podado del catálogo) no cuentan para
+    `active` (ver `_active_unit_count`), así que tampoco se tocan acá: si se
+    suspendieran igual, `active` bajaría por una unit que nunca estuvo
+    ocupando cupo real, y el loop se frenaría un tema antes de lo que
+    corresponde."""
     keys = _all_topic_keys(course_id, db)
-    active = _active_unit_count(user_id, course_id, db)
+    current_types = _current_exercise_types(course_id, db)
+    active = _active_unit_count(user_id, course_id, db, current=current_types)
     touched: list[str] = []
     for tk in reversed(keys):
         if active <= cap:
             break
         rows = _topic_rows(user_id, course_id, tk.belt.value, tk.topic, db)
-        learning = [r for r in rows if r.phase != "review" and not r.suspended]
+        learning = [
+            r for r in rows
+            if r.phase != "review" and not r.suspended
+            and (r.belt, r.topic, r.exercise_type) in current_types
+        ]
         if not learning:
             continue
         removed = False
         for r in learning:
             if active <= cap:
                 break
-            db.delete(r)
+            r.suspended = True
             active -= 1
             removed = True
         if removed:
@@ -1589,7 +1657,8 @@ def cap_change_preview(user_id: int, course_id: int, value: int, db: DBSession) 
     """Sin aplicar: qué temas se desbloquean/re-bloquean al cambiar el cap."""
     total = _course_total_items(course_id, db)
     value = max(1, min(int(value), total))
-    active = _active_unit_count(user_id, course_id, db)
+    current_types = _current_exercise_types(course_id, db)
+    active = _active_unit_count(user_id, course_id, db, current=current_types)
     keys = _all_topic_keys(course_id, db)
     unlock: list[str] = []
     lock: list[str] = []
@@ -1598,7 +1667,7 @@ def cap_change_preview(user_id: int, course_id: int, value: int, db: DBSession) 
         for tk in keys:
             if remaining <= 0:
                 break
-            if _topic_has_any_units(user_id, course_id, tk, db):
+            if _topic_has_any_units(user_id, course_id, tk, db, current=current_types):
                 continue
             n = len(topic_exercise_types(course_id, tk.belt.value, tk.topic, db))
             if n > remaining:
@@ -1611,7 +1680,11 @@ def cap_change_preview(user_id: int, course_id: int, value: int, db: DBSession) 
             if remaining <= 0:
                 break
             rows = _topic_rows(user_id, course_id, tk.belt.value, tk.topic, db)
-            learning = [r for r in rows if r.phase != "review" and not r.suspended]
+            learning = [
+                r for r in rows
+                if r.phase != "review" and not r.suspended
+                and (r.belt, r.topic, r.exercise_type) in current_types
+            ]
             if not learning:
                 continue
             lock.append(f"{tk.belt.value}/{tk.topic}")

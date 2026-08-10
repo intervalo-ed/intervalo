@@ -38,7 +38,10 @@ function accumulateTopic({
   state: TopicProgress | undefined
 }): void {
   counts.total++
-  if (!state) return
+  // Un tema suspendido se oculta de la grilla (ver UnitSection en
+  // dashboard-entry.tsx); tratarlo como "no desbloqueado" acá evita que sus
+  // ítems sigan sumando a los indicadores de arriba mientras están invisibles.
+  if (!state || state.suspended) return
   counts.unlocked++
   if (state.is_pending) counts.pendientes++
   if (state.status === "nuevo") counts.nuevos++
@@ -103,7 +106,9 @@ function accumulateUnits({
   state: TopicProgress | undefined
 }): void {
   totals.total += topic.skills.length
-  if (!state) return
+  // Ídem accumulateTopic: un tema suspendido no se ve en la grilla, así que no
+  // debe contar como "desbloqueado" en el total de arriba.
+  if (!state || state.suspended) return
   totals.unlocked += state.skills.length
   totals.dominados += state.skills.filter((u) => u.state === "dominado").length
 }
@@ -178,7 +183,7 @@ export function actionableUnitCount({
     if (!cat) continue
     for (const topic of cat.units.flatMap((u) => u.topics)) {
       const state = topicStates[`${belt}/${topic.key}`]
-      if (!state) continue
+      if (!state || state.suspended) continue
       for (const unit of state.skills) {
         if (unit.state === "sin_empezar") count++
         else if (unitDue(unit.next_review)) count++
@@ -203,7 +208,7 @@ export function pendingUnitCount({
     if (!cat) continue
     for (const topic of cat.units.flatMap((u) => u.topics)) {
       const state = topicStates[`${belt}/${topic.key}`]
-      if (!state) continue
+      if (!state || state.suspended) continue
       count += state.skills.filter(
         (u) => u.state !== "sin_empezar" && unitDue(u.next_review),
       ).length

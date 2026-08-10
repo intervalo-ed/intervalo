@@ -1,0 +1,62 @@
+[
+  {
+    "question": "Una **fracción compuesta** es aquella cuyo numerador o denominador es, a su vez, una fracción.\n\n¿Cuál de las siguientes expresiones es una fracción compuesta?",
+    "options": ["$\\dfrac{7}{9}$", "$\\dfrac{2/3}{5}$", "$\\dfrac{0{,}4}{5}$", "$\\dfrac{5}{0{,}2}$"],
+    "correct_index": 1,
+    "feedback_correct": "Claro: el numerador $2/3$ es a su vez una fracción, por eso $(2/3)/5$ es compuesta.",
+    "feedback_incorrect": [
+      "Ese numerador y ese denominador son enteros, ninguno de los dos es a su vez una fracción.",
+      null,
+      "Que el numerador sea un decimal no la vuelve compuesta: compuesta es cuando arriba o abajo hay otra fracción, no un decimal.",
+      "Que el denominador sea un decimal tampoco la vuelve compuesta: sigue sin haber otra fracción arriba ni abajo."
+    ],
+    "explanation": "Una **fracción compuesta** tiene, en el lugar del numerador o del denominador, otra fracción completa en vez de un número entero.\n$$\\dfrac{2/3}{5}$$\nAcá arriba, donde debería ir un entero, hay una fracción completa: $2/3$. Eso es lo que la vuelve compuesta.\n\nEn cambio $7/9$ tiene dos enteros, y ni $0{,}4/5$ ni $5/0{,}2$ tienen una fracción propia arriba o abajo, solo un decimal.\n\nPara detectarla de un vistazo conviene buscar una barra de fracción adicional dentro de la expresión, no fijarse en si los números son grandes o tienen coma.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": ["identificar-fraccion-compuesta"]
+  },
+  {
+    "question": "Una fracción negativa se puede escribir con el signo en distintos lugares sin que cambie su valor:\n$$-\\dfrac{a}{b} = \\dfrac{-a}{b} = \\dfrac{a}{-b}$$\n¿Cuál de las siguientes expresiones **no** es igual a $-5/8$?",
+    "options": ["$\\dfrac{-5}{8}$", "$\\dfrac{5}{-8}$", "$\\dfrac{-5}{-8}$", "$\\dfrac{-10}{16}$"],
+    "correct_index": 2,
+    "feedback_correct": "Exacto: dos signos negativos se cancelan, $-5/-8=5/8$, que es positiva, no $-5/8$.",
+    "feedback_incorrect": [
+      "Esa expresión sí es igual a $-5/8$: es la forma más directa de escribir el signo en el numerador.",
+      "Esa expresión sí es igual a $-5/8$: el signo puede estar en el denominador sin cambiar el valor.",
+      null,
+      "Esa expresión también es igual a $-5/8$: multiplicar numerador y denominador por 2 no cambia el valor de la fracción."
+    ],
+    "explanation": "El signo negativo de una fracción puede ubicarse en el numerador, en el denominador o adelante de toda la fracción, sin que cambie el valor, siempre que haya un único signo negativo en juego.\n$$-\\dfrac{5}{8} = \\dfrac{-5}{8} = \\dfrac{5}{-8}$$\nPero si el signo negativo aparece **dos veces**, arriba y abajo a la vez, ambos se cancelan entre sí y el resultado pasa a ser positivo:\n$$\\dfrac{-5}{-8}=\\dfrac{5}{8}$$\nMultiplicar numerador y denominador por el mismo número tampoco cambia el valor: $-10/16$ sigue siendo la misma fracción que $-5/8$.\n\nConviene contar cuántos signos negativos hay en juego antes de decidir el signo final: una cantidad impar de negativos da negativo, una cantidad par da positivo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": ["signo-equivalente"]
+  },
+  {
+    "question": "Una fracción está **simplificada** cuando su numerador y su denominador no comparten ningún factor común mayor que $1$.\n\n¿Cuál de las siguientes fracciones ya está simplificada?",
+    "options": ["$\\dfrac{8}{12}$", "$\\dfrac{6}{10}$", "$\\dfrac{9}{14}$", "$\\dfrac{15}{20}$"],
+    "correct_index": 2,
+    "feedback_correct": "Sí: $9$ y $14$ no comparten ningún factor mayor que $1$, así que ya está simplificada.",
+    "feedback_incorrect": [
+      "$8$ y $12$ comparten el factor $4$: se puede simplificar a $2/3$.",
+      "$6$ y $10$ comparten el factor $2$: se puede simplificar a $3/5$.",
+      null,
+      "$15$ y $20$ comparten el factor $5$: se puede simplificar a $3/4$."
+    ],
+    "explanation": "El **MCD**, el máximo común divisor entre numerador y denominador, indica si una fracción se puede simplificar: si es mayor que uno, todavía queda un factor común por sacar.\n$$\\begin{aligned} 9 &= 3^2 \\\\ 14 &= 2\\times7 \\end{aligned}$$\nNingún factor de $9$ aparece en $14$, así que esta fracción ya está simplificada.\n\nEn cambio $8/12$ tiene el factor común $4$, $6/10$ tiene el factor común $2$, y $15/20$ tiene el factor común $5$: las tres todavía se pueden reducir.\n\nConviene probar los primeros números primos contra numerador y denominador antes de asumir que una fracción ya está simplificada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": ["fraccion-simplificada"]
+  }
+]

@@ -119,24 +119,17 @@ export const BELT_LEGEND_COLORS: Record<BeltKey, string> = {
 
 export const BELT_LEGEND_BAR_COLORS = BELT_ORDER.map((b) => BELT_LEGEND_COLORS[b])
 
-function mixHex(hexA: string, hexB: string, t: number): string {
-  const [ra, ga, ba] = hexToRgb(hexA)
-  const [rb, gb, bb] = hexToRgb(hexB)
-  const mix = (a: number, b: number) => Math.round(a * (1 - t) + b * t)
-  return `rgb(${mix(ra, rb)}, ${mix(ga, gb)}, ${mix(ba, bb)})`
-}
-
-// Blend 70/30 entre el texto de unidad "viejo" (BELT_HEX.onDark, más apagado,
-// 70%) y la paleta vívida del logo (BELT_ONDARK_VIVID, 30%) — pedido puntual
-// para los títulos de unidad en practicar/repasar/ranking, que con la vívida
-// completa quedaban demasiado intensos. Solo esas superficies usan esto.
-const UNIT_TEXT_VIVID_WEIGHT = 0.3
-
+// Paleta "neón moderado" para los títulos de unidad en practicar/repasar/ranking
+// (y los nombres de usuario en el ranking, coloreados por cinturón máximo).
+// Parte del blend 70/30 que había antes (BELT_HEX.onDark / BELT_ONDARK_VIVID)
+// y le sube luminosidad (+5) y saturación (+12) en HSL sobre ese resultado, para
+// ganar brillo sin perder la intensidad del color — pedido puntual del usuario
+// tras comparar 3 variantes en un mockup.
 export const BELT_UNIT_TEXT_COLORS: Record<BeltKey, string> = {
-  white: mixHex(BELT_HEX.white.onDark, BELT_ONDARK_VIVID.white, UNIT_TEXT_VIVID_WEIGHT),
-  blue: mixHex(BELT_HEX.blue.onDark, BELT_ONDARK_VIVID.blue, UNIT_TEXT_VIVID_WEIGHT),
-  violet: mixHex(BELT_HEX.violet.onDark, BELT_ONDARK_VIVID.violet, UNIT_TEXT_VIVID_WEIGHT),
-  brown: mixHex(BELT_HEX.brown.onDark, BELT_ONDARK_VIVID.brown, UNIT_TEXT_VIVID_WEIGHT),
+  white: "#EDE8E8",
+  blue: "#4288F2",
+  violet: "#C56CDB",
+  brown: "#C0702B",
 }
 
 export function beltAssetPath({ belt }: { belt: BeltKey }): string {

@@ -1,0 +1,62 @@
+[
+  {
+    "question": "De una producción de piezas se aparta la fracción $5/8$ para control de calidad.\n\nDe esa muestra apartada, se separa la fracción $2/3$ para un ensayo más exigente.\n\n¿Qué fracción del total de piezas producidas llega a ese ensayo más exigente?",
+    "options": ["$5/24$", "$15/16$", "$5/12$", "$7/11$"],
+    "correct_index": 2,
+    "feedback_correct": "Multiplicando numerador con numerador y denominador con denominador se llega a $10/24$, que simplificado es $5/12$.",
+    "feedback_incorrect": [
+      "Se multiplicaron los denominadores pero no los dos numeradores: falta multiplicar $5\\times2$ arriba.",
+      "Se multiplicaron en cruz, $5\\times3$ y $8\\times2$, en vez de numerador con numerador y denominador con denominador.",
+      null,
+      "Sumar numerador con numerador y denominador con denominador no es la operación entre fracciones: hay que multiplicar."
+    ],
+    "explanation": "Tomar una fracción de una fracción del total se calcula **multiplicando** ambas fracciones: numerador con numerador, denominador con denominador.\n$$\\dfrac{5}{8}\\times\\dfrac{2}{3} = \\dfrac{5\\times2}{8\\times3} = \\dfrac{10}{24}$$\nSimplificando entre $2$, queda $5/12$: esa es la fracción del total que llega al ensayo más exigente.\n\nCada nueva fracción se aplica sobre lo que quedó del paso anterior, no sobre el total original directamente, por eso hace falta multiplicar y no sumar ni promediar las dos fracciones.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": ["resl-fraccion-compuesta"]
+  },
+  {
+    "question": "En una carrera, un auto tarda $3/4$ de hora menos que lo previsto en el primer tramo.\n\nEn el segundo tramo, en cambio, tarda $1/6$ de hora más de lo previsto.\n\n¿Cuál es la diferencia total, en horas, respecto de lo previsto?",
+    "options": ["$-11/12$", "$-7/12$", "$7/12$", "$-1/5$"],
+    "correct_index": 1,
+    "feedback_correct": "Con denominador común $12$: $-9/12+2/12=-7/12$, siete doceavos de hora menos en total.",
+    "feedback_incorrect": [
+      "El segundo tramo fue más lento, así que su fracción se **suma**, no se resta, al total.",
+      null,
+      "El resultado final es negativo: el auto llegó más rápido que lo previsto en total, no más lento.",
+      "Sumar numeradores y denominadores por separado no es la operación entre fracciones: primero hay que igualar denominadores."
+    ],
+    "explanation": "Para sumar fracciones con signos distintos hace falta un **denominador común**, respetando el signo de cada término: menos se anota negativo, más se anota positivo.\n$$\\begin{aligned} -\\dfrac{3}{4} &= -\\dfrac{9}{12} \\\\ +\\dfrac{1}{6} &= +\\dfrac{2}{12} \\end{aligned}$$\nSumando ambas: $-9/12+2/12 = -7/12$.\n\nEl resultado negativo indica que, en total, el auto llegó más rápido que lo previsto: la demora del segundo tramo no alcanzó a compensar el adelanto del primero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": ["resl-signos-combinados"]
+  },
+  {
+    "question": "Una pelota pierde la mitad de su altura en cada rebote.\n\nPara saber cuántas veces mayor era la altura tres rebotes atrás respecto de la actual, hay que calcular:\n$$\\left(\\dfrac{1}{2}\\right)^{-3}$$\n¿Cuánto da esa potencia?",
+    "options": ["$1/8$", "$-8$", "$6$", "$8$"],
+    "correct_index": 3,
+    "feedback_correct": "Al invertir la fracción, $(1/2)^{-3}=2^3=8$: la altura era ocho veces mayor tres rebotes atrás.",
+    "feedback_incorrect": [
+      "Ese sería el resultado de $(1/2)^{3}$, con exponente positivo: acá el exponente es negativo, así que primero hay que invertir la fracción.",
+      "Un exponente negativo no vuelve negativo al resultado: indica que hay que invertir la fracción antes de elevarla.",
+      "$2\\times3$ no es la operación: hay que invertir la fracción y elevarla al cubo, no multiplicar la base por el exponente.",
+      null
+    ],
+    "explanation": "Elevar una fracción a un **exponente negativo** significa invertir la fracción y elevarla a ese mismo exponente en positivo.\n$$\\left(\\dfrac{a}{b}\\right)^{-n} = \\left(\\dfrac{b}{a}\\right)^n$$\nLa base de este caso es $1/2$ y el exponente es $-3$, así que primero se invierte a $2$ y después se eleva al cubo:\n$$\\left(\\dfrac{1}{2}\\right)^{-3} = 2^3 = 8$$\nTiene sentido físicamente: si cada rebote hacia adelante multiplica la altura por la mitad, ir tres rebotes hacia atrás multiplica por el inverso, $2$, tres veces seguidas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": ["resl-potencia-fraccion"]
+  }
+]
