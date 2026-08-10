@@ -491,7 +491,48 @@ function GraphContent({
       ys.push(y)
       visible.push(Number.isFinite(y) && y >= lo && y <= hi)
     }
-    const runs: [number, number][] = []
+    // Afina el borde de una rama: entre la última muestra que se ve y la
+    // primera que no, busca por bisección el punto donde la curva sale de la
+    // vista. Es lo que reemplaza al paso atrás de una muestra entera que había
+    // antes: ese paso metía el dominio del OTRO lado de la asíntota (con
+    // 1/(x²-4) en x∈[-7,7] la rama del medio arrancaba en x=-2.0067, donde
+    // f=+37), y Mafs dibujaba la recta que la cruzaba de punta a punta.
+    const outside = (x: number) => {
+      const y = fn(x)
+      return !(Number.isFinite(y) && y >= lo && y <= hi)
+    }
+    const refineEdge = (xIn: number, xOut: number) => {
+      let b = xOut
+      // Cuando el corte vino por salto, la asíntota quedó ENTRE dos muestras
+      // que las dos se ven (con 1/(x²-4) las vecinas del polo dan +9.31 y
+      // -3.19, ambas dentro de la vista). Bisecar directo contra `xOut` puede
+      // cruzar el polo y devolver un borde del otro lado, o sea el puente de
+      // nuevo: primero hay que avanzar desde `xIn` hasta encontrar por dónde
+      // se va la curva, y recién ahí bisecar.
+      if (!outside(b)) {
+        let found = false
+        for (let k = 1; k < 16; k++) {
+          const m = xIn + ((xOut - xIn) * k) / 16
+          if (outside(m)) {
+            b = m
+            found = true
+            break
+          }
+        }
+        if (!found) return xIn
+      }
+      let a = xIn
+      for (let k = 0; k < 24; k++) {
+        const m = (a + b) / 2
+        if (outside(m)) b = m
+        else a = m
+      }
+      // `b` queda apenas fuera de la vista y del mismo lado que `a`: la rama
+      // llega justo al borde y Mafs la recorta ahí.
+      return b
+    }
+
+    const idxRuns: [number, number][] = []
     let start = -1
     for (let i = 0; i <= N; i++) {
       const jumpFromPrev =
@@ -499,11 +540,16 @@ function GraphContent({
       if (visible[i] && !jumpFromPrev) {
         if (start === -1) start = i
       } else {
-        if (start !== -1) runs.push([xs[Math.max(0, start - 1)], xs[i - 1]])
+        if (start !== -1) idxRuns.push([start, i - 1])
         start = visible[i] ? i : -1
       }
     }
-    if (start !== -1) runs.push([xs[Math.max(0, start - 1)], xs[N]])
+    if (start !== -1) idxRuns.push([start, N])
+
+    const runs: [number, number][] = idxRuns.map(([a, b]) => [
+      a === 0 ? xs[0] : refineEdge(xs[a], xs[a - 1]),
+      b === N ? xs[N] : refineEdge(xs[b], xs[b + 1]),
+    ])
 
     // Corte forzado en cada borde de pieza del piecewise, independiente del salto
     // de altura: el heurístico de arriba es un fallback para asíntotas, no la vía
