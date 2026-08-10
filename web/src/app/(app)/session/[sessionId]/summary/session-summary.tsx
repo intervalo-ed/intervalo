@@ -50,17 +50,6 @@ const slideVariants = {
   exit: { x: "-100%", opacity: 1 },
 }
 
-// TEMPORAL (desarrollo del panel de racha): fuerza que la pestaña de racha
-// aparezca siempre después del confeti, sin depender de que la sesión sea la
-// primera completada del día (`streak.counted_today`). Poner en false —o borrar
-// esta constante junto con su uso— al terminar la feature. Doble candado: el
-// `NODE_ENV` evita que se filtre a producción si queda prendida por olvido.
-//
-// Efecto lateral útil mientras se itera: al no depender de `counted_today`, el
-// backend no cuenta el día, así que `streak.days` no cambia entre recargas y se
-// puede repetir la animación con el mismo número sin tocar la base.
-const FORCE_STREAK_PANE = true && process.env.NODE_ENV === "development"
-
 // ── Ajustes del conteo (XP, ejercicios correctos y días de racha) ─────────────
 // Un salto por unidad, acelerando: cada salto dura RAMP_DECAY veces lo que el
 // anterior, hasta el piso RAMP_MIN_MS. La duración total deja de ser fija y
@@ -163,7 +152,7 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   const notifyUnseen = useNotifyHintUnseen()
   const settings = useNotificationSettingsQuery()
   const notifAlreadyEnabled = settings.data?.enabled === true
-  const shouldShowStreak = FORCE_STREAK_PANE || data?.streak.counted_today === true
+  const shouldShowStreak = data?.streak.counted_today === true
   const shouldShowNotify = pushSupported && notifyUnseen && !notifAlreadyEnabled
   const sfxRef = useRef(sfx)
   sfxRef.current = sfx
