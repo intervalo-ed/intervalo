@@ -88,8 +88,13 @@ class BeltCatalog:
 
 _CONTENT_ROOT = Path(__file__).resolve().parent.parent / "backend" / "content"
 
-_CATALOG_CACHE: dict[str, dict[Belt, BeltCatalog]] = {}
-_STRUCTURE_CACHE: dict[str, dict] = {}
+# Cachés keyed por curso, guardando (mtime del course.json, valor). Se invalidan
+# solas apenas el archivo cambia en disco, así un `seed_content.py`/edición de
+# contenido corriendo en OTRO proceso no deja al worker de la API sirviendo una
+# jerarquía de belts/topics vieja (course.json es la fuente de verdad, no debería
+# hacer falta reiniciar el server ni acordarse de invalidar nada a mano).
+_CATALOG_CACHE: dict[str, tuple[float, dict[Belt, BeltCatalog]]] = {}
+_STRUCTURE_CACHE: dict[str, tuple[float, dict]] = {}
 
 
 def _course_path(course_slug: str) -> Path:
@@ -102,23 +107,26 @@ def _course_path(course_slug: str) -> Path:
 
 
 def load_course_structure(course_slug: str) -> dict:
-    """Raw parsed course.json (structure payload). Cached."""
+    """Raw parsed course.json (structure payload). Cached, invalidada si cambia el mtime del archivo."""
+    path = _course_path(course_slug)
+    mtime = path.stat().st_mtime
     cached = _STRUCTURE_CACHE.get(course_slug)
-    if cached is not None:
-        return cached
-    with _course_path(course_slug).open("r", encoding="utf-8") as f:
+    if cached is not None and cached[0] == mtime:
+        return cached[1]
+    with path.open("r", encoding="utf-8") as f:
         data = json.load(f)
     # Belts marcados "hidden": true quedan fuera de la estructura servida:
     # desactivados/ocultos del usuario, aunque sus JSON sigan en /content.
     data = {**data, "belts": [b for b in data.get("belts", []) if not b.get("hidden")]}
-    _STRUCTURE_CACHE[course_slug] = data
+    _STRUCTURE_CACHE[course_slug] = (mtime, data)
     return data
 
 
 def load_belt_catalogs(course_slug: str) -> dict[Belt, BeltCatalog]:
+    mtime = _course_path(course_slug).stat().st_mtime
     cached = _CATALOG_CACHE.get(course_slug)
-    if cached is not None:
-        return cached
+    if cached is not None and cached[0] == mtime:
+        return cached[1]
 
     data = load_course_structure(course_slug)
 
@@ -159,7 +167,7 @@ def load_belt_catalogs(course_slug: str) -> dict[Belt, BeltCatalog]:
             description=belt_entry.get("description", ""),
         )
 
-    _CATALOG_CACHE[course_slug] = result
+    _CATALOG_CACHE[course_slug] = (mtime, result)
     return result
 
 

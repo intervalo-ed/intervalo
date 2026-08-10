@@ -38,13 +38,24 @@
     {
       "key": "white",
       "headline": "Aritmética",
-      "description": "Las **operaciones aritméticas** fundamentales (fracciones, potencias, raíces, signos) son la base operativa sobre la que se apoya el resto del álgebra. Pendiente de completar con sus topics.",
+      "description": "Las **operaciones aritméticas** fundamentales (fracciones, potencias, raíces, logaritmos, signos) son la base operativa sobre la que se apoya el resto del álgebra.",
       "units": [
         {
           "key": "aritmetica",
           "name": "Aritmética",
-          "description": "Las **operaciones aritméticas fundamentales** (fracciones, potencias, radicales, notación, valor absoluto y propiedades algebraicas básicas) son la base operativa sobre la que se apoya el resto del álgebra.\n$$\\frac{a}{b}, \\quad a^n, \\quad \\sqrt[n]{a}$$\nDominarlas evita que un error de cálculo bloquee el razonamiento en temas más avanzados.",
+          "description": "Las **operaciones aritméticas fundamentales** (fracciones, potencias, radicales, logaritmos, notación, valor absoluto y propiedades algebraicas básicas) son la base operativa sobre la que se apoya el resto del álgebra.\n$$\\frac{a}{b}, \\quad a^n, \\quad \\sqrt[n]{a}$$\nDominarlas evita que un error de cálculo bloquee el razonamiento en temas más avanzados.",
           "topics": [
+            {
+              "key": "fracciones",
+              "name": "Fracciones",
+              "tooltip": "Una **fracción** $\\frac{a}{b}$ representa una parte de un todo o una razón entre dos cantidades.\n$$\\frac{a}{b} \\cdot \\frac{c}{d} = \\frac{a \\cdot c}{b \\cdot d}$$\nMás allá de la mecánica de sumar y multiplicar, dominar fracciones compuestas, el signo y la comparación sin pasar a decimales evita errores que se arrastran a matrices y sistemas.",
+              "short_description": "Las **fracciones** representan una parte de un todo o una razón entre cantidades.\n$$\\frac{a}{b} \\cdot \\frac{c}{d} = \\frac{a \\cdot c}{b \\cdot d}$$",
+              "skills": [
+                "LEXI",
+                "ESTR",
+                "RESL"
+              ]
+            },
             {
               "key": "powers",
               "name": "Potenciación",
@@ -61,6 +72,17 @@
               "name": "Radicales",
               "tooltip": "La **raíz enésima** $\\sqrt[n]{a}$ es la operación inversa de elevar a la potencia $n$.\n$$\\sqrt[n]{a} = a^{1/n}$$\nSimplificar radicales y racionalizar denominadores, eliminar raíces del denominador multiplicando por un factor adecuado, evita arrastrar expresiones irracionales innecesarias en los cálculos.",
               "short_description": "La **raíz enésima** es la operación inversa de la potenciación.\n$$\\sqrt[n]{a} = a^{1/n}$$",
+              "skills": [
+                "LEXI",
+                "RESL",
+                "FORM"
+              ]
+            },
+            {
+              "key": "logarithms",
+              "name": "Logaritmos",
+              "tooltip": "El **logaritmo** en base $b$ de un número $x$ es el exponente al que hay que elevar $b$ para obtener $x$.\n$$\\log_b(x) = y \\iff b^y = x$$\nSus propiedades operativas (logaritmo de un producto, un cociente y una potencia) permiten simplificar cálculos antes de que aparezca la función logarítmica como objeto en sí.",
+              "short_description": "El **logaritmo** en base $b$ de $x$ es el exponente al que se eleva $b$ para obtener $x$.\n$$\\log_b(x) = y \\iff b^y = x$$",
               "skills": [
                 "LEXI",
                 "RESL",
@@ -92,17 +114,6 @@
               "name": "Propiedades",
               "tooltip": "La **propiedad distributiva** y la extracción de **factor común** permiten transformar una expresión con paréntesis en una suma de términos, y viceversa.\n$$a(b + c) = ab + ac$$\nDominar el manejo de signos al abrir o cerrar paréntesis, sobre todo cuando el signo exterior es negativo, es el paso operativo que conecta la aritmética numérica con el álgebra simbólica de las unidades siguientes.",
               "short_description": "La **distributiva** transforma una expresión entre paréntesis en una suma de términos.\n$$a(b+c) = ab + ac$$",
-              "skills": [
-                "LEXI",
-                "RESL",
-                "FORM"
-              ]
-            },
-            {
-              "key": "logarithms",
-              "name": "Logaritmos",
-              "tooltip": "El **logaritmo** en base $b$ de un número $x$ es el exponente al que hay que elevar $b$ para obtener $x$.\n$$\\log_b(x) = y \\iff b^y = x$$\nSus propiedades operativas (logaritmo de un producto, un cociente y una potencia) permiten simplificar cálculos antes de que aparezca la función logarítmica como objeto en sí.",
-              "short_description": "El **logaritmo** en base $b$ de $x$ es el exponente al que se eleva $b$ para obtener $x$.\n$$\\log_b(x) = y \\iff b^y = x$$",
               "skills": [
                 "LEXI",
                 "RESL",
