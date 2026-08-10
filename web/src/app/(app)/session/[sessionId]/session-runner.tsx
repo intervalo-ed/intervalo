@@ -206,6 +206,10 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
   // null al desmontarse (más tarde) y el freeze deja de funcionar desde el
   // segundo ejercicio en adelante.
   const spacerRefs = useRef<Map<number, HTMLDivElement>>(new Map())
+  // Botón "Reportar" que sigue al grid de opciones (ver openOptions): el
+  // scroll al abrir opciones para ahí en vez de en el fondo real del
+  // documento.
+  const reportBtnRefs = useRef<Map<number, HTMLButtonElement>>(new Map())
 
   // Vuelve el scroll arriba con una animación suave, en simultáneo con el
   // deslizamiento horizontal del slide (misma duración/curva).
@@ -529,6 +533,43 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
     sfx.continue()
     const h = spacerRefs.current.get(idx)?.getBoundingClientRect().height ?? null
     patch({ optionsOpen: true, spacerFrozenH: h })
+    // Scroll lento y continuo, no hasta el fondo real del documento sino
+    // hasta un poco después de "Reportar". No se puede medir su posición ya
+    // en el mismo frame: "Reportar" tiene su propio `layout` (FLIP) por el
+    // corrimiento hacia abajo, y ese FLIP aplica un transform compensatorio
+    // que hace que getBoundingClientRect() devuelva su posición VIEJA
+    // (pre-corrimiento) mientras dura la animación — recién al terminar
+    // (OPTIONS_LAYOUT_TRANSITION) el transform vuelve a identity y el rect
+    // pasa a reflejar la posición final real. Por eso se espera ese tiempo
+    // antes de medir.
+    setTimeout(() => {
+      const el = bodyRef.current
+      if (!el) return
+      const start = el.scrollTop
+      const reportEl = reportBtnRefs.current.get(idx)
+      // Usamos el propio cálculo del navegador (scrollIntoView) en vez de
+      // geometría a mano: es más robusto y respeta scroll-margin-bottom (el
+      // "gap" hasta Reportar) sin tener que reimplementar el clamp contra el
+      // fondo real. Se hace de forma instantánea y oculta (se revierte antes
+      // de pintar) solo para leer el scrollTop resultante; la animación
+      // suave la hacemos nosotros con `animate` para mantener el mismo
+      // efecto lento y continuo de siempre.
+      if (reportEl) {
+        reportEl.scrollIntoView({ behavior: "instant" as ScrollBehavior, block: "end" })
+      } else {
+        el.scrollTop = el.scrollHeight - el.clientHeight
+      }
+      const target = el.scrollTop
+      el.scrollTop = start
+      if (target <= start) return
+      animate(start, target, {
+        duration: 0.9,
+        ease: "easeInOut",
+        onUpdate: (v) => {
+          el.scrollTop = v
+        },
+      })
+    }, 380)
   }
 
   function openWhy() {
@@ -679,15 +720,24 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                   de 40px arriba; si el ejercicio es largo, los spacers colapsan
                   y el contenido scrollea. Se congela (openOptions) al abrir las
                   opciones en práctica para que el párrafo no se corra cuando el
-                  grid de opciones crece — ver ExState.spacerFrozenH. */}
+                  grid de opciones crece — ver ExState.spacerFrozenH. Ese freeze
+                  es solo para la vista de la pregunta: "¿Por qué?"/reporte/
+                  encuesta son slides propios (keys distintas más arriba) y
+                  deben centrarse con su propio alto, no heredar el freeze de
+                  la pregunta — si no, arrancaban tan abajo como quedaba el
+                  grid de opciones abierto. */}
               <div
                 ref={(el) => {
                   if (el) spacerRefs.current.set(idx, el)
                   else spacerRefs.current.delete(idx)
                 }}
-                className={cur.spacerFrozenH == null ? "min-h-[40px] flex-[2.5]" : undefined}
+                className={
+                  cur.spacerFrozenH == null || cur.showReport || cur.showSurvey || cur.showWhy
+                    ? "min-h-[40px] flex-[2.5]"
+                    : undefined
+                }
                 style={
-                  cur.spacerFrozenH != null
+                  cur.spacerFrozenH != null && !cur.showReport && !cur.showSurvey && !cur.showWhy
                     ? { height: cur.spacerFrozenH, flex: "0 0 auto" }
                     : undefined
                 }
@@ -749,7 +799,15 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                     onReveal={openOptions}
                     onPick={handlePick}
                   />
-                  {!isTest && <ReportFlagButton onClick={openReport} />}
+                  {!isTest && (
+                    <ReportFlagButton
+                      onClick={openReport}
+                      innerRef={(el) => {
+                        if (el) reportBtnRefs.current.set(idx, el)
+                        else reportBtnRefs.current.delete(idx)
+                      }}
+                    />
+                  )}
                   {isTest && noAnswer && (
                     <div className="flex flex-col gap-3 border-t border-white/10 pt-4 text-sm text-foreground/80">
                       <div className="flex flex-col gap-1">
@@ -1088,12 +1146,6 @@ function OptionsArea({
   function handleReveal() {
     onReveal()
     setPhase("open")
-    // Si el grid recién revelado queda parcialmente tapado por el borde de
-    // la pantalla, un scroll suave lo trae a la vista — no pasa nada si ya
-    // estaba visible.
-    requestAnimationFrame(() =>
-      areaRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" }),
-    )
   }
 
   const hasLatex = exercise.options.some((o) => o.includes("$"))
@@ -1103,12 +1155,26 @@ function OptionsArea({
     exercise.options.every((o) => (hasLatex ? latexVisualLength(o) : o.length) <= limit)
 
   return (
-    // Condicional sin AnimatePresence: el botón desaparece al instante (un
+    // Condicional sin AnimatePresence en el botón: desaparece al instante (un
     // solo commit de React, sin período de exit ni fade de por medio) y en
-    // el mismo tick ya está montado el grid, que arranca su propia entrada
-    // (stagger de abajo). AnimatePresence + exit llegaba a colgarse un rato
-    // (el botón compartido — cva `transition-all` — seguía interpolando su
-    // propio opacity por CSS aunque Framer pidiera duration:0).
+    // el mismo tick ya está montado el grid. AnimatePresence + exit acá
+    // llegaba a colgarse un rato (el botón compartido — cva `transition-all`
+    // — seguía interpolando su propio opacity por CSS aunque Framer pidiera
+    // duration:0), así que el botón se mantiene fuera de cualquier
+    // AnimatePresence.
+    //
+    // El grid sí necesita su propio <AnimatePresence> (sin exit real: nunca
+    // vuelve a "closed"), únicamente para resetear el contexto de presencia
+    // que hereda del <AnimatePresence initial={false}> del slide exterior.
+    // Ese `initial={false}` es "pegajoso": en el primer ejercicio de la
+    // sesión (el único que ya existe cuando el AnimatePresence exterior
+    // monta por primera vez), CUALQUIER motion.div que aparezca después
+    // dentro de ese mismo slide — como este grid, recién al tocar
+    // "Opciones" — hereda ese `initial:false` ambiental y salta directo al
+    // estado final, sin stagger. Los ejercicios siguientes no tienen este
+    // problema porque su slide se monta como hijo nuevo del AnimatePresence
+    // exterior, con contexto de presencia propio. Confirmado con una réplica
+    // mínima antes de aplicar este fix.
     <motion.div ref={areaRef} layout transition={OPTIONS_LAYOUT_TRANSITION} className="relative">
       {phase === "closed" ? (
         <Button
@@ -1120,7 +1186,9 @@ function OptionsArea({
           Opciones
         </Button>
       ) : (
+        <AnimatePresence>
         <motion.div
+          key="options-grid"
           className={useGrid ? "grid grid-cols-2 gap-2" : "flex flex-col gap-2"}
           variants={{
             hidden: {},
@@ -1222,20 +1290,28 @@ function OptionsArea({
                 )
               })}
         </motion.div>
+        </AnimatePresence>
       )}
     </motion.div>
   )
 }
 
-function ReportFlagButton({ onClick }: { onClick: () => void }) {
+function ReportFlagButton({
+  onClick,
+  innerRef,
+}: {
+  onClick: () => void
+  innerRef?: (el: HTMLButtonElement | null) => void
+}) {
   return (
     <motion.button
+      ref={innerRef}
       layout
       transition={OPTIONS_LAYOUT_TRANSITION}
       type="button"
       onClick={onClick}
       aria-label="Reportar un problema"
-      className="flex items-center gap-1.5 self-start text-sm text-foreground/40 transition-colors hover:text-foreground/70"
+      className="flex items-center gap-1.5 self-start scroll-mb-[140px] text-sm text-foreground/40 transition-colors hover:text-foreground/70"
     >
       <Flag className="size-5" />
       Reportar
