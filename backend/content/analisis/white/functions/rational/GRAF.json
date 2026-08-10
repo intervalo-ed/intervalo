@@ -9,7 +9,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$f(x) = 0$: 2 en total.",
+    "feedback_correct": "Tiene una asíntota vertical en $x=0$ y una horizontal en $y=0$: 2 en total.",
     "feedback_incorrect": [
       null,
       "Estás contando solo la asíntota que aparece donde se anula el denominador, pero fijate qué le pasa a la curva cuando $x$ toma valores muy grandes o muy negativos: ahí aparece otra.",
@@ -23,10 +23,10 @@
       -5,
       5
     ],
-    "explanation": "En una función racional.\n\nla **asíntota vertical** aparece en los valores que anulan el denominador (sin anular el numerador).\n\ny la **asíntota horizontal** describe el comportamiento de la curva cuando $x\\to\\pm\\infty$.\n$f(x)=\\frac{1}{x}$ \n\ntiene AV en $x=0$ (denominador=0) y AH en $y=0$ (grado num < denom).\n\nSon 2 asíntotas en total: ambos ejes coordenados actúan como asíntota. contar solo una de las dos y olvidar la otra: conviene repasar por separado el denominador y el límite en el infinito.",
+    "explanation": "En una función racional, la **asíntota vertical** aparece donde se anula el denominador sin anular el numerador.\n\nLa **asíntota horizontal**, en cambio, describe hacia dónde se acerca la curva cuando $x$ crece o decrece sin límite.\n\nPara $f(x)=1/x$, el denominador se anula en $x=0$, así que ahí hay una asíntota vertical.\n\nComo el numerador tiene grado menor que el denominador, la horizontal es $y=0$.\n\nEsta función tiene 2 asíntotas en total, una de cada tipo. Contar una sola y olvidar la otra es común: conviene revisar denominador e infinito por separado.",
     "reviewed": false,
     "tags": [
-      "imagen-desde-grafico"
+      "cantidad-asintotas-totales"
     ]
   },
   {
@@ -39,7 +39,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$f(x) = \\frac{1}{x}$ está en el 1.° cuadrante (ambos positivos) y el 3.° (ambos negativos).",
+    "feedback_correct": "$f(x) = 1/x$ tiene sus ramas en el 1.° cuadrante, donde $x$ e $y$ son positivos, y en el 3.°, donde ambos son negativos.",
     "feedback_incorrect": [
       "Fijate en qué mitad del plano cae cada rama: acá las dos ramas están del lado donde $x$ e $y$ tienen distinto signo, no el mismo.",
       null,
@@ -53,10 +53,10 @@
       -5,
       5
     ],
-    "explanation": "El cuadrante donde cae cada rama de una hipérbola depende del signo de $x$ y del signo de $f(x)$ en simultáneo, no de uno solo.\n\nEn ::si $x>0$ entonces $f>0$ (1.° cuadrante);.\n\nsi $x<0$ entonces $f<0$ (3.° cuadrante).\n\nLa hipérbola vive en los cuadrantes donde $x$ y $f(x)$ tienen el mismo signo.\n\nConviene no confundir esto con $-1/x$, que vive en los cuadrantes donde el signo se invierte.",
+    "explanation": "El cuadrante donde cae cada rama de una hipérbola depende del signo de $x$ y del signo de $f(x)$ en simultáneo, no de uno solo.\n\nAcá, si $x>0$ entonces $f(x)>0$, y esa rama queda en el 1er cuadrante.\n\nSi $x<0$ entonces $f(x)<0$, y esa rama queda en el 3er cuadrante: la hipérbola ocupa los cuadrantes donde ambos signos coinciden.\n\nConviene no confundir esto con $-1/x$, que ocupa los cuadrantes donde el signo se invierte.",
     "reviewed": false,
     "tags": [
-      "dominio-desde-grafico"
+      "cuadrantes-ramas"
     ]
   },
   {
@@ -69,7 +69,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$x^2 - 4 = -2$: dos asíntotas verticales.",
+    "feedback_correct": "El denominador se anula en $x=2$ y $x=-2$: dos asíntotas verticales.",
     "feedback_incorrect": [
       "Revisá bien el denominador: sí se anula, solo que hay que factorizarlo para encontrar en qué puntos.",
       "Estás resolviendo $x^2=4$ mal, o tomando solo una de las dos raíces: la ecuación tiene dos soluciones, no una.",
@@ -80,43 +80,13 @@
     "graph_view": [
       -6,
       6,
-      -4,
-      4
-    ],
-    "explanation": "La **asíntota vertical** de una función racional aparece en cada raíz real del denominador que no se cancela con el numerador.\n\nEl denominador : se anula en dos puntos:$x=2$ y $x=-2$.\n\nCada raíz del denominador genera una asíntota vertical, así que hay 2 asíntotas verticales en total.\n\nConviene siempre factorizar el denominador antes de contar, para no perder ninguna raíz en el camino.",
-    "reviewed": false,
-    "tags": [
-      "interceptos-y-graf"
-    ]
-  },
-  {
-    "question": "¿Dónde está la asíntota vertical de esta función?",
-    "options": [
-      "$x = 1$",
-      "$x = -2$",
-      "$x = 0$",
-      "$x = 2$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "El denominador $x - 2$ se anula en $x = 2$: ahí está la asíntota vertical.",
-    "feedback_incorrect": [
-      "Ese valor no anula el denominador de esta función: revisá para qué $x$ el denominador realmente se hace cero.",
-      "Ese número tiene el signo cambiado respecto al que realmente anula el denominador.",
-      "Ahí el denominador no se anula, fijate bien en qué parte del eje $X$ la curva se dispara hacia el infinito.",
-      null
-    ],
-    "graph_fn": "1 / (x - 2)",
-    "graph_view": [
-      -3,
-      7,
       -6,
       6
     ],
-    "explanation": "La **asíntota vertical** de una racional se ubica siempre en los valores que anulan el denominador, siempre que el numerador no se anule ahí también.\n\nEn este caso $x-2=0\\Rightarrow x=2$: en el gráfico se ve que la función explota verticalmente en ese punto. leer el signo opuesto o confundir la raíz del denominador con un cero del numerador.",
+    "explanation": "La **asíntota vertical** de una función racional aparece en cada raíz real del denominador que no se cancela con el numerador.\n\nEl denominador se anula en dos puntos: $x=2$ y $x=-2$.\n\nCada raíz del denominador genera una asíntota vertical, así que hay 2 asíntotas verticales en total.\n\nConviene siempre factorizar el denominador antes de contar, para no perder ninguna raíz en el camino.",
     "reviewed": false,
     "tags": [
-      "cuadrantes-ramas"
+      "cantidad-asintotas-verticales-graf"
     ]
   },
   {
@@ -159,7 +129,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Para $x \\to \\infty$, $\\frac{x+1}{x-2} \\approx \\frac{x}{x} = 1$: la asíntota horizontal es $y = 1$.",
+    "feedback_correct": "Los grados de numerador y denominador son iguales: la asíntota horizontal es el cociente de coeficientes principales, $1/1=1$.",
     "feedback_incorrect": [
       "Esa asíntota corresponde al caso en que el grado del numerador es menor al del denominador, pero acá ambos grados son iguales.",
       null,
@@ -173,14 +143,14 @@
       -6,
       6
     ],
-    "explanation": "La **asíntota horizontal** de una racional depende de comparar los grados de numerador y denominador: si son iguales, la AH es el cociente de los coeficientes principales.\n\nAcá numerador y denominador tienen el mismo grado (ambos lineales).\n\nasí que : cuando $x\\to\\infty$.usar $y=0$ de memoria sin fijarse primero si los grados realmente son distintos.",
+    "explanation": "La **asíntota horizontal** de una función racional depende de comparar los grados de numerador y denominador: si son iguales, la AH es el cociente de los coeficientes principales.\n\nAcá numerador y denominador tienen el mismo grado, ambos lineales, así que hay que calcular ese cociente en vez de asumir un valor de memoria.\n\nLos coeficientes principales son $1$ y $1$.\n\nEl cociente entre ellos da la asíntota horizontal $y=1$.\n\nUsar $y=0$ de memoria sin fijarse primero en los grados lleva a un resultado equivocado: ese valor solo aplica cuando el numerador tiene grado menor.",
     "reviewed": false,
     "tags": [
-      "formula-desde-grafico"
+      "valor-asintota-horizontal"
     ]
   },
   {
-    "question": "Con la función:\n$$f(x) = \\dfrac{2x+1}{x-3}$$\n¿cuál es la asíntota horizontal?",
+    "question": "Con la función:\n$$f(x) = \\dfrac{2x+1}{x-3}$$\n¿Cuál es la asíntota horizontal?",
     "options": [
       "$y = -3$",
       "$y = 1$",
@@ -189,7 +159,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Grados iguales: la asíntota horizontal es el cociente de coeficientes principales $\\frac{2}{1} = 2$.",
+    "feedback_correct": "Grados iguales: la asíntota horizontal es el cociente de coeficientes principales, $2/1=2$.",
     "feedback_incorrect": [
       "Ese valor sale de mirar un coeficiente que no corresponde a la comparación de grados, revisá cuáles son los coeficientes principales.",
       "Estás usando el cociente de coeficientes al revés: fijate cuál coeficiente va arriba y cuál abajo.",
@@ -203,10 +173,10 @@
       -4,
       8
     ],
-    "explanation": "Cuando el numerador y el denominador de una racional tienen el **mismo grado**.\n\nla asíntota horizontal es directamente el cociente de sus coeficientes principales.\n\nsin necesidad de calcular ningún límite paso a paso.\n\nAcá ambos son de grado 1: $\\frac{2x+1}{x-3}\\to\\frac{2}{1}=2$ cuando $x\\to\\pm\\infty$.\n\nConviene siempre identificar primero el coeficiente que acompaña a la potencia más alta de cada polinomio, no cualquier número de la expresión.",
+    "explanation": "Cuando el numerador y el denominador de una función racional tienen el **mismo grado**, la asíntota horizontal es directamente el cociente de sus coeficientes principales.\n\nAcá numerador y denominador son ambos de grado 1, con coeficientes principales $2$ y $1$.\n\nEl cociente $2/1=2$ da la asíntota horizontal $y=2$.\n\nConviene siempre identificar el coeficiente que acompaña a la potencia más alta de cada polinomio: tomar otro número de la expresión por error cambia el resultado del cociente.",
     "reviewed": false,
     "tags": [
-      "simetria-paridad-graf"
+      "valor-asintota-horizontal"
     ]
   },
   {
@@ -215,7 +185,7 @@
       "2 ramas simétricas respecto al eje $X$",
       "1 rama continua",
       "3 ramas separadas",
-      "2 ramas: una sube y"
+      "2 ramas, una hacia $+\\infty$ y otra hacia $-\\infty$"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -236,25 +206,25 @@
     "explanation": "En una función racional con una **asíntota vertical**, el dominio queda partido en dos intervalos, y cada uno genera su propia rama de la curva.\n\nCerca de la asíntota vertical, las dos ramas van en sentidos opuestos: una tiende a $+\\infty$ y la otra a $-\\infty$.\n\nEsto es lo opuesto a una parábola, donde ambos extremos van en el mismo sentido.\n\nAntes de responder, conviene mirar el gráfico rama por rama en vez de la curva completa de un vistazo.",
     "reviewed": false,
     "tags": [
-      "valor-asintota-horizontal"
+      "direccion-ramas"
     ]
   },
   {
-    "question": "Para la función:\n$$f(x) = \\dfrac{1}{x-1}$$\n¿Cuántas asíntotas tiene en total?",
+    "question": "¿Cuál es la **imagen** de esta función?",
     "options": [
-      "2",
-      "1",
-      "3",
-      "0"
+      "$\\mathbb{R}$",
+      "$\\mathbb{R} \\setminus \\{1\\}$",
+      "$\\mathbb{R} \\setminus \\{0\\}$",
+      "$(0, +\\infty)$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$f(x) = 0$: 2 en total.",
+    "feedback_correct": "La asíntota horizontal en $y=0$ es el único valor que la función nunca toma: la imagen es $\\mathbb{R} \\setminus \\{0\\}$.",
     "feedback_incorrect": [
+      "Ese conjunto no excluye ningún valor, pero la curva nunca toca la altura de la asíntota horizontal.",
+      "Ese es el valor excluido del dominio, en el eje $X$, pero acá se pregunta por los valores que la función nunca alcanza en el eje $Y$.",
       null,
-      "Estás contando solo la asíntota que sale de anular el denominador, pero fijate qué pasa con la curva cuando $x$ es muy grande o muy chico: ahí aparece otra.",
-      "Estás sumando una asíntota de más: revisá cuántas rectas distintas se acercan realmente a la curva.",
-      "El denominador sí se anula en algún valor de $x$: revisá bien antes de decir que no hay ninguna asíntota."
+      "Esa opción deja afuera todos los valores negativos, pero la rama izquierda de la curva sí toma valores negativos de $y$."
     ],
     "graph_fn": "1 / (x - 1)",
     "graph_view": [
@@ -263,10 +233,10 @@
       -5,
       5
     ],
-    "explanation": "Una función racional puede tener a la vez una asíntota vertical (donde se anula el denominador) y una horizontal (el límite de la curva cuando $x\\to\\pm\\infty$).\n\ny hay que contar ambas por separado.\n$f(x)=\\frac{1}{x-1}$ tiene AV en $x=1$ \n\ny AH en $y=0$ (grado numerador 0 < grado denominador 1).\n\nSon 2 asíntotas en total. detenerse en la vertical y olvidar revisar también el comportamiento en el infinito.",
+    "explanation": "La **imagen** de una función es el conjunto de todos los valores que efectivamente toma en el eje $Y$, y en una función racional queda determinada por su asíntota horizontal.\n\nComo la asíntota horizontal de esta curva es $y=0$, la función se acerca a ese valor pero nunca lo alcanza en ningún punto de su dominio.\n\nLa imagen es entonces $\\mathbb{R} \\setminus \\{0\\}$: todos los reales excepto el $0$.\n\nConfundir la imagen con el dominio es común: el dominio mira los valores excluidos en el eje $X$, acá $x=1$.\n\nLa imagen, en cambio, mira los valores excluidos en el eje $Y$.",
     "reviewed": false,
     "tags": [
-      "cantidad-ramas"
+      "imagen-desde-grafico"
     ]
   },
   {
@@ -279,7 +249,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "El denominador $x + 1 = 0$ en $x = -1$: esa es la asíntota vertical.",
+    "feedback_correct": "El denominador se anula en $x=-1$: ahí está la asíntota vertical.",
     "feedback_incorrect": [
       "Ese valor tiene el signo cambiado respecto al que realmente anula el denominador.",
       null,
@@ -293,23 +263,23 @@
       -6,
       6
     ],
-    "explanation": "La **asíntota vertical** de una racional siempre coincide con los valores que anulan el denominador, nunca con los que anulan el numerador.\n\nAcá el denominador $x+1$ vale cero cuando $x+1=0\\Rightarrow x=-1$: en el gráfico.\n\nla función explota verticalmente al acercarse a $x=-1$.\n\nConviene resolver la ecuación del denominador con cuidado antes de leer el signo del resultado.",
+    "explanation": "La **asíntota vertical** de una función racional siempre coincide con los valores que anulan el denominador, nunca con los que anulan el numerador.\n\nAcá el denominador $x+1$ vale cero cuando $x=-1$, y en el gráfico la función se dispara verticalmente al acercarse a ese valor.\n\nConviene resolver la ecuación del denominador con cuidado antes de leer el signo del resultado, porque un error de signo ubica la asíntota del lado opuesto.",
     "reviewed": false,
     "tags": [
-      "monotonia-intervalo-graf"
+      "ubicacion-asintota-vertical"
     ]
   },
   {
-    "question": "Tomá en cuenta la función:\n$$f(x) = \\dfrac{1}{x}$$\n. ¿En cuál de los siguientes intervalos la función es decreciente?",
+    "question": "Tomá en cuenta la función:\n$$f(x) = \\dfrac{1}{x}$$\n¿En cuál de los siguientes intervalos la función es decreciente?",
     "options": [
       "Solo en $(-\\infty,\\ 0)$",
       "Solo en $(0,\\ +\\infty)$",
       "En ningún intervalo",
-      "En $(-\\infty,\\ 0)$ y en"
+      "En $(-\\infty,\\ 0)$ y en $(0,\\ +\\infty)$"
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "En la gráfica se ve claramente que ambas ramas bajan de izquierda a derecha: la función decrece en cada tramo de su dominio.",
+    "feedback_correct": "En la gráfica, ambas ramas bajan de izquierda a derecha: la función decrece en cada tramo de su dominio.",
     "feedback_incorrect": [
       "Fijate qué pasa en la rama de la izquierda, antes de la asíntota vertical: ahí también baja de izquierda a derecha, no hace falta descartarla.",
       "Fijate qué pasa en la rama de la derecha, después de la asíntota vertical: ahí también baja de izquierda a derecha, no hace falta descartarla.",
@@ -323,40 +293,40 @@
       -4,
       4
     ],
-    "explanation": "Una función es **decreciente** en un intervalo cuando.\n\na medida que $x$ aumenta.\n\nel valor de la función disminuye.\n\ny esto se evalúa por separado en cada tramo del dominio cuando hay una asíntota vertical de por medio.\n\nLa gráfica de $f(x) = 1/x$ tiene dos ramas separadas por la asíntota vertical $x = 0$.\n\nEn la rama izquierda $(-\\infty.\n\n0)$.\n\nla función va de valores cercanos a $0^-$ hacia : a medida que $x$ \n\ncrece hacia $0$.En la rama derecha $(0.\n\n+\\infty)$.\n\nla función va de $+\\infty$ hacia valores cercanos a $0^+$.\n\nEn ambos tramos la tendencia es decreciente.\n\nCon confundir 'la curva sube entre las dos ramas' con comportamiento creciente: ese salto es una discontinuidad en la asíntota vertical, no crecimiento real de la función.",
+    "explanation": "Una función es **decreciente** en un intervalo cuando, a medida que $x$ aumenta, el valor de la función disminuye de manera sostenida en ese tramo.\n\nComo $f(x) = 1/x$ tiene una asíntota vertical en $x=0$, hay que analizar cada rama del dominio por separado.\n\nEn la rama izquierda, $(-\\infty, 0)$, la función desciende a medida que $x$ aumenta.\n\nAhí, los valores van desde cerca de $0$ hasta $-\\infty$.\n\nEn la rama derecha, $(0, +\\infty)$, la función también desciende a medida que $x$ aumenta.\n\nAhí, los valores van desde $+\\infty$ hasta cerca de $0$.\n\nConfundir el salto entre ramas con un tramo creciente es común: esa discontinuidad ocurre en la asíntota vertical, no es un crecimiento real de la función.",
     "reviewed": false,
     "tags": [
-      "formula-desde-grafico"
+      "monotonia-intervalo-graf"
     ]
   },
   {
-    "question": "¿Cuántas asíntotas verticales tiene esta función?",
+    "question": "La gráfica tiene una asíntota vertical en $x=0$ y una asíntota horizontal en $y=1$.\n\nAdemás, pasa por el punto $(1, 2)$.\n\n¿Cuál es la fórmula que la describe?",
     "options": [
-      "2",
-      "0",
-      "1",
-      "3"
+      "$f(x) = \\dfrac{x-1}{x}$",
+      "$f(x) = \\dfrac{x+1}{x-1}$",
+      "$f(x) = \\dfrac{2}{x} + 1$",
+      "$f(x) = \\dfrac{x+1}{x}$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "El denominador $(x-2)(x+2)=0$ en $x=\\pm2$: hay dos AV.",
+    "feedback_correct": "Denominador $x$ para la asíntota vertical en $0$, coeficientes principales iguales para la horizontal en $1$, y $f(1)=2$: los tres datos coinciden.",
     "feedback_incorrect": [
-      null,
-      "El denominador sí tiene raíces reales: revisá la factorización antes de decir que no hay ninguna asíntota vertical.",
-      "Estás contando una sola raíz del denominador, pero al factorizarlo aparece otra que también hay que sumar.",
-      "Estás sumando una asíntota de más: contá de nuevo cuántas raíces reales tiene el denominador factorizado."
+      "Esa fórmula tiene la asíntota vertical y horizontal correctas, pero fijate qué valor da al evaluarla en $x=1$.",
+      "Esa fórmula ubica la asíntota vertical en un punto distinto al que muestra el gráfico.",
+      "Esa fórmula tiene la asíntota vertical y horizontal correctas, pero el valor en $x=1$ no coincide con el punto marcado.",
+      null
     ],
-    "graph_fn": "1 / (x^2 - 4)",
+    "graph_fn": "(x + 1) / x",
     "graph_view": [
-      -6,
-      6,
+      -5,
+      5,
       -4,
-      4
+      6
     ],
-    "explanation": "La cantidad de **asíntotas verticales** de una racional coincide con la cantidad de raíces reales distintas del denominador, siempre que no se cancelen con el numerador.\n\nEl denominador : tiene dos raíces reales distintas:$x=2$ y $x=-2$.\n\nCada una genera una asíntota vertical, y la gráfica muestra tres ramas separadas por esas dos AV.\n\nConviene factorizar siempre antes de contar, para no perder ninguna raíz.",
+    "explanation": "Para reconstruir la fórmula de una hipérbola desplazada, conviene identificar primero el denominador que fija la **asíntota vertical**.\n\nDespués, el cociente de coeficientes principales fija la horizontal, y un punto conocido confirma la elección.\n\nAcá la asíntota vertical en $x=0$ pide un denominador $x$.\n\nLa horizontal en $y=1$ pide coeficientes principales iguales en numerador y denominador.\n\nCon $f(x) = (x+1)/x$:\n$$f(1) = \\frac{1+1}{1} = 2$$\nEse resultado coincide con el punto dado en el enunciado.\n\nConfundir el signo del denominador cambia por completo la ubicación de la asíntota vertical, aunque el resto de la fórmula se mantenga igual.",
     "reviewed": false,
     "tags": [
-      "valor-aproximado"
+      "formula-desde-grafico"
     ]
   },
   {
@@ -369,7 +339,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "La función explota en $x = -1$: ahí está la AV.",
+    "feedback_correct": "La función se dispara en $x = -1$: ahí está la asíntota vertical.",
     "feedback_incorrect": [
       null,
       "Ese valor tiene el signo cambiado respecto al que realmente anula el denominador.",
@@ -383,40 +353,40 @@
       -5,
       5
     ],
-    "explanation": "La **asíntota vertical** de una función racional es la recta vertical a la que se acerca la curva sin tocarla nunca, ubicada donde el denominador se anula.\n\nLa curva tiene una línea vertical en $x=-1$.\n\nla AV.\n\nque corresponde a que el denominador $x+1$ se anula en $x=-1$. leer la asíntota con el signo invertido directamente del gráfico sin verificarlo con la ecuación del denominador.",
+    "explanation": "La **asíntota vertical** de una función racional es la recta vertical a la que se acerca la curva sin tocarla nunca, ubicada donde el denominador se anula.\n\nEn este gráfico esa recta está en $x=-1$, porque el denominador $x+1$ se anula justo en ese valor.\n\nLeer la asíntota con el signo invertido directamente del gráfico, sin verificarlo con la ecuación del denominador, ubica la recta del lado equivocado.",
     "reviewed": false,
     "tags": [
-      "cuadrantes-ramas"
+      "ubicacion-asintota-vertical"
     ]
   },
   {
-    "question": "¿Cuál es la asíntota horizontal de esta función?",
+    "question": "La gráfica tiene una asíntota vertical en $x=3$ y una asíntota horizontal en $y=1$.\n\nAdemás, pasa por el punto $(4, 2)$.\n\n¿Cuál es la fórmula que la describe?",
     "options": [
-      "$y = 0$",
-      "$y = 1$",
-      "$y = -1$",
-      "$y = 2$"
+      "$f(x) = \\dfrac{1}{x+3} + 1$",
+      "$f(x) = \\dfrac{1}{x-3} - 1$",
+      "$f(x) = \\dfrac{1}{x-3} + 1$",
+      "$f(x) = \\dfrac{1}{x-1} + 3$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Las ramas se aplanan cerca del eje $X$: la AH es $y = 0$.",
+    "feedback_correct": "El denominador $x-3$ ubica la asíntota vertical en $x=3$, y el $+1$ fuera de la fracción ubica la horizontal en $y=1$.",
     "feedback_incorrect": [
+      "Ese denominador ubica la asíntota vertical del lado opuesto al que muestra el gráfico.",
+      "Ese signo antes del $1$ ubica la asíntota horizontal por debajo del eje $X$, no arriba.",
       null,
-      "Ese valor no es hacia donde se aplanan las ramas en este gráfico: fijate bien a qué altura del eje $Y$ se acercan.",
-      "El signo de la altura a la que se acercan las ramas está invertido respecto al del gráfico.",
-      "Ese valor es demasiado alto respecto a donde realmente se aplanan las ramas en este gráfico."
+      "Esos dos parámetros están intercambiados: revisá cuál controla la vertical y cuál la horizontal."
     ],
-    "graph_fn": "1 / (x + 1)",
+    "graph_fn": "1 / (x - 3) + 1",
     "graph_view": [
-      -6,
-      4,
-      -5,
-      5
+      -2,
+      8,
+      -4,
+      6
     ],
-    "explanation": "La **asíntota horizontal** es la recta a la que se acerca la curva cuando $x$ toma valores muy grandes o muy negativos, y se lee mirando hacia dónde se aplanan las ramas en el gráfico.\n\nCuando $x\\to\\pm\\infty$.\n\nla función $\\frac{1}{x+1}\\to0$: las ramas se acercan cada vez más al eje $X$.\n\nasí que la AH es $y=0$.\n\nConviene siempre confirmar la altura mirando ambos extremos del gráfico, no solo uno de los dos lados.",
+    "explanation": "Cuando una hipérbola está desplazada tanto horizontal como verticalmente, hay dos parámetros para leer por separado.\n\nEl número que se resta a $x$ dentro del denominador fija la **asíntota vertical**, y el término que se suma fuera de la fracción fija la horizontal.\n\nAcá la vertical en $x=3$ pide un denominador $x-3$.\n\nLa horizontal en $y=1$ pide sumar $1$ fuera de la fracción.\n\nCon $f(x) = 1/(x-3)+1$:\n$$f(4) = \\frac{1}{4-3}+1 = 2$$\nEse resultado coincide con el punto dado.\n\nMezclar cuál parámetro mueve la asíntota vertical y cuál la horizontal arma una fórmula con las asíntotas cruzadas.",
     "reviewed": false,
     "tags": [
-      "cantidad-asintotas-verticales-graf"
+      "formula-desde-grafico"
     ]
   },
   {
@@ -429,7 +399,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "La función $2/x$ solo puede ser cero si el numerador es cero. Numerador $= 2$: nunca es cero.",
+    "feedback_correct": "El numerador de $f(x)=2/x$ es la constante $2$, que nunca vale cero, así que la curva nunca cruza el eje $X$.",
     "feedback_incorrect": [
       null,
       "Ese valor anularía el numerador de otra función, pero acá el numerador es una constante que nunca se anula.",
@@ -443,10 +413,10 @@
       -6,
       6
     ],
-    "explanation": "Una función cruza el eje $X$ solo en los valores donde el **numerador** se anula, sin que el denominador se anule ahí también.\n\nPara cruzar el eje $X$ acá.\n\nla función debería valer $0$.\n\npero $\\frac{2}{x}=0$ no tiene solución porque el numerador es $2$.\n\nuna constante que nunca se anula.\n\nLa función nunca cruza el eje $X$.\n\nNo hay que confundir esto con buscar dónde se anula el denominador, que da la asíntota vertical.",
+    "explanation": "Una función cruza el eje $X$ solo en los valores donde el **numerador** se anula, sin que el denominador se anule ahí también.\n\nAcá el numerador es la constante $2$, que nunca vale cero sin importar el valor de $x$.\n\nComo el numerador nunca se anula, esta función nunca cruza el eje $X$.\n\nNo hay que confundir esto con buscar dónde se anula el denominador, que en cambio da la asíntota vertical.",
     "reviewed": false,
     "tags": [
-      "formula-desde-grafico"
+      "interceptos-x-graf"
     ]
   },
   {
@@ -459,7 +429,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$f(0) = \frac{2}{0+1} = 2$.",
+    "feedback_correct": "$f(0) = 2/(0+1) = 2$.",
     "feedback_incorrect": [
       "Ese valor tiene el signo cambiado respecto al resultado real de evaluar $f(0)$.",
       null,
@@ -473,74 +443,42 @@
       -6,
       6
     ],
-    "explanation": "El intercepto con el eje $Y$ de cualquier función se obtiene evaluando $f(0)$.\n\nsiempre que $x=0$ pertenezca al dominio.\n\nAcá $f(0)=\\frac{2}{0+1}=\\frac{2}{1}=2$: en el gráfico, la curva pasa por el punto $(0, 2)$.\n\nAntes de calcularlo conviene revisar que el denominador no se anule en $x=0$, porque en ese caso el intercepto con el eje $Y$ directamente no existiría.",
+    "explanation": "El intercepto con el eje $Y$ de cualquier función se obtiene evaluando $f(0)$.\n\nEsto vale siempre que $x=0$ pertenezca al dominio.\n\nAcá $f(0) = 2/(0+1) = 2$, así que en el gráfico la curva pasa por el punto $(0, 2)$.\n\nAntes de calcular conviene revisar que el denominador no se anule en $x=0$, porque en ese caso el intercepto con el eje $Y$ directamente no existiría.",
     "reviewed": false,
     "tags": [
-      "formula-desde-grafico"
+      "interceptos-y-graf"
     ]
   },
   {
-    "question": "La asíntota horizontal de esta función está en $y = 1$ (no en $y = 0$). ¿Cuánto vale $f(x)$ aproximadamente cuando $x = 100$?",
+    "question": "Este gráfico muestra la función en el intervalo $(0, +\\infty)$.\n\n¿Tiene algún valor máximo o mínimo en ese tramo?",
     "options": [
-      "Cerca de $0$",
-      "Cerca de $1$",
-      "Cerca de $100$",
-      "Indefinido"
+      "No, la curva no tiene ni máximo ni mínimo en ese intervalo",
+      "Sí, tiene un mínimo en el punto donde la curva es más baja",
+      "Sí, tiene un máximo cerca de la asíntota vertical"
     ],
-    "correct_index": 1,
+    "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "La AH en $y=1$ significa que cuando $x$ crece, $f(x)\\to1$. Para $x=100$, $f(100)\\approx1$.",
+    "feedback_correct": "En ese intervalo la función baja sin parar y se acerca a $0$ sin tocar nunca un punto más bajo ni más alto que los demás.",
     "feedback_incorrect": [
-      "Ese sería el valor si la AH estuviera en $y=0$, pero el enunciado aclara que acá está en $y=1$.",
       null,
-      "Estás confundiendo el valor de $x$ con el valor de $f(x)$: la función no crece indefinidamente cerca de la AH.",
-      "La función sí está definida en $x=100$, ese valor está lejos de la asíntota vertical."
+      "La curva no tiene ningún tramo donde deje de bajar para después subir, así que no hay ningún mínimo que marcar.",
+      "Cerca de la asíntota vertical la curva crece sin ningún límite superior, así que no llega a ningún valor máximo."
     ],
-    "graph_fn": "(x + 1) / (x - 2)",
-    "graph_view": [
-      -4,
-      8,
-      -6,
-      6
-    ],
-    "explanation": "Cuando $x$ toma valores muy grandes.\n\nel valor de la función se acerca cada vez más a la altura de su **asíntota horizontal**.\n\nsin llegar a tocarla nunca.\n$f(x)=\\frac{x+1}{x-2}$ tiene AH en $y=1$ (cociente de coeficientes principales).\n\nPara $x=100$: $\\frac{100+1}{100-2}=\\frac{101}{98}\\approx1{,}03$, muy cerca de 1.\n\nConviene no confundir la altura de la asíntota horizontal con el valor de $x$ que se está evaluando.",
-    "reviewed": false,
-    "tags": [
-      "valor-asintota-horizontal"
-    ]
-  },
-  {
-    "question": "¿Es creciente o decreciente esta función para $x > 0$?",
-    "options": [
-      "Creciente",
-      "Decreciente",
-      "Ni creciente ni decreciente",
-      "Primero crece, luego decrece"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "En $(0, +\\infty)$ la función $1/x$ disminuye a medida que $x$ aumenta.",
-    "feedback_incorrect": [
-      "Fijate en qué dirección va la curva de izquierda a derecha en esa rama: no sube, baja.",
-      null,
-      "La función sí tiene una tendencia clara en ese tramo: no es plana ni constante.",
-      "En ese tramo la función mantiene una sola tendencia de principio a fin, no cambia de dirección."
-    ],
-    "graph_fn": "1 / x",
+    "graph_fn": "1 / (x^2)",
     "graph_view": [
       -5,
       5,
-      -5,
-      5
+      -1,
+      8
     ],
-    "explanation": "Una función es **decreciente** en un intervalo cuando, a medida que $x$ aumenta, el valor de la función disminuye de manera sostenida en todo el tramo.\n\nEn la rama derecha ($x>0$) de $f(x)=\\frac{1}{x}$.\n\nla curva desciende de izquierda a derecha: la función es decreciente en $(0,+\\infty)$.\n\nConviene recorrer la rama completa con la mirada en vez de fijarse en un solo punto para no equivocarse con la tendencia.",
+    "explanation": "Una función tiene un **máximo** o un **mínimo** en un intervalo cuando alcanza, en algún punto de ese tramo, un valor que ningún otro punto cercano supera o iguala.\n\nEn $(0, +\\infty)$, la función de este gráfico desciende de manera sostenida a medida que $x$ aumenta, sin ningún tramo donde vuelva a subir.\n\nComo la curva parte de valores arbitrariamente grandes cerca de la asíntota vertical y se acerca cada vez más a $0$ sin tocarlo, nunca alcanza un valor fijo.\n\nPor eso no se detiene en ningún punto que sea el más alto ni el más bajo del tramo.\n\nConfundir 'la curva se achica' con 'tiene un mínimo' lleva a marcar un extremo que no existe: acercarse cada vez más a un valor sin alcanzarlo nunca no es lo mismo que tocar un punto mínimo real.",
     "reviewed": false,
     "tags": [
       "existencia-extremos"
     ]
   },
   {
-    "question": "¿Cuál es el dominio de esta función racional?",
+    "question": "¿Cuál es el **dominio** de esta función racional?",
     "options": [
       "$\\mathbb{R}$",
       "$\\mathbb{R} \\setminus \\{-1\\}$",
@@ -553,7 +491,7 @@
     "feedback_incorrect": [
       "Ese conjunto no excluye el punto donde el denominador se anula: revisá si realmente no hay ninguna restricción.",
       null,
-      "Ese intervalo restringe de más: el **dominio** excluye un solo punto, no una mitad entera de la recta.",
+      "Ese intervalo restringe de más: el dominio excluye un solo punto, no una mitad entera de la recta.",
       "Ese es el punto excluido en otra función parecida, pero no coincide con la raíz del denominador de esta."
     ],
     "graph_fn": "1 / (x + 1)",
@@ -566,110 +504,20 @@
     "explanation": "El **dominio** de una función racional es todo $\\mathbb{R}$ excepto los valores que anulan el denominador, ya que ahí la división no está definida.\n\nLa AV en $x=-1$ significa que el denominador se anula ahí: $x=-1$ no pertenece al dominio.\n\nEl dominio es $\\mathbb{R}\\setminus\\{-1\\}=(-\\infty,-1)\\cup(-1,+\\infty)$.\n\nConviene no confundir esta exclusión puntual con restringir todo un intervalo completo.",
     "reviewed": false,
     "tags": [
-      "formula-desde-grafico"
+      "dominio-desde-grafico"
     ]
   },
   {
-    "question": "¿Tiene máximo o mínimo esta función racional?",
+    "question": "¿Qué valor aproximado tiene $f(3)$ según esta gráfica?",
     "options": [
-      "Sí, tiene un mínimo en la AH",
-      "No, la función decrece en cada",
-      "Sí, tiene un máximo en la AV",
-      "Sí, tiene un máximo en $y = 0$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$f(x) = 1/x$ es estrictamente decreciente en cada rama: no alcanza ni máximo ni mínimo.",
-    "feedback_incorrect": [
-      "La asíntota horizontal es una recta a la que la curva se acerca sin tocarla nunca, no un valor que la función alcanza.",
-      null,
-      "La asíntota vertical tampoco es un valor que la función alcance: es una recta que la curva nunca toca.",
-      "Ese valor corresponde a la asíntota horizontal de otra función parecida, pero acá tampoco se alcanza ningún extremo."
-    ],
-    "graph_fn": "1 / x",
-    "graph_view": [
-      -5,
-      5,
-      -5,
-      5
-    ],
-    "explanation": "Un **máximo** o un **mínimo** son puntos donde la función deja de crecer para empezar a decrecer, o viceversa, algo que no ocurre si la curva es siempre estrictamente creciente o decreciente.\n\nEn cada rama de $f(x)=\\frac{1}{x}$, la función decrece estrictamente, sin ningún punto donde cambie de tendencia.\n\nLas asíntotas son líneas que la curva se acerca pero nunca alcanza, así que tampoco cuentan como extremos.",
-    "reviewed": false,
-    "tags": [
-      "cantidad-asintotas-totales"
-    ]
-  },
-  {
-    "question": "¿Cuántos ceros (interceptos con el eje $X$) tiene esta función?",
-    "options": [
-      "Dos",
-      "Cero (no cruza el eje $X$)",
-      "Uno (en $x = 0$)",
-      "Tres"
+      "$3$",
+      "$2$",
+      "$1$",
+      "$-1$"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$\\frac{3x}{x^2-1} = -1\\neq0$).",
-    "feedback_incorrect": [
-      "Estás contando de más: revisá cuántas veces el numerador realmente se anula, sin confundir con las asíntotas verticales.",
-      "El numerador sí se anula en algún valor: revisá antes de decir que la curva nunca cruza el eje $X$.",
-      null,
-      "Estás contando de más: revisá cuántas veces el numerador realmente se anula."
-    ],
-    "graph_fn": "3 * x / (x^2 - 1)",
-    "graph_view": [
-      -5,
-      5,
-      -6,
-      6
-    ],
-    "explanation": "Los **ceros** de una función racional son los valores donde se anula el numerador, siempre que el denominador no se anule en ese mismo punto.\n\nLa función vale cero cuando el numerador $3x=0$, es decir, $x=0$.\n\nEl denominador $0^2-1=-1\\neq0$, así que $x=0$ sí pertenece al dominio.\n\nHay un solo cero, en $x=0$.\n\nConviene siempre verificar el denominador en ese punto antes de confirmar que el cero es válido.",
-    "reviewed": false,
-    "tags": [
-      "formula-desde-grafico"
-    ]
-  },
-  {
-    "question": "¿Cuál es la imagen (rango) de esta función?",
-    "options": [
-      "$(0, +\\infty)$",
-      "$\\mathbb{R}$",
-      "$\\mathbb{R} \\setminus \\{0\\}$",
-      "$(-\\infty, 0)$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "$f(x)=1/x$ puede ser positivo o negativo pero nunca cero: imagen $\\mathbb{R}\\setminus\\{0\\}$.",
-    "feedback_incorrect": [
-      "Ese conjunto deja afuera todos los valores negativos, pero la función sí toma valores negativos cuando $x<0$.",
-      "Ese conjunto no excluye ningún valor, pero hay un número que la función nunca alcanza.",
-      null,
-      "Ese conjunto deja afuera todos los valores positivos, pero la función sí toma valores positivos cuando $x>0$."
-    ],
-    "graph_fn": "1 / x",
-    "graph_view": [
-      -5,
-      5,
-      -5,
-      5
-    ],
-    "explanation": "La **imagen** de una función es el conjunto de todos los valores que efectivamente toma $f(x)$.\n\ny para una racional suele excluir la altura de la asíntota horizontal.\n$f(x)=\\frac{1}{x}$ toma valores positivos para $x>0$ \n\ny negativos para $x<0$.\n\npero nunca vale cero.\n\nLa imagen es $\\mathbb{R}\\setminus\\{0\\}$.\n\nNo conviene confundir la imagen con el dominio: acá el valor excluido del dominio y el de la imagen coinciden por casualidad, pero son conceptos distintos.",
-    "reviewed": false,
-    "tags": [
-      "interceptos-x-graf"
-    ]
-  },
-  {
-    "question": "Observá la gráfica. ¿Qué valor aproximado tiene $f(3)$?",
-    "options": [
-      "\\$3\\$",
-      "\\$2\\$",
-      "\\$1\\$",
-      "\\$-1\\$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "$f(3) = 0.5$.",
+    "feedback_correct": "En $x=3$, la curva pasa por el punto donde $f(3)=1$.",
     "feedback_incorrect": [
       "Ese valor es demasiado alto para el punto marcado en el gráfico: revisá bien la altura a la que está la curva en $x=3$.",
       "Ese valor está un poco alto respecto al punto real de la curva en $x=3$: fijate con más precisión.",
@@ -683,18 +531,18 @@
       -5,
       5
     ],
-    "explanation": "Leer un valor aproximado de $f(3)$ en un gráfico significa ubicar el punto de la curva cuya coordenada $x$\n\nes $3$ y leer su altura correspondiente en el eje $Y$\n\n.\n\n::en la gráfica.\n\nel punto $(3.\n\n1)$ está en la rama derecha.\n\na la derecha de la AV en $x=1$.\n\nConviene ubicar primero la asíntota vertical para no confundir de rama al leer el punto.",
+    "explanation": "Leer un valor aproximado de $f(3)$ en un gráfico significa ubicar el punto de la curva con esa coordenada $x$.\n\nAhí se lee la altura correspondiente en el eje $Y$.\n\nEn este gráfico, la asíntota vertical está en $x=1$, así que $x=3$ cae en la rama derecha de la curva.\n\nAhí, el punto de la curva con $x=3$ tiene altura $1$.\n\nEs decir, el punto $(3, 1)$.\n\nConviene ubicar primero la asíntota vertical antes de leer el punto, para no confundirse de rama al estimar la altura.",
     "reviewed": false,
     "tags": [
-      "formula-desde-grafico"
+      "valor-aproximado"
     ]
   },
   {
     "question": "¿La gráfica es simétrica respecto al origen?",
     "options": [
       "No tiene ningún tipo de simetría",
-      "Sí, $f(-x) = f(x)$ (función par)",
-      "Sí, $f(-x) = -f(x)$ (función impar)",
+      "Sí, $f(-x) = f(x)$",
+      "Sí, $f(-x) = -f(x)$",
       "Es simétrica respecto al eje $Y$"
     ],
     "correct_index": 2,
@@ -713,88 +561,26 @@
       -5,
       5
     ],
-    "explanation": "Una función es **impar** cuando $f(-x)=-f(x)$ para todo $x$ del dominio, y esa propiedad se traduce en una gráfica simétrica respecto al origen de coordenadas.\n\nPara $f(x)=\\frac{1}{x}$: $f(-x)=\\frac{1}{-x}=-\\frac{1}{x}=-f(x)$.\n\nComo $f(-x)=-f(x)$, la función es impar, y su gráfica es simétrica respecto al origen $(0,0)$.\n\nNo hay que confundir esta simetría con la de una función par, que sería simétrica respecto al eje $Y$.",
+    "explanation": "Una función es **impar** cuando $f(-x)=-f(x)$ para todo $x$ de su dominio, y esa propiedad se traduce en una gráfica simétrica respecto al origen de coordenadas.\n\nPara $f(x) = 1/x$:\n$$\\begin{aligned} f(-x) &= \\frac{1}{-x} \\\\ &= -\\frac{1}{x} \\\\ &= -f(x) \\end{aligned}$$\nComo se cumple $f(-x)=-f(x)$, la función es impar, y su gráfica es simétrica respecto al origen.\n\nNo hay que confundir esta simetría con la de una función par, que en cambio sería simétrica respecto al eje $Y$.",
     "reviewed": false,
     "tags": [
-      "contexto-cotidiano-racional"
+      "simetria-paridad-graf"
     ]
   },
   {
-    "question": "¿Hacia dónde tiende la función cuando $x$ se acerca a la AV desde la derecha ($x \\to 2^+$)?",
+    "question": "Cerca de la asíntota vertical de esta función, el comportamiento de la curva depende de por dónde se acerca $x$.\n\n¿Qué le pasa a $f(x)$ al acercarse a $0$ por la derecha, con valores positivos cada vez más chicos?",
     "options": [
-      "A $0$",
-      "A $-\\infty$",
-      "A $+\\infty$",
-      "A $1$"
+      "Se acerca a $+\\infty$",
+      "Se acerca a $-\\infty$",
+      "Se acerca a $0$"
     ],
-    "correct_index": 2,
+    "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Para $x>2$, el denominador $x-2>0$ es positivo pequeño: $f\\to+\\infty$.",
+    "feedback_correct": "Con $x$ positivo y muy chico, $-1/x$ es un número negativo enorme: la función se acerca a $-\\infty$.",
     "feedback_incorrect": [
-      "Ese valor correspondería a la asíntota horizontal, pero la pregunta es por el comportamiento cerca de la asíntota vertical.",
-      "Ese es el signo que corresponde al límite por el otro lado de la asíntota vertical, no por la derecha.",
+      "Ese sería el comportamiento de $1/x$, pero acá el signo negativo invierte hacia dónde va la curva.",
       null,
-      "Ese valor no es hacia donde tiende la función cerca de la asíntota vertical, sino un punto cualquiera de la AH."
-    ],
-    "graph_fn": "1 / (x - 2)",
-    "graph_view": [
-      -3,
-      7,
-      -5,
-      5
-    ],
-    "explanation": "Cerca de una **asíntota vertical**.\n\nel signo del denominador determina si la curva se dispara hacia $+\\infty$ o hacia $-\\infty$.\n\ny ese signo puede cambiar según el lado por el que se acerque $x$.\n\nCuando $x\\to2^+$: $x-2\\to0^+$ (positivo pequeño).\n\nasí que $\\frac{1}{x-2}\\to+\\infty$.\n\nLa rama derecha sube sin límite al acercarse a la AV.\n\nConviene siempre evaluar el signo del denominador por separado a cada lado, en vez de asumir que es el mismo de los dos lados.",
-    "reviewed": false,
-    "tags": [
-      "formula-desde-grafico"
-    ]
-  },
-  {
-    "question": "¿Hacia dónde tiende la función cuando $x$ se acerca a la AV desde la izquierda ($x \\to 2^-$)?",
-    "options": [
-      "A $2$",
-      "A $+\\infty$",
-      "A $0$",
-      "A $-\\infty$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "Para $x<2$, el denominador $x-2<0$ es negativo pequeño: $f\\to-\\infty$.",
-    "feedback_incorrect": [
-      "Ese valor es la coordenada $x$ de la asíntota vertical, no el valor hacia donde tiende $f(x)$.",
-      "Ese es el signo que corresponde al límite por el otro lado de la asíntota vertical, no por la izquierda.",
-      "Ese valor correspondería a la asíntota horizontal, pero la pregunta es por el comportamiento cerca de la asíntota vertical.",
-      null
-    ],
-    "graph_fn": "1 / (x - 2)",
-    "graph_view": [
-      -3,
-      7,
-      -5,
-      5
-    ],
-    "explanation": "Cerca de una **asíntota vertical**, hay que evaluar el signo del denominador por separado para cada lado, ya que ese signo determina si la curva se dispara hacia $+\\infty$ o hacia $-\\infty$.\n\nCuando $x\\to2^-$: $x-2\\to0^-$ (negativo pequeño).\n\nasí que $\\frac{1}{x-2}\\to-\\infty$.\n\nLa rama izquierda baja sin límite al acercarse a la AV. asumir que el límite por la izquierda tiene el mismo signo que por la derecha.",
-    "reviewed": false,
-    "tags": [
-      "signo-en-intervalo"
-    ]
-  },
-  {
-    "question": "Observá la gráfica. ¿En qué cuadrantes están las dos ramas de esta función?",
-    "options": [
-      "3.° y 4.° cuadrante",
-      "1.° y 3.° cuadrante",
-      "1.° y 2.° cuadrante",
-      "2.° y 4.° cuadrante"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "$f(x) = -1/x$: ramas en 2.° (x<0, f>0) y 4.° (x>0, f<0).",
-    "feedback_incorrect": [
-      "Esos cuadrantes están ambos por debajo del eje $X$, pero acá una de las ramas queda por encima.",
-      "Esos son los cuadrantes de $1/x$, pero acá el signo de la función está invertido respecto a esa función.",
-      "Uno de esos cuadrantes queda del lado derecho del eje $Y$, revisá bien de qué lado está cada rama.",
-      null
+      "Ese valor es hacia donde tiende la función lejos de la asíntota, cuando $x$ crece mucho, no cerca de ella."
     ],
     "graph_fn": "-1 / x",
     "graph_view": [
@@ -803,70 +589,10 @@
       -5,
       5
     ],
-    "explanation": "El cuadrante donde cae cada rama de una hipérbola depende del signo de $x$ y del signo de $f(x)$ combinados, y ese patrón se invierte por completo si la función tiene un coeficiente negativo.\n\nEn $f(x)=-\\frac{1}{x}$: si $x>0$.\n\n$f<0$ (4.° cuadrante); si $x<0$.\n\n$f>0$ (2.° cuadrante).\n\nAl contrario que $\\frac{1}{x}$, que va por el 1.° y 3.°.\n\nConviene siempre revisar el signo del coeficiente antes de asumir los cuadrantes de memoria.",
+    "explanation": "Cerca de una **asíntota vertical**, una función racional crece o decrece sin límite, y hacia qué lado va depende del signo de la función y de por dónde se acerca la variable.\n\nPara $f(x) = -1/x$: cuando la entrada es positiva y muy chica, $1/x$ crece sin límite, y el signo negativo invierte ese resultado.\n\nPor eso la función se acerca a $-\\infty$ a medida que la variable se acerca a cero desde la derecha.\n\nDel otro lado de la asíntota, con la variable negativa acercándose a cero, la función se acerca a $+\\infty$: cada lado tiene su propio comportamiento.",
     "reviewed": false,
     "tags": [
       "limites-laterales-av"
-    ]
-  },
-  {
-    "question": "Observá la gráfica. ¿Las ramas van hacia arriba o hacia abajo al acercarse a la AV desde ambos lados?",
-    "options": [
-      "Las ramas no se acercan a ninguna AV",
-      "Una sube y la otra baja",
-      "Ambas ramas van hacia abajo",
-      "Ambas ramas van hacia arriba"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "El denominador $x^2$ tiene exponente par: la función siempre es positiva y tiende a $+\\infty$ desde ambos lados de $x=0$.",
-    "feedback_incorrect": [
-      "El gráfico sí muestra una asíntota vertical clara en $x=0$: fijate bien en el eje vertical.",
-      "Eso pasaría si el denominador tuviera exponente impar, pero acá el exponente es par.",
-      "Revisá el signo del denominador: al estar elevado al cuadrado, nunca es negativo.",
-      null
-    ],
-    "graph_fn": "1 / (x^2)",
-    "graph_view": [
-      -4,
-      4,
-      -1,
-      8
-    ],
-    "explanation": "Cuando el denominador de una racional tiene exponente **par**.\n\nsu valor nunca es negativo.\n\nasí que la función mantiene el mismo signo a ambos lados de la asíntota vertical.\n$f(x)=\\frac{1}{x^2}$: el denominador $x^2>0$ siempre.\n\npor eso la función es siempre positiva.\n\nCuando $x\\to0^+$ o $x\\to0^-$.\n\n$x^2\\to0^+$ y $f\\to+\\infty$.\n\nAmbas ramas suben.\n\nEsto contrasta con denominadores de exponente impar, donde las ramas van en direcciones opuestas.",
-    "reviewed": false,
-    "tags": [
-      "interceptos-y-graf"
-    ]
-  },
-  {
-    "question": "Observá la gráfica. ¿Cuál es el intercepto con el eje $Y$?",
-    "options": [
-      "No existe",
-      "$y = 3$",
-      "$y = \\dfrac{1}{3}$",
-      "$y = -\\dfrac{1}{3}$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "$f(0) = \\frac{1}{0-3} = -\\frac{1}{3}$.",
-    "feedback_incorrect": [
-      "El denominador de esta función no se anula en $x=0$: el intercepto con el eje $Y$ sí existe.",
-      "Ese valor confunde el resultado con el denominador evaluado en $x=0$, no con la fracción completa.",
-      "Ese valor tiene el signo cambiado respecto al resultado real de evaluar $f(0)$.",
-      null
-    ],
-    "graph_fn": "1 / (x - 3)",
-    "graph_view": [
-      -2,
-      8,
-      -5,
-      5
-    ],
-    "explanation": "El **intercepto** con el eje $Y$ de cualquier función se calcula evaluando $f(0)$, siempre que el denominador no se anule justo en ese punto.\n\nAcá $f(0)=\\frac{1}{0-3}=\\frac{1}{-3}=-\\frac{1}{3}$.\n\nEl denominador $0-3=-3\\neq0$, así que el intercepto existe.\n\nEn la gráfica, la curva cruza el eje $Y$ en $y=-\\frac{1}{3}\\approx-0{,}33$.\n\nNo conviene olvidar el signo negativo del denominador al hacer la cuenta.",
-    "reviewed": false,
-    "tags": [
-      "valor-aproximado"
     ]
   },
   {
@@ -879,7 +605,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "$f(x)=\\frac{1}{x^2-4}$ tiene dos AV (en $x=\\pm2$): tres ramas separadas.",
+    "feedback_correct": "El denominador de $f(x)$ se anula en $x=2$ y en $x=-2$, así que quedan tres ramas separadas.",
     "feedback_incorrect": [
       "Estás contando una rama de más: revisá cuántas asíntotas verticales separan realmente el gráfico.",
       "Estás contando de menos: cada asíntota vertical suma una división más al dominio.",
@@ -890,77 +616,17 @@
     "graph_view": [
       -6,
       6,
-      -4,
-      4
-    ],
-    "explanation": "La cantidad de **ramas** de una función racional es siempre una más que la cantidad de asíntotas verticales, porque cada AV parte el dominio en un tramo adicional.\n\nEl denominador : se anula en $x=2$ y $x=-2$:dos asíntotas verticales.\n\nCada AV separa la gráfica en ramas: $(-\\infty,-2)$.\n\n$(-2,2)$ y $(2,+\\infty)$.\n\nes decir.\n\ntres ramas.\n\nConviene contar primero las asíntotas verticales y sumarle uno, en vez de contar las ramas directamente a ojo.",
-    "reviewed": false,
-    "tags": [
-      "formula-desde-grafico"
-    ]
-  },
-  {
-    "question": "¿La función es positiva o negativa en el intervalo $(-2, 2)$ (entre las dos AV)?",
-    "options": [
-      "No está definida en ese intervalo",
-      "Positiva",
-      "Alternada: cambia de signo",
-      "Negativa"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "En $(-2,2)$, el denominador $x^2-4<0$: la función es negativa.",
-    "feedback_incorrect": [
-      "La función sí está definida en todo ese intervalo, salvo en los extremos donde están las asíntotas.",
-      "Revisá el signo del denominador en ese tramo: no da lo que estás asumiendo.",
-      "El signo de la función no cambia dentro de ese intervalo, se mantiene igual en todo el tramo.",
-      null
-    ],
-    "graph_fn": "1 / (x^2 - 4)",
-    "graph_view": [
       -6,
-      6,
-      -4,
-      4
+      6
     ],
-    "explanation": "El **signo** de una función racional en un intervalo se determina evaluando el signo del numerador y del denominador por separado, y combinándolos según la regla de los signos.\n\nPara $x$ entre $-2$ \n\ny $2$: :.así que $x^2-4<0$.\n\nEl numerador es $1>0$.\n\ny la fracción $\\frac{1}{\\text{negativo}}$ da negativo: la función es negativa en $(-2,2)$.\n\ny la rama del medio está por debajo del eje $X$.\n\nConviene evaluar el signo tramo por tramo, no asumir que es el mismo en todo el dominio.",
+    "explanation": "La cantidad de **ramas** de una función racional es siempre una más que la cantidad de asíntotas verticales, porque cada asíntota parte el dominio en un tramo adicional.\n\nEl denominador se anula en $x=2$ y en $x=-2$, así que hay dos asíntotas verticales.\n\nEsas dos asíntotas separan la gráfica en tres tramos: $(-\\infty,-2)$ y $(-2,2)$.\n\nEl tercer tramo es $(2,+\\infty)$, es decir, tres ramas en total.\n\nConviene contar primero las asíntotas verticales y sumarle uno, en vez de contar las ramas directamente a ojo en el gráfico.",
     "reviewed": false,
     "tags": [
-      "contexto-cotidiano-racional"
+      "cantidad-ramas"
     ]
   },
   {
-    "question": "La gráfica muestra una hipérbola con AV en $x = 0$ y AH en $y = 0$. Las ramas están en el 1.° y 3.° cuadrante. ¿Cuál es la fórmula?",
-    "options": [
-      "$f(x) = \\dfrac{1}{x}$",
-      "$f(x) = \\dfrac{-1}{x}$",
-      "$f(x) = \\dfrac{1}{x+1}$",
-      "$f(x) = \\dfrac{1}{x-1}$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "AV en $x = 1/x$.",
-    "feedback_incorrect": [
-      null,
-      "Ese signo negativo en el numerador pondría las ramas en los cuadrantes opuestos a los que describe el enunciado.",
-      "Ese denominador desplazaría la asíntota vertical fuera de $x=0$, y acá se pide que quede justo en el origen.",
-      "Ese denominador desplazaría la asíntota vertical fuera de $x=0$, y acá se pide que quede justo en el origen."
-    ],
-    "graph_fn": "1 / x",
-    "graph_view": [
-      -5,
-      5,
-      -5,
-      5
-    ],
-    "explanation": "Para armar la fórmula de una hipérbola a partir del gráfico hay que leer tres datos por separado: dónde está la **asíntota vertical** (el denominador).\n\ndónde está la horizontal (el desplazamiento) y en qué cuadrantes caen las ramas (el signo).\n\nAV en $x=0$ → denominador $x$.\n\nAH en $y=0$ → constante sobre lineal, sin desplazamiento.\n\nRamas en 1.° y 3.° → función impar con $k>0$.\n\nLa fórmula es $f(x)=\\frac{1}{x}$. confundir cuál parámetro mueve la AV y cuál la AH.",
-    "reviewed": false,
-    "tags": [
-      "formula-desde-grafico"
-    ]
-  },
-  {
-    "question": "La gráfica tiene AV en $x = 3$ y AH en $y = 0$. ¿Cuál es la fórmula?",
+    "question": "La gráfica tiene una asíntota vertical en $x=3$ y una asíntota horizontal en $y=0$.\n\n¿Cuál es la fórmula que la describe?",
     "options": [
       "$f(x) = \\dfrac{1}{x+3}$",
       "$f(x) = \\dfrac{1}{x-3}$",
@@ -969,7 +635,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "AV en $x=3$ → denominador $x-3$. AH en $y=0$ → sin desplazamiento vertical.",
+    "feedback_correct": "El denominador $x-3$ ubica la asíntota vertical en $x=3$, y al no haber ningún término sumado fuera de la fracción, la horizontal queda en $y=0$.",
     "feedback_incorrect": [
       "Ese denominador ubicaría la asíntota vertical del lado opuesto al que pide el enunciado.",
       null,
@@ -983,74 +649,14 @@
       -5,
       5
     ],
-    "explanation": "El parámetro que controla la **asíntota vertical** es el valor que se resta o suma a $x$ en el denominador, mientras que un término sumado fuera de la fracción controla la asíntota horizontal.\n\nAV en $x=3$ → denominador $x-3$.\n\nAH en $y=0$ → la función tiende a $0$ sin corrimiento vertical.\n\nLa fórmula es $f(x)=\\frac{1}{x-3}$.\n\nConviene no confundir el parámetro que desplaza la AV con el que desplazaría la AH.",
+    "explanation": "El parámetro que controla la **asíntota vertical** es el valor que se resta o suma a $x$ en el denominador, mientras que un término sumado fuera de la fracción controla la asíntota horizontal.\n\nLa asíntota vertical en $x=3$ pide un denominador $x-3$.\n\nLa horizontal en $y=0$ no necesita ningún término extra fuera de la fracción.\n\nLa fórmula es $f(x) = 1/(x-3)$.\n\nConfundir el parámetro que desplaza la asíntota vertical con el que desplazaría la horizontal arma una fórmula con las asíntotas equivocadas.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
     ]
   },
   {
-    "question": "La gráfica tiene AV en $x = -2$ y AH en $y = 0$. Las ramas están en el 2.° y 4.° cuadrante (al contrario de la hipérbola normal). ¿Cuál es la fórmula?",
-    "options": [
-      "$f(x) = \\dfrac{1}{x-2}$",
-      "$f(x) = \\dfrac{1}{x+2}$",
-      "$f(x) = \\dfrac{-1}{x+2}$",
-      "$f(x) = \\dfrac{-1}{x-2}$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "AV en $x=-2$ → denominador $x+2$. Ramas al revés → numerador negativo: $-1/(x+2)$.",
-    "feedback_incorrect": [
-      "Ese denominador ubicaría la asíntota vertical en el punto opuesto al que pide el enunciado.",
-      "Esa fórmula tiene el denominador correcto, pero le falta el signo negativo que invierte los cuadrantes de las ramas.",
-      null,
-      "Ese denominador ubicaría la asíntota vertical en el punto opuesto al que pide el enunciado."
-    ],
-    "graph_fn": "-1 / (x + 2)",
-    "graph_view": [
-      -7,
-      3,
-      -5,
-      5
-    ],
-    "explanation": "El signo del numerador de una hipérbola determina en qué par de cuadrantes caen las ramas: positivo va en 1.° y 3.°, negativo invierte el patrón.\n\nAV en $x=-2$ → denominador $x+2$.\n\nLas ramas en 2.° y 4.° cuadrante (relativas a $x=-2$) indican un numerador negativo.\n\nLa fórmula es $f(x)=\\frac{-1}{x+2}$.\n\nNo alcanza con acertar el denominador si el signo del numerador queda invertido.",
-    "reviewed": false,
-    "tags": [
-      "formula-desde-grafico"
-    ]
-  },
-  {
-    "question": "La gráfica tiene AV en $x = 1$ y AH en $y = 1$ (no en $y = 0$). ¿Cuál es la fórmula?",
-    "options": [
-      "$f(x) = \\dfrac{x+1}{x-1}$",
-      "$f(x) = \\dfrac{x}{x-1}$",
-      "$f(x) = \\dfrac{1}{x-1}$",
-      "$f(x) = \\dfrac{1}{x-1} + 1$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "AV en $x = 1$: $1/(x-1)+1$.",
-    "feedback_incorrect": [
-      "Esa fórmula tiene el mismo grado en numerador y denominador, así que conviene simplificarla para verificar bien la AH.",
-      "Esa fórmula también da AH en $y=1$, pero conviene revisar el desplazamiento vertical explícito que pide el enunciado.",
-      "Esa fórmula tiene la asíntota horizontal en $y=0$, no en $y=1$ como pide el enunciado.",
-      null
-    ],
-    "graph_fn": "1 / (x - 1) + 1",
-    "graph_view": [
-      -4,
-      6,
-      -4,
-      6
-    ],
-    "explanation": "Cuando la **asíntota horizontal** no está en $y=0$, hace falta sumar un término fuera de la fracción que desplace toda la curva verticalmente.\n\nAV en $x=1$ → denominador $x-1$.\n\nAH en $y=1$ → desplazamiento vertical $+1$.\n\nLa fórmula es $\\frac{1}{x-1}+1$.\n\nDato extra: $\\frac{x}{x-1}=\\frac{(x-1)+1}{x-1}=1+\\frac{1}{x-1}$ da la misma curva, aunque escrita de otra forma.\n\nConviene simplificar antes de descartar una opción por su apariencia.",
-    "reviewed": false,
-    "tags": [
-      "direccion-ramas"
-    ]
-  },
-  {
-    "question": "La gráfica tiene AV en $x = 2$ y AH en $y = 1$. ¿Cuál de estas fórmulas corresponde?",
+    "question": "La gráfica tiene una asíntota vertical en $x=2$ y una asíntota horizontal en $y=1$.\n\n¿Cuál de estas fórmulas corresponde?",
     "options": [
       "$f(x) = \\dfrac{x}{x-2}$",
       "$f(x) = \\dfrac{x+2}{x}$",
@@ -1059,7 +665,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$\\frac{x}{x-2} = 1$.",
+    "feedback_correct": "El denominador $x-2$ ubica la asíntota vertical en $x=2$, y el cociente de coeficientes principales, igual a $1$, ubica la horizontal en $y=1$.",
     "feedback_incorrect": [
       null,
       "Esa fórmula ubica la asíntota vertical en un punto distinto al que muestra el gráfico.",
@@ -1073,194 +679,14 @@
       -4,
       6
     ],
-    "explanation": "Cuando numerador y denominador tienen el **mismo grado**.\n\nconviene dividir para reescribir la fracción como una constante más un término que sí tiene la forma $k/(x-a)$.\n\ny así comparar más fácil con el gráfico.\n$\\frac{x}{x-2}$: AV en $x=2$ (denominador=0).\n\nCoeficientes principales iguales (1/1): AH en $y=1$.\n\nTambién: $\\frac{x}{x-2}=1+\\frac{2}{x-2}$, que es $\\frac{1}{x-2}$ escalada y desplazada.\n\nSimplificar así evita confundir fórmulas que parecen distintas pero describen la misma curva.",
-    "reviewed": false,
-    "tags": [
-      "contexto-cotidiano-racional"
-    ]
-  },
-  {
-    "question": "La gráfica es como $1/x$ pero más 'empinada' (los valores se alejan más del eje $X$). ¿Cuál es la fórmula?",
-    "options": [
-      "$f(x) = \\dfrac{1}{3x}$",
-      "$f(x) = \\dfrac{3}{x}$",
-      "$f(x) = \\dfrac{1}{x}$",
-      "$f(x) = \\dfrac{1}{x^2}$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Multiplicar por $3$ estira la curva verticalmente: los valores de $f$ son 3 veces mayores.",
-    "feedback_incorrect": [
-      "Esa fórmula en realidad achica los valores en vez de agrandarlos: revisá dónde va el $3$ multiplicando.",
-      null,
-      "Esa es la hipérbola básica, sin ningún factor que la haga más empinada.",
-      "Ese denominador cambia por completo la forma de la curva, no solo su escala vertical."
-    ],
-    "graph_fn": "3 / x",
-    "graph_view": [
-      -5,
-      5,
-      -6,
-      6
-    ],
-    "explanation": "Multiplicar una función por una constante mayor que $1$ estira su gráfica verticalmente.\n\nalejando la curva del eje $X$ sin cambiar la ubicación de sus asíntotas. ::todos los valores de $1/x$ se multiplican por 3.\n\nLa curva es más empinada, más separada del eje $X$, que la hipérbola básica.\n\nDistinto sería multiplicar el denominador en vez del numerador, que en cambio la achica.",
-    "reviewed": false,
-    "tags": [
-      "contexto-cotidiano-racional"
-    ]
-  },
-  {
-    "question": "La gráfica tiene dos AV (en $x = 2$ y $x = -2$) y AH en $y = 0$. ¿Cuál es la fórmula?",
-    "options": [
-      "$f(x) = \\dfrac{1}{x-2}$",
-      "$f(x) = \\dfrac{1}{x^2+4}$",
-      "$f(x) = \\dfrac{1}{x^2-4}$",
-      "$f(x) = \\dfrac{x}{x^2-4}$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "Dos AV en $x = 0$.",
-    "feedback_incorrect": [
-      "Esa fórmula solo tiene una asíntota vertical, pero el enunciado pide dos.",
-      "Ese denominador nunca se anula para ningún valor real de $x$: no generaría ninguna asíntota vertical.",
-      null,
-      "Ese numerador haría que la función se anule en $x=0$, algo que cambia la forma cerca del origen."
-    ],
-    "graph_fn": "1 / (x^2 - 4)",
-    "graph_view": [
-      -6,
-      6,
-      -4,
-      4
-    ],
-    "explanation": "Cuando el gráfico muestra **dos asíntotas verticales**, el denominador debe tener dos raíces reales distintas, lo que sugiere un denominador cuadrático factorizable.\n\nAV en $x=2$ y $x=-2$ → denominador :.\n$$x^2-4$$\nAH en $y=0$ → numerador constante, de grado menor al denominador.\n\nLa fórmula es $f(x)=\\frac{1}{x^2-4}$.\n\nConviene comparar los grados de numerador y denominador antes de fijar la AH, no solo contar las AV.",
-    "reviewed": false,
-    "tags": [
-      "cantidad-asintotas-verticales-graf"
-    ]
-  },
-  {
-    "question": "La gráfica tiene AV en $x = -3$ y AH en $y = 2$. Las ramas se aplanan hacia $y = 2$ a medida que $|x|$ crece. ¿Cuál es la fórmula más probable?",
-    "options": [
-      "$f(x) = \\dfrac{2}{x+3} + 2$",
-      "$f(x) = \\dfrac{x}{x-3}$",
-      "$f(x) = \\dfrac{2}{x+3}$",
-      "$f(x) = \\dfrac{2x}{x+3}$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "$\\frac{2x}{x+3}$: AV en $x=-3$, AH en $y=2$ (cociente de coeficientes $2/1$).",
-    "feedback_incorrect": [
-      "Esa fórmula tiene la AV correcta, pero el desplazamiento vertical explícito no es la forma más simple de lograr esa AH: revisá el grado del numerador.",
-      "Esa fórmula ubica la asíntota vertical en un punto distinto al que muestra el gráfico.",
-      "Esa fórmula tiene AH en $y=0$, no en $y=2$ como muestra el gráfico.",
-      null
-    ],
-    "graph_fn": "2 * x / (x + 3)",
-    "graph_view": [
-      -8,
-      2,
-      -4,
-      6
-    ],
-    "explanation": "Cuando la asíntota horizontal no es $y=0$.\n\nhay dos maneras de lograrla: subiendo el grado del numerador para que el cociente de coeficientes principales dé ese valor.\n\no sumando un desplazamiento vertical explícito.\n\ny ambas dan curvas distintas.\n\nAV en $x=-3$ → denominador $x+3$.\n\nAH en $y=2$ → cociente de coeficientes principales $\\frac{2}{1}=2$.\n\nlo que corresponde a $\\frac{2x}{x+3}$.\n\nLa opción con $+2$ explícito también tendría AH en $y=2$, pero sus interceptos serían distintos.",
-    "reviewed": false,
-    "tags": [
-      "limites-laterales-av"
-    ]
-  },
-  {
-    "question": "La gráfica es igual a la hipérbola $1/x$ pero desplazada: la AV está en $x = 4$ y la AH en $y = 0$. ¿Cuál es la fórmula?",
-    "options": [
-      "$f(x) = \\dfrac{1}{x-4}$",
-      "$f(x) = \\dfrac{1}{x+4}$",
-      "$f(x) = \\dfrac{1}{x} - 4$",
-      "$f(x) = \\dfrac{1}{x} + 4$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "AV desplazada a $x=4$ → reemplazar $x$ por $x-4$: $f(x)=1/(x-4)$.",
-    "feedback_incorrect": [
-      null,
-      "Ese denominador desplaza la asíntota vertical hacia el lado opuesto al que muestra el gráfico.",
-      "Esa fórmula desplaza la asíntota horizontal en vez de la vertical: la AV seguiría en $x=0$.",
-      "Esa fórmula desplaza la asíntota horizontal en vez de la vertical: la AV seguiría en $x=0$."
-    ],
-    "graph_fn": "1 / (x - 4)",
-    "graph_view": [
-      -1,
-      9,
-      -5,
-      5
-    ],
-    "explanation": "Para desplazar horizontalmente una hipérbola, hay que reemplazar $x$ por $(x - a)$ dentro del denominador, no sumar o restar un número fuera de la fracción, que en cambio mueve la asíntota horizontal.\n\nDesplazar $\\frac{1}{x}$ cuatro unidades a la derecha equivale a reemplazar $x$ \n\npor $x-4$: :.La AV pasa de : a $x=4$ \n\ny la AH sigue en $y=0$.",
+    "explanation": "Cuando numerador y denominador tienen el **mismo grado**, conviene dividir para reescribir la fracción como una constante más un término de la forma $k/(x-a)$, y así comparar más fácil con el gráfico.\n\nEn $f(x) = x/(x-2)$, el denominador se anula en $x=2$, así que ahí está la asíntota vertical.\n\nLos coeficientes principales de numerador y denominador son ambos $1$, así que la horizontal queda en $y=1$.\n\nDividiendo:\n$$\\frac{x}{x-2} = 1 + \\frac{2}{x-2}$$\nQue es la misma hipérbola $1/(x-2)$, escalada y desplazada.\n\nSimplificar de esta forma evita confundir fórmulas que parecen distintas pero describen la misma curva.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
     ]
   },
   {
-    "question": "La gráfica tiene AV en $x = 2$ y AH en $y = 3$ (no en $y = 1$). ¿Cuál de estas fórmulas corresponde?",
-    "options": [
-      "$f(x) = \\dfrac{x + 3}{x - 2}$",
-      "$f(x) = \\dfrac{3x - 4}{x - 2}$",
-      "$f(x) = \\dfrac{3}{x - 2}$",
-      "$f(x) = \\dfrac{x}{x-2} + 3$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Coeficientes principales: $3/1 = 0$.",
-    "feedback_incorrect": [
-      "Esa fórmula tiene la AV correcta, pero el cociente de coeficientes principales no da la AH que pide el enunciado.",
-      null,
-      "Esa fórmula tiene grado menor en el numerador, así que la AH le quedaría en $y=0$, no en $y=3$.",
-      "Esa fórmula agrega un desplazamiento vertical explícito, cuando alcanza con ajustar el coeficiente principal del numerador."
-    ],
-    "graph_fn": "(3 * x - 4) / (x - 2)",
-    "graph_view": [
-      -3,
-      7,
-      -2,
-      8
-    ],
-    "explanation": "Cuando numerador y denominador de una racional tienen el **mismo grado**, la asíntota horizontal queda determinada por el cociente de sus coeficientes principales.\n\nAV en $x=2$ → denominador $x-2$.\n\nAH en $y=3$ → cociente de coeficientes principales $3/1=3$.\n\nLa fórmula $\\frac{3x-4}{x-2}$ cumple ambas condiciones.\n\nVerificación extra: el intercepto $Y$ es $f(0)=\\frac{-4}{-2}=2$.\n\nConviene siempre chequear un segundo dato del gráfico además de la AV y la AH.",
-    "reviewed": false,
-    "tags": [
-      "ubicacion-asintota-vertical"
-    ]
-  },
-  {
-    "question": "La gráfica tiene AV en $x = 0$ y AH en $y = 0$, pero ambas ramas están por encima del eje $X$. ¿Cuál es la fórmula?",
-    "options": [
-      "$f(x) = \\dfrac{-1}{x}$",
-      "$f(x) = \\dfrac{1}{x}$",
-      "$f(x) = \\dfrac{1}{x^2}$",
-      "$f(x) = \\dfrac{1}{|x|}$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "$1/x^2$ siempre es positivo: ambas ramas están por encima del eje $X$.",
-    "feedback_incorrect": [
-      "Ese signo negativo pondría una de las ramas por debajo del eje $X$, y acá ambas están por encima.",
-      "Esa fórmula tiene una rama por encima y otra por debajo del eje $X$, no las dos por encima como pide el enunciado.",
-      null,
-      "Esa expresión con valor absoluto no es una función racional en el sentido que se viene trabajando en este tema."
-    ],
-    "graph_fn": "1 / (x^2)",
-    "graph_view": [
-      -4,
-      4,
-      -1,
-      8
-    ],
-    "explanation": "Un denominador elevado a una potencia **par** nunca es negativo.\n\nasí que toda la función mantiene el mismo signo en ambos lados de la asíntota vertical.\n$f(x)=\\frac{1}{x^2}$: el denominador $x^2>0$ siempre.\n\nasí que $f(x)>0$ para todo $x\\neq0$.\n\nLas dos ramas están por encima del eje $X$.\n\nEn contraste, $1/x$ tiene ramas en el 1.° y 3.° cuadrante, con una de ellas negativa.",
-    "reviewed": false,
-    "tags": [
-      "formula-desde-grafico"
-    ]
-  },
-  {
-    "question": "La gráfica muestra una función con AV en $x=-1$ y AH en $y = -2$. ¿Cuál es la fórmula?",
+    "question": "La gráfica muestra una función con una asíntota vertical en $x=-1$ y una asíntota horizontal en $y=-2$.\n\n¿Cuál es la fórmula?",
     "options": [
       "$f(x) = \\dfrac{2x}{x-1}$",
       "$f(x) = \\dfrac{-2}{x+1}$",
@@ -1269,7 +695,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "AV en $x = -2$ → $-2x/(x+1)$.",
+    "feedback_correct": "El denominador $x+1$ ubica la asíntota vertical en $x=-1$, y el cociente de coeficientes principales, igual a $-2$, ubica la horizontal en $y=-2$.",
     "feedback_incorrect": [
       "Esa fórmula ubica la asíntota vertical en un punto distinto al que muestra el gráfico.",
       "Esa fórmula tiene grado menor en el numerador, así que la AH le quedaría en $y=0$, no en $y=-2$.",
@@ -1283,14 +709,14 @@
       -6,
       2
     ],
-    "explanation": "Cuando la asíntota horizontal es un número negativo, el cociente de los coeficientes principales de numerador y denominador también tiene que dar negativo.\n\nAV en $x=-1$ → denominador $x+1$.\n\nAH en $y=-2$ → cociente de coeficientes $-2/1=-2$.\n\nLa fórmula es $f(x)=\\frac{-2x}{x+1}$.\n\nConviene prestar atención al signo del coeficiente, no solo a su valor absoluto, al comparar con el gráfico.",
+    "explanation": "Cuando la asíntota horizontal es un número negativo, el cociente de los coeficientes principales de numerador y denominador también tiene que dar negativo.\n\nLa asíntota vertical en $x=-1$ pide un denominador $x+1$.\n\nLa horizontal en $y=-2$ pide un cociente de coeficientes $-2/1=-2$.\n\nLa fórmula es $f(x) = -2x/(x+1)$.\n\nPrestar atención al signo del coeficiente, no solo a su valor absoluto, evita confundir esta curva con su versión reflejada.",
     "reviewed": false,
     "tags": [
-      "ubicacion-asintota-vertical"
+      "formula-desde-grafico"
     ]
   },
   {
-    "question": "La gráfica es como $1/x$ pero las ramas son más 'planas' (más cerca del eje $X$). ¿Cuál es la fórmula?",
+    "question": "La gráfica tiene la misma forma que $1/x$, pero sus ramas quedan más cerca del eje $X$.\n\n¿Cuál es la fórmula que la describe?",
     "options": [
       "$f(x) = \\dfrac{0{,}5}{x}$",
       "$f(x) = \\dfrac{2}{x}$",
@@ -1313,14 +739,14 @@
       -4,
       4
     ],
-    "explanation": "Multiplicar una función por una constante entre $0$ y $1$ achica su gráfica verticalmente.\n\nacercando la curva al eje $X$ sin mover sus asíntotas.\n$f(x)=\\frac{0{,}5}{x}=\\frac{1}{2}\\cdot\\frac{1}{x}$: todos los valores se reducen a la mitad.\n\nLa curva es más plana, más cerca del eje $X$, que la hipérbola básica $1/x$.\n\nMultiplicar el denominador en cambio agranda la curva, así que conviene fijarse bien dónde está el factor.",
+    "explanation": "Multiplicar una función por una constante entre $0$ y $1$ achica su gráfica verticalmente.\n\nEso acerca la curva al eje $X$ sin mover sus asíntotas.\n\nAcá:\n$$f(x) = \\frac{0{,}5}{x} = \\frac{1}{2}\\cdot\\frac{1}{x}$$\nTodos los valores de $1/x$ quedan reducidos a la mitad.\n\nPor eso la curva es más plana, más cerca del eje $X$, que la hipérbola básica $1/x$.\n\nMultiplicar el denominador, en cambio, agranda la curva, así que conviene fijarse bien dónde está ubicado el factor.",
     "reviewed": false,
     "tags": [
-      "valor-asintota-horizontal"
+      "formula-desde-grafico"
     ]
   },
   {
-    "question": "La gráfica tiene AV en $x = 5$ y pasa por los puntos $(0, -1)$ y $(6, 1)$. ¿Cuál es la fórmula?",
+    "question": "La gráfica tiene una asíntota vertical en $x = 5$.\n\nAdemás, pasa por los puntos $(4, -2)$ y $(6, 0)$.\n\n¿Cuál es la fórmula que la describe?",
     "options": [
       "$f(x) = \\dfrac{1}{x-5}$",
       "$f(x) = \\dfrac{1}{x-5} - 1$",
@@ -1329,7 +755,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "AV en x=5, AH en y=-1: denominador x-5, desplazamiento -1.",
+    "feedback_correct": "El denominador $x-5$ ubica la asíntota vertical en $x=5$, y el término $-1$ fuera de la fracción desplaza la horizontal a $y=-1$.",
     "feedback_incorrect": [
       "Esa fórmula tiene la AV correcta, pero le falta el desplazamiento vertical que muestra el gráfico.",
       null,
@@ -1343,44 +769,14 @@
       -5,
       3
     ],
-    "explanation": "Cuando una hipérbola está desplazada tanto horizontal como verticalmente, hay que leer dos parámetros por separado: el denominador fija la AV y un término sumado fuera de la fracción fija la AH.\n\nAV en $x=5$ → denominador $x-5$.\n\nLa AH no es $y=0$ sino $y=-1$ \n\n(desplazamiento $-1$): :.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
+    "explanation": "Cuando una hipérbola está desplazada tanto horizontal como verticalmente, hay que leer dos parámetros por separado.\n\nEl denominador fija la asíntota vertical, y un término sumado fuera de la fracción fija la horizontal.\n\nLa asíntota vertical en $x=5$ pide un denominador $x-5$.\n\nCon $f(x) = 1/(x-5) - 1$:\n$$f(6) = \\frac{1}{6-5} - 1 = 0$$\nQue coincide con uno de los puntos dados.\n\nVerificar con un punto conocido, además de leer las asíntotas, confirma que el desplazamiento vertical sea el correcto y no otro parecido.",
     "reviewed": false,
     "tags": [
-      "direccion-ramas"
+      "formula-desde-grafico"
     ]
   },
   {
-    "question": "Observá la gráfica. La AH está en $y = 1$ y la AV en $x = 0$. ¿Cuál es la fórmula?",
-    "options": [
-      "$f(x) = \\dfrac{x}{x+1}$",
-      "$f(x) = \\dfrac{1}{x} + 1$",
-      "$f(x) = \\dfrac{x + 1}{x}$",
-      "$f(x) = \\dfrac{x+1}{x+1}$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "$\\frac{x+1}{x} = 1$.",
-    "feedback_incorrect": [
-      "Esa fórmula ubica la asíntota vertical en un punto distinto al que muestra el gráfico.",
-      "Esa fórmula también da AV en $x=0$ y AH en $y=1$, pero conviene verificar si es una forma equivalente o distinta de la fracción del gráfico.",
-      null,
-      "Esa expresión se simplifica a una función constante, sin ninguna asíntota vertical."
-    ],
-    "graph_fn": "(x + 1) / x",
-    "graph_view": [
-      -5,
-      5,
-      -4,
-      6
-    ],
-    "explanation": "Cuando numerador y denominador tienen el **mismo grado**.\n\nconviene dividir para reescribir la fracción como una constante más un término simple.\n\ny así compararla directamente con la AV y la AH leídas en el gráfico. ::AV en $x=0$ (denominador=0) y AH en $y=1$ (coeficientes iguales.\n\n$1/1=1$).\n\nEs equivalente a $\\frac{1}{x}+1$, aunque escrita de otra forma.\n\nDos fórmulas que parecen distintas pueden describir exactamente la misma curva.",
-    "reviewed": false,
-    "tags": [
-      "monotonia-intervalo-graf"
-    ]
-  },
-  {
-    "question": "Estudiá la función:\n$$t(n) = \\dfrac{12}{n}$$\nHoras. El gráfico muestra esta función para $n > 0$.\n\n¿Cuánto tiempo tarda si son 4 personas?",
+    "question": "Estudiá la función que modela, en horas, el tiempo que tardan $n$ personas en terminar juntas una tarea:\n$$t(n) = \\dfrac{12}{n}$$\nEl gráfico muestra esta función para $n > 0$.\n\n¿Cuánto tiempo tarda si son $4$ personas?",
     "options": [
       "$4$ horas",
       "$3$ horas",
@@ -1403,44 +799,44 @@
       0,
       13
     ],
-    "explanation": "En un contexto de trabajo compartido, la fórmula $k/n$ modela cómo el tiempo necesario **decrece** a medida que aumenta la cantidad de personas que colaboran.\n\nSustituimos $n=4$ en la fórmula: $t(4)=\\frac{12}{4}=3$ horas.\n\nEn el gráfico, el punto $(4, 3)$ está sobre la curva.\n\nCuantas más personas se suman, menos tiempo se necesita: la función es decreciente en $(0, +\\infty)$.\n\nConviene siempre sustituir con cuidado en vez de operar los números del enunciado a ojo.",
+    "explanation": "En un contexto de trabajo compartido, la fórmula $k/n$ modela cómo el tiempo necesario **decrece** a medida que aumenta la cantidad de personas que colaboran.\n\nSustituimos $n=4$ en la fórmula: $t(4)=12/4=3$ horas.\n\nEn el gráfico, el punto $(4, 3)$ está sobre la curva.\n\nCuantas más personas se suman, menos tiempo se necesita: la función es decreciente en $(0, +\\infty)$.\n\nConviene siempre sustituir con cuidado en vez de operar los números del enunciado a ojo.",
     "reviewed": false,
     "tags": [
-      "interceptos-x-graf"
+      "contexto-cotidiano-racional"
     ]
   },
   {
-    "question": "Examiná la función:\n$$v(t) = \\dfrac{60}{t}$$\nKm/h. El gráfico muestra esta función para $t > 0$.\n\n¿Cuánto tarda en recorrerlos a $30$ km/h?",
+    "question": "La curva pasa por el punto $(5, 12)$ y solo se grafica para valores positivos de $x$.\n\n¿Cuál es la fórmula que la describe?",
     "options": [
-      "$\\dfrac{1}{2}$ hora",
-      "$30$ horas",
-      "$2$ horas",
-      "$60$ horas"
+      "$f(x) = \\dfrac{12}{x}$",
+      "$f(x) = \\dfrac{5}{x}$",
+      "$f(x) = \\dfrac{x}{60}$",
+      "$f(x) = \\dfrac{60}{x}$"
     ],
-    "correct_index": 2,
+    "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "$v(t) = 2$ horas.",
+    "feedback_correct": "$60/5 = 12$: el producto de las coordenadas del punto da la constante $k$ de $f(x)=k/x$.",
     "feedback_incorrect": [
-      "Ese valor sale de invertir la fracción: revisá bien qué va dividido por qué en la ecuación.",
-      "Ese valor confunde la velocidad con el tiempo buscado: revisá qué representa cada número de la fórmula.",
-      null,
-      "Ese valor es la distancia total, no el tiempo que se busca despejar de la ecuación."
+      "Ese valor es la altura del punto marcado, pero la constante $k$ sale de multiplicar las dos coordenadas, no de copiar una sola.",
+      "Ese valor es la posición horizontal del punto marcado, pero la constante $k$ sale de multiplicar las dos coordenadas, no de copiar una sola.",
+      "Esa fórmula crece con $x$ en vez de decrecer, así que no puede describir una curva que baja como esta.",
+      null
     ],
     "graph_fn": "60 / x",
     "graph_view": [
       0,
-      12,
+      15,
       0,
-      12
+      15
     ],
-    "explanation": "Cuando el dato conocido es el valor de salida de la función, hay que **despejar** la variable de entrada a partir de la ecuación, no simplemente leerla directamente.\n\nBuscamos $t$ tal que $v(t)=30$: : horas.En el gráfico.\n\nla intersección con $v=30$ ocurre en $t=2$.\n\nConviene despejar con cuidado en vez de invertir la fracción de memoria, para no confundir qué cantidad queda arriba y cuál abajo.",
+    "explanation": "En una función de la forma $f(x) = k/x$, la constante $k$ es el producto de las coordenadas de cualquier punto de la curva.\n\nEsto se debe a que $f(x)\\cdot x = k$ para todo punto sobre la curva.\n\nCon el punto $(5, 12)$:\n$$k = 5 \\times 12 = 60$$\nAsí que la fórmula es $f(x) = 60/x$.\n\nTomar solo una de las dos coordenadas como si fuera $k$ ignora que la constante depende del producto completo, no de un solo valor leído del gráfico.",
     "reviewed": false,
     "tags": [
-      "cantidad-asintotas-totales"
+      "formula-desde-grafico"
     ]
   },
   {
-    "question": "Para dividir un presupuesto de \\$200 en partes iguales entre $n$ personas, cada una recibe $f(n) = \\dfrac{200}{n}$ pesos. El gráfico muestra $f$ para $n \\geq 1$.\n\n¿Cuánto recibe cada persona si son $8$?",
+    "question": "Un presupuesto de \\$200 se reparte en partes iguales entre $n$ personas.\n\nCada persona recibe:\n$$f(n) = \\dfrac{200}{n}$$\nEl gráfico muestra esta función para $n \\geq 1$.\n\n¿Cuánto recibe cada persona si son $8$?",
     "options": [
       "\\$200",
       "\\$40",
@@ -1459,32 +855,32 @@
     "graph_fn": "200 / x",
     "graph_view": [
       0,
-      20,
+      30,
       0,
-      50
+      30
     ],
-    "explanation": "Repartir un monto fijo entre una cantidad variable de personas es un ejemplo clásico de función racional de la forma $k/n$.\n\ndonde a más personas le corresponde menos a cada una.\n$f(8)=\\frac{200}{8}=25$ pesos por persona.\n\nEn el gráfico, el punto $(8, 25)$ está sobre la curva descendente.\n\nConviene dividir el monto total entre la cantidad exacta de personas, sin redondear los números de la cuenta.",
+    "explanation": "Repartir un monto fijo entre una cantidad variable de personas es un ejemplo clásico de función racional de la forma $k/n$, donde a más personas le corresponde menos a cada una.\n\nSustituyendo $n=8$: $f(8)=200/8=25$ pesos por persona.\n\nEn el gráfico, el punto $(8, 25)$ está sobre la curva descendente.\n\nConviene dividir el monto total entre la cantidad exacta de personas, sin redondear los números de la cuenta.",
     "reviewed": false,
     "tags": [
-      "ubicacion-asintota-vertical"
+      "contexto-cotidiano-racional"
     ]
   },
   {
-    "question": "Considerá la función:\n$$c(v) = \\dfrac{10}{v}$$\nDonde $v$ es el volumen de agua en litros. El gráfico muestra $c$ para $v > 0$.\n\n¿Cuánto vale la concentración cuando el volumen es $5$ litros?",
+    "question": "La curva pasa por el punto $(2, 5)$.\n\nSolo se grafica para valores positivos de $x$ e $y$.\n\n¿Cuál es la fórmula que la describe?",
     "options": [
-      "$2$ g/L",
-      "$5$ g/L",
-      "$10$ g/L",
-      "$50$ g/L"
+      "$f(x) = \\dfrac{2}{x}$",
+      "$f(x) = \\dfrac{5}{x}$",
+      "$f(x) = \\dfrac{10}{x}$",
+      "$f(x) = -\\dfrac{10}{x}$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$c(5) = 10/5 = 2$ g/L.",
+    "feedback_correct": "$2 \\times 5 = 10$: el producto de las coordenadas del punto da la constante $k$ de $f(x)=k/x$.",
     "feedback_incorrect": [
+      "Ese valor es la posición horizontal del punto marcado, pero la constante $k$ sale de multiplicar las dos coordenadas.",
+      "Ese valor es la altura del punto marcado, pero la constante $k$ sale de multiplicar las dos coordenadas.",
       null,
-      "Ese valor confunde el volumen de agua con la concentración resultante.",
-      "Ese valor es el numerador de la fórmula sin dividir por el volumen de agua.",
-      "Ese valor sale de multiplicar en vez de dividir: revisá la operación que indica la fórmula."
+      "Ese signo negativo ubicaría la curva en los cuadrantes opuestos a los que muestra el gráfico."
     ],
     "graph_fn": "10 / x",
     "graph_view": [
@@ -1493,7 +889,7 @@
       0,
       11
     ],
-    "explanation": "En un contexto de concentración, la fórmula $k/v$ modela cómo diluir una cantidad fija de sustancia en un volumen creciente de agua hace que la concentración **decrezca**.\n$c(5)=\\frac{10}{5}=2$ g/L.\n\nA más agua, menor concentración: la función es decreciente en $(0,+\\infty)$.\n\nEn el gráfico, el punto $(5, 2)$ está sobre la curva.\n\nConviene sustituir el volumen dado en la fórmula en vez de estimar la concentración a ojo desde el gráfico.",
+    "explanation": "Para una función de la forma $f(x) = k/x$, cualquier punto de la curva cumple $f(x)\\cdot x = k$.\n\nAsí, la constante $k$ se obtiene multiplicando las dos coordenadas de un punto conocido.\n\nCon el punto $(2, 5)$:\n$$k = 2 \\times 5 = 10$$\nAsí que la fórmula es $f(x) = 10/x$.\n\nTomar una sola coordenada como si fuera $k$, en vez de multiplicar ambas, da una fórmula que no pasa por el punto marcado.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"

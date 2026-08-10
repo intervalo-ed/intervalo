@@ -41,43 +41,44 @@ Incluidas en FORM polynomial (y algunos FORM quadratic):
 | Suma de cubos | $a^3+b^3 = (a+b)(a^2-ab+b^2)$ |
 | Diferencia de cubos | $a^3-b^3 = (a-b)(a^2+ab+b^2)$ |
 
-### Cobertura por skill (polynomial, 200 ejercicios)
+### Cobertura por skill (polynomial, 90 ejercicios)
 
-**LEXI (50):** grado, coef. principal y su signo, término independiente = f(0), forma estándar vs factorizada, raíces/ceros (cantidad ≤ grado), multiplicidad (simple/doble/triple), dominio = ℝ, imagen (ℝ si impar; acotada si par), comportamiento en ±∞, extremos locales (máx n−1), paridad (polinomio par/impar), monotonía de x³, punto de inflexión, raíces complejas conjugadas, Teorema Fundamental. Identidades notables: BCP, diferencia cuadrados, cubo del binomio, suma/diferencia de cubos.
+> **Recorte ago-2026:** cada skill se redujo de 50 a 30 ejercicios (factor ~0.6), recortando proporcionalmente por subfamilia (método de mayor resto) y priorizando borrar los ejercicios peor calificados por `validate_content.py`. Algunas subfamilias con cupo original de 1 quedaron en 0 (ver tablas abajo) y ya no tienen ejercicios en el archivo.
 
-**CLSF (50):** desde fórmula (vs racional/radical/exponencial/logarítmica), desde gráfico (S=cúbica, W/M=cuártica, cambios de dirección), cotidiano (montaña rusa, temperatura, caudal), comportamiento en infinito (paridad y signo), imagen (acotada/ℝ), extremos locales e imagen según paridad, monotonía, distinguir racional (asíntota) de polinómica (no tiene). Grillas con `graph_fn` para 3 ejercicios.
+**LEXI (30):** grado, coef. principal y su signo, término independiente = f(0), forma estándar vs factorizada, raíces/ceros (cantidad ≤ grado), multiplicidad (simple/doble/triple), dominio = ℝ, imagen (ℝ si impar; acotada si par), comportamiento en ±∞, extremos locales (máx n−1), paridad (polinomio par/impar), monotonía de x³, punto de inflexión, raíces complejas conjugadas, Teorema Fundamental. Identidades notables: BCP, diferencia cuadrados, cubo del binomio, suma/diferencia de cubos.
 
-**FORM (50):** coeficientes desde forma estándar, f(0) = término independiente, evaluar f(valor), grado del producto/suma, forma factorizada ↔ raíces (incluye raíz doble/triple), coeficiente principal en factorizada, gráfico → fórmula (5 ejercicios con `graph_fn`). Identidades notables: BCP (×8), diferencia de cuadrados (×2), cubo del binomio (×6), suma/diferencia de cubos (×4).
+**FORM (30):** coeficientes desde forma estándar, f(0) = término independiente, evaluar f(valor), grado del producto/suma, forma factorizada ↔ raíces (incluye raíz doble/triple), coeficiente principal en factorizada, gráfico → fórmula (4 ejercicios con `graph_fn`). Identidades notables: BCP (×2), diferencia de cuadrados (×1), cubo del binomio (×4), suma/diferencia de cubos (×2).
 
-**GRAF (50):** *Tipo A (25)*: leer propiedades desde gráfico — raíces, grado (por forma S/W/M y extremos locales), signo coef. principal (por dirección de extremos), f(0) = intersección eje y, multiplicidad de raíz (cruza vs toca), imagen (acotada o ℝ), mínimo/máximo global (solo en par), extremos locales, monotonía, dominio. *Tipo B (15)*: identificar la fórmula entre 4 opciones dado el gráfico. *Tipo C (10)*: contexto cotidiano + gráfico (montaña rusa, temperatura, caudal, ruta serrana, ventas).
+**GRAF (30):** *Tipo A (15)*: leer propiedades desde gráfico — raíces, grado (por forma S/W/M y extremos locales), signo coef. principal (por dirección de extremos), f(0) = intersección eje y, multiplicidad de raíz (cruza vs toca), imagen (acotada o ℝ), mínimo/máximo global (solo en par), extremos locales, monotonía. *Tipo B (9)*: identificar la fórmula entre 4 opciones dado el gráfico. *Tipo C (6)*: contexto cotidiano + gráfico (montaña rusa, temperatura, caudal, ruta serrana, ventas).
 
 ### Distribución objetivo, con `tags` (ver `authoring-context.md` §Etiquetas)
 
 Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026, mismo proceso que `linear`/`quadratic`). El slug es el valor exacto que va en `"tags": ["<slug>"]` de cada ejercicio.
 
-**LEXI (50):**
+**LEXI (30):**
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Identidades notables (BCP, dif. cuadrados, cubo binomio, suma/dif. cubos) | 7 | `identidades-notables` |
-| Multiplicidad de raíz (simple/doble/triple, toca vs. cruza) | 5 | `multiplicidad-raiz` |
-| Comportamiento en extremos según grado/signo | 4 | `comportamiento-extremos-infinito` |
-| Identificar si una expresión es/no es polinomio (o monomio) | 3 | `identificar-polinomio` |
-| Grado de un polinomio dado (incl. caso grado 0) | 3 | `grado-identificacion` |
-| Nombre/lectura de coeficiente principal y término independiente | 3 | `coeficiente-termino-nombre` |
-| Cantidad máxima de raíces reales | 3 | `raices-cantidad-maxima` |
-| Cantidad máxima de extremos locales | 3 | `extremos-locales-maximo` |
-| Imagen según grado/paridad | 3 | `imagen-polinomio` |
-| Forma estándar vs. factorizada (para qué sirve, cómo se llama) | 3 | `forma-estandar-factorizada` |
-| Concepto de extremo local (qué significa un máx/mín local) | 2 | `extremo-local-concepto` |
-| Paridad de la función (par/impar, no confundir con paridad del grado) | 2 | `paridad-funcion` |
-| Grado de un producto/suma de polinomios | 2 | `grado-operaciones` |
-| Raíces complejas conjugadas | 2 | `raices-complejas-conjugadas` |
-| Dominio de un polinomio | 2 | `dominio-polinomio` |
+| Identidades notables (BCP, dif. cuadrados, cubo binomio, suma/dif. cubos) | 4 | `identidades-notables` |
+| Multiplicidad de raíz (simple/doble/triple, toca vs. cruza) | 3 | `multiplicidad-raiz` |
+| Comportamiento en extremos según grado/signo | 2 | `comportamiento-extremos-infinito` |
+| Identificar si una expresión es/no es polinomio (o monomio) | 2 | `identificar-polinomio` |
+| Grado de un polinomio dado (incl. caso grado 0) | 2 | `grado-identificacion` |
+| Nombre/lectura de coeficiente principal y término independiente | 2 | `coeficiente-termino-nombre` |
+| Cantidad máxima de raíces reales | 2 | `raices-cantidad-maxima` |
+| Cantidad máxima de extremos locales | 2 | `extremos-locales-maximo` |
+| Imagen según grado/paridad | 2 | `imagen-polinomio` |
+| Forma estándar vs. factorizada (para qué sirve, cómo se llama) | 2 | `forma-estandar-factorizada` |
+| Paridad de la función (par/impar, no confundir con paridad del grado) | 1 | `paridad-funcion` |
+| Grado de un producto/suma de polinomios | 1 | `grado-operaciones` |
+| Raíces complejas conjugadas | 1 | `raices-complejas-conjugadas` |
+| Dominio de un polinomio | 1 | `dominio-polinomio` |
 | Punto de inflexión | 1 | `punto-inflexion` |
 | Concepto de extremo global (mínimo/máximo global) | 1 | `extremo-global-concepto` |
-| Contar términos de un polinomio dado | 1 | `contar-terminos` |
-| **Total** | **50** | |
+| Concepto de extremo local (qué significa un máx/mín local) | 1 | `extremo-local-concepto` |
+| **Total** | **30** | |
+
+Nota: `contar-terminos` (cupo 1 → 0.6 redondeado por resto) quedó sin ejercicios tras el recorte; no generar más bajo ese slug salvo que se decida revertir el recorte.
 
 **CLSF (50):**
 
@@ -102,59 +103,61 @@ Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026, mismo proceso 
 | Multiplicidad de raíz | 1 | `multiplicidad-raiz` |
 | **Total** | **50** | |
 
-**FORM (50):**
+**FORM (30):**
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Evaluar $p(\text{valor})$ | 9 | `evaluar-f` |
-| Identificar fórmula desde gráfico (`graph_fn`) | 7 | `grafico-a-formula` |
-| Expandir cubo de binomio $(a\pm b)^3$ | 6 | `expandir-cubo-binomio` |
-| Leer coeficientes desde forma estándar o factorizada | 4 | `leer-coeficientes` |
-| Expandir binomio cuadrado perfecto $(a\pm b)^2$ | 4 | `expandir-bcp` |
-| Factorizar suma/diferencia de cubos | 4 | `factorizar-suma-diferencia-cubos` |
-| Grado de un polinomio dado | 3 | `grado-desde-formula` |
-| Raíces desde forma factorizada (incl. multiplicidad) | 3 | `raices-desde-formula` |
-| Grado de un producto/suma de polinomios | 2 | `grado-operaciones` |
-| Armar forma factorizada dadas las raíces | 2 | `armar-forma-factorizada` |
-| Factorizar diferencia de cuadrados | 2 | `factorizar-diferencia-cuadrados` |
-| Factorizar trinomio a binomio cuadrado perfecto | 2 | `factorizar-bcp` |
+| Evaluar $p(\text{valor})$ | 6 | `evaluar-f` |
+| Identificar fórmula desde gráfico (`graph_fn`) | 4 | `grafico-a-formula` |
+| Expandir cubo de binomio $(a\pm b)^3$ | 4 | `expandir-cubo-binomio` |
+| Leer coeficientes desde forma estándar o factorizada | 2 | `leer-coeficientes` |
+| Expandir binomio cuadrado perfecto $(a\pm b)^2$ | 2 | `expandir-bcp` |
+| Factorizar suma/diferencia de cubos | 2 | `factorizar-suma-diferencia-cubos` |
+| Grado de un polinomio dado | 2 | `grado-desde-formula` |
+| Raíces desde forma factorizada (incl. multiplicidad) | 2 | `raices-desde-formula` |
+| Grado de un producto/suma de polinomios | 1 | `grado-operaciones` |
+| Armar forma factorizada dadas las raíces | 1 | `armar-forma-factorizada` |
+| Factorizar diferencia de cuadrados | 1 | `factorizar-diferencia-cuadrados` |
+| Factorizar trinomio a binomio cuadrado perfecto | 1 | `factorizar-bcp` |
 | Contar términos de un polinomio dado | 1 | `contar-terminos` |
 | Expandir producto de tres factores (binomio al cuadrado por lineal) | 1 | `expandir-producto-tres-factores` |
-| **Total** | **50** | |
+| **Total** | **30** | |
 
-**GRAF (50):** conserva los tipos A/B/C ya documentados arriba, con slug por sub-familia dentro de cada tipo.
+**GRAF (30):** conserva los tipos A/B/C ya documentados arriba, con slug por sub-familia dentro de cada tipo.
 
-*Tipo A — leer propiedades desde `graph_fn` (25):*
+*Tipo A — leer propiedades desde `graph_fn` (15):*
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Extremos locales (cantidad) | 4 | `lectura-extremos-locales` |
-| Raíces (cantidad) | 3 | `lectura-raices` |
-| Grado (par/impar, mínimo posible) | 3 | `lectura-grado` |
-| Comportamiento en extremos ($x \to \pm\infty$) | 3 | `lectura-comportamiento-extremos` |
-| Ordenada al origen, $f(0)$ | 2 | `lectura-ordenada-origen` |
-| Multiplicidad de raíz (toca vs. cruza) | 2 | `lectura-multiplicidad-raiz` |
-| Imagen (acotada o ℝ) | 2 | `lectura-imagen` |
-| Extremo global (mínimo/máximo global) | 2 | `lectura-extremo-global` |
+| Extremos locales (cantidad) | 2 | `lectura-extremos-locales` |
+| Raíces (cantidad) | 2 | `lectura-raices` |
+| Grado (par/impar, mínimo posible) | 2 | `lectura-grado` |
+| Comportamiento en extremos ($x \to \pm\infty$) | 2 | `lectura-comportamiento-extremos` |
+| Ordenada al origen, $f(0)$ | 1 | `lectura-ordenada-origen` |
+| Multiplicidad de raíz (toca vs. cruza) | 1 | `lectura-multiplicidad-raiz` |
+| Imagen (acotada o ℝ) | 1 | `lectura-imagen` |
+| Extremo global (mínimo/máximo global) | 1 | `lectura-extremo-global` |
 | Signo del coeficiente principal | 1 | `lectura-signo-coeficiente` |
 | Monotonía global | 1 | `lectura-monotonia-global` |
 | Signo de la función en un intervalo | 1 | `lectura-signo-intervalo` |
-| Dominio | 1 | `lectura-dominio` |
-| **Subtotal Tipo A** | **25** | |
+| **Subtotal Tipo A** | **15** | |
 
-*Tipo B — identificar fórmula dado el gráfico (15):* todos bajo `grafico-a-formula` (mismo slug que en FORM, es la misma habilidad aplicada en GRAF).
+Nota: `lectura-dominio` (cupo 1 → 0.6 redondeado por resto) quedó sin ejercicios tras el recorte.
 
-*Tipo C — contexto cotidiano + gráfico (10):*
+*Tipo B — identificar fórmula dado el gráfico (9):* todos bajo `grafico-a-formula` (mismo slug que en FORM, es la misma habilidad aplicada en GRAF).
+
+*Tipo C — contexto cotidiano + gráfico (6):*
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Extremos locales del modelo (picos/valles) | 4 | `contexto-extremos` |
-| Raíces del modelo (veces que vuelve a cero) | 2 | `contexto-raices` |
+| Extremos locales del modelo (picos/valles) | 2 | `contexto-extremos` |
+| Raíces del modelo (veces que vuelve a cero) | 1 | `contexto-raices` |
 | Signo del coeficiente principal en contexto | 1 | `contexto-signo-coeficiente` |
 | Extremo global en contexto | 1 | `contexto-extremo-global` |
 | Monotonía en contexto | 1 | `contexto-monotonia` |
-| Comportamiento en extremos en contexto | 1 | `contexto-comportamiento-extremos` |
-| **Subtotal Tipo C** | **10** | |
+| **Subtotal Tipo C** | **6** | |
+
+Nota: `contexto-comportamiento-extremos` (cupo 1 → 0.6 redondeado por resto) quedó sin ejercicios tras el recorte.
 
 ### `graph_fn` para GRAF polynomial
 
@@ -234,13 +237,13 @@ Patrones concretos a aplicar en los 200 ejercicios al refactorizar, más allá d
 ### Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal:**
-- [ ] `feedback_incorrect` completo en los 50 ejercicios por skill: `array` del largo de `options`, `null` en el correcto (incluye reescribir los `string` legacy que duplican `feedback_correct`)
+- [ ] `feedback_incorrect` completo en los 30 ejercicios por skill: `array` del largo de `options`, `null` en el correcto (incluye reescribir los `string` legacy que duplican `feedback_correct`)
 - [ ] Ningún `\n\n` pegado a un bloque `$$...$$`
 - [ ] Ningún em-dash `—` ni en-dash `–`
 - [ ] Ninguna explicación con viñetas `•` ni sub-ejercicios `-`
 - [ ] Cierres de `explanation` en advertencia/consejo, sin humor ni antropomorfismo
 - [ ] `explanation` supera los 300 caracteres entre las 3 partes
-- [ ] `correct_index` variado, no concentrado en un solo índice (objetivo ~12-13 por índice)
+- [ ] `correct_index` variado, no concentrado en un solo índice (objetivo ~7-8 por índice, tras el recorte a 30 ejercicios por skill)
 - [ ] Montos con `\$` escapado
 - [ ] "Cuadrática" y "Polinómica" nunca en la misma grilla de opciones (CLSF)
 - [ ] Cada ejercicio tiene `"tags": ["<slug>"]` con el slug de su fila en la tabla de distribución de su skill (sección "Distribución objetivo" arriba); contar por slug y verificar que coincide con la cantidad de la tabla
