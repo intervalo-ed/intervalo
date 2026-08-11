@@ -2,9 +2,9 @@
 
 Belt: `blue`, Unit: `limits`, Topic: `infinite_limits`
 
-Skills en este topic: `LEXI`, `GRAF`, `RESL`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
+Skills en este topic: `LEXI`, `GRAF`, `RESL`. **30 ejercicios cada uno (90 en total)** al cerrar el refactor.
 
-Este topic tiene 3 ítems (uno por skill): `LEXI`, `GRAF`, `RESL`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
+Este topic tiene 3 ítems (uno por skill): `LEXI`, `GRAF`, `RESL`. **30 ejercicios cada uno (90 en total)** al cerrar el refactor.
 
 **Estado.** Los ejercicios viejos (`LEXI`, `GRAF`, `RESL`) se dejan tal cual en el folder por ahora; el refactor a la nueva distribución se hace en otro turno. Este doc especifica el alcance nuevo, las reglas duras de restricción y la distribución objetivo por skill.
 
@@ -42,7 +42,7 @@ Los ejercicios que quiebren esta regla se descartan y se reescriben.
 
 ## Correcciones de formato transversales (los 3 skills)
 
-Reglas de authoring que se aplican al escribir los 150 ejercicios (misma línea que los otros topic-contexts):
+Reglas de authoring que se aplican al escribir los 90 ejercicios (misma línea que los otros topic-contexts):
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`: (a) concepto abstracto, (b) aplicación paso a paso al caso (usar `\begin{aligned}` para desarrollos), (c) cierre útil o advertencia técnica en voz neutra. Sin viñetas `•`, sin sub-`-`, sin em-dash `—`, sin humor ni antropomorfismos.
@@ -58,13 +58,13 @@ Reglas de authoring que se aplican al escribir los 150 ejercicios (misma línea 
 
 ---
 
-## `feedback_incorrect` en los 150 ejercicios
+## `feedback_incorrect` en los 90 ejercicios
 
 Completar con `array<string|null>` paralelo a `options`, `null` en el índice correcto. Voz descriptiva del concepto, en segunda persona amable. Una oración por distractor, autosuficiente. Las confusiones fuente por skill están en cada sección.
 
 ---
 
-## LEXI, 50 ejercicios
+## LEXI, 30 ejercicios
 
 ### Qué evalúa
 Destruir los falsos paradigmas del **álgebra del infinito** y formalizar las reglas teóricas de **dominancia** y **asintotismo**. Diferenciar $\tfrac{k}{\infty}$ de $\tfrac{k}{0}$, contrastar asíntota horizontal vs vertical, comparar velocidades de crecimiento entre familias.
@@ -76,12 +76,14 @@ Destruir los falsos paradigmas del **álgebra del infinito** y formalizar las re
 
 ### Distribución por sub-familia
 
+**Recortado (ronda ago-2026) de 50 → 30 ejercicios por skill, escalando cada sub-familia proporcionalmente (factor ~0.6, exacto sin remainder).**
+
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Álgebra del infinito y el cero | $\tfrac{k}{\infty} \to 0$ vs $\tfrac{k}{0^+} \to \infty$. Contraste con la indeterminación $\tfrac{0}{0}$. Casos $\tfrac{\infty}{\infty}$ y $\infty - \infty$ como indeterminaciones (sin resolver). | `algebra-infinito-cero` | 15 |
-| B. Contraste de asíntotas | Diferenciar $x \to \infty \implies L$ (asíntota horizontal) de $x \to a \implies \infty$ (asíntota vertical). Cuál se identifica en cada dirección de lectura. | `contraste-asintotas` | 15 |
-| C. Dominancia de grados en racionales | Preguntas teóricas sin cálculo: "¿qué sucede cuando el grado del denominador es estrictamente mayor?" — la respuesta es $0$. Cuando gana el numerador — diverge. Cuando son iguales — cociente de coeficientes principales. | `dominancia-grados-racionales` | 10 |
-| D. Crecimiento exponencial vs polinómico | Intuición teórica sobre dominancia entre familias: la exponencial supera a cualquier polinomio, y cualquier polinomio supera al logaritmo, cuando $x \to \infty$. | `crecimiento-exponencial-vs-polinomico` | 10 |
+| A. Álgebra del infinito y el cero | $\tfrac{k}{\infty} \to 0$ vs $\tfrac{k}{0^+} \to \infty$. Contraste con la indeterminación $\tfrac{0}{0}$. Casos $\tfrac{\infty}{\infty}$ y $\infty - \infty$ como indeterminaciones (sin resolver). | `algebra-infinito-cero` | 9 |
+| B. Contraste de asíntotas | Diferenciar $x \to \infty \implies L$ (asíntota horizontal) de $x \to a \implies \infty$ (asíntota vertical). Cuál se identifica en cada dirección de lectura. | `contraste-asintotas` | 9 |
+| C. Dominancia de grados en racionales | Preguntas teóricas sin cálculo: "¿qué sucede cuando el grado del denominador es estrictamente mayor?" — la respuesta es $0$. Cuando gana el numerador — diverge. Cuando son iguales — cociente de coeficientes principales. | `dominancia-grados-racionales` | 6 |
+| D. Crecimiento exponencial vs polinómico | Intuición teórica sobre dominancia entre familias: la exponencial supera a cualquier polinomio, y cualquier polinomio supera al logaritmo, cuando $x \to \infty$. | `crecimiento-exponencial-vs-polinomico` | 6 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **$\tfrac{k}{\infty}$ leído como indeterminación**: pensar que "$k$ dividido infinito" es una indeterminación. Describir: "dividir un número fijo entre algo que crece sin cota lleva el cociente a cero; no es una indeterminación".
@@ -98,7 +100,7 @@ Destruir los falsos paradigmas del **álgebra del infinito** y formalizar las re
 
 ---
 
-## GRAF, 50 ejercicios
+## GRAF, 30 ejercicios
 
 ### Qué evalúa
 Identificar el **comportamiento asintótico** a partir de una lectura visual: la altura a la que se estabiliza la curva en los extremos, la recta vertical donde diverge, y la asimetría entre extremos opuestos.
@@ -111,11 +113,13 @@ Identificar el **comportamiento asintótico** a partir de una lectura visual: la
 
 ### Distribución por sub-familia
 
+**Recortado (ronda ago-2026) de 50 → 30 ejercicios por skill, escalando cada sub-familia proporcionalmente (factor ~0.6, exacto sin remainder).**
+
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Identificación de asíntota horizontal | Leer a qué altura $y = L$ se estabiliza la curva cuando $x \to \pm\infty$. Distractores: el corte con $y$, el máximo local, un valor puntual en el interior. | `identificacion-asintota-horizontal` | 20 |
-| B. Identificación de asíntota vertical | Detectar en qué recta $x = a$ la curva se rompe y diverge. **Distractor principal**: confundir $x = a$ (la asíntota) con el corte en $x$ (donde $f = 0$). | `identificacion-asintota-vertical` | 15 |
-| C. Asimetría en el infinito | Gráficos donde $\lim_{x \to +\infty} \neq \lim_{x \to -\infty}$. Típico: exponenciales que tienen asíntota horizontal hacia un lado y explotan hacia el otro; racionales con distinto comportamiento extremo. | `asimetria-en-el-infinito` | 15 |
+| A. Identificación de asíntota horizontal | Leer a qué altura $y = L$ se estabiliza la curva cuando $x \to \pm\infty$. Distractores: el corte con $y$, el máximo local, un valor puntual en el interior. | `identificacion-asintota-horizontal` | 12 |
+| B. Identificación de asíntota vertical | Detectar en qué recta $x = a$ la curva se rompe y diverge. **Distractor principal**: confundir $x = a$ (la asíntota) con el corte en $x$ (donde $f = 0$). | `identificacion-asintota-vertical` | 9 |
+| C. Asimetría en el infinito | Gráficos donde $\lim_{x \to +\infty} \neq \lim_{x \to -\infty}$. Típico: exponenciales que tienen asíntota horizontal hacia un lado y explotan hacia el otro; racionales con distinto comportamiento extremo. | `asimetria-en-el-infinito` | 9 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Asíntota horizontal ↔ corte con $y$**: dar el valor $f(0)$ cuando se pregunta la asíntota horizontal. Describir: "la asíntota es a qué valor se acerca la curva en los extremos, no dónde cruza el eje $y$".
@@ -133,7 +137,7 @@ Identificar el **comportamiento asintótico** a partir de una lectura visual: la
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 30 ejercicios
 
 ### Qué evalúa
 Calcular la tendencia por límite directo o aplicando reglas de **dominancia de grados** en racionales cuando $x \to \pm\infty$, y evaluar **límites infinitos direccionales** analizando el signo del cero en el denominador cuando $x \to a$.
@@ -145,11 +149,13 @@ Calcular la tendencia por límite directo o aplicando reglas de **dominancia de 
 
 ### Distribución por sub-familia
 
+**Recortado (ronda ago-2026) de 50 → 30 ejercicios por skill, escalando cada sub-familia proporcionalmente (factor ~0.6, exacto sin remainder).**
+
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Racionales: mismo grado o gana denominador | $x \to \pm\infty$ con resultado constante (cociente de coeficientes principales) o $0$ (denominador de mayor grado). **Trampa**: signos negativos en los coeficientes principales. | `racionales-mismo-grado-o-denominador` | 20 |
-| B. Racionales: gana numerador | $x \to \pm\infty$ con resultado divergente ($+\infty$ o $-\infty$). **Desafío**: determinar el signo final correctamente cruzando signo de coeficientes principales con paridad del grado y dirección de $x$. | `racionales-gana-numerador` | 10 |
-| C. Cálculo de asíntota vertical | $\lim_{x \to a^{\pm}} \tfrac{k}{x - a}$ y variantes. **Desafío**: analizar si el "cero" del denominador tiende por $0^+$ o $0^-$, y cruzarlo con el signo del numerador para concluir $+\infty$ o $-\infty$. | `calculo-asintota-vertical` | 20 |
+| A. Racionales: mismo grado o gana denominador | $x \to \pm\infty$ con resultado constante (cociente de coeficientes principales) o $0$ (denominador de mayor grado). **Trampa**: signos negativos en los coeficientes principales. | `racionales-mismo-grado-o-denominador` | 12 |
+| B. Racionales: gana numerador | $x \to \pm\infty$ con resultado divergente ($+\infty$ o $-\infty$). **Desafío**: determinar el signo final correctamente cruzando signo de coeficientes principales con paridad del grado y dirección de $x$. | `racionales-gana-numerador` | 6 |
+| C. Cálculo de asíntota vertical | $\lim_{x \to a^{\pm}} \tfrac{k}{x - a}$ y variantes. **Desafío**: analizar si el "cero" del denominador tiende por $0^+$ o $0^-$, y cruzarlo con el signo del numerador para concluir $+\infty$ o $-\infty$. | `calculo-asintota-vertical` | 12 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Signo del coeficiente principal ignorado**: en $\lim_{x \to +\infty} \tfrac{-3x^2 + \ldots}{x^2 + \ldots}$ dar $3$ en vez de $-3$. Describir: "el cociente de coeficientes principales incluye el signo; $\tfrac{-3}{1} = -3$".
@@ -184,7 +190,7 @@ Corrección puntual del usuario sobre ejercicios de prueba de este topic (`corre
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 3 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 30 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna mención de L'Hôpital, derivadas, integrales, factorización ni racionalización
 - [ ] Explicaciones en 3 párrafos de prosa; sin viñetas, sub-`-`, em-dash, humor
 - [ ] Cierres de `explanation` en advertencia/consejo, voz neutra
@@ -199,22 +205,22 @@ Corrección puntual del usuario sobre ejercicios de prueba de este topic (`corre
 - [ ] Sin la palabra "escapar"/"escapa" para describir divergencia (usar "diverge", "crece sin cota", "tiende a $\pm\infty$")
 
 **LEXI:**
-- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
-- [ ] Distribución A/B/C/D respetada (15/15/10/10)
+- [ ] 30 ejercicios; **exactamente 3 opciones** por ejercicio
+- [ ] Distribución A/B/C/D respetada (9/9/6/6)
 - [ ] Negrita en primera mención de `límites al infinito`, `límites infinitos`, `asíntota horizontal`, `asíntota vertical`, `dominancia`, `divergencia`
 - [ ] Ningún ejercicio sugiere que $\tfrac{0}{0}$, $\tfrac{\infty}{\infty}$ o $\infty - \infty$ se puedan resolver con las técnicas de este tópico
 
 **GRAF:**
-- [ ] 50 ejercicios con `graph_fn` o gráfico embebido; asíntotas claramente visibles
-- [ ] Distribución A/B/C respetada (20/15/15)
+- [ ] 30 ejercicios con `graph_fn` o gráfico embebido; asíntotas claramente visibles
+- [ ] Distribución A/B/C respetada (12/9/9)
 - [ ] Asíntotas escritas como ecuación de recta (`y = L`, `x = a`), no como valor suelto
 - [ ] Cardinalidad ajustada: 4 si numérica/recta, 3 si conceptual
 - [ ] Opciones de existencia con `Sí` / `No` / `No se puede determinar`
 - [ ] Ningún ejercicio asume que el alumno vio el gráfico de otro ejercicio ("la misma gráfica del ejercicio anterior")
 
 **RESL:**
-- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
-- [ ] Distribución A/B/C respetada (20/10/20)
+- [ ] 30 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
+- [ ] Distribución A/B/C respetada (12/6/12)
 - [ ] Racionales exclusivamente en A y B; sin exponenciales, logs ni raíces
 - [ ] Sub-C con laterales explícitos; el signo del $0^{\pm}$ y el signo del numerador se justifican en la explicación
 - [ ] Ninguna aplicación de L'Hôpital

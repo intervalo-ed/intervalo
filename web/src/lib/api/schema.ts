@@ -387,6 +387,10 @@ export interface paths {
          *     JSON body / Content-Type ever gets blocked in the service worker's
          *     fetch context — we had zero of those land while chasing a recurring
          *     generic-fallback bug with no other client-side signal at all.
+         *
+         *     event="click" doubles as the "notification opened" signal (see sw.js
+         *     notificationclick): persists NotificationSend.opened_at so effectiveness
+         *     can be analyzed later per category/variant.
          */
         get: operations["push_diagnostic_beacon_push_diagnostic_get"];
         put?: never;
@@ -871,6 +875,8 @@ export interface components {
             title: string;
             /** Body */
             body: string;
+            /** Notification Id */
+            notification_id: number;
             /** Subscriptions */
             subscriptions: components["schemas"]["PushSubscriptionOut"][];
         };
@@ -912,6 +918,10 @@ export interface components {
             motivation?: string | null;
             /** Intro Item Correct */
             intro_item_correct?: boolean | null;
+            /** Attempts */
+            attempts?: number | null;
+            /** Response Time Ms */
+            response_time_ms?: number | null;
         };
         /** EnrollmentResponse */
         EnrollmentResponse: {
@@ -1004,30 +1014,6 @@ export interface components {
             total_exercises: number;
             /** Universities */
             universities: string[];
-        };
-        /** LevelInfo */
-        LevelInfo: {
-            /** Level */
-            level: number;
-            /** Xp In Level */
-            xp_in_level: number;
-            /** Xp Required */
-            xp_required: number;
-            /** Progress Pct */
-            progress_pct: number;
-        };
-        /** LevelInfoWithMissing */
-        LevelInfoWithMissing: {
-            /** Level */
-            level: number;
-            /** Xp In Level */
-            xp_in_level: number;
-            /** Xp Required */
-            xp_required: number;
-            /** Xp Missing */
-            xp_missing: number;
-            /** Progress Pct */
-            progress_pct: number;
         };
         /** NotificationSettings */
         NotificationSettings: {
@@ -1234,7 +1220,6 @@ export interface components {
             belt_progress: components["schemas"]["BeltProgressInfo"];
             /** Xp Earned */
             xp_earned: number;
-            level_info: components["schemas"]["LevelInfoWithMissing"];
             streak: components["schemas"]["StreakInfo"];
             /** Session Number */
             session_number: number;
@@ -1310,6 +1295,13 @@ export interface components {
             days_to_next: number;
             /** Is Max */
             is_max: boolean;
+            /**
+             * Tier Reached
+             * @default false
+             */
+            tier_reached: boolean;
+            /** Prev Multiplier */
+            prev_multiplier?: number | null;
             /** Counted Today */
             counted_today: boolean;
             /**
@@ -1424,7 +1416,6 @@ export interface components {
             topic_states: {
                 [key: string]: components["schemas"]["TopicProgress"];
             };
-            level_info: components["schemas"]["LevelInfo"];
             /** Main Session Done Today */
             main_session_done_today: boolean;
             /** Last Course */
@@ -2114,6 +2105,7 @@ export interface operations {
                 endpoint?: string | null;
                 raw_len?: string | null;
                 ua?: string | null;
+                notification_id?: number | null;
             };
             header?: never;
             path?: never;

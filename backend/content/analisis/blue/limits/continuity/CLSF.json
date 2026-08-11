@@ -1,6 +1,6 @@
 [
   {
-    "question": "En un punto $x=a$ el límite bilateral existe y vale $4$, pero $f(a)$ no está definida.\n\n¿Qué tipo de **discontinuidad** genera esta situación?",
+    "question": "En un punto $x=a$ el límite bilateral existe y vale $4$.\n\nSin embargo, $f(a)$ no está definida.\n\n¿Qué tipo de **discontinuidad** genera esta situación?",
     "options": [
       "Removible",
       "De salto",
@@ -16,14 +16,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función es **continua** en un punto solo si se cumplen tres condiciones a la vez: que el valor puntual esté definido, que el límite bilateral exista, y que ambos coincidan.\n\nEl límite representa el valor hacia el cual la función \"se aproxima\" cuando $x$ se acerca a $a$ desde ambos lados.\n\nindependientemente de si el punto $x=a$ está definido.\n\nEn este caso el límite existe y vale $4$, pero $f(a)$ no está definida, así que falla la primera condición desde el arranque.\n\nCuando el límite existe y es finito pero el punto falta o no coincide, la falla siempre se clasifica como **removible**, porque alcanza con redefinir un único valor para arreglarla.",
+    "explanation": "Una función es **continua** en un punto solo si se cumplen tres condiciones a la vez: que el valor puntual esté definido, que el límite bilateral exista, y que ambos coincidan.\n\nEl límite representa el valor hacia el cual la función se aproxima cuando $x$ se acerca a $a$ desde ambos lados, independientemente de si ese punto está definido.\n\nEn este caso el límite existe y vale $4$, pero $f(a)$ no está definida, así que falla la primera condición desde el arranque.\n\nCuando el límite existe y es finito pero el punto falta o no coincide, la falla siempre se clasifica como **removible**, porque alcanza con redefinir un único valor para arreglarla.",
     "reviewed": false,
     "tags": [
       "condiciones-formales-continuidad"
     ]
   },
   {
-    "question": "En $x=a$ se cumple que $f(a) = 5$ y que el límite bilateral existe y vale $5$.\n\n¿Qué diagnóstico corresponde en ese punto?",
+    "question": "En $x=a$ se cumple que $f(a) = 5$.\n\nAdemás, el límite bilateral existe y también vale $5$.\n\n¿Qué diagnóstico corresponde en ese punto?",
     "options": [
       "Removible",
       "Continua",
@@ -39,14 +39,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función es **continua** en un punto cuando se cumplen tres condiciones a la vez: que el valor puntual esté definido, que el límite bilateral exista, y que ambos coincidan entre sí.\n\nEl límite bilateral es el valor común al que la función se aproxima desde ambos lados cuando $x$ se acerca a $a$.\n\nAcá $f(a)=5$ está definida, el límite bilateral existe y también vale $5$, así que las tres condiciones se verifican simultáneamente.\n\nConviene no asumir apresuradamente una **discontinuidad**:\n\ncuando los tres requisitos se cumplen, el diagnóstico correcto es que la función es continua en ese punto, sin necesidad de clasificar ningún tipo de falla.",
+    "explanation": "Una función es **continua** en un punto cuando se cumplen tres condiciones a la vez: que el valor puntual esté definido, que el límite bilateral exista, y que ambos coincidan entre sí.\n\nEl límite bilateral es el valor común al que la función se aproxima desde ambos lados cuando $x$ se acerca a $a$.\n\nAcá $f(a)=5$ está definida, el límite bilateral existe y también vale $5$, así que las tres condiciones se verifican simultáneamente.\n\nConviene no asumir apresuradamente una **discontinuidad**: si los tres requisitos se cumplen, el diagnóstico es que la función es continua, sin necesidad de clasificar ningún tipo de falla.",
     "reviewed": false,
     "tags": [
       "condiciones-formales-continuidad"
     ]
   },
   {
-    "question": "En $x=a$ el límite lateral izquierdo vale $3$ y el límite lateral derecho vale $7$, mientras que $f(a)$ está definida en $3$.\n\n¿Qué tipo de **discontinuidad** corresponde en ese punto?",
+    "question": "En $x=a$ el límite lateral izquierdo vale $3$.\n\nEl límite lateral derecho vale $7$.\n\nAdemás, $f(a)$ está definida y vale $3$.\n\n¿Qué tipo de **discontinuidad** corresponde en ese punto?",
     "options": [
       "Removible",
       "Esencial",
@@ -62,14 +62,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La segunda condición de continuidad exige que el límite bilateral exista, lo que a su vez requiere que el límite lateral izquierdo y el derecho coincidan.\n\nLos límites laterales son los valores hacia los cuales la función se aproxima desde cada lado:\n\nel izquierdo es a qué se acerca cuando $x$ se acerca a $a$ por valores menores, y el derecho es a qué se acerca por valores mayores.\n\nAcá el lateral izquierdo vale $3$ y el derecho vale $7$.\n\ndos números finitos pero distintos entre sí, así que el límite bilateral no existe aunque $f(a)$ sí esté definida.\n\nCuando ambos laterales son finitos pero no coinciden, la falla se clasifica siempre como **de salto**, sin importar si el valor puntual está definido o no.",
+    "explanation": "La segunda condición de continuidad exige que el límite bilateral exista, lo que a su vez requiere que el límite lateral izquierdo y el derecho coincidan.\n\nLos límites laterales son los valores hacia los cuales la función se aproxima desde cada lado: el izquierdo cuando $x$ se acerca a $a$ por valores menores, y el derecho por valores mayores.\n\nAcá el lateral izquierdo vale $3$ y el derecho vale $7$, dos números finitos pero distintos entre sí, así que el límite bilateral no existe aunque el valor puntual sí esté definido.\n\nCuando ambos laterales son finitos pero no coinciden, la falla se clasifica siempre como **de salto**, sin importar si el valor puntual está definido o no.",
     "reviewed": false,
     "tags": [
       "condiciones-formales-continuidad"
     ]
   },
   {
-    "question": "En $x=a$ el límite lateral izquierdo diverge a $+\\infty$, mientras que el límite lateral derecho vale $2$.\n\n¿Qué tipo de discontinuidad corresponde en ese punto?",
+    "question": "En $x=a$ el límite lateral izquierdo diverge a $+\\infty$.\n\nEn cambio, el límite lateral derecho vale $2$.\n\n¿Qué tipo de **discontinuidad** corresponde en ese punto?",
     "options": [
       "De salto",
       "Esencial",
@@ -85,14 +85,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una falla se llama **esencial** cuando al menos uno de los límites laterales diverge a infinito o no existe por oscilación, sin importar qué pase con el otro lateral.\n\nLa divergencia a infinito significa que conforme $x$ se acerca a $a$.\n\nel valor de $f(x)$ crece sin cota en magnitud, sin estabilizarse en ningún número finito.\n\nEn este caso el lateral izquierdo crece sin cota hacia $+\\infty$, mientras que el derecho sí converge a $2$.\n\nCon que uno solo diverja alcanza para descartar tanto la continuidad como la clasificación removible o de salto.\n\nEsta es la categoría más grave de las tres: no hay forma de arreglarla redefiniendo un único punto, porque el problema no es puntual sino de comportamiento infinito cerca de $a$.",
+    "explanation": "Una falla se llama **esencial** cuando al menos uno de los límites laterales diverge a infinito o no existe por oscilación, sin importar qué pase con el otro lateral.\n\nLa divergencia a infinito significa que el valor de $f(x)$ crece sin cota en magnitud a medida que la variable se acerca a $a$, sin estabilizarse en ningún número finito.\n\nEn este caso el lateral izquierdo crece sin cota hacia $+\\infty$, mientras que el derecho sí converge a $2$.\n\nCon que uno solo diverja alcanza para descartar tanto la continuidad como la clasificación removible o de salto.\n\nEsta es la categoría más grave de las tres: no hay forma de arreglarla redefiniendo un único punto, porque el problema no es puntual sino de comportamiento infinito cerca de $a$.",
     "reviewed": false,
     "tags": [
       "condiciones-formales-continuidad"
     ]
   },
   {
-    "question": "En $x=a$ el límite bilateral existe y vale $8$, y además $f(a)$ está definida, pero su valor es $2$.\n\n¿Qué tipo de discontinuidad corresponde?",
+    "question": "En $x=a$ el límite bilateral existe y vale $8$.\n\nAdemás, $f(a)$ está definida, pero su valor es $2$.\n\n¿Qué tipo de **discontinuidad** corresponde?",
     "options": [
       "Esencial",
       "De salto",
@@ -108,14 +108,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La tercera condición de continuidad exige que el límite bilateral coincida exactamente con el valor de la función en ese punto.\n\nEl límite y el valor puntual son dos cosas distintas:\n\nel límite es hacia adónde la función se aproxima conforme $x$ se acerca a $a$.\n\nmientras que $f(a)$ es el valor que la función realmente toma en ese punto, si está definido.\n\nAcá el límite vale $8$ y $f(a)$ está definida.\n\npero en $2$, un valor distinto.\n\nLas dos primeras condiciones se cumplen, solo falla la comparación final entre ambos.\n\nEste tipo de falla es la que da lugar a la **discontinuidad removible**: el límite ya hizo todo el trabajo, alcanza con redefinir $f(a)=8$ para reparar el punto.",
+    "explanation": "La tercera condición de continuidad exige que el límite bilateral coincida exactamente con el valor de la función en ese punto.\n\nEl límite y el valor puntual son dos cosas distintas: el límite es hacia dónde se aproxima la función, y $f(a)$ es lo que realmente toma en ese punto, si está definido.\n\nAcá el límite vale $8$ y el valor puntual está definido, pero en $2$, un valor distinto.\n\nLas dos primeras condiciones se cumplen, solo falla la comparación final entre ambos.\n\nEste tipo de falla es la que da lugar a la **discontinuidad removible**: el límite ya hizo todo el trabajo, alcanza con redefinir $f(a)=8$ para reparar el punto.",
     "reviewed": false,
     "tags": [
       "condiciones-formales-continuidad"
     ]
   },
   {
-    "question": "Una función cumple $\\lim_{x \\to a^-} f(x) = 3$, $\\lim_{x \\to a^+} f(x) = 3$, pero $f(a)$ no está definida.\n\n¿Cómo se clasifica en $x=a$?",
+    "question": "Una función cumple $\\lim_{x \\to a^-} f(x) = 3$ y $\\lim_{x \\to a^+} f(x) = 3$.\n\nSin embargo, $f(a)$ no está definida.\n\n¿Cómo se clasifica en $x=a$?",
     "options": [
       "Removible",
       "De salto",
@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el límite lateral izquierdo y el derecho coinciden, el límite bilateral existe y toma ese mismo valor.\n\nUna forma de pensar en los límites laterales es como dos \"aproximaciones\" independientes que nos dicen hacia dónde \"apunta\" la función desde cada dirección.\n\nSi ambas apuntan al mismo valor, entonces la función tiene un objetivo común desde ambos lados.\n\nPero $f(a)$ no está definida, así que falta la primera condición de continuidad.\n\nUn límite existente sin punto definido es exactamente el caso de una **discontinuidad** removible: se arregla con una sola redefinición.",
+    "explanation": "Cuando el límite lateral izquierdo y el derecho coinciden, el límite bilateral existe y toma ese mismo valor.\n\nUna forma de pensar en los límites laterales es como dos aproximaciones independientes que nos dicen hacia dónde apunta la función desde cada dirección.\n\nSi ambas apuntan al mismo valor, entonces la función tiene un objetivo común desde ambos lados.\n\nAcá ambos laterales valen $3$, pero $f(a)$ no está definida, así que falta la primera condición de continuidad.\n\nUn límite existente sin punto definido es exactamente el caso de una **discontinuidad removible**: se arregla con una sola redefinición.",
     "reviewed": false,
     "tags": [
       "clasificacion-analitica-discontinuidad"
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando los dos límites laterales son números finitos pero distintos entre sí, el límite bilateral directamente no existe.\n\nAunque cada rama se aproxime a un valor concreto cuando $x$ se acerca a $a$, el hecho de que estos valores sean diferentes significa que no hay un único \"objetivo\" hacia el cual la función apunta.\n\nLa función está \"dividida\" en su aproximación.\n\nNo hace falta ni siquiera conocer $f(a)$ para descartar la continuidad: la segunda condición ya falla.\n\nEsta combinación de laterales finitos y distintos es la firma exacta de una **discontinuidad de salto**.",
+    "explanation": "Cuando los dos límites laterales son números finitos pero distintos entre sí, el límite bilateral directamente no existe.\n\nAunque cada rama se aproxime a un valor concreto cuando $x$ se acerca a $a$, el hecho de que estos valores sean diferentes significa que no hay un único objetivo hacia el cual la función apunta.\n\nLa función está dividida en su aproximación.\n\nAcá el lateral izquierdo vale $4$ y el derecho vale $6$, así que no hace falta ni siquiera conocer el valor puntual para descartar la continuidad: la segunda condición ya falla.\n\nEsta combinación de laterales finitos y distintos es la firma exacta de una **discontinuidad de salto**.",
     "reviewed": false,
     "tags": [
       "clasificacion-analitica-discontinuidad"
@@ -177,14 +177,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando alguno de los límites laterales diverge a infinito, ya no importa el valor del otro lateral: la discontinuidad es la más grave de las tres.\n\nLa divergencia a infinito en uno de los lados significa que la función \"escapa\" sin control en esa dirección, y ningún valor finito podría capturar su comportamiento.\n\nIncluso si el otro lado converge a un número finito, tenemos un desequilibrio fundamental.\n\nEl lado derecho converge a $5$, pero eso no compensa la divergencia del lado izquierdo.\n\nBasta un único lateral infinito para descartar tanto la removible como la de salto y clasificarla directamente como **esencial**.",
+    "explanation": "Cuando alguno de los límites laterales diverge a infinito, ya no importa el valor del otro lateral: la discontinuidad es la más grave de las tres.\n\nLa divergencia a infinito en uno de los lados significa que la función escapa sin control en esa dirección, y ningún valor finito podría capturar su comportamiento.\n\nIncluso si el otro lado converge a un número finito, tenemos un desequilibrio fundamental.\n\nEl lado izquierdo diverge a $+\\infty$ y el derecho converge a $5$, pero eso no compensa la divergencia.\n\nBasta un único lateral infinito para descartar tanto la removible como la de salto y clasificarla directamente como **esencial**.",
     "reviewed": false,
     "tags": [
       "clasificacion-analitica-discontinuidad"
     ]
   },
   {
-    "question": "Una función cumple $\\lim_{x \\to a^-} = 2$, $\\lim_{x \\to a^+} = 2$ y $f(a) = 2$.\n\n¿Cómo se clasifica en $x=a$?",
+    "question": "Una función cumple $\\lim_{x \\to a^-} f(x) = 2$ y $\\lim_{x \\to a^+} f(x) = 2$.\n\nAdemás, $f(a) = 2$.\n\n¿Cómo se clasifica en $x=a$?",
     "options": [
       "Removible",
       "Continua",
@@ -200,14 +200,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el límite lateral izquierdo, el derecho y el valor puntual coinciden los tres en el mismo número, se cumplen las tres condiciones a la vez.\n\nLa coincidencia de los tres valores significa que todo \"funciona a la perfección\":\n\nla función se aproxima al mismo valor desde ambos lados, y ese valor es exactamente el que la función toma en el punto mismo.\n\nNo hay ruptura, no hay salto, no hay escape al infinito.\n\nNo hace falta redefinir nada ni hay ninguna rama que corregir.\n\nEste es el único escenario entre los cuatro posibles donde el diagnóstico final es simplemente que la función es continua en ese punto.",
+    "explanation": "Cuando el límite lateral izquierdo, el derecho y el valor puntual coinciden los tres en el mismo número, se cumplen las tres condiciones a la vez.\n\nLa coincidencia de los tres valores significa que la función se aproxima al mismo valor desde ambos lados, y ese valor es exactamente el que toma en el punto mismo.\n\nAcá los tres datos valen $2$, así que no hay ruptura, no hay salto, ni escape al infinito.\n\nNo hace falta redefinir nada ni hay ninguna rama que corregir.\n\nEste es el único escenario entre los cuatro posibles donde el diagnóstico final es simplemente que la función es **continua** en ese punto.",
     "reviewed": false,
     "tags": [
       "clasificacion-analitica-discontinuidad"
     ]
   },
   {
-    "question": "Una función cumple $\\lim_{x \\to a^-} = 5$, $\\lim_{x \\to a^+} = 5$ y $f(a) = 9$.\n\n¿Cómo se clasifica en $x=a$?",
+    "question": "Una función cumple $\\lim_{x \\to a^-} f(x) = 5$ y $\\lim_{x \\to a^+} f(x) = 5$.\n\nSin embargo, $f(a) = 9$.\n\n¿Cómo se clasifica en $x=a$?",
     "options": [
       "Removible",
       "De salto",
@@ -223,14 +223,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El límite bilateral existe cuando los dos laterales coinciden, y acá ambos valen $5$.\n\nLa existencia del límite bilateral es un logro importante: nos dice que la función se aproxima de forma consistente desde ambos lados.\n\nSin embargo, la consistencia en la aproximación no garantiza que la función esté realmente \"colocada\" en el punto correcto.\n\nEl límite y el valor puntual son números distintos, así que falla exclusivamente la tercera condición.\n\nCon el límite bien definido pero descolgado del valor puntual, el caso queda clasificado como removible, sin necesidad de mirar ningún otro dato.",
+    "explanation": "El límite bilateral existe cuando los dos laterales coinciden, y acá ambos valen $5$.\n\nLa existencia del límite bilateral es un logro importante: nos dice que la función se aproxima de forma consistente desde ambos lados.\n\nSin embargo, la consistencia en la aproximación no garantiza que la función esté realmente colocada en el punto correcto.\n\nEl límite vale $5$ y $f(a) = 9$, dos números distintos, así que falla exclusivamente la tercera condición.\n\nCon el límite bien definido pero descolgado del valor puntual, el caso queda clasificado como **removible**, sin necesidad de mirar ningún otro dato.",
     "reviewed": false,
     "tags": [
       "clasificacion-analitica-discontinuidad"
     ]
   },
   {
-    "question": "Una función cumple $\\lim_{x \\to a^-} = -\\infty$ y $\\lim_{x \\to a^+} = -\\infty$.\n\n¿Cómo se clasifica en $x=a$?",
+    "question": "Una función cumple $\\lim_{x \\to a^-} f(x) = -\\infty$ y $\\lim_{x \\to a^+} f(x) = -\\infty$.\n\n¿Cómo se clasifica en $x=a$?",
     "options": [
       "Continua",
       "Esencial",
@@ -246,14 +246,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Que ambos laterales diverjan hacia el mismo infinito no cambia la clasificación: la condición de existencia pide un número real finito, y $-\\infty$ no lo es.\n\nUna divergencia, aunque sea \"simétrica\" desde ambos lados, sigue siendo una divergencia: el límite no existe como número finito.\n\nCuando ambas ramas apuntan hacia infinito, no hay un valor común finito hacia el cual converjan.\n\nAunque coincidan en dirección, ninguno de los dos laterales entrega un valor con el que comparar $f(a)$.\n\nCualquier divergencia lateral, coincida o no con la del otro lado, cae siempre en la categoría esencial.",
+    "explanation": "Que ambos laterales diverjan hacia el mismo infinito no cambia la clasificación: la condición de existencia pide un número real finito, y $-\\infty$ no lo es.\n\nUna divergencia, aunque sea simétrica desde ambos lados, sigue siendo una divergencia: el límite no existe como número finito.\n\nCuando ambas ramas apuntan hacia infinito, no hay un valor común finito hacia el cual converjan.\n\nAunque coincidan en dirección, ninguno de los dos laterales entrega un valor con el que comparar $f(a)$.\n\nCualquier divergencia lateral, coincida o no con la del otro lado, cae siempre en la categoría **esencial**.",
     "reviewed": false,
     "tags": [
       "clasificacion-analitica-discontinuidad"
     ]
   },
   {
-    "question": "Considerá la función polinómica $f(x) = x^3 - 2x + 1$.\n\n¿En qué conjunto es continua?",
+    "question": "Considerá la función polinómica $f(x) = x^3 - 2x + 1$.\n\n¿En qué conjunto es **continua**?",
     "options": [
       "Solo en $x > 0$",
       "Solo donde $f(x) \\neq 0$",
@@ -269,14 +269,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Toda función polinómica es continua en todo $\\mathbb{R}$, sin ninguna excepción, porque está definida en cada número real y su límite en cualquier punto coincide con la evaluación directa.\n\nPara $f(x) = x^3 - 2x + 1$ no hay ningún valor de $x$ que quede excluido del dominio ni ninguna rama partida que revisar.\n\nConviene no buscar restricciones donde no las hay: a diferencia de las racionales o las raíces, los polinomios nunca generan una discontinuidad por sí solos.",
+    "explanation": "Toda función polinómica es **continua** en todo $\\mathbb{R}$, sin ninguna excepción, porque está definida en cada número real y su límite en cualquier punto coincide con la evaluación directa.\n\nPara $f(x) = x^3 - 2x + 1$ no hay ningún valor de $x$ que quede excluido del dominio ni ninguna rama partida que revisar.\n\nConviene no buscar restricciones donde no las hay: a diferencia de las racionales o las raíces, los polinomios nunca generan una discontinuidad por sí solos.",
     "reviewed": false,
     "tags": [
       "continuidad-por-familias"
     ]
   },
   {
-    "question": "Considerá la función:\n$$r(x) = \\dfrac{1}{x - 3}$$\n.\n\n¿En qué conjunto es continua?",
+    "question": "Considerá la función:\n$$r(x) = \\dfrac{1}{x - 3}$$\n¿En qué conjunto es **continua**?",
     "options": [
       "En todo $\\mathbb{R}$ sin excepciones",
       "En su dominio, $\\mathbb{R}$ excepto $x=3$",
@@ -292,14 +292,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función racional es continua en todo su dominio, y el dominio de una racional excluye los valores que anulan el denominador.\n\nEn $r(x) = \\dfrac{1}{x-3}$, el denominador se anula en $x=3$, así que ese punto queda fuera del dominio y no corresponde preguntarse por la continuidad ahí.\n\nCreer que una racional es continua en toda la recta real por ser una función elemental :\n\nla continuidad de una racional siempre se limita a su dominio, nunca a $\\mathbb{R}$ completo si hay raíces en el denominador.",
+    "explanation": "Una función racional es **continua** en todo su dominio, y el dominio de una racional excluye los valores que anulan el denominador.\n\nEn $r(x) = 1/(x-3)$, el denominador se anula en $x=3$, así que ese punto queda fuera del dominio y no corresponde preguntarse por la continuidad ahí.\n\nCreer que una racional es continua en toda la recta real por ser elemental ignora el denominador: el dominio de una racional nunca es $\\mathbb{R}$ completo si hay raíces que lo anulen.",
     "reviewed": false,
     "tags": [
       "continuidad-por-familias"
     ]
   },
   {
-    "question": "Considerá la función logarítmica $f(x) = \\ln(x)$.\n\n¿En qué conjunto es continua?",
+    "question": "Considerá la función logarítmica $f(x) = \\ln(x)$.\n\n¿En qué conjunto es **continua**?",
     "options": [
       "En todo $\\mathbb{R}$",
       "$x \\neq 0$",
@@ -315,14 +315,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El dominio de la función logarítmica $\\ln(x)$ es exclusivamente $x > 0$, y dentro de ese dominio es continua sin ninguna excepción.\n\nPara $x \\leq 0$ la expresión $\\ln(x)$ directamente no está definida, así que no tiene sentido evaluar continuidad ahí.\n\nConfundir «no está definida» con «es discontinua» es un desliz común: fuera del dominio no hay ni siquiera un punto candidato para analizar.",
+    "explanation": "El dominio de la función logarítmica $\\ln(x)$ es exclusivamente $x > 0$, y dentro de ese dominio es **continua** sin ninguna excepción.\n\nPara $x \\leq 0$ la expresión $\\ln(x)$ directamente no está definida, así que no tiene sentido evaluar continuidad ahí.\n\nConfundir que la función no esté definida con que sea discontinua es un desliz común: fuera del dominio no hay ni siquiera un punto candidato para analizar.",
     "reviewed": false,
     "tags": [
       "continuidad-por-familias"
     ]
   },
   {
-    "question": "Considerá la función con raíz par $f(x) = \\sqrt{x - 2}$.\n\n¿En qué conjunto es continua?",
+    "question": "Considerá la función con raíz par $f(x) = \\sqrt{x - 2}$.\n\n¿En qué conjunto es **continua**?",
     "options": [
       "$x \\geq 2$",
       "En todo $\\mathbb{R}$",
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una raíz de índice par solo está definida cuando su argumento es mayor o igual a $0$, y dentro de ese dominio la función es continua.\n\nPara $f(x) = \\sqrt{x-2}$ el argumento es $x-2$.\n\nasí que se necesita $x - 2 \\geq 0$, es decir $x \\geq 2$.\n\nFuera de ese conjunto la raíz no arroja un número real, por lo que la pregunta de continuidad ni siquiera se plantea ahí.",
+    "explanation": "Una raíz de índice par solo está definida cuando su argumento es mayor o igual a $0$, y dentro de ese dominio la función es **continua**.\n\nPara $f(x) = \\sqrt{x-2}$, el argumento no puede ser negativo, así que la condición es $x \\geq 2$.\n\nFuera de ese conjunto la raíz no arroja un número real, por lo que la pregunta de continuidad ni siquiera se plantea ahí.",
     "reviewed": false,
     "tags": [
       "continuidad-por-familias"

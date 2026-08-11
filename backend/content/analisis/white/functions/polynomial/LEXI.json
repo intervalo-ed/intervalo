@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **grado** de un polinomio es la mayor potencia de $x$ con coeficiente no nulo.\n\nLa forma general es:\n\nPara que el grado sea $3$, el término de mayor potencia debe ser $x^3$.\n\nEn $f(x) = x^3 - 2x + 5$: el término $x^3$ determina el grado.\n\nLas otras opciones tienen grado $2$.\n\n$1$ y $4$ respectivamente.\n\nConclusión: el único polinomio de grado $3$ es $f(x) = x^3 - 2x + 5$.",
+    "explanation": "El **grado** de un polinomio es la mayor potencia de $x$ con coeficiente no nulo.\n\nEn $f(x) = x^3 - 2x + 5$ el término de mayor potencia determina que su grado es $3$.\n\nLas otras opciones tienen grados $2, 1, 4$ respectivamente, ninguna coincide con lo que pide la pregunta.\n\nFijate siempre en la potencia más alta con coeficiente distinto de cero, no en la cantidad de términos que tiene el polinomio.",
     "reviewed": false,
     "tags": [
       "grado-identificacion"
@@ -48,14 +48,14 @@
       -5,
       5
     ],
-    "explanation": "Una **raíz real** de $p(x)$ es un valor : tal que $p(r) = 0$.es decir.\n\nun punto donde la curva corta al eje $X$.\n\nEl **Teorema Fundamental del Álgebra** establece que un polinomio de **grado** $n$ tiene exactamente $n$ **raíces** en : (contando **multiplicidades**).\n\nPara : (grado $3$):el máximo es $3$ raíces reales.\n\nEn este caso se alcanzan: $x = -\\sqrt{3},\\; 0,\\; \\sqrt{3}$.",
+    "explanation": "Una **raíz real** de un polinomio es un valor $r$ tal que $p(r) = 0$.\n\nEs un punto donde la curva corta al eje $X$.\n\nEl **Teorema Fundamental del Álgebra** establece que un polinomio de **grado** $n$ tiene exactamente $n$ **raíces**, contando multiplicidades y raíces complejas.\n\nPara un polinomio de grado $3$, el máximo de raíces reales es $3$.\n\nAcá se alcanzan las tres: $x = -\\sqrt{3},\\; 0,\\; \\sqrt{3}$.\n\nSi alguna de esas raíces fuera compleja, la cantidad de raíces reales bajaría de $3$, nunca podría superarlo.",
     "reviewed": false,
     "tags": [
       "raices-cantidad-maxima"
     ]
   },
   {
-    "question": "¿Cuál es el **grado** de $p(x) = x^7 - 3x^4 + 2$?",
+    "question": "Considerá el polinomio:\n$$p(x) = x^7 - 3x^4 + 2$$\n¿Cuál es su **grado**?",
     "options": [
       "$7$",
       "$2$",
@@ -73,35 +73,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **grado** de un polinomio se determina identificando el término con la mayor potencia de $x$.\n\nEn $p(x) = x^7 - 3x^4 + 2$ los exponentes que aparecen son $7$.\n\n$4$ y $0$ (el término constante :).\n\nEl término con la mayor potencia domina el comportamiento del polinomio para valores grandes de $x$,.\n\nasí que el grado se identifica directamente observando cuál término tiene el exponente más alto.\n\nUn polinomio de grado 3 tiene el término $x^3$ como su mayor poder,.\n\nun polinomio de grado 5 tiene $x^5$,.\n\ny así sucesivamente.\n\nEsta identificación del grado es esencial para entender el comportamiento gráfico y algebraico del polinomio.",
+    "explanation": "El **grado** de un polinomio se determina identificando el término con la mayor potencia de $x$ que tiene coeficiente no nulo.\n\nEn el polinomio del enunciado:\n$$p(x) = x^7 - 3x^4 + 2$$\nLos exponentes que aparecen son $7, 4, 0$, este último en el término constante.\n\nEl término $x^7$ tiene la mayor potencia, así que el grado es $7$.\n\nEl término de mayor potencia domina el comportamiento de la curva para valores grandes de $x$: por eso el grado se lee ahí, nunca sumando los exponentes de los demás términos.",
     "reviewed": false,
     "tags": [
       "grado-identificacion"
-    ]
-  },
-  {
-    "question": "¿Cómo se llama el coeficiente del término de mayor **grado** en un polinomio?",
-    "options": [
-      "Coeficiente constante",
-      "Término independiente",
-      "Raíz",
-      "Coeficiente principal"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "El coeficiente del término de mayor grado se llama coeficiente principal o líder.",
-    "feedback_incorrect": [
-      "Ese nombre no es estándar para ningún coeficiente de un polinomio; el término sin $x$ se llama término independiente, no 'coeficiente constante'.",
-      "El término independiente es la constante $a_0$, la que no lleva ninguna potencia de $x$; acá se pregunta por el coeficiente de la mayor potencia.",
-      "Una raíz es un valor de $x$ donde el polinomio se anula, no un coeficiente de la expresión.",
-      null
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "En un polinomio $p(x) = a_n x^n + a_{n-1} x^{n-1} + \\cdots + a_0$, el **coeficiente principal** (también llamado coeficiente líder) es $a_n$: el coeficiente del término de mayor **grado**.\n\nEjemplo: en $p(x) = -4x^5 + 3x^2 - 1$, el coeficiente principal es $-4$.\n\nEste valor es clave porque determina el **comportamiento en los extremos** del polinomio: hacia dónde va la curva cuando $x \\to +\\infty$ y cuando $x \\to -\\infty$.",
-    "reviewed": false,
-    "tags": [
-      "coeficiente-termino-nombre"
     ]
   },
   {
@@ -123,40 +98,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un **polinomio** es una suma de términos de la forma $a_k x^k$.\n\ndonde los exponentes $k$ deben ser **enteros no negativos** ($0.\n\n1.\n\n2.\n\n3.\n\n\\ldots$).\n\nAhora bien, $\\sqrt{x} = x^{1/2}$: el exponente $\\frac{1}{2}$ es fraccionario, lo que viola la condición.\n\nLas otras opciones sí son polinomios: $f(x) = 5$ es un polinomio de **grado** $0$ (constante).\n\ny $x^4 - 3x + 1$ y $x^2 - x + 2$ tienen exponentes enteros no negativos.\n\nConclusión: $f(x) = \\sqrt{x}$ **no es un polinomio**.",
+    "explanation": "Un **polinomio** es una suma de términos de la forma $a_k x^k$, donde los exponentes tienen que ser **enteros no negativos**: $0, 1, 2, 3, \\ldots$\n\nEl exponente de $\\sqrt{x} = x^{1/2}$ es $1/2$, un número fraccionario que viola esa condición.\n\nPor eso $\\sqrt{x}$ no es un polinomio.\n\nLas otras tres opciones también son polinomios: $f(x) = 5$ tiene grado $0$.\n\nTambién $x^4 - 3x + 1$ y $x^2 - x + 2$ tienen todos sus exponentes enteros no negativos.\n\nCualquier raíz esconde un exponente fraccionario y por eso queda automáticamente fuera de la familia de los polinomios.",
     "reviewed": false,
     "tags": [
       "identificar-polinomio"
-    ]
-  },
-  {
-    "question": "¿Cuántos cambios de dirección (máximos y mínimos locales) puede tener como máximo esta curva?",
-    "options": [
-      "2",
-      "4",
-      "1",
-      "3"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "Un polinomio de grado 4 puede tener hasta $4 - 1 = 3$ cambios de dirección.",
-    "feedback_incorrect": [
-      "El máximo de cambios de dirección es uno menos que el grado del polinomio; para el grado de esta curva, esa cuenta se queda corta.",
-      "Esa cantidad excede el máximo posible para el grado de esta curva: el tope es el grado menos uno, no el grado completo.",
-      "Un solo cambio de dirección alcanzaría para un grado menor; el grado de esta curva permite más de uno.",
-      null
-    ],
-    "graph_fn": "pow(x, 4) - 5*pow(x, 2) + 4",
-    "graph_view": [
-      -3,
-      3,
-      -2,
-      8
-    ],
-    "explanation": "Un **extremo local** (**máximo** o **mínimo** local) es un punto donde el polinomio alcanza un pico o un valle dentro de un intervalo.\n\nEntre dos raíces consecutivas de un polinomio debe haber al menos un cambio de dirección (por continuidad), y entre dos cambios de dirección debe haber al menos una raíz.\n\nUn polinomio de **grado** $n$ tiene como máximo $n$ raíces reales.\n\nSi todas fueran distintas (simples), habría $n-1$ intervalos entre ellas, y en cada intervalo puede haber como máximo un extremo local, dando un máximo de $n-1$ extremos.\n\nEste máximo se alcanza en polinomios con estructura de alternancia clara, como $x(x-2)(x+2)$ (cúbica con 3 raíces simples).\n\nEn polinomios con raíces repetidas o complejas, el número de extremos locales puede ser menor.\n\nPor ejemplo, $(x-1)^3$ (raíz triple) no tiene extremos locales, es monótona creciente.",
-    "reviewed": false,
-    "tags": [
-      "extremos-locales-maximo"
     ]
   },
   {
@@ -178,7 +123,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **término independiente** de un polinomio es el término $a_0$: la constante que no acompaña ninguna potencia de $x$.\n\nUna forma práctica de encontrarlo: evaluar el polinomio en $x = 0$.\n\nya que todas las potencias $x^k$ con $k \\geq 1$ se anulan:\n\nEn $p(x) = x^4 - 3x + 7$, el término independiente es $7$.\n\nRepresenta el punto donde la curva **corta al eje $Y$**.",
+    "explanation": "El **término independiente** de un polinomio es el término $a_0$: la constante que no acompaña ninguna potencia de $x$.\n\nUna forma práctica de encontrarlo es evaluar el polinomio en $x = 0$, ya que todas las potencias con exponente positivo se anulan y solo queda $a_0$.\n\nEn $p(x) = x^4 - 3x + 7$ el término independiente es $7$.\n\nRepresenta el punto donde la curva **corta al eje $Y$**.",
     "reviewed": false,
     "tags": [
       "coeficiente-termino-nombre"
@@ -208,89 +153,14 @@
       -2,
       8
     ],
-    "explanation": "Las **raíces reales** de un polinomio son los valores de $x$ donde la gráfica cruza el eje $X$.\n\nes decir.\n\ndonde $p(x) = 0$.\n\nPara $f(x) = x^4 - 5x^2 + 4$, se puede factorizar como:\n\nLas cuatro raíces son $x = \\pm 1$ y $x = \\pm 2$, todas reales y distintas.\n\nLa gráfica confirma esto: la curva cruza el eje $X$ en exactamente cuatro puntos.",
+    "explanation": "Las **raíces reales** de un polinomio son los valores donde $p(x) = 0$, es decir, donde la gráfica cruza el eje $X$.\n\nEl polinomio del enunciado se factoriza así:\n$$f(x) = x^4 - 5x^2 + 4$$\n$$= (x^2-1)(x^2-4)$$\nCada factor cuadrático se anula en $x = \\pm 1$ y $x = \\pm 2$.\n\nLas cuatro raíces son entonces $x = -2, -1, 1, 2$, todas reales y distintas.\n\nLa gráfica confirma esto: la curva cruza el eje $X$ en exactamente cuatro puntos.",
     "reviewed": false,
     "tags": [
       "raices-cantidad-maxima"
     ]
   },
   {
-    "question": "¿Cuál de estas es un polinomio?",
-    "options": [
-      "$f(x) = 3x^4 - x^2 + 5$",
-      "$f(x) = \\dfrac{1}{x} + 3$",
-      "$f(x) = 2^x - 1$",
-      "$f(x) = \\ln(x+1)$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "$3x^4 - x^2 + 5$ tiene exponentes enteros no negativos: es un polinomio de grado 4.",
-    "feedback_incorrect": [
-      null,
-      "Esa expresión equivale a $x^{-1}+3$: el exponente $-1$ es negativo, y los polinomios solo admiten exponentes enteros no negativos.",
-      "Acá la variable está en el exponente, no en la base: esa estructura corresponde a una función exponencial, no a un polinomio.",
-      "El logaritmo de $(x+1)$ no es una suma de potencias de $x$: pertenece a la familia logarítmica, fuera de los polinomios."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Un polinomio es una expresión formada solo por sumas de términos $a_k x^k$ donde cada exponente $k$ es un entero no negativo.\n\nsin que la variable aparezca en denominadores.\n\ndentro de **raíces**.\n\nen el exponente ni dentro de funciones especiales como el logaritmo.\n\nEn este ítem.\n\n$f(x) = 3x^4 - x^2 + 5$ cumple la condición: los exponentes $4$.\n\n$2$ y $0$ son todos enteros no negativos.\n\nasí que es un polinomio de **grado** $4$.\n\nEn cambio.\n\n$\\dfrac{1}{x} + 3$ equivale a $x^{-1} + 3$ con exponente negativo.\n\n$2^x - 1$ tiene la variable en el exponente (es exponencial) y $\\ln(x+1)$ es logarítmica.\n\ndejarse guiar por la sola presencia de una potencia de $x$ sin fijarse en dónde aparece: una potencia negativa.\n\nuna variable en el exponente o una $x$ dentro de un logaritmo sacan a la expresión de la familia polinómica aunque a primera vista se parezca a una.",
-    "reviewed": false,
-    "tags": [
-      "identificar-polinomio"
-    ]
-  },
-  {
-    "question": "¿Cuántos términos tiene $p(x) = 4x^5 - x^3 + 2x - 9$?",
-    "options": [
-      "5",
-      "3",
-      "2",
-      "4"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "El polinomio tiene 4 términos: $4x^5$, $-x^3$, $2x$ y $-9$.",
-    "feedback_incorrect": [
-      "El grado del polinomio es $5$, pero grado y cantidad de términos no son lo mismo: hay potencias intermedias que no aparecen en la expresión.",
-      "Contando los monomios se pierde uno en el camino: revisá que el término independiente $-9$ también entre en la cuenta.",
-      "Esa cuenta agrupa varios monomios en uno: cada potencia distinta de $x$, incluida la constante, es un término aparte.",
-      null
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Un **término** (o monomio) de un polinomio es una expresión de la forma $a_k x^k$.\n\ny se cuentan separando la expresión por los signos $+$ y $-$ que los conectan.\n\nEn : aparecen cuatro monomios:$4x^5$ de **grado** $5$.\n\n$-x^3$ de grado $3$.\n\n$2x$ de grado $1$ \n\ny el **término independiente** $-9$ de grado $0$.\n\nEn total son $4$ términos, aunque el grado del polinomio (la mayor potencia presente) sea $5$.\n\nEl error más común es confundir el grado del polinomio con la cantidad de términos, o directamente olvidar contar el término independiente porque no lleva una $x$ visible.\n\nUn polinomio con exactamente dos términos se llama binomio, y con tres, trinomio.",
-    "reviewed": false,
-    "tags": [
-      "contar-terminos"
-    ]
-  },
-  {
-    "question": "¿Cuál es el **dominio** natural de todo polinomio $p(x) = a_n x^n + \\cdots + a_1 x + a_0$?",
-    "options": [
-      "$\\mathbb{R}$ en este contexto",
-      "$(0, +\\infty)$",
-      "$\\mathbb{R} \\setminus \\{0\\}$",
-      "Depende del grado del polinomio"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "Todo polinomio está definido para todo real, ya que solo usa suma, producto y potencias enteras no negativas.",
-    "feedback_incorrect": [
-      null,
-      "Esa restricción aplicaría a una función logarítmica, no a un polinomio: acá no hay ningún argumento que deba ser positivo.",
-      "Excluir el $0$ tendría sentido si hubiera una división por $x$, pero un polinomio no tiene denominador.",
-      "El grado cambia la forma de la curva, pero no restringe qué valores de $x$ se pueden evaluar: eso se mantiene igual sin importar el grado."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "El **dominio** de una función es el conjunto de valores de $x$ para los que la función está definida.\n\nUn polinomio combina únicamente sumas, restas, multiplicaciones y potencias con exponentes enteros no negativos, operaciones que no generan ninguna indeterminación ni restricción.\n\nPara $p(x) = a_n x^n + \\cdots + a_1 x + a_0$, cualquier valor real de $x$ se puede reemplazar sin problema: siempre se obtiene un resultado real.\n\nPor eso el dominio de todo polinomio, sin importar su **grado**, es $\\mathbb{R}$.\n\nEsto contrasta con otras familias que sí tienen restricciones.\n\ncomo las racionales (denominador distinto de cero).\n\nlas logarítmicas (argumento positivo) o las **raíces** de índice par (radicando no negativo).\n\nUn polinomio nunca hereda esas restricciones, por más grande que sea su grado.",
-    "reviewed": false,
-    "tags": [
-      "grado-identificacion"
-    ]
-  },
-  {
-    "question": "Un polinomio de **grado** 3 con coeficiente principal positivo, ¿hacia dónde van sus **extremos**?",
+    "question": "Un polinomio de **grado** 3 tiene coeficiente principal positivo.\n\n¿Hacia dónde van sus **extremos**?",
     "options": [
       "Hacia $-\\infty$ a la izquierda y $+\\infty$ a la derecha",
       "Ambos hacia $+\\infty$",
@@ -305,57 +175,7 @@
       "Los extremos en la misma dirección corresponden a grado par; acá el grado es impar, así que van en sentidos opuestos.",
       "Esa dirección se da con coeficiente principal negativo; acá el coeficiente principal es positivo, así que el sentido se invierte."
     ],
-    "explanation": "El comportamiento en los **extremos** depende de dos cosas: **grado** y **signo del coeficiente principal**.\n\nPara grado **impar** con coef. principal **positivo** ($a_n > 0$):\n$$\\begin{aligned} x &\\to -\\infty \\Rightarrow p(x) \\to -\\infty \\\\ x &\\to +\\infty \\Rightarrow p(x) \\to +\\infty \\end{aligned}$$\nLa curva sube a la derecha y baja a la izquierda. Memorizable: sigue la dirección de $x^3$.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": [
-      "imagen-polinomio"
-    ]
-  },
-  {
-    "question": "Un polinomio de **grado** 4 con coeficiente principal positivo, ¿hacia dónde van sus **extremos**?",
-    "options": [
-      "Ambos hacia $+\\infty$",
-      "Ambos hacia $-\\infty$",
-      "Hacia $-\\infty$ a la izquierda y $+\\infty$ a la derecha",
-      "Hacia $+\\infty$ a la izquierda y $-\\infty$ a la derecha"
-    ],
-    "correct_index": 0,
-    "feedback_correct": "Grado par, coef. positivo: ambos extremos hacia $+\\infty$.",
-    "feedback_incorrect": [
-      null,
-      "Esa dirección correspondería a un coeficiente principal negativo; acá el coeficiente principal es positivo, así que ambos extremos van hacia arriba.",
-      "Ese patrón de extremos en sentidos opuestos es propio del grado impar; acá el grado es par, así que ambos extremos van en la misma dirección.",
-      "Esa combinación mezcla un patrón de grado impar con la dirección invertida; con grado par los dos extremos coinciden en el mismo sentido."
-    ],
-    "explanation": "Para **grado** **par** con coef. principal **positivo** ($a_n > 0$):Ambos **extremos** apuntan hacia arriba, como una parábola $x^2$.\n\nLa forma típica en el gráfico es una curva en **W** (para grado 4) con ambas ramas subiendo.\n\nSi el coef. fuera negativo, ambos extremos irían hacia $-\\infty$ (forma en **M**).\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": [
-      "multiplicidad-raiz"
-    ]
-  },
-  {
-    "question": "¿Cuál de estas afirmaciones sobre el comportamiento en **extremos** es correcta?",
-    "options": [
-      "Grado par, coef. positivo → extremos en sentidos opuestos",
-      "Grado par, coef. negativo → ambos extremos hacia $-\\infty$",
-      "Grado impar, coef. positivo → ambos extremos hacia $+\\infty$",
-      "Grado impar, coef. negativo → ambos extremos hacia $-\\infty$"
-    ],
-    "correct_index": 1,
-    "feedback_correct": "Grado par, coef. negativo: ambos extremos van hacia $-\\infty$ (la curva 'abre hacia abajo').",
-    "feedback_incorrect": [
-      "Con grado par los dos extremos siempre van en la misma dirección, nunca en sentidos opuestos; eso último es propio del grado impar.",
-      null,
-      "Con grado impar los extremos van en sentidos opuestos, uno hacia $+\\infty$ y el otro hacia $-\\infty$, no ambos hacia el mismo lado.",
-      "Con grado impar y coeficiente negativo, un extremo va hacia $+\\infty$ y el otro hacia $-\\infty$: no coinciden ambos en el mismo sentido."
-    ],
-    "explanation": "Tabla de comportamiento en **extremos**:\n\n| **Grado** | Coef.\n\nLa única opción verdadera: grado par, coef. negativo → ambos extremos $-\\infty$.\n\nLas otras tres son falsas: grado par siempre da extremos en la **misma** dirección (no opuesta); grado impar siempre da extremos en **sentidos opuestos** (no iguales).",
+    "explanation": "El comportamiento en los **extremos** depende de dos cosas: el **grado** y el **signo del coeficiente principal**.\n\nPara grado **impar** con coeficiente principal **positivo**, es decir $a_n > 0$:\n$$\\begin{aligned} x &\\to -\\infty \\Rightarrow p(x) \\to -\\infty \\\\ x &\\to +\\infty \\Rightarrow p(x) \\to +\\infty \\end{aligned}$$\nLa curva sube a la derecha y baja a la izquierda, siguiendo la misma dirección que $x^3$.\n\nCambiar el signo del coeficiente principal invierte los dos extremos a la vez, nunca uno solo.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -375,43 +195,18 @@
     "correct_index": 1,
     "feedback_correct": "En una raíz simple la curva cruza el eje $x$ cambiando de signo.",
     "feedback_incorrect": [
-      "Ese comportamiento es propio de una raíz de multiplicidad par (doble, cuádruple); la raíz simple tiene multiplicidad impar y sí cruza.",
+      "Ese comportamiento es propio de una raíz de multiplicidad par, como doble o cuádruple; la raíz simple tiene multiplicidad impar y sí cruza.",
       null,
       "Un máximo local es un punto donde la función deja de crecer, no necesariamente donde toca el eje $x$; una raíz no implica un extremo ahí.",
       "Un mínimo local es un punto donde la función deja de decrecer; una raíz simple no garantiza que ahí haya un extremo de ese tipo."
     ],
-    "explanation": "Una **raíz simple** es una raíz con **multiplicidad** 1: aparece una sola vez en la factorización, como $(x - r)$.\n\nEn una raíz simple, la función **cambia de signo**: pasa de positiva a negativa o viceversa.\n\nLa curva **cruza** el eje $x$.\n\nContraste: en una **raíz doble** (factor $(x-r)^2$), la función no cambia de signo, la curva **toca** el eje y rebota sin cruzarlo.",
+    "explanation": "Una **raíz simple** es una raíz con **multiplicidad** 1: aparece una sola vez en la factorización, como $(x - r)$.\n\nEn una raíz simple, la función **cambia de signo**: pasa de positiva a negativa o viceversa, y la curva **cruza** el eje $x$.\n\nContraste: en una **raíz doble**, con factor $(x-r)^2$, la función no cambia de signo, la curva **toca** el eje y rebota sin cruzarlo.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "forma-estandar-factorizada"
-    ]
-  },
-  {
-    "question": "Un polinomio tiene la factorización $p(x) = (x-2)^2(x+3)$. ¿Qué ocurre en $x = 2$?",
-    "options": [
-      "La curva cruza el eje $x$",
-      "La curva toca el eje $x$ sin cruzarlo",
-      "La curva tiene un punto de inflexión sin tocar el eje $x$",
-      "La curva es indefinida"
-    ],
-    "correct_index": 1,
-    "feedback_correct": "$(x-2)^2$ es una raíz doble: la curva toca el eje $x$ en $x=2$ sin cruzarlo.",
-    "feedback_incorrect": [
-      "Ese comportamiento corresponde a una multiplicidad impar (simple o triple), pero acá el factor $(x-2)$ está elevado al cuadrado.",
-      null,
-      "La inflexión sin tocar el eje aparece en raíces de multiplicidad impar mayor a uno, no en una raíz elevada al cuadrado como esta.",
-      "El polinomio está definido para todo $x$ real, incluido $x=2$: ahí simplemente vale $0$."
-    ],
-    "explanation": "La **multiplicidad** de una raíz es la cantidad de veces que se repite su factor en la factorización del polinomio, y determina si la curva cruza o solo toca el eje $x$ en ese punto.\n\nEn $p(x) = (x-2)^2(x+3)$.\n\nel factor $(x-2)$ aparece dos veces: $x=2$ es una raíz doble.\n\nEn una raíz de multiplicidad par, la función no cambia de signo alrededor de ese punto, así que la curva se acerca al eje, lo toca y vuelve a alejarse sin cruzarlo.\n\nEn $x=-3$, en cambio, la raíz es simple y ahí sí hay cruce con cambio de signo.\n\nConviene no asumir que toda raíz produce un cruce: solo la multiplicidad impar (simple, triple) garantiza el cambio de signo.\n\nLa multiplicidad par siempre produce un rebote sobre el eje.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": [
-      "grado-operaciones"
+      "multiplicidad-raiz"
     ]
   },
   {
@@ -423,20 +218,20 @@
       "Raíz compleja"
     ],
     "correct_index": 1,
-    "feedback_correct": "Cuando el factor $(x-r)$ aparece dos veces, $r$ es una raíz doble (multiplicidad 2).",
+    "feedback_correct": "Cuando el factor $(x-r)$ aparece dos veces, $r$ es una raíz doble, de multiplicidad 2.",
     "feedback_incorrect": [
       "La raíz simple corresponde al factor $(x-r)$ elevado solo a la uno, no repetido dos veces.",
       null,
       "La raíz triple necesita que el factor $(x-r)$ aparezca tres veces, uno más de lo que describe este caso.",
       "La condición de raíz compleja depende de si el valor de $r$ es un número real o no, no de cuántas veces se repite su factor."
     ],
-    "explanation": "La **multiplicidad** de una raíz $r$ es la cantidad de veces que aparece el factor $(x-r)$ en la factorización de un polinomio.\n\nCuando ese factor aparece exactamente dos veces, como en $(x-r)^2$, se dice que $r$ es una raíz doble (multiplicidad 2).\n\nUna raíz simple corresponde al factor elevado a la uno, y una raíz triple al factor elevado a la tres.\n\nVale la pena recordar el efecto visual de cada caso: la raíz simple hace que la curva cruce el eje.\n\nla doble hace que lo toque y rebote.\n\ny la triple hace que lo cruce pero con un **punto de inflexión**.\n\nAdemás, la suma de las multiplicidades de todas las **raíces**, reales y complejas, siempre es igual al **grado** del polinomio.",
+    "explanation": "La **multiplicidad** de una raíz $r$ es la cantidad de veces que aparece el factor $(x-r)$ en la factorización de un polinomio.\n\nCuando ese factor aparece exactamente dos veces, como en $(x-r)^2$, se dice que $r$ es una raíz doble, de multiplicidad 2.\n\nUna raíz simple corresponde al factor elevado a la uno, y una raíz triple al factor elevado a la tres.\n\nEl efecto visual cambia con cada caso: la raíz simple hace que la curva cruce el eje, la doble hace que lo toque y rebote, y la triple hace que lo cruce con un **punto de inflexión**.\n\nLa suma de las multiplicidades de todas las **raíces**, reales y complejas, siempre coincide con el **grado** del polinomio.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "identificar-polinomio"
+      "multiplicidad-raiz"
     ]
   },
   {
@@ -455,17 +250,17 @@
       "Esa imagen excluye tanto los negativos como el $0$, pero $f(x)=x^3$ pasa por $0$ y por todos los valores negativos también.",
       "Ese intervalo acotado correspondería a una función con techo y piso, pero $x^3$ crece y decrece sin límite en ambos sentidos."
     ],
-    "explanation": "La **imagen** (o rango) de una función es el conjunto de todos los valores que toma.\n\nComo $f(x) = x^3$ es estrictamente creciente y : y $x \\to -\\infty \\Rightarrow f(x) \\to -\\infty$.la función pasa por **todo valor real**.\n\nEn general, un polinomio de **grado impar** siempre tiene imagen $\\mathbb{R}$.\n\nContraste: $f(x) = x^2$ solo toma valores $\\geq 0$: su imagen es $[0.\n\n+\\infty)$.",
+    "explanation": "La **imagen** de una función es el conjunto de todos los valores que toma.\n\nComo $f(x) = x^3$ es estrictamente creciente, sus valores extremos son:\n$$\\begin{aligned} x &\\to -\\infty \\Rightarrow f(x) \\to -\\infty \\\\ x &\\to +\\infty \\Rightarrow f(x) \\to +\\infty \\end{aligned}$$\nLa función pasa entonces por **todo valor real**.\n\nEn general, un polinomio de **grado impar** siempre tiene imagen $\\mathbb{R}$.\n\nContraste: $f(x) = x^2$ solo toma valores no negativos, así que su imagen es $[0, +\\infty)$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "paridad-funcion"
+      "imagen-polinomio"
     ]
   },
   {
-    "question": "Un polinomio de **grado** 4 con coeficiente principal positivo, ¿cuál es su **imagen**?",
+    "question": "Un polinomio de **grado** 4 tiene coeficiente principal positivo.\n\n¿Cuál es su **imagen**?",
     "options": [
       "$\\mathbb{R}$",
       "$[k, +\\infty)$ para algún $k$",
@@ -480,13 +275,13 @@
       "Esa imagen acotada por arriba correspondería a un coeficiente principal negativo; acá el coeficiente es positivo, así que la función está acotada por abajo, no por arriba.",
       "Lo que importa acá no es el grado exacto sino su paridad y el signo del coeficiente principal, que ya están fijados en el enunciado."
     ],
-    "explanation": "Un polinomio de **grado par con coef. positivo** tiene ambos **extremos** hacia $+\\infty$.\n\nEsto significa que la función baja hasta cierto punto mínimo y luego vuelve a subir.\n\nEse punto más bajo es el **mínimo global** $k$, y la **imagen** es $[k, +\\infty)$.\n\nEjemplo: : tiene mínimo en $x=0$ con $f(0) = -4$.imagen $[-4.\n\n+\\infty)$.\n\nSi el coef. fuera negativo, habría un máximo global y la imagen sería $(-\\infty, k]$.",
+    "explanation": "Un polinomio de **grado par** con coeficiente principal positivo tiene ambos **extremos** hacia $+\\infty$.\n\nEsto significa que la función baja hasta un punto mínimo y luego vuelve a subir. Ese punto más bajo es el **mínimo global** $k$, y la **imagen** es $[k, +\\infty)$.\n\nPor ejemplo, $f(x) = x^4 - 4$ tiene mínimo en $x=0$.\n\nAhí $f(0) = -4$, así que su imagen es $[-4, +\\infty)$.\n\nSi el coeficiente principal fuera negativo, la función tendría un máximo global en vez de un mínimo, y la imagen sería $(-\\infty, k]$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "raices-complejas-conjugadas"
+      "imagen-polinomio"
     ]
   },
   {
@@ -505,38 +300,13 @@
       "El coeficiente principal $a_n$ se identifica directo en la forma estándar; en la factorizada queda repartido entre el factor $a$ y las raíces.",
       "El término independiente se lee evaluando en $x=0$ desde la forma estándar; la factorizada no lo expone directamente sin hacer la cuenta."
     ],
-    "explanation": "Cada forma de escribir un **polinomio** tiene su ventaja según lo que se necesite leer.\n\nLa forma estándar $a_n x^n + \\cdots + a_0$ muestra directamente el **grado**, el coeficiente principal y el **término independiente**.\n\nLa **forma factorizada** $a(x-r_1)(x-r_2)\\cdots$, en cambio, expone directamente las **raíces** $r_1, r_2, \\ldots$ del polinomio, sin necesidad de resolver ninguna ecuación.\n\nPor ejemplo.\n\n$f(x) = 2(x-3)(x+1)(x-5)$ tiene raíces $x=3$.\n\n$x=-1$ y $x=5$: se leen de un vistazo.\n\nConviene elegir la forma según la pregunta: si se pide el grado o los coeficientes.\n\nconviene expandir a la forma estándar; si se pide dónde corta la curva al eje $x$.\n\nla factorizada ahorra todo el trabajo algebraico.",
+    "explanation": "Cada forma de escribir un **polinomio** tiene su ventaja según lo que se necesite leer.\n\nLa forma estándar $a_n x^n + \\cdots + a_0$ muestra directamente el **grado**, el coeficiente principal y el **término independiente**.\n\nLa **forma factorizada** $a(x-r_1)(x-r_2)\\cdots$ expone directamente las **raíces** $r_1, r_2, \\ldots$ sin resolver ninguna ecuación, por ejemplo:\n$$f(x) = 2(x-3)(x+1)(x-5)$$\nSus raíces son $x=3,\\, -1,\\, 5$, de lectura inmediata.\n\nConviene elegir la forma según lo que pida la pregunta.\n\nPara el grado o los coeficientes conviene expandir a la forma estándar, y para ubicar dónde corta la curva al eje $x$, la factorizada ahorra todo el trabajo algebraico.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "extremo-global-concepto"
-    ]
-  },
-  {
-    "question": "¿Cómo se llama la forma $p(x) = a_n x^n + a_{n-1} x^{n-1} + \\cdots + a_1 x + a_0$?",
-    "options": [
-      "Forma estándar",
-      "Forma factorizada",
-      "Forma de vértice",
-      "Forma canónica de raíces"
-    ],
-    "correct_index": 0,
-    "feedback_correct": "Se llama forma estándar: los términos en orden decreciente de grado con sus coeficientes.",
-    "feedback_incorrect": [
-      null,
-      "La forma factorizada se escribe como $a(x-r_1)(x-r_2)\\cdots$, exhibiendo las raíces, no como una suma de potencias ordenadas por grado.",
-      "La forma de vértice es propia de las cuadráticas, escrita como $a(x-h)^2+k$; un polinomio general de grado alto no se expresa así.",
-      "Ese nombre no corresponde a ninguna de las dos formas estándar de trabajar con polinomios: ni la que ordena por grado ni la que expone raíces se llama así."
-    ],
-    "explanation": "La **forma estándar** de un polinomio organiza sus términos de mayor a menor **grado**:\n\nEsta forma tiene la ventaja de mostrar directamente varias propiedades del polinomio.\n\nEn ella.\n\nel grado se lee de inmediato como el mayor exponente $n$.\n\nel coeficiente principal es $a_n$ (el primer coeficiente) y el **término independiente** es $a_0$ (el último.\n\nla constante sin $x$).\n\nLa forma factorizada, en contraste, muestra las **raíces** pero no deja ver el grado ni los coeficientes sin expandir el producto.\n\nElegir la forma correcta según lo que se pregunta ahorra pasos innecesarios.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": [
-      "dominio-polinomio"
+      "forma-estandar-factorizada"
     ]
   },
   {
@@ -555,17 +325,17 @@
       "Esa cuenta se queda corta en uno: el máximo de extremos locales para este grado permite un extremo más.",
       null
     ],
-    "explanation": "Los **extremos locales** son puntos donde el polinomio cambia de dirección: pasa de subir a bajar (máximo local) o de bajar a subir (mínimo local).\n\nUn polinomio de **grado** $n$ puede tener como máximo $n - 1$ extremos locales.\n\nGráficamente.\n\npara un grado $n$: si todas las $n$ raíces fueran simples (distintas).\n\nhabría $n - 1$ intervalos entre ellas.\n\nEn cada región entre dos raíces consecutivas, la función debe cambiar de signo exactamente una vez por continuidad, lo que corresponde a un extremo local.\n\nPor ejemplo, $x(x+2)(x-2)$ tiene grado 3 y 3 raíces simples, dando máximo $3 - 1 = 2$ extremos.\n\nSi hay raíces repetidas o complejas, el número de extremos locales puede ser menor.",
+    "explanation": "Los **extremos locales** son puntos donde el polinomio cambia de dirección: pasa de subir a bajar en un máximo local, o de bajar a subir en un mínimo local.\n\nUn polinomio de **grado** $n$ puede tener como máximo $n - 1$ extremos locales.\n\nSi las $n$ raíces fueran todas simples y distintas, quedarían $n-1$ intervalos entre ellas, y en cada uno la función cambia de signo una vez, lo que produce un extremo local.\n\nPor ejemplo, $x(x+2)(x-2)$ tiene grado $3$, con sus tres raíces simples.\n\nEl máximo de extremos locales es entonces $3 - 1 = 2$.\n\nSi hay raíces repetidas o complejas, la cantidad real de extremos locales puede quedar por debajo de ese máximo.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "extremo-local-concepto"
+      "extremos-locales-maximo"
     ]
   },
   {
-    "question": "Un polinomio tiene un máximo local en $x = 2$ con valor $f(2) = 5$. ¿Qué significa eso?",
+    "question": "Un polinomio tiene un máximo local en $x = 2$ con valor $f(2) = 5$.\n\n¿Qué significa eso?",
     "options": [
       "$f(x) = 5$ para todo $x$ cerca de $2$",
       "En un entorno de $x=2$, $f(2) = 5$ es el valor más alto",
@@ -580,42 +350,17 @@
       "Que $x=2$ sea una raíz significaría que $f(2)=0$, pero acá $f(2)=5$: el punto es un extremo, no un cruce con el eje $x$.",
       "Eso describiría un máximo global, el valor más alto de toda la función; un máximo local solo garantiza ser el más alto en un entorno cercano."
     ],
-    "explanation": "Un **máximo local** en $x = 2$ significa que en alguna vecindad de ese punto, $f(2) = 5$ es el valor más alto:Pero en otras partes de la función puede haber valores más altos.\n\nEl **máximo global** sería el valor más alto de toda la función.\n\nPara un polinomio de **grado** impar, no existe máximo global (la función va a $+\\infty$), pero puede tener máximos y mínimos locales.",
+    "explanation": "Un **máximo local** en $x = 2$ significa que en alguna vecindad de ese punto, $f(2) = 5$ es el valor más alto. Pero en otras partes de la función puede haber valores todavía más altos.\n\nEl **máximo global** sería el valor más alto de toda la función.\n\nPara un polinomio de **grado** impar no existe máximo global, ya que la función va a $+\\infty$, aunque sí puede tener máximos y mínimos locales.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "identidades-notables"
+      "extremo-local-concepto"
     ]
   },
   {
-    "question": "¿Cuál de estas afirmaciones describe a un polinomio par?",
-    "options": [
-      "Solo tiene potencias de grado par",
-      "Solo tiene potencias de grado impar",
-      "Tiene exactamente un número par de términos",
-      "Su grado es un número par"
-    ],
-    "correct_index": 0,
-    "feedback_correct": "Un polinomio par solo tiene potencias pares ($x^0, x^2, x^4, \\ldots$) y su gráfica es simétrica respecto al eje $y$.",
-    "feedback_incorrect": [
-      null,
-      "Esa condición describe a un polinomio impar, no par: el polinomio par usa únicamente potencias pares.",
-      "La paridad de un polinomio depende de qué potencias aparecen, no de cuántos términos tiene en total.",
-      "Que el grado sea par no alcanza: un polinomio como $x^2+x$ tiene grado par pero incluye una potencia impar, así que no es par."
-    ],
-    "explanation": "Se llama **polinomio par** a aquel que cumple $f(-x) = f(x)$ para todo $x$.\n\nEsto implica que su gráfica es simétrica respecto al eje $y$.\n\nEjemplo: $f(x) = x^4 - 2x^2 + 1$.\n\nSolo tiene potencias $x^4$.\n\n$x^2$ y $x^0$ (todas pares).\n\nVerificación: $f(-x) = (-x)^4 - 2(-x)^2 + 1 = x^4 - 2x^2 + 1 = f(x)$\n\nSi tenés **grado** par no es suficiente. $f(x) = x^2 + x$ tiene grado par pero no es polinomio par porque tiene el término $x$ (potencia impar)., obtienes un resultado incorrecto.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": [
-      "identidades-notables"
-    ]
-  },
-  {
-    "question": "La función $f(x) = x^3 - x$ cumple $f(-x) = -f(x)$. ¿Cómo se llama este tipo de función?",
+    "question": "La función $f(x) = x^3 - x$ cumple $f(-x) = -f(x)$.\n\n¿Cómo se llama este tipo de función?",
     "options": [
       "Función par",
       "Función impar",
@@ -630,17 +375,17 @@
       "'Simétrica' es un término genérico que no especifica el tipo de simetría; la condición $f(-x)=-f(x)$ tiene un nombre propio y más preciso.",
       "La periodicidad implica que la función se repite a intervalos regulares, algo que no tiene relación con la igualdad dada."
     ],
-    "explanation": "Una función **impar** cumple $f(-x) = -f(x)$ para todo $x$.\n\nSu gráfica tiene simetría respecto al **origen** (rotación de 180°).\n\nVerificación para $f(x) = x^3 - x$:Un polinomio impar solo tiene potencias impares ($x^1, x^3, x^5, \\ldots$). \n\n$f(0) = 0$ siempre (pasa por el origen).\n\nContraste: una función **par** cumple $f(-x) = f(x)$ y es simétrica respecto al eje $y$.",
+    "explanation": "Una función **impar** cumple $f(-x) = -f(x)$ para todo $x$.\n\nSu gráfica tiene simetría respecto al **origen**, como una rotación de 180°.\n\nEn $f(x) = x^3 - x$ cada término tiene potencia impar, lo que confirma que es una función impar.\n\nAdemás, $f(0) = 0$ siempre, porque la curva pasa por el origen.\n\nContraste: una función **par** cumple $f(-x) = f(x)$ y es simétrica respecto al eje $y$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "identidades-notables"
+      "paridad-funcion"
     ]
   },
   {
-    "question": "Si $p(x)$ tiene **grado** 3 y $q(x)$ tiene grado 2, ¿cuál es el grado de $p(x) \\cdot q(x)$?",
+    "question": "Un polinomio $p(x)$ tiene **grado** 3, y otro polinomio $q(x)$ tiene grado 2.\n\n¿Cuál es el grado del producto $p(x) \\cdot q(x)$?",
     "options": [
       "$1$",
       "$5$",
@@ -655,17 +400,17 @@
       "Esa cifra saldría de multiplicar los grados en vez de sumarlos: el grado del producto de dos polinomios es la suma de sus grados, no el producto.",
       "Ese es el grado de uno solo de los factores; al multiplicar dos polinomios, el grado del resultado crece, no se queda igual al mayor de los dos."
     ],
-    "explanation": "El **grado del producto** de dos polinomios es la **suma** de sus grados:Razón: el término de mayor grado del producto es el producto de los términos de mayor grado de cada uno.\n\nSi $p(x) = a_3 x^3 + \\ldots$ y $q(x) = b_2 x^2 + \\ldots$.\n\nel término de mayor grado del producto es $a_3 b_2 \\cdot x^5$.\n\nAsí que $\\deg(p \\cdot q) = 3 + 2 = 5$.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
+    "explanation": "El **grado del producto** de dos polinomios es la **suma** de sus grados, porque el término de mayor grado del producto sale de multiplicar los términos de mayor grado de cada factor.\n\nSi $p(x) = a_3 x^3 + \\ldots$ y $q(x) = b_2 x^2 + \\ldots$, el término de mayor grado del producto surge de multiplicar ambos términos líderes:\n$$a_3 x^3 \\cdot b_2 x^2 = a_3 b_2\\, x^5$$\nEl grado del producto queda entonces:\n$$\\deg(p \\cdot q) = 3 + 2 = 5$$\nEse mismo razonamiento vale para cualquier par de polinomios: el grado del producto siempre suma los grados, nunca los multiplica ni se queda con el mayor de los dos.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "identidades-notables"
+      "grado-operaciones"
     ]
   },
   {
-    "question": "Si $p(x)$ tiene **grado** 4 y $q(x)$ tiene grado 4, ¿cuál es el grado de $p(x) + q(x)$?",
+    "question": "Un polinomio $p(x)$ tiene **grado** 4, y otro polinomio $q(x)$ también tiene grado 4.\n\n¿Cuál es el grado de la suma $p(x) + q(x)$?",
     "options": [
       "Siempre $8$",
       "Siempre $4$",
@@ -686,57 +431,7 @@
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "identidades-notables"
-    ]
-  },
-  {
-    "question": "¿Cómo se llama el punto donde una curva cambia de cóncava a convexa (o viceversa)?",
-    "options": [
-      "Raíz",
-      "Extremo local",
-      "Vértice",
-      "Inflexión"
-    ],
-    "correct_index": 3,
-    "feedback_correct": "El punto donde la curva cambia de concavidad se llama **punto de inflexión**.",
-    "feedback_incorrect": [
-      "Una raíz es el punto donde la curva cruza o toca el eje $x$; el cambio de concavidad puede ocurrir lejos de cualquier corte con el eje.",
-      "En un extremo local la función pasa de creciente a decreciente (o viceversa); el cambio de concavidad es un fenómeno distinto y puede darse sin que haya un extremo ahí.",
-      "El vértice es un término asociado a la parábola de una cuadrática; los polinomios de grado mayor no tienen un único vértice.",
-      null
-    ],
-    "explanation": "Un **punto de inflexión** es un punto donde la curva cambia de concavidad, es decir, pasa de curvarse hacia arriba (cóncava) a curvarse hacia abajo (convexa), o viceversa.\n\nPor ejemplo, $f(x) = x^3$ tiene un punto de inflexión en el origen $(0,0)$: a la izquierda la curva es convexa y a la derecha es cóncava, aunque la función sea creciente en todo momento.\n\nConviene no confundir este concepto con un **extremo local**: en el extremo la función deja de crecer para empezar a decrecer (o viceversa).\n\nmientras que en la inflexión la función puede seguir creciendo o decreciendo sin pausa.\n\nsolo cambia la forma de la curva.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": [
-      "identidades-notables"
-    ]
-  },
-  {
-    "question": "Un polinomio de **grado** 3 tiene exactamente una raíz real. ¿Cuántas **raíces** complejas (no reales) tiene?",
-    "options": [
-      "$0$",
-      "$1$",
-      "$3$",
-      "$2$"
-    ],
-    "correct_index": 3,
-    "feedback_correct": "El polinomio tiene 3 raíces en total (contando complejas). Si 1 es real, las otras 2 son complejas conjugadas.",
-    "feedback_incorrect": [
-      "Si no hubiera raíces complejas, las 3 raíces totales del polinomio serían todas reales, pero el enunciado dice que solo una lo es.",
-      "Las raíces complejas no reales de un polinomio con coeficientes reales siempre vienen de a pares, nunca sueltas.",
-      "Ese total superaría las 3 raíces que tiene el polinomio en total, contando también la real: no puede haber más raíces complejas que el total menos la real.",
-      null
-    ],
-    "explanation": "El **Teorema Fundamental del Álgebra** dice que un polinomio de **grado** $n$ tiene exactamente $n$ **raíces** en : (contando **multiplicidades**).\n\nGrado 3 → 3 raíces totales.\n\nSi 1 es real.\n\nquedan 2 que forman un par conjugado: $a + bi$ y $a - bi$ (con :).Siempre un número par de raíces complejas no reales.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": [
-      "identidades-notables"
+      "grado-operaciones"
     ]
   },
   {
@@ -755,17 +450,17 @@
       "Una raíz doble cuenta dos veces hacia el total de 4, pero eso no cambia la paridad de las raíces complejas restantes.",
       "También existe la combinación de 2 raíces reales y 2 complejas conjugadas: no solo 0 o 4."
     ],
-    "explanation": "Cuando un polinomio tiene coeficientes reales, sus **raíces** complejas no reales siempre aparecen en pares conjugados: si $a+bi$ es raíz, también lo es $a-bi$.\n\nPara un polinomio de **grado** 4, esto deja solo tres combinaciones posibles entre raíces reales y complejas: 4 reales, 2 reales y 2 complejas, o 0 reales y 4 complejas.\n\nLa combinación de 3 reales y 1 compleja queda descartada porque obligaría a que las complejas fueran una cantidad impar, lo cual nunca ocurre con coeficientes reales.\n\nUna raíz doble sigue contando dos veces hacia el total de 4.\n\nasí que tampoco resuelve el problema: la **paridad** de la cantidad de raíces complejas es la restricción que manda.\n\nno la **multiplicidad** de las reales.",
+    "explanation": "Cuando un polinomio tiene coeficientes reales, sus **raíces** complejas no reales siempre aparecen en pares conjugados: si $a+bi$ es raíz, también lo es $a-bi$.\n\nPara un polinomio de **grado** 4, esto deja solo tres combinaciones posibles entre raíces reales y complejas: 4 reales, 2 reales y 2 complejas, o 0 reales y 4 complejas.\n\nLa combinación de 3 reales y 1 compleja queda descartada porque obligaría a que las complejas fueran una cantidad impar, algo que nunca ocurre con coeficientes reales.\n\nUna raíz doble sigue contando dos veces hacia el total de 4, así que tampoco resuelve el problema.\n\nLa **paridad** de la cantidad de raíces complejas es la restricción que manda acá, no la **multiplicidad** de las raíces reales.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "multiplicidad-raiz"
+      "raices-complejas-conjugadas"
     ]
   },
   {
-    "question": "La altura de una montaña rusa a lo largo del recorrido sube, baja y vuelve a subir antes de terminar. El modelo matemático que mejor representa esta forma es una función polinómica.\n\n¿Cuál es el nombre del punto más alto de cada cuesta?",
+    "question": "La altura de una montaña rusa a lo largo del recorrido sube, baja y vuelve a subir antes de terminar.\n\nEl modelo matemático que mejor representa esta forma es una función polinómica.\n\n¿Cuál es el nombre del punto más alto de cada cuesta?",
     "options": [
       "Raíz",
       "Término independiente",
@@ -780,42 +475,17 @@
       "El coeficiente principal describe el comportamiento general de la curva en los extremos, no un pico puntual del recorrido.",
       null
     ],
-    "explanation": "En el perfil de altura de una montaña rusa, cada pico es un **máximo local**: el punto más alto en ese tramo, aunque no sea el más alto de todo el recorrido.\n\nAnálogamente, cada valle es un **mínimo local**.\n\nEn matemática.\n\nun máximo local $x_0$ cumple : para todo $x$ cercano.La función puede alcanzar valores mayores en otras partes.",
+    "explanation": "En el perfil de altura de una montaña rusa, cada pico es un **máximo local**: el punto más alto en ese tramo, aunque no sea el más alto de todo el recorrido.\n\nAnálogamente, cada valle es un **mínimo local**.\n\nEn términos matemáticos, un máximo local en $x_0$ cumple que ningún punto cercano supera el valor $f(x_0)$.\n\nLa función puede alcanzar valores todavía más altos en otras partes del recorrido, por eso un máximo local no garantiza ser el punto más alto de toda la función.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "multiplicidad-raiz"
+      "extremo-local-concepto"
     ]
   },
   {
-    "question": "El caudal de un río a lo largo del año forma una curva con dos picos: uno en primavera (deshielo) y otro a fin de año (lluvias). Este comportamiento se puede modelar con una función polinómica de **grado** 4.\n\n¿Cuántos **extremos locales** tiene como máximo esa función?",
-    "options": [
-      "$2$",
-      "$4$",
-      "$1$",
-      "$3$"
-    ],
-    "correct_index": 3,
-    "feedback_correct": "Un polinomio de grado 4 tiene como máximo $4 - 1 = 3$ extremos locales.",
-    "feedback_incorrect": [
-      "Ese número se queda corto: el grado de esta función permite un extremo local más de los que cuenta esta opción.",
-      "Esa cantidad excede el máximo posible: el tope de extremos locales es el grado menos uno, no el grado completo.",
-      "Con dos picos de caudal y al menos un valle entre ellos ya hay más de un extremo local; esta opción cuenta de menos.",
-      null
-    ],
-    "explanation": "Un polinomio de **grado** $n$ tiene **a lo sumo $n - 1$ extremos locales** (máximos y mínimos locales combinados).\n\nPara grado 4: máximo $4 - 1 = 3$ extremos.\n\nEn el caso del río con dos picos de caudal (dos máximos locales), habría además al menos un mínimo local entre ellos: eso ya son 3 extremos locales, posible para grado 4.\n\nLo importante: tener 3 extremos locales no exige exactamente grado 4, pero grado 4 permite tener hasta 3.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": [
-      "multiplicidad-raiz"
-    ]
-  },
-  {
-    "question": "¿Cómo se llama la identidad que establece que $(a + b)^2 = a^2 + 2ab + b^2$?",
+    "question": "Considerá la siguiente identidad algebraica:\n$$(a + b)^2 = a^2 + 2ab + b^2$$\n¿Cómo se llama?",
     "options": [
       "Diferencia de cuadrados",
       "Binomio cuadrado perfecto",
@@ -830,13 +500,13 @@
       "El cubo del binomio trabaja con potencias de grado 3, $(a+b)^3$; la igualdad de la pregunta solo tiene exponente 2.",
       "La suma de cubos factoriza $a^3+b^3$; acá no hay ningún cubo involucrado, solo cuadrados."
     ],
-    "explanation": "Las **identidades notables** son igualdades algebraicas que se cumplen siempre.\n\nsin importar los valores de $a$ y $b$.\n\ny sirven para expandir o factorizar expresiones sin desarrollar todo el producto paso a paso.\n\nLa identidad $(a+b)^2 = a^2+2ab+b^2$ se llama binomio cuadrado perfecto: el cuadrado del primer término, más el doble producto, más el cuadrado del segundo.\n\nSe distingue de la diferencia de cuadrados, que no tiene término central, y del cubo del binomio, que involucra potencias de **grado** 3.\n\nReconocer esta identidad a simple vista evita expandir $(a+b)(a+b)$ término por término cada vez, y es la base para reconocer también su variante con resta, $(a-b)^2 = a^2-2ab+b^2$.",
+    "explanation": "Las **identidades notables** son igualdades algebraicas que se cumplen siempre, sin importar los valores de $a$ y $b$.\n\nSirven para expandir o factorizar expresiones sin desarrollar todo el producto paso a paso.\n\nLa identidad del enunciado se llama binomio cuadrado perfecto: el cuadrado del primer término, más el doble producto, más el cuadrado del segundo.\n\nSe distingue de la diferencia de cuadrados, que no tiene término central, y del cubo del binomio, que involucra potencias de **grado** 3.\n\nReconocerla a simple vista evita expandir $(a+b)(a+b)$ término por término cada vez, y es la base para reconocer también su variante con resta, $(a-b)^2 = a^2-2ab+b^2$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "multiplicidad-raiz"
+      "identidades-notables"
     ]
   },
   {
@@ -855,38 +525,13 @@
       "Ese es el desarrollo de $(a+b)^2$; acá el binomio es una resta, así que el término central lleva signo negativo.",
       "El cuadrado del segundo término, $b^2$, siempre queda positivo al elevarlo al cuadrado, sin importar que $b$ vaya con signo negativo en el binomio original."
     ],
-    "explanation": "Para expandir $(a-b)^2$ conviene pensarlo como el producto $(a-b)(a-b)$ y aplicar la propiedad distributiva completa, término a término.\n\nAl distribuir se obtiene $a^2 - ab - ab + b^2$, y al agrupar los dos términos cruzados iguales queda $a^2 - 2ab + b^2$.\n\nLos tres términos son: el cuadrado del primero, el doble producto con signo negativo, y el cuadrado del segundo (siempre positivo, porque es un cuadrado).\n\nOlvidar el término central $-2ab$ y responder $a^2-b^2$ \n\n(que en realidad corresponde a :).o cambiarle el signo al $b^2$ del final.\n\nque siempre queda positivo sin importar el signo de $b$.",
+    "explanation": "Para expandir $(a-b)^2$ conviene pensarlo como el producto $(a-b)(a-b)$ y aplicar la propiedad distributiva completa, término a término.\n\nAl distribuir se obtiene:\n$$a^2 - ab - ab + b^2$$\nAgrupando los dos términos cruzados iguales:\n$$a^2 - 2ab + b^2$$\nLos tres términos son el cuadrado del primero, el doble producto con signo negativo, y el cuadrado del segundo, que siempre queda positivo por ser un cuadrado.\n\nResponder $a^2-b^2$ olvida el término central $-2ab$: ese resultado corresponde en realidad a la diferencia de cuadrados, no al cuadrado de un binomio.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "comportamiento-extremos-infinito"
-    ]
-  },
-  {
-    "question": "¿Cuánto es $(a + b)(a - b)$?",
-    "options": [
-      "$a^2 + b^2$",
-      "$a^2 - 2ab + b^2$",
-      "$a^2 - b^2$",
-      "$2a^2 - 2b^2$"
-    ],
-    "correct_index": 2,
-    "feedback_correct": "$(a+b)(a-b) = a^2 - b^2$: diferencia de cuadrados. Los términos cruzados se cancelan.",
-    "feedback_incorrect": [
-      "Ese resultado ignora el signo negativo del segundo factor: al distribuir, los términos cruzados no se suman, se cancelan.",
-      "Ese es el desarrollo de $(a-b)^2$, un binomio elevado al cuadrado; acá se multiplican dos binomios distintos y los términos cruzados se cancelan.",
-      null,
-      "Ese resultado duplica los cuadrados como si el producto fuera $(a+b)+(a-b)$ en vez de $(a+b)(a-b)$: la operación acá es una multiplicación, no una suma."
-    ],
-    "explanation": "$(a+b)(a-b) = a \\cdot a - a \\cdot b + b \\cdot a - b \\cdot b = a^2 - ab + ab - b^2 = a^2 - b^2$\n\nLos términos cruzados $-ab$ y $+ab$ se cancelan.\n\nResultado: **diferencia de cuadrados**.\n\nAplicación directa: $x^2 - 9 = (x+3)(x-3)$.\n\nSi la expresión tiene la forma $A^2 - B^2$, se factoriza inmediatamente como $(A+B)(A-B)$.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": [
-      "comportamiento-extremos-infinito"
+      "identidades-notables"
     ]
   },
   {
@@ -905,13 +550,13 @@
       null,
       "Ese valor es $2^3$, la cantidad de productos posibles antes de agrupar los términos semejantes, no la cantidad de términos que quedan en el resultado final."
     ],
-    "explanation": "$(a+b)^3 = a^3 + 3a^2b + 3ab^2 + b^3$\n\nLa expansión tiene **4 términos**: 1. $a^3$: cubo del primero. 2. ::tres veces $a^2b$. \n\n3. $3ab^2$: tres veces $ab^2$. \n\n4. $b^3$: cubo del segundo.\n\nLos coeficientes $1, 3, 3, 1$ son la tercera fila del **triángulo de Pascal**.\n\nEl $8 = 2^3$ es el número de productos posibles antes de combinar, no el de términos del resultado.",
+    "explanation": "La expansión de $(a+b)^3$ es:\n$$(a+b)^3 = a^3 + 3a^2b + 3ab^2 + b^3$$\nTiene **4 términos**: el cubo del primero, tres veces $a^2b$, tres veces $ab^2$, y el cubo del segundo.\n\nLos coeficientes $1, 3, 3, 1$ son la tercera fila del **triángulo de Pascal**, la misma fuente de los coeficientes de cualquier binomio elevado a una potencia entera.\n\nEl $8 = 2^3$ es la cantidad de productos posibles antes de agrupar los términos semejantes, no la cantidad de términos que quedan en el resultado final.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "comportamiento-extremos-infinito"
+      "identidades-notables"
     ]
   },
   {
@@ -930,63 +575,13 @@
       null,
       "Los signos ahí no alternan de forma correcta: en $(a-b)^3$ los signos van $+,-,+,-$, y el último término también debe llevar signo negativo."
     ],
-    "explanation": "$(a-b)^3$ se obtiene reemplazando $b$ \n\npor $-b$ en $(a+b)^3$:\n$$(a-b)^3 = a^3 + 3a^2(-b) + 3a(-b)^2 + (-b)^3 = a^3 - 3a^2b + 3ab^2 - b^3$$\nLos signos **alternan**: $+.\n\n-.\n\n+.\n\n-$.\n\nEl error clásico es escribir $-$ en todos los términos o alternarlo mal.\n\nVerificación rápida: para $a=2.\n\nb=1$: $(2-1)^3 = 1$ y $8 - 12 + 6 - 1 = 1$.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
+    "explanation": "Para expandir esta potencia, alcanza con reemplazar $b \\to -b$ en la fórmula ya conocida de $(a+b)^3$:\n$$\\begin{aligned} (a-b)^3 &= a^3 + 3a^2(-b) + 3a(-b)^2 + (-b)^3 \\\\ &= a^3 - 3a^2b + 3ab^2 - b^3 \\end{aligned}$$\nLos signos **alternan**: $+, -, +, -$.\n\nEl error clásico es escribir $-$ en todos los términos, o alternarlos en el orden equivocado.\n\nPara comprobarlo, con $a=2$ y $b=1$:\n$$(2-1)^3 = 1 = 8-12+6-1$$\nLos dos resultados coinciden.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "imagen-polinomio"
-    ]
-  },
-  {
-    "question": "¿Cuál es la identidad de la diferencia de cubos?",
-    "options": [
-      "$a^3 - b^3 = (a - b)^3$",
-      "$a^3 - b^3 = (a - b)(a^2 - ab + b^2)$",
-      "$a^3 - b^3 = (a - b)(a^2 + ab + b^2)$",
-      "$a^3 - b^3 = (a + b)(a^2 - ab - b^2)$"
-    ],
-    "correct_index": 2,
-    "feedback_correct": "$a^3 - b^3 = (a-b)(a^2+ab+b^2)$. El segundo factor tiene todos los signos positivos.",
-    "feedback_incorrect": [
-      "Esa igualdad confunde la factorización con la expansión de un cubo: $(a-b)^3$ tiene cuatro términos, no coincide con $a^3-b^3$.",
-      "El segundo factor ahí lleva el término central en negativo; en la diferencia de cubos ese término central va en positivo.",
-      null,
-      "El primer factor ahí es una suma en vez de una resta, y el segundo factor tiene el signo del término independiente cambiado."
-    ],
-    "explanation": "$a^3 - b^3 = (a-b)(a^2+ab+b^2)$\n\nVerificación distribuyendo:\n$(a-b)(a^2+ab+b^2) = a^3 + a^2b + ab^2 - a^2b - ab^2 - b^3 = a^3 - b^3$\n\nLos términos cruzados se cancelan.\n\nEl segundo factor $a^2+ab+b^2$ siempre es positivo (no tiene **raíces** reales), así que no puede factorizarse más en $\\mathbb{R}$.\n\nContraste: $(a-b)^3 = a^3 - 3a^2b + 3ab^2 - b^3$ es distinto de $a^3 - b^3$.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": [
-      "imagen-polinomio"
-    ]
-  },
-  {
-    "question": "¿Cuál es la identidad de la suma de cubos?",
-    "options": [
-      "$a^3 + b^3 = (a + b)^3$",
-      "$a^3 + b^3 = (a + b)(a^2 + ab + b^2)$",
-      "$a^3 + b^3 = (a + b)(a^2 - ab + b^2)$",
-      "$a^3 + b^3 = (a - b)(a^2 + ab + b^2)$"
-    ],
-    "correct_index": 2,
-    "feedback_correct": "$a^3 + b^3 = (a+b)(a^2-ab+b^2)$. El segundo factor tiene el término central negativo.",
-    "feedback_incorrect": [
-      "Esa es la expansión del cubo del binomio, que da cuatro términos ($a^3+3a^2b+3ab^2+b^3$), no la factorización de $a^3+b^3$ en dos factores.",
-      "Con el término central en positivo, al distribuir los términos cruzados no se cancelan y sobra un $2a^2b+2ab^2$: el signo correcto ahí es negativo.",
-      null,
-      "Ese binomio con resta y trinomio con signos positivos corresponde a la diferencia de cubos $a^3-b^3$, no a la suma."
-    ],
-    "explanation": "La identidad de la **suma de cubos** factoriza $a^3+b^3$ como el producto de un binomio simple por un trinomio: $(a+b)(a^2-ab+b^2)$.\n\nSe puede verificar distribuyendo: $(a+b)(a^2-ab+b^2) = a^3 - a^2b + ab^2 + a^2b - ab^2 + b^3 = a^3+b^3$, ya que los términos cruzados se cancelan entre sí.\n\nLa clave para no confundirla con la diferencia de cubos está en dos signos: la suma de cubos usa el binomio $(a+b)$ con el término central del trinomio en negativo.\n\nmientras que la diferencia de cubos usa $(a-b)$ con ese término central en positivo.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": [
-      "forma-estandar-factorizada"
+      "identidades-notables"
     ]
   },
   {
@@ -1011,57 +606,7 @@
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "forma-estandar-factorizada"
-    ]
-  },
-  {
-    "question": "¿Cuál es el **dominio** de $f(x) = x^{100} - 3x^{50} + 7$?",
-    "options": [
-      "$[0, +\\infty)$",
-      "$(-\\infty, -7^{1/100}] \\cup [7^{1/100}, +\\infty)$",
-      "$\\mathbb{R} \\setminus \\{0\\}$",
-      "$\\mathbb{R}$ en esta forma"
-    ],
-    "correct_index": 3,
-    "feedback_correct": "Todo polinomio, sin importar su grado, tiene dominio $\\mathbb{R}$.",
-    "feedback_incorrect": [
-      "Esa restricción a valores no negativos no aplica acá: un polinomio no tiene raíces de índice par que exijan un radicando positivo.",
-      "Esa expresión parece surgir de despejar una desigualdad, pero un polinomio no impone ninguna restricción sobre los valores de $x$ que acepta.",
-      "Excluir el $0$ tendría sentido si hubiera una división por $x$; un polinomio no tiene denominador.",
-      null
-    ],
-    "explanation": "La regla es simple y siempre aplica: **el dominio de cualquier polinomio es $\\mathbb{R}$**.\n\nNo importa cuán grande sea el **grado** ni cuáles sean los coeficientes.\n\nLas operaciones involucradas (suma, resta, multiplicación y potencias enteras) están definidas para todo número real.\n\nLas restricciones aparecen solo en funciones racionales (denominador = 0), radicales (radicando negativo) o logarítmicas (argumento ≤ 0). $f(x) = x^{100} - 3x^{50} + 7$ no tiene ninguna de esas.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": [
-      "extremo-local-concepto"
-    ]
-  },
-  {
-    "question": "¿Cómo se lee el valor de $p(0)$ directamente desde la fórmula $p(x) = x^4 - 3x^2 + 5$?",
-    "options": [
-      "Como el coeficiente de $x^4$",
-      "Como el coeficiente de $x^2$",
-      "Como el término independiente",
-      "No se puede leer directamente"
-    ],
-    "correct_index": 2,
-    "feedback_correct": "$p(0)$ siempre coincide con el término independiente: aquí es $5$.",
-    "feedback_incorrect": [
-      "El coeficiente de $x^4$ multiplica una potencia de $x$ que se anula al evaluar en $x=0$; no es lo que queda del cálculo.",
-      "El coeficiente de $x^2$ también acompaña una potencia de $x$ que se anula al evaluar en $x=0$: no es el valor que sobrevive.",
-      null,
-      "Sí se puede leer directamente: alcanza con mirar la constante sin $x$ en la fórmula, sin necesidad de reemplazar nada."
-    ],
-    "explanation": "El **término independiente** $a_0$ de un polinomio es el coeficiente que no acompaña a ninguna potencia de $x$.\n\nSe puede leer directamente de la fórmula como el término sin $x$.\n\nCuando evaluamos en $x = 0$.\n\ntodos los términos que contienen $x$ se anulan automáticamente: : para cualquier $k > 0$.Solo queda el término constante.\n\nEn $p(x) = x^4 - 3x^2 + 5$.\n\nevaluando en $x = 0$ da $p(0) = 0 - 0 + 5 = 5$.\n\nPor lo tanto, $f(0) = 5$ es el **término independiente**.\n\nEste valor corresponde al punto donde la gráfica corta al eje $Y$ (la **ordenada al origen**), que siempre ocurre en $(0, a_0)$.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": [
-      "paridad-funcion"
+      "multiplicidad-raiz"
     ]
   },
   {
@@ -1080,42 +625,17 @@
       "Dejar de crecer describe un extremo local cualquiera, que puede ser un máximo o un mínimo; el mínimo global exige además ser el más bajo de toda la función.",
       "Cruzar el eje $x$ define una raíz, no un mínimo: el valor de la función ahí es cero, que puede o no coincidir con el punto más bajo."
     ],
-    "explanation": "**Mínimo local**: el valor más bajo en un entorno pequeño de un punto, pero puede haber valores menores en otra parte de la función.\n\n**Mínimo global**: el menor valor que alcanza la función en **todo** su **dominio**.\n\nUn polinomio de **grado** par con coef. principal positivo siempre tiene un mínimo global (la curva tiene un fondo definido).\n\nUn polinomio de grado impar **no tiene** ni mínimo ni máximo global, porque la función va a $-\\infty$ en un sentido.",
+    "explanation": "**Mínimo local**: el valor más bajo en un entorno pequeño de un punto, aunque puede haber valores menores en otra parte de la función.\n\n**Mínimo global**: el menor valor que alcanza la función en **todo** su **dominio**.\n\nUn polinomio de **grado** par con coeficiente principal positivo siempre tiene un mínimo global, ya que la curva tiene un fondo definido y no baja más allá de ese punto.\n\nUn polinomio de grado impar **no tiene** ni mínimo ni máximo global, porque la función va a $-\\infty$ en un sentido y a $+\\infty$ en el otro.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "grado-operaciones"
+      "extremo-global-concepto"
     ]
   },
   {
-    "question": "¿Cuántas **raíces** reales tiene como máximo $p(x) = x^4 - 1$?",
-    "options": [
-      "$1$",
-      "$2$",
-      "$4$",
-      "$3$"
-    ],
-    "correct_index": 2,
-    "feedback_correct": "Grado 4 permite máximo 4 raíces reales.",
-    "feedback_incorrect": [
-      "Esa cifra queda muy por debajo del grado del polinomio, que es lo que fija el máximo posible de raíces reales.",
-      "Esa es la cantidad de raíces reales que efectivamente tiene este polinomio en particular, pero la pregunta pide el máximo posible según el grado.",
-      null,
-      "El máximo posible de raíces reales coincide con el grado del polinomio; para este polinomio esa cota es un número más que este valor."
-    ],
-    "explanation": "El número **máximo** de **raíces** reales de un polinomio de **grado** $n$ es $n$.\n\nPara $p(x) = x^4 - 1$ el máximo posible es $4$.\n\nEn los reales: $x^4 = 1 \\Rightarrow x = \\pm 1$ (2 raíces reales).\n\nLas otras 2 son complejas: $x = \\pm i$.\n\nLa pregunta pide el máximo **posible** según el grado, no el número de raíces de este polinomio en particular.\n\nLa respuesta es $4$.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": [
-      "raices-complejas-conjugadas"
-    ]
-  },
-  {
-    "question": "Un polinomio de **grado** 3 con coeficiente principal negativo, ¿hacia dónde va la curva cuando $x \\to +\\infty$?",
+    "question": "Un polinomio de **grado** 3 tiene coeficiente principal negativo.\n\n¿Hacia dónde va la curva cuando $x \\to +\\infty$?",
     "options": [
       "Hacia $+\\infty$",
       "Hacia $-\\infty$",
@@ -1136,32 +656,7 @@
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "punto-inflexion"
-    ]
-  },
-  {
-    "question": "¿Cuál de estas funciones es un **monomio** de **grado** 5?",
-    "options": [
-      "$f(x) = 5x^4 + x$",
-      "$f(x) = x^5 - x^4$",
-      "$f(x) = -3x^5$",
-      "$f(x) = x^5 + 0$"
-    ],
-    "correct_index": 2,
-    "feedback_correct": "$-3x^5$ es un monomio: un solo término de grado 5.",
-    "feedback_incorrect": [
-      "Esa expresión tiene dos términos distintos, $5x^4$ y $x$: eso la convierte en un binomio, no en un monomio.",
-      "Acá también hay dos términos, $x^5$ y $-x^4$: un monomio necesita reducirse a uno solo.",
-      null,
-      "El $+0$ no aporta un segundo término real, pero escribirlo así no es la forma más limpia de mostrar un monomio de grado 5."
-    ],
-    "explanation": "Un **monomio** es un caso particular de polinomio que tiene exactamente un término, de la forma $ax^k$ con $a \\neq 0$.\n\nDe las opciones, $5x^4+x$ y $x^5-x^4$ tienen dos términos cada una, así que son binomios, no monomios.\n\nLa expresión $-3x^5$ tiene un solo término, de **grado** $5$, así que sí es un monomio.\n\nLa opción $x^5+0$ es algebraicamente igual a $x^5$.\n\npero escribir el $+0$ de forma explícita la vuelve una redacción ambigua para lo que se busca en este ítem.\n\nVale la pena distinguir monomio (un término), binomio (dos términos) y trinomio (tres términos): la cantidad de términos, no el grado, es lo que define cada categoría.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": [
-      "raices-cantidad-maxima"
+      "comportamiento-extremos-infinito"
     ]
   },
   {
@@ -1180,13 +675,13 @@
       null,
       "'Reducida' no es el nombre técnico de ninguna de las formas habituales de un polinomio; la que muestra las raíces tiene un nombre propio."
     ],
-    "explanation": "La **forma factorizada** de un polinomio de **grado** 3 es:\n\nCada factor $(x - r_k)$ se anula en $x = r_k$.\n\nlo que hace que $p(r_k) = 0$.\n\nLas **raíces** se leen directamente sin resolver ninguna ecuación.\n\nEjemplo: $p(x) = 2(x-1)(x+2)(x-3)$ tiene raíces $x = 1$.\n\n$x = -2$ y $x = 3$.\n\nde lectura inmediata.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
+    "explanation": "La **forma factorizada** de un polinomio de grado 3 tiene esta forma:\n$$p(x) = a(x-r_1)(x-r_2)(x-r_3)$$\nCada factor se anula en $x = r_k$, lo que hace que $p(r_k) = 0$.\n\nLas **raíces** se leen directamente sin resolver ninguna ecuación.\n\nPor ejemplo:\n$$p(x) = 2(x-1)(x+2)(x-3)$$\nTiene raíces $x = 1,\\, -2,\\, 3$, de lectura inmediata.\n\nPasar de la forma factorizada a la estándar exige expandir todo el producto, así que conviene dejarla factorizada cuando lo único que se necesita son las raíces.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "dominio-polinomio"
+      "forma-estandar-factorizada"
     ]
   },
   {
@@ -1198,20 +693,20 @@
       "$(0, +\\infty)$"
     ],
     "correct_index": 3,
-    "feedback_correct": "Un polinomio de grado 3 (impar) tiene imagen $\\mathbb{R}$: toma todos los valores reales. No puede ser $(0, +\\infty)$.",
+    "feedback_correct": "Un polinomio de grado 3, impar, tiene imagen $\\mathbb{R}$: toma todos los valores reales. No puede ser $(0, +\\infty)$.",
     "feedback_incorrect": [
       "Esa sí es una imagen posible para el grado impar de este polinomio: es justamente la que corresponde, no la excepción que pide la pregunta.",
       "Una imagen acotada por arriba como esta es propia de un polinomio de grado par con coeficiente negativo, no de uno de grado impar.",
       "Una imagen acotada por abajo como esta corresponde a un polinomio de grado par con coeficiente positivo, no a uno de grado impar.",
       null
     ],
-    "explanation": "Un polinomio de **grado impar** siempre tiene **imagen** ::la función va de $-\\infty$ a $+\\infty$ (o viceversa) y pasa por todos los valores reales.\n\nPor lo tanto.\n\nno puede tener imagen $(-\\infty.\n\n5]$.\n\n$[2.\n\n+\\infty)$ ni $(0.\n\n+\\infty)$.\n\ntodas ellas acotadas en algún sentido.\n\nEstas imágenes acotadas son propias de polinomios de **grado par**, que tienen un máximo o mínimo global.",
+    "explanation": "Un polinomio de **grado impar** siempre tiene **imagen** $\\mathbb{R}$: la función recorre $(-\\infty, +\\infty)$ y pasa por todos los valores reales.\n\nPor lo tanto, no puede tener una imagen acotada como $(-\\infty, 5]$ o $[2, +\\infty)$.\n\nTampoco puede ser $(0, +\\infty)$: las tres limitan los valores que toma la función en algún sentido.\n\nEsas imágenes acotadas son propias de los polinomios de **grado par**, que sí tienen un máximo o un mínimo global.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "coeficiente-termino-nombre"
+      "imagen-polinomio"
     ]
   },
   {
@@ -1223,20 +718,20 @@
       "$x = 1$ es un máximo local"
     ],
     "correct_index": 2,
-    "feedback_correct": "$(x-1)^3$: $x=1$ es raíz triple (multiplicidad 3). La curva cruza el eje en ese punto con un punto de inflexión.",
+    "feedback_correct": "$(x-1)^3$: $x=1$ es raíz triple, de multiplicidad 3. La curva cruza el eje en ese punto con un punto de inflexión.",
     "feedback_incorrect": [
       "Una raíz simple corresponde a un factor elevado a la uno; acá el factor $(x-1)$ está elevado al cubo, tres veces.",
       "Una raíz doble necesita que el factor aparezca exactamente dos veces; acá aparece tres veces en la factorización.",
       null,
       "El exponente de un factor en la factorización indica la multiplicidad de una raíz, no la presencia de un extremo local en ese punto."
     ],
-    "explanation": "En $p(x) = (x-1)^3$.\n\nel factor $(x-1)$ aparece tres veces: $x = 1$ es una **raíz triple** (**multiplicidad** 3).\n\nCon multiplicidad impar, la función **sí cambia de signo** alrededor de la raíz: la curva cruza el eje $x$.\n\nPero lo hace con un **punto de inflexión** en lugar de cruzar limpiamente, y la curva se aplana momentáneamente, similar a cómo $y = x^3$ pasa por el origen.\n\nContraste: raíz doble → toca sin cruzar.\n\nRaíz simple → cruza limpiamente.",
+    "explanation": "En $p(x) = (x-1)^3$, el factor se repite tres veces, así que $x = 1$ es una **raíz triple**, de **multiplicidad** 3.\n\nCon multiplicidad impar, la función **sí cambia de signo** alrededor de la raíz: la curva cruza el eje $x$.\n\nPero lo hace con un **punto de inflexión** en vez de cruzar limpiamente, y se aplana momentáneamente cerca de ese punto, algo similar a cómo $y = x^3$ pasa por el origen.\n\nUna raíz doble toca el eje sin cruzarlo, y una raíz simple cruza limpiamente sin aplanarse: la raíz triple combina el cruce con el aplanamiento.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "extremos-locales-maximo"
+      "multiplicidad-raiz"
     ]
   },
   {
@@ -1248,20 +743,20 @@
       "$-\\infty$"
     ],
     "correct_index": 2,
-    "feedback_correct": "El polinomio cero es el único polinomio sin grado definido (o se le asigna $-\\infty$ por convención).",
+    "feedback_correct": "El polinomio cero es el único polinomio sin grado definido, aunque algunos textos le asignan $-\\infty$ por convención.",
     "feedback_incorrect": [
       "El grado $0$ corresponde a los polinomios constantes distintos de cero, como $p(x)=5$; el polinomio cero es un caso aparte sin coeficiente principal del que tomar el grado.",
       "Ningún término del polinomio cero tiene coeficiente distinto de cero, así que no hay ninguna potencia de $x$ de la que extraer un grado igual a $1$.",
       null,
       "Ese valor es solo una convención que algunos textos usan para que las fórmulas de grado sigan funcionando, no el grado formalmente definido del polinomio cero."
     ],
-    "explanation": "El polinomio cero $p(x) = 0$ es el único caso especial: **no tiene grado definido**.\n\nPor convención matemática, algunos textos le asignan grado $-\\infty$ para que las fórmulas de grado del producto y suma sigan funcionando.\n\nTodos los demás polinomios constantes.\n\ncomo $p(x) = 5$.\n\ntienen grado $0$ (porque $5 = 5 \\cdot x^0$).\n\nEl polinomio cero es distinto porque no tiene ningún coeficiente no nulo del que tomar el grado.",
+    "explanation": "El polinomio cero $p(x) = 0$ es el único caso especial: **no tiene grado definido**.\n\nPor convención matemática, algunos textos le asignan grado $-\\infty$ para que las fórmulas de grado del producto y de la suma sigan funcionando sin excepciones.\n\nTodos los demás polinomios constantes, como $p(x) = 5$, tienen grado $0$.\n\nEsto es así porque $5 = 5 \\cdot x^0$.\n\nEl polinomio cero es distinto porque no tiene ningún coeficiente no nulo del que tomar el grado, ni siquiera un término constante que valga algo distinto de cero.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "extremos-locales-maximo"
+      "grado-identificacion"
     ]
   }
 ]

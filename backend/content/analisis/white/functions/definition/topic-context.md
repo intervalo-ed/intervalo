@@ -22,11 +22,11 @@ Revisión manual ejercicio por ejercicio vía `/test`. Los siguientes son ejempl
 - **`white_definition_CLSF_43`**: distractores flojos ("imagen garantizada", "salidas declaradas por el modelo") y la función descrita como si fuera un actor en vez de una herramienta — revisar tono en toda `explanation` del topic: la función no "hace" cosas por sí misma, es un objeto que se aplica.
 - **`white_definition_CLSF_34`**: la opción `"El conjunto de alumnos"` en prosa libre rompe el registro de conjunto (`$\{0, 1\}$`, `$\{2, 3, \dots, 10\}$`) frente al resto — usar notación de conjunto equivalente (`$\{\text{alumnos}\}$`) en vez de descripción textual.
 
-**Regla transversal para el refactor:** revisar los 100 ejercicios (50 LEXI + 50 CLSF) contra `authoring-context.md` actualizado — terminología "función" (nunca "regla"), vocabulario prohibido (ver tabla en authoring-context.md), notación consistente dentro de cada `options`, ninguna oración cortada a la mitad por una fórmula display, y un párrafo por oración en `explanation`.
+**Regla transversal para el refactor:** revisar los 60 ejercicios (30 LEXI + 30 CLSF) contra `authoring-context.md` actualizado — terminología "función" (nunca "regla"), vocabulario prohibido (ver tabla en authoring-context.md), notación consistente dentro de cada `options`, ninguna oración cortada a la mitad por una fórmula display, y un párrafo por oración en `explanation`.
 
 ---
 
-## LEXI, 50 ejercicios
+## LEXI, 30 ejercicios
 
 ### Distribución objetivo
 
@@ -34,15 +34,15 @@ Revisión manual ejercicio por ejercicio vía `/test`. Los siguientes son ejempl
 
 | Concepto | Sub-tipo | Slug | Cantidad exacta |
 |----------|----------|------|----------------:|
-| Dominio | conjunto explícito o natural | `dominio` | 12 |
-| Variable independiente / dependiente |, | `variable-indep-dep` | 9 |
-| Imagen | como conjunto (¿cuál es el conjunto imagen?) | `imagen-conjunto` | 8 |
-| Imagen | puntual (respecto de $x$, ¿qué es $f(x)$?) | `imagen-puntual` | 4 |
-| Codominio |, | `codominio` | 6 |
-| Preimagen | como cálculo (¿qué entradas dan $y$?) | `preimagen-calculo` | 5 |
-| Preimagen | puntual (respecto de $f(x)=y$, ¿qué rol cumple $x$?) | `preimagen-puntual` | 2 |
-| Unicidad (cupo estricto, ver abajo) |, | `unicidad` | 4 |
-| **Total** | | | **50** |
+| Dominio | conjunto explícito o natural | `dominio` | 7 |
+| Variable independiente / dependiente |, | `variable-indep-dep` | 6 |
+| Imagen | como conjunto (¿cuál es el conjunto imagen?) | `imagen-conjunto` | 5 |
+| Imagen | puntual (respecto de $x$, ¿qué es $f(x)$?) | `imagen-puntual` | 2 |
+| Codominio |, | `codominio` | 4 |
+| Preimagen | como cálculo (¿qué entradas dan $y$?) | `preimagen-calculo` | 3 |
+| Preimagen | puntual (respecto de $f(x)=y$, ¿qué rol cumple $x$?) | `preimagen-puntual` | 1 |
+| Unicidad (cupo estricto, ver abajo) |, | `unicidad` | 2 |
+| **Total** | | | **30** |
 
 **Cantidades exactas, no aproximadas.** La Gem debe respetar exactamente estos números; no más ejercicios de imagen o unicidad "porque salieron mejor".
 
@@ -56,16 +56,16 @@ Revisión manual ejercicio por ejercicio vía `/test`. Los siguientes son ejempl
 
 Imagen, codominio y preimagen deben estar balanceados entre sí. Los ejercicios de estos tres conceptos son **cuantitativos y lógicos**: el alumno identifica el conjunto concreto, calcula las preimágenes de un valor, o distingue entre lo que la función "promete" (codominio) y lo que realmente produce (imagen). No generar ejercicios que sean puramente de vocabulario en abstracto ("¿qué es la imagen?").
 
-### Unicidad, cupo estricto: 4 ejercicios, ni más ni menos
+### Unicidad, cupo estricto: 2 ejercicios, ni más ni menos
 
-**OBLIGATORIO, no negociable.** Distribución fija dentro del cupo de 4 ejercicios:
+**OBLIGATORIO, no negociable.** El cupo de unicidad se recortó de 4 a 2 al reducir el ítem de 50 a 30 ejercicios, pero los 2 que quedan son, sin excepción, los dos obligatorios:
 
-- **2 ejercicios tipo "utilidad práctica"** (obligatorios): uno de cajero automático que muestra dos saldos distintos según quién consulta, y uno de termómetro que da dos lecturas simultáneas del mismo ambiente. La pregunta debe ser del tipo "¿qué garantía te da la unicidad acá?" o "¿qué pasaría si esta regla no fuera función?", NO "¿cumple la unicidad?".
-- **2 ejercicios tipo "¿es función o no?" clásicos**: uno que sí lo sea (un contexto donde se respeta unicidad) y uno que no (un contexto donde una entrada tiene dos salidas).
+- Uno de cajero automático que muestra dos saldos distintos según quién consulta.
+- Uno de termómetro que da dos lecturas simultáneas del mismo ambiente.
 
-**Contextos adicionales aceptables si hace falta variar**: app que asigna dos precios al mismo producto según el momento; GPS que calcula dos rutas de distancia distinta para el mismo origen y destino. Pero los dos de cajero+termómetro son obligatorios.
+La pregunta debe ser del tipo "¿qué garantía te da la unicidad acá?" o "¿qué pasaría si esta regla no fuera función?", NO "¿cumple la unicidad?".
 
-Los ejercicios de contraejemplo repetitivo ("dos descuentos al mismo producto", "dos asientos al mismo pasajero", "dos casilleros al mismo socio") **NO se generan más de una vez**. Un solo ejercicio clásico de "una entrada con dos salidas" alcanza.
+Ya no hay cupo para los ejercicios "clásicos" adicionales de "¿es función o no?" (contexto que sí respeta unicidad / contexto con una entrada y dos salidas) ni para los contextos alternativos (app con dos precios, GPS con dos rutas): quedaron fuera del recorte. Si en una futura ronda se necesita volver a ampliar el cupo de unicidad, agregarlos ahí respetando que cajero y termómetro nunca se tocan.
 
 ### Cardinalidad
 
@@ -75,7 +75,7 @@ Regla operativa por **tipo de respuesta** (ver `authoring-context.md`), no por s
 - **Numérica corta** (un número, un conjunto chico, una preimagen calculada): **4 opciones**, todas ≤35 caracteres, para triggear la grilla 2×2 del front.
 - **Binario (2 opciones)**: **excepcional**, ≤ 3 ejercicios en todo el archivo. Casi siempre hay una tercera confusión clásica que convierte un sí/no en una pregunta de 3. No usar binario como recurso por defecto: en masa la sesión se vuelve un juego de moneda.
 
-Meta de distribución para las 50 LEXI: la mayoría en 3 opciones, los ejercicios de respuesta numérica en 4, prácticamente ningún binario.
+Meta de distribución para las 30 LEXI: la mayoría en 3 opciones, los ejercicios de respuesta numérica en 4, prácticamente ningún binario.
 
 ### `feedback_incorrect`
 
@@ -112,33 +112,33 @@ No repetir la misma estructura de apertura en ejercicios consecutivos del mismo 
 - Preimagen: "Preimagen de $k$ no es $f(k)$: es qué entrada produce $k$, no qué produce $k$."
 - Unicidad: "Ojo, unicidad no es inyectividad: acá miramos que cada entrada dé una sola salida, no al revés."
 
-El **humor es excepcional** (una minoría de los 50 ejercicios) y solo como **analogía cotidiana exagerada** en tono formal, del tipo escena burocrática o consecuencia práctica absurda ("Un registro que le asigna dos expedientes al mismo trámite no tiene un error de tipeo: tiene un problema de unicidad."). **Nunca antropomorfismos** ("la raíz detesta los negativos") ni chistes externos. Si no hay advertencia pertinente ni analogía que cierre bien, terminá en la aplicación.
+El **humor es excepcional** (una minoría de los 30 ejercicios) y solo como **analogía cotidiana exagerada** en tono formal, del tipo escena burocrática o consecuencia práctica absurda ("Un registro que le asigna dos expedientes al mismo trámite no tiene un error de tipeo: tiene un problema de unicidad."). **Nunca antropomorfismos** ("la raíz detesta los negativos") ni chistes externos. Si no hay advertencia pertinente ni analogía que cierre bien, terminá en la aplicación.
 
 **Contextos cotidianos válidos.** Precios de productos, notas de alumnos, tarifas de transporte, temperaturas, puntos de fidelidad, asignación de turnos o lockers, cantidades de bochas/porciones, consumo de datos. Sin nombres propios, usar roles genéricos ("un vendedor", "una empresa", "un remis", "un colegio").
 
 ---
 
-## CLSF, 50 ejercicios
+## CLSF, 30 ejercicios
 
 ### Distribución objetivo
 
 **CLSF es el skill de aplicación: identificar y calcular sobre casos concretos.** Se apoya en el vocabulario que LEXI define y lo pone a trabajar. Dos bloques:
 
-- **~15 de unicidad ("¿es función?")**, acotados a los dos casos que de verdad enseñan: **unicidad rota disfrazada** en contexto (no la tabla obvia de "una entrada con dos salidas") y **trampa de inyectividad** (dos entradas comparten salida y eso NO rompe la función). Este bloque entrena la confusión central unicidad↔inyectividad; los casos de unicidad rota explícita y evidente ya no se repiten en masa.
-- **~35 de identificación**, calcular o distinguir el conjunto concreto en un caso dado: cuál es el dominio de esta $f$, cuál es su conjunto imagen, qué valores excluye el dominio natural, cuáles son las preimágenes de $k$.
+- **~9 de unicidad ("¿es función?")**, acotados a los dos casos que de verdad enseñan: **unicidad rota disfrazada** en contexto (no la tabla obvia de "una entrada con dos salidas") y **trampa de inyectividad** (dos entradas comparten salida y eso NO rompe la función). Este bloque entrena la confusión central unicidad↔inyectividad; los casos de unicidad rota explícita y evidente ya no se repiten en masa.
+- **~21 de identificación**, calcular o distinguir el conjunto concreto en un caso dado: cuál es el dominio de esta $f$, cuál es su conjunto imagen, qué valores excluye el dominio natural, cuáles son las preimágenes de $k$.
 
 `tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 | Categoría | Slug | Cantidad |
 |-----------|------|----------|
-| Unicidad **rota disfrazada** en contexto cotidiano ("¿es función?") | `unicidad-rota-disfrazada` | ~7 |
-| **Trampa de inyectividad**: sí es función aunque dos entradas compartan salida | `trampa-inyectividad` | ~8 |
-| **Dominio**: identificar el conjunto de entradas en un caso concreto | `dominio-identificacion` | ~6 |
-| **Dominio natural**: restricción algebraica (división, raíz, combinadas) | `dominio-natural` | ~10 |
-| **Imagen / conjunto imagen**: salidas alcanzadas vs. codominio | `imagen-identificacion` | ~9 |
-| **Codominio**: distinguir del conjunto imagen | `codominio-identificacion` | ~4 |
-| **Preimagen**: calcular preimágenes / distinguir de la imagen | `preimagen-identificacion` | ~6 |
-| **Total** | | **50** |
+| Unicidad **rota disfrazada** en contexto cotidiano ("¿es función?") | `unicidad-rota-disfrazada` | 4 |
+| **Trampa de inyectividad**: sí es función aunque dos entradas compartan salida | `trampa-inyectividad` | 5 |
+| **Dominio**: identificar el conjunto de entradas en un caso concreto | `dominio-identificacion` | 4 |
+| **Dominio natural**: restricción algebraica (división, raíz, combinadas) | `dominio-natural` | 6 |
+| **Imagen / conjunto imagen**: salidas alcanzadas vs. codominio | `imagen-identificacion` | 5 |
+| **Codominio**: distinguir del conjunto imagen | `codominio-identificacion` | 2 |
+| **Preimagen**: calcular preimágenes / distinguir de la imagen | `preimagen-identificacion` | 4 |
+| **Total** | | **30** |
 
 **No duplicar LEXI.** El límite: **LEXI define/reconoce el término** ("¿qué es el dominio?", "¿qué representa este conjunto?"), en general 2-3 opciones y registro definicional. **CLSF identifica o calcula el conjunto concreto** ("¿cuál es el dominio de esta $f$?", "¿cuáles son las preimágenes del 0?"), computacional. Si un ejercicio se resuelve solo sabiendo la definición sin mirar el caso, es LEXI, no CLSF.
 
@@ -181,22 +181,22 @@ Array paralelo a `options`, `null` en el índice correcto, mismo largo que `opti
 Además del checklist global del `generation-instructions.md`, verificá lo específico de este topic:
 
 **LEXI:**
-- [ ] 50 ejercicios exactos
-- [ ] Distribución: 12 dominio, 9 var indep/dep, 8 imagen conjunto, 4 imagen puntual, 6 codominio, 5 preimagen cálculo, 2 preimagen puntual, 4 unicidad
+- [ ] 30 ejercicios exactos
+- [ ] Distribución: 7 dominio, 6 var indep/dep, 5 imagen conjunto, 2 imagen puntual, 4 codominio, 3 preimagen cálculo, 1 preimagen puntual, 2 unicidad
 - [ ] El ejercicio del cajero automático (dos saldos) está presente
 - [ ] El ejercicio del termómetro (dos lecturas simultáneas) está presente
-- [ ] Solo 1 ejercicio clásico de "una entrada con dos salidas" (no repetir el patrón)
+- [ ] El cupo de unicidad son exactamente esos 2 (cajero + termómetro), no quedan ejercicios clásicos adicionales de "¿es función o no?" tras el recorte
 - [ ] Ningún ejercicio de imagen/codominio/preimagen es puramente definicional en abstracto, todos identifican, calculan o distinguen conjuntos concretos
-- [ ] Variedad de apertura en las `explanation`: al menos 5 arrancan con pregunta retórica, al menos 5 con contraejemplo, resto con definición formal
+- [ ] Variedad de apertura en las `explanation`: proporción similar de pregunta retórica, contraejemplo y definición formal entre los que queden
 
 **CLSF:**
-- [ ] 50 ejercicios exactos
-- [ ] Distribución: ~15 de unicidad (~7 rota disfrazada + ~8 trampa de inyectividad) + ~35 de identificación (~6 dominio, ~10 dominio natural, ~9 imagen/conjunto imagen, ~4 codominio, ~6 preimagen)
-- [ ] Los ~15 de unicidad son SOLO rota disfrazada o trampa de inyectividad; ningún caso obvio de "una entrada con dos salidas" en tabla explícita
+- [ ] 30 ejercicios exactos
+- [ ] Distribución: 9 de unicidad (4 rota disfrazada + 5 trampa de inyectividad) + 21 de identificación (4 dominio, 6 dominio natural, 5 imagen/conjunto imagen, 2 codominio, 4 preimagen)
+- [ ] Los 9 de unicidad son SOLO rota disfrazada o trampa de inyectividad; ningún caso obvio de "una entrada con dos salidas" en tabla explícita
 - [ ] Todo ejercicio de identificación obliga a mirar el caso concreto; ninguno se resuelve solo con la definición (si sí, es LEXI)
 - [ ] NINGÚN ejercicio de inyectiva/sobreyectiva/biyectiva como clasificación (solo como distractor descrito en unicidad)
-- [ ] Los 15 de unicidad tienen 3 opciones (afirmativa + negativa correcta + negativa con confusión), no binario Sí/No
-- [ ] Los 35 de identificación tienen 4 opciones (o 3 si no hay 4 confusiones reales), sin relleno absurdo delator
+- [ ] Los 9 de unicidad tienen 3 opciones (afirmativa + negativa correcta + negativa con confusión), no binario Sí/No
+- [ ] Los 21 de identificación tienen 4 opciones (o 3 si no hay 4 confusiones reales), sin relleno absurdo delator
 - [ ] `feedback_incorrect` en TODOS los ejercicios, array del mismo largo que `options`, `null` en el correcto
 - [ ] Balance en unicidad: no todas "Sí" ni todas "No"
 - [ ] `correct_index` variado, no siempre 0

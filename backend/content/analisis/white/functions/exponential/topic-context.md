@@ -28,15 +28,15 @@ Bacterias que se duplican, interés compuesto, depreciación de un auto, desinte
 - `clsf_01`, `clsf_05`, `clsf_08` sin párrafo de contexto → se agregó intro.
 - `graph_view` no cuadrado en 7 ejercicios → se ajustaron bases y vistas.
 
-### Cobertura por skill (exponential, 200 ejercicios)
+### Cobertura por skill (exponential, 90 ejercicios)
 
-**LEXI (50):** forma canónica $f(x) = a \cdot b^x$, dominio $\mathbb{R}$, imagen $(0,+\infty)$, asíntota horizontal, monotonía según base, $f(0)=a$, tasa de crecimiento ($r = b-1$), período de duplicación, vida media, número de Euler $e$, transformaciones (desplazamiento horizontal/vertical, reflexión), propiedades algebraicas, inyectividad, inversa (logaritmo), sin raíces reales, comparación de bases, comportamiento en $\pm\infty$.
+**LEXI (30):** forma canónica $f(x) = a \cdot b^x$, dominio $\mathbb{R}$, imagen $(0,+\infty)$, asíntota horizontal, monotonía según base, $f(0)=a$, tasa de crecimiento ($r = b-1$), período de duplicación, vida media, número de Euler $e$, transformaciones (desplazamiento horizontal/vertical, reflexión), propiedades algebraicas, inyectividad, inversa (logaritmo), sin raíces reales, comparación de bases, comportamiento en $\pm\infty$.
 
-**CLSF (50):** desde cotidiano (bacterias, interés, depreciación, enfriamiento), desde fórmula (formas transformadas), desde gráfico (asíntota desplazada, creciente vs decreciente, distinguir de logarítmica), imagen con desplazamiento, monotonía global, sin extremos locales. Distractor frecuente: **Exponencial ↔ Logarítmica**.
+**CLSF (50, archivado):** desde cotidiano (bacterias, interés, depreciación, enfriamiento), desde fórmula (formas transformadas), desde gráfico (asíntota desplazada, creciente vs decreciente, distinguir de logarítmica), imagen con desplazamiento, monotonía global, sin extremos locales. Distractor frecuente: **Exponencial ↔ Logarítmica**.
 
-**FORM (50):** armar fórmula desde cotidiano ($B(t)=P_0 \cdot 2^t$, $M(t)=C(1+r)^t$, $V(t)=V_0(1-r)^t$), leer $a$ y $b$, evaluar $f(\text{valor})$, determinar $a$ y $b$ desde dos puntos, desplazamiento vertical, propiedades algebraicas, 5 ejercicios leer-desde-gráfico con `graph_fn`.
+**FORM (30):** armar fórmula desde cotidiano ($B(t)=P_0 \cdot 2^t$, $M(t)=C(1+r)^t$, $V(t)=V_0(1-r)^t$), leer $a$ y $b$, evaluar $f(\text{valor})$, determinar $a$ y $b$ desde dos puntos, desplazamiento vertical, propiedades algebraicas, ejercicios leer-desde-gráfico con `graph_fn`.
 
-**GRAF (50):** *Tipo A (25)*: leer propiedades — creciente/decreciente, asíntota, $f(0)$, imagen, raíces, $f(1)$ para leer base, comportamiento en $\pm\infty$. *Tipo B (15)*: identificar la fórmula. *Tipo C (10)*: contexto cotidiano (bacterias, inversión, depreciación, enfriamiento, usuarios).
+**GRAF (30):** *Tipo A (15)*: leer propiedades — creciente/decreciente, asíntota, $f(0)$, imagen, raíces, $f(1)$ para leer base, comportamiento en $\pm\infty$. *Tipo B (9)*: identificar la fórmula. *Tipo C (6)*: contexto cotidiano (bacterias, inversión, depreciación, enfriamiento, usuarios).
 
 ### `graph_fn` para GRAF exponential
 
@@ -110,42 +110,40 @@ Ejercicios concretos de esta ronda:
 
 ### Distribución objetivo, con `tags` (ver `authoring-context.md` §Etiquetas)
 
-Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026).
+Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026). Reducida proporcionalmente a 30/ítem en la ronda de poda de ago-2026 (factor ~0.6 por sub-familia, redondeo por mayor resto; ver conteos reales pre-poda, que ya divergían levemente de esta tabla original, en el commit de esa ronda).
 
-**LEXI (50):**
+**LEXI (30):**
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Propiedades algebraicas de potencias | 4 | `propiedades-algebraicas-potencias` |
-| Asíntota horizontal (nombre, ecuación, desplazamiento) | 4 | `asintota-horizontal` |
-| Monotonía según la base ($b>1$ vs. $0<b<1$) | 4 | `monotonia-segun-base` |
-| Parámetro base/tasa de crecimiento en contexto | 4 | `parametro-base-crecimiento` |
-| Comportamiento en infinito ($x \to \pm\infty$) | 3 | `comportamiento-infinito` |
-| Dominio e imagen (básico) | 3 | `dominio-imagen-basica` |
+| Monotonía según la base ($b>1$ vs. $0<b<1$) | 3 | `monotonia-segun-base` |
+| Propiedades algebraicas de potencias | 2 | `propiedades-algebraicas-potencias` |
 | Identificar si una expresión es/no es exponencial | 2 | `identificar-exponencial` |
-| Valor inicial $f(0)$ | 2 | `valor-inicial-f0` |
-| Período de duplicación / vida media | 2 | `periodo-duplicacion-vida-media` |
-| Número $e$, concepto | 2 | `numero-e-concepto` |
-| Imagen con desplazamiento vertical | 2 | `imagen-desplazamiento-vertical` |
-| Sin raíces reales | 2 | `sin-raices-reales` |
+| Asíntota horizontal (nombre, ecuación, desplazamiento) | 2 | `asintota-horizontal` |
+| Comportamiento en infinito ($x \to \pm\infty$) | 2 | `comportamiento-infinito` |
+| Parámetro base/tasa de crecimiento en contexto | 2 | `parametro-base-crecimiento` |
+| Dominio e imagen (básico) | 2 | `dominio-imagen-basica` |
 | Comparación de bases | 2 | `comparacion-bases` |
-| Exclusión de $b=1$ o base negativa | 2 | `exclusion-base-1-o-negativa` |
-| Resolver ecuación exponencial simple | 2 | `resolver-ecuacion-exponencial-simple` |
+| Sin raíces reales | 1 | `sin-raices-reales` |
+| Valor inicial $f(0)$ | 1 | `valor-inicial-f0` |
+| Período de duplicación / vida media | 1 | `periodo-duplicacion-vida-media` |
+| Número $e$, concepto | 1 | `numero-e-concepto` |
+| Imagen con desplazamiento vertical | 1 | `imagen-desplazamiento-vertical` |
+| Resolver ecuación exponencial simple | 1 | `resolver-ecuacion-exponencial-simple` |
+| Exclusión de $b=1$ o base negativa | 1 | `exclusion-base-1-o-negativa` |
 | Ubicación de la variable en el exponente | 1 | `ubicacion-variable-exponente` |
-| Punto de corte con el eje $Y$ | 1 | `punto-corte-eje-y` |
-| Razonamiento de por qué el dominio es $\mathbb{R}$ | 1 | `dominio-razonamiento` |
 | Transformación horizontal | 1 | `transformacion-horizontal` |
 | Inyectividad de la exponencial | 1 | `inyectividad-exponencial` |
-| Función inversa (logaritmo) | 1 | `funcion-inversa-logaritmo` |
-| Identificar la afirmación falsa | 1 | `afirmacion-falsa-identificar` |
 | Ausencia de extremos locales | 1 | `extremos-locales-inexistentes` |
 | Comparación crecimiento lineal vs. exponencial | 1 | `crecimiento-lineal-vs-exponencial` |
-| Inecuación exponencial | 1 | `inecuacion-exponencial` |
-| **Total** | **50** | |
+| Función inversa (logaritmo) | 1 | `funcion-inversa-logaritmo` |
+| **Total** | **30** | |
 
-> Nota: `white_exponential_LEXI_22` ("¿Cuál propiedad especial tiene $f(x)=e^x$ en cálculo? Su derivada es $e^x$") invoca **derivada**, fuera de la frontera de `white`. Al refactorizar, reformular sin ese concepto (ej. describir a $e$ como la única base cuya curva tiene una propiedad de crecimiento particular, sin nombrarla como derivada) o reclasificar el ejercicio.
+> Sub-familias podadas por completo en ago-2026 (cupo pasó a 0, quedaban sub-representadas y con más findings del validador): `punto-corte-eje-y` (redundante con `valor-inicial-f0`, mismo concepto de $f(0)$), `dominio-razonamiento`, `afirmacion-falsa-identificar`, `inecuacion-exponencial`.
 
-**CLSF (50):**
+> Nota: `white_exponential_LEXI_22` ("¿Cuál propiedad especial tiene $f(x)=e^x$ en cálculo? Su derivada es $e^x$") invoca **derivada**, fuera de la frontera de `white`. Al refactorizar, reformular sin ese concepto (ej. describir a $e$ como la única base cuya curva tiene una propiedad de crecimiento particular, sin nombrarla como derivada) o reclasificar el ejercicio. (Este ejercicio fue eliminado en la poda de ago-2026, cortado dentro de la sub-familia `numero-e-concepto`; si se vuelve a generar contenido para esa sub-familia, seguir evitando el concepto de derivada.)
+
+**CLSF (50, archivado — no se poda, ver nota de archivado al inicio del documento):**
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -168,58 +166,59 @@ Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026).
 | Distinción exponencial vs. lineal (comparar dos modelos) | 1 | `distincion-exponencial-lineal-comparacion` |
 | **Total** | **50** | |
 
-**FORM (50):**
+**FORM (30):**
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Evaluar $f(\text{valor})$ | 10 | `evaluar-f` |
-| Identificar fórmula desde gráfico | 8 | `grafico-a-formula` |
-| Evaluar en contexto cotidiano (bacterias, inversión, etc.) | 7 | `evaluar-contexto` |
-| Armar fórmula desde un contexto cotidiano | 6 | `armar-formula-contexto` |
+| Evaluar $f(\text{valor})$ | 8 | `evaluar-f` |
 | Propiedades algebraicas de potencias | 6 | `propiedades-algebraicas-potencias` |
-| Leer base o coeficiente $a$ desde la fórmula | 4 | `leer-base-coeficiente` |
-| Dominio (básico) | 2 | `dominio-basico` |
-| Determinar $a$ y $b$ desde dos puntos | 2 | `determinar-a-b-desde-dos-puntos` |
-| Tasa de crecimiento expresada como porcentaje | 2 | `tasa-crecimiento-porcentaje` |
-| Asíntota horizontal desplazada | 1 | `asintota-horizontal-desplazada` |
-| Imagen con desplazamiento vertical | 1 | `imagen-desplazamiento-vertical` |
+| Evaluar en contexto cotidiano (bacterias, inversión, etc.) | 5 | `evaluar-contexto` |
+| Armar fórmula desde un contexto cotidiano | 3 | `armar-formula-contexto` |
+| Identificar fórmula desde gráfico | 2 | `grafico-a-formula` |
+| Leer base o coeficiente $a$ desde la fórmula | 2 | `leer-base-coeficiente` |
+| Dominio (básico) | 1 | `dominio-basico` |
+| Tasa de crecimiento expresada como porcentaje | 1 | `tasa-crecimiento-porcentaje` |
+| Determinar $a$ y $b$ desde dos puntos | 1 | `determinar-a-b-desde-dos-puntos` |
 | Comparar dos modelos (cuál vale más en un punto) | 1 | `comparar-dos-modelos` |
-| **Total** | **50** | |
+| **Total** | **30** | |
 
-**GRAF (50):** mantiene los tipos A (leer propiedades)/B (identificar fórmula)/C (contexto), con slug por sub-familia.
+> Sub-familia podada por completo en ago-2026: `asintota-horizontal-desplazada` (cupo pasó a 0; el único ejercicio de la fila era el de peor puntaje del validador en FORM). El desplazamiento de asíntota sigue cubierto en LEXI (`asintota-horizontal`) y GRAF.
 
-*Tipo A — leer propiedades desde el gráfico (25):*
+**GRAF (30):** mantiene los tipos A (leer propiedades)/B (identificar fórmula)/C (contexto), con slug por sub-familia.
+
+*Tipo A — leer propiedades desde el gráfico (15):*
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Leer un valor puntual ($f(1)$, $f(-2)$, etc.) | 5 | `lectura-valor-puntual` |
-| Ordenada al origen, $f(0)$ | 4 | `lectura-ordenada-origen` |
-| Monotonía (creciente/decreciente, en qué intervalo) | 3 | `lectura-monotonia` |
-| Comportamiento en infinito | 3 | `lectura-comportamiento-infinito` |
-| Raíces (tiene o no tiene cero) | 3 | `lectura-raices` |
-| Asíntota horizontal | 2 | `lectura-asintota` |
-| Imagen | 2 | `lectura-imagen` |
+| Leer un valor puntual ($f(1)$, $f(-2)$, etc.) | 2 | `lectura-valor-puntual` |
+| Ordenada al origen, $f(0)$ | 2 | `lectura-ordenada-origen` |
+| Monotonía (creciente/decreciente, en qué intervalo) | 2 | `lectura-monotonia` |
+| Comportamiento en infinito | 2 | `lectura-comportamiento-infinito` |
+| Raíces (tiene o no tiene cero) | 2 | `lectura-raices` |
+| Asíntota horizontal | 1 | `lectura-asintota` |
+| Imagen | 1 | `lectura-imagen` |
 | Extremos locales (ausencia) | 1 | `lectura-extremos-locales` |
 | Dominio | 1 | `lectura-dominio` |
 | Comparar bases desde el gráfico (cuál es más empinada) | 1 | `comparar-bases-grafico` |
-| **Subtotal Tipo A** | **25** | |
+| **Subtotal Tipo A** | **15** | |
 
-*Tipo B — identificar fórmula dado el gráfico (15):* todos bajo `grafico-a-formula` (misma habilidad que en FORM).
+*Tipo B — identificar fórmula dado el gráfico (9):* todos bajo `grafico-a-formula` (misma habilidad que en FORM).
 
-*Tipo C — contexto cotidiano + gráfico (10):*
+*Tipo C — contexto cotidiano + gráfico (6):*
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Evaluar en contexto (bacterias, inversión, moto, usuarios, etc.) | 7 | `evaluar-contexto` |
+| Evaluar en contexto (bacterias, inversión, moto, usuarios, etc.) | 4 | `evaluar-contexto` |
 | Comportamiento en infinito en contexto | 1 | `comportamiento-infinito-contexto` |
 | Asíntota en contexto (temperatura de equilibrio) | 1 | `asintota-contexto` |
-| Ordenada al origen en contexto | 1 | `lectura-ordenada-origen-contexto` |
-| **Subtotal Tipo C** | **10** | |
+| **Subtotal Tipo C** | **6** | |
+
+> Sub-familia podada por completo en ago-2026: `lectura-ordenada-origen-contexto` (cupo pasó a 0; el único ejercicio de la fila fue el peor puntuado del validador en GRAF). La ordenada al origen en contexto sigue cubierta por Tipo A (`lectura-ordenada-origen`) y por `evaluar-contexto`.
 
 ### Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal:**
-- [ ] `feedback_incorrect` completo en los 50 ejercicios por skill: `array` del largo de `options`, `null` en el correcto
+- [ ] `feedback_incorrect` completo en los 30 ejercicios por skill (LEXI/FORM/GRAF): `array` del largo de `options`, `null` en el correcto
 - [ ] Ningún `\n\n` pegado a un bloque `$$...$$`
 - [ ] Ningún em-dash `—` ni en-dash `–`
 - [ ] Ninguna explicación con viñetas `•` ni sub-ejercicios `-`

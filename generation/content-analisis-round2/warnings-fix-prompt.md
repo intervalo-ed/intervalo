@@ -1,50 +1,48 @@
-# Corrección de warnings — ronda 2 `analisis`
+# Corrección de errores y warnings — ronda de validador `analisis`
 
-Este documento es para **corregir los warnings** que dejó la ronda 2 del curso `analisis`.
+Este documento reemplaza cualquier lectura previa que tengas del contenido de este archivo:
+fue **reescrito por completo** con el estado real del validador a esta fecha. La versión
+anterior describía reglas (`21`/`34`/`4`/`15`/`26`/`32`) y conteos (~4000 warnings, 0 errors)
+de una ronda ya cerrada y mergeada (PR #104). Desde entonces `validate_content.py` sumó reglas
+nuevas (**35, 36, 37, 38**) que se escribieron trabajando el curso `probabilidad`, y al
+aplicarse retroactivamente sobre `analisis` aparecieron violaciones que antes no se detectaban
+— incluidas **85 ERRORS reales**, algo que la ronda anterior no tenía.
+
 No se generan ni se quitan ejercicios: se **arreglan en el lugar** los defectos de formato y
-de contenido que marca `validate_content.py`. Si vas a tocar contenido de `analisis`,
-**empezá por acá** y después seguí el `generation-prompt.md` maestro para el detalle del
-workflow.
-
-Todos los comandos se corren **desde `backend/`**. Trabajás en la branch
-`content-analisis-round2` (PR #104). No commitees a `main`.
+de contenido que marca el validador. Trabajás en la branch `content-analisis-round2`
+(ya actualizada a la par de `main`). **No commitees a `main` ni a `staging` directo**: el PR
+de esta rama hacia `staging` ya está abierto, tus commits van a esa rama y aparecen solos ahí.
 
 ---
 
-## Estado del que partís
+## Estado del que partís (medido recién, en esta rama)
 
-El contenido de `analisis` ya valida con **0 ERRORS**, pero tiene **~4000 WARNINGS**. Esos
-warnings son deuda real de calidad, no ruido: el único artefacto de medición que había
-(párrafos de prosa cortados por fórmulas centradas) ya se corrigió en el validador
-(`prose_segments()`, commit `d767776`). Lo que queda hay que resolverlo tocando el contenido.
-El umbral de `options / 4` y `options / 15` también se endureció (1.2x/0.8x en vez de
-1.5x/0.6x); ver el catálogo abajo para el detalle.
+```
+Archivos: 65 | Ítems: 1780 | ERRORS: 85 | WARNINGS: 2039
+  explanations   WARNING  1095
+  feedbacks      WARNING  157
+  questions      ERROR      85
+  questions      WARNING   553
+  structure      WARNING   234
+```
 
-El regex de `explanations / 34` tenía varios gaps de cobertura (no detectaba "error" singular
-por un typo, ni "error típico", ni el artículo "El", ni el patrón predicado "X es un error
-frecuente" en vez de apertura de oración). Corregidos, el conteo real subió de 7 a **296**:
-la mayoría del corpus tenía el patrón, solo que el validador no lo veía.
+Un **ERROR** es una violación inequívoca de una regla dura: **nunca se commitea un topic con
+ERRORS pendientes**. Un **WARNING** es una heurística que puede tener falsos positivos: se
+revisa con criterio (ver "Meta" más abajo), no se fuerza a cero a cualquier costo.
 
-Regla 33 (cierre de `explanation`) además se cerró a **4 familias permitidas** (consecuencia
-directa, segunda persona, gerundio/infinitivo al frente, otros caso a caso), agregando 3
-prohibiciones explícitas al validador: filler genérico "Es fácil/tentador..." (0 casos en
-`analisis`, es una muletilla de la ronda 1 de `probabilidad`), marcador breve tipo
-"Ojo:/Cuidado con..." (8 casos) y comparación/contraste "A diferencia de X, acá..." (4 casos).
-Total `explanations / 34` ahora **308**.
-
-Un ERROR es una violación inequívoca (explanation < 300, `\n\n` pegado a `$$`, feedback mal
-formado, tag inválido, etc.): **nunca se commitea con ERRORS**. Un WARNING es una heurística
-que puede tener falsos positivos: se revisa con criterio (ver "Meta" abajo).
+Las **85 ERRORS son todas regla 37** (paréntesis aclaratorio) en el campo `questions` — ahí la
+regla es dura, a diferencia de `explanations`/`feedbacks` donde la misma regla 37 solo genera
+WARNING. Están concentradas casi enteramente en `white/functions` (ver tabla de abajo).
 
 ---
 
 ## Antes de tocar nada, leé
 
-1. `backend/content/authoring-context.md` **completo**. Es la fuente de verdad de formato y
-   estilo. Las reglas que más vas a usar acá: **4** y **15** (paridad de opciones), **18**
-   (fórmula central del enunciado), **21** (densidad de inline), **26** (`\text{}`), **32**
-   (aperturas repetidas), la sección **"Formato de párrafos"** (cómo se miden los tramos de
-   prosa entre fórmulas) y **"Fórmulas anchas: partir en pasos"**.
+1. `backend/content/authoring-context.md` **completo**, con atención especial a las reglas
+   **18** (fórmula central tejida), **21** (densidad de inline), **35** (ecuación ancha
+   tejida / fórmula repetida inline+display), **36** (párrafos de `question` ≤130 chars,
+   pregunta `¿...?` en su propio tramo), **37** (sin paréntesis aclaratorios en ningún campo)
+   y **38** (bloques display sin `aligned` que hay que verticalizar).
 2. `backend/content/analisis/course-context.md` (qué sabe el alumno en cada belt).
 3. El `topic-context.md` del topic en el que estás trabajando: su **tabla de distribución por
    sub-familia** (con los slugs de `tags`) y su **checklist manual** al final.
@@ -60,16 +58,10 @@ Corré el validador por topic, con salida JSON para poder leer cada finding:
 python content/validate_content.py --course analisis --topic <belt>/<unit>/<topic> --json
 ```
 
-Por ejemplo: `--topic white/functions/rational`. Cada finding trae:
-
-- `level`: `ERROR` o `WARNING`.
-- `check`: familia (`explanations`, `options`, `feedbacks`, `questions`, `structure`).
-- `rule`: la regla concreta (`21`, `párrafos`, `4`, `18`, `fórmulas anchas`, `tags`, ...).
-- `file`, `item`: el archivo y el índice de ejercicio (`#3` = cuarto ejercicio del array).
-- `message`: el detalle, con un fragmento del texto ofensor.
-
-Sin `--json` te da una lista legible; con `--topic` acota a un topic; sin `--topic` corre
-todo el curso. Flags útiles: `--check options,structure` para correr solo algunas familias.
+Por ejemplo: `--topic white/functions/rational`. Cada finding trae `level` (ERROR/WARNING),
+`check` (familia: `explanations`, `options`, `feedbacks`, `questions`, `structure`), `rule`
+(número de regla), `file`, `item` (índice del ejercicio, `#3` = cuarto del array) y `message`
+con el fragmento ofensor. Sin `--json` da una lista legible; sin `--topic` corre todo el curso.
 
 **No embebemos acá la lista de casos**: se desactualiza en cuanto corregís el primero. La
 lista viva sale siempre del validador.
@@ -80,287 +72,228 @@ lista viva sale siempre del validador.
 
 Trabajás **un topic a la vez, cerrándolo completo** antes de pasar al siguiente:
 
-1. **Diagnosticar**: corré el validador sobre el topic y agrupá sus warnings por `rule`.
+1. **Diagnosticar**: corré el validador sobre el topic (`--json` para detalle), agrupá por
+   `rule`.
 2. **Corregir**: aplicá el criterio de cada tipo (catálogo abajo), ejercicio por ejercicio.
+   Arrancá siempre por las **ERROR** del topic (regla 37 en `questions`) antes que los WARNING.
 3. **Seedear**: `python seed_content.py --course analisis` — tiene que correr sin errores y
    reportar los ejercicios del topic como `updated`. Esto también revalida integridad JSON.
-4. **Re-validar**: volvé a correr el validador sobre el topic. Objetivo: **0 ERRORS** y los
-   warnings resueltos o justificados.
-5. **Checklist manual**: corré el checklist del final del `topic-context.md`, mirando los
-   puntos que el validador no cubre (regla 25/30/31 y las reglas duras del topic).
-6. **Commitear** (solo si 3/4/5 cierran): un commit por topic, con el formato del
-   `generation-prompt.md` (qué se corrigió por regla, qué warnings quedaron y por qué, y el
-   conteo por `tags` de cada skill).
+4. **Re-validar**: volvé a correr el validador sobre el topic. Objetivo: **0 ERRORS** siempre,
+   y los warnings resueltos o justificados.
+5. **Checklist manual** del `topic-context.md` del topic, ítem por ítem (mirá especialmente lo
+   que el validador no cubre: coherencia de contexto, reglas duras propias del topic).
+6. **Commitear** (solo si 3/4/5 cierran): un commit por topic, con el detalle de qué se
+   corrigió por regla, qué warnings quedaron y por qué, y el conteo por `tags` de cada skill si
+   tocaste `structure`.
 
-**Orden sugerido de topics** (respeta la dependencia conceptual, igual que el prompt
-maestro): `white → blue → violet → brown`, y dentro de cada unidad, el orden de la tabla del
-`generation-prompt.md`. **`white/functions` concentra ~2/3 de todos los warnings**, así que
-es el grueso del trabajo.
+**Regla de oro: la cantidad de ejercicios de cada `.json` no cambia.** No toques
+`external_id`, `belt`, `topic`, `exercise_type` (los pone el seeder). Los docs de contexto
+(`topic-context.md`, `authoring-context.md`, `validate_content.py`) son **solo lectura**
+durante esta tarea.
 
-**Regla de oro (heredada de la ronda 2): la cantidad de ejercicios de cada `.json` no
-cambia.** No toques `external_id`, `belt`, `topic`, `exercise_type` (los pone el seeder).
+---
+
+## Orden sugerido de topics
+
+`white/functions` concentra casi todos los ERRORS y la mayoría de los WARNINGS (tiene 1150 de
+los 1780 ítems del curso). Andá por orden de impacto, de mayor a menor, y dentro de cada
+belt/unit en el orden natural del curso:
+
+| Topic | ERROR | WARNING | Prioridad |
+|---|---:|---:|---|
+| `white/functions/polynomial` | 19 | 242 | 1 |
+| `white/functions/rational` | 18 | 241 | 2 |
+| `white/functions/exponential` | 12 | 230 | 3 |
+| `white/functions/trigonometric` | 11 | 197 | 4 |
+| `white/functions/logarithmic` | 10 | 173 | 5 |
+| `white/functions/linear` | 6 | 142 | 6 |
+| `white/functions/quadratic` | 4 | 168 | 7 |
+| `white/functions/definition` | 2 | 79 | 8 |
+| `brown/integrals/reglas` | 1 | 41 | 9 |
+| `blue/limits/infinite_limits` | 1 | 30 | 10 |
+| `violet/derivatives/chain_rule` | 1 | 12 | 11 |
+| `blue/limits/lateral_limits` | 0 | 51 | 12 |
+| `blue/limits/definition` | 0 | 50 | 13 |
+| `violet/derivatives/product` | 0 | 48 | 14 |
+| `violet/derivatives/geometric_interpretation` | 0 | 47 | 15 |
+| `blue/limits/continuity` | 0 | 44 | 16 |
+| `brown/integrals/substitution` | 0 | 39 | 17 |
+| `brown/integrals/definition` | 0 | 38 | 18 |
+| `violet/derivatives/limit_definition` | 0 | 34 | 19 |
+| `blue/limits/rationalization` | 0 | 28 | 20 |
+| `brown/integrals/parts` | 0 | 26 | 21 |
+| `blue/limits/factorization` | 0 | 25 | 22 |
+| `brown/integrals/definite` | 0 | 22 | 23 |
+| `violet/derivatives/differentiation_rules` | 0 | 21 | 24 |
+| `violet/derivatives/quotient` | 0 | 11 | 25 |
+
+(Números medidos recién en esta rama; volvé a correr el validador para el conteo vivo antes de
+cada topic, sobre todo si ya corregiste alguno anterior — no hay solapamiento entre topics pero
+sí conviene confirmar.)
 
 ---
 
 ## Meta: resolver o justificar (no forzar 0)
 
-Cada warning se **corrige**, salvo que después de mirarlo con criterio decidas que el
-ejercicio está bien como está (ej. una oración que genuinamente necesita 3 inline para no
-perder precisión). En ese caso lo dejás, pero **cada warning que quede se justifica en una
-línea del mensaje de commit**.
+Cada warning se **corrige**, salvo que después de mirarlo con criterio decidas que el ejercicio
+está bien como está. En ese caso lo dejás, pero **cada warning que quede se justifica en una
+línea del mensaje de commit**. Todas las ERROR (regla 37 en `questions`) se corrigen siempre,
+sin excepción — ahí no hay margen de criterio.
 
 **Prohibido "gamear" el número.** El objetivo es que el ejercicio quede mejor, no que el
-contador baje. Antipatrones concretos ya vistos en esta ronda, no los repitas:
+contador baje. Antipatrones concretos, no los repitas:
 
-- Insertar `\n\n` en cualquier lado solo para partir un párrafo largo, sin que el corte
-  respete un límite de oración real.
-- Alargar los distractores con relleno que no aporta distracción, para emparejar longitud
-  con la correcta (regla 4 lo prohíbe explícito).
+- Insertar `\n\n` en cualquier lado solo para partir un párrafo largo, sin que el corte respete
+  un límite de oración real.
+- Alargar los distractores con relleno que no aporta distracción, para emparejar longitud con
+  la correcta.
 - Cambiar `\dfrac`→`\frac` en un enunciado **sin** mover la fórmula a su bloque `$$`: eso no
-  arregla la regla 18, solo cambia el tamaño; el defecto (fórmula tejida inline) sigue.
+  arregla la regla 18/35, solo cambia el tamaño; el defecto (fórmula tejida inline) sigue.
+- Sacar el paréntesis de la regla 37 metiendo la aclaración entre comas o guiones sin
+  integrarla de verdad a la prosa como cláusula propia — eso es forma, no fondo.
 - Tocar el validador, el `topic-context.md` o cualquier doc de contexto para que el warning
-  desaparezca. Los docs de contexto son **solo lectura** durante esta tarea.
+  desaparezca. Son **solo lectura** durante esta tarea.
 
-Si dudás de si un warning es falso positivo, resolvé el defecto de fondo; si no hay defecto
-de fondo, justificalo. Nunca lo silencies por el camino corto.
+**⚠️ Aviso duro heredado de la ronda anterior.** El `\n\n` **nunca** puede quedar pegado a un
+`$` o `$$` (eso es ERROR de otra regla). El formato exige un solo `\n` junto a las fórmulas
+centradas; si el corte cae justo después de un bloque `$$`, agregá primero una oración de
+cierre corta pegada al bloque con un solo `\n`, y recién después el `\n\n`.
 
 ---
 
-## Catálogo de warnings
+## Catálogo de reglas
 
-Cada tipo abajo: **qué mide**, la **regla** que lo respalda, un **ejemplo ❌/✅**, y el
-**criterio de fix**. Están agrupados por cluster según el tipo de trabajo que requieren.
+### `questions / 37` (ERROR) — paréntesis aclaratorio en el enunciado
 
-### Cluster B — cortar / mover (semi-mecánico, pero revisá que no rompa el formato)
+**Qué mide.** Cualquier `(` fuera de zona matemática (`$...$`) en el `question`. Un dato dado
+entre paréntesis (`"la probabilidad A (35%)"`, `"el complemento (1 menos P(A))"`) es una
+aclaración disfrazada de notación. **Regla 37, nivel ERROR en `questions`.**
 
-#### `explanations / párrafos` — tramo de prosa > 200 caracteres
-
-**Qué mide.** El largo de prosa (sin contar el LaTeX) de cada **tramo entre fórmulas
-centradas** `$$...$$`. Ver sección "Formato de párrafos" de `authoring-context.md`: el tope
-de 200 aplica a cada tramo, no al párrafo entero.
-
-**Criterio.** La mayoría de estos tramos son **dos o más oraciones**: se parten en un límite
-de oración con `\n\n`. La minoría es **una sola oración larga**: no se parte, se reescribe
-más corta (cae en el criterio del Cluster C).
-
-**⚠️ Aviso duro.** El `\n\n` **nunca** puede quedar pegado a un `$` o `$$` (eso es ERROR,
-regla 2). El formato obliga a un solo `\n` junto a las fórmulas centradas. Si el corte cae
-justo después de un bloque `$$`, primero agregá una oración de cierre corta pegada al bloque
-con un solo `\n`, y recién después el `\n\n`:
+**Criterio.** Integrar la aclaración como cláusula propia de la prosa, sin paréntesis.
 
 ```
-❌  ...el resultado es 120.\n$$V_{6,2}=30$$\n\nAhora bien, la confusión típica...
-    (el \n\n quedó pegado al cierre del $$ → rompe)
+❌  Un polinomio de grado 3 (cúbico) tiene hasta 3 raíces reales.
+✅  Un polinomio de grado 3, es decir cúbico, tiene hasta 3 raíces reales.
 
-✅  ...el resultado es 120.\n$$V_{6,2}=30$$\nHay 30 asignaciones.\n\nLa confusión típica...
-    (oración de cierre con \n, después el \n\n)
+❌  Se sabe que $f(2) = 5$ (el valor de la función en $x=2$).
+✅  Se sabe que $f(2) = 5$, el valor de la función cuando $x=2$.
 ```
 
-#### `explanations / 21` — 3+ fragmentos LaTeX inline en un mismo tramo
+Es el bloque de trabajo más grande y el único con ERROR real: arrancá cada topic por acá.
 
-**Qué mide.** Cantidad de `$...$` sueltos tejidos en un mismo tramo de prosa. **Regla 21.**
+### `explanations` y `feedbacks` / 37 (WARNING) — mismo defecto, otros campos
 
-**Criterio.** Es la misma raíz que el anterior y la regla 21 lista sus dos remedios: (a)
-dividir el tramo en párrafos más cortos (`\n\n`), o (b) sacar la fórmula central a un bloque
-`$$...$$`. Cuando los inline están **repartidos en varias oraciones**, alcanza con partir.
-Cuando es **una sola oración densa** ("...con $m=\frac{1}{2}$ y $b=3$, la forma $mx+b$..."),
-hay que reescribir: pasar la fórmula clave a bloque o verbalizar los símbolos.
+Igual que arriba, pero en `explanation` o `feedback_correct`/`feedback_incorrect`. Mismo
+criterio de reescritura; acá es warning porque son campos de refuerzo, no la pregunta en sí,
+pero corregilo igual salvo que el paréntesis sea genuinamente matemático (nunca lo es si cae
+fuera de un `$...$`).
 
-```
-❌  Que es la forma $mx + b$ con $m = \frac{1}{2}$ y $b = 3$. Es lineal.
-✅  Que es exactamente la forma lineal con pendiente un medio y ordenada tres.
-```
+### `questions` y `explanations` / 18 y 35 — fórmula/ecuación tejida inline
 
-#### `explanations / 26` — `\text{}` de 3+ palabras dentro de una fórmula
+**Qué mide.** Dos variantes de la misma raíz:
+- **Regla 18**: una fracción (`\dfrac`/`\frac`) tejida dentro de la oración en vez de tener su
+  propio bloque `$$`.
+- **Regla 35**: (a) una ecuación con `=` tejida inline cuyo render mide más de 18 caracteres —
+  ya es lo bastante ancha como para merecer bloque propio; o (b) una fórmula tejida inline que
+  **además** se repite en un bloque `$$` del mismo campo (redundancia).
 
-**Qué mide.** Una glosa larga en `\text{}` metida en un bloque `$$`. **Regla 26.**
-
-**Criterio.** Sacá la frase del `$$` y ponela en la prosa que rodea la fórmula.
-
-```
-❌  $$F_1(x) - F_2(x) = C_1 - C_2, \quad \text{constante para todo } x$$
-✅  $$F_1(x) - F_2(x) = C_1 - C_2$$\nEsa diferencia es constante para todo $x$.
-```
-
-#### `explanations / 34` — cierre anunciado como advertencia de diagnóstico
-
-**Qué mide.** El último párrafo de `explanation` abre con "La confusión típica es...",
-"Un error común/frecuente/clásico/típico es...", "La trampa (típica) es...", o lo dice como
-predicado en cualquier posición del párrafo ("X es un error frecuente", "Y es la trampa
-habitual"). **Regla 33 (rule id `34` en el validador).** El validador también marca 3
-variantes de reemplazo que caen en el mismo problema de fondo:
-- Filler genérico "Es fácil...`/`Es tentador..." como sustituto de la rotulación.
-- Marcador breve "Ojo:"/"Atención:"/"Cuidado con..." (8 casos en `analisis`).
-- Comparación/contraste "A diferencia de X, acá..." (4 casos en `analisis`).
-
-No es que el contenido esté mal: el problema es la forma, rotular la oración como
-advertencia antes (o en vez) de decirla se lee como informe de auditoría repetido ejercicio
-tras ejercicio, no como alguien explicando.
-
-**Criterio.** Reescribí la misma idea en voz narrativa directa, usando una de estas **4
-familias** (variando entre ítems del mismo archivo, nunca la misma en todo el archivo):
-1. **Consecuencia directa**: qué pasa si se hace mal. *"Restar los índices en vez de
-   expandir da un número parecido por casualidad."*
-2. **Segunda persona**: dirigirse al alumno. *"Si dividís antes de restar, te vas a
-   equivocar de resultado."*
-3. **Gerundio/infinitivo al frente**: la acción incorrecta como sujeto. *"Confundir esta
-   fórmula con la de variación es fácil de arrastrar de un ejercicio a otro."*
-4. **Otros, caso a caso**: sin plantilla fija, siempre que no repita las anteriores.
-
-El contenido de fondo (qué error se comete y por qué) normalmente **no cambia**, solo la
-forma de decirlo. Ninguna de las 4 familias usa "Ojo:"/"Cuidado" ni "A diferencia de" — esos
-quedan explícitamente prohibidos, no son una familia más.
-
-```
-❌  Un error clásico es restar directamente los índices ($5-4=1$) sin expandir ningún
-    factorial, tratando al símbolo $!$ como una operación lineal.
-✅  Restar los índices directo ($5-4=1$) da un número parecido por casualidad: el $!$ no
-    es una operación lineal, hay que expandir cada factorial antes de simplificar.
-```
-
-#### `questions / 32` — misma apertura literal en 3+ ítems del archivo
-
-**Qué mide.** Una plantilla de enunciado repetida (`Observá la función:`, `Hallá:`) en 3 o
-más ejercicios del mismo archivo. **Regla 32.**
-
-**Criterio.** Variá 2-3 de las aperturas por otras equivalentes, sin cambiar el sentido del
-enunciado (precedente: `factoriales/RESL.json` de la unidad `conteo`, donde "Calculá el
-valor de la siguiente expresión:" se varió a "Resolvé la siguiente resta de factoriales:" /
-"Encontrá el resultado de la siguiente fracción:").
-
-### Cluster C — reescritura con juicio semántico
-
-#### `options / 4` y `options / 15` — la correcta se delata por su forma
-
-**Qué mide.** La opción correcta es la única **notablemente más larga** (regla 4) o
-**notablemente más corta** (regla 15) que el resto, o lleva una **glosa/paréntesis
-aclaratorio que ningún distractor tiene**. **Reglas 4 y 15.** Es el warning de **mayor
-impacto pedagógico**: el alumno puede acertar por la forma, sin saber el contenido.
-
-**⚠️ Umbral ajustado.** El ratio que dispara este check se endureció de 1.5x/0.6x a
-**1.2x/0.8x** de la mediana de los distractores (antes se toleraba hasta un 50% más larga o
-un 40% más corta sin marcar nada; ahora alcanza con 20%). Esto subió el conteo de `analisis`
-de 202 a 275 casos: hay asimetrías reales que el umbral viejo dejaba pasar (ej. una opción de
-64 caracteres contra un distractor de 43, ratio 1.49, invisible con el umbral anterior pero
-perceptible a simple vista, sobre todo cuando hace que la opción envuelva a un segundo
-renglón mientras las demás quedan en uno solo).
-
-**Criterio.** Igualar el registro sin filtrar la respuesta. Dos caminos legítimos:
-- Acortar la correcta a su idea esencial.
-- Dar a los distractores algo que **compita de verdad** (una razón plausible), no relleno.
-
-Nunca resolverlo alargando distractores con paja.
-
-```
-❌  ["La lineal, porque $+10$ es mayor que $10\%$",
-     "La exponencial, porque el crecimiento porcentual acumula más a largo plazo",  ← correcta, mucho más larga
-     "Siempre son iguales", "Depende del valor inicial"]
-✅  ["La lineal, porque $+10$ supera al $10\%$ al principio",
-     "La exponencial, porque el porcentaje se acumula",
-     "Son iguales en el largo plazo", "Depende del valor inicial"]
-```
-
-```
-❌  ["Regla exponencial (base $e$)", "Regla de la potencia", "Regla del logaritmo"]  ← solo un distractor con paréntesis
-✅  ["Regla exponencial", "Regla de la potencia", "Regla del logaritmo"]
-```
-
-#### `feedbacks / fórmulas anchas` — cadena de 3+ igualdades en `feedback_correct`
-
-**Qué mide.** El `feedback_correct` encadena 3 o más `=` (una derivación completa). Ver
-"Fórmulas anchas: partir en pasos" de `authoring-context.md`.
-
-**Criterio.** El feedback deja el **resultado + una razón corta**; la derivación paso a paso
-va en `explanation`.
-
-```
-❌  $f(28) = \log_3(28 - 1) = \log_3(27) = 3$ porque $3^3 = 27$.
-✅  $f(28) = 3$, porque $3^3 = 27$.
-```
-
-#### `feedbacks / anti-acusación` — feedback que arranca culpando
-
-**Qué mide.** El `feedback_incorrect` arranca con un tono acusatorio (`Falta...`,
-`Olvidás...`, `Confundís...`). El feedback debe explicar de dónde sale el error, no acusar.
-
-**⚠️ No es un find/replace único.** El `Falta` viene en **dos formas** y cada una se
-reescribe distinto:
-- `Falta` + **verbo** infinitivo (`Falta derivar el término...`, `Falta dividir por...`):
-  reformular a "No se derivó el término..." / "Ese resultado no divide por...".
-- `Falta` + **sustantivo** (`Falta el signo negativo...`, `Falta el factor $2$...`):
-  reformular a "Ese resultado omite el signo negativo..." / "A esa expresión le falta el
-  factor $2$..." (describiendo qué falta, sin señalar al alumno).
-
-Reescribí cada uno mirando la oración completa; conjugá el verbo donde haga falta.
-
-```
-❌  Falta derivar el término lineal $5x$, cuya derivada es $5$.
-✅  Ese resultado no derivó el término lineal $5x$; su derivada es $5$.
-
-❌  Falta el signo negativo antes de la integral remanente.
-✅  A esa expresión le falta el signo negativo antes de la integral remanente.
-```
-
-#### `questions / 18` — fórmula central tejida inline en el enunciado
-
-**Qué mide.** El enunciado gira en torno a una función/fórmula, pero está **empotrada dentro
-de la oración** en vez de tener su bloque `$$` centrado. **Regla 18.** (Muchos usan `\dfrac`
-inline, pero el problema no es el comando: es la posición.)
-
-**Criterio.** Sacá la fórmula a su propio bloque `$$...$$`, con texto propio antes y/o
-después. Adentro de `$$` la fracción ya renderiza en tamaño display, así que `\frac` alcanza.
+**Criterio.** Sacá la fórmula a su propio bloque `$$...$$`, con texto propio antes y/o después.
+Si el caso es (b) — fórmula repetida — no la dupliques: nombrala en prosa una sola vez, y el
+bloque `$$` queda como la única aparición completa.
 
 ```
 ❌  En $f(x) = \dfrac{x^2 - 1}{x - 1}$, ¿para qué valor de $x$ no está definida?
 ✅  Considerá la función:\n$$f(x) = \frac{x^2 - 1}{x - 1}$$\n¿Para qué valor de $x$ no está definida?
+
+❌  Para $a^2 \pm 2ab + b^2 = (a \pm b)^2$ notamos que...\n$$a^2+2ab+b^2=(a+b)^2$$
+✅  Para el trinomio cuadrado perfecto notamos que...\n$$a^2+2ab+b^2=(a+b)^2$$
 ```
 
-**⚠️ Aviso.** No uses el mismo texto guía (`Considerá la función:`) en 3+ ejercicios del
-mismo archivo, o creás warnings de regla 32. Variá: "Partiendo de:", "Para la función:",
-"Dada:", etc.
+**⚠️ Aviso.** No repitas el mismo texto guía (`Considerá la función:`) en 3+ ejercicios del
+mismo archivo, eso crea warnings de repetición de apertura (regla 32, ya vigente). Variá:
+"Partiendo de:", "Para la función:", "Dada:", etc.
 
-### Cluster D — distribución de sub-familias (`structure / tags`)
+### `questions` / 21 — 3+ fragmentos LaTeX inline en el mismo tramo
+
+**Qué mide.** Cantidad de `$...$` sueltos tejidos en un mismo tramo de prosa del enunciado
+(umbral: 3+). **Regla 21.**
+
+**Criterio.** (a) dividir el tramo en párrafos más cortos con `\n\n` cuando los inline están
+repartidos en varias oraciones, o (b) sacar la fórmula central a un bloque `$$` cuando es una
+sola oración densa.
+
+```
+❌  Si $f(x) = 2x+1$, $g(x) = x-3$ y $h(x)=f(g(x))$, ¿cuánto vale $h(4)$?
+✅  Considerá $f(x) = 2x+1$ y $g(x) = x-3$.\n¿Cuánto vale $h(4) = f(g(4))$?
+```
+
+### `questions` / 36 — párrafo >130 chars, o pregunta pegada al planteo
+
+**Qué mide.** Dos variantes:
+- Un tramo de prosa del enunciado (sin contar LaTeX) de más de 130 caracteres — el umbral es
+  más estricto que el de `explanation` (200) porque se lee bajo presión de tiempo.
+- La pregunta `¿...?` encadenada en la misma oración/tramo que el planteo, en vez de tener su
+  propio tramo tras un `\n\n` o un bloque `$$`.
+
+**Criterio.** Cortar con `\n\n` en un límite de oración real (nunca a mitad de idea), dejando
+la pregunta como su propio párrafo final. Si el planteo es una sola oración larga y no admite
+corte limpio, reescribirla más corta en vez de partirla a la fuerza.
+
+```
+❌  Una función no está definida en $x=4$, pero para todo valor cercano se acerca a $9$, ¿cuál es el límite cuando $x \to 4$?
+✅  Una función no está definida en $x=4$, pero para todo valor cercano se acerca a $9$.\n\n¿Cuál es el límite cuando $x \to 4$?
+```
+
+### `questions` / 38 — bloque display ancho sin `aligned`, o cadena de 3+ `=`
+
+**Qué mide.** Un bloque `$$...$$` sin `\begin{aligned}` que renderiza demasiado ancho (>40
+caracteres de render), típicamente una función a trozos (`\begin{cases}...\end{cases}`) o una
+cadena de 3+ igualdades en una sola línea. **Regla 38.**
+
+**Criterio.** Verticalizar: partir en pasos (`$$a=b$$` seguido de `$$b=c$$`, cada uno con su
+propio `\n`) o pasar a `\begin{aligned}` cuando el contenido son varias ramas de una función a
+trozos.
+
+```
+❌  $$f(x) = \begin{cases} 2x + 1, & x < 1 \\ x^2 + 2, & x \geq 1 \end{cases}$$  ← 44 chars de render, sin aligned
+✅  $$f(x) = \begin{aligned} &2x + 1, && x < 1 \\ &x^2 + 2, && x \geq 1 \end{aligned}$$
+```
+
+(Revisá el render exacto con el validador: el umbral es de caracteres renderizados, no de
+caracteres de la fuente LaTeX — los `\\`, `&`, `\begin{cases}` no cuentan igual que texto
+visible.)
+
+### `structure / tags` — distribución de sub-familias
 
 **Qué mide.** El validador compara el conteo de cada slug de `tags` contra la tabla de
-distribución del `topic-context.md`.
+distribución del `topic-context.md`. **234 casos en total, 207 son MENOS y 27 son MÁS.**
 
 **Criterio, en dos casos:**
-- **Slug con MENOS ejercicios que el target** (la gran mayoría): es el gap normal de la
-  ronda 3 (blue/violet/brown están en 15 ejercicios, no en los 50 del target final). **Se
-  ignora**, justificándolo en una línea del commit ("distribución parcial, se completa en
-  ronda 3").
-- **Slug con MÁS ejercicios que el target**: pasa **solo en `white`** (que ya está en sus 50
-  finales), ej. `logarithmic/FORM evaluar-f: 35 vs 12`. Ahí hay un desbalance real. Fix:
-  **re-etiquetar** los ejercicios mal clasificados hacia las sub-familias sub-representadas
-  de la misma skill, o —si un ejercicio genuinamente no encaja en ningún slug faltante—
-  reescribir su enfoque para que cubra uno de los que faltan. **Sin cambiar la cantidad total
-  del archivo.** Es el trabajo más pesado; hacelo al final de cada topic de white, después de
-  cerrar los warnings de formato.
+- **Slug con MENOS ejercicios que el target** (la gran mayoría, todo `blue`/`violet`/`brown` y
+  parte de `white`): es el gap normal de generación parcial. **Se ignora**, justificándolo en
+  una línea del commit si tocaste ese archivo por otra razón.
+- **Slug con MÁS ejercicios que el target**: pasa **solo en `white`**, que ya está en sus
+  conteos finales — 27 casos concretos, todos en `white/functions` (ej.
+  `logarithmic/FORM evaluar-f: 35 vs 12`, `polynomial/GRAF grafico-a-formula: 15 vs 7`). Ahí
+  hay un desbalance real: **re-etiquetá** los ejercicios mal clasificados hacia las
+  sub-familias sub-representadas de la misma skill, o si un ejercicio genuinamente no encaja en
+  ningún slug faltante, reescribí su enfoque para que cubra uno de los que faltan. **Sin
+  cambiar la cantidad total del archivo.** Hacelo al final de cada topic de `white`, después de
+  cerrar los warnings de formato — corré `--check structure` para ver la lista completa de esos
+  27 casos por topic.
 
 ---
 
-## Apéndice: números de referencia
+## Verificación final (una vez cerrados todos los topics)
 
-Distribución de los ~4000 warnings al momento de escribir este prompt (corré el validador
-para el conteo vivo). Sirve para saber cuántos esperar por tipo y detectar si algo se
-disparó al corregir.
+1. `python seed_content.py --course analisis --prune` desde `backend/` (limpia filas viejas si
+   cambió la cantidad de ejercicios de algún ítem — no debería, pero es la red de seguridad).
+2. `python content/validate_content.py --course analisis`: confirmar **0 ERRORS** en todo el
+   curso, y cada WARNING restante justificado en algún commit.
+3. `python content/validate_content.py --course probabilidad` y `--course algebra`: correr
+   como red de seguridad, **no se tocan** esos cursos en esta tarea, solo confirmar que no se
+   rompió nada por compartir `validate_content.py`.
+4. Push de la branch `content-analisis-round2` — el PR hacia `staging` ya está abierto, tus
+   commits aparecen ahí solos.
 
-| Tipo | ~n | Cluster | Fix |
-|---|---:|---|---|
-| explanations / 21 | 1441 | B (~⅓ reescritura) | dividir tramo o sacar fórmula a `$$` |
-| explanations / párrafos | 1145 | B (~14% reescritura) | cortar en límite de oración con `\n\n` |
-| explanations / 34 | 308 | B | reescribir el cierre en voz narrativa directa |
-| options / 4 | 221 | C | igualar registro de opciones |
-| structure / tags | 234 | D (207 ignorar, 27 reales) | re-etiquetar/redistribuir en white |
-| feedbacks / fórmulas anchas | 218 | C | mover derivación a explanation |
-| feedbacks / anti-acusación | 173 | C | reformular (verbo vs sustantivo) |
-| questions / 18 | 158 | C | sacar fórmula central a `$$` |
-| options / 15 | 54 | C | igualar registro de opciones |
-| explanations / 26 | 28 | B | mover `\text{}` a la prosa |
-| questions / 32 | 20 | B | variar aperturas repetidas |
-
-`options / 4` y `options / 15` subieron (177→221, 25→54) por el umbral más estricto
-(1.2x/0.8x en vez de 1.5x/0.6x), no por contenido nuevo.
-
-Por unidad, la tasa de warnings por ítem es pareja (~1.7–2.1); el volumen de `white` es solo
-porque tiene 1150 de los 1780 ítems del curso.
+Sin merge a `staging` por tu cuenta: dejá el PR listo para que lo revisen.

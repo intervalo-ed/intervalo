@@ -2,9 +2,9 @@
 
 Belt: `brown`, Unit: `integrals`, Topic: `definite`
 
-Skills en este topic: `GRAF`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+Skills en este topic: `GRAF`, `RESL`. **30 ejercicios cada uno (60 en total)** al cerrar el refactor.
 
-Este topic tiene 2 ítems (uno por skill): `GRAF`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+Este topic tiene 2 ítems (uno por skill): `GRAF`, `RESL`. **30 ejercicios cada uno (60 en total)** al cerrar el refactor.
 
 **Estado.** Este tópico **cierra el cinturón brown**. Es donde convergen todas las técnicas de integración vistas (tabla + sustitución + partes) evaluadas ahora en un intervalo, y donde el alumno interpreta geométricamente qué acumula la integral definida.
 
@@ -53,7 +53,7 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 ---
 
-## GRAF, 50 ejercicios
+## GRAF, 30 ejercicios
 
 ### Qué evalúa
 **Interpretación visual** de la integral definida como **área neta**. Auditar si el alumno reconoce que áreas por debajo del eje $x$ computan negativas, y si maneja las **propiedades de los límites** al leerlas geométricamente.
@@ -67,8 +67,8 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Lectura de área con signos | Gráficos con figuras geométricas simples (formadas por funciones analíticas piecewise: rectas $f(x) = x$, $f(x) = 2 - x$; parábolas simples; semicírculo $\sqrt{r^2 - x^2}$) donde parte del área queda **arriba** del eje y parte **abajo**. Pedir la integral definida en todo el intervalo, esperando que el alumno **reste** las áreas negativas. Ejemplo: una función lineal a trozos que forma un triángulo arriba y otro abajo → $\int$ = área del de arriba menos área del de abajo. | `lectura-area-con-signos` | 25 |
-| B. Propiedades de los límites en el gráfico | Interpretar geométricamente las propiedades. Casos: $\int_b^a f(x) \, dx = -\int_a^b f(x) \, dx$ (invertir límites cambia signo); $\int_a^a f(x) \, dx = 0$ (límites iguales); aditividad $\int_a^c f + \int_c^b f = \int_a^b f$ (fraccionar en intervalos contiguos). Todo desde un gráfico dado. | `propiedades-limites-integracion` | 25 |
+| A. Lectura de área con signos | Gráficos con figuras geométricas simples (formadas por funciones analíticas piecewise: rectas $f(x) = x$, $f(x) = 2 - x$; parábolas simples; semicírculo $\sqrt{r^2 - x^2}$) donde parte del área queda **arriba** del eje y parte **abajo**. Pedir la integral definida en todo el intervalo, esperando que el alumno **reste** las áreas negativas. Ejemplo: una función lineal a trozos que forma un triángulo arriba y otro abajo → $\int$ = área del de arriba menos área del de abajo. | `lectura-area-con-signos` | 15 |
+| B. Propiedades de los límites en el gráfico | Interpretar geométricamente las propiedades. Casos: $\int_b^a f(x) \, dx = -\int_a^b f(x) \, dx$ (invertir límites cambia signo); $\int_a^a f(x) \, dx = 0$ (límites iguales); aditividad $\int_a^c f + \int_c^b f = \int_a^b f$ (fraccionar en intervalos contiguos). Todo desde un gráfico dado. | `propiedades-limites-integracion` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -90,7 +90,7 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 30 ejercicios
 
 ### Qué evalúa
 **Cálculo numérico final** aplicando Barrow. Convergen todas las técnicas: reglas directas, sustitución, partes. El nuevo drill es **evaluar la primitiva** en los límites y **restar correctamente**, cuidando los detalles operativos que distinguen definidas de indefinidas.
@@ -111,8 +111,8 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Barrow con reglas directas | Integrales definidas de polinomios, exponenciales y trigonométricas de tabla evaluadas en intervalos cortos. Ejemplos: $\int_0^2 (x^2 + 1) \, dx = \tfrac{8}{3} + 2 = \tfrac{14}{3}$; $\int_0^1 e^x \, dx = e - 1$; $\int_0^{\pi} \sin x \, dx = 2$. Foco: aplicar la tabla + Barrow correctamente, restar $F(a)$ aunque parezca cero (típico en exponenciales: $F(0) = 1$, no $0$). | `barrow-con-reglas-directas` | 25 |
-| B. Barrow con Sustitución y Partes | Ejercicios que requieren un método avanzado para hallar la primitiva y **después** aplicar Barrow. Ejemplos: $\int_0^1 x e^x \, dx$ (por partes) $= 1$; $\int_0^2 x(x^2 + 1)^3 \, dx$ (por sustitución con $u = x^2 + 1$, límites $u = 1$ a $u = 5$) $= \tfrac{5^4 - 1^4}{8} = \tfrac{624}{8} = 78$; $\int_0^{\pi/2} x \cos x \, dx$ (por partes) $= \tfrac{\pi}{2} - 1$. Foco: coordinar la técnica del cinturón con la evaluación en los límites. | `barrow-con-sustitucion-y-partes` | 25 |
+| A. Barrow con reglas directas | Integrales definidas de polinomios, exponenciales y trigonométricas de tabla evaluadas en intervalos cortos. Ejemplos: $\int_0^2 (x^2 + 1) \, dx = \tfrac{8}{3} + 2 = \tfrac{14}{3}$; $\int_0^1 e^x \, dx = e - 1$; $\int_0^{\pi} \sin x \, dx = 2$. Foco: aplicar la tabla + Barrow correctamente, restar $F(a)$ aunque parezca cero (típico en exponenciales: $F(0) = 1$, no $0$). | `barrow-con-reglas-directas` | 15 |
+| B. Barrow con Sustitución y Partes | Ejercicios que requieren un método avanzado para hallar la primitiva y **después** aplicar Barrow. Ejemplos: $\int_0^1 x e^x \, dx$ (por partes) $= 1$; $\int_0^2 x(x^2 + 1)^3 \, dx$ (por sustitución con $u = x^2 + 1$, límites $u = 1$ a $u = 5$) $= \tfrac{5^4 - 1^4}{8} = \tfrac{624}{8} = 78$; $\int_0^{\pi/2} x \cos x \, dx$ (por partes) $= \tfrac{\pi}{2} - 1$. Foco: coordinar la técnica del cinturón con la evaluación en los límites. | `barrow-con-sustitucion-y-partes` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -142,8 +142,8 @@ Pre-revisión programática sobre los ejercicios de prueba existentes:
 
 - **[CORREGIDO EN CONTENIDO] Bug `\n\n$$` generalizado**: los 2 archivos (`GRAF`, `RESL`, 30 ejercicios) tenían el bloque de desarrollo pegado con `\n\n$$` en vez de `\n$$`. Corregido con el mismo script de reemplazo mecánico.
 - **`GRAF#14`: `$$\text{integral definida (con signo)} \neq \text{área geométrica (siempre positiva)}$$`.** Viola la regla crítica 26: dentro de `\text{}` hay cláusulas con aclaración entre paréntesis, no un rótulo corto. Reescribir sacando las aclaraciones a la prosa que rodea la fórmula, dejando solo símbolos en el bloque (ej. `$$\text{integral definida} \neq \text{área geométrica}$$`, con "(con signo)"/"(siempre positiva)" movidos a la oración de antes o después).
-- **`GRAF#6`/`#7`: `\text{área arriba}`, `\text{área abajo}` dentro de `$$...$$`.** Más borderline (2 palabras, sin paréntesis), probablemente tolerable como rótulo corto, pero conviene sacarlo a la prosa igual para no dar pie a que el patrón crezca al completar los 50 ejercicios.
-- **`GRAF#9`/`#12`: opciones `["$0$", "$f(a)$", "No se puede determinar sin más datos"]`.** La correcta (`$0$`, 3 caracteres) es la más corta por lejos frente a un distractor de 36 caracteres. Reincidencia de la regla crítica 4/15 (paridad también en el sentido "la correcta es la única mucho más corta"). Igualar longitudes al completar los 50 ejercicios, no dejar la correcta como la única breve.
+- **`GRAF#6`/`#7`: `\text{área arriba}`, `\text{área abajo}` dentro de `$$...$$`.** Más borderline (2 palabras, sin paréntesis), probablemente tolerable como rótulo corto, pero conviene sacarlo a la prosa igual para no dar pie a que el patrón crezca al completar los 30 ejercicios.
+- **`GRAF#9`/`#12`: opciones `["$0$", "$f(a)$", "No se puede determinar sin más datos"]`.** La correcta (`$0$`, 3 caracteres) es la más corta por lejos frente a un distractor de 36 caracteres. Reincidencia de la regla crítica 4/15 (paridad también en el sentido "la correcta es la única mucho más corta"). Igualar longitudes al completar los 30 ejercicios, no dejar la correcta como la única breve.
 - **`RESL`: 15/15 ejercicios abren con `"Calculá\n$$...$$"`.** Mismo patrón que en el resto de la unidad: cláusula completa, solo falta el `:` y variar la redacción.
 
 ---
@@ -151,7 +151,7 @@ Pre-revisión programática sobre los ejercicios de prueba existentes:
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 2 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 30 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna aplicación de áreas entre curvas, análisis de funciones, optimización, ni ningún tema fuera del alcance del curso
 - [ ] Ningún resultado con $+C$ en respuestas correctas
 - [ ] Al menos algunos ejercicios con "$+C$ sumada" como distractor deliberado con `feedback_incorrect` explícito
@@ -164,17 +164,17 @@ Pre-revisión programática sobre los ejercicios de prueba existentes:
 - [ ] **`"Calculá"` (RESL) tiene el `:` agregado** y varía de redacción ejercicio a ejercicio (regla crítica 32)
 
 **GRAF:**
-- [ ] 50 ejercicios; cardinalidad flexible (3 conceptual, 4 numérica corta)
-- [ ] Distribución A/B respetada (25/25)
+- [ ] 30 ejercicios; cardinalidad flexible (3 conceptual, 4 numérica corta)
+- [ ] Distribución A/B respetada (15/15)
 - [ ] Solo funciones analíticas piecewise para `graph_fn` (rectas, parábolas simples, semicírculos)
 - [ ] Sub-A: figuras geométricas simples calculables por fórmula ($\tfrac{1}{2}bh$, $bh$, $\tfrac{\pi r^2}{2}$) con áreas arriba y abajo del eje; distractor mayoritario = "sumar sin signo"
 - [ ] Sub-B: opciones conceptuales ($-\int_a^b f$, $0$, $\int_a^b f$, aditividad rota) para las propiedades de límites
 - [ ] Dimensiones enteras pequeñas para que la suma neta sea limpia
 
 **RESL:**
-- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
+- [ ] 30 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
 - [ ] Sin contextos cotidianos
-- [ ] Distribución A/B respetada (25/25)
+- [ ] Distribución A/B respetada (15/15)
 - [ ] Ejercicios calibrados: $F(a)$ y $F(b)$ dan valores simples (enteros pequeños, fracciones limpias, expresiones exactas)
 - [ ] Sub-A con reglas directas de tabla (polinómicas, exponenciales, trigonométricas)
 - [ ] Sub-B con sustitución (con actualización de límites o retorno a $x$) o partes (una iteración)

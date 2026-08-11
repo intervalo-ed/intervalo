@@ -2,9 +2,9 @@
 
 Belt: `brown`, Unit: `integrals`, Topic: `parts`
 
-Skills en este topic: `ESTR`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+Skills en este topic: `ESTR`, `RESL`. **30 ejercicios cada uno (60 en total)** al cerrar el refactor.
 
-Este topic tiene 2 ítems (uno por skill): `ESTR`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+Este topic tiene 2 ítems (uno por skill): `ESTR`, `RESL`. **30 ejercicios cada uno (60 en total)** al cerrar el refactor.
 
 **Estado.** Este tópico introduce el **segundo método** de integración: la integración por partes. Se apoya en la regla del producto para derivadas y transforma una integral difícil en dos términos: un producto explícito $uv$ más una integral remanente $\int v \, du$ que se busca más simple que la original.
 
@@ -51,7 +51,7 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 ---
 
-## ESTR, 50 ejercicios
+## ESTR, 30 ejercicios
 
 ### Qué evalúa
 **Toma de decisiones previa al cálculo**. El alumno demuestra que sabe **armar el problema** aplicando LIATE, **predice el comportamiento del método** (una iteración vs varias vs cíclica) antes de gastar hojas en cálculos ciegos. Sin ejecutar la integral final.
@@ -65,8 +65,8 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Elección de variables y regla LIATE | Identificar qué función asume el rol de $u$ y cuál el de $dv$ para que la integral resultante sea más simple. Combinaciones clásicas: polinómica con logaritmo ($\int x^2 \ln x \, dx$: $u = \ln x$, $dv = x^2 \, dx$), polinómica con exponencial ($\int x e^x \, dx$: $u = x$, $dv = e^x \, dx$), polinómica con trigonométrica ($\int x \sin x \, dx$: $u = x$, $dv = \sin x \, dx$). LIATE prioriza L → I → A → T → E para elegir $u$. | `eleccion-variables-regla-liate` | 25 |
-| B. Diagnóstico de iteración y ciclos | Predecir el comportamiento del método sin resolver. Casos: $\int x^2 e^x \, dx$ requiere **aplicar la fórmula dos veces** (grado 2 en polinómica); $\int e^x \sin x \, dx$ genera una **integral cíclica** (aplicar dos veces regresa a la original con signo cambiado, hay que **despejar**); $\int x^n \ln x \, dx$ cierra en **una** iteración cualquiera sea $n$. Distinguir estos comportamientos. | `diagnostico-iteracion-y-ciclos` | 25 |
+| A. Elección de variables y regla LIATE | Identificar qué función asume el rol de $u$ y cuál el de $dv$ para que la integral resultante sea más simple. Combinaciones clásicas: polinómica con logaritmo ($\int x^2 \ln x \, dx$: $u = \ln x$, $dv = x^2 \, dx$), polinómica con exponencial ($\int x e^x \, dx$: $u = x$, $dv = e^x \, dx$), polinómica con trigonométrica ($\int x \sin x \, dx$: $u = x$, $dv = \sin x \, dx$). LIATE prioriza L → I → A → T → E para elegir $u$. | `eleccion-variables-regla-liate` | 15 |
+| B. Diagnóstico de iteración y ciclos | Predecir el comportamiento del método sin resolver. Casos: $\int x^2 e^x \, dx$ requiere **aplicar la fórmula dos veces** (grado 2 en polinómica); $\int e^x \sin x \, dx$ genera una **integral cíclica** (aplicar dos veces regresa a la original con signo cambiado, hay que **despejar**); $\int x^n \ln x \, dx$ cierra en **una** iteración cualquiera sea $n$. Distinguir estos comportamientos. | `diagnostico-iteracion-y-ciclos` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -87,7 +87,7 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 30 ejercicios
 
 ### Qué evalúa
 **Cálculo estructurado en una única iteración**: aplicar la fórmula $\int u \, dv = uv - \int v \, du$ con signo correcto, resolver la integral remanente (que debe cerrar en una fórmula de tabla), volver a $x$ si hubo sustitución auxiliar interna, agregar $+C$. Sin contextos cotidianos.
@@ -109,8 +109,8 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Aplicación directa de una iteración | Integrales que cierran aplicando partes **una única vez**. Polinómica de **grado 1** ($x$) combinada con trigonométrica o exponencial. Ejemplos: $\int x \sin x \, dx = -x \cos x + \sin x + C$; $\int x e^{2x} \, dx = \tfrac{x e^{2x}}{2} - \tfrac{e^{2x}}{4} + C$; $\int x \cos x \, dx = x \sin x + \cos x + C$. Foco: signo negativo de la fórmula, arrastre correcto de $u$, $v$, $du$, $dv$ y de la constante compensatoria si $dv = e^{ax} \, dx$ o $\sin(ax) \, dx$. | `aplicacion-directa-una-iteracion` | 25 |
-| B. El factor oculto y reducciones cortas | Casos donde $dv = 1 \, dx$ (**factor oculto**: cuando el integrando es una única función que "no parece" un producto). Ejemplo: $\int \ln x \, dx = x \ln x - x + C$ (con $u = \ln x$, $dv = 1 \, dx$; la integral remanente $\int x \cdot \tfrac{1}{x} \, dx = \int 1 \, dx = x$). También casos donde el paso final requiere simplificar una **fracción** que sale directa de tabla: $\int x \ln x \, dx = \tfrac{x^2 \ln x}{2} - \tfrac{x^2}{4} + C$. | `factor-oculto-reducciones-cortas` | 25 |
+| A. Aplicación directa de una iteración | Integrales que cierran aplicando partes **una única vez**. Polinómica de **grado 1** ($x$) combinada con trigonométrica o exponencial. Ejemplos: $\int x \sin x \, dx = -x \cos x + \sin x + C$; $\int x e^{2x} \, dx = \tfrac{x e^{2x}}{2} - \tfrac{e^{2x}}{4} + C$; $\int x \cos x \, dx = x \sin x + \cos x + C$. Foco: signo negativo de la fórmula, arrastre correcto de $u$, $v$, $du$, $dv$ y de la constante compensatoria si $dv = e^{ax} \, dx$ o $\sin(ax) \, dx$. | `aplicacion-directa-una-iteracion` | 15 |
+| B. El factor oculto y reducciones cortas | Casos donde $dv = 1 \, dx$ (**factor oculto**: cuando el integrando es una única función que "no parece" un producto). Ejemplo: $\int \ln x \, dx = x \ln x - x + C$ (con $u = \ln x$, $dv = 1 \, dx$; la integral remanente $\int x \cdot \tfrac{1}{x} \, dx = \int 1 \, dx = x$). También casos donde el paso final requiere simplificar una **fracción** que sale directa de tabla: $\int x \ln x \, dx = \tfrac{x^2 \ln x}{2} - \tfrac{x^2}{4} + C$. | `factor-oculto-reducciones-cortas` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -147,7 +147,7 @@ Pre-revisión programática sobre los ejercicios de prueba existentes:
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 2 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 30 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna aplicación de integral definida, TFC, áreas, sustitución trigonométrica ni fracciones parciales
 - [ ] Ninguna integral cíclica **resuelta** (solo diagnosticada en ESTR sub-B)
 - [ ] Ninguna polinómica de grado $\geq 2$ en RESL (viven en ESTR sub-B como diagnóstico)
@@ -162,18 +162,18 @@ Pre-revisión programática sobre los ejercicios de prueba existentes:
 - [ ] Ningún `\begin{aligned}` alinea con `=` datos evaluados de forma independiente (regla crítica 30)
 
 **ESTR:**
-- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
-- [ ] Distribución A/B respetada (25/25)
+- [ ] 30 ejercicios; **exactamente 3 opciones** por ejercicio
+- [ ] Distribución A/B respetada (15/15)
 - [ ] Ningún cálculo integral final; solo elección $u/dv$ o diagnóstico
 - [ ] Sub-A con distractor mayoritario = LIATE invertida (que empeora la integral remanente)
 - [ ] Sub-B con opciones categorizadas ("una iteración", "dos iteraciones", "cíclica"); casos $x^2$ presentes como diagnóstico de "dos iteraciones"; casos $e^x \sin x$ presentes como diagnóstico de "cíclica"
 - [ ] Textos exactos en opciones de elección de $u$ y $dv$
 
 **RESL:**
-- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
+- [ ] 30 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
 - [ ] Sin contextos cotidianos
 - [ ] Solo integrales indefinidas
-- [ ] Distribución A/B respetada (25/25)
+- [ ] Distribución A/B respetada (15/15)
 - [ ] Sub-A con polinómica siempre lineal (grado 1); una única iteración
 - [ ] Sub-B con factor oculto ($dv = 1 \, dx$) o simplificación de fracción; una única iteración
 - [ ] Al menos algunos ejercicios tienen "signo positivo en vez de negativo" ($uv + \int v \, du$) como distractor deliberado
