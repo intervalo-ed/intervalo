@@ -51,6 +51,7 @@ from schemas import (
     TopicActionRequest,
     SessionSummaryResponse,
     SimpleResponse,
+    SweepAbandonedResponse,
     UniversityLeaderboardResponse,
     UniversityRankRow,
     UserProgressResponse,
@@ -763,6 +764,21 @@ def internal_run_lifecycle_emails(db: Session = Depends(get_db)):
     import lifecycle_emails
 
     return lifecycle_emails.run_lifecycle_emails(db)
+
+
+@app.post(
+    "/internal/sessions/sweep-abandoned",
+    response_model=SweepAbandonedResponse,
+    dependencies=[Depends(require_internal_secret)],
+)
+def internal_sweep_abandoned_sessions(db: Session = Depends(get_db)):
+    """Worker-facing: marcar como abandonadas las sesiones que quedaron abiertas.
+
+    El abandono no se puede detectar en el momento (nadie avisa que se fue), así
+    que se barre por tiempo. Ver session_store.sweep_abandoned_sessions."""
+    import session_store
+
+    return {"marked": session_store.sweep_abandoned_sessions(db)}
 
 
 @app.get("/email/unsubscribe", response_class=HTMLResponse)
