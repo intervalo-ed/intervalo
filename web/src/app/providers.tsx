@@ -60,6 +60,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
               right: "0.75rem",
             }}
           />
+        </QueryClientProvider>
       </ThemeProvider>
     </ClerkProvider>
   )

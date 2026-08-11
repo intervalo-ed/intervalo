@@ -256,7 +256,9 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
       })
     setProfileNews(true)
     qc.invalidateQueries({
-      queryKey: queryKeys.userProgress(),
+      // Prefijo de progreso (todos los cursos), no la clave "default": ningún
+      // consumidor usa esa clave, así que invalidarla no matcheaba nada.
+      queryKey: queryKeys.userProgressAll(),
       refetchType: "all",
     })
   }, [data, sessionId, qc, api])
@@ -560,7 +562,11 @@ function Confetti({
   colors?: readonly string[]
   origin?: { x: number; y: number }
 }) {
-  const stateRef = useRef<Particle[]>(
+  // `useState` perezoso y no `useRef(Array.from(...))`: el array se arma una
+  // sola vez (con useRef se regeneraba entero en cada render para tirarlo) y,
+  // al ser un valor y no un ref, se puede leer en el render para montar los
+  // nodos.
+  const [particles] = useState<Particle[]>(() =>
     Array.from({ length: count }, (_, i) => {
       // Radial puro: cualquier dirección con la misma probabilidad, sin sesgo
       // hacia arriba ni hacia abajo.
@@ -598,12 +604,51 @@ function Confetti({
       }
     }),
   )
-  const [, setTick] = useState(0)
+  const stateRef = useRef<Particle[]>(particles)
   const rafRef = useRef<number | null>(null)
   const lastRef = useRef<number | null>(null)
   const tRef = useRef(0)
+  // Los nodos se montan una sola vez en su posición de nacimiento y el RAF les
+  // escribe el `transform` directo: pasar por setState re-conciliaba hasta 140
+  // divs (más los de la lluvia) en cada frame a 60fps. La posición base queda
+  // congelada acá para que un re-render del padre no la recalcule contra el
+  // estado ya avanzado y las partículas peguen un salto.
+  const boxRef = useRef<HTMLDivElement | null>(null)
+  const nodesRef = useRef<(HTMLDivElement | null)[]>([])
+  const [bases] = useState(() =>
+    particles.map((p) => ({ x: p.x + Math.sin(p.phase) * p.sway, y: p.y })),
+  )
 
   useEffect(() => {
+    let width = window.innerWidth
+    let height = window.innerHeight
+    // El contenedor es `fixed inset-0`, así que su caja es el viewport sin la
+    // scrollbar — no se puede usar vw/vh, que sí la incluyen.
+    const measure = () => {
+      const rect = boxRef.current?.getBoundingClientRect()
+      width = rect?.width ?? window.innerWidth
+      height = rect?.height ?? window.innerHeight
+    }
+    measure()
+    window.addEventListener("resize", measure)
+
+    const paint = () => {
+      for (const p of stateRef.current) {
+        const el = nodesRef.current[p.id]
+        if (!el) continue
+        if (!p.alive) {
+          el.style.display = "none"
+          continue
+        }
+        // El vaivén se suma acá y no al estado: así no acumula deriva y la
+        // partícula planea en vez de irse de lado.
+        const left = p.x + Math.sin(tRef.current + p.phase) * p.sway
+        const dx = ((left - bases[p.id].x) / 100) * width
+        const dy = ((p.y - bases[p.id].y) / 100) * height
+        el.style.transform = `translate(${dx}px, ${dy}px) rotate(${p.rot}deg)`
+      }
+    }
+
     const animate = (ts: number) => {
       if (lastRef.current === null) lastRef.current = ts
       const dt = Math.min((ts - lastRef.current) / 1000, 0.05)
@@ -653,36 +698,39 @@ function Confetti({
           alive,
         }
       })
-      setTick((t) => t + 1)
+      paint()
       if (anyAlive) rafRef.current = requestAnimationFrame(animate)
     }
     rafRef.current = requestAnimationFrame(animate)
     return () => {
+      window.removeEventListener("resize", measure)
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
     }
-  }, [])
+  }, [bases])
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
-      {stateRef.current
-        .filter((p) => p.alive)
-        .map((p) => (
-          <div
-            key={p.id}
-            className="absolute rounded-[2px]"
-            style={{
-              // El vaivén se suma acá y no al estado (ídem ConfettiRain): así
-              // no acumula deriva y la partícula planea en vez de irse de lado.
-              left: `${p.x + Math.sin(tRef.current + p.phase) * p.sway}%`,
-              top: `${p.y}%`,
-              width: p.size,
-              height: p.size,
-              background: p.color,
-              mixBlendMode: "screen",
-              transform: `rotate(${p.rot}deg)`,
-            }}
-          />
-        ))}
+    <div
+      ref={boxRef}
+      className="pointer-events-none fixed inset-0 z-50 overflow-hidden"
+    >
+      {particles.map((p, i) => (
+        <div
+          key={p.id}
+          ref={(el) => {
+            nodesRef.current[p.id] = el
+          }}
+          className="absolute rounded-[2px]"
+          style={{
+            left: `${bases[i].x}%`,
+            top: `${bases[i].y}%`,
+            width: p.size,
+            height: p.size,
+            background: p.color,
+            mixBlendMode: "screen",
+            transform: `rotate(${p.rot}deg)`,
+          }}
+        />
+      ))}
     </div>
   )
 }
@@ -743,15 +791,24 @@ function newRainParticle(
 // cruza el borde inferior vuelve a nacer arriba, así que no termina nunca
 // mientras el componente esté montado.
 function ConfettiRain({ colors = BELT_COLORS }: { colors?: readonly string[] }) {
-  const stateRef = useRef<RainParticle[]>(
+  const [particles] = useState<RainParticle[]>(() =>
     Array.from({ length: RAIN_COUNT }, (_, i) =>
       newRainParticle(i, colors, true),
     ),
   )
-  const [, setTick] = useState(0)
+  const stateRef = useRef<RainParticle[]>(particles)
   const rafRef = useRef<number | null>(null)
   const lastRef = useRef<number | null>(null)
   const tRef = useRef(0)
+  // Ídem Confetti: nodos montados una vez y `transform` escrito desde el RAF.
+  // Acá además hay que reescribir el tamaño, porque una partícula que renace
+  // arriba estrena tamaño (ver newRainParticle).
+  const boxRef = useRef<HTMLDivElement | null>(null)
+  const nodesRef = useRef<(HTMLDivElement | null)[]>([])
+  const [bases] = useState(() =>
+    particles.map((p) => ({ x: p.x + Math.sin(p.phase) * p.sway, y: p.y })),
+  )
+  const sizesRef = useRef(particles.map((p) => p.size))
   // Se monta junto con la explosión pero no corre ni se dibuja hasta que pasa
   // la espera: así el componente puede vivir atado a su fase y el retraso queda
   // acá adentro, sin timers en cada lugar donde se usa.
@@ -763,6 +820,32 @@ function ConfettiRain({ colors = BELT_COLORS }: { colors?: readonly string[] }) 
 
   useEffect(() => {
     if (!started) return
+    let width = window.innerWidth
+    let height = window.innerHeight
+    const measure = () => {
+      const rect = boxRef.current?.getBoundingClientRect()
+      width = rect?.width ?? window.innerWidth
+      height = rect?.height ?? window.innerHeight
+    }
+    measure()
+    window.addEventListener("resize", measure)
+
+    const paint = () => {
+      for (const p of stateRef.current) {
+        const el = nodesRef.current[p.id]
+        if (!el) continue
+        if (sizesRef.current[p.id] !== p.size) {
+          sizesRef.current[p.id] = p.size
+          el.style.width = `${p.size}px`
+          el.style.height = `${p.size}px`
+        }
+        const left = p.x + Math.sin(tRef.current + p.phase) * p.sway
+        const dx = ((left - bases[p.id].x) / 100) * width
+        const dy = ((p.y - bases[p.id].y) / 100) * height
+        el.style.transform = `translate(${dx}px, ${dy}px) rotate(${p.rot}deg)`
+      }
+    }
+
     const animate = (ts: number) => {
       if (lastRef.current === null) lastRef.current = ts
       const dt = Math.min((ts - lastRef.current) / 1000, 0.05)
@@ -773,29 +856,36 @@ function ConfettiRain({ colors = BELT_COLORS }: { colors?: readonly string[] }) 
         if (ny > 110) return newRainParticle(p.id, colors, false)
         return { ...p, y: ny, rot: p.rot + p.vrot * dt }
       })
-      setTick((t) => t + 1)
+      paint()
       rafRef.current = requestAnimationFrame(animate)
     }
     rafRef.current = requestAnimationFrame(animate)
     return () => {
+      window.removeEventListener("resize", measure)
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
     }
-  }, [colors, started])
+  }, [bases, colors, started])
 
   if (!started) return null
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-40 overflow-hidden">
-      {stateRef.current.map((p) => (
+    <div
+      ref={boxRef}
+      className="pointer-events-none fixed inset-0 z-40 overflow-hidden"
+    >
+      {particles.map((p, i) => (
         <div
           key={p.id}
+          ref={(el) => {
+            nodesRef.current[p.id] = el
+          }}
           className="absolute rounded-[2px]"
           style={{
-            // El vaivén va en el left y no en el estado para que la caída sea
-            // una función pura del tiempo: sin acumular deriva ni salirse de
-            // pantalla por más que la partícula viva indefinidamente.
-            left: `${p.x + Math.sin(tRef.current + p.phase) * p.sway}%`,
-            top: `${p.y}%`,
+            // El vaivén va en el transform y no en el estado para que la caída
+            // sea una función pura del tiempo: sin acumular deriva ni salirse
+            // de pantalla por más que la partícula viva indefinidamente.
+            left: `${bases[i].x}%`,
+            top: `${bases[i].y}%`,
             width: p.size,
             height: p.size,
             background: p.color,
