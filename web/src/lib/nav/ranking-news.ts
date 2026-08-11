@@ -8,7 +8,7 @@ import { useSyncExternalStore } from "react"
 const STORAGE_KEY = "intervalo:ranking-news"
 const EVENT = "intervalo:ranking-news-change"
 
-export function hasRankingNews(): boolean {
+function hasRankingNews(): boolean {
   if (typeof window === "undefined") return false
   return window.localStorage.getItem(STORAGE_KEY) === "1"
 }

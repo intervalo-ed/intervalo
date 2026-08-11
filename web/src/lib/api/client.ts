@@ -26,8 +26,7 @@
  *   const api = createApiClient(getToken);
  *   const { data } = await api.GET("/auth/me");
  *
- * For public endpoints (`/health`, `/course/{id}/belts`), use `publicApi`
- * or call `createApiClient()` with no argument.
+ * For public endpoints (`/health`), llamá `createApiClient()` sin argumento.
  */
 
 import createClient, { type Client, type Middleware } from "openapi-fetch"
@@ -36,22 +35,20 @@ import type { paths } from "./schema"
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000"
 
 /**
- * Anything that resolves to a Clerk session token (or null when signed out).
- * Matches the shape of both `useAuth().getToken` and `auth().getToken`.
- */
-export type TokenGetter = () => string | null | Promise<string | null>
-
-/**
  * Build an API client.
  *
- * Pass `getToken` to attach `Authorization: Bearer <token>` on every request;
- * omit it for an unauthenticated client.
+ * Pass `getToken` — anything que resuelva a un token de sesión de Clerk (o
+ * null si no hay sesión); coincide con la forma de `useAuth().getToken` y de
+ * `auth().getToken` — para adjuntar `Authorization: Bearer <token>` en cada
+ * request; omitilo para un cliente sin autenticar.
  *
  * A fresh Clerk JWT is fetched per request, so short expirations and silent
  * refreshes are handled automatically — you never need to store the token
  * yourself.
  */
-export function createApiClient(getToken?: TokenGetter): Client<paths> {
+export function createApiClient(
+  getToken?: () => string | null | Promise<string | null>,
+): Client<paths> {
   const client = createClient<paths>({ baseUrl: BASE_URL })
 
   if (getToken) {
@@ -67,6 +64,3 @@ export function createApiClient(getToken?: TokenGetter): Client<paths> {
 
   return client
 }
-
-/** Unauthenticated client for public endpoints. */
-export const publicApi = createApiClient()
