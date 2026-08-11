@@ -555,8 +555,12 @@ def _build_exercise(
     user_id: int,
     exclude_by_unit: dict[UnitKey, set[str]] | None = None,
 ) -> ExerciseInSession:
-    extra_exclude = frozenset(
-        (exclude_by_unit or {}).get(unit_key, frozenset())
+    # Se pasa el set REAL (no una copia): get_exercise_db lo vacía si esta
+    # sesión ya agotó el pool de la unidad, para arrancar otra pasada completa.
+    extra_exclude = (
+        exclude_by_unit.setdefault(unit_key, set())
+        if exclude_by_unit is not None
+        else set()
     )
     ex = get_exercise_db(
         course_id,
@@ -567,8 +571,8 @@ def _build_exercise(
         user_id,
         extra_exclude=extra_exclude,
     )
-    if exclude_by_unit is not None and ex.get("external_id"):
-        exclude_by_unit.setdefault(unit_key, set()).add(ex["external_id"])
+    if ex.get("external_id"):
+        extra_exclude.add(ex["external_id"])
     shuffled, new_correct_index, shuffled_feedback = _shuffle_options(ex)
     return ExerciseInSession(
         exercise_id=f"ex_{idx:03d}",
