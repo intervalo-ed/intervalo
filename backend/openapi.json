@@ -23,88 +23,6 @@
         }
       }
     },
-    "/course/{course_id}/belts": {
-      "get": {
-        "summary": "Get Belt Info",
-        "description": "Returns descriptive info (headline + description) for each belt in a course.\n\nDEPRECATED: usar `GET /course/{course_id}/structure`, que devuelve la jerarqu\u00eda\ncompleta (belts\u2192units\u2192topics\u2192skills). Se mantiene por compatibilidad.",
-        "operationId": "get_belt_info_course__course_id__belts_get",
-        "parameters": [
-          {
-            "name": "course_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "title": "Course Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "$ref": "#/components/schemas/BeltEntry"
-                  },
-                  "title": "Response Get Belt Info Course  Course Id  Belts Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/course/{course_id}/structure": {
-      "get": {
-        "summary": "Get Course Structure",
-        "description": "Estructura completa del curso desde course.json: la jerarqu\u00eda\ncurso \u2192 cintur\u00f3n \u2192 unidades \u2192 temas \u2192 skills, m\u00e1s los exercise_types.\n\nFuente \u00fanica de estructura (config-driven); el frontend genera su cat\u00e1logo a\npartir de este mismo archivo.",
-        "operationId": "get_course_structure_course__course_id__structure_get",
-        "parameters": [
-          {
-            "name": "course_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "title": "Course Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/auth/me": {
       "get": {
         "summary": "Get Current User Info",
@@ -914,43 +832,6 @@
       }
     },
     "/push/diagnostic": {
-      "post": {
-        "summary": "Push Diagnostic",
-        "description": "Client-reported failure when a push event's payload couldn't be\ndecoded (sw.js falls back to generic copy in that case, see sw.js). No\nauth here \u2014 the service worker has no Clerk session \u2014 so we correlate\nthe report to a user via the subscription endpoint instead. Logs only,\nto diagnose recurring generic-fallback notifications.",
-        "operationId": "push_diagnostic_push_diagnostic_post",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PushDiagnosticRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SimpleResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      },
       "get": {
         "summary": "Push Diagnostic Beacon",
         "description": "GET twin of push_diagnostic, reporting on EVERY push the service\nworker receives (not just decode failures) \u2014 see sw.js's `beacon()`. A\nplain GET with no custom headers is a CORS \"simple request\" (no\npreflight), so it's the fallback channel in case the POST version's\nJSON body / Content-Type ever gets blocked in the service worker's\nfetch context \u2014 we had zero of those land while chasing a recurring\ngeneric-fallback bug with no other client-side signal at all.\n\nevent=\"click\" doubles as the \"notification opened\" signal (see sw.js\nnotificationclick): persists NotificationSend.opened_at so effectiveness\ncan be analyzed later per category/variant.",
@@ -1343,7 +1224,7 @@
     "/leaderboard": {
       "get": {
         "summary": "Get Leaderboard",
-        "description": "Leaderboard ranked by total XP descending, paginado (offset/limit).\n\nEl ranking, los totales y los datos del usuario actual se calculan sobre el\nset completo del scope (global o filtrado por universidad); solo `entries`\ndevuelve la p\u00e1gina pedida para el scroll infinito.\n\nCon `around_me=true` se ignoran `offset`/`limit` y se devuelve una ventana\ncentrada en el usuario actual (`AROUND_WINDOW` filas a cada lado), para que\nel front cargue el ranking con el usuario en el medio y scrollee hacia ambos\nlados. Cada entry trae su `rank` absoluto, as\u00ed el front conoce los bordes de\nla ventana y pide m\u00e1s arriba/abajo por offset.",
+        "description": "Leaderboard ranked by total XP descending, paginado (offset/limit).\n\nEl ranking, los totales y los datos del usuario actual se calculan sobre el\nset completo del scope (global o filtrado por universidad); solo `entries`\ndevuelve la p\u00e1gina pedida para el scroll infinito.\n\nCon `around_me=true` se ignoran `offset`/`limit` y se devuelve una ventana\ncentrada en el usuario actual (`AROUND_WINDOW` filas a cada lado), para que\nel front cargue el ranking con el usuario en el medio y scrollee hacia ambos\nlados. Cada entry trae su `rank` absoluto, as\u00ed el front conoce los bordes de\nla ventana y pide m\u00e1s arriba/abajo por offset.\n\nTodo lo que antes se resolv\u00eda trayendo la tabla `users` entera a memoria\n(orden, scope, totales, rank y paginado) lo hace ahora la BD: los totales son\nagregados, y de las filas solo viaja la p\u00e1gina pedida. El orden can\u00f3nico es\n(total_xp desc, id asc) \u2014 el desempate por id lo hace determin\u00edstico y es el\nmismo que usa `push_store._current_rank`.",
         "operationId": "get_leaderboard_leaderboard_get",
         "parameters": [
           {
@@ -1448,7 +1329,7 @@
     "/leaderboard/universities": {
       "get": {
         "summary": "Get University Leaderboard",
-        "description": "Ranking de universidades: agrega estudiantes por universidad y carrera.\n\nA diferencia del leaderboard individual (paginado, ventana alrededor del\nusuario), ac\u00e1 se recorre el set completo una vez y se agregan los totales\npor universidad, as\u00ed el front puede comparar universidades entre s\u00ed.\n\n`career` (bucket E/S/T/M/Otra): agrega contando solo estudiantes de esa\ncarrera. `university`: limita a esa universidad (aislarla).",
+        "description": "Ranking de universidades: agrega estudiantes por universidad y carrera.\n\nA diferencia del leaderboard individual (paginado, ventana alrededor del\nusuario), ac\u00e1 se recorre el set completo una vez y se agregan los totales\npor universidad, as\u00ed el front puede comparar universidades entre s\u00ed.\n\n`career` (bucket E/S/T/M/Otra): agrega contando solo estudiantes de esa\ncarrera. `university`: limita a esa universidad (aislarla).\n\nLa agregaci\u00f3n la hace la BD (GROUP BY universidad \u00d7 carrera): son a lo sumo\nunas decenas de filas, contra la tabla `users` completa en memoria que tra\u00eda\nla versi\u00f3n anterior.",
         "operationId": "get_university_leaderboard_leaderboard_universities_get",
         "parameters": [
           {
@@ -1520,7 +1401,7 @@
     "/leaderboard/summary": {
       "get": {
         "summary": "Get Leaderboard Summary",
-        "description": "N\u00fameros de la cabecera del leaderboard: estudiantes registrados,\nejercicios completados y universidades presentes.\n\n`universities` siempre lista el set completo (para poblar el filtro), pero\n`total_students`/`total_exercises` respetan `career`/`university` si se\npasan, igual que el scope de `/leaderboard`.",
+        "description": "N\u00fameros de la cabecera del leaderboard: estudiantes registrados,\nejercicios completados y universidades presentes.\n\n`universities` siempre lista el set completo (para poblar el filtro), pero\n`total_students`/`total_exercises` respetan `career`/`university` si se\npasan, igual que el scope de `/leaderboard`.\n\nEl scope ac\u00e1 se cuenta sobre `enrollments` (no sobre `users`): un enrollment\ncon universidad cuenta como estudiante registrado aunque el usuario ya no\nexista. Se mantiene esa sem\u00e1ntica, solo que contada en SQL.",
         "operationId": "get_leaderboard_summary_leaderboard_summary_get",
         "parameters": [
           {
@@ -1592,7 +1473,7 @@
     "/public/university-leaderboard": {
       "get": {
         "summary": "Get Public University Leaderboard",
-        "description": "Snapshot agregado sin auth de las universidades top (por XP, mismo\norden que /leaderboard/universities), para la landing (marketing-home.tsx)\n\u2014 un visitante sin cuenta no tiene sesi\u00f3n para pegarle a ese endpoint. Sin\nPII: solo universidad + conteos, los mismos n\u00fameros que ya ve cualquier\nusuario logueado en el leaderboard.",
+        "description": "Snapshot agregado sin auth de las universidades top (por XP, mismo\norden que /leaderboard/universities), para la landing (marketing-home.tsx)\n\u2014 un visitante sin cuenta no tiene sesi\u00f3n para pegarle a ese endpoint. Sin\nPII: solo universidad + conteos, los mismos n\u00fameros que ya ve cualquier\nusuario logueado en el leaderboard.\n\nEs el \u00fanico endpoint del leaderboard sin auth, as\u00ed que es el que m\u00e1s importa\nque no traiga `users` + `enrollments` enteras a memoria en cada visita a la\nlanding: un GROUP BY devuelve una fila por universidad. Los estudiantes se\ncuentan por enrollment (aunque el usuario ya no exista, igual que antes) y su\nXP con LEFT JOIN, que aporta 0 en ese caso.",
         "operationId": "get_public_university_leaderboard_public_university_leaderboard_get",
         "responses": {
           "200": {
@@ -2101,47 +1982,6 @@
         ],
         "title": "AnswerRequest"
       },
-      "BeltEntry": {
-        "properties": {
-          "headline": {
-            "type": "string",
-            "title": "Headline"
-          },
-          "description": {
-            "type": "string",
-            "title": "Description"
-          }
-        },
-        "type": "object",
-        "required": [
-          "headline",
-          "description"
-        ],
-        "title": "BeltEntry"
-      },
-      "BeltProgressInfo": {
-        "properties": {
-          "mastered": {
-            "type": "integer",
-            "title": "Mastered"
-          },
-          "total": {
-            "type": "integer",
-            "title": "Total"
-          },
-          "promoted": {
-            "type": "boolean",
-            "title": "Promoted"
-          }
-        },
-        "type": "object",
-        "required": [
-          "mastered",
-          "total",
-          "promoted"
-        ],
-        "title": "BeltProgressInfo"
-      },
       "CapPreviewResponse": {
         "properties": {
           "value": {
@@ -2544,17 +2384,6 @@
             ],
             "title": "Rank"
           },
-          "xp_to_next": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Xp To Next"
-          },
           "total_xp": {
             "type": "integer",
             "title": "Total Xp",
@@ -2803,41 +2632,6 @@
           "total_xp"
         ],
         "title": "PublicUniversityStat"
-      },
-      "PushDiagnosticRequest": {
-        "properties": {
-          "error": {
-            "type": "string",
-            "title": "Error"
-          },
-          "endpoint": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Endpoint"
-          },
-          "raw_preview": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Raw Preview"
-          }
-        },
-        "type": "object",
-        "required": [
-          "error"
-        ],
-        "title": "PushDiagnosticRequest"
       },
       "PushKeys": {
         "properties": {
@@ -3239,9 +3033,6 @@
             "type": "object",
             "title": "Topic States"
           },
-          "belt_progress": {
-            "$ref": "#/components/schemas/BeltProgressInfo"
-          },
           "xp_earned": {
             "type": "integer",
             "title": "Xp Earned"
@@ -3266,7 +3057,6 @@
           "incorrect",
           "items",
           "topic_states",
-          "belt_progress",
           "xp_earned",
           "streak",
           "session_number"

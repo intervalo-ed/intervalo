@@ -21,53 +21,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/course/{course_id}/belts": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get Belt Info
-         * @description Returns descriptive info (headline + description) for each belt in a course.
-         *
-         *     DEPRECATED: usar `GET /course/{course_id}/structure`, que devuelve la jerarquía
-         *     completa (belts→units→topics→skills). Se mantiene por compatibilidad.
-         */
-        get: operations["get_belt_info_course__course_id__belts_get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/course/{course_id}/structure": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get Course Structure
-         * @description Estructura completa del curso desde course.json: la jerarquía
-         *     curso → cinturón → unidades → temas → skills, más los exercise_types.
-         *
-         *     Fuente única de estructura (config-driven); el frontend genera su catálogo a
-         *     partir de este mismo archivo.
-         */
-        get: operations["get_course_structure_course__course_id__structure_get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/auth/me": {
         parameters: {
             query?: never;
@@ -394,15 +347,7 @@ export interface paths {
          */
         get: operations["push_diagnostic_beacon_push_diagnostic_get"];
         put?: never;
-        /**
-         * Push Diagnostic
-         * @description Client-reported failure when a push event's payload couldn't be
-         *     decoded (sw.js falls back to generic copy in that case, see sw.js). No
-         *     auth here — the service worker has no Clerk session — so we correlate
-         *     the report to a user via the subscription endpoint instead. Logs only,
-         *     to diagnose recurring generic-fallback notifications.
-         */
-        post: operations["push_diagnostic_push_diagnostic_post"];
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -528,6 +473,12 @@ export interface paths {
          *     el front cargue el ranking con el usuario en el medio y scrollee hacia ambos
          *     lados. Cada entry trae su `rank` absoluto, así el front conoce los bordes de
          *     la ventana y pide más arriba/abajo por offset.
+         *
+         *     Todo lo que antes se resolvía trayendo la tabla `users` entera a memoria
+         *     (orden, scope, totales, rank y paginado) lo hace ahora la BD: los totales son
+         *     agregados, y de las filas solo viaja la página pedida. El orden canónico es
+         *     (total_xp desc, id asc) — el desempate por id lo hace determinístico y es el
+         *     mismo que usa `push_store._current_rank`.
          */
         get: operations["get_leaderboard_leaderboard_get"];
         put?: never;
@@ -555,6 +506,10 @@ export interface paths {
          *
          *     `career` (bucket E/S/T/M/Otra): agrega contando solo estudiantes de esa
          *     carrera. `university`: limita a esa universidad (aislarla).
+         *
+         *     La agregación la hace la BD (GROUP BY universidad × carrera): son a lo sumo
+         *     unas decenas de filas, contra la tabla `users` completa en memoria que traía
+         *     la versión anterior.
          */
         get: operations["get_university_leaderboard_leaderboard_universities_get"];
         put?: never;
@@ -580,6 +535,10 @@ export interface paths {
          *     `universities` siempre lista el set completo (para poblar el filtro), pero
          *     `total_students`/`total_exercises` respetan `career`/`university` si se
          *     pasan, igual que el scope de `/leaderboard`.
+         *
+         *     El scope acá se cuenta sobre `enrollments` (no sobre `users`): un enrollment
+         *     con universidad cuenta como estudiante registrado aunque el usuario ya no
+         *     exista. Se mantiene esa semántica, solo que contada en SQL.
          */
         get: operations["get_leaderboard_summary_leaderboard_summary_get"];
         put?: never;
@@ -604,6 +563,12 @@ export interface paths {
          *     — un visitante sin cuenta no tiene sesión para pegarle a ese endpoint. Sin
          *     PII: solo universidad + conteos, los mismos números que ya ve cualquier
          *     usuario logueado en el leaderboard.
+         *
+         *     Es el único endpoint del leaderboard sin auth, así que es el que más importa
+         *     que no traiga `users` + `enrollments` enteras a memoria en cada visita a la
+         *     landing: un GROUP BY devuelve una fila por universidad. Los estudiantes se
+         *     cuentan por enrollment (aunque el usuario ya no exista, igual que antes) y su
+         *     XP con LEFT JOIN, que aporta 0 en ese caso.
          */
         get: operations["get_public_university_leaderboard_public_university_leaderboard_get"];
         put?: never;
@@ -829,22 +794,6 @@ export interface components {
             /** Response Time S */
             response_time_s: number;
         };
-        /** BeltEntry */
-        BeltEntry: {
-            /** Headline */
-            headline: string;
-            /** Description */
-            description: string;
-        };
-        /** BeltProgressInfo */
-        BeltProgressInfo: {
-            /** Mastered */
-            mastered: number;
-            /** Total */
-            total: number;
-            /** Promoted */
-            promoted: boolean;
-        };
         /** CapPreviewResponse */
         CapPreviewResponse: {
             /** Value */
@@ -982,8 +931,6 @@ export interface components {
         LeaderboardMe: {
             /** Rank */
             rank?: number | null;
-            /** Xp To Next */
-            xp_to_next?: number | null;
             /**
              * Total Xp
              * @default 0
@@ -1067,15 +1014,6 @@ export interface components {
             students: number;
             /** Total Xp */
             total_xp: number;
-        };
-        /** PushDiagnosticRequest */
-        PushDiagnosticRequest: {
-            /** Error */
-            error: string;
-            /** Endpoint */
-            endpoint?: string | null;
-            /** Raw Preview */
-            raw_preview?: string | null;
         };
         /** PushKeys */
         PushKeys: {
@@ -1217,7 +1155,6 @@ export interface components {
             topic_states: {
                 [key: string]: components["schemas"]["TopicProgress"];
             };
-            belt_progress: components["schemas"]["BeltProgressInfo"];
             /** Xp Earned */
             xp_earned: number;
             streak: components["schemas"]["StreakInfo"];
@@ -1507,70 +1444,6 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HealthResponse"];
-                };
-            };
-        };
-    };
-    get_belt_info_course__course_id__belts_get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                course_id: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        [key: string]: components["schemas"]["BeltEntry"];
-                    };
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    get_course_structure_course__course_id__structure_get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                course_id: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };
@@ -2112,39 +1985,6 @@ export interface operations {
             cookie?: never;
         };
         requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["SimpleResponse"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    push_diagnostic_push_diagnostic_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["PushDiagnosticRequest"];
-            };
-        };
         responses: {
             /** @description Successful Response */
             200: {
