@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La notación $x \\to a^-$ describe una dirección de aproximación, no un número negativo.\n\nEl superíndice se lee pegado al símbolo de acercamiento, nunca como si modificara el valor de $a$.\n\nEn el caso $x \\to 2^-$.\n\nlos valores que toma $x$ son cada vez más cercanos a $2$ \n\npero siempre menores: $1{,}9$.\n\nluego $1{,}99$.\n\nluego $1{,}999$.\n\ny así sucesivamente.\n\nFrecuente es leer el superíndice como si aplicara al número $2$, convirtiéndolo en $-2$.\n\nConviene recordar que la dirección va pegada a la flecha de tendencia, no al punto en sí..\n\nEs lo que ocurre directamente.",
+    "explanation": "Los **límites laterales** usan el superíndice como etiqueta de dirección, no como signo de un número.\n\nIndica desde qué lado se acerca $x$ al punto de tendencia, pegado siempre al símbolo de tendencia y nunca al valor de $a$.\n\nEn $x \\to 2^-$ la variable se acerca a $2$ por abajo:\n$$1{,}9 \\to 1{,}99 \\to 1{,}999 \\to \\dots$$\nCada valor es menor que $2$ pero más próximo que el anterior.\n\nLeer ese superíndice como si modificara a $2$ lo convierte por error en $-2$, cuando en realidad la dirección va pegada a la flecha de tendencia, nunca al punto en sí.",
     "reviewed": false,
     "tags": [
       "notacion-y-direccion-lateral"
@@ -39,14 +39,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El símbolo $x \\to a^+$ indica que la variable se aproxima al punto $a$ desde valores mayores.\n\nLa lectura completa describe el valor al que tiende $f(x)$ cuando $x$ \n\ntoma valores cada vez más próximos a $a$ por encima.\n\nPor ejemplo, si $f(x) = x+1$, al acercarse por la derecha se calcula:\n \nSiguiendo esa misma dirección de valores mayores que $3$.\n\nConviene no confundir el superíndice de dirección con un exponente: no se está elevando nada al cuadrado ni al positivo, es solo una etiqueta del sentido de aproximación.",
+    "explanation": "El superíndice $+$ es una etiqueta de dirección: indica que la variable se aproxima al punto de tendencia desde valores mayores.\n\nPor eso los **límites laterales** describen a qué valor tiende la función acercándose siempre por encima, nunca por debajo.\n\nPor ejemplo, con $f(x) = x+1$ acercándose a $3$ por la derecha:\n$$\\lim_{x \\to 3^+} (x+1) = 4$$\nEl resultado tiende a $4$, siempre desde valores mayores que el punto de tendencia.\n\nConfundir ese superíndice con un exponente hace pensar que algo se eleva al cuadrado o se vuelve positivo, cuando en realidad es solo una etiqueta que fija el sentido de la aproximación.",
     "reviewed": false,
     "tags": [
       "notacion-y-direccion-lateral"
     ]
   },
   {
-    "question": "Cuando el punto de tendencia es negativo, la notación de **límites laterales** requiere separar mentalmente dos roles del signo menos.\n$$\\lim_{x \\to (-2)^+} f(x)$$\n¿Qué valores toma $x$ al acercarse de esta manera?",
+    "question": "Cuando el punto de tendencia es negativo, hay que separar dos roles del signo menos en los **límites laterales**.\n$$\\lim_{x \\to (-2)^+} f(x)$$\n¿Qué valores toma $x$ al acercarse de esta manera?",
     "options": [
       "Valores como $-1{,}9$, $-1{,}99$, $-1{,}999$",
       "Valores como $-2{,}1$, $-2{,}01$, $-2{,}001$",
@@ -62,14 +62,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el punto de tendencia $a$ es negativo, hay que distinguir con cuidado el superíndice de dirección del signo propio de $a$.\n\nEn $x \\to (-2)^+$.\n\nel signo dentro del paréntesis es parte del número $-2$.\n\ny el superíndice $+$ fuera del paréntesis indica acercamiento por la derecha.\n\nAcercarse por la derecha a $-2$ significa tomar valores mayores que $-2$ \n\npero cada vez más próximos:\n \nTodos ubicados a la derecha de $-2$ en la recta numérica.\n\nEste es el único caso donde conviene detenerse a separar visualmente el signo del número (dentro del paréntesis) del signo de la dirección (superíndice fuera).\n\nporque ambos símbolos son iguales pero cumplen roles distintos.",
+    "explanation": "Cuando el punto de tendencia es negativo, hay que distinguir con cuidado el superíndice de dirección del signo propio del número.\n\nEn $x \\to (-2)^+$, el signo dentro del paréntesis pertenece al número $-2$, mientras que el signo fuera del paréntesis indica el lado de acercamiento.\n\nAcercarse por la derecha a $-2$ significa tomar valores mayores que $-2$ pero cada vez más próximos, como:\n$$-1{,}9,\\ -1{,}99,\\ -1{,}999,\\dots$$\nTodos ubicados a la derecha de $-2$ en la recta numérica.\n\nSeparar el signo del número, dentro del paréntesis, del signo de la dirección, fuera de él, evita leer ambos símbolos como si fueran la misma cosa cuando cumplen roles distintos.",
     "reviewed": false,
     "tags": [
       "notacion-y-direccion-lateral"
     ]
   },
   {
-    "question": "Al escribir a mano la notación de **límites laterales**, es fácil ubicar mal el signo de dirección.\n\n¿Cuál de las siguientes expresiones representa correctamente 'el límite de $f(x)$ cuando $x$ tiende a $5$ por la izquierda'?",
+    "question": "Al escribir a mano la notación de **límites laterales**, es fácil ubicar mal el signo de dirección.\n\n¿Cuál de las siguientes expresiones representa correctamente el límite de $f(x)$ por la izquierda en $5$?",
     "options": [
       "$$\\lim_{x \\to 5} f(x)^-$$",
       "$$\\lim_{x \\to 5^-} f(x)$$",
@@ -85,18 +85,18 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El superíndice de dirección siempre se escribe pegado al punto de tendencia $a$.\n\ndentro de la expresión $x \\to a$.\n\nnunca pegado a $f(x)$ ni al nombre de la función.\n\nEn el ejemplo.\n\npara 'tender a $5$ por la izquierda'.\n\nel signo va junto al $5$:Con el signo inmediatamente después del $5$.\n\nEste de tipeo frecuente al pasar la notación de un apunte a una calculadora o a un procesador de texto: conviene revisar que el signo quede pegado al número de tendencia, no a la función.",
+    "explanation": "El superíndice de dirección siempre se escribe pegado al punto de tendencia, dentro de la expresión $x \\to a$, nunca pegado a $f(x)$ ni al nombre de la función.\n\nPor ejemplo, para expresar 'tender a $5$ por la izquierda' el signo va inmediatamente después del $5$:\n$$x \\to 5^-$$\nAl pasar esta notación de un apunte a una calculadora o un procesador de texto, el signo suele terminar pegado a la función en vez de al número de tendencia, así que conviene revisarlo.",
     "reviewed": false,
     "tags": [
       "notacion-y-direccion-lateral"
     ]
   },
   {
-    "question": "Los dos **límites laterales** de una función en un punto $a$ comparten algo esencial, más allá de que sean iguales o distintos entre sí.\n\n¿Qué tienen en común $\\lim_{x \\to a^-} f(x)$ y $\\lim_{x \\to a^+} f(x)$?",
+    "question": "Los dos **límites laterales** de una función en un punto $a$ comparten algo esencial, sin importar si coinciden o no.\n\n¿Qué tienen en común $\\lim_{x \\to a^-} f(x)$ y $\\lim_{x \\to a^+} f(x)$?",
     "options": [
       "Ambos deben dar necesariamente el mismo resultado numérico",
       "Ambos requieren que $f(a)$ esté definida para poder calcularse",
-      "Ambos describen un acercamiento al mismo punto $a$."
+      "Ambos describen un acercamiento al mismo punto $a$"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Los dos **límites laterales** comparten el mismo punto de tendencia $a$: ambos estudian qué pasa con $f(x)$ \n\ncuando $x$ se acerca a $a$.\n\nLa única diferencia entre ellos es el lado desde el cual ocurre esa aproximación, izquierda o derecha.\n\nPor ejemplo.\n\nen $a=4$: $\\lim_{x \\to 4^-} f(x)$ \n\nrecorre valores como $3{,}9$ y $3{,}99$.\n\nmientras que $\\lim_{x \\to 4^+} f(x)$ recorre valores como $4{,}1$ \n\ny $4{,}01$.\n\nAmbos apuntan al mismo destino, por caminos opuestos.\n\nQue compartan el punto de tendencia no implica que el resultado numérico coincida: pueden ser iguales o distintos, y esa comparación es justamente lo que determina si el límite bilateral existe.",
+    "explanation": "Los dos **límites laterales** de una función comparten siempre el mismo punto de tendencia: ambos describen qué pasa con $f(x)$ a medida que $x$ se acerca a ese punto.\n\nLa única diferencia entre ellos es el lado desde el que ocurre esa aproximación.\n\nEn un punto como $a=4$, el lateral izquierdo recorre valores apenas menores y el lateral derecho recorre valores apenas mayores, cada vez más próximos entre sí y apuntando al mismo destino.\n\nQue compartan el punto de tendencia no obliga a que el resultado numérico coincida entre ambos, y esa comparación es justamente lo que determina si el **límite bilateral** existe.",
     "reviewed": false,
     "tags": [
       "teorema-existencia-bilateral"
@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **teorema de existencia** del **límite bilateral** establece el criterio decisivo para determinar si existe un único límite bilateral en un punto.\n\nLa idea central es que los dos **límites laterales** deben 'apuntar' exactamente al mismo valor: si uno apunta a una altura distinta del otro.\n\nno hay acuerdo entre ambas direcciones.\n\ny el límite bilateral no existe.\n\nEl límite bilateral existe y vale ese valor común.\n\nSi ambos laterales dan $7$, entonces $\\lim_{x \\to a} f(x) = 7$.\n\nSi uno da $7$ y el otro $5$, el bilateral no existe.\n\nEsta condición es totalmente independiente de $f(a)$ y del tipo de función: solo depende de la coincidencia entre los dos laterales.",
+    "explanation": "El **teorema de existencia** funciona como una condición de acuerdo entre los dos **límites laterales**.\n\nSi ambos apuntan exactamente al mismo valor, ese acuerdo es lo que permite declarar un único límite bilateral.\n\nSi apuntan a alturas distintas, en cambio, no hay forma de elegir cuál de los dos vale como resultado.\n\nSi ambos laterales dan $7$, el bilateral existe y vale:\n$$\\lim_{x \\to a} f(x) = 7$$\nPero si uno da $7$ y el otro $5$, no hay ningún valor común al que declarar como resultado y el bilateral no existe.\n\nEsta condición es independiente de $f(a)$ y del tipo de función, depende únicamente de que los dos laterales coincidan entre sí.",
     "reviewed": false,
     "tags": [
       "teorema-existencia-bilateral"
@@ -154,18 +154,18 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La existencia del **límite bilateral** es garantía de que ambos **límites laterales** coinciden entre sí con ese valor exacto.\n\nEl **teorema de existencia** funciona en ambas direcciones: si ambos laterales son iguales.\n\nel bilateral existe; inversamente.\n\nsi el bilateral existe.\n\nlos laterales **tienen que** ser iguales al valor del bilateral.\n\nEn este caso, si $\\lim_{x \\to a} f(x) = 6$, entonces obligatoriamente:\n \nNo es una deducción que requiera ver la gráfica, es una consecuencia directa de la definición del límite bilateral.",
+    "explanation": "La existencia del **límite bilateral** obliga a que ambos **límites laterales** valgan exactamente lo mismo que él.\n\nEl **teorema de existencia** funciona en las dos direcciones: si el bilateral existe con un valor dado, ese mismo valor tiene que aparecer en cada lateral por separado.\n\nEn este caso, si $\\lim_{x \\to a} f(x) = 6$, entonces:\n$$\\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x) = 6$$\nNo hace falta ver ninguna gráfica para deducirlo, es una consecuencia directa de la definición aplicada a este valor concreto.",
     "reviewed": false,
     "tags": [
       "teorema-existencia-bilateral"
     ]
   },
   {
-    "question": "Una función $f$ no está definida en $x=a$, es decir $f(a)$ no existe.\n\n¿Puede existir igualmente $\\lim_{x \\to a} f(x)$?",
+    "question": "Una función $f$ no está definida en $x=a$.\n\n¿Puede existir igualmente $\\lim_{x \\to a} f(x)$?",
     "options": [
       "No, si $f(a)$ no existe el límite tampoco puede existir",
       "Solo si $f$ es una función lineal",
-      "Sí, el límite bilateral solo depende"
+      "Sí, el límite bilateral solo depende del entorno de $a$"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -177,14 +177,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **límite bilateral** depende de cómo la función se comporta en el entorno de $a$: los valores de $f(x)$ \n\ncuando $x$ se acerca desde ambos lados.\n\nLa definición del límite bilateral NUNCA menciona qué pasa exactamente en el punto $a$ mismo.\n\nPor eso $f(a)$ puede no existir, estar definida pero diferir del límite, o cualquier otro caso: el límite existe o no según lo que hagan los laterales.\n\nSi $\\lim_{x \\to a^-} f(x) = 5$ y $\\lim_{x \\to a^+} f(x) = 5$.\n\nentonces $\\lim_{x \\to a} f(x) = 5$.\n\nEso es cierto sin importar si $f(a)$ existe, vale 5, vale 100, o está completamente indefinida.\n\nEsta independencia entre el límite y el valor puntual es fundamental para entender conceptos como el **hueco** en una gráfica: la curva puede aproximarse a un valor con total precisión aunque ese.",
+    "explanation": "El **límite bilateral** depende de cómo se comporta la función cerca del punto de tendencia, nunca de lo que ocurre exactamente en él.\n\nSi $\\lim_{x \\to a^-} f(x) = 5$ y $\\lim_{x \\to a^+} f(x) = 5$, entonces:\n$$\\lim_{x \\to a} f(x) = 5$$\nEso vale sin importar si $f(a)$ existe o no, y sin importar qué valor tenga si existe.\n\nEsta independencia entre el límite y el valor puntual es la base del **hueco**: la curva puede aproximarse con total precisión a una altura aunque ese punto exacto falte o esté desplazado.",
     "reviewed": false,
     "tags": [
       "teorema-existencia-bilateral"
     ]
   },
   {
-    "question": "Una función cumple $\\lim_{x \\to a^-} f(x) = 8$ y $\\lim_{x \\to a^+} f(x) = 8$, pero $f(a) = 2$.\n\n¿Cuánto vale $\\lim_{x \\to a} f(x)$?",
+    "question": "Una función cumple $\\lim_{x \\to a^-} f(x) = 8$ y $\\lim_{x \\to a^+} f(x) = 8$.\n\nAdemás, $f(a) = 2$.\n\n¿Cuánto vale $\\lim_{x \\to a} f(x)$?",
     "options": [
       "$8$",
       "$2$",
@@ -200,7 +200,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **teorema de existencia** del **límite bilateral** establece una condición única: que los dos **límites laterales** coincidan entre sí.\n\nNo incluye ningún requisito sobre $f(a)$.\n\nCuando ambos laterales valen el mismo número, el bilateral existe y toma ese valor común.\n\nEsta conclusión no cambia aunque $f(a) = 2$ sea completamente distinto, o incluso aunque $f(a)$ no esté definida.\n\nEste es el caso clásico de un **hueco removible** en la gráfica: el límite bilateral existe y vale $8$ (ambas ramas se aproximan a la misma altura).\n\npero la función tiene un punto desconectado en $f(a) = 2$.\n\nEl límite existe independientemente del punto faltante o erróneo.",
+    "explanation": "El **teorema de existencia** solo exige una cosa: que los dos **límites laterales** coincidan entre sí.\n\nNo dice nada sobre $f(a)$, así que cuando ambos laterales valen lo mismo, el bilateral existe y toma ese valor común sin importar qué pase en el punto puntual.\n\nAcá $\\lim_{x \\to a^-} f(x) = 8$ y $\\lim_{x \\to a^+} f(x) = 8$, así que:\n$$\\lim_{x \\to a} f(x) = 8$$\nEsa conclusión no cambia aunque $f(a) = 2$ sea un valor completamente distinto.\n\nEste es el caso del **hueco removible**: ambas ramas se aproximan a la misma altura, pero la función queda desconectada en ese punto con un valor propio distinto.",
     "reviewed": false,
     "tags": [
       "teorema-existencia-bilateral"
@@ -223,7 +223,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando los dos **límites laterales** apuntan a alturas distintas.\n\nla gráfica de $f$ presenta un **salto** discontinuo en $x=a$: la rama izquierda tiende a una altura y la rama derecha a otra diferente.\n\ny no hay forma de conectarlas de manera continua.\n\nPor ejemplo.\n\nsi $\\lim_{x \\to a^-} f(x) = 2$ y $\\lim_{x \\to a^+} f(x) = 5$.\n\nla función 'salta' desde altura $2$ a altura $5$ \n\nexactamente en el punto $x=a$.\n\nEl hueco vertical entre esas dos ramas es precisamente la marca visual de laterales desiguales.\n\nEste **salto** es visualmente distinto de un **hueco**.\n\ndonde ambas ramas sí apuntan al mismo valor (laterales iguales) pero falta o difiere el punto exacto $f(a)$: en ese caso no hay salto.\n\nsolo un punto desconectado.",
+    "explanation": "Cuando los dos **límites laterales** apuntan a alturas distintas, la gráfica de $f$ presenta un **salto**.\n\nLa rama izquierda se acerca a una altura y la rama derecha a otra, sin ninguna forma de conectarlas de manera continua.\n\nPor ejemplo, si $\\lim_{x \\to a^-} f(x) = 2$ y $\\lim_{x \\to a^+} f(x) = 5$, la función salta de una altura a otra en ese punto.\n\nEste **salto** es visualmente distinto de un **hueco**, donde ambas ramas sí apuntan al mismo valor pero falta o difiere el punto exacto $f(a)$.\n\nAhí no hay ninguna distancia vertical entre las ramas, solo un punto desconectado.",
     "reviewed": false,
     "tags": [
       "discontinuidad-por-salto"
@@ -246,14 +246,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un **salto** visible en la gráfica es exactamente la manifestación de que los dos **límites laterales** no coinciden entre sí.\n\nEl **teorema de existencia** es indiferente: la condición es clara - ambos laterales deben apuntar al mismo valor.\n\nSi apuntan a valores distintos, el bilateral no existe, sin excepciones.\n\nNo hay ningún 'rescate' posible: no se puede promediar, no se puede tomar uno de los dos lados, no se puede ignorar el salto.\n\nCuando:\n \nEl límite bilateral simplemente no existe.\n\nLos dos laterales individuales siguen siendo números válidos y operables entre sí (se pueden sumar, comparar, etc.), pero no se combinan en un único límite bilateral.",
+    "explanation": "Un **salto** visible en la gráfica es la manifestación directa de que los dos **límites laterales** no coinciden entre sí.\n\nEl **teorema de existencia** es tajante en ese caso: ambos laterales tienen que apuntar al mismo valor para que el bilateral exista.\n\nSi apuntan a valores distintos, el bilateral no existe sin excepciones, no se puede promediar, no se puede tomar uno de los dos lados, ni ignorar el salto.\n\nLos dos laterales individuales siguen siendo números válidos, se pueden sumar o comparar sin problema, pero no se combinan en un único límite bilateral cuando difieren entre sí.",
     "reviewed": false,
     "tags": [
       "discontinuidad-por-salto"
     ]
   },
   {
-    "question": "Una tarifa de estacionamiento cobra un monto fijo durante la primera hora y un monto mayor a partir de superar ese umbral.\n\nCerca del instante en que se cumple exactamente una hora, la tarifa muestra un **salto**: el costo justo antes del umbral es menor que el costo justo después.\n\n¿Existe el límite bilateral del costo en ese instante?",
+    "question": "Una tarifa de estacionamiento cobra un monto fijo durante la primera hora y un monto mayor a partir de superar ese umbral.\n\nCerca de esa hora exacta, la tarifa muestra un **salto**: el costo justo antes del umbral es menor que justo después.\n\n¿Existe el límite bilateral del costo en ese instante?",
     "options": [
       "No, no siempre: hay puntos de quiebre donde la función salta",
       "Sí, porque el costo está definido y es continuo en todo momento",
@@ -269,37 +269,37 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Contextos cotidianos como tarifas escalonadas reproducen exactamente el comportamiento de un **salto** matemático: la función $C(t)$ (costo en función del tiempo $t$ en horas) tiende a un valor desde.\n\nEn el umbral $t=1$ hora.\n\nsi la tarifa inicial era \\$500 y sube a \\$800 justo al completar la hora:\n \nLos dos **límites laterales** son distintos.\n\nasí que por el **teorema de existencia**.\n\nel **límite bilateral** no existe en ese punto.\n\nEste patrón es universal en sistemas de facturación: estacionamiento, transporte, telefonía.\n\nEl salto es inherente a la estructura de precios por tramos, no es un error, es el comportamiento esperado.",
+    "explanation": "Los contextos cotidianos con tarifas escalonadas reproducen el comportamiento de un **salto** matemático.\n\nEl costo $C(t)$ según el tiempo $t$ en horas se mantiene fijo dentro de cada tramo, y cambia de golpe al cruzar el umbral entre tramos.\n\nEn el umbral de $t=1$ hora, si la tarifa inicial era \\$500 y sube a \\$800 justo al completar la hora, los dos **límites laterales** son distintos:\n$$\\begin{aligned} \\lim_{t \\to 1^-} C(t) &= 500 \\\\ \\lim_{t \\to 1^+} C(t) &= 800 \\end{aligned}$$\nAsí que por el **teorema de existencia**, el **límite bilateral** no existe en ese punto.\n\nEste patrón aparece en cualquier sistema de facturación por tramos, estacionamiento, transporte, telefonía: el salto no es un error, es el comportamiento esperado de una tarifa escalonada.",
     "reviewed": false,
     "tags": [
       "discontinuidad-por-salto"
     ]
   },
   {
-    "question": "En un punto $a$ se sabe que $\\lim_{x \\to a^-} f(x) = 3$ y $\\lim_{x \\to a^+} f(x) = 7$, y por lo tanto el límite bilateral no existe.\n\n¿Tiene sentido calcular $\\lim_{x \\to a^-} f(x) + \\lim_{x \\to a^+} f(x)$?",
+    "question": "En un punto dado, $\\lim_{x \\to a^-} f(x) = 3$ y $\\lim_{x \\to a^+} f(x) = 7$.\n\n¿Cuál es el tamaño del **salto** de $f$ en ese punto?",
     "options": [
-      "No, porque si el bilateral no existe ningún cálculo con los laterales es válido",
-      "Sí, da $3+7=10$, porque ambos laterales son números reales válidos",
-      "No, la suma solo tiene sentido si antes existe el límite bilateral"
+      "$7-3=4$",
+      "$7+3=10$",
+      "$3-7=-4$"
     ],
-    "correct_index": 1,
+    "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto: cada lateral es un número real y se puede sumar sin problema.",
+    "feedback_correct": "Correcto: el salto es la resta del lateral derecho menos el izquierdo, $7-3=4$.",
     "feedback_incorrect": [
-      "La inexistencia del bilateral no invalida a los laterales por separado, cada uno sigue siendo un número real operable.",
       null,
-      "No hace falta que exista el bilateral para sumar los laterales, cada uno ya es un número concreto por sí solo."
+      "Sumar los laterales no mide la distancia entre las dos alturas, hace falta restar una de la otra.",
+      "Restar en ese orden invierte el signo, el salto se toma como el lateral derecho menos el izquierdo."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La existencia o no del **límite bilateral** y la naturaleza operativa de los **límites laterales** son dos preguntas independientes.\n\nCada lateral, cuando existe como número concreto, es completamente operable: se puede sumar, restar, multiplicar, comparar, etc., con total libertad.\n\nEn este caso: $3 + 7 = 10$ es perfectamente válido.\n\nLos dos laterales son números reales, y dos números reales siempre se pueden operar.\n\nQue el bilateral no exista solo significa que esos dos números no coinciden entre sí.\n\nEs una conclusión sobre la relación de igualdad/desigualdad entre ambos, nunca una prohibición de operarlos.\n\nLa expresión $\\lim_{x \\to a^-} f(x) + \\lim_{x \\to a^+} f(x)$ es perfectamente válida aunque el bilateral inexista.",
+    "explanation": "El **tamaño del salto** de una función en un punto no es solo el hecho de que los dos **límites laterales** difieran, es una medida concreta de esa diferencia.\n\nRestar el lateral izquierdo al derecho da la distancia vertical entre las alturas de las dos ramas, mientras que sumarlos mezcla ambas en un número sin sentido geométrico.\n\nEn este caso, $\\lim_{x \\to a^-} f(x) = 3$ y $\\lim_{x \\to a^+} f(x) = 7$, así que el salto se calcula como:\n$$7-3=4$$\nLa rama derecha queda $4$ unidades por encima de la rama izquierda.\n\nInvertir el orden de la resta da $-4$ en vez de $4$, y describe el mismo salto mirado desde el lado opuesto, así que conviene fijar siempre la convención de restar el lateral izquierdo al derecho.",
     "reviewed": false,
     "tags": [
       "tamano-del-salto"
     ]
   },
   {
-    "question": "En un punto $a$, $\\lim_{x \\to a^-} f(x) = 4$ y $\\lim_{x \\to a^+} f(x) = 9$.\n\n¿Se puede afirmar cuál de los dos laterales es mayor?",
+    "question": "En un punto dado, $\\lim_{x \\to a^-} f(x) = 4$ y $\\lim_{x \\to a^+} f(x) = 9$.\n\n¿Se puede afirmar cuál de los dos laterales es mayor?",
     "options": [
       "No, los límites laterales no se pueden comparar entre sí",
       "No, la comparación solo es válida si el límite bilateral existe",
@@ -315,14 +315,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Los **límites laterales** son números reales concretos.\n\ny dos números reales cualesquiera se comparan directamente usando las relaciones $<$.\n\n$>$.\n\n$\\leq$.\n\n$\\geq$.\n\nLa comparación es una operación básica sobre números, no una operación condicional que dependa de qué exista o no.\n\nEn este caso: $4 < 9$, así que $\\lim_{x \\to a^-} f(x) < \\lim_{x \\to a^+} f(x)$.\n\nEl lateral derecho es mayor.\n\nQue el **límite bilateral** no exista es una consecuencia de esta desigualdad, no un impedimento para compararla.\n\nPrecisamente porque $4 \\neq 9$, el bilateral no existe; pero la desigualdad es la raíz del problema, no su consecuencia.",
+    "explanation": "Los **límites laterales** son números reales concretos, y dos números reales cualesquiera se comparan directamente usando las relaciones $<, >, \\leq, \\geq$.\n\nNo hace falta ninguna condición previa para poder compararlos.\n\nEn este caso, el lateral izquierdo vale $4$ y el derecho vale $9$:\n$$4 < 9$$\nPor lo tanto:\n$$\\lim_{x \\to a^-} f(x) < \\lim_{x \\to a^+} f(x)$$\nEl lateral derecho es mayor que el izquierdo.\n\nQue el **límite bilateral** no exista es una consecuencia de esta desigualdad, no un impedimento para compararla.\n\nLa diferencia entre los dos laterales es la causa, no el resultado, de que el bilateral falte.",
     "reviewed": false,
     "tags": [
       "tamano-del-salto"
     ]
   },
   {
-    "question": "Un compañero afirma: 'si el **límite bilateral** no existe en $a$, entonces tampoco existen los límites laterales en $a$'.\n\n¿Es correcta esa afirmación?",
+    "question": "Una afirmación dice que si el **límite bilateral** no existe en $a$, entonces tampoco existen los límites laterales en $a$.\n\n¿Es correcta esa afirmación?",
     "options": [
       "No, los laterales pueden existir perfectamente aunque sean distintos entre sí",
       "Sí, la inexistencia del bilateral arrastra la inexistencia de ambos laterales",
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La inexistencia del **límite bilateral** es una conclusión lógica sobre la relación entre dos números existentes, no sobre la existencia de esos números.\n\nEl **teorema de existencia** establece que si ambos laterales son números concretos y no coinciden, entonces el bilateral no existe.\n\nLa afirmación de tu compañero invierte la lógica.\n\nBilateral no existe cuando los **límites laterales** como números reales perfectamente definidos, pero $\\lim_{x \\to a^-} f(x) \\neq \\lim_{x \\to.\n\nEn otras palabras: no coincidencia de laterales existentes ↔ inexistencia del bilateral.\n\nConfundir estas dos afirmaciones frecuente de lógica.",
+    "explanation": "La inexistencia del **límite bilateral** es una conclusión sobre la relación entre dos números existentes, no sobre la existencia de esos números.\n\nEl **teorema de existencia** dice que el bilateral existe solo si los **límites laterales** coinciden. Si existen pero no coinciden, el bilateral no existe, sin borrar a ninguno de los dos.\n\nEn este caso, que el bilateral no exista en $a$ significa que ambos laterales son números reales bien definidos, pero distintos entre sí:\n$$\\lim_{x \\to a^-} f(x) \\neq \\lim_{x \\to a^+} f(x)$$\nAmbos laterales existen, lo que falla es la coincidencia entre ellos.\n\nInvertir esa implicación descarta laterales que existen perfectamente bien, solo porque apuntan a números distintos.",
     "reviewed": false,
     "tags": [
       "teorema-existencia-bilateral"

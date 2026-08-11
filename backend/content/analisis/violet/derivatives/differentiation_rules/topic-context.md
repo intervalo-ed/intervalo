@@ -2,9 +2,9 @@
 
 Belt: `violet`, Unit: `derivatives`, Topic: `differentiation_rules`
 
-Skills en este topic: `FORM`, `ESTR`, `RESL`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
+Skills en este topic: `FORM`, `ESTR`, `RESL`. **30 ejercicios cada uno (90 en total)** al cerrar el refactor.
 
-Este topic tiene 3 ítems (uno por skill): `FORM`, `ESTR`, `RESL`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
+Este topic tiene 3 ítems (uno por skill): `FORM`, `ESTR`, `RESL`. **30 ejercicios cada uno (90 en total)** al cerrar el refactor.
 
 **Estado.** Este tópico reemplaza a `basic_rules`. Renombrado (`differentiation_rules/`) y los `external_id` se van a regenerar en la próxima seed (`violet_differentiation_rules_form_01…`), lo que rompe el progreso guardado en DB — asumido y aceptado. Los ejercicios viejos se **trasladaron** a las skills nuevas:
 
@@ -12,7 +12,7 @@ Este topic tiene 3 ítems (uno por skill): `FORM`, `ESTR`, `RESL`. **50 ejercici
 - `ESTR.json` → **`ESTR.json`** (10 ejercicios se mantienen; encajan con el nuevo alcance).
 - `RESL.json` → **`RESL.json`** (10 ejercicios, ya venía del merge con la vieja DERI).
 
-El contenido "APLI" que el prompt original incluía (tangentes rápidas + problemas de razón) queda absorbido en **RESL** dentro de este topic-context — coherente con la fusión APLI → RESL. El refactor a la nueva distribución completa (50 por skill) se hace en otro turno.
+El contenido "APLI" que el prompt original incluía (tangentes rápidas + problemas de razón) queda absorbido en **RESL** dentro de este topic-context — coherente con la fusión APLI → RESL. El refactor a la nueva distribución completa (30 por skill) se hace en otro turno.
 
 ---
 
@@ -39,7 +39,7 @@ Los ejercicios que quiebren esta regla se descartan y se reescriben.
 
 ## Correcciones de formato transversales (los 3 skills)
 
-Reglas de authoring que se aplican al escribir los 150 ejercicios:
+Reglas de authoring que se aplican al escribir los 90 ejercicios:
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`, con enfoque **algorítmico**: (a) identificamos los términos, (b) aplicamos la regla a cada uno usando `\begin{aligned}`, (c) sumamos/restamos los resultados y cierre con advertencia técnica. Sin viñetas `•`, sin sub-`-`, **sin em-dash `—` (prohibido estricto)**, sin humor.
@@ -51,13 +51,13 @@ Reglas de authoring que se aplican al escribir los 150 ejercicios:
 
 ---
 
-## `feedback_incorrect` en los 150 ejercicios
+## `feedback_incorrect` en los 90 ejercicios
 
 Completar con `array<string|null>` paralelo a `options`, `null` en el índice correcto. Voz descriptiva del error específico del distractor, en segunda persona amable, contrastando con el procedimiento correcto.
 
 ---
 
-## FORM, 50 ejercicios
+## FORM, 30 ejercicios
 
 ### Qué evalúa
 **Reconocimiento** de las fórmulas de derivación para funciones elementales y de la **notación**. No hay cálculo compuesto: se identifica la fórmula que corresponde.
@@ -72,8 +72,8 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Derivadas elementales | Reconocer las derivadas directas: $(x^n)' = n x^{n-1}$; $(c)' = 0$; $(k f)' = k f'$; $(e^x)' = e^x$; $(a^x)' = a^x \ln a$; $(\ln x)' = 1/x$; $(\sin x)' = \cos x$; $(\cos x)' = -\sin x$; $(\tan x)' = \sec^2 x$. | `derivadas-elementales` | 35 |
-| B. Notación y operadores | Familiaridad con $f'(x)$, $y'$, $\tfrac{dy}{dx}$, $\tfrac{d}{dx}[\cdot]$, operador $D[f]$. Equivalencias y lecturas. | `notacion-y-operadores` | 15 |
+| A. Derivadas elementales | Reconocer las derivadas directas: $(x^n)' = n x^{n-1}$; $(c)' = 0$; $(k f)' = k f'$; $(e^x)' = e^x$; $(a^x)' = a^x \ln a$; $(\ln x)' = 1/x$; $(\sin x)' = \cos x$; $(\cos x)' = -\sin x$; $(\tan x)' = \sec^2 x$. | `derivadas-elementales` | 21 |
+| B. Notación y operadores | Familiaridad con $f'(x)$, $y'$, $\tfrac{dy}{dx}$, $\tfrac{d}{dx}[\cdot]$, operador $D[f]$. Equivalencias y lecturas. | `notacion-y-operadores` | 9 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Signo de $(\cos x)'$**: dar $\sin x$ en vez de $-\sin x$. La derivada del coseno es **negativa** del seno.
@@ -91,7 +91,7 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 
 ---
 
-## ESTR, 50 ejercicios
+## ESTR, 30 ejercicios
 
 ### Qué evalúa
 **Elección del método**, planificación del orden de aplicación de reglas y **descomposición** de expresiones antes de derivar.
@@ -105,8 +105,8 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Jerarquía de reglas | Decidir el **orden** de aplicación: identificar primero la suma/resta (linealidad) antes de aplicar la potencia o la trigonométrica a cada término. Cuándo reescribir una expresión ($\sqrt{x} \to x^{1/2}$, $\tfrac{1}{x^n} \to x^{-n}$) antes de derivar. | `jerarquia-de-reglas` | 25 |
-| B. Descomposición de funciones | Dada $f(x) = 3x^2 + \sin x - \ln x$, identificar cada término y qué regla corresponde a cada uno **antes** de derivar. | `descomposicion-de-funciones` | 25 |
+| A. Jerarquía de reglas | Decidir el **orden** de aplicación: identificar primero la suma/resta (linealidad) antes de aplicar la potencia o la trigonométrica a cada término. Cuándo reescribir una expresión ($\sqrt{x} \to x^{1/2}$, $\tfrac{1}{x^n} \to x^{-n}$) antes de derivar. | `jerarquia-de-reglas` | 15 |
+| B. Descomposición de funciones | Dada $f(x) = 3x^2 + \sin x - \ln x$, identificar cada término y qué regla corresponde a cada uno **antes** de derivar. | `descomposicion-de-funciones` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Aplicar la potencia sin reescribir**: intentar derivar $\sqrt{x}$ o $\tfrac{1}{x^3}$ sin llevarlos primero a $x^{1/2}$ o $x^{-3}$.
@@ -122,7 +122,7 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 30 ejercicios
 
 ### Qué evalúa
 **Ejecución técnica** del cálculo de la derivada aplicando fórmulas y linealidad, más las **aplicaciones directas** (tangentes rápidas, razones de cambio) que antes vivían en APLI.
@@ -136,10 +136,10 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Derivadas elementales | Aplicación directa: potencia, constante, exponenciales, logaritmos y trigonométricas simples. Un solo término. | `derivadas-elementales-aplicacion` | 15 |
-| B. Combinaciones lineales | Sumas, restas y múltiplos escalares que combinan varias funciones elementales. Ejemplo: $f(x) = 4x^3 - 2\sin x + \ln x$. | `combinaciones-lineales` | 20 |
-| C. Tangentes rápidas | Hallar $f'(a)$ para valores puntuales, o armar la ecuación de la recta tangente $y = f'(a)(x - a) + f(a)$, usando las reglas del tópico. | `tangentes-rapidas` | 10 |
-| D. Razones de cambio | Aplicación breve: si $s(t)$ es posición, hallar $v(t) = s'(t)$ o $v(t_0)$. Pendientes paralelas ($f'(x) = m$ para $m$ dado). Sin problemas verbales elaborados. | `razones-de-cambio` | 5 |
+| A. Derivadas elementales | Aplicación directa: potencia, constante, exponenciales, logaritmos y trigonométricas simples. Un solo término. | `derivadas-elementales-aplicacion` | 9 |
+| B. Combinaciones lineales | Sumas, restas y múltiplos escalares que combinan varias funciones elementales. Ejemplo: $f(x) = 4x^3 - 2\sin x + \ln x$. | `combinaciones-lineales` | 12 |
+| C. Tangentes rápidas | Hallar $f'(a)$ para valores puntuales, o armar la ecuación de la recta tangente $y = f'(a)(x - a) + f(a)$, usando las reglas del tópico. | `tangentes-rapidas` | 6 |
+| D. Razones de cambio | Aplicación breve: si $s(t)$ es posición, hallar $v(t) = s'(t)$ o $v(t_0)$. Pendientes paralelas ($f'(x) = m$ para $m$ dado). Sin problemas verbales elaborados. | `razones-de-cambio` | 3 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Coeficiente olvidado en la potencia**: dar $(3x^4)' = 3 x^3$ (olvidar el $4$). Es $3 \cdot 4 x^3 = 12 x^3$.
@@ -173,7 +173,7 @@ Auditoría en vivo (`/test`) sobre ejercicios ya existentes:
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 3 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 30 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna aplicación de regla del producto, cociente o cadena; ninguna función compuesta
 - [ ] Ningún desarrollo por límite del cociente incremental (fórmulas directas)
 - [ ] Explicaciones en 3 párrafos de prosa; estructura algorítmica; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
@@ -184,20 +184,20 @@ Auditoría en vivo (`/test`) sobre ejercicios ya existentes:
 - [ ] **Ningún `\begin{aligned}` alinea con `=` datos evaluados de forma independiente**; solo pasos reales de la misma derivación (regla crítica 30)
 
 **FORM:**
-- [ ] 50 ejercicios; cardinalidad 3 (fórmulas/textuales) o 4 (numéricas)
-- [ ] Distribución A/B respetada (35/15)
+- [ ] 30 ejercicios; cardinalidad 3 (fórmulas/textuales) o 4 (numéricas)
+- [ ] Distribución A/B respetada (21/9)
 - [ ] Negrita en primera mención de `regla de la potencia`, `regla de la constante`, `derivada elemental`
 - [ ] Sub-B con opciones que muestran notaciones, no prosa
 
 **ESTR:**
-- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
-- [ ] Distribución A/B respetada (25/25)
+- [ ] 30 ejercicios; **exactamente 3 opciones** por ejercicio
+- [ ] Distribución A/B respetada (15/15)
 - [ ] Ningún cálculo numérico final; solo elección de método/descomposición
 - [ ] Textos exactos en opciones de elección de regla (ver §Reglas específicas)
 
 **RESL:**
-- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
-- [ ] Distribución A/B/C/D respetada (15/20/10/5)
+- [ ] 30 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
+- [ ] Distribución A/B/C/D respetada (9/12/6/3)
 - [ ] Explicaciones con estructura algorítmica (identificar → aplicar → combinar)
 - [ ] Ningún argumento interno no trivial en funciones elementales
 - [ ] Sub-C y sub-D con datos simples; sub-D sin problemas verbales elaborados

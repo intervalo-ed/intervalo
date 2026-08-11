@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla de la potencia** es una de las derivadas elementales más usadas, baja el exponente como coeficiente y lo reduce en uno.\n\nEsta fórmula se toma como conocida en este tópico, no hace falta justificarla mediante el límite del cociente incremental.\n\nInternalizar estas reglas básicas es crucial porque sirven como ladrillos para derivadas más complejas.",
+    "explanation": "La **regla de la potencia** es una de las derivadas elementales más usadas, baja el exponente como coeficiente y lo reduce en uno.\n\nEsta fórmula se toma como conocida en este tópico, no hace falta justificarla mediante el límite del cociente incremental.\n\nConviene aplicar siempre los dos pasos juntos, bajar el exponente y restarle uno, dejar de lado cualquiera de los dos da una derivada incompleta.",
     "reviewed": false,
     "tags": [
       "derivadas-elementales"
@@ -35,11 +35,11 @@
     "feedback_incorrect": [
       "Hay que restar $1$ al exponente, quedó igual que el original.",
       null,
-      "Hay que el coeficiente $5$ que baja desde el exponente original."
+      "Se perdió el coeficiente $5$ que baja desde el exponente original."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicando la **regla de la potencia** con $n=5$, el exponente baja multiplicando y se reduce en una unidad.\n\nEl coeficiente y la resta del exponente siempre van juntos, dejar de lado cualquiera de los dos da un resultado incompleto, y conviene revisar ambos pasos antes de dar la respuesta.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Aplicando la **regla de la potencia** con $n=5$, el exponente baja multiplicando y se reduce en una unidad.\n\nEl coeficiente y la resta del exponente siempre van juntos, dejar de lado cualquiera de los dos da un resultado incompleto, y conviene revisar ambos pasos antes de dar la respuesta.\n\nEste mismo procedimiento vale para cualquier exponente entero, cambia el valor pero no los pasos a seguir.",
     "reviewed": false,
     "tags": [
       "derivadas-elementales"
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla de la constante** establece que la derivada de cualquier función constante, sin importar su valor, siempre da cero.\n\nEsto tiene sentido porque una constante no cambia, así que su tasa de cambio instantánea es nula en todo punto.\n\nEsta regla es el punto de partida para todas las demás.\n\nSi practicas la idea de que \"sin cambio, sin derivada\", entenderás mejor por qué la mayoría de las reglas de derivación se diseñan alrededor de cómo cambian las funciones.\n\nUna constante es lo opuesto al cambio, así que su derivada es cero.",
+    "explanation": "La **regla de la constante** establece que la derivada de cualquier función constante, sin importar su valor, siempre da cero.\n\nEsto tiene sentido porque una constante no cambia, así que su tasa de cambio instantánea es nula en todo punto.\n\nEste resultado no depende del valor de $c$: sea grande, chico, positivo o negativo, la derivada siempre da cero.",
     "reviewed": false,
     "tags": [
       "derivadas-elementales"
@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un coeficiente multiplicando a la potencia, se combina el **múltiplo escalar** con la regla de la potencia en un solo paso.\n\nEl coeficiente original se multiplica por el exponente que baja, no se mantiene aparte del resultado, ese producto es justamente lo que da el nuevo coeficiente.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Con un coeficiente multiplicando a la potencia, se combina el **múltiplo escalar** con la regla de la potencia en un solo paso.\n\nEl coeficiente original se multiplica por el exponente que baja, no se mantiene aparte del resultado, ese producto es justamente lo que da el nuevo coeficiente.\n\nEste mismo criterio aplica a cualquier coeficiente que multiplique a una potencia de $x$.",
     "reviewed": false,
     "tags": [
       "derivadas-elementales"
@@ -108,14 +108,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La función $e^x$ es la única **derivada elemental** que coincide exactamente con su propia función original.\n\nConviene no confundirla con una potencia de $x$, la variable está en el exponente, no en la base, así que la regla de la potencia no aplica acá.\n\nInternalizar estas reglas básicas es crucial porque sirven como ladrillos para derivadas más complejas.",
+    "explanation": "La función $e^x$ es la única **derivada elemental** que coincide exactamente con su propia función original.\n\nConviene no confundirla con una potencia de $x$, la variable está en el exponente, no en la base, así que la regla de la potencia no aplica acá.\n\nEsta propiedad hace de la exponencial de base $e$ un caso especial dentro de las derivadas elementales.",
     "reviewed": false,
     "tags": [
       "derivadas-elementales"
     ]
   },
   {
-    "question": "¿Cuál es la derivada de $a^x$, con $a$ una constante positiva distinta de $1$?",
+    "question": "¿Cuál es la derivada de $a^x$, con $a$ una constante positiva distinta de uno?",
     "options": [
       "$a^x$",
       "$x a^{x-1}$",
@@ -125,13 +125,13 @@
     "has_math": true,
     "feedback_correct": "Correcto, para base general aparece el factor $\\ln a$.",
     "feedback_incorrect": [
-      "Hay que el factor $\\ln a$, esa fórmula solo vale cuando la base es exactamente $e$.",
+      "Se perdió el factor $\\ln a$, esa fórmula solo vale cuando la base es exactamente $e$.",
       "Esa forma sale de aplicar la regla de la potencia, pero $a^x$ no es una potencia de $x$, es una exponencial de base $a$.",
       null
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para una exponencial de base general $a$, la derivada conserva la función original pero agrega un factor multiplicativo $\\ln a$.\n\nEl caso $a=e$ es especial porque $\\ln e = 1$.\n\npor eso $(e^x)'=e^x$ sin ningún factor extra visible, mientras que cualquier otra base sí necesita ese factor.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Para una exponencial de base general $a$, la derivada conserva la función original pero agrega un factor multiplicativo $\\ln a$.\n\nEl caso de la exponencial natural es especial: $(e^x)'=e^x$ sin ningún factor extra visible, mientras que cualquier otra base sí necesita el factor $\\ln a$.\n\nReconocer este caso particular ayuda a no olvidar el factor $\\ln a$ cuando la base no es $e$.",
     "reviewed": false,
     "tags": [
       "derivadas-elementales"
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La derivada del **logaritmo natural** es una de las derivadas elementales más usadas del tópico.\n\nEsta fórmula se toma como conocida, sin necesidad de justificarla por límite, y aparece con frecuencia combinada con otros términos.\n\nInternalizar estas reglas básicas es crucial porque sirven como ladrillos para derivadas más complejas.",
+    "explanation": "La derivada del **logaritmo natural** es una de las derivadas elementales más usadas del tópico.\n\nEsta fórmula se toma como conocida, sin necesidad de justificarla por límite, y aparece con frecuencia combinada con otros términos.\n\nEsta fórmula reaparece constantemente en combinaciones con otras funciones elementales.",
     "reviewed": false,
     "tags": [
       "derivadas-elementales"
@@ -177,7 +177,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Entre las **derivadas elementales** trigonométricas, la del seno es la más simple, sin ningún signo que ajustar.\n\nConviene distinguirla bien de la derivada del coseno, que sí lleva un signo negativo, ese es el error más frecuente entre ambas.\n\nInternalizar estas reglas básicas es crucial porque sirven como ladrillos para derivadas más complejas.",
+    "explanation": "Entre las **derivadas elementales** trigonométricas, la del seno es la más simple, sin ningún signo que ajustar.\n\nConviene distinguirla bien de la derivada del coseno, que sí lleva un signo negativo, ese es el error más frecuente entre ambas.\n\nMemorizar sin signo esta fórmula ayuda a no confundirla luego con la derivada del coseno.",
     "reviewed": false,
     "tags": [
       "derivadas-elementales"
@@ -200,7 +200,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "A diferencia de la derivada del seno, la del coseno lleva un signo negativo que no se puede omitir.\n\nEste signo negativo es el detalle que más se pierde al memorizar esta fórmula, conviene revisarlo siempre antes de dar la respuesta final.\n\nInternalizar estas reglas básicas es crucial porque sirven como ladrillos para derivadas más complejas.",
+    "explanation": "A diferencia de la derivada del seno, la del coseno lleva un signo negativo que no se puede omitir.\n\nEste signo negativo es el detalle que más se pierde al memorizar esta fórmula, conviene revisarlo siempre antes de dar la respuesta final.\n\nEste signo negativo reaparece en cualquier combinación donde el coseno participe como término.",
     "reviewed": false,
     "tags": [
       "derivadas-elementales"
@@ -223,7 +223,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La derivada de la **tangente** se toma como fórmula elemental conocida, sin necesidad de derivarla como cociente entre seno y coseno.\n\nEsta fórmula conviene memorizarla directamente en este tópico, ya que la regla del cociente todavía no está disponible como herramienta.\n\nInternalizar estas reglas básicas es crucial porque sirven como ladrillos para derivadas más complejas.",
+    "explanation": "La derivada de la **tangente** se toma como fórmula elemental conocida, sin necesidad de derivarla como cociente entre seno y coseno.\n\nEsta fórmula conviene memorizarla directamente en este tópico, ya que la regla del cociente todavía no está disponible como herramienta.\n\nEsta fórmula se usa tal cual, sin necesidad de reescribir la tangente como cociente entre seno y coseno.",
     "reviewed": false,
     "tags": [
       "derivadas-elementales"
@@ -242,18 +242,18 @@
     "feedback_incorrect": [
       "Revisá la resta en el exponente, de $-2$ hay que restar $1$ más, quedando $-3$, no $-1$.",
       null,
-      "Hay que el signo negativo que baja junto con el exponente $-2$."
+      "Se perdió el signo negativo que baja junto con el exponente $-2$."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla de la potencia** se aplica exactamente igual cuando el exponente es negativo, sin ningún ajuste adicional.\n\nEl signo negativo del exponente original baja como parte del coeficiente, y la resta de uno se hace sobre ese mismo exponente negativo.\n\nInternalizar estas reglas básicas es crucial porque sirven como ladrillos para derivadas más complejas.",
+    "explanation": "La **regla de la potencia** se aplica exactamente igual cuando el exponente es negativo, sin ningún ajuste adicional.\n\nEl signo negativo del exponente original baja como parte del coeficiente, y la resta de uno se hace sobre ese mismo exponente negativo.\n\nEl mismo procedimiento de bajar el exponente y restar uno vale sin importar si el exponente original es positivo o negativo.",
     "reviewed": false,
     "tags": [
       "derivadas-elementales"
     ]
   },
   {
-    "question": "Si $y = f(x)$, ¿cuál de las siguientes notaciones es equivalente a $f'(x)$?",
+    "question": "Existe una función $y = f(x)$.\n\n¿Cuál de las siguientes notaciones es equivalente a $f'(x)$?",
     "options": [
       "$\\frac{\\Delta y}{\\Delta x}$",
       "$f(x)'$",
@@ -269,14 +269,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La derivada de una función admite varias notaciones equivalentes, todas describen el mismo objeto matemático.\n\nConviene reconocer estas equivalencias de notación para poder leer indistintamente cualquiera de ellas en un enunciado.\n\nAlgunas comunidades científicas prefieren $f'(x)$, otras prefieren $\\frac{dy}{dx}$;.\n\nen análisis vectorial verás $\\nabla f$.\n\nSaber cambiar entre notaciones te permite leer literatura en distintos campos sin confusión.\n\nAdemás, cada notación enfatiza un aspecto distinto: $f'$ subraya la regla, $\\frac{dy}{dx}$ subraya la relación entre cambios.",
+    "explanation": "La derivada de una función admite varias notaciones equivalentes, todas describen el mismo objeto matemático.\n\nConviene reconocer estas equivalencias de notación para poder leer indistintamente cualquiera de ellas en un enunciado.\n\nLa notación $f'(x)$ resalta la función que se deriva, mientras que la notación de Leibniz resalta la relación entre las dos variables que cambian.",
     "reviewed": false,
     "tags": [
       "notacion-y-operadores"
     ]
   },
   {
-    "question": "Sea la función:\n$$\\frac{d}{dx}[\\cdot]$$\n¿Qué representa el operador?",
+    "question": "Este símbolo funciona como un operador:\n$$\\frac{d}{dx}[\\cdot]$$\n¿Qué representa?",
     "options": [
       "Regla de aplicación más directa sin combinar",
       "Una fracción que se puede simplificar cancelando las $d$",
@@ -292,7 +292,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El símbolo $\\frac{d}{dx}[\\cdot]$ funciona como un **operador**, toma la expresión que va dentro de los corchetes y devuelve su derivada respecto de $x$.\n\nNo hay que confundir este símbolo con una fracción algebraica, las letras $d$ no representan cantidades que se puedan cancelar entre sí.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Este símbolo es un **operador**: toma la expresión que va dentro de los corchetes y devuelve su derivada respecto de $x$.\n\nNo hay que confundir este símbolo con una fracción algebraica, las letras $d$ no representan cantidades que se puedan cancelar entre sí.\n\nEste mismo operador puede aparecer aplicado directamente sobre $f(x)$ sin los corchetes explícitos.",
     "reviewed": false,
     "tags": [
       "notacion-y-operadores"
@@ -315,18 +315,18 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El operador $D$ es otra forma válida de anotar la derivada,.\n\nequivalente a $f'$ o a $\\frac{df}{dx}$.\n\naunque menos frecuente en los libros introductorios.\n\nCualquiera de estas notaciones describe el mismo objeto matemático, así que conviene reconocerlas todas sin depender de una sola forma de escritura para identificar una derivada.",
+    "explanation": "El operador $D$ es otra forma válida de anotar la derivada, equivalente a $f'$ o a la notación de Leibniz, aunque menos frecuente en los libros introductorios.\n\nCualquiera de estas notaciones describe el mismo objeto matemático, así que conviene reconocerlas todas sin depender de una sola forma de escritura para identificar una derivada.\n\nElegir una notación por sobre otra es una cuestión de estilo, el resultado que representan es siempre el mismo.",
     "reviewed": false,
     "tags": [
       "notacion-y-operadores"
     ]
   },
   {
-    "question": "Analiza la función:\n$$\\frac{dy}{dx}$$\nCancelando $dy$ con $dx$ como si fuera una fracción algebraica común?",
+    "question": "Considerá la notación:\n$$\\frac{dy}{dx}$$\n¿Se puede cancelar $dy$ con $dx$, tratándola como una fracción algebraica común?",
     "options": [
       "Sí, siempre se puede cancelar como cualquier fracción",
       "Sí, pero solo si $y$ es lineal",
-      "No, es una notación que representa"
+      "No, es una notación que representa un límite"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **notación de Leibniz** $\\frac{dy}{dx}$ recuerda visualmente a una fracción, pero en realidad representa el resultado de un límite.\n\nPor eso no es correcto tratar $dy$ y $dx$ como cantidades separadas que se puedan cancelar o manipular como en una fracción algebraica común.\n\nLa notación fue diseñada para ser clara cuando ambas variables están presentes, pero genera ambigüedad cuando solo una varía.",
+    "explanation": "La **notación de Leibniz** recuerda visualmente a una fracción, pero en realidad representa el resultado de un límite.\n\nPor eso no es correcto tratar $dy$ y $dx$ como cantidades separadas que se puedan cancelar o manipular como en una fracción algebraica común.\n\nLa notación fue diseñada para ser clara cuando ambas variables están presentes, pero genera ambigüedad cuando solo una varía.",
     "reviewed": false,
     "tags": [
       "notacion-y-operadores"

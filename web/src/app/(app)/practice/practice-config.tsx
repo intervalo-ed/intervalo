@@ -2,6 +2,7 @@
 
 import { CountUp } from "@/components/count-up"
 import { CourseSwitcher } from "@/components/course-switcher"
+import { DismissibleHint } from "@/components/dismissible-hint"
 import MathText from "@/components/math-text"
 import { Metric, accuracyColor } from "@/components/metric-card"
 import { PracticeSkeleton } from "@/components/tab-skeletons"
@@ -33,7 +34,7 @@ import {
   type Topic,
 } from "@/lib/catalog"
 import { useUser } from "@clerk/nextjs"
-import { CheckIcon, ChevronDown, Info, RotateCcwIcon, SettingsIcon, X } from "lucide-react"
+import { CheckIcon, ChevronDown, Info, RotateCcwIcon, SettingsIcon } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
@@ -68,7 +69,6 @@ const saveConfigCls =
 const EXPANDED_STORAGE_KEY = "intervalo:practice-units-expanded"
 const EXPANDED_EVENT = "intervalo:practice-units-expanded-change"
 const HINT_STORAGE_KEY = "intervalo:practice-topics-hint-seen"
-const HINT_EVENT = "intervalo:practice-topics-hint-seen-change"
 
 const EMPTY_EXPANDED = new Set<string>()
 
@@ -113,28 +113,6 @@ function useExpandedUnits(): Set<string> {
     getExpandedSnapshot,
     () => EMPTY_EXPANDED,
   )
-}
-
-function hasSeenTopicsHint(): boolean {
-  return window.localStorage.getItem(HINT_STORAGE_KEY) === "1"
-}
-
-function dismissTopicsHintGlobal(): void {
-  window.localStorage.setItem(HINT_STORAGE_KEY, "1")
-  window.dispatchEvent(new Event(HINT_EVENT))
-}
-
-function subscribeHint(callback: () => void): () => void {
-  window.addEventListener(HINT_EVENT, callback)
-  window.addEventListener("storage", callback)
-  return () => {
-    window.removeEventListener(HINT_EVENT, callback)
-    window.removeEventListener("storage", callback)
-  }
-}
-
-function useTopicsHintDismissed(): boolean {
-  return useSyncExternalStore(subscribeHint, hasSeenTopicsHint, () => false)
 }
 
 export default function PracticeConfig() {
@@ -219,7 +197,6 @@ export default function PracticeConfig() {
   const [enabled, setEnabled] = useState<Set<string>>(() => new Set())
 
   function toggleTopic(belt: BeltKey, topic: string) {
-    sfx.iterate()
     const key = topicKey(belt, topic)
     setEnabled((prev) => {
       const next = new Set(prev)
@@ -230,7 +207,6 @@ export default function PracticeConfig() {
   }
 
   function toggleUnit(belt: BeltKey, topics: Topic[]) {
-    sfx.iterate()
     const keys = topics.map((t) => topicKey(belt, t.key))
     const anyOn = keys.some((k) => enabled.has(k))
     setEnabled((prev) => {
@@ -253,14 +229,7 @@ export default function PracticeConfig() {
     setExpandedGlobal(next)
   }
 
-  const hintDismissed = useTopicsHintDismissed()
-
-  function dismissHint() {
-    dismissTopicsHintGlobal()
-  }
-
   function selectCourse(next: CourseId) {
-    sfx.iterate()
     setCourse(next)
     // Los temas dependen del curso: limpiamos la selección para no arrastrar
     // temas de otro curso.
@@ -477,25 +446,16 @@ export default function PracticeConfig() {
               </Button>
             )}
 
-            {!hintDismissed && (
-              <div className="flex items-start justify-between gap-3 rounded-md border border-white/10 bg-white/[0.01] p-3">
-                <p className="text-sm text-foreground/60">
-                  Elegí los temas que querés practicar.
-                  <br />
-                  Ajustá en{" "}
-                  <SettingsIcon className="inline size-3.5 align-middle" /> la
-                  cantidad de ejercicios.
-                </p>
-                <button
-                  type="button"
-                  aria-label="Cerrar"
-                  className="shrink-0 text-foreground/40 outline-none transition-colors hover:text-foreground/70"
-                  onClick={dismissHint}
-                >
-                  <X className="size-4" />
-                </button>
-              </div>
-            )}
+            <DismissibleHint storageKey={HINT_STORAGE_KEY}>
+              <span className="block">
+                Elegí los temas que quieras practicar.
+              </span>
+              <span className="block">
+                Ajustá en{" "}
+                <SettingsIcon className="inline size-3.5 align-middle" /> la
+                cantidad de ejercicios.
+              </span>
+            </DismissibleHint>
 
             <AnimatePresence mode="wait" initial={false}>
               <motion.div

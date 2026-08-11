@@ -20,7 +20,7 @@ function useOnEmojiSuccess() {
   return (data: EmojiState | undefined) => {
     if (data) qc.setQueryData(queryKeys.emojiState(), data)
     qc.invalidateQueries({ queryKey: queryKeys.authMe() })
-    qc.invalidateQueries({ queryKey: queryKeys.leaderboard().slice(0, -1) })
+    qc.invalidateQueries({ queryKey: queryKeys.leaderboardAll() })
   }
 }
 

@@ -12,6 +12,7 @@ Fuente de verdad: `algorithm/` (paquete Python puro, sin dependencia de DB) para
 | `CourseProgress` | Config de progreso por (usuario, curso): `active_cap` (tope de ítems en aprendizaje simultáneo), `session_size` (tamaño de sesión de repaso), `iteration` (se incrementa al reiniciar el curso). Fila lazy — se crea la primera vez que hace falta. |
 | `UnitState` | El estado SM-2 en vivo por `(user, course, belt, topic, exercise_type)` — la tabla central del algoritmo. `is_catchup` = unidad creada por detrás del frontier ya desbloqueado (no cuenta para maestría/belt). `suspended` = tema oculto por el usuario desde el editor (reversible). |
 | `UnitStateArchive` | Snapshot de `UnitState` al reiniciar un curso, tageada por `iteration` — así `unit_states` queda limpia con solo la iteración vigente sin perder historial. |
+| `ItemExerciseCycle` | Ejercicios ya servidos en el ciclo vigente de un ítem `(user, course, belt, topic, exercise_type)` — `served_external_ids` es una lista JSON de `Exercise.external_id`. Garantiza que no se repita un ejercicio hasta agotar todos los del ítem: se vacía cuando el ciclo se completa, o al reiniciar el curso (`reset_course`). |
 | `Session` | Una sesión de práctica. `mode` es `"main"` (sesión de Repaso, gateada por día — ver más abajo) o `"practice"` (Práctica libre). |
 | `Answer` | Un intento de ejercicio dentro de una sesión. `xp_base` (pre-multiplicador de racha) vs `xp_earned` (post-multiplicador) — la diferencia es lo que se muestra como "bonus por racha" en el resumen. |
 | `Exercise` | Banco de preguntas, scoped por `(course, belt, topic, exercise_type)`. Opción múltiple (`option_a..d`, `correct_index`), gráfico opcional (`graph_fn/view/shade/free_aspect`, renderizado con Mafs), `reviewed` (flag editorial). |
@@ -19,6 +20,7 @@ Fuente de verdad: `algorithm/` (paquete Python puro, sin dependencia de DB) para
 | `Feedback` | Feedback libre desde ajustes (`categoria`: error/idea/comentario). |
 | `ExerciseFeedback` | Micro-encuesta post-ejercicio (dificultad/utilidad de la explicación) + reportes de contenido, keyed por `exercise_external_id` (no por el slot de sesión) para agregar entre sesiones/usuarios. `answered_at IS NULL` = impresión mostrada pero no respondida (skip). |
 | `PushSubscription` | Suscripción Web Push (`endpoint`/`p256dh`/`auth`) por `(user, course)`. |
+| `NotificationSend` | Historial append-only de push enviados: una fila por usuario por envío (no por dispositivo), con `category`/`variant_key` del copy elegido (ver `notification_copy.py`), el `title`/`body` renderizados y `opened_at`, que se completa cuando el usuario clickea la notificación (`notificationclick` del service worker → beacon a `main.py`, idempotente: gana el primer click). Permite medir efectividad por categoría/variante; distinto de `User.notify_last_*`, que solo guarda el último estado para el guard diario de idempotencia. |
 
 ## Estructura de contenido: belt → unit → topic
 
@@ -43,10 +45,8 @@ ef_initial = 2.5
 ef_min_absolute = 1.3
 review_fast_seconds = 10.0
 review_medium_seconds = 30.0
-min_session_exercises = 7
 max_session_exercises = 8
 min_distance_same_topic = 2
-graph_exercise_probability = 0.66
 ```
 
 ### Dos fases
@@ -67,14 +67,15 @@ graph_exercise_probability = 0.66
 ### Construcción de sesión (`algorithm/session.py::build_session`)
 
 1. Candidatos: unidades nuevas (no intentadas, en `learning`) o vencidas (`next_review <= hoy`).
-2. Si hay menos de `min_session_exercises` (7), se piden topics nuevos al caller (`introduce_new_topic`) hasta llegar al mínimo o agotar el catálogo.
-3. Cap duro en `max_session_exercises` (8) — el resto queda para el día siguiente.
-4. Se intercalan para respetar `min_distance_same_topic` (2): dos ejercicios del mismo topic nunca quedan más cerca que esa distancia en la sesión.
+2. Cap duro en `max_session_exercises` (8) — el resto queda para el día siguiente.
+3. Se intercalan para respetar `min_distance_same_topic` (2): dos ejercicios del mismo topic nunca quedan más cerca que esa distancia en la sesión.
+
+El desbloqueo de topics nuevos **no** pasa por acá: lo maneja `session_store.py::_ensure_active_units`, que mantiene el frontier según el `active_cap` del usuario.
 
 ### Maestría y graduación (`algorithm/graduation.py`)
 
-- Una unidad está "dominada" (`is_mastered`) cuando `phase == "review"`.
-- Un **topic** está dominado cuando **todos** sus `exercise_type` están en `review`.
-- Un **belt** se promociona (`BeltProgress.promoted`) cuando **todos** sus topics están dominados.
+- Una unidad está "dominada" cuando `phase == "review"`.
+- Un **topic** está dominado cuando **todos** sus `exercise_type` están en `review` (`is_topic_mastered`, la única función del módulo). Es lo que dispara el desbloqueo de units nuevas.
+- El estado de un **belt** no se calcula en el backend: el front lo deriva de `topic_states` (`web/src/lib/catalog/stats.ts`).
 
-Última verificación: 2026-08-01
+Última verificación: 2026-08-11

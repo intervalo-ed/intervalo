@@ -123,7 +123,6 @@ type ExState = {
   // Micro-encuesta (canal A/B): slide propio, ver survey-pane.tsx.
   showSurvey: boolean
   surveyValue: string | null
-  surveyFreeText: string
   surveySubmitted: boolean
   surveyThanksTitle: string | null
   surveyThanksMsg: string | null
@@ -132,7 +131,6 @@ type ExState = {
   // report-pane.tsx. Vuelve a `showWhy` (question o explicación) al cerrarse.
   showReport: boolean
   reportValue: string | null
-  reportFreeText: string
   reportSubmitted: boolean
   reportThanksTitle: string | null
   reportThanksMsg: string | null
@@ -148,14 +146,12 @@ const DEFAULT_EX: ExState = {
   showWhy: false,
   showSurvey: false,
   surveyValue: null,
-  surveyFreeText: "",
   surveySubmitted: false,
   surveyThanksTitle: null,
   surveyThanksMsg: null,
   surveyThanksXp: null,
   showReport: false,
   reportValue: null,
-  reportFreeText: "",
   reportSubmitted: false,
   reportThanksTitle: null,
   reportThanksMsg: null,
@@ -175,6 +171,12 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
   const surveyFiredRef = useRef<Set<number>>(new Set())
   const surveyImpressionRef = useRef<Record<number, Promise<number>>>({})
   const surveyTypeRef = useRef<Record<number, "A" | "B">>({})
+  // El texto libre de la encuesta y del reporte vive en un ref (y en un state
+  // local de cada pane): tenerlo en el state del runner hacía que cada tecla
+  // re-renderizara todo el ejercicio — MathText/MathGraph incluidos. Se lee
+  // recién al enviar y se limpia al abrir/cerrar cada slide.
+  const surveyFreeTextRef = useRef("")
+  const reportFreeTextRef = useRef("")
   const [idx, setIdx] = useState(0)
   const [dir, setDir] = useState<1 | -1>(1)
   const [states, setStates] = useState<Record<number, ExState>>({})
@@ -342,22 +344,22 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
     if (cur.showReport) {
       setDir(-1)
       scrollToTop()
+      reportFreeTextRef.current = ""
       patch({
         showReport: false,
         reportSubmitted: false,
         reportValue: null,
-        reportFreeText: "",
       })
       return
     }
     if (cur.showSurvey) {
       setDir(-1)
       scrollToTop()
+      surveyFreeTextRef.current = ""
       patch({
         showSurvey: false,
         surveySubmitted: false,
         surveyValue: null,
-        surveyFreeText: "",
       })
       return
     }
@@ -391,20 +393,20 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
             session_id: sessionId,
             exercise_external_id: exercise.external_id || exercise.id,
             value: cur.reportValue,
-            free_text: cur.reportFreeText.trim() || undefined,
+            free_text: reportFreeTextRef.current.trim() || undefined,
           },
           { onSuccess: (r) => patch({ reportThanksXp: r.xp_earned || null }) },
         )
-        sfx.feedback()
+        sfx.correct()
         const { title, subtitle } = pickReportThanks()
         patch({ reportSubmitted: true, reportThanksTitle: title, reportThanksMsg: subtitle })
         return
       }
+      reportFreeTextRef.current = ""
       patch({
         showReport: false,
         reportSubmitted: false,
         reportValue: null,
-        reportFreeText: "",
         reportThanksTitle: null,
         reportThanksMsg: null,
         reportThanksXp: null,
@@ -419,7 +421,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
       if (!cur.surveySubmitted) {
         if (cur.surveyValue) {
           const value = cur.surveyValue
-          const freeText = cur.surveyFreeText.trim() || undefined
+          const freeText = surveyFreeTextRef.current.trim() || undefined
           const surveyType = surveyTypeRef.current[idx] ?? "A"
           surveyImpressionRef.current[idx]?.then((feedback_id) => {
             feedback.mutate(
@@ -427,7 +429,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
               { onSuccess: (r) => patch({ surveyThanksXp: r.xp_earned || null }) },
             )
           })
-          sfx.feedback()
+          sfx.correct()
           patch({
             surveySubmitted: true,
             surveyThanksTitle: pickFrom(THANKS_TITLES),
@@ -473,6 +475,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
       sfx.continue()
       setDir(1)
       scrollToTop()
+      surveyFreeTextRef.current = ""
       patch({ showSurvey: true })
       return
     }
@@ -586,6 +589,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
     sfx.continue()
     setDir(1)
     scrollToTop()
+    reportFreeTextRef.current = ""
     patch({ showReport: true })
   }
 
@@ -746,19 +750,17 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
               {cur.showReport ? (
                 <ReportPane
                   value={cur.reportValue}
-                  freeText={cur.reportFreeText}
+                  freeTextRef={reportFreeTextRef}
                   submitted={cur.reportSubmitted}
                   onSelect={(v) => patch({ reportValue: v })}
-                  onFreeTextChange={(t) => patch({ reportFreeText: t })}
                 />
               ) : cur.showSurvey ? (
                 <SurveyPane
                   type={surveyTypeRef.current[idx] ?? "A"}
                   value={cur.surveyValue}
-                  freeText={cur.surveyFreeText}
+                  freeTextRef={surveyFreeTextRef}
                   submitted={cur.surveySubmitted}
                   onSelect={(v) => patch({ surveyValue: v })}
-                  onFreeTextChange={(t) => patch({ surveyFreeText: t })}
                 />
               ) : cur.showWhy ? (
                 <div className="flex flex-col gap-3 leading-relaxed text-foreground/80">

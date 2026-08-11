@@ -18,7 +18,7 @@ Micro-encuesta post-ejercicio (canales A/B/C — dificultad, utilidad de la expl
 
 ## Resumen de sesión (`session/[sessionId]/summary/`)
 
-XP ganada (con el bonus por racha separado), confetti con los colores de belt (`BELT_VIVID_COLORS`). No hay nivel: el backend calcula uno (`algorithm/xp.py::level_progress`) pero no se muestra en ningún lado del frontend hoy — no asumir que existe UI de nivel.
+XP ganada (con el bonus por racha separado), confetti con los colores de belt (`BELT_VIVID_COLORS`). No hay nivel: la feature se descartó y el código de curva de niveles se eliminó de `algorithm/xp.py` y de los payloads (2026-08) — no asumir que existe UI ni API de nivel.
 
 ## Práctica (`practice/`)
 

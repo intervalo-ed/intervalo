@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { cn } from "@/lib/utils"
 import { Flag } from "lucide-react"
 
@@ -12,17 +13,20 @@ export const REPORT_CATEGORIES = [
 // hasta elegir una categoría — a diferencia de la encuesta, no hay "skip".
 export function ReportPane({
   value,
-  freeText,
+  freeTextRef,
   submitted,
   onSelect,
-  onFreeTextChange,
 }: {
   value: string | null
-  freeText: string
+  // El texto queda local a este slide y se espeja en el ref del runner, que lo
+  // lee al enviar: si viviera en el state del runner, cada tecla re-renderizaría
+  // el ejercicio entero. El runner lo limpia al abrir y al cerrar el reporte.
+  freeTextRef: React.RefObject<string>
   submitted: boolean
   onSelect: (value: string) => void
-  onFreeTextChange: (text: string) => void
 }) {
+  const [freeText, setFreeText] = useState("")
+
   return (
     <div className="flex flex-col gap-5">
       <p className="flex items-center gap-1.5 text-base leading-snug">
@@ -54,7 +58,10 @@ export function ReportPane({
       <textarea
         value={freeText}
         disabled={submitted}
-        onChange={(e) => onFreeTextChange(e.target.value)}
+        onChange={(e) => {
+          setFreeText(e.target.value)
+          freeTextRef.current = e.target.value
+        }}
         placeholder="Contanos qué pasó (opcional)"
         className="min-h-20 rounded-md border border-white/10 bg-white/5 p-2 text-base text-foreground/85 outline-none focus:border-white/40 disabled:opacity-60"
       />

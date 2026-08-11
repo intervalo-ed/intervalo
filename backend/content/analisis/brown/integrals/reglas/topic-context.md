@@ -2,9 +2,9 @@
 
 Belt: `brown`, Unit: `integrals`, Topic: `reglas`
 
-Skills en este topic: `FORM`, `ESTR`, `RESL`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
+Skills en este topic: `FORM`, `ESTR`, `RESL`. **30 ejercicios cada uno (90 en total)** al cerrar el refactor.
 
-Este topic tiene 3 ítems (uno por skill): `FORM`, `ESTR`, `RESL`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
+Este topic tiene 3 ítems (uno por skill): `FORM`, `ESTR`, `RESL`. **30 ejercicios cada uno (90 en total)** al cerrar el refactor.
 
 **Estado.** Este tópico es el **primer sitio donde el alumno ejecuta cálculo integral final**. Se apoya en la anatomía y la linealidad que se fijaron en `definition` para aplicar la **tabla de integrales inmediatas** y resolver integrales que combinan sumas, restas y múltiplos escalares de funciones elementales.
 
@@ -47,7 +47,7 @@ Los ejercicios que quiebren esta regla se descartan y se reescriben.
 
 ## Correcciones de formato transversales (los 3 skills)
 
-Reglas de authoring que se aplican al escribir los 150 ejercicios:
+Reglas de authoring que se aplican al escribir los 90 ejercicios:
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`, con enfoque **algorítmico**: (a) identificar la fórmula de tabla aplicable (o el paso previo de linealidad/reescritura si corresponde), (b) aplicar la fórmula usando `\begin{aligned}` cuando hay más de un término, (c) simplificar, agregar $+C$ y cerrar con advertencia técnica sobre el error común (signo del $-\cos x$, valor absoluto en $\ln$, coeficiente arrastrado, $C$ olvidada). Sin viñetas `•`, sin sub-`-`, **sin em-dash `—` (prohibido estricto)**, sin humor.
@@ -60,7 +60,7 @@ Reglas de authoring que se aplican al escribir los 150 ejercicios:
 
 ---
 
-## FORM, 50 ejercicios
+## FORM, 30 ejercicios
 
 ### Qué evalúa
 **Consolidación de la memoria de la tabla de integrales inmediatas**, auditando el **reconocimiento inverso** (Sistema 1: reconocer de una la primitiva sin cálculo intermedio) y el **pensamiento inverso** (dada una función, decir qué se derivó para llegar a ella).
@@ -74,8 +74,8 @@ Reglas de authoring que se aplican al escribir los 150 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Reconocimiento directo de antiderivadas | Preguntar directamente por la primitiva de una función elemental de la tabla. Ejemplos: $\int \cos x \, dx = \sin x + C$; $\int e^x \, dx = e^x + C$; $\int \sec^2 x \, dx = \tan x + C$; $\int \sin x \, dx = -\cos x + C$; $\int \tfrac{1}{x} \, dx = \ln|x| + C$. Set cubierto: $x^n$, $\tfrac{1}{x}$, $e^x$, $a^x$, $\sin x$, $\cos x$, $\sec^2 x$, **constante**. | `reconocimiento-directo-antiderivadas` | 25 |
-| B. Identificación inversa de la derivada | Forzar el pensamiento inverso: "¿Qué función al derivarse da $\tfrac{1}{x}$?" (respuesta: $\ln|x| + C$). "¿Qué función al derivarse da $e^x$?" (respuesta: $e^x + C$). Refuerza que la integración es la **operación inversa** de la derivación. | `identificacion-inversa-derivada` | 25 |
+| A. Reconocimiento directo de antiderivadas | Preguntar directamente por la primitiva de una función elemental de la tabla. Ejemplos: $\int \cos x \, dx = \sin x + C$; $\int e^x \, dx = e^x + C$; $\int \sec^2 x \, dx = \tan x + C$; $\int \sin x \, dx = -\cos x + C$; $\int \tfrac{1}{x} \, dx = \ln|x| + C$. Set cubierto: $x^n$, $\tfrac{1}{x}$, $e^x$, $a^x$, $\sin x$, $\cos x$, $\sec^2 x$, **constante**. | `reconocimiento-directo-antiderivadas` | 15 |
+| B. Identificación inversa de la derivada | Forzar el pensamiento inverso: "¿Qué función al derivarse da $\tfrac{1}{x}$?" (respuesta: $\ln|x| + C$). "¿Qué función al derivarse da $e^x$?" (respuesta: $e^x + C$). Refuerza que la integración es la **operación inversa** de la derivación. | `identificacion-inversa-derivada` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -97,7 +97,7 @@ Reglas de authoring que se aplican al escribir los 150 ejercicios:
 
 ---
 
-## ESTR, 50 ejercicios
+## ESTR, 30 ejercicios
 
 ### Qué evalúa
 **Detección de trampas visuales, constantes disfrazadas y discriminación de familias** antes de aplicar la fórmula. Bloquea el impulso automático de "integrar todo lo que parece $x$" o de "confundir potencia con exponencial por el símbolo $e$". Sin cálculo numérico final.
@@ -111,8 +111,8 @@ Reglas de authoring que se aplican al escribir los 150 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Constantes engañosas | Diferenciar **números fijos** de **variables**. Bloquear el impulso de aplicar reglas de funciones a constantes numéricas. Ejemplos: $\int \pi \, dx = \pi x + C$; $\int e^2 \, dx = e^2 x + C$; $\int \ln 5 \, dx = (\ln 5) x + C$. Todas se resuelven con la regla de la constante ($\int k \, dx = kx + C$), no con la regla exponencial ni con la de la potencia. | `constantes-enganosas` | 25 |
-| B. Discriminación de familias | Auditar la diferencia entre estructuras algebraicas visualmente parecidas que requieren reglas distintas. Casos: $x^e$ vs $e^x$ (potencia vs exponencial); $x^n$ vs $n^x$ para $n$ numérico ($x^2$ es potencia, $2^x$ es exponencial base $a$); $\tfrac{1}{x}$ vs $\tfrac{1}{x^2}$ (logaritmo vs regla de la potencia con $n = -2$); $\sin x$ vs $\cos x$ (signo opuesto en sus primitivas). | `discriminacion-de-familias` | 25 |
+| A. Constantes engañosas | Diferenciar **números fijos** de **variables**. Bloquear el impulso de aplicar reglas de funciones a constantes numéricas. Ejemplos: $\int \pi \, dx = \pi x + C$; $\int e^2 \, dx = e^2 x + C$; $\int \ln 5 \, dx = (\ln 5) x + C$. Todas se resuelven con la regla de la constante ($\int k \, dx = kx + C$), no con la regla exponencial ni con la de la potencia. | `constantes-enganosas` | 15 |
+| B. Discriminación de familias | Auditar la diferencia entre estructuras algebraicas visualmente parecidas que requieren reglas distintas. Casos: $x^e$ vs $e^x$ (potencia vs exponencial); $x^n$ vs $n^x$ para $n$ numérico ($x^2$ es potencia, $2^x$ es exponencial base $a$); $\tfrac{1}{x}$ vs $\tfrac{1}{x^2}$ (logaritmo vs regla de la potencia con $n = -2$); $\sin x$ vs $\cos x$ (signo opuesto en sus primitivas). | `discriminacion-de-familias` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -133,7 +133,7 @@ Reglas de authoring que se aplican al escribir los 150 ejercicios:
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 30 ejercicios
 
 ### Qué evalúa
 **Ejecución técnica del cálculo integral**: aplicar la **linealidad** aprendida en `definition` combinada con las **fórmulas de tabla** aprendidas en FORM, en integrales que combinan varios términos. Sistema 2 completo: identificar cada término, aplicar la regla que corresponde, sumar/restar con signos correctos, incluir $+C$.
@@ -153,8 +153,8 @@ Reglas de authoring que se aplican al escribir los 150 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Suma y resta de términos elementales | Integrales que combinan **dos o tres términos** distintos de la tabla, con coeficientes escalares. Ejemplo: $\int (4x^3 - 2\sin x) \, dx = x^4 + 2\cos x + C$. Foco: linealidad + signos + arrastre de coeficientes. Familias mezcladas: polinómicas + trigonométricas + exponencial + constante. | `suma-resta-terminos-elementales` | 25 |
-| B. Polinomios y fracciones simples combinadas | Integrales donde interactúa la **regla de la potencia** con el caso especial del **logaritmo** ($\tfrac{1}{x}$). Ejemplo: $\int (x^2 + \tfrac{5}{x}) \, dx = \tfrac{x^3}{3} + 5\ln\|x\| + C$. Foco: reconocer cuándo aplicar la excepción $n = -1$ y cuándo la regla de la potencia normal. También incluye reescritura algebraica previa (heredada de `definition`, aplicada en simultáneo con la integración). | `polinomios-fracciones-simples-combinadas` | 25 |
+| A. Suma y resta de términos elementales | Integrales que combinan **dos o tres términos** distintos de la tabla, con coeficientes escalares. Ejemplo: $\int (4x^3 - 2\sin x) \, dx = x^4 + 2\cos x + C$. Foco: linealidad + signos + arrastre de coeficientes. Familias mezcladas: polinómicas + trigonométricas + exponencial + constante. | `suma-resta-terminos-elementales` | 15 |
+| B. Polinomios y fracciones simples combinadas | Integrales donde interactúa la **regla de la potencia** con el caso especial del **logaritmo** ($\tfrac{1}{x}$). Ejemplo: $\int (x^2 + \tfrac{5}{x}) \, dx = \tfrac{x^3}{3} + 5\ln\|x\| + C$. Foco: reconocer cuándo aplicar la excepción $n = -1$ y cuándo la regla de la potencia normal. También incluye reescritura algebraica previa (heredada de `definition`, aplicada en simultáneo con la integración). | `polinomios-fracciones-simples-combinadas` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -194,7 +194,7 @@ Pre-revisión programática sobre los ejercicios de prueba existentes:
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 3 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 30 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna aplicación de sustitución, partes, integral definida, TFC, ni áreas
 - [ ] Ninguna función compuesta en el integrando (argumentos internos = $x$ solo)
 - [ ] Ningún exponente irracional ($x^\pi$, $x^{\sqrt 2}$)
@@ -208,24 +208,24 @@ Pre-revisión programática sobre los ejercicios de prueba existentes:
 - [ ] Ningún `\begin{aligned}` alinea con `=` datos evaluados de forma independiente (regla crítica 30)
 
 **FORM:**
-- [ ] 50 ejercicios; **3 opciones por defecto**, **4 opciones** cuando las respuestas cortas entren en grilla 2×2 (≤ 35 caracteres)
-- [ ] Distribución A/B respetada (25/25)
+- [ ] 30 ejercicios; **3 opciones por defecto**, **4 opciones** cuando las respuestas cortas entren en grilla 2×2 (≤ 35 caracteres)
+- [ ] Distribución A/B respetada (15/15)
 - [ ] Set de familias cubierto: $x^n$, $\tfrac{1}{x}$, $e^x$, $a^x$, $\sin x$, $\cos x$, $\sec^2 x$, constante
 - [ ] Nada de $\csc^2 x$, $\sec x \tan x$, $\csc x \cot x$
 - [ ] Sub-A con reconocimiento directo de tabla; sub-B con pregunta inversa ("¿qué se derivó para llegar a X?")
 
 **ESTR:**
-- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
-- [ ] Distribución A/B respetada (25/25)
+- [ ] 30 ejercicios; **exactamente 3 opciones** por ejercicio
+- [ ] Distribución A/B respetada (15/15)
 - [ ] Ningún cálculo numérico final; solo elección de regla
 - [ ] Sub-A con distractor mayoritario = regla exponencial o de la potencia sobre constante
 - [ ] Sub-B con distractor mayoritario = regla equivocada (potencia intercambiada con exponencial o logaritmo)
 - [ ] Textos exactos en opciones de elección de regla (ver §Reglas específicas)
 
 **RESL:**
-- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
+- [ ] 30 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
 - [ ] Sin contextos cotidianos
-- [ ] Distribución A/B respetada (25/25)
+- [ ] Distribución A/B respetada (15/15)
 - [ ] $+C$ en todas las opciones; excepción única "olvidé $C$" como distractor deliberado marcado en el `feedback_incorrect`
 - [ ] Sub-A con combinaciones lineales de dos o tres familias; sub-B con casos que mezclan regla de la potencia con excepción del logaritmo
 - [ ] Explicaciones con estructura algorítmica (separar por linealidad → aplicar tabla a cada término → simplificar y agregar $C$)

@@ -23,8 +23,9 @@ export function useUpdateProfile() {
     },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: queryKeys.authMe() })
-      // Prefijo (sin scope) para invalidar el ranking global y los filtrados.
-      qc.invalidateQueries({ queryKey: queryKeys.leaderboard().slice(0, -1) })
+      // Prefijo (sin scope) para invalidar el ranking global, los filtrados por
+      // universidad, el summary y el ranking de universidades.
+      qc.invalidateQueries({ queryKey: queryKeys.leaderboardAll() })
     },
   })
 }

@@ -201,24 +201,30 @@ def list_exercises_db(
     return [_row_to_dict(r) for r in rows]
 
 
-def topic_exercise_types(
+def course_exercise_types(
     course_id: int,
-    belt: str,
-    topic: str,
     db: DBSession,
-) -> list[str]:
-    """Return the distinct exercise_types available for a (course, belt, topic).
+) -> dict[tuple[str, str], list[str]]:
+    """(belt, topic) → exercise_types del curso, en UNA sola query.
 
-    This is what defines a topic's "unit set" for the SR algorithm.
+    El "unit set" de cada tema para el algoritmo de SR. Antes esto se pedía tema
+    por tema (`topic_exercise_types`), y como casi todo lo que arma progreso o
+    sesiones recorre el catálogo completo, un solo GET /user/progress disparaba
+    ~50-150 queries idénticas. El curso entero entra en una sola fila por combo,
+    así que se trae de una y se consulta en memoria.
+
+    El orden dentro de cada tema es alfabético y explícito: define el orden del
+    array `skills` que ve el front, y sin ORDER BY dependía de cómo cada motor
+    implemente DISTINCT (SQLite ordena, Postgres no garantiza nada).
     """
     rows = (
-        db.query(Exercise.exercise_type)
-        .filter(
-            Exercise.course_id == course_id,
-            Exercise.belt == belt,
-            Exercise.topic == topic,
-        )
+        db.query(Exercise.belt, Exercise.topic, Exercise.exercise_type)
+        .filter(Exercise.course_id == course_id)
         .distinct()
+        .order_by(Exercise.belt, Exercise.topic, Exercise.exercise_type)
         .all()
     )
-    return [r[0] for r in rows]
+    out: dict[tuple[str, str], list[str]] = {}
+    for belt, topic, exercise_type in rows:
+        out.setdefault((belt, topic), []).append(exercise_type)
+    return out

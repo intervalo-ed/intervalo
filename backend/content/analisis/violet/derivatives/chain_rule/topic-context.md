@@ -2,11 +2,11 @@
 
 Belt: `violet`, Unit: `derivatives`, Topic: `chain_rule`
 
-Skills en este topic: `ESTR`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+Skills en este topic: `ESTR`, `RESL`. **30 ejercicios cada uno (60 en total)** al cerrar el refactor.
 
-Este topic tiene 2 ítems (uno por skill): `ESTR`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+Este topic tiene 2 ítems (uno por skill): `ESTR`, `RESL`. **30 ejercicios cada uno (60 en total)** al cerrar el refactor.
 
-**Estado.** Este es el primer tópico donde el alumno **compone funciones al derivar**. La distribución completa (50 por skill) se hace en otro turno.
+**Estado.** Este es el primer tópico donde el alumno **compone funciones al derivar**. La distribución completa (30 por skill) se hace en otro turno.
 
 El contenido "APLI" que existía antes del merge DERI/INTG/APLI → RESL queda absorbido en **RESL** — coherente con la fusión de skills a nivel curso.
 
@@ -35,7 +35,7 @@ Los ejercicios que quiebren esta regla se descartan y se reescriben.
 
 ## Correcciones de formato transversales (los 2 skills)
 
-Reglas de authoring que se aplican al escribir los 100 ejercicios:
+Reglas de authoring que se aplican al escribir los 60 ejercicios:
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`, con enfoque **algorítmico**: (a) identificamos la **capa exterior** $g$ y la **capa interior** $h$ con sus derivadas usando `\begin{aligned}`, (b) aplicamos $g'(h(a)) \cdot h'(a)$ señalando el orden de evaluación (la derivada exterior se evalúa en $h(a)$, no en $a$), (c) simplificamos y cerramos con advertencia técnica sobre el error común (evaluar exterior en $a$ en vez de en $h(a)$, sumar en vez de multiplicar, omitir la derivada interior). Sin viñetas `•`, sin sub-`-`, **sin em-dash `—` (prohibido estricto)**, sin humor.
@@ -47,7 +47,7 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 ---
 
-## ESTR, 50 ejercicios
+## ESTR, 30 ejercicios
 
 ### Qué evalúa
 **Auditoría de la lectura anatómica** de la función compuesta antes de derivar. No se ejecuta la cadena completa: se identifica la jerarquía "exterior / interior" o se decide **qué regla aplicar** (cadena vs producto vs cociente) para estructuras visualmente similares. Sin cálculo numérico final.
@@ -61,8 +61,8 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Identificación de capas y jerarquía | Desglosar la función compuesta para identificar quién es la **exterior** ($g$) y quién la **interior** ($h$). Casos jerarquía confusa: $f(x) = \sin^2(x)$ (exterior = potencia cuadrática, interior = $\sin x$) frente a $f(x) = \sin(x^2)$ (exterior = $\sin$, interior = $x^2$). También $e^{\ln x}$ y variantes. | `identificacion-capas-jerarquia` | 25 |
-| B. Falsos positivos: Producto vs Composición | Detectar cuándo aplica cadena y cuándo corresponde producto o cociente. Contrastar estructuras similares como $f(x) = e^{3x}$ (cadena) vs $f(x) = 3x \cdot e^x$ (producto), $f(x) = \ln(x^2)$ vs $f(x) = (\ln x)^2$ (ambas cadena pero con jerarquías distintas), o $f(x) = \tfrac{\sin x}{x}$ (cociente, no cadena). | `falsos-positivos-producto-composicion` | 25 |
+| A. Identificación de capas y jerarquía | Desglosar la función compuesta para identificar quién es la **exterior** ($g$) y quién la **interior** ($h$). Casos jerarquía confusa: $f(x) = \sin^2(x)$ (exterior = potencia cuadrática, interior = $\sin x$) frente a $f(x) = \sin(x^2)$ (exterior = $\sin$, interior = $x^2$). También $e^{\ln x}$ y variantes. | `identificacion-capas-jerarquia` | 15 |
+| B. Falsos positivos: Producto vs Composición | Detectar cuándo aplica cadena y cuándo corresponde producto o cociente. Contrastar estructuras similares como $f(x) = e^{3x}$ (cadena) vs $f(x) = 3x \cdot e^x$ (producto), $f(x) = \ln(x^2)$ vs $f(x) = (\ln x)^2$ (ambas cadena pero con jerarquías distintas), o $f(x) = \tfrac{\sin x}{x}$ (cociente, no cadena). | `falsos-positivos-producto-composicion` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -84,7 +84,7 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 30 ejercicios
 
 ### Qué evalúa
 **Ejecución técnica** de la regla de la cadena: identificar $g$ y $h$, calcular $g'$ y $h'$, armar $g'(h(a)) \cdot h'(a)$ y **evaluar en un punto** $x = a$ donde el producto colapse o al menos un factor sea trivial ($0$ o $1$).
@@ -103,11 +103,11 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Anulación por derivada interna nula | El punto $x = a$ anula $h'(a) = 0$. Independientemente de la exterior, el producto colapsa a $0$. Ejemplo: $f(x) = \cos(x^2)$ en $x = 0$: $h'(x) = 2x$, $h'(0) = 0$, entonces $f'(0) = 0$. La respuesta correcta es $0$; los distractores son valores plausibles si el alumno evalúa mal. | `anulacion-derivada-interna-nula` | 20 |
-| B. Evaluación en ancla trivial | El punto $x = a$ hace que $h(a)$ devuelva un valor exacto que simplifica $g'(h(a))$ (típicamente $0$, $1$, $\pi$, o un múltiplo simple). Ejemplo: $f(x) = e^{\sin x}$ en $x = \pi$: $\sin \pi = 0$, $g'(0) = e^0 = 1$, $h'(\pi) = \cos \pi = -1$; resultado $= 1 \cdot (-1) = -1$. | `evaluacion-ancla-trivial` | 20 |
-| C. Evaluación con datos abstractos | Se brindan valores puntuales de $g(a), g'(a), h(a), h'(a)$, forzando a construir $g'(h(a)) \cdot h'(a)$. Ejemplo: "Si $h(2) = 3$, $h'(2) = 4$ y $g'(3) = 5$, calculá $(g \circ h)'(2)$". El alumno debe buscar $g'$ evaluada en $h(2) = 3$, no en $2$. Distractores: evaluar $g'(2) \cdot h'(2)$ o sumar en lugar de multiplicar. | `evaluacion-datos-abstractos-cadena` | 10 |
+| A. Anulación por derivada interna nula | El punto $x = a$ anula $h'(a) = 0$. Independientemente de la exterior, el producto colapsa a $0$. Ejemplo: $f(x) = \cos(x^2)$ en $x = 0$: $h'(x) = 2x$, $h'(0) = 0$, entonces $f'(0) = 0$. La respuesta correcta es $0$; los distractores son valores plausibles si el alumno evalúa mal. | `anulacion-derivada-interna-nula` | 12 |
+| B. Evaluación en ancla trivial | El punto $x = a$ hace que $h(a)$ devuelva un valor exacto que simplifica $g'(h(a))$ (típicamente $0$, $1$, $\pi$, o un múltiplo simple). Ejemplo: $f(x) = e^{\sin x}$ en $x = \pi$: $\sin \pi = 0$, $g'(0) = e^0 = 1$, $h'(\pi) = \cos \pi = -1$; resultado $= 1 \cdot (-1) = -1$. | `evaluacion-ancla-trivial` | 12 |
+| C. Evaluación con datos abstractos | Se brindan valores puntuales de $g(a), g'(a), h(a), h'(a)$, forzando a construir $g'(h(a)) \cdot h'(a)$. Ejemplo: "Si $h(2) = 3$, $h'(2) = 4$ y $g'(3) = 5$, calculá $(g \circ h)'(2)$". El alumno debe buscar $g'$ evaluada en $h(2) = 3$, no en $2$. Distractores: evaluar $g'(2) \cdot h'(2)$ o sumar en lugar de multiplicar. | `evaluacion-datos-abstractos-cadena` | 6 |
 
-**Nota**: La sub-familia "Aplicación iterada (Tres capas)" del prompt original se descarta por la restricción de máximo 2 capas. Sus 10 ejercicios se redistribuyen: 5 a sub-A (más drill de anulación) y 5 a sub-B (más drill de ancla trivial). El total de RESL queda 20/20/10.
+**Nota**: La sub-familia "Aplicación iterada (Tres capas)" del prompt original se descarta por la restricción de máximo 2 capas. Sus 10 ejercicios (del batch original de 50) se redistribuyeron: 5 a sub-A (más drill de anulación) y 5 a sub-B (más drill de ancla trivial), dejando RESL en 20/20/10 sobre 50. Al podar el target de 50 a 30, esas cantidades escalan proporcionalmente (×0,6) a 12/12/6.
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -144,7 +144,7 @@ Auditoría en vivo (`/test`) sobre ejercicios ya existentes:
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 2 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 30 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna composición de 3 o más capas
 - [ ] Ninguna interior que sea a su vez producto o cociente no trivial
 - [ ] Ningún desarrollo por límite
@@ -156,17 +156,17 @@ Auditoría en vivo (`/test`) sobre ejercicios ya existentes:
 - [ ] **Openers: `"Considerá la función"` solo necesita el `:` antes del bloque `$$...$$` (es cláusula completa); `"Sabiendo que"` necesita reescribirse entero (fragmento sin objeto propio, el `:` no lo arregla). Redacción variada ejercicio a ejercicio en ambos casos** (regla crítica 32)
 
 **ESTR:**
-- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
-- [ ] Distribución A/B respetada (25/25)
+- [ ] 30 ejercicios; **exactamente 3 opciones** por ejercicio
+- [ ] Distribución A/B respetada (15/15)
 - [ ] Ningún cálculo numérico final; solo lectura anatómica o elección de regla
 - [ ] Sub-A con opciones tipo `"g(u) = u^2, h(x) = \\sin x"` textuales; distractor mayoritario = partición invertida
 - [ ] Sub-B con distractor mayoritario = la otra regla que la estructura sugiere visualmente
 - [ ] Textos exactos en opciones de elección de planteo (ver §Reglas específicas)
 
 **RESL:**
-- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
+- [ ] 30 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
 - [ ] Sin contextos cotidianos
-- [ ] Distribución A/B/C respetada (20/20/10) — sub "tres capas" eliminada
+- [ ] Distribución A/B/C respetada (12/12/6) — sub "tres capas" eliminada
 - [ ] Todos los ejercicios cumplen la **ancla forzada** ($g'(h(a)) \in \{0, 1, -1\}$ o valor exacto amigable, o $h'(a) = 0$)
 - [ ] Sub-A: respuesta correcta siempre $0$; distractores plausibles si el alumno olvida el factor $h'(a) = 0$
 - [ ] Sub-C con datos abstractos presentados como igualdades numéricas en el enunciado
