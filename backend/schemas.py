@@ -19,13 +19,6 @@ class HealthResponse(BaseModel):
     status: str
 
 
-# ── Course metadata ───────────────────────────────────────────────────────────
-
-class BeltEntry(BaseModel):
-    headline: str
-    description: str
-
-
 # ── Enrollment ────────────────────────────────────────────────────────────────
 
 class EnrollmentResponse(BaseModel):
@@ -64,21 +57,6 @@ class TopicProgress(BaseModel):
     skills: list[SkillProgress] = []
 
 
-class LevelInfo(BaseModel):
-    level: int
-    xp_in_level: int
-    xp_required: int
-    progress_pct: float
-
-
-class LevelInfoWithMissing(BaseModel):
-    level: int
-    xp_in_level: int
-    xp_required: int
-    xp_missing: int
-    progress_pct: float
-
-
 class StreakInfo(BaseModel):
     days: int                   # días de actividad acumulados (racha global)
     multiplier: float           # multiplicador de XP de Repaso vigente
@@ -86,13 +64,14 @@ class StreakInfo(BaseModel):
     next_multiplier: float | None
     days_to_next: int           # 0 en el tramo máximo
     is_max: bool
+    tier_reached: bool = False  # el total cae justo en un piso: hoy se desbloqueó el multiplicador
+    prev_multiplier: float | None = None  # multiplicador del tramo anterior; None en el base
     counted_today: bool         # esta sesión fue la primera completada del día
     xp_bonus: int = 0           # XP extra ganado en esta sesión gracias al multiplicador (solo summary)
 
 
 class UserProgressResponse(BaseModel):
     topic_states: dict[str, TopicProgress]
-    level_info: LevelInfo
     main_session_done_today: bool
     last_course: str | None = None
     active_cap: int = 18          # ítems en aprendizaje permitidos a la vez
@@ -181,6 +160,7 @@ class DueNotification(BaseModel):
     pending_count: int
     title: str
     body: str
+    notification_id: int
     subscriptions: list[PushSubscriptionOut]
 
 
@@ -202,10 +182,9 @@ class LeaderboardEntry(BaseModel):
 
 class LeaderboardMe(BaseModel):
     # Datos del usuario actual dentro del scope (filtro) pedido. Se calculan
-    # sobre el set completo, no sobre la página, así "posición actual" y "XP para
-    # subir" no dependen de cuántas filas se hayan cargado.
+    # sobre el set completo, no sobre la página, así "posición actual" no depende
+    # de cuántas filas se hayan cargado.
     rank: int | None = None       # posición en el scope, None si no aparece
-    xp_to_next: int | None = None  # XP para alcanzar al de arriba
     total_xp: int = 0
 
 
@@ -306,12 +285,6 @@ class SummaryItem(BaseModel):
     correct: bool
 
 
-class BeltProgressInfo(BaseModel):
-    mastered: int
-    total: int
-    promoted: bool
-
-
 class SessionSummaryResponse(BaseModel):
     session_id: str
     user_name: str
@@ -323,8 +296,6 @@ class SessionSummaryResponse(BaseModel):
     incorrect: int
     items: list[SummaryItem]
     topic_states: dict[str, TopicProgress]
-    belt_progress: BeltProgressInfo
     xp_earned: int
-    level_info: LevelInfoWithMissing
     streak: StreakInfo
     session_number: int  # nº de orden de esta sesión entre todas las terminadas por el usuario

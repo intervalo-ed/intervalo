@@ -6,7 +6,7 @@
 
 | # | Idea | Descripción |
 | :---- | :---- | :---- |
-| 1 | **App web mobile-first** | MVP actual: cinturones Blanco a Marrón, XP, niveles, tutorial y repaso adaptativo |
+| 1 | **App web mobile-first** | MVP actual: cinturones Blanco a Marrón, XP, tutorial y repaso adaptativo |
 | 2 | **Expansión de cursos** | Apertura a otros cursos STEM: Álgebra, Física, Química, etc. |
 | 3 | **App nativa (iOS / Android)** | React Native sobre el mismo backend, sin cambios en el servidor |
 | 4 | **Mecánicas sociales** | Tablero de avatares por rango y progreso compartido entre pares |

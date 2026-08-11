@@ -103,8 +103,7 @@ def _serialize_tags(tags: Any) -> str | None:
 
 # ── Seeders por tabla ──────────────────────────────────────────────────────────
 
-def seed_course(db: DBSession, course_dir: Path) -> Course:
-    data = _load_json(course_dir / "course.json")
+def seed_course(db: DBSession, data: dict) -> Course:
     slug = data["slug"]
 
     course = db.query(Course).filter(Course.slug == slug).first()
@@ -130,12 +129,11 @@ def seed_course(db: DBSession, course_dir: Path) -> Course:
     return course
 
 
-def seed_belt_info(db: DBSession, course: Course, course_dir: Path) -> int:
+def seed_belt_info(db: DBSession, course: Course, data: dict) -> int:
     """Upsert headline/description por cinturón desde course.json (belts[]).
 
     La tabla `belt_info` se mantiene como storage; la fuente ahora es el
     course.json unificado (antes: belt_info.json)."""
-    data = _load_json(course_dir / "course.json")
     entries = [
         {
             "belt": b["key"],
@@ -191,6 +189,7 @@ def seed_exercises(
     db: DBSession,
     course: Course,
     course_dir: Path,
+    data: dict,
     prune: bool = False,
 ) -> int:
     seen_external_ids: set[str] = set()
@@ -200,7 +199,17 @@ def seed_exercises(
 
     # Belts marcados "hidden": true en course.json conservan sus JSON en /content
     # pero no se seedean (quedan desactivados/ocultos hasta reactivarlos).
-    hidden_belts = _hidden_belts(course_dir)
+    hidden_belts = _hidden_belts(data)
+
+    # Todas las filas del curso de una sola query, indexadas por external_id. El
+    # seed corre en CADA arranque de la app (ver main.startup_event) y antes hacía
+    # un SELECT por ejercicio: ~2000 round-trips que retrasaban el primer request
+    # y, contra Postgres remoto, dominaban el tiempo de boot.
+    existing_by_id: dict[str, Exercise] = {
+        row.external_id: row
+        for row in db.query(Exercise).filter(Exercise.course_id == course.id).all()
+        if row.external_id is not None
+    }
 
     # Walk belt/[unit/]topic/SKILL.json (3 or 4 path components from course_dir).
     # Cursos con units[] usan 4 partes (belt/unit/topic/skill); cursos flat sin
@@ -242,14 +251,7 @@ def seed_exercises(
             opt_d = options[3] if len(options) > 3 else None
             fi_stored = _serialize_feedback_incorrect(entry["feedback_incorrect"])
 
-            existing = (
-                db.query(Exercise)
-                .filter(
-                    Exercise.course_id == course.id,
-                    Exercise.external_id == external_id,
-                )
-                .first()
-            )
+            existing = existing_by_id.get(external_id)
 
             if existing is None:
                 db.add(Exercise(
@@ -320,7 +322,7 @@ def seed_exercises(
         if to_delete:
             print(f"  [exercises] pruned {len(to_delete)} stale rows")
 
-    _validate_declared_skills(course_dir, seen_skills)
+    _validate_declared_skills(data, seen_skills)
 
     print(
         f"  [exercises] {total} entries ({inserted} inserted, {updated} updated)"
@@ -328,17 +330,15 @@ def seed_exercises(
     return total
 
 
-def _hidden_belts(course_dir: Path) -> set[str]:
+def _hidden_belts(data: dict) -> set[str]:
     """Belt keys marcados "hidden": true en course.json (desactivados)."""
-    data = _load_json(course_dir / "course.json")
     return {b["key"] for b in data.get("belts", []) if b.get("hidden")}
 
 
 def _validate_declared_skills(
-    course_dir: Path, seen_skills: set[tuple[str, str, str]]
+    data: dict, seen_skills: set[tuple[str, str, str]]
 ) -> None:
     """Warn if the SKILL.json files on disk don't match course.json topic.skills."""
-    data = _load_json(course_dir / "course.json")
     declared: set[tuple[str, str, str]] = set()
     for belt in data.get("belts", []):
         if belt.get("hidden"):
@@ -366,9 +366,12 @@ def seed_one_course(slug: str, db: DBSession, prune: bool = False) -> None:
         raise FileNotFoundError(f"Curso no encontrado: {course_dir}")
 
     print(f"[seed] {slug}")
-    course = seed_course(db, course_dir)
-    seed_belt_info(db, course, course_dir)
-    seed_exercises(db, course, course_dir, prune=prune)
+    # course.json es la fuente única de estructura y lo consumían cuatro pasos
+    # distintos; se parsea una vez y se pasa hacia abajo.
+    data = _load_json(course_dir / "course.json")
+    course = seed_course(db, data)
+    seed_belt_info(db, course, data)
+    seed_exercises(db, course, course_dir, data, prune=prune)
     db.commit()
 
 

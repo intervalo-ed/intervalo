@@ -2,9 +2,9 @@
 
 Belt: `blue`, Unit: `limits`, Topic: `definition`
 
-Skills en este topic: `LEXI`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+Skills en este topic: `LEXI`, `RESL`. **30 ejercicios cada uno (60 en total)** al cerrar el refactor.
 
-Este topic tiene 2 ítems (uno por skill): `LEXI`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+Este topic tiene 2 ítems (uno por skill): `LEXI`, `RESL`. **30 ejercicios cada uno (60 en total)** al cerrar el refactor.
 
 **Estado.** Este tópico reemplaza a `algebraic_limits`. La carpeta fue renombrada (`blue/limits/definition/`) y los `external_id` se van a regenerar en la próxima seed (`blue_definition_lexi_01…`), lo que rompe el progreso guardado en DB — asumido y aceptado. Los ejercicios viejos (`LEXI`, `ESTR`, `RESL`) se dejan tal cual en el folder por ahora; el refactor a la nueva distribución se hace en otro turno.
 
@@ -37,7 +37,7 @@ Los ejercicios que quiebren esta regla se descartan y se reescriben.
 
 ## Correcciones de formato transversales (los 2 skills)
 
-Reglas de authoring que se aplican al escribir los 100 ejercicios (misma línea que los otros topic-contexts):
+Reglas de authoring que se aplican al escribir los 60 ejercicios (misma línea que los otros topic-contexts):
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`. KaTeX agrega su propio margen.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`: (a) concepto abstracto, (b) aplicación paso a paso al caso (usar `\begin{aligned}` para desarrollos), (c) cierre útil o advertencia técnica en voz neutra. Sin viñetas `•`, sin sub-`-`, sin em-dash `—`, sin humor ni antropomorfismos.
@@ -48,13 +48,13 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios (misma línea 
 
 ---
 
-## `feedback_incorrect` en los 100 ejercicios
+## `feedback_incorrect` en los 60 ejercicios
 
 Completar con `array<string|null>` paralelo a `options`, `null` en el índice correcto. Voz descriptiva del concepto, en segunda persona amable. Una oración por distractor, autosuficiente. Las confusiones fuente por skill están en cada sección.
 
 ---
 
-## LEXI, 50 ejercicios
+## LEXI, 30 ejercicios
 
 ### Qué evalúa
 Léxico, intuición y falsos paradigmas conceptuales alrededor de la idea de **límite**. Naturaleza de la aproximación, distinción entre $L$ y $f(a)$, diagnóstico de $\tfrac{0}{0}$ vs. tendencia infinita, condiciones para poder sustituir directo.
@@ -68,12 +68,14 @@ Léxico, intuición y falsos paradigmas conceptuales alrededor de la idea de **l
 
 **Ronda 2 (esta auditoría): se le da más peso relativo a A** (lectura de la notación), porque hoy mezclaba notación y concepto y quedaba subrepresentada frente al resto. B, C y D bajan levemente para compensar, sin perder su rol.
 
+**Recortado (ronda ago-2026) de 50 → 30 ejercicios por skill, escalando cada sub-familia proporcionalmente (factor ~0.6, método de mayor resto).**
+
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Lectura de la notación, partes de la fórmula | Dado $\lim_{x\to a} f(x) = L$ (o una variante con números concretos), identificar qué representa cada símbolo por separado: la variable que se mueve ($x$), el punto de tendencia ($a$), la expresión evaluada en el entorno ($f(x)$), el resultado ($L$), y el sentido de la flecha (acercarse, nunca llegar). Incluye trampas de notación: confundir $a$ con $L$, escribir $x=a$ como si fuera el resultado, leer $f(a)$ donde corresponde $L$. | `lectura-notacion` | 20 |
-| B. Independencia entre $L$ y $f(a)$ | El límite no es el valor de la función. Casos con un hueco removible o un punto desplazado: la tendencia existe aunque $f(a)$ no exista o valga otra cosa. | `independencia-limite-valor` | 12 |
-| C. Diagnóstico de la indeterminación | $\tfrac{0}{0}$ es **indeterminación** (obliga a cambiar de técnica, no significa "no existe"). $\tfrac{k}{0}$ con $k \neq 0$ es tendencia a $\pm\infty$ (no es indeterminación). | `diagnostico-indeterminacion` | 9 |
-| D. Condiciones para sustituir directo | Cuándo es legal evaluar directo: continuidad en el punto, ausencia de división por cero, argumento dentro del dominio (log, raíz). | `condiciones-sustitucion-directa` | 9 |
+| A. Lectura de la notación, partes de la fórmula | Dado $\lim_{x\to a} f(x) = L$ (o una variante con números concretos), identificar qué representa cada símbolo por separado: la variable que se mueve ($x$), el punto de tendencia ($a$), la expresión evaluada en el entorno ($f(x)$), el resultado ($L$), y el sentido de la flecha (acercarse, nunca llegar). Incluye trampas de notación: confundir $a$ con $L$, escribir $x=a$ como si fuera el resultado, leer $f(a)$ donde corresponde $L$. | `lectura-notacion` | 12 |
+| B. Independencia entre $L$ y $f(a)$ | El límite no es el valor de la función. Casos con un hueco removible o un punto desplazado: la tendencia existe aunque $f(a)$ no exista o valga otra cosa. | `independencia-limite-valor` | 7 |
+| C. Diagnóstico de la indeterminación | $\tfrac{0}{0}$ es **indeterminación** (obliga a cambiar de técnica, no significa "no existe"). $\tfrac{k}{0}$ con $k \neq 0$ es tendencia a $\pm\infty$ (no es indeterminación). | `diagnostico-indeterminacion` | 6 |
+| D. Condiciones para sustituir directo | Cuándo es legal evaluar directo: continuidad en el punto, ausencia de división por cero, argumento dentro del dominio (log, raíz). | `condiciones-sustitucion-directa` | 5 |
 
 ### El "porqué", no solo el "qué" (regla crítica 25 de `authoring-context.md`)
 
@@ -99,10 +101,12 @@ Léxico, intuición y falsos paradigmas conceptuales alrededor de la idea de **l
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 30 ejercicios
 
 ### Qué evalúa
-Ejecutar el algoritmo de **evaluación por sustitución directa** cuando la función es continua en el punto, y aplicar las **propiedades de linealidad** del operador límite (suma, resta, escalar, producto, cociente sin división por cero).
+Ejecutar el algoritmo de **evaluación por sustitución directa** cuando la función es continua en el punto: polinomios, constantes, racionales y radicales sin indeterminación.
+
+**Descartadas (ronda ago-2026) las sub-familias de propiedades de linealidad** (suma/escalar y producto/cociente entre $f$ y $g$ abstractas): el skill quedaba desviado hacia álgebra de límites abstracta en vez de cálculo concreto. Su cupo se redistribuyó entre A y B, que ahora cubren el 100% del skill.
 
 ### Cardinalidad
 **Exactamente 4 opciones** por ejercicio. Opciones numéricas o expresiones cortas (**$\leq 35$ caracteres**) para disparar la grilla 2×2 en el frontend.
@@ -111,28 +115,24 @@ Ejecutar el algoritmo de **evaluación por sustitución directa** cuando la func
 
 ### Distribución por sub-familia
 
+**Recortado (ronda ago-2026) de 50 → 30 ejercicios por skill.** Descartadas las sub-familias C (propiedades de suma/escalar) y D (propiedades de producto/cociente); su cupo combinado (30 de 60 originales) se redistribuyó por partes iguales entre A y B.
+
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
 | A. Sustitución en polinomios y constantes | Evaluación pura. Trampas con tendencias negativas ($x \to -2$) y potencias con signo. Límites de funciones constantes ($\lim_{x \to 5} 8 = 8$). | `sustitucion-polinomios-constantes` | 15 |
 | B. Racionales y radicales SIN indeterminación | Fracciones y raíces donde el denominador no se anula y el argumento de la raíz es válido. Filtro anti-autómatas: alumnos que intentan "factorizar todo lo que ven" pierden. | `racionales-radicales-sin-indeterminacion` | 15 |
-| C. Propiedades de suma y escalar | Operador lineal: dadas $\lim f(x) = 3$ y $\lim g(x) = -2$, calcular $\lim [2f(x) - g(x)]$ y variantes. | `propiedades-suma-escalar` | 10 |
-| D. Propiedades de producto y cociente | Separación de términos multiplicativos. Trampas de división por cero al aplicar la propiedad de cociente (el cociente no se puede separar si el límite del denominador es $0$). | `propiedades-producto-cociente` | 10 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Signo en potencias con base negativa**: en $\lim_{x \to -2} x^2 = 4$, elegir $-4$ (arrastrar el signo). Describir: "al elevar al cuadrado, el signo desaparece; el resultado es positivo".
 - **Signo en potencias impares**: en $\lim_{x \to -2} x^3$, elegir $8$ olvidando el signo. "La potencia impar conserva el signo de la base".
 - **Constante evaluada como variable**: $\lim_{x \to 5} 8 = 5$ o $= 40$ (confundir la constante con la tendencia). Recordar que si $f(x) = c$ es constante, $\lim_{x \to a} c = c$ para cualquier $a$.
 - **Intentar factorizar cuando no hace falta**: dar la forma factorizada como resultado en lugar del valor numérico de la evaluación. Describir: "el denominador no se anula en el punto, así que la sustitución directa alcanza".
-- **Aplicar cociente con denominador $\to 0$**: separar $\lim \tfrac{f}{g}$ como $\tfrac{\lim f}{\lim g}$ cuando $\lim g = 0$. La propiedad exige denominador no nulo; si se anula, hay que diagnosticar antes.
-- **Distribuir mal el escalar**: en $\lim [2f(x) - g(x)]$ dar $2 \cdot 3 - (-2) = 8$ pero también podría aparecer el distractor $2 \cdot 3 - 2 \cdot (-2) = 10$ (multiplicar el escalar dos veces).
-- **Suma vs. producto**: aplicar la propiedad de la suma cuando el enunciado tiene un producto (o viceversa).
 
 ### Reglas específicas
 - **Resultado numérico o expresión simplificada final** en las opciones; nunca dejar la expresión sin evaluar cuando la evaluación es legal.
 - **Explicaciones con `\begin{aligned}`** para el desarrollo paso a paso (una línea por paso, `&=` alineado).
-- Si el ejercicio incluye una tendencia con $\tfrac{0}{0}$ como distractor conceptual, dejarlo como "indeterminación" en la opción, no como valor numérico ni como forma simplificada.
 - **Decimales con coma** (`4,3`).
-- **Concepto abstracto justifica el mecanismo**, no solo nombra la propiedad (regla crítica 25): cuando el ejercicio usa una propiedad de linealidad (suma, producto, cociente), explicar brevemente por qué la propiedad es válida bajo esa hipótesis, no solo aplicarla mecánicamente.
+- **Concepto abstracto justifica el mecanismo**, no solo nombra la técnica (regla crítica 25): explicar brevemente por qué la sustitución directa es válida bajo esa hipótesis (continuidad del polinomio/racional/radical en el punto), no solo aplicarla mecánicamente.
 
 ---
 
@@ -152,7 +152,7 @@ Todo lo anterior se aplica en el próximo round de generación de este topic (no
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 2 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 30 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna mención de factorización, racionalización, L'Hôpital, límites laterales formales, límites al infinito, ni derivadas
 - [ ] Explicaciones en 3 párrafos de prosa; sin viñetas, sub-`-`, em-dash, humor
 - [ ] Cierres de `explanation` en advertencia/consejo, voz neutra
@@ -163,8 +163,8 @@ Todo lo anterior se aplica en el próximo round de generación de este topic (no
 - [ ] Bloques `\begin{aligned}` con espaciado uniforme entre renglones (fix de `math-text.tsx` ya aplicado a nivel de frontend, no requiere nada especial en el contenido)
 
 **LEXI:**
-- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
-- [ ] Distribución A/B/C/D respetada (**20/12/9/9**, ronda 2: más peso a lectura de notación)
+- [ ] 30 ejercicios; **exactamente 3 opciones** por ejercicio
+- [ ] Distribución A/B/C/D respetada (**12/7/6/5**, ronda 2: más peso a lectura de notación)
 - [ ] Negrita en primera mención de `límite`, `tendencia`, `aproximación`, `sustitución directa`, `indeterminación`, `continuidad`
 - [ ] Ningún ejercicio sugiere que $\tfrac{0}{0}$ se pueda resolver
 - [ ] Sub-familia A (`lectura-notacion`) aísla la identificación de partes de la fórmula ($x$, $a$, $f(x)$, $L$, la flecha) de la intuición de tendencia, que vive en el resto de las sub-familias
@@ -172,8 +172,7 @@ Todo lo anterior se aplica en el próximo round de generación de este topic (no
 - [ ] Ningún ejercicio se enmarca respecto de otro de la sesión (regla crítica 24); la apertura de cada ejercicio varía su redacción, no repite la misma frase en toda una sub-familia
 
 **RESL:**
-- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
-- [ ] Distribución A/B/C/D respetada (15/15/10/10)
+- [ ] 30 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
+- [ ] Distribución A/B respetada (15/15); sin sub-familias de propiedades de linealidad (descartadas, ronda ago-2026)
 - [ ] Ninguna sustitución ilegal en la respuesta correcta (denominador $\to 0$ o argumento fuera de dominio)
-- [ ] Ejercicios de propiedades (C, D) dan los valores de $\lim f$ y $\lim g$ en el enunciado, sin pedir calcularlos aparte
-- [ ] Fórmula a evaluar/calcular separada del texto en su propio bloque `$$...$$` centrado (regla crítica 18), incluso cuando el enunciado da datos previos (ej. "$\lim f=6$ y $\lim g=0$" en una oración, la fórmula a calcular en su propio bloque)
+- [ ] Fórmula a evaluar/calcular separada del texto en su propio bloque `$$...$$` centrado (regla crítica 18)

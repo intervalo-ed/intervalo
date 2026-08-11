@@ -71,8 +71,25 @@ function normalizeAlignedRows(value: string): string {
   })
 }
 
+// El HTML de KaTeX depende solo de (value, displayMode) y el contenido de los
+// ejercicios es estático, así que cachear evita re-parsear el mismo LaTeX en
+// cada render (tipear en un textarea, animaciones, etc.). Cota simple para que
+// una sesión larga no acumule entradas para siempre: al llenarse, se descarta
+// el cache entero (más barato que un LRU y suficiente acá).
+const RENDER_CACHE = new Map<string, string>()
+const RENDER_CACHE_MAX = 500
+
 function render({ value, displayMode }: { value: string; displayMode: boolean }) {
-  return katex.renderToString(normalizeAlignedRows(value), { throwOnError: false, displayMode })
+  const key = `${value}|${displayMode}`
+  const cached = RENDER_CACHE.get(key)
+  if (cached !== undefined) return cached
+  const html = katex.renderToString(normalizeAlignedRows(value), {
+    throwOnError: false,
+    displayMode,
+  })
+  if (RENDER_CACHE.size >= RENDER_CACHE_MAX) RENDER_CACHE.clear()
+  RENDER_CACHE.set(key, html)
+  return html
 }
 
 // LaTeX "alto" (fracciones, raíces, sumatorias, etc.): necesita unos px extra de

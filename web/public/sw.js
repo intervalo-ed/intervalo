@@ -62,6 +62,7 @@ self.addEventListener("unhandledrejection", function (e) {
 self.addEventListener("push", function (event) {
   let title = "Intervalo"
   let body = "Tenés repasos pendientes hoy 📚"
+  let notificationId = null
   let raw = null
   let decodeError = null
 
@@ -76,6 +77,7 @@ self.addEventListener("push", function (event) {
         const data = JSON.parse(raw)
         if (data.title) title = data.title
         if (data.body) body = data.body
+        if (data.id != null) notificationId = data.id
       } catch (e) {
         decodeError = `JSON.parse failed: ${e}`
       }
@@ -108,26 +110,43 @@ self.addEventListener("push", function (event) {
         body,
         icon: "/icons/icon-192.png",
         badge: "/icons/icon-192.png",
-        data: { url: "/" },
+        data: { url: "/", notificationId },
       }),
     ]),
   )
 })
 
+// Reporta el click como "apertura" de la notificación (ver
+// backend/push_store.py::mark_notification_opened), para poder analizar
+// después tasa de apertura por categoría/variante de copy. Reusa el mismo
+// beacon GET+keepalive que el resto del archivo, así que no depende de que
+// la app cargue ni de que haya sesión de Clerk.
 self.addEventListener("notificationclick", function (event) {
   event.notification.close()
   const url = event.notification.data?.url || "/"
+  const notificationId = event.notification.data?.notificationId
   event.waitUntil(
-    self.clients
-      .matchAll({ type: "window", includeUncontrolled: true })
-      .then((clientList) => {
-        for (const client of clientList) {
-          if ("focus" in client) {
-            client.navigate(url)
-            return client.focus()
+    Promise.all([
+      notificationId != null
+        ? getSubscriptionEndpoint().then((endpoint) =>
+            beacon({
+              event: "click",
+              notification_id: String(notificationId),
+              endpoint: endpoint || "",
+            }),
+          )
+        : Promise.resolve(),
+      self.clients
+        .matchAll({ type: "window", includeUncontrolled: true })
+        .then((clientList) => {
+          for (const client of clientList) {
+            if ("focus" in client) {
+              client.navigate(url)
+              return client.focus()
+            }
           }
-        }
-        return self.clients.openWindow(url)
-      }),
+          return self.clients.openWindow(url)
+        }),
+    ]),
   )
 })

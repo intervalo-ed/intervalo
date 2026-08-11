@@ -1,30 +1,5 @@
 [
   {
-    "question": "¿Cuál de estas es una **función racional**?",
-    "options": [
-      "$f(x) = \\dfrac{x+1}{x-2}$",
-      "$f(x) = x^2 - 1$",
-      "$f(x) = 3^x$",
-      "$f(x) = \\sqrt{x}$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "Una función racional es el cociente de dos polinomios.",
-    "feedback_incorrect": [
-      null,
-      "Esa es una función cuadrática, un polinomio de grado 2, no un cociente de dos polinomios distintos.",
-      "Esa es una función exponencial, la variable está en el exponente, no en un cociente de polinomios.",
-      "Esa es una función raíz, con exponente fraccionario, no un cociente de polinomios."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Una **función racional** se define como el cociente de dos polinomios,.\n$$f(x)=\\dfrac{P(x)}{Q(x)}$$\n, con $Q(x)$ no nulo.\n\nEn las opciones.\n\n$x^2-1$ es un polinomio suelto (familia cuadrática).\n\n$3^x$ tiene la variable en el exponente (familia exponencial) y $\\sqrt{x}=x^{1/2}$ tiene exponente fraccionario (familia raíz).\n\nninguna es un cociente de polinomios.\n\nSolo $\\dfrac{x+1}{x-2}$ cumple la definición. dejarse llevar por la presencia de una $x$ en el denominador y no verificar que tanto arriba como abajo haya polinomios genuinos.",
-    "reviewed": false,
-    "tags": [
-      "agujero-vs-asintota"
-    ]
-  },
-  {
     "question": "¿Cómo se llaman las líneas que esta curva se aproxima pero nunca llega a tocar?",
     "options": [
       "Tangentes",
@@ -48,35 +23,10 @@
       -6,
       6
     ],
-    "explanation": "Las **asíntotas** son rectas a las que la curva se acerca cada vez más sin llegar nunca a tocarlas.\n\nEn una función racional aparecen de dos tipos: la asíntota vertical.\n\nen los valores de $x$ donde el denominador se anula (ahí la función se dispara hacia : o $-\\infty$).y la asíntota horizontal.\n\nque describe el valor al que se acerca la función cuando $x\\to\\pm\\infty$.\n\nEn la gráfica de.\n$$\\frac{x+1}{x-2}$$\nSe ve la rama vertical en $x=2$ y la aproximación horizontal en $y=1$.\n\nNo hay que confundirlas con tangentes, que sí tocan la curva.",
+    "explanation": "Las **asíntotas** son rectas a las que la curva se acerca cada vez más sin llegar nunca a tocarlas.\n\nEn una función racional aparecen dos tipos. La asíntota vertical surge en los valores de $x$ donde el denominador se anula, y ahí la función se dispara hacia infinito.\n\nLa asíntota horizontal, en cambio, describe el valor al que se acerca la función a medida que $x$ crece o decrece sin límite.\n\nEn la gráfica de:\n$$\\frac{x+1}{x-2}$$\nLa rama vertical está en $x=2$.\n\nAcá, la aproximación horizontal ocurre en $y=1$.\n\nNo hay que confundir las asíntotas con las tangentes, que sí tocan la curva en un punto.",
     "reviewed": false,
     "tags": [
-      "asintota-oblicua"
-    ]
-  },
-  {
-    "question": "¿Cuál propiedad distingue a las **funciones racionales**?",
-    "options": [
-      "Son siempre decrecientes",
-      "Tienen siempre una asíntota oblicua",
-      "Son el cociente de dos polinomios",
-      "Su dominio es siempre todo número real"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "Una función racional se define como $f(x) = \\frac{P(x)}{Q(x)}$ donde $P$ y $Q$ son polinomios.",
-    "feedback_incorrect": [
-      "Hay racionales crecientes en algún tramo, como $\\frac{x^2+1}{x}$ para $x$ grande; el signo de la pendiente no es la propiedad que las define.",
-      "La asíntota oblicua solo aparece cuando el grado del numerador supera en uno al del denominador, no siempre.",
-      null,
-      "El dominio se restringe justo donde el denominador se anula, así que no siempre es todo $\\mathbb{R}$."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La propiedad que define a una **función racional** es ser el cociente de dos polinomios,.\n$$f(x)=\\dfrac{P(x)}{Q(x)}$$\nCon $Q(x)$ no idénticamente nulo.\n\nEsto incluye casos donde el numerador o el denominador son constantes, como $f(x)=\\frac{1}{x}$.\n\nNo toda racional es decreciente, no toda tiene asíntota oblicua (solo cuando $\\deg P=\\deg Q+1$) y su dominio no siempre es todo $\\mathbb{R}$, ya que se excluyen los ceros del denominador.",
-    "reviewed": false,
-    "tags": [
-      "asintota-horizontal"
+      "reconocimiento-funcion-racional"
     ]
   },
   {
@@ -98,32 +48,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función racional**.\n$$f(x)=\\dfrac{P(x)}{Q(x)}$$\nNo está definida cuando el denominador $Q(x)$ vale cero, porque la división por cero no existe matemáticamente.\n\nSi $Q(x_0)=0$ para algún $x_0$, ese punto queda excluido del **dominio** y suele generar una asíntota vertical o un agujero.\n\nQue el numerador $P(x)$ sea cero no genera ningún problema: la función simplemente vale $0$ ahí.\n\nEl signo de $f(x)$ o de $x$ tampoco afecta si la función está definida.",
-    "reviewed": false,
-    "tags": [
-      "asintota-vertical"
-    ]
-  },
-  {
-    "question": "¿Cuál de estas NO es una **función racional**?",
-    "options": [
-      "$f(x) = \\sqrt{x}$",
-      "$f(x) = \\dfrac{x+1}{x}$",
-      "$f(x) = \\dfrac{3}{x^2}$",
-      "$f(x) = \\dfrac{x^2 - 1}{x - 1}$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "$\\sqrt{x} = x^{1/2}$: tiene exponente fraccionario, no es un cociente de polinomios.",
-    "feedback_incorrect": [
-      null,
-      "Ese es un cociente de dos polinomios, $x+1$ y $x$, así que sí es racional.",
-      "La constante $3$ y $x^2$ son ambos polinomios, así que ese cociente sí es una función racional.",
-      "Aunque tenga un factor que se simplifique, sigue siendo un cociente de dos polinomios."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "$\\sqrt{x}=x^{1/2}$ tiene un exponente fraccionario, así que no es un polinomio y por lo tanto $f(x)=\\sqrt{x}$ no puede escribirse como cociente de dos polinomios: no es una **función racional**.\n\nLas otras tres opciones sí lo son: $\\frac{x+1}{x}$ y $\\frac{3}{x^2}$ tienen polinomios arriba y abajo.\n\ny.\n$$\\frac{x^2-1}{x-1}$$\nTambién.\n\naunque se simplifique a $x+1$ para $x\\neq1$.\n\nSimplificarse no le quita la condición de racional a una expresión.",
+    "explanation": "Toda **función racional** tiene la forma general:\n$$f(x)=\\dfrac{P(x)}{Q(x)}$$\nY no está definida en los valores de $x$ donde el denominador se anula, porque la división por cero no existe.\n\nSi $Q(x_0)=0$ para algún $x_0$, ese punto queda excluido del **dominio** y suele generar una asíntota vertical o un agujero en la gráfica.\n\nQue el numerador $P(x)$ sea cero, en cambio, no genera ningún problema: la función simplemente vale $0$ en ese punto.\n\nEl signo de $f(x)$ o de $x$ tampoco tiene relación con que la función esté o no definida.",
     "reviewed": false,
     "tags": [
       "dominio-restriccion"
@@ -153,10 +78,10 @@
       -6,
       6
     ],
-    "explanation": "La **asíntota vertical** de una racional aparece en cada valor de $x$ donde el denominador se anula sin cancelarse con el numerador.\n\nEn.\n$$f(x)=\\frac{1}{x-1}$$\n.\n\nel denominador $x-1$ tiene una única raíz real.\n\n$x=1$.\n\nasí que hay exactamente una asíntota vertical.\n\nPara contar bien, hay que factorizar el denominador y descartar las raíces que también anulen el numerador, esas producen un agujero en vez de una asíntota.",
+    "explanation": "La **asíntota vertical** de una racional aparece en cada valor de $x$ donde el denominador se anula sin cancelarse con el numerador.\n\nEn:\n$$f(x)=\\frac{1}{x-1}$$\nEl denominador $x-1$ tiene una única raíz real, $x=1$.\n\nComo el numerador es constante y nunca se anula, esa raíz no se cancela, así que hay exactamente una asíntota vertical.\n\nPara contar bien, hay que factorizar el denominador y descartar las raíces que también anulen el numerador, esas producen un agujero en vez de una asíntota.",
     "reviewed": false,
     "tags": [
-      "imagen-rango"
+      "asintota-vertical"
     ]
   },
   {
@@ -178,35 +103,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **asíntota horizontal** describe el valor al que se acerca la función cuando $x\\to\\pm\\infty$.\n\nSe determina comparando los grados de numerador y denominador: si el del numerador es menor, la función tiende a $0$.\n\nEn.\n$$f(x)=\\frac{1}{x}$$\n.\n\nel numerador tiene grado $0$ y el denominador grado $1$.\n\nasí que la asíntota horizontal es $y=0$.\n\nNo hay que confundirla con la asíntota vertical, que en este caso está en $x=0$.",
+    "explanation": "La **asíntota horizontal** describe el valor al que se acerca la función cuando $x$ crece o decrece sin límite.\n\nSe determina comparando los grados de numerador y denominador: si el grado del numerador es menor, la función tiende a $0$.\n\nEn:\n$$f(x)=\\frac{1}{x}$$\nEl numerador tiene grado $0$ y el denominador, grado $1$.\n\nPor eso la asíntota horizontal es $y=0$.\n\nNo hay que confundirla con la asíntota vertical, que en este caso está en $x=0$.",
     "reviewed": false,
     "tags": [
-      "agujero-vs-asintota"
-    ]
-  },
-  {
-    "question": "Sea la función:\n$$f(x) = \\dfrac{1}{x}$$\n¿Cuál es el **dominio** natural?",
-    "options": [
-      "Solo $x \\geq 1$",
-      "Todos los reales",
-      "Solo $x > 0$",
-      "Excepto $x$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "$\\frac{1}{x}$ no está definida en $x = 0$: el dominio es $\\mathbb{R} \\setminus \\{0\\}$.",
-    "feedback_incorrect": [
-      "Esa restricción no tiene relación con dónde se anula el denominador de $\\frac{1}{x}$.",
-      "El denominador se anula en $x=0$, así que ese valor sí queda excluido del dominio.",
-      "$\\frac{1}{x}$ también está definida para valores negativos de $x$, no solo positivos.",
-      null
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "El **dominio** natural de una función son todos los valores de $x$ para los que la fórmula tiene sentido.\n\nEn $f(x)=\\frac{1}{x}$, la única restricción viene del denominador: no puede valer $0$.\n\nCualquier otro real, positivo o negativo, es válido.\n\nPor eso el dominio es.\n$$\\mathbb{R}\\setminus\\{0\\}$$\n.\n\ny no una restricción de signo como $x>0$ o $x\\geq1$.\n\nque no tiene relación con dónde se anula el denominador.",
-    "reviewed": false,
-    "tags": [
-      "dominio-restriccion"
+      "asintota-horizontal"
     ]
   },
   {
@@ -233,39 +133,14 @@
       -6,
       6
     ],
-    "explanation": "Cada **asíntota vertical** parte la gráfica de una función racional en ramas separadas que no se conectan entre sí.\n\nLa función.\n$$\\frac{x+1}{x-2}$$\nTiene una única asíntota vertical.\n\nen $x=2$ (donde se anula el denominador).\n\ny esa sola división del plano genera exactamente dos ramas: una a la izquierda y otra a la derecha de $x=2$.\n\nCada asíntota vertical adicional sumaría una rama más.",
+    "explanation": "Cada **asíntota vertical** parte la gráfica de una función racional en ramas separadas que no se conectan entre sí.\n\nLa función:\n$$\\frac{x+1}{x-2}$$\nTiene una única asíntota vertical, en $x=2$, donde se anula el denominador.\n\nEsa sola división del plano genera exactamente dos ramas, una a la izquierda y otra a la derecha de $x=2$.\n\nCada asíntota vertical adicional sumaría una rama más a la gráfica.",
     "reviewed": false,
     "tags": [
-      "interceptos-ejes"
+      "conteo-ramas"
     ]
   },
   {
-    "question": "Una **función racional** puede tener...",
-    "options": [
-      "Solo asíntotas verticales",
-      "Asíntotas verticales",
-      "Solo asíntotas horizontales",
-      "Nunca tiene asíntotas"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Las racionales pueden tener asíntotas verticales (donde el denominador se anula) y horizontales (comportamiento en el infinito).",
-    "feedback_incorrect": [
-      "Las racionales también pueden tener asíntota horizontal según el comportamiento en el infinito, no solo vertical.",
-      null,
-      "Las racionales también pueden tener asíntota vertical donde el denominador se anula, no solo horizontal.",
-      "Muchas racionales sí tienen asíntotas, tanto verticales como horizontales."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Una **función racional** puede combinar dos tipos de asíntotas a la vez: la asíntota vertical.\n\nen los ceros del denominador (donde la función se dispara al infinito).\n\ny la asíntota horizontal.\n\nque describe el comportamiento cuando $x\\to\\pm\\infty$.\n\nPor ejemplo.\n$$f(x)=\\frac{1}{x-2}$$\nTiene asíntota vertical en $x=2$ y asíntota horizontal en $y=0$ simultáneamente.\n\nNo son excluyentes entre sí, y la mayoría de las racionales presentan ambas.",
-    "reviewed": false,
-    "tags": [
-      "asintota-horizontal"
-    ]
-  },
-  {
-    "question": "Analiza la función:\n$$f(x) = \\dfrac{p(x)}{q(x)}$$\nTienen restricciones en su **dominio**?",
+    "question": "Analizá la función:\n$$f(x) = \\dfrac{p(x)}{q(x)}$$\n¿Por qué tiene restricciones en su **dominio**?",
     "options": [
       "Porque el numerador $p(x)$ puede ser cero",
       "Porque la división por cero no está definida",
@@ -283,135 +158,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En una **función racional** $f(x) = \\dfrac{p(x)}{q(x)}$, la operación problemática es la **división**: no está definida cuando el divisor es cero.\n\nEl **dominio** de $f$ es $\\mathbb{R}$ \n\nmenos los ceros del denominador:El numerador puede valer cero sin problema (produce $f(x) = 0$.\n\nno una indeterminación).\n\nEjemplo: $f(x) = \\dfrac{x^2}{x - 1}$ tiene dominio.\n$$\\mathbb{R} \\setminus \\{1\\}$$\n.\n\nporque $q(1) = 0$.",
+    "explanation": "En una **función racional**, la operación problemática es la división, que no está definida cuando el divisor vale cero.\n\nEl **dominio** de $f$ excluye los valores de $x$ que anulan el denominador, porque en esos puntos la fracción no tiene ningún valor posible.\n\nEl numerador puede valer cero sin ningún problema, ahí la función simplemente da $f(x) = 0$, no una indeterminación.\n\nPor ejemplo, $f(x) = x^2/(x - 1)$ tiene dominio:\n$$\\mathbb{R} \\setminus \\{1\\}$$\nPorque $q(1) = 0$.",
     "reviewed": false,
     "tags": [
-      "interceptos-ejes"
-    ]
-  },
-  {
-    "question": "Con la función:\n$$f(x) = \\dfrac{1}{x-3}$$\nEl denominador se anula en $x = 3$, ¿qué pasa en ese punto?",
-    "options": [
-      "La función vale cero en $x = 3$",
-      "La función alcanza su máximo en $x = 3$",
-      "La función no está definida en $x = 3$",
-      "La función es continua en $x = 3$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "Donde el denominador vale cero, la función no está definida: hay una asíntota vertical.",
-    "feedback_incorrect": [
-      "Un denominador cero no produce el valor cero de la función, produce una división no definida.",
-      "Donde el denominador se anula la función no tiene ningún valor, así que tampoco puede tener un máximo ahí.",
-      null,
-      "Justo donde el denominador se anula es donde la función deja de estar definida, así que no puede ser continua ahí."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "En.\n$$f(x)=\\frac{1}{x-3}$$\n.\n\ncuando $x=3$ el denominador vale $0$ y la división por cero no existe: la función **no está definida** en ese punto.\n\nEsto no significa que valga cero ahí ni que alcance un máximo, esos serían resultados de una función sí definida.\n\nEn la gráfica, ese punto excluido corresponde a la asíntota vertical: la curva se acerca a $x=3$ por ambos lados sin llegar nunca a tocarlo.",
-    "reviewed": false,
-    "tags": [
-      "asintota-horizontal"
-    ]
-  },
-  {
-    "question": "Para la función:\n$$f(x) = \\dfrac{1}{x}$$\n¿Cuál es la **imagen** (rango)?",
-    "options": [
-      "$(0, +\\infty)$ (solo positivos)",
-      "$\\mathbb{R}$ (todos los reales)",
-      "$[-1, 1]$",
-      "$\\mathbb{R} \\setminus \\{0\\}$ (todos los reales"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "$\\frac{1}{x}$ puede tomar cualquier valor real excepto cero: nunca llega a cero pero sí es positiva o negativa.",
-    "feedback_incorrect": [
-      "$\\frac{1}{x}$ también toma valores negativos cuando $x<0$, no solo positivos.",
-      "El valor $0$ nunca se alcanza porque $\\frac{1}{x}=0$ no tiene solución; por eso queda excluido de la imagen.",
-      "$\\frac{1}{x}$ crece sin límite cerca de $x=0$, así que sus valores no quedan acotados entre $-1$ y $1$.",
-      null
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La **imagen** de una función son todos los valores que efectivamente toma al recorrer su dominio.\n\nPara $f(x)=\\frac{1}{x}$.\n\ncon $x>0$ la fracción da cualquier valor positivo.\n\ny con $x<0$ da cualquier valor negativo.\n\npero nunca $0$.\n\nporque $\\frac{1}{x}=0$ no tiene solución.\n\nPor eso la imagen es.\n$$\\mathbb{R}\\setminus\\{0\\}$$\n, igual que el dominio en este caso particular, aunque en general dominio e imagen no tienen por qué coincidir.",
-    "reviewed": false,
-    "tags": [
-      "asintota-vertical"
-    ]
-  },
-  {
-    "question": "Tomá en cuenta la función:\n$$f(x) = \\dfrac{P(x)}{Q(x)}$$\nCuando el grado de $P$ es igual al grado de $Q$?",
-    "options": [
-      "Cociente de coeficientes",
-      "La raíz del denominador",
-      "Siempre es $y = 0$",
-      "Siempre es $y = 1$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "Cuando los grados son iguales, la asíntota horizontal es el cociente de los coeficientes principales.",
-    "feedback_incorrect": [
-      null,
-      "La raíz del denominador determina la asíntota vertical, no la horizontal.",
-      "$y=0$ es la asíntota horizontal cuando el numerador tiene grado menor, no cuando los grados son iguales.",
-      "El valor de la asíntota depende de los coeficientes principales de cada caso, no siempre da exactamente $1$."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Cuando el grado de $P(x)$ es igual al grado de $Q(x)$, la **asíntota horizontal** se calcula como el cociente de los coeficientes principales (los que acompañan al término de mayor grado).\n\nAl dividir numerador y denominador entre la potencia más alta de $x$, todos los demás términos se vuelven despreciables cuando.\n$$x\\to\\pm\\infty$$\nY solo queda ese cociente.\n\nNo hay que confundir este caso con el de grados distintos, donde la asíntota horizontal es $y=0$ o directamente no existe.",
-    "reviewed": false,
-    "tags": [
-      "reconocimiento-funcion-racional"
-    ]
-  },
-  {
-    "question": "Estudiá la función:\n$$f(x) = \\dfrac{2x + 1}{x - 3}$$\n¿Qué es la **asíntota horizontal**?",
-    "options": [
-      "$y = 1$",
-      "$y = 2$",
-      "$y = 3$",
-      "$y = 0$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Los coeficientes principales son $2$ (numerador) y $1$ (denominador): AH en $y = 2$.",
-    "feedback_incorrect": [
-      "Ese cociente correspondería a coeficientes principales iguales, pero acá el del numerador es $2$.",
-      null,
-      "Ese valor no corresponde al cociente de los coeficientes principales de esta función.",
-      "$y=0$ sería la asíntota si el grado del numerador fuera menor que el del denominador, pero acá los grados son iguales."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "En.\n$$f(x)=\\frac{2x+1}{x-3}$$\n.\n\nnumerador y denominador tienen ambos grado $1$.\n\nasí que la **asíntota horizontal** es el cociente de los coeficientes principales: $\\frac{2}{1}=2$.\n\nPara $x$ muy grande.\n\nlos términos independientes (: y $-3$) pesan cada vez menos frente a $2x$ \n\ny $x$.y la fracción se aproxima a $\\frac{2x}{x}=2$.\n\nPor eso la asíntota horizontal es $y=2$, no el coeficiente de un solo término aislado.",
-    "reviewed": false,
-    "tags": [
-      "cuadrantes-ramas"
-    ]
-  },
-  {
-    "question": "Examiná la función:\n$$f(x) = \\dfrac{P(x)}{Q(x)}$$\n¿cuál es la **asíntota horizontal**?",
-    "options": [
-      "$y = 1$",
-      "No tiene asíntota horizontal",
-      "$y = 0$",
-      "$y = \\infty$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "Cuando el grado del numerador es menor, la función tiende a cero al alejarse: AH en $y = 0$.",
-    "feedback_incorrect": [
-      "$y=1$ correspondería a grados iguales en numerador y denominador, no al caso de grado menor.",
-      "Cuando el grado del numerador es menor, sí existe asíntota horizontal, y vale $y=0$.",
-      null,
-      "El símbolo $\\infty$ no es un valor válido para una asíntota horizontal, que siempre es un número."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Cuando el grado del numerador es menor que el del denominador, la fracción se hace cada vez más chica a medida que $x$ crece o decrece sin límite, porque el denominador domina.\n\nLa **asíntota horizontal** en ese caso siempre es $y=0$.\n\nEjemplos: $\\frac{1}{x}\\to0$ o.\n$$\\frac{x}{x^2}=\\frac{1}{x}\\to0$$\n.\n\nEste caso siempre tiene asíntota horizontal, a diferencia de cuando el numerador tiene grado mayor, donde puede no existir.",
-    "reviewed": false,
-    "tags": [
-      "comportamiento-en-infinito"
+      "dominio-restriccion"
     ]
   },
   {
@@ -433,60 +183,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función racional** no siempre tiene **asíntota vertical**: eso depende de si el denominador tiene raíces reales.\n\nEn.\n$$f(x)=\\frac{1}{x^2+1}$$\n.\n\nel denominador $x^2+1$ es siempre positivo y nunca se anula.\n\nporque $x^2\\geq0$ para todo $x$ real.\n\nComo no hay ningún valor excluido del dominio por esta vía, no se forma ninguna asíntota vertical, y la imagen queda acotada en el intervalo $(0,1]$.",
+    "explanation": "Una **función racional** no siempre tiene **asíntota vertical**, eso depende de si el denominador tiene raíces reales.\n\nEn:\n$$f(x)=\\frac{1}{x^2+1}$$\nEl denominador es siempre positivo y nunca se anula, porque $x^2\\geq0$ para todo $x$ real.\n\nComo no hay ningún valor excluido del dominio por esta vía, no se forma ninguna asíntota vertical.\n\nAntes de descartar una asíntota vertical conviene resolver el denominador igualado a cero y confirmar si tiene o no solución real.",
     "reviewed": false,
     "tags": [
       "dominio-restriccion"
-    ]
-  },
-  {
-    "question": "¿Qué es un **agujero** (hole) en una **función racional**?",
-    "options": [
-      "Un punto donde la función",
-      "Una asíntota vertical",
-      "Un punto donde la función vale cero",
-      "Una asíntota horizontal"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "Un agujero es una discontinuidad evitable: hay un factor que se cancela, así que el límite existe pero el punto no.",
-    "feedback_incorrect": [
-      null,
-      "En una asíntota vertical el factor del denominador no se cancela; en el agujero sí se cancela con el numerador.",
-      "Un cero de la función es un punto donde sí está definida y vale $0$, distinto de un punto excluido del dominio.",
-      "La asíntota horizontal describe el comportamiento en el infinito, no una discontinuidad puntual."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Un **agujero** (hole) es una discontinuidad evitable: se produce cuando un mismo factor aparece tanto en el numerador como en el denominador y se cancela algebraicamente.\n\nPor ejemplo.\n\nen.\n$$\\frac{(x-2)(x+1)}{x-2}$$\n.\n\nel factor $(x-2)$ se cancela y la expresión se simplifica a $x+1$.\n\npero sigue sin estar definida en $x=2$ porque ahí el denominador original se anulaba.\n\nEl límite de la función en ese punto sí existe, a diferencia de lo que ocurre en una asíntota vertical.",
-    "reviewed": false,
-    "tags": [
-      "asintota-oblicua"
-    ]
-  },
-  {
-    "question": "Considerá la función:\n$$f(x) = \\dfrac{x + 3}{x - 1}$$\n¿Cuál es el intercepto con el eje $Y$?",
-    "options": [
-      "$f(0) = 3$",
-      "$f(0) = -3$",
-      "No existe porque el denominador es cero en $x = 0$",
-      "$f(0) = 1$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$f(0) = -3$.",
-    "feedback_incorrect": [
-      "Revisá el signo: $0-1=-1$ en el denominador, así que el resultado es negativo, no positivo.",
-      null,
-      "El denominador vale $0-1=-1$, distinto de cero, así que el intercepto sí existe.",
-      "Ese valor no sale de evaluar $f(0)=\\frac{3}{-1}$ correctamente."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "El intercepto con el eje $Y$ de cualquier función se calcula evaluando $f(0)$.\n\nPara $f(x)=\\frac{x+3}{x-1}$:\n$$f(0)=\\frac{0+3}{0-1}=\\frac{3}{-1}=-3$$\n.\n\nEl resultado da negativo porque el denominador queda negativo al evaluar en $0$, aunque el numerador sea positivo.\n\nEste intercepto solo dejaría de existir si el denominador se anulara justo en $x=0$, que no es el caso aquí.",
-    "reviewed": false,
-    "tags": [
-      "comportamiento-en-infinito"
     ]
   },
   {
@@ -508,35 +208,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El intercepto con el eje $Y$ de una función racional es $f(0)$.\n\ny ese valor existe únicamente cuando $x=0$ pertenece al **dominio**.\n\nes decir.\n\ncuando el denominador no se anula ahí.\n\nSi el denominador vale $0$ en $x=0$.\n\ncomo en $f(x)=\\frac{1}{x}$.\n\nno hay intercepto con el eje $Y$ porque la función tiene ahí una asíntota vertical.\n\nEn cambio,.\n$$f(x)=\\frac{x+1}{x-2}$$\nSí lo tiene, porque $x=0$ no anula su denominador.",
+    "explanation": "El intercepto con el eje $Y$ de una función racional es $f(0)$, y existe únicamente cuando ese valor pertenece al **dominio**.\n\nEso ocurre cuando el denominador no se anula en $x=0$.\n\nSi el denominador vale cero justo ahí, como en $f(x)=1/x$, no hay intercepto con el eje $Y$ porque la función tiene una asíntota vertical en ese punto.\n\nEn cambio:\n$$f(x)=\\frac{x+1}{x-2}$$\nSí tiene intercepto con el eje $Y$, porque $x=0$ no anula su denominador.",
     "reviewed": false,
     "tags": [
-      "reconocimiento-funcion-racional"
-    ]
-  },
-  {
-    "question": "Observá la siguiente función:\n$$f(x) = \\dfrac{P(x)}{Q(x)}$$\n¿Cómo se encuentran los interceptos con el eje $X$?",
-    "options": [
-      "Resolviendo $Q(x) = 0$",
-      "Evaluando $f(0)$",
-      "No existen en funciones racionales",
-      "Resolviendo $P(x) = 0$ con $Q(x) \\neq 0$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "Los ceros de la función son donde el numerador vale cero (y el denominador no).",
-    "feedback_incorrect": [
-      "Resolver $Q(x)=0$ da los puntos excluidos del dominio o las asíntotas verticales, no los interceptos con el eje $X$.",
-      "Evaluar $f(0)$ da el intercepto con el eje $Y$, no con el eje $X$.",
-      "Muchas racionales sí cruzan el eje $X$ donde el numerador se anula.",
-      null
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Los interceptos con el eje $X$ de : son los valores donde la función vale $0$.y.\n\nuna fracción vale $0$ únicamente cuando su numerador vale $0$ (siempre que el denominador no se anule ahí también).\n\nPor eso se resuelve.\n$$P(x)=0$$\nY se descartan las soluciones que también anulen $Q(x)$.\n\nResolver $Q(x)=0$ da, en cambio, las asíntotas verticales o los agujeros, no los cruces por el eje $X$.",
-    "reviewed": false,
-    "tags": [
-      "imagen-rango"
+      "interceptos-ejes"
     ]
   },
   {
@@ -549,7 +224,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$f(x) = 6\\neq0$).",
+    "feedback_correct": "El numerador se anula en $x=4$ y ahí el denominador vale $6\\neq0$, así que el intercepto es válido.",
     "feedback_incorrect": [
       null,
       "$x=-2$ anula el denominador, no el numerador; ahí la función no está definida.",
@@ -558,35 +233,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar el intercepto con el eje $X$ de.\n$$f(x)=\\frac{x-4}{x+2}$$\n.\n\nse iguala el numerador a cero: $x-4=0\\Rightarrow x=4$.\n\nDespués hay que verificar que ese valor no anule también el denominador: $4+2=6\\neq0$, así que es válido.\n\nEl intercepto está en $x=4$, y no en $x=-2$, que es justamente el valor excluido del dominio por anular el denominador.",
+    "explanation": "Para hallar el intercepto con el eje $X$ de:\n$$f(x)=\\frac{x-4}{x+2}$$\nSe iguala el numerador a cero: $x-4=0$, así que $x=4$.\n\nDespués hay que verificar que ese valor no anule también el denominador, y en este caso $4+2=6\\neq0$, así que es válido.\n\nEl intercepto está en $x=4$, y no en $x=-2$, que es justamente el valor excluido del dominio por anular el denominador.",
     "reviewed": false,
     "tags": [
-      "asintota-horizontal"
-    ]
-  },
-  {
-    "question": "Sea la función:\n$$f(x) = \\dfrac{1}{x}$$\nUna función par, impar o ninguna?",
-    "options": [
-      "Par, porque $f(-x) = f(x)$",
-      "Impar, porque $f(-x) = -f(x)$",
-      "Ninguna de las dos",
-      "Depende del intervalo"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$f(-x) = -f(x)$: la función es impar.",
-    "feedback_incorrect": [
-      "Revisá el signo: $f(-x)=\\frac{1}{-x}=-\\frac{1}{x}$, que es $-f(x)$, no $f(x)$.",
-      null,
-      "Sí cumple una de las dos condiciones de simetría, la de función impar.",
-      "La paridad de una función se evalúa sobre todo su dominio, no cambia según el intervalo."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Para determinar si una función es par o impar se compara $f(-x)$ con $f(x)$.\n\nEn $f(x)=\\frac{1}{x}$:\n$$f(-x)=\\frac{1}{-x}=-\\frac{1}{x}=-f(x)$$\n.\n\nComo se cumple $f(-x)=-f(x)$, la función es impar, no par (que requeriría $f(-x)=f(x)$).\n\nEsta simetría impar se ve en la gráfica: la hipérbola es simétrica respecto al origen, con las ramas en el primer y tercer cuadrante.",
-    "reviewed": false,
-    "tags": [
-      "paridad-funcion"
+      "interceptos-ejes"
     ]
   },
   {
@@ -608,64 +258,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **asíntota horizontal** solo describe el comportamiento de la **función racional** cuando $x\\to\\pm\\infty$, así que la curva puede cruzarla perfectamente para valores finitos de $x$.\n\nPor ejemplo.\n$$f(x)=\\frac{x}{x^2+1}$$\nTiene asíntota horizontal en $y=0$ pero pasa exactamente por $y=0$ \n\nen $x=0$.\n\nLa asíntota vertical es distinta: ahí la función nunca está definida, así que jamás puede cruzarla.",
+    "explanation": "La **asíntota horizontal** solo describe el comportamiento de la **función racional** cuando $x$ crece o decrece sin límite, así que la curva puede cruzarla perfectamente para valores finitos de $x$.\n\nPor ejemplo:\n$$f(x)=\\frac{x}{x^2+1}$$\nTiene asíntota horizontal en $y=0$, pero pasa exactamente por ese valor en $x=0$.\n\nLa asíntota vertical es distinta, ahí la función nunca está definida, así que jamás puede cruzarla.",
     "reviewed": false,
     "tags": [
-      "extremos-monotonia"
+      "asintota-horizontal"
     ]
   },
   {
-    "question": "¿Qué diferencia hay entre una **asíntota vertical** y un **agujero**?",
-    "options": [
-      "Son lo mismo: ambos excluyen un punto del dominio",
-      "La AV aparece en $x = 0$ y el agujero en otro punto",
-      "Solo las funciones cuadráticas tienen agujeros",
-      "Agujero si hay factor común; asíntota si no hay"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "Si el factor se cancela → agujero (discontinuidad evitable). Si no se cancela → asíntota vertical.",
-    "feedback_incorrect": [
-      "Ambos excluyen un punto del dominio, pero por razones distintas: en uno el factor se cancela y en el otro no.",
-      "La posición de la asíntota vertical depende del denominador de cada función, no siempre está en $x=0$.",
-      "Los agujeros aparecen en cualquier función racional donde un factor se cancele, no son exclusivos de una familia.",
-      null
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Ambos excluyen un punto del **dominio**, pero tienen naturaleza distinta.\n\nEn un **agujero** (por ejemplo $\\frac{(x-2)(x+1)}{x-2}$), el factor problemático se cancela y la función se puede reparar en ese punto.\n\nEn una **asíntota vertical** (por ejemplo $\\frac{1}{x-2}$), el factor no se cancela y la función explota: no hay manera de rellenar ese hueco con un solo valor.",
-    "reviewed": false,
-    "tags": [
-      "cuadrantes-ramas"
-    ]
-  },
-  {
-    "question": "Analiza la función:\n$$f(x) = \\dfrac{1}{x-2}$$\nCuando $x$ se acerca a $2$ desde la derecha ($x \\to 2^+$)?",
-    "options": [
-      "La función tiende a $+\\infty$",
-      "La función tiende a $-\\infty$",
-      "La función tiende a $0$",
-      "La función tiende a $2$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "Cuando $x>2$ y se acerca a $2$, el denominador $x-2>0$ tiende a $0^+$, así que la fracción tiende a $+\\infty$.",
-    "feedback_incorrect": [
-      null,
-      "Ese sería el comportamiento por el lado izquierdo de la asíntota, no por la derecha.",
-      "La función crece sin límite cerca de la asíntota vertical, no se acerca a un valor finito como $0$.",
-      "$2$ es el valor excluido del dominio, no el valor al que tiende la función."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Para analizar qué pasa cerca de la **asíntota vertical** de.\n$$f(x)=\\frac{1}{x-2}$$\n, conviene mirar el signo del denominador a cada lado.\n\nSi $x\\to2^+$ (por la derecha).\n\nentonces $x-2$ es un número positivo muy chico.\n\nes decir $x-2\\to0^+$.\n\nLa fracción $\\frac{1}{x-2}$.\n\ncon denominador positivo tendiendo a $0$.\n\ncrece sin límite: tiende a $+\\infty$.\n\nPor eso la rama derecha de la gráfica sube verticalmente pegada a la asíntota.",
-    "reviewed": false,
-    "tags": [
-      "interceptos-ejes"
-    ]
-  },
-  {
-    "question": "Con la función:\n$$f(x) = \\dfrac{1}{x-2}$$\nCuando $x$ se acerca a $2$ desde la izquierda ($x \\to 2^-$)?",
+    "question": "Con la función:\n$$f(x) = \\dfrac{1}{x-2}$$\n¿Qué ocurre con $f(x)$ cuando $x \\to 2^-$?",
     "options": [
       "La función tiende a $+\\infty$",
       "La función tiende a $-\\infty$",
@@ -683,14 +283,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cerca de una **asíntota vertical**, el signo de la función depende del lado por el que se aproxima $x$.\n\nEn.\n$$f(x)=\\frac{1}{x-2}$$\n.\n\nsi $x\\to2^-$ (por la izquierda).\n\nel denominador $x-2$ es negativo y muy chico en valor absoluto.\n\n$x-2\\to0^-$.\n\nLa fracción $\\frac{1}{x-2}$ tiende entonces a $-\\infty$.\n\nPor eso la rama izquierda de la gráfica baja sin límite hacia abajo, en espejo con lo que ocurre del lado derecho.",
+    "explanation": "Cerca de una **asíntota vertical**, el signo de la función depende del lado por el que se aproxima $x$.\n\nEn:\n$$f(x)=\\frac{1}{x-2}$$\nSi $x$ se acerca a $2$ por la izquierda, el denominador es negativo y cada vez más chico en valor absoluto.\n\nEsa fracción tiende entonces a $-\\infty$, porque un número fijo dividido por algo negativo que se achica da un resultado negativo cada vez más grande.\n\nPor eso la rama izquierda de la gráfica baja sin límite hacia abajo, en espejo con lo que ocurre del lado derecho.",
     "reviewed": false,
     "tags": [
-      "interceptos-ejes"
+      "comportamiento-en-infinito"
     ]
   },
   {
-    "question": "Para la función:\n$$f(x) = \\dfrac{1}{x}$$\n¿Tiene extremos locales?",
+    "question": "Para la función:\n$$f(x) = \\dfrac{1}{x}$$\n¿Tiene **extremos** locales?",
     "options": [
       "Sí, tiene un mínimo en $x = 1$",
       "Sí, tiene un máximo en $x = -1$",
@@ -708,10 +308,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "\n$$f(x)=\\frac{1}{x}$$\nDecrece de forma estricta en cada uno de los dos tramos de su **dominio**: en $(0,+\\infty)$ los valores bajan desde $+\\infty$ \n\nhasta acercarse a $0$.\n\ny en : bajan desde $0$ hasta $-\\infty$.Como nunca cambia de dirección dentro de cada rama, no alcanza ningún valor máximo ni mínimo local.\n\nEsto es típico de $k/x$: al no haber cambio de monotonía, no hay extremos que buscar.",
+    "explanation": "La función:\n$$f(x)=\\frac{1}{x}$$\nDecrece de forma estricta en cada uno de los dos tramos de su **dominio**.\n\nEn $(0,+\\infty)$ los valores bajan desde valores muy grandes hasta acercarse a $0$.\n\nEn $(-\\infty,0)$, en cambio, bajan desde $0$ hasta valores cada vez más negativos.\n\nComo nunca cambia de dirección dentro de cada rama, no alcanza ningún valor máximo ni mínimo local.\n\nEsto es típico de $k/x$: al no haber cambio de monotonía dentro de una rama, no hay extremos que buscar ahí.",
     "reviewed": false,
     "tags": [
-      "asintota-horizontal"
+      "extremos-monotonia"
     ]
   },
   {
@@ -733,14 +333,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** de una racional excluye los valores que anulan el denominador.\n\nEn.\n$$f(x)=\\frac{x^2-1}{(x-1)(x+3)}$$\n.\n\nel denominador se anula en $x=1$ y en $x=-3$.\n\nasí que ambos quedan fuera del dominio.\n\nAunque el numerador $x^2-1=(x-1)(x+1)$ también se anule en $x=1$.\n\neso solo produce un agujero en ese punto.\n\nno reincorpora el valor al dominio: sigue excluido igual que $x=-3$.",
+    "explanation": "El **dominio** de una racional excluye los valores que anulan el denominador.\n\nEn:\n$$f(x)=\\frac{x^2-1}{(x-1)(x+3)}$$\nEl denominador se anula en $x=1$ y en $x=-3$, así que ambos quedan fuera del dominio.\n\nAunque el numerador $x^2-1=(x-1)(x+1)$ también se anule en $x=1$, eso solo produce un agujero en ese punto y no reincorpora el valor al dominio.\n\nEl punto $x=1$ sigue tan excluido como $x=-3$, aunque por un motivo distinto.",
     "reviewed": false,
     "tags": [
-      "asintota-horizontal"
+      "dominio-restriccion"
     ]
   },
   {
-    "question": "Estudiá la función:\n$$f(x) = \\dfrac{1}{x-3}$$\nRespecto a \\n$$g(x) = \\dfrac{1}{x}$$\\n?",
+    "question": "Estudiá la función:\n$$f(x) = \\dfrac{1}{x-3}$$\nPartiendo de:\n$$g(x) = \\dfrac{1}{x}$$\n¿Qué transformación relaciona a $f$ con $g$?",
     "options": [
       "Desplazamiento horizontal de 3 unidades a la derecha",
       "Desplazamiento vertical de 3 unidades hacia arriba",
@@ -758,43 +358,18 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Reemplazar $x$ por $x-3$ \n\ndentro de una función produce un desplazamiento horizontal: la curva se mueve $3$ unidades hacia la derecha.\n\nEn.\n$$f(x)=\\frac{1}{x-3}$$\nRespecto a $g(x)=\\frac{1}{x}$.\n\nla asíntota vertical se traslada de $x=0$ a $x=3$.\n\ny toda la forma de la curva viaja con ella.\n\nUn desplazamiento vertical, en cambio, se produce sumando o restando una constante fuera de la fracción, no dentro del denominador.",
+    "explanation": "Restar 3 a $x$ dentro de la función produce un desplazamiento horizontal de 3 unidades hacia la derecha.\n\nLa asíntota vertical se traslada de $x=0$ a $x=3$.\n\nToda la forma de la curva viaja con ella, sin cambiar de tamaño ni de orientación.\n\nUn desplazamiento vertical, en cambio, se produce sumando o restando una constante fuera de la fracción, no dentro del denominador.",
     "reviewed": false,
     "tags": [
       "cuadrantes-ramas"
     ]
   },
   {
-    "question": "Examiná la función:\n$$f(x) = \\dfrac{1}{x} + 2$$\nRespecto a \\n$$g(x) = \\dfrac{1}{x}$$\\n?",
-    "options": [
-      "Desplazamiento horizontal de 2 unidades a la derecha",
-      "Desplazamiento vertical de 2 unidades hacia arriba",
-      "Estiramiento vertical por factor 2",
-      "Reflexión respecto al eje $X$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Sumar 2 al valor de la función desplaza toda la curva 2 unidades hacia arriba.",
-    "feedback_incorrect": [
-      "El $+2$ está sumado fuera de la fracción, así que desplaza verticalmente, no mueve la posición de la asíntota vertical.",
-      null,
-      "Sumar $2$ fuera de la fracción no multiplica los valores de la función, los desplaza.",
-      "Sumar una constante fuera de la fracción no refleja la curva, solo la traslada hacia arriba."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Sumar una constante fuera de la fracción desplaza toda la curva verticalmente.\n\nEn.\n$$f(x)=\\frac{1}{x}+2$$\nRespecto a $g(x)=\\frac{1}{x}$.\n\ncada valor de $g$ queda desplazado $2$ unidades hacia arriba.\n\ny la asíntota horizontal pasa de $y=0$ a $y=2$.\n\nLa asíntota vertical, en cambio, sigue en $x=0$ porque el denominador no cambió.\n\nEsto contrasta con modificar $x$ dentro del denominador, que produciría un desplazamiento horizontal.",
-    "reviewed": false,
-    "tags": [
-      "continuidad-en-dominio"
-    ]
-  },
-  {
-    "question": "Considerá la función:\n$$f(x) = -\\dfrac{1}{x}$$\nRespecto a \\n$$g(x) = \\dfrac{1}{x}$$\\n?",
+    "question": "Considerá la función:\n$$f(x) = -\\dfrac{1}{x}$$\nPartiendo de:\n$$g(x) = \\dfrac{1}{x}$$\n¿Qué transformación relaciona a $f$ con $g$?",
     "options": [
       "Reflexión respecto al eje $Y$",
       "Desplazamiento vertical de $-1$",
-      "Reflexión respecto al eje $X$: la",
+      "Reflexión respecto al eje $X$",
       "Ningún cambio visible"
     ],
     "correct_index": 2,
@@ -808,10 +383,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Multiplicar toda la función por $-1$ refleja la curva respecto al eje $X$: cada valor positivo pasa a ser negativo y viceversa.\n\nEn $g(x)=\\frac{1}{x}$ las ramas están en el primer y tercer cuadrante; en.\n$$f(x)=-\\frac{1}{x}$$\nEl signo negativo las invierte hacia el segundo y cuarto cuadrante.\n\nEsto es distinto de reflejar respecto al eje $Y$, que se lograría cambiando el signo de $x$ dentro de la expresión, no multiplicando el resultado.",
+    "explanation": "Multiplicar toda la función por $-1$ refleja la curva respecto al eje $X$, cada valor positivo pasa a ser negativo y viceversa.\n\nEn $g(x)=1/x$ las ramas están en el primer y tercer cuadrante.\n\nEn $f(x)=-1/x$ el signo negativo las invierte hacia el segundo y cuarto cuadrante.\n\nEsto es distinto de reflejar respecto al eje $Y$, que se lograría cambiando el signo de $x$ dentro de la expresión, no multiplicando el resultado final.",
     "reviewed": false,
     "tags": [
-      "comportamiento-en-infinito"
+      "cuadrantes-ramas"
     ]
   },
   {
@@ -820,23 +395,23 @@
       "1 (en $x = 0$)",
       "2 (en $x = 1$ y $x = -1$)",
       "Ninguna",
-      "3 en este contexto"
+      "3, en $x=0$, $x=1$ y $x=-1$"
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "$x^3 - x = -1$.",
+    "feedback_correct": "El denominador factorizado $x(x-1)(x+1)$ tiene tres raíces reales y ninguna se cancela con el numerador.",
     "feedback_incorrect": [
       "El denominador factorizado tiene más raíces además de $x=0$.",
-      "A esta respuesta le falta un paso clave del razonamiento.",
+      "El denominador factorizado tiene una raíz real más, además de $x=1$ y $x=-1$.",
       "El denominador sí tiene raíces reales una vez factorizado, así que sí hay asíntotas verticales.",
       null
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **asíntotas verticales** de una racional aparecen en las raíces reales del denominador.\n\nPara $f(x)=\\frac{x^2+1}{x^3-x}$.\n\nfactorizamos:\n$$x^3-x=x(x^2-1)=x(x-1)(x+1)$$\n.\n\nque tiene tres raíces reales: $x=0$.\n\n$x=1$ y $x=-1$.\n\nEl numerador $x^2+1$ nunca se anula (siempre es al menos $1$), así que ninguna de esas raíces se cancela: las tres generan asíntota vertical.",
+    "explanation": "Las **asíntotas verticales** de una racional aparecen en las raíces reales del denominador que no se cancelan con el numerador.\n\nPara $f(x)=(x^2+1)/(x^3-x)$, factorizamos el denominador:\n$$x^3-x=x(x-1)(x+1)$$\nQue tiene tres raíces reales, $x=0, x=1, x=-1$.\n\nEl numerador $x^2+1$ nunca se anula, porque siempre vale al menos $1$, así que ninguna de esas raíces se cancela.\n\nLas tres generan asíntota vertical, sin ninguna excepción.",
     "reviewed": false,
     "tags": [
-      "paridad-funcion"
+      "asintota-vertical"
     ]
   },
   {
@@ -849,7 +424,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Si $\\deg(P) > \\deg(Q)$, la función crece sin límite y no hay AH (puede haber asíntota oblicua).",
+    "feedback_correct": "Si $\\deg(P) > \\deg(Q)$, la función crece sin límite y no hay AH, aunque puede haber asíntota oblicua.",
     "feedback_incorrect": [
       null,
       "Ese caso sí tiene asíntota horizontal, en $y=0$.",
@@ -858,10 +433,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el grado del numerador es mayor que el del denominador, la función crece (o decrece) sin cota cuando $x\\to\\pm\\infty$, así que no existe **asíntota horizontal**.\n\nEn cambio, sí puede existir una asíntota oblicua si el grado del numerador supera al del denominador en exactamente uno.\n\nLos otros dos casos, grado menor o grados iguales, siempre tienen asíntota horizontal, en $y=0$ o en el cociente de coeficientes principales respectivamente.",
+    "explanation": "Cuando el grado del numerador es mayor que el del denominador, la función crece o decrece sin cota a medida que $x$ se aleja del origen, así que no existe **asíntota horizontal**.\n\nEn cambio, sí puede existir una asíntota oblicua si el grado del numerador supera al del denominador en exactamente uno.\n\nLos otros dos casos, grado menor o grados iguales, siempre tienen asíntota horizontal, en $y=0$ o en el cociente de coeficientes principales respectivamente.",
     "reviewed": false,
     "tags": [
-      "imagen-rango"
+      "asintota-horizontal"
     ]
   },
   {
@@ -874,7 +449,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$\\frac{x^2+1}{x} = x + \\frac{1}{x}$: para $x$ grande, el término $\\frac{1}{x}\\to0$ y la función se acerca a $y=x$.",
+    "feedback_correct": "$\\frac{x^2+1}{x} = x + \\frac{1}{x}$: para $x$ grande, el término $\\frac{1}{x}$ tiende a $0$ y la función se acerca a $y=x$.",
     "feedback_incorrect": [
       "Al dividir, el resto es $\\frac{1}{x}$, que tiende a $0$, así que no queda un término $+1$ en la recta.",
       null,
@@ -883,14 +458,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el grado del numerador es exactamente uno más que el del denominador, aparece una **asíntota oblicua** en vez de horizontal.\n\nPara.\n$$f(x)=\\frac{x^2+1}{x}$$\n, dividiendo se obtiene $f(x)=x+\\frac{1}{x}$.\n\nCuando $x\\to\\pm\\infty$.\n\nel resto $\\frac{1}{x}\\to0$ y la función se acerca cada vez más a la recta $y=x$.\n\nEsa recta, obtenida del cociente de la división, es la asíntota oblicua.",
+    "explanation": "Cuando el grado del numerador es exactamente uno más que el del denominador, aparece una **asíntota oblicua** en vez de horizontal.\n\nPara:\n$$f(x)=\\frac{x^2+1}{x}$$\nDividiendo se obtiene $f(x)=x+1/x$.\n\nA medida que $x$ crece o decrece sin límite, ese resto se acerca a $0$.\n\nLa función se aproxima entonces cada vez más a la recta $y=x$.\n\nEsa recta, obtenida del cociente de la división, es la asíntota oblicua.",
     "reviewed": false,
     "tags": [
-      "asintota-vertical"
+      "asintota-oblicua"
     ]
   },
   {
-    "question": "Analiza la función:\n$$f(x) = \\dfrac{k}{x-a} + b$$\n¿cuáles son la **asíntota vertical** y la asíntota horizontal?",
+    "question": "Analizá la función:\n$$f(x) = \\dfrac{k}{x-a} + b$$\n¿Cuáles son la **asíntota vertical** y la asíntota horizontal?",
     "options": [
       "AV: $x = b$ y AH: $y = a$",
       "AV: $x = k$ y AH: $y = 0$",
@@ -899,7 +474,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "El denominador se anula en $x=a$ y la función tiende a $b$ cuando $x\\to\\pm\\infty$.",
+    "feedback_correct": "El denominador se anula en $x=a$ y la función tiende a $b$ cuando $x$ crece o decrece sin límite.",
     "feedback_incorrect": [
       "Los roles de $a$ y $b$ están invertidos: el denominador se anula en $x=a$, no en $x=b$.",
       "$k$ es el factor que escala la función, no el valor que anula el denominador.",
@@ -908,14 +483,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En.\n$$f(x)=\\frac{k}{x-a}+b$$\n.\n\ncada parámetro cumple un rol fijo: el denominador $x-a$ se anula en $x=a$.\n\ngenerando la **asíntota vertical** ahí.\n\nCuando $x\\to\\pm\\infty$.\n\nel término $\\frac{k}{x-a}\\to0$ y la función se acerca a $b$.\n\ngenerando la asíntota horizontal en $y=b$.\n\nConfundir cuál parámetro corresponde a cada asíntota más común al leer esta forma general.",
+    "explanation": "En:\n$$f(x)=\\frac{k}{x-a}+b$$\nCada parámetro cumple un rol fijo.\n\nEl denominador $x-a$ se anula en $x=a$, generando la **asíntota vertical** ahí.\n\nA medida que $x$ crece o decrece sin límite, ese término se acerca a $0$.\n\nEso hace que la función se aproxime a $b$, y la asíntota horizontal quede en $y=b$.\n\nConfundir cuál parámetro corresponde a cada asíntota es habitual al leer por primera vez esta forma general; conviene revisar cada letra por separado antes de responder.",
     "reviewed": false,
     "tags": [
-      "conteo-ramas"
+      "asintota-vertical"
     ]
   },
   {
-    "question": "Con la función:\n$$f(x) = \\dfrac{1}{x^2}$$\nUna función par, impar, o ninguna?",
+    "question": "Con la función:\n$$f(x) = \\dfrac{1}{x^2}$$\n¿Es una función par, impar, o ninguna de las dos?",
     "options": [
       "Impar, porque $f(-x) = -f(x)$",
       "Ninguna de las dos",
@@ -933,39 +508,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "\nComo par o impar se compara $f(-x)$ con $f(x)$: :.\n\nComo se cumple $f(-x)=f(x)$.\n\nla función es par, y su gráfica es simétrica respecto al eje $Y$.\n\nA diferencia de $\\frac{1}{x}$.\n\nque es impar y solo toma valores de un signo en cada rama.\n\n$\\frac{1}{x^2}$ siempre da valores positivos.\n\nsin importar el signo de $x$.",
+    "explanation": "Para decidir si una función es par o impar se compara $f(-x)$ con $f(x)$.\n\nAl reemplazar $x$ por $-x$ en la función se obtiene:\n$$\\begin{aligned}\nf(-x) &= \\frac{1}{(-x)^2} \\\\\n&= \\frac{1}{x^2} \\\\\n&= f(x)\n\\end{aligned}$$\nComo se cumple $f(-x)=f(x)$, la función es par, y su gráfica es simétrica respecto al eje $Y$.\n\nEsta función siempre da valores positivos, sin importar el signo de $x$, algo que conviene distinguir de $1/x$, que sí es impar y cambia de signo entre sus dos ramas.",
     "reviewed": false,
     "tags": [
-      "continuidad-en-dominio"
+      "paridad-funcion"
     ]
   },
   {
-    "question": "Para la función:\n$$f(x) = \\dfrac{k}{x-a} + b$$\nCon $k \\neq 0$?",
-    "options": [
-      "$\\mathbb{R} \\setminus \\{b\\}$",
-      "$\\mathbb{R}$",
-      "$(b, +\\infty)$",
-      "$\\mathbb{R} \\setminus \\{a\\}$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "La función puede tomar cualquier valor real salvo $b$, que es la asíntota horizontal.",
-    "feedback_incorrect": [
-      null,
-      "El valor $b$ nunca se alcanza porque $\\frac{k}{x-a}=0$ no tiene solución con $k\\neq0$; por eso queda excluido.",
-      "La función también toma valores menores que $b$, no solo mayores.",
-      "$a$ es el valor excluido del dominio, no de la imagen."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La **imagen** de.\n$$f(x)=\\frac{k}{x-a}+b$$\nCon $k\\neq0$ es todo $\\mathbb{R}$ \n\nsalvo el valor $b$.\n\nPara cualquier : siempre existe algún $x$ que cumple $f(x)=y$.pero.\n\nllegar a $f(x)=b$ requeriría $\\frac{k}{x-a}=0$.\n\necuación sin solución cuando $k\\neq0$.\n\nPor eso $b$ (el valor de la asíntota horizontal) queda excluido de la imagen, mientras que $a$ es el valor excluido del dominio.",
-    "reviewed": false,
-    "tags": [
-      "reconocimiento-funcion-racional"
-    ]
-  },
-  {
-    "question": "Tomá en cuenta la función:\n$$f(x) = \\dfrac{1}{x}$$\nY el de \\n$$g(x) = \\dfrac{x-1}{x(x-1)}$$\\n?",
+    "question": "Tomá en cuenta la función:\n$$f(x) = \\dfrac{1}{x}$$\nY compará su dominio con el de:\n$$g(x) = \\dfrac{x-1}{x(x-1)}$$",
     "options": [
       "Son idénticos: $\\mathbb{R}\\setminus\\{0\\}$",
       "$g$ tiene dominio $\\mathbb{R}\\setminus\\{0,1\\}$ aunque se simplifique a $\\frac{1}{x}$",
@@ -983,19 +533,19 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** de una función racional se determina sobre la expresión original.\n\nantes de simplificar. $g(x)=\\frac{x-1}{x(x-1)}$ tiene denominador $x(x-1)$.\n\nque se anula en $x=0$ y en $x=1$: ambos quedan excluidos.\n\naunque la fracción se simplifique a $\\frac{1}{x}$ para $x\\neq1$.\n\nPor eso el dominio de $g$ es.\n$$\\mathbb{R}\\setminus\\{0,1\\}$$\n.\n\ndistinto del de $f(x)=\\frac{1}{x}$.\n\nque solo excluye $x=0$: en $x=1$.\n\n$g$ tiene un agujero.",
+    "explanation": "El **dominio** de una función racional se determina sobre la expresión original, antes de simplificar.\n\nEl denominador de esta función es $x(x-1)$, que se anula en $x=0, x=1$, así que ambos quedan excluidos del dominio.\n\nEsto vale aunque la fracción se simplifique a $1/x$ para $x\neq1$: simplificar no devuelve al dominio un punto que ya estaba excluido.\n\nPor eso el dominio de $g$ es:\n$$\\mathbb{R}\\setminus\\{0,1\\}$$\nY es distinto del dominio de $f(x)=1/x$, que solo excluye $x=0$.\n\nEn $x=1$, $g$ tiene un agujero en vez de una asíntota.",
     "reviewed": false,
     "tags": [
       "agujero-vs-asintota"
     ]
   },
   {
-    "question": "Estudiá la función:\n$$f(x) = \\dfrac{P(x)}{Q(x)}$$\nA lo sumo?",
+    "question": "Estudiá la función:\n$$f(x) = \\dfrac{P(x)}{Q(x)}$$\n¿Cuántas asíntotas verticales puede tener, a lo sumo?",
     "options": [
-      "Siempre exactamente una",
+      "Exactamente una, siempre",
       "A lo sumo dos",
       "Tantas como el grado de $Q(x)$",
-      "Ninguna: nunca tiene asíntotas verticales"
+      "Ninguna, nunca tiene asíntotas verticales"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -1004,14 +554,14 @@
       "La cantidad de asíntotas verticales depende del denominador de cada función, no siempre es una sola.",
       "El límite depende del grado del denominador, que puede superar dos.",
       null,
-      "Muchas racionales sí tienen asíntotas verticales, donde el denominador se anula."
+      "Muchas racionales sí tienen asíntotas verticales, justo donde el denominador se anula."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cada raíz real del denominador $Q(x)$ que no se cancele con el numerador genera una **asíntota vertical**.\n\nComo un polinomio de grado $n$ tiene a lo sumo $n$ raíces reales.\n\nuna **función racional** puede tener hasta.\n$$\\deg(Q)$$\nAsíntotas verticales.\n\nni una cantidad fija como uno o dos.\n\nSi todas las raíces de $Q(x)$ se cancelan con el numerador, en cambio, no hay asíntotas verticales sino agujeros.",
+    "explanation": "Cada raíz real del denominador $Q(x)$ que no se cancele con el numerador genera una **asíntota vertical**.\n\nComo un polinomio de grado $n$ tiene a lo sumo esa misma cantidad de raíces reales, una **función racional** puede tener hasta $\\deg(Q)$ asíntotas verticales, no una cantidad fija como uno o dos.\n\nSi todas las raíces de $Q(x)$ se cancelan con el numerador, en cambio, no hay ninguna asíntota vertical, sino agujeros en esos puntos.",
     "reviewed": false,
     "tags": [
-      "comportamiento-en-infinito"
+      "asintota-vertical"
     ]
   },
   {
@@ -1028,15 +578,15 @@
     "feedback_incorrect": [
       "Un cociente de polinomios continuos es continuo en todo punto donde el denominador no se anule, sin saltos dentro del dominio.",
       "La continuidad no depende de que el numerador sea constante, alcanza con que ambos sean polinomios.",
-      "La noción de 'base racional' no aplica acá, la continuidad depende de dónde el denominador no se anule.",
+      "La noción de base racional no aplica acá, la continuidad depende de dónde el denominador no se anule.",
       null
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Los polinomios son continuos en todo $\\mathbb{R}$, y el cociente de dos funciones continuas sigue siendo continuo en todos los puntos donde el denominador no se anula.\n\nPor eso toda **función racional** es **continua** en todo su **dominio**: no puede haber saltos dentro de él.\n\nLa discontinuidad solo aparece justo en los puntos excluidos (donde el denominador se anula), nunca dentro del dominio mismo.",
+    "explanation": "Los polinomios son continuos en todo $\\mathbb{R}$, y el cociente de dos funciones continuas sigue siendo continuo en todos los puntos donde el denominador no se anula.\n\nPor eso toda **función racional** es **continua** en todo su **dominio**, no puede haber saltos dentro de él.\n\nLa discontinuidad solo aparece justo en los puntos excluidos, donde el denominador se anula, nunca dentro del dominio mismo.",
     "reviewed": false,
     "tags": [
-      "dominio-restriccion"
+      "continuidad-en-dominio"
     ]
   },
   {
@@ -1058,17 +608,17 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **asíntota oblicua** aparece cuando el grado del numerador supera en exactamente uno al del denominador.\n\nAl hacer la división polinomial en ese caso.\n\nel cociente resulta una expresión lineal $ax+b$ más un resto que tiende a cero cuando.\n$$x\\to\\pm\\infty$$\n.\n\nasí que la función se aproxima a la recta $y=ax+b$.\n\nSi los grados son iguales o el denominador tiene grado mayor, en cambio, la asíntota es horizontal, no oblicua.",
+    "explanation": "La existencia de **asíntota horizontal** u oblicua se decide comparando los grados del numerador y el denominador.\n\nSi los grados son iguales o el del denominador es mayor, la asíntota es horizontal.\n\nEn cambio, cuando el grado del numerador supera en exactamente uno al del denominador, la división polinomial da un cociente lineal $ax+b$ más un resto.\n\nEse resto se acerca a cero a medida que $x$ crece o decrece sin límite, así que la función se aproxima a la recta $y=ax+b$.\n\nEsa recta es la asíntota oblicua, y reemplaza a la horizontal justo en ese caso puntual.",
     "reviewed": false,
     "tags": [
-      "comportamiento-en-infinito"
+      "asintota-horizontal"
     ]
   },
   {
-    "question": "Examiná la función:\n$$f(x) = \\dfrac{5}{x}$$\nCuando $x \\to +\\infty$?",
+    "question": "Examiná la función:\n$$f(x) = \\dfrac{5}{x}$$\n¿Qué ocurre cuando $x \\to +\\infty$?",
     "options": [
       "Tiende a $5$",
-      "Cero arriba",
+      "Tiende a $0^+$",
       "Tiende a $+\\infty$",
       "Tiende a $-\\infty$"
     ],
@@ -1083,73 +633,23 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando $x\\to+\\infty$ en.\n$$f(x)=\\frac{5}{x}$$\n.\n\nel denominador crece sin límite mientras el numerador queda fijo en $5$.\n\nasí que la fracción se hace cada vez más chica: tiende a $0$.\n\nComo el numerador es positivo y $x$ también.\n\nel cociente siempre da positivo.\n\npor lo que la función se aproxima a $0$ por arriba.\n\nes decir $0^+$.\n\ny no por debajo.\n\nEn la gráfica esto se ve como la curva aplanándose hacia el eje $X$ desde arriba.",
+    "explanation": "Cuando $x$ crece sin límite en:\n$$f(x)=\\frac{5}{x}$$\nEl denominador crece sin límite mientras el numerador queda fijo en $5$, así que la fracción se hace cada vez más chica y tiende a $0$.\n\nComo el numerador es positivo y $x$ también, el cociente siempre da positivo.\n\nPor eso la función se aproxima a $0$ por arriba, es decir $0^+$, y no por debajo.\n\nEn la gráfica esto se ve como la curva aplanándose hacia el eje $X$ desde arriba, sin llegar nunca a tocarlo.",
     "reviewed": false,
     "tags": [
-      "dominio-restriccion"
+      "comportamiento-en-infinito"
     ]
   },
   {
-    "question": "¿Cuál de estas racionales tiene **asíntota horizontal** en $y = -2$?",
+    "question": "Observá la siguiente función, con $k>1$:\n$$f(x) = \\dfrac{k}{x}$$\nPartiendo de:\n$$g(x) = \\dfrac{1}{x}$$\n¿Qué transformación relaciona a $f$ con $g$?",
     "options": [
-      "$f(x) = \\dfrac{1}{x + 2}$",
-      "$f(x) = \\dfrac{x - 2}{x}$",
-      "$f = \\dfrac{-2x + 1}{x + 5}$",
-      "$f(x) = \\dfrac{2}{x}$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "Coeficientes principales: $-2$ (numerador) y $1$ (denominador). AH en $y=-2$.",
-    "feedback_incorrect": [
-      "Esta función tiene asíntota horizontal en $y=0$, porque el grado del numerador es menor.",
-      "Esta función tiene asíntota horizontal en $y=1$, el cociente de los coeficientes principales es $1$.",
-      null,
-      "Esta función tiene asíntota horizontal en $y=0$, no en $y=-2$."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La **asíntota horizontal**, cuando los grados de numerador y denominador coinciden, es el cociente de los coeficientes principales.\n\nEn.\n$$f(x)=\\frac{-2x+1}{x+5}$$\nEse cociente es $\\frac{-2}{1}=-2$.\n\nasí que su asíntota horizontal es $y=-2$.\n\nLas otras opciones tienen asíntotas distintas: $\\frac{1}{x+2}$ y $\\frac{2}{x}$ \n\ntienden a $y=0$ (numerador de grado menor).\n\ny $\\frac{x-2}{x}$ tiende a $y=1$.",
-    "reviewed": false,
-    "tags": [
-      "dominio-restriccion"
-    ]
-  },
-  {
-    "question": "Considerá la función:\n$$f(x) = \\dfrac{1}{x}$$\n¿cuál de estos enunciados es correcto?",
-    "options": [
-      "Su dominio es $\\mathbb{R}$ y su imagen es $\\mathbb{R} \\setminus \\{0\\}$",
-      "Su dominio es $\\mathbb{R} \\setminus \\{0\\}$ y su imagen es $\\mathbb{R}$",
-      "Su dominio y su imagen son ambos $\\mathbb{R}$",
-      "Su dominio y su imagen son ambos $\\mathbb{R} \\setminus \\{0\\}$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "$f(x) = 1/x$ no está definida en $x=0$ (dominio) y nunca vale $0$ (imagen).",
-    "feedback_incorrect": [
-      "El $0$ sí queda excluido del dominio, porque el denominador se anula ahí.",
-      "El $0$ también queda excluido de la imagen, porque $\\frac{1}{x}=0$ no tiene solución; los roles de dominio e imagen están invertidos en esta opción.",
-      "Tanto el dominio como la imagen tienen una restricción, no son todo $\\mathbb{R}$.",
-      null
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Para $f(x)=\\frac{1}{x}$, tanto el **dominio** como la **imagen** son.\n$$\\mathbb{R}\\setminus\\{0\\}$$\n.\n\nEl dominio excluye $x=0$ porque ahí se anula el denominador.\n\nLa imagen también excluye $0$, porque $\\frac{1}{x}=0$ no tiene ninguna solución: la fracción nunca llega a valer cero, solo se acerca cada vez más.\n\nQue dominio e imagen coincidan acá es una particularidad de $1/x$, no algo garantizado para toda racional.",
-    "reviewed": false,
-    "tags": [
-      "asintota-vertical"
-    ]
-  },
-  {
-    "question": "Observá la siguiente función:\n$$f(x) = \\dfrac{k}{x}$$\nRespecto a \\n$$g(x) = \\dfrac{1}{x}$$\\n?",
-    "options": [
-      "Estira la curva verticalmente: los",
+      "Estira la curva verticalmente",
       "Desplaza la curva $k$ unidades a la derecha",
       "Refleja la curva respecto al eje $X$",
       "Achica la curva verticalmente"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Multiplicar por $k$ escala verticalmente: la curva se 'aleja' de las asíntotas en proporción $k$.",
+    "feedback_correct": "Multiplicar por $k>1$ escala verticalmente: la curva se aleja de las asíntotas en proporción $k$.",
     "feedback_incorrect": [
       null,
       "El factor $k$ multiplica a toda la fracción, no se resta dentro del denominador junto a $x$.",
@@ -1158,10 +658,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Multiplicar una función por una constante $k>1$ produce un estiramiento vertical: cada valor de la función original se multiplica por $k$.\n\nEn.\n$$f(x)=\\frac{k}{x}=k\\cdot\\frac{1}{x}$$\n.\n\nel punto $(1,1)$ de :\n\n pasa a ser $(1,k)$ en $f$.\n\nLa curva se aleja más de las asíntotas cuanto mayor es $k$.\n\nsin cambiar su posición ni su signo, a diferencia de un desplazamiento o una reflexión.",
+    "explanation": "Multiplicar una función por una constante $k>1$ produce un estiramiento vertical: cada valor de la función original se multiplica por $k$.\n\nEn:\n$$f(x)=\\frac{k}{x}=k\\cdot\\frac{1}{x}$$\nEl punto $(1,1)$ de la función original pasa a ser $(1,k)$ en la nueva curva.\n\nLa curva se aleja más de las asíntotas cuanto mayor es $k$, sin cambiar su posición ni su signo.\n\nEsto es distinto de un desplazamiento o una reflexión, que mueven o invierten la curva en vez de escalarla.",
     "reviewed": false,
     "tags": [
-      "asintota-vertical"
+      "cuadrantes-ramas"
     ]
   },
   {
@@ -1174,19 +674,19 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$x^2-4 = -2$. Ninguna de las dos anula el denominador $x+1$.",
+    "feedback_correct": "El numerador factoriza en $(x-2)(x+2)$, con raíces $2$ y $-2$, y ninguna anula el denominador $x+1$.",
     "feedback_incorrect": [
-      "A esta respuesta le falta un paso clave del razonamiento.",
+      "El numerador se puede factorizar en dos raíces reales, no en una sola.",
       null,
       "El numerador sí tiene raíces reales, así que la función sí cruza el eje $X$.",
       "El numerador de grado $2$ tiene a lo sumo dos raíces reales, no tres."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Los ceros de una función racional son las raíces reales de su numerador (que no anulen también el denominador).\n\nPara ::\n$$x^2-4=(x-2)(x+2)=0$$\nDa $x=2$ y $x=-2$.\n\nEl denominador $x+1$ no se anula en ninguno de esos valores ($3$ \n\ny $-1$ respectivamente).\n\nasí que ambas raíces son válidas y la función tiene dos ceros reales.",
+    "explanation": "Los ceros de una función racional son las raíces reales de su numerador, siempre que no anulen también el denominador.\n\nPara $f(x)=(x^2-4)/(x+1)$, factorizamos el numerador:\n$$x^2-4=(x-2)(x+2)=0$$\nLo que da $x=2$ y $x=-2$.\n\nEl denominador no se anula en ninguno de esos valores, ya que da $3$ y $-1$ respectivamente.\n\nAmbas raíces son válidas, así que la función tiene dos ceros reales.",
     "reviewed": false,
     "tags": [
-      "asintota-horizontal"
+      "interceptos-ejes"
     ]
   },
   {
@@ -1195,7 +695,7 @@
       "Determina la posición de la asíntota vertical",
       "No tiene ningún efecto sobre la gráfica",
       "Determina si las ramas van hacia $+\\infty$ o $-\\infty$ cuando $x \\to +\\infty$",
-      "Determina si tiene asíntota horizontal o no"
+      "Determina si la función tiene o no asíntota horizontal"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -1208,10 +708,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El comportamiento asintótico de una racional cuando $x\\to+\\infty$ depende del signo del cociente de los coeficientes principales de numerador y denominador.\n\nSi ese cociente es positivo, las ramas de la función se acercan a valores positivos; si es negativo, a valores negativos.\n\nEste signo no afecta la posición de la asíntota vertical (que depende de las raíces del denominador) ni determina por sí solo si existe asíntota horizontal.",
+    "explanation": "El comportamiento asintótico de una racional cuando $x$ crece sin límite depende del signo del cociente de los coeficientes principales de numerador y denominador.\n\nSi ese cociente es positivo, las ramas de la función se acercan a valores positivos, y si es negativo, a valores negativos.\n\nEste signo no afecta la posición de la asíntota vertical, que depende de las raíces del denominador, ni determina por sí solo si existe asíntota horizontal.",
     "reviewed": false,
     "tags": [
-      "reconocimiento-funcion-racional"
+      "comportamiento-en-infinito"
     ]
   },
   {
@@ -1220,7 +720,7 @@
       "La función es cero en $x = c$",
       "La función está definida y el valor es 1",
       "Se crea una asíntota vertical en $x = c$",
-      "Agujero que existe en la gráfica"
+      "Se forma un agujero en la gráfica"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -1233,10 +733,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando $P(c)=0$ y $Q(c)=0$.\n\nel factor $(x-c)$ aparece en ambos polinomios.\n\nTras cancelar ese factor común, la función está definida cerca de $c$ pero no en $c$ mismo: hay un **agujero** (discontinuidad evitable), no una asíntota.\n\nEjemplo:\n$$\\frac{x-c}{x-c}=1$$\nPara $x\\neq c$.\n\npero no está definida en $c$.\n\nLo importante es distinguir entre asíntota (donde la función se dispara al infinito) y agujero (donde ambos numerador y denominador se anulan simultáneamente).",
+    "explanation": "Cuando el numerador y el denominador se anulan juntos en $x=c$, el factor $(x-c)$ aparece en ambos polinomios.\n\nTras cancelar ese factor común, la función queda definida cerca de $c$ pero no en $c$ mismo, y ahí aparece un **agujero**, una discontinuidad evitable, no una asíntota.\n\nUn ejemplo simple es:\n$$\\frac{x-c}{x-c}=1,\\quad x\\neq c$$\nAunque la función no esté definida en $c$.\n\nLo importante es distinguir entre asíntota, donde la función se dispara hacia el infinito, y agujero, donde numerador y denominador se anulan al mismo tiempo.",
     "reviewed": false,
     "tags": [
-      "dominio-restriccion"
+      "agujero-vs-asintota"
     ]
   },
   {
@@ -1249,7 +749,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Al ser cociente de polinomios (continuos), la función racional es continua en todo su dominio.",
+    "feedback_correct": "Al ser cociente de polinomios continuos, la función racional es continua en todo su dominio.",
     "feedback_incorrect": [
       "Una racional puede tener 0, 1, 2 o más asíntotas verticales según su denominador, no siempre exactamente una.",
       "La imagen depende de cada función, no siempre es todo $\\mathbb{R}$.",
@@ -1258,10 +758,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Afirmaciones falsas: pueden tener 0, 1, 2, ... **asíntotas verticales** (no siempre exactamente una).\n\nLa **imagen** no siempre es $\\mathbb{R}$ (por ejemplo : tiene imagen $(0,1]$).\n$$\\frac{1}{x^2+1}$.\n$$\nSí pueden cruzar el eje $$\nX$ cuando el numerador tiene raíces.\n\nLo verdadero es que son **continuas en su dominio**.",
+    "explanation": "Tres de estas afirmaciones son falsas. Una racional puede tener $0, 1, 2$ o más **asíntotas verticales**, según cuántas raíces reales tenga su denominador, no siempre exactamente una.\n\nSu imagen tampoco es siempre $\\mathbb{R}$.\n\nPor ejemplo, la función $1/(x^2+1)$ tiene imagen $(0,1]$.\n\nY sí pueden cruzar el eje $X$ cuando el numerador tiene raíces reales que no cancelan al denominador.\n\nLo verdadero es que, al ser cociente de dos polinomios continuos, toda función racional es **continua** en cada punto de su dominio.",
     "reviewed": false,
     "tags": [
-      "cuadrantes-ramas"
+      "reconocimiento-funcion-racional"
     ]
   }
 ]

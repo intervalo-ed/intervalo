@@ -2,6 +2,7 @@
 
 import MathText from "@/components/math-text"
 import { CountUp } from "@/components/count-up"
+import { DismissibleHint } from "@/components/dismissible-hint"
 import {
   BeltGrid,
   ITEM_COLORS,
@@ -70,7 +71,11 @@ import { useStartSession } from "./UseStartSession"
 import { useUserProgress } from "./UseUserProgress"
 import { startSessionTransition } from "@/lib/nav/session-transition"
 
-const LAST_COURSE_KEY = "intervalo:last_course"
+// Exportada porque /onboarding/complete siembra este mismo valor al terminar
+// el wizard: con la literal duplicada, cambiar una sola de las dos dejaba al
+// dashboard abriendo en un curso distinto al elegido, sin fallar en ningún lado.
+export const LAST_COURSE_KEY = "intervalo:last_course"
+const HINT_STORAGE_KEY = "intervalo:review-progress-hint-seen"
 
 // Transición hacia una sesión: fade-out del dashboard, pausa forzada sobre el
 // fondo vacío, recién ahí se navega. Mismo timing en dashboard-entry.tsx y
@@ -187,12 +192,11 @@ export default function DashboardEntry() {
 
   const setCourse = useCallback(
     ({ next }: { next: CourseId }) => {
-      sfx.iterate()
       const params = new URLSearchParams(searchParams.toString())
       params.set("course", next)
       router.replace(`/?${params.toString()}`)
     },
-    [router, searchParams, sfx],
+    [router, searchParams],
   )
 
   const goPrev = useCallback(() => {
@@ -529,6 +533,17 @@ export default function DashboardEntry() {
                 </AlertDescription>
               </Alert>
             )}
+
+            <DismissibleHint storageKey={HINT_STORAGE_KEY}>
+              <span className="block">
+                Abajo vas a ver tu estado actual en este curso.
+              </span>
+              <span className="block">
+                Desde{" "}
+                <SettingsIcon className="inline size-3.5 align-middle" /> podés
+                adelantar o suspender los temas que quieras.
+              </span>
+            </DismissibleHint>
 
             <AnimatePresence mode="wait" initial={false}>
               <motion.div

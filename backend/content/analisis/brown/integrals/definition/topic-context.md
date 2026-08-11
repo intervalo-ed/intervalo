@@ -2,9 +2,9 @@
 
 Belt: `brown`, Unit: `integrals`, Topic: `definition`
 
-Skills en este topic: `LEXI`, `FORM`, `ESTR`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
+Skills en este topic: `LEXI`, `FORM`, `ESTR`. **30 ejercicios cada uno (90 en total)** al cerrar el refactor.
 
-Este topic tiene 3 ítems (uno por skill): `LEXI`, `FORM`, `ESTR`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
+Este topic tiene 3 ítems (uno por skill): `LEXI`, `FORM`, `ESTR`. **30 ejercicios cada uno (90 en total)** al cerrar el refactor.
 
 **Estado.** Este tópico es la **puerta de entrada al cinturón brown**: define qué es la integral indefinida, fija el vocabulario (integrando, diferencial, primitiva, constante de integración) y prepara el terreno para el tópico siguiente (`reglas`), donde el alumno va a aplicar las fórmulas de integración directa.
 
@@ -38,7 +38,7 @@ Los ejercicios que quiebren esta regla se descartan y se reescriben.
 
 ## Correcciones de formato transversales (los 3 skills)
 
-Reglas de authoring que se aplican al escribir los 150 ejercicios:
+Reglas de authoring que se aplican al escribir los 90 ejercicios:
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`. Estructura: (a) nombrar el objeto matemático evaluado (concepto de primitiva, anatomía de la notación, linealidad, reescritura), (b) desarrollar la lógica con al menos un `\begin{aligned}` donde corresponda, (c) cerrar con advertencia técnica sobre la confusión típica (integrando ≠ resultado, $dx$ no multiplica, no separar productos, $\tfrac{1}{x^n} = x^{-n}$). Sin viñetas `•`, sin sub-`-`, **sin em-dash `—` (prohibido estricto)**, sin humor.
@@ -50,7 +50,7 @@ Reglas de authoring que se aplican al escribir los 150 ejercicios:
 
 ---
 
-## LEXI, 50 ejercicios
+## LEXI, 30 ejercicios
 
 ### Qué evalúa
 **Anatomía matemática y consolidación del Sistema 1** para el nuevo operador. Reconocimiento de qué pieza de la notación cumple qué rol y de la relación conceptual entre primitiva y derivada. Sin cálculo.
@@ -64,8 +64,8 @@ Reglas de authoring que se aplican al escribir los 150 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Anatomía de la notación | Identificar el rol de cada pieza en $\int f(x) \, dx = F(x) + C$: el **integrando** $f(x)$, el **diferencial** $dx$ marcando la variable de integración, el símbolo $\int$ como operador, la **primitiva** $F(x)$ como resultado y la **constante de integración** $C$ como parte inseparable del resultado. | `anatomia-notacion-integral` | 25 |
-| B. Concepto de primitiva y traslación geométrica | Fijar la relación operativa con la derivada ($F' = f \Rightarrow F$ es primitiva de $f$) y su impacto visual: todas las primitivas de una misma función forman una **familia de curvas paralelas**, desplazadas verticalmente por el valor de $C$. | `concepto-primitiva-traslacion-geometrica` | 25 |
+| A. Anatomía de la notación | Identificar el rol de cada pieza en $\int f(x) \, dx = F(x) + C$: el **integrando** $f(x)$, el **diferencial** $dx$ marcando la variable de integración, el símbolo $\int$ como operador, la **primitiva** $F(x)$ como resultado y la **constante de integración** $C$ como parte inseparable del resultado. | `anatomia-notacion-integral` | 15 |
+| B. Concepto de primitiva y traslación geométrica | Fijar la relación operativa con la derivada ($F' = f \Rightarrow F$ es primitiva de $f$) y su impacto visual: todas las primitivas de una misma función forman una **familia de curvas paralelas**, desplazadas verticalmente por el valor de $C$. | `concepto-primitiva-traslacion-geometrica` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -85,7 +85,7 @@ Reglas de authoring que se aplican al escribir los 150 ejercicios:
 
 ---
 
-## FORM, 50 ejercicios
+## FORM, 30 ejercicios
 
 ### Qué evalúa
 **Comprensión teórica de la linealidad** del operador integral. Desarmar un integrando en integrales elementales sin ejecutar el cálculo. Distinguir propiedades válidas (linealidad) de propiedades falsas (integral de un producto ≠ producto de integrales; integral de un cociente ≠ cociente de integrales).
@@ -99,8 +99,8 @@ Reglas de authoring que se aplican al escribir los 150 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Extracción y separación de términos | Desarmar un integrando complejo aplicando la **linealidad** completa. Ejemplo: dada $\int (4x^2 - 3\sin x) \, dx$, elegir la forma armada $4\int x^2 \, dx - 3\int \sin x \, dx$. Extraer constantes multiplicativas fuera de la integral y separar sumas/restas en integrales independientes. | `extraccion-separacion-terminos` | 25 |
-| B. Límites de la linealidad y falsas propiedades | Diferenciar propiedades válidas de inventos algebraicos. Ejemplo: $\int (x \cdot \cos x) \, dx$ **no** se puede partir como $\int x \, dx \cdot \int \cos x \, dx$. Igual con cocientes: $\int \tfrac{f(x)}{g(x)} \, dx \neq \tfrac{\int f(x) \, dx}{\int g(x) \, dx}$. Reconocer qué operaciones respeta la linealidad y cuáles no. | `limites-linealidad-falsas-propiedades` | 25 |
+| A. Extracción y separación de términos | Desarmar un integrando complejo aplicando la **linealidad** completa. Ejemplo: dada $\int (4x^2 - 3\sin x) \, dx$, elegir la forma armada $4\int x^2 \, dx - 3\int \sin x \, dx$. Extraer constantes multiplicativas fuera de la integral y separar sumas/restas en integrales independientes. | `extraccion-separacion-terminos` | 15 |
+| B. Límites de la linealidad y falsas propiedades | Diferenciar propiedades válidas de inventos algebraicos. Ejemplo: $\int (x \cdot \cos x) \, dx$ **no** se puede partir como $\int x \, dx \cdot \int \cos x \, dx$. Igual con cocientes: $\int \tfrac{f(x)}{g(x)} \, dx \neq \tfrac{\int f(x) \, dx}{\int g(x) \, dx}$. Reconocer qué operaciones respeta la linealidad y cuáles no. | `limites-linealidad-falsas-propiedades` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -119,7 +119,7 @@ Reglas de authoring que se aplican al escribir los 150 ejercicios:
 
 ---
 
-## ESTR, 50 ejercicios
+## ESTR, 30 ejercicios
 
 ### Qué evalúa
 **Decisiones de acondicionamiento algebraico** previas al armado. Bloquear vicios operativos que arruinarían el cálculo posterior. Preparar el terreno para el tópico `reglas` reconociendo qué expresiones **necesitan reescritura** antes de aplicar cualquier fórmula de integración.
@@ -133,8 +133,8 @@ Reglas de authoring que se aplican al escribir los 150 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Expansión y distribución obligatoria | Detectar cuándo el paso previo eficiente es álgebra básica antes de integrar. Ejemplos: frente a $(x + 2)^2$ desarrollar el trinomio a $x^2 + 4x + 4$; frente a $\tfrac{x^3 + 5x}{x}$ repartir el denominador y quedar con $x^2 + 5$; frente a $x(x^2 - 1)$ distribuir a $x^3 - x$. | `expansion-distribucion-obligatoria` | 25 |
-| B. Reescritura de potencias y raíces | Auditar la conversión a formato de potencia como paso previo. Ejemplos: $\tfrac{1}{x^3} \to x^{-3}$; $\sqrt{x} \to x^{1/2}$; $\sqrt[3]{x^2} \to x^{2/3}$; $\tfrac{1}{\sqrt{x}} \to x^{-1/2}$. | `reescritura-potencias-y-raices` | 25 |
+| A. Expansión y distribución obligatoria | Detectar cuándo el paso previo eficiente es álgebra básica antes de integrar. Ejemplos: frente a $(x + 2)^2$ desarrollar el trinomio a $x^2 + 4x + 4$; frente a $\tfrac{x^3 + 5x}{x}$ repartir el denominador y quedar con $x^2 + 5$; frente a $x(x^2 - 1)$ distribuir a $x^3 - x$. | `expansion-distribucion-obligatoria` | 15 |
+| B. Reescritura de potencias y raíces | Auditar la conversión a formato de potencia como paso previo. Ejemplos: $\tfrac{1}{x^3} \to x^{-3}$; $\sqrt{x} \to x^{1/2}$; $\sqrt[3]{x^2} \to x^{2/3}$; $\tfrac{1}{\sqrt{x}} \to x^{-1/2}$. | `reescritura-potencias-y-raices` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -163,7 +163,7 @@ Pre-revisión programática (script propio contra el snowball completo de `autho
 - **`FORM`: 15/15 ejercicios abren con `"Considerá la integral\n$$...$$"`.** Es una cláusula completa (verbo + objeto), **solo le falta el `:`** antes del bloque (regla 32) y variar la redacción ejercicio a ejercicio (hoy es 100% idéntica).
 - **`ESTR`: 15/15 ejercicios abren con `"Antes de resolver\n$$...$$\n¿qué paso previo conviene dar?"`.** Esto es más grave que un simple opener: es **una sola oración cortada por la fórmula en el medio** (la pregunta sigue en minúscula, gramaticalmente parte de "antes de resolver X"), viola directamente la **regla crítica 9**, no solo la 32. Reescribir como `"Antes de resolver esta integral:\n$$...$$\n¿Qué paso previo conviene dar?"` (cierre propio + pregunta nueva en mayúscula).
 - **`LEXI`: aperturas variadas pero varias incompletas** (`"En la notación"`, `"En la misma notación"`, `"En"` a secas, `"Al escribir"`). A diferencia de "Considerá la integral", estos son fragmentos sin objeto propio: el `:` no los arregla, necesitan reescritura completa.
-- **`ESTR`: opciones con ratio de longitud alto** (ej. `[23, 51, 21]` caracteres), la del medio casi el doble de las otras dos. Revisar paridad (regla 4/15) al completar los 50 ejercicios.
+- **`ESTR`: opciones con ratio de longitud alto** (ej. `[23, 51, 21]` caracteres), la del medio casi el doble de las otras dos. Revisar paridad (regla 4/15) al completar los 30 ejercicios.
 - **Nota de vocabulario, no es un hallazgo real**: `FORM` usa "linealidad" con frecuencia en `explanation` como **el nombre correcto de la propiedad** del operador integral (∫(f+g)=∫f+∫g, ∫kf=k∫f). La entrada de la tabla de vocabulario prohibido en `authoring-context.md` banea "linealidad" **solo como nombre de planteo en `options`** (contexto de `violet/derivatives`, donde competía con "múltiplo escalar"); acá es terminología legítima en prosa y no hay que tocarla.
 
 ---
@@ -171,7 +171,7 @@ Pre-revisión programática (script propio contra el snowball completo de `autho
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 3 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 30 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna aplicación de fórmulas de integración directa (regla de la potencia, integrales de $e^x$, $\sin x$, $\ln x$, etc.)
 - [ ] Ninguna mención de integral definida, área bajo la curva, TFC, sustitución o integración por partes como métodos aplicables acá
 - [ ] Explicaciones en 3 párrafos de prosa; estructura conceptual; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
@@ -183,23 +183,23 @@ Pre-revisión programática (script propio contra el snowball completo de `autho
 - [ ] Ningún `\begin{aligned}` alinea con `=` datos evaluados de forma independiente (regla crítica 30)
 
 **LEXI:**
-- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
-- [ ] Distribución A/B respetada (25/25)
+- [ ] 30 ejercicios; **exactamente 3 opciones** por ejercicio
+- [ ] Distribución A/B respetada (15/15)
 - [ ] Ningún cálculo; solo anatomía y relaciones conceptuales
 - [ ] Sub-A con opciones que etiquetan los términos como texto exacto
 - [ ] Sub-B con opciones tipo "$F' = f$" para auditar la relación con la derivada
 - [ ] "La integral devuelve un área" y "las curvas se cruzan en el origen" presentes como distractores en al menos algunos ejercicios de sub-B
 
 **FORM:**
-- [ ] 50 ejercicios; **3 opciones por defecto**, **4 opciones** cuando la respuesta sea numérica corta que entre en grilla 2×2 (≤ 35 caracteres)
-- [ ] Distribución A/B respetada (25/25)
+- [ ] 30 ejercicios; **3 opciones por defecto**, **4 opciones** cuando la respuesta sea numérica corta que entre en grilla 2×2 (≤ 35 caracteres)
+- [ ] Distribución A/B respetada (15/15)
 - [ ] Sin cálculo final; solo forma armada aplicando linealidad
 - [ ] Sub-A con opciones tipo `"4∫x²dx - 3∫sin x dx"` textuales
 - [ ] Sub-B con opciones que incluyen una separación indebida (producto o cociente) y una opción "no se puede separar así"
 
 **ESTR:**
-- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
-- [ ] Distribución A/B respetada (25/25)
+- [ ] 30 ejercicios; **exactamente 3 opciones** por ejercicio
+- [ ] Distribución A/B respetada (15/15)
 - [ ] Sin cálculo final; solo elección del paso previo de acondicionamiento
 - [ ] Sub-A con opciones tipo "Desarrollar el binomio y luego integrar" textuales; distractor mayoritario "integrar el interior y elevar al cuadrado" o "derivar el integrando"
 - [ ] Sub-B con opciones que reescriben la expresión como potencia; distractor mayoritario "dejar sin reescribir" o "subir sin invertir el signo del exponente"

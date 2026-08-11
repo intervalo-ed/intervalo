@@ -2,11 +2,11 @@
 
 Belt: `blue`, Unit: `limits`, Topic: `rationalization`
 
-Skills en este topic: `LEXI`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+Skills en este topic: `LEXI`, `RESL`. **30 ejercicios cada uno (60 en total)** al cerrar el refactor.
 
-Este topic tiene 2 ítems (uno por skill): `LEXI`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+Este topic tiene 2 ítems (uno por skill): `LEXI`, `RESL`. **30 ejercicios cada uno (60 en total)** al cerrar el refactor.
 
-**Estado.** Este tópico reemplaza a `racionalizacion` (rename ES→EN). La carpeta fue renombrada (`blue/limits/rationalization/`) y los `external_id` se van a regenerar en la próxima seed (`blue_rationalization_lexi_01…`), lo que rompe el progreso guardado en DB — asumido y aceptado. `LEXI.json` y `RESL.json` ya existen con 15 ejercicios de prueba cada uno; el refactor a los 50 ejercicios de la distribución nueva se hace en otro turno.
+**Estado.** Este tópico reemplaza a `racionalizacion` (rename ES→EN). La carpeta fue renombrada (`blue/limits/rationalization/`) y los `external_id` se van a regenerar en la próxima seed (`blue_rationalization_lexi_01…`), lo que rompe el progreso guardado en DB — asumido y aceptado. `LEXI.json` y `RESL.json` ya existen con 15 ejercicios de prueba cada uno; el refactor a los 30 ejercicios de la distribución nueva se hace en otro turno.
 
 Este doc especifica el alcance nuevo, las reglas duras de restricción y la distribución objetivo por skill.
 
@@ -40,7 +40,7 @@ Los ejercicios que quiebren esta regla se descartan y se reescriben.
 
 ## Correcciones de formato transversales (los 2 skills)
 
-Reglas de authoring que se aplican al escribir los 100 ejercicios:
+Reglas de authoring que se aplican al escribir los 60 ejercicios:
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`: (a) concepto algebraico aplicado (diagnóstico visual: veo raíz + $\tfrac{0}{0}$ → racionalizar), (b) desarrollo formal en `\begin{aligned}` (multiplicar por conjugado → diferencia de cuadrados → cancelación → sustitución), (c) cierre con la evaluación final o advertencia técnica. Sin viñetas `•`, sin sub-`-`, **sin em-dash `—` (estrictamente prohibido en todo el contenido)**, sin humor.
@@ -53,13 +53,13 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 ---
 
-## `feedback_incorrect` en los 100 ejercicios
+## `feedback_incorrect` en los 60 ejercicios
 
 Completar con `array<string|null>` paralelo a `options`, `null` en el índice correcto. Voz descriptiva del concepto, en segunda persona amable. Una oración por distractor, autosuficiente.
 
 ---
 
-## LEXI, 50 ejercicios
+## LEXI, 30 ejercicios
 
 ### Qué evalúa
 Reconocimiento visual del **conjugado**, afianzamiento de la **identidad de diferencia de cuadrados** aplicada a raíces, y justificación algebraica de la técnica (por qué "arriba y abajo", cuándo aplicarla).
@@ -71,12 +71,14 @@ Reconocimiento visual del **conjugado**, afianzamiento de la **identidad de dife
 
 ### Distribución por sub-familia
 
+**Recortado (ronda ago-2026) de 50 → 30 ejercicios por skill, escalando cada sub-familia proporcionalmente (factor ~0.6, exacto sin remainder).**
+
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Identificación del conjugado | Dada una expresión con raíz (ej. $\sqrt{x + 4} - 2$), elegir su conjugado exacto. **Cuidar**: el signo interno de la raíz no se altera, solo se invierte el signo entre los dos términos externos. | `identificacion-del-conjugado` | 15 |
-| B. Identidad fundamental | Evaluar el resultado abstracto de multiplicar una raíz por su conjugado. Confirmar que $(\sqrt{u} - c)(\sqrt{u} + c) = u - c^2$; identificar el resultado en casos concretos. | `identidad-fundamental-conjugado` | 15 |
-| C. Diagnóstico de técnica | Distinguir cuándo corresponde **racionalizar** (hay raíz cuadrada + $\tfrac{0}{0}$) y cuándo **factorizar** (no hay raíz, solo polinomios). Un caso híbrido también puede requerir ambas. | `diagnostico-racionalizar-vs-factorizar` | 10 |
-| D. Propósito lógico | Preguntas teóricas: por qué se multiplica arriba **y** abajo (para multiplicar por $1$, no alterar la función), cuál es el objetivo de quebrar la raíz (exponer el factor $(x - a)$ para cancelar), qué pasa si multiplico solo el numerador. | `proposito-logico-conjugado` | 10 |
+| A. Identificación del conjugado | Dada una expresión con raíz (ej. $\sqrt{x + 4} - 2$), elegir su conjugado exacto. **Cuidar**: el signo interno de la raíz no se altera, solo se invierte el signo entre los dos términos externos. | `identificacion-del-conjugado` | 9 |
+| B. Identidad fundamental | Evaluar el resultado abstracto de multiplicar una raíz por su conjugado. Confirmar que $(\sqrt{u} - c)(\sqrt{u} + c) = u - c^2$; identificar el resultado en casos concretos. | `identidad-fundamental-conjugado` | 9 |
+| C. Diagnóstico de técnica | Distinguir cuándo corresponde **racionalizar** (hay raíz cuadrada + $\tfrac{0}{0}$) y cuándo **factorizar** (no hay raíz, solo polinomios). Un caso híbrido también puede requerir ambas. | `diagnostico-racionalizar-vs-factorizar` | 6 |
+| D. Propósito lógico | Preguntas teóricas: por qué se multiplica arriba **y** abajo (para multiplicar por $1$, no alterar la función), cuál es el objetivo de quebrar la raíz (exponer el factor $(x - a)$ para cancelar), qué pasa si multiplico solo el numerador. | `proposito-logico-conjugado` | 6 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Conjugado con signo interno alterado**: para $\sqrt{x + 4} - 2$ dar $\sqrt{x - 4} + 2$ (invertir el signo dentro de la raíz). Recordar: el conjugado invierte solo el signo entre los dos términos externos, no dentro del radicando.
@@ -94,7 +96,7 @@ Reconocimiento visual del **conjugado**, afianzamiento de la **identidad de dife
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 30 ejercicios
 
 ### Qué evalúa
 Ejecutar la **multiplicación por el conjugado**, simplificar la **diferencia de cuadrados**, cancelar el factor común $(x - a)$ y evaluar el límite por sustitución directa.
@@ -106,11 +108,13 @@ Ejecutar la **multiplicación por el conjugado**, simplificar la **diferencia de
 
 ### Distribución por sub-familia
 
+**Recortado (ronda ago-2026) de 50 → 30 ejercicios por skill, escalando cada sub-familia proporcionalmente (factor ~0.6, exacto sin remainder).**
+
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Raíz en el numerador | Límites donde la indeterminación viene de una raíz en la parte superior. Ejemplo: $\lim_{x \to 0} \tfrac{\sqrt{x + 9} - 3}{x}$. Multiplicar por conjugado del numerador. | `raiz-en-el-numerador` | 20 |
-| B. Raíz en el denominador | Límites donde el conjugado se aplica para limpiar la parte inferior. Ejemplo: $\lim_{x \to 4} \tfrac{x - 4}{\sqrt{x} - 2}$. Multiplicar por conjugado del denominador. | `raiz-en-el-denominador` | 20 |
-| C. Cancelación con signos ocultos | Límites donde, tras racionalizar, el factor resultante tiene signos invertidos y hay que extraer un $-1$ para poder cancelar. Ejemplo: $\lim_{x \to 4} \tfrac{4 - x}{\sqrt{x} - 2}$: $4 - x = -(x - 4)$. | `cancelacion-signos-ocultos` | 10 |
+| A. Raíz en el numerador | Límites donde la indeterminación viene de una raíz en la parte superior. Ejemplo: $\lim_{x \to 0} \tfrac{\sqrt{x + 9} - 3}{x}$. Multiplicar por conjugado del numerador. | `raiz-en-el-numerador` | 12 |
+| B. Raíz en el denominador | Límites donde el conjugado se aplica para limpiar la parte inferior. Ejemplo: $\lim_{x \to 4} \tfrac{x - 4}{\sqrt{x} - 2}$. Multiplicar por conjugado del denominador. | `raiz-en-el-denominador` | 12 |
+| C. Cancelación con signos ocultos | Límites donde, tras racionalizar, el factor resultante tiene signos invertidos y hay que extraer un $-1$ para poder cancelar. Ejemplo: $\lim_{x \to 4} \tfrac{4 - x}{\sqrt{x} - 2}$: $4 - x = -(x - 4)$. | `cancelacion-signos-ocultos` | 6 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Multiplicar solo arriba o solo abajo**: al racionalizar el numerador, no multiplicar el denominador por el mismo conjugado. La fracción $\tfrac{\text{conjugado}}{\text{conjugado}} = 1$; si se rompe, se cambia la función.
@@ -149,7 +153,7 @@ Corrección puntual del usuario sobre ejercicios de prueba de este topic (`corre
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 2 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 30 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna mención de L'Hôpital, derivadas, raíces cúbicas, raíces anidadas ni conjugados complejos
 - [ ] Explicaciones en 3 párrafos de prosa; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
 - [ ] `feedback_correct` conciso; desarrollo completo en `explanation` con `\begin{aligned}`
@@ -160,19 +164,19 @@ Corrección puntual del usuario sobre ejercicios de prueba de este topic (`corre
 - [ ] Cada `explanation` suma 1-2 párrafos de intuición general de la noción de límite en juego (ver `course-context.md` §Refuerzo de intuición en `blue`)
 
 **LEXI:**
-- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
-- [ ] Distribución A/B/C/D respetada (15/15/10/10)
+- [ ] 30 ejercicios; **exactamente 3 opciones** por ejercicio
+- [ ] Distribución A/B/C/D respetada (9/9/6/6)
 - [ ] Negrita en primera mención de `racionalización`, `conjugado`, `diferencia de cuadrados`, `indeterminación`
 - [ ] Textos exactos en opciones de diagnóstico (`"Factorizar"`, `"Racionalizar"`, `"Sustitución directa"`, `"Indeterminación no resoluble"`)
 
 **RESL:**
-- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
-- [ ] Distribución A/B/C respetada (20/20/10)
+- [ ] 30 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
+- [ ] Distribución A/B/C respetada (12/12/6)
 - [ ] Todo enunciado presenta $\tfrac{0}{0}$ por sustitución directa **y** al menos una raíz cuadrada (verificado)
 - [ ] Explicaciones con la secuencia diagnóstico → conjugado → diferencia de cuadrados → cancelación → sustitución
 - [ ] Ningún resultado dejado como expresión sin evaluar
 - [ ] Sub-C con el paso de extracción de $-1$ documentado en la explicación
 - [ ] Ninguna aplicación de L'Hôpital ni factorización de polinomios sin raíces
 - [ ] **El planteo de la multiplicación por el conjugado va en su propio renglón del `aligned`**, separado de su resultado ya simplificado (ver hallazgos `RESL_01`/`RESL_02`/`RESL_05`)
-- [ ] **Ningún ejercicio con $c>5$** (verificar los 50 ejercicios, no solo los señalados en la auditoría; se encontraron 4 de 15 en la ronda 1)
+- [ ] **Ningún ejercicio con $c>5$** (verificar los 30 ejercicios, no solo los señalados en la auditoría; se encontraron 4 de 15 en la ronda 1)
 - [ ] **Ningún desplazamiento $\pm1$ dentro de la raíz**; sub-A y sub-B usan por default tendencia $x\to0$ con radicando $x+c^2$, reservando tendencias no nulas a una minoría avanzada sin desplazamiento $\pm1$

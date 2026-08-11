@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x^2-4$.\n\n$v(x)=e^x$.\n\ncon $u'(x)=2x$ y $v'(x)=e^x$.\n\nEl término $u(2)v'(2)$ se anula porque $x=2$ es raíz del **numerador** original.\n\nasí que el resultado se simplifica a $u'(2)/v(2)$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $u(x)=x^2-4$ y $v(x)=e^x$, con:\n$$\\begin{aligned} u'(x) &= 2x \\\\ v'(x) &= e^x \\end{aligned}$$\nEn $x=2$ el numerador $u$ vale cero, así que el término que lo multiplica se anula.\n\nAplicando la fórmula:\n$$\\begin{aligned} f'(2) &= \\frac{u'(2)v(2) - u(2)v'(2)}{v(2)^2} \\\\ &= \\frac{4\\cdot e^2 - 0}{e^4} \\\\ &= \\frac{4}{e^2} \\end{aligned}$$\nEl resultado final queda determinado únicamente por el primer término del numerador.\n\nEste mismo patrón, una raíz del numerador en el punto de evaluación, es el que define toda la subfamilia de anulación por raíz.",
     "reviewed": false,
     "tags": [
       "anulacion-raiz-numerador-cociente"
@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x-1$.\n\n$v(x)=e^x$.\n\ncon $u'(x)=1$ y $v'(x)=e^x$.\n\nEl término $u(1)v'(1)$ se anula porque $x=1$ es raíz del numerador original.\n\ny el resultado queda determinado por $u'(1)/v(1)$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $u(x)=x-1$ y $v(x)=e^x$, con:\n$$\\begin{aligned} u'(x) &= 1 \\\\ v'(x) &= e^x \\end{aligned}$$\nEn $x=1$ el numerador $u$ vale cero, así que el término que lo multiplica se anula.\n\nAplicando la fórmula:\n$$\\begin{aligned} f'(1) &= \\frac{u'(1)v(1) - u(1)v'(1)}{v(1)^2} \\\\ &= \\frac{1\\cdot e - 0}{e^2} \\\\ &= \\frac{1}{e} \\end{aligned}$$\nEl resultado final queda determinado únicamente por el primer término del numerador.\n\nRevisar primero si el numerador original se anula en el punto de evaluación ahorra buena parte del cálculo.",
     "reviewed": false,
     "tags": [
       "anulacion-raiz-numerador-cociente"
@@ -68,7 +68,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x^2-9$.\n\n$v(x)=x$.\n\ncon $u'(x)=2x$ y $v'(x)=1$.\n\nEl término $u(3)v'(3)$ se anula porque $x=3$ es raíz del numerador original.\n\ny el resultado queda determinado por $u'(3)/v(3)$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $u(x)=x^2-9$ y $v(x)=x$, con:\n$$\\begin{aligned} u'(x) &= 2x \\\\ v'(x) &= 1 \\end{aligned}$$\nEn $x=3$ el numerador $u$ vale cero, así que el término que lo multiplica se anula.\n\nAplicando la fórmula:\n$$\\begin{aligned} f'(3) &= \\frac{u'(3)v(3) - u(3)v'(3)}{v(3)^2} \\\\ &= \\frac{6\\cdot 3 - 0}{9} \\\\ &= 2 \\end{aligned}$$\nEl resultado final queda determinado únicamente por el primer término del numerador.\n\nEl denominador nunca se anula en $x=3$, así que la fracción está garantizada.",
     "reviewed": false,
     "tags": [
       "anulacion-raiz-numerador-cociente"
@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x+5$.\n\n$v(x)=x^2$.\n\ncon $u'(x)=1$ y $v'(x)=2x$.\n\nEl término $u(-5)v'(-5)$ se anula porque $x=-5$ es raíz del numerador original.\n\ny el resultado queda determinado por $u'(-5)/v(-5)$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $u(x)=x+5$ y $v(x)=x^2$, con:\n$$\\begin{aligned} u'(x) &= 1 \\\\ v'(x) &= 2x \\end{aligned}$$\nEn $x=-5$ el numerador $u$ vale cero, así que el término que lo multiplica se anula.\n\nAplicando la fórmula:\n$$\\begin{aligned} f'(-5) &= \\frac{u'(-5)v(-5) - u(-5)v'(-5)}{v(-5)^2} \\\\ &= \\frac{1\\cdot 25 - 0}{625} \\\\ &= \\frac{1}{25} \\end{aligned}$$\nEl resultado final queda determinado únicamente por el primer término del numerador.\n\nEl signo de $x=-5$ solo afecta a $v(-5)=(-5)^2$, que sigue siendo positivo al elevarlo al cuadrado.",
     "reviewed": false,
     "tags": [
       "anulacion-raiz-numerador-cociente"
@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x-4$.\n\n$v(x)=\\ln x$.\n\ncon $u'(x)=1$ y $v'(x)=\\frac{1}{x}$.\n\nEl término $u(4)v'(4)$ se anula porque $x=4$ es raíz del numerador original.\n\ny el resultado queda determinado por $u'(4)/v(4)$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $u(x)=x-4$ y $v(x)=\\ln x$, con:\n$$\\begin{aligned} u'(x) &= 1 \\\\ v'(x) &= 1/x \\end{aligned}$$\nEn $x=4$ el numerador $u$ vale cero, así que el término que lo multiplica se anula.\n\nAplicando la fórmula:\n$$\\begin{aligned} f'(4) &= \\frac{u'(4)v(4) - u(4)v'(4)}{v(4)^2} \\\\ &= \\frac{1\\cdot \\ln 4 - 0}{(\\ln 4)^2} \\\\ &= \\frac{1}{\\ln 4} \\end{aligned}$$\nEl resultado final queda determinado únicamente por el primer término del numerador.\n\nNo hace falta calcular el valor numérico de $\\ln 4$, alcanza con dejarlo expresado así.",
     "reviewed": false,
     "tags": [
       "anulacion-raiz-numerador-cociente"
@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=\\sin x$.\n\n$v(x)=x$.\n\ncon $u'(x)=\\cos x$ y $v'(x)=1$.\n\nEl término $u'(\\pi/2)v(\\pi/2)$ se anula porque $x=\\pi/2$ \n\nanula la derivada de $u$.\n\ny el resultado queda determinado por el segundo término con signo negativo.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $u(x)=\\sin x$ y $v(x)=x$, con:\n$$\\begin{aligned} u'(x) &= \\cos x \\\\ v'(x) &= 1 \\end{aligned}$$\nEn $x=\\pi/2$ la derivada de $u$ vale cero, así que el término que la incluye se anula.\n\nAplicando la fórmula:\n$$\\begin{aligned} f'(\\pi/2) &= \\frac{u'(\\pi/2)v(\\pi/2) - u(\\pi/2)v'(\\pi/2)}{v(\\pi/2)^2} \\\\ &= \\frac{0 - 1\\cdot 1}{(\\pi/2)^2} \\\\ &= -\\frac{4}{\\pi^2} \\end{aligned}$$\nEl resultado final queda determinado únicamente por el segundo término del numerador, con signo negativo.\n\nEste signo negativo aparece siempre que se anula el primer término de la resta, conviene no perderlo.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-nula-cociente"
@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=\\cos x$.\n\n$v(x)=x^2+x+1$.\n\ncon $u'(x)=-\\sin x$ y $v'(x)=2x+1$.\n\nEl término $u'(0)v(0)$ se anula porque $x=0$ \n\nanula la derivada de $u$.\n\ny el resultado queda determinado por el segundo término con signo negativo.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $u(x)=\\cos x$ y $v(x)=x^2+x+1$, con:\n$$\\begin{aligned} u'(x) &= -\\sin x \\\\ v'(x) &= 2x+1 \\end{aligned}$$\nEn $x=0$ la derivada de $u$ vale cero, así que el término que la incluye se anula.\n\nAplicando la fórmula:\n$$\\begin{aligned} f'(0) &= \\frac{u'(0)v(0) - u(0)v'(0)}{v(0)^2} \\\\ &= \\frac{0 - 1\\cdot 1}{1} \\\\ &= -1 \\end{aligned}$$\nEl resultado final queda determinado únicamente por el segundo término del numerador, con signo negativo.\n\nEl término variable de $v'(x)$ desaparece al evaluar en $x=0$, dejando solo el término independiente.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-nula-cociente"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x^2+4$.\n\n$v(x)=e^x$.\n\ncon $u'(x)=2x$ y $v'(x)=e^x$.\n\nEl término $u'(0)v(0)$ se anula porque $x=0$ \n\nanula la derivada de $u$.\n\ny el resultado queda determinado por el segundo término con signo negativo.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $u(x)=x^2+4$ y $v(x)=e^x$, con:\n$$\\begin{aligned} u'(x) &= 2x \\\\ v'(x) &= e^x \\end{aligned}$$\nEn $x=0$ la derivada de $u$ vale cero, así que el término que la incluye se anula.\n\nAplicando la fórmula:\n$$\\begin{aligned} f'(0) &= \\frac{u'(0)v(0) - u(0)v'(0)}{v(0)^2} \\\\ &= \\frac{0 - 4\\cdot 1}{1} \\\\ &= -4 \\end{aligned}$$\nEl resultado final queda determinado únicamente por el segundo término del numerador, con signo negativo.\n\nEl valor $u(0)=4$ es el que aporta todo el resultado, ya que el primer término se anuló por completo.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-nula-cociente"
@@ -218,7 +218,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x+1$.\n\n$v(x)=\\cos x+3$.\n\ncon $u'(x)=1$ y $v'(x)=-\\sin x$.\n\nEl término $u(0)v'(0)$ se anula porque $x=0$ \n\nanula la derivada de $v$.\n\ny el resultado queda determinado por el primer término del numerador.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $u(x)=x+1$ y $v(x)=\\cos x+3$, con:\n$$\\begin{aligned} u'(x) &= 1 \\\\ v'(x) &= -\\sin x \\end{aligned}$$\nEn $x=0$ la derivada de $v$ vale cero, así que el término que la incluye se anula.\n\nAplicando la fórmula:\n$$\\begin{aligned} f'(0) &= \\frac{u'(0)v(0) - u(0)v'(0)}{v(0)^2} \\\\ &= \\frac{1\\cdot 4 - 0}{16} \\\\ &= \\frac{1}{4} \\end{aligned}$$\nEl resultado final queda determinado únicamente por el primer término del numerador.\n\nAcá se anula la derivada de $v$ en vez de la de $u$, conviene revisar siempre cuál de las dos derivadas se anula.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-nula-cociente"
@@ -238,12 +238,12 @@
     "feedback_incorrect": [
       "Uno de esos valores no resuelve la ecuación correctamente, revisá la factorización del numerador.",
       null,
-      "Hay que la otra raíz de la ecuación, el numerador se anula en dos valores distintos, no en uno solo.",
-      "Hay que la otra raíz de la ecuación, el numerador se anula en dos valores distintos, no en uno solo."
+      "Ese valor es una sola raíz; el numerador se anula en dos valores distintos, no en uno solo.",
+      "Ese valor es una sola raíz; el numerador se anula en dos valores distintos, no en uno solo."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **tangente horizontal** aparece donde el numerador de la derivada se anula, sin importar el denominador siempre que $v \\neq 0$.\n\nIgualando a cero.\n\n$x(x+2)=0$ da las dos soluciones $x=0$ \n\ny $x=-2$.\n\nambas dentro del dominio porque no anulan el denominador $x+1$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $u(x)=x^2$ y $v(x)=x+1$, con:\n$$\\begin{aligned} u'(x) &= 2x \\\\ v'(x) &= 1 \\end{aligned}$$\nLa **tangente horizontal** aparece donde el numerador de la derivada se anula, sin importar el denominador siempre que $v \\neq 0$:\n$$\\begin{aligned} u'v-uv' &= 2x(x+1) - x^2 \\\\ &= x^2+2x \\\\ &= x(x+2) \\end{aligned}$$\nEsta expresión se anula en $x=0$ y en $x=-2$, ambos dentro del dominio porque ninguno anula el denominador.\n\nDescartar el denominador al igualar a cero es válido porque una fracción solo vale cero cuando su numerador vale cero.",
     "reviewed": false,
     "tags": [
       "tangentes-horizontales-cociente"
@@ -261,14 +261,14 @@
     "has_math": true,
     "feedback_correct": "Correcto, ambos valores anulan el numerador de la derivada.",
     "feedback_incorrect": [
-      "Hay que la otra raíz de la ecuación, el numerador se anula en dos valores distintos, no en uno solo.",
+      "Ese valor es una sola raíz; el numerador se anula en dos valores distintos, no en uno solo.",
       "Uno de esos valores no resuelve la ecuación correctamente, revisá la factorización del numerador.",
       null,
-      "Hay que la otra raíz de la ecuación, el numerador se anula en dos valores distintos, no en uno solo."
+      "Ese valor es una sola raíz; el numerador se anula en dos valores distintos, no en uno solo."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El denominador $x^2+1$ nunca se anula, así que alcanza con resolver dónde se anula el numerador de la derivada.\n\nIgualando a cero.\n\n$(1-x)(1+x)=0$ da las dos soluciones $x=1$ \n\ny $x=-1$.\n\nambas válidas porque el denominador nunca se anula.\n\nLa recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
+    "explanation": "Identificamos $u(x)=x$ y $v(x)=x^2+1$, con:\n$$\\begin{aligned} u'(x) &= 1 \\\\ v'(x) &= 2x \\end{aligned}$$\nEl denominador nunca se anula, así que alcanza con resolver dónde se anula el numerador de la derivada:\n$$\\begin{aligned} u'v-uv' &= (x^2+1) - x(2x) \\\\ &= 1-x^2 \\\\ &= (1-x)(1+x) \\end{aligned}$$\nEsta expresión se anula en $x=1$ y en $x=-1$, ambos válidos porque el denominador nunca vale cero.\n\nCuando el denominador es siempre positivo, ni siquiera hace falta revisar restricciones de dominio.",
     "reviewed": false,
     "tags": [
       "tangentes-horizontales-cociente"
@@ -286,21 +286,21 @@
     "has_math": true,
     "feedback_correct": "Correcto, ambos valores anulan el numerador de la derivada.",
     "feedback_incorrect": [
-      "Hay que la otra raíz de la ecuación, el numerador se anula en dos valores distintos, no en uno solo.",
-      "Hay que la otra raíz de la ecuación, el numerador se anula en dos valores distintos, no en uno solo.",
+      "Ese valor es una sola raíz; el numerador se anula en dos valores distintos, no en uno solo.",
+      "Ese valor es una sola raíz; el numerador se anula en dos valores distintos, no en uno solo.",
       "$x=3$ anula el denominador de la fracción original, ese valor queda fuera del dominio de $f$.",
       null
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de resolver, conviene recordar que $x=3$ queda excluido del dominio porque anula el denominador de $f$.\n\nIgualando a cero.\n\n$x(x-6)=0$ da las soluciones $x=0$ \n\ny $x=6$.\n\nambas dentro del dominio porque ninguna coincide con $x=3$.\n\nLa recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
+    "explanation": "Identificamos $u(x)=x^2$ y $v(x)=x-3$, con:\n$$\\begin{aligned} u'(x) &= 2x \\\\ v'(x) &= 1 \\end{aligned}$$\nAntes de resolver, conviene recordar que $x=3$ queda excluido del dominio porque anula el denominador de $f$:\n$$\\begin{aligned} u'v-uv' &= 2x(x-3) - x^2 \\\\ &= x^2-6x \\\\ &= x(x-6) \\end{aligned}$$\nEsta expresión se anula en $x=0$ y en $x=6$, ninguno de los dos coincide con el valor excluido del dominio.\n\nVerificar el dominio antes de aceptar una raíz evita incluir por error un valor donde la función original no está definida.",
     "reviewed": false,
     "tags": [
       "tangentes-horizontales-cociente"
     ]
   },
   {
-    "question": "Analiza la función:\n$$\\left(\\frac{f}{g}\\right)'(2)$$",
+    "question": "Si $f(2)=0$, $f'(2)=3$, $g(2)=4$ y $g'(2)=-1$, calculá $(f/g)'(2)$.",
     "options": [
       "$3/4$",
       "$-3/4$",
@@ -318,14 +318,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La fórmula de la **regla del cociente** se aplica directamente con los datos dados, sin necesidad de calcular ninguna derivada.\n\nEl dato $f(2)=0$ anula el segundo término del numerador.\n\ndejando el resultado final determinado por $f'(2)g(2)$ dividido por $g(2)^2$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "La fórmula de la **regla del cociente** se aplica directamente con los datos dados, sin necesidad de calcular ninguna derivada:\n$$\\begin{aligned} \\left(\\frac{f}{g}\\right)'(2) &= \\frac{f'(2)g(2) - f(2)g'(2)}{g(2)^2} \\\\ &= \\frac{3\\cdot 4 - 0\\cdot(-1)}{16} \\\\ &= \\frac{3}{4} \\end{aligned}$$\nEl dato $f(2)=0$ anula el segundo término del numerador.\n\nReconocer de entrada cuál dato vale cero evita calcular el término que de todas formas va a desaparecer.",
     "reviewed": false,
     "tags": [
       "evaluacion-datos-abstractos-cociente"
     ]
   },
   {
-    "question": "Con la función:\n$$\\left(\\frac{f}{g}\\right)'(1)$$",
+    "question": "Si $f(1)=5$, $f'(1)=0$, $g(1)=2$ y $g'(1)=3$, calculá $(f/g)'(1)$.",
     "options": [
       "$0$",
       "$-15/4$",
@@ -343,14 +343,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos la fórmula del cociente directamente con los datos dados.\n\nEl dato $f'(1)=0$ anula el primer término del numerador.\n\ndejando el resultado final determinado por $-f(1)g'(1)$ dividido por $g(1)^2$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Aplicamos la fórmula del cociente directamente con los datos dados, sin necesidad de calcular ninguna derivada:\n$$\\begin{aligned} \\left(\\frac{f}{g}\\right)'(1) &= \\frac{f'(1)g(1) - f(1)g'(1)}{g(1)^2} \\\\ &= \\frac{0 - 5\\cdot 3}{4} \\\\ &= -\\frac{15}{4} \\end{aligned}$$\nEl dato $f'(1)=0$ anula el primer término del numerador.\n\nEl signo negativo queda porque el término que sobrevive es justamente el que se resta en la fórmula.",
     "reviewed": false,
     "tags": [
       "evaluacion-datos-abstractos-cociente"
     ]
   },
   {
-    "question": "Para la función:\n$$\\left(\\frac{f}{g}\\right)'(0)$$",
+    "question": "Si $f(0)=2$, $f'(0)=1$, $g(0)=3$ y $g'(0)=0$, calculá $(f/g)'(0)$.",
     "options": [
       "$3$",
       "$0$",
@@ -368,7 +368,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos la fórmula del cociente directamente con los datos dados.\n\nEl dato $g'(0)=0$ anula el segundo término del numerador.\n\ndejando el resultado final determinado por $f'(0)g(0)$ dividido por $g(0)^2$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Aplicamos la fórmula del cociente directamente con los datos dados, sin necesidad de calcular ninguna derivada:\n$$\\begin{aligned} \\left(\\frac{f}{g}\\right)'(0) &= \\frac{f'(0)g(0) - f(0)g'(0)}{g(0)^2} \\\\ &= \\frac{1\\cdot 3 - 0}{9} \\\\ &= \\frac{1}{3} \\end{aligned}$$\nEl dato $g'(0)=0$ anula el segundo término del numerador.\n\nReconocer que $g'(0)=0$ simplifica todo el cálculo, sin necesidad de tocar el dato $f(0)$.",
     "reviewed": false,
     "tags": [
       "evaluacion-datos-abstractos-cociente"

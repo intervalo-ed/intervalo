@@ -2,7 +2,7 @@
 
 Belt: `violet`, Unit: `derivatives`, Topic: `geometric_interpretation`
 
-Skills en este topic: `LEXI`, `GRAF`, `ESTR`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
+Skills en este topic: `LEXI`, `GRAF`, `ESTR`. **30 ejercicios cada uno (90 en total)** al cerrar el refactor.
 
 > **RESL archivado (jul-2026):** se sacó de este topic al podar a un máximo de 3 ítems (skills) por topic. Contenido preservado en `backend/content/archive/analisis/violet/derivatives/geometric_interpretation/RESL.json`. No generar RESL para este topic en rondas futuras; el resto de este documento puede seguir mencionando RESL en registros de auditoría históricos, que quedan como referencia, no como guía de generación.
 
@@ -55,7 +55,7 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 
 ---
 
-## LEXI, 50 ejercicios
+## LEXI, 30 ejercicios
 
 ### Qué evalúa
 Afianzar el **vocabulario geométrico** de las rectas asociadas a una curva y la **anatomía** de la fórmula punto-pendiente.
@@ -69,9 +69,9 @@ Afianzar el **vocabulario geométrico** de las rectas asociadas a una curva y la
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Vocabulario geométrico | Diferenciar conceptualmente **recta secante** (dos puntos, **tasa media**) vs. **recta tangente** (un punto, **tasa instantánea**). Punto de tangencia, corte transversal, dirección instantánea. | `vocabulario-geometrico-secante-tangente` | 20 |
-| B. Anatomía de la fórmula punto-pendiente | Diseccionar $y = f'(a)(x - a) + f(a)$. Identificar qué representa $f'(a)$ (la **inclinación**) y qué representa $(a, f(a))$ (el **punto de anclaje**). Reconocer variantes equivalentes. | `anatomia-formula-punto-pendiente` | 15 |
-| C. Aproximación lineal | Teórico: cómo y por qué la recta tangente actúa como "la mejor aproximación" únicamente **cerca del punto de tangencia**; qué pasa cuando uno se aleja. | `aproximacion-lineal-local` | 15 |
+| A. Vocabulario geométrico | Diferenciar conceptualmente **recta secante** (dos puntos, **tasa media**) vs. **recta tangente** (un punto, **tasa instantánea**). Punto de tangencia, corte transversal, dirección instantánea. | `vocabulario-geometrico-secante-tangente` | 12 |
+| B. Anatomía de la fórmula punto-pendiente | Diseccionar $y = f'(a)(x - a) + f(a)$. Identificar qué representa $f'(a)$ (la **inclinación**) y qué representa $(a, f(a))$ (el **punto de anclaje**). Reconocer variantes equivalentes. | `anatomia-formula-punto-pendiente` | 9 |
+| C. Aproximación lineal | Teórico: cómo y por qué la recta tangente actúa como "la mejor aproximación" únicamente **cerca del punto de tangencia**; qué pasa cuando uno se aleja. | `aproximacion-lineal-local` | 9 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Secante llamada tangente**: elegir "tangente" para una recta que corta la curva en dos puntos. Recordar: la tangente toca en un solo punto (en un entorno pequeño).
@@ -87,7 +87,7 @@ Afianzar el **vocabulario geométrico** de las rectas asociadas a una curva y la
 
 ---
 
-## GRAF, 50 ejercicios
+## GRAF, 30 ejercicios
 
 ### Qué evalúa
 Interpretar **gráficamente** tangentes, secantes y estimar **pendientes** leyendo la cuadrícula.
@@ -102,9 +102,9 @@ Interpretar **gráficamente** tangentes, secantes y estimar **pendientes** leyen
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Identificación de la tangente | Dada una curva con **varias rectas** dibujadas en el mismo gráfico, discriminar visualmente cuál es **secante** (dos puntos), cuál corta **transversalmente** y cuál es la **verdadera tangente** en un punto dado. | `identificacion-visual-tangente` | 20 |
-| B. Lectura de pendiente | Dada una curva con su tangente trazada sobre una **grilla clara**, estimar numéricamente $f'(a)$ midiendo $\tfrac{\Delta y}{\Delta x}$ de la recta. | `lectura-de-pendiente` | 15 |
-| C. Extremos y tangentes horizontales | Marcar visualmente los puntos donde la tangente asume una **pendiente nula** (paralela al eje horizontal): vértices, crestas, valles. | `extremos-tangentes-horizontales` | 15 |
+| A. Identificación de la tangente | Dada una curva con **varias rectas** dibujadas en el mismo gráfico, discriminar visualmente cuál es **secante** (dos puntos), cuál corta **transversalmente** y cuál es la **verdadera tangente** en un punto dado. | `identificacion-visual-tangente` | 12 |
+| B. Lectura de pendiente | Dada una curva con su tangente trazada sobre una **grilla clara**, estimar numéricamente $f'(a)$ midiendo $\tfrac{\Delta y}{\Delta x}$ de la recta. | `lectura-de-pendiente` | 9 |
+| C. Extremos y tangentes horizontales | Marcar visualmente los puntos donde la tangente asume una **pendiente nula** (paralela al eje horizontal): vértices, crestas, valles. | `extremos-tangentes-horizontales` | 9 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Secante identificada como tangente**: elegir la recta que corta la curva en dos puntos visibles. La tangente **toca** en un punto y tiene la misma dirección que la curva ahí.
@@ -122,7 +122,7 @@ Interpretar **gráficamente** tangentes, secantes y estimar **pendientes** leyen
 
 ---
 
-## ESTR, 50 ejercicios
+## ESTR, 30 ejercicios
 
 ### Qué evalúa
 **Armar** y **calcular** la ecuación analítica de la recta tangente y de la secante a partir de datos numéricos.
@@ -136,9 +136,9 @@ Interpretar **gráficamente** tangentes, secantes y estimar **pendientes** leyen
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Armado de la ecuación de la tangente | Dados numéricamente el punto y la pendiente (ej. $f(2) = 5$, $f'(2) = 3$), construir la ecuación en forma punto-pendiente y llevarla a $y = mx + b$. | `armado-ecuacion-tangente` | 25 |
-| B. Cálculo de secantes | Dadas las coordenadas de dos puntos sobre una curva, calcular la pendiente de la recta secante como $\tfrac{f(b) - f(a)}{b - a}$. | `calculo-de-secantes` | 15 |
-| C. Tangentes horizontales | Dada una expresión simple para $f'(x)$ (ej. $f'(x) = 2x - 4$), igualarla a cero y encontrar el $x$ del vértice donde la tangente es horizontal. | `tangentes-horizontales-calculo` | 10 |
+| A. Armado de la ecuación de la tangente | Dados numéricamente el punto y la pendiente (ej. $f(2) = 5$, $f'(2) = 3$), construir la ecuación en forma punto-pendiente y llevarla a $y = mx + b$. | `armado-ecuacion-tangente` | 15 |
+| B. Cálculo de secantes | Dadas las coordenadas de dos puntos sobre una curva, calcular la pendiente de la recta secante como $\tfrac{f(b) - f(a)}{b - a}$. | `calculo-de-secantes` | 9 |
+| C. Tangentes horizontales | Dada una expresión simple para $f'(x)$ (ej. $f'(x) = 2x - 4$), igualarla a cero y encontrar el $x$ del vértice donde la tangente es horizontal. | `tangentes-horizontales-calculo` | 6 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Signo de $a$ en la fórmula punto-pendiente**: en $y = f'(a)(x - a) + f(a)$ con $a = 2$, escribir $(x + 2)$ en lugar de $(x - 2)$. El signo dentro va **opuesto** al valor de $a$.
@@ -161,14 +161,14 @@ Interpretar **gráficamente** tangentes, secantes y estimar **pendientes** leyen
 
 ## Hallazgos de auditoría (ronda 2, jul-2026)
 
-No hubo ejercicios puntuales de este topic en el archivo de correcciones de esta ronda, pero el escaneo de los 4 archivos existentes confirma el mismo **patrón dominante de apertura corta** encontrado en el resto de la unidad (regla crítica 32, nueva): `RESL` abre 6/11 ejercicios con `"La recta tangente a una función en cierto punto es\n$$...$$"` y varios más con `"Sabiendo que"`; `LEXI` abre con `"En la ecuación punto-pendiente de la recta tangente\n$$...$$"` y `"En la misma ecuación\n$$...$$"`; `ESTR` con `"Sabiendo que"`. Ninguno cierra la oración antes del bloque `$$...$$`. Aplicar la corrección al completar hasta 50 ejercicios por skill: variar la redacción ejercicio a ejercicio y cerrar siempre la oración introductoria.
+No hubo ejercicios puntuales de este topic en el archivo de correcciones de esta ronda, pero el escaneo de los 4 archivos existentes confirma el mismo **patrón dominante de apertura corta** encontrado en el resto de la unidad (regla crítica 32, nueva): `RESL` abre 6/11 ejercicios con `"La recta tangente a una función en cierto punto es\n$$...$$"` y varios más con `"Sabiendo que"`; `LEXI` abre con `"En la ecuación punto-pendiente de la recta tangente\n$$...$$"` y `"En la misma ecuación\n$$...$$"`; `ESTR` con `"Sabiendo que"`. Ninguno cierra la oración antes del bloque `$$...$$`. Aplicar la corrección al completar hasta 30 ejercicios por skill: variar la redacción ejercicio a ejercicio y cerrar siempre la oración introductoria.
 
 ---
 
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 3 skills activos):**
-- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 30 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna aplicación de reglas prácticas de derivación (potencia, producto, cociente, cadena); ninguna función elemental (sin, cos, exp, log, √)
 - [ ] Solo lineales, cuadráticas o valores dados de $f(a)$ y $f'(a)$
 - [ ] Explicaciones en 3 párrafos de prosa; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
@@ -179,20 +179,20 @@ No hubo ejercicios puntuales de este topic en el archivo de correcciones de esta
 - [ ] **Ningún ejercicio que dependa de la fórmula punto-pendiente la asume vista en otro ejercicio**: la reintroduce con LaTeX centrado antes de la pregunta puntual (regla crítica 31)
 
 **LEXI:**
-- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
-- [ ] Distribución A/B/C respetada (20/15/15)
+- [ ] 30 ejercicios; **exactamente 3 opciones** por ejercicio
+- [ ] Distribución A/B/C respetada (12/9/9)
 - [ ] Negrita en primera mención de `recta tangente`, `recta secante`, `pendiente`, `punto de tangencia`, `aproximación lineal`
 - [ ] Textos exactos `"Secante"`, `"Tangente"`, `"Recta transversal"` cuando aplique
 
 **GRAF:**
-- [ ] 50 ejercicios con `graph_fn` o gráfico embebido; `graph_view` cuadrado, escala 1:1
-- [ ] Distribución A/B/C respetada (20/15/15)
+- [ ] 30 ejercicios con `graph_fn` o gráfico embebido; `graph_view` cuadrado, escala 1:1
+- [ ] Distribución A/B/C respetada (12/9/9)
 - [ ] Sub-B con pendientes enteras o medios; grilla claramente escalada
 - [ ] Ningún ejercicio pide la ecuación de la tangente desde el gráfico
 
 **ESTR:**
-- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
-- [ ] Distribución A/B/C respetada (25/15/10)
+- [ ] 30 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
+- [ ] Distribución A/B/C respetada (15/9/6)
 - [ ] Sub-A con $f(a)$ y $f'(a)$ dados numéricamente o con función lineal/cuadrática
 - [ ] Sub-C con $f'(x)$ explícito; ningún ejercicio pide derivar previamente
 - [ ] Explicaciones con `\begin{aligned}` mostrando distribuir → despejar

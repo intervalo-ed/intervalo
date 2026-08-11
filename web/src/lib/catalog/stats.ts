@@ -4,19 +4,13 @@ import { beltOrderFor, getBelt, type BeltKey, type CourseId } from "./index"
 type TopicProgress = components["schemas"]["TopicProgress"]
 type TopicStates = Record<string, TopicProgress>
 
-export interface TopicCounts {
+interface TopicCounts {
   total: number
   unlocked: number
   nuevos: number
   aprendiendo: number
   dominados: number
   pendientes: number
-}
-
-export type BeltStats = TopicCounts
-
-export interface TopicStat extends TopicCounts {
-  topic: string
 }
 
 function emptyCounts(): TopicCounts {
@@ -57,7 +51,7 @@ export function beltStats({
   belt: BeltKey
   topicStates: TopicStates
   course?: CourseId
-}): BeltStats {
+}): TopicCounts {
   const cat = getBelt({ key: belt, course })
   const out = emptyCounts()
   if (!cat) return out
@@ -68,25 +62,7 @@ export function beltStats({
   return out
 }
 
-export function beltTopicStats({
-  belt,
-  topicStates,
-  course = "analisis",
-}: {
-  belt: BeltKey
-  topicStates: TopicStates
-  course?: CourseId
-}): TopicStat[] {
-  const cat = getBelt({ key: belt, course })
-  if (!cat) return []
-  return cat.units.flatMap((u) => u.topics).map((topic) => {
-    const counts = emptyCounts()
-    accumulateTopic({ counts, state: topicStates[`${belt}/${topic.key}`] })
-    return { topic: topic.key, ...counts }
-  })
-}
-
-export interface UnitTotals {
+interface UnitTotals {
   total: number // todas las units del catálogo (suma de exercise_types por tema)
   unlocked: number // units ya desbloqueadas (presentes en topic_states)
   dominados: number // units en estado "dominado"
@@ -128,25 +104,6 @@ export function courseUnitTotals({
     for (const topic of cat.units.flatMap((u) => u.topics)) {
       accumulateUnits({ totals: out, topic, state: topicStates[`${belt}/${topic.key}`] })
     }
-  }
-  return out
-}
-
-// Conteo a nivel ítem (unit) para un cinturón.
-export function beltUnitTotals({
-  belt,
-  topicStates,
-  course = "analisis",
-}: {
-  belt: BeltKey
-  topicStates: TopicStates
-  course?: CourseId
-}): UnitTotals {
-  const out = emptyUnitTotals()
-  const cat = getBelt({ key: belt, course })
-  if (!cat) return out
-  for (const topic of cat.units.flatMap((u) => u.topics)) {
-    accumulateUnits({ totals: out, topic, state: topicStates[`${belt}/${topic.key}`] })
   }
   return out
 }
@@ -215,24 +172,4 @@ export function pendingUnitCount({
     }
   }
   return count
-}
-
-// Heuristic for which belt the user is "currently working on": first belt in
-// the canonical order that's been started but not fully mastered. Falls back
-// to the highest unlocked belt (e.g. if everything is mastered already).
-export function currentBelt({
-  topicStates,
-  course = "analisis",
-}: {
-  topicStates: TopicStates
-  course?: CourseId
-}): BeltKey | null {
-  let lastUnlocked: BeltKey | null = null
-  for (const belt of beltOrderFor({ course })) {
-    const s = beltStats({ belt, topicStates, course })
-    if (s.unlocked === 0) continue
-    lastUnlocked = belt
-    if (s.dominados < s.total) return belt
-  }
-  return lastUnlocked
 }

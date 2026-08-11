@@ -1,4 +1,4 @@
-﻿"use client"
+"use client"
 
 import { useSplash } from "@/app/splash-context"
 import { usePublicUniversityLeaderboard } from "@/app/UsePublicUniversityLeaderboard"

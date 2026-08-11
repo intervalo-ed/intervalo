@@ -5,6 +5,11 @@ ejercicios del curso `analisis`, **empezá por acá**. Cada topic tiene su propi
 `generation-prompt.md` con el detalle fino; este archivo explica el ciclo, el
 alcance de la ronda y cómo validar antes de commitear.
 
+**Si tu tarea es corregir errores/warnings del validador** (no generar contenido
+nuevo), andá directo a [`warnings-fix-prompt.md`](./warnings-fix-prompt.md): la ronda
+2 descripta abajo ya se cerró y mergeó (PR #104), y ese documento cubre la tarea activa
+ahora mismo sobre esta misma branch.
+
 Todos los comandos se corren **desde `backend/`**.
 
 ---

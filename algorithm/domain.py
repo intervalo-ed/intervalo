@@ -169,12 +169,3 @@ def load_belt_catalogs(course_slug: str) -> dict[Belt, BeltCatalog]:
 
     _CATALOG_CACHE[course_slug] = (mtime, result)
     return result
-
-
-def clear_catalog_cache(course_slug: str | None = None) -> None:
-    if course_slug is None:
-        _CATALOG_CACHE.clear()
-        _STRUCTURE_CACHE.clear()
-    else:
-        _CATALOG_CACHE.pop(course_slug, None)
-        _STRUCTURE_CACHE.pop(course_slug, None)

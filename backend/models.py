@@ -59,11 +59,14 @@ class User(Base):
     streak_days = Column(Integer, nullable=False, default=0, server_default="0")
     streak_last_date = Column(Date, nullable=True)
 
-    # Desbloqueo de emojis (badges) por carrera. `emoji_path` es la cadena
-    # append-only de ids de nodos ya desbloqueados (JSON-en-texto, desde
-    # profundidad 1; un solo track irreversible). `emoji_worn` es el id del nodo
+    # Desbloqueo de emojis (badges) por carrera. `emoji_worn` es el id del nodo
     # que el usuario muestra en el ranking; NULL = raíz del bucket (default).
     # Ver emoji_tree.py.
+    #
+    # `emoji_path` está MUERTA: describía una cadena append-only de nodos
+    # desbloqueados, pero el desbloqueo no tiene estado propio — se deriva de
+    # total_xp vía unlocked_depth() (ver la cabecera de emoji_tree.py). No la lee
+    # ni la escribe nadie; queda la columna porque sacarla necesita migración.
     emoji_path = Column(Text, nullable=True)
     emoji_worn = Column(String(64), nullable=True)
 
@@ -463,3 +466,34 @@ class PushSubscription(Base):
 
     user = relationship("User", back_populates="push_subscriptions")
     course = relationship("Course", back_populates="push_subscriptions")
+
+
+class NotificationSend(Base):
+    """Historial de notificaciones push enviadas: una fila por usuario por
+    envío (no por dispositivo), con la categoría/variante de copy elegida
+    (ver notification_copy.py) y si se llegó a clickear. A diferencia de
+    User.notify_last_* (que solo guardan el último estado, para el guard de
+    idempotencia diario), esta tabla es append-only y permite analizar
+    efectividad por categoría/variante a lo largo del tiempo."""
+    __tablename__ = "notification_sends"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
+
+    category = Column(String(30), nullable=False)
+    variant_key = Column(String(50), nullable=False)
+    title = Column(String(200), nullable=False)
+    body = Column(String(500), nullable=False)
+
+    sent_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    # Se completa desde notificationclick en el service worker (ver sw.js);
+    # None mientras no se haya clickeado. Idempotente: el primer click gana.
+    opened_at = Column(DateTime, nullable=True)
+
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (
+        Index("idx_notification_sends_user_id", "user_id"),
+        Index("idx_notification_sends_sent_at", "sent_at"),
+    )

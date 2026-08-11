@@ -1,5 +1,4 @@
 from dataclasses import dataclass, field
-from datetime import timedelta
 
 
 @dataclass
@@ -24,13 +23,5 @@ class SM2Config:
     review_medium_seconds: float = 30.0
 
     # Session
-    min_session_exercises: int = 7
     max_session_exercises: int = 8
     min_distance_same_topic: int = 2
-
-    # Exercise subtype selection
-    graph_exercise_probability: float = 0.66  # P(graph) vs P(text) per exercise
-
-    @property
-    def post_graduation_max_interval(self) -> timedelta:
-        return timedelta(days=self.post_graduation_max_interval_days)

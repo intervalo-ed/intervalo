@@ -48,15 +48,6 @@ for _bucket, _root in _raw.items():
     _index(_root, _bucket, None, 0)
 
 
-def bucket_root(bucket: str | None) -> str | None:
-    """Id de la raíz (emoji gratis) del bucket de carrera, o None si no existe."""
-    return _roots.get(bucket) if bucket else None
-
-
-def threshold_for_depth(depth: int) -> int | None:
-    return DEPTH_XP.get(depth)
-
-
 def emoji_for(node_id: str | None) -> str | None:
     node = node_by_id.get(node_id) if node_id else None
     return node["emoji"] if node else None
