@@ -189,12 +189,11 @@ export default function DashboardEntry() {
 
   const setCourse = useCallback(
     ({ next }: { next: CourseId }) => {
-      sfx.iterate()
       const params = new URLSearchParams(searchParams.toString())
       params.set("course", next)
       router.replace(`/?${params.toString()}`)
     },
-    [router, searchParams, sfx],
+    [router, searchParams],
   )
 
   const goPrev = useCallback(() => {

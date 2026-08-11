@@ -197,7 +197,6 @@ export default function PracticeConfig() {
   const [enabled, setEnabled] = useState<Set<string>>(() => new Set())
 
   function toggleTopic(belt: BeltKey, topic: string) {
-    sfx.iterate()
     const key = topicKey(belt, topic)
     setEnabled((prev) => {
       const next = new Set(prev)
@@ -208,7 +207,6 @@ export default function PracticeConfig() {
   }
 
   function toggleUnit(belt: BeltKey, topics: Topic[]) {
-    sfx.iterate()
     const keys = topics.map((t) => topicKey(belt, t.key))
     const anyOn = keys.some((k) => enabled.has(k))
     setEnabled((prev) => {
@@ -232,7 +230,6 @@ export default function PracticeConfig() {
   }
 
   function selectCourse(next: CourseId) {
-    sfx.iterate()
     setCourse(next)
     // Los temas dependen del curso: limpiamos la selección para no arrastrar
     // temas de otro curso.
