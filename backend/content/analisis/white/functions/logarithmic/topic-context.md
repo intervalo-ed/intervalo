@@ -118,37 +118,24 @@ Ejercicios concretos de esta ronda:
 
 ### Distribución objetivo, con `tags` (ver `authoring-context.md` §Etiquetas)
 
-Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026).
+> **Poda ago-2026:** LEXI, FORM y GRAF se recortaron de 50 a 30 ejercicios cada uno. La tabla de distribución de cada uno de estos tres skills fue reescrita para reflejar los `tags` **reales** presentes en los JSON después del recorte (proporcional a `tags` reales de antes del recorte, no a la taxonomía objetivo de jul-2026 de más abajo, que nunca terminó de aplicarse a estos tres archivos — de ahí la brecha entre las filas viejas y los `tags` reales). Sub-familias de la taxonomía jul-2026 sin ningún ejercicio real se quitan de la tabla. La tabla de CLSF (archivado) no se tocó.
 
-**LEXI (50):**
+Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026); las tablas de LEXI/FORM/GRAF de abajo ya no reflejan esta taxonomía completa, ver nota de poda arriba.
+
+**LEXI (30):**
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Evaluar un logaritmo directamente (potencias exactas conocidas) | 15 | `evaluar-log-directo` |
-| Propiedades algebraicas del logaritmo (producto, cociente, potencia) | 6 | `propiedades-algebraicas-log` |
-| Identificar si una expresión es/no es logarítmica | 2 | `identificar-logaritmica` |
-| Nombre/concepto de asíntota vertical | 2 | `asintota-vertical-nombre-concepto` |
-| Dominio (básico, sin desplazamiento) | 2 | `dominio-basico` |
-| Identificar cuál función tiene asíntota vertical entre varias | 2 | `identificar-asintota-vertical-entre-opciones` |
-| Imagen (básica) | 2 | `imagen-basica` |
-| Función inversa (log ↔ exponencial) | 2 | `funcion-inversa-logaritmo` |
+| Propiedades algebraicas del logaritmo (producto, cociente, potencia) | 10 | `propiedades-algebraicas-log` |
+| Evaluar un logaritmo directamente (potencias exactas conocidas) | 8 | `evaluar-log-directo` |
+| Nombre/concepto de asíntota vertical | 5 | `asintota-vertical-nombre-concepto` |
 | Asíntota vertical con desplazamiento horizontal | 2 | `asintota-vertical-desplazada` |
-| Relación inversa entre exponencial y logaritmo (conceptual) | 1 | `relacion-inversa-exponencial-log` |
-| Monotonía según la base | 1 | `monotonia-segun-base` |
 | Razonamiento de por qué el dominio excluye $x \leq 0$ | 1 | `dominio-razonamiento` |
-| Cambio de base | 1 | `cambio-de-base` |
+| Dominio (básico, sin desplazamiento) | 1 | `dominio-basico` |
 | Inyectividad del logaritmo (si $\log_b a=\log_b c$ entonces $a=c$) | 1 | `propiedad-inyectividad-log` |
-| Reflexión por signo negativo ($-\log_b(x)$) | 1 | `reflexion-signo-negativo` |
-| Comportamiento cerca de la asíntota ($x \to 0^+$) | 1 | `comportamiento-cerca-asintota` |
-| Ausencia de asíntota horizontal | 1 | `asintota-horizontal-no-existe` |
-| Identificar un contexto cotidiano logarítmico | 1 | `contexto-cotidiano-identificar` |
-| Dominio con desplazamiento horizontal | 1 | `dominio-desplazado` |
-| Comparación entre bases distintas | 1 | `comparacion-bases-log` |
-| Dominio de $\log_b(-x)$ (reflejado) | 1 | `dominio-reflejado` |
-| Ausencia de extremos locales | 1 | `extremos-locales-inexistentes` |
-| Punto clave de la gráfica ($(b,1)$, $(e,1)$) | 1 | `punto-clave-grafica` |
-| Resolver ecuación logarítmica simple | 1 | `resolver-ecuacion-logaritmica` |
-| **Total** | **50** | |
+| Identificar si una expresión es/no es logarítmica | 1 | `identificar-logaritmica` |
+| Función inversa (log ↔ exponencial) | 1 | `funcion-inversa-logaritmo` |
+| **Total** | **30** | |
 
 **CLSF (50):**
 
@@ -172,60 +159,39 @@ Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026).
 | Ausencia de extremo global (sin máximo) | 1 | `extremo-global-inexistente` |
 | **Total** | **50** | |
 
-**FORM (50):**
+**FORM (30):**
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Evaluar $f(\text{valor})$ | 12 | `evaluar-f` |
-| Identificar fórmula desde gráfico | 9 | `grafico-a-formula` |
-| Propiedades algebraicas del logaritmo | 7 | `propiedades-algebraicas-log` |
-| Dominio desde la fórmula (con desplazamiento/escala) | 6 | `dominio-desde-formula` |
-| Asíntota vertical desde la fórmula | 5 | `asintota-vertical-desde-formula` |
-| Evaluar en contexto cotidiano (bacterias, inversión, deuda, auto) | 4 | `evaluar-contexto` |
-| Raíz / cruce con el eje $X$ | 3 | `raiz-cruce-eje-x` |
-| Leer base o coeficiente desde la fórmula | 2 | `leer-base-coeficiente` |
-| Función inversa (log ↔ exponencial) | 1 | `funcion-inversa-logaritmo` |
-| Armar fórmula desde un contexto cotidiano | 1 | `armar-formula-contexto` |
-| **Total** | **50** | |
+| Evaluar $f(\text{valor})$ | 21 | `evaluar-f` |
+| Identificar fórmula desde gráfico | 6 | `grafico-a-formula` |
+| Dominio desde la fórmula (con desplazamiento/escala) | 1 | `dominio-desde-formula` |
+| Propiedades algebraicas del logaritmo | 1 | `propiedades-algebraicas-log` |
+| Asíntota vertical desde la fórmula | 1 | `asintota-vertical-desde-formula` |
+| **Total** | **30** | |
 
-**GRAF (50):** mantiene los tipos A (leer propiedades)/B (identificar fórmula)/C (contexto), con slug por sub-familia.
-
-*Tipo A — leer propiedades desde el gráfico (25):*
+**GRAF (30):** la poda ago-2026 dejó solo ejercicios de Tipo A (leer propiedades) y Tipo B (identificar fórmula); no había ningún ejercicio real de Tipo C (contexto cotidiano + gráfico) en el archivo, así que esa categoría desaparece de la tabla (ver nota de poda arriba).
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Leer un valor puntual ($f(4)$, $f(e)$, etc.) | 7 | `lectura-valor-puntual` |
-| Asíntota vertical | 4 | `lectura-asintota` |
-| Raíz / cruce con el eje $X$ | 4 | `lectura-raiz-cruce-x` |
-| Monotonía (creciente/decreciente) | 3 | `lectura-monotonia` |
-| Dominio | 2 | `lectura-dominio` |
-| Imagen | 2 | `lectura-imagen` |
-| Ausencia de extremos locales | 1 | `lectura-extremos-locales` |
-| Comportamiento en infinito | 1 | `lectura-comportamiento-infinito` |
-| Ausencia de extremo global (sin máximo) | 1 | `lectura-extremo-global` |
-| **Subtotal Tipo A** | **25** | |
-
-*Tipo B — identificar fórmula dado el gráfico (15):* todos bajo `grafico-a-formula` (misma habilidad que en FORM).
-
-*Tipo C — contexto cotidiano + gráfico (10):*
-
-| Sub-familia | Cantidad | Slug |
-|---|---:|---|
-| Tiempo/períodos necesarios dado un factor de crecimiento | 8 | `contexto-tiempo-desde-factor` |
-| Factor de crecimiento dado un tiempo (inverso) | 1 | `contexto-factor-desde-tiempo` |
-| Diferencia de tiempo entre dos factores | 1 | `contexto-diferencia-tiempos` |
-| **Subtotal Tipo C** | **10** | |
+| Leer un valor puntual ($f(4)$, $f(e)$, etc.) | 14 | `lectura-valor-puntual` |
+| Asíntota vertical | 8 | `lectura-asintota` |
+| Monotonía (creciente/decreciente) | 4 | `lectura-monotonia` |
+| Identificar fórmula dado el gráfico (Tipo B, misma habilidad que en FORM) | 2 | `grafico-a-formula` |
+| Imagen | 1 | `lectura-imagen` |
+| Raíz / cruce con el eje $X$ | 1 | `lectura-raiz-cruce-x` |
+| **Total** | **30** | |
 
 ### Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal:**
-- [ ] `feedback_incorrect` completo en los 50 ejercicios por skill: `array` del largo de `options`, `null` en el correcto
+- [ ] `feedback_incorrect` completo en los 30 ejercicios por skill (LEXI/FORM/GRAF; CLSF archivado sigue en 50): `array` del largo de `options`, `null` en el correcto
 - [ ] Ningún `\n\n` pegado a un bloque `$$...$$` (foco en LEXI y FORM)
 - [ ] Ningún em-dash `—` ni en-dash `–`
 - [ ] Ninguna explicación con viñetas `•` ni sub-ejercicios `-`
 - [ ] Cierres de `explanation` en advertencia/consejo, sin humor ni antropomorfismo
 - [ ] `explanation` supera los 300 caracteres entre las 3 partes (foco especial en GRAF y FORM)
-- [ ] `correct_index` variado, no concentrado en un solo índice (objetivo ~12-13 por índice; GRAF necesita el rebalanceo más grande del tema)
+- [ ] `correct_index` variado, no concentrado en un solo índice (objetivo ~7-8 por índice en los 30 de LEXI/FORM/GRAF tras la poda ago-2026; GRAF necesita el rebalanceo más grande del tema)
 - [ ] Montos con `\$` escapado
 - [ ] Distractor Logarítmica↔Exponencial presente en CLSF donde corresponda
 - [ ] Ninguna `explanation` invoca derivadas ni límites (ver "Hallazgos de auditoría", `LEXI_42` y `LEXI_10`; tercera confirmación de sesgo sistémico)

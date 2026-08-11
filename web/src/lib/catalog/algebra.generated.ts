@@ -169,7 +169,7 @@ export const catalog: Catalog = {
     {
       "key": "blue",
       "headline": "Vectores",
-      "description": "Un **vector** en el plano o el espacio es una magnitud con dirección y sentido, representable como un segmento orientado o como una lista de componentes.\n$$\u000bec{v} = (v_1, v_2, v_3)$$\nSus operaciones y propiedades son la base de las matrices y las transformaciones lineales.",
+      "description": "Un **vector** en el plano o el espacio es una magnitud con dirección y sentido, representable como un segmento orientado o como una lista de componentes.\n$$\\vec{v} = (v_1, v_2, v_3)$$\nSus operaciones y propiedades son la base de las matrices y las transformaciones lineales.",
       "units": [
         {
           "key": "vectors",
@@ -244,7 +244,7 @@ export const catalog: Catalog = {
     {
       "key": "violet",
       "headline": "Matrices",
-      "description": "Una **matriz** organiza números en filas y columnas para representar sistemas de ecuaciones y transformaciones lineales de forma compacta.\n$$A \\in \\mathbb{R}^{m \times n}$$\nSus operaciones, determinante e inversa permiten resolver sistemas y estudiar la estructura del espacio que la matriz transforma.",
+      "description": "Una **matriz** organiza números en filas y columnas para representar sistemas de ecuaciones y transformaciones lineales de forma compacta.\n$$A \\in \\mathbb{R}^{m \\times n}$$\nSus operaciones, determinante e inversa permiten resolver sistemas y estudiar la estructura del espacio que la matriz transforma.",
       "units": [
         {
           "key": "matrices",

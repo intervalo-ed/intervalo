@@ -6,7 +6,7 @@ Tono y convenciones de comunicación con el estudiante — copy de la app, notif
 
 Español neutro/rioplatense, directo, informal pero no adolescente. Frases cortas. Emojis puntuales para dar calidez sin saturar (ver ejemplos de `notification_copy.py` más abajo — uno por mensaje, nunca más). Nunca acusatorio ni condescendiente hacia el estudiante, ni siquiera cuando se equivoca.
 
-## Reglas heredadas de autoría de contenido (`backend/content/exercise-authoring.md`, generalizadas)
+## Reglas heredadas de autoría de contenido (`backend/content/authoring-context.md`, generalizadas)
 
 - Sin em-dash (—) en textos de cara al usuario.
 - Sin símbolos ✓/✗ como decoración.

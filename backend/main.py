@@ -26,11 +26,10 @@ from auth import (
     get_or_create_user_from_clerk,
     verify_clerk_token,
 )
-from models import User, BeltInfo, Enrollment, Answer, UnitState
-from sqlalchemy import func
+from models import User, Enrollment, Answer, UnitState
+from sqlalchemy import and_ as sa_and, case, func, or_ as sa_or, select
 from schemas import (
     AnswerResponse,
-    BeltEntry,
     DueNotification,
     EmailRunResponse,
     EmojiStateResponse,
@@ -146,17 +145,6 @@ def require_internal_secret(x_internal_secret: str = Header(None)):
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
-def _resolve_course_id(course: str | None, db: Session) -> int:
-    """Resolve a course slug to its id. Fallback to id=1 (analisis) for compat."""
-    if not course:
-        return 1
-    from models import Course
-    row = db.query(Course).filter(Course.slug == course).first()
-    if row is None:
-        raise HTTPException(status_code=404, detail=f"Curso '{course}' no encontrado")
-    return row.id
-
-
 # ── Pydantic models ───────────────────────────────────────────────────────────
 
 class StartSessionRequest(BaseModel):
@@ -231,12 +219,6 @@ class PrunePushRequest(BaseModel):
     subscription_ids: list[int]
 
 
-class PushDiagnosticRequest(BaseModel):
-    error: str
-    endpoint: str | None = None
-    raw_preview: str | None = None
-
-
 class SessionFeedbackRequest(BaseModel):
     action: str  # "impression" | "answer" | "report"
     session_id: str
@@ -260,43 +242,6 @@ class SessionFeedbackResponse(BaseModel):
 @app.get("/health", response_model=HealthResponse)
 def health_check():
     return {"status": "ok"}
-
-
-# ── Course info ───────────────────────────────────────────────────────────────
-
-@app.get("/course/{course_id}/belts", response_model=dict[str, BeltEntry])
-def get_belt_info(course_id: int, db: Session = Depends(get_db)):
-    """Returns descriptive info (headline + description) for each belt in a course.
-
-    DEPRECATED: usar `GET /course/{course_id}/structure`, que devuelve la jerarquía
-    completa (belts→units→topics→skills). Se mantiene por compatibilidad."""
-    rows = db.query(BeltInfo).filter(BeltInfo.course_id == course_id).all()
-    return {
-        row.belt: {"headline": row.headline, "description": row.description}
-        for row in rows
-    }
-
-
-@app.get("/course/{course_id}/structure")
-def get_course_structure(course_id: int, db: Session = Depends(get_db)):
-    """Estructura completa del curso desde course.json: la jerarquía
-    curso → cinturón → unidades → temas → skills, más los exercise_types.
-
-    Fuente única de estructura (config-driven); el frontend genera su catálogo a
-    partir de este mismo archivo."""
-    from models import Course
-    from algorithm import load_course_structure
-
-    course = db.query(Course).filter(Course.id == course_id).first()
-    if course is None:
-        raise HTTPException(status_code=404, detail="Curso no encontrado")
-    try:
-        return load_course_structure(course.slug)
-    except FileNotFoundError:
-        raise HTTPException(
-            status_code=404,
-            detail=f"course.json no encontrado para '{course.slug}'",
-        )
 
 
 # ── Authentication ────────────────────────────────────────────────────────────
@@ -379,6 +324,10 @@ class EnrollmentRequest(BaseModel):
     # Resultado del ejercicio de prueba del onboarding (primer ítem del curso).
     # True = acertó al primer intento, False = falló alguna vez, None = sin dato.
     intro_item_correct: bool | None = None
+    # Cantidad de intentos hasta acertar (o intentos totales si nunca acertó).
+    attempts: int | None = None
+    # Tiempo total que tardó en responder el ejercicio de prueba, en ms.
+    response_time_ms: int | None = None
 
 
 @app.post("/user/enroll", response_model=EnrollmentResponse)
@@ -426,7 +375,14 @@ def enroll_user(
     # sesión; fallo → hoy, dentro). En re-enrollment no se toca el progreso.
     if not existing and body.intro_item_correct is not None:
         from session_store import seed_intro_item
-        seed_intro_item(current_user.id, course_id, body.intro_item_correct, db)
+        seed_intro_item(
+            current_user.id,
+            course_id,
+            body.intro_item_correct,
+            db,
+            attempts=body.attempts,
+            response_time_ms=body.response_time_ms,
+        )
 
     return {
         "success": True,
@@ -686,31 +642,6 @@ def push_unsubscribe(
     return {"success": True}
 
 
-@app.post("/push/diagnostic", response_model=SimpleResponse)
-def push_diagnostic(
-    body: PushDiagnosticRequest,
-    db: Session = Depends(get_db),
-):
-    """Client-reported failure when a push event's payload couldn't be
-    decoded (sw.js falls back to generic copy in that case, see sw.js). No
-    auth here — the service worker has no Clerk session — so we correlate
-    the report to a user via the subscription endpoint instead. Logs only,
-    to diagnose recurring generic-fallback notifications."""
-    import logging
-
-    import push_store
-
-    user_id = push_store.user_id_for_endpoint(db, body.endpoint) if body.endpoint else None
-    logging.warning(
-        "push decode failed user=%s endpoint=...%s error=%s raw=%r",
-        user_id,
-        (body.endpoint or "")[-24:],
-        body.error,
-        (body.raw_preview or "")[:200],
-    )
-    return {"success": True}
-
-
 @app.get("/push/diagnostic", response_model=SimpleResponse)
 def push_diagnostic_beacon(
     event: str,
@@ -718,6 +649,7 @@ def push_diagnostic_beacon(
     endpoint: str | None = None,
     raw_len: str | None = None,
     ua: str | None = None,
+    notification_id: int | None = None,
     db: Session = Depends(get_db),
 ):
     """GET twin of push_diagnostic, reporting on EVERY push the service
@@ -726,7 +658,11 @@ def push_diagnostic_beacon(
     preflight), so it's the fallback channel in case the POST version's
     JSON body / Content-Type ever gets blocked in the service worker's
     fetch context — we had zero of those land while chasing a recurring
-    generic-fallback bug with no other client-side signal at all."""
+    generic-fallback bug with no other client-side signal at all.
+
+    event="click" doubles as the "notification opened" signal (see sw.js
+    notificationclick): persists NotificationSend.opened_at so effectiveness
+    can be analyzed later per category/variant."""
     import logging
 
     import push_store
@@ -741,6 +677,11 @@ def push_diagnostic_beacon(
         raw_len,
         ua,
     )
+    if event == "click" and notification_id is not None:
+        try:
+            push_store.mark_notification_opened(notification_id, endpoint, db)
+        except Exception:
+            logging.exception("failed to mark notification %s opened", notification_id)
     return {"success": True}
 
 
@@ -863,17 +804,59 @@ AROUND_WINDOW = 30
 BELT_RANK = {"white": 0, "blue": 1, "violet": 2, "brown": 3}
 
 
-def _enrollments_by_user(db: Session) -> dict[int, Enrollment]:
-    """Un Enrollment por usuario (universidad/carrera/motivación de perfil),
-    sin importar en qué curso — antes esto filtraba por course_id=1 y perdía
-    a usuarios enrolados únicamente en otro curso (ej. álgebra), que quedaban
-    sin tag de universidad en el leaderboard pese a tener los datos cargados.
-    Se queda con el enrollment más antiguo de cada usuario (sus respuestas
-    originales de onboarding)."""
-    by_user: dict[int, Enrollment] = {}
-    for e in db.query(Enrollment).order_by(Enrollment.enrolled_at.asc()).all():
-        by_user.setdefault(e.user_id, e)
-    return by_user
+def _first_enrollment_subq():
+    """Subquery user_id → (university, career, enrolled_at) del enrollment MÁS
+    ANTIGUO de cada usuario (sus respuestas originales de onboarding), sin
+    importar en qué curso — filtrar por course_id=1 perdía a usuarios enrolados
+    únicamente en otro curso (ej. álgebra), que quedaban sin tag de universidad
+    pese a tener los datos cargados.
+
+    Antes esto se resolvía trayendo la tabla `enrollments` entera a memoria y
+    quedándose con la primera fila de cada usuario. Como el leaderboard lo
+    necesita en cada request (y `/public/university-leaderboard` es público),
+    ahora la desambiguación la hace la BD con ROW_NUMBER y el resto de la
+    agregación se apoya en este subquery.
+
+    El desempate por `id` es explícito: dos enrollments con el mismo
+    `enrolled_at` elegían una fila arbitraria según cómo ordenara el motor."""
+    ranked = select(
+        Enrollment.user_id,
+        Enrollment.university,
+        Enrollment.career,
+        Enrollment.enrolled_at,
+        func.row_number()
+        .over(
+            partition_by=Enrollment.user_id,
+            order_by=(Enrollment.enrolled_at.asc(), Enrollment.id.asc()),
+        )
+        .label("rn"),
+    ).subquery()
+    return (
+        select(
+            ranked.c.user_id,
+            ranked.c.university,
+            ranked.c.career,
+            ranked.c.enrolled_at,
+        )
+        .where(ranked.c.rn == 1)
+        .subquery()
+    )
+
+
+def _career_bucket_sql(column):
+    """Bucket de carrera: la carrera si es conocida (E/S/T/M), o 'Otra' —
+    incluye el caso sin enrollment, donde la columna viene NULL."""
+    return case((column.in_(_KNOWN_CAREERS), column), else_="Otra")
+
+
+def _scope_filters(enroll, university: str | None, career: str | None) -> list:
+    """Filtros de scope del leaderboard: universidad y/o bucket de carrera."""
+    filters = []
+    if university is not None:
+        filters.append(enroll.c.university == university)
+    if career is not None:
+        filters.append(_career_bucket_sql(enroll.c.career) == career)
+    return filters
 
 
 @app.get("/leaderboard", response_model=LeaderboardResponse)
@@ -897,82 +880,122 @@ def get_leaderboard(
     el front cargue el ranking con el usuario en el medio y scrollee hacia ambos
     lados. Cada entry trae su `rank` absoluto, así el front conoce los bordes de
     la ventana y pide más arriba/abajo por offset.
+
+    Todo lo que antes se resolvía trayendo la tabla `users` entera a memoria
+    (orden, scope, totales, rank y paginado) lo hace ahora la BD: los totales son
+    agregados, y de las filas solo viaja la página pedida. El orden canónico es
+    (total_xp desc, id asc) — el desempate por id lo hace determinístico y es el
+    mismo que usa `push_store._current_rank`.
     """
-    users = (
-        db.query(User)
-        .order_by(User.total_xp.desc(), User.id.asc())
-        .all()
-    )
+    enroll = _first_enrollment_subq()
+    filters = _scope_filters(enroll, university, career)
 
-    # Career + university vienen del enrollment del usuario, sin importar curso.
-    enrollments = _enrollments_by_user(db)
-
-    # Ejercicios hechos por usuario, para poder filtrar el total por universidad.
-    exercises_by_user = dict(
-        db.query(Answer.user_id, func.count(Answer.id)).group_by(Answer.user_id).all()
-    )
-
-    # Máximo cinturón desbloqueado por usuario (en cualquier curso): el de mayor
-    # rank entre las filas UnitState. Por defecto, blanco.
-    max_belt_by_user: dict[int, str] = {}
-    for uid, belt in (
-        db.query(UnitState.user_id, UnitState.belt)
-        .filter(UnitState.suspended.is_(False))
+    # Universidades presentes (set completo, sin aplicar el scope), para poblar
+    # el filtro del front.
+    universities = [
+        u
+        for (u,) in db.query(enroll.c.university)
+        .join(User, User.id == enroll.c.user_id)
+        .filter(enroll.c.university.isnot(None))
         .distinct()
+        .order_by(enroll.c.university.asc())
         .all()
-    ):
-        if BELT_RANK.get(belt, -1) > BELT_RANK.get(max_belt_by_user.get(uid, ""), -1):
-            max_belt_by_user[uid] = belt
-
-    def uni_of(user: User) -> str | None:
-        e = enrollments.get(user.id)
-        return e.university if e else None
-
-    def career_of(user: User) -> str:
-        e = enrollments.get(user.id)
-        return _career_bucket(e.career if e else None)
-
-    # Universidades presentes (set completo), para poblar el filtro.
-    universities = sorted({u for user in users if (u := uni_of(user)) is not None})
-
-    # Scope: filtra por universidad y/o carrera (intersección). El orden ya viene por XP.
-    scoped = [
-        user for user in users
-        if (university is None or uni_of(user) == university)
-        and (career is None or career_of(user) == career)
     ]
 
-    total_count = len(scoped)
-    total_xp = sum(user.total_xp for user in scoped)
-    total_exercises = sum(int(exercises_by_user.get(user.id, 0)) for user in scoped)
+    # Totales del scope: una sola fila agregada, sin materializar usuarios.
+    total_count, total_xp = (
+        db.query(func.count(User.id), func.coalesce(func.sum(User.total_xp), 0))
+        .outerjoin(enroll, enroll.c.user_id == User.id)
+        .filter(*filters)
+        .one()
+    )
+    total_exercises = (
+        db.query(func.count(Answer.id))
+        .join(User, User.id == Answer.user_id)
+        .outerjoin(enroll, enroll.c.user_id == User.id)
+        .filter(*filters)
+        .scalar()
+        or 0
+    )
 
-    # Usuario actual dentro del scope: rank (1-based) y XP para alcanzar al de
-    # arriba.
+    # Posición del usuario actual dentro del scope: cuántos lo preceden en el
+    # orden canónico. None si no entra en el scope (no aparece en el ranking).
+    in_scope = (
+        db.query(User.id)
+        .outerjoin(enroll, enroll.c.user_id == User.id)
+        .filter(User.id == current_user.id, *filters)
+        .first()
+        is not None
+    )
     me = LeaderboardMe(total_xp=current_user.total_xp)
-    for index, user in enumerate(scoped):
-        if user.id == current_user.id:
-            me.rank = index + 1
-            if index > 0:
-                me.xp_to_next = scoped[index - 1].total_xp - user.total_xp
-            break
+    my_index = None
+    if in_scope:
+        ahead = (
+            db.query(func.count(User.id))
+            .outerjoin(enroll, enroll.c.user_id == User.id)
+            .filter(
+                *filters,
+                sa_or(
+                    User.total_xp > current_user.total_xp,
+                    sa_and(
+                        User.total_xp == current_user.total_xp,
+                        User.id < current_user.id,
+                    ),
+                ),
+            )
+            .scalar()
+            or 0
+        )
+        my_index = int(ahead)
+        me.rank = my_index + 1
 
     # Ventana de la página. En modo `around_me` se centra en el usuario actual.
     if around_me:
-        my_index = next(
-            (i for i, user in enumerate(scoped) if user.id == current_user.id),
-            None,
-        )
         if my_index is None:
             page_offset = 0
-            page_end = limit
+            page_size = limit
         else:
             page_offset = max(0, my_index - AROUND_WINDOW)
-            page_end = my_index + AROUND_WINDOW + 1
+            page_size = (my_index + AROUND_WINDOW + 1) - page_offset
     else:
         page_offset = offset
-        page_end = offset + limit
+        page_size = limit
 
-    page = scoped[page_offset:page_end]
+    page = (
+        db.query(User, enroll.c.university, enroll.c.career)
+        .outerjoin(enroll, enroll.c.user_id == User.id)
+        .filter(*filters)
+        .order_by(User.total_xp.desc(), User.id.asc())
+        .offset(page_offset)
+        .limit(page_size)
+        .all()
+    )
+    page_ids = [row[0].id for row in page]
+
+    # Ejercicios y cinturón máximo SOLO de las filas que se devuelven (antes se
+    # agregaba la tabla `answers` completa y se escaneaban todas las unit_states
+    # en cada request).
+    exercises_by_user = (
+        dict(
+            db.query(Answer.user_id, func.count(Answer.id))
+            .filter(Answer.user_id.in_(page_ids))
+            .group_by(Answer.user_id)
+            .all()
+        )
+        if page_ids
+        else {}
+    )
+    max_belt_by_user: dict[int, str] = {}
+    if page_ids:
+        for uid, belt in (
+            db.query(UnitState.user_id, UnitState.belt)
+            .filter(UnitState.user_id.in_(page_ids), UnitState.suspended.is_(False))
+            .distinct()
+            .all()
+        ):
+            if BELT_RANK.get(belt, -1) > BELT_RANK.get(max_belt_by_user.get(uid, ""), -1):
+                max_belt_by_user[uid] = belt
+
     entries = [
         LeaderboardEntry(
             rank=page_offset + index + 1,
@@ -982,12 +1005,12 @@ def get_leaderboard(
             total_xp=user.total_xp,
             exercises=int(exercises_by_user.get(user.id, 0)),
             is_current_user=user.id == current_user.id,
-            career=enrollments[user.id].career if user.id in enrollments else None,
-            university=uni_of(user),
+            career=row_career,
+            university=row_university,
             emoji=emoji_tree.emoji_for(user.emoji_worn),
             belt=max_belt_by_user.get(user.id, "white"),
         )
-        for index, user in enumerate(page)
+        for index, (user, row_university, row_career) in enumerate(page)
     ]
     return LeaderboardResponse(
         entries=entries,
@@ -1002,11 +1025,7 @@ def get_leaderboard(
 
 # Carreras conocidas; cualquier otro valor (o null) cae en "Otra".
 CAREER_BUCKETS = ["E", "S", "T", "M", "Otra"]
-
-
-def _career_bucket(career: str | None) -> str:
-    """Normaliza la carrera de la enrollment a un bucket conocido (o 'Otra')."""
-    return career if career in CAREER_BUCKETS and career != "Otra" else "Otra"
+_KNOWN_CAREERS = [c for c in CAREER_BUCKETS if c != "Otra"]
 
 
 @app.get("/leaderboard/universities", response_model=UniversityLeaderboardResponse)
@@ -1024,33 +1043,54 @@ def get_university_leaderboard(
 
     `career` (bucket E/S/T/M/Otra): agrega contando solo estudiantes de esa
     carrera. `university`: limita a esa universidad (aislarla).
-    """
-    users = db.query(User).all()
-    enrollments = _enrollments_by_user(db)
 
-    # Agregación por universidad + agregado global por carrera.
+    La agregación la hace la BD (GROUP BY universidad × carrera): son a lo sumo
+    unas decenas de filas, contra la tabla `users` completa en memoria que traía
+    la versión anterior.
+    """
+    enroll = _first_enrollment_subq()
+    bucket = _career_bucket_sql(enroll.c.career)
+
+    filters = [
+        enroll.c.university.isnot(None),
+        enroll.c.university != "",
+    ]
+    if university is not None:
+        filters.append(enroll.c.university == university)
+    if career is not None:
+        filters.append(bucket == career)
+
+    grouped = (
+        db.query(
+            enroll.c.university,
+            bucket.label("bucket"),
+            func.count(User.id),
+            func.coalesce(func.sum(User.total_xp), 0),
+            func.min(User.id),
+        )
+        .join(User, User.id == enroll.c.user_id)
+        .filter(*filters)
+        .group_by(enroll.c.university, bucket)
+        .all()
+    )
+
+    # Agregación por universidad + agregado global por carrera. El orden de
+    # inserción sigue el id del primer estudiante de cada universidad, que es el
+    # que tenía el recorrido secuencial de `users` (y el que define los empates
+    # del sort estable de abajo).
     by_uni: dict[str, dict] = {}
     career_totals = {c: 0 for c in CAREER_BUCKETS}
     total_students = 0
-    for user in users:
-        e = enrollments.get(user.id)
-        uni = e.university if e else None
-        if not uni:
-            continue
-        if university is not None and uni != university:
-            continue
-        b = _career_bucket(e.career if e else None)
-        if career is not None and b != career:
-            continue
-        total_students += 1
-        career_totals[b] += 1
+    for uni, b, students, xp, _first_id in sorted(grouped, key=lambda r: r[4]):
+        total_students += students
+        career_totals[b] += students
         agg = by_uni.setdefault(
             uni,
             {"total_xp": 0, "students": 0, "careers": {c: 0 for c in CAREER_BUCKETS}},
         )
-        agg["total_xp"] += user.total_xp
-        agg["students"] += 1
-        agg["careers"][b] += 1
+        agg["total_xp"] += int(xp)
+        agg["students"] += students
+        agg["careers"][b] += students
 
     rows = [
         UniversityRankRow(
@@ -1085,25 +1125,44 @@ def get_leaderboard_summary(
 
     `universities` siempre lista el set completo (para poblar el filtro), pero
     `total_students`/`total_exercises` respetan `career`/`university` si se
-    pasan, igual que el scope de `/leaderboard`."""
-    enrollments = list(_enrollments_by_user(db).values())
-    universities = sorted({e.university for e in enrollments if e.university})
+    pasan, igual que el scope de `/leaderboard`.
+
+    El scope acá se cuenta sobre `enrollments` (no sobre `users`): un enrollment
+    con universidad cuenta como estudiante registrado aunque el usuario ya no
+    exista. Se mantiene esa semántica, solo que contada en SQL."""
+    enroll = _first_enrollment_subq()
+    has_university = sa_and(
+        enroll.c.university.isnot(None), enroll.c.university != ""
+    )
+
+    universities = [
+        u
+        for (u,) in db.query(enroll.c.university)
+        .filter(has_university)
+        .distinct()
+        .order_by(enroll.c.university.asc())
+        .all()
+    ]
 
     if university is None and career is None:
-        total_students = sum(1 for e in enrollments if e.university)
+        total_students = (
+            db.query(func.count()).select_from(enroll).filter(has_university).scalar()
+            or 0
+        )
         total_exercises = db.query(func.count(Answer.id)).scalar() or 0
     else:
-        scoped_user_ids = [
-            e.user_id
-            for e in enrollments
-            if e.university
-            and (university is None or e.university == university)
-            and (career is None or _career_bucket(e.career) == career)
-        ]
-        total_students = len(scoped_user_ids)
+        scoped = [has_university]
+        if university is not None:
+            scoped.append(enroll.c.university == university)
+        if career is not None:
+            scoped.append(_career_bucket_sql(enroll.c.career) == career)
+        total_students = (
+            db.query(func.count()).select_from(enroll).filter(*scoped).scalar() or 0
+        )
         total_exercises = (
             db.query(func.count(Answer.id))
-            .filter(Answer.user_id.in_(scoped_user_ids))
+            .join(enroll, enroll.c.user_id == Answer.user_id)
+            .filter(*scoped)
             .scalar()
             or 0
         )
@@ -1120,21 +1179,33 @@ def get_public_university_leaderboard(db: Session = Depends(get_db)):
     orden que /leaderboard/universities), para la landing (marketing-home.tsx)
     — un visitante sin cuenta no tiene sesión para pegarle a ese endpoint. Sin
     PII: solo universidad + conteos, los mismos números que ya ve cualquier
-    usuario logueado en el leaderboard."""
-    enrollments = _enrollments_by_user(db)
-    xp_by_user = dict(db.query(User.id, User.total_xp).all())
+    usuario logueado en el leaderboard.
 
-    by_uni: dict[str, dict] = {}
-    for uid, e in enrollments.items():
-        if not e.university:
-            continue
-        agg = by_uni.setdefault(e.university, {"students": 0, "total_xp": 0})
-        agg["students"] += 1
-        agg["total_xp"] += xp_by_user.get(uid, 0)
+    Es el único endpoint del leaderboard sin auth, así que es el que más importa
+    que no traiga `users` + `enrollments` enteras a memoria en cada visita a la
+    landing: un GROUP BY devuelve una fila por universidad. Los estudiantes se
+    cuentan por enrollment (aunque el usuario ya no exista, igual que antes) y su
+    XP con LEFT JOIN, que aporta 0 en ese caso."""
+    enroll = _first_enrollment_subq()
+
+    # El orden de inserción sigue el enrollment más antiguo de cada universidad,
+    # que es el que define los empates del sort estable por XP de abajo.
+    grouped = (
+        db.query(
+            enroll.c.university,
+            func.count().label("students"),
+            func.coalesce(func.sum(User.total_xp), 0).label("total_xp"),
+        )
+        .outerjoin(User, User.id == enroll.c.user_id)
+        .filter(enroll.c.university.isnot(None), enroll.c.university != "")
+        .group_by(enroll.c.university)
+        .order_by(func.min(enroll.c.enrolled_at).asc(), enroll.c.university.asc())
+        .all()
+    )
 
     rows = [
-        PublicUniversityStat(university=u, students=a["students"], total_xp=a["total_xp"])
-        for u, a in by_uni.items()
+        PublicUniversityStat(university=u, students=students, total_xp=int(total_xp))
+        for u, students, total_xp in grouped
     ]
     rows.sort(key=lambda r: r.total_xp, reverse=True)
     return PublicUniversityLeaderboardResponse(rows=rows[:8])
@@ -1144,7 +1215,7 @@ def get_public_university_leaderboard(db: Session = Depends(get_db)):
 
 def _emoji_bucket(db: Session, user: User) -> str | None:
     """Bucket de carrera del usuario (E/S/T/M/Otra), de su enrollment más
-    antiguo (sin importar curso — ver _enrollments_by_user)."""
+    antiguo (sin importar curso — ver _first_enrollment_subq)."""
     e = (
         db.query(Enrollment)
         .filter(Enrollment.user_id == user.id)

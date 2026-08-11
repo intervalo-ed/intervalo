@@ -53,6 +53,17 @@ DISPLAY_RENDER_MAX = 40        # regla 38: display sin aligned más ancho que es
 OPTION_RENDER_MAX = 35         # regla 39: opción más ancha que la grilla 2×2
 CHAIN_FACTORS_MIN = 3          # regla 41: 3+ factores P(...) multiplicados sin "+" → verticalizar
 
+# Regla 45: última palabra de una opción que casi nunca cierra legítimamente
+# una frase en español (preposición, artículo, conjunción). Señal fuerte de
+# texto truncado a mitad de frase (ej. "Es una constante irracional con").
+TRUNCATION_STOPWORDS = {
+    "de", "del", "al", "con", "en", "a", "por", "para", "sin", "sobre",
+    "entre", "hacia", "desde", "hasta", "según", "durante", "mediante",
+    "y", "o", "u", "e", "ni", "que", "si", "como", "cuando",
+    "el", "la", "los", "las", "un", "una", "unos", "unas", "su", "sus",
+    "es", "son", "más", "menos", "muy", "tan", "no",
+}
+
 ACCUSATORY_STARTS = [
     "Confunde", "Confundís", "Invierte", "Invertís", "Olvida", "Olvidás",
     "Ignora", "Ignorás", "Interpreta", "Falla en", "Se olvidó", "Falta",
@@ -100,6 +111,12 @@ PURE_FORMULA_OPTION_RE = re.compile(r"\$[^$]+\$\.?")
 # ej. "P(B\mid A_1)". Cuenta cuántas ramas distintas se suman explícitamente
 # en vez de usar \sum_i.
 PARTITION_TERM_RE = re.compile(r"P\([^()]*\\mid[^()]*\)")
+# Regla 44: línea que consiste únicamente en un "." suelto (sin ninguna otra
+# palabra), típicamente el resto de una oración cuya fórmula intermedia se
+# movió a un bloque display sin eliminar el punto que había quedado colgado
+# antes o después. Pasa desapercibido para el chequeo de "todo párrafo cierra
+# en puntuación" porque, tomado aisladamente, ese "." sí "termina en punto".
+ORPHAN_PERIOD_RE = re.compile(r"(?:^|\n)[ \t]*\.[ \t]*(?:\n|$)")
 # Regla 42: \frac{...}{...} / \dfrac{...}{...} con un nivel de anidado (para
 # poder capturar \binom{n}{k} completo dentro del numerador/denominador).
 FRAC_RE = re.compile(r"\\d?frac\{((?:[^{}]|\{[^{}]*\})*)\}\{((?:[^{}]|\{[^{}]*\})*)\}")
@@ -245,6 +262,28 @@ def check_options(items, file, F: Findings) -> None:
             F.add("WARNING", "options", "4/15", file, label,
                   "relleno 'solamente' en algunas opciones y no en todas")
 
+        # Regla 45: opción con pinta de texto truncado (termina en preposición,
+        # artículo o conjunción, sin punto final). No aplica a opciones que son
+        # puramente una fórmula LaTeX (ahí la "última palabra" no es prosa).
+        for j, o in enumerate(opts):
+            stripped = o.strip()
+            if not stripped or PURE_FORMULA_OPTION_RE.fullmatch(stripped):
+                continue
+            if stripped.endswith((".", "?", "!", "$")):
+                continue
+            tokens = stripped.split()
+            if len(tokens) < 2:
+                continue  # opción de una sola palabra: "No"/"Una" pueden ser respuestas completas
+            last_tok = tokens[-1]
+            # Solo dispara si el último token es puramente alfabético: un token
+            # como "20", "\$300" o "64" después de una preposición ("al 20",
+            # "de \$300") es una opción completa, no truncada.
+            if not re.fullmatch(r"[A-Za-zÁÉÍÓÚÑáéíóúñ]+", last_tok):
+                continue
+            if last_tok.lower() in TRUNCATION_STOPWORDS:
+                F.add("WARNING", "options", "45", file, label,
+                      f"opción #{j} termina en {last_tok!r}, pinta de texto truncado a mitad de frase: {o!r}")
+
 
 def _check_display_width(text, field, file, label, F: Findings) -> None:
     """Regla 38: bloques display sin `aligned` que quedan demasiado anchos, o
@@ -252,7 +291,7 @@ def _check_display_width(text, field, file, label, F: Findings) -> None:
     o pasar a `aligned`)."""
     for m in DISPLAY_RE.finditer(text):
         inner = m.group(0)[2:-2]
-        if "aligned" in inner:
+        if "aligned" in inner or "cases" in inner:
             continue
         rl = render_len(inner)
         if rl > DISPLAY_RENDER_MAX:
@@ -338,6 +377,9 @@ def _check_text_common(text, field, file, label, F: Findings) -> None:
     """Checks compartidos entre explanation / question / feedbacks."""
     if "\n\n$$" in text or "$$\n\n" in text:
         F.add("ERROR", field, "2", file, label, r"\n\n pegado a un bloque $$...$$")
+    if ORPHAN_PERIOD_RE.search(text):
+        F.add("ERROR", field, "44", file, label,
+              r"punto suelto en su propia línea, resto de una oración cortada por un bloque $$ movido sin recomponer la prosa")
     _check_display_width(text, field, file, label, F)
     _check_duplicate_formula(text, field, file, label, F)
     _check_missing_sumatoria(text, field, file, label, F)
@@ -391,6 +433,10 @@ def _check_display_flow(text, field, file, label, F: Findings) -> None:
             if first.isalpha() and first.islower():
                 F.add("ERROR", field, "10", file, label,
                       f"texto tras un bloque $$ arranca en minúscula: {nxt[:60]!r}")
+            elif first in "¿¡" and len(nxt) > 1 and nxt[1].isalpha() and nxt[1].islower():
+                F.add("ERROR", field, "10", file, label,
+                      f"pregunta/exclamación tras un bloque $$ arranca en minúscula "
+                      f"después de {first!r}: {nxt[:60]!r}")
 
 
 def check_explanations(items, file, F: Findings) -> None:

@@ -25,20 +25,6 @@ export const CATALOGS: Record<CourseId, typeof catalogAnalisis> = {
   algebra: catalogAlgebra as unknown as typeof catalogAnalisis,
 }
 
-const BELT_ASSET: Record<BeltKey, string> = {
-  white: "/belt_white.png",
-  blue: "/belt_blue.png",
-  violet: "/belt_purple.png",
-  brown: "/belt_brown.png",
-}
-
-const BELT_LABEL: Record<BeltKey, string> = {
-  white: "Blanco",
-  blue: "Azul",
-  violet: "Violeta",
-  brown: "Marrón",
-}
-
 // Orden y descripciones de cinturón vienen del catálogo generado (course.json),
 // no hardcodeados. Ver `beltInfo()`.
 export const BELT_ORDER: BeltKey[] = catalog.belts.map((b) => b.key)
@@ -74,12 +60,11 @@ export const BELT_ONDARK_VIVID: Record<BeltKey, string> = {
   brown: "#8B4A1F",
 }
 
-// Arreglos ordenados (blanco→marrón) para los lugares que pintan los cinturones
-// del curso como una secuencia de marca (logo, cubos de la landing, partículas,
-// onboarding, splash, resumen). `BAR` = colores exactos; `VIVID` = versión
-// legible/avivada. Ya no incluyen el negro histórico ("Aplicaciones"): esa
-// unidad no forma parte de ningún curso activo, así que se sacó de la marca.
-export const BELT_BAR_COLORS = BELT_ORDER.map((b) => BELT_HEX[b].solid)
+// Arreglo ordenado (blanco→marrón) de la versión legible/avivada, para los
+// lugares que pintan los cinturones del curso como una secuencia de marca
+// (partículas, resumen de sesión). Ya no incluye el negro histórico
+// ("Aplicaciones"): esa unidad no forma parte de ningún curso activo, así que
+// se sacó de la marca.
 export const BELT_VIVID_COLORS = BELT_ORDER.map((b) => BELT_HEX[b].onDark)
 
 // Fondo oscuro estándar de las superficies de marca (landing, onboarding,
@@ -132,14 +117,6 @@ export const BELT_UNIT_TEXT_COLORS: Record<BeltKey, string> = {
   brown: "#C0702B",
 }
 
-export function beltAssetPath({ belt }: { belt: BeltKey }): string {
-  return BELT_ASSET[belt]
-}
-
-export function beltLabel({ belt }: { belt: BeltKey }): string {
-  return BELT_LABEL[belt]
-}
-
 export function beltInfo({
   belt,
   course = "analisis",
@@ -161,7 +138,7 @@ export function getBelt({
   return CATALOGS[course].belts.find((b) => b.key === key) as Belt | undefined
 }
 
-export function unitsForBelt({
+function unitsForBelt({
   belt,
   course = "analisis",
 }: {

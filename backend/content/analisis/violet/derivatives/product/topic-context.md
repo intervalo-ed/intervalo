@@ -2,11 +2,11 @@
 
 Belt: `violet`, Unit: `derivatives`, Topic: `product`
 
-Skills en este topic: `ESTR`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+Skills en este topic: `ESTR`, `RESL`. **30 ejercicios cada uno (60 en total)** al cerrar el refactor.
 
-Este topic tiene 2 ítems (uno por skill): `ESTR`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+Este topic tiene 2 ítems (uno por skill): `ESTR`, `RESL`. **30 ejercicios cada uno (60 en total)** al cerrar el refactor.
 
-**Estado.** Este tópico surgió del split de `product_quotient` en `product/` + `quotient/`. Los `external_id` se regeneran al reseedear (`violet_product_estr_01…`, `violet_product_resl_01…`), lo que rompe el progreso guardado en DB — asumido y aceptado. Los ejercicios del split viejo (`ESTR` = 6, `RESL` heredado del merge DERI/APLI) se **trasladaron** a las skills nuevas de este tópico como material de referencia; la distribución completa (50 por skill) se hace en otro turno.
+**Estado.** Este tópico surgió del split de `product_quotient` en `product/` + `quotient/`. Los `external_id` se regeneran al reseedear (`violet_product_estr_01…`, `violet_product_resl_01…`), lo que rompe el progreso guardado en DB — asumido y aceptado. Los ejercicios del split viejo (`ESTR` = 6, `RESL` heredado del merge DERI/APLI) se **trasladaron** a las skills nuevas de este tópico como material de referencia; la distribución completa (30 por skill) se hace en otro turno.
 
 El contenido "APLI" que existía antes del merge DERI/INTG/APLI → RESL queda absorbido en **RESL** — coherente con la fusión de skills a nivel curso.
 
@@ -36,7 +36,7 @@ Los ejercicios que quiebren esta regla se descartan y se reescriben.
 
 ## Correcciones de formato transversales (los 2 skills)
 
-Reglas de authoring que se aplican al escribir los 100 ejercicios:
+Reglas de authoring que se aplican al escribir los 60 ejercicios:
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`, con enfoque **algorítmico**: (a) identificamos $u$ y $v$ y calculamos $u'$ y $v'$ usando `\begin{aligned}`, (b) aplicamos la fórmula $u'v + uv'$, (c) simplificamos y cerramos con advertencia técnica. Sin viñetas `•`, sin sub-`-`, **sin em-dash `—` (prohibido estricto)**, sin humor.
@@ -48,7 +48,7 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 ---
 
-## ESTR, 50 ejercicios
+## ESTR, 30 ejercicios
 
 ### Qué evalúa
 **Auditoría de la toma de decisiones previa al cálculo**. No se ejecuta la derivación completa: se decide **qué regla aplicar** y **cómo desglosar la expresión** en factores. Sin cálculo numérico final.
@@ -62,8 +62,8 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Falsos positivos y alternativas algebraicas | Detectar cuándo la regla del producto es válida pero **estratégicamente ineficiente o innecesaria**. Constante multiplicada por función ($f(x) = 4 \sin x$ es linealidad, no producto), polinomios distribuibles antes de derivar ($f(x) = (x+2)(x-2) = x^2 - 4$), potencias reescribibles ($f(x) = x^2 \cdot x^3 = x^5$). | `falsos-positivos-alternativas-algebraicas` | 25 |
-| B. Identificación del esqueleto y factores | Desglosar correctamente la función inicial en $u$ y $v$, aislando las partes funcionales antes de empezar a derivar. Funciones mixtas sin signo de multiplicación explícito ($f(x) = x^2 \ln x$, $f(x) = \sqrt{x} \, e^x$, $f(x) = x \sin x$). | `identificacion-esqueleto-y-factores` | 25 |
+| A. Falsos positivos y alternativas algebraicas | Detectar cuándo la regla del producto es válida pero **estratégicamente ineficiente o innecesaria**. Constante multiplicada por función ($f(x) = 4 \sin x$ es linealidad, no producto), polinomios distribuibles antes de derivar ($f(x) = (x+2)(x-2) = x^2 - 4$), potencias reescribibles ($f(x) = x^2 \cdot x^3 = x^5$). | `falsos-positivos-alternativas-algebraicas` | 15 |
+| B. Identificación del esqueleto y factores | Desglosar correctamente la función inicial en $u$ y $v$, aislando las partes funcionales antes de empezar a derivar. Funciones mixtas sin signo de multiplicación explícito ($f(x) = x^2 \ln x$, $f(x) = \sqrt{x} \, e^x$, $f(x) = x \sin x$). | `identificacion-esqueleto-y-factores` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -84,7 +84,7 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 30 ejercicios
 
 ### Qué evalúa
 **Ejecución técnica** de la regla del producto: identificar $u$ y $v$, calcular $u'$ y $v'$, armar $u'v + uv'$ y **evaluar en un punto** $x = a$ donde al menos un término de la suma se anula.
@@ -102,10 +102,10 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Anulación por raíz de la función | El punto de evaluación $x = a$ es una **raíz de uno de los factores iniciales** ($u(a) = 0$ o $v(a) = 0$). Ejemplo: $f(x) = (x^2 - 4) e^x$ evaluada en $x = 2$. Se anula el término $u(a) v'(a) = 0 \cdot e^2 = 0$, queda $u'(2) v(2) = 4 e^2$. | `anulacion-por-raiz-producto` | 15 |
-| B. Anulación por extremo local (derivada nula) | El punto de evaluación $x = a$ **anula la derivada de uno de los factores** ($u'(a) = 0$ o $v'(a) = 0$). Ejemplo: $f(x) = \cos(x) \cdot e^x$ evaluada en $x = 0$. Como $(\cos x)'\|_{x=0} = -\sin 0 = 0$, se anula $u'(0) v(0) = 0$, queda $u(0) v'(0) = 1 \cdot 1 = 1$. | `anulacion-por-derivada-nula-producto` | 15 |
-| C. Anulación cruzada completa | El punto de evaluación colapsa **ambos términos simultáneamente** ($u(a) = 0$ y $v'(a) = 0$, o $u'(a) = 0$ y $v(a) = 0$). El resultado final de la pendiente es $0$. | `anulacion-cruzada-completa` | 10 |
-| D. Evaluación con datos abstractos | Se brindan los **valores puntuales** de $f(a), f'(a), g(a), g'(a)$, forzando a que uno o más sean $0$ explícitamente. Ejemplo: "Si $f(2) = 0$, $f'(2) = 5$, $g(2) = 4$, $g'(2) = -1$, calculá $(f \cdot g)'(2)$". Obliga al uso de la **estructura abstracta pura** de la fórmula, sin cálculo de derivadas. Respuesta: $5 \cdot 4 + 0 \cdot (-1) = 20$. | `evaluacion-datos-abstractos-producto` | 10 |
+| A. Anulación por raíz de la función | El punto de evaluación $x = a$ es una **raíz de uno de los factores iniciales** ($u(a) = 0$ o $v(a) = 0$). Ejemplo: $f(x) = (x^2 - 4) e^x$ evaluada en $x = 2$. Se anula el término $u(a) v'(a) = 0 \cdot e^2 = 0$, queda $u'(2) v(2) = 4 e^2$. | `anulacion-por-raiz-producto` | 9 |
+| B. Anulación por extremo local (derivada nula) | El punto de evaluación $x = a$ **anula la derivada de uno de los factores** ($u'(a) = 0$ o $v'(a) = 0$). Ejemplo: $f(x) = \cos(x) \cdot e^x$ evaluada en $x = 0$. Como $(\cos x)'\|_{x=0} = -\sin 0 = 0$, se anula $u'(0) v(0) = 0$, queda $u(0) v'(0) = 1 \cdot 1 = 1$. | `anulacion-por-derivada-nula-producto` | 9 |
+| C. Anulación cruzada completa | El punto de evaluación colapsa **ambos términos simultáneamente** ($u(a) = 0$ y $v'(a) = 0$, o $u'(a) = 0$ y $v(a) = 0$). El resultado final de la pendiente es $0$. | `anulacion-cruzada-completa` | 6 |
+| D. Evaluación con datos abstractos | Se brindan los **valores puntuales** de $f(a), f'(a), g(a), g'(a)$, forzando a que uno o más sean $0$ explícitamente. Ejemplo: "Si $f(2) = 0$, $f'(2) = 5$, $g(2) = 4$, $g'(2) = -1$, calculá $(f \cdot g)'(2)$". Obliga al uso de la **estructura abstracta pura** de la fórmula, sin cálculo de derivadas. Respuesta: $5 \cdot 4 + 0 \cdot (-1) = 20$. | `evaluacion-datos-abstractos-producto` | 6 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -143,7 +143,7 @@ Auditoría en vivo (`/test`) sobre ejercicios ya existentes:
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 2 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 30 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna aplicación de regla del cociente o cadena; ninguna función compuesta en $u$ o $v$
 - [ ] Ningún desarrollo por límite; producto binario únicamente
 - [ ] Explicaciones en 3 párrafos de prosa; estructura algorítmica; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
@@ -155,16 +155,16 @@ Auditoría en vivo (`/test`) sobre ejercicios ya existentes:
 - [ ] **"Sabiendo que" y "Para derivar" reescritos como cláusula completa** (fragmentos sin objeto propio, el `:` no los arregla); **"Considerá la función" con el `:` agregado** antes del bloque `$$...$$` (ya es cláusula completa). Redacción variada ejercicio a ejercicio (regla crítica 32)
 
 **ESTR:**
-- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
-- [ ] Distribución A/B respetada (25/25)
+- [ ] 30 ejercicios; **exactamente 3 opciones** por ejercicio
+- [ ] Distribución A/B respetada (15/15)
 - [ ] Ningún cálculo numérico final; solo elección de método/descomposición
 - [ ] Sub-A con distractor mayoritario = "regla del producto"; sub-B con opciones tipo `"u = x^2, v = \ln x"` textuales
 - [ ] Textos exactos en opciones de elección de planteo (ver §Reglas específicas)
 
 **RESL:**
-- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
+- [ ] 30 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
 - [ ] Sin contextos cotidianos
-- [ ] Distribución A/B/C/D respetada (15/15/10/10)
+- [ ] Distribución A/B/C/D respetada (9/9/6/6)
 - [ ] Todos los ejercicios cumplen la **anulación forzada** ($u'(a) v(a) = 0$ o $u(a) v'(a) = 0$)
 - [ ] Explicaciones con estructura algorítmica (identificar $u,v,u',v'$ → aplicar fórmula señalando anulación → simplificar)
 - [ ] Ningún argumento interno no trivial; producto binario únicamente

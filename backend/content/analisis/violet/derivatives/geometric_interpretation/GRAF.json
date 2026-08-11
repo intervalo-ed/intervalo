@@ -1,6 +1,6 @@
 [
   {
-    "question": "En la gráfica se muestra la curva $f(x)=x^2$ junto con una recta que se une a ella en el punto marcado.\n¿La recta que se une a la curva en ese punto es tangente ahí?",
+    "question": "En la gráfica se muestra la curva $f(x)=x^2$ junto con una recta que se une a ella en el punto marcado.\n\n¿La recta que se une a la curva en ese punto es tangente ahí?",
     "options": [
       "Sí, es tangente",
       "No, es secante",
@@ -28,10 +28,10 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la curva $f(x)=x^2$ junto con otra recta que se une a ella en el punto marcado.\n¿La recta que se une a la curva en ese punto es tangente ahí?",
+    "question": "En la gráfica se muestra la curva $f(x)=x^2$ junto con otra recta que se une a ella en el punto marcado.\n\n¿La recta que se une a la curva en ese punto es tangente ahí?",
     "options": [
-      "No, es una recta transversal",
-      "No, es secante en el contexto",
+      "No, es transversal",
+      "No, es secante",
       "Sí, es tangente"
     ],
     "correct_index": 1,
@@ -56,11 +56,11 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la curva $f(x)=x^2$ junto con una tercera recta que se une a ella en el punto marcado.\n¿La recta que se une a la curva en ese punto es tangente ahí?",
+    "question": "En la gráfica se muestra la curva $f(x)=x^2$ junto con una tercera recta que se une a ella en el punto marcado.\n\n¿La recta que se une a la curva en ese punto es tangente ahí?",
     "options": [
-      "Sí, es tangente",
-      "No, es secante",
-      "No, no en general"
+      "Sí, es la recta tangente",
+      "No, es la recta secante",
+      "No, es una recta transversal"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -84,7 +84,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la curva $f(x)=-x^2+4$ junto con una recta que se une a ella en el punto marcado.\n¿La recta que se une a la curva en ese punto es tangente ahí?",
+    "question": "En la gráfica se muestra la curva $f(x)=-x^2+4$ junto con una recta que se une a ella en el punto marcado.\n\n¿La recta que se une a la curva en ese punto es tangente ahí?",
     "options": [
       "Sí, es tangente",
       "No, es secante",
@@ -112,10 +112,10 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la curva $f(x)=-x^2+4$ junto con otra recta que se une a ella en el punto marcado.\n¿La recta que se une a la curva en ese punto es tangente ahí?",
+    "question": "En la gráfica se muestra la curva $f(x)=-x^2+4$ junto con otra recta que se une a ella en el punto marcado.\n\n¿La recta que se une a la curva en ese punto es tangente ahí?",
     "options": [
-      "No, es una recta transversal",
-      "No, es secante en el contexto",
+      "No, es transversal",
+      "No, es secante",
       "Sí, es tangente"
     ],
     "correct_index": 1,
@@ -140,11 +140,11 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la curva $f(x)=-x^2+4$ junto con una tercera recta que se une a ella en el punto marcado.\n¿La recta que se une a la curva en ese punto es tangente ahí?",
+    "question": "En la gráfica se muestra la curva $f(x)=-x^2+4$ junto con una tercera recta que se une a ella en el punto marcado.\n\n¿La recta que se une a la curva en ese punto es tangente ahí?",
     "options": [
-      "Sí, es tangente",
-      "No, es secante",
-      "No, no en general"
+      "Sí, es la recta tangente",
+      "No, es la recta secante",
+      "No, es una recta transversal"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -168,7 +168,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente en la grilla?",
+    "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente en la grilla?",
     "options": [
       "$-2$",
       "$1$",
@@ -191,14 +191,14 @@
       -4,
       4
     ],
-    "explanation": "Para leer la **pendiente** de una recta en la grilla, hay que contar cuánto sube o baja la recta, $\\Delta y$, por cada paso horizontal, $\\Delta x$.\n\nEn esta recta,por cada unidad que se avanza en $x$,.\n\nla recta sube $2$ unidades en $y$.\n\nasí que $f'(a)=2$.\n\nConviene siempre contar el desplazamiento vertical dividido por el horizontal, invertir el orden más común al leer pendientes en una grilla.",
+    "explanation": "Para leer la **pendiente** de una recta en la grilla, hay que contar cuánto sube o baja la recta, $\\Delta y$, por cada paso horizontal, $\\Delta x$.\n\nEn esta recta, subir $2$ unidades por cada paso horizontal da $f'(a)=2$.\n\nConviene siempre contar primero el desplazamiento vertical y después dividirlo por el horizontal: invertir ese orden cambia por completo la lectura de la pendiente.",
     "reviewed": false,
     "tags": [
       "lectura-de-pendiente"
     ]
   },
   {
-    "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente en la grilla?",
+    "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente en la grilla?",
     "options": [
       "$1$",
       "$-0,5$",
@@ -221,14 +221,14 @@
       -3,
       3
     ],
-    "explanation": "Esta recta desciende a medida que $x$ crece, así que su pendiente es negativa.\n\nContando la grilla,por cada unidad que avanza en $x$,.\n\nla recta baja exactamente $1$ unidad en $y$.\n\nlo que da $f'(a)=-1$.\n\nUna pendiente de $-1$ forma un ángulo de $45°$ hacia abajo, útil como referencia visual rápida para comparar con otras pendientes.",
+    "explanation": "Esta recta desciende a medida que $x$ crece, así que su pendiente es negativa.\n\nContando la grilla, bajar exactamente $1$ unidad por cada paso horizontal da $f'(a)=-1$.\n\nUna pendiente de $-1$ forma un ángulo de $45°$ hacia abajo, útil como referencia visual rápida para comparar con otras pendientes.",
     "reviewed": false,
     "tags": [
       "lectura-de-pendiente"
     ]
   },
   {
-    "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente en la grilla?",
+    "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente en la grilla?",
     "options": [
       "$0,5$",
       "$2$",
@@ -251,14 +251,14 @@
       -2,
       4
     ],
-    "explanation": "En esta recta, el avance horizontal es más grande que la subida vertical, señal de que la pendiente es un número entre $0$ y $1$.\n\nContando con cuidado la grilla,.\n\nla recta sube $1$ unidad por cada $2$\n\nunidades de avance en $x$.\n\nlo que da $f'(a)=0,5$.\n\nPendientes fraccionarias como esta son más fáciles de leer contando varios pasos horizontales seguidos, en vez de uno solo.",
+    "explanation": "En esta recta, el avance horizontal es más grande que la subida vertical, señal de que la pendiente es un número entre $0$ y $1$.\n\nContando con cuidado la grilla, subir $1$ unidad cada dos pasos horizontales da $f'(a)=0,5$.\n\nPendientes fraccionarias como esta son más fáciles de leer contando varios pasos horizontales seguidos, en vez de uno solo.",
     "reviewed": false,
     "tags": [
       "lectura-de-pendiente"
     ]
   },
   {
-    "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente en la grilla?",
+    "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente en la grilla?",
     "options": [
       "$-1$",
       "$-2$",
@@ -281,14 +281,14 @@
       -4,
       4
     ],
-    "explanation": "Esta recta desciende con bastante inclinación, señal de que su pendiente tiene un valor absoluto mayor a $1$.\n\nContando la grilla,por cada unidad de avance en $x$,.\n\nla recta baja $2$ unidades en $y$.\n\nlo que da $f'(a)=-2$.\n\nCuanto más empinada se ve la recta, mayor es el valor absoluto de su pendiente, sin importar si sube o baja.",
+    "explanation": "Esta recta desciende con bastante inclinación, señal de que su pendiente tiene un valor absoluto mayor a $1$.\n\nContando la grilla, bajar $2$ unidades por cada paso horizontal da $f'(a)=-2$.\n\nCuanto más empinada se ve la recta, mayor es el valor absoluto de su pendiente, sin importar si la recta sube o baja.",
     "reviewed": false,
     "tags": [
       "lectura-de-pendiente"
     ]
   },
   {
-    "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente en la grilla?",
+    "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente en la grilla?",
     "options": [
       "$-3$",
       "$1$",
@@ -311,14 +311,14 @@
       -5,
       5
     ],
-    "explanation": "Esta recta es la más inclinada de la serie, sube $3$ unidades en $y$ \n\npor cada unidad que avanza en $x$.\n\nEse ritmo de subida tan pronunciado da una pendiente $f'(a)=3$, más del doble que una recta a $45°$.\n\nContar varios pasos horizontales completos, en vez de fijarse en un solo cuadradito, ayuda a leer con precisión pendientes grandes como esta.",
+    "explanation": "Esta recta es la más inclinada de la serie: sube $3$ unidades por cada paso horizontal.\n\nEse ritmo de subida tan pronunciado da una pendiente $f'(a)=3$, más del doble que una recta a $45°$.\n\nContar varios pasos horizontales completos, en vez de fijarse en un solo cuadradito, ayuda a leer con precisión pendientes grandes como esta.",
     "reviewed": false,
     "tags": [
       "lectura-de-pendiente"
     ]
   },
   {
-    "question": "En la gráfica se muestra la función $f(x)=x^2-6x+5$.\n¿En qué valor de $x$ la recta tangente a la curva es horizontal?",
+    "question": "En la gráfica se muestra la función $f(x)=x^2-6x+5$.\n\n¿En qué valor de $x$ la recta tangente a la curva es horizontal?",
     "options": [
       "$x=1$",
       "$x=5$",
@@ -341,14 +341,14 @@
       -6,
       6
     ],
-    "explanation": "La **recta tangente** es horizontal únicamente en el vértice de la parábola, el punto donde la curva deja de bajar y empieza a subir.\n\nEsta parábola tiene su vértice en $x=3$,.\n\nmientras que $x=1$ y $x=5$ son sus raíces.\n\npuntos donde $f(x)=0$ pero la tangente no es horizontal.\n\nConfundir raíces con el punto de tangente horizontal , conviene siempre ubicar primero el vértice antes de responder.",
+    "explanation": "La **recta tangente** es horizontal únicamente en el vértice de la parábola, que en este caso está en $x=3$.\n\nLas raíces de la función, $x=1$ y $x=5$, son otros puntos donde la función vale cero, pero ahí la tangente no es horizontal.\n\nLas raíces y el punto de tangente horizontal son conceptos distintos; conviene siempre ubicar primero el vértice antes de responder.",
     "reviewed": false,
     "tags": [
       "extremos-tangentes-horizontales"
     ]
   },
   {
-    "question": "En la gráfica se muestra la función $f(x)=-x^2+4x$.\n¿En qué valor de $x$ la recta tangente a la curva es horizontal?",
+    "question": "En la gráfica se muestra la función $f(x)=-x^2+4x$.\n\n¿En qué valor de $x$ la recta tangente a la curva es horizontal?",
     "options": [
       "$x=2$",
       "$x=0$",
@@ -378,7 +378,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la función $f(x)=x^2+2x-3$.\n¿En qué valor de $x$ la recta tangente a la curva es horizontal?",
+    "question": "En la gráfica se muestra la función $f(x)=x^2+2x-3$.\n\n¿En qué valor de $x$ la recta tangente a la curva es horizontal?",
     "options": [
       "$x=0$",
       "$x=-1$",
@@ -401,14 +401,14 @@
       -5,
       5
     ],
-    "explanation": "El vértice de esta parábola está en $x=-1$, exactamente a mitad de camino entre sus dos raíces, $x=-3$ \n\ny $x=1$.\n\nEn ese punto la recta tangente a la curva queda perfectamente horizontal, porque la función pasa de bajar a subir justo ahí.\n\nUbicar primero las raíces y promediarlas es una forma rápida de encontrar el vértice sin tener que analizar la curva completa.",
+    "explanation": "El vértice de esta parábola está en $x=-1$, el único punto donde la recta tangente queda horizontal, porque ahí la función pasa de bajar a subir.\n\nEse valor es exactamente el promedio de sus dos raíces, $x=-3$ y $x=1$.\n\nUbicar primero las raíces y promediarlas es una forma rápida de encontrar el vértice sin tener que analizar la curva completa.",
     "reviewed": false,
     "tags": [
       "extremos-tangentes-horizontales"
     ]
   },
   {
-    "question": "En la gráfica se muestra la función $f(x)=x^2-2x-3$, con un único vértice visible.\n¿Existe algún punto donde la recta tangente a la curva sea horizontal?",
+    "question": "En la gráfica se muestra la función $f(x)=x^2-2x-3$, con un único vértice visible.\n\n¿Existe algún punto donde la recta tangente a la curva sea horizontal?",
     "options": [
       "No, ninguna tangente es horizontal en esta curva",
       "Sí, pero solo en las raíces de la función",

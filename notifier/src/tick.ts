@@ -20,6 +20,7 @@ interface DueNotification {
   pending_count: number
   title: string
   body: string
+  notification_id: number
   subscriptions: PushSub[]
 }
 
@@ -49,13 +50,17 @@ export function setupWebPush(config: NotifierConfig): void {
 /** Send one push; resolves to a dead-subscription id (404/410) or null. */
 const sendPush = (
   sub: PushSub,
-  payload: { title: string; body: string },
+  payload: { title: string; body: string; notificationId: number },
 ): Effect.Effect<number | null> =>
   Effect.tryPromise({
     try: () =>
       webpush.sendNotification(
         { endpoint: sub.endpoint, keys: { p256dh: sub.p256dh, auth: sub.auth } },
-        JSON.stringify({ title: payload.title, body: payload.body }),
+        JSON.stringify({
+          title: payload.title,
+          body: payload.body,
+          id: payload.notificationId,
+        }),
         { TTL: 86400 },
       ),
     catch: (error) => error,
@@ -89,7 +94,12 @@ export const runTick = (
     const users = (yield* dueRes.json) as unknown as DueNotification[]
 
     const jobs = users.flatMap((u) =>
-      u.subscriptions.map((sub) => ({ sub, title: u.title, body: u.body })),
+      u.subscriptions.map((sub) => ({
+        sub,
+        title: u.title,
+        body: u.body,
+        notificationId: u.notification_id,
+      })),
     )
     yield* Console.log(
       `tick: ${users.length} user(s) due, ${jobs.length} push(es) to send`,
@@ -98,7 +108,12 @@ export const runTick = (
 
     const results = yield* Effect.forEach(
       jobs,
-      (job) => sendPush(job.sub, { title: job.title, body: job.body }),
+      (job) =>
+        sendPush(job.sub, {
+          title: job.title,
+          body: job.body,
+          notificationId: job.notificationId,
+        }),
       { concurrency: 5 },
     )
     const deadIds = results.filter((id): id is number => id !== null)

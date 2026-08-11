@@ -2,7 +2,7 @@
 
 Belt: `white`, Unit: `functions`, Topic: `quadratic`
 
-Skills en este topic: `LEXI`, `FORM`, `GRAF`. 50 ejercicios cada uno (150 en total).
+Skills en este topic: `LEXI`, `FORM`, `GRAF`. 30 ejercicios cada uno (90 en total).
 
 > **CLSF archivado (jul-2026):** se sacó de este topic al podar a un máximo de 3 ítems (skills) por topic. Contenido preservado en `backend/content/archive/analisis/white/functions/quadratic/CLSF.json`. No generar CLSF para este topic en rondas futuras; el resto de este documento puede seguir mencionando CLSF en registros de auditoría históricos, que quedan como referencia, no como guía de generación.
 
@@ -73,29 +73,28 @@ Hoy 175/200 son `""` (string vacío, legacy). Los 25 restantes (CLSF 14, FORM 11
 
 ---
 
-## LEXI, 50 ejercicios
+## LEXI, 30 ejercicios
 
 ### Qué evalúa
 Vocabulario y parámetros de la parábola: forma canónica $f(x) = ax^2 + bx + c$, formas **vértice** $a(x-h)^2 + k$ y **factorizada** $a(x-r_1)(x-r_2)$, identificar **vértice**, **eje de simetría**, **raíces** (ceros), **ordenada al origen** $c$, **concavidad** (signo de $a$), **coeficiente principal**, dominio e imagen, máximo vs mínimo, raíz simple vs doble, discriminante.
 
 ### Distribución objetivo
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ejercicios actuales de `LEXI.json`:
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 30 ejercicios actuales de `LEXI.json` (recorte proporcional ronda 2, ago-2026, aplicado sobre los tags reales; la fila `concavidad` de una versión anterior de esta tabla no tenía ningún ejercicio real con ese slug y se eliminó de la tabla):
 
 | Concepto | Slug | Cantidad actual |
 |----------|------|-----------------:|
-| Raíces y discriminante (número, ceros, simple/doble) | `raices-discriminante` | 8 |
-| Formas de la función (estándar, vértice, factorizada) | `formas-de-la-funcion` | 6 |
-| Dominio e imagen | `dominio-imagen` | 6 |
-| Identificación de fórmula (es/no es cuadrática, grado 2) | `identificacion-formula` | 5 |
-| Nombrar coeficientes/términos ($a$, $b$, $c$) | `coeficientes-nombre` | 5 |
-| Vértice, concepto (nombre, óptimo, en contexto) | `vertice-concepto` | 5 |
-| Eje de simetría | `eje-simetria` | 4 |
-| Concavidad | `concavidad` | 4 |
-| Nombre de la parábola (curva, ramas) | `nombre-parabola` | 3 |
-| Vértice, parámetros $h$ y $k$ en la forma vértice | `vertice-parametros` | 2 |
-| Efecto de $\|a\|$ en la apertura | `coeficiente-a-forma` | 2 |
-| **Total** | | **50** |
+| Raíces y discriminante (número, ceros, simple/doble) | `raices-discriminante` | 5 |
+| Nombre de la parábola (curva, ramas) | `nombre-parabola` | 4 |
+| Dominio e imagen | `dominio-imagen` | 4 |
+| Vértice, concepto (nombre, óptimo, en contexto) | `vertice-concepto` | 4 |
+| Identificación de fórmula (es/no es cuadrática, grado 2) | `identificacion-formula` | 3 |
+| Formas de la función (estándar, vértice, factorizada) | `formas-de-la-funcion` | 3 |
+| Nombrar coeficientes/términos ($a$, $b$, $c$) | `coeficientes-nombre` | 3 |
+| Eje de simetría | `eje-simetria` | 2 |
+| Efecto de $\|a\|$ en la apertura | `coeficiente-a-forma` | 1 |
+| Vértice, parámetros $h$ y $k$ en la forma vértice | `vertice-parametros` | 1 |
+| **Total** | | **30** |
 
 ### Cardinalidad
 - **Identificación numérica** (leer $a$, $b$, $c$, vértice, raíz, $f(0)$): **4 opciones**, valores cortos, disparan la grilla 2×2.
@@ -115,7 +114,7 @@ Vocabulario y parámetros de la parábola: forma canónica $f(x) = ax^2 + bx + c
 
 ---
 
-## FORM, 50 ejercicios
+## FORM, 30 ejercicios
 
 ### Qué evalúa
 Construir o leer la fórmula $f(x) = ax^2 + bx + c$ y sus formas vértice / factorizada desde una situación:
@@ -128,23 +127,23 @@ Construir o leer la fórmula $f(x) = ax^2 + bx + c$ y sus formas vértice / fact
 
 ### Distribución objetivo
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ejercicios actuales de `FORM.json`:
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 30 ejercicios actuales de `FORM.json` (recorte proporcional ronda 2, ago-2026, aplicado sobre los tags reales; el slug `dominio` de una versión anterior de esta tabla no tenía ningún ejercicio real con ese slug, y en cambio hay 1 ejercicio con el slug `nombre-parabola`, residual de otra categorización; se ajustó la tabla a los tags reales):
 
 | Concepto | Slug | Cantidad actual |
 |----------|------|-----------------:|
-| Raíces desde la fórmula (leer, calcular, suma) | `raices-desde-formula` | 9 |
-| Gráfico → fórmula | `grafico-a-formula` | 8 |
-| Leer coeficientes $a$, $b$, $c$ desde forma estándar | `leer-coeficientes` | 6 |
-| Resolver en contexto (cuándo toca el suelo, para qué $x$) | `resolver-contexto` | 5 |
-| Armar fórmula desde tiro/caída ($h_0 + v_0 t - \tfrac12 g t^2$) | `armar-formula-tiro` | 3 |
-| Armar fórmula desde cotidiano (área, corral, recaudación) | `armar-formula-cotidiano` | 4 |
-| Evaluar $f(\text{valor})$ | `evaluar-f` | 4 |
-| Forma vértice, armarla dado vértice y $a$ | `forma-vertice-armar` | 4 |
-| Vértice, leerlo desde la forma vértice ya dada | `vertice-desde-forma` | 3 |
-| Forma factorizada, armarla dadas las raíces | `forma-factorizada-armar` | 2 |
+| Raíces desde la fórmula (leer, calcular, suma) | `raices-desde-formula` | 7 |
+| Leer coeficientes $a$, $b$, $c$ desde forma estándar | `leer-coeficientes` | 3 |
+| Gráfico → fórmula | `grafico-a-formula` | 3 |
+| Evaluar $f(\text{valor})$ | `evaluar-f` | 3 |
+| Armar fórmula desde cotidiano (área, corral, recaudación) | `armar-formula-cotidiano` | 3 |
+| Vértice, leerlo desde la forma vértice ya dada | `vertice-desde-forma` | 2 |
+| Forma vértice, armarla dado vértice y $a$ | `forma-vertice-armar` | 2 |
+| Resolver en contexto (cuándo toca el suelo, para qué $x$) | `resolver-contexto` | 2 |
+| Armar fórmula desde tiro/caída ($h_0 + v_0 t - \tfrac12 g t^2$) | `armar-formula-tiro` | 2 |
 | Eje de simetría, cálculo | `eje-simetria-calculo` | 1 |
-| Dominio de la función | `dominio` | 1 |
-| **Total** | | **50** |
+| Forma factorizada, armarla dadas las raíces | `forma-factorizada-armar` | 1 |
+| Residual (`nombre-parabola`, 1 ejercicio de tiro mal etiquetado, ver nota arriba) | `nombre-parabola` | 1 |
+| **Total** | | **30** |
 
 ### Cardinalidad
 - **Armar/leer la fórmula, coeficientes, vértice, raíces**: **4 opciones**, expresiones cortas, grilla 2×2.
@@ -164,10 +163,10 @@ Construir o leer la fórmula $f(x) = ax^2 + bx + c$ y sus formas vértice / fact
 
 ---
 
-## GRAF, 50 ejercicios
+## GRAF, 30 ejercicios
 
 ### Qué evalúa
-Leer una parábola desde su gráfico: **vértice** (valor y coordenada del óptimo), **concavidad** (signo de $a$), **raíces** (dónde toca el eje, solo si abre hacia abajo con el valle debajo del cero), **eje de simetría** (misma altura dos veces), **ordenada al origen** $c$ (valor de partida $f(0)$), lectura $f(v)$, y comparación crece-vs-decrece antes/después del vértice. Los 50 tienen `graph_fn`.
+Leer una parábola desde su gráfico: **vértice** (valor y coordenada del óptimo), **concavidad** (signo de $a$), **raíces** (dónde toca el eje, solo si abre hacia abajo con el valle debajo del cero), **eje de simetría** (misma altura dos veces), **ordenada al origen** $c$ (valor de partida $f(0)$), lectura $f(v)$, y comparación crece-vs-decrece antes/después del vértice. Los 30 tienen `graph_fn`.
 
 ### Regla dura de gráfico (análogo del `|m|≤3` de lo lineal)
 Las parábolas crecen rápido y con render 1:1 se van de la vista; si las raíces quedan fuera del encuadre, la curva "flota" y no se interpreta.
@@ -190,20 +189,18 @@ Variar números, no repetir personajes. Montos con `\\$` en JSON. Sin nombres pr
 
 ### Arquetipos de pregunta
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ejercicios actuales de `GRAF.json`:
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 30 ejercicios actuales de `GRAF.json` (recorte proporcional ronda 2, ago-2026, aplicado sobre los tags reales). **Nota de discrepancia detectada en esta ronda**: los slugs reales en `GRAF.json` no tienen `raiz`, `concavidad` ni `duracion` como valores de `tags` propios; esos arquetipos (conceptualmente siguen presentes en las preguntas, ver "Arquetipos de pregunta" y "Biblioteca de modelado" arriba) están agrupados bajo el slug residual `nombre-parabola`, que no corresponde a ningún arquetipo de este skill. Se preserva ese slug tal cual está en el dato real (no se reetiqueta, está fuera del alcance de este recorte) y se refleja en la tabla:
 
 | Arquetipo | Slug | Cantidad actual |
 |-----------|------|-----------------:|
-| Vértice-y (valor máx/mín) | `vertice-y` | 12 |
-| Vértice-x (cuándo/dónde ocurre el óptimo) | `vertice-x` | 12 |
-| Lectura puntual $f(v)$ | `lectura-fv` | 7 |
-| Raíz (toca el suelo, solo abajo) | `raiz` | 6 |
-| Eje de simetría (misma altura dos veces) | `eje-simetria` | 4 |
-| Concavidad (máx o mín → signo de $a$) | `concavidad` | 3 |
-| Duración/dos raíces (solo abajo) | `duracion` | 3 |
-| Ordenada al origen $c$ (valor de partida, $f(0)$) | `ordenada-origen` | 2 |
+| Vértice-x (cuándo/dónde ocurre el óptimo) | `vertice-x` | 7 |
+| Vértice-y (valor máx/mín) | `vertice-y` | 7 |
+| Residual (agrupa raíz/concavidad/duración, ver nota arriba) | `nombre-parabola` | 7 |
+| Lectura puntual $f(v)$ | `lectura-fv` | 5 |
+| Eje de simetría (misma altura dos veces) | `eje-simetria` | 2 |
 | Sube vs baja (crece antes del vértice, decrece después) | `sube-baja` | 1 |
-| **Total** | | **50** |
+| Ordenada al origen $c$ (valor de partida, $f(0)$) | `ordenada-origen` | 1 |
+| **Total** | | **30** |
 
 **Los mínimos (cóncava arriba) NO usan raíces ni duración**: el valle queda por encima del eje → la parábola nunca toca el cero. Los arquetipos válidos para arriba son: vértice-y, vértice-x, concavidad, lectura $f(v)$, eje de simetría, sube vs baja.
 
@@ -227,7 +224,7 @@ Variar números, no repetir personajes. Montos con `\\$` en JSON. Sin nombres pr
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 4 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ejercicios: `array` del largo de `options`, `null` en el correcto, una pista descriptiva por distractor (incluye reescribir los que hoy son `string` no vacío, son duplicados del `feedback_correct`)
+- [ ] `feedback_incorrect` completo en los 30 ejercicios: `array` del largo de `options`, `null` en el correcto, una pista descriptiva por distractor (incluye reescribir los que hoy son `string` no vacío, son duplicados del `feedback_correct`)
 - [ ] Ningún `\n\n` pegado a un bloque `$$...$$` (un solo `\n`)
 - [ ] Ningún em-dash `—` ni en-dash `–` en ningún campo
 - [ ] Ninguna explicación con viñetas `•` ni sub-ejercicios `-`: todas en 3 párrafos de prosa
@@ -237,16 +234,16 @@ Variar números, no repetir personajes. Montos con `\\$` en JSON. Sin nombres pr
 - [ ] Montos con `\$` escapado
 
 **LEXI:**
-- [ ] 50 ejercicios; negrita en primera mención de `parábola`/`vértice`/`eje de simetría`/`raíces`/`ordenada al origen`/`concavidad`/`coeficiente principal`/`dominio`/`imagen`
+- [ ] 30 ejercicios; negrita en primera mención de `parábola`/`vértice`/`eje de simetría`/`raíces`/`ordenada al origen`/`concavidad`/`coeficiente principal`/`dominio`/`imagen`
 - [ ] Conceptuales puros a 3 opciones cuando no hay una cuarta confusión real; numéricos a 4
 
 **FORM:**
-- [ ] 50 ejercicios; forma final de la fórmula en el enunciado, paso intermedio en la explicación
+- [ ] 30 ejercicios; forma final de la fórmula en el enunciado, paso intermedio en la explicación
 - [ ] Distractores de signo de $h$, `c`↔raíz, $b$ sin signo, apertura invertida presentes
 
 **GRAF:**
-- [ ] 50 ejercicios con `graph_fn`, `graph_view` cuadrado y `|a| ≤ 0.5`
+- [ ] 30 ejercicios con `graph_fn`, `graph_view` cuadrado y `|a| ≤ 0.5`
 - [ ] Verificado numéricamente que las raíces (para las de $a < 0$) caen dentro del `graph_view`
-- [ ] Los 9 arquetipos cubiertos al menos una vez
+- [ ] Los 7 slugs reales cubiertos al menos una vez (ver nota de discrepancia en "Arquetipos de pregunta": `raiz`/`concavidad`/`duracion` no existen como slugs propios hoy, están agrupados bajo `nombre-parabola`)
 - [ ] Mínimos ($a > 0$) sin ejercicios de raíz ni de duración
 - [ ] `correct_index` con presencia mínima en los cuatro índices (hoy no hay ninguno en 3)

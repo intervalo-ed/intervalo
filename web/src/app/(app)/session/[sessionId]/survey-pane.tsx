@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { cn } from "@/lib/utils"
 
 const SURVEY_QUESTIONS: Record<
@@ -27,18 +28,19 @@ const SURVEY_QUESTIONS: Record<
 export function SurveyPane({
   type,
   value,
-  freeText,
+  freeTextRef,
   submitted,
   onSelect,
-  onFreeTextChange,
 }: {
   type: "A" | "B"
   value: string | null
-  freeText: string
+  // Ver ReportPane: el texto vive local y se espeja en el ref del runner para
+  // que tipear no re-renderice el ejercicio entero.
+  freeTextRef: React.RefObject<string>
   submitted: boolean
   onSelect: (value: string) => void
-  onFreeTextChange: (text: string) => void
 }) {
+  const [freeText, setFreeText] = useState("")
   const { question, options } = SURVEY_QUESTIONS[type]
   const showFreeText = type === "B" && value === "no_util"
 
@@ -72,7 +74,10 @@ export function SurveyPane({
         <textarea
           value={freeText}
           disabled={submitted}
-          onChange={(e) => onFreeTextChange(e.target.value)}
+          onChange={(e) => {
+            setFreeText(e.target.value)
+            freeTextRef.current = e.target.value
+          }}
           placeholder="¿Qué no se entendió? (opcional)"
           className="min-h-20 rounded-md border border-white/10 bg-white/5 p-2 text-base text-foreground/85 outline-none focus:border-white/40 disabled:opacity-60"
         />
