@@ -43,6 +43,9 @@ TOP_CONTRIBUTOR_N = 3
 # _next_podium_threshold.
 _PODIUM_STEP_THRESHOLDS = [10, 20, 30, 50]
 
+# Ventana del récord personal de ejercicios por día (ver _personal_best).
+PERSONAL_BEST_WINDOW_DAYS = 180
+
 
 # ── Subscriptions ──────────────────────────────────────────────────────────────
 
@@ -195,16 +198,41 @@ def _local_day_bounds_utc(day: date, tz: ZoneInfo) -> tuple[datetime, datetime]:
     )
 
 
-def _university_user_ids(db: DBSession, university: str) -> list[int]:
-    return [
+class _TickCache:
+    """Memo por tick de `due_notifications` de los datos que NO dependen del
+    usuario (o que se repiten para varios): el ranking de universidades y los
+    ids de cada universidad. Sin esto, un tick con N usuarios de la misma
+    universidad repetía los mismos escaneos completos de `users`/`enrollments`
+    varias veces por usuario."""
+
+    def __init__(self) -> None:
+        self.university_user_ids: dict[str, list[int]] = {}
+        self.university_totals: list[tuple[str, int]] | None = None
+
+
+def _university_user_ids(
+    db: DBSession, university: str, *, cache: _TickCache | None = None
+) -> list[int]:
+    if cache is not None and university in cache.university_user_ids:
+        return cache.university_user_ids[university]
+    user_ids = [
         e.user_id
         for e in db.query(Enrollment)
         .filter(Enrollment.course_id == COURSE_ID, Enrollment.university == university)
         .all()
     ]
+    if cache is not None:
+        cache.university_user_ids[university] = user_ids
+    return user_ids
 
 
-def _current_rank(db: DBSession, user: User, *, university: str | None = None) -> int:
+def _current_rank(
+    db: DBSession,
+    user: User,
+    *,
+    university: str | None = None,
+    cache: _TickCache | None = None,
+) -> int:
     """Rank 1-based por total_xp desc, id asc — global si university es None, o
     acotado a esa universidad si se pasa. Mismo orden que GET /leaderboard.
     2 COUNT(*) en vez de traer/ordenar toda la tabla; solo se llama para
@@ -214,7 +242,7 @@ def _current_rank(db: DBSession, user: User, *, university: str | None = None) -
         User.total_xp == user.total_xp, User.id < user.id
     )
     if university is not None:
-        user_ids = _university_user_ids(db, university)
+        user_ids = _university_user_ids(db, university, cache=cache)
         q_higher = q_higher.filter(User.id.in_(user_ids))
         q_tied = q_tied.filter(User.id.in_(user_ids))
     return q_higher.scalar() + q_tied.scalar() + 1
@@ -251,20 +279,24 @@ def _next_podium_threshold(rank: int) -> int:
 
 
 def _podium_gap(
-    db: DBSession, user: User, *, university: str | None = None
+    db: DBSession,
+    user: User,
+    *,
+    university: str | None = None,
+    cache: _TickCache | None = None,
 ) -> tuple[int, int] | tuple[None, None]:
     """(xp_gap, threshold) hasta la próxima marca de podio, o (None, None) si
     ya está en el top 10, no hay suficientes usuarios en el scope, o el
     usuario está empatado en XP con quien ocupa esa posición (gap 0 — el
     rank no lo refleja por el desempate de id, pero "estás a 0 XP" no tiene
     sentido como copy)."""
-    rank = _current_rank(db, user, university=university)
+    rank = _current_rank(db, user, university=university, cache=cache)
     if rank <= 10:
         return None, None
     threshold = _next_podium_threshold(rank)
     q = db.query(User.total_xp).order_by(User.total_xp.desc(), User.id.asc())
     if university is not None:
-        q = q.filter(User.id.in_(_university_user_ids(db, university)))
+        q = q.filter(User.id.in_(_university_user_ids(db, university, cache=cache)))
     row = q.offset(threshold - 1).limit(1).first()
     if row is None:
         return None, None
@@ -274,11 +306,13 @@ def _podium_gap(
     return gap, threshold
 
 
-def university_weekly_xp(db: DBSession, university: str, since: datetime) -> int:
+def university_weekly_xp(
+    db: DBSession, university: str, since: datetime, *, cache: _TickCache | None = None
+) -> int:
     """Suma de Answer.xp_earned para usuarios de esa universidad, respondidas
     desde `since`. Reusa el mismo mapeo Enrollment→university que
     GET /leaderboard/universities."""
-    user_ids = _university_user_ids(db, university)
+    user_ids = _university_user_ids(db, university, cache=cache)
     if not user_ids:
         return 0
     return (
@@ -289,8 +323,15 @@ def university_weekly_xp(db: DBSession, university: str, since: datetime) -> int
     )
 
 
-def _is_top_contributor(db: DBSession, user: User, university: str, since: datetime) -> bool:
-    user_ids = _university_user_ids(db, university)
+def _is_top_contributor(
+    db: DBSession,
+    user: User,
+    university: str,
+    since: datetime,
+    *,
+    cache: _TickCache | None = None,
+) -> bool:
+    user_ids = _university_user_ids(db, university, cache=cache)
     if not user_ids:
         return False
     rows = (
@@ -304,25 +345,41 @@ def _is_top_contributor(db: DBSession, user: User, university: str, since: datet
     return user.id in {uid for (uid,) in rows}
 
 
-def _university_totals(db: DBSession) -> list[tuple[str, int]]:
+def _university_totals(
+    db: DBSession, *, cache: _TickCache | None = None
+) -> list[tuple[str, int]]:
     """(university, total_xp) ordenado desc — misma agregación que
-    GET /leaderboard/universities."""
-    users = db.query(User).all()
-    enrollments = {
-        e.user_id: e.university
-        for e in db.query(Enrollment).filter(Enrollment.course_id == COURSE_ID).all()
-    }
+    GET /leaderboard/universities.
+
+    El resultado no depende del usuario, pero lo consultan tanto el gap con la
+    universidad de arriba como el de la de abajo, para cada usuario del tick: se
+    calcula una sola vez por tick vía `cache`."""
+    if cache is not None and cache.university_totals is not None:
+        return cache.university_totals
     totals: dict[str, int] = {}
-    for u in users:
-        uni = enrollments.get(u.id)
-        if not uni:
-            continue
-        totals[uni] = totals.get(uni, 0) + u.total_xp
-    return sorted(totals.items(), key=lambda kv: kv[1], reverse=True)
+    rows = (
+        db.query(Enrollment.university, func.sum(User.total_xp))
+        .join(User, User.id == Enrollment.user_id)
+        .filter(
+            Enrollment.course_id == COURSE_ID,
+            Enrollment.university.isnot(None),
+            Enrollment.university != "",
+        )
+        .group_by(Enrollment.university)
+        .all()
+    )
+    for uni, xp in rows:
+        totals[uni] = int(xp or 0)
+    ordered = sorted(totals.items(), key=lambda kv: kv[1], reverse=True)
+    if cache is not None:
+        cache.university_totals = ordered
+    return ordered
 
 
-def _rival_university_gap(db: DBSession, own_university: str) -> tuple[int, str] | tuple[None, None]:
-    totals = _university_totals(db)
+def _rival_university_gap(
+    db: DBSession, own_university: str, *, cache: _TickCache | None = None
+) -> tuple[int, str] | tuple[None, None]:
+    totals = _university_totals(db, cache=cache)
     idx = next((i for i, (uni, _) in enumerate(totals) if uni == own_university), None)
     if idx is None or idx == 0:
         return None, None  # no está en el ranking, o ya es la #1
@@ -334,12 +391,14 @@ def _rival_university_gap(db: DBSession, own_university: str) -> tuple[int, str]
     return gap, rival_uni
 
 
-def _defender_university_gap(db: DBSession, own_university: str) -> tuple[int, str] | tuple[None, None]:
+def _defender_university_gap(
+    db: DBSession, own_university: str, *, cache: _TickCache | None = None
+) -> tuple[int, str] | tuple[None, None]:
     """Simétrico a _rival_university_gap pero mirando hacia abajo: la
     universidad inmediatamente detrás en el ranking, que amenaza con
     sobrepasar a la propia (para el copy "defendé el lugar"), sin importar
     en qué puesto esté la propia."""
-    totals = _university_totals(db)
+    totals = _university_totals(db, cache=cache)
     idx = next((i for i, (uni, _) in enumerate(totals) if uni == own_university), None)
     if idx is None or idx == len(totals) - 1:
         return None, None  # no está en el ranking, o ya es la última
@@ -352,9 +411,19 @@ def _defender_university_gap(db: DBSession, own_university: str) -> tuple[int, s
 
 
 def _social_active_today(
-    db: DBSession, user: User, university: str, local_today: date, tz: ZoneInfo
+    db: DBSession,
+    user: User,
+    university: str,
+    local_today: date,
+    tz: ZoneInfo,
+    *,
+    cache: _TickCache | None = None,
 ) -> int:
-    user_ids = [uid for uid in _university_user_ids(db, university) if uid != user.id]
+    user_ids = [
+        uid
+        for uid in _university_user_ids(db, university, cache=cache)
+        if uid != user.id
+    ]
     if not user_ids:
         return 0
     day_start, _ = _local_day_bounds_utc(local_today, tz)
@@ -397,13 +466,25 @@ def _days_inactive(db: DBSession, user_id: int, local_today: date, tz: ZoneInfo)
     return days if days > 0 else None
 
 
-def _personal_best(db: DBSession, user_id: int, tz: ZoneInfo) -> int | None:
-    """Máximo histórico de ejercicios resueltos en un mismo día calendario DEL
-    USUARIO. Agrupa en Python (no en SQL) porque el día local depende de la tz
-    de cada usuario, no es un simple func.date() sobre el timestamp UTC
-    guardado — cerca de la medianoche eso desplazaba respuestas al día
-    calendario equivocado."""
-    rows = db.query(Answer.answered_at).filter(Answer.user_id == user_id).all()
+def _personal_best(
+    db: DBSession, user_id: int, tz: ZoneInfo, *, now: datetime | None = None
+) -> int | None:
+    """Récord de ejercicios resueltos en un mismo día calendario DEL USUARIO,
+    dentro de los últimos `PERSONAL_BEST_WINDOW_DAYS` días.
+
+    Agrupa en Python (no en SQL) porque el día local depende de la tz de cada
+    usuario, no es un simple func.date() sobre el timestamp UTC guardado — cerca
+    de la medianoche eso desplazaba respuestas al día calendario equivocado. Por
+    eso mismo hay que traer las filas: la ventana las acota, así un usuario con
+    años de historial no arrastra su tabla de respuestas entera en cada tick. El
+    copy lo usa como marca a superar hoy, y una marca de hace dos años no sirve
+    para eso."""
+    since = (now or datetime.utcnow()) - timedelta(days=PERSONAL_BEST_WINDOW_DAYS)
+    rows = (
+        db.query(Answer.answered_at)
+        .filter(Answer.user_id == user_id, Answer.answered_at >= since)
+        .all()
+    )
     if not rows:
         return None
     counts: dict[date, int] = {}
@@ -431,11 +512,16 @@ def due_notifications(db: DBSession, force: bool = False) -> list[dict]:
     `force=True` (testing) bypasses the time/last-sent checks but still requires
     the user to be enabled and have pendings.
 
-    The copy itself (title/body) is decided here too: a per-user context dict
-    is built from cheap, candidate-scoped queries, then
-    `notification_copy.choose_variant` picks a category (weighted random,
-    excluding the last-sent one) and a variant within it (see
+    The copy itself (title/body) is decided here too: a per-user context dict is
+    built and `notification_copy.choose_variant` picks a category (weighted
+    random, excluding the last-sent one) and a variant within it (see
     notification_copy.py for the full pool).
+
+    Armar ese contexto NO es gratis: son ~15 consultas por usuario notificado,
+    varias de ellas agregados sobre `answers`. Lo que no depende del usuario (el
+    ranking de universidades, los ids por universidad) se calcula una sola vez
+    por tick en `_TickCache`; el resto está acotado al usuario o a una ventana
+    temporal.
     """
     candidates = (
         db.query(User)
@@ -444,6 +530,7 @@ def due_notifications(db: DBSession, force: bool = False) -> list[dict]:
     )
 
     now_utc = datetime.now(tz=ZoneInfo("UTC"))
+    cache = _TickCache()
     result: list[dict] = []
 
     for user in candidates:
@@ -496,16 +583,26 @@ def due_notifications(db: DBSession, force: bool = False) -> list[dict]:
         podium_gap_university = None
         podium_threshold_university = None
         if university is not None:
-            xp_this_week = university_weekly_xp(db, university, week_start_utc)
-            is_top_contributor = _is_top_contributor(db, user, university, week_start_utc)
-            social_count = _social_active_today(db, user, university, local_today, tz)
-            xp_gap_rival, rival_university = _rival_university_gap(db, university)
-            xp_gap_defend, defender_university = _defender_university_gap(db, university)
+            xp_this_week = university_weekly_xp(
+                db, university, week_start_utc, cache=cache
+            )
+            is_top_contributor = _is_top_contributor(
+                db, user, university, week_start_utc, cache=cache
+            )
+            social_count = _social_active_today(
+                db, user, university, local_today, tz, cache=cache
+            )
+            xp_gap_rival, rival_university = _rival_university_gap(
+                db, university, cache=cache
+            )
+            xp_gap_defend, defender_university = _defender_university_gap(
+                db, university, cache=cache
+            )
             podium_gap_university, podium_threshold_university = _podium_gap(
-                db, user, university=university
+                db, user, university=university, cache=cache
             )
 
-        podium_gap_general, podium_threshold_general = _podium_gap(db, user)
+        podium_gap_general, podium_threshold_general = _podium_gap(db, user, cache=cache)
 
         streak = streak_info(user.streak_days)
         days_to_next_tier = streak.days_to_next if not streak.is_max else None
