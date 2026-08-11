@@ -43,10 +43,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla exponencial** para base $e$ es el caso más simple de la tabla, la primitiva coincide exactamente con el integrando.\n\nEsta coincidencia es exclusiva de la base $e$, ninguna otra exponencial ni ninguna potencia comparte esta propiedad.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "La **regla exponencial** para base $e$ es el caso más simple de la tabla, la primitiva coincide exactamente con el integrando.\n\nEsta coincidencia es exclusiva de la base $e$, ninguna otra exponencial ni ninguna potencia comparte esta propiedad.\n\nEl error más común acá es aplicar la regla de la potencia a la base en vez de reconocer que la variable está en el exponente, o dejar afuera la constante $+C$ al cerrar la primitiva.",
     "reviewed": false,
     "tags": [
-      "identificacion-inversa-derivada"
+      "reconocimiento-directo-antiderivadas"
     ]
   },
   {
@@ -68,10 +68,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **tabla de integrales inmediatas** incluye a $\\sec^2 x$ como la derivada directa de la tangente.\n\nEste resultado se obtiene directamente de reconocer que $(\\tan x)' = \\sec^2 x$, sin necesidad de ningún desarrollo adicional.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "La **tabla de integrales inmediatas** incluye a $\\sec^2 x$ como la derivada directa de la tangente.\n\nEste resultado se obtiene directamente de reconocer que $(\\tan x)' = \\sec^2 x$, sin necesidad de ningún desarrollo adicional.\n\nEsta relación no lleva ningún signo que revisar, algo que sí ocurre en las primitivas del seno y el coseno. Conviene sumar siempre $+C$ al cerrar la primitiva.",
     "reviewed": false,
     "tags": [
-      "constantes-enganosas"
+      "reconocimiento-directo-antiderivadas"
     ]
   },
   {
@@ -86,7 +86,7 @@
     "has_math": true,
     "feedback_correct": "Correcto, la primitiva de $\\sin x$ lleva signo negativo.",
     "feedback_incorrect": [
-      "Hay que el signo negativo, la primitiva de $\\sin x$ es $-\\cos x$, porque $(-\\cos x)'=\\sin x$.",
+      "Te faltó el signo negativo, la primitiva de $\\sin x$ es $-\\cos x$, porque $(-\\cos x)'=\\sin x$.",
       "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa.",
       "Esa es la función original, no su primitiva, revisá la **tabla de integrales inmediatas**.",
       null
@@ -96,7 +96,7 @@
     "explanation": "La primitiva del seno lleva un signo negativo que no se puede omitir, es uno de los detalles que más se pierde de la **tabla de integrales inmediatas**.\n$$\\int \\sin x\\,dx = -\\cos x + C$$\nEste signo se explica porque $(-\\cos x)'=\\sin x$, la derivada del coseno ya trae un signo negativo, y al invertir el proceso ese signo se cancela.",
     "reviewed": false,
     "tags": [
-      "discriminacion-de-familias"
+      "reconocimiento-directo-antiderivadas"
     ]
   },
   {
@@ -112,16 +112,16 @@
     "feedback_correct": "Correcto, la primitiva de $\\frac{1}{x}$ es el logaritmo natural con valor absoluto.",
     "feedback_incorrect": [
       null,
-      "Hay que el valor absoluto, $\\ln|x|$ respeta el dominio de $\\frac{1}{x}$, que incluye valores negativos.",
+      "Te faltó el valor absoluto, $\\ln|x|$ respeta el dominio de $\\frac{1}{x}$, que incluye valores negativos.",
       "Aplicaste la **regla de la potencia** con $n=-1$, y eso genera una división por cero, ese exponente es la excepción de la tabla.",
       "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El caso $n=-1$ es la única excepción de la **regla de la potencia**,.\n\ny por eso tiene su propia entrada en la tabla,la **regla del logaritmo**.\n\nCuando intentas aplicar la regla de la potencia $\\int x^n dx = \\frac{x^{n+1}}{n+1} + C$ con $n=-1$,.\n\nobtendrías $\\frac{x^0}{0}$,.\n\nuna división por cero que indica el fallo.\n\nEn cambio,la primitiva correcta es $\\ln|x| + C$,.\n\ncon el valor absoluto para respetar el dominio completo de $\\frac{1}{x}$.\n\nEste patrón de excepción es fundamental en cálculo: memorizar dónde fallan las reglas es tan importante como entender por qué funcionan en general.",
+    "explanation": "El caso $n=-1$ es la única excepción de la **regla de la potencia**, y por eso tiene su propia entrada en la tabla: la **regla del logaritmo**.\n$$\\int x^n\\,dx = \\frac{x^{n+1}}{n+1} + C \\quad (n \\neq -1)$$\nCuando se intenta aplicar esa fórmula con $n=-1$ se obtiene $x^0/0$, una división por cero que señala el fallo.\n\nEn cambio, la primitiva correcta es $\\ln|x| + C$, con el valor absoluto para respetar el dominio completo de $1/x$.\n\nEste patrón de excepción es central en cálculo: memorizar dónde falla la regla general es tan importante como saber aplicarla.",
     "reviewed": false,
     "tags": [
-      "suma-resta-terminos-elementales"
+      "reconocimiento-directo-antiderivadas"
     ]
   },
   {
@@ -143,10 +143,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla de la potencia** sube el exponente en uno y divide el resultado por ese nuevo exponente.\n\nConfundir el exponente que va en el divisor, si es el original o el nuevo, es el error más frecuente al aplicar esta fórmula.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "La **regla de la potencia** sube el exponente en uno y divide el resultado por ese nuevo exponente.\n\nConfundir el exponente que va en el divisor, si es el original o el nuevo, es el error más frecuente al aplicar esta fórmula.\n\nAdemás de elegir bien el exponente que divide, conviene no olvidar sumar $+C$: la primitiva de una integral indefinida es siempre una familia completa de funciones.",
     "reviewed": false,
     "tags": [
-      "polinomios-fracciones-simples-combinadas"
+      "reconocimiento-directo-antiderivadas"
     ]
   },
   {
@@ -193,10 +193,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para una exponencial de base distinta de $e$, la **regla exponencial** agrega un factor $\\ln a$ dividiendo.\n\nEste factor aparece porque la derivada de $a^x$ trae un $\\ln a$ multiplicando, y al invertir el proceso ese factor pasa a dividir.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Para una exponencial de base distinta de $e$, la **regla exponencial** agrega un factor $\\ln a$ dividiendo.\n\nEste factor aparece porque la derivada de $a^x$ trae un $\\ln a$ multiplicando, y al invertir el proceso ese factor pasa a dividir.\n\nConfundir esta fórmula con la de base $e$, que no lleva ningún factor extra, o aplicar la regla de la potencia a la base son los errores más comunes con este tipo de exponencial.",
     "reviewed": false,
     "tags": [
-      "identificacion-inversa-derivada"
+      "reconocimiento-directo-antiderivadas"
     ]
   },
   {
@@ -216,10 +216,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pregunta pide pensar en sentido inverso, qué función produce $\\frac{1}{x}$ al ser derivada, en vez de calcular una derivada directamente.\n$$(\\ln|x|)' = \\frac{1}{x}$$\nEste es exactamente el caso especial de la **regla del logaritmo**, la única excepción dentro de la familia de potencias que exige valor absoluto.",
+    "explanation": "La pregunta pide pensar en sentido inverso: qué función produce el integrando al ser derivada, en vez de calcular una derivada directamente.\n$$(\\ln|x|)' = \\frac{1}{x}$$\nEste es exactamente el caso especial de la **regla del logaritmo**, la única excepción dentro de la familia de potencias que exige valor absoluto.",
     "reviewed": false,
     "tags": [
-      "constantes-enganosas"
+      "identificacion-inversa-derivada"
     ]
   },
   {
@@ -242,7 +242,7 @@
     "explanation": "La única función elemental cuya derivada coincide exactamente consigo misma es $e^x$, un caso particular dentro de toda la tabla.\n$$(e^x)' = e^x$$\nEste pensamiento inverso confirma que la **regla exponencial** de base $e$ es una operación que se auto-preserva, sin ningún factor adicional multiplicando.",
     "reviewed": false,
     "tags": [
-      "discriminacion-de-familias"
+      "identificacion-inversa-derivada"
     ]
   },
   {
@@ -265,11 +265,11 @@
     "explanation": "El pensamiento inverso pregunta qué función, al derivarse, reproduce exactamente $\\cos x$, sin ningún signo ni coeficiente adicional.\n$$(\\sin x)' = \\cos x$$\nEsta relación es la base de la primitiva del coseno en la **tabla de integrales inmediatas**, y conviene verificarla siempre derivando el resultado propuesto.",
     "reviewed": false,
     "tags": [
-      "suma-resta-terminos-elementales"
+      "identificacion-inversa-derivada"
     ]
   },
   {
-    "question": "Invertí el proceso: ¿cuál función se deriva a:\n$$\\sin x$$?",
+    "question": "¿Cuál es la función cuya derivada da como resultado:\n$$\\sin x$$?",
     "options": [
       "$\\cos x + C$",
       "$\\sin x + C$",
@@ -285,10 +285,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El pensamiento inverso confirma que la función que reproduce $\\sin x$ al derivarse necesita un signo negativo.\n\nEste signo es el que suele perderse cuando se calcula la primitiva del seno de manera automática, sin verificar el pensamiento inverso.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "El pensamiento inverso confirma que la función que reproduce $\\sin x$ al derivarse necesita un signo negativo.\n\nEste signo es el que suele perderse cuando se calcula la primitiva del seno de manera automática, sin verificar el pensamiento inverso.\n\nDerivar el resultado propuesto es la forma más directa de confirmar que no falta ese signo ni la constante $+C$.",
     "reviewed": false,
     "tags": [
-      "polinomios-fracciones-simples-combinadas"
+      "identificacion-inversa-derivada"
     ]
   },
   {
@@ -311,11 +311,11 @@
     "explanation": "El pensamiento inverso pregunta qué función produce exactamente $\\sec^2 x$ al derivarse, sin ningún ajuste de signo intermedio.\n$$(\\tan x)' = \\sec^2 x$$\nEsta relación es directa y sin ambigüedad de signo, a diferencia de las primitivas trigonométricas del seno y el coseno, que sí requieren revisar el signo con cuidado.",
     "reviewed": false,
     "tags": [
-      "reconocimiento-directo-antiderivadas"
+      "identificacion-inversa-derivada"
     ]
   },
   {
-    "question": "Al pensar inversamente, ¿qué función se derivaría a:\n$$x^4$$?",
+    "question": "¿Qué función produce, al derivarla, el resultado:\n$$x^4$$?",
     "options": [
       "$5x^3 + C$",
       "$\\frac{x^5}{5} + C$",
@@ -331,14 +331,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El pensamiento inverso confirma por qué la **regla de la potencia** divide por el exponente nuevo.\n\nVerificar derivando el resultado es una forma directa de comprobar que la primitiva propuesta es correcta.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "El pensamiento inverso confirma por qué la **regla de la potencia** divide por el exponente nuevo.\n\nVerificar derivando el resultado es una forma directa de comprobar que la primitiva propuesta es correcta.\n\nInvertir cuál exponente entra en la división, usar el original en vez del nuevo, es el desliz más habitual al aplicar esta regla, por eso conviene derivar siempre el resultado propuesto.",
     "reviewed": false,
     "tags": [
       "identificacion-inversa-derivada"
     ]
   },
   {
-    "question": "¿Cuál es su función original si su derivada es:\n$$7$$\n(una constante)?",
+    "question": "¿Cuál es su función original si su derivada es:\n$$7$$?",
     "options": [
       "$7 + C$",
       "$0 + C$",
@@ -357,7 +357,7 @@
     "explanation": "El pensamiento inverso confirma que multiplicar la constante por $x$ es justamente lo que la reproduce al derivar, sin dejar ningún residuo.\n$$(7x)' = 7$$\nEsta verificación es la forma más directa de recordar la **regla de la constante** sin memorizarla mecánicamente, apoyándose en la relación inversa con la derivada.",
     "reviewed": false,
     "tags": [
-      "constantes-enganosas"
+      "identificacion-inversa-derivada"
     ]
   }
 ]

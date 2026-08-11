@@ -2,9 +2,9 @@
 
 Belt: `blue`, Unit: `limits`, Topic: `lateral_limits`
 
-Skills en este topic: `LEXI`, `GRAF`, `RESL`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
+Skills en este topic: `LEXI`, `GRAF`, `RESL`. **30 ejercicios cada uno (90 en total)** al cerrar el refactor.
 
-Este topic tiene 3 ítems (uno por skill): `LEXI`, `GRAF`, `RESL`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
+Este topic tiene 3 ítems (uno por skill): `LEXI`, `GRAF`, `RESL`. **30 ejercicios cada uno (90 en total)** al cerrar el refactor.
 
 **Estado.** Los ejercicios viejos (`LEXI`, `GRAF`, `RESL`) se dejan tal cual en el folder por ahora; el refactor a la nueva distribución se hace en otro turno. Este doc especifica el alcance nuevo, las reglas duras de restricción y la distribución objetivo por skill.
 
@@ -35,7 +35,7 @@ Los ejercicios que quiebren esta regla se descartan y se reescriben.
 
 ## Correcciones de formato transversales (los 3 skills)
 
-Reglas de authoring que se aplican al escribir los 150 ejercicios (misma línea que los otros topic-contexts):
+Reglas de authoring que se aplican al escribir los 90 ejercicios (misma línea que los otros topic-contexts):
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`. KaTeX agrega su propio margen.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`: (a) concepto abstracto, (b) aplicación paso a paso al caso (usar `\begin{aligned}` para desarrollos), (c) cierre útil o advertencia técnica en voz neutra. Sin viñetas `•`, sin sub-`-`, sin em-dash `—`, sin humor ni antropomorfismos. Analogía cotidiana permitida solo si es formal y aporta al concepto.
@@ -47,13 +47,13 @@ Reglas de authoring que se aplican al escribir los 150 ejercicios (misma línea 
 
 ---
 
-## `feedback_incorrect` en los 150 ejercicios
+## `feedback_incorrect` en los 90 ejercicios
 
 Completar con `array<string|null>` paralelo a `options`, `null` en el índice correcto. Voz descriptiva del concepto, en segunda persona amable. Una oración por distractor, autosuficiente. Las confusiones fuente por skill están en cada sección.
 
 ---
 
-## LEXI, 50 ejercicios
+## LEXI, 30 ejercicios
 
 ### Qué evalúa
 Decodificar la notación de laterales, destruir falsos paradigmas sobre el signo del superíndice, y afianzar el **teorema de existencia** del bilateral.
@@ -65,12 +65,14 @@ Decodificar la notación de laterales, destruir falsos paradigmas sobre el signo
 
 ### Distribución por sub-familia
 
+**Recortado (ronda ago-2026) de 50 → 30 ejercicios por skill, escalando cada sub-familia proporcionalmente (factor ~0.6, exacto sin remainder).**
+
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Notación y dirección | Diferenciar el superíndice de dirección del signo del número. Ejemplo: $x \to 2^-$ son valores como $1{,}99$, no el número $-2$. Notación correcta y errores tipográficos frecuentes. | `notacion-y-direccion-lateral` | 15 |
-| B. Teorema de existencia | Consolidar la regla $\lim^- = \lim^+ \iff \lim$ bilateral existe. Desvincular esto del valor $f(a)$. | `teorema-existencia-bilateral` | 15 |
-| C. Discontinuidad por salto | Asociar analíticamente $\lim^- \neq \lim^+$ con una fractura visible en la gráfica. | `discontinuidad-por-salto` | 10 |
-| D. Operación con sentido: tamaño del salto | **Reenfocada en la ronda 1** (ver hallazgos): en vez de sumar los laterales sin motivo, la operación con lectura real es la **resta**, que da el tamaño del salto ($\lim^+ - \lim^-$, cuánto sube o baja la curva al cruzar el punto). Sumar/comparar laterales solo aparece cuando el enunciado da una razón concreta para hacerlo, no como ejercicio aislado de "esto se puede sumar porque son números". **La `explanation` de estos ejercicios agrega 1-2 párrafos de intuición** (ver `course-context.md` §Refuerzo de intuición en `blue`): por qué la resta $\lim^+ - \lim^-$ representa la distancia entre las dos alturas a las que "apunta" cada rama, antes de aplicarlo al caso puntual. | `tamano-del-salto` | 10 |
+| A. Notación y dirección | Diferenciar el superíndice de dirección del signo del número. Ejemplo: $x \to 2^-$ son valores como $1{,}99$, no el número $-2$. Notación correcta y errores tipográficos frecuentes. | `notacion-y-direccion-lateral` | 9 |
+| B. Teorema de existencia | Consolidar la regla $\lim^- = \lim^+ \iff \lim$ bilateral existe. Desvincular esto del valor $f(a)$. | `teorema-existencia-bilateral` | 9 |
+| C. Discontinuidad por salto | Asociar analíticamente $\lim^- \neq \lim^+$ con una fractura visible en la gráfica. | `discontinuidad-por-salto` | 6 |
+| D. Operación con sentido: tamaño del salto | **Reenfocada en la ronda 1** (ver hallazgos): en vez de sumar los laterales sin motivo, la operación con lectura real es la **resta**, que da el tamaño del salto ($\lim^+ - \lim^-$, cuánto sube o baja la curva al cruzar el punto). Sumar/comparar laterales solo aparece cuando el enunciado da una razón concreta para hacerlo, no como ejercicio aislado de "esto se puede sumar porque son números". **La `explanation` de estos ejercicios agrega 1-2 párrafos de intuición** (ver `course-context.md` §Refuerzo de intuición en `blue`): por qué la resta $\lim^+ - \lim^-$ representa la distancia entre las dos alturas a las que "apunta" cada rama, antes de aplicarlo al caso puntual. | `tamano-del-salto` | 6 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Superíndice leído como signo del número**: interpretar $x \to 2^-$ como $x \to -2$. Describir: "el signo menos indica la dirección desde la que te acercás a $2$ (por valores menores), no un número negativo".
@@ -87,7 +89,7 @@ Decodificar la notación de laterales, destruir falsos paradigmas sobre el signo
 
 ---
 
-## GRAF, 50 ejercicios
+## GRAF, 30 ejercicios
 
 ### Qué evalúa
 Interpretar el comportamiento direccional de una función a partir de un estímulo visual: leer un lateral, diagnosticar la existencia del bilateral, u operar dos laterales leídos del gráfico.
@@ -100,11 +102,13 @@ Interpretar el comportamiento direccional de una función a partir de un estímu
 
 ### Distribución por sub-familia
 
+**Recortado (ronda ago-2026) de 50 → 30 ejercicios por skill, escalando cada sub-familia proporcionalmente (factor ~0.6, exacto sin remainder).**
+
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Lectura lateral pura | Gráficos con saltos evidentes: se pide $\lim^-$ o $\lim^+$ en el punto de quiebre. Distractores clásicos: el valor del lado contrario, o el valor puntual cerrado (con círculo lleno). | `lectura-lateral-pura` | 20 |
-| B. Diagnóstico bilateral | "¿Existe $\lim_{x \to a} f(x)$?" en puntos con salto, puntos continuos y puntos con hueco. | `diagnostico-bilateral-visual` | 15 |
-| C. Tamaño del salto (visual) | **Reenfocada en la ronda 1** (mismo motivo que la D de LEXI, ver hallazgos): leer los dos laterales del gráfico y calcular la **resta** que da el tamaño del salto, no una suma arbitraria. Comparar el tamaño de dos saltos distintos en el mismo gráfico también entra acá. **La `explanation` agrega el mismo párrafo de intuición** que la D de LEXI (ver `course-context.md` §Refuerzo de intuición en `blue`). | `tamano-del-salto-visual` | 15 |
+| A. Lectura lateral pura | Gráficos con saltos evidentes: se pide $\lim^-$ o $\lim^+$ en el punto de quiebre. Distractores clásicos: el valor del lado contrario, o el valor puntual cerrado (con círculo lleno). | `lectura-lateral-pura` | 12 |
+| B. Diagnóstico bilateral | "¿Existe $\lim_{x \to a} f(x)$?" en puntos con salto, puntos continuos y puntos con hueco. | `diagnostico-bilateral-visual` | 9 |
+| C. Tamaño del salto (visual) | **Reenfocada en la ronda 1** (mismo motivo que la D de LEXI, ver hallazgos): leer los dos laterales del gráfico y calcular la **resta** que da el tamaño del salto, no una suma arbitraria. Comparar el tamaño de dos saltos distintos en el mismo gráfico también entra acá. **La `explanation` agrega el mismo párrafo de intuición** que la D de LEXI (ver `course-context.md` §Refuerzo de intuición en `blue`). | `tamano-del-salto-visual` | 9 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Lado contrario**: al pedir $\lim^-$, leer el valor del lado derecho del salto. Describir qué mirar: "estás leyendo hacia dónde sube la rama derecha; el lateral por izquierda es hacia dónde llega la rama izquierda".
@@ -121,7 +125,7 @@ Interpretar el comportamiento direccional de una función a partir de un estímu
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 30 ejercicios
 
 ### Qué evalúa
 Ejecutar el álgebra direccional eligiendo la **rama correcta** de una función a trozos o de una expresión con valor absoluto. Sin indeterminaciones $\tfrac{0}{0}$.
@@ -133,11 +137,13 @@ Ejecutar el álgebra direccional eligiendo la **rama correcta** de una función 
 
 ### Distribución por sub-familia
 
+**Recortado (ronda ago-2026) de 50 → 30 ejercicios por skill, escalando cada sub-familia proporcionalmente (factor ~0.6, exacto sin remainder).**
+
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Funciones a trozos: un lateral | Se da $f(x)$ partida en $x = a$ y se pide $\lim_{x \to a^-}$ o $\lim_{x \to a^+}$. Desafío: leer la inecuación de cada rama y elegir la que corresponde a la dirección de aproximación. | `trozos-un-lateral` | 20 |
-| B. Funciones a trozos: bilateral | Se pide $\lim_{x \to a} f(x)$ en el punto de quiebre. Hay que evaluar ambas ramas: si coinciden, la respuesta es el valor; si difieren, la respuesta es **"No existe"**. | `trozos-bilateral` | 20 |
-| C. Valor absoluto | Expresiones del tipo $\dfrac{\|x - c\|}{x - c}$ o $\dfrac{\|x\|}{x}$ donde se piden los laterales. Definir el valor absoluto por ramas para elegir la correcta. | `laterales-valor-absoluto` | 10 |
+| A. Funciones a trozos: un lateral | Se da $f(x)$ partida en $x = a$ y se pide $\lim_{x \to a^-}$ o $\lim_{x \to a^+}$. Desafío: leer la inecuación de cada rama y elegir la que corresponde a la dirección de aproximación. | `trozos-un-lateral` | 12 |
+| B. Funciones a trozos: bilateral | Se pide $\lim_{x \to a} f(x)$ en el punto de quiebre. Hay que evaluar ambas ramas: si coinciden, la respuesta es el valor; si difieren, la respuesta es **"No existe"**. | `trozos-bilateral` | 12 |
+| C. Valor absoluto | Expresiones del tipo $\dfrac{\|x - c\|}{x - c}$ o $\dfrac{\|x\|}{x}$ donde se piden los laterales. Definir el valor absoluto por ramas para elegir la correcta. | `laterales-valor-absoluto` | 6 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Rama invertida**: elegir la rama de $x > a$ cuando se pide $\lim^-$. Describir: "$\lim^-$ mira valores menores que $a$, así que corresponde a la rama definida para $x < a$".
@@ -175,7 +181,7 @@ Corrección puntual del usuario sobre ejercicios de prueba de este topic (`corre
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 3 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 30 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna mención de factorización, racionalización, L'Hôpital, límites al infinito, asíntotas verticales ni derivadas
 - [ ] Explicaciones en 3 párrafos de prosa; sin viñetas, sub-`-`, em-dash, humor
 - [ ] Cierres de `explanation` en advertencia/consejo, voz neutra
@@ -189,23 +195,23 @@ Corrección puntual del usuario sobre ejercicios de prueba de este topic (`corre
 - [ ] Ningún desarrollo de 2+ pasos encadena las igualdades en una sola línea horizontal; siempre `\begin{aligned}` vertical
 
 **LEXI:**
-- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
-- [ ] Distribución A/B/C/D respetada (15/15/10/10, D reenfocada a `tamano-del-salto`)
+- [ ] 30 ejercicios; **exactamente 3 opciones** por ejercicio
+- [ ] Distribución A/B/C/D respetada (9/9/6/6, D reenfocada a `tamano-del-salto`)
 - [ ] Negrita en primera mención de `límites laterales`, `límite bilateral`, `teorema de existencia`, `salto`, `hueco`
 - [ ] Sub-familia A no mezcla $x \to a^-$ con $a$ negativo (reservado solo para ejercicios que preguntan por la distinción)
 - [ ] Sub-familia D pide el **tamaño del salto** (resta con lectura real), no una suma sin motivo
 
 **GRAF:**
-- [ ] 50 ejercicios con `graph_fn` o gráfico embebido; ningún gráfico con asíntotas verticales
-- [ ] Distribución A/B/C respetada (20/15/15, C reenfocada a `tamano-del-salto-visual`)
+- [ ] 30 ejercicios con `graph_fn` o gráfico embebido; ningún gráfico con asíntotas verticales
+- [ ] Distribución A/B/C respetada (12/9/9, C reenfocada a `tamano-del-salto-visual`)
 - [ ] Puntos abiertos vs. cerrados claramente distinguidos
 - [ ] Cardinalidad ajustada por tipo: 4 si numérica corta, 3 si conceptual
 - [ ] Opciones de existencia con textos "Sí" / "No" / "No se puede determinar", no "existe" / "no existe"
 - [ ] Sub-familia C pide el **tamaño del salto** leído del gráfico, no una suma sin motivo
 
 **RESL:**
-- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
-- [ ] Distribución A/B/C respetada (20/20/10)
+- [ ] 30 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
+- [ ] Distribución A/B/C respetada (12/12/6)
 - [ ] Ninguna sustitución que produzca $\tfrac{0}{0}$ o $\tfrac{k}{0}$ en la respuesta correcta
 - [ ] `"No existe"` (texto exacto) presente como opción solo cuando corresponde
 - [ ] Funciones a trozos con 2 ramas por defecto; punto de quiebre único

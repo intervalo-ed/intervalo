@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "Analiza la integral:\n$$\\int (x+\\sin x)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
+    "question": "Analizá la integral:\n$$\\int (x+\\sin x)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
     "options": [
       "$\\int (x+\\sin x)\\,dx$",
       "$\\int x\\,dx + \\int \\sin x\\,dx$",
@@ -35,14 +35,14 @@
     "feedback_incorrect": [
       "Esa forma no está separada todavía, la linealidad exige partir la suma en dos integrales independientes.",
       null,
-      "Hay que el diferencial $dx$ en el primer término, cada integral separada necesita su propio $dx$."
+      "Hay que agregar el diferencial $dx$ en el primer término, cada integral separada necesita su propio $dx$."
     ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Al separar una suma dentro de una integral, el diferencial $dx$ tiene que acompañar a **cada** término por separado, no solo al último.\n$$\\int (x+\\sin x)\\,dx = \\int x\\,dx + \\int \\sin x\\,dx$$\nDejar el $dx$ pegado solo a uno de los dos términos de escritura frecuente al aplicar la linealidad por primera vez.",
     "reviewed": false,
     "tags": [
-      "concepto-primitiva-traslacion-geometrica"
+      "extraccion-separacion-terminos"
     ]
   },
   {
@@ -88,7 +88,7 @@
     "explanation": "Un único término con un coeficiente constante se resuelve extrayendo ese coeficiente fuera de la integral, sin necesidad de ningún otro paso previo.\n$$\\int 7e^x\\,dx = 7\\int e^x\\,dx$$\nEste es el caso más simple de linealidad, apenas un múltiplo escalar, sin ninguna suma o resta de por medio que complique la forma armada.",
     "reviewed": false,
     "tags": [
-      "limites-linealidad-falsas-propiedades"
+      "extraccion-separacion-terminos"
     ]
   },
   {
@@ -104,14 +104,14 @@
     "feedback_incorrect": [
       "Los exponentes no se combinan al separar una suma, cada término mantiene su propio exponente dentro de su propia integral.",
       null,
-      "Hay que el símbolo de integral en el último término, cada parte separada necesita su propio $\\int$ y su propio $dx$."
+      "Hay que agregar el símbolo de integral en el último término, cada parte separada necesita su propio $\\int$ y su propio $dx$."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con tres términos separados por sumas y restas, cada uno se convierte en su propia integral independiente, incluida la constante.\n$$\\int (x^2+x-4)\\,dx = \\int x^2\\,dx+\\int x\\,dx-\\int 4\\,dx$$\nCombinar los exponentes de distintos términos en un único resultado (como si $x^2$ y $x$ se fusionaran) es un error frecuente.\n\nTal intento rompe completamente la estructura de la suma original.",
+    "explanation": "Con tres términos separados por sumas y restas, cada uno se convierte en su propia integral independiente, incluida la constante.\n$$\\int (x^2+x-4)\\,dx = \\int x^2\\,dx+\\int x\\,dx-\\int 4\\,dx$$\nCombinar los exponentes de distintos términos en un único resultado, como si $x^2$ y $x$ se fusionaran en una sola potencia, es un error frecuente.\n\nTal intento rompe completamente la estructura de la suma original.",
     "reviewed": false,
     "tags": [
-      "expansion-distribucion-obligatoria"
+      "extraccion-separacion-terminos"
     ]
   },
   {
@@ -131,14 +131,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando un término empieza con signo negativo, ese signo viaja junto con el escalar que se extrae fuera de la integral.\n\nSeparar el signo del coeficiente es un error frecuente, ambos forman una única unidad que se extrae en conjunto.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Cuando un término empieza con signo negativo, ese signo viaja junto con el escalar que se extrae fuera de la integral.\n\nSeparar el signo del coeficiente es un error frecuente, ambos forman una única unidad que se extrae en conjunto.\n\nPerder ese signo al extraer el escalar convierte la resta original en una suma, alterando por completo la forma armada.",
     "reviewed": false,
     "tags": [
-      "reescritura-potencias-y-raices"
+      "extraccion-separacion-terminos"
     ]
   },
   {
-    "question": "Analiza la integral:\n$$\\int (2x-9\\ln x)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
+    "question": "Considerá la integral:\n$$\\int (2x-9\\ln x)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
     "options": [
       "$2\\int x\\,dx-9\\int \\ln x\\,dx$",
       "$2\\int x\\,dx+9\\int \\ln x\\,dx$",
@@ -154,10 +154,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con dos términos de familias distintas, potencial y logarítmica, cada uno se procesa por separado sin mezclar sus escalares.\n\nEl orden y el signo de la resta original se preservan exactamente igual en la forma separada por linealidad.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Con dos términos de familias distintas, potencial y logarítmica, cada uno se procesa por separado sin mezclar sus escalares.\n\nEl orden y el signo de la resta original se preservan exactamente igual en la forma separada por linealidad.\n\nMezclar los escalares de ambos términos en una sola integral es un desvío frecuente que rompe la separación exigida por la linealidad.",
     "reviewed": false,
     "tags": [
-      "anatomia-notacion-integral"
+      "extraccion-separacion-terminos"
     ]
   },
   {
@@ -180,7 +180,7 @@
     "explanation": "Con tres términos de distinto grado, cada uno se separa en su propia integral y el coeficiente del término del medio se extrae afuera.\n$$\\int (x^3+2x^2-x)\\,dx = \\int x^3\\,dx+2\\int x^2\\,dx-\\int x\\,dx$$\nAplicar la linealidad completa significa hacer los dos pasos a la vez, separar la suma y extraer cada escalar, ninguno de los dos pasos alcanza por sí solo.",
     "reviewed": false,
     "tags": [
-      "concepto-primitiva-traslacion-geometrica"
+      "extraccion-separacion-terminos"
     ]
   },
   {
@@ -188,7 +188,7 @@
     "options": [
       "Sí, es $\\int x\\,dx \\cdot \\int \\cos x\\,dx$",
       "Sí, es $\\int x\\,dx + \\int \\cos x\\,dx$",
-      "No, la integral de un"
+      "No, el producto no se puede separar así"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -203,13 +203,13 @@
     "explanation": "Cuando dos funciones distintas de $x$ se multiplican dentro del integrando, la **linealidad** no permite separarlas en integrales independientes.\n$$\\int x\\cos x\\,dx \\neq \\int x\\,dx \\cdot \\int \\cos x\\,dx$$\nEste tipo de producto necesita una herramienta distinta, integración por partes, que se estudia en un tópico posterior; acá solo hace falta reconocer que no se puede separar así.",
     "reviewed": false,
     "tags": [
-      "extraccion-separacion-terminos"
+      "limites-linealidad-falsas-propiedades"
     ]
   },
   {
     "question": "Frente a la integral:\n$$\\int \\frac{\\sin x}{x}\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
     "options": [
-      "No, la integral de un",
+      "No, el cociente no se puede separar así",
       "Sí, es $\\dfrac{\\int \\sin x\\,dx}{\\int x\\,dx}$",
       "Sí, es $\\int \\sin x\\,dx - \\int x\\,dx$"
     ],
@@ -233,7 +233,7 @@
     "question": "Observá la integral:\n$$\\int e^x \\ln x\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
     "options": [
       "Sí, es $\\int e^x\\,dx + \\int \\ln x\\,dx$",
-      "No, la integral de un",
+      "No, un producto no se separa así por linealidad",
       "Sí, es $\\int e^x\\,dx \\cdot \\int \\ln x\\,dx$"
     ],
     "correct_index": 1,
@@ -249,11 +249,11 @@
     "explanation": "El producto de una exponencial y un logaritmo tampoco se puede separar en integrales independientes por linealidad.\n$$\\int e^x \\ln x\\,dx \\neq \\int e^x\\,dx \\cdot \\int \\ln x\\,dx$$\nCualquier producto de dos funciones distintas de $x$ dentro del integrando queda fuera del alcance de la linealidad, sin importar de qué familias sean esas funciones.",
     "reviewed": false,
     "tags": [
-      "expansion-distribucion-obligatoria"
+      "limites-linealidad-falsas-propiedades"
     ]
   },
   {
-    "question": "Analiza la integral:\n$$\\int (3x+5)\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
+    "question": "Observá la integral:\n$$\\int (3x+5)\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
     "options": [
       "No, hay que integrar por partes",
       "No, hay que usar sustitución",
@@ -272,7 +272,7 @@
     "explanation": "Un producto o un cociente entre funciones, una suma con un coeficiente escalar sí respeta por completo la **linealidad**.\n$$\\int (3x+5)\\,dx = 3\\int x\\,dx + \\int 5\\,dx$$\nConviene distinguir siempre la estructura del integrando, sumas y escalares se separan sin problema, productos y cocientes de funciones no.",
     "reviewed": false,
     "tags": [
-      "reescritura-potencias-y-raices"
+      "limites-linealidad-falsas-propiedades"
     ]
   },
   {
@@ -295,7 +295,7 @@
     "explanation": "Cuando el denominador de una fracción es una **constante**, dividir equivale a multiplicar por un escalar, y la linealidad sí aplica.\n$$\\int \\frac{x^2+3}{5}\\,dx = \\frac{1}{5}\\int(x^2+3)\\,dx$$\nLa restricción sobre cocientes se refiere a fracciones donde ambas partes dependen de $x$, un denominador constante es apenas un caso particular de múltiplo escalar.",
     "reviewed": false,
     "tags": [
-      "anatomia-notacion-integral"
+      "limites-linealidad-falsas-propiedades"
     ]
   },
   {
@@ -318,7 +318,7 @@
     "explanation": "Aunque la expresión tenga forma de producto, el $4$ es una constante fija, no una función que dependa de $x$.\n$$\\int x^2 \\cdot 4\\,dx = 4\\int x^2\\,dx$$\nLa restricción sobre productos aplica cuando ambos factores son funciones de $x$, multiplicar por una constante siempre es un caso de múltiplo escalar.",
     "reviewed": false,
     "tags": [
-      "concepto-primitiva-traslacion-geometrica"
+      "limites-linealidad-falsas-propiedades"
     ]
   },
   {
@@ -326,7 +326,7 @@
     "options": [
       "Sí, es $\\int \\tan x\\,dx \\cdot \\int \\sec x\\,dx$",
       "Sí, es $\\int \\tan x\\,dx + \\int \\sec x\\,dx$",
-      "No, la integral de un"
+      "No, un producto de funciones no se separa así"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El producto de dos funciones trigonométricas distintas tampoco se puede separar en integrales independientes por linealidad.\n$$\\int \\tan x \\cdot \\sec x\\,dx \\neq \\int \\tan x\\,dx \\cdot \\int \\sec x\\,dx$$\nQue ambas funciones pertenezcan a la misma familia trigonométrica no cambia nada, la restricción sobre productos no distingue entre familias de funciones.",
+    "explanation": "El producto de dos funciones trigonométricas distintas tampoco se puede separar en integrales independientes por linealidad.\n$$\\int \\tan x \\cdot \\sec x\\,dx$$\n$$\\neq \\int \\tan x\\,dx \\cdot \\int \\sec x\\,dx$$\nQue ambas funciones pertenezcan a la misma familia trigonométrica no cambia nada, la restricción sobre productos no distingue entre familias de funciones.",
     "reviewed": false,
     "tags": [
       "extraccion-separacion-terminos"

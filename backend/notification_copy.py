@@ -93,6 +93,17 @@ def _university_rival_gap(context: dict) -> tuple[str, str]:
     )
 
 
+def _university_defend_position(context: dict) -> tuple[str, str]:
+    gap = context["xp_gap_defend"]
+    defender = context["defender_university"]
+    uni = context["university"]
+    return (
+        "Intervalo",
+        f"La {defender} está a {gap} XP de superar a la {uni} en el ranking. "
+        "¡No la dejes pasar! 🛡️",
+    )
+
+
 # ── Social universidad ───────────────────────────────────────────────────────
 
 def _social_active_today(context: dict) -> tuple[str, str]:
@@ -141,6 +152,10 @@ def _reactivation(context: dict) -> tuple[str, str]:
         "Intervalo",
         f"Hace {days} días que no practicás. ¿Volvemos? 👀",
     )
+
+
+def _reactivation_short(context: dict) -> tuple[str, str]:
+    return "Intervalo", "Ayer no pasaste por acá. ¿Volvemos hoy? 👋"
 
 
 # ── Récord personal ──────────────────────────────────────────────────────────
@@ -194,6 +209,13 @@ _VARIANTS: dict[str, list[Variant]] = {
             lambda ctx: (ctx.get("xp_gap_rival") or 0) > 0 and ctx.get("rival_university") is not None,
             _university_rival_gap,
         ),
+        Variant(
+            "university_defend_position",
+            lambda ctx: (ctx.get("xp_gap_defend") or 0) > 0
+            and ctx.get("defender_university") is not None
+            and ctx.get("university") is not None,
+            _university_defend_position,
+        ),
     ],
     CATEGORY_SOCIAL: [
         Variant(
@@ -223,6 +245,11 @@ _VARIANTS: dict[str, list[Variant]] = {
         ),
     ],
     CATEGORY_REACTIVATION: [
+        Variant(
+            "reactivation_short",
+            lambda ctx: (ctx.get("days_inactive") or 0) == 1,
+            _reactivation_short,
+        ),
         Variant(
             "reactivation_days",
             lambda ctx: (ctx.get("days_inactive") or 0) > 1,

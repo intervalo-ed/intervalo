@@ -395,7 +395,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
           },
           { onSuccess: (r) => patch({ reportThanksXp: r.xp_earned || null }) },
         )
-        sfx.feedback()
+        sfx.correct()
         const { title, subtitle } = pickReportThanks()
         patch({ reportSubmitted: true, reportThanksTitle: title, reportThanksMsg: subtitle })
         return
@@ -427,7 +427,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
               { onSuccess: (r) => patch({ surveyThanksXp: r.xp_earned || null }) },
             )
           })
-          sfx.feedback()
+          sfx.correct()
           patch({
             surveySubmitted: true,
             surveyThanksTitle: pickFrom(THANKS_TITLES),

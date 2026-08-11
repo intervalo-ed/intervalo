@@ -1,104 +1,57 @@
 "use client"
 
-import { useState } from "react"
-import { AppIcon } from "@/components/app-icon"
-import { Button } from "@/components/ui/button"
-import { InstallInstructions } from "@/components/install-dialog"
-import { useSfx } from "@/lib/audio/useSfx"
-import { cn } from "@/lib/utils"
-import { SmartphoneIcon } from "lucide-react"
+import { getInstallSteps } from "@/components/install-dialog"
+import { usePlatform, type Platform } from "@/lib/platform/detect"
 
-const ctaCls =
-  "h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
-
-type Choice = "ios" | "android"
-
+// Pantalla terminal del onboarding: no tiene salida a propósito. La única
+// manera de seguir es instalar la app y volver a abrirla desde la pantalla de
+// inicio (el último paso), que entra por `/` con el usuario ya matriculado.
 export function OnboardingInstallPrompt({
-  onContinue,
+  platformOverride,
 }: {
-  onContinue: () => void
+  // Solo para la vista de /dev: en la app real la plataforma se detecta sola.
+  platformOverride?: Platform
 }) {
-  const sfx = useSfx()
-  const [platform, setPlatform] = useState<Choice | null>(null)
+  const detected = usePlatform()
+  const platform = platformOverride ?? detected
 
   return (
-    <main className="flex min-h-dvh flex-col bg-background px-4 py-8">
-      <div className="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center gap-5">
+    <main className="flex min-h-dvh flex-col justify-center bg-background px-4 py-8">
+      <div className="mx-auto flex w-full max-w-sm flex-col gap-5">
         <div className="flex flex-col gap-3">
           <h2 className="text-2xl font-sans font-bold tracking-tight">
             ¡Una cosa más!
           </h2>
           <p className="leading-relaxed text-foreground/85">
-            Instalá la app para tener una mejor experiencia y poder establecer
-            recordatorios para tus repasos.
+            Instalá la{" "}
+            <strong className="font-semibold text-primary">app</strong> para
+            tener una mejor experiencia y poder establecer recordatorios para
+            tus repasos.
           </p>
         </div>
 
-        <div className="flex justify-center py-2">
-          <AppIcon className="size-20 rounded-2xl border border-white/20" />
-        </div>
-
-        <div className="grid grid-cols-2 gap-2">
-          <PlatformButton
-            label="Tengo iOS"
-            active={platform === "ios"}
-            onClick={() => {
-              sfx.select()
-              setPlatform("ios")
-            }}
-          />
-          <PlatformButton
-            label="Tengo Android"
-            active={platform === "android"}
-            onClick={() => {
-              sfx.select()
-              setPlatform("android")
-            }}
-          />
-        </div>
-
+        {/* `usePlatform` devuelve null hasta montar (detecta por userAgent, que
+            en el server no existe), así que el primer paint va sin pasos. */}
         {platform && (
-          <div className="rounded-md border border-white/10 bg-white/5 p-4">
-            <InstallInstructions platform={platform} withReopenStep />
+          <div className="flex flex-col gap-4">
+            {getInstallSteps({ platform, withReopenStep: true }).map(
+              (step, i) => (
+                <p key={i} className="leading-relaxed text-foreground/85">
+                  <span className="text-foreground/45 tabular-nums">
+                    {i + 1}.
+                  </span>{" "}
+                  {step.text}
+                  {step.icon ? (
+                    <span className="ml-1.5 inline-flex align-middle">
+                      {step.icon}
+                    </span>
+                  ) : null}
+                </p>
+              ),
+            )}
           </div>
         )}
       </div>
-
-      <div className="mx-auto w-full max-w-sm shrink-0 pt-4">
-        <Button
-          size="lg"
-          className={ctaCls}
-          onClick={() => {
-            sfx.continue()
-            onContinue()
-          }}
-        >
-          Continuar
-        </Button>
-      </div>
     </main>
-  )
-}
-
-function PlatformButton({
-  label,
-  active,
-  onClick,
-}: {
-  label: string
-  active: boolean
-  onClick: () => void
-}) {
-  return (
-    <Button
-      variant="outline"
-      size="lg"
-      className={cn("h-12 rounded-md", active && "border-white/40 bg-white/10")}
-      aria-pressed={active}
-      onClick={onClick}
-    >
-      <SmartphoneIcon className="size-5" />
-      {label}
-    </Button>
   )
 }

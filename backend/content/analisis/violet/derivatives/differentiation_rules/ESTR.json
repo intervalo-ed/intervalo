@@ -1,6 +1,6 @@
 [
   {
-    "question": "Antes de derivar:\n$$f(x) = 3x^2 + \\sin x$$\n¿qué es lo primero que hay que reconocer?",
+    "question": "Antes de derivar:\n$$f(x) = 3x^2 + \\sin x$$\n¿Qué es lo primero que hay que reconocer?",
     "options": [
       "Que se deriva término a término por linealidad",
       "Que hay que aplicar la regla del producto entre los dos términos",
@@ -16,14 +16,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Frente a cualquier suma de términos, el primer paso siempre es reconocer la **linealidad**, que permite derivar cada término por separado.\n\nUna vez identificada la suma, cada término se resuelve con la regla elemental que le corresponda, sin mezclar ni combinar los términos entre sí.\n\nAplicar reglas para productos o composiciones cuando en realidad hay una suma de planificación, no de cálculo.",
+    "explanation": "Frente a cualquier suma de términos, el primer paso siempre es reconocer la **linealidad**, que permite derivar cada término por separado.\n\nUna vez identificada la suma, cada término se resuelve con la regla elemental que le corresponda, sin mezclar ni combinar los términos entre sí.\n\nAplicar reglas de producto o composición cuando en realidad hay una suma invierte el orden correcto: primero se planifica, después se calcula.",
     "reviewed": false,
     "tags": [
       "descomposicion-de-funciones"
     ]
   },
   {
-    "question": "Para derivar:\n$$f(x) = \\frac{1}{x^3}$$\nCon las reglas de este tópico, ¿qué paso previo hay que dar?",
+    "question": "Para derivar:\n$$f(x) = \\frac{1}{x^3}$$\nEste tópico exige aplicar reglas directas, sin usar la regla del cociente.\n\n¿Qué paso previo hay que dar?",
     "options": [
       "Dejarla como está y derivar el numerador y el denominador por separado",
       "Reescribir la expresión como $x^{-3}$ y aplicar la regla de la potencia",
@@ -39,18 +39,18 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando una función aparece como $\\frac{1}{x^n}$, conviene **reescribirla** como una potencia con exponente negativo antes de derivar.\n\nCon esa reescritura, la regla de la potencia se aplica sin ningún problema, evitando la necesidad de una regla del cociente que todavía no corresponde usar.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Cuando el denominador es una potencia de $x$, conviene **reescribir** la expresión completa como una potencia con exponente negativo antes de derivar.\n\nCon esa reescritura, la regla de la potencia se aplica sin ningún problema, evitando la necesidad de una regla del cociente que todavía no corresponde usar.\n\nEsta misma reescritura previa se aplica a cualquier potencia negativa disfrazada de fracción.",
     "reviewed": false,
     "tags": [
       "jerarquia-de-reglas"
     ]
   },
   {
-    "question": "Para derivar:\n$$f(x) = \\sqrt{x}$$\nCon las reglas de este tópico, ¿qué paso previo conviene dar?",
+    "question": "Para derivar:\n$$f(x) = \\sqrt{x}$$\nEsta raíz no es una de las fórmulas elementales tal como está escrita.\n\n¿Qué paso previo conviene dar?",
     "options": [
       "Aplicar la regla del cociente sobre la raíz",
       "Tratarla como una función trigonométrica compuesta",
-      "Reescribir la expresión como $x^{1/2}$ y"
+      "Reescribir como $x^{1/2}$ y aplicar la potencia"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Toda raíz se puede escribir como una potencia con exponente fraccionario, lo que habilita usar directamente la **regla de la potencia**.\n\nEsta reescritura previa es un paso obligatorio antes de derivar, sin ella la expresión no encaja en ninguna de las fórmulas elementales conocidas.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Toda raíz se puede escribir como una potencia con exponente fraccionario, lo que habilita usar directamente la **regla de la potencia**.\n\nEsta reescritura previa es un paso obligatorio antes de derivar, sin ella la expresión no encaja en ninguna de las fórmulas elementales conocidas.\n\nEl mismo truco de reescritura aplica a cualquier raíz, no solo a la cuadrada.",
     "reviewed": false,
     "tags": [
       "jerarquia-de-reglas"
@@ -85,14 +85,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La propiedad de **linealidad** de la derivada permite descomponer una suma o resta en la suma o resta de las derivadas de cada término.\n\nReconocer esta propiedad primero evita intentar aplicar reglas que no corresponden, como la del producto o la cadena, sobre una simple suma de términos.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "La propiedad de **linealidad** de la derivada permite descomponer una suma o resta en la suma o resta de las derivadas de cada término.\n\nReconocer esta propiedad primero evita intentar aplicar reglas que no corresponden, como la del producto o la cadena, sobre una simple suma de términos.\n\nEsta misma linealidad es la que permite tratar cada monomio de un polinomio por separado.",
     "reviewed": false,
     "tags": [
       "jerarquia-de-reglas"
     ]
   },
   {
-    "question": "En el término $5x^4$ dentro de una suma más grande, ¿qué combinación de reglas corresponde aplicar?",
+    "question": "El término $5x^4$ aparece dentro de una suma más grande.\n\n¿Qué combinación de reglas corresponde aplicar?",
     "options": [
       "Regla de la cadena sobre el exponente",
       "Múltiplo escalar junto con la regla",
@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando un término combina un coeficiente numérico con una potencia de $x$, corresponde aplicar el **múltiplo escalar** junto con la regla de la potencia.\n\nEl coeficiente se conserva multiplicando al resultado de derivar la potencia, sin que haga falta ninguna otra regla adicional.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Cuando un término combina un coeficiente numérico con una potencia de $x$, corresponde aplicar el **múltiplo escalar** junto con la regla de la potencia.\n\nEl coeficiente se conserva multiplicando al resultado de derivar la potencia, sin que haga falta ninguna otra regla adicional.\n\nEste mismo patrón, coeficiente más potencia, se repite en cualquier término polinómico con coeficiente distinto de $1$.",
     "reviewed": false,
     "tags": [
       "jerarquia-de-reglas"
@@ -119,7 +119,7 @@
     "options": [
       "Aplicar primero la regla del producto entre los dos términos",
       "Combinar ambos términos en uno solo antes de derivar",
-      "Aplicar linealidad primero en el contexto por la regla"
+      "Aplicar linealidad primero, antes que cualquier regla individual"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -138,9 +138,9 @@
     ]
   },
   {
-    "question": "Para derivar:\n$$f(x) = \\frac{x^3}{5}$$\n¿qué paso conviene dar primero?",
+    "question": "Para derivar:\n$$f(x) = \\frac{x^3}{5}$$\n¿Qué paso conviene dar primero?",
     "options": [
-      "Ver el $\\frac{1}{5}$ como un múltiplo según la regla",
+      "Ver la división por $5$ como un múltiplo escalar",
       "Aplicar la regla del cociente entre $x^3$ y $5$",
       "Reescribir $5$ como una función de $x$ antes de derivar"
     ],
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dividir por una constante equivale a multiplicar por su recíproco, así que $\\frac{x^3}{5}$ se puede pensar como $\\frac{1}{5}x^3$.\n\nCon esa reinterpretación, el problema se resuelve con **múltiplo escalar** y la regla de la potencia, sin necesitar ninguna regla del cociente.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Dividir por una constante equivale a multiplicar por su recíproco:\n$$\\frac{x^3}{5} = \\frac{1}{5}x^3$$\nCon esa reinterpretación, el problema se resuelve con **múltiplo escalar** y la regla de la potencia, sin necesitar ninguna regla del cociente.\n\nEste mismo truco sirve para cualquier expresión dividida por una constante, no solo para $x^3$.",
     "reviewed": false,
     "tags": [
       "descomposicion-de-funciones"
@@ -177,7 +177,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cualquier término que sea un número fijo, sin ninguna variable, se resuelve directamente con la **regla de la constante**.\n\nEste paso es sencillo, pero conviene identificarlo explícitamente dentro de sumas más largas, para no dejarlo arrastrado por error en el resultado final.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Cualquier término que sea un número fijo, sin ninguna variable, se resuelve directamente con la **regla de la constante**.\n\nEste paso es sencillo, pero conviene identificarlo explícitamente dentro de sumas más largas, para no dejarlo arrastrado por error en el resultado final.\n\nEsta regla nunca cambia sin importar qué tan grande o pequeño sea el número.",
     "reviewed": false,
     "tags": [
       "descomposicion-de-funciones"
@@ -223,7 +223,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El término $-\\ln x$ combina un signo negativo con la función logaritmo natural.\n\nEl signo negativo se conserva sin cambios, mientras que $\\ln x$ se deriva con su **derivada de logaritmo** correspondiente, $\\frac{1}{x}$.\n\nSeparar el signo del tipo de función ayuda a no perder ninguno de los dos detalles al armar el resultado final.",
+    "explanation": "El término $-\\ln x$ combina un signo negativo con la función logaritmo natural.\n\nEl signo negativo se conserva sin cambios, mientras que $\\ln x$ se deriva con su **derivada de logaritmo** correspondiente, $1/x$.\n\nSeparar el signo del tipo de función ayuda a no perder ninguno de los dos detalles al armar el resultado final.",
     "reviewed": false,
     "tags": [
       "descomposicion-de-funciones"
@@ -233,7 +233,7 @@
     "question": "Dada la función:\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿Qué regla corresponde aplicar al término $3x^2$?",
     "options": [
       "Regla de la constante",
-      "Escalar por linealidad",
+      "Múltiplo escalar",
       "Derivada de exponencial"
     ],
     "correct_index": 1,
@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El término $3x^2$ combina un coeficiente numérico con una potencia de $x$, así que corresponde el **múltiplo escalar** junto con la regla de la potencia.\n\nCada término dentro de una suma se identifica y se resuelve por separado, antes de combinar todos los resultados al final.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "El término $3x^2$ combina un coeficiente numérico con una potencia de $x$, así que corresponde el **múltiplo escalar** junto con la regla de la potencia.\n\nCada término dentro de una suma se identifica y se resuelve por separado, antes de combinar todos los resultados al final.\n\nEste mismo patrón se repite en cualquier término con coeficiente y potencia combinados.",
     "reviewed": false,
     "tags": [
       "descomposicion-de-funciones"
@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El primer paso frente a cualquier expresión con varios términos es contar cuántas partes distintas hay que derivar por separado.\n\nEn este caso hay tres, el término exponencial $2e^x$, el término trigonométrico $-\\cos x$ \n\ny el término constante $6$.\n\nDescomponer completa la expresión antes de derivar evita saltear algún término o mezclar las reglas que le corresponden a cada uno.",
+    "explanation": "El primer paso frente a cualquier expresión con varios términos es contar cuántas partes distintas hay que derivar por separado.\n\nEn este caso hay tres: el término exponencial $2e^x$, el término trigonométrico $-\\cos x$ y un término constante.\n\nDescomponer completa la expresión antes de derivar evita saltear algún término o mezclar las reglas que le corresponden a cada uno.",
     "reviewed": false,
     "tags": [
       "descomposicion-de-funciones"
@@ -326,7 +326,7 @@
     "options": [
       "Regla de la potencia",
       "Derivada de exponencial",
-      "Múltiplo con trig"
+      "Múltiplo escalar"
     ],
     "correct_index": 2,
     "has_math": true,
