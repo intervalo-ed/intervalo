@@ -18,7 +18,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from algorithm import (
     Belt,
-    BeltCatalog,
     SM2Config,
     SM2UnitState,
     TopicKey,
@@ -51,7 +50,6 @@ from models import (
     Answer,
     Course,
     CourseProgress,
-    Exercise,
     ItemExerciseCycle,
     Session as SessionModel,
     UnitState,
@@ -107,13 +105,6 @@ def _get_course_slug(course_id: int, db: DBSession) -> str:
     return course.slug
 
 
-def _belt_order(course_id: int, db: DBSession) -> list[Belt]:
-    """Orden canónico de cinturones del curso, derivado de course.json
-    (antes: constante _BELT_ORDER hardcodeada)."""
-    slug = _get_course_slug(course_id, db)
-    return list(load_belt_catalogs(slug).keys())
-
-
 def _all_topic_keys(course_id: int, db: DBSession) -> list[TopicKey]:
     """Full ordered list of topic keys across all belts in canonical order.
 
@@ -126,11 +117,6 @@ def _all_topic_keys(course_id: int, db: DBSession) -> list[TopicKey]:
     for belt in catalogs:  # dict en orden de course.json
         keys.extend(catalogs[belt].all_keys())
     return keys
-
-
-def _get_catalog(course_id: int, belt: Belt, db: DBSession) -> BeltCatalog:
-    slug = _get_course_slug(course_id, db)
-    return load_belt_catalogs(slug)[belt]
 
 
 def _user_catchup_types(
@@ -745,27 +731,41 @@ def _ensure_active_units(
     user_id: int,
     course_id: int,
     db: DBSession,
+    *,
+    types: dict[tuple[str, str], list[str]] | None = None,
+    cap: int | None = None,
 ) -> None:
     """Desbloquea temas en orden de catálogo respetando un máximo ESTRICTO de
-    `active_cap` (configurable por usuario+curso, default 18) units en fase de
+    `active_cap` (configurable por usuario+curso; el default sale de
+    ACTIVE_CAP_DEFAULTS según el curso) units en fase de
     aprendizaje. Como un tema se desbloquea entero (todos sus exercise_types de
     golpe), solo se introduce el siguiente tema si entra completo sin pasarse del
     cap; si no entra, se espera a que gradúen units y se liberen cupos. A medida
     que las units graduan (pasan a 'review') se vuelven a desbloquear temas hasta
     volver a llenar el cap."""
-    types = course_exercise_types(course_id, db)
+    types = types if types is not None else course_exercise_types(course_id, db)
     current_types = _current_exercise_types(course_id, db, types=types)
 
     # Catch-up primero (exento del tope): ítems que quedaron detrás del frontier
     # ya desbloqueado deben aparecer aunque haya >=cap units activas.
     _fill_catchup_units(user_id, course_id, db, types=types)
 
-    cap = _active_cap(user_id, course_id, db)
-    active = _active_unit_count(user_id, course_id, db, current=current_types)
+    cap = cap if cap is not None else _active_cap(user_id, course_id, db)
+
+    # Units del usuario de una sola vez: de acá salen tanto cuántas están activas
+    # (ocupando cupo) como qué temas ya tiene desbloqueados.
+    rows = db.query(
+        UnitState.belt, UnitState.topic, UnitState.exercise_type,
+        UnitState.phase, UnitState.suspended,
+    ).filter(
+        UnitState.user_id == user_id,
+        UnitState.course_id == course_id,
+    ).all()
+    live = [r for r in rows if (r.belt, r.topic, r.exercise_type) in current_types]
+    active = sum(1 for r in live if r.phase != "review" and not r.suspended)
     if active >= cap:
         return
-    # Qué temas ya tiene el usuario: una query, no una por tema del catálogo.
-    seen_topics = _topics_with_units(user_id, course_id, db, current=current_types)
+    seen_topics = {(r.belt, r.topic) for r in live}
     changed = False
     for tk in _all_topic_keys(course_id, db):
         if active >= cap:
@@ -1303,13 +1303,14 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
     """Return topic-level progress (rolled up from per-unit state) and level info."""
     catalog_keys = _all_topic_keys(course_id, db)
 
-    _ensure_active_units(user_id, course_id, db)
-
-    # El catálogo de ítems del curso, de una sola vez: alimenta tanto el
-    # `expected` de cada tema como el total de ítems, que antes recorrían la
-    # misma lista de temas dos veces pegándole a la BD en cada vuelta.
+    # El catálogo de ítems del curso, de una sola vez: alimenta el desbloqueo, el
+    # `expected` de cada tema y el total de ítems, que antes recorrían la misma
+    # lista de temas pegándole a la BD en cada vuelta.
     types = course_exercise_types(course_id, db)
     current_types = _current_exercise_types(course_id, db, types=types)
+
+    cp = _get_course_progress(user_id, course_id, db)
+    _ensure_active_units(user_id, course_id, db, types=types, cap=cp.active_cap)
 
     rows = db.query(UnitState).filter(
         UnitState.user_id == user_id, UnitState.course_id == course_id,
@@ -1345,8 +1346,6 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
         )
         if last_course_row is not None:
             last_course_slug = last_course_row.slug
-
-    cp = _get_course_progress(user_id, course_id, db)
 
     # Racha global de días, para mostrar el multiplicador de XP vigente fuera
     # del summary (indicador de Repasar/Practicar). `counted_today` acá refleja
@@ -1489,11 +1488,6 @@ def get_summary_db(
         "incorrect": incorrect_count,
         "items": items,
         "topic_states": topic_states,
-        "belt_progress": {
-            "mastered": bp.mastered,
-            "total": bp.total,
-            "promoted": bp.promoted,
-        },
         "xp_earned": xp_earned,
         "streak": {
             "days": si.days,
@@ -1515,8 +1509,9 @@ def get_summary_db(
 
 def _course_total_items(course_id: int, db: DBSession) -> int:
     """Total de ítems (exercise_types) del curso: el máximo posible del cap."""
+    types = course_exercise_types(course_id, db)
     return sum(
-        len(topic_exercise_types(course_id, k.belt.value, k.topic, db))
+        len(types.get((k.belt.value, k.topic), []))
         for k in _all_topic_keys(course_id, db)
     )
 
@@ -1663,21 +1658,25 @@ def set_session_size(user_id: int, course_id: int, value: int, db: DBSession) ->
 
 def cap_change_preview(user_id: int, course_id: int, value: int, db: DBSession) -> dict:
     """Sin aplicar: qué temas se desbloquean/re-bloquean al cambiar el cap."""
-    total = _course_total_items(course_id, db)
-    value = max(1, min(int(value), total))
-    current_types = _current_exercise_types(course_id, db)
-    active = _active_unit_count(user_id, course_id, db, current=current_types)
+    types = course_exercise_types(course_id, db)
     keys = _all_topic_keys(course_id, db)
+    total = sum(len(types.get((k.belt.value, k.topic), [])) for k in keys)
+    value = max(1, min(int(value), total))
+    current_types = _current_exercise_types(course_id, db, types=types)
+    active = _active_unit_count(user_id, course_id, db, current=current_types)
     unlock: list[str] = []
     lock: list[str] = []
     if value > active:
         remaining = value - active
+        seen_topics = _topics_with_units(
+            user_id, course_id, db, current=current_types
+        )
         for tk in keys:
             if remaining <= 0:
                 break
-            if _topic_has_any_units(user_id, course_id, tk, db, current=current_types):
+            if (tk.belt.value, tk.topic) in seen_topics:
                 continue
-            n = len(topic_exercise_types(course_id, tk.belt.value, tk.topic, db))
+            n = len(types.get((tk.belt.value, tk.topic), []))
             if n > remaining:
                 break
             unlock.append(f"{tk.belt.value}/{tk.topic}")
