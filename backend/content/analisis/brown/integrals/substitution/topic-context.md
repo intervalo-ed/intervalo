@@ -2,9 +2,9 @@
 
 Belt: `brown`, Unit: `integrals`, Topic: `substitution`
 
-Skills en este topic: `ESTR`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+Skills en este topic: `ESTR`, `RESL`. **30 ejercicios cada uno (60 en total)** al cerrar el refactor.
 
-Este topic tiene 2 ítems (uno por skill): `ESTR`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+Este topic tiene 2 ítems (uno por skill): `ESTR`, `RESL`. **30 ejercicios cada uno (60 en total)** al cerrar el refactor.
 
 **Estado.** Este tópico introduce el **primer método** de integración: el **cambio de variable** ($u$-sub), operación inversa de la regla de la cadena vista en violet. El alumno aprende a detectar la anatomía "función compuesta + derivada del interior" y a compensar constantes cuando el diferencial no cierra exacto.
 
@@ -51,7 +51,7 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 ---
 
-## ESTR, 50 ejercicios
+## ESTR, 30 ejercicios
 
 ### Qué evalúa
 **Visión anatómica** del integrando antes de aplicar el método. Desglosar mentalmente la expresión para encontrar el **cambio de variable óptimo** y **ajustar el diferencial** cuando la derivada del interior aparece salvo un factor constante. Sin cálculo integral final.
@@ -65,8 +65,8 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Identificación anatómica de $u$ | Determinar qué parte del integrando debe reemplazarse para que su derivada cancele el resto. Casos: logaritmos ($\int \tfrac{\ln x}{x} \, dx$ con $u = \ln x$), trigonométricas con argumento polinómico ($\int x \cos(x^2) \, dx$ con $u = x^2$), exponenciales compuestas ($\int e^{3x + 1} \, dx$ con $u = 3x + 1$), cocientes con derivada del denominador en el numerador ($\int \tfrac{2x}{x^2 + 5} \, dx$ con $u = x^2 + 5$). | `identificacion-anatomica-de-u` | 25 |
-| B. Ajuste del diferencial | Evaluar el manejo algebraico de la constante que aparece al derivar $u$. Dada una sustitución como $u = 5x - 2$, identificar cómo queda $dx = \tfrac{1}{5} \, du$. Casos con coeficientes enteros ($u = 3x + 1 \Rightarrow dx = \tfrac{1}{3} du$), fraccionarios ($u = \tfrac{x}{2} \Rightarrow dx = 2 \, du$), y con signos ($u = -2x \Rightarrow dx = -\tfrac{1}{2} du$). | `ajuste-del-diferencial` | 25 |
+| A. Identificación anatómica de $u$ | Determinar qué parte del integrando debe reemplazarse para que su derivada cancele el resto. Casos: logaritmos ($\int \tfrac{\ln x}{x} \, dx$ con $u = \ln x$), trigonométricas con argumento polinómico ($\int x \cos(x^2) \, dx$ con $u = x^2$), exponenciales compuestas ($\int e^{3x + 1} \, dx$ con $u = 3x + 1$), cocientes con derivada del denominador en el numerador ($\int \tfrac{2x}{x^2 + 5} \, dx$ con $u = x^2 + 5$). | `identificacion-anatomica-de-u` | 15 |
+| B. Ajuste del diferencial | Evaluar el manejo algebraico de la constante que aparece al derivar $u$. Dada una sustitución como $u = 5x - 2$, identificar cómo queda $dx = \tfrac{1}{5} \, du$. Casos con coeficientes enteros ($u = 3x + 1 \Rightarrow dx = \tfrac{1}{3} du$), fraccionarios ($u = \tfrac{x}{2} \Rightarrow dx = 2 \, du$), y con signos ($u = -2x \Rightarrow dx = -\tfrac{1}{2} du$). | `ajuste-del-diferencial` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -88,7 +88,7 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 30 ejercicios
 
 ### Qué evalúa
 **Ejecución técnica del método**: elegir $u$, calcular $du$, reemplazar, aplicar la fórmula de tabla que corresponde en la variable $u$, **volver a $x$**, compensar constantes, agregar $+C$. Sin contextos cotidianos.
@@ -110,8 +110,8 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Sustitución lineal inmediata | Integrales donde el argumento de la función es un polinomio de **grado 1** ($u = ax + b$). Ejemplos: $\int e^{4x + 1} \, dx = \tfrac{1}{4} e^{4x + 1} + C$; $\int \cos(3x) \, dx = \tfrac{1}{3} \sin(3x) + C$; $\int (2x - 1)^5 \, dx = \tfrac{(2x - 1)^6}{12} + C$. Foco: compensación de constante por el coeficiente lineal. | `sustitucion-lineal-inmediata` | 25 |
-| B. Sustitución de grado superior y trascendentes | Integrales donde $u$ es un polinomio de **grado 2** o una función trascendente simple. Casos: $\int x \cos(x^2) \, dx$ con $u = x^2 \Rightarrow \tfrac{1}{2} \sin(x^2) + C$; $\int \tfrac{2x}{x^2 + 5} \, dx$ con $u = x^2 + 5 \Rightarrow \ln|x^2 + 5| + C$; $\int \tfrac{\ln x}{x} \, dx$ con $u = \ln x \Rightarrow \tfrac{(\ln x)^2}{2} + C$; $\int \sin^n x \cos x \, dx$ con $u = \sin x \Rightarrow \tfrac{\sin^{n+1} x}{n + 1} + C$. Foco: reconocer la anatomía "función compuesta multiplicada por derivada del interior". | `sustitucion-grado-superior-trascendentes` | 25 |
+| A. Sustitución lineal inmediata | Integrales donde el argumento de la función es un polinomio de **grado 1** ($u = ax + b$). Ejemplos: $\int e^{4x + 1} \, dx = \tfrac{1}{4} e^{4x + 1} + C$; $\int \cos(3x) \, dx = \tfrac{1}{3} \sin(3x) + C$; $\int (2x - 1)^5 \, dx = \tfrac{(2x - 1)^6}{12} + C$. Foco: compensación de constante por el coeficiente lineal. | `sustitucion-lineal-inmediata` | 15 |
+| B. Sustitución de grado superior y trascendentes | Integrales donde $u$ es un polinomio de **grado 2** o una función trascendente simple. Casos: $\int x \cos(x^2) \, dx$ con $u = x^2 \Rightarrow \tfrac{1}{2} \sin(x^2) + C$; $\int \tfrac{2x}{x^2 + 5} \, dx$ con $u = x^2 + 5 \Rightarrow \ln|x^2 + 5| + C$; $\int \tfrac{\ln x}{x} \, dx$ con $u = \ln x \Rightarrow \tfrac{(\ln x)^2}{2} + C$; $\int \sin^n x \cos x \, dx$ con $u = \sin x \Rightarrow \tfrac{\sin^{n+1} x}{n + 1} + C$. Foco: reconocer la anatomía "función compuesta multiplicada por derivada del interior". | `sustitucion-grado-superior-trascendentes` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -147,7 +147,7 @@ Pre-revisión programática sobre los ejercicios de prueba existentes:
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 2 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 30 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna aplicación de partes, integral definida, TFC, áreas, ni sustitución trigonométrica
 - [ ] Ningún $u$ de grado 3 o mayor
 - [ ] $\ln|·|$ con valor absoluto obligatorio en toda respuesta que involucre logaritmo
@@ -161,18 +161,18 @@ Pre-revisión programática sobre los ejercicios de prueba existentes:
 - [ ] Ningún `\begin{aligned}` alinea con `=` datos evaluados de forma independiente (regla crítica 30)
 
 **ESTR:**
-- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
-- [ ] Distribución A/B respetada (25/25)
+- [ ] 30 ejercicios; **exactamente 3 opciones** por ejercicio
+- [ ] Distribución A/B respetada (15/15)
 - [ ] Ningún cálculo integral final; solo elección de $u$ o ajuste del diferencial
 - [ ] Sub-A con distractor mayoritario = "u = función exterior completa" o "u = derivada de la interior"
 - [ ] Sub-B con distractor mayoritario = multiplicar en vez de dividir por el coeficiente
 - [ ] Textos exactos en opciones de elección de $u$ y de $dx$ (ver §Reglas específicas)
 
 **RESL:**
-- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
+- [ ] 30 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
 - [ ] Sin contextos cotidianos
 - [ ] Solo integrales indefinidas; ningún $\int_a^b$, ningún área
-- [ ] Distribución A/B respetada (25/25)
+- [ ] Distribución A/B respetada (15/15)
 - [ ] Sub-A con $u = ax + b$ únicamente; compensación de constante en todos los ejercicios donde el coeficiente $\neq 1$
 - [ ] Sub-B con $u$ hasta grado 2 o trascendente simple; casos $\tfrac{g'(x)}{g(x)}$ que disparan $\ln|·|$
 - [ ] Al menos algunos ejercicios tienen "respuesta en $u$" como distractor deliberado

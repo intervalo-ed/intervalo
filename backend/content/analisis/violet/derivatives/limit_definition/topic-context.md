@@ -2,7 +2,7 @@
 
 Belt: `violet`, Unit: `derivatives`, Topic: `limit_definition`
 
-Skills en este topic: `LEXI`, `GRAF`, `ESTR`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
+Skills en este topic: `LEXI`, `GRAF`, `ESTR`. **30 ejercicios cada uno (90 en total)** al cerrar el refactor.
 
 > **CLSF archivado (jul-2026):** se sacó de este topic al podar a un máximo de 3 ítems (skills) por topic. Contenido preservado en `backend/content/archive/analisis/violet/derivatives/limit_definition/CLSF.json`. No generar CLSF para este topic en rondas futuras; el resto de este documento puede seguir mencionando CLSF en registros de auditoría históricos, que quedan como referencia, no como guía de generación.
 
@@ -57,7 +57,7 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 
 ---
 
-## LEXI, 50 ejercicios
+## LEXI, 30 ejercicios
 
 ### Qué evalúa
 Afianzar la **notación**, la **anatomía** de la fórmula del límite y la diferenciación conceptual de **tasa de cambio instantánea** vs. promedio.
@@ -71,9 +71,9 @@ Afianzar la **notación**, la **anatomía** de la fórmula del límite y la dife
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Anatomía del límite | Diseccionar la fórmula $f'(a) = \lim_{h \to 0} \tfrac{f(a+h) - f(a)}{h}$: qué es $h$ (el incremento que tiende a $0$), qué son $a$ y $x$ (puntos fijos), por qué la sustitución directa produce $\tfrac{0}{0}$, qué representa el numerador y qué el denominador. | `anatomia-del-limite` | 20 |
-| B. Tasa instantánea vs. promedio | Contraste puro: sin el límite es una **tasa promedio** (equivalente a la pendiente de la secante); con el límite pasa a ser la **tasa instantánea** (equivalente a la pendiente de la tangente). Ninguna cuenta. | `tasa-instantanea-vs-promedio` | 15 |
-| C. Notación formal | Reconocer la **notación de Leibniz** $\tfrac{df}{dx}$, la **notación de Lagrange** $f'(x)$, la de Newton $\dot{f}$; distinguirlas de la variación finita $\tfrac{\Delta f}{\Delta x}$. | `notacion-formal-derivada` | 15 |
+| A. Anatomía del límite | Diseccionar la fórmula $f'(a) = \lim_{h \to 0} \tfrac{f(a+h) - f(a)}{h}$: qué es $h$ (el incremento que tiende a $0$), qué son $a$ y $x$ (puntos fijos), por qué la sustitución directa produce $\tfrac{0}{0}$, qué representa el numerador y qué el denominador. | `anatomia-del-limite` | 12 |
+| B. Tasa instantánea vs. promedio | Contraste puro: sin el límite es una **tasa promedio** (equivalente a la pendiente de la secante); con el límite pasa a ser la **tasa instantánea** (equivalente a la pendiente de la tangente). Ninguna cuenta. | `tasa-instantanea-vs-promedio` | 9 |
+| C. Notación formal | Reconocer la **notación de Leibniz** $\tfrac{df}{dx}$, la **notación de Lagrange** $f'(x)$, la de Newton $\dot{f}$; distinguirlas de la variación finita $\tfrac{\Delta f}{\Delta x}$. | `notacion-formal-derivada` | 9 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **$h$ confundido con $x$**: pensar que "lo que tiende a $0$" es $x$ o $a$. Recordar: $h$ es el **incremento**; $a$ es el punto donde se calcula la derivada y queda fijo.
@@ -89,7 +89,7 @@ Afianzar la **notación**, la **anatomía** de la fórmula del límite y la dife
 
 ---
 
-## GRAF, 50 ejercicios
+## GRAF, 30 ejercicios
 
 ### Qué evalúa
 **Diagnóstico visual** del comportamiento de la derivada leyendo la gráfica de $f$: signo, ceros, y pérdida de diferenciabilidad.
@@ -104,9 +104,9 @@ Afianzar la **notación**, la **anatomía** de la fórmula del límite y la dife
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Signo de la derivada | Dada la curva, determinar si $f'(a)$ es positiva (la curva sube), negativa (baja) o cero (recta horizontal instantánea, vértice, meseta). | `signo-de-la-derivada-visual` | 20 |
-| B. Identificación de ceros | Detectar visualmente **vértices**, **crestas** o **valles** como los puntos donde $f'$ se anula. Distractores: raíces de $f$ (donde $f = 0$, no donde $f' = 0$). | `identificacion-ceros-derivada` | 15 |
-| C. Diagnóstico de esquinas y saltos | Marcar en qué punto la función **pierde la diferenciabilidad**: quiebre abrupto (pico tipo $|x|$), salto (discontinuidad), tangente vertical. | `diagnostico-esquinas-y-saltos` | 15 |
+| A. Signo de la derivada | Dada la curva, determinar si $f'(a)$ es positiva (la curva sube), negativa (baja) o cero (recta horizontal instantánea, vértice, meseta). | `signo-de-la-derivada-visual` | 12 |
+| B. Identificación de ceros | Detectar visualmente **vértices**, **crestas** o **valles** como los puntos donde $f'$ se anula. Distractores: raíces de $f$ (donde $f = 0$, no donde $f' = 0$). | `identificacion-ceros-derivada` | 9 |
+| C. Diagnóstico de esquinas y saltos | Marcar en qué punto la función **pierde la diferenciabilidad**: quiebre abrupto (pico tipo $|x|$), salto (discontinuidad), tangente vertical. | `diagnostico-esquinas-y-saltos` | 9 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Signo invertido**: leer $f'(a) < 0$ en un tramo donde la curva sube. Recordar: sube ⇒ derivada positiva; baja ⇒ derivada negativa.
@@ -124,7 +124,7 @@ Afianzar la **notación**, la **anatomía** de la fórmula del límite y la dife
 
 ---
 
-## ESTR, 50 ejercicios
+## ESTR, 30 ejercicios
 
 ### Qué evalúa
 Ejecutar la **secuencia algebraica** para calcular $f'(x)$ o $f'(a)$ **exclusivamente por definición**: plantear el cociente incremental, expandir, simplificar, factorizar $h$, cancelar y tomar el límite.
@@ -138,9 +138,9 @@ Ejecutar la **secuencia algebraica** para calcular $f'(x)$ o $f'(a)$ **exclusiva
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Cuadráticas y el binomio | **Core del cálculo**. Derivar $f(x) = ax^2 + bx + c$ o casos particulares. Expandir $(x + h)^2 = x^2 + 2xh + h^2$, distribuir, no olvidar el **término cruzado** $2xh$, cancelar los términos sin $h$ del numerador, factorizar $h$ y evaluar el límite. | `cuadraticas-y-el-binomio` | 25 |
-| B. Pasos intermedios del límite | Preguntas de **proceso**, no de resultado. Ejemplo: "tras expandir y cancelar los términos sin $h$, ¿qué factor común se extrae del numerador?" o "¿cuál es el numerador simplificado antes de tomar el límite?". | `pasos-intermedios-del-limite` | 15 |
-| C. Lineales y constantes | Límites del tipo $\tfrac{5 - 5}{h} = 0$ (constantes) o $\tfrac{3(x + h) - 3x}{h} = \tfrac{3h}{h} = 3$ (lineales), donde $h$ se cancela de inmediato dando un resultado constante. Casos que introducen el método sin cálculo pesado. | `lineales-y-constantes-cociente` | 10 |
+| A. Cuadráticas y el binomio | **Core del cálculo**. Derivar $f(x) = ax^2 + bx + c$ o casos particulares. Expandir $(x + h)^2 = x^2 + 2xh + h^2$, distribuir, no olvidar el **término cruzado** $2xh$, cancelar los términos sin $h$ del numerador, factorizar $h$ y evaluar el límite. | `cuadraticas-y-el-binomio` | 15 |
+| B. Pasos intermedios del límite | Preguntas de **proceso**, no de resultado. Ejemplo: "tras expandir y cancelar los términos sin $h$, ¿qué factor común se extrae del numerador?" o "¿cuál es el numerador simplificado antes de tomar el límite?". | `pasos-intermedios-del-limite` | 9 |
+| C. Lineales y constantes | Límites del tipo $\tfrac{5 - 5}{h} = 0$ (constantes) o $\tfrac{3(x + h) - 3x}{h} = \tfrac{3h}{h} = 3$ (lineales), donde $h$ se cancela de inmediato dando un resultado constante. Casos que introducen el método sin cálculo pesado. | `lineales-y-constantes-cociente` | 6 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Término cruzado olvidado**: en $(x + h)^2$ dar $x^2 + h^2$ (olvidar el $2xh$). Es el error más costoso: sin el $2xh$ no hay cociente incremental correcto.
@@ -168,14 +168,14 @@ Auditoría en vivo (`/test`) sobre ejercicios ya existentes, más un patrón dom
 
 - **`LEXI_08`** (`ex_007`): el enunciado condensa contexto + pregunta en una sola oración larga ("Al tomar el límite cuando $h \to 0$ del cociente incremental... la tasa de cambio promedio se transforma en..."). Reescribir en **2 párrafos**: uno que sitúa el proceso, otro que hace la pregunta puntual con las mismas opciones.
 - **`ESTR_11`** (`ex_055`) y **`LEXI_05`** (`ex_004`): ambos asumen que el alumno ya tiene presente la fórmula del cociente incremental de otro ejercicio de la sesión y arrancan directo en un tecnicismo derivado de ella (factorizar $h$ en $2xh+h^2$; qué representa el denominador $h$). **Violación de la regla crítica 31** (nueva esta ronda): reintroducir la definición $f'(a) = \lim_{h \to 0} \tfrac{f(a+h)-f(a)}{h}$ con su LaTeX centrado antes de la pregunta puntual, en los dos casos.
-- **Patrón dominante confirmado en los 4 archivos completos** (no solo los 2 ejercicios de arriba): `ESTR` abre 12/15 ejercicios con la plantilla idéntica `"Calculé, por definición, la derivada de\n$$...$$"`. Es una cláusula completa (verbo + objeto), el problema es que **le falta el `:`** y se repite idéntica en los 12 ejercicios; agregar el `:` y variar la redacción alcanza, no hace falta reescribir el enunciado entero. `LEXI_01` abre con `"En la misma fórmula\n$$...$$"`: acá sí es un fragmento sin objeto propio, necesita reescribirse como cláusula completa. **Violación de la regla crítica 32** (nueva esta ronda) en ambos casos. Al completar hasta 50 ejercicios por skill, variar la redacción de apertura ejercicio a ejercicio y cerrar siempre con `:` los openers que ya son cláusulas completas.
+- **Patrón dominante confirmado en los 4 archivos completos** (no solo los 2 ejercicios de arriba): `ESTR` abre 12/15 ejercicios con la plantilla idéntica `"Calculé, por definición, la derivada de\n$$...$$"`. Es una cláusula completa (verbo + objeto), el problema es que **le falta el `:`** y se repite idéntica en los 12 ejercicios; agregar el `:` y variar la redacción alcanza, no hace falta reescribir el enunciado entero. `LEXI_01` abre con `"En la misma fórmula\n$$...$$"`: acá sí es un fragmento sin objeto propio, necesita reescribirse como cláusula completa. **Violación de la regla crítica 32** (nueva esta ronda) en ambos casos. Al completar hasta 30 ejercicios por skill, variar la redacción de apertura ejercicio a ejercicio y cerrar siempre con `:` los openers que ya son cláusulas completas.
 
 ---
 
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 3 skills activos):**
-- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 30 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna mención de reglas prácticas de derivación (potencia, producto, cociente, cadena)
 - [ ] Ninguna ecuación de recta tangente ni cálculo numérico de pendiente de secante (reservado para el tópico siguiente)
 - [ ] Explicaciones en 3 párrafos de prosa; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
@@ -186,20 +186,20 @@ Auditoría en vivo (`/test`) sobre ejercicios ya existentes, más un patrón dom
 - [ ] **Ningún `\begin{aligned}` alinea con `=` datos evaluados de forma independiente**; esa alineación es solo para pasos reales de una misma derivación (regla crítica 30)
 
 **LEXI:**
-- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
-- [ ] Distribución A/B/C respetada (20/15/15)
+- [ ] 30 ejercicios; **exactamente 3 opciones** por ejercicio
+- [ ] Distribución A/B/C respetada (12/9/9)
 - [ ] Negrita en primera mención de `derivada`, `tasa de cambio instantánea`, `cociente incremental`, `notación de Leibniz`, `notación de Lagrange`
 
 **GRAF:**
-- [ ] 50 ejercicios con `graph_fn` o gráfico embebido; `graph_view` cuadrado
-- [ ] Distribución A/B/C respetada (20/15/15)
+- [ ] 30 ejercicios con `graph_fn` o gráfico embebido; `graph_view` cuadrado
+- [ ] Distribución A/B/C respetada (12/9/9)
 - [ ] Vértices suaves incluidos como distractor en sub-C
 - [ ] Cardinalidad ajustada: 3 si categórica, 4 si numérica
 - [ ] Ningún ejercicio pide el valor numérico de $f'(a)$
 
 **ESTR:**
-- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
-- [ ] Distribución A/B/C respetada (25/15/10)
+- [ ] 30 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
+- [ ] Distribución A/B/C respetada (15/9/6)
 - [ ] Todo desarrollo por definición del límite del cociente incremental; ningún atajo
 - [ ] Solo polinomios de grado $\leq 2$; sin funciones elementales
 - [ ] Explicaciones con `\begin{aligned}` mostrando los 5 pasos

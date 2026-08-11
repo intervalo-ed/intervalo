@@ -11,15 +11,17 @@ El sistema de gamificación tiene **dos capas con roles distintos, no un conjunt
 
 **Al diseñar o evaluar cualquier feature de gamificación nueva, la pregunta correcta no es "¿cómo le doy más XP a esto?" sino "¿cómo esto alimenta o refuerza la competencia en el ranking, en particular entre universidades?"**. XP es un medio, el ranking es el fin.
 
-## XP y niveles
+## XP
 
-Curva de niveles precalculada al importar el módulo, basada en razón áurea a la sexta (`_RATIO = φ^(1/6) ≈ 1.0835`): nivel 1 = 30 XP, nivel 2 = 55 XP, cada nivel siguiente requiere ≈×1.0835 el anterior (50 niveles precalculados, `XP_TABLE`). **El backend calcula esto (`level_progress`, devuelto en el payload de progreso) pero el frontend no lo muestra en ningún lado hoy** — no hay barra de nivel ni indicador de "subiste de nivel" en la UI actual. Si se agrega esa UI en el futuro, actualizar esta nota.
+**No hay niveles.** La feature de curva de niveles se descartó (2026-08): el XP es el puntaje crudo que ordena el ranking, sin capa de nivel encima. El código (`XP_TABLE`, `level_progress`, `level_info` en los payloads) se eliminó por completo — si aparece una referencia a "nivel" en algún lado, es resto viejo.
 
 ### XP por ejercicio — modo Repaso (`"main"`)
 
-Base según intento (`XP_BY_ATTEMPT`): 1er intento = 8, 2do = 2, 3ro = 1, 4to (por descarte) = 0.
+Base según intento (`XP_BY_ATTEMPT`): 1er intento = 8, 2do = 1, 3ro = 0, 4to (por descarte) = 0. Del 2do intento en adelante la elección entre las opciones restantes es mayormente azar, así que casi no paga: XP obtenible por suerte devalúa todo el XP (Octalysis CD2).
 
-El XP del primer intento se pondera además por un **multiplicador de dificultad personal** (`difficulty_multiplier`): entre ×0.5 (ítem que el estudiante domina) y ×1.5 (ítem que le cuesta), calculado linealmente sobre su precisión rodante de primer intento en las últimas 10 respuestas (`DIFFICULTY_WINDOW`), neutro (×1.0) con menos de 3 muestras.
+**Fase de aprendizaje** (`XP_LEARNING_CORRECT`): mientras la unit está en `learning` (primer contacto + drills a 1-2 días), el 1er intento paga 5 plano, sin multiplicador de dificultad. El logro que el XP certifica es recordar tras un intervalo real; esto es lo que evita la lluvia de XP de las primeras sesiones, donde todo es aprendizaje.
+
+El XP del primer intento **en fase de review** se pondera además por un **multiplicador de dificultad personal** (`difficulty_multiplier`): entre ×0.5 (ítem que el estudiante domina) y ×1.25 (ítem que le cuesta), lineal sobre su precisión rodante de primer intento en las últimas 10 respuestas (`DIFFICULTY_WINDOW`), neutro (×1.0) con menos de 3 muestras. El techo del premio (+25%) es menor que el piso del descuento (−50%) a propósito: la ventana arrastra fallos viejos y sin tope pagaba más justo después de haber fallado.
 
 Bonus fijo por racha de aciertos limpios dentro de la sesión: cada 5 correctas seguidas (`XP_STREAK_INTERVAL`) suma +5 XP (`XP_STREAK_BONUS`), sin multiplicadores.
 
@@ -64,4 +66,4 @@ Categorías de notificación atadas al ranking/universidad (`backend/notificatio
 
 Track de desbloqueo append-only por carrera (`emoji_tree.py`, `User.emoji_path`/`emoji_worn`), mostrado/vestido en el leaderboard — capa de ownership (Core Drive 4 de Octalysis) distinta de XP/belts, pensada como otro insumo de estatus social visible en el ranking, no como sistema de recompensa aislado.
 
-Última verificación: 2026-08-01
+Última verificación: 2026-08-11

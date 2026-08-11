@@ -12,13 +12,13 @@
     "feedback_correct": "Correcto, el signo negativo de la fórmula y el de la primitiva del seno se combinan correctamente.",
     "feedback_incorrect": [
       null,
-      "Hay que el signo negativo del término $uv$, la fórmula es $uv-\\int v\\,du$, con signo negativo.",
+      "Te faltó el signo negativo del término $uv$, la fórmula es $uv-\\int v\\,du$, con signo negativo.",
       "El signo del segundo término es positivo, revisá el desarrollo de la integral remanente.",
       "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=x$, $dv=\\sin x\\,dx$.\n\ncon $du=dx$ y $v=-\\cos x$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\\begin{aligned} \\int x\\sin x\\,dx &= x(-\\cos x) - \\int (-\\cos x)\\,dx \\\\ &= -x\\cos x + \\int \\cos x\\,dx \\\\ &= -x\\cos x+\\sin x+C \\end{aligned}$$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nEl signo negativo de la fórmula se combina con el de la primitiva del seno, dando un segundo término positivo, doble atención al signo en este tipo de ítem.",
+    "explanation": "Elegimos $u=x$, $dv=\\sin x\\,dx$.\n\nDe ahí, $du=dx$ y $v=-\\cos x$.\n$$\\begin{aligned} \\int x\\sin x\\,dx &= x(-\\cos x) - \\int (-\\cos x)\\,dx \\\\ &= -x\\cos x + \\int \\cos x\\,dx \\\\ &= -x\\cos x+\\sin x+C \\end{aligned}$$\nEl signo negativo de la fórmula se combina con el de la primitiva del seno, dando un segundo término positivo, doble atención al signo en este tipo de ítem.",
     "reviewed": false,
     "tags": [
       "aplicacion-directa-una-iteracion"
@@ -38,12 +38,12 @@
     "feedback_incorrect": [
       "Hay que dividir una vez más por $2$ en el segundo término, ese factor sale de integrar $e^{2x}$.",
       null,
-      "Hay que el factor $\\frac{1}{2}$ que sale de integrar $e^{2x}$, ese ajuste se arrastra en ambos términos.",
-      "Hay que el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
+      "Te faltó el factor $\\frac{1}{2}$ que sale de integrar $e^{2x}$, ese ajuste se arrastra en ambos términos.",
+      "Te faltó el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=x$, $dv=e^{2x}\\,dx$.\n\ncon $du=dx$ y $v=\\frac{e^{2x}}{2}$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\\begin{aligned} \\int xe^{2x}\\,dx &= x\\cdot\\frac{e^{2x}}{2} - \\int \\frac{e^{2x}}{2}\\,dx \\\\ &= \\frac{xe^{2x}}{2} - \\frac{1}{2}\\cdot\\frac{e^{2x}}{2} \\\\ &= \\frac{xe^{2x}}{2}-\\frac{e^{2x}}{4}+C \\\\ &= \\frac{e^{2x}(2x-1)}{4}+C \\end{aligned}$$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nEl factor $\\frac{1}{2}$ que aparece al integrar $e^{2x}$ se arrastra en ambos términos del resultado final, no solo en el primero.",
+    "explanation": "Elegimos $u=x$, $dv=e^{2x}\\,dx$.\n\nDe ahí, $du=dx$ y $v=e^{2x}/2$.\n$$\\begin{aligned} \\int xe^{2x}\\,dx &= x\\cdot\\frac{e^{2x}}{2} - \\int \\frac{e^{2x}}{2}\\,dx \\\\ &= \\frac{xe^{2x}}{2} - \\frac{1}{2}\\cdot\\frac{e^{2x}}{2} \\\\ &= \\frac{xe^{2x}}{2}-\\frac{e^{2x}}{4}+C \\\\ &= \\frac{e^{2x}(2x-1)}{4}+C \\end{aligned}$$\nEl factor que aparece al integrar $e^{2x}$ se arrastra en ambos términos del resultado final, no solo en el primero.",
     "reviewed": false,
     "tags": [
       "aplicacion-directa-una-iteracion"
@@ -61,14 +61,14 @@
     "has_math": true,
     "feedback_correct": "Correcto, la primitiva del coseno es el seno sin signo, y la del seno lleva signo negativo.",
     "feedback_incorrect": [
-      "Hay que el signo positivo del término $uv$, revisá la fórmula $uv-\\int v\\,du$ con cuidado.",
+      "Te faltó el signo positivo del término $uv$, revisá la fórmula $uv-\\int v\\,du$ con cuidado.",
       "Confundiste seno con coseno en la elección de $v$, revisá cuál función corresponde a cada rol.",
       null,
       "El signo de la primitiva del coseno es positivo, revisá el desarrollo de la integral remanente."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=x$, $dv=\\cos x\\,dx$.\n\ncon $du=dx$ y $v=\\sin x$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\\begin{aligned} \\int x\\cos x\\,dx &= x\\sin x - \\int \\sin x\\,dx \\\\ &= x\\sin x - (-\\cos x) \\\\ &= x\\sin x+\\cos x+C \\end{aligned}$$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nEl doble signo negativo de este desarrollo, el de la fórmula y el de la primitiva del seno, se cancela dando un segundo término positivo.",
+    "explanation": "Elegimos $u=x$, $dv=\\cos x\\,dx$.\n\nDe ahí, $du=dx$ y $v=\\sin x$.\n$$\\begin{aligned} \\int x\\cos x\\,dx &= x\\sin x - \\int \\sin x\\,dx \\\\ &= x\\sin x - (-\\cos x) \\\\ &= x\\sin x+\\cos x+C \\end{aligned}$$\nEl doble signo negativo de este desarrollo, el de la fórmula y el de la primitiva del seno, se cancela dando un segundo término positivo.",
     "reviewed": false,
     "tags": [
       "aplicacion-directa-una-iteracion"
@@ -86,14 +86,14 @@
     "has_math": true,
     "feedback_correct": "Correcto, la fórmula resta el término $\\int v\\,du$, dejando $-e^x$.",
     "feedback_incorrect": [
-      "Hay que el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
+      "Te faltó el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
       "El orden y el signo de los términos están alterados, revisá el desarrollo completo de la fórmula.",
       "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa.",
       null
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=x$, :, con.\n$$du=dx$$\nY $v=e^x.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$.Este es el caso más simple de la fórmula, sin ningún ajuste de constante, ya que la exponencial de base $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nE$ es su propia primitiva.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Elegimos $u=x$, $dv=e^x\\,dx$.\n\nDe ahí, $du=dx$ y $v=e^x$.\n$$\\begin{aligned} \\int xe^x\\,dx &= xe^x - \\int e^x\\,dx \\\\ &= xe^x-e^x+C \\end{aligned}$$\nEste es el caso más simple de la fórmula, sin ningún ajuste de constante, ya que la exponencial de base $e$ es su propia primitiva.\n\nNi el término $uv$ ni la integral remanente necesitan ningún coeficiente extra, a diferencia de lo que ocurre con exponenciales de otra base.",
     "reviewed": false,
     "tags": [
       "aplicacion-directa-una-iteracion"
@@ -112,13 +112,13 @@
     "feedback_correct": "Correcto, el signo negativo de $v=-e^{-x}$ se traslada a ambos términos.",
     "feedback_incorrect": [
       null,
-      "Hay que el signo negativo del término $uv$, revisá el cálculo de $v=-e^{-x}$.",
-      "Hay que el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
+      "Te faltó el signo negativo del término $uv$, revisá el cálculo de $v=-e^{-x}$.",
+      "Te faltó el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
       "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=x$, $dv=e^{-x}\\,dx$.\n\ncon $du=dx$ y $v=-e^{-x}$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\\begin{aligned} \\int xe^{-x}\\,dx &= x(-e^{-x}) - \\int (-e^{-x})\\,dx \\\\ &= -xe^{-x} + \\int e^{-x}\\,dx \\\\ &= -xe^{-x}-e^{-x}+C \\end{aligned}$$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nEl signo negativo del exponente arrastra un signo negativo en $v$, que se combina con el de la fórmula en el segundo término.",
+    "explanation": "Elegimos $u=x$, $dv=e^{-x}\\,dx$.\n\nDe ahí, $du=dx$ y $v=-e^{-x}$.\n$$\\begin{aligned} \\int xe^{-x}\\,dx &= x(-e^{-x}) - \\int (-e^{-x})\\,dx \\\\ &= -xe^{-x} + \\int e^{-x}\\,dx \\\\ &= -xe^{-x}-e^{-x}+C \\end{aligned}$$\nEl signo negativo del exponente arrastra un signo negativo en $v$, que se combina con el de la fórmula en el segundo término.",
     "reviewed": false,
     "tags": [
       "aplicacion-directa-una-iteracion"
@@ -138,12 +138,12 @@
     "feedback_incorrect": [
       "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa.",
       null,
-      "Hay que el signo negativo del término $uv$, la fórmula es $uv-\\int v\\,du$, con signo negativo.",
+      "Te faltó el signo negativo del término $uv$, la fórmula es $uv-\\int v\\,du$, con signo negativo.",
       "El signo del segundo término es positivo, revisá el desarrollo de la integral remanente."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=3x$, $dv=\\sin x\\,dx$.\n\ncon $du=3\\,dx$ y $v=-\\cos x$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\\begin{aligned} \\int 3x\\sin x\\,dx &= 3x(-\\cos x) - \\int (-\\cos x)(3\\,dx) \\\\ &= -3x\\cos x + 3\\int \\cos x\\,dx \\\\ &= -3x\\cos x+3\\sin x+C \\end{aligned}$$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nEl coeficiente $3$ acompaña tanto al término $uv$ como a la integral remanente, sin perderse en ningún paso del desarrollo.",
+    "explanation": "Elegimos $u=3x$, $dv=\\sin x\\,dx$.\n\nDe ahí, $du=3\\,dx$ y $v=-\\cos x$.\n$$\\begin{aligned} \\int 3x\\sin x\\,dx &= 3x(-\\cos x) - \\int (-\\cos x)(3\\,dx) \\\\ &= -3x\\cos x + 3\\int \\cos x\\,dx \\\\ &= -3x\\cos x+3\\sin x+C \\end{aligned}$$\nEl coeficiente $3$ acompaña tanto al término $uv$ como a la integral remanente, sin perderse en ningún paso del desarrollo.",
     "reviewed": false,
     "tags": [
       "aplicacion-directa-una-iteracion"
@@ -161,14 +161,14 @@
     "has_math": true,
     "feedback_correct": "Correcto, el coeficiente $2$ se conserva en ambos términos del resultado.",
     "feedback_incorrect": [
-      "Hay que el coeficiente $2$ en el primer término, ese factor viene de $u=2x$.",
+      "Te faltó el coeficiente $2$ en el primer término, ese factor viene de $u=2x$.",
       "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa.",
       null,
-      "Hay que el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
+      "Te faltó el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=2x$, $dv=e^x\\,dx$.\n\ncon $du=2\\,dx$ y $v=e^x$$\\begin{aligned} \\int 2xe^x\\,dx &= 2xe^x - \\int e^x(2\\,dx) \\\\ &= 2xe^x - 2\\int e^x\\,dx \\\\ &= 2xe^x-2e^x+C \\end{aligned}\nEl coeficiente $2$ de $u$ se traslada al.\n$$du$$\n.\n\ny ese mismo factor termina multiplicando a la integral remanente completa.",
+    "explanation": "Elegimos $u=2x$, $dv=e^x\\,dx$.\n\nDe ahí, $du=2\\,dx$ y $v=e^x$.\n$$\\begin{aligned} \\int 2xe^x\\,dx &= 2xe^x - \\int e^x(2\\,dx) \\\\ &= 2xe^x - 2\\int e^x\\,dx \\\\ &= 2xe^x-2e^x+C \\end{aligned}$$\nEl coeficiente $2$ se traslada al $du$, y ese mismo factor termina multiplicando a la integral remanente completa, así que aparece dos veces en el resultado final.",
     "reviewed": false,
     "tags": [
       "aplicacion-directa-una-iteracion"
@@ -187,13 +187,13 @@
     "feedback_correct": "Correcto, la primitiva del coseno es el seno sin signo, y la del seno lleva signo negativo.",
     "feedback_incorrect": [
       "El signo de la primitiva del coseno es positivo, revisá el desarrollo de la integral remanente.",
-      "Hay que el signo positivo del término $uv$, revisá la fórmula $uv-\\int v\\,du$ con cuidado.",
+      "Te faltó el signo positivo del término $uv$, revisá la fórmula $uv-\\int v\\,du$ con cuidado.",
       "Confundiste seno con coseno en la elección de $v$, revisá cuál función corresponde a cada rol.",
       null
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=x+1$, $dv=\\cos x\\,dx$.\n\ncon $du=dx$ y $v=\\sin x$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\\begin{aligned} \\int (x+1)\\cos x\\,dx &= (x+1)\\sin x - \\int \\sin x\\,dx \\\\ &= (x+1)\\sin x - (-\\cos x) \\\\ &= (x+1)\\sin x+\\cos x+C \\end{aligned}$$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nEl término constante dentro de $u$ no complica el desarrollo, se arrastra igual que la parte lineal en todo el procedimiento.",
+    "explanation": "Elegimos $u=x+1$, $dv=\\cos x\\,dx$.\n\nDe ahí, $du=dx$ y $v=\\sin x$.\n$$\\begin{aligned} \\int (x+1)\\cos x\\,dx &= (x+1)\\sin x - \\int \\sin x\\,dx \\\\ &= (x+1)\\sin x - (-\\cos x) \\\\ &= (x+1)\\sin x+\\cos x+C \\end{aligned}$$\nEl término constante dentro de $u$ no complica el desarrollo, se arrastra igual que la parte lineal en todo el procedimiento.",
     "reviewed": false,
     "tags": [
       "aplicacion-directa-una-iteracion"
@@ -213,12 +213,12 @@
     "feedback_incorrect": [
       null,
       "El logaritmo natural no está en la tabla de integrales inmediatas, hace falta partes con el factor oculto $dv=1\\,dx$.",
-      "Hay que el término $uv=x\\ln x$, la fórmula da $uv-\\int v\\,du$, ambos términos aparecen en el resultado.",
-      "Hay que el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
+      "Te faltó el término $uv=x\\ln x$, la fórmula da $uv-\\int v\\,du$, ambos términos aparecen en el resultado.",
+      "Te faltó el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El $\\ln x$ solo no tiene primitiva directa de tabla, así que se resuelve con el **factor oculto**, tratando $dv=1\\,dx$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\\begin{aligned} u &= \\ln x, \\quad dv = 1\\,dx \\\\ du &= \\frac{1}{x}\\,dx, \\quad v = x \\\\ \\int \\ln x\\,dx &= x\\ln x - \\int x\\cdot\\frac{1}{x}\\,dx \\\\ &= x\\ln x-x+C \\end{aligned}$$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nEl factor oculto es la clave para integrar cualquier función que \"no parece\" un producto, tratándola como si estuviera multiplicada por $1$.",
+    "explanation": "El $\\ln x$ solo no tiene primitiva directa de tabla, así que se resuelve con el **factor oculto**, tratando el integrando como multiplicado por $1$.\n$$\\begin{aligned} u &= \\ln x, \\quad dv = 1\\,dx \\\\ du &= \\frac{1}{x}\\,dx, \\quad v = x \\\\ \\int \\ln x\\,dx &= x\\ln x - \\int x\\cdot\\frac{1}{x}\\,dx \\\\ &= x\\ln x-x+C \\end{aligned}$$\nEl factor oculto es la clave para integrar cualquier función que no parece un producto.",
     "reviewed": false,
     "tags": [
       "factor-oculto-reducciones-cortas"
@@ -236,14 +236,14 @@
     "has_math": true,
     "feedback_correct": "Correcto, la integral remanente se simplifica a $\\frac{x^2}{4}$, y factorizando $\\frac{x^2}{4}$ queda esta forma compacta.",
     "feedback_incorrect": [
-      "Hay que el coeficiente $\\frac{1}{2}$ en el primer término, ese factor viene de $v=\\frac{x^2}{2}$.",
+      "Te faltó el coeficiente $\\frac{1}{2}$ en el primer término, ese factor viene de $v=\\frac{x^2}{2}$.",
       null,
       "Revisá la simplificación de la integral remanente, $\\frac{1}{2}\\int x\\,dx=\\frac{x^2}{4}$, no $x$.",
-      "Hay que el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
+      "Te faltó el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=\\ln x$, $dv=x\\,dx$.\n\ncon $du=\\frac{1}{x}\\,dx$ y $v=\\frac{x^2}{2}$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\\begin{aligned} \\int x\\ln x\\,dx &= \\frac{x^2}{2}\\ln x - \\int \\frac{x^2}{2}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^2}{2}\\ln x - \\frac{1}{2}\\int x\\,dx \\\\ &= \\frac{x^2\\ln x}{2}-\\frac{x^2}{4}+C \\\\ &= \\frac{x^2(2\\ln x-1)}{4}+C \\end{aligned}$$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nLa integral remanente se simplifica antes de resolverla, la potencia de $x$ baja de $x^2$ \n\na $x$ gracias a la cancelación con $\\frac{1}{x}$.",
+    "explanation": "Elegimos $u=\\ln x$, $dv=x\\,dx$.\n\nDe ahí, $du=dx/x$ y $v=x^2/2$.\n$$\\begin{aligned} \\int x\\ln x\\,dx &= \\frac{x^2}{2}\\ln x - \\int \\frac{x^2}{2}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^2}{2}\\ln x - \\frac{1}{2}\\int x\\,dx \\\\ &= \\frac{x^2\\ln x}{2}-\\frac{x^2}{4}+C \\\\ &= \\frac{x^2(2\\ln x-1)}{4}+C \\end{aligned}$$\nLa integral remanente se simplifica antes de resolverla: la potencia baja en un grado gracias a la cancelación con el factor $du$.",
     "reviewed": false,
     "tags": [
       "factor-oculto-reducciones-cortas"
@@ -261,14 +261,14 @@
     "has_math": true,
     "feedback_correct": "Correcto, con el factor oculto $dv=1\\,dx$ se obtiene $uv-\\int v\\,du = x\\ln(2x)-x+C$.",
     "feedback_incorrect": [
-      "Hay que el término $uv=x\\ln(2x)$, la fórmula da $uv-\\int v\\,du$, ambos términos aparecen en el resultado.",
-      "Hay que el factor $x$ que multiplica al logaritmo en el término $uv$, ese factor viene de $v=x$.",
+      "Te faltó el término $uv=x\\ln(2x)$, la fórmula da $uv-\\int v\\,du$, ambos términos aparecen en el resultado.",
+      "Te faltó el factor $x$ que multiplica al logaritmo en el término $uv$, ese factor viene de $v=x$.",
       null,
-      "Hay que el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
+      "Te faltó el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con $\\ln x$ solo, $\\ln(2x)$ se resuelve con el **factor oculto**.\n\ntratando $dv=1\\,dx$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\\begin{aligned} u &= \\ln(2x), \\quad dv = 1\\,dx \\\\ du &= \\frac{1}{x}\\,dx, \\quad v = x \\\\ \\int \\ln(2x)\\,dx &= x\\ln(2x) - \\int x\\cdot\\frac{1}{x}\\,dx \\\\ &= x\\ln(2x)-x+C \\end{aligned}$$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nLa derivada de $\\ln(2x)$ sigue siendo $\\frac{1}{x}$.\n\nasí que el desarrollo queda idéntico al caso de $\\ln x$ solo, salvo por el argumento.",
+    "explanation": "Igual que con $\\ln x$ solo, $\\ln(2x)$ se resuelve con el **factor oculto**.\n$$\\begin{aligned} u &= \\ln(2x), \\quad dv = 1\\,dx \\\\ du &= \\frac{1}{x}\\,dx, \\quad v = x \\\\ \\int \\ln(2x)\\,dx &= x\\ln(2x) - \\int x\\cdot\\frac{1}{x}\\,dx \\\\ &= x\\ln(2x)-x+C \\end{aligned}$$\nLa derivada de $\\ln(2x)$ sigue siendo $1/x$, así que el desarrollo queda idéntico al caso anterior, salvo por el argumento.",
     "reviewed": false,
     "tags": [
       "factor-oculto-reducciones-cortas"
@@ -286,14 +286,14 @@
     "has_math": true,
     "feedback_correct": "Correcto, el coeficiente $3$ se conserva en ambos términos del resultado.",
     "feedback_incorrect": [
-      "Hay que el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
-      "Hay que el término $uv=3x\\ln x$, la fórmula da $uv-\\int v\\,du$, ambos términos aparecen en el resultado.",
-      "Hay que el coeficiente $3$ en ambos términos, ese factor viene de la constante que multiplica al logaritmo.",
+      "Te faltó el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
+      "Te faltó el término $uv=3x\\ln x$, la fórmula da $uv-\\int v\\,du$, ambos términos aparecen en el resultado.",
+      "Te faltó el coeficiente $3$ en ambos términos, ese factor viene de la constante que multiplica al logaritmo.",
       null
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El coeficiente $3$ acompaña al logaritmo durante todo el desarrollo, tanto en el término $uv$ como en la integral remanente.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\\begin{aligned} \\int 3\\ln x\\,dx &= 3\\left(x\\ln x - \\int x\\cdot\\frac{1}{x}\\,dx\\right) \\\\ &= 3(x\\ln x-x) \\\\ &= 3x\\ln x-3x+C \\end{aligned}$$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nAplicar la linealidad primero, sacando el $3$ fuera de la integral, simplifica el desarrollo antes de aplicar el factor oculto.",
+    "explanation": "El coeficiente $3$ acompaña al logaritmo durante todo el desarrollo, tanto en el término $uv$ como en la integral remanente.\n$$\\begin{aligned} \\int 3\\ln x\\,dx &= 3\\left(x\\ln x - \\int x\\cdot\\frac{1}{x}\\,dx\\right) \\\\ &= 3(x\\ln x-x) \\\\ &= 3x\\ln x-3x+C \\end{aligned}$$\nAplicar la linealidad primero, sacando el $3$ fuera de la integral, simplifica el desarrollo antes de aplicar el factor oculto.",
     "reviewed": false,
     "tags": [
       "factor-oculto-reducciones-cortas"
@@ -313,12 +313,12 @@
     "feedback_incorrect": [
       null,
       "Revisá la simplificación de la integral remanente, $\\frac{1}{4}\\int x^3\\,dx=\\frac{x^4}{16}$, no $\\frac{x^4}{4}$.",
-      "Hay que el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
-      "Hay que el coeficiente $\\frac{1}{4}$ en el primer término, ese factor viene de $v=\\frac{x^4}{4}$."
+      "Te faltó el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
+      "Te faltó el coeficiente $\\frac{1}{4}$ en el primer término, ese factor viene de $v=\\frac{x^4}{4}$."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=\\ln x$, $dv=x^3\\,dx$.\n\ncon $du=\\frac{1}{x}\\,dx$ y $v=\\frac{x^4}{4}$$\\begin{aligned} \\int x^3\\ln x\\,dx &= \\frac{x^4}{4}\\ln x - \\int \\frac{x^4}{4}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^4}{4}\\ln x - \\frac{1}{4}\\int x^3\\,dx \\\\ &= \\frac{x^4\\ln x}{4}-\\frac{x^4}{16}+C \\\\ &= \\frac{x^4(4\\ln x-1)}{16}+C \\end{aligned}\nEl denominador final combina dos factores, el $4$ de la regla de la potencia y el $4$ del factor que arrastra.\n$$v$$\n.\n\nambos multiplicados dan $16$.",
+    "explanation": "Elegimos $u=\\ln x$, $dv=x^3\\,dx$.\n\nDe ahí, $du=dx/x$ y $v=x^4/4$.\n$$\\begin{aligned} \\int x^3\\ln x\\,dx &= \\frac{x^4}{4}\\ln x - \\int \\frac{x^4}{4}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^4}{4}\\ln x - \\frac{1}{4}\\int x^3\\,dx \\\\ &= \\frac{x^4\\ln x}{4}-\\frac{x^4}{16}+C \\\\ &= \\frac{x^4(4\\ln x-1)}{16}+C \\end{aligned}$$\nEl denominador final $16$ combina la regla de la potencia con el factor que arrastra $v$.",
     "reviewed": false,
     "tags": [
       "factor-oculto-reducciones-cortas"
@@ -338,12 +338,12 @@
     "feedback_incorrect": [
       "El coeficiente de $\\ln(x-1)$ en el término $uv$ tiene que ser $(x-1)$, no $x$, para que la integral remanente se cancele.",
       null,
-      "Hay que el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
-      "Hay que el término $uv=(x-1)\\ln(x-1)$, la fórmula da $uv-\\int v\\,du$, ambos términos aparecen en el resultado."
+      "Te faltó el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
+      "Te faltó el término $uv=(x-1)\\ln(x-1)$, la fórmula da $uv-\\int v\\,du$, ambos términos aparecen en el resultado."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=\\ln(x-1)$, $dv=1\\,dx$.\n\npero conviene tomar $v=x-1$ en vez de $v=x$.\n\nambas son primitivas válidas de $1$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\\begin{aligned} du &= \\frac{1}{x-1}\\,dx, \\quad v = x-1 \\\\ \\int \\ln(x-1)\\,dx &= (x-1)\\ln(x-1) - \\int (x-1)\\cdot\\frac{1}{x-1}\\,dx \\\\ &= (x-1)\\ln(x-1)-x+C \\end{aligned}$$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nElegir $v=x-1$ en vez de $v=x$ es una decisión estratégica.\n\ncancela exactamente el denominador de $du$ sin dejar una fracción incómoda.",
+    "explanation": "Elegimos $u=\\ln(x-1)$, $dv=1\\,dx$.\n\nConviene tomar $v=x-1$ en vez de $v=x$, ambas primitivas válidas del mismo diferencial.\n$$\\begin{aligned} du &= \\frac{1}{x-1}\\,dx, \\quad v = x-1 \\\\ \\int \\ln(x-1)\\,dx &= (x-1)\\ln(x-1) - \\int (x-1)\\cdot\\frac{1}{x-1}\\,dx \\\\ &= (x-1)\\ln(x-1)-x+C \\end{aligned}$$\nElegir $v=x-1$ en vez de $v=x$ es una decisión estratégica: cancela exactamente el denominador que aparecería en el paso siguiente, sin dejar una fracción incómoda.",
     "reviewed": false,
     "tags": [
       "factor-oculto-reducciones-cortas"
@@ -361,14 +361,14 @@
     "has_math": true,
     "feedback_correct": "Correcto, la integral remanente se simplifica a $\\frac{x^3}{9}$, y factorizando $\\frac{x^3}{9}$ queda esta forma compacta.",
     "feedback_incorrect": [
-      "Hay que el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
-      "Hay que el coeficiente $\\frac{1}{3}$ en el primer término, ese factor viene de $v=\\frac{x^3}{3}$.",
+      "Te faltó el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
+      "Te faltó el coeficiente $\\frac{1}{3}$ en el primer término, ese factor viene de $v=\\frac{x^3}{3}$.",
       null,
       "Revisá la simplificación de la integral remanente, $\\frac{1}{3}\\int x^2\\,dx=\\frac{x^3}{9}$, no $\\frac{x^3}{3}$."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=\\ln x$, $dv=x^2\\,dx$.\n\ncon $du=\\frac{1}{x}\\,dx$ y $v=\\frac{x^3}{3}$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\\begin{aligned} \\int x^2\\ln x\\,dx &= \\frac{x^3}{3}\\ln x - \\int \\frac{x^3}{3}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^3}{3}\\ln x - \\frac{1}{3}\\int x^2\\,dx \\\\ &= \\frac{x^3\\ln x}{3}-\\frac{x^3}{9}+C \\\\ &= \\frac{x^3(3\\ln x-1)}{9}+C \\end{aligned}$$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nEste caso cierra en una única aplicación del método, sin importar el grado del polinomio, porque $u=\\ln x$ es quien se deriva.",
+    "explanation": "Elegimos $u=\\ln x$, $dv=x^2\\,dx$.\n\nDe ahí, $du=dx/x$ y $v=x^3/3$.\n$$\\begin{aligned} \\int x^2\\ln x\\,dx &= \\frac{x^3}{3}\\ln x - \\int \\frac{x^3}{3}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^3}{3}\\ln x - \\frac{1}{3}\\int x^2\\,dx \\\\ &= \\frac{x^3\\ln x}{3}-\\frac{x^3}{9}+C \\\\ &= \\frac{x^3(3\\ln x-1)}{9}+C \\end{aligned}$$\nEste caso cierra en una única aplicación del método, sin importar el grado del polinomio, porque $u=\\ln x$ es quien se deriva.",
     "reviewed": false,
     "tags": [
       "factor-oculto-reducciones-cortas"

@@ -51,3 +51,28 @@ export function useEnableNotifications({
     },
   })
 }
+
+// Cambio de horario con los recordatorios YA activos: no toca la suscripción
+// push, solo persiste la hora nueva. Compartida entre los ajustes del perfil y
+// la pestaña de notificaciones del resumen, donde el selector aparece recién
+// después de activar.
+export function useUpdateReminderTime() {
+  const api = useApi()
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async (chosenTime: string) => {
+      const { error } = await api.PUT("/user/notification-settings", {
+        body: { enabled: true, time: chosenTime, timezone: getTimezone() },
+      })
+      if (error) throw error
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.notificationSettings(),
+      })
+      toast.success("Horario actualizado")
+    },
+    onError: () => toast.error("No pudimos guardar el horario."),
+  })
+}

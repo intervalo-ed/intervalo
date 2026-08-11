@@ -45,6 +45,8 @@ export default function OnboardingCompletePage() {
       course: data.course,
       motivation: data.motivation,
       introItemCorrect: data.introItemCorrect,
+      introItemAttempts: data.introItemAttempts,
+      introItemResponseTimeMs: data.introItemResponseTimeMs,
     })
     await user?.update({ unsafeMetadata: { onboarded: true } })
     // El dashboard resuelve el curso activo con last_course; sembramos el elegido
@@ -116,7 +118,7 @@ export default function OnboardingCompletePage() {
   }
 
   if (showInstallPrompt) {
-    return <OnboardingInstallPrompt onContinue={() => router.push("/")} />
+    return <OnboardingInstallPrompt />
   }
 
   return (

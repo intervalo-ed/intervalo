@@ -15,6 +15,8 @@ export function useEnrollMutation() {
       course,
       motivation,
       introItemCorrect,
+      introItemAttempts,
+      introItemResponseTimeMs,
     }: {
       university: string
       career: string
@@ -22,6 +24,8 @@ export function useEnrollMutation() {
       course?: string
       motivation?: string
       introItemCorrect?: boolean
+      introItemAttempts?: number
+      introItemResponseTimeMs?: number
     }) => {
       const { data, error } = await api.POST("/user/enroll", {
         body: {
@@ -31,6 +35,8 @@ export function useEnrollMutation() {
           course: course ?? null,
           motivation: motivation ?? null,
           intro_item_correct: introItemCorrect ?? null,
+          attempts: introItemAttempts ?? null,
+          response_time_ms: introItemResponseTimeMs ?? null,
         },
       })
       if (error) throw error

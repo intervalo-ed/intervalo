@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=e^u$,.\n$$h(x)=x^2+1$$\n, con $g'(u)=e^u$ y $h'(x)=2x$.\n\nCon $h(0)=1$ y $g'(1)=e$, el producto de la **regla de la cadena** es:\n\nAunque la **capa exterior** evaluada en $h(0)$ dé un valor distinto de cero, el factor $h'(0)=0$ colapsa todo el producto, sin importar el resto.\n\nEste patrón de \"anulación por derivada interna nula\" es muy importante en cálculo: una única derivada cero en la cadena anula todo el resultado final, sin excepciones ni compensaciones posibles.",
+    "explanation": "Identificamos $g(u)=e^u$ y $h(x)=x^2+1$, con:\n$$\\begin{aligned} g'(u) &= e^u \\\\ h'(x) &= 2x \\end{aligned}$$\nEn $x=0$ la derivada interior $h'(0)=0$, así que todo el producto colapsa a cero sin importar la exterior.\n\nAplicando la fórmula:\n$$\\begin{aligned} f'(0) &= g'(h(0))\\cdot h'(0) \\\\ &= e\\cdot 0 \\\\ &= 0 \\end{aligned}$$\nEl valor de $g'(h(0))=e$ es irrelevante una vez que $h'(0)=0$ anula el producto completo.\n\nEste patrón, una derivada interior nula, es el que define toda la subfamilia de anulación.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-interna-nula"
@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=u^4$, $h(x)=x^2+2$.\n\ncon $g'(u)=4u^3$ y $h'(x)=2x$.\n\nCon $h(0)=2$ y.\n$$g'(2)=4 \\cdot 2^3 = 32$$\n, aplicamos:\n\nEl factor $h'(0)=0$ colapsa todo el producto, sin importar qué tan grande sea el valor de la capa exterior evaluada en $h(0)$.\n\nEste patrón de \"anulación por derivada interna nula\" es crucial en la cadena.",
+    "explanation": "Identificamos $g(u)=u^4$ y $h(x)=x^2+2$, con:\n$$\\begin{aligned} g'(u) &= 4u^3 \\\\ h'(x) &= 2x \\end{aligned}$$\nEn $x=0$ la derivada interior $h'(0)=0$, así que todo el producto colapsa a cero sin importar la exterior.\n\nAplicando la fórmula:\n$$\\begin{aligned} f'(0) &= g'(h(0))\\cdot h'(0) \\\\ &= 32\\cdot 0 \\\\ &= 0 \\end{aligned}$$\nNo hace falta terminar de calcular $g'(h(0))=4\\cdot 2^3$ en detalle, alcanza con saber que el otro factor es cero.\n\nRevisar primero la derivada interior ahorra buena parte del cálculo en este tipo de ítem.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-interna-nula"
@@ -68,7 +68,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=u^4$, $h(x)=x^2-1$.\n\ncon $g'(u)=4u^3$ y $h'(x)=2x$.\n\nCon $h(0)=-1$ y.\n$$g'(-1)=4 \\cdot (-1)^3 = -4$$\n, el cálculo es:\n\nEl factor $h'(0)=0$ colapsa todo el producto, sin importar el signo o la magnitud del valor de la capa exterior.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Identificamos $g(u)=u^4$ y $h(x)=x^2-1$, con:\n$$\\begin{aligned} g'(u) &= 4u^3 \\\\ h'(x) &= 2x \\end{aligned}$$\nEn $x=0$ la derivada interior $h'(0)=0$, así que todo el producto colapsa a cero sin importar la exterior.\n\nAplicando la fórmula:\n$$\\begin{aligned} f'(0) &= g'(h(0))\\cdot h'(0) \\\\ &= (-4)\\cdot 0 \\\\ &= 0 \\end{aligned}$$\nEl signo de $g'(h(0))=4\\cdot(-1)^3$ no afecta el resultado final, porque el otro factor ya es cero.\n\nEl signo de la capa exterior nunca importa cuando la derivada interior se anula.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-interna-nula"
@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=e^u$, $h(x)=\\cos x$.\n\ncon $g'(u)=e^u$ y $h'(x)=-\\sin x$.\n\nCon.\n$$h(\\pi)=\\cos\\pi = -1$$\nY $g'(-1)=e^{-1}$, además $h'(\\pi)=-\\sin\\pi=0$:\n\nEl factor $h'(\\pi)=0$ colapsa todo el producto, sin importar el valor de la capa exterior evaluada en $h(\\pi)$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $g(u)=e^u$ y $h(x)=\\cos x$, con:\n$$\\begin{aligned} g'(u) &= e^u \\\\ h'(x) &= -\\sin x \\end{aligned}$$\nEn $x=\\pi$ la derivada interior $h'(\\pi)=-\\sin\\pi=0$, así que todo el producto colapsa a cero.\n\nAplicando la fórmula:\n$$\\begin{aligned} f'(\\pi) &= g'(h(\\pi))\\cdot h'(\\pi) \\\\ &= e^{-1}\\cdot 0 \\\\ &= 0 \\end{aligned}$$\nEl valor de $h(\\pi)=\\cos\\pi=-1$ solo sirve para ubicar dónde evaluar la exterior, pero el resultado ya está decidido por $h'(\\pi)=0$.\n\nNinguna exponencial evaluada en cualquier punto cambia este resultado, el cero viene siempre de la interior.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-interna-nula"
@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=\\ln u$, $h(x)=\\sin x$.\n\ncon $g'(u)=\\frac{1}{u}$ y $h'(x)=\\cos x$.\n\nCon $h(\\pi/2)=\\sin(\\pi/2)=1$ y $g'(1)=\\frac{1}{1}=1$, además.\n$$h'(\\pi/2)=\\cos(\\pi/2)=0$$\n:\n\nEl factor $h'(\\pi/2)=0$ colapsa todo el producto, sin importar que la capa exterior evaluada en $h(\\pi/2)$ dé un valor distinto de cero.",
+    "explanation": "Identificamos $g(u)=\\ln u$ y $h(x)=\\sin x$, con:\n$$\\begin{aligned} g'(u) &= 1/u \\\\ h'(x) &= \\cos x \\end{aligned}$$\nEn $x=\\pi/2$ la derivada interior $h'(\\pi/2)=\\cos(\\pi/2)=0$, así que todo el producto colapsa a cero.\n\nAplicando la fórmula:\n$$\\begin{aligned} f'(\\pi/2) &= g'(h(\\pi/2))\\cdot h'(\\pi/2) \\\\ &= 1\\cdot 0 \\\\ &= 0 \\end{aligned}$$\nEl valor de $h(\\pi/2)=\\sin(\\pi/2)=1$ solo ubica dónde evaluar la exterior, el resultado ya está decidido por $h'(\\pi/2)=0$.\n\nEl coseno se anula en $\\pi/2$, el mismo punto donde el seno alcanza su valor máximo.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-interna-nula"
@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=e^u$, $h(x)=\\sin x$.\n\ncon $g'(u)=e^u$ y $h'(x)=\\cos x$.\n\nEl ancla es $h(\\pi)=\\sin\\pi=0$, que simplifica $g'(0)=e^0=1$.\n\nAdemás.\n$$h'(\\pi)=\\cos\\pi=-1$$\n, así que:\n\nEl ancla $h(\\pi)=0$ es lo que permite simplificar la capa exterior a un valor trivial, en vez de dejar una exponencial complicada.",
+    "explanation": "Identificamos $g(u)=e^u$ y $h(x)=\\sin x$, con:\n$$\\begin{aligned} g'(u) &= e^u \\\\ h'(x) &= \\cos x \\end{aligned}$$\nEl ancla es $h(\\pi)=\\sin\\pi=0$, que simplifica la exterior a $g'(0)=e^0=1$.\n\nAplicando la fórmula:\n$$\\begin{aligned} f'(\\pi) &= g'(h(\\pi))\\cdot h'(\\pi) \\\\ &= 1\\cdot(-1) \\\\ &= -1 \\end{aligned}$$\nEl factor $h'(\\pi)=\\cos\\pi=-1$ es el que aporta el signo negativo al resultado final.\n\nSin el ancla trivial, esta derivada quedaría expresada con una exponencial complicada en vez de un valor simple.",
     "reviewed": false,
     "tags": [
       "evaluacion-ancla-trivial"
@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=\\sin u$, $h(x)=\\cos x$.\n\ncon $g'(u)=\\cos u$ y $h'(x)=-\\sin x$.\n\nEl ancla es $h(\\pi/2)=\\cos(\\pi/2)=0$, que simplifica $g'(0)=\\cos 0=1$.\n\nAdemás.\n$$h'(\\pi/2)=-\\sin(\\pi/2)=-1$$\n, así que:\n\nEl ancla $h(\\pi/2)=0$ simplifica la capa exterior a un coseno evaluado en cero, un valor trivial igual a $1$.",
+    "explanation": "Identificamos $g(u)=\\sin u$ y $h(x)=\\cos x$, con:\n$$\\begin{aligned} g'(u) &= \\cos u \\\\ h'(x) &= -\\sin x \\end{aligned}$$\nEl ancla es $h(\\pi/2)=\\cos(\\pi/2)=0$, que simplifica la exterior a $g'(0)=\\cos 0=1$.\n\nAplicando la fórmula:\n$$\\begin{aligned} f'(\\pi/2) &= g'(h(\\pi/2))\\cdot h'(\\pi/2) \\\\ &= 1\\cdot(-1) \\\\ &= -1 \\end{aligned}$$\nEl factor $h'(\\pi/2)=-\\sin(\\pi/2)=-1$ es el que aporta el signo negativo al resultado final.\n\nEste mismo patrón de ancla trivial aparece cada vez que la interior devuelve exactamente $0$.",
     "reviewed": false,
     "tags": [
       "evaluacion-ancla-trivial"
@@ -193,14 +193,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=\\ln u$, $h(x)=x+1$.\n\ncon $g'(u)=\\frac{1}{u}$ y $h'(x)=1$.\n\nEl ancla es $h(0)=0+1=1$, que simplifica.\n$$g'(1)=\\frac{1}{1}=1$$\n.\n\nAdemás $h'(0)=1$:\n\nEl ancla $h(0)=1$ simplifica la capa exterior a un valor trivial, evitando cualquier cálculo complicado con logaritmos.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $g(u)=\\ln u$ y $h(x)=x+1$, con:\n$$\\begin{aligned} g'(u) &= 1/u \\\\ h'(x) &= 1 \\end{aligned}$$\nEl ancla es $h(0)=0+1=1$, que simplifica la exterior a $g'(1)=1/1=1$.\n\nAplicando la fórmula:\n$$\\begin{aligned} f'(0) &= g'(h(0))\\cdot h'(0) \\\\ &= 1\\cdot 1 \\\\ &= 1 \\end{aligned}$$\nAmbos factores del producto valen $1$ en este caso particular, sin ningún signo que ajustar.\n\nEl ancla $h(0)=1$ evita cualquier cálculo complicado con logaritmos en la capa exterior.",
     "reviewed": false,
     "tags": [
       "evaluacion-ancla-trivial"
     ]
   },
   {
-    "question": "Determiná f'(x) si:\n$$f(x) = \\cos(\\ln x)$$\nCalculá $f'(1)$.",
+    "question": "Determiná $f'(x)$ si:\n$$f(x) = \\cos(\\ln x)$$\nCalculá $f'(1)$.",
     "options": [
       "$2$",
       "$0$",
@@ -218,7 +218,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=\\cos u$, $h(x)=\\ln x$.\n\ncon $g'(u)=-\\sin u$ y $h'(x)=\\frac{1}{x}$.\n\nEl ancla es $h(1)=\\ln 1=0$, que simplifica $g'(0)=-\\sin 0=0$.\n\nAdemás.\n$$h'(1)=\\frac{1}{1}=1$$\n:\n\nAcá el ancla $h(1)=0$ simplifica la capa exterior a $-\\sin 0=0$, y ese cero en la exterior es el que colapsa todo el producto.",
+    "explanation": "Identificamos $g(u)=\\cos u$ y $h(x)=\\ln x$, con:\n$$\\begin{aligned} g'(u) &= -\\sin u \\\\ h'(x) &= 1/x \\end{aligned}$$\nEl ancla es $h(1)=\\ln 1=0$, que simplifica la exterior a $g'(0)=-\\sin 0=0$.\n\nAplicando la fórmula:\n$$\\begin{aligned} f'(1) &= g'(h(1))\\cdot h'(1) \\\\ &= 0\\cdot 1 \\\\ &= 0 \\end{aligned}$$\nAcá el cero no viene de la derivada interior, sino de que la exterior evaluada en el ancla ya da cero.\n\nConviene revisar siempre si el cero del resultado nace en la interior o en la exterior evaluada en el ancla.",
     "reviewed": false,
     "tags": [
       "evaluacion-ancla-trivial"
@@ -236,14 +236,14 @@
     "has_math": true,
     "feedback_correct": "Correcto, el ancla $h(1)=0$ simplifica la exterior a $g'(0)=1$.",
     "feedback_incorrect": [
-      "Hay que el factor $h'(1)=2$, la interior también aporta al producto final.",
+      "Se perdió el factor $h'(1)=2$, la interior también aporta al producto final.",
       "Revisá el signo, ambos factores del producto son positivos en este caso.",
       null,
       "Evaluaste la exterior en $a=1$ en vez de en $h(1)=0$, la derivada exterior se evalúa en el resultado de la interior."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=e^u$, $h(x)=2x-2$.\n\ncon $g'(u)=e^u$ y $h'(x)=2$.\n\nEl ancla es.\n$$h(1)=2(1)-2=0$$\n, que simplifica $g'(0)=e^0=1$.\n\nAdemás $h'(1)=2$:\n\nEl ancla $h(1)=0$ simplifica la capa exterior, dejando el resultado final determinado enteramente por la derivada interior.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $g(u)=e^u$ y $h(x)=2x-2$, con:\n$$\\begin{aligned} g'(u) &= e^u \\\\ h'(x) &= 2 \\end{aligned}$$\nEl ancla es $h(1)=2(1)-2=0$, que simplifica la exterior a $g'(0)=e^0=1$.\n\nAplicando la fórmula:\n$$\\begin{aligned} f'(1) &= g'(h(1))\\cdot h'(1) \\\\ &= 1\\cdot 2 \\\\ &= 2 \\end{aligned}$$\nEl resultado final queda determinado enteramente por la derivada interior, una vez que la exterior se simplificó a $1$.\n\nEste mismo procedimiento vale para cualquier argumento lineal que se anule en el punto de evaluación.",
     "reviewed": false,
     "tags": [
       "evaluacion-ancla-trivial"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=\\sin u$, $h(x)=x-\\pi$.\n\ncon $g'(u)=\\cos u$ y $h'(x)=1$.\n\nEl ancla es.\n$$h(\\pi)=\\pi-\\pi=0$$\n, que simplifica $g'(0)=\\cos 0=1$.\n\nAdemás $h'(\\pi)=1$:\n\nEl ancla $h(\\pi)=0$ simplifica la capa exterior, evitando cualquier cálculo trigonométrico complicado.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $g(u)=\\sin u$ y $h(x)=x-\\pi$, con:\n$$\\begin{aligned} g'(u) &= \\cos u \\\\ h'(x) &= 1 \\end{aligned}$$\nEl ancla es $h(\\pi)=\\pi-\\pi=0$, que simplifica la exterior a $g'(0)=\\cos 0=1$.\n\nAplicando la fórmula:\n$$\\begin{aligned} f'(\\pi) &= g'(h(\\pi))\\cdot h'(\\pi) \\\\ &= 1\\cdot 1 \\\\ &= 1 \\end{aligned}$$\nAmbos factores del producto valen $1$, sin ningún signo negativo que perder en el camino.\n\nEl ancla $h(\\pi)=0$ evita cualquier cálculo trigonométrico complicado en la capa exterior.",
     "reviewed": false,
     "tags": [
       "evaluacion-ancla-trivial"
@@ -293,7 +293,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La fórmula de la **regla de la cadena** se aplica directamente con los datos dados.\n\nComo.\n$$h(2)=3$$\n, la derivada de la exterior se evalúa en $3$, no en $2$:\n\nLa derivada de la exterior se busca evaluada en $h(2)=3$, no en $2$, ese es el detalle que más se pierde en este tipo de ítem.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "La fórmula de la **regla de la cadena** se aplica directamente con los datos dados, sin necesidad de calcular ninguna derivada.\n\nComo $h(2)=3$, la derivada de la exterior se busca evaluada en ese valor, no en el punto original:\n$$\\begin{aligned} (g\\circ h)'(2) &= g'(h(2))\\cdot h'(2) \\\\ &= g'(3)\\cdot 4 \\\\ &= 5\\cdot 4 \\\\ &= 20 \\end{aligned}$$\nEse es el detalle que más se pierde en este tipo de ítem: la exterior nunca se evalúa en el punto original $a$.",
     "reviewed": false,
     "tags": [
       "evaluacion-datos-abstractos-cadena"
@@ -311,14 +311,14 @@
     "has_math": true,
     "feedback_correct": "Correcto, $g'(h(1))\\cdot h'(1) = 2\\cdot 6 = 12$.",
     "feedback_incorrect": [
-      "Hay que el factor $g'(h(1))=2$, ese valor se perdió en el cálculo.",
+      "Se perdió el factor $g'(h(1))=2$ en el cálculo.",
       null,
       "Sumaste los dos valores en vez de multiplicarlos, la **regla de la cadena** multiplica los dos factores.",
       "El dato $h(1)=0$ no anula el resultado completo, solo indica dónde evaluar $g'$."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos la fórmula de la **regla de la cadena** directamente con los datos dados.\n\nComo $h(1)=0$, buscamos.\n$$g'(0)=2$$\n:\n\nEl dato $h(1)=0$ indica en qué punto evaluar la derivada de la exterior, sin anular por sí solo el resultado.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Aplicamos la fórmula de la **regla de la cadena** directamente con los datos dados, sin necesidad de calcular ninguna derivada.\n\nComo $h(1)=0$, buscamos la exterior evaluada en ese valor, $g'(0)$:\n$$\\begin{aligned} (g\\circ h)'(1) &= g'(h(1))\\cdot h'(1) \\\\ &= g'(0)\\cdot 6 \\\\ &= 2\\cdot 6 \\\\ &= 12 \\end{aligned}$$\nEl dato $h(1)=0$ indica en qué punto evaluar la derivada de la exterior, sin anular por sí solo el resultado.",
     "reviewed": false,
     "tags": [
       "evaluacion-datos-abstractos-cadena"
@@ -343,7 +343,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos la fórmula de la **regla de la cadena** directamente con los datos dados.\n\nComo $h(0)=5$, buscamos $g'(5)=3$:\n\nEl signo negativo de.\n$$h'(0)=-1$$\nSe traslada directamente al resultado final, sin ningún otro ajuste adicional.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Aplicamos la fórmula de la **regla de la cadena** directamente con los datos dados, sin necesidad de calcular ninguna derivada.\n\nComo $h(0)=5$, la exterior se evalúa en ese valor, $g'(5)$:\n$$\\begin{aligned} (g\\circ h)'(0) &= g'(h(0))\\cdot h'(0) \\\\ &= g'(5)\\cdot(-1) \\\\ &= 3\\cdot(-1) \\\\ &= -3 \\end{aligned}$$\nEl signo negativo de $h'(0)=-1$ se traslada directamente al resultado final, sin ningún otro ajuste adicional.",
     "reviewed": false,
     "tags": [
       "evaluacion-datos-abstractos-cadena"
@@ -368,7 +368,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos la fórmula de la **regla de la cadena** directamente con los datos dados.\n\nComo $h(3)=1$, buscamos.\n$$g'(1)=-4$$\n:\n\nLa derivada de la exterior se busca evaluada en $h(3)=1$, no en $3$, ese es el paso crítico de la **regla de la cadena**.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Aplicamos la fórmula de la **regla de la cadena** directamente con los datos dados, sin necesidad de calcular ninguna derivada.\n\nComo $h(3)=1$, la exterior se evalúa en ese valor, $g'(1)$:\n$$\\begin{aligned} (g\\circ h)'(3) &= g'(h(3))\\cdot h'(3) \\\\ &= g'(1)\\cdot 2 \\\\ &= (-4)\\cdot 2 \\\\ &= -8 \\end{aligned}$$\nLa derivada de la exterior se busca evaluada en $h(3)=1$, no en $3$, ese es el paso crítico de la regla de la cadena.",
     "reviewed": false,
     "tags": [
       "evaluacion-datos-abstractos-cadena"

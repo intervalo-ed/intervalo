@@ -2,9 +2,9 @@
 
 Belt: `blue`, Unit: `limits`, Topic: `factorization`
 
-Skills en este topic: `LEXI`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+Skills en este topic: `LEXI`, `RESL`. **30 ejercicios cada uno (60 en total)** al cerrar el refactor.
 
-Este topic tiene 2 ítems (uno por skill): `LEXI`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+Este topic tiene 2 ítems (uno por skill): `LEXI`, `RESL`. **30 ejercicios cada uno (60 en total)** al cerrar el refactor.
 
 **Estado.** Este tópico reemplaza a `factorizacion` (rename ES→EN). La carpeta fue renombrada (`blue/limits/factorization/`) y los `external_id` se van a regenerar en la próxima seed (`blue_factorization_lexi_01…`), lo que rompe el progreso guardado en DB — asumido y aceptado. Los ejercicios viejos (`LEXI`, `ESTR`, `RESL`) se dejan tal cual en el folder por ahora; el refactor a la nueva distribución se hace en otro turno.
 
@@ -39,7 +39,7 @@ Los ejercicios que quiebren esta regla se descartan y se reescriben.
 
 ## Correcciones de formato transversales (los 2 skills)
 
-Reglas de authoring que se aplican al escribir los 100 ejercicios:
+Reglas de authoring que se aplican al escribir los 60 ejercicios:
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`: (a) concepto algebraico aplicado, (b) desarrollo formal paso a paso usando `\begin{aligned}` (factorización → cancelación → sustitución), (c) cierre técnico formal. Sin viñetas `•`, sin sub-`-`, **sin em-dash `—` (estrictamente prohibido en todo el contenido)**, sin humor.
@@ -52,13 +52,13 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 ---
 
-## `feedback_incorrect` en los 100 ejercicios
+## `feedback_incorrect` en los 60 ejercicios
 
 Completar con `array<string|null>` paralelo a `options`, `null` en el índice correcto. Voz descriptiva del concepto, en segunda persona amable. Una oración por distractor, autosuficiente.
 
 ---
 
-## LEXI, 50 ejercicios
+## LEXI, 30 ejercicios
 
 ### Qué evalúa
 Reconocimiento visual de **estructuras polinómicas** (formas típicas de factoreo) y afianzamiento de la **lógica de cancelación** detrás del método. Este skill no calcula límites completos: se enfoca en la identificación del caso y en la teoría del teorema del factor.
@@ -70,12 +70,14 @@ Reconocimiento visual de **estructuras polinómicas** (formas típicas de factor
 
 ### Distribución por sub-familia
 
+**Recortado (ronda ago-2026) de 50 → 30 ejercicios por skill, escalando cada sub-familia proporcionalmente (factor ~0.6, exacto sin remainder).**
+
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Identificación de casos de factoreo | Dada una expresión como $x^2 - 16$ o $x^2 + 6x + 9$, clasificarla (diferencia de cuadrados, trinomio cuadrado perfecto, factor común, trinomio general) o elegir su forma factorizada correcta. | `identificacion-casos-factoreo` | 15 |
-| B. Teorema del factor | Asociar $\tfrac{0}{0}$ en $x = a$ con la existencia obligatoria del factor $(x - a)$ tanto en el numerador como en el denominador. La cancelación de ese factor es lo que salva la indeterminación. | `teorema-del-factor` | 15 |
-| C. Naturaleza de la indeterminación | Consolidar que $\tfrac{0}{0}$ no es un valor ($\neq 1$, $\neq 0$, $\neq \infty$), sino un **indicador** de que existe un factor común cancelable. | `naturaleza-indeterminacion` | 10 |
-| D. Racionalización vs factorización | Distinguir cuándo corresponde factorizar y cuándo racionalizar. Regla operativa: **si aparece una raíz cuadrada**, la técnica correcta es racionalización, no factorización (el tópico siguiente). | `racionalizacion-vs-factorizacion` | 10 |
+| A. Identificación de casos de factoreo | Dada una expresión como $x^2 - 16$ o $x^2 + 6x + 9$, clasificarla (diferencia de cuadrados, trinomio cuadrado perfecto, factor común, trinomio general) o elegir su forma factorizada correcta. | `identificacion-casos-factoreo` | 9 |
+| B. Teorema del factor | Asociar $\tfrac{0}{0}$ en $x = a$ con la existencia obligatoria del factor $(x - a)$ tanto en el numerador como en el denominador. La cancelación de ese factor es lo que salva la indeterminación. | `teorema-del-factor` | 9 |
+| C. Naturaleza de la indeterminación | Consolidar que $\tfrac{0}{0}$ no es un valor ($\neq 1$, $\neq 0$, $\neq \infty$), sino un **indicador** de que existe un factor común cancelable. | `naturaleza-indeterminacion` | 6 |
+| D. Racionalización vs factorización | Distinguir cuándo corresponde factorizar y cuándo racionalizar. Regla operativa: **si aparece una raíz cuadrada**, la técnica correcta es racionalización, no factorización (el tópico siguiente). | `racionalizacion-vs-factorizacion` | 6 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Diferencia de cuadrados con signo suma**: elegir $(x - 4)(x + 4)$ para $x^2 + 16$. Recordar: la diferencia de cuadrados requiere signo menos entre los dos cuadrados; $x^2 + 16$ no factoriza en $\mathbb{R}$.
@@ -92,7 +94,7 @@ Reconocimiento visual de **estructuras polinómicas** (formas típicas de factor
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 30 ejercicios
 
 ### Qué evalúa
 Ejecutar la **factorización**, **cancelar** el factor problemático $(x - a)$ y **evaluar** el límite resultante por sustitución directa.
@@ -104,11 +106,13 @@ Ejecutar la **factorización**, **cancelar** el factor problemático $(x - a)$ y
 
 ### Distribución por sub-familia
 
+**Recortado (ronda ago-2026) de 50 → 30 ejercicios por skill, escalando cada sub-familia proporcionalmente (factor ~0.6, exacto sin remainder).**
+
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Diferencia de cuadrados y factor común | Límites que requieren una **sola transformación** básica. Ejemplos: $\lim_{x \to 2} \tfrac{x^2 - 4}{x - 2}$; $\lim_{x \to 0} \tfrac{x^2 + 3x}{x}$. | `diferencia-cuadrados-factor-comun` | 20 |
-| B. Factorización de trinomios | Límites donde numerador o denominador es un trinomio $x^2 + bx + c$. Requiere encontrar los dos números que sumados dan $b$ y multiplicados dan $c$. | `factorizacion-trinomios` | 20 |
-| C. Cancelación múltiple | Límites que exigen factorizar **tanto** el numerador **como** el denominador para hallar y cancelar el factor común. Ejemplo: $\lim_{x \to 3} \tfrac{x^2 - 9}{x^2 - 5x + 6}$. | `cancelacion-multiple` | 10 |
+| A. Diferencia de cuadrados y factor común | Límites que requieren una **sola transformación** básica. Ejemplos: $\lim_{x \to 2} \tfrac{x^2 - 4}{x - 2}$; $\lim_{x \to 0} \tfrac{x^2 + 3x}{x}$. | `diferencia-cuadrados-factor-comun` | 12 |
+| B. Factorización de trinomios | Límites donde numerador o denominador es un trinomio $x^2 + bx + c$. Requiere encontrar los dos números que sumados dan $b$ y multiplicados dan $c$. | `factorizacion-trinomios` | 12 |
+| C. Cancelación múltiple | Límites que exigen factorizar **tanto** el numerador **como** el denominador para hallar y cancelar el factor común. Ejemplo: $\lim_{x \to 3} \tfrac{x^2 - 9}{x^2 - 5x + 6}$. | `cancelacion-multiple` | 6 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Cancelación mal aplicada**: cancelar $x$ de $\tfrac{x^2 + 3x}{x}$ como si fuera $\tfrac{x^2 + 3\cancel{x}}{\cancel{x}} = x^2 + 3$. La cancelación es un **factor común** en toda la expresión, no en un solo término: $\tfrac{x(x+3)}{x} = x + 3$.
@@ -145,7 +149,7 @@ Corrección puntual del usuario sobre ejercicios de prueba de este topic (`corre
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 2 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 60 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna mención de L'Hôpital, derivadas ni racionalización como método aplicado acá
 - [ ] Explicaciones en 3 párrafos de prosa; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
 - [ ] `feedback_correct` conciso (una frase); desarrollo completo en `explanation` con `\begin{aligned}`
@@ -159,15 +163,15 @@ Corrección puntual del usuario sobre ejercicios de prueba de este topic (`corre
 - [ ] La fórmula del límite igualada a $0/0$, cuando se menciona en el enunciado, va separada del texto en su propio bloque `$$...$$` (extensión de la regla crítica 18, ver hallazgo `LEXI_15`)
 
 **LEXI:**
-- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
-- [ ] Distribución A/B/C/D respetada (15/15/10/10)
+- [ ] 30 ejercicios; **exactamente 3 opciones** por ejercicio
+- [ ] Distribución A/B/C/D respetada (9/9/6/6)
 - [ ] Negrita en primera mención de `factorización`, `indeterminación`, `diferencia de cuadrados`, `trinomio cuadrado perfecto`, `factor común`, `teorema del factor`
 - [ ] Textos exactos en opciones de clasificación (`"Diferencia de cuadrados"`, `"Trinomio cuadrado perfecto"`, `"Factor común"`, `"Trinomio general"`, `"No factoriza en R"`)
 - [ ] Explicaciones de "diferencia de cuadrados" con desarrollo de 3 líneas (expresión original → paso intermedio → forma factorizada) y una oración de transición antes del bloque (ver hallazgo)
 
 **RESL:**
-- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
-- [ ] Distribución A/B/C respetada (20/20/10)
+- [ ] 30 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
+- [ ] Distribución A/B/C respetada (12/12/6)
 - [ ] Todo enunciado presenta $\tfrac{0}{0}$ por sustitución directa (verificado)
 - [ ] Explicaciones con la secuencia diagnóstico → factorización → cancelación → sustitución
 - [ ] Ningún resultado dejado como expresión sin evaluar
