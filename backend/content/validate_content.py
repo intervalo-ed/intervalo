@@ -291,7 +291,7 @@ def _check_display_width(text, field, file, label, F: Findings) -> None:
     o pasar a `aligned`)."""
     for m in DISPLAY_RE.finditer(text):
         inner = m.group(0)[2:-2]
-        if "aligned" in inner:
+        if "aligned" in inner or "cases" in inner:
             continue
         rl = render_len(inner)
         if rl > DISPLAY_RENDER_MAX:
