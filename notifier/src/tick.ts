@@ -152,3 +152,25 @@ export const runEmailTick = (
       `email tick: ${result.bounce_sent} bounce, ${result.winback_sent} win-back sent`,
     )
   }).pipe(Effect.mapError((e) => (e instanceof Error ? e : new Error(String(e)))))
+
+interface SweepAbandonedResult {
+  marked: number
+}
+
+/** One scheduler tick to close out sessions the user never finished. Abandonment
+ * can't be detected when it happens — nobody reports leaving — so it is swept by
+ * elapsed time instead. See session_store.sweep_abandoned_sessions. */
+export const runSweepTick = (
+  config: NotifierConfig,
+): Effect.Effect<void, Error, HttpClient.HttpClient> =>
+  Effect.gen(function* () {
+    const client = yield* HttpClient.HttpClient
+
+    const res = yield* client.execute(
+      HttpClientRequest.post(
+        `${config.apiBaseUrl}/internal/sessions/sweep-abandoned`,
+      ).pipe(HttpClientRequest.setHeader("X-Internal-Secret", config.secret)),
+    )
+    const result = (yield* res.json) as unknown as SweepAbandonedResult
+    yield* Console.log(`sweep tick: ${result.marked} session(s) marked abandoned`)
+  }).pipe(Effect.mapError((e) => (e instanceof Error ? e : new Error(String(e)))))

@@ -20,6 +20,7 @@ import { ONBOARDING_UNIVERSITIES, UNIVERSITY_TAG_BY_KEY, matchUniversities } fro
 import { ChevronLeft, LayersIcon, TargetIcon } from "lucide-react"
 import { useSignIn } from "@clerk/nextjs"
 import { useRouter } from "next/navigation"
+import posthog from "posthog-js"
 import { useEffect, useRef, useState } from "react"
 
 export const CAREERS = [
@@ -597,6 +598,25 @@ function UnitGrid({
 
 const TOTAL_STEPS = 12
 
+// Nombre estable de cada slide para el evento `onboarding_step` de PostHog. No
+// mandamos el índice: si mañana se reordenan o agregan pasos, el mismo número
+// pasa a significar otra slide y el embudo histórico deja de ser comparable.
+const STEP_NAMES: Record<number, string> = {
+  [-1]: "intro",
+  0: "nombre",
+  1: "bienvenida",
+  2: "motivacion",
+  3: "curso",
+  4: "unidades",
+  5: "ejercicio",
+  6: "felicitacion",
+  7: "modo-repasar",
+  8: "modo-practicar",
+  9: "carrera",
+  10: "universidad",
+  11: "registro",
+}
+
 function randomDelay(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
@@ -689,6 +709,7 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
   const [wrongOptions, setWrongOptions] = useState<number[]>([])
   const [introItemResponseTimeMs, setIntroItemResponseTimeMs] = useState<number | null>(null)
   const exerciseStartRef = useRef<number | null>(null)
+  const lastTrackedStepRef = useRef<string | null>(null)
   const [shakeIdx, setShakeIdx] = useState<number | null>(null)
   const [showWhy, setShowWhy] = useState(false)
   const [authPending, setAuthPending] = useState(false)
@@ -725,6 +746,18 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
       exerciseStartRef.current = Date.now()
     }
   }, [step])
+
+  // Un evento por cada entrada a una slide: los pasos son estado de React y no
+  // cambian la URL, así que los $pageview automáticos no los distinguen y el
+  // embudo del onboarding no se puede armar sin esto. El ref evita repetir el
+  // evento cuando la slide re-renderiza (elegir curso, por ejemplo, corre el
+  // effect de nuevo), pero sí vuelve a emitir si el usuario va y vuelve.
+  useEffect(() => {
+    const name = STEP_NAMES[step]
+    if (name === undefined || lastTrackedStepRef.current === name) return
+    lastTrackedStepRef.current = name
+    posthog.capture("onboarding_step", { step: name, course: course || undefined })
+  }, [step, course])
 
   function goNext(target?: number) {
     setPrevStep(step)

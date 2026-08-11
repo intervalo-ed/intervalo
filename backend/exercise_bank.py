@@ -111,14 +111,18 @@ def get_exercise_db(
     exercise_type: str,
     db: DBSession,
     user_id: int,
-    extra_exclude: frozenset[str] = frozenset(),
+    extra_exclude: set[str] | None = None,
 ) -> dict:
     """Returns an exercise for the (course, belt, topic, exercise_type) unit,
     avoiding repeats for this user until every exercise in the item's pool has
     been served (the "cycle"). `extra_exclude` additionally excludes
     external_ids already picked earlier in the SAME session being built (e.g.
     practice sessions can sample the same unit more than once before any
-    answer is persisted)."""
+    answer is persisted).
+
+    OJO: `extra_exclude` es un set MUTABLE que pertenece al que arma la sesión.
+    Si una sesión pide de esta unidad más ejercicios que los que tiene el pool,
+    esta función lo vacía para arrancar otra pasada completa (ver abajo)."""
     pool = (
         db.query(Exercise)
         .filter(
@@ -137,6 +141,9 @@ def get_exercise_db(
             f"Revisá el seeder (backend/seed_content.py)."
         )
 
+    if extra_exclude is None:
+        extra_exclude = set()
+
     cycle = _get_or_create_cycle(user_id, course_id, belt, topic, exercise_type, db)
     served = set(json.loads(cycle.served_external_ids or "[]"))
     excluded = served | extra_exclude
@@ -148,9 +155,14 @@ def get_exercise_db(
         cycle.served_external_ids = "[]"
         available = [r for r in pool if r.external_id not in extra_exclude]
     if not available:
-        # Pool de 1 ejercicio ya excluido por extra_exclude dentro de esta
-        # misma sesión: no hay otra opción, repetir.
-        available = pool
+        # La sesión que se está armando ya pidió el pool entero de esta unidad
+        # (p. ej. una práctica de 50 sobre un ítem de 15 ejercicios, o un ítem
+        # de 1 ejercicio muestreado dos veces). Se arranca otra pasada completa
+        # en vez de sortear libre sobre el pool: así el usuario ve las 15 de
+        # nuevo en orden aleatorio, en lugar del mismo ejercicio tres veces en
+        # un minuto. Con pool de 1 el resultado es el mismo de siempre: repetir.
+        extra_exclude.clear()
+        available = list(pool)
 
     row = random.choice(available)
     return _row_to_dict(row)

@@ -129,6 +129,10 @@ class EmailRunResponse(BaseModel):
     winback_sent: int
 
 
+class SweepAbandonedResponse(BaseModel):
+    marked: int
+
+
 # ── Emoji unlock tree (badges) ──────────────────────────────────────────────────
 
 class EmojiStateResponse(BaseModel):

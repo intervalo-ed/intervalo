@@ -555,8 +555,12 @@ def _build_exercise(
     user_id: int,
     exclude_by_unit: dict[UnitKey, set[str]] | None = None,
 ) -> ExerciseInSession:
-    extra_exclude = frozenset(
-        (exclude_by_unit or {}).get(unit_key, frozenset())
+    # Se pasa el set REAL (no una copia): get_exercise_db lo vacía si esta
+    # sesión ya agotó el pool de la unidad, para arrancar otra pasada completa.
+    extra_exclude = (
+        exclude_by_unit.setdefault(unit_key, set())
+        if exclude_by_unit is not None
+        else set()
     )
     ex = get_exercise_db(
         course_id,
@@ -567,8 +571,8 @@ def _build_exercise(
         user_id,
         extra_exclude=extra_exclude,
     )
-    if exclude_by_unit is not None and ex.get("external_id"):
-        exclude_by_unit.setdefault(unit_key, set()).add(ex["external_id"])
+    if ex.get("external_id"):
+        extra_exclude.add(ex["external_id"])
     shuffled, new_correct_index, shuffled_feedback = _shuffle_options(ex)
     return ExerciseInSession(
         exercise_id=f"ex_{idx:03d}",
@@ -1727,3 +1731,37 @@ def reset_course(user_id: int, course_id: int, db: DBSession) -> int:
     cp.active_cap = ACTIVE_CAP_DEFAULTS.get(slug, ACTIVE_CAP_DEFAULT_FALLBACK)
     db.commit()
     return cp.iteration
+
+
+# ── Abandono de sesiones ─────────────────────────────────────────────────────────
+
+# Una sesión sin finished_at puede estar en curso o abandonada; la única señal
+# disponible es el tiempo transcurrido. 2h es holgado: la sesión más larga
+# observada dura minutos, así que nada legítimo sigue abierto pasado ese plazo.
+ABANDON_AFTER_HOURS = 2
+
+
+def sweep_abandoned_sessions(db: DBSession, older_than_hours: int = ABANDON_AFTER_HOURS) -> int:
+    """Marcar como abandonadas las sesiones que quedaron sin terminar.
+
+    `Session.abandoned` no se puede escribir en el momento en que ocurre el
+    abandono — nadie avisa que se fue. Se deriva del tiempo: sin `finished_at`
+    y empezada hace más de `older_than_hours`. Idempotente (solo toca filas con
+    `abandoned` en false), así que puede correr en loop sin efectos acumulados.
+
+    Devuelve cuántas filas se marcaron.
+    """
+    cutoff = datetime.utcnow() - timedelta(hours=older_than_hours)
+    updated = (
+        db.query(SessionModel)
+        .filter(
+            SessionModel.finished_at.is_(None),
+            # isnot(True), no is_(False): la columna es nullable y las filas
+            # viejas tienen NULL, que is_(False) no matchea.
+            SessionModel.abandoned.isnot(True),
+            SessionModel.started_at < cutoff,
+        )
+        .update({SessionModel.abandoned: True}, synchronize_session=False)
+    )
+    db.commit()
+    return updated
