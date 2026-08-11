@@ -4,18 +4,9 @@ import { useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { AnimatePresence, motion } from "motion/react"
 import { useQueryClient } from "@tanstack/react-query"
-import { BellIcon, ClockIcon, DownloadIcon } from "lucide-react"
 import { XpDots } from "@/components/xp-dots"
 import { Alert, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
-import { InstallDialog } from "@/components/install-dialog"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { Screen, ScreenBody } from "@/components/ui/screen"
 import { cn } from "@/lib/utils"
 import { BELT_VIVID_COLORS } from "@/lib/catalog"
@@ -27,15 +18,10 @@ import { getLastKnownRank, setLastKnownRank } from "@/lib/nav/ranking-rank"
 import { setProfileNews } from "@/lib/nav/profile-news"
 import { markNotifyHintSeen, useNotifyHintUnseen } from "@/lib/nav/notify-hint-seen"
 import { isPushSupported } from "@/lib/push/register"
-import {
-  DEFAULT_REMINDER_TIME,
-  REMINDER_TIME_OPTIONS,
-  useEnableNotifications,
-} from "@/lib/push/UseEnableNotifications"
 import { useNotificationSettingsQuery } from "@/app/(app)/profile/UseNotificationSettings"
-import { isStandalone, usePlatform } from "@/lib/platform/detect"
 import { useSfx, useTick } from "@/lib/audio/useSfx"
 import type { components } from "@/lib/api/schema"
+import { NOTIFY_CTA_COOLDOWN_MS, NotifyHintPane } from "./notify-hint-pane"
 import { useSummary } from "./UseSummary"
 
 const ctaCls =
@@ -191,14 +177,15 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
     }
   }, [])
 
-  // El botón Continuar queda gris 3s al entrar a la pestaña de notificaciones,
-  // salvo que el usuario ya las haya activado ahí mismo (`notifJustEnabled`).
+  // El botón Continuar queda gris NOTIFY_CTA_COOLDOWN_MS al entrar a la pestaña
+  // de notificaciones, salvo que el usuario ya las haya activado ahí mismo
+  // (`notifJustEnabled`).
   const [notifWaiting, setNotifWaiting] = useState(false)
   const [notifJustEnabled, setNotifJustEnabled] = useState(false)
   useEffect(() => {
     if (phase !== "notify") return
     setNotifWaiting(true)
-    const t = setTimeout(() => setNotifWaiting(false), 4000)
+    const t = setTimeout(() => setNotifWaiting(false), NOTIFY_CTA_COOLDOWN_MS)
     return () => clearTimeout(t)
   }, [phase])
   const notifyButtonDisabled =
@@ -350,7 +337,14 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
               animate="center"
               exit="exit"
               transition={{ duration: 0.28, ease: "easeInOut" }}
-              className="col-start-1 row-start-1 w-full"
+              // La pestaña de notificaciones es la única que ocupa todo el
+              // alto: necesita apoyar sus controles contra el pie. `self-stretch`
+              // (y no `h-full`) porque el `items-center` de la grilla la dejaría
+              // del alto de su contenido y el 100% no tendría contra qué medir.
+              className={cn(
+                "col-start-1 row-start-1 w-full",
+                phase === "notify" && "self-stretch",
+              )}
             >
               {phase === "streak" && data && (
                 <StreakPane
@@ -1042,117 +1036,3 @@ function StreakPane({
   )
 }
 
-// Pestaña de notificaciones: una única vez por dispositivo (ver
-// notify-hint-seen.ts), solo si el navegador soporta push. Instalada como PWA
-// permite activar los recordatorios acá mismo (elegir horario + suscribirse);
-// desde el navegador, push no funciona todavía, así que ofrece los pasos de
-// instalación en el diálogo compartido. El CTA "Continuar" del summary lleva a
-// Perfil en ambos casos.
-function NotifyHintPane({
-  settingsLoading,
-  onEnabled,
-}: {
-  settingsLoading: boolean
-  onEnabled: () => void
-}) {
-  const platform = usePlatform()
-  const needsInstall = platform !== null && !isStandalone()
-  const [time, setTime] = useState(DEFAULT_REMINDER_TIME)
-  const [installOpen, setInstallOpen] = useState(false)
-  const enable = useEnableNotifications({ onSuccess: onEnabled })
-
-  return (
-    <div className="flex w-full translate-y-[15px] flex-col items-center gap-5 text-center">
-      <motion.div
-        className="flex size-14 items-center justify-center rounded-full bg-primary/15 text-primary"
-        initial={{ opacity: 0, scale: 0.4 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ type: "spring", stiffness: 600, damping: 18 }}
-      >
-        {/* Campanazo: entra con el spring de arriba y, ya asentada, "suena"
-            una vez (delay ≈ cuando termina el spring) en vez de agitarse en
-            loop todo el tiempo que la pestaña está visible. */}
-        <motion.div
-          animate={{ rotate: [0, -15, 12, -8, 5, 0] }}
-          transition={{ duration: 0.5, delay: 0.4, ease: "easeInOut" }}
-        >
-          <BellIcon className="size-7" />
-        </motion.div>
-      </motion.div>
-      <motion.div
-        className="flex flex-col gap-1.5"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-      >
-        <p className="text-base font-medium">Activá los recordatorios</p>
-        <p className="max-w-[21rem] text-sm leading-relaxed text-foreground/60">
-          {needsInstall
-            ? "Primero agregá Intervalo a tu pantalla de inicio para poder recibir recordatorios."
-            : "Un solo recordatorio por día, a la hora que elijas."}
-        </p>
-      </motion.div>
-      <motion.div
-        className="flex w-full max-w-[21rem] flex-col gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-      >
-        {needsInstall ? (
-          <>
-            <Button
-              variant="outline"
-              size="lg"
-              className="h-12 w-full rounded-md"
-              onClick={() => setInstallOpen(true)}
-            >
-              <DownloadIcon className="size-5" />
-              Agregar
-            </Button>
-            <InstallDialog
-              platform={platform ?? "all"}
-              open={installOpen}
-              onOpenChange={setInstallOpen}
-            />
-          </>
-        ) : (
-          <>
-            <div className="flex h-12 w-full items-center justify-between gap-3 rounded-md border border-input px-3">
-              <span className="flex items-center gap-2 text-sm">
-                <ClockIcon className="size-5" />
-                Recordarme a las
-              </span>
-              <Select
-                value={time}
-                onValueChange={(value) => {
-                  if (!value) return
-                  setTime(value)
-                }}
-              >
-                <SelectTrigger size="sm" disabled={enable.isPending}>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {REMINDER_TIME_OPTIONS.map((opt) => (
-                    <SelectItem key={opt} value={opt}>
-                      {opt}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <Button
-              size="lg"
-              className="h-12 w-full rounded-md"
-              disabled={enable.isPending || settingsLoading}
-              onClick={() => enable.mutate(time)}
-            >
-              <BellIcon className="size-5" />
-              Activar notificaciones
-            </Button>
-          </>
-        )}
-      </motion.div>
-    </div>
-  )
-}
