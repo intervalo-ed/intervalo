@@ -20,17 +20,20 @@ const itbaFont = Outfit({ subsets: ["latin"], variable: "--font-itba" });
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.intervalo.xyz"),
   title: "Intervalo",
-  description: "Repasá análisis matemático todos los días.",
+  description:
+    "Repasá análisis, álgebra y probabilidad todos los días. ¡Vení a bancar a tu universidad!",
   openGraph: {
     type: "website",
     url: "https://www.intervalo.xyz/",
     title: "Intervalo",
-    description: "Repasá análisis matemático todos los días.",
+    description:
+      "Repasá análisis, álgebra y probabilidad todos los días. ¡Vení a bancar a tu universidad!",
   },
   twitter: {
     card: "summary_large_image",
     title: "Intervalo",
-    description: "Repasá análisis matemático todos los días.",
+    description:
+      "Repasá análisis, álgebra y probabilidad todos los días. ¡Vení a bancar a tu universidad!",
   },
   appleWebApp: {
     capable: true,

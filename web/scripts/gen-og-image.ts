@@ -2,17 +2,21 @@
 // Usa el wordmark vectorial de intervalo (sin depender de fuentes del sistema),
 // barras de cinturón iguales con esquinas redondeadas (estilo wordmark.tsx),
 // y la grilla de fondo igual a la de la landing.
-// Reejecutar tras cambiar colores/logo: node scripts/gen-og-image.mjs
+// Reejecutar tras cambiar colores/logo: bun run scripts/gen-og-image.ts
 import sharp from "sharp"
 import { join } from "node:path"
+import { BELT_LEGEND_BAR_COLORS } from "../src/lib/catalog"
 
 const OUT = new URL("../src/app/", import.meta.url).pathname.replace(/^\/(\w:)/, "$1")
 const BG  = "#131324"
 const FG  = "#F6F8FC"
 
-// Colores de cinturón (exactos, mismos que BELT_HEX[*].solid en catalog/index.ts)
-// — 4 colores, sin el 5º segmento gris histórico.
-const BELT = ["#FAFAFA", "#0A3180", "#730F8C", "#7D4E28"]
+// Los mismos colores que la barra del logo dentro de la app: Wordmark usa
+// BELT_LEGEND_BAR_COLORS, así que la tarjeta de compartir se importa de ahí en
+// vez de hardcodear una copia. Antes esto tenía BELT_HEX[*].solid clavado a
+// mano y quedó desincronizado cuando la marca pasó a la paleta "joya".
+// Vienen como `rgb(r, g, b)`, que es válido en SVG.
+const BELT = BELT_LEGEND_BAR_COLORS
 
 // Paths del wordmark "intervalo" (de src/components/wordmark.tsx, currentColor → FG)
 const GLYPHS = [
@@ -76,7 +80,7 @@ const svg =
   bars +
   `</svg>`
 
-async function write(file) {
+async function write(file: string) {
   await sharp(Buffer.from(svg), { density: 200 }).resize(1200, 630).png().toFile(join(OUT, file))
   console.log(`✓ ${file}`)
 }
