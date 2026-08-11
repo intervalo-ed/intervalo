@@ -22,7 +22,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["formula-densidad"]
+    "tags": [
+      "formula-densidad"
+    ]
   },
   {
     "question": "El tiempo que tarda en descargarse un archivo se modela como uniforme entre 2 y 10 segundos.\n\n¿Cuánto vale $E[X]$?",
@@ -47,7 +49,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["formula-esperanza"]
+    "tags": [
+      "formula-esperanza"
+    ]
   },
   {
     "question": "El tiempo de espera en la fila de un cajero automático se modela como uniforme entre 0 y 6 minutos.\n\nSea $X$ ese tiempo de espera. Calculá $P(2\\leq X\\leq5)$.",
@@ -72,6 +76,332 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["formula-probabilidad-subintervalo"]
+    "tags": [
+      "formula-probabilidad-subintervalo"
+    ]
+  },
+  {
+    "question": "El tiempo que un cliente espera en la fila de un banco se modela como uniforme entre 0 y 7 minutos.\n\n¿Cuál es su densidad $f(x)$ dentro de ese intervalo?",
+    "options": [
+      "$1/7$",
+      "$7$",
+      "$1/6$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$f(x)=1/(7-0)=1/7$ en el intervalo.",
+    "feedback_incorrect": [
+      null,
+      "Esa es la longitud del intervalo $b-a=7$, no su inverso.",
+      "Ese valor no corresponde a $1/(b-a)$ con estos extremos.",
+      "Esa altura daría un área mayor a 1 bajo el rectángulo, no es una densidad válida."
+    ],
+    "explanation": "La densidad **uniforme** en $[a,b]$ es constante.\n$$f(x) = \\frac{1}{b-a} \\text{ para } a\\leq x\\leq b$$\nAcá el tiempo de espera va de $a=0$ a $b=7$ minutos.\n$$f(x) = \\frac{1}{7-0} = \\frac{1}{7}$$\nEsa altura constante asegura que el área total del rectángulo sea exactamente 1, la probabilidad total del experimento.\n\nCambiar el ancho del intervalo sin ajustar la altura rompería esa condición.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "formula-densidad"
+    ]
+  },
+  {
+    "question": "Un puntero se detiene en cualquier posición de una escala uniforme entre 0 y 6 centímetros.\n\n¿Cuál es su densidad $f(x)$ dentro de ese intervalo?",
+    "options": [
+      "$6$",
+      "$1/6$",
+      "$1/5$",
+      "$1$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$f(x)=1/(6-0)=1/6$ en el intervalo.",
+    "feedback_incorrect": [
+      "Esa es la longitud del intervalo $b-a=6$, no su inverso.",
+      null,
+      "Ese valor no corresponde a $1/(b-a)$ con estos extremos.",
+      "Esa altura daría un área mayor a 1 bajo el rectángulo, no es una densidad válida."
+    ],
+    "explanation": "La densidad **uniforme** en $[a,b]$ es constante.\n$$f(x) = \\frac{1}{b-a} \\text{ para } a\\leq x\\leq b$$\nAcá la posición del puntero va de $a=0$ a $b=6$ centímetros.\n$$f(x) = \\frac{1}{6-0} = \\frac{1}{6}$$\nEsa altura constante asegura que el área total del rectángulo sea exactamente 1, la probabilidad total del experimento.\n\nCambiar el ancho del intervalo sin ajustar la altura rompería esa condición.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "formula-densidad"
+    ]
+  },
+  {
+    "question": "La posición donde cae una partícula dentro de un canal se modela como uniforme entre 0 y 5 milímetros.\n\n¿Cuál es su densidad $f(x)$ dentro de ese intervalo?",
+    "options": [
+      "$5$",
+      "$1$",
+      "$1/5$",
+      "$1/4$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$f(x)=1/(5-0)=1/5$ en el intervalo.",
+    "feedback_incorrect": [
+      "Esa es la longitud del intervalo $b-a=5$, no su inverso.",
+      "Esa altura daría un área mayor a 1 bajo el rectángulo, no es una densidad válida.",
+      null,
+      "Ese valor no corresponde a $1/(b-a)$ con estos extremos."
+    ],
+    "explanation": "La densidad **uniforme** en $[a,b]$ es constante.\n$$f(x) = \\frac{1}{b-a} \\text{ para } a\\leq x\\leq b$$\nAcá la posición de la partícula va de $a=0$ a $b=5$ milímetros.\n$$f(x) = \\frac{1}{5-0} = \\frac{1}{5}$$\nEsa altura constante asegura que el área total del rectángulo sea exactamente 1, la probabilidad total del experimento.\n\nCambiar el ancho del intervalo sin ajustar la altura rompería esa condición.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "formula-densidad"
+    ]
+  },
+  {
+    "question": "La hora de llegada de un colectivo dentro de una franja se modela como uniforme entre 2 y 6 minutos después de las 9:00.\n\n¿Cuál es su densidad $f(x)$ dentro de ese intervalo?",
+    "options": [
+      "$4$",
+      "$1$",
+      "$1/2$",
+      "$1/4$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$f(x)=1/(6-2)=1/4$ en el intervalo.",
+    "feedback_incorrect": [
+      "Esa es la longitud del intervalo $b-a=4$, no su inverso.",
+      "Esa altura daría un área mayor a 1 bajo el rectángulo, no es una densidad válida.",
+      "Ese valor no corresponde a $1/(b-a)$ con estos extremos.",
+      null
+    ],
+    "explanation": "La densidad **uniforme** en $[a,b]$ es constante.\n$$f(x) = \\frac{1}{b-a} \\text{ para } a\\leq x\\leq b$$\nAcá la hora de llegada va de $a=2$ a $b=6$ minutos después de las 9:00.\n$$f(x) = \\frac{1}{6-2} = \\frac{1}{4}$$\nEsa altura constante asegura que el área total del rectángulo sea exactamente 1, la probabilidad total del experimento.\n\nCambiar el ancho del intervalo sin ajustar la altura rompería esa condición.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "formula-densidad"
+    ]
+  },
+  {
+    "question": "El tiempo que un cliente espera en la fila de un banco se modela como uniforme entre 1 y 7 minutos.\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$4$",
+      "$3$",
+      "$6$",
+      "$8$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$E[X]=(1+7)/2=4$: el punto medio del intervalo.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor usa la diferencia $(b-a)/2$ en vez de la suma $(a+b)/2$.",
+      "Ese valor es $b-a$, la longitud del intervalo, no su punto medio.",
+      "Ese valor es $a+b$ sin dividir entre 2."
+    ],
+    "explanation": "Para la **uniforme**, la esperanza tiene forma cerrada.\n$$E[X] = \\frac{a+b}{2}$$\nAcá $a=1$ y $b=7$.\n$$E[X] = \\frac{1+7}{2} = 4$$\n$E[X]=4$ es el punto medio del intervalo, precisamente porque la densidad es pareja: no hay ningún valor más probable que otro, así que el promedio a largo plazo cae justo en el centro.\n\nSi el intervalo fuera muy angosto o muy ancho, igual el promedio seguiría cayendo en su punto medio, nunca desplazado hacia un extremo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "formula-esperanza"
+    ]
+  },
+  {
+    "question": "Un puntero se detiene en cualquier posición de una escala uniforme entre 1 y 5 centímetros.\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$2$",
+      "$3$",
+      "$4$",
+      "$6$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$E[X]=(1+5)/2=3$: el punto medio del intervalo.",
+    "feedback_incorrect": [
+      "Ese valor usa la diferencia $(b-a)/2$ en vez de la suma $(a+b)/2$.",
+      null,
+      "Ese valor es $b-a$, la longitud del intervalo, no su punto medio.",
+      "Ese valor es $a+b$ sin dividir entre 2."
+    ],
+    "explanation": "Para la **uniforme**, la esperanza tiene forma cerrada.\n$$E[X] = \\frac{a+b}{2}$$\nAcá $a=1$ y $b=5$.\n$$E[X] = \\frac{1+5}{2} = 3$$\n$E[X]=3$ es el punto medio del intervalo, precisamente porque la densidad es pareja: no hay ningún valor más probable que otro, así que el promedio a largo plazo cae justo en el centro.\n\nSi el intervalo fuera muy angosto o muy ancho, igual el promedio seguiría cayendo en su punto medio, nunca desplazado hacia un extremo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "formula-esperanza"
+    ]
+  },
+  {
+    "question": "La posición donde cae una partícula dentro de un canal se modela como uniforme entre 2 y 8 milímetros.\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$3$",
+      "$10$",
+      "$5$",
+      "$6$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$E[X]=(2+8)/2=5$: el punto medio del intervalo.",
+    "feedback_incorrect": [
+      "Ese valor usa la diferencia $(b-a)/2$ en vez de la suma $(a+b)/2$.",
+      "Ese valor es $a+b$ sin dividir entre 2.",
+      null,
+      "Ese valor es $b-a$, la longitud del intervalo, no su punto medio."
+    ],
+    "explanation": "Para la **uniforme**, la esperanza tiene forma cerrada.\n$$E[X] = \\frac{a+b}{2}$$\nAcá $a=2$ y $b=8$.\n$$E[X] = \\frac{2+8}{2} = 5$$\n$E[X]=5$ es el punto medio del intervalo, precisamente porque la densidad es pareja: no hay ningún valor más probable que otro, así que el promedio a largo plazo cae justo en el centro.\n\nSi el intervalo fuera muy angosto o muy ancho, igual el promedio seguiría cayendo en su punto medio, nunca desplazado hacia un extremo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "formula-esperanza"
+    ]
+  },
+  {
+    "question": "La hora de llegada de un colectivo dentro de una franja se modela como uniforme entre 4 y 8 minutos después de las 9:00.\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$2$",
+      "$4$",
+      "$12$",
+      "$6$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$E[X]=(4+8)/2=6$: el punto medio del intervalo.",
+    "feedback_incorrect": [
+      "Ese valor usa la diferencia $(b-a)/2$ en vez de la suma $(a+b)/2$.",
+      "Ese valor es $b-a$, la longitud del intervalo, no su punto medio.",
+      "Ese valor es $a+b$ sin dividir entre 2.",
+      null
+    ],
+    "explanation": "Para la **uniforme**, la esperanza tiene forma cerrada.\n$$E[X] = \\frac{a+b}{2}$$\nAcá $a=4$ y $b=8$.\n$$E[X] = \\frac{4+8}{2} = 6$$\n$E[X]=6$ es el punto medio del intervalo, precisamente porque la densidad es pareja: no hay ningún valor más probable que otro, así que el promedio a largo plazo cae justo en el centro.\n\nSi el intervalo fuera muy angosto o muy ancho, igual el promedio seguiría cayendo en su punto medio, nunca desplazado hacia un extremo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "formula-esperanza"
+    ]
+  },
+  {
+    "question": "Un puntero se detiene en cualquier posición de una escala uniforme entre 0 y 8 centímetros.\n\nSea $X$ esa posición. Calculá $P(2\\leq X\\leq5)$.",
+    "options": [
+      "$3/8$",
+      "$1/4$",
+      "$5/8$",
+      "$3/4$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$P(2\\leq X\\leq5)=(5-2)/8=3/8$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor usa el extremo inferior 2 sobre el dominio 8, en vez del ancho del subintervalo 3.",
+      "Ese valor usa el extremo superior 5 sobre el dominio 8, en vez del ancho del subintervalo 3.",
+      "Ese valor no sale de aplicar la fórmula con estos datos."
+    ],
+    "explanation": "La probabilidad de un subintervalo en la **uniforme** es proporcional a su longitud.\n$$P(c\\leq X\\leq d) = \\frac{d-c}{b-a}$$\nAcá el subintervalo va de 2 a 5, sobre un dominio de 0 a 8.\n$$P(2\\leq X\\leq5) = \\frac{5-2}{8-0} = \\frac{3}{8}$$\nLo único que importa es cuánto mide el tramo, 3 centímetros, comparado con el total de 8.\n\nCorrer ese tramo hacia otra parte del intervalo, sin cambiar su ancho, no altera la probabilidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "formula-probabilidad-subintervalo"
+    ]
+  },
+  {
+    "question": "La posición donde cae una partícula dentro de un canal se modela como uniforme entre 0 y 5 milímetros.\n\nSea $X$ esa posición. Calculá $P(1\\leq X\\leq4)$.",
+    "options": [
+      "$1/5$",
+      "$3/5$",
+      "$4/5$",
+      "$2/5$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$P(1\\leq X\\leq4)=(4-1)/5=3/5$.",
+    "feedback_incorrect": [
+      "Ese valor usa el extremo inferior 1 sobre el dominio 5, en vez del ancho del subintervalo 3.",
+      null,
+      "Ese valor usa el extremo superior 4 sobre el dominio 5, en vez del ancho del subintervalo 3.",
+      "Ese valor no sale de aplicar la fórmula con estos datos."
+    ],
+    "explanation": "La probabilidad de un subintervalo en la **uniforme** es proporcional a su longitud.\n$$P(c\\leq X\\leq d) = \\frac{d-c}{b-a}$$\nAcá el subintervalo va de 1 a 4, sobre un dominio de 0 a 5.\n$$P(1\\leq X\\leq4) = \\frac{4-1}{5-0} = \\frac{3}{5}$$\nLo único que importa es cuánto mide el tramo, 3 milímetros, comparado con el total de 5.\n\nCorrer ese tramo hacia otra parte del intervalo, sin cambiar su ancho, no altera la probabilidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "formula-probabilidad-subintervalo"
+    ]
+  },
+  {
+    "question": "La hora de llegada de un colectivo dentro de una franja se modela como uniforme entre 0 y 7 minutos después de las 10:00.\n\nSea $X$ ese tiempo de llegada. Calculá $P(2\\leq X\\leq6)$.",
+    "options": [
+      "$2/7$",
+      "$6/7$",
+      "$4/7$",
+      "$3/7$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$P(2\\leq X\\leq6)=(6-2)/7=4/7$.",
+    "feedback_incorrect": [
+      "Ese valor usa el extremo inferior 2 sobre el dominio 7, en vez del ancho del subintervalo 4.",
+      "Ese valor usa el extremo superior 6 sobre el dominio 7, en vez del ancho del subintervalo 4.",
+      null,
+      "Ese valor no sale de aplicar la fórmula con estos datos."
+    ],
+    "explanation": "La probabilidad de un subintervalo en la **uniforme** es proporcional a su longitud.\n$$P(c\\leq X\\leq d) = \\frac{d-c}{b-a}$$\nAcá el subintervalo va de 2 a 6, sobre un dominio de 0 a 7.\n$$P(2\\leq X\\leq6) = \\frac{6-2}{7-0} = \\frac{4}{7}$$\nLo único que importa es cuánto mide el tramo, 4 minutos, comparado con el total de 7.\n\nCorrer ese tramo hacia otra parte del intervalo, sin cambiar su ancho, no altera la probabilidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "formula-probabilidad-subintervalo"
+    ]
+  },
+  {
+    "question": "El nivel de líquido restante en un dispensador antes de la próxima recarga se modela como uniforme entre 1 y 9 litros.\n\nSea $X$ ese nivel restante. Calculá $P(3\\leq X\\leq7)$.",
+    "options": [
+      "$3/8$",
+      "$5/8$",
+      "$1/4$",
+      "$1/2$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$P(3\\leq X\\leq7)=(7-3)/(9-1)=1/2$.",
+    "feedback_incorrect": [
+      "Ese valor usa el extremo inferior 3 sobre el dominio, en vez del ancho del subintervalo 4.",
+      "Ese valor usa el extremo superior 7 sobre el dominio, en vez del ancho del subintervalo 4.",
+      "Ese valor no sale de aplicar la fórmula con estos datos.",
+      null
+    ],
+    "explanation": "La probabilidad de un subintervalo en la **uniforme** es proporcional a su longitud.\n$$P(c\\leq X\\leq d) = \\frac{d-c}{b-a}$$\nAcá el subintervalo va de 3 a 7, sobre un dominio de 1 a 9.\n$$P(3\\leq X\\leq7) = \\frac{7-3}{9-1} = \\frac{1}{2}$$\nLo único que importa es cuánto mide el tramo, 4 litros, comparado con el total de 8.\n\nCorrer ese tramo hacia otra parte del intervalo, sin cambiar su ancho, no altera la probabilidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "formula-probabilidad-subintervalo"
+    ]
   }
 ]

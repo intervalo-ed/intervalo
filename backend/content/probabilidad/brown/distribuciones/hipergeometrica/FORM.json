@@ -20,7 +20,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["identificar-parametros"]
+    "tags": [
+      "identificar-parametros"
+    ]
   },
   {
     "question": "Un mazo especial de 10 cartas tiene 4 cartas con figura.\n\nSe reparten 3 cartas sin reponer al mazo.\n\nSea $X$ la cantidad de cartas con figura repartidas. Calculá $P(X=2)$.",
@@ -43,7 +45,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["formula-directa"]
+    "tags": [
+      "formula-directa"
+    ]
   },
   {
     "question": "Un lote de 40 componentes electrónicos tiene 10 fallados.\n\nSe seleccionan 5 al azar sin reposición para una prueba.\n\nSea $X$ la cantidad de componentes fallados entre los 5 seleccionados.\n\n¿Cuánto vale $E[X]$?",
@@ -66,6 +70,308 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["esperanza-y-contraste-binomial"]
+    "tags": [
+      "esperanza-y-contraste-binomial"
+    ]
+  },
+  {
+    "question": "Un mazo de 18 cartas tiene 7 cartas con figura.\n\nSe reparten 5 cartas sin reponer al mazo.\n\n¿Cuáles son los parámetros $N, K, n$ de la hipergeométrica que modela la cantidad de cartas con figura entre las 5 repartidas?",
+    "options": [
+      "$N=18$, $K=5$, $n=7$",
+      "$N=7$, $K=18$, $n=5$",
+      "$N=18$, $K=7$, $n=5$",
+      "$N=18$, $K=7$, $n=11$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "18 cartas totales, 7 con figura, 5 repartidas en la muestra.",
+    "feedback_incorrect": [
+      "Los roles de $K$ y $n$ están invertidos: $K=7$ es la cantidad de cartas con figura en el mazo, $n=5$ el tamaño de la muestra.",
+      "Los roles de $N$ y $K$ están invertidos: $N=18$ es el mazo total, $K=7$ las cartas con figura.",
+      null,
+      "Ese valor es $N-K=11$, la cantidad de cartas sin figura, no el tamaño de la muestra repartida."
+    ],
+    "explanation": "Para armar $X\\sim Hip(N,K,n)$ hace falta leer tres datos del contexto.\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá el mazo tiene 18 cartas en total, de las cuales 7 tienen figura, y se reparten 5 sin reponerlas.\n\n$N, K$ describen la población completa y sus éxitos, mientras que $n$ es el tamaño de la muestra que se extrae.\n\nMezclar esos tres roles arma una hipergeométrica que no corresponde a ninguna población real del problema.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-parametros"
+    ]
+  },
+  {
+    "question": "Una urna contiene 16 bochas, de las cuales 6 son rojas y el resto azules.\n\nSe extraen 5 bochas al azar sin reposición.\n\n¿Cuáles son los parámetros $N, K, n$ de la hipergeométrica que modela la cantidad de bochas rojas entre las 5 extraídas?",
+    "options": [
+      "$N=16$, $K=6$, $n=5$",
+      "$N=16$, $K=5$, $n=6$",
+      "$N=6$, $K=16$, $n=5$",
+      "$N=16$, $K=6$, $n=10$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "16 bochas totales, 6 rojas, 5 extraídas en la muestra.",
+    "feedback_incorrect": [
+      null,
+      "Los roles de $K$ y $n$ están invertidos: $K=6$ es la cantidad de bochas rojas en la urna, $n=5$ el tamaño de la muestra.",
+      "Los roles de $N$ y $K$ están invertidos: $N=16$ es la población total, $K=6$ las rojas.",
+      "Ese valor es $N-K=10$, la cantidad de bochas azules, no el tamaño de la muestra extraída."
+    ],
+    "explanation": "Para armar $X\\sim Hip(N,K,n)$ hace falta leer tres datos del contexto.\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá la urna tiene 16 bochas en total, de las cuales 6 son rojas, y se extraen 5 sin reponerlas.\n\n$N, K$ describen la población completa y sus éxitos, mientras que $n$ es el tamaño de la muestra que se extrae.\n\nMezclar esos tres roles arma una hipergeométrica que no corresponde a ninguna población real del problema.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-parametros"
+    ]
+  },
+  {
+    "question": "Una empresa sortea nombres de una lista fija de 20 empleados, de los cuales 7 pertenecen a un mismo equipo.\n\nSe sortean 4 nombres sin repetir.\n\n¿Cuáles son los parámetros $N, K, n$ de la hipergeométrica que modela la cantidad de empleados del equipo entre los 4 sorteados?",
+    "options": [
+      "$N=20$, $K=4$, $n=7$",
+      "$N=7$, $K=20$, $n=4$",
+      "$N=20$, $K=7$, $n=13$",
+      "$N=20$, $K=7$, $n=4$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "20 empleados totales, 7 del equipo, 4 sorteados en la muestra.",
+    "feedback_incorrect": [
+      "Los roles de $K$ y $n$ están invertidos: $K=7$ es la cantidad de empleados del equipo en la lista, $n=4$ el tamaño de la muestra.",
+      "Los roles de $N$ y $K$ están invertidos: $N=20$ es la lista total, $K=7$ los del equipo.",
+      "Ese valor es $N-K=13$, la cantidad de empleados fuera del equipo, no el tamaño de la muestra sorteada.",
+      null
+    ],
+    "explanation": "Para armar $X\\sim Hip(N,K,n)$ hace falta leer tres datos del contexto.\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá la lista tiene 20 empleados en total, de los cuales 7 pertenecen al equipo, y se sortean 4 nombres sin repetir.\n\n$N, K$ describen la población completa y sus éxitos, mientras que $n$ es el tamaño de la muestra que se extrae.\n\nMezclar esos tres roles arma una hipergeométrica que no corresponde a ninguna población real del problema.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-parametros"
+    ]
+  },
+  {
+    "question": "Una urna contiene 12 bochas, de las cuales 5 son rojas y el resto azules.\n\nSe extraen 4 bochas al azar sin reposición.\n\nSea $X$ la cantidad de bochas rojas extraídas. Calculá $P(X=2)$.",
+    "options": [
+      "$35/99$",
+      "$14/33$",
+      "$5/12$",
+      "$14/99$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "210 formas favorables sobre 495 posibles, simplificado: $14/33$.",
+    "feedback_incorrect": [
+      "Ese valor corresponde a extraer solo 1 bocha roja, no las 2 que pide el enunciado.",
+      null,
+      "Esa es la proporción de bochas rojas en toda la urna, no la probabilidad de sacar exactamente 2 en la muestra de 4.",
+      "Ese valor corresponde a extraer 3 bochas rojas, no las 2 que pide el enunciado."
+    ],
+    "explanation": "Con $X\\sim Hip(N,K,n)$, la probabilidad puntual es:\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá $N=12,\\, K=5,\\, n=4$ y se pregunta por 2 bochas rojas.\n$$P(X=2) = \\frac{\\binom{5}{2}\\binom{7}{2}}{\\binom{12}{4}}$$\nEl numerador elige las 2 bochas rojas entre las 5 disponibles, y las 2 restantes de la muestra entre las 7 azules.\n$$\\frac{10\\cdot 21}{495} = \\frac{14}{33}$$\nCada factor del numerador cubre una parte distinta de la muestra, una para los éxitos y otra para los fracasos, y se combinan porque ambas elecciones ocurren a la vez.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-directa"
+    ]
+  },
+  {
+    "question": "Un lote de 14 componentes tiene 5 fallados.\n\nSe seleccionan 4 al azar sin reposición para una prueba.\n\nSea $X$ la cantidad de componentes fallados seleccionados. Calculá $P(X=1)$.",
+    "options": [
+      "$18/143$",
+      "$5/14$",
+      "$360/1001$",
+      "$60/143$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "420 formas favorables sobre 1001 posibles, simplificado: $60/143$.",
+    "feedback_incorrect": [
+      "Ese valor corresponde a no seleccionar ningún componente fallado, no exactamente 1 como pide el enunciado.",
+      "Esa es la proporción de componentes fallados en todo el lote, no la probabilidad de que exactamente 1 caiga en la muestra de 4.",
+      "Ese valor corresponde a seleccionar 2 componentes fallados, no exactamente 1.",
+      null
+    ],
+    "explanation": "Con $X\\sim Hip(N,K,n)$, la probabilidad puntual es:\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá $N=14,\\, K=5,\\, n=4$ y se pregunta por 1 componente fallado.\n$$P(X=1) = \\frac{\\binom{5}{1}\\binom{9}{3}}{\\binom{14}{4}}$$\nEl numerador elige el componente fallado entre los 5 disponibles, y los 3 restantes de la muestra entre los 9 en buen estado.\n$$\\frac{5\\cdot 84}{1001} = \\frac{60}{143}$$\nCada factor del numerador cubre una parte distinta de la muestra, una para los éxitos y otra para los fracasos, y se combinan porque ambas elecciones ocurren a la vez.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-directa"
+    ]
+  },
+  {
+    "question": "Una empresa sortea 3 nombres de una lista de 15 empleados, de los cuales 6 pertenecen a un mismo equipo.\n\nSea $X$ la cantidad de empleados de ese equipo entre los 3 sorteados. Calculá $P(X=2)$.",
+    "options": [
+      "$27/91$",
+      "$216/455$",
+      "$2/5$",
+      "$4/91$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "135 formas favorables sobre 455 posibles, simplificado: $27/91$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor corresponde a sortear solo 1 empleado del equipo, no los 2 que pide el enunciado.",
+      "Esa es la proporción de empleados del equipo en toda la lista, no la probabilidad de que salgan exactamente 2 en el sorteo de 3.",
+      "Ese valor corresponde a sortear los 3 empleados del equipo, no exactamente 2."
+    ],
+    "explanation": "Con $X\\sim Hip(N,K,n)$, la probabilidad puntual es:\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá $N=15,\\, K=6,\\, n=3$ y se pregunta por 2 empleados del equipo.\n$$P(X=2) = \\frac{\\binom{6}{2}\\binom{9}{1}}{\\binom{15}{3}}$$\nEl numerador elige los 2 sorteados del equipo entre los 6 disponibles, y el sorteado restante entre los 9 fuera del equipo.\n$$\\frac{15\\cdot 9}{455} = \\frac{27}{91}$$\nCada factor del numerador cubre una parte distinta de la muestra, una para los éxitos y otra para los fracasos, y se combinan porque ambas elecciones ocurren a la vez.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-directa"
+    ]
+  },
+  {
+    "question": "Un panel de 16 candidatos tiene 6 con experiencia previa.\n\nSe eligen 5 jurados al azar sin reposición.\n\nSea $X$ la cantidad de jurados con experiencia entre los 5 elegidos. Calculá $P(X=3)$.",
+    "options": [
+      "$3/52$",
+      "$15/52$",
+      "$75/364$",
+      "$25/728$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "900 formas favorables sobre 4368 posibles, simplificado: $75/364$.",
+    "feedback_incorrect": [
+      "Ese valor corresponde a elegir solo 1 jurado con experiencia, no los 3 que pide el enunciado.",
+      "Ese valor corresponde a elegir 2 jurados con experiencia, no los 3 que pide el enunciado.",
+      null,
+      "Ese valor corresponde a elegir 4 jurados con experiencia, no los 3 que pide el enunciado."
+    ],
+    "explanation": "Con $X\\sim Hip(N,K,n)$, la probabilidad puntual es:\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá $N=16,\\, K=6,\\, n=5$ y se pregunta por 3 jurados con experiencia.\n$$P(X=3) = \\frac{\\binom{6}{3}\\binom{10}{2}}{\\binom{16}{5}}$$\nEl numerador elige los 3 jurados con experiencia entre los 6 disponibles, y los 2 restantes de la muestra entre los 10 sin experiencia.\n$$\\frac{20\\cdot 45}{4368} = \\frac{75}{364}$$\nCada factor del numerador cubre una parte distinta de la muestra, una para los éxitos y otra para los fracasos, y se combinan porque ambas elecciones ocurren a la vez.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-directa"
+    ]
+  },
+  {
+    "question": "Un estanque cerrado tiene 18 peces, de los cuales 7 están marcados.\n\nSe pescan 4 peces al azar sin reposición.\n\nSea $X$ la cantidad de peces marcados pescados. Calculá $P(X=2)$.",
+    "options": [
+      "$77/612$",
+      "$77/204$",
+      "$7/18$",
+      "$11/102$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "1155 formas favorables sobre 3060 posibles, simplificado: $77/204$.",
+    "feedback_incorrect": [
+      "Ese valor corresponde a pescar 3 peces marcados, no los 2 que pide el enunciado.",
+      null,
+      "Esa es la proporción de peces marcados en todo el estanque, no la probabilidad de pescar exactamente 2 en la muestra de 4.",
+      "Ese valor corresponde a no pescar ningún pez marcado, no exactamente 2 como pide el enunciado."
+    ],
+    "explanation": "Con $X\\sim Hip(N,K,n)$, la probabilidad puntual es:\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá $N=18,\\, K=7,\\, n=4$ y se pregunta por 2 peces marcados.\n$$P(X=2) = \\frac{\\binom{7}{2}\\binom{11}{2}}{\\binom{18}{4}}$$\nEl numerador elige los 2 peces marcados entre los 7 disponibles, y los 2 restantes de la muestra entre los 11 sin marcar.\n$$\\frac{21\\cdot 55}{3060} = \\frac{77}{204}$$\nCada factor del numerador cubre una parte distinta de la muestra, una para los éxitos y otra para los fracasos, y se combinan porque ambas elecciones ocurren a la vez.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-directa"
+    ]
+  },
+  {
+    "question": "Una urna contiene 15 bochas, de las cuales 6 son rojas y el resto azules.\n\nSe extraen 5 bochas al azar sin reposición.\n\nSea $X$ la cantidad de bochas rojas extraídas.\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$0{,}4$",
+      "$5$",
+      "$2$",
+      "$6$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$E[X]=5(6/15)=2$ bochas rojas en promedio.",
+    "feedback_incorrect": [
+      "Ese valor es $K/N$ solo, la proporción de rojas en la urna, sin multiplicar por el tamaño de la muestra $n=5$.",
+      "Ese es el tamaño de la muestra $n$, no la cantidad esperada de rojas dentro de ella.",
+      null,
+      "Ese valor es $K$, la cantidad de rojas en la urna, no el valor esperado en la muestra."
+    ],
+    "explanation": "Para $X\\sim Hip(N,K,n)$, la esperanza tiene forma cerrada.\n$$E[X] = n\\cdot\\frac{K}{N}$$\nAcá $N=15,\\, K=6,\\, n=5$.\n$$E[X] = 5\\cdot\\frac{6}{15} = 2$$\nEn promedio se esperan 2 bochas rojas entre las 5 extraídas, si se repitiera esta extracción muchas veces.\n\nEse valor coincide con la esperanza de una binomial de igual $n$ y $p=K/N$, porque en promedio no importa si se repone o no.\n\nPero extracción a extracción la hipergeométrica es más consistente que la binomial, porque la población finita se va agotando y limita cuánto puede variar el resultado real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "esperanza-y-contraste-binomial"
+    ]
+  },
+  {
+    "question": "Un mazo de 16 cartas tiene 4 cartas con figura.\n\nSe reparten 6 cartas sin reponer al mazo.\n\nSea $X$ la cantidad de cartas con figura repartidas.\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$1{,}5$",
+      "$0{,}25$",
+      "$6$",
+      "$4$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$E[X]=6(4/16)=1{,}5$ cartas con figura en promedio.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor es $K/N$ solo, la proporción de figuras en el mazo, sin multiplicar por el tamaño de la muestra $n=6$.",
+      "Ese es el tamaño de la muestra $n$, no la cantidad esperada de figuras dentro de ella.",
+      "Ese valor es $K$, la cantidad de figuras en el mazo, no el valor esperado en la muestra."
+    ],
+    "explanation": "Para $X\\sim Hip(N,K,n)$, la esperanza tiene forma cerrada.\n$$E[X] = n\\cdot\\frac{K}{N}$$\nAcá $N=16,\\, K=4,\\, n=6$.\n$$E[X] = 6\\cdot\\frac{4}{16} = 1{,}5$$\nEn promedio se esperan 1,5 cartas con figura entre las 6 repartidas, si se repitiera este reparto muchas veces.\n\nEse valor coincide con la esperanza de una binomial de igual $n$ y $p=K/N$, porque en promedio no importa si se repone o no.\n\nPero carta a carta la hipergeométrica es más consistente que la binomial, porque el mazo finito se va agotando y limita cuánto puede variar el resultado real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "esperanza-y-contraste-binomial"
+    ]
+  },
+  {
+    "question": "Una empresa sortea nombres de una lista de 20 empleados, de los cuales 5 pertenecen a un mismo equipo.\n\nSe sortean 4 nombres sin repetir.\n\nSea $X$ la cantidad de empleados de ese equipo entre los 4 sorteados.\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$0{,}25$",
+      "$4$",
+      "$5$",
+      "$1$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$E[X]=4(5/20)=1$ empleado del equipo en promedio.",
+    "feedback_incorrect": [
+      "Ese valor es $K/N$ solo, la proporción del equipo en la lista, sin multiplicar por el tamaño de la muestra $n=4$.",
+      "Ese es el tamaño de la muestra $n$, no la cantidad esperada del equipo dentro de ella.",
+      "Ese valor es $K$, la cantidad de empleados del equipo en la lista, no el valor esperado en la muestra.",
+      null
+    ],
+    "explanation": "Para $X\\sim Hip(N,K,n)$, la esperanza tiene forma cerrada.\n$$E[X] = n\\cdot\\frac{K}{N}$$\nAcá $N=20,\\, K=5,\\, n=4$.\n$$E[X] = 4\\cdot\\frac{5}{20} = 1$$\nEn promedio se espera 1 empleado del equipo entre los 4 sorteados, si se repitiera este sorteo muchas veces.\n\nEse valor coincide con la esperanza de una binomial de igual $n$ y $p=K/N$, porque en promedio no importa si se repone o no.\n\nPero sorteo a sorteo la hipergeométrica es más consistente que la binomial, porque la lista finita se va agotando y limita cuánto puede variar el resultado real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "esperanza-y-contraste-binomial"
+    ]
+  },
+  {
+    "question": "Un panel de 14 candidatos tiene 7 con experiencia previa.\n\nSe eligen 6 jurados al azar sin reposición.\n\nSea $X$ la cantidad de jurados con experiencia entre los 6 elegidos.\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$6$",
+      "$3$",
+      "$0{,}5$",
+      "$7$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$E[X]=6(7/14)=3$ jurados con experiencia en promedio.",
+    "feedback_incorrect": [
+      "Ese es el tamaño de la muestra $n$, no la cantidad esperada de jurados con experiencia dentro de ella.",
+      null,
+      "Ese valor es $K/N$ solo, la proporción con experiencia en el panel, sin multiplicar por el tamaño de la muestra $n=6$.",
+      "Ese valor es $K$, la cantidad de candidatos con experiencia en el panel, no el valor esperado en la muestra."
+    ],
+    "explanation": "Para $X\\sim Hip(N,K,n)$, la esperanza tiene forma cerrada.\n$$E[X] = n\\cdot\\frac{K}{N}$$\nAcá $N=14,\\, K=7,\\, n=6$.\n$$E[X] = 6\\cdot\\frac{7}{14} = 3$$\nEn promedio se esperan 3 jurados con experiencia entre los 6 elegidos, si se repitiera esta elección muchas veces.\n\nEse valor coincide con la esperanza de una binomial de igual $n$ y $p=K/N$, porque en promedio no importa si se repone o no.\n\nPero elección a elección la hipergeométrica es más consistente que la binomial, porque el panel finito se va agotando y limita cuánto puede variar el resultado real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "esperanza-y-contraste-binomial"
+    ]
   }
 ]

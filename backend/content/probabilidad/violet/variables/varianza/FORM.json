@@ -21,7 +21,9 @@
     "graph_view": null,
     "graph_shade": null,
     "reviewed": false,
-    "tags": ["definicion-varianza"]
+    "tags": [
+      "definicion-varianza"
+    ]
   },
   {
     "question": "¿Qué expresión es equivalente a $Var(X)=E[(X-\\mu)^{2}]$ y suele ser más práctica para calcular?",
@@ -45,7 +47,9 @@
     "graph_view": null,
     "graph_shade": null,
     "reviewed": false,
-    "tags": ["formula-operativa"]
+    "tags": [
+      "formula-operativa"
+    ]
   },
   {
     "question": "¿Cómo se relaciona $Var(aX+b)$ con $Var(X)$?",
@@ -69,6 +73,304 @@
     "graph_view": null,
     "graph_shade": null,
     "reviewed": false,
-    "tags": ["propiedad-escalado"]
+    "tags": [
+      "propiedad-escalado"
+    ]
+  },
+  {
+    "question": "La **varianza** se define como $Var(X)=E[(X-\\mu)^{2}]$, con $\\mu=E[X]$.\n\n¿Qué mide esa expresión?",
+    "options": [
+      "El promedio ponderado de los valores de $X$",
+      "La dispersión de $X$ respecto de su esperanza",
+      "La probabilidad puntual de que $X$ sea igual a $\\mu$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Correcto, la varianza cuantifica cuánto se alejan en promedio los valores de $X$ respecto de $\\mu$.",
+    "feedback_incorrect": [
+      "Ese es el propio $E[X]=\\mu$, no la expresión que mide dispersión.",
+      null,
+      "La definición no involucra ninguna probabilidad puntual, sino un promedio de distancias al cuadrado."
+    ],
+    "explanation": "La **varianza** se define como el valor esperado del cuadrado de la distancia entre $X$ y su esperanza:\n$$Var(X)=E[(X-\\mu)^{2}]$$\nCada valor que toma $X$ aporta su distancia al cuadrado respecto de $\\mu$, ponderada por su probabilidad, y el promedio de esas distancias es la varianza.\n\nUn valor grande de $Var(X)$ indica que los valores tienden a caer lejos de $\\mu$; uno cercano a cero indica valores concentrados cerca del centro.\n\nConfundir esta medida con $E[X]$ ignora que la varianza no dice dónde está el centro de la distribución, sino cuánto se dispersan los valores alrededor de él.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "definicion-varianza"
+    ]
+  },
+  {
+    "question": "En la definición $Var(X)=E[(X-\\mu)^{2}]$.\n\n¿Qué representa $\\mu$?",
+    "options": [
+      "El valor máximo que puede tomar $X$",
+      "La probabilidad de un valor puntual de $X$",
+      "La esperanza $E[X]$ de la variable"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Sí, $\\mu=E[X]$ es la esperanza de la variable, el centro respecto del cual se mide la dispersión.",
+    "feedback_incorrect": [
+      "$\\mu$ no es un valor extremo de $X$, sino su esperanza, el centro de la distribución.",
+      "$\\mu$ no es una probabilidad, es el promedio ponderado de los valores de $X$.",
+      null
+    ],
+    "explanation": "En la definición de la **varianza**, $\\mu$ representa la esperanza de $X$:\n$$\\mu=E[X]$$\nLa expresión $Var(X)=E[(X-\\mu)^{2}]$ mide qué tan lejos, en promedio, caen los valores de $X$ respecto de ese centro, no respecto de ningún otro punto.\n\nSi $\\mu$ fuera otro valor, la fórmula ya no describiría la dispersión de $X$ alrededor de su propio promedio, sino alrededor de un punto arbitrario.\n\nTratar a $\\mu$ como el valor máximo o como una probabilidad deja sin sentido la resta $X-\\mu$ que define la distancia al centro.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "definicion-varianza"
+    ]
+  },
+  {
+    "question": "Si $X$ mide una distancia en metros.\n\n¿En qué unidad queda expresada $Var(X)$?",
+    "options": [
+      "Queda expresada en metros al cuadrado",
+      "Queda en la misma unidad que la variable",
+      "Queda sin ninguna unidad, adimensional"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Sí, al elevar al cuadrado la diferencia $X-\\mu$, la unidad original también queda al cuadrado.",
+    "feedback_incorrect": [
+      null,
+      "La unidad de $X$ no se conserva igual: el cuadrado dentro de la definición también eleva la unidad al cuadrado.",
+      "La varianza no es adimensional, conserva la unidad de $X$ elevada al cuadrado."
+    ],
+    "explanation": "La **varianza** hereda su unidad de la operación que define la dispersión:\n$$Var(X)=E[(X-\\mu)^{2}]$$\nComo $X-\\mu$ se mide en la misma unidad que $X$.\n\nEsa diferencia se eleva al cuadrado antes de promediar, así que el resultado queda en la unidad de $X$ al cuadrado.\n\nSi $X$ se mide en metros, $Var(X)$ queda en metros cuadrados.\n\nLa desviación estándar $\\sigma=\\sqrt{Var(X)}$ vuelve a la unidad original.\n\nOlvidar este detalle lleva a comparar $Var(X)$ directamente con $X$, cuando en realidad describen la dispersión en escalas distintas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "definicion-varianza"
+    ]
+  },
+  {
+    "question": "¿Por qué la definición de la **varianza** usa $(X-\\mu)^{2}$ en vez de $X-\\mu$ directamente?",
+    "options": [
+      "Porque elevar al cuadrado agranda artificialmente el resultado",
+      "Porque $E[X-\\mu]$ siempre vale $0$, sin importar la dispersión real de $X$",
+      "Porque el cuadrado simplifica el cálculo aritmético"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Exacto, las desviaciones positivas y negativas se cancelan en $E[X-\\mu]$, así que hay que elevarlas al cuadrado antes de promediar.",
+    "feedback_incorrect": [
+      "El cuadrado no busca agrandar el resultado, resuelve un problema de cancelación entre desviaciones positivas y negativas.",
+      null,
+      "No es una cuestión de comodidad aritmética, sin el cuadrado la expresión pierde toda información de dispersión."
+    ],
+    "explanation": "La **varianza** eleva al cuadrado la diferencia $X-\\mu$ antes de promediarla:\n$$Var(X)=E[(X-\\mu)^{2}]$$\nSi no se elevara al cuadrado, las desviaciones por encima de $\\mu$ cancelarían a las de por debajo.\n\nEso deja $E[X-\\mu]$ siempre en $0$ sin importar cuánto se dispersen los valores.\n\nElevar al cuadrado vuelve positiva cada desviación antes de promediar, así que el resultado sí refleja la magnitud de la dispersión, sin que el signo cancele nada.\n\nUsar $X-\\mu$ sin elevar al cuadrado deja una expresión que siempre da cero, inútil para medir dispersión.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "definicion-varianza"
+    ]
+  },
+  {
+    "question": "En la fórmula operativa de la varianza.\n\n¿Qué representa el término $E[X^{2}]$?",
+    "options": [
+      "El cuadrado de la esperanza de la variable $X$",
+      "La propia varianza de $X$ elevada al cuadrado",
+      "El segundo momento, el promedio de $X$ al cuadrado"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Sí, $E[X^{2}]$ es el segundo momento, el promedio de $X^{2}$ ponderado por su probabilidad.",
+    "feedback_incorrect": [
+      "Ese es $(E[X])^{2}$, el otro término de la fórmula, no $E[X^{2}]$.",
+      "La varianza es justamente lo que se busca calcular con esta fórmula, no uno de sus términos.",
+      null
+    ],
+    "explanation": "La fórmula operativa de la **varianza** combina dos promedios distintos de $X$:\n$$Var(X)=E[X^{2}]-(E[X])^{2}$$\nEl primer término es el segundo momento de $X$, se eleva cada valor al cuadrado antes de promediarlo.\n\nEso difiere del segundo término, que primero promedia y después eleva al cuadrado.\n\nEsos dos promedios casi nunca coinciden, y la diferencia entre ambos es precisamente lo que cuantifica cuánto se dispersan los valores de $X$ respecto de su esperanza.\n\nConfundir ambos términos, promediar antes o después de elevar al cuadrado, invierte por completo el resultado del cálculo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "formula-operativa"
+    ]
+  },
+  {
+    "question": "La **varianza** se calcula expandiendo el cuadrado de la definición:\n$$(X-\\mu)^{2}=X^{2}-2\\mu X+\\mu^{2}$$\nAl aplicar esperanza a cada término de esa expansión.\n\n¿Qué expresión se obtiene antes de simplificar a la fórmula operativa?",
+    "options": [
+      "$E[X^{2}]-2\\mu E[X]+\\mu^{2}$",
+      "$E[X^{2}]-2\\mu X+\\mu^{2}$",
+      "$X^{2}-2\\mu X+\\mu^{2}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Sí, la esperanza se aplica a cada término de la expansión, incluido el término lineal en $X$.",
+    "feedback_incorrect": [
+      null,
+      "Ese término $2\\mu X$ todavía no tiene la esperanza aplicada, el $X$ sigue suelto sin promediar.",
+      "Esa expresión no aplicó la esperanza a ningún término, sigue siendo la expansión sin promediar."
+    ],
+    "explanation": "La fórmula operativa de la **varianza** se obtiene expandiendo el cuadrado de la definición:\n$$Var(X)=E[(X-\\mu)^{2}]$$\nExpandiendo el cuadrado y aplicando esperanza término a término, ya que la esperanza de una suma es la suma de las esperanzas:\n$$E[X^{2}]-2\\mu E[X]+\\mu^{2}$$\nComo $\\mu=E[X]$, el término del medio se simplifica hasta llegar a $E[X^{2}]-\\mu^{2}$, la fórmula operativa.\n\nEsa expresión sigue midiendo la misma dispersión de $X$ respecto de su esperanza que la definición original, solo que con menos cuentas.\n\nDejar algún término sin promediar, como si $X$ siguiera suelto dentro de la esperanza, corta el desarrollo antes de llegar a una expresión calculable.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "formula-operativa"
+    ]
+  },
+  {
+    "question": "La **varianza** puede calcularse con su definición:\n$$Var(X)=E[(X-\\mu)^{2}]$$\nO con la fórmula operativa:\n$$Var(X)=E[X^{2}]-(E[X])^{2}$$\n¿Cuál es la ventaja práctica de usar la segunda en vez de la primera?",
+    "options": [
+      "Da un resultado distinto y más preciso que la definición original",
+      "Evita calcular $X-\\mu$ para cada valor antes de elevarla al cuadrado",
+      "Solo funciona para distribuciones discretas, no continuas"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sí, alcanza con dos esperanzas simples, $E[X]$ y $E[X^{2}]$, sin restar $\\mu$ valor por valor.",
+    "feedback_incorrect": [
+      "Ambas fórmulas dan exactamente el mismo resultado, ninguna es más precisa que la otra.",
+      null,
+      "La fórmula operativa es válida tanto para variables discretas como continuas."
+    ],
+    "explanation": "La fórmula operativa de la **varianza** evita repetir la resta $X-\\mu$ para cada valor de $X$:\n$$Var(X)=E[X^{2}]-(E[X])^{2}$$\nAlcanza con calcular dos promedios simples y restarlos al final.\n\nEso evita elevar al cuadrado cada desviación individual respecto de $\\mu$.\n\nAmbas fórmulas miden exactamente la misma dispersión de $X$ respecto de su esperanza, solo cambia el camino aritmético para llegar a ese número.\n\nCreer que una da un resultado más preciso que la otra ignora que son algebraicamente equivalentes, solo una requiere menos pasos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "formula-operativa"
+    ]
+  },
+  {
+    "question": "¿Cuál de estas expresiones **no** es una fórmula válida para $Var(X)$?",
+    "options": [
+      "$E[X^{2}]-(E[X])^{2}$",
+      "$E[(X-\\mu)^{2}]$",
+      "$E[X^{2}]-2E[X]$",
+      "$E[X^{2}]-\\mu^{2}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Sí, esa expresión no es equivalente a $Var(X)$, el segundo término debería ser $(E[X])^{2}$, no $2E[X]$.",
+    "feedback_incorrect": [
+      "Esa es la fórmula operativa estándar, sí corresponde a $Var(X)$.",
+      "Esa es la propia definición de $Var(X)$, sí es válida.",
+      null,
+      "Como $\\mu=E[X]$, esa expresión es equivalente a la fórmula operativa."
+    ],
+    "explanation": "La **varianza** admite varias formas equivalentes de escribirse, siempre que respeten la misma estructura algebraica:\n$$Var(X)=E[(X-\\mu)^{2}]=E[X^{2}]-(E[X])^{2}$$\nComo $\\mu=E[X]$, reemplazar ese segundo término por $\\mu^{2}$ también es válido.\n\nSigue siendo el mismo segundo término elevado al cuadrado.\n\nCambiar ese término por $2E[X]$ rompe la equivalencia, porque ya no representa el cuadrado de la esperanza, sino el doble de la esperanza sin elevar.\n\nToda forma válida de $Var(X)$ tiene que restar el cuadrado de la esperanza del segundo momento, no una versión sin elevar al cuadrado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "formula-operativa"
+    ]
+  },
+  {
+    "question": "La **varianza** cumple la propiedad de escalado:\n$$Var(aX+b)=a^{2}\\,Var(X)$$\nSi $Y=5X$.\n\n¿Cómo se expresa $Var(Y)$ en términos de $Var(X)$?",
+    "options": [
+      "$5\\,Var(X)$",
+      "$25\\,Var(X)$",
+      "$10\\,Var(X)$",
+      "$5^{2}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sí, escalar por 5 eleva el factor al cuadrado en la varianza.",
+    "feedback_incorrect": [
+      "Ese resultado no eleva $a=5$ al cuadrado, la varianza escala de forma cuadrática.",
+      null,
+      "Ese valor no corresponde a $5^{2}\\,Var(X)$, ni a duplicar el factor.",
+      "Esa expresión es solo el factor elevado al cuadrado, sin multiplicar por $Var(X)$."
+    ],
+    "explanation": "La **varianza** escala según la propiedad:\n$$Var(aX+b)=a^{2}\\,Var(X)$$\nCon $Y=5X$, el coeficiente es $a=5$ y no hay desplazamiento, así que:\n$$Var(Y)=5^{2}\\,Var(X)=25\\,Var(X)$$\nEsto significa que si $X$ se dispersa cierta cantidad, $Y=5X$ se dispersa 25 veces más, no solo 5 veces, porque escalar los valores estira la distancia entre ellos de forma cuadrática.\n\nCreer que la varianza escala en la misma proporción que la variable ignora que se está elevando al cuadrado una diferencia, no un valor simple.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "propiedad-escalado"
+    ]
+  },
+  {
+    "question": "La **varianza** cumple $Var(aX+b)=a^{2}\\,Var(X)$.\n\nSi a $X$ se le suma una constante, sin escalarla, por ejemplo $Var(X+7)$.\n\n¿Qué le pasa a $Var(X)$?",
+    "options": [
+      "Aumenta en 7",
+      "Aumenta en 49",
+      "No cambia",
+      "Se duplica"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Sí, sumar una constante no escala nada, así que la varianza queda intacta.",
+    "feedback_incorrect": [
+      "Sumar una constante no aporta esa cantidad a la varianza, solo desplaza los valores.",
+      "Esa sería la varianza si el $7$ escalara a $X$, pero acá solo se lo desplaza.",
+      null,
+      "El desplazamiento no multiplica la dispersión, la deja igual."
+    ],
+    "explanation": "La **varianza** cumple la propiedad de escalado:\n$$Var(aX+b)=a^{2}\\,Var(X)$$\nEn $X+7$ no hay ningún coeficiente multiplicando a la variable.\n\nEso equivale a $a=1$.\n\nComo $a^{2}=1$, resulta $Var(X+7)=Var(X)$.\n\nSumar una constante mueve todos los valores de $X$ el mismo tramo hacia arriba, sin cambiar cuánto se alejan entre sí ni respecto de su nueva esperanza.\n\nAsumir que sumar $7$ también suma o multiplica algo a la varianza confunde desplazar una distribución con estirarla.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "propiedad-escalado"
+    ]
+  },
+  {
+    "question": "La **varianza** cumple $Var(aX+b)=a^{2}\\,Var(X)$.\n\n¿Por qué el coeficiente $a$ aparece elevado al cuadrado, mientras que $b$ no aparece en el resultado?",
+    "options": [
+      "Porque $a$ estira la dispersión, y $b$ solo desplaza los valores",
+      "Porque $a$ siempre es mayor que $b$ en cualquier ejercicio típico",
+      "Porque elevar al cuadrado es una convención arbitraria de la notación"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Sí, escalar por $a$ estira las distancias al cuadrado, mientras que sumar $b$ no cambia esas distancias.",
+    "feedback_incorrect": [
+      null,
+      "El resultado no depende de qué número sea mayor, $a$ y $b$ pueden tomar cualquier valor.",
+      "No es una convención sin motivo, se deduce de cómo actúa cada operación sobre la dispersión."
+    ],
+    "explanation": "La **varianza** distingue entre dos efectos distintos de la transformación $aX+b$:\n$$Var(aX+b)=a^{2}\\,Var(X)$$\nMultiplicar por $a$ estira o comprime la distancia entre los valores de $X$, y como la varianza mide distancias al cuadrado, ese factor también entra al cuadrado.\n\nSumar $b$, en cambio, desplaza todos los valores el mismo tramo, así que la distancia entre ellos y su nueva esperanza queda exactamente igual que antes.\n\nTratar a $a$ y $b$ de la misma forma ignora que uno afecta cómo se separan los valores y el otro solo dónde se ubican.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "propiedad-escalado"
+    ]
+  },
+  {
+    "question": "La **varianza** cumple $Var(aX+b)=a^{2}\\,Var(X)$.\n\n¿Cuál es $Var(3X-4)$ en función de $Var(X)$?",
+    "options": [
+      "$3\\,Var(X)$",
+      "$9\\,Var(X)-4$",
+      "$-4\\,Var(X)$",
+      "$9\\,Var(X)$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Sí, escalar por 3 eleva el factor al cuadrado: $3^{2}=9$.",
+    "feedback_incorrect": [
+      "Ese resultado no eleva $a=3$ al cuadrado, la varianza escala de forma cuadrática.",
+      "El término $-4$ no se incluye en el resultado, el desplazamiento no afecta la dispersión.",
+      "El factor de escalado es $3^{2}=9$, no el propio $-4$.",
+      null
+    ],
+    "explanation": "La **varianza** escala según la propiedad:\n$$Var(aX+b)=a^{2}\\,Var(X)$$\nCon $a=3$ y $b=-4$:\n$$Var(3X-4)=3^{2}\\,Var(X)=9\\,Var(X)$$\nEl desplazamiento $-4$ mueve todos los valores hacia abajo por igual, sin cambiar cuánto varían entre sí, así que no aparece en el resultado.\n\nEscalar por $3$ sí estira esa dispersión, y por eso ese factor entra elevado al cuadrado.\n\nIncluir el $-4$ en el resultado, o no elevar el $3$ al cuadrado, ignora que la varianza mide dispersión relativa, no ubicación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "propiedad-escalado"
+    ]
   }
 ]

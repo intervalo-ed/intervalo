@@ -20,11 +20,18 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["resl-fraccion-indicada"]
+    "tags": [
+      "resl-fraccion-indicada"
+    ]
   },
   {
     "question": "De 1000 personas, 40 tienen cierta condición. Entre las 40 que la tienen, 34 dan positivo en el test.\n\nEntre las 960 que no la tienen, 58 también dan positivo por error.\n\n¿Cuál es la probabilidad de tener la condición, sabiendo que el test dio positivo?",
-    "options": ["$34/92$", "$34/40$", "$58/92$", "$34/1000$"],
+    "options": [
+      "$34/92$",
+      "$34/40$",
+      "$58/92$",
+      "$34/1000$"
+    ],
     "correct_index": 0,
     "feedback_correct": "De los 92 positivos totales, 34 más 58, solo 34 realmente tienen la condición.",
     "feedback_incorrect": [
@@ -38,6 +45,333 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["resl-frecuencias-naturales"]
+    "tags": [
+      "resl-frecuencias-naturales"
+    ]
+  },
+  {
+    "question": "En una población, el 20% tiene cierta condición.\n\nEntre quienes la tienen, un test da positivo el 70% de las veces; entre quienes no la tienen, da positivo el 40% de las veces.\n\nSe quiere calcular $P(\\text{condición}\\mid\\text{positivo})$, dejando expresado el cálculo sin resolver.\n\n¿Cuál es la expresión correcta?",
+    "options": [
+      "$\\dfrac{0{,}7 \\cdot 0{,}2}{0{,}7 \\cdot 0{,}2 + 0{,}4 \\cdot 0{,}8}$",
+      "$\\dfrac{0{,}7 \\cdot 0{,}7}{0{,}7 \\cdot 0{,}2 + 0{,}4 \\cdot 0{,}8}$",
+      "$\\dfrac{0{,}4 \\cdot 0{,}2}{0{,}7 \\cdot 0{,}2 + 0{,}4 \\cdot 0{,}8}$",
+      "$\\dfrac{0{,}7 \\cdot 0{,}2}{0{,}7 \\cdot 0{,}2 + 0{,}4}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El numerador es la rama favorable, y el denominador suma esa rama más la de los sanos con falso positivo.",
+    "feedback_incorrect": [
+      null,
+      "Ese numerador usa $0{,}7$ como si fuera la proporción de la población, en vez de la probabilidad a priori de tener la condición.",
+      "Ese numerador usa la verosimilitud de los sanos, $0{,}4$, en vez de la verosimilitud de quienes tienen la condición.",
+      "Ese denominador no pondera el segundo término por $0{,}8$, la proporción de sanos en la población."
+    ],
+    "explanation": "Cuando los datos no son números redondos, conviene dejar expresada la fracción completa del **teorema de Bayes** sin resolver, para verificar que cada rama esté bien armada antes de calcular:\n$$P(\\text{condición}\\mid\\text{positivo})$$\n$$= \\dfrac{0{,}7 \\cdot 0{,}2}{0{,}7 \\cdot 0{,}2 + 0{,}4 \\cdot 0{,}8}$$\nEl numerador es la rama de quienes tienen la condición y dan positivo; el denominador suma esa rama con la de quienes no la tienen y también dan positivo.\n\nDejar afuera una rama del denominador, o usar solo la a priori sin la verosimilitud, arma una fracción que no representa la probabilidad total de la evidencia.",
+    "tags": [
+      "resl-fraccion-indicada"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Una fábrica arma piezas con dos líneas de producción.\n\nLa línea $A$ produce el 30% de las piezas, con una tasa de defectos del 12%.\n\nLa línea $B$ produce el 70%, con una tasa de defectos del 4%.\n\nSe quiere calcular $P(A\\mid\\text{defectuosa})$, dejando expresado el cálculo sin resolver.\n\n¿Cuál es la expresión correcta?",
+    "options": [
+      "$\\dfrac{0{,}12\\cdot0{,}12}{0{,}12\\cdot0{,}3+0{,}04\\cdot0{,}7}$",
+      "$\\dfrac{0{,}12\\cdot0{,}3}{0{,}12\\cdot0{,}3+0{,}04\\cdot0{,}7}$",
+      "$\\dfrac{0{,}04\\cdot0{,}3}{0{,}12\\cdot0{,}3+0{,}04\\cdot0{,}7}$",
+      "$\\dfrac{0{,}12\\cdot0{,}3}{0{,}12\\cdot0{,}3+0{,}04}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El numerador es la rama favorable de la línea $A$, y el denominador suma esa rama más la de la línea $B$.",
+    "feedback_incorrect": [
+      "Ese numerador usa $0{,}12$ dos veces, como si la tasa de defectos también fuera la proporción de producción de la línea $A$.",
+      null,
+      "Ese numerador usa la tasa de defectos de la línea $B$, $0{,}04$, en vez de la de la línea $A$.",
+      "Ese denominador no pondera el segundo término por $0{,}7$, la proporción de producción de la línea $B$."
+    ],
+    "explanation": "Cuando los datos no son números redondos, conviene dejar expresada la fracción completa del **teorema de Bayes** sin resolver, para verificar que cada rama esté bien armada antes de calcular:\n$$P(A\\mid\\text{defectuosa})$$\n$$= \\dfrac{0{,}12\\cdot0{,}3}{0{,}12\\cdot0{,}3+0{,}04\\cdot0{,}7}$$\nEl numerador es la rama de piezas que vienen de la línea $A$ y además son defectuosas; el denominador suma esa rama con la de la línea $B$ que también produce defectuosas.\n\nDejar afuera una rama del denominador, o usar solo la tasa de defectos sin la proporción de producción, arma una fracción que no representa la probabilidad total de la evidencia.",
+    "tags": [
+      "resl-fraccion-indicada"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Un taller recibe tornillos de dos proveedores.\n\nEl proveedor $P$ entrega el 60% de los tornillos, con una tasa de falla del 6%.\n\nEl proveedor $Q$ entrega el 40%, con una tasa de falla del 9%.\n\nSe quiere calcular $P(Q\\mid\\text{falla})$, dejando expresado el cálculo sin resolver.\n\n¿Cuál es la expresión correcta?",
+    "options": [
+      "$\\dfrac{0{,}09\\cdot0{,}09}{0{,}06\\cdot0{,}6+0{,}09\\cdot0{,}4}$",
+      "$\\dfrac{0{,}06\\cdot0{,}4}{0{,}06\\cdot0{,}6+0{,}09\\cdot0{,}4}$",
+      "$\\dfrac{0{,}09\\cdot0{,}4}{0{,}06\\cdot0{,}6+0{,}09\\cdot0{,}4}$",
+      "$\\dfrac{0{,}09\\cdot0{,}4}{0{,}06\\cdot0{,}6+0{,}09}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El numerador es la rama favorable del proveedor $Q$, y el denominador suma esa rama más la del proveedor $P$.",
+    "feedback_incorrect": [
+      "Ese numerador usa $0{,}09$ dos veces, como si la tasa de falla también fuera la proporción de entrega del proveedor $Q$.",
+      "Ese numerador usa la tasa de falla del proveedor $P$, $0{,}06$, en vez de la del proveedor $Q$.",
+      null,
+      "Ese denominador no pondera el segundo término por $0{,}4$, la proporción de entrega del proveedor $Q$."
+    ],
+    "explanation": "Cuando los datos no son números redondos, conviene dejar expresada la fracción completa del **teorema de Bayes** sin resolver, para verificar que cada rama esté bien armada antes de calcular:\n$$P(Q\\mid\\text{falla})$$\n$$= \\dfrac{0{,}09\\cdot0{,}4}{0{,}06\\cdot0{,}6+0{,}09\\cdot0{,}4}$$\nEl numerador es la rama de tornillos que vienen del proveedor $Q$ y además fallan; el denominador suma esa rama con la del proveedor $P$ que también produce fallas.\n\nDejar afuera una rama del denominador, o usar solo la tasa de falla sin la proporción de entrega, arma una fracción que no representa la probabilidad total de la evidencia.",
+    "tags": [
+      "resl-fraccion-indicada"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Hay dos urnas, la urna $A$ y la urna $B$.\n\nLa urna $A$ se elige con un 40% de probabilidad y tiene un 70% de bolitas rojas.\n\nLa urna $B$ se elige con un 60% y tiene un 25% de bolitas rojas.\n\nSe quiere calcular $P(A\\mid\\text{roja})$, dejando expresado el cálculo sin resolver.\n\n¿Cuál es la expresión correcta?",
+    "options": [
+      "$\\dfrac{0{,}7\\cdot0{,}7}{0{,}7\\cdot0{,}4+0{,}25\\cdot0{,}6}$",
+      "$\\dfrac{0{,}25\\cdot0{,}4}{0{,}7\\cdot0{,}4+0{,}25\\cdot0{,}6}$",
+      "$\\dfrac{0{,}7\\cdot0{,}4}{0{,}7\\cdot0{,}4+0{,}25}$",
+      "$\\dfrac{0{,}7\\cdot0{,}4}{0{,}7\\cdot0{,}4+0{,}25\\cdot0{,}6}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El numerador es la rama favorable de la urna $A$, y el denominador suma esa rama más la de la urna $B$.",
+    "feedback_incorrect": [
+      "Ese numerador usa $0{,}7$ dos veces, como si la proporción de rojas también fuera la probabilidad de elegir la urna $A$.",
+      "Ese numerador usa la proporción de rojas de la urna $B$, $0{,}25$, en vez de la de la urna $A$.",
+      "Ese denominador no pondera el segundo término por $0{,}6$, la probabilidad de elegir la urna $B$.",
+      null
+    ],
+    "explanation": "Cuando los datos no son números redondos, conviene dejar expresada la fracción completa del **teorema de Bayes** sin resolver, para verificar que cada rama esté bien armada antes de calcular:\n$$P(A\\mid\\text{roja})$$\n$$= \\dfrac{0{,}7\\cdot0{,}4}{0{,}7\\cdot0{,}4+0{,}25\\cdot0{,}6}$$\nEl numerador es la rama de haber elegido la urna $A$ y además sacar una bolita roja; el denominador suma esa rama con la de la urna $B$ que también puede dar roja.\n\nDejar afuera una rama del denominador, o usar solo la proporción de rojas sin la probabilidad de elegir la urna, arma una fracción que no representa la probabilidad total de la evidencia.",
+    "tags": [
+      "resl-fraccion-indicada"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Hay dos cajas, la caja $X$ y la caja $Y$.\n\nLa caja $X$ se elige con un 55% de probabilidad y tiene un 30% de fichas negras.\n\nLa caja $Y$ se elige con un 45% y tiene un 60% de fichas negras.\n\nSe quiere calcular $P(Y\\mid\\text{negra})$, dejando expresado el cálculo sin resolver.\n\n¿Cuál es la expresión correcta?",
+    "options": [
+      "$\\dfrac{0{,}6\\cdot0{,}45}{0{,}3\\cdot0{,}55+0{,}6\\cdot0{,}45}$",
+      "$\\dfrac{0{,}6\\cdot0{,}6}{0{,}3\\cdot0{,}55+0{,}6\\cdot0{,}45}$",
+      "$\\dfrac{0{,}3\\cdot0{,}45}{0{,}3\\cdot0{,}55+0{,}6\\cdot0{,}45}$",
+      "$\\dfrac{0{,}6\\cdot0{,}45}{0{,}3\\cdot0{,}55+0{,}6}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El numerador es la rama favorable de la caja $Y$, y el denominador suma esa rama más la de la caja $X$.",
+    "feedback_incorrect": [
+      null,
+      "Ese numerador usa $0{,}6$ dos veces, como si la proporción de negras también fuera la probabilidad de elegir la caja $Y$.",
+      "Ese numerador usa la proporción de negras de la caja $X$, $0{,}3$, en vez de la de la caja $Y$.",
+      "Ese denominador no pondera el segundo término por $0{,}45$, la probabilidad de elegir la caja $Y$."
+    ],
+    "explanation": "Cuando los datos no son números redondos, conviene dejar expresada la fracción completa del **teorema de Bayes** sin resolver, para verificar que cada rama esté bien armada antes de calcular:\n$$P(Y\\mid\\text{negra})$$\n$$= \\dfrac{0{,}6\\cdot0{,}45}{0{,}3\\cdot0{,}55+0{,}6\\cdot0{,}45}$$\nEl numerador es la rama de haber elegido la caja $Y$ y además sacar una ficha negra; el denominador suma esa rama con la de la caja $X$ que también puede dar negra.\n\nDejar afuera una rama del denominador, o usar solo la proporción de negras sin la probabilidad de elegir la caja, arma una fracción que no representa la probabilidad total de la evidencia.",
+    "tags": [
+      "resl-fraccion-indicada"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Un filtro de spam analiza correos. El 15% de los correos recibidos son spam.\n\nEntre los spam, un 75% contiene cierta palabra clave, y entre los no spam, un 10% la contiene.\n\nSe quiere calcular $P(\\text{spam}\\mid\\text{palabra})$, dejando expresado el cálculo sin resolver.\n\n¿Cuál es la expresión correcta?",
+    "options": [
+      "$\\dfrac{0{,}75\\cdot0{,}75}{0{,}75\\cdot0{,}15+0{,}1\\cdot0{,}85}$",
+      "$\\dfrac{0{,}75\\cdot0{,}15}{0{,}75\\cdot0{,}15+0{,}1\\cdot0{,}85}$",
+      "$\\dfrac{0{,}1\\cdot0{,}15}{0{,}75\\cdot0{,}15+0{,}1\\cdot0{,}85}$",
+      "$\\dfrac{0{,}75\\cdot0{,}15}{0{,}75\\cdot0{,}15+0{,}1}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El numerador es la rama favorable de ser spam, y el denominador suma esa rama más la de los correos legítimos con falsa alarma.",
+    "feedback_incorrect": [
+      "Ese numerador usa $0{,}75$ dos veces, como si la tasa de aparición de la palabra también fuera la proporción de spam.",
+      null,
+      "Ese numerador usa la tasa de aparición de la palabra entre los correos legítimos, $0{,}1$, en vez de entre los spam.",
+      "Ese denominador no pondera el segundo término por $0{,}85$, la proporción de correos legítimos."
+    ],
+    "explanation": "Cuando los datos no son números redondos, conviene dejar expresada la fracción completa del **teorema de Bayes** sin resolver, para verificar que cada rama esté bien armada antes de calcular:\n$$P(\\text{spam}\\mid\\text{palabra})$$\n$$= \\dfrac{0{,}75\\cdot0{,}15}{0{,}75\\cdot0{,}15+0{,}1\\cdot0{,}85}$$\nEl numerador es la rama de correos que son spam y además contienen la palabra clave; el denominador suma esa rama con la de los correos legítimos que también la contienen por error.\n\nDejar afuera una rama del denominador, o usar solo la tasa de aparición de la palabra sin la proporción de spam, arma una fracción que no representa la probabilidad total de la evidencia.",
+    "tags": [
+      "resl-fraccion-indicada"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Un filtro de spam revisa el remitente de los correos. El 20% de los correos recibidos son spam.\n\nEntre los spam, un 60% tiene remitente desconocido, y entre los no spam, un 5% lo tiene.\n\nSe quiere calcular $P(\\text{spam}\\mid\\text{desconocido})$, dejando expresado el cálculo sin resolver.\n\n¿Cuál es la expresión correcta?",
+    "options": [
+      "$\\dfrac{0{,}6\\cdot0{,}6}{0{,}6\\cdot0{,}2+0{,}05\\cdot0{,}8}$",
+      "$\\dfrac{0{,}05\\cdot0{,}2}{0{,}6\\cdot0{,}2+0{,}05\\cdot0{,}8}$",
+      "$\\dfrac{0{,}6\\cdot0{,}2}{0{,}6\\cdot0{,}2+0{,}05\\cdot0{,}8}$",
+      "$\\dfrac{0{,}6\\cdot0{,}2}{0{,}6\\cdot0{,}2+0{,}05}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El numerador es la rama favorable de ser spam, y el denominador suma esa rama más la de los correos legítimos con remitente desconocido.",
+    "feedback_incorrect": [
+      "Ese numerador usa $0{,}6$ dos veces, como si la tasa de remitente desconocido también fuera la proporción de spam.",
+      "Ese numerador usa la tasa de remitente desconocido entre los correos legítimos, $0{,}05$, en vez de entre los spam.",
+      null,
+      "Ese denominador no pondera el segundo término por $0{,}8$, la proporción de correos legítimos."
+    ],
+    "explanation": "Cuando los datos no son números redondos, conviene dejar expresada la fracción completa del **teorema de Bayes** sin resolver, para verificar que cada rama esté bien armada antes de calcular:\n$$P(\\text{spam}\\mid\\text{desconocido})$$\n$$= \\dfrac{0{,}6\\cdot0{,}2}{0{,}6\\cdot0{,}2+0{,}05\\cdot0{,}8}$$\nEl numerador es la rama de correos que son spam y además tienen remitente desconocido; el denominador suma esa rama con la de los correos legítimos que también lo tienen por casualidad.\n\nDejar afuera una rama del denominador, o usar solo la tasa de remitente desconocido sin la proporción de spam, arma una fracción que no representa la probabilidad total de la evidencia.",
+    "tags": [
+      "resl-fraccion-indicada"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "De 800 personas, 80 tienen cierta condición. Entre las 80 que la tienen, 68 dan positivo en un test.\n\nEntre las 720 que no la tienen, 36 también dan positivo por error.\n\n¿Cuál es la probabilidad de tener la condición, sabiendo que el test dio positivo?",
+    "options": [
+      "$68/80$",
+      "$68/104$",
+      "$36/104$",
+      "$68/800$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "De los 104 positivos totales, 68 más 36, solo 68 realmente tienen la condición.",
+    "feedback_incorrect": [
+      "Ese cociente es la tasa de acierto del test entre quienes tienen la condición, la verosimilitud, no la probabilidad buscada.",
+      null,
+      "Ese cociente es la probabilidad de ser sano entre quienes dieron positivo, el complemento de lo que se pide.",
+      "Ese cociente divide sobre el total de la población, no sobre el total de positivos."
+    ],
+    "explanation": "Con **frecuencias naturales**, los positivos totales se cuentan sumando los positivos de ambos grupos: 68 verdaderos positivos más 36 falsos positivos, un total de 104 positivos.\n\nDe esos 104 positivos, solo 68 realmente tienen la condición:\n$$P(\\text{condición}\\mid\\text{positivo}) = \\dfrac{68}{104}$$\nContar con cantidades enteras de población, en vez de multiplicar y sumar probabilidades decimales, arma la misma fracción de forma más directa.\n\nDividir sobre el total de la población en vez de sobre el total de positivos ignora que la condición ya restringe el cálculo al subgrupo que dio positivo.",
+    "tags": [
+      "resl-frecuencias-naturales"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "En una fábrica se producen 600 piezas. De la línea $A$ salen 200 piezas, de las cuales 30 son defectuosas.\n\nDe la línea $B$ salen 400 piezas, de las cuales 20 son defectuosas.\n\n¿Cuál es la probabilidad de que una pieza defectuosa haya salido de la línea $A$?",
+    "options": [
+      "$30/200$",
+      "$20/50$",
+      "$30/50$",
+      "$30/600$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "De las 50 piezas defectuosas totales, 30 más 20, solo 30 vienen de la línea $A$.",
+    "feedback_incorrect": [
+      "Ese cociente es la tasa de defectos dentro de la línea $A$, la verosimilitud, no la probabilidad buscada.",
+      "Ese cociente es la probabilidad de que la defectuosa venga de la línea $B$, el complemento de lo que se pide.",
+      null,
+      "Ese cociente divide sobre el total de piezas producidas, no sobre el total de defectuosas."
+    ],
+    "explanation": "Con **frecuencias naturales**, las piezas defectuosas totales se cuentan sumando las defectuosas de ambas líneas: 30 de la línea $A$ más 20 de la línea $B$, un total de 50 defectuosas.\n\nDe esas 50 defectuosas, solo 30 vienen de la línea $A$:\n$$P(A\\mid\\text{defectuosa}) = \\dfrac{30}{50}$$\nContar con cantidades enteras de piezas, en vez de multiplicar y sumar probabilidades decimales, arma la misma fracción de forma más directa.\n\nDividir sobre el total de piezas producidas en vez de sobre el total de defectuosas ignora que la condición ya restringe el cálculo al subgrupo que salió defectuoso.",
+    "tags": [
+      "resl-frecuencias-naturales"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Un taller recibe 900 tornillos. Del proveedor $P$ llegan 600 tornillos, de los cuales 24 fallan.\n\nDel proveedor $Q$ llegan 300 tornillos, de los cuales 36 fallan.\n\n¿Cuál es la probabilidad de que un tornillo que falló venga del proveedor $Q$?",
+    "options": [
+      "$36/300$",
+      "$24/60$",
+      "$36/900$",
+      "$36/60$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "De los 60 tornillos que fallaron en total, 24 más 36, solo 36 vienen del proveedor $Q$.",
+    "feedback_incorrect": [
+      "Ese cociente es la tasa de falla dentro de los tornillos del proveedor $Q$, la verosimilitud, no la probabilidad buscada.",
+      "Ese cociente es la probabilidad de que la falla venga del proveedor $P$, el complemento de lo que se pide.",
+      "Ese cociente divide sobre el total de tornillos recibidos, no sobre el total de fallas.",
+      null
+    ],
+    "explanation": "Con **frecuencias naturales**, las fallas totales se cuentan sumando las fallas de ambos proveedores: 24 del proveedor $P$ más 36 del proveedor $Q$, un total de 60 fallas.\n\nDe esas 60 fallas, solo 36 vienen del proveedor $Q$:\n$$P(Q\\mid\\text{falla}) = \\dfrac{36}{60}$$\nContar con cantidades enteras de tornillos, en vez de multiplicar y sumar probabilidades decimales, arma la misma fracción de forma más directa.\n\nDividir sobre el total de tornillos recibidos en vez de sobre el total de fallas ignora que la condición ya restringe el cálculo al subgrupo que falló.",
+    "tags": [
+      "resl-frecuencias-naturales"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "En 500 sorteos se elige una urna al azar antes de sacar una bolita.\n\nLa urna $A$ se elige 250 veces, y en esos casos sale roja 175 veces.\n\nLa urna $B$ se elige las otras 250 veces, y en esos casos sale roja 50 veces.\n\n¿Cuál es la probabilidad de que una bolita roja haya salido de la urna $A$?",
+    "options": [
+      "$175/250$",
+      "$175/225$",
+      "$50/225$",
+      "$175/500$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "De las 225 bolitas rojas en total, 175 más 50, solo 175 salieron de la urna $A$.",
+    "feedback_incorrect": [
+      "Ese cociente es la tasa de rojas dentro de los sorteos con la urna $A$, la verosimilitud, no la probabilidad buscada.",
+      null,
+      "Ese cociente es la probabilidad de que la roja haya salido de la urna $B$, el complemento de lo que se pide.",
+      "Ese cociente divide sobre el total de sorteos realizados, no sobre el total de bolitas rojas."
+    ],
+    "explanation": "Con **frecuencias naturales**, las bolitas rojas totales se cuentan sumando las de ambas urnas: 175 de la urna $A$ más 50 de la urna $B$, un total de 225 rojas.\n\nDe esas 225 rojas, 175 salieron de la urna $A$:\n$$P(A\\mid\\text{roja}) = \\dfrac{175}{225}$$\nContar con cantidades enteras de sorteos, en vez de multiplicar y sumar probabilidades decimales, arma la misma fracción de forma más directa.\n\nDividir sobre el total de sorteos realizados en vez de sobre el total de bolitas rojas ignora que la condición ya restringe el cálculo al subgrupo que salió roja.",
+    "tags": [
+      "resl-frecuencias-naturales"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "En 1000 sorteos se elige una caja al azar antes de sacar una ficha.\n\nLa caja $X$ se elige 400 veces, y en esos casos sale negra 80 veces.\n\nLa caja $Y$ se elige las otras 600 veces, y en esos casos sale negra 180 veces.\n\n¿Cuál es la probabilidad de que una ficha negra haya salido de la caja $Y$?",
+    "options": [
+      "$180/600$",
+      "$80/260$",
+      "$180/260$",
+      "$180/1000$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "De las 260 fichas negras en total, 80 más 180, 180 salieron de la caja $Y$.",
+    "feedback_incorrect": [
+      "Ese cociente es la tasa de negras dentro de los sorteos con la caja $Y$, la verosimilitud, no la probabilidad buscada.",
+      "Ese cociente es la probabilidad de que la negra haya salido de la caja $X$, el complemento de lo que se pide.",
+      null,
+      "Ese cociente divide sobre el total de sorteos realizados, no sobre el total de fichas negras."
+    ],
+    "explanation": "Con **frecuencias naturales**, las fichas negras totales se cuentan sumando las de ambas cajas: 80 de la caja $X$ más 180 de la caja $Y$, un total de 260 negras.\n\nDe esas 260 negras, 180 salieron de la caja $Y$:\n$$P(Y\\mid\\text{negra}) = \\dfrac{180}{260}$$\nContar con cantidades enteras de sorteos, en vez de multiplicar y sumar probabilidades decimales, arma la misma fracción de forma más directa.\n\nDividir sobre el total de sorteos realizados en vez de sobre el total de fichas negras ignora que la condición ya restringe el cálculo al subgrupo que salió negra.",
+    "tags": [
+      "resl-frecuencias-naturales"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "De 2000 correos recibidos, 300 son spam. Entre los 300 spam, 240 contienen cierta palabra clave.\n\nEntre los 1700 correos legítimos, 85 también contienen esa palabra por casualidad.\n\n¿Cuál es la probabilidad de que un correo sea spam, sabiendo que contiene esa palabra?",
+    "options": [
+      "$240/300$",
+      "$85/325$",
+      "$240/2000$",
+      "$240/325$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "De los 325 correos con esa palabra en total, 240 más 85, solo 240 son spam.",
+    "feedback_incorrect": [
+      "Ese cociente es la tasa de aparición de la palabra entre los correos spam, la verosimilitud, no la probabilidad buscada.",
+      "Ese cociente es la probabilidad de que el correo sea legítimo entre los que tienen la palabra, el complemento de lo que se pide.",
+      "Ese cociente divide sobre el total de correos recibidos, no sobre el total de correos con esa palabra.",
+      null
+    ],
+    "explanation": "Con **frecuencias naturales**, los correos con esa palabra se cuentan sumando los de ambos grupos: 240 correos spam más 85 correos legítimos, un total de 325 correos con la palabra.\n\nDe esos 325 correos, 240 realmente son spam:\n$$P(\\text{spam}\\mid\\text{palabra}) = \\dfrac{240}{325}$$\nContar con cantidades enteras de correos, en vez de multiplicar y sumar probabilidades decimales, arma la misma fracción de forma más directa.\n\nDividir sobre el total de correos recibidos en vez de sobre el total de correos con esa palabra ignora que la condición ya restringe el cálculo al subgrupo que la contiene.",
+    "tags": [
+      "resl-frecuencias-naturales"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
   }
 ]

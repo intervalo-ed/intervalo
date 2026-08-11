@@ -20,7 +20,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["reconocer-forma"]
+    "tags": [
+      "reconocer-forma"
+    ]
   },
   {
     "question": "Dos sucursales miden el tiempo entre llegadas de clientes, en minutos.\n\nLa sucursal A tiene tasa $\\lambda_A=0{,}2$.\n$$f_A(x) = 0{,}2\\,e^{-0{,}2x}$$\nLa sucursal B tiene tasa $\\lambda_B=1$.\n$$f_B(x) = e^{-x}$$\n¿Cuál de las dos densidades decae más rápido a medida que $x$ crece?",
@@ -43,7 +45,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["efecto-parametro"]
+    "tags": [
+      "efecto-parametro"
+    ]
   },
   {
     "question": "El tiempo entre fallas de una máquina de una línea de producción sigue una densidad exponencial de tasa $\\lambda=0{,}5$ por hora.\n\nEl gráfico sombrea el área bajo la densidad correspondiente a un cierto tramo de tiempo.\n\n¿Qué probabilidad representa mejor esa área sombreada?",
@@ -62,10 +66,352 @@
     "explanation": "La densidad **exponencial** de tasa $\\lambda$ decae desde el origen.\n$$f(x) = \\lambda e^{-\\lambda x}, \\; x\\geq 0$$\nAcá $\\lambda=0{,}5$ por hora.\n\nEn una variable continua, el área bajo la densidad entre dos valores es la probabilidad de que $X$ caiga en ese tramo.\n\nEl sombreado del gráfico no arranca en el origen ni se extiende sin límite hacia la derecha: tiene un borde izquierdo y uno derecho bien definidos, en $x=1$ y $x=3$.\n\nEsos dos bordes son los que determinan qué probabilidad puntual representa el área, y solo se identifican mirando el gráfico.",
     "has_math": true,
     "graph_fn": "Piecewise((0.5*exp(-0.5*x), x>=0))",
-    "graph_view": [-0.5, 8, -0.03, 0.6],
-    "graph_shade": [1, 3],
+    "graph_view": [
+      -0.5,
+      8,
+      -0.03,
+      0.6
+    ],
+    "graph_shade": [
+      1,
+      3
+    ],
     "graph_free_aspect": true,
     "reviewed": false,
-    "tags": ["probabilidad-como-area"]
+    "tags": [
+      "probabilidad-como-area"
+    ]
+  },
+  {
+    "question": "El tiempo entre sismos leves de un sismógrafo sigue una densidad exponencial de tasa $\\lambda=0{,}2$ por día.\n\n¿Qué forma tiene la densidad de ese tiempo entre sismos?",
+    "options": [
+      "Una campana simétrica centrada en el valor promedio.",
+      "Decae monótonamente desde un valor positivo en $x=0$.",
+      "Un rectángulo de altura constante en todo su dominio."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La exponencial decae monótona desde $\\lambda$ en $x=0$, sin cruzar nunca el eje.",
+    "feedback_incorrect": [
+      "Una campana simétrica es la normal, la exponencial no tiene esa forma.",
+      null,
+      "Un rectángulo de altura constante es la uniforme, la exponencial decae en vez de mantenerse plana."
+    ],
+    "explanation": "La densidad **exponencial** decae monótonamente desde $\\lambda$ en $x=0$.\n$$f(x) = \\lambda e^{-\\lambda x}, \\; x\\geq 0$$\nAcá $\\lambda=0{,}2$, así que la curva arranca en ese valor y baja hacia 0 a medida que $x$ crece.\n\nLa densidad nunca toma valores negativos, porque un tiempo de espera no puede ser negativo.\n\nLa curva tampoco sube ni se aplana en algún tramo, siempre sigue bajando hacia el eje sin llegar a tocarlo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-forma"
+    ]
+  },
+  {
+    "question": "El tiempo entre fallas de una máquina en una fábrica sigue una densidad exponencial de tasa $\\lambda=2$ por hora.\n\n¿Cómo se ve esa densidad en un gráfico?",
+    "options": [
+      "Un rectángulo de altura constante en todo su dominio.",
+      "Una campana simétrica centrada en el valor promedio.",
+      "Decae monótonamente desde un valor positivo en $x=0$."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La exponencial decae monótona desde $\\lambda$ en $x=0$, sin cruzar nunca el eje.",
+    "feedback_incorrect": [
+      "Un rectángulo de altura constante es la uniforme, la exponencial decae en vez de mantenerse plana.",
+      "Una campana simétrica es la normal, la exponencial no tiene esa forma.",
+      null
+    ],
+    "explanation": "La densidad **exponencial** decae monótonamente desde $\\lambda$ en $x=0$.\n$$f(x) = \\lambda e^{-\\lambda x}, \\; x\\geq 0$$\nAcá $\\lambda=2$, así que la curva arranca alta y cae rápido hacia 0 a medida que $x$ crece.\n\nLa densidad nunca toma valores negativos, porque un tiempo entre fallas no puede ser negativo.\n\nEsta curva no tiene ningún tramo creciente antes de su punto más alto, el máximo está siempre en $x=0$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-forma"
+    ]
+  },
+  {
+    "question": "El tiempo hasta la respuesta de un mensaje en un canal de soporte sigue una densidad exponencial de tasa $\\lambda=1$ por hora.\n\n¿Qué forma general tiene $f(x)$ en este caso?",
+    "options": [
+      "Decae monótonamente desde un valor positivo en $x=0$.",
+      "Un rectángulo de altura constante en todo su dominio.",
+      "Una campana simétrica centrada en el valor promedio."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La exponencial decae monótona desde $\\lambda$ en $x=0$, sin cruzar nunca el eje.",
+    "feedback_incorrect": [
+      null,
+      "Un rectángulo de altura constante es la uniforme, la exponencial decae en vez de mantenerse plana.",
+      "Una campana simétrica es la normal, la exponencial no tiene esa forma."
+    ],
+    "explanation": "La densidad **exponencial** decae monótonamente desde $\\lambda$ en $x=0$.\n$$f(x) = \\lambda e^{-\\lambda x}, \\; x\\geq 0$$\nAcá $\\lambda=1$, así que la curva arranca en ese valor y decae hacia 0 a medida que $x$ crece.\n\nLa densidad nunca toma valores negativos, porque un tiempo de espera no puede ser negativo.\n\nEl tiempo de respuesta más probable es el más corto, y las esperas largas se vuelven cada vez menos frecuentes.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-forma"
+    ]
+  },
+  {
+    "question": "La duración de una llamada de atención al cliente sigue una densidad exponencial de tasa $\\lambda=0{,}25$ por minuto.\n\n¿Qué forma tiene esa densidad?",
+    "options": [
+      "Una campana simétrica centrada en el valor promedio.",
+      "Decae monótonamente desde un valor positivo en $x=0$.",
+      "Un rectángulo de altura constante en todo su dominio."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La exponencial decae monótona desde $\\lambda$ en $x=0$, sin cruzar nunca el eje.",
+    "feedback_incorrect": [
+      "Una campana simétrica es la normal, la exponencial no tiene esa forma.",
+      null,
+      "Un rectángulo de altura constante es la uniforme, la exponencial decae en vez de mantenerse plana."
+    ],
+    "explanation": "La densidad **exponencial** decae monótonamente desde $\\lambda$ en $x=0$.\n$$f(x) = \\lambda e^{-\\lambda x}, \\; x\\geq 0$$\nAcá $\\lambda=0{,}25$, así que la curva arranca en ese valor y decae hacia 0 a medida que $x$ crece.\n\nLa densidad nunca toma valores negativos, porque una duración no puede ser negativa.\n\nLas llamadas cortas concentran la mayor parte de la densidad, y las duraciones largas van quedando cada vez más lejos del eje.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-forma"
+    ]
+  },
+  {
+    "question": "Dos componentes electrónicos tienen tasas de falla distintas, en fallas por año.\n$$f_A(x) = 0{,}3\\,e^{-0{,}3x}$$\n$$f_B(x) = 1{,}5\\,e^{-1{,}5x}$$\n¿Cuál de las dos densidades arranca en un valor más alto en $x=0$?",
+    "options": [
+      "$f_A$, porque su $\\lambda$ es menor.",
+      "$f_B$, porque su $\\lambda$ es mayor.",
+      "Las dos arrancan igual, porque ambas son exponenciales."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El valor en $x=0$ de la densidad exponencial es $f(0)=\\lambda$, así que una $\\lambda$ mayor arranca más alto.",
+    "feedback_incorrect": [
+      "Una $\\lambda$ menor da un valor inicial más bajo, no más alto.",
+      null,
+      "El valor de arranque depende de $\\lambda$, así que tasas distintas dan alturas iniciales distintas."
+    ],
+    "explanation": "El valor de la **densidad exponencial** en $x=0$ es directamente $\\lambda$.\n$$f(x) = \\lambda e^{-\\lambda x}, \\; f(0) = \\lambda$$\nAcá $\\lambda_A=0{,}3,\\, \\lambda_B=1{,}5$.\n\nComo ese valor inicial coincide con la tasa, la densidad con tasa mayor arranca en un punto más alto sobre el eje vertical.\n\nEso también significa que el componente B tiene una tasa de falla mayor, con fallas más frecuentes y un tiempo de vida promedio más corto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "efecto-parametro"
+    ]
+  },
+  {
+    "question": "Dos máquinas de una fábrica tienen tasas de falla distintas, en fallas por hora.\n$$f_A(x) = 0{,}75\\,e^{-0{,}75x}$$\n$$f_B(x) = 0{,}25\\,e^{-0{,}25x}$$\n¿Cuál de las dos tiene menor tiempo promedio de espera entre fallas?",
+    "options": [
+      "$f_B$, porque su $\\lambda$ es menor.",
+      "$f_A$, porque su $\\lambda$ es mayor.",
+      "Ambas tienen el mismo tiempo promedio, porque las dos son exponenciales."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El tiempo promedio es $E[X]=1/\\lambda$, así que una $\\lambda$ mayor da un promedio menor.",
+    "feedback_incorrect": [
+      "Una $\\lambda$ menor da un tiempo promedio mayor, no menor.",
+      null,
+      "El tiempo promedio depende de $\\lambda$, así que tasas distintas dan promedios distintos."
+    ],
+    "explanation": "El tiempo promedio de espera de la **exponencial** es el inverso de la tasa.\n$$E[X] = 1/\\lambda$$\nAcá $\\lambda_A=0{,}75,\\, \\lambda_B=0{,}25$.\n\nComo el promedio se calcula dividiendo 1 por esa tasa, una tasa mayor divide entre un número más grande y produce un tiempo promedio más chico.\n\nLa máquina A falla más seguido en promedio, mientras que la B tarda más en promedio entre una falla y la siguiente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "efecto-parametro"
+    ]
+  },
+  {
+    "question": "Dos canales de soporte miden el tiempo hasta la respuesta de un mensaje, en horas.\n$$f_A(x) = 2\\,e^{-2x}$$\n$$f_B(x) = 0{,}5\\,e^{-0{,}5x}$$\n¿Cuál de las dos densidades decae más lento a medida que $x$ crece?",
+    "options": [
+      "$f_A$, porque su $\\lambda$ es mayor.",
+      "$f_B$, porque su $\\lambda$ es menor.",
+      "Ambas decaen igual de lento, porque las dos son exponenciales."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Una $\\lambda$ menor hace que el exponente crezca más despacio, así que la curva decae más lento.",
+    "feedback_incorrect": [
+      "Una $\\lambda$ mayor hace que la curva decaiga más rápido, no más lento.",
+      null,
+      "El ritmo de decaimiento depende de $\\lambda$, así que tasas distintas dan decaimientos distintos."
+    ],
+    "explanation": "La velocidad de decaimiento de la **exponencial** está gobernada por $\\lambda$ en el exponente.\n$$f(x) = \\lambda e^{-\\lambda x}$$\nAcá $\\lambda_A=2,\\, \\lambda_B=0{,}5$.\n\nCuanto menor es $\\lambda$, más despacio crece el exponente negativo, y la curva tarda más en acercarse a 0.\n\nEl canal B tiene mensajes que en promedio tardan más en recibir respuesta, con una cola que se extiende más lejos hacia la derecha.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "efecto-parametro"
+    ]
+  },
+  {
+    "question": "Dos sismógrafos ubicados en zonas distintas registran tiempos entre sismos leves, en días.\n$$f_A(x) = 0{,}2\\,e^{-0{,}2x}$$\n$$f_B(x) = 0{,}8\\,e^{-0{,}8x}$$\n¿Cuál de las dos densidades decae más rápido a medida que $x$ crece?",
+    "options": [
+      "$f_A$, porque su $\\lambda$ es menor.",
+      "$f_B$, porque su $\\lambda$ es mayor.",
+      "Las dos decaen igual de rápido, porque las dos son exponenciales."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Una $\\lambda$ mayor hace que el exponente crezca más rápido, así que la curva decae más rápido.",
+    "feedback_incorrect": [
+      "Una $\\lambda$ menor hace que la curva decaiga más lento, no más rápido.",
+      null,
+      "El ritmo de decaimiento depende de $\\lambda$, así que tasas distintas dan decaimientos distintos."
+    ],
+    "explanation": "La velocidad de decaimiento de la **exponencial** está gobernada por $\\lambda$ en el exponente.\n$$f(x) = \\lambda e^{-\\lambda x}$$\nAcá $\\lambda_A=0{,}2,\\, \\lambda_B=0{,}8$.\n\nCuanto mayor es $\\lambda$, más rápido crece el exponente negativo, y la curva se pega antes al eje horizontal.\n\nLa zona del sismógrafo B tiene sismos leves más frecuentes, con un tiempo promedio entre uno y otro más corto que en la zona A.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "efecto-parametro"
+    ]
+  },
+  {
+    "question": "El tiempo entre llegadas sucesivas de clientes a un local sigue una densidad exponencial de tasa $\\lambda=0{,}4$ por minuto.\n\nEl gráfico sombrea el área bajo la densidad correspondiente a un cierto tramo de tiempo.\n\n¿Qué probabilidad representa mejor esa área sombreada?",
+    "options": [
+      "$P(2\\leq X\\leq 5)$",
+      "$P(X\\leq 5)$",
+      "$P(X\\geq 2)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El sombreado arranca en $x=2$, no en el origen, y termina en $x=5$, sin seguir hacia la derecha.",
+    "feedback_incorrect": [
+      null,
+      "Esa opción sombrearía desde el origen hasta 5, pero el sombreado del gráfico arranca más a la derecha, en 2.",
+      "Esa opción sombrearía desde 2 hasta el infinito, pero el sombreado del gráfico termina antes, en 5."
+    ],
+    "explanation": "La densidad **exponencial** de tasa $\\lambda$ decae desde el origen.\n$$f(x) = \\lambda e^{-\\lambda x}, \\; x\\geq 0$$\nAcá $\\lambda=0{,}4$ clientes por minuto.\n\nEn una variable continua, el área bajo la densidad entre dos valores es la probabilidad de que $X$ caiga en ese tramo.\n\nEl sombreado del gráfico tiene un borde izquierdo y uno derecho bien definidos, en $x=2$ y $x=5$, sin arrancar en el origen ni extenderse sin límite.\n\nEsos dos bordes son los que determinan qué probabilidad puntual representa el área, y solo se identifican mirando el gráfico.",
+    "has_math": true,
+    "graph_fn": "Piecewise((0.4*exp(-0.4*x), x>=0))",
+    "graph_view": [
+      -0.5,
+      10,
+      -0.02,
+      0.46
+    ],
+    "graph_shade": [
+      2,
+      5
+    ],
+    "graph_free_aspect": true,
+    "reviewed": false,
+    "tags": [
+      "probabilidad-como-area"
+    ]
+  },
+  {
+    "question": "La vida útil de un componente electrónico antes de fallar sigue una densidad exponencial de tasa $\\lambda=0{,}6$ por año.\n\nEl gráfico sombrea el área bajo la densidad correspondiente a un cierto tramo de tiempo.\n\n¿Qué probabilidad representa mejor esa área sombreada?",
+    "options": [
+      "$P(X\\leq 2)$",
+      "$P(0{,}5\\leq X\\leq 2)$",
+      "$P(X\\geq 0{,}5)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El sombreado arranca en $x=0{,}5$, no en el origen, y termina en $x=2$, sin seguir hacia la derecha.",
+    "feedback_incorrect": [
+      "Esa opción sombrearía desde el origen hasta 2, pero el sombreado del gráfico arranca más a la derecha, en 0,5.",
+      null,
+      "Esa opción sombrearía desde 0,5 hasta el infinito, pero el sombreado del gráfico termina antes, en 2."
+    ],
+    "explanation": "La densidad **exponencial** de tasa $\\lambda$ decae desde el origen.\n$$f(x) = \\lambda e^{-\\lambda x}, \\; x\\geq 0$$\nAcá $\\lambda=0{,}6$ por año.\n\nEn una variable continua, el área bajo la densidad entre dos valores es la probabilidad de que $X$ caiga en ese tramo.\n\nEl sombreado del gráfico tiene un borde izquierdo y uno derecho bien definidos, en $x=0{,}5$ y $x=2$, sin arrancar en el origen ni extenderse sin límite.\n\nEsos dos bordes son los que determinan qué probabilidad puntual representa el área, y solo se identifican mirando el gráfico.",
+    "has_math": true,
+    "graph_fn": "Piecewise((0.6*exp(-0.6*x), x>=0))",
+    "graph_view": [
+      -0.3,
+      7,
+      -0.02,
+      0.69
+    ],
+    "graph_shade": [
+      0.5,
+      2
+    ],
+    "graph_free_aspect": true,
+    "reviewed": false,
+    "tags": [
+      "probabilidad-como-area"
+    ]
+  },
+  {
+    "question": "El tiempo hasta la respuesta de un mensaje en un canal de soporte sigue una densidad exponencial de tasa $\\lambda=0{,}8$ por hora.\n\nEl gráfico sombrea el área bajo la densidad correspondiente a un cierto tramo de tiempo.\n\n¿Qué probabilidad representa mejor esa área sombreada?",
+    "options": [
+      "$P(X\\geq 0{,}5)$",
+      "$P(X\\leq 1{,}5)$",
+      "$P(0{,}5\\leq X\\leq 1{,}5)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El sombreado arranca en $x=0{,}5$, no en el origen, y termina en $x=1{,}5$, sin seguir hacia la derecha.",
+    "feedback_incorrect": [
+      "Esa opción sombrearía desde 0,5 hasta el infinito, pero el sombreado del gráfico termina antes, en 1,5.",
+      "Esa opción sombrearía desde el origen hasta 1,5, pero el sombreado del gráfico arranca más a la derecha, en 0,5.",
+      null
+    ],
+    "explanation": "La densidad **exponencial** de tasa $\\lambda$ decae desde el origen.\n$$f(x) = \\lambda e^{-\\lambda x}, \\; x\\geq 0$$\nAcá $\\lambda=0{,}8$ por hora.\n\nEn una variable continua, el área bajo la densidad entre dos valores es la probabilidad de que $X$ caiga en ese tramo.\n\nEl sombreado del gráfico tiene un borde izquierdo y uno derecho bien definidos, en $x=0{,}5$ y $x=1{,}5$, sin arrancar en el origen ni extenderse sin límite.\n\nEsos dos bordes son los que determinan qué probabilidad puntual representa el área, y solo se identifican mirando el gráfico.",
+    "has_math": true,
+    "graph_fn": "Piecewise((0.8*exp(-0.8*x), x>=0))",
+    "graph_view": [
+      -0.2,
+      6,
+      -0.02,
+      0.92
+    ],
+    "graph_shade": [
+      0.5,
+      1.5
+    ],
+    "graph_free_aspect": true,
+    "reviewed": false,
+    "tags": [
+      "probabilidad-como-area"
+    ]
+  },
+  {
+    "question": "El tiempo entre sismos leves sucesivos registrados por un sismógrafo sigue una densidad exponencial de tasa $\\lambda=1$ por día.\n\nEl gráfico sombrea el área bajo la densidad correspondiente a un cierto tramo de tiempo.\n\n¿Qué probabilidad representa mejor esa área sombreada?",
+    "options": [
+      "$P(0{,}5\\leq X\\leq 2)$",
+      "$P(X\\leq 2)$",
+      "$P(X\\geq 0{,}5)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El sombreado arranca en $x=0{,}5$, no en el origen, y termina en $x=2$, sin seguir hacia la derecha.",
+    "feedback_incorrect": [
+      null,
+      "Esa opción sombrearía desde el origen hasta 2, pero el sombreado del gráfico arranca más a la derecha, en 0,5.",
+      "Esa opción sombrearía desde 0,5 hasta el infinito, pero el sombreado del gráfico termina antes, en 2."
+    ],
+    "explanation": "La densidad **exponencial** de tasa $\\lambda$ decae desde el origen.\n$$f(x) = \\lambda e^{-\\lambda x}, \\; x\\geq 0$$\nAcá $\\lambda=1$ sismo por día.\n\nEn una variable continua, el área bajo la densidad entre dos valores es la probabilidad de que $X$ caiga en ese tramo.\n\nEl sombreado del gráfico tiene un borde izquierdo y uno derecho bien definidos, en $x=0{,}5$ y $x=2$, sin arrancar en el origen ni extenderse sin límite.\n\nEsos dos bordes son los que determinan qué probabilidad puntual representa el área, y solo se identifican mirando el gráfico.",
+    "has_math": true,
+    "graph_fn": "Piecewise((1*exp(-1*x), x>=0))",
+    "graph_view": [
+      -0.2,
+      5,
+      -0.03,
+      1.15
+    ],
+    "graph_shade": [
+      0.5,
+      2
+    ],
+    "graph_free_aspect": true,
+    "reviewed": false,
+    "tags": [
+      "probabilidad-como-area"
+    ]
   }
 ]

@@ -29,17 +29,132 @@ import { topicShortLabel } from "@/lib/catalog"
 import { exerciseTypeInfo } from "@/lib/catalog/exercise-types"
 import { latexVisualLength } from "@/lib/latex-visual-length"
 import { cn } from "@/lib/utils"
-import { Braces, ChevronLeft, Eye, EyeOff, Flag, SkipForward, X } from "lucide-react"
+import { Braces, ChevronLeft, Download, Eye, EyeOff, Flag, SkipForward, X } from "lucide-react"
 import { animate, AnimatePresence, motion } from "motion/react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import type { KeyboardEvent, Ref } from "react"
 import { useAnswer } from "./UseAnswer"
 import { useSessionFeedback } from "./UseSessionFeedback"
 import { useSessionPayload } from "./UseSessionPayload"
 import { ReportPane } from "./report-pane"
 import { SurveyPane } from "./survey-pane"
 import type { SessionExercise } from "@/lib/api/types"
+
+// Persistencia del feedback de test mode en localStorage: sobrevive recargas
+// o cierres accidentales del tab durante una pasada larga de cientos de
+// ítems. Vive fuera del componente porque no depende de nada de React.
+type TestFeedbackState = {
+  general: Record<number, string>
+  distractors: Record<number, Record<number, string>>
+  explanations: Record<number, string>
+}
+const EMPTY_TEST_FEEDBACK: TestFeedbackState = {
+  general: {},
+  distractors: {},
+  explanations: {},
+}
+function testFeedbackStorageKey(sessionId: string) {
+  return `intervalo:test-feedback:${sessionId}`
+}
+function loadTestFeedback(sessionId: string): TestFeedbackState {
+  if (typeof window === "undefined") return EMPTY_TEST_FEEDBACK
+  try {
+    const raw = window.localStorage.getItem(testFeedbackStorageKey(sessionId))
+    if (!raw) return EMPTY_TEST_FEEDBACK
+    return { ...EMPTY_TEST_FEEDBACK, ...JSON.parse(raw) }
+  } catch {
+    return EMPTY_TEST_FEEDBACK
+  }
+}
+function saveTestFeedback(sessionId: string, state: TestFeedbackState) {
+  if (typeof window === "undefined") return
+  window.localStorage.setItem(testFeedbackStorageKey(sessionId), JSON.stringify(state))
+}
+
+// Documento markdown con todo el feedback acumulado en la pasada, para bajar
+// desde el panel superior y pegarlo en el chat con Claude.
+function buildFeedbackDocument({
+  exercises,
+  feedbackByIdx,
+  distractorFbByIdx,
+  explanationFbByIdx,
+}: {
+  exercises: SessionExercise[]
+  feedbackByIdx: Record<number, string>
+  distractorFbByIdx: Record<number, Record<number, string>>
+  explanationFbByIdx: Record<number, string>
+}) {
+  const sections: string[] = []
+  exercises.forEach((exercise, idx) => {
+    const general = (feedbackByIdx[idx] ?? "").trim()
+    const explanationFb = (explanationFbByIdx[idx] ?? "").trim()
+    const distractorFb = distractorFbByIdx[idx] ?? {}
+    const distractorEntries = Object.entries(distractorFb).filter(([, t]) => t.trim())
+    if (!general && !explanationFb && distractorEntries.length === 0) return
+
+    const lines: string[] = []
+    lines.push(`## ${exercise.belt}/${exercise.topic}/${exercise.exercise_type} — ${exercise.external_id || exercise.id}`)
+    lines.push("")
+    lines.push("**Pregunta:**")
+    lines.push(exercise.question)
+    lines.push("")
+    lines.push("**Opciones:**")
+    exercise.options.forEach((opt, i) => {
+      lines.push(`${i}. ${opt}${i === exercise.correct_index ? " ← correcta" : ""}`)
+    })
+    if (general) {
+      lines.push("")
+      lines.push("**Feedback general:**")
+      lines.push(general)
+    }
+    for (const [i, t] of distractorEntries) {
+      lines.push("")
+      lines.push(`**Feedback sobre distractor ${i} (${exercise.options[Number(i)]}):**`)
+      lines.push(t.trim())
+    }
+    if (explanationFb) {
+      lines.push("")
+      lines.push("**Feedback sobre la explicación:**")
+      lines.push(explanationFb)
+    }
+    sections.push(lines.join("\n"))
+  })
+
+  const header =
+    `# Feedback de test — ${sections.length} ítem${sections.length === 1 ? "" : "s"}\n` +
+    `Generado: ${new Date().toISOString()}\n`
+  return sections.length > 0 ? `${header}\n${sections.join("\n\n---\n\n")}\n` : `${header}\n(sin feedback todavía)\n`
+}
+
+function downloadFeedbackDocument({
+  sessionId,
+  exercises,
+  feedbackByIdx,
+  distractorFbByIdx,
+  explanationFbByIdx,
+}: {
+  sessionId: string
+  exercises: SessionExercise[]
+  feedbackByIdx: Record<number, string>
+  distractorFbByIdx: Record<number, Record<number, string>>
+  explanationFbByIdx: Record<number, string>
+}) {
+  const doc = buildFeedbackDocument({
+    exercises,
+    feedbackByIdx,
+    distractorFbByIdx,
+    explanationFbByIdx,
+  })
+  const blob = new Blob([doc], { type: "text/markdown;charset=utf-8" })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement("a")
+  a.href = url
+  a.download = `intervalo-test-feedback-${sessionId}.md`
+  a.click()
+  URL.revokeObjectURL(url)
+}
 
 // Banner de agradecimiento tras enviar feedback: título (pool genérico,
 // compartido entre canales) + subtítulo específico del canal (Core Drives del
@@ -181,15 +296,21 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
   const [dir, setDir] = useState<1 | -1>(1)
   const [states, setStates] = useState<Record<number, ExState>>({})
   const [shakeIdx, setShakeIdx] = useState<number | null>(null)
-  const [feedbackByIdx, setFeedbackByIdx] = useState<Record<number, string>>({})
+  const [feedbackByIdx, setFeedbackByIdx] = useState<Record<number, string>>(
+    () => loadTestFeedback(sessionId).general,
+  )
   const [distractorFbByIdx, setDistractorFbByIdx] = useState<
     Record<number, Record<number, string>>
-  >({})
+  >(() => loadTestFeedback(sessionId).distractors)
   const [explanationFbByIdx, setExplanationFbByIdx] = useState<
     Record<number, string>
-  >({})
+  >(() => loadTestFeedback(sessionId).explanations)
   const [noAnswer, setNoAnswer] = useState(false)
   const [gotoValue, setGotoValue] = useState("")
+  // Foco automático del snippet de feedback: se pisa cada vez que cambia de
+  // ejercicio o de vista (enunciado/explicación) — ver el useEffect más abajo
+  // y handleFeedbackKeyDown, que maneja el Enter para avanzar sin mouse.
+  const feedbackTextareaRef = useRef<HTMLTextAreaElement>(null)
   // Gate del footer de feedback: al navegar se apaga y se vuelve a prender
   // recién cuando termina la animación del slide (para que salga después).
   const [footerReady, setFooterReady] = useState(true)
@@ -226,6 +347,30 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
       },
     })
   }
+
+  // Persiste el feedback acumulado de test mode a localStorage en cada
+  // cambio, para sobrevivir un reload o un cierre accidental del tab a mitad
+  // de una pasada larga. No hace nada fuera de test mode.
+  useEffect(() => {
+    if (payload?.mode !== "test") return
+    saveTestFeedback(sessionId, {
+      general: feedbackByIdx,
+      distractors: distractorFbByIdx,
+      explanations: explanationFbByIdx,
+    })
+  }, [payload?.mode, sessionId, feedbackByIdx, distractorFbByIdx, explanationFbByIdx])
+
+  // Foco automático del snippet general al arrancar y en cada cambio de
+  // ejercicio o de vista (enunciado/explicación), para no tener que tocar el
+  // mouse durante una pasada de QA — ver handleFeedbackKeyDown.
+  const showWhyForFocus = states[idx]?.showWhy ?? false
+  useEffect(() => {
+    if (payload?.mode !== "test") return
+    const el = feedbackTextareaRef.current
+    if (!el) return
+    el.focus({ preventScroll: true })
+    el.setSelectionRange(el.value.length, el.value.length)
+  }, [payload?.mode, idx, showWhyForFocus])
 
   // Es un solo frame (el payload viene de sessionStorage): sin spinner ni
   // texto, para no destellar contenido entre la pantalla de origen (que ya se
@@ -280,6 +425,25 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
 
   function patch(p: Partial<ExState>) {
     setStates((s) => ({ ...s, [idx]: { ...(s[idx] ?? DEFAULT_EX), ...p } }))
+  }
+
+  const hasFeedback =
+    Object.values(feedbackByIdx).some((t) => t.trim()) ||
+    Object.values(explanationFbByIdx).some((t) => t.trim()) ||
+    Object.values(distractorFbByIdx).some((byI) =>
+      Object.values(byI).some((t) => t.trim()),
+    )
+
+  const exercises = payload.exercises
+
+  function downloadFeedback() {
+    downloadFeedbackDocument({
+      sessionId,
+      exercises,
+      feedbackByIdx,
+      distractorFbByIdx,
+      explanationFbByIdx,
+    })
   }
 
   const skillProgress = (() => {
@@ -582,6 +746,26 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
     patch({ showWhy: true })
   }
 
+  // Enter en el snippet de feedback general avanza sin mouse: desde el
+  // enunciado abre la explicación (sin necesidad de responder), desde la
+  // explicación pasa al siguiente ítem. Shift+Enter sigue siendo un salto de
+  // línea normal dentro del textarea. Shift+Backspace es el simétrico para
+  // volver atrás (Backspace solo sigue borrando texto como siempre).
+  function handleFeedbackKeyDown(e: KeyboardEvent<HTMLTextAreaElement>) {
+    if (!isTest) return
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault()
+      if (cur.showWhy) onContinue()
+      else openWhy()
+      return
+    }
+    if (e.key === "Backspace" && e.shiftKey) {
+      if (!canGoBack) return
+      e.preventDefault()
+      goBack()
+    }
+  }
+
   // `cur.showWhy` ya indica si veníamos del enunciado o de la explicación —
   // al volver (goBack) cae naturalmente en la pantalla correcta sin guardar
   // un origen aparte.
@@ -630,6 +814,16 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
               </span>
             )}
             <span className="ml-auto flex items-center gap-1">
+              <Button
+                variant="ghost"
+                size="icon-sm"
+                onClick={downloadFeedback}
+                disabled={!hasFeedback}
+                aria-label="Descargar feedback acumulado"
+                title="Descargar feedback acumulado (.md)"
+              >
+                <Download />
+              </Button>
               <JsonDialog exercise={exercise} />
               <Button
                 variant="ghost"
@@ -763,7 +957,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                   onSelect={(v) => patch({ surveyValue: v })}
                 />
               ) : cur.showWhy ? (
-                <div className="flex flex-col gap-3 leading-relaxed text-foreground/80">
+                <div className="flex flex-col gap-3 leading-relaxed text-foreground">
                   <MathText text={exercise.explanation ?? ""} />
                   {!isTest && <ReportFlagButton onClick={openReport} />}
                   {isTest && <TestFeedbackBox
@@ -773,6 +967,8 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                       setFeedbackByIdx((f) => ({ ...f, [idx]: v }))
                     }
                     onCopy={copyFeedback}
+                    onKeyDown={handleFeedbackKeyDown}
+                    inputRef={feedbackTextareaRef}
                   />}
                 </div>
               ) : (
@@ -872,6 +1068,8 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                         setFeedbackByIdx((f) => ({ ...f, [idx]: v }))
                       }
                       onCopy={copyFeedback}
+                      onKeyDown={handleFeedbackKeyDown}
+                      inputRef={feedbackTextareaRef}
                     />
                   )}
                 </>
@@ -1326,11 +1524,15 @@ function TestFeedbackBox({
   value,
   onChange,
   onCopy,
+  onKeyDown,
+  inputRef,
 }: {
   idx: number
   value: string
   onChange: (value: string) => void
   onCopy: () => void
+  onKeyDown?: (e: KeyboardEvent<HTMLTextAreaElement>) => void
+  inputRef?: Ref<HTMLTextAreaElement>
 }) {
   return (
     <div className="flex flex-col gap-2 border-t border-white/10 pt-4">
@@ -1339,9 +1541,11 @@ function TestFeedbackBox({
       </label>
       <textarea
         key={idx}
+        ref={inputRef}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder="Qué está mal, qué esperabas, qué regla se rompe…"
+        onKeyDown={onKeyDown}
+        placeholder="Qué está mal, qué esperabas, qué regla se rompe… (Enter avanza, Shift+Enter salto de línea)"
         className="min-h-24 rounded-md border border-white/15 bg-white/5 p-2 text-sm text-foreground/85 outline-none focus:border-white/40"
       />
       <Button size="sm" variant="outline" onClick={onCopy} className="self-end">

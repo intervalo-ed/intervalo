@@ -83,5 +83,221 @@
     "graph_view": null,
     "reviewed": false,
     "tags": ["reconocer-no-equiprobable"]
+  },
+  {
+    "question": "Se lanzan dos monedas equilibradas al mismo tiempo.\n\n¿Qué expresión da la probabilidad de obtener exactamente una cara?",
+    "options": ["$\\dfrac{2}{4}$", "$\\dfrac{1}{4}$", "$\\dfrac{4}{2}$", "$\\dfrac{3}{4}$"],
+    "correct_index": 0,
+    "feedback_correct": "Hay 2 resultados con exactamente una cara, cara-cruz y cruz-cara, sobre los 4 posibles.",
+    "feedback_incorrect": [
+      null,
+      "Ese numerador cuenta un solo resultado con una cara, cuando hay dos que cumplen la condición.",
+      "Estás invirtiendo la fracción, el denominador de Laplace es siempre el total de casos posibles.",
+      "Ese numerador incluye un resultado de más, revisá cuáles de los 4 tienen exactamente una cara."
+    ],
+    "explanation": "La **regla de Laplace** aplica cuando el espacio muestral es finito y equiprobable:\n$$P(A) = \\dfrac{\\text{favorables}}{\\text{posibles}}$$\nCon dos monedas hay 4 resultados posibles, todos igual de probables: cara-cara, cara-cruz, cruz-cara y cruz-cruz. Exactamente una cara aparece en dos de ellos:\n$$P(\\text{una cara}) = \\frac{2}{4}$$\nTratar cara-cruz y cruz-cara como un mismo resultado deja afuera uno de los dos casos favorables reales.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-conteo-simple"]
+  },
+  {
+    "question": "Se extrae una carta de un mazo español de 40 cartas.\n\n¿Qué expresión da la probabilidad de que sea del palo de oro?",
+    "options": ["$\\dfrac{10}{40}$", "$\\dfrac{4}{40}$", "$\\dfrac{40}{10}$", "$\\dfrac{1}{40}$"],
+    "correct_index": 0,
+    "feedback_correct": "Hay 10 cartas de oro entre las 40 del mazo, una por cada número del palo.",
+    "feedback_incorrect": [
+      null,
+      "Ese numerador corresponde a la cantidad de palos del mazo, no a las cartas de un solo palo.",
+      "Estás invirtiendo la fracción, el denominador de Laplace es siempre el total de casos posibles.",
+      "Ese numerador cuenta una sola carta, cuando hay 10 del palo de oro."
+    ],
+    "explanation": "La **regla de Laplace** aplica cuando el espacio es finito y equiprobable:\n$$P(A) = \\dfrac{\\text{favorables}}{\\text{posibles}}$$\nEn un mazo español, cada palo tiene la misma cantidad de cartas.\n\nEl mazo de 40 cartas se reparte en 4 palos iguales, así que hay 10 cartas de oro entre las 40 totales:\n$$P(\\text{oro}) = \\frac{10}{40}$$\nConfundir la cantidad de palos del mazo con la cantidad de cartas de un solo palo mezcla dos conteos distintos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-conteo-simple"]
+  },
+  {
+    "question": "Una urna tiene 12 bolitas: 5 rojas, 4 azules y 3 verdes, indistinguibles al tacto.\n\n¿Qué expresión da la probabilidad de extraer una bolita verde?",
+    "options": ["$\\dfrac{3}{12}$", "$\\dfrac{4}{12}$", "$\\dfrac{12}{3}$", "$\\dfrac{5}{12}$"],
+    "correct_index": 0,
+    "feedback_correct": "Hay 3 bolitas verdes entre las 12 totales de la urna.",
+    "feedback_incorrect": [
+      null,
+      "Ese numerador corresponde a la cantidad de bolitas azules, no verdes.",
+      "Estás invirtiendo la fracción, el denominador de Laplace es siempre el total de casos posibles.",
+      "Ese numerador corresponde a la cantidad de bolitas rojas, no verdes."
+    ],
+    "explanation": "La **regla de Laplace** aplica cuando el espacio muestral es finito y equiprobable:\n$$P(A) = \\dfrac{\\text{favorables}}{\\text{posibles}}$$\nCada bolita tiene la misma chance de salir, al ser indistinguibles al tacto. De las 12 bolitas de la urna, 3 son verdes, así que:\n$$P(\\text{verde}) = \\frac{3}{12}$$\nMezclar la cantidad de un color con la de otro es un desliz fácil cuando el enunciado da varios colores juntos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-conteo-simple"]
+  },
+  {
+    "question": "En una rifa hay 50 números, del 1 al 50, y se sortea uno al azar.\n\n¿Qué expresión da la probabilidad de que el número sorteado sea múltiplo de 5?",
+    "options": ["$\\dfrac{10}{50}$", "$\\dfrac{5}{50}$", "$\\dfrac{50}{10}$", "$\\dfrac{1}{50}$"],
+    "correct_index": 0,
+    "feedback_correct": "Hay 10 múltiplos de 5 entre 1 y 50: el 5, el 10, y así hasta el 50.",
+    "feedback_incorrect": [
+      null,
+      "Ese numerador cuenta solo algunos múltiplos de 5, faltan varios entre 1 y 50.",
+      "Estás invirtiendo la fracción, el denominador de Laplace es siempre el total de casos posibles.",
+      "Ese numerador corresponde a un solo número, cuando hay 10 múltiplos de 5 en el rango."
+    ],
+    "explanation": "La **regla de Laplace** aplica cuando el espacio muestral es finito y equiprobable:\n$$P(A) = \\dfrac{\\text{favorables}}{\\text{posibles}}$$\nEntre 1 y 50 hay 10 múltiplos de 5, así que:\n$$P(\\text{múltiplo de }5) = \\frac{10}{50}$$\nContar solo los primeros múltiplos que vienen a la mente, sin recorrer todo el rango hasta 50, deja afuera varios casos favorables.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-conteo-simple"]
+  },
+  {
+    "question": "Una urna tiene 10 bolitas: 6 rojas y 4 azules. Se extraen 3 bolitas al azar sin reposición.\n\n¿Qué expresión da la probabilidad de que las 3 sean rojas?",
+    "options": ["$6/10$", "$\\binom{6}{3}/\\binom{10}{3}$", "$\\binom{6}{3}/\\binom{4}{3}$", "$4/10$"],
+    "correct_index": 1,
+    "feedback_correct": "Favorables: elegir 3 de las 6 rojas. Posibles: elegir 3 de las 10 bolitas totales.",
+    "feedback_incorrect": [
+      "Esa fracción compara bolitas individuales, no las formas de elegir las 3 a la vez.",
+      null,
+      "Ese cociente no representa los casos posibles, que son todas las formas de elegir 3 bolitas entre las 10 totales.",
+      "Ese valor corresponde a la proporción de bolitas azules, no a la probabilidad pedida."
+    ],
+    "explanation": "Cuando se extraen varias bolitas sin reposición y el orden no importa, favorables y posibles se cuentan con **combinaciones**.\n\nLos casos posibles son todas las formas de elegir 3 bolitas de las 10 totales, y los favorables son las formas de elegir 3 entre las 6 rojas:\n$$P(\\text{todas rojas}) = \\frac{\\binom{6}{3}}{\\binom{10}{3}}$$\nContar con la misma convención de orden en favorables y posibles evita mezclar dos técnicas incompatibles.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-con-combinaciones"]
+  },
+  {
+    "question": "Un curso tiene 12 estudiantes, de los cuales 5 son de primer año. Se elige al azar un equipo de 4 para una olimpíada.\n\n¿Qué expresión da la probabilidad de que los 4 sean de primer año?",
+    "options": ["$5/12$", "$\\binom{5}{4}/\\binom{12}{4}$", "$\\binom{5}{4}/\\binom{7}{4}$", "$7/12$"],
+    "correct_index": 1,
+    "feedback_correct": "Favorables: elegir 4 entre los 5 de primer año. Posibles: elegir 4 entre los 12 totales.",
+    "feedback_incorrect": [
+      "Esa fracción compara estudiantes individuales, no las formas de elegir el equipo completo de 4.",
+      null,
+      "Ese cociente no representa los casos posibles, que son todas las formas de elegir 4 entre los 12 estudiantes.",
+      "Ese valor corresponde a la proporción de estudiantes que no son de primer año, no a la probabilidad pedida."
+    ],
+    "explanation": "Cuando se elige un subgrupo de personas sin importar el orden, favorables y posibles se cuentan con **combinaciones**.\n\nLos equipos posibles son todas las formas de elegir 4 estudiantes de los 12 totales, y los favorables son las formas de elegir 4 entre los 5 de primer año:\n$$P(\\text{primer año}) = \\frac{\\binom{5}{4}}{\\binom{12}{4}}$$\nComparar cantidades individuales de estudiantes en vez de equipos completos no representa el conteo real del evento.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-con-combinaciones"]
+  },
+  {
+    "question": "Se extraen 3 cartas de un mazo español de 40 sin reposición.\n\n¿Qué expresión da la probabilidad de que las 3 sean del palo de copa?",
+    "options": ["$10/40$", "$\\binom{10}{3}/\\binom{40}{3}$", "$\\binom{10}{3}/\\binom{30}{3}$", "$30/40$"],
+    "correct_index": 1,
+    "feedback_correct": "Favorables: elegir 3 entre las 10 cartas de copa. Posibles: elegir 3 entre las 40 totales.",
+    "feedback_incorrect": [
+      "Esa fracción compara cartas individuales, no las formas de elegir las 3 a la vez.",
+      null,
+      "Ese cociente no representa los casos posibles, que son todas las formas de elegir 3 cartas entre las 40 del mazo.",
+      "Ese valor corresponde a la proporción de cartas que no son de copa, no a la probabilidad pedida."
+    ],
+    "explanation": "Cuando se extraen varias cartas sin reposición y el orden no importa, favorables y posibles se cuentan con **combinaciones**.\n\nLos casos posibles son todas las formas de elegir 3 cartas de las 40 del mazo, y los favorables son las formas de elegir 3 entre las 10 de copa:\n$$P(\\text{todas copa}) = \\frac{\\binom{10}{3}}{\\binom{40}{3}}$$\nContar los favorables con una técnica distinta a los posibles, por ejemplo con orden de un lado y sin orden del otro, arruina la fracción aunque los números individuales estén bien contados.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-con-combinaciones"]
+  },
+  {
+    "question": "Se lanza una moneda equilibrada 4 veces.\n\n¿Qué expresión da la probabilidad de obtener al menos una cruz?",
+    "options": [
+      "$\\left(\\dfrac{1}{2}\\right)^{4}$",
+      "$\\dfrac{4}{2}$",
+      "$1-\\left(\\dfrac{1}{2}\\right)^{4}$",
+      "$1-\\dfrac{1}{2}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Al menos una cruz es el complemento de que salgan 4 caras seguidas.",
+    "feedback_incorrect": [
+      "Ese valor es la probabilidad de que salgan cuatro caras seguidas, no la de al menos una cruz.",
+      "Esa fracción no corresponde a ningún conteo de las 4 tiradas de la moneda.",
+      null,
+      "Ese resto usa una sola tirada, mientras que el evento involucra las 4 tiradas completas."
+    ],
+    "explanation": "Al menos una conviene resolverlo con el **complemento**: se calcula la probabilidad de que no ocurra ninguna cruz y se resta de 1.\n\nEn cada tirada, la probabilidad de que salga cara es:\n$$\\frac{1}{2}$$\nComo las 4 tiradas son independientes entre sí:\n$$P(\\text{ninguna cruz}) = \\left(\\frac{1}{2}\\right)^{4}$$\nRestando ese valor de 1 se obtiene la probabilidad de que aparezca al menos una cruz en las 4 tiradas.\n\nSumar directamente las probabilidades de una, dos, tres o cuatro cruces es un camino mucho más largo que usar el complemento.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-con-complemento"]
+  },
+  {
+    "question": "Se extraen 3 cartas de un mazo español de 40 sin reposición.\n\n¿Qué expresión da la probabilidad de que al menos una sea rey?",
+    "options": [
+      "$\\binom{4}{3}/\\binom{40}{3}$",
+      "$4/40$",
+      "$1-\\binom{36}{3}/\\binom{40}{3}$",
+      "$1-4/40$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Al menos un rey es el complemento de que las 3 cartas no sean reyes.",
+    "feedback_incorrect": [
+      "Ese cociente es la probabilidad de que las 3 cartas sean reyes, un evento distinto al pedido.",
+      "Esa fracción compara cartas individuales, no formas de elegir 3 a la vez.",
+      null,
+      "Ese resto no descuenta la probabilidad correcta del evento sin ningún rey."
+    ],
+    "explanation": "Al menos uno conviene resolverlo con el **complemento**: se calcula la probabilidad de que ninguna de las 3 cartas sea rey y se resta de 1.\n\nHay $\\binom{36}{3}=7140$ formas de elegir 3 cartas entre las 36 que no son rey, sobre $\\binom{40}{3}=9880$ formas totales de elegir 3 cartas del mazo.\n\nLa probabilidad de que al menos una sea rey es:\n$$1 - \\frac{7140}{9880}$$\nContar directamente los casos con exactamente uno, dos o tres reyes por separado es un camino mucho más largo que el complemento.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-con-complemento"]
+  },
+  {
+    "question": "Una caja tiene 20 piezas, de las cuales 5 están defectuosas. Se eligen 4 piezas al azar.\n\n¿Qué expresión da la probabilidad de que al menos una esté defectuosa?",
+    "options": [
+      "$\\binom{5}{4}/\\binom{20}{4}$",
+      "$5/20$",
+      "$1-\\binom{15}{4}/\\binom{20}{4}$",
+      "$1-5/20$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Al menos una defectuosa es el complemento de que ninguna de las 4 lo esté.",
+    "feedback_incorrect": [
+      "Ese cociente es la probabilidad de que las 4 piezas estén defectuosas, un evento distinto al pedido.",
+      "Esa fracción compara piezas individuales, no formas de elegir 4 a la vez.",
+      null,
+      "Ese resto no descuenta la probabilidad correcta del evento sin ninguna pieza defectuosa."
+    ],
+    "explanation": "Al menos una conviene resolverlo con el **complemento**: se calcula la probabilidad de que ninguna de las 4 piezas esté defectuosa y se resta de 1.\n\nHay $\\binom{15}{4}=1365$ formas de elegir 4 piezas sanas entre las 15 sin defecto, sobre $\\binom{20}{4}=4845$ formas totales de elegir 4 piezas de la caja.\n\nLa probabilidad de que al menos una esté defectuosa es:\n$$1 - \\frac{1365}{4845}$$\nContar directamente los casos con exactamente una, dos, tres o cuatro piezas defectuosas por separado es un camino mucho más largo que el complemento.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-con-complemento"]
+  },
+  {
+    "question": "Un dado está cargado de forma que el número 6 sale con más frecuencia que los demás.\n\n¿Por qué no se puede usar la regla de Laplace para calcular la probabilidad de obtener cada número?",
+    "options": [
+      "Porque faltan datos sobre cuántas veces se lanzó el dado.",
+      "Porque el espacio muestral no es equiprobable en este caso.",
+      "Porque un dado cargado deja de tener 6 caras posibles."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Laplace exige que todos los resultados tengan la misma chance, y acá el 6 tiene más.",
+    "feedback_incorrect": [
+      "Ese dato no decide si aplica Laplace. El problema es que los resultados no comparten la misma chance.",
+      null,
+      "El dado sigue teniendo 6 caras, lo que cambia es que no todas salen con la misma frecuencia."
+    ],
+    "explanation": "La **regla de Laplace** solo es válida cuando el espacio muestral es equiprobable, con todos los resultados igual de probables:\n$$P(A)=\\dfrac{\\text{favorables}}{\\text{posibles}}$$\nUn dado cargado favorece a un número sobre los demás.\n\nComo el 6 sale con más frecuencia que el resto, cada cara ya no tiene la misma chance de aparecer, así que el espacio deja de ser equiprobable.\n\nAplicar Laplace de forma automática con un dado cargado da un valor de $1/6$ para cada cara, que no refleja las chances reales de cada número.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-no-equiprobable"]
   }
 ]

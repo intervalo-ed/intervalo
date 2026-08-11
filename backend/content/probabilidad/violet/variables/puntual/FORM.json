@@ -18,7 +18,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["condicion-normalizacion"]
+    "tags": [
+      "condicion-normalizacion"
+    ]
   },
   {
     "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{x_1,x_2,x_3\\}$.\n\nSe conocen $p(x_1)$ y $p(x_2)$ de su función de probabilidad puntual.\n\n¿Cómo se calcula $p(x_3)$?",
@@ -39,7 +41,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["despejar-valor-faltante"]
+    "tags": [
+      "despejar-valor-faltante"
+    ]
   },
   {
     "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{0,1,2,3\\}$.\n\nSu función de probabilidad puntual es $p(x)$.\n\n¿Cómo se expresa $P(X\\leq 2)$ en términos de $p(x)$?",
@@ -60,6 +64,284 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["formula-evento-compuesto"]
+    "tags": [
+      "formula-evento-compuesto"
+    ]
+  },
+  {
+    "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{x_1,x_2,x_3\\}$.\n\nSu función de probabilidad puntual es $p(x)$.\n\n¿Cuál de los siguientes conjuntos de valores podría corresponder a $\\{p(x_1),p(x_2),p(x_3)\\}$?",
+    "options": [
+      "$\\{0{,}2,\\,0{,}3,\\,0{,}5\\}$",
+      "$\\{0{,}2,\\,0{,}3,\\,0{,}6\\}$",
+      "$\\{-0{,}1,\\,0{,}5,\\,0{,}6\\}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$0{,}2+0{,}3+0{,}5=1$ y los tres valores son no negativos.",
+    "feedback_incorrect": [
+      null,
+      "Esos tres valores suman $1{,}1$, superan la probabilidad total disponible.",
+      "Uno de los valores es negativo, y una probabilidad puntual nunca puede ser menor que $0$."
+    ],
+    "explanation": "La **función de probabilidad puntual** de una variable discreta debe cumplir dos condiciones a la vez sobre su dominio:\n$$p(x) \\geq 0 \\quad \\text{y} \\quad \\sum_x p(x) = 1$$\nNinguna probabilidad puede ser negativa, y entre todos los valores posibles se reparte exactamente el total de probabilidad disponible, sin que sobre ni falte.\n\nUn conjunto que suma más de 1 reparte más probabilidad de la que existe, y uno con un valor negativo rompe la idea misma de probabilidad como una medida entre $0$ y $1$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "condicion-normalizacion"
+    ]
+  },
+  {
+    "question": "Sea $X$ una variable aleatoria discreta con función de probabilidad puntual $p(x)$.\n\nSe sabe que la suma de $p(x)$ sobre todo el dominio da 1.\n\n¿Qué otra condición debe cumplir $p(x)$ en cada valor del dominio?",
+    "options": [
+      "$p(x) = 1$",
+      "$p(x) \\geq 0$",
+      "$p(x) \\in \\mathbb{N}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La no negatividad es la segunda condición, junto con que la suma total dé 1.",
+    "feedback_incorrect": [
+      "Esa igualdad exigiría que cada valor individual fuera 1, una condición mucho más fuerte que la que realmente se pide.",
+      null,
+      "Restringir los valores a números naturales no es una condición que exija la función de probabilidad puntual, sus valores pueden ser cualquier real entre 0 y 1."
+    ],
+    "explanation": "Toda **función de probabilidad puntual** $p(x)$ de una variable discreta cumple dos condiciones simultáneas:\n$$p(x) \\geq 0 \\quad \\text{para todo } x, \\qquad \\sum_x p(x) = 1$$\nLa no negatividad tiene sentido porque $p(x)$ mide qué proporción de probabilidad total le corresponde a ese valor, y una proporción no puede ser negativa.\n\nConfundir esta condición con exigir que cada valor puntual sea exactamente 1 ignora que la probabilidad total se reparte entre todos los valores del dominio, no se repite entera en cada uno.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "condicion-normalizacion"
+    ]
+  },
+  {
+    "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{x_1,x_2,\\dots,x_n\\}$.\n\nSu función de probabilidad puntual es $p(x)$.\n\n¿Cuál de las siguientes expresiones formula correctamente la condición de normalización?",
+    "options": [
+      "$\\sum_{i=1}^{n} p(x_i) = n$",
+      "$p(x_1) = p(x_2) = \\dots = p(x_n)$",
+      "$\\sum_{i=1}^{n} p(x_i) = 1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La suma de todas las probabilidades puntuales del dominio tiene que dar exactamente 1.",
+    "feedback_incorrect": [
+      "Igualar la suma a la cantidad de valores del dominio no tiene relación con la condición de normalización.",
+      "Esa igualdad describe el caso particular de valores equiprobables, no la condición general que aplica a cualquier función de probabilidad puntual.",
+      null
+    ],
+    "explanation": "La **condición de normalización** de una función de probabilidad puntual establece que, sumando la probabilidad de cada valor del dominio, se recupera el total:\n$$\\sum_{i=1}^{n} p(x_i) = 1$$\nEsto refleja que $X$ tiene que tomar necesariamente alguno de sus valores posibles, así que la probabilidad repartida entre todos ellos agota el total disponible.\n\nCambiar el $1$ del lado derecho por $n$, la cantidad de valores del dominio, mezcla dos cosas distintas: cuántos valores hay no tiene relación con cuánta probabilidad suman.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "condicion-normalizacion"
+    ]
+  },
+  {
+    "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{x_1,x_2,x_3,x_4\\}$.\n\nSe sabe que $\\sum_x p(x) = 1$.\n\n¿Puede alguno de los cuatro valores $p(x_i)$ ser negativo?",
+    "options": [
+      "Sí, siempre que los demás compensen la suma",
+      "No, todos deben ser no negativos además de sumar 1",
+      "Sí, pero solo el valor más chico del dominio"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La condición de normalización exige suma 1 y, además, ningún valor negativo.",
+    "feedback_incorrect": [
+      "Que la suma total dé 1 no habilita que un término individual sea negativo, esa es una condición aparte que también se exige.",
+      null,
+      "No hay ninguna excepción para el valor más chico del dominio, la no negatividad se exige a los cuatro por igual."
+    ],
+    "explanation": "Una **función de probabilidad puntual** válida cumple dos condiciones a la vez, no una sola:\n$$p(x) \\geq 0 \\quad \\text{para todo } x, \\qquad \\sum_x p(x) = 1$$\nQue la suma total dé 1 no alcanza por sí sola.\n\nSi un valor fuera negativo, otro tendría que superar la probabilidad disponible para compensarlo, y eso ya no describe una proporción válida de probabilidad.\n\nPensar que la suma igual a 1 ya garantiza validez deja pasar funciones donde algún valor individual queda fuera del rango permitido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "condicion-normalizacion"
+    ]
+  },
+  {
+    "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{x_1,x_2,x_3,x_4\\}$.\n\nSe conocen los tres primeros valores de su función de probabilidad puntual $p(x)$.\n\n¿Cómo se calcula $p(x_4)$?",
+    "options": [
+      "$p(x_4) = p(x_1) + p(x_2) + p(x_3)$",
+      "$p(x_4) = 1 - p(x_1) \\cdot p(x_2) \\cdot p(x_3)$",
+      "$p(x_4) = 1 - p(x_1) - p(x_2) - p(x_3)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El valor faltante es 1 menos la suma de los tres valores conocidos.",
+    "feedback_incorrect": [
+      "Esa suma no resta de 1, solo combina los tres valores conocidos entre sí.",
+      "El producto de los tres valores conocidos no corresponde a la condición de normalización, que es una suma, no un producto.",
+      null
+    ],
+    "explanation": "La **condición de normalización** obliga a que todas las probabilidades puntuales de $X$ sumen 1 sobre su dominio:\n$$\\sum_x p(x) = 1$$\nCon dominio $\\{x_1,x_2,x_3,x_4\\}$ y tres valores conocidos, despejando el cuarto:\n$$p(x_4) = 1 - p(x_1) - p(x_2) - p(x_3)$$\nSumar los tres valores conocidos sin restarlos de 1 confunde la suma parcial con el despeje del valor que falta para completar el total.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "despejar-valor-faltante"
+    ]
+  },
+  {
+    "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{x_1,x_2\\}$.\n\nSu función de probabilidad puntual cumple $p(x_1) = 0{,}35$.\n\n¿Cuánto vale $p(x_2)$?",
+    "options": [
+      "$0{,}65$",
+      "$0{,}35$",
+      "$1{,}35$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$1 - 0{,}35 = 0{,}65$, único valor que completa la suma en 1.",
+    "feedback_incorrect": [
+      null,
+      "Repetir el mismo valor no garantiza que la suma total dé 1, hay que restar de 1 en vez de copiar el dato conocido.",
+      "Sumar en vez de restar el valor conocido supera la probabilidad total disponible, que nunca puede pasar de 1."
+    ],
+    "explanation": "Con solo dos valores posibles, la **condición de normalización** dice:\n$$p(x_1) + p(x_2) = 1$$\nDespejando el valor faltante:\n$$p(x_2) = 1 - p(x_1)$$\nCon $p(x_1) = 0{,}35$:\n$$p(x_2) = 1 - 0{,}35 = 0{,}65$$\nCon dominio de dos valores, ambos quedan totalmente determinados por uno solo: si $p(x_1)$ crece, $p(x_2)$ tiene que achicarse en la misma medida para que la suma siga dando 1.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "despejar-valor-faltante"
+    ]
+  },
+  {
+    "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{x_1,\\dots,x_5\\}$.\n\nSe conocen los cuatro primeros valores de su función de probabilidad puntual.\n\n¿Cuál expresión da $p(x_5)$?",
+    "options": [
+      "$p(x_5) = \\sum_{i=1}^{4} p(x_i)$",
+      "$p(x_5) = 1 - \\sum_{i=1}^{4} p(x_i)$",
+      "$p(x_5) = 1 - \\sum_{i=1}^{5} p(x_i)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Se resta de 1 la suma de los cuatro valores ya conocidos.",
+    "feedback_incorrect": [
+      "Esa suma de los cuatro valores conocidos no está restada de 1, así que no despeja el valor faltante.",
+      null,
+      "Esa suma ya incluiría al propio $p(x_5)$ que se busca despejar, la suma debe cubrir solo los valores conocidos."
+    ],
+    "explanation": "Cuando se conocen todos los valores de una función de probabilidad puntual salvo uno, la **condición de normalización** permite despejar el que falta restando de 1 la suma de los conocidos:\n$$p(x_5) = 1 - \\sum_{i=1}^{4} p(x_i)$$\nLa suma del lado derecho recorre solo los cuatro valores ya conocidos, nunca el que se está despejando, porque incluirlo lo dejaría de ambos lados de la igualdad.\n\nIncluir $p(x_5)$ dentro de esa misma suma deja el valor buscado a ambos lados de la igualdad, y el despeje ya no se puede completar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "despejar-valor-faltante"
+    ]
+  },
+  {
+    "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{x_1,\\dots,x_n\\}$.\n\nSe conocen todos los valores de su función de probabilidad puntual salvo $p(x_k)$.\n\n¿Cómo se expresa $p(x_k)$?",
+    "options": [
+      "$p(x_k) = \\sum_{i \\neq k} p(x_i)$",
+      "$p(x_k) = 1 - \\sum_{i=1}^{n} p(x_i)$",
+      "$p(x_k) = 1 - \\sum_{i \\neq k} p(x_i)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La suma excluye el índice $k$ y se resta de 1 para aislar el valor buscado.",
+    "feedback_incorrect": [
+      "Esa suma no está restada de 1, así que no despeja el valor faltante, solo combina los valores conocidos.",
+      "Esa suma recorre también el índice $k$ que se busca despejar, y como todavía no se conoce, no puede estar del lado derecho.",
+      null
+    ],
+    "explanation": "El despeje general de un valor faltante en una **función de probabilidad puntual** parte siempre de la condición de normalización:\n$$\\sum_x p(x) = 1$$\nAislando el término $p(x_k)$ del resto de la suma:\n$$p(x_k) = 1 - \\sum_{i \\neq k} p(x_i)$$\nLa notación $i \\neq k$ deja explícito que la suma del lado derecho recorre todos los valores del dominio menos el que se está despejando, sin importar en qué posición del dominio se encuentre.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "despejar-valor-faltante"
+    ]
+  },
+  {
+    "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{0,1,2,3,4\\}$.\n\nSu función de probabilidad puntual es $p(x)$.\n\n¿Cómo se expresa $P(X\\geq 3)$ en términos de $p(x)$?",
+    "options": [
+      "$P(X\\geq 3) = p(3)$",
+      "$P(X\\geq 3) = p(3)+p(4)$",
+      "$P(X\\geq 3) = p(3)\\cdot p(4)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El evento agrupa los dos valores del dominio que cumplen $x\\geq 3$.",
+    "feedback_incorrect": [
+      "Esa expresión deja afuera $x=4$, que también cumple la condición $X\\geq 3$.",
+      null,
+      "El producto no representa la unión de dos valores puntuales, esa unión se expresa como una suma."
+    ],
+    "explanation": "Un **evento compuesto** agrupa todos los valores del dominio de $X$ que cumplen cierta condición, y su probabilidad se calcula sumando la función de probabilidad puntual sobre esos valores:\n$$P(X\\geq 3) = p(3) + p(4)$$\nCada sumando corresponde a uno de los dos únicos valores del dominio que satisfacen $x\\geq 3$.\n\nDejar afuera alguno de los valores que cumplen la condición subestima la probabilidad real del evento, porque ignora parte de los resultados que también lo hacen ocurrir.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-evento-compuesto"
+    ]
+  },
+  {
+    "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{0,1,2,3\\}$.\n\nSu función de probabilidad puntual es $p(x)$.\n\n¿Cómo se expresa $P(1\\leq X\\leq 2)$ en términos de $p(x)$?",
+    "options": [
+      "$P(1\\leq X\\leq 2) = p(1)$",
+      "$P(1\\leq X\\leq 2) = p(2)-p(1)$",
+      "$P(1\\leq X\\leq 2) = p(1)+p(2)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El intervalo incluye los dos extremos, así que ambos se suman.",
+    "feedback_incorrect": [
+      "Esa expresión deja afuera $x=2$, que el intervalo también incluye por ser un extremo cerrado.",
+      "Restar en vez de sumar no corresponde a la unión de dos valores puntuales dentro de un mismo evento.",
+      null
+    ],
+    "explanation": "Cuando un **evento compuesto** incluye ambos extremos de un intervalo cerrado del dominio, la probabilidad agrupa los valores que caen dentro de ese rango:\n$$P(1\\leq X\\leq 2) = p(1) + p(2)$$\nComo el intervalo es cerrado en ambos lados, tanto $x=1$ como $x=2$ pertenecen al evento y sus probabilidades puntuales se suman.\n\nRestar los valores en vez de sumarlos trata la unión de dos resultados posibles como si fuera una diferencia, cuando en realidad ambos suman a favor del evento.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-evento-compuesto"
+    ]
+  },
+  {
+    "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{0,1,2,3,4\\}$.\n\nSu función de probabilidad puntual es $p(x)$.\n\n¿Cómo se expresa $P(X=0 \\text{ o } X=4)$ en términos de $p(x)$?",
+    "options": [
+      "$p(0)\\cdot p(4)$",
+      "$p(0)+p(4)$",
+      "$p(2)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La unión de dos valores puntuales, aunque no sean consecutivos, se expresa sumando sus probabilidades.",
+    "feedback_incorrect": [
+      "El producto no representa una unión de valores puntuales, esa unión siempre se expresa como una suma.",
+      null,
+      "Ese valor corresponde a un tercer punto del dominio que ni siquiera forma parte del evento pedido."
+    ],
+    "explanation": "Un **evento compuesto** no necesita estar formado por valores consecutivos del dominio, alcanza con que sea la unión de valores puntuales:\n$$P(X\\in\\{0,4\\}) = p(0) + p(4)$$\nAunque $0$ y $4$ estén en extremos opuestos del dominio, la fórmula es la misma que para un rango: se suman las probabilidades puntuales de todos los valores incluidos en el evento.\n\nAsumir que un evento compuesto solo puede formarse con valores consecutivos hace perder de vista que la unión de valores puntuales cualesquiera se calcula siempre igual, sumando.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-evento-compuesto"
+    ]
+  },
+  {
+    "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{a,b,c,d\\}$.\n\nSu función de probabilidad puntual es $p(x)$.\n\n¿Cómo se expresa $P(X\\in\\{a,c\\})$ en términos de $p(x)$?",
+    "options": [
+      "$p(a)\\cdot p(c)$",
+      "$p(b)+p(d)$",
+      "$p(a)+p(c)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El evento incluye a $a$ y $c$, así que se suman sus probabilidades puntuales.",
+    "feedback_incorrect": [
+      "El producto no corresponde a un evento compuesto, la unión de valores puntuales se expresa como suma.",
+      "Esa suma corresponde a los valores que quedan afuera del evento pedido, no a los que lo forman.",
+      null
+    ],
+    "explanation": "La notación de pertenencia a un conjunto describe un **evento compuesto** formado por la unión de varios valores puntuales del dominio.\n\nSu probabilidad se obtiene sumando la función de probabilidad puntual sobre esos valores:\n$$P(X\\in\\{a,c\\}) = p(a) + p(c)$$\nCada elemento del conjunto entre llaves aporta su propio término a la suma, sin importar el orden en que aparezcan en el dominio.\n\nSumar los valores que no pertenecen al conjunto pedido invierte el evento por su complemento, en vez de calcular la probabilidad del evento original.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-evento-compuesto"
+    ]
   }
 ]

@@ -21,11 +21,18 @@
     "graph_view": null,
     "graph_shade": null,
     "reviewed": false,
-    "tags": ["resl-acumulada-desde-densidad"]
+    "tags": [
+      "resl-acumulada-desde-densidad"
+    ]
   },
   {
     "question": "El tiempo que un cliente espera en la fila de un supermercado tiene función de distribución acumulada $F(x)$.\n\nSe sabe que $F(2)=0{,}3$ y $F(6)=0{,}9$.\n\nCalculá $P(2 < X \\leq 6)$, la probabilidad de esperar entre 2 y 6 minutos.",
-    "options": ["$0{,}3$", "$0{,}6$", "$0{,}9$", "$1{,}2$"],
+    "options": [
+      "$0{,}3$",
+      "$0{,}6$",
+      "$0{,}9$",
+      "$1{,}2$"
+    ],
     "correct_index": 1,
     "feedback_correct": "Es la diferencia $F(6)-F(2)$, que da $0{,}6$.",
     "feedback_incorrect": [
@@ -40,11 +47,18 @@
     "graph_view": null,
     "graph_shade": null,
     "reviewed": false,
-    "tags": ["resl-diferencia-acumulada"]
+    "tags": [
+      "resl-diferencia-acumulada"
+    ]
   },
   {
     "question": "La cantidad de clientes que llegan a una caja durante un minuto tiene función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 0{,}2 \\\\ p(1) &= 0{,}5 \\\\ p(2) &= 0{,}3 \\end{aligned}$$\n¿Cuánto vale $F(1) = P(X \\leq 1)$?",
-    "options": ["$0{,}2$", "$0{,}5$", "$0{,}7$", "$1$"],
+    "options": [
+      "$0{,}2$",
+      "$0{,}5$",
+      "$0{,}7$",
+      "$1$"
+    ],
     "correct_index": 2,
     "feedback_correct": "Es la suma $p(0)+p(1)$, que da $0{,}7$.",
     "feedback_incorrect": [
@@ -59,6 +73,320 @@
     "graph_view": null,
     "graph_shade": null,
     "reviewed": false,
-    "tags": ["resl-acumulada-desde-puntual"]
+    "tags": [
+      "resl-acumulada-desde-puntual"
+    ]
+  },
+  {
+    "question": "El tiempo que un cliente espera en la fila de un supermercado se modela con densidad uniforme sobre $[0,6]$ minutos.\n$$f(x) = \\frac{1}{6} \\quad \\text{para } 0 \\leq x \\leq 6$$\nFuera de ese intervalo, $f(x)=0$.\n\n¿Cuánto vale $F(2) = P(X \\leq 2)$?",
+    "options": [
+      "$\\dfrac{1}{6}$",
+      "$\\dfrac{1}{3}$",
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{2}{3}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$F(2)$ es el área de un rectángulo de base 2 y altura $1/6$: $2\\cdot\\frac16=\\frac13$.",
+    "feedback_incorrect": [
+      "Ese es el valor de la densidad $f(2)$, no la acumulada hasta 2.",
+      null,
+      "Ese sería $F(3)$, la acumulada hasta la mitad del intervalo, no hasta 2.",
+      "Ese sería $F(4)$, muy por encima de lo acumulado hasta apenas 2."
+    ],
+    "explanation": "La **función de distribución acumulada** de una variable continua es el área bajo la densidad desde el extremo izquierdo del dominio hasta el punto $x$.\n\nPara esta densidad uniforme, el área hasta $x=2$ es un rectángulo de base 2 y altura $1/6$:\n$$F(2) = 2 \\cdot \\frac16 = \\frac13$$\nReportar el valor de la densidad $f(2)=1/6$ en lugar del área acumulada confunde la altura de la curva con el área que encierra hasta ese punto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-acumulada-desde-densidad"
+    ]
+  },
+  {
+    "question": "La posición donde cae un dardo lanzado sobre una regla de $8$ cm se modela con densidad uniforme sobre $[0,8]$.\n$$f(x) = \\frac{1}{8} \\quad \\text{para } 0 \\leq x \\leq 8$$\nFuera de ese intervalo, $f(x)=0$.\n\n¿Cuánto vale $F(6) = P(X \\leq 6)$?",
+    "options": [
+      "$\\dfrac{1}{4}$",
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{3}{4}$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$F(6)$ es el área de un rectángulo de base 6 y altura $1/8$: $6\\cdot\\frac18=\\frac34$.",
+    "feedback_incorrect": [
+      "Ese sería $F(2)$, la acumulada hasta apenas un cuarto del intervalo, no hasta 6.",
+      "Ese sería $F(4)$, la acumulada hasta la mitad del intervalo, no hasta 6.",
+      null,
+      "Ese sería $F(8)$, cuando ya se acumuló toda la probabilidad. En $x=6$ todavía falta el último cuarto."
+    ],
+    "explanation": "La **función de distribución acumulada** de una variable continua es el área bajo la densidad desde el extremo izquierdo del dominio hasta el punto $x$.\n\nPara esta densidad uniforme, el área hasta $x=6$ es un rectángulo de base 6 y altura $1/8$:\n$$F(6) = 6 \\cdot \\frac18 = \\frac34$$\nConfundir el punto $x=6$ con la mitad del intervalo ignora que la mitad real está en $x=4$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-acumulada-desde-densidad"
+    ]
+  },
+  {
+    "question": "La hora a la que llega un correo dentro de una franja horaria de $10$ minutos se modela con densidad uniforme sobre $[0,10]$.\n$$f(x) = \\frac{1}{10} \\quad \\text{para } 0 \\leq x \\leq 10$$\nFuera de ese intervalo, $f(x)=0$.\n\n¿Cuánto vale $F(4) = P(X \\leq 4)$?",
+    "options": [
+      "$\\dfrac{1}{5}$",
+      "$\\dfrac{2}{5}$",
+      "$\\dfrac{3}{5}$",
+      "$\\dfrac{4}{5}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$F(4)$ es el área de un rectángulo de base 4 y altura $1/10$: $4\\cdot\\frac1{10}=\\frac25$.",
+    "feedback_incorrect": [
+      "Ese sería $F(2)$, la acumulada hasta apenas 2, no hasta 4.",
+      null,
+      "Ese sería $F(6)$, más allá del punto pedido.",
+      "Ese sería $F(8)$, mucho más allá de lo acumulado hasta 4."
+    ],
+    "explanation": "La **función de distribución acumulada** de una variable continua es el área bajo la densidad desde el extremo izquierdo del dominio hasta el punto $x$.\n\nPara esta densidad uniforme, el área hasta $x=4$ es un rectángulo de base 4 y altura $1/10$:\n$$F(4) = 4 \\cdot \\frac1{10} = \\frac25$$\nCalcular el área con la base equivocada, en vez de la distancia real desde 0 hasta 4, cambia el resultado aunque la altura de la densidad esté bien identificada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-acumulada-desde-densidad"
+    ]
+  },
+  {
+    "question": "El tiempo que tarda en cargar una página web se modela con densidad uniforme sobre $[0,5]$ segundos.\n$$f(x) = \\frac{1}{5} \\quad \\text{para } 0 \\leq x \\leq 5$$\nFuera de ese intervalo, $f(x)=0$.\n\n¿Cuánto vale $F(4) = P(X \\leq 4)$?",
+    "options": [
+      "$\\dfrac{1}{5}$",
+      "$\\dfrac{2}{5}$",
+      "$\\dfrac{3}{5}$",
+      "$\\dfrac{4}{5}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$F(4)$ es el área de un rectángulo de base 4 y altura $1/5$: $4\\cdot\\frac15=\\frac45$.",
+    "feedback_incorrect": [
+      "Ese sería $F(1)$, la acumulada hasta apenas el primer segundo.",
+      "Ese sería $F(2)$, la acumulada hasta la mitad del intervalo, no hasta 4.",
+      "Ese sería $F(3)$, un paso antes del punto pedido.",
+      null
+    ],
+    "explanation": "La **función de distribución acumulada** de una variable continua es el área bajo la densidad desde el extremo izquierdo del dominio hasta el punto $x$.\n\nPara esta densidad uniforme, el área hasta $x=4$ es un rectángulo de base 4 y altura $1/5$:\n$$F(4) = 4 \\cdot \\frac15 = \\frac45$$\nQuedarse con un punto anterior al pedido, en vez de acumular hasta $x=4$ inclusive, subestima la probabilidad real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-acumulada-desde-densidad"
+    ]
+  },
+  {
+    "question": "La posición de una partícula dentro de un tubo de $12$ cm de longitud se modela con densidad uniforme sobre $[0,12]$.\n$$f(x) = \\frac{1}{12} \\quad \\text{para } 0 \\leq x \\leq 12$$\nFuera de ese intervalo, $f(x)=0$.\n\n¿Cuánto vale $F(9) = P(X \\leq 9)$?",
+    "options": [
+      "$\\dfrac{1}{4}$",
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{3}{4}$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$F(9)$ es el área de un rectángulo de base 9 y altura $1/12$: $9\\cdot\\frac1{12}=\\frac34$.",
+    "feedback_incorrect": [
+      "Ese sería $F(3)$, la acumulada hasta apenas un cuarto del tubo.",
+      "Ese sería $F(6)$, la acumulada hasta la mitad del tubo, no hasta 9.",
+      null,
+      "Ese sería $F(12)$, cuando ya se acumuló toda la probabilidad. En $x=9$ todavía falta el último cuarto."
+    ],
+    "explanation": "La **función de distribución acumulada** de una variable continua es el área bajo la densidad desde el extremo izquierdo del dominio hasta el punto $x$.\n\nPara esta densidad uniforme, el área hasta $x=9$ es un rectángulo de base 9 y altura $1/12$:\n$$F(9) = 9 \\cdot \\frac1{12} = \\frac34$$\nConfundir $x=9$ con el extremo derecho del dominio ignora que todavía queda un tramo de ancho 3 sin acumular hasta llegar a 12.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-acumulada-desde-densidad"
+    ]
+  },
+  {
+    "question": "El tiempo que tarda un cajero de banco en atender a un cliente tiene función de distribución acumulada $F(x)$.\n\nSe sabe que $F(1)=0{,}2$ y $F(5)=0{,}7$.\n\nCalculá $P(1 < X \\leq 5)$, la probabilidad de que la atención dure entre 1 y 5 minutos.",
+    "options": [
+      "$0{,}2$",
+      "$0{,}7$",
+      "$0{,}5$",
+      "$0{,}9$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Es la diferencia $F(5)-F(1)$, que da $0{,}5$.",
+    "feedback_incorrect": [
+      "Ese es $F(1)$, la acumulada hasta 1, no la probabilidad del intervalo.",
+      "Ese es $F(5)$, la acumulada hasta 5, sin descontar la parte anterior a 1.",
+      null,
+      "Estás sumando $F(1)+F(5)$; para un intervalo hay que restar las acumuladas, no sumarlas."
+    ],
+    "explanation": "La probabilidad de un intervalo se calcula como diferencia de la **función de distribución acumulada** en los extremos:\n$$P(a < X \\leq b) = F(b) - F(a)$$\nCon los valores dados:\n$$P(1 < X \\leq 5) = 0{,}7 - 0{,}2 = 0{,}5$$\nRestar en el orden incorrecto, o directamente sumar los dos valores, produce un resultado que ya no representa la probabilidad del tramo pedido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-diferencia-acumulada"
+    ]
+  },
+  {
+    "question": "La cantidad de defectos detectados en un lote de producción tiene función de distribución acumulada $F(x)$.\n\nSe sabe que $F(0)=0{,}3$ y $F(1)=0{,}7$.\n\nCalculá $P(0 < X \\leq 1)$, la probabilidad de que el lote tenga exactamente 1 defecto.",
+    "options": [
+      "$0{,}3$",
+      "$0{,}7$",
+      "$1{,}0$",
+      "$0{,}4$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Es la diferencia $F(1)-F(0)$, que da $0{,}4$.",
+    "feedback_incorrect": [
+      "Ese es $F(0)$, la acumulada hasta 0, que además ya incluiría el caso de 0 defectos.",
+      "Ese es $F(1)$, la acumulada hasta 1, sin descontar la parte anterior a 0.",
+      "Estás sumando $F(0)+F(1)$; para un intervalo hay que restar las acumuladas, no sumarlas.",
+      null
+    ],
+    "explanation": "La probabilidad de un intervalo se calcula como diferencia de la **función de distribución acumulada** en los extremos:\n$$P(a < X \\leq b) = F(b) - F(a)$$\nCon los valores dados:\n$$P(0 < X \\leq 1) = 0{,}7 - 0{,}3 = 0{,}4$$\nComo el intervalo excluye el extremo inferior, esta diferencia deja afuera la probabilidad puntual de tener 0 defectos, algo que sí incluiría un intervalo cerrado en ambos extremos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-diferencia-acumulada"
+    ]
+  },
+  {
+    "question": "La hora de llegada de un tren dentro de una franja horaria de $10$ minutos tiene función de distribución acumulada $F(x)$.\n\nSe sabe que $F(2)=0{,}2$ y $F(9)=0{,}9$.\n\nCalculá $P(2 < X \\leq 9)$, la probabilidad de que el tren llegue entre los minutos 2 y 9.",
+    "options": [
+      "$0{,}2$",
+      "$0{,}7$",
+      "$0{,}9$",
+      "$1{,}1$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Es la diferencia $F(9)-F(2)$, que da $0{,}7$.",
+    "feedback_incorrect": [
+      "Ese es $F(2)$, la acumulada hasta 2, no la probabilidad del intervalo.",
+      null,
+      "Ese es $F(9)$, la acumulada hasta 9, sin descontar la parte anterior a 2.",
+      "Estás sumando $F(2)+F(9)$; para un intervalo hay que restar las acumuladas, no sumarlas."
+    ],
+    "explanation": "La probabilidad de un intervalo se calcula como diferencia de la **función de distribución acumulada** en los extremos:\n$$P(a < X \\leq b) = F(b) - F(a)$$\nCon los valores dados:\n$$P(2 < X \\leq 9) = 0{,}9 - 0{,}2 = 0{,}7$$\nSumar en vez de restar da un valor mayor a 1, que no puede ser una probabilidad válida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-diferencia-acumulada"
+    ]
+  },
+  {
+    "question": "El resultado de tirar un dado de $6$ caras tiene función de distribución acumulada $F(x)$.\n\nSe sabe que $F(1)=0{,}5$ y $F(4)=0{,}8$.\n\nCalculá $P(1 < X \\leq 4)$, la probabilidad de que el dado muestre entre 2 y 4.",
+    "options": [
+      "$0{,}3$",
+      "$0{,}5$",
+      "$0{,}8$",
+      "$1{,}3$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Es la diferencia $F(4)-F(1)$, que da $0{,}3$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es $F(1)$, la acumulada hasta 1, no la probabilidad del intervalo.",
+      "Ese es $F(4)$, la acumulada hasta 4, sin descontar la parte anterior a 1.",
+      "Estás sumando $F(1)+F(4)$; para un intervalo hay que restar las acumuladas, no sumarlas."
+    ],
+    "explanation": "La probabilidad de un intervalo se calcula como diferencia de la **función de distribución acumulada** en los extremos:\n$$P(a < X \\leq b) = F(b) - F(a)$$\nCon los valores dados:\n$$P(1 < X \\leq 4) = 0{,}8 - 0{,}5 = 0{,}3$$\nComo el intervalo excluye el extremo 1, esta diferencia deja afuera la probabilidad puntual de que el dado muestre exactamente 1.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-diferencia-acumulada"
+    ]
+  },
+  {
+    "question": "La cantidad de caras al lanzar $3$ monedas tiene función de distribución acumulada $F(x)$.\n\nSe sabe que $F(0)=0{,}4$ y $F(1)=0{,}6$.\n\nCalculá $P(0 < X \\leq 1)$, la probabilidad de obtener exactamente 1 cara.",
+    "options": [
+      "$0{,}2$",
+      "$0{,}4$",
+      "$0{,}6$",
+      "$1{,}0$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Es la diferencia $F(1)-F(0)$, que da $0{,}2$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es $F(0)$, la acumulada hasta 0, que además ya incluiría el caso de ninguna cara.",
+      "Ese es $F(1)$, la acumulada hasta 1, sin descontar la parte anterior a 0.",
+      "Estás sumando $F(0)+F(1)$; para un intervalo hay que restar las acumuladas, no sumarlas."
+    ],
+    "explanation": "La probabilidad de un intervalo se calcula como diferencia de la **función de distribución acumulada** en los extremos:\n$$P(a < X \\leq b) = F(b) - F(a)$$\nCon los valores dados:\n$$P(0 < X \\leq 1) = 0{,}6 - 0{,}4 = 0{,}2$$\nComo el intervalo excluye el extremo 0, esta diferencia deja afuera la probabilidad puntual de no obtener ninguna cara, que sí formaría parte de un intervalo cerrado en ambos extremos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-diferencia-acumulada"
+    ]
+  },
+  {
+    "question": "El resultado de tirar un dado especial de 3 caras, numeradas $\\{1,2,3\\}$, tiene función de probabilidad puntual:\n$$\\begin{aligned} p(1) &= 0{,}3 \\\\ p(2) &= 0{,}4 \\\\ p(3) &= 0{,}3 \\end{aligned}$$\n¿Cuánto vale $F(2) = P(X \\leq 2)$?",
+    "options": [
+      "$0{,}3$",
+      "$0{,}4$",
+      "$0{,}7$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Es la suma $p(1)+p(2)$, que da $0{,}7$.",
+    "feedback_incorrect": [
+      "Ese es solo $p(1)$, falta sumar $p(2)$.",
+      "Ese es solo $p(2)$, falta sumar $p(1)$.",
+      null,
+      "Esa es la suma de las tres probabilidades, pero $F(2)$ no incluye $p(3)$."
+    ],
+    "explanation": "La **función de distribución acumulada** de una variable discreta suma todos los valores de la puntual hasta el punto pedido inclusive:\n$$F(x) = \\sum_{k \\leq x} p(k)$$\nPara $F(2)$ se suman los valores hasta $x=2$ inclusive:\n$$F(2) = 0{,}3 + 0{,}4 = 0{,}7$$\nSumar las tres probabilidades en vez de detenerse en $x=2$ incluye por error el valor $3$, que todavía no debería contar en esta acumulada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-acumulada-desde-puntual"
+    ]
+  },
+  {
+    "question": "La cantidad de caras al lanzar $2$ monedas tiene función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 0{,}25 \\\\ p(1) &= 0{,}5 \\\\ p(2) &= 0{,}25 \\end{aligned}$$\n¿Cuánto vale $F(1) = P(X \\leq 1)$?",
+    "options": [
+      "$0{,}25$",
+      "$0{,}5$",
+      "$0{,}75$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Es la suma $p(0)+p(1)$, que da $0{,}75$.",
+    "feedback_incorrect": [
+      "Ese es solo $p(0)$, falta sumar $p(1)$.",
+      "Ese es solo $p(1)$, falta sumar $p(0)$.",
+      null,
+      "Esa es la suma de las tres probabilidades, pero $F(1)$ no incluye $p(2)$."
+    ],
+    "explanation": "La **función de distribución acumulada** de una variable discreta suma todos los valores de la puntual hasta el punto pedido inclusive:\n$$F(x) = \\sum_{k \\leq x} p(k)$$\nPara $F(1)$ se suman los valores hasta $x=1$ inclusive:\n$$F(1) = 0{,}25 + 0{,}5 = 0{,}75$$\nQuedarse solo con $p(1)$ sin sumar $p(0)$ ignora que la acumulada también incluye la probabilidad de los valores menores al punto pedido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-acumulada-desde-puntual"
+    ]
   }
 ]

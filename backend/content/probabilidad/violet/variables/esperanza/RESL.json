@@ -1,7 +1,12 @@
 [
   {
     "question": "La cantidad de clientes que llegan a una caja durante un minuto tiene función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 0{,}2 \\\\ p(1) &= 0{,}5 \\\\ p(2) &= 0{,}3 \\end{aligned}$$\n¿Cuánto vale $E[X]$?",
-    "options": ["$1{,}0$", "$1{,}1$", "$1{,}5$", "$3{,}0$"],
+    "options": [
+      "$1{,}0$",
+      "$1{,}1$",
+      "$1{,}5$",
+      "$3{,}0$"
+    ],
     "correct_index": 1,
     "feedback_correct": "$0 \\cdot 0{,}2 + 1 \\cdot 0{,}5 + 2 \\cdot 0{,}3 = 1{,}1$.",
     "feedback_incorrect": [
@@ -16,11 +21,18 @@
     "graph_view": null,
     "graph_shade": null,
     "reviewed": false,
-    "tags": ["resl-discreta"]
+    "tags": [
+      "resl-discreta"
+    ]
   },
   {
     "question": "El tiempo que un cliente espera en la fila de un banco tiene una esperanza de 4 minutos.\n\nUn cajero cobra \\$2 por minuto de espera más un cargo fijo de \\$1.\n\n¿Cuál es el costo esperado?",
-    "options": ["\\$8", "\\$9", "\\$10", "\\$1"],
+    "options": [
+      "\\$8",
+      "\\$9",
+      "\\$10",
+      "\\$1"
+    ],
     "correct_index": 1,
     "feedback_correct": "$2 \\cdot 4 + 1 = 9$.",
     "feedback_incorrect": [
@@ -35,11 +47,18 @@
     "graph_view": null,
     "graph_shade": null,
     "reviewed": false,
-    "tags": ["resl-linealidad"]
+    "tags": [
+      "resl-linealidad"
+    ]
   },
   {
     "question": "El tiempo que un cliente espera en un cajero automático se modela con una densidad uniforme sobre $[0,5]$ minutos.\n\n¿Cuánto vale $E[X]$?",
-    "options": ["$2{,}0$", "$2{,}5$", "$5{,}0$", "$0{,}5$"],
+    "options": [
+      "$2{,}0$",
+      "$2{,}5$",
+      "$5{,}0$",
+      "$0{,}5$"
+    ],
     "correct_index": 1,
     "feedback_correct": "Punto medio del intervalo: $(0+5)/2=2{,}5$.",
     "feedback_incorrect": [
@@ -54,7 +73,9 @@
     "graph_view": null,
     "graph_shade": null,
     "reviewed": false,
-    "tags": ["resl-continua-uniforme"]
+    "tags": [
+      "resl-continua-uniforme"
+    ]
   },
   {
     "question": "El tiempo de espera en la fila de un supermercado tiene esperanza $E[X]=3$ minutos.\n\n¿Qué significa este valor?",
@@ -78,6 +99,290 @@
     "graph_view": null,
     "graph_shade": null,
     "reviewed": false,
-    "tags": ["resl-interpretacion"]
+    "tags": [
+      "resl-interpretacion"
+    ]
+  },
+  {
+    "question": "En una muestra de piezas producidas, la cantidad de unidades defectuosas tiene función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 0{,}5 \\\\ p(1) &= 0{,}3 \\\\ p(2) &= 0{,}2 \\end{aligned}$$\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$1{,}0$",
+      "$1{,}5$",
+      "$0{,}7$",
+      "$3{,}0$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$0 \\cdot 0{,}5 + 1 \\cdot 0{,}3 + 2 \\cdot 0{,}2 = 0{,}7$.",
+    "feedback_incorrect": [
+      "Ese resultado sale del promedio simple $(0+1+2)/3=1$, sin usar los pesos.",
+      "Ese es $(0+1+2)/2$, no corresponde a esperanza ni a promedio simple.",
+      null,
+      "Ese es la suma pura de los valores $0+1+2$, sin ponderar por probabilidad."
+    ],
+    "explanation": "La **esperanza** es la suma ponderada de los valores por sus probabilidades:\n$$E[X] = \\sum_x x \\cdot p(x)$$\nCon los datos del problema:\n$$\\begin{aligned} E[X] &= 0 \\cdot 0{,}5 + 1 \\cdot 0{,}3 + 2 \\cdot 0{,}2 \\\\ &= 0 + 0{,}3 + 0{,}4 \\\\ &= 0{,}7 \\end{aligned}$$\nEste resultado es la cantidad promedio de piezas defectuosas por muestra a largo plazo, tras revisar muchas muestras, no el resultado de una sola.\n\nPromediar sin ponderar da un resultado distinto, porque trata los tres valores como igual de probables.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-discreta"
+    ]
+  },
+  {
+    "question": "La cantidad de fallas detectadas por lote en una línea de producción tiene función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 0{,}4 \\\\ p(1) &= 0{,}3 \\\\ p(2) &= 0{,}2 \\\\ p(3) &= 0{,}1 \\end{aligned}$$\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$1{,}5$",
+      "$0{,}25$",
+      "$6{,}0$",
+      "$1{,}0$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$0 \\cdot 0{,}4+1\\cdot0{,}3+2\\cdot0{,}2+3\\cdot0{,}1=1{,}0$.",
+    "feedback_incorrect": [
+      "Ese es $(0+1+2+3)/2$, no corresponde a esperanza ni a promedio simple.",
+      "Ese resultado sale de dividir por la cantidad de valores en vez de ponderar por sus probabilidades.",
+      "Ese es la suma pura de los valores $0+1+2+3$, sin ponderar por probabilidad.",
+      null
+    ],
+    "explanation": "La **esperanza** de una variable aleatoria discreta pondera cada valor por su probabilidad:\n$$E[X] = \\sum_x x \\cdot p(x)$$\nCon los datos del problema:\n$$\\begin{aligned} E[X] &= 0\\cdot0{,}4 + 1\\cdot0{,}3 + 2\\cdot0{,}2 + 3\\cdot0{,}1 \\\\ &= 0 + 0{,}3 + 0{,}4 + 0{,}3 \\\\ &= 1{,}0 \\end{aligned}$$\nEste valor es la cantidad promedio de fallas por lote a largo plazo, tras inspeccionar muchos lotes, no la cantidad exacta del próximo lote.\n\nSi te salteás ponderar por las probabilidades, terminás calculando un promedio simple que no representa el comportamiento real del proceso.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-discreta"
+    ]
+  },
+  {
+    "question": "La cantidad de clientes que llegan a la caja de una farmacia durante un minuto tiene función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 0{,}1 \\\\ p(1) &= 0{,}6 \\\\ p(2) &= 0{,}3 \\end{aligned}$$\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$1{,}0$",
+      "$1{,}2$",
+      "$1{,}5$",
+      "$3{,}0$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$0\\cdot0{,}1+1\\cdot0{,}6+2\\cdot0{,}3=1{,}2$.",
+    "feedback_incorrect": [
+      "Ese resultado sale del promedio simple $(0+1+2)/3=1$, sin usar los pesos.",
+      null,
+      "Ese es $(0+1+2)/2$, no corresponde a esperanza ni a promedio simple.",
+      "Ese es la suma pura de los valores $0+1+2$, sin ponderar por probabilidad."
+    ],
+    "explanation": "La **esperanza** es la suma ponderada de los valores por sus probabilidades:\n$$E[X] = \\sum_x x \\cdot p(x)$$\nCon los datos del problema:\n$$\\begin{aligned} E[X] &= 0\\cdot0{,}1 + 1\\cdot0{,}6 + 2\\cdot0{,}3 \\\\ &= 0 + 0{,}6 + 0{,}6 \\\\ &= 1{,}2 \\end{aligned}$$\nEste resultado es la cantidad promedio de clientes por minuto a largo plazo, tras registrar muchos minutos, no la cantidad exacta del próximo minuto.\n\nPromediar sin ponderar trata los tres valores como igual de probables, cuando acá el valor $1$ concentra más de la mitad del peso.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-discreta"
+    ]
+  },
+  {
+    "question": "En una muestra de tornillos, la cantidad de unidades defectuosas tiene función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 0{,}6 \\\\ p(1) &= 0{,}3 \\\\ p(2) &= 0{,}1 \\end{aligned}$$\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$1{,}0$",
+      "$1{,}5$",
+      "$3{,}0$",
+      "$0{,}5$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$0\\cdot0{,}6+1\\cdot0{,}3+2\\cdot0{,}1=0{,}5$.",
+    "feedback_incorrect": [
+      "Ese resultado sale del promedio simple $(0+1+2)/3=1$, sin usar los pesos.",
+      "Ese es $(0+1+2)/2$, no corresponde a esperanza ni a promedio simple.",
+      "Ese es la suma pura de los valores $0+1+2$, sin ponderar por probabilidad.",
+      null
+    ],
+    "explanation": "La **esperanza** es la suma ponderada de los valores por sus probabilidades:\n$$E[X] = \\sum_x x \\cdot p(x)$$\nCon los datos del problema:\n$$\\begin{aligned} E[X] &= 0\\cdot0{,}6 + 1\\cdot0{,}3 + 2\\cdot0{,}1 \\\\ &= 0 + 0{,}3 + 0{,}2 \\\\ &= 0{,}5 \\end{aligned}$$\nEste resultado es la cantidad promedio de tornillos defectuosos por muestra a largo plazo, tras revisar muchas muestras, no el resultado de una sola.\n\nDejar de lado las probabilidades y promediar los valores directo sobrestima el resultado, porque la mayoría de las muestras en realidad no tiene ningún defecto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-discreta"
+    ]
+  },
+  {
+    "question": "La cantidad de piezas defectuosas en un lote tiene una esperanza de 2 piezas.\n\nUn taller cobra \\$5 por cada pieza a reprocesar más un cargo fijo de \\$8.\n\n¿Cuál es el costo esperado de reproceso?",
+    "options": [
+      "\\$10",
+      "\\$8",
+      "\\$18",
+      "\\$26"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$5 \\cdot 2 + 8 = 18$.",
+    "feedback_incorrect": [
+      "Ese valor olvida sumar el cargo fijo de \\$8.",
+      "Ese es solo el cargo fijo, sin la parte variable del costo.",
+      null,
+      "Ese valor suma el cargo fijo dos veces, cuando se suma una sola vez."
+    ],
+    "explanation": "La **linealidad de la esperanza** permite calcular $E[aX+b]$ escalando y desplazando $E[X]$, sin recalcular desde cero:\n$$E[aX+b] = a \\cdot E[X] + b$$\nCon los valores del problema:\n$$E[5X+8] = 5 \\cdot 2 + 8 = 18$$\nEste costo es el promedio que pagaría el taller a largo plazo, si el mismo proceso de reproceso se repitiera en muchos lotes.\n\nOlvidar el cargo fijo, o sumarlo más de una vez, deja la parte constante mal aplicada: se suma una sola vez, después de escalar la parte variable.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-linealidad"
+    ]
+  },
+  {
+    "question": "La cantidad de clientes atendidos en una caja por hora tiene una esperanza de 6 clientes.\n\nUn empleado recibe \\$3 por cliente atendido más un fijo de \\$5 por hora.\n\n¿Cuál es la comisión esperada por hora?",
+    "options": [
+      "\\$23",
+      "\\$18",
+      "\\$28",
+      "\\$5"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$3 \\cdot 6 + 5 = 23$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor olvida sumar el fijo de \\$5 por hora.",
+      "Ese valor suma el fijo dos veces, cuando se suma una sola vez.",
+      "Ese es solo el fijo por hora, sin la parte variable de la comisión."
+    ],
+    "explanation": "La **linealidad de la esperanza** permite calcular $E[aX+b]$ escalando y desplazando $E[X]$:\n$$E[aX+b] = a \\cdot E[X] + b$$\nCon los valores del problema:\n$$E[3X+5] = 3 \\cdot 6 + 5 = 23$$\nEsta comisión es el promedio que cobraría el empleado a largo plazo, si el mismo ritmo de atención se repitiera en muchos turnos.\n\nSi te salteás sumar el fijo por hora, o lo sumás más de una vez, el resultado queda por debajo o por encima del valor real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-linealidad"
+    ]
+  },
+  {
+    "question": "La posición de un punto elegido al azar sobre un segmento tiene una esperanza de 3 metros.\n\nAl cambiar de unidad, la posición se transforma según $Y=2X+1$.\n\n¿Cuál es la esperanza de $Y$?",
+    "options": [
+      "$6$",
+      "$8$",
+      "$1$",
+      "$7$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$2 \\cdot 3 + 1 = 7$.",
+    "feedback_incorrect": [
+      "Ese valor olvida sumar el corrimiento $1$.",
+      "Ese valor suma el corrimiento dos veces, cuando se suma una sola vez.",
+      "Ese es solo el corrimiento, sin la parte escalada de la posición.",
+      null
+    ],
+    "explanation": "La **linealidad de la esperanza** permite calcular $E[aX+b]$ escalando y desplazando $E[X]$:\n$$E[aX+b] = a \\cdot E[X] + b$$\nCon los valores del problema:\n$$E[2X+1] = 2 \\cdot 3 + 1 = 7$$\nEste resultado es la posición promedio esperada en la nueva unidad, si se repitiera muchas veces la elección del punto al azar.\n\nDejar afuera el corrimiento, o sumarlo más de una vez, deja la transformación incompleta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-linealidad"
+    ]
+  },
+  {
+    "question": "La posición de un punto elegido al azar sobre un segmento se modela con una densidad uniforme sobre $[2,8]$.\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$4{,}0$",
+      "$5{,}0$",
+      "$8{,}0$",
+      "$3{,}0$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Punto medio del intervalo: $(2+8)/2=5{,}0$.",
+    "feedback_incorrect": [
+      "Ese valor no es el punto medio del intervalo $[2,8]$.",
+      null,
+      "Ese es el extremo superior del intervalo, no su punto medio.",
+      "Ese valor no corresponde al punto medio ni a ningún extremo del intervalo."
+    ],
+    "explanation": "Para una densidad **uniforme** sobre un intervalo $[a,b]$, la esperanza coincide con el punto medio del intervalo:\n$$E[X] = \\frac{a+b}{2}$$\nCon $a=2$ y $b=8$:\n$$E[X] = \\frac{2+8}{2} = 5{,}0$$\nEste resultado es la posición promedio a largo plazo, si se repitiera muchas veces la elección del punto al azar, no la posición de una única elección.\n\nUsar un extremo del intervalo en vez de su punto medio ignora que la densidad uniforme reparte la probabilidad por igual a ambos lados del centro.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-continua-uniforme"
+    ]
+  },
+  {
+    "question": "El tiempo que un cliente espera en la fila de un banco se modela con una densidad uniforme sobre $[0,8]$ minutos.\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$8{,}0$",
+      "$2{,}0$",
+      "$4{,}0$",
+      "$0{,}0$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Punto medio del intervalo: $(0+8)/2=4{,}0$.",
+    "feedback_incorrect": [
+      "Ese es el extremo superior del intervalo, no su punto medio.",
+      "Ese valor no es el punto medio del intervalo $[0,8]$.",
+      null,
+      "Ese es el extremo inferior del intervalo, no su punto medio."
+    ],
+    "explanation": "Para una densidad **uniforme** sobre un intervalo $[a,b]$, la esperanza coincide con el punto medio del intervalo:\n$$E[X] = \\frac{a+b}{2}$$\nCon $a=0$ y $b=8$:\n$$E[X] = \\frac{0+8}{2} = 4{,}0$$\nEste resultado es el tiempo de espera promedio a largo plazo, tras registrar a muchos clientes, no el tiempo que esperará necesariamente el próximo.\n\nConfundir el punto medio con alguno de los extremos del intervalo es fácil si no se recuerda que la densidad uniforme reparte la probabilidad de forma pareja.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-continua-uniforme"
+    ]
+  },
+  {
+    "question": "La cantidad de fallas detectadas por lote en una fábrica tiene esperanza $E[X]=2{,}4$.\n\n¿Qué interpretación es correcta sobre este valor?",
+    "options": [
+      "Es el promedio de fallas a largo plazo, tras inspeccionar muchos lotes",
+      "Es la cantidad de fallas que tendrá exactamente el próximo lote",
+      "Es un error, porque ningún lote puede tener 2,4 fallas"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El promedio a largo plazo puede no ser un valor que la variable tome en una sola observación.",
+    "feedback_incorrect": [
+      null,
+      "Cada lote tiene una cantidad entera de fallas, pero eso no significa que el próximo lote tenga exactamente ese número.",
+      "No es un error: la esperanza es un promedio y no necesita coincidir con ningún valor real que tome la variable."
+    ],
+    "explanation": "La **esperanza** es el promedio ponderado de los valores posibles por su probabilidad:\n$$E[X] = \\sum_x x \\cdot p(x)$$\nEste valor representa el promedio de fallas por lote a largo plazo, tras inspeccionar muchos lotes, no la cantidad exacta de fallas de un lote puntual.\n\nQue $E[X]$ dé un número no entero, como $2{,}4$, no es ningún error: la variable toma valores enteros, pero su promedio a largo plazo puede caer entre dos de ellos.\n\nEsperar que el resultado de una sola observación coincida con el promedio confunde una propiedad de largo plazo con una garantía puntual.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-interpretacion"
+    ]
+  },
+  {
+    "question": "El tiempo que un cliente espera en un cajero automático tiene esperanza $E[X]=6$ minutos.\n\n¿Qué representa este valor?",
+    "options": [
+      "El tiempo que más se repite entre los clientes",
+      "El promedio de tiempos de espera a largo plazo",
+      "El tiempo máximo que puede esperar un cliente"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El promedio a largo plazo tras observar muchos clientes, no la moda ni un tope máximo.",
+    "feedback_incorrect": [
+      "Ese es el valor más frecuente, la moda, y no necesariamente coincide con la esperanza.",
+      null,
+      "La esperanza es un promedio, no un tope máximo del tiempo de espera."
+    ],
+    "explanation": "La **esperanza** es el promedio ponderado de los tiempos de espera posibles por su densidad:\n$$E[X] = \\int x \\cdot f(x)\\,dx$$\nEste valor representa el promedio de tiempos de espera a largo plazo, tras observar a muchos clientes, no el tiempo de un cliente en particular.\n\nLa moda y el máximo posible son conceptos distintos del promedio: uno mide qué valor se repite más, el otro un límite superior, ninguno de los dos mide un promedio ponderado.\n\nCliente a cliente el tiempo real varía, y solo al acumular muchas observaciones ese promedio se estabiliza.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "resl-interpretacion"
+    ]
   }
 ]

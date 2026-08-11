@@ -61,5 +61,257 @@
     "graph_view": null,
     "reviewed": false,
     "tags": ["definicion-rango-probabilidad"]
+  },
+  {
+    "question": "En una encuesta, la probabilidad de que una persona elegida al azar prefiera café es $0{,}62$.\n\n¿Qué expresión da la probabilidad de que la persona no prefiera café?",
+    "options": [
+      "$0{,}62$",
+      "$1-0{,}62$",
+      "$1+0{,}62$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El complemento de un evento se calcula restando su probabilidad de 1.",
+    "feedback_incorrect": [
+      "Ese valor es la probabilidad de que la persona sí prefiera café, el evento original.",
+      null,
+      "Sumar en vez de restar da un valor mayor a 1, y ninguna probabilidad puede superar 1."
+    ],
+    "explanation": "El **complemento** de un evento $A$ cumple $P(A^c) = 1 - P(A)$.\n\nEse resultado dice que la probabilidad de que no ocurra $A$ es lo que le falta a $P(A)$ para llegar a 1.\n\nComo $A$ y $A^c$ juntos cubren todo el espacio muestral sin superponerse, sus probabilidades suman exactamente 1.\n\nCon $P(A)=0{,}62$ para preferir café, la probabilidad de no preferirlo es:\n$$1 - 0{,}62 = 0{,}38$$\nSumar en vez de restar produciría un valor mayor a 1, algo que ningún axioma permite.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-complemento-prob"]
+  },
+  {
+    "question": "Un estudio previo determinó que la probabilidad de que un paciente responda a cierto tratamiento es $0{,}8$.\n\n¿Qué expresión da la probabilidad de que el paciente no responda al tratamiento?",
+    "options": [
+      "$1+0{,}8$",
+      "$0{,}8$",
+      "$1-0{,}8$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El complemento se obtiene restando la probabilidad dada de 1.",
+    "feedback_incorrect": [
+      "Sumar en vez de restar da un valor mayor a 1, algo imposible para una probabilidad.",
+      "Ese valor es la probabilidad de que el paciente sí responda, el evento original.",
+      null
+    ],
+    "explanation": "El **complemento** de un evento $A$ cumple $P(A^c) = 1 - P(A)$.\n\nEsta relación dice que la probabilidad de que $A$ no ocurra es lo que le falta a $P(A)$ para llegar a 1.\n\nComo $A$ y $A^c$ juntos cubren todo el espacio muestral sin superponerse, sus probabilidades suman exactamente 1.\n\nCon $P(A)=0{,}8$ para responder al tratamiento, la probabilidad de no responder es:\n$$1 - 0{,}8 = 0{,}2$$\nRepetir el valor original en vez de restarlo de 1 confunde el evento con su contrario.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-complemento-prob"]
+  },
+  {
+    "question": "En un mazo de cartas de truco, la probabilidad de sacar una carta de espada es $0{,}25$.\n\n¿Qué expresión da la probabilidad de sacar una carta que no sea de espada?",
+    "options": [
+      "$1-0{,}25$",
+      "$1+0{,}25$",
+      "$0{,}25$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El complemento resta la probabilidad del palo dado de 1.",
+    "feedback_incorrect": [
+      null,
+      "Sumar en vez de restar da un valor mayor a 1, algo imposible para una probabilidad.",
+      "Ese valor es la probabilidad de sacar espada, el evento original, no su complemento."
+    ],
+    "explanation": "El **complemento** de un evento $A$ cumple $P(A^c) = 1 - P(A)$.\n\nComo $A$ y $A^c$ cubren juntos todo el espacio muestral sin superponerse, sus probabilidades suman exactamente 1.\n\nCon $P(A)=0{,}25$ para sacar espada, la probabilidad de sacar otro palo es:\n$$1 - 0{,}25 = 0{,}75$$\nConfundir el complemento con el propio evento es un desliz común cuando se pierde de vista qué pregunta el enunciado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-complemento-prob"]
+  },
+  {
+    "question": "En una urna con bolitas de colores, la probabilidad de sacar una bolita roja es $0{,}45$.\n\n¿Qué expresión da la probabilidad de sacar una bolita que no sea roja?",
+    "options": [
+      "$0{,}45$",
+      "$1+0{,}45$",
+      "$1-0{,}45$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El complemento resta la probabilidad del color dado de 1.",
+    "feedback_incorrect": [
+      "Ese valor es la probabilidad de sacar roja, el evento original, no su complemento.",
+      "Sumar en vez de restar da un valor mayor a 1, algo imposible para una probabilidad.",
+      null
+    ],
+    "explanation": "El **complemento** de un evento $A$ cumple $P(A^c) = 1 - P(A)$.\n\nComo $A$ y $A^c$ juntos cubren todo el espacio muestral sin superponerse, sus probabilidades siempre suman 1.\n\nCon $P(A)=0{,}45$ para sacar una bolita roja, la probabilidad de sacar otro color es:\n$$1 - 0{,}45 = 0{,}55$$\nDejar el valor original sin restarlo de 1 deja el evento y su contrario mezclados como si fueran lo mismo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-complemento-prob"]
+  },
+  {
+    "question": "En un control de calidad, se sabe que $P(A) = 0{,}5$ y $P(B) = 0{,}35$, y algunas piezas presentan ambos defectos a la vez.\n\n¿Qué expresión corresponde a la regla general de la unión $P(A \\cup B)$?",
+    "options": [
+      "$P(A)+P(B)-P(A\\cap B)$",
+      "$P(A)+P(B)+P(A\\cap B)$",
+      "$P(A)-P(B)+P(A\\cap B)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La regla general resta la intersección para no contar dos veces los defectos compartidos.",
+    "feedback_incorrect": [
+      null,
+      "Sumar la intersección en vez de restarla cuenta esos casos compartidos tres veces en total.",
+      "Restar $P(B)$ y sumar la intersección no corresponde a la fórmula de la unión."
+    ],
+    "explanation": "La **regla general de la unión** vale tanto si los eventos comparten resultados como si no:\n$$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$$\nSumar $P(A)$ y $P(B)$ cuenta dos veces las piezas que presentan ambos defectos a la vez.\n\nPor eso hay que restar esa intersección una vez para corregir ese doble conteo.\n\nCuando los dos eventos no comparten ningún resultado, la intersección vale $0$ y la fórmula se reduce a la suma directa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-regla-union"]
+  },
+  {
+    "question": "Un estudio previo determina que $P(A) = 0{,}55$ y $P(B) = 0{,}4$ para dos síntomas que algunos pacientes presentan a la vez.\n\n¿Qué expresión corresponde a la regla general de la unión $P(A \\cup B)$?",
+    "options": [
+      "$P(A)-P(B)-P(A\\cap B)$",
+      "$P(A)+P(B)+P(A\\cap B)$",
+      "$P(A)+P(B)-P(A\\cap B)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La regla general resta la intersección para no contar dos veces los pacientes con ambos síntomas.",
+    "feedback_incorrect": [
+      "Restar $P(B)$ en vez de sumarlo deja afuera pacientes que sí pertenecen a la unión.",
+      "Sumar la intersección en vez de restarla cuenta esos pacientes tres veces en total.",
+      null
+    ],
+    "explanation": "La **regla general de la unión** aplica sin importar si los eventos comparten resultados:\n$$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$$\nSumar $P(A)$ y $P(B)$ directamente cuenta dos veces a los pacientes que presentan ambos síntomas.\n\nRestar la intersección una vez corrige exactamente ese doble conteo.\n\nSi los dos eventos no compartieran ningún resultado, la intersección valdría $0$ y la fórmula quedaría reducida a la suma simple.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-regla-union"]
+  },
+  {
+    "question": "Con un mazo de cartas de truco, $P(A) = 0{,}3$ y $P(B) = 0{,}25$, y algunas cartas cumplen ambas condiciones a la vez.\n\n¿Qué expresión corresponde a la regla general de la unión $P(A \\cup B)$?",
+    "options": [
+      "$P(A)+P(B)+P(A\\cap B)$",
+      "$P(A)-P(B)-P(A\\cap B)$",
+      "$P(A)+P(B)-P(A\\cap B)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La regla general resta la intersección para no contar dos veces las cartas que cumplen ambas condiciones.",
+    "feedback_incorrect": [
+      "Sumar la intersección en vez de restarla cuenta esas cartas tres veces en total.",
+      "Restar $P(B)$ en vez de sumarlo deja afuera cartas que sí pertenecen a la unión.",
+      null
+    ],
+    "explanation": "La **regla general de la unión** se cumple sin importar si los eventos comparten resultados:\n$$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$$\nSumar $P(A)$ y $P(B)$ directamente cuenta dos veces las cartas que cumplen ambas condiciones a la vez.\n\nRestar la intersección una vez corrige ese doble conteo.\n\nCuando ninguna carta cumple ambas condiciones, la intersección vale $0$ y la fórmula se reduce a la suma directa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-regla-union"]
+  },
+  {
+    "question": "En una urna, $P(A) = 0{,}6$ y $P(B) = 0{,}35$, y algunas bolitas cumplen ambas condiciones a la vez.\n\n¿Qué expresión corresponde a la regla general de la unión $P(A \\cup B)$?",
+    "options": [
+      "$P(A)+P(B)-P(A\\cap B)$",
+      "$P(A)-P(B)+P(A\\cap B)$",
+      "$P(A)+P(B)+P(A\\cap B)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La regla general resta la intersección para no contar dos veces las bolitas que cumplen ambas condiciones.",
+    "feedback_incorrect": [
+      null,
+      "Restar $P(B)$ y sumar la intersección no corresponde a la fórmula de la unión.",
+      "Sumar la intersección en vez de restarla cuenta esas bolitas tres veces en total."
+    ],
+    "explanation": "La **regla general de la unión** aplica tanto si los eventos comparten resultados como si no:\n$$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$$\nSumar $P(A)$ y $P(B)$ directamente cuenta dos veces las bolitas que cumplen ambas condiciones.\n\nRestar la intersección una vez corrige ese doble conteo.\n\nSi ninguna bolita cumpliera ambas condiciones, la intersección valdría $0$ y la fórmula se reduciría a la suma simple.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-regla-union"]
+  },
+  {
+    "question": "Una encuesta estima la probabilidad de que un cliente recomiende el servicio.\n\nPara eso, suma dos resultados parciales de distintas sucursales: $0{,}55$ y $0{,}6$.\n\n¿Por qué ese resultado no puede ser correcto?",
+    "options": [
+      "Porque todo valor de probabilidad debe estar entre 0 y 1.",
+      "Porque las probabilidades de recomendación siempre son menores a 0,5.",
+      "Porque 1,15 no es un número entero."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El axioma de acotación exige que toda probabilidad esté en el intervalo $[0,1]$.",
+    "feedback_incorrect": [
+      null,
+      "No existe esa restricción, una probabilidad puede acercarse a cualquier valor entre 0 y 1 según el evento.",
+      "Los decimales son válidos para expresar probabilidades, el problema es que 1,15 supera el máximo permitido."
+    ],
+    "explanation": "Uno de los axiomas de Kolmogorov exige que $0 \\leq P(A) \\leq 1$ para cualquier evento, sin excepción.\n\nSumando los dos resultados parciales:\n$$0{,}55 + 0{,}6 = 1{,}15$$\nEse resultado supera el máximo permitido, así que no puede representar una probabilidad válida sin importar de qué sucursales vengan los datos.\n\nDetectar valores fuera de $[0,1]$ es una forma rápida de descartar un resultado antes de seguir revisando el resto del cálculo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-rango-probabilidad"]
+  },
+  {
+    "question": "En un control de calidad, se estima la probabilidad de rechazo de un lote sumando dos muestras distintas: $0{,}68$ y $0{,}5$.\n\n¿Por qué ese resultado no puede ser correcto?",
+    "options": [
+      "Porque 1,18 no es un número entero.",
+      "Porque todo valor de probabilidad debe estar entre 0 y 1.",
+      "Porque las probabilidades de rechazo siempre son menores a 0,5."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El axioma de acotación exige que toda probabilidad esté en el intervalo $[0,1]$.",
+    "feedback_incorrect": [
+      "Los decimales son válidos para expresar probabilidades, el problema es que 1,18 supera el máximo permitido.",
+      null,
+      "No existe esa restricción, una probabilidad puede acercarse a cualquier valor entre 0 y 1 según el evento."
+    ],
+    "explanation": "Uno de los axiomas de Kolmogorov exige que $0 \\leq P(A) \\leq 1$ para cualquier evento, sin excepción.\n\nSumando las dos muestras:\n$$0{,}68 + 0{,}5 = 1{,}18$$\nEse resultado ya supera el máximo permitido, así que se puede descartar sin necesitar más información sobre el lote.\n\nRevisar la acotación antes que cualquier otra propiedad es la forma más rápida de detectar un resultado imposible.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-rango-probabilidad"]
+  },
+  {
+    "question": "Con un mazo de cartas de truco, se estima la probabilidad de ganar la mano.\n\nPara eso, se suman dos probabilidades parciales de distintas rondas: $0{,}8$ y $0{,}45$.\n\n¿Por qué ese resultado no puede ser correcto?",
+    "options": [
+      "Porque las probabilidades de ganar siempre son menores a 0,5.",
+      "Porque 1,25 no es un número entero.",
+      "Porque todo valor de probabilidad debe estar entre 0 y 1."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El axioma de acotación exige que toda probabilidad esté en el intervalo $[0,1]$.",
+    "feedback_incorrect": [
+      "No existe esa restricción, una probabilidad puede acercarse a cualquier valor entre 0 y 1 según la mano.",
+      "Los decimales son válidos para expresar probabilidades, el problema es que 1,25 supera el máximo permitido.",
+      null
+    ],
+    "explanation": "Uno de los axiomas de Kolmogorov exige que $0 \\leq P(A) \\leq 1$ para cualquier evento, sin excepción.\n\nSumando las dos probabilidades parciales:\n$$0{,}8 + 0{,}45 = 1{,}25$$\nEse resultado supera el máximo permitido, así que no puede representar una probabilidad válida sin importar cómo se hayan estimado las rondas.\n\nDetectar valores fuera de $[0,1]$ permite descartar un resultado imposible antes de revisar el resto del cálculo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-rango-probabilidad"]
+  },
+  {
+    "question": "En una urna, se estima la probabilidad de sacar una bolita clara sumando dos proporciones de distintos lotes: $0{,}66$ y $0{,}6$.\n\n¿Por qué ese resultado no puede ser correcto?",
+    "options": [
+      "Porque 1,26 no es un número entero.",
+      "Porque las probabilidades de sacar bolitas claras siempre son menores a 0,5.",
+      "Porque todo valor de probabilidad debe estar entre 0 y 1."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El axioma de acotación exige que toda probabilidad esté en el intervalo $[0,1]$.",
+    "feedback_incorrect": [
+      "Los decimales son válidos para expresar probabilidades, el problema es que 1,26 supera el máximo permitido.",
+      "No existe esa restricción, una probabilidad puede acercarse a cualquier valor entre 0 y 1 según el lote.",
+      null
+    ],
+    "explanation": "Uno de los axiomas de Kolmogorov exige que $0 \\leq P(A) \\leq 1$ para cualquier evento, sin excepción.\n\nSumando las dos proporciones:\n$$0{,}66 + 0{,}6 = 1{,}26$$\nEse resultado ya supera el máximo permitido, así que se puede descartar sin necesitar más datos sobre los lotes.\n\nRevisar la acotación antes que cualquier otra propiedad es la forma más rápida de detectar un resultado imposible.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-rango-probabilidad"]
   }
 ]

@@ -2,23 +2,25 @@
   {
     "question": "Sea $X$ una variable aleatoria continua con función de **densidad** $f(x)$.\n\n¿Qué expresión da $P(a \\leq X \\leq b)$?",
     "options": [
-      "$\\displaystyle \\int_a^b f(x)\\,dx$",
+      "$\\displaystyle \\sum_{x=a}^{b} f(x)$",
       "$f(b) - f(a)$",
-      "$\\displaystyle \\sum_{x=a}^{b} f(x)$"
+      "$\\displaystyle \\int_a^b f(x)\\,dx$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "feedback_correct": "La probabilidad continua es el área bajo la densidad entre $a$ y $b$.",
     "feedback_incorrect": [
-      null,
+      "La suma discreta aplica a puntuales, no a densidades continuas.",
       "Esa es la variación de valores de $f$, no una probabilidad; la densidad no es probabilidad acumulada.",
-      "La suma discreta aplica a puntuales, no a densidades continuas."
+      null
     ],
     "explanation": "En una variable aleatoria continua, la probabilidad de un intervalo se calcula como el **área bajo la curva de densidad**:\n$$P(a \\leq X \\leq b) = \\int_a^b f(x)\\,dx$$\nLa densidad total tiene que integrar 1 sobre todo el dominio.\n\nLeer $f(x)$ como una probabilidad puntual confunde dos objetos: $f(x)$ es una densidad y puede superar 1, y lo que representa una probabilidad es el área bajo la curva.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["formula-probabilidad-area"]
+    "tags": [
+      "formula-probabilidad-area"
+    ]
   },
   {
     "question": "Sea $X$ una variable aleatoria continua con función de **densidad** $f(x)$.\n\n¿Qué condición debe cumplir $f(x)$ sobre todo el dominio de $X$?",
@@ -39,11 +41,17 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["condicion-normalizacion"]
+    "tags": [
+      "condicion-normalizacion"
+    ]
   },
   {
     "question": "Sea $X$ una variable aleatoria continua con función de **densidad** $f(x)$.\n\n¿Cuánto vale $P(X=3)$?",
-    "options": ["$0$", "$f(3)$", "$1$"],
+    "options": [
+      "$0$",
+      "$f(3)$",
+      "$1$"
+    ],
     "correct_index": 0,
     "feedback_correct": "Para una variable continua, la probabilidad de cualquier valor puntual es siempre 0.",
     "feedback_incorrect": [
@@ -56,6 +64,284 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["probabilidad-puntual-nula"]
+    "tags": [
+      "probabilidad-puntual-nula"
+    ]
+  },
+  {
+    "question": "Sea $Y$ una variable aleatoria continua con función de **densidad** $g(y)$.\n\n¿Qué expresión permite calcular $P(c \\leq Y \\leq d)$?",
+    "options": [
+      "$g(d) - g(c)$",
+      "$\\displaystyle \\int_c^d g(y)\\,dy$",
+      "$\\displaystyle \\sum_{y=c}^{d} g(y)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El área bajo $g(y)$ entre $c$ y $d$ es exactamente esa probabilidad.",
+    "feedback_incorrect": [
+      "Esa resta compara alturas de la densidad, no acumula área entre los dos puntos.",
+      null,
+      "La suma discreta no aplica a una variable continua, ahí no hay valores puntuales con masa propia."
+    ],
+    "explanation": "Para una variable aleatoria continua, la probabilidad de un intervalo se obtiene integrando la **densidad** en ese tramo:\n$$P(c \\leq Y \\leq d) = \\int_c^d g(y)\\,dy$$\nEsa integral mide el área bajo la curva entre $c$ y $d$, que es la cantidad de probabilidad acumulada en ese tramo.\n\nRestar dos alturas de la densidad no tiene ese significado: la altura en un punto es solo un valor de la función, no una probabilidad acumulada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-probabilidad-area"
+    ]
+  },
+  {
+    "question": "Sea $X$ una variable aleatoria continua con función de **densidad** $f(x)$.\n\n¿Cómo se expresa $P(X \\leq b)$ en términos de $f$?",
+    "options": [
+      "$f(b)$",
+      "$\\displaystyle \\int_{-\\infty}^{b} f(x)\\,dx$",
+      "$\\displaystyle \\int_{b}^{\\infty} f(x)\\,dx$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Toda el área a la izquierda de $b$ acumula la probabilidad de que $X$ no supere ese valor.",
+    "feedback_incorrect": [
+      "$f(b)$ es solo la altura de la densidad en $b$, no el área acumulada hasta ese punto.",
+      null,
+      "Esa integral acumula el área a la derecha de $b$, que es $P(X\\geq b)$, no $P(X\\leq b)$."
+    ],
+    "explanation": "La probabilidad de que una variable continua no supere un valor $b$ es el área bajo la **densidad** hasta ese punto:\n$$P(X \\leq b) = \\int_{-\\infty}^{b} f(x)\\,dx$$\nEse tramo cubre todos los valores posibles de $X$ hasta $b$, así que su área acumula toda la probabilidad correspondiente.\n\nTomar solo la altura $f(b)$ ignora que la probabilidad depende de acumular área en todo un tramo, no del valor de la densidad en un único punto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-probabilidad-area"
+    ]
+  },
+  {
+    "question": "Sea $T$ una variable aleatoria continua con función de **densidad** $h(t)$.\n\n¿Qué representa geométricamente $P(m \\leq T \\leq n)$?",
+    "options": [
+      "El área bajo $h(t)$ entre $m$ y $n$.",
+      "La altura de $h$ en el punto medio de $[m,n]$.",
+      "La longitud del intervalo $[m,n]$."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La probabilidad de un intervalo siempre coincide con el área bajo la densidad en ese tramo.",
+    "feedback_incorrect": [
+      null,
+      "La altura en un solo punto no acumula el área de todo el tramo, incluido el resto del intervalo.",
+      "La longitud del intervalo no depende de la forma de $h$, y dos tramos de igual longitud pueden tener distinta probabilidad."
+    ],
+    "explanation": "Toda probabilidad de un intervalo bajo una variable continua se interpreta geométricamente como área bajo la curva de **densidad**:\n$$P(m \\leq T \\leq n) = \\int_m^n h(t)\\,dt$$\nEsa integral mide exactamente el área encerrada entre la curva y el eje horizontal, restringida al tramo $[m,n]$.\n\nDos intervalos de la misma longitud pueden encerrar áreas distintas si la densidad no es constante, así que la longitud del tramo por sí sola no determina la probabilidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-probabilidad-area"
+    ]
+  },
+  {
+    "question": "Sea $Z$ una variable aleatoria continua con función de **densidad** $p(z)$.\n\nUna de las siguientes expresiones corresponde a $P(r \\leq Z \\leq s)$.\n\n¿Cuál es esa expresión?",
+    "options": [
+      "$p(s) \\cdot p(r)$",
+      "$\\displaystyle \\int_r^s p(z)\\,dz$",
+      "$p(s) + p(r)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La probabilidad de ese tramo es el área bajo $p(z)$ entre $r$ y $s$.",
+    "feedback_incorrect": [
+      "Multiplicar dos alturas de la densidad no tiene sentido como área ni como probabilidad.",
+      null,
+      "Sumar dos alturas tampoco acumula el área del tramo completo entre $r$ y $s$."
+    ],
+    "explanation": "La probabilidad de que una variable continua caiga en un tramo $[r,s]$ se calcula integrando su **densidad** en ese intervalo:\n$$P(r \\leq Z \\leq s) = \\int_r^s p(z)\\,dz$$\nEsa integral acumula el área bajo la curva entre los dos extremos, que es lo que representa la probabilidad del tramo.\n\nOperar solo con las alturas en los extremos, sumándolas o multiplicándolas, no reconstruye el área completa que hay entre ambos puntos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-probabilidad-area"
+    ]
+  },
+  {
+    "question": "Sea $W$ una variable aleatoria continua con función de **densidad** $f(w)$.\n\n¿Cuál de las siguientes opciones **no** representa una probabilidad válida para $W$?",
+    "options": [
+      "$\\displaystyle \\int_2^5 f(w)\\,dw$",
+      "$f(5)$",
+      "$\\displaystyle \\int_{-\\infty}^{\\infty} f(w)\\,dw$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$f(5)$ es la altura de la densidad en ese punto, no un área ni una probabilidad.",
+    "feedback_incorrect": [
+      "Esa integral sí calcula el área de un tramo, y es una probabilidad válida.",
+      null,
+      "Esa integral cubre todo el dominio y siempre vale 1, también es una probabilidad válida."
+    ],
+    "explanation": "Una probabilidad, en una variable continua, siempre se obtiene integrando la **densidad** sobre algún tramo del dominio, nunca evaluándola en un único punto.\n\nLas dos integrales de las otras opciones sí representan área bajo la curva, una parcial y otra sobre todo el dominio.\n\nEvaluar $f$ en un solo punto solo da la altura de la curva ahí, un valor que puede incluso superar 1 sin dejar de ser una densidad válida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-probabilidad-area"
+    ]
+  },
+  {
+    "question": "Sea $Y$ una variable aleatoria continua con función de **densidad** $g(y)$.\n\nSu dominio es todo $\\mathbb{R}$.\n\n¿Qué igualdad expresa que $g$ es una densidad válida?",
+    "options": [
+      "$g(0) = 1$",
+      "$\\displaystyle \\int_{-\\infty}^{\\infty} g(y)\\,dy = 1$",
+      "$\\displaystyle \\int_{-\\infty}^{\\infty} g(y)\\,dy = 0$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El área total bajo cualquier densidad válida siempre da 1.",
+    "feedback_incorrect": [
+      "La densidad no necesita valer 1 en ningún punto puntual, ni siquiera en $y=0$.",
+      null,
+      "Un área total de 0 dejaría a $Y$ sin ningún valor posible, lo cual no tiene sentido."
+    ],
+    "explanation": "Toda **función de densidad** de una variable continua reparte probabilidad sobre todo su dominio, y esa probabilidad total tiene que sumar exactamente 1:\n$$\\int_{-\\infty}^{\\infty} g(y)\\,dy = 1$$\nEsta condición de normalización garantiza que $Y$ efectivamente tome algún valor real, ni más ni menos que el 100% de probabilidad repartido.\n\nPedir que la densidad valga 1 en un punto concreto confunde otra vez la altura de la curva con el área acumulada, que es la cantidad que realmente está regulada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "condicion-normalizacion"
+    ]
+  },
+  {
+    "question": "Sea $X$ una variable aleatoria continua con función de **densidad** $f(x)$.\n\nEsa densidad está definida solo en el intervalo $[a,b]$, y vale 0 fuera de él.\n\n¿Qué condición sobre $[a,b]$ hace que $f$ sea una densidad válida?",
+    "options": [
+      "$\\displaystyle \\int_a^b f(x)\\,dx = b - a$",
+      "$\\displaystyle \\int_a^b f(x)\\,dx = 1$",
+      "$f(a) = f(b)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Aunque el dominio sea finito, el área acumulada en él tiene que seguir siendo 1.",
+    "feedback_incorrect": [
+      "El área no tiene que igualar la longitud del intervalo, sino siempre valer exactamente 1.",
+      null,
+      "Que la densidad coincida en los extremos no garantiza nada sobre el área total encerrada."
+    ],
+    "explanation": "Cuando una **densidad** solo está definida en un intervalo finito $[a,b]$ y vale 0 fuera de él, toda la probabilidad de la variable queda concentrada ahí adentro:\n$$\\int_a^b f(x)\\,dx = 1$$\nLa condición de normalización sigue siendo la misma que sobre toda la recta real, solo que ahora el área se acumula en un tramo acotado.\n\nConfundir el área con la longitud del intervalo ignora que la altura de $f$ también entra en juego para que el producto acumulado dé exactamente 1.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "condicion-normalizacion"
+    ]
+  },
+  {
+    "question": "Sea $X$ una variable aleatoria continua con función de **densidad** $f(x)$, que cumple la condición de normalización:\n$$\\int_{-\\infty}^{\\infty} f(x)\\,dx = 1$$\n¿Qué significa esa igualdad en términos de probabilidad?",
+    "options": [
+      "Que $X$ toma algún valor real con probabilidad 1.",
+      "Que $X$ toma el valor 1 con certeza.",
+      "Que la densidad vale 1 en algún punto del dominio."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El área total 1 equivale a la certeza de que $X$ cae en algún valor de su dominio.",
+    "feedback_incorrect": [
+      null,
+      "El número 1 en la igualdad es el valor del área total, no un valor que tome la variable.",
+      "El área total puede valer 1 sin que la densidad alcance ese valor en ningún punto concreto."
+    ],
+    "explanation": "La condición de normalización $\\int_{-\\infty}^{\\infty} f(x)\\,dx = 1$ dice que toda la probabilidad disponible, el 100%, está repartida entre los valores posibles de $X$.\n\nComo la variable siempre toma algún valor real, la suma de probabilidades sobre todo el dominio tiene que agotar exactamente esa certeza.\n\nInterpretar el número 1 como un valor que toma $X$, en vez de como el área total acumulada, mezcla dos objetos completamente distintos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "condicion-normalizacion"
+    ]
+  },
+  {
+    "question": "Sea $T$ una variable aleatoria continua con función de **densidad** $h(t)$.\n\nEstá definida en el intervalo $[0,c]$, y vale 0 fuera de él.\n\n¿Cuál es la condición de normalización de $h$ en ese dominio?",
+    "options": [
+      "$\\displaystyle \\int_0^c h(t)\\,dt = 1$",
+      "$\\displaystyle \\int_0^c h(t)\\,dt = c$",
+      "$h(c) = 1$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El área acumulada en $[0,c]$ tiene que dar 1, sin importar cuánto valga $c$.",
+    "feedback_incorrect": [
+      null,
+      "El área no tiene que igualar el largo del intervalo, sino siempre valer 1 exacto.",
+      "La densidad no necesita valer 1 en el extremo $c$, lo que debe ser 1 es el área bajo toda la curva."
+    ],
+    "explanation": "La condición de normalización de una **densidad** con dominio acotado $[0,c]$ sigue el mismo principio que sobre toda la recta real:\n$$\\int_0^c h(t)\\,dt = 1$$\nToda la probabilidad de $T$ queda repartida dentro de ese tramo, así que el área encerrada tiene que agotar exactamente el 100% disponible.\n\nAsumir que el área depende del largo del intervalo, en vez de estar siempre fijada en 1, ignora que la altura de $h$ se ajusta precisamente para compensar cualquier largo de dominio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "condicion-normalizacion"
+    ]
+  },
+  {
+    "question": "Sea $Y$ una variable aleatoria continua con función de **densidad** $g(y)$.\n\n¿Cuánto vale $P(Y=7)$?",
+    "options": [
+      "$g(7)$",
+      "$0$",
+      "$1$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cualquier valor puntual de una variable continua tiene probabilidad 0.",
+    "feedback_incorrect": [
+      "$g(7)$ es la altura de la densidad en ese punto, no una probabilidad puntual.",
+      null,
+      "Un único valor, sin ancho, nunca puede acumular toda la probabilidad."
+    ],
+    "explanation": "En una variable aleatoria continua, la probabilidad de cualquier valor puntual es siempre cero:\n$$P(Y=y) = 0 \\quad \\text{para todo } y$$\nUn único punto no tiene ancho, y el área bajo la curva de densidad sobre un intervalo de ancho cero es nula.\n\nTomar $g(7)$ como si fuera esa probabilidad confunde la altura de la curva en un punto con el área que encierra, que es lo único que realmente cuenta como probabilidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "probabilidad-puntual-nula"
+    ]
+  },
+  {
+    "question": "Sea $X$ una variable aleatoria continua con función de **densidad** $f(x)$.\n\nPara esta variable, cualquier valor puntual tiene probabilidad 0:\n$$P(X=a) = 0$$\n$$P(X=b) = 0$$\n¿Cómo se relacionan $P(a < X < b)$ y $P(a \\leq X \\leq b)$?",
+    "options": [
+      "Son iguales entre sí, sin ninguna diferencia.",
+      "La probabilidad con extremos incluidos es mayor.",
+      "La probabilidad con extremos excluidos es mayor."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Incluir o no los extremos no cambia el área, porque cada extremo aporta probabilidad 0.",
+    "feedback_incorrect": [
+      null,
+      "Agregar los extremos no suma área, porque cada punto aislado tiene probabilidad 0.",
+      "Sacar los extremos tampoco resta área, por la misma razón."
+    ],
+    "explanation": "Como cada valor puntual de una variable continua tiene probabilidad 0, incluir o excluir los extremos $a$ y $b$ de un intervalo no cambia el área bajo la **densidad**:\n$$P(a < X < b) = P(a \\leq X \\leq b)$$\nEsto ocurre porque agregar o sacar un único punto, sin ancho, no modifica el área acumulada en el tramo.\n\nEsta propiedad es exclusiva de las variables continuas, en variables discretas los extremos sí pueden aportar probabilidad positiva.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "probabilidad-puntual-nula"
+    ]
+  },
+  {
+    "question": "Sea $T$ una variable aleatoria continua con función de **densidad** $h(t)$.\n\n¿Cuánto vale $P(T=0)$?",
+    "options": [
+      "$0$",
+      "$h(0)$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La probabilidad de cualquier punto aislado es 0, sin importar la altura de la densidad ahí.",
+    "feedback_incorrect": [
+      null,
+      "$h(0)$ puede ser cualquier número no negativo, y no representa una probabilidad puntual.",
+      "Un único punto no tiene ancho, así que no puede acumular toda la probabilidad."
+    ],
+    "explanation": "La probabilidad de que una variable continua tome exactamente un valor puntual siempre es cero, sin importar qué tan alta sea la **densidad** en ese punto:\n$$P(T=0) = 0$$\nEsto vale incluso si $h(0)$ es un número grande, porque la probabilidad depende del área bajo la curva, y un solo punto no encierra área.\n\nSuponer que una densidad alta en un punto arrastra una probabilidad puntual alta mezcla la altura de la curva con el área, que es lo único que efectivamente cuenta como probabilidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "probabilidad-puntual-nula"
+    ]
   }
 ]

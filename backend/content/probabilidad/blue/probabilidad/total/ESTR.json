@@ -61,5 +61,257 @@
     "graph_view": null,
     "reviewed": false,
     "tags": ["verificar-particion"]
+  },
+  {
+    "question": "Una empresa de logística despacha paquetes por dos canales: el 55% por el canal aéreo y el 45% por el canal terrestre.\n\nEl canal aéreo demora más del plazo prometido en el 3% de los envíos y el terrestre en el 12%.\n\nSe quiere calcular la probabilidad de que un paquete cualquiera llegue demorado.\n\n¿Qué estrategia conviene?",
+    "options": [
+      "Probabilidad condicional simple, tomando solo el canal aéreo.",
+      "Teorema de la probabilidad total ponderando por canal de envío.",
+      "Regla de Laplace aplicada directamente a los envíos demorados."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El espacio se parte por canal y se pondera la probabilidad de demora en cada uno.",
+    "feedback_incorrect": [
+      "Tomar un solo canal deja afuera la contribución del otro canal a la probabilidad total de demora.",
+      null,
+      "Laplace exige que todos los resultados sean igual de probables; acá los canales no reparten la demora por igual."
+    ],
+    "explanation": "El **teorema de la probabilidad total** permite calcular la probabilidad de un evento $D$ cuando el espacio se descompone en escenarios excluyentes.\n\nCada probabilidad condicional se pondera por el peso de su escenario:\n$$P(D) = \\sum_i P(D\\mid A_i) \\cdot P(A_i)$$\nAcá $A_1$ es el canal aéreo y $A_2$ el terrestre, con estos datos:\n$$\\begin{aligned} P(A_1) &= 0{,}55, & P(D\\mid A_1) &= 0{,}03 \\\\ P(A_2) &= 0{,}45, & P(D\\mid A_2) &= 0{,}12 \\end{aligned}$$\nReemplazando:\n$$P(D) = 0{,}03 \\cdot 0{,}55 + 0{,}12 \\cdot 0{,}45$$\n$$= 0{,}0705$$\nMirar un solo canal y responder con su tasa de demora ignora que el otro canal también aporta paquetes al total, y con una tasa distinta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-probabilidad-total"]
+  },
+  {
+    "question": "Un taller mecánico compra insumos a dos distribuidores: 70% al distribuidor M y 30% al N.\n\nLa probabilidad de que un insumo llegue vencido es 0,01 con M y 0,06 con N.\n\nSe quiere calcular la probabilidad de que un insumo cualquiera llegue vencido.\n\n¿Qué estrategia conviene?",
+    "options": [
+      "Probabilidad condicional simple sobre el distribuidor N.",
+      "Regla de Laplace directa sobre los insumos vencidos.",
+      "Teorema de la probabilidad total ponderando por distribuidor."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El espacio se parte por distribuidor y se pondera la probabilidad de vencimiento en cada uno.",
+    "feedback_incorrect": [
+      "Tomar solo el distribuidor N deja afuera la contribución de M, que provee la mayoría de los insumos.",
+      "Laplace exige resultados igual de probables; acá los distribuidores no reparten el vencimiento por igual.",
+      null
+    ],
+    "explanation": "El **teorema de la probabilidad total** permite calcular la probabilidad de un evento $V$ cuando el espacio se descompone en escenarios excluyentes.\n\nCada probabilidad condicional se pondera por el peso de su escenario:\n$$P(V) = \\sum_i P(V\\mid A_i) \\cdot P(A_i)$$\nAcá $A_1$ es el distribuidor M y $A_2$ el N, con estos datos:\n$$\\begin{aligned} P(A_1) &= 0{,}7, & P(V\\mid A_1) &= 0{,}01 \\\\ P(A_2) &= 0{,}3, & P(V\\mid A_2) &= 0{,}06 \\end{aligned}$$\nReemplazando:\n$$P(V) = 0{,}01 \\cdot 0{,}7 + 0{,}06 \\cdot 0{,}3 = 0{,}025$$\nMirar solo el distribuidor N sobreestima el vencimiento total, porque M provee la mayoría de los insumos con una tasa mucho más baja.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-probabilidad-total"]
+  },
+  {
+    "question": "Hay dos cajas con bolitas: la caja 1 se elige con probabilidad 0,4 y la caja 2 con 0,6.\n\nLa caja 1 tiene un 20% de bolitas rojas y la caja 2 un 50%.\n\nSe elige una caja al azar y después una bolita.\n\n¿Qué estrategia conviene para calcular la probabilidad de sacar una bolita roja?",
+    "options": [
+      "Teorema de la probabilidad total ponderando por caja.",
+      "Regla de Laplace directa sobre las bolitas rojas.",
+      "Probabilidad condicional simple sobre la caja 2."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El espacio se parte por caja y se pondera la probabilidad de bolita roja en cada una.",
+    "feedback_incorrect": [
+      null,
+      "Laplace exige elegir entre resultados igual de probables; acá el color depende de qué caja salió primero.",
+      "Tomar solo la caja 2 deja afuera la contribución de la caja 1, que también puede haberse elegido."
+    ],
+    "explanation": "El **teorema de la probabilidad total** permite calcular la probabilidad de un evento $R$ cuando el espacio se descompone en escenarios excluyentes.\n\nCada probabilidad condicional se pondera por el peso de su escenario:\n$$P(R) = \\sum_i P(R\\mid A_i) \\cdot P(A_i)$$\nAcá $A_1$ es elegir la caja 1 y $A_2$ la caja 2, con estos datos:\n$$\\begin{aligned} P(A_1) &= 0{,}4, & P(R\\mid A_1) &= 0{,}20 \\\\ P(A_2) &= 0{,}6, & P(R\\mid A_2) &= 0{,}50 \\end{aligned}$$\nReemplazando:\n$$P(R) = 0{,}20 \\cdot 0{,}4 + 0{,}50 \\cdot 0{,}6 = 0{,}38$$\nQuedarse con una sola caja como si siempre fuera la elegida ignora que la otra caja también puede salir sorteada, con una proporción de rojas distinta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-probabilidad-total"]
+  },
+  {
+    "question": "En una planta, el 40% de las piezas viene de la línea A, el 35% de la línea B y el 25% de la línea C.\n\nLas tasas de piezas falladas son 0,02 en A, 0,06 en B y 0,09 en C.\n\nSe quiere calcular la probabilidad de que una pieza cualquiera esté fallada.\n\n¿Qué estrategia conviene?",
+    "options": [
+      "Probabilidad condicional simple sobre la línea C únicamente.",
+      "Regla del complemento sobre las piezas sin fallas.",
+      "Teorema de la probabilidad total ponderando por línea."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El espacio se parte por línea y se pondera la probabilidad de falla en cada una.",
+    "feedback_incorrect": [
+      "Tomar solo la línea C deja afuera la contribución de A y B, que producen la mayoría de las piezas.",
+      "El complemento no combina tres condicionales distintos, solo invierte un evento con su contrario.",
+      null
+    ],
+    "explanation": "El **teorema de la probabilidad total** permite calcular la probabilidad de un evento $F$ cuando el espacio se descompone en escenarios excluyentes.\n\nCada probabilidad condicional se pondera por el peso de su escenario:\n$$P(F) = \\sum_i P(F\\mid A_i) \\cdot P(A_i)$$\nAcá $A_1, A_2, A_3$ son las tres líneas, con estos datos:\n$$\\begin{aligned} P(A_1) &= 0{,}4, & P(F\\mid A_1) &= 0{,}02 \\\\ P(A_2) &= 0{,}35, & P(F\\mid A_2) &= 0{,}06 \\\\ P(A_3) &= 0{,}25, & P(F\\mid A_3) &= 0{,}09 \\end{aligned}$$\nReemplazando:\n$$P(F) = 0{,}02\\cdot0{,}4+0{,}06\\cdot0{,}35+0{,}09\\cdot0{,}25$$\n$$= 0{,}0515$$\nElegir una sola línea como representante del total, o mirar solo piezas buenas y malas sin separar por origen, ignora que cada línea aporta una fracción distinta con una tasa de falla propia.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-probabilidad-total"]
+  },
+  {
+    "question": "Una tienda de repuestos compra a tres proveedores: el 50% a P1, el 30% a P2 y el 20% a P3.\n\nLa probabilidad de que una pieza llegue rota es 0,04 para P1, 0,07 para P2 y 0,10 para P3.\n\nSe quiere calcular la probabilidad de que una pieza cualquiera llegue rota.\n\n¿Qué estrategia conviene?",
+    "options": [
+      "Regla del complemento sobre las piezas en buen estado.",
+      "Teorema de la probabilidad total ponderando por proveedor.",
+      "Probabilidad condicional simple sobre un único proveedor."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El espacio se parte por proveedor y se pondera la probabilidad de rotura en cada uno.",
+    "feedback_incorrect": [
+      "El complemento no combina varios condicionales distintos, solo invierte un evento con su contrario.",
+      null,
+      "Fijarse en un solo proveedor deja afuera la contribución de los otros dos al total."
+    ],
+    "explanation": "El **teorema de la probabilidad total** permite calcular la probabilidad de un evento $R$ cuando el espacio se descompone en escenarios excluyentes.\n\nCada probabilidad condicional se pondera por el peso de su escenario:\n$$P(R) = \\sum_i P(R\\mid A_i) \\cdot P(A_i)$$\nAcá $A_1, A_2, A_3$ son los tres proveedores, con estos datos:\n$$\\begin{aligned} P(A_1) &= 0{,}5, & P(R\\mid A_1) &= 0{,}04 \\\\ P(A_2) &= 0{,}3, & P(R\\mid A_2) &= 0{,}07 \\\\ P(A_3) &= 0{,}2, & P(R\\mid A_3) &= 0{,}10 \\end{aligned}$$\nReemplazando:\n$$P(R) = 0{,}04\\cdot0{,}5+0{,}07\\cdot0{,}3+0{,}10\\cdot0{,}2 = 0{,}061$$\nMirar un solo proveedor, o comparar piezas buenas contra rotas sin descomponer por origen, ignora que cada proveedor aporta una fracción distinta del total con una tasa de rotura propia.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-probabilidad-total"]
+  },
+  {
+    "question": "Un depósito recibe insumos de un único proveedor certificado $C$.\n\nSe sabe que $P(F\\mid C)=0{,}03$, y se pregunta directamente por $P(F\\mid C)$.\n\n¿Qué estrategia corresponde?",
+    "options": [
+      "Aplicar probabilidad total, sumando sobre una partición de $\\Omega$.",
+      "Calcular primero $P(C)$ con probabilidad total antes de responder.",
+      "Usar la fórmula condicional directamente, sin descomponer en escenarios."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El dato ya es la condicional pedida: no hace falta descomponer en escenarios ni ponderar nada.",
+    "feedback_incorrect": [
+      "No hay ninguna partición de escenarios en el enunciado: aplicar probabilidad total acá agrega un paso innecesario.",
+      "El valor de $P(F\\mid C)$ ya viene dado directamente; no hace falta calcular $P(C)$ para responder lo que se pregunta.",
+      null
+    ],
+    "explanation": "No todo problema con probabilidades condicionales requiere el **teorema de la probabilidad total**: hace falta que el evento final dependa de varios escenarios distintos con probabilidades distintas.\n\nAcá el enunciado ya da directamente $P(F\\mid C)=0{,}03$ para un único proveedor, sin mencionar ningún otro escenario alternativo, así que la respuesta es ese mismo valor.\n\nDescomponer en escenarios que el enunciado ni siquiera propone agrega una cuenta que la pregunta no necesita.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["distractor-condicional-simple"]
+  },
+  {
+    "question": "Un depósito despacha todos sus pedidos urgentes por un único courier expreso $U$.\n\nSe sabe que $P(D\\mid U)=0{,}02$, y se pregunta directamente por $P(D\\mid U)$.\n\n¿Qué estrategia corresponde?",
+    "options": [
+      "Usar la fórmula condicional directamente, sin descomponer en escenarios.",
+      "Calcular primero $P(U)$ con probabilidad total antes de responder.",
+      "Aplicar probabilidad total, sumando sobre una partición de $\\Omega$."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El dato ya es la condicional pedida: no hace falta descomponer en escenarios ni ponderar nada.",
+    "feedback_incorrect": [
+      null,
+      "El valor de $P(D\\mid U)$ ya viene dado directamente; no hace falta calcular $P(U)$ para responder lo que se pregunta.",
+      "No hay ninguna partición de escenarios en el enunciado: aplicar probabilidad total acá agrega un paso innecesario."
+    ],
+    "explanation": "No todo problema con probabilidades condicionales requiere el **teorema de la probabilidad total**: hace falta que el evento final dependa de varios escenarios distintos con probabilidades distintas.\n\nAcá el enunciado ya da directamente $P(D\\mid U)=0{,}02$ para un único courier, sin mencionar ningún otro canal alternativo, así que la respuesta es ese mismo valor.\n\nAplicar la suma ponderada por reflejo, sin verificar primero si el enunciado realmente propone más de un escenario, agrega un paso que acá sobra.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["distractor-condicional-simple"]
+  },
+  {
+    "question": "En una fábrica con una sola línea de ensamblaje activa, se sabe que $P(F\\mid L)=0{,}05$, donde $L$ es esa línea.\n\nSe pregunta directamente por $P(F\\mid L)$.\n\n¿Qué estrategia corresponde?",
+    "options": [
+      "Calcular primero $P(L)$ con probabilidad total antes de responder.",
+      "Usar la fórmula condicional directamente, sin descomponer en escenarios.",
+      "Aplicar probabilidad total, sumando sobre una partición de $\\Omega$."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El dato ya es la condicional pedida: no hace falta descomponer en escenarios ni ponderar nada.",
+    "feedback_incorrect": [
+      "El valor de $P(F\\mid L)$ ya viene dado directamente; no hace falta calcular $P(L)$ para responder lo que se pregunta.",
+      null,
+      "No hay ninguna partición de escenarios en el enunciado: aplicar probabilidad total acá agrega un paso innecesario."
+    ],
+    "explanation": "No todo problema con probabilidades condicionales requiere el **teorema de la probabilidad total**: hace falta que el evento final dependa de varios escenarios distintos con probabilidades distintas.\n\nAcá el enunciado ya da directamente $P(F\\mid L)=0{,}05$ para una única línea activa, sin mencionar ninguna otra línea alternativa, así que la respuesta es ese mismo valor.\n\nBuscar una partición donde no la hay lleva a inventar escenarios que el problema nunca planteó.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["distractor-condicional-simple"]
+  },
+  {
+    "question": "En un problema se proponen tres cajas $A_1, A_2, A_3$ como partición del espacio muestral.\n\nSe eligen con probabilidades 30%, 45% y 25%.\n\n¿Esta partición es válida para aplicar probabilidad total?",
+    "options": [
+      "Sí, porque los pesos suman $0{,}30+0{,}45+0{,}25=1$.",
+      "No, porque hacen falta al menos cuatro cajas para cubrir $\\Omega$.",
+      "Sí, porque hay más de una caja propuesta."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Los pesos suman exactamente 1 y las cajas no se superponen: la partición cubre todo $\\Omega$.",
+    "feedback_incorrect": [
+      null,
+      "La cantidad mínima de escenarios no es lo que define una partición válida; lo que importa es que los pesos sumen 1.",
+      "Que haya más de una caja no garantiza que cubran todo $\\Omega$; hay que chequear que los pesos sumen 1."
+    ],
+    "explanation": "Para que una **partición** $\\{A_1,A_2,A_3\\}$ sea válida, además de ser mutuamente excluyentes, sus elementos deben cubrir todo el espacio muestral: las probabilidades deben sumar exactamente $1$.\n\nSumando los tres pesos:\n$$0{,}30+0{,}45+0{,}25=1$$\nLos tres escenarios cubren completo el espacio muestral sin dejar ningún resto sin asignar, así que la partición es válida.\n\nContar solo cuántos escenarios hay, sin sumar sus pesos, deja pasar como válida una lista de cajas que en realidad no cubre todo $\\Omega$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["verificar-particion"]
+  },
+  {
+    "question": "En un problema se proponen los canales $A_1, A_2$ como partición del espacio muestral, con pesos 55% y 40%.\n\n¿Esta partición es válida para aplicar probabilidad total?",
+    "options": [
+      "Sí, porque los dos canales son mutuamente excluyentes.",
+      "No, porque $0{,}55+0{,}40=0{,}95\\neq 1$: falta cubrir el 5% restante.",
+      "Sí, porque cada canal tiene una probabilidad menor a 1."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Una partición válida debe cubrir todo $\\Omega$: los pesos deben sumar exactamente 1.",
+    "feedback_incorrect": [
+      "Ser excluyentes es necesario pero no alcanza: además deben cubrir juntos todo el espacio muestral.",
+      null,
+      "Que cada peso individual sea menor a 1 no dice nada sobre si juntos cubren todo el espacio muestral."
+    ],
+    "explanation": "Para que la **partición** $\\{A_1,A_2\\}$ sea válida, además de ser mutuamente excluyentes, sus elementos deben cubrir todo el espacio muestral: las probabilidades deben sumar exactamente $1$.\n\nSumando los dos pesos:\n$$0{,}55+0{,}40=0{,}95$$\nFalta un 5% del espacio muestral sin asignar a ningún canal, así que la partición está incompleta.\n\nDetenerse en que los canales no se solapan, sin revisar si entre los dos cubren el 100% del espacio, deja pasar particiones incompletas como si fueran válidas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["verificar-particion"]
+  },
+  {
+    "question": "En un problema se proponen cuatro proveedores $A_1, A_2, A_3, A_4$ como partición del espacio muestral.\n\nSus pesos son 20%, 30%, 15% y 35%.\n\n¿Esta partición es válida para aplicar probabilidad total?",
+    "options": [
+      "No, porque hacen falta pesos iguales entre los cuatro proveedores.",
+      "Sí, porque $0{,}20+0{,}30+0{,}15+0{,}35=1$ y son mutuamente excluyentes.",
+      "No, porque cuatro escenarios son demasiados para una partición."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los pesos suman exactamente 1 y los proveedores no se superponen: la partición cubre todo $\\Omega$.",
+    "feedback_incorrect": [
+      "Una partición no exige pesos iguales entre los escenarios, solo que sean excluyentes y sumen 1.",
+      null,
+      "No hay un límite en la cantidad de escenarios de una partición; lo que importa es que sus pesos sumen 1."
+    ],
+    "explanation": "Para que la **partición** $\\{A_1,A_2,A_3,A_4\\}$ sea válida, además de ser mutuamente excluyentes, sus elementos deben cubrir todo el espacio muestral: las probabilidades deben sumar exactamente $1$.\n\nSumando los cuatro pesos:\n$$0{,}20+0{,}30+0{,}15+0{,}35=1$$\nLos cuatro proveedores cubren completo el espacio muestral sin dejar resto, así que la partición es válida.\n\nRechazar una partición solo por tener pesos distintos entre sí, sin verificar la suma real, descarta particiones perfectamente válidas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["verificar-particion"]
+  },
+  {
+    "question": "Una plataforma de comercio electrónico envía por dos transportistas: 60% por el transportista T1 y 40% por T2.\n\nT1 entrega tarde el 4% de las veces y T2 el 9%.\n\nSe quiere calcular la probabilidad de que un envío cualquiera llegue tarde.\n\n¿Qué estrategia conviene?",
+    "options": [
+      "Teorema de la probabilidad total ponderando por transportista.",
+      "Regla del complemento sobre los envíos a tiempo.",
+      "Probabilidad condicional simple sobre el transportista T2."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El espacio se parte por transportista y se pondera la probabilidad de demora en cada uno.",
+    "feedback_incorrect": [
+      null,
+      "El complemento no combina dos condicionales distintos, solo invierte un evento con su contrario.",
+      "Tomar solo T2 deja afuera la contribución de T1, que despacha la mayoría de los envíos."
+    ],
+    "explanation": "El **teorema de la probabilidad total** permite calcular la probabilidad de un evento $D$ cuando el espacio se descompone en escenarios excluyentes.\n\nCada probabilidad condicional se pondera por el peso de su escenario:\n$$P(D) = \\sum_i P(D\\mid A_i) \\cdot P(A_i)$$\nAcá $A_1$ es el transportista T1 y $A_2$ el T2, con estos datos:\n$$\\begin{aligned} P(A_1) &= 0{,}6, & P(D\\mid A_1) &= 0{,}04 \\\\ P(A_2) &= 0{,}4, & P(D\\mid A_2) &= 0{,}09 \\end{aligned}$$\nReemplazando:\n$$P(D) = 0{,}04 \\cdot 0{,}6 + 0{,}09 \\cdot 0{,}4 = 0{,}06$$\nMirar solo el transportista T2 sobreestima la demora total, porque T1 maneja más envíos y demora mucho menos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-probabilidad-total"]
   }
 ]

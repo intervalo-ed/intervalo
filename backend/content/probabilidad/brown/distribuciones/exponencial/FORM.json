@@ -22,7 +22,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["formula-densidad"]
+    "tags": [
+      "formula-densidad"
+    ]
   },
   {
     "question": "El tiempo entre llegadas sucesivas de clientes a un local sigue una exponencial de tasa $\\lambda=0{,}5$ por minuto.\n\n¿Cuánto vale $E[X]$?",
@@ -47,7 +49,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["esperanza-y-perdida-memoria"]
+    "tags": [
+      "esperanza-y-perdida-memoria"
+    ]
   },
   {
     "question": "La duración de una llamada de atención al cliente sigue una exponencial de tasa $\\lambda=0{,}25$ por minuto.\n\nSe sabe que $e^{-1}\\approx 0{,}37$.\n\nCalculá $P(X\\leq 4)$, la probabilidad de que la llamada dure a lo sumo 4 minutos.",
@@ -72,6 +76,328 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["probabilidad-acumulada-cerrada"]
+    "tags": [
+      "probabilidad-acumulada-cerrada"
+    ]
+  },
+  {
+    "question": "El tiempo entre llegadas sucesivas de clientes a un local sigue una exponencial de tasa $\\lambda=0{,}3$ por minuto.\n\n¿Cuál es la densidad $f(x)$ de ese tiempo entre llegadas?",
+    "options": [
+      "$0{,}3e^{-0{,}3x}$",
+      "$e^{-0{,}3x}$",
+      "$0{,}3e^{0{,}3x}$",
+      "$e^{-x}/0{,}3$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$f(x)=\\lambda e^{-\\lambda x}$ con $\\lambda=0{,}3$.",
+    "feedback_incorrect": [
+      null,
+      "Esa expresión no tiene el factor $\\lambda$ multiplicando afuera, y sin él la función no integra 1.",
+      "El signo del exponente está invertido, así crecería sin límite en vez de decaer.",
+      "Esa expresión no corresponde a la forma $\\lambda e^{-\\lambda x}$ de la densidad exponencial."
+    ],
+    "explanation": "La densidad **exponencial** de tasa $\\lambda$ tiene esta forma.\n$$f(x) = \\lambda e^{-\\lambda x}, \\; x\\geq 0$$\nAcá $\\lambda=0{,}3$ clientes por minuto.\n$$f(x) = 0{,}3\\,e^{-0{,}3x}$$\nEl factor $\\lambda$ que multiplica afuera y el signo negativo en el exponente son ambos necesarios para que el área bajo toda la curva sea exactamente 1.\n\nCambiar cualquiera de los dos rompe esa condición y la función deja de ser una densidad válida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "formula-densidad"
+    ]
+  },
+  {
+    "question": "La vida útil de un componente electrónico antes de fallar sigue una exponencial de tasa $\\lambda=2$ por año.\n\n¿Cuál es la densidad $f(x)$ de esa vida útil?",
+    "options": [
+      "$e^{-2x}/2$",
+      "$e^{-2x}$",
+      "$2e^{2x}$",
+      "$2e^{-2x}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$f(x)=\\lambda e^{-\\lambda x}$ con $\\lambda=2$.",
+    "feedback_incorrect": [
+      "Esa expresión divide por $\\lambda$ en vez de multiplicar, y así la curva no integra 1.",
+      "Esa expresión no tiene el factor $\\lambda$ multiplicando afuera, y sin él la función no integra 1.",
+      "El signo del exponente está invertido, así crecería sin límite en vez de decaer.",
+      null
+    ],
+    "explanation": "La densidad **exponencial** de tasa $\\lambda$ tiene esta forma.\n$$f(x) = \\lambda e^{-\\lambda x}, \\; x\\geq 0$$\nAcá $\\lambda=2$ fallas por año.\n$$f(x) = 2\\,e^{-2x}$$\nEl factor $\\lambda$ que multiplica afuera y el signo negativo en el exponente son ambos necesarios para que el área bajo toda la curva sea exactamente 1.\n\nCambiar cualquiera de los dos rompe esa condición y la función deja de ser una densidad válida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "formula-densidad"
+    ]
+  },
+  {
+    "question": "El tiempo entre fallas sucesivas de una máquina en una fábrica sigue una exponencial de tasa $\\lambda=0{,}75$ por hora.\n\n¿Cuál es la densidad $f(x)$ de ese tiempo entre fallas?",
+    "options": [
+      "$0{,}75e^{0{,}75x}$",
+      "$e^{-0{,}75x}$",
+      "$0{,}75e^{-0{,}75x}$",
+      "$e^{-x}/0{,}75$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$f(x)=\\lambda e^{-\\lambda x}$ con $\\lambda=0{,}75$.",
+    "feedback_incorrect": [
+      "El signo del exponente está invertido, así crecería sin límite en vez de decaer.",
+      "Esa expresión no tiene el factor $\\lambda$ multiplicando afuera, y sin él la función no integra 1.",
+      null,
+      "Esa expresión no corresponde a la forma $\\lambda e^{-\\lambda x}$ de la densidad exponencial."
+    ],
+    "explanation": "La densidad **exponencial** de tasa $\\lambda$ tiene esta forma.\n$$f(x) = \\lambda e^{-\\lambda x}, \\; x\\geq 0$$\nAcá $\\lambda=0{,}75$ fallas por hora.\n$$f(x) = 0{,}75\\,e^{-0{,}75x}$$\nEl factor $\\lambda$ que multiplica afuera y el signo negativo en el exponente son ambos necesarios para que el área bajo toda la curva sea exactamente 1.\n\nCambiar cualquiera de los dos rompe esa condición y la función deja de ser una densidad válida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "formula-densidad"
+    ]
+  },
+  {
+    "question": "La duración de una llamada telefónica de atención al cliente sigue una exponencial de tasa $\\lambda=1{,}5$ por minuto.\n\n¿Cuál es la densidad $f(x)$ de esa duración?",
+    "options": [
+      "$e^{-1{,}5x}$",
+      "$1{,}5e^{-1{,}5x}$",
+      "$1{,}5e^{1{,}5x}$",
+      "$e^{-x}/1{,}5$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$f(x)=\\lambda e^{-\\lambda x}$ con $\\lambda=1{,}5$.",
+    "feedback_incorrect": [
+      "Esa expresión no tiene el factor $\\lambda$ multiplicando afuera, y sin él la función no integra 1.",
+      null,
+      "El signo del exponente está invertido, así crecería sin límite en vez de decaer.",
+      "Esa expresión no corresponde a la forma $\\lambda e^{-\\lambda x}$ de la densidad exponencial."
+    ],
+    "explanation": "La densidad **exponencial** de tasa $\\lambda$ tiene esta forma.\n$$f(x) = \\lambda e^{-\\lambda x}, \\; x\\geq 0$$\nAcá $\\lambda=1{,}5$ llamadas por minuto.\n$$f(x) = 1{,}5\\,e^{-1{,}5x}$$\nEl factor $\\lambda$ que multiplica afuera y el signo negativo en el exponente son ambos necesarios para que el área bajo toda la curva sea exactamente 1.\n\nCambiar cualquiera de los dos rompe esa condición y la función deja de ser una densidad válida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "formula-densidad"
+    ]
+  },
+  {
+    "question": "La vida útil de un componente electrónico antes de fallar sigue una exponencial de tasa $\\lambda=0{,}25$ por año.\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$0{,}25$",
+      "$4$",
+      "$0{,}0625$",
+      "$8$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$E[X]=1/0{,}25=4$ años en promedio.",
+    "feedback_incorrect": [
+      "Ese es $\\lambda$ mismo, no su inverso.",
+      null,
+      "Ese valor es $\\lambda^{2}$, no $1/\\lambda$.",
+      "Ese valor sale de invertir $\\lambda^{2}$ en vez de $\\lambda$."
+    ],
+    "explanation": "Para la **exponencial**, la esperanza tiene forma cerrada.\n$$E[X] = 1/\\lambda$$\nAcá $\\lambda=0{,}25$.\n$$E[X] = 1/0{,}25 = 4$$\nEn promedio pasan 4 años antes de que el componente falle, si se repitiera este proceso muchísimas veces.\n\nLa exponencial además tiene pérdida de memoria: si el componente ya lleva 2 años funcionando sin fallar, el tiempo que le queda hasta la falla sigue teniendo la misma distribución de siempre.\n\nEl reloj no arrastra ningún historial, cada instante vuelve a arrancar la espera desde cero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "esperanza-y-perdida-memoria"
+    ]
+  },
+  {
+    "question": "El tiempo que tarda un mensaje en recibir respuesta en un canal de soporte sigue una exponencial de tasa $\\lambda=4$ por hora.\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$4$",
+      "$16$",
+      "$0{,}25$",
+      "$2$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$E[X]=1/4=0{,}25$ horas en promedio.",
+    "feedback_incorrect": [
+      "Ese es $\\lambda$ mismo, no su inverso.",
+      "Ese valor es $\\lambda^{2}$, no $1/\\lambda$.",
+      null,
+      "Ese valor sale de invertir $\\lambda^{2}$ en vez de $\\lambda$."
+    ],
+    "explanation": "Para la **exponencial**, la esperanza tiene forma cerrada.\n$$E[X] = 1/\\lambda$$\nAcá $\\lambda=4$.\n$$E[X] = 1/4 = 0{,}25$$\nEn promedio el mensaje tarda un cuarto de hora en recibir respuesta, si se repitiera este proceso muchísimas veces.\n\nLa exponencial además tiene pérdida de memoria: si ya pasaron 10 minutos sin respuesta, el tiempo que falta para recibirla sigue teniendo la misma distribución de siempre.\n\nEl reloj no arrastra ningún historial, cada instante vuelve a arrancar la espera desde cero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "esperanza-y-perdida-memoria"
+    ]
+  },
+  {
+    "question": "El tiempo entre fallas sucesivas de una máquina en una fábrica sigue una exponencial de tasa $\\lambda$.\n\nYa pasaron 3 horas desde la última falla sin que ocurra otra.\n\n¿Cómo es la distribución del tiempo que falta para la próxima falla?",
+    "options": [
+      "Más concentrada en tiempos cortos, porque ya pasó bastante tiempo sin fallar.",
+      "La misma distribución exponencial de siempre, sin importar las 3 horas ya transcurridas.",
+      "Más extendida hacia tiempos largos, porque la máquina ya lleva un rato funcionando."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La exponencial tiene pérdida de memoria: el tiempo ya transcurrido no cambia la distribución del tiempo restante.",
+    "feedback_incorrect": [
+      "Llevar tiempo sin fallar no acerca la próxima falla, la pérdida de memoria descarta esa dependencia.",
+      null,
+      "Llevar tiempo sin fallar tampoco aleja la próxima falla, la distribución del tiempo restante no cambia."
+    ],
+    "explanation": "La **exponencial** es la única distribución continua con pérdida de memoria.\n$$P(X > s+t \\mid X > s) = P(X > t)$$\nAcá $s=3$ horas es el tiempo ya transcurrido sin falla.\n\nEsta propiedad dice que el tiempo restante hasta la próxima falla, dado que ya pasaron $s$ horas sin que ocurra, tiene exactamente la misma distribución que el tiempo original desde cero.\n\nLa máquina no acumula desgaste ni beneficio por haber aguantado un rato: cada instante que pasa sin fallar reinicia el reloj de espera, como si recién arrancara.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "esperanza-y-perdida-memoria"
+    ]
+  },
+  {
+    "question": "El tiempo entre sismos leves sucesivos registrados por un sismógrafo sigue una exponencial de tasa $\\lambda$.\n\nYa pasaron 10 días sin que ocurra un sismo leve.\n\n¿Afecta esto la distribución del tiempo que falta para el próximo sismo?",
+    "options": [
+      "Sí, el próximo sismo se vuelve más probable en el corto plazo.",
+      "Sí, el próximo sismo se vuelve menos probable en el corto plazo.",
+      "No, la distribución del tiempo restante es la misma exponencial de siempre."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La exponencial tiene pérdida de memoria: el tiempo ya transcurrido no cambia la distribución del tiempo restante.",
+    "feedback_incorrect": [
+      "Llevar tiempo sin sismos no acerca el próximo, la pérdida de memoria descarta esa dependencia.",
+      "Llevar tiempo sin sismos tampoco aleja el próximo, la distribución del tiempo restante no cambia.",
+      null
+    ],
+    "explanation": "La **exponencial** es la única distribución continua con pérdida de memoria.\n$$P(X > s+t \\mid X > s) = P(X > t)$$\nAcá $s=10$ días es el tiempo ya transcurrido sin sismos.\n\nEsta propiedad dice que el tiempo restante hasta el próximo sismo, dado que ya pasaron $s$ días sin que ocurra, tiene exactamente la misma distribución que el tiempo original desde cero.\n\nEl sismógrafo no acumula ninguna tendencia por la espera ya transcurrida: cada instante que pasa sin sismo reinicia el reloj de espera, como si recién arrancara.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "esperanza-y-perdida-memoria"
+    ]
+  },
+  {
+    "question": "La vida útil de un componente electrónico antes de fallar sigue una exponencial de tasa $\\lambda=0{,}4$ por año.\n\nSe sabe que $e^{-2}\\approx 0{,}14$.\n\nCalculá $P(X\\leq 5)$, la probabilidad de que falle a lo sumo a los 5 años.",
+    "options": [
+      "$0{,}86$",
+      "$0{,}14$",
+      "$1{,}14$",
+      "$0{,}4$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$P(X\\leq5)=1-0{,}14=0{,}86$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor es $e^{-\\lambda x}$ solo, la probabilidad de que dure más de 5 años, no de que falle a lo sumo a los 5.",
+      "Ese valor suma en vez de restar, un resultado mayor a 1 no puede ser una probabilidad.",
+      "Ese valor es la tasa $\\lambda$, no una probabilidad acumulada."
+    ],
+    "explanation": "La probabilidad acumulada de la **exponencial** ya viene resuelta en forma cerrada.\n$$P(X\\leq x) = 1-e^{-\\lambda x}$$\nAcá $\\lambda=0{,}4,\\, x=5$, así que $\\lambda x=2$.\n$$P(X\\leq5) = 1-e^{-2}$$\n$$1-0{,}14 = 0{,}86$$\n86% de los componentes fallan a los 5 años o antes, con un 14% que dura más allá de ese punto.\n\nEl área que faltaría hasta el total corresponde a que el componente dure más de 5 años, la cola larga que ya se dio como dato.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "probabilidad-acumulada-cerrada"
+    ]
+  },
+  {
+    "question": "El tiempo entre fallas sucesivas de una máquina en una fábrica sigue una exponencial de tasa $\\lambda=0{,}5$ por hora.\n\nSe sabe que $e^{-1{,}5}\\approx 0{,}22$.\n\nCalculá $P(X\\geq 3)$, la probabilidad de que pasen al menos 3 horas hasta la próxima falla.",
+    "options": [
+      "$0{,}78$",
+      "$0{,}22$",
+      "$1{,}22$",
+      "$0{,}5$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$P(X\\geq3)=e^{-1{,}5}=0{,}22$.",
+    "feedback_incorrect": [
+      "Ese valor es $1-e^{-\\lambda x}$, la probabilidad de que falle antes de las 3 horas, no de que tarde al menos 3.",
+      null,
+      "Ese valor suma en vez de dejar la exponencial sola, un resultado mayor a 1 no puede ser una probabilidad.",
+      "Ese valor es la tasa $\\lambda$, no una probabilidad acumulada."
+    ],
+    "explanation": "La probabilidad de que la **exponencial** supere un valor también viene resuelta en forma cerrada.\n$$P(X\\geq x) = e^{-\\lambda x}$$\nAcá $\\lambda=0{,}5,\\, x=3$, así que $\\lambda x=1{,}5$.\n$$P(X\\geq3) = e^{-1{,}5} = 0{,}22$$\nSolo un 22% de los tramos entre fallas dura 3 horas o más, la mayoría de las fallas ocurre antes de ese punto.\n\nEste valor complementa a $P(X\\leq 3)=1-0{,}22=0{,}78$, que sería la probabilidad de fallar antes de las 3 horas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "probabilidad-acumulada-cerrada"
+    ]
+  },
+  {
+    "question": "El tiempo que tarda un mensaje en recibir respuesta en un canal de soporte sigue una exponencial de tasa $\\lambda=0{,}3$ por hora.\n\nSe sabe que $e^{-3}\\approx 0{,}05$.\n\nCalculá $P(X\\leq 10)$, la probabilidad de recibir respuesta en 10 horas o menos.",
+    "options": [
+      "$0{,}05$",
+      "$1{,}05$",
+      "$0{,}95$",
+      "$0{,}3$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$P(X\\leq10)=1-0{,}05=0{,}95$.",
+    "feedback_incorrect": [
+      "Ese valor es $e^{-\\lambda x}$ solo, la probabilidad de que la respuesta tarde más de 10 horas, no de que llegue en 10 o menos.",
+      "Ese valor suma en vez de restar, un resultado mayor a 1 no puede ser una probabilidad.",
+      null,
+      "Ese valor es la tasa $\\lambda$, no una probabilidad acumulada."
+    ],
+    "explanation": "La probabilidad acumulada de la **exponencial** ya viene resuelta en forma cerrada.\n$$P(X\\leq x) = 1-e^{-\\lambda x}$$\nAcá $\\lambda=0{,}3,\\, x=10$, así que $\\lambda x=3$.\n$$P(X\\leq10) = 1-e^{-3}$$\n$$1-0{,}05 = 0{,}95$$\n95% de los mensajes reciben respuesta en 10 horas o menos, con un 5% que se extiende más allá.\n\nEl área que faltaría hasta el total corresponde a que el mensaje tarde más de 10 horas, la cola larga que ya se dio como dato.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "probabilidad-acumulada-cerrada"
+    ]
+  },
+  {
+    "question": "El tiempo entre sismos leves sucesivos registrados por un sismógrafo sigue una exponencial de tasa $\\lambda=0{,}05$ por día.\n\nSe sabe que $e^{-0{,}5}\\approx 0{,}61$.\n\nCalculá $P(X\\leq 10)$, la probabilidad de que el próximo sismo ocurra dentro de los primeros 10 días.",
+    "options": [
+      "$0{,}61$",
+      "$1{,}39$",
+      "$0{,}05$",
+      "$0{,}39$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$P(X\\leq10)=1-0{,}61=0{,}39$.",
+    "feedback_incorrect": [
+      "Ese valor es $e^{-\\lambda x}$ solo, la probabilidad de que el sismo tarde más de 10 días, no de que ocurra dentro de los 10.",
+      "Ese valor suma en vez de restar, un resultado mayor a 1 no puede ser una probabilidad.",
+      "Ese valor es la tasa $\\lambda$, no una probabilidad acumulada.",
+      null
+    ],
+    "explanation": "La probabilidad acumulada de la **exponencial** ya viene resuelta en forma cerrada.\n$$P(X\\leq x) = 1-e^{-\\lambda x}$$\nAcá $\\lambda=0{,}05,\\, x=10$, así que $\\lambda x=0{,}5$.\n$$P(X\\leq10) = 1-e^{-0{,}5}$$\n$$1-0{,}61 = 0{,}39$$\nSolo un 39% de los tramos entre sismos leves dura 10 días o menos, la mayoría se extiende más allá de ese punto.\n\nEl área que faltaría hasta el total corresponde a que el próximo sismo tarde más de 10 días, la cola larga que ya se dio como dato.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "probabilidad-acumulada-cerrada"
+    ]
   }
 ]

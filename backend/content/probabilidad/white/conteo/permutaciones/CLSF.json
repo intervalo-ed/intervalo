@@ -97,5 +97,207 @@
     "graph_view": null,
     "reviewed": false,
     "tags": ["distractor-regla-producto"]
+  },
+  {
+    "question": "Se quiere anotar el orden de llegada de los 5 corredores de una carrera de barrio, del primero al último puesto.\n\n¿Qué técnica de conteo corresponde?",
+    "options": [
+      "Combinación de 5 tomados de 5.",
+      "Permutación de 5 elementos.",
+      "Variación de 5 tomados de 2."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Se ordenan todos los corredores y el orden importa: es una permutación completa.",
+    "feedback_incorrect": [
+      "En combinación el orden NO importa; acá dos listas con los mismos corredores en distinto orden cuentan distinto.",
+      null,
+      "En variación se elige un subconjunto ordenado; acá se ordenan los 5 corredores completos, no solo 2."
+    ],
+    "explanation": "Una **permutación** cuenta los ordenamientos posibles de un conjunto de elementos distintos cuando se usan todos y el orden importa:\n$$P_n = n!$$\nCon 5 corredores:\n$$5! = 120$$\nHay 120 órdenes de llegada posibles.\n\nCada lista de llegada distinta corresponde a un reacomodo distinto de los mismos 5 corredores, sin que sobre ninguno afuera de la lista.\n\nRevisar si el conteo usa todos los elementos disponibles es el primer chequeo antes de aplicar cualquier otra fórmula.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-permutacion-simple"]
+  },
+  {
+    "question": "Una playlist tiene 4 canciones y se quiere definir el orden exacto en que se van a reproducir todas.\n\n¿Qué técnica de conteo corresponde?",
+    "options": [
+      "Combinación de 4 tomados de 4.",
+      "Variación de 4 tomados de 2.",
+      "Permutación de 4 elementos."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Se ordenan las 4 canciones completas y el orden de reproducción importa: es una permutación.",
+    "feedback_incorrect": [
+      "La combinación ignora el orden; acá dos listas de reproducción con las mismas canciones en otro orden suenan distinto.",
+      "La variación elige un subconjunto menor; acá se ordenan las 4 canciones disponibles, no solo 2.",
+      null
+    ],
+    "explanation": "Una **permutación** ordena todos los elementos de un conjunto distinto entre sí, y el orden en que aparecen sí importa:\n$$P_n = n!$$\nCon 4 canciones:\n$$4! = 24$$\nHay 24 listas de reproducción posibles.\n\nCambiar el orden de dos canciones cualesquiera produce una playlist distinta, aunque el conjunto de canciones sea el mismo.\n\nFijate que acá se usan las 4 canciones completas, ninguna queda afuera del orden final.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-permutacion-simple"]
+  },
+  {
+    "question": "En un concurso de talentos con 3 finalistas se quiere definir el podio completo, asignando el 1º, 2º y 3º puesto.\n\n¿Qué técnica de conteo corresponde?",
+    "options": [
+      "Permutación de 3 elementos.",
+      "Combinación de 3 tomados de 3.",
+      "Variación de 3 tomados de 2."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Se asignan los 3 puestos a los 3 finalistas y el orden entre ellos importa: es una permutación.",
+    "feedback_incorrect": [
+      null,
+      "En combinación el orden no importa; acá el 1º y el 2º puesto son roles distintos aunque sean los mismos dos finalistas.",
+      "En variación se ordena solo un subconjunto; acá se ordenan los 3 finalistas completos, no solo 2."
+    ],
+    "explanation": "Una **permutación** asigna posiciones distinguibles a todos los elementos de un conjunto, y acá los 3 puestos del podio son justamente eso:\n$$P_n = n!$$\nCon 3 finalistas:\n$$3! = 6$$\nHay 6 podios posibles.\n\nCada podio distinto corresponde a una asignación distinta de los mismos 3 finalistas a los 3 puestos disponibles.\n\nSi te salteás la pregunta de cuántos elementos participan del ordenamiento, es fácil aplicar la fórmula equivocada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-permutacion-simple"]
+  },
+  {
+    "question": "Se quiere contar de cuántas formas distintas se pueden reordenar todas las letras de la palabra **MESA**.\n\nLas 4 letras son distintas entre sí.\n\n¿Qué técnica de conteo corresponde?",
+    "options": [
+      "Combinación de 4 tomados de 4.",
+      "Permutación de 4 elementos.",
+      "Variación de 4 tomados de 3."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Las 4 letras son todas distintas y se usan todas: corresponde permutación simple, sin dividir por ningún grupo.",
+    "feedback_incorrect": [
+      "En combinación el orden no importa; acá MESA y SEMA son anagramas distintos, aunque tengan las mismas letras.",
+      null,
+      "En variación se elige un subconjunto ordenado; acá se ordenan las 4 letras completas, no solo 3."
+    ],
+    "explanation": "Cuando todas las letras de una palabra son distintas entre sí, reordenarlas es una **permutación** simple:\n$$P_n = n!$$\nMESA tiene 4 letras distintas, así que:\n$$4! = 24$$\nHay 24 anagramas posibles.\n\nComo ninguna letra se repite, no hace falta dividir por ningún factorial adicional.\n\nEsa división solo aparece cuando hay letras idénticas que generan reordenamientos internos indistinguibles, algo que no pasa en MESA.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-permutacion-simple"]
+  },
+  {
+    "question": "Se quiere contar de cuántas formas distintas se pueden reordenar todas las letras de la palabra **CARRO**.\n\nLa R se repite 2 veces.\n\n¿Qué técnica de conteo corresponde?",
+    "options": [
+      "Permutación simple, sin repetición.",
+      "Variación de un subconjunto.",
+      "Permutación con repetición."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Hay un grupo de letras idénticas, así que corresponde permutación con repetición, dividiendo por el factorial de ese grupo.",
+    "feedback_incorrect": [
+      "Tratar las dos R como distintas cuenta de más: intercambiarlas entre sí no genera una palabra diferente.",
+      "Acá se usan todas las letras de la palabra, no se elige un subconjunto menor.",
+      null
+    ],
+    "explanation": "Cuando se ordenan elementos con un grupo indistinguible, corresponde una **permutación con repetición**: se divide el total de reordenamientos por el factorial de ese grupo repetido.\n\nEsa división es necesaria porque tratar las letras repetidas como distintas multiplica cada arreglo real por las formas de reordenarlas entre sí, que en realidad no cambian la palabra.\n\nSi las 2 R fueran distintas entre sí, habría 2! formas de ordenarlas sin que la palabra cambiara.\n\nEn CARRO hay 5 letras, con la R repetida 2 veces, así que el conteo es:\n$$\\dfrac{5!}{2!}$$\nEse cociente da la cantidad de anagramas distintos.\n\nConfundir esta fórmula con la simple es fácil de arrastrar de un ejercicio a otro si no se revisa antes si hay letras repetidas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-permutacion-repeticion"]
+  },
+  {
+    "question": "Se quiere contar de cuántas formas distintas se pueden reordenar todas las letras de la palabra **SILLA**.\n\nLa L se repite 2 veces.\n\n¿Qué técnica de conteo corresponde?",
+    "options": [
+      "Permutación simple, sin repetición.",
+      "Permutación con repetición.",
+      "Variación de un subconjunto."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Hay un grupo de letras idénticas, así que corresponde permutación con repetición, dividiendo por el factorial de ese grupo.",
+    "feedback_incorrect": [
+      "Tratar las dos L como distintas cuenta de más: intercambiarlas entre sí no genera una palabra diferente.",
+      null,
+      "Acá se usan todas las letras de la palabra, no se elige un subconjunto menor."
+    ],
+    "explanation": "Una **permutación con repetición** aparece cuando, al reordenar un conjunto de elementos, alguno se repite y por eso hay que dividir por su factorial.\n\nSILLA tiene 5 letras, con la L repetida 2 veces y el resto distintas entre sí.\n\nSi las 2 L fueran distinguibles, habría 2! formas de ordenarlas que en realidad producen la misma palabra, así que hay que descartarlas dividiendo:\n$$\\dfrac{5!}{2!}$$\nEse cociente cuenta cada anagrama real una sola vez.\n\nOlvidar esta división cuenta la misma palabra varias veces como si fueran anagramas distintos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-permutacion-repeticion"]
+  },
+  {
+    "question": "De los 10 corredores de una carrera se quiere anotar únicamente el orden de llegada de los primeros 4 puestos.\n\n¿Corresponde tratar este problema como una permutación simple de los 10 corredores?",
+    "options": [
+      "Sí, porque el orden de los puestos importa.",
+      "No, porque solo se usan 4 de los 10 elementos."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La permutación simple exige usar TODOS los elementos; acá solo se ordenan 4 de los 10.",
+    "feedback_incorrect": [
+      "Que el orden importe es necesario pero no alcanza: además hay que usar todos los elementos disponibles, y acá quedan 6 corredores sin puesto registrado.",
+      null
+    ],
+    "explanation": "La **permutación** de $n$ elementos cuenta los ordenamientos que usan todos los elementos disponibles. Cuando el problema elige y ordena solo un subconjunto de $k<n$ elementos, la técnica cambia.\n\nAcá hay 10 corredores pero solo se ordenan los primeros 4 puestos, quedando 6 corredores sin puesto anotado.\n\nEl criterio decisivo es preguntarse si, al terminar el conteo, sobran elementos que no participaron del ordenamiento.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["distractor-variacion"]
+  },
+  {
+    "question": "De los 12 alumnos de un curso se quiere elegir y ubicar en orden a 4 de ellos en la primera fila para una foto escolar.\n\n¿Corresponde tratar este problema como una permutación simple de los 12 alumnos?",
+    "options": [
+      "No, porque solo se usan 4 de los 12 elementos.",
+      "Sí, porque el orden en la fila importa."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La permutación simple exige usar TODOS los elementos; acá solo se eligen y ordenan 4 de los 12.",
+    "feedback_incorrect": [
+      null,
+      "Que el orden importe es necesario pero no alcanza: además hay que usar todos los elementos disponibles, y acá quedan 8 alumnos fuera de la primera fila."
+    ],
+    "explanation": "La **permutación** de $n$ elementos cuenta los ordenamientos que usan todos los elementos disponibles, sin dejar ninguno afuera.\n\nAcá hay 12 alumnos pero la primera fila tiene solo 4 lugares, así que 8 alumnos quedan fuera de ese subconjunto ordenado.\n\nConfundir esto con una permutación simple es fácil si no se cuenta cuántos elementos participan realmente del ordenamiento final.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["distractor-variacion"]
+  },
+  {
+    "question": "De las 15 canciones de un álbum se quiere elegir y ordenar solo 5 para armar un adelanto promocional.\n\n¿Corresponde tratar este problema como una permutación simple de las 15 canciones?",
+    "options": [
+      "Sí, porque el orden de las canciones importa.",
+      "No, porque solo se usan 5 de las 15 canciones."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La permutación simple exige usar TODAS las canciones; acá solo se eligen y ordenan 5 de las 15.",
+    "feedback_incorrect": [
+      "Que el orden importe es necesario pero no alcanza: además hay que usar todos los elementos disponibles, y acá quedan 10 canciones fuera del adelanto.",
+      null
+    ],
+    "explanation": "La **permutación** de $n$ elementos cuenta los ordenamientos que usan todos los elementos disponibles.\n\nAcá el álbum tiene 15 canciones, pero el adelanto promocional selecciona y ordena solo 5, dejando 10 canciones sin usar en esa lista.\n\nFijate que acá el criterio no es si el orden importa, sino si sobran elementos sin asignar al final del conteo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["distractor-variacion"]
+  },
+  {
+    "question": "Se quiere registrar el orden de llegada de 4 corredores de una carrera, indicando qué puesto exacto ocupó cada uno.\n\nCada puesto del podio es un lugar distinto.\n\n¿Corresponde tratar este problema como una combinación de los 4 corredores?",
+    "options": [
+      "Sí, porque un podio es un subconjunto sin roles definidos.",
+      "No, porque el orden de llegada entre los corredores sí importa."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "En un podio cada puesto es distinguible, así que dos órdenes distintos de los mismos corredores son resultados diferentes.",
+    "feedback_incorrect": [
+      "Un podio sí asigna un puesto distinto a cada corredor, no es un subconjunto sin roles como en una combinación.",
+      null
+    ],
+    "explanation": "Una **combinación** ignora el orden dentro del subconjunto elegido, mientras que una **permutación** ordena todos los elementos en posiciones distinguibles.\n\nEn el orden de llegada de una carrera, cambiar quién queda en el 1º y quién en el 2º puesto produce un resultado distinto, así que el orden sí importa.\n\nEl criterio para descartar combinación es siempre el mismo: si intercambiar dos elementos cambia el resultado, no es combinación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["distractor-combinacion"]
   }
 ]

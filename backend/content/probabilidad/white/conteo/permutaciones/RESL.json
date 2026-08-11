@@ -57,5 +57,226 @@
     "graph_view": null,
     "reviewed": false,
     "tags": ["resl-comparacion"]
+  },
+  {
+    "question": "¿De cuántas maneras distintas se pueden ordenar 2 candidatos para asignarles horario de entrevista, uno primero y otro segundo?",
+    "options": ["$1$", "$2$", "$4$", "$6$"],
+    "correct_index": 1,
+    "feedback_correct": "Es una permutación de 2 elementos: $2! = 2$.",
+    "feedback_incorrect": [
+      "Ese es la cantidad de candidatos, no la cantidad de órdenes posibles.",
+      null,
+      "Ese es $2^{2}$; aparece si se piensa en 2 horarios con repetición, permitiendo al mismo candidato en ambos.",
+      "Ese resultado sale de multiplicar de más, como si hubiera un tercer horario disponible."
+    ],
+    "explanation": "El número de **permutaciones** de elementos distintos es su factorial: el producto de todos los enteros positivos desde 1 hasta esa cantidad.\n\nAcá se ordenan los 2 candidatos en 2 horarios, así que:\n$$P_2 = 2!$$\n$$2! = 2 \\times 1 = 2$$\nHay 2 formas de asignar los horarios.\n\nCon el primer candidato ya asignado a un horario, solo queda una opción para el segundo, y ninguna repetición es posible entre ambos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-simple"]
+  },
+  {
+    "question": "¿De cuántas maneras distintas se pueden ordenar los 3 finalistas de un concurso, asignando 1º, 2º y 3º puesto?",
+    "options": ["$3$", "$6$", "$9$", "$27$"],
+    "correct_index": 1,
+    "feedback_correct": "Es una permutación de 3 elementos: $3! = 6$.",
+    "feedback_incorrect": [
+      "Ese es el número de finalistas, no la cantidad de podios posibles.",
+      null,
+      "Ese es $3^{2}$; aparece si se piensa en solo 2 puestos con repetición.",
+      "Ese es $3^{3}$: cuenta como si cada puesto pudiera repetir finalista, pero uno solo puede ocupar un lugar."
+    ],
+    "explanation": "El número de **permutaciones** de elementos distintos es su factorial.\n\nAcá se ordenan los 3 finalistas en 3 puestos, así que:\n$$P_3 = 3!$$\n$$3! = 3 \\times 2 \\times 1 = 6$$\nHay 6 podios posibles.\n\nTras asignar el 1er puesto quedan solo 2 opciones para el 2º, y una sola para el 3º, sin repetir a ningún finalista.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-simple"]
+  },
+  {
+    "question": "¿De cuántas maneras distintas se pueden ordenar los 5 corredores de una carrera, asignando el orden completo de llegada?",
+    "options": ["$5$", "$25$", "$120$", "$3125$"],
+    "correct_index": 2,
+    "feedback_correct": "Es una permutación de 5 elementos: $5! = 120$.",
+    "feedback_incorrect": [
+      "Ese es el número de corredores, no la cantidad de órdenes de llegada posibles.",
+      "Ese es $5^{2}$; aparece si se piensa en solo 2 puestos con repetición.",
+      null,
+      "Ese es $5^{5}$: cuenta como si cada puesto pudiera repetir corredor, pero uno solo puede ocupar un lugar."
+    ],
+    "explanation": "El número de **permutaciones** de elementos distintos es su factorial.\n\nAcá se ordenan los 5 corredores en 5 puestos, así que:\n$$P_5 = 5!$$\n$$5! = 5 \\times 4 \\times 3 \\times 2 \\times 1 = 120$$\nHay 120 órdenes de llegada posibles.\n\nAplicar una potencia trata cada puesto como una decisión con repetición, cuando en realidad cada corredor llega en un único puesto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-simple"]
+  },
+  {
+    "question": "¿De cuántas maneras distintas se pueden ordenar las 6 canciones de una playlist, usando el orden completo de reproducción?",
+    "options": ["$6$", "$36$", "$720$", "$46656$"],
+    "correct_index": 2,
+    "feedback_correct": "Es una permutación de 6 elementos: $6! = 720$.",
+    "feedback_incorrect": [
+      "Ese es el número de canciones, no la cantidad de órdenes de reproducción posibles.",
+      "Ese es $6^{2}$; aparece si se piensa en solo 2 posiciones con repetición.",
+      null,
+      "Ese es $6^{6}$: cuenta como si cada posición pudiera repetir canción, pero cada tema suena una sola vez."
+    ],
+    "explanation": "El número de **permutaciones** de elementos distintos es su factorial.\n\nAcá se ordenan las 6 canciones en 6 posiciones, así que:\n$$P_6 = 6!$$\n$$6! = 6 \\times 5 \\times 4 \\times 3 \\times 2 \\times 1 = 720$$\nHay 720 listas de reproducción posibles.\n\nCada canción ocupa una única posición en la lista, así que las opciones disponibles bajan de a una en cada paso, sin repetirse.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-simple"]
+  },
+  {
+    "question": "¿De cuántas maneras distintas se pueden ordenar los 7 alumnos de una fila para una foto grupal, usando a todos?",
+    "options": ["$7$", "$49$", "$5040$", "$823543$"],
+    "correct_index": 2,
+    "feedback_correct": "Es una permutación de 7 elementos: $7! = 5040$.",
+    "feedback_incorrect": [
+      "Ese es el número de alumnos, no la cantidad de filas posibles.",
+      "Ese es $7^{2}$; aparece si se piensa en solo 2 posiciones con repetición.",
+      null,
+      "Ese es $7^{7}$: cuenta como si cada posición pudiera repetir alumno, pero cada uno ocupa un solo lugar."
+    ],
+    "explanation": "El número de **permutaciones** de elementos distintos es su factorial.\n\nAcá se ordenan los 7 alumnos en 7 posiciones de la fila, así que:\n$$P_7 = 7!$$\n$$7! = 5040$$\nHay 5040 filas posibles.\n\nCon cada alumno ubicado, las opciones para el siguiente lugar bajan de a una, hasta que solo queda un alumno para el último puesto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-simple"]
+  },
+  {
+    "question": "¿De cuántas maneras distintas se puede definir el orden de reparto de 4 paquetes distintos, entregando uno a uno?",
+    "options": ["$4$", "$12$", "$24$", "$48$"],
+    "correct_index": 2,
+    "feedback_correct": "Es una permutación de 4 elementos: $4! = 24$.",
+    "feedback_incorrect": [
+      "Ese es el número de paquetes, no la cantidad de órdenes de reparto posibles.",
+      "Ese resultado sale de omitir una de las multiplicaciones, como si solo hubiera 3 posiciones libres en vez de 4.",
+      null,
+      "Ese resultado duplica el conteo real, como si cada orden de reparto se contara dos veces."
+    ],
+    "explanation": "El número de **permutaciones** de elementos distintos es su factorial.\n\nAcá se ordenan los 4 paquetes en 4 turnos de entrega, así que:\n$$P_4 = 4!$$\n$$4! = 4 \\times 3 \\times 2 \\times 1 = 24$$\nHay 24 órdenes de reparto posibles.\n\nSaltear alguna de las multiplicaciones o duplicar el resultado son errores de cálculo comunes al expandir el factorial a mano.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-simple"]
+  },
+  {
+    "question": "Se quiere contar los anagramas distintos de la palabra **ALAS**, donde la A se repite 2 veces.\n\n¿Cuántos anagramas distintos hay?",
+    "options": ["$4$", "$12$", "$24$", "$48$"],
+    "correct_index": 1,
+    "feedback_correct": "$\\dfrac{4!}{2!}=\\dfrac{24}{2}=12$.",
+    "feedback_incorrect": [
+      "Ese es el número de letras de la palabra, no la cantidad de anagramas distintos.",
+      null,
+      "Ese es $4!$ completo, sin dividir por el grupo repetido de las A.",
+      "Ese resultado duplica el conteo real, como si el grupo repetido aportara más reordenamientos de los que en verdad cancela."
+    ],
+    "explanation": "La **permutación con repetición** divide el factorial total por el factorial del grupo de letras idénticas.\n\nEn ALAS hay 4 letras con un solo grupo repetido, las dos A, así que:\n$$\\frac{4!}{2!} = \\frac{24}{2} = 12$$\nHay 12 anagramas distintos.\n\nDejar el $4!$ sin dividir cuenta cada anagrama real dos veces, una por cada forma de intercambiar las dos A entre sí.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-con-repeticion"]
+  },
+  {
+    "question": "Se quiere contar los anagramas distintos de la palabra **CARRO**, donde la R se repite 2 veces.\n\n¿Cuántos anagramas distintos hay?",
+    "options": ["$5$", "$60$", "$120$", "$240$"],
+    "correct_index": 1,
+    "feedback_correct": "$\\dfrac{5!}{2!}=\\dfrac{120}{2}=60$.",
+    "feedback_incorrect": [
+      "Ese es el número de letras de la palabra, no la cantidad de anagramas distintos.",
+      null,
+      "Ese es $5!$ completo, sin dividir por el grupo repetido de las R.",
+      "Ese resultado duplica el conteo real, como si el grupo repetido aportara más reordenamientos de los que en verdad cancela."
+    ],
+    "explanation": "La **permutación con repetición** divide el factorial total por el factorial del grupo de letras idénticas.\n\nEn CARRO hay 5 letras con un solo grupo repetido, las dos R, así que:\n$$\\frac{5!}{2!} = \\frac{120}{2} = 60$$\nHay 60 anagramas distintos.\n\nDejar el $5!$ sin dividir cuenta cada anagrama real dos veces, una por cada forma de intercambiar las dos R entre sí.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-con-repeticion"]
+  },
+  {
+    "question": "Se quiere contar los anagramas distintos de la palabra **AZADA**, donde la A se repite 3 veces.\n\n¿Cuántos anagramas distintos hay?",
+    "options": ["$5$", "$20$", "$40$", "$120$"],
+    "correct_index": 1,
+    "feedback_correct": "$\\dfrac{5!}{3!}=\\dfrac{120}{6}=20$.",
+    "feedback_incorrect": [
+      "Ese es el número de letras de la palabra, no la cantidad de anagramas distintos.",
+      null,
+      "Ese resultado sale de dividir solo por una parte del grupo repetido, no por el $3!$ completo de las tres A.",
+      "Ese es $5!$ completo, sin dividir por el grupo repetido de las A."
+    ],
+    "explanation": "La **permutación con repetición** divide el factorial total por el factorial del grupo de letras idénticas.\n\nEn AZADA hay 5 letras con un solo grupo repetido, las tres A, así que:\n$$\\frac{5!}{3!} = \\frac{120}{6} = 20$$\nHay 20 anagramas distintos.\n\nCada una de las $3!=6$ formas de reordenar las tres A entre sí produce la misma palabra, y por eso el denominador las cancela.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-con-repeticion"]
+  },
+  {
+    "question": "Se quiere contar los anagramas distintos de la palabra **CUELLO**, donde la L se repite 2 veces.\n\n¿Cuántos anagramas distintos hay?",
+    "options": ["$6$", "$180$", "$360$", "$720$"],
+    "correct_index": 2,
+    "feedback_correct": "$\\dfrac{6!}{2!}=\\dfrac{720}{2}=360$.",
+    "feedback_incorrect": [
+      "Ese es el número de letras de la palabra, no la cantidad de anagramas distintos.",
+      "Ese resultado sale de dividir dos veces por el grupo repetido, como si hubiera dos grupos de L en vez de uno.",
+      null,
+      "Ese es $6!$ completo, sin dividir por el grupo repetido de las L."
+    ],
+    "explanation": "La **permutación con repetición** divide el factorial total por el factorial del grupo de letras idénticas.\n\nEn CUELLO hay 6 letras con un solo grupo repetido, las dos L, así que:\n$$\\frac{6!}{2!} = \\frac{720}{2} = 360$$\nHay 360 anagramas distintos.\n\nDejar el $6!$ sin dividir cuenta cada anagrama real dos veces, una por cada forma de intercambiar las dos L entre sí.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-con-repeticion"]
+  },
+  {
+    "question": "Se quiere contar los anagramas distintos de la palabra **TERROR**, donde la R se repite 3 veces.\n\n¿Cuántos anagramas distintos hay?",
+    "options": ["$6$", "$120$", "$240$", "$720$"],
+    "correct_index": 1,
+    "feedback_correct": "$\\dfrac{6!}{3!}=\\dfrac{720}{6}=120$.",
+    "feedback_incorrect": [
+      "Ese es el número de letras de la palabra, no la cantidad de anagramas distintos.",
+      null,
+      "Ese resultado sale de dividir solo por una parte del grupo repetido, no por el $3!$ completo de las tres R.",
+      "Ese es $6!$ completo, sin dividir por el grupo repetido de las R."
+    ],
+    "explanation": "La **permutación con repetición** divide el factorial total por el factorial del grupo de letras idénticas.\n\nEn TERROR hay 6 letras con un solo grupo repetido, las tres R, así que:\n$$\\frac{6!}{3!} = \\frac{720}{6} = 120$$\nHay 120 anagramas distintos.\n\nCada una de las $3!=6$ formas de reordenar las tres R entre sí produce la misma palabra, y por eso el denominador las cancela.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-con-repeticion"]
+  },
+  {
+    "question": "Se comparan dos carreras con distinta cantidad de corredores.\n\nLa carrera A tiene 4 corredores; la carrera B tiene 6 corredores.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
+    "options": [
+      "La carrera A tiene más órdenes de llegada posibles que la B.",
+      "Ambas carreras tienen la misma cantidad de órdenes de llegada posibles.",
+      "La carrera B tiene más órdenes de llegada posibles que la A.",
+      "No se pueden comparar porque tienen distinta cantidad de corredores."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La carrera A tiene $4!=24$ órdenes posibles, mientras que la B tiene $6!=720$.",
+    "feedback_incorrect": [
+      "Agregar corredores nunca reduce la cantidad de órdenes posibles: más elementos siempre aportan más permutaciones.",
+      "El factorial crece muy rápido con la cantidad de elementos, así que 4 y 6 corredores no dan la misma cantidad de órdenes.",
+      null,
+      "Sí se pueden comparar: cada carrera tiene su propio conteo de órdenes de llegada, sin importar que difieran en la cantidad de corredores."
+    ],
+    "explanation": "El número de **permutaciones** de un conjunto de elementos distintos crece con su factorial, y el factorial aumenta mucho más rápido que la cantidad de elementos.\n\nLa carrera A tiene 4 corredores:\n$$4! = 24$$\nLa carrera B tiene 6 corredores:\n$$6! = 720$$\nAgregar solo 2 corredores más multiplica las posibilidades por 30, porque cada elemento nuevo se combina con todos los órdenes anteriores.\n\nSubestimar cuánto crece el factorial hace pensar que sumar pocos corredores cambia poco el resultado, cuando en realidad lo multiplica varias veces.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-comparacion"]
   }
 ]
