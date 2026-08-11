@@ -1,5 +1,9 @@
 import { Config, Console, Effect } from "effect"
-import { HttpClient, HttpClientRequest } from "effect/unstable/http"
+import {
+  HttpClient,
+  HttpClientRequest,
+  HttpClientResponse,
+} from "effect/unstable/http"
 import webpush from "web-push"
 
 export interface NotifierConfig {
@@ -86,11 +90,13 @@ export const runTick = (
     const url = `${config.apiBaseUrl}/internal/notifications/due${
       options.force ? "?force=true" : ""
     }`
-    const dueRes = yield* client.execute(
-      HttpClientRequest.get(url).pipe(
-        HttpClientRequest.setHeader("X-Internal-Secret", config.secret),
-      ),
-    )
+    const dueRes = yield* client
+      .execute(
+        HttpClientRequest.get(url).pipe(
+          HttpClientRequest.setHeader("X-Internal-Secret", config.secret),
+        ),
+      )
+      .pipe(Effect.flatMap(HttpClientResponse.filterStatusOk))
     const users = (yield* dueRes.json) as unknown as DueNotification[]
 
     const jobs = users.flatMap((u) =>
@@ -142,11 +148,13 @@ export const runEmailTick = (
   Effect.gen(function* () {
     const client = yield* HttpClient.HttpClient
 
-    const res = yield* client.execute(
-      HttpClientRequest.post(`${config.apiBaseUrl}/internal/emails/run`).pipe(
-        HttpClientRequest.setHeader("X-Internal-Secret", config.secret),
-      ),
-    )
+    const res = yield* client
+      .execute(
+        HttpClientRequest.post(`${config.apiBaseUrl}/internal/emails/run`).pipe(
+          HttpClientRequest.setHeader("X-Internal-Secret", config.secret),
+        ),
+      )
+      .pipe(Effect.flatMap(HttpClientResponse.filterStatusOk))
     const result = (yield* res.json) as unknown as EmailRunResult
     yield* Console.log(
       `email tick: ${result.bounce_sent} bounce, ${result.winback_sent} win-back sent`,
@@ -166,11 +174,17 @@ export const runSweepTick = (
   Effect.gen(function* () {
     const client = yield* HttpClient.HttpClient
 
-    const res = yield* client.execute(
-      HttpClientRequest.post(
-        `${config.apiBaseUrl}/internal/sessions/sweep-abandoned`,
-      ).pipe(HttpClientRequest.setHeader("X-Internal-Secret", config.secret)),
-    )
+    // filterStatusOk, no solo parsear: sin esto un 404 o un 401 devuelven un body
+    // JSON válido pero con otra forma, y el tick loguea "undefined session(s)"
+    // como si hubiera corrido bien. Pasó en el primer deploy, cuando el notifier
+    // arrancó unos segundos antes que el backend.
+    const res = yield* client
+      .execute(
+        HttpClientRequest.post(
+          `${config.apiBaseUrl}/internal/sessions/sweep-abandoned`,
+        ).pipe(HttpClientRequest.setHeader("X-Internal-Secret", config.secret)),
+      )
+      .pipe(Effect.flatMap(HttpClientResponse.filterStatusOk))
     const result = (yield* res.json) as unknown as SweepAbandonedResult
     yield* Console.log(`sweep tick: ${result.marked} session(s) marked abandoned`)
   }).pipe(Effect.mapError((e) => (e instanceof Error ? e : new Error(String(e)))))
