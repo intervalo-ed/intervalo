@@ -3,4 +3,4 @@
 
 - Check `answers` table columns work as expected.
 
-- Check `item_states` table columns work as expected.
+- Check `unit_states` table columns work as expected.
