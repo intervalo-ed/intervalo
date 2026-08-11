@@ -18,7 +18,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["reconocer-binomial"]
+    "tags": [
+      "reconocer-binomial"
+    ]
   },
   {
     "question": "Un mazo de 8 cartas tiene 3 cartas rojas.\n\nSe extraen 4 cartas del mazo sin devolverlas, y se cuenta cuántas de esas 4 son rojas.\n\n¿Qué distribución sigue esa cantidad de cartas rojas?",
@@ -39,7 +41,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["distractor-vecino"]
+    "tags": [
+      "distractor-vecino"
+    ]
   },
   {
     "question": "Un arquero pierde confianza con cada penal errado, y patea 5 penales en total.\n\nSi convierte el anterior, la probabilidad de convertir el siguiente es $0{,}7$; si lo erra, baja a $0{,}4$.\n\n¿Se puede modelar la cantidad de penales convertidos como una distribución binomial?",
@@ -60,6 +64,284 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["supuesto-violado"]
+    "tags": [
+      "supuesto-violado"
+    ]
+  },
+  {
+    "question": "Una línea de producción fabrica 20 piezas en un turno.\n\nCada pieza sale defectuosa con probabilidad $0{,}05$, en forma independiente de las demás.\n\n¿Qué distribución sigue la cantidad total de piezas defectuosas del turno?",
+    "options": [
+      "$Poisson(20)$",
+      "$Geom(0{,}05)$",
+      "$Bin(20,\\, 0{,}05)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$n=20$ piezas fijas, independientes, misma probabilidad de defecto: es binomial.",
+    "feedback_incorrect": [
+      "Poisson modela conteos en un intervalo continuo de tiempo o espacio, acá hay un número fijo de piezas.",
+      "La geométrica cuenta piezas hasta la primera defectuosa, no el total de defectuosas en las 20 fijas.",
+      null
+    ],
+    "explanation": "La distribución **binomial** modela la cantidad de éxitos en $n$ ensayos independientes con la misma probabilidad de éxito $p$ cada uno.\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá cada pieza fabricada es un ensayo con $p=0{,}05$ de salir defectuosa.\n\nEl turno fija $n=20$ piezas de antemano, y cada una sale defectuosa de forma independiente de las demás, así que $X\\sim Bin(20, 0{,}05)$.\n\nLo que distingue al mecanismo binomial de sus vecinos es que la cantidad de ensayos está fija desde el principio.\n\nAcá se cuentan éxitos dentro de un lote ya determinado, no hasta que aparezca el primero.\n\nSi en cambio se preguntara cuántas piezas hay que fabricar hasta la primera defectuosa, el mismo taller pasaría a modelarse como geométrico.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-binomial"
+    ]
+  },
+  {
+    "question": "Una encuestadora consulta a 15 personas si piensan votar en las próximas elecciones.\n\nCada persona responde que sí con probabilidad $0{,}5$, en forma independiente del resto.\n\n¿Qué distribución sigue la cantidad de personas que responden que sí?",
+    "options": [
+      "$Geom(0{,}5)$",
+      "$Bin(15,\\, 0{,}5)$",
+      "$Hip(15,7,5)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$n=15$ personas fijas, independientes, misma probabilidad de responder que sí: es binomial.",
+    "feedback_incorrect": [
+      "La geométrica cuenta personas consultadas hasta la primera que responde que sí, no el total en las 15 fijas.",
+      null,
+      "La hipergeométrica exige extraer sin reposición de una población finita, y acá cada persona responde de forma independiente de las demás."
+    ],
+    "explanation": "La distribución **binomial** modela la cantidad de éxitos en $n$ ensayos independientes con la misma probabilidad de éxito $p$ cada uno.\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá cada persona consultada es un ensayo con $p=0{,}5$ de responder que sí.\n\nLa encuesta fija $n=15$ personas de antemano, y cada respuesta es independiente de las demás, así que $X\\sim Bin(15, 0{,}5)$.\n\nLo que define al mecanismo binomial es que la cantidad de ensayos queda fija desde el arranque, sin depender de lo que responda cada persona en particular.\n\nSi en cambio se preguntara cuántas personas hay que consultar hasta lograr la primera respuesta afirmativa, el mismo sondeo pasaría a modelarse como geométrico.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-binomial"
+    ]
+  },
+  {
+    "question": "Un jugador de básquet con 75% de acierto en tiros libres tira 12 veces en un entrenamiento.\n\nCada tiro es independiente del resto, con la misma probabilidad de acierto.\n\n¿Qué distribución sigue la cantidad total de tiros convertidos?",
+    "options": [
+      "$Poisson(12)$",
+      "$Bin(12,\\, 0{,}75)$",
+      "$Hip(12,9,6)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$n=12$ tiros fijos, independientes, misma probabilidad de acierto: es binomial.",
+    "feedback_incorrect": [
+      "Poisson modela conteos en un intervalo continuo, acá hay una cantidad fija de 12 tiros.",
+      null,
+      "La hipergeométrica exige población finita sin reposición, y acá cada tiro tiene la misma probabilidad de acierto sin depender de los tiros anteriores."
+    ],
+    "explanation": "La distribución **binomial** modela la cantidad de éxitos en $n$ ensayos independientes con la misma probabilidad de éxito $p$ cada uno.\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá cada tiro libre es un ensayo con $p=0{,}75$ de convertirse.\n\nEl entrenamiento fija $n=12$ tiros de antemano, y cada uno es independiente de los demás, así que $X\\sim Bin(12, 0{,}75)$.\n\nContar éxitos dentro de una cantidad de intentos ya fijada es lo que separa al mecanismo binomial de otros que dejan libre el número de ensayos hasta que ocurre algo puntual.\n\nSi el entrenamiento se detuviera apenas el jugador convierte el primer tiro, la cantidad de intentos necesarios pasaría a modelarse como geométrica en vez de binomial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-binomial"
+    ]
+  },
+  {
+    "question": "Un jugador de casino apuesta siempre al mismo color en 8 tiradas de la ruleta.\n\nCada tirada tiene probabilidad $0{,}45$ de salir ese color, en forma independiente de las anteriores.\n\n¿Qué distribución sigue la cantidad de tiradas ganadoras?",
+    "options": [
+      "$Bin(8,\\, 0{,}45)$",
+      "$Poisson(8)$",
+      "$Geom(0{,}45)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$n=8$ tiradas fijas, independientes, misma probabilidad de ganar: es binomial.",
+    "feedback_incorrect": [
+      null,
+      "Poisson modela conteos en un intervalo continuo, acá hay un número fijo de 8 tiradas.",
+      "La geométrica cuenta tiradas hasta la primera ganadora, no el total de ganadoras en las 8 fijas."
+    ],
+    "explanation": "La distribución **binomial** modela la cantidad de éxitos en $n$ ensayos independientes con la misma probabilidad de éxito $p$ cada uno.\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá cada tirada de la ruleta es un ensayo con $p=0{,}45$ de salir el color apostado.\n\nLa serie fija $n=8$ tiradas de antemano, cada una independiente de las anteriores, así que $X\\sim Bin(8, 0{,}45)$.\n\nEl rasgo que hace binomial a este mecanismo es justamente que las 8 tiradas están decididas de antemano, sin importar cómo vaya saliendo el color en el camino.\n\nSi el jugador se retirara apenas gana la primera tirada, la cantidad de tiradas necesarias hasta ese momento pasaría a modelarse como geométrica.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-binomial"
+    ]
+  },
+  {
+    "question": "Un centro de salud vacuna a 18 pacientes contra la gripe.\n\nCada paciente presenta una reacción leve con probabilidad $0{,}02$, en forma independiente del resto.\n\n¿Qué distribución sigue la cantidad de pacientes con reacción leve?",
+    "options": [
+      "$Geom(0{,}02)$",
+      "$Hip(18,4,6)$",
+      "$Bin(18,\\, 0{,}02)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$n=18$ pacientes fijos, independientes, misma probabilidad de reacción: es binomial.",
+    "feedback_incorrect": [
+      "La geométrica cuenta pacientes vacunados hasta el primero con reacción, no el total entre los 18 fijos.",
+      "La hipergeométrica exige extraer sin reposición de una población finita, y acá cada paciente reacciona de forma independiente de los demás.",
+      null
+    ],
+    "explanation": "La distribución **binomial** modela la cantidad de éxitos en $n$ ensayos independientes con la misma probabilidad de éxito $p$ cada uno.\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá cada paciente vacunado es un ensayo con $p=0{,}02$ de presentar reacción leve.\n\nEl centro de salud fija $n=18$ pacientes de antemano, y la reacción de cada uno es independiente de la de los demás, así que $X\\sim Bin(18, 0{,}02)$.\n\nQue la cantidad de pacientes esté fijada de entrada es justamente lo que permite contar éxitos totales, en vez de esperar hasta que ocurra el primero.\n\nSi en cambio se preguntara cuántos pacientes hay que vacunar hasta encontrar el primero con reacción, el mismo centro pasaría a modelarse como geométrico.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-binomial"
+    ]
+  },
+  {
+    "question": "Un correo despacha paquetes uno por uno, cada uno con probabilidad $0{,}1$ de llegar tarde, en forma independiente.\n\nSe cuenta cuántos paquetes hay que despachar hasta que aparece el primero que llega tarde.\n\n¿Qué distribución sigue esa cantidad de paquetes?",
+    "options": [
+      "$Geom(0{,}1)$",
+      "$Bin(10,\\, 0{,}1)$",
+      "$Hip(10,1,1)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Cuenta ensayos hasta el primer éxito, sin un número de ensayos fijado de antemano: es geométrica.",
+    "feedback_incorrect": [
+      null,
+      "La binomial exige un número fijo de ensayos de antemano, pero acá se cuenta hasta que aparece el primer paquete tarde, sin tope fijo.",
+      "La hipergeométrica exige una población finita muestreada sin reposición, y acá los paquetes se despachan uno por uno de forma independiente."
+    ],
+    "explanation": "La distribución **geométrica** cuenta la cantidad de ensayos independientes necesarios hasta obtener el primer éxito, con la misma probabilidad $p$ en cada uno.\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá cada paquete despachado es un ensayo con $p=0{,}1$ de llegar tarde.\n\nNo hay una cantidad de paquetes fijada de antemano, se sigue despachando hasta que aparece el primero tarde, así que $X\\sim Geom(0{,}1)$.\n\nLa diferencia con la binomial está en qué se cuenta: la binomial fija de antemano cuántos ensayos hay y cuenta éxitos totales entre ellos.\n\nLa geométrica, en cambio, deja el número de ensayos libre y se detiene apenas ocurre el primer éxito.\n\nSi en cambio se preguntara cuántos de los primeros 10 paquetes despachados llegan tarde, ahí sí correspondería modelarlo como binomial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-vecino"
+    ]
+  },
+  {
+    "question": "Un lote de 12 piezas contiene 4 defectuosas.\n\nSe eligen 5 piezas al azar sin reposición para inspeccionarlas, y se cuenta cuántas de esas 5 son defectuosas.\n\n¿Qué distribución sigue esa cantidad de piezas defectuosas?",
+    "options": [
+      "$Bin(5,\\, 4/12)$",
+      "$Hip(12,4,5)$",
+      "$Geom(4/12)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Extracción sin reposición de una población finita: la proporción de defectuosas cambia en cada extracción, es hipergeométrica.",
+    "feedback_incorrect": [
+      "La binomial exige $p$ constante en cada extracción, pero acá la proporción de defectuosas cambia al no reponer las piezas.",
+      null,
+      "La geométrica cuenta extracciones hasta la primera defectuosa, no la cantidad de defectuosas en 5 extracciones fijas."
+    ],
+    "explanation": "La distribución **hipergeométrica** cuenta éxitos al extraer sin reposición de una población finita.\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá $N=12$ piezas en total y $K=4$ son defectuosas.\n\nSe extraen $n=5$ piezas sin devolverlas, así que la cantidad de defectuosas inspeccionadas sigue esa fórmula.\n\nLo que cambia respecto de la binomial es qué le pasa a la proporción de defectuosas entre una extracción y la siguiente.\n\nEn la binomial esa proporción se mantiene fija, acá se achica o agranda según qué salió antes.\n\nSi cada pieza inspeccionada se repusiera al lote antes de la próxima extracción, la proporción de defectuosas volvería a ser siempre la misma, y ahí sí correspondería modelarlo como binomial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-vecino"
+    ]
+  },
+  {
+    "question": "Un jugador de básquet tira libres hasta convertir el primero.\n\nCada tiro es independiente, con probabilidad $0{,}6$ de acierto.\n\nSe cuenta cuántos tiros hace falta hasta ese primer acierto.\n\n¿Qué distribución sigue esa cantidad de tiros?",
+    "options": [
+      "$Geom(0{,}6)$",
+      "$Bin(6,\\, 0{,}6)$",
+      "$Hip(6,4,1)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Cuenta tiros hasta el primer acierto, sin un número de tiros fijado de antemano: es geométrica.",
+    "feedback_incorrect": [
+      null,
+      "La binomial exige un número fijo de tiros de antemano, pero acá se cuenta hasta el primer acierto, sin tope fijo.",
+      "La hipergeométrica exige población finita sin reposición, y acá cada tiro es independiente con la misma probabilidad de acierto."
+    ],
+    "explanation": "La distribución **geométrica** cuenta la cantidad de ensayos independientes necesarios hasta obtener el primer éxito, con la misma probabilidad $p$ en cada uno.\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá cada tiro libre es un ensayo con $p=0{,}6$ de convertirse.\n\nNo hay una cantidad de tiros fijada de antemano, el jugador sigue tirando hasta convertir el primero, así que $X\\sim Geom(0{,}6)$.\n\nLa binomial fija de entrada cuántos tiros hay y cuenta cuántos se convierten entre ellos, mientras que acá el número de tiros queda determinado por cuándo ocurre el primer acierto, no al revés.\n\nSi en cambio el jugador tirara siempre 6 veces sin detenerse, la cantidad de aciertos entre esos 6 tiros pasaría a modelarse como binomial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-vecino"
+    ]
+  },
+  {
+    "question": "De un grupo de 10 pacientes ya vacunados, 3 tuvieron una reacción leve.\n\nSe eligen 4 pacientes al azar sin reposición para una revisión, y se cuenta cuántos de esos 4 tuvieron reacción.\n\n¿Qué distribución sigue esa cantidad de pacientes con reacción?",
+    "options": [
+      "$Bin(4,\\, 3/10)$",
+      "$Geom(3/10)$",
+      "$Hip(10,3,4)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Elección sin reposición de un grupo finito: la proporción de pacientes con reacción cambia en cada elección, es hipergeométrica.",
+    "feedback_incorrect": [
+      "La binomial exige $p$ constante en cada elección, pero acá la proporción de pacientes con reacción cambia al no reponer al grupo.",
+      "La geométrica cuenta pacientes elegidos hasta el primero con reacción, no la cantidad con reacción en 4 elecciones fijas.",
+      null
+    ],
+    "explanation": "La distribución **hipergeométrica** cuenta éxitos al elegir sin reposición de una población finita.\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nAcá $N=10$ pacientes en total y $K=3$ tuvieron reacción.\n\nSe eligen $n=4$ pacientes sin devolverlos al grupo, así que la cantidad con reacción entre los elegidos sigue esa fórmula.\n\nLa diferencia con la binomial está en qué le pasa a la proporción de pacientes con reacción entre una elección y la siguiente.\n\nEn la binomial esa proporción queda fija, acá cambia porque el grupo se achica con cada elección.\n\nSi cada paciente elegido volviera a formar parte del grupo antes de la siguiente elección, la proporción con reacción volvería a ser siempre la misma, y ahí sí correspondería modelarlo como binomial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-vecino"
+    ]
+  },
+  {
+    "question": "Un vendedor hace 6 llamadas en total, y gana confianza con cada venta lograda.\n\nSi la llamada anterior terminó en venta, la probabilidad de vender en la siguiente es $0{,}6$; si no vendió, baja a $0{,}3$.\n\n¿Se puede modelar la cantidad de ventas como una distribución binomial?",
+    "options": [
+      "No, la probabilidad de éxito cambia según el resultado anterior.",
+      "Sí, el número de llamadas ya está fijado en 6 de antemano.",
+      "Sí, cada llamada tiene solo dos resultados posibles."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El número de llamadas está fijo, pero la binomial también exige que $p$ sea la misma en todas, y acá no lo es.",
+    "feedback_incorrect": [
+      null,
+      "Tener $n$ fijo es necesario pero no alcanza: la binomial además exige que $p$ sea constante en todos los ensayos.",
+      "Que cada llamada tenga dos resultados posibles es necesario pero no alcanza: hace falta además que la probabilidad de esos resultados no cambie."
+    ],
+    "explanation": "La distribución **binomial** exige dos condiciones a la vez sobre los $n$ ensayos: que su cantidad esté fija de antemano, y que la probabilidad de éxito $p$ sea idéntica en todos.\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá las 6 llamadas sí están fijas.\n\nPero la probabilidad de vender en cada llamada depende de si la anterior terminó en venta o no, así que $p$ no es constante.\n\nUna probabilidad que cambia según el resultado del ensayo anterior rompe la independencia entre ensayos que la fórmula necesita para combinarse correctamente.\n\nNinguna de las distribuciones de esta unidad modela directamente ese vaivén de probabilidad, hace falta una herramienta que queda fuera de este curso.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "supuesto-violado"
+    ]
+  },
+  {
+    "question": "Un jugador de básquet tira 10 libres seguidos, y se cansa con cada tiro adicional.\n\nSu probabilidad de acierto arranca en $0{,}8$ y baja $0{,}05$ por cada tiro ya lanzado, sin importar si acertó o no.\n\n¿Se puede modelar la cantidad de tiros convertidos como una distribución binomial?",
+    "options": [
+      "Sí, el número de tiros ya está fijado en 10 de antemano.",
+      "No, la probabilidad de acierto cambia de un tiro a otro.",
+      "Sí, cada tiro tiene solo dos resultados posibles."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El número de tiros está fijo, pero la binomial también exige que $p$ sea la misma en todos, y acá va bajando con el cansancio.",
+    "feedback_incorrect": [
+      "Tener $n$ fijo es necesario pero no alcanza: la binomial además exige que $p$ sea constante en todos los ensayos.",
+      null,
+      "Que cada tiro tenga dos resultados posibles es necesario pero no alcanza: hace falta además que la probabilidad de esos resultados no cambie."
+    ],
+    "explanation": "La distribución **binomial** exige dos condiciones a la vez sobre los $n$ ensayos: que su cantidad esté fija de antemano, y que la probabilidad de éxito $p$ sea idéntica en todos.\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá los 10 tiros sí están fijos.\n\nPero la probabilidad de acierto va bajando tiro a tiro por el cansancio, así que $p$ no es la misma en todos los ensayos.\n\nUn parámetro que se degrada a lo largo de la tanda rompe la condición de ensayos idénticos que la fórmula necesita para combinarse correctamente.\n\nNinguna de las distribuciones de esta unidad modela directamente ese deterioro progresivo de la probabilidad, hace falta una herramienta que queda fuera de este curso.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "supuesto-violado"
+    ]
+  },
+  {
+    "question": "Una máquina fabrica 15 piezas en una tanda, y se desgasta con el uso.\n\nLa probabilidad de que una pieza salga defectuosa arranca en $0{,}02$ y sube $0{,}01$ por cada pieza ya fabricada en la tanda.\n\n¿Se puede modelar la cantidad de piezas defectuosas como una distribución binomial?",
+    "options": [
+      "Sí, el número de piezas ya está fijado en 15 de antemano.",
+      "Sí, cada pieza tiene solo dos resultados posibles.",
+      "No, la probabilidad de defecto cambia a lo largo de la tanda."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El número de piezas está fijo, pero la binomial también exige que $p$ sea la misma en todas, y acá va subiendo con el desgaste.",
+    "feedback_incorrect": [
+      "Tener $n$ fijo es necesario pero no alcanza: la binomial además exige que $p$ sea constante en todos los ensayos.",
+      "Que cada pieza tenga dos resultados posibles es necesario pero no alcanza: hace falta además que la probabilidad de esos resultados no cambie.",
+      null
+    ],
+    "explanation": "La distribución **binomial** exige dos condiciones a la vez sobre los $n$ ensayos: que su cantidad esté fija de antemano, y que la probabilidad de éxito $p$ sea idéntica en todos.\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá las 15 piezas de la tanda sí están fijas.\n\nPero la probabilidad de defecto va subiendo pieza a pieza por el desgaste de la máquina, así que $p$ no es la misma en todos los ensayos.\n\nUn parámetro que se degrada a lo largo de la tanda rompe la condición de ensayos idénticos que la fórmula necesita para combinarse correctamente.\n\nNinguna de las distribuciones de esta unidad modela directamente ese deterioro progresivo de la probabilidad, hace falta una herramienta que queda fuera de este curso.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "supuesto-violado"
+    ]
   }
 ]

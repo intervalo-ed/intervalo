@@ -1,138 +1,184 @@
-# Flujo de generación de contenido — curso `probabilidad`
+# Flujo de generación de contenido — curso `probabilidad`, ronda 2
 
-Este es el documento maestro de la ronda de generación. Si vas a completar/regenerar
-ejercicios del curso `probabilidad`, **empezá por acá**. Cada topic tiene (o va a
-tener) su propio `topic-context.md` con el detalle fino de qué generar, y
-eventualmente un `generation-prompt.md` operativo por ciclo; este archivo explica
-el ciclo, el alcance de la ronda y cómo validar antes de commitear.
+Este es el documento maestro de la ronda 2. **Es para el curso completo**, no
+solo para una unidad: los 26 topics de `probabilidad` (`white/conteo`,
+`blue/probabilidad`, `violet/variables`, `brown/distribuciones`). Cada topic
+ya tiene su `topic-context.md` con la taxonomía completa (tabla de
+sub-familias con target y slug, contextos variados, confusiones fuente,
+reglas duras propias del topic); este archivo explica el ciclo, el alcance
+exacto de la ronda y cómo validar antes de commitear.
 
 Todos los comandos se corren **desde `backend/`**.
 
 ---
 
-## Qué es una ronda y en cuál estamos
+## Qué es esta ronda
 
-**Estamos preparando la ronda 1.** Hoy los 31 topics del curso tienen cada uno un
-único ejercicio dummy por skill (`SKILL.json` con un array de 1 elemento), generado como
-placeholder al armar la estructura de carpetas y el catálogo (`course.json`). No hay
-contenido real todavía.
+Ninguna unidad del curso llegó nunca a su target real de ejercicios por ítem:
+lo que hoy hay en disco, en las 4 unidades por igual, son muestras chicas (1-2
+ejercicios por sub-familia, a veces menos), no el contenido completo. Esto se
+confirmó auditando la cantidad real de ejercicios de cada `SKILL.json` (ver
+tabla de alcance abajo), no por memoria de rondas anteriores.
 
-- **Preparación (hecha):** se recorrieron los 31 topics escribiendo su
-  `topic-context.md` (taxonomía por sub-familia con `tags`/slugs, confusiones
-  fuente para `feedback_incorrect`, reglas duras propias del topic, checklist), y
-  se dejaron listos los documentos de contexto del curso (`course-context.md`,
-  `white/generation-instructions.md`, este archivo). **No se generó contenido
-  nuevo en esta etapa**, solo se escribieron los documentos que van a guiar la
-  generación.
-- **Ronda 1 (próxima, una vez que un topic tenga su `topic-context.md` listo):**
-  generación limpia desde el ejercicio dummy hasta el target de la tabla de abajo,
-  siguiendo el patrón usado en `analisis` (ver
-  `generation/content-analisis-round2/0-generation-prompt.md` para el modelo
-  completo del ciclo).
-- **Rondas futuras:** auditoría en vivo, corrección de hallazgos, y eventual
-  expansión de `blue`/`violet`/`brown` si la ronda 1 los deja en un target menor
-  al de `white` (ver nota de alcance).
+**Ronda 2 (esta) unifica el target de todo el curso a 15 ejercicios por
+ítem**, incluida una baja deliberada de `white/conteo` y `blue/probabilidad`
+(que en la planificación original apuntaban a 50) a los mismos 15 que ya
+tenían `violet/variables` y `brown/distribuciones`. Como consecuencia, **las
+tablas de "Distribución objetivo" de los 12 `topic-context.md` de
+`white/conteo` y `blue/probabilidad` ya fueron reescaladas de 50 a 15**
+(proporcionalmente, por el método del mayor resto, conservando las mismas
+sub-familias y slugs, solo cambiaron las cantidades). No hace falta volver a
+tocar esas tablas, ya están en su target final.
+
+**Esto no es una poda.** La cantidad real de ejercicios existentes en disco
+está muy por debajo de 15 en absolutamente todos los ítems del curso (entre 1
+y 5 según el ítem), así que unificar a 15 es en todos los casos **completar
+hacia arriba**, nunca recortar contenido ya escrito.
+
+**Regla de oro:** cada archivo `SKILL.json` de las 4 unidades termina con
+**exactamente 15 ejercicios**, con la distribución por sub-familia que ya
+está escrita en la tabla de su `topic-context.md` (esas tablas ya suman 15
+cada una).
 
 ---
 
-## Alcance: los 31 topics
+## Alcance: 26 topics, 64 ítems
 
-| Belt / unit | Topic | Skills | Ejercicios/skill (ronda 1) |
-|-------------|-------|--------|:---------------------:|
-| white/conteo | reglas | FORM, ESTR, RESL | 50 |
-| white/conteo | factoriales | FORM, RESL | 50 |
-| white/conteo | permutaciones | CLSF, FORM, RESL | 50 |
-| white/conteo | variaciones | CLSF, FORM, RESL | 50 |
-| white/conteo | combinaciones | CLSF, FORM, RESL | 50 |
-| blue/probabilidad | espacios | LEXI, CLSF | 50 |
-| blue/probabilidad | axiomas | LEXI, ESTR, RESL | 50 |
-| blue/probabilidad | laplace | FORM, RESL | 50 |
-| blue/probabilidad | condicional | ESTR, FORM, RESL | 50 |
-| blue/probabilidad | independencia | CLSF, FORM, RESL | 50 |
-| blue/probabilidad | total | ESTR, FORM, RESL | 50 |
-| blue/probabilidad | bayes | ESTR, FORM, RESL | 50 |
-| violet/variables | definicion_var | LEXI, CLSF | 15 |
-| violet/variables | puntual | FORM, GRAF, RESL | 15 |
-| violet/variables | densidad | FORM, GRAF, RESL | 15 |
-| violet/variables | acumulada | FORM, GRAF, RESL | 15 |
-| violet/variables | esperanza | FORM, RESL | 15 |
-| violet/variables | varianza | FORM, RESL | 15 |
-| brown/distribuciones | binomial | CLSF, FORM | 15 |
-| brown/distribuciones | geometrica | CLSF, FORM | 15 |
-| brown/distribuciones | negativa | CLSF, FORM | 15 |
-| brown/distribuciones | hipergeometrica | CLSF, FORM | 15 |
-| brown/distribuciones | poisson | CLSF, FORM | 15 |
-| brown/distribuciones | uniforme | GRAF, FORM | 15 |
-| brown/distribuciones | exponencial | GRAF, FORM | 15 |
-| brown/distribuciones | normal | GRAF, FORM | 15 |
+| Unit | Topic | Ítems (skills) |
+|------|-------|-----------------|
+| white/conteo | reglas | ESTR, FORM, RESL |
+| white/conteo | factoriales | FORM, RESL |
+| white/conteo | permutaciones | CLSF, FORM, RESL |
+| white/conteo | variaciones | CLSF, FORM, RESL |
+| white/conteo | combinaciones | CLSF, FORM, RESL |
+| blue/probabilidad | espacios | LEXI, CLSF |
+| blue/probabilidad | axiomas | LEXI, ESTR, RESL |
+| blue/probabilidad | laplace | FORM, RESL |
+| blue/probabilidad | condicional | ESTR, FORM, RESL |
+| blue/probabilidad | independencia | CLSF, FORM, RESL |
+| blue/probabilidad | total | ESTR, FORM, RESL |
+| blue/probabilidad | bayes | ESTR, FORM, RESL |
+| violet/variables | definicion_var | LEXI, CLSF |
+| violet/variables | puntual | FORM, GRAF, RESL |
+| violet/variables | densidad | FORM, GRAF, RESL |
+| violet/variables | acumulada | FORM, GRAF, RESL |
+| violet/variables | esperanza | FORM, RESL |
+| violet/variables | varianza | FORM, RESL |
+| brown/distribuciones | binomial | CLSF, FORM |
+| brown/distribuciones | geometrica | CLSF, FORM |
+| brown/distribuciones | hipergeometrica | CLSF, FORM |
+| brown/distribuciones | negativa | CLSF, FORM |
+| brown/distribuciones | poisson | CLSF, FORM |
+| brown/distribuciones | uniforme | GRAF, FORM |
+| brown/distribuciones | exponencial | GRAF, FORM |
+| brown/distribuciones | normal | GRAF, FORM |
 
-`vectores` (vectores aleatorios) quedó sin cinturón asignado en `course.json`
-tras correr las unidades un cinturón hacia abajo (jul-2026); el contenido sigue
-en disco en `backend/content/probabilidad/brown/vectores/`, pendiente de
-retomar en una ronda futura. No forma parte del alcance de esta tabla.
+`vectores` (vectores aleatorios) sigue sin cinturón asignado en `course.json`
+y queda **fuera de alcance** de esta ronda.
 
-**Por qué 50 en `white` y 15 en el resto:** mismo criterio que usó `analisis` en su
-ronda 1 (ver tabla de alcance de
-`generation/content-analisis-round2/0-generation-prompt.md`): el primer
-cinturón, que es el que más alumnos recorren primero y el que fija el patrón de
-calidad para el resto, sale completo desde el arranque; los cinturones siguientes
-arrancan en un set más chico (15) para no bloquear el lanzamiento del curso
-completo, y se expanden a 50 en una ronda futura si el volumen de uso lo justifica.
+**Cuánto falta por ítem, antes de arrancar cada topic, se audita así** (no
+confíes en un número fijo escrito acá, la cantidad real cambia a medida que
+avanza la ronda):
 
-**Orden sugerido:** por unidad, `white → blue → violet → brown`, y dentro de cada
-unidad en el orden de la tabla (`conteo` (white) antes que `probabilidad` (blue)
-porque Laplace y Bayes usan combinatoria; dentro de `probabilidad`, `espacios →
-axiomas → laplace → condicional → independencia → total → bayes` porque cada uno
-depende conceptualmente del anterior). Cerrá un topic completo (todas sus skills)
-antes de pasar al siguiente.
+```bash
+python - <<'EOF'
+import json, os
+base = "content/probabilidad"
+for unit in ["white/conteo", "blue/probabilidad", "violet/variables", "brown/distribuciones"]:
+    print(f"\n=== {unit} ===")
+    for topic in sorted(os.listdir(os.path.join(base, unit))):
+        tpath = os.path.join(base, unit, topic)
+        if not os.path.isdir(tpath):
+            continue
+        skills = []
+        for fname in sorted(os.listdir(tpath)):
+            if fname.endswith(".json"):
+                with open(os.path.join(tpath, fname), encoding="utf-8") as f:
+                    skills.append(f"{fname[:-5]}={len(json.load(f))}")
+        print(f"  {topic}: {', '.join(skills)}")
+EOF
+```
+
+**Orden sugerido:** por unidad, `white → blue → violet → brown` (respeta la
+dependencia conceptual acumulativa entre unidades: `laplace`/`bayes`
+reutilizan combinatoria de `white/conteo`, `brown/distribuciones` reutiliza
+`esperanza`/`varianza` de `violet/variables`). Dentro de cada unidad, el
+orden de la tabla de arriba. Cerrá un topic completo (todos sus ítems) antes
+de pasar al siguiente.
 
 ---
 
 ## Setup, una sola vez
 
-Trabajás en la branch `content-probabilidad-round1`.
+La branch `content-probabilidad-round2` **ya existe**. No la crees de nuevo:
 
 ```bash
-git checkout main && git pull
-git checkout -b content-probabilidad-round1   # o: git checkout content-probabilidad-round1 si ya existe
+git fetch origin
+git checkout content-probabilidad-round2
+git pull origin content-probabilidad-round2
 ```
 
-Si la branch ya existe (porque alguien ya avanzó algún topic), hacé checkout y
-seguí, no la pises.
+Si por algún motivo no existe en tu remoto, avisá antes de crearla de cero, no
+asumas.
 
 ---
 
-## El ciclo, una vez por topic
+## El ciclo, una vez por ítem (`SKILL.json`)
 
 ### 1. Leer, en este orden
 
-1. `backend/content/authoring-context.md` **completo** (todas las reglas críticas +
-   secciones). Es la fuente de verdad de formato y estilo, por encima de cualquier
-   resumen.
-2. `backend/content/probabilidad/course-context.md` (qué sabe el alumno en cada
-   belt, frontera matemática dura).
-3. El `generation-instructions.md` del belt del topic: `white/generation-instructions.md`
-   (unidad `conteo`) o `blue/generation-instructions.md` (unidad `probabilidad`).
-   `violet`/`brown` todavía no tienen el suyo propio; referencian estos dos mientras
-   no haya reglas específicas.
-4. El `topic-context.md` del topic: distribución por sub-familia con slugs de
-   `tags`, confusiones fuente, reglas duras propias del topic.
+1. `backend/content/authoring-context.md` **completo**. Es la fuente de
+   verdad de formato y estilo, por encima de cualquier resumen.
+2. `backend/content/probabilidad/course-context.md` (frontera matemática del
+   alumno en cada belt).
+3. El `generation-instructions.md` del belt del topic, si existe
+   (`white/generation-instructions.md`, `blue/generation-instructions.md`).
+   `violet`/`brown` todavía no tienen uno propio; referencian esos dos
+   mientras no haya reglas específicas de belt.
+4. El `topic-context.md` del topic. Ahí está todo el detalle operativo
+   específico de este ítem:
+   - La tabla de sub-familias con **target exacto (ya en 15) y slug**
+     (columna `tags`).
+   - "Contextos variados": la lista de escenarios a rotar (tope ~30% del
+     mismo contexto dentro de una sub-familia, regla 43 de
+     `authoring-context.md`).
+   - La regla de **interpretación intuitiva** en `explanation` cuando el
+     topic la documenta explícitamente (regla 44 de `authoring-context.md`
+     aplica siempre; algunos `topic-context.md` de `violet`/`brown` la
+     extienden con una regla específica del topic, seguila si está escrita).
+   - Para los ítems `GRAF` de `brown/distribuciones` (`uniforme`,
+     `exponencial`, `normal`), la sección **"Diseño de gráficos reales"**:
+     qué sub-familia lleva imagen y cuál no, la regla de que el `question`
+     nunca repite en texto un dato que el gráfico debería aportar, y la
+     regla de **alturas prolijas** (elegir la magnitud de
+     $\lambda$/$\sigma$/el intervalo para que el pico caiga en un rango
+     ~0,15 a ~1, nunca dejar que el margen del `graph_view` intente
+     compensar un dato con mala magnitud de por sí). Salen de testing real,
+     no son teóricas: seguilas al pie de la letra. El resto de las unidades
+     (`white`/`blue`/`violet`) no usa `GRAF` con imagen real.
+5. Los ejercicios ya existentes en el propio `SKILL.json` (los que ya tienen
+   `"tags": [...]` con un slug de la tabla). Usalos como **referencia de
+   formato exacto** (todos los campos del JSON) y de **tono/nivel** ya
+   validado, si el ítem tiene alguno. No los edites ni los borres.
 
-### 2. Escribir/confirmar el `topic-context.md` (etapa de preparación)
+### 2. Planificar (en el chat, antes de tocar el `.json`)
 
-Si el topic todavía no tiene `topic-context.md`, diseñá la taxonomía leyendo el
-`tooltip`/`short_description` del topic en `course.json` y el ejercicio dummy existente
-como semilla de contexto (no como contenido a preservar). Seguí la estructura
-recomendada en `agent-context.md` (distribución por sub-familia con cantidad
-exacta y slug, confusiones fuente por skill, reglas específicas del topic,
-checklist). Esto es preparación, no generación: no toques los `.json` en este
-paso.
+Para el ítem que estés por completar, escribí en el chat una tabla:
+sub-familia → target de la tabla → cuántos ya hay (contá el `tags` real del
+archivo, no asumas) → cuántos faltan. Elegí, para cada ejercicio nuevo, un
+contexto distinto de la lista de "Contextos variados" (rotando, sin repetir
+el mismo más del ~30% de las veces dentro de la misma sub-familia) y números
+que no dupliquen los ya usados en los ejercicios existentes del mismo ítem.
+Mostrá 1 ejercicio de muestra antes de generar el resto del ítem.
 
-### 3. Generar (cuando la ronda 1 arranque para ese topic)
+### 3. Generar
 
-Seguí el "Paso 2" (planning) y "Paso 3" (generación) del `generation-instructions.md`
-del belt correspondiente: plan numerado en el chat antes de escribir un solo
-ejercicio, después generación siguiendo el plan.
+Agregá los ejercicios nuevos al array del `.json` existente (no crees un
+archivo nuevo; si el ítem ya tiene ejercicios, no los toques). Cada ejercicio
+nuevo lleva su `tags` con el slug correspondiente de la tabla. Respetá el
+esquema completo de campos que ya usan los ejercicios existentes del archivo
+(incluidos los de gráfico si el ítem es `GRAF` de una distribución continua,
+aunque sean `null` en los que no llevan imagen).
 
 ### 4. Seedear (formato + integridad)
 
@@ -140,45 +186,133 @@ ejercicio, después generación siguiendo el plan.
 python seed_content.py --course probabilidad
 ```
 
-Tiene que correr sin errores. Debería reportar los ejercicios del topic como `created`
-o `updated`.
+Tiene que correr sin errores. Debería reportar el ítem como `updated` (o
+`created` si el topic todavía no tenía nada seedeado).
 
-### 5. Validar (reglas automatizables)
+### 5. Validar y reducir errores
 
 ```bash
 python content/validate_content.py --course probabilidad --topic <belt/unit/topic>
 ```
 
-Por ejemplo: `python content/validate_content.py --course probabilidad --topic white/probabilidad/bayes`.
+Por ejemplo: `python content/validate_content.py --course probabilidad --topic blue/probabilidad/bayes`.
 
-- **ERROR**: violación inequívoca de una regla. **Se corrige siempre**, no se
-  commitea con errores.
-- **WARNING**: heurística que puede tener falsos positivos. Se revisa con
-  criterio; cada warning que quede se justifica en el mensaje de commit.
+- **ERROR**: se corrige siempre, no se avanza al siguiente ítem con errores
+  pendientes. Volvé a seedear y validar después de cada corrección hasta
+  llegar a **0 ERRORS** en el topic.
+- **WARNING**: se revisa con criterio (puede ser falso positivo). El único
+  warning esperable y que se puede dejar tal cual es el de `structure (regla
+  tags)` que compara conteo por slug contra el target de la tabla, **mientras
+  el ítem siga incompleto** — una vez que un ítem llega a sus 15 ejercicios
+  completos, ese warning tiene que desaparecer solo; si no desaparece, algo
+  quedó mal contado. Cualquier otro warning que quede se justifica en el
+  mensaje de commit.
 
-### 6. Checklist manual del topic
+### 6. Checklist manual del ítem
 
-Corré el checklist del final del `topic-context.md` y el self-critique de
-`white/generation-instructions.md`, ejercicio por ejercicio.
+Corré el checklist del final del `topic-context.md` sobre los 15 ejercicios
+completos (no solo sobre los nuevos). Si el belt tiene
+`generation-instructions.md` con un checklist de self-critique, corré ese
+también. Prestá atención especial a lo que el validador no puede chequear
+automáticamente: que la interpretación/intuición de cada `explanation` sea
+real y no relleno, que los ejercicios de `GRAF` con imagen (solo en
+`brown/distribuciones`) realmente obliguen a mirar el gráfico para resolver,
+y que la variedad de contextos entre los 15 ejercicios de un ítem sea
+genuina.
 
-### 7. Commitear (solo si 4, 5 y 6 cierran)
+### 7. Anotar las decisiones tomadas
+
+Antes de commitear, escribí (o actualizá) un archivo de decisiones en:
 
 ```
-feat(probabilidad/<belt>/<topic>): generar ejercicios ronda 1
+generation/content-probabilidad-round2/decisions/<belt>/<unit>/<topic>/<SKILL>_decisions.md
 ```
 
-En el cuerpo del commit resumí: cantidad de ejercicios por skill, el conteo por `tags`,
-y los warnings que quedaron con su justificación.
+Por ejemplo: `generation/content-probabilidad-round2/decisions/blue/probabilidad/bayes/ESTR_decisions.md`.
+(Mismo patrón de carpetas que `generation/content-analisis-round2/decisions/`,
+ver ese directorio como referencia de formato general.) El archivo documenta,
+para ese ítem:
+
+```markdown
+# Decisiones, <SKILL>.json (topic: <belt>/<unit>/<topic>)
+
+## Plan cumplido
+
+| Sub-familia | Target | Ya había | Generados (ronda 2) | Total |
+|---|---:|---:|---:|---:|
+| <slug-1> | N | N0 | N-N0 | N |
+| <slug-2> | N | N0 | N-N0 | N |
+| ... | | | | |
+| **Total** | **15** | | | **15** |
+
+## Contextos usados
+Lista breve de qué escenario de "Contextos variados" se usó en cada ejercicio
+nuevo, para poder auditar variedad de un vistazo.
+
+## Decisiones de contenido
+Cualquier ambigüedad, número elegido con criterio propio, o desvío menor del
+plan original (y por qué). Si no hubo ninguna, decilo explícitamente ("sin
+desvíos del plan").
+
+## Warnings que quedaron
+Cada warning del validador que no se corrigió, con la razón puntual.
+```
+
+No hace falta el detalle ejercicio-por-ejercicio que tiene
+`content-analisis-round2/decisions/` (ese fue para auditar contenido ya
+existente ejercicio por ejercicio en un refactor; acá alcanza con el resumen
+por sub-familia más los dos puntos de arriba).
+
+### 8. Commitear (solo si 4, 5 y 6 cierran)
+
+```
+content(probabilidad/<belt>/<unit>/<topic>): completar <SKILL> a 15 ejercicios (ronda 2)
+```
+
+Un commit por ítem (`SKILL.json`) o uno por topic (todos sus ítems juntos) si
+te resulta más cómodo, lo que prefieras. En el cuerpo del commit resumí:
+cuántos ejercicios se agregaron, el conteo final por `tags`, y los warnings
+que quedaron con su justificación (o referenciá el archivo de decisiones en
+vez de repetirlo).
+
+Si algo de 4/5/6 no cierra, **no commitees**: arreglá y repetí desde el punto 4.
+
+---
+
+## Al terminar los 26 topics
+
+1. `python seed_content.py --course probabilidad --prune` desde `backend/`
+   (limpia cualquier fila vieja si cambiara la cantidad de algún ítem).
+2. Correr `python content/validate_content.py --course probabilidad` (sin
+   `--topic`, corre las 4 unidades completas) y confirmar **0 ERRORS** en
+   todo el curso, y 0 warnings de `structure (regla tags)` sin justificar
+   (ya deberían haber desaparecido al llegar todos los ítems a 15).
+3. `bun run scripts/sync-catalog.ts` desde `web/` si cambió algo del catálogo
+   (no debería, esta ronda no agrega/quita topics ni skills, solo completa
+   ejercicios).
+4. Push de la branch y **abrir un PR a `staging`** (no mergees directo a
+   `main` ni a `staging` sin revisión — a diferencia de rondas anteriores,
+   esta la trabaja otra persona, así que el merge final lo decide quien la
+   generó después de que alguien más la pruebe en `/test`).
 
 ---
 
 ## Reglas de conducta
 
-- Los docs de contexto (`authoring-context.md`, `course-context.md`,
-  `topic-context.md`, `generation-instructions.md`) son **solo lectura** durante la
-  generación (paso 3 en adelante). Sí se editan durante la etapa de preparación
-  (paso 2), que es justamente escribir/ajustar esos documentos.
-- Si tenés una duda de alcance, **marcala y seguí**, no te bloquees esperando
-  respuesta. Dejá la duda anotada en el resumen del commit o del mensaje.
-- No adelantes conceptos de un cinturón posterior al escribir un topic (ver
-  frontera matemática dura en `course-context.md`).
+- `authoring-context.md`, `course-context.md` y los `topic-context.md` son
+  **solo lectura** durante la generación. Si encontrás una regla ambigua o un
+  target que no cierra (ej. la tabla no suma 15), marcalo en el resumen del
+  commit y seguí con tu mejor criterio, no te bloquees esperando respuesta.
+- No cambies la cantidad de sub-familias ni sus slugs de ningún
+  `topic-context.md` — ya están fijados (incluidas las 12 tablas de
+  `white`/`blue` que se reescalaron de 50 a 15 para esta ronda).
+- No adelantes conceptos fuera de la frontera matemática de cada belt (ver
+  `course-context.md`): nada de `axiomas`/Laplace en `white`, nada de
+  variable aleatoria/distribuciones en `blue`, nada de distribuciones
+  paramétricas en `violet`, nada de vectores aleatorios/conjuntas/correlación
+  en `brown` (esa unidad no tiene cinturón asignado todavía).
+- Los ejercicios que ya existen en un `SKILL.json` **no se tocan** salvo que
+  tengan un problema real (no solo de estilo). Si al planificar encontrás uno
+  con un problema, marcalo en el archivo de decisiones en vez de editarlo
+  silenciosamente, y preguntá si conviene corregirlo en esta ronda o dejarlo
+  para una posterior.

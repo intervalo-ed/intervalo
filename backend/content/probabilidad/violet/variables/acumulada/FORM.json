@@ -21,7 +21,9 @@
     "graph_view": null,
     "graph_shade": null,
     "reviewed": false,
-    "tags": ["definicion-acumulada"]
+    "tags": [
+      "definicion-acumulada"
+    ]
   },
   {
     "question": "Sea $X$ una variable aleatoria con función de distribución acumulada $F(x)$.\n\n¿Cómo se expresa $P(a < X \\leq b)$ en términos de $F$?",
@@ -43,7 +45,9 @@
     "graph_view": null,
     "graph_shade": null,
     "reviewed": false,
-    "tags": ["propiedad-diferencia"]
+    "tags": [
+      "propiedad-diferencia"
+    ]
   },
   {
     "question": "Sea $F(x)$ la función de distribución acumulada de una variable aleatoria $X$.\n\n¿Cuál de las siguientes afirmaciones es siempre verdadera?",
@@ -65,6 +69,298 @@
     "graph_view": null,
     "graph_shade": null,
     "reviewed": false,
-    "tags": ["propiedades-generales"]
+    "tags": [
+      "propiedades-generales"
+    ]
+  },
+  {
+    "question": "En variables discretas, $F(x)$ se relaciona con la **función puntual** $p(x)$.\n\n¿Cuál de estas fórmulas expresa esa relación?",
+    "options": [
+      "$F(x) = p(x)$",
+      "$F(x) = \\sum_{k\\leq x} p(k)$",
+      "$F(x) = 1 - p(x)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La acumulada discreta suma la puntual de todos los valores hasta $x$ inclusive.",
+    "feedback_incorrect": [
+      "Esa es la función puntual evaluada justo en $x$, no la suma de todo lo anterior.",
+      null,
+      "Esa resta no tiene relación con la acumulada, que suma probabilidades en vez de restarlas de 1."
+    ],
+    "explanation": "La **función de distribución acumulada** de una variable discreta se arma sumando la función puntual $p(x)$ en todos los valores que no superan $x$.\n$$F(x) = \\sum_{k\\leq x} p(k)$$\nCada término $p(k)$ aporta la probabilidad concentrada en ese valor puntual, y sumarlos todos hasta $x$ inclusive da la probabilidad acumulada total.\n\nUsar solo $p(x)$ en vez de la suma completa deja afuera toda la probabilidad de los valores anteriores a $x$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "definicion-acumulada"
+    ]
+  },
+  {
+    "question": "En variables continuas, $F(x)$ se relaciona con la **densidad** $f(x)$.\n\n¿Cuál de estas afirmaciones describe esa relación?",
+    "options": [
+      "$F(x) = f(x)$",
+      "$F(x)$ es la altura máxima de $f$",
+      "$F(x)$ es el área bajo $f$ hasta $x$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$F(x)$ acumula, como área, toda la probabilidad de la densidad hasta ese punto.",
+    "feedback_incorrect": [
+      "Esa igualdad confunde la altura puntual de la densidad con el área que acumula hasta $x$.",
+      "La altura máxima de $f$ no depende de $x$ ni acumula probabilidad, describe otra cosa.",
+      null
+    ],
+    "explanation": "La **función de distribución acumulada** de una variable continua acumula, como área, toda la probabilidad de la densidad $f$ desde el extremo izquierdo del dominio hasta $x$.\n\nGeométricamente, $F(x)$ es el área bajo la curva de $f$ sobre ese tramo.\n\nEn cambio, $f(x)$ es apenas la altura de la curva en ese punto puntual.\n\nConfundir la altura con el área ignora que la probabilidad de un intervalo depende también de su ancho, no solo de cuán alta es la densidad ahí.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "definicion-acumulada"
+    ]
+  },
+  {
+    "question": "La función de distribución acumulada cumple $F(x) = P(X \\leq x)$.\n\n¿Qué representa la expresión $1 - F(x)$?",
+    "options": [
+      "$P(X > x)$",
+      "$P(X \\leq x)$",
+      "$P(X = x)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El complemento de acumular hasta $x$ es la probabilidad de superar ese valor.",
+    "feedback_incorrect": [
+      null,
+      "Eso sería $F(x)$ mismo, no su complemento.",
+      "Eso es la probabilidad puntual en $x$, que no tiene por qué coincidir con $1-F(x)$."
+    ],
+    "explanation": "La **función de distribución acumulada** y su complemento se relacionan por el axioma de que la probabilidad total vale 1.\n$$1 - F(x) = 1 - P(X \\leq x) = P(X > x)$$\nComo los eventos $X\\leq x$ y $X>x$ cubren todos los casos posibles sin superponerse, sus probabilidades siempre suman 1.\n\nConfundir $1-F(x)$ con $F(x)$ mismo ignora que uno mide lo acumulado hasta el punto y el otro justo lo que queda afuera de esa acumulación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "definicion-acumulada"
+    ]
+  },
+  {
+    "question": "La función de distribución acumulada $F$ toma como entrada un número real y devuelve una probabilidad.\n\n¿Qué representa ese número real que recibe $F$?",
+    "options": [
+      "Una probabilidad ya calculada de antemano",
+      "Un umbral $x$ hasta el que se acumula probabilidad",
+      "El valor esperado de la variable aleatoria $X$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$F$ recibe cualquier valor real $x$ y devuelve la probabilidad acumulada hasta ese umbral.",
+    "feedback_incorrect": [
+      "Una probabilidad es lo que $F$ devuelve como salida, no lo que recibe como entrada.",
+      null,
+      "El valor esperado es un único número que resume a $X$, no el argumento variable de $F$."
+    ],
+    "explanation": "La **función de distribución acumulada** $F$ toma como entrada cualquier número real $x$, sin restricción.\n\nDevuelve la probabilidad de que $X$ no supere ese umbral.\n$$F(x) = P(X \\leq x)$$\nPor eso $F$ está definida para todo $x$, sin excepción.\n\nIncluye valores que $X$ nunca toma: siempre hay una probabilidad acumulada hasta ahí, aunque sea 0 o 1.\n\nConfundir el argumento $x$ con una probabilidad ya calculada invierte los roles de entrada y salida de la función.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "definicion-acumulada"
+    ]
+  },
+  {
+    "question": "La función de distribución acumulada permite calcular la probabilidad de un intervalo con esta fórmula:\n$$P(a < X \\leq b) = F(b) - F(a)$$\n¿A qué evento corresponde exactamente esa resta?",
+    "options": [
+      "$P(a \\leq X \\leq b)$",
+      "$P(X \\leq a)$",
+      "$P(a < X \\leq b)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La resta $F(b)-F(a)$ deja afuera lo acumulado hasta $a$ y deja solo el tramo $(a,b]$.",
+    "feedback_incorrect": [
+      "En el caso discreto, incluir $a$ también sumaría su probabilidad puntual, que $F(b)-F(a)$ no incluye.",
+      "Eso sería solo $F(a)$, sin restar nada.",
+      null
+    ],
+    "explanation": "La **función de distribución acumulada** permite armar la probabilidad de cualquier intervalo restando dos evaluaciones de $F$.\n$$P(a < X \\leq b) = F(b) - F(a)$$\n$F(b)$ acumula todo hasta $b$ inclusive.\n\nRestar $F(a)$ descuenta lo acumulado hasta ese punto inclusive, dejando solo el tramo que arranca justo después de $a$.\n\nEn variables discretas, incluir el extremo $a$ en el intervalo sumaría también su probabilidad puntual, algo que esta fórmula deliberadamente no hace.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "propiedad-diferencia"
+    ]
+  },
+  {
+    "question": "La probabilidad de un intervalo se calcula como diferencia de acumuladas.\n\n¿Cómo se expresa $P(X > b)$ usando esa misma idea?",
+    "options": [
+      "$F(b) - 1$",
+      "$-F(b)$",
+      "$F(1) - F(b)$",
+      "$1 - F(b)$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Como $F$ acumula toda la probabilidad hasta el infinito, restarle a 1 deja lo que queda por encima de $b$.",
+    "feedback_incorrect": [
+      "Esa resta da un valor negativo o cero, que no puede ser una probabilidad.",
+      "Un signo negativo solo no representa ninguna probabilidad válida.",
+      "$F(1)$ no tiene ningún significado especial acá, salvo que $b=1$ coincida por casualidad.",
+      null
+    ],
+    "explanation": "La **función de distribución acumulada** también permite obtener la probabilidad de superar un valor, tratándola como un caso particular de la diferencia entre dos acumuladas.\n$$P(X > b) = F(\\infty) - F(b) = 1 - F(b)$$\nComo $F$ tiende a 1 en el extremo derecho, restarle $F(b)$ deja exactamente la porción de probabilidad restante.\n\nEsa porción es la que queda por encima de $b$.\n\nOlvidar el 1 y dejar la resta en $-F(b)$ produce un número negativo, que nunca puede ser una probabilidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "propiedad-diferencia"
+    ]
+  },
+  {
+    "question": "Dos alumnos calculan $P(a < X \\leq b)$.\n\nUno resta $F(b) - F(a)$, el otro suma $F(b) + F(a)$.\n\n¿Cuál de los dos procedimientos es correcto?",
+    "options": [
+      "Sumar, porque hay que acumular ambos tramos por separado",
+      "Restar, porque sumar cuenta dos veces la parte común",
+      "Ambos son correctos, dan exactamente el mismo resultado"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Restar aísla justo el tramo entre $a$ y $b$, sin duplicar nada.",
+    "feedback_incorrect": [
+      "Sumar las acumuladas no aísla el tramo pedido, sino que agrega dos veces la parte que ambas comparten.",
+      null,
+      "Sumar y restar dan resultados distintos salvo en casos particulares, no son intercambiables."
+    ],
+    "explanation": "La **función de distribución acumulada** en $a$ ya incluye todo lo acumulado desde el extremo izquierdo del dominio hasta ese punto.\n\nLo mismo pasa con $F(b)$ hasta $b$.\n\nComo ambas comparten la porción común hasta $a$, sumarlas contaría esa parte dos veces.\n\nRestar $F(a)$ de $F(b)$ elimina esa parte compartida y deja únicamente la probabilidad del tramo pedido.\n$$P(a < X \\leq b) = F(b) - F(a)$$\nSumar en vez de restar infla el resultado por encima de lo que realmente mide el intervalo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "propiedad-diferencia"
+    ]
+  },
+  {
+    "question": "Al calcular $P(a < X \\leq b)$, alguien resta en el orden incorrecto y obtiene $F(a) - F(b)$.\n\n¿Qué signo tiene necesariamente ese resultado?",
+    "options": [
+      "Siempre positivo",
+      "Depende del valor de $a$",
+      "Negativo o cero"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Como $F$ es no decreciente y $b>a$, $F(b)\\geq F(a)$, así que invertir la resta da un valor negativo o cero.",
+    "feedback_incorrect": [
+      "Restar en el orden incorrecto no puede dar positivo, porque $F(a)$ nunca supera a $F(b)$ cuando $b>a$.",
+      "El signo no depende de $a$ en particular, siempre queda determinado por que $F$ nunca decrece.",
+      null
+    ],
+    "explanation": "La **función de distribución acumulada** es no decreciente, así que para $b>a$ siempre se cumple $F(b)\\geq F(a)$.\n\nInvertir el orden de la resta da entonces un número negativo o, en el caso límite, cero, nunca positivo:\n$$F(a) - F(b) \\leq 0$$\nUn resultado negativo en este cálculo es una señal clara de que la resta se planteó al revés, porque ninguna probabilidad de intervalo puede ser negativa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "propiedad-diferencia"
+    ]
+  },
+  {
+    "question": "La función de distribución acumulada $F(x)$ tiene un comportamiento fijo en los extremos del dominio.\n\n¿A qué valor tiende $F(x)$ cuando $x \\to -\\infty$?",
+    "options": [
+      "$0$",
+      "$1$",
+      "Depende de la variable $X$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "En el extremo izquierdo no se acumuló ninguna probabilidad todavía.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el límite cuando $x$ crece sin límite hacia la derecha, no hacia la izquierda.",
+      "Este límite es el mismo para toda variable aleatoria, no depende de cuál sea $X$."
+    ],
+    "explanation": "Toda **función de distribución acumulada** parte de no haber acumulado nada de probabilidad en el extremo más chico posible de $x$.\n$$\\lim_{x\\to -\\infty} F(x) = 0$$\nComo $F(x)$ mide la probabilidad acumulada hasta $x$, esa probabilidad arranca en 0 en ese extremo.\n\nNingún valor de $X$ es menor que $-\\infty$, así que no hay nada que acumular antes de ese extremo.\n\nEste límite es válido para cualquier variable aleatoria, discreta o continua, sin excepción.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "propiedades-generales"
+    ]
+  },
+  {
+    "question": "La función de distribución acumulada $F(x)$ también tiene un comportamiento fijo cuando $x$ crece mucho.\n\n¿A qué valor tiende $F(x)$ cuando $x \\to +\\infty$?",
+    "options": [
+      "$0$",
+      "$1$",
+      "Depende de la variable $X$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "En el extremo derecho ya se acumuló toda la probabilidad disponible.",
+    "feedback_incorrect": [
+      "Ese es el límite cuando $x$ decrece sin límite hacia la izquierda, no hacia la derecha.",
+      null,
+      "Este límite también es el mismo para toda variable aleatoria."
+    ],
+    "explanation": "En el otro extremo, toda **función de distribución acumulada** termina acumulando la totalidad de la probabilidad disponible.\n$$\\lim_{x\\to +\\infty} F(x) = 1$$\nComo eventualmente $x$ supera a cualquier valor posible de $X$, la probabilidad acumulada termina siendo la probabilidad total.\n\nEsa probabilidad total vale 1.\n\nUn valor menor a 1 en ese límite significaría que parte de la probabilidad de $X$ se perdió en algún lado, algo que no puede pasar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "propiedades-generales"
+    ]
+  },
+  {
+    "question": "Alguien propone que para cierta variable $X$, $F(-3) = -0{,}2$.\n\n¿Es posible ese valor para una función de distribución acumulada?",
+    "options": [
+      "Sí, si $X$ toma valores negativos",
+      "Sí, si la variable es continua",
+      "No, $F(x)$ nunca puede ser negativa"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$F(x)$ es siempre una probabilidad, y ninguna probabilidad puede ser negativa.",
+    "feedback_incorrect": [
+      "Que $X$ tome valores negativos no cambia el rango de $F$, que sigue acotado entre 0 y 1.",
+      "La continuidad de la variable tampoco cambia el rango de $F$, que siempre queda en $[0,1]$.",
+      null
+    ],
+    "explanation": "La **función de distribución acumulada** siempre representa una probabilidad, así que su rango está limitado al intervalo $[0,1]$ sin importar qué valores tome $X$.\n$$F(x) \\in [0,1] \\text{ para todo } x$$\nQue $X$ tome valores negativos afecta en qué $x$ ocurren los cambios.\n\nPero nunca afecta el rango de valores que $F$ misma puede tomar.\n\nAceptar un valor de $F(x)$ fuera de ese rango rompe la interpretación de $F$ como probabilidad acumulada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "propiedades-generales"
+    ]
+  },
+  {
+    "question": "Para cierta variable $X$ se reporta $F(2) = 0{,}6$.\n\nTambién se reporta $F(5) = 0{,}4$.\n\n¿Es válida esta situación para una función de distribución acumulada?",
+    "options": [
+      "No, porque $F$ nunca puede decrecer al aumentar $x$",
+      "Sí, siempre que $X$ sea discreta y acotada",
+      "Sí, siempre que $X$ sea continua y acotada"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$F$ es no decreciente, así que un valor más grande de $x$ nunca puede dar un $F$ menor.",
+    "feedback_incorrect": [
+      null,
+      "El tipo de variable, discreta o continua, no cambia la propiedad de monotonía de $F$.",
+      "Tampoco depende de la continuidad: $F$ es no decreciente para cualquier variable aleatoria."
+    ],
+    "explanation": "La **función de distribución acumulada** es siempre no decreciente, porque acumula cada vez más probabilidad a medida que $x$ crece.\n$$x_1 < x_2 \\implies F(x_1) \\leq F(x_2)$$\nCon $2 < 5$, la propiedad exige $F(2) \\leq F(5)$, y los valores reportados violan esa desigualdad.\n\nUn valor de $F$ que decrece al aumentar $x$ es una señal inequívoca de un error de cálculo, no una situación posible para ninguna variable aleatoria.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "reviewed": false,
+    "tags": [
+      "propiedades-generales"
+    ]
   }
 ]

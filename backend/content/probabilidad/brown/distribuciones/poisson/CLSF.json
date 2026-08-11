@@ -18,7 +18,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["reconocer-poisson"]
+    "tags": [
+      "reconocer-poisson"
+    ]
   },
   {
     "question": "Se inspecciona un lote de 50 tornillos y se cuenta cuántos están mal roscados.\n\nCada tornillo tiene, en forma independiente, un $4\\%$ de probabilidad de estar mal roscado.\n\n¿Qué distribución modela exactamente la cantidad de tornillos mal roscados?",
@@ -39,7 +41,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["distractor-vecino"]
+    "tags": [
+      "distractor-vecino"
+    ]
   },
   {
     "question": "Una máquina falla en promedio 2 veces por hora en el turno día y 5 veces por hora en el turno noche.\n\nSe quiere modelar la cantidad de fallas en un intervalo de 16 horas que combina ambos turnos.\n\n¿Se puede modelar esa cantidad de fallas con una única distribución de Poisson de tasa constante?",
@@ -60,6 +64,284 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["supuesto-violado"]
+    "tags": [
+      "supuesto-violado"
+    ]
+  },
+  {
+    "question": "Un call center recibe llamadas a una tasa promedio de 5 por hora, en forma independiente entre sí.\n\nSea $X$ la cantidad de llamadas que llegan en una hora.\n\n¿Qué distribución sigue $X$?",
+    "options": [
+      "$Poisson(5)$",
+      "$Bin(5,\\,0{,}5)$",
+      "$Geom(1/5)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Conteo de llamadas en un intervalo fijo con tasa promedio conocida: es Poisson.",
+    "feedback_incorrect": [
+      null,
+      "La binomial exige un número fijo de ensayos discretos con la misma probabilidad cada uno, acá no hay ese $n$ de intentos.",
+      "La geométrica cuenta minutos hasta la primera llamada, no la cantidad de llamadas en una hora fija."
+    ],
+    "explanation": "La distribución de **Poisson** describe cuántos eventos ocurren en un intervalo fijo, a tasa promedio $\\lambda$.\n$$P(X=k) = \\frac{e^{-\\lambda}\\lambda^{k}}{k!}$$\nAcá $\\lambda=5$ llamadas por hora.\n\nComo las llamadas llegan de forma independiente y no hay un número prefijado de intentos, el mecanismo binomial no aplica: solo hay una tasa continua de ocurrencia dentro de la hora.\n\nContar eventos dentro de una ventana fija es justo lo que distingue a Poisson de esperar hasta el primer evento, que sería geométrico.\n\nSi la pregunta fuera cuántos minutos pasan hasta la próxima llamada, el mismo escenario pasaría a describirse con una geométrica.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-poisson"
+    ]
+  },
+  {
+    "question": "Un corrector revisa un documento extenso.\n\nEncuentra en promedio 2 errores tipográficos por página, de forma independiente entre sí.\n\nSea $X$ la cantidad de errores en una página.\n\n¿Qué distribución sigue $X$?",
+    "options": [
+      "$Bin(2,\\,0{,}5)$",
+      "$Poisson(2)$",
+      "$Geom(1/2)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Conteo de errores por página con tasa promedio conocida: es Poisson.",
+    "feedback_incorrect": [
+      "No hay un número fijo de palabras revisadas como ensayos discretos, solo una tasa promedio de errores por página.",
+      null,
+      "La geométrica contaría páginas hasta encontrar el primer error, no la cantidad de errores en una página fija."
+    ],
+    "explanation": "La distribución de **Poisson** modela cuántos eventos aparecen en una unidad fija, en este caso una página, a tasa promedio $\\lambda$.\n$$P(X=k) = \\frac{e^{-\\lambda}\\lambda^{k}}{k!}$$\nAcá $\\lambda=2$ errores por página.\n\nLos errores no provienen de un número discreto de intentos con probabilidad fija cada uno, sino de una tasa promedio de aparición dentro del área de la página.\n\nEse es el rasgo que separa a Poisson de la binomial: acá se cuenta sobre una unidad continua de espacio, no sobre ensayos identificables uno por uno.\n\nConfundir esta tasa con un número de ensayos lleva a buscar un $n$ y un $p$ que en realidad no existen en el problema.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-poisson"
+    ]
+  },
+  {
+    "question": "En hora pico, un semáforo ve pasar autos a una tasa promedio de 6 por minuto, en forma independiente entre sí.\n\nSea $X$ la cantidad de autos que pasan en un minuto.\n\n¿Qué distribución sigue $X$?",
+    "options": [
+      "$Geom(1/6)$",
+      "$Bin(6,\\,1/6)$",
+      "$Poisson(6)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Conteo de autos en un minuto con tasa promedio conocida: es Poisson.",
+    "feedback_incorrect": [
+      "La geométrica contaría minutos hasta que pase el primer auto, no la cantidad de autos en un minuto fijo.",
+      "No hay 6 autos fijos que se examinan uno por uno con la misma probabilidad, solo una tasa continua de paso.",
+      null
+    ],
+    "explanation": "La distribución de **Poisson** describe cuántos eventos ocurren dentro de un intervalo fijo, a tasa promedio $\\lambda$.\n$$P(X=k) = \\frac{e^{-\\lambda}\\lambda^{k}}{k!}$$\nAcá $\\lambda=6$ autos por minuto.\n\nEl semáforo no somete a examen a un conjunto fijo de $n$ autos con una probabilidad puntual cada uno, sino que recibe un flujo continuo a esa tasa promedio.\n\nEse flujo continuo dentro de una ventana de tiempo fija es la firma de Poisson, distinta de contar sobre un número prefijado de intentos.\n\nUna tasa alta en hora pico no cambia el mecanismo, solo el valor de $\\lambda$ que corresponde a ese tramo del día.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-poisson"
+    ]
+  },
+  {
+    "question": "Un canal de soporte recibe mensajes a una tasa promedio de 7 por minuto, en forma independiente entre sí.\n\nSea $X$ la cantidad de mensajes que llegan en un minuto.\n\n¿Qué distribución sigue $X$?",
+    "options": [
+      "$Poisson(7)$",
+      "$Bin(7,\\,1/7)$",
+      "$Geom(1/7)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Conteo de mensajes en un minuto con tasa promedio conocida: es Poisson.",
+    "feedback_incorrect": [
+      null,
+      "Acá no hay 7 intentos discretos con la misma probabilidad de éxito cada uno, solo una tasa continua de llegada.",
+      "La geométrica contaría minutos hasta el primer mensaje, no la cantidad de mensajes en un minuto fijo."
+    ],
+    "explanation": "La distribución de **Poisson** modela cuántos eventos llegan en un intervalo fijo, a tasa promedio $\\lambda$.\n$$P(X=k) = \\frac{e^{-\\lambda}\\lambda^{k}}{k!}$$\nAcá $\\lambda=7$ mensajes por minuto.\n\nLos mensajes no se generan a partir de un número fijo de ensayos con una probabilidad puntual, sino de un flujo continuo de llegadas a esa tasa promedio.\n\nContar cuántos eventos caen dentro de esa ventana fija de un minuto es exactamente lo que distingue a Poisson de otros mecanismos de conteo.\n\nSi la pregunta fuera cuántos segundos pasan hasta el próximo mensaje, el mismo canal se describiría con una geométrica en vez de con Poisson.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-poisson"
+    ]
+  },
+  {
+    "question": "Una máquina de una línea de producción falla en promedio 1 vez por mes, de forma independiente entre una falla y la siguiente.\n\nSea $X$ la cantidad de fallas en un mes.\n\n¿Qué distribución sigue $X$?",
+    "options": [
+      "$Bin(30,\\,0{,}03)$",
+      "$Poisson(1)$",
+      "$Geom(0{,}03)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Conteo de fallas en un intervalo fijo de un mes con tasa promedio conocida: es Poisson.",
+    "feedback_incorrect": [
+      "Contar los 30 días como ensayos fijos con la misma probabilidad de falla es forzar un $n$ y un $p$ que el enunciado no da.",
+      null,
+      "La geométrica contaría meses hasta la primera falla, no la cantidad de fallas dentro de un mes fijo."
+    ],
+    "explanation": "La distribución de **Poisson** describe cuántos eventos ocurren en un intervalo fijo, a tasa promedio $\\lambda$.\n$$P(X=k) = \\frac{e^{-\\lambda}\\lambda^{k}}{k!}$$\nAcá $\\lambda=1$ falla por mes.\n\nNo hay un conjunto identificable de ensayos diarios con una probabilidad puntual de falla cada uno, solo una tasa promedio de ocurrencia dentro del mes completo.\n\nEse es el rasgo central de Poisson: mide cuántos eventos caen en una ventana fija de tiempo, sin depender de un número prefijado de intentos discretos.\n\nUna tasa baja como esta no vuelve el proceso binomial, simplemente hace que los meses sin ninguna falla sean el resultado más probable.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-poisson"
+    ]
+  },
+  {
+    "question": "Un corrector necesita saber cuántas páginas debe leer hasta encontrar la primera con error tipográfico.\n\nLa probabilidad de que cualquier página dada tenga al menos un error es $0{,}2$, de forma independiente entre páginas.\n\n¿Qué distribución modela exactamente la cantidad de páginas revisadas hasta encontrar la primera con error?",
+    "options": [
+      "$Bin(5,\\,0{,}2)$",
+      "$Poisson(0{,}2)$",
+      "$Geom(0{,}2)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Se cuenta cuántas páginas hay que revisar hasta el primer éxito con probabilidad fija: es geométrica, no Poisson.",
+    "feedback_incorrect": [
+      "La binomial cuenta éxitos en un número fijo de páginas ya definido de antemano, no cuántas páginas hacen falta hasta lograr el primer éxito.",
+      "Poisson cuenta cuántos errores aparecen dentro de un intervalo fijo, no cuántas páginas hay que revisar hasta el primero.",
+      null
+    ],
+    "explanation": "La distribución **geométrica** modela cuántos ensayos independientes con probabilidad de éxito $p$ hacen falta hasta el primer éxito.\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá $p=0{,}2$ es la probabilidad de que una página tenga error, y se busca cuántas páginas hacen falta revisar hasta la primera con error.\n\nEsto no es Poisson porque la pregunta no es cuántos errores caen dentro de un número fijo de páginas, sino cuánto hay que esperar hasta el primero.\n\nLa palabra clave es esperar: cuando el enunciado pregunta cuántos intentos hacen falta hasta que ocurra el primer éxito, el mecanismo geométrico reemplaza al conteo dentro de un intervalo fijo.\n\nLeer 'hasta encontrar' como si fuera 'cuántos hay en' arrastra a resolver el problema equivocado, aplicando conteo dentro de un intervalo en vez de espera hasta el primer éxito.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-vecino"
+    ]
+  },
+  {
+    "question": "Se observan los próximos 20 autos que pasan por un semáforo.\n\nCada auto, en forma independiente, tiene un $10\\%$ de probabilidad de superar el límite de velocidad.\n\n¿Qué distribución modela exactamente la cantidad de autos que superan el límite entre esos 20?",
+    "options": [
+      "$Bin(20,\\,0{,}1)$",
+      "$Poisson(2)$",
+      "$Geom(0{,}1)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Hay un número fijo de 20 ensayos discretos con la misma probabilidad cada uno: es binomial, no Poisson.",
+    "feedback_incorrect": [
+      null,
+      "Poisson modela una tasa continua sin un $n$ discreto de ensayos, acá sí hay 20 autos fijos y contables uno por uno.",
+      "La geométrica contaría autos hasta el primero que supere el límite, no la cantidad que lo supera entre 20 autos fijos."
+    ],
+    "explanation": "La distribución **binomial** modela la cantidad de éxitos en $n$ ensayos discretos fijos con la misma probabilidad de éxito $p$ cada uno.\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá hay $n=20$ autos observados, cada uno con $p=0{,}1$ de superar el límite.\n\nPoisson describiría una tasa promedio de autos veloces por minuto sin fijar de antemano cuántos autos se observan, y acá en cambio el enunciado ya fija los 20 autos a examinar.\n\nCada auto es un ensayo identificable con dos resultados posibles, lo que encaja con el mecanismo binomial en vez de con una tasa continua.\n\nFijarse solo en la palabra independiente sin notar que también hay un $n$ discreto es lo que más empuja a etiquetar mal este tipo de situación como Poisson.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-vecino"
+    ]
+  },
+  {
+    "question": "Un canal de soporte quiere saber cuántos mensajes recibe hasta que llega el primero marcado como urgente.\n\nLa probabilidad de que un mensaje sea urgente es $0{,}15$, de forma independiente entre mensajes.\n\n¿Qué distribución modela exactamente la cantidad de mensajes hasta el primero urgente?",
+    "options": [
+      "$Poisson(0{,}15)$",
+      "$Geom(0{,}15)$",
+      "$Bin(10,\\,0{,}15)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Se cuenta cuántos mensajes hacen falta hasta el primer éxito con probabilidad fija: es geométrica, no Poisson.",
+    "feedback_incorrect": [
+      "Poisson contaría cuántos mensajes urgentes llegan en un intervalo fijo, no cuántos mensajes hacen falta hasta el primero.",
+      null,
+      "La binomial cuenta éxitos entre un número de mensajes ya fijado de antemano, no cuántos hacen falta hasta lograr el primero."
+    ],
+    "explanation": "La distribución **geométrica** modela cuántos ensayos independientes con probabilidad de éxito $p$ hacen falta hasta el primer éxito.\n$$P(X=k) = (1-p)^{k-1}p$$\nAcá $p=0{,}15$ es la probabilidad de que un mensaje sea urgente, y se busca cuántos mensajes hacen falta hasta el primero así.\n\nNo hay un intervalo de tiempo fijo del que se cuenten mensajes urgentes, sino una espera hasta que ocurra el primer éxito.\n\nEsa espera hasta el primer éxito es justo lo que separa a la geométrica de Poisson, que en cambio cuenta eventos dentro de una ventana ya fijada.\n\nSi el enunciado preguntara cuántos mensajes urgentes llegan en una hora, ahí sí correspondería usar Poisson.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-vecino"
+    ]
+  },
+  {
+    "question": "Se inspeccionan las próximas 25 piezas producidas por una máquina.\n\nCada pieza, en forma independiente, tiene un $8\\%$ de probabilidad de salir defectuosa.\n\n¿Qué distribución modela exactamente la cantidad de piezas defectuosas entre esas 25?",
+    "options": [
+      "$Geom(0{,}08)$",
+      "$Poisson(2)$",
+      "$Bin(25,\\,0{,}08)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Hay un número fijo de 25 ensayos discretos con la misma probabilidad cada uno: es binomial, no Poisson.",
+    "feedback_incorrect": [
+      "La geométrica contaría piezas hasta la primera defectuosa, no la cantidad de defectuosas entre 25 piezas fijas.",
+      "Poisson modela una tasa continua de fallas por intervalo sin fijar de antemano cuántas piezas se examinan, y acá sí hay 25 piezas fijas.",
+      null
+    ],
+    "explanation": "La distribución **binomial** modela la cantidad de éxitos en $n$ ensayos discretos fijos con la misma probabilidad de éxito $p$ cada uno.\n$$P(X=k) = \\binom{n}{k}p^{k}(1-p)^{n-k}$$\nAcá hay $n=25$ piezas inspeccionadas, cada una con $p=0{,}08$ de salir defectuosa.\n\nPoisson necesitaría una tasa promedio de defectos por intervalo sin un $n$ fijo de antemano, y acá en cambio el lote de 25 piezas ya está definido antes de inspeccionar nada.\n\nCada pieza es un ensayo identificable con dos resultados posibles, lo que corresponde al mecanismo binomial en vez de a una tasa continua.\n\nCon muchas piezas y una probabilidad de defecto chica, Poisson podría aproximar razonablemente a esta binomial, pero eso es distinto de decir que la situación es Poisson desde el planteo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "distractor-vecino"
+    ]
+  },
+  {
+    "question": "Un call center recibe llamadas en promedio 3 por hora durante la madrugada y 12 por hora durante el horario laboral.\n\nSe quiere modelar la cantidad de llamadas en un intervalo de 10 horas que combina ambos tramos.\n\n¿Se puede modelar esa cantidad de llamadas con una única distribución de Poisson de tasa constante?",
+    "options": [
+      "No, la tasa de llamadas no es la misma a lo largo de esas 10 horas.",
+      "Sí, alcanza con promediar las dos tasas en una sola $\\lambda$.",
+      "Sí, porque las llamadas siguen siendo eventos independientes entre sí."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La independencia es necesaria, pero Poisson también exige que $\\lambda$ sea constante dentro del intervalo, y acá cambia entre tramos.",
+    "feedback_incorrect": [
+      null,
+      "Promediar las tasas no reconstruye el mismo proceso: cada tramo sigue su propia Poisson, y sumarlas no es lo mismo que una Poisson con la tasa promedio.",
+      "Que las llamadas sean independientes es necesario pero no alcanza: también hace falta que la tasa de ocurrencia no cambie dentro del intervalo."
+    ],
+    "explanation": "La distribución de **Poisson** exige que la tasa $\\lambda$ se mantenga constante a lo largo de todo el intervalo considerado.\n$$P(X=k) = \\frac{e^{-\\lambda}\\lambda^{k}}{k!}$$\nAcá el call center recibe en promedio 3 llamadas por hora de madrugada y 12 por hora en horario laboral.\n\nEsas 10 horas combinan dos tasas distintas dentro del mismo intervalo, así que no existe un único $\\lambda$ que describa correctamente todo el período.\n\nLo correcto sería modelar cada tramo horario con su propia Poisson y sumar esas dos variables, en vez de forzar una tasa única para todo el intervalo.\n\nUsar un promedio simple de las dos tasas disimula el problema en vez de resolverlo, porque ninguna hora real ocurre exactamente a esa tasa intermedia.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "supuesto-violado"
+    ]
+  },
+  {
+    "question": "Un semáforo ve pasar en promedio 4 autos por minuto fuera de hora pico y 20 autos por minuto durante la hora pico.\n\nSe quiere modelar la cantidad de autos en un intervalo de 3 horas que incluye ambos tramos del día.\n\n¿Se puede modelar esa cantidad de autos con una única distribución de Poisson de tasa constante?",
+    "options": [
+      "Sí, alcanza con promediar las dos tasas en una sola $\\lambda$.",
+      "No, la tasa de paso de autos no es la misma a lo largo de esas 3 horas.",
+      "Sí, porque el paso de cada auto sigue siendo un evento independiente."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La independencia es necesaria, pero Poisson también exige que $\\lambda$ sea constante dentro del intervalo, y acá cambia entre tramos del día.",
+    "feedback_incorrect": [
+      "Promediar las tasas no reconstruye el mismo proceso: cada tramo sigue su propia Poisson, y sumarlas no es lo mismo que una Poisson con la tasa promedio.",
+      null,
+      "Que cada auto pase de forma independiente es necesario pero no alcanza: también hace falta que la tasa de paso no cambie dentro del intervalo."
+    ],
+    "explanation": "La distribución de **Poisson** exige que la tasa $\\lambda$ se mantenga constante a lo largo de todo el intervalo considerado.\n$$P(X=k) = \\frac{e^{-\\lambda}\\lambda^{k}}{k!}$$\nAcá el semáforo ve pasar en promedio 4 autos por minuto fuera de hora pico y 20 por minuto en hora pico.\n\nEsas 3 horas mezclan tramos con tasas muy distintas dentro del mismo intervalo, así que no hay un único $\\lambda$ que represente bien todo el período.\n\nLo apropiado es modelar cada tramo por separado con su propia Poisson y sumar esas variables, en vez de estirar una sola tasa a todo el intervalo.\n\nTratar un intervalo de tasa cambiante como si tuviera tasa fija subestima el conteo en los tramos de mayor tráfico y lo sobreestima en los de menor tráfico.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "supuesto-violado"
+    ]
+  },
+  {
+    "question": "Una caja de supermercado recibe en promedio 2 clientes por minuto los días de semana y 9 clientes por minuto los fines de semana.\n\nSe quiere modelar la cantidad de clientes en un intervalo que abarca un día de semana y un sábado.\n\n¿Se puede modelar esa cantidad de clientes con una única distribución de Poisson de tasa constante?",
+    "options": [
+      "Sí, porque cada cliente llega de forma independiente de los demás.",
+      "Sí, alcanza con promediar las dos tasas en una sola $\\lambda$.",
+      "No, la tasa de llegada de clientes no es la misma en esos dos días."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La independencia es necesaria, pero Poisson también exige que $\\lambda$ sea constante dentro del intervalo, y acá cambia entre esos dos días.",
+    "feedback_incorrect": [
+      "Que cada cliente llegue de forma independiente es necesario pero no alcanza: también hace falta que la tasa de llegada no cambie dentro del intervalo.",
+      "Promediar las tasas no reconstruye el mismo proceso: cada día sigue su propia Poisson, y sumarlas no es lo mismo que una Poisson con la tasa promedio.",
+      null
+    ],
+    "explanation": "La distribución de **Poisson** exige que la tasa $\\lambda$ se mantenga constante a lo largo de todo el intervalo considerado.\n$$P(X=k) = \\frac{e^{-\\lambda}\\lambda^{k}}{k!}$$\nAcá la caja recibe en promedio 2 clientes por minuto un día de semana y 9 por minuto un sábado.\n\nUn intervalo que abarca ambos días mezcla dos tasas distintas, así que no existe un único $\\lambda$ que describa correctamente todo el período combinado.\n\nLo correcto es modelar cada día por separado con su propia Poisson y sumar esas dos variables, en vez de forzar una tasa única para todo el tramo.\n\nQue el número de clientes de cada minuto sea independiente del anterior no alcanza si, además, el propio promedio de llegada cambia según el día.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "supuesto-violado"
+    ]
   }
 ]

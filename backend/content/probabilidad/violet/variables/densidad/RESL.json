@@ -1,7 +1,12 @@
 [
   {
     "question": "El tiempo que un cliente espera en la fila de un banco se modela con una densidad uniforme sobre $0\\leq x\\leq 3$ minutos.\n\nSu densidad es $f(x)=1/3$.\n\nCalculá $P(1\\leq X\\leq 3)$, la probabilidad de esperar entre 1 y 3 minutos.",
-    "options": ["$\\dfrac{1}{3}$", "$\\dfrac{2}{3}$", "$1$", "$\\dfrac{1}{9}$"],
+    "options": [
+      "$\\dfrac{1}{3}$",
+      "$\\dfrac{2}{3}$",
+      "$1$",
+      "$\\dfrac{1}{9}$"
+    ],
     "correct_index": 1,
     "feedback_correct": "Área del rectángulo de base 2 y altura $1/3$, da $2/3$.",
     "feedback_incorrect": [
@@ -15,11 +20,18 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["resl-area-rectangulo"]
+    "tags": [
+      "resl-area-rectangulo"
+    ]
   },
   {
     "question": "La probabilidad de que un cliente abandone la fila crece cuanto más tiempo espera, en la ventana $0\\leq x\\leq 2$.\n\nEsa densidad es $f(x)=kx$.\n\nCalculá el valor de $k$ que hace válida esta densidad.",
-    "options": ["$\\dfrac{1}{2}$", "$\\dfrac{1}{4}$", "$1$", "$2$"],
+    "options": [
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{1}{4}$",
+      "$1$",
+      "$2$"
+    ],
     "correct_index": 0,
     "feedback_correct": "El área del triángulo debe dar 1, $2k=1 \\Rightarrow k=1/2$.",
     "feedback_incorrect": [
@@ -33,7 +45,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["resl-constante-normalizacion"]
+    "tags": [
+      "resl-constante-normalizacion"
+    ]
   },
   {
     "question": "El tiempo de reacción ante una alarma es más probable cerca del final de la ventana de $1$ minuto, con densidad:\n$$f(x) = 2x \\quad \\text{para } 0 \\leq x \\leq 1$$\nY vale $0$ fuera de ese intervalo.\n\nCalculá $P(0 \\leq X \\leq 1/2)$.",
@@ -56,6 +70,308 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["resl-area-triangulo"]
+    "tags": [
+      "resl-area-triangulo"
+    ]
+  },
+  {
+    "question": "Un tren llega en un instante aleatorio dentro de una franja horaria de $5$ minutos.\n\nSu densidad es $f(x)=1/5$.\n\nCalculá $P(2\\leq X\\leq 5)$, la probabilidad de que llegue entre el minuto 2 y el minuto 5.",
+    "options": [
+      "$\\dfrac{1}{5}$",
+      "$\\dfrac{2}{5}$",
+      "$\\dfrac{3}{5}$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Área del rectángulo de base 3 y altura $1/5$, da $3/5$.",
+    "feedback_incorrect": [
+      "Esa es la altura del rectángulo, no el área del tramo pedido.",
+      "Esa área correspondería a un tramo de base 2, no de base 3.",
+      null,
+      "Ese sería el área total del rectángulo completo, no la restringida al intervalo pedido."
+    ],
+    "explanation": "La probabilidad de un intervalo bajo una densidad uniforme es el área del rectángulo que lo cubre.\n\nCon altura $1/5$ y el tramo $[2,5]$ de base 3:\n$$P(2\\leq X\\leq 5) = \\frac{1}{5} \\cdot 3 = \\frac{3}{5}$$\nUsar el ancho total de la franja en vez del tramo pedido agranda el resultado más de lo que corresponde.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-area-rectangulo"
+    ]
+  },
+  {
+    "question": "Un punto cae al azar sobre un segmento de $8$ metros, con la misma chance en cualquier posición.\n\nSu densidad es $f(x)=1/8$.\n\nCalculá $P(1\\leq X\\leq 5)$, la probabilidad de que caiga entre esas dos marcas.",
+    "options": [
+      "$\\dfrac{1}{8}$",
+      "$\\dfrac{1}{4}$",
+      "$\\dfrac{1}{2}$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Área del rectángulo de base 4 y altura $1/8$, da $1/2$.",
+    "feedback_incorrect": [
+      "Esa es la altura del rectángulo, no el área del tramo pedido.",
+      "Esa área correspondería a un tramo de base 2, no de base 4.",
+      null,
+      "Ese sería el área total del rectángulo completo, no la restringida al intervalo pedido."
+    ],
+    "explanation": "La probabilidad de un intervalo bajo una densidad uniforme es el área del rectángulo que lo cubre.\n\nCon altura $1/8$ y el tramo $[1,5]$ de base 4:\n$$P(1\\leq X\\leq 5) = \\frac{1}{8} \\cdot 4 = \\frac{1}{2}$$\nDividir el ancho del tramo por la mitad antes de multiplicar por la altura da un área menor a la real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-area-rectangulo"
+    ]
+  },
+  {
+    "question": "El tiempo entre dos clics de un usuario se modela con densidad uniforme sobre $0\\leq x\\leq 4$ segundos.\n\nSu densidad es $f(x)=1/4$.\n\nCalculá $P(0\\leq X\\leq 1)$, la probabilidad de que pasen menos de 1 segundo.",
+    "options": [
+      "$\\dfrac{1}{4}$",
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{3}{4}$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Área del rectángulo de base 1 y altura $1/4$, da $1/4$.",
+    "feedback_incorrect": [
+      null,
+      "Esa área correspondería a un tramo de base 2, no de base 1.",
+      "Esa área correspondería a un tramo de base 3, no de base 1.",
+      "Ese sería el área total del rectángulo completo, no la restringida al intervalo pedido."
+    ],
+    "explanation": "La probabilidad de un intervalo bajo una densidad uniforme es el área del rectángulo que lo cubre.\n\nCon altura $1/4$ y el tramo $[0,1]$ de base 1:\n$$P(0\\leq X\\leq 1) = \\frac{1}{4} \\cdot 1 = \\frac{1}{4}$$\nMultiplicar la altura por el ancho total del dominio, en vez de por el tramo pedido de base 1, agranda el resultado innecesariamente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-area-rectangulo"
+    ]
+  },
+  {
+    "question": "Un avión aterriza en un instante aleatorio dentro de una franja horaria de $9$ minutos.\n\nSu densidad es $f(x)=1/9$.\n\nCalculá $P(3\\leq X\\leq 6)$, la probabilidad de que aterrice en ese tramo.",
+    "options": [
+      "$\\dfrac{1}{9}$",
+      "$\\dfrac{2}{9}$",
+      "$\\dfrac{1}{3}$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Área del rectángulo de base 3 y altura $1/9$, da $1/3$.",
+    "feedback_incorrect": [
+      "Esa es la altura del rectángulo, no el área del tramo pedido.",
+      "Esa área correspondería a un tramo de base 2, no de base 3.",
+      null,
+      "Ese sería el área total del rectángulo completo, no la restringida al intervalo pedido."
+    ],
+    "explanation": "La probabilidad de un intervalo bajo una densidad uniforme es el área del rectángulo que lo cubre.\n\nCon altura $1/9$ y el tramo $[3,6]$ de base 3:\n$$P(3\\leq X\\leq 6) = \\frac{1}{9} \\cdot 3 = \\frac{1}{3}$$\nOlvidar multiplicar la altura por el ancho del tramo, y dejar la respuesta como la altura sola, subestima la probabilidad real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-area-rectangulo"
+    ]
+  },
+  {
+    "question": "Un punto cae al azar sobre una cuerda de $7$ metros, con la misma chance en cualquier posición.\n\nSu densidad es $f(x)=1/7$.\n\nCalculá $P(1\\leq X\\leq 4)$, la probabilidad de que caiga entre esas dos marcas.",
+    "options": [
+      "$\\dfrac{1}{7}$",
+      "$\\dfrac{2}{7}$",
+      "$\\dfrac{3}{7}$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Área del rectángulo de base 3 y altura $1/7$, da $3/7$.",
+    "feedback_incorrect": [
+      "Esa es la altura del rectángulo, no el área del tramo pedido.",
+      "Esa área correspondería a un tramo de base 2, no de base 3.",
+      null,
+      "Ese sería el área total del rectángulo completo, no la restringida al intervalo pedido."
+    ],
+    "explanation": "La probabilidad de un intervalo bajo una densidad uniforme es el área del rectángulo que lo cubre.\n\nCon altura $1/7$ y el tramo $[1,4]$ de base 3:\n$$P(1\\leq X\\leq 4) = \\frac{1}{7} \\cdot 3 = \\frac{3}{7}$$\nUsar el ancho total de la cuerda en vez del tramo pedido agranda el resultado más de lo que corresponde.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-area-rectangulo"
+    ]
+  },
+  {
+    "question": "La probabilidad de que un sensor detecte un movimiento crece cuanto más tiempo pasa, en la ventana $0\\leq x\\leq 3$ segundos.\n\nEsa densidad es $f(x)=kx$.\n\nCalculá el valor de $k$ que hace válida esta densidad.",
+    "options": [
+      "$\\dfrac{2}{9}$",
+      "$\\dfrac{1}{9}$",
+      "$\\dfrac{1}{3}$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El área del triángulo debe dar 1, $\\frac{9}{2}k=1 \\Rightarrow k=2/9$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor no cierra el área del triángulo en 1, revisá el cálculo.",
+      "Con $k=1/3$ el área total no da exactamente 1.",
+      "Con $k=1$ el área total sería mucho mayor que 1."
+    ],
+    "explanation": "Para que $f(x)=kx$ sea una densidad válida en $[0,3]$, el área bajo la curva debe ser 1.\n\nEsa área es un triángulo de base 3 y altura $f(3)=3k$:\n$$\\frac{1}{2} \\cdot 3 \\cdot 3k = 1$$\nDespejando la constante:\n$$\\frac{9}{2}k = 1 \\Rightarrow k = \\frac{2}{9}$$\nElevar mal el límite superior al calcular la altura del triángulo, en vez de usar $f(3)=3k$, produce un área que no cierra en 1.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-constante-normalizacion"
+    ]
+  },
+  {
+    "question": "El interés de los usuarios por un video crece a medida que avanza, en la ventana $0\\leq x\\leq 4$ minutos.\n\nEsa densidad es $f(x)=kx$.\n\nCalculá el valor de $k$ que hace válida esta densidad.",
+    "options": [
+      "$\\dfrac{1}{8}$",
+      "$\\dfrac{1}{4}$",
+      "$1$",
+      "$4$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El área del triángulo debe dar 1, $8k=1 \\Rightarrow k=1/8$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor no cierra el área del triángulo en 1, revisá el cálculo.",
+      "Con $k=1$ el área total sería 16, no 1.",
+      "Con $k=4$ el área total sería muchísimo mayor que 1."
+    ],
+    "explanation": "Para que $f(x)=kx$ sea una densidad válida en $[0,4]$, el área bajo la curva debe ser 1.\n\nEsa área es un triángulo de base 4 y altura $f(4)=4k$:\n$$\\frac{1}{2} \\cdot 4 \\cdot 4k = 1$$\nDespejando la constante:\n$$8k = 1 \\Rightarrow k = \\frac{1}{8}$$\nOlvidar el factor $1/2$ del área del triángulo da un valor que no corresponde a la densidad real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-constante-normalizacion"
+    ]
+  },
+  {
+    "question": "La demanda de entradas para un recital crece a medida que se acerca la fecha del evento, en la ventana $0\\leq x\\leq 5$ días antes.\n\nEsa densidad es $f(x)=kx$.\n\nCalculá el valor de $k$ que hace válida esta densidad.",
+    "options": [
+      "$\\dfrac{2}{25}$",
+      "$\\dfrac{1}{25}$",
+      "$\\dfrac{1}{5}$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El área del triángulo debe dar 1, $\\frac{25}{2}k=1 \\Rightarrow k=2/25$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor no cierra el área del triángulo en 1, revisá el cálculo.",
+      "Con $k=1/5$ el área total no da exactamente 1.",
+      "Con $k=1$ el área total sería mucho mayor que 1."
+    ],
+    "explanation": "Para que $f(x)=kx$ sea una densidad válida en $[0,5]$, el área bajo la curva debe ser 1.\n\nEsa área es un triángulo de base 5 y altura $f(5)=5k$:\n$$\\frac{1}{2} \\cdot 5 \\cdot 5k = 1$$\nDespejando la constante:\n$$\\frac{25}{2}k = 1 \\Rightarrow k = \\frac{2}{25}$$\nUsar la base sin elevarla al cuadrado al calcular la altura del triángulo lleva a un valor de $k$ que no cierra la condición de normalización.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-constante-normalizacion"
+    ]
+  },
+  {
+    "question": "La intensidad de una señal crece a medida que pasa el tiempo, en la ventana $0\\leq x\\leq 6$ segundos.\n\nEsa densidad es $f(x)=kx$.\n\nCalculá el valor de $k$ que hace válida esta densidad.",
+    "options": [
+      "$\\dfrac{1}{18}$",
+      "$\\dfrac{1}{6}$",
+      "$1$",
+      "$6$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El área del triángulo debe dar 1, $18k=1 \\Rightarrow k=1/18$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor no cierra el área del triángulo en 1, revisá el cálculo.",
+      "Con $k=1$ el área total sería 36, no 1.",
+      "Con $k=6$ el área total sería muchísimo mayor que 1."
+    ],
+    "explanation": "Para que $f(x)=kx$ sea una densidad válida en $[0,6]$, el área bajo la curva debe ser 1.\n\nEsa área es un triángulo de base 6 y altura $f(6)=6k$:\n$$\\frac{1}{2} \\cdot 6 \\cdot 6k = 1$$\nDespejando la constante:\n$$18k = 1 \\Rightarrow k = \\frac{1}{18}$$\nAsumir que $k$ depende solo linealmente de la base, en vez de su cuadrado, subestima cuánto tiene que achicarse la constante en intervalos largos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-constante-normalizacion"
+    ]
+  },
+  {
+    "question": "La probabilidad de que una pieza falle crece con el tiempo en uso, en la ventana $0\\leq x\\leq 2$ años, con densidad:\n$$f(x) = \\frac{x}{2}$$\nY vale $0$ fuera de ese intervalo.\n\nCalculá $P(0 \\leq X \\leq 1)$.",
+    "options": [
+      "$\\dfrac{1}{4}$",
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{3}{4}$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Área del triángulo de base $1$ y altura $1/2$, da $1/4$.",
+    "feedback_incorrect": [
+      null,
+      "Esa sería la probabilidad si la densidad fuera uniforme sobre $[0,2]$, pero acá crece linealmente.",
+      "Esa es $P(1 \\leq X \\leq 2)$, el complemento del intervalo pedido.",
+      "Ese es el área total bajo toda la densidad, no la restringida al intervalo pedido."
+    ],
+    "explanation": "La probabilidad de un intervalo bajo una densidad lineal se calcula como el área de la región que encierra, que en este caso es un triángulo.\n\nLa densidad crece linealmente entre $x=0$ y $x=1$.\n\nEse tramo forma un triángulo de base $1$ y altura $f(1)=1/2$:\n$$P(0\\leq X\\leq 1) = \\frac{1}{2} \\cdot 1 \\cdot \\frac{1}{2} = \\frac{1}{4}$$\nAsumir que la mitad izquierda del dominio da la mitad de la probabilidad ignora que la densidad no es uniforme, ya que $f(x)=x/2$ crece hacia la derecha y ahí se concentra más probabilidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-area-triangulo"
+    ]
+  },
+  {
+    "question": "La probabilidad de entregar un examen crece con el tiempo usado, en la ventana $0\\leq x\\leq 3$ horas, con densidad:\n$$f(x) = \\frac{2x}{9}$$\nY vale $0$ fuera de ese intervalo.\n\nCalculá $P(0 \\leq X \\leq 2)$.",
+    "options": [
+      "$\\dfrac{2}{9}$",
+      "$\\dfrac{4}{9}$",
+      "$\\dfrac{5}{9}$",
+      "$1$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Área del triángulo de base $2$ y altura $4/9$, da $4/9$.",
+    "feedback_incorrect": [
+      "Esa sería la probabilidad si la densidad fuera uniforme sobre $[0,3]$, pero acá crece linealmente.",
+      null,
+      "Esa es $P(2 \\leq X \\leq 3)$, el complemento del intervalo pedido.",
+      "Ese es el área total bajo toda la densidad, no la restringida al intervalo pedido."
+    ],
+    "explanation": "La probabilidad de un intervalo bajo una densidad lineal se calcula como el área de la región que encierra, que en este caso es un triángulo.\n\nLa densidad crece linealmente entre $x=0$ y $x=2$.\n\nEse tramo forma un triángulo de base $2$ y altura $f(2)=4/9$:\n$$P(0\\leq X\\leq 2) = \\frac{1}{2} \\cdot 2 \\cdot \\frac{4}{9} = \\frac{4}{9}$$\nCalcular el área usando el ancho total del dominio en vez del tramo pedido de base 2 sobrestima la probabilidad real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-area-triangulo"
+    ]
+  },
+  {
+    "question": "La probabilidad de que se solicite un viaje crece a medida que avanza la noche, en la ventana $0\\leq x\\leq 4$ horas, con densidad:\n$$f(x) = \\frac{x}{8}$$\nY vale $0$ fuera de ese intervalo.\n\nCalculá $P(0 \\leq X \\leq 3)$.",
+    "options": [
+      "$\\dfrac{3}{4}$",
+      "$\\dfrac{7}{16}$",
+      "$\\dfrac{9}{16}$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Área del triángulo de base $3$ y altura $3/8$, da $9/16$.",
+    "feedback_incorrect": [
+      "Esa sería la probabilidad si la densidad fuera uniforme sobre $[0,4]$, pero acá crece linealmente.",
+      "Esa es $P(3 \\leq X \\leq 4)$, el complemento del intervalo pedido.",
+      null,
+      "Ese es el área total bajo toda la densidad, no la restringida al intervalo pedido."
+    ],
+    "explanation": "La probabilidad de un intervalo bajo una densidad lineal se calcula como el área de la región que encierra, que en este caso es un triángulo.\n\nLa densidad crece linealmente entre $x=0$ y $x=3$.\n\nEse tramo forma un triángulo de base $3$ y altura $f(3)=3/8$:\n$$P(0\\leq X\\leq 3) = \\frac{1}{2} \\cdot 3 \\cdot \\frac{3}{8} = \\frac{9}{16}$$\nSuponer que 3 de las 4 unidades del dominio bastan para dar $3/4$ de probabilidad ignora que la densidad no es uniforme, y crece hacia la derecha, donde se concentra más área.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-area-triangulo"
+    ]
   }
 ]

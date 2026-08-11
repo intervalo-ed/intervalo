@@ -82,5 +82,236 @@
     "graph_view": null,
     "reviewed": false,
     "tags": ["elegir-acotacion"]
+  },
+  {
+    "question": "En un mazo de cartas de truco, $P(A) = 0{,}35$ y $P(B) = 0{,}2$, siendo ambos eventos mutuamente excluyentes.\n\n¿Qué propiedad conviene aplicar para calcular $P(A \\cup B)$?",
+    "options": [
+      "Sumar directamente $P(A)+P(B)$.",
+      "Aplicar la regla general y restar $P(A\\cap B)$.",
+      "Multiplicar $P(A)$ por $P(B)$."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Al ser mutuamente excluyentes, $P(A\\cap B)=0$ y la unión es la suma simple.",
+    "feedback_incorrect": [
+      null,
+      "Restar $P(A\\cap B)$ no hace falta acá porque ese valor ya es 0 al ser mutuamente excluyentes.",
+      "Multiplicar corresponde a otra situación, no a calcular la probabilidad de una unión."
+    ],
+    "explanation": "Cuando dos eventos son **mutuamente excluyentes**, su intersección vale $0$ porque nunca ocurren a la vez.\n\nLa regla general de la unión sigue siendo válida:\n$$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$$\nPero con $P(A\\cap B)=0$ se reduce a la suma directa:\n$$P(A \\cup B) = 0{,}35 + 0{,}2 = 0{,}55$$\nReconocer que la intersección ya es 0 ahorra el paso de restar algo que no cambia el resultado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["elegir-suma-excluyentes"]
+  },
+  {
+    "question": "En una urna, $P(A) = 0{,}4$ y $P(B) = 0{,}15$, siendo ambos eventos mutuamente excluyentes.\n\n¿Qué propiedad conviene aplicar para calcular $P(A \\cup B)$?",
+    "options": [
+      "Multiplicar $P(A)$ por $P(B)$.",
+      "Sumar directamente $P(A)+P(B)$.",
+      "Aplicar la regla general y restar $P(A\\cap B)$."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Al ser mutuamente excluyentes, $P(A\\cap B)=0$ y la unión es la suma simple.",
+    "feedback_incorrect": [
+      "Multiplicar corresponde a otra situación, no a calcular la probabilidad de una unión.",
+      null,
+      "Restar $P(A\\cap B)$ no hace falta acá porque ese valor ya es 0 al ser mutuamente excluyentes."
+    ],
+    "explanation": "Cuando dos eventos son **mutuamente excluyentes**, nunca ocurren a la vez y su intersección vale $0$.\n\nLa regla general de la unión sigue siendo válida:\n$$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$$\nPero con $P(A\\cap B)=0$ se reduce a la suma directa:\n$$P(A \\cup B) = 0{,}4 + 0{,}15 = 0{,}55$$\nAplicar la resta de todos modos no cambiaría el resultado, pero reconocer que ya vale 0 ahorra un paso.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["elegir-suma-excluyentes"]
+  },
+  {
+    "question": "Un estudio previo determina que $P(A) = 0{,}28$ y $P(B) = 0{,}33$ para dos categorías de diagnóstico mutuamente excluyentes.\n\n¿Qué propiedad conviene aplicar para calcular $P(A \\cup B)$?",
+    "options": [
+      "Aplicar la regla general y restar $P(A\\cap B)$.",
+      "Multiplicar $P(A)$ por $P(B)$.",
+      "Sumar directamente $P(A)+P(B)$."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Al ser mutuamente excluyentes, $P(A\\cap B)=0$ y la unión es la suma simple.",
+    "feedback_incorrect": [
+      "Restar $P(A\\cap B)$ no hace falta acá porque ese valor ya es 0 al ser mutuamente excluyentes.",
+      "Multiplicar corresponde a otra situación, no a calcular la probabilidad de una unión.",
+      null
+    ],
+    "explanation": "Cuando dos eventos son **mutuamente excluyentes**, no comparten ningún resultado y su intersección vale $0$.\n\nLa regla general de la unión sigue siendo válida:\n$$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$$\nPero con $P(A\\cap B)=0$ se reduce a la suma directa:\n$$P(A \\cup B) = 0{,}28 + 0{,}33 = 0{,}61$$\nRestar una intersección que ya vale 0 no cambia el resultado, pero identificarla ahorra ese paso de más.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["elegir-suma-excluyentes"]
+  },
+  {
+    "question": "En una encuesta, $P(A) = 0{,}5$ y $P(B) = 0{,}3$, y algunas personas cumplen ambas condiciones a la vez.\n\n¿Qué propiedad conviene aplicar para calcular $P(A \\cup B)$?",
+    "options": [
+      "La suma simple $P(A)+P(B)$, sin restar nada.",
+      "El complemento de $A$.",
+      "La regla general, restando $P(A\\cap B)$."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Como algunas personas cumplen ambas condiciones, hay que restar esa intersección.",
+    "feedback_incorrect": [
+      "Sumar sin restar cuenta dos veces a las personas que cumplen ambas condiciones a la vez.",
+      "El complemento de $A$ no calcula la unión de dos eventos distintos.",
+      null
+    ],
+    "explanation": "Cuando dos eventos pueden ocurrir a la vez, la **regla general de la unión** exige restar la intersección para no contar dos veces los casos compartidos.\n\nAcá algunas personas cumplen ambas condiciones de la encuesta a la vez, así que sumar $P(A)+P(B)$ sobreestima la proporción real de personas que cumplen al menos una.\n\nRestar $P(A\\cap B)$ corrige exactamente ese doble conteo, sin importar qué tan grande sea la superposición.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["elegir-regla-general-union"]
+  },
+  {
+    "question": "En una urna, $P(A) = 0{,}45$ y $P(B) = 0{,}3$, y algunas bolitas cumplen ambas condiciones a la vez.\n\n¿Qué propiedad conviene aplicar para calcular $P(A \\cup B)$?",
+    "options": [
+      "El complemento de $A$.",
+      "La regla general, restando $P(A\\cap B)$.",
+      "La suma simple $P(A)+P(B)$, sin restar nada."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Como algunas bolitas cumplen ambas condiciones, hay que restar esa intersección.",
+    "feedback_incorrect": [
+      "El complemento de $A$ no calcula la unión de dos eventos distintos.",
+      null,
+      "Sumar sin restar cuenta dos veces a las bolitas que cumplen ambas condiciones a la vez."
+    ],
+    "explanation": "Cuando dos eventos pueden ocurrir a la vez, la **regla general de la unión** exige restar la intersección para no contar dos veces los casos compartidos.\n\nAcá algunas bolitas cumplen ambas condiciones a la vez, así que sumar $P(A)+P(B)$ sobreestima la proporción real de bolitas que cumplen al menos una.\n\nRestar $P(A\\cap B)$ corrige exactamente ese doble conteo, sin importar qué tan grande sea la superposición.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["elegir-regla-general-union"]
+  },
+  {
+    "question": "En un control de calidad, $P(A) = 0{,}18$, donde $A$ es que una pieza tenga un defecto visible.\n\n¿Qué propiedad conviene aplicar para calcular la probabilidad de que la pieza no tenga ese defecto?",
+    "options": [
+      "La suma de $P(A)$ con otro evento cualquiera.",
+      "El complemento de $A$, calculado como $1-P(A)$.",
+      "La regla general de la unión entre dos eventos."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El complemento reúne el caso contrario, sin necesidad de otro evento.",
+    "feedback_incorrect": [
+      "Sumar con otro evento no calcula el contrario de $A$, hace falta el complemento.",
+      null,
+      "La regla general de la unión combina dos eventos distintos, y acá solo hay un evento y su contrario."
+    ],
+    "explanation": "El **complemento** $A^c$ de un evento reúne todos los resultados que no están en $A$.\n\nEsa relación cumple $P(A^c)=1-P(A)$.\n\nCon $P(A)=0{,}18$ para tener el defecto visible, la probabilidad de no tenerlo es:\n$$P(A^c) = 1 - 0{,}18 = 0{,}82$$\nNo hace falta ningún otro evento ni fórmula de unión, alcanza con restar de 1 la probabilidad conocida.\n\nConfundir el complemento con una unión suele pasar cuando el enunciado menciona la negación, pero acá no hay dos eventos combinándose, solo uno y su contrario.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["elegir-complemento"]
+  },
+  {
+    "question": "Con un mazo de cartas de truco, $P(A) = 0{,}55$, donde $A$ es sacar una carta de oro.\n\n¿Qué propiedad conviene aplicar para calcular la probabilidad de sacar una carta que no sea de oro?",
+    "options": [
+      "El complemento de $A$, calculado como $1-P(A)$.",
+      "La regla general de la unión entre dos eventos.",
+      "La suma de $P(A)$ con otro evento cualquiera."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El complemento reúne el caso contrario, sin necesidad de otro evento.",
+    "feedback_incorrect": [
+      null,
+      "La regla general de la unión combina dos eventos distintos, y acá solo hay un evento y su contrario.",
+      "Sumar con otro evento no calcula el contrario de $A$, hace falta el complemento."
+    ],
+    "explanation": "El **complemento** $A^c$ de un evento reúne todos los resultados que no están en $A$.\n\nEsa relación cumple $P(A^c)=1-P(A)$.\n\nCon $P(A)=0{,}55$ para sacar una carta de oro, la probabilidad de sacar otro palo es:\n$$P(A^c) = 1 - 0{,}55 = 0{,}45$$\nNo hace falta ningún otro evento ni fórmula de unión, alcanza con restar de 1 la probabilidad conocida.\n\nBuscar un segundo evento para combinar suele ser un paso de más cuando en realidad se trata de un evento y su contrario.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["elegir-complemento"]
+  },
+  {
+    "question": "En una urna, $P(A) = 0{,}68$, donde $A$ es sacar una bolita numerada.\n\n¿Qué propiedad conviene aplicar para calcular la probabilidad de sacar una bolita no numerada?",
+    "options": [
+      "La regla general de la unión entre dos eventos.",
+      "La suma de $P(A)$ con otro evento cualquiera.",
+      "El complemento de $A$, calculado como $1-P(A)$."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El complemento reúne el caso contrario, sin necesidad de otro evento.",
+    "feedback_incorrect": [
+      "La regla general de la unión combina dos eventos distintos, y acá solo hay un evento y su contrario.",
+      "Sumar con otro evento no calcula el contrario de $A$, hace falta el complemento.",
+      null
+    ],
+    "explanation": "El **complemento** $A^c$ de un evento reúne todos los resultados que no están en $A$.\n\nEsa relación cumple $P(A^c)=1-P(A)$.\n\nCon $P(A)=0{,}68$ para sacar una bolita numerada, la probabilidad de sacar una que no lo sea es:\n$$P(A^c) = 1 - 0{,}68 = 0{,}32$$\nNo hace falta ningún otro evento ni fórmula de unión, alcanza con restar de 1 la probabilidad conocida.\n\nBuscar un segundo evento para combinar suele ser un paso de más cuando en realidad se trata de un evento y su contrario.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["elegir-complemento"]
+  },
+  {
+    "question": "Una encuesta calcula la probabilidad de un evento sumando las respuestas de dos grupos distintos: $0{,}6$ y $0{,}55$.\n\n¿Qué propiedad permite descartar ese resultado sin más información?",
+    "options": [
+      "El complemento de un evento cualquiera.",
+      "La regla general de la unión entre eventos.",
+      "La acotación, válida para toda probabilidad."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El axioma de acotación descarta directamente cualquier valor fuera de $[0,1]$.",
+    "feedback_incorrect": [
+      "El complemento no evalúa si el propio valor de $P(A)$ es válido.",
+      "La regla general de la unión combina dos eventos, y acá solo hay un valor de probabilidad para revisar.",
+      null
+    ],
+    "explanation": "El axioma de **acotación** fija que $0 \\leq P(A) \\leq 1$ para cualquier evento, sin excepciones.\n\nSumando las dos respuestas de los grupos:\n$$0{,}6 + 0{,}55 = 1{,}15$$\nEse resultado ya supera el máximo permitido, así que se puede descartar sin necesitar ningún dato adicional de la encuesta.\n\nRevisar la acotación antes que cualquier otra propiedad es la forma más rápida de detectar un resultado imposible.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["elegir-acotacion"]
+  },
+  {
+    "question": "Con un mazo de cartas de truco, se calcula la probabilidad de un evento sumando dos probabilidades parciales: $0{,}72$ y $0{,}5$.\n\n¿Qué propiedad permite descartar ese resultado sin más información?",
+    "options": [
+      "La regla general de la unión entre eventos.",
+      "La acotación, válida para toda probabilidad.",
+      "El complemento de un evento cualquiera."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El axioma de acotación descarta directamente cualquier valor fuera de $[0,1]$.",
+    "feedback_incorrect": [
+      "La regla general de la unión combina dos eventos, y acá solo hay un valor de probabilidad para revisar.",
+      null,
+      "El complemento no evalúa si el propio valor de $P(A)$ es válido."
+    ],
+    "explanation": "El axioma de **acotación** fija que $0 \\leq P(A) \\leq 1$ para cualquier evento, sin excepciones.\n\nSumando las dos probabilidades parciales:\n$$0{,}72 + 0{,}5 = 1{,}22$$\nEse resultado ya supera el máximo permitido, así que se puede descartar sin necesitar más información sobre las cartas.\n\nRevisar la acotación antes que cualquier otra propiedad es la forma más rápida de detectar un resultado imposible.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["elegir-acotacion"]
+  },
+  {
+    "question": "En una urna, se calcula la probabilidad de un evento sumando dos proporciones de distintos lotes: $0{,}58$ y $0{,}5$.\n\n¿Qué propiedad permite descartar ese resultado sin más información?",
+    "options": [
+      "La acotación, válida para toda probabilidad.",
+      "El complemento de un evento cualquiera.",
+      "La regla general de la unión entre eventos."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El axioma de acotación descarta directamente cualquier valor fuera de $[0,1]$.",
+    "feedback_incorrect": [
+      null,
+      "El complemento no evalúa si el propio valor de $P(A)$ es válido.",
+      "La regla general de la unión combina dos eventos, y acá solo hay un valor de probabilidad para revisar."
+    ],
+    "explanation": "El axioma de **acotación** fija que $0 \\leq P(A) \\leq 1$ para cualquier evento, sin excepciones.\n\nSumando las dos proporciones:\n$$0{,}58 + 0{,}5 = 1{,}08$$\nEse resultado ya supera el máximo permitido, así que se puede descartar sin necesitar más datos sobre los lotes.\n\nRevisar la acotación antes que cualquier otra propiedad es la forma más rápida de detectar un resultado imposible.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["elegir-acotacion"]
   }
 ]

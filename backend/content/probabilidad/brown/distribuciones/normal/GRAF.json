@@ -20,7 +20,9 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["reconocer-forma"]
+    "tags": [
+      "reconocer-forma"
+    ]
   },
   {
     "question": "El error de un instrumento de medición de precisión, en milímetros, sigue una distribución normal.\n\nEl gráfico muestra su densidad.\n\n¿Cuál es la media $\\mu$ de ese error, según el gráfico?",
@@ -41,11 +43,18 @@
     "explanation": "La densidad **normal** alcanza su máximo exactamente en $\\mu$, el centro de simetría de la campana.\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\nAcá el pico del gráfico está en $1{,}5$, así que $\\mu=1{,}5$.\n\nEl punto más alto de la curva es el único lugar donde ambas mitades simétricas se encuentran, por eso identifica a la media sin ambigüedad.\n\nLos puntos donde la curva cambia de curvatura, un poco antes y después del pico, quedan a una desviación estándar del centro, no en el centro mismo.",
     "has_math": true,
     "graph_fn": "(1/(0.5*sqrt(2*pi)))*exp(-((x-1.5)^2)/(2*0.5^2))",
-    "graph_view": [-1, 4, -0.05, 0.95],
+    "graph_view": [
+      -1,
+      4,
+      -0.05,
+      0.95
+    ],
     "graph_shade": null,
     "graph_free_aspect": true,
     "reviewed": false,
-    "tags": ["identificar-media"]
+    "tags": [
+      "identificar-media"
+    ]
   },
   {
     "question": "Dos máquinas de envasado llenan bolsas con el mismo peso promedio, pero distinta variabilidad.\n\nLa máquina A tiene $\\sigma_A=2$ gramos.\n$$X_A \\sim N(500,\\, 2^{2})$$\nLa máquina B tiene $\\sigma_B=10$ gramos.\n$$X_B \\sim N(500,\\, 10^{2})$$\n¿Cuál de las dos curvas se ve más achatada y ancha?",
@@ -68,6 +77,336 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["comparar-dispersion"]
+    "tags": [
+      "comparar-dispersion"
+    ]
+  },
+  {
+    "question": "El tiempo que tarda un corredor en completar una carrera de una población entrenada sigue una distribución normal.\n\nSu media es $\\mu=50$ minutos y su desviación $\\sigma=6$ minutos.\n\n¿Qué forma tiene esa densidad?",
+    "options": [
+      "Una campana simétrica con máximo en 50.",
+      "Un rectángulo de altura constante entre 44 y 56.",
+      "Una curva que decae monótonamente desde 50."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Densidad simétrica con pico en la media: es la forma característica de la normal.",
+    "feedback_incorrect": [
+      null,
+      "Un rectángulo de altura constante es la uniforme, la normal tiene forma de campana, no plana.",
+      "Una curva que decae monótonamente es la exponencial, la normal sube hasta el centro y después baja."
+    ],
+    "explanation": "La **densidad normal** tiene forma de campana simétrica, con un único máximo ubicado en $\\mu$.\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\nAcá $\\mu=50$ y $\\sigma=6$, así que el pico de la curva está en 50 minutos.\n\nLa curva sube desde ambos lados hacia ese centro y después decae en espejo, sin tocar nunca el eje horizontal.\n\nConfundir esta forma con un histograma de barras separadas lleva a imaginar saltos bruscos donde en realidad hay una transición continua y suave.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-forma"
+    ]
+  },
+  {
+    "question": "El peso de los paquetes despachados por una fábrica sigue una distribución normal, con media y desviación de proceso conocidas.\n\nSu media es $\\mu=25$ kg y su desviación $\\sigma=2$ kg.\n\n¿Qué forma tiene esa densidad?",
+    "options": [
+      "Un rectángulo de altura constante entre 21 y 29.",
+      "Una campana simétrica con máximo en 25.",
+      "Una curva que decae monótonamente desde 25."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Densidad simétrica con pico en la media: es la forma característica de la normal.",
+    "feedback_incorrect": [
+      "Un rectángulo de altura constante es la uniforme, la normal tiene forma de campana, no plana.",
+      null,
+      "Una curva que decae monótonamente es la exponencial, la normal sube hasta el centro y después baja."
+    ],
+    "explanation": "Toda **densidad normal** dibuja una campana simétrica con un solo pico, ubicado en $\\mu$.\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\nCon $\\mu=25$ y $\\sigma=2$, el máximo de esta curva cae en 25 kg.\n\nDesde ese punto la curva desciende en espejo hacia ambos lados, acercándose al eje sin tocarlo nunca.\n\nSi tratás de imaginarla como una franja plana o una cuesta que solo baja, perdés justo el rasgo que la define: el pico único y central.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-forma"
+    ]
+  },
+  {
+    "question": "El puntaje de un examen estandarizado, en una población de rendidores, sigue una distribución normal.\n\nSu media es $\\mu=500$ puntos y su desviación $\\sigma=80$ puntos.\n\n¿Qué forma tiene esa densidad?",
+    "options": [
+      "Un rectángulo de altura constante entre 420 y 580.",
+      "Una curva que decae monótonamente desde 500.",
+      "Una campana simétrica con máximo en 500."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Densidad simétrica con pico en la media: es la forma característica de la normal.",
+    "feedback_incorrect": [
+      "Un rectángulo de altura constante es la uniforme, la normal tiene forma de campana, no plana.",
+      "Una curva que decae monótonamente es la exponencial, la normal sube hasta el centro y después baja.",
+      null
+    ],
+    "explanation": "La **densidad normal** siempre queda descripta por la misma expresión, con forma de campana simétrica.\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\nAcá $\\mu=500$ y $\\sigma=80$, así que el máximo de la curva se ubica en 500 puntos.\n\nA cada lado de ese pico, la curva baja de forma idéntica en espejo, sin cortes ni saltos.\n\nTratar esta densidad como si tuviera dos formas distintas a izquierda y derecha del pico ignora justamente la simetría que la caracteriza.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-forma"
+    ]
+  },
+  {
+    "question": "La temperatura corporal medida en un consultorio a lo largo de un día sigue una distribución normal.\n\nSu media es $\\mu=36{,}5$°C y su desviación $\\sigma=0{,}3$°C.\n\n¿Qué forma tiene esa densidad?",
+    "options": [
+      "Una curva que decae monótonamente desde 36,5.",
+      "Una campana simétrica con máximo en 36,5.",
+      "Un rectángulo de altura constante entre 35,9 y 37,1."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Densidad simétrica con pico en la media: es la forma característica de la normal.",
+    "feedback_incorrect": [
+      "Una curva que decae monótonamente es la exponencial, la normal sube hasta el centro y después baja.",
+      null,
+      "Un rectángulo de altura constante es la uniforme, la normal tiene forma de campana, no plana."
+    ],
+    "explanation": "La **normal** tiene una densidad de forma acampanada, simétrica respecto de su media $\\mu$.\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\nCon $\\mu=36{,}5$ y $\\sigma=0{,}3$, el pico de esta curva está en 36,5°C.\n\nLa curva asciende de forma pareja desde ambos extremos hasta ese centro y luego desciende con la misma pendiente en espejo.\n\nPensarla como una curva que solo decae, sin ascenso previo, deja afuera la mitad izquierda de la campana.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-forma"
+    ]
+  },
+  {
+    "question": "La diferencia entre la hora real y la hora programada de salida de un colectivo urbano, en minutos, sigue una distribución normal.\n\nEl gráfico muestra su densidad.\n\n¿Cuál es la media $\\mu$ de esa diferencia, según el gráfico?",
+    "options": [
+      "$2$",
+      "$3$",
+      "$4$",
+      "$1$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El máximo de la campana está exactamente en $\\mu=3$, el eje de simetría de la curva.",
+    "feedback_incorrect": [
+      "Ese valor es un punto de inflexión de la curva, no el máximo.",
+      null,
+      "Ese valor es el otro punto de inflexión de la curva, no el máximo.",
+      "Ese valor es la desviación estándar, no la media."
+    ],
+    "explanation": "La **densidad normal** alcanza su máximo exactamente en $\\mu$, el centro de simetría de la campana.\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\nEn el gráfico, el pico de la curva está en $3$, así que $\\mu=3$.\n\nEse punto más alto es el único lugar donde ambas mitades simétricas de la curva se encuentran, por eso identifica a la media sin ambigüedad.\n\nLos puntos donde la curva cambia de curvatura, un poco antes y después del pico, quedan a una desviación estándar del centro, no en el centro mismo.",
+    "has_math": true,
+    "graph_fn": "(1/(1*sqrt(2*pi)))*exp(-((x-3)^2)/(2*1^2))",
+    "graph_view": [
+      -2,
+      8,
+      -0.05,
+      0.46
+    ],
+    "graph_shade": null,
+    "graph_free_aspect": true,
+    "reviewed": false,
+    "tags": [
+      "identificar-media"
+    ]
+  },
+  {
+    "question": "La desviación de una pieza fabricada respecto de la medida de referencia, en milímetros, sigue una distribución normal.\n\nEl gráfico muestra su densidad.\n\n¿Cuál es la media $\\mu$ de esa desviación, según el gráfico?",
+    "options": [
+      "$-2{,}8$",
+      "$0{,}8$",
+      "$-2$",
+      "$-1{,}2$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El máximo de la campana está exactamente en $\\mu=-2$, el eje de simetría de la curva.",
+    "feedback_incorrect": [
+      "Ese valor es un punto de inflexión de la curva, no el máximo.",
+      "Ese valor es la desviación estándar, no la media.",
+      null,
+      "Ese valor es el otro punto de inflexión de la curva, no el máximo."
+    ],
+    "explanation": "El punto más alto de una **densidad normal** coincide siempre con $\\mu$, el eje de simetría de la campana.\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\nEn el gráfico, el pico de la curva se ubica en $-2$, así que $\\mu=-2$.\n\nA ambos lados de ese pico, la curva desciende en espejo, y las dos mitades solo coinciden en ese único punto central.\n\nLos puntos donde la curvatura cambia, apenas antes y después del pico, están a una desviación estándar de distancia, no marcan el centro.",
+    "has_math": true,
+    "graph_fn": "(1/(0.8*sqrt(2*pi)))*exp(-((x+2)^2)/(2*0.8^2))",
+    "graph_view": [
+      -6,
+      2,
+      -0.05,
+      0.58
+    ],
+    "graph_shade": null,
+    "graph_free_aspect": true,
+    "reviewed": false,
+    "tags": [
+      "identificar-media"
+    ]
+  },
+  {
+    "question": "El error de lectura de un termómetro digital, en grados Celsius, sigue una distribución normal.\n\nEl gráfico muestra su densidad.\n\n¿Cuál es la media $\\mu$ de ese error, según el gráfico?",
+    "options": [
+      "$0{,}3$",
+      "$1{,}3$",
+      "$0{,}5$",
+      "$0{,}8$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El máximo de la campana está exactamente en $\\mu=0{,}8$, el eje de simetría de la curva.",
+    "feedback_incorrect": [
+      "Ese valor es un punto de inflexión de la curva, no el máximo.",
+      "Ese valor es el otro punto de inflexión de la curva, no el máximo.",
+      "Ese valor es la desviación estándar, no la media.",
+      null
+    ],
+    "explanation": "En una **densidad normal**, el valor de $\\mu$ es exactamente el punto donde la curva llega a su altura máxima.\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\nAcá el gráfico muestra el pico en $0{,}8$, así que $\\mu=0{,}8$.\n\nComo la campana es simétrica, ese pico es el único punto donde las dos mitades de la curva se tocan.\n\nLos dos puntos donde la curva cambia de curvatura, apenas antes y después del pico, marcan una desviación estándar de distancia del centro, no el centro en sí.",
+    "has_math": true,
+    "graph_fn": "(1/(0.5*sqrt(2*pi)))*exp(-((x-0.8)^2)/(2*0.5^2))",
+    "graph_view": [
+      -1.7,
+      3.3,
+      -0.05,
+      0.92
+    ],
+    "graph_shade": null,
+    "graph_free_aspect": true,
+    "reviewed": false,
+    "tags": [
+      "identificar-media"
+    ]
+  },
+  {
+    "question": "La diferencia entre el peso real y el peso declarado de un paquete pequeño, en gramos, sigue una distribución normal.\n\nEl gráfico muestra su densidad.\n\n¿Cuál es la media $\\mu$ de esa diferencia, según el gráfico?",
+    "options": [
+      "$-2{,}7$",
+      "$-1{,}2$",
+      "$0{,}3$",
+      "$1{,}5$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El máximo de la campana está exactamente en $\\mu=-1{,}2$, el eje de simetría de la curva.",
+    "feedback_incorrect": [
+      "Ese valor es un punto de inflexión de la curva, no el máximo.",
+      null,
+      "Ese valor es el otro punto de inflexión de la curva, no el máximo.",
+      "Ese valor es la desviación estándar, no la media."
+    ],
+    "explanation": "La **densidad normal** tiene su único máximo justo en $\\mu$, el centro de simetría de la campana.\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\nEn este gráfico, el pico de la curva aparece en $-1{,}2$, así que $\\mu=-1{,}2$.\n\nEse es el único punto donde ambas mitades simétricas de la curva se encuentran, sin importar qué tan ancha o angosta sea la campana.\n\nLos puntos donde la curva cambia de curvatura, apenas antes y después del pico, quedan a una desviación estándar de ese centro, no en el centro mismo.",
+    "has_math": true,
+    "graph_fn": "(1/(1.5*sqrt(2*pi)))*exp(-((x+1.2)^2)/(2*1.5^2))",
+    "graph_view": [
+      -8.7,
+      6.3,
+      -0.05,
+      0.31
+    ],
+    "graph_shade": null,
+    "graph_free_aspect": true,
+    "reviewed": false,
+    "tags": [
+      "identificar-media"
+    ]
+  },
+  {
+    "question": "Dos versiones de un examen estandarizado producen puntajes con la misma media, pero distinta variabilidad.\n\nLa versión A tiene $\\sigma_A=15$ puntos.\n$$X_A \\sim N(500,\\, 15^{2})$$\nLa versión B tiene $\\sigma_B=60$ puntos.\n$$X_B \\sim N(500,\\, 60^{2})$$\n¿Cuál de las dos curvas se ve más achatada y ancha?",
+    "options": [
+      "$X_B$, porque su $\\sigma$ es mayor.",
+      "$X_A$, porque su $\\sigma$ es menor.",
+      "Ambas tienen la misma forma, porque comparten la misma media."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Un $\\sigma$ mayor reparte los valores en un rango más ancho, así que la curva se achata.",
+    "feedback_incorrect": [
+      null,
+      "Un $\\sigma$ menor concentra los valores cerca de la media, dando una curva más alta y angosta, no más achatada.",
+      "La forma depende de $\\sigma$, no de $\\mu$; compartir la media no implica compartir la dispersión."
+    ],
+    "explanation": "La forma de una **densidad normal** queda determinada por $\\sigma$, sin que $\\mu$ influya en qué tan ancha o angosta es.\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\nAcá $\\sigma_A=15,\\, \\sigma_B=60$.\n\nCuanto mayor es $\\sigma$, más lejos de la media se reparten los valores típicos, y la curva se ve más baja y ancha.\n\nComo el área bajo cada curva vale 1 en los dos casos, ensanchar la campana obliga a que su altura máxima baje.\n\nEn la práctica, eso significa que los puntajes de la versión B varían más entre estudiantes que los de la versión A, aunque ambas tengan el mismo promedio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "comparar-dispersion"
+    ]
+  },
+  {
+    "question": "Dos equipos deportivos tienen la misma estatura promedio entre sus jugadores, pero distinta variabilidad.\n\nEl equipo A tiene $\\sigma_A=3$ cm.\n$$X_A \\sim N(180,\\, 3^{2})$$\nEl equipo B tiene $\\sigma_B=12$ cm.\n$$X_B \\sim N(180,\\, 12^{2})$$\n¿Cuál de las dos curvas se ve más achatada y ancha?",
+    "options": [
+      "$X_A$, porque su $\\sigma$ es menor.",
+      "$X_B$, porque su $\\sigma$ es mayor.",
+      "Ambas tienen la misma forma, porque comparten la misma media."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Un $\\sigma$ mayor esparce los valores en un rango más amplio, así que la curva queda más achatada.",
+    "feedback_incorrect": [
+      "Un $\\sigma$ menor concentra los valores cerca de la media, dando una curva más alta y angosta, no más achatada.",
+      null,
+      "La forma depende de $\\sigma$, no de $\\mu$; compartir la media no implica compartir la dispersión."
+    ],
+    "explanation": "La dispersión de una **densidad normal** depende únicamente de $\\sigma$; $\\mu$ solo desplaza el centro, no cambia la forma.\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\nAcá $\\sigma_A=3,\\, \\sigma_B=12$.\n\nUn $\\sigma$ más grande reparte las estaturas en un rango más amplio alrededor del promedio, y eso achata y ensancha la curva.\n\nComo el área bajo la curva siempre vale 1, esa mayor amplitud obliga a que el pico sea más bajo.\n\nEn la práctica, el equipo B tiene jugadores con estaturas más dispares entre sí, mientras que en el equipo A casi todos rondan la misma altura.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "comparar-dispersion"
+    ]
+  },
+  {
+    "question": "Dos modelos de dispositivo tienen la misma duración de batería promedio, pero distinta variabilidad de fabricación.\n\nEl modelo A tiene $\\sigma_A=1$ hora.\n$$X_A \\sim N(20,\\, 1^{2})$$\nEl modelo B tiene $\\sigma_B=5$ horas.\n$$X_B \\sim N(20,\\, 5^{2})$$\n¿Cuál de las dos curvas se ve más achatada y ancha?",
+    "options": [
+      "Ambas tienen la misma forma, porque comparten la misma media.",
+      "$X_B$, porque su $\\sigma$ es mayor.",
+      "$X_A$, porque su $\\sigma$ es menor."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cuanto mayor el $\\sigma$, más ancho el rango de valores típicos, y la curva se ve más achatada.",
+    "feedback_incorrect": [
+      "La forma depende de $\\sigma$, no de $\\mu$; compartir la media no implica compartir la dispersión.",
+      null,
+      "Un $\\sigma$ menor concentra los valores cerca de la media, dando una curva más alta y angosta, no más achatada."
+    ],
+    "explanation": "Dos **densidades normales** con la misma media pero distinto $\\sigma$ tienen formas distintas, aunque estén centradas igual.\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\nAcá $\\sigma_A=1,\\, \\sigma_B=5$.\n\nUn $\\sigma$ mayor implica que la duración real se aleja más del promedio de fabricación en general, así que la curva se aplana y se ensancha.\n\nEl área bajo cada curva sigue valiendo 1, así que una campana más ancha necesariamente baja su punto más alto.\n\nPara quien fabrica los dispositivos, eso se traduce en que el modelo B tiene una duración de batería mucho menos predecible unidad a unidad que el modelo A.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "comparar-dispersion"
+    ]
+  },
+  {
+    "question": "Dos grupos etarios tienen la misma temperatura corporal promedio, pero distinta variabilidad de medición.\n\nEl grupo de adultos tiene $\\sigma_1=0{,}2$°C.\n$$X_1 \\sim N(36{,}5,\\, 0{,}2^{2})$$\nEl grupo de niños tiene $\\sigma_2=0{,}6$°C.\n$$X_2 \\sim N(36{,}5,\\, 0{,}6^{2})$$\n¿Cuál de las dos curvas se ve más achatada y ancha?",
+    "options": [
+      "$X_2$, porque su $\\sigma$ es mayor.",
+      "Ambas tienen la misma forma, porque comparten la misma media.",
+      "$X_1$, porque su $\\sigma$ es menor."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Un $\\sigma$ mayor dispersa más los valores respecto de la media, así que la curva se ve más achatada y ancha.",
+    "feedback_incorrect": [
+      null,
+      "La forma depende de $\\sigma$, no de $\\mu$; compartir la media no implica compartir la dispersión.",
+      "Un $\\sigma$ menor concentra los valores cerca de la media, dando una curva más alta y angosta, no más achatada."
+    ],
+    "explanation": "La forma más o menos achatada de una **densidad normal** depende exclusivamente de $\\sigma$, no de dónde esté centrada.\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\nAcá $\\sigma_1=0{,}2,\\, \\sigma_2=0{,}6$.\n\nCuanto mayor es $\\sigma$, más se alejan los valores individuales del promedio, así que la curva se aplana y se ensancha.\n\nCon el área bajo cada curva fija en 1, esa mayor amplitud siempre baja la altura del pico.\n\nEn términos prácticos, la temperatura corporal de los niños varía más de un chico a otro que la de los adultos entre sí, aunque el promedio de ambos grupos coincida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "comparar-dispersion"
+    ]
   }
 ]

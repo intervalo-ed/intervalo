@@ -18,7 +18,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["reconocer-producto"]
+    "tags": [
+      "reconocer-producto"
+    ]
   },
   {
     "question": "Una cerradura acepta como clave una sola letra minúscula del alfabeto español, que tiene 27 letras, o un solo dígito del 0 al 9.\n\nCada intento usa un único carácter.\n\n¿Qué regla conviene usar para contar la cantidad de claves posibles?",
@@ -39,28 +41,32 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["reconocer-suma"]
+    "tags": [
+      "reconocer-suma"
+    ]
   },
   {
-    "question": "Para viajar de una ciudad A a una ciudad C se puede pasar por una ciudad B, con 3 rutas de A a B y 2 rutas de B a C.\n\nComo alternativa, también existen 4 vuelos directos de A a C.\n\n¿Qué regla conviene aplicar para contar el total de formas de viajar?",
+    "question": "Para viajar de Rosario a Mendoza se puede pasar por Córdoba, con 3 rutas de Rosario a Córdoba y 2 rutas de Córdoba a Mendoza.\n\nComo alternativa, también existen 4 vuelos directos de Rosario a Mendoza.\n\n¿Qué regla conviene aplicar para contar el total de formas de viajar?",
     "options": [
       "Solo la regla de la suma.",
       "Solo la regla del producto.",
       "Producto y suma combinados."
     ],
     "correct_index": 2,
-    "feedback_correct": "Las rutas por B se multiplican entre sí, y esa cantidad se suma con la alternativa del vuelo directo.",
+    "feedback_correct": "Las rutas por Córdoba se multiplican entre sí, y esa cantidad se suma con la alternativa del vuelo directo.",
     "feedback_incorrect": [
-      "La suma sola no alcanza: pasar por B involucra dos decisiones consecutivas, la ruta a B y la ruta desde B, que hay que multiplicar primero.",
-      "El producto solo no alcanza: el vuelo directo es una alternativa aparte, excluyente de la opción de pasar por B, y esa parte se suma.",
+      "La suma sola no alcanza: pasar por Córdoba involucra dos decisiones consecutivas, la ruta a Córdoba y la ruta desde Córdoba, que hay que multiplicar primero.",
+      "El producto solo no alcanza: el vuelo directo es una alternativa aparte, excluyente de la opción de pasar por Córdoba, y esa parte se suma.",
       null
     ],
-    "explanation": "Cuando un problema tiene una rama con decisiones consecutivas y otra rama como alternativa excluyente, primero se resuelve el producto dentro de cada rama y después se suman las ramas entre sí.\n\nPasar por B son 2 decisiones consecutivas que dan 6 formas, y el vuelo directo es una alternativa aparte con 4 opciones:\n$$3 \\times 2 + 4 = 10$$\nEn total hay 10 formas de viajar.\n\nAplicar una sola de las dos reglas a todo el problema pasa por alto que cada tramo necesita su propio análisis antes de combinarlos.",
+    "explanation": "Cuando un problema tiene una rama con decisiones consecutivas y otra rama como alternativa excluyente, primero se resuelve el producto dentro de cada rama y después se suman las ramas entre sí.\n\nPasar por Córdoba son 2 decisiones consecutivas que dan 6 formas, y el vuelo directo es una alternativa aparte con 4 opciones:\n$$3 \times 2 + 4 = 10$$\nEn total hay 10 formas de viajar.\n\nAplicar una sola de las dos reglas a todo el problema pasa por alto que cada tramo necesita su propio análisis antes de combinarlos.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["reconocer-combinada"]
+    "tags": [
+      "reconocer-combinada"
+    ]
   },
   {
     "question": "En una carrera de 5 atletas hay que determinar quién llega primero y quién llega segundo.\n\nUn mismo atleta no puede ocupar los dos puestos.\n\n¿Corresponde aplicar directamente la regla del producto o de la suma para contar los resultados posibles?",
@@ -79,6 +85,259 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["reconocer-fuera-de-alcance"]
+    "tags": [
+      "reconocer-fuera-de-alcance"
+    ]
+  },
+  {
+    "question": "Un sistema pide crear una clave.\n\nLa clave combina una letra mayúscula de un alfabeto de 26 letras y, a continuación, un dígito del 0 al 9.\n\n¿Qué regla conviene usar para contar la cantidad de claves posibles?",
+    "options": [
+      "Regla del producto: son decisiones consecutivas.",
+      "Regla de la suma: son alternativas excluyentes.",
+      "Combinaciones: el orden no importa."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Elegir letra Y dígito son dos decisiones consecutivas: se multiplican.",
+    "feedback_incorrect": [
+      null,
+      "No hay alternativas excluyentes acá: la clave necesita ambas partes, letra y dígito, no una u otra.",
+      "No se está eligiendo un subconjunto de un mismo conjunto de opciones, son dos decisiones distintas en secuencia."
+    ],
+    "explanation": "La **regla del producto** aplica cuando un resultado se arma encadenando dos o más decisiones independientes: se multiplican las opciones de cada paso.\n\nAcá la clave combina una letra entre 26 opciones y un dígito entre 10 opciones, así que:\n$$26 \\times 10 = 260$$\nSon 260 claves posibles.\n\nFijate que la palabra \"y\" entre ambas partes es la pista de que se trata de decisiones consecutivas, no de alternativas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-producto"
+    ]
+  },
+  {
+    "question": "Una patente se arma con una letra entre 20 disponibles y, después, un número de dos cifras entre 00 y 99.\n\n¿Qué regla conviene usar para contar la cantidad de patentes posibles?",
+    "options": [
+      "Regla de la suma: son alternativas excluyentes.",
+      "Regla del producto: son decisiones consecutivas.",
+      "Combinaciones: el orden no importa."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Elegir letra Y número son dos decisiones consecutivas: se multiplican.",
+    "feedback_incorrect": [
+      "No hay alternativas excluyentes acá: la patente necesita ambas partes, no una sola.",
+      null,
+      "No se está eligiendo un subconjunto de un conjunto único, son dos decisiones distintas en secuencia."
+    ],
+    "explanation": "La **regla del producto** aplica cuando un resultado se arma encadenando dos o más decisiones independientes: se multiplican las opciones de cada paso.\n\nAcá la patente combina una letra entre 20 opciones y un número entre 100 opciones, de 00 a 99, así que:\n$$20 \\times 100 = 2000$$\nSon 2000 patentes posibles.\n\nConfundir esta situación con una alternativa excluyente pasa por alto que la patente necesita las dos partes a la vez, no una sola de ellas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-producto"
+    ]
+  },
+  {
+    "question": "Un barco arma una señal izando primero una bandera entre 5 colores y después otra bandera entre 4 colores distintos.\n\n¿Qué regla conviene usar para contar la cantidad de señales posibles?",
+    "options": [
+      "Regla de la suma: son alternativas excluyentes.",
+      "Combinaciones: el orden no importa.",
+      "Regla del producto: son decisiones consecutivas."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Izar la primera bandera Y la segunda son decisiones consecutivas: se multiplican.",
+    "feedback_incorrect": [
+      "No hay alternativas excluyentes acá: la señal necesita las dos banderas, no una u otra.",
+      "No se está eligiendo un subconjunto de un mismo conjunto de colores, son dos decisiones distintas en secuencia.",
+      null
+    ],
+    "explanation": "La **regla del producto** aplica cuando un resultado se arma encadenando dos o más decisiones independientes: se multiplican las opciones de cada paso.\n\nAcá la señal combina una primera bandera entre 5 colores y una segunda bandera entre 4 colores, así que:\n$$5 \\times 4 = 20$$\nSon 20 señales posibles.\n\nSi te salteás distinguir que son dos decisiones en secuencia, es fácil terminar sumando en vez de multiplicando.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-producto"
+    ]
+  },
+  {
+    "question": "Un diagrama de decisiones muestra un trayecto en dos etapas.\n\nPrimero hay que elegir entre 3 caminos de entrada y, después, entre 2 caminos de salida para cada uno de ellos.\n\n¿Qué regla conviene usar para contar el total de trayectos posibles?",
+    "options": [
+      "Regla del producto: son decisiones consecutivas.",
+      "Regla de la suma: son alternativas excluyentes.",
+      "Combinaciones: el orden no importa."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Elegir el camino de entrada Y el de salida son dos decisiones consecutivas: se multiplican.",
+    "feedback_incorrect": [
+      null,
+      "No hay alternativas excluyentes acá: el trayecto necesita las dos partes, entrada y salida, no una sola.",
+      "No se está eligiendo un subconjunto de un mismo conjunto de caminos, son dos decisiones distintas en secuencia."
+    ],
+    "explanation": "La **regla del producto** aplica cuando un resultado se arma encadenando dos o más decisiones independientes: se multiplican las opciones de cada paso.\n\nAcá cada trayecto combina un camino de entrada entre 3 opciones y un camino de salida entre 2 opciones, así que:\n$$3 \\times 2 = 6$$\nSon 6 trayectos posibles.\n\nTratar la entrada y la salida como alternativas sueltas en vez de pasos consecutivos da un total mucho menor del real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-producto"
+    ]
+  },
+  {
+    "question": "Un restaurante de comida rápida ofrece dos tipos de menú.\n\nHay un menú de hamburguesa con 8 variantes o un menú vegetariano con 5 variantes, y cada cliente elige un solo menú.\n\n¿Qué regla conviene usar para contar las opciones de menú?",
+    "options": [
+      "Regla de la suma: son alternativas excluyentes.",
+      "Regla del producto: son decisiones consecutivas.",
+      "Combinaciones: el orden no importa."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Como el cliente elige hamburguesa O vegetariano, nunca ambos, las variantes se suman.",
+    "feedback_incorrect": [
+      null,
+      "No hay dos decisiones seguidas, solo una: se elige entre categorías, no se combinan.",
+      "No se está eligiendo un subconjunto de variantes, se elige una única entre alternativas mutuamente excluyentes."
+    ],
+    "explanation": "La **regla de la suma** aplica cuando un resultado proviene de una sola de varias categorías **mutuamente excluyentes**: se cuenta cada categoría por separado y se suma.\n\nAcá el cliente elige entre 8 variantes de hamburguesa o 5 variantes vegetarianas, nunca las dos cosas a la vez, así que:\n$$8 + 5 = 13$$\nHay 13 opciones de menú.\n\nMultiplicar apenas aparecen dos conjuntos ignora que acá se elige uno de los dos, no un elemento de cada uno.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-suma"
+    ]
+  },
+  {
+    "question": "Para llegar a un estadio hay 4 colectivos directos o 6 líneas de subte directas, y un hincha usa un solo medio de transporte.\n\n¿Qué regla conviene usar para contar las formas de llegar?",
+    "options": [
+      "Regla del producto: son decisiones consecutivas.",
+      "Regla de la suma: son alternativas excluyentes.",
+      "Combinaciones: el orden no importa."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Como el hincha usa colectivo O subte, nunca ambos, las líneas se suman.",
+    "feedback_incorrect": [
+      "No hay dos decisiones consecutivas, se elige un solo medio de transporte entre dos categorías.",
+      null,
+      "No se está eligiendo un subconjunto de líneas, se elige una única entre alternativas mutuamente excluyentes."
+    ],
+    "explanation": "La **regla de la suma** aplica cuando un resultado proviene de una sola de varias categorías **mutuamente excluyentes**: se cuenta cada categoría por separado y se suma.\n\nAcá el hincha llega en colectivo entre 4 líneas o en subte entre 6 líneas, nunca en los dos medios a la vez, así que:\n$$4 + 6 = 10$$\nHay 10 formas de llegar.\n\nSi tratás las dos categorías como pasos de un mismo trayecto, terminás multiplicando en vez de sumando.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-suma"
+    ]
+  },
+  {
+    "question": "Una patente de moto usa un solo carácter.\n\nEse carácter puede ser una letra entre 24 disponibles o un dígito entre 10, nunca los dos a la vez.\n\n¿Qué regla conviene usar para contar los caracteres posibles?",
+    "options": [
+      "Regla del producto: son decisiones consecutivas.",
+      "Combinaciones: el orden no importa.",
+      "Regla de la suma: son alternativas excluyentes."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Como el carácter es letra O dígito, nunca ambos, se suman las dos categorías.",
+    "feedback_incorrect": [
+      "No hay dos decisiones seguidas, solo se elige un único carácter entre categorías.",
+      "No se está eligiendo un subconjunto de caracteres, se elige uno único entre alternativas mutuamente excluyentes.",
+      null
+    ],
+    "explanation": "La **regla de la suma** aplica cuando un resultado proviene de una sola de varias categorías **mutuamente excluyentes**: se cuenta cada categoría por separado y se suma.\n\nAcá el carácter es una letra entre 24 opciones o un dígito entre 10 opciones, nunca las dos cosas a la vez, así que:\n$$24 + 10 = 34$$\nHay 34 caracteres posibles.\n\nMultiplicar directamente confunde una elección entre categorías con una combinación de ambas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-suma"
+    ]
+  },
+  {
+    "question": "Un restaurante arma un combo con una entrada entre 3 y un postre entre 2, o vende 5 platos únicos que ya incluyen todo sin combo.\n\n¿Qué regla conviene aplicar para contar el total de opciones para comer?",
+    "options": [
+      "Solo la regla de la suma.",
+      "Solo la regla del producto.",
+      "Producto y suma combinados."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El combo multiplica entrada por postre, y esa cantidad se suma con los platos únicos, alternativa excluyente del combo.",
+    "feedback_incorrect": [
+      "La suma sola no alcanza: armar el combo son dos decisiones consecutivas, entrada y postre, que hay que multiplicar primero.",
+      "El producto solo no alcanza: los platos únicos son una alternativa aparte, excluyente del combo, y esa parte se suma.",
+      null
+    ],
+    "explanation": "Cuando un problema tiene una rama con decisiones consecutivas y otra rama como alternativa excluyente, primero se resuelve el producto dentro de cada rama y después se suman las ramas entre sí.\n\nEl combo son 2 decisiones consecutivas que dan 6 variantes, y los platos únicos son una alternativa aparte con 5 opciones:\n$$3 \\times 2 + 5 = 11$$\nEn total hay 11 opciones para comer.\n\nResolver solo una de las dos ramas y dar por terminado el conteo deja afuera la mitad del problema real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-combinada"
+    ]
+  },
+  {
+    "question": "Una clave puede ser una letra entre 4 vocales seguida de un dígito entre 10.\n\nComo alternativa, también puede ser directamente un código de 2 dígitos entre 00 y 99 sin letra.\n\n¿Qué regla conviene aplicar para contar la cantidad de claves posibles?",
+    "options": [
+      "Producto y suma combinados.",
+      "Solo la regla del producto.",
+      "Solo la regla de la suma."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La primera opción multiplica vocal por dígito, y esa cantidad se suma con los códigos de 2 dígitos, alternativa aparte.",
+    "feedback_incorrect": [
+      null,
+      "El producto solo no alcanza: el código de 2 dígitos es una alternativa aparte, excluyente de la primera opción, y esa parte se suma.",
+      "La suma sola no alcanza: la primera opción son dos decisiones consecutivas, letra y dígito, que hay que multiplicar primero."
+    ],
+    "explanation": "Cuando un problema tiene una rama con decisiones consecutivas y otra rama como alternativa excluyente, primero se resuelve el producto dentro de cada rama y después se suman las ramas entre sí.\n\nLa primera opción son 2 decisiones consecutivas que dan 40 claves, y el código de 2 dígitos es una alternativa aparte con 100 opciones:\n$$4 \\times 10 + 100 = 140$$\nEn total hay 140 claves posibles.\n\nTratar todo el problema con una sola de las dos reglas deja sin contar alguna de las dos ramas del enunciado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-combinada"
+    ]
+  },
+  {
+    "question": "Una señal se arma izando una bandera entre 3 colores seguida de otra entre 2 colores.\n\nComo alternativa, se puede mostrar directamente una de 4 luces intermitentes sin bandera.\n\n¿Qué regla conviene aplicar para contar el total de señales posibles?",
+    "options": [
+      "Solo la regla de la suma.",
+      "Producto y suma combinados.",
+      "Solo la regla del producto."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Izar las dos banderas multiplica sus colores, y esa cantidad se suma con las luces intermitentes, alternativa aparte.",
+    "feedback_incorrect": [
+      "La suma sola no alcanza: izar las dos banderas son decisiones consecutivas que hay que multiplicar primero.",
+      null,
+      "El producto solo no alcanza: las luces intermitentes son una alternativa aparte, excluyente de las banderas, y esa parte se suma."
+    ],
+    "explanation": "Cuando un problema tiene una rama con decisiones consecutivas y otra rama como alternativa excluyente, primero se resuelve el producto dentro de cada rama y después se suman las ramas entre sí.\n\nLas banderas son 2 decisiones consecutivas que dan 6 señales, y las luces intermitentes son una alternativa aparte con 4 opciones:\n$$3 \\times 2 + 4 = 10$$\nEn total hay 10 señales posibles.\n\nSumar todos los números del enunciado sin distinguir qué parte es secuencial y cuál es alternativa mezcla operaciones que no se combinan igual.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-combinada"
+    ]
+  },
+  {
+    "question": "Un concurso de fotografía tiene 6 participantes.\n\nHay que asignar el primer y el segundo premio, sin que un mismo participante gane los dos.\n\n¿Corresponde aplicar directamente la regla del producto o de la suma para contar los resultados posibles?",
+    "options": [
+      "No, hace falta elegir y ordenar un subconjunto, no solo aplicar producto o suma directos.",
+      "Sí, regla del producto: cada premio es una decisión independiente con las mismas 6 opciones."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Elegir y ordenar un subconjunto de participantes requiere una herramienta más específica que el producto o la suma directos.",
+    "feedback_incorrect": [
+      null,
+      "Tratar cada premio como independiente con las mismas opciones ignora que un participante que ya ganó el primer premio no puede ganar también el segundo."
+    ],
+    "explanation": "El producto y la suma directos alcanzan cuando cada paso tiene sus propias opciones fijas o cuando se elige una única alternativa entre varias.\n\nAcá hay que elegir 2 participantes de los 6 y además importa cuál gana el primer premio y cuál el segundo, un subconjunto ordenado que ya no se resuelve con un producto de opciones fijas por paso.\n\nReconocer esta frontera es importante: cuando un mismo grupo de elementos se reparte en posiciones distintas sin reponer al elegido, hace falta una técnica más específica.\n\nEsa técnica no es la regla del producto ni la de la suma básicas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-fuera-de-alcance"
+    ]
   }
 ]

@@ -93,5 +93,190 @@
     "graph_view": null,
     "reviewed": false,
     "tags": ["fraccion-producto-denominador"]
+  },
+  {
+    "question": "¿Cuál es el valor de $5!$?",
+    "options": ["$25$", "$24$", "$120$", "$3125$"],
+    "correct_index": 2,
+    "feedback_correct": "$5!=5\\times4\\times3\\times2\\times1=120$.",
+    "feedback_incorrect": [
+      "Ese es $5^{2}$, no el producto de todos los enteros desde 1 hasta 5.",
+      "Ese es $4!$, te faltó multiplicar por el 5.",
+      null,
+      "Ese es $5^{5}$, una potencia en vez del producto decreciente que define al factorial."
+    ],
+    "explanation": "El **factorial** de un número natural es el producto de todos los enteros positivos desde 1 hasta ese número:\n$$n! = n \\times (n-1) \\times \\cdots \\times 1$$\nPara 5:\n$$5! = 5 \\times 4 \\times 3 \\times 2 \\times 1 = 120$$\nEl resultado es 120.\n\nConfundir el factorial con una potencia da un valor completamente distinto; conviene siempre expandir el producto decreciente completo antes de multiplicar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["factorial-directo"]
+  },
+  {
+    "question": "¿Cuál es el valor de $4!$?",
+    "options": ["$16$", "$24$", "$6$", "$256$"],
+    "correct_index": 1,
+    "feedback_correct": "$4!=4\\times3\\times2\\times1=24$.",
+    "feedback_incorrect": [
+      "Ese es $4^{2}$, no el producto de todos los enteros desde 1 hasta 4.",
+      null,
+      "Ese es $3!$, te faltó multiplicar por el 4.",
+      "Ese es $4^{4}$, una potencia en vez del producto decreciente que define al factorial."
+    ],
+    "explanation": "El **factorial** de un número natural es el producto de todos los enteros positivos desde 1 hasta ese número:\n$$n! = n \\times (n-1) \\times \\cdots \\times 1$$\nPara 4:\n$$4! = 4 \\times 3 \\times 2 \\times 1 = 24$$\nEl resultado es 24.\n\nConfundir el factorial con una potencia da un valor completamente distinto; conviene siempre expandir el producto decreciente completo antes de multiplicar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["factorial-directo"]
+  },
+  {
+    "question": "Calculá el valor de la siguiente expresión:\n$$\\frac{6!}{4!}$$\n¿Cuál es el resultado?",
+    "options": ["$2$", "$6$", "$30$", "$720$"],
+    "correct_index": 2,
+    "feedback_correct": "Se simplifica $\\frac{6!}{4!} = 6 \\times 5 = 30$.",
+    "feedback_incorrect": [
+      "Estás restando los subíndices, $6-4$, en lugar de simplificar el cociente de factoriales.",
+      "Ese es $3!$, aparece si se simplifica de más y quedan menos factores de los que corresponden.",
+      null,
+      "Ese es el valor de $6!$ completo, sin simplificar contra $4!$ del denominador."
+    ],
+    "explanation": "El **factorial** tiene una propiedad de cancelación: al dividir un factorial mayor por uno menor, los factores comunes se simplifican.\n\nEl $4!$ se cancela con parte de $6!$, dejando:\n$$\\frac{6!}{4!} = \\frac{6 \\times 5 \\times 4!}{4!}$$\n$$= 6 \\times 5 = 30$$\nEl resultado es 30.\n\nTratar el factorial como un exponente o una resta, calculando $6-4=2$, da un número parecido por casualidad; el factorial es un producto y la simplificación se hace factor por factor.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["cociente-factoriales"]
+  },
+  {
+    "question": "Determiná el valor de la siguiente expresión:\n$$\\frac{8!}{6!}$$\n¿Cuál es el resultado?",
+    "options": ["$56$", "$2$", "$336$", "$40320$"],
+    "correct_index": 0,
+    "feedback_correct": "Se simplifica $\\frac{8!}{6!} = 8 \\times 7 = 56$.",
+    "feedback_incorrect": [
+      null,
+      "Estás restando los subíndices, $8-6$, en lugar de simplificar el cociente de factoriales.",
+      "Ese producto incluye un factor de más: el $6$ ya forma parte del $6!$ que se cancela.",
+      "Ese es el valor de $8!$ completo, sin simplificar contra $6!$ del denominador."
+    ],
+    "explanation": "El **factorial** tiene una propiedad de cancelación: al dividir un factorial mayor por uno menor, los factores comunes se simplifican.\n\nEl $6!$ se cancela con parte de $8!$, dejando:\n$$\\frac{8!}{6!} = \\frac{8 \\times 7 \\times 6!}{6!}$$\n$$= 8 \\times 7 = 56$$\nEl resultado es 56.\n\nTratar el factorial como una resta, calculando $8-6=2$, da un número parecido por casualidad; el factorial es un producto y la simplificación se hace factor por factor.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["cociente-factoriales"]
+  },
+  {
+    "question": "Resolvé la siguiente expresión de factoriales:\n$$\\frac{5!}{2!}$$\n¿Cuál es el resultado?",
+    "options": ["$3$", "$20$", "$120$", "$60$"],
+    "correct_index": 3,
+    "feedback_correct": "Se simplifica $\\frac{5!}{2!} = 5 \\times 4 \\times 3 = 60$.",
+    "feedback_incorrect": [
+      "Estás restando los subíndices, $5-2$, en lugar de simplificar el cociente de factoriales.",
+      "Ese resultado deja un factor de menos: falta multiplicar también por el 3.",
+      "Ese es el valor de $5!$ completo, sin simplificar contra $2!$ del denominador.",
+      null
+    ],
+    "explanation": "El **factorial** tiene una propiedad de cancelación: al dividir un factorial mayor por uno menor, los factores comunes se simplifican.\n\nEl $2!$ se cancela con parte de $5!$, dejando:\n$$\\frac{5!}{2!} = \\frac{5 \\times 4 \\times 3 \\times 2!}{2!}$$\n$$= 5 \\times 4 \\times 3 = 60$$\nEl resultado es 60.\n\nTratar el factorial como una resta, calculando $5-2=3$, da un número parecido por casualidad; el factorial es un producto y la simplificación se hace factor por factor.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["cociente-factoriales"]
+  },
+  {
+    "question": "Encontrá el valor de la siguiente expresión:\n$$\\frac{8!}{7!}$$\n¿Cuál es el resultado?",
+    "options": ["$1$", "$8$", "$56$", "$40320$"],
+    "correct_index": 1,
+    "feedback_correct": "Se simplifica $\\frac{8!}{7!} = 8$.",
+    "feedback_incorrect": [
+      "Estás restando los subíndices, $8-7$, en lugar de simplificar el cociente de factoriales.",
+      null,
+      "Ese resultado conserva un factor de más: el $7!$ se cancela por completo, no queda multiplicado por 7.",
+      "Ese es el valor de $8!$ completo, sin simplificar contra $7!$ del denominador."
+    ],
+    "explanation": "El **factorial** tiene una propiedad de cancelación: al dividir un factorial mayor por uno menor, los factores comunes se simplifican.\n\nEl $7!$ se cancela por completo con parte de $8!$, dejando:\n$$\\frac{8!}{7!} = \\frac{8 \\times 7!}{7!}$$\n$$= 8$$\nEl resultado es 8.\n\nTratar el factorial como una resta, calculando $8-7=1$, da un número parecido por casualidad; el factorial es un producto y la simplificación se hace factor por factor.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["cociente-factoriales"]
+  },
+  {
+    "question": "Resolvé la siguiente suma de factoriales:\n$$4! + 3!$$\n¿Cuál es el resultado?",
+    "options": ["$7$", "$6$", "$24$", "$30$"],
+    "correct_index": 3,
+    "feedback_correct": "Se expanden ambos factoriales y se suman.",
+    "feedback_incorrect": [
+      "Ese resultado sale de sumar los índices, $4+3$, en vez de sumar los valores ya expandidos de cada factorial.",
+      "Ese es el valor de $3!$ solo, sin sumarlo a $4!$.",
+      "Ese es el valor de $4!$ solo, sin sumarle $3!$.",
+      null
+    ],
+    "explanation": "Para operar una suma o resta de **factoriales** hay que expandir cada uno primero y recién ahí operar los valores numéricos.\n\nCon $4!=24$ y $3!=6$:\n$$4! + 3! = 24 + 6 = 30$$\nEl resultado es 30.\n\nSumar directamente los índices, como $4+3=7$, sin expandir ningún factorial trata al símbolo $!$ como si fuera una operación lineal, y da un número parecido por casualidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["suma-resta-evaluada"]
+  },
+  {
+    "question": "Resolvé la siguiente resta de factoriales:\n$$6! - 5!$$\n¿Cuál es el resultado?",
+    "options": ["$600$", "$1$", "$120$", "$720$"],
+    "correct_index": 0,
+    "feedback_correct": "Se expanden ambos factoriales y se resta.",
+    "feedback_incorrect": [
+      null,
+      "Ese resultado sale de restar los índices, $6-5$, en vez de restar los valores ya expandidos de cada factorial.",
+      "Ese es el valor de $5!$ solo, sin restarlo de $6!$.",
+      "Ese es el valor de $6!$ solo, sin restarle $5!$."
+    ],
+    "explanation": "Para operar una suma o resta de **factoriales** hay que expandir cada uno primero y recién ahí operar los valores numéricos.\n\nCon $6!=720$ y $5!=120$:\n$$6! - 5! = 720 - 120 = 600$$\nEl resultado es 600.\n\nRestar directamente los índices, como $6-5=1$, sin expandir ningún factorial trata al símbolo $!$ como si fuera una operación lineal, y da un número parecido por casualidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["suma-resta-evaluada"]
+  },
+  {
+    "question": "Se quiere comparar $7!$ y $8!$ sin calcular ambos valores completos.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
+    "options": [
+      "$7!$ es mayor, porque $7<8$ aporta menos factores.",
+      "$8! = 8 \\times 7!$, así que $8!$ es 8 veces mayor que $7!$.",
+      "Ambos son iguales, porque difieren en un solo factor.",
+      "$8!$ es menor, porque tiene un factor más que divide al resultado."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La relación recursiva $8!=8\\times7!$ muestra directamente que $8!$ es 8 veces más grande que $7!$.",
+    "feedback_incorrect": [
+      "Comparar los índices, $7$ contra $8$, no dice nada del tamaño del factorial: hay que comparar los productos completos, no los números sueltos.",
+      null,
+      "Un factor más en el producto no los deja iguales, los aleja: agregar un factor mayor a $1$ siempre agranda el resultado.",
+      "El factor extra en $8!$ multiplica el resultado, no lo divide: agregar un factor mayor a $1$ siempre agranda el producto."
+    ],
+    "explanation": "Comparar **factoriales** sin calcularlos completos se apoya en la relación recursiva $n! = n \\times (n-1)!$.\n\nComo $8! = 8 \\times 7!$, multiplicar $7!$ por 8 necesariamente lo agranda:\n$$8! > 7!$$\nPor eso es mayor.\n\nComparar directamente los índices sin razonar la recursión deja de servir en factoriales más complejos; conviene apoyarse siempre en $n!=n\\times(n-1)!$ para no calcular ambos valores enteros.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["comparacion-factoriales"]
+  },
+  {
+    "question": "Encontrá el resultado de la siguiente fracción de factoriales:\n$$\\frac{5!}{2!\\,3!}$$\n¿Cuál es el resultado?",
+    "options": ["$20$", "$10$", "$60$", "$5$"],
+    "correct_index": 1,
+    "feedback_correct": "Se expanden los tres factoriales y se divide.",
+    "feedback_incorrect": [
+      "Ese resultado solo divide por $2!$ y se olvida de dividir también por $3!$.",
+      null,
+      "Ese resultado solo divide por $3!$ y se olvida de dividir también por $2!$.",
+      "Ese resultado divide por el producto $2!\\times3!$ dos veces, un paso de más que no corresponde."
+    ],
+    "explanation": "Para evaluar una fracción con varios **factoriales** en el denominador, primero se expande cada factorial y después se realiza la división completa.\n\nCon 5!=120, 2!=2 y 3!=6:\n$$\\frac{5!}{2!\\,3!} = \\frac{120}{2 \\times 6}$$\n$$= \\frac{120}{12} = 10$$\nEl resultado es 10.\n\nOlvidar uno de los dos factores del denominador, dividiendo solo por uno de ellos en vez de por el producto completo, deja el resultado inflado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["fraccion-producto-denominador"]
   }
 ]

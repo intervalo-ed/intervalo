@@ -20,7 +20,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["identificar-parametros"]
+    "tags": [
+      "identificar-parametros"
+    ]
   },
   {
     "question": "Un jugador de dardos tira al blanco central hasta acertar 2 veces.\n\nCada tiro acierta con probabilidad $0{,}5$, en forma independiente del resto.\n\nSea $X$ la cantidad de tiros hasta el segundo acierto. Calculá $P(X=4)$.",
@@ -43,7 +45,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["formula-directa"]
+    "tags": [
+      "formula-directa"
+    ]
   },
   {
     "question": "Un reclutador entrevista candidatos hasta encontrar 3 que cumplan el perfil técnico buscado.\n\nCada candidato cumple el perfil con probabilidad $0{,}3$, en forma independiente.\n\nSea $X$ la cantidad de candidatos entrevistados hasta la tercera coincidencia.\n\n¿Cuánto vale $E[X]$?",
@@ -66,6 +70,308 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["esperanza-y-relacion-geometrica"]
+    "tags": [
+      "esperanza-y-relacion-geometrica"
+    ]
+  },
+  {
+    "question": "Un vendedor llama a clientes hasta cerrar 3 pólizas de seguro.\n\nCada llamado cierra una póliza con probabilidad $0{,}08$, en forma independiente.\n\n¿Cuáles son los parámetros $r$ y $p$ de la binomial negativa que modela esta situación?",
+    "options": [
+      "$r=0{,}08$, $p=3$",
+      "$r=3$, $p=0{,}08$",
+      "$r=3$, $p=0{,}92$",
+      "$r=1$, $p=0{,}08$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$r=3$ pólizas buscadas, $p=0{,}08$ la probabilidad de cerrar cada llamado.",
+    "feedback_incorrect": [
+      "Los roles están invertidos: $r$ es la cantidad de pólizas buscadas, $p$ la probabilidad de cerrar cada llamado.",
+      null,
+      "Ese es el complemento: $0{,}92$ es la probabilidad de no cerrar un llamado, no de cerrarlo.",
+      "Ese valor de $r$ corresponde a la geométrica, que busca una única póliza; acá se buscan 3."
+    ],
+    "explanation": "Para armar $X\\sim BN(r,p)$ hace falta leer dos datos del contexto.\n$$P(X=k) = \\binom{k-1}{r-1}p^{r}(1-p)^{k-r}$$\nAcá $r=3,\\, p=0{,}08$.\n\nLa cantidad de éxitos que hacen falta acumular y la probabilidad de un resultado puntual son roles distintos, aunque acá ambos sean números pequeños.\n\nConfundir esos roles arma una binomial negativa que busca una fracción de éxito, un objeto que no tiene sentido como modelo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-parametros"
+    ]
+  },
+  {
+    "question": "Un arquero pica penales hasta convertir 5.\n\nCada penal lo convierte con probabilidad $0{,}4$, en forma independiente.\n\n¿Cuáles son los parámetros $r$ y $p$ de la binomial negativa que modela esta situación?",
+    "options": [
+      "$r=5$, $p=0{,}6$",
+      "$r=1$, $p=0{,}4$",
+      "$r=5$, $p=0{,}4$",
+      "$r=0{,}4$, $p=5$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$r=5$ goles buscados, $p=0{,}4$ la probabilidad de convertir cada penal.",
+    "feedback_incorrect": [
+      "Ese es el complemento: $0{,}6$ es la probabilidad de errar un penal, no de convertirlo.",
+      "Ese valor de $r$ corresponde a la geométrica, que busca un único gol; acá se buscan 5.",
+      null,
+      "Los roles están invertidos: $r$ es la cantidad de goles buscados, $p$ la probabilidad de convertir cada penal."
+    ],
+    "explanation": "Para armar $X\\sim BN(r,p)$ hace falta leer dos datos del contexto.\n$$P(X=k) = \\binom{k-1}{r-1}p^{r}(1-p)^{k-r}$$\nAcá $r=5,\\, p=0{,}4$.\n\nLa cantidad de goles que hacen falta acumular y la probabilidad de convertir un penal puntual son roles distintos, aunque el enunciado los mencione en la misma oración.\n\nConfundir esos roles arma una binomial negativa que busca una fracción de gol, un objeto que no tiene sentido como modelo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-parametros"
+    ]
+  },
+  {
+    "question": "En una ruleta se hacen tiradas hasta que el número 0 salga por segunda vez.\n\nEn cada tirada, el 0 sale con probabilidad $0{,}03$, en forma independiente.\n\n¿Cuáles son los parámetros $r$ y $p$ de la binomial negativa que modela esta situación?",
+    "options": [
+      "$r=2$, $p=0{,}03$",
+      "$r=0{,}03$, $p=2$",
+      "$r=1$, $p=0{,}03$",
+      "$r=2$, $p=0{,}97$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$r=2$ apariciones del 0 buscadas, $p=0{,}03$ la probabilidad de que salga en cada tirada.",
+    "feedback_incorrect": [
+      null,
+      "Los roles están invertidos: $r$ es la cantidad de apariciones buscadas, $p$ la probabilidad de que salga el 0 en cada tirada.",
+      "Ese valor de $r$ corresponde a la geométrica, que busca una única aparición; acá se buscan 2.",
+      "Ese es el complemento: $0{,}97$ es la probabilidad de que no salga el 0, no de que salga."
+    ],
+    "explanation": "Para armar $X\\sim BN(r,p)$ hace falta leer dos datos del contexto.\n$$P(X=k) = \\binom{k-1}{r-1}p^{r}(1-p)^{k-r}$$\nAcá $r=2,\\, p=0{,}03$.\n\nLa cantidad de apariciones que hacen falta acumular y la probabilidad de un resultado puntual son roles distintos, aunque acá ambos números sean chicos.\n\nConfundir esos roles arma una binomial negativa que busca una fracción de éxito, un objeto que no tiene sentido como modelo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-parametros"
+    ]
+  },
+  {
+    "question": "Un vendedor llama a clientes hasta cerrar 2 ventas.\n\nCada llamado cierra venta con probabilidad $0{,}5$, en forma independiente del resto.\n\nSea $X$ la cantidad de llamados hasta la segunda venta. Calculá $P(X=5)$.",
+    "options": [
+      "$1/32$",
+      "$1/8$",
+      "$1/2$",
+      "$5/16$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$\\binom{4}{1}(0{,}5)^{2}(0{,}5)^{3}=4(1/32)=1/8$.",
+    "feedback_incorrect": [
+      "Ese valor es $(0{,}5)^{5}$ solo, sin multiplicar por $\\binom{4}{1}$, que cuenta en qué posición cae la primera venta entre los primeros 4 llamados.",
+      null,
+      "Ese valor es $p$ solo, la probabilidad de un único llamado, no de la secuencia completa hasta el quinto.",
+      "Ese valor sale de usar $\\binom{5}{2}$ en vez de $\\binom{4}{1}$, contando mal cuántos llamados previos pueden llevar la primera venta."
+    ],
+    "explanation": "Con $X\\sim BN(r,p)$, la probabilidad puntual es:\n$$P(X=k) = \\binom{k-1}{r-1}p^{r}(1-p)^{k-r}$$\nAcá $r=2,\\, p=0{,}5$ y se pregunta por el quinto llamado.\n$$P(X=5) = \\binom{4}{1}(0{,}5)^{2}(0{,}5)^{3}$$\nEl coeficiente $\\binom{4}{1}=4$ cuenta en qué posición de los primeros 4 llamados cae la primera venta, ya que el quinto llamado tiene que ser la segunda venta.\n\nMultiplicando da $1/8$.\n\nCada factor separa dos roles distintos: cuántas formas hay de ubicar la primera venta entre los llamados previos, y qué probabilidad tiene esa secuencia completa de ventas y rechazos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-directa"
+    ]
+  },
+  {
+    "question": "Una persona envía currículums hasta recibir 3 respuestas positivas.\n\nCada envío recibe respuesta positiva con probabilidad $0{,}5$, en forma independiente del resto.\n\nSea $X$ la cantidad de currículums enviados hasta la tercera respuesta positiva. Calculá $P(X=7)$.",
+    "options": [
+      "$15/128$",
+      "$35/128$",
+      "$1/128$",
+      "$1/2$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$\\binom{6}{2}(0{,}5)^{3}(0{,}5)^{4}=15(1/128)=15/128$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor sale de usar $\\binom{7}{3}$ en vez de $\\binom{6}{2}$, contando mal cuántos envíos previos pueden llevar las primeras dos respuestas positivas.",
+      "Ese valor es $(0{,}5)^{7}$ solo, sin multiplicar por $\\binom{6}{2}$, que cuenta en qué posiciones caen las primeras dos respuestas entre los primeros 6 envíos.",
+      "Ese valor es $p$ solo, la probabilidad de un único envío, no de la secuencia completa hasta el séptimo."
+    ],
+    "explanation": "Con $X\\sim BN(r,p)$, la probabilidad puntual es:\n$$P(X=k) = \\binom{k-1}{r-1}p^{r}(1-p)^{k-r}$$\nAcá $r=3,\\, p=0{,}5$ y se pregunta por el séptimo envío.\n$$P(X=7) = \\binom{6}{2}(0{,}5)^{3}(0{,}5)^{4}$$\nEl coeficiente $\\binom{6}{2}=15$ cuenta en qué posiciones de los primeros 6 envíos caen las primeras dos respuestas positivas, ya que el séptimo envío tiene que ser la tercera.\n\nMultiplicando da $15/128$.\n\nCada factor separa dos roles distintos: cuántas formas hay de ubicar las primeras dos respuestas entre los envíos previos, y qué probabilidad tiene esa secuencia completa de respuestas y rechazos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-directa"
+    ]
+  },
+  {
+    "question": "En un sorteo se hacen extracciones con reposición hasta que un número salga por cuarta vez.\n\nCada extracción, ese número sale con probabilidad $0{,}5$, en forma independiente.\n\nSea $X$ la cantidad de extracciones hasta la cuarta aparición. Calculá $P(X=7)$.",
+    "options": [
+      "$1/2$",
+      "$35/128$",
+      "$5/32$",
+      "$1/128$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$\\binom{6}{3}(0{,}5)^{4}(0{,}5)^{3}=20(1/128)=5/32$.",
+    "feedback_incorrect": [
+      "Ese valor es $p$ solo, la probabilidad de una única extracción, no de la secuencia completa hasta la séptima.",
+      "Ese valor sale de usar $\\binom{7}{4}$ en vez de $\\binom{6}{3}$, contando mal cuántas extracciones previas pueden llevar las primeras tres apariciones.",
+      null,
+      "Ese valor es $(0{,}5)^{7}$ solo, sin multiplicar por $\\binom{6}{3}$, que cuenta en qué posiciones caen las primeras tres apariciones entre las primeras 6 extracciones."
+    ],
+    "explanation": "Con $X\\sim BN(r,p)$, la probabilidad puntual es:\n$$P(X=k) = \\binom{k-1}{r-1}p^{r}(1-p)^{k-r}$$\nAcá $r=4,\\, p=0{,}5$ y se pregunta por la séptima extracción.\n$$P(X=7) = \\binom{6}{3}(0{,}5)^{4}(0{,}5)^{3}$$\nEl coeficiente $\\binom{6}{3}=20$ cuenta en qué posiciones de las primeras 6 extracciones caen las primeras tres apariciones, ya que la séptima extracción tiene que ser la cuarta.\n\nMultiplicando da $5/32$.\n\nCada factor separa dos roles distintos: cuántas formas hay de ubicar las primeras tres apariciones entre las extracciones previas, y qué probabilidad tiene esa secuencia completa de aciertos y fallos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-directa"
+    ]
+  },
+  {
+    "question": "Un inspector revisa piezas hasta detectar 2 defectuosas.\n\nCada pieza sale defectuosa con probabilidad $0{,}5$, en forma independiente del resto.\n\nSea $X$ la cantidad de piezas revisadas hasta la segunda defectuosa. Calculá $P(X=6)$.",
+    "options": [
+      "$1/64$",
+      "$15/64$",
+      "$1/2$",
+      "$5/64$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$\\binom{5}{1}(0{,}5)^{2}(0{,}5)^{4}=5(1/64)=5/64$.",
+    "feedback_incorrect": [
+      "Ese valor es $(0{,}5)^{6}$ solo, sin multiplicar por $\\binom{5}{1}$, que cuenta en qué posición cae la primera defectuosa entre las primeras 5 piezas.",
+      "Ese valor sale de usar $\\binom{6}{2}$ en vez de $\\binom{5}{1}$, contando mal cuántas piezas previas pueden llevar la primera defectuosa.",
+      "Ese valor es $p$ solo, la probabilidad de una única pieza, no de la secuencia completa hasta la sexta.",
+      null
+    ],
+    "explanation": "Con $X\\sim BN(r,p)$, la probabilidad puntual es:\n$$P(X=k) = \\binom{k-1}{r-1}p^{r}(1-p)^{k-r}$$\nAcá $r=2,\\, p=0{,}5$ y se pregunta por la sexta pieza.\n$$P(X=6) = \\binom{5}{1}(0{,}5)^{2}(0{,}5)^{4}$$\nEl coeficiente $\\binom{5}{1}=5$ cuenta en qué posición de las primeras 5 piezas cae la primera defectuosa, ya que la sexta pieza tiene que ser la segunda.\n\nMultiplicando da $5/64$.\n\nCada factor separa dos roles distintos: cuántas formas hay de ubicar la primera defectuosa entre las piezas previas, y qué probabilidad tiene esa secuencia de piezas buenas y defectuosas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-directa"
+    ]
+  },
+  {
+    "question": "Un community manager publica posts hasta lograr que 4 superen las mil interacciones.\n\nCada post supera las mil interacciones con probabilidad $0{,}5$, en forma independiente del resto.\n\nSea $X$ la cantidad de posts publicados hasta el cuarto exitoso. Calculá $P(X=8)$.",
+    "options": [
+      "$35/256$",
+      "$1/256$",
+      "$35/128$",
+      "$1/2$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$\\binom{7}{3}(0{,}5)^{4}(0{,}5)^{4}=35(1/256)=35/256$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor es $(0{,}5)^{8}$ solo, sin multiplicar por $\\binom{7}{3}$, que cuenta en qué posiciones caen los primeros tres posts exitosos entre los primeros 7.",
+      "Ese valor sale de usar $\\binom{8}{4}$ en vez de $\\binom{7}{3}$, contando mal cuántos posts previos pueden llevar los primeros tres éxitos.",
+      "Ese valor es $p$ solo, la probabilidad de un único post, no de la secuencia completa hasta el octavo."
+    ],
+    "explanation": "Con $X\\sim BN(r,p)$, la probabilidad puntual es:\n$$P(X=k) = \\binom{k-1}{r-1}p^{r}(1-p)^{k-r}$$\nAcá $r=4,\\, p=0{,}5$ y se pregunta por el octavo post.\n$$P(X=8) = \\binom{7}{3}(0{,}5)^{4}(0{,}5)^{4}$$\nEl coeficiente $\\binom{7}{3}=35$ cuenta en qué posiciones de los primeros 7 posts caen los primeros tres exitosos, ya que el octavo post tiene que ser el cuarto.\n\nMultiplicando da $35/256$.\n\nCada factor separa dos roles distintos: cuántas formas hay de ubicar los primeros tres posts exitosos entre los previos, y qué probabilidad tiene esa secuencia de posts exitosos y fallidos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "formula-directa"
+    ]
+  },
+  {
+    "question": "Un arquero pica penales hasta convertir 4.\n\nCada penal lo convierte con probabilidad $0{,}5$, en forma independiente.\n\nSea $X$ la cantidad de penales pateados hasta el cuarto gol.\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$4$",
+      "$8$",
+      "$0{,}5$",
+      "$2$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$E[X]=4/0{,}5=8$ penales en promedio hasta el cuarto gol.",
+    "feedback_incorrect": [
+      "Ese es $r$ solo, la cantidad de goles buscados, no el promedio de penales pateados.",
+      null,
+      "Ese es $p$ solo, la probabilidad de un penal puntual, no la esperanza de $X$.",
+      "Ese valor es $r\\cdot p$, no $r/p$: multiplicar en vez de dividir invierte el resultado."
+    ],
+    "explanation": "Para $X\\sim BN(r,p)$, la esperanza tiene forma cerrada.\n$$E[X] = r/p$$\nAcá $r=4,\\, p=0{,}5$.\n$$E[X] = 4/0{,}5 = 8$$\nEn promedio hacen falta 8 penales pateados para convertir 4 goles, si se repitiera este proceso muchas veces.\n\nEsta fórmula es simplemente $r$ veces el promedio de una geométrica: cada uno de los 4 goles buscados hereda, en promedio, el mismo $1/p$ de espera que si se buscara uno solo.\n\nAcumular más éxitos alarga el proceso de manera proporcional, sin cambiar la naturaleza de cada tramo entre un gol y el siguiente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "esperanza-y-relacion-geometrica"
+    ]
+  },
+  {
+    "question": "En un sorteo se hacen extracciones hasta que un número salga por quinta vez.\n\nCada extracción, ese número sale con probabilidad $0{,}25$, en forma independiente.\n\nSea $X$ la cantidad de extracciones hasta la quinta aparición.\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$0{,}25$",
+      "$5$",
+      "$20$",
+      "$1{,}25$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$E[X]=5/0{,}25=20$ extracciones en promedio hasta la quinta aparición.",
+    "feedback_incorrect": [
+      "Ese es $p$ solo, la probabilidad de una extracción puntual, no la esperanza de $X$.",
+      "Ese es $r$ solo, la cantidad de apariciones buscadas, no el promedio de extracciones.",
+      null,
+      "Ese valor es $r\\cdot p$, no $r/p$: multiplicar en vez de dividir invierte el resultado."
+    ],
+    "explanation": "Para $X\\sim BN(r,p)$, la esperanza tiene forma cerrada.\n$$E[X] = r/p$$\nAcá $r=5,\\, p=0{,}25$.\n$$E[X] = 5/0{,}25 = 20$$\nEn promedio hacen falta 20 extracciones para que el número salga 5 veces, si se repitiera este proceso muchas veces.\n\nEsta fórmula es simplemente $r$ veces el promedio de una geométrica: cada una de las 5 apariciones buscadas hereda, en promedio, el mismo $1/p$ de espera que si se buscara una sola.\n\nAcumular más éxitos alarga el proceso de manera proporcional, sin cambiar la naturaleza de cada tramo entre una aparición y la siguiente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "esperanza-y-relacion-geometrica"
+    ]
+  },
+  {
+    "question": "Un vendedor llama a clientes hasta cerrar 6 pólizas de seguro.\n\nCada llamado cierra una póliza con probabilidad $0{,}4$, en forma independiente.\n\nSea $X$ la cantidad de llamados hasta la sexta póliza cerrada.\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$15$",
+      "$6$",
+      "$2{,}4$",
+      "$0{,}4$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$E[X]=6/0{,}4=15$ llamados en promedio hasta la sexta póliza cerrada.",
+    "feedback_incorrect": [
+      null,
+      "Ese es $r$ solo, la cantidad de pólizas buscadas, no el promedio de llamados.",
+      "Ese valor es $r\\cdot p$, no $r/p$: multiplicar en vez de dividir invierte el resultado.",
+      "Ese es $p$ solo, la probabilidad de un llamado puntual, no la esperanza de $X$."
+    ],
+    "explanation": "Para $X\\sim BN(r,p)$, la esperanza tiene forma cerrada.\n$$E[X] = r/p$$\nAcá $r=6,\\, p=0{,}4$.\n$$E[X] = 6/0{,}4 = 15$$\nEn promedio hacen falta 15 llamados para cerrar 6 pólizas, si se repitiera este proceso muchas veces.\n\nEsta fórmula es simplemente $r$ veces el promedio de una geométrica: cada una de las 6 pólizas buscadas hereda, en promedio, el mismo $1/p$ de espera que si se buscara una sola.\n\nAcumular más éxitos alarga el proceso de manera proporcional, sin cambiar la naturaleza de cada tramo entre una póliza cerrada y la siguiente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "esperanza-y-relacion-geometrica"
+    ]
+  },
+  {
+    "question": "Un community manager publica posts hasta lograr que 5 superen las mil interacciones.\n\nCada post supera las mil interacciones con probabilidad $0{,}2$, en forma independiente.\n\nSea $X$ la cantidad de posts publicados hasta el quinto exitoso.\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$1$",
+      "$0{,}2$",
+      "$5$",
+      "$25$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$E[X]=5/0{,}2=25$ posts en promedio hasta el quinto exitoso.",
+    "feedback_incorrect": [
+      "Ese valor es $r\\cdot p$, no $r/p$: multiplicar en vez de dividir invierte el resultado.",
+      "Ese es $p$ solo, la probabilidad de un post puntual, no la esperanza de $X$.",
+      "Ese es $r$ solo, la cantidad de posts exitosos buscados, no el promedio de posts publicados.",
+      null
+    ],
+    "explanation": "Para $X\\sim BN(r,p)$, la esperanza tiene forma cerrada.\n$$E[X] = r/p$$\nAcá $r=5,\\, p=0{,}2$.\n$$E[X] = 5/0{,}2 = 25$$\nEn promedio hacen falta 25 posts publicados para lograr 5 exitosos, si se repitiera este proceso muchas veces.\n\nEsta fórmula es simplemente $r$ veces el promedio de una geométrica: cada uno de los 5 posts exitosos buscados hereda, en promedio, el mismo $1/p$ de espera que si se buscara uno solo.\n\nAcumular más éxitos alarga el proceso de manera proporcional, sin cambiar la naturaleza de cada tramo entre un post exitoso y el siguiente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "esperanza-y-relacion-geometrica"
+    ]
   }
 ]

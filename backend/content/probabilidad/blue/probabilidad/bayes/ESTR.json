@@ -18,7 +18,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["estr-direccion-condicional-bayes"]
+    "tags": [
+      "estr-direccion-condicional-bayes"
+    ]
   },
   {
     "question": "En un test diagnóstico se sabe que, entre los enfermos, el test da positivo el 90% de las veces.\n\nEntre los sanos, en cambio, da positivo el 5% de las veces.\n\nSe quiere calcular la probabilidad de tener la enfermedad sabiendo que el test dio positivo.\n\n¿Qué dato falta para poder aplicar el teorema de Bayes?",
@@ -39,6 +41,307 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["estr-identificar-dato-faltante"]
+    "tags": [
+      "estr-identificar-dato-faltante"
+    ]
+  },
+  {
+    "question": "En un análisis de laboratorio se sabe que el 4% de una población tiene una infección determinada.\n\nEntre quienes tienen la infección, el análisis da positivo el 85% de las veces.\n\nSe quiere calcular la probabilidad de tener la infección sabiendo que el análisis dio positivo.\n\n¿Qué rol cumple el dato de que el 4% de la población tiene la infección?",
+    "options": [
+      "La probabilidad a priori.",
+      "La verosimilitud del análisis.",
+      "La probabilidad a posteriori."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Es la probabilidad de la hipótesis antes de conocer el resultado del análisis: la probabilidad a priori.",
+    "feedback_incorrect": [
+      null,
+      "La verosimilitud describe qué tan probable es el resultado del análisis dado que la persona está infectada, no la proporción de infectados en la población.",
+      "La a posteriori es lo que se busca calcular después de ver el resultado, no un dato que ya viene dado."
+    ],
+    "explanation": "En el **teorema de Bayes**, cada dato cumple un rol lógico distinto.\n\nLa probabilidad a priori describe la hipótesis antes de cualquier evidencia, y la verosimilitud describe qué tan probable es la evidencia si la hipótesis ya es cierta.\n\nLa a posteriori es la probabilidad de la hipótesis actualizada después de observar la evidencia.\n\nAcá el dato de que el 4% de la población tiene la infección describe la proporción de la hipótesis antes de conocer el resultado del análisis:\n$$P(\\text{infección})$$\nEse es exactamente el rol de la probabilidad a priori.\n\nConfundir la a priori con la verosimilitud invierte qué probabilidad depende de un resultado de test: la a priori nunca depende de la evidencia, describe la población general antes de testear a nadie.",
+    "tags": [
+      "estr-direccion-condicional-bayes"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "En una línea de producción, una máquina puede estar bien calibrada o descalibrada.\n\nSe sabe que el 5% de las corridas arranca con la máquina descalibrada.\n\nUna máquina descalibrada produce piezas defectuosas el 70% de las veces, y apareció una pieza defectuosa en la corrida actual.\n\n¿Qué rol cumple la probabilidad de que la máquina esté descalibrada, calculada después de observar la pieza defectuosa?",
+    "options": [
+      "La probabilidad a priori.",
+      "La verosimilitud de la pieza defectuosa.",
+      "La probabilidad a posteriori."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Es la probabilidad de la hipótesis actualizada después de observar la evidencia: la probabilidad a posteriori.",
+    "feedback_incorrect": [
+      "La a priori es el 5% inicial, antes de ver ninguna pieza, no el valor recalculado después de la evidencia.",
+      "La verosimilitud es la probabilidad de la pieza defectuosa dado que la máquina está descalibrada, no la probabilidad de la máquina dado la pieza.",
+      null
+    ],
+    "explanation": "En el **teorema de Bayes**, cada dato cumple un rol lógico distinto según en qué punto del razonamiento aparece.\n\nLa probabilidad a priori es la hipótesis antes de la evidencia, y la verosimilitud es la probabilidad de la evidencia dado que la hipótesis es cierta.\n\nLa a posteriori es la hipótesis ya actualizada después de observar la evidencia.\n\nAcá se pregunta por la probabilidad de que la máquina esté descalibrada, calculada después de ver la pieza defectuosa:\n$$P(\\text{descalibrada} \\mid \\text{defectuosa})$$\nEse cálculo, hecho después de la evidencia, es exactamente el rol de la a posteriori.\n\nTomar ese valor actualizado como si fuera el 5% inicial ignora que la evidencia ya modificó la probabilidad de la hipótesis.",
+    "tags": [
+      "estr-direccion-condicional-bayes"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Hay dos cajas con bolitas, la caja $A$ y la caja $B$, y se elige una caja al azar antes de sacar una bolita.\n\nSe sabe que la caja $A$ tiene un 60% de bolitas rojas, y la caja $B$ tiene un 20% de bolitas rojas.\n\nSe sacó una bolita roja y se quiere calcular la probabilidad de que haya salido de la caja $A$.\n\n¿Qué rol cumple el dato de que la caja $A$ tiene un 60% de bolitas rojas?",
+    "options": [
+      "La probabilidad a priori.",
+      "La verosimilitud de sacar roja.",
+      "La probabilidad a posteriori."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Es la probabilidad de la evidencia, sacar una bolita roja, dado que se eligió la caja $A$: la verosimilitud.",
+    "feedback_incorrect": [
+      "La a priori es la probabilidad de elegir la caja $A$ antes de sacar ninguna bolita, no la composición de bolitas dentro de la caja.",
+      null,
+      "La a posteriori es lo que se busca calcular después de ver el color de la bolita, no la composición interna de la caja."
+    ],
+    "explanation": "En el **teorema de Bayes**, cada dato cumple un rol lógico distinto.\n\nLa probabilidad a priori describe la hipótesis antes de la evidencia, y la verosimilitud describe qué tan probable es la evidencia si la hipótesis ya es cierta.\n\nLa a posteriori es la hipótesis actualizada después de observar la evidencia.\n\nAcá el dato de que la caja $A$ tiene un 60% de bolitas rojas describe qué tan probable es sacar una bolita roja si ya se eligió esa caja:\n$$P(\\text{roja} \\mid A)$$\nEse es exactamente el rol de la verosimilitud.\n\nConfundir la verosimilitud con la a priori mezcla la composición interna de la caja con la probabilidad de haberla elegido, dos cosas independientes entre sí.",
+    "tags": [
+      "estr-direccion-condicional-bayes"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "En un juego hay dos cajas, la caja $X$ y la caja $Y$.\n\nLa caja $X$ se elige con una probabilidad del 70% y la caja $Y$ con un 30%.\n\nCada caja tiene una proporción distinta de fichas negras, y se sacó una ficha negra.\n\n¿Qué rol cumple el dato de que la caja $X$ se elige con un 70% de probabilidad?",
+    "options": [
+      "La probabilidad a priori.",
+      "La verosimilitud de sacar negra.",
+      "La probabilidad a posteriori."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Es la probabilidad de elegir esa caja antes de sacar ninguna ficha: la probabilidad a priori.",
+    "feedback_incorrect": [
+      null,
+      "La verosimilitud describe qué tan probable es sacar una ficha negra dado que ya se eligió una caja, no la probabilidad de elegir la caja en sí.",
+      "La a posteriori es lo que se busca calcular después de ver el color de la ficha, no la probabilidad de elegir la caja."
+    ],
+    "explanation": "En el **teorema de Bayes**, cada dato cumple un rol lógico distinto.\n\nLa probabilidad a priori describe la hipótesis antes de cualquier evidencia, y la verosimilitud describe la evidencia dado que la hipótesis ya es cierta.\n\nLa a posteriori es la hipótesis actualizada después de observar la evidencia.\n\nAcá el dato de que la caja $X$ se elige con un 70% de probabilidad describe la hipótesis antes de sacar ninguna ficha:\n$$P(X)$$\nEse es exactamente el rol de la probabilidad a priori.\n\nMezclar la probabilidad de elegir la caja con la composición de fichas dentro de ella confunde dos datos que cumplen roles distintos en la fórmula.",
+    "tags": [
+      "estr-direccion-condicional-bayes"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Un filtro de spam analiza si un correo contiene cierta palabra clave.\n\nSe sabe que el 15% de los correos recibidos son spam, y que entre los correos spam, un 80% contiene esa palabra clave.\n\nUn correo llegó con esa palabra clave, y se calculó la probabilidad de que sea spam a partir de ese dato.\n\n¿Qué rol cumple esa probabilidad calculada después de observar la palabra clave?",
+    "options": [
+      "La probabilidad a priori.",
+      "La verosimilitud de la palabra clave.",
+      "La probabilidad a posteriori."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Es la probabilidad de que el correo sea spam, actualizada después de observar la palabra clave: la probabilidad a posteriori.",
+    "feedback_incorrect": [
+      "La a priori es el 15% inicial, antes de revisar el contenido del correo, no el valor recalculado después de la palabra clave.",
+      "La verosimilitud es la probabilidad de que aparezca la palabra clave dado que el correo es spam, no la probabilidad de que el correo sea spam.",
+      null
+    ],
+    "explanation": "En el **teorema de Bayes**, cada dato cumple un rol lógico distinto según el momento del razonamiento en que aparece.\n\nLa probabilidad a priori es la hipótesis antes de la evidencia, y la verosimilitud es la evidencia dado que la hipótesis es cierta.\n\nLa a posteriori es la hipótesis ya actualizada después de observar la evidencia.\n\nAcá se pregunta por la probabilidad de que el correo sea spam, calculada después de ver la palabra clave:\n$$P(\\text{spam} \\mid \\text{palabra})$$\nEse cálculo, hecho tras la evidencia, es exactamente el rol de la a posteriori.\n\nConfundir ese valor actualizado con el 15% inicial ignora que la palabra clave ya modificó la probabilidad de que el correo sea spam.",
+    "tags": [
+      "estr-direccion-condicional-bayes"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Un filtro de spam revisa si un correo contiene un enlace acortado.\n\nEntre los correos spam, un 65% contiene un enlace acortado. Entre los correos legítimos, solo un 5% lo contiene.\n\nSe quiere calcular la probabilidad de que un correo sea spam sabiendo que contiene un enlace acortado.\n\n¿Qué rol cumple el dato de que el 65% de los correos spam contiene un enlace acortado?",
+    "options": [
+      "La probabilidad a priori.",
+      "La verosimilitud del enlace.",
+      "La probabilidad a posteriori."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Es la probabilidad de observar la evidencia, el enlace acortado, dado que el correo es spam: la verosimilitud.",
+    "feedback_incorrect": [
+      "La a priori es la proporción de correos spam en general, antes de revisar el contenido, no la tasa de aparición del enlace entre los spam.",
+      null,
+      "La a posteriori es lo que se busca calcular, no un dato que ya viene dado en el enunciado."
+    ],
+    "explanation": "En el **teorema de Bayes**, cada dato cumple un rol lógico distinto.\n\nLa probabilidad a priori describe la hipótesis antes de la evidencia, y la verosimilitud describe la evidencia dado que la hipótesis ya es cierta.\n\nLa a posteriori es la hipótesis actualizada después de observar la evidencia.\n\nAcá el dato de que el 65% de los correos spam contiene un enlace acortado describe qué tan probable es esa evidencia si el correo ya es spam:\n$$P(\\text{enlace} \\mid \\text{spam})$$\nEse es exactamente el rol de la verosimilitud.\n\nConfundir la verosimilitud con la a priori invierte la dirección del condicional, tratando la tasa de aparición del enlace como si fuera la proporción general de spam.",
+    "tags": [
+      "estr-direccion-condicional-bayes"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "En una fábrica, un lote de piezas puede provenir de dos proveedores, el proveedor $P$ y el proveedor $Q$.\n\nEl 80% de las piezas recibidas viene del proveedor $P$ y el 20% del proveedor $Q$.\n\nCada proveedor tiene su propia tasa de piezas defectuosas, y se encontró una pieza defectuosa en el lote.\n\n¿Qué rol cumple el dato de que el 80% de las piezas viene del proveedor $P$?",
+    "options": [
+      "La probabilidad a priori del proveedor.",
+      "La verosimilitud de la pieza defectuosa.",
+      "La probabilidad a posteriori."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Es la probabilidad de que una pieza venga de ese proveedor antes de revisar si es defectuosa: la probabilidad a priori.",
+    "feedback_incorrect": [
+      null,
+      "La verosimilitud describe qué tan probable es que una pieza sea defectuosa dado el proveedor, no la proporción de piezas que provienen de cada uno.",
+      "La a posteriori es lo que se busca calcular después de encontrar la pieza defectuosa, no la proporción de piezas por proveedor."
+    ],
+    "explanation": "En el **teorema de Bayes**, cada dato cumple un rol lógico distinto.\n\nLa probabilidad a priori describe la hipótesis antes de cualquier evidencia, y la verosimilitud describe la evidencia dado que la hipótesis ya es cierta.\n\nLa a posteriori es la hipótesis actualizada después de observar la evidencia.\n\nAcá el dato de que el 80% de las piezas viene del proveedor $P$ describe la hipótesis antes de revisar ninguna pieza:\n$$P(P)$$\nEse es exactamente el rol de la probabilidad a priori.\n\nMezclar la proporción de piezas por proveedor con la tasa de defectos de cada uno confunde dos datos que cumplen roles distintos en la fórmula.",
+    "tags": [
+      "estr-direccion-condicional-bayes"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Un análisis de sangre detecta cierta deficiencia mediante un resultado positivo.\n\nEntre quienes tienen la deficiencia, el análisis da positivo el 92% de las veces.\n\nEntre quienes no la tienen, da positivo el 8% de las veces.\n\nSe quiere calcular la probabilidad de tener la deficiencia sabiendo que el análisis dio positivo.\n\n¿Qué dato falta para poder aplicar el teorema de Bayes?",
+    "options": [
+      "La probabilidad de que el análisis dé negativo en alguien sano.",
+      "La cantidad total de análisis realizados.",
+      "La probabilidad a priori de la deficiencia."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Sin la prevalencia de la deficiencia en la población, no se puede ponderar la verosimilitud para armar la fórmula de Bayes.",
+    "feedback_incorrect": [
+      "Ese dato se deduce del complemento de la tasa de falsos positivos, no hace falta que venga dado por separado.",
+      "La cantidad total de análisis no es necesaria si se trabaja con probabilidades y proporciones, no con conteos absolutos.",
+      null
+    ],
+    "explanation": "Para aplicar el **teorema de Bayes** hace falta conocer la probabilidad a priori de la hipótesis, además de la verosimilitud de la evidencia bajo cada escenario de la partición.\n\nAcá ya se conocen las dos verosimilitudes, la tasa de positivos entre quienes tienen la deficiencia y entre quienes no.\n\nFalta la probabilidad a priori de tener la deficiencia en la población general, sin la cual no se puede ponderar cada escenario.\n\nAsumir una prevalencia arbitraria o equiprobable cuando el enunciado no la da lleva a un resultado que no corresponde a la población real que describe el problema.",
+    "tags": [
+      "estr-identificar-dato-faltante"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Una fábrica arma un producto con piezas que pueden venir de dos líneas de ensamblaje, la línea $M$ y la línea $N$.\n\nSe sabe que entre las piezas de la línea $M$, un 6% resulta defectuosa, y entre las de la línea $N$, un 3% resulta defectuosa.\n\nSe encontró una pieza defectuosa y se quiere calcular la probabilidad de que provenga de la línea $M$.\n\n¿Qué dato falta para poder aplicar el teorema de Bayes?",
+    "options": [
+      "La probabilidad de que una pieza de la línea $N$ no sea defectuosa.",
+      "La proporción de piezas que produce cada línea.",
+      "La cantidad total de piezas producidas."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sin la proporción de producción de cada línea, no se puede ponderar la verosimilitud de cada rama para armar la fórmula de Bayes.",
+    "feedback_incorrect": [
+      "Ese dato se deduce del complemento de la tasa de defectos de la línea $N$, no hace falta que venga dado por separado.",
+      null,
+      "La cantidad total de piezas no es necesaria si se trabaja con probabilidades y proporciones, no con conteos absolutos."
+    ],
+    "explanation": "Para aplicar el **teorema de Bayes** hace falta conocer la probabilidad a priori de la hipótesis, además de la verosimilitud de la evidencia bajo cada escenario de la partición.\n\nAcá ya se conocen las dos verosimilitudes, la tasa de defectos de la línea $M$ y de la línea $N$.\n\nFalta la proporción a priori de piezas que produce cada línea, sin la cual no se puede ponderar cada escenario.\n\nAsumir que ambas líneas producen la misma cantidad de piezas sin que el enunciado lo respalde lleva a un resultado que no corresponde a la fábrica real que describe el problema.",
+    "tags": [
+      "estr-identificar-dato-faltante"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Una máquina puede estar bien calibrada o descalibrada, y eso afecta la tasa de piezas defectuosas que produce.\n\nUna máquina descalibrada produce piezas defectuosas el 40% de las veces, y una bien calibrada las produce el 2% de las veces.\n\nSe quiere calcular la probabilidad de que la máquina esté descalibrada sabiendo que salió una pieza defectuosa.\n\n¿Qué dato falta para poder aplicar el teorema de Bayes?",
+    "options": [
+      "La probabilidad a priori de que la máquina esté descalibrada.",
+      "La probabilidad de que una máquina calibrada produzca una pieza correcta.",
+      "La cantidad total de piezas revisadas."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Sin la probabilidad a priori de que la máquina esté descalibrada, no se puede ponderar la verosimilitud para armar la fórmula de Bayes.",
+    "feedback_incorrect": [
+      null,
+      "Ese dato se deduce del complemento de la tasa de defectos de una máquina calibrada, no hace falta que venga dado por separado.",
+      "La cantidad total de piezas no es necesaria si se trabaja con probabilidades y proporciones, no con conteos absolutos."
+    ],
+    "explanation": "Para aplicar el **teorema de Bayes** hace falta conocer la probabilidad a priori de la hipótesis, además de la verosimilitud de la evidencia bajo cada escenario de la partición.\n\nAcá ya se conocen las dos verosimilitudes, la tasa de defectos con la máquina descalibrada y con la máquina calibrada.\n\nFalta la probabilidad a priori de que la máquina esté descalibrada en un momento dado, sin la cual no se puede ponderar cada escenario.\n\nAsumir que ambos estados de la máquina son igual de probables cuando el enunciado no lo respalda lleva a un resultado que no corresponde al funcionamiento real de la máquina.",
+    "tags": [
+      "estr-identificar-dato-faltante"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Hay dos urnas, la urna $C$ y la urna $D$, cada una con una proporción distinta de bolitas blancas.\n\nSe sabe que la urna $C$ tiene un 70% de bolitas blancas y la urna $D$ tiene un 25% de bolitas blancas.\n\nSe sacó una bolita blanca y se quiere calcular la probabilidad de que haya salido de la urna $C$.\n\n¿Qué dato falta para poder aplicar el teorema de Bayes?",
+    "options": [
+      "La probabilidad de sacar una bolita negra de la urna $D$.",
+      "La cantidad total de bolitas entre ambas urnas.",
+      "La probabilidad a priori de elegir cada urna."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Sin la probabilidad a priori de elegir cada urna, no se puede ponderar la verosimilitud de sacar blanca en cada una.",
+    "feedback_incorrect": [
+      "Ese dato se deduce del complemento de la proporción de blancas en la urna $D$, no hace falta que venga dado por separado.",
+      "La cantidad total de bolitas no es necesaria si se trabaja con probabilidades y proporciones, no con conteos absolutos.",
+      null
+    ],
+    "explanation": "Para aplicar el **teorema de Bayes** hace falta conocer la probabilidad a priori de la hipótesis, además de la verosimilitud de la evidencia bajo cada escenario de la partición.\n\nAcá ya se conocen las dos verosimilitudes, la proporción de blancas en la urna $C$ y en la urna $D$.\n\nFalta la probabilidad a priori de elegir cada urna antes de sacar ninguna bolita, sin la cual no se puede ponderar cada escenario.\n\nAsumir que ambas urnas se eligen con la misma probabilidad cuando el enunciado no lo respalda lleva a un resultado que no corresponde al experimento real.",
+    "tags": [
+      "estr-identificar-dato-faltante"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Hay tres cajas idénticas en apariencia, y cada una tiene una proporción distinta de fichas rojas.\n\nLa caja $1$ tiene un 50% de fichas rojas.\n\nLa caja $2$ tiene un 30%, y la caja $3$ un 10%. Se sacó una ficha roja y se quiere calcular de qué caja probablemente salió.\n\n¿Qué dato falta para poder aplicar el teorema de Bayes?",
+    "options": [
+      "La probabilidad de sacar una ficha no roja de la caja $2$.",
+      "La probabilidad a priori de elegir cada caja.",
+      "La cantidad total de fichas en las tres cajas."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sin la probabilidad a priori de elegir cada caja, no se puede ponderar la verosimilitud de sacar roja en cada una.",
+    "feedback_incorrect": [
+      "Ese dato se deduce del complemento de la proporción de rojas en la caja $2$, no hace falta que venga dado por separado.",
+      null,
+      "La cantidad total de fichas no es necesaria si se trabaja con probabilidades y proporciones, no con conteos absolutos."
+    ],
+    "explanation": "Para aplicar el **teorema de Bayes** hace falta conocer la probabilidad a priori de la hipótesis, además de la verosimilitud de la evidencia bajo cada escenario de la partición.\n\nAcá ya se conocen las tres verosimilitudes, la proporción de fichas rojas en cada caja.\n\nFalta la probabilidad a priori de elegir cada caja antes de sacar ninguna ficha, sin la cual no se puede ponderar ningún escenario.\n\nAsumir que las tres cajas se eligen con la misma probabilidad cuando el enunciado no lo respalda lleva a un resultado que no corresponde al experimento real.",
+    "tags": [
+      "estr-identificar-dato-faltante"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Un filtro de spam usa la presencia de mayúsculas excesivas en el asunto como señal.\n\nEntre los correos spam, un 55% tiene mayúsculas excesivas en el asunto, y entre los correos legítimos, un 4% las tiene.\n\nSe quiere calcular la probabilidad de que un correo sea spam sabiendo que su asunto tiene mayúsculas excesivas.\n\n¿Qué dato falta para poder aplicar el teorema de Bayes?",
+    "options": [
+      "La probabilidad a priori de que un correo sea spam.",
+      "La probabilidad de que un correo legítimo no tenga mayúsculas excesivas.",
+      "La cantidad total de correos recibidos."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Sin la proporción a priori de correos spam, no se puede ponderar la verosimilitud para armar la fórmula de Bayes.",
+    "feedback_incorrect": [
+      null,
+      "Ese dato se deduce del complemento de la tasa de mayúsculas excesivas en los correos legítimos, no hace falta que venga dado por separado.",
+      "La cantidad total de correos no es necesaria si se trabaja con probabilidades y proporciones, no con conteos absolutos."
+    ],
+    "explanation": "Para aplicar el **teorema de Bayes** hace falta conocer la probabilidad a priori de la hipótesis, además de la verosimilitud de la evidencia bajo cada escenario de la partición.\n\nAcá ya se conocen las dos verosimilitudes, la tasa de mayúsculas excesivas entre los correos spam y entre los legítimos.\n\nFalta la proporción a priori de correos que son spam en general, sin la cual no se puede ponderar cada escenario.\n\nAsumir una proporción arbitraria o equiprobable de spam cuando el enunciado no la da lleva a un resultado que no corresponde al tráfico real de correos.",
+    "tags": [
+      "estr-identificar-dato-faltante"
+    ],
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
   }
 ]

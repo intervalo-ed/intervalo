@@ -20,7 +20,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["resl-puntual-directo"]
+    "tags": [
+      "resl-puntual-directo"
+    ]
   },
   {
     "question": "Sea $X$ la cantidad de caras al lanzar 3 monedas balanceadas.\n\n¿Cuál es $P(X\\leq 1)$?",
@@ -43,7 +45,9 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["resl-evento-compuesto"]
+    "tags": [
+      "resl-evento-compuesto"
+    ]
   },
   {
     "question": "Se define una función $p(x)$ sobre el dominio $\\{0,1,2\\}$.\n\nSus valores son:\n$$\\begin{aligned} p(0) &= 0{,}3 \\\\ p(1) &= 0{,}5 \\\\ p(2) &= 0{,}3 \\end{aligned}$$\n¿Es $p(x)$ una función de probabilidad puntual válida?",
@@ -66,6 +70,308 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["resl-verificar-validez"]
+    "tags": [
+      "resl-verificar-validez"
+    ]
+  },
+  {
+    "question": "Sea $X$ la suma de los resultados al tirar 2 dados equilibrados.\n\n¿Cuál es $P(X=7)$?",
+    "options": [
+      "$\\dfrac{1}{36}$",
+      "$\\dfrac{5}{36}$",
+      "$\\dfrac{1}{6}$",
+      "$\\dfrac{1}{4}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "6 pares favorables $(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)$ sobre 36 posibles.",
+    "feedback_incorrect": [
+      "Esa es la probabilidad de un único par, por ejemplo $(1,6)$; $X=7$ agrupa varios pares favorables.",
+      "Esa cantidad de pares favorables corresponde a otra suma, no a $X=7$.",
+      null,
+      "Ese valor no surge de contar los pares favorables sobre los 36 posibles."
+    ],
+    "explanation": "El espacio muestral de tirar 2 dados tiene $6\\times 6 = 36$ resultados equiprobables, cada uno un par ordenado $(d_1,d_2)$.\n\nLos pares que suman 7 son $\\{(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)\\}$, 6 en total, así que la **función de probabilidad puntual** en $x=7$ es:\n$$P(X=7) = \\frac{6}{36}$$\n$$= \\frac{1}{6}$$\nContar un solo par ordenado como si agotara el evento $X=7$ pasa por alto que varias combinaciones distintas de los dos dados producen la misma suma.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-puntual-directo"
+    ]
+  },
+  {
+    "question": "Sea $X$ el resultado de tirar un dado equilibrado de 6 caras.\n\n¿Cuál es $P(X=4)$?",
+    "options": [
+      "$\\dfrac{1}{6}$",
+      "$\\dfrac{1}{4}$",
+      "$\\dfrac{1}{3}$",
+      "$\\dfrac{1}{2}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "1 cara favorable, la que muestra el número 4, sobre 6 posibles.",
+    "feedback_incorrect": [
+      null,
+      "Ese denominador no corresponde a la cantidad de caras del dado.",
+      "Ese valor no surge de contar la única cara favorable sobre las 6 posibles.",
+      "Ese valor duplicaría la probabilidad real de un único resultado equiprobable."
+    ],
+    "explanation": "El espacio muestral de tirar un dado equilibrado tiene 6 resultados equiprobables, $\\{1,2,3,4,5,6\\}$.\n\nSolo una cara muestra el número 4, así que la **función de probabilidad puntual** en $x=4$ es:\n$$P(X=4) = \\frac{1}{6}$$\nCada cara de un dado equilibrado aporta la misma probabilidad, así que ninguna merece un peso distinto salvo que el problema indique explícitamente un dado trucado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-puntual-directo"
+    ]
+  },
+  {
+    "question": "Sea $X$ la diferencia absoluta entre los resultados de 2 dados equilibrados.\n\n¿Cuál es $P(X=0)$?",
+    "options": [
+      "$\\dfrac{1}{36}$",
+      "$\\dfrac{1}{6}$",
+      "$\\dfrac{1}{4}$",
+      "$\\dfrac{5}{6}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "6 pares con igual resultado en ambos dados, sobre 36 posibles.",
+    "feedback_incorrect": [
+      "Esa es la probabilidad de un único par igual, por ejemplo $(3,3)$; $X=0$ agrupa los 6 pares con resultados iguales.",
+      null,
+      "Ese valor no surge de contar los pares con resultados iguales sobre los 36 posibles.",
+      "Ese valor corresponde al complemento del evento, no a $P(X=0)$."
+    ],
+    "explanation": "El espacio muestral de tirar 2 dados tiene 36 resultados equiprobables.\n\nLa diferencia absoluta es 0 cuando ambos dados muestran el mismo número, lo que ocurre en los 6 pares $\\{(1,1),(2,2),\\dots,(6,6)\\}$, así que:\n$$P(X=0) = \\frac{6}{36}$$\n$$= \\frac{1}{6}$$\nContar un único par con resultados iguales en vez de los 6 posibles subestima el evento, porque cualquier número repetido en ambos dados produce diferencia 0.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-puntual-directo"
+    ]
+  },
+  {
+    "question": "Sea $X$ la cantidad de aciertos en 3 tiros libres al arco, cada uno con la misma chance de acierto o fallo.\n\n¿Cuál es $P(X=2)$?",
+    "options": [
+      "$\\dfrac{1}{8}$",
+      "$\\dfrac{2}{8}$",
+      "$\\dfrac{3}{8}$",
+      "$\\dfrac{5}{8}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "3 secuencias favorables $AAF,AFA,FAA$ sobre 8 posibles.",
+    "feedback_incorrect": [
+      "Esa es la probabilidad de una única secuencia, por ejemplo $AAF$; $X=2$ agrupa tres secuencias favorables.",
+      "Esa cantidad de secuencias favorables no corresponde a contar los 2 aciertos en 3 tiros.",
+      null,
+      "Ese valor es $P(X\\geq 1)$, no la puntual $P(X=2)$."
+    ],
+    "explanation": "Con 3 tiros independientes, cada uno con igual chance de acierto $A$ o fallo $F$.\n\nEl espacio muestral tiene $2^3=8$ secuencias equiprobables.\n\nLas secuencias con exactamente 2 aciertos son $\\{AAF, AFA, FAA\\}$, 3 en total, así que la **función de probabilidad puntual** en $x=2$ es:\n$$P(X=2) = \\frac{3}{8}$$\nContar solo una de las tres secuencias con 2 aciertos deja afuera que el mismo resultado final puede lograrse en distinto orden de tiros.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-puntual-directo"
+    ]
+  },
+  {
+    "question": "Sea $X$ la cantidad de respuestas correctas en un cuestionario de 2 preguntas de verdadero o falso, respondidas al azar.\n\n¿Cuál es $P(X=1)$?",
+    "options": [
+      "$\\dfrac{1}{4}$",
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{3}{4}$",
+      "$1$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "2 secuencias favorables $CI, IC$ sobre 4 posibles.",
+    "feedback_incorrect": [
+      "Esa es la probabilidad de una única secuencia, por ejemplo $CI$; $X=1$ agrupa dos secuencias favorables.",
+      null,
+      "Ese es $P(X\\geq 1)$, la puntual pide exactamente 1 respuesta correcta, no al menos 1.",
+      "Ese sería si toda la probabilidad se concentrara en $X=1$; hay secuencias con 0 y 2 correctas también."
+    ],
+    "explanation": "Con 2 preguntas respondidas al azar, cada resultado es correcto $C$ o incorrecto $I$.\n\nEl espacio muestral tiene $2^2=4$ secuencias equiprobables: $\\{CC, CI, IC, II\\}$.\n\nLas secuencias con exactamente 1 respuesta correcta son $\\{CI, IC\\}$, así que la **función de probabilidad puntual** en $x=1$ es:\n$$P(X=1) = \\frac{2}{4}$$\n$$= \\frac{1}{2}$$\nIdentificar $X=1$ con una sola secuencia del espacio muestral pasa por alto que el mismo total de aciertos puede darse en más de un orden posible.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-puntual-directo"
+    ]
+  },
+  {
+    "question": "Sea $X$ la suma de los resultados al tirar 2 dados equilibrados.\n\n¿Cuál es $P(X\\leq 4)$?",
+    "options": [
+      "$\\dfrac{3}{36}$",
+      "$\\dfrac{6}{36}$",
+      "$\\dfrac{9}{36}$",
+      "$\\dfrac{1}{6}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$P(X\\leq 4)=\\frac{6}{36}=\\frac{1}{6}$.",
+    "feedback_incorrect": [
+      "Esa cuenta deja afuera alguno de los tres valores puntuales que forman el evento $X\\leq 4$.",
+      null,
+      "Esa cuenta suma pares de más, no corresponde a los resultados con suma 2, 3 o 4.",
+      "Ese valor coincide en el resultado final con la opción correcta pero está expresado sin la base 36 sobre la que se contó."
+    ],
+    "explanation": "El espacio muestral de tirar 2 dados tiene 36 resultados equiprobables.\n\nLas sumas que cumplen $X\\leq 4$ son 2, 3 y 4, con 1, 2 y 3 pares favorables respectivamente:\n$$\\begin{aligned} P(X\\leq 4) &= p(2)+p(3)+p(4) \\\\ &= \\frac{1}{36}+\\frac{2}{36}+\\frac{3}{36} \\\\ &= \\frac{6}{36} \\end{aligned}$$\nSumar solo alguno de los tres valores puntuales en vez de los tres completos deja afuera parte del evento compuesto que pide el enunciado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-evento-compuesto"
+    ]
+  },
+  {
+    "question": "Sea $X$ la cantidad de llamadas que recibe un conmutador en un minuto.\n\nSu función de probabilidad puntual, con dominio $\\{0,1,2,3,4\\}$, es:\n$$\\begin{aligned} p(0) &= 0{,}1 \\\\ p(1) &= 0{,}2 \\\\ p(2) &= 0{,}3 \\\\ p(3) &= 0{,}25 \\\\ p(4) &= 0{,}15 \\end{aligned}$$\n¿Cuál es $P(X\\leq 2)$?",
+    "options": [
+      "$0{,}3$",
+      "$0{,}5$",
+      "$0{,}6$",
+      "$0{,}7$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$P(X\\leq 2)=p(0)+p(1)+p(2)=0{,}6$.",
+    "feedback_incorrect": [
+      "Esa cuenta deja afuera alguno de los tres valores que cumple $X\\leq 2$.",
+      "Esa cuenta suma solo dos de los tres valores del evento.",
+      null,
+      "Ese valor suma también $p(3)$, que no cumple la condición $X\\leq 2$."
+    ],
+    "explanation": "Un **evento compuesto** como $X\\leq 2$ agrupa varios valores del dominio, y su probabilidad se obtiene sumando la función de probabilidad puntual sobre todos ellos:\n$$\\begin{aligned} P(X\\leq 2) &= p(0)+p(1)+p(2) \\\\ &= 0{,}1+0{,}2+0{,}3 \\\\ &= 0{,}6 \\end{aligned}$$\nSumar de más o de menos valores que los que realmente cumplen la condición pedida cambia el resultado del evento compuesto, aunque cada valor individual esté bien calculado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-evento-compuesto"
+    ]
+  },
+  {
+    "question": "Sea $X$ la cantidad de aciertos en 3 tiros libres al arco, cada uno con la misma chance de acierto o fallo.\n\n¿Cuál es $P(X\\geq 2)$?",
+    "options": [
+      "$\\dfrac{1}{8}$",
+      "$\\dfrac{3}{8}$",
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{7}{8}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$P(X\\geq 2)=\\frac{3}{8}+\\frac{1}{8}=\\frac{1}{2}$.",
+    "feedback_incorrect": [
+      "Ese es solo $P(X=3)$, falta sumar $P(X=2)$.",
+      "Ese es solo $P(X=2)$, falta sumar $P(X=3)$.",
+      null,
+      "Ese es $P(X\\leq 2)$, el complemento del evento pedido."
+    ],
+    "explanation": "Con 3 tiros independientes de igual chance, el espacio muestral tiene $2^3=8$ secuencias equiprobables.\n\nDe esas secuencias, 3 tienen exactamente 2 aciertos y 1 tiene los 3 aciertos.\n\nEl evento $X\\geq 2$ agrupa esos dos valores:\n$$\\begin{aligned} P(X\\geq 2) &= p(2)+p(3) \\\\ &= \\frac{3}{8}+\\frac{1}{8} \\\\ &= \\frac{1}{2} \\end{aligned}$$\nSumar solo uno de los dos valores puntuales en vez de ambos deja afuera parte del evento compuesto que pide el enunciado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-evento-compuesto"
+    ]
+  },
+  {
+    "question": "Sea $X$ la cantidad de clientes que llegan a una farmacia en 10 minutos.\n\nSu función de probabilidad puntual, con dominio $\\{0,1,2,3\\}$, es:\n$$\\begin{aligned} p(0) &= 0{,}2 \\\\ p(1) &= 0{,}3 \\\\ p(2) &= 0{,}3 \\\\ p(3) &= 0{,}2 \\end{aligned}$$\n¿Cuál es $P(X\\leq 1)$?",
+    "options": [
+      "$0{,}2$",
+      "$0{,}3$",
+      "$0{,}5$",
+      "$0{,}8$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$P(X\\leq 1)=p(0)+p(1)=0{,}5$.",
+    "feedback_incorrect": [
+      "Ese valor es solo $p(0)$, el evento $X\\leq 1$ también incluye el valor $x=1$.",
+      "Ese valor es solo $p(1)$, falta sumar el valor $x=0$.",
+      null,
+      "Ese valor suma también $p(2)$, que no cumple la condición $X\\leq 1$."
+    ],
+    "explanation": "El evento $X\\leq 1$ agrupa los dos primeros valores del dominio, así que su probabilidad se calcula sumando esos dos valores puntuales:\n$$\\begin{aligned} P(X\\leq 1) &= p(0)+p(1) \\\\ &= 0{,}2+0{,}3 \\\\ &= 0{,}5 \\end{aligned}$$\nTomar un solo valor puntual como si representara todo el evento compuesto ignora que el evento agrupa más de un resultado posible de $X$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-evento-compuesto"
+    ]
+  },
+  {
+    "question": "Sea $X$ la cantidad de artículos defectuosos en una muestra de 4, con dominio $\\{0,1,2,3,4\\}$ y función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 0{,}4 \\\\ p(1) &= 0{,}3 \\\\ p(2) &= 0{,}2 \\\\ p(3) &= 0{,}07 \\\\ p(4) &= 0{,}03 \\end{aligned}$$\n¿Cuál es $P(X\\geq 3)$?",
+    "options": [
+      "$0{,}03$",
+      "$0{,}07$",
+      "$0{,}1$",
+      "$0{,}27$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$P(X\\geq 3)=0{,}07+0{,}03=0{,}1$.",
+    "feedback_incorrect": [
+      "Ese valor es solo $p(4)$, el evento $X\\geq 3$ también incluye el valor $x=3$.",
+      "Ese valor es solo $p(3)$, falta sumar el valor $x=4$.",
+      null,
+      "Ese valor suma también $p(2)$, que no cumple la condición $X\\geq 3$."
+    ],
+    "explanation": "El evento $X\\geq 3$ agrupa los dos últimos valores del dominio, así que su probabilidad se calcula sumando esos dos valores puntuales:\n$$\\begin{aligned} P(X\\geq 3) &= p(3)+p(4) \\\\ &= 0{,}07+0{,}03 \\\\ &= 0{,}1 \\end{aligned}$$\nDejar afuera uno de los dos valores que cumplen la condición subestima la probabilidad real del evento, aunque cada valor individual sea chico.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-evento-compuesto"
+    ]
+  },
+  {
+    "question": "Se define una función $p(x)$ sobre el dominio $\\{0,1,2,3\\}$.\n\nSus valores son:\n$$\\begin{aligned} p(0) &= -0{,}1 \\\\ p(1) &= 0{,}4 \\\\ p(2) &= 0{,}3 \\\\ p(3) &= 0{,}4 \\end{aligned}$$\n¿Es $p(x)$ una función de probabilidad puntual válida?",
+    "options": [
+      "No, porque uno de los valores es negativo.",
+      "Sí, porque la suma de las probabilidades da 1.",
+      "No, porque el dominio tiene 4 valores.",
+      "Sí, porque solo un valor es distinto de 0,4."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$p(0)=-0{,}1$ es negativo, así que no cumple la condición de no negatividad aunque la suma dé 1.",
+    "feedback_incorrect": [
+      null,
+      "La suma total da 1, pero eso no alcanza: también hace falta que ningún valor sea negativo.",
+      "La cantidad de valores del dominio no es la condición que define validez.",
+      "Que un solo valor difiera de los demás no tiene relación con la validez de la función."
+    ],
+    "explanation": "Una **función de probabilidad puntual** válida debe cumplir dos condiciones a la vez, cada valor no negativo y la suma total sobre el dominio igual a 1.\n\nSumando los valores dados:\n$$-0{,}1 + 0{,}4 + 0{,}3 + 0{,}4 = 1$$\nAunque la suma da exactamente 1, el valor $p(0) = -0{,}1$ es negativo, así que esta función no es una función de probabilidad puntual válida.\n\nRevisar solo la suma total y no cada valor individual deja pasar funciones donde alguno de los términos ya rompe la condición de no negatividad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-verificar-validez"
+    ]
+  },
+  {
+    "question": "Se define una función $p(x)$ sobre el dominio $\\{0,1,2\\}$.\n\nSus valores son:\n$$\\begin{aligned} p(0) &= 0{,}2 \\\\ p(1) &= 0{,}5 \\\\ p(2) &= 0{,}3 \\end{aligned}$$\n¿Es $p(x)$ una función de probabilidad puntual válida?",
+    "options": [
+      "Sí, porque todos los valores son no negativos y suman 1.",
+      "No, porque falta un cuarto valor en el dominio.",
+      "No, porque $p(1)$ es mayor que los demás.",
+      "Sí, porque el dominio tiene exactamente 3 valores."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$0{,}2+0{,}5+0{,}3=1$ y los tres valores son no negativos.",
+    "feedback_incorrect": [
+      null,
+      "No hay ninguna exigencia sobre la cantidad de valores que debe tener el dominio.",
+      "Que un valor sea mayor que los demás no rompe ninguna condición, solo indica que ese resultado es más probable.",
+      "La cantidad de valores del dominio no es la condición que define validez, la condición es no negatividad y suma 1."
+    ],
+    "explanation": "Una **función de probabilidad puntual** válida debe cumplir dos condiciones a la vez, cada valor no negativo y la suma total sobre el dominio igual a 1.\n\nSumando los valores dados:\n$$0{,}2 + 0{,}5 + 0{,}3 = 1$$\nComo los tres valores son no negativos y la suma da exactamente 1, esta función sí es una función de probabilidad puntual válida, aunque los valores no sean todos iguales entre sí.\n\nRechazar una función válida solo porque un valor se ve más grande que los demás confunde la forma que toma la distribución con la condición matemática que la vuelve válida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-verificar-validez"
+    ]
   }
 ]
