@@ -71,7 +71,10 @@ import { useStartSession } from "./UseStartSession"
 import { useUserProgress } from "./UseUserProgress"
 import { startSessionTransition } from "@/lib/nav/session-transition"
 
-const LAST_COURSE_KEY = "intervalo:last_course"
+// Exportada porque /onboarding/complete siembra este mismo valor al terminar
+// el wizard: con la literal duplicada, cambiar una sola de las dos dejaba al
+// dashboard abriendo en un curso distinto al elegido, sin fallar en ningún lado.
+export const LAST_COURSE_KEY = "intervalo:last_course"
 const HINT_STORAGE_KEY = "intervalo:review-progress-hint-seen"
 
 // Transición hacia una sesión: fade-out del dashboard, pausa forzada sobre el
