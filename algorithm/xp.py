@@ -1,37 +1,27 @@
 """
-xp.py — Sistema de XP y niveles de Intervalo.
+xp.py — Sistema de XP de Intervalo.
 
-La curva de niveles está basada en φ^(1/6) (razón áurea sexta parte),
-que produce una progresión suave y perceptiblemente creciente.
-La tabla se precalcula una vez al importar el módulo.
+El XP no tiene niveles: es el puntaje crudo que ordena el ranking (global y
+por universidad), que es el objetivo de largo plazo del sistema.
 """
 
 from __future__ import annotations
 
-import math
 from dataclasses import dataclass
-
-# ── Curva de niveles ───────────────────────────────────────────────────────────
-
-_PHI = (1 + math.sqrt(5)) / 2
-_RATIO = _PHI ** (1 / 6)   # ≈ 1.0835
-
-
-def _build_xp_table(levels: int = 50) -> list[int]:
-    table = [0, 30, 55]   # índice 0 dummy, nivel 1 = 30 XP, nivel 2 = 55 XP
-    for _ in range(3, levels + 1):
-        next_val = max(table[-1] + 1, int(table[-1] * _RATIO))
-        table.append(next_val)
-    return table
-
-
-XP_TABLE: list[int] = _build_xp_table()
 
 # ── Constantes de otorgamiento ─────────────────────────────────────────────────
 
 # XP base por ejercicio en Repaso según el intento en el que se acierta.
-# Con 4 opciones, el 4to intento es acierto por descarte y no paga.
-XP_BY_ATTEMPT = {1: 8, 2: 2, 3: 1, 4: 0}
+# Después de ver el "incorrecto", elegir entre las 3 opciones restantes es 33%
+# de azar (y entre 2, 50%): XP que puede salir por suerte devalúa todo el XP,
+# así que del 2do intento en adelante queda solo 1 simbólico y después nada.
+XP_BY_ATTEMPT = {1: 8, 2: 1, 3: 0, 4: 0}
+
+# Primer intento en fase de aprendizaje (primer contacto + los drills a 1-2
+# días). El logro que el XP certifica es recordar tras un intervalo real, no
+# acertar lo que se acaba de ver: paga menos que un repaso genuino y sin
+# ajuste de dificultad (todavía no hay retención que medir).
+XP_LEARNING_CORRECT = 5
 XP_STREAK_INTERVAL  = 5    # cada cuántas correctas limpias seguidas se otorga bonus
 XP_STREAK_BONUS     = 5    # bonus por cada múltiplo del intervalo (fijo, sin multiplicadores)
 
@@ -52,10 +42,16 @@ DIFFICULTY_MIN_SAMPLES = 3   # con menos respuestas el ajuste queda neutro
 
 
 def difficulty_multiplier(first_try_rate: float, samples: int) -> float:
-    """×0.5 (ítem dominado) a ×1.5 (ítem que le cuesta), lineal en la precisión."""
+    """×0.5 (ítem dominado) a ×1.25 (ítem que le cuesta), lineal en la precisión.
+
+    Asimétrico a propósito: el descuento por ítem en piloto automático llega a
+    −50%, pero el premio por ítem difícil se corta en +25%. Sin el tope, el
+    multiplicador pagaba más por haber fallado antes (la ventana arrastra los
+    fallos) justo cuando el desafío es menor.
+    """
     if samples < DIFFICULTY_MIN_SAMPLES:
         return 1.0
-    return 1.5 - first_try_rate
+    return min(1.25, 1.5 - first_try_rate)
 
 
 # ── Racha de días y multiplicador de XP ────────────────────────────────────────
@@ -121,9 +117,15 @@ def streak_multiplier(days: int) -> float:
     return streak_info(days).multiplier
 
 
-def review_xp_base(attempts: int, difficulty: float) -> int:
+def review_xp_base(attempts: int, difficulty: float, *, learning: bool = False) -> int:
     """XP base de un ejercicio de Repaso (por intento × dificultad del ítem,
-    solo primer intento), sin el multiplicador de racha diaria."""
+    solo primer intento), sin el multiplicador de racha diaria.
+
+    En fase de aprendizaje el primer intento paga XP_LEARNING_CORRECT plano:
+    ni la base de repaso ni el ajuste de dificultad aplican al primer contacto.
+    """
+    if learning and attempts == 1:
+        return XP_LEARNING_CORRECT
     base = XP_BY_ATTEMPT.get(attempts, 0)
     if attempts == 1:
         return round(base * difficulty)
@@ -134,10 +136,12 @@ def review_xp_split(
     attempts: int,
     difficulty: float,
     streak_mult: float,
+    *,
+    learning: bool = False,
 ) -> tuple[int, int]:
     """(xp_base, xp_final) de un ejercicio de Repaso. xp_final aplica el
     multiplicador de racha diaria sobre la base."""
-    base = review_xp_base(attempts, difficulty)
+    base = review_xp_base(attempts, difficulty, learning=learning)
     return base, round(base * streak_mult)
 
 
@@ -148,41 +152,3 @@ def practice_xp_split(first_try: bool, streak_mult: float) -> tuple[int, int]:
     farmeable."""
     base = XP_PRACTICE_CORRECT if first_try else XP_PRACTICE_WRONG
     return base, round(base * streak_mult)
-
-
-# ── Funciones de cálculo ───────────────────────────────────────────────────────
-
-def level_from_xp(xp_total: int) -> int:
-    """Nivel actual dado el XP total acumulado."""
-    level = 1
-    accumulated = 0
-    while level < len(XP_TABLE) and accumulated + XP_TABLE[level] <= xp_total:
-        accumulated += XP_TABLE[level]
-        level += 1
-    return level
-
-
-@dataclass
-class LevelProgress:
-    level: int
-    xp_in_level: int    # XP acumulada dentro del nivel actual
-    xp_required: int    # XP total requerida para subir al siguiente nivel
-    xp_missing: int     # XP que faltan para subir
-    progress_pct: float # 0.0 a 100.0
-
-
-def level_progress(xp_total: int) -> LevelProgress:
-    """Progreso detallado hacia el siguiente nivel dado el XP total acumulado."""
-    level = level_from_xp(xp_total)
-    accumulated = sum(XP_TABLE[1:level])
-    xp_in_level = xp_total - accumulated
-    xp_required = XP_TABLE[level] if level < len(XP_TABLE) else XP_TABLE[-1]
-    xp_missing = max(0, xp_required - xp_in_level)
-    pct = round(xp_in_level / xp_required * 100, 1) if xp_required > 0 else 100.0
-    return LevelProgress(
-        level=level,
-        xp_in_level=xp_in_level,
-        xp_required=xp_required,
-        xp_missing=xp_missing,
-        progress_pct=pct,
-    )

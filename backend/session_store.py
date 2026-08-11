@@ -35,7 +35,6 @@ from algorithm import (
     build_session,
     default_catalog,
     is_topic_mastered,
-    level_progress,
     load_belt_catalogs,
     practice_xp_split,
     quality_from_attempts,
@@ -1096,7 +1095,7 @@ def _unit_difficulty(
     unit_key: UnitKey,
     db: DBSession,
 ) -> float:
-    """Multiplicador de dificultad personal del ítem (×0.5 dominado → ×1.5 le
+    """Multiplicador de dificultad personal del ítem (×0.5 dominado → ×1.25 le
     cuesta), según la precisión al primer intento (quality_score == 5) en las
     últimas DIFFICULTY_WINDOW respuestas del usuario en ese ítem."""
     rows = (
@@ -1192,14 +1191,20 @@ def record_answer_db(
     # elección del usuario), pero sí escala con el multiplicador de racha diaria
     # — su base es mucho menor que la de Repaso, así que no se vuelve farmeable.
     # Repaso paga por intento, ponderado por la dificultad personal del ítem
-    # (solo 1er intento) y el mismo multiplicador de racha.
+    # (solo 1er intento y solo en fase de retención: en aprendizaje la base es
+    # menor y plana, ver review_xp_base) y el mismo multiplicador de racha.
     if db_session.mode == "practice":
         xp_base, xp_earned = practice_xp_split(first_try, streak_mult)
     else:
+        in_review = current_state.phase == "review"
         difficulty = (
-            _unit_difficulty(user_id, course_id, unit_key, db) if first_try else 1.0
+            _unit_difficulty(user_id, course_id, unit_key, db)
+            if first_try and in_review
+            else 1.0
         )
-        xp_base, xp_earned = review_xp_split(attempts, difficulty, streak_mult)
+        xp_base, xp_earned = review_xp_split(
+            attempts, difficulty, streak_mult, learning=not in_review
+        )
         if first_try:
             state.streak += 1
             if state.streak % XP_STREAK_INTERVAL == 0:
@@ -1333,8 +1338,6 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
         topic_states[f"{key.belt.value}/{key.topic}"] = _aggregate_topic_progress(topic_rows, expected, today)
 
     user = db.query(User).filter(User.id == user_id).first()
-    total_xp = user.total_xp if user else 0
-    lp = level_progress(total_xp)
 
     # Última sesión del usuario (cualquier curso), para que el dashboard pueda
     # abrir por defecto el curso donde estuvo trabajando.
@@ -1367,12 +1370,6 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
 
     return {
         "topic_states": topic_states,
-        "level_info": {
-            "level": lp.level,
-            "xp_in_level": lp.xp_in_level,
-            "xp_required": lp.xp_required,
-            "progress_pct": lp.progress_pct,
-        },
         "main_session_done_today": _has_main_session_today(user_id, course_id, db),
         "last_course": last_course_slug,
         "active_cap": cp.active_cap,
@@ -1495,8 +1492,6 @@ def get_summary_db(
     db.commit()
 
     si = streak_info(user.streak_days if user else 0)
-    total_xp = user.total_xp if user else 0
-    lp = level_progress(total_xp)
 
     # Nº de orden de esta sesión entre TODAS las sesiones terminadas por el
     # usuario (cualquier curso/modo), para el subtítulo "Completaste tu sesión
@@ -1528,13 +1523,6 @@ def get_summary_db(
             "promoted": bp.promoted,
         },
         "xp_earned": xp_earned,
-        "level_info": {
-            "level": lp.level,
-            "xp_in_level": lp.xp_in_level,
-            "xp_required": lp.xp_required,
-            "xp_missing": lp.xp_missing,
-            "progress_pct": lp.progress_pct,
-        },
         "streak": {
             "days": si.days,
             "multiplier": si.multiplier,

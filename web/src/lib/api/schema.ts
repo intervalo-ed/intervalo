@@ -1015,30 +1015,6 @@ export interface components {
             /** Universities */
             universities: string[];
         };
-        /** LevelInfo */
-        LevelInfo: {
-            /** Level */
-            level: number;
-            /** Xp In Level */
-            xp_in_level: number;
-            /** Xp Required */
-            xp_required: number;
-            /** Progress Pct */
-            progress_pct: number;
-        };
-        /** LevelInfoWithMissing */
-        LevelInfoWithMissing: {
-            /** Level */
-            level: number;
-            /** Xp In Level */
-            xp_in_level: number;
-            /** Xp Required */
-            xp_required: number;
-            /** Xp Missing */
-            xp_missing: number;
-            /** Progress Pct */
-            progress_pct: number;
-        };
         /** NotificationSettings */
         NotificationSettings: {
             /** Enabled */
@@ -1244,7 +1220,6 @@ export interface components {
             belt_progress: components["schemas"]["BeltProgressInfo"];
             /** Xp Earned */
             xp_earned: number;
-            level_info: components["schemas"]["LevelInfoWithMissing"];
             streak: components["schemas"]["StreakInfo"];
             /** Session Number */
             session_number: number;
@@ -1441,7 +1416,6 @@ export interface components {
             topic_states: {
                 [key: string]: components["schemas"]["TopicProgress"];
             };
-            level_info: components["schemas"]["LevelInfo"];
             /** Main Session Done Today */
             main_session_done_today: boolean;
             /** Last Course */

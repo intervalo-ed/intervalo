@@ -2638,67 +2638,6 @@
         ],
         "title": "LeaderboardSummaryResponse"
       },
-      "LevelInfo": {
-        "properties": {
-          "level": {
-            "type": "integer",
-            "title": "Level"
-          },
-          "xp_in_level": {
-            "type": "integer",
-            "title": "Xp In Level"
-          },
-          "xp_required": {
-            "type": "integer",
-            "title": "Xp Required"
-          },
-          "progress_pct": {
-            "type": "number",
-            "title": "Progress Pct"
-          }
-        },
-        "type": "object",
-        "required": [
-          "level",
-          "xp_in_level",
-          "xp_required",
-          "progress_pct"
-        ],
-        "title": "LevelInfo"
-      },
-      "LevelInfoWithMissing": {
-        "properties": {
-          "level": {
-            "type": "integer",
-            "title": "Level"
-          },
-          "xp_in_level": {
-            "type": "integer",
-            "title": "Xp In Level"
-          },
-          "xp_required": {
-            "type": "integer",
-            "title": "Xp Required"
-          },
-          "xp_missing": {
-            "type": "integer",
-            "title": "Xp Missing"
-          },
-          "progress_pct": {
-            "type": "number",
-            "title": "Progress Pct"
-          }
-        },
-        "type": "object",
-        "required": [
-          "level",
-          "xp_in_level",
-          "xp_required",
-          "xp_missing",
-          "progress_pct"
-        ],
-        "title": "LevelInfoWithMissing"
-      },
       "NotificationSettings": {
         "properties": {
           "enabled": {
@@ -3307,9 +3246,6 @@
             "type": "integer",
             "title": "Xp Earned"
           },
-          "level_info": {
-            "$ref": "#/components/schemas/LevelInfoWithMissing"
-          },
           "streak": {
             "$ref": "#/components/schemas/StreakInfo"
           },
@@ -3332,7 +3268,6 @@
           "topic_states",
           "belt_progress",
           "xp_earned",
-          "level_info",
           "streak",
           "session_number"
         ],
@@ -3829,9 +3764,6 @@
             "type": "object",
             "title": "Topic States"
           },
-          "level_info": {
-            "$ref": "#/components/schemas/LevelInfo"
-          },
           "main_session_done_today": {
             "type": "boolean",
             "title": "Main Session Done Today"
@@ -3879,7 +3811,6 @@
         "type": "object",
         "required": [
           "topic_states",
-          "level_info",
           "main_session_done_today",
           "streak"
         ],
