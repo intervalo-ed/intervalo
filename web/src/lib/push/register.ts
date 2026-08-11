@@ -4,6 +4,8 @@
  * subscription to the backend (`POST /push/subscribe`).
  */
 
+import posthog from "posthog-js"
+
 const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
 
 // sw.js es un archivo estático (no pasa por el bundler de Next, no puede leer
@@ -65,10 +67,17 @@ function serialize(sub: PushSubscription): SerializedSubscription {
  * VAPID key is missing, or the user denies permission.
  */
 export async function subscribeToPush(): Promise<SerializedSubscription> {
-  if (!isPushSupported()) throw new Error("unsupported")
+  if (!isPushSupported()) {
+    posthog.capture("push_permission", { result: "unsupported" })
+    throw new Error("unsupported")
+  }
   if (!VAPID_PUBLIC_KEY) throw new Error("missing-vapid-key")
 
   const permission = await Notification.requestPermission()
+  // granted | denied | default (cerró el prompt sin elegir). Sin esto solo
+  // quedan registrados los éxitos, como filas de push_subscriptions, y no se
+  // puede distinguir "el canal falla al pedir permiso" de "falla al enganchar".
+  posthog.capture("push_permission", { result: permission })
   if (permission !== "granted") throw new Error("permission-denied")
 
   const reg = await getRegistration()

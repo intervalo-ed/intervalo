@@ -44,3 +44,6 @@ heatmap_main.png
 usuarios_analisis.png
 *.log
 dev-server.log
+
+# Libros de referencia (PDFs pesados, ~41 MB): quedan locales, fuera de la historia
+books/

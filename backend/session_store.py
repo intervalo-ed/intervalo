@@ -1731,3 +1731,37 @@ def reset_course(user_id: int, course_id: int, db: DBSession) -> int:
     cp.active_cap = ACTIVE_CAP_DEFAULTS.get(slug, ACTIVE_CAP_DEFAULT_FALLBACK)
     db.commit()
     return cp.iteration
+
+
+# ── Abandono de sesiones ─────────────────────────────────────────────────────────
+
+# Una sesión sin finished_at puede estar en curso o abandonada; la única señal
+# disponible es el tiempo transcurrido. 2h es holgado: la sesión más larga
+# observada dura minutos, así que nada legítimo sigue abierto pasado ese plazo.
+ABANDON_AFTER_HOURS = 2
+
+
+def sweep_abandoned_sessions(db: DBSession, older_than_hours: int = ABANDON_AFTER_HOURS) -> int:
+    """Marcar como abandonadas las sesiones que quedaron sin terminar.
+
+    `Session.abandoned` no se puede escribir en el momento en que ocurre el
+    abandono — nadie avisa que se fue. Se deriva del tiempo: sin `finished_at`
+    y empezada hace más de `older_than_hours`. Idempotente (solo toca filas con
+    `abandoned` en false), así que puede correr en loop sin efectos acumulados.
+
+    Devuelve cuántas filas se marcaron.
+    """
+    cutoff = datetime.utcnow() - timedelta(hours=older_than_hours)
+    updated = (
+        db.query(SessionModel)
+        .filter(
+            SessionModel.finished_at.is_(None),
+            # isnot(True), no is_(False): la columna es nullable y las filas
+            # viejas tienen NULL, que is_(False) no matchea.
+            SessionModel.abandoned.isnot(True),
+            SessionModel.started_at < cutoff,
+        )
+        .update({SessionModel.abandoned: True}, synchronize_session=False)
+    )
+    db.commit()
+    return updated
