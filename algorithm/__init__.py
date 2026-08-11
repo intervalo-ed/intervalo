@@ -6,17 +6,14 @@ from .domain import (
     TopicKey,
     Unit,
     UnitKey,
-    clear_catalog_cache,
     load_belt_catalogs,
     load_course_structure,
 )
-from .graduation import BeltProgress, belt_progress, is_mastered, is_topic_mastered
+from .graduation import is_topic_mastered
 from .scoring import quality_from_attempts, quality_from_time
 from .session import (
     SessionUnit,
-    belt_topic_priority,
     build_session,
-    default_catalog,
     should_reinsert,
 )
 from .sm2 import SM2UnitState, update_unit_state
@@ -43,7 +40,6 @@ from .xp import (
 __all__ = [
     "Belt",
     "BeltCatalog",
-    "BeltProgress",
     "SM2Config",
     "SM2UnitState",
     "SessionUnit",
@@ -62,13 +58,8 @@ __all__ = [
     "XP_PRACTICE_WRONG",
     "XP_STREAK_BONUS",
     "XP_STREAK_INTERVAL",
-    "belt_progress",
-    "belt_topic_priority",
     "build_session",
-    "clear_catalog_cache",
-    "default_catalog",
     "difficulty_multiplier",
-    "is_mastered",
     "is_topic_mastered",
     "load_belt_catalogs",
     "load_course_structure",

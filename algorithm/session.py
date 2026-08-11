@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from datetime import date
 
 from .config import SM2Config
-from .domain import BeltCatalog, TopicKey, UnitKey
+from .domain import UnitKey
 from .sm2 import SM2UnitState
 
 
@@ -34,23 +34,19 @@ def build_session(
     *,
     today: date | None = None,
     config: SM2Config | None = None,
-    introduce_new_topic: callable | None = None,
-    topic_priority: dict[TopicKey, int] | None = None,
     unit_attempted: dict[UnitKey, bool] | None = None,
 ) -> list[SessionUnit]:
     """
     Builds the next session at the unit (belt, topic, exercise_type) granularity:
-    - Step 1: collect units that are "new" (not attempted) or "pending" (overdue).
-    - Step 2: while candidates < min_session_exercises, ask the caller to
-      introduce the next topic (yielding one unit per exercise_type). Stop
-      when nothing's left to unlock.
-    - Step 3: hard-cap at max_session_exercises. Overflow naturally surfaces
-      tomorrow because unintroduced units stay queued.
-    - Step 4: greedy mix ensuring min_distance_same_topic between same topics.
+    - Step 1: collect units that are "new" (not attempted) or "pending" (overdue),
+      priorizando las nuevas y, dentro de cada grupo, las de vencimiento más viejo.
+    - Step 2: hard-cap at max_session_exercises. Overflow naturally surfaces
+      tomorrow because the leftover units stay queued.
+    - Step 3: greedy mix ensuring min_distance_same_topic between same topics.
 
-    `introduce_new_topic` is expected to return a list[UnitKey] for the next
-    unlocked topic (one entry per exercise_type), or [] when there's nothing
-    left to unlock.
+    Qué units están disponibles lo decide el caller (backend/session_store.py,
+    `_ensure_active_units`, que respeta el `active_cap` del usuario): acá no se
+    introducen temas nuevos.
     """
     config = config or SM2Config()
     today = today or date.today()
@@ -65,34 +61,10 @@ def build_session(
         if is_new or is_pending:
             candidates.append(SessionUnit(key=k, state=s))
 
-    def _unit_priority(unit: SessionUnit) -> int:
-        if topic_priority is None:
-            return 0
-        return topic_priority.get(unit.key.topic_key, len(topic_priority))
-
-    if topic_priority is not None:
-        candidates.sort(key=_unit_priority)
-    else:
-        candidates.sort(key=lambda x: (
-            not (not unit_attempted.get(x.key, False) and x.state.phase == "learning"),
-            x.state.next_review,
-        ))
-
-    if introduce_new_topic is not None and len(candidates) < config.min_session_exercises:
-        guard = 0
-        while len(candidates) < config.min_session_exercises and guard < 50:
-            guard += 1
-            new_keys = introduce_new_topic() or []
-            new_units = [
-                SessionUnit(key=uk, state=SM2UnitState())
-                for uk in new_keys
-                if uk not in units
-            ]
-            if not new_units:
-                break
-            if topic_priority is not None:
-                new_units.sort(key=_unit_priority)
-            candidates.extend(new_units)
+    candidates.sort(key=lambda x: (
+        not (not unit_attempted.get(x.key, False) and x.state.phase == "learning"),
+        x.state.next_review,
+    ))
 
     candidates = candidates[: config.max_session_exercises]
 
@@ -126,17 +98,3 @@ def should_reinsert(
     )
 
 
-def default_catalog(belt: BeltCatalog) -> list[TopicKey]:
-    """Returns all TopicKeys for the given belt catalog."""
-    return belt.all_keys()
-
-
-def belt_topic_priority(catalog: BeltCatalog) -> dict[TopicKey, int]:
-    """
-    Returns a priority map for a belt catalog following the topic order.
-    Topics are introduced in the order they appear in the catalog.
-    """
-    return {
-        TopicKey(belt=catalog.belt, topic=t.key): idx
-        for idx, t in enumerate(catalog.topics)
-    }

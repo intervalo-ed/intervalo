@@ -59,11 +59,14 @@ class User(Base):
     streak_days = Column(Integer, nullable=False, default=0, server_default="0")
     streak_last_date = Column(Date, nullable=True)
 
-    # Desbloqueo de emojis (badges) por carrera. `emoji_path` es la cadena
-    # append-only de ids de nodos ya desbloqueados (JSON-en-texto, desde
-    # profundidad 1; un solo track irreversible). `emoji_worn` es el id del nodo
+    # Desbloqueo de emojis (badges) por carrera. `emoji_worn` es el id del nodo
     # que el usuario muestra en el ranking; NULL = raíz del bucket (default).
     # Ver emoji_tree.py.
+    #
+    # `emoji_path` está MUERTA: describía una cadena append-only de nodos
+    # desbloqueados, pero el desbloqueo no tiene estado propio — se deriva de
+    # total_xp vía unlocked_depth() (ver la cabecera de emoji_tree.py). No la lee
+    # ni la escribe nadie; queda la columna porque sacarla necesita migración.
     emoji_path = Column(Text, nullable=True)
     emoji_worn = Column(String(64), nullable=True)
 
