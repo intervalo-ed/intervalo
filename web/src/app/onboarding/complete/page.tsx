@@ -117,7 +117,7 @@ export default function OnboardingCompletePage() {
   }
 
   if (showInstallPrompt) {
-    return <OnboardingInstallPrompt onContinue={() => router.push("/")} />
+    return <OnboardingInstallPrompt />
   }
 
   return (

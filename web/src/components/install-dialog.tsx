@@ -12,7 +12,9 @@ import {
 import type { Platform } from "@/lib/platform/detect"
 import { MoreVerticalIcon, ShareIcon } from "lucide-react"
 
-type Step = { text: string; icon?: ReactNode }
+// `text` es ReactNode y no string para poder resaltar el nombre exacto del
+// control que hay que tocar (ver «Compartir»).
+export type Step = { text: ReactNode; icon?: ReactNode }
 
 // El 4º paso (volver a abrir desde la pantalla de inicio) solo se muestra cuando
 // `withReopenStep` está activo (pantalla post-registro), no en el diálogo normal.
@@ -27,7 +29,14 @@ const PLATFORM_STEPS: Record<
   ios: {
     title: "iPhone / iPad (Safari)",
     steps: [
-      { text: "Tocá el botón Compartir", icon: <ShareIcon className="size-4" /> },
+      {
+        text: (
+          <>
+            Tocá el botón <strong className="font-semibold">Compartir</strong>
+          </>
+        ),
+        icon: <ShareIcon className="size-4" />,
+      },
       { text: "Elegí «Agregar a inicio»." },
       { text: "Confirmá tocando «Agregar»." },
     ],
@@ -50,17 +59,27 @@ const PLATFORM_STEPS: Record<
   },
 }
 
-function StepList({
-  steps,
-  withReopenStep,
+// Los pasos como dato, para quien quiera maquetarlos distinto (la pantalla
+// post-registro los muestra como párrafos, no como lista compacta).
+export function getInstallSteps({
+  platform,
+  withReopenStep = false,
 }: {
-  steps: Step[]
+  platform: keyof typeof PLATFORM_STEPS
   withReopenStep?: boolean
-}) {
-  const all = withReopenStep ? [...steps, REOPEN_STEP] : steps
+}): Step[] {
+  const { steps } = PLATFORM_STEPS[platform]
+  // El paso de "volvé a abrirla desde el inicio" no aplica en escritorio: ahí la
+  // instalación deja la app abierta.
+  return withReopenStep && platform !== "desktop"
+    ? [...steps, REOPEN_STEP]
+    : steps
+}
+
+function StepList({ steps }: { steps: Step[] }) {
   return (
     <ol className="flex flex-col gap-1 text-sm/relaxed text-muted-foreground">
-      {all.map((step, i) => (
+      {steps.map((step, i) => (
         <li key={i} className="flex items-center gap-2">
           {i + 1}. {step.text}
           {step.icon}
@@ -87,10 +106,7 @@ export function InstallInstructions({
           <p className="text-sm font-medium text-foreground">
             {PLATFORM_STEPS[key].title}
           </p>
-          <StepList
-            steps={PLATFORM_STEPS[key].steps}
-            withReopenStep={withReopenStep && key !== "desktop"}
-          />
+          <StepList steps={getInstallSteps({ platform: key, withReopenStep })} />
         </div>
       ))}
     </div>
