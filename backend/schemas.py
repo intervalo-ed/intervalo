@@ -19,13 +19,6 @@ class HealthResponse(BaseModel):
     status: str
 
 
-# ── Course metadata ───────────────────────────────────────────────────────────
-
-class BeltEntry(BaseModel):
-    headline: str
-    description: str
-
-
 # ── Enrollment ────────────────────────────────────────────────────────────────
 
 class EnrollmentResponse(BaseModel):
@@ -189,10 +182,9 @@ class LeaderboardEntry(BaseModel):
 
 class LeaderboardMe(BaseModel):
     # Datos del usuario actual dentro del scope (filtro) pedido. Se calculan
-    # sobre el set completo, no sobre la página, así "posición actual" y "XP para
-    # subir" no dependen de cuántas filas se hayan cargado.
+    # sobre el set completo, no sobre la página, así "posición actual" no depende
+    # de cuántas filas se hayan cargado.
     rank: int | None = None       # posición en el scope, None si no aparece
-    xp_to_next: int | None = None  # XP para alcanzar al de arriba
     total_xp: int = 0
 
 
@@ -293,12 +285,6 @@ class SummaryItem(BaseModel):
     correct: bool
 
 
-class BeltProgressInfo(BaseModel):
-    mastered: int
-    total: int
-    promoted: bool
-
-
 class SessionSummaryResponse(BaseModel):
     session_id: str
     user_name: str
@@ -310,7 +296,6 @@ class SessionSummaryResponse(BaseModel):
     incorrect: int
     items: list[SummaryItem]
     topic_states: dict[str, TopicProgress]
-    belt_progress: BeltProgressInfo
     xp_earned: int
     streak: StreakInfo
     session_number: int  # nº de orden de esta sesión entre todas las terminadas por el usuario
