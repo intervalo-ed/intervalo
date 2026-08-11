@@ -12,6 +12,7 @@ Fuente de verdad: `algorithm/` (paquete Python puro, sin dependencia de DB) para
 | `CourseProgress` | Config de progreso por (usuario, curso): `active_cap` (tope de ítems en aprendizaje simultáneo), `session_size` (tamaño de sesión de repaso), `iteration` (se incrementa al reiniciar el curso). Fila lazy — se crea la primera vez que hace falta. |
 | `UnitState` | El estado SM-2 en vivo por `(user, course, belt, topic, exercise_type)` — la tabla central del algoritmo. `is_catchup` = unidad creada por detrás del frontier ya desbloqueado (no cuenta para maestría/belt). `suspended` = tema oculto por el usuario desde el editor (reversible). |
 | `UnitStateArchive` | Snapshot de `UnitState` al reiniciar un curso, tageada por `iteration` — así `unit_states` queda limpia con solo la iteración vigente sin perder historial. |
+| `ItemExerciseCycle` | Ejercicios ya servidos en el ciclo vigente de un ítem `(user, course, belt, topic, exercise_type)` — `served_external_ids` es una lista JSON de `Exercise.external_id`. Garantiza que no se repita un ejercicio hasta agotar todos los del ítem: se vacía cuando el ciclo se completa, o al reiniciar el curso (`reset_course`). |
 | `Session` | Una sesión de práctica. `mode` es `"main"` (sesión de Repaso, gateada por día — ver más abajo) o `"practice"` (Práctica libre). |
 | `Answer` | Un intento de ejercicio dentro de una sesión. `xp_base` (pre-multiplicador de racha) vs `xp_earned` (post-multiplicador) — la diferencia es lo que se muestra como "bonus por racha" en el resumen. |
 | `Exercise` | Banco de preguntas, scoped por `(course, belt, topic, exercise_type)`. Opción múltiple (`option_a..d`, `correct_index`), gráfico opcional (`graph_fn/view/shade/free_aspect`, renderizado con Mafs), `reviewed` (flag editorial). |
@@ -77,4 +78,4 @@ graph_exercise_probability = 0.66
 - Un **topic** está dominado cuando **todos** sus `exercise_type` están en `review`.
 - Un **belt** se promociona (`BeltProgress.promoted`) cuando **todos** sus topics están dominados.
 
-Última verificación: 2026-08-01
+Última verificación: 2026-08-11

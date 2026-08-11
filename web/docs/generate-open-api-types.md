@@ -7,5 +7,10 @@ bun run types:api
 bun run types:api:file
 
 # From backend/, to refresh openapi.json after editing endpoints
+# Windows:
+
+.venv/Scripts/python scripts/dump_openapi.py
+
+# macOS / Linux:
 
 .venv/bin/python scripts/dump_openapi.py

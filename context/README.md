@@ -24,7 +24,7 @@ No reemplaza:
 
 ## Protocolo de actualización
 
-**Toda feature que se mergea a `main` actualiza el/los archivo(s) de `context/` que correspondan, en el mismo PR** (igual que ya se hace con `backend/content/exercise-authoring.md` para cambios de formato de contenido — no es una convención nueva, es la misma disciplina aplicada a producto en general).
+**Toda feature que se mergea a `main` actualiza el/los archivo(s) de `context/` que correspondan, en el mismo PR** (igual que ya se hace con `backend/content/authoring-context.md` para cambios de formato de contenido — no es una convención nueva, es la misma disciplina aplicada a producto en general).
 
 Reglas prácticas:
 - Si agregaste una pantalla, ruta o interacción nueva → `features-catalog.md`.
