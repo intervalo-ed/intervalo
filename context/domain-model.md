@@ -45,10 +45,8 @@ ef_initial = 2.5
 ef_min_absolute = 1.3
 review_fast_seconds = 10.0
 review_medium_seconds = 30.0
-min_session_exercises = 7
 max_session_exercises = 8
 min_distance_same_topic = 2
-graph_exercise_probability = 0.66
 ```
 
 ### Dos fases
@@ -69,14 +67,15 @@ graph_exercise_probability = 0.66
 ### Construcción de sesión (`algorithm/session.py::build_session`)
 
 1. Candidatos: unidades nuevas (no intentadas, en `learning`) o vencidas (`next_review <= hoy`).
-2. Si hay menos de `min_session_exercises` (7), se piden topics nuevos al caller (`introduce_new_topic`) hasta llegar al mínimo o agotar el catálogo.
-3. Cap duro en `max_session_exercises` (8) — el resto queda para el día siguiente.
-4. Se intercalan para respetar `min_distance_same_topic` (2): dos ejercicios del mismo topic nunca quedan más cerca que esa distancia en la sesión.
+2. Cap duro en `max_session_exercises` (8) — el resto queda para el día siguiente.
+3. Se intercalan para respetar `min_distance_same_topic` (2): dos ejercicios del mismo topic nunca quedan más cerca que esa distancia en la sesión.
+
+El desbloqueo de topics nuevos **no** pasa por acá: lo maneja `session_store.py::_ensure_active_units`, que mantiene el frontier según el `active_cap` del usuario.
 
 ### Maestría y graduación (`algorithm/graduation.py`)
 
-- Una unidad está "dominada" (`is_mastered`) cuando `phase == "review"`.
-- Un **topic** está dominado cuando **todos** sus `exercise_type` están en `review`.
-- Un **belt** se promociona (`BeltProgress.promoted`) cuando **todos** sus topics están dominados.
+- Una unidad está "dominada" cuando `phase == "review"`.
+- Un **topic** está dominado cuando **todos** sus `exercise_type` están en `review` (`is_topic_mastered`, la única función del módulo). Es lo que dispara el desbloqueo de units nuevas.
+- El estado de un **belt** no se calcula en el backend: el front lo deriva de `topic_states` (`web/src/lib/catalog/stats.ts`).
 
 Última verificación: 2026-08-11
