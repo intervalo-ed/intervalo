@@ -37,7 +37,7 @@ export function useEnrollMutation() {
       return data
     },
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: queryKeys.userProgress() })
+      qc.invalidateQueries({ queryKey: queryKeys.userProgressAll() })
       qc.invalidateQueries({ queryKey: queryKeys.authMe() })
     },
   })

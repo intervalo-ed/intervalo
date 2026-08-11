@@ -98,7 +98,7 @@ export function useCourseEditor(course: CourseId) {
       qc.invalidateQueries({ queryKey: queryKeys.userProgress({ course }) })
       qc.invalidateQueries({ queryKey: queryKeys.practiceStats({ course }) })
       // El cinturón del ranking depende del progreso: refrescar todos los scopes.
-      qc.invalidateQueries({ queryKey: queryKeys.leaderboard().slice(0, -1) })
+      qc.invalidateQueries({ queryKey: queryKeys.leaderboardAll() })
     },
   })
 
