@@ -334,6 +334,23 @@ def _rival_university_gap(db: DBSession, own_university: str) -> tuple[int, str]
     return gap, rival_uni
 
 
+def _defender_university_gap(db: DBSession, own_university: str) -> tuple[int, str] | tuple[None, None]:
+    """Simétrico a _rival_university_gap pero mirando hacia abajo: la
+    universidad inmediatamente detrás en el ranking, que amenaza con
+    sobrepasar a la propia (para el copy "defendé el lugar"), sin importar
+    en qué puesto esté la propia."""
+    totals = _university_totals(db)
+    idx = next((i for i, (uni, _) in enumerate(totals) if uni == own_university), None)
+    if idx is None or idx == len(totals) - 1:
+        return None, None  # no está en el ranking, o ya es la última
+    own_xp = totals[idx][1]
+    defender_uni, defender_xp = totals[idx + 1]
+    gap = own_xp - defender_xp
+    if gap <= 0:
+        return None, None  # empate en XP total
+    return gap, defender_uni
+
+
 def _social_active_today(
     db: DBSession, user: User, university: str, local_today: date, tz: ZoneInfo
 ) -> int:
@@ -474,6 +491,8 @@ def due_notifications(db: DBSession, force: bool = False) -> list[dict]:
         social_count = None
         xp_gap_rival = None
         rival_university = None
+        xp_gap_defend = None
+        defender_university = None
         podium_gap_university = None
         podium_threshold_university = None
         if university is not None:
@@ -481,6 +500,7 @@ def due_notifications(db: DBSession, force: bool = False) -> list[dict]:
             is_top_contributor = _is_top_contributor(db, user, university, week_start_utc)
             social_count = _social_active_today(db, user, university, local_today, tz)
             xp_gap_rival, rival_university = _rival_university_gap(db, university)
+            xp_gap_defend, defender_university = _defender_university_gap(db, university)
             podium_gap_university, podium_threshold_university = _podium_gap(
                 db, user, university=university
             )
@@ -503,6 +523,8 @@ def due_notifications(db: DBSession, force: bool = False) -> list[dict]:
             "is_top_contributor": is_top_contributor,
             "xp_gap_rival": xp_gap_rival,
             "rival_university": rival_university,
+            "xp_gap_defend": xp_gap_defend,
+            "defender_university": defender_university,
             "social_count": social_count,
             "overtaken": ranking_ctx["overtaken"],
             "overtaker_name": ranking_ctx["overtaker_name"],
