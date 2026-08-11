@@ -15,7 +15,6 @@ const SOUND_PATHS = {
   charge: "/session_charge.mp3",
   end: "/session_complete.mp3",
   xpCount: "/pop_conteo_experiencia.mp3",
-  feedback: "/feedback_sent.mp3",
 } as const
 
 export type SfxName = keyof typeof SOUND_PATHS
@@ -35,7 +34,6 @@ const SOUND_VOLUME: Record<SfxName, number> = {
   charge: VOLUME * 1.2,
   end: VOLUME * 2.1,
   xpCount: VOLUME,
-  feedback: VOLUME,
 }
 
 // Sonidos muteados temporalmente (hasta nuevo aviso): `iterate` (botones

@@ -13,6 +13,9 @@ export type OnboardingData = {
   // Resultado del ejercicio de prueba: true si acertó al primer intento.
   // Ausente en datos viejos → el backend lo trata como "sin dato".
   introItemCorrect?: boolean
+  // Intentos hasta acertar y tiempo de respuesta del ejercicio de prueba.
+  introItemAttempts?: number
+  introItemResponseTimeMs?: number
 }
 
 export function saveOnboarding(data: OnboardingData) {
@@ -35,6 +38,8 @@ export function readOnboarding(): OnboardingData | null {
         course: parsed.course ?? "analisis",
         motivation: parsed.motivation,
         introItemCorrect: parsed.introItemCorrect,
+        introItemAttempts: parsed.introItemAttempts,
+        introItemResponseTimeMs: parsed.introItemResponseTimeMs,
       }
     }
     return null

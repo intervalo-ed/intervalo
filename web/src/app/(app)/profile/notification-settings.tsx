@@ -9,15 +9,12 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { useApi } from "@/lib/api/useApi"
-import {
-  getTimezone,
-  isPushSupported,
-  unsubscribeFromPush,
-} from "@/lib/push/register"
+import { isPushSupported, unsubscribeFromPush } from "@/lib/push/register"
 import {
   DEFAULT_REMINDER_TIME,
   REMINDER_TIME_OPTIONS,
   useEnableNotifications,
+  useUpdateReminderTime,
 } from "@/lib/push/UseEnableNotifications"
 import { queryKeys } from "@/lib/query/keys"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
@@ -45,7 +42,9 @@ export function NotificationSettings() {
   const enabled = settings.data?.enabled ?? false
 
   const invalidate = () =>
-    queryClient.invalidateQueries({ queryKey: queryKeys.notificationSettings() })
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.notificationSettings(),
+    })
 
   const enable = useEnableNotifications()
 
@@ -67,19 +66,7 @@ export function NotificationSettings() {
     onError: () => toast.error("No pudimos desactivar los recordatorios."),
   })
 
-  const updateTime = useMutation({
-    mutationFn: async (chosenTime: string) => {
-      const { error } = await api.PUT("/user/notification-settings", {
-        body: { enabled: true, time: chosenTime, timezone: getTimezone() },
-      })
-      if (error) throw error
-    },
-    onSuccess: () => {
-      invalidate()
-      toast.success("Horario actualizado")
-    },
-    onError: () => toast.error("No pudimos guardar el horario."),
-  })
+  const updateTime = useUpdateReminderTime()
 
   if (!supported) {
     return (
@@ -144,8 +131,7 @@ export function NotificationSettings() {
         </>
       )}
       <p className="text-xs/relaxed text-muted-foreground">
-        Te enviamos una sola notificación por día. Primero agregá Intervalo a
-        la pantalla de inicio.
+        Primero agregá Intervalo a tu pantalla de inicio.
       </p>
     </div>
   )

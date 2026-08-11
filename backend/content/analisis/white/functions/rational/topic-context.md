@@ -2,7 +2,7 @@
 
 > **CLSF archivado (jul-2026):** se sacó de este topic al podar a un máximo de 3 ítems (skills) por topic. Contenido preservado en `backend/content/archive/analisis/white/functions/rational/CLSF.json`. No generar CLSF para este topic en rondas futuras; el resto de este documento sigue mencionando CLSF en registros de auditoría históricos, que quedan como referencia, no como guía de generación.
 
-Llevado de 47 → 150 ejercicios activos (50 × LEXI / FORM / GRAF; CLSF archivado).
+Llevado de 47 → 150 ejercicios activos (50 × LEXI / FORM / GRAF; CLSF archivado). **Actualización ago-2026:** recortado a 90 ejercicios activos (30 × LEXI / FORM / GRAF), ver sección "Distribución objetivo" más abajo para el detalle por sub-familia.
 
 **Auditoría previa aplicada:**
 - `feedback_incorrect` vaciado en los 47 originales.
@@ -108,7 +108,7 @@ Este documento tiene dos secciones "Patrón de modernización" duplicadas de ses
 ### Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal:**
-- [ ] `feedback_incorrect` completo en los 50 ejercicios por skill: `array` del largo de `options`, `null` en el correcto
+- [ ] `feedback_incorrect` completo en los 30 ejercicios por skill (LEXI/FORM/GRAF, recortados de 50 a 30 en ago-2026): `array` del largo de `options`, `null` en el correcto
 - [ ] Ningún `\n\n` pegado a un bloque `$$...$$`
 - [ ] Ningún em-dash `—` ni en-dash `–`
 - [ ] Ninguna explicación con viñetas `•` ni sub-ejercicios `-`
@@ -143,29 +143,31 @@ Este documento tiene dos secciones "Patrón de modernización" duplicadas de ses
 
 ### Distribución objetivo, con `tags`
 
-Diseñada leyendo los 200 ejercicios reales (dump de `question`+opción correcta por skill). Los conteos son sobre el archivo actual; al refactorizar, mantené el total por sub-familia.
+Diseñada originalmente leyendo los 200 ejercicios reales (dump de `question`+opción correcta por skill). Recortada en ronda ago-2026 de 50 → 30 ejercicios por skill (LEXI/FORM/GRAF; CLSF ya estaba archivado), escalando cada sub-familia proporcionalmente (factor ~0.6, método de mayor resto). Los conteos son sobre el archivo actual; al refactorizar, mantené el total por sub-familia.
 
-**LEXI** (50 ejercicios):
+**Nota LEXI (recorte ago-2026):** al comparar esta tabla contra los `tags` reales del JSON se encontró que la fila "Transformaciones" (slug `transformaciones`) no tiene ningún ejercicio real con ese slug; los 4 ejercicios de esa sub-familia están tageados `cuadrantes-ramas` (slug que en el resto del topic pertenece a GRAF). Se tomaron los tags reales como base de la proporción y la tabla de abajo ya refleja `cuadrantes-ramas` en vez de `transformaciones`. Es un mistag preexistente, no corregido en esta ronda (fuera de alcance: solo se tocaron cantidades).
+
+**LEXI** (30 ejercicios):
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Reconocimiento de función racional (qué es/no es) | 4 | `reconocimiento-funcion-racional` |
-| Dominio y restricciones (denominador = 0) | 7 | `dominio-restriccion` |
-| Asíntota vertical (cantidad, existencia, concepto) | 5 | `asintota-vertical` |
-| Asíntota horizontal (comparación de grados) | 7 | `asintota-horizontal` |
-| Asíntota oblicua | 2 | `asintota-oblicua` |
-| Agujero vs. asíntota vertical | 3 | `agujero-vs-asintota` |
-| Interceptos con los ejes | 4 | `interceptos-ejes` |
-| Paridad de la función (par/impar) | 2 | `paridad-funcion` |
-| Comportamiento en el infinito / límites laterales | 5 | `comportamiento-en-infinito` |
-| Transformaciones (desplazamiento, reflexión, escala) | 4 | `transformaciones` |
-| Imagen / rango | 3 | `imagen-rango` |
-| Continuidad en el dominio | 2 | `continuidad-en-dominio` |
+| Reconocimiento de función racional (qué es/no es) | 2 | `reconocimiento-funcion-racional` |
+| Dominio y restricciones (denominador = 0) | 4 | `dominio-restriccion` |
+| Asíntota vertical (cantidad, existencia, concepto) | 3 | `asintota-vertical` |
+| Asíntota horizontal (comparación de grados) | 4 | `asintota-horizontal` |
+| Asíntota oblicua | 1 | `asintota-oblicua` |
+| Agujero vs. asíntota vertical | 2 | `agujero-vs-asintota` |
+| Interceptos con los ejes | 3 | `interceptos-ejes` |
+| Paridad de la función (par/impar) | 1 | `paridad-funcion` |
+| Comportamiento en el infinito / límites laterales | 3 | `comportamiento-en-infinito` |
+| Transformaciones (desplazamiento, reflexión, escala) — ver nota arriba, tag real `cuadrantes-ramas` | 2 | `cuadrantes-ramas` |
+| Imagen / rango | 2 | `imagen-rango` |
+| Continuidad en el dominio | 1 | `continuidad-en-dominio` |
 | Extremos y monotonía | 1 | `extremos-monotonia` |
 | Conteo de ramas | 1 | `conteo-ramas` |
-| **Total** | **50** | |
+| **Total** | **30** | |
 
-**CLSF** (50 ejercicios):
+**CLSF** (archivado, no se recorta — ver nota al inicio del documento):
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -182,52 +184,52 @@ Diseñada leyendo los 200 ejercicios reales (dump de `question`+opción correcta
 | Afirmaciones generales verdadero/falso sobre racionales | 2 | `afirmaciones-generales-vf` |
 | **Total** | **50** | |
 
-**FORM** (50 ejercicios):
+**FORM** (30 ejercicios):
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Dominio (valores excluidos / notación de intervalos) | 8 | `dominio-form` |
-| Asíntota horizontal, cálculo desde fórmula | 6 | `asintota-horizontal-calculo` |
-| Asíntota vertical, cálculo desde fórmula | 4 | `asintota-vertical-calculo` |
-| Cantidad de asíntotas verticales | 2 | `cantidad-asintotas-verticales-form` |
-| Fórmula desde gráfico (elegir entre 4 opciones) | 4 | `formula-desde-grafico-form` |
-| Evaluación puntual $f(a)$ | 4 | `evaluacion-puntual` |
-| Evaluación en un agujero (no está definida) | 2 | `evaluacion-en-agujero` |
+| Dominio (valores excluidos / notación de intervalos) | 5 | `dominio-form` |
+| Asíntota horizontal, cálculo desde fórmula | 4 | `asintota-horizontal-calculo` |
+| Asíntota vertical, cálculo desde fórmula | 2 | `asintota-vertical-calculo` |
+| Cantidad de asíntotas verticales | 1 | `cantidad-asintotas-verticales-form` |
+| Fórmula desde gráfico (elegir entre 4 opciones) | 2 | `formula-desde-grafico-form` |
+| Evaluación puntual $f(a)$ | 2 | `evaluacion-puntual` |
+| Evaluación en un agujero (no está definida) | 1 | `evaluacion-en-agujero` |
 | Evaluación aproximada leída del gráfico | 1 | `evaluacion-desde-grafico` |
-| Lectura directa del gráfico (AV/AH/valor, "observá la gráfica") | 3 | `lectura-grafico-directa` |
-| Interceptos con los ejes | 6 | `interceptos-ejes-form` |
-| Fórmula desde propiedades (AV+AH+punto dados) | 2 | `formula-desde-propiedades` |
+| Lectura directa del gráfico (AV/AH/valor, "observá la gráfica") | 2 | `lectura-grafico-directa` |
+| Interceptos con los ejes | 3 | `interceptos-ejes-form` |
+| Fórmula desde propiedades (AV+AH+punto dados) | 1 | `formula-desde-propiedades` |
 | Transformaciones (desplazamiento) | 1 | `transformaciones-form` |
-| Combinado AV+AH+valor puntual en un mismo ejercicio | 5 | `combinado-av-ah-valor` |
+| Combinado AV+AH+valor puntual en un mismo ejercicio | 3 | `combinado-av-ah-valor` |
 | Comportamiento en el infinito | 1 | `comportamiento-infinito-form` |
 | Hallar un parámetro $k$ dado un punto de paso | 1 | `hallar-parametro-k` |
-| **Total** | **50** | |
+| **Total** | **30** | |
 
-**GRAF** (50 ejercicios, reagrupa los tipos A/B/C ya documentados arriba):
+**GRAF** (30 ejercicios, reagrupa los tipos A/B/C ya documentados arriba):
 
-*Tipo A — leer propiedad directamente del gráfico (31 ejercicios):*
+*Tipo A — leer propiedad directamente del gráfico (19 ejercicios):*
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Cantidad de asíntotas totales | 2 | `cantidad-asintotas-totales` |
-| Cantidad de asíntotas verticales | 3 | `cantidad-asintotas-verticales-graf` |
-| Ubicación de la asíntota vertical | 3 | `ubicacion-asintota-vertical` |
-| Valor de la asíntota horizontal | 3 | `valor-asintota-horizontal` |
-| Cuadrantes de las ramas | 2 | `cuadrantes-ramas` |
-| Dirección de las ramas hacia la asíntota | 2 | `direccion-ramas` |
-| Monotonía en un intervalo | 2 | `monotonia-intervalo-graf` |
-| Interceptos con el eje $X$ | 2 | `interceptos-x-graf` |
-| Interceptos con el eje $Y$ | 2 | `interceptos-y-graf` |
-| Valor aproximado en un punto | 2 | `valor-aproximado` |
+| Cantidad de asíntotas totales | 1 | `cantidad-asintotas-totales` |
+| Cantidad de asíntotas verticales | 2 | `cantidad-asintotas-verticales-graf` |
+| Ubicación de la asíntota vertical | 2 | `ubicacion-asintota-vertical` |
+| Valor de la asíntota horizontal | 2 | `valor-asintota-horizontal` |
+| Cuadrantes de las ramas | 1 | `cuadrantes-ramas` |
+| Dirección de las ramas hacia la asíntota | 1 | `direccion-ramas` |
+| Monotonía en un intervalo | 1 | `monotonia-intervalo-graf` |
+| Interceptos con el eje $X$ | 1 | `interceptos-x-graf` |
+| Interceptos con el eje $Y$ | 1 | `interceptos-y-graf` |
+| Valor aproximado en un punto | 1 | `valor-aproximado` |
 | Dominio desde el gráfico | 1 | `dominio-desde-grafico` |
 | Existencia de extremos | 1 | `existencia-extremos` |
 | Imagen desde el gráfico | 1 | `imagen-desde-grafico` |
 | Simetría / paridad | 1 | `simetria-paridad-graf` |
-| Límites laterales en la AV | 2 | `limites-laterales-av` |
+| Límites laterales en la AV | 1 | `limites-laterales-av` |
 | Cantidad de ramas | 1 | `cantidad-ramas` |
-| Signo de la función en un intervalo | 1 | `signo-en-intervalo` |
+| Signo de la función en un intervalo (subfamilia eliminada en el recorte 50→30, era el ejercicio con más findings del validador de todo GRAF) | 0 | `signo-en-intervalo` |
 
-*Tipo B — identificar fórmula desde el gráfico (15 ejercicios):* slug único `formula-desde-grafico` (igual que en la ronda anterior, no se sub-divide).
+*Tipo B — identificar fórmula desde el gráfico (9 ejercicios):* slug único `formula-desde-grafico` (igual que en la ronda anterior, no se sub-divide).
 
-*Tipo C — contexto cotidiano con $k/x$ (4 ejercicios):* slug único `contexto-cotidiano-racional`.
+*Tipo C — contexto cotidiano con $k/x$ (2 ejercicios):* slug único `contexto-cotidiano-racional`.
 

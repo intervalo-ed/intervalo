@@ -953,7 +953,7 @@
       },
       "get": {
         "summary": "Push Diagnostic Beacon",
-        "description": "GET twin of push_diagnostic, reporting on EVERY push the service\nworker receives (not just decode failures) \u2014 see sw.js's `beacon()`. A\nplain GET with no custom headers is a CORS \"simple request\" (no\npreflight), so it's the fallback channel in case the POST version's\nJSON body / Content-Type ever gets blocked in the service worker's\nfetch context \u2014 we had zero of those land while chasing a recurring\ngeneric-fallback bug with no other client-side signal at all.",
+        "description": "GET twin of push_diagnostic, reporting on EVERY push the service\nworker receives (not just decode failures) \u2014 see sw.js's `beacon()`. A\nplain GET with no custom headers is a CORS \"simple request\" (no\npreflight), so it's the fallback channel in case the POST version's\nJSON body / Content-Type ever gets blocked in the service worker's\nfetch context \u2014 we had zero of those land while chasing a recurring\ngeneric-fallback bug with no other client-side signal at all.\n\nevent=\"click\" doubles as the \"notification opened\" signal (see sw.js\nnotificationclick): persists NotificationSend.opened_at so effectiveness\ncan be analyzed later per category/variant.",
         "operationId": "push_diagnostic_beacon_push_diagnostic_get",
         "parameters": [
           {
@@ -1027,6 +1027,22 @@
                 }
               ],
               "title": "Ua"
+            }
+          },
+          {
+            "name": "notification_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Notification Id"
             }
           }
         ],
@@ -2186,6 +2202,10 @@
             "type": "string",
             "title": "Body"
           },
+          "notification_id": {
+            "type": "integer",
+            "title": "Notification Id"
+          },
           "subscriptions": {
             "items": {
               "$ref": "#/components/schemas/PushSubscriptionOut"
@@ -2200,6 +2220,7 @@
           "pending_count",
           "title",
           "body",
+          "notification_id",
           "subscriptions"
         ],
         "title": "DueNotification"
@@ -2325,6 +2346,28 @@
               }
             ],
             "title": "Intro Item Correct"
+          },
+          "attempts": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Attempts"
+          },
+          "response_time_ms": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Response Time Ms"
           }
         },
         "type": "object",
@@ -2594,67 +2637,6 @@
           "universities"
         ],
         "title": "LeaderboardSummaryResponse"
-      },
-      "LevelInfo": {
-        "properties": {
-          "level": {
-            "type": "integer",
-            "title": "Level"
-          },
-          "xp_in_level": {
-            "type": "integer",
-            "title": "Xp In Level"
-          },
-          "xp_required": {
-            "type": "integer",
-            "title": "Xp Required"
-          },
-          "progress_pct": {
-            "type": "number",
-            "title": "Progress Pct"
-          }
-        },
-        "type": "object",
-        "required": [
-          "level",
-          "xp_in_level",
-          "xp_required",
-          "progress_pct"
-        ],
-        "title": "LevelInfo"
-      },
-      "LevelInfoWithMissing": {
-        "properties": {
-          "level": {
-            "type": "integer",
-            "title": "Level"
-          },
-          "xp_in_level": {
-            "type": "integer",
-            "title": "Xp In Level"
-          },
-          "xp_required": {
-            "type": "integer",
-            "title": "Xp Required"
-          },
-          "xp_missing": {
-            "type": "integer",
-            "title": "Xp Missing"
-          },
-          "progress_pct": {
-            "type": "number",
-            "title": "Progress Pct"
-          }
-        },
-        "type": "object",
-        "required": [
-          "level",
-          "xp_in_level",
-          "xp_required",
-          "xp_missing",
-          "progress_pct"
-        ],
-        "title": "LevelInfoWithMissing"
       },
       "NotificationSettings": {
         "properties": {
@@ -3264,9 +3246,6 @@
             "type": "integer",
             "title": "Xp Earned"
           },
-          "level_info": {
-            "$ref": "#/components/schemas/LevelInfoWithMissing"
-          },
           "streak": {
             "$ref": "#/components/schemas/StreakInfo"
           },
@@ -3289,7 +3268,6 @@
           "topic_states",
           "belt_progress",
           "xp_earned",
-          "level_info",
           "streak",
           "session_number"
         ],
@@ -3498,6 +3476,22 @@
           "is_max": {
             "type": "boolean",
             "title": "Is Max"
+          },
+          "tier_reached": {
+            "type": "boolean",
+            "title": "Tier Reached",
+            "default": false
+          },
+          "prev_multiplier": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Prev Multiplier"
           },
           "counted_today": {
             "type": "boolean",
@@ -3770,9 +3764,6 @@
             "type": "object",
             "title": "Topic States"
           },
-          "level_info": {
-            "$ref": "#/components/schemas/LevelInfo"
-          },
           "main_session_done_today": {
             "type": "boolean",
             "title": "Main Session Done Today"
@@ -3820,7 +3811,6 @@
         "type": "object",
         "required": [
           "topic_states",
-          "level_info",
           "main_session_done_today",
           "streak"
         ],

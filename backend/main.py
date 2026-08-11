@@ -379,6 +379,10 @@ class EnrollmentRequest(BaseModel):
     # Resultado del ejercicio de prueba del onboarding (primer ítem del curso).
     # True = acertó al primer intento, False = falló alguna vez, None = sin dato.
     intro_item_correct: bool | None = None
+    # Cantidad de intentos hasta acertar (o intentos totales si nunca acertó).
+    attempts: int | None = None
+    # Tiempo total que tardó en responder el ejercicio de prueba, en ms.
+    response_time_ms: int | None = None
 
 
 @app.post("/user/enroll", response_model=EnrollmentResponse)
@@ -426,7 +430,14 @@ def enroll_user(
     # sesión; fallo → hoy, dentro). En re-enrollment no se toca el progreso.
     if not existing and body.intro_item_correct is not None:
         from session_store import seed_intro_item
-        seed_intro_item(current_user.id, course_id, body.intro_item_correct, db)
+        seed_intro_item(
+            current_user.id,
+            course_id,
+            body.intro_item_correct,
+            db,
+            attempts=body.attempts,
+            response_time_ms=body.response_time_ms,
+        )
 
     return {
         "success": True,
@@ -718,6 +729,7 @@ def push_diagnostic_beacon(
     endpoint: str | None = None,
     raw_len: str | None = None,
     ua: str | None = None,
+    notification_id: int | None = None,
     db: Session = Depends(get_db),
 ):
     """GET twin of push_diagnostic, reporting on EVERY push the service
@@ -726,7 +738,11 @@ def push_diagnostic_beacon(
     preflight), so it's the fallback channel in case the POST version's
     JSON body / Content-Type ever gets blocked in the service worker's
     fetch context — we had zero of those land while chasing a recurring
-    generic-fallback bug with no other client-side signal at all."""
+    generic-fallback bug with no other client-side signal at all.
+
+    event="click" doubles as the "notification opened" signal (see sw.js
+    notificationclick): persists NotificationSend.opened_at so effectiveness
+    can be analyzed later per category/variant."""
     import logging
 
     import push_store
@@ -741,6 +757,11 @@ def push_diagnostic_beacon(
         raw_len,
         ua,
     )
+    if event == "click" and notification_id is not None:
+        try:
+            push_store.mark_notification_opened(notification_id, endpoint, db)
+        except Exception:
+            logging.exception("failed to mark notification %s opened", notification_id)
     return {"success": True}
 
 

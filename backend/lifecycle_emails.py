@@ -19,11 +19,13 @@ Un worker externo (notifier/) pollea `/internal/emails/run` por hora; ver
 
 from __future__ import annotations
 
+import base64
 import hashlib
 import hmac
 import logging
 import os
 from datetime import datetime, timedelta
+from pathlib import Path
 
 from sqlalchemy import func
 from sqlalchemy.orm import Session as DBSession
@@ -126,28 +128,38 @@ def verify_unsubscribe_token(token: str) -> int | None:
 
 # ── Plantilla HTML ────────────────────────────────────────────────────────────
 
-# Ver decisiones de diseño en el plan: card oscura fija (#131324/#f6f8fc, misma
-# paleta que la app), sin adaptar a claro/oscuro de Gmail — el modo oscuro de
-# la app de Gmail (iOS/Android) ignora meta color-scheme y [data-ogsc]/[data-ogsb]
-# en la práctica, así que no vale la pena perseguirlo más allá de lo ya intentado.
+# Diseño "a lo Brilliant": cuerpo claro, sin card con fondo fijo. La app de
+# Gmail (iOS/Android) en modo oscuro ignora meta color-scheme y
+# [data-ogsc]/[data-ogsb] y fuerza su propia inversión de colores — una card
+# oscura fija (#131324) se convertía en lavanda claro y quedaba rota. Diseñando
+# claro (texto oscuro sobre fondo transparente) esa inversión juega a favor: en
+# modo oscuro Gmail lo pasa a texto claro sobre fondo oscuro y sigue viéndose
+# intencional.
 
-_BELT_BAR = ["#FAFAFA", "#00297A", "#62007A", "#7A4300"]
+# El logo va como imagen inline (CID) en vez de HTML: Gmail no invierte las
+# imágenes, así que el wordmark con su fondo #131324 y bordes redondeados se ve
+# idéntico en claro y en oscuro. Además la barra de cinturones queda calzada al
+# ancho exacto de la palabra, que con tablas HTML había que hardcodear (y
+# quedaba corta). Se genera con scripts/gen_email_logo.py.
+LOGO_PATH = Path(__file__).resolve().parent / "assets" / "email-logo.png"
+LOGO_CID = "intervalo-logo"
+LOGO_W, LOGO_H = 163, 61  # tamaño CSS; el PNG está a 3x para retina
 
 
 def _logo_html() -> str:
-    cells = "".join(
-        f'<td width="30" height="4" style="background:{c};line-height:4px;font-size:1px;">&nbsp;</td>'
-        for c in _BELT_BAR
+    return (
+        f'<img src="cid:{LOGO_CID}" width="{LOGO_W}" height="{LOGO_H}" alt="intervalo" '
+        f'style="display:block;margin:0 auto 32px;border:0;outline:none;text-decoration:none;">'
     )
-    return f"""
-<p class="tw" style="margin:0 0 5px;font-family:Georgia,'Times New Roman',serif;font-weight:700;font-size:24px;letter-spacing:-0.3px;color:#f6f8fc;">intervalo</p>
-<table role="presentation" cellpadding="0" cellspacing="0" width="120" style="margin:0 auto 28px;"><tr>{cells}</tr></table>
-"""
 
 
 def render_email(*, greeting: str, question: str, cta_label: str, cta_url: str, unsubscribe_url: str) -> str:
+    # La app usa DM Sans para el cuerpo; Gmail no carga webfonts, así que se
+    # aproxima con un stack sans-serif web-safe (antes no se declaraba nada y
+    # el cuerpo caía en Times).
+    sans = "font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;"
     btn = (
-        "display:inline-block;background:#5457e5;color:#f6f8fc;font-size:14px;"
+        f"display:inline-block;background:#5457e5;color:#ffffff;{sans}font-size:14px;"
         "font-weight:700;padding:12px 28px;border-radius:8px;text-decoration:none"
     )
     return f"""<!DOCTYPE html>
@@ -155,26 +167,21 @@ def render_email(*, greeting: str, question: str, cta_label: str, cta_url: str, 
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="dark light">
-<meta name="supported-color-schemes" content="dark light">
+<meta name="color-scheme" content="light dark">
+<meta name="supported-color-schemes" content="light dark">
 <style>
   body {{ margin:0; padding:0; }}
-  .card {{ background:#131324 !important; }}
-  .tw {{ color:#f6f8fc !important; }}
-  [data-ogsc] .card {{ background:#131324 !important; }}
-  [data-ogsc] .tw {{ color:#f6f8fc !important; }}
-  [data-ogsb] .card {{ background:#131324 !important; }}
 </style>
 </head>
 <body>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:40px 16px;">
-<table role="presentation" width="420" cellpadding="0" cellspacing="0" class="card" style="max-width:420px;background:#131324;border-radius:12px;">
-<tr><td align="center" style="padding:32px 24px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:48px 16px;">
+<table role="presentation" width="420" cellpadding="0" cellspacing="0" style="max-width:420px;">
+<tr><td align="center" style="padding:0 24px;">
 {_logo_html()}
-<p class="tw" style="font-size:15px;line-height:1.6;margin:0 0 8px;max-width:22rem;color:#f6f8fc;">{greeting}</p>
-<p class="tw" style="font-size:15px;line-height:1.6;margin:0 0 20px;font-weight:700;color:#f6f8fc;">{question}</p>
+<p style="{sans}font-size:15px;line-height:1.6;margin:0 0 8px;max-width:22rem;color:#131324;">{greeting}</p>
+<p style="{sans}font-size:15px;line-height:1.6;margin:0 0 24px;font-weight:700;color:#131324;">{question}</p>
 <a href="{cta_url}" style="{btn}">{cta_label}</a>
-<p class="tw" style="font-size:11px;color:#768899;margin:28px 0 0">Intervalo 2026. Desarrollado por y para estudiantes. <a class="tw" href="{unsubscribe_url}" style="color:#768899">Desuscribirse</a>.</p>
+<p style="{sans}font-size:11px;color:#768899;margin:32px 0 0">Intervalo 2026. Desarrollado por y para estudiantes. <a href="{unsubscribe_url}" style="color:#768899">Desuscribirse</a>.</p>
 </td></tr>
 </table>
 </td></tr></table>
@@ -206,7 +213,17 @@ def _send(to_email: str, subject: str, html: str) -> bool:
         import resend
 
         resend.api_key = api_key
-        resend.Emails.send({"from": from_email, "to": to_email, "subject": subject, "html": html})
+        payload = {"from": from_email, "to": to_email, "subject": subject, "html": html}
+        if LOGO_PATH.exists():
+            payload["attachments"] = [
+                {
+                    "content": base64.b64encode(LOGO_PATH.read_bytes()).decode(),
+                    "filename": "intervalo.png",
+                    "content_type": "image/png",
+                    "content_id": LOGO_CID,
+                }
+            ]
+        resend.Emails.send(payload)
         return True
     except Exception:
         logging.exception("Failed to send lifecycle email via Resend to %s", to_email)

@@ -2,11 +2,11 @@
 
 Belt: `violet`, Unit: `derivatives`, Topic: `quotient`
 
-Skills en este topic: `ESTR`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+Skills en este topic: `ESTR`, `RESL`. **30 ejercicios cada uno (60 en total)** al cerrar el refactor.
 
-Este topic tiene 2 ítems (uno por skill): `ESTR`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+Este topic tiene 2 ítems (uno por skill): `ESTR`, `RESL`. **30 ejercicios cada uno (60 en total)** al cerrar el refactor.
 
-**Estado.** Este tópico surgió del split de `product_quotient` en `product/` + `quotient/`. Los `external_id` se regeneran al reseedear (`violet_quotient_estr_01…`, `violet_quotient_resl_01…`), lo que rompe el progreso guardado en DB — asumido y aceptado. La distribución completa (50 por skill) se hace en otro turno.
+**Estado.** Este tópico surgió del split de `product_quotient` en `product/` + `quotient/`. Los `external_id` se regeneran al reseedear (`violet_quotient_estr_01…`, `violet_quotient_resl_01…`), lo que rompe el progreso guardado en DB — asumido y aceptado. La distribución completa (30 por skill) se hace en otro turno.
 
 El contenido "APLI" que existía antes del merge DERI/INTG/APLI → RESL queda absorbido en **RESL** — coherente con la fusión de skills a nivel curso.
 
@@ -36,7 +36,7 @@ Los ejercicios que quiebren esta regla se descartan y se reescriben.
 
 ## Correcciones de formato transversales (los 2 skills)
 
-Reglas de authoring que se aplican al escribir los 100 ejercicios:
+Reglas de authoring que se aplican al escribir los 60 ejercicios:
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`, con enfoque **algorítmico**: (a) identificamos $u$ y $v$ y calculamos $u'$ y $v'$ usando `\begin{aligned}`, (b) aplicamos la fórmula $\tfrac{u'v - uv'}{v^2}$ señalando el orden estricto de la resta, (c) simplificamos y cerramos con advertencia técnica (orden de la resta, cuadrado del denominador, signo). Sin viñetas `•`, sin sub-`-`, **sin em-dash `—` (prohibido estricto)**, sin humor.
@@ -48,7 +48,7 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 ---
 
-## ESTR, 50 ejercicios
+## ESTR, 30 ejercicios
 
 ### Qué evalúa
 **Auditoría de la toma de decisiones previa al cálculo** y **comprensión anatómica de la fórmula**. No se ejecuta la derivación completa: se decide **qué regla aplicar**, **cómo desglosar la expresión** y **qué orden respetar en la resta del numerador**. Sin cálculo numérico final.
@@ -62,8 +62,8 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Falsos positivos y alternativas algebraicas | Detectar cuándo la regla del cociente es válida pero **estratégicamente ineficiente**. Constante en el numerador ($f(x) = \tfrac{5}{x^3}$ conviene como $5x^{-3}$), constante en el denominador ($f(x) = \tfrac{x^2 + 1}{4}$ es $\tfrac{1}{4}(x^2 + 1)$), o polinomios simplificables antes de derivar ($f(x) = \tfrac{x^2 - 1}{x - 1} = x + 1$ para $x \neq 1$). | `falsos-positivos-alternativas-cociente` | 25 |
-| B. Anatomía, signos y dominio | Auditar el **orden estricto** del numerador (la resta no es conmutativa), el **rol del cuadrado** del denominador y la **identificación** de $u$ y $v$. Reconocer que el signo de la derivada lo dicta el numerador ($v^2 > 0$ siempre que $v \neq 0$). | `anatomia-signos-y-dominio-cociente` | 25 |
+| A. Falsos positivos y alternativas algebraicas | Detectar cuándo la regla del cociente es válida pero **estratégicamente ineficiente**. Constante en el numerador ($f(x) = \tfrac{5}{x^3}$ conviene como $5x^{-3}$), constante en el denominador ($f(x) = \tfrac{x^2 + 1}{4}$ es $\tfrac{1}{4}(x^2 + 1)$), o polinomios simplificables antes de derivar ($f(x) = \tfrac{x^2 - 1}{x - 1} = x + 1$ para $x \neq 1$). | `falsos-positivos-alternativas-cociente` | 15 |
+| B. Anatomía, signos y dominio | Auditar el **orden estricto** del numerador (la resta no es conmutativa), el **rol del cuadrado** del denominador y la **identificación** de $u$ y $v$. Reconocer que el signo de la derivada lo dicta el numerador ($v^2 > 0$ siempre que $v \neq 0$). | `anatomia-signos-y-dominio-cociente` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -85,7 +85,7 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 30 ejercicios
 
 ### Qué evalúa
 **Ejecución técnica** de la regla del cociente: identificar $u$ y $v$, calcular $u'$ y $v'$, armar $\tfrac{u'v - uv'}{v^2}$ y **evaluar en un punto** $x = a$ donde al menos un término de la resta se anula (con $v(a) \neq 0$ garantizado).
@@ -104,10 +104,10 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Anulación por raíz en el numerador | El punto $x = a$ anula $u$ ($u(a) = 0$), haciendo desaparecer el término $u(a) v'(a)$. Queda $\tfrac{u'(a) v(a)}{v(a)^2} = \tfrac{u'(a)}{v(a)}$. Ejemplo: $f(x) = \tfrac{x^2 - 4}{e^x}$ evaluada en $x = 2$. | `anulacion-raiz-numerador-cociente` | 15 |
-| B. Anulación por extremo local (derivada nula) | El punto $x = a$ anula $u'$ o $v'$. Ejemplo: $f(x) = \tfrac{\sin x}{x}$ evaluada en $x = \tfrac{\pi}{2}$ (acá $\cos(\pi/2) = 0$, anula $u'(a) v(a) = 0$, queda $-\tfrac{u(a) v'(a)}{v(a)^2} = -\tfrac{1 \cdot 1}{(\pi/2)^2} = -\tfrac{4}{\pi^2}$). | `anulacion-derivada-nula-cociente` | 15 |
-| C. Tangentes horizontales (numerador completo nulo) | En vez de evaluar en un $a$ dado, se pide encontrar el $x$ donde $f'(x) = 0$. El alumno deriva, descarta $v^2$ (una fracción es cero cuando el numerador es cero) y resuelve la ecuación $u'v - uv' = 0$. Los ejercicios se eligen para que la ecuación resultante se factorice a mano en una o dos raíces enteras. | `tangentes-horizontales-cociente` | 10 |
-| D. Evaluación con datos abstractos | Se brindan valores puntuales de $f(a), f'(a), g(a), g'(a)$, uno o más iguales a $0$ explícitamente. Ejemplo: "Si $f(2) = 0$, $f'(2) = 3$, $g(2) = 4$, $g'(2) = -1$, calculá $\left(\tfrac{f}{g}\right)'(2)$". Respuesta: $\tfrac{3 \cdot 4 - 0 \cdot (-1)}{4^2} = \tfrac{12}{16} = \tfrac{3}{4}$. Fuerza la estructura abstracta pura respetando el **orden de la resta**. | `evaluacion-datos-abstractos-cociente` | 10 |
+| A. Anulación por raíz en el numerador | El punto $x = a$ anula $u$ ($u(a) = 0$), haciendo desaparecer el término $u(a) v'(a)$. Queda $\tfrac{u'(a) v(a)}{v(a)^2} = \tfrac{u'(a)}{v(a)}$. Ejemplo: $f(x) = \tfrac{x^2 - 4}{e^x}$ evaluada en $x = 2$. | `anulacion-raiz-numerador-cociente` | 9 |
+| B. Anulación por extremo local (derivada nula) | El punto $x = a$ anula $u'$ o $v'$. Ejemplo: $f(x) = \tfrac{\sin x}{x}$ evaluada en $x = \tfrac{\pi}{2}$ (acá $\cos(\pi/2) = 0$, anula $u'(a) v(a) = 0$, queda $-\tfrac{u(a) v'(a)}{v(a)^2} = -\tfrac{1 \cdot 1}{(\pi/2)^2} = -\tfrac{4}{\pi^2}$). | `anulacion-derivada-nula-cociente` | 9 |
+| C. Tangentes horizontales (numerador completo nulo) | En vez de evaluar en un $a$ dado, se pide encontrar el $x$ donde $f'(x) = 0$. El alumno deriva, descarta $v^2$ (una fracción es cero cuando el numerador es cero) y resuelve la ecuación $u'v - uv' = 0$. Los ejercicios se eligen para que la ecuación resultante se factorice a mano en una o dos raíces enteras. | `tangentes-horizontales-cociente` | 6 |
+| D. Evaluación con datos abstractos | Se brindan valores puntuales de $f(a), f'(a), g(a), g'(a)$, uno o más iguales a $0$ explícitamente. Ejemplo: "Si $f(2) = 0$, $f'(2) = 3$, $g(2) = 4$, $g'(2) = -1$, calculá $\left(\tfrac{f}{g}\right)'(2)$". Respuesta: $\tfrac{3 \cdot 4 - 0 \cdot (-1)}{4^2} = \tfrac{12}{16} = \tfrac{3}{4}$. Fuerza la estructura abstracta pura respetando el **orden de la resta**. | `evaluacion-datos-abstractos-cociente` | 6 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -144,7 +144,7 @@ Auditoría en vivo (`/test`) sobre ejercicios ya existentes:
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 2 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 30 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna aplicación de regla de la cadena; ninguna función compuesta en $u$ o $v$
 - [ ] Ningún desarrollo por límite; un solo cociente por ejercicio
 - [ ] Explicaciones en 3 párrafos de prosa; estructura algorítmica; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
@@ -155,16 +155,16 @@ Auditoría en vivo (`/test`) sobre ejercicios ya existentes:
 - [ ] **Ningún enunciado abre con un opener corto y genérico** ("Sabiendo que", "Para derivar") sin cerrar la oración antes del bloque `$$...$$` (regla crítica 32)
 
 **ESTR:**
-- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
-- [ ] Distribución A/B respetada (25/25)
+- [ ] 30 ejercicios; **exactamente 3 opciones** por ejercicio
+- [ ] Distribución A/B respetada (15/15)
 - [ ] Ningún cálculo numérico final; solo elección de método/descomposición/anatomía
 - [ ] Sub-A con distractor mayoritario = "regla del cociente"; sub-B con opciones tipo fórmulas exactas (`"(u'v - uv') / v^2"`) para reconocimiento
 - [ ] Textos exactos en opciones de elección de planteo (ver §Reglas específicas)
 
 **RESL:**
-- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
+- [ ] 30 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
 - [ ] Sin contextos cotidianos
-- [ ] Distribución A/B/C/D respetada (15/15/10/10)
+- [ ] Distribución A/B/C/D respetada (9/9/6/6)
 - [ ] En sub-A/B: todos los ejercicios cumplen la **anulación forzada** ($u'(a) v(a) = 0$ o $u(a) v'(a) = 0$)
 - [ ] En todos los ejercicios con evaluación puntual: $v(a) \neq 0$ garantizado
 - [ ] Sub-C con ecuaciones factorizables a mano; sin resolvente incómoda
