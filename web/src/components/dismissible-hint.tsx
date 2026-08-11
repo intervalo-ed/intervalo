@@ -52,7 +52,7 @@ export function DismissibleHint({
           pone `space-y`: separa un poco más que el interlineado, sin abrir el
           renglón en blanco que dejaría un párrafo aparte. Spans y no divs
           porque acá adentro estamos en un <p>. */}
-      <p className="space-y-2.5 text-sm text-foreground/60">{children}</p>
+      <p className="space-y-2.5 text-sm text-foreground/80">{children}</p>
       <button
         type="button"
         aria-label="Cerrar"
