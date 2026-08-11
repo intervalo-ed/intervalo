@@ -729,6 +729,7 @@ def push_diagnostic_beacon(
     endpoint: str | None = None,
     raw_len: str | None = None,
     ua: str | None = None,
+    notification_id: int | None = None,
     db: Session = Depends(get_db),
 ):
     """GET twin of push_diagnostic, reporting on EVERY push the service
@@ -737,7 +738,11 @@ def push_diagnostic_beacon(
     preflight), so it's the fallback channel in case the POST version's
     JSON body / Content-Type ever gets blocked in the service worker's
     fetch context — we had zero of those land while chasing a recurring
-    generic-fallback bug with no other client-side signal at all."""
+    generic-fallback bug with no other client-side signal at all.
+
+    event="click" doubles as the "notification opened" signal (see sw.js
+    notificationclick): persists NotificationSend.opened_at so effectiveness
+    can be analyzed later per category/variant."""
     import logging
 
     import push_store
@@ -752,6 +757,11 @@ def push_diagnostic_beacon(
         raw_len,
         ua,
     )
+    if event == "click" and notification_id is not None:
+        try:
+            push_store.mark_notification_opened(notification_id, endpoint, db)
+        except Exception:
+            logging.exception("failed to mark notification %s opened", notification_id)
     return {"success": True}
 
 

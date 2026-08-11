@@ -387,6 +387,10 @@ export interface paths {
          *     JSON body / Content-Type ever gets blocked in the service worker's
          *     fetch context — we had zero of those land while chasing a recurring
          *     generic-fallback bug with no other client-side signal at all.
+         *
+         *     event="click" doubles as the "notification opened" signal (see sw.js
+         *     notificationclick): persists NotificationSend.opened_at so effectiveness
+         *     can be analyzed later per category/variant.
          */
         get: operations["push_diagnostic_beacon_push_diagnostic_get"];
         put?: never;
@@ -871,6 +875,8 @@ export interface components {
             title: string;
             /** Body */
             body: string;
+            /** Notification Id */
+            notification_id: number;
             /** Subscriptions */
             subscriptions: components["schemas"]["PushSubscriptionOut"][];
         };
@@ -2125,6 +2131,7 @@ export interface operations {
                 endpoint?: string | null;
                 raw_len?: string | null;
                 ua?: string | null;
+                notification_id?: number | null;
             };
             header?: never;
             path?: never;

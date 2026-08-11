@@ -463,3 +463,34 @@ class PushSubscription(Base):
 
     user = relationship("User", back_populates="push_subscriptions")
     course = relationship("Course", back_populates="push_subscriptions")
+
+
+class NotificationSend(Base):
+    """Historial de notificaciones push enviadas: una fila por usuario por
+    envío (no por dispositivo), con la categoría/variante de copy elegida
+    (ver notification_copy.py) y si se llegó a clickear. A diferencia de
+    User.notify_last_* (que solo guardan el último estado, para el guard de
+    idempotencia diario), esta tabla es append-only y permite analizar
+    efectividad por categoría/variante a lo largo del tiempo."""
+    __tablename__ = "notification_sends"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
+
+    category = Column(String(30), nullable=False)
+    variant_key = Column(String(50), nullable=False)
+    title = Column(String(200), nullable=False)
+    body = Column(String(500), nullable=False)
+
+    sent_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    # Se completa desde notificationclick en el service worker (ver sw.js);
+    # None mientras no se haya clickeado. Idempotente: el primer click gana.
+    opened_at = Column(DateTime, nullable=True)
+
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (
+        Index("idx_notification_sends_user_id", "user_id"),
+        Index("idx_notification_sends_sent_at", "sent_at"),
+    )

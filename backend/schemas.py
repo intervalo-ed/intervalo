@@ -183,6 +183,7 @@ class DueNotification(BaseModel):
     pending_count: int
     title: str
     body: str
+    notification_id: int
     subscriptions: list[PushSubscriptionOut]
 
 

@@ -24,7 +24,15 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from algorithm import streak_info
 
 import notification_copy
-from models import Answer, Enrollment, PushSubscription, Session as SessionModel, UnitState, User
+from models import (
+    Answer,
+    Enrollment,
+    NotificationSend,
+    PushSubscription,
+    Session as SessionModel,
+    UnitState,
+    User,
+)
 
 COURSE_ID = 1  # Single-course app for now (matches the rest of the backend).
 
@@ -93,6 +101,22 @@ def user_id_for_endpoint(db: DBSession, endpoint: str) -> int | None:
         .first()
     )
     return sub.user_id if sub else None
+
+
+def mark_notification_opened(notification_id: int, endpoint: str | None, db: DBSession) -> None:
+    """Marca un NotificationSend como abierto (click en la notificación, ver
+    sw.js notificationclick). Valida que el endpoint reportado pertenezca al
+    mismo usuario que recibió el envío, para que nadie pueda marcar aperturas
+    ajenas solo adivinando ids. Idempotente: el primer click gana, uno
+    posterior (doble click, refocus) no pisa el timestamp original."""
+    send = db.query(NotificationSend).filter(NotificationSend.id == notification_id).first()
+    if send is None or send.opened_at is not None:
+        return
+    owner_id = user_id_for_endpoint(db, endpoint) if endpoint else None
+    if owner_id != send.user_id:
+        return
+    send.opened_at = datetime.utcnow()
+    db.commit()
 
 
 def delete_subscription(db: DBSession, user_id: int, endpoint: str) -> None:
@@ -501,12 +525,27 @@ def due_notifications(db: DBSession, force: bool = False) -> list[dict]:
         user.notify_last_category = category
         user.notify_last_variant_key = variant.key
 
+        # Historial append-only (a diferencia de las columnas de arriba, que
+        # solo guardan el último estado) para poder analizar después tasas de
+        # apertura y efectividad por categoría/variante.
+        send = NotificationSend(
+            user_id=user.id,
+            course_id=COURSE_ID,
+            category=category,
+            variant_key=variant.key,
+            title=title,
+            body=body,
+        )
+        db.add(send)
+        db.flush()  # need send.id before building the response below
+
         result.append(
             {
                 "user_id": user.id,
                 "pending_count": count,
                 "title": title,
                 "body": body,
+                "notification_id": send.id,
                 "subscriptions": [
                     {
                         "id": s.id,
