@@ -4,6 +4,7 @@ import { useUser } from "@clerk/nextjs"
 import { useRouter } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 import { useEnrollMutation } from "@/app/onboarding/UseEnrollMutation"
+import { LAST_COURSE_KEY } from "@/app/dashboard-entry"
 import { Button } from "@/components/ui/button"
 import { Spinner } from "@/components/ui/spinner"
 import { useApi } from "@/lib/api/useApi"
@@ -48,7 +49,7 @@ export default function OnboardingCompletePage() {
     await user?.update({ unsafeMetadata: { onboarded: true } })
     // El dashboard resuelve el curso activo con last_course; sembramos el elegido
     // para que abra ahí de entrada (antes de que responda el back).
-    window.localStorage.setItem("intervalo:last_course", data.course)
+    window.localStorage.setItem(LAST_COURSE_KEY, data.course)
     clearOnboarding()
     // Mostramos la pantalla "¡Una cosa más!" (instalar la app); al tocar
     // Continuar se navega al dashboard, donde el usuario arranca su repaso.
