@@ -46,20 +46,20 @@
     ]
   },
   {
-    "question": "Para viajar de una ciudad A a una ciudad C se puede pasar por una ciudad B, con 3 rutas de A a B y 2 rutas de B a C.\n\nComo alternativa, también existen 4 vuelos directos de A a C.\n\n¿Qué regla conviene aplicar para contar el total de formas de viajar?",
+    "question": "Para viajar de Rosario a Mendoza se puede pasar por Córdoba, con 3 rutas de Rosario a Córdoba y 2 rutas de Córdoba a Mendoza.\n\nComo alternativa, también existen 4 vuelos directos de Rosario a Mendoza.\n\n¿Qué regla conviene aplicar para contar el total de formas de viajar?",
     "options": [
       "Solo la regla de la suma.",
       "Solo la regla del producto.",
       "Producto y suma combinados."
     ],
     "correct_index": 2,
-    "feedback_correct": "Las rutas por B se multiplican entre sí, y esa cantidad se suma con la alternativa del vuelo directo.",
+    "feedback_correct": "Las rutas por Córdoba se multiplican entre sí, y esa cantidad se suma con la alternativa del vuelo directo.",
     "feedback_incorrect": [
-      "La suma sola no alcanza: pasar por B involucra dos decisiones consecutivas, la ruta a B y la ruta desde B, que hay que multiplicar primero.",
-      "El producto solo no alcanza: el vuelo directo es una alternativa aparte, excluyente de la opción de pasar por B, y esa parte se suma.",
+      "La suma sola no alcanza: pasar por Córdoba involucra dos decisiones consecutivas, la ruta a Córdoba y la ruta desde Córdoba, que hay que multiplicar primero.",
+      "El producto solo no alcanza: el vuelo directo es una alternativa aparte, excluyente de la opción de pasar por Córdoba, y esa parte se suma.",
       null
     ],
-    "explanation": "Cuando un problema tiene una rama con decisiones consecutivas y otra rama como alternativa excluyente, primero se resuelve el producto dentro de cada rama y después se suman las ramas entre sí.\n\nPasar por B son 2 decisiones consecutivas que dan 6 formas, y el vuelo directo es una alternativa aparte con 4 opciones:\n$$3 \\times 2 + 4 = 10$$\nEn total hay 10 formas de viajar.\n\nAplicar una sola de las dos reglas a todo el problema pasa por alto que cada tramo necesita su propio análisis antes de combinarlos.",
+    "explanation": "Cuando un problema tiene una rama con decisiones consecutivas y otra rama como alternativa excluyente, primero se resuelve el producto dentro de cada rama y después se suman las ramas entre sí.\n\nPasar por Córdoba son 2 decisiones consecutivas que dan 6 formas, y el vuelo directo es una alternativa aparte con 4 opciones:\n$$3 \times 2 + 4 = 10$$\nEn total hay 10 formas de viajar.\n\nAplicar una sola de las dos reglas a todo el problema pasa por alto que cada tramo necesita su propio análisis antes de combinarlos.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

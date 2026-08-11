@@ -525,6 +525,9 @@ La gráfica muestra el costo total, en cientos de pesos, según los kilómetros.
 - **"Cuadrática" y "Polinómica" no pueden convivir en la misma grilla**: si la respuesta correcta es `Cuadrática`, ninguna opción puede ser `Polinómica de grado N` (porque toda cuadrática es un polinomio → ambigüedad). Elegir distractor de familia claramente distinta. La regla aplica en espejo: si la correcta es `Polinómica`, no ofrecer `Cuadrática`.
 - El cierre de la explicación es advertencia/consejo por defecto; humor solo excepcional (analogía cotidiana exagerada, nunca antropomorfismo). Ver *Estructura de la explicación*.
 - **Sin nombres propios**: usar roles genéricos, "un vendedor", "una empresa", "un estudiante", "un puesto de limonada", "un remis", etc.
+- **Excepción — lugares/nodos que el enunciado necesita distinguir en una secuencia (rutas, trayectos, escalas): usar nombres de ciudades reales, no letras genéricas (`A`, `B`, `C`).** Etiquetar puntos con letras obliga a sostener una referencia abstracta en la cabeza mientras se sigue la lógica del conteo; un nombre de ciudad se recuerda solo y no compite por memoria con el razonamiento matemático. Esto no contradice la regla anterior: ahí se trata de personas/roles (mantener genérico evita nombres propios de individuos), acá se trata de nodos geográficos de un grafo/trayecto (usar nombres reales mejora la legibilidad). Aplica a todos los cursos, no solo Probabilidad.
+  - ❌ `Para viajar de una ciudad A a una ciudad C se puede pasar por una ciudad B, con 3 rutas de A a B y 2 rutas de B a C.`
+  - ✅ `Para viajar de Rosario a Mendoza se puede pasar por Córdoba, con 3 rutas de Rosario a Córdoba y 2 rutas de Córdoba a Mendoza.`
 - **Dos fórmulas en un mismo enunciado**: nunca poner dos funciones en la misma línea display con `\qquad`, en mobile se corta. Usar dos bloques `$$` separados:
   - ❌ `$$f(x) = 3x^2 + 1 \qquad g(x) = 0{,}5x^2 + 1$$`
   - ✅ `$$f(x) = 3x^2 + 1$$\n$$g(x) = 0{,}5x^2 + 1$$`
