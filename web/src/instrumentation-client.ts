@@ -1,4 +1,5 @@
 import posthog from "posthog-js"
+import { FIRST_UTM_SOURCE } from "@/lib/analytics/attribution"
 import { getPlatform, isStandalone } from "@/lib/platform/detect"
 
 posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
@@ -6,6 +7,15 @@ posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
   // Enables automatic pageview + pageleave capture for the App Router.
   defaults: "2026-01-30",
 })
+
+// register_once persiste en localStorage y adjunta el origen a todos los eventos
+// siguientes, incluidos los de después del OAuth (ver lib/analytics/attribution).
+// "once" es a propósito: gana el primer contacto, así que si la persona vuelve a
+// entrar por otro link no se le pisa el origen real.
+const utmSource = new URLSearchParams(window.location.search).get("utm_source")
+if (utmSource) {
+  posthog.register_once({ [FIRST_UTM_SOURCE]: utmSource })
+}
 
 // La instalación de la PWA es manual: el onboarding muestra los pasos y el
 // usuario los hace en el menú del navegador (ver install-prompt.tsx). No hay
