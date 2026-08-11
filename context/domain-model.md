@@ -20,6 +20,7 @@ Fuente de verdad: `algorithm/` (paquete Python puro, sin dependencia de DB) para
 | `Feedback` | Feedback libre desde ajustes (`categoria`: error/idea/comentario). |
 | `ExerciseFeedback` | Micro-encuesta post-ejercicio (dificultad/utilidad de la explicación) + reportes de contenido, keyed por `exercise_external_id` (no por el slot de sesión) para agregar entre sesiones/usuarios. `answered_at IS NULL` = impresión mostrada pero no respondida (skip). |
 | `PushSubscription` | Suscripción Web Push (`endpoint`/`p256dh`/`auth`) por `(user, course)`. |
+| `NotificationSend` | Historial append-only de push enviados: una fila por usuario por envío (no por dispositivo), con `category`/`variant_key` del copy elegido (ver `notification_copy.py`), el `title`/`body` renderizados y `opened_at`, que se completa cuando el usuario clickea la notificación (`notificationclick` del service worker → beacon a `main.py`, idempotente: gana el primer click). Permite medir efectividad por categoría/variante; distinto de `User.notify_last_*`, que solo guarda el último estado para el guard diario de idempotencia. |
 
 ## Estructura de contenido: belt → unit → topic
 
