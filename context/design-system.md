@@ -30,9 +30,11 @@ Tokens base:
 | violet | `#730F8C` | `#C07BC9` |
 | brown | `#674011` | `#C57C38` |
 
-Dos arreglos derivados con propósitos distintos, **deliberadamente separados**:
-- `BELT_BAR_COLORS` (= `solid`): superficies de marca (ícono, logo, cubos de landing).
+Arreglos derivados con propósitos distintos, **deliberadamente separados**:
+- `BELT_LEGEND_BAR_COLORS` (derivado de `BELT_ONDARK_VIVID`): superficies de marca (logo/wordmark, splash, cuadraditos de landing y onboarding).
 - `BELT_VIVID_COLORS` / `BELT_ONDARK_VIVID` (= `onDark`, con variante propia para onboarding/landing): usado dentro de la app (confetti, chips, títulos de unidad) — así ajustar la paleta in-app no afecta las superficies de marca.
+
+(`BELT_BAR_COLORS`, el arreglo de `solid`, se borró: ninguna superficie lo consumía. Los colores exactos siguen en `BELT_HEX[*].solid`.)
 
 El "negro" histórico (belt `black` en `algorithm/domain.py`) **no** está en `BELT_ORDER` ni en ninguna paleta — no forma parte de ningún curso activo, no usarlo en UI nueva.
 

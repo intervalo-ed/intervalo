@@ -9,7 +9,7 @@ import { useSyncExternalStore } from "react"
 const STORAGE_KEY = "intervalo:profile-news"
 const EVENT = "intervalo:profile-news-change"
 
-export function hasProfileNews(): boolean {
+function hasProfileNews(): boolean {
   if (typeof window === "undefined") return false
   return window.localStorage.getItem(STORAGE_KEY) === "1"
 }

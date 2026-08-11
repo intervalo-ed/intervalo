@@ -10,7 +10,6 @@ const SOUND_PATHS = {
   continue: "/continue_sound.mp3",
   correct: "/correct_sound.mp3",
   wrong: "/session_wrong.mp3",
-  iterate: "/iterate_sound.mp3",
   start: "/session_start.mp3",
   charge: "/session_charge.mp3",
   end: "/session_complete.mp3",
@@ -29,17 +28,11 @@ const SOUND_VOLUME: Record<SfxName, number> = {
   continue: VOLUME,
   correct: VOLUME,
   wrong: VOLUME * 0.8,
-  iterate: VOLUME * 0.5,
   start: VOLUME * 0.7,
   charge: VOLUME * 1.2,
   end: VOLUME * 2.1,
   xpCount: VOLUME,
 }
-
-// Sonidos muteados temporalmente (hasta nuevo aviso): `iterate` (botones
-// play/pausa del onboarding y seleccionadores del modo práctica). Para
-// reactivarlos, vaciar este set.
-const MUTED_SFX = new Set<SfxName>(["iterate"])
 
 // Tick suelto a un pitch dado (1 = original). Pensado para las secuencias de
 // conteo del resumen (XP y ejercicios); cada paso del conteo dispara un tick.
@@ -63,7 +56,6 @@ export function useSfx(): Record<SfxName, () => void> {
     const out = {} as Record<SfxName, () => void>
     for (const name of Object.keys(SOUND_PATHS) as SfxName[]) {
       out[name] = () => {
-        if (MUTED_SFX.has(name)) return
         if (isSoundMuted()) return
         playSfx(name, SOUND_PATHS[name], SOUND_VOLUME[name])
       }

@@ -60,13 +60,6 @@ function serialize(sub: PushSubscription): SerializedSubscription {
   }
 }
 
-export async function getCurrentSubscription(): Promise<SerializedSubscription | null> {
-  if (!isPushSupported()) return null
-  const reg = await getRegistration()
-  const sub = await reg.pushManager.getSubscription()
-  return sub ? serialize(sub) : null
-}
-
 /**
  * Request permission and subscribe. Throws if the browser is unsupported, the
  * VAPID key is missing, or the user denies permission.

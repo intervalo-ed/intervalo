@@ -36,7 +36,7 @@ Son experiencias con objetivos distintos, y el estudiante los distingue rápido:
 | XP | Más alto, ajustado a su dificultad personal con cada ítem | Más bajo y plano, para que no sea la forma "fácil" de sumar XP |
 | Multiplicador de racha | Sí | Sí |
 
-También existe un **modo Test** (`/test`), pensado como herramienta de práctica libre sin tracking de progreso: el estudiante elige ítems puntuales `(belt, topic, skill)` de cualquier cinturón del curso, con filtros (orden aleatorio, solo ítems con LaTeX, solo ítems con gráfico) — pensado más para explorar/probar contenido que para el circuito diario de estudio.
+También existe un **modo Test** (`/dev/test`, solo en `next dev`; en producción es 404), pensado como herramienta interna de QA sin tracking de progreso: se eligen ítems puntuales `(belt, topic, skill)` de cualquier cinturón del curso, con filtros (orden aleatorio, solo ítems con LaTeX, solo ítems con gráfico) — pensado más para explorar/probar contenido que para el circuito diario de estudio.
 
 ## 4. Adentro de una sesión (cualquier modo)
 
