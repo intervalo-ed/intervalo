@@ -194,6 +194,9 @@ def seed_exercises(
 ) -> int:
     seen_external_ids: set[str] = set()
     seen_skills: set[tuple[str, str, str]] = set()  # (belt, topic, skill)
+    # Cuántos ejercicios trae el disco por ítem. Lo usa el prune para no dejar
+    # un ítem declarado en cero (ver abajo).
+    seen_counts: dict[tuple[str, str, str], int] = {}
     inserted = updated = 0
     total = 0
 
@@ -232,6 +235,7 @@ def seed_exercises(
         entries = _load_json(skill_file)
         if not isinstance(entries, list):
             raise ValueError(f"{skill_file}: root must be a list")
+        seen_counts[(belt, topic, skill)] = len(entries)
 
         for idx, entry in enumerate(entries):
             _validate_exercise(entry, skill_file, idx)
@@ -309,18 +313,38 @@ def seed_exercises(
                     updated += 1
 
     if prune:
-        to_delete = (
-            db.query(Exercise)
-            .filter(
-                Exercise.course_id == course.id,
-                Exercise.external_id.notin_(seen_external_ids) | (Exercise.external_id.is_(None)),
-            )
-            .all()
+        # Rejilla de seguridad. El prune borra todo lo que no esté hoy en disco,
+        # así que un deploy con el contenido incompleto (merge a medio hacer, un
+        # COPY del Dockerfile que se dejó archivos afuera) vaciaría ítems que el
+        # curso declara. Un ítem declarado sin ejercicios no es contenido de
+        # menos: rompe la sesión, porque get_exercise_db tira LookupError y
+        # build_session no puede armarla. Ante esa señal el prune no corre y el
+        # arranque sigue con las filas viejas, que es el estado degradado pero
+        # funcional. No hay riesgo de perder contenido: la fuente son los JSON
+        # de backend/content/, versionados en git — arreglar el archivo y volver
+        # a deployar repone las filas.
+        vaciarian = sorted(
+            item for item in _declared_skills(data) if seen_counts.get(item, 0) == 0
         )
-        for ex in to_delete:
-            db.delete(ex)
-        if to_delete:
-            print(f"  [exercises] pruned {len(to_delete)} stale rows")
+        if vaciarian:
+            print(
+                f"  [prune] ABORTADO: {len(vaciarian)} ítem(s) declarados quedarían sin "
+                f"ejercicios. No se borró nada. Revisá que backend/content/ esté completo "
+                f"en este deploy: {vaciarian[:5]}"
+            )
+        else:
+            to_delete = (
+                db.query(Exercise)
+                .filter(
+                    Exercise.course_id == course.id,
+                    Exercise.external_id.notin_(seen_external_ids) | (Exercise.external_id.is_(None)),
+                )
+                .all()
+            )
+            for ex in to_delete:
+                db.delete(ex)
+            if to_delete:
+                print(f"  [exercises] pruned {len(to_delete)} stale rows")
 
     _validate_declared_skills(data, seen_skills)
 
@@ -335,14 +359,14 @@ def _hidden_belts(data: dict) -> set[str]:
     return {b["key"] for b in data.get("belts", []) if b.get("hidden")}
 
 
-def _validate_declared_skills(
-    data: dict, seen_skills: set[tuple[str, str, str]]
-) -> None:
-    """Warn if the SKILL.json files on disk don't match course.json topic.skills."""
+def _declared_skills(data: dict) -> set[tuple[str, str, str]]:
+    """Los (belt, topic, skill) que course.json declara, o sea los ítems que
+    existen para el alumno. Excluye los belts ocultos: conservan sus JSON en
+    /content pero no se seedean ni se validan contra disco."""
     declared: set[tuple[str, str, str]] = set()
     for belt in data.get("belts", []):
         if belt.get("hidden"):
-            continue  # belt oculto: no se seedea, no se valida contra disco
+            continue
         # Cursos con units[] (analisis) o con topics[] directo bajo el cinturón
         # (probabilidad) igual declaran las skills al mismo nivel de topic.
         unit_iter = belt.get("units") or [{"topics": belt.get("topics", [])}]
@@ -350,6 +374,14 @@ def _validate_declared_skills(
             for topic in unit.get("topics", []):
                 for skill in topic.get("skills", []):
                     declared.add((belt["key"], topic["key"], skill))
+    return declared
+
+
+def _validate_declared_skills(
+    data: dict, seen_skills: set[tuple[str, str, str]]
+) -> None:
+    """Warn if the SKILL.json files on disk don't match course.json topic.skills."""
+    declared = _declared_skills(data)
     missing = declared - seen_skills   # declared pero sin archivo
     extra = seen_skills - declared     # archivo sin declarar en course.json
     if missing:

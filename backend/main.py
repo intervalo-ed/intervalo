@@ -73,7 +73,12 @@ def startup_event():
 
     db = SessionLocal()
     try:
-        seed_all(db)
+        # prune=True: la tabla `exercises` es un espejo de backend/content/. Sin
+        # esto, recortar contenido dejaba las filas viejas para siempre y se
+        # seguían sirviendo — análisis llegó a tener 460 ejercicios fantasma de
+        # una ronda anterior. El prune trae su propia rejilla: se aborta solo si
+        # dejaría un ítem declarado sin ejercicios (ver seed_exercises).
+        seed_all(db, prune=True)
     finally:
         db.close()
 
