@@ -2,9 +2,9 @@
 
 Belt: `blue`, Unit: `limits`, Topic: `continuity`
 
-Skills en este topic: `CLSF`, `GRAF`, `RESL`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
+Skills en este topic: `CLSF`, `GRAF`, `RESL`. **30 ejercicios cada uno (90 en total)** al cerrar el refactor.
 
-Este topic tiene 3 ítems (uno por skill): `CLSF`, `GRAF`, `RESL`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
+Este topic tiene 3 ítems (uno por skill): `CLSF`, `GRAF`, `RESL`. **30 ejercicios cada uno (90 en total)** al cerrar el refactor.
 
 **Estado.** Los ejercicios viejos (`CLSF`, `GRAF`, `RESL`) se dejan tal cual en el folder por ahora; el refactor a la nueva distribución se hace en otro turno. Este doc especifica el alcance nuevo, las reglas duras de restricción y la distribución objetivo por skill.
 
@@ -57,7 +57,7 @@ Los ejercicios que quiebren esta regla se descartan y se reescriben.
 
 ## Correcciones de formato transversales (los 3 skills)
 
-Reglas de authoring que se aplican al escribir los 150 ejercicios:
+Reglas de authoring que se aplican al escribir los 90 ejercicios:
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`: (a) concepto abstracto / regla, (b) aplicación paso a paso al ejemplo (usar `\begin{aligned}` si hay más de un paso), (c) cierre con advertencia técnica o consejo práctico. Sin viñetas `•`, sin sub-`-`, sin em-dash `—` **(estrictamente prohibido en cualquier campo)**, sin humor ni antropomorfismos.
@@ -69,13 +69,13 @@ Reglas de authoring que se aplican al escribir los 150 ejercicios:
 
 ---
 
-## `feedback_incorrect` en los 150 ejercicios
+## `feedback_incorrect` en los 90 ejercicios
 
 Completar con `array<string|null>` paralelo a `options`, `null` en el índice correcto. Voz descriptiva del concepto, en segunda persona amable. Una oración por distractor, autosuficiente.
 
 ---
 
-## CLSF, 50 ejercicios
+## CLSF, 30 ejercicios
 
 ### Qué evalúa
 Diagnosticar analíticamente el estado de continuidad y clasificar el tipo de discontinuidad **sin estímulo visual**. Es el skill que reemplaza el rol conceptual que en otros tópicos cumple `LEXI`.
@@ -89,11 +89,13 @@ Diagnosticar analíticamente el estado de continuidad y clasificar el tipo de di
 
 **Ronda 2 (esta auditoría): se le da mucho más peso relativo a A** (las 3 condiciones formales pasa de 30% a 50%), y se recorta B y C para compensar, quedando en una distribución redonda 50/40/10.
 
+**Recortado (ronda ago-2026) de 50 → 30 ejercicios por skill, escalando cada sub-familia proporcionalmente (factor ~0.6, exacto sin remainder en las tres tablas).**
+
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Las 3 condiciones formales | Dado un set de datos o una descripción teórica, identificar cuál de las 3 condiciones falla. Ejemplo: "si $\lim f(x) = 4$ pero $f(a)$ no está definida, ¿qué condición se rompe y qué tipo de discontinuidad genera?". | `condiciones-formales-continuidad` | 25 |
-| B. Clasificación analítica | Se dan valores puntuales de $\lim_{x\to a^-} f(x)$, $\lim_{x\to a^+} f(x)$ y $f(a)$. El alumno clasifica: continua / removible / de salto / esencial. Ejemplo: $\lim_{x\to a^-} f(x) = 3$, $\lim_{x\to a^+} f(x) = 5$ → salto. | `clasificacion-analitica-discontinuidad` | 20 |
-| C. Continuidad por familias | Conocimiento teórico: polinómicas, exponenciales, seno y coseno son continuas en todo $\mathbb{R}$. Las racionales son continuas en su dominio (excluidas las raíces del denominador). Logaritmo continuo en $x > 0$. Raíz par continua en su dominio. | `continuidad-por-familias` | 5 |
+| A. Las 3 condiciones formales | Dado un set de datos o una descripción teórica, identificar cuál de las 3 condiciones falla. Ejemplo: "si $\lim f(x) = 4$ pero $f(a)$ no está definida, ¿qué condición se rompe y qué tipo de discontinuidad genera?". | `condiciones-formales-continuidad` | 15 |
+| B. Clasificación analítica | Se dan valores puntuales de $\lim_{x\to a^-} f(x)$, $\lim_{x\to a^+} f(x)$ y $f(a)$. El alumno clasifica: continua / removible / de salto / esencial. Ejemplo: $\lim_{x\to a^-} f(x) = 3$, $\lim_{x\to a^+} f(x) = 5$ → salto. | `clasificacion-analitica-discontinuidad` | 12 |
+| C. Continuidad por familias | Conocimiento teórico: polinómicas, exponenciales, seno y coseno son continuas en todo $\mathbb{R}$. Las racionales son continuas en su dominio (excluidas las raíces del denominador). Logaritmo continuo en $x > 0$. Raíz par continua en su dominio. | `continuidad-por-familias` | 3 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Confundir removible con salto**: cuando $\lim_{x \to a^-} f(x) = \lim_{x \to a^+} f(x) = L$ pero $f(a) \neq L$ (o no existe), elegir "de salto". Recordar: si el bilateral existe y es finito, la discontinuidad es **removible**.
@@ -110,7 +112,7 @@ Diagnosticar analíticamente el estado de continuidad y clasificar el tipo de di
 
 ---
 
-## GRAF, 50 ejercicios
+## GRAF, 30 ejercicios
 
 ### Qué evalúa
 Leer e identificar **fracturas geométricas** y su tipo directamente del gráfico. Diagnóstico visual del punto de discontinuidad y clasificación del tipo.
@@ -125,10 +127,12 @@ Leer e identificar **fracturas geométricas** y su tipo directamente del gráfic
 
 **Ronda 2 (esta auditoría): se le da mucho más peso relativo a B** (clasificación visual pasa de 50% a 80%), recortando A al 20%.
 
+**Recortado (ronda ago-2026) de 50 → 30 ejercicios por skill, escalando cada sub-familia proporcionalmente (factor ~0.6, exacto sin remainder en las tres tablas).**
+
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Diagnóstico visual de la falla | Dada una gráfica con una ruptura, identificar en qué valor de $x$ la función NO es continua. **Distractores**: puntos cercanos, intersecciones con ejes, vértices suaves (que no son discontinuidades). | `diagnostico-visual-falla` | 10 |
-| B. Clasificación visual | Señalar un punto $x = a$ específico en una gráfica y pedir el tipo de discontinuidad: **removible** (hueco), **de salto** (dos ramas a distinta altura) o **esencial** (asíntota vertical). | `clasificacion-visual-discontinuidad` | 40 |
+| A. Diagnóstico visual de la falla | Dada una gráfica con una ruptura, identificar en qué valor de $x$ la función NO es continua. **Distractores**: puntos cercanos, intersecciones con ejes, vértices suaves (que no son discontinuidades). | `diagnostico-visual-falla` | 6 |
+| B. Clasificación visual | Señalar un punto $x = a$ específico en una gráfica y pedir el tipo de discontinuidad: **removible** (hueco), **de salto** (dos ramas a distinta altura) o **esencial** (asíntota vertical). | `clasificacion-visual-discontinuidad` | 24 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Vértice suave confundido con discontinuidad**: elegir el $x$ donde hay un pico (tipo $|x|$ en $0$) como punto discontinuo. Un pico es continuo; el problema sería de derivabilidad, que no se estudia acá.
@@ -147,7 +151,7 @@ Leer e identificar **fracturas geométricas** y su tipo directamente del gráfic
 
 ---
 
-## RESL, 50 ejercicios
+## RESL, 30 ejercicios
 
 ### Qué evalúa
 Ejecutar la **verificación algebraica** de las 3 condiciones y **forzar la continuidad** despejando parámetros en funciones a trozos.
@@ -159,11 +163,13 @@ Ejecutar la **verificación algebraica** de las 3 condiciones y **forzar la cont
 
 ### Distribución por sub-familia
 
+**Recortado (ronda ago-2026) de 50 → 30 ejercicios por skill, escalando cada sub-familia proporcionalmente (factor ~0.6, exacto sin remainder en las tres tablas).**
+
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Verificación en punto crítico | Dada una función a trozos sin parámetros, verificar si es continua o no en el punto de quiebre calculando $\lim_{x\to a^-} f(x)$, $\lim_{x\to a^+} f(x)$ y $f(a)$. La respuesta es un diagnóstico (continua / removible / de salto). | `verificacion-punto-critico` | 15 |
-| B. Despeje de un parámetro | Funciones a trozos con una constante $k$ (o $c$). Ejemplo: $f(x) = kx + 1$ para $x < 2$, $f(x) = x^2 - 3$ para $x \geq 2$. Calcular el valor de $k$ que hace continua a $f$ en $x = 2$. | `despeje-parametro-continuidad` | 25 |
-| C. Dominio de racionales y raíces | Encontrar el valor de $x$ donde una función estándar presenta discontinuidad resolviendo el dominio. Ejemplo: raíces del denominador en una racional; argumento negativo en una raíz par; argumento $\leq 0$ en un logaritmo. | `dominio-racionales-raices` | 10 |
+| A. Verificación en punto crítico | Dada una función a trozos sin parámetros, verificar si es continua o no en el punto de quiebre calculando $\lim_{x\to a^-} f(x)$, $\lim_{x\to a^+} f(x)$ y $f(a)$. La respuesta es un diagnóstico (continua / removible / de salto). | `verificacion-punto-critico` | 9 |
+| B. Despeje de un parámetro | Funciones a trozos con una constante $k$ (o $c$). Ejemplo: $f(x) = kx + 1$ para $x < 2$, $f(x) = x^2 - 3$ para $x \geq 2$. Calcular el valor de $k$ que hace continua a $f$ en $x = 2$. | `despeje-parametro-continuidad` | 15 |
+| C. Dominio de racionales y raíces | Encontrar el valor de $x$ donde una función estándar presenta discontinuidad resolviendo el dominio. Ejemplo: raíces del denominador en una racional; argumento negativo en una raíz par; argumento $\leq 0$ en un logaritmo. | `dominio-racionales-raices` | 6 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **$k$ resuelto por una sola rama**: en el despeje, igualar solo $\lim_{x\to a^-} f(x)$ a un número y dar ese $k$ sin verificar el bilateral con $\lim_{x\to a^+} f(x)$. La ecuación para continuidad es $\lim_{x\to a^-} f(x) = \lim_{x\to a^+} f(x) = f(a)$.
@@ -197,7 +203,7 @@ Corrección puntual del usuario sobre ejercicios de prueba de este topic (`corre
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 3 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 90 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna mención de derivadas, L'Hôpital, integrales, o "función suave / sin picos"
 - [ ] Explicaciones en 3 párrafos de prosa; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
 - [ ] Cierres de `explanation` en advertencia/consejo, voz neutra
@@ -209,21 +215,21 @@ Corrección puntual del usuario sobre ejercicios de prueba de este topic (`corre
 - [ ] La descripción del gráfico en `GRAF` coincide con lo que se ve visualmente, no con el nombre técnico de la familia original si la simplificación cambia el aspecto (ver hallazgo `GRAF_07`)
 
 **CLSF:**
-- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
-- [ ] Distribución A/B/C respetada (25/20/5, ronda 2: más peso a las 3 condiciones formales)
+- [ ] 30 ejercicios; **exactamente 3 opciones** por ejercicio
+- [ ] Distribución A/B/C respetada (15/12/3, ronda 2: más peso a las 3 condiciones formales)
 - [ ] Negrita en primera mención de `continua`, `discontinuidad`, `removible`, `de salto`, `esencial`
 - [ ] Sub-A y sub-B trabajan con datos numéricos concretos; sub-C es teórica sin datos numéricos
 
 **GRAF:**
-- [ ] 50 ejercicios con `graph_fn` o gráfico embebido
-- [ ] Distribución A/B respetada (10/40, ronda 2: más peso a clasificación visual)
+- [ ] 30 ejercicios con `graph_fn` o gráfico embebido
+- [ ] Distribución A/B respetada (6/24, ronda 2: más peso a clasificación visual)
 - [ ] Vértices suaves incluidos como distractor en sub-A (no son discontinuidades)
 - [ ] Puntos abiertos vs. cerrados claramente distinguidos
 - [ ] Cardinalidad ajustada: 4 si valor $x$/$y$, 3 si clasificación
 
 **RESL:**
-- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
-- [ ] Distribución A/B/C respetada (15/25/10)
+- [ ] 30 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
+- [ ] Distribución A/B/C respetada (9/15/6)
 - [ ] Funciones a trozos con 2 ramas y punto de quiebre único (por defecto)
 - [ ] Sub-B con un solo parámetro por ejercicio, verificando $\lim_{x\to a^-} f(x) = \lim_{x\to a^+} f(x) = f(a)$ en el despeje
 - [ ] Sub-C con dominio bien definido; el enunciado precisa qué punto se pide cuando hay varios candidatos

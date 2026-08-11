@@ -175,6 +175,11 @@ Estas reglas son las que más se violan y las que más rompen el render o la coh
 45. **Una opción de 2+ palabras no termina en preposición, artículo o conjunción suelta** (`de`, `con`, `en`, `para`, `el`, `la`, `y`, `que`, etc.) **sin punto final.** Señal casi inequívoca de texto truncado a mitad de frase, no de una opción legítimamente breve.
     - ❌ `"options": ["Es una constante irracional con", "Es un número entero: $e = 3$", ...]`
     - ✅ `"options": ["Es una constante irracional (no periódica)", "Es un número entero: $e = 3$", ...]`
+46. **Sin dispositivo de "personaje que afirma/responde" en `question`.** Prohibido introducir una afirmación a evaluar a través de un sujeto humano entrecomillado ("Un profesor afirma: '...'", "Un compañero responde: '...'", "Un alumno dice que..."). Agrega una capa de lectura (quién habla, qué dijo) que no aporta nada al concepto y choca con la voz neutra del resto del corpus (ver regla crítica 7 sobre antropomorfismo/tono). Presentar la afirmación de forma directa, como una declaración o un resultado dado, sin atribuirla a nadie.
+    - ❌ `"question": "Un profesor afirma: \"para calcular el límite hay que mirar qué pasa exactamente en el punto\".\n\n¿Qué corrección le harías a esa frase?"`
+    - ✅ `"question": "La siguiente afirmación describe cómo calcular un límite: \"hay que mirar qué pasa exactamente en el punto\".\n\n¿Qué corrección le harías?"`
+    - ❌ `"question": "Un compañero responde: \"el valor del límite es $x=5$\".\n\n¿Qué error contiene esa respuesta?"`
+    - ✅ `"question": "Una respuesta da como resultado del límite el valor $x=5$.\n\n¿Qué error contiene esa respuesta?"`
 
 **Nota de dificultad (no automatizable, criterio editorial):** un valor "sospechoso" que el ejercicio pide detectar (una probabilidad fuera de $[0,1]$, un resultado imposible) no debería aparecer literal y aislado en el enunciado — eso lo vuelve trivial de detectar a simple vista sin razonar la regla. Camuflarlo con una operación mínima (ej. pedir $P(A)+P(B)$ de dos datos que individualmente parecen válidos, y que la suma supere 1) obliga a aplicar el axioma en vez de solo leer el número.
 
