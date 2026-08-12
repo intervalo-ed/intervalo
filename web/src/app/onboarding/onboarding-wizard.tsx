@@ -1023,9 +1023,31 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
     }
   }
 
+  // Los dos botones llevan al mismo flujo de Google, pero significan cosas
+  // opuestas: uno es el final natural del wizard y el otro es alguien que dice
+  // tener cuenta. Cuando no la tiene, /onboarding/page.tsx lo rebota al wizard y
+  // lo hace empezar de nuevo — un tercio del tráfico está cayendo ahí. Sin este
+  // evento el click solo se puede inferir de la secuencia (el paso `intro` dos
+  // veces con un $identify en el medio), que no distingue el click del botón de
+  // otras formas de llegar a /sso-callback.
+  function trackSignInAttempt(origen: "ya-tengo-cuenta" | "fin-onboarding") {
+    posthog.capture("signin_attempt", {
+      origen,
+      step: STEP_NAMES[step],
+      variant,
+      already_signed_in: alreadySignedIn,
+    })
+  }
+
+  function signInFromShortcut() {
+    trackSignInAttempt("ya-tengo-cuenta")
+    void authenticateWithGoogle()
+  }
+
   // Final del onboarding: guardamos lo elegido antes de irnos a Google para que
   // /onboarding/complete lo encuentre al volver.
   async function onFinish() {
+    trackSignInAttempt("fin-onboarding")
     saveOnboarding(onboardingPayload())
     await authenticateWithGoogle()
   }
@@ -1076,7 +1098,7 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
                   setName={setName}
                   sfx={sfx}
                   onNext={() => goNext()}
-                  onSignIn={authenticateWithGoogle}
+                  onSignIn={signInFromShortcut}
                   authReady={signIn !== null}
                   authPending={authPending}
                   authError={authError}
@@ -1478,7 +1500,7 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
         isFirstContentSlide={isFirstContentSlide}
         direction={direction}
         name={name}
-        onSignIn={authenticateWithGoogle}
+        onSignIn={signInFromShortcut}
         authReady={signIn !== null}
         authPending={authPending}
         authError={authError}
