@@ -97,6 +97,46 @@ EMDASH = "—"
 ENDASH = "–"
 CHECKMARKS = ("✓", "✗", "✘")
 
+# --- Reglas 47-51: filosofía pedagógica (ver authoring-context.md) ------------
+# Intervalo pregunta, no ordena: el estudiante lee el enunciado y piensa antes
+# de abrir las opciones, así que el enunciado debe ser autosuficiente.
+
+# Regla 48: imperativos de cálculo. Las formas de voseo (acentuadas) son
+# inequívocas y se buscan en cualquier posición. Las de tuteo colisionan con
+# la 3ª persona ("la fórmula se deriva de..."), así que solo se marcan
+# arrancando oración.
+CALC_IMP_VOSEO_RE = re.compile(
+    r"\b(?:calculá|hallá|determiná|resolvé|encontrá|obtené|derivá|integrá"
+    r"|evaluá|expandí|simplificá|planteá|aplicá)\b",
+    re.IGNORECASE,
+)
+CALC_IMP_TUTEO_RE = re.compile(
+    r"(?:^|[.:!?]\s+|\n)(?:calcula|halla|determina|resuelve|encuentra|obtén"
+    r"|deriva|integra|evalúa|expande|simplifica|plantea|aplica)\b",
+    re.IGNORECASE,
+)
+
+# Regla 49: imperativos de atención vacíos como primera palabra del enunciado
+# ("Analizá la integral:"). No sitúan nada; son plantilla rotada.
+ATTN_IMPERATIVE_RE = re.compile(
+    r"^(?:considerá|considera|analizá|analiza|observá|observa|examiná|examina"
+    r"|estudiá|estudia|verificá|verifica|investigá|investiga|reconocé|reconoce"
+    r"|identificá|identifica|categorizá|categoriza|decidí|decide|retomá|retoma"
+    r"|trabajá|trabaja|preparate|prepárate|mirá|mira)\b",
+    re.IGNORECASE,
+)
+
+# Regla 50: jerga técnica que no puede aparecer en `question` sin glosa. La
+# heurística de "glosado" es que al término lo siga inmediatamente una coma o
+# dos puntos (aposición); sin eso se marca para revisión manual.
+JARGON_TERMS = [
+    "cociente incremental", "ILATE", "LIATE", "primitiva", "antiderivada",
+    "factor oculto", "aproximación lineal", "recta secante",
+]
+
+# Regla 47: cierre `$$?` colgado (el bloque display envuelto por la pregunta).
+DANGLING_QMARK_RE = re.compile(r"\$\$\s{0,2}\?")
+
 # --- Utilidades de texto ------------------------------------------------------
 
 DISPLAY_RE = re.compile(r"\$\$.*?\$\$", re.DOTALL)
@@ -512,6 +552,40 @@ def check_questions(items, file, F: Findings) -> None:
                 F.add("WARNING", "questions", "18", file, label,
                       f"fracción tejida inline en el enunciado: ${m.group(1)[:40]}$")
                 break
+        # Reglas 47-51: filosofía pedagógica del enunciado.
+        stripped = text.lstrip()
+        if stripped.startswith("$$"):
+            F.add("WARNING", "questions", "47", file, label,
+                  "el enunciado arranca directo con un bloque $$ sin ninguna apertura")
+        elif stripped.startswith("¿"):
+            F.add("WARNING", "questions", "47", file, label,
+                  "el enunciado arranca directo con '¿' sin ninguna oración de apertura")
+        if DANGLING_QMARK_RE.search(text):
+            F.add("WARNING", "questions", "47", file, label,
+                  "la pregunta envuelve al bloque display y el '?' queda colgado tras el $$")
+        m_imp = CALC_IMP_VOSEO_RE.search(text) or CALC_IMP_TUTEO_RE.search(text)
+        if m_imp:
+            F.add("WARNING", "questions", "48", file, label,
+                  f"imperativo de cálculo en el enunciado (la consigna se formula como "
+                  f"pregunta, no como orden): {m_imp.group(0).strip()!r}")
+        m_attn = ATTN_IMPERATIVE_RE.match(stripped)
+        if m_attn:
+            F.add("WARNING", "questions", "49", file, label,
+                  f"imperativo de atención vacío como apertura: {m_attn.group(0)!r}")
+        low = text.lower()
+        for term in JARGON_TERMS:
+            # \b en ambos extremos: sin esto "ILATE" matchea dentro de
+            # "bilateral". El sufijo s? admite el plural ("primitivas").
+            t_re = r"\b" + re.escape(term.lower()) + r"s?\b"
+            m_term = re.search(t_re, low)
+            if m_term and not re.search(t_re + r"\s*[,:]", low):
+                F.add("WARNING", "questions", "50", file, label,
+                      f"término técnico sin glosa en el enunciado: {term!r} "
+                      f"(evitarlo, glosarlo, o es un LEXI de ese vocabulario)")
+        if "?" not in text:
+            F.add("WARNING", "questions", "51", file, label,
+                  "enunciado sin ninguna pregunta (orden pura); todo question "
+                  "contiene al menos un ¿...?")
         # Regla 36: largo de párrafo/densidad inline en el enunciado, y la
         # pregunta "¿...?" mezclada dentro del párrafo del enunciado en vez
         # de ir en su propio párrafo final.
