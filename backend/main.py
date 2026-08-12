@@ -786,10 +786,17 @@ def internal_sweep_abandoned_sessions(db: Session = Depends(get_db)):
     return {"marked": session_store.sweep_abandoned_sessions(db)}
 
 
-@app.get("/email/unsubscribe", response_class=HTMLResponse)
+@app.api_route("/email/unsubscribe", methods=["GET", "POST"], response_class=HTMLResponse)
 def email_unsubscribe(token: str, db: Session = Depends(get_db)):
     """No-login unsubscribe link clicked from an email. Marks the user opted
-    out of lifecycle emails and shows a minimal confirmation page."""
+    out of lifecycle emails and shows a minimal confirmation page.
+
+    Acepta POST además de GET porque el header `List-Unsubscribe-Post` que
+    mandan los mails (ver lifecycle_emails._send) hace que Gmail y Yahoo
+    resuelvan su propio botón de baja con un POST a esta misma URL, sin abrir
+    el navegador. Si contestara 405 lo descartarían y el header no serviría de
+    nada. El token viaja en la query en los dos casos, así que el handler es
+    idéntico."""
     import lifecycle_emails
 
     user_id = lifecycle_emails.verify_unsubscribe_token(token)
