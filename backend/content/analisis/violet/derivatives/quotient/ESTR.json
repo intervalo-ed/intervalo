@@ -1,6 +1,6 @@
 [
   {
-    "question": "Considerá la función:\n$$f(x) = \\frac{5}{x^3}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Una constante ocupa el numerador de esta fracción, con una potencia de $x$ en el denominador:\n$$f(x) = \\frac{5}{x^3}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Reescribir como potencia negativa",
       "Regla del cociente",
@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = \\frac{7}{x^2}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Esta fracción tiene una constante arriba y una potencia de $x$ abajo:\n$$f(x) = \\frac{7}{x^2}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del producto",
       "Reescribir como potencia negativa",
@@ -46,7 +46,7 @@
     ]
   },
   {
-    "question": "Observá la función:\n$$f(x) = \\frac{-4}{x^5}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "El numerador de esta fracción es una constante negativa:\n$$f(x) = \\frac{-4}{x^5}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del cociente",
       "Múltiplo escalar",
@@ -69,7 +69,7 @@
     ]
   },
   {
-    "question": "Examiná la función:\n$$f(x) = \\frac{x^2+1}{4}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Acá el denominador es una constante, no una función de $x$:\n$$f(x) = \\frac{x^2+1}{4}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Múltiplo escalar",
       "Regla del cociente",
@@ -92,7 +92,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = \\frac{2x^2-6}{2}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "El denominador de esta fracción también es un número fijo:\n$$f(x) = \\frac{2x^2-6}{2}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del producto",
       "Múltiplo escalar",
@@ -115,7 +115,7 @@
     ]
   },
   {
-    "question": "Observá la función:\n$$f(x) = \\frac{x^3+5}{10}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Esta fracción tiene un polinomio cúbico arriba y una constante abajo:\n$$f(x) = \\frac{x^3+5}{10}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del cociente",
       "Reescribir como potencia negativa",
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "question": "Examiná la función:\n$$f(x) = \\frac{x^2-1}{x-1}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "El numerador y el denominador de esta fracción comparten una raíz:\n$$f(x) = \\frac{x^2-1}{x-1}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Simplificar el cociente primero",
       "Regla del cociente",
@@ -161,7 +161,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = \\frac{x^3-8}{x-2}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Numerador y denominador de esta fracción tienen un factor en común:\n$$f(x) = \\frac{x^3-8}{x-2}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Múltiplo escalar",
       "Simplificar el cociente primero",
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "¿Qué exponente lleva el **denominador** en la regla del cociente?",
+    "question": "La fórmula de la regla del cociente eleva el denominador a una potencia fija.\n\n¿Qué exponente lleva el **denominador** en la regla del cociente?",
     "options": [
       "Depende del exponente que tenga $v$ en la expresión original",
       "$2$, siempre al cuadrado según la regla",
@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "Sea la función:\n$$f(x)=\\frac{u(x)}{v(x)}$$\n¿De qué depende el signo de $f'(x)$ cuando?",
+    "question": "Sea la función:\n$$f(x)=\\frac{u(x)}{v(x)}$$\n¿De qué depende el signo de $f'(x)$?",
     "options": [
       "Únicamente del denominador $v^2$",
       "De ambos por igual, numerador y denominador aportan el signo",
@@ -322,7 +322,7 @@
     ]
   },
   {
-    "question": "¿Cuál de las siguientes expresiones corresponde correctamente a la **regla del cociente**?",
+    "question": "La fórmula de la regla del cociente combina un orden estricto en la resta con un exponente en el denominador.\n\n¿Cuál de las siguientes expresiones corresponde correctamente a la **regla del cociente**?",
     "options": [
       "$(u'v-uv')/v$",
       "$(u'v+uv')/v^2$",

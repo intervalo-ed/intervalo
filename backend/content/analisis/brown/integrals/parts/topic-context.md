@@ -15,7 +15,7 @@ Los `external_id` se generarán como `brown_parts_estr_01…`, `brown_parts_resl
 ## Estado matemático del alumno (restricción de alcance)
 
 - **Lo que sabe:** todo el cinturón violet (derivadas completas: elementales, producto, cociente, cadena) + `definition` de integrales (anatomía, primitiva, linealidad, acondicionamiento previo) + `reglas` de integración inmediata (tabla completa) + `sustitución` ($u$-sub).
-- **Lo que está aprendiendo acá:** la **integración por partes** $\int u \, dv = uv - \int v \, du$. Cómo elegir $u$ y $dv$ (regla mnemotécnica **LIATE**: Logaritmo → Inversa trigonométrica → Algebraica → Trigonométrica → Exponencial, priorizando de izquierda a derecha para $u$), cómo calcular $du$ y $v$, cómo armar $uv - \int v \, du$ respetando el **signo negativo** de la fórmula, y cómo **diagnosticar** cuándo la iteración va a resolver el problema, cuándo va a requerir varias aplicaciones y cuándo va a generar un **ciclo** (integrales cíclicas del tipo $\int e^x \sin x \, dx$).
+- **Lo que está aprendiendo acá:** la **integración por partes** $\int u \, dv = uv - \int v \, du$. Cómo elegir $u$ y $dv$ (regla mnemotécnica **ILATE**: Inversa trigonométrica → Logaritmo → Algebraica → Trigonométrica → Exponencial, priorizando de izquierda a derecha para $u$), cómo calcular $du$ y $v$, cómo armar $uv - \int v \, du$ respetando el **signo negativo** de la fórmula, y cómo **diagnosticar** cuándo la iteración va a resolver el problema, cuándo va a requerir varias aplicaciones y cuándo va a generar un **ciclo** (integrales cíclicas del tipo $\int e^x \sin x \, dx$).
 - **Lo que NO sabe todavía:** **integral definida** y **regla de Barrow**, **áreas** entre curvas, **Teorema Fundamental del Cálculo**.
 
 ### Regla dura
@@ -41,9 +41,9 @@ Los ejercicios que quiebren esta regla se descartan y se reescriben.
 Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`.
-2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`, con enfoque **algorítmico**: (a) elegir $u$ y $dv$ aplicando LIATE, calcular $du$ (derivando $u$) y $v$ (integrando $dv$) en un `\begin{aligned}`, (b) armar $uv - \int v \, du$, resolver la integral remanente (que debe ser de tabla o inmediata), (c) simplificar, agregar $+C$, y cerrar con advertencia técnica (signo negativo de la fórmula, elección LIATE, factor oculto). Sin viñetas `•`, sin sub-`-`, **sin em-dash `—` (prohibido estricto)**, sin humor.
-3. **Feedback incorrecto**: array paralelo a `options`, `null` en el correcto. Contrastar el error común con el procedimiento correcto ("elegiste LIATE al revés: LIATE prioriza logaritmo antes que trigonométrica", "olvidaste el signo negativo de la fórmula: es $uv - \int v \, du$", "no aplicaste el truco del factor oculto: $dv = 1 \, dx$"). Voz descriptiva, segunda persona amable.
-4. **Negrita en primera mención** de conceptos clave: **integración por partes**, **regla LIATE**, **integrales cíclicas**, **factor oculto**. Nunca negritas dentro de `options`.
+2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`, con enfoque **algorítmico**: (a) elegir $u$ y $dv$ aplicando ILATE, calcular $du$ (derivando $u$) y $v$ (integrando $dv$) en un `\begin{aligned}`, (b) armar $uv - \int v \, du$, resolver la integral remanente (que debe ser de tabla o inmediata), (c) simplificar, agregar $+C$, y cerrar con advertencia técnica (signo negativo de la fórmula, elección ILATE, factor oculto). Sin viñetas `•`, sin sub-`-`, **sin em-dash `—` (prohibido estricto)**, sin humor.
+3. **Feedback incorrecto**: array paralelo a `options`, `null` en el correcto. Contrastar el error común con el procedimiento correcto ("elegiste ILATE al revés: ILATE prioriza logaritmo antes que trigonométrica", "olvidaste el signo negativo de la fórmula: es $uv - \int v \, du$", "no aplicaste el truco del factor oculto: $dv = 1 \, dx$"). Voz descriptiva, segunda persona amable.
+4. **Negrita en primera mención** de conceptos clave: **integración por partes**, **regla ILATE**, **integrales cíclicas**, **factor oculto**. Nunca negritas dentro de `options`.
 5. **Variables inline** ($u$, $dv$, $v$, $du$, $x$, $C$) en la prosa.
 6. **Ortotipografía**: decimales con **coma** (`4,3`). Sin nombres propios.
 7. **`correct_index` variado**, no concentrado en un solo índice.
@@ -54,7 +54,7 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 ## ESTR, 30 ejercicios
 
 ### Qué evalúa
-**Toma de decisiones previa al cálculo**. El alumno demuestra que sabe **armar el problema** aplicando LIATE, **predice el comportamiento del método** (una iteración vs varias vs cíclica) antes de gastar hojas en cálculos ciegos. Sin ejecutar la integral final.
+**Toma de decisiones previa al cálculo**. El alumno demuestra que sabe **armar el problema** aplicando ILATE, **predice el comportamiento del método** (una iteración vs varias vs cíclica) antes de gastar hojas en cálculos ciegos. Sin ejecutar la integral final.
 
 ### Cardinalidad
 **Exactamente 3 opciones** por ejercicio.
@@ -65,14 +65,14 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Elección de variables y regla LIATE | Identificar qué función asume el rol de $u$ y cuál el de $dv$ para que la integral resultante sea más simple. Combinaciones clásicas: polinómica con logaritmo ($\int x^2 \ln x \, dx$: $u = \ln x$, $dv = x^2 \, dx$), polinómica con exponencial ($\int x e^x \, dx$: $u = x$, $dv = e^x \, dx$), polinómica con trigonométrica ($\int x \sin x \, dx$: $u = x$, $dv = \sin x \, dx$). LIATE prioriza L → I → A → T → E para elegir $u$. | `eleccion-variables-regla-liate` | 15 |
+| A. Elección de variables y regla ILATE | Identificar qué función asume el rol de $u$ y cuál el de $dv$ para que la integral resultante sea más simple. Combinaciones clásicas: polinómica con logaritmo ($\int x^2 \ln x \, dx$: $u = \ln x$, $dv = x^2 \, dx$), polinómica con exponencial ($\int x e^x \, dx$: $u = x$, $dv = e^x \, dx$), polinómica con trigonométrica ($\int x \sin x \, dx$: $u = x$, $dv = \sin x \, dx$). ILATE prioriza I → L → A → T → E para elegir $u$. | `eleccion-variables-regla-liate` | 15 |
 | B. Diagnóstico de iteración y ciclos | Predecir el comportamiento del método sin resolver. Casos: $\int x^2 e^x \, dx$ requiere **aplicar la fórmula dos veces** (grado 2 en polinómica); $\int e^x \sin x \, dx$ genera una **integral cíclica** (aplicar dos veces regresa a la original con signo cambiado, hay que **despejar**); $\int x^n \ln x \, dx$ cierra en **una** iteración cualquiera sea $n$. Distinguir estos comportamientos. | `diagnostico-iteracion-y-ciclos` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 
-- **LIATE invertida (elegir $u$ = exponencial en vez de polinómica)**: en $\int x e^x \, dx$, elegir $u = e^x$, $dv = x \, dx$. Esto da $du = e^x \, dx$ y $v = \tfrac{x^2}{2}$, y la integral remanente $\int \tfrac{x^2}{2} e^x \, dx$ es **más difícil** que la original. La regla LIATE prioriza Algebraica (A) sobre Exponencial (E): $u = x$, $dv = e^x \, dx$.
-- **LIATE invertida (trigonométrica antes que polinómica)**: en $\int x \sin x \, dx$, elegir $u = \sin x$, $dv = x \, dx$. La integral remanente $\int \tfrac{x^2}{2} \cos x \, dx$ es peor. LIATE: Algebraica (A) antes de Trigonométrica (T): $u = x$.
-- **Elegir $u = $ polinómica cuando hay logaritmo**: en $\int x^2 \ln x \, dx$, elegir $u = x^2$, $dv = \ln x \, dx$. Problema: integrar $\ln x$ requiere partes con factor oculto. LIATE: Logaritmo (L) antes que Algebraica (A): $u = \ln x$, $dv = x^2 \, dx$.
+- **ILATE invertida (elegir $u$ = exponencial en vez de polinómica)**: en $\int x e^x \, dx$, elegir $u = e^x$, $dv = x \, dx$. Esto da $du = e^x \, dx$ y $v = \tfrac{x^2}{2}$, y la integral remanente $\int \tfrac{x^2}{2} e^x \, dx$ es **más difícil** que la original. La regla ILATE prioriza Algebraica (A) sobre Exponencial (E): $u = x$, $dv = e^x \, dx$.
+- **ILATE invertida (trigonométrica antes que polinómica)**: en $\int x \sin x \, dx$, elegir $u = \sin x$, $dv = x \, dx$. La integral remanente $\int \tfrac{x^2}{2} \cos x \, dx$ es peor. ILATE: Algebraica (A) antes de Trigonométrica (T): $u = x$.
+- **Elegir $u = $ polinómica cuando hay logaritmo**: en $\int x^2 \ln x \, dx$, elegir $u = x^2$, $dv = \ln x \, dx$. Problema: integrar $\ln x$ requiere partes con factor oculto. ILATE: Logaritmo (L) antes que Algebraica (A): $u = \ln x$, $dv = x^2 \, dx$.
 - **Sugerir sustitución en vez de partes**: proponer $u = x^2$ como sustitución para $\int x^2 \ln x \, dx$. La sustitución no simplifica productos de funciones de familias distintas; el método correcto es partes.
 - **Creer que el método siempre resuelve en un paso**: dar como correcto "una iteración" para $\int x^2 e^x \, dx$. Grado 2 en polinómica requiere aplicar partes **dos veces** (cada aplicación reduce el grado en 1).
 - **Confundir cíclica con sustitución**: proponer $u = e^x$ como sustitución para $\int e^x \sin x \, dx$. Las cíclicas requieren aplicar partes dos veces y **despejar** la integral original; no admiten sustitución.
@@ -83,7 +83,7 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 - **Opciones con textos exactos** para sub-A: mostrar la elección como `"u = x, dv = e^x \\, dx"` vs `"u = e^x, dv = x \\, dx"`. El distractor mayoritario es la elección invertida (que empeora la integral remanente).
 - **Sub-B** con opciones tipo `"Requiere una iteración"`, `"Requiere dos iteraciones"`, `"Es cíclica (despejar la original)"`, `"No se puede resolver por partes"` (distractor). El distractor mayoritario en casos cíclicos es "una iteración"; en polinómica grado 2 es "una iteración".
 - **Las integrales cíclicas** aparecen **solo en ESTR** como diagnóstico; nunca se resuelven acá.
-- **Negrita en primera mención** de `integración por partes`, `regla LIATE`, `integrales cíclicas`.
+- **Negrita en primera mención** de `integración por partes`, `regla ILATE`, `integrales cíclicas`.
 
 ---
 
@@ -124,7 +124,7 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 - **Compensación de constante lineal olvidada en $dv = e^{ax} \, dx$**: en $\int x e^{2x} \, dx$, dar $x e^{2x} - \int e^{2x} \, dx$ y luego $x e^{2x} - e^{2x} + C$ olvidando el factor $\tfrac{1}{2}$ que sale de integrar $e^{2x}$. El $v$ correcto es $v = \tfrac{e^{2x}}{2}$, y ese $\tfrac{1}{2}$ se arrastra en ambos términos: $\tfrac{x e^{2x}}{2} - \tfrac{1}{2} \int e^{2x} \, dx = \tfrac{x e^{2x}}{2} - \tfrac{e^{2x}}{4} + C$.
 
 ### Reglas específicas
-- **Explicaciones con estructura algorítmica**: (1) elegir $u$ y $dv$ aplicando LIATE, calcular $du$ y $v$ en un `\begin{aligned}`, (2) armar $uv - \int v \, du$ y resolver la integral remanente (que debe ser de tabla o inmediata), (3) simplificar, agregar $+C$, cerrar con advertencia sobre el signo negativo, LIATE o factor oculto.
+- **Explicaciones con estructura algorítmica**: (1) elegir $u$ y $dv$ aplicando ILATE, calcular $du$ y $v$ en un `\begin{aligned}`, (2) armar $uv - \int v \, du$ y resolver la integral remanente (que debe ser de tabla o inmediata), (3) simplificar, agregar $+C$, cerrar con advertencia sobre el signo negativo, ILATE o factor oculto.
 - **Polinómica siempre lineal en sub-A**: $\int x \sin x$, $\int x \cos x$, $\int x e^x$, $\int x e^{2x}$, $\int (2x + 1) \sin x$, etc. Ningún $x^2$ ni superior.
 - **Sub-B con $dv = 1 \, dx$** para $\int \ln x \, dx$ y variantes cercanas ($\int \arctan x \, dx$ queda fuera porque involucra inversas trig que no vimos); y con reducción de fracciones para $\int x \ln x \, dx$ y similares.
 - **Coeficientes lineales simples**: $2, 3, 4, -1, -2$. Sin fracciones incómodas.
@@ -138,7 +138,7 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 Pre-revisión programática sobre los ejercicios de prueba existentes:
 
 - **[CORREGIDO EN CONTENIDO] Bug `\n\n$$` generalizado**: los 2 archivos (`ESTR`, `RESL`, 30 ejercicios) tenían el bloque de desarrollo pegado con `\n\n$$` en vez de `\n$$`. Corregido con el mismo script de reemplazo mecánico.
-- **`ESTR`: 8/15 ejercicios abren con `"Para resolver\n$$...$$\npor partes, ¿cuál es la elección correcta de $u$ y $dv$ según LIATE?"`.** Es **una sola oración cortada por la fórmula** (la pregunta sigue en minúscula, gramaticalmente continuación de "para resolver X por partes"), viola la **regla crítica 9**, no solo la 32. Reescribir como `"Para resolver esta integral por partes:\n$$...$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?"`.
+- **`ESTR`: 8/15 ejercicios abren con `"Para resolver\n$$...$$\npor partes, ¿cuál es la elección correcta de $u$ y $dv$ según ILATE?"`.** Es **una sola oración cortada por la fórmula** (la pregunta sigue en minúscula, gramaticalmente continuación de "para resolver X por partes"), viola la **regla crítica 9**, no solo la 32. Reescribir como `"Para resolver esta integral por partes:\n$$...$$\n¿Cuál es la elección correcta de $u$ y $dv$ según ILATE?"`.
 - **`ESTR`: 7/15 con `"Considerá la integral\n$$...$$"`.** Cláusula completa, solo le falta el `:` y variar la redacción.
 - **`RESL`: 15/15 con `"Calculá\n$$...$$"`.** Mismo caso que en `reglas`/`substitution`/`definite`: cláusula completa, solo falta el `:` y variar la redacción (hoy 100% idéntica).
 
@@ -165,7 +165,7 @@ Pre-revisión programática sobre los ejercicios de prueba existentes:
 - [ ] 30 ejercicios; **exactamente 3 opciones** por ejercicio
 - [ ] Distribución A/B respetada (15/15)
 - [ ] Ningún cálculo integral final; solo elección $u/dv$ o diagnóstico
-- [ ] Sub-A con distractor mayoritario = LIATE invertida (que empeora la integral remanente)
+- [ ] Sub-A con distractor mayoritario = ILATE invertida (que empeora la integral remanente)
 - [ ] Sub-B con opciones categorizadas ("una iteración", "dos iteraciones", "cíclica"); casos $x^2$ presentes como diagnóstico de "dos iteraciones"; casos $e^x \sin x$ presentes como diagnóstico de "cíclica"
 - [ ] Textos exactos en opciones de elección de $u$ y $dv$
 

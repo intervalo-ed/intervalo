@@ -1,6 +1,6 @@
 [
   {
-    "question": "Calculá:\n$$\\int \\cos x\\,dx$$",
+    "question": "La función a integrar pertenece a la familia trigonométrica más simple de la tabla:\n$$\\int \\cos x\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$\\sin x + C$",
       "$-\\sin x + C$",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "Encontrá la primitiva de:\n$$\\int e^x\\,dx$$",
+    "question": "La función a integrar es la exponencial de base $e$, un caso particular dentro de la tabla:\n$$\\int e^x\\,dx$$\n¿A qué función es igual esta integral?",
     "options": [
       "$\\frac{e^{x+1}}{x+1} + C$",
       "$e^x + C$",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la primitiva de:\n$$\\int \\sec^2 x\\,dx$$?",
+    "question": "La función a integrar es el cuadrado de la secante:\n$$\\int \\sec^2 x\\,dx$$\n¿Qué función resulta de integrarla?",
     "options": [
       "$\\tan x$",
       "$-\\tan x + C$",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "question": "Integrá:\n$$\\int \\sin x\\,dx$$",
+    "question": "La función a integrar es el seno, otro caso directo de la tabla trigonométrica:\n$$\\int \\sin x\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$\\cos x + C$",
       "$-\\cos x$",
@@ -100,7 +100,7 @@
     ]
   },
   {
-    "question": "¿Cuál función integra a:\n$$\\int \\frac{1}{x}\\,dx$$?",
+    "question": "La función a integrar es el recíproco de la variable, el caso especial de la tabla:\n$$\\int \\frac{1}{x}\\,dx$$\n¿A qué función es igual esta integral?",
     "options": [
       "$\\ln|x| + C$",
       "$\\ln x + C$",
@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "Resolvé:\n$$\\int x^3\\,dx$$",
+    "question": "La función a integrar es una potencia simple de la variable:\n$$\\int x^3\\,dx$$\n¿Qué función resulta de integrarla?",
     "options": [
       "$4x^2 + C$",
       "$\\frac{x^4}{4} + C$",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "Resolvé la integral de:\n$$\\int 5\\,dx$$",
+    "question": "La función a integrar es una constante, sin ninguna dependencia de $x$:\n$$\\int 5\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$0 + C$",
       "$5x$",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "Encontrá:\n$$\\int 2^x\\,dx$$",
+    "question": "La función a integrar es una exponencial de base distinta de $e$:\n$$\\int 2^x\\,dx$$\n¿A qué función es igual esta integral?",
     "options": [
       "$2^x + C$",
       "$\\frac{2^{x+1}}{x+1} + C$",
@@ -200,7 +200,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la función que, al derivarse, produce:\n$$\\frac{1}{x}$$?",
+    "question": "Pensando en sentido inverso, hay una función cuya derivada da exactamente:\n$$\\frac{1}{x}$$\n¿Cuál es esa función?",
     "options": [
       "$\\ln x + C$",
       "$-\\frac{1}{x^2} + C$",
@@ -223,7 +223,7 @@
     ]
   },
   {
-    "question": "¿Qué primitiva obtenés si derivás inversamente:\n$$e^x$$?",
+    "question": "Alguna función, al derivarse, reproduce exactamente:\n$$e^x$$\n¿Cuál es esa función?",
     "options": [
       "$e^x + C$",
       "$xe^{x-1} + C$",
@@ -246,7 +246,7 @@
     ]
   },
   {
-    "question": "¿Qué función tiene derivada igual a:\n$$\\cos x$$?",
+    "question": "Hay una función que, al derivarse, da como resultado exacto:\n$$\\cos x$$\n¿Cuál es esa función?",
     "options": [
       "$-\\cos x + C$",
       "$\\sin x + C$",
@@ -269,7 +269,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la función cuya derivada da como resultado:\n$$\\sin x$$?",
+    "question": "Invirtiendo el proceso de derivar, se busca una función que reproduzca:\n$$\\sin x$$\n¿Cuál es esa función?",
     "options": [
       "$\\cos x + C$",
       "$\\sin x + C$",
@@ -292,7 +292,7 @@
     ]
   },
   {
-    "question": "¿Cuál primitiva se origina de:\n$$\\sec^2 x$$?",
+    "question": "Una función, al derivarse, produce exactamente:\n$$\\sec^2 x$$\n¿Cuál es esa función?",
     "options": [
       "$\\tan x + C$",
       "$\\sec x\\tan x + C$",
@@ -315,7 +315,7 @@
     ]
   },
   {
-    "question": "¿Qué función produce, al derivarla, el resultado:\n$$x^4$$?",
+    "question": "Pensando en sentido inverso, alguna función se deriva exactamente a:\n$$x^4$$\n¿Cuál es esa función?",
     "options": [
       "$5x^3 + C$",
       "$\\frac{x^5}{5} + C$",
@@ -338,7 +338,7 @@
     ]
   },
   {
-    "question": "¿Cuál es su función original si su derivada es:\n$$7$$?",
+    "question": "Una función, al derivarse, da como resultado la constante:\n$$7$$\n¿Cuál es esa función?",
     "options": [
       "$7 + C$",
       "$0 + C$",

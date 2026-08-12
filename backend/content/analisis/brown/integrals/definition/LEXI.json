@@ -46,7 +46,7 @@
     ]
   },
   {
-    "question": "¿Qué representa el símbolo $\\int$ en la notación de la integral?",
+    "question": "Toda integral se escribe encabezada por el mismo símbolo alargado, con un rol propio dentro de la notación.\n\n¿Qué representa el símbolo $\\int$?",
     "options": [
       "Una sumatoria discreta de términos",
       "El símbolo de la derivada",
@@ -92,7 +92,7 @@
     ]
   },
   {
-    "question": "¿Qué representa $C$ en el resultado $F(x) + C$?",
+    "question": "El resultado de integrar una función siempre se escribe con un término extra sumado al final:\n$$F(x) + C$$\n¿Qué representa $C$?",
     "options": [
       "El valor numérico de la integral definida",
       "La constante de integración, un parámetro libre",
@@ -115,7 +115,7 @@
     ]
   },
   {
-    "question": "¿Cuál de las siguientes afirmaciones describe correctamente al **integrando**?",
+    "question": "Cada pieza de la notación de la integral tiene su nombre propio, y uno de esos nombres es **integrando**.\n\n¿Cuál de las siguientes afirmaciones lo describe correctamente?",
     "options": [
       "Es la función de salida, el resultado de integrar",
       "Es la constante que acompaña al resultado",
@@ -161,7 +161,7 @@
     ]
   },
   {
-    "question": "¿Cuál de las siguientes opciones nombra correctamente los cuatro elementos de:\n$$\\int f(x)\\,dx = F(x) + C$$?",
+    "question": "La igualdad que define la integral indefinida reúne cuatro elementos, cada uno con su nombre propio:\n$$\\int f(x)\\,dx = F(x) + C$$\n¿Cuál de las opciones nombra correctamente a los cuatro?",
     "options": [
       "Integrando $f(x)$, primitiva $dx$, diferencial $F(x)$, constante $C$",
       "Integrando $f(x)$, diferencial $dx$, primitiva $F(x)$, constante $C$",
@@ -184,7 +184,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la relación correcta entre una función $f$ y su **primitiva** $F$?",
+    "question": "Al integrar una función $f$ se obtiene otra función $F$, su primitiva, y entre ambas hay una relación precisa.\n\n¿Cuál es esa relación?",
     "options": [
       "$f'=F$",
       "$F'=f+C$",
@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "Si $F$ es una **primitiva** de $f$.\n\n¿Qué otra función también es primitiva de $f$?",
+    "question": "Se sabe que $F$ es una primitiva, una función cuya derivada reproduce exactamente a la original.\n\n¿Qué otra función también es primitiva de $f$?",
     "options": [
       "$F(x)+5$",
       "$F(x) \\cdot 5$",
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "Geométricamente, las gráficas de todas las primitivas de una misma función $f$ guardan una relación particular entre sí.\n\n¿Cómo se relacionan esas gráficas?",
+    "question": "Cada primitiva, cada función cuya derivada devuelve la original, dibuja su propia curva en el plano.\n\n¿Cómo se relacionan entre sí las gráficas de todas las primitivas de una misma función $f$?",
     "options": [
       "Son la misma curva repetida sin ningún desplazamiento",
       "Son curvas paralelas, desplazadas verticalmente entre sí",
@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "¿Es correcto afirmar que:\n$$\\int f(x)\\,dx$$\nDa como resultado un único número, el área bajo la curva?",
+    "question": "Sobre la expresión:\n$$\\int f(x)\\,dx$$\nSuele afirmarse que su resultado es un único número, el área bajo la curva.\n\n¿Es correcta esa afirmación?",
     "options": [
       "Sí, siempre da el área bajo la curva de $f$",
       "Sí, pero solo cuando $f$ es positiva",
@@ -276,7 +276,7 @@
     ]
   },
   {
-    "question": "¿Pueden dos primitivas distintas de la misma función $f$ cruzarse en algún punto?",
+    "question": "En el mismo plano se grafican dos primitivas, dos funciones distintas cuya derivada coincide con la misma $f$.\n\n¿Pueden cruzarse en algún punto?",
     "options": [
       "No, al diferir en una constante",
       "Sí, se cruzan siempre en el origen",
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "Si $F'(x) = f(x)$ para todo $x$.\n\n¿Qué se puede afirmar sobre $F$?",
+    "question": "Una función $F$ cumple, para todo $x$, la condición:\n$$F'(x) = f(x)$$\n¿Qué se puede afirmar sobre $F$?",
     "options": [
       "$F$ es la integral definida de $f$",
       "$F$ es una primitiva de $f$",
@@ -322,7 +322,7 @@
     ]
   },
   {
-    "question": "Dos primitivas distintas de la misma función se escriben como $F_1(x)=F(x)+C_1$ y $F_2(x)=F(x)+C_2$.\n\n¿Qué distingue a la constante $C$ entre ambas?",
+    "question": "Dos primitivas, dos funciones que comparten la misma derivada, se escriben como:\n$$F_1(x)=F(x)+C_1, \\quad F_2(x)=F(x)+C_2$$\n¿Qué diferencia produce entre ambas curvas el valor de la constante?",
     "options": [
       "Una diferencia en la pendiente de ambas curvas",
       "Un cambio en la forma de la curva, no solo en su posición",

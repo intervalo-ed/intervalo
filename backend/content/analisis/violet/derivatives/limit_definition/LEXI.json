@@ -46,7 +46,7 @@
     ]
   },
   {
-    "question": "Al intentar calcular $f'(a)$, se sustituye directamente $h=0$ en el cociente incremental.\n\n¿Por qué se obtiene una indeterminación?",
+    "question": "La derivada en un punto se define mediante el límite:\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$\nAl sustituir directamente $h=0$ en el cociente, aparece una indeterminación.\n\n¿Por qué se obtiene esa indeterminación?",
     "options": [
       "Porque $h$ no puede tomar valores reales",
       "Porque $f(a+h)$ nunca está definida en $a$",
@@ -69,7 +69,7 @@
     ]
   },
   {
-    "question": "Considerá el cociente incremental:\n$$\\frac{f(a+h) - f(a)}{h}$$\n¿Qué representa su numerador?",
+    "question": "El cociente incremental, la expresión que da origen a la derivada, tiene dos partes con roles distintos:\n$$\\frac{f(a+h) - f(a)}{h}$$\n¿Qué representa su numerador?",
     "options": [
       "La variación del valor de la función entre $a$ y $a+h$",
       "La distancia entre los puntos $a$ y $a+h$ en el eje $x$",
@@ -92,7 +92,7 @@
     ]
   },
   {
-    "question": "Analizá el cociente incremental:\n$$\\frac{f(a+h) - f(a)}{h}$$\n¿Qué representa el denominador $h$?",
+    "question": "Este cociente es el corazón de la definición de derivada, y cada símbolo cumple un papel:\n$$\\frac{f(a+h) - f(a)}{h}$$\n¿Qué representa el denominador $h$?",
     "options": [
       "El resultado final del límite",
       "El desplazamiento en el eje $x$",
@@ -115,7 +115,7 @@
     ]
   },
   {
-    "question": "¿Cuál de las siguientes expresiones corresponde correctamente al cociente incremental de $f$ en el punto $a$?",
+    "question": "El cociente incremental, la expresión cuyo límite define la derivada, tiene una escritura precisa.\n\n¿Cuál de las siguientes expresiones lo escribe correctamente para $f$ en el punto $a$?",
     "options": [
       "$\\frac{f(a+h)}{h} - f(a)$",
       "$\\frac{f(a+h)-f(a)}{a}$",
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "question": "Considerá la expresión:\n$$\\frac{f(b)-f(a)}{b-a}$$\n¿Qué representa este cociente?",
+    "question": "Para dos puntos fijos $a$ y $b$ del dominio se forma el cociente:\n$$\\frac{f(b)-f(a)}{b-a}$$\n¿Qué representa este cociente?",
     "options": [
       "La tasa de cambio promedio de $f$ entre $a$ y $b$",
       "La tasa de cambio instantánea de $f$ en $a$",
@@ -161,7 +161,7 @@
     ]
   },
   {
-    "question": "Trabajá con el cociente incremental:\n$$\\frac{f(a+h)-f(a)}{h}$$\n¿En qué se transforma la tasa de cambio promedio al tomar este límite?",
+    "question": "El cociente que compara los valores de $f$ en dos puntos cercanos aparece ahora con su límite:\n$$\\lim_{h \\to 0}\\frac{f(a+h)-f(a)}{h}$$\n¿En qué se transforma la tasa de cambio promedio al tomar este límite?",
     "options": [
       "La pendiente de una recta secante distinta",
       "La tasa de cambio instantánea justo en el punto $a$",
@@ -184,7 +184,7 @@
     ]
   },
   {
-    "question": "¿Con qué concepto geométrico se corresponde la tasa de cambio promedio de la función entre $a$ y $b$?",
+    "question": "La tasa de cambio promedio de una función entre dos puntos $a$ y $b$ tiene una traducción visual directa sobre el gráfico.\n\n¿Con qué concepto geométrico se corresponde?",
     "options": [
       "La pendiente de la recta tangente en $a$",
       "El área bajo la curva entre $a$ y $b$",
@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "¿Con qué concepto geométrico se corresponde la tasa de cambio instantánea de $f$ en el punto $a$?",
+    "question": "También la tasa de cambio instantánea de $f$ en un punto $a$ se puede leer geométricamente.\n\n¿Con qué concepto geométrico se corresponde?",
     "options": [
       "La pendiente de la recta tangente en el punto $a$",
       "La pendiente de la recta secante entre $a$ y $b$",
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "Retomá el cociente incremental:\n$$\\frac{f(a+h)-f(a)}{h}$$\nPara un valor fijo de $h$, sin tomar ningún límite.\n\n¿Qué tasa se obtiene?",
+    "question": "Con un valor fijo de $h$, sin tomar ningún límite, se evalúa el cociente:\n$$\\frac{f(a+h)-f(a)}{h}$$\n¿Qué tasa se obtiene en ese caso?",
     "options": [
       "La derivada de $f$ en $a+h$",
       "Una tasa de cambio promedio",
@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "¿Cuál de las siguientes notaciones corresponde a la **notación de Leibniz** para la derivada de $y=f(x)$?",
+    "question": "La derivada de $y=f(x)$ admite varias escrituras equivalentes, cada una con nombre propio.\n\n¿Cuál de las siguientes corresponde a la **notación de Leibniz**?",
     "options": [
       "$f'(x)$",
       "$\\frac{\\Delta y}{\\Delta x}$",
@@ -276,7 +276,7 @@
     ]
   },
   {
-    "question": "¿Cuál de las siguientes notaciones corresponde a la **notación de Lagrange**?",
+    "question": "Entre las escrituras equivalentes de la derivada, una usa un apóstrofe sobre el nombre de la función.\n\n¿Cuál de las siguientes corresponde a la **notación de Lagrange**?",
     "options": [
       "$f'(x)$",
       "$\\frac{dy}{dx}$",
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "Observá estas dos notaciones para la derivada:\n$$\\frac{\\Delta y}{\\Delta x}$$\n$$\\frac{dy}{dx}$$\n¿Cuál es la diferencia entre ambas?",
+    "question": "Estas dos escrituras para una razón de cambio se distinguen por una sola letra:\n$$\\frac{\\Delta y}{\\Delta x}$$\n$$\\frac{dy}{dx}$$\n¿Cuál es la diferencia entre ambas?",
     "options": [
       "$\\frac{dy}{dx}$ representa siempre una tasa promedio",
       "$\\frac{\\Delta y}{\\Delta x}$ es una tasa de cambio promedio",
@@ -322,7 +322,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la **notación de Lagrange** correctamente escrita para la derivada de $f$ evaluada en $x$?",
+    "question": "El apóstrofe de la derivada admite una única posición correcta en la escritura.\n\n¿Cuál es la **notación de Lagrange** correctamente escrita para la derivada de $f$ evaluada en $x$?",
     "options": [
       "$f(x)'$",
       "$f'x$",
