@@ -1181,11 +1181,89 @@
         }
       }
     },
+    "/internal/sessions/sweep-abandoned": {
+      "post": {
+        "summary": "Internal Sweep Abandoned Sessions",
+        "description": "Worker-facing: marcar como abandonadas las sesiones que quedaron abiertas.\n\nEl abandono no se puede detectar en el momento (nadie avisa que se fue), as\u00ed\nque se barre por tiempo. Ver session_store.sweep_abandoned_sessions.",
+        "operationId": "internal_sweep_abandoned_sessions_internal_sessions_sweep_abandoned_post",
+        "parameters": [
+          {
+            "name": "x-internal-secret",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Internal-Secret"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SweepAbandonedResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/email/unsubscribe": {
       "get": {
-        "summary": "Email Unsubscribe",
-        "description": "No-login unsubscribe link clicked from an email. Marks the user opted\nout of lifecycle emails and shows a minimal confirmation page.",
-        "operationId": "email_unsubscribe_email_unsubscribe_get",
+        "summary": "Email Unsubscribe Page",
+        "description": "Pantalla de confirmaci\u00f3n del link de baja del pie de los mails.\n\nEl GET no escribe nada a prop\u00f3sito. Los esc\u00e1neres de links de Gmail y\nOutlook visitan las URLs del cuerpo de un mail antes de que el usuario las\ntoque, as\u00ed que un GET que diera de baja desuscribir\u00eda gente sin que se\nentere y sin dejar rastro de que fue un bot. La baja real vive en el POST\nde abajo, que ning\u00fan prefetch dispara.\n\nEl token se regenera desde el user_id ya verificado en vez de reflejar el\nde la query: as\u00ed nada de lo que venga en la URL llega al HTML.",
+        "operationId": "email_unsubscribe_page_email_unsubscribe_get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Email Unsubscribe Confirm",
+        "description": "Baja efectiva. La disparan dos cosas: el bot\u00f3n de la pantalla de arriba,\ny el POST que hacen Gmail y Yahoo por su propio bot\u00f3n de baja gracias al\nheader `List-Unsubscribe-Post` (ver lifecycle_emails._send). Los dos casos\nson una acci\u00f3n deliberada de la persona, as\u00ed que ac\u00e1 s\u00ed se escribe.",
+        "operationId": "email_unsubscribe_confirm_email_unsubscribe_post",
         "parameters": [
           {
             "name": "token",
@@ -3327,6 +3405,19 @@
           "correct"
         ],
         "title": "SummaryItem"
+      },
+      "SweepAbandonedResponse": {
+        "properties": {
+          "marked": {
+            "type": "integer",
+            "title": "Marked"
+          }
+        },
+        "type": "object",
+        "required": [
+          "marked"
+        ],
+        "title": "SweepAbandonedResponse"
       },
       "TestFilters": {
         "properties": {
