@@ -153,12 +153,6 @@ const COURSE_TRACKS: CourseTrack[] = [
         ],
         questions: [
           { t2: "Subespacios", t3: "Clasificación", qt: "¿El siguiente conjunto es un subespacio?", q: "S = \\{(x,y) : x = 2y\\}" },
-          {
-            t2: "Linealidad",
-            t3: "Formulación",
-            qt: "¿Qué propiedad cumple toda transformación lineal?",
-            q: "T(\\alpha \\vec{u} + \\vec{v}) = \\alpha T(\\vec{u}) + T(\\vec{v})",
-          },
           { t2: "Dimensión", t3: "Resolución", qt: "¿Cuál es la dimensión de la imagen?", q: "\\dim(\\operatorname{Im} T)" },
         ],
       },
@@ -196,12 +190,6 @@ const COURSE_TRACKS: CourseTrack[] = [
           { t2: "Laplace", t3: "Resolución", qt: "¿Cuál es la probabilidad del siguiente evento?", q: "P(A) = \\dfrac{2}{6}" },
           { t2: "Condicional", t3: "Formulación", qt: "¿Cómo se calcula la siguiente probabilidad condicional?", q: "P(A|B)" },
           { t2: "Axiomas", t3: "Resolución", qt: "¿Cuánto vale la probabilidad del complemento?", q: "P(A^c) = 1-0.3" },
-          {
-            t2: "Unión",
-            t3: "Resolución",
-            qt: "¿Cómo se calcula la probabilidad de la unión?",
-            q: "P(A \\cup B) = P(A)+P(B)-P(A\\cap B)",
-          },
         ],
       },
       {
