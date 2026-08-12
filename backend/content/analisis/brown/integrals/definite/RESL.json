@@ -1,6 +1,6 @@
 [
   {
-    "question": "Resolvé:\n$$\\int_0^2 (x^2+1)\\,dx$$",
+    "question": "Esta integral combina una potencia cuadrática con un término constante:\n$$\\int_0^2 (x^2+1)\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$14/3$",
       "$10/3$",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "Hallá:\n$$\\int_0^1 e^x\\,dx$$",
+    "question": "El integrando es la función exponencial más simple, evaluada entre $0$ y $1$:\n$$\\int_0^1 e^x\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$1-e$",
       "$e-1$",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "Evaluá:\n$$\\int_0^{\\pi} \\sin x\\,dx$$",
+    "question": "Esta integral recorre el seno desde $0$ hasta $\\pi$, un semiperíodo completo:\n$$\\int_0^{\\pi} \\sin x\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$-2$",
       "$2+C$",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "question": "Encontrá:\n$$\\int_0^1 x^3\\,dx$$",
+    "question": "Acá el integrando es una potencia cúbica pura, sin términos adicionales:\n$$\\int_0^1 x^3\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$1$",
       "$1/4+C$",
@@ -100,7 +100,7 @@
     ]
   },
   {
-    "question": "Evaluá:\n$$\\int_0^{\\pi/2} \\cos x\\,dx$$",
+    "question": "El coseno se integra ahora entre $0$ y $\\pi/2$, un cuarto de período:\n$$\\int_0^{\\pi/2} \\cos x\\,dx$$\n¿Cuál es el resultado?",
     "options": [
       "$1$",
       "$\\pi/2$",
@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "Calculá:\n$$\\int_1^2 \\frac{1}{x}\\,dx$$",
+    "question": "Este integrando es el recíproco de $x$, evaluado en un intervalo que no incluye el cero:\n$$\\int_1^2 \\frac{1}{x}\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$-\\ln 2$",
       "$\\ln 2$",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "Calculá:\n$$\\int_0^2 3x^2\\,dx$$",
+    "question": "Esta potencia cuadrática llega con un coeficiente $3$ multiplicándola:\n$$\\int_0^2 3x^2\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$24$",
       "$4$",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "Hallá:\n$$\\int_0^1 2e^{2x}\\,dx$$",
+    "question": "El exponente de esta exponencial no es $x$ solo, sino $2x$:\n$$\\int_0^1 2e^{2x}\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$e^2$",
       "$e^2-1+C$",
@@ -200,7 +200,7 @@
     ]
   },
   {
-    "question": "Determiná:\n$$\\int_0^1 xe^x\\,dx$$",
+    "question": "Este integrando multiplica una variable lineal por una función exponencial:\n$$\\int_0^1 xe^x\\,dx$$\n¿Cuál es el resultado?",
     "options": [
       "$1$",
       "$1+C$",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "Encontrá:\n$$\\int_0^2 x(x^2+1)^3\\,dx$$",
+    "question": "Esta integral combina una potencia cúbica compuesta con el factor lineal que arma el diferencial:\n$$\\int_0^2 x(x^2+1)^3\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$78+C$",
       "$78$",
@@ -250,7 +250,7 @@
     ]
   },
   {
-    "question": "Calculá:\n$$\\int_0^{\\pi/2} x\\cos x\\,dx$$",
+    "question": "Este integrando multiplica una variable lineal por una función coseno:\n$$\\int_0^{\\pi/2} x\\cos x\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$\\pi/2$",
       "$1-\\pi/2$",
@@ -275,7 +275,7 @@
     ]
   },
   {
-    "question": "Resolvé:\n$$\\int_1^2 2xe^{x^2}\\,dx$$",
+    "question": "En este integrando, el factor $2x$ que multiplica a la exponencial coincide exactamente con la derivada del exponente:\n$$\\int_1^2 2xe^{x^2}\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$e^4-e+C$",
       "$e^2-e$",
@@ -300,7 +300,7 @@
     ]
   },
   {
-    "question": "Resolvé:\n$$\\int_0^1 \\ln(x+1)\\,dx$$",
+    "question": "Este integrando es una sola función logarítmica, sin ningún producto visible en la expresión:\n$$\\int_0^1 \\ln(x+1)\\,dx$$\n¿Cuál es el resultado?",
     "options": [
       "$2\\ln 2-1$",
       "$2\\ln 2-1+C$",
@@ -325,7 +325,7 @@
     ]
   },
   {
-    "question": "Evaluá:\n$$\\int_0^{\\pi/2} \\sin x\\cos x\\,dx$$",
+    "question": "Este integrando multiplica el seno y el coseno del mismo ángulo:\n$$\\int_0^{\\pi/2} \\sin x\\cos x\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$1$",
       "$1/2$",
@@ -350,7 +350,7 @@
     ]
   },
   {
-    "question": "Hallá:\n$$\\int_0^1 xe^{-x}\\,dx$$",
+    "question": "El exponente de esta exponencial lleva signo negativo, multiplicada por una variable lineal:\n$$\\int_0^1 xe^{-x}\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$2/e-1$",
       "$-2/e$",

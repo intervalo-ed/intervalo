@@ -14,7 +14,7 @@ Los `external_id` se generarán como `brown_definite_graf_01…`, `brown_definit
 
 ## Estado matemático del alumno (restricción de alcance)
 
-- **Lo que sabe:** todo el cinturón violet (derivadas completas) + `definition` de integrales (anatomía, primitiva, linealidad, acondicionamiento previo) + `reglas` de integración inmediata (tabla completa con $\ln|x|$, casos especiales, etc.) + `substitution` ($u$-sub, con o sin compensación de constante) + `parts` (integración por partes con LIATE, factor oculto).
+- **Lo que sabe:** todo el cinturón violet (derivadas completas) + `definition` de integrales (anatomía, primitiva, linealidad, acondicionamiento previo) + `reglas` de integración inmediata (tabla completa con $\ln|x|$, casos especiales, etc.) + `substitution` ($u$-sub, con o sin compensación de constante) + `parts` (integración por partes con ILATE, factor oculto).
 - **Lo que está aprendiendo acá:** la **integral definida** $\int_a^b f(x) \, dx = F(b) - F(a)$; la **Regla de Barrow** como puente entre la primitiva y el valor numérico exacto; el **Teorema Fundamental del Cálculo** como fundamento teórico; la interpretación geométrica del resultado como **área neta** con signos (áreas sobre el eje $x$ suman, áreas debajo restan); las **propiedades de los límites** de integración (inversión de límites cambia signo, límites iguales dan cero, aditividad sobre intervalos contiguos).
 - **Lo que NO sabe todavía:** nada más allá de este tópico. **Áreas entre dos curvas**, **análisis de funciones** con integrales, **optimización** con integrales y el **TFC** en su versión aplicada avanzada quedan **fuera del alcance del curso** (eran temas del viejo cinturón `black`, hoy eliminado). El scope de este tópico es rigurosamente **una sola función vs eje $x$**.
 

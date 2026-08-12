@@ -1,6 +1,6 @@
 [
   {
-    "question": "Calculá la integral:\n$$\\int x\\sin x\\,dx$$",
+    "question": "Este integrando multiplica un polinomio simple por una función trigonométrica:\n$$\\int x\\sin x\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$-x\\cos x+\\sin x+C$",
       "$x\\cos x+\\sin x+C$",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "Resolvé la integral:\n$$\\int xe^{2x}\\,dx$$",
+    "question": "El exponente de esta exponencial lleva un coeficiente que hay que compensar:\n$$\\int xe^{2x}\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$\\frac{xe^{2x}}{2}-e^{2x}+C$",
       "$\\frac{e^{2x}(2x-1)}{4}+C$",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "Hallá la primitiva de:\n$$\\int x\\cos x\\,dx$$",
+    "question": "Este integrando multiplica un polinomio simple por un coseno:\n$$\\int x\\cos x\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$-x\\sin x+\\cos x+C$",
       "$x\\cos x+\\sin x+C$",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "question": "Aplicá partes para resolver:\n$$\\int xe^x\\,dx$$",
+    "question": "Este integrando multiplica la variable por la exponencial de base $e$:\n$$\\int xe^x\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$xe^x+e^x+C$",
       "$e^x-xe^x+C$",
@@ -100,7 +100,7 @@
     ]
   },
   {
-    "question": "Hallá el antiderivada:\n$$\\int xe^{-x}\\,dx$$",
+    "question": "El exponente de esta exponencial lleva coeficiente negativo:\n$$\\int xe^{-x}\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$-xe^{-x}-e^{-x}+C$",
       "$xe^{-x}-e^{-x}+C$",
@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "Integrá por partes:\n$$\\int 3x\\sin x\\,dx$$",
+    "question": "Este integrando lleva un coeficiente que se arrastra durante todo el desarrollo:\n$$\\int 3x\\sin x\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$-3x\\cos x+3\\sin x$",
       "$-3x\\cos x+3\\sin x+C$",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "Resolvé aplicando la fórmula de partes:\n$$\\int 2xe^x\\,dx$$",
+    "question": "Este integrando multiplica un polinomio con coeficiente por una exponencial:\n$$\\int 2xe^x\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$xe^x-2e^x+C$",
       "$2xe^x-2e^x$",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "Hallá la antiderivada de:\n$$\\int (x+1)\\cos x\\,dx$$",
+    "question": "Este integrando multiplica un binomio por un coseno:\n$$\\int (x+1)\\cos x\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$(x+1)\\sin x-\\cos x+C$",
       "$-(x+1)\\sin x+\\cos x+C$",
@@ -200,7 +200,7 @@
     ]
   },
   {
-    "question": "Resolvé usando el factor oculto:\n$$\\int \\ln x\\,dx$$",
+    "question": "Este integrando parece una única función, sin ningún producto a la vista:\n$$\\int \\ln x\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$x\\ln x-x+C$",
       "$\\frac{(\\ln x)^2}{2}+C$",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "Integrá y simplifica:\n$$\\int x\\ln x\\,dx$$",
+    "question": "Este integrando multiplica un polinomio por un logaritmo:\n$$\\int x\\ln x\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$x^2\\ln x-\\frac{x^2}{4}+C$",
       "$\\frac{x^2(2\\ln x-1)}{4}+C$",
@@ -250,7 +250,7 @@
     ]
   },
   {
-    "question": "Hallá:\n$$\\int \\ln(2x)\\,dx$$",
+    "question": "Este integrando también parece una única función, con un argumento que lleva coeficiente:\n$$\\int \\ln(2x)\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$-x+C$",
       "$\\ln(2x)-x+C$",
@@ -275,7 +275,7 @@
     ]
   },
   {
-    "question": "Resolvé:\n$$\\int 3\\ln x\\,dx$$",
+    "question": "Este integrando es un logaritmo multiplicado por una constante:\n$$\\int 3\\ln x\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$3x\\ln x+3x+C$",
       "$-3x+C$",
@@ -300,7 +300,7 @@
     ]
   },
   {
-    "question": "Aplicá partes con el logaritmo:\n$$\\int x^3\\ln x\\,dx$$",
+    "question": "Este integrando multiplica una potencia de grado tres por un logaritmo:\n$$\\int x^3\\ln x\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$\\frac{x^4(4\\ln x-1)}{16}+C$",
       "$\\frac{x^4(\\ln x-1)}{4}+C$",
@@ -325,7 +325,7 @@
     ]
   },
   {
-    "question": "Hallá el antiderivada con factor oculto:\n$$\\int \\ln(x-1)\\,dx$$",
+    "question": "Este integrando parece una única función, con un argumento desplazado:\n$$\\int \\ln(x-1)\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$x\\ln(x-1)-x+C$",
       "$(x-1)\\ln(x-1)-x+C$",
@@ -350,7 +350,7 @@
     ]
   },
   {
-    "question": "Integrá y factoriza:\n$$\\int x^2\\ln x\\,dx$$",
+    "question": "Este integrando multiplica una potencia de grado dos por un logaritmo:\n$$\\int x^2\\ln x\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$\\frac{x^3(3\\ln x+1)}{9}+C$",
       "$x^3\\ln x-\\frac{x^3}{9}+C$",
