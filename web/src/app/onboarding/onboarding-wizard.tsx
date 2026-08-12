@@ -596,8 +596,6 @@ function UnitGrid({
   )
 }
 
-const TOTAL_STEPS = 12
-
 // Nombre estable de cada slide para el evento `onboarding_step` de PostHog. No
 // mandamos el índice: si mañana se reordenan o agregan pasos, el mismo número
 // pasa a significar otra slide y el embudo histórico deja de ser comparable.
@@ -615,6 +613,66 @@ const STEP_NAMES: Record<number, string> = {
   9: "carrera",
   10: "universidad",
   11: "registro",
+}
+
+const ONBOARDING_FLAG = "onboarding-orden-apodo"
+
+// Orden de visita de las slides. Los índices siguen significando siempre la misma
+// slide (0 es el apodo en las dos variantes): lo único que cambia es en qué
+// posición se visitan. Así los `{step === N}`, el switch de PinnedCTA y STEP_NAMES
+// quedan intactos, y el embudo histórico de PostHog sigue siendo comparable.
+const ORDER_CONTROL = [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+// En test el apodo (0) cae justo antes de carrera (9): las tres preguntas
+// personales quedan juntas al final y las primeras ocho slides son puro valor.
+const ORDER_TEST = [-1, 1, 2, 3, 4, 5, 6, 7, 8, 0, 9, 10, 11]
+
+type Variant = "control" | "test" | "unavailable"
+
+// `unavailable` = los flags no resolvieron (adblock, red caída). Esa gente corre
+// el orden de control, pero se marca distinto para poder sacarla del análisis en
+// vez de contaminar el brazo de control con gente que nunca fue sorteada.
+// Atajo para probar las dos variantes en local con `?variant=test`. Fuera de
+// desarrollo no existe, así que no hay forma de forzarse un brazo en producción
+// y ensuciar los datos del experimento.
+function forcedVariant(): Variant | null {
+  if (process.env.NODE_ENV === "production" || typeof window === "undefined") return null
+  const forced = new URLSearchParams(window.location.search).get("variant")
+  return forced === "control" || forced === "test" ? forced : null
+}
+
+function useOnboardingVariant(): Variant | null {
+  const forced = forcedVariant()
+  const [variant, setVariant] = useState<Variant | null>(forced)
+
+  useEffect(() => {
+    if (forced !== null) return
+
+    let settled = false
+    function settle(v: Variant) {
+      if (settled) return
+      settled = true
+      setVariant(v)
+    }
+
+    // onFeatureFlags dispara al toque si ya estaban cargados.
+    const unsubscribe = posthog.onFeatureFlags(() => {
+      const value = posthog.getFeatureFlag(ONBOARDING_FLAG)
+      settle(value === "test" ? "test" : value === "control" ? "control" : "unavailable")
+    })
+    const timeout = setTimeout(() => settle("unavailable"), 2500)
+
+    return () => {
+      unsubscribe?.()
+      clearTimeout(timeout)
+    }
+  }, [forced])
+
+  return variant
+}
+
+function positionOf(step: number, order: number[]) {
+  const i = order.indexOf(step)
+  return i === -1 ? 0 : i
 }
 
 function randomDelay(min: number, max: number) {
@@ -701,6 +759,14 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
   const [step, setStep] = useState(-1) // -1 = intro animada del logo
   const [prevStep, setPrevStep] = useState(-1)
   const [direction, setDirection] = useState<1 | -1>(1)
+  const variant = useOnboardingVariant()
+  const order = variant === "test" ? ORDER_TEST : ORDER_CONTROL
+  const position = positionOf(step, order)
+  // Posición 0 es el intro, así que la 1 es la primera slide con la que el usuario
+  // interactúa: el apodo en control, la bienvenida en test. Es la que se lleva el
+  // botón de Google y la que no muestra la barra de progreso.
+  const isFirstContentSlide = position === 1
+  const [introDone, setIntroDone] = useState(false)
   const [name, setName] = useState("")
   const [motivation, setMotivation] = useState("")
   const [course, setCourse] = useState<CourseId | "">("")
@@ -752,21 +818,32 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
   // embudo del onboarding no se puede armar sin esto. El ref evita repetir el
   // evento cuando la slide re-renderiza (elegir curso, por ejemplo, corre el
   // effect de nuevo), pero sí vuelve a emitir si el usuario va y vuelve.
+  // Esperamos a que resuelva la variante antes del primer evento: si saliera
+  // sin `variant`, el paso `intro` —que es la base del embudo— quedaría sin
+  // brazo asignado y no se podría comparar nada.
   useEffect(() => {
+    if (variant === null) return
     const name = STEP_NAMES[step]
     if (name === undefined || lastTrackedStepRef.current === name) return
     lastTrackedStepRef.current = name
-    posthog.capture("onboarding_step", { step: name, course: course || undefined })
-  }, [step, course])
+    posthog.capture("onboarding_step", { step: name, course: course || undefined, variant })
+  }, [step, course, variant])
+
+  // La animación del intro y la carga de los flags corren en paralelo; recién
+  // cuando terminaron las dos se puede avanzar, porque la variante decide cuál
+  // es la slide siguiente.
+  useEffect(() => {
+    if (introDone && variant !== null && step === -1) goNext()
+  }, [introDone, variant, step])
 
   function goNext(target?: number) {
     setPrevStep(step)
     setDirection(1)
     if (target !== undefined) {
       setStep(target)
-    } else {
-      setStep((s) => s + 1)
+      return
     }
+    setStep(order[Math.min(position + 1, order.length - 1)])
   }
 
   function openWhy() {
@@ -802,7 +879,8 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
     }
     setPrevStep(step)
     setDirection(-1)
-    setStep((s) => Math.max(0, s - 1))
+    // Tope en 1: el intro no se puede volver a ver.
+    setStep(order[Math.max(position - 1, 1)])
   }
 
   function handleMotivation(value: string) {
@@ -963,7 +1041,7 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
   return (
     <main className="flex min-h-dvh flex-col bg-background [&_h2]:font-sans overflow-x-hidden">
       <AnimatePresence>
-        {step > 0 && <ProgressBar key="progress" step={step} onBack={goBack} />}
+        {position > 1 && <ProgressBar key="progress" position={position} total={order.length} onBack={goBack} />}
       </AnimatePresence>
       <div className="flex flex-1 flex-col items-center justify-start px-4 pb-8 pt-16">
         <div className="relative grid flex-1 w-full max-w-md overflow-hidden">
@@ -989,7 +1067,7 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
               <>
 
               {/* ── INTRO: animación del logo ── */}
-              {step === -1 && <IntroLogo onDone={() => goNext(0)} />}
+              {step === -1 && <IntroLogo onDone={() => setIntroDone(true)} />}
 
               {/* ── SLIDE 0: Nombre ── */}
               {step === 0 && (
@@ -1002,14 +1080,16 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
                   authReady={signIn !== null}
                   authPending={authPending}
                   authError={authError}
-                  hideSignIn={alreadySignedIn}
+                  hideSignIn={alreadySignedIn || !isFirstContentSlide}
+                  isFirstContentSlide={isFirstContentSlide}
                 />
               )}
 
               {/* ── SLIDE 1: Bienvenida ── */}
               {step === 1 && (
                 <div className="flex flex-col gap-5">
-                  <h2 className="text-2xl font-bold">Hola, {name}</h2>
+                  {/* En test esta slide va primera, así que todavía no hay nombre. */}
+                  <h2 className="text-2xl font-bold">{name ? `Hola, ${name}` : "¡Bienvenido!"}</h2>
                   <div className="flex flex-col gap-3 leading-relaxed text-foreground/85">
                     <p>
                       <strong className="text-foreground">Intervalo</strong> está pensado para
@@ -1395,6 +1475,14 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
         goNext={goNext}
         confirmOther={confirmOther}
         onRevisar={onRevisar}
+        isFirstContentSlide={isFirstContentSlide}
+        direction={direction}
+        name={name}
+        onSignIn={authenticateWithGoogle}
+        authReady={signIn !== null}
+        authPending={authPending}
+        authError={authError}
+        hideSignIn={alreadySignedIn}
       />
     </main>
   )
@@ -1418,6 +1506,14 @@ function PinnedCTA({
   goNext,
   confirmOther,
   onRevisar,
+  isFirstContentSlide,
+  direction,
+  name,
+  onSignIn,
+  authReady,
+  authPending,
+  authError,
+  hideSignIn,
 }: {
   step: number
   showOther: boolean
@@ -1436,6 +1532,14 @@ function PinnedCTA({
   goNext: () => void
   confirmOther: () => void
   onRevisar: () => void
+  isFirstContentSlide: boolean
+  direction: 1 | -1
+  name: string
+  onSignIn: () => void
+  authReady: boolean
+  authPending: boolean
+  authError: string | null
+  hideSignIn: boolean
 }) {
   const ctaCls = "h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
 
@@ -1454,7 +1558,47 @@ function PinnedCTA({
   let content: React.ReactNode = null
 
   switch (step) {
+    // Solo cuando el apodo cae en el medio del wizard (test). Abriendo el wizard
+    // (control) los botones van dentro de la slide, centrados, y acá no va nada.
+    case 0:
+      if (isFirstContentSlide) return null
+      content = (
+        <Button
+          size="lg"
+          className={ctaCls}
+          disabled={!name.trim()}
+          onClick={() => { sfx.continue(); goNext() }}
+        >
+          Continuar
+        </Button>
+      )
+      break
+    // En test la bienvenida abre el wizard, así que se lleva la salida para
+    // quien ya tiene cuenta (en control vive en la slide del apodo).
     case 1:
+      content = (
+        <div className="flex flex-col gap-2">
+          {isFirstContentSlide && !hideSignIn && (
+            <Button
+              variant="outline"
+              size="lg"
+              className="h-[var(--cta-h)] w-full rounded-md gap-2"
+              disabled={!authReady || authPending}
+              onClick={onSignIn}
+            >
+              <GoogleIcon className="size-5" />
+              {authPending ? "Conectando..." : "Ya tengo una cuenta"}
+            </Button>
+          )}
+          <Button size="lg" className={ctaCls} onClick={() => { sfx.continue(); goNext() }}>
+            Continuar
+          </Button>
+          {isFirstContentSlide && authError && (
+            <p className="text-center text-sm text-red-500">{authError}</p>
+          )}
+        </div>
+      )
+      break
     case 6:
     case 7:
     case 8:
@@ -1586,6 +1730,27 @@ function PinnedCTA({
     )
   }
 
+  // La barra fija vive fuera del AnimatePresence de las slides, así que su
+  // contenido aparece de golpe. En la slide que abre el wizard se nota, porque el
+  // texto entra deslizándose y los botones no: ahí los acompañamos con la misma
+  // curva y duración que usa slideVariants. En el resto del wizard queda como
+  // estaba — el CTA ya está en pantalla y no tiene que volver a entrar.
+  if (isFirstContentSlide) {
+    return (
+      <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center px-4 pt-[var(--cta-pt)] pb-[var(--cta-pb)] bg-gradient-to-t from-background via-background/90 to-transparent pointer-events-none">
+        <div className="w-full max-w-md pointer-events-auto overflow-hidden">
+          <motion.div
+            initial={{ x: direction > 0 ? "100%" : "-100%" }}
+            animate={{ x: "0%" }}
+            transition={{ duration: 0.28, ease: "easeInOut" }}
+          >
+            {content}
+          </motion.div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center px-4 pt-[var(--cta-pt)] pb-[var(--cta-pb)] bg-gradient-to-t from-background via-background/90 to-transparent pointer-events-none">
       <div className="w-full max-w-md pointer-events-auto">
@@ -1605,6 +1770,7 @@ function Slide0({
   authPending,
   authError,
   hideSignIn,
+  isFirstContentSlide,
 }: {
   name: string
   setName: (v: string) => void
@@ -1615,6 +1781,7 @@ function Slide0({
   authPending: boolean
   authError: string | null
   hideSignIn: boolean
+  isFirstContentSlide: boolean
 }) {
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -1629,9 +1796,37 @@ function Slide0({
     return () => clearTimeout(id)
   }, [])
 
+  const input = (
+    <input
+      ref={inputRef}
+      type="text"
+      value={name}
+      onChange={(e) => setName(e.target.value)}
+      onKeyDown={(e) => { if (e.key === "Enter") handleContinue() }}
+      placeholder="Tu nombre o apodo"
+      className="h-12 w-full rounded-xl border border-border bg-accent px-4 text-foreground outline-none focus:border-primary transition-colors"
+    />
+  )
+
+  // Cuando el apodo cae en el medio del wizard (test) es una pregunta más: mismo
+  // formato de título y bajada que carrera o motivación, y el Continuar en la
+  // barra de abajo como el resto — lo pone PinnedCTA.
+  if (!isFirstContentSlide) {
+    return (
+      <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-2 text-center">
+          <h2 className="text-2xl font-bold">¿Cómo te llamás?</h2>
+          <p className="text-foreground/85">Puede ser tu nombre o el apodo que prefieras.</p>
+        </div>
+        {input}
+      </div>
+    )
+  }
+
+  // Abriendo el wizard, en cambio, es una pantalla de bienvenida: saludo grande,
+  // todo centrado en el alto y los botones ahí mismo.
   return (
     <div className="flex-1 w-full flex flex-col">
-      {/* Título + contenido agrupados y centrados verticalmente */}
       <motion.div
         className="flex flex-1 flex-col justify-center gap-7 pt-[16vh]"
         initial={{ opacity: 0, y: 10 }}
@@ -1643,15 +1838,7 @@ function Slide0({
           <p className="text-lg text-foreground/70">¿Cómo te llamás?</p>
         </div>
 
-        <input
-          ref={inputRef}
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          onKeyDown={(e) => { if (e.key === "Enter") handleContinue() }}
-          placeholder="Tu nombre o apodo"
-          className="h-12 w-full rounded-xl border border-border bg-accent px-4 text-foreground outline-none focus:border-primary transition-colors"
-        />
+        {input}
 
         <div className="flex flex-col gap-2">
           <Button size="lg" className="h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black" disabled={!name.trim()} onClick={handleContinue}>
@@ -1687,8 +1874,9 @@ function GoogleIcon({ className }: { className?: string }) {
   )
 }
 
-function ProgressBar({ step, onBack }: { step: number; onBack: () => void }) {
-  const pct = (step / (TOTAL_STEPS - 1)) * 100
+function ProgressBar({ position, total, onBack }: { position: number; total: number; onBack: () => void }) {
+  // La posición 1 es la primera slide de contenido (0%) y la última es el 100%.
+  const pct = ((position - 1) / (total - 2)) * 100
 
   return (
     <motion.div
