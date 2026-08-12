@@ -1,6 +1,6 @@
 [
   {
-    "question": "Antes de derivar:\n$$f(x) = 3x^2 + \\sin x$$\n¿Qué es lo primero que hay que reconocer?",
+    "question": "Dos familias distintas se combinan en esta función:\n$$f(x) = 3x^2 + \\sin x$$\n¿Qué es lo primero que hay que reconocer antes de derivarla?",
     "options": [
       "Que se deriva término a término por linealidad",
       "Que hay que aplicar la regla del producto entre los dos términos",
@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "Para derivar:\n$$f(x) = \\frac{1}{x^3}$$\nEste tópico exige aplicar reglas directas, sin usar la regla del cociente.\n\n¿Qué paso previo hay que dar?",
+    "question": "Esta función llega escrita como una fracción:\n$$f(x) = \\frac{1}{x^3}$$\nTal como está, no encaja directamente en ninguna fórmula de la tabla.\n\n¿Qué paso previo conviene dar para derivarla?",
     "options": [
       "Dejarla como está y derivar el numerador y el denominador por separado",
       "Reescribir la expresión como $x^{-3}$ y aplicar la regla de la potencia",
@@ -46,7 +46,7 @@
     ]
   },
   {
-    "question": "Para derivar:\n$$f(x) = \\sqrt{x}$$\nEsta raíz no es una de las fórmulas elementales tal como está escrita.\n\n¿Qué paso previo conviene dar?",
+    "question": "La raíz cuadrada no figura, tal como está escrita, en la tabla de derivadas elementales:\n$$f(x) = \\sqrt{x}$$\n¿Qué paso previo conviene dar para derivarla?",
     "options": [
       "Aplicar la regla del cociente sobre la raíz",
       "Tratarla como una función trigonométrica compuesta",
@@ -69,7 +69,7 @@
     ]
   },
   {
-    "question": "Considerá la siguiente función:\n$$f(x) = 5x^4 - 2x + 7$$\n¿Qué regla permite derivar cada término por separado antes de combinar los resultados?",
+    "question": "Esta función reúne tres términos de grados distintos:\n$$f(x) = 5x^4 - 2x + 7$$\n¿Qué regla permite derivar cada término por separado antes de combinar los resultados?",
     "options": [
       "Linealidad aplicada",
       "Regla del producto",
@@ -115,7 +115,7 @@
     ]
   },
   {
-    "question": "¿En qué orden conviene derivar:\n$$f(x) = 4\\ln x + 3\\cos x$$?",
+    "question": "Esta función combina un logaritmo y un coseno, cada uno con su coeficiente:\n$$f(x) = 4\\ln x + 3\\cos x$$\n¿En qué orden conviene derivarla?",
     "options": [
       "Aplicar primero la regla del producto entre los dos términos",
       "Combinar ambos términos en uno solo antes de derivar",
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "question": "Para derivar:\n$$f(x) = \\frac{x^3}{5}$$\n¿Qué paso conviene dar primero?",
+    "question": "Esta expresión mezcla una potencia con una división:\n$$f(x) = \\frac{x^3}{5}$$\n¿Qué paso conviene dar primero para derivarla?",
     "options": [
       "Ver la división por $5$ como un múltiplo escalar",
       "Aplicar la regla del cociente entre $x^3$ y $5$",
@@ -161,7 +161,7 @@
     ]
   },
   {
-    "question": "¿Qué regla corresponde aplicar a una constante aislada, como el término $-8$ dentro de una suma más grande?",
+    "question": "Dentro de una suma larga puede aparecer un término que es solo un número, como $-8$.\n\n¿Qué regla corresponde aplicarle al derivar?",
     "options": [
       "Linealidad, hay que sumarla al resto de las derivadas",
       "Regla de la constante, su derivada es cero",
@@ -184,7 +184,7 @@
     ]
   },
   {
-    "question": "Dada la función:\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿Qué regla corresponde aplicar al término $\\sin x$?",
+    "question": "Cada término de esta suma pertenece a una familia distinta:\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿Qué regla corresponde aplicar al término $\\sin x$?",
     "options": [
       "Regla de la potencia",
       "Derivada de logaritmo",
@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "En la misma función:\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿Qué regla corresponde aplicar al término $-\\ln x$?",
+    "question": "Esta suma incluye un término logarítmico con signo negativo:\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿Qué regla corresponde aplicar al término $-\\ln x$?",
     "options": [
       "Derivada de logaritmo",
       "Derivada trigonométrica",
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "Dada la función:\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿Qué regla corresponde aplicar al término $3x^2$?",
+    "question": "Tres familias de funciones conviven en esta suma:\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿Qué regla corresponde aplicar al término $3x^2$?",
     "options": [
       "Regla de la constante",
       "Múltiplo escalar",
@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = 2e^x - \\cos x + 6$$\n¿Cuántos términos distintos hay que derivar por separado?",
+    "question": "Antes de aplicar cualquier fórmula conviene contar las piezas de esta expresión:\n$$f(x) = 2e^x - \\cos x + 6$$\n¿Cuántos términos distintos hay que derivar por separado?",
     "options": [
       "Un término distinto",
       "Dos términos distintos",
@@ -276,7 +276,7 @@
     ]
   },
   {
-    "question": "Considerá esta función:\n$$f(x) = 2e^x - \\cos x + 6$$\n¿Qué regla corresponde aplicar al término $6$?",
+    "question": "Esta expresión mezcla una exponencial, un coseno y un número:\n$$f(x) = 2e^x - \\cos x + 6$$\n¿Qué regla corresponde aplicar al término $6$?",
     "options": [
       "Regla de la constante",
       "Múltiplo escalar",
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "Observá la función:\n$$f(x) = x^5 - 4\\tan x + \\ln x$$\n¿Qué regla corresponde aplicar al término $x^5$?",
+    "question": "Esta suma combina una potencia, una tangente y un logaritmo:\n$$f(x) = x^5 - 4\\tan x + \\ln x$$\n¿Qué regla corresponde aplicar al término $x^5$?",
     "options": [
       "Múltiplo escalar",
       "Regla de la potencia",
@@ -322,7 +322,7 @@
     ]
   },
   {
-    "question": "Para la siguiente función:\n$$f(x) = x^5 - 4\\tan x + \\ln x$$\n¿Qué regla corresponde aplicar al término $-4\\tan x$?",
+    "question": "Una tangente aparece en el medio de esta suma:\n$$f(x) = x^5 - 4\\tan x + \\ln x$$\n¿Qué regla corresponde aplicar al término $-4\\tan x$?",
     "options": [
       "Regla de la potencia",
       "Derivada de exponencial",

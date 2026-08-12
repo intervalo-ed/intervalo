@@ -83,7 +83,7 @@ Afianzar el **vocabulario geométrico** de las rectas asociadas a una curva y la
 ### Reglas específicas
 - **Negrita en primera mención** de `recta tangente`, `recta secante`, `pendiente`, `punto de tangencia`, `aproximación lineal`.
 - Sub-A y sub-C con lenguaje geométrico; sub-B trabaja con la fórmula simbólica.
-- **Textos exactos** en opciones de clasificación (sub-A): `"Secante"`, `"Tangente"`, `"Recta transversal"`, `"Ninguna de las anteriores"`.
+- **Textos exactos** en opciones de clasificación (sub-A): `"Secante"`, `"Tangente"`, `"Transversal"`, `"Ninguna de las anteriores"`.
 
 ---
 
@@ -182,7 +182,7 @@ No hubo ejercicios puntuales de este topic en el archivo de correcciones de esta
 - [ ] 30 ejercicios; **exactamente 3 opciones** por ejercicio
 - [ ] Distribución A/B/C respetada (12/9/9)
 - [ ] Negrita en primera mención de `recta tangente`, `recta secante`, `pendiente`, `punto de tangencia`, `aproximación lineal`
-- [ ] Textos exactos `"Secante"`, `"Tangente"`, `"Recta transversal"` cuando aplique
+- [ ] Textos exactos `"Secante"`, `"Tangente"`, `"Transversal"` cuando aplique
 
 **GRAF:**
 - [ ] 30 ejercicios con `graph_fn` o gráfico embebido; `graph_view` cuadrado, escala 1:1

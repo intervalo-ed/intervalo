@@ -1,10 +1,10 @@
 [
   {
-    "question": "¿Cómo se llama la recta que toca a la curva en un único punto y comparte con $f$ la misma dirección instantánea ahí?",
+    "question": "Sobre una misma curva se pueden trazar rectas de varios tipos, y cada tipo tiene nombre propio.\n\n¿Cómo se llama la recta que toca a la curva en un único punto y comparte con $f$ la misma dirección instantánea ahí?",
     "options": [
       "Tangente",
       "Secante",
-      "Recta transversal"
+      "Transversal"
     ],
     "correct_index": 0,
     "has_math": true,
@@ -23,9 +23,9 @@
     ]
   },
   {
-    "question": "¿Cómo se llama la recta que corta a la curva en dos puntos distintos y representa la tasa de cambio media entre ellos?",
+    "question": "No todas las rectas que atraviesan una curva lo hacen de la misma manera.\n\n¿Cómo se llama la que corta a la curva en dos puntos distintos y representa la tasa de cambio media entre ellos?",
     "options": [
-      "Recta transversal",
+      "Transversal",
       "Secante",
       "Tangente"
     ],
@@ -46,7 +46,7 @@
     ]
   },
   {
-    "question": "¿Cómo se llama el punto donde la recta tangente toca a la curva?",
+    "question": "Al trazar la recta tangente a una curva, hay un único lugar donde ambas se tocan.\n\n¿Cómo se llama ese punto?",
     "options": [
       "Punto de corte",
       "Origen de coordenadas",
@@ -69,7 +69,7 @@
     ]
   },
   {
-    "question": "La pendiente de la recta secante entre dos puntos de $f$ representa:",
+    "question": "La recta secante, la que se apoya en dos puntos distintos de una curva, tiene su propia pendiente.\n\n¿Qué representa esa pendiente?",
     "options": [
       "La tasa de cambio media entre esos dos puntos",
       "La tasa de cambio instantánea en uno de los puntos",
@@ -92,7 +92,7 @@
     ]
   },
   {
-    "question": "La pendiente de la recta tangente en un punto representa:",
+    "question": "En un punto cualquiera de una curva se traza la recta tangente.\n\n¿Qué representa la pendiente de esa recta en ese punto?",
     "options": [
       "El valor de la función en ese punto",
       "La tasa de cambio instantánea en ese punto",
@@ -108,14 +108,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pendiente de la **recta tangente** en un punto coincide, por definición, con la tasa de cambio instantánea de $f$ ahí, es decir, con $f'(a)$.\n\nEste valor describe qué tan rápido cambia la función justo en ese punto, sin necesidad de comparar con ningún otro punto del dominio.\n\nConfundir esta pendiente con $f(a)$ , $f(a)$ es apenas la altura del punto de tangencia, no su inclinación.",
+    "explanation": "La pendiente de la **recta tangente** en un punto coincide, por definición, con la tasa de cambio instantánea de $f$ ahí, es decir, con $f'(a)$.\n\nEste valor describe qué tan rápido cambia la función justo en ese punto, sin necesidad de comparar con ningún otro punto del dominio.\n\nNo hay que confundir esta pendiente con $f(a)$, que es apenas la altura del punto de tangencia, no su inclinación.",
     "reviewed": false,
     "tags": [
       "vocabulario-geometrico-secante-tangente"
     ]
   },
   {
-    "question": "Si se toman dos puntos muy cercanos entre sí sobre la curva, sin tomar ningún límite, la recta que los une:",
+    "question": "Sobre una curva se marcan dos puntos muy cercanos entre sí y se traza la recta que los une, sin tomar ningún límite.\n\n¿Qué puede decirse de esa recta?",
     "options": [
       "Ya es la recta tangente",
       "Deja de tener pendiente definida",
@@ -154,14 +154,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la ecuación punto-pendiente de la **recta tangente**, el coeficiente que multiplica a $(x-a)$ es siempre la **pendiente**.\n$$f'(a)$$. Este valor mide la inclinación de la recta, mientras que el resto de la fórmula la ancla en el punto correcto.\n\nAsí, $f'(a)$ es la inclinación de la recta, y $f(a)$ es simplemente la altura del punto de tangencia.",
+    "explanation": "En la ecuación punto-pendiente de la **recta tangente**, el coeficiente que multiplica a $(x-a)$ es siempre la **pendiente** $f'(a)$.\n\nEste valor mide la inclinación de la recta, mientras que el resto de la fórmula la ancla en el punto correcto.\n\nAsí, $f'(a)$ es la inclinación de la recta, y $f(a)$ es simplemente la altura del punto de tangencia.",
     "reviewed": false,
     "tags": [
       "anatomia-formula-punto-pendiente"
     ]
   },
   {
-    "question": "En la misma ecuación:\n$$y = f'(a)(x-a) + f(a)$$\n¿Qué representa el punto $(a, f(a))$?",
+    "question": "Cada pieza de la ecuación punto-pendiente de la tangente cumple un rol propio:\n$$y = f'(a)(x-a) + f(a)$$\n¿Qué representa el punto $(a, f(a))$?",
     "options": [
       "La pendiente",
       "El punto de anclaje",
@@ -184,7 +184,7 @@
     ]
   },
   {
-    "question": "¿Cuál de las siguientes es una forma equivalente de la ecuación punto-pendiente:\n$$y = f'(a)(x-a) + f(a)$$?",
+    "question": "La ecuación punto-pendiente de la tangente admite reescrituras que no cambian su contenido:\n$$y = f'(a)(x-a) + f(a)$$\n¿Cuál de las siguientes es una forma equivalente?",
     "options": [
       "$y = f'(a) \\cdot x + f(a)$",
       "$y = f(a)(x-a) + f'(a)$",
@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "¿Qué papel cumple $a$ dentro de la ecuación punto-pendiente?",
+    "question": "La ecuación punto-pendiente de la recta tangente usa un valor $a$ en varios lugares:\n$$y = f'(a)(x-a) + f(a)$$\n¿Qué papel cumple $a$?",
     "options": [
       "Es la coordenada $x$ del punto de tangencia",
       "Es la pendiente de la recta tangente",
@@ -253,11 +253,11 @@
     ]
   },
   {
-    "question": "¿Por qué la recta tangente funciona como la **aproximación lineal** de $f$ cerca del punto de tangencia?",
+    "question": "La recta tangente sirve como aproximación lineal, una recta que reemplaza a la curva cerca del punto de tangencia.\n\n¿Por qué funciona como aproximación justo ahí?",
     "options": [
       "Porque coincide con $f$ en todo su dominio",
       "Porque siempre queda por encima de la curva",
-      "Porque comparte con $f$ el mismo por la regla"
+      "Porque comparte con $f$ valor y dirección ahí"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -276,9 +276,9 @@
     ]
   },
   {
-    "question": "¿Qué ocurre con la calidad de la **aproximación lineal** de la tangente a medida que uno se aleja del punto de tangencia?",
+    "question": "Para estimar valores de $f$ sin calcularlos, se usa su aproximación lineal, la recta tangente trazada en un punto cercano.\n\n¿Qué ocurre con el error de esa estimación a medida que uno se aleja del punto de tangencia?",
     "options": [
-      "Error entre función y recta",
+      "El error crece con la distancia",
       "El error se mantiene siempre igual",
       "El error desaparece por completo"
     ],
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "¿Es correcto afirmar que la recta tangente aproxima bien a $f$ en todo el dominio?",
+    "question": "La recta tangente a $f$ copia el valor y la inclinación de la curva en el punto donde se traza.\n\n¿Es correcto afirmar que, gracias a eso, aproxima bien a $f$ en todo el dominio?",
     "options": [
       "No, la tangente nunca se aproxima a $f$ en ningún punto",
       "No, la aproximación solo es buena cerca del punto de tangencia",
@@ -322,7 +322,7 @@
     ]
   },
   {
-    "question": "La curvatura de $f$ cerca del punto de tangencia puede ser mayor o menor.\n\n¿Qué pasa con la **aproximación lineal** cuando esa curvatura aumenta?",
+    "question": "La aproximación lineal, la recta tangente usada para estimar la curva, depende de la forma de $f$ cerca del punto de tangencia.\n\n¿Qué pasa con esa aproximación cuando la curvatura de $f$ ahí aumenta?",
     "options": [
       "Se mantiene exacta sin importar la curvatura",
       "Deja de ser una recta",

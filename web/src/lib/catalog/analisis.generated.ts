@@ -272,8 +272,7 @@ export const catalog: Catalog = {
               "short_description": "La **derivada** mide la **tasa de cambio instantánea** de una función. Describe a qué velocidad exacta está variando una magnitud en un momento o punto específico.\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$",
               "skills": [
                 "LEXI",
-                "GRAF",
-                "ESTR"
+                "GRAF"
               ]
             },
             {
