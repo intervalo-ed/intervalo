@@ -225,6 +225,16 @@ class PrunePushRequest(BaseModel):
     subscription_ids: list[int]
 
 
+class DeliveryResult(BaseModel):
+    notification_id: int
+    # "ok" | "error_<status>" | "error", tal como lo arma el notifier.
+    status: str
+
+
+class PushDeliveryRequest(BaseModel):
+    results: list[DeliveryResult]
+
+
 class SessionFeedbackRequest(BaseModel):
     action: str  # "impression" | "answer" | "report"
     session_id: str
@@ -754,6 +764,28 @@ def internal_prune_push(
     import push_store
 
     push_store.delete_subscriptions_by_id(db, body.subscription_ids)
+    return {"success": True}
+
+
+@app.post(
+    "/internal/push/delivery",
+    response_model=SimpleResponse,
+    dependencies=[Depends(require_internal_secret)],
+)
+def internal_push_delivery(
+    body: PushDeliveryRequest,
+    db: Session = Depends(get_db),
+):
+    """Worker-facing: qué devolvió el push service para cada envío del tick.
+
+    La fila de notification_sends se crea al elegir el copy, antes de intentar
+    mandar, así que sin este reporte un envío fallido queda indistinguible de uno
+    exitoso."""
+    import push_store
+
+    push_store.record_delivery_results(
+        db, [(r.notification_id, r.status) for r in body.results]
+    )
     return {"success": True}
 
 
