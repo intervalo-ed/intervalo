@@ -1,6 +1,6 @@
 [
   {
-    "question": "Considerá la función:\n$$f(x) = (x^2-4)e^x$$\nCalculá $f'(2)$.",
+    "question": "El numerador de esta función tiene una raíz que coincide con el punto de evaluación:\n$$f(x) = (x^2-4)e^x$$\n¿Cuánto vale $f'(2)$?",
     "options": [
       "$4e^2$",
       "$2e^2$",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "Verificá la función:\n$$f(x) = (x-1)e^x$$\nCalculá $f'(1)$.",
+    "question": "Esta función combina un binomio simple con la exponencial:\n$$f(x) = (x-1)e^x$$\n¿Cuánto vale $f'(1)$?",
     "options": [
       "$-e$",
       "$e$",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "Observá la función:\n$$f(x) = (x^2-9)\\ln x$$\nCalculá $f'(3)$.",
+    "question": "Un factor de esta función se anula justo en el punto que interesa:\n$$f(x) = (x^2-9)\\ln x$$\n¿Cuánto vale $f'(3)$?",
     "options": [
       "$6\\ln 9$",
       "$0$",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "question": "Examiná la función:\n$$f(x) = (x+5)x^2$$\nCalculá $f'(-5)$.",
+    "question": "Esta función multiplica un binomio por una potencia:\n$$f(x) = (x+5)x^2$$\n¿Cuánto vale $f'(-5)$?",
     "options": [
       "$-25$",
       "$10$",
@@ -100,7 +100,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = (x-4)e^x$$\nCalculá $f'(4)$.",
+    "question": "El punto de evaluación de esta función coincide con la raíz de uno de sus factores:\n$$f(x) = (x-4)e^x$$\n¿Cuánto vale $f'(4)$?",
     "options": [
       "$e^4$",
       "$4e^4$",
@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "Para la función:\n$$f(x) = \\cos x \\cdot e^x$$\nCalculá $f'(0)$.",
+    "question": "El coseno y la exponencial se multiplican en esta función:\n$$f(x) = \\cos x \\cdot e^x$$\n¿Cuánto vale $f'(0)$?",
     "options": [
       "$e$",
       "$1$",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "Examiná la función:\n$$f(x) = (x^2+3)e^x$$\nCalculá $f'(0)$.",
+    "question": "Esta función combina una potencia cuadrática con la exponencial:\n$$f(x) = (x^2+3)e^x$$\n¿Cuánto vale $f'(0)$?",
     "options": [
       "$-3$",
       "$6$",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = \\cos x \\cdot (x^2+2)$$\nCalculá $f'(\\pi)$.",
+    "question": "El coseno multiplica a un polinomio cuadrático en esta función:\n$$f(x) = \\cos x \\cdot (x^2+2)$$\n¿Cuánto vale $f'(\\pi)$?",
     "options": [
       "$2\\pi$",
       "$-\\pi$",
@@ -200,7 +200,7 @@
     ]
   },
   {
-    "question": "Dada:\n$$f(x) = \\big((x-1)^2+5\\big)e^x$$\nCalculá $f'(1)$.",
+    "question": "Esta función multiplica la exponencial por un polinomio con vértice propio:\n$$f(x) = \\big((x-1)^2+5\\big)e^x$$\n¿Cuánto vale $f'(1)$?",
     "options": [
       "$5e$",
       "$0$",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "Examiná la función:\n$$f(x) = x^2 \\cdot e^x$$\nCalculá $f'(0)$.",
+    "question": "En esta función, el punto de evaluación anula un factor completo y su derivada a la vez:\n$$f(x) = x^2 \\cdot e^x$$\n¿Cuánto vale $f'(0)$?",
     "options": [
       "$e$",
       "$0$",
@@ -250,7 +250,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = (x-1)^2 \\cdot e^x$$\nCalculá $f'(1)$.",
+    "question": "Esta función tiene un binomio elevado al cuadrado multiplicando a la exponencial:\n$$f(x) = (x-1)^2 \\cdot e^x$$\n¿Cuánto vale $f'(1)$?",
     "options": [
       "$2e$",
       "$-e$",
@@ -275,7 +275,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = (x+2)^2 \\cdot \\cos x$$\nCalculá $f'(-2)$.",
+    "question": "Un binomio al cuadrado se multiplica por el coseno en esta función:\n$$f(x) = (x+2)^2 \\cdot \\cos x$$\n¿Cuánto vale $f'(-2)$?",
     "options": [
       "$4$",
       "$-4$",
@@ -300,7 +300,7 @@
     ]
   },
   {
-    "question": "Si $f(2)=0$, $f'(2)=5$, $g(2)=4$, $g'(2)=-1$, calculá $(f\\cdot g)'(2)$.",
+    "question": "Se conocen los valores $f(2)=0$, $f'(2)=5$, $g(2)=4$ y $g'(2)=-1$.\n\n¿Cuánto vale $(f\\cdot g)'(2)$?",
     "options": [
       "$20$",
       "$-4$",
@@ -325,7 +325,7 @@
     ]
   },
   {
-    "question": "Si $f(1)=3$, $f'(1)=0$, $g(1)=-2$, $g'(1)=6$, calculá $(f\\cdot g)'(1)$.",
+    "question": "Se conocen los valores $f(1)=3$, $f'(1)=0$, $g(1)=-2$ y $g'(1)=6$.\n\n¿Cuánto vale $(f\\cdot g)'(1)$?",
     "options": [
       "$-18$",
       "$18$",
@@ -350,7 +350,7 @@
     ]
   },
   {
-    "question": "Si $f(0)=5$, $f'(0)=-2$, $g(0)=0$, $g'(0)=3$, calculá $(f\\cdot g)'(0)$.",
+    "question": "Se conocen los valores $f(0)=5$, $f'(0)=-2$, $g(0)=0$ y $g'(0)=3$.\n\n¿Cuánto vale $(f\\cdot g)'(0)$?",
     "options": [
       "$0$",
       "$-15$",

@@ -1,6 +1,6 @@
 [
   {
-    "question": "En la gráfica se muestra la función $f(x) = x^2 - 4x + 3$.\n\n¿Cuál es el signo de $f'(0)$?",
+    "question": "En la gráfica se muestra la parábola:\n$$f(x) = x^2 - 4x + 3$$\nEn cada punto, la curva sube o baja con una pendiente propia.\n\n¿Cuál es el signo de $f'(0)$?",
     "options": [
       "Negativa",
       "Positiva",
@@ -28,7 +28,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la función $f(x) = x^2 - 4x + 3$.\n\n¿Cuál es el signo de $f'(4)$?",
+    "question": "La gráfica corresponde a la parábola:\n$$f(x) = x^2 - 4x + 3$$\nEl signo de la derivada acompaña la dirección de la curva en cada punto.\n\n¿Cuál es el signo de $f'(4)$?",
     "options": [
       "Cero",
       "Positiva",
@@ -56,7 +56,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la función $f(x) = -x^2 + 2$.\n\n¿Cuál es el signo de $f'(-1)$?",
+    "question": "La curva graficada es una parábola que se abre hacia abajo:\n$$f(x) = -x^2 + 2$$\n¿Cuál es el signo de $f'(-1)$?",
     "options": [
       "Negativa",
       "Cero",
@@ -84,7 +84,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la función $f(x) = -x^2 + 2$.\n\n¿Cuál es el signo de $f'(1)$?",
+    "question": "En la gráfica se ve la parábola invertida:\n$$f(x) = -x^2 + 2$$\nSu punto más alto separa el tramo que sube del que baja.\n\n¿Cuál es el signo de $f'(1)$?",
     "options": [
       "Negativa",
       "Positiva",
@@ -112,7 +112,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la función $f(x) = x^2 - 2x + 1$.\n\n¿Cuál es el signo de $f'(1)$?",
+    "question": "La gráfica muestra la parábola:\n$$f(x) = x^2 - 2x + 1$$\nLa pendiente cambia punto a punto a lo largo de la curva.\n\n¿Cuál es el signo de $f'(1)$?",
     "options": [
       "Negativa",
       "Cero",
@@ -140,7 +140,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la función $f(x) = x^3$.\n\n¿Cuál es el signo de $f'(0)$?",
+    "question": "La gráfica muestra la curva cúbica:\n$$f(x) = x^3$$\nSu pendiente no es la misma en todos los puntos.\n\n¿Cuál es el signo de $f'(0)$?",
     "options": [
       "Positiva",
       "Negativa",
@@ -168,7 +168,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la función $f(x) = x^2 - 4x + 3$.\n\n¿En qué valor de $x$ se anula $f'(x)$?",
+    "question": "En la gráfica se muestra la función:\n$$f(x) = x^2 - 4x + 3$$\nSu derivada cambia de signo en un único punto.\n\n¿En qué valor de $x$ se anula $f'(x)$?",
     "options": [
       "$x=3$",
       "$x=0$",
@@ -198,7 +198,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la función $f(x) = -x^2 + 4$.\n\n¿En qué valor de $x$ se anula $f'(x)$?",
+    "question": "La parábola graficada alcanza un valor máximo:\n$$f(x) = -x^2 + 4$$\n¿En qué valor de $x$ se anula $f'(x)$?",
     "options": [
       "$x=-2$",
       "$x=2$",
@@ -228,7 +228,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la función $f(x) = x^2 - 2x - 3$.\n\n¿En qué valor de $x$ se anula $f'(x)$?",
+    "question": "En la gráfica, la curva baja y después sube:\n$$f(x) = x^2 - 2x - 3$$\nEn el medio queda un punto de pendiente nula.\n\n¿En qué valor de $x$ se anula $f'(x)$?",
     "options": [
       "$x=1$",
       "$x=-1$",
@@ -258,7 +258,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la función:\n$$f(x) = -x^2 + 2x + 3$$\n¿En qué valor de $x$ se anula $f'(x)$?",
+    "question": "La gráfica corresponde a la parábola invertida:\n$$f(x) = -x^2 + 2x + 3$$\nSu pendiente se anula donde la curva alcanza su máximo.\n\n¿En qué valor de $x$ se anula $f'(x)$?",
     "options": [
       "$x=4$",
       "$x=1$",
@@ -318,7 +318,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la función $f(x) = |x-2| + 1$.\n\n¿Qué le pasa a la diferenciabilidad de $f$ en $x=2$?",
+    "question": "El valor absoluto de esta función deja su marca en la gráfica:\n$$f(x) = |x-2| + 1$$\n¿Qué le pasa a la diferenciabilidad de $f$ en $x=2$?",
     "options": [
       "Es diferenciable, con tangente horizontal",
       "Presenta un salto, no es continua ahí",
@@ -346,7 +346,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra una función a trozos con un salto en $x=1$.\n\n¿Qué le pasa a la diferenciabilidad de $f$ en ese punto?",
+    "question": "En la gráfica, los dos tramos de la función llegan a alturas distintas en $x=1$.\n\n¿Qué le pasa a la diferenciabilidad de $f$ en ese punto?",
     "options": [
       "Presenta un salto, no es continua ahí",
       "Es diferenciable en $x=1$",
@@ -374,7 +374,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la función $f(x) = x^2$, con un punto marcado en su vértice, $x=0$.\n\n¿Qué le pasa a la diferenciabilidad de $f$ en ese punto?",
+    "question": "En la gráfica se destaca el vértice de la parábola, en $x=0$:\n$$f(x) = x^2$$\n¿Qué le pasa a la diferenciabilidad de $f$ en ese punto?",
     "options": [
       "Presenta un salto, no es continua ahí",
       "Es diferenciable, con tangente horizontal, $f'=0$",
@@ -402,7 +402,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la función $f(x) = x^{1/3}$, con un punto marcado en $x=0$.\n\n¿Qué le pasa a la diferenciabilidad de $f$ en ese punto?",
+    "question": "La gráfica muestra la raíz cúbica, con un punto marcado en $x=0$:\n$$f(x) = x^{1/3}$$\n¿Qué le pasa a la diferenciabilidad de $f$ en ese punto?",
     "options": [
       "Es diferenciable, con $f'(0)=0$",
       "Presenta un quiebre común, como el de $|x|$",

@@ -1,5 +1,8 @@
 import posthog from "posthog-js"
-import { FIRST_UTM_SOURCE } from "@/lib/analytics/attribution"
+import {
+  FIRST_PWA_USE_STORAGE_KEY,
+  FIRST_UTM_SOURCE,
+} from "@/lib/analytics/attribution"
 import { getPlatform, isStandalone } from "@/lib/platform/detect"
 
 posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
@@ -36,9 +39,22 @@ posthog.register({ pwa_standalone: standalone, platform })
 // por instalación.
 const INSTALL_TRACKED_KEY = "pwa-install-tracked"
 try {
-  if (standalone && !localStorage.getItem(INSTALL_TRACKED_KEY)) {
-    localStorage.setItem(INSTALL_TRACKED_KEY, "1")
-    posthog.capture("pwa_install", { platform })
+  if (standalone) {
+    // Timestamp del primer uso instalado, que posthog-user.tsx copia al perfil de
+    // la persona al identificar. Es la red de contención del evento de abajo: si
+    // el evento se pierde, esto sigue permitiendo contar la instalación.
+    if (!localStorage.getItem(FIRST_PWA_USE_STORAGE_KEY)) {
+      localStorage.setItem(FIRST_PWA_USE_STORAGE_KEY, new Date().toISOString())
+    }
+
+    if (!localStorage.getItem(INSTALL_TRACKED_KEY)) {
+      // send_instantly saltea la cola batcheada: la primera carga de la PWA suele
+      // redirigir enseguida (ej. /sso-callback) y el evento encolado se perdía en
+      // la descarga de la página. El guard se escribe después del capture para que
+      // un fallo no lo deje puesto suprimiendo el reintento.
+      posthog.capture("pwa_install", { platform }, { send_instantly: true })
+      localStorage.setItem(INSTALL_TRACKED_KEY, "1")
+    }
   }
 } catch {
   // localStorage puede tirar en modo privado; la super property ya cubre el caso.

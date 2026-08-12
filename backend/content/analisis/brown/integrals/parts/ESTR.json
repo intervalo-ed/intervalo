@@ -1,6 +1,6 @@
 [
   {
-    "question": "Para resolver esta integral por partes:\n$$\\int x^2\\ln x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según **LIATE**?",
+    "question": "Este integrando multiplica una potencia por un logaritmo:\n$$\\int x^2\\ln x\\,dx$$\nSegún la prioridad ILATE, la jerarquía que ordena qué familia conviene derivar primero.\n\nHay una elección de $u$ y $dv$ que arma la integral remanente más simple.\n\n¿Cuál es esa elección?",
     "options": [
       "$u=\\ln x, dv=x^2\\,dx$",
       "$u=x^2, dv=\\ln x\\,dx$",
@@ -8,22 +8,22 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, LIATE prioriza el logaritmo por sobre la función algebraica para elegir $u$.",
+    "feedback_correct": "Correcto, ILATE prioriza el logaritmo por sobre la función algebraica para elegir $u$.",
     "feedback_incorrect": [
       null,
-      "Elegiste LIATE al revés, la regla prioriza logaritmo antes que algebraica para el rol de $u$.",
+      "Elegiste ILATE al revés, la regla prioriza logaritmo antes que algebraica para el rol de $u$.",
       "Ese bloque completo no deja ningún $dv$ integrable de forma directa, hace falta separar en dos factores."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla LIATE** ordena las familias de funciones, Logaritmo, Inversa trigonométrica, Algebraica, Trigonométrica, Exponencial, para decidir cuál asume el rol de $u$.\n$$u=\\ln x, \\quad dv=x^2\\,dx$$\nElegir el logaritmo como $u$ deja una $dv$ fácil de integrar.\n\nAdemás, $du=dx/x$ termina simplificando la integral remanente.",
+    "explanation": "La **regla ILATE** ordena las familias de funciones, Inversa trigonométrica, Logaritmo, Algebraica, Trigonométrica, Exponencial, para decidir cuál asume el rol de $u$.\n$$u=\\ln x, \\quad dv=x^2\\,dx$$\nElegir el logaritmo como $u$ deja una $dv$ fácil de integrar.\n\nAdemás, $du=dx/x$ termina simplificando la integral remanente.",
     "reviewed": false,
     "tags": [
       "eleccion-variables-regla-liate"
     ]
   },
   {
-    "question": "En esta integral, usá integración por partes:\n$$\\int xe^x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "question": "Este integrando multiplica un polinomio por una exponencial:\n$$\\int xe^x\\,dx$$\nLa prioridad ILATE, la jerarquía que ordena qué familia conviene tomar como $u$.\n\nEsa jerarquía señala una elección de $u$ y $dv$ para este producto.\n\n¿Cuál es la elección correcta de $u$ y $dv$?",
     "options": [
       "$u=xe^x, dv=dx$",
       "$u=x, dv=e^x\\,dx$",
@@ -31,22 +31,22 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Correcto, LIATE prioriza la función algebraica por sobre la exponencial para elegir $u$.",
+    "feedback_correct": "Correcto, ILATE prioriza la función algebraica por sobre la exponencial para elegir $u$.",
     "feedback_incorrect": [
       "Ese bloque completo no deja ningún $dv$ integrable de forma directa, hace falta separar en dos factores.",
       null,
-      "Elegiste LIATE al revés, esa elección deja una integral remanente más difícil que la original."
+      "Elegiste ILATE al revés, esa elección deja una integral remanente más difícil que la original."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La regla **LIATE** prioriza la función algebraica por sobre la exponencial al elegir $u$, sin importar cuán simple parezca la exponencial.\n$$u=x, \\quad dv=e^x\\,dx$$\nCon esta elección, $du=dx$ simplifica el polinomio a una constante, y la integral remanente queda de tabla inmediata, lista para resolverse en un solo paso.",
+    "explanation": "La regla **ILATE** prioriza la función algebraica por sobre la exponencial al elegir $u$, sin importar cuán simple parezca la exponencial.\n$$u=x, \\quad dv=e^x\\,dx$$\nCon esta elección, $du=dx$ simplifica el polinomio a una constante, y la integral remanente queda de tabla inmediata, lista para resolverse en un solo paso.",
     "reviewed": false,
     "tags": [
       "eleccion-variables-regla-liate"
     ]
   },
   {
-    "question": "Aplicá integración por partes a:\n$$\\int x\\sin x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "question": "Este integrando multiplica un polinomio por una función trigonométrica:\n$$\\int x\\sin x\\,dx$$\nSiguiendo la prioridad ILATE, la jerarquía que decide qué familia deriva primero, corresponde una elección concreta de $u$ y $dv$.\n\n¿Cuál es esa elección?",
     "options": [
       "$u=\\sin x, dv=x\\,dx$",
       "$u=x\\sin x, dv=dx$",
@@ -54,22 +54,22 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Correcto, LIATE prioriza la función algebraica por sobre la trigonométrica para elegir $u$.",
+    "feedback_correct": "Correcto, ILATE prioriza la función algebraica por sobre la trigonométrica para elegir $u$.",
     "feedback_incorrect": [
-      "Elegiste LIATE al revés, esa elección deja una integral remanente más difícil que la original.",
+      "Elegiste ILATE al revés, esa elección deja una integral remanente más difícil que la original.",
       "Ese bloque completo no deja ningún $dv$ integrable de forma directa, hace falta separar en dos factores.",
       null
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La regla LIATE prioriza la función algebraica por sobre la trigonométrica al elegir $u$.\n\nCon esta elección, $du=dx$ simplifica el polinomio a una constante, dejando una integral remanente inmediata para la función trigonométrica.\n\nUsar $u=\\sin x$ en cambio dejaría $dv=x\\,dx$, cuya integral vuelve más compleja la integral remanente en vez de más simple.",
+    "explanation": "La regla ILATE prioriza la función algebraica por sobre la trigonométrica al elegir $u$.\n\nCon esta elección, $du=dx$ simplifica el polinomio a una constante, dejando una integral remanente inmediata para la función trigonométrica.\n\nUsar $u=\\sin x$ en cambio dejaría $dv=x\\,dx$, cuya integral vuelve más compleja la integral remanente en vez de más simple.",
     "reviewed": false,
     "tags": [
       "eleccion-variables-regla-liate"
     ]
   },
   {
-    "question": "Resolvé por partes:\n$$\\int x^3\\ln x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "question": "Este integrando multiplica una potencia de grado más alto por un logaritmo:\n$$\\int x^3\\ln x\\,dx$$\nSegún la prioridad ILATE, el orden que indica qué familia conviene derivar antes.\n\nHay una elección de $u$ y $dv$ adecuada para este caso.\n\n¿Cuál es esa elección?",
     "options": [
       "$u=\\ln x, dv=x^3\\,dx$",
       "$u=x^3, dv=\\ln x\\,dx$",
@@ -77,22 +77,22 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, LIATE prioriza el logaritmo por sobre la función algebraica para elegir $u$.",
+    "feedback_correct": "Correcto, ILATE prioriza el logaritmo por sobre la función algebraica para elegir $u$.",
     "feedback_incorrect": [
       null,
-      "Elegiste LIATE al revés, la regla prioriza logaritmo antes que algebraica para el rol de $u$.",
+      "Elegiste ILATE al revés, la regla prioriza logaritmo antes que algebraica para el rol de $u$.",
       "Ese bloque completo no deja ningún $dv$ integrable de forma directa, hace falta separar en dos factores."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Sin importar el grado del polinomio, la regla **LIATE** sigue priorizando el logaritmo por sobre la función algebraica.\n\nEsta elección deja $du=dx/x$, un factor que cancela exactamente una potencia de $x$ en la integral remanente.\n\nElegir $u=x^3$ en cambio dejaría $dv=\\ln x\\,dx$, cuya integral requiere partes con factor oculto, complicando el desarrollo en vez de simplificarlo.",
+    "explanation": "Sin importar el grado del polinomio, la regla **ILATE** sigue priorizando el logaritmo por sobre la función algebraica.\n\nEsta elección deja $du=dx/x$, un factor que cancela exactamente una potencia de $x$ en la integral remanente.\n\nElegir $u=x^3$ en cambio dejaría $dv=\\ln x\\,dx$, cuya integral requiere partes con factor oculto, complicando el desarrollo en vez de simplificarlo.",
     "reviewed": false,
     "tags": [
       "eleccion-variables-regla-liate"
     ]
   },
   {
-    "question": "Encontrá la integral por partes:\n$$\\int xe^{3x}\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "question": "Este integrando multiplica un polinomio por una exponencial de exponente lineal:\n$$\\int xe^{3x}\\,dx$$\nLa prioridad ILATE, la jerarquía que ordena qué familia conviene derivar primero.\n\nEsa jerarquía determina una elección de $u$ y $dv$ para este producto.\n\n¿Cuál es la elección correcta de $u$ y $dv$?",
     "options": [
       "$u=xe^{3x}, dv=dx$",
       "$u=x, dv=e^{3x}\\,dx$",
@@ -100,22 +100,22 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Correcto, LIATE prioriza la función algebraica por sobre la exponencial para elegir $u$.",
+    "feedback_correct": "Correcto, ILATE prioriza la función algebraica por sobre la exponencial para elegir $u$.",
     "feedback_incorrect": [
       "Ese bloque completo no deja ningún $dv$ integrable de forma directa, hace falta separar en dos factores.",
       null,
-      "Elegiste LIATE al revés, esa elección deja una integral remanente más difícil que la original."
+      "Elegiste ILATE al revés, esa elección deja una integral remanente más difícil que la original."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con cualquier producto de polinomio y exponencial, LIATE prioriza la función algebraica por sobre la exponencial.\n\nEl coeficiente $3$ dentro del exponente no cambia esta elección, solo va a requerir un ajuste de constante al integrar $dv$.\n\nCon $u=x$, $du=dx$ reduce el polinomio a una constante en un solo paso, dejando la integral remanente lista para resolver con la tabla.",
+    "explanation": "Igual que con cualquier producto de polinomio y exponencial, ILATE prioriza la función algebraica por sobre la exponencial.\n\nEl coeficiente $3$ dentro del exponente no cambia esta elección, solo va a requerir un ajuste de constante al integrar $dv$.\n\nCon $u=x$, $du=dx$ reduce el polinomio a una constante en un solo paso, dejando la integral remanente lista para resolver con la tabla.",
     "reviewed": false,
     "tags": [
       "eleccion-variables-regla-liate"
     ]
   },
   {
-    "question": "Con integración por partes, hallá:\n$$\\int x\\cos x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "question": "Este integrando multiplica un polinomio por un coseno:\n$$\\int x\\cos x\\,dx$$\nSiguiendo la prioridad ILATE, el criterio que ordena qué familia conviene tomar como $u$.\n\nHay una elección que simplifica la integral remanente.\n\n¿Cuál es la elección correcta de $u$ y $dv$?",
     "options": [
       "$u=\\cos x, dv=x\\,dx$",
       "$u=x\\cos x, dv=dx$",
@@ -123,22 +123,22 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Correcto, LIATE prioriza la función algebraica por sobre la trigonométrica para elegir $u$.",
+    "feedback_correct": "Correcto, ILATE prioriza la función algebraica por sobre la trigonométrica para elegir $u$.",
     "feedback_incorrect": [
-      "Elegiste LIATE al revés, esa elección deja una integral remanente más difícil que la original.",
+      "Elegiste ILATE al revés, esa elección deja una integral remanente más difícil que la original.",
       "Ese bloque completo no deja ningún $dv$ integrable de forma directa, hace falta separar en dos factores.",
       null
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La regla LIATE prioriza la función algebraica por sobre la trigonométrica, sin importar si la función es seno o coseno.\n\nCon esta elección, $du=dx$ simplifica el polinomio a una constante, dejando una integral remanente inmediata para el coseno.\n\nUsar $u=\\cos x$ en cambio dejaría $dv=x\\,dx$, complicando la integral remanente en vez de simplificarla.",
+    "explanation": "La regla ILATE prioriza la función algebraica por sobre la trigonométrica, sin importar si la función es seno o coseno.\n\nCon esta elección, $du=dx$ simplifica el polinomio a una constante, dejando una integral remanente inmediata para el coseno.\n\nUsar $u=\\cos x$ en cambio dejaría $dv=x\\,dx$, complicando la integral remanente en vez de simplificarla.",
     "reviewed": false,
     "tags": [
       "eleccion-variables-regla-liate"
     ]
   },
   {
-    "question": "Verificá si es necesario iterar en:\n$$\\int 2x\\ln x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "question": "Este integrando multiplica una potencia con coeficiente por un logaritmo:\n$$\\int 2x\\ln x\\,dx$$\nSegún la prioridad ILATE, la jerarquía que decide qué familia conviene derivar primero.\n\nEl coeficiente no cambia cuál elección de $u$ y $dv$ corresponde.\n\n¿Cuál es esa elección?",
     "options": [
       "$u=\\ln x, dv=2x\\,dx$",
       "$u=2x, dv=\\ln x\\,dx$",
@@ -146,22 +146,22 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, LIATE prioriza el logaritmo por sobre la función algebraica para elegir $u$.",
+    "feedback_correct": "Correcto, ILATE prioriza el logaritmo por sobre la función algebraica para elegir $u$.",
     "feedback_incorrect": [
       null,
-      "Elegiste LIATE al revés, la regla prioriza logaritmo antes que algebraica para el rol de $u$.",
+      "Elegiste ILATE al revés, la regla prioriza logaritmo antes que algebraica para el rol de $u$.",
       "Ese bloque completo no deja ningún $dv$ integrable de forma directa, hace falta separar en dos factores."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El coeficiente $2$ no cambia la prioridad de LIATE, el logaritmo sigue siendo la elección correcta para $u$.\n\nEste coeficiente simplemente se arrastra al calcular $v$, sin alterar en nada la jerarquía de elección entre logaritmo y algebraica.\n\nElegir $u=2x$ dejaría $dv=\\ln x\\,dx$, que requiere partes con factor oculto para integrarse, un paso extra innecesario.",
+    "explanation": "El coeficiente $2$ no cambia la prioridad de ILATE, el logaritmo sigue siendo la elección correcta para $u$.\n\nEste coeficiente simplemente se arrastra al calcular $v$, sin alterar en nada la jerarquía de elección entre logaritmo y algebraica.\n\nElegir $u=2x$ dejaría $dv=\\ln x\\,dx$, que requiere partes con factor oculto para integrarse, un paso extra innecesario.",
     "reviewed": false,
     "tags": [
       "eleccion-variables-regla-liate"
     ]
   },
   {
-    "question": "Determiná la fórmula de partes para:\n$$\\int x^2e^x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "question": "Este integrando multiplica una potencia de grado dos por una exponencial:\n$$\\int x^2e^x\\,dx$$\nLa prioridad ILATE, la jerarquía que ordena qué familia conviene tomar como $u$.\n\nEsa jerarquía sigue aplicando aunque el grado del polinomio sea mayor.\n\n¿Cuál es la elección correcta de $u$ y $dv$?",
     "options": [
       "$u=x^2e^x, dv=dx$",
       "$u=x^2, dv=e^x\\,dx$",
@@ -169,22 +169,22 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Correcto, LIATE prioriza la función algebraica por sobre la exponencial para elegir $u$.",
+    "feedback_correct": "Correcto, ILATE prioriza la función algebraica por sobre la exponencial para elegir $u$.",
     "feedback_incorrect": [
       "Ese bloque completo no deja ningún $dv$ integrable de forma directa, hace falta separar en dos factores.",
       null,
-      "Elegiste LIATE al revés, esa elección deja una integral remanente más difícil que la original."
+      "Elegiste ILATE al revés, esa elección deja una integral remanente más difícil que la original."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aunque el grado del polinomio sea mayor, LIATE sigue priorizando la función algebraica por sobre la exponencial.\n\nCon esta elección, $du=2x\\,dx$ reduce el grado del polinomio en uno, aunque en este caso hará falta repetir el método una vez más.\n\nUsar $u=e^x$ en cambio dejaría $dv=x^2\\,dx$, empeorando la integral remanente en vez de simplificarla.",
+    "explanation": "Aunque el grado del polinomio sea mayor, ILATE sigue priorizando la función algebraica por sobre la exponencial.\n\nCon esta elección, $du=2x\\,dx$ reduce el grado del polinomio en uno, aunque en este caso hará falta repetir el método una vez más.\n\nUsar $u=e^x$ en cambio dejaría $dv=x^2\\,dx$, empeorando la integral remanente en vez de simplificarla.",
     "reviewed": false,
     "tags": [
       "eleccion-variables-regla-liate"
     ]
   },
   {
-    "question": "Considerá la integral:\n$$\\int x^2e^x\\,dx$$\n¿Cómo se comporta al resolverla por **partes**?",
+    "question": "El polinomio de este integrando tiene grado dos, multiplicado por una función exponencial:\n$$\\int x^2e^x\\,dx$$\n¿Cómo se comporta al resolverla por **partes**?",
     "options": [
       "Requiere una iteración",
       "Es cíclica, hay que despejar",
@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "Analizá la integral:\n$$\\int e^x\\sin x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
+    "question": "Este integrando multiplica una exponencial por una función trigonométrica:\n$$\\int e^x\\sin x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
     "options": [
       "Es cíclica, hay que despejar",
       "Requiere una iteración",
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "Observá la integral:\n$$\\int x^5\\ln x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
+    "question": "Este integrando multiplica una potencia de grado alto por un logaritmo:\n$$\\int x^5\\ln x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
     "options": [
       "No se puede resolver por partes",
       "Requiere una iteración",
@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "Examiná la integral:\n$$\\int x^2\\sin x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
+    "question": "Este integrando multiplica una potencia de grado dos por una función trigonométrica:\n$$\\int x^2\\sin x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
     "options": [
       "Requiere una iteración",
       "Es cíclica, hay que despejar",
@@ -276,7 +276,7 @@
     ]
   },
   {
-    "question": "Analizá la integral:\n$$\\int e^x\\cos x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
+    "question": "Este integrando multiplica una exponencial por un coseno:\n$$\\int e^x\\cos x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
     "options": [
       "Es cíclica, hay que despejar",
       "Requiere una iteración",
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "Observá la integral:\n$$\\int x\\ln x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
+    "question": "Este integrando multiplica un polinomio simple por un logaritmo:\n$$\\int x\\ln x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
     "options": [
       "Es cíclica, hay que despejar",
       "Requiere una iteración",
@@ -315,14 +315,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con $u=\\ln x$ y $dv=x\\,dx$.\n\nLa derivada $du=dx/x$ cancela exactamente la potencia de $x$ en la integral remanente.\n\nEsa integral remanente es de tabla inmediata, así que el método cierra en una única aplicación.\n\nSi en cambio se eligiera $u=x$, la integral remanente seguiría teniendo un logaritmo sin resolver, así que LIATE evita ese callejón sin salida.",
+    "explanation": "Con $u=\\ln x$ y $dv=x\\,dx$.\n\nLa derivada $du=dx/x$ cancela exactamente la potencia de $x$ en la integral remanente.\n\nEsa integral remanente es de tabla inmediata, así que el método cierra en una única aplicación.\n\nSi en cambio se eligiera $u=x$, la integral remanente seguiría teniendo un logaritmo sin resolver, así que ILATE evita ese callejón sin salida.",
     "reviewed": false,
     "tags": [
       "diagnostico-iteracion-y-ciclos"
     ]
   },
   {
-    "question": "Examiná la integral:\n$$\\int x^{10}\\ln x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
+    "question": "Este integrando multiplica una potencia de grado muy alto por un logaritmo:\n$$\\int x^{10}\\ln x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
     "options": [
       "Requiere diez iteraciones",
       "Requiere dos iteraciones",

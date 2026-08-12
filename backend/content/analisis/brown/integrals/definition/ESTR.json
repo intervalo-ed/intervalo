@@ -1,6 +1,6 @@
 [
   {
-    "question": "Antes de resolver esta integral:\n$$\\int (x+2)^2\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "El integrando es un binomio elevado al cuadrado:\n$$\\int (x+2)^2\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Desarrollar el binomio y luego integrar",
       "Integrar el interior y elevar al cuadrado",
@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "Al resolver esta integral:\n$$\\int \\frac{x^3+5x}{x}\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "El integrando divide un polinomio de dos términos por un monomio:\n$$\\int \\frac{x^3+5x}{x}\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Derivar el integrando",
       "Repartir el denominador",
@@ -46,7 +46,7 @@
     ]
   },
   {
-    "question": "Considerá esta integral:\n$$\\int x(x^2-1)\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "El integrando multiplica un monomio por un binomio:\n$$\\int x(x^2-1)\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Integrar el interior y elevar al cuadrado",
       "Derivar el integrando",
@@ -69,7 +69,7 @@
     ]
   },
   {
-    "question": "Dada esta integral:\n$$\\int \\frac{x^4-3x^2}{x^2}\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "Adentro de la integral, un polinomio entero se divide por una potencia de $x$:\n$$\\int \\frac{x^4-3x^2}{x^2}\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Repartir el denominador",
       "Integrar el numerador y el denominador por separado",
@@ -92,7 +92,7 @@
     ]
   },
   {
-    "question": "Analizá esta integral:\n$$\\int (x-3)^2\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "El integrando es un binomio al cuadrado, con una resta adentro:\n$$\\int (x-3)^2\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Derivar el integrando",
       "Desarrollar el binomio y luego integrar",
@@ -115,7 +115,7 @@
     ]
   },
   {
-    "question": "Verificá la integral:\n$$\\int x^2(x-4)\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "El integrando es el producto de una potencia por un binomio:\n$$\\int x^2(x-4)\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Integrar el interior y elevar al cuadrado",
       "Derivar el integrando",
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "question": "Hallá la antiderivada de:\n$$\\int \\frac{6x^2+2x}{2x}\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "El integrando es una fracción cuyo denominador arrastra su propio coeficiente numérico:\n$$\\int \\frac{6x^2+2x}{2x}\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Repartir el denominador",
       "Integrar el numerador y el denominador por separado",
@@ -161,7 +161,7 @@
     ]
   },
   {
-    "question": "Encontrá la integral de:\n$$\\int (2x+1)^2\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "El integrando eleva al cuadrado un binomio con coeficiente en su parte lineal:\n$$\\int (2x+1)^2\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Derivar el integrando",
       "Desarrollar el binomio y luego integrar",
@@ -184,7 +184,7 @@
     ]
   },
   {
-    "question": "Resolvé:\n$$\\int \\frac{1}{x^3}\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "El integrando deja toda la potencia de $x$ en el denominador:\n$$\\int \\frac{1}{x^3}\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Dejar la expresión sin reescribir",
       "Subir la variable sin invertir el signo: $x^{3}$",
@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "Calculá la integral:\n$$\\int \\sqrt{x}\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "La expresión a integrar es una raíz cuadrada de la variable:\n$$\\int \\sqrt{x}\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Reescribir como potencia fraccionaria: $x^{1/2}$",
       "Dejar la expresión sin reescribir",
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "Determiná la antiderivada:\n$$\\int \\sqrt[3]{x^2}\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "El integrando es una raíz cúbica aplicada sobre una potencia:\n$$\\int \\sqrt[3]{x^2}\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Reescribir como potencia fraccionaria invertida: $x^{3/2}$",
       "Reescribir la raíz como potencia fraccionaria: $x^{2/3}$",
@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "Simplificá primero y luego integrá:\n$$\\int \\frac{1}{\\sqrt{x}}\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "El integrando combina dos estructuras a la vez, una fracción con una raíz en el denominador:\n$$\\int \\frac{1}{\\sqrt{x}}\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Dejar la expresión sin reescribir",
       "Subir la variable sin invertir el signo: $x^{1/2}$",
@@ -276,7 +276,7 @@
     ]
   },
   {
-    "question": "Para resolver la siguiente integral:\n$$\\int \\frac{1}{x^5}\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "El integrando es el recíproco de una potencia alta de la variable:\n$$\\int \\frac{1}{x^5}\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Reescribir como potencia negativa: $x^{-5}$",
       "Dejar la expresión sin reescribir",
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "Antes de integrar:\n$$\\int \\sqrt[4]{x^3}\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "Bajo el signo integral aparece una raíz cuarta sobre una potencia de $x$:\n$$\\int \\sqrt[4]{x^3}\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Reescribir como potencia fraccionaria invertida: $x^{4/3}$",
       "Reescribir la raíz como potencia fraccionaria: $x^{3/4}$",
@@ -322,7 +322,7 @@
     ]
   },
   {
-    "question": "Preparate para esta integral:\n$$\\int \\frac{1}{x^2}\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "El integrando es una fracción con la variable elevada en el denominador:\n$$\\int \\frac{1}{x^2}\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Dejar la expresión sin reescribir",
       "Subir la variable sin invertir el signo: $x^{2}$",

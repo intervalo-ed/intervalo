@@ -1,10 +1,10 @@
 [
   {
-    "question": "En la gráfica se muestra la curva $f(x)=x^2$ junto con una recta que se une a ella en el punto marcado.\n\n¿La recta que se une a la curva en ese punto es tangente ahí?",
+    "question": "En la gráfica se muestra la curva:\n$$f(x)=x^2$$\nUna recta se une a ella en el punto marcado.\n\n¿Esa recta es tangente a la curva ahí?",
     "options": [
       "Sí, es tangente",
       "No, es secante",
-      "No, es una recta transversal"
+      "No, es transversal"
     ],
     "correct_index": 0,
     "has_math": true,
@@ -28,7 +28,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la curva $f(x)=x^2$ junto con otra recta que se une a ella en el punto marcado.\n\n¿La recta que se une a la curva en ese punto es tangente ahí?",
+    "question": "La gráfica combina una parábola y una recta:\n$$f(x)=x^2$$\nAmbas se encuentran en el punto marcado.\n\n¿La recta es tangente a la curva en ese punto?",
     "options": [
       "No, es transversal",
       "No, es secante",
@@ -56,11 +56,11 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la curva $f(x)=x^2$ junto con una tercera recta que se une a ella en el punto marcado.\n\n¿La recta que se une a la curva en ese punto es tangente ahí?",
+    "question": "Sobre la parábola de la gráfica se trazó una recta:\n$$f(x)=x^2$$\nEl encuentro entre ambas ocurre en el punto marcado.\n\n¿Esa recta es tangente ahí?",
     "options": [
-      "Sí, es la recta tangente",
-      "No, es la recta secante",
-      "No, es una recta transversal"
+      "Sí, es tangente",
+      "No, es secante",
+      "No, es transversal"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -84,11 +84,11 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la curva $f(x)=-x^2+4$ junto con una recta que se une a ella en el punto marcado.\n\n¿La recta que se une a la curva en ese punto es tangente ahí?",
+    "question": "La curva graficada es una parábola invertida:\n$$f(x)=-x^2+4$$\nUna recta se une a ella en el punto marcado.\n\n¿Esa recta es tangente a la curva ahí?",
     "options": [
       "Sí, es tangente",
       "No, es secante",
-      "No, es una recta transversal"
+      "No, es transversal"
     ],
     "correct_index": 0,
     "has_math": true,
@@ -112,7 +112,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la curva $f(x)=-x^2+4$ junto con otra recta que se une a ella en el punto marcado.\n\n¿La recta que se une a la curva en ese punto es tangente ahí?",
+    "question": "En la gráfica conviven una parábola que se abre hacia abajo y una recta:\n$$f(x)=-x^2+4$$\nSe encuentran en el punto marcado.\n\n¿La recta es tangente a la curva en ese punto?",
     "options": [
       "No, es transversal",
       "No, es secante",
@@ -140,11 +140,11 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la curva $f(x)=-x^2+4$ junto con una tercera recta que se une a ella en el punto marcado.\n\n¿La recta que se une a la curva en ese punto es tangente ahí?",
+    "question": "Una recta acompaña a la parábola invertida de la gráfica:\n$$f(x)=-x^2+4$$\nEl punto de encuentro está marcado sobre la curva.\n\n¿Esa recta es tangente ahí?",
     "options": [
-      "Sí, es la recta tangente",
-      "No, es la recta secante",
-      "No, es una recta transversal"
+      "Sí, es tangente",
+      "No, es secante",
+      "No, es transversal"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -168,7 +168,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente en la grilla?",
+    "question": "La gráfica muestra la recta tangente a una función $f$, apoyada en el punto de tangencia marcado.\n\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente de la recta en la grilla?",
     "options": [
       "$-2$",
       "$1$",
@@ -198,7 +198,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente en la grilla?",
+    "question": "En la gráfica, la recta tangente a $f$ está trazada sobre la grilla, con su punto de tangencia marcado.\n\nLa inclinación de esa recta es exactamente $f'(a)$.\n\n¿Cuál es su valor, leído de la grilla?",
     "options": [
       "$1$",
       "$-0,5$",
@@ -228,7 +228,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente en la grilla?",
+    "question": "La recta de la gráfica es tangente a una función $f$ en el punto marcado.\n\nSu pendiente se puede contar directamente sobre la grilla.\n\n¿Cuánto vale $f'(a)$?",
     "options": [
       "$0,5$",
       "$2$",
@@ -258,7 +258,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente en la grilla?",
+    "question": "La gráfica muestra la recta tangente a $f$, con su punto de tangencia marcado.\n\n¿Qué valor de $f'(a)$ se lee contando la grilla?",
     "options": [
       "$-1$",
       "$-2$",
@@ -288,7 +288,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente en la grilla?",
+    "question": "Una función tiene su recta tangente dibujada en la gráfica, anclada en el punto marcado.\n\nLa grilla permite medir cuánto sube o baja la recta por cada paso horizontal.\n\n¿Cuál es el valor de $f'(a)$?",
     "options": [
       "$-3$",
       "$1$",
@@ -318,7 +318,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la función $f(x)=x^2-6x+5$.\n\n¿En qué valor de $x$ la recta tangente a la curva es horizontal?",
+    "question": "En la gráfica se muestra la parábola:\n$$f(x)=x^2-6x+5$$\n¿En qué valor de $x$ la recta tangente a la curva es horizontal?",
     "options": [
       "$x=1$",
       "$x=5$",
@@ -348,7 +348,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la función $f(x)=-x^2+4x$.\n\n¿En qué valor de $x$ la recta tangente a la curva es horizontal?",
+    "question": "La parábola de la gráfica se abre hacia abajo:\n$$f(x)=-x^2+4x$$\n¿En qué valor de $x$ la recta tangente a la curva es horizontal?",
     "options": [
       "$x=2$",
       "$x=0$",
@@ -378,7 +378,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la función $f(x)=x^2+2x-3$.\n\n¿En qué valor de $x$ la recta tangente a la curva es horizontal?",
+    "question": "La gráfica muestra la parábola:\n$$f(x)=x^2+2x-3$$\n¿En qué valor de $x$ la recta tangente a la curva es horizontal?",
     "options": [
       "$x=0$",
       "$x=-1$",
@@ -408,7 +408,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra la función $f(x)=x^2-2x-3$, con un único vértice visible.\n\n¿Existe algún punto donde la recta tangente a la curva sea horizontal?",
+    "question": "En la gráfica se ve la parábola, con su único vértice dentro de la vista:\n$$f(x)=x^2-2x-3$$\n¿Existe algún punto donde la recta tangente a la curva sea horizontal?",
     "options": [
       "No, ninguna tangente es horizontal en esta curva",
       "Sí, pero solo en las raíces de la función",

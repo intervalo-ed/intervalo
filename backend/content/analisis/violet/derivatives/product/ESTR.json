@@ -1,6 +1,6 @@
 [
   {
-    "question": "Considerá la función:\n$$f(x) = 4\\sin x$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Esta función tiene una constante multiplicando a una función trigonométrica:\n$$f(x) = 4\\sin x$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Múltiplo escalar",
       "Regla del producto",
@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = (x+2)(x-2)$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Esta función es un producto de dos binomios:\n$$f(x) = (x+2)(x-2)$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Múltiplo escalar",
       "Distribuir términos",
@@ -46,7 +46,7 @@
     ]
   },
   {
-    "question": "Observá la función:\n$$f(x) = x^2 \\cdot x^3$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Acá se multiplican dos potencias de la misma base:\n$$f(x) = x^2 \\cdot x^3$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del producto",
       "Múltiplo escalar",
@@ -69,7 +69,7 @@
     ]
   },
   {
-    "question": "Examiná la función:\n$$f(x) = 7\\cos x$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Un coeficiente multiplica a una función trigonométrica en esta expresión:\n$$f(x) = 7\\cos x$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Múltiplo escalar",
       "Regla del producto",
@@ -92,7 +92,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = (x-1)(x+5)$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Dos binomios se multiplican en esta función:\n$$f(x) = (x-1)(x+5)$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla de la potencia",
       "Distribuir y simplificar",
@@ -115,7 +115,7 @@
     ]
   },
   {
-    "question": "Observá la función:\n$$f(x) = x^4 \\cdot x^{-1}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Esta función combina dos potencias de $x$ con exponentes de distinto signo:\n$$f(x) = x^4 \\cdot x^{-1}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del producto",
       "Múltiplo escalar",
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "question": "Examiná la función:\n$$f(x) = -3e^x$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Un coeficiente negativo multiplica a la exponencial en esta función:\n$$f(x) = -3e^x$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Múltiplo escalar",
       "Regla del producto",
@@ -161,7 +161,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = (x+3)(x+3)$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Esta función es un binomio multiplicado por sí mismo:\n$$f(x) = (x+3)(x+3)$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Reescribir como potencia única",
       "Distribuir y derivar por potencia",
@@ -276,7 +276,7 @@
     ]
   },
   {
-    "question": "Derivá:\n$$f(x) = e^x\\ln x$$\nEsta función pide la **regla del producto**.\n\n¿Cuáles son los factores $u$ y $v$ correctos?",
+    "question": "Esta función combina una potencia y una función trigonométrica:\n$$f(x) = x^2\\tan x$$\nSe resuelve con la **regla del producto**.\n\n¿Cómo se separan los factores $u$ y $v$ acá?",
     "options": [
       "$u=e^x, v=\\ln x$",
       "$u=e^x\\ln x, v=1$",
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "Hallá la derivada de:\n$$f(x) = x^2\\tan x$$\nSe resuelve con la **regla del producto**.\n\n¿Cómo se separan los factores $u$ y $v$ acá?",
+    "question": "Una raíz y una función trigonométrica se multiplican en esta expresión:\n$$f(x) = \\sqrt{x}\\,\\sin x$$\nCorresponde la **regla del producto**.\n\n¿Cuál es la identificación correcta de $u$ y $v$?",
     "options": [
       "$u=x^2\\tan x, v=1$",
       "$u=x^2, v=\\tan x$",
@@ -322,7 +322,7 @@
     ]
   },
   {
-    "question": "Encontrá la derivada:\n$$f(x) = \\sqrt{x}\\,\\sin x$$\nCorresponde la **regla del producto**.\n\n¿Cuál es la identificación correcta de $u$ y $v$?",
+    "question": "Una raíz y una función trigonométrica se multiplican en esta expresión:\n$$f(x) = \\sqrt{x}\\,\\sin x$$\nCorresponde la **regla del producto**.\n\n¿Cuál es la identificación correcta de $u$ y $v$?",
     "options": [
       "$u=x, v=\\frac{1}{2}\\sin x$",
       "$u=\\sqrt{x}\\sin x, v=1$",

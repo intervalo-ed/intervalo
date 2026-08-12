@@ -103,6 +103,69 @@ facilidad de medición.
   de mayor retorno de todo el producto**: actúa sobre el punto donde se pierde más
   de la mitad de los usuarios.
 
+#### Lo que dijo la primera tanda (11-ago-2026)
+
+La sospecha estaba **equivocada de punta**. La pérdida no está al final sino en el
+primer contacto, y el resto del wizard casi no pierde a nadie:
+
+| paso | personas | |
+|---|---|---|
+| intro | 46 | |
+| nombre | 52 | |
+| bienvenida | 22 | **−58%** |
+| motivacion → curso | 22 | −0% |
+| unidades → ejercicio | 21 → 20 | |
+| felicitacion | 16 | −20% |
+| modo-repasar → registro | 16 | −0% |
+
+Completación `intro → registro`: **35%**. Pedir el apodo antes de mostrar nada de
+valor se lleva puesta más de la mitad de la gente; el paso 13 no es el problema.
+
+⚠️ Pendiente: 8 personas tienen evento `nombre` sin `intro`. El conteo de `intro`
+(46) coincide exacto con los `$pageview` de `/onboarding`, así que el sospechoso
+es `nombre`. Sin explicación todavía.
+
+#### Experimento en curso: `onboarding-orden-apodo`
+
+Feature flag multivariante 50/50 ([PostHog](https://us.posthog.com/project/386340/feature_flags/815185)),
+arrancado el 12-ago-2026.
+
+- **control** — orden actual, el apodo abre el wizard:
+
+  ```
+  intro → nombre → bienvenida → motivacion → curso → unidades → ejercicio →
+  felicitacion → modo-repasar → modo-practicar → carrera → universidad → registro
+  ```
+
+- **test** — el apodo baja a la posición 9, pegado a carrera, de modo que las tres
+  preguntas personales quedan juntas al final y las primeras ocho slides son puro
+  valor:
+
+  ```
+  intro → bienvenida → motivacion → curso → unidades → ejercicio → felicitacion →
+  modo-repasar → modo-practicar → nombre → carrera → universidad → registro
+  ```
+
+  La bienvenida pasa a abrir el wizard: saluda con «¡Bienvenido!» (todavía no hay
+  nombre) y se lleva el botón «Ya tengo una cuenta». La slide del apodo deja de ser
+  pantalla de bienvenida y se ve como cualquier otra pregunta — título «¿Cómo te
+  llamás?» en el formato de carrera o motivación, y el Continuar en la barra de
+  abajo. **Ese restyle vive solo en test**: en control la slide sigue idéntica a
+  hoy, porque ahí sigue siendo la pantalla de apertura y es justamente la variable
+  bajo prueba.
+
+- **Métrica primaria:** funnel `onboarding_step` de `intro` a `registro`, breakdown
+  por la propiedad `variant`. Secundaria: `intro → motivacion`.
+- **Criterio de corte:** 12 tandas de difusión (~550 personas). Con base 35% eso
+  detecta ~12 pp con 80% de potencia y α=0.05; el umbral acordado de 15 pp se
+  alcanza alrededor de la tanda 7.
+- **Si no llega al umbral:** inconcluso. Se decide por criterio de producto, no se
+  declara ganador.
+- `variant: "unavailable"` marca a quien no le resolvieron los flags (adblock,
+  red). Corre el orden de control pero **hay que excluirlo del análisis**.
+- Mientras corra, no tocar el orden ni el copy del wizard: cualquier cambio en el
+  medio contamina los dos brazos.
+
 ### H3 — Contenido
 
 > El banco está bien calibrado: ni tan fácil que aburra, ni tan difícil que frustre.
@@ -147,13 +210,36 @@ facilidad de medición.
 
 - **Instalación de la PWA:** es manual (el onboarding muestra los pasos, no hay
   `beforeinstallprompt` que interceptar, y en iOS `appinstalled` no existe), así
-  que se mide detectando si la app corre en modo standalone en cada carga. Además
-  del evento `pwa_install`, el estado viaja como **super property**
-  (`pwa_standalone`, `platform`) en todos los eventos: eso permite cortar
-  cualquier métrica por instalado vs. navegador sin cruzar nada.
+  que se mide detectando si la app corre en modo standalone en cada carga.
+
+  ⚠️ **La instalación se mide por `pwa_standalone`, no por el evento
+  `pwa_install`.** El evento sale una sola vez por dispositivo y en la primera
+  tanda perdió 3 de 4 instalaciones reales (contó 1 de 12 registrados cuando
+  fueron 4): el guard de localStorage se escribía antes de que el evento se
+  confirmara enviado, así que si la página se descargaba antes del flush el evento
+  se perdía para siempre sin reintento — y la primera carga de la PWA suele
+  redirigir enseguida por `/sso-callback`. Ya está arreglado (`send_instantly` +
+  guard después del capture), pero el número confiable sigue siendo la super
+  property, que se re-registra en cada carga y viaja en todos los eventos
+  (`pwa_standalone`, `platform`). Además, al identificar se copia
+  `first_pwa_use_at` al perfil de la persona, así que también se puede segmentar
+  sin tocar eventos.
+
+  ```sql
+  -- Cuántos registrados usaron la app instalada (la cuenta correcta)
+  select distinct_id, countIf(properties.pwa_standalone = true) as eventos_en_pwa
+  from events
+  where timestamp >= '2026-08-11' and distinct_id like 'user_%'
+  group by distinct_id having eventos_en_pwa > 0;
+  ```
 
   Es el cruce que define si el canal push existe: en iOS **sin PWA instalada no
   hay push posible**, y ahí el canal de retorno pasa a ser el email.
+
+  De la primera tanda: **4 de 12 registrados** usaron la app instalada, todos
+  Android. Los que instalan lo hacen en segundos (5s, 37s, 80s desde ver la
+  pantalla) — o lo hacen ahí mismo o no lo hacen nunca. Instalar tampoco garantiza
+  usar: uno de los 4 instaló y nunca hizo una sesión.
 
 ---
 
@@ -218,15 +304,17 @@ materia deja a UADE entero en una sola variante y reintroduce el confound.
 
 | # | Trabajo | Hipótesis | Prioridad |
 |---|---|---|---|
-| 1 | **Desplegar** lo ya instrumentado (Vercel + Railway) | H1, H2, H5 | 🔴 bloqueante |
-| 2 | Verificar que los eventos llegan a PostHog | H2, H5 | 🔴 bloqueante |
+| 1 | **Desplegar el fix de detección de PWA** (`send_instantly` + `first_pwa_use_at`) | H5 | 🔴 alta |
+| 2 | Probar el flujo completo en un **iPhone real** — de 26 visitas iOS en la primera tanda, **cero** se registraron | H2 | 🔴 alta |
 | 3 | Cargar la fuente de grupos de **UNSAM** en el tracker | difusión | 🟠 alta |
+| 4 | Revisar el **ejercicio de prueba**: 7 de 10 lo fallaron, y los que fallan tardan más (28-68s vs 16-36s) | H3 | 🟠 alta |
 
-**Ya instrumentado y esperando deploy:** `onboarding_step` (H2),
-`push_permission` (H5), `pwa_install` + super properties (H1/H5), y el barrido de
-sesiones abandonadas — `sweep_abandoned_sessions` + migración `20260811_0027` +
-tick horario del notifier, que dejan `sessions.abandoned` confiable por primera
-vez.
+**Ya en producción y verificado con datos reales:** `onboarding_step` (H2),
+`push_permission` (H5), `pwa_install` + super properties (H1/H5), `first_utm_source`
+(atribución, ya arreglado el `reset()` que la borraba en visitantes anónimos), y el
+barrido de sesiones abandonadas — `sweep_abandoned_sessions` + migración
+`20260811_0027` + tick horario del notifier, que dejan `sessions.abandoned`
+confiable por primera vez.
 
 **Lo que no hay que construir:** dashboard de métricas (con este N, SQL y PostHog
 alcanzan), tabla de eventos propia (PostHog ya la es), ni `User.signup_ref` (la
@@ -355,6 +443,20 @@ where event = 'onboarding_step'
 group by universidad, paso
 order by universidad, personas desc;
 
+-- A/B del orden del apodo: embudo por brazo (experimento onboarding-orden-apodo).
+-- `unavailable` = flags sin resolver, no entra en el análisis.
+select properties.variant                                as brazo,
+       uniq(person_id)                                   as entraron,
+       uniqIf(person_id, properties.step = 'motivacion') as llegaron_a_motivacion,
+       uniqIf(person_id, properties.step = 'registro')   as completaron,
+       round(100.0 * uniqIf(person_id, properties.step = 'registro')
+                   / uniq(person_id), 1)                 as pct_completado
+from events
+where event = 'onboarding_step'
+  and timestamp >= '2026-08-12'   -- arranque del experimento
+  and properties.variant in ('control', 'test')
+group by brazo;
+
 -- Embudo de permiso de push, cortado por plataforma e instalación (H5)
 select properties.platform       as plataforma,
        properties.pwa_standalone as instalada,
@@ -366,11 +468,13 @@ group by plataforma, instalada, resultado
 order by personas desc;
 
 -- Cuánta gente llega a instalar la PWA, por plataforma (H1, H5)
+-- Se cuenta por pwa_standalone, no por el evento pwa_install: ver H5.
 select properties.platform as plataforma,
-       uniqIf(distinct_id, properties.pwa_standalone) as instalada,
-       uniq(distinct_id)                              as total
+       uniqIf(distinct_id, properties.pwa_standalone = true) as instalada,
+       uniq(distinct_id)                                     as total
 from events
 where event = '$pageview'
+  and timestamp >= '2026-08-11'
 group by plataforma order by total desc;
 ```
 

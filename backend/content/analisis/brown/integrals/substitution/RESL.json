@@ -1,6 +1,6 @@
 [
   {
-    "question": "Resolvé mediante **integración por sustitución**:\n$$\\int e^{4x+1}\\,dx$$",
+    "question": "Esta integral tiene una exponencial cuyo exponente es un polinomio lineal:\n$$\\int e^{4x+1}\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$\\frac{1}{4}e^{4x+1}+C$",
       "$e^{4x+1}+C$",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "Utilizando sustitución, integrá:\n$$\\int \\cos(3x)\\,dx$$",
+    "question": "El argumento de este coseno lleva un coeficiente que hay que compensar al integrar:\n$$\\int \\cos(3x)\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$\\sin(3x)+C$",
       "$\\frac{1}{3}\\sin(3x)+C$",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "Aplicando **cambio de variable**, resolvé:\n$$\\int (2x-1)^5\\,dx$$",
+    "question": "Esta integral eleva un binomio lineal a la quinta potencia:\n$$\\int (2x-1)^5\\,dx$$\n¿A qué expresión es igual esta integral?",
     "options": [
       "$(2x-1)^6+C$",
       "$6(2x-1)^6+C$",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "question": "Mediante sustitución, calculá:\n$$\\int \\sin(5x)\\,dx$$",
+    "question": "El argumento de este seno es la variable multiplicada por $5$:\n$$\\int \\sin(5x)\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$\\frac{1}{5}\\cos(5x)+C$",
       "$-\\frac{1}{5}\\sin(5x)+C$",
@@ -100,7 +100,7 @@
     ]
   },
   {
-    "question": "Resolvé por sustitución:\n$$\\int e^{-2x}\\,dx$$",
+    "question": "El exponente de esta exponencial lleva coeficiente negativo:\n$$\\int e^{-2x}\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$-\\frac{1}{2}e^{-2x}+C$",
       "$\\frac{1}{2}e^{-2x}+C$",
@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "Integrá aplicando sustitución:\n$$\\int (3x+2)^4\\,dx$$",
+    "question": "Esta integral eleva un binomio lineal a la cuarta potencia:\n$$\\int (3x+2)^4\\,dx$$\n¿A qué expresión es igual esta integral?",
     "options": [
       "$5(3x+2)^5+C$",
       "$\\frac{(3x+2)^5}{15}+C$",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "Mediante cambio de variable, resolvé:\n$$\\int \\cos(2x-1)\\,dx$$",
+    "question": "El argumento de este coseno combina un coeficiente con una constante:\n$$\\int \\cos(2x-1)\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$\\frac{1}{2}\\cos(2x-1)+C$",
       "$\\sin(2x-1)+C$",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "Utilizando sustitución, resolvé:\n$$\\int \\frac{1}{2x+3}\\,dx$$",
+    "question": "Esta integral tiene el recíproco de un polinomio lineal:\n$$\\int \\frac{1}{2x+3}\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$\\frac{1}{2}\\ln(2x+3)+C$",
       "$\\ln|2x+3|+C$",
@@ -200,7 +200,7 @@
     ]
   },
   {
-    "question": "Hallá por sustitución:\n$$\\int x\\cos(x^2)\\,dx$$",
+    "question": "Esta integral multiplica un coseno de argumento cuadrático por una potencia lineal:\n$$\\int x\\cos(x^2)\\,dx$$\n¿A qué expresión es igual esta integral?",
     "options": [
       "$\\frac{1}{2}\\sin(x^2)+C$",
       "$\\frac{1}{2}x\\sin(x^2)+C$",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "Integrá aplicando cambio de variable:\n$$\\int \\frac{2x}{x^2+5}\\,dx$$",
+    "question": "En esta fracción, el numerador coincide con la derivada del denominador:\n$$\\int \\frac{2x}{x^2+5}\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$\\ln|u|+C$",
       "$\\ln|x^2+5|+C$",
@@ -250,7 +250,7 @@
     ]
   },
   {
-    "question": "Resolvé usando sustitución:\n$$\\int \\frac{\\ln x}{x}\\,dx$$",
+    "question": "Esta integral combina un logaritmo con su propia derivada:\n$$\\int \\frac{\\ln x}{x}\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$\\frac{\\ln x^2}{2}+C$",
       "$\\frac{u^2}{2}+C$",
@@ -275,7 +275,7 @@
     ]
   },
   {
-    "question": "Mediante cambio de variable, calculá:\n$$\\int \\sin^3 x \\cos x\\,dx$$",
+    "question": "Esta integral multiplica el cubo del seno por un coseno:\n$$\\int \\sin^3 x \\cos x\\,dx$$\n¿A qué expresión es igual esta integral?",
     "options": [
       "$\\sin^4 x+C$",
       "$\\frac{\\cos^4 x}{4}+C$",
@@ -300,7 +300,7 @@
     ]
   },
   {
-    "question": "Integrá por sustitución:\n$$\\int 2x\\,e^{x^2}\\,dx$$",
+    "question": "Esta integral multiplica una exponencial de exponente cuadrático por una potencia lineal:\n$$\\int 2x\\,e^{x^2}\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$e^{x^2}+C$",
       "$2xe^{x^2}+C$",
@@ -325,7 +325,7 @@
     ]
   },
   {
-    "question": "Resolvé aplicando sustitución:\n$$\\int \\frac{\\cos x}{\\sin x}\\,dx$$",
+    "question": "En esta fracción, el numerador es la derivada del denominador:\n$$\\int \\frac{\\cos x}{\\sin x}\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$\\ln|u|+C$",
       "$\\ln|\\sin x|+C$",
@@ -350,7 +350,7 @@
     ]
   },
   {
-    "question": "Integrá mediante cambio de variable:\n$$\\int \\frac{4x}{x^2-3}\\,dx$$",
+    "question": "En esta fracción, el numerador es un múltiplo de la derivada del denominador:\n$$\\int \\frac{4x}{x^2-3}\\,dx$$\n¿A qué expresión es igual esta integral?",
     "options": [
       "$2\\ln|x^2-3|$",
       "$4\\ln|x^2-3|+C$",

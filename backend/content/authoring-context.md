@@ -15,6 +15,33 @@ Cualquier mención a "N ítems" refiriéndose a una cantidad de ejercicios (como
 
 ---
 
+## Filosofía pedagógica: leer, pensar, y recién ahí abrir las opciones
+
+Antes que cualquier regla de formato, esto es lo que Intervalo intenta lograr con cada ejercicio. Todas las reglas de redacción derivan de acá.
+
+**La mecánica del producto:** el estudiante lee el enunciado y tiene que tocar un botón para ver las opciones. Ese diseño existe para que piense primero y no se sesgue con las alternativas. Solo funciona si el enunciado es **autosuficiente**: plantea algo que se puede entender, razonar y tentativamente responder *antes* de ver opción alguna. Un enunciado que solo cobra sentido leyendo las alternativas rompe el diseño de raíz.
+
+**Excepción legítima:** los ejercicios cuya tarea *es* discriminar entre alternativas dadas (clasificar un caso, elegir qué regla corresponde, detectar cuál afirmación es falsa, reconocer la notación equivalente) sí requieren abrir las opciones, y eso está bien. Pero tienen que ser el caso deliberado y minoritario, no el resultado de un enunciado que no se molestó en plantear nada.
+
+**Intervalo pregunta, no ordena.** No se manda al estudiante a "Calcular", "Hallar" ni "Resolver". Se le presenta una situación y se le pregunta algo. La diferencia no es cosmética: una orden pone al estudiante a ejecutar un procedimiento porque sí; una pregunta lo pone a decidir qué sabe y qué haría. Incluso en los topics de práctica mecánica (reglas de derivación, reglas de integración), donde el cómputo repetido es legítimo y necesario, la forma es interrogativa: cambia la voz, no la tarea.
+
+**Motivación de a poco.** El estudiante tiene que ir entendiendo para qué sirven las cosas que aprende. No entra todo en un ejercicio chico, pero cada enunciado puede situar el objeto matemático en algo que tenga sentido mirar: qué tiene de particular esta función, qué pregunta real responde este cálculo, qué se está midiendo. Un planteo eficaz e interesante motiva a resolver por cuenta propia; una orden seca no.
+
+**Anatomía canónica del enunciado** (cuando hay un objeto matemático que presentar):
+
+1. **Apertura**: 1-2 oraciones que sitúan qué se está mirando y qué tiene de particular. Termina en `:` si introduce la fórmula, o en `.` si es una oración completa.
+2. **Objeto matemático centrado**: la fórmula/función/integral en su propio bloque `$$...$$`, nunca tejida dentro de la prosa.
+3. **Pregunta**: `¿...?` en su propio tramo final, después de un `\n\n` o del bloque display.
+
+- ❌ `"question": "Calculá:\n$$\\int_0^2 (x^2+1)\\,dx$$"` (orden seca, sin pregunta, nada para pensar)
+- ❌ `"question": "En la gráfica se muestra la función $f(x) = x^2 - 4x + 3$.\n\n¿En qué valor de $x$ se anula $f'(x)$?"` (la función tejida inline en la prosa)
+- ❌ `"question": "$$u=5x-2$$\n¿Cómo queda expresado $dx$ en términos de $du$?"` (arranca con la fórmula pelada, no se sabe de dónde sale ese $u$)
+- ❌ `"question": "¿Cuál es la función que, al derivarse, produce:\n$$\\frac{1}{x}$$?"` (la pregunta envuelve al bloque display y el `?` queda colgado)
+- ✅ `"question": "En la gráfica se muestra la función:\n$$f(x) = x^2 - 4x + 3$$\nSu derivada cambia de signo en un único punto.\n\n¿En qué valor de $x$ se anula $f'(x)$?"`
+- ✅ `"question": "Esta integral define un área exacta entre la curva y el eje:\n$$\\int_0^2 (x^2+1)\\,dx$$\n¿Cuál es su valor?"`
+
+---
+
 ## Reglas críticas, leer antes de escribir un solo ejercicio
 
 Estas reglas son las que más se violan y las que más rompen el render o la coherencia. Ninguna es negociable.
@@ -180,6 +207,22 @@ Estas reglas son las que más se violan y las que más rompen el render o la coh
     - ✅ `"question": "La siguiente afirmación describe cómo calcular un límite: \"hay que mirar qué pasa exactamente en el punto\".\n\n¿Qué corrección le harías?"`
     - ❌ `"question": "Un compañero responde: \"el valor del límite es $x=5$\".\n\n¿Qué error contiene esa respuesta?"`
     - ✅ `"question": "Una respuesta da como resultado del límite el valor $x=5$.\n\n¿Qué error contiene esa respuesta?"`
+47. **Anatomía del enunciado: apertura → objeto matemático centrado → pregunta.** (Ver la sección *Filosofía pedagógica* al inicio del doc.) Todo `question` que presenta un objeto matemático sigue esa estructura. Prohibido: arrancar el enunciado directamente con un bloque `$$` pelado; arrancar directamente con `¿` cuando hay un objeto que presentar antes; dejar la pregunta pegada tras el bloque sin ninguna oración de apertura real; y envolver el bloque display dentro de la pregunta dejando el cierre `$$?` colgado (la pregunta se formula completa, antes o después del bloque, nunca partida por él).
+    - ❌ `"question": "$$u=5x-2$$\n¿Cómo queda expresado $dx$ en términos de $du$?"`
+    - ❌ `"question": "¿Cuál es la función que, al derivarse, produce:\n$$\\frac{1}{x}$$?"`
+    - ✅ `"question": "Para resolver una integral por sustitución se eligió el cambio de variable:\n$$u=5x-2$$\n¿Cómo queda expresado $dx$ en términos de $du$?"`
+48. **Sin imperativos de cálculo en `question`.** Prohibido `Calculá`, `Hallá`, `Determiná`, `Resolvé`, `Encontrá`, `Obtené`, `Derivá`, `Integrá`, `Evaluá`, `Expandí`, `Simplificá`, `Planteá`, `Aplicá` (y sus variantes de tuteo) como verbo de la consigna, en cualquier posición del enunciado. La consigna se formula como pregunta: Intervalo pregunta, no ordena. Todo `question` contiene al menos un `¿...?`.
+    - ❌ `"question": "Calculá la derivada de:\n$$f(x) = x^6$$"`
+    - ✅ `"question": "Esta función es una potencia pura, el caso más directo de la tabla de derivadas:\n$$f(x) = x^6$$\n¿Cuál es su derivada?"`
+49. **Sin imperativos de atención vacíos como apertura.** `Considerá`, `Analizá`, `Observá`, `Examiná`, `Estudiá`, `Verificá`, `Investigá`, `Reconocé`, `Identificá`, `Categorizá`, `Decidí`, `Retomá`, `Trabajá` usados como relleno de apertura ("Analizá la integral:") no aportan información y se detectan como plantilla rotada. Si la apertura no dice nada sobre el objeto, no va: se reemplaza por una oración que sitúe de verdad (qué tiene de particular esta función, qué estructura conviene notar).
+    - ❌ `"question": "Analizá la integral:\n$$\\int (x+\\sin x)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?"`
+    - ✅ `"question": "El integrando es una suma de dos familias distintas, un polinomio y un seno:\n$$\\int (x+\\sin x)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?"`
+50. **Sin jerga sin sostén en `question`.** Un término técnico (`cociente incremental`, `ILATE`, `primitiva`, `antiderivada`, `factor oculto`, `aproximación lineal`, `recta secante`) no se usa en el enunciado como si el estudiante ya lo tuviera incorporado. Como el repaso sirve los ejercicios en orden aleatorio, **no existe "la primera vez que se ve el término"**: cada ejercicio es autocontenido. O se evita el término reescribiendo la consigna en lenguaje directo, o se lo glosa en el acto con una aposición breve que no delate la respuesta. El término pelado se reserva para los ejercicios LEXI cuyo objetivo *es* ese vocabulario (y ahí también con glosa si la consigna lo necesita).
+    - ❌ `"question": "...\n¿Cuál es la elección correcta de $u$ y $dv$ según ILATE?"` (sin ninguna mención de qué es ILATE)
+    - ✅ `"question": "...\nSegún la prioridad ILATE, la jerarquía que ordena qué familia de funciones conviene derivar primero.\n\n¿Cuál es la elección correcta de $u$ y $dv$?"`
+51. **Coherencia entre lo que el enunciado anuncia y lo que la pregunta pide.** Prohibido anunciar una tarea ("Resolvé esta integral por partes:") y preguntar otra ("¿Cuál es la elección correcta de $u$ y $dv$?"). El enunciado prepara exactamente la pregunta que se hace. Y la apertura jamás puede filtrar la respuesta (anunciar "Simplificá primero y luego integrá" cuando la pregunta es qué paso previo conviene dar).
+    - ❌ `"question": "Resolvé por partes:\n$$\\int x^3\\ln x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$?"`
+    - ✅ `"question": "Esta integral combina un polinomio con un logaritmo, y el método de partes exige repartir esos roles:\n$$\\int x^3\\ln x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$?"`
 
 **Nota de dificultad (no automatizable, criterio editorial):** un valor "sospechoso" que el ejercicio pide detectar (una probabilidad fuera de $[0,1]$, un resultado imposible) no debería aparecer literal y aislado en el enunciado — eso lo vuelve trivial de detectar a simple vista sin razonar la regla. Camuflarlo con una operación mínima (ej. pedir $P(A)+P(B)$ de dos datos que individualmente parecen válidos, y que la suma supere 1) obliga a aplicar el axioma en vez de solo leer el número.
 

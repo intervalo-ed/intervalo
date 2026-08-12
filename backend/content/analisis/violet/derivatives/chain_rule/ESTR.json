@@ -1,6 +1,6 @@
 [
   {
-    "question": "Considerá la función:\n$$f(x) = \\sin^2(x)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
+    "question": "El exponente de esta función queda pegado al nombre de la función trigonométrica:\n$$f(x) = \\sin^2(x)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "$g(u)=u^2, h(x)=\\sin x$",
       "$g(u)=\\sin u, h(x)=x^2$",
@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = \\sin(x^2)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
+    "question": "Acá el exponente queda adentro, elevando a la propia variable:\n$$f(x) = \\sin(x^2)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "No es una composición, es un producto $\\sin(x) \\cdot x^2$",
       "$g(u)=\\sin u, h(x)=x^2$",
@@ -46,7 +46,7 @@
     ]
   },
   {
-    "question": "Observá la función:\n$$f(x) = e^{\\ln x}$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
+    "question": "Esta función anida una exponencial y un logaritmo:\n$$f(x) = e^{\\ln x}$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "$g(u)=\\ln u, h(x)=e^x$",
       "No es una composición, $e^{\\ln x}$ ya es $x$ sin derivar nada",
@@ -69,7 +69,7 @@
     ]
   },
   {
-    "question": "Examiná la función:\n$$f(x) = \\ln(x^2)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
+    "question": "Esta función tiene el logaritmo envolviendo a una potencia de $x$:\n$$f(x) = \\ln(x^2)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "$g(u)=\\ln u, h(x)=x^2$",
       "$g(u)=u^2, h(x)=\\ln x$",
@@ -92,7 +92,7 @@
     ]
   },
   {
-    "question": "Observá el comportamiento:\n$$f(x) = (\\ln x)^2$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
+    "question": "Acá el logaritmo queda adentro, y el cuadrado lo envuelve:\n$$f(x) = (\\ln x)^2$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "No es una composición, es un producto $\\ln x \\cdot \\ln x$",
       "$g(u)=u^2, h(x)=\\ln x$",
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "question": "Considerá esta función:\n$$f(x) = e^{3x}$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
+    "question": "El argumento de esta exponencial no es $x$ solo, sino una expresión lineal:\n$$f(x) = e^{3x}$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "$g(u)=e^u, h(x)=3x$",
       "$g(u)=3u, h(x)=e^x$",
@@ -161,7 +161,7 @@
     ]
   },
   {
-    "question": "Estudiá esta función:\n$$f(x) = \\tan^2(x)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
+    "question": "Igual que con el seno, la tangente admite esta misma notación con exponente:\n$$f(x) = \\tan^2(x)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "No es una composición, es un producto $\\tan x \\cdot \\tan x$",
       "$g(u)=u^2, h(x)=\\tan x$",
@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "Investigá el patrón:\n$$f(x) = 3x \\cdot e^x$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "Esta expresión combina una variable lineal con la exponencial, multiplicadas entre sí:\n$$f(x) = 3x \\cdot e^x$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla del producto",
       "Regla de la cadena",
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "Analizá con cuidado:\n$$f(x) = \\ln(x^2)$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "El logaritmo de esta función no actúa directamente sobre $x$, sino sobre su cuadrado:\n$$f(x) = \\ln(x^2)$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla del cociente",
       "Regla de la cadena",
@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\frac{\\sin x}{x}$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "Esta expresión tiene el seno arriba y $x$ abajo, como una fracción:\n$$f(x) = \\frac{\\sin x}{x}$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla de la cadena",
       "Regla del producto",
@@ -276,7 +276,7 @@
     ]
   },
   {
-    "question": "Evaluá la función:\n$$f(x) = \\sin(5x)$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "El argumento del seno en esta función no es $x$ solo:\n$$f(x) = \\sin(5x)$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla de la cadena",
       "Múltiplo escalar",
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "Examiná en detalle:\n$$f(x) = 5\\sin x$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "Un coeficiente multiplica al seno completo en esta función:\n$$f(x) = 5\\sin x$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla del producto",
       "Múltiplo escalar",
@@ -322,7 +322,7 @@
     ]
   },
   {
-    "question": "Observá la función:\n$$f(x) = x^2 \\cdot \\cos x$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "Una potencia y una función trigonométrica se multiplican en esta expresión:\n$$f(x) = x^2 \\cdot \\cos x$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla de la cadena",
       "Regla del cociente",
