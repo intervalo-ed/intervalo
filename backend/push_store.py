@@ -143,6 +143,33 @@ def delete_subscriptions_by_id(db: DBSession, subscription_ids: list[int]) -> in
     return deleted
 
 
+def record_delivery_results(db: DBSession, results: list[tuple[int, str]]) -> int:
+    """Guarda lo que devolvió el push service para cada envío, reportado por el
+    notifier al terminar el tick. Sin esto la fila de NotificationSend solo dice
+    que se eligió el copy, no que el mensaje haya salido.
+
+    Idempotente: si la fila ya tiene `delivery_status` no se pisa, así que un
+    reintento del notifier no reescribe el resultado del primer intento. Devuelve
+    cuántas filas se actualizaron."""
+    updated = 0
+    for notification_id, status in results:
+        send = (
+            db.query(NotificationSend)
+            .filter(
+                NotificationSend.id == notification_id,
+                NotificationSend.delivery_status.is_(None),
+            )
+            .first()
+        )
+        if send is None:
+            continue
+        send.delivery_status = status[:20]
+        send.delivered_at = datetime.utcnow()
+        updated += 1
+    db.commit()
+    return updated
+
+
 # ── Notification preferences ─────────────────────────────────────────────────────
 
 def get_settings(user: User) -> dict:

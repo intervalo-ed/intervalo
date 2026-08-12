@@ -487,6 +487,14 @@ class NotificationSend(Base):
     body = Column(String(500), nullable=False)
 
     sent_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    # Resultado que devolvió el push service (FCM/APNs), reportado por el
+    # notifier después de intentar el envío. La fila se crea al elegir el copy,
+    # o sea antes de intentar mandar, así que sin esto un envío que nunca salió
+    # queda idéntico a uno exitoso y no se puede distinguir "la ignoraron" de
+    # "nunca llegó". "ok" | "error_<status>" | "error" (fallo sin status).
+    # NULL = todavía sin reportar (o envío anterior a esta columna).
+    delivery_status = Column(String(20), nullable=True)
+    delivered_at = Column(DateTime, nullable=True)
     # Se completa desde notificationclick en el service worker (ver sw.js);
     # None mientras no se haya clickeado. Idempotente: el primer click gana.
     opened_at = Column(DateTime, nullable=True)

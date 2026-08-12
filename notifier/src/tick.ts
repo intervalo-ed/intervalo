@@ -51,11 +51,21 @@ export function setupWebPush(config: NotifierConfig): void {
   )
 }
 
-/** Send one push; resolves to a dead-subscription id (404/410) or null. */
+/** Resultado de un envío: la suscripción a purgar si murió (404/410), y el
+ * estado a guardar en notification_sends. El backend crea esa fila al elegir el
+ * copy, o sea antes de que se intente mandar, así que si el estado no vuelve
+ * acá un envío que nunca salió queda igual que uno exitoso. */
+interface SendOutcome {
+  deadSubscriptionId: number | null
+  notificationId: number
+  status: string
+}
+
+/** Send one push; resolves with the outcome to report back. */
 const sendPush = (
   sub: PushSub,
   payload: { title: string; body: string; notificationId: number },
-): Effect.Effect<number | null> =>
+): Effect.Effect<SendOutcome> =>
   Effect.tryPromise({
     try: () =>
       webpush.sendNotification(
@@ -69,13 +79,23 @@ const sendPush = (
       ),
     catch: (error) => error,
   }).pipe(
-    Effect.as<number | null>(null),
+    Effect.as<SendOutcome>({
+      deadSubscriptionId: null,
+      notificationId: payload.notificationId,
+      status: "ok",
+    }),
     Effect.catch((error) => {
       const status = (error as { statusCode?: number })?.statusCode
       const dead = status === 404 || status === 410
       return Console.warn(
         `push failed sub=${sub.id} status=${status ?? "?"}${dead ? " (pruning)" : ""}`,
-      ).pipe(Effect.as<number | null>(dead ? sub.id : null))
+      ).pipe(
+        Effect.as<SendOutcome>({
+          deadSubscriptionId: dead ? sub.id : null,
+          notificationId: payload.notificationId,
+          status: status ? `error_${status}` : "error",
+        }),
+      )
     }),
   )
 
@@ -122,7 +142,30 @@ export const runTick = (
         }),
       { concurrency: 5 },
     )
-    const deadIds = results.filter((id): id is number => id !== null)
+    // El reporte de entrega va antes del prune: si el tick se cae a la mitad,
+    // preferimos haber guardado por qué falló antes que haber limpiado la
+    // suscripción y perder el motivo.
+    yield* client
+      .execute(
+        HttpClientRequest.post(`${config.apiBaseUrl}/internal/push/delivery`).pipe(
+          HttpClientRequest.setHeader("X-Internal-Secret", config.secret),
+          HttpClientRequest.bodyJsonUnsafe({
+            results: results.map((r) => ({
+              notification_id: r.notificationId,
+              status: r.status,
+            })),
+          }),
+        ),
+      )
+      .pipe(Effect.flatMap(HttpClientResponse.filterStatusOk))
+    const okCount = results.filter((r) => r.status === "ok").length
+    yield* Console.log(
+      `delivery: ${okCount}/${results.length} ok`,
+    )
+
+    const deadIds = results
+      .map((r) => r.deadSubscriptionId)
+      .filter((id): id is number => id !== null)
 
     if (deadIds.length > 0) {
       yield* client.execute(
