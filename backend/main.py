@@ -1395,7 +1395,7 @@ def submit_answer(
     db: Session = Depends(get_db)
 ):
     """Submit answer for exercise - validates ownership and saves to DB."""
-    from session_store import record_answer_db
+    from session_store import SessionClosedError, record_answer_db
 
     try:
         # Parse session_id as integer (it's stored as string in frontend but is DB ID)
@@ -1413,6 +1413,9 @@ def submit_answer(
         )
     except KeyError as exc:
         raise HTTPException(status_code=404, detail=str(exc))
+    except SessionClosedError as exc:
+        # Replay del runner sobre una sesión ya cerrada (ver record_answer_db).
+        raise HTTPException(status_code=409, detail=str(exc))
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid session_id format")
 

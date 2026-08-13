@@ -218,6 +218,12 @@ class DailySessionLimitError(Exception):
     """Raised when the user already started/finished their main session today."""
 
 
+class SessionClosedError(Exception):
+    """Raised when an answer arrives for a session whose summary already ran
+    (finished_at set). Un replay del runner (back del navegador, tab duplicado)
+    no debe poder seguir sumando respuestas ni XP."""
+
+
 def _has_main_session_today(user_id: int, course_id: int, db: DBSession) -> bool:
     today_start = _user_day_start_utc(db, user_id)
     return db.query(SessionModel).filter(
@@ -1137,6 +1143,41 @@ def record_answer_db(
     if exercise is None:
         raise KeyError(f"Ejercicio '{exercise_id}' no encontrado en la sesión.")
 
+    # El progreso de la sesión no vive en el cliente: el useState del runner se
+    # pierde al remontar (back del navegador con el sessionStorage todavía vivo,
+    # tab duplicado), y esa segunda pasada re-enviaba los mismos slots — filas
+    # duplicadas en answers, exercises_correct > total y XP pagado dos veces
+    # (sesiones 995, 1023 y 1114 en producción). Dos guards:
+    #
+    # 1. Sesión ya cerrada (el summary corrió): nada más que aceptar.
+    if db_session.finished_at is not None:
+        raise SessionClosedError("La sesión ya terminó.")
+
+    # 2. Slot ya respondido: idempotencia. Se devuelve el resultado original en
+    #    vez de error, así un reintento de red del cliente recibe lo mismo que
+    #    la primera vez. La clave es el slot y no el external_id porque una
+    #    sesión más larga que el pool repite externals legítimamente en slots
+    #    distintos. El unique index uq_answers_session_slot es la red de
+    #    contención si esto se saltea.
+    prior = (
+        db.query(Answer)
+        .filter(Answer.session_id == session_id_db, Answer.exercise_id == exercise_id)
+        .first()
+    )
+    if prior is not None:
+        if prior.is_correct:
+            feedback = exercise.feedback_correct
+        elif isinstance(exercise.feedback_incorrect, list):
+            feedback = exercise.explanation or ""
+        else:
+            feedback = exercise.feedback_incorrect
+        return {
+            "correct": prior.is_correct,
+            "quality": prior.quality_score,
+            "feedback": feedback,
+            "xp_earned": prior.xp_earned or 0,
+        }
+
     # Identidad exacta del ejercicio que vio el usuario. La fuente autoritativa es
     # el external_id que reporta el cliente (lo que efectivamente renderizó): la
     # caché en memoria puede enfriarse y _reconstruct_session_state re-sortea los
@@ -1445,7 +1486,12 @@ def get_summary_db(
     xp_earned = sum(a.xp_earned or 0 for a in answers)
     xp_base_total = sum(a.xp_base or 0 for a in answers)
     xp_bonus_total = max(0, xp_earned - xp_base_total)
-    db_session.finished_at = datetime.utcnow()
+    # Solo el primer summary cierra la sesión: cada revisita re-corría esto y
+    # pisaba finished_at con la hora actual, destruyendo el timestamp real de
+    # finalización (y con él la duración de la sesión). Además, con finished_at
+    # puesto record_answer_db rechaza respuestas tardías de un replay.
+    if db_session.finished_at is None:
+        db_session.finished_at = datetime.utcnow()
     db_session.xp_earned = xp_earned
 
     # Racha global de días: completar cualquier sesión suma el día (una sola vez

@@ -335,6 +335,12 @@ class Answer(Base):
         Index("idx_answers_answered_at", "answered_at"),
         Index("idx_answers_belt_topic", "belt", "topic"),
         Index("idx_answers_exercise_external_id", "exercise_external_id"),
+        # Un slot de sesión se responde una sola vez. La clave es el slot
+        # (ex_000) y NO exercise_external_id: una sesión más larga que el pool de
+        # la unidad repite externals legítimamente en slots distintos. Los NULL
+        # (Answer sintético del onboarding) quedan exentos. El guard "amable"
+        # vive en record_answer_db; esto es la red de contención en el esquema.
+        Index("uq_answers_session_slot", "session_id", "exercise_id", unique=True),
     )
 
     session = relationship("Session", back_populates="answers")
