@@ -28,6 +28,7 @@ import { useSfx } from "@/lib/audio/useSfx"
 import { topicShortLabel } from "@/lib/catalog"
 import { exerciseTypeInfo } from "@/lib/catalog/exercise-types"
 import { latexVisualLength } from "@/lib/latex-visual-length"
+import { clearSession } from "@/lib/session/storage"
 import { cn } from "@/lib/utils"
 import { Braces, ChevronLeft, Download, Eye, EyeOff, Flag, SkipForward, X } from "lucide-react"
 import { animate, AnimatePresence, motion } from "motion/react"
@@ -537,6 +538,11 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
   }
 
   function goToSummary() {
+    // La sesión terminó: el stash se borra acá y no recién en el summary. Si
+    // quedara vivo, el back del navegador remontaba el runner limpio (useState
+    // en cero) con los mismos ejercicios, y la segunda pasada re-enviaba todos
+    // los slots. El summary conserva su clearSession como red de contención.
+    clearSession({ id: sessionId })
     // Sonido de "carga" ascendente: arranca al tocar y sigue sonando (sin
     // cortarse) durante la transición al resumen, donde se carga la bolita.
     setFinishing(true)
