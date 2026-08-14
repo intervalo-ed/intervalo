@@ -39,7 +39,6 @@ export const NOTIFY_CTA_COOLDOWN_MS = 5000
 // `a` ángulo de salida, `s` impulso en px, `w×h` tamaño de la pieza, `spin`
 // giro durante el vuelo, `shade` índice en la mini paleta (la misma escala
 // blanco→índigo del confeti grande del resumen).
-const SPARK_R0 = 20
 // Toda la familia del índigo, sin llegar al blanco: primario, el índigo claro
 // de la marca y una mezcla que sigue siendo claramente violácea.
 const SPARK_COLORS = [
@@ -47,17 +46,38 @@ const SPARK_COLORS = [
   "var(--chart-5)",
   "color-mix(in oklab, var(--primary) 55%, var(--foreground))",
 ]
-// Vuelo corto: las piezas se desvanecen en el aire cerca de la campana, no
-// escapan de la pantalla. `fall` es cuánto cae cada una en el último tramo.
+// Vuelo corto balístico en gravedad cero: las piezas salen disparadas del
+// contorno de la campana (0° = arriba) con impulso `s`, giran (`spin`), el
+// impulso se agota y de ahí derivan lento SIN apagarse nunca: quedan flotando
+// mientras la pestaña esté visible. `ord` baraja el orden de salida — sin él,
+// el stagger recorría el arco de izquierda a derecha como una escoba.
+const SPARK_R0 = 20
+const SPARK_DELAY = 0.45
+const SPARK_FLIGHT_S = 0.95
+// La deriva dura exactamente hasta el fin del cooldown del CTA (que corre
+// desde que la pestaña se monta): mientras Continuar está gris todo flota, y
+// en el instante en que se habilita, el confeti se aquieta — la escena entera
+// "se destraba" junta.
+const SPARK_DRIFT_PXS = 2.8
+// Bezier del disparo: punch (~3×) y frenada firme pero legible: al 25%
+// del vuelo ya recorrió el 93%. La pendiente final (~0.09) empalma con la
+// deriva, así el paso a la flotación linear no tiene quiebre visible.
+const SPARK_EASE: [number, number, number, number] = [0.18, 0.55, 0.25, 0.93]
+// Impulsos deliberadamente disparejos (5-19): algunas apenas saltan del
+// borde y otras llegan al doble, como un puñado real de confeti.
 const SPARKS = [
-  { a: -76, s: 38, w: 5, h: 8, spin: -230, fall: 12, shade: 0 },
-  { a: -54, s: 50, w: 4, h: 6, spin: 190, fall: 18, shade: 2 },
-  { a: -31, s: 42, w: 6, h: 6, spin: -160, fall: 10, shade: 1 },
-  { a: -10, s: 56, w: 4, h: 7, spin: 250, fall: 8, shade: 0 },
-  { a: 12, s: 46, w: 5, h: 5, spin: -210, fall: 10, shade: 2 },
-  { a: 34, s: 54, w: 4, h: 8, spin: 170, fall: 14, shade: 1 },
-  { a: 57, s: 40, w: 6, h: 5, spin: -190, fall: 20, shade: 0 },
-  { a: 77, s: 48, w: 4, h: 6, spin: 220, fall: 16, shade: 1 },
+  { a: -79, s: 7, w: 5, h: 5, spin: -230, shade: 0, ord: 3 },
+  { a: -61, s: 18, w: 4, h: 4, spin: 190, shade: 2, ord: 8 },
+  { a: -48, s: 10, w: 6, h: 6, spin: -160, shade: 1, ord: 0 },
+  { a: -34, s: 17, w: 4, h: 4, spin: 250, shade: 0, ord: 10 },
+  { a: -17, s: 5, w: 5, h: 5, spin: -210, shade: 2, ord: 6 },
+  { a: -7, s: 18, w: 4, h: 4, spin: 170, shade: 1, ord: 1 },
+  { a: 6, s: 9, w: 6, h: 6, spin: -250, shade: 0, ord: 11 },
+  { a: 21, s: 11, w: 5, h: 5, spin: 200, shade: 2, ord: 4 },
+  { a: 33, s: 7, w: 4, h: 4, spin: -180, shade: 1, ord: 9 },
+  { a: 49, s: 19, w: 5, h: 5, spin: 230, shade: 0, ord: 2 },
+  { a: 64, s: 9, w: 4, h: 4, spin: -200, shade: 2, ord: 7 },
+  { a: 78, s: 14, w: 5, h: 5, spin: 160, shade: 1, ord: 5 },
 ]
 
 // Lo que normalmente sale del entorno o del recorrido del usuario (qué
@@ -78,7 +98,174 @@ export type NotifyHintPreview = {
 // existe fuera de la app, y en Android por decisión de producto: el navegador
 // soporta push, pero lo que se busca es la app instalada. El CTA "Continuar"
 // del summary lleva a Perfil cuando push funciona acá, si no a casa.
+//
+// La pestaña es solo campana + texto: la acción (Agregar/Activar/selector) es
+// NotifyHintAction y vive en el contenedor del CTA del summary, apilada arriba
+// de "Continuar" — así comparten ancho y separación sin trucos de layout.
 export function NotifyHintPane({
+  context,
+  sessionNumber,
+  shows,
+  preview,
+}: {
+  context?: string
+  sessionNumber?: number
+  // Qué número de aparición es (1 = primera invitación): distingue en los
+  // eventos la primera vez de la cuarta insistencia.
+  shows?: number
+  preview?: NotifyHintPreview
+}) {
+  const detected = usePlatform()
+  const platform = preview?.platform ?? detected
+  const standalone = preview?.standalone ?? isStandalone()
+  const needsInstall = needsInstallForPush({ platform, standalone })
+
+  // Se emite recién con la plataforma resuelta: antes de montar no sabemos si
+  // toca el modo "instalar" o el "activar", que es justo lo que queremos medir.
+  const shownRef = useRef(false)
+  useEffect(() => {
+    if (preview || platform === null || shownRef.current) return
+    shownRef.current = true
+    // Las dos señales crudas viajan sueltas porque ya nos mintieron una vez
+    // (ver isStandalone): si el modo no cuadra con el contexto, acá se ve cuál
+    // de las dos falló.
+    const signals = readStandaloneSignals()
+    posthog.capture("notify_hint_shown", {
+      mode: needsInstall ? "install" : "enable",
+      context,
+      platform,
+      session_number: sessionNumber,
+      shows,
+      standalone_mql: signals.mql,
+      standalone_navigator: signals.iosStandalone,
+    })
+  }, [preview, platform, needsInstall, context, sessionNumber, shows])
+
+  return (
+    // Alto completo, campana y texto centrados; la acción vive en el footer
+    // del summary, no acá.
+    <div className="flex h-full w-full flex-col items-center justify-center gap-5 text-center">
+      {/* Campana sin disco de fondo: entra con spring y, ya asentada, "suena"
+          oscilando desde su punto de anclaje (transformOrigin arriba, como una
+          campana colgada) mientras dos ondas nacen en ella y se expanden
+          desvaneciéndose — el "ping" de una notificación. Todo pasa una vez;
+          nada queda latiendo en loop mientras la pestaña está visible. */}
+      <motion.div
+        className="relative flex size-14 items-center justify-center text-primary"
+        initial={{ opacity: 0, scale: 0.4 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ type: "spring", stiffness: 600, damping: 18 }}
+      >
+        {/* Mini confeti disparado desde el contorno de la campana al "sonar" —
+            el mismo lenguaje que el Confetti grande del resumen, así el
+            campanazo anticipa el festejo de activar. */}
+        {SPARKS.map((p, i) => {
+          const delay = SPARK_DELAY + p.ord * 0.04
+          const dur = NOTIFY_CTA_COOLDOWN_MS / 1000 - delay
+          const fEnd = SPARK_FLIGHT_S / dur
+          // Inercia: en gravedad cero nada se frena del todo. El vuelo es UNA
+          // sola desaceleración (SPARK_EASE) cuya pendiente final ≈ la
+          // velocidad de deriva, y de ahí sigue linear: sin tirones ni
+          // re-aceleraciones, la velocidad solo baja y nunca toca cero.
+          const driftS = dur - SPARK_FLIGHT_S
+          const drift = driftS * SPARK_DRIFT_PXS
+          const driftSpin = driftS * 12 * Math.sign(p.spin)
+          const rad = (p.a * Math.PI) / 180
+          // Dirección de salida medida desde la vertical: 0° es "hacia arriba".
+          const dx = Math.sin(rad)
+          const dy = -Math.cos(rad)
+          return (
+            <motion.span
+              key={i}
+              aria-hidden
+              style={{
+                width: p.w,
+                height: p.h,
+                marginLeft: -p.w / 2,
+                marginTop: -p.h / 2,
+                borderRadius: 1,
+                backgroundColor: SPARK_COLORS[p.shade],
+              }}
+              className="absolute left-1/2 top-1/2"
+              initial={{ opacity: 0 }}
+              animate={{
+                // Gravedad cero: sale despedida en línea recta, el impulso se
+                // agota (easeOut) y de ahí en más deriva a velocidad constante
+                // sin frenarse nunca, como en el espacio. Sin caída ni comba.
+                x: [
+                  dx * SPARK_R0,
+                  dx * (SPARK_R0 + p.s),
+                  dx * (SPARK_R0 + p.s + drift),
+                ],
+                y: [
+                  dy * SPARK_R0,
+                  dy * (SPARK_R0 + p.s),
+                  dy * (SPARK_R0 + p.s + drift),
+                ],
+                opacity: [0, 1],
+                rotate: [p.a, p.a + p.spin, p.a + p.spin + driftSpin],
+              }}
+              // El override por-valor de framer REEMPLAZA la transición entera
+              // para esa propiedad (no la extiende): duration y delay se
+              // repiten en cada una. Los `times` cortos dejan el valor final
+              // quieto el resto del timeline (la pieza flota hasta su turno).
+              transition={{
+                x: {
+                  duration: dur,
+                  delay,
+                  times: [0, fEnd, 1],
+                  ease: [SPARK_EASE, "linear"],
+                },
+                y: {
+                  duration: dur,
+                  delay,
+                  times: [0, fEnd, 1],
+                  ease: [SPARK_EASE, "linear"],
+                },
+                rotate: {
+                  duration: dur,
+                  delay,
+                  times: [0, fEnd, 1],
+                  ease: [SPARK_EASE, "linear"],
+                },
+                // Un ramp-in corto y listo: no se apagan nunca, quedan
+                // flotando mientras la pestaña esté visible.
+                opacity: { duration: 0.08, delay, ease: "linear" },
+              }}
+            />
+          )
+        })}
+        {/* Mismos 0.9s pero con más oscilaciones adentro: campanazo rápido que
+            se amortigua, no un vaivén lento. */}
+        <motion.div
+          style={{ transformOrigin: "50% 12%" }}
+          animate={{ rotate: [0, -24, 20, -16, 12, -8, 5, -2, 0] }}
+          transition={{ duration: 0.9, delay: 0.4, ease: "easeInOut" }}
+        >
+          <BellIcon className="size-9" />
+        </motion.div>
+      </motion.div>
+      <motion.div
+        className="flex flex-col gap-1.5"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+      >
+        <p className="text-lg font-medium">Activá los recordatorios</p>
+        <p className="max-w-[21rem] text-base leading-relaxed text-foreground/60">
+          {needsInstall
+            ? "Primero agregá Intervalo a tu pantalla de inicio."
+            : "Te van a llegar a la hora que elijas."}
+        </p>
+      </motion.div>
+    </div>
+  )
+}
+
+// La acción de la pestaña de notificaciones. Se renderiza en el contenedor del
+// CTA del summary (o del dev preview), apilada justo arriba de "Continuar":
+// comparte con él ancho, márgenes y --cta-h sin depender del layout del pane.
+export function NotifyHintAction({
   settingsLoading,
   onEnabled,
   onInstall,
@@ -97,8 +284,6 @@ export function NotifyHintPane({
   onInstall: () => void
   context?: string
   sessionNumber?: number
-  // Qué número de aparición es (1 = primera invitación): distingue en los
-  // eventos la primera vez de la cuarta insistencia.
   shows?: number
   preview?: NotifyHintPreview
 }) {
@@ -132,126 +317,13 @@ export function NotifyHintPane({
   const enabled = preview?.enabled ?? justEnabled
   const pending = preview?.pending ?? (enable.isPending || updateTime.isPending)
 
-  // Se emite recién con la plataforma resuelta: antes de montar no sabemos si
-  // toca el modo "instalar" o el "activar", que es justo lo que queremos medir.
-  const shownRef = useRef(false)
-  useEffect(() => {
-    if (preview || platform === null || shownRef.current) return
-    shownRef.current = true
-    // Las dos señales crudas viajan sueltas porque ya nos mintieron una vez
-    // (ver isStandalone): si el modo no cuadra con el contexto, acá se ve cuál
-    // de las dos falló.
-    const signals = readStandaloneSignals()
-    posthog.capture("notify_hint_shown", {
-      mode: needsInstall ? "install" : "enable",
-      context,
-      platform,
-      session_number: sessionNumber,
-      shows,
-      standalone_mql: signals.mql,
-      standalone_navigator: signals.iosStandalone,
-    })
-  }, [preview, platform, needsInstall, context, sessionNumber, shows])
-
   return (
-    // Alto completo, un único grupo centrado: campana, texto y controles se
-    // leen como una sola pila, con el botón inmediatamente debajo del texto
-    // en vez de anclado al pie contra el CTA "Continuar" externo.
-    <div className="flex h-full w-full flex-col items-center justify-center gap-5 text-center">
-      {/* Campana sin disco de fondo: entra con spring y, ya asentada, "suena"
-          oscilando desde su punto de anclaje (transformOrigin arriba, como una
-          campana colgada) mientras dos ondas nacen en ella y se expanden
-          desvaneciéndose — el "ping" de una notificación. Todo pasa una vez;
-          nada queda latiendo en loop mientras la pestaña está visible. */}
-      <motion.div
-        className="relative flex size-14 items-center justify-center text-primary"
-        initial={{ opacity: 0, scale: 0.4 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ type: "spring", stiffness: 600, damping: 18 }}
-      >
-        {/* Mini confeti disparado desde el contorno de la campana al "sonar" —
-            el mismo lenguaje que el Confetti grande del resumen, así el
-            campanazo anticipa el festejo de activar. Trayectoria balística en
-            keyframes: arranca rápido (easeOut), pierde impulso y la última
-            parte cae (SPARK_FALL), girando todo el vuelo. */}
-        {SPARKS.map((p, i) => {
-          const rad = (p.a * Math.PI) / 180
-          // Dirección de salida medida desde la vertical: 0° es "hacia arriba".
-          const dx = Math.sin(rad)
-          const dy = -Math.cos(rad)
-          return (
-            <motion.span
-              key={i}
-              aria-hidden
-              style={{
-                width: p.w,
-                height: p.h,
-                marginLeft: -p.w / 2,
-                marginTop: -p.h / 2,
-                borderRadius: 1,
-                backgroundColor: SPARK_COLORS[p.shade],
-              }}
-              className="absolute left-1/2 top-1/2"
-              initial={{ opacity: 0 }}
-              animate={{
-                x: [dx * SPARK_R0, dx * (SPARK_R0 + p.s * 0.65), dx * (SPARK_R0 + p.s)],
-                y: [
-                  dy * SPARK_R0,
-                  dy * (SPARK_R0 + p.s * 0.65) - 6,
-                  dy * (SPARK_R0 + p.s) + p.fall,
-                ],
-                // Plenas la mayor parte del vuelo y desvanecidas en el aire
-                // sobre el final, ya lejos de la campana.
-                opacity: [0, 1, 1, 0],
-                rotate: [p.a, p.a + p.spin],
-              }}
-              // El override por-valor de framer REEMPLAZA la transición entera
-              // para esa propiedad (no la extiende): sin repetir duration y
-              // delay acá, la opacidad corría sola al montar con los defaults
-              // y las piezas morían antes de arrancar el vuelo.
-              transition={{
-                duration: 0.95,
-                delay: 0.45 + i * 0.04,
-                ease: "easeOut",
-                opacity: {
-                  duration: 0.95,
-                  delay: 0.45 + i * 0.04,
-                  times: [0, 0.08, 0.65, 1],
-                  ease: "linear",
-                },
-              }}
-            />
-          )
-        })}
-        {/* Mismos 0.9s pero con más oscilaciones adentro: campanazo rápido que
-            se amortigua, no un vaivén lento. */}
-        <motion.div
-          style={{ transformOrigin: "50% 12%" }}
-          animate={{ rotate: [0, -24, 20, -16, 12, -8, 5, -2, 0] }}
-          transition={{ duration: 0.9, delay: 0.4, ease: "easeInOut" }}
-        >
-          <BellIcon className="size-9" />
-        </motion.div>
-      </motion.div>
-      <motion.div
-        className="flex flex-col gap-1.5"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-      >
-        <p className="text-lg font-medium">Activá los recordatorios</p>
-        <p className="max-w-[21rem] text-base leading-relaxed text-foreground/60">
-          {needsInstall
-            ? "Primero agregá Intervalo a tu pantalla de inicio."
-            : "Te van a llegar a la hora que elijas."}
-        </p>
-      </motion.div>
-      <motion.div
-        className="flex w-full max-w-[21rem] flex-col gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-      >
+    <motion.div
+      className="flex w-full flex-col"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
         {platform === null ? (
           // Sin plataforma resuelta no sabemos qué pedir: dejamos el hueco del
           // botón para no mostrar "Activar" y que salte a "Agregar" en mobile.
@@ -327,7 +399,6 @@ export function NotifyHintPane({
             )}
           </Button>
         )}
-      </motion.div>
-    </div>
+    </motion.div>
   )
 }

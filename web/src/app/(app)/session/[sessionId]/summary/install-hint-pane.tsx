@@ -19,8 +19,9 @@ export function InstallHintPane({
 
   return (
     <div className="flex h-full w-full flex-col justify-center">
+      {/* Corrido apenas bajo el centro óptico: centrado exacto se veía alto. */}
       <motion.div
-        className="mx-auto flex w-full max-w-sm flex-col gap-5"
+        className="mx-auto flex w-full max-w-sm translate-y-6 flex-col gap-5"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
