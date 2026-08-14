@@ -14,12 +14,25 @@ export function getPlatform(): Platform {
   return "desktop"
 }
 
-export function isStandalone(): boolean {
-  if (typeof window === "undefined") return false
+// Caso real (iyacobino, iPhone 11, 12/08): al cargar la PWA las dos señales
+// dieron true (el pwa_install salió bien), pero un render de un minuto después
+// leyó false y la pestaña de notificaciones pidió instalar la app... dentro de
+// la app. Correr instalado no puede cambiar sin relanzar, así que la primera
+// lectura del cliente (en instrumentation-client, al arrancar) se congela y
+// las siguientes la reusan en vez de volver a preguntarle a WebKit.
+let standaloneCached: boolean | null = null
+
+function computeStandalone(): boolean {
   const mql = window.matchMedia?.("(display-mode: standalone)").matches ?? false
   const iosStandalone =
     (window.navigator as { standalone?: boolean }).standalone === true
   return mql || iosStandalone
+}
+
+export function isStandalone(): boolean {
+  if (typeof window === "undefined") return false
+  if (standaloneCached === null) standaloneCached = computeStandalone()
+  return standaloneCached
 }
 
 // Devuelve null hasta montar para evitar mismatch de hidratación SSR.

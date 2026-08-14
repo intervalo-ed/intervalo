@@ -1,10 +1,11 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { motion } from "motion/react"
-import { BellIcon, ClockIcon, DownloadIcon } from "lucide-react"
+import posthog from "posthog-js"
+import { BellIcon, ClockIcon, SquarePlusIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { InstallDialog } from "@/components/install-dialog"
+import { Spinner } from "@/components/ui/spinner"
 import {
   Select,
   SelectContent,
@@ -36,41 +37,91 @@ export type NotifyHintPreview = {
   pending?: boolean
 }
 
-// Pestaña de notificaciones: una única vez por dispositivo (ver
-// notify-hint-seen.ts), solo si el navegador soporta push. Instalada como PWA
-// permite activar los recordatorios acá mismo (elegir horario + suscribirse);
-// desde el navegador, push no funciona todavía, así que ofrece los pasos de
-// instalación en el diálogo compartido. El CTA "Continuar" del summary lleva a
-// Perfil en ambos casos.
+// Pestaña de notificaciones: aparece cada tantas sesiones mientras no estén
+// activadas (ver notify-hint-seen.ts), solo si el navegador soporta push.
+// Instalada como PWA permite activar los recordatorios acá mismo (elegir
+// horario + suscribirse); en el navegador de un celular push no funciona
+// todavía, así que ofrece los pasos de instalación en el diálogo compartido.
+// En escritorio Chrome y Edge sí soportan push sin instalar nada, así que ahí
+// se pide el permiso directo. El CTA "Continuar" del summary lleva a Perfil en
+// todos los casos.
 export function NotifyHintPane({
   settingsLoading,
   onEnabled,
+  onInstall,
+  context,
+  sessionNumber,
   preview,
 }: {
   settingsLoading: boolean
-  onEnabled: () => void
+  // El origen es el centro del botón Activar en % de viewport (la unidad de
+  // Confetti), medido justo antes de que el selector de hora lo reemplace:
+  // el festejo sale de donde el usuario acaba de tocar.
+  onEnabled: (origin: { x: number; y: number } | null) => void
+  // "Agregar" no abre un diálogo: avanza a la slide con los pasos (ver
+  // install-hint-pane.tsx), que el summary anima como una más.
+  onInstall: () => void
+  context?: string
+  sessionNumber?: number
   preview?: NotifyHintPreview
 }) {
   const detected = usePlatform()
   const platform = preview?.platform ?? detected
   const standalone = preview?.standalone ?? isStandalone()
-  const needsInstall = platform !== null && !standalone
+  const needsInstall = platform !== null && !standalone && platform !== "desktop"
   const [time, setTime] = useState(DEFAULT_REMINDER_TIME)
-  const [installOpen, setInstallOpen] = useState(false)
   // Dos pasos: primero se activa (con el horario por defecto) y recién ahí
   // aparece el selector de hora, que ya persiste solo. Antes se pedían las dos
   // cosas juntas, pero elegir horario para algo que todavía no aceptaste es
   // pedir una decisión de más.
   const [justEnabled, setJustEnabled] = useState(false)
+  const enableButtonRef = useRef<HTMLButtonElement>(null)
   const enable = useEnableNotifications({
     onSuccess: () => {
       setJustEnabled(true)
-      onEnabled()
+      posthog.capture("notify_hint_action", {
+        action: "enabled",
+        context,
+        platform,
+        session_number: sessionNumber,
+      })
+      // Se mide acá, con el botón todavía montado: el setJustEnabled de arriba
+      // recién lo reemplaza en el próximo render.
+      const r = enableButtonRef.current?.getBoundingClientRect()
+      onEnabled(
+        r
+          ? {
+              x: ((r.left + r.width / 2) / window.innerWidth) * 100,
+              y: ((r.top + r.height / 2) / window.innerHeight) * 100,
+            }
+          : null,
+      )
     },
   })
   const updateTime = useUpdateReminderTime()
   const enabled = preview?.enabled ?? justEnabled
   const pending = preview?.pending ?? (enable.isPending || updateTime.isPending)
+
+  // Se emite recién con la plataforma resuelta: antes de montar no sabemos si
+  // toca el modo "instalar" o el "activar", que es justo lo que queremos medir.
+  const shownRef = useRef(false)
+  useEffect(() => {
+    if (preview || platform === null || shownRef.current) return
+    shownRef.current = true
+    // Las dos señales crudas viajan sueltas porque ya nos mintieron una vez
+    // (ver isStandalone): si el modo no cuadra con el contexto, acá se ve cuál
+    // de las dos falló.
+    posthog.capture("notify_hint_shown", {
+      mode: needsInstall ? "install" : "enable",
+      context,
+      platform,
+      session_number: sessionNumber,
+      standalone_mql:
+        window.matchMedia?.("(display-mode: standalone)").matches ?? false,
+      standalone_navigator:
+        (window.navigator as { standalone?: boolean }).standalone === true,
+    })
+  }, [preview, platform, needsInstall, context, sessionNumber])
 
   return (
     // Alto completo, un único grupo centrado: campana, texto y controles se
@@ -112,23 +163,29 @@ export function NotifyHintPane({
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
-        {needsInstall ? (
-          <>
-            <Button
-              variant="outline"
-              size="lg"
-              className="h-[var(--cta-h)] w-full rounded-md"
-              onClick={() => setInstallOpen(true)}
-            >
-              <DownloadIcon className="size-5" />
-              Agregar
-            </Button>
-            <InstallDialog
-              platform={platform ?? "all"}
-              open={installOpen}
-              onOpenChange={setInstallOpen}
-            />
-          </>
+        {platform === null ? (
+          // Sin plataforma resuelta no sabemos qué pedir: dejamos el hueco del
+          // botón para no mostrar "Activar" y que salte a "Agregar" en mobile.
+          <div className="h-[var(--cta-h)]" />
+        ) : needsInstall ? (
+          // Mismo azul que el "Activar" de la variante instalada: es la acción
+          // principal de la pestaña, no una alternativa.
+          <Button
+            size="lg"
+            className="h-[var(--cta-h)] w-full rounded-md"
+            onClick={() => {
+              posthog.capture("notify_hint_action", {
+                action: "install_steps_open",
+                context,
+                platform,
+                session_number: sessionNumber,
+              })
+              onInstall()
+            }}
+          >
+            Agregar
+            <SquarePlusIcon className="size-5" />
+          </Button>
         ) : enabled ? (
           // Ya activadas: el botón deja su lugar al selector, que a partir de
           // acá guarda cada cambio solo (los recordatorios ya están andando).
@@ -161,15 +218,23 @@ export function NotifyHintPane({
           </div>
         ) : (
           // Un solo paso para decir que sí; el horario arranca en el default y
-          // se ajusta después, si el usuario quiere.
+          // se ajusta después, si el usuario quiere. Mientras corre (permiso
+          // del sistema + suscripción, que puede tardar unos segundos) la
+          // campanita cede su lugar a un spinner para que se vea que algo
+          // está pasando.
           <Button
+            ref={enableButtonRef}
             size="lg"
             className="h-[var(--cta-h)] w-full rounded-md"
             disabled={pending || settingsLoading}
             onClick={() => enable.mutate(time)}
           >
             Activar
-            <BellIcon className="size-5" />
+            {pending ? (
+              <Spinner className="size-5" />
+            ) : (
+              <BellIcon className="size-5" />
+            )}
           </Button>
         )}
       </motion.div>

@@ -7,6 +7,12 @@ import {
   NotifyHintPane,
   type NotifyHintPreview,
 } from "@/app/(app)/session/[sessionId]/summary/notify-hint-pane"
+import { InstallHintPane } from "@/app/(app)/session/[sessionId]/summary/install-hint-pane"
+import {
+  SLIDE_TRANSITION,
+  slideVariants,
+} from "@/app/(app)/session/[sessionId]/summary/slide-variants"
+import { AnimatePresence, motion } from "motion/react"
 import { Button } from "@/components/ui/button"
 import { Screen, ScreenBody } from "@/components/ui/screen"
 
@@ -47,8 +53,10 @@ const VARIANTS: {
     preview: PWA,
     settingsLoading: true,
   },
-  // Desde el navegador push no funciona: se ofrece instalar. Las tres se ven
-  // igual; lo que cambia son los pasos del diálogo que abre "Agregar".
+  // Desde el navegador de un celular push no funciona: se ofrece instalar, y lo
+  // que cambia entre iOS y Android son los pasos del diálogo que abre
+  // "Agregar". En escritorio sí funciona sin instalar, así que esa variante
+  // cae en el botón "Activar" igual que la PWA.
   {
     id: "browser-ios",
     label: "Navegador iOS",
@@ -67,14 +75,18 @@ const VARIANTS: {
 ]
 
 // Vista suelta de la pestaña de notificaciones del resumen de sesión. En la app
-// aparece una sola vez por dispositivo y solo después de terminar una sesión,
-// así que mirarla de verdad implica resetear notify-hint-seen y jugar una
-// sesión entera. Solo existe en `next dev`: en producción la ruta es 404.
+// aparece solo al terminar una sesión y cada tantas sesiones (ver
+// notify-hint-seen.ts), así que mirarla de verdad implica borrar las claves
+// `intervalo:notify-hint:*` y jugar una sesión entera. Solo existe en
+// `next dev`: en producción la ruta es 404.
 //
 // El envoltorio (Screen + ScreenBody centrado + CTA abajo) replica el del
 // summary para que las proporciones se vean como en la pantalla real.
 export default function DevNotifyPanePage() {
   const [id, setId] = useState(VARIANTS[0].id)
+  // "Agregar" avanza a los pasos de instalación, igual que en el summary.
+  // Cambiar de variante vuelve al principio.
+  const [showInstall, setShowInstall] = useState(false)
 
   // Mismo cooldown que en el summary, para poder cronometrarlo acá. Se reinicia
   // con cada variante porque allá la pestaña recién se monta al entrar.
@@ -84,7 +96,7 @@ export default function DevNotifyPanePage() {
     setWaiting(true)
     const t = setTimeout(() => setWaiting(false), NOTIFY_CTA_COOLDOWN_MS)
     return () => clearTimeout(t)
-  }, [id])
+  }, [id, showInstall])
 
   if (process.env.NODE_ENV === "production") notFound()
 
@@ -102,7 +114,10 @@ export default function DevNotifyPanePage() {
                 ? "rounded bg-white px-2 py-1 text-black"
                 : "rounded px-2 py-1 text-foreground/60 hover:text-foreground"
             }
-            onClick={() => setId(v.id)}
+            onClick={() => {
+              setId(v.id)
+              setShowInstall(false)
+            }}
           >
             {v.label}
           </button>
@@ -117,13 +132,31 @@ export default function DevNotifyPanePage() {
               `key` fuerza el remonte al cambiar de variante: si no, las
               animaciones de entrada (el spring de la campana, el campanazo)
               solo se verían la primera vez. */}
-          <div className="flex w-full flex-1 flex-col">
-            <NotifyHintPane
-              key={variant.id}
-              preview={variant.preview}
-              settingsLoading={variant.settingsLoading ?? false}
-              onEnabled={() => {}}
-            />
+          {/* Misma grilla de una celda que el summary: las dos slides se
+              superponen para poder cruzarse durante el corrido. */}
+          <div className="grid min-h-full w-full flex-1 grid-cols-1">
+            <AnimatePresence mode="sync">
+              <motion.div
+                key={showInstall ? "install" : variant.id}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={SLIDE_TRANSITION}
+                className="col-start-1 row-start-1 flex w-full flex-col"
+              >
+                {showInstall ? (
+                  <InstallHintPane platformOverride={variant.preview.platform} />
+                ) : (
+                  <NotifyHintPane
+                    preview={variant.preview}
+                    settingsLoading={variant.settingsLoading ?? false}
+                    onEnabled={() => {}}
+                    onInstall={() => setShowInstall(true)}
+                  />
+                )}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </ScreenBody>
 

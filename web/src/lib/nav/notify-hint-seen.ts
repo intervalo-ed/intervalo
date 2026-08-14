@@ -1,31 +1,87 @@
 "use client"
 
-import { useSyncExternalStore } from "react"
+import { isStandalone } from "@/lib/platform/detect"
 
-const STORAGE_KEY = "intervalo:notify-hint-seen"
-const EVENT = "intervalo:notify-hint-seen-change"
+// El pedido de instalar/activar notificaciones se muestra al terminar una
+// sesión, pero el estado "ya lo vio" NO puede ser un único booleano: el mismo
+// dispositivo pasa por dos momentos distintos, y cada uno pide una cosa
+// distinta.
+//
+//   navegador  → "agregá Intervalo a tu pantalla de inicio"
+//   instalada  → "activá los recordatorios"
+//
+// Con un flag global, quien ve el primero nunca llega al segundo. En Android el
+// PWA instalado comparte localStorage con Chrome, así que el flag viaja y la
+// persona jamás activa notificaciones; en iOS el almacenamiento está
+// particionado y reaparece de casualidad. Guardar el estado por contexto hace
+// que las dos plataformas se comporten igual.
+export type NotifyHintContext = "browser" | "standalone"
 
-function hasSeenNotifyHint(): boolean {
-  if (typeof window === "undefined") return false
-  return window.localStorage.getItem(STORAGE_KEY) === "1"
+// Cada cuántas sesiones vuelve a aparecer para quien no aceptó, y cuántas veces
+// como máximo: pasado ese tope dejamos de insistir.
+const CADENCE = 3
+const MAX_SHOWS = 4
+
+const STORAGE_PREFIX = "intervalo:notify-hint"
+
+type HintState = { shows: number; lastSession: number }
+
+export function getNotifyHintContext(): NotifyHintContext {
+  return isStandalone() ? "standalone" : "browser"
 }
 
-export function markNotifyHintSeen(): void {
-  if (typeof window === "undefined") return
-  window.localStorage.setItem(STORAGE_KEY, "1")
-  window.dispatchEvent(new Event(EVENT))
+function storageKey(context: NotifyHintContext): string {
+  return `${STORAGE_PREFIX}:${context}`
 }
 
-function subscribe(callback: () => void): () => void {
-  window.addEventListener(EVENT, callback)
-  window.addEventListener("storage", callback)
-  return () => {
-    window.removeEventListener(EVENT, callback)
-    window.removeEventListener("storage", callback)
+function readState(context: NotifyHintContext): HintState | null {
+  if (typeof window === "undefined") return null
+  try {
+    const raw = window.localStorage.getItem(storageKey(context))
+    if (!raw) return null
+    const parsed = JSON.parse(raw) as Partial<HintState>
+    if (
+      typeof parsed?.shows !== "number" ||
+      typeof parsed?.lastSession !== "number"
+    ) {
+      return null
+    }
+    return { shows: parsed.shows, lastSession: parsed.lastSession }
+  } catch {
+    return null
   }
 }
 
-// true mientras el usuario no vio todavía la pestaña de notificaciones del summary.
-export function useNotifyHintUnseen(): boolean {
-  return useSyncExternalStore(subscribe, () => !hasSeenNotifyHint(), () => false)
+export function shouldShowNotifyHint({
+  context,
+  sessionNumber,
+}: {
+  context: NotifyHintContext
+  sessionNumber: number
+}): boolean {
+  const state = readState(context)
+  if (!state) return true
+  if (state.shows >= MAX_SHOWS) return false
+  return sessionNumber - state.lastSession >= CADENCE
+}
+
+export function markNotifyHintSeen({
+  context,
+  sessionNumber,
+}: {
+  context: NotifyHintContext
+  sessionNumber: number
+}): void {
+  if (typeof window === "undefined") return
+  const state = readState(context)
+  const next: HintState = {
+    shows: (state?.shows ?? 0) + 1,
+    lastSession: sessionNumber,
+  }
+  try {
+    window.localStorage.setItem(storageKey(context), JSON.stringify(next))
+  } catch {
+    // Modo privado / cuota llena: perder el registro solo hace que el pedido
+    // vuelva a aparecer, que es preferible a romper el summary.
+  }
 }
