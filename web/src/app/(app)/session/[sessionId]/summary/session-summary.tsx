@@ -9,7 +9,7 @@ import { XpDots } from "@/components/xp-dots"
 import { Alert, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { Screen, ScreenBody } from "@/components/ui/screen"
-import { cn } from "@/lib/utils"
+import { centerInViewportPercent, cn } from "@/lib/utils"
 import { BELT_VIVID_COLORS } from "@/lib/catalog"
 import { queryKeys } from "@/lib/query/keys"
 import { clearSession } from "@/lib/session/storage"
@@ -24,7 +24,11 @@ import {
   type NotifyHintContext,
 } from "@/lib/nav/notify-hint-seen"
 import { isPushSupported } from "@/lib/push/register"
-import { isStandalone, usePlatform } from "@/lib/platform/detect"
+import {
+  getPlatform,
+  isStandalone,
+  needsInstallForPush,
+} from "@/lib/platform/detect"
 import { useNotificationSettingsQuery } from "@/app/(app)/profile/UseNotificationSettings"
 import { useSfx, useTick } from "@/lib/audio/useSfx"
 import type { components } from "@/lib/api/schema"
@@ -35,10 +39,6 @@ import { useSummary } from "./UseSummary"
 
 const ctaCls =
   "h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
-
-// Mismo deslizamiento horizontal que entre ejercicios de la sesión (ver
-// session-runner.tsx): cada fase (resumen → racha → notificaciones) entra
-// desde la derecha, sin fundido.
 
 // ── Ajustes del conteo (XP, ejercicios correctos y días de racha) ─────────────
 // Un salto por unidad, acelerando: cada salto dura RAMP_DECAY veces lo que el
@@ -140,38 +140,59 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   const [phase, setPhase] = useState<
     "summary" | "streak" | "notify" | "install"
   >("summary")
-  const [pushSupported, setPushSupported] = useState(false)
-  const platform = usePlatform()
-  useEffect(() => {
-    setPushSupported(isPushSupported())
-  }, [])
-  // Contexto donde el pane pediría instalar en vez de activar: navegador de un
-  // celular. Ahí alcanza con que push vaya a funcionar después de instalar.
-  const installContext =
-    platform !== null && platform !== "desktop" && !isStandalone()
   const settings = useNotificationSettingsQuery()
   const notifAlreadyEnabled = settings.data?.enabled === true
   const shouldShowStreak = data?.streak.counted_today === true
-  // La decisión se congela con el primer `session_number` que llega: si se
-  // recalculara, marcarla como vista la apagaría con el usuario mirándola.
+  // La decisión de mostrar la pestaña se resuelve una sola vez (en el primer
+  // Continuar, ya con `data`) y queda congelada: si se recalculara, marcarla
+  // como vista la apagaría con el usuario mirándola. Vive en un ref que solo
+  // se escribe desde handlers — nunca durante el render — así un render
+  // descartado de React no puede dejar un estado a medias.
   const notifyHintRef = useRef<{
     context: NotifyHintContext
     sessionNumber: number
     show: boolean
+    shows: number
   } | null>(null)
-  if (notifyHintRef.current === null && data) {
-    const context = getNotifyHintContext()
-    const sessionNumber = data.session_number
-    notifyHintRef.current = {
-      context,
-      sessionNumber,
-      show: shouldShowNotifyHint({ context, sessionNumber }),
+  function resolveNotifyHint() {
+    if (notifyHintRef.current === null && data) {
+      const context = getNotifyHintContext()
+      const sessionNumber = data.session_number
+      // El soporte de push importa distinto según el modo: para "activá" tiene
+      // que funcionar acá mismo, pero para "instalá" NO — Safari en iOS solo
+      // expone la Push API a la app instalada, así que en el navegador
+      // isPushSupported() da false justo cuando más hace falta invitar a
+      // instalar.
+      const installContext = needsInstallForPush({
+        platform: getPlatform(),
+        standalone: isStandalone(),
+      })
+      notifyHintRef.current = {
+        context,
+        sessionNumber,
+        show:
+          (isPushSupported() || installContext) &&
+          shouldShowNotifyHint({ context, sessionNumber }),
+        shows: 0,
+      }
     }
+    return notifyHintRef.current
   }
-  const shouldShowNotify =
-    (pushSupported || installContext) &&
-    !notifAlreadyEnabled &&
-    notifyHintRef.current?.show === true
+  // Marca la vista al ENTRAR, no al salir: los pasos de instalación terminan en
+  // "cerrá tu navegador", así que el recorrido más valioso nunca pasa por
+  // Continuar — sin esto, la cadencia y el tope jamás corrían para esa gente y
+  // el pedido reaparecía todas las sesiones.
+  function enterNotify() {
+    const hint = resolveNotifyHint()
+    if (hint) {
+      const state = markNotifyHintSeen({
+        context: hint.context,
+        sessionNumber: hint.sessionNumber,
+      })
+      hint.shows = state.shows
+    }
+    setPhase("notify")
+  }
   const sfxRef = useRef(sfx)
   sfxRef.current = sfx
   const tickRef = useRef(tick)
@@ -223,58 +244,63 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
     x: number
     y: number
   } | null>(null)
+  const inNotifyFlow = phase === "notify" || phase === "install"
   useEffect(() => {
     if (phase !== "notify" && phase !== "install") return
     setNotifWaiting(true)
     const t = setTimeout(() => setNotifWaiting(false), NOTIFY_CTA_COOLDOWN_MS)
     return () => clearTimeout(t)
   }, [phase])
-  const notifyButtonDisabled =
-    (phase === "notify" || phase === "install") &&
-    notifWaiting &&
-    !notifJustEnabled
+  const notifyButtonDisabled = inNotifyFlow && notifWaiting && !notifJustEnabled
 
   function onContinue() {
+    // Cada rama toca sfx.continue() una sola vez: goHome ya lo hace por su
+    // cuenta, así que las ramas que caen ahí no lo repiten.
     if (phase === "summary") {
-      sfx.continue()
       if (shouldShowStreak) {
+        sfx.continue()
         setPhase("streak")
-      } else if (shouldShowNotify) {
-        setPhase("notify")
+      } else if (resolveNotifyHint()?.show && !notifAlreadyEnabled) {
+        sfx.continue()
+        enterNotify()
       } else {
         goHome()
       }
       return
     }
     if (phase === "streak") {
-      if (shouldShowNotify) {
+      if (resolveNotifyHint()?.show && !notifAlreadyEnabled) {
         sfx.continue()
-        setPhase("notify")
+        enterNotify()
         return
       }
       goHome()
       return
     }
-    // Desde la pestaña de notificaciones (o la de instalación, que sale de
-    // ella) el destino es Perfil, donde se puede ajustar el horario (o activar,
-    // si se instaló la app recién).
+    // Saliendo de la pestaña de notificaciones (o de la de pasos, que sale de
+    // ella). El skip solo cuenta desde la de notificaciones: quien abrió los
+    // pasos ya emitió install_steps_open y su desenlace es el pwa_install
+    // posterior, no este tap.
     const hint = notifyHintRef.current
-    if (hint) {
-      markNotifyHintSeen({
+    if (phase === "notify" && hint && !notifJustEnabled) {
+      posthog.capture("notify_hint_action", {
+        action: "skipped",
         context: hint.context,
-        sessionNumber: hint.sessionNumber,
+        platform: getPlatform(),
+        session_number: hint.sessionNumber,
+        shows: hint.shows,
       })
-      if (!notifJustEnabled) {
-        posthog.capture("notify_hint_action", {
-          action: "skipped",
-          context: hint.context,
-          session_number: hint.sessionNumber,
-        })
-      }
     }
-    sfx.continue()
-    router.push("/profile")
-    router.refresh()
+    // Perfil solo si ahí se puede hacer algo (ajustar horario / activar); en un
+    // navegador sin push esa pantalla dice "no soportado" — contradictorio con
+    // lo que acabamos de pedir — así que ahí se vuelve a casa.
+    if (isPushSupported()) {
+      sfx.continue()
+      router.push("/profile")
+      router.refresh()
+    } else {
+      goHome()
+    }
   }
 
   function goHome() {
@@ -417,7 +443,7 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
               // del alto de su contenido y el 100% no tendría contra qué medir.
               className={cn(
                 "col-start-1 row-start-1 w-full",
-                (phase === "notify" || phase === "install") && "self-stretch",
+                inNotifyFlow && "self-stretch",
               )}
             >
               {phase === "streak" && data && (
@@ -441,6 +467,7 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
                   onInstall={() => setPhase("install")}
                   context={notifyHintRef.current?.context}
                   sessionNumber={notifyHintRef.current?.sessionNumber}
+                  shows={notifyHintRef.current?.shows}
                 />
               )}
               {phase === "install" && (
@@ -1055,16 +1082,7 @@ function StreakPane({
     onStep: (p) => tickRef.current(0.9 + p * 0.6),
     onDone: () => {
       setShowFooter(true)
-      const el = numberRef.current
-      const r = el?.getBoundingClientRect()
-      onCountDoneRef.current?.(
-        r
-          ? {
-              x: ((r.left + r.width / 2) / window.innerWidth) * 100,
-              y: ((r.top + r.height / 2) / window.innerHeight) * 100,
-            }
-          : null,
-      )
+      onCountDoneRef.current?.(centerInViewportPercent(numberRef.current))
     },
   })
 

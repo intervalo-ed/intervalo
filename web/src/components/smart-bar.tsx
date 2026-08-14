@@ -18,14 +18,8 @@ const HIDDEN_PREFIXES = ["/onboarding", "/sign-in", "/sso-callback"]
 // sufijo porque la ruta es /session/<id>/summary.
 const HIDDEN_SUFFIXES = ["/summary"]
 
-function SmartBar() {
+function SmartBar({ platform }: { platform: Platform }) {
   const [open, setOpen] = useState(false)
-  const [platform, setPlatform] = useState<Platform>("desktop")
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setPlatform(getPlatform())
-  }, [])
 
   return (
     <>
@@ -80,5 +74,5 @@ export function SmartBarGate() {
   if (HIDDEN_PREFIXES.some((p) => pathname.startsWith(p))) return null
   if (HIDDEN_SUFFIXES.some((s) => pathname.endsWith(s))) return null
 
-  return <SmartBar />
+  return <SmartBar platform={platform} />
 }

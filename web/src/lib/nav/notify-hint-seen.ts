@@ -65,23 +65,27 @@ export function shouldShowNotifyHint({
   return sessionNumber - state.lastSession >= CADENCE
 }
 
+// Devuelve el estado resultante para que quien muestra la pestaña pueda
+// reportar en telemetría qué número de aparición fue (1ª invitación vs 4ª
+// insistencia).
 export function markNotifyHintSeen({
   context,
   sessionNumber,
 }: {
   context: NotifyHintContext
   sessionNumber: number
-}): void {
-  if (typeof window === "undefined") return
-  const state = readState(context)
+}): HintState {
+  const state = typeof window === "undefined" ? null : readState(context)
   const next: HintState = {
     shows: (state?.shows ?? 0) + 1,
     lastSession: sessionNumber,
   }
+  if (typeof window === "undefined") return next
   try {
     window.localStorage.setItem(storageKey(context), JSON.stringify(next))
   } catch {
     // Modo privado / cuota llena: perder el registro solo hace que el pedido
     // vuelva a aparecer, que es preferible a romper el summary.
   }
+  return next
 }

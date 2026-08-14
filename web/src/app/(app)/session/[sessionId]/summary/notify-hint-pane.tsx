@@ -6,6 +6,7 @@ import posthog from "posthog-js"
 import { BellIcon, ClockIcon, SquarePlusIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Spinner } from "@/components/ui/spinner"
+import { centerInViewportPercent } from "@/lib/utils"
 import {
   Select,
   SelectContent,
@@ -19,7 +20,13 @@ import {
   useEnableNotifications,
   useUpdateReminderTime,
 } from "@/lib/push/UseEnableNotifications"
-import { isStandalone, usePlatform, type Platform } from "@/lib/platform/detect"
+import {
+  isStandalone,
+  needsInstallForPush,
+  readStandaloneSignals,
+  usePlatform,
+  type Platform,
+} from "@/lib/platform/detect"
 
 // El CTA "Continuar" del summary queda gris este rato al entrar a la pestaña,
 // para que el pedido de notificaciones se lea antes de poder saltearlo. Vive
@@ -38,19 +45,19 @@ export type NotifyHintPreview = {
 }
 
 // Pestaña de notificaciones: aparece cada tantas sesiones mientras no estén
-// activadas (ver notify-hint-seen.ts), solo si el navegador soporta push.
-// Instalada como PWA permite activar los recordatorios acá mismo (elegir
-// horario + suscribirse); en el navegador de un celular push no funciona
-// todavía, así que ofrece los pasos de instalación en el diálogo compartido.
-// En escritorio Chrome y Edge sí soportan push sin instalar nada, así que ahí
-// se pide el permiso directo. El CTA "Continuar" del summary lleva a Perfil en
-// todos los casos.
+// activadas (ver notify-hint-seen.ts). Instalada como PWA (o en escritorio,
+// donde push anda sin instalar) permite activar los recordatorios acá mismo;
+// en el navegador de un celular invita a instalar — en iOS porque push no
+// existe fuera de la app, y en Android por decisión de producto: el navegador
+// soporta push, pero lo que se busca es la app instalada. El CTA "Continuar"
+// del summary lleva a Perfil cuando push funciona acá, si no a casa.
 export function NotifyHintPane({
   settingsLoading,
   onEnabled,
   onInstall,
   context,
   sessionNumber,
+  shows,
   preview,
 }: {
   settingsLoading: boolean
@@ -63,12 +70,15 @@ export function NotifyHintPane({
   onInstall: () => void
   context?: string
   sessionNumber?: number
+  // Qué número de aparición es (1 = primera invitación): distingue en los
+  // eventos la primera vez de la cuarta insistencia.
+  shows?: number
   preview?: NotifyHintPreview
 }) {
   const detected = usePlatform()
   const platform = preview?.platform ?? detected
   const standalone = preview?.standalone ?? isStandalone()
-  const needsInstall = platform !== null && !standalone && platform !== "desktop"
+  const needsInstall = needsInstallForPush({ platform, standalone })
   const [time, setTime] = useState(DEFAULT_REMINDER_TIME)
   // Dos pasos: primero se activa (con el horario por defecto) y recién ahí
   // aparece el selector de hora, que ya persiste solo. Antes se pedían las dos
@@ -84,18 +94,11 @@ export function NotifyHintPane({
         context,
         platform,
         session_number: sessionNumber,
+        shows,
       })
       // Se mide acá, con el botón todavía montado: el setJustEnabled de arriba
       // recién lo reemplaza en el próximo render.
-      const r = enableButtonRef.current?.getBoundingClientRect()
-      onEnabled(
-        r
-          ? {
-              x: ((r.left + r.width / 2) / window.innerWidth) * 100,
-              y: ((r.top + r.height / 2) / window.innerHeight) * 100,
-            }
-          : null,
-      )
+      onEnabled(centerInViewportPercent(enableButtonRef.current))
     },
   })
   const updateTime = useUpdateReminderTime()
@@ -111,17 +114,17 @@ export function NotifyHintPane({
     // Las dos señales crudas viajan sueltas porque ya nos mintieron una vez
     // (ver isStandalone): si el modo no cuadra con el contexto, acá se ve cuál
     // de las dos falló.
+    const signals = readStandaloneSignals()
     posthog.capture("notify_hint_shown", {
       mode: needsInstall ? "install" : "enable",
       context,
       platform,
       session_number: sessionNumber,
-      standalone_mql:
-        window.matchMedia?.("(display-mode: standalone)").matches ?? false,
-      standalone_navigator:
-        (window.navigator as { standalone?: boolean }).standalone === true,
+      shows,
+      standalone_mql: signals.mql,
+      standalone_navigator: signals.iosStandalone,
     })
-  }, [preview, platform, needsInstall, context, sessionNumber])
+  }, [preview, platform, needsInstall, context, sessionNumber, shows])
 
   return (
     // Alto completo, un único grupo centrado: campana, texto y controles se
@@ -179,6 +182,7 @@ export function NotifyHintPane({
                 context,
                 platform,
                 session_number: sessionNumber,
+                shows,
               })
               onInstall()
             }}
