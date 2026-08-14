@@ -20,8 +20,8 @@ if (utmSource) {
   posthog.register_once({ [FIRST_UTM_SOURCE]: utmSource })
 }
 
-// La instalación de la PWA es manual: el onboarding muestra los pasos y el
-// usuario los hace en el menú del navegador (ver install-prompt.tsx). No hay
+// La instalación de la PWA es manual: el resumen de sesión muestra los pasos y
+// el usuario los hace en el menú del navegador (ver notify-hint-pane.tsx). No hay
 // `beforeinstallprompt` que interceptar, y en iOS `appinstalled` no existe. La
 // única señal fiable es si la app está corriendo instalada, que se evalúa en
 // cada carga.

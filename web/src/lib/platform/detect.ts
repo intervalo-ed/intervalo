@@ -14,12 +14,53 @@ export function getPlatform(): Platform {
   return "desktop"
 }
 
+// Las dos señales crudas, expuestas aparte para que la telemetría reporte
+// exactamente lo que esta función mira (si acá se suma una señal, el evento la
+// hereda solo).
+export function readStandaloneSignals(): {
+  mql: boolean
+  iosStandalone: boolean
+} {
+  return {
+    mql: window.matchMedia?.("(display-mode: standalone)").matches ?? false,
+    iosStandalone:
+      (window.navigator as { standalone?: boolean }).standalone === true,
+  }
+}
+
+// Caso real (iyacobino, iPhone 11, 12/08): al cargar la PWA las dos señales
+// dieron true (el pwa_install salió bien), pero un render de un minuto después
+// leyó false y la pestaña de notificaciones pidió instalar la app... dentro de
+// la app. WebKit puede flakear, pero solo en una dirección: un navegador común
+// jamás reporta standalone=true, así que true es confiable y false puede ser
+// mentira. El latch es monotónico: al primer true queda fijo; mientras sea
+// false se vuelve a leer, así un false flakeado en el arranque no condena la
+// sesión entera a modo navegador.
+let standaloneCached = false
+
+function computeStandalone(): boolean {
+  const s = readStandaloneSignals()
+  return s.mql || s.iosStandalone
+}
+
 export function isStandalone(): boolean {
   if (typeof window === "undefined") return false
-  const mql = window.matchMedia?.("(display-mode: standalone)").matches ?? false
-  const iosStandalone =
-    (window.navigator as { standalone?: boolean }).standalone === true
-  return mql || iosStandalone
+  if (!standaloneCached) standaloneCached = computeStandalone()
+  return standaloneCached
+}
+
+// Contexto en el que pedir push exige instalar primero: navegador de un
+// celular. En Android el navegador soporta push igual, pero el producto quiere
+// la app instalada (recordatorios + hábito), así que ahí también se invita a
+// instalar. Vive acá para que el pane y el summary usen el MISMO predicado.
+export function needsInstallForPush({
+  platform,
+  standalone,
+}: {
+  platform: Platform | null
+  standalone: boolean
+}): boolean {
+  return platform !== null && platform !== "desktop" && !standalone
 }
 
 // Devuelve null hasta montar para evitar mismatch de hidratación SSR.

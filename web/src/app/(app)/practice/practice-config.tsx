@@ -36,6 +36,7 @@ import {
 import { useUser } from "@clerk/nextjs"
 import { CheckIcon, ChevronDown, Info, RotateCcwIcon, SettingsIcon } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
+import posthog from "posthog-js"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { parseAsInteger, parseAsStringLiteral, useQueryState } from "nuqs"
@@ -263,6 +264,12 @@ export default function PracticeConfig() {
   function onStart() {
     if (!canStart) return
     sfx.start()
+    posthog.capture("session_start_tap", {
+      source: "practicar",
+      course,
+      items: selectedItems.length,
+      count: count ?? 10,
+    })
     startPractice.mutate(
       {
         userName: user?.fullName ?? user?.firstName ?? "",

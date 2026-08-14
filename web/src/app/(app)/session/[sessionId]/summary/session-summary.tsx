@@ -4,11 +4,12 @@ import { useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { AnimatePresence, motion } from "motion/react"
 import { useQueryClient } from "@tanstack/react-query"
+import posthog from "posthog-js"
 import { XpDots } from "@/components/xp-dots"
 import { Alert, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { Screen, ScreenBody } from "@/components/ui/screen"
-import { cn } from "@/lib/utils"
+import { centerInViewportPercent, cn } from "@/lib/utils"
 import { BELT_VIVID_COLORS } from "@/lib/catalog"
 import { queryKeys } from "@/lib/query/keys"
 import { clearSession } from "@/lib/session/storage"
@@ -16,25 +17,28 @@ import { useApi } from "@/lib/api/useApi"
 import { setRankingNews } from "@/lib/nav/ranking-news"
 import { getLastKnownRank, setLastKnownRank } from "@/lib/nav/ranking-rank"
 import { setProfileNews } from "@/lib/nav/profile-news"
-import { markNotifyHintSeen, useNotifyHintUnseen } from "@/lib/nav/notify-hint-seen"
+import {
+  getNotifyHintContext,
+  markNotifyHintSeen,
+  shouldShowNotifyHint,
+  type NotifyHintContext,
+} from "@/lib/nav/notify-hint-seen"
 import { isPushSupported } from "@/lib/push/register"
+import {
+  getPlatform,
+  isStandalone,
+  needsInstallForPush,
+} from "@/lib/platform/detect"
 import { useNotificationSettingsQuery } from "@/app/(app)/profile/UseNotificationSettings"
 import { useSfx, useTick } from "@/lib/audio/useSfx"
 import type { components } from "@/lib/api/schema"
 import { NOTIFY_CTA_COOLDOWN_MS, NotifyHintPane } from "./notify-hint-pane"
+import { InstallHintPane } from "./install-hint-pane"
+import { SLIDE_TRANSITION, slideVariants } from "./slide-variants"
 import { useSummary } from "./UseSummary"
 
 const ctaCls =
   "h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
-
-// Mismo deslizamiento horizontal que entre ejercicios de la sesión (ver
-// session-runner.tsx): cada fase (resumen → racha → notificaciones) entra
-// desde la derecha, sin fundido.
-const slideVariants = {
-  enter: { x: "100%", opacity: 1 },
-  center: { x: "0%", opacity: 1 },
-  exit: { x: "-100%", opacity: 1 },
-}
 
 // ── Ajustes del conteo (XP, ejercicios correctos y días de racha) ─────────────
 // Un salto por unidad, acelerando: cada salto dura RAMP_DECAY veces lo que el
@@ -128,18 +132,67 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   const [exploded, setExploded] = useState(false)
   // Panel de racha: aparece tras Continuar, solo si esta sesión fue la primera
   // completada hoy (`counted_today`, una vez por día de actividad). El de
-  // notificaciones lo sigue, pero solo una vez por dispositivo, si el
-  // navegador soporta push y todavía no están activadas.
-  const [phase, setPhase] = useState<"summary" | "streak" | "notify">("summary")
-  const [pushSupported, setPushSupported] = useState(false)
-  useEffect(() => {
-    setPushSupported(isPushSupported())
-  }, [])
-  const notifyUnseen = useNotifyHintUnseen()
+  // notificaciones lo sigue, todavía sin activar y según la cadencia de
+  // notify-hint-seen. El soporte de push importa distinto según el modo: para
+  // "activá" tiene que funcionar acá mismo, pero para "instalá" NO — Safari en
+  // iOS solo expone la Push API a la app instalada, así que en el navegador
+  // isPushSupported() da false justo cuando más hace falta invitar a instalar.
+  const [phase, setPhase] = useState<
+    "summary" | "streak" | "notify" | "install"
+  >("summary")
   const settings = useNotificationSettingsQuery()
   const notifAlreadyEnabled = settings.data?.enabled === true
   const shouldShowStreak = data?.streak.counted_today === true
-  const shouldShowNotify = pushSupported && notifyUnseen && !notifAlreadyEnabled
+  // La decisión de mostrar la pestaña se resuelve una sola vez (en el primer
+  // Continuar, ya con `data`) y queda congelada: si se recalculara, marcarla
+  // como vista la apagaría con el usuario mirándola. Vive en un ref que solo
+  // se escribe desde handlers — nunca durante el render — así un render
+  // descartado de React no puede dejar un estado a medias.
+  const notifyHintRef = useRef<{
+    context: NotifyHintContext
+    sessionNumber: number
+    show: boolean
+    shows: number
+  } | null>(null)
+  function resolveNotifyHint() {
+    if (notifyHintRef.current === null && data) {
+      const context = getNotifyHintContext()
+      const sessionNumber = data.session_number
+      // El soporte de push importa distinto según el modo: para "activá" tiene
+      // que funcionar acá mismo, pero para "instalá" NO — Safari en iOS solo
+      // expone la Push API a la app instalada, así que en el navegador
+      // isPushSupported() da false justo cuando más hace falta invitar a
+      // instalar.
+      const installContext = needsInstallForPush({
+        platform: getPlatform(),
+        standalone: isStandalone(),
+      })
+      notifyHintRef.current = {
+        context,
+        sessionNumber,
+        show:
+          (isPushSupported() || installContext) &&
+          shouldShowNotifyHint({ context, sessionNumber }),
+        shows: 0,
+      }
+    }
+    return notifyHintRef.current
+  }
+  // Marca la vista al ENTRAR, no al salir: los pasos de instalación terminan en
+  // "cerrá tu navegador", así que el recorrido más valioso nunca pasa por
+  // Continuar — sin esto, la cadencia y el tope jamás corrían para esa gente y
+  // el pedido reaparecía todas las sesiones.
+  function enterNotify() {
+    const hint = resolveNotifyHint()
+    if (hint) {
+      const state = markNotifyHintSeen({
+        context: hint.context,
+        sessionNumber: hint.sessionNumber,
+      })
+      hint.shows = state.shows
+    }
+    setPhase("notify")
+  }
   const sfxRef = useRef(sfx)
   sfxRef.current = sfx
   const tickRef = useRef(tick)
@@ -180,44 +233,74 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   // El botón Continuar queda gris NOTIFY_CTA_COOLDOWN_MS al entrar a la pestaña
   // de notificaciones, salvo que el usuario ya las haya activado ahí mismo
   // (`notifJustEnabled`).
+  // La slide de instalación arranca su propio cooldown: el efecto se vuelve a
+  // correr al cambiar de fase, así que los pasos también se leen antes de poder
+  // saltearlos.
   const [notifWaiting, setNotifWaiting] = useState(false)
   const [notifJustEnabled, setNotifJustEnabled] = useState(false)
+  // Festejo al activar los recordatorios: explota desde el botón Activar
+  // (origen medido por el pane) en la paleta del hito de racha.
+  const [notifConfetti, setNotifConfetti] = useState<{
+    x: number
+    y: number
+  } | null>(null)
+  const inNotifyFlow = phase === "notify" || phase === "install"
   useEffect(() => {
-    if (phase !== "notify") return
+    if (phase !== "notify" && phase !== "install") return
     setNotifWaiting(true)
     const t = setTimeout(() => setNotifWaiting(false), NOTIFY_CTA_COOLDOWN_MS)
     return () => clearTimeout(t)
   }, [phase])
-  const notifyButtonDisabled =
-    phase === "notify" && notifWaiting && !notifJustEnabled
+  const notifyButtonDisabled = inNotifyFlow && notifWaiting && !notifJustEnabled
 
   function onContinue() {
+    // Cada rama toca sfx.continue() una sola vez: goHome ya lo hace por su
+    // cuenta, así que las ramas que caen ahí no lo repiten.
     if (phase === "summary") {
-      sfx.continue()
       if (shouldShowStreak) {
+        sfx.continue()
         setPhase("streak")
-      } else if (shouldShowNotify) {
-        setPhase("notify")
+      } else if (resolveNotifyHint()?.show && !notifAlreadyEnabled) {
+        sfx.continue()
+        enterNotify()
       } else {
         goHome()
       }
       return
     }
     if (phase === "streak") {
-      if (shouldShowNotify) {
+      if (resolveNotifyHint()?.show && !notifAlreadyEnabled) {
         sfx.continue()
-        setPhase("notify")
+        enterNotify()
         return
       }
       goHome()
       return
     }
-    // Desde la pestaña de notificaciones el destino es Perfil, donde se puede
-    // ajustar el horario (o activar, si se instaló la app recién).
-    markNotifyHintSeen()
-    sfx.continue()
-    router.push("/profile")
-    router.refresh()
+    // Saliendo de la pestaña de notificaciones (o de la de pasos, que sale de
+    // ella). El skip solo cuenta desde la de notificaciones: quien abrió los
+    // pasos ya emitió install_steps_open y su desenlace es el pwa_install
+    // posterior, no este tap.
+    const hint = notifyHintRef.current
+    if (phase === "notify" && hint && !notifJustEnabled) {
+      posthog.capture("notify_hint_action", {
+        action: "skipped",
+        context: hint.context,
+        platform: getPlatform(),
+        session_number: hint.sessionNumber,
+        shows: hint.shows,
+      })
+    }
+    // Perfil solo si ahí se puede hacer algo (ajustar horario / activar); en un
+    // navegador sin push esa pantalla dice "no soportado" — contradictorio con
+    // lo que acabamos de pedir — así que ahí se vuelve a casa.
+    if (isPushSupported()) {
+      sfx.continue()
+      router.push("/profile")
+      router.refresh()
+    } else {
+      goHome()
+    }
   }
 
   function goHome() {
@@ -315,6 +398,21 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
             )}
           </>
         )}
+        {/* Ídem para el festejo de recordatorios activados: explosión desde el
+            botón y, unos segundos después, la lluvia leve mientras se sigue en
+            la pestaña. */}
+        {notifConfetti && (
+          <>
+            <Confetti
+              count={TIER_CONFETTI}
+              colors={TIER_CONFETTI_COLORS}
+              origin={notifConfetti}
+            />
+            {phase === "notify" && (
+              <ConfettiRain colors={TIER_CONFETTI_COLORS} />
+            )}
+          </>
+        )}
         {/* Cada fase (resumen → racha → notificaciones) entra deslizándose
             desde la derecha, igual que entre ejercicios de la sesión — salvo la
             fase inicial (resumen), que no desliza (aparece tal cual, como
@@ -338,14 +436,14 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
               initial={phase === "summary" ? false : "enter"}
               animate="center"
               exit="exit"
-              transition={{ duration: 0.28, ease: "easeInOut" }}
-              // La pestaña de notificaciones es la única que ocupa todo el
-              // alto: necesita apoyar sus controles contra el pie. `self-stretch`
+              transition={SLIDE_TRANSITION}
+              // Las pestañas de notificaciones e instalación ocupan todo el
+              // alto: necesitan apoyar sus controles contra el pie. `self-stretch`
               // (y no `h-full`) porque el `items-center` de la grilla la dejaría
               // del alto de su contenido y el 100% no tendría contra qué medir.
               className={cn(
                 "col-start-1 row-start-1 w-full",
-                phase === "notify" && "self-stretch",
+                inNotifyFlow && "self-stretch",
               )}
             >
               {phase === "streak" && data && (
@@ -362,8 +460,18 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
               {phase === "notify" && (
                 <NotifyHintPane
                   settingsLoading={settings.isLoading}
-                  onEnabled={() => setNotifJustEnabled(true)}
+                  onEnabled={(origin) => {
+                    setNotifJustEnabled(true)
+                    setNotifConfetti(origin ?? { x: 50, y: 70 })
+                  }}
+                  onInstall={() => setPhase("install")}
+                  context={notifyHintRef.current?.context}
+                  sessionNumber={notifyHintRef.current?.sessionNumber}
+                  shows={notifyHintRef.current?.shows}
                 />
+              )}
+              {phase === "install" && (
+                <InstallHintPane />
               )}
               {phase === "summary" && (
                 <div className="relative w-full -translate-y-[15px]">
@@ -974,16 +1082,7 @@ function StreakPane({
     onStep: (p) => tickRef.current(0.9 + p * 0.6),
     onDone: () => {
       setShowFooter(true)
-      const el = numberRef.current
-      const r = el?.getBoundingClientRect()
-      onCountDoneRef.current?.(
-        r
-          ? {
-              x: ((r.left + r.width / 2) / window.innerWidth) * 100,
-              y: ((r.top + r.height / 2) / window.innerHeight) * 100,
-            }
-          : null,
-      )
+      onCountDoneRef.current?.(centerInViewportPercent(numberRef.current))
     },
   })
 

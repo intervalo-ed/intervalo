@@ -12,14 +12,14 @@ import { getPlatform, isStandalone, type Platform } from "@/lib/platform/detect"
 // usuario está deslogueado).
 const HIDDEN_PREFIXES = ["/onboarding", "/sign-in", "/sso-callback"]
 
-function SmartBar() {
-  const [open, setOpen] = useState(false)
-  const [platform, setPlatform] = useState<Platform>("desktop")
+// El resumen de sesión encadena animaciones (conteo de XP, de ejercicios
+// correctos, de días de racha) y termina en las slides de notificaciones e
+// instalación: una barra blanca arriba las ensucia y les come alto. Va por
+// sufijo porque la ruta es /session/<id>/summary.
+const HIDDEN_SUFFIXES = ["/summary"]
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setPlatform(getPlatform())
-  }, [])
+function SmartBar({ platform }: { platform: Platform }) {
+  const [open, setOpen] = useState(false)
 
   return (
     <>
@@ -46,6 +46,7 @@ export function SmartBarGate() {
   const pathname = usePathname()
   const [mounted, setMounted] = useState(false)
   const [standalone, setStandalone] = useState(false)
+  const [platform, setPlatform] = useState<Platform>("desktop")
 
   // Clerk puede reportar `isLoaded: false` un instante durante navegaciones
   // que disparan un round-trip de `auth.protect()` en el server (p. ej. entrar
@@ -62,11 +63,16 @@ export function SmartBarGate() {
     /* eslint-disable react-hooks/set-state-in-effect */
     setMounted(true)
     setStandalone(isStandalone())
+    setPlatform(getPlatform())
     /* eslint-enable react-hooks/set-state-in-effect */
   }, [])
 
+  // En escritorio no se ofrece instalar: Chrome y Edge mandan push sin PWA, así
+  // que la barra solo ocuparía lugar.
   if (!mounted || !everSignedInRef.current || standalone) return null
+  if (platform === "desktop") return null
   if (HIDDEN_PREFIXES.some((p) => pathname.startsWith(p))) return null
+  if (HIDDEN_SUFFIXES.some((s) => pathname.endsWith(s))) return null
 
-  return <SmartBar />
+  return <SmartBar platform={platform} />
 }

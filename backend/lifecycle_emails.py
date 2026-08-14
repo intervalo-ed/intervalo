@@ -199,7 +199,7 @@ def _api_base_url() -> str:
     return os.environ.get("API_BASE_URL", "https://api.intervalo.xyz")
 
 
-def _send(to_email: str, subject: str, html: str) -> bool:
+def _send(to_email: str, subject: str, html: str, unsubscribe_url: str) -> bool:
     """Best-effort send via Resend. Returns True on success, logs and swallows
     any failure so one bad address never blocks the rest of the batch."""
     api_key = os.environ.get("RESEND_API_KEY")
@@ -213,7 +213,21 @@ def _send(to_email: str, subject: str, html: str) -> bool:
         import resend
 
         resend.api_key = api_key
-        payload = {"from": from_email, "to": to_email, "subject": subject, "html": html}
+        payload = {
+            "from": from_email,
+            "to": to_email,
+            "subject": subject,
+            "html": html,
+            # Gmail y Yahoo ponen su propio botón de "Cancelar suscripción" arriba
+            # de todo cuando existe este par de headers, y cuentan su ausencia como
+            # señal negativa de reputación aunque el link esté en el pie. El POST
+            # de un click lo maneja el mismo endpoint (ver main.py) — sin eso,
+            # Gmail recibiría un 405 y descartaría el header.
+            "headers": {
+                "List-Unsubscribe": f"<{unsubscribe_url}>",
+                "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+            },
+        }
         if LOGO_PATH.exists():
             payload["attachments"] = [
                 {
@@ -232,14 +246,15 @@ def _send(to_email: str, subject: str, html: str) -> bool:
 
 def send_bounce_email(db: DBSession, user: User) -> bool:
     name = greeting_name(user)
+    unsubscribe_url = f"{_api_base_url()}/email/unsubscribe?token={unsubscribe_token(user.id)}"
     html = render_email(
         greeting=f"Hola {name}, empezaste a explorar Intervalo pero todavía no terminaste tu primera sesión de repaso.",
         question="¿Arrancamos?",
         cta_label="Continuar",
         cta_url=_app_base_url(),
-        unsubscribe_url=f"{_api_base_url()}/email/unsubscribe?token={unsubscribe_token(user.id)}",
+        unsubscribe_url=unsubscribe_url,
     )
-    sent = _send(user.email, f"¡Volvé {name}!", html)
+    sent = _send(user.email, f"¡Volvé {name}!", html, unsubscribe_url)
     if sent:
         user.bounce_email_sent_at = datetime.utcnow()
         db.commit()
@@ -248,14 +263,15 @@ def send_bounce_email(db: DBSession, user: User) -> bool:
 
 def send_winback_email(db: DBSession, user: User) -> bool:
     name = greeting_name(user)
+    unsubscribe_url = f"{_api_base_url()}/email/unsubscribe?token={unsubscribe_token(user.id)}"
     html = render_email(
         greeting=f"Hola {name}, no te vemos hace algunos días. Nada urgente, pero tus repasos pendientes van a seguir ahí hasta que vuelvas.",
         question="¿Volvemos?",
         cta_label="Continuar",
         cta_url=_app_base_url(),
-        unsubscribe_url=f"{_api_base_url()}/email/unsubscribe?token={unsubscribe_token(user.id)}",
+        unsubscribe_url=unsubscribe_url,
     )
-    sent = _send(user.email, f"¡Volvé {name}!", html)
+    sent = _send(user.email, f"¡Volvé {name}!", html, unsubscribe_url)
     if sent:
         user.winback_email_sent_at = datetime.utcnow()
         db.commit()
