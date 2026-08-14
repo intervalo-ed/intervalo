@@ -354,9 +354,15 @@ def enroll_user(
 ):
     """Enroll user in a course with onboarding data."""
     from models import Enrollment
+    from universities import canonical_university
 
     # Curso elegido en el onboarding (slug → id). Default analisis para compat.
     course_id = _resolve_course_id(body.course, db)
+
+    # "Uba", "uba" y "Universidad de Buenos Aires" son la misma universidad: se
+    # guarda siempre la sigla. Sin esto cada variante es una institución aparte
+    # para el ranking por universidad y pierde su tag en el leaderboard.
+    university = canonical_university(body.university) or ""
 
     # Check if already enrolled
     existing = db.query(Enrollment).filter(
@@ -366,7 +372,7 @@ def enroll_user(
 
     if existing:
         # Update enrollment
-        existing.university = body.university
+        existing.university = university
         existing.career = body.career
         existing.motivation = body.motivation
     else:
@@ -374,7 +380,7 @@ def enroll_user(
         enrollment = Enrollment(
             user_id=current_user.id,
             course_id=course_id,
-            university=body.university,
+            university=university,
             career=body.career,
             motivation=body.motivation,
         )

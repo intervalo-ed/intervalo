@@ -16,7 +16,7 @@ import {
   type CourseId,
 } from "@/lib/catalog"
 import { useGridLayout } from "@/lib/latex-visual-length"
-import { ONBOARDING_UNIVERSITIES, UNIVERSITY_TAG_BY_KEY, matchUniversities } from "@/lib/university-tags"
+import { ONBOARDING_UNIVERSITIES, UNIVERSITY_TAG_BY_KEY, canonicalUniversity, matchUniversities } from "@/lib/university-tags"
 import { ChevronLeft, LayersIcon, TargetIcon } from "lucide-react"
 import { useSignIn } from "@clerk/nextjs"
 import { useRouter } from "next/navigation"
@@ -911,7 +911,7 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
   }
 
   function confirmOther() {
-    const value = universityOther.trim()
+    const value = canonicalUniversity(universityOther)
     if (!value) return
     sfx.continue()
     setUniversity(value)
