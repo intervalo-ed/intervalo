@@ -200,9 +200,11 @@ export const UNIVERSITY_TAG_BY_KEY: Record<string, UniversityTag> = Object.fromE
   UNIVERSITY_TAGS.map((u) => [u.key, u]),
 )
 
-// Los accesos directos del step de universidad del onboarding. El resto de las
-// tags (incluidas UBA, UTN, etc.) entra por el campo "Otra".
-export const ONBOARDING_UNIVERSITIES = ["UNSAM", "UNC", "UADE"]
+// Los accesos directos del step de universidad del onboarding, en el orden en
+// que se dibujan (grilla de 3 columnas → dos filas). El resto de las tags entra
+// por el campo "Otra". Cada una necesita su logo en UNIVERSITY_LOGOS
+// (onboarding-wizard.tsx); sin logo el botón cae al texto de la sigla.
+export const ONBOARDING_UNIVERSITIES = ["UBA", "UTN", "UNLP", "UNSAM", "UNC", "UADE"]
 
 function normalize(s: string): string {
   return s

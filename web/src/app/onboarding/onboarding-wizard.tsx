@@ -49,6 +49,9 @@ const COURSES: { value: CourseId; emoji: string; label: string }[] = [
 // Logos monocromos (gris) de universidades para los botones del step de universidad.
 // El gris se atenúa sin seleccionar y se lleva a blanco (brightness) al seleccionar.
 const UNIVERSITY_LOGOS: Partial<Record<string, string>> = {
+  UBA: "/universities/uba.png",
+  UTN: "/universities/utn.png",
+  UNLP: "/universities/unlp.png",
   UNSAM: "/universities/unsam.png",
   UNC: "/universities/unc.png",
   UADE: "/universities/uade.png",
