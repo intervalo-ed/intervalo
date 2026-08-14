@@ -131,20 +131,53 @@ export function NotifyHintPane({
     // leen como una sola pila, con el botón inmediatamente debajo del texto
     // en vez de anclado al pie contra el CTA "Continuar" externo.
     <div className="flex h-full w-full flex-col items-center justify-center gap-5 text-center">
+      {/* Campana sin disco de fondo: entra con spring y, ya asentada, "suena"
+          oscilando desde su punto de anclaje (transformOrigin arriba, como una
+          campana colgada) mientras dos ondas nacen en ella y se expanden
+          desvaneciéndose — el "ping" de una notificación. Todo pasa una vez;
+          nada queda latiendo en loop mientras la pestaña está visible. */}
       <motion.div
-        className="flex size-14 items-center justify-center rounded-full bg-primary/15 text-primary"
+        className="relative flex size-14 items-center justify-center text-primary"
         initial={{ opacity: 0, scale: 0.4 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ type: "spring", stiffness: 600, damping: 18 }}
       >
-        {/* Campanazo: entra con el spring de arriba y, ya asentada, "suena"
-          una vez (delay ≈ cuando termina el spring) en vez de agitarse en
-          loop todo el tiempo que la pestaña está visible. */}
+        {/* Ondas: cúpulas semicirculares (SVG con puntas redondeadas) cuya base
+            pasa por el centro de la campana; escalan desde esa base, así que
+            crecen hacia arriba y a los costados, nunca hacia abajo. */}
+        {[0, 1].map((i) => (
+          <motion.span
+            key={i}
+            aria-hidden
+            className="absolute inset-0 text-primary"
+            style={{ transformOrigin: "50% 50%" }}
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: [0.5, 1.9], opacity: [0, 0.5, 0] }}
+            transition={{
+              duration: 1.1,
+              delay: 0.45 + i * 0.35,
+              ease: "easeOut",
+            }}
+          >
+            <svg viewBox="0 0 56 56" className="h-full w-full overflow-visible">
+              <path
+                d="M 4 28 A 24 24 0 0 1 52 28"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2.5}
+                strokeLinecap="round"
+              />
+            </svg>
+          </motion.span>
+        ))}
+        {/* Mismos 0.9s pero con más oscilaciones adentro: campanazo rápido que
+            se amortigua, no un vaivén lento. */}
         <motion.div
-          animate={{ rotate: [0, -15, 12, -8, 5, 0] }}
-          transition={{ duration: 0.5, delay: 0.4, ease: "easeInOut" }}
+          style={{ transformOrigin: "50% 12%" }}
+          animate={{ rotate: [0, -24, 20, -16, 12, -8, 5, -2, 0] }}
+          transition={{ duration: 0.9, delay: 0.4, ease: "easeInOut" }}
         >
-          <BellIcon className="size-7" />
+          <BellIcon className="size-9" />
         </motion.div>
       </motion.div>
       <motion.div
