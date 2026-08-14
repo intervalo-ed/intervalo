@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button"
 import { Spinner } from "@/components/ui/spinner"
 import { useApi } from "@/lib/api/useApi"
 import { clearOnboarding, readOnboarding } from "@/lib/onboarding/storage"
-import { OnboardingInstallPrompt } from "./install-prompt"
 import { RecoverProfileForm } from "./recover-profile-form"
 
 export default function OnboardingCompletePage() {
@@ -19,7 +18,6 @@ export default function OnboardingCompletePage() {
   const enroll = useEnrollMutation()
   const startedRef = useRef(false)
   const [statusError, setStatusError] = useState<string | null>(null)
-  const [showInstallPrompt, setShowInstallPrompt] = useState(false)
   const [showRecoverForm, setShowRecoverForm] = useState(false)
 
   const failure = enroll.error
@@ -53,9 +51,10 @@ export default function OnboardingCompletePage() {
     // para que abra ahí de entrada (antes de que responda el back).
     window.localStorage.setItem(LAST_COURSE_KEY, data.course)
     clearOnboarding()
-    // Mostramos la pantalla "¡Una cosa más!" (instalar la app); al tocar
-    // Continuar se navega al dashboard, donde el usuario arranca su repaso.
-    setShowInstallPrompt(true)
+    // Directo al dashboard, a hacer la primera sesión. La instalación se pide
+    // recién al terminarla (ver notify-hint-pane.tsx): antes era una pantalla
+    // sin salida acá y se perdía la mitad de la gente ya registrada.
+    router.replace("/")
   }
 
   // The DB is authoritative for new-vs-returning. Returning users go straight
@@ -115,10 +114,6 @@ export default function OnboardingCompletePage() {
 
   if (showRecoverForm) {
     return <RecoverProfileForm onDone={() => router.replace("/")} />
-  }
-
-  if (showInstallPrompt) {
-    return <OnboardingInstallPrompt />
   }
 
   return (
