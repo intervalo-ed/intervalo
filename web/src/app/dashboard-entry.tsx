@@ -60,6 +60,7 @@ import { topicShortLabel } from "@/lib/catalog"
 import { useUser } from "@clerk/nextjs"
 import { CheckIcon, InfoIcon, RotateCcwIcon, SettingsIcon } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
+import posthog from "posthog-js"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useEffect, useMemo, useState } from "react"
@@ -257,6 +258,7 @@ export default function DashboardEntry() {
 
   function onRepasar() {
     sfx.start()
+    posthog.capture("session_start_tap", { source: "repasar", course })
     startSession.mutate(
       { userName: user?.fullName ?? user?.firstName ?? "", course },
       {
