@@ -952,7 +952,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                   value={cur.reportValue}
                   freeTextRef={reportFreeTextRef}
                   submitted={cur.reportSubmitted}
-                  onSelect={(v) => patch({ reportValue: v })}
+                  onSelect={(v) => { sfx.select(); patch({ reportValue: v }) }}
                 />
               ) : cur.showSurvey ? (
                 <SurveyPane
@@ -960,7 +960,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                   value={cur.surveyValue}
                   freeTextRef={surveyFreeTextRef}
                   submitted={cur.surveySubmitted}
-                  onSelect={(v) => patch({ surveyValue: v })}
+                  onSelect={(v) => { sfx.select(); patch({ surveyValue: v }) }}
                 />
               ) : cur.showWhy ? (
                 <div className="flex flex-col gap-3 leading-relaxed text-foreground">
