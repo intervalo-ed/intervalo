@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 import { useEffect, useState } from "react"
 import {
   NOTIFY_CTA_COOLDOWN_MS,
+  NotifyHintAction,
   NotifyHintPane,
   type NotifyHintPreview,
 } from "@/app/(app)/session/[sessionId]/summary/notify-hint-pane"
@@ -148,20 +149,26 @@ export default function DevNotifyPanePage() {
                 {showInstall ? (
                   <InstallHintPane platformOverride={variant.preview.platform} />
                 ) : (
-                  <NotifyHintPane
-                    preview={variant.preview}
-                    settingsLoading={variant.settingsLoading ?? false}
-                    onEnabled={() => {}}
-                    onInstall={() => setShowInstall(true)}
-                  />
+                  <NotifyHintPane preview={variant.preview} />
                 )}
               </motion.div>
             </AnimatePresence>
           </div>
         </ScreenBody>
 
+        {/* Mismo apilado que el summary: la acción vive en el contenedor del
+            CTA, arriba de Continuar. */}
         <div className="shrink-0 px-5 pt-[var(--cta-pt)] pb-[var(--cta-pb)]">
-          <div className="mx-auto w-full max-w-2xl">
+          <div className="mx-auto flex w-full max-w-2xl flex-col gap-2">
+            {!showInstall && (
+              <NotifyHintAction
+                key={variant.id}
+                preview={variant.preview}
+                settingsLoading={variant.settingsLoading ?? false}
+                onEnabled={() => {}}
+                onInstall={() => setShowInstall(true)}
+              />
+            )}
             <Button
               size="lg"
               className="h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"

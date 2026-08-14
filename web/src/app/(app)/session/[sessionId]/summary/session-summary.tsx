@@ -32,7 +32,11 @@ import {
 import { useNotificationSettingsQuery } from "@/app/(app)/profile/UseNotificationSettings"
 import { useSfx, useTick } from "@/lib/audio/useSfx"
 import type { components } from "@/lib/api/schema"
-import { NOTIFY_CTA_COOLDOWN_MS, NotifyHintPane } from "./notify-hint-pane"
+import {
+  NOTIFY_CTA_COOLDOWN_MS,
+  NotifyHintAction,
+  NotifyHintPane,
+} from "./notify-hint-pane"
 import { InstallHintPane } from "./install-hint-pane"
 import { SLIDE_TRANSITION, slideVariants } from "./slide-variants"
 import { useSummary } from "./UseSummary"
@@ -459,12 +463,6 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
               )}
               {phase === "notify" && (
                 <NotifyHintPane
-                  settingsLoading={settings.isLoading}
-                  onEnabled={(origin) => {
-                    setNotifJustEnabled(true)
-                    setNotifConfetti(origin ?? { x: 50, y: 70 })
-                  }}
-                  onInstall={() => setPhase("install")}
                   context={notifyHintRef.current?.context}
                   sessionNumber={notifyHintRef.current?.sessionNumber}
                   shows={notifyHintRef.current?.shows}
@@ -564,8 +562,24 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: showButton ? 1 : 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="mx-auto w-full max-w-2xl"
+          className="mx-auto flex w-full max-w-2xl flex-col gap-2"
         >
+          {/* La acción de la pestaña de notificaciones se apila acá, arriba de
+              Continuar (misma pila que el fin del onboarding), no dentro de la
+              slide: comparten contenedor, ancho y separación. */}
+          {phase === "notify" && (
+            <NotifyHintAction
+              settingsLoading={settings.isLoading}
+              onEnabled={(origin) => {
+                setNotifJustEnabled(true)
+                setNotifConfetti(origin ?? { x: 50, y: 70 })
+              }}
+              onInstall={() => setPhase("install")}
+              context={notifyHintRef.current?.context}
+              sessionNumber={notifyHintRef.current?.sessionNumber}
+              shows={notifyHintRef.current?.shows}
+            />
+          )}
           <Button
             size="lg"
             className={ctaCls}

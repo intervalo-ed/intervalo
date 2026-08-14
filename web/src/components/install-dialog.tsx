@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import type { Platform } from "@/lib/platform/detect"
-import { MoreVerticalIcon, ShareIcon } from "lucide-react"
+import { MoreVerticalIcon, ShareIcon, SquarePlusIcon } from "lucide-react"
 
 // `text` es ReactNode y no string para poder resaltar el nombre exacto del
 // control que hay que tocar (ver «Compartir»).
@@ -37,7 +37,12 @@ const PLATFORM_STEPS: Record<
         ),
         icon: <ShareIcon className="size-4" />,
       },
-      { text: "Elegí «Agregar a inicio»." },
+      {
+        // El share sheet de iOS muestra ese ícono a la derecha de la fila; el
+        // menú de Chrome en Android no, así que ahí el paso va sin ícono.
+        text: "Elegí «Agregar a inicio»",
+        icon: <SquarePlusIcon className="size-4" />,
+      },
       { text: "Confirmá tocando «Agregar»." },
     ],
   },
