@@ -24,6 +24,7 @@ import {
   type NotifyHintContext,
 } from "@/lib/nav/notify-hint-seen"
 import { isPushSupported } from "@/lib/push/register"
+import { isStandalone, usePlatform } from "@/lib/platform/detect"
 import { useNotificationSettingsQuery } from "@/app/(app)/profile/UseNotificationSettings"
 import { useSfx, useTick } from "@/lib/audio/useSfx"
 import type { components } from "@/lib/api/schema"
@@ -131,15 +132,23 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   const [exploded, setExploded] = useState(false)
   // Panel de racha: aparece tras Continuar, solo si esta sesión fue la primera
   // completada hoy (`counted_today`, una vez por día de actividad). El de
-  // notificaciones lo sigue, si el navegador soporta push, todavía no están
-  // activadas y toca mostrarlo según la cadencia de notify-hint-seen.
+  // notificaciones lo sigue, todavía sin activar y según la cadencia de
+  // notify-hint-seen. El soporte de push importa distinto según el modo: para
+  // "activá" tiene que funcionar acá mismo, pero para "instalá" NO — Safari en
+  // iOS solo expone la Push API a la app instalada, así que en el navegador
+  // isPushSupported() da false justo cuando más hace falta invitar a instalar.
   const [phase, setPhase] = useState<
     "summary" | "streak" | "notify" | "install"
   >("summary")
   const [pushSupported, setPushSupported] = useState(false)
+  const platform = usePlatform()
   useEffect(() => {
     setPushSupported(isPushSupported())
   }, [])
+  // Contexto donde el pane pediría instalar en vez de activar: navegador de un
+  // celular. Ahí alcanza con que push vaya a funcionar después de instalar.
+  const installContext =
+    platform !== null && platform !== "desktop" && !isStandalone()
   const settings = useNotificationSettingsQuery()
   const notifAlreadyEnabled = settings.data?.enabled === true
   const shouldShowStreak = data?.streak.counted_today === true
@@ -160,7 +169,9 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
     }
   }
   const shouldShowNotify =
-    pushSupported && !notifAlreadyEnabled && notifyHintRef.current?.show === true
+    (pushSupported || installContext) &&
+    !notifAlreadyEnabled &&
+    notifyHintRef.current?.show === true
   const sfxRef = useRef(sfx)
   sfxRef.current = sfx
   const tickRef = useRef(tick)
