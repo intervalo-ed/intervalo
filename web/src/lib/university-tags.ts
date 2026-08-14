@@ -211,6 +211,22 @@ function normalize(s: string): string {
     .replace(/[̀-ͯ]/g, "")
 }
 
+// Lo que se guarda cuando alguien escribe la universidad a mano en "Otra". Si
+// el texto es una sigla o el nombre completo de una tag conocida (sin importar
+// may/min ni tildes), se guarda la sigla canónica: alguien que escribe "uba" o
+// "Universidad de Buenos Aires" tiene que quedar con la misma tag azul que
+// alguien que tocó la sugerencia "UBA", no con el chip gris de universidad
+// desconocida. Si no matchea nada, se guarda tal cual lo escribió.
+export function canonicalUniversity(input: string): string {
+  const value = input.trim()
+  const q = normalize(value)
+  if (!q) return value
+  const match = UNIVERSITY_TAGS.find(
+    (uni) => normalize(uni.key) === q || normalize(uni.fullName) === q,
+  )
+  return match ? match.key : value
+}
+
 // Sugerencias de universidad para el campo "Otra" del onboarding: matchea por
 // sigla o por nombre completo (sin distinguir may/min ni tildes). Prioriza los
 // matches por sigla por sobre los que solo matchean por nombre completo.

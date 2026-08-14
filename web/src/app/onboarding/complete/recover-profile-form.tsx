@@ -6,7 +6,7 @@ import { CAREERS, CareerCard, OptionButton } from "@/app/onboarding/onboarding-w
 import { useEnrollMutation } from "@/app/onboarding/UseEnrollMutation"
 import { Button } from "@/components/ui/button"
 import { Spinner } from "@/components/ui/spinner"
-import { ONBOARDING_UNIVERSITIES, matchUniversities } from "@/lib/university-tags"
+import { ONBOARDING_UNIVERSITIES, canonicalUniversity, matchUniversities } from "@/lib/university-tags"
 
 /**
  * Usuarios con progreso real (unit_states) pero sin Enrollment nunca llegaron
@@ -25,7 +25,7 @@ export function RecoverProfileForm({ onDone }: { onDone: () => void }) {
   const [showOther, setShowOther] = useState(false)
   const suggestions = universityOther.trim() ? matchUniversities(universityOther) : []
 
-  const finalUniversity = showOther ? universityOther.trim() : university
+  const finalUniversity = showOther ? canonicalUniversity(universityOther) : university
   const canSubmit = Boolean(career && finalUniversity)
 
   async function handleSubmit() {
