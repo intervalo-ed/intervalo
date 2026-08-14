@@ -818,32 +818,71 @@ def internal_sweep_abandoned_sessions(db: Session = Depends(get_db)):
     return {"marked": session_store.sweep_abandoned_sessions(db)}
 
 
+def _unsub_page(body: str, status_code: int = 200) -> HTMLResponse:
+    return HTMLResponse(
+        "<html><head><meta name='viewport' content='width=device-width, initial-scale=1'>"
+        "<meta name='robots' content='noindex'></head>"
+        "<body style='font-family:sans-serif;background:#131324;color:#f6f8fc;"
+        f"text-align:center;padding:64px 24px;'>{body}</body></html>",
+        status_code=status_code,
+    )
+
+
+_UNSUB_INVALID = "Ese link no es válido."
+_UNSUB_DONE = (
+    "<p style='font-size:20px;font-weight:700;margin:0 0 8px;'>intervalo</p>"
+    "<p>Te desuscribiste de estos emails. No vas a recibir más.</p>"
+)
+
+
 @app.get("/email/unsubscribe", response_class=HTMLResponse)
-def email_unsubscribe(token: str, db: Session = Depends(get_db)):
-    """No-login unsubscribe link clicked from an email. Marks the user opted
-    out of lifecycle emails and shows a minimal confirmation page."""
+def email_unsubscribe_page(token: str):
+    """Pantalla de confirmación del link de baja del pie de los mails.
+
+    El GET no escribe nada a propósito. Los escáneres de links de Gmail y
+    Outlook visitan las URLs del cuerpo de un mail antes de que el usuario las
+    toque, así que un GET que diera de baja desuscribiría gente sin que se
+    entere y sin dejar rastro de que fue un bot. La baja real vive en el POST
+    de abajo, que ningún prefetch dispara.
+
+    El token se regenera desde el user_id ya verificado en vez de reflejar el
+    de la query: así nada de lo que venga en la URL llega al HTML."""
     import lifecycle_emails
 
     user_id = lifecycle_emails.verify_unsubscribe_token(token)
     if user_id is None:
-        return HTMLResponse(
-            "<html><body style='font-family:sans-serif;background:#131324;color:#f6f8fc;"
-            "text-align:center;padding:64px 24px;'>Ese link no es válido.</body></html>",
-            status_code=400,
-        )
+        return _unsub_page(_UNSUB_INVALID, status_code=400)
+
+    safe_token = lifecycle_emails.unsubscribe_token(user_id)
+    return _unsub_page(
+        "<p style='font-size:20px;font-weight:700;margin:0 0 8px;'>intervalo</p>"
+        "<p style='margin:0 0 24px;'>¿Querés dejar de recibir estos emails?</p>"
+        f"<form method='post' action='/email/unsubscribe?token={safe_token}'>"
+        "<button type='submit' style='background:#5457e5;color:#fff;border:0;"
+        "font-size:14px;font-weight:700;padding:12px 28px;border-radius:8px;"
+        "cursor:pointer;'>Desuscribirme</button>"
+        "</form>"
+    )
+
+
+@app.post("/email/unsubscribe", response_class=HTMLResponse)
+def email_unsubscribe_confirm(token: str, db: Session = Depends(get_db)):
+    """Baja efectiva. La disparan dos cosas: el botón de la pantalla de arriba,
+    y el POST que hacen Gmail y Yahoo por su propio botón de baja gracias al
+    header `List-Unsubscribe-Post` (ver lifecycle_emails._send). Los dos casos
+    son una acción deliberada de la persona, así que acá sí se escribe."""
+    import lifecycle_emails
+
+    user_id = lifecycle_emails.verify_unsubscribe_token(token)
+    if user_id is None:
+        return _unsub_page(_UNSUB_INVALID, status_code=400)
 
     user = db.query(User).filter(User.id == user_id).first()
     if user is not None:
         user.email_unsubscribed = True
         db.commit()
 
-    return HTMLResponse(
-        "<html><body style='font-family:sans-serif;background:#131324;color:#f6f8fc;"
-        "text-align:center;padding:64px 24px;'>"
-        "<p style='font-size:20px;font-weight:700;margin:0 0 8px;'>intervalo</p>"
-        "<p>Te desuscribiste de estos emails. No vas a recibir más.</p>"
-        "</body></html>"
-    )
+    return _unsub_page(_UNSUB_DONE)
 
 
 # ── Leaderboard ───────────────────────────────────────────────────────────────
