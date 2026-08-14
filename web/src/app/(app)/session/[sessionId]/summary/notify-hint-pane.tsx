@@ -33,6 +33,33 @@ import {
 // acá, al lado de la pestaña que protege, aunque el botón sea del summary.
 export const NOTIFY_CTA_COOLDOWN_MS = 5000
 
+// Confeti del campanazo: piezas que salen disparadas del contorno superior de
+// la campana (0° = arriba). Specs fijos y determinísticos — mismos valores en
+// cada render, así un re-render a mitad del vuelo no reinicia la animación.
+// `a` ángulo de salida, `s` impulso en px, `w×h` tamaño de la pieza, `spin`
+// giro durante el vuelo, `shade` índice en la mini paleta (la misma escala
+// blanco→índigo del confeti grande del resumen).
+const SPARK_R0 = 20
+// Toda la familia del índigo, sin llegar al blanco: primario, el índigo claro
+// de la marca y una mezcla que sigue siendo claramente violácea.
+const SPARK_COLORS = [
+  "var(--primary)",
+  "var(--chart-5)",
+  "color-mix(in oklab, var(--primary) 55%, var(--foreground))",
+]
+// Vuelo corto: las piezas se desvanecen en el aire cerca de la campana, no
+// escapan de la pantalla. `fall` es cuánto cae cada una en el último tramo.
+const SPARKS = [
+  { a: -76, s: 38, w: 5, h: 8, spin: -230, fall: 12, shade: 0 },
+  { a: -54, s: 50, w: 4, h: 6, spin: 190, fall: 18, shade: 2 },
+  { a: -31, s: 42, w: 6, h: 6, spin: -160, fall: 10, shade: 1 },
+  { a: -10, s: 56, w: 4, h: 7, spin: 250, fall: 8, shade: 0 },
+  { a: 12, s: 46, w: 5, h: 5, spin: -210, fall: 10, shade: 2 },
+  { a: 34, s: 54, w: 4, h: 8, spin: 170, fall: 14, shade: 1 },
+  { a: 57, s: 40, w: 6, h: 5, spin: -190, fall: 20, shade: 0 },
+  { a: 77, s: 48, w: 4, h: 6, spin: 220, fall: 16, shade: 1 },
+]
+
 // Lo que normalmente sale del entorno o del recorrido del usuario (qué
 // dispositivo es, si corre instalada, si ya activó, si hay una mutación en
 // vuelo). Solo lo pisa /dev/notify-pane para poder mirar las variantes desde
@@ -142,34 +169,60 @@ export function NotifyHintPane({
         animate={{ opacity: 1, scale: 1 }}
         transition={{ type: "spring", stiffness: 600, damping: 18 }}
       >
-        {/* Ondas: cúpulas semicirculares (SVG con puntas redondeadas) cuya base
-            pasa por el centro de la campana; escalan desde esa base, así que
-            crecen hacia arriba y a los costados, nunca hacia abajo. */}
-        {[0, 1].map((i) => (
-          <motion.span
-            key={i}
-            aria-hidden
-            className="absolute inset-0 text-primary"
-            style={{ transformOrigin: "50% 50%" }}
-            initial={{ scale: 0.5, opacity: 0 }}
-            animate={{ scale: [0.5, 1.9], opacity: [0, 0.5, 0] }}
-            transition={{
-              duration: 1.1,
-              delay: 0.45 + i * 0.35,
-              ease: "easeOut",
-            }}
-          >
-            <svg viewBox="0 0 56 56" className="h-full w-full overflow-visible">
-              <path
-                d="M 4 28 A 24 24 0 0 1 52 28"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2.5}
-                strokeLinecap="round"
-              />
-            </svg>
-          </motion.span>
-        ))}
+        {/* Mini confeti disparado desde el contorno de la campana al "sonar" —
+            el mismo lenguaje que el Confetti grande del resumen, así el
+            campanazo anticipa el festejo de activar. Trayectoria balística en
+            keyframes: arranca rápido (easeOut), pierde impulso y la última
+            parte cae (SPARK_FALL), girando todo el vuelo. */}
+        {SPARKS.map((p, i) => {
+          const rad = (p.a * Math.PI) / 180
+          // Dirección de salida medida desde la vertical: 0° es "hacia arriba".
+          const dx = Math.sin(rad)
+          const dy = -Math.cos(rad)
+          return (
+            <motion.span
+              key={i}
+              aria-hidden
+              style={{
+                width: p.w,
+                height: p.h,
+                marginLeft: -p.w / 2,
+                marginTop: -p.h / 2,
+                borderRadius: 1,
+                backgroundColor: SPARK_COLORS[p.shade],
+              }}
+              className="absolute left-1/2 top-1/2"
+              initial={{ opacity: 0 }}
+              animate={{
+                x: [dx * SPARK_R0, dx * (SPARK_R0 + p.s * 0.65), dx * (SPARK_R0 + p.s)],
+                y: [
+                  dy * SPARK_R0,
+                  dy * (SPARK_R0 + p.s * 0.65) - 6,
+                  dy * (SPARK_R0 + p.s) + p.fall,
+                ],
+                // Plenas la mayor parte del vuelo y desvanecidas en el aire
+                // sobre el final, ya lejos de la campana.
+                opacity: [0, 1, 1, 0],
+                rotate: [p.a, p.a + p.spin],
+              }}
+              // El override por-valor de framer REEMPLAZA la transición entera
+              // para esa propiedad (no la extiende): sin repetir duration y
+              // delay acá, la opacidad corría sola al montar con los defaults
+              // y las piezas morían antes de arrancar el vuelo.
+              transition={{
+                duration: 0.95,
+                delay: 0.45 + i * 0.04,
+                ease: "easeOut",
+                opacity: {
+                  duration: 0.95,
+                  delay: 0.45 + i * 0.04,
+                  times: [0, 0.08, 0.65, 1],
+                  ease: "linear",
+                },
+              }}
+            />
+          )
+        })}
         {/* Mismos 0.9s pero con más oscilaciones adentro: campanazo rápido que
             se amortigua, no un vaivén lento. */}
         <motion.div
