@@ -723,17 +723,52 @@ def check_feedbacks(items, file, F: Findings) -> None:
 # --- Structure: tags contra la tabla del topic-context ------------------------
 
 SLUG_CELL_RE = re.compile(r"`([a-z0-9]+(?:-[a-z0-9]+)*)`")
+# Encabezado de la seccion de un skill dentro del topic-context. Los docs usan
+# varias formas: "**LEXI (30):**", "**LEXI** (30 ejercicios):", "## LEXI, 30
+# ejercicios", "**CLSF** (archivado...)".
+SKILL_SECTION_RE = re.compile(
+    r"(?:\*\*\s*|^#{1,6}\s+`?)(LEXI|CLSF|FORM|GRAF|ESTR|RESL)\b")
 
 
-def parse_distribution(topic_context: Path) -> dict[str, int]:
-    """Extrae {slug: cantidad} de las tablas markdown con columna Slug/Cant y menciones en prose."""
+def parse_distribution(topic_context: Path) -> tuple[dict[str, dict[str, int]], dict[str, int]]:
+    """Extrae los objetivos de distribución del topic-context.
+
+    Devuelve `(por_skill, union)`:
+
+    - `por_skill[SKILL][slug]` es el objetivo de esa sub-familia **en ese
+      skill**. Es contra esto que se compara cada archivo.
+    - `union[slug]` junta todos los slugs válidos del topic, y sirve solo para
+      decidir si un tag es conocido.
+
+    Antes se devolvía una sola tabla con los conteos **sumados entre skills**,
+    y cada archivo se comparaba contra ese total. Cuando una sub-familia vive
+    en dos skills (ej. `propiedades-algebraicas-potencias`, 2 en LEXI y 6 en
+    FORM de `exponential`), el objetivo quedaba en 8 y los dos archivos
+    reportaban desvío estando ambos exactos. Ese solo bug generaba la mayoría
+    de los ~196 warnings de tags de agosto 2026.
+    """
+    por_skill: dict[str, dict[str, int]] = {}
     targets: dict[str, int] = {}
     if not topic_context.exists():
-        return targets
+        return por_skill, targets
     text = topic_context.read_text(encoding="utf-8")
 
-    # Parse tablas markdown
+    # Parse tablas markdown.
+    # Las secciones de un skill archivado (ej. "**CLSF** (archivado, no se
+    # recorta)") se saltean: la tabla queda en el doc como registro historico
+    # pero sus sub-familias no son objetivo de generacion, y contarlas hacia
+    # los targets inventa huecos que nadie va a llenar. Detectado en ago-2026,
+    # donde `white/functions` reportaba ~270 ejercicios faltantes que en
+    # realidad eran las tablas de CLSF, un skill podado del curso en jul-2026.
+    skip_section = False
+    seccion: str | None = None
     for line in text.splitlines():
+        m_head = SKILL_SECTION_RE.search(line)
+        if m_head:
+            skip_section = "archivad" in line.lower()
+            seccion = None if skip_section else m_head.group(1)
+        if skip_section:
+            continue
         if not line.strip().startswith("|"):
             continue
         cells = [c.strip() for c in line.strip().strip("|").split("|")]
@@ -751,6 +786,9 @@ def parse_distribution(topic_context: Path) -> dict[str, int]:
                 break
         if slug and count is not None:
             targets[slug] = targets.get(slug, 0) + count
+            if seccion:
+                d = por_skill.setdefault(seccion, {})
+                d[slug] = d.get(slug, 0) + count
 
     # Parse menciones inline: "(NN ejercicios):* ... slug único `slug`"
     for m in re.finditer(r"\((\d+)\s+ejercicios[^`]*slug\s+único\s+`([a-z0-9]+(?:-[a-z0-9]+)*)`", text):
@@ -759,10 +797,15 @@ def parse_distribution(topic_context: Path) -> dict[str, int]:
         if slug and count:
             targets[slug] = targets.get(slug, 0) + count
 
-    return targets
+    return por_skill, targets
 
 
-def check_structure(items, file, F: Findings, targets: dict[str, int]) -> None:
+def check_structure(items, file, F: Findings, targets: dict[str, int],
+                    known: dict[str, int] | None = None) -> None:
+    """`targets` son los objetivos del skill de este archivo; `known` es la
+    unión de slugs válidos del topic, que se usa solo para decidir si un tag
+    existe en la spec."""
+    known = known if known is not None else targets
     ci_counter: Counter[int] = Counter()
     tag_counter: Counter[str] = Counter()
     for idx, it in enumerate(items):
@@ -778,13 +821,13 @@ def check_structure(items, file, F: Findings, targets: dict[str, int]) -> None:
         else:
             ci_counter[ci] += 1
         tags = it.get("tags")
-        if targets:
+        if known:
             if not isinstance(tags, list) or not tags:
                 F.add("ERROR", "structure", "tags", file, label,
                       "sin campo tags (la tabla de distribución del topic lo exige)")
             else:
                 for t in tags:
-                    if t not in targets:
+                    if t not in known:
                         F.add("ERROR", "structure", "tags", file, label,
                               f"slug desconocido {t!r} (no está en la tabla del topic-context)")
                     else:
@@ -839,7 +882,7 @@ def main() -> int:
     files_scanned = 0
     items_scanned = 0
     for topic_dir in topic_dirs:
-        targets = parse_distribution(topic_dir / "topic-context.md")
+        targets_by_skill, known_slugs = parse_distribution(topic_dir / "topic-context.md")
         for jf in sorted(topic_dir.glob("[A-Z]*.json")):
             rel = jf.relative_to(course_dir).as_posix()
             try:
@@ -861,7 +904,10 @@ def main() -> int:
             if "feedbacks" in checks:
                 check_feedbacks(items, rel, F)
             if "structure" in checks:
-                check_structure(items, rel, F, targets)
+                # Cada archivo se compara contra los objetivos de SU skill. Si
+                # el doc no separa por skill, se cae a la unión del topic.
+                skill_targets = targets_by_skill.get(jf.stem) or known_slugs
+                check_structure(items, rel, F, skill_targets, known_slugs)
 
     if args.as_json:
         print(json.dumps({
