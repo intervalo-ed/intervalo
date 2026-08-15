@@ -102,10 +102,10 @@ export default function OnboardingCompletePage() {
       router.replace("/onboarding")
       return
     }
-    if (user?.unsafeMetadata?.onboarded === true) {
-      router.replace("/")
-      return
-    }
+    // Sin fast-path por unsafeMetadata.onboarded: la DB es la autoridad. Una
+    // cuenta con la metadata en true pero sin Enrollment rebotaba a "/" sin
+    // verificar nada — y con el gate de la home funcionando, eso es un loop
+    // "/" ⇄ acá. run() resuelve el caso enrolled con un solo request extra.
     // run() only setState()s in its catch, after an await — not synchronously.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     void run()
