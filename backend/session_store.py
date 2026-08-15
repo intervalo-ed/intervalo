@@ -345,14 +345,23 @@ def _create_topic_units(
     return types_for_topic
 
 
-# Ítem del ejercicio de prueba del onboarding, por curso: el primer ítem real de
-# cada curso (primer skill del primer tema del cinturón blanco). Mapea uno a uno
-# con el ejercicio que muestra el wizard en el front (ver ONBOARDING_EXERCISES).
+# Ítem del ejercicio de prueba del onboarding, por curso. Para analisis/algebra
+# es el primer ítem real del curso (primer skill del primer tema del cinturón
+# blanco) y se siembra su UnitState. Mapea uno a uno con el ejercicio que
+# muestra el wizard en el front (ver ONBOARDING_EXERCISES).
+#
+# Probabilidad es la excepción: el ejercicio del wizard (moneda 2 veces, al
+# menos una cara) corresponde a Laplace, un tema del cinturón azul — sembrarlo
+# crearía sus units el día cero y metería un ítem del azul en la primera sesión,
+# fuera de orden. Por eso está en _INTRO_SEEDLESS_COURSES: el Answer se registra
+# con estas etiquetas para auditoría, pero no se toca ningún UnitState y la
+# progresión arranca virgen en blanco/conteo.
 _INTRO_ITEM_BY_COURSE: dict[str, tuple[TopicKey, str]] = {
     "analisis": (TopicKey(belt=Belt.WHITE, topic="definition"), "LEXI"),
     "algebra": (TopicKey(belt=Belt.WHITE, topic="powers"), "LEXI"),
-    "probabilidad": (TopicKey(belt=Belt.WHITE, topic="reglas"), "FORM"),
+    "probabilidad": (TopicKey(belt=Belt.BLUE, topic="laplace"), "RESL"),
 }
+_INTRO_SEEDLESS_COURSES = {"probabilidad"}
 # Fallback para cursos no mapeados (o datos viejos sin curso).
 _INTRO_ITEM_DEFAULT = _INTRO_ITEM_BY_COURSE["analisis"]
 
@@ -374,40 +383,46 @@ def seed_intro_item(
     la primera sesión. Crea las units del tema si todavía no existen; el resto de los
     temas los desbloquea la primera sesión (_ensure_active_units).
 
+    Los cursos en _INTRO_SEEDLESS_COURSES saltean todo el seed de UnitState (su
+    ejercicio de prueba no es el primer ítem del curso) y solo registran la
+    respuesta.
+
     Además deja una fila en Answer (con una Session sintética mode="onboarding")
     para poder auditar después intentos y tiempo de respuesta junto con el resto
     de las respuestas. No otorga XP ni cuenta para el progreso real del usuario
     más allá del seed de UnitState de arriba."""
     course = db.query(Course).filter(Course.id == course_id).first()
+    course_slug = course.slug if course else ""
     intro_item, intro_type = _INTRO_ITEM_BY_COURSE.get(
-        course.slug if course else "", _INTRO_ITEM_DEFAULT
+        course_slug, _INTRO_ITEM_DEFAULT
     )
 
-    if not _topic_has_any_units(user_id, course_id, intro_item, db):
-        _create_topic_units(user_id, course_id, intro_item, db)
-        db.flush()
+    if course_slug not in _INTRO_SEEDLESS_COURSES:
+        if not _topic_has_any_units(user_id, course_id, intro_item, db):
+            _create_topic_units(user_id, course_id, intro_item, db)
+            db.flush()
 
-    row = db.query(UnitState).filter(
-        UnitState.user_id == user_id,
-        UnitState.course_id == course_id,
-        UnitState.belt == intro_item.belt.value,
-        UnitState.topic == intro_item.topic,
-        UnitState.exercise_type == intro_type,
-    ).first()
-    if row is None:
-        return
+        row = db.query(UnitState).filter(
+            UnitState.user_id == user_id,
+            UnitState.course_id == course_id,
+            UnitState.belt == intro_item.belt.value,
+            UnitState.topic == intro_item.topic,
+            UnitState.exercise_type == intro_type,
+        ).first()
+        if row is None:
+            return
 
-    new_state = update_unit_state(
-        SM2UnitState(), 5 if correct else 0, today=user_today(db, user_id)
-    )
-    row.phase = new_state.phase
-    row.step_index = new_state.step_index
-    row.ease_factor = new_state.ease_factor
-    row.interval_days = new_state.interval
-    row.repetitions = new_state.repetitions
-    row.next_due = new_state.next_review
-    row.attempted = True
-    row.last_reviewed_at = datetime.utcnow()
+        new_state = update_unit_state(
+            SM2UnitState(), 5 if correct else 0, today=user_today(db, user_id)
+        )
+        row.phase = new_state.phase
+        row.step_index = new_state.step_index
+        row.ease_factor = new_state.ease_factor
+        row.interval_days = new_state.interval
+        row.repetitions = new_state.repetitions
+        row.next_due = new_state.next_review
+        row.attempted = True
+        row.last_reviewed_at = datetime.utcnow()
 
     onboarding_session = SessionModel(
         user_id=user_id,

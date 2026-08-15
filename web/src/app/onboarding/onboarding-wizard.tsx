@@ -103,18 +103,18 @@ const ONBOARDING_EXERCISES: Record<CourseId, OnboardingExercise> = {
   },
   probabilidad: {
     question:
-      "Un puesto de comida arma un combo con 3 entradas y 2 bebidas, o vende 5 platos únicos sin combo, que ya incluyen todo.\n\n¿Cuántas opciones distintas para comer hay en total?",
-    options: ["$11$", "$6$", "$10$", "$30$"],
+      "Tirás una moneda equilibrada 2 veces.\n\n¿Cuál es la probabilidad de sacar al menos una cara?",
+    options: ["$3/4$", "$1/2$", "$2/3$", "$1/4$"],
     correctIndex: 0,
-    feedback: "El combo tiene $3 \\times 2 = 6$ variantes, más los 5 platos únicos: $6+5=11$.",
+    feedback: "El único caso sin caras es cruz-cruz ($1/4$): $1 - 1/4 = 3/4$.",
     feedbackIncorrect: [
       null,
-      "Ese resultado cuenta solo las variantes del combo ($3 \\times 2 = 6$) y se olvida de sumar los 5 platos únicos.",
-      "Ese resultado suma $3+2+5$ directamente, sin multiplicar primero entrada y bebida dentro del combo.",
-      "Ese resultado multiplica las 3 partes juntas ($3 \\times 2 \\times 5$) en vez de sumar los platos únicos como alternativa aparte.",
+      "Eso vale para un solo tiro. Con dos tiros hay más chances: solo te quedás sin caras si salen dos cruces seguidas.",
+      "Ese resultado sale de contar {ninguna, una, dos caras} como si fueran igual de probables — pero 'una cara' puede darse de dos maneras (cara-cruz y cruz-cara), y las otras de una sola.",
+      "Esa es la probabilidad de que no salga ninguna cara (cruz y cruz). Lo que buscás es justo lo contrario: $1 - 1/4$.",
     ],
     explanation:
-      "Evaluamos primero el combo y después sumamos la alternativa:\n$$3 \\times 2 + 5 = 11$$\nHay 11 opciones en total.\n\nEl combo multiplica 3 entradas por 2 bebidas, dos decisiones dentro de la misma elección, y ese resultado se suma con los 5 platos únicos, una alternativa aparte.",
+      "Cada tiro tiene 2 resultados y las posibilidades se multiplican, así que hay $2 \\times 2 = 4$ resultados igual de probables:\n$$\\text{cara-cara}, \\quad \\text{cara-cruz}, \\quad \\text{cruz-cara}, \\quad \\text{cruz-cruz}$$\nEn 3 de los 4 aparece al menos una cara: la probabilidad es $3/4$.\n\nEl atajo: el único caso sin ninguna cara es cruz-cruz, con probabilidad $1/4$, y \"al menos una cara\" es exactamente lo contrario, así que $1 - 1/4 = 3/4$. Más alto que el $1/2$ de un tiro solo — cada tiro extra es una chance más.",
   },
 }
 
