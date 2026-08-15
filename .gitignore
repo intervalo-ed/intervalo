@@ -48,6 +48,9 @@ dev-server.log
 # Libros de referencia (PDFs pesados, ~41 MB): quedan locales, fuera de la historia
 books/
 
+# Feedback de sesiones de test mode, volcado a disco por /dev/test-feedback
+backend/.test-feedback/
+
 # Documentos internos de producto y reportes de difusión: quedan locales.
 # Los PDF además son artefactos regenerables (ver docs/reports/gen_report.py),
 # así que lo único que se versiona de esa carpeta es el formato y el generador.
