@@ -49,7 +49,7 @@ EXPLANATION_MIN = 300
 FEEDBACK_CORRECT_MAX = 160
 CORRECT_INDEX_SKEW = 0.5
 INLINE_EQUATION_MAX = 18       # regla 35: ecuación inline más ancha que esto → display
-DISPLAY_RENDER_MAX = 40        # regla 38: display sin aligned más ancho que esto → verticalizar
+DISPLAY_RENDER_MAX = 36        # regla 38: fila display más ancha que esto → verticalizar/partir
 OPTION_RENDER_MAX = 35         # regla 39: opción más ancha que la grilla 2×2
 CHAIN_FACTORS_MIN = 3          # regla 41: 3+ factores P(...) multiplicados sin "+" → verticalizar
 
@@ -167,9 +167,27 @@ FRAC_RE = re.compile(r"\\d?frac\{((?:[^{}]|\{[^{}]*\})*)\}\{((?:[^{}]|\{[^{}]*\}
 # con espaciado de operador binario). LATEX_CMD_RE los borraba a longitud 0,
 # que subestimaba sistemáticamente el ancho real de cadenas con varios
 # "P(...\mid...)" encadenados (regla 38/39 no disparaban en casos que sí
-# desbordaban en pantalla).
-RENDER_WEIGHT_CMDS = {"mid": 3, "cdot": 2, "times": 2}
+# desbordaban en pantalla). "int"/"sum"/"prod"/"oint"/"iint" se suman acá: son
+# glifos anchos con espaciado de operador propio, igual de subestimados por
+# LATEX_CMD_RE, y son justamente los que dominan `explanation` en `integrales`
+# (ver regla 38, nota de calibración).
+RENDER_WEIGHT_CMDS = {
+    "mid": 3, "cdot": 2, "times": 2,
+    "int": 2, "iint": 2, "oint": 2, "sum": 2, "prod": 2,
+}
 WEIGHTED_CMD_RE = re.compile(r"\\(" + "|".join(RENDER_WEIGHT_CMDS) + r")\b")
+
+# Funciones que KaTeX renderiza como palabra completa (ej. "\cos x" -> "cos x"),
+# a diferencia de comandos como "\times" o "\pi" que renderizan como un solo
+# símbolo. Espejo de LATEX_NAMED_FUNCTIONS en
+# `web/src/lib/latex-visual-length.ts` para que las dos métricas (la que decide
+# la grilla 2×2 en el frontend y la que audita ancho acá) no diverjan.
+NAMED_FUNCTIONS = {
+    "sin", "cos", "tan", "cot", "sec", "csc", "ln", "log", "lim", "exp",
+    "min", "max", "gcd", "lcm", "det", "dim", "ker",
+    "sinh", "cosh", "tanh", "arcsin", "arccos", "arctan",
+}
+NAMED_FUNCTIONS_RE = re.compile(r"\\(" + "|".join(NAMED_FUNCTIONS) + r")\b")
 
 
 def render_len(s: str) -> int:
@@ -177,6 +195,7 @@ def render_len(s: str) -> int:
     t = s
     t = t.replace("$$", "").replace("$", "")
     t = TEXTCMD_RE.sub(lambda m: m.group(1), t)
+    t = NAMED_FUNCTIONS_RE.sub(lambda m: "x" * len(m.group(1)), t)
     t = WEIGHTED_CMD_RE.sub(lambda m: "x" * RENDER_WEIGHT_CMDS[m.group(1)], t)
     t = LATEX_CMD_RE.sub("", t)
     t = re.sub(r"[{}^_&]|\\\\|\\[,;!:]", "", t)
@@ -325,18 +344,41 @@ def check_options(items, file, F: Findings) -> None:
                       f"opción #{j} termina en {last_tok!r}, pinta de texto truncado a mitad de frase: {o!r}")
 
 
+ALIGNED_ENV_RE = re.compile(r"\\(begin|end)\{(aligned|cases)\}")
+
+
+def _display_rows(inner: str) -> list[str]:
+    """Parte un bloque display en las filas que efectivamente se ven en
+    pantalla: con `aligned`/`cases`, una fila por salto `\\`; si no, el
+    bloque entero es la única fila."""
+    if "aligned" in inner or "cases" in inner:
+        stripped = ALIGNED_ENV_RE.sub("", inner)
+        return [r for r in stripped.split("\\\\") if r.strip()]
+    return [inner]
+
+
 def _check_display_width(text, field, file, label, F: Findings) -> None:
-    """Regla 38: bloques display sin `aligned` que quedan demasiado anchos, o
-    que encadenan 3+ igualdades en una sola línea (deberían partirse en pasos
-    o pasar a `aligned`)."""
+    """Regla 38: cada fila visible de un bloque display (con o sin
+    `aligned`/`cases`) que queda demasiado ancha se marca para partir o
+    acortar, y un bloque sin `aligned` nunca encadena 3+ igualdades en una
+    sola línea.
+
+    Antes, cualquier bloque con `aligned`/`cases` se saltaba entero (líneas
+    353-354 de versiones previas): nunca medía la fila de planteo que junta
+    la integral original y su desarrollo completo por linealidad en un solo
+    renglón, que es exactamente el patrón que desborda en `integrales`. Ahora
+    mide cada fila por separado con el mismo umbral."""
     for m in DISPLAY_RE.finditer(text):
         inner = m.group(0)[2:-2]
-        if "aligned" in inner or "cases" in inner:
+        has_env = "aligned" in inner or "cases" in inner
+        for row in _display_rows(inner):
+            rl = render_len(row)
+            if rl > DISPLAY_RENDER_MAX:
+                where = "fila de un aligned/cases" if has_env else "bloque display sin aligned"
+                F.add("WARNING", field, "38", file, label,
+                      f"{where} de {rl} chars, conviene partir en un paso más o acortar: {row.strip()[:50]!r}...")
+        if has_env:
             continue
-        rl = render_len(inner)
-        if rl > DISPLAY_RENDER_MAX:
-            F.add("WARNING", field, "38", file, label,
-                  f"bloque display de {rl} chars sin aligned, conviene verticalizar: {inner[:50]!r}...")
         if inner.count("=") >= 3:
             F.add("WARNING", field, "38", file, label,
                   "bloque display con 3+ igualdades encadenadas en una sola línea, "
