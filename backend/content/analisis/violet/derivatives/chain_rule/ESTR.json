@@ -187,7 +187,7 @@
     "question": "Dada:\n$$f(x) = e^{3x}$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla del producto",
-      "Múltiplo escalar",
+      "Múltiplo por constante",
       "Regla de la cadena"
     ],
     "correct_index": 2,
@@ -211,7 +211,7 @@
     "options": [
       "Regla del producto",
       "Regla de la cadena",
-      "Múltiplo escalar"
+      "Múltiplo por constante"
     ],
     "correct_index": 0,
     "has_math": true,
@@ -219,7 +219,7 @@
     "feedback_incorrect": [
       null,
       "No hay ninguna composición acá, $3x$ y $e^x$ son dos factores separados que se multiplican, no uno evaluado dentro del otro.",
-      "El factor $e^x$ depende de $x$, así que no es una constante multiplicando, no corresponde tratarlo como múltiplo escalar."
+      "El factor $e^x$ depende de $x$, así que no es una constante multiplicando, no corresponde tratarlo como múltiplo por constante."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -279,7 +279,7 @@
     "question": "El argumento del seno en esta función no es $x$ solo:\n$$f(x) = \\sin(5x)$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla de la cadena",
-      "Múltiplo escalar",
+      "Múltiplo por constante",
       "Regla del producto"
     ],
     "correct_index": 0,
@@ -292,7 +292,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $\\sin(5x)$, el coeficiente multiplica a la variable dentro del argumento del seno, formando la **capa interior** de una composición.\n\nAunque el $5$ recuerde a un múltiplo escalar, acá está atrapado dentro del argumento del seno, no multiplicando a la función completa desde afuera.\n\nEsta misma lectura aplica a cualquier función elemental con un coeficiente pegado a la variable dentro del argumento.",
+    "explanation": "En $\\sin(5x)$, el coeficiente multiplica a la variable dentro del argumento del seno, formando la **capa interior** de una composición.\n\nAunque el $5$ recuerde a un múltiplo por constante, acá está atrapado dentro del argumento del seno, no multiplicando a la función completa desde afuera.\n\nEsta misma lectura aplica a cualquier función elemental con un coeficiente pegado a la variable dentro del argumento.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-producto-composicion"
@@ -302,7 +302,7 @@
     "question": "Un coeficiente multiplica al seno completo en esta función:\n$$f(x) = 5\\sin x$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla del producto",
-      "Múltiplo escalar",
+      "Múltiplo por constante",
       "Regla de la cadena"
     ],
     "correct_index": 1,
@@ -315,7 +315,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $5\\sin x$, el coeficiente multiplica a la función seno completa desde afuera, mientras que el argumento del seno no cambia.\n\nEsta estructura se resuelve con **múltiplo escalar**, distinta de $\\sin(5x)$, donde el $5$ vive dentro del argumento y exige la **regla de la cadena**.\n\nEl lugar del coeficiente, adentro o afuera del argumento, es lo único que cambia entre estas dos estructuras.",
+    "explanation": "En $5\\sin x$, el coeficiente multiplica a la función seno completa desde afuera, mientras que el argumento del seno no cambia.\n\nEsta estructura se resuelve con **múltiplo por constante**, distinta de $\\sin(5x)$, donde el $5$ vive dentro del argumento y exige la **regla de la cadena**.\n\nEl lugar del coeficiente, adentro o afuera del argumento, es lo único que cambia entre estas dos estructuras.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-producto-composicion"

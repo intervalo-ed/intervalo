@@ -275,7 +275,7 @@
     ]
   },
   {
-    "question": "Se conocen los valores $h(2)=3$, $h'(2)=4$ y $g'(3)=5$.\n\n¿Cuánto vale $(g\\circ h)'(2)$?",
+    "question": "Dos funciones encadenadas vienen dadas solo por tres valores puntuales:\n$$\\begin{aligned} h(2)&=3,\\quad h'(2)=4 \\\\ g'(3)&=5 \\end{aligned}$$\n¿Cuánto vale $(g\\circ h)'(2)$?",
     "options": [
       "$20$",
       "$9$",
@@ -300,7 +300,7 @@
     ]
   },
   {
-    "question": "Se conocen los valores $h(1)=0$, $h'(1)=6$ y $g'(0)=2$.\n\n¿Cuánto vale $(g\\circ h)'(1)$?",
+    "question": "De esta composición no se conocen las fórmulas, solo tres datos:\n$$\\begin{aligned} h(1)&=0,\\quad h'(1)=6 \\\\ g'(0)&=2 \\end{aligned}$$\n¿Cuánto vale $(g\\circ h)'(1)$?",
     "options": [
       "$6$",
       "$12$",
@@ -325,7 +325,7 @@
     ]
   },
   {
-    "question": "Se conocen los valores $h(0)=5$, $h'(0)=-1$ y $g'(5)=3$.\n\n¿Cuánto vale $(g\\circ h)'(0)$?",
+    "question": "Con tres valores sueltos alcanza para derivar la composición en un punto:\n$$\\begin{aligned} h(0)&=5,\\quad h'(0)=-1 \\\\ g'(5)&=3 \\end{aligned}$$\n¿Cuánto vale $(g\\circ h)'(0)$?",
     "options": [
       "$2$",
       "$-5$",
@@ -350,7 +350,7 @@
     ]
   },
   {
-    "question": "Se conocen los valores $h(3)=1$, $h'(3)=2$ y $g'(1)=-4$.\n\n¿Cuánto vale $(g\\circ h)'(3)$?",
+    "question": "La cadena se evalúa acá con los únicos tres datos disponibles:\n$$\\begin{aligned} h(3)&=1,\\quad h'(3)=2 \\\\ g'(1)&=-4 \\end{aligned}$$\n¿Cuánto vale $(g\\circ h)'(3)$?",
     "options": [
       "$-6$",
       "$-2$",
