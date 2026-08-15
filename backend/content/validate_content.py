@@ -49,7 +49,7 @@ EXPLANATION_MIN = 300
 FEEDBACK_CORRECT_MAX = 160
 CORRECT_INDEX_SKEW = 0.5
 INLINE_EQUATION_MAX = 18       # regla 35: ecuación inline más ancha que esto → display
-DISPLAY_RENDER_MAX = 40        # regla 38: display sin aligned más ancho que esto → verticalizar
+DISPLAY_RENDER_MAX = 36        # regla 38: fila display más ancha que esto → verticalizar/partir
 OPTION_RENDER_MAX = 35         # regla 39: opción más ancha que la grilla 2×2
 CHAIN_FACTORS_MIN = 3          # regla 41: 3+ factores P(...) multiplicados sin "+" → verticalizar
 
@@ -167,9 +167,37 @@ FRAC_RE = re.compile(r"\\d?frac\{((?:[^{}]|\{[^{}]*\})*)\}\{((?:[^{}]|\{[^{}]*\}
 # con espaciado de operador binario). LATEX_CMD_RE los borraba a longitud 0,
 # que subestimaba sistemáticamente el ancho real de cadenas con varios
 # "P(...\mid...)" encadenados (regla 38/39 no disparaban en casos que sí
-# desbordaban en pantalla).
-RENDER_WEIGHT_CMDS = {"mid": 3, "cdot": 2, "times": 2}
+# desbordaban en pantalla). "int"/"sum"/"prod"/"oint"/"iint" se suman acá: son
+# glifos anchos con espaciado de operador propio, igual de subestimados por
+# LATEX_CMD_RE, y son justamente los que dominan `explanation` en `integrales`
+# (ver regla 38, nota de calibración).
+# "sqrt"/"infty" y los símbolos de relación se suman en la ronda 8 (testeo 467):
+# un alumno reportó una fila que desbordaba en pantalla y medía 35 contra el
+# umbral de 36, o sea que pasaba por un carácter. La causa era que LATEX_CMD_RE
+# los borraba a 0: el radical de "\sqrt{...}" es decoración que ocupa ancho
+# además de su contenido, "\infty" es un glifo ancho, y "\neq"/"\leq"/"\geq"/
+# "\approx"/"\pm" renderizan como un símbolo con espaciado de relación a ambos
+# lados. Los tres aparecen justo en `rationalization` e `infinite_limits`, que
+# son los archivos donde el desborde se ve.
+RENDER_WEIGHT_CMDS = {
+    "mid": 3, "cdot": 2, "times": 2,
+    "int": 2, "iint": 2, "oint": 2, "sum": 2, "prod": 2,
+    "sqrt": 2, "infty": 2,
+    "pm": 2, "mp": 2, "neq": 2, "leq": 2, "geq": 2, "approx": 2,
+}
 WEIGHTED_CMD_RE = re.compile(r"\\(" + "|".join(RENDER_WEIGHT_CMDS) + r")\b")
+
+# Funciones que KaTeX renderiza como palabra completa (ej. "\cos x" -> "cos x"),
+# a diferencia de comandos como "\times" o "\pi" que renderizan como un solo
+# símbolo. Espejo de LATEX_NAMED_FUNCTIONS en
+# `web/src/lib/latex-visual-length.ts` para que las dos métricas (la que decide
+# la grilla 2×2 en el frontend y la que audita ancho acá) no diverjan.
+NAMED_FUNCTIONS = {
+    "sin", "cos", "tan", "cot", "sec", "csc", "ln", "log", "lim", "exp",
+    "min", "max", "gcd", "lcm", "det", "dim", "ker",
+    "sinh", "cosh", "tanh", "arcsin", "arccos", "arctan",
+}
+NAMED_FUNCTIONS_RE = re.compile(r"\\(" + "|".join(NAMED_FUNCTIONS) + r")\b")
 
 
 def render_len(s: str) -> int:
@@ -177,6 +205,7 @@ def render_len(s: str) -> int:
     t = s
     t = t.replace("$$", "").replace("$", "")
     t = TEXTCMD_RE.sub(lambda m: m.group(1), t)
+    t = NAMED_FUNCTIONS_RE.sub(lambda m: "x" * len(m.group(1)), t)
     t = WEIGHTED_CMD_RE.sub(lambda m: "x" * RENDER_WEIGHT_CMDS[m.group(1)], t)
     t = LATEX_CMD_RE.sub("", t)
     t = re.sub(r"[{}^_&]|\\\\|\\[,;!:]", "", t)
@@ -325,18 +354,41 @@ def check_options(items, file, F: Findings) -> None:
                       f"opción #{j} termina en {last_tok!r}, pinta de texto truncado a mitad de frase: {o!r}")
 
 
+ALIGNED_ENV_RE = re.compile(r"\\(begin|end)\{(aligned|cases)\}")
+
+
+def _display_rows(inner: str) -> list[str]:
+    """Parte un bloque display en las filas que efectivamente se ven en
+    pantalla: con `aligned`/`cases`, una fila por salto `\\`; si no, el
+    bloque entero es la única fila."""
+    if "aligned" in inner or "cases" in inner:
+        stripped = ALIGNED_ENV_RE.sub("", inner)
+        return [r for r in stripped.split("\\\\") if r.strip()]
+    return [inner]
+
+
 def _check_display_width(text, field, file, label, F: Findings) -> None:
-    """Regla 38: bloques display sin `aligned` que quedan demasiado anchos, o
-    que encadenan 3+ igualdades en una sola línea (deberían partirse en pasos
-    o pasar a `aligned`)."""
+    """Regla 38: cada fila visible de un bloque display (con o sin
+    `aligned`/`cases`) que queda demasiado ancha se marca para partir o
+    acortar, y un bloque sin `aligned` nunca encadena 3+ igualdades en una
+    sola línea.
+
+    Antes, cualquier bloque con `aligned`/`cases` se saltaba entero (líneas
+    353-354 de versiones previas): nunca medía la fila de planteo que junta
+    la integral original y su desarrollo completo por linealidad en un solo
+    renglón, que es exactamente el patrón que desborda en `integrales`. Ahora
+    mide cada fila por separado con el mismo umbral."""
     for m in DISPLAY_RE.finditer(text):
         inner = m.group(0)[2:-2]
-        if "aligned" in inner or "cases" in inner:
+        has_env = "aligned" in inner or "cases" in inner
+        for row in _display_rows(inner):
+            rl = render_len(row)
+            if rl > DISPLAY_RENDER_MAX:
+                where = "fila de un aligned/cases" if has_env else "bloque display sin aligned"
+                F.add("WARNING", field, "38", file, label,
+                      f"{where} de {rl} chars, conviene partir en un paso más o acortar: {row.strip()[:50]!r}...")
+        if has_env:
             continue
-        rl = render_len(inner)
-        if rl > DISPLAY_RENDER_MAX:
-            F.add("WARNING", field, "38", file, label,
-                  f"bloque display de {rl} chars sin aligned, conviene verticalizar: {inner[:50]!r}...")
         if inner.count("=") >= 3:
             F.add("WARNING", field, "38", file, label,
                   "bloque display con 3+ igualdades encadenadas en una sola línea, "
@@ -671,17 +723,69 @@ def check_feedbacks(items, file, F: Findings) -> None:
 # --- Structure: tags contra la tabla del topic-context ------------------------
 
 SLUG_CELL_RE = re.compile(r"`([a-z0-9]+(?:-[a-z0-9]+)*)`")
+# Encabezado de la seccion de un skill dentro del topic-context. Los docs usan
+# varias formas: "**LEXI (30):**", "**LEXI** (30 ejercicios):", "## LEXI, 30
+# ejercicios", "**CLSF** (archivado...)".
+SKILL_SECTION_RE = re.compile(
+    r"(?:\*\*\s*|^#{1,6}\s+`?)(LEXI|CLSF|FORM|GRAF|ESTR|RESL)\b")
+# Sub-familias declaradas en prosa en vez de con una fila de tabla. Hay dos
+# redacciones en uso en los docs:
+#   "*Tipo B — ... (6 ejercicios):* slug único `formula-desde-grafico-trig`."
+#   "*Tipo B — ... (9):* todos bajo `grafico-a-formula` (...)"
+INLINE_SUBFAMILY_RES = (
+    re.compile(r"\((\d+)\s+ejercicios[^`]*slug\s+único\s+`([a-z0-9]+(?:-[a-z0-9]+)*)`"),
+    re.compile(r"\((\d+)\)\s*:\**\s*todos bajo\s+`([a-z0-9]+(?:-[a-z0-9]+)*)`"),
+)
 
 
-def parse_distribution(topic_context: Path) -> dict[str, int]:
-    """Extrae {slug: cantidad} de las tablas markdown con columna Slug/Cant y menciones en prose."""
+def _add(targets: dict[str, int], por_skill: dict[str, dict[str, int]],
+         seccion: str | None, slug: str, count: int) -> None:
+    """Suma un objetivo a la unión del topic y, si se conoce, al skill."""
+    targets[slug] = targets.get(slug, 0) + count
+    if seccion:
+        d = por_skill.setdefault(seccion, {})
+        d[slug] = d.get(slug, 0) + count
+
+
+def parse_distribution(topic_context: Path) -> tuple[dict[str, dict[str, int]], dict[str, int]]:
+    """Extrae los objetivos de distribución del topic-context.
+
+    Devuelve `(por_skill, union)`:
+
+    - `por_skill[SKILL][slug]` es el objetivo de esa sub-familia **en ese
+      skill**. Es contra esto que se compara cada archivo.
+    - `union[slug]` junta todos los slugs válidos del topic, y sirve solo para
+      decidir si un tag es conocido.
+
+    Antes se devolvía una sola tabla con los conteos **sumados entre skills**,
+    y cada archivo se comparaba contra ese total. Cuando una sub-familia vive
+    en dos skills (ej. `propiedades-algebraicas-potencias`, 2 en LEXI y 6 en
+    FORM de `exponential`), el objetivo quedaba en 8 y los dos archivos
+    reportaban desvío estando ambos exactos. Ese solo bug generaba la mayoría
+    de los ~196 warnings de tags de agosto 2026.
+    """
+    por_skill: dict[str, dict[str, int]] = {}
     targets: dict[str, int] = {}
     if not topic_context.exists():
-        return targets
+        return por_skill, targets
     text = topic_context.read_text(encoding="utf-8")
 
-    # Parse tablas markdown
+    # Parse tablas markdown.
+    # Las secciones de un skill archivado (ej. "**CLSF** (archivado, no se
+    # recorta)") se saltean: la tabla queda en el doc como registro historico
+    # pero sus sub-familias no son objetivo de generacion, y contarlas hacia
+    # los targets inventa huecos que nadie va a llenar. Detectado en ago-2026,
+    # donde `white/functions` reportaba ~270 ejercicios faltantes que en
+    # realidad eran las tablas de CLSF, un skill podado del curso en jul-2026.
+    skip_section = False
+    seccion: str | None = None
     for line in text.splitlines():
+        m_head = SKILL_SECTION_RE.search(line)
+        if m_head:
+            skip_section = "archivad" in line.lower()
+            seccion = None if skip_section else m_head.group(1)
+        if skip_section:
+            continue
         if not line.strip().startswith("|"):
             continue
         cells = [c.strip() for c in line.strip().strip("|").split("|")]
@@ -698,19 +802,37 @@ def parse_distribution(topic_context: Path) -> dict[str, int]:
                 count = int(m.group(1))
                 break
         if slug and count is not None:
-            targets[slug] = targets.get(slug, 0) + count
+            _add(targets, por_skill, seccion, slug, count)
 
-    # Parse menciones inline: "(NN ejercicios):* ... slug único `slug`"
-    for m in re.finditer(r"\((\d+)\s+ejercicios[^`]*slug\s+único\s+`([a-z0-9]+(?:-[a-z0-9]+)*)`", text):
-        count_str, slug = m.groups()
-        count = int(count_str)
-        if slug and count:
-            targets[slug] = targets.get(slug, 0) + count
+    # Parse menciones inline: "(NN ejercicios):* ... slug único `slug`".
+    # Va dentro del mismo recorrido por líneas, no en una pasada aparte, para
+    # que la sub-familia quede atribuida a su skill. Algunas sub-familias se
+    # declaran así en vez de con una fila de tabla (ej. los "Tipo B/Tipo C" de
+    # los GRAF de `functions`); cuando esta parte no registraba el skill, esos
+    # slugs no entraban en el diccionario de su skill y sus ítems no se
+    # comparaban contra nada: pasaban en silencio.
+    for line in text.splitlines():
+        h = SKILL_SECTION_RE.search(line)
+        if h:
+            skip_section = "archivad" in line.lower()
+            seccion = None if skip_section else h.group(1)
+        if skip_section:
+            continue
+        for rx in INLINE_SUBFAMILY_RES:
+            for m in rx.finditer(line):
+                count = int(m.group(1))
+                if count:
+                    _add(targets, por_skill, seccion, m.group(2), count)
 
-    return targets
+    return por_skill, targets
 
 
-def check_structure(items, file, F: Findings, targets: dict[str, int]) -> None:
+def check_structure(items, file, F: Findings, targets: dict[str, int],
+                    known: dict[str, int] | None = None) -> None:
+    """`targets` son los objetivos del skill de este archivo; `known` es la
+    unión de slugs válidos del topic, que se usa solo para decidir si un tag
+    existe en la spec."""
+    known = known if known is not None else targets
     ci_counter: Counter[int] = Counter()
     tag_counter: Counter[str] = Counter()
     for idx, it in enumerate(items):
@@ -726,13 +848,13 @@ def check_structure(items, file, F: Findings, targets: dict[str, int]) -> None:
         else:
             ci_counter[ci] += 1
         tags = it.get("tags")
-        if targets:
+        if known:
             if not isinstance(tags, list) or not tags:
                 F.add("ERROR", "structure", "tags", file, label,
                       "sin campo tags (la tabla de distribución del topic lo exige)")
             else:
                 for t in tags:
-                    if t not in targets:
+                    if t not in known:
                         F.add("ERROR", "structure", "tags", file, label,
                               f"slug desconocido {t!r} (no está en la tabla del topic-context)")
                     else:
@@ -787,7 +909,7 @@ def main() -> int:
     files_scanned = 0
     items_scanned = 0
     for topic_dir in topic_dirs:
-        targets = parse_distribution(topic_dir / "topic-context.md")
+        targets_by_skill, known_slugs = parse_distribution(topic_dir / "topic-context.md")
         for jf in sorted(topic_dir.glob("[A-Z]*.json")):
             rel = jf.relative_to(course_dir).as_posix()
             try:
@@ -809,7 +931,10 @@ def main() -> int:
             if "feedbacks" in checks:
                 check_feedbacks(items, rel, F)
             if "structure" in checks:
-                check_structure(items, rel, F, targets)
+                # Cada archivo se compara contra los objetivos de SU skill. Si
+                # el doc no separa por skill, se cae a la unión del topic.
+                skill_targets = targets_by_skill.get(jf.stem) or known_slugs
+                check_structure(items, rel, F, skill_targets, known_slugs)
 
     if args.as_json:
         print(json.dumps({

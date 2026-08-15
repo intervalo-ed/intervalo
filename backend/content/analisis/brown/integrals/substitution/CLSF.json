@@ -1,0 +1,347 @@
+[
+  {
+    "question": "El coseno de acá se aplica a la variable sola, sin nada más adentro:\n$$\\int \\cos x\\,dx$$\n¿Qué camino conviene tomar?",
+    "options": [
+      "Regla directa",
+      "Sustitución",
+      "Reescribir antes"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto: $\\cos x$ es una entrada directa de la tabla, no hace falta ningún paso previo.",
+    "feedback_incorrect": [
+      null,
+      "La sustitución hace falta cuando hay una función compuesta con la derivada de su interior multiplicando; acá no hay ninguna composición.",
+      "No hay ninguna fracción ni potencia para reescribir antes: el integrando ya es una entrada de tabla tal cual está."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **tabla de integrales inmediatas** cubre las funciones elementales sin composición: potencias, exponenciales y las trigonométricas básicas sin argumento compuesto.\n\n$\\cos x$ entra directo en esa lista, sin ninguna función interior que derivar ni ningún factor que compensar.\n\nConviene chequear primero si el integrando ya es una entrada de tabla tal cual está antes de pensar en sustitución o en acondicionarlo: ahorra pasos innecesarios.",
+    "reviewed": false,
+    "tags": [
+      "tabla-directa-vs-sustitucion"
+    ]
+  },
+  {
+    "question": "En este integrando, un factor es, salvo una constante, la derivada de lo que hay dentro del coseno:\n$$\\int x\\cos(x^2)\\,dx$$\n¿Qué camino abre esta integral?",
+    "options": [
+      "Sustitución",
+      "Regla directa",
+      "Reescribir antes"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto: $x$ es, salvo el factor $\\tfrac12$, la derivada de $x^2$, la marca exacta de sustitución.",
+    "feedback_incorrect": [
+      null,
+      "El coseno tiene un argumento compuesto, $x^2$ y no $x$ solo: eso saca a este integrando de la regla directa.",
+      "No hay ninguna fracción ni potencia para reescribir: el problema es la composición, no la forma algebraica del integrando."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando el integrando combina una función compuesta con un factor que es, salvo constante, la **derivada del interior**, el camino es sustitución.\n\nAcá el interior del coseno es $x^2$:\n$$u=x^2 \\quad\\Rightarrow\\quad du=2x\\,dx$$\nEl factor que multiplica al coseno es $x$, la mitad de $2x$: exactamente lo que la sustitución necesita.\n\nSin ese factor acompañante la composición quedaría trabada; con él, cambiar de variable reduce todo a una integral de tabla en $u$.",
+    "reviewed": false,
+    "tags": [
+      "tabla-directa-vs-sustitucion"
+    ]
+  },
+  {
+    "question": "El exponente de esta exponencial no es la variable sola, sino un múltiplo de ella:\n$$\\int e^{5x}\\,dx$$\n¿Cómo conviene abordarla?",
+    "options": [
+      "Sustitución",
+      "Regla directa",
+      "Reescribir antes"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto: con $u=5x$, el factor $\\tfrac15$ compensa exactamente el $5$ que aparece al derivar $u$.",
+    "feedback_incorrect": [
+      null,
+      "Tratarla como regla directa, igual que $\\int e^x\\,dx$, pierde el factor $\\tfrac15$ que compensa la derivada del exponente $5x$.",
+      "No hay ninguna fracción ni potencia para reescribir: el argumento lineal del exponente es justamente lo que pide sustitución."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando el argumento de una exponencial no es la variable sola sino un múltiplo lineal de ella, la primitiva no es igual a la de $e^x$: hace falta **sustitución** con $u$ igual a ese argumento.\n\nCon $u=5x$:\n$$du=5\\,dx \\quad\\Rightarrow\\quad dx=\\tfrac15\\,du$$\nEse factor de un quinto compensa exactamente el $5$ que aparece al derivar el exponente.\n\nConfundir este caso con regla directa arrastra el factor de un quinto perdido: la forma se parece mucho a $\\int e^x\\,dx$, pero el $5$ dentro del exponente cambia el resultado.",
+    "reviewed": false,
+    "tags": [
+      "tabla-directa-vs-sustitucion"
+    ]
+  },
+  {
+    "question": "En la siguiente integral el denominador es la variable sola, sin ninguna otra cosa alrededor:\n$$\\int \\frac{1}{x}\\,dx$$\n¿Qué camino corresponde?",
+    "options": [
+      "Regla directa",
+      "Sustitución",
+      "Reescribir antes"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto: $\\tfrac1x$ es el caso especial de la tabla, con primitiva $\\ln|x|$.",
+    "feedback_incorrect": [
+      null,
+      "Sustitución hace falta cuando el denominador es una función compuesta con su derivada arriba; acá el denominador es $x$ solo.",
+      "No hace falta reescribir nada: $\\tfrac1x$ ya es exactamente la forma que la tabla cubre como caso especial."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La tabla de integrales inmediatas incluye un caso especial para el exponente $-1$:\n$$\\int \\frac{1}{x}\\,dx=\\ln|x|+C$$\nAcá el denominador es la variable sola, sin ninguna composición ni factor extra: entra directo en ese caso especial.\n\nEste caso se confunde a veces con sustitución porque el resultado lleva un logaritmo, pero no hace falta ningún cambio de variable: es una entrada de tabla como cualquier otra.",
+    "reviewed": false,
+    "tags": [
+      "tabla-directa-vs-sustitucion"
+    ]
+  },
+  {
+    "question": "En esta fracción, el numerador es, salvo una constante, la derivada del denominador:\n$$\\int \\frac{4x}{x^2+3}\\,dx$$\n¿Qué camino abre esta integral?",
+    "options": [
+      "Reescribir antes",
+      "Sustitución",
+      "Regla directa"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto: con $u=x^2+3$, $du=2x\\,dx$, y el numerador $4x$ es exactamente $2\\,du$.",
+    "feedback_incorrect": [
+      "No hay ninguna división término a término posible acá: el numerador no es múltiplo del denominador, sino de su derivada.",
+      null,
+      "El denominador es una función compuesta, $x^2+3$ y no la variable sola: eso saca a este integrando de la regla directa."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando el numerador de una fracción es, salvo constante, la **derivada del denominador**, el camino es sustitución con $u$ igual al denominador.\n\nAcá el denominador es $u=x^2+3$:\n$$du=2x\\,dx$$\nEl numerador $4x$ es el doble de esa derivada, así que la sustitución cierra directo en una integral de tabla.\n\nEsta estructura, numerador proporcional a la derivada del denominador, es la marca más confiable de sustitución en una fracción.",
+    "reviewed": false,
+    "tags": [
+      "tabla-directa-vs-sustitucion"
+    ]
+  },
+  {
+    "question": "Del otro lado del cálculo este integrando ya apareció, como resultado de derivar la tangente:\n$$\\int \\sec^2 x\\,dx$$\n¿Qué camino conviene tomar?",
+    "options": [
+      "Regla directa",
+      "Sustitución",
+      "Reescribir antes"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto: $\\sec^2 x$ es la entrada de tabla que da $\\tan x$, sin ningún paso previo.",
+    "feedback_incorrect": [
+      null,
+      "No hay ningún argumento compuesto, $x$ solo y no una función de $x$: no hace falta cambiar de variable.",
+      "No hay ninguna fracción para repartir ni potencia para reescribir: el integrando ya es una entrada de tabla."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La tabla de integrales inmediatas incluye esta entrada, la contraparte de que la derivada de $\\tan x$ es $\\sec^2 x$:\n$$\\int \\sec^2 x\\,dx=\\tan x+C$$\nAcá el argumento es $x$ solo, sin ninguna composición: entra directo en esa entrada de la tabla.\n\nReconocer las derivadas trigonométricas de memoria evita perder tiempo buscando una sustitución que no hace falta.",
+    "reviewed": false,
+    "tags": [
+      "tabla-directa-vs-sustitucion"
+    ]
+  },
+  {
+    "question": "Adentro del seno no está la variable sola, sino multiplicada por un número y desplazada:\n$$\\int \\sin(2x-1)\\,dx$$\n¿Cómo conviene abordarla?",
+    "options": [
+      "Regla directa",
+      "Sustitución",
+      "Reescribir antes"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto: con $u=2x-1$, el factor $\\tfrac12$ compensa la derivada $2$ del argumento.",
+    "feedback_incorrect": [
+      "Tratarla igual que $\\int \\sin x\\,dx$ pierde el factor $\\tfrac12$ que compensa la derivada del argumento $2x-1$.",
+      null,
+      "No hay ninguna fracción ni potencia para reescribir: el argumento lineal del seno es justamente lo que pide sustitución."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando el argumento de una función trigonométrica no es la variable sola sino un polinomio de grado uno, hace falta **sustitución** con $u$ igual a ese argumento.\n\nCon $u=2x-1$:\n$$du=2\\,dx \\quad\\Rightarrow\\quad dx=\\tfrac12\\,du$$\nEse factor de un medio compensa exactamente el $2$ que aparece al derivar el argumento.\n\nEste caso se confunde con regla directa porque la forma es casi idéntica a $\\int \\sin x\\,dx$: el coeficiente $2$ dentro del argumento es lo único que cambia el tratamiento.",
+    "reviewed": false,
+    "tags": [
+      "tabla-directa-vs-sustitucion"
+    ]
+  },
+  {
+    "question": "Este integrando es un número fijo, sin ninguna variable involucrada:\n$$\\int 3\\,dx$$\n¿Qué camino corresponde?",
+    "options": [
+      "Regla directa",
+      "Reescribir antes",
+      "Sustitución"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto: la regla de la constante es una entrada de tabla, $\\int k\\,dx=kx+C$.",
+    "feedback_incorrect": [
+      null,
+      "No hay ninguna fracción ni potencia que reescribir: una constante ya está en su forma más simple posible.",
+      "No hay ninguna variable que cambiar por $u$: sin variable no hay derivada que compensar."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **regla de la constante** es una de las entradas más simples de la tabla: $\\int k\\,dx=kx+C$ para cualquier número fijo $k$.\n\nAcá $k=3$, así que la primitiva es directamente $3x+C$, sin ningún paso intermedio.\n\nEste caso rara vez genera dudas en aislado, pero conviene tenerlo presente porque aparece mezclado dentro de integrandos más largos con varios términos.",
+    "reviewed": false,
+    "tags": [
+      "tabla-directa-vs-sustitucion"
+    ]
+  },
+  {
+    "question": "Este cociente se puede repartir término a término antes de integrar nada:\n$$\\int \\frac{x^3+5x}{x}\\,dx$$\n¿Qué camino conviene tomar?",
+    "options": [
+      "Reescribir antes",
+      "Sustitución",
+      "Regla directa"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto: repartir el denominador da $x^2+5$, dos entradas de tabla sin ningún cambio de variable.",
+    "feedback_incorrect": [
+      null,
+      "No hay ninguna función compuesta con su derivada multiplicando: esto es una división de polinomios, no una composición.",
+      "Tal como está escrito el cociente no es ninguna entrada de tabla; hace falta repartir el denominador antes."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Antes de pensar en sustitución conviene mirar si el integrando se puede simplificar con **álgebra básica**, sin ningún cambio de variable.\n\nAcá se reparte el denominador en cada término:\n$$\\frac{x^3+5x}{x}=\\frac{x^3}{x}+\\frac{5x}{x}=x^2+5$$\nDos entradas directas de la tabla, sin ningún cambio de variable de por medio.\n\nEsta forma no tiene estructura de composición en ningún lado: no hay una función interior con su derivada multiplicando, así que sustitución no aplica ni haría falta.",
+    "reviewed": false,
+    "tags": [
+      "acondicionamiento-vs-sustitucion-genuina"
+    ]
+  },
+  {
+    "question": "Una raíz es una potencia escrita de otra manera:\n$$\\int \\frac{1}{\\sqrt{x}}\\,dx$$\n¿Qué camino corresponde?",
+    "options": [
+      "Sustitución",
+      "Reescribir antes",
+      "Regla directa"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto: reescribir como $x^{-1/2}$ deja una potencia lista para la regla de la potencia.",
+    "feedback_incorrect": [
+      "No hay ninguna función compuesta con su derivada multiplicando: el problema es de notación, no de composición.",
+      null,
+      "Tal como está escrita, la raíz en el denominador no es ninguna entrada de tabla; hace falta reescribirla como potencia antes."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una raíz en el denominador no es directamente una entrada de tabla ni tiene estructura de composición: primero se convierte a **potencia fraccionaria**.\n\nAcá la raíz se convierte en potencia:\n$$\\frac{1}{\\sqrt{x}}=x^{-1/2}$$\nUna potencia que ya entra directo en la regla de la potencia de la tabla.\n\nEste paso es puramente notacional: no cambia la función, solo la escribe de una forma que la tabla reconoce, sin necesidad de ningún cambio de variable.",
+    "reviewed": false,
+    "tags": [
+      "acondicionamiento-vs-sustitucion-genuina"
+    ]
+  },
+  {
+    "question": "En este cociente, tanto el numerador como el $2x$ del denominador comparten un factor común:\n$$\\int \\frac{6x^2+2x}{2x}\\,dx$$\n¿Cómo conviene abordarla?",
+    "options": [
+      "Sustitución",
+      "Regla directa",
+      "Reescribir antes"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto: repartir el denominador da $3x+1$, dos entradas de tabla sin ningún cambio de variable.",
+    "feedback_incorrect": [
+      "No hay ninguna función compuesta con su derivada multiplicando: esto es una división de polinomios, no una composición.",
+      "Tal como está escrito el cociente no es ninguna entrada de tabla; hace falta repartir el denominador antes.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Antes de pensar en un cambio de variable conviene revisar si el cociente se simplifica con **álgebra básica**.\n\nAcá se reparte el denominador en cada término:\n$$\\frac{6x^2+2x}{2x}=\\frac{6x^2}{2x}+\\frac{2x}{2x}=3x+1$$\nDos entradas directas de la tabla, sin ningún cambio de variable de por medio.\n\nDespués de repartir no queda ninguna composición: la variable aparece sola en cada término, así que sustitución nunca hubiera hecho falta acá.",
+    "reviewed": false,
+    "tags": [
+      "acondicionamiento-vs-sustitucion-genuina"
+    ]
+  },
+  {
+    "question": "Debajo de esta raíz hay una potencia, y las dos juntas se pueden escribir como una sola:\n$$\\int \\sqrt[3]{x^2}\\,dx$$\n¿Qué camino corresponde?",
+    "options": [
+      "Regla directa",
+      "Sustitución",
+      "Reescribir antes"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto: reescribir como $x^{2/3}$ deja una potencia lista para la regla de la potencia.",
+    "feedback_incorrect": [
+      "Tal como está escrita, la raíz cúbica no es ninguna entrada de tabla; hace falta reescribirla como potencia antes.",
+      "No hay ninguna función compuesta con su derivada multiplicando: el problema es de notación, no de composición.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una raíz de una potencia no está directamente en la tabla ni tiene estructura de composición: primero se convierte a **potencia fraccionaria**.\n\nAcá $\\sqrt[3]{x^2}=x^{2/3}$, una potencia que ya entra directo en la regla de la potencia.\n\nComo con cualquier reescritura de raíces, este paso es notacional: no hay ninguna función interior con su derivada acompañando, así que un cambio de variable no simplificaría nada.",
+    "reviewed": false,
+    "tags": [
+      "acondicionamiento-vs-sustitucion-genuina"
+    ]
+  },
+  {
+    "question": "En este integrando, un factor es exactamente la derivada de lo que hay dentro de la exponencial:\n$$\\int 2xe^{x^2}\\,dx$$\n¿Qué camino abre esta integral?",
+    "options": [
+      "Reescribir antes",
+      "Sustitución",
+      "Regla directa"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto: con $u=x^2$, $du=2x\\,dx$, que es exactamente el factor $2x$ que acompaña.",
+    "feedback_incorrect": [
+      "No hay ninguna fracción ni potencia para reescribir: el integrando ya tiene la estructura completa de una sustitución.",
+      null,
+      "El exponente es una función compuesta, $x^2$ y no $x$ solo: eso saca a este integrando de la regla directa."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando un factor del integrando es, salvo constante, la **derivada del interior** de una función compuesta, el camino es sustitución.\n\nAcá el interior de la exponencial es $x^2$:\n$$du=2x\\,dx$$\nEse factor aparece completo acompañando a la exponencial, sin ninguna constante extra que compensar.\n\nEste es el caso más limpio de sustitución: el factor acompañante ya viene con el coeficiente correcto, sin necesidad de ajustar nada.",
+    "reviewed": false,
+    "tags": [
+      "acondicionamiento-vs-sustitucion-genuina"
+    ]
+  },
+  {
+    "question": "En esta fracción, el numerador es exactamente la derivada del denominador:\n$$\\int \\frac{2x}{x^2+4}\\,dx$$\n¿Qué camino corresponde?",
+    "options": [
+      "Regla directa",
+      "Reescribir antes",
+      "Sustitución"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto: con $u=x^2+4$, $du=2x\\,dx$, que es exactamente el numerador.",
+    "feedback_incorrect": [
+      "El denominador es una función compuesta, $x^2+4$ y no la variable sola: eso saca a este integrando de la regla directa.",
+      "No hay ninguna división término a término posible acá: el numerador no es múltiplo del denominador, sino de su derivada.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando el numerador de una fracción es exactamente la **derivada del denominador**, el camino es sustitución con $u$ igual al denominador.\n\nAcá el denominador es $u=x^2+4$:\n$$du=2x\\,dx$$\nEse valor coincide exacto con el numerador $2x$, así que la sustitución cierra directo en una integral de tabla.\n\nEste caso es el más directo de reconocer: no hace falta ajustar ninguna constante, el numerador ya es la derivada tal cual.",
+    "reviewed": false,
+    "tags": [
+      "acondicionamiento-vs-sustitucion-genuina"
+    ]
+  },
+  {
+    "question": "En este integrando, un factor cúbico es, salvo una constante, la derivada de lo que hay dentro del seno:\n$$\\int 4x^3\\sin(x^4)\\,dx$$\n¿Cómo conviene abordarla?",
+    "options": [
+      "Reescribir antes",
+      "Regla directa",
+      "Sustitución"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto: con $u=x^4$, $du=4x^3\\,dx$, que es exactamente el factor que acompaña.",
+    "feedback_incorrect": [
+      "No hay ninguna fracción ni potencia para reescribir: el integrando ya tiene la estructura completa de una sustitución.",
+      "El seno tiene un argumento compuesto, $x^4$ y no $x$ solo: eso saca a este integrando de la regla directa.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando un factor del integrando coincide exacto con la **derivada del interior** de una función compuesta, el camino es sustitución sin ningún ajuste de constante.\n\nAcá el interior del seno es $x^4$, cuya derivada es $4x^3$:\n$$u=x^4 \\quad\\Rightarrow\\quad du=4x^3\\,dx$$\nEse factor aparece completo acompañando al seno, así que la sustitución cierra directo.\n\nQue el exponente sea $4$ y no $2$ no cambia el criterio: lo único que importa es si el factor acompañante coincide con la derivada del interior, no el grado del polinomio.",
+    "reviewed": false,
+    "tags": [
+      "acondicionamiento-vs-sustitucion-genuina"
+    ]
+  }
+]

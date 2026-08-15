@@ -95,20 +95,20 @@
     "question": "El término $5x^4$ aparece dentro de una suma más grande.\n\n¿Qué combinación de reglas corresponde aplicar?",
     "options": [
       "Regla de la cadena sobre el exponente",
-      "Múltiplo escalar junto con la regla",
+      "Múltiplo por constante junto con la regla",
       "Regla del cociente sobre el coeficiente"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Correcto, el coeficiente se trata como múltiplo escalar y el resto con la potencia.",
+    "feedback_correct": "Correcto, el coeficiente se trata como múltiplo por constante y el resto con la potencia.",
     "feedback_incorrect": [
       "El exponente no es una función compuesta, es un número fijo, así que la regla de la cadena no aplica acá.",
       null,
-      "No hay ningún cociente en este término, el coeficiente $5$ se trata simplemente como múltiplo escalar."
+      "No hay ningún cociente en este término, el coeficiente $5$ se trata simplemente como múltiplo por constante."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando un término combina un coeficiente numérico con una potencia de $x$, corresponde aplicar el **múltiplo escalar** junto con la regla de la potencia.\n\nEl coeficiente se conserva multiplicando al resultado de derivar la potencia, sin que haga falta ninguna otra regla adicional.\n\nEste mismo patrón, coeficiente más potencia, se repite en cualquier término polinómico con coeficiente distinto de $1$.",
+    "explanation": "Cuando un término combina un coeficiente numérico con una potencia de $x$, corresponde aplicar el **múltiplo por constante** junto con la regla de la potencia.\n\nEl coeficiente se conserva multiplicando al resultado de derivar la potencia, sin que haga falta ninguna otra regla adicional.\n\nEste mismo patrón, coeficiente más potencia, se repite en cualquier término polinómico con coeficiente distinto de $1$.",
     "reviewed": false,
     "tags": [
       "jerarquia-de-reglas"
@@ -140,13 +140,13 @@
   {
     "question": "Esta expresión mezcla una potencia con una división:\n$$f(x) = \\frac{x^3}{5}$$\n¿Qué paso conviene dar primero para derivarla?",
     "options": [
-      "Ver la división por $5$ como un múltiplo escalar",
+      "Ver la división por $5$ como un múltiplo por constante",
       "Aplicar la regla del cociente entre $x^3$ y $5$",
       "Reescribir $5$ como una función de $x$ antes de derivar"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, dividir por una constante es lo mismo que multiplicar por un múltiplo escalar.",
+    "feedback_correct": "Correcto, dividir por una constante es lo mismo que multiplicar por un múltiplo por constante.",
     "feedback_incorrect": [
       null,
       "El denominador es una constante, no una función de $x$, así que no hace falta la regla del cociente.",
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dividir por una constante equivale a multiplicar por su recíproco:\n$$\\frac{x^3}{5} = \\frac{1}{5}x^3$$\nCon esa reinterpretación, el problema se resuelve con **múltiplo escalar** y la regla de la potencia, sin necesitar ninguna regla del cociente.\n\nEste mismo truco sirve para cualquier expresión dividida por una constante, no solo para $x^3$.",
+    "explanation": "Dividir por una constante equivale a multiplicar por su recíproco:\n$$\\frac{x^3}{5} = \\frac{1}{5}x^3$$\nCon esa reinterpretación, el problema se resuelve con **múltiplo por constante** y la regla de la potencia, sin necesitar ninguna regla del cociente.\n\nEste mismo truco sirve para cualquier expresión dividida por una constante, no solo para $x^3$.",
     "reviewed": false,
     "tags": [
       "descomposicion-de-funciones"
@@ -233,7 +233,7 @@
     "question": "Tres familias de funciones conviven en esta suma:\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿Qué regla corresponde aplicar al término $3x^2$?",
     "options": [
       "Regla de la constante",
-      "Múltiplo escalar",
+      "Múltiplo por constante",
       "Derivada de exponencial"
     ],
     "correct_index": 1,
@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El término $3x^2$ combina un coeficiente numérico con una potencia de $x$, así que corresponde el **múltiplo escalar** junto con la regla de la potencia.\n\nCada término dentro de una suma se identifica y se resuelve por separado, antes de combinar todos los resultados al final.\n\nEste mismo patrón se repite en cualquier término con coeficiente y potencia combinados.",
+    "explanation": "El término $3x^2$ combina un coeficiente numérico con una potencia de $x$, así que corresponde el **múltiplo por constante** junto con la regla de la potencia.\n\nCada término dentro de una suma se identifica y se resuelve por separado, antes de combinar todos los resultados al final.\n\nEste mismo patrón se repite en cualquier término con coeficiente y potencia combinados.",
     "reviewed": false,
     "tags": [
       "descomposicion-de-funciones"
@@ -279,7 +279,7 @@
     "question": "Esta expresión mezcla una exponencial, un coseno y un número:\n$$f(x) = 2e^x - \\cos x + 6$$\n¿Qué regla corresponde aplicar al término $6$?",
     "options": [
       "Regla de la constante",
-      "Múltiplo escalar",
+      "Múltiplo por constante",
       "Derivada de exponencial"
     ],
     "correct_index": 0,
@@ -287,7 +287,7 @@
     "feedback_correct": "Correcto, un término sin variable siempre deriva a cero.",
     "feedback_incorrect": [
       null,
-      "El múltiplo escalar necesita una función de $x$ multiplicada por un número, acá $6$ está solo, sin ninguna variable.",
+      "El múltiplo por constante necesita una función de $x$ multiplicada por un número, acá $6$ está solo, sin ninguna variable.",
       "$6$ no tiene ninguna variable en el exponente, no es una exponencial, corresponde la regla de la constante."
     ],
     "graph_fn": null,
@@ -301,7 +301,7 @@
   {
     "question": "Esta suma combina una potencia, una tangente y un logaritmo:\n$$f(x) = x^5 - 4\\tan x + \\ln x$$\n¿Qué regla corresponde aplicar al término $x^5$?",
     "options": [
-      "Múltiplo escalar",
+      "Múltiplo por constante",
       "Regla de la potencia",
       "Derivada trigonométrica"
     ],
@@ -309,13 +309,13 @@
     "has_math": true,
     "feedback_correct": "Correcto, $x^5$ se deriva con la regla de la potencia, sin coeficiente adicional.",
     "feedback_incorrect": [
-      "El coeficiente de $x^5$ es $1$, así que no hace falta ningún múltiplo escalar, solo la regla de la potencia.",
+      "El coeficiente de $x^5$ es $1$, así que no hace falta ningún múltiplo por constante, solo la regla de la potencia.",
       null,
       "$x^5$ no es una función trigonométrica, corresponde la regla de la potencia."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El término $x^5$ no lleva ningún coeficiente visible distinto de $1$, así que se resuelve directamente con la **regla de la potencia**, sin necesidad de múltiplo escalar.\n\nReconocer cuándo un coeficiente está presente y cuándo no lo está evita agregar pasos innecesarios al procedimiento.\n\nIdentificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
+    "explanation": "El término $x^5$ no lleva ningún coeficiente visible distinto de $1$, así que se resuelve directamente con la **regla de la potencia**, sin necesidad de múltiplo por constante.\n\nReconocer cuándo un coeficiente está presente y cuándo no lo está evita agregar pasos innecesarios al procedimiento.\n\nIdentificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
     "reviewed": false,
     "tags": [
       "jerarquia-de-reglas"
@@ -326,7 +326,7 @@
     "options": [
       "Regla de la potencia",
       "Derivada de exponencial",
-      "Múltiplo escalar"
+      "Múltiplo por constante"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El término $-4\\tan x$ combina un coeficiente numérico con una función trigonométrica, así que corresponde el **múltiplo escalar** junto con la derivada trigonométrica.\n\nEl coeficiente se conserva multiplicando al resultado de derivar la tangente, exactamente igual que con cualquier otra función elemental.",
+    "explanation": "El término $-4\\tan x$ combina un coeficiente numérico con una función trigonométrica, así que corresponde el **múltiplo por constante** junto con la derivada trigonométrica.\n\nEl coeficiente se conserva multiplicando al resultado de derivar la tangente, exactamente igual que con cualquier otra función elemental.",
     "reviewed": false,
     "tags": [
       "descomposicion-de-funciones"

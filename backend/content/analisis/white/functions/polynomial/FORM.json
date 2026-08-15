@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
+    "question": "Para identificar un polinomio en un gráfico sirven su forma general y los puntos donde corta el eje horizontal.\n\n¿Qué expresión corresponde a la curva del gráfico?",
     "options": [
       "$f(x) = x^3 + 3x$",
       "$f(x) = x^3 - 3x$",
@@ -55,7 +55,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$p(x) = 2x^3 - x^5 + 4$$\n¿Cuál es su grado?",
+    "question": "Los términos de este polinomio no están ordenados por potencia:\n$$p(x) = 2x^3 - x^5 + 4$$\n¿Cuál es su grado?",
     "options": [
       "$4$",
       "$3$",
@@ -80,7 +80,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$p(x) = -2x^3 + 5x - 1$$\n¿Cuál es su coeficiente principal?",
+    "question": "Un polinomio tiene un coeficiente encabezando su mayor potencia:\n$$p(x) = -2x^3 + 5x - 1$$\n¿Cuál es su coeficiente principal?",
     "options": [
       "$3$",
       "$5$",
@@ -105,7 +105,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el valor de $p(0)$ para $p(x) = x^3 - 4x + 3$?",
+    "question": "Un polinomio se evalúa reemplazando la variable por un número:\n$$p(x) = x^3 - 4x + 3$$\n¿Cuál es el valor de $p(0)$?",
     "options": [
       "$0$",
       "$1$",
@@ -130,7 +130,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$p(x) = x^5 - x^3 + x - 1$$\n¿Cuántos términos tiene?",
+    "question": "Cada sumando separado por un más o un menos cuenta como un término:\n$$p(x) = x^5 - x^3 + x - 1$$\n¿Cuántos términos tiene?",
     "options": [
       "$4$",
       "$5$",
@@ -180,7 +180,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$p(x) = 3x^4 - 2x^3 + x - 8$$\n¿Cuál es el coeficiente del término de grado $3$?",
+    "question": "En este polinomio faltan potencias intermedias, así que hay que ubicar bien cada término:\n$$p(x) = 3x^4 - 2x^3 + x - 8$$\n¿Cuál es el coeficiente del término de grado $3$?",
     "options": [
       "$-2$",
       "$3$",
@@ -205,7 +205,7 @@
     ]
   },
   {
-    "question": "Observá la función:\n$$p(x) = x^3 - x + 2$$\n¿Cuánto vale $p(-1)$?",
+    "question": "Un polinomio se evalúa en un valor negativo:\n$$p(x) = x^3 - x + 2$$\n¿Cuánto vale $p(-1)$?",
     "options": [
       "$4$",
       "$-2$",
@@ -280,7 +280,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = x(x - 4)(x + 1)$$\n¿Cuánto vale $f(2)$?",
+    "question": "Este polinomio viene escrito como producto de factores, sin desarrollar:\n$$f(x) = x(x - 4)(x + 1)$$\n¿Cuánto vale $f(2)$?",
     "options": [
       "$-12$",
       "$12$",
@@ -305,7 +305,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$p(x) = (x - 2)^2(x + 1)$$\n¿Cuáles son sus raíces y qué tipo son?",
+    "question": "La forma factorizada de un polinomio muestra sus raíces y también cuántas veces se repite cada una:\n$$p(x) = (x - 2)^2(x + 1)$$\n¿Cuáles son sus raíces y de qué tipo son?",
     "options": [
       "$x = 2$ (doble) y $x = -1$ (simple)",
       "$x = 2$ (simple) y $x = -1$ (doble)",
@@ -330,7 +330,7 @@
     ]
   },
   {
-    "question": "Considerá el polinomio:\n$$q(x) = (x^2 + 1)(x^3 - x)$$\n¿Cuál es su grado?",
+    "question": "Un polinomio viene escrito como producto de dos factores:\n$$q(x) = (x^2 + 1)(x^3 - x)$$\n¿Cuál es su grado?",
     "options": [
       "$3$",
       "$2$",
@@ -355,7 +355,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la expansión de $(2x + 1)^2$?",
+    "question": "Elevar un binomio al cuadrado no es lo mismo que elevar cada término por separado:\n$$(2x + 1)^2$$\n¿Cuál es su expansión?",
     "options": [
       "$4x^2 + 1$",
       "$2x^2 + 4x + 1$",
@@ -380,7 +380,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la expansión de $(3x - 2)^2$?",
+    "question": "Un binomio con signo negativo se eleva al cuadrado:\n$$(3x - 2)^2$$\n¿Cuál es su expansión?",
     "options": [
       "$9x^2 - 4$",
       "$9x^2 - 6x + 4$",
@@ -405,7 +405,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la factorización de $9x^2 - 4$?",
+    "question": "Un polinomio de dos términos puede factorizarse cuando ambos son potencias exactas:\n$$9x^2 - 4$$\n¿Cuál es su factorización?",
     "options": [
       "$(3x - 2)^2$",
       "$(9x - 4)(9x + 4)$",
@@ -430,7 +430,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la factorización de $x^2 + 6x + 9$?",
+    "question": "Los tres términos de este trinomio guardan una relación que permite factorizarlo de una:\n$$x^2 + 6x + 9$$\n¿Cuál es su factorización?",
     "options": [
       "$(x + 3)(x - 3)$",
       "$(x + 9)(x + 1)$",
@@ -455,7 +455,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la expansión de $(x + 1)^3$?",
+    "question": "Elevar un binomio al cubo genera más términos de los que uno esperaría:\n$$(x + 1)^3$$\n¿Cuál es su expansión?",
     "options": [
       "$x^3 + 1$",
       "$x^3 + 3x^2 + 3x + 1$",
@@ -480,7 +480,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la factorización de $x^3 + 8$?",
+    "question": "Una expresión suma dos cubos exactos:\n$$x^3 + 8$$\n¿Cuál es su factorización?",
     "options": [
       "$(x + 2)^3$",
       "$(x + 8)(x^2 - 8x + 64)$",
@@ -505,7 +505,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la factorización de $x^3 - 27$?",
+    "question": "Una resta de cubos se factoriza en un binomio por un trinomio, y los signos importan:\n$$x^3 - 27$$\n¿Cuál es su factorización?",
     "options": [
       "$(x - 3)^3$",
       "$(x - 3)(x^2 + 3x + 9)$",
@@ -530,7 +530,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la única raíz real de $x^3 + 1$?",
+    "question": "Las raíces de un polinomio son los valores que lo anulan:\n$$x^3 + 1$$\n¿Cuál es su única raíz real?",
     "options": [
       "$x = 1$",
       "$x = -1$",
@@ -555,7 +555,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el coeficiente del término independiente en la expansión de $(x - 1)^3$?",
+    "question": "Un desarrollo tiene un término que queda sin ninguna $x$:\n$$(x - 1)^3$$\n¿Cuál es el coeficiente de ese término en la expansión?",
     "options": [
       "$1$",
       "$-3$",
@@ -580,7 +580,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas expresiones es equivalente a $8x^3 - 1$?",
+    "question": "Una resta junta dos cubos exactos, uno con coeficiente y otro no:\n$$8x^3 - 1$$\n¿Qué expresión es equivalente?",
     "options": [
       "$(2x - 1)^3$",
       "$(2x - 1)(4x^2 + 2x + 1)$",
@@ -690,7 +690,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el coeficiente principal de $-(x - 1)(x + 2)(x - 3)$?",
+    "question": "Un producto de factores tiene su propio coeficiente principal:\n$$-(x - 1)(x + 2)(x - 3)$$\n¿Cuál es su coeficiente principal?",
     "options": [
       "$1$",
       "$-1$",
@@ -740,7 +740,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el término independiente en la expansión de $(x + 2)^3$?",
+    "question": "Una expansión tiene un término independiente que se puede obtener aparte:\n$$(x + 2)^3$$\n¿Cuál es ese término independiente?",
     "options": [
       "$2$",
       "$6$",

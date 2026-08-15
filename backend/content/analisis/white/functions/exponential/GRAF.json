@@ -450,7 +450,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
+    "question": "Todas las exponenciales sin factor delante pasan por el mismo punto del eje vertical, y la diferencia queda en el ritmo.\n\n¿Qué fórmula corresponde a la curva del gráfico?",
     "options": [
       "$f(x) = (0{,}5)^x$",
       "$f(x) = 2^x$",
@@ -480,7 +480,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
+    "question": "La altura a la que se aplana la curva y su valor en $x=0$ son los dos datos que la identifican.\n\n¿Qué fórmula corresponde al gráfico?",
     "options": [
       "$f(x) = 2^x$",
       "$f(x) = 2^x - 2$",
@@ -510,7 +510,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
+    "question": "En un gráfico exponencial conviene mirar primero si la curva sube o baja al avanzar hacia la derecha.\n\n¿Qué fórmula le corresponde?",
     "options": [
       "$f(x) = (0{,}5)^x + 1$",
       "$f(x) = (0{,}5)^x$",
@@ -540,7 +540,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
+    "question": "El punto donde la curva cruza el eje vertical es el primer dato que se lee en una exponencial.\n\n¿Qué fórmula corresponde al gráfico?",
     "options": [
       "$f(x) = (1{,}5)^x$",
       "$f(x) = 2 \\cdot (0{,}5)^x$",
@@ -570,7 +570,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
+    "question": "Una exponencial que baja y otra que sube pueden compartir el mismo valor inicial.\n\n¿Qué fórmula corresponde a la curva del gráfico?",
     "options": [
       "$f(x) = 3 \\cdot 2^x$",
       "$f(x) = 3 \\cdot (0{,}6)^x$",
@@ -600,7 +600,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
+    "question": "Multiplicar una exponencial por un número estira la curva en vertical sin mover su asíntota.\n\n¿Qué fórmula corresponde al gráfico?",
     "options": [
       "$f(x) = 4 \\cdot (0{,}5)^x$",
       "$f(x) = (0{,}5)^x$",
@@ -630,7 +630,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
+    "question": "Cuanto más grande es la base, más empinada se ve la curva a la derecha del eje vertical.\n\n¿Qué fórmula corresponde al gráfico?",
     "options": [
       "$f(x) = e^x$",
       "$f(x) = 2^x$",
@@ -660,7 +660,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
+    "question": "Dos curvas pueden compartir la misma asíntota y crecer en direcciones opuestas.\n\n¿Qué fórmula corresponde al gráfico?",
     "options": [
       "$f(x) = (0{,}5)^x - 1$",
       "$f(x) = 2^x$",
@@ -690,7 +690,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
+    "question": "En una exponencial, el factor que multiplica y el número que se suma cumplen papeles distintos.\n\n¿Qué fórmula corresponde a la curva?",
     "options": [
       "$f(x) = 2 \\cdot (1{,}5)^x + 1$",
       "$f(x) = 2 \\cdot (1{,}5)^x$",
@@ -870,21 +870,21 @@
     ]
   },
   {
-    "question": "La gráfica muestra el crecimiento de seguidores en redes, en miles, de un canal.\n\nEmpieza con $3000$ seguidores y crece un $20\\%$ mensual.\n\n¿Qué valor tiene la curva en $t = 0$?",
+    "question": "La gráfica muestra el crecimiento de seguidores de un canal, medido en miles.\n\nArranca con $3000$ seguidores y la cantidad se duplica cada mes.\n\n¿Qué valor tiene la curva en $t = 1$?",
     "options": [
-      "$0$",
-      "$3{,}6$",
-      "$1$",
-      "$3$"
+      "$3$",
+      "$6$",
+      "$12$",
+      "$1{,}5$"
     ],
-    "correct_index": 3,
+    "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$S(0) = 3000$ seguidores.",
+    "feedback_correct": "En $t=1$ ya pasó un mes, así que los $3000$ del arranque se duplicaron y la curva está en $6$ mil.",
     "feedback_incorrect": [
-      "Ese valor correspondería a una curva que arranca en el origen: acá el punto de corte con el eje vertical está por encima de cero.",
-      "Ese valor sale de evaluar un mes después del inicio, no en $t = 0$: repasá qué pasa con la base elevada a la potencia $0$.",
-      "Ese sería el valor si no hubiera coeficiente multiplicando a la base: fijate cuál es el valor inicial real de la curva.",
-      null
+      "Ese es el valor de arranque, donde la curva corta el eje vertical. En $t=1$ ya pasó un mes.",
+      null,
+      "Ese es el valor dos meses después del arranque, contá una sola duplicación para llegar a $t=1$.",
+      "Ese punto queda a la izquierda del eje vertical, un mes antes del arranque."
     ],
     "graph_fn": "3 * pow(2, x)",
     "graph_view": [
@@ -893,7 +893,7 @@
       -0.5,
       10
     ],
-    "explanation": "El valor de una función en $t = 0$ se lee directamente en el punto donde la curva corta el eje vertical, sin necesidad de ningún cálculo adicional.\n\nAcá el punto $(0, 3)$ es donde la curva cruza el eje $y$.\n\nComo cualquier base elevada a la potencia $0$ da $1$, ese resultado queda igual para toda exponencial sin desplazamiento.\n\nEse valor extra es directamente el coeficiente $a = 3$, los $3000$ seguidores del comienzo.\n\nLeer el punto inicial donde la curva cruza el eje vertical es la forma más rápida de identificar el valor de arranque de un proceso que crece de forma exponencial, antes de mirar cualquier otro dato.",
+    "explanation": "Leer la gráfica en $t=1$ es ubicar el punto de la curva con esa coordenada horizontal y ver a qué altura queda.\n\nEl arranque se lee en el corte con el eje vertical, donde la curva vale $3$, los $3000$ seguidores iniciales.\n\nComo la cantidad se duplica cada mes, un mes después la altura es el doble:\n$$S(1) = 3 \\cdot 2 = 6$$\nEn miles de seguidores, eso son $6000$.\n\nEn una exponencial, cada paso de una unidad en el eje horizontal multiplica la altura por la misma base. Por eso la curva se empina cada vez más aunque el ritmo de crecimiento no cambie nunca.\n\nSi tomás el corte con el eje vertical como si fuera el primer valor pedido, toda la lectura queda corrida un mes.",
     "reviewed": false,
     "tags": [
       "asintota-contexto"

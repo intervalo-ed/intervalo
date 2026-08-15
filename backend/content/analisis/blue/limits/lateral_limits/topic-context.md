@@ -108,7 +108,7 @@ Interpretar el comportamiento direccional de una función a partir de un estímu
 |-------------|------|------|:-----:|
 | A. Lectura lateral pura | Gráficos con saltos evidentes: se pide $\lim^-$ o $\lim^+$ en el punto de quiebre. Distractores clásicos: el valor del lado contrario, o el valor puntual cerrado (con círculo lleno). | `lectura-lateral-pura` | 12 |
 | B. Diagnóstico bilateral | "¿Existe $\lim_{x \to a} f(x)$?" en puntos con salto, puntos continuos y puntos con hueco. | `diagnostico-bilateral-visual` | 9 |
-| C. Tamaño del salto (visual) | **Reenfocada en la ronda 1** (mismo motivo que la D de LEXI, ver hallazgos): leer los dos laterales del gráfico y calcular la **resta** que da el tamaño del salto, no una suma arbitraria. Comparar el tamaño de dos saltos distintos en el mismo gráfico también entra acá. **La `explanation` agrega el mismo párrafo de intuición** que la D de LEXI (ver `course-context.md` §Refuerzo de intuición en `blue`). | `tamano-del-salto-visual` | 9 |
+| C. El límite frente al valor de la función | **Reemplazó a "Tamaño del salto (visual)" en la ronda 9** (testeo 467: pedir la resta de dos límites resultó confuso de leer, ver hallazgos). Sobre un gráfico con un punto cerrado separado de la rama, distinguir qué se lee siguiendo la curva (el **límite**) de qué se lee en el punto marcado (el **valor** $f(a)$). Incluye el caso en que coinciden, para que la sub-familia no enseñe que siempre difieren. **La `explanation` cierra conectando con la continuidad**, que es exactamente esa coincidencia. | `limite-vs-valor-visual` | 9 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Lado contrario**: al pedir $\lim^-$, leer el valor del lado derecho del salto. Describir qué mirar: "estás leyendo hacia dónde sube la rama derecha; el lateral por izquierda es hacia dónde llega la rama izquierda".
@@ -203,7 +203,7 @@ Corrección puntual del usuario sobre ejercicios de prueba de este topic (`corre
 
 **GRAF:**
 - [ ] 30 ejercicios con `graph_fn` o gráfico embebido; ningún gráfico con asíntotas verticales
-- [ ] Distribución A/B/C respetada (12/9/9, C reenfocada a `tamano-del-salto-visual`)
+- [ ] Distribución A/B/C respetada (12/9/9, C reemplazada por `limite-vs-valor-visual` en la ronda 9)
 - [ ] Puntos abiertos vs. cerrados claramente distinguidos
 - [ ] Cardinalidad ajustada por tipo: 4 si numérica corta, 3 si conceptual
 - [ ] Opciones de existencia con textos "Sí" / "No" / "No se puede determinar", no "existe" / "no existe"
@@ -216,3 +216,47 @@ Corrección puntual del usuario sobre ejercicios de prueba de este topic (`corre
 - [ ] `"No existe"` (texto exacto) presente como opción solo cuando corresponde
 - [ ] Funciones a trozos con 2 ramas por defecto; punto de quiebre único
 - [ ] Ningún desarrollo con 3+ igualdades encadenadas en una línea horizontal (ver hallazgo `LEXI_09`, aplica igual a `RESL`)
+
+---
+
+## Hallazgos de auditoría (ronda 6, ago-2026)
+
+Pasada de redacción para llevar los enunciados al estándar de las reglas 47-51 de `authoring-context.md`. En `RESL.json` se reescribieron las 7 aperturas que eran imperativos de atención vacíos ("Observá", "Analizá", "Verificá", "Examiná" y tres "Considerá") por oraciones que sitúan la función a trozos o la expresión con valor absoluto.
+
+Las aperturas nuevas se variaron entre sí para no repetir plantilla (regla 32), cuidando también no aumentar la frecuencia de las aperturas ya existentes en el archivo.
+
+No hubo ningún cambio de contenido matemático: ramas, puntos de quiebre, opciones y respuestas correctas quedaron intactos.
+
+---
+
+## Auditoría ronda 7 (feedback de testeo 465, ago-2026)
+
+El feedback marcó que las aperturas de la unidad describían **dónde caen los símbolos en la hoja** (`"Arriba hay un trinomio y abajo una resta simple"`, `"La raíz ocupa el denominador"`) en vez de decir qué le pasa a la función o al límite. La ronda 6 había sacado el imperativo de cálculo (`"Calculá el límite:"`) y lo reemplazó por un inventario de la fórmula, y en esa sustitución se perdió el objeto. Sobre 225 ítems, 123 aperturas no nombraban límite, función ni tendencia, y 38 preguntas eran genéricas (`"¿Cuánto da?"`, `"¿Cuál es su resultado?"`).
+
+De ahí sale la **regla 59** de `authoring-context.md`: la apertura nombra el objeto y la tensión que genera el ejercicio (el camino directo falla y sin embargo hay respuesta), y si ya lo nombró, la pregunta puede señalarlo hacia atrás (`"¿Cuál es ese valor?"`) en vez de repetir la misma fórmula quince veces.
+
+Pasada de aperturas en `GRAF.json` y `RESL.json` para que nombren la función.
+
+**`GRAF.json` ítem 1 abría con `"En la misma gráfica"`**, referenciando al ítem anterior. El repaso sirve los ejercicios sueltos y en orden aleatorio, así que ese enunciado arrancaba en el aire (regla crítica 24). Ahora describe su propio gráfico.
+
+**`GRAF.json` ítem 13**: las tres ramas tenían pendientes $1$, $1$ y $2$, y el feedback pidió que fueran todas iguales manteniendo las discontinuidades. La tercera rama pasa de `2*x` a `x + 1`: los saltos en $x=0$ y en $x=3$ siguen ahí y los laterales siguen valiendo $5$ y $8$.
+
+La lista de trabajo salió del inventario de las 225 aperturas de la unidad, no del validador: estos enunciados ya pasaban 0/0 antes de la ronda. El defecto era semántico.
+
+---
+
+## Auditoría ronda 9 (feedback de testeo 467, ago-2026)
+
+La ronda 7 arregló **de qué** hablaba la apertura (del comportamiento, no de la tipografía) pero no **que describiera**. El enunciado quedó haciendo el análisis y entregando el diagnóstico terminado: `"El punto de tendencia anula las dos partes de la fracción. La función no está definida ahí, pero sí se acerca a un número."` son tres conclusiones que el estudiante tendría que sacar, y le dejan solo la aritmética.
+
+De ahí sale la **regla 61** de `authoring-context.md`: el sujeto de la primera oración es el objeto o una intención (`"Una función…"`, `"Un límite…"`, `"Se quiere…"`), va **una sola oración**, y no se reporta el resultado de ningún paso que el estudiante podría dar. La regla 59 sigue vigente contra la fórmula desnuda; la 61 la acota para que el enunciado no razone en su lugar.
+
+En este topic se reescribieron las aperturas que tenían una propiedad de sujeto. Los cinco `RESL` de la unidad estaban al 100% en ese registro, porque son justamente los que la ronda 7 había reescrito.
+
+**`definition/RESL[0]` sigue intacto**, por tercera ronda consecutiva: es el único ítem que el feedback marcó como bien introducido (465), y se conserva como referencia aunque su segunda oración concluya.
+
+**Sub-familia C reemplazada.** `tamano-del-salto-visual` pedía la resta de dos límites laterales, que el testeo reportó como confusa de leer. Pasa a `limite-vs-valor-visual`, sobre la distinción entre lo que se lee siguiendo la rama y lo que se lee en el punto cerrado. La tabla de distribución quedó actualizada.
+
+### Punto ciego del validador corregido en esta ronda
+
+El testeo reportó una fila de `explanation` que se salía de pantalla y que el validador no marcaba. Medía **35** contra un umbral de **36**, o sea que pasaba por un carácter: `render_len` borraba `\sqrt` e `\infty` a longitud cero, cuando el radical es decoración que ocupa ancho y el infinito es un glifo ancho. Con los pesos nuevos esa fila mide **43** y se marca, y la fila sana de al lado sigue midiendo 29 sin falsos positivos.

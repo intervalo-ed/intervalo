@@ -1,6 +1,6 @@
 [
   {
-    "question": "Este integrando multiplica una potencia por un logaritmo:\n$$\\int x^2\\ln x\\,dx$$\nSegún la prioridad ILATE, la jerarquía que ordena qué familia conviene derivar primero.\n\nHay una elección de $u$ y $dv$ que arma la integral remanente más simple.\n\n¿Cuál es esa elección?",
+    "question": "En este producto conviven dos familias que se comportan de manera muy distinta al derivarse:\n$$\\int x^2\\ln x\\,dx$$\nPara repartir los roles se usa la prioridad ILATE, la jerarquía que ordena qué familia conviene derivar primero.\n\n¿Cuál es la elección de $u$ y $dv$ que deja la integral remanente más simple?",
     "options": [
       "$u=\\ln x, dv=x^2\\,dx$",
       "$u=x^2, dv=\\ln x\\,dx$",
@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "Este integrando multiplica un polinomio por una exponencial:\n$$\\int xe^x\\,dx$$\nLa prioridad ILATE, la jerarquía que ordena qué familia conviene tomar como $u$.\n\nEsa jerarquía señala una elección de $u$ y $dv$ para este producto.\n\n¿Cuál es la elección correcta de $u$ y $dv$?",
+    "question": "Uno de los dos factores no cambia nada al derivarse ni al integrarse:\n$$\\int xe^x\\,dx$$\nEl reparto lo decide la prioridad ILATE, la jerarquía que ordena qué familia conviene derivar primero.\n\n¿Cuál es la elección correcta de $u$ y $dv$?",
     "options": [
       "$u=xe^x, dv=dx$",
       "$u=x, dv=e^x\\,dx$",
@@ -46,7 +46,7 @@
     ]
   },
   {
-    "question": "Este integrando multiplica un polinomio por una función trigonométrica:\n$$\\int x\\sin x\\,dx$$\nSiguiendo la prioridad ILATE, la jerarquía que decide qué familia deriva primero, corresponde una elección concreta de $u$ y $dv$.\n\n¿Cuál es esa elección?",
+    "question": "Uno de los dos factores baja de grado al derivarse hasta desaparecer:\n$$\\int x\\sin x\\,dx$$\nSiguiendo la prioridad ILATE, la jerarquía que decide qué familia se deriva primero, corresponde una elección concreta.\n\n¿Cuál es la elección correcta de $u$ y $dv$?",
     "options": [
       "$u=\\sin x, dv=x\\,dx$",
       "$u=x\\sin x, dv=dx$",
@@ -69,7 +69,7 @@
     ]
   },
   {
-    "question": "Este integrando multiplica una potencia de grado más alto por un logaritmo:\n$$\\int x^3\\ln x\\,dx$$\nSegún la prioridad ILATE, el orden que indica qué familia conviene derivar antes.\n\nHay una elección de $u$ y $dv$ adecuada para este caso.\n\n¿Cuál es esa elección?",
+    "question": "Un reparto mal elegido en este producto deja una integral peor que la original:\n$$\\int x^3\\ln x\\,dx$$\nLa prioridad ILATE, el orden que indica qué familia conviene derivar antes, es la que decide el reparto.\n\n¿Cuál es la elección adecuada de $u$ y $dv$?",
     "options": [
       "$u=\\ln x, dv=x^3\\,dx$",
       "$u=x^3, dv=\\ln x\\,dx$",
@@ -92,7 +92,7 @@
     ]
   },
   {
-    "question": "Este integrando multiplica un polinomio por una exponencial de exponente lineal:\n$$\\int xe^{3x}\\,dx$$\nLa prioridad ILATE, la jerarquía que ordena qué familia conviene derivar primero.\n\nEsa jerarquía determina una elección de $u$ y $dv$ para este producto.\n\n¿Cuál es la elección correcta de $u$ y $dv$?",
+    "question": "El coeficiente del exponente va a acompañar todo el desarrollo, sin decidir el reparto:\n$$\\int xe^{3x}\\,dx$$\nPara repartir los roles se sigue la prioridad ILATE, la jerarquía que ordena qué familia se deriva primero.\n\n¿Cuál es la elección correcta de $u$ y $dv$?",
     "options": [
       "$u=xe^{3x}, dv=dx$",
       "$u=x, dv=e^{3x}\\,dx$",
@@ -115,7 +115,7 @@
     ]
   },
   {
-    "question": "Este integrando multiplica un polinomio por un coseno:\n$$\\int x\\cos x\\,dx$$\nSiguiendo la prioridad ILATE, el criterio que ordena qué familia conviene tomar como $u$.\n\nHay una elección que simplifica la integral remanente.\n\n¿Cuál es la elección correcta de $u$ y $dv$?",
+    "question": "Las dos partes de este producto pertenecen a familias distintas de la tabla:\n$$\\int x\\cos x\\,dx$$\nLa prioridad ILATE, el orden que decide cuál de las dos conviene derivar, es la que se aplica en este caso.\n\n¿Cuál es la elección que simplifica la integral remanente?",
     "options": [
       "$u=\\cos x, dv=x\\,dx$",
       "$u=x\\cos x, dv=dx$",
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "question": "Este integrando multiplica una potencia con coeficiente por un logaritmo:\n$$\\int 2x\\ln x\\,dx$$\nSegún la prioridad ILATE, la jerarquía que decide qué familia conviene derivar primero.\n\nEl coeficiente no cambia cuál elección de $u$ y $dv$ corresponde.\n\n¿Cuál es esa elección?",
+    "question": "El coeficiente que multiplica afuera no interviene en el reparto de roles:\n$$\\int 2x\\ln x\\,dx$$\nEl criterio es la prioridad ILATE, la jerarquía que decide qué familia conviene derivar primero.\n\n¿Cuál es la elección correcta de $u$ y $dv$?",
     "options": [
       "$u=\\ln x, dv=2x\\,dx$",
       "$u=2x, dv=\\ln x\\,dx$",
@@ -161,11 +161,11 @@
     ]
   },
   {
-    "question": "Este integrando multiplica una potencia de grado dos por una exponencial:\n$$\\int x^2e^x\\,dx$$\nLa prioridad ILATE, la jerarquía que ordena qué familia conviene tomar como $u$.\n\nEsa jerarquía sigue aplicando aunque el grado del polinomio sea mayor.\n\n¿Cuál es la elección correcta de $u$ y $dv$?",
+    "question": "El signo del exponente se arrastra hasta el resultado, pero no cambia quién va en cada rol:\n$$\\int xe^{-x}\\,dx$$\nEl reparto lo fija la prioridad ILATE, el orden que indica qué familia se deriva antes.\n\n¿Cuál es la elección correcta de $u$ y $dv$?",
     "options": [
-      "$u=x^2e^x, dv=dx$",
-      "$u=x^2, dv=e^x\\,dx$",
-      "$u=e^x, dv=x^2\\,dx$"
+      "$u=xe^{-x}, dv=dx$",
+      "$u=x, dv=e^{-x}\\,dx$",
+      "$u=e^{-x}, dv=x\\,dx$"
     ],
     "correct_index": 1,
     "has_math": true,
@@ -177,171 +177,171 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aunque el grado del polinomio sea mayor, ILATE sigue priorizando la función algebraica por sobre la exponencial.\n\nCon esta elección, $du=2x\\,dx$ reduce el grado del polinomio en uno, aunque en este caso hará falta repetir el método una vez más.\n\nUsar $u=e^x$ en cambio dejaría $dv=x^2\\,dx$, empeorando la integral remanente en vez de simplificarla.",
+    "explanation": "El signo negativo en el exponente no cambia la prioridad de ILATE, la función algebraica sigue siendo la elección correcta para $u$.\n\nCon esta elección, $du=dx$ reduce el polinomio a una constante en un solo paso, dejando la integral remanente lista para resolver con la tabla.\n\nUsar $u=e^{-x}$ en cambio dejaría $dv=x\\,dx$, empeorando la integral remanente en vez de simplificarla.",
     "reviewed": false,
     "tags": [
       "eleccion-variables-regla-liate"
     ]
   },
   {
-    "question": "El polinomio de este integrando tiene grado dos, multiplicado por una función exponencial:\n$$\\int x^2e^x\\,dx$$\n¿Cómo se comporta al resolverla por **partes**?",
+    "question": "El seno de este producto se aplica a la variable sola, sin nada más adentro:\n$$\\int x\\sin x\\,dx$$\n¿Qué camino abre esta integral?",
     "options": [
-      "Requiere una iteración",
-      "Es cíclica, hay que despejar",
-      "Requiere dos iteraciones"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "Correcto, el grado $2$ del polinomio exige aplicar la fórmula dos veces.",
-    "feedback_incorrect": [
-      "Con grado $2$ en la parte polinómica, una sola aplicación no reduce el polinomio a una constante, hace falta repetir el método.",
-      "Esta integral no es cíclica, el grado del polinomio termina bajando hasta una constante tras aplicar el método dos veces.",
-      null
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Cada aplicación de **integración por partes** con $u=x^n$ reduce el grado del polinomio en uno, hasta llegar a una constante.\n$$x^2 \\xrightarrow{1\\text{ iteración}} x \\xrightarrow{2\\text{ iteración}} \\text{constante}$$\nCon grado $2$, hacen falta exactamente dos aplicaciones del método antes de que la integral remanente sea inmediata.",
-    "reviewed": false,
-    "tags": [
-      "diagnostico-iteracion-y-ciclos"
-    ]
-  },
-  {
-    "question": "Este integrando multiplica una exponencial por una función trigonométrica:\n$$\\int e^x\\sin x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
-    "options": [
-      "Es cíclica, hay que despejar",
-      "Requiere una iteración",
-      "Requiere dos iteraciones"
+      "Por partes",
+      "Sustitución",
+      "Regla directa"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, aplicar la fórmula dos veces devuelve la integral original con signo cambiado.",
+    "feedback_correct": "Correcto: ni $x$ es la derivada de $\\sin x$ ni al revés, así que hace falta partes.",
     "feedback_incorrect": [
       null,
-      "Una sola aplicación no cierra esta integral, el remanente sigue siendo un producto de exponencial y trigonométrica.",
-      "Aplicar la fórmula dos veces no reduce el problema, devuelve la integral original, así que hace falta despejar en vez de seguir aplicando."
+      "Para sustitución, un factor tendría que ser, salvo constante, la derivada de lo que hay dentro de otra función. Acá $x$ no es la derivada de $\\sin x$.",
+      "El producto de dos funciones de familias distintas no es una entrada de tabla."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **integrales cíclicas**, como el producto de una exponencial y una función trigonométrica, no reducen su complejidad al aplicar partes repetidamente.\n$$\\int e^x\\sin x\\,dx \\xrightarrow{\\text{2 aplicaciones}} \\int e^x\\sin x\\,dx$$\nAplicar la fórmula dos veces devuelve la integral original pero con el signo cambiado.\n\nEn vez de seguir aplicando el método indefinidamente, hay que tratar la integral original como una incógnita y despejarla algebraicamente.",
+    "explanation": "Cuando el integrando es un **producto de dos funciones** y ninguna es, salvo constante, la derivada de la otra, sustitución no cierra nada: el camino es partes.\n\nAcá $x$ y $\\sin x$ no tienen esa relación de derivada:\n$$u=x, \\quad dv=\\sin x\\,dx$$\nLa integral remanente queda con una función trigonométrica sola.\n\nEste es uno de los casos más directos de reconocer: la polinómica se deriva a algo más simple, la trigonométrica se integra sin complicarse.",
     "reviewed": false,
     "tags": [
-      "diagnostico-iteracion-y-ciclos"
+      "seleccion-partes-vs-sustitucion"
     ]
   },
   {
-    "question": "Este integrando multiplica una potencia de grado alto por un logaritmo:\n$$\\int x^5\\ln x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
+    "question": "En este integrando, un factor es, salvo una constante, la derivada de lo que hay dentro del seno:\n$$\\int x\\sin(x^2)\\,dx$$\n¿Qué camino abre esta integral?",
     "options": [
-      "No se puede resolver por partes",
-      "Requiere una iteración",
-      "Requiere dos iteraciones"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Correcto, elegir $u=\\ln x$ cierra la integral en una única aplicación, sin importar el grado del polinomio.",
-    "feedback_incorrect": [
-      "Esta integral sí se puede resolver por partes, eligiendo $u=\\ln x$ y $dv=x^5\\,dx$.",
-      null,
-      "El grado del exponente no obliga a repetir el método, la derivada de $\\ln x$ cancela exactamente una potencia de $x$."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Cuando $u=\\ln x$, su derivada $du=dx/x$ cancela exactamente una potencia en la integral remanente, sin importar el grado original.\n$$\\int \\frac{x^{n+1}}{n+1}\\cdot\\frac{1}{x}\\,dx = \\frac{1}{n+1}\\int x^n\\,dx$$\nEsa integral remanente es directamente de tabla, así que $\\int x^n\\ln x\\,dx$ siempre cierra en una única aplicación del método.",
-    "reviewed": false,
-    "tags": [
-      "diagnostico-iteracion-y-ciclos"
-    ]
-  },
-  {
-    "question": "Este integrando multiplica una potencia de grado dos por una función trigonométrica:\n$$\\int x^2\\sin x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
-    "options": [
-      "Requiere una iteración",
-      "Es cíclica, hay que despejar",
-      "Requiere dos iteraciones"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "Correcto, el grado $2$ del polinomio exige aplicar la fórmula dos veces.",
-    "feedback_incorrect": [
-      "Con grado $2$ en la parte polinómica, una sola aplicación no reduce el polinomio a una constante, hace falta repetir el método.",
-      "Esta integral no es cíclica, el grado del polinomio termina bajando hasta una constante tras aplicar el método dos veces.",
-      null
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Igual que con $x^2e^x$, esta integral tiene grado $2$ en la parte polinómica, así que exige repetir el método una vez más.\n$$x^2 \\xrightarrow{1\\text{ iteración}} x \\xrightarrow{2\\text{ iteración}} \\text{constante}$$\nCada aplicación reduce el grado del polinomio en uno, hasta que la integral remanente quede inmediata de tabla.",
-    "reviewed": false,
-    "tags": [
-      "diagnostico-iteracion-y-ciclos"
-    ]
-  },
-  {
-    "question": "Este integrando multiplica una exponencial por un coseno:\n$$\\int e^x\\cos x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
-    "options": [
-      "Es cíclica, hay que despejar",
-      "Requiere una iteración",
-      "Requiere dos iteraciones"
+      "Sustitución",
+      "Por partes",
+      "Regla directa"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, aplicar la fórmula dos veces devuelve la integral original con signo cambiado.",
+    "feedback_correct": "Correcto: $x$ es, salvo un factor de un medio, la derivada de $x^2$, la marca exacta de sustitución.",
     "feedback_incorrect": [
       null,
-      "Una sola aplicación no cierra esta integral, el remanente sigue siendo un producto de exponencial y trigonométrica.",
-      "Aplicar la fórmula dos veces no reduce el problema, devuelve la integral original, así que hace falta despejar en vez de seguir aplicando."
+      "Partes complica innecesariamente esta integral: hay una relación de derivada directa que la resuelve más simple.",
+      "El seno tiene un argumento compuesto, $x^2$ y no $x$ solo: eso saca a este integrando de la regla directa."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con $e^x\\sin x$, el producto de una exponencial y un coseno genera una **integral cíclica**.\n$$\\int e^x\\cos x\\,dx \\xrightarrow{\\text{2 aplicaciones}} \\int e^x\\cos x\\,dx$$\nAplicar la fórmula dos veces devuelve la integral original pero con el signo cambiado.\n\nEl diagnóstico correcto acá no es seguir aplicando el método, sino reconocer el ciclo y despejar la integral original de la ecuación resultante.",
+    "explanation": "Cuando el integrando combina una función compuesta con un factor que es, salvo constante, la **derivada del interior**, el camino es sustitución.\n\nAcá el interior del seno es $x^2$:\n$$u=x^2 \\quad\\Rightarrow\\quad du=2x\\,dx$$\nEl factor que multiplica al seno es $x$, la mitad de $2x$: exactamente lo que la sustitución necesita.\n\nEste caso se confunde con $\\int x\\sin x\\,dx$, que sí es partes: la diferencia es que acá el seno lleva un argumento compuesto con su derivada acompañando.",
     "reviewed": false,
     "tags": [
-      "diagnostico-iteracion-y-ciclos"
+      "seleccion-partes-vs-sustitucion"
     ]
   },
   {
-    "question": "Este integrando multiplica un polinomio simple por un logaritmo:\n$$\\int x\\ln x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
+    "question": "Este integrando es una única función que no parece, a primera vista, un producto:\n$$\\int \\ln x\\,dx$$\n¿Cómo conviene abordarla?",
     "options": [
-      "Es cíclica, hay que despejar",
-      "Requiere una iteración",
-      "Requiere dos iteraciones"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Correcto, elegir $u=\\ln x$ cierra la integral en una única aplicación.",
-    "feedback_incorrect": [
-      "Esta integral no es cíclica, la derivada de $\\ln x$ simplifica el remanente a una integral directa de tabla.",
-      null,
-      "El grado $1$ del polinomio no obliga a repetir el método, la derivada de $\\ln x$ ya cancela la potencia de $x$ en un solo paso."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Con $u=\\ln x$ y $dv=x\\,dx$.\n\nLa derivada $du=dx/x$ cancela exactamente la potencia de $x$ en la integral remanente.\n\nEsa integral remanente es de tabla inmediata, así que el método cierra en una única aplicación.\n\nSi en cambio se eligiera $u=x$, la integral remanente seguiría teniendo un logaritmo sin resolver, así que ILATE evita ese callejón sin salida.",
-    "reviewed": false,
-    "tags": [
-      "diagnostico-iteracion-y-ciclos"
-    ]
-  },
-  {
-    "question": "Este integrando multiplica una potencia de grado muy alto por un logaritmo:\n$$\\int x^{10}\\ln x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
-    "options": [
-      "Requiere diez iteraciones",
-      "Requiere dos iteraciones",
-      "Requiere una iteración"
+      "Sustitución",
+      "Regla directa",
+      "Por partes"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Correcto, elegir $u=\\ln x$ cierra la integral en una única aplicación, sin importar el grado del polinomio.",
+    "feedback_correct": "Correcto: con el factor oculto $dv=1\\,dx$ y $u=\\ln x$, partes cierra la integral.",
     "feedback_incorrect": [
-      "El grado del polinomio no determina la cantidad de iteraciones acá, la derivada de $\\ln x$ cancela la potencia en un único paso.",
-      "El grado del polinomio no determina la cantidad de iteraciones acá, con $u=\\ln x$ el método cierra directamente.",
+      "No hay ninguna composición con su derivada acompañando: el logaritmo natural solo no tiene esa estructura.",
+      "El logaritmo natural solo no está en la tabla de integrales inmediatas: hace falta un método adicional.",
       null
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Sin importar cuán grande sea el exponente del polinomio, elegir $u=\\ln x$ deja $du=dx/x$, que cancela una potencia en un único paso.\n$$\\int \\frac{x^{11}}{11}\\cdot\\frac{1}{x}\\,dx = \\frac{1}{11}\\int x^{10}\\,dx$$\nEsta cancelación es la que garantiza que $\\int x^n\\ln x\\,dx$ siempre cierre en una única aplicación del método, cualquiera sea $n$.",
+    "explanation": "Cuando el integrando es una sola función que **no parece** un producto, conviene revisar si admite un **factor oculto**: multiplicarla por $1$ la convierte en un producto disfrazado.\n\nAcá se multiplica por $1$ para exponer el producto:\n$$u=\\ln x, \\quad dv=1\\,dx$$\nLa derivada de $u$ simplifica el logaritmo y la integral remanente queda de tabla.\n\nEste caso se confunde con el logaritmo dividido por $x$, que sí es sustitución: la diferencia es que acá el logaritmo va solo, sin ningún factor extra acompañando.",
     "reviewed": false,
     "tags": [
-      "diagnostico-iteracion-y-ciclos"
+      "seleccion-partes-vs-sustitucion"
+    ]
+  },
+  {
+    "question": "Este integrando combina una potencia con un logaritmo, pero el logaritmo aparece dividiendo, no multiplicando:\n$$\\int \\frac{\\ln x}{x}\\,dx$$\n¿Cómo conviene abordarla?",
+    "options": [
+      "Por partes",
+      "Regla directa",
+      "Sustitución"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto: con $u=\\ln x$, $du=\\tfrac1x\\,dx$, que es exactamente el resto del integrando.",
+    "feedback_incorrect": [
+      "Partes complica innecesariamente esta integral: hay una relación de derivada directa que la resuelve más simple.",
+      "No hay ninguna división de polinomios ni potencia para reescribir: la estructura es de composición, no de álgebra pura.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Que el integrando tenga un logaritmo no significa automáticamente partes: acá $1/x$ es exactamente la **derivada de $\\ln x$**, la marca de sustitución.\n\nCon $u=\\ln x$:\n$$du=\\frac{1}{x}\\,dx$$\nEsa derivada coincide exacto con el resto del integrando, así que la fracción entera se reduce a una integral de tabla en $u$.\n\nEste caso se confunde con $\\int \\ln x\\,dx$, que sí es partes: la diferencia es que acá el logaritmo va dividido por $x$, no solo.",
+    "reviewed": false,
+    "tags": [
+      "seleccion-partes-vs-sustitucion"
+    ]
+  },
+  {
+    "question": "El exponente de esta exponencial lleva un coeficiente que hay que compensar, sin ningún factor extra multiplicando afuera:\n$$\\int xe^{2x}\\,dx$$\n¿Qué camino abre esta integral?",
+    "options": [
+      "Sustitución",
+      "Regla directa",
+      "Por partes"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto: ni $x$ es la derivada de $e^{2x}$ ni al revés, así que hace falta partes.",
+    "feedback_incorrect": [
+      "Para sustitución, un factor tendría que ser, salvo constante, la derivada de lo que hay dentro de otra función. Acá $x$ no es la derivada de $2x$.",
+      "El exponente es una función compuesta, $2x$ y no $x$ solo: eso saca a este integrando de la regla directa.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Que el exponente lleve un coeficiente no alcanza para sustitución: hace falta que **algún factor** del integrando sea la derivada de ese exponente, y acá no lo hay.\n\nLa derivada del exponente es una constante, no una función de $x$: no hay ningún factor que coincida, así que sustitución no reduce nada.\n\nCon partes:\n$$u=x, \\quad dv=e^{2x}\\,dx$$\nLa integral cierra en una sola aplicación, arrastrando el coeficiente del exponente como un simple ajuste de constante.",
+    "reviewed": false,
+    "tags": [
+      "seleccion-partes-vs-sustitucion"
+    ]
+  },
+  {
+    "question": "En este integrando, un factor es exactamente la derivada de lo que hay dentro de la exponencial:\n$$\\int xe^{x^2}\\,dx$$\n¿Qué camino abre esta integral?",
+    "options": [
+      "Regla directa",
+      "Por partes",
+      "Sustitución"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto: con $u=x^2$, $du=2x\\,dx$, y el factor $x$ es la mitad de esa derivada.",
+    "feedback_incorrect": [
+      "El exponente es una función compuesta, $x^2$ y no $x$ solo: eso saca a este integrando de la regla directa.",
+      "Antes de recurrir a partes conviene revisar si hay una función compuesta con su derivada acompañando, como acá.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando un factor del integrando es, salvo constante, la **derivada del interior** de una función compuesta, el camino es sustitución, no partes.\n\nAcá el interior de la exponencial es $x^2$:\n$$du=2x\\,dx$$\nEl factor $x$ que acompaña es la mitad de esa derivada, así que la sustitución cierra directo.\n\nEste caso se confunde con $\\int xe^{2x}\\,dx$, que sí es partes: la diferencia es que acá el exponente es una composición con su derivada presente, no un múltiplo lineal simple.",
+    "reviewed": false,
+    "tags": [
+      "seleccion-partes-vs-sustitucion"
+    ]
+  },
+  {
+    "question": "Adentro del coseno está la variable sola, y afuera vuelve a aparecer multiplicando:\n$$\\int x\\cos x\\,dx$$\n¿Cómo conviene abordarla?",
+    "options": [
+      "Sustitución",
+      "Regla directa",
+      "Por partes"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto: ni $x$ es la derivada de $\\cos x$ ni al revés, así que hace falta partes.",
+    "feedback_incorrect": [
+      "Para sustitución, un factor tendría que ser, salvo constante, la derivada de lo que hay dentro de otra función. Acá $x$ no es la derivada de $\\cos x$.",
+      "El producto de dos funciones de familias distintas no es una entrada de tabla.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando el integrando es un **producto de dos funciones** de familias distintas y ninguna es la derivada de la otra, ni sustitución ni tabla cierran: el camino es partes.\n\nAcá $x$ y $\\cos x$ no tienen ninguna relación de derivada entre ellas:\n$$u=x, \\quad dv=\\cos x\\,dx$$\nLa integral remanente queda con una función trigonométrica sola.\n\nEste es el caso más directo de partes: la polinómica se deriva a algo más simple, la trigonométrica se integra sin complicarse.",
+    "reviewed": false,
+    "tags": [
+      "seleccion-partes-vs-sustitucion"
     ]
   }
 ]

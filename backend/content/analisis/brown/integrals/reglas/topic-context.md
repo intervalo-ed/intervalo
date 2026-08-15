@@ -191,6 +191,14 @@ Pre-revisión programática sobre los ejercicios de prueba existentes:
 
 ---
 
+## Hallazgos de auditoría (ronda 3, ago-2026)
+
+Pasada de la regla 57 (nueva) sobre las aperturas. El testeo de la sesión 449 marcó `RESL#11` con nombre y apellido: la apertura decía *"En esta integral conviven un término lineal con coeficiente y el recíproco de la variable"*, y el reporte fue *"mucho jargon innecesario al principio, esto está pasando en todos los ejercicios; el propósito de la oración inicial es introducir con lenguaje tranquilo el problema, y luego cuando el usuario se choca con la fórmula ahí tiene que activar sistema 2"*. Se reescribió esa apertura y las de `ESTR#12`, `ESTR#13` y `FORM#4`, que usaban la misma etiqueta.
+
+En la dirección contraria, el mismo testeo validó los ítems cortos de `FORM`: *"estos ejercicios están buenos, cortitos y al pie, quiero ver más"*. El backfill de 15 a 30 en esta skill queda anotado como prioridad para la ronda de relleno.
+
+---
+
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 3 skills):**

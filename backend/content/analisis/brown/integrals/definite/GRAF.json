@@ -23,6 +23,10 @@
       -3,
       3
     ],
+    "graph_shade": [
+      0,
+      4
+    ],
     "explanation": "La **integral definida** calcula el **área neta**, sumando las regiones sobre el eje $x$ y restando las que quedan debajo.\n\nEl triángulo de arriba mide $0,5\\cdot 2\\cdot 2 = 2$.\n\nEl triángulo de abajo también mide $0,5\\cdot 2\\cdot 2 = 2$.\n\nComo los dos triángulos tienen exactamente la misma área, la resta da cero, aunque la figura completa ocupe una superficie visible.",
     "reviewed": false,
     "tags": [
@@ -30,7 +34,7 @@
     ]
   },
   {
-    "question": "La gráfica ahora muestra $f(x)=x-1$, todavía en el intervalo $[0,4]$.\n$$\\int_0^4 f(x)\\,dx$$\n¿Cuál es el valor de esta integral definida?",
+    "question": "Un patinete arranca yendo hacia atrás y después avanza.\n\nLa recta muestra su velocidad $f(x)=x-1$ en metros por segundo, con el tiempo en segundos.\n$$\\int_0^4 f(x)\\,dx$$\n¿Cuál es el valor de esta integral definida?",
     "options": [
       "$0,5$",
       "$4$",
@@ -51,6 +55,10 @@
       -1,
       5,
       -2,
+      4
+    ],
+    "graph_shade": [
+      0,
       4
     ],
     "explanation": "Identificamos las dos regiones que separa el cruce por cero en $x=1$.\n\nEl triángulo de abajo mide $0,5\\cdot 1\\cdot 1 = 0,5$.\n\nEl triángulo de arriba mide $0,5\\cdot 3\\cdot 3 = 4,5$.\n\nEl **área neta** resulta de restar la región de abajo a la de arriba, $4,5-0,5=4$, no de sumarlas.\n\nSumar ambas áreas en vez de restarlas es el desliz más común acá, y da $5$ en lugar de $4$.",
@@ -83,6 +91,10 @@
       -3,
       9
     ],
+    "graph_shade": [
+      0,
+      6
+    ],
     "explanation": "La misma función que antes, pero en un intervalo más largo, cambia por completo el resultado de la **integral definida**.\n\nEl triángulo de abajo mide $0,5\\cdot 2\\cdot 2 = 2$.\n\nEl triángulo de arriba mide $0,5\\cdot 4\\cdot 4 = 8$.\n\nEl área neta es $8-2=6$, distinta del resultado con el intervalo $[0,4]$, porque ahora el triángulo de arriba es mucho más grande.",
     "reviewed": false,
     "tags": [
@@ -112,6 +124,10 @@
       5,
       -5,
       5
+    ],
+    "graph_shade": [
+      0,
+      4
     ],
     "explanation": "Aunque la pendiente sea más pronunciada que en los ejemplos anteriores, el criterio de área neta no cambia.\n\nEl triángulo de abajo mide $0,5\\cdot 2\\cdot 4 = 4$.\n\nEl triángulo de arriba mide $0,5\\cdot 2\\cdot 4 = 4$.\n\nLos dos triángulos vuelven a tener la misma área, así que el resultado neto es cero, sin importar que la recta esté más inclinada.",
     "reviewed": false,
@@ -143,6 +159,10 @@
       -3,
       7
     ],
+    "graph_shade": [
+      0,
+      4
+    ],
     "explanation": "El cruce por cero ocurre en $x=1$, dividiendo el intervalo en dos triángulos de tamaños muy distintos.\n\nEl triángulo de abajo mide $0,5\\cdot 1\\cdot 2 = 1$.\n\nEl triángulo de arriba mide $0,5\\cdot 3\\cdot 6 = 9$.\n\nEl área neta es $9-1=8$, el triángulo grande de arriba domina el resultado, pero el pequeño de abajo igual se resta.\n\nAun si ese triángulo pequeño parece insignificante frente al de arriba, ignorarlo daría $9$ en vez de $8$.",
     "reviewed": false,
     "tags": [
@@ -173,6 +193,10 @@
       -2,
       5
     ],
+    "graph_shade": [
+      -1,
+      3
+    ],
     "explanation": "La función $f(x)=x$ cruza el eje exactamente en el origen, dividiendo el intervalo $[-1,3]$ de forma desigual.\n\nEl triángulo de abajo mide $0,5\\cdot 1\\cdot 1 = 0,5$.\n\nEl triángulo de arriba mide $0,5\\cdot 3\\cdot 3 = 4,5$.\n\nEl área neta es $4,5-0,5=4$, el intervalo asimétrico respecto del cruce por cero hace que el triángulo de arriba pese mucho más.",
     "reviewed": false,
     "tags": [
@@ -180,7 +204,7 @@
     ]
   },
   {
-    "question": "La gráfica muestra $f(x)=x-4$, que queda completamente por debajo del eje en el intervalo $[0,4]$.\n$$\\int_0^4 f(x)\\,dx$$\n¿Cuál es el valor de esta integral definida?",
+    "question": "Una batería se descarga sin recargarse en ningún momento.\n\nLa recta muestra su potencia neta $f(x)=x-4$ en kilovatios, con el tiempo en horas.\n$$\\int_0^4 f(x)\\,dx$$\n¿Cuál es el valor de esta integral definida?",
     "options": [
       "$0$",
       "$4$",
@@ -203,6 +227,10 @@
       -5,
       1
     ],
+    "graph_shade": [
+      0,
+      4
+    ],
     "explanation": "En este caso, la función $f(x)=x-4$ queda completamente por debajo del eje en todo el intervalo $[0,4]$, tocando cero recién en el extremo derecho.\n\nLa región triangular completa tiene una superficie de $0,5\\cdot 4\\cdot 4 = 8$.\n\nComo toda la región está debajo del eje, la integral definida devuelve esa área con signo negativo, $-8$, aunque la superficie geométrica sea $8$.",
     "reviewed": false,
     "tags": [
@@ -210,7 +238,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra $f(x)=4-x$, que queda completamente por arriba del eje en el intervalo $[0,4]$.\n$$\\int_0^4 f(x)\\,dx$$\n¿Cuál es el valor de esta integral definida?",
+    "question": "Una impresora deposita material cada vez más despacio, hasta frenar.\n\nLa recta muestra ese ritmo $f(x)=4-x$ en gramos por minuto, con el tiempo en minutos.\n$$\\int_0^4 f(x)\\,dx$$\n¿Cuál es el valor de esta integral definida?",
     "options": [
       "$-8$",
       "$0$",
@@ -233,6 +261,10 @@
       -1,
       5
     ],
+    "graph_shade": [
+      0,
+      4
+    ],
     "explanation": "A diferencia del ejemplo anterior, $f(x)=4-x$ queda completamente arriba del eje en todo el intervalo $[0,4]$, tocando cero recién en el extremo derecho.\n\nLa región triangular completa tiene una superficie de $0,5\\cdot 4\\cdot 4 = 8$.\n\nComo toda la región está arriba del eje, la integral definida coincide exactamente con la superficie geométrica, sin ningún cambio de signo.",
     "reviewed": false,
     "tags": [
@@ -240,31 +272,37 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra $f(x)=x$ en el intervalo $[0,3]$.\n\nSe sabe que $\\int_0^3 f(x)\\,dx=4,5$.\n$$\\int_3^0 f(x)\\,dx$$\n¿Cuál es su valor, invirtiendo los límites de integración?",
+    "question": "El caudal de una pileta cambia de signo: primero sale agua y después entra.\n\nLa recta $f(x)=x-1$ muestra ese caudal neto en litros por minuto, con el tiempo en minutos.\n$$\\int_0^3 f(x)\\,dx$$\n¿Cuál es el valor de esta integral definida?",
     "options": [
-      "$4,5$",
-      "$0$",
-      "$-4,5$"
+      "$1,5$",
+      "$-1,5$",
+      "$2,5$",
+      "$0$"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, invertir los límites de integración cambia el signo del resultado.",
+    "feedback_correct": "Correcto, el área de arriba menos la de abajo da $1,5$ litros de ganancia neta.",
     "feedback_incorrect": [
-      "Invertir los límites de integración multiplica el resultado por $-1$, no lo deja igual.",
-      "El resultado no se anula al invertir los límites, solo cambia de signo.",
-      null
+      null,
+      "Ese es el resultado con los signos cambiados: la parte de arriba es la más grande, así que el total queda positivo.",
+      "Eso suma las dos áreas sin restar nada, y la parte que queda debajo del eje entra restando.",
+      "Las dos partes no son iguales: la de arriba es cuatro veces más grande que la de abajo."
     ],
-    "graph_fn": "x",
+    "graph_fn": "x-1",
     "graph_view": [
       -1,
       4,
-      -1,
-      5
+      -2,
+      3
     ],
-    "explanation": "Una de las **propiedades de los límites de integración** establece que invertir el orden de los límites cambia el signo del resultado.\n$$\\int_3^0 f(x)\\,dx = -\\int_0^3 f(x)\\,dx = -4,5$$\nEsta propiedad tiene sentido si se piensa en la integral como una acumulación con dirección, recorrer el intervalo al revés cambia el sentido de esa acumulación.",
+    "graph_shade": [
+      0,
+      3
+    ],
+    "explanation": "La recta cruza el eje en el primer minuto, así que el tramo se parte en dos regiones que entran con signos distintos.\n\nLa de abajo es un triángulo chico, de un minuto de ancho y un litro por minuto de alto, con área $0,5$. La de arriba mide el doble en cada lado, así que su área llega a $2$.\n$$2-0,5=1,5$$\nLa integral devuelve **área neta**, así que la región de abajo se resta en vez de sumarse.\n\nEl resultado positivo significa que la pileta terminó con más agua de la que tenía: lo que entró en los últimos dos minutos superó a lo que se había perdido al principio.",
     "reviewed": false,
     "tags": [
-      "propiedades-limites-integracion"
+      "lectura-area-con-signos"
     ]
   },
   {
@@ -296,19 +334,21 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra una función $f$.\n\nSe sabe que $\\int_0^2 f(x)\\,dx=2$ y $\\int_2^4 f(x)\\,dx=6$.\n$$\\int_0^4 f(x)\\,dx$$\n¿Cuál es el valor de esta integral, sumando ambos tramos?",
+    "question": "Un sensor midió el caudal de una cañería durante cuatro horas seguidas.\n\nLa recta $f(x)=x$ muestra ese caudal en litros por hora, con el tiempo en horas.\n$$\\int_0^4 f(x)\\,dx$$\n¿Cuántos litros acumuló, leyendo el área del gráfico?",
     "options": [
-      "$16$",
       "$8$",
-      "$4$"
+      "$16$",
+      "$4$",
+      "$12$"
     ],
-    "correct_index": 1,
+    "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, la aditividad suma los dos tramos contiguos.",
+    "feedback_correct": "Correcto, la región es un triángulo de base $4$ y altura $4$.",
     "feedback_incorrect": [
-      "La aditividad suma los dos tramos, no los multiplica entre sí.",
       null,
-      "La aditividad suma los dos tramos, no promedia sus valores."
+      "Eso es base por altura, la fórmula del rectángulo; la región es un triángulo y lleva la mitad.",
+      "Eso corresponde solo a las dos primeras horas, cuando el caudal todavía era chico.",
+      "El caudal no se mantiene en su valor final durante todo el tramo, arranca en cero y va subiendo."
     ],
     "graph_fn": "x",
     "graph_view": [
@@ -317,38 +357,48 @@
       -1,
       5
     ],
-    "explanation": "La propiedad de **aditividad** permite fraccionar una integral en dos intervalos contiguos y sumar los resultados.\n\nCon los valores dados, $2+6=8$, la integral sobre todo el intervalo es simplemente la suma de sus dos partes.\n\nEl punto de corte, $x=2$, no necesita coincidir con ningún cruce por cero de la función, la aditividad vale para cualquier partición del intervalo.",
+    "graph_shade": [
+      0,
+      4
+    ],
+    "explanation": "La región sombreada es un triángulo de base $4$ y altura $4$, así que su área sale de una fórmula geométrica y no de ninguna cuenta de integración.\n$$\\frac{4\\cdot 4}{2}=8$$\nEsos ocho litros son lo que la cañería acumuló en las cuatro horas.\n\nEl mismo total se puede leer por partes, y ahí aparece la **aditividad**: las dos primeras horas aportan un triángulo de área $2$ y las dos últimas un trapecio de área $6$.\n\nQue las dos lecturas coincidan no es casualidad. Partir el intervalo en tramos contiguos y sumar los aportes da siempre el mismo total que integrar de una sola vez.",
     "reviewed": false,
     "tags": [
       "propiedades-limites-integracion"
     ]
   },
   {
-    "question": "En la gráfica se muestra $f(x)=4-x$ en el intervalo $[0,4]$.\n\nSe sabe que $\\int_0^4 f(x)\\,dx=8$.\n$$\\int_4^0 f(x)\\,dx$$\n¿Cuál es su valor, con los límites de integración invertidos?",
+    "question": "Un tanque roto pierde agua todo el tiempo, cada vez más despacio.\n\nLa recta $f(x)=x-5$ muestra el caudal neto en litros por minuto, con el tiempo en minutos.\n$$\\int_0^4 f(x)\\,dx$$\n¿Cuál es el valor de esta integral definida?",
     "options": [
-      "$8$",
-      "$0$",
-      "$-8$"
+      "$-12$",
+      "$12$",
+      "$-8$",
+      "$-20$"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, invertir los límites de integración cambia el signo del resultado.",
+    "feedback_correct": "Correcto, la región queda entera debajo del eje y su área vale $12$.",
     "feedback_incorrect": [
-      "Invertir los límites de integración multiplica el resultado por $-1$, no lo deja igual.",
-      "El resultado no se anula al invertir los límites, solo cambia de signo.",
-      null
+      null,
+      "El área de la región es positiva, pero al quedar debajo del eje la integral la cuenta restando.",
+      "La región no es un triángulo: el caudal nunca llega a cero dentro del tramo, así que queda un trapecio.",
+      "Eso multiplica el caudal inicial por los cuatro minutos, pero el caudal se achica minuto a minuto."
     ],
-    "graph_fn": "4-x",
+    "graph_fn": "x-5",
     "graph_view": [
       -1,
       5,
-      -1,
-      5
+      -5,
+      1
     ],
-    "explanation": "Igual que en cualquier otra función, invertir los **límites de integración** cambia el signo del resultado, sin importar la forma de la curva.\n$$\\int_4^0 f(x)\\,dx = -\\int_0^4 f(x)\\,dx = -8$$\nEsta propiedad es puramente algebraica, no depende de que la región esté arriba o abajo del eje, solo del orden en que se recorren los límites.",
+    "graph_shade": [
+      0,
+      4
+    ],
+    "explanation": "La recta se mantiene por debajo del eje en todo el tramo, así que no hay ninguna parte positiva que compense.\n\nLa región es un trapecio: arranca midiendo cinco de alto, termina en uno y abarca cuatro minutos de ancho.\n$$\\frac{5+1}{2}\\cdot 4=12$$\nComo toda esa área queda debajo del eje, la integral devuelve $-12$.\n\nEl signo negativo dice que el tanque perdió doce litros. Que el caudal se acerque a cero indica que la pérdida se frena, no que el agua vuelva.",
     "reviewed": false,
     "tags": [
-      "propiedades-limites-integracion"
+      "lectura-area-con-signos"
     ]
   },
   {
@@ -380,28 +430,34 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra $f(x)=x-2$ en el intervalo $[0,4]$.\n\nSe sabe que $\\int_0^2 f(x)\\,dx=-2$ y $\\int_2^4 f(x)\\,dx=2$.\n$$\\int_0^4 f(x)\\,dx$$\n¿Cuál es el valor de esta integral, sumando ambos tramos con su signo?",
+    "question": "Un ascensor sube durante el primer segundo y baja durante los dos siguientes.\n\nLa recta $f(x)=2-2x$ muestra su velocidad en metros por segundo, con el tiempo en segundos.\n$$\\int_0^3 f(x)\\,dx$$\n¿Cuál es el cambio total de altura, leyendo las dos partes del gráfico?",
     "options": [
-      "$-4$",
-      "$0$",
-      "$4$"
+      "$5$",
+      "$-3$",
+      "$3$",
+      "$-5$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Correcto, la aditividad suma los dos tramos respetando sus signos.",
+    "feedback_correct": "Correcto, la parte de abajo mide $4$ y la de arriba $1$, así que el total queda en $-3$.",
     "feedback_incorrect": [
-      "El signo de la suma está invertido, revisá el signo de cada uno de los dos tramos.",
+      "Eso suma las dos áreas sin signo, y la parte que queda debajo del eje entra restando.",
       null,
-      "Sumaste los valores absolutos de los dos tramos, la aditividad respeta el signo de cada integral parcial."
+      "El signo está invertido: la parte de abajo es cuatro veces la de arriba, así que gana la bajada.",
+      "Eso resta las dos áreas pero además las suma en valor absoluto, contando la de abajo dos veces."
     ],
-    "graph_fn": "x-2",
+    "graph_fn": "2-2*x",
     "graph_view": [
       -1,
-      5,
-      -3,
+      4,
+      -4,
+      1
+    ],
+    "graph_shade": [
+      0,
       3
     ],
-    "explanation": "La **aditividad** suma los dos tramos contiguos respetando el signo que tenga cada uno, sin tomar valores absolutos.\n$$\\int_0^2 f(x)\\,dx + \\int_2^4 f(x)\\,dx = -2+2 = 0$$\nEl tramo negativo y el positivo se cancelan exactamente, un resultado consistente con que la función forme dos triángulos de igual área a cada lado del cruce.",
+    "explanation": "La recta cruza el eje al primer segundo, y ese cruce parte el tramo en dos regiones que entran con signos opuestos.\n\nLa de arriba es un triángulo angosto, de un segundo de ancho, con área $1$. La de abajo es el doble de ancha y el doble de alta, así que su área llega a $4$.\n$$1-4=-3$$\nSumar los dos tramos respetando su signo es la propiedad de **aditividad** leída sobre el gráfico.\n\nEl resultado dice que el ascensor terminó tres metros por debajo de donde arrancó. Subió primero, pero bajó bastante más después.",
     "reviewed": false,
     "tags": [
       "propiedades-limites-integracion"
@@ -428,6 +484,10 @@
       5,
       -4,
       2
+    ],
+    "graph_shade": [
+      0,
+      4
     ],
     "explanation": "Conviene distinguir dos conceptos relacionados pero distintos: la **integral definida** computa área neta con signo.\n\nEl área geométrica, en cambio, es la superficie física de la región y siempre es positiva.\n\nQue la integral dé un valor negativo no significa que exista una superficie negativa, solo que el balance entre las regiones de arriba y de abajo del eje resultó negativo.\n\nConfundir estos dos conceptos lleva a errores frecuentes: el área geométrica nunca es negativa, pero la integral definida sí puede serlo cuando la región queda mayormente debajo del eje $x$.",
     "reviewed": false,

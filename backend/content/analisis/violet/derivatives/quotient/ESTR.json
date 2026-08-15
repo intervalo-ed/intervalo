@@ -2,9 +2,9 @@
   {
     "question": "Una constante ocupa el numerador de esta fracción, con una potencia de $x$ en el denominador:\n$$f(x) = \\frac{5}{x^3}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
-      "Reescribir como potencia negativa",
+      "Pasar a potencia negativa",
       "Regla del cociente",
-      "Múltiplo escalar"
+      "Múltiplo por constante"
     ],
     "correct_index": 0,
     "has_math": true,
@@ -25,15 +25,15 @@
   {
     "question": "Esta fracción tiene una constante arriba y una potencia de $x$ abajo:\n$$f(x) = \\frac{7}{x^2}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
-      "Regla del producto",
-      "Reescribir como potencia negativa",
+      "Múltiplo por constante",
+      "Pasar a potencia negativa",
       "Regla del cociente"
     ],
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Correcto, reescribir como potencia negativa habilita la regla de la potencia.",
     "feedback_incorrect": [
-      "No hay ningún producto de dos factores acá, es una fracción con potencia en el denominador.",
+      "El múltiplo por constante es parte del camino, pero solo después de reescribir: la fracción tal como está no es un producto por constante.",
       null,
       "La regla del cociente funcionaría, pero reescribir como $7x^{-2}$ deja una única potencia, mucho más rápida de derivar."
     ],
@@ -49,8 +49,8 @@
     "question": "El numerador de esta fracción es una constante negativa:\n$$f(x) = \\frac{-4}{x^5}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del cociente",
-      "Múltiplo escalar",
-      "Reescribir como potencia negativa"
+      "Múltiplo por constante",
+      "Pasar a potencia negativa"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -71,13 +71,13 @@
   {
     "question": "Acá el denominador es una constante, no una función de $x$:\n$$f(x) = \\frac{x^2+1}{4}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
-      "Múltiplo escalar",
+      "Múltiplo por constante",
       "Regla del cociente",
       "Regla del producto"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, dividir por una constante equivale a multiplicar por un múltiplo escalar.",
+    "feedback_correct": "Correcto, dividir por una constante equivale a multiplicar por un múltiplo por constante.",
     "feedback_incorrect": [
       null,
       "El denominador es una constante, no depende de $x$, así que no hace falta la regla del cociente.",
@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el denominador es una constante, dividir equivale a multiplicar por su recíproco, un simple **múltiplo escalar**.\n\nCon esa reinterpretación, la derivada se calcula con linealidad y la regla de la potencia, sin necesitar la fórmula completa del cociente.\n\nEste mismo criterio aplica a cualquier expresión dividida por una constante, sin importar qué función esté en el numerador.",
+    "explanation": "Cuando el denominador es una constante, dividir equivale a multiplicar por su recíproco, un simple **múltiplo por constante**.\n\nCon esa reinterpretación, la derivada se calcula con linealidad y la regla de la potencia, sin necesitar la fórmula completa del cociente.\n\nEste mismo criterio aplica a cualquier expresión dividida por una constante, sin importar qué función esté en el numerador.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-alternativas-cociente"
@@ -95,12 +95,12 @@
     "question": "El denominador de esta fracción también es un número fijo:\n$$f(x) = \\frac{2x^2-6}{2}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del producto",
-      "Múltiplo escalar",
+      "Múltiplo por constante",
       "Regla del cociente"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Correcto, dividir por una constante equivale a multiplicar por un múltiplo escalar.",
+    "feedback_correct": "Correcto, dividir por una constante equivale a multiplicar por un múltiplo por constante.",
     "feedback_incorrect": [
       "No hay ningún producto de dos factores que dependan de $x$, el $2$ es apenas una constante en el denominador.",
       null,
@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El denominador $2$ es una constante fija, así que toda la expresión se puede pensar como un múltiplo escalar del numerador.\n\nDerivar con linealidad y la regla de la potencia resulta mucho más directo que armar $u,v,u',v'$ para una constante en el denominador.\n\nEste mismo criterio aplica a cualquier expresión dividida por una constante, sin importar qué función esté en el numerador.",
+    "explanation": "El denominador $2$ es una constante fija, así que toda la expresión se puede pensar como un múltiplo por constante del numerador.\n\nDerivar con linealidad y la regla de la potencia resulta mucho más directo que armar $u,v,u',v'$ para una constante en el denominador.\n\nEste mismo criterio aplica a cualquier expresión dividida por una constante, sin importar qué función esté en el numerador.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-alternativas-cociente"
@@ -118,12 +118,12 @@
     "question": "Esta fracción tiene un polinomio cúbico arriba y una constante abajo:\n$$f(x) = \\frac{x^3+5}{10}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del cociente",
-      "Reescribir como potencia negativa",
-      "Múltiplo escalar"
+      "Pasar a potencia negativa",
+      "Múltiplo por constante"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Correcto, dividir por una constante equivale a multiplicar por un múltiplo escalar.",
+    "feedback_correct": "Correcto, dividir por una constante equivale a multiplicar por un múltiplo por constante.",
     "feedback_incorrect": [
       "El denominador es una constante, no depende de $x$, así que no hace falta la regla del cociente.",
       "La variable no está en el denominador, así que no hay ninguna potencia negativa que reescribir.",
@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un denominador constante, toda la fracción equivale a multiplicar el numerador por un número fijo.\n\nEsta reinterpretación como múltiplo escalar habilita derivar con linealidad, sin necesidad de identificar factores para una regla del cociente.\n\nEl mismo procedimiento aplica sin importar el grado del polinomio del numerador.",
+    "explanation": "Con un denominador constante, toda la fracción equivale a multiplicar el numerador por un número fijo.\n\nEsta reinterpretación como múltiplo por constante habilita derivar con linealidad, sin necesidad de identificar factores para una regla del cociente.\n\nEl mismo procedimiento aplica sin importar el grado del polinomio del numerador.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-alternativas-cociente"
@@ -140,9 +140,9 @@
   {
     "question": "El numerador y el denominador de esta fracción comparten una raíz:\n$$f(x) = \\frac{x^2-1}{x-1}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
-      "Simplificar el cociente primero",
+      "Simplificar la fracción",
       "Regla del cociente",
-      "Reescribir como potencia negativa"
+      "Pasar a potencia negativa"
     ],
     "correct_index": 0,
     "has_math": true,
@@ -163,15 +163,15 @@
   {
     "question": "Numerador y denominador de esta fracción tienen un factor en común:\n$$f(x) = \\frac{x^3-8}{x-2}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
-      "Múltiplo escalar",
-      "Simplificar el cociente primero",
+      "Múltiplo por constante",
+      "Simplificar la fracción",
       "Regla del cociente"
     ],
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Correcto, el numerador se factoriza y cancela con el denominador.",
     "feedback_incorrect": [
-      "El denominador depende de $x$, no es una constante, así que no corresponde tratarlo como múltiplo escalar.",
+      "El denominador depende de $x$, no es una constante, así que no corresponde tratarlo como múltiplo por constante.",
       null,
       "La regla del cociente funcionaría, pero simplificar antes deja una expresión cuadrática, mucho más rápida de derivar."
     ],

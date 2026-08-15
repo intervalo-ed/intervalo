@@ -1,6 +1,6 @@
 [
   {
-    "question": "¿Cuántos máximos tiene $f(x) = \\operatorname{sen}(x)$ en el intervalo $[0,\\, 2\\pi]$?",
+    "question": "Contar máximos en un gráfico es contar cuántas veces la curva llega a su punto más alto.\n\n¿Cuántos máximos tiene $f(x) = \\operatorname{sen}(x)$ en el intervalo $[0,\\, 2\\pi]$?",
     "options": [
       "1",
       "2",
@@ -30,7 +30,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el período de esta función trigonométrica según la gráfica?",
+    "question": "El período se lee en el gráfico como la distancia entre dos puntos equivalentes de la onda.\n\n¿Cuál es el período de esta función trigonométrica según la gráfica?",
     "options": [
       "$\\pi$",
       "$2\\pi$",
@@ -60,7 +60,7 @@
     ]
   },
   {
-    "question": "¿La función $\\cos(x)$ es par o impar según su gráfica?",
+    "question": "Una función par se ve simétrica respecto del eje vertical, y una impar respecto del origen.\n\n¿La función $\\cos(x)$ es par o impar según su gráfica?",
     "options": [
       "No tiene simetría",
       "Impar, simétrica respecto al origen",
@@ -90,7 +90,7 @@
     ]
   },
   {
-    "question": "¿Cuántos ceros tiene $f(x) = \\cos(x)$ en el intervalo $[0,\\, 2\\pi]$?",
+    "question": "Los ceros de una función son los puntos donde su gráfico toca el eje horizontal.\n\n¿Cuántos ceros tiene $f(x) = \\cos(x)$ en el intervalo $[0,\\, 2\\pi]$?",
     "options": [
       "2",
       "3",
@@ -120,7 +120,7 @@
     ]
   },
   {
-    "question": "¿Cuántos períodos completos tiene $f(x) = \\operatorname{sen}(x)$ en el intervalo $[0,\\, 4\\pi]$?",
+    "question": "Un período completo es el tramo mínimo tras el cual la onda se repite igual.\n\n¿Cuántos períodos completos tiene $f(x) = \\operatorname{sen}(x)$ en el intervalo $[0,\\, 4\\pi]$?",
     "options": [
       "2",
       "1",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "Observá la gráfica de $f(x) = \\operatorname{sen}(x)$.\n\n¿En cuál de los siguientes intervalos la función es creciente?",
+    "question": "En el gráfico, un tramo creciente se ve como una subida ininterrumpida de izquierda a derecha.\n\n¿En cuál de estos intervalos la función $f(x) = \\operatorname{sen}(x)$ es creciente?",
     "options": [
       "$[-\\pi,\\ 0]$",
       "$[-\\pi/2,\\ \\pi/2]$",
@@ -720,7 +720,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\operatorname{sen}\\!\\left(\\dfrac{x}{2}\\right)$$\n¿Cuánto vale $f(\\pi)$?",
+    "question": "Dividir la variable por 2 dentro del seno estira la onda en horizontal:\n$$f(x) = \\operatorname{sen}\\!\\left(\\dfrac{x}{2}\\right)$$\n¿Cuánto vale $f(\\pi)$?",
     "options": [
       "$0$",
       "$1$",

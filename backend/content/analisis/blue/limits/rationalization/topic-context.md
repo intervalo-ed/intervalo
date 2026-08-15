@@ -180,3 +180,47 @@ Corrección puntual del usuario sobre ejercicios de prueba de este topic (`corre
 - [ ] **El planteo de la multiplicación por el conjugado va en su propio renglón del `aligned`**, separado de su resultado ya simplificado (ver hallazgos `RESL_01`/`RESL_02`/`RESL_05`)
 - [ ] **Ningún ejercicio con $c>5$** (verificar los 30 ejercicios, no solo los señalados en la auditoría; se encontraron 4 de 15 en la ronda 1)
 - [ ] **Ningún desplazamiento $\pm1$ dentro de la raíz**; sub-A y sub-B usan por default tendencia $x\to0$ con radicando $x+c^2$, reservando tendencias no nulas a una minoría avanzada sin desplazamiento $\pm1$
+
+---
+
+## Hallazgos de auditoría (ronda 6, ago-2026)
+
+Pasada de redacción para llevar los enunciados al estándar de las reglas 47-51 de `authoring-context.md`. En `RESL.json` se reemplazaron las 15 aperturas con imperativo de cálculo, y se verticalizaron 4 bloques `aligned` cuya primera fila juntaba el planteo y la multiplicación por el conjugado (regla 38). En `LEXI.json` se reescribieron 11 enunciados: 8 que arrancaban directo con `¿` y 3 que abrían con un imperativo de atención vacío.
+
+Renombre de etiquetas de estrategia en la sub-familia `diagnostico-racionalizar-vs-factorizar` de `LEXI.json`, por sesgo de longitud (reglas 4 y 15): el juego viejo mezclaba "Factorizar" con "Sustitución directa" e "Indeterminación no resoluble", y la correcta se delataba por tamaño. El juego nuevo, aplicado de forma uniforme en todo el archivo, es **"Racionalizar y cancelar"**, **"Factorizar y cancelar"**, **"Sustituir directamente"** y **"Sin solución posible"** (render 23/21/22/20), todas nombrando el gesto concreto y dentro de una banda de 3 caracteres. Se alinearon los `feedback_correct` de esos ejercicios al vocabulario nuevo.
+
+No hubo ningún cambio de contenido matemático: límites, conjugados, opciones correctas y `correct_index` quedaron intactos.
+
+---
+
+## Auditoría ronda 7 (feedback de testeo 465, ago-2026)
+
+El feedback marcó que las aperturas de la unidad describían **dónde caen los símbolos en la hoja** (`"Arriba hay un trinomio y abajo una resta simple"`, `"La raíz ocupa el denominador"`) en vez de decir qué le pasa a la función o al límite. La ronda 6 había sacado el imperativo de cálculo (`"Calculá el límite:"`) y lo reemplazó por un inventario de la fórmula, y en esa sustitución se perdió el objeto. Sobre 225 ítems, 123 aperturas no nombraban límite, función ni tendencia, y 38 preguntas eran genéricas (`"¿Cuánto da?"`, `"¿Cuál es su resultado?"`).
+
+De ahí sale la **regla 59** de `authoring-context.md`: la apertura nombra el objeto y la tensión que genera el ejercicio (el camino directo falla y sin embargo hay respuesta), y si ya lo nombró, la pregunta puede señalarlo hacia atrás (`"¿Cuál es ese valor?"`) en vez de repetir la misma fórmula quince veces.
+
+En `RESL.json` se reescribieron los 15 enunciados con el mismo criterio que en `factorization`.
+
+En `LEXI.json`, los ítems 9 a 11 abrían nombrando el criterio que discrimina la respuesta (`"conviene ver qué deja la sustitución directa"`), que es justo lo que el ejercicio pregunta (regla 57c). Las aperturas nuevas son neutras.
+
+**Los ítems 12 y 14 preguntaban lo mismo** con distinta redacción (por qué no alcanza con multiplicar solo el numerador / qué pasa si se hace). El 14 conserva el contenido con el encuadre hipotético que pidió el feedback (`"una variante consiste en..."` validaba como legítimo un procedimiento que no lo es; ahora es un estudiante que lo hace). El 12 pasa a cubrir otro aspecto del mismo tag: al racionalizar, **la raíz no desaparece, cruza la barra** y por eso se puede cancelar.
+
+La lista de trabajo salió del inventario de las 225 aperturas de la unidad, no del validador: estos enunciados ya pasaban 0/0 antes de la ronda. El defecto era semántico.
+
+---
+
+## Auditoría ronda 9 (feedback de testeo 467, ago-2026)
+
+La ronda 7 arregló **de qué** hablaba la apertura (del comportamiento, no de la tipografía) pero no **que describiera**. El enunciado quedó haciendo el análisis y entregando el diagnóstico terminado: `"El punto de tendencia anula las dos partes de la fracción. La función no está definida ahí, pero sí se acerca a un número."` son tres conclusiones que el estudiante tendría que sacar, y le dejan solo la aritmética.
+
+De ahí sale la **regla 61** de `authoring-context.md`: el sujeto de la primera oración es el objeto o una intención (`"Una función…"`, `"Un límite…"`, `"Se quiere…"`), va **una sola oración**, y no se reporta el resultado de ningún paso que el estudiante podría dar. La regla 59 sigue vigente contra la fórmula desnuda; la 61 la acota para que el enunciado no razone en su lugar.
+
+En este topic se reescribieron las aperturas que tenían una propiedad de sujeto. Los cinco `RESL` de la unidad estaban al 100% en ese registro, porque son justamente los que la ronda 7 había reescrito.
+
+**`definition/RESL[0]` sigue intacto**, por tercera ronda consecutiva: es el único ítem que el feedback marcó como bien introducido (465), y se conserva como referencia aunque su segunda oración concluya.
+
+**Tres `LEXI` con el objeto ausente.** El 13 no mostraba ningún límite concreto y ahora lo lleva centrado; el 6 se partió en dos displays (la expresión sola, después multiplicada por su conjugado); el 8 no decía de dónde salía la expresión, y ahora aclara que quedó al racionalizar.
+
+### Punto ciego del validador corregido en esta ronda
+
+El testeo reportó una fila de `explanation` que se salía de pantalla y que el validador no marcaba. Medía **35** contra un umbral de **36**, o sea que pasaba por un carácter: `render_len` borraba `\sqrt` e `\infty` a longitud cero, cuando el radical es decoración que ocupa ancho y el infinito es un glifo ancho. Con los pesos nuevos esa fila mide **43** y se marca, y la fila sana de al lado sigue midiendo 29 sin falsos positivos.

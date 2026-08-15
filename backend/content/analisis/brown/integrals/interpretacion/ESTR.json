@@ -1,0 +1,462 @@
+[
+  {
+    "question": "Un auto viaja durante $3$ horas y su velocidad cambia todo el tiempo.\n\nLlamamos $v(t)$ a esa velocidad, en kilómetros por hora, con $t$ en horas.\n\n¿Qué expresión da los kilómetros recorridos?",
+    "options": [
+      "$\\int_0^3 v(t)\\,dt$",
+      "$\\int_0^3 v'(t)\\,dt$",
+      "$v(3)-v(0)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, la velocidad es el ritmo al que cambia la posición, y acumularla da la distancia.",
+    "feedback_incorrect": [
+      null,
+      "Esa derivada sería el ritmo al que cambia la velocidad, y acumularla daría un cambio de velocidad.",
+      "Esa resta compara la velocidad al principio y al final, sin decir nada de la distancia."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La velocidad ya es un ritmo: dice cuántos kilómetros se recorren por cada hora que pasa. Eso es exactamente lo que una integral sabe acumular.\n\nAcumular la velocidad a lo largo de las tres horas da los kilómetros del viaje, sin necesidad de conocer la posición en ningún momento.\n\nDerivar la velocidad daría la aceleración, un escalón de más: la distancia está un solo paso de acumulación por encima de la velocidad.\n\nY comparar la velocidad inicial con la final tampoco sirve. Un auto puede terminar a la misma velocidad que arrancó y haber recorrido cualquier distancia.",
+    "reviewed": false,
+    "tags": [
+      "de-la-situacion-a-la-integral"
+    ]
+  },
+  {
+    "question": "A un tanque le entra agua con un caudal que varía.\n\nLlamamos $c(t)$ a ese caudal, en litros por minuto, con $t$ en minutos.\n\n¿Qué expresión da los litros que entraron entre el minuto $2$ y el $7$?",
+    "options": [
+      "$\\int_0^7 c(t)\\,dt$",
+      "$\\int_2^7 c(t)\\,dt$",
+      "$c(7)-c(2)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, los límites marcan el tramo por el que se pregunta y el integrando es el caudal.",
+    "feedback_incorrect": [
+      "Ese planteo cuenta también los litros de los dos primeros minutos, que quedan fuera de la pregunta.",
+      null,
+      "Esa resta compara el caudal en dos instantes, y el caudal no es una cantidad de agua."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Los límites de integración recortan el tramo del que se quiere saber. Acá la pregunta empieza en el minuto $2$, así que ahí empieza la acumulación.\n\nArrancar en cero contestaría otra pregunta, la de todo lo que entró desde el principio, que incluye agua que la consigna no pidió contar.\n\nEl integrando, en cambio, no depende del tramo: siempre es el ritmo, que acá es el caudal.\n\nLa resta de caudales tampoco funciona, porque compara dos velocidades de llenado y no dos cantidades de agua.",
+    "reviewed": false,
+    "tags": [
+      "de-la-situacion-a-la-integral"
+    ]
+  },
+  {
+    "question": "Una fábrica conoce su costo marginal, que dice cuánto cuesta producir una unidad más.\n\nLlamamos $m(q)$ a ese costo, en pesos por unidad, con $q$ el número de unidades.\n\n¿Qué expresión da el costo de producir de la unidad $10$ a la $20$?",
+    "options": [
+      "$m(20)-m(10)$",
+      "$\\int_{10}^{20} m'(q)\\,dq$",
+      "$\\int_{10}^{20} m(q)\\,dq$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, el costo marginal es un ritmo en pesos por unidad, y acumularlo da pesos.",
+    "feedback_incorrect": [
+      "Esa resta compara el costo de dos unidades sueltas, la $10$ y la $20$, sin sumar las del medio.",
+      "Esa derivada mide a qué ritmo cambia el costo marginal, un escalón más arriba del que pide la consigna.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El costo marginal está expresado por unidad, que es la marca de un ritmo aunque la variable no sea el tiempo. Acumularlo entre dos cantidades da un costo total.\n\nLa cuenta de unidades hace de eje horizontal, y los pesos por unidad hacen de alto: al multiplicarlos quedan pesos.\n\nComparar el costo marginal de la unidad $10$ contra el de la $20$ deja afuera todas las unidades intermedias, que son justamente las que se están produciendo.\n\nDerivar el costo marginal daría a qué ritmo se encarece la producción, que es una pregunta distinta y todavía más fina.",
+    "reviewed": false,
+    "tags": [
+      "de-la-situacion-a-la-integral"
+    ]
+  },
+  {
+    "question": "Una aplicación descarga datos a una velocidad que varía segundo a segundo.\n\nLlamamos $r(t)$ a esa velocidad, en megabytes por segundo, con $t$ en segundos.\n\n¿Qué expresión da los megabytes bajados durante el primer minuto?",
+    "options": [
+      "$\\int_0^{60} r(t)\\,dt$",
+      "$\\int_0^1 r(t)\\,dt$",
+      "$60\\,r(60)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, la variable está en segundos, así que un minuto se escribe como $60$ en los límites.",
+    "feedback_incorrect": [
+      null,
+      "Ese planteo cubre un solo segundo, porque los límites se escriben en la unidad de la variable.",
+      "Esa cuenta supone velocidad constante e igual a la del último segundo, y acá varía todo el tiempo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Los límites de integración no se escriben en la unidad de la pregunta sino en la de la variable. Acá la variable corre en segundos, así que el primer minuto llega hasta $60$.\n\nEs un desajuste fácil de pasar por alto, porque la consigna habla en minutos y la función está definida en segundos.\n\nEl control rápido es mirar las unidades del resultado: megabytes por segundo multiplicado por segundos deja megabytes, que es lo que se pregunta.\n\nLa tercera opción sería válida solo con velocidad constante. Al variar, una multiplicación sola no alcanza y hace falta acumular.",
+    "reviewed": false,
+    "tags": [
+      "de-la-situacion-a-la-integral"
+    ]
+  },
+  {
+    "question": "Una población crece a un ritmo que cambia año a año.\n\nLlamamos $p(t)$ a ese ritmo, en personas por año, con $t$ en años desde hoy.\n\n¿Qué expresión da las personas que se suman en los próximos $5$ años?",
+    "options": [
+      "$p(5)-p(0)$",
+      "$\\int_0^5 p(t)\\,dt$",
+      "$\\int_0^5 p'(t)\\,dt$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, el ritmo está en personas por año, y acumularlo durante $5$ años da personas.",
+    "feedback_incorrect": [
+      "Esa resta compara el ritmo de crecimiento en dos momentos, no la gente que se sumó.",
+      null,
+      "Esa derivada mide si el crecimiento se acelera o se frena, que es otra pregunta."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función dada ya es un ritmo, y se nota en su unidad: personas por año. Toda cantidad expresada como algo por unidad de otra cosa es candidata a integrarse.\n\nAcumular ese ritmo durante cinco años da las personas que se agregaron en ese lapso.\n\nEl resultado no dice cuánta gente hay al final, porque no incluye a la que ya estaba. Da el aumento, no el total.\n\nDerivar el ritmo llevaría un escalón más arriba, a la aceleración del crecimiento, y esa función se mide en personas por año al cuadrado.",
+    "reviewed": false,
+    "tags": [
+      "de-la-situacion-a-la-integral"
+    ]
+  },
+  {
+    "question": "Un dron arranca a $10$ metros de altura y sube durante $5$ segundos.\n\nLlamamos $v(t)$ a su velocidad de ascenso, en metros por segundo, con $t$ en segundos.\n\n¿Qué expresión da la altura a la que termina?",
+    "options": [
+      "$\\int_0^5 v(t)\\,dt$",
+      "$10\\int_0^5 v(t)\\,dt$",
+      "$10+\\int_0^5 v(t)\\,dt$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, la integral da lo que subió, y a eso hay que sumarle la altura de partida.",
+    "feedback_incorrect": [
+      "Esa integral da los metros que subió, que no es lo mismo que la altura donde termina.",
+      "La altura inicial se suma, no multiplica: no escala lo que el dron recorrió.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una integral que acumula un ritmo devuelve siempre un **cambio**, nunca un valor absoluto. Acá devuelve los metros que el dron ganó durante el ascenso.\n\nPara pasar del cambio al valor final hace falta un dato que la integral no tiene: dónde estaba todo al empezar.\n\nEse dato aparece en la consigna, y entra sumando porque las dos cantidades están en metros y se acumulan una sobre otra.\n\nSi el dron hubiera arrancado desde el suelo, las dos expresiones coincidirían. Es el único caso en que la integral sola contesta la pregunta.",
+    "reviewed": false,
+    "tags": [
+      "de-la-situacion-a-la-integral"
+    ]
+  },
+  {
+    "question": "Una casa consume electricidad a una potencia que varía durante el día.\n\nLlamamos $p(t)$ a esa potencia, en kilovatios, con $t$ en horas.\n\n¿Qué expresión da la energía consumida entre la hora $1$ y la $4$?",
+    "options": [
+      "$\\int_1^4 p(t)\\,dt$",
+      "$\\int_1^4 p'(t)\\,dt$",
+      "$p(4)-p(1)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, acumular kilovatios a lo largo de horas da kilovatios hora, que es energía.",
+    "feedback_incorrect": [
+      null,
+      "Esa derivada mide a qué ritmo cambia la potencia, y acumularla daría un cambio de potencia.",
+      "Esa resta compara la potencia en dos instantes, sin contar lo consumido en el medio."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La potencia es la energía consumida por unidad de tiempo, aunque su unidad no lo diga con esa forma. Por eso se comporta como un ritmo y se integra.\n\nAcumular kilovatios a lo largo de horas da kilovatios hora, que es la unidad con la que llega la factura.\n\nEsa unidad compuesta es la mejor confirmación de que el planteo apunta a lo que se pregunta.\n\nComparar la potencia de dos momentos no sirve: una casa puede consumir lo mismo a las dos horas distintas y haber gastado muchísimo en el medio.",
+    "reviewed": false,
+    "tags": [
+      "de-la-situacion-a-la-integral"
+    ]
+  },
+  {
+    "question": "Un cohete despega y su altura cambia durante los primeros $10$ segundos.\n\nLlamamos $h(t)$ a esa altura, en metros, con $t$ en segundos.\n\n¿Qué expresión da los metros que subió en ese lapso?",
+    "options": [
+      "$\\int_0^{10} h(t)\\,dt$",
+      "$\\int_0^{10} h'(t)\\,dt$",
+      "$\\int_0^{10} h(t)\\,dh$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, lo que se acumula es el ritmo, y el ritmo de la altura es su derivada.",
+    "feedback_incorrect": [
+      "Acumular la altura daría metros por segundo, una cantidad que no responde a ninguna pregunta de acá.",
+      null,
+      "El diferencial marca la variable que recorre el intervalo, y acá ese recorrido es en el tiempo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Este caso está dado al revés que los anteriores. La función no es un ritmo sino la cantidad misma, así que integrarla tal cual no responde nada.\n\nLo que se acumula siempre es el ritmo. Como acá la cantidad es la altura, su ritmo es la derivada, que se mide en metros por segundo.\n\nMirar las unidades desarma la confusión enseguida: acumular metros a lo largo de segundos daría metros por segundo, que no es una distancia.\n\nY el diferencial no es decorativo. Marca cuál es la variable que recorre el intervalo, que acá es el tiempo.",
+    "reviewed": false,
+    "tags": [
+      "de-la-situacion-a-la-integral"
+    ]
+  },
+  {
+    "question": "La velocidad de un auto se mide en kilómetros por hora y el tiempo en horas.\n\nAl acumular esa velocidad durante $5$ horas, el resultado da $120$.\n\n¿Qué afirma ese número?",
+    "options": [
+      "Que su velocidad promedio fue de $120$ por hora",
+      "Que al terminar las $5$ horas iba a $120$ por hora",
+      "Que recorrió $120$ kilómetros en esas $5$ horas"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, acumular kilómetros por hora a lo largo de horas deja kilómetros.",
+    "feedback_incorrect": [
+      "El promedio saldría de repartir ese total entre las $5$ horas, y daría bastante menos.",
+      "La velocidad al cerrar el intervalo se lee evaluando la función ahí, no acumulándola.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La unidad del resultado decide la lectura. Kilómetros por hora multiplicado por horas deja kilómetros, así que el número es una distancia.\n\nEso descarta de entrada las dos interpretaciones que hablan de velocidad, porque una distancia y una velocidad no son la misma clase de cantidad.\n\nEl promedio existe y se calcula, pero sale de repartir el total a lo largo del intervalo, que es una cuenta posterior.\n\nY el valor al final del recorrido se obtiene evaluando la velocidad en ese instante, sin acumular nada.",
+    "reviewed": false,
+    "tags": [
+      "del-numero-a-su-significado"
+    ]
+  },
+  {
+    "question": "Un tanque tiene entrada y salida de agua a la vez, y se mide el caudal neto en litros por minuto.\n\nAl acumularlo durante $3$ minutos, el resultado da $-15$.\n\n¿Qué afirma ese número?",
+    "options": [
+      "Que el tanque tiene $15$ litros menos que al empezar",
+      "Que el tanque quedó con $15$ litros adentro",
+      "Que hubo un error, porque no puede dar negativo"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, el signo negativo indica la dirección del cambio, que acá es una pérdida.",
+    "feedback_incorrect": [
+      null,
+      "El resultado mide cuánto cambió el contenido, no cuánto quedó adentro al final.",
+      "El signo es información, no un error: dice que salió más agua de la que entró."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un caudal neto negativo significa que sale más agua de la que entra, y la acumulación conserva ese signo hasta el resultado.\n\nEl número informa entonces una pérdida de quince litros durante el tramo. Es un cambio, con su dirección incluida.\n\nNo dice cuánta agua quedó en el tanque, porque para eso haría falta saber cuánta había al empezar.\n\nQue el resultado sea negativo tampoco es un problema. Las áreas geométricas nunca lo son, pero una integral computa área neta y ahí el signo tiene sentido propio.",
+    "reviewed": false,
+    "tags": [
+      "del-numero-a-su-significado"
+    ]
+  },
+  {
+    "question": "Un ascensor se mueve durante $8$ segundos y su velocidad se mide en metros por segundo, positiva al subir.\n\nAl acumular esa velocidad en los $8$ segundos, el resultado da $0$.\n\n¿Qué afirma ese número?",
+    "options": [
+      "Que el ascensor estuvo detenido todo el tiempo",
+      "Que el ascensor terminó a la altura donde arrancó",
+      "Que el ascensor bajó durante los $8$ segundos"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, lo que subió y lo que bajó se compensaron, así que el cambio de altura es nulo.",
+    "feedback_incorrect": [
+      "Estar detenido daría cero, pero no es la única forma de llegar a cero.",
+      null,
+      "Bajar todo el tiempo daría un resultado negativo, no nulo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un resultado nulo dice que los aportes positivos y los negativos se cancelaron, y no que no haya pasado nada.\n\nEl ascensor pudo haber subido varios pisos y vuelto, o haber bajado y subido. En los tres casos el cambio de altura entre el principio y el final es cero.\n\nLa quietud completa también daría cero, pero es apenas uno de los muchos recorridos posibles.\n\nEsta es la diferencia entre lo que la integral mide y lo que uno querría saber a veces: registra el balance, no el trayecto.",
+    "reviewed": false,
+    "tags": [
+      "del-numero-a-su-significado"
+    ]
+  },
+  {
+    "question": "Una descarga se mide en megabytes por segundo y el tiempo en segundos.\n\nSe acumula esa velocidad a lo largo de $10$ segundos.\n\n¿En qué unidad queda el resultado?",
+    "options": [
+      "En segundos, que es lo que dura el tramo",
+      "En megabytes por segundo, igual que el ritmo",
+      "En megabytes, sin ninguna división"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, los segundos del ritmo se cancelan contra los del intervalo.",
+    "feedback_incorrect": [
+      "Los segundos son el ancho del intervalo, uno solo de los dos factores que se multiplican.",
+      "Esa es la unidad de lo que se acumula, y el resultado combina ese ritmo con el tiempo.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Acumular multiplica el ritmo por la variable que recorre el intervalo, así que la unidad del resultado es el producto de las dos.\n\nMegabytes por segundo multiplicado por segundos deja megabytes: los segundos del denominador se cancelan contra los del ancho.\n\nEsa cancelación es la firma de toda acumulación, y funciona igual cuando la variable no es el tiempo.\n\nSirve como control barato de cualquier planteo: si la unidad que sale no responde la pregunta, hay algo mal antes de hacer una sola cuenta.",
+    "reviewed": false,
+    "tags": [
+      "del-numero-a-su-significado"
+    ]
+  },
+  {
+    "question": "El costo marginal de una fábrica se mide en pesos por unidad producida.\n\nAcumulado sobre las primeras $40$ unidades, el resultado da $3200$.\n\n¿Qué afirma ese número?",
+    "options": [
+      "Que producir esas $40$ unidades cuesta \\$3200",
+      "Que la unidad número $40$ costó \\$3200",
+      "Que cada unidad costó \\$3200 en promedio"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, pesos por unidad multiplicado por unidades deja pesos.",
+    "feedback_incorrect": [
+      null,
+      "El costo de esa unidad suelta se lee evaluando el costo marginal ahí, sin acumular.",
+      "El promedio saldría de repartir el total entre las $40$ unidades, y daría mucho menos."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El costo marginal está expresado por unidad, que es la marca de un ritmo aunque la variable sea una cuenta de piezas y no un tiempo.\n\nAcumularlo entre dos cantidades de producción da un costo total, en pesos, y ese es el número que aparece.\n\nEl costo de la unidad cuarenta es otra cosa, y se obtiene evaluando el costo marginal justo ahí, sin sumar nada.\n\nEl promedio por unidad también es otra cosa. Sale de repartir los pesos totales entre las cuarenta unidades, una división que todavía no se hizo.",
+    "reviewed": false,
+    "tags": [
+      "del-numero-a-su-significado"
+    ]
+  },
+  {
+    "question": "Un medicamento entra a la sangre a un ritmo que se mide en miligramos por hora.\n\nAl acumular ese ritmo durante $6$ horas, el resultado da $90$.\n\n¿Qué afirma ese número?",
+    "options": [
+      "Que el ritmo promedio fue de $90$ por hora",
+      "Que entraron $90$ miligramos en esas $6$ horas",
+      "Que a las $6$ horas hay $90$ miligramos en sangre"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, el número mide lo que entró durante el tramo, con su unidad en miligramos.",
+    "feedback_incorrect": [
+      "El promedio saldría de repartir el total entre las $6$ horas, y daría bastante menos.",
+      null,
+      "Eso supondría que nada se eliminó ni había algo antes, y la acumulación no informa sobre eso."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Acumular miligramos por hora a lo largo de horas deja miligramos, así que el número cuenta una cantidad de medicamento.\n\nEsa cantidad es la que entró durante el tramo, y hasta ahí llega la información. La acumulación mide un ingreso, no un contenido.\n\nCuánto hay en sangre a las seis horas depende además de lo que había antes y de lo que el cuerpo eliminó mientras tanto, y nada de eso está en el planteo.\n\nEs la misma distinción entre cambio y valor final que aparece con el tanque de agua o con la altura de un dron.",
+    "reviewed": false,
+    "tags": [
+      "del-numero-a-su-significado"
+    ]
+  },
+  {
+    "question": "Una planta crece a un ritmo que se mide en centímetros por día.\n\nSe acumula ese ritmo entre el día $10$ y el día $20$.\n\n¿Qué representa el número que resulta?",
+    "options": [
+      "La altura que la planta tiene el día $20$",
+      "El ritmo al que crecía la planta el día $20$",
+      "Lo que la planta creció entre esos dos días"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, el resultado mide el crecimiento del tramo, no la altura alcanzada.",
+    "feedback_incorrect": [
+      "Para la altura de ese día haría falta saber cuánto medía la planta el día $10$.",
+      "Ese ritmo se lee evaluando la función en ese día, sin acumular nada.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Los límites recortan un tramo que no arranca en el origen, y eso hace más visible qué mide el resultado: lo que pasó entre esos dos días, nada de lo anterior.\n\nEl número queda en centímetros, porque centímetros por día multiplicado por días cancela los días.\n\nPara conocer la altura del día veinte haría falta sumarle a ese crecimiento la altura que la planta ya tenía el día diez.\n\nY el ritmo de un día puntual se lee evaluando la función, que es la operación inversa de acumular.",
+    "reviewed": false,
+    "tags": [
+      "del-numero-a-su-significado"
+    ]
+  },
+  {
+    "question": "Una pileta se llena con un caudal $c(t)$ que varía, en litros por minuto, con $t$ en minutos.\n\nLos litros del primer cuarto de hora se escriben así:\n$$\\int_0^{15} c(t)\\,dt$$\n¿Qué representa el bloque de adentro, el caudal multiplicado por el $dt$?",
+    "options": [
+      "El aporte de un ratito: caudal por duración",
+      "El caudal promedio de los quince minutos",
+      "Los litros que ya había en la pileta"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, es un alto por un ancho: el agua de un instante del llenado.",
+    "feedback_incorrect": [
+      null,
+      "El promedio no aparece en la notación: saldría de repartir el total, una cuenta posterior.",
+      "Lo que ya había no figura en ninguna parte de la escritura: la integral solo cuenta lo que entra."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La notación se lee por partes, y cada parte dice algo. El factor $c(t)$ es el alto: el caudal vigente en ese instante, en litros por minuto.\n\nEl $dt$ es el ancho: un ratito de tiempo, en minutos. Multiplicados dan litros, el agua de ese instante del llenado.\n\nEl símbolo de la integral junta todos esos aportes, del minuto $0$ al $15$.\n\nEn la integral indefinida, el $dt$ marca respecto de qué variable se integra. Leído como acumulación, además es el ancho del ratito.\n\nLas dos lecturas conviven sin pelearse, y ninguna convierte al diferencial en un número suelto que se pueda cancelar.",
+    "reviewed": false,
+    "tags": [
+      "leer-la-notacion"
+    ]
+  },
+  {
+    "question": "Un tren viaja con velocidad $v(t)$ en kilómetros por hora, con $t$ en horas.\n\nParte de su recorrido se escribe así:\n$$\\int_2^5 v(t)\\,dt$$\n¿Qué papel juegan el $2$ y el $5$?",
+    "options": [
+      "Son las velocidades mínima y máxima del tren",
+      "Marcan desde cuándo y hasta cuándo se acumula",
+      "Escalan el resultado final de toda la cuenta"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, recortan el tramo del viaje: de la hora $2$ a la hora $5$.",
+    "feedback_incorrect": [
+      "Las velocidades viven en $v(t)$, no en los límites: estos dos números son horas del viaje.",
+      null,
+      "No multiplican nada: delimitan el tramo sobre el que se suman los aportes."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Los números pegados al símbolo de la integral se llaman límites de integración, y son la parte de la notación que dice cuándo empieza y cuándo termina la cuenta.\n\nAcá recortan el tramo entre la hora $2$ y la hora $5$ del viaje. Todo lo que pasa fuera de ese tramo queda afuera de la suma.\n\nUn desliz frecuente es leerlos como valores de la función. No lo son: están en la unidad de la variable, horas, no en la del ritmo.\n\nCambiar los límites no cambia qué se acumula, cambia durante cuánto. Son la ventana de la acumulación.",
+    "reviewed": false,
+    "tags": [
+      "leer-la-notacion"
+    ]
+  },
+  {
+    "question": "La lluvia cae sobre un pluviómetro a un ritmo $f(t)$ en milímetros por hora, con $t$ en horas.\n\nEl agua de la madrugada se escribe así:\n$$\\int_0^6 f(t)\\,dt$$\nEl símbolo que envuelve todo tiene una forma particular.\n\n¿De dónde viene esa forma?",
+    "options": [
+      "Es la inicial estilizada de la palabra integral",
+      "Es una barra que separa la función del diferencial",
+      "Es una S estirada, de sumar los aportes de a uno"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, la S viene de suma: el símbolo anuncia que se juntan infinitos aportes chiquitos.",
+    "feedback_incorrect": [
+      "La palabra integral llegó después: el símbolo nació de otra palabra, la que describe lo que la operación hace.",
+      "No separa nada: envuelve a la expresión entera y anuncia qué se va a hacer con ella.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El símbolo es una S alargada, elegida hace más de tres siglos como abreviatura de suma.\n\nNo es un adorno: anuncia exactamente lo que la operación hace. Cada aporte es el agua de un ratito de lluvia, y la S estirada los junta a todos, de la hora cero a la seis.\n\nLeída así, la escritura entera es una oración: sumar, aporte por aporte, el ritmo multiplicado por su ratito, desde el arranque hasta el final.\n\nCuando la notación se lee como una oración, deja de ser un jeroglífico para memorizar.",
+    "reviewed": false,
+    "tags": [
+      "leer-la-notacion"
+    ]
+  },
+  {
+    "question": "Una impresora deposita tinta a un ritmo $r(t)$ en mililitros por segundo, con $t$ en segundos.\n\nLa tinta de una pasada se escribe así:\n$$\\int_0^{30} r(t)\\,dt$$\n¿Por qué el resultado queda en mililitros y no en mililitros por segundo?",
+    "options": [
+      "Porque cada aporte multiplica ritmo por ratito",
+      "Porque la integral borra la unidad del tiempo siempre",
+      "Porque los límites ya vienen escritos en segundos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, los segundos del ritmo se cancelan contra los del ratito, y quedan mililitros.",
+    "feedback_incorrect": [
+      null,
+      "La integral no borra unidades por decreto: la cancelación sale de una multiplicación concreta.",
+      "Los límites recortan el tramo, pero la unidad del resultado se decide en el producto de adentro."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La clave está en que $r(t)\\,dt$ es un producto de verdad, no una notación decorativa.\n\nEl ritmo aporta mililitros por segundo y el ratito aporta segundos. Al multiplicarlos, los segundos se cancelan entre sí y cada aporte queda en mililitros.\n\nSumar aportes en mililitros da un total en mililitros. La unidad del resultado ya estaba decidida dentro del bloque, antes de sumar nada.\n\nEsa multiplicación de unidades es el mejor control del planteo: si lo que sale no responde la pregunta, algo del armado está mal.",
+    "reviewed": false,
+    "tags": [
+      "leer-la-notacion"
+    ]
+  },
+  {
+    "question": "Un dique suelta agua a un ritmo $q(t)$ en metros cúbicos por segundo, con $t$ en segundos.\n\nEl agua del primer minuto se escribe así:\n$$\\int_0^{60} q(t)\\,dt$$\nAdentro de la escritura aparece la letra $t$.\n\n¿El resultado depende de esa letra?",
+    "options": [
+      "Sí, el resultado es una función de $t$",
+      "No, es un número: la $t$ se consume al sumar",
+      "Depende de la fórmula que tenga la función $q$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, la $t$ recorre los ratitos del tramo y desaparece en la suma: queda un solo número.",
+    "feedback_incorrect": [
+      "La $t$ no sobrevive a la suma: recorre el tramo por adentro y el resultado ya no la contiene.",
+      null,
+      "Con cualquier fórmula pasa lo mismo: la variable interna se agota al recorrer el tramo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La letra de adentro es una variable interna: su único trabajo es recorrer los ratitos del tramo, del segundo cero al sesenta, mientras la suma avanza.\n\nCuando la suma termina, no queda ninguna $t$ dando vueltas. El resultado es un solo número: los metros cúbicos que soltó el dique en ese minuto.\n\nEsto distingue a la integral con límites de la indefinida, cuyo resultado sí es una función.\n\nUna pregunta rápida lo verifica: cambiarle el nombre a la letra interna, de $t$ a cualquier otra, no cambia en nada el resultado. Lo que no aparece en el resultado no puede afectarlo.",
+    "reviewed": false,
+    "tags": [
+      "leer-la-notacion"
+    ]
+  }
+]

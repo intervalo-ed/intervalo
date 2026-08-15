@@ -1,6 +1,6 @@
 [
   {
-    "question": "¿Cuál de estas funciones es un polinomio de **grado** 3?",
+    "question": "Distintos polinomios se ordenan por la mayor potencia que aparece en cada uno.\n\n¿Cuál de estas funciones es un polinomio de **grado** 3?",
     "options": [
       "$f = x^3 - 2x + 5$",
       "$f(x) = x^2 + 1$",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "¿Cuántas **raíces** reales puede tener como máximo esta función polinómica?",
+    "question": "El gráfico muestra un polinomio cuya forma ya limita cuántas veces puede cortar el eje horizontal.\n\n¿Cuántas **raíces** reales puede tener como máximo esta función polinómica?",
     "options": [
       "2",
       "1",
@@ -55,7 +55,7 @@
     ]
   },
   {
-    "question": "Considerá el polinomio:\n$$p(x) = x^7 - 3x^4 + 2$$\n¿Cuál es su **grado**?",
+    "question": "Los exponentes de este polinomio saltean varias potencias intermedias:\n$$p(x) = x^7 - 3x^4 + 2$$\n¿Cuál es su **grado**?",
     "options": [
       "$7$",
       "$2$",
@@ -80,7 +80,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas expresiones NO es un polinomio?",
+    "question": "Un polinomio solo admite potencias naturales de la variable.\n\n¿Cuál de estas expresiones **no** es un polinomio?",
     "options": [
       "$f(x) = \\sqrt{x}$",
       "$f(x) = x^4 - 3x + 1$",
@@ -105,7 +105,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el **término independiente** de $p(x) = x^4 - 3x + 7$?",
+    "question": "Un polinomio tiene un término sin variable:\n$$p(x) = x^4 - 3x + 7$$\n¿Cuál es su **término independiente**?",
     "options": [
       "$7$",
       "$1$",
@@ -130,7 +130,7 @@
     ]
   },
   {
-    "question": "¿Cuántas **raíces** reales tiene este polinomio de **grado** 4?",
+    "question": "Un polinomio cruza el eje horizontal una cierta cantidad de veces.\n\n¿Cuántas **raíces** reales tiene este polinomio de **grado** 4?",
     "options": [
       "3",
       "2",
@@ -185,7 +185,7 @@
     ]
   },
   {
-    "question": "¿Qué hace la curva de un polinomio en una raíz simple?",
+    "question": "En cada cruce con el eje horizontal, la curva de un polinomio se comporta según la multiplicidad de esa raíz.\n\n¿Qué hace la curva en una raíz simple?",
     "options": [
       "Toca el eje $x$ sin cruzarlo",
       "Cruza el eje $x$ siempre",
@@ -210,7 +210,7 @@
     ]
   },
   {
-    "question": "¿Cómo se llama la **multiplicidad** de una raíz $r$ si el factor $(x - r)$ aparece exactamente dos veces en la factorización?",
+    "question": "Las raíces de un polinomio reciben nombres según cuántas veces se repite su factor.\n\n¿Cómo se llama la **multiplicidad** de una raíz $r$ cuyo factor $(x - r)$ aparece exactamente dos veces?",
     "options": [
       "Raíz simple",
       "Raíz doble",
@@ -235,7 +235,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la **imagen** de $f(x) = x^3$?",
+    "question": "La **imagen** de un polinomio depende de su grado y de su coeficiente principal:\n$$f(x) = x^3$$\n¿Cuál es su imagen?",
     "options": [
       "$\\mathbb{R}$",
       "$[0, +\\infty)$",
@@ -285,7 +285,7 @@
     ]
   },
   {
-    "question": "¿Para qué sirve principalmente la forma factorizada de un polinomio?",
+    "question": "Un mismo polinomio se puede escribir de varias formas, y cada una hace visible una cosa distinta.\n\n¿Para qué sirve principalmente la forma factorizada?",
     "options": [
       "Para leer las raíces directamente",
       "Para leer el grado directamente",
@@ -310,7 +310,7 @@
     ]
   },
   {
-    "question": "¿Cuántos **extremos locales** puede tener como máximo un polinomio de **grado** 5?",
+    "question": "La cantidad de subidas y bajadas de un polinomio está atada a su grado.\n\n¿Cuántos **extremos locales** puede tener como máximo un polinomio de **grado** 5?",
     "options": [
       "$5$",
       "$6$",
@@ -435,7 +435,7 @@
     ]
   },
   {
-    "question": "¿Puede un polinomio de **grado** 4 con coeficientes reales tener exactamente 3 **raíces** reales?",
+    "question": "Contar raíces reales de un polinomio no es lo mismo que contar todas sus raíces.\n\n¿Puede un polinomio de **grado** 4 con coeficientes reales tener exactamente 3 **raíces** reales?",
     "options": [
       "Sí, siempre es posible",
       "No, las raíces complejas vienen en pares",
@@ -485,7 +485,7 @@
     ]
   },
   {
-    "question": "Considerá la siguiente identidad algebraica:\n$$(a + b)^2 = a^2 + 2ab + b^2$$\n¿Cómo se llama?",
+    "question": "Algunos desarrollos aparecen tan seguido que tienen nombre propio:\n$$(a + b)^2 = a^2 + 2ab + b^2$$\n¿Cómo se llama esta identidad?",
     "options": [
       "Diferencia de cuadrados",
       "Binomio cuadrado perfecto",
@@ -510,7 +510,7 @@
     ]
   },
   {
-    "question": "¿Cuánto es $(a - b)^2$?",
+    "question": "Un binomio con signo negativo se eleva a una potencia:\n$$(a - b)^2$$\n¿A qué expresión equivale?",
     "options": [
       "$a^2 - b^2$",
       "$a^2 - 2ab + b^2$",
@@ -535,7 +535,7 @@
     ]
   },
   {
-    "question": "¿Cuántos términos tiene la expansión de $(a + b)^3$?",
+    "question": "Al desarrollar una potencia de un binomio, la cantidad de sumandos depende del exponente:\n$$(a + b)^3$$\n¿Cuántos términos tiene su expansión?",
     "options": [
       "$2$",
       "$3$",
@@ -560,7 +560,7 @@
     ]
   },
   {
-    "question": "¿Cuánto es $(a - b)^3$?",
+    "question": "El desarrollo del cubo de una resta tiene cuatro términos y hay que cuidar cada signo:\n$$(a - b)^3$$\n¿A qué expresión equivale?",
     "options": [
       "$a^3 + 3a^2b + 3ab^2 + b^3$",
       "$a^3 - b^3$",
@@ -575,7 +575,7 @@
       null,
       "Los signos ahí no alternan de forma correcta: en $(a-b)^3$ los signos van $+,-,+,-$, y el último término también debe llevar signo negativo."
     ],
-    "explanation": "Para expandir esta potencia, alcanza con reemplazar $b \\to -b$ en la fórmula ya conocida de $(a+b)^3$:\n$$\\begin{aligned} (a-b)^3 &= a^3 + 3a^2(-b) + 3a(-b)^2 + (-b)^3 \\\\ &= a^3 - 3a^2b + 3ab^2 - b^3 \\end{aligned}$$\nLos signos **alternan**: $+, -, +, -$.\n\nEl error clásico es escribir $-$ en todos los términos, o alternarlos en el orden equivocado.\n\nPara comprobarlo, con $a=2$ y $b=1$:\n$$(2-1)^3 = 1 = 8-12+6-1$$\nLos dos resultados coinciden.",
+    "explanation": "Para expandir esta potencia, alcanza con reemplazar $b \\to -b$ en la fórmula ya conocida de $(a+b)^3$:\n$$\\begin{aligned} &(a-b)^3 \\\\ &= a^3 + 3a^2(-b) + 3a(-b)^2 + (-b)^3 \\\\ &= a^3 - 3a^2b + 3ab^2 - b^3 \\end{aligned}$$\nLos signos **alternan**: $+, -, +, -$.\n\nEl error clásico es escribir $-$ en todos los términos, o alternarlos en el orden equivocado.\n\nPara comprobarlo, con $a=2$ y $b=1$:\n$$(2-1)^3 = 1 = 8-12+6-1$$\nLos dos resultados coinciden.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -585,7 +585,7 @@
     ]
   },
   {
-    "question": "¿Qué indica que la curva de un polinomio **toca** el eje $x$ sin cruzarlo en un punto?",
+    "question": "No todos los cruces con el eje horizontal se ven igual en el gráfico de un polinomio.\n\n¿Qué indica que la curva **toca** el eje $x$ sin cruzarlo en un punto?",
     "options": [
       "Que ese punto es una raíz simple",
       "Que ese punto es un máximo local",
@@ -610,7 +610,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estos describe mejor a un **mínimo global** de una función?",
+    "question": "Los máximos y mínimos de una función se pueden mirar en un entorno chico o en todo el dominio.\n\n¿Cuál de estas frases describe mejor un **mínimo global**?",
     "options": [
       "El valor más bajo en un entorno pequeño",
       "El valor más bajo de toda la función en su dominio",
@@ -660,7 +660,7 @@
     ]
   },
   {
-    "question": "¿Cómo se llama la forma de un polinomio cúbico que muestra sus tres **raíces** directamente?",
+    "question": "Un mismo polinomio cúbico admite varias escrituras equivalentes.\n\n¿Cómo se llama la forma que muestra sus tres **raíces** directamente?",
     "options": [
       "Forma estándar",
       "Forma canónica",
@@ -685,7 +685,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas NO puede ser la **imagen** de un polinomio de **grado** 3?",
+    "question": "La **imagen** de un polinomio depende de cómo se comporta en los dos extremos del eje.\n\n¿Cuál de estas no puede ser la imagen de un polinomio de **grado** 3?",
     "options": [
       "$\\mathbb{R}$",
       "$(-\\infty, 5]$",
@@ -710,11 +710,11 @@
     ]
   },
   {
-    "question": "¿Cuál afirmación sobre $p(x) = (x - 1)^3$ es correcta?",
+    "question": "En un polinomio dado en forma factorizada, el exponente de cada factor dice algo sobre su raíz:\n$$p(x) = (x - 1)^3$$\n¿Cuál de estas afirmaciones es correcta?",
     "options": [
       "$x = 1$ es una raíz simple",
       "$x = 1$ es una raíz doble",
-      "Es una raíz del polinomio",
+      "$x = 1$ es una raíz triple",
       "$x = 1$ es un máximo local"
     ],
     "correct_index": 2,
@@ -735,12 +735,12 @@
     ]
   },
   {
-    "question": "¿Cuál es el **grado** del polinomio cero $p(x) = 0$?",
+    "question": "El polinomio nulo es un caso especial que no encaja en la definición habitual de grado:\n$$p(x) = 0$$\n¿Cuál es su **grado**?",
     "options": [
-      "$0$",
-      "$1$",
-      "No def",
-      "$-\\infty$"
+      "Es cero, como las constantes",
+      "Es uno, como las rectas",
+      "No tiene grado definido",
+      "Es menos infinito"
     ],
     "correct_index": 2,
     "feedback_correct": "El polinomio cero es el único polinomio sin grado definido, aunque algunos textos le asignan $-\\infty$ por convención.",

@@ -153,15 +153,14 @@ Diseñada originalmente leyendo los 200 ejercicios reales (dump de `question`+op
 |---|---:|---|
 | Reconocimiento de función racional (qué es/no es) | 2 | `reconocimiento-funcion-racional` |
 | Dominio y restricciones (denominador = 0) | 4 | `dominio-restriccion` |
-| Asíntota vertical (cantidad, existencia, concepto) | 3 | `asintota-vertical` |
+| Asíntota vertical (cantidad, existencia, concepto) | 4 | `asintota-vertical` |
 | Asíntota horizontal (comparación de grados) | 4 | `asintota-horizontal` |
 | Asíntota oblicua | 1 | `asintota-oblicua` |
 | Agujero vs. asíntota vertical | 2 | `agujero-vs-asintota` |
 | Interceptos con los ejes | 3 | `interceptos-ejes` |
 | Paridad de la función (par/impar) | 1 | `paridad-funcion` |
 | Comportamiento en el infinito / límites laterales | 3 | `comportamiento-en-infinito` |
-| Transformaciones (desplazamiento, reflexión, escala) — ver nota arriba, tag real `cuadrantes-ramas` | 2 | `cuadrantes-ramas` |
-| Imagen / rango | 2 | `imagen-rango` |
+| Transformaciones (desplazamiento, reflexión, escala) — ver nota arriba, tag real `cuadrantes-ramas` | 3 | `cuadrantes-ramas` |
 | Continuidad en el dominio | 1 | `continuidad-en-dominio` |
 | Extremos y monotonía | 1 | `extremos-monotonia` |
 | Conteo de ramas | 1 | `conteo-ramas` |
@@ -188,16 +187,16 @@ Diseñada originalmente leyendo los 200 ejercicios reales (dump de `question`+op
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Dominio (valores excluidos / notación de intervalos) | 5 | `dominio-form` |
-| Asíntota horizontal, cálculo desde fórmula | 4 | `asintota-horizontal-calculo` |
-| Asíntota vertical, cálculo desde fórmula | 2 | `asintota-vertical-calculo` |
+| Dominio (valores excluidos / notación de intervalos) | 6 | `dominio-form` |
+| Asíntota horizontal, cálculo desde fórmula | 2 | `asintota-horizontal-calculo` |
+| Asíntota vertical, cálculo desde fórmula | 3 | `asintota-vertical-calculo` |
 | Cantidad de asíntotas verticales | 1 | `cantidad-asintotas-verticales-form` |
-| Fórmula desde gráfico (elegir entre 4 opciones) | 2 | `formula-desde-grafico-form` |
+| Fórmula desde gráfico (elegir entre 4 opciones) | 1 | `formula-desde-grafico-form` |
 | Evaluación puntual $f(a)$ | 2 | `evaluacion-puntual` |
 | Evaluación en un agujero (no está definida) | 1 | `evaluacion-en-agujero` |
 | Evaluación aproximada leída del gráfico | 1 | `evaluacion-desde-grafico` |
 | Lectura directa del gráfico (AV/AH/valor, "observá la gráfica") | 2 | `lectura-grafico-directa` |
-| Interceptos con los ejes | 3 | `interceptos-ejes-form` |
+| Interceptos con los ejes | 4 | `interceptos-ejes-form` |
 | Fórmula desde propiedades (AV+AH+punto dados) | 1 | `formula-desde-propiedades` |
 | Transformaciones (desplazamiento) | 1 | `transformaciones-form` |
 | Combinado AV+AH+valor puntual en un mismo ejercicio | 3 | `combinado-av-ah-valor` |
@@ -227,9 +226,44 @@ Diseñada originalmente leyendo los 200 ejercicios reales (dump de `question`+op
 | Simetría / paridad | 1 | `simetria-paridad-graf` |
 | Límites laterales en la AV | 1 | `limites-laterales-av` |
 | Cantidad de ramas | 1 | `cantidad-ramas` |
-| Signo de la función en un intervalo (subfamilia eliminada en el recorte 50→30, era el ejercicio con más findings del validador de todo GRAF) | 0 | `signo-en-intervalo` |
 
 *Tipo B — identificar fórmula desde el gráfico (9 ejercicios):* slug único `formula-desde-grafico` (igual que en la ronda anterior, no se sub-divide).
 
 *Tipo C — contexto cotidiano con $k/x$ (2 ejercicios):* slug único `contexto-cotidiano-racional`.
 
+## Hallazgos de auditoría (ronda 6, ago-2026)
+
+Pasada de redacción sobre los enunciados para llevarlos al estándar de las reglas 47-51: 51 enunciados reescritos entre `FORM.json`, `GRAF.json` y `LEXI.json`, reemplazando los imperativos de atención vacíos y los arranques directos con `¿` por aperturas que sitúan la función, distintas ejercicio a ejercicio (regla 32). No hubo cambios de contenido matemático: solo se tocó el campo `question`.
+
+---
+
+## Auditoría ronda 9 (feedback de testeo 467, ago-2026)
+
+La ronda 7 arregló **de qué** hablaba la apertura (del comportamiento, no de la tipografía) pero no **que describiera**. El enunciado quedó haciendo el análisis y entregando el diagnóstico terminado: `"El punto de tendencia anula las dos partes de la fracción. La función no está definida ahí, pero sí se acerca a un número."` son tres conclusiones que el estudiante tendría que sacar, y le dejan solo la aritmética.
+
+De ahí sale la **regla 61** de `authoring-context.md`: el sujeto de la primera oración es el objeto o una intención (`"Una función…"`, `"Un límite…"`, `"Se quiere…"`), va **una sola oración**, y no se reporta el resultado de ningún paso que el estudiante podría dar. La regla 59 sigue vigente contra la fórmula desnuda; la 61 la acota para que el enunciado no razone en su lugar.
+
+Pasada de voz narrativa sobre las aperturas que tenían una propiedad de sujeto (`"El denominador de esta función…"`, `"El interior de este logaritmo…"`, `"El coeficiente principal es…"`). Son 56 en toda la unidad, heredadas de la misma ronda 6 que produjo el problema en `limites`.
+
+**Los preámbulos `"Dada la función:"` / `"Sea la función:"` no se tocaron**: tienen el objeto de sujeto y la sección *Sin preámbulos colgantes* los admite explícitamente.
+
+---
+
+## Realineación de la tabla de distribución (ronda 10, ago-2026)
+
+Los bancos de este topic están completos (30 por skill) y sus `tags` están bien puestos. La tabla venía de proyectar el recorte de 50 → 30 con reparto proporcional, y esa proyección nunca se reconcilió con lo que se escribió después. Se corrigieron los conteos para que reflejen el banco real, en vez de reescribir ejercicios ya testeados. Valores anteriores:
+
+- **LEXI** `asintota-vertical`: la tabla decía 3, el banco tiene 4
+- **LEXI** `cuadrantes-ramas`: la tabla decía 2, el banco tiene 3
+- **FORM** `dominio-form`: la tabla decía 5, el banco tiene 6
+- **FORM** `asintota-horizontal-calculo`: la tabla decía 4, el banco tiene 2
+- **FORM** `asintota-vertical-calculo`: la tabla decía 2, el banco tiene 3
+- **FORM** `formula-desde-grafico-form`: la tabla decía 2, el banco tiene 1
+- **FORM** `interceptos-ejes-form`: la tabla decía 3, el banco tiene 4
+
+Filas borradas (sub-familias sin ningún ejercicio en el banco):
+
+- **LEXI** `imagen-rango`: la tabla decía 2, el banco tiene 0. Esa sub-familia nunca se escribió.
+- **GRAF** `signo-en-intervalo`: la tabla ya decía 0 y el banco tiene 0. La fila se eliminó por no aportar nada a la distribución; queda acá el registro de que esa sub-familia se dio de baja en el recorte 50 → 30 (era el ejercicio con más findings del validador de todo GRAF) y no debe regenerarse.
+
+Los totales por skill no cambiaron: LEXI 30, FORM 30, GRAF 30 (Tipo A 19 + Tipo B 9 + Tipo C 2). La sección **CLSF** (archivada) no se tocó.

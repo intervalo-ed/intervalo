@@ -1,0 +1,347 @@
+[
+  {
+    "question": "En la siguiente integral la exponencial aparece sola, sin ningún factor que la acompañe ni nada adentro:\n$$\\int e^x\\,dx$$\n¿Qué camino conviene tomar?",
+    "options": [
+      "Regla directa",
+      "Sustitución",
+      "Por partes"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto: $e^x$ es una entrada directa de la tabla, no hace falta ningún método adicional.",
+    "feedback_incorrect": [
+      null,
+      "La sustitución hace falta cuando hay una función compuesta con la derivada de su interior multiplicando; acá no hay ninguna composición.",
+      "Partes hace falta cuando hay un producto de dos funciones de familias distintas; acá el integrando es una sola función elemental."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **tabla de integrales inmediatas** cubre las funciones elementales sin composición ni producto: potencias, exponenciales y trigonométricas básicas.\n\n$e^x$ entra directo en esa lista, sin ninguna función interior que derivar ni ningún segundo factor que integrar por separado.\n\nConviene chequear primero si el integrando ya es una entrada de tabla tal cual está antes de pensar en un método más elaborado: ahorra pasos innecesarios.",
+    "reviewed": false,
+    "tags": [
+      "reconocimiento-amplio-tabla-sustitucion-partes"
+    ]
+  },
+  {
+    "question": "Ninguno de los dos factores de acá es la derivada del otro:\n$$\\int x^2\\ln x\\,dx$$\n¿Qué camino abre esta integral?",
+    "options": [
+      "Por partes",
+      "Regla directa",
+      "Sustitución"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto: ningún factor es la derivada del otro, así que hace falta partes con $u=\\ln x$.",
+    "feedback_incorrect": [
+      null,
+      "El logaritmo no es una entrada de tabla cuando está multiplicado por una potencia: hace falta separar el producto con otro método.",
+      "Para sustitución, un factor tendría que ser, salvo constante, la derivada de lo que hay dentro de otra función. $x^2$ no es la derivada de $\\ln x$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando el integrando es un **producto de dos funciones de familias distintas** y ninguna es la derivada de la otra, el camino es partes.\n\nAcá $x^2$ es una potencia y $\\ln x$ un logaritmo: no hay ninguna relación de derivada entre ellos, así que ni regla directa ni sustitución cierran solas.\n\nCon $u=\\ln x$ y $dv=x^2\\,dx$, la integral remanente queda con una potencia sola, más simple que la original.",
+    "reviewed": false,
+    "tags": [
+      "reconocimiento-amplio-tabla-sustitucion-partes"
+    ]
+  },
+  {
+    "question": "Adentro del coseno no está la variable sola, sino multiplicada por tres y con un número restando:\n$$\\int \\cos(3x-2)\\,dx$$\n¿Cómo conviene abordarla?",
+    "options": [
+      "Sustitución",
+      "Regla directa",
+      "Por partes"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto: con $u=3x-2$, el factor de un tercio compensa la derivada $3$ del argumento.",
+    "feedback_incorrect": [
+      null,
+      "Tratarla igual que $\\int \\cos x\\,dx$ pierde el factor que compensa la derivada del argumento $3x-2$.",
+      "Partes hace falta ante un producto de dos funciones distintas; acá hay una sola función compuesta, sin ningún segundo factor."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando el argumento de una función trigonométrica no es la variable sola sino un polinomio de grado uno, hace falta **sustitución** con $u$ igual a ese argumento.\n\nCon $u=3x-2$:\n$$du=3\\,dx \\quad\\Rightarrow\\quad dx=\\tfrac13\\,du$$\nEse factor de un tercio compensa exactamente el $3$ que aparece al derivar el argumento.\n\nEste caso se confunde con regla directa porque la forma es casi idéntica a $\\int \\cos x\\,dx$: el coeficiente dentro del argumento es lo único que cambia el tratamiento.",
+    "reviewed": false,
+    "tags": [
+      "reconocimiento-amplio-tabla-sustitucion-partes"
+    ]
+  },
+  {
+    "question": "El seno y la variable que lo multiplica no tienen ninguna relación entre sí:\n$$\\int x\\sin x\\,dx$$\n¿Qué camino corresponde?",
+    "options": [
+      "Sustitución",
+      "Por partes",
+      "Regla directa"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto: ni $x$ es la derivada de $\\sin x$ ni al revés, así que hace falta partes con $u=x$.",
+    "feedback_incorrect": [
+      "Para sustitución, un factor tendría que ser, salvo constante, la derivada de lo que hay dentro de otra función. Acá $x$ no es la derivada de $\\sin x$.",
+      null,
+      "El producto de dos funciones de familias distintas no es una entrada de tabla: hace falta separar el producto con otro método."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando el integrando es un **producto de dos funciones** y ninguna es, salvo constante, la derivada de la otra, sustitución no cierra nada: el camino es partes.\n\nAcá $x$ y $\\sin x$ no tienen esa relación de derivada:\n$$u=x, \\quad dv=\\sin x\\,dx$$\nLa integral remanente queda con una función trigonométrica sola.\n\nEste es uno de los casos más directos de reconocer: la polinómica se deriva a algo más simple, la trigonométrica se integra sin complicarse.",
+    "reviewed": false,
+    "tags": [
+      "reconocimiento-amplio-tabla-sustitucion-partes"
+    ]
+  },
+  {
+    "question": "En esta fracción, el numerador coincide exacto con la derivada del denominador:\n$$\\int \\frac{3x^2}{x^3+1}\\,dx$$\n¿Qué camino abre esta integral?",
+    "options": [
+      "Por partes",
+      "Sustitución",
+      "Regla directa"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto: con $u=x^3+1$, $du=3x^2\\,dx$, que es exactamente el numerador.",
+    "feedback_incorrect": [
+      "Partes se usa para productos de funciones distintas, no para una fracción con esta estructura de derivada arriba y función abajo.",
+      null,
+      "El denominador es una función compuesta, no la variable sola: eso saca a este integrando de la regla directa."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando el numerador de una fracción coincide exacto con la **derivada del denominador**, el camino es sustitución con $u$ igual al denominador.\n\nAcá el denominador es $u=x^3+1$:\n$$du=3x^2\\,dx$$\nEse valor coincide exacto con el numerador, así que la fracción entera se reduce a una integral de tabla en $u$.\n\nEste caso es el más directo de reconocer: no hace falta ajustar ninguna constante, el numerador ya es la derivada tal cual.",
+    "reviewed": false,
+    "tags": [
+      "reconocimiento-amplio-tabla-sustitucion-partes"
+    ]
+  },
+  {
+    "question": "Este integrando ya apareció en derivadas, como resultado de derivar la tangente:\n$$\\int \\sec^2 x\\,dx$$\n¿Qué camino conviene tomar?",
+    "options": [
+      "Regla directa",
+      "Por partes",
+      "Sustitución"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto: $\\sec^2 x$ es la entrada de tabla que da $\\tan x$, sin ningún método adicional.",
+    "feedback_incorrect": [
+      null,
+      "No hay ningún producto de dos funciones distintas: el integrando es una sola función elemental.",
+      "No hay ningún argumento compuesto: el integrando ya es una entrada de tabla tal cual está."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La tabla de integrales inmediatas incluye esta entrada, la contraparte de que la derivada de $\\tan x$ es $\\sec^2 x$:\n$$\\int \\sec^2 x\\,dx=\\tan x+C$$\nAcá el argumento es $x$ solo, sin ninguna composición ni producto: entra directo en esa entrada de la tabla.\n\nReconocer las derivadas trigonométricas de memoria evita perder tiempo buscando un método que no hace falta.",
+    "reviewed": false,
+    "tags": [
+      "reconocimiento-amplio-tabla-sustitucion-partes"
+    ]
+  },
+  {
+    "question": "Este integrando es una única función que no parece, a primera vista, un producto:\n$$\\int \\ln x\\,dx$$\n¿Cómo conviene abordarla?",
+    "options": [
+      "Sustitución",
+      "Regla directa",
+      "Por partes"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto: con el factor oculto $dv=1\\,dx$ y $u=\\ln x$, partes cierra la integral.",
+    "feedback_incorrect": [
+      "No hay ninguna composición con su derivada acompañando: el logaritmo natural solo no tiene esa estructura.",
+      "El logaritmo natural solo no está en la tabla de integrales inmediatas: hace falta un método adicional.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando el integrando es una sola función que **no parece** un producto, conviene revisar si admite un **factor oculto**: multiplicarla por $1$ la convierte en un producto disfrazado.\n\nAcá se multiplica por $1$ para exponer el producto:\n$$u=\\ln x, \\quad dv=1\\,dx$$\nLa derivada de $u$ simplifica el logaritmo y la integral remanente queda de tabla.\n\nEste caso rara vez se reconoce a primera vista porque el integrando no tiene forma de producto explícito, pero el factor oculto lo convierte en uno.",
+    "reviewed": false,
+    "tags": [
+      "reconocimiento-amplio-tabla-sustitucion-partes"
+    ]
+  },
+  {
+    "question": "En la siguiente integral hay una sola potencia, sin ningún factor ni función alrededor:\n$$\\int x^4\\,dx$$\n¿Qué camino corresponde?",
+    "options": [
+      "Regla directa",
+      "Sustitución",
+      "Por partes"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto: la regla de la potencia es una entrada de tabla, sin ningún método adicional.",
+    "feedback_incorrect": [
+      null,
+      "No hay ninguna composición: la variable aparece sola, elevada a una potencia.",
+      "No hay ningún producto de dos funciones distintas: el integrando es una sola potencia."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **regla de la potencia** es una de las entradas más directas de la tabla:\n$$\\int x^n\\,dx=\\frac{x^{n+1}}{n+1}+C \\quad (n\\neq-1)$$\nAcá $n=4$, así que la primitiva sale directo sin ningún paso intermedio ni método adicional.\n\nEste caso rara vez genera dudas en aislado, pero conviene tenerlo presente porque aparece mezclado dentro de integrandos más largos con varios términos.",
+    "reviewed": false,
+    "tags": [
+      "reconocimiento-amplio-tabla-sustitucion-partes"
+    ]
+  },
+  {
+    "question": "Este cociente se puede repartir término a término antes de integrar nada:\n$$\\int \\frac{x^4+3x^2}{x^2}\\,dx$$\n¿Qué camino conviene tomar?",
+    "options": [
+      "Sustitución",
+      "Reescribir antes",
+      "Regla directa"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto: repartir el denominador da $x^2+3$, dos entradas de tabla sin ningún método adicional.",
+    "feedback_incorrect": [
+      "No hay ninguna función compuesta con su derivada multiplicando: esto es una división de polinomios, no una composición.",
+      null,
+      "Un cociente de polinomios no es una entrada de tabla tal cual está: primero se reparte el denominador."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Antes de pensar en sustitución o en partes conviene revisar si el integrando se simplifica con **álgebra básica**, sin ningún método avanzado.\n\nAcá se reparte el denominador en cada término:\n$$\\frac{x^4+3x^2}{x^2}=\\frac{x^4}{x^2}+\\frac{3x^2}{x^2}=x^2+3$$\nDos entradas directas de la tabla, sin ninguna composición ni producto de por medio.\n\nEsta forma no tiene estructura de composición ni de producto en ningún lado, así que ni sustitución ni partes hubieran hecho falta acá.",
+    "reviewed": false,
+    "tags": [
+      "algebra-previa-o-metodo-avanzado"
+    ]
+  },
+  {
+    "question": "En este integrando, un factor es exactamente la derivada de lo que hay dentro de la exponencial:\n$$\\int xe^{x^2}\\,dx$$\n¿Qué camino abre esta integral?",
+    "options": [
+      "Reescribir antes",
+      "Sustitución",
+      "Por partes"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto: con $u=x^2$, $du=2x\\,dx$, y el factor $x$ es la mitad de esa derivada.",
+    "feedback_incorrect": [
+      "No hay ninguna fracción ni potencia para reescribir: el integrando ya tiene la estructura completa de una sustitución.",
+      null,
+      "Antes de recurrir a partes conviene revisar si hay una función compuesta con su derivada acompañando, como acá."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando un factor del integrando es, salvo constante, la **derivada del interior** de una función compuesta, el camino es sustitución, no partes.\n\nAcá el interior de la exponencial es $x^2$:\n$$du=2x\\,dx$$\nEl factor $x$ que acompaña es la mitad de esa derivada, así que la sustitución cierra directo.\n\nEste caso se confunde con partes porque hay dos factores multiplicando, pero la relación de derivada entre ellos hace que sustitución sea mucho más directo.",
+    "reviewed": false,
+    "tags": [
+      "algebra-previa-o-metodo-avanzado"
+    ]
+  },
+  {
+    "question": "Esta raíz cúbica se puede convertir a exponente fraccionario antes de integrar:\n$$\\int \\sqrt[3]{x}\\,dx$$\n¿Qué camino corresponde?",
+    "options": [
+      "Sustitución",
+      "Regla directa",
+      "Reescribir antes"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto: reescribir como $x^{1/3}$ deja una potencia lista para la regla de la potencia.",
+    "feedback_incorrect": [
+      "No hay ninguna función compuesta con su derivada multiplicando: el problema es de notación, no de composición.",
+      "Con la raíz escrita así no hay ninguna regla que aplicar: el exponente tiene que estar a la vista primero.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una raíz no está directamente en la tabla ni tiene estructura de composición o de producto: primero se convierte a **potencia fraccionaria**.\n\nAcá la raíz se reescribe como potencia:\n$$\\sqrt[3]{x}=x^{1/3}$$\nUna potencia que ya entra directo en la regla de la potencia de la tabla.\n\nEste paso es puramente notacional: no hay ninguna función interior con su derivada acompañando ni ningún producto de familias distintas, así que un método avanzado no simplificaría nada.",
+    "reviewed": false,
+    "tags": [
+      "algebra-previa-o-metodo-avanzado"
+    ]
+  },
+  {
+    "question": "El logaritmo no trae acá su propia derivada acompañándolo:\n$$\\int x\\ln x\\,dx$$\n¿Qué camino conviene tomar?",
+    "options": [
+      "Reescribir antes",
+      "Sustitución",
+      "Por partes"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto: ninguna reescritura ni sustitución simplifica el producto, hace falta partes con $u=\\ln x$.",
+    "feedback_incorrect": [
+      "No hay ninguna fracción ni potencia para reescribir: el producto de $x$ por $\\ln x$ no se simplifica con álgebra sola.",
+      "Para sustitución, un factor tendría que ser, salvo constante, la derivada de lo que hay dentro de otra función. Acá $x$ no es la derivada de $\\ln x$.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando el integrando es un **producto directo** de una potencia y un logaritmo, sin ninguna relación de derivada entre ellos, el camino es partes.\n\nAcá $x$ no es la derivada de $\\ln x$ ni al revés:\n$$u=\\ln x, \\quad dv=x\\,dx$$\nLa integral remanente queda con una potencia sola, sin logaritmo.\n\nEste caso se confunde con el logaritmo dividido por $x$, que sí es sustitución: la diferencia es que acá el logaritmo multiplica en vez de dividir.",
+    "reviewed": false,
+    "tags": [
+      "algebra-previa-o-metodo-avanzado"
+    ]
+  },
+  {
+    "question": "En este integrando el logaritmo viene acompañado de algo muy parecido a su propia derivada:\n$$\\int \\frac{\\ln x}{x}\\,dx$$\n¿Cómo conviene abordarla?",
+    "options": [
+      "Por partes",
+      "Reescribir antes",
+      "Sustitución"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto: con $u=\\ln x$, $du=\\tfrac1x\\,dx$, que es exactamente el resto del integrando.",
+    "feedback_incorrect": [
+      "Partes complica innecesariamente esta integral: hay una relación de derivada directa que la resuelve más simple.",
+      "No hay ninguna división de polinomios ni potencia para reescribir: la estructura es de composición, no de álgebra pura.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Que el integrando tenga un logaritmo no significa automáticamente partes: acá $1/x$ es exactamente la **derivada de $\\ln x$**, la marca de sustitución.\n\nCon $u=\\ln x$:\n$$du=\\frac{1}{x}\\,dx$$\nEsa derivada coincide exacto con el resto del integrando, así que la fracción entera se reduce a una integral de tabla en $u$.\n\nEste caso se confunde con $\\int \\ln x\\,dx$, que sí es partes: la diferencia es que acá el logaritmo va dividido por $x$, no solo.",
+    "reviewed": false,
+    "tags": [
+      "algebra-previa-o-metodo-avanzado"
+    ]
+  },
+  {
+    "question": "En la siguiente integral hay dos funciones multiplicándose y ninguna sale de derivar la otra:\n$$\\int x\\cos x\\,dx$$\n¿Qué camino corresponde?",
+    "options": [
+      "Reescribir antes",
+      "Por partes",
+      "Sustitución"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto: ni $x$ es la derivada de $\\cos x$ ni al revés, así que hace falta partes con $u=x$.",
+    "feedback_incorrect": [
+      "No hay ninguna fracción ni potencia para reescribir: el integrando es un producto de funciones de familias distintas.",
+      null,
+      "Para sustitución, un factor tendría que ser, salvo constante, la derivada de lo que hay dentro de otra función. Acá $x$ no es la derivada de $\\cos x$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando el integrando es un **producto de dos funciones** de familias distintas y ninguna es la derivada de la otra, ni álgebra ni sustitución cierran: el camino es partes.\n\nAcá $x$ y $\\cos x$ no tienen ninguna relación de derivada entre ellas:\n$$u=x, \\quad dv=\\cos x\\,dx$$\nLa integral remanente queda con una función trigonométrica sola.\n\nEste es el caso más directo de partes: la polinómica se deriva a algo más simple, la trigonométrica se integra sin complicarse.",
+    "reviewed": false,
+    "tags": [
+      "algebra-previa-o-metodo-avanzado"
+    ]
+  },
+  {
+    "question": "En este cociente, tanto el numerador como el denominador comparten un factor común:\n$$\\int \\frac{x^3-4x}{x}\\,dx$$\n¿Qué camino abre esta integral?",
+    "options": [
+      "Regla directa",
+      "Sustitución",
+      "Reescribir antes"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto: repartir el denominador da $x^2-4$, dos entradas de tabla sin ningún método adicional.",
+    "feedback_incorrect": [
+      "Un cociente de polinomios no es una entrada de tabla tal cual está: primero se cancela el factor común.",
+      "No hay ninguna función compuesta con su derivada multiplicando: esto es una división de polinomios, no una composición.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Antes de pensar en un método avanzado conviene revisar si el cociente se simplifica con **álgebra básica**.\n\nAcá se reparte el denominador en cada término:\n$$\\frac{x^3-4x}{x}=\\frac{x^3}{x}-\\frac{4x}{x}=x^2-4$$\nDos entradas directas de la tabla, sin ninguna composición ni producto de por medio.\n\nDespués de repartir no queda ninguna estructura de composición ni de producto: ni sustitución ni partes hubieran hecho falta acá.",
+    "reviewed": false,
+    "tags": [
+      "algebra-previa-o-metodo-avanzado"
+    ]
+  }
+]

@@ -1,6 +1,6 @@
 [
   {
-    "question": "Considerá la función:\n$$f(x) = 3x^2 - 6x + 2$$\n¿Cuál es el coeficiente del término cuadrático?",
+    "question": "En la forma desarrollada de una parábola, cada término tiene su propio coeficiente:\n$$f(x) = 3x^2 - 6x + 2$$\n¿Cuál es el coeficiente del término cuadrático?",
     "options": [
       "$3$",
       "$-6$",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = -(x-3)^2 + 2$$\n¿Cuáles son las coordenadas del vértice?",
+    "question": "Esta parábola viene escrita con un binomio elevado al cuadrado, no desarrollada:\n$$f(x) = -(x-3)^2 + 2$$\n¿Cuáles son las coordenadas del vértice?",
     "options": [
       "$(-3, -2)$",
       "$(-3, 2)$",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas expresiones corresponde a la parábola del gráfico?",
+    "question": "Para reconocer una parábola en un gráfico se miran su vértice y hacia dónde abre.\n\n¿Qué expresión corresponde a la parábola del gráfico?",
     "options": [
       "$f(x) = -x^2 + 4$",
       "$f(x) = x^2 + 4$",
@@ -80,7 +80,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = -3(x+1)^2 + 5$$\n¿Cuál es el vértice?",
+    "question": "Una función trae un signo adelante y un número sumado al final:\n$$f(x) = -3(x+1)^2 + 5$$\n¿Cuál es el vértice?",
     "options": [
       "$(1, 5)$",
       "$(-1, 5)$",
@@ -105,7 +105,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = 4x^2 - 8x + 1$$\n¿Cuál es el eje de simetría?",
+    "question": "Esta parábola está desarrollada, así que el eje de simetría no se lee de un vistazo:\n$$f(x) = 4x^2 - 8x + 1$$\n¿Cuál es el eje de simetría?",
     "options": [
       "$x = 1$",
       "$x = -1$",
@@ -155,7 +155,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = 3x^2 - 6x + 2$$\n¿Cuál es el coeficiente lineal $b$?",
+    "question": "En una parábola desarrollada, el coeficiente lineal es el que acompaña a la variable sin elevar:\n$$f(x) = 3x^2 - 6x + 2$$\n¿Cuál es el coeficiente lineal $b$?",
     "options": [
       "$3$",
       "$-6$",
@@ -180,7 +180,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = -x^2 + 4x - 4$$\n¿Cuántas raíces reales distintas tiene?",
+    "question": "Una parábola puede cortar el eje horizontal dos veces, una sola o ninguna:\n$$f(x) = -x^2 + 4x - 4$$\n¿Cuántas raíces reales distintas tiene?",
     "options": [
       "Ninguna",
       "Una",
@@ -280,7 +280,7 @@
     ]
   },
   {
-    "question": "Evaluá la función:\n$$f(x) = -3(x - 1)^2 + 12$$\n¿Cuánto vale $f(3)$?",
+    "question": "El vértice de esta parábola se lee directo, pero la pregunta apunta a otro punto:\n$$f(x) = -3(x - 1)^2 + 12$$\n¿Cuánto vale $f(3)$?",
     "options": [
       "$0$",
       "$12$",
@@ -330,7 +330,7 @@
     ]
   },
   {
-    "question": "Observá la función:\n$$f(x) = -(x - 2)^2 + 16$$\n¿Cuáles son las raíces?",
+    "question": "Igualar a cero una parábola escrita así lleva a despejar un cuadrado:\n$$f(x) = -(x - 2)^2 + 16$$\n¿Cuáles son las raíces?",
     "options": [
       "$x = 2$ y $x = 16$",
       "$x = -2$ y $x = 6$",
@@ -355,7 +355,7 @@
     ]
   },
   {
-    "question": "Mirá la función:\n$$f(x) = -2(x - 4)(x + 2)$$\n¿Cuáles son las raíces?",
+    "question": "Esta parábola viene dada como producto de dos factores:\n$$f(x) = -2(x - 4)(x + 2)$$\n¿Cuáles son las raíces?",
     "options": [
       "$x = -4$ y $x = 2$",
       "$x = 4$ y $x = 2$",
@@ -705,7 +705,7 @@
     ]
   },
   {
-    "question": "Trabajá con la función:\n$$f(x) = 2x^2 - 8x + 6$$\n¿Cuáles son las raíces?",
+    "question": "Los coeficientes de esta parábola comparten un factor común que conviene sacar primero:\n$$f(x) = 2x^2 - 8x + 6$$\n¿Cuáles son las raíces?",
     "options": [
       "$x = 1$ y $x = 3$",
       "$x = -1$ y $x = -3$",

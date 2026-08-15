@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x+5$ y $v(x)=x^2$, con:\n$$\\begin{aligned} u'(x) &= 1 \\\\ v'(x) &= 2x \\end{aligned}$$\nEn $x=-5$ el numerador $u$ vale cero, así que el término que lo multiplica se anula.\n\nAplicando la fórmula:\n$$\\begin{aligned} f'(-5) &= \\frac{u'(-5)v(-5) - u(-5)v'(-5)}{v(-5)^2} \\\\ &= \\frac{1\\cdot 25 - 0}{625} \\\\ &= \\frac{1}{25} \\end{aligned}$$\nEl resultado final queda determinado únicamente por el primer término del numerador.\n\nEl signo de $x=-5$ solo afecta a $v(-5)=(-5)^2$, que sigue siendo positivo al elevarlo al cuadrado.",
+    "explanation": "Identificamos $u(x)=x+5$ y $v(x)=x^2$, con:\n$$\\begin{aligned} u'(x) &= 1 \\\\ v'(x) &= 2x \\end{aligned}$$\nEn $x=-5$ el numerador $u$ vale cero, así que el término que lo multiplica se anula.\n\nAplicando la fórmula:\n$$\\begin{aligned} f' &= \\frac{u'v - uv'}{v^2} \\\\ f'(-5) &= \\frac{1\\cdot 25 - 0}{625} \\\\ &= \\frac{1}{25} \\end{aligned}$$\nEl resultado final queda determinado únicamente por el primer término del numerador.\n\nEl signo de $x=-5$ solo afecta a $v(-5)=(-5)^2$, que sigue siendo positivo al elevarlo al cuadrado.",
     "reviewed": false,
     "tags": [
       "anulacion-raiz-numerador-cociente"
@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=\\sin x$ y $v(x)=x$, con:\n$$\\begin{aligned} u'(x) &= \\cos x \\\\ v'(x) &= 1 \\end{aligned}$$\nEn $x=\\pi/2$ la derivada de $u$ vale cero, así que el término que la incluye se anula.\n\nAplicando la fórmula:\n$$\\begin{aligned} f'(\\pi/2) &= \\frac{u'(\\pi/2)v(\\pi/2) - u(\\pi/2)v'(\\pi/2)}{v(\\pi/2)^2} \\\\ &= \\frac{0 - 1\\cdot 1}{(\\pi/2)^2} \\\\ &= -\\frac{4}{\\pi^2} \\end{aligned}$$\nEl resultado final queda determinado únicamente por el segundo término del numerador, con signo negativo.\n\nEste signo negativo aparece siempre que se anula el primer término de la resta, conviene no perderlo.",
+    "explanation": "Identificamos $u(x)=\\sin x$ y $v(x)=x$, con:\n$$\\begin{aligned} u'(x) &= \\cos x \\\\ v'(x) &= 1 \\end{aligned}$$\nEn $x=\\pi/2$ la derivada de $u$ vale cero, así que el término que la incluye se anula.\n\nAplicando la fórmula:\n$$\\begin{aligned} f' &= \\frac{u'v - uv'}{v^2} \\\\ f'(\\pi/2) &= \\frac{0 - 1\\cdot 1}{(\\pi/2)^2} \\\\ &= -\\frac{4}{\\pi^2} \\end{aligned}$$\nEl resultado final queda determinado únicamente por el segundo término del numerador, con signo negativo.\n\nEste signo negativo aparece siempre que se anula el primer término de la resta, conviene no perderlo.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-nula-cociente"
@@ -300,7 +300,7 @@
     ]
   },
   {
-    "question": "Se conocen los valores $f(2)=0$, $f'(2)=3$, $g(2)=4$ y $g'(2)=-1$.\n\n¿Cuánto vale $(f/g)'(2)$?",
+    "question": "De este cociente solo se conocen los valores de sus piezas en un punto:\n$$\\begin{aligned} f(2)&=0,\\quad f'(2)=3 \\\\ g(2)&=4,\\quad g'(2)=-1 \\end{aligned}$$\n¿Cuánto vale $(f/g)'(2)$?",
     "options": [
       "$3/4$",
       "$-3/4$",
@@ -318,14 +318,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La fórmula de la **regla del cociente** se aplica directamente con los datos dados, sin necesidad de calcular ninguna derivada:\n$$\\begin{aligned} \\left(\\frac{f}{g}\\right)'(2) &= \\frac{f'(2)g(2) - f(2)g'(2)}{g(2)^2} \\\\ &= \\frac{3\\cdot 4 - 0\\cdot(-1)}{16} \\\\ &= \\frac{3}{4} \\end{aligned}$$\nEl dato $f(2)=0$ anula el segundo término del numerador.\n\nReconocer de entrada cuál dato vale cero evita calcular el término que de todas formas va a desaparecer.",
+    "explanation": "La fórmula de la **regla del cociente** se aplica directamente con los datos dados, sin necesidad de calcular ninguna derivada:\n$$\\begin{aligned} \\left(\\frac{f}{g}\\right)' &= \\frac{f'g - fg'}{g^2} \\\\ \\left(\\frac{f}{g}\\right)'(2) &= \\frac{3\\cdot 4 - 0\\cdot(-1)}{16} \\\\ &= \\frac{3}{4} \\end{aligned}$$\nEl dato $f(2)=0$ anula el segundo término del numerador.\n\nReconocer de entrada cuál dato vale cero evita calcular el término que de todas formas va a desaparecer.",
     "reviewed": false,
     "tags": [
       "evaluacion-datos-abstractos-cociente"
     ]
   },
   {
-    "question": "Se conocen los valores $f(1)=5$, $f'(1)=0$, $g(1)=2$ y $g'(1)=3$.\n\n¿Cuánto vale $(f/g)'(1)$?",
+    "question": "Cuatro datos puntuales alcanzan para derivar esta división:\n$$\\begin{aligned} f(1)&=5,\\quad f'(1)=0 \\\\ g(1)&=2,\\quad g'(1)=3 \\end{aligned}$$\n¿Cuánto vale $(f/g)'(1)$?",
     "options": [
       "$0$",
       "$-15/4$",
@@ -343,14 +343,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos la fórmula del cociente directamente con los datos dados, sin necesidad de calcular ninguna derivada:\n$$\\begin{aligned} \\left(\\frac{f}{g}\\right)'(1) &= \\frac{f'(1)g(1) - f(1)g'(1)}{g(1)^2} \\\\ &= \\frac{0 - 5\\cdot 3}{4} \\\\ &= -\\frac{15}{4} \\end{aligned}$$\nEl dato $f'(1)=0$ anula el primer término del numerador.\n\nEl signo negativo queda porque el término que sobrevive es justamente el que se resta en la fórmula.",
+    "explanation": "Aplicamos la fórmula del cociente directamente con los datos dados, sin necesidad de calcular ninguna derivada:\n$$\\begin{aligned} \\left(\\frac{f}{g}\\right)' &= \\frac{f'g - fg'}{g^2} \\\\ \\left(\\frac{f}{g}\\right)'(1) &= \\frac{0 - 5\\cdot 3}{4} \\\\ &= -\\frac{15}{4} \\end{aligned}$$\nEl dato $f'(1)=0$ anula el primer término del numerador.\n\nEl signo negativo queda porque el término que sobrevive es justamente el que se resta en la fórmula.",
     "reviewed": false,
     "tags": [
       "evaluacion-datos-abstractos-cociente"
     ]
   },
   {
-    "question": "Se conocen los valores $f(0)=2$, $f'(0)=1$, $g(0)=3$ y $g'(0)=0$.\n\n¿Cuánto vale $(f/g)'(0)$?",
+    "question": "Sin fórmulas a la vista, el cociente se deriva con estos valores:\n$$\\begin{aligned} f(0)&=2,\\quad f'(0)=1 \\\\ g(0)&=3,\\quad g'(0)=0 \\end{aligned}$$\n¿Cuánto vale $(f/g)'(0)$?",
     "options": [
       "$3$",
       "$0$",
@@ -368,7 +368,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos la fórmula del cociente directamente con los datos dados, sin necesidad de calcular ninguna derivada:\n$$\\begin{aligned} \\left(\\frac{f}{g}\\right)'(0) &= \\frac{f'(0)g(0) - f(0)g'(0)}{g(0)^2} \\\\ &= \\frac{1\\cdot 3 - 0}{9} \\\\ &= \\frac{1}{3} \\end{aligned}$$\nEl dato $g'(0)=0$ anula el segundo término del numerador.\n\nReconocer que $g'(0)=0$ simplifica todo el cálculo, sin necesidad de tocar el dato $f(0)$.",
+    "explanation": "Aplicamos la fórmula del cociente directamente con los datos dados, sin necesidad de calcular ninguna derivada:\n$$\\begin{aligned} \\left(\\frac{f}{g}\\right)' &= \\frac{f'g - fg'}{g^2} \\\\ \\left(\\frac{f}{g}\\right)'(0) &= \\frac{1\\cdot 3 - 0}{9} \\\\ &= \\frac{1}{3} \\end{aligned}$$\nEl dato $g'(0)=0$ anula el segundo término del numerador.\n\nReconocer que $g'(0)=0$ simplifica todo el cálculo, sin necesidad de tocar el dato $f(0)$.",
     "reviewed": false,
     "tags": [
       "evaluacion-datos-abstractos-cociente"

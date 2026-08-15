@@ -1,6 +1,6 @@
 [
   {
-    "question": "Considerá la expresión:\n$$\\lim_{x \\to 3} f(x)$$\n¿Qué describe mejor la flecha $\\to$ en esta notación?",
+    "question": "En la notación de un límite, cada símbolo cumple un papel distinto:\n$$\\lim_{x \\to 3} f(x)$$\n¿Qué describe mejor la flecha $\\to$ en esta notación?",
     "options": [
       "Que $x$ es igual a $3$ en ese instante",
       "Que $x$ se acerca a $3$ sin llegar a valer eso",
@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "En la igualdad:\n$$\\lim_{x \\to a} f(x) = L$$\n¿Qué papel cumple la letra $L$?",
+    "question": "En la definición de límite aparece una igualdad con tres piezas, y cada una cumple su propio papel.\n$$\\lim_{x \\to a} f(x) = L$$\n¿Qué papel cumple la letra $L$?",
     "options": [
       "El valor de $x$ en el punto de partida",
       "El valor que toma $f$ exactamente en $a$",
@@ -46,7 +46,7 @@
     ]
   },
   {
-    "question": "La siguiente afirmación describe cómo calcular $\\lim_{x \\to 2} f(x)$: \"hay que mirar qué pasa exactamente en $x=2$\".\n\n¿Qué corrección le harías?",
+    "question": "Una afirmación dice que para calcular $\\lim_{x \\to 2} f(x)$ hay que mirar qué pasa exactamente en $x=2$.\n\n¿Qué corrección le harías?",
     "options": [
       "Hay que mirar el comportamiento de $f$ cerca de $2$, no necesariamente en $2$",
       "Ninguna, la frase describe correctamente el procedimiento",
@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "Al sustituir directamente $x=2$ en una expresión, el resultado es una **indeterminación** $0/0$.\n\n¿Qué significa este resultado?",
+    "question": "Al sustituir $x=2$ en un límite, el numerador y el denominador dan $0$ los dos.\n\n¿Qué significa ese resultado?",
     "options": [
       "Que el límite no existe",
       "Que hay una indeterminación",
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "Al sustituir $x=1$ en una expresión, el numerador da $3$.\n\nEl denominador, en cambio, da $0$.\n\n¿Qué tipo de resultado es este?",
+    "question": "Al sustituir $x=1$ en un límite, el numerador da $3$.\n\nEl denominador, en cambio, da $0$.\n\n¿Qué tipo de resultado es este?",
     "options": [
       "Una indeterminación igual que $\\tfrac{0}{0}$",
       "Un resultado finito exacto, igual a $3$",
@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "Dos ejercicios piden sustituir $x=5$.\n\nEn el primero, numerador y denominador dan ambos $0$.\n\nEn el segundo, el numerador da $0$ y el denominador da $2$.\n\n¿Qué diferencia hay entre ambos resultados?",
+    "question": "Dos límites distintos piden sustituir $x=5$.\n\nEn el primero, numerador y denominador dan ambos $0$.\n\nEn el segundo, el numerador da $0$ y el denominador da $2$.\n\n¿Qué diferencia hay entre ambos resultados?",
     "options": [
       "El primero es una indeterminación que exige otra técnica",
       "Ambos son indeterminaciones y requieren la misma técnica",
@@ -276,7 +276,7 @@
     ]
   },
   {
-    "question": "Para calcular un **límite** por **sustitución directa** hace falta cumplir una condición en el punto de **tendencia**.\n\n¿Cuál es esa condición?",
+    "question": "La **sustitución directa** solo sirve para calcular un **límite** si se cumple una condición en el punto.\n\n¿Cuál es esa condición?",
     "options": [
       "Que la función sea un polinomio de grado mayor a dos",
       "Que la expresión esté bien definida en el punto exacto",
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "Se quiere calcular por **sustitución directa**:\n$$\\lim_{x \\to 3} \\log(x-1)$$\n¿Qué condición hay que verificar?",
+    "question": "Se quiere resolver este límite por **sustitución directa**.\n$$\\lim_{x \\to 3} \\log(x-1)$$\n¿Qué condición hay que verificar?",
     "options": [
       "Que la base del logaritmo sea mayor a $10$",
       "Que $x$ tienda a un número negativo",

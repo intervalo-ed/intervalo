@@ -176,3 +176,43 @@ Todo lo anterior se aplica en el próximo round de generación de este topic (no
 - [ ] Distribución A/B respetada (15/15); sin sub-familias de propiedades de linealidad (descartadas, ronda ago-2026)
 - [ ] Ninguna sustitución ilegal en la respuesta correcta (denominador $\to 0$ o argumento fuera de dominio)
 - [ ] Fórmula a evaluar/calcular separada del texto en su propio bloque `$$...$$` centrado (regla crítica 18)
+
+---
+
+## Hallazgos de auditoría (ronda 6, ago-2026)
+
+Pasada de redacción para llevar los enunciados al estándar de las reglas 47-51 de `authoring-context.md`. `RESL.json` estaba 15/15 con consignas del tipo "Calculá el límite:" y sin ninguna pregunta `¿...?`, así que se reescribieron los 15 enunciados completos con la anatomía canónica: apertura que sitúa el límite, fórmula en su propio bloque display y pregunta en su propio tramo.
+
+En `LEXI.json` se reescribió la apertura del ejercicio que abría con "Considerá". Las aperturas se variaron ejercicio a ejercicio para no leerse como plantilla (regla 32).
+
+No hubo ningún cambio de contenido matemático: límites, opciones y respuestas correctas quedaron intactos.
+
+---
+
+## Auditoría ronda 7 (feedback de testeo 465, ago-2026)
+
+El feedback marcó que las aperturas de la unidad describían **dónde caen los símbolos en la hoja** (`"Arriba hay un trinomio y abajo una resta simple"`, `"La raíz ocupa el denominador"`) en vez de decir qué le pasa a la función o al límite. La ronda 6 había sacado el imperativo de cálculo (`"Calculá el límite:"`) y lo reemplazó por un inventario de la fórmula, y en esa sustitución se perdió el objeto. Sobre 225 ítems, 123 aperturas no nombraban límite, función ni tendencia, y 38 preguntas eran genéricas (`"¿Cuánto da?"`, `"¿Cuál es su resultado?"`).
+
+De ahí sale la **regla 59** de `authoring-context.md`: la apertura nombra el objeto y la tensión que genera el ejercicio (el camino directo falla y sin embargo hay respuesta), y si ya lo nombró, la pregunta puede señalarlo hacia atrás (`"¿Cuál es ese valor?"`) en vez de repetir la misma fórmula quince veces.
+
+En `RESL.json` se reescribieron 14 de los 15 enunciados. **El ítem 0 quedó intacto a propósito**: el feedback lo marcó como el único que introducía bien el concepto de límite, y es el patrón de referencia del archivo (`"su valor acompaña a $x$ sin sobresaltos"` describe comportamiento, no tipografía).
+
+En `LEXI.json` se corrigieron 6 aperturas. Una de ellas era un leak de fondo: el ítem 9 abría diciendo `"el resultado es una **indeterminación** $0/0$"` y la respuesta correcta era `"Que hay una indeterminación"`. La apertura ahora dice solo que numerador y denominador dan cero.
+
+La lista de trabajo salió del inventario de las 225 aperturas de la unidad, no del validador: estos enunciados ya pasaban 0/0 antes de la ronda. El defecto era semántico.
+
+---
+
+## Auditoría ronda 9 (feedback de testeo 467, ago-2026)
+
+La ronda 7 arregló **de qué** hablaba la apertura (del comportamiento, no de la tipografía) pero no **que describiera**. El enunciado quedó haciendo el análisis y entregando el diagnóstico terminado: `"El punto de tendencia anula las dos partes de la fracción. La función no está definida ahí, pero sí se acerca a un número."` son tres conclusiones que el estudiante tendría que sacar, y le dejan solo la aritmética.
+
+De ahí sale la **regla 61** de `authoring-context.md`: el sujeto de la primera oración es el objeto o una intención (`"Una función…"`, `"Un límite…"`, `"Se quiere…"`), va **una sola oración**, y no se reporta el resultado de ningún paso que el estudiante podría dar. La regla 59 sigue vigente contra la fórmula desnuda; la 61 la acota para que el enunciado no razone en su lugar.
+
+En este topic se reescribieron las aperturas que tenían una propiedad de sujeto. Los cinco `RESL` de la unidad estaban al 100% en ese registro, porque son justamente los que la ronda 7 había reescrito.
+
+**`definition/RESL[0]` sigue intacto**, por tercera ronda consecutiva: es el único ítem que el feedback marcó como bien introducido (465), y se conserva como referencia aunque su segunda oración concluya.
+
+### Punto ciego del validador corregido en esta ronda
+
+El testeo reportó una fila de `explanation` que se salía de pantalla y que el validador no marcaba. Medía **35** contra un umbral de **36**, o sea que pasaba por un carácter: `render_len` borraba `\sqrt` e `\infty` a longitud cero, cuando el radical es decoración que ocupa ancho y el infinito es un glifo ancho. Con los pesos nuevos esa fila mide **43** y se marca, y la fila sana de al lado sigue midiendo 29 sin falsos positivos.

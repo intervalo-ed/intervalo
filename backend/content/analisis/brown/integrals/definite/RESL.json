@@ -1,6 +1,6 @@
 [
   {
-    "question": "Esta integral combina una potencia cuadrática con un término constante:\n$$\\int_0^2 (x^2+1)\\,dx$$\n¿Cuál es su resultado?",
+    "question": "Una bomba impulsa agua a un ritmo que crece con el tiempo, en litros por minuto.\n\nLos litros que entran en los dos primeros minutos se acumulan así:\n$$\\int_0^2 (x^2+1)\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$14/3$",
       "$10/3$",
@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Armamos la primitiva $F(x)=x^3/3+x$ y aplicamos la **Regla de Barrow**.\n$$\\begin{aligned} F(2) &= \\frac{8}{3}+2 = \\frac{14}{3} \\\\ F(0) &= 0 \\\\ \\int_0^2 (x^2+1)\\,dx &= \\frac{14}{3}-0 = \\frac{14}{3} \\end{aligned}$$\nLa resta final requiere denominador común entre la fracción y el entero, saltear ese paso aritmético es el descuido más frecuente acá.",
+    "explanation": "Armamos la primitiva $F(x)=x^3/3+x$ y aplicamos la **Regla de Barrow**.\n$$\\begin{aligned} F(2) &= \\frac{8}{3}+2 = \\frac{14}{3} \\\\ F(0) &= 0 \\\\ \\int_0^2 (x^2+1)\\,dx &= \\frac{14}{3}-0 = \\frac{14}{3} \\end{aligned}$$\nLa resta final requiere denominador común entre la fracción y el entero, saltear ese paso aritmético es el descuido más frecuente acá.\n\nRestar los dos valores de la primitiva funciona porque la primitiva lleva la cuenta de lo acumulado desde un punto de referencia. Al restar, ese punto se cancela y queda solo el tramo pedido.",
     "reviewed": false,
     "tags": [
       "barrow-con-reglas-directas"
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "Esta integral recorre el seno desde $0$ hasta $\\pi$, un semiperíodo completo:\n$$\\int_0^{\\pi} \\sin x\\,dx$$\n¿Cuál es el resultado de esta integral?",
+    "question": "Un brazo mecánico se mueve con una velocidad que sube y vuelve a bajar, siguiendo medio período del seno.\n\nSu desplazamiento total se acumula así:\n$$\\int_0^{\\pi} \\sin x\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$-2$",
       "$2+C$",
@@ -68,14 +68,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Armamos la primitiva $F(x)=-\\cos x$ y aplicamos Barrow.\n$$\\begin{aligned} F(\\pi) &= -\\cos\\pi = 1 \\\\ F(0) &= -\\cos 0 = -1 \\\\ \\int_0^{\\pi} \\sin x\\,dx &= 1-(-1) = 2 \\end{aligned}$$\nEl signo negativo de la primitiva del seno hay que arrastrarlo con cuidado al evaluar en ambos límites, no solo en uno.\n\nEvaluar $F$ paso a paso, como en el desarrollo anterior, evita perder ese signo en el camino.",
+    "explanation": "Armamos la primitiva $F(x)=-\\cos x$ y aplicamos Barrow.\n$$\\begin{aligned} F(\\pi) &= -\\cos\\pi = 1 \\\\ F(0) &= -\\cos 0 = -1 \\\\ \\int_0^{\\pi} \\sin x\\,dx &= 1-(-1) = 2 \\end{aligned}$$\nEl signo negativo de la primitiva del seno hay que arrastrarlo con cuidado al evaluar en ambos límites, no solo en uno.\n\nEvaluar $F$ paso a paso, como en el desarrollo anterior, evita perder ese signo en el camino.\n\nLa resta tiene sentido porque la primitiva acumula: quitarle el valor del arranque al valor del final deja lo que se juntó en el medio, sin importar dónde empezó a contar.",
     "reviewed": false,
     "tags": [
       "barrow-con-reglas-directas"
     ]
   },
   {
-    "question": "Acá el integrando es una potencia cúbica pura, sin términos adicionales:\n$$\\int_0^1 x^3\\,dx$$\n¿Cuál es su resultado?",
+    "question": "El integrando de esta definida es una potencia pura, sin términos adicionales:\n$$\\int_0^1 x^3\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$1$",
       "$1/4+C$",
@@ -100,7 +100,7 @@
     ]
   },
   {
-    "question": "El coseno se integra ahora entre $0$ y $\\pi/2$, un cuarto de período:\n$$\\int_0^{\\pi/2} \\cos x\\,dx$$\n¿Cuál es el resultado?",
+    "question": "Una compuerta se abre rápido al principio y va frenando hasta detenerse, siguiendo un cuarto de período del coseno.\n\nSu apertura total se acumula así:\n$$\\int_0^{\\pi/2} \\cos x\\,dx$$\n¿Cuál es el resultado?",
     "options": [
       "$1$",
       "$\\pi/2$",
@@ -118,14 +118,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Armamos la primitiva $F(x)=\\sin x$ y aplicamos Barrow.\n$$\\begin{aligned} F(\\pi/2) &= \\sin(\\pi/2) = 1 \\\\ F(0) &= \\sin 0 = 0 \\\\ \\int_0^{\\pi/2} \\cos x\\,dx &= 1-0 = 1 \\end{aligned}$$\nConviene no confundir el valor del límite de integración, $\\pi/2$, con el resultado de evaluar la primitiva en ese punto.",
+    "explanation": "Armamos la primitiva $F(x)=\\sin x$ y aplicamos Barrow.\n$$\\begin{aligned} F(\\pi/2) &= \\sin(\\pi/2) = 1 \\\\ F(0) &= \\sin 0 = 0 \\\\ \\int_0^{\\pi/2} \\cos x\\,dx &= 1-0 = 1 \\end{aligned}$$\nConviene no confundir el valor del límite de integración, $\\pi/2$, con el resultado de evaluar la primitiva en ese punto.\n\nQue la constante de integración no aparezca en el resultado no es casual. Al restar los dos valores de la primitiva, cualquier constante que ambos compartan se cancela sola.",
     "reviewed": false,
     "tags": [
       "barrow-con-reglas-directas"
     ]
   },
   {
-    "question": "Este integrando es el recíproco de $x$, evaluado en un intervalo que no incluye el cero:\n$$\\int_1^2 \\frac{1}{x}\\,dx$$\n¿Cuál es su resultado?",
+    "question": "Este integrando es uno dividido la variable, en un tramo que se mantiene lejos del cero:\n$$\\int_1^2 \\frac{1}{x}\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$-\\ln 2$",
       "$\\ln 2$",
@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Armamos la primitiva $F(x)=x^3$, ya que $3\\int x^2\\,dx=3\\cdot x^3/3=x^3$, y aplicamos Barrow.\n$$\\begin{aligned} F(2) &= 2^3 = 8 \\\\ F(0) &= 0 \\\\ \\int_0^2 3x^2\\,dx &= 8-0 = 8 \\end{aligned}$$\nEl coeficiente $3$ se cancela exactamente con el $3$ que aparece al dividir por el nuevo exponente, dejando una primitiva compacta.",
+    "explanation": "Armamos la primitiva aplicando linealidad y la regla de la potencia:\n$$3\\int x^2\\,dx=3\\cdot\\frac{x^3}{3}=x^3$$\nCon $F(x)=x^3$, aplicamos Barrow.\n$$\\begin{aligned} F(2) &= 2^3 = 8 \\\\ F(0) &= 0 \\\\ \\int_0^2 3x^2\\,dx &= 8-0 = 8 \\end{aligned}$$\nEl coeficiente $3$ se cancela exactamente con el $3$ que aparece al dividir por el nuevo exponente, dejando una primitiva compacta.",
     "reviewed": false,
     "tags": [
       "barrow-con-reglas-directas"
@@ -225,25 +225,25 @@
     ]
   },
   {
-    "question": "Esta integral combina una potencia cúbica compuesta con el factor lineal que arma el diferencial:\n$$\\int_0^2 x(x^2+1)^3\\,dx$$\n¿Cuál es su resultado?",
+    "question": "Esta integral combina una potencia cuadrática compuesta con el factor lineal que arma el diferencial:\n$$\\int_0^1 x(x^2+1)^2\\,dx$$\n¿Cuál es su resultado?",
     "options": [
-      "$78+C$",
-      "$78$",
-      "$2$",
-      "$624$"
+      "$7/6$",
+      "$7/6+C$",
+      "$1$",
+      "$4/3$"
     ],
-    "correct_index": 1,
+    "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, actualizando los límites a $u=1$ y $u=5$ y evaluando ahí.",
+    "feedback_correct": "Correcto, actualizando los límites a $u=1$ y $u=2$ y evaluando ahí.",
     "feedback_incorrect": [
-      "En definidas la $C$ se cancela al restar, la respuesta es un número puro.",
       null,
-      "Los límites no se actualizaron a la variable $u$, con $u=x^2+1$ los límites correctos son $u=1$ y $u=5$.",
-      "Hay que dividir por $8$, ese factor sale de la regla de la potencia combinada con el ajuste del diferencial."
+      "En definidas la $C$ se cancela al restar, la respuesta es un número puro.",
+      "Los límites no se actualizaron a la variable $u$, con $u=x^2+1$ los límites correctos son $u=1$ y $u=2$.",
+      "Ese valor es $F(2)$ solo, sin restar $F(1)$."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Sustituimos $u=x^2+1$, con $du=2x\\,dx$.\n\n**Actualizamos los límites**: $u(0)=1$, $u(2)=5$.\n$$\\begin{aligned} \\int_0^2 x(x^2+1)^3\\,dx &= \\int_1^5 \\frac{u^3}{2}\\,du \\\\ &= \\left[\\frac{u^4}{8}\\right]_1^5 \\\\ &= \\frac{625-1}{8} = 78 \\end{aligned}$$\nActualizar los límites a la variable $u$ evita tener que volver a $x$ antes de evaluar, ambos caminos son válidos si se hacen completos.",
+    "explanation": "Sustituimos $u=x^2+1$, con $du=2x\\,dx$.\n\n**Actualizamos los límites**: $u(0)=1$, $u(1)=2$.\n$$\\begin{aligned} \\int_0^1 x(x^2+1)^2\\,dx &= \\int_1^2 \\frac{u^2}{2}\\,du \\\\ &= \\left[\\frac{u^3}{6}\\right]_1^2 \\\\ &= \\frac{8-1}{6} = \\frac{7}{6} \\end{aligned}$$\nActualizar los límites a la variable $u$ evita tener que volver a $x$ antes de evaluar, ambos caminos son válidos si se hacen completos.",
     "reviewed": false,
     "tags": [
       "barrow-con-sustitucion-y-partes"
@@ -300,25 +300,25 @@
     ]
   },
   {
-    "question": "Este integrando es una sola función logarítmica, sin ningún producto visible en la expresión:\n$$\\int_0^1 \\ln(x+1)\\,dx$$\n¿Cuál es el resultado?",
+    "question": "Derivando esta expresión se recupera el integrando de una integral entre $0$ y $1$:\n$$F(x)=(x+1)\\ln(x+1)-x$$\n¿Cuál es esa integral?",
     "options": [
-      "$2\\ln 2-1$",
-      "$2\\ln 2-1+C$",
-      "$2\\ln 2$",
-      "$\\ln 2-1$"
+      "$\\int_0^1 \\ln(x+1)\\,dx$",
+      "$\\int_0^1 x\\ln(x+1)\\,dx$",
+      "$\\int_0^1 \\ln x\\,dx$",
+      "$\\int_0^1 (x+1)\\ln(x+1)\\,dx$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, aplicando partes con factor oculto y evaluando en los límites.",
+    "feedback_correct": "Correcto: derivando $F$ con la regla del producto se recupera $\\ln(x+1)$ solo.",
     "feedback_incorrect": [
       null,
-      "En definidas la $C$ se cancela al restar, la respuesta es un número puro.",
-      "Hay que restar el término $-x$ de la primitiva, solo consideraste la parte con el logaritmo.",
-      "Te faltó el coeficiente $(x+1)$ multiplicando al logaritmo en el término $uv$, no solo $1$."
+      "Al derivar $F$ no aparece ningún factor $x$ extra multiplicando al logaritmo.",
+      "El argumento de $F$ es $x+1$, no $x$ solo: derivando se recupera $\\ln(x+1)$, no $\\ln x$.",
+      "Eso confunde $F$ con su propio término $uv$: derivando el $F$ completo, el factor $(x+1)$ se cancela."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos partes con el **factor oculto** $dv=1\\,dx$, eligiendo $v=x+1$.\n\nEso da la primitiva $F(x)=(x+1)\\ln(x+1)-x$.\n$$\\begin{aligned} F(1) &= 2\\ln 2-1 \\\\ F(0) &= 1\\cdot\\ln 1-0 = 0 \\\\ \\int_0^1 \\ln(x+1)\\,dx &= 2\\ln 2-1 \\end{aligned}$$\nElegir $v=x+1$ en vez de $v=x$ simplifica la integral remanente: cancela exactamente el denominador que aparecería en el paso siguiente.",
+    "explanation": "Verificar una primitiva candidata es más simple que reconstruirla por partes: alcanza con **derivar** $F$ y comparar contra el integrando original.\n\nDerivando $F$ con la regla del producto:\n$$F'(x)=\\ln(x+1)+(x+1)\\cdot\\frac{1}{x+1}-1$$\nEl segundo término se cancela con el $-1$: la derivada completa se reduce al logaritmo solo, exactamente el integrando de la integral correcta.\n\nEsta verificación es la misma que confirma que la elección de $v=x+1$ fue la correcta al construir $F$ por partes.",
     "reviewed": false,
     "tags": [
       "barrow-con-sustitucion-y-partes"

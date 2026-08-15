@@ -168,6 +168,22 @@ Pre-revisión programática (script propio contra el snowball completo de `autho
 
 ---
 
+## Hallazgos de auditoría (ronda 3, ago-2026)
+
+Pasada de la regla 57 (nueva) sobre las aperturas: `ESTR` describía cada integrando con etiquetas de vocabulario que el estudiante no tiene incorporado, del tipo "un binomio elevado al cuadrado", "un monomio por un binomio", "el recíproco de una potencia alta". Reporte textual del testeo de la sesión 449, sobre el patrón general de la unidad: *"mucho jargon innecesario al principio, esto está pasando en todos los ejercicios; el propósito de la oración inicial es introducir con lenguaje tranquilo el problema, y luego cuando el usuario se choca con la fórmula ahí tiene que activar sistema 2"*. Las aperturas nuevas describen la forma del integrando en lenguaje llano y sin adelantar el nombre de la operación que la opción correcta menciona.
+
+**Decisión sobre la migración a `interpretacion`, que finalmente no se hizo.** El plan de esta ronda contemplaba mudar los ítems 10, 12 y 14 de `LEXI` al topic nuevo, por ser los únicos de todo `definition` que no son de notación. Al escribir `interpretacion` quedó claro que no encajan: ese topic trabaja la integral como **acumulación**, y esos tres ítems son sobre la **familia de primitivas**, o sea sobre el desplazamiento vertical que la constante introduce. Comparten la palabra interpretación y nada más.
+
+Mudarlos habría dejado a `LEXI` en 12 ítems y habría roto dos líneas de este checklist, sin aportarle nada al topic nuevo. Se quedan acá, que es donde su contenido pertenece: qué es una primitiva es materia de `definition`.
+
+---
+
+## Nota de coherencia con `interpretacion` (ronda 5, ago-2026)
+
+`interpretacion` sumó una sub-familia que lee la notación de acumulación, donde $f(t)\,dt$ se lee como un producto con unidades. Para que las dos lecturas no choquen en el repaso mezclado, el ítem de $dx$ en `LEXI` (sub-A) ajustó su redacción: el error que señala es tratar al diferencial como *un número suelto que se cancela o se despeja*, no leerlo como parte de un producto. La explicación anticipa en una oración que el diferencial va a ganar una segunda lectura más adelante, sin nombrar área ni acumulación. Ver la Advertencia de coherencia en `interpretacion/topic-context.md`.
+
+---
+
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 3 skills):**
