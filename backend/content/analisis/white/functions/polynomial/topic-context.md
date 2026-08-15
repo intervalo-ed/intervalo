@@ -60,22 +60,20 @@ Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026, mismo proceso 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
 | Identidades notables (BCP, dif. cuadrados, cubo binomio, suma/dif. cubos) | 4 | `identidades-notables` |
-| Multiplicidad de raíz (simple/doble/triple, toca vs. cruza) | 3 | `multiplicidad-raiz` |
+| Multiplicidad de raíz (simple/doble/triple, toca vs. cruza) | 4 | `multiplicidad-raiz` |
 | Comportamiento en extremos según grado/signo | 2 | `comportamiento-extremos-infinito` |
-| Identificar si una expresión es/no es polinomio (o monomio) | 2 | `identificar-polinomio` |
-| Grado de un polinomio dado (incl. caso grado 0) | 2 | `grado-identificacion` |
-| Nombre/lectura de coeficiente principal y término independiente | 2 | `coeficiente-termino-nombre` |
+| Identificar si una expresión es/no es polinomio (o monomio) | 1 | `identificar-polinomio` |
+| Grado de un polinomio dado (incl. caso grado 0) | 3 | `grado-identificacion` |
+| Nombre/lectura de coeficiente principal y término independiente | 1 | `coeficiente-termino-nombre` |
 | Cantidad máxima de raíces reales | 2 | `raices-cantidad-maxima` |
-| Cantidad máxima de extremos locales | 2 | `extremos-locales-maximo` |
-| Imagen según grado/paridad | 2 | `imagen-polinomio` |
+| Cantidad máxima de extremos locales | 1 | `extremos-locales-maximo` |
+| Imagen según grado/paridad | 3 | `imagen-polinomio` |
 | Forma estándar vs. factorizada (para qué sirve, cómo se llama) | 2 | `forma-estandar-factorizada` |
 | Paridad de la función (par/impar, no confundir con paridad del grado) | 1 | `paridad-funcion` |
-| Grado de un producto/suma de polinomios | 1 | `grado-operaciones` |
+| Grado de un producto/suma de polinomios | 2 | `grado-operaciones` |
 | Raíces complejas conjugadas | 1 | `raices-complejas-conjugadas` |
-| Dominio de un polinomio | 1 | `dominio-polinomio` |
-| Punto de inflexión | 1 | `punto-inflexion` |
 | Concepto de extremo global (mínimo/máximo global) | 1 | `extremo-global-concepto` |
-| Concepto de extremo local (qué significa un máx/mín local) | 1 | `extremo-local-concepto` |
+| Concepto de extremo local (qué significa un máx/mín local) | 2 | `extremo-local-concepto` |
 | **Total** | **30** | |
 
 Nota: `contar-terminos` (cupo 1 → 0.6 redondeado por resto) quedó sin ejercicios tras el recorte; no generar más bajo ese slug salvo que se decida revertir el recorte.
@@ -107,15 +105,15 @@ Nota: `contar-terminos` (cupo 1 → 0.6 redondeado por resto) quedó sin ejercic
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Evaluar $p(\text{valor})$ | 6 | `evaluar-f` |
-| Identificar fórmula desde gráfico (`graph_fn`) | 4 | `grafico-a-formula` |
-| Expandir cubo de binomio $(a\pm b)^3$ | 4 | `expandir-cubo-binomio` |
-| Leer coeficientes desde forma estándar o factorizada | 2 | `leer-coeficientes` |
+| Evaluar $p(\text{valor})$ | 5 | `evaluar-f` |
+| Identificar fórmula desde gráfico (`graph_fn`) | 3 | `grafico-a-formula` |
+| Expandir cubo de binomio $(a\pm b)^3$ | 3 | `expandir-cubo-binomio` |
+| Leer coeficientes desde forma estándar o factorizada | 3 | `leer-coeficientes` |
 | Expandir binomio cuadrado perfecto $(a\pm b)^2$ | 2 | `expandir-bcp` |
-| Factorizar suma/diferencia de cubos | 2 | `factorizar-suma-diferencia-cubos` |
+| Factorizar suma/diferencia de cubos | 3 | `factorizar-suma-diferencia-cubos` |
 | Grado de un polinomio dado | 2 | `grado-desde-formula` |
 | Raíces desde forma factorizada (incl. multiplicidad) | 2 | `raices-desde-formula` |
-| Grado de un producto/suma de polinomios | 1 | `grado-operaciones` |
+| Grado de un producto/suma de polinomios | 2 | `grado-operaciones` |
 | Armar forma factorizada dadas las raíces | 1 | `armar-forma-factorizada` |
 | Factorizar diferencia de cuadrados | 1 | `factorizar-diferencia-cuadrados` |
 | Factorizar trinomio a binomio cuadrado perfecto | 1 | `factorizar-bcp` |
@@ -129,17 +127,15 @@ Nota: `contar-terminos` (cupo 1 → 0.6 redondeado por resto) quedó sin ejercic
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Extremos locales (cantidad) | 2 | `lectura-extremos-locales` |
+| Extremos locales (cantidad) | 3 | `lectura-extremos-locales` |
 | Raíces (cantidad) | 2 | `lectura-raices` |
 | Grado (par/impar, mínimo posible) | 2 | `lectura-grado` |
 | Comportamiento en extremos ($x \to \pm\infty$) | 2 | `lectura-comportamiento-extremos` |
 | Ordenada al origen, $f(0)$ | 1 | `lectura-ordenada-origen` |
 | Multiplicidad de raíz (toca vs. cruza) | 1 | `lectura-multiplicidad-raiz` |
-| Imagen (acotada o ℝ) | 1 | `lectura-imagen` |
+| Imagen (acotada o ℝ) | 2 | `lectura-imagen` |
 | Extremo global (mínimo/máximo global) | 1 | `lectura-extremo-global` |
 | Signo del coeficiente principal | 1 | `lectura-signo-coeficiente` |
-| Monotonía global | 1 | `lectura-monotonia-global` |
-| Signo de la función en un intervalo | 1 | `lectura-signo-intervalo` |
 | **Subtotal Tipo A** | **15** | |
 
 Nota: `lectura-dominio` (cupo 1 → 0.6 redondeado por resto) quedó sin ejercicios tras el recorte.
@@ -151,10 +147,9 @@ Nota: `lectura-dominio` (cupo 1 → 0.6 redondeado por resto) quedó sin ejercic
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
 | Extremos locales del modelo (picos/valles) | 2 | `contexto-extremos` |
-| Raíces del modelo (veces que vuelve a cero) | 1 | `contexto-raices` |
+| Raíces del modelo (veces que vuelve a cero) | 2 | `contexto-raices` |
 | Signo del coeficiente principal en contexto | 1 | `contexto-signo-coeficiente` |
 | Extremo global en contexto | 1 | `contexto-extremo-global` |
-| Monotonía en contexto | 1 | `contexto-monotonia` |
 | **Subtotal Tipo C** | **6** | |
 
 Nota: `contexto-comportamiento-extremos` (cupo 1 → 0.6 redondeado por resto) quedó sin ejercicios tras el recorte.
@@ -263,3 +258,37 @@ De ahí sale la **regla 61** de `authoring-context.md`: el sujeto de la primera 
 Pasada de voz narrativa sobre las aperturas que tenían una propiedad de sujeto (`"El denominador de esta función…"`, `"El interior de este logaritmo…"`, `"El coeficiente principal es…"`). Son 56 en toda la unidad, heredadas de la misma ronda 6 que produjo el problema en `limites`.
 
 **Los preámbulos `"Dada la función:"` / `"Sea la función:"` no se tocaron**: tienen el objeto de sujeto y la sección *Sin preámbulos colgantes* los admite explícitamente.
+
+---
+
+## Realineación de la tabla de distribución (ronda 10, ago-2026)
+
+Los bancos de este topic están completos (30 por skill) y sus `tags` están bien puestos. La tabla venía de proyectar el recorte de 50 → 30 con reparto proporcional, y esa proyección nunca se reconcilió con lo que se escribió después. Se corrigieron los conteos para que reflejen el banco real, en vez de reescribir ejercicios ya testeados. Valores anteriores:
+
+- **LEXI** `multiplicidad-raiz`: la tabla decía 3, el banco tiene 4
+- **LEXI** `identificar-polinomio`: la tabla decía 2, el banco tiene 1
+- **LEXI** `grado-identificacion`: la tabla decía 2, el banco tiene 3
+- **LEXI** `coeficiente-termino-nombre`: la tabla decía 2, el banco tiene 1
+- **LEXI** `extremos-locales-maximo`: la tabla decía 2, el banco tiene 1
+- **LEXI** `imagen-polinomio`: la tabla decía 2, el banco tiene 3
+- **LEXI** `grado-operaciones`: la tabla decía 1, el banco tiene 2
+- **LEXI** `extremo-local-concepto`: la tabla decía 1, el banco tiene 2
+- **FORM** `evaluar-f`: la tabla decía 6, el banco tiene 5
+- **FORM** `grafico-a-formula`: la tabla decía 4, el banco tiene 3
+- **FORM** `expandir-cubo-binomio`: la tabla decía 4, el banco tiene 3
+- **FORM** `leer-coeficientes`: la tabla decía 2, el banco tiene 3
+- **FORM** `factorizar-suma-diferencia-cubos`: la tabla decía 2, el banco tiene 3
+- **FORM** `grado-operaciones`: la tabla decía 1, el banco tiene 2
+- **GRAF** `lectura-extremos-locales`: la tabla decía 2, el banco tiene 3
+- **GRAF** `lectura-imagen`: la tabla decía 1, el banco tiene 2
+- **GRAF** `contexto-raices`: la tabla decía 1, el banco tiene 2
+
+Filas borradas, sub-familias que la proyección previó pero que nunca se escribieron (0 ejercicios en el banco):
+
+- **LEXI** `dominio-polinomio`: la tabla decía 1, el banco tiene 0
+- **LEXI** `punto-inflexion`: la tabla decía 1, el banco tiene 0
+- **GRAF** `lectura-monotonia-global` (Tipo A): la tabla decía 1, el banco tiene 0
+- **GRAF** `lectura-signo-intervalo` (Tipo A): la tabla decía 1, el banco tiene 0
+- **GRAF** `contexto-monotonia` (Tipo C): la tabla decía 1, el banco tiene 0
+
+La sección **CLSF (50)** quedó intacta: es el skill archivado en jul-2026, su tabla es registro histórico y no describe ningún banco vivo.

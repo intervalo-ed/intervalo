@@ -128,20 +128,19 @@ Primera auditoría de este topic (no tenía tabla de sub-familias todavía). Dis
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
 | Valores notables (sen/cos en ángulos especiales) | 4 | `valores-notables` |
-| Amplitud/parámetros, descripción abstracta (ver nota) | 3 | `descripcion-abstracta-otra-familia` |
+| Amplitud/parámetros, descripción abstracta (ver nota) | 2 | `descripcion-abstracta-otra-familia` |
 | Paridad de la función (par/impar) | 2 | `paridad-funcion` |
 | Período básico (concepto, sen/cos sin coeficiente) | 2 | `periodo-basico` |
 | Transformaciones (desplazamiento, reflexión) | 2 | `transformaciones-trig` |
-| Período con coeficiente $B$ | 2 | `periodo-con-b` |
+| Período con coeficiente $B$ | 3 | `periodo-con-b` |
 | Reconocimiento de función trigonométrica (qué es/no es) | 1 | `reconocimiento-trigonometrica` |
 | Conteo de extremos en un intervalo | 1 | `conteo-extremos-intervalo` |
 | Definición de periodicidad | 1 | `definicion-periodicidad` |
 | Identificar función desde comportamiento | 1 | `identificar-funcion-comportamiento` |
 | Imagen/rango básica | 1 | `imagen-basica` |
 | Dominio | 1 | `dominio-trig` |
-| Monotonía en un intervalo | 1 | `monotonia-intervalo-lexi` |
+| Monotonía en un intervalo | 2 | `monotonia-intervalo-lexi` |
 | Identidad pitagórica | 1 | `identidad-pitagorica` |
-| Raíces de función desplazada | 1 | `raices-desplazada` |
 | Definición de tangente | 1 | `tangente-definicion` |
 | Ceros de la función | 1 | `ceros-funcion` |
 | Contexto cotidiano, reconocimiento | 1 | `contexto-cotidiano-reconocimiento` |
@@ -172,13 +171,13 @@ Primera auditoría de este topic (no tenía tabla de sub-familias todavía). Dis
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Evaluación puntual $f(a)$ | 10 | `evaluacion-puntual-form` |
+| Evaluación puntual $f(a)$ | 6 | `evaluacion-puntual-form` |
 | Lectura directa del gráfico (valor/amplitud/D) | 4 | `lectura-grafico-directa-trig` |
-| Imagen/rango | 4 | `imagen-rango-form-trig` |
-| Período, cálculo | 4 | `periodo-calculo-form` |
-| Amplitud, cálculo | 1 | `amplitud-calculo-form` |
+| Imagen/rango | 3 | `imagen-rango-form-trig` |
+| Período, cálculo | 6 | `periodo-calculo-form` |
+| Amplitud, cálculo | 3 | `amplitud-calculo-form` |
 | Dominio | 1 | `dominio-form-trig` |
-| Extremos (máx/mín) desde fórmula | 1 | `extremos-desde-formula` |
+| Extremos (máx/mín) desde fórmula | 2 | `extremos-desde-formula` |
 | Existencia de asíntotas | 1 | `asintotas-existencia-trig` |
 | Fórmula desde gráfico | 1 | `formula-desde-grafico-form-trig` |
 | Primer extremo con desfase | 1 | `primer-extremo-desfase` |
@@ -233,3 +232,26 @@ De ahí sale la **regla 61** de `authoring-context.md`: el sujeto de la primera 
 Pasada de voz narrativa sobre las aperturas que tenían una propiedad de sujeto (`"El denominador de esta función…"`, `"El interior de este logaritmo…"`, `"El coeficiente principal es…"`). Son 56 en toda la unidad, heredadas de la misma ronda 6 que produjo el problema en `limites`.
 
 **Los preámbulos `"Dada la función:"` / `"Sea la función:"` no se tocaron**: tienen el objeto de sujeto y la sección *Sin preámbulos colgantes* los admite explícitamente.
+
+---
+
+## Realineación de la tabla de distribución (ronda 10, ago-2026)
+
+Los bancos de este topic están completos (30 por skill) y sus `tags` están bien puestos. La tabla venía de proyectar el recorte de 50 → 30 con reparto proporcional, y esa proyección nunca se reconcilió con lo que se escribió después. Se corrigieron los conteos para que reflejen el banco real, en vez de reescribir ejercicios ya testeados. Valores anteriores:
+
+- **LEXI** `descripcion-abstracta-otra-familia`: la tabla decía 3, el banco tiene 2
+- **LEXI** `periodo-con-b`: la tabla decía 2, el banco tiene 3
+- **LEXI** `monotonia-intervalo-lexi`: la tabla decía 1, el banco tiene 2
+- **FORM** `evaluacion-puntual-form`: la tabla decía 10, el banco tiene 6
+- **FORM** `imagen-rango-form-trig`: la tabla decía 4, el banco tiene 3
+- **FORM** `periodo-calculo-form`: la tabla decía 4, el banco tiene 6
+- **FORM** `amplitud-calculo-form`: la tabla decía 1, el banco tiene 3
+- **FORM** `extremos-desde-formula`: la tabla decía 1, el banco tiene 2
+
+Filas eliminadas por no tener ningún ejercicio real (esa sub-familia nunca se escribió):
+
+- **LEXI** `raices-desplazada` (Raíces de función desplazada): la tabla decía 1, el banco tiene 0
+
+**GRAF** no requirió ningún cambio: sus 19 slugs (17 de tipo A, más `formula-desde-grafico-trig` y `contexto-cotidiano-graf-trig`) ya coincidían uno a uno con el banco. Post-realineación, LEXI, FORM y GRAF suman exactamente 30 cada uno.
+
+Se verificó ítem por ítem que las sub-familias más desviadas (`amplitud-calculo-form`, `periodo-calculo-form`) están correctamente tageadas: son genuinamente ejercicios de amplitud y de período. La sección **CLSF** (archivada) no se tocó.

@@ -728,6 +728,23 @@ SLUG_CELL_RE = re.compile(r"`([a-z0-9]+(?:-[a-z0-9]+)*)`")
 # ejercicios", "**CLSF** (archivado...)".
 SKILL_SECTION_RE = re.compile(
     r"(?:\*\*\s*|^#{1,6}\s+`?)(LEXI|CLSF|FORM|GRAF|ESTR|RESL)\b")
+# Sub-familias declaradas en prosa en vez de con una fila de tabla. Hay dos
+# redacciones en uso en los docs:
+#   "*Tipo B — ... (6 ejercicios):* slug único `formula-desde-grafico-trig`."
+#   "*Tipo B — ... (9):* todos bajo `grafico-a-formula` (...)"
+INLINE_SUBFAMILY_RES = (
+    re.compile(r"\((\d+)\s+ejercicios[^`]*slug\s+único\s+`([a-z0-9]+(?:-[a-z0-9]+)*)`"),
+    re.compile(r"\((\d+)\)\s*:\**\s*todos bajo\s+`([a-z0-9]+(?:-[a-z0-9]+)*)`"),
+)
+
+
+def _add(targets: dict[str, int], por_skill: dict[str, dict[str, int]],
+         seccion: str | None, slug: str, count: int) -> None:
+    """Suma un objetivo a la unión del topic y, si se conoce, al skill."""
+    targets[slug] = targets.get(slug, 0) + count
+    if seccion:
+        d = por_skill.setdefault(seccion, {})
+        d[slug] = d.get(slug, 0) + count
 
 
 def parse_distribution(topic_context: Path) -> tuple[dict[str, dict[str, int]], dict[str, int]]:
@@ -785,17 +802,27 @@ def parse_distribution(topic_context: Path) -> tuple[dict[str, dict[str, int]], 
                 count = int(m.group(1))
                 break
         if slug and count is not None:
-            targets[slug] = targets.get(slug, 0) + count
-            if seccion:
-                d = por_skill.setdefault(seccion, {})
-                d[slug] = d.get(slug, 0) + count
+            _add(targets, por_skill, seccion, slug, count)
 
-    # Parse menciones inline: "(NN ejercicios):* ... slug único `slug`"
-    for m in re.finditer(r"\((\d+)\s+ejercicios[^`]*slug\s+único\s+`([a-z0-9]+(?:-[a-z0-9]+)*)`", text):
-        count_str, slug = m.groups()
-        count = int(count_str)
-        if slug and count:
-            targets[slug] = targets.get(slug, 0) + count
+    # Parse menciones inline: "(NN ejercicios):* ... slug único `slug`".
+    # Va dentro del mismo recorrido por líneas, no en una pasada aparte, para
+    # que la sub-familia quede atribuida a su skill. Algunas sub-familias se
+    # declaran así en vez de con una fila de tabla (ej. los "Tipo B/Tipo C" de
+    # los GRAF de `functions`); cuando esta parte no registraba el skill, esos
+    # slugs no entraban en el diccionario de su skill y sus ítems no se
+    # comparaban contra nada: pasaban en silencio.
+    for line in text.splitlines():
+        h = SKILL_SECTION_RE.search(line)
+        if h:
+            skip_section = "archivad" in line.lower()
+            seccion = None if skip_section else h.group(1)
+        if skip_section:
+            continue
+        for rx in INLINE_SUBFAMILY_RES:
+            for m in rx.finditer(line):
+                count = int(m.group(1))
+                if count:
+                    _add(targets, por_skill, seccion, m.group(2), count)
 
     return por_skill, targets
 

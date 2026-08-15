@@ -86,11 +86,11 @@ Vocabulario y parámetros de la parábola: forma canónica $f(x) = ax^2 + bx + c
 |----------|------|-----------------:|
 | Raíces y discriminante (número, ceros, simple/doble) | `raices-discriminante` | 5 |
 | Nombre de la parábola (curva, ramas) | `nombre-parabola` | 4 |
-| Dominio e imagen | `dominio-imagen` | 4 |
+| Dominio e imagen | `dominio-imagen` | 3 |
 | Vértice, concepto (nombre, óptimo, en contexto) | `vertice-concepto` | 4 |
 | Identificación de fórmula (es/no es cuadrática, grado 2) | `identificacion-formula` | 3 |
 | Formas de la función (estándar, vértice, factorizada) | `formas-de-la-funcion` | 3 |
-| Nombrar coeficientes/términos ($a$, $b$, $c$) | `coeficientes-nombre` | 3 |
+| Nombrar coeficientes/términos ($a$, $b$, $c$) | `coeficientes-nombre` | 4 |
 | Eje de simetría | `eje-simetria` | 2 |
 | Efecto de $\|a\|$ en la apertura | `coeficiente-a-forma` | 1 |
 | Vértice, parámetros $h$ y $k$ en la forma vértice | `vertice-parametros` | 1 |
@@ -132,17 +132,15 @@ Construir o leer la fórmula $f(x) = ax^2 + bx + c$ y sus formas vértice / fact
 | Concepto | Slug | Cantidad actual |
 |----------|------|-----------------:|
 | Raíces desde la fórmula (leer, calcular, suma) | `raices-desde-formula` | 7 |
-| Leer coeficientes $a$, $b$, $c$ desde forma estándar | `leer-coeficientes` | 3 |
-| Gráfico → fórmula | `grafico-a-formula` | 3 |
+| Leer coeficientes $a$, $b$, $c$ desde forma estándar | `leer-coeficientes` | 2 |
+| Gráfico → fórmula | `grafico-a-formula` | 1 |
 | Evaluar $f(\text{valor})$ | `evaluar-f` | 3 |
 | Armar fórmula desde cotidiano (área, corral, recaudación) | `armar-formula-cotidiano` | 3 |
-| Vértice, leerlo desde la forma vértice ya dada | `vertice-desde-forma` | 2 |
-| Forma vértice, armarla dado vértice y $a$ | `forma-vertice-armar` | 2 |
-| Resolver en contexto (cuándo toca el suelo, para qué $x$) | `resolver-contexto` | 2 |
-| Armar fórmula desde tiro/caída ($h_0 + v_0 t - \tfrac12 g t^2$) | `armar-formula-tiro` | 2 |
+| Vértice, leerlo desde la forma vértice ya dada | `vertice-desde-forma` | 3 |
+| Forma vértice, armarla dado vértice y $a$ | `forma-vertice-armar` | 3 |
+| Resolver en contexto (cuándo toca el suelo, para qué $x$) | `resolver-contexto` | 4 |
+| Armar fórmula desde tiro/caída ($h_0 + v_0 t - \tfrac12 g t^2$) | `armar-formula-tiro` | 3 |
 | Eje de simetría, cálculo | `eje-simetria-calculo` | 1 |
-| Forma factorizada, armarla dadas las raíces | `forma-factorizada-armar` | 1 |
-| Residual (`nombre-parabola`, 1 ejercicio de tiro mal etiquetado, ver nota arriba) | `nombre-parabola` | 1 |
 | **Total** | | **30** |
 
 ### Cardinalidad
@@ -193,13 +191,12 @@ Variar números, no repetir personajes. Montos con `\\$` en JSON. Sin nombres pr
 
 | Arquetipo | Slug | Cantidad actual |
 |-----------|------|-----------------:|
-| Vértice-x (cuándo/dónde ocurre el óptimo) | `vertice-x` | 7 |
-| Vértice-y (valor máx/mín) | `vertice-y` | 7 |
-| Residual (agrupa raíz/concavidad/duración, ver nota arriba) | `nombre-parabola` | 7 |
-| Lectura puntual $f(v)$ | `lectura-fv` | 5 |
-| Eje de simetría (misma altura dos veces) | `eje-simetria` | 2 |
+| Vértice-x (cuándo/dónde ocurre el óptimo) | `vertice-x` | 8 |
+| Vértice-y (valor máx/mín) | `vertice-y` | 6 |
+| Residual (agrupa raíz/concavidad/duración, ver nota arriba) | `nombre-parabola` | 9 |
+| Lectura puntual $f(v)$ | `lectura-fv` | 4 |
 | Sube vs baja (crece antes del vértice, decrece después) | `sube-baja` | 1 |
-| Ordenada al origen $c$ (valor de partida, $f(0)$) | `ordenada-origen` | 1 |
+| Ordenada al origen $c$ (valor de partida, $f(0)$) | `ordenada-origen` | 2 |
 | **Total** | | **30** |
 
 **Los mínimos (cóncava arriba) NO usan raíces ni duración**: el valle queda por encima del eje → la parábola nunca toca el cero. Los arquetipos válidos para arriba son: vértice-y, vértice-x, concavidad, lectura $f(v)$, eje de simetría, sube vs baja.
@@ -263,3 +260,31 @@ De ahí sale la **regla 61** de `authoring-context.md`: el sujeto de la primera 
 Pasada de voz narrativa sobre las aperturas que tenían una propiedad de sujeto (`"El denominador de esta función…"`, `"El interior de este logaritmo…"`, `"El coeficiente principal es…"`). Son 56 en toda la unidad, heredadas de la misma ronda 6 que produjo el problema en `limites`.
 
 **Los preámbulos `"Dada la función:"` / `"Sea la función:"` no se tocaron**: tienen el objeto de sujeto y la sección *Sin preámbulos colgantes* los admite explícitamente.
+
+---
+
+## Realineación de la tabla de distribución (ronda 10, ago-2026)
+
+Los bancos de este topic están completos (30 por skill) y sus `tags` están bien puestos. La tabla venía de proyectar el recorte de 50 → 30 con reparto proporcional, y esa proyección nunca se reconcilió con lo que se escribió después. Se corrigieron los conteos para que reflejen el banco real, en vez de reescribir ejercicios ya testeados. Valores anteriores:
+
+- **LEXI** `dominio-imagen`: la tabla decía 4, el banco tiene 3
+- **LEXI** `coeficientes-nombre`: la tabla decía 3, el banco tiene 4
+- **FORM** `leer-coeficientes`: la tabla decía 3, el banco tiene 2
+- **FORM** `grafico-a-formula`: la tabla decía 3, el banco tiene 1
+- **FORM** `vertice-desde-forma`: la tabla decía 2, el banco tiene 3
+- **FORM** `forma-vertice-armar`: la tabla decía 2, el banco tiene 3
+- **FORM** `resolver-contexto`: la tabla decía 2, el banco tiene 4
+- **FORM** `armar-formula-tiro`: la tabla decía 2, el banco tiene 3
+- **GRAF** `vertice-x`: la tabla decía 7, el banco tiene 8
+- **GRAF** `vertice-y`: la tabla decía 7, el banco tiene 6
+- **GRAF** `nombre-parabola`: la tabla decía 7, el banco tiene 9
+- **GRAF** `lectura-fv`: la tabla decía 5, el banco tiene 4
+- **GRAF** `ordenada-origen`: la tabla decía 1, el banco tiene 2
+
+Filas borradas, sub-familias que la proyección previó pero que **nunca se escribieron** (0 ejercicios en el banco):
+
+- **FORM** `forma-factorizada-armar` ("Forma factorizada, armarla dadas las raíces"): la tabla decía 1, el banco tiene 0
+- **FORM** `nombre-parabola` (fila "Residual", 1 ejercicio de tiro mal etiquetado): la tabla decía 1, el banco tiene 0. La mención a este residual en el párrafo previo a la tabla de FORM quedó desactualizada; el slug `nombre-parabola` sigue vivo en LEXI y GRAF.
+- **GRAF** `eje-simetria` ("Eje de simetría, misma altura dos veces"): la tabla decía 2, el banco tiene 0. El arquetipo sigue siendo válido para el skill, solo que ningún ejercicio quedó etiquetado así; el slug `eje-simetria` sigue vivo en LEXI. El checklist de GRAF que habla de "los 7 slugs reales" quedó en 6.
+
+La sección archivada de **CLSF** no se tocó. Cada skill vivo suma exactamente 30.

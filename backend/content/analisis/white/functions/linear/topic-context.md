@@ -58,9 +58,9 @@ Vocabulario y parámetros de la recta: forma canónica $f(x) = mx + b$, identifi
 |----------|------|-----------------:|
 | Identificación de fórmula (es/no es lineal, otras familias) | `identificacion-formula` | 6 |
 | Dominio e imagen (natural o restringido) | `dominio-imagen` | 5 |
-| Propiedades generales (visual, existencia de raíz, tasa de cambio, sin extremos, rectas por puntos) | `propiedades-generales` | 4 |
+| Propiedades generales (visual, existencia de raíz, tasa de cambio, sin extremos, rectas por puntos) | `propiedades-generales` | 5 |
 | Nombrar parámetros/vocabulario (pendiente, ordenada, constante, raíz) | `nombre-parametros` | 4 |
-| Monotonía y signo de la pendiente | `monotonia-signo-pendiente` | 3 |
+| Monotonía y signo de la pendiente | `monotonia-signo-pendiente` | 2 |
 | Parámetros $m$/$b$ leídos en contexto cotidiano | `parametros-contexto` | 3 |
 | Pendiente, cálculo directo | `pendiente-calculo` | 2 |
 | Raíz, cálculo directo | `raiz-calculo` | 2 |
@@ -203,3 +203,14 @@ De ahí sale la **regla 61** de `authoring-context.md`: el sujeto de la primera 
 Pasada de voz narrativa sobre las aperturas que tenían una propiedad de sujeto (`"El denominador de esta función…"`, `"El interior de este logaritmo…"`, `"El coeficiente principal es…"`). Son 56 en toda la unidad, heredadas de la misma ronda 6 que produjo el problema en `limites`.
 
 **Los preámbulos `"Dada la función:"` / `"Sea la función:"` no se tocaron**: tienen el objeto de sujeto y la sección *Sin preámbulos colgantes* los admite explícitamente.
+
+---
+
+## Realineación de la tabla de distribución (ronda 10, ago-2026)
+
+Los bancos de este topic están completos (30 por skill) y sus `tags` están bien puestos. La tabla venía de proyectar el recorte de 50 → 30 con reparto proporcional, y esa proyección nunca se reconcilió con lo que se escribió después. Se corrigieron los conteos para que reflejen el banco real, en vez de reescribir ejercicios ya testeados. Valores anteriores:
+
+- **LEXI** `propiedades-generales`: la tabla decía 4, el banco tiene 5
+- **LEXI** `monotonia-signo-pendiente`: la tabla decía 3, el banco tiene 2
+
+No se borró ninguna fila: todas las sub-familias listadas tienen al menos un ejercicio escrito. `FORM` y `GRAF` ya coincidían fila por fila con su banco y no se tocaron. Los tres skills siguen sumando 30.
