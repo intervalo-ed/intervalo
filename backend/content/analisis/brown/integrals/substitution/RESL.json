@@ -1,374 +1,374 @@
 [
   {
-    "question": "Esta integral tiene una exponencial cuyo exponente es un polinomio lineal:\n$$\\int e^{4x+1}\\,dx$$\n¿Cuál es su resultado?",
+    "question": "En esta integral ya se hizo la primera elección, $u=4x+1$:\n$$\\int e^{4x+1}\\,dx$$\n¿En qué se transforma al reescribirla en $u$?",
     "options": [
-      "$\\frac{1}{4}e^{4x+1}+C$",
-      "$e^{4x+1}+C$",
-      "$4e^{4x+1}+C$",
-      "$\\frac{e^{4x+2}}{4x+2}+C$"
+      "$\\frac{1}{4}\\int e^u\\,du$",
+      "$4\\int e^u\\,du$",
+      "$\\int e^u\\,du$",
+      "$\\frac{1}{4}\\int e^u\\,dx$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, el coeficiente $4$ pasa a dividir gracias al ajuste de $dx=\\frac{1}{4}du$.",
+    "feedback_correct": "Correcto, al despejar $dx=\\frac{1}{4}du$ el coeficiente queda dividiendo afuera de la integral.",
     "feedback_incorrect": [
       null,
-      "Te faltó dividir por el coeficiente $4$, la sustitución $u=4x+1$ da $du=4\\,dx$, así que $dx=\\frac{1}{4}du$.",
-      "El coeficiente $4$ tiene que dividir, no multiplicar, revisá el ajuste del diferencial.",
-      "Aplicaste la regla de la potencia sobre una exponencial, la fórmula de tabla para $e^u$ es directa, $e^u+C$."
+      "Ese $4$ multiplicando es el que aparece al derivar, no el que queda al despejar el diferencial.",
+      "El ajuste del diferencial quedó sin hacer, la derivada del interior deja un cuarto afuera.",
+      "La integral quedó mezclada, si el integrando se escribe en $u$ el diferencial también tiene que ser $du$."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=4x+1$, con $du=4\\,dx$.\n$$\\begin{aligned} \\int e^{4x+1}\\,dx &= \\int e^u \\cdot \\frac{1}{4}\\,du \\\\ &= \\frac{1}{4}e^u + C \\end{aligned}$$\nVolvemos a la variable original reemplazando $u$: el coeficiente $4$ del interior queda dividiendo, nunca multiplicando, en el resultado final.\n\nEse ajuste de constante es la parte más fácil de olvidar en toda la sustitución.",
+    "explanation": "El **cambio de variable** $u=4x+1$ arrastra su propio diferencial. Derivando queda $du=4\\,dx$, y de ahí sale el despeje:\n$$dx=\\frac{1}{4}\\,du$$\nEse despeje es lo que permite reemplazar el diferencial original sin alterar el valor de la integral.\n\nSustituyendo las dos piezas a la vez, el exponente entero se vuelve la variable auxiliar y el diferencial arrastra su factor constante, que sale afuera de la integral.\n$$\\int e^{4x+1}\\,dx=\\frac{1}{4}\\int e^u\\,du$$\nEl cuarto se queda ahí hasta el final del procedimiento, sin volver a tocarse.\n\nLo que sigue ya es una entrada de tabla, pero el ajuste del diferencial se decide en este paso: saltearlo acá arrastra el error hasta el resultado.",
     "reviewed": false,
     "tags": [
       "sustitucion-lineal-inmediata"
     ]
   },
   {
-    "question": "El argumento de este coseno lleva un coeficiente que hay que compensar al integrar:\n$$\\int \\cos(3x)\\,dx$$\n¿Cuál es el resultado de esta integral?",
+    "question": "Alguien resolvió esta integral en un solo paso:\n$$\\int (2x-1)^5\\,dx=\\frac{(2x-1)^6}{6}+C$$\n¿Qué falla en esa resolución?",
     "options": [
-      "$\\sin(3x)+C$",
-      "$\\frac{1}{3}\\sin(3x)+C$",
-      "$-\\frac{1}{3}\\sin(3x)+C$",
-      "$\\frac{1}{3}\\cos(3x)+C$"
+      "El exponente de la potencia",
+      "El ajuste del diferencial",
+      "La constante de integración",
+      "El signo de la primitiva"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Correcto, la primitiva del coseno es el seno, sin signo negativo, dividida por el coeficiente $3$.",
+    "feedback_correct": "Correcto, al derivar el resultado propuesto aparece un factor de más que nadie compensó.",
     "feedback_incorrect": [
-      "Te faltó dividir por el coeficiente $3$, la sustitución $u=3x$ da $du=3\\,dx$, así que $dx=\\frac{1}{3}du$.",
+      "El exponente está bien, integrar una potencia sube el grado de $5$ a $6$.",
       null,
-      "La primitiva de $\\cos u$ es $\\sin u$, sin signo negativo, ese signo corresponde a la primitiva del seno.",
-      "Esa es la función original, no su primitiva, la primitiva del coseno es el seno."
+      "La constante figura en el resultado propuesto, que ya termina con $+C$.",
+      "El signo está bien, una potencia de exponente positivo no cambia de signo al integrarse."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=3x$, con $du=3\\,dx$.\n$$\\begin{aligned} \\int \\cos(3x)\\,dx &= \\int \\cos u \\cdot \\frac{1}{3}\\,du \\\\ &= \\frac{1}{3}\\sin u + C \\end{aligned}$$\nVolvemos a la variable original reemplazando $u$: la primitiva del coseno es el seno, sin ningún signo negativo.\n\nEl coeficiente que multiplicaba a $x$ dentro de la sustitución queda dividiendo al resultado final, tal como exige el ajuste del diferencial.",
+    "explanation": "Derivar el resultado propuesto es la forma más rápida de ver la fisura. La regla de la cadena devuelve el coeficiente del interior:\n$$\\frac{d}{dx}\\frac{(2x-1)^6}{6}=2(2x-1)^5$$\nAparece un factor que el integrando original no tenía.\n\nEse factor es el que la **sustitución** obliga a compensar. El despeje del diferencial deja un medio multiplicando afuera, y ese medio es el que cambia el denominador final.\n$$\\int (2x-1)^5\\,dx=\\frac{(2x-1)^6}{12}+C$$\nEl denominador combina el exponente nuevo con el coeficiente del interior.\n\nEl exponente y la constante de integración del planteo estaban bien resueltos: lo único que se salteó fue el paso del diferencial.",
     "reviewed": false,
     "tags": [
       "sustitucion-lineal-inmediata"
     ]
   },
   {
-    "question": "Esta integral eleva un binomio lineal a la quinta potencia:\n$$\\int (2x-1)^5\\,dx$$\n¿A qué expresión es igual esta integral?",
+    "question": "Derivando esta expresión se recupera el integrando de una integral:\n$$F(x)=\\frac{1}{3}\\sin(3x)$$\n¿Cuál es esa integral?",
     "options": [
-      "$(2x-1)^6+C$",
-      "$6(2x-1)^6+C$",
-      "$\\frac{(2x-1)^6}{12}+C$",
-      "$\\frac{(2x-1)^6}{6}+C$"
+      "$\\int \\sin(3x)\\,dx$",
+      "$\\int 3\\cos(3x)\\,dx$",
+      "$\\int \\cos(3x)\\,dx$",
+      "$\\int \\frac{1}{3}\\cos(3x)\\,dx$"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Correcto, el coeficiente $2$ del interior se combina con el $6$ del exponente nuevo.",
+    "feedback_correct": "Correcto, el tercio de afuera se cancela con el $3$ que baja al derivar el interior.",
     "feedback_incorrect": [
-      "Hay que dividir por el nuevo exponente y por el coeficiente de la sustitución, ambos factores se combinan en el denominador.",
-      "El resultado se divide, no se multiplica, revisá el ajuste del diferencial y de la regla de la potencia.",
+      "Esa integral tendría por primitiva un coseno con signo negativo, no un seno.",
+      "Con ese $3$ de más la primitiva quedaría $\\sin(3x)$, sin ningún tercio delante.",
       null,
-      "Hay que dividir también por el coeficiente $2$ de la sustitución, no solo por el nuevo exponente."
+      "Ese tercio extra en el integrando llevaría a un noveno en la primitiva."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=2x-1$, con $du=2\\,dx$.\n$$\\begin{aligned} \\int (2x-1)^5\\,dx &= \\int u^5 \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\cdot\\frac{u^6}{6} + C \\end{aligned}$$\nVolvemos a la variable original reemplazando $u$: el denominador final $12$ combina el coeficiente de la sustitución con el nuevo exponente.",
+    "explanation": "Verificar una primitiva sale mucho más barato que calcularla: alcanza con derivar y comparar contra el integrando.\n$$F'(x)=\\frac{1}{3}\\cdot 3\\cos(3x)=\\cos(3x)$$\nEl $3$ que baja por la regla de la cadena cancela exactamente el tercio que estaba afuera.\n\nEsa cancelación es la firma de la **sustitución lineal**: cuando el interior lleva un coeficiente, la primitiva lo compensa dividiendo, y al derivar los dos factores se anulan entre sí.\n\nSin ese tercio delante, la derivada devolvería un coseno multiplicado por tres, que ya no coincide con ningún integrando de la lista.",
     "reviewed": false,
     "tags": [
       "sustitucion-lineal-inmediata"
     ]
   },
   {
-    "question": "El argumento de este seno es la variable multiplicada por $5$:\n$$\\int \\sin(5x)\\,dx$$\n¿Cuál es su resultado?",
+    "question": "En la siguiente integral el cambio de variable ya está hecho, con $u=2x-1$:\n$$\\int \\cos(2x-1)\\,dx$$\n¿Cómo queda la integral escrita en $u$?",
     "options": [
-      "$\\frac{1}{5}\\cos(5x)+C$",
-      "$-\\frac{1}{5}\\sin(5x)+C$",
-      "$-\\cos(5x)+C$",
-      "$-\\frac{1}{5}\\cos(5x)+C$"
+      "$2\\int \\cos u\\,du$",
+      "$\\int \\cos u\\,du$",
+      "$\\frac{1}{2}\\int \\cos u\\,dx$",
+      "$\\frac{1}{2}\\int \\cos u\\,du$"
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Correcto, la primitiva del seno lleva signo negativo, dividida por el coeficiente $5$.",
+    "feedback_correct": "Correcto, el coeficiente del interior deja un medio afuera y el diferencial pasa a ser $du$.",
     "feedback_incorrect": [
-      "Te faltó el signo negativo, la primitiva de $\\sin u$ es $-\\cos u$, ese signo no se puede omitir.",
-      "Esa es la función original, no su primitiva, la primitiva del seno es el coseno con signo negativo.",
-      "Te faltó dividir por el coeficiente $5$, la sustitución $u=5x$ da $du=5\\,dx$, así que $dx=\\frac{1}{5}du$.",
+      "Ese $2$ multiplicando es el que aparece al derivar, al despejar el diferencial queda dividiendo.",
+      "Ahí quedó sin aplicar el ajuste del diferencial, el coeficiente del interior no se puede ignorar.",
+      "Si el integrando ya está escrito en $u$, el diferencial también tiene que ser $du$.",
       null
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=5x$, con $du=5\\,dx$.\n$$\\begin{aligned} \\int \\sin(5x)\\,dx &= \\int \\sin u \\cdot \\frac{1}{5}\\,du \\\\ &= -\\frac{1}{5}\\cos u + C \\end{aligned}$$\nVolvemos a la variable original reemplazando $u$: la primitiva del seno lleva signo negativo, sin perderlo al dividir por el coeficiente, un descuido frecuente al trabajar rápido.",
+    "explanation": "El término constante del interior no interviene en el diferencial. Derivando $u=2x-1$ queda $du=2\\,dx$, y el ajuste sale de ahí:\n$$dx=\\frac{1}{2}\\,du$$\nEl $-1$ desaparece del ajuste porque la derivada de una constante es cero.\n\nReemplazando el interior por la variable auxiliar y el diferencial por su despeje, el integrando entero colapsa a una entrada de tabla con un factor constante delante.\n$$\\int \\cos(2x-1)\\,dx=\\frac{1}{2}\\int \\cos u\\,du$$\nEse medio se queda afuera hasta el final, sin volver a tocarse.\n\nMirar solo el coeficiente y no el término independiente es lo que vuelve idéntico este ajuste sin importar cuánto esté corrido el interior.",
     "reviewed": false,
     "tags": [
       "sustitucion-lineal-inmediata"
     ]
   },
   {
-    "question": "El exponente de esta exponencial lleva coeficiente negativo:\n$$\\int e^{-2x}\\,dx$$\n¿Cuál es el resultado de esta integral?",
+    "question": "Este desarrollo llega a un resultado muy parecido al correcto:\n$$\\int \\sin(5x)\\,dx=\\frac{1}{5}\\cos(5x)+C$$\n¿Dónde está la falla?",
     "options": [
-      "$-\\frac{1}{2}e^{-2x}+C$",
-      "$\\frac{1}{2}e^{-2x}+C$",
-      "$e^{-2x}+C$",
-      "$-2e^{-2x}+C$"
+      "El signo de la primitiva",
+      "El factor que quedó dividiendo",
+      "La constante de integración",
+      "El argumento del coseno"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, el signo negativo del coeficiente se conserva al dividir.",
+    "feedback_correct": "Correcto, la primitiva del seno es el coseno con signo negativo.",
     "feedback_incorrect": [
       null,
-      "Te faltó el signo negativo, la sustitución $u=-2x$ da $du=-2\\,dx$, ese signo se conserva en el ajuste.",
-      "Te faltó dividir por el coeficiente $-2$, la sustitución $u=-2x$ da $dx=-\\frac{1}{2}du$.",
-      "El coeficiente tiene que dividir, no multiplicar, revisá el ajuste del diferencial."
+      "El quinto está bien puesto, sale del despeje del diferencial y ahí no hay ningún error.",
+      "La constante figura al final del resultado propuesto.",
+      "El argumento se mantiene igual al integrar, el interior no cambia con la sustitución."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=-2x$, con $du=-2\\,dx$.\n$$\\begin{aligned} \\int e^{-2x}\\,dx &= \\int e^u \\cdot \\left(-\\frac{1}{2}\\right)\\,du \\\\ &= -\\frac{1}{2}e^u + C \\end{aligned}$$\nVolvemos a la variable original reemplazando $u$: el signo negativo del coeficiente se traslada directamente al resultado, como parte del factor que divide.",
+    "explanation": "Derivando el resultado propuesto aparece el desacuerdo:\n$$\\frac{d}{dx}\\frac{\\cos(5x)}{5}=-\\sin(5x)$$\nEl integrando de partida era un seno positivo, no uno negativo.\n\nEl quinto que divide está bien calculado, porque el interior aporta un factor cinco al derivar. Lo que se perdió es el signo que trae la primitiva del seno.\n$$\\int \\sin(5x)\\,dx=-\\frac{1}{5}\\cos(5x)+C$$\nLa compensación de la constante y el signo son dos ajustes independientes, y acá solo uno de los dos se hizo.\n\nEste par de funciones cambia de signo en un sentido y no en el otro, así que conviene fijar el signo derivando el resultado antes de darlo por bueno.",
     "reviewed": false,
     "tags": [
       "sustitucion-lineal-inmediata"
     ]
   },
   {
-    "question": "Esta integral eleva un binomio lineal a la cuarta potencia:\n$$\\int (3x+2)^4\\,dx$$\n¿A qué expresión es igual esta integral?",
+    "question": "Esta expresión se propone como resultado de una de las integrales de abajo:\n$$F(x)=-\\frac{1}{2}e^{-2x}$$\n¿De cuál de ellas?",
     "options": [
-      "$5(3x+2)^5+C$",
-      "$\\frac{(3x+2)^5}{15}+C$",
-      "$\\frac{(3x+2)^5}{5}+C$",
-      "$(3x+2)^5+C$"
+      "$\\int -2e^{-2x}\\,dx$",
+      "$\\int e^{-2x}\\,dx$",
+      "$\\int -\\frac{1}{2}e^{-2x}\\,dx$",
+      "$\\int e^{2x}\\,dx$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Correcto, el coeficiente $3$ del interior se combina con el $5$ del exponente nuevo.",
+    "feedback_correct": "Correcto, el $-2$ que baja al derivar cancela el medio negativo de afuera.",
     "feedback_incorrect": [
-      "El resultado se divide, no se multiplica, revisá el ajuste del diferencial y de la regla de la potencia.",
+      "Esa integral tendría por primitiva la exponencial sola, sin ningún factor delante.",
       null,
-      "Hay que dividir también por el coeficiente $3$ de la sustitución, no solo por el nuevo exponente.",
-      "Hay que dividir por el nuevo exponente y por el coeficiente de la sustitución, ambos factores se combinan en el denominador."
+      "Ese medio extra en el integrando llevaría a un cuarto en la primitiva.",
+      "El exponente positivo daría una primitiva creciente, con un medio positivo delante."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=3x+2$, con $du=3\\,dx$.\n$$\\begin{aligned} \\int (3x+2)^4\\,dx &= \\int u^4 \\cdot \\frac{1}{3}\\,du \\\\ &= \\frac{1}{3}\\cdot\\frac{u^5}{5} + C \\end{aligned}$$\nVolvemos a la variable original reemplazando $u$: el denominador final $15$ combina el coeficiente de la sustitución con el nuevo exponente.",
+    "explanation": "El chequeo es una sola derivada. La regla de la cadena baja el coeficiente del exponente como factor:\n$$F'(x)=-\\frac{1}{2}\\cdot(-2)e^{-2x}=e^{-2x}$$\nLos dos signos negativos se cancelan entre sí y el medio se va con el dos.\n\nEsa cancelación doble es lo que vuelve resbaladizo el sentido inverso: al integrar hay que dividir por un coeficiente **negativo**, y el signo del resultado sale justamente de ahí.\n\nCon un medio positivo delante, la derivada devolvería el integrando cambiado de signo y la verificación fallaría en el acto.",
     "reviewed": false,
     "tags": [
       "sustitucion-lineal-inmediata"
     ]
   },
   {
-    "question": "El argumento de este coseno combina un coeficiente con una constante:\n$$\\int \\cos(2x-1)\\,dx$$\n¿Cuál es su resultado?",
+    "question": "Esta integral se resolvió con el cambio $u=3x+2$:\n$$\\int (3x+2)^3\\,dx$$\nEl desarrollo quedó frenado en la variable auxiliar:\n$$\\frac{u^4}{12}+C$$\n¿Cuál es el resultado en la variable original?",
     "options": [
-      "$\\frac{1}{2}\\cos(2x-1)+C$",
-      "$\\sin(2x-1)+C$",
-      "$\\frac{1}{2}\\sin(2x-1)+C$",
-      "$-\\frac{1}{2}\\sin(2x-1)+C$"
+      "$\\frac{u^4}{12}+C$",
+      "$\\frac{(3x+2)^4}{4}+C$",
+      "$\\frac{(3x+2)^4}{12}+C$",
+      "$\\frac{3x^4+2}{12}+C$"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Correcto, la primitiva del coseno es el seno, sin signo negativo, dividida por el coeficiente $2$.",
+    "feedback_correct": "Correcto, todo el bloque $3x+2$ ocupa el lugar de $u$, sin repartirse.",
     "feedback_incorrect": [
-      "Esa es la función original, no su primitiva, la primitiva del coseno es el seno.",
-      "Te faltó dividir por el coeficiente $2$, la sustitución $u=2x-1$ da $du=2\\,dx$, así que $dx=\\frac{1}{2}du$.",
+      "La respuesta todavía está en la variable auxiliar, falta deshacer el cambio.",
+      "El denominador ya venía calculado desde antes, no se reduce al volver a la variable original.",
       null,
-      "La primitiva de $\\cos u$ es $\\sin u$, sin signo negativo, ese signo corresponde a la primitiva del seno."
+      "El cambio reemplaza el bloque entero, el coeficiente y la constante viajan dentro de la potencia."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=2x-1$, con $du=2\\,dx$.\n$$\\begin{aligned} \\int \\cos(2x-1)\\,dx &= \\int \\cos u \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\sin u + C \\end{aligned}$$\nVolvemos a la variable original reemplazando $u$: el término constante no afecta al **diferencial**, solo importa el coeficiente que multiplica a $x$.",
+    "explanation": "La variable auxiliar es un atajo de escritura, no la respuesta. Deshacer el cambio significa reemplazar cada $u$ por el bloque completo que lo definió:\n$$u=3x+2$$\nEl bloque entra dentro de la potencia, con coeficiente y constante incluidos.\n\nEl denominador ya está resuelto desde antes, porque combina el exponente nuevo con el coeficiente del interior, y no vuelve a cambiar en este paso.\n$$\\frac{u^4}{12}+C=\\frac{(3x+2)^4}{12}+C$$\nLo único que ocurre acá es un reemplazo, sin ninguna cuenta nueva.\n\nUna primitiva expresada en la variable auxiliar deja sin responder la pregunta original, que estaba planteada en la variable de partida.",
     "reviewed": false,
     "tags": [
       "sustitucion-lineal-inmediata"
     ]
   },
   {
-    "question": "Esta integral tiene el recíproco de un polinomio lineal:\n$$\\int \\frac{1}{2x+3}\\,dx$$\n¿Cuál es el resultado de esta integral?",
+    "question": "En este resultado hay una pieza que no llegó a escribirse:\n$$\\int \\frac{1}{2x+3}\\,dx=\\frac{1}{2}\\ln(2x+3)+C$$\n¿Qué pieza le falta?",
     "options": [
-      "$\\frac{1}{2}\\ln(2x+3)+C$",
-      "$\\ln|2x+3|+C$",
-      "$2\\ln|2x+3|+C$",
-      "$\\frac{1}{2}\\ln|2x+3|+C$"
+      "El factor que divide afuera",
+      "La constante de integración",
+      "La vuelta a la variable $x$",
+      "El valor absoluto del interior"
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Correcto, el logaritmo lleva valor absoluto y el coeficiente $2$ divide al resultado.",
+    "feedback_correct": "Correcto, un logaritmo que sale de integrar lleva siempre el valor absoluto de su interior.",
     "feedback_incorrect": [
-      "Te faltó el valor absoluto, $\\ln|2x+3|$ respeta el dominio completo de la función original.",
-      "Te faltó dividir por el coeficiente $2$, la sustitución $u=2x+3$ da $du=2\\,dx$, así que $dx=\\frac{1}{2}du$.",
-      "El coeficiente tiene que dividir, no multiplicar, revisá el ajuste del diferencial.",
+      "El medio está bien puesto, sale del despeje del diferencial.",
+      "La constante figura al final del resultado propuesto.",
+      "El resultado ya está escrito en la variable de partida, no quedó nada de la auxiliar.",
       null
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=2x+3$, con $du=2\\,dx$.\n$$\\begin{aligned} \\int \\frac{1}{2x+3}\\,dx &= \\int \\frac{1}{u} \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\ln|u| + C \\end{aligned}$$\nVolvemos a la variable original reemplazando $u$: el logaritmo lleva siempre valor absoluto, y el coeficiente de la sustitución queda dividiendo al resultado.",
+    "explanation": "El integrando existe tanto donde el interior es positivo como donde es negativo, y una primitiva tiene que servir en todo ese dominio.\n$$\\int \\frac{1}{2x+3}\\,dx=\\frac{1}{2}\\ln|2x+3|+C$$\nSin el valor absoluto, la expresión propuesta solo vale para la mitad del dominio.\n\nEl resto del desarrollo está bien resuelto: el cambio de variable deja un medio dividiendo y ese medio aparece intacto en el resultado. El único faltante es la barra que envuelve al interior.\n\nEsta omisión no se detecta derivando, porque las dos versiones tienen la misma derivada donde ambas están definidas. El valor absoluto va como parte de la fórmula, no como detalle opcional.",
     "reviewed": false,
     "tags": [
       "sustitucion-lineal-inmediata"
     ]
   },
   {
-    "question": "Esta integral multiplica un coseno de argumento cuadrático por una potencia lineal:\n$$\\int x\\cos(x^2)\\,dx$$\n¿A qué expresión es igual esta integral?",
+    "question": "El interior elegido acá es $u=x^2$, y su derivada asoma casi entera en el integrando:\n$$\\int x\\cos(x^2)\\,dx$$\n¿Cómo queda escrita en $u$?",
     "options": [
-      "$\\frac{1}{2}\\sin(x^2)+C$",
-      "$\\frac{1}{2}x\\sin(x^2)+C$",
-      "$\\sin(x^2)+C$",
-      "$\\frac{1}{2}\\sin(u)+C$"
+      "$\\frac{1}{2}\\int \\cos u\\,du$",
+      "$\\int x\\cos u\\,du$",
+      "$2\\int \\cos u\\,du$",
+      "$\\int \\cos u\\,du$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, el factor $x$ se absorbe por completo dentro de $du$.",
+    "feedback_correct": "Correcto, el factor suelto se absorbe entero dentro de $du$ y deja un medio afuera.",
     "feedback_incorrect": [
       null,
-      "La $x$ ya se absorbió dentro de $du=2x\\,dx$, no debería quedar suelta multiplicando en el resultado final.",
-      "Te faltó el factor $\\frac{1}{2}$ que aparece al despejar $x\\,dx$ en función de $du$.",
-      "Te faltó volver a la variable $x$, la respuesta final no puede quedar expresada en $u$."
+      "Esa $x$ ya se usó para armar $du$, no puede además quedar multiplicando adentro.",
+      "El $2$ aparece al derivar el interior, al despejar queda dividiendo y no multiplicando.",
+      "Ese medio del despeje quedó afuera, el diferencial pide el doble de lo que el integrando ofrece."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=x^2$, con $du=2x\\,dx$.\n$$\\begin{aligned} \\int x\\cos(x^2)\\,dx &= \\int \\cos u \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\sin u + C \\end{aligned}$$\nVolvemos a la variable original reemplazando $u$: la $x$ suelta ya se absorbió por completo dentro de la diferencial, no debe quedar multiplicando en el resultado.",
+    "explanation": "Derivando el interior se obtiene $du=2x\\,dx$, que es el doble de lo que el integrando ofrece. Despejando la parte que sí aparece:\n$$x\\,dx=\\frac{1}{2}\\,du$$\nEse bloque entero es el que se reemplaza, no la variable por separado.\n\nAl sustituir, la variable original desaparece por completo del integrando y queda una función de la auxiliar sola, que es la condición para que el cambio sirva de algo.\n$$\\int x\\cos(x^2)\\,dx=\\frac{1}{2}\\int \\cos u\\,du$$\nSi quedara algún resto de la variable vieja, el cambio estaría mal elegido.\n\nPensar el despeje sobre el bloque $x\\,dx$ y no sobre el diferencial solo es lo que evita arrastrar esos restos hasta el final.",
     "reviewed": false,
     "tags": [
       "sustitucion-grado-superior-trascendentes"
     ]
   },
   {
-    "question": "En esta fracción, el numerador coincide con la derivada del denominador:\n$$\\int \\frac{2x}{x^2+5}\\,dx$$\n¿Cuál es su resultado?",
+    "question": "Al derivar esta expresión aparece exactamente uno de estos integrandos:\n$$F(x)=\\ln|x^2+5|$$\n¿Cuál de las integrales es?",
     "options": [
-      "$\\ln|u|+C$",
-      "$\\ln|x^2+5|+C$",
-      "$\\ln(x^2+5)+C$",
-      "$\\frac{1}{2}\\ln|x^2+5|+C$"
+      "$\\int \\frac{1}{x^2+5}\\,dx$",
+      "$\\int \\frac{2x}{x^2+5}\\,dx$",
+      "$\\int \\frac{x}{x^2+5}\\,dx$",
+      "$\\int 2x\\ln|x^2+5|\\,dx$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Correcto, el numerador coincide exactamente con $du$, sin necesitar ningún ajuste extra.",
+    "feedback_correct": "Correcto, derivar un logaritmo deja la derivada de su interior en el numerador.",
     "feedback_incorrect": [
-      "Te faltó volver a la variable $x$, la respuesta final no puede quedar expresada en $u$.",
+      "Ese integrando no trae la derivada del interior arriba, y sin ella el logaritmo no aparece.",
       null,
-      "Te faltó el valor absoluto, $\\ln|x^2+5|$ respeta el dominio completo de la función original.",
-      "No hace falta ningún factor $\\frac{1}{2}$ acá, el numerador $2x\\,dx$ ya coincide exactamente con $du$."
+      "Con esa mitad arriba la primitiva llevaría un medio delante del logaritmo.",
+      "Al derivar un logaritmo el logaritmo desaparece, no queda multiplicando por nada."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=x^2+5$, con $du=2x\\,dx$, exactamente el numerador del integrando.\n$$\\begin{aligned} \\int \\frac{2x}{x^2+5}\\,dx &= \\int \\frac{1}{u}\\,du \\\\ &= \\ln|u| + C \\end{aligned}$$\nVolvemos a la variable original reemplazando $u$: como el numerador coincide exactamente con $du$, no hace falta ningún ajuste de constante adicional.",
+    "explanation": "Derivar un logaritmo devuelve una fracción con la derivada del interior arriba:\n$$F'(x)=\\frac{2x}{x^2+5}$$\nEso es precisamente el integrando que se estaba buscando.\n\nEste patrón tiene lugar propio dentro del método: cuando el numerador es, salvo constante, la derivada del denominador, la primitiva es un **logaritmo** y no una potencia.\n\nCon la mitad del numerador la primitiva llevaría un medio delante, y con un numerador sin ninguna relación con el denominador el patrón no aplicaría en absoluto.",
     "reviewed": false,
     "tags": [
       "sustitucion-grado-superior-trascendentes"
     ]
   },
   {
-    "question": "Esta integral combina un logaritmo con su propia derivada:\n$$\\int \\frac{\\ln x}{x}\\,dx$$\n¿Cuál es el resultado de esta integral?",
+    "question": "Una resolución de esta integral se quedó a un paso del final:\n$$\\int \\frac{\\ln x}{x}\\,dx=(\\ln x)^2+C$$\n¿Qué paso quedó sin hacer?",
     "options": [
-      "$\\frac{\\ln x^2}{2}+C$",
-      "$\\frac{u^2}{2}+C$",
-      "$\\frac{(\\ln x)^2}{2}+C$",
-      "$(\\ln x)^2+C$"
+      "Volver a la variable original",
+      "Ajustar el diferencial",
+      "Dividir por el exponente nuevo",
+      "Poner el valor absoluto"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Correcto, la potencia de $u$ se divide por el nuevo exponente antes de volver a $x$.",
+    "feedback_correct": "Correcto, integrar una potencia sube el exponente y además divide por ese exponente nuevo.",
     "feedback_incorrect": [
-      "El cuadrado corresponde a $(\\ln x)^2$, todo el logaritmo elevado al cuadrado, no al cuadrado dentro del logaritmo.",
-      "Te faltó volver a la variable $x$, la respuesta final no puede quedar expresada en $u$.",
+      "El resultado ya está escrito con la variable original adentro, no quedó nada auxiliar.",
+      "El diferencial cierra exacto acá, la derivada del logaritmo es justo lo que lo acompaña.",
       null,
-      "Hay que dividir por el nuevo exponente, $2$, ese paso es parte de la regla de la potencia aplicada a $u$."
+      "El valor absoluto aparece cuando la primitiva es un logaritmo, y acá la primitiva es una potencia."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=\\ln x$, con $du=dx/x$, exactamente el resto del integrando.\n$$\\begin{aligned} \\int \\frac{\\ln x}{x}\\,dx &= \\int u\\,du \\\\ &= \\frac{u^2}{2} + C \\end{aligned}$$\nVolvemos a la variable original reemplazando $u$: la potencia se divide por el nuevo exponente antes de expresar la primitiva en $x$.",
+    "explanation": "Con el interior elegido, el resto del integrando es exactamente su derivada, así que la integral colapsa a una potencia simple:\n$$\\int u\\,du$$\nIntegrar esa potencia sube el exponente a $2$ y divide por ese mismo $2$.\n\nEl resultado propuesto hizo la mitad del trabajo, porque subió el exponente pero no dividió.\n$$\\int \\frac{\\ln x}{x}\\,dx=\\frac{(\\ln x)^2}{2}+C$$\nDerivar la versión sin denominador devuelve el doble del integrando original.\n\nLa regla de la potencia viene siempre en dos movimientos, y el segundo se saltea con facilidad cuando el exponente de partida es un $1$ invisible.",
     "reviewed": false,
     "tags": [
       "sustitucion-grado-superior-trascendentes"
     ]
   },
   {
-    "question": "Esta integral multiplica el cubo del seno por un coseno:\n$$\\int \\sin^3 x \\cos x\\,dx$$\n¿A qué expresión es igual esta integral?",
+    "question": "Con $u=\\sin x$, el otro factor del integrando es justo lo que hace falta:\n$$\\int \\sin^3 x\\cos x\\,dx$$\n¿En qué queda convertida?",
     "options": [
-      "$\\sin^4 x+C$",
-      "$\\frac{\\cos^4 x}{4}+C$",
-      "$\\frac{u^4}{4}+C$",
-      "$\\frac{\\sin^4 x}{4}+C$"
+      "$\\int u^3\\cos u\\,du$",
+      "$\\frac{1}{3}\\int u^3\\,du$",
+      "$\\int u^3\\,dx$",
+      "$\\int u^3\\,du$"
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Correcto, la potencia de $u$ se divide por el nuevo exponente antes de volver a $x$.",
+    "feedback_correct": "Correcto, el coseno se va entero dentro de $du$ y no queda ningún factor suelto.",
     "feedback_incorrect": [
-      "Hay que dividir por el nuevo exponente, $4$, ese paso es parte de la regla de la potencia aplicada a $u$.",
-      "La sustitución fue $u=\\sin x$, no $u=\\cos x$, el resultado tiene que quedar en términos de seno.",
-      "Te faltó volver a la variable $x$, la respuesta final no puede quedar expresada en $u$.",
+      "El coseno ya se consumió al formar $du$, no puede además quedar multiplicando.",
+      "Acá el diferencial cierra exacto, no hace falta compensar con ningún factor.",
+      "Si el integrando se escribió en la variable auxiliar, el diferencial también cambia.",
       null
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=\\sin x$, con $du=\\cos x\\,dx$, exactamente el otro factor del integrando.\n$$\\begin{aligned} \\int \\sin^3 x\\cos x\\,dx &= \\int u^3\\,du \\\\ &= \\frac{u^4}{4} + C \\end{aligned}$$\nVolvemos a la variable original reemplazando $u$: la potencia se divide por el nuevo exponente antes de volver a $x$.",
+    "explanation": "Derivando el interior aparece justo el factor que sobraba en el integrando:\n$$du=\\cos x\\,dx$$\nEl coseno y el diferencial viejo forman juntos el diferencial nuevo, sin dejar resto.\n\nEse encaje exacto es lo que distingue este caso de los anteriores: cuando la derivada del interior está completa en el integrando, no hay ninguna constante que compensar.\n$$\\int \\sin^3 x\\cos x\\,dx=\\int u^3\\,du$$\nLo que queda es una potencia elemental en la variable auxiliar.\n\nBuscar primero si la derivada del interior ya está presente ahorra el paso de despejar, que es donde se cuelan los factores de más.",
     "reviewed": false,
     "tags": [
       "sustitucion-grado-superior-trascendentes"
     ]
   },
   {
-    "question": "Esta integral multiplica una exponencial de exponente cuadrático por una potencia lineal:\n$$\\int 2x\\,e^{x^2}\\,dx$$\n¿Cuál es su resultado?",
+    "question": "Una sola de estas integrales tiene a esta expresión como primitiva:\n$$F(x)=e^{x^2}$$\n¿Cuál de ellas es?",
     "options": [
-      "$e^{x^2}+C$",
-      "$2xe^{x^2}+C$",
-      "$\\frac{e^{x^2}}{2}+C$",
-      "$e^u+C$"
+      "$\\int 2xe^{x^2}\\,dx$",
+      "$\\int e^{x^2}\\,dx$",
+      "$\\int xe^{x^2}\\,dx$",
+      "$\\int 2xe^{2x}\\,dx$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, el factor $2x$ coincide exactamente con $du$, sin dejar ningún residuo.",
+    "feedback_correct": "Correcto, el factor $2x$ que baja por la cadena forma parte del integrando.",
     "feedback_incorrect": [
       null,
-      "La $x$ ya se absorbió dentro de $du=2x\\,dx$, no debería quedar suelta multiplicando en el resultado final.",
-      "No hace falta ningún factor $\\frac{1}{2}$ acá, el $2x\\,dx$ ya coincide exactamente con $du$.",
-      "Te faltó volver a la variable $x$, la respuesta final no puede quedar expresada en $u$."
+      "Al derivar la expresión aparece un factor que ese integrando no tiene.",
+      "Con la mitad del factor, la primitiva llevaría un medio delante de la exponencial.",
+      "Ese exponente es distinto, la expresión dada tiene el cuadrado de la variable arriba."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=x^2$, con $du=2x\\,dx$, exactamente el factor que acompaña a la exponencial.\n$$\\begin{aligned} \\int 2xe^{x^2}\\,dx &= \\int e^u\\,du \\\\ &= e^u + C \\end{aligned}$$\nVolvemos a la variable original reemplazando $u$: como el factor multiplicador coincide exactamente con $du$, no hace falta ningún ajuste de constante.",
+    "explanation": "Derivar una exponencial compuesta baja la derivada del exponente como factor:\n$$F'(x)=2xe^{x^2}$$\nEse factor no es un adorno, es la parte del integrando que vuelve posible la sustitución.\n\nEl encaje funciona en los dos sentidos. Al integrar, el factor se absorbe dentro del diferencial y la exponencial queda sola en la variable auxiliar, lista para la tabla.\n\nSin ese acompañamiento el integrando ya no responde a este método, y cambiar la exponencial por otra cualquiera rompe la correspondencia por completo.",
     "reviewed": false,
     "tags": [
       "sustitucion-grado-superior-trascendentes"
     ]
   },
   {
-    "question": "En esta fracción, el numerador es la derivada del denominador:\n$$\\int \\frac{\\cos x}{\\sin x}\\,dx$$\n¿Cuál es el resultado de esta integral?",
+    "question": "El resultado de esta resolución no se corresponde con el integrando de partida:\n$$\\int \\frac{\\cos x}{\\sin x}\\,dx=\\ln|\\cos x|+C$$\n¿Dónde está el error?",
     "options": [
-      "$\\ln|u|+C$",
-      "$\\ln|\\sin x|+C$",
-      "$\\ln(\\sin x)+C$",
-      "$\\ln|\\cos x|+C$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Correcto, el numerador coincide exactamente con $du$ cuando $u=\\sin x$.",
-    "feedback_incorrect": [
-      "Te faltó volver a la variable $x$, la respuesta final no puede quedar expresada en $u$.",
-      null,
-      "Te faltó el valor absoluto, $\\ln|\\sin x|$ respeta el dominio completo de la función original.",
-      "La sustitución fue $u=\\sin x$, no $u=\\cos x$, el resultado tiene que quedar en términos de seno."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Identificamos $u=\\sin x$, con $du=\\cos x\\,dx$, exactamente el numerador de la fracción.\n$$\\begin{aligned} \\int \\frac{\\cos x}{\\sin x}\\,dx &= \\int \\frac{1}{u}\\,du \\\\ &= \\ln|u| + C \\end{aligned}$$\nVolvemos a la variable original reemplazando $u$: este patrón, donde el numerador es la derivada del denominador, siempre dispara el logaritmo con valor absoluto.",
-    "reviewed": false,
-    "tags": [
-      "sustitucion-grado-superior-trascendentes"
-    ]
-  },
-  {
-    "question": "En esta fracción, el numerador es un múltiplo de la derivada del denominador:\n$$\\int \\frac{4x}{x^2-3}\\,dx$$\n¿A qué expresión es igual esta integral?",
-    "options": [
-      "$2\\ln|x^2-3|$",
-      "$4\\ln|x^2-3|+C$",
-      "$2\\ln|x^2-3|+C$",
-      "$2\\ln(x^2-3)+C$"
+      "Falta el ajuste del diferencial",
+      "Falta la constante de integración",
+      "Se sustituyó la parte equivocada",
+      "Falta un signo negativo"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Correcto, el numerador aporta un factor $2$ extra respecto de $du$.",
+    "feedback_correct": "Correcto, el interior tiene que ser el denominador, cuya derivada es el numerador.",
     "feedback_incorrect": [
-      "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa.",
-      "El factor correcto es $2$, no $4$, revisá la comparación entre el numerador y $du$.",
+      "El diferencial cierra exacto en este caso, no hay ninguna constante que compensar.",
+      "La constante está puesta al final del resultado propuesto.",
       null,
-      "Te faltó el valor absoluto, $\\ln|x^2-3|$ respeta el dominio completo de la función original."
+      "Acá no aparece ningún signo negativo, ni al elegir el interior ni al integrar."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=x^2-3$, con $du=2x\\,dx$.\n$$\\begin{aligned} \\int \\frac{4x}{x^2-3}\\,dx &= \\int \\frac{2}{u}\\,du \\\\ &= 2\\ln|u| + C \\end{aligned}$$\nVolvemos a la variable original: el numerador aporta un factor $2$ extra respecto de $du$, que queda como coeficiente del logaritmo final en vez de perderse en el despeje.",
+    "explanation": "El patrón que dispara el logaritmo pide que el numerador sea la derivada del denominador, así que el interior tiene que ser el denominador:\n$$u=\\sin x$$\nCon esa elección el numerador entero se convierte en el diferencial nuevo.\n\nLa resolución propuesta tomó el numerador como interior, que es justo al revés. Derivando ese resultado se obtiene una tangente con el signo cambiado, no la fracción original.\n$$\\int \\frac{\\cos x}{\\sin x}\\,dx=\\ln|\\sin x|+C$$\nEl denominador es el que termina adentro del logaritmo, siempre.\n\nDecidir cuál de las dos partes va adentro se resuelve mirando cuál de ellas tiene a la otra por derivada.",
+    "reviewed": false,
+    "tags": [
+      "sustitucion-grado-superior-trascendentes"
+    ]
+  },
+  {
+    "question": "El numerador de esta fracción trae más de lo que el interior $u=x^2-3$ necesita:\n$$\\int \\frac{4x}{x^2-3}\\,dx$$\n¿Cómo queda la integral en $u$?",
+    "options": [
+      "$\\int \\frac{1}{u}\\,du$",
+      "$\\int \\frac{2}{u}\\,du$",
+      "$\\int \\frac{4}{u}\\,du$",
+      "$\\frac{1}{2}\\int \\frac{1}{u}\\,du$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, el numerador equivale a dos veces lo que aporta el diferencial.",
+    "feedback_incorrect": [
+      "Ese sería el caso en que el numerador coincide exacto con el diferencial, y acá sobra.",
+      null,
+      "El cuatro no pasa entero, parte de él se consume al formar el diferencial.",
+      "El factor sobrante queda multiplicando, porque arriba hay de más y no de menos."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La derivada del interior es $2x$, y el numerador trae el doble de eso. Comparando las dos cantidades:\n$$4x\\,dx=2\\,du$$\nEl factor sobrante es un dos que queda multiplicando, no dividiendo.\n\nEsa es la diferencia con los casos donde hay que compensar: cuando el integrando ofrece **menos** de lo que el diferencial pide aparece una fracción afuera, y cuando ofrece de más aparece un entero.\n$$\\int \\frac{4x}{x^2-3}\\,dx=\\int \\frac{2}{u}\\,du$$\nDe ahí en adelante ya es una entrada de tabla con un coeficiente delante.\n\nComparar el numerador contra la derivada del interior antes de escribir nada evita invertir ese factor, que cambia por completo el resultado final.",
     "reviewed": false,
     "tags": [
       "sustitucion-grado-superior-trascendentes"

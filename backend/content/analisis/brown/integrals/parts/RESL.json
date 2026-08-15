@@ -1,374 +1,374 @@
 [
   {
-    "question": "Este integrando multiplica un polinomio simple por una función trigonométrica:\n$$\\int x\\sin x\\,dx$$\n¿Cuál es su resultado?",
+    "question": "En esta integral se tomó $u=x$ y $dv=\\sin x\\,dx$:\n$$\\int x\\sin x\\,dx$$\n¿Cómo queda armada la fórmula de partes?",
     "options": [
-      "$-x\\cos x+\\sin x+C$",
-      "$x\\cos x+\\sin x+C$",
-      "$-x\\cos x-\\sin x+C$",
-      "$-x\\cos x+\\sin x$"
+      "$-x\\cos x+\\int \\cos x\\,dx$",
+      "$-x\\cos x-\\int \\cos x\\,dx$",
+      "$x\\cos x-\\int \\cos x\\,dx$",
+      "$-x\\cos x+\\int x\\cos x\\,dx$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, el signo negativo de la fórmula y el de la primitiva del seno se combinan correctamente.",
+    "feedback_correct": "Correcto, los dos signos negativos se cruzan y el segundo término termina sumando.",
     "feedback_incorrect": [
       null,
-      "Te faltó el signo negativo del término $uv$, la fórmula es $uv-\\int v\\,du$, con signo negativo.",
-      "El signo del segundo término es positivo, revisá el desarrollo de la integral remanente.",
-      "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa."
+      "Quedó un solo signo negativo, pero acá se cruzan dos, el de la fórmula y el que trae la parte integrada.",
+      "El producto de afuera hereda el signo negativo de la parte integrada, y ahí sí queda restando.",
+      "La parte que se deriva ya se convirtió en un diferencial simple, no puede seguir multiplicando adentro."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=x$, $dv=\\sin x\\,dx$.\n\nDe ahí, $du=dx$ y $v=-\\cos x$.\n$$\\begin{aligned} \\int x\\sin x\\,dx &= x(-\\cos x) - \\int (-\\cos x)\\,dx \\\\ &= -x\\cos x + \\int \\cos x\\,dx \\\\ &= -x\\cos x+\\sin x+C \\end{aligned}$$\nEl signo negativo de la fórmula se combina con el de la primitiva del seno, dando un segundo término positivo, doble atención al signo en este tipo de ítem.",
+    "explanation": "La fórmula de **integración por partes** reparte el integrando en dos roles y arma el resultado con una resta en el medio:\n$$\\int u\\,dv=uv-\\int v\\,du$$\nCon lo elegido acá, la parte que se integra da $v=-\\cos x$.\n\nEse valor negativo entra dos veces: una en el producto de afuera y otra dentro de la integral que queda, donde se cruza con la resta de la fórmula.\n$$-x\\cos x+\\int \\cos x\\,dx$$\nDos signos negativos multiplicados dan un más, y por eso el segundo término suma.\n\nArmar la fórmula y resolver la integral remanente son dos pasos separados, y acá el trabajo termina en el primero.",
     "reviewed": false,
     "tags": [
       "aplicacion-directa-una-iteracion"
     ]
   },
   {
-    "question": "El exponente de esta exponencial lleva un coeficiente que hay que compensar:\n$$\\int xe^{2x}\\,dx$$\n¿Cuál es su resultado?",
+    "question": "Para armar la fórmula hace falta integrar la parte elegida como $dv=e^{2x}\\,dx$:\n$$\\int xe^{2x}\\,dx$$\n¿Cuánto vale $v$?",
     "options": [
-      "$\\frac{xe^{2x}}{2}-e^{2x}+C$",
-      "$\\frac{e^{2x}(2x-1)}{4}+C$",
-      "$xe^{2x}-\\frac{e^{2x}}{2}+C$",
-      "$\\frac{e^{2x}(2x+1)}{4}+C$"
+      "$2e^{2x}$",
+      "$\\frac{e^{2x}}{2}$",
+      "$e^{2x}$",
+      "$\\frac{xe^{2x}}{2}$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Correcto, el factor $\\frac{1}{2}$ se arrastra en ambos términos, y factorizando $\\frac{e^{2x}}{4}$ queda esta forma compacta.",
+    "feedback_correct": "Correcto, el coeficiente del exponente queda dividiendo al integrar.",
     "feedback_incorrect": [
-      "Hay que dividir una vez más por $2$ en el segundo término, ese factor sale de integrar $e^{2x}$.",
+      "Ese dos multiplicando aparece al derivar, y acá el paso es el inverso.",
       null,
-      "Te faltó el factor $\\frac{1}{2}$ que sale de integrar $e^{2x}$, ese ajuste se arrastra en ambos términos.",
-      "Te faltó el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
+      "El coeficiente del exponente no se puede ignorar, integrar deja un medio delante.",
+      "La parte que se deriva no interviene en este paso, solo se integra lo que forma el diferencial."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=x$, $dv=e^{2x}\\,dx$.\n\nDe ahí, $du=dx$ y $v=e^{2x}/2$.\n$$\\begin{aligned} \\int xe^{2x}\\,dx &= x\\cdot\\frac{e^{2x}}{2} - \\int \\frac{e^{2x}}{2}\\,dx \\\\ &= \\frac{xe^{2x}}{2} - \\frac{1}{2}\\cdot\\frac{e^{2x}}{2} \\\\ &= \\frac{xe^{2x}}{2}-\\frac{e^{2x}}{4}+C \\\\ &= \\frac{e^{2x}(2x-1)}{4}+C \\end{aligned}$$\nEl factor que aparece al integrar $e^{2x}$ se arrastra en ambos términos del resultado final, no solo en el primero.",
+    "explanation": "La parte elegida como $dv$ se integra para obtener $v$, y ahí aparece la misma compensación de constante que en cualquier exponencial con coeficiente:\n$$v=\\int e^{2x}\\,dx=\\frac{e^{2x}}{2}$$\nEl dos del exponente queda dividiendo, nunca multiplicando.\n\nEse medio no se queda quieto: viaja al producto de afuera y también al integrando que queda pendiente, así que un descuido en este paso se propaga a los dos términos del resultado final.\n\nPara armar la fórmula alcanza con una sola de las infinitas primitivas posibles, así que este paso no lleva constante de integración.",
     "reviewed": false,
     "tags": [
       "aplicacion-directa-una-iteracion"
     ]
   },
   {
-    "question": "Este integrando multiplica un polinomio simple por un coseno:\n$$\\int x\\cos x\\,dx$$\n¿Cuál es el resultado de esta integral?",
+    "question": "Derivando esta expresión se recupera el integrando de una de estas integrales:\n$$F(x)=x\\sin x+\\cos x$$\n¿Cuál de ellas es?",
     "options": [
-      "$-x\\sin x+\\cos x+C$",
-      "$x\\cos x+\\sin x+C$",
-      "$x\\sin x+\\cos x+C$",
-      "$x\\sin x-\\cos x+C$"
+      "$\\int x\\sin x\\,dx$",
+      "$\\int \\sin x\\,dx$",
+      "$\\int x\\cos x\\,dx$",
+      "$\\int (x\\sin x+\\cos x)\\,dx$"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Correcto, la primitiva del coseno es el seno sin signo, y la del seno lleva signo negativo.",
+    "feedback_correct": "Correcto, los dos senos se cancelan y sobrevive el producto con el coseno.",
     "feedback_incorrect": [
-      "Te faltó el signo positivo del término $uv$, revisá la fórmula $uv-\\int v\\,du$ con cuidado.",
-      "Confundiste seno con coseno en la elección de $v$, revisá cuál función corresponde a cada rol.",
+      "Esa integral daría un resultado con el coseno y el signo cambiado, no este.",
+      "Sin ningún producto en el integrando, la expresión candidata no podría tener un término con la variable.",
       null,
-      "El signo de la primitiva del coseno es positivo, revisá el desarrollo de la integral remanente."
+      "Integrar esa expresión sería empezar de nuevo, no verificar lo que ya está escrito."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=x$, $dv=\\cos x\\,dx$.\n\nDe ahí, $du=dx$ y $v=\\sin x$.\n$$\\begin{aligned} \\int x\\cos x\\,dx &= x\\sin x - \\int \\sin x\\,dx \\\\ &= x\\sin x - (-\\cos x) \\\\ &= x\\sin x+\\cos x+C \\end{aligned}$$\nEl doble signo negativo de este desarrollo, el de la fórmula y el de la primitiva del seno, se cancela dando un segundo término positivo.",
+    "explanation": "Verificar sale mucho más barato que resolver: alcanza con derivar la expresión candidata y comparar contra la lista.\n$$F'(x)=\\sin x+x\\cos x-\\sin x$$\nLos dos senos se cancelan entre sí y queda el producto original.\n\nEsa cancelación es la marca de la **integración por partes** leída al revés: el término que sobra al derivar el producto de afuera es el que la integral remanente había aportado.\n\nCon el seno en el integrando el resultado tendría el coseno y otro signo, y sin ningún producto la derivada no dejaría ninguna variable suelta.",
     "reviewed": false,
     "tags": [
       "aplicacion-directa-una-iteracion"
     ]
   },
   {
-    "question": "Este integrando multiplica la variable por la exponencial de base $e$:\n$$\\int xe^x\\,dx$$\n¿Cuál es su resultado?",
+    "question": "Alguien resolvió esta integral y llegó a este resultado:\n$$\\int xe^x\\,dx=xe^x+e^x+C$$\n¿Qué falla en esa resolución?",
     "options": [
-      "$xe^x+e^x+C$",
-      "$e^x-xe^x+C$",
-      "$xe^x-e^x$",
-      "$xe^x-e^x+C$"
+      "La elección de $u$ y $dv$",
+      "La primitiva de la exponencial",
+      "La constante de integración",
+      "El signo entre los dos términos"
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Correcto, la fórmula resta el término $\\int v\\,du$, dejando $-e^x$.",
+    "feedback_correct": "Correcto, la fórmula resta la integral remanente y esa resta llega hasta el final.",
     "feedback_incorrect": [
-      "Te faltó el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
-      "El orden y el signo de los términos están alterados, revisá el desarrollo completo de la fórmula.",
-      "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa.",
+      "El reparto de roles está bien hecho, la parte polinómica es la que conviene derivar.",
+      "La exponencial de base natural es su propia primitiva, y ahí no hay ningún error.",
+      "La constante figura al final del resultado propuesto.",
       null
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=x$, $dv=e^x\\,dx$.\n\nDe ahí, $du=dx$ y $v=e^x$.\n$$\\begin{aligned} \\int xe^x\\,dx &= xe^x - \\int e^x\\,dx \\\\ &= xe^x-e^x+C \\end{aligned}$$\nEste es el caso más simple de la fórmula, sin ningún ajuste de constante, ya que la exponencial de base $e$ es su propia primitiva.\n\nNi el término $uv$ ni la integral remanente necesitan ningún coeficiente extra, a diferencia de lo que ocurre con exponenciales de otra base.",
+    "explanation": "Derivando el resultado propuesto se ve el desacuerdo enseguida:\n$$\\frac{d}{dx}\\left(xe^x+e^x\\right)=xe^x+2e^x$$\nEl integrando de partida no tenía ningún término suelto de más.\n\nLa fórmula lleva una resta entre el producto de afuera y la integral remanente, y esa resta sobrevive hasta el final porque la integral que queda es una exponencial sin ningún signo propio.\n$$\\int xe^x\\,dx=xe^x-e^x+C$$\nEl reparto de roles y la primitiva de la exponencial estaban bien resueltos.\n\nCuando los dos términos del resultado comparten la misma exponencial, el signo es lo único que los distingue, así que conviene fijarlo derivando.",
     "reviewed": false,
     "tags": [
       "aplicacion-directa-una-iteracion"
     ]
   },
   {
-    "question": "El exponente de esta exponencial lleva coeficiente negativo:\n$$\\int xe^{-x}\\,dx$$\n¿Cuál es el resultado de esta integral?",
+    "question": "Esta integral se abrió por partes, con $u=x$ y $dv=e^{-x}\\,dx$:\n$$\\int xe^{-x}\\,dx$$\nEl armado ya está hecho y queda un solo paso por delante:\n$$-xe^{-x}+\\int e^{-x}\\,dx$$\n¿Cuál es el resultado final?",
     "options": [
       "$-xe^{-x}-e^{-x}+C$",
-      "$xe^{-x}-e^{-x}+C$",
       "$-xe^{-x}+e^{-x}+C$",
-      "$-xe^{-x}-e^{-x}$"
+      "$-xe^{-x}-e^{x}+C$",
+      "$xe^{-x}-e^{-x}+C$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, el signo negativo de $v=-e^{-x}$ se traslada a ambos términos.",
+    "feedback_correct": "Correcto, la primitiva de esa exponencial trae su propio signo negativo.",
     "feedback_incorrect": [
       null,
-      "Te faltó el signo negativo del término $uv$, revisá el cálculo de $v=-e^{-x}$.",
-      "Te faltó el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
-      "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa."
+      "La exponencial de exponente negativo cambia de signo al integrarse, y ese cambio llega al resultado.",
+      "El exponente no cambia de signo al integrar, solo aparece un factor delante.",
+      "El primer término venía del armado y ya tenía su signo definido, no se toca en este paso."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=x$, $dv=e^{-x}\\,dx$.\n\nDe ahí, $du=dx$ y $v=-e^{-x}$.\n$$\\begin{aligned} \\int xe^{-x}\\,dx &= x(-e^{-x}) - \\int (-e^{-x})\\,dx \\\\ &= -xe^{-x} + \\int e^{-x}\\,dx \\\\ &= -xe^{-x}-e^{-x}+C \\end{aligned}$$\nEl signo negativo del exponente arrastra un signo negativo en $v$, que se combina con el de la fórmula en el segundo término.",
+    "explanation": "La integral que quedó pendiente es una exponencial con coeficiente negativo en el exponente, así que su primitiva arrastra ese signo:\n$$\\int e^{-x}\\,dx=-e^{-x}$$\nDividir por menos uno es lo mismo que cambiar de signo.\n\nAl reemplazar ese resultado dentro del armado, el más que traía la fórmula y el menos de la primitiva se combinan en un único término negativo.\n$$-xe^{-x}-e^{-x}+C$$\nLos dos términos terminan con el mismo signo, aunque en el armado tenían signos distintos.\n\nCon un exponente negativo conviene contar los signos de a uno, porque se van acumulando en pasos distintos del procedimiento.",
     "reviewed": false,
     "tags": [
       "aplicacion-directa-una-iteracion"
     ]
   },
   {
-    "question": "Este integrando lleva un coeficiente que se arrastra durante todo el desarrollo:\n$$\\int 3x\\sin x\\,dx$$\n¿Cuál es su resultado?",
+    "question": "Una sola de estas integrales tiene esta expresión por resultado:\n$$F(x)=-3x\\cos x+3\\sin x$$\n¿Cuál es?",
     "options": [
-      "$-3x\\cos x+3\\sin x$",
-      "$-3x\\cos x+3\\sin x+C$",
-      "$3x\\cos x+3\\sin x+C$",
-      "$-3x\\cos x-3\\sin x+C$"
+      "$\\int 3x\\cos x\\,dx$",
+      "$\\int 3x\\sin x\\,dx$",
+      "$\\int -3x\\sin x\\,dx$",
+      "$\\int 3\\sin x\\,dx$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Correcto, el coeficiente $3$ se conserva en ambos términos del resultado.",
+    "feedback_correct": "Correcto, los dos cosenos se cancelan al derivar y queda el producto con el seno.",
     "feedback_incorrect": [
-      "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa.",
+      "Esa integral daría un resultado armado con el seno en el producto de afuera, no con el coseno.",
       null,
-      "Te faltó el signo negativo del término $uv$, la fórmula es $uv-\\int v\\,du$, con signo negativo.",
-      "El signo del segundo término es positivo, revisá el desarrollo de la integral remanente."
+      "Con ese signo en el integrando, los dos términos del resultado aparecerían cambiados.",
+      "Sin ningún producto en el integrando, el resultado no tendría un término con la variable multiplicando."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=3x$, $dv=\\sin x\\,dx$.\n\nDe ahí, $du=3\\,dx$ y $v=-\\cos x$.\n$$\\begin{aligned} \\int 3x\\sin x\\,dx &= 3x(-\\cos x) - \\int (-\\cos x)(3\\,dx) \\\\ &= -3x\\cos x + 3\\int \\cos x\\,dx \\\\ &= -3x\\cos x+3\\sin x+C \\end{aligned}$$\nEl coeficiente $3$ acompaña tanto al término $uv$ como a la integral remanente, sin perderse en ningún paso del desarrollo.",
+    "explanation": "Derivar el primer término pide la regla del producto, y el segundo sale directo:\n$$F'(x)=-3\\cos x+3x\\sin x+3\\cos x$$\nLos dos cosenos se cancelan entre sí y sobrevive el producto.\n\nEsa cancelación no es casualidad. Al integrar por partes, el término que aparece de más al derivar el producto de afuera es exactamente el que la integral remanente compensa, y por eso desaparece.\n\nEl coeficiente acompaña a los dos términos por igual, así que una expresión que lo tuviera en uno solo de ellos no podría venir de esta integral.",
     "reviewed": false,
     "tags": [
       "aplicacion-directa-una-iteracion"
     ]
   },
   {
-    "question": "Este integrando multiplica un polinomio con coeficiente por una exponencial:\n$$\\int 2xe^x\\,dx$$\n¿Cuál es el resultado de esta integral?",
+    "question": "Este resultado tiene un problema en uno de sus dos términos:\n$$\\int 2xe^x\\,dx=2xe^x-e^x+C$$\n¿En cuál y por qué?",
     "options": [
-      "$xe^x-2e^x+C$",
-      "$2xe^x-2e^x$",
-      "$2xe^x-2e^x+C$",
-      "$2xe^x+2e^x+C$"
+      "La elección de $u$ y $dv$",
+      "El signo entre los dos términos",
+      "El coeficiente del segundo término",
+      "La primitiva de la exponencial"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Correcto, el coeficiente $2$ se conserva en ambos términos del resultado.",
+    "feedback_correct": "Correcto, el coeficiente multiplica al integrando entero y reaparece en los dos términos.",
     "feedback_incorrect": [
-      "Te faltó el coeficiente $2$ en el primer término, ese factor viene de $u=2x$.",
-      "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa.",
+      "El reparto de roles está bien hecho, la parte polinómica es la que conviene derivar.",
+      "El signo negativo entre los dos términos es el que la fórmula pide.",
       null,
-      "Te faltó el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
+      "La exponencial de base natural es su propia primitiva, y ahí no hay ningún error."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=2x$, $dv=e^x\\,dx$.\n\nDe ahí, $du=2\\,dx$ y $v=e^x$.\n$$\\begin{aligned} \\int 2xe^x\\,dx &= 2xe^x - \\int e^x(2\\,dx) \\\\ &= 2xe^x - 2\\int e^x\\,dx \\\\ &= 2xe^x-2e^x+C \\end{aligned}$$\nEl coeficiente $2$ se traslada al $du$, y ese mismo factor termina multiplicando a la integral remanente completa, así que aparece dos veces en el resultado final.",
+    "explanation": "El coeficiente multiplica al integrando desde el principio, así que reaparece en los dos términos del resultado y no solo en el primero.\n$$\\int 2xe^x\\,dx=2xe^x-2e^x+C$$\nDerivando la versión propuesta sobra un término, señal de que el dos se perdió en el camino.\n\nLa fórmula reparte el integrando en un producto de afuera y una integral remanente. El coeficiente entra en los dos lados a la vez, porque estaba multiplicando a todo antes de que empezara el reparto.\n\nSacarlo afuera de la integral antes de arrancar evita el descuido, ya que después multiplica de una sola vez al resultado completo.",
     "reviewed": false,
     "tags": [
       "aplicacion-directa-una-iteracion"
     ]
   },
   {
-    "question": "Este integrando multiplica un binomio por un coseno:\n$$\\int (x+1)\\cos x\\,dx$$\n¿Cuál es su resultado?",
+    "question": "En la siguiente integral la parte elegida para derivar tiene dos términos, con $u=x+1$ y $dv=\\cos x\\,dx$:\n$$\\int (x+1)\\cos x\\,dx$$\n¿Cómo queda armada la fórmula?",
     "options": [
-      "$(x+1)\\sin x-\\cos x+C$",
-      "$-(x+1)\\sin x+\\cos x+C$",
-      "$(x+1)\\cos x+\\sin x+C$",
-      "$(x+1)\\sin x+\\cos x+C$"
+      "$(x+1)\\sin x+\\int \\sin x\\,dx$",
+      "$(x+1)\\cos x-\\int \\sin x\\,dx$",
+      "$(x+1)\\sin x-\\int (x+1)\\sin x\\,dx$",
+      "$(x+1)\\sin x-\\int \\sin x\\,dx$"
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Correcto, la primitiva del coseno es el seno sin signo, y la del seno lleva signo negativo.",
+    "feedback_correct": "Correcto, el bloque entero queda en el producto de afuera y su derivada lo reduce a uno adentro.",
     "feedback_incorrect": [
-      "El signo de la primitiva del coseno es positivo, revisá el desarrollo de la integral remanente.",
-      "Te faltó el signo positivo del término $uv$, revisá la fórmula $uv-\\int v\\,du$ con cuidado.",
-      "Confundiste seno con coseno en la elección de $v$, revisá cuál función corresponde a cada rol.",
+      "La fórmula resta la integral remanente, y acá ningún signo la cruza para volverla suma.",
+      "El producto de afuera lleva la parte ya integrada, que en este caso es un seno.",
+      "La parte que se deriva ya se convirtió en un diferencial simple, no puede seguir multiplicando adentro.",
       null
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=x+1$, $dv=\\cos x\\,dx$.\n\nDe ahí, $du=dx$ y $v=\\sin x$.\n$$\\begin{aligned} \\int (x+1)\\cos x\\,dx &= (x+1)\\sin x - \\int \\sin x\\,dx \\\\ &= (x+1)\\sin x - (-\\cos x) \\\\ &= (x+1)\\sin x+\\cos x+C \\end{aligned}$$\nEl término constante dentro de $u$ no complica el desarrollo, se arrastra igual que la parte lineal en todo el procedimiento.",
+    "explanation": "Que la parte a derivar tenga dos términos no cambia nada del procedimiento, porque su derivada sigue siendo un diferencial simple:\n$$du=dx$$\nLa parte que se integra da un seno, sin ningún signo negativo delante.\n\nCon esas dos piezas la fórmula arma el producto de afuera y resta la integral remanente, que ya no arrastra el bloque de dos términos porque la derivada lo redujo a uno.\n$$(x+1)\\sin x-\\int \\sin x\\,dx$$\nLa resta viene de la fórmula misma, sin ningún otro signo que la cruce.\n\nSostener el bloque completo dentro del producto de afuera, y no solo su primer término, es lo que mantiene consistente el armado.",
     "reviewed": false,
     "tags": [
       "aplicacion-directa-una-iteracion"
     ]
   },
   {
-    "question": "Este integrando parece una única función, sin ningún producto a la vista:\n$$\\int \\ln x\\,dx$$\n¿Cuál es el resultado de esta integral?",
+    "question": "Este integrando se puede leer como un producto aunque no lo parezca, con $u=\\ln x$ y $dv=1\\,dx$:\n$$\\int \\ln x\\,dx$$\n¿Cómo queda armada la fórmula?",
     "options": [
-      "$x\\ln x-x+C$",
-      "$\\frac{(\\ln x)^2}{2}+C$",
-      "$-x+C$",
-      "$x\\ln x+x+C$"
+      "$x\\ln x-\\int 1\\,dx$",
+      "$x\\ln x+\\int 1\\,dx$",
+      "$x\\ln x-\\int x\\,dx$",
+      "$x\\ln x-\\int \\frac{1}{x}\\,dx$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, con el factor oculto $dv=1\\,dx$ se obtiene $uv-\\int v\\,du = x\\ln x-x+C$.",
+    "feedback_correct": "Correcto, la variable se cancela con la derivada del logaritmo y adentro queda un uno.",
     "feedback_incorrect": [
       null,
-      "El logaritmo natural no está en la tabla de integrales inmediatas, hace falta partes con el factor oculto $dv=1\\,dx$.",
-      "Te faltó el término $uv=x\\ln x$, la fórmula da $uv-\\int v\\,du$, ambos términos aparecen en el resultado.",
-      "Te faltó el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
+      "La fórmula resta la integral remanente, y acá ningún signo la cruza para volverla suma.",
+      "La integral remanente lleva la parte integrada multiplicada por la derivada del logaritmo, y ese producto se simplifica.",
+      "Ahí quedó solo la derivada del logaritmo, sin la parte que ya se había integrado."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El $\\ln x$ solo no tiene primitiva directa de tabla, así que se resuelve con el **factor oculto**, tratando el integrando como multiplicado por $1$.\n$$\\begin{aligned} u &= \\ln x, \\quad dv = 1\\,dx \\\\ du &= \\frac{1}{x}\\,dx, \\quad v = x \\\\ \\int \\ln x\\,dx &= x\\ln x - \\int x\\cdot\\frac{1}{x}\\,dx \\\\ &= x\\ln x-x+C \\end{aligned}$$\nEl factor oculto es la clave para integrar cualquier función que no parece un producto.",
+    "explanation": "Un integrando que no parece un producto igual se puede repartir, tomando como parte a integrar el uno invisible que lo multiplica:\n$$v=\\int 1\\,dx=x$$\nLa parte que se deriva es el logaritmo, y su derivada es uno dividido la variable.\n\nAl armar la fórmula, el producto de afuera queda con el logaritmo intacto, y dentro de la integral remanente la variable se cancela contra el denominador de esa derivada.\n$$x\\ln x-\\int 1\\,dx$$\nLo que queda por integrar es la más simple de todas las integrales.\n\nEse uno invisible es la razón por la que un logaritmo solo, sin ningún acompañante a la vista, entra igual en este método.",
     "reviewed": false,
     "tags": [
       "factor-oculto-reducciones-cortas"
     ]
   },
   {
-    "question": "Este integrando multiplica un polinomio por un logaritmo:\n$$\\int x\\ln x\\,dx$$\n¿Cuál es su resultado?",
+    "question": "Al derivar esta expresión aparece exactamente uno de estos integrandos:\n$$F(x)=x\\ln x-x$$\n¿Cuál de las integrales es?",
     "options": [
-      "$x^2\\ln x-\\frac{x^2}{4}+C$",
-      "$\\frac{x^2(2\\ln x-1)}{4}+C$",
-      "$\\frac{x^2\\ln x}{2}-x+C$",
-      "$\\frac{x^2(2\\ln x+1)}{4}+C$"
+      "$\\int x\\ln x\\,dx$",
+      "$\\int \\ln x\\,dx$",
+      "$\\int (\\ln x-1)\\,dx$",
+      "$\\int \\frac{1}{x}\\,dx$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Correcto, la integral remanente se simplifica a $\\frac{x^2}{4}$, y factorizando $\\frac{x^2}{4}$ queda esta forma compacta.",
+    "feedback_correct": "Correcto, el uno que aporta el producto se cancela con la derivada del segundo término.",
     "feedback_incorrect": [
-      "Te faltó el coeficiente $\\frac{1}{2}$ en el primer término, ese factor viene de $v=\\frac{x^2}{2}$.",
+      "Ese integrando llevaría un cuadrado en el resultado, y la expresión candidata no lo tiene.",
       null,
-      "Revisá la simplificación de la integral remanente, $\\frac{1}{2}\\int x\\,dx=\\frac{x^2}{4}$, no $x$.",
-      "Te faltó el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
+      "Ese menos uno ya está contemplado en el segundo término de la expresión, no va también en el integrando.",
+      "Esa integral da un logaritmo solo, sin ningún producto delante."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=\\ln x$, $dv=x\\,dx$.\n\nDe ahí, $du=dx/x$ y $v=x^2/2$.\n$$\\begin{aligned} \\int x\\ln x\\,dx &= \\frac{x^2}{2}\\ln x - \\int \\frac{x^2}{2}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^2}{2}\\ln x - \\frac{1}{2}\\int x\\,dx \\\\ &= \\frac{x^2\\ln x}{2}-\\frac{x^2}{4}+C \\\\ &= \\frac{x^2(2\\ln x-1)}{4}+C \\end{aligned}$$\nLa integral remanente se simplifica antes de resolverla: la potencia baja en un grado gracias a la cancelación con el factor $du$.",
+    "explanation": "Derivar el primer término pide la regla del producto, y de ahí sale toda la clave:\n$$F'(x)=\\ln x+1-1=\\ln x$$\nEl uno que aporta el producto se cancela con la derivada del segundo término.\n\nEsa resta no es decorativa. Es exactamente lo que la integral remanente del método aporta cuando la parte a integrar es el uno invisible, y por eso aparece en el resultado.\n\nSin ese segundo término la derivada dejaría un uno suelto, que ningún integrando de la lista tiene.",
     "reviewed": false,
     "tags": [
       "factor-oculto-reducciones-cortas"
     ]
   },
   {
-    "question": "Este integrando también parece una única función, con un argumento que lleva coeficiente:\n$$\\int \\ln(2x)\\,dx$$\n¿Cuál es el resultado de esta integral?",
+    "question": "Esta resolución llegó hasta el final, pero uno de los dos términos no cierra:\n$$\\int x\\ln x\\,dx=\\frac{x^2\\ln x}{2}-x+C$$\n¿Cuál de los dos?",
     "options": [
-      "$-x+C$",
-      "$\\ln(2x)-x+C$",
-      "$x\\ln(2x)-x+C$",
-      "$x\\ln(2x)+x+C$"
+      "El primer término del resultado",
+      "El signo de la fórmula",
+      "El segundo término del resultado",
+      "La derivada del logaritmo"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Correcto, con el factor oculto $dv=1\\,dx$ se obtiene $uv-\\int v\\,du = x\\ln(2x)-x+C$.",
+    "feedback_correct": "Correcto, la integral remanente deja un cuadrado dividido cuatro, no la variable sola.",
     "feedback_incorrect": [
-      "Te faltó el término $uv=x\\ln(2x)$, la fórmula da $uv-\\int v\\,du$, ambos términos aparecen en el resultado.",
-      "Te faltó el factor $x$ que multiplica al logaritmo en el término $uv$, ese factor viene de $v=x$.",
+      "El primer término está bien armado, sale del producto de la parte integrada por el logaritmo.",
+      "El signo negativo entre los dos términos es el que la fórmula pide.",
       null,
-      "Te faltó el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
+      "La derivada del logaritmo está bien usada, es la que simplifica el integrando que queda."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con $\\ln x$ solo, $\\ln(2x)$ se resuelve con el **factor oculto**.\n$$\\begin{aligned} u &= \\ln(2x), \\quad dv = 1\\,dx \\\\ du &= \\frac{1}{x}\\,dx, \\quad v = x \\\\ \\int \\ln(2x)\\,dx &= x\\ln(2x) - \\int x\\cdot\\frac{1}{x}\\,dx \\\\ &= x\\ln(2x)-x+C \\end{aligned}$$\nLa derivada de $\\ln(2x)$ sigue siendo $1/x$, así que el desarrollo queda idéntico al caso anterior, salvo por el argumento.",
+    "explanation": "La integral remanente no es tan directa como parece, porque el producto de la parte integrada por la derivada del logaritmo se simplifica antes de integrarse:\n$$\\int \\frac{x^2}{2}\\cdot\\frac{1}{x}\\,dx=\\int \\frac{x}{2}\\,dx$$\nLo que queda por integrar es una potencia de grado uno, no una constante.\n\nIntegrar esa potencia da un cuadrado dividido cuatro, que es el segundo término correcto del resultado.\n$$\\frac{x^2\\ln x}{2}-\\frac{x^2}{4}+C$$\nEl primer término del resultado propuesto estaba bien armado.\n\nSaltearse la simplificación previa lleva a integrar una constante donde había una potencia, y el grado del resultado termina quedando corto.",
     "reviewed": false,
     "tags": [
       "factor-oculto-reducciones-cortas"
     ]
   },
   {
-    "question": "Este integrando es un logaritmo multiplicado por una constante:\n$$\\int 3\\ln x\\,dx$$\n¿Cuál es su resultado?",
+    "question": "Con $u=\\ln x$ y $dv=x^2\\,dx$, la fórmula ya se puede armar:\n$$\\int x^2\\ln x\\,dx$$\n¿Cómo queda?",
     "options": [
-      "$3x\\ln x+3x+C$",
-      "$-3x+C$",
-      "$x\\ln x-x+C$",
-      "$3x\\ln x-3x+C$"
+      "$\\frac{x^3\\ln x}{3}-\\int \\frac{x^3}{3}\\,dx$",
+      "$\\frac{x^3\\ln x}{3}+\\int \\frac{x^2}{3}\\,dx$",
+      "$\\frac{x^3\\ln x}{3}-\\int \\frac{1}{x}\\,dx$",
+      "$\\frac{x^3\\ln x}{3}-\\int \\frac{x^2}{3}\\,dx$"
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Correcto, el coeficiente $3$ se conserva en ambos términos del resultado.",
+    "feedback_correct": "Correcto, la parte integrada se simplifica contra la derivada del logaritmo y baja un grado.",
     "feedback_incorrect": [
-      "Te faltó el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
-      "Te faltó el término $uv=3x\\ln x$, la fórmula da $uv-\\int v\\,du$, ambos términos aparecen en el resultado.",
-      "Te faltó el coeficiente $3$ en ambos términos, ese factor viene de la constante que multiplica al logaritmo.",
+      "Ese integrando todavía no se simplificó contra la derivada del logaritmo, que le baja un grado.",
+      "La fórmula resta la integral remanente, y acá ningún signo la cruza para volverla suma.",
+      "La derivada del logaritmo no viaja sola, va multiplicada por la parte que ya se integró.",
       null
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El coeficiente $3$ acompaña al logaritmo durante todo el desarrollo, tanto en el término $uv$ como en la integral remanente.\n$$\\begin{aligned} \\int 3\\ln x\\,dx &= 3\\left(x\\ln x - \\int x\\cdot\\frac{1}{x}\\,dx\\right) \\\\ &= 3(x\\ln x-x) \\\\ &= 3x\\ln x-3x+C \\end{aligned}$$\nAplicar la linealidad primero, sacando el $3$ fuera de la integral, simplifica el desarrollo antes de aplicar el factor oculto.",
+    "explanation": "La parte que se integra sube un grado y la que se deriva aporta el denominador que después lo baja:\n$$\\frac{x^3}{3}\\cdot\\frac{1}{x}=\\frac{x^2}{3}$$\nEsa simplificación ocurre dentro de la integral remanente, antes de integrar nada.\n\nCon las dos piezas en su lugar, la fórmula deja el producto de afuera restando una integral más simple que la original, que es de lo que se trata todo el método.\n$$\\frac{x^3\\ln x}{3}-\\int \\frac{x^2}{3}\\,dx$$\nEl grado bajó de tres a dos, y el logaritmo desapareció del integrando.\n\nQue la integral remanente sea más fácil que la de partida es la señal de que el reparto de roles fue el correcto.",
     "reviewed": false,
     "tags": [
       "factor-oculto-reducciones-cortas"
     ]
   },
   {
-    "question": "Este integrando multiplica una potencia de grado tres por un logaritmo:\n$$\\int x^3\\ln x\\,dx$$\n¿Cuál es el resultado de esta integral?",
+    "question": "Solo una de estas integrales devuelve esta expresión al resolverse:\n$$F(x)=x\\ln(2x)-x$$\n¿Cuál de ellas?",
     "options": [
-      "$\\frac{x^4(4\\ln x-1)}{16}+C$",
-      "$\\frac{x^4(\\ln x-1)}{4}+C$",
-      "$\\frac{x^4(4\\ln x+1)}{16}+C$",
-      "$x^4\\ln x-\\frac{x^4}{16}+C$"
+      "$\\int \\ln(2x)\\,dx$",
+      "$\\int \\ln x\\,dx$",
+      "$\\int 2\\ln(2x)\\,dx$",
+      "$\\int x\\ln(2x)\\,dx$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, la integral remanente se simplifica a $\\frac{x^4}{16}$, y factorizando $\\frac{x^4}{16}$ queda esta forma compacta.",
+    "feedback_correct": "Correcto, el coeficiente de adentro se cancela al derivar y no deja rastro.",
     "feedback_incorrect": [
       null,
-      "Revisá la simplificación de la integral remanente, $\\frac{1}{4}\\int x^3\\,dx=\\frac{x^4}{16}$, no $\\frac{x^4}{4}$.",
-      "Te faltó el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
-      "Te faltó el coeficiente $\\frac{1}{4}$ en el primer término, ese factor viene de $v=\\frac{x^4}{4}$."
+      "Ese integrando daría una expresión sin el dos adentro del logaritmo.",
+      "Con ese coeficiente afuera, los dos términos del resultado estarían multiplicados por dos.",
+      "Ese integrando llevaría un cuadrado en el resultado, y la expresión candidata no lo tiene."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=\\ln x$, $dv=x^3\\,dx$.\n\nDe ahí, $du=dx/x$ y $v=x^4/4$.\n$$\\begin{aligned} \\int x^3\\ln x\\,dx &= \\frac{x^4}{4}\\ln x - \\int \\frac{x^4}{4}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^4}{4}\\ln x - \\frac{1}{4}\\int x^3\\,dx \\\\ &= \\frac{x^4\\ln x}{4}-\\frac{x^4}{16}+C \\\\ &= \\frac{x^4(4\\ln x-1)}{16}+C \\end{aligned}$$\nEl denominador final $16$ combina la regla de la potencia con el factor que arrastra $v$.",
+    "explanation": "Derivar el primer término pide la regla del producto, y el logaritmo aporta la derivada de su interior dividida por el interior mismo:\n$$F'(x)=\\ln(2x)+1-1=\\ln(2x)$$\nEl dos de adentro se cancela contra sí mismo y desaparece de la derivada.\n\nEsa cancelación explica por qué el coeficiente interno no cambia el procedimiento: el resultado conserva el mismo armado que el caso sin coeficiente.\n\nUn coeficiente que multiplicara al logaritmo desde afuera sí se vería, porque acompañaría a los dos términos del resultado en vez de cancelarse.",
     "reviewed": false,
     "tags": [
       "factor-oculto-reducciones-cortas"
     ]
   },
   {
-    "question": "Este integrando parece una única función, con un argumento desplazado:\n$$\\int \\ln(x-1)\\,dx$$\n¿Cuál es su resultado?",
+    "question": "El resultado de esta resolución no vuelve al integrando si se lo deriva:\n$$\\int 3\\ln x\\,dx=3x\\ln x-x+C$$\n¿Dónde está el error?",
     "options": [
-      "$x\\ln(x-1)-x+C$",
-      "$(x-1)\\ln(x-1)-x+C$",
+      "El signo de la fórmula",
+      "La constante de integración",
+      "El arrastre del coeficiente $3$",
+      "El término con el logaritmo"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, el coeficiente multiplica a todo el resultado y también al segundo término.",
+    "feedback_incorrect": [
+      "El signo negativo entre los dos términos es el que la fórmula pide.",
+      "La constante figura al final del resultado propuesto.",
+      null,
+      "El primer término está bien armado, con el coeficiente y el logaritmo en su lugar."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un coeficiente constante sale afuera de la integral antes de que empiece el reparto, y después multiplica al resultado completo:\n$$\\int 3\\ln x\\,dx=3x\\ln x-3x+C$$\nLos dos términos quedan multiplicados, no solo el primero.\n\nDerivando la versión propuesta se obtiene el logaritmo multiplicado por tres más dos sobrantes, que no coincide con el integrando de partida. El faltante está en el segundo término.\n\nSacar el coeficiente afuera al principio, resolver la integral limpia y recién después multiplicar es el orden que evita perderlo por el camino.",
+    "reviewed": false,
+    "tags": [
+      "factor-oculto-reducciones-cortas"
+    ]
+  },
+  {
+    "question": "Este logaritmo solo se integró por partes, tomando $u=\\ln(x-1)$ y $dv=dx$:\n$$\\int \\ln(x-1)\\,dx$$\nDel armado quedó pendiente una sola cuenta:\n$$(x-1)\\ln(x-1)-\\int 1\\,dx$$\n¿Cuál es el resultado final?",
+    "options": [
       "$(x-1)\\ln(x-1)+x+C$",
-      "$-x+C$"
+      "$(x-1)\\ln(x-1)-x+C$",
+      "$(x-1)\\ln(x-1)-1+C$",
+      "$x\\ln(x-1)-x+C$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Correcto, elegir $v=x-1$ simplifica la integral remanente a una constante.",
+    "feedback_correct": "Correcto, integrar el uno devuelve la variable y la resta del armado se conserva.",
     "feedback_incorrect": [
-      "El coeficiente de $\\ln(x-1)$ en el término $uv$ tiene que ser $(x-1)$, no $x$, para que la integral remanente se cancele.",
+      "La resta venía del armado y no cambia al resolver la integral que quedaba.",
       null,
-      "Te faltó el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
-      "Te faltó el término $uv=(x-1)\\ln(x-1)$, la fórmula da $uv-\\int v\\,du$, ambos términos aparecen en el resultado."
+      "Integrar una constante devuelve la variable, no la constante otra vez.",
+      "El producto de afuera venía del armado con su bloque completo, y en este paso no se toca."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=\\ln(x-1)$, $dv=1\\,dx$.\n\nConviene tomar $v=x-1$ en vez de $v=x$, ambas primitivas válidas del mismo diferencial.\n$$\\begin{aligned} du &= \\frac{1}{x-1}\\,dx, \\quad v = x-1 \\\\ \\int \\ln(x-1)\\,dx &= (x-1)\\ln(x-1) - \\int (x-1)\\cdot\\frac{1}{x-1}\\,dx \\\\ &= (x-1)\\ln(x-1)-x+C \\end{aligned}$$\nElegir $v=x-1$ en vez de $v=x$ es una decisión estratégica: cancela exactamente el denominador que aparecería en el paso siguiente, sin dejar una fracción incómoda.",
-    "reviewed": false,
-    "tags": [
-      "factor-oculto-reducciones-cortas"
-    ]
-  },
-  {
-    "question": "Este integrando multiplica una potencia de grado dos por un logaritmo:\n$$\\int x^2\\ln x\\,dx$$\n¿Cuál es el resultado de esta integral?",
-    "options": [
-      "$\\frac{x^3(3\\ln x+1)}{9}+C$",
-      "$x^3\\ln x-\\frac{x^3}{9}+C$",
-      "$\\frac{x^3(3\\ln x-1)}{9}+C$",
-      "$\\frac{x^3(\\ln x-1)}{3}+C$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "Correcto, la integral remanente se simplifica a $\\frac{x^3}{9}$, y factorizando $\\frac{x^3}{9}$ queda esta forma compacta.",
-    "feedback_incorrect": [
-      "Te faltó el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
-      "Te faltó el coeficiente $\\frac{1}{3}$ en el primer término, ese factor viene de $v=\\frac{x^3}{3}$.",
-      null,
-      "Revisá la simplificación de la integral remanente, $\\frac{1}{3}\\int x^2\\,dx=\\frac{x^3}{9}$, no $\\frac{x^3}{3}$."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Elegimos $u=\\ln x$, $dv=x^2\\,dx$.\n\nDe ahí, $du=dx/x$ y $v=x^3/3$.\n$$\\begin{aligned} \\int x^2\\ln x\\,dx &= \\frac{x^3}{3}\\ln x - \\int \\frac{x^3}{3}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^3}{3}\\ln x - \\frac{1}{3}\\int x^2\\,dx \\\\ &= \\frac{x^3\\ln x}{3}-\\frac{x^3}{9}+C \\\\ &= \\frac{x^3(3\\ln x-1)}{9}+C \\end{aligned}$$\nEste caso cierra en una única aplicación del método, sin importar el grado del polinomio, porque $u=\\ln x$ es quien se deriva.",
+    "explanation": "La integral pendiente es la más simple posible, porque el bloque de la parte integrada se canceló contra el denominador que aporta la derivada del logaritmo:\n$$\\int 1\\,dx=x$$\nEsa cancelación es la que dejó un uno en vez de una fracción.\n\nReemplazando ese resultado en el armado, la resta se mantiene tal cual estaba y el producto de afuera queda intacto.\n$$(x-1)\\ln(x-1)-x+C$$\nLa constante de integración se agrega al final, una sola vez para todo el resultado.\n\nElegir el bloque desplazado como parte a integrar, en lugar de la variable sola, es lo que hizo que la cancelación saliera exacta.",
     "reviewed": false,
     "tags": [
       "factor-oculto-reducciones-cortas"

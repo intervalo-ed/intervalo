@@ -276,7 +276,7 @@
     ]
   },
   {
-    "question": "El integrando es el recíproco de la variable:\n$$\\int \\frac{1}{x}\\,dx$$\n¿Qué regla corresponde aplicar?",
+    "question": "Este integrando es uno dividido la variable:\n$$\\int \\frac{1}{x}\\,dx$$\n¿Qué regla corresponde aplicar?",
     "options": [
       "Regla del logaritmo",
       "Regla de la potencia",
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "El integrando es el recíproco del cuadrado de la variable:\n$$\\int \\frac{1}{x^2}\\,dx$$\n¿Qué regla corresponde aplicar?",
+    "question": "Este integrando es uno dividido el cuadrado de la variable:\n$$\\int \\frac{1}{x^2}\\,dx$$\n¿Qué regla corresponde aplicar?",
     "options": [
       "Regla exponencial",
       "Regla de la potencia",

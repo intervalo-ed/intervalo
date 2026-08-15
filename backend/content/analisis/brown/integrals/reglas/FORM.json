@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **tabla de integrales inmediatas** incluye la primitiva del coseno como uno de sus casos directos, sin necesidad de ningún cálculo intermedio.\n$$\\int \\cos x\\,dx = \\sin x + C$$\nEsta primitiva no lleva ningún signo adicional, a diferencia de la del seno, que sí incluye un signo negativo que conviene no perder.",
+    "explanation": "La **tabla de integrales inmediatas** incluye la primitiva del coseno como uno de sus casos directos, sin necesidad de ningún cálculo intermedio.\n$$\\int \\cos x\\,dx = \\sin x + C$$\nEsta primitiva no lleva ningún signo adicional, a diferencia de la del seno, que sí incluye un signo negativo que conviene no perder.\n\nLa tabla no es una lista para memorizar sin más: cada entrada es una derivada leída al revés. Como derivar el seno da el coseno, integrar el coseno tiene que devolver el seno.",
     "reviewed": false,
     "tags": [
       "reconocimiento-directo-antiderivadas"
@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla exponencial** para base $e$ es el caso más simple de la tabla, la primitiva coincide exactamente con el integrando.\n\nEsta coincidencia es exclusiva de la base $e$, ninguna otra exponencial ni ninguna potencia comparte esta propiedad.\n\nEl error más común acá es aplicar la regla de la potencia a la base en vez de reconocer que la variable está en el exponente, o dejar afuera la constante $+C$ al cerrar la primitiva.",
+    "explanation": "La **regla exponencial** para base $e$ es el caso más simple de la tabla, la primitiva coincide exactamente con el integrando.\n\nEsta coincidencia es exclusiva de la base $e$, ninguna otra exponencial ni ninguna potencia comparte esta propiedad.\n\nEl error más común acá es aplicar la regla de la potencia a la base en vez de reconocer que la variable está en el exponente, o dejar afuera la constante $+C$ al cerrar la primitiva.\n\nQue la primitiva coincida con el integrando es otra forma de decir que esta función crece exactamente al ritmo de su propio valor. Acumular ese ritmo reconstruye la misma función.",
     "reviewed": false,
     "tags": [
       "reconocimiento-directo-antiderivadas"
@@ -68,7 +68,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **tabla de integrales inmediatas** incluye a $\\sec^2 x$ como la derivada directa de la tangente.\n\nEste resultado se obtiene directamente de reconocer que $(\\tan x)' = \\sec^2 x$, sin necesidad de ningún desarrollo adicional.\n\nEsta relación no lleva ningún signo que revisar, algo que sí ocurre en las primitivas del seno y el coseno. Conviene sumar siempre $+C$ al cerrar la primitiva.",
+    "explanation": "La **tabla de integrales inmediatas** incluye a $\\sec^2 x$ como la derivada directa de la tangente.\n\nEste resultado se obtiene directamente de reconocer que $(\\tan x)' = \\sec^2 x$, sin necesidad de ningún desarrollo adicional.\n\nEsta relación no lleva ningún signo que revisar, algo que sí ocurre en las primitivas del seno y el coseno. Conviene sumar siempre $+C$ al cerrar la primitiva.\n\nEsta entrada también sale de leer una derivada al revés. No hay nada que deducir acá: alcanza con reconocer de qué función es derivada el integrando.",
     "reviewed": false,
     "tags": [
       "reconocimiento-directo-antiderivadas"
@@ -93,14 +93,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La primitiva del seno lleva un signo negativo que no se puede omitir, es uno de los detalles que más se pierde de la **tabla de integrales inmediatas**.\n$$\\int \\sin x\\,dx = -\\cos x + C$$\nEste signo se explica porque $(-\\cos x)'=\\sin x$, la derivada del coseno ya trae un signo negativo, y al invertir el proceso ese signo se cancela.",
+    "explanation": "La primitiva del seno lleva un signo negativo que no se puede omitir, es uno de los detalles que más se pierde de la **tabla de integrales inmediatas**.\n$$\\int \\sin x\\,dx = -\\cos x + C$$\nEste signo se explica porque $(-\\cos x)'=\\sin x$, la derivada del coseno ya trae un signo negativo, y al invertir el proceso ese signo se cancela.\n\nEl signo sale de la derivada del coseno, que ya viene con un menos. Para que al derivar el resultado reaparezca un seno positivo, la primitiva tiene que arrancar negativa.",
     "reviewed": false,
     "tags": [
       "reconocimiento-directo-antiderivadas"
     ]
   },
   {
-    "question": "La función a integrar es el recíproco de la variable, el caso especial de la tabla:\n$$\\int \\frac{1}{x}\\,dx$$\n¿A qué función es igual esta integral?",
+    "question": "La función a integrar es uno dividido la variable:\n$$\\int \\frac{1}{x}\\,dx$$\n¿A qué función es igual esta integral?",
     "options": [
       "$\\ln|x| + C$",
       "$\\ln x + C$",
@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El caso $n=-1$ es la única excepción de la **regla de la potencia**, y por eso tiene su propia entrada en la tabla: la **regla del logaritmo**.\n$$\\int x^n\\,dx = \\frac{x^{n+1}}{n+1} + C \\quad (n \\neq -1)$$\nCuando se intenta aplicar esa fórmula con $n=-1$ se obtiene $x^0/0$, una división por cero que señala el fallo.\n\nEn cambio, la primitiva correcta es $\\ln|x| + C$, con el valor absoluto para respetar el dominio completo de $1/x$.\n\nEste patrón de excepción es central en cálculo: memorizar dónde falla la regla general es tan importante como saber aplicarla.",
+    "explanation": "El caso $n=-1$ es la única excepción de la **regla de la potencia**, y por eso tiene su propia entrada en la tabla: la **regla del logaritmo**.\n$$\\int x^n\\,dx = \\frac{x^{n+1}}{n+1} + C \\quad (n \\neq -1)$$\nCuando se intenta aplicar esa fórmula con $n=-1$ se obtiene $x^0/0$, una división por cero que señala el fallo.\n\nEn cambio, la primitiva correcta es $\\ln|x| + C$, con el valor absoluto para respetar el dominio completo de $1/x$.\n\nEste patrón de excepción es central en cálculo: memorizar dónde falla la regla general es tan importante como saber aplicarla.\n\nLa regla de la potencia se rompe justo acá porque dividiría por cero: con exponente $-1$, el exponente nuevo sería $0$.\n\nEl logaritmo cubre ese hueco, y no por convención. Es la función cuyo ritmo de crecimiento vale exactamente uno dividido la variable.",
     "reviewed": false,
     "tags": [
       "reconocimiento-directo-antiderivadas"
@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla de la potencia** sube el exponente en uno y divide el resultado por ese nuevo exponente.\n\nConfundir el exponente que va en el divisor, si es el original o el nuevo, es el error más frecuente al aplicar esta fórmula.\n\nAdemás de elegir bien el exponente que divide, conviene no olvidar sumar $+C$: la primitiva de una integral indefinida es siempre una familia completa de funciones.",
+    "explanation": "La **regla de la potencia** sube el exponente en uno y divide el resultado por ese nuevo exponente.\n\nConfundir el exponente que va en el divisor, si es el original o el nuevo, es el error más frecuente al aplicar esta fórmula.\n\nAdemás de elegir bien el exponente que divide, conviene no olvidar sumar $+C$: la primitiva de una integral indefinida es siempre una familia completa de funciones.\n\nDividir por el exponente nuevo no es un capricho: al derivar una potencia, el exponente baja multiplicando. La división lo compensa de antemano para que la derivada devuelva el integrando.",
     "reviewed": false,
     "tags": [
       "reconocimiento-directo-antiderivadas"
@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla de la constante** convierte cualquier número fijo $k$ en $kx$ al integrarlo, sumando siempre la constante de integración al final.\n$$\\int 5\\,dx = 5x + C$$\nNo hay que mezclar esta regla con la derivada de una constante, que sí da cero, acá la operación va en el sentido inverso, de derivada a primitiva.",
+    "explanation": "La **regla de la constante** convierte cualquier número fijo $k$ en $kx$ al integrarlo, sumando siempre la constante de integración al final.\n$$\\int 5\\,dx = 5x + C$$\nNo hay que mezclar esta regla con la derivada de una constante, que sí da cero, acá la operación va en el sentido inverso, de derivada a primitiva.\n\nUn ritmo constante acumula de forma pareja: si algo entra a cinco por unidad, en $x$ unidades entraron $5x$. Por eso la primitiva de una constante es una recta que crece a ese ritmo.",
     "reviewed": false,
     "tags": [
       "reconocimiento-directo-antiderivadas"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para una exponencial de base distinta de $e$, la **regla exponencial** agrega un factor $\\ln a$ dividiendo.\n\nEste factor aparece porque la derivada de $a^x$ trae un $\\ln a$ multiplicando, y al invertir el proceso ese factor pasa a dividir.\n\nConfundir esta fórmula con la de base $e$, que no lleva ningún factor extra, o aplicar la regla de la potencia a la base son los errores más comunes con este tipo de exponencial.",
+    "explanation": "Para una exponencial de base distinta de $e$, la **regla exponencial** agrega un factor $\\ln a$ dividiendo.\n\nEste factor aparece porque la derivada de $a^x$ trae un $\\ln a$ multiplicando, y al invertir el proceso ese factor pasa a dividir.\n\nConfundir esta fórmula con la de base $e$, que no lleva ningún factor extra, o aplicar la regla de la potencia a la base son los errores más comunes con este tipo de exponencial.\n\nEl factor aparece porque derivar $a^x$ arrastra un logaritmo multiplicando. Al integrar hay que deshacer esa multiplicación, y por eso el mismo logaritmo pasa a dividir.",
     "reviewed": false,
     "tags": [
       "reconocimiento-directo-antiderivadas"
