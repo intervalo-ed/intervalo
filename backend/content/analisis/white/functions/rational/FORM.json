@@ -132,19 +132,19 @@
   {
     "question": "El denominador de esta función se anula en un punto, y eso deja un valor afuera:\n$$f(x) = \\dfrac{x + 1}{x - 3}$$\n¿Cuál es su dominio en notación de intervalos?",
     "options": [
-      "$(-\\infty, 3]$",
-      "Intervalo",
-      "$(3, +\\infty)$",
-      "$(-3, +\\infty)$"
+      "$(-\\infty, 3] \\cup [3, +\\infty)$",
+      "$(-\\infty, 3) \\cup (3, +\\infty)$",
+      "$(-\\infty, -3) \\cup (-3, +\\infty)$",
+      "$(3, +\\infty)$"
     ],
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "El denominador se anula en $x = 3$, que queda excluido. El dominio es $(-\\infty, 3) \\cup (3, +\\infty)$.",
     "feedback_incorrect": [
-      "Ese intervalo cerrado en $3$ incluye justo el punto excluido del dominio; además faltaría la otra rama para valores mayores a $3$.",
+      "Los corchetes en $3$ incluyen justo el punto que anula el denominador, y ese valor tiene que quedar afuera.",
       null,
-      "Ese intervalo deja afuera todos los valores menores a $3$, pero la función sí está definida ahí; solo se excluye el punto $x=3$.",
-      "Ese intervalo excluye $x=-3$, pero el denominador de esta función se anula en $x=3$, no en $x=-3$."
+      "Ese dominio excluye $x=-3$, pero el denominador de esta función se anula en $x=3$, no en $x=-3$.",
+      "Ese intervalo deja afuera todos los valores menores a $3$, pero la función sí está definida ahí; solo se excluye el punto $x=3$."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -334,12 +334,12 @@
     "options": [
       "$(-\\infty, 3) \\cup (3, +\\infty)$",
       "$\\mathbb{R} \\setminus \\{9\\}$",
-      "Intervalo",
+      "$\\mathbb{R} \\setminus \\{-3, 3\\}$",
       "$\\mathbb{R}$"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$x^2-9 = \\pm3$: dos valores excluidos.",
+    "feedback_correct": "El denominador se anula en $x=3$ y en $x=-3$, así que el dominio deja afuera esos dos valores.",
     "feedback_incorrect": [
       "Ese dominio solo excluye $x=3$, pero el denominador $x^2-9$ también se anula en $x=-3$; falta partir la recta en tres tramos.",
       "Ese conjunto excluye el $9$ directamente, pero hay que resolver $x^2-9=0$, que da $x=\\pm3$, no $x=9$.",

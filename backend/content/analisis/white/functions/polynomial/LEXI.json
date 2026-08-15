@@ -714,7 +714,7 @@
     "options": [
       "$x = 1$ es una raíz simple",
       "$x = 1$ es una raíz doble",
-      "Es una raíz del polinomio",
+      "$x = 1$ es una raíz triple",
       "$x = 1$ es un máximo local"
     ],
     "correct_index": 2,
@@ -737,10 +737,10 @@
   {
     "question": "El polinomio nulo es un caso especial que no encaja en la definición habitual de grado:\n$$p(x) = 0$$\n¿Cuál es su **grado**?",
     "options": [
-      "$0$",
-      "$1$",
-      "No def",
-      "$-\\infty$"
+      "Es cero, como las constantes",
+      "Es uno, como las rectas",
+      "No tiene grado definido",
+      "Es menos infinito"
     ],
     "correct_index": 2,
     "feedback_correct": "El polinomio cero es el único polinomio sin grado definido, aunque algunos textos le asignan $-\\infty$ por convención.",

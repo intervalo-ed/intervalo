@@ -590,9 +590,9 @@
   {
     "question": "El signo del coeficiente que acompaña a la variable tiene una consecuencia directa sobre el comportamiento:\n$$f(x) = mx + b, \\quad m > 0$$\n¿Por qué esta función nunca decrece?",
     "options": [
-      "Porque $b > 0$",
-      "Porque la pendiente positiva hace",
-      "Porque el dominio es $\\mathbb{R}$"
+      "Porque la ordenada al origen es positiva",
+      "Porque la pendiente positiva la hace subir",
+      "Porque el dominio abarca todos los reales"
     ],
     "correct_index": 1,
     "has_math": true,
@@ -604,7 +604,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La monotonía de una lineal sale directamente del signo de la **pendiente**.\n\nSi $m > 0$, para cualquier par de puntos con $x_2 > x_1$:Porque ambos factores son positivos.\n\nEntonces.\n$$f(x_2) > f(x_1)$$\n: la función crece en todo $\\mathbb{R}$.\n\nLa **ordenada al origen** no participa en la resta: $b$ se cancela, y por eso desplazar la recta no afecta su dirección.\n\nSepará los roles: $m$ gobierna la dirección y la inclinación; $b$, solo la altura.",
+    "explanation": "La monotonía de una lineal sale directamente del signo de la **pendiente**.\n\nTomando dos puntos cualesquiera con $x_2 > x_1$, la diferencia de valores se factoriza así:\n$$f(x_2) - f(x_1) = m(x_2 - x_1)$$\nLos dos factores son positivos, así que la diferencia también lo es y la función sube.\n\nLa **ordenada al origen** no participa en esa resta: se cancela, y por eso desplazar la recta no afecta su dirección.\n\nSepará los roles: la pendiente gobierna la dirección y la inclinación; la ordenada al origen, solo la altura.",
     "reviewed": false,
     "tags": [
       "propiedades-generales"
@@ -636,13 +636,13 @@
   {
     "question": "Comparar dos rectas escritas una al lado de la otra es la forma más rápida de ver qué las separa:\n$$y = 2x, \\quad y = 2x + 3$$\n¿Qué diferencia hay entre ellas?",
     "options": [
-      "La primera no es lineal",
-      "La segunda es más empinada",
-      "Tienen la misma pendiente pero"
+      "La primera no es una función lineal",
+      "La segunda tiene mayor inclinación",
+      "Misma pendiente, distinta altura"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$y = 2x$ y $y = 2x + 3$ difieren en $b$.",
+    "feedback_correct": "Las dos tienen pendiente $2$; lo único que cambia es la ordenada al origen.",
     "feedback_incorrect": [
       "$y = 2x$ es perfectamente lineal: es el caso con ordenada al origen cero.",
       "La inclinación la fija la pendiente, que es 2 en ambas; el $+3$ no empina, desplaza.",
