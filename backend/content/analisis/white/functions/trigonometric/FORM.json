@@ -410,7 +410,7 @@
     ]
   },
   {
-    "question": "El factor de afuera no interviene en cada cuánto se repite la onda:\n$$f(x) = 2\\,\\operatorname{sen}(3x)$$\n¿Cuál es el período?",
+    "question": "Esta función seno repite su onda cada cierto intervalo de $x$, y esa distancia es su **período**.\n$$f(x) = 2\\,\\operatorname{sen}(3x)$$\n¿Cuál es ese período?",
     "options": [
       "$\\dfrac{2\\pi}{3}$",
       "$6\\pi$",

@@ -252,6 +252,11 @@ Estas valen en `question`, `options`, `feedback_*` y `explanation` por igual:
   fórmula. Si la apertura ya nombró el objeto, la pregunta puede señalarlo
   hacia atrás (`"¿Cuál es ese valor?"`). Prohibidas las preguntas genéricas
   `"¿Cuánto da?"` / `"¿Cuál es su resultado?"`. (R59)
+- **El enunciado y el gráfico dicen lo mismo**: los números de la prosa (tasa,
+  valor de arranque, pendiente) tienen que coincidir con lo que dibuja
+  `graph_fn`. El validador no ve esta clase de error, se verifica evaluando la
+  función en el punto que la prosa afirma. Y no se pregunta por el valor que el
+  propio enunciado ya regala. (R60)
 
 ---
 

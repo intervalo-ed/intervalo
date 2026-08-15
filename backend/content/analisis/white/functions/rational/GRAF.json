@@ -508,7 +508,7 @@
     ]
   },
   {
-    "question": "Leer un valor puntual en el gráfico de una función racional funciona igual que en cualquier otra.\n\n¿Qué valor aproximado tiene $f(3)$ según la gráfica?",
+    "question": "La gráfica es de una función racional con una ruptura en $x=1$, que la parte en dos ramas separadas.\n\n¿Qué valor aproximado tiene $f(3)$ según la gráfica?",
     "options": [
       "$3$",
       "$2$",

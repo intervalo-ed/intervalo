@@ -467,7 +467,7 @@
     ]
   },
   {
-    "question": "Un tanque tiene 60 litros y pierde 4 L/h.\n\n¿Cuál es el parámetro $m$?",
+    "question": "Un tanque de agua arranca con $60$ litros y pierde $4$ litros por hora.\n\nEl volumen que le queda se modela con una función lineal.\n$$V(t) = mt + b$$\n¿Qué valor toma $m$?",
     "options": [
       "$60$",
       "$4$",

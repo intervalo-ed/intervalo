@@ -85,7 +85,7 @@
     ]
   },
   {
-    "question": "Dada la función:\n$$f(x) = \\dfrac{1}{x}$$\n¿Cómo se llama la **asíntota horizontal**?",
+    "question": "Esta función racional tiene una **asíntota horizontal**, una recta a la que se arrima cuando $x$ se va al infinito.\n$$f(x) = \\dfrac{1}{x}$$\n¿Cuál es su ecuación?",
     "options": [
       "$y = 1$",
       "$x = 0$",
