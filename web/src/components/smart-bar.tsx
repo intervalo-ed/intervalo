@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 import { useUser } from "@clerk/nextjs"
+import posthog from "posthog-js"
 import { AppIcon } from "@/components/app-icon"
 import { Button } from "@/components/ui/button"
 import { InstallDialog } from "@/components/install-dialog"
@@ -20,6 +21,7 @@ const HIDDEN_SUFFIXES = ["/summary"]
 
 function SmartBar({ platform }: { platform: Platform }) {
   const [open, setOpen] = useState(false)
+  const pathname = usePathname()
 
   return (
     <>
@@ -30,7 +32,13 @@ function SmartBar({ platform }: { platform: Platform }) {
           <Button
             size="sm"
             className="rounded-[4px] bg-[#5457E5] px-3 font-mono text-xs font-medium uppercase tracking-[0.1em] text-[#F6F8FC] transition-none hover:bg-[#7E80F7] active:translate-y-0"
-            onClick={() => setOpen(true)}
+            onClick={() => {
+              posthog.capture("install_banner_tap", {
+                platform,
+                page: pathname,
+              })
+              setOpen(true)
+            }}
           >
             ABRIR
           </Button>
