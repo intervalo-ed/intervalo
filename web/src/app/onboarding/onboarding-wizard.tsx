@@ -54,7 +54,7 @@ const UNIVERSITY_LOGOS: Partial<Record<string, string>> = {
   UNLP: "/universities/unlp.png",
   UNSAM: "/universities/unsam.png",
   UNC: "/universities/unc.png",
-  UADE: "/universities/uade.png",
+  UNL: "/universities/unl.png",
 }
 
 type OnboardingExercise = {
