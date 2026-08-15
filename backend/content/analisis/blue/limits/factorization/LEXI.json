@@ -1,6 +1,6 @@
 [
   {
-    "question": "Una expresión aparece en el camino de un límite y hay que escribirla como producto:\n$$x^2 - 25$$\n¿Qué caso de factoreo le corresponde?",
+    "question": "Una expresión aparece al resolver un límite y hay que escribirla como producto:\n$$x^2 - 25$$\n¿Qué caso de factoreo le corresponde?",
     "options": [
       "Trinomio cuadrado perfecto",
       "Diferencia de cuadrados",
@@ -23,7 +23,7 @@
     "reviewed": false
   },
   {
-    "question": "Una expresión de un límite tiene que escribirse como producto, y no todas se dejan:\n$$x^2 + 25$$\n¿Qué caso de factoreo corresponde a esta expresión dentro de los números reales?",
+    "question": "En un límite aparece la siguiente expresión:\n$$x^2 + 25$$\n¿Qué caso de factoreo corresponde a esta expresión dentro de los números reales?",
     "options": [
       "Diferencia de cuadrados",
       "Trinomio general",
@@ -34,7 +34,7 @@
       "identificacion-casos-factoreo"
     ],
     "has_math": true,
-    "feedback_correct": "Correcto, una suma de dos cuadrados no se factoriza en $\\mathbb{R}$.",
+    "feedback_correct": "Una suma de cuadrados no se puede escribir como producto de dos factores reales, porque nunca se anula.",
     "feedback_incorrect": [
       "La diferencia de cuadrados exige un signo menos entre los dos cuadrados, y acá el signo entre $x^2$ y $25$ es un más.",
       "Un trinomio general tiene tres términos, y esta expresión tiene solo dos, así que no corresponde ese caso.",
