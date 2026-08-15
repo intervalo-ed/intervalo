@@ -247,3 +247,7 @@ Variar números, no repetir personajes. Montos con `\\$` en JSON. Sin nombres pr
 - [ ] Los 7 slugs reales cubiertos al menos una vez (ver nota de discrepancia en "Arquetipos de pregunta": `raiz`/`concavidad`/`duracion` no existen como slugs propios hoy, están agrupados bajo `nombre-parabola`)
 - [ ] Mínimos ($a > 0$) sin ejercicios de raíz ni de duración
 - [ ] `correct_index` con presencia mínima en los cuatro índices (hoy no hay ninguno en 3)
+
+## Hallazgos de auditoría (ronda 6, ago-2026)
+
+Pasada de redacción sobre los enunciados para llevarlos al estándar de las reglas 47-51: 34 enunciados reescritos entre `FORM.json` y `LEXI.json`, ya que `GRAF.json` estaba limpio. Además de las aperturas, los cinco enunciados de `LEXI` que quedaban como frase cortada con puntos suspensivos y no contenían ningún `¿...?` pasaron a forma interrogativa (regla 51). No hubo cambios de contenido matemático: las opciones y su `correct_index` siguen respondiendo exactamente lo mismo.

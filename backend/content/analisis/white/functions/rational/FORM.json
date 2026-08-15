@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
+    "question": "La curva del gráfico tiene dos ramas separadas por una recta vertical.\n\n¿Qué expresión le corresponde?",
     "options": [
       "$f(x) = \\dfrac{1}{x+2}$",
       "$f(x) = \\dfrac{1}{x-2}$",
@@ -130,7 +130,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\dfrac{x + 1}{x - 3}$$\nExpresado en notación de intervalos?",
+    "question": "El denominador de esta función se anula en un punto, y eso deja un valor afuera:\n$$f(x) = \\dfrac{x + 1}{x - 3}$$\n¿Cuál es su dominio en notación de intervalos?",
     "options": [
       "$(-\\infty, 3]$",
       "Intervalo",
@@ -155,7 +155,7 @@
     ]
   },
   {
-    "question": "Observá la siguiente función:\n$$f(x) = \\dfrac{2x - 1}{x + 2}$$\n¿Cuánto vale $f(3)$ si?",
+    "question": "El valor de una función racional en un punto se obtiene reemplazando arriba y abajo:\n$$f(x) = \\dfrac{2x - 1}{x + 2}$$\n¿Cuánto vale $f(3)$?",
     "options": [
       "$1$",
       "$\\dfrac{5}{3}$",
@@ -305,7 +305,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\dfrac{x - 1}{x + 4}$$\nEn notación de intervalos?",
+    "question": "El denominador de esta función racional se anula en un único valor:\n$$f(x) = \\dfrac{x - 1}{x + 4}$$\n¿Cuál es su dominio en notación de intervalos?",
     "options": [
       "$(-\\infty, 4) \\cup (4, +\\infty)$",
       "$(-\\infty, -4) \\cup (-4, +\\infty)$",
@@ -330,7 +330,7 @@
     ]
   },
   {
-    "question": "Observá la siguiente función:\n$$f(x) = \\dfrac{2}{x^2 - 9}$$\n¿Cuál es el dominio?",
+    "question": "El denominador de esta función es una diferencia de cuadrados:\n$$f(x) = \\dfrac{2}{x^2 - 9}$$\n¿Cuál es su dominio?",
     "options": [
       "$(-\\infty, 3) \\cup (3, +\\infty)$",
       "$\\mathbb{R} \\setminus \\{9\\}$",
@@ -430,7 +430,7 @@
     ]
   },
   {
-    "question": "Observá la gráfica.\n\n¿Cuál es la asíntota vertical de la función?",
+    "question": "La curva del gráfico se dispara hacia arriba y hacia abajo cerca de un valor puntual.\n\n¿Cuál es la asíntota vertical de la función?",
     "options": [
       "$x = -1$",
       "$x = 0$",
@@ -460,7 +460,7 @@
     ]
   },
   {
-    "question": "Observá la gráfica.\n\n¿Cuánto vale $f(3)$ aproximadamente?",
+    "question": "En el gráfico, la altura de la curva se lee igual que en cualquier otra función.\n\n¿Cuánto vale $f(3)$ aproximadamente?",
     "options": [
       "$1$",
       "$0{,}5$",
@@ -490,7 +490,7 @@
     ]
   },
   {
-    "question": "Observá la gráfica.\n\n¿Dónde está la asíntota vertical?",
+    "question": "Las dos ramas de esta curva están separadas por una recta que el gráfico nunca cruza.\n\n¿Dónde está la asíntota vertical?",
     "options": [
       "$x = 2$",
       "$x = 0$",
@@ -570,7 +570,7 @@
     ]
   },
   {
-    "question": "Estudiá la función:\n$$f(x) = \\dfrac{3}{x - 4} + 2$$\n¿Cuáles son la AV y la AH?",
+    "question": "Sumar una constante a una función racional levanta la curva completa:\n$$f(x) = \\dfrac{3}{x - 4} + 2$$\n¿Cuáles son la asíntota vertical y la horizontal?",
     "options": [
       "AV: $x = 4$, AH: $y = 2$",
       "AV: $x = -4$, AH: $y = 2$",
@@ -595,7 +595,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\dfrac{x^2 - 1}{x - 1}$$\n¿Qué pasa en $x = 1$?",
+    "question": "Antes de decidir qué ocurre en un punto conviene mirar numerador y denominador por separado:\n$$f(x) = \\dfrac{x^2 - 1}{x - 1}$$\n¿Qué pasa en $x = 1$?",
     "options": [
       "Hay una asíntota vertical",
       "La función vale $1$ en ese punto",
@@ -620,7 +620,7 @@
     ]
   },
   {
-    "question": "Analiza la función:\n$$f(x) = \\dfrac{x^2 + 3x}{x^2 - 1}$$\n¿Cuál es la asíntota vertical?",
+    "question": "Numerador y denominador de esta función son ambos de grado 2:\n$$f(x) = \\dfrac{x^2 + 3x}{x^2 - 1}$$\n¿Cuál es la asíntota vertical?",
     "options": [
       "Una sola AV en $x = 0$",
       "No tiene AV",
@@ -645,7 +645,7 @@
     ]
   },
   {
-    "question": "Estudiá la función:\n$$f(x) = \\dfrac{x^3 - 1}{x^2 + 1}$$\n¿Cuál es la asíntota horizontal?",
+    "question": "Los grados del numerador y del denominador deciden qué pasa lejos del origen:\n$$f(x) = \\dfrac{x^3 - 1}{x^2 + 1}$$\n¿Cuál es la asíntota horizontal?",
     "options": [
       "$y = 1$",
       "$y = 0$",
@@ -670,7 +670,7 @@
     ]
   },
   {
-    "question": "Examiná la función:\n$$f(x) = \\dfrac{x - 2}{x^2 + 2x + 1}$$\n¿Cuál es el dominio?",
+    "question": "El denominador de esta función es un trinomio que se puede factorizar:\n$$f(x) = \\dfrac{x - 2}{x^2 + 2x + 1}$$\n¿Cuál es el dominio?",
     "options": [
       "$\\mathbb{R} \\setminus \\{2\\}$",
       "$\\mathbb{R}$",
@@ -695,7 +695,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\dfrac{x^2 - 9}{x + 5}$$\n¿Cuál es el intercepto con el eje $X$?",
+    "question": "El intercepto con el eje $X$ sale de anular el numerador, siempre que el denominador no se anule ahí:\n$$f(x) = \\dfrac{x^2 - 9}{x + 5}$$\n¿Cuál es el intercepto con el eje $X$?",
     "options": [
       "$x = 9$",
       "$x = -5$",
@@ -720,7 +720,7 @@
     ]
   },
   {
-    "question": "Observá la siguiente función:\n$$f(x) = \\dfrac{5x - 10}{2x + 6}$$\n¿Cuáles son la AV y la AH?",
+    "question": "Numerador y denominador de esta función son ambos de grado 1, con coeficientes distintos:\n$$f(x) = \\dfrac{5x - 10}{2x + 6}$$\n¿Cuáles son la asíntota vertical y la horizontal?",
     "options": [
       "AV: $x = 3$, AH: $y = \\dfrac{5}{2}$",
       "AV: $x = -3$, AH: $y = \\dfrac{2}{5}$",

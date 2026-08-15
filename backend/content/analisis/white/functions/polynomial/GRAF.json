@@ -90,7 +90,7 @@
     ]
   },
   {
-    "question": "Observá la siguiente función:\n$$f(x) = \\dfrac{x(x-2)(x+2)}{4}$$\n¿Cuántos extremos locales tiene?",
+    "question": "Los extremos locales se ven en el gráfico como los puntos donde la curva cambia de dirección:\n$$f(x) = \\dfrac{x(x-2)(x+2)}{4}$$\n¿Cuántos extremos locales tiene?",
     "options": [
       "$2$",
       "$0$",
@@ -210,7 +210,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = \\dfrac{x(x-2)(x+2)}{4}$$\n¿Cuánto vale $f(0)$?",
+    "question": "El gráfico y la fórmula dicen lo mismo, y el valor en cero se puede leer de cualquiera de los dos:\n$$f(x) = \\dfrac{x(x-2)(x+2)}{4}$$\n¿Cuánto vale $f(0)$?",
     "options": [
       "$-4$",
       "$0$",
@@ -330,7 +330,7 @@
     ]
   },
   {
-    "question": "Examiná la función:\n$$f(x) = \\dfrac{x^3}{8}$$\n¿El grado del polinomio es par o impar?",
+    "question": "El grado de un polinomio deja una huella en la forma de su gráfico:\n$$f(x) = \\dfrac{x^3}{8}$$\n¿El grado del polinomio es par o impar?",
     "options": [
       "Par",
       "Impar",
@@ -390,7 +390,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\dfrac{x^3}{8}$$\n¿El dominio de $f$ es $\\mathbb{R}$?",
+    "question": "El dominio de una función es el conjunto de valores de entrada que admite:\n$$f(x) = \\dfrac{x^3}{8}$$\n¿El dominio de $f$ es $\\mathbb{R}$?",
     "options": [
       "Sí, el dominio es todo $\\mathbb{R}$",
       "No, el dominio excluye $x = 0$",

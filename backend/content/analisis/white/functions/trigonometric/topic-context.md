@@ -218,3 +218,6 @@ Primera auditoría de este topic (no tenía tabla de sub-familias todavía). Dis
 
 > Nota: al recortar (ago-2026) se detectó drift menor entre esta tabla y los `tags` reales previos al recorte: `dominio-desde-grafico-trig` tenía 2 ejercicios reales (no 1) y `contexto-cotidiano-graf-trig` tenía 5 (no 6); el resto de las filas coincidía. El recorte proporcional se calculó sobre los `tags` reales, no sobre los números viejos de la tabla.
 
+## Hallazgos de auditoría (ronda 6, ago-2026)
+
+Pasada de redacción sobre los enunciados para llevarlos al estándar de las reglas 47-51: 54 enunciados reescritos entre `FORM.json`, `GRAF.json` y `LEXI.json`, con una apertura que sitúa la onda o el ángulo en juego y la pregunta `¿...?` en su tramo final. Los dos enunciados de `LEXI` que quedaban como frase cortada sin ninguna pregunta pasaron a forma interrogativa (regla 51). No hubo cambios de contenido matemático.

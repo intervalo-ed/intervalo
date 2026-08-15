@@ -248,3 +248,6 @@ Patrones concretos a aplicar en los 200 ejercicios al refactorizar, más allá d
 - [ ] "Cuadrática" y "Polinómica" nunca en la misma grilla de opciones (CLSF)
 - [ ] Cada ejercicio tiene `"tags": ["<slug>"]` con el slug de su fila en la tabla de distribución de su skill (sección "Distribución objetivo" arriba); contar por slug y verificar que coincide con la cantidad de la tabla
 
+## Hallazgos de auditoría (ronda 6, ago-2026)
+
+Pasada de redacción sobre los enunciados para llevarlos al estándar de las reglas 47-51: se reescribieron 48 enunciados entre `FORM.json`, `GRAF.json` y `LEXI.json`, con una apertura que sitúa el objeto y la pregunta en su propio tramo, variando la redacción ejercicio a ejercicio (regla 32). Además se verticalizó la primera fila del `aligned` de la `explanation` de `LEXI_22`, que superaba el ancho de render (regla 38), dejando el planteo en su propia fila y la sustitución en la siguiente. No hubo cambios de contenido matemático.

@@ -233,3 +233,6 @@ Diseñada originalmente leyendo los 200 ejercicios reales (dump de `question`+op
 
 *Tipo C — contexto cotidiano con $k/x$ (2 ejercicios):* slug único `contexto-cotidiano-racional`.
 
+## Hallazgos de auditoría (ronda 6, ago-2026)
+
+Pasada de redacción sobre los enunciados para llevarlos al estándar de las reglas 47-51: 51 enunciados reescritos entre `FORM.json`, `GRAF.json` y `LEXI.json`, reemplazando los imperativos de atención vacíos y los arranques directos con `¿` por aperturas que sitúan la función, distintas ejercicio a ejercicio (regla 32). No hubo cambios de contenido matemático: solo se tocó el campo `question`.

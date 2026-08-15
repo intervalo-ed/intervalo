@@ -1,6 +1,6 @@
 [
   {
-    "question": "¿Cómo se llaman las líneas que esta curva se aproxima pero nunca llega a tocar?",
+    "question": "La curva del gráfico se acerca a dos rectas sin llegar a tocarlas nunca.\n\n¿Cómo se llaman esas rectas?",
     "options": [
       "Tangentes",
       "Asíntotas",
@@ -30,7 +30,7 @@
     ]
   },
   {
-    "question": "Observá la siguiente función:\n$$f(x) = \\dfrac{P(x)}{Q(x)}$$\n¿Cuándo no está definida una **función racional**?",
+    "question": "Toda función racional es un cociente de dos polinomios:\n$$f(x) = \\dfrac{P(x)}{Q(x)}$$\n¿Cuándo no está definida una **función racional**?",
     "options": [
       "Cuando $f(x) < 0$",
       "Cuando el numerador $P(x)$ es cero",
@@ -55,7 +55,7 @@
     ]
   },
   {
-    "question": "¿Cuántas **asíntotas verticales** tiene esta **función racional**?",
+    "question": "En el gráfico, la curva se dispara justo al lado de un valor del eje horizontal.\n\n¿Cuántas **asíntotas verticales** tiene esta **función racional**?",
     "options": [
       "Dos",
       "Una",
@@ -110,7 +110,7 @@
     ]
   },
   {
-    "question": "¿Cuántas ramas separadas tiene la gráfica de esta **función racional**?",
+    "question": "La asíntota vertical parte el gráfico de una función racional en tramos separados.\n\n¿Cuántas ramas separadas tiene la gráfica de esta **función racional**?",
     "options": [
       "2",
       "1",
@@ -140,7 +140,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = \\dfrac{p(x)}{q(x)}$$\n¿Por qué tiene restricciones en su **dominio**?",
+    "question": "Una función racional se arma dividiendo un polinomio por otro:\n$$f(x) = \\dfrac{p(x)}{q(x)}$$\n¿Por qué tiene restricciones en su **dominio**?",
     "options": [
       "Porque el numerador $p(x)$ puede ser cero",
       "Porque la división por cero no está definida",
@@ -165,7 +165,7 @@
     ]
   },
   {
-    "question": "¿Puede una **función racional** NO tener **asíntota vertical**?",
+    "question": "No todas las funciones racionales se comportan igual cerca de los bordes de su dominio.\n\n¿Puede una **función racional** **no** tener **asíntota vertical**?",
     "options": [
       "No, toda racional tiene al menos una asíntota vertical",
       "Solo si el numerador es constante",
@@ -190,7 +190,7 @@
     ]
   },
   {
-    "question": "¿Cuándo existe el intercepto con el eje $Y$ de una **función racional**?",
+    "question": "El eje $Y$ corta al gráfico en un solo punto, cuando lo corta.\n\n¿Cuándo existe el intercepto con el eje $Y$ de una **función racional**?",
     "options": [
       "Siempre existe para cualquier racional",
       "Solo si el numerador es constante",
@@ -240,7 +240,7 @@
     ]
   },
   {
-    "question": "¿Puede una **función racional** cruzar su propia **asíntota horizontal**?",
+    "question": "El nombre asíntota suele sugerir que la curva nunca llega a alcanzarla.\n\n¿Puede una **función racional** cruzar su propia **asíntota horizontal**?",
     "options": [
       "No, las asíntotas nunca se cruzan con la función",
       "Solo si la función tiene dos asíntotas verticales",
@@ -340,7 +340,7 @@
     ]
   },
   {
-    "question": "Estudiá la función:\n$$f(x) = \\dfrac{1}{x-3}$$\nPartiendo de:\n$$g(x) = \\dfrac{1}{x}$$\n¿Qué transformación relaciona a $f$ con $g$?",
+    "question": "Pequeños cambios en la fórmula de una racional mueven o dan vuelta su gráfico:\n$$f(x) = \\dfrac{1}{x-3}$$\nPartiendo de:\n$$g(x) = \\dfrac{1}{x}$$\n¿Qué transformación relaciona a $f$ con $g$?",
     "options": [
       "Desplazamiento horizontal de 3 unidades a la derecha",
       "Desplazamiento vertical de 3 unidades hacia arriba",
@@ -365,7 +365,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = -\\dfrac{1}{x}$$\nPartiendo de:\n$$g(x) = \\dfrac{1}{x}$$\n¿Qué transformación relaciona a $f$ con $g$?",
+    "question": "Un signo menos delante de una fracción afecta a toda la función:\n$$f(x) = -\\dfrac{1}{x}$$\nPartiendo de:\n$$g(x) = \\dfrac{1}{x}$$\n¿Qué transformación relaciona a $f$ con $g$?",
     "options": [
       "Reflexión respecto al eje $Y$",
       "Desplazamiento vertical de $-1$",
@@ -390,7 +390,7 @@
     ]
   },
   {
-    "question": "Observá la siguiente función:\n$$f(x) = \\dfrac{x^2 + 1}{x^3 - x}$$\n¿Cuántas **asíntotas verticales** tiene?",
+    "question": "El denominador de esta función se puede factorizar antes de buscar sus raíces:\n$$f(x) = \\dfrac{x^2 + 1}{x^3 - x}$$\n¿Cuántas **asíntotas verticales** tiene?",
     "options": [
       "1 (en $x = 0$)",
       "2 (en $x = 1$ y $x = -1$)",
@@ -465,7 +465,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = \\dfrac{k}{x-a} + b$$\n¿Cuáles son la **asíntota vertical** y la asíntota horizontal?",
+    "question": "Esta forma general de racional muestra tres parámetros con papeles distintos:\n$$f(x) = \\dfrac{k}{x-a} + b$$\n¿Cuáles son la **asíntota vertical** y la asíntota horizontal?",
     "options": [
       "AV: $x = b$ y AH: $y = a$",
       "AV: $x = k$ y AH: $y = 0$",
@@ -515,7 +515,7 @@
     ]
   },
   {
-    "question": "Tomá en cuenta la función:\n$$f(x) = \\dfrac{1}{x}$$\nY compará su dominio con el de:\n$$g(x) = \\dfrac{x-1}{x(x-1)}$$",
+    "question": "Dos fórmulas distintas pueden describir curvas casi iguales:\n$$f(x) = \\dfrac{1}{x}$$\nLa otra función es:\n$$g(x) = \\dfrac{x-1}{x(x-1)}$$\n¿Qué relación hay entre sus dominios?",
     "options": [
       "Son idénticos: $\\mathbb{R}\\setminus\\{0\\}$",
       "$g$ tiene dominio $\\mathbb{R}\\setminus\\{0,1\\}$ aunque se simplifique a $\\frac{1}{x}$",
@@ -540,7 +540,7 @@
     ]
   },
   {
-    "question": "Estudiá la función:\n$$f(x) = \\dfrac{P(x)}{Q(x)}$$\n¿Cuántas asíntotas verticales puede tener, a lo sumo?",
+    "question": "El comportamiento de una racional depende sobre todo de lo que pasa abajo:\n$$f(x) = \\dfrac{P(x)}{Q(x)}$$\n¿Cuántas asíntotas verticales puede tener, a lo sumo?",
     "options": [
       "Exactamente una, siempre",
       "A lo sumo dos",
@@ -565,7 +565,7 @@
     ]
   },
   {
-    "question": "¿Es una **función racional** siempre **continua** en su **dominio**?",
+    "question": "Una función continua se puede dibujar sin levantar el lápiz dentro de cada tramo.\n\n¿Es una **función racional** siempre **continua** en su **dominio**?",
     "options": [
       "No, puede tener saltos dentro del dominio",
       "Solo es continua si el numerador es constante",
@@ -590,7 +590,7 @@
     ]
   },
   {
-    "question": "¿Cuándo una **función racional** tiene **asíntota oblicua** en vez de horizontal?",
+    "question": "No toda función racional termina acercándose a una recta horizontal.\n\n¿Cuándo una **función racional** tiene **asíntota oblicua** en vez de horizontal?",
     "options": [
       "Grado del numerador es uno más que el del denominador",
       "Cuando el grado del denominador es mayor que el del numerador",
@@ -615,7 +615,7 @@
     ]
   },
   {
-    "question": "Examiná la función:\n$$f(x) = \\dfrac{5}{x}$$\n¿Qué ocurre cuando $x \\to +\\infty$?",
+    "question": "El numerador de esta función se mantiene fijo mientras el denominador cambia:\n$$f(x) = \\dfrac{5}{x}$$\n¿Qué ocurre cuando $x \\to +\\infty$?",
     "options": [
       "Tiende a $5$",
       "Tiende a $0^+$",
@@ -640,7 +640,7 @@
     ]
   },
   {
-    "question": "Observá la siguiente función, con $k>1$:\n$$f(x) = \\dfrac{k}{x}$$\nPartiendo de:\n$$g(x) = \\dfrac{1}{x}$$\n¿Qué transformación relaciona a $f$ con $g$?",
+    "question": "El numerador de esta función es un número $k$ mayor que 1:\n$$f(x) = \\dfrac{k}{x}$$\nPartiendo de:\n$$g(x) = \\dfrac{1}{x}$$\n¿Qué transformación relaciona a $f$ con $g$?",
     "options": [
       "Estira la curva verticalmente",
       "Desplaza la curva $k$ unidades a la derecha",
@@ -690,7 +690,7 @@
     ]
   },
   {
-    "question": "¿Qué dice el signo del coeficiente principal del numerador sobre las ramas de una racional?",
+    "question": "Además de dónde están las asíntotas, importa hacia qué lado se escapan las ramas.\n\n¿Qué dice el signo del coeficiente principal del numerador sobre las ramas de una racional?",
     "options": [
       "Determina la posición de la asíntota vertical",
       "No tiene ningún efecto sobre la gráfica",
@@ -715,7 +715,7 @@
     ]
   },
   {
-    "question": "¿Qué ocurre si tanto el numerador como el denominador se anulan en el mismo punto $x = c$?",
+    "question": "Los puntos donde una racional no está definida no son todos del mismo tipo.\n\n¿Qué ocurre si tanto el numerador como el denominador se anulan en el mismo punto $x = c$?",
     "options": [
       "La función es cero en $x = c$",
       "La función está definida y el valor es 1",
@@ -740,7 +740,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas afirmaciones sobre **funciones racionales** es VERDADERA?",
+    "question": "Las afirmaciones generales sobre una familia de funciones tienen que valer para todos sus casos.\n\n¿Cuál de estas afirmaciones sobre **funciones racionales** es verdadera?",
     "options": [
       "Siempre tienen exactamente una asíntota vertical",
       "Su imagen siempre es $\\mathbb{R}$",

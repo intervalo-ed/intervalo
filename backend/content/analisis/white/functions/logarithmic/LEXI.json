@@ -1,6 +1,6 @@
 [
   {
-    "question": "¿Cuál es la relación entre $f(x) = 2^x$ y $g(x) = \\log_2(x)$?",
+    "question": "Una exponencial y un logaritmo de la misma base guardan una relación bien definida:\n$$f(x) = 2^x, \\quad g(x) = \\log_2(x)$$\n¿Cuál es esa relación?",
     "options": [
       "Una es el cuadrado de la otra",
       "Son funciones iguales",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas NO es una **función logarítmica**?",
+    "question": "Tres de estas expresiones comparten familia y la cuarta pertenece a otra.\n\n¿Cuál de estas **no** es una **función logarítmica**?",
     "options": [
       "$f(x) = 2^x$",
       "$f(x) = \\log_2(x)$",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "¿La **función logarítmica** con **base** mayor que $1$ es creciente o decreciente?",
+    "question": "La base de un logaritmo decide en qué sentido se recorre su curva.\n\n¿La **función logarítmica** con **base** mayor que $1$ es creciente o decreciente?",
     "options": [
       "Creciente",
       "Decreciente",
@@ -80,7 +80,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas funciones tiene **asíntota vertical**?",
+    "question": "Una asíntota vertical aparece cuando la función se dispara cerca de un valor prohibido del dominio.\n\n¿Cuál de estas funciones tiene **asíntota vertical**?",
     "options": [
       "$f(x) = x^2$",
       "$f(x) = \\ln(x)$",
@@ -105,7 +105,7 @@
     ]
   },
   {
-    "question": "¿Por qué $\\ln(x)$ no está definido para $x \\leq 0$?",
+    "question": "El logaritmo natural devuelve el exponente al que hay que elevar $e$ para obtener el número de adentro.\n\n¿Por qué $\\ln(x)$ no está definido para $x \\leq 0$?",
     "options": [
       "Porque la función logarítmica siempre toma valores negativos",
       "Porque no existe ningún número real $t$ tal que $e^t = x$ cuando $x \\leq 0$",
@@ -130,7 +130,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la **imagen** de $f(x) = \\log_2(x)$?",
+    "question": "El conjunto de salidas de un logaritmo no coincide con el de sus entradas:\n$$f(x) = \\log_2(x)$$\n¿Cuál es su **imagen**?",
     "options": [
       "$\\mathbb{R}$",
       "$(-\\infty, 0)$",
@@ -155,7 +155,7 @@
     ]
   },
   {
-    "question": "Estudiá la función:\n$$\\log_2\\!\\left(\\dfrac{1}{2}\\right)$$\n¿Cuánto vale?",
+    "question": "Los logaritmos también aceptan argumentos entre 0 y 1:\n$$\\log_2\\!\\left(\\dfrac{1}{2}\\right)$$\n¿Cuánto vale esta expresión?",
     "options": [
       "$2$",
       "$1$",
@@ -180,7 +180,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $\\log_2(x^3)$ usando las propiedades del **logaritmo**?",
+    "question": "El interior de este logaritmo viene elevado a una potencia:\n$$\\log_2(x^3)$$\n¿A qué expresión equivale?",
     "options": [
       "$3 \\cdot \\log_2(x)$",
       "$\\log_2(3x)$",
@@ -205,7 +205,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $\\log_3(3)$?",
+    "question": "Los logaritmos con valores redondos se responden sin hacer ninguna cuenta escrita:\n$$\\log_3(3)$$\n¿Cuánto vale esta expresión?",
     "options": [
       "$1$",
       "$3$",
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $\\log_{0{,}5}(2)$?",
+    "question": "La base de este logaritmo es menor que 1, algo poco frecuente pero perfectamente válido:\n$$\\log_{0{,}5}(2)$$\n¿Cuánto vale esta expresión?",
     "options": [
       "$-1$",
       "$0{,}5$",
@@ -305,7 +305,7 @@
     ]
   },
   {
-    "question": "¿Dónde está la **asíntota vertical** de $f(x) = \\log_2(x) + 5$?",
+    "question": "El número sumado aparece por fuera del logaritmo, no dentro de su argumento:\n$$f(x) = \\log_2(x) + 5$$\n¿Dónde está la **asíntota vertical**?",
     "options": [
       "$x = 5$",
       "$x = 0$",
@@ -330,7 +330,7 @@
     ]
   },
   {
-    "question": "¿Cómo es $f(x) = -\\log_2(x)$ en comparación con $g(x) = \\log_2(x)$?",
+    "question": "Anteponer un signo menos a un logaritmo cambia algo de su comportamiento y deja el resto igual:\n$$f(x) = -\\log_2(x), \\quad g(x) = \\log_2(x)$$\n¿En qué se diferencian?",
     "options": [
       "Es la misma función",
       "Es decreciente.",
@@ -355,7 +355,7 @@
     ]
   },
   {
-    "question": "¿Qué ocurre con $\\log_2(x)$ cuando el argumento se acerca a cero por la derecha?",
+    "question": "Cerca del borde de su dominio, un logaritmo se comporta de forma muy distinta que en el resto.\n\n¿Qué ocurre con $\\log_2(x)$ cuando el argumento se acerca a cero por la derecha?",
     "options": [
       "Tiende a $0$",
       "Tiende a $-\\infty$",
@@ -380,7 +380,7 @@
     ]
   },
   {
-    "question": "¿Tiene $f(x) = \\ln(x)$ una **asíntota horizontal** cuando $x \\to +\\infty$?",
+    "question": "Un logaritmo crece cada vez más despacio, y eso hace dudar de si llega a estabilizarse.\n\n¿Tiene $f(x) = \\ln(x)$ una **asíntota horizontal** cuando $x \\to +\\infty$?",
     "options": [
       "Sí, en $y = 1$",
       "Sí, en $y = e$",
@@ -405,7 +405,7 @@
     ]
   },
   {
-    "question": "¿En qué situación cotidiana aparece de forma natural una función logarítmica?",
+    "question": "Algunas magnitudes se miden mejor por su orden de crecimiento que por su valor directo.\n\n¿En qué situación cotidiana aparece de forma natural una función logarítmica?",
     "options": [
       "Calcular la distancia recorrida a velocidad constante",
       "Calcular el área de un rectángulo",
@@ -430,7 +430,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $\\log_3(27)$?",
+    "question": "Escribir el número de adentro como potencia de la base vuelve directo el cálculo:\n$$\\log_3(27)$$\n¿Cuánto vale esta expresión?",
     "options": [
       "$9$",
       "$27$",
@@ -455,7 +455,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $\\ln(1)$?",
+    "question": "Hay un valor de entrada que da el mismo resultado en todos los logaritmos, sin importar la base:\n$$\\ln(1)$$\n¿Cuánto vale esta expresión?",
     "options": [
       "$1$",
       "$e$",
@@ -480,7 +480,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $\\log_2(8)$?",
+    "question": "Un logaritmo de base 2 pregunta cuántas veces hay que duplicar para llegar al número de adentro:\n$$\\log_2(8)$$\n¿Cuánto vale esta expresión?",
     "options": [
       "$4$",
       "$3$",
@@ -505,7 +505,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el **dominio** de $f(x) = \\ln(x + 3)$?",
+    "question": "El desplazamiento dentro del logaritmo corre también el borde de su **dominio**:\n$$f(x) = \\ln(x + 3)$$\n¿Cuál es ese dominio?",
     "options": [
       "$x > 3$",
       "$x > 0$",
@@ -555,7 +555,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $\\log_5(1)$?",
+    "question": "Este logaritmo tiene como argumento el neutro de la multiplicación:\n$$\\log_5(1)$$\n¿Cuánto vale esta expresión?",
     "options": [
       "$5$",
       "$1$",
@@ -580,7 +580,7 @@
     ]
   },
   {
-    "question": "Examiná la función:\n$$\\log_2\\!\\left(\\dfrac{1}{4}\\right)$$\n¿Cuánto vale?",
+    "question": "El argumento de este logaritmo es una potencia de la base escrita como fracción:\n$$\\log_2\\!\\left(\\dfrac{1}{4}\\right)$$\n¿Cuánto vale esta expresión?",
     "options": [
       "$-2$",
       "$2$",
@@ -605,7 +605,7 @@
     ]
   },
   {
-    "question": "¿A cuál de estas expresiones es equivalente $2 \\cdot \\log_2(x)$?",
+    "question": "Un mismo valor se puede escribir con el número por fuera o reacomodado adentro del logaritmo:\n$$2 \\cdot \\log_2(x)$$\n¿A qué expresión es equivalente?",
     "options": [
       "$\\log_2(2x)$",
       "$\\log_2(x + 2)$",
@@ -630,7 +630,7 @@
     ]
   },
   {
-    "question": "¿En qué punto pasa la gráfica de $f(x) = \\ln(x)$ a altura $y = 1$?",
+    "question": "Preguntar dónde un logaritmo alcanza cierta altura es leerlo en sentido inverso:\n$$f(x) = \\ln(x)$$\n¿En qué punto pasa su gráfico a altura $y = 1$?",
     "options": [
       "$(1,\\, 1)$",
       "$(2,\\, 1)$",
@@ -680,7 +680,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $\\log_6(6^5)$?",
+    "question": "El argumento de este logaritmo es una potencia de su propia base:\n$$\\log_6(6^5)$$\n¿Cuánto vale esta expresión?",
     "options": [
       "$6^5$",
       "$30$",
@@ -705,7 +705,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas funciones tiene **dominio** exactamente $(0, +\\infty)$?",
+    "question": "Cada familia de funciones trae su propia restricción de entradas, y algunas no traen ninguna.\n\n¿Cuál de estas funciones tiene **dominio** exactamente $(0, +\\infty)$?",
     "options": [
       "$f(x) = 2^x$",
       "$f(x) = \\log(x)$",
@@ -730,7 +730,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $\\log_3(9) - \\log_3(3)$?",
+    "question": "Estos dos logaritmos comparten base, así que se pueden combinar antes o después de evaluarlos:\n$$\\log_3(9) - \\log_3(3)$$\n¿Cuánto vale esta expresión?",
     "options": [
       "$3$",
       "$0$",

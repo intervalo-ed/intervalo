@@ -203,3 +203,6 @@ Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026); las tablas de
 - [ ] Ejercicios de dominio de logaritmo explican por qué el argumento debe ser positivo, no solo lo enuncian (ver guía de contenido 1)
 - [ ] Cada ejercicio tiene `"tags": ["<slug>"]` con el slug de su fila en la tabla de distribución de su skill; contar por slug y verificar que coincide con la cantidad de la tabla
 
+## Hallazgos de auditoría (ronda 6, ago-2026)
+
+Pasada de redacción sobre los enunciados para llevarlos al estándar de las reglas 47-51. Fue el topic con más hallazgos de la ronda: 79 enunciados reescritos entre `FORM.json`, `GRAF.json` y `LEXI.json`, casi todos por arrancar directo con `¿` o por abrir con un imperativo de atención vacío. Las fórmulas que estaban tejidas inline en la pregunta pasaron a su propio bloque display. No hubo cambios de contenido matemático: solo se tocó el campo `question`.

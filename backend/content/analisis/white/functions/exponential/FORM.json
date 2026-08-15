@@ -1,6 +1,6 @@
 [
   {
-    "question": "Considerá la función:\n$$f(x) = 3 \\cdot (0{,}5)^x$$\n¿Cuál es la base de la exponencial?",
+    "question": "El nombre de esta familia viene del lugar donde está la variable, arriba en el exponente:\n$$f(x) = 3 \\cdot (0{,}5)^x$$\n¿Cuál es la base de la exponencial?",
     "options": [
       "$0{,}5$",
       "$3$",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
+    "question": "La curva del gráfico se acerca al eje horizontal sin llegar a tocarlo nunca.\n\n¿Cuál de estas expresiones le corresponde?",
     "options": [
       "$f(x) = 2^x$",
       "$f(x) = (0{,}5)^x$",
@@ -55,7 +55,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
+    "question": "En el gráfico, la curva corta al eje vertical en $y=1$, algo que comparten todas las exponenciales sin factor delante.\n\n¿Qué expresión le corresponde?",
     "options": [
       "$f(x) = (1{,}7)^x$",
       "$f(x) = 2^x$",
@@ -85,7 +85,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la base de la función $f(x) = e^x$?",
+    "question": "Hay una exponencial que aparece más que ninguna otra en matemática y se escribe con una letra en lugar de un número:\n$$f(x) = e^x$$\n¿Qué número es esa base?",
     "options": [
       "$\\pi \\approx 3{,}14$",
       "$e \\approx 2{,}718$",
@@ -110,7 +110,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el dominio de $f(x) = 3^{x-2} + 1$?",
+    "question": "En esta función el exponente no es la variable sola, y además hay un término sumado al final:\n$$f(x) = 3^{x-2} + 1$$\n¿Cuál es su **dominio**?",
     "options": [
       "$(2, +\\infty)$",
       "$\\mathbb{R}$",
@@ -285,7 +285,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la asíntota horizontal de $f(x) = 3^x - 2$?",
+    "question": "Una exponencial se apoya siempre sobre una recta horizontal a la que se acerca sin llegar a tocarla:\n$$f(x) = 3^x - 2$$\n¿Cuál es esa asíntota?",
     "options": [
       "$y = 3$",
       "$y = -2$",
@@ -310,7 +310,7 @@
     ]
   },
   {
-    "question": "Hallá el valor de $f(0)$ para $f(x) = 2^x + 7$?",
+    "question": "Esta exponencial tiene un término constante que la acompaña en todo su recorrido:\n$$f(x) = 2^x + 7$$\n¿Cuánto vale $f(0)$?",
     "options": [
       "$7$",
       "$2$",
@@ -335,7 +335,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas expresiones es equivalente a $2^{x+3}$?",
+    "question": "Dos exponenciales pueden verse distintas y valer lo mismo para todo $x$:\n$$2^{x+3}$$\n¿Qué expresión equivale a esta?",
     "options": [
       "$2^x + 3$",
       "$6 \\cdot 2^x$",
@@ -360,7 +360,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas expresiones es equivalente a $4^x$?",
+    "question": "Una misma exponencial se puede escribir con distintas bases si se ajusta el exponente:\n$$4^x$$\n¿Cuál de estas expresiones es equivalente?",
     "options": [
       "$2 \\cdot 2^x$",
       "$2x$",
@@ -385,7 +385,7 @@
     ]
   },
   {
-    "question": "Calculá: $(3^x)^2$?",
+    "question": "Al comparar modelos exponenciales aparece seguido una potencia elevada a otra:\n$$(3^x)^2$$\n¿A qué expresión equivale?",
     "options": [
       "$9^x$",
       "$3^{x^2}$",
@@ -435,7 +435,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
+    "question": "Para reconocer una exponencial en un gráfico alcanza con mirar dos cosas, dónde arranca y cómo cambia.\n\n¿Qué expresión corresponde a la curva?",
     "options": [
       "$f(x) = 2 \\cdot (1{,}5)^x$",
       "$f(x) = (1{,}5)^x$",
@@ -465,7 +465,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
+    "question": "La curva del gráfico tiene la forma típica de una exponencial, con su asíntota horizontal sobre el eje $x$.\n\n¿Qué expresión la describe?",
     "options": [
       "$f(x) = 3 \\cdot 2^x$",
       "$f(x) = (0{,}6)^x$",
@@ -495,7 +495,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
+    "question": "En el gráfico hay una única curva, y sus valores en $x=0$ y en $x=1$ alcanzan para distinguirla del resto.\n\n¿Qué expresión le corresponde?",
     "options": [
       "$f(x) = e^x$",
       "$f(x) = (1{,}5)^x$",
@@ -575,7 +575,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = 7 \\cdot (1{,}2)^{x-3}$$\n¿Cuánto vale $f(3)$?",
+    "question": "Una población que aumenta un 20% por período se modela así, con el conteo desplazado:\n$$f(x) = 7 \\cdot (1{,}2)^{x-3}$$\n¿Cuánto vale $f(3)$?",
     "options": [
       "$7$",
       "$21$",
@@ -600,7 +600,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = 2 \\cdot e^{x+1}$$\n¿Cuánto vale $f(0)$?",
+    "question": "El número $e$ funciona como cualquier otra base, aunque se escriba con letra:\n$$f(x) = 2 \\cdot e^{x+1}$$\n¿Cuánto vale $f(0)$?",
     "options": [
       "$2$",
       "$2e$",
@@ -675,7 +675,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la imagen de $h(x) = 2 \\cdot e^x - 1$?",
+    "question": "Una exponencial nunca llega a valer cero, y eso limita el conjunto de valores que la función alcanza:\n$$h(x) = 2 \\cdot e^x - 1$$\n¿Cuál es su **imagen**?",
     "options": [
       "$(0, +\\infty)$",
       "$\\mathbb{R}$",
@@ -700,7 +700,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas es la forma más simplificada de $3^x \\cdot 3^{-x+2}$?",
+    "question": "En un producto de potencias conviene mirar primero si las bases coinciden:\n$$3^x \\cdot 3^{-x+2}$$\n¿Cuál es su forma más simple?",
     "options": [
       "$3^{2x^2}$",
       "$3^{2}$",
@@ -725,7 +725,7 @@
     ]
   },
   {
-    "question": "Estudiá la función:\n$$\\dfrac{5^{x+2}}{5^x}$$\n¿Cuánto vale?",
+    "question": "Un cociente de potencias de la misma base se puede reducir antes de reemplazar ningún valor:\n$$\\dfrac{5^{x+2}}{5^x}$$\n¿A cuánto equivale esta expresión?",
     "options": [
       "$5^2 = 25$",
       "$5^{2x}$",

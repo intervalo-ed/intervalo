@@ -233,3 +233,6 @@ Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026). Reducida prop
 - [ ] Ningún párrafo abre con un rótulo tipo `"Nota:"`, `"Ojo:"` (ver "Hallazgos de auditoría", `LEXI_44`)
 - [ ] Cada ejercicio tiene `"tags": ["<slug>"]` con el slug de su fila en la tabla de distribución de su skill; contar por slug y verificar que coincide con la cantidad de la tabla
 
+## Hallazgos de auditoría (ronda 6, ago-2026)
+
+Pasada de redacción sobre los enunciados para llevarlos al estándar de las reglas 47-51: toda `question` quedó con una apertura que sitúa el objeto, la fórmula en su propio bloque display y la pregunta `¿...?` en su tramo final. Se reescribieron 55 enunciados repartidos entre `FORM.json`, `GRAF.json` y `LEXI.json`, variando la apertura ejercicio a ejercicio para que no se lea como plantilla (regla 32). Además se reformuló la opción `#0` de `LEXI_23`, que terminaba en un artículo suelto y aparentaba texto truncado (regla 45). No hubo ningún cambio de contenido matemático: funciones, valores, `correct_index`, feedbacks y explicaciones quedaron intactos.

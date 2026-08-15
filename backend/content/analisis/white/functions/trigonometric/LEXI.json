@@ -1,6 +1,6 @@
 [
   {
-    "question": "¿Cuál es la **amplitud** de $f(x) = 4 \\cdot \\cos(x)$?",
+    "question": "El factor que multiplica al coseno define cuánto sube y baja la onda:\n$$f(x) = 4 \\cdot \\cos(x)$$\n¿Cuál es su **amplitud**?",
     "options": [
       "$1$",
       "$\\pi$",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas NO es una función trigonométrica?",
+    "question": "Tres de estas funciones repiten sus valores cada cierta vuelta y una no.\n\n¿Cuál de estas **no** es una función trigonométrica?",
     "options": [
       "$f(x) = e^x$",
       "$f(x) = \\operatorname{sen}(x)$",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "¿Cuántos máximos locales tiene esta función en el intervalo $[0,\\, 2\\pi]$?",
+    "question": "Un máximo local es un punto donde la curva deja de subir y empieza a bajar.\n\n¿Cuántos máximos locales tiene esta función en el intervalo $[0,\\, 2\\pi]$?",
     "options": [
       "1",
       "2",
@@ -80,7 +80,7 @@
     ]
   },
   {
-    "question": "¿Cómo se llama la longitud de un ciclo completo de una función trigonométrica?",
+    "question": "Las funciones trigonométricas repiten su forma cada cierto tramo, y ese tramo tiene nombre.\n\n¿Cómo se llama la longitud de un ciclo completo?",
     "options": [
       "Período",
       "Frecuencia",
@@ -105,7 +105,7 @@
     ]
   },
   {
-    "question": "¿Cuál función trigonométrica vale 0 en $x = 0$ y alcanza su máximo en $x = \\pi/2$?",
+    "question": "Cada función trigonométrica arranca la vuelta en un punto distinto.\n\n¿Cuál de ellas vale cero en el origen y llega a su máximo en $x = \\pi/2$?",
     "options": [
       "$f(x) = -\\operatorname{sen}(x)$",
       "$f(x) = \\cos(x)$",
@@ -130,7 +130,7 @@
     ]
   },
   {
-    "question": "¿La función $\\cos(x)$ es par o impar?",
+    "question": "Una función par y una impar se distinguen por el tipo de simetría de su gráfico.\n\n¿La función $\\cos(x)$ es par o impar?",
     "options": [
       "Ni par ni impar",
       "Impar (simétrica respecto al origen)",
@@ -160,7 +160,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el valor máximo de $f(x) = \\operatorname{sen}(x)$?",
+    "question": "Las funciones seno y coseno no se escapan a valores arbitrariamente grandes.\n\n¿Cuál es el valor máximo de $f(x) = \\operatorname{sen}(x)$?",
     "options": [
       "$1$",
       "$2\\pi$",
@@ -185,7 +185,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la **imagen** de $f(x) = \\operatorname{sen}(x)$?",
+    "question": "El seno recorre siempre el mismo conjunto de valores, sin importar cuánto avance $x$.\n\n¿Cuál es la **imagen** de $f(x) = \\operatorname{sen}(x)$?",
     "options": [
       "$\\mathbb{R}$",
       "$[0, 1]$",
@@ -210,7 +210,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el **período** de $f(x) = \\operatorname{sen}(x)$?",
+    "question": "Cada función periódica tiene un tramo mínimo tras el cual todo se repite.\n\n¿Cuál es el **período** de $f(x) = \\operatorname{sen}(x)$?",
     "options": [
       "$2\\pi$",
       "$\\pi$",
@@ -260,7 +260,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas afirmaciones es correcta respecto a la **paridad** de $\\operatorname{sen}(x)$ y $\\cos(x)$?",
+    "question": "Seno y coseno se comportan distinto al cambiar el signo del ángulo.\n\n¿Qué afirmación sobre la **paridad** de $\\operatorname{sen}(x)$ y $\\cos(x)$ es correcta?",
     "options": [
       "$\\operatorname{sen}(x)$ es impar y $\\cos(x)$ es par",
       "Ambas son funciones pares",
@@ -285,7 +285,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el **dominio** de $f(x) = \\operatorname{sen}(x)$?",
+    "question": "El dominio de una función trigonométrica no siempre coincide con el de otra.\n\n¿Cuál es el **dominio** de $f(x) = \\operatorname{sen}(x)$?",
     "options": [
       "$[-\\pi, \\pi]$",
       "$(0, +\\infty)$",
@@ -310,7 +310,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\operatorname{sen}(2x)$$\n¿Cuántos ciclos completos ocurren en el intervalo $[0, 2\\pi]$?",
+    "question": "El número que acompaña a la variable cambia cada cuánto se repite la onda:\n$$f(x) = \\operatorname{sen}(2x)$$\n¿Cuántos ciclos completos ocurren en el intervalo $[0, 2\\pi]$?",
     "options": [
       "$1$",
       "$4$",
@@ -335,7 +335,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\operatorname{sen}(x) + D$$\n¿Qué efecto produce el parámetro $D$?",
+    "question": "En esta forma general, la constante se suma después de calcular el seno:\n$$f(x) = \\operatorname{sen}(x) + D$$\n¿Qué efecto produce el parámetro $D$?",
     "options": [
       "Cambia la amplitud",
       "Comprime el período",
@@ -360,7 +360,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el valor mínimo de $g(x) = 2\\cos(x) - 1$?",
+    "question": "El mínimo de una onda desplazada no coincide con el de la onda original:\n$$g(x) = 2\\cos(x) - 1$$\n¿Cuál es su valor mínimo?",
     "options": [
       "$-3$",
       "$-1$",
@@ -385,7 +385,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la **identidad pitagórica** fundamental de las funciones trigonométricas?",
+    "question": "Hay una relación entre seno y coseno que vale para todo ángulo y se usa en todos lados.\n\n¿Cuál es la **identidad pitagórica** fundamental?",
     "options": [
       "$\\operatorname{sen}^2(x) + \\cos^2(x) = 1$",
       "$\\operatorname{sen}^2(x) - \\cos^2(x) = 1$",
@@ -410,7 +410,7 @@
     ]
   },
   {
-    "question": "Analizá la función $\\operatorname{sen}(x)$ en el intervalo:\n$$\\left[0, \\dfrac{\\pi}{2}\\right]$$\n¿Cómo se comporta?",
+    "question": "En el primer cuarto de vuelta, el seno recorre un tramo bien definido:\n$$\\left[0, \\dfrac{\\pi}{2}\\right]$$\n¿Cómo se comporta $\\operatorname{sen}(x)$ en ese intervalo?",
     "options": [
       "Decreciente de $1$ a $0$",
       "Constante en $0$",
@@ -435,7 +435,7 @@
     ]
   },
   {
-    "question": "¿Qué diferencia hay entre $f(x) = \\operatorname{sen}(x)$ y $g(x) = -\\operatorname{sen}(x)$?",
+    "question": "Dos funciones trigonométricas pueden verse casi iguales y diferir en un solo detalle:\n$$f(x) = \\operatorname{sen}(x), \\quad g(x) = -\\operatorname{sen}(x)$$\n¿Qué diferencia hay entre ellas?",
     "options": [
       "$g$ tiene mayor amplitud",
       "$g$ tiene período doble",
@@ -510,7 +510,7 @@
     ]
   },
   {
-    "question": "Una función es **periódica**, con período $T$, si para todo $x$ se cumple:",
+    "question": "La periodicidad de una función se define con una igualdad que vale para todo $x$.\n\n¿Cuál de estas condiciones define que $f$ tenga período $T$?",
     "options": [
       "$f(x + T) = f(x) - T$",
       "$f(x \\cdot T) = f(x)$",
@@ -535,7 +535,7 @@
     ]
   },
   {
-    "question": "¿Cómo se define $\\tan(x)$ en términos de seno y coseno?",
+    "question": "La tangente no es una función independiente de las otras dos.\n\n¿Cómo se define $\\tan(x)$ en términos de seno y coseno?",
     "options": [
       "$\\tan(x) = \\operatorname{sen}(x) + \\cos(x)$",
       "$\\tan(x) = \\dfrac{\\cos(x)}{\\operatorname{sen}(x)}$",
@@ -560,7 +560,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el **período** de $f(x) = \\cos(x)$?",
+    "question": "Coseno y seno recorren su ciclo al mismo ritmo, aunque arranquen distinto.\n\n¿Cuál es el **período** de $f(x) = \\cos(x)$?",
     "options": [
       "$\\pi$",
       "$2\\pi$",
@@ -585,7 +585,7 @@
     ]
   },
   {
-    "question": "¿En qué valores de $x$ el coseno alcanza su máximo $1$?",
+    "question": "El coseno llega a su valor más alto en puntos que se repiten vuelta a vuelta.\n\n¿En qué valores de $x$ alcanza su máximo $1$?",
     "options": [
       "$x = \\dfrac{\\pi}{2} + 2k\\pi$, $k \\in \\mathbb{Z}$",
       "$x = 2k\\pi$, $k \\in \\mathbb{Z}$",
@@ -610,7 +610,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el **período** de $f(x) = \\operatorname{sen}(2x)$?",
+    "question": "Multiplicar la variable por 2 dentro del seno acelera el ciclo:\n$$f(x) = \\operatorname{sen}(2x)$$\n¿Cuál es su **período**?",
     "options": [
       "$4\\pi$",
       "$\\pi$",
@@ -685,7 +685,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la **imagen** de $f(x) = \\cos(x) + 3$?",
+    "question": "Sumarle una constante a un coseno mueve la onda entera hacia arriba:\n$$f(x) = \\cos(x) + 3$$\n¿Cuál es su **imagen**?",
     "options": [
       "$[-1, 1]$",
       "$[3, 4]$",
@@ -710,7 +710,7 @@
     ]
   },
   {
-    "question": "En el intervalo $[0, \\pi]$, $\\cos(x)$ es:",
+    "question": "El comportamiento del coseno cambia según qué tramo de la vuelta se mire.\n\n¿Cómo se comporta $\\cos(x)$ en el intervalo $[0, \\pi]$?",
     "options": [
       "Creciente de $-1$ a $1$",
       "Constante en $0$",
@@ -735,7 +735,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la relación entre $\\operatorname{sen}(x)$ y $\\cos(x)$ como desfase?",
+    "question": "Seno y coseno tienen la misma forma, solo que una llega antes que la otra.\n\n¿Cuál es la relación de desfase entre $\\operatorname{sen}(x)$ y $\\cos(x)$?",
     "options": [
       "$\\cos(x) = \\operatorname{sen}\\!\\left(x - \\dfrac{\\pi}{2}\\right)$",
       "$\\cos(x) = \\operatorname{sen}\\!\\left(x + \\dfrac{\\pi}{2}\\right)$",

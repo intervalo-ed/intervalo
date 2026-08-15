@@ -1,6 +1,6 @@
 [
   {
-    "question": "Considerá la función:\n$$f(x) = 3\\operatorname{sen}(2x + \\pi/4)$$\n¿Cuál es la amplitud?",
+    "question": "Esta función combina tres números ubicados en distintos lugares de la fórmula:\n$$f(x) = 3\\operatorname{sen}(2x + \\pi/4)$$\n¿Cuál es la amplitud?",
     "options": [
       "$3$",
       "$2$",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = 2 \\cdot \\operatorname{sen}(3x)$$\n¿Cuál es el período?",
+    "question": "El número que multiplica a la variable adentro del seno controla cada cuánto se repite la curva:\n$$f(x) = 2 \\cdot \\operatorname{sen}(3x)$$\n¿Cuál es el período?",
     "options": [
       "$3\\pi$",
       "$2\\pi$",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale $f(\\pi/2)$ para $f(x) = \\operatorname{sen}(x)$?",
+    "question": "Los valores del seno en los ángulos más usados conviene tenerlos a mano:\n$$f(x) = \\operatorname{sen}(x)$$\n¿Cuánto vale $f(\\pi/2)$?",
     "options": [
       "$1$",
       "$0$",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el dominio de $f(x) = \\cos(x)$?",
+    "question": "Las funciones trigonométricas no admiten todas los mismos valores de entrada:\n$$f(x) = \\cos(x)$$\n¿Cuál es su dominio?",
     "options": [
       "$\\mathbb{R}$",
       "$[-1, 1]$",
@@ -100,7 +100,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la amplitud de $f(x) = 3\\,\\operatorname{sen}(x)$?",
+    "question": "La amplitud mide cuánto se aleja la curva de su valor central:\n$$f(x) = 3\\,\\operatorname{sen}(x)$$\n¿Cuál es la amplitud?",
     "options": [
       "$1$",
       "$3$",
@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el período de $f(x) = \\operatorname{sen}(4x)$?",
+    "question": "Multiplicar la variable por un número comprime o estira la onda en horizontal:\n$$f(x) = \\operatorname{sen}(4x)$$\n¿Cuál es el período?",
     "options": [
       "$8\\pi$",
       "$4\\pi$",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el valor mínimo de $h(x) = \\cos(x) - 2$?",
+    "question": "El coseno oscila entre dos valores fijos, y restarle un número mueve toda la onda:\n$$h(x) = \\cos(x) - 2$$\n¿Cuál es su valor mínimo?",
     "options": [
       "$-3$",
       "$-1$",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\operatorname{sen}(x)$$\n¿Cuánto vale $f(\\pi/6)$?",
+    "question": "Los ángulos notables de la primera vuelta tienen valores de seno exactos:\n$$f(x) = \\operatorname{sen}(x)$$\n¿Cuánto vale $f(\\pi/6)$?",
     "options": [
       "$\\dfrac{\\sqrt{3}}{2}$",
       "$1$",
@@ -200,7 +200,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$g(x) = \\cos(x)$$\n¿Cuánto vale $g(\\pi/3)$?",
+    "question": "El coseno y el seno intercambian valores entre ángulos complementarios:\n$$g(x) = \\cos(x)$$\n¿Cuánto vale $g(\\pi/3)$?",
     "options": [
       "$\\dfrac{\\sqrt{3}}{2}$",
       "$\\dfrac{1}{2}$",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la amplitud de $f(x) = -4\\,\\operatorname{sen}(x)$?",
+    "question": "El factor que multiplica al seno viene con signo negativo:\n$$f(x) = -4\\,\\operatorname{sen}(x)$$\n¿Cuál es la amplitud?",
     "options": [
       "$-4$",
       "$2$",
@@ -250,7 +250,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la imagen de $f(x) = \\operatorname{sen}(x) - 1$?",
+    "question": "Restar una constante a un seno baja la onda entera sin cambiar su altura:\n$$f(x) = \\operatorname{sen}(x) - 1$$\n¿Cuál es su imagen?",
     "options": [
       "$[-2, 1]$",
       "$[-1, 1]$",
@@ -330,7 +330,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el valor máximo de $h(x) = 3\\cos(x) - 1$?",
+    "question": "En esta función hay un factor que estira la onda y un término que la desplaza:\n$$h(x) = 3\\cos(x) - 1$$\n¿Cuál es su valor máximo?",
     "options": [
       "$2$",
       "$4$",
@@ -355,7 +355,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la imagen de $g(x) = 2\\cos(x) + 1$?",
+    "question": "La imagen de una onda queda determinada por su centro y por cuánto sube y baja:\n$$g(x) = 2\\cos(x) + 1$$\n¿Cuál es su imagen?",
     "options": [
       "$[0, 4]$",
       "$[1, 3]$",
@@ -410,7 +410,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el período de $f(x) = 2\\,\\operatorname{sen}(3x)$?",
+    "question": "El factor de afuera no interviene en cada cuánto se repite la onda:\n$$f(x) = 2\\,\\operatorname{sen}(3x)$$\n¿Cuál es el período?",
     "options": [
       "$\\dfrac{2\\pi}{3}$",
       "$6\\pi$",
@@ -435,7 +435,7 @@
     ]
   },
   {
-    "question": "¿La función $f(x) = \\operatorname{sen}(x)$ tiene asíntotas verticales?",
+    "question": "Algunas funciones trigonométricas se disparan en ciertos ángulos y otras no:\n$$f(x) = \\operatorname{sen}(x)$$\n¿Tiene asíntotas verticales?",
     "options": [
       "Sí, en $x = 0$",
       "Sí, en $x = \\pi/2 + k\\pi$",
@@ -515,7 +515,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\cos(x)$$\n¿Cuánto vale $f(\\pi/4)$?",
+    "question": "El coseno de los ángulos notables aparece seguido en los ejercicios:\n$$f(x) = \\cos(x)$$\n¿Cuánto vale $f(\\pi/4)$?",
     "options": [
       "$\\dfrac{1}{2}$",
       "$\\dfrac{\\sqrt{3}}{2}$",
@@ -540,7 +540,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el período de $f(x) = \\cos(\\pi x)$?",
+    "question": "El factor que acompaña a la variable dentro del coseno es el propio $\\pi$:\n$$f(x) = \\cos(\\pi x)$$\n¿Cuál es el período?",
     "options": [
       "$\\pi$",
       "$\\dfrac{1}{\\pi}$",
@@ -565,7 +565,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\operatorname{sen}(x)$$\n¿Cuánto vale $f(3\\pi/2)$?",
+    "question": "El ángulo que se evalúa en este caso queda más allá de media vuelta:\n$$f(x) = \\operatorname{sen}(x)$$\n¿Cuánto vale $f(3\\pi/2)$?",
     "options": [
       "$0$",
       "$1$",
@@ -590,7 +590,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la imagen de $f(x) = 3\\,\\operatorname{sen}(x) - 1$?",
+    "question": "Un factor delante y una constante al final modifican la imagen de distinta manera:\n$$f(x) = 3\\,\\operatorname{sen}(x) - 1$$\n¿Cuál es su imagen?",
     "options": [
       "$[-1, 3]$",
       "$[-3, 3]$",
@@ -645,7 +645,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\operatorname{sen}(x)$$\n¿Cuánto vale $f(\\pi/4)$?",
+    "question": "Sobre la diagonal del primer cuadrante, seno y coseno valen lo mismo:\n$$f(x) = \\operatorname{sen}(x)$$\n¿Cuánto vale $f(\\pi/4)$?",
     "options": [
       "$\\dfrac{1}{2}$",
       "$\\dfrac{\\sqrt{3}}{2}$",
@@ -670,7 +670,7 @@
     ]
   },
   {
-    "question": "Observá la siguiente función:\n$$f(x) = \\cos\\!\\left(\\dfrac{2x}{3}\\right)$$\n¿Cuál es el período?",
+    "question": "El factor que multiplica a la variable es una fracción menor que 1:\n$$f(x) = \\cos\\!\\left(\\dfrac{2x}{3}\\right)$$\n¿Cuál es el período?",
     "options": [
       "$\\dfrac{4\\pi}{3}$",
       "$3\\pi$",
@@ -720,7 +720,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\operatorname{sen}(x)$$\n¿En qué valor de $x$, con $0 < x < 2\\pi$, la función cruza el eje horizontal?",
+    "question": "El seno vuelve al cero varias veces a lo largo de una vuelta completa:\n$$f(x) = \\operatorname{sen}(x)$$\n¿En qué valor de $x$, con $0 < x < 2\\pi$, cruza el eje horizontal?",
     "options": [
       "$x=\\pi/2$",
       "$x=\\pi$",

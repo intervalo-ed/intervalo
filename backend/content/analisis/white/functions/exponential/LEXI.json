@@ -1,6 +1,6 @@
 [
   {
-    "question": "¿Cuál de estas expresiones representa una función exponencial?",
+    "question": "Cuatro familias distintas de funciones se parecen a simple vista cuando aparecen escritas una al lado de la otra.\n\n¿Cuál de estas expresiones representa una función exponencial?",
     "options": [
       "$f(x) = 5 \\cdot 2^x$",
       "$f(x) = x^5$",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "¿Cómo se llama la línea horizontal que esta curva se aproxima pero nunca alcanza?",
+    "question": "Hacia la izquierda, la curva del gráfico se pega cada vez más a una recta sin llegar a cruzarla.\n\n¿Cómo se llama esa recta?",
     "options": [
       "Asíntota vertical",
       "Asíntota horizontal",
@@ -55,7 +55,7 @@
     ]
   },
   {
-    "question": "¿Dónde aparece la variable $x$ en una función exponencial $f(x) = a \\cdot b^x$?",
+    "question": "Lo que distingue a una exponencial de una potencia común es el lugar que ocupa la variable:\n$$f(x) = a \\cdot b^x$$\n¿Dónde aparece $x$ en esta fórmula?",
     "options": [
       "Como coeficiente",
       "En la base",
@@ -80,7 +80,7 @@
     ]
   },
   {
-    "question": "Una función exponencial $f(x) = b^x$ con $b > 1$ es...",
+    "question": "El valor de la base decide por completo hacia dónde va una exponencial:\n$$f(x) = b^x, \\quad b > 1$$\n¿Cómo se comporta esta función?",
     "options": [
       "Periódica",
       "Decreciente",
@@ -105,7 +105,7 @@
     ]
   },
   {
-    "question": "¿Cuándo es decreciente la función $f(x) = b^x$?",
+    "question": "Cambiar la base de una exponencial puede dar vuelta por completo su comportamiento:\n$$f(x) = b^x$$\n¿Para qué valores de $b$ resulta decreciente?",
     "options": [
       "Cuando $b = 1$",
       "Cuando $b > 1$",
@@ -130,7 +130,7 @@
     ]
   },
   {
-    "question": "Considerá una función exponencial:\n$$f(x) = b^x, \\quad b > 0$$\n¿Cuánto vale $f(0)$?",
+    "question": "Toda exponencial de base positiva está definida para cualquier valor de $x$, incluido el cero:\n$$f(x) = b^x, \\quad b > 0$$\n¿Cuánto vale $f(0)$?",
     "options": [
       "$-1$",
       "$0$",
@@ -155,7 +155,7 @@
     ]
   },
   {
-    "question": "¿Por cuál punto del eje $Y$ pasa esta curva exponencial?",
+    "question": "En el gráfico, el cruce con el eje vertical es el dato más directo de leer en una exponencial.\n\n¿Por qué punto del eje $Y$ pasa la curva?",
     "options": [
       "$(0,\\; 1)$",
       "$(0,\\; 0)$",
@@ -185,7 +185,7 @@
     ]
   },
   {
-    "question": "Considerá la función exponencial:\n$$f(x) = a^x, \\quad a > 0,\\; a \\neq 1$$\n¿Cuál es su **imagen**?",
+    "question": "Una exponencial se acerca al eje horizontal por un lado y se dispara por el otro:\n$$f(x) = a^x, \\quad a > 0,\\; a \\neq 1$$\n¿Cuál es su **imagen**?",
     "options": [
       "$(0, +\\infty)$",
       "$\\mathbb{R}$",
@@ -210,7 +210,7 @@
     ]
   },
   {
-    "question": "¿Por qué el **dominio** de $f(x) = 2^x$ es $\\mathbb{R}$ y no solo los enteros?",
+    "question": "Elevar 2 a un exponente entero es fácil de imaginar, pero la función exponencial admite bastante más:\n$$f(x) = 2^x$$\n¿Por qué su **dominio** es $\\mathbb{R}$ y no solo los enteros?",
     "options": [
       "Porque $2^x$ solo se define para $x \\geq 0$",
       "Porque $2^x$ se puede calcular para cualquier $x$ real",
@@ -235,7 +235,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = 6 \\cdot 3^x$$\n¿Cuál es el **valor inicial** $f(0)$?",
+    "question": "En los modelos de crecimiento, el valor en $x=0$ es el punto de partida de todo lo que viene después:\n$$f(x) = 6 \\cdot 3^x$$\n¿Cuál es ese **valor inicial** $f(0)$?",
     "options": [
       "$6$",
       "$3$",
@@ -260,7 +260,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = 4 \\cdot 2^x$$\n¿Cuál parámetro determina si la función crece o decrece?",
+    "question": "Una exponencial con factor delante tiene dos números en juego, y cada uno cumple un papel distinto:\n$$f(x) = 4 \\cdot 2^x$$\n¿Cuál de esos parámetros determina si la función crece o decrece?",
     "options": [
       "El coeficiente $a = 4$",
       "El exponente $x$",
@@ -335,7 +335,7 @@
     ]
   },
   {
-    "question": "¿Cómo se llama el tiempo que tarda una cantidad en duplicarse en un modelo exponencial?",
+    "question": "Los modelos de crecimiento exponencial tienen un nombre propio para el intervalo en que la cantidad pasa al doble.\n\n¿Cómo se llama ese tiempo?",
     "options": [
       "Tiempo de saturación",
       "Período de duplicación",
@@ -360,7 +360,7 @@
     ]
   },
   {
-    "question": "¿Cómo se llama el tiempo que tarda una sustancia radiactiva en reducirse a la mitad?",
+    "question": "En una muestra radiactiva, la cantidad que queda se achica siempre en la misma proporción por unidad de tiempo.\n\n¿Cómo se llama el tiempo que tarda en reducirse a la mitad?",
     "options": [
       "Período de duplicación",
       "Tiempo de saturación",
@@ -385,7 +385,7 @@
     ]
   },
   {
-    "question": "¿Qué le pasa a $2^x$ cuando $x \\to +\\infty$?",
+    "question": "El comportamiento de una exponencial en los extremos del eje es lo que la separa de un polinomio.\n\n¿Qué le pasa a $2^x$ cuando $x \\to +\\infty$?",
     "options": [
       "Sigue creciendo sin parar",
       "Se acerca cada vez más a $0$",
@@ -410,7 +410,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la **imagen** de $f(x) = 2^x + 3$?",
+    "question": "Sumarle una constante a una exponencial levanta toda la curva, asíntota incluida:\n$$f(x) = 2^x + 3$$\n¿Cuál es su **imagen**?",
     "options": [
       "$\\mathbb{R}$",
       "$(0, +\\infty)$",
@@ -435,7 +435,7 @@
     ]
   },
   {
-    "question": "¿Qué le pasa a la **asíntota horizontal** de $f(x) = b^x$ cuando se define $g(x) = b^x + k$?",
+    "question": "Partiendo de una exponencial pura se arma otra función sumándole una constante:\n$$g(x) = b^x + k$$\n¿Qué le pasa a la **asíntota horizontal** de $b^x$ con ese cambio?",
     "options": [
       "Se mantiene en $y = 0$",
       "Se mueve a $y = b$",
@@ -460,7 +460,7 @@
     ]
   },
   {
-    "question": "Determiná el valor de $3^0$?",
+    "question": "El exponente cero suele generar dudas cuando se lo compara con los demás:\n$$3^0$$\n¿Cuánto vale esta potencia?",
     "options": [
       "$0$",
       "$3$",
@@ -485,7 +485,7 @@
     ]
   },
   {
-    "question": "Hallá el valor de $2^{-3}$?",
+    "question": "Los exponentes negativos aparecen apenas se extiende la definición de potencia más allá de los naturales:\n$$2^{-3}$$\n¿Cuánto vale esta potencia?",
     "options": [
       "$-8$",
       "$-6$",
@@ -510,7 +510,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas igualdades es correcta?",
+    "question": "Al multiplicar potencias de la misma base, no siempre es obvio qué pasa con los exponentes.\n\n¿Cuál de estas igualdades es correcta?",
     "options": [
       "$2^3 \\cdot 2^4 = 2^{12}$",
       "$2^3 \\cdot 2^4 = 2^7$",
@@ -535,7 +535,7 @@
     ]
   },
   {
-    "question": "¿Cómo se simplifica $(b^x)^2$?",
+    "question": "Elevar una potencia a otra potencia deja una sola potencia, con un exponente que hay que armar:\n$$(b^x)^2$$\n¿A qué expresión equivale?",
     "options": [
       "$b^{x+2}$",
       "$2b^x$",
@@ -560,7 +560,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la función **inversa** de $f(x) = 2^x$?",
+    "question": "Toda exponencial de base positiva y distinta de 1 tiene una función que deshace lo que ella hace:\n$$f(x) = 2^x$$\n¿Cuál es su función **inversa**?",
     "options": [
       "$f^{-1}(x) = \\log_2(x)$",
       "$f^{-1}(x) = x^2$",
@@ -585,9 +585,9 @@
     ]
   },
   {
-    "question": "¿Cuántas raíces reales tiene $f(x) = 3^x$?",
+    "question": "Una raíz real es un valor de $x$ donde la función vale cero:\n$$f(x) = 3^x$$\n¿Cuántas raíces reales tiene?",
     "options": [
-      "Exactamente una",
+      "Una sola",
       "Dos",
       "Infinitas",
       "Ninguna"
@@ -610,7 +610,7 @@
     ]
   },
   {
-    "question": "¿La ecuación $5^x = -2$ tiene solución real?",
+    "question": "Resolver una ecuación exponencial es buscar el exponente que produce cierto valor:\n$$5^x = -2$$\n¿Esta ecuación tiene solución real?",
     "options": [
       "No, porque $5^x > 0$ para todo $x$ real",
       "Sí, cuando $x = \\log_5(-2)$",
@@ -635,7 +635,7 @@
     ]
   },
   {
-    "question": "¿Qué le pasa a $f(x) = 3^x$ cuando $x \\to -\\infty$?",
+    "question": "Una exponencial se comporta de forma muy distinta en cada extremo del eje horizontal:\n$$f(x) = 3^x$$\n¿Qué le pasa a $f(x)$ cuando $x \\to -\\infty$?",
     "options": [
       "$f(x) \\to -\\infty$",
       "$f(x) \\to +\\infty$",
@@ -660,7 +660,7 @@
     ]
   },
   {
-    "question": "¿Por qué se excluye $b = 1$ de la definición de función exponencial $f(x) = b^x$?",
+    "question": "La definición de función exponencial pide una base positiva y además deja afuera un valor puntual:\n$$f(x) = b^x$$\n¿Por qué se excluye $b = 1$?",
     "options": [
       "Porque $1^x$ no está definida para $x < 0$",
       "Porque la base debe ser mayor que $e$",
@@ -685,7 +685,7 @@
     ]
   },
   {
-    "question": "¿Cuántos extremos locales tiene $f(x) = 5^x$?",
+    "question": "Un extremo local es un punto donde la función deja de subir y empieza a bajar, o al revés:\n$$f(x) = 5^x$$\n¿Cuántos extremos locales tiene?",
     "options": [
       "Uno (mínimo global)",
       "Dos (un máximo y un mínimo)",
@@ -735,7 +735,7 @@
     ]
   },
   {
-    "question": "Examiná la función:\n$$3^x = \\dfrac{1}{9}$$\n¿Cuánto vale $x$?",
+    "question": "Las dos partes de esta igualdad se pueden escribir con la misma base:\n$$3^x = \\dfrac{1}{9}$$\n¿Cuánto vale $x$?",
     "options": [
       "$x = -2$",
       "$x = 2$",

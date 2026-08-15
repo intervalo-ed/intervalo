@@ -187,3 +187,7 @@ Leer una recta desde su gráfico: valor puntual $f(a)$ dado $a$ (y a la inversa,
 - [x] 30 ejercicios (10 regenerados desde cero en ago-2026 + 20 sumados en la ronda siguiente), con `graph_fn`/`graph_view` reales, $|m| \leq 2$, `graph_view` aproximadamente cuadrado
 - [x] `feedback_incorrect` completo en los 30
 - [x] Formato de prosa limpio, cierres en advertencia/consejo
+
+## Hallazgos de auditoría (ronda 6, ago-2026)
+
+Pasada de redacción sobre los enunciados para llevarlos al estándar de las reglas 47-51: apertura que sitúa, fórmula centrada y pregunta `¿...?` en su propio tramo. Se reescribieron 45 enunciados entre `FORM.json`, `GRAF.json` y `LEXI.json`, con aperturas variadas ejercicio a ejercicio (regla 32) y sin imperativos de cálculo ni de atención. No hubo cambios de contenido matemático: solo se tocó el campo `question`.
