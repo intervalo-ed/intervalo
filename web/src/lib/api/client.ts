@@ -32,7 +32,7 @@
 import createClient, { type Client, type Middleware } from "openapi-fetch"
 import type { paths } from "./schema"
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000"
+export const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000"
 
 /**
  * Build an API client.
