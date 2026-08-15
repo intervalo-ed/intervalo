@@ -67,6 +67,7 @@ import { useCallback, useEffect, useMemo, useState } from "react"
 import { CourseEditorRow, type TopicEditState } from "./course-editor-row"
 import { EditorStepper } from "./editor-stepper"
 import { useDebouncedStepper } from "./UseDebouncedStepper"
+import { useApi } from "@/lib/api/useApi"
 import { useCourseEditor } from "./UseCourseEditor"
 import { useStartSession } from "./UseStartSession"
 import { useUserProgress } from "./UseUserProgress"
@@ -116,6 +117,27 @@ export default function DashboardEntry() {
   const startSession = useStartSession()
   const sfx = useSfx()
   const { markReady } = useSplash()
+  const api = useApi()
+
+  // Red de contención del gate de page.tsx: aquel corre en el server y su
+  // catch deja pasar al dashboard si ese fetch falla, así que un usuario sin
+  // enrollment puede aterrizar acá igual (pasó: users 137 y 172). Este
+  // re-chequeo corre en el cliente y lo manda a completar el perfil.
+  useEffect(() => {
+    let cancelled = false
+    api
+      .GET("/user/status")
+      .then(({ data }) => {
+        if (!cancelled && data && !data.enrolled) {
+          router.replace("/onboarding/complete")
+        }
+      })
+      .catch(() => {})
+    return () => {
+      cancelled = true
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // Prefetch de los 3 cursos: React Query cachea por queryKey y los hooks se
   // resuelven en paralelo. Cambiar de curso solo alterna qué `data` se lee.
