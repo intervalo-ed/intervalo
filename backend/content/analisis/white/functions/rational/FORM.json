@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
+    "question": "La curva del gráfico tiene dos ramas separadas por una recta vertical.\n\n¿Qué expresión le corresponde?",
     "options": [
       "$f(x) = \\dfrac{1}{x+2}$",
       "$f(x) = \\dfrac{1}{x-2}$",
@@ -130,21 +130,21 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\dfrac{x + 1}{x - 3}$$\nExpresado en notación de intervalos?",
+    "question": "Una función racional tiene un denominador que se anula en un punto:\n$$f(x) = \\dfrac{x + 1}{x - 3}$$\n¿Cuál es su dominio en notación de intervalos?",
     "options": [
-      "$(-\\infty, 3]$",
-      "Intervalo",
-      "$(3, +\\infty)$",
-      "$(-3, +\\infty)$"
+      "$(-\\infty, 3] \\cup [3, +\\infty)$",
+      "$(-\\infty, 3) \\cup (3, +\\infty)$",
+      "$(-\\infty, -3) \\cup (-3, +\\infty)$",
+      "$(3, +\\infty)$"
     ],
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "El denominador se anula en $x = 3$, que queda excluido. El dominio es $(-\\infty, 3) \\cup (3, +\\infty)$.",
     "feedback_incorrect": [
-      "Ese intervalo cerrado en $3$ incluye justo el punto excluido del dominio; además faltaría la otra rama para valores mayores a $3$.",
+      "Los corchetes en $3$ incluyen justo el punto que anula el denominador, y ese valor tiene que quedar afuera.",
       null,
-      "Ese intervalo deja afuera todos los valores menores a $3$, pero la función sí está definida ahí; solo se excluye el punto $x=3$.",
-      "Ese intervalo excluye $x=-3$, pero el denominador de esta función se anula en $x=3$, no en $x=-3$."
+      "Ese dominio excluye $x=-3$, pero el denominador de esta función se anula en $x=3$, no en $x=-3$.",
+      "Ese intervalo deja afuera todos los valores menores a $3$, pero la función sí está definida ahí; solo se excluye el punto $x=3$."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -155,7 +155,7 @@
     ]
   },
   {
-    "question": "Observá la siguiente función:\n$$f(x) = \\dfrac{2x - 1}{x + 2}$$\n¿Cuánto vale $f(3)$ si?",
+    "question": "Una función racional se evalúa en un punto:\n$$f(x) = \\dfrac{2x - 1}{x + 2}$$\n¿Cuánto vale $f(3)$?",
     "options": [
       "$1$",
       "$\\dfrac{5}{3}$",
@@ -305,7 +305,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\dfrac{x - 1}{x + 4}$$\nEn notación de intervalos?",
+    "question": "Una función racional tiene un denominador que se anula en un único valor:\n$$f(x) = \\dfrac{x - 1}{x + 4}$$\n¿Cuál es su dominio en notación de intervalos?",
     "options": [
       "$(-\\infty, 4) \\cup (4, +\\infty)$",
       "$(-\\infty, -4) \\cup (-4, +\\infty)$",
@@ -330,16 +330,16 @@
     ]
   },
   {
-    "question": "Observá la siguiente función:\n$$f(x) = \\dfrac{2}{x^2 - 9}$$\n¿Cuál es el dominio?",
+    "question": "Una función racional tiene una diferencia de cuadrados en el denominador:\n$$f(x) = \\dfrac{2}{x^2 - 9}$$\n¿Cuál es su dominio?",
     "options": [
       "$(-\\infty, 3) \\cup (3, +\\infty)$",
       "$\\mathbb{R} \\setminus \\{9\\}$",
-      "Intervalo",
+      "$\\mathbb{R} \\setminus \\{-3, 3\\}$",
       "$\\mathbb{R}$"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$x^2-9 = \\pm3$: dos valores excluidos.",
+    "feedback_correct": "El denominador se anula en $x=3$ y en $x=-3$, así que el dominio deja afuera esos dos valores.",
     "feedback_incorrect": [
       "Ese dominio solo excluye $x=3$, pero el denominador $x^2-9$ también se anula en $x=-3$; falta partir la recta en tres tramos.",
       "Ese conjunto excluye el $9$ directamente, pero hay que resolver $x^2-9=0$, que da $x=\\pm3$, no $x=9$.",
@@ -430,7 +430,7 @@
     ]
   },
   {
-    "question": "Observá la gráfica.\n\n¿Cuál es la asíntota vertical de la función?",
+    "question": "La curva del gráfico se dispara hacia arriba y hacia abajo cerca de un valor puntual.\n\n¿Cuál es la asíntota vertical de la función?",
     "options": [
       "$x = -1$",
       "$x = 0$",
@@ -460,7 +460,7 @@
     ]
   },
   {
-    "question": "Observá la gráfica.\n\n¿Cuánto vale $f(3)$ aproximadamente?",
+    "question": "En el gráfico, la altura de la curva se lee igual que en cualquier otra función.\n\n¿Cuánto vale $f(3)$ aproximadamente?",
     "options": [
       "$1$",
       "$0{,}5$",
@@ -490,7 +490,7 @@
     ]
   },
   {
-    "question": "Observá la gráfica.\n\n¿Dónde está la asíntota vertical?",
+    "question": "Una función racional tiene dos ramas separadas por una recta.\n\n¿Dónde está la asíntota vertical?",
     "options": [
       "$x = 2$",
       "$x = 0$",
@@ -570,7 +570,7 @@
     ]
   },
   {
-    "question": "Estudiá la función:\n$$f(x) = \\dfrac{3}{x - 4} + 2$$\n¿Cuáles son la AV y la AH?",
+    "question": "Sumar una constante a una función racional levanta la curva completa:\n$$f(x) = \\dfrac{3}{x - 4} + 2$$\n¿Cuáles son la asíntota vertical y la horizontal?",
     "options": [
       "AV: $x = 4$, AH: $y = 2$",
       "AV: $x = -4$, AH: $y = 2$",
@@ -595,7 +595,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\dfrac{x^2 - 1}{x - 1}$$\n¿Qué pasa en $x = 1$?",
+    "question": "Una función racional se analiza en un punto de su dominio:\n$$f(x) = \\dfrac{x^2 - 1}{x - 1}$$\n¿Qué pasa en $x = 1$?",
     "options": [
       "Hay una asíntota vertical",
       "La función vale $1$ en ese punto",
@@ -620,7 +620,7 @@
     ]
   },
   {
-    "question": "Analiza la función:\n$$f(x) = \\dfrac{x^2 + 3x}{x^2 - 1}$$\n¿Cuál es la asíntota vertical?",
+    "question": "Una función racional tiene numerador y denominador de grado 2:\n$$f(x) = \\dfrac{x^2 + 3x}{x^2 - 1}$$\n¿Cuál es la asíntota vertical?",
     "options": [
       "Una sola AV en $x = 0$",
       "No tiene AV",
@@ -645,7 +645,7 @@
     ]
   },
   {
-    "question": "Estudiá la función:\n$$f(x) = \\dfrac{x^3 - 1}{x^2 + 1}$$\n¿Cuál es la asíntota horizontal?",
+    "question": "Los grados del numerador y del denominador deciden qué pasa lejos del origen:\n$$f(x) = \\dfrac{x^3 - 1}{x^2 + 1}$$\n¿Cuál es la asíntota horizontal?",
     "options": [
       "$y = 1$",
       "$y = 0$",
@@ -670,7 +670,7 @@
     ]
   },
   {
-    "question": "Examiná la función:\n$$f(x) = \\dfrac{x - 2}{x^2 + 2x + 1}$$\n¿Cuál es el dominio?",
+    "question": "Una función racional tiene un trinomio factorizable en el denominador:\n$$f(x) = \\dfrac{x - 2}{x^2 + 2x + 1}$$\n¿Cuál es el dominio?",
     "options": [
       "$\\mathbb{R} \\setminus \\{2\\}$",
       "$\\mathbb{R}$",
@@ -695,7 +695,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\dfrac{x^2 - 9}{x + 5}$$\n¿Cuál es el intercepto con el eje $X$?",
+    "question": "El intercepto con el eje $X$ sale de anular el numerador, siempre que el denominador no se anule ahí:\n$$f(x) = \\dfrac{x^2 - 9}{x + 5}$$\n¿Cuál es el intercepto con el eje $X$?",
     "options": [
       "$x = 9$",
       "$x = -5$",
@@ -720,7 +720,7 @@
     ]
   },
   {
-    "question": "Observá la siguiente función:\n$$f(x) = \\dfrac{5x - 10}{2x + 6}$$\n¿Cuáles son la AV y la AH?",
+    "question": "Una función racional tiene numerador y denominador de grado 1:\n$$f(x) = \\dfrac{5x - 10}{2x + 6}$$\n¿Cuáles son la asíntota vertical y la horizontal?",
     "options": [
       "AV: $x = 3$, AH: $y = \\dfrac{5}{2}$",
       "AV: $x = -3$, AH: $y = \\dfrac{2}{5}$",

@@ -1,6 +1,6 @@
 [
   {
-    "question": "La gráfica muestra una curva que se estabiliza en una altura fija a medida que $x$ crece y decrece sin cota.\n\n¿Cuál es la ecuación de la **asíntota horizontal**?",
+    "question": "La gráfica de una función se estabiliza en una altura fija a medida que $x$ crece y decrece sin cota.\n\n¿Cuál es la ecuación de la **asíntota horizontal**?",
     "options": [
       "$y = 2$",
       "$y = 3$",
@@ -30,7 +30,7 @@
     ]
   },
   {
-    "question": "La gráfica presenta un pico en el centro y luego desciende hacia ambos lados, estabilizándose en una altura constante.\n\n¿Cuál es la ecuación de la **asíntota horizontal**?",
+    "question": "La gráfica de una función tiene un pico en el centro y desciende hacia ambos lados hasta una altura constante.\n\n¿Cuál es la ecuación de la **asíntota horizontal**?",
     "options": [
       "$y = 4$",
       "$y = 1$",
@@ -60,7 +60,7 @@
     ]
   },
   {
-    "question": "La gráfica pasa por un punto marcado en el interior de la curva, en $x=1$, además de estabilizarse hacia los extremos.\n\n¿Cuál es la ecuación de la **asíntota horizontal**?",
+    "question": "La gráfica de una función pasa por un punto marcado en $x=1$, y además se estabiliza hacia los extremos.\n\n¿Cuál es la ecuación de la **asíntota horizontal**?",
     "options": [
       "$y = 1$",
       "$y = 3$",
@@ -90,7 +90,7 @@
     ]
   },
   {
-    "question": "La curva se estabiliza en una altura negativa a medida que $x$ crece y decrece sin cota.\n\n¿Cuál es la ecuación de la **asíntota horizontal**?",
+    "question": "La gráfica de una función se estabiliza en una altura negativa cuando $x$ crece y decrece sin cota.\n\n¿Cuál es la ecuación de la **asíntota horizontal**?",
     "options": [
       "$y = -1$",
       "$y = 0$",
@@ -148,7 +148,7 @@
     ]
   },
   {
-    "question": "En la gráfica, la curva cruza la altura $y=2$ en la zona central antes de estabilizarse en esa misma altura hacia los extremos.\n\n¿Sigue siendo $y=2$ la **asíntota horizontal** de esta función, a pesar de que la curva la cruza en el medio?",
+    "question": "La gráfica de una función cruza la altura $y=2$ en el centro y después se estabiliza en esa misma altura.\n\n¿Sigue siendo $y=2$ la **asíntota horizontal** de esta función, a pesar de que la curva la cruza en el medio?",
     "options": [
       "No",
       "Sí",
@@ -176,7 +176,7 @@
     ]
   },
   {
-    "question": "La curva se rompe y diverge a $\\pm\\infty$ en un valor puntual de $x$, distinto de donde la curva cruza el eje horizontal.\n\n¿Cuál es la ecuación de la **asíntota vertical**?",
+    "question": "La gráfica de una función se rompe y diverge a $\\pm\\infty$ en un valor puntual de $x$.\n\n¿Cuál es la ecuación de la **asíntota vertical**?",
     "options": [
       "$x = 1$",
       "$x = 3$",
@@ -206,7 +206,7 @@
     ]
   },
   {
-    "question": "En la gráfica, la curva cruza el eje horizontal en un punto y se rompe divergiendo a $\\pm\\infty$ en otro.\n\n¿Cuál es la ecuación de la **asíntota vertical**?",
+    "question": "La gráfica de una función cruza el eje horizontal en un punto y se rompe divergiendo en otro.\n\n¿Cuál es la ecuación de la **asíntota vertical**?",
     "options": [
       "$x = -2$",
       "$y = 1$",

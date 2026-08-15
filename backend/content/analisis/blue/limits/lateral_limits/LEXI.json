@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "La notación:\n$$\\lim_{x \\to 3^+} f(x)$$\nSe lee de una manera precisa en términos de acercamiento.\n\n¿Cuál de las siguientes lecturas es correcta?",
+    "question": "La notación de un límite lateral se lee de una manera precisa en términos de acercamiento.\n$$\\lim_{x \\to 3^+} f(x)$$\n¿Cuál de las siguientes lecturas es correcta?",
     "options": [
       "El valor de $f(x)$ cuando $x$ se acerca a $3$ por valores menores, como $2{,}99$",
       "El valor de $f(3)$ elevado al signo positivo",
@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "En una función se cumple que:\n$$\\lim_{x \\to a^-} f(x) \\neq \\lim_{x \\to a^+} f(x)$$\n¿Cómo se ve reflejado esto en la gráfica de $f$ cerca de $a$?",
+    "question": "Una función cumple la siguiente relación entre sus límites laterales:\n$$\\lim_{x \\to a^-} f(x) \\neq \\lim_{x \\to a^+} f(x)$$\n¿Cómo se ve reflejado esto en la gráfica de $f$ cerca de $a$?",
     "options": [
       "Como un hueco, un único punto removido de la curva",
       "Como un salto, la curva llega a alturas distintas desde cada lado",

@@ -2,13 +2,13 @@
   {
     "question": "Esta función tiene una constante multiplicando a una función trigonométrica:\n$$f(x) = 4\\sin x$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
-      "Múltiplo escalar",
+      "Múltiplo por constante",
       "Regla del producto",
       "Regla de la potencia"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, el $4$ es un múltiplo escalar, no un segundo factor derivable.",
+    "feedback_correct": "Correcto, el $4$ es un múltiplo por constante, no un segundo factor derivable.",
     "feedback_incorrect": [
       null,
       "El $4$ es una constante multiplicando, no una función que dependa de $x$, así que no hace falta la regla del producto.",
@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de aplicar la regla del producto, conviene revisar si alguno de los factores es simplemente una constante.\n\nEn $4\\sin x$, el coeficiente no depende de la variable, así que corresponde tratarlo como **múltiplo escalar** por linealidad: la derivada es $4 \\cdot (\\sin x)' = 4\\cos x$.\n\nAplicar la **regla del producto** acá no sería incorrecto en el resultado, pero es un rodeo innecesario frente a una vía mucho más directa.",
+    "explanation": "Antes de aplicar la regla del producto, conviene revisar si alguno de los factores es simplemente una constante.\n\nEn $4\\sin x$, el coeficiente no depende de la variable, así que corresponde tratarlo como **múltiplo por constante**, por linealidad:\n$$4 \\cdot (\\sin x)' = 4\\cos x$$\nEl factor fijo espera afuera mientras se deriva el seno.\n\nAplicar la **regla del producto** acá no sería incorrecto en el resultado, pero es un rodeo innecesario frente a una vía mucho más directa.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-alternativas-algebraicas"
@@ -25,7 +25,7 @@
   {
     "question": "Esta función es un producto de dos binomios:\n$$f(x) = (x+2)(x-2)$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
-      "Múltiplo escalar",
+      "Múltiplo por constante",
       "Distribuir términos",
       "Regla del producto"
     ],
@@ -49,7 +49,7 @@
     "question": "Acá se multiplican dos potencias de la misma base:\n$$f(x) = x^2 \\cdot x^3$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del producto",
-      "Múltiplo escalar",
+      "Múltiplo por constante",
       "Simplificar potencias"
     ],
     "correct_index": 2,
@@ -71,13 +71,13 @@
   {
     "question": "Un coeficiente multiplica a una función trigonométrica en esta expresión:\n$$f(x) = 7\\cos x$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
-      "Múltiplo escalar",
+      "Múltiplo por constante",
       "Regla del producto",
       "Regla de la potencia"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, el $7$ es un múltiplo escalar, no un segundo factor derivable.",
+    "feedback_correct": "Correcto, el $7$ es un múltiplo por constante, no un segundo factor derivable.",
     "feedback_incorrect": [
       null,
       "El $7$ es una constante multiplicando, no una función que dependa de $x$, así que no hace falta la regla del producto.",
@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con cualquier constante multiplicando a una función, el $7$ en $7\\cos x$ se trata como **múltiplo escalar**, no como un segundo factor.\n\nReconocer una constante aislada antes de derivar ahorra el trabajo de armar innecesariamente los dos factores de un producto.\n\nEste mismo criterio aplica a cualquier constante que multiplique a una función elemental, sin importar cuál sea.",
+    "explanation": "Igual que con cualquier constante multiplicando a una función, el $7$ en $7\\cos x$ se trata como **múltiplo por constante**, no como un segundo factor.\n\nReconocer una constante aislada antes de derivar ahorra el trabajo de armar innecesariamente los dos factores de un producto.\n\nEste mismo criterio aplica a cualquier constante que multiplique a una función elemental, sin importar cuál sea.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-alternativas-algebraicas"
@@ -118,7 +118,7 @@
     "question": "Esta función combina dos potencias de $x$ con exponentes de distinto signo:\n$$f(x) = x^4 \\cdot x^{-1}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del producto",
-      "Múltiplo escalar",
+      "Múltiplo por constante",
       "Convertir potencias"
     ],
     "correct_index": 2,
@@ -140,13 +140,13 @@
   {
     "question": "Un coeficiente negativo multiplica a la exponencial en esta función:\n$$f(x) = -3e^x$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
-      "Múltiplo escalar",
+      "Múltiplo por constante",
       "Regla del producto",
       "Regla de la potencia"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, el $-3$ es un múltiplo escalar, no un segundo factor derivable.",
+    "feedback_correct": "Correcto, el $-3$ es un múltiplo por constante, no un segundo factor derivable.",
     "feedback_incorrect": [
       null,
       "El $-3$ es una constante multiplicando, no una función que dependa de $x$, así que no hace falta la regla del producto.",
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El signo negativo del coeficiente no cambia el análisis: $-3$ sigue siendo una constante multiplicando a la función.\n\nTratarlo como **múltiplo escalar** evita el trabajo innecesario de identificar dos factores donde en realidad hay una única función elemental.\n\nEl signo de la constante no cambia este análisis, sea positiva o negativa.",
+    "explanation": "El signo negativo del coeficiente no cambia el análisis: $-3$ sigue siendo una constante multiplicando a la función.\n\nTratarlo como **múltiplo por constante** evita el trabajo innecesario de identificar dos factores donde en realidad hay una única función elemental.\n\nEl signo de la constante no cambia este análisis, sea positiva o negativa.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-alternativas-algebraicas"

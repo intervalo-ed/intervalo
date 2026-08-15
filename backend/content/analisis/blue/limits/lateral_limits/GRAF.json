@@ -1,6 +1,6 @@
 [
   {
-    "question": "En la gráfica se muestra una **función a trozos** con un quiebre en $x=1$.\n\n¿Cuánto vale $\\lim_{x \\to 1^-} f(x)$?",
+    "question": "La gráfica de una **función a trozos** tiene un quiebre en $x=1$.\n\n¿Cuánto vale $\\lim_{x \\to 1^-} f(x)$?",
     "options": [
       "$2$",
       "$5$",
@@ -30,7 +30,7 @@
     ]
   },
   {
-    "question": "En la misma gráfica, con el quiebre en $x=1$.\n\n¿Cuánto vale $\\lim_{x \\to 1^+} f(x)$?",
+    "question": "Una **función a trozos** tiene su quiebre en $x=1$, como muestra la gráfica.\n\n¿Cuánto vale $\\lim_{x \\to 1^+} f(x)$?",
     "options": [
       "$2$",
       "$5$",
@@ -60,7 +60,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra un **salto** en $x=2$.\n\n¿Cuánto vale $\\lim_{x \\to 2^-} f(x)$?",
+    "question": "La gráfica de una función muestra un **salto** en $x=2$.\n\n¿Cuánto vale $\\lim_{x \\to 2^-} f(x)$?",
     "options": [
       "$7$",
       "$4$",
@@ -90,7 +90,7 @@
     ]
   },
   {
-    "question": "La gráfica marca un **hueco** en $x=3$ con un punto abierto, y un punto cerrado a otra altura en el mismo $x=3$.\n\n¿Cuánto vale $\\lim_{x \\to 3^+} f(x)$?",
+    "question": "La gráfica de una función marca un **hueco** en $x=3$, y un punto cerrado a otra altura en ese mismo $x$.\n\n¿Cuánto vale $\\lim_{x \\to 3^+} f(x)$?",
     "options": [
       "$9$",
       "No existe",
@@ -120,7 +120,7 @@
     ]
   },
   {
-    "question": "La gráfica tiene forma de V, típica de una expresión con **valor absoluto**, con el vértice en $x=2$.\n\n¿Cuánto vale $\\lim_{x \\to 2^-} f(x)$?",
+    "question": "La gráfica de una función tiene forma de V, típica del **valor absoluto**, con el vértice en $x=2$.\n\n¿Cuánto vale $\\lim_{x \\to 2^-} f(x)$?",
     "options": [
       "$0$",
       "$2$",
@@ -180,7 +180,7 @@
     ]
   },
   {
-    "question": "La gráfica muestra un **salto** en $x=0$.\n\n¿Existe $\\lim_{x \\to 0} f(x)$?",
+    "question": "La gráfica de una función muestra un **salto** en $x=0$.\n\n¿Existe $\\lim_{x \\to 0} f(x)$?",
     "options": [
       "Sí",
       "No",
@@ -208,7 +208,7 @@
     ]
   },
   {
-    "question": "La gráfica muestra una parábola continua, sin ningún quiebre visible.\n\n¿Existe $\\lim_{x \\to 1} f(x)$?",
+    "question": "La gráfica de una función es una parábola continua, sin ningún quiebre visible.\n\n¿Existe $\\lim_{x \\to 1} f(x)$?",
     "options": [
       "Sí",
       "No",
@@ -236,7 +236,7 @@
     ]
   },
   {
-    "question": "La gráfica muestra un **hueco** en $x=1$, pero ambas ramas se acercan a la misma altura desde los dos lados.\n\n¿Existe $\\lim_{x \\to 1} f(x)$?",
+    "question": "La gráfica de una función muestra un **hueco** en $x=1$, con las dos ramas llegando a la misma altura.\n\n¿Existe $\\lim_{x \\to 1} f(x)$?",
     "options": [
       "No",
       "No se puede determinar",
@@ -264,7 +264,7 @@
     ]
   },
   {
-    "question": "La gráfica combina un **hueco** en $x=2$ con un **salto**: las dos ramas no llegan a la misma altura.\n\n¿Existe $\\lim_{x \\to 2} f(x)$?",
+    "question": "La gráfica de una función combina un **hueco** en $x=2$ con un **salto** entre sus dos ramas.\n\n¿Existe $\\lim_{x \\to 2} f(x)$?",
     "options": [
       "No se puede determinar",
       "No",
@@ -292,7 +292,7 @@
     ]
   },
   {
-    "question": "La gráfica marca dos puntos: uno en $x=-1$, dentro de un tramo sin interrupciones, y otro en $x=2$, donde hay un **salto**.\n\n¿En cuál de los dos puntos existe el límite bilateral?",
+    "question": "La gráfica de una función marca dos puntos, uno en $x=-1$, en un tramo liso, y otro en $x=2$, donde salta.\n\n¿En cuál de los dos puntos existe el límite bilateral?",
     "options": [
       "Solo en $x=-1$",
       "Solo en $x=2$",
@@ -320,123 +320,119 @@
     ]
   },
   {
-    "question": "En la gráfica, en $x=2$ se observa un **salto**.\n\n¿Cuánto vale $\\lim_{x \\to 2^+} f(x) - \\lim_{x \\to 2^-} f(x)$?",
+    "question": "La gráfica de una función es una recta con un punto cerrado en $x=2$, marcado a una altura distinta.\n\n¿Cuánto vale $f(2)$?",
     "options": [
       "$3$",
-      "$6$",
-      "$9$",
-      "$-3$"
+      "$7$",
+      "$2$",
+      "$5$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$6 - 3 = 3$, la diferencia entre el lateral derecho y el izquierdo, el tamaño del salto.",
+    "feedback_correct": "El punto cerrado marca el valor real de la función, que en $x=2$ es $7$.",
     "feedback_incorrect": [
+      "Esa es la altura a la que apunta la recta al llegar a $x=2$, o sea el límite, no el valor de la función.",
       null,
-      "Ese es solo el valor del lateral derecho, falta restarle el izquierdo.",
-      "Esa sería la suma de los dos laterales, pero acá se pide la resta que mide el salto.",
-      "Revisá el orden de la resta: se pide el lateral derecho menos el izquierdo, no al revés."
+      "Ese es el punto de tendencia sobre el eje horizontal, no la altura que le corresponde.",
+      "Esa altura no está marcada en $x=2$, revisá dónde cae el punto cerrado."
     ],
-    "graph_fn": "Piecewise((x + 1, x < 2), (x + 4, x >= 2))",
+    "graph_fn": "Piecewise((x + 1, x != 2), (7, x == 2))",
     "graph_view": [
       -1,
       5,
       -1,
       9
     ],
-    "explanation": "Aunque el **límite bilateral** no exista en un punto con salto, los dos límites laterales siguen siendo números reales.\n\nCada uno marca la altura a la que apunta su rama al acercarse al punto de quiebre.\n\nRestar el lateral derecho menos el izquierdo mide exactamente la distancia entre esas dos alturas, es decir, cuánto sube o baja la curva al cruzar el punto de quiebre.\n\nEn este caso, las dos ramas llegan a alturas distintas en $x=2$:\n$$\\begin{aligned} \\lim_{x \\to 2^-} f(x) &= 3 \\\\ \\lim_{x \\to 2^+} f(x) &= 6 \\\\ 6 - 3 &= 3 \\end{aligned}$$\nEl salto sube $3$ unidades de altura al pasar de la rama izquierda a la derecha.",
+    "explanation": "El valor de una función en un punto se lee en el **punto cerrado**, el único que la gráfica marca como perteneciente a la función.\n\nLa recta apunta a la altura $3$ al llegar a $x=2$, pero ahí hay un hueco.\n\nEl punto cerrado está más arriba, y esa es la altura que vale la función:\n$$f(2) = 7$$\nEsta separación es la razón de ser del límite.\n\nUna función puede estar definida en un punto con un valor elegido aparte, mientras su entorno apunta a otro lado, y el límite describe el entorno.\n\nLeé siempre el punto cerrado cuando la pregunta dice $f$ de algo, y la rama cuando dice límite.",
     "reviewed": false,
     "tags": [
-      "tamano-del-salto-visual"
+      "limite-vs-valor-visual"
     ]
   },
   {
-    "question": "En la gráfica, en $x=1$ se observa un **salto**.\n\n¿Cuánto vale $\\lim_{x \\to 1^-} f(x) - \\lim_{x \\to 1^+} f(x)$?",
+    "question": "En la gráfica de una función, el punto cerrado en $x=1$ no cae sobre la recta.\n\n¿Cuánto vale $\\lim_{x \\to 1} f(x)$?",
     "options": [
-      "$-3$",
-      "$3$",
-      "$9$",
-      "$4{,}5$"
+      "$2$",
+      "$5$",
+      "$1$",
+      "$4$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$6 - 3 = 3$, restando el lateral derecho al lateral izquierdo, en ese orden.",
+    "feedback_correct": "Las dos ramas apuntan a la altura $5$, así que el límite vale $5$.",
     "feedback_incorrect": [
-      "Revisá el orden de la resta, se pide el lateral izquierdo menos el derecho, no al revés.",
+      "Esa es la altura del punto cerrado, o sea $f(1)$. El límite mira hacia dónde apunta la recta, no ese punto suelto.",
       null,
-      "Eso sería la suma de los dos laterales, pero acá se pide la resta.",
-      "Eso sería un promedio, pero acá se pide una resta entre los dos laterales."
+      "Ese es el valor de $x$ donde está el hueco, no la altura a la que apunta la recta.",
+      "Esa altura no corresponde a la recta en $x=1$, fijate a qué valor apunta desde los dos lados."
     ],
-    "graph_fn": "Piecewise((x + 5, x < 1), (2 * x + 1, x >= 1))",
+    "graph_fn": "Piecewise((x + 4, x != 1), (2, x == 1))",
     "graph_view": [
       -2,
       4,
       -1,
-      10
+      9
     ],
-    "explanation": "Restar dos **límites laterales** leídos de una gráfica no es una cuenta arbitraria: la diferencia entre ambos mide la distancia entre las alturas a las que apunta cada rama, el tamaño del **salto**.\n\nPara calcularla, primero se identifica cada lateral por separado, respetando el orden que pide la consigna:\n$$\\begin{aligned} \\lim_{x \\to 1^-} f(x) &= 6 \\\\ \\lim_{x \\to 1^+} f(x) &= 3 \\\\ 6 - 3 &= 3 \\end{aligned}$$\nEl orden de la resta importa: invertirlo cambia el signo del resultado, por eso conviene identificar primero cuál lateral corresponde a cada término antes de restar.",
+    "explanation": "El **límite** en un punto se lee siguiendo la rama de la curva hasta ese valor de $x$, sin importar si la función está definida ahí.\n\nAcercándose a $x=1$ por izquierda y por derecha, la recta apunta a la misma altura:\n$$\\lim_{x \\to 1} f(x) = 1 + 4 = 5$$\nEl punto cerrado en $2$ es el valor de la función, y no participa de esa lectura.\n\nQue los dos laterales coincidan es lo que hace existir al límite bilateral, y eso depende solo de lo que pasa alrededor del punto.\n\nEl punto suelto puede estar en cualquier altura sin cambiar el límite, porque el límite no lo mira.",
     "reviewed": false,
     "tags": [
-      "tamano-del-salto-visual"
+      "limite-vs-valor-visual"
     ]
   },
   {
-    "question": "La gráfica marca dos puntos de quiebre: en $x=0$ y en $x=3$.\n\n¿Cuál es el valor del límite lateral más grande entre $\\lim_{x \\to 0^+} f(x)$ y $\\lim_{x \\to 3^-} f(x)$?",
+    "question": "La gráfica de una función marca un punto cerrado en $x=3$, separado de la recta.\n\n¿Coinciden el límite en $x=3$ y el valor $f(3)$?",
     "options": [
-      "$5$",
-      "$3$",
-      "$13$",
-      "$8$"
+      "Sí, el límite y el valor coinciden en $6$",
+      "No, el límite no existe en ese punto",
+      "No, el límite da $6$ y el valor da $4$"
     ],
-    "correct_index": 3,
+    "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "El límite en $x=3^-$ vale $8$, mayor que el de $x=0^+$, que vale $5$.",
+    "feedback_correct": "La recta apunta a $6$ y el punto cerrado está en $4$, así que no coinciden.",
     "feedback_incorrect": [
-      "Ese es el valor del límite en $x=0^+$, pero no es el mayor de los dos.",
-      "Ese valor no corresponde a ninguno de los dos límites laterales pedidos.",
-      "Esa sería la suma de los dos laterales, no el mayor de ellos.",
+      "El punto cerrado está a otra altura que la recta, así que uno de los dos valores no es $6$.",
+      "El límite existe, porque las dos ramas apuntan a la misma altura al llegar a $x=3$.",
       null
     ],
-    "graph_fn": "Piecewise((x + 1, x < 0), (x + 5, (x >= 0) & (x < 3)), (2 * x, x >= 3))",
+    "graph_fn": "Piecewise((2 * x, x != 3), (4, x == 3))",
     "graph_view": [
-      -3,
+      -1,
       5,
-      -2,
+      -1,
       11
     ],
-    "explanation": "Para comparar dos **límites laterales** de puntos distintos de una misma gráfica, alcanza con leer cada uno en su rama correspondiente y compararlos como números reales.\n\nNo hace falta que ambos puntos pertenezcan al mismo salto para poder compararlos.\n\nEn este caso, los dos puntos caen sobre la misma rama:\n$$f(x) = x + 5, \\quad 0 \\leq x < 3$$\nEvaluando esa rama en cada punto de tendencia:\n$$\\begin{aligned} \\lim_{x \\to 0^+} f(x) &= 0 + 5 = 5 \\\\ \\lim_{x \\to 3^-} f(x) &= 3 + 5 = 8 \\end{aligned}$$\nEl segundo valor es mayor que el primero.\n\nAsí, el límite lateral más grande es el que se lee en $x=3^-$.",
+    "explanation": "El límite y el valor de la función son dos lecturas distintas de la misma gráfica, y no tienen por qué coincidir.\n\nSiguiendo la recta hasta $x=3$ desde los dos lados, apunta a la altura $6$.\n\nAsí que el límite bilateral existe y vale eso. El punto cerrado, en cambio, marca el valor de la función:\n$$\\lim_{x \\to 3} f(x) = 6, \\quad f(3) = 4$$\nCuando los dos coinciden, la función es **continua** en ese punto, y cuando no, hay un hueco relleno en otro lado.\n\nQue existan los dos y sean distintos es lo que muestra que el límite no se calcula evaluando.",
     "reviewed": false,
     "tags": [
-      "tamano-del-salto-visual"
+      "limite-vs-valor-visual"
     ]
   },
   {
-    "question": "En la gráfica, en $x=1$ ambos límites laterales tienen valor negativo.\n\n¿Cuánto vale $\\lim_{x \\to 1^-} f(x) - \\lim_{x \\to 1^+} f(x)$?",
+    "question": "La gráfica de una función es una recta sin huecos ni puntos sueltos.\n\n¿Coinciden el límite en $x=1$ y el valor $f(1)$?",
     "options": [
-      "$-4$",
-      "$4$",
-      "$-6$",
-      "$6$"
+      "No, el límite da $3$ y el valor da $1$",
+      "No, el límite no existe en ese punto",
+      "Sí, el límite y el valor dan $3$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$-5 - (-1) = -4$, restando con cuidado el signo negativo del segundo término.",
+    "feedback_correct": "La recta pasa entera por $x=1$ sin interrupciones, así que límite y valor dan lo mismo.",
     "feedback_incorrect": [
-      null,
-      "Fijate el signo al restar un número negativo, restar $-1$ equivale a sumar $1$, no a restarlo.",
-      "Revisá la lectura del lateral izquierdo antes de restar, el valor no es ese.",
-      "Revisá la lectura del lateral derecho antes de restar, el valor no es ese."
+      "No hay ningún punto suelto que separe las dos lecturas, la recta pasa por una sola altura en $x=1$.",
+      "El límite existe, porque la recta llega a la misma altura desde los dos lados.",
+      null
     ],
-    "graph_fn": "Piecewise((x - 6, x < 1), (x - 2, x >= 1))",
+    "graph_fn": "x + 2",
     "graph_view": [
-      -3,
-      5,
-      -9,
-      3
+      -2,
+      4,
+      -1,
+      7
     ],
-    "explanation": "Al restar dos **límites laterales**, conviene recordar que la diferencia mide la distancia entre las dos alturas a las que apunta cada rama, aunque ambas sean negativas.\n\nEn este caso conviene prestar especial atención al signo del segundo término antes de operar:\n$$\\begin{aligned} \\lim_{x \\to 1^-} f(x) &= -5 \\\\ \\lim_{x \\to 1^+} f(x) &= -1 \\\\ -5 - (-1) &= -5 + 1 = -4 \\end{aligned}$$\nRestar un número negativo equivale a sumar su opuesto, un descuido de signo en este paso invierte fácilmente el resultado.",
+    "explanation": "Cuando la gráfica pasa por un punto sin huecos ni saltos, el límite y el valor de la función se leen en el mismo lugar.\n\nAcá la recta llega a $x=1$ desde los dos lados apuntando a la altura $3$, y ahí mismo está definida:\n$$\\lim_{x \\to 1} f(x) = f(1) = 3$$\nEsa igualdad es exactamente la definición de **continuidad** en un punto, y es lo que permite calcular límites sustituyendo.\n\nVale la pena tener presente que este caso es el habitual, no el raro. Los huecos y los puntos sueltos son la excepción que obliga a mirar el entorno en vez de evaluar.\n\nPor eso la sustitución directa funciona en la mayoría de los límites que aparecen, y las técnicas se guardan para cuando falla.",
     "reviewed": false,
     "tags": [
-      "tamano-del-salto-visual"
+      "limite-vs-valor-visual"
     ]
   }
 ]

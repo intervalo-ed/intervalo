@@ -226,3 +226,43 @@ Corrección puntual del usuario sobre ejercicios de prueba de este topic (`corre
 - [ ] Ninguna aplicación de L'Hôpital
 - [ ] Resultado como valor real, `+\infty`, `-\infty` o `No existe` (nunca expresión sin evaluar)
 - [ ] Ningún renglón final de `aligned` encadena 2 igualdades (ej. `&= 2x^2 = +\infty`); partir en un renglón más
+
+---
+
+## Hallazgos de auditoría (ronda 6, ago-2026)
+
+Pasada de redacción para llevar los enunciados al estándar de las reglas 47-51 de `authoring-context.md`. `RESL.json` estaba 15/15 con consignas del tipo "Calculá el siguiente límite al infinito" y sin ninguna pregunta `¿...?`; se reescribieron los 15 enunciados completos, quitando además las aperturas que anunciaban el método a aplicar (regla 51).
+
+En `LEXI.json` se reescribieron 3 enunciados: dos que arrancaban directo con `¿` y uno que abría con "Analiza" sin voseo. En `RESL.json` se verticalizaron 8 bloques `aligned` cuya primera fila juntaba el planteo y su desarrollo completo (regla 38).
+
+No hubo ningún cambio de contenido matemático: límites, opciones y respuestas correctas quedaron intactos.
+
+---
+
+## Auditoría ronda 7 (feedback de testeo 465, ago-2026)
+
+El feedback marcó que las aperturas de la unidad describían **dónde caen los símbolos en la hoja** (`"Arriba hay un trinomio y abajo una resta simple"`, `"La raíz ocupa el denominador"`) en vez de decir qué le pasa a la función o al límite. La ronda 6 había sacado el imperativo de cálculo (`"Calculá el límite:"`) y lo reemplazó por un inventario de la fórmula, y en esa sustitución se perdió el objeto. Sobre 225 ítems, 123 aperturas no nombraban límite, función ni tendencia, y 38 preguntas eran genéricas (`"¿Cuánto da?"`, `"¿Cuál es su resultado?"`).
+
+De ahí sale la **regla 59** de `authoring-context.md`: la apertura nombra el objeto y la tensión que genera el ejercicio (el camino directo falla y sin embargo hay respuesta), y si ya lo nombró, la pregunta puede señalarlo hacia atrás (`"¿Cuál es ese valor?"`) en vez de repetir la misma fórmula quince veces.
+
+En `RESL.json` se reescribieron los 15 enunciados. El feedback marcó dos ítems donde la apertura no mencionaba ni la palabra límite ni la palabra función.
+
+**`LEXI.json` ítem 1 estaba roto**: terminaba en `"Cuando $x \to 0^+$?"`, sin signo de apertura y sin pregunta real. Ahora pregunta `"¿Qué hace el cociente?"`.
+
+La lista de trabajo salió del inventario de las 225 aperturas de la unidad, no del validador: estos enunciados ya pasaban 0/0 antes de la ronda. El defecto era semántico.
+
+---
+
+## Auditoría ronda 9 (feedback de testeo 467, ago-2026)
+
+La ronda 7 arregló **de qué** hablaba la apertura (del comportamiento, no de la tipografía) pero no **que describiera**. El enunciado quedó haciendo el análisis y entregando el diagnóstico terminado: `"El punto de tendencia anula las dos partes de la fracción. La función no está definida ahí, pero sí se acerca a un número."` son tres conclusiones que el estudiante tendría que sacar, y le dejan solo la aritmética.
+
+De ahí sale la **regla 61** de `authoring-context.md`: el sujeto de la primera oración es el objeto o una intención (`"Una función…"`, `"Un límite…"`, `"Se quiere…"`), va **una sola oración**, y no se reporta el resultado de ningún paso que el estudiante podría dar. La regla 59 sigue vigente contra la fórmula desnuda; la 61 la acota para que el enunciado no razone en su lugar.
+
+En este topic se reescribieron las aperturas que tenían una propiedad de sujeto. Los cinco `RESL` de la unidad estaban al 100% en ese registro, porque son justamente los que la ronda 7 había reescrito.
+
+**`definition/RESL[0]` sigue intacto**, por tercera ronda consecutiva: es el único ítem que el feedback marcó como bien introducido (465), y se conserva como referencia aunque su segunda oración concluya.
+
+### Punto ciego del validador corregido en esta ronda
+
+El testeo reportó una fila de `explanation` que se salía de pantalla y que el validador no marcaba. Medía **35** contra un umbral de **36**, o sea que pasaba por un carácter: `render_len` borraba `\sqrt` e `\infty` a longitud cero, cuando el radical es decoración que ocupa ancho y el infinito es un glifo ancho. Con los pesos nuevos esa fila mide **43** y se marca, y la fila sana de al lado sigue midiendo 29 sin falsos positivos.

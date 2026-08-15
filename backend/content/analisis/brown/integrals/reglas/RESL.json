@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por **linealidad** los dos términos y aplicamos la fórmula de tabla a cada uno.\n$$\\begin{aligned} \\int (4x^3-2\\sin x)\\,dx &= 4\\int x^3\\,dx - 2\\int \\sin x\\,dx \\\\ &= 4\\cdot\\frac{x^4}{4} - 2(-\\cos x) \\\\ &= x^4+2\\cos x+C \\end{aligned}$$\nEl doble signo negativo, el del enunciado y el de la primitiva del seno, se combina en un resultado final positivo, ese es el paso donde más se pierde el signo.",
+    "explanation": "Separamos por **linealidad** los dos términos y aplicamos la fórmula de tabla a cada uno.\n$$\\begin{aligned} &\\int (4x^3-2\\sin x)\\,dx \\\\ &= 4\\int x^3\\,dx - 2\\int \\sin x\\,dx \\\\ &= 4\\cdot\\frac{x^4}{4} - 2(-\\cos x) \\\\ &= x^4+2\\cos x+C \\end{aligned}$$\nEl doble signo negativo, el del enunciado y el de la primitiva del seno, se combina en un resultado final positivo, ese es el paso donde más se pierde el signo.",
     "reviewed": false,
     "tags": [
       "suma-resta-terminos-elementales"
@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad y aplicamos la **regla de la potencia** y la trigonométrica a cada término.\n$$\\begin{aligned} \\int (6x^2+\\cos x)\\,dx &= 6\\int x^2\\,dx + \\int \\cos x\\,dx \\\\ &= 6\\cdot\\frac{x^3}{3} + \\sin x \\\\ &= 2x^3+\\sin x+C \\end{aligned}$$\nDividir $6$ por el nuevo exponente da $2$, un paso de simplificación que conviene no saltear.",
+    "explanation": "Separamos por linealidad y aplicamos la **regla de la potencia** y la trigonométrica a cada término.\n$$\\begin{aligned} &\\int (6x^2+\\cos x)\\,dx \\\\ &= 6\\int x^2\\,dx + \\int \\cos x\\,dx \\\\ &= 6\\cdot\\frac{x^3}{3} + \\sin x \\\\ &= 2x^3+\\sin x+C \\end{aligned}$$\nDividir $6$ por el nuevo exponente da $2$, un paso de simplificación que conviene no saltear.",
     "reviewed": false,
     "tags": [
       "suma-resta-terminos-elementales"
@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad y aplicamos la regla trigonométrica y la de la constante a cada término.\n$$\\begin{aligned} \\int (-5\\sin x+2)\\,dx &= -5\\int \\sin x\\,dx + \\int 2\\,dx \\\\ &= -5(-\\cos x) + 2x \\\\ &= 5\\cos x+2x+C \\end{aligned}$$\nEl doble signo negativo del primer término, el del enunciado y el de la primitiva del seno, se cancela dando un resultado positivo.",
+    "explanation": "Separamos por linealidad y aplicamos la regla trigonométrica y la de la constante a cada término.\n$$\\begin{aligned} &\\int (-5\\sin x+2)\\,dx \\\\ &= -5\\int \\sin x\\,dx + \\int 2\\,dx \\\\ &= -5(-\\cos x) + 2x \\\\ &= 5\\cos x+2x+C \\end{aligned}$$\nEl doble signo negativo del primer término, el del enunciado y el de la primitiva del seno, se cancela dando un resultado positivo.",
     "reviewed": false,
     "tags": [
       "suma-resta-terminos-elementales"
@@ -118,14 +118,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad y aplicamos la regla de la potencia y la trigonométrica a cada término.\n$$\\begin{aligned} \\int (x^5-3\\cos x)\\,dx &= \\int x^5\\,dx - 3\\int \\cos x\\,dx \\\\ &= \\frac{x^6}{6} - 3\\sin x \\\\ &= \\frac{x^6}{6}-3\\sin x+C \\end{aligned}$$\nEl signo negativo del segundo término se conserva sin cambios, la primitiva del coseno no lleva ningún signo extra como sí lleva la del seno.",
+    "explanation": "Separamos por linealidad y aplicamos la regla de la potencia y la trigonométrica a cada término.\n$$\\begin{aligned} &\\int (x^5-3\\cos x)\\,dx \\\\ &= \\int x^5\\,dx - 3\\int \\cos x\\,dx \\\\ &= \\frac{x^6}{6} - 3\\sin x \\\\ &= \\frac{x^6}{6}-3\\sin x+C \\end{aligned}$$\nEl signo negativo del segundo término se conserva sin cambios, la primitiva del coseno no lleva ningún signo extra como sí lleva la del seno.",
     "reviewed": false,
     "tags": [
       "suma-resta-terminos-elementales"
     ]
   },
   {
-    "question": "Acá se cruzan la familia trigonométrica de la secante y una potencia:\n$$\\int (2\\sec^2 x - x^2)\\,dx$$\n¿Cuál es el resultado de la integral?",
+    "question": "En este integrando se cruzan la familia trigonométrica de la secante y una potencia:\n$$\\int (2\\sec^2 x - x^2)\\,dx$$\n¿Cuál es el resultado de la integral?",
     "options": [
       "$-2\\tan x-\\frac{x^3}{3}+C$",
       "$2\\tan x-\\frac{x^3}{3}+C$",
@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad y aplicamos la regla trigonométrica y la de la potencia a cada término.\n$$\\begin{aligned} \\int (2\\sec^2 x-x^2)\\,dx &= 2\\int \\sec^2 x\\,dx - \\int x^2\\,dx \\\\ &= 2\\tan x - \\frac{x^3}{3} \\\\ &= 2\\tan x-\\frac{x^3}{3}+C \\end{aligned}$$\nLa primitiva de $\\sec^2 x$ es directamente $\\tan x$, sin ningún ajuste de signo adicional que recordar.",
+    "explanation": "Separamos por linealidad y aplicamos la regla trigonométrica y la de la potencia a cada término.\n$$\\begin{aligned} &\\int (2\\sec^2 x-x^2)\\,dx \\\\ &= 2\\int \\sec^2 x\\,dx - \\int x^2\\,dx \\\\ &= 2\\tan x - \\frac{x^3}{3} \\\\ &= 2\\tan x-\\frac{x^3}{3}+C \\end{aligned}$$\nLa primitiva de $\\sec^2 x$ es directamente $\\tan x$, sin ningún ajuste de signo adicional que recordar.",
     "reviewed": false,
     "tags": [
       "suma-resta-terminos-elementales"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad y aplicamos la regla trigonométrica y la de la potencia a cada término.\n$$\\begin{aligned} \\int (3\\cos x+8x^3)\\,dx &= 3\\int \\cos x\\,dx + 8\\int x^3\\,dx \\\\ &= 3\\sin x + 8\\cdot\\frac{x^4}{4} \\\\ &= 3\\sin x+2x^4+C \\end{aligned}$$\nDividir $8$ por el nuevo exponente da $2$, un paso de simplificación que conviene no saltear.",
+    "explanation": "Separamos por linealidad y aplicamos la regla trigonométrica y la de la potencia a cada término.\n$$\\begin{aligned} &\\int (3\\cos x+8x^3)\\,dx \\\\ &= 3\\int \\cos x\\,dx + 8\\int x^3\\,dx \\\\ &= 3\\sin x + 8\\cdot\\frac{x^4}{4} \\\\ &= 3\\sin x+2x^4+C \\end{aligned}$$\nDividir $8$ por el nuevo exponente da $2$, un paso de simplificación que conviene no saltear.",
     "reviewed": false,
     "tags": [
       "suma-resta-terminos-elementales"
@@ -268,14 +268,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad, aplicando la regla de la potencia con exponente fraccionario y el caso especial del logaritmo.\n$$\\begin{aligned} \\int \\left(x^{1/2}+\\frac{2}{x}\\right)\\,dx &= \\int x^{1/2}\\,dx + 2\\int \\frac{1}{x}\\,dx \\\\ &= \\frac{x^{3/2}}{3/2} + 2\\ln|x| \\\\ &= \\frac{2}{3}x^{3/2}+2\\ln|x|+C \\end{aligned}$$\nDividir por un exponente fraccionario equivale a multiplicar por su recíproco: dividir por $3/2$ es lo mismo que multiplicar por $2/3$, un paso algebraico que conviene revisar con cuidado.",
+    "explanation": "Separamos por linealidad, aplicando la regla de la potencia con exponente fraccionario y el caso especial del logaritmo.\n$$\\begin{aligned} &\\int \\left(x^{1/2}+\\frac{2}{x}\\right)\\,dx \\\\ &= \\int x^{1/2}\\,dx + 2\\int \\frac{1}{x}\\,dx \\\\ &= \\frac{x^{3/2}}{3/2} + 2\\ln|x| \\\\ &= \\frac{2}{3}x^{3/2}+2\\ln|x|+C \\end{aligned}$$\nDividir por un exponente fraccionario equivale a multiplicar por su recíproco: dividir por $3/2$ es lo mismo que multiplicar por $2/3$, un paso algebraico que conviene revisar con cuidado.",
     "reviewed": false,
     "tags": [
       "polinomios-fracciones-simples-combinadas"
     ]
   },
   {
-    "question": "En esta integral conviven un término lineal con coeficiente y el recíproco de la variable:\n$$\\int \\left(4x-\\frac{1}{x}\\right)\\,dx$$\n¿Cuál es el resultado?",
+    "question": "En la siguiente integral se restan dos cosas que se integran con reglas distintas:\n$$\\int \\left(4x-\\frac{1}{x}\\right)\\,dx$$\n¿Cuál es el resultado?",
     "options": [
       "$2x^2-\\ln x+C$",
       "$2x^2+\\ln|x|+C$",

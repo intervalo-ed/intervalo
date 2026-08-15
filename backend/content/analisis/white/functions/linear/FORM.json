@@ -1,6 +1,6 @@
 [
   {
-    "question": "Considerá la función:\n$$f(x) = -3x + 8$$\n¿Cuál es la pendiente?",
+    "question": "En una función lineal, uno de los dos números fija la inclinación y el otro el punto de arranque:\n$$f(x) = -3x + 8$$\n¿Cuál es la pendiente?",
     "options": [
       "$8$",
       "$-3$",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = 4x - 7$$\n¿Cuál es la ordenada al origen?",
+    "question": "Escrita en esta forma, una recta muestra de una sus dos parámetros característicos:\n$$f(x) = 4x - 7$$\n¿Cuál es la ordenada al origen?",
     "options": [
       "$4$",
       "$-7$",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = 6 - 2x$$\n¿Cuál es la pendiente?",
+    "question": "Los términos de esta recta están escritos en el orden inverso al habitual:\n$$f(x) = 6 - 2x$$\n¿Cuál es la pendiente?",
     "options": [
       "$6$",
       "$-2$",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la ecuación de la recta con $m = 3$ y $b = -2$?",
+    "question": "Una recta queda determinada por dos números, su pendiente y su ordenada al origen:\n$$m = 3, \\quad b = -2$$\n¿Cuál es la ecuación de esa recta?",
     "options": [
       "$f(x) = -2x + 3$",
       "$f(x) = 3x + 2$",
@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la raíz de $f(x) = -x + 5$?",
+    "question": "La raíz de una función es el valor de $x$ donde su gráfico cruza el eje horizontal:\n$$f(x) = -x + 5$$\n¿Cuál es la raíz de esta recta?",
     "options": [
       "$x = -5$",
       "$x = 1$",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la ecuación de esta recta?",
+    "question": "Dos datos alcanzan para escribir la ecuación de una recta, dónde cruza el eje vertical y cuánto sube por cada paso.\n\n¿Cuál es la ecuación de la recta del gráfico?",
     "options": [
       "$y = 2x + 1$",
       "$y = 2x - 1$",
@@ -180,7 +180,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la ecuación de esta recta?",
+    "question": "El gráfico muestra una recta, y su inclinación se lee contando cuánto cambia $y$ al avanzar una unidad en $x$.\n\n¿Cuál es su ecuación?",
     "options": [
       "$y = 2x + 3$",
       "$y = -2x + 3$",
@@ -210,7 +210,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la ecuación de esta recta?",
+    "question": "Cambiar el signo de la pendiente da vuelta la recta como un espejo, sin mover su cruce con el eje vertical.\n\n¿Cuál es la ecuación de la recta del gráfico?",
     "options": [
       "$y = x + 4$",
       "$y = -x - 4$",
@@ -265,7 +265,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la pendiente de una recta que sube 4 unidades por cada 2 en $x$?",
+    "question": "La pendiente compara cuánto sube la recta con cuánto avanza, y no siempre avanza de a una unidad.\n\n¿Cuál es la pendiente de una recta que sube 4 unidades cada 2 de avance?",
     "options": [
       "$\\dfrac{1}{2}$",
       "$4$",
@@ -640,7 +640,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas funciones lineales es decreciente?",
+    "question": "Cuatro rectas distintas pueden compartir forma y diferenciarse solo en hacia dónde apuntan.\n\n¿Cuál de estas funciones lineales es decreciente?",
     "options": [
       "$f(x) = 3x + 1$",
       "$f(x) = x - 5$",

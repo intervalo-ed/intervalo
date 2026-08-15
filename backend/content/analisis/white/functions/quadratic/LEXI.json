@@ -1,6 +1,6 @@
 [
   {
-    "question": "¿Por qué la **imagen** de $f(x) = x^2$ no incluye números negativos?",
+    "question": "La **imagen** de una función depende de qué valores puede llegar a devolver:\n$$f(x) = x^2$$\n¿Por qué su imagen no incluye números negativos?",
     "options": [
       "Porque $f$ solo está definida para $x \\geq 0$",
       "Porque el dominio de $f$ es $[0, +\\infty)$",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = ax^2 + bx + c$$\n¿Cómo se llama el coeficiente $a$?",
+    "question": "La forma desarrollada de una cuadrática tiene tres coeficientes con nombre propio:\n$$f(x) = ax^2 + bx + c$$\n¿Cómo se llama el coeficiente $a$?",
     "options": [
       "Coeficiente principal",
       "Término independiente",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = ax^2 + bx + c$$\n¿Cómo se llama el número $c$?",
+    "question": "En una cuadrática desarrollada, uno de los tres números no viene multiplicado por la variable:\n$$f(x) = ax^2 + bx + c$$\n¿Cómo se llama el número $c$?",
     "options": [
       "Término independiente",
       "Coeficiente principal",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "question": "Considerá la siguiente forma de una función cuadrática:\n$$f(x) = a(x - r_1)(x - r_2)$$\n¿Cómo se llama?",
+    "question": "Una cuadrática admite varias escrituras, y cada una tiene su nombre:\n$$f(x) = a(x - r_1)(x - r_2)$$\n¿Cómo se llama esta forma?",
     "options": [
       "Forma factorizada",
       "Forma de vértice",
@@ -100,7 +100,7 @@
     ]
   },
   {
-    "question": "Las **raíces** de una función cuadrática también se conocen como...",
+    "question": "Los valores donde una cuadrática se anula tienen más de un nombre.\n\n¿Cómo se conocen también las **raíces** de una función cuadrática?",
     "options": [
       "Ceros",
       "Vértices",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "Considerá las dos **parábolas**:\n$$f(x) = 3x^2 + 1$$\n$$g(x) = 0{,}5x^2 + 1$$\n¿Qué le pasa a la que tiene $|a|$ más grande?",
+    "question": "Dos parábolas pueden compartir vértice y diferenciarse solo en el coeficiente que las encabeza:\n$$f(x) = 3x^2 + 1$$\n$$g(x) = 0{,}5x^2 + 1$$\n¿Qué le pasa a la que tiene $|a|$ más grande?",
     "options": [
       "Es más angosta o cerrada",
       "Es más abierta",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "¿Sobre qué recta se encuentra siempre el **vértice** de una **parábola**?",
+    "question": "El punto extremo de una parábola no aparece en cualquier lado.\n\n¿Sobre qué recta se encuentra siempre el **vértice** de una **parábola**?",
     "options": [
       "Sobre el eje $Y$",
       "Sobre el eje de simetría",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "¿A qué se refiere la **concavidad** de una **parábola**?",
+    "question": "Las parábolas se describen con vocabulario propio, y una de esas palabras habla de su forma.\n\n¿A qué se refiere la **concavidad** de una **parábola**?",
     "options": [
       "A dónde corta el eje $Y$",
       "A cuántas raíces tiene",
@@ -250,7 +250,7 @@
     ]
   },
   {
-    "question": "El valor máximo o mínimo de una función cuadrática es...",
+    "question": "Toda cuadrática alcanza un valor extremo en un único punto de su recorrido.\n\n¿Con qué coincide ese valor máximo o mínimo?",
     "options": [
       "La coordenada $x$ del vértice",
       "El coeficiente $a$",
@@ -275,7 +275,7 @@
     ]
   },
   {
-    "question": "¿Cómo se llaman las dos mitades de la **parábola** que salen del **vértice**?",
+    "question": "El vocabulario de las parábolas toma prestadas palabras de otros ámbitos.\n\n¿Cómo se llaman las dos mitades de la **parábola** que salen del **vértice**?",
     "options": [
       "Ejes",
       "Ramas",
@@ -300,7 +300,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = a(x - h)^2 + k$$\n¿Qué representa $k$?",
+    "question": "Escrita de esta forma, la cuadrática expone sus dos parámetros más útiles:\n$$f(x) = a(x - h)^2 + k$$\n¿Qué representa $k$?",
     "options": [
       "La coordenada $x$ del vértice",
       "El valor extremo.",
@@ -325,7 +325,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = ax^2 + bx + c$$\n¿Cómo se llama el coeficiente $b$?",
+    "question": "Cada coeficiente de una cuadrática desarrollada tiene nombre según a qué potencia acompaña:\n$$f(x) = ax^2 + bx + c$$\n¿Cómo se llama el coeficiente $b$?",
     "options": [
       "Coeficiente principal",
       "Término independiente",
@@ -350,7 +350,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el grado de una función cuadrática?",
+    "question": "Las familias de funciones se ordenan por el mayor exponente que aparece en su fórmula.\n\n¿Cuál es el grado de una función cuadrática?",
     "options": [
       "Grado 1",
       "No tiene grado definido",
@@ -400,7 +400,7 @@
     ]
   },
   {
-    "question": "En el tiro de una pelota, el punto más alto que alcanza corresponde a...",
+    "question": "El recorrido de una pelota lanzada al aire dibuja una parábola.\n\n¿Con qué elemento de esa parábola coincide el punto más alto del tiro?",
     "options": [
       "Una raíz de la parábola",
       "El eje de simetría",
@@ -425,7 +425,7 @@
     ]
   },
   {
-    "question": "En el tiro de una pelota, el momento en que vuelve a tocar el suelo corresponde a...",
+    "question": "Una pelota lanzada al aire empieza y termina su recorrido a la altura del suelo.\n\n¿Con qué elemento de la parábola coincide el momento en que vuelve a tocarlo?",
     "options": [
       "El vértice",
       "Una raíz de la parábola",
@@ -475,7 +475,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la diferencia entre una **raíz** y el **vértice** de una **parábola**?",
+    "question": "Raíz y vértice son dos puntos destacados de una parábola, y se confunden seguido.\n\n¿Qué diferencia hay entre una **raíz** y el **vértice**?",
     "options": [
       "Son lo mismo con distinto nombre",
       "El vértice está sobre el eje $Y$ y la raíz sobre el eje $X$",
@@ -500,7 +500,7 @@
     ]
   },
   {
-    "question": "¿Por qué una función cuadrática no es monótona en todo su **dominio**?",
+    "question": "Una función monótona mantiene siempre el mismo sentido a lo largo de su dominio.\n\n¿Por qué una función cuadrática no es monótona en todo su **dominio**?",
     "options": [
       "Porque su gráfica es una recta",
       "Porque crece y decrece por tramos",
@@ -575,7 +575,7 @@
     ]
   },
   {
-    "question": "¿Hacia dónde abre la **parábola** del gráfico?",
+    "question": "Una función cuadrática está dibujada en el gráfico.\n\n¿Hacia dónde abre la **parábola** del gráfico?",
     "options": [
       "Arriba",
       "Abajo",
@@ -605,7 +605,7 @@
     ]
   },
   {
-    "question": "¿Cuántas veces corta al eje $X$ la **parábola** del gráfico?",
+    "question": "Los cortes con el eje horizontal de una parábola son sus raíces, y pueden ser dos, una o ninguna.\n\n¿Cuántas veces corta al eje $X$ la **parábola** del gráfico?",
     "options": [
       "Dos veces",
       "Una vez",
@@ -635,7 +635,7 @@
     ]
   },
   {
-    "question": "¿Cómo se llama el punto más bajo de la **parábola** del gráfico?",
+    "question": "En el gráfico, la parábola baja hasta cierto punto y desde ahí vuelve a subir.\n\n¿Cómo se llama ese punto más bajo?",
     "options": [
       "Raíz",
       "Asíntota",
@@ -690,7 +690,7 @@
     ]
   },
   {
-    "question": "¿El signo del coeficiente $a$ cambia el **dominio** de una función cuadrática?",
+    "question": "Cambiar el signo del coeficiente principal da vuelta la parábola entera.\n\n¿Ese cambio afecta al **dominio** de una función cuadrática?",
     "options": [
       "Sí, si $a < 0$ el dominio se achica",
       "Solo si $a = 0$",
@@ -715,7 +715,7 @@
     ]
   },
   {
-    "question": "Por la simetría de la **parábola**, dos puntos que están a la misma altura cumplen que...",
+    "question": "Una parábola es simétrica respecto de una recta vertical que pasa por su vértice.\n\n¿Qué cumplen dos puntos de la parábola que están a la misma altura?",
     "options": [
       "Tienen la misma coordenada $x$",
       "Equidistan del eje de simetría",
@@ -740,7 +740,7 @@
     ]
   },
   {
-    "question": "¿Qué caracteriza a una función cuadrática frente a las demás familias?",
+    "question": "Cada familia de funciones tiene un rasgo que la separa de las demás.\n\n¿Qué caracteriza a una función cuadrática?",
     "options": [
       "Su gráfica es una recta",
       "Su tasa de cambio es constante",

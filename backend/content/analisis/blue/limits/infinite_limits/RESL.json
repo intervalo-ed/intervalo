@@ -1,6 +1,6 @@
 [
   {
-    "question": "Calculá el siguiente límite al infinito, dividiendo numerador y denominador por la mayor potencia de $x$:\n$$\\lim_{x \\to +\\infty} \\frac{3x^2 + x}{x^2 - 5}$$",
+    "question": "Se quiere conocer la tendencia de un cociente de polinomios cuando $x$ se va al infinito.\n$$\\lim_{x \\to +\\infty} \\frac{3x^2 + x}{x^2 - 5}$$\n¿A qué tiende la función?",
     "options": [
       "$3$",
       "$1$",
@@ -18,14 +18,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando numerador y denominador tienen el **mismo grado**, ninguno crece más rápido que el otro y el cociente se estabiliza en un número fijo en vez de ir a $0$ o a $\\pm\\infty$.\n\nDividiendo todo por $x^2$, la mayor potencia presente, cada término de menor grado se aplasta hacia $0$ y sobrevive el cociente de los coeficientes principales:\n$$\\begin{aligned} \\lim_{x \\to +\\infty} \\frac{3x^2 + x}{x^2 - 5} &= \\lim_{x \\to +\\infty} \\frac{3 + \\frac{1}{x}}{1 - \\frac{5}{x^2}} \\\\ &= 3 \\end{aligned}$$\nEl resultado es $3$, el cociente entre los coeficientes principales.\n\nComparar los grados antes de dividir evita perder de vista cuál término sobrevive al pasar al límite.",
+    "explanation": "Cuando numerador y denominador tienen el **mismo grado**, ninguno crece más rápido que el otro y el cociente se estabiliza en un número fijo en vez de ir a $0$ o a $\\pm\\infty$.\n\nDividiendo todo por $x^2$, la mayor potencia presente, cada término de menor grado se aplasta hacia $0$ y sobrevive el cociente de los coeficientes principales:\n$$\\begin{aligned} &\\lim_{x \\to +\\infty} \\frac{3x^2 + x}{x^2 - 5} \\\\ &= \\lim_{x \\to +\\infty} \\frac{3 + \\frac{1}{x}}{1 - \\frac{5}{x^2}} \\\\ &= 3 \\end{aligned}$$\nEl resultado es $3$, el cociente entre los coeficientes principales.\n\nComparar los grados antes de dividir evita perder de vista cuál término sobrevive al pasar al límite.",
     "reviewed": false,
     "tags": [
       "racionales-mismo-grado-o-denominador"
     ]
   },
   {
-    "question": "Calculá el siguiente límite al infinito, prestando atención al signo del coeficiente principal:\n$$\\lim_{x \\to +\\infty} \\frac{-2x^2 + 7x}{x^2 + 4}$$",
+    "question": "Una función racional se estudia cuando la variable crece sin tope.\n$$\\lim_{x \\to +\\infty} \\frac{-2x^2 + 7x}{x^2 + 4}$$\n¿Cuál es el valor del límite?",
     "options": [
       "$2$",
       "$-2$",
@@ -43,14 +43,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El cociente de coeficientes principales conserva el signo de cada uno, no solo su valor absoluto: un numerador negativo deja el resultado negativo, sin importar que el denominador sea positivo.\n\nAmbos grados son $2$, así que dividir por $x^2$ deja solo los coeficientes principales:\n$$\\begin{aligned} \\lim_{x \\to +\\infty} \\frac{-2x^2 + 7x}{x^2 + 4} &= \\lim_{x \\to +\\infty} \\frac{-2 + \\frac{7}{x}}{1 + \\frac{4}{x^2}} \\\\ &= -2 \\end{aligned}$$\nEl signo negativo del numerador pasa directo al resultado final.\n\nSi arrastrás el signo del coeficiente principal en cada paso, no lo perdés antes de llegar al resultado.",
+    "explanation": "El cociente de coeficientes principales conserva el signo de cada uno, no solo su valor absoluto: un numerador negativo deja el resultado negativo, sin importar que el denominador sea positivo.\n\nAmbos grados son $2$, así que dividir por $x^2$ deja solo los coeficientes principales:\n$$\\begin{aligned} &\\lim_{x \\to +\\infty} \\frac{-2x^2 + 7x}{x^2 + 4} \\\\ &= \\lim_{x \\to +\\infty} \\frac{-2 + \\frac{7}{x}}{1 + \\frac{4}{x^2}} \\\\ &= -2 \\end{aligned}$$\nEl signo negativo del numerador pasa directo al resultado final.\n\nSi arrastrás el signo del coeficiente principal en cada paso, no lo perdés antes de llegar al resultado.",
     "reviewed": false,
     "tags": [
       "racionales-mismo-grado-o-denominador"
     ]
   },
   {
-    "question": "Calculá el siguiente límite al infinito, comparando el grado del numerador con el del denominador:\n$$\\lim_{x \\to -\\infty} \\frac{5x + 1}{x^3 - 2x}$$",
+    "question": "El límite de un cociente de polinomios se plantea en el infinito negativo.\n$$\\lim_{x \\to -\\infty} \\frac{5x + 1}{x^3 - 2x}$$\n¿Cuál es su valor?",
     "options": [
       "$0$",
       "$5$",
@@ -68,14 +68,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el denominador tiene grado mayor, crece mucho más rápido que el numerador y termina aplastando el cociente completo hacia $0$, sin importar hacia qué lado tienda $x$.\n\nEl denominador tiene grado mayor que el numerador, así que dividir por $x^3$, la potencia más alta presente, aplasta ambos términos del numerador hacia $0$:\n$$\\begin{aligned} \\lim_{x \\to -\\infty} \\frac{5x + 1}{x^3 - 2x} &= \\lim_{x \\to -\\infty} \\frac{\\frac{5}{x^2} + \\frac{1}{x^3}}{1 - \\frac{2}{x^2}} \\\\ &= 0 \\end{aligned}$$\nEl resultado es $0$, sin importar el signo de los coeficientes originales.\n\nLa dirección de $x$ no cambia esta conclusión: mientras el denominador siga teniendo grado estrictamente mayor, el límite es $0$ en los dos extremos.",
+    "explanation": "Cuando el denominador tiene grado mayor, crece mucho más rápido que el numerador y termina aplastando el cociente completo hacia $0$, sin importar hacia qué lado tienda $x$.\n\nEl denominador tiene grado mayor que el numerador, así que dividir por $x^3$, la potencia más alta presente, aplasta ambos términos del numerador hacia $0$:\n$$\\begin{aligned} &\\lim_{x \\to -\\infty} \\frac{5x + 1}{x^3 - 2x} \\\\ &= \\lim_{x \\to -\\infty} \\frac{\\frac{5}{x^2} + \\frac{1}{x^3}}{1 - \\frac{2}{x^2}} \\\\ &= 0 \\end{aligned}$$\nEl resultado es $0$, sin importar el signo de los coeficientes originales.\n\nLa dirección de $x$ no cambia esta conclusión: mientras el denominador siga teniendo grado estrictamente mayor, el límite es $0$ en los dos extremos.",
     "reviewed": false,
     "tags": [
       "racionales-mismo-grado-o-denominador"
     ]
   },
   {
-    "question": "Calculá el siguiente límite al infinito:\n$$\\lim_{x \\to -\\infty} \\frac{4x^3 - x}{-2x^3 + 6}$$",
+    "question": "El límite de una función racional describe su tendencia de fondo en el infinito negativo.\n$$\\lim_{x \\to -\\infty} \\frac{4x^3 - x}{-2x^3 + 6}$$\n¿Cuánto vale ese límite?",
     "options": [
       "$-2$",
       "$2$",
@@ -93,14 +93,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con **mismo grado** en numerador y denominador, el resultado es el cociente de los coeficientes principales, y ese cociente incluye los signos de ambos, no solo sus valores absolutos.\n\nAmbos grados son $3$, así que dividiendo por $x^3$:\n$$\\begin{aligned} \\lim_{x \\to -\\infty} \\frac{4x^3 - x}{-2x^3 + 6} &= \\lim_{x \\to -\\infty} \\frac{4 - \\frac{1}{x^2}}{-2 + \\frac{6}{x^3}} \\\\ &= -2 \\end{aligned}$$\nEl cociente de los coeficientes principales es $-2$. Invertir cuál coeficiente va en el numerador y cuál en el denominador cambia el resultado a un valor distinto.\n\nEl orden en que se escribe la división importa tanto como el signo de cada coeficiente.",
+    "explanation": "Con **mismo grado** en numerador y denominador, el resultado es el cociente de los coeficientes principales, y ese cociente incluye los signos de ambos, no solo sus valores absolutos.\n\nAmbos grados son $3$, así que dividiendo por $x^3$:\n$$\\begin{aligned} &\\lim_{x \\to -\\infty} \\frac{4x^3 - x}{-2x^3 + 6} \\\\ &= \\lim_{x \\to -\\infty} \\frac{4 - \\frac{1}{x^2}}{-2 + \\frac{6}{x^3}} \\\\ &= -2 \\end{aligned}$$\nEl cociente de los coeficientes principales es $-2$. Invertir cuál coeficiente va en el numerador y cuál en el denominador cambia el resultado a un valor distinto.\n\nEl orden en que se escribe la división importa tanto como el signo de cada coeficiente.",
     "reviewed": false,
     "tags": [
       "racionales-mismo-grado-o-denominador"
     ]
   },
   {
-    "question": "Resolvé el siguiente límite al infinito:\n$$\\lim_{x \\to +\\infty} \\frac{-3x + 2}{x^2 + 1}$$",
+    "question": "Se busca la tendencia de una función racional cuando $x$ crece sin tope.\n$$\\lim_{x \\to +\\infty} \\frac{-3x + 2}{x^2 + 1}$$\n¿A qué número tiende?",
     "options": [
       "$0$",
       "$-3$",
@@ -118,14 +118,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un numerador negativo no cambia la conclusión cuando el denominador tiene grado mayor: la **dominancia** de grados es más fuerte que cualquier signo, y el cociente completo se aplasta hacia $0$.\n\nEl denominador tiene grado mayor, así que dividiendo por $x^2$:\n$$\\begin{aligned} \\lim_{x \\to +\\infty} \\frac{-3x + 2}{x^2 + 1} &= \\lim_{x \\to +\\infty} \\frac{-\\frac{3}{x} + \\frac{2}{x^2}}{1 + \\frac{1}{x^2}} \\\\ &= 0 \\end{aligned}$$\nEl signo negativo del coeficiente principal del numerador queda irrelevante frente al $0$ final.\n\nFijate que el signo de un coeficiente solo importa cuando ese término sobrevive a la división, y acá no sobrevive ninguno del numerador.",
+    "explanation": "Un numerador negativo no cambia la conclusión cuando el denominador tiene grado mayor: la **dominancia** de grados es más fuerte que cualquier signo, y el cociente completo se aplasta hacia $0$.\n\nEl denominador tiene grado mayor, así que dividiendo por $x^2$:\n$$\\begin{aligned} &\\lim_{x \\to +\\infty} \\frac{-3x + 2}{x^2 + 1} \\\\ &= \\lim_{x \\to +\\infty} \\frac{-\\frac{3}{x} + \\frac{2}{x^2}}{1 + \\frac{1}{x^2}} \\\\ &= 0 \\end{aligned}$$\nEl signo negativo del coeficiente principal del numerador queda irrelevante frente al $0$ final.\n\nFijate que el signo de un coeficiente solo importa cuando ese término sobrevive a la división, y acá no sobrevive ninguno del numerador.",
     "reviewed": false,
     "tags": [
       "racionales-mismo-grado-o-denominador"
     ]
   },
   {
-    "question": "Hallá el siguiente límite al infinito:\n$$\\lim_{x \\to +\\infty} \\frac{x^4 - 6x^2}{-5x^4 + x}$$",
+    "question": "Una función racional se evalúa cuando la variable se agranda sin freno.\n$$\\lim_{x \\to +\\infty} \\frac{x^4 - 6x^2}{-5x^4 + x}$$\n¿A qué tiende la función?",
     "options": [
       "$\\frac{1}{5}$",
       "$-\\frac{1}{5}$",
@@ -143,14 +143,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando ambos polinomios tienen el **mismo grado**, los coeficientes principales deciden completamente el resultado, con su signo incluido.\n\nAmbos grados son $4$, así que dividiendo por $x^4$:\n$$\\begin{aligned} \\lim_{x \\to +\\infty} \\frac{x^4 - 6x^2}{-5x^4 + x} &= \\lim_{x \\to +\\infty} \\frac{1 - \\frac{6}{x^2}}{-5 + \\frac{1}{x^3}} \\\\ &= -\\frac{1}{5} \\end{aligned}$$\nEl cociente de los coeficientes principales da $-1/5$: invertir el orden o perder el signo cambia la respuesta.\n\nEscribir siempre el coeficiente del numerador arriba y el del denominador abajo evita esa inversión.",
+    "explanation": "Cuando ambos polinomios tienen el **mismo grado**, los coeficientes principales deciden completamente el resultado, con su signo incluido.\n\nAmbos grados son $4$, así que dividiendo por $x^4$:\n$$\\begin{aligned} &\\lim_{x \\to +\\infty} \\frac{x^4 - 6x^2}{-5x^4 + x} \\\\ &= \\lim_{x \\to +\\infty} \\frac{1 - \\frac{6}{x^2}}{-5 + \\frac{1}{x^3}} \\\\ &= -\\frac{1}{5} \\end{aligned}$$\nEl cociente de los coeficientes principales da $-1/5$: invertir el orden o perder el signo cambia la respuesta.\n\nEscribir siempre el coeficiente del numerador arriba y el del denominador abajo evita esa inversión.",
     "reviewed": false,
     "tags": [
       "racionales-mismo-grado-o-denominador"
     ]
   },
   {
-    "question": "Evaluá el siguiente límite al infinito:\n$$\\lim_{x \\to +\\infty} \\frac{2x^3 - 5x}{x + 1}$$",
+    "question": "Se quiere calcular el límite de un cociente de polinomios en el infinito.\n$$\\lim_{x \\to +\\infty} \\frac{2x^3 - 5x}{x + 1}$$\n¿Cuál es su valor?",
     "options": [
       "$-\\infty$",
       "$2$",
@@ -168,14 +168,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el numerador tiene grado mayor que el denominador, el cociente ya no se estabiliza en un número: **diverge**, porque el numerador crece sin freno frente a un denominador más débil.\n\nDividiendo numerador y denominador por $x$, la potencia del denominador:\n$$\\begin{aligned} \\lim_{x \\to +\\infty} \\frac{2x^3 - 5x}{x + 1} &= \\lim_{x \\to +\\infty} \\frac{2x^2 - 5}{1 + \\frac{1}{x}} \\\\ &= +\\infty \\end{aligned}$$\nEl denominador tiende a $1$ mientras el numerador crece sin cota, así que el cociente diverge a $+\\infty$.\n\nCruzar el signo del coeficiente dominante con la dirección de $x$ evita adivinar hacia qué infinito diverge el cociente.",
+    "explanation": "Cuando el numerador tiene grado mayor que el denominador, el cociente ya no se estabiliza en un número: **diverge**, porque el numerador crece sin freno frente a un denominador más débil.\n\nDividiendo numerador y denominador por $x$, la potencia del denominador:\n$$\\begin{aligned} &\\lim_{x \\to +\\infty} \\frac{2x^3 - 5x}{x + 1} \\\\ &= \\lim_{x \\to +\\infty} \\frac{2x^2 - 5}{1 + \\frac{1}{x}} \\\\ &= +\\infty \\end{aligned}$$\nEl denominador tiende a $1$ mientras el numerador crece sin cota, así que el cociente diverge a $+\\infty$.\n\nCruzar el signo del coeficiente dominante con la dirección de $x$ evita adivinar hacia qué infinito diverge el cociente.",
     "reviewed": false,
     "tags": [
       "racionales-gana-numerador"
     ]
   },
   {
-    "question": "Resolvé el siguiente límite al infinito:\n$$\\lim_{x \\to -\\infty} \\frac{x^4 - 3x}{x + 2}$$",
+    "question": "Una función racional se estudia cuando $x$ se va hacia el extremo negativo del eje.\n$$\\lim_{x \\to -\\infty} \\frac{x^4 - 3x}{x + 2}$$\n¿A qué tiende el cociente?",
     "options": [
       "$+\\infty$",
       "$1$",
@@ -193,14 +193,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando la potencia resultante de un cociente divergente es impar, el signo de $x$ sí importa: un número negativo elevado a una potencia impar sigue siendo negativo.\n\nDividiendo numerador y denominador por $x$, la potencia del denominador:\n$$\\begin{aligned} \\lim_{x \\to -\\infty} \\frac{x^4 - 3x}{x + 2} &= \\lim_{x \\to -\\infty} \\frac{x^3 - 3}{1 + \\frac{2}{x}} \\\\ &= -\\infty \\end{aligned}$$\nEl numerador queda dominado por $x^3$, de potencia impar, así que el resultado final es $-\\infty$.\n\nSi la potencia resultante fuera par, el signo de $x$ dejaría de importar y el resultado sería $+\\infty$ en ambas direcciones.",
+    "explanation": "Cuando la potencia resultante de un cociente divergente es impar, el signo de $x$ sí importa: un número negativo elevado a una potencia impar sigue siendo negativo.\n\nDividiendo numerador y denominador por $x$, la potencia del denominador:\n$$\\begin{aligned}\n\\lim_{x \\to -\\infty} \\frac{x^4 - 3x}{x + 2} & \\\\\n&= \\lim_{x \\to -\\infty} \\frac{x^3 - 3}{1 + \\frac{2}{x}} \\\\\n&= -\\infty\n\\end{aligned}$$\nEl numerador queda dominado por $x^3$, de potencia impar, así que el resultado final es $-\\infty$.\n\nSi la potencia resultante fuera par, el signo de $x$ dejaría de importar y el resultado sería $+\\infty$ en ambas direcciones.",
     "reviewed": false,
     "tags": [
       "racionales-gana-numerador"
     ]
   },
   {
-    "question": "Hallá el siguiente límite al infinito:\n$$\\lim_{x \\to +\\infty} \\frac{-x^3 + x}{x^2 - 4}$$",
+    "question": "El siguiente límite aparece al comparar dos polinomios cuando $x$ crece sin tope.\n$$\\lim_{x \\to +\\infty} \\frac{-x^3 + x}{x^2 - 4}$$\n¿Cuál es el resultado del límite?",
     "options": [
       "$-\\infty$",
       "$+\\infty$",
@@ -218,14 +218,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El signo del coeficiente principal del numerador se combina con la dirección de $x$ para decidir hacia qué infinito diverge el cociente cuando el numerador tiene grado mayor.\n\nDividiendo numerador y denominador por $x^2$, la potencia del denominador:\n$$\\begin{aligned} \\lim_{x \\to +\\infty} \\frac{-x^3 + x}{x^2 - 4} &= \\lim_{x \\to +\\infty} \\frac{-x + \\frac{1}{x}}{1 - \\frac{4}{x^2}} \\\\ &= -\\infty \\end{aligned}$$\nEl numerador queda dominado por $-x$, así que el resultado es $-\\infty$.\n\nUn coeficiente principal negativo en el numerador siempre invierte el signo que tendría el mismo cociente con coeficiente positivo.",
+    "explanation": "El signo del coeficiente principal del numerador se combina con la dirección de $x$ para decidir hacia qué infinito diverge el cociente cuando el numerador tiene grado mayor.\n\nDividiendo numerador y denominador por $x^2$, la potencia del denominador:\n$$\\begin{aligned} &\\lim_{x \\to +\\infty} \\frac{-x^3 + x}{x^2 - 4} \\\\ &= \\lim_{x \\to +\\infty} \\frac{-x + \\frac{1}{x}}{1 - \\frac{4}{x^2}} \\\\ &= -\\infty \\end{aligned}$$\nEl numerador queda dominado por $-x$, así que el resultado es $-\\infty$.\n\nUn coeficiente principal negativo en el numerador siempre invierte el signo que tendría el mismo cociente con coeficiente positivo.",
     "reviewed": false,
     "tags": [
       "racionales-gana-numerador"
     ]
   },
   {
-    "question": "Calculá el siguiente límite lateral, correspondiente a una **asíntota vertical**:\n$$\\lim_{x \\to 2^+} \\frac{1}{x - 2}$$",
+    "question": "Se quiere calcular un límite lateral de una función racional.\n$$\\lim_{x \\to 2^+} \\frac{1}{x - 2}$$\n¿A qué tiende la función?",
     "options": [
       "$-\\infty$",
       "$+\\infty$",
@@ -250,7 +250,7 @@
     ]
   },
   {
-    "question": "Calculá el siguiente límite lateral:\n$$\\lim_{x \\to 2^-} \\frac{1}{x - 2}$$",
+    "question": "Una función racional se estudia cerca de $x=2$.\n$$\\lim_{x \\to 2^-} \\frac{1}{x - 2}$$\n¿Cuál es el valor del límite?",
     "options": [
       "$+\\infty$",
       "$0$",
@@ -275,7 +275,7 @@
     ]
   },
   {
-    "question": "Resolvé el siguiente límite lateral:\n$$\\lim_{x \\to 2^+} \\frac{-3}{x - 2}$$",
+    "question": "El límite lateral de una función racional se plantea en $x=2$.\n$$\\lim_{x \\to 2^+} \\frac{-3}{x - 2}$$\n¿Cuál es su valor?",
     "options": [
       "$+\\infty$",
       "$0$",
@@ -300,7 +300,7 @@
     ]
   },
   {
-    "question": "Hallá el siguiente límite lateral:\n$$\\lim_{x \\to 2^-} \\frac{-3}{x - 2}$$",
+    "question": "Se busca la tendencia de una función racional al acercarse a $x=2$.\n$$\\lim_{x \\to 2^-} \\frac{-3}{x - 2}$$\n¿A qué tiende el cociente?",
     "options": [
       "$+\\infty$",
       "$-\\infty$",
@@ -325,7 +325,7 @@
     ]
   },
   {
-    "question": "Calculá el siguiente límite, si existe:\n$$\\lim_{x \\to 3} \\frac{2}{x - 3}$$",
+    "question": "El límite de una función racional se plantea en $x=3$.\n$$\\lim_{x \\to 3} \\frac{2}{x - 3}$$\n¿Qué ocurre con el límite en ese punto?",
     "options": [
       "$+\\infty$",
       "No existe",
@@ -350,7 +350,7 @@
     ]
   },
   {
-    "question": "Evaluá el siguiente límite lateral:\n$$\\lim_{x \\to 1^+} \\frac{5}{1 - x}$$",
+    "question": "Una función racional se evalúa acercándose a $x=1$.\n$$\\lim_{x \\to 1^+} \\frac{5}{1 - x}$$\n¿Cuál es el resultado del límite?",
     "options": [
       "$+\\infty$",
       "$5$",

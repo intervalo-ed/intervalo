@@ -1,18 +1,18 @@
 [
   {
-    "question": "Dada la función:\n$$\\frac{5}{x}$$\nCuando $x \\to +\\infty$.\n\n¿A qué tiende este cociente?",
+    "question": "En este límite la variable se va a $+\\infty$ mientras el numerador se mantiene fijo.\n$$\\frac{5}{x}$$\n¿A qué tiende el cociente?",
     "options": [
-      "Es una indeterminación",
-      "$0$",
-      "$+\\infty$"
+      "Queda indeterminado",
+      "Se aplasta hacia $0$",
+      "Se dispara a $+\\infty$"
     ],
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Correcto: un numerador fijo sobre un denominador que crece sin cota se aplasta hacia $0$.",
     "feedback_incorrect": [
-      "Dividir un número fijo entre algo que crece sin cota no genera ambigüedad sobre el resultado, no es una indeterminación.",
+      "Dividir un número fijo entre algo que crece sin cota no deja ninguna ambigüedad, no es una indeterminación.",
       null,
-      "Acá es el denominador el que crece sin límite, no el numerador, así que el cociente se achica en vez de dispararse."
+      "Acá el que crece sin límite es el denominador, no el numerador, así que el cociente se achica en vez de dispararse."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "Sea la función:\n$$\\frac{3}{x}$$\nCuando $x \\to 0^+$?",
+    "question": "En este límite la variable se acerca a cero por la derecha, y el numerador se mantiene fijo.\n$$\\frac{3}{x}$$\n¿Qué hace el cociente?",
     "options": [
       "Es una indeterminación",
       "Tiende a $0$",
@@ -46,7 +46,7 @@
     ]
   },
   {
-    "question": "¿Cuál de las siguientes expresiones es efectivamente una indeterminación?",
+    "question": "Al sustituir en un límite pueden aparecer distintas formas con un cero o un infinito de por medio.\n\n¿Cuál de estas expresiones es efectivamente una indeterminación?",
     "options": [
       "$\\frac{0}{0}$",
       "$\\frac{5}{0}$",
@@ -69,7 +69,7 @@
     ]
   },
   {
-    "question": "Analiza la función:\n$$\\frac{\\infty}{\\infty}$$\nCuando tanto numerador como denominador crecen sin cota?",
+    "question": "En el álgebra de límites aparece una forma donde el numerador y el denominador crecen sin cota a la vez:\n$$\\frac{\\infty}{\\infty}$$\n¿Qué se puede afirmar de ese cociente?",
     "options": [
       "Siempre vale $1$",
       "Una indeterminación",
@@ -92,7 +92,7 @@
     ]
   },
   {
-    "question": "¿Qué resultado tiene, en general, la resta $\\infty - \\infty$ entre dos cantidades que crecen sin cota?",
+    "question": "Dos cantidades que crecen sin cota también pueden restarse una a la otra dentro de un límite.\n\n¿Qué resultado tiene, en general, esa resta $\\infty - \\infty$?",
     "options": [
       "Siempre da $0$",
       "Siempre diverge a $+\\infty$",
@@ -161,7 +161,7 @@
     ]
   },
   {
-    "question": "Al leer una gráfica, mirar el comportamiento en los extremos del eje $x$ corresponde a analizar $x \\to \\pm\\infty$.\n\n¿Qué tipo de asíntota se identifica con esa lectura?",
+    "question": "Al leer la gráfica de una función, mirar los extremos del eje $x$ equivale a analizar $x \\to \\pm\\infty$.\n\n¿Qué tipo de asíntota se identifica con esa lectura?",
     "options": [
       "Vertical",
       "Horizontal",
@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "Con la función:\n$$\\frac{P(x)}{Q(x)}$$\nEl grado del denominador $Q(x)$ es estrictamente mayor que el grado del numerador $P(x)$.\n\nAl calcular este límite:\n$$\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$$\n¿Qué sucede con su resultado?",
+    "question": "Un límite al infinito trabaja sobre un cociente de polinomios.\n$$\\frac{P(x)}{Q(x)}$$\nEl grado del denominador $Q(x)$ es estrictamente mayor que el grado del numerador $P(x)$.\n\nAl calcular este límite:\n$$\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$$\n¿Qué sucede con su resultado?",
     "options": [
       "El resultado se aplasta hasta $0$",
       "El resultado diverge hacia $\\infty$",
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "Para la función:\n$$\\frac{P(x)}{Q(x)}$$\nEl grado del numerador $P(x)$ es estrictamente mayor que el grado del denominador $Q(x)$.\n\nPara este límite:\n$$\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$$\n¿Cuál es su resultado?",
+    "question": "En este límite al infinito se comparan dos polinomios en forma de cociente.\n$$\\frac{P(x)}{Q(x)}$$\nEl grado del numerador $P(x)$ es estrictamente mayor que el grado del denominador $Q(x)$.\n\nPara este límite:\n$$\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$$\n¿Cuál es su resultado?",
     "options": [
       "El resultado se aplasta hasta $0$",
       "El resultado diverge hacia $\\infty$",
@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "Tomá en cuenta la función:\n$$\\frac{P(x)}{Q(x)}$$\nEl numerador $P(x)$ y el denominador $Q(x)$ tienen exactamente el mismo grado.\n\nAl evaluar este límite:\n$$\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$$\n¿Qué resultado se obtiene?",
+    "question": "Un cociente de polinomios se evalúa cuando la variable se va al infinito.\n$$\\frac{P(x)}{Q(x)}$$\nEl numerador $P(x)$ y el denominador $Q(x)$ tienen exactamente el mismo grado.\n\nAl evaluar este límite:\n$$\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$$\n¿Qué resultado se obtiene?",
     "options": [
       "El resultado se aplasta hasta $0$",
       "El resultado diverge hacia $\\infty$",

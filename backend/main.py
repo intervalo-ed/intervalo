@@ -149,6 +149,21 @@ def require_internal_secret(x_internal_secret: str = Header(None)):
         raise HTTPException(status_code=401, detail="Invalid internal secret")
 
 
+def require_dev_endpoints():
+    """Guard de las rutas /dev/*, que son herramientas de QA local.
+
+    Opt-in y no opt-out a propósito: la variable existe solo en la máquina de
+    quien testea, así que cualquier entorno que no la declare —producción
+    incluida— tiene estas rutas apagadas. Un guard al revés (apagar si es
+    prod) dejaría el agujero abierto en cualquier entorno nuevo que alguien
+    levante sin acordarse de la variable.
+
+    404 y no 403: una ruta que no existe no le confirma a nadie que exista en
+    otro lado."""
+    if os.environ.get("ENABLE_DEV_ENDPOINTS") != "1":
+        raise HTTPException(status_code=404, detail="Not Found")
+
+
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 # ── Pydantic models ───────────────────────────────────────────────────────────
@@ -233,6 +248,11 @@ class DeliveryResult(BaseModel):
 
 class PushDeliveryRequest(BaseModel):
     results: list[DeliveryResult]
+
+
+class TestFeedbackSaveRequest(BaseModel):
+    session_id: str
+    doc: str
 
 
 class SessionFeedbackRequest(BaseModel):
@@ -1465,6 +1485,33 @@ def submit_answer(
         raise HTTPException(status_code=400, detail="Invalid session_id format")
 
     return result
+
+
+# Holgado para una sesión de QA (50 ejercicios con feedback largo entran de
+# sobra) y chico como para que un request no escriba nada raro en disco.
+DEV_FEEDBACK_MAX_CHARS = 500_000
+
+
+@app.post("/dev/test-feedback", dependencies=[Depends(require_dev_endpoints)])
+def save_test_feedback(body: TestFeedbackSaveRequest):
+    """QA-only: vuelca a disco el feedback de una pasada de test mode, sobre-
+    escribiendo el mismo archivo en cada guardado (debounce del lado del
+    cliente). Existe porque localStorage por sí solo no alcanza: si el tab
+    pierde el sessionStorage de la sesión (se cierra, se refresca), la UI
+    muestra "sesión expirada" y no hay forma de volver a entrar al runner
+    para descargar el feedback ya tipeado."""
+    # El nombre sale de un regex que solo deja [A-Za-z0-9_-], así que no hay
+    # traversal posible; el tope de tamaño acota lo único que quedaba sin
+    # límite, que es cuánto se escribe por request.
+    if len(body.doc) > DEV_FEEDBACK_MAX_CHARS:
+        raise HTTPException(status_code=413, detail="doc too large")
+    safe_id = re.sub(r"[^a-zA-Z0-9_-]", "_", body.session_id)
+    out_dir = os.path.join(os.path.dirname(__file__), ".test-feedback")
+    os.makedirs(out_dir, exist_ok=True)
+    path = os.path.join(out_dir, f"{safe_id}.md")
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(body.doc)
+    return {"ok": True, "path": path}
 
 
 FEEDBACK_XP = 1  # XP fijo por responder una encuesta o enviar un reporte (no por la impression).

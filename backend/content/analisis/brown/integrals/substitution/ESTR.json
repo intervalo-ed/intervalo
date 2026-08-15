@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "Esta integral multiplica una función trigonométrica de argumento cuadrático por una potencia lineal:\n$$\\int x\\cos(x^2)\\,dx$$\n¿Cuál es la elección correcta de $u$ para este **cambio de variable**?",
+    "question": "Adentro del coseno hay un cuadrado, y afuera lo multiplica la variable sola:\n$$\\int x\\cos(x^2)\\,dx$$\n¿Cuál es la elección correcta de $u$ para este **cambio de variable**?",
     "options": [
       "$u=\\cos(x^2)$",
       "$u=x^2$",
@@ -46,7 +46,7 @@
     ]
   },
   {
-    "question": "El exponente de esta exponencial es un polinomio lineal, no la variable sola:\n$$\\int e^{3x+1}\\,dx$$\n¿Cuál es la elección correcta de $u$ para este **cambio de variable**?",
+    "question": "El exponente de acá no es la variable sola, sino con coeficiente y un número sumando:\n$$\\int e^{3x+1}\\,dx$$\n¿Cuál es la elección correcta de $u$ para este **cambio de variable**?",
     "options": [
       "$u=3$",
       "$u=e^{3x+1}$",
@@ -115,7 +115,7 @@
     ]
   },
   {
-    "question": "Esta integral multiplica un coseno de argumento logarítmico por el recíproco de la variable:\n$$\\int \\frac{1}{x}\\cos(\\ln x)\\,dx$$\n¿Cuál es la elección correcta de $u$ para este **cambio de variable**?",
+    "question": "El coseno de acá encierra un logaritmo, con una fracción multiplicando afuera:\n$$\\int \\frac{1}{x}\\cos(\\ln x)\\,dx$$\n¿Cuál es la elección correcta de $u$ para este **cambio de variable**?",
     "options": [
       "$u=\\frac{1}{x}$",
       "$u=\\cos(\\ln x)$",
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "question": "Esta integral multiplica una exponencial de exponente cuadrático por una potencia lineal:\n$$\\int 2x\\,e^{x^2}\\,dx$$\n¿Cuál es la elección correcta de $u$ para esta **integración por sustitución**?",
+    "question": "Adentro de la exponencial hay un cuadrado, y un factor la acompaña multiplicando:\n$$\\int 2x\\,e^{x^2}\\,dx$$\n¿Cuál es la elección correcta de $u$ para esta **integración por sustitución**?",
     "options": [
       "$u=x^2$",
       "$u=2x$",
@@ -184,7 +184,7 @@
     ]
   },
   {
-    "question": "En una integral que se resuelve por sustitución, se eligió el cambio de variable:\n$$u=5x-2$$\n¿Cómo queda expresado $dx$ en términos de $du$?",
+    "question": "Esta integral eleva a la cuarta un interior que no es la variable sola:\n$$\\int (5x-2)^4\\,dx$$\nPara resolverla se eligió el cambio:\n$$u=5x-2$$\n¿Cómo queda expresado $dx$ en términos de $du$?",
     "options": [
       "$dx=5\\,du$",
       "$dx=du$",
@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "Para aplicar el método de sustitución a una integral, se definió:\n$$u=3x+1$$\n¿Qué expresión toma $dx$ en términos de $du$?",
+    "question": "El seno de esta integral no se aplica a la variable sola, sino a un interior con coeficiente:\n$$\\int \\sin(3x+1)\\,dx$$\nEl cambio de variable elegido fue:\n$$u=3x+1$$\n¿Qué expresión toma $dx$ en términos de $du$?",
     "options": [
       "$dx=\\frac{1}{3}du$",
       "$dx=3\\,du$",
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "Al resolver una integral por cambio de variable, se tomó:\n$$u=x/2$$\n¿Cómo se expresa $dx$ en términos de $du$?",
+    "question": "El interior de este coseno viene dividido por un número, no multiplicado:\n$$\\int \\cos(x/2)\\,dx$$\nPara integrarla se tomó el cambio:\n$$u=x/2$$\n¿Cómo se expresa $dx$ en términos de $du$?",
     "options": [
       "$dx=du$",
       "$dx=2\\,du$",
@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "En el primer paso de una sustitución, se eligió la variable:\n$$u=-2x$$\n¿Qué forma toma $dx$ en términos de $du$?",
+    "question": "El exponente de esta exponencial arrastra un signo negativo:\n$$\\int e^{-2x}\\,dx$$\nEl primer paso fue definir:\n$$u=-2x$$\n¿Qué forma toma $dx$ en términos de $du$?",
     "options": [
       "$dx=\\frac{1}{2}du$",
       "$dx=-2\\,du$",
@@ -276,7 +276,7 @@
     ]
   },
   {
-    "question": "Antes de reemplazar en una integral, se planteó el cambio de variable:\n$$u=4x-7$$\n¿Cómo queda $dx$ en términos de $du$?",
+    "question": "Esta integral tiene un coseno cuyo interior lleva coeficiente y una constante restando:\n$$\\int \\cos(4x-7)\\,dx$$\nAntes de reemplazar se planteó:\n$$u=4x-7$$\n¿Cómo queda $dx$ en términos de $du$?",
     "options": [
       "$dx=\\frac{1}{4}du$",
       "$dx=4\\,du$",
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "Para transformar una integral por sustitución, se definió:\n$$u=x/3+1$$\n¿Qué expresión resulta para $dx$ en términos de $du$?",
+    "question": "El interior de este seno combina una división con una constante:\n$$\\int \\sin(x/3+1)\\,dx$$\nPara transformarla se definió:\n$$u=x/3+1$$\n¿Qué expresión resulta para $dx$ en términos de $du$?",
     "options": [
       "$dx=du$",
       "$dx=3\\,du$",
@@ -322,7 +322,7 @@
     ]
   },
   {
-    "question": "En una sustitución, el cambio de variable elegido fue:\n$$u=-x+5$$\n¿Cómo se expresa $dx$ en términos de $du$?",
+    "question": "El exponente de esta exponencial resta la variable en vez de sumarla:\n$$\\int e^{-x+5}\\,dx$$\nPara el cambio de variable se tomó:\n$$u=-x+5$$\n¿Cómo se expresa $dx$ en términos de $du$?",
     "options": [
       "$dx=du$",
       "$dx=5\\,du$",

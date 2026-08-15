@@ -20,6 +20,12 @@ type BoolFn = (x: number) => boolean
 
 const DEFAULT_VIEW: [number, number, number, number] = [-4, 4, -4, 4]
 const LINE_COLOR = "#4453E6"
+// Sombreado con signo (analisis/brown/integrals/definite, "lectura-area-con-
+// signos"): la parte de graph_shade que queda arriba del eje x usa LINE_COLOR,
+// la que queda abajo usa este segundo color, para que el signo del área se
+// distinga de un vistazo sin que el estudiante tenga que inferirlo del gráfico
+// pelado. Ver authoring-context.md, sección Gráficos.
+const SHADE_NEGATIVE_COLOR = "#dc4444"
 const SHADE_OPACITY = 0.18
 const AXIS_COLOR = "#6b7280"
 const TICK_PX = 1.5 // half-length of the small axis tick marks, in pixels
@@ -628,16 +634,35 @@ function GraphContent({
         )
       })}
       {shade && (
-        <Plot.Inequality
-          y={{
-            "<=": (x: number) => (x >= shade[0] && x <= shade[1] ? fn(x) : 0),
-            ">=": 0,
-          }}
-          fillColor={LINE_COLOR}
-          fillOpacity={SHADE_OPACITY}
-          upperOpacity={0}
-          lowerOpacity={0}
-        />
+        <>
+          {/* Parte positiva: entre 0 y f(x) donde f(x) >= 0. Fuera de
+              [shade[0], shade[1]] ambos bordes colapsan a 0 y no se rellena
+              nada (mismo truco de clamp que ya usaba el sombreado simple). */}
+          <Plot.Inequality
+            y={{
+              "<=": (x: number) => (x >= shade[0] && x <= shade[1] ? Math.max(fn(x), 0) : 0),
+              ">=": 0,
+            }}
+            fillColor={LINE_COLOR}
+            fillOpacity={SHADE_OPACITY}
+            upperOpacity={0}
+            lowerOpacity={0}
+          />
+          {/* Parte negativa: entre f(x) y 0 donde f(x) < 0. Sin este segundo
+              Inequality, mafs deja de rellenar apenas f(x) cruza el eje
+              (upper < lower con solo el positivo de arriba) y el área bajo
+              el eje queda sin ninguna marca visual. */}
+          <Plot.Inequality
+            y={{
+              "<=": 0,
+              ">=": (x: number) => (x >= shade[0] && x <= shade[1] ? Math.min(fn(x), 0) : 0),
+            }}
+            fillColor={SHADE_NEGATIVE_COLOR}
+            fillOpacity={SHADE_OPACITY}
+            upperOpacity={0}
+            lowerOpacity={0}
+          />
+        </>
       )}
       {branches.map(([d0, d1], k) => (
         <Plot.OfX

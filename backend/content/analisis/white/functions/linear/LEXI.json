@@ -1,6 +1,6 @@
 [
   {
-    "question": "¿Cuál de estas expresiones representa una función lineal?",
+    "question": "Distintas familias de funciones se reconocen por cómo aparece la variable en la fórmula.\n\n¿Cuál de estas expresiones representa una función lineal?",
     "options": [
       "$f(x) = x^2$",
       "$f(x) = 3^x$",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "¿Cuál de estas **no** es una función lineal?",
+    "question": "Tres de estas cuatro expresiones comparten familia y una se escapa.\n\n¿Cuál de estas **no** es una función lineal?",
     "options": [
       "$f(x) = 3x + 4$",
       "$f(x) = x^2 + 1$",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = mx + b$$\n¿Cómo se llama el coeficiente $m$?",
+    "question": "Escrita en su forma general, una función lineal tiene dos coeficientes con nombre propio:\n$$f(x) = mx + b$$\n¿Cómo se llama el coeficiente $m$?",
     "options": [
       "Raíz",
       "Ordenada al origen",
@@ -73,7 +73,7 @@
     ]
   },
   {
-    "question": "¿A qué familia de funciones pertenece $f(x) = 4 - x$?",
+    "question": "Una función tiene que ubicarse dentro de su familia:\n$$f(x) = 4 - x$$\n¿A qué familia pertenece?",
     "options": [
       "Cuadrática sin validar el contexto",
       "Exponencial",
@@ -98,7 +98,7 @@
     ]
   },
   {
-    "question": "¿Cómo se llama una función lineal cuya **pendiente** es cero?",
+    "question": "Los casos particulares de función lineal tienen nombres propios según qué valores toman sus coeficientes.\n\n¿Cómo se llama una función lineal cuya **pendiente** es cero?",
     "options": [
       "Función identidad",
       "Función afín",
@@ -121,7 +121,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la característica visual distintiva de una función lineal?",
+    "question": "Cada familia de funciones deja una marca reconocible en su gráfico.\n\n¿Cuál es la característica visual distintiva de una función lineal?",
     "options": [
       "Es periódica",
       "Su gráfica es una parábola",
@@ -146,7 +146,7 @@
     ]
   },
   {
-    "question": "¿Cuántas veces corta el eje X una función lineal con **pendiente** no nula?",
+    "question": "El cruce con el eje horizontal es lo que ubica las raíces de una función.\n\n¿Cuántas veces corta el eje $X$ una función lineal con **pendiente** no nula?",
     "options": [
       "Una vez",
       "Cero veces",
@@ -171,7 +171,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = 7 - 3x$$\n¿Cuál es la **ordenada al origen**?",
+    "question": "En esta recta el término independiente aparece antes que el término con $x$:\n$$f(x) = 7 - 3x$$\n¿Cuál es la **ordenada al origen**?",
     "options": [
       "$7$",
       "$-3$",
@@ -196,7 +196,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = 2x + 5$$\n¿Cuál es la **pendiente**?",
+    "question": "Una recta queda definida por dos números con papeles distintos:\n$$f(x) = 2x + 5$$\n¿Cuál es la **pendiente**?",
     "options": [
       "$5$",
       "$2x$",
@@ -221,7 +221,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el **dominio natural** de una función lineal $f(x) = ax + b$?",
+    "question": "El dominio natural es el conjunto de entradas para las que la fórmula tiene sentido:\n$$f(x) = ax + b$$\n¿Cuál es el **dominio natural** de una función lineal?",
     "options": [
       "$(0, +\\infty)$",
       "$[a, +\\infty)$",
@@ -246,7 +246,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la **imagen** de la función constante $f(x) = 5$?",
+    "question": "Una función que devuelve siempre lo mismo también entra en la familia lineal:\n$$f(x) = 5$$\n¿Cuál es su **imagen**?",
     "options": [
       "$\\mathbb{R}$",
       "$\\{5\\}$",
@@ -271,7 +271,7 @@
     ]
   },
   {
-    "question": "¿Qué significado tiene la **pendiente** en términos de variación?",
+    "question": "La **pendiente** se puede describir con palabras, sin escribir ninguna fórmula.\n\n¿Qué significado tiene en términos de variación?",
     "options": [
       "Es el valor de $f(0)$",
       "Es la raíz de la función",
@@ -294,7 +294,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la **pendiente** de $f(x) = -x$?",
+    "question": "Una función lineal deja su coeficiente sin escribir:\n$$f(x) = -x$$\n¿Cuál es la **pendiente**?",
     "options": [
       "$0$",
       "$-1$",
@@ -319,7 +319,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la diferencia entre **dominio** e **imagen** en $f(x) = 2x + 3$?",
+    "question": "**Dominio** e **imagen** nombran los dos extremos de lo que hace una función:\n$$f(x) = 2x + 3$$\n¿Qué diferencia hay entre uno y otro?",
     "options": [
       "No hay diferencia",
       "Entrada vs resultado",
@@ -342,7 +342,7 @@
     ]
   },
   {
-    "question": "¿En qué intervalo crece $f(x) = 3x - 7$?",
+    "question": "El crecimiento de una función se analiza mirando qué pasa a lo largo de todo su dominio:\n$$f(x) = 3x - 7$$\n¿En qué intervalo crece?",
     "options": [
       "$(0, +\\infty)$",
       "$(-\\infty, 7/3)$",
@@ -367,7 +367,7 @@
     ]
   },
   {
-    "question": "¿En qué intervalo decrece $f(x) = -2x + 5$?",
+    "question": "Una función lineal trae un coeficiente con signo propio:\n$$f(x) = -2x + 5$$\n¿En qué intervalo decrece?",
     "options": [
       "$(0, +\\infty)$",
       "Todos los reales",
@@ -392,7 +392,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la raíz de $f(x) = 3x - 9$?",
+    "question": "La raíz de una función es el valor de entrada que la anula:\n$$f(x) = 3x - 9$$\n¿Cuál es la raíz de esta recta?",
     "options": [
       "$x = 3$",
       "$x = -3$",
@@ -417,7 +417,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la raíz de $f(x) = -2x + 8$?",
+    "question": "Igualar la fórmula a cero ubica dónde la recta cruza el eje horizontal:\n$$f(x) = -2x + 8$$\n¿Cuál es su raíz?",
     "options": [
       "$x = -4$",
       "$x = 2$",
@@ -467,7 +467,7 @@
     ]
   },
   {
-    "question": "Un tanque tiene 60 litros y pierde 4 L/h.\n\n¿Cuál es el parámetro $m$?",
+    "question": "Un tanque de agua arranca con $60$ litros y pierde $4$ litros por hora.\n\nEl volumen que le queda se modela con una función lineal.\n$$V(t) = mt + b$$\n¿Qué valor toma $m$?",
     "options": [
       "$60$",
       "$4$",
@@ -517,7 +517,7 @@
     ]
   },
   {
-    "question": "¿A qué familia pertenece $f(x) = \\log(x)$?",
+    "question": "Reconocer la familia de una función es el primer paso antes de usar cualquier propiedad:\n$$f(x) = \\log(x)$$\n¿A qué familia pertenece?",
     "options": [
       "Lineal",
       "Cuadrática",
@@ -542,7 +542,7 @@
     ]
   },
   {
-    "question": "¿Es $f(x) = (x-1)(x+1)$ una función lineal?",
+    "question": "Una función viene escrita como un producto sin desarrollar:\n$$f(x) = (x-1)(x+1)$$\n¿Es una función lineal?",
     "options": [
       "Sí",
       "No, porque se expande a $x^2 - 1$",
@@ -565,7 +565,7 @@
     ]
   },
   {
-    "question": "¿Es $f(x) = 3(x + 2)$ una función lineal?",
+    "question": "Los paréntesis pueden cambiar la familia de una función o dejarla igual:\n$$f(x) = 3(x + 2)$$\n¿Es una función lineal?",
     "options": [
       "Sí, es una función lineal",
       "No, porque tiene paréntesis",
@@ -588,11 +588,11 @@
     ]
   },
   {
-    "question": "¿Por qué la función $f(x) = mx + b$ con $m > 0$ nunca decrece?",
+    "question": "Una función lineal trae un coeficiente acompañando a la variable:\n$$f(x) = mx + b, \\quad m > 0$$\n¿Por qué esta función nunca decrece?",
     "options": [
-      "Porque $b > 0$",
-      "Porque la pendiente positiva hace",
-      "Porque el dominio es $\\mathbb{R}$"
+      "Porque la ordenada al origen es positiva",
+      "Porque la pendiente positiva la hace subir",
+      "Porque el dominio abarca todos los reales"
     ],
     "correct_index": 1,
     "has_math": true,
@@ -604,14 +604,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La monotonía de una lineal sale directamente del signo de la **pendiente**.\n\nSi $m > 0$, para cualquier par de puntos con $x_2 > x_1$:Porque ambos factores son positivos.\n\nEntonces.\n$$f(x_2) > f(x_1)$$\n: la función crece en todo $\\mathbb{R}$.\n\nLa **ordenada al origen** no participa en la resta: $b$ se cancela, y por eso desplazar la recta no afecta su dirección.\n\nSepará los roles: $m$ gobierna la dirección y la inclinación; $b$, solo la altura.",
+    "explanation": "La monotonía de una lineal sale directamente del signo de la **pendiente**.\n\nTomando dos puntos cualesquiera con $x_2 > x_1$, la diferencia de valores se factoriza así:\n$$f(x_2) - f(x_1) = m(x_2 - x_1)$$\nLos dos factores son positivos, así que la diferencia también lo es y la función sube.\n\nLa **ordenada al origen** no participa en esa resta: se cancela, y por eso desplazar la recta no afecta su dirección.\n\nSepará los roles: la pendiente gobierna la dirección y la inclinación; la ordenada al origen, solo la altura.",
     "reviewed": false,
     "tags": [
       "propiedades-generales"
     ]
   },
   {
-    "question": "¿Por qué una función lineal con $m \\neq 0$ no tiene máximo ni mínimo?",
+    "question": "Los extremos de una función dependen de cómo se comporta en todo su recorrido:\n$$f(x) = mx + b, \\quad m \\neq 0$$\n¿Por qué esta función no tiene máximo ni mínimo?",
     "options": [
       "Porque sube o baja sin límite",
       "Porque el dominio es $\\mathbb{R}$",
@@ -634,15 +634,15 @@
     ]
   },
   {
-    "question": "¿Cuál es la diferencia entre la recta $y = 2x$ y la recta $y = 2x + 3$?",
+    "question": "Comparar dos rectas escritas una al lado de la otra es la forma más rápida de ver qué las separa:\n$$y = 2x, \\quad y = 2x + 3$$\n¿Qué diferencia hay entre ellas?",
     "options": [
-      "La primera no es lineal",
-      "La segunda es más empinada",
-      "Tienen la misma pendiente pero"
+      "La primera no es una función lineal",
+      "La segunda tiene mayor inclinación",
+      "Misma pendiente, distinta altura"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$y = 2x$ y $y = 2x + 3$ difieren en $b$.",
+    "feedback_correct": "Las dos tienen pendiente $2$; lo único que cambia es la ordenada al origen.",
     "feedback_incorrect": [
       "$y = 2x$ es perfectamente lineal: es el caso con ordenada al origen cero.",
       "La inclinación la fija la pendiente, que es 2 en ambas; el $+3$ no empina, desplaza.",
@@ -657,7 +657,7 @@
     ]
   },
   {
-    "question": "¿Cuántas rectas lineales pasan por dos puntos distintos dados?",
+    "question": "La cantidad de rectas que cumplen una condición dada depende de cuántos datos se fijen de antemano.\n\n¿Cuántas rectas pasan por dos puntos distintos dados?",
     "options": [
       "Una en el contexto",
       "Infinitas",
@@ -680,7 +680,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la **imagen** de $f(x) = 3x + 2$ restringida al **dominio** $[0, 5]$?",
+    "question": "Restringir el **dominio** de una función también recorta el conjunto de valores que devuelve:\n$$f(x) = 3x + 2$$\n¿Cuál es su **imagen** si el dominio se limita a $[0, 5]$?",
     "options": [
       "$[0, 5]$",
       "$[2, 17]$",
@@ -705,7 +705,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la **imagen** de $f(x) = -2x + 5$ restringida al **dominio** $[1, 3]$?",
+    "question": "Con **pendiente** negativa, el orden de los valores de salida no sigue al de los de entrada:\n$$f(x) = -2x + 5$$\n¿Cuál es su **imagen** en el dominio $[1, 3]$?",
     "options": [
       "$[1, 3]$",
       "$[2, 5]$",

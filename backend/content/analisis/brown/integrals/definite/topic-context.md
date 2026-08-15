@@ -68,14 +68,14 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
 | A. Lectura de área con signos | Gráficos con figuras geométricas simples (formadas por funciones analíticas piecewise: rectas $f(x) = x$, $f(x) = 2 - x$; parábolas simples; semicírculo $\sqrt{r^2 - x^2}$) donde parte del área queda **arriba** del eje y parte **abajo**. Pedir la integral definida en todo el intervalo, esperando que el alumno **reste** las áreas negativas. Ejemplo: una función lineal a trozos que forma un triángulo arriba y otro abajo → $\int$ = área del de arriba menos área del de abajo. | `lectura-area-con-signos` | 15 |
-| B. Propiedades de los límites en el gráfico | Interpretar geométricamente las propiedades. Casos: $\int_b^a f(x) \, dx = -\int_a^b f(x) \, dx$ (invertir límites cambia signo); $\int_a^a f(x) \, dx = 0$ (límites iguales); aditividad $\int_a^c f + \int_c^b f = \int_a^b f$ (fraccionar en intervalos contiguos). Todo desde un gráfico dado. | `propiedades-limites-integracion` | 15 |
+| B. Propiedades de los límites en el gráfico | Interpretar geométricamente las propiedades, **leyéndolas del gráfico y nunca de valores precargados en el enunciado** (ronda 4). Dos casos: la **aditividad** $\int_a^c f + \int_c^b f = \int_a^b f$, donde el alumno mide las áreas de los dos tramos contiguos sobre el gráfico y las suma con su signo; y los **límites iguales** $\int_a^a f(x)\,dx = 0$, que es conceptual y no necesita medir nada. **La inversión de límites quedó fuera del topic** (ver Hallazgos de auditoría, ronda 4). | `propiedades-limites-integracion` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 
 - **Sumar áreas sin signo**: dar la suma de áreas absolutas cuando la integral pide **neta**. La integral definida devuelve $\text{(área arriba)} - \text{(área abajo)}$, no $\text{área arriba} + \text{área abajo}$.
 - **Calcular solo el área sobre el eje**: ignorar la parte que va debajo. El intervalo entero cuenta; las áreas debajo del eje **restan**.
 - **Restar al revés** (área arriba menos área abajo con signos invertidos): dar $-(\text{arriba}) + (\text{abajo})$. Confusión sobre qué área lleva signo negativo.
-- **Ignorar el cambio de signo al invertir límites**: dar $\int_b^a f = \int_a^b f$. Invertir los límites de integración **multiplica el resultado por $-1$**: $\int_b^a f(x) \, dx = -\int_a^b f(x) \, dx$.
+- ~~Ignorar el cambio de signo al invertir límites~~: **fuera de alcance desde la ronda 4.** La inversión de límites es una manipulación simbólica sin lectura gráfica real, y el testeo la señaló como innecesaria en este topic.
 - **$\int_a^a$ no reconocida como cero**: intentar aplicar Barrow o calcular un área. Con límites iguales, el "intervalo" tiene ancho cero: la integral es $0$ sin cálculo.
 - **Aditividad rota**: dar $\int_a^c + \int_c^b = 2 \int_a^b$ o similar. La aditividad respeta la partición: $\int_a^c f + \int_c^b f = \int_a^b f$ (mismo resultado, un solo intervalo dividido).
 - **Confundir área con integral definida**: dar el valor absoluto (área geométrica pura) cuando se pide el valor de la integral (área neta con signos). Son conceptos **relacionados pero distintos**: la integral puede ser negativa; el "área" en sentido geométrico nunca lo es.
@@ -84,7 +84,8 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 - **Gráficos con funciones analíticas piecewise únicamente**: rectas ($f(x) = x$ en $[0, 2]$, $f(x) = 2 - x$ en $[2, 4]$, etc.), parábolas simples ($f(x) = x^2 - 1$, $f(x) = 4 - x^2$), semicírculos ($\sqrt{r^2 - x^2}$ para el superior, $-\sqrt{r^2 - x^2}$ para el inferior). Nada de figuras que no puedan describirse por `graph_fn`.
 - **Áreas calculables por fórmulas geométricas** en sub-A: triángulos ($\tfrac{1}{2} b h$), rectángulos ($b \cdot h$), semicírculos ($\tfrac{\pi r^2}{2}$). El alumno **no** hace la integral analítica; lee el gráfico y aplica fórmula geométrica con signo.
 - **Valores enteros pequeños** para dimensiones de las figuras ($b, h, r \in \{1, 2, 3, 4\}$) para que la suma de áreas dé un valor limpio.
-- **Sub-B con opciones conceptuales** ($-\int_a^b f$, $\int_a^b f$, $0$, "no se puede determinar sin el valor exacto") para las propiedades.
+- **Sub-B nunca precarga el valor de las integrales parciales en el enunciado.** Los aportes de cada tramo se leen del gráfico, con `graph_shade` cubriendo el intervalo completo y áreas calculables por fórmula geométrica. Dar los valores hechos convierte el ítem en una suma de dos números y deja el gráfico decorativo: *"acá el gráfico quedó al pedo y tampoco se aplicó el sombreado, no hacía falta exponer los valores en el enunciado sino que el alumno lo saque a partir del gráfico"*.
+- **Sub-B con opciones conceptuales** para el caso de límites iguales ($0$, $f(a)$, "depende del valor de $f(a)$"); con opciones numéricas de cuatro para la aditividad.
 - **Ninguna respuesta con $+C$**: en definidas la respuesta es un número (o expresión numérica limpia), nunca una primitiva.
 - **Negrita en primera mención** de `integral definida`, `área neta`, `límites de integración`, `Regla de Barrow`.
 
@@ -99,11 +100,12 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 **Exactamente 4 opciones** por ejercicio (grilla 2×2). Expresiones cortas (**$\leq 35$ caracteres**).
 
 ### Restricciones estrictas
-- **Sin contextos cotidianos**. Mecánica pura.
+- **Contexto cotidiano en un tercio de los ítems como máximo** (ronda 3). El resto queda en mecánica pura. Donde el contexto entra, **enmarca** un cálculo que existe igual sin él: la integral, sus límites y su resultado son los mismos con contexto y sin contexto, y el estudiante hace exactamente la misma cuenta. Un ítem donde el contexto cambia lo que hay que decidir no pertenece a esta skill sino a `interpretacion`. El contexto se escribe en un párrafo propio antes del bloque display, nombrando la unidad, y nunca alarga el enunciado por encima de la regla 36.
 - **Ejercicios diseñados para que $F(a)$ y $F(b)$ den valores simples** (enteros pequeños o fracciones limpias), de modo que la resta $F(b) - F(a)$ sea aritmética elemental. Los límites en sí pueden ser $0, 1, 2$ para polinómicas/exponenciales; $0, \pi/2, \pi$ para trigonométricas (siempre que la evaluación cierre en un entero pequeño o valor exacto).
 - **$+C$ prohibido** en toda respuesta correcta. Aparece como **distractor deliberado** (respuesta que muestra la primitiva evaluada + $C$) en al menos algunos ejercicios.
 - **En sustitución (sub-B)**: los límites se **actualizan** al cambiar a $u$ o la primitiva se **vuelve a $x$** antes de evaluar. Dejar la primitiva en $u$ evaluando con los límites originales es distractor deliberado.
 - **Áreas entre curvas prohibidas**: solo una función vs eje $x$.
+- **Techo de carga mental (regla 55 de `authoring-context.md`): respondible sin papel, <90s.** Sin evaluaciones con números > ~20, sin denominadores > ~12, sin 3+ operaciones encadenadas (sustitución + conversión de límites + evaluación ya son 3). Un ítem de sub-B que lo excede no se resuelve bajando de sustitución/partes a tabla directa: se reformula en formato "verificar derivando" (regla 52) sobre la misma primitiva, o se recalibra a límites/coeficientes que cierren en aritmética elemental.
 
 `tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
@@ -112,7 +114,7 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
 | A. Barrow con reglas directas | Integrales definidas de polinomios, exponenciales y trigonométricas de tabla evaluadas en intervalos cortos. Ejemplos: $\int_0^2 (x^2 + 1) \, dx = \tfrac{8}{3} + 2 = \tfrac{14}{3}$; $\int_0^1 e^x \, dx = e - 1$; $\int_0^{\pi} \sin x \, dx = 2$. Foco: aplicar la tabla + Barrow correctamente, restar $F(a)$ aunque parezca cero (típico en exponenciales: $F(0) = 1$, no $0$). | `barrow-con-reglas-directas` | 15 |
-| B. Barrow con Sustitución y Partes | Ejercicios que requieren un método avanzado para hallar la primitiva y **después** aplicar Barrow. Ejemplos: $\int_0^1 x e^x \, dx$ (por partes) $= 1$; $\int_0^2 x(x^2 + 1)^3 \, dx$ (por sustitución con $u = x^2 + 1$, límites $u = 1$ a $u = 5$) $= \tfrac{5^4 - 1^4}{8} = \tfrac{624}{8} = 78$; $\int_0^{\pi/2} x \cos x \, dx$ (por partes) $= \tfrac{\pi}{2} - 1$. Foco: coordinar la técnica del cinturón con la evaluación en los límites. | `barrow-con-sustitucion-y-partes` | 15 |
+| B. Barrow con Sustitución y Partes | Ejercicios que requieren un método avanzado para hallar la primitiva y **después** aplicar Barrow. Ejemplos: $\int_0^1 x e^x \, dx$ (por partes) $= 1$; $\int_0^1 2x e^{x^2} \, dx$ (por sustitución con $u = x^2$, límites $u = 0$ a $u = 1$) $= e - 1$; $\int_0^{\pi/2} x \cos x \, dx$ (por partes) $= \tfrac{\pi}{2} - 1$. Foco: coordinar la técnica del cinturón con la evaluación en los límites, **sin que la evaluación final exija aritmética de números grandes** (ver Regla dura de carga mental abajo: el ejemplo previo de esta fila, $\int_0^2 x(x^2+1)^3\,dx=\tfrac{5^4-1^4}{8}=78$, violaba la propia restricción de "aritmética elemental" de la línea 130 al forzar $5^4=625$; queda descartado como ejemplo canónico y como ítem, ver nota de ronda 2). | `barrow-con-sustitucion-y-partes` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -148,6 +150,42 @@ Pre-revisión programática sobre los ejercicios de prueba existentes:
 
 ---
 
+## Hallazgos de auditoría (ronda 2, ago-2026)
+
+Testeo real en la app (sesión 447) detectó carga aritmética inviable en varios ítems de `RESL`, más un choque entre esta spec y su propio ejemplo canónico:
+
+- **Contradicción resuelta**: esta misma tabla (sub-B) usaba $\int_0^2 x(x^2+1)^3\,dx=78$ como ejemplo, que exige evaluar $5^4=625$ y dividir $624/8$, violando la restricción de "aritmética elemental" de la línea 130. Reemplazado por $\int_0^1 2xe^{x^2}\,dx=e-1$ (ver tabla arriba).
+- **RESL#9** (mismo ítem que el ejemplo descartado) y **RESL#12** ($\int_0^1\ln(x+1)\,dx=2\ln2-1$, partes con factor oculto + elección estratégica $v=x+1$) excedían el techo de carga mental nuevo (regla 55): se convierten a formato "verificar derivando" (regla 52) en la Fase D de esta ronda, conservando la primitiva/técnica evaluada.
+- **RESL#0, #8, #10, #11, #14**: L3 borde (aritmética de denominador común, o partes + evaluación con signos), quedan pero se revisan al recalibrar RESL.
+
+## Hallazgos de auditoría (ronda 3, ago-2026)
+
+**1. Entra el contexto cotidiano, acotado.** Pedido del usuario tras la sesión 449: *"para integrales definidas también me gustaría seguir un poco esa lógica de plantear situaciones cotidianas en algunos ejercicios de graf y resolución"*. La restricción anterior de `RESL`, que decía "Sin contextos cotidianos, mecánica pura", se levanta parcialmente: ahora admite contexto en hasta un tercio de los ítems, siempre enmarcando un cálculo idéntico al que existía sin él. `GRAF` no tenía prohibición y recibe el mismo tratamiento.
+
+Se agregó contexto a `GRAF#1`, `#6`, `#7`, `#10`, `#13` y a `RESL#0`, `#2`, `#4`. En los ocho casos la función, los límites, las opciones y el resultado quedaron intactos: lo único que cambió es el párrafo de apertura.
+
+**2. Deslinde con el topic `interpretacion`, nuevo en el cinturón.** Ese topic va segundo, antes de las técnicas, y trabaja la integral como acumulación en clave cualitativa: qué representa el área, qué dice su signo, en qué unidad queda, qué integral modela una situación. Nunca calcula.
+
+La frontera entre los dos es **cualitativo contra cuantitativo**. Un ítem que pregunta qué significa el resultado sin pedir calcularlo pertenece a `interpretacion`; uno que pide el número pertenece acá. En particular, `GRAF#14` de este topic, que pregunta qué significa un resultado negativo sobre el área geométrica, quedó en la frontera y se conserva acá porque cierra la sub-familia de lectura con signos, pero es el único de su clase: cualquier ítem nuevo de ese corte va al topic nuevo.
+
+**3. Jerga en una apertura (regla 57, nueva).** `RESL#5` decía "el recíproco de $x$", del mismo tipo que las etiquetas que el usuario marcó en `reglas`. Reescrita en lenguaje llano.
+
+**Candidato aparcado para el backfill (ronda 5)**: el **valor promedio** de un ritmo como "aplanar la curva" (Essence of Calculus, capítulo 9): el rectángulo de igual área cuya altura es total dividido ancho. No entra en `interpretacion` porque exige calcular, y el renderer no puede dibujar la recta del promedio sobre la función. Acá sí encaja: una sub-familia de GRAF o RESL donde el estudiante calcule el promedio desde el área leída del gráfico.
+
+---
+
+## Hallazgos de auditoría (ronda 4, ago-2026)
+
+Testeo real en la app (sesión 453), enteramente sobre `GRAF` sub-B.
+
+**1. La inversión de límites sale del topic.** `GRAF#8` y `GRAF#11` preguntaban por $\int_b^a$ conociendo $\int_a^b$. Reporte textual: *"innecesario este ejercicio, descartemos este tipo, inversión"*. Es una manipulación simbólica que no se lee del gráfico y que no aparece después en ningún cálculo del cinturón. Los dos ítems se reemplazaron por lectura de área con signo, que es el formato que el mismo testeo elogió en `GRAF#7` con un *"muy bueno"*.
+
+**2. La aditividad venía con los valores hechos.** `GRAF#10` y `GRAF#13` daban $\int_0^2$ y $\int_2^4$ en el enunciado y solo pedían sumarlos, con el gráfico sin sombrear y sin ninguna función que leer. Reporte: *"acá el gráfico quedó al pedo y tampoco se aplicó el sombreado, no hacía falta exponer los valores en el enunciado sino que el alumno lo saque a partir del gráfico"*, y sobre el otro: *"lo mismo acá, debería intuirse a partir de mirar el gráfico, no con los resultados precargados"*. Los dos se rediseñaron: ahora muestran la recta con su fórmula, llevan `graph_shade` sobre el intervalo completo, y el alumno mide las dos regiones y las suma con su signo. El del ascensor además cambió de función, porque leído del gráfico habría quedado idéntico a `GRAF#0`.
+
+**3. Sub-B queda en cuatro ítems** hasta el backfill: dos de aditividad y dos de límites iguales. Los dos que se fueron a lectura con signo cambiaron de slug, así que sub-A pasó a once.
+
+---
+
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 2 skills):**
@@ -173,7 +211,9 @@ Pre-revisión programática sobre los ejercicios de prueba existentes:
 
 **RESL:**
 - [ ] 30 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
-- [ ] Sin contextos cotidianos
+- [ ] Contexto cotidiano en un tercio de los ítems como máximo, siempre enmarcando un cálculo idéntico al de la versión sin contexto
+- [ ] **Ningún ítem de `GRAF` sub-B precarga el valor de las integrales parciales** (ronda 4); todo se lee del gráfico
+- [ ] **Ningún ítem de inversión de límites** en el topic (ronda 4)
 - [ ] Distribución A/B respetada (15/15)
 - [ ] Ejercicios calibrados: $F(a)$ y $F(b)$ dan valores simples (enteros pequeños, fracciones limpias, expresiones exactas)
 - [ ] Sub-A con reglas directas de tabla (polinómicas, exponenciales, trigonométricas)
@@ -182,3 +222,4 @@ Pre-revisión programática sobre los ejercicios de prueba existentes:
 - [ ] Distractor mayoritario en partes = "signo negativo mal arrastrado" o "olvidé $uv$"
 - [ ] Ningún resultado con $+C$; al menos algunos ejercicios con "$+C$ sumada" como distractor
 - [ ] Ninguna integral cíclica; ninguna aplicación fuera del scope del cinturón brown
+- [ ] **Ningún ítem excede el techo de carga mental** (regla 55): sin evaluación con números > ~20, sin denominador > ~12 (reincidencia confirmada en RESL#9/#12, ronda 2, convertidos a "verificar derivando")

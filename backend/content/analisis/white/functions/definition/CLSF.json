@@ -360,18 +360,18 @@
     "question": "Una función transforma $x$ según:$$f(x) = \\sqrt{16 - x^2}$$ ¿Cuál es el **dominio natural**?",
     "options": [
       "$-4 \\leq x \\leq 4$",
-      "$x \\leq 4$",
-      "$x \\geq -4$",
-      "$x \\neq 0$"
+      "$0 \\leq x \\leq 4$",
+      "$-4 \\leq x \\leq 0$",
+      "$-16 \\leq x \\leq 16$"
     ],
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "La raíz pide $16 - x^2 \\geq 0$, es decir $-4 \\leq x \\leq 4$.",
     "feedback_incorrect": [
       null,
-      "Cubre un extremo pero deja pasar valores muy negativos, donde $16 - x^2 < 0$.",
-      "Cubre el otro extremo pero deja pasar valores mayores que $4$, donde el radicando es negativo.",
-      "El 0 no molesta; la restricción viene de $16 - x^2 \\geq 0$."
+      "Ese intervalo deja afuera toda la mitad negativa, y ahí el radicando también es positivo.",
+      "Ese intervalo deja afuera toda la mitad positiva, y ahí el radicando también es positivo.",
+      "Ese es el intervalo que sale de usar el $16$ sin sacarle la raíz, la condición acota en $4$, no en $16$."
     ],
     "graph_fn": null,
     "graph_view": null,

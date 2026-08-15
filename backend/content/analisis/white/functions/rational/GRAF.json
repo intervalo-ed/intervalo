@@ -1,6 +1,6 @@
 [
   {
-    "question": "¿Cuántas asíntotas tiene esta función racional en total?",
+    "question": "El gráfico muestra la función racional más simple de todas, con sus dos ramas separadas.\n\n¿Cuántas asíntotas tiene en total?",
     "options": [
       "2",
       "1 (solo vertical)",
@@ -30,7 +30,7 @@
     ]
   },
   {
-    "question": "¿En qué cuadrantes se encuentran las ramas de esta función?",
+    "question": "Los cuadrantes del plano se numeran en sentido antihorario a partir del superior derecho.\n\n¿En qué cuadrantes se encuentran las ramas de la función del gráfico?",
     "options": [
       "Segundo y cuarto",
       "Primero y tercero",
@@ -90,7 +90,7 @@
     ]
   },
   {
-    "question": "Analiza la función:\n$$f(x) = \\dfrac{x}{x+1}$$\n¿Cuántas asíntotas verticales tiene?",
+    "question": "La cantidad de asíntotas verticales depende de cuántos valores anulan el denominador:\n$$f(x) = \\dfrac{x}{x+1}$$\n¿Cuántas asíntotas verticales tiene?",
     "options": [
       "1 (en $x = -1$)",
       "2",
@@ -120,7 +120,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la asíntota horizontal de esta función racional?",
+    "question": "Lejos del origen, la curva del gráfico se aplana contra una recta horizontal.\n\n¿Cuál es la asíntota horizontal de esa función racional?",
     "options": [
       "$y = 0$",
       "$y = 1$",
@@ -180,7 +180,7 @@
     ]
   },
   {
-    "question": "¿Cuántas ramas tiene esta función racional y en qué dirección van hacia la asíntota?",
+    "question": "Una función racional se estudia cerca de su asíntota vertical.\n\n¿Cuántas ramas tiene esta función racional y en qué dirección van hacia la asíntota?",
     "options": [
       "2 ramas simétricas respecto al eje $X$",
       "1 rama continua",
@@ -210,7 +210,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la **imagen** de esta función?",
+    "question": "Proyectar la curva del gráfico sobre el eje vertical muestra qué valores alcanza la función.\n\n¿Cuál es la **imagen** de esta función?",
     "options": [
       "$\\mathbb{R}$",
       "$\\mathbb{R} \\setminus \\{1\\}$",
@@ -240,7 +240,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la ecuación de la asíntota vertical de esta función?",
+    "question": "La recta vertical que la curva del gráfico nunca cruza tiene una ecuación bien definida.\n\n¿Cuál es la ecuación de la asíntota vertical?",
     "options": [
       "$x = 1$",
       "$x = -1$",
@@ -275,7 +275,7 @@
       "Solo en $(-\\infty,\\ 0)$",
       "Solo en $(0,\\ +\\infty)$",
       "En ningún intervalo",
-      "En $(-\\infty,\\ 0)$ y en $(0,\\ +\\infty)$"
+      "En ambos intervalos"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -330,7 +330,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la asíntota vertical de esta función?",
+    "question": "El gráfico se parte justo donde la función deja de estar definida.\n\n¿Cuál es la asíntota vertical de esta función?",
     "options": [
       "$x = -1$",
       "$x = 1$",
@@ -390,7 +390,7 @@
     ]
   },
   {
-    "question": "¿En qué valor cruza el eje $X$ esta función?",
+    "question": "Un cruce con el eje horizontal exige que la función valga cero en algún punto.\n\n¿En qué valor cruza el eje $X$ esta función?",
     "options": [
       "No cruza",
       "$x = 1$",
@@ -420,7 +420,7 @@
     ]
   },
   {
-    "question": "¿Dónde cruza el eje $Y$ esta función?",
+    "question": "El cruce con el eje vertical se lee sobre la recta $x = 0$ del gráfico.\n\n¿Dónde cruza el eje $Y$ esta función?",
     "options": [
       "$y = -2$",
       "$y = 2$",
@@ -478,7 +478,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el **dominio** de esta función racional?",
+    "question": "En el gráfico, el **dominio** aparece como el tramo del eje horizontal donde hay curva dibujada.\n\n¿Cuál es el dominio de esta función racional?",
     "options": [
       "$\\mathbb{R}$",
       "$\\mathbb{R} \\setminus \\{-1\\}$",
@@ -487,7 +487,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "La AV en $x = -1$ indica que ese punto está excluido del dominio.",
+    "feedback_correct": "La asíntota vertical en $x = -1$ indica que ese punto está excluido del dominio.",
     "feedback_incorrect": [
       "Ese conjunto no excluye el punto donde el denominador se anula: revisá si realmente no hay ninguna restricción.",
       null,
@@ -501,14 +501,14 @@
       -5,
       5
     ],
-    "explanation": "El **dominio** de una función racional es todo $\\mathbb{R}$ excepto los valores que anulan el denominador, ya que ahí la división no está definida.\n\nLa AV en $x=-1$ significa que el denominador se anula ahí: $x=-1$ no pertenece al dominio.\n\nEl dominio es $\\mathbb{R}\\setminus\\{-1\\}=(-\\infty,-1)\\cup(-1,+\\infty)$.\n\nConviene no confundir esta exclusión puntual con restringir todo un intervalo completo.",
+    "explanation": "El **dominio** de una función racional son todos los reales excepto los valores que anulan el denominador, ya que ahí la división no está definida.\n\nLa asíntota vertical en $x=-1$ significa que el denominador se anula ahí, así que ese punto no pertenece al dominio.\n\nEl dominio queda así:\n$$\\mathbb{R}\\setminus\\{-1\\}=(-\\infty,-1)\\cup(-1,+\\infty)$$\nUna asíntota vertical saca un solo punto de la recta, no un intervalo entero, porque el denominador se anula en un valor puntual y no en toda una zona.",
     "reviewed": false,
     "tags": [
       "dominio-desde-grafico"
     ]
   },
   {
-    "question": "¿Qué valor aproximado tiene $f(3)$ según esta gráfica?",
+    "question": "La gráfica es de una función racional con una ruptura en $x=1$, que la parte en dos ramas separadas.\n\n¿Qué valor aproximado tiene $f(3)$ según la gráfica?",
     "options": [
       "$3$",
       "$2$",
@@ -538,7 +538,7 @@
     ]
   },
   {
-    "question": "¿La gráfica es simétrica respecto al origen?",
+    "question": "Una gráfica simétrica respecto del origen se ve igual después de girarla media vuelta.\n\n¿La gráfica de esta función es simétrica respecto al origen?",
     "options": [
       "No tiene ningún tipo de simetría",
       "Sí, $f(-x) = f(x)$",
@@ -568,7 +568,7 @@
     ]
   },
   {
-    "question": "Cerca de la asíntota vertical de esta función, el comportamiento de la curva depende de por dónde se acerca $x$.\n\n¿Qué le pasa a $f(x)$ al acercarse a $0$ por la derecha, con valores positivos cada vez más chicos?",
+    "question": "Una función racional se estudia cerca de su asíntota vertical, según por dónde llegue $x$.\n\n¿Qué le pasa a $f(x)$ al acercarse a $0$ por la derecha, con valores positivos cada vez más chicos?",
     "options": [
       "Se acerca a $+\\infty$",
       "Se acerca a $-\\infty$",
@@ -596,7 +596,7 @@
     ]
   },
   {
-    "question": "¿Cuántas ramas tiene la gráfica de esta función?",
+    "question": "Las asíntotas verticales parten la gráfica de una función racional en tramos separados.\n\n¿Cuántas ramas tiene la gráfica de esta función?",
     "options": [
       "4 ramas",
       "2 ramas",
@@ -776,7 +776,7 @@
     ]
   },
   {
-    "question": "Estudiá la función que modela, en horas, el tiempo que tardan $n$ personas en terminar juntas una tarea:\n$$t(n) = \\dfrac{12}{n}$$\nEl gráfico muestra esta función para $n > 0$.\n\n¿Cuánto tiempo tarda si son $4$ personas?",
+    "question": "El tiempo que tarda un grupo en terminar una tarea baja a medida que se suma gente:\n$$t(n) = \\dfrac{12}{n}$$\nEl gráfico muestra esta función para $n > 0$.\n\n¿Cuánto tiempo tarda si son $4$ personas?",
     "options": [
       "$4$ horas",
       "$3$ horas",

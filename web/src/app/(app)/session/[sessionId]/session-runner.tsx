@@ -25,6 +25,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Screen, ScreenBody, ScreenHeader } from "@/components/ui/screen"
 import { useSfx } from "@/lib/audio/useSfx"
+import { BASE_URL as API_BASE_URL } from "@/lib/api/client"
 import { topicShortLabel } from "@/lib/catalog"
 import { exerciseTypeInfo } from "@/lib/catalog/exercise-types"
 import { latexVisualLength } from "@/lib/latex-visual-length"
@@ -360,6 +361,37 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
       explanations: explanationFbByIdx,
     })
   }, [payload?.mode, sessionId, feedbackByIdx, distractorFbByIdx, explanationFbByIdx])
+
+  // Auto-guardado a disco (debounce), solo QA local: localStorage por sí solo
+  // no alcanza porque depende de que el tab conserve el sessionStorage de la
+  // sesión — si se pierde (cierre, refresh), la pantalla de "sesión
+  // expirada" bloquea cualquier forma de volver a entrar al runner para
+  // descargar el feedback ya tipeado. Esto lo deja en
+  // backend/.test-feedback/<sessionId>.md pase lo que pase con el tab.
+  useEffect(() => {
+    if (payload?.mode !== "test") return
+    const hasFb =
+      Object.values(feedbackByIdx).some((t) => t.trim()) ||
+      Object.values(explanationFbByIdx).some((t) => t.trim()) ||
+      Object.values(distractorFbByIdx).some((byI) =>
+        Object.values(byI).some((t) => t.trim()),
+      )
+    if (!hasFb) return
+    const doc = buildFeedbackDocument({
+      exercises: payload.exercises,
+      feedbackByIdx,
+      distractorFbByIdx,
+      explanationFbByIdx,
+    })
+    const t = setTimeout(() => {
+      fetch(`${API_BASE_URL}/dev/test-feedback`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ session_id: sessionId, doc }),
+      }).catch(() => {})
+    }, 1200)
+    return () => clearTimeout(t)
+  }, [payload, sessionId, feedbackByIdx, distractorFbByIdx, explanationFbByIdx])
 
   // Foco automático del snippet general al arrancar y en cada cambio de
   // ejercicio o de vista (enunciado/explicación), para no tener que tocar el

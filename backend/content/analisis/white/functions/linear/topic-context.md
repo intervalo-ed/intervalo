@@ -58,9 +58,9 @@ Vocabulario y parámetros de la recta: forma canónica $f(x) = mx + b$, identifi
 |----------|------|-----------------:|
 | Identificación de fórmula (es/no es lineal, otras familias) | `identificacion-formula` | 6 |
 | Dominio e imagen (natural o restringido) | `dominio-imagen` | 5 |
-| Propiedades generales (visual, existencia de raíz, tasa de cambio, sin extremos, rectas por puntos) | `propiedades-generales` | 4 |
+| Propiedades generales (visual, existencia de raíz, tasa de cambio, sin extremos, rectas por puntos) | `propiedades-generales` | 5 |
 | Nombrar parámetros/vocabulario (pendiente, ordenada, constante, raíz) | `nombre-parametros` | 4 |
-| Monotonía y signo de la pendiente | `monotonia-signo-pendiente` | 3 |
+| Monotonía y signo de la pendiente | `monotonia-signo-pendiente` | 2 |
 | Parámetros $m$/$b$ leídos en contexto cotidiano | `parametros-contexto` | 3 |
 | Pendiente, cálculo directo | `pendiente-calculo` | 2 |
 | Raíz, cálculo directo | `raiz-calculo` | 2 |
@@ -187,3 +187,30 @@ Leer una recta desde su gráfico: valor puntual $f(a)$ dado $a$ (y a la inversa,
 - [x] 30 ejercicios (10 regenerados desde cero en ago-2026 + 20 sumados en la ronda siguiente), con `graph_fn`/`graph_view` reales, $|m| \leq 2$, `graph_view` aproximadamente cuadrado
 - [x] `feedback_incorrect` completo en los 30
 - [x] Formato de prosa limpio, cierres en advertencia/consejo
+
+## Hallazgos de auditoría (ronda 6, ago-2026)
+
+Pasada de redacción sobre los enunciados para llevarlos al estándar de las reglas 47-51: apertura que sitúa, fórmula centrada y pregunta `¿...?` en su propio tramo. Se reescribieron 45 enunciados entre `FORM.json`, `GRAF.json` y `LEXI.json`, con aperturas variadas ejercicio a ejercicio (regla 32) y sin imperativos de cálculo ni de atención. No hubo cambios de contenido matemático: solo se tocó el campo `question`.
+
+---
+
+## Auditoría ronda 9 (feedback de testeo 467, ago-2026)
+
+La ronda 7 arregló **de qué** hablaba la apertura (del comportamiento, no de la tipografía) pero no **que describiera**. El enunciado quedó haciendo el análisis y entregando el diagnóstico terminado: `"El punto de tendencia anula las dos partes de la fracción. La función no está definida ahí, pero sí se acerca a un número."` son tres conclusiones que el estudiante tendría que sacar, y le dejan solo la aritmética.
+
+De ahí sale la **regla 61** de `authoring-context.md`: el sujeto de la primera oración es el objeto o una intención (`"Una función…"`, `"Un límite…"`, `"Se quiere…"`), va **una sola oración**, y no se reporta el resultado de ningún paso que el estudiante podría dar. La regla 59 sigue vigente contra la fórmula desnuda; la 61 la acota para que el enunciado no razone en su lugar.
+
+Pasada de voz narrativa sobre las aperturas que tenían una propiedad de sujeto (`"El denominador de esta función…"`, `"El interior de este logaritmo…"`, `"El coeficiente principal es…"`). Son 56 en toda la unidad, heredadas de la misma ronda 6 que produjo el problema en `limites`.
+
+**Los preámbulos `"Dada la función:"` / `"Sea la función:"` no se tocaron**: tienen el objeto de sujeto y la sección *Sin preámbulos colgantes* los admite explícitamente.
+
+---
+
+## Realineación de la tabla de distribución (ronda 10, ago-2026)
+
+Los bancos de este topic están completos (30 por skill) y sus `tags` están bien puestos. La tabla venía de proyectar el recorte de 50 → 30 con reparto proporcional, y esa proyección nunca se reconcilió con lo que se escribió después. Se corrigieron los conteos para que reflejen el banco real, en vez de reescribir ejercicios ya testeados. Valores anteriores:
+
+- **LEXI** `propiedades-generales`: la tabla decía 4, el banco tiene 5
+- **LEXI** `monotonia-signo-pendiente`: la tabla decía 3, el banco tiene 2
+
+No se borró ninguna fila: todas las sub-familias listadas tienen al menos un ejercicio escrito. `FORM` y `GRAF` ya coincidían fila por fila con su banco y no se tocaron. Los tres skills siguen sumando 30.

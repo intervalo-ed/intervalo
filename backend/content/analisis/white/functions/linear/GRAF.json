@@ -1,6 +1,6 @@
 [
   {
-    "question": "Observá la recta graficada.\n\n¿Cuál es el valor de $f(3)$?",
+    "question": "El gráfico muestra una recta sin ningún contexto asociado, solo la relación entre $x$ y $f(x)$.\n\n¿Cuál es el valor de $f(3)$?",
     "options": [
       "3",
       "-1",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la **pendiente** de la recta graficada?",
+    "question": "Para leer la inclinación de una recta alcanza con ver cuánto baja o sube al avanzar una unidad.\n\n¿Cuál es la **pendiente** de la recta graficada?",
     "options": [
       "1",
       "-1",
@@ -100,7 +100,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la **ordenada al origen** de la recta graficada?",
+    "question": "La ordenada al origen se lee directo en el gráfico, sin necesidad de conocer la fórmula.\n\n¿Cuál es la **ordenada al origen** de la recta graficada?",
     "options": [
       "3",
       "1.5",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "Observá la recta graficada.\n\n¿Para qué valor de $x$ se cumple $f(x) = 2$?",
+    "question": "Leer un gráfico en sentido inverso, entrando por la altura y saliendo por la variable, es tan válido como el sentido directo.\n\n¿Para qué valor de $x$ se cumple $f(x) = 2$?",
     "options": [
       "1",
       "3",
@@ -250,7 +250,7 @@
     ]
   },
   {
-    "question": "Observá la recta graficada.\n\n¿Cuál es el valor de $f(-1)$?",
+    "question": "La recta del gráfico también está definida a la izquierda del eje vertical.\n\n¿Cuál es el valor de $f(-1)$?",
     "options": [
       "1",
       "3",
@@ -350,7 +350,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la **pendiente** de la recta graficada?",
+    "question": "Dos rectas pueden cruzar el eje vertical en el mismo punto y aun así tener inclinaciones muy distintas.\n\n¿Cuál es la **pendiente** de la recta graficada?",
     "options": [
       "1",
       "-2",
@@ -450,7 +450,7 @@
     ]
   },
   {
-    "question": "¿Cuál es la **ordenada al origen** de la recta graficada?",
+    "question": "El gráfico cruza los dos ejes, y solo uno de esos cruces da la ordenada al origen.\n\n¿Cuál es la **ordenada al origen** de la recta graficada?",
     "options": [
       "2",
       "1",
@@ -525,7 +525,7 @@
     ]
   },
   {
-    "question": "Observá la recta graficada.\n\n¿Para qué valor de $x$ se cumple $f(x)=1$?",
+    "question": "En el gráfico, subir hasta una altura fija y de ahí bajar al eje horizontal responde la pregunta inversa.\n\n¿Para qué valor de $x$ se cumple $f(x)=1$?",
     "options": [
       "1",
       "5",

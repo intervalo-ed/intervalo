@@ -224,6 +224,50 @@ Estas valen en `question`, `options`, `feedback_*` y `explanation` por igual:
   delimitador y rompe el render. (LaTeX y signo `$`)
 - **Fórmulas anchas → partir en pasos**, nunca scroll horizontal ni cadena
   `A = B = C = D` larga. (Fórmulas anchas)
+- **Dentro de un `aligned`, cada FILA se mide con el mismo límite de ancho que
+  un bloque suelto**, no solo el bloque completo. La fila de planteo lleva su
+  propio `&` sin `=` y va sola; el desarrollo arranca en la fila siguiente.
+  (R38)
+- **Techo de carga mental**: todo ítem de cálculo cerrado (`RESL`) tiene que
+  responderse sin papel en <90s. Sin 3+ operaciones encadenadas, sin números
+  intermedios > 20, sin denominadores > 12, sin factorización final a forma
+  compacta. Si el contenido lo exige, cambiar el formato (verificar
+  derivando, detectar el paso mal) en vez de bajar el contenido. (R52-55)
+- **Paso troceado**: un procedimiento largo se reparte en ítems que evalúan
+  una decisión cada uno (dado $u$, cómo queda la integral reescrita; dados
+  $u$ y $dv$, cuál es $v$). Ningún ítem troceado pide el resultado final.
+  (R56)
+- **La primera oración introduce, no etiqueta**: lenguaje llano, sin jerga
+  estructural (`binomio lineal`, `recíproco de la variable`), sin repetir lo
+  que la fórmula ya muestra y sin filtrar la respuesta. (R57)
+- **Contexto mínimo**: si el ítem trabaja sobre algo derivado de una integral
+  (un cambio de variable, un armado, un resultado a medio camino), la integral
+  original va centrada en el enunciado aunque no haga falta para resolver. El
+  enunciado y las opciones son todo el contexto que el estudiante tiene.
+  Prohibida la apertura deíctica `"Acá..."`. (R58)
+- **La apertura describe comportamiento, no tipografía**: nombra el objeto y
+  qué le pasa (el límite, la función, a qué se acerca), no dónde caen los
+  símbolos (`arriba`, `abajo`, `ocupa el denominador`). Dice qué está en juego
+  — el camino directo falla y sin embargo hay respuesta — y recién ahí viene la
+  fórmula. Si la apertura ya nombró el objeto, la pregunta puede señalarlo
+  hacia atrás (`"¿Cuál es ese valor?"`). Prohibidas las preguntas genéricas
+  `"¿Cuánto da?"` / `"¿Cuál es su resultado?"`. (R59)
+- **El enunciado y el gráfico dicen lo mismo**: los números de la prosa (tasa,
+  valor de arranque, pendiente) tienen que coincidir con lo que dibuja
+  `graph_fn`. El validador no ve esta clase de error, se verifica evaluando la
+  función en el punto que la prosa afirma. Y no se pregunta por el valor que el
+  propio enunciado ya regala. (R60)
+- **Distractora que parece muerta**: se arregla la **consigna**, no la apertura.
+  Si una opción se descarta sin pensar, revisá primero si falta acotar el
+  dominio o la condición en la pregunta (`"dentro de los números reales"`).
+  Agregar una advertencia en la apertura suele filtrar más que el problema
+  original. Y el enunciado nunca afirma algo que la correcta desmiente. (R51)
+- **Voz narrativa**: el sujeto de la primera oración es el objeto o una
+  intención (`"Una función…"`, `"Un límite…"`, `"Se quiere…"`), nunca una
+  propiedad suya (`"El punto de tendencia…"`, `"Numerador y denominador…"`).
+  Una sola oración, y sin reportar el resultado de ningún paso que el
+  estudiante podría dar: qué deja la sustitución, si el límite existe, cuál
+  polinomio se impone. Eso es el ejercicio. (R61)
 
 ---
 
