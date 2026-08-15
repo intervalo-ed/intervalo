@@ -204,7 +204,7 @@ export const UNIVERSITY_TAG_BY_KEY: Record<string, UniversityTag> = Object.fromE
 // que se dibujan (grilla de 3 columnas → dos filas). El resto de las tags entra
 // por el campo "Otra". Cada una necesita su logo en UNIVERSITY_LOGOS
 // (onboarding-wizard.tsx); sin logo el botón cae al texto de la sigla.
-export const ONBOARDING_UNIVERSITIES = ["UBA", "UTN", "UNLP", "UNSAM", "UNC", "UADE"]
+export const ONBOARDING_UNIVERSITIES = ["UBA", "UTN", "UNLP", "UNSAM", "UNC", "UNL"]
 
 function normalize(s: string): string {
   return s
