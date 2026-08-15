@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "El número que multiplica a la variable adentro del seno controla cada cuánto se repite la curva:\n$$f(x) = 2 \\cdot \\operatorname{sen}(3x)$$\n¿Cuál es el período?",
+    "question": "Una función seno trae un número multiplicando a la variable:\n$$f(x) = 2 \\cdot \\operatorname{sen}(3x)$$\n¿Cuál es el período?",
     "options": [
       "$3\\pi$",
       "$2\\pi$",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "El factor que multiplica al seno viene con signo negativo:\n$$f(x) = -4\\,\\operatorname{sen}(x)$$\n¿Cuál es la amplitud?",
+    "question": "Una función seno viene multiplicada por un factor negativo:\n$$f(x) = -4\\,\\operatorname{sen}(x)$$\n¿Cuál es la amplitud?",
     "options": [
       "$-4$",
       "$2$",
@@ -540,7 +540,7 @@
     ]
   },
   {
-    "question": "El factor que acompaña a la variable dentro del coseno es el propio $\\pi$:\n$$f(x) = \\cos(\\pi x)$$\n¿Cuál es el período?",
+    "question": "Una función coseno trae $\\pi$ acompañando a la variable:\n$$f(x) = \\cos(\\pi x)$$\n¿Cuál es el período?",
     "options": [
       "$\\pi$",
       "$\\dfrac{1}{\\pi}$",
@@ -670,7 +670,7 @@
     ]
   },
   {
-    "question": "El factor que multiplica a la variable es una fracción menor que 1:\n$$f(x) = \\cos\\!\\left(\\dfrac{2x}{3}\\right)$$\n¿Cuál es el período?",
+    "question": "Una función trae una fracción menor que 1 multiplicando a la variable:\n$$f(x) = \\cos\\!\\left(\\dfrac{2x}{3}\\right)$$\n¿Cuál es el período?",
     "options": [
       "$\\dfrac{4\\pi}{3}$",
       "$3\\pi$",

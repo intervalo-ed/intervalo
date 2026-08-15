@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "Antes de hablar de continuidad hay que saber qué valores de $x$ admite esta función:\n$$f(x) = x^3 - 2x + 1$$\n¿En qué conjunto es **continua**?",
+    "question": "Se quiere estudiar la continuidad de la siguiente función:\n$$f(x) = x^3 - 2x + 1$$\n¿En qué conjunto es **continua**?",
     "options": [
       "Solo en $x > 0$",
       "Solo donde $f(x) \\neq 0$",

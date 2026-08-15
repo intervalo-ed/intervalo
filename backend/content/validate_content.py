@@ -171,9 +171,19 @@ FRAC_RE = re.compile(r"\\d?frac\{((?:[^{}]|\{[^{}]*\})*)\}\{((?:[^{}]|\{[^{}]*\}
 # glifos anchos con espaciado de operador propio, igual de subestimados por
 # LATEX_CMD_RE, y son justamente los que dominan `explanation` en `integrales`
 # (ver regla 38, nota de calibración).
+# "sqrt"/"infty" y los símbolos de relación se suman en la ronda 8 (testeo 467):
+# un alumno reportó una fila que desbordaba en pantalla y medía 35 contra el
+# umbral de 36, o sea que pasaba por un carácter. La causa era que LATEX_CMD_RE
+# los borraba a 0: el radical de "\sqrt{...}" es decoración que ocupa ancho
+# además de su contenido, "\infty" es un glifo ancho, y "\neq"/"\leq"/"\geq"/
+# "\approx"/"\pm" renderizan como un símbolo con espaciado de relación a ambos
+# lados. Los tres aparecen justo en `rationalization` e `infinite_limits`, que
+# son los archivos donde el desborde se ve.
 RENDER_WEIGHT_CMDS = {
     "mid": 3, "cdot": 2, "times": 2,
     "int": 2, "iint": 2, "oint": 2, "sum": 2, "prod": 2,
+    "sqrt": 2, "infty": 2,
+    "pm": 2, "mp": 2, "neq": 2, "leq": 2, "geq": 2, "approx": 2,
 }
 WEIGHTED_CMD_RE = re.compile(r"\\(" + "|".join(RENDER_WEIGHT_CMDS) + r")\b")
 

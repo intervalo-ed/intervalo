@@ -180,7 +180,7 @@
     ]
   },
   {
-    "question": "El interior de este logaritmo viene elevado a una potencia:\n$$\\log_2(x^3)$$\n¿A qué expresión equivale?",
+    "question": "Un logaritmo trae su interior elevado a una potencia:\n$$\\log_2(x^3)$$\n¿A qué expresión equivale?",
     "options": [
       "$3 \\cdot \\log_2(x)$",
       "$\\log_2(3x)$",
@@ -305,7 +305,7 @@
     ]
   },
   {
-    "question": "El número sumado aparece por fuera del logaritmo, no dentro de su argumento:\n$$f(x) = \\log_2(x) + 5$$\n¿Dónde está la **asíntota vertical**?",
+    "question": "Una función logarítmica suma un número por fuera del logaritmo:\n$$f(x) = \\log_2(x) + 5$$\n¿Dónde está la **asíntota vertical**?",
     "options": [
       "$x = 5$",
       "$x = 0$",
@@ -355,7 +355,7 @@
     ]
   },
   {
-    "question": "Cerca del borde de su dominio, un logaritmo se comporta de forma muy distinta que en el resto.\n\n¿Qué ocurre con $\\log_2(x)$ cuando el argumento se acerca a cero por la derecha?",
+    "question": "Un logaritmo se estudia cerca del borde de su dominio.\n\n¿Qué ocurre con $\\log_2(x)$ cuando el argumento se acerca a cero por la derecha?",
     "options": [
       "Tiende a $0$",
       "Tiende a $-\\infty$",

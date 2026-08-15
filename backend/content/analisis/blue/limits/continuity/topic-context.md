@@ -258,3 +258,19 @@ Pasada de aperturas en `CLSF.json`, `GRAF.json` y `RESL.json`: las que describí
 Sin cambios de contenido matemático en este topic.
 
 La lista de trabajo salió del inventario de las 225 aperturas de la unidad, no del validador: estos enunciados ya pasaban 0/0 antes de la ronda. El defecto era semántico.
+
+---
+
+## Auditoría ronda 9 (feedback de testeo 467, ago-2026)
+
+La ronda 7 arregló **de qué** hablaba la apertura (del comportamiento, no de la tipografía) pero no **que describiera**. El enunciado quedó haciendo el análisis y entregando el diagnóstico terminado: `"El punto de tendencia anula las dos partes de la fracción. La función no está definida ahí, pero sí se acerca a un número."` son tres conclusiones que el estudiante tendría que sacar, y le dejan solo la aritmética.
+
+De ahí sale la **regla 61** de `authoring-context.md`: el sujeto de la primera oración es el objeto o una intención (`"Una función…"`, `"Un límite…"`, `"Se quiere…"`), va **una sola oración**, y no se reporta el resultado de ningún paso que el estudiante podría dar. La regla 59 sigue vigente contra la fórmula desnuda; la 61 la acota para que el enunciado no razone en su lugar.
+
+En este topic se reescribieron las aperturas que tenían una propiedad de sujeto. Los cinco `RESL` de la unidad estaban al 100% en ese registro, porque son justamente los que la ronda 7 había reescrito.
+
+**`definition/RESL[0]` sigue intacto**, por tercera ronda consecutiva: es el único ítem que el feedback marcó como bien introducido (465), y se conserva como referencia aunque su segunda oración concluya.
+
+### Punto ciego del validador corregido en esta ronda
+
+El testeo reportó una fila de `explanation` que se salía de pantalla y que el validador no marcaba. Medía **35** contra un umbral de **36**, o sea que pasaba por un carácter: `render_len` borraba `\sqrt` e `\infty` a longitud cero, cuando el radical es decoración que ocupa ancho y el infinito es un glifo ancho. Con los pesos nuevos esa fila mide **43** y se marca, y la fila sana de al lado sigue midiendo 29 sin falsos positivos.

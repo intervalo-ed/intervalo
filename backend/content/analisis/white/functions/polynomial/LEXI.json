@@ -105,7 +105,7 @@
     ]
   },
   {
-    "question": "El término independiente de un polinomio es el que no lleva variable:\n$$p(x) = x^4 - 3x + 7$$\n¿Cuál es su **término independiente**?",
+    "question": "Un polinomio tiene un término sin variable:\n$$p(x) = x^4 - 3x + 7$$\n¿Cuál es su **término independiente**?",
     "options": [
       "$7$",
       "$1$",
@@ -130,7 +130,7 @@
     ]
   },
   {
-    "question": "El grado de un polinomio marca un techo para su cantidad de cruces con el eje horizontal, pero no lo garantiza.\n\n¿Cuántas **raíces** reales tiene este polinomio de **grado** 4?",
+    "question": "Un polinomio cruza el eje horizontal una cierta cantidad de veces.\n\n¿Cuántas **raíces** reales tiene este polinomio de **grado** 4?",
     "options": [
       "3",
       "2",
@@ -510,7 +510,7 @@
     ]
   },
   {
-    "question": "El signo negativo dentro del binomio se propaga al desarrollo de manera desigual:\n$$(a - b)^2$$\n¿A qué expresión equivale?",
+    "question": "Un binomio con signo negativo se eleva a una potencia:\n$$(a - b)^2$$\n¿A qué expresión equivale?",
     "options": [
       "$a^2 - b^2$",
       "$a^2 - 2ab + b^2$",

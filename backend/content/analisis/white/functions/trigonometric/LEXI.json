@@ -1,6 +1,6 @@
 [
   {
-    "question": "El factor que multiplica al coseno define cuánto sube y baja la onda:\n$$f(x) = 4 \\cdot \\cos(x)$$\n¿Cuál es su **amplitud**?",
+    "question": "Una función coseno viene multiplicada por un factor:\n$$f(x) = 4 \\cdot \\cos(x)$$\n¿Cuál es su **amplitud**?",
     "options": [
       "$1$",
       "$\\pi$",
@@ -310,7 +310,7 @@
     ]
   },
   {
-    "question": "El número que acompaña a la variable cambia cada cuánto se repite la onda:\n$$f(x) = \\operatorname{sen}(2x)$$\n¿Cuántos ciclos completos ocurren en el intervalo $[0, 2\\pi]$?",
+    "question": "Una onda trae un número acompañando a la variable:\n$$f(x) = \\operatorname{sen}(2x)$$\n¿Cuántos ciclos completos ocurren en el intervalo $[0, 2\\pi]$?",
     "options": [
       "$1$",
       "$4$",

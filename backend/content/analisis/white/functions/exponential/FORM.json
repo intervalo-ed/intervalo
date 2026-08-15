@@ -600,7 +600,7 @@
     ]
   },
   {
-    "question": "El número $e$ funciona como cualquier otra base, aunque se escriba con letra:\n$$f(x) = 2 \\cdot e^{x+1}$$\n¿Cuánto vale $f(0)$?",
+    "question": "Una función exponencial usa el número $e$ como base:\n$$f(x) = 2 \\cdot e^{x+1}$$\n¿Cuánto vale $f(0)$?",
     "options": [
       "$2$",
       "$2e$",

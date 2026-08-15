@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "Dada la **función a trozos**:\n$$f(x) = \\begin{cases} 2x + k, & x < 3 \\\\ x^2 - 2, & x \\geq 3 \\end{cases}$$\n¿Qué valor de $k$ hace **continua** a la función en $x=3$?",
+    "question": "Una **función a trozos** trae un parámetro $k$ sin determinar:\n$$f(x) = \\begin{cases} 2x + k, & x < 3 \\\\ x^2 - 2, & x \\geq 3 \\end{cases}$$\n¿Qué valor de $k$ hace **continua** a la función en $x=3$?",
     "options": [
       "$k = 7$",
       "$k = -1$",
@@ -250,7 +250,7 @@
     ]
   },
   {
-    "question": "Las dos ramas de esta función son rectas, y solo una tiene su pendiente sin definir:\n$$f(x) = \\begin{cases} kx + 7, & x < 1 \\\\ 4x + 5, & x \\geq 1 \\end{cases}$$\n¿Qué valor de $k$ hace **continua** a la función en $x=1$?",
+    "question": "Una **función a trozos** armada con dos rectas trae una pendiente sin determinar:\n$$f(x) = \\begin{cases} kx + 7, & x < 1 \\\\ 4x + 5, & x \\geq 1 \\end{cases}$$\n¿Qué valor de $k$ hace **continua** a la función en $x=1$?",
     "options": [
       "$k = 2$",
       "$k = 9$",

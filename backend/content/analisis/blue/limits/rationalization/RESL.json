@@ -1,6 +1,6 @@
 [
   {
-    "question": "Numerador y denominador se anulan juntos en el punto, y la raíz impide simplificar de entrada. El límite existe igual.\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+9}-3}{x}$$\n¿A qué valor tiende la función?",
+    "question": "Una función con una raíz en el numerador se evalúa cuando $x$ se acerca al cero.\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+9}-3}{x}$$\n¿A qué valor tiende?",
     "options": [
       "$-\\frac{1}{6}$",
       "$\\frac{1}{6}$",
@@ -18,14 +18,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un **límite** describe el valor al que se aproxima una función cerca de un punto, sin necesidad de estar definida justo ahí.\n\nLa sustitución directa da una **indeterminación** $0/0$, y la raíz en el numerador señala que corresponde **racionalizar** multiplicando por el **conjugado**.\n\nMultiplicando por el conjugado y aplicando la **diferencia de cuadrados**:\n$$\\begin{aligned}\n\\lim_{x \\to 0} \\frac{\\sqrt{x+9}-3}{x} &= \\lim_{x \\to 0} \\frac{\\sqrt{x+9}-3}{x}\\cdot\\frac{\\sqrt{x+9}+3}{\\sqrt{x+9}+3} \\\\\n&= \\lim_{x \\to 0} \\frac{x}{x(\\sqrt{x+9}+3)} \\\\\n&= \\lim_{x \\to 0} \\frac{1}{\\sqrt{x+9}+3} \\\\\n&= \\frac{1}{6}\n\\end{aligned}$$\nCancelar el factor $x$ antes de sustituir evita repetir la indeterminación original.\n\nEl resultado surge de evaluar la expresión ya simplificada, nunca la fracción original con la raíz sin resolver.",
+    "explanation": "Un **límite** describe el valor al que se aproxima una función cerca de un punto, sin necesidad de estar definida justo ahí.\n\nLa sustitución directa da una **indeterminación** $0/0$, y la raíz en el numerador señala que corresponde **racionalizar** multiplicando por el **conjugado**.\n\nMultiplicando por el conjugado y aplicando la **diferencia de cuadrados**:\n$$\\begin{aligned}\n\\lim_{x \\to 0} \\frac{\\sqrt{x+9}-3}{x} & \\\\\n&= \\lim_{x \\to 0} \\frac{\\sqrt{x+9}-3}{x}\\cdot\\frac{\\sqrt{x+9}+3}{\\sqrt{x+9}+3} \\\\\n&= \\lim_{x \\to 0} \\frac{x}{x(\\sqrt{x+9}+3)} \\\\\n&= \\lim_{x \\to 0} \\frac{1}{\\sqrt{x+9}+3} \\\\\n&= \\frac{1}{6}\n\\end{aligned}$$\nCancelar el factor $x$ antes de sustituir evita repetir la indeterminación original.\n\nEl resultado surge de evaluar la expresión ya simplificada, nunca la fracción original con la raíz sin resolver.",
     "reviewed": false,
     "tags": [
       "raiz-en-el-numerador"
     ]
   },
   {
-    "question": "Sustituir deja la fracción en 0/0, y con la raíz de por medio no hay nada obvio para cancelar. El límite existe lo mismo.\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+16}-4}{x}$$\n¿Cuál es el valor del límite?",
+    "question": "Se quiere calcular el límite de una función con raíz cuadrada en el numerador.\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+16}-4}{x}$$\n¿Cuánto vale ese límite?",
     "options": [
       "$\\frac{1}{4}$",
       "$-\\frac{1}{8}$",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "Reemplazar $x$ por $0$ anula las dos partes de la fracción y la raíz sigue sin resolverse. El límite apunta a un número.\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+4}-2}{x}$$\n¿Cuál es ese número?",
+    "question": "El límite de una función con raíz se plantea en el cero.\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+4}-2}{x}$$\n¿Cuál es su valor?",
     "options": [
       "$\\frac{1}{4}$",
       "$\\frac{1}{2}$",
@@ -68,14 +68,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un límite captura la tendencia de una función a medida que $x$ se acerca a un valor puntual.\n\nLa sustitución directa da una **indeterminación** $0/0$, y la raíz en el numerador señala que corresponde **racionalizar** multiplicando por el **conjugado**.\n\nAplicando el conjugado y la **diferencia de cuadrados**:\n$$\\begin{aligned}\n\\lim_{x \\to 0} \\frac{\\sqrt{x+4}-2}{x} &= \\lim_{x \\to 0} \\frac{\\sqrt{x+4}-2}{x}\\cdot\\frac{\\sqrt{x+4}+2}{\\sqrt{x+4}+2} \\\\\n&= \\lim_{x \\to 0} \\frac{x}{x(\\sqrt{x+4}+2)} \\\\\n&= \\lim_{x \\to 0} \\frac{1}{\\sqrt{x+4}+2} \\\\\n&= \\frac{1}{4}\n\\end{aligned}$$\nCancelar el factor $x$ antes de sustituir evita repetir la indeterminación original.\n\nSustituir sin cancelar antes deja la misma forma $0/0$ en vez de resolverla.",
+    "explanation": "Un límite captura la tendencia de una función a medida que $x$ se acerca a un valor puntual.\n\nLa sustitución directa da una **indeterminación** $0/0$, y la raíz en el numerador señala que corresponde **racionalizar** multiplicando por el **conjugado**.\n\nAplicando el conjugado y la **diferencia de cuadrados**:\n$$\\begin{aligned}\n\\lim_{x \\to 0} \\frac{\\sqrt{x+4}-2}{x} & \\\\\n&= \\lim_{x \\to 0} \\frac{\\sqrt{x+4}-2}{x}\\cdot\\frac{\\sqrt{x+4}+2}{\\sqrt{x+4}+2} \\\\\n&= \\lim_{x \\to 0} \\frac{x}{x(\\sqrt{x+4}+2)} \\\\\n&= \\lim_{x \\to 0} \\frac{1}{\\sqrt{x+4}+2} \\\\\n&= \\frac{1}{4}\n\\end{aligned}$$\nCancelar el factor $x$ antes de sustituir evita repetir la indeterminación original.\n\nSustituir sin cancelar antes deja la misma forma $0/0$ en vez de resolverla.",
     "reviewed": false,
     "tags": [
       "raiz-en-el-numerador"
     ]
   },
   {
-    "question": "El interior de la raíz da un cuadrado perfecto en el punto, así que numerador y denominador se anulan. Hay límite igual.\n$$\\lim_{x \\to 4} \\frac{\\sqrt{x+21}-5}{x-4}$$\n¿A qué valor se acerca la función?",
+    "question": "Una función con raíz en el numerador se estudia cerca de $x=4$.\n$$\\lim_{x \\to 4} \\frac{\\sqrt{x+21}-5}{x-4}$$\n¿A qué número tiende?",
     "options": [
       "$\\frac{1}{5}$",
       "$\\frac{1}{20}$",
@@ -100,7 +100,7 @@
     ]
   },
   {
-    "question": "La resta del numerador se vuelve cero justo donde tiende $x$, y el denominador también. La función igual se acerca a un número.\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+25}-5}{x}$$\n¿A qué número tiende?",
+    "question": "Se busca la tendencia de una función con raíz cuando $x$ llega al cero.\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+25}-5}{x}$$\n¿A qué valor se acerca?",
     "options": [
       "$\\frac{1}{5}$",
       "$\\frac{1}{10}$",
@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "El punto de tendencia no es cero, pero igual anula el denominador, y el numerador con él. El límite tiene un valor definido.\n$$\\lim_{x \\to 1} \\frac{\\sqrt{x+24}-5}{x-1}$$\n¿Cuál es ese valor?",
+    "question": "El siguiente límite aparece al estudiar una función con raíz cerca de $x=1$.\n$$\\lim_{x \\to 1} \\frac{\\sqrt{x+24}-5}{x-1}$$\n¿Cuál es su valor?",
     "options": [
       "$\\frac{1}{5}$",
       "$\\frac{1}{10}$",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "Numerador y denominador se anulan a la vez, y la raíz del denominador bloquea la simplificación directa. El límite existe igual.\n$$\\lim_{x \\to 4} \\frac{x-4}{\\sqrt{x}-2}$$\n¿Cuánto vale ese límite?",
+    "question": "Se quiere calcular el límite de una función con la raíz en el denominador.\n$$\\lim_{x \\to 4} \\frac{x-4}{\\sqrt{x}-2}$$\n¿Cuánto vale ese límite?",
     "options": [
       "$2$",
       "$4$",
@@ -168,14 +168,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Los límites permiten dar sentido a cocientes que en el punto exacto quedan indefinidos.\n\nLa sustitución directa da una **indeterminación** $0/0$, y la raíz en el denominador indica que corresponde **racionalizar** multiplicando por su **conjugado**.\n\nMultiplicando por el conjugado y aplicando la **diferencia de cuadrados**:\n$$\\begin{aligned}\n\\lim_{x \\to 4} \\frac{x-4}{\\sqrt{x}-2} &= \\lim_{x \\to 4} \\frac{x-4}{\\sqrt{x}-2}\\cdot\\frac{\\sqrt{x}+2}{\\sqrt{x}+2} \\\\\n&= \\lim_{x \\to 4} \\frac{(x-4)(\\sqrt{x}+2)}{x-4} \\\\\n&= \\lim_{x \\to 4} (\\sqrt{x}+2) \\\\\n&= 4\n\\end{aligned}$$\nCancelar el **factor común** $(x-4)$ es lo que deja una expresión directa de evaluar.\n\nCuando la raíz está abajo, el factor cancelable aparece en el numerador tras multiplicar, sin tocar la raíz.",
+    "explanation": "Los límites permiten dar sentido a cocientes que en el punto exacto quedan indefinidos.\n\nLa sustitución directa da una **indeterminación** $0/0$, y la raíz en el denominador indica que corresponde **racionalizar** multiplicando por su **conjugado**.\n\nMultiplicando por el conjugado y aplicando la **diferencia de cuadrados**:\n$$\\begin{aligned}\n\\lim_{x \\to 4} \\frac{x-4}{\\sqrt{x}-2} & \\\\\n&= \\lim_{x \\to 4} \\frac{x-4}{\\sqrt{x}-2}\\cdot\\frac{\\sqrt{x}+2}{\\sqrt{x}+2} \\\\\n&= \\lim_{x \\to 4} \\frac{(x-4)(\\sqrt{x}+2)}{x-4} \\\\\n&= \\lim_{x \\to 4} (\\sqrt{x}+2) \\\\\n&= 4\n\\end{aligned}$$\nCancelar el **factor común** $(x-4)$ es lo que deja una expresión directa de evaluar.\n\nCuando la raíz está abajo, el factor cancelable aparece en el numerador tras multiplicar, sin tocar la raíz.",
     "reviewed": false,
     "tags": [
       "raiz-en-el-denominador"
     ]
   },
   {
-    "question": "Sustituir anula las dos partes de la fracción y no devuelve ningún número. La función se acerca a un valor bien definido igual.\n$$\\lim_{x \\to 9} \\frac{x-9}{\\sqrt{x}-3}$$\n¿Cuál es ese valor?",
+    "question": "Una función con raíz en el denominador se evalúa cerca de $x=9$.\n$$\\lim_{x \\to 9} \\frac{x-9}{\\sqrt{x}-3}$$\n¿A qué valor tiende?",
     "options": [
       "$-6$",
       "$3$",
@@ -193,14 +193,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Analizar un límite es rastrear hacia qué número converge la función cerca de un valor dado.\n\nLa sustitución directa da una **indeterminación** $0/0$, y la raíz en el denominador indica que corresponde **racionalizar** multiplicando por su **conjugado**.\n\nRacionalizando el denominador con su conjugado y aplicando la **diferencia de cuadrados**:\n$$\\begin{aligned}\n\\lim_{x \\to 9} \\frac{x-9}{\\sqrt{x}-3} &= \\lim_{x \\to 9} \\frac{x-9}{\\sqrt{x}-3}\\cdot\\frac{\\sqrt{x}+3}{\\sqrt{x}+3} \\\\\n&= \\lim_{x \\to 9} \\frac{(x-9)(\\sqrt{x}+3)}{x-9} \\\\\n&= \\lim_{x \\to 9} (\\sqrt{x}+3) \\\\\n&= 6\n\\end{aligned}$$\nCancelar el **factor común** $(x-9)$ deja una expresión que se evalúa de forma directa.\n\nConfundir el signo de la diferencia de cuadrados es fácil de arrastrar hasta el resultado final.",
+    "explanation": "Analizar un límite es rastrear hacia qué número converge la función cerca de un valor dado.\n\nLa sustitución directa da una **indeterminación** $0/0$, y la raíz en el denominador indica que corresponde **racionalizar** multiplicando por su **conjugado**.\n\nRacionalizando el denominador con su conjugado y aplicando la **diferencia de cuadrados**:\n$$\\begin{aligned}\n\\lim_{x \\to 9} \\frac{x-9}{\\sqrt{x}-3} & \\\\\n&= \\lim_{x \\to 9} \\frac{x-9}{\\sqrt{x}-3}\\cdot\\frac{\\sqrt{x}+3}{\\sqrt{x}+3} \\\\\n&= \\lim_{x \\to 9} \\frac{(x-9)(\\sqrt{x}+3)}{x-9} \\\\\n&= \\lim_{x \\to 9} (\\sqrt{x}+3) \\\\\n&= 6\n\\end{aligned}$$\nCancelar el **factor común** $(x-9)$ deja una expresión que se evalúa de forma directa.\n\nConfundir el signo de la diferencia de cuadrados es fácil de arrastrar hasta el resultado final.",
     "reviewed": false,
     "tags": [
       "raiz-en-el-denominador"
     ]
   },
   {
-    "question": "El punto de tendencia es un cuadrado perfecto, y eso anula el denominador con raíz y el numerador. Hay límite de todos modos.\n$$\\lim_{x \\to 16} \\frac{x-16}{\\sqrt{x}-4}$$\n¿Qué valor toma el límite?",
+    "question": "El límite de una función con raíz en el denominador se plantea en $x=16$.\n$$\\lim_{x \\to 16} \\frac{x-16}{\\sqrt{x}-4}$$\n¿Cuál es su valor?",
     "options": [
       "$8$",
       "$4$",
@@ -218,14 +218,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un límite mide la tendencia numérica de una función, no necesariamente su valor puntual.\n\nLa sustitución directa da una **indeterminación** $0/0$, y la raíz en el denominador indica que corresponde **racionalizar** multiplicando por su **conjugado**.\n\nMultiplicando numerador y denominador por el conjugado y aplicando la **diferencia de cuadrados**:\n$$\\begin{aligned}\n\\lim_{x \\to 16} \\frac{x-16}{\\sqrt{x}-4} &= \\lim_{x \\to 16} \\frac{x-16}{\\sqrt{x}-4}\\cdot\\frac{\\sqrt{x}+4}{\\sqrt{x}+4} \\\\\n&= \\lim_{x \\to 16} \\frac{(x-16)(\\sqrt{x}+4)}{x-16} \\\\\n&= \\lim_{x \\to 16} (\\sqrt{x}+4) \\\\\n&= 8\n\\end{aligned}$$\nCancelar el **factor común** $(x-16)$ es lo que permite sustituir sin volver a la indeterminación.\n\nSustituir sin cancelar antes deja la forma $0/0$ sin resolver, no un valor numérico.",
+    "explanation": "Un límite mide la tendencia numérica de una función, no necesariamente su valor puntual.\n\nLa sustitución directa da una **indeterminación** $0/0$, y la raíz en el denominador indica que corresponde **racionalizar** multiplicando por su **conjugado**.\n\nMultiplicando numerador y denominador por el conjugado y aplicando la **diferencia de cuadrados**:\n$$\\begin{aligned}\n\\lim_{x \\to 16} \\frac{x-16}{\\sqrt{x}-4} & \\\\\n&= \\lim_{x \\to 16} \\frac{x-16}{\\sqrt{x}-4}\\cdot\\frac{\\sqrt{x}+4}{\\sqrt{x}+4} \\\\\n&= \\lim_{x \\to 16} \\frac{(x-16)(\\sqrt{x}+4)}{x-16} \\\\\n&= \\lim_{x \\to 16} (\\sqrt{x}+4) \\\\\n&= 8\n\\end{aligned}$$\nCancelar el **factor común** $(x-16)$ es lo que permite sustituir sin volver a la indeterminación.\n\nSustituir sin cancelar antes deja la forma $0/0$ sin resolver, no un valor numérico.",
     "reviewed": false,
     "tags": [
       "raiz-en-el-denominador"
     ]
   },
   {
-    "question": "Las dos restas se anulan en el punto, y una trae una raíz que impide cancelar. La función igual tiende a un número.\n$$\\lim_{x \\to 25} \\frac{x-25}{\\sqrt{x}-5}$$\n¿A qué número se acerca?",
+    "question": "Una función con raíz en el denominador se estudia cuando $x$ llega a $25$.\n$$\\lim_{x \\to 25} \\frac{x-25}{\\sqrt{x}-5}$$\n¿A qué número tiende?",
     "options": [
       "$5$",
       "$-10$",
@@ -243,14 +243,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La idea de límite separa el comportamiento cercano de una función de su valor exacto en el punto.\n\nLa sustitución directa da una **indeterminación** $0/0$, y la raíz en el denominador indica que corresponde **racionalizar** multiplicando por su **conjugado**.\n\nAplicando el conjugado y la **diferencia de cuadrados**:\n$$\\begin{aligned}\n\\lim_{x \\to 25} \\frac{x-25}{\\sqrt{x}-5} &= \\lim_{x \\to 25} \\frac{x-25}{\\sqrt{x}-5}\\cdot\\frac{\\sqrt{x}+5}{\\sqrt{x}+5} \\\\\n&= \\lim_{x \\to 25} \\frac{(x-25)(\\sqrt{x}+5)}{x-25} \\\\\n&= \\lim_{x \\to 25} (\\sqrt{x}+5) \\\\\n&= 10\n\\end{aligned}$$\nCancelar el **factor común** $(x-25)$ deja una expresión directa de evaluar en $x=25$.\n\nFijate que el factor cancelado en el denominador es justo el que originaba la indeterminación.",
+    "explanation": "La idea de límite separa el comportamiento cercano de una función de su valor exacto en el punto.\n\nLa sustitución directa da una **indeterminación** $0/0$, y la raíz en el denominador indica que corresponde **racionalizar** multiplicando por su **conjugado**.\n\nAplicando el conjugado y la **diferencia de cuadrados**:\n$$\\begin{aligned}\n\\lim_{x \\to 25} \\frac{x-25}{\\sqrt{x}-5} & \\\\\n&= \\lim_{x \\to 25} \\frac{x-25}{\\sqrt{x}-5}\\cdot\\frac{\\sqrt{x}+5}{\\sqrt{x}+5} \\\\\n&= \\lim_{x \\to 25} \\frac{(x-25)(\\sqrt{x}+5)}{x-25} \\\\\n&= \\lim_{x \\to 25} (\\sqrt{x}+5) \\\\\n&= 10\n\\end{aligned}$$\nCancelar el **factor común** $(x-25)$ deja una expresión directa de evaluar en $x=25$.\n\nFijate que el factor cancelado en el denominador es justo el que originaba la indeterminación.",
     "reviewed": false,
     "tags": [
       "raiz-en-el-denominador"
     ]
   },
   {
-    "question": "La raíz vale exactamente el número que se le resta, así que el denominador se anula, y el numerador con él. Hay límite igual.\n$$\\lim_{x \\to 1} \\frac{x-1}{\\sqrt{x}-1}$$\n¿Cuál es el valor del límite?",
+    "question": "Se busca la tendencia de una función con raíz en el denominador cerca de $x=1$.\n$$\\lim_{x \\to 1} \\frac{x-1}{\\sqrt{x}-1}$$\n¿A qué valor se acerca?",
     "options": [
       "$2$",
       "$1$",
@@ -268,14 +268,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Todo límite pregunta por una tendencia, no por una evaluación directa en el punto.\n\nLa sustitución directa da una **indeterminación** $0/0$, y la raíz en el denominador indica que corresponde **racionalizar** multiplicando por su **conjugado**.\n\nMultiplicando por el conjugado del denominador y aplicando la **diferencia de cuadrados**:\n$$\\begin{aligned}\n\\lim_{x \\to 1} \\frac{x-1}{\\sqrt{x}-1} &= \\lim_{x \\to 1} \\frac{x-1}{\\sqrt{x}-1}\\cdot\\frac{\\sqrt{x}+1}{\\sqrt{x}+1} \\\\\n&= \\lim_{x \\to 1} \\frac{(x-1)(\\sqrt{x}+1)}{x-1} \\\\\n&= \\lim_{x \\to 1} (\\sqrt{x}+1) \\\\\n&= 2\n\\end{aligned}$$\nCancelar el **factor común** $(x-1)$ es lo que permite evaluar sin volver a la indeterminación.\n\nEl mismo mecanismo aplica sin importar qué tan chico sea el radicando involucrado.",
+    "explanation": "Todo límite pregunta por una tendencia, no por una evaluación directa en el punto.\n\nLa sustitución directa da una **indeterminación** $0/0$, y la raíz en el denominador indica que corresponde **racionalizar** multiplicando por su **conjugado**.\n\nMultiplicando por el conjugado del denominador y aplicando la **diferencia de cuadrados**:\n$$\\begin{aligned}\n\\lim_{x \\to 1} \\frac{x-1}{\\sqrt{x}-1} & \\\\\n&= \\lim_{x \\to 1} \\frac{x-1}{\\sqrt{x}-1}\\cdot\\frac{\\sqrt{x}+1}{\\sqrt{x}+1} \\\\\n&= \\lim_{x \\to 1} \\frac{(x-1)(\\sqrt{x}+1)}{x-1} \\\\\n&= \\lim_{x \\to 1} (\\sqrt{x}+1) \\\\\n&= 2\n\\end{aligned}$$\nCancelar el **factor común** $(x-1)$ es lo que permite evaluar sin volver a la indeterminación.\n\nEl mismo mecanismo aplica sin importar qué tan chico sea el radicando involucrado.",
     "reviewed": false,
     "tags": [
       "raiz-en-el-denominador"
     ]
   },
   {
-    "question": "Sustituir vuelve a dejar 0/0, esta vez con un coeficiente $2$ en el numerador. La función igual se acerca a un valor.\n$$\\lim_{x \\to 9} \\frac{2x-18}{\\sqrt{x}-3}$$\n¿Cuál es ese valor?",
+    "question": "El siguiente límite aparece al estudiar una función con raíz en el denominador.\n$$\\lim_{x \\to 9} \\frac{2x-18}{\\sqrt{x}-3}$$\n¿Cuál es su valor?",
     "options": [
       "$6$",
       "$24$",
@@ -293,14 +293,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un límite describe el valor al que se aproxima una función cerca de un punto, aunque ahí no esté definida.\n\nLa sustitución directa da una **indeterminación** $0/0$, y la raíz en el denominador indica que corresponde **racionalizar** multiplicando por su **conjugado**.\n\nEl numerador tiene además un **factor común** $2$, que se arrastra sin cambios durante toda la racionalización.\n\nMultiplicando por el conjugado y aplicando la **diferencia de cuadrados**:\n$$\\begin{aligned}\n\\lim_{x \\to 9} \\frac{2x-18}{\\sqrt{x}-3} &= \\lim_{x \\to 9} \\frac{2(x-9)}{\\sqrt{x}-3}\\cdot\\frac{\\sqrt{x}+3}{\\sqrt{x}+3} \\\\\n&= \\lim_{x \\to 9} \\frac{2(x-9)(\\sqrt{x}+3)}{x-9} \\\\\n&= \\lim_{x \\to 9} 2(\\sqrt{x}+3) \\\\\n&= 12\n\\end{aligned}$$\nCancelar el factor $(x-9)$ antes de sustituir es lo que resuelve la indeterminación.\n\nOlvidar el coeficiente $2$ en el resultado final deja un valor que parece razonable pero está a mitad de camino.",
+    "explanation": "Un límite describe el valor al que se aproxima una función cerca de un punto, aunque ahí no esté definida.\n\nLa sustitución directa da una **indeterminación** $0/0$, y la raíz en el denominador indica que corresponde **racionalizar** multiplicando por su **conjugado**.\n\nEl numerador tiene además un **factor común** $2$, que se arrastra sin cambios durante toda la racionalización.\n\nMultiplicando por el conjugado y aplicando la **diferencia de cuadrados**:\n$$\\begin{aligned}\n\\lim_{x \\to 9} \\frac{2x-18}{\\sqrt{x}-3} & \\\\\n&= \\lim_{x \\to 9} \\frac{2(x-9)}{\\sqrt{x}-3}\\cdot\\frac{\\sqrt{x}+3}{\\sqrt{x}+3} \\\\\n&= \\lim_{x \\to 9} \\frac{2(x-9)(\\sqrt{x}+3)}{x-9} \\\\\n&= \\lim_{x \\to 9} 2(\\sqrt{x}+3) \\\\\n&= 12\n\\end{aligned}$$\nCancelar el factor $(x-9)$ antes de sustituir es lo que resuelve la indeterminación.\n\nOlvidar el coeficiente $2$ en el resultado final deja un valor que parece razonable pero está a mitad de camino.",
     "reviewed": false,
     "tags": [
       "raiz-en-el-denominador"
     ]
   },
   {
-    "question": "La resta del numerador está escrita al revés que la del denominador, y las dos se anulan en el punto. El límite existe lo mismo.\n$$\\lim_{x \\to 4} \\frac{4-x}{\\sqrt{x}-2}$$\n¿A qué valor tiende la función?",
+    "question": "Se quiere conocer a qué tiende esta función con raíz cuando $x$ llega a $4$.\n$$\\lim_{x \\to 4} \\frac{4-x}{\\sqrt{x}-2}$$\n¿A qué valor tiende?",
     "options": [
       "$4$",
       "$-4$",
@@ -325,7 +325,7 @@
     ]
   },
   {
-    "question": "En este límite el numerador resta la variable al número y el denominador lo hace al revés. Los dos se anulan en el punto.\n$$\\lim_{x \\to 9} \\frac{9-x}{\\sqrt{x}-3}$$\n¿A qué valor tiende?",
+    "question": "Una función con raíz en el denominador se estudia cerca de $x=9$.\n$$\\lim_{x \\to 9} \\frac{9-x}{\\sqrt{x}-3}$$\n¿A qué número se acerca?",
     "options": [
       "$6$",
       "$-3$",
@@ -350,7 +350,7 @@
     ]
   },
   {
-    "question": "Las dos restas llegan a cero en el punto, cada una con sus términos en distinto orden. La función se acerca a un número.\n$$\\lim_{x \\to 25} \\frac{25-x}{\\sqrt{x}-5}$$\n¿Cuál es ese número?",
+    "question": "El siguiente límite aparece al estudiar una función con raíz cerca de $x=25$.\n$$\\lim_{x \\to 25} \\frac{25-x}{\\sqrt{x}-5}$$\n¿Cuánto vale ese límite?",
     "options": [
       "$10$",
       "$-5$",

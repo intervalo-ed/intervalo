@@ -276,7 +276,7 @@
     ]
   },
   {
-    "question": "Para calcular un **límite** por **sustitución directa** hace falta cumplir una condición en el punto de **tendencia**.\n\n¿Cuál es esa condición?",
+    "question": "La **sustitución directa** solo sirve para calcular un **límite** si se cumple una condición en el punto.\n\n¿Cuál es esa condición?",
     "options": [
       "Que la función sea un polinomio de grado mayor a dos",
       "Que la expresión esté bien definida en el punto exacto",

@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "El interior de este logaritmo no es la variable sola:\n$$f(x) = \\log_3(x - 2)$$\n¿Cuál es la asíntota vertical?",
+    "question": "Un logaritmo lleva adentro algo más que la variable sola:\n$$f(x) = \\log_3(x - 2)$$\n¿Cuál es la asíntota vertical?",
     "options": [
       "$x = 2$",
       "$x = 3$",
@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "El interior de este logaritmo es una expresión que cambia de signo en algún punto:\n$$f(x) = \\log_2(2x - 6)$$\n¿Cuál es su dominio?",
+    "question": "Un logaritmo lleva adentro una expresión que cambia de signo:\n$$f(x) = \\log_2(2x - 6)$$\n¿Cuál es su dominio?",
     "options": [
       "$(-3, +\\infty)$",
       "$(6, +\\infty)$",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "El coeficiente que multiplica a $x$ adentro del logaritmo también entra en la cuenta:\n$$f(x) = \\log_2(3x - 6)$$\n¿Cuál es su dominio?",
+    "question": "Un logaritmo trae un coeficiente multiplicando a $x$ en su interior:\n$$f(x) = \\log_2(3x - 6)$$\n¿Cuál es su dominio?",
     "options": [
       "$x > 6$",
       "$x > 0$",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "Cuando el logaritmo se escribe sin subíndice, la base sobreentendida es 10:\n$$f(x) = \\log(x)$$\n¿Cuánto vale $f(100)$?",
+    "question": "Un logaritmo aparece escrito sin subíndice:\n$$f(x) = \\log(x)$$\n¿Cuánto vale $f(100)$?",
     "options": [
       "$10$",
       "$100$",
@@ -590,7 +590,7 @@
     ]
   },
   {
-    "question": "El interior de este logaritmo es un cociente cuyo denominador es una potencia de $e$:\n$$\\ln\\!\\left(\\dfrac{x}{e^2}\\right)$$\n¿A qué expresión equivale?",
+    "question": "Un logaritmo lleva adentro un cociente con una potencia de $e$ abajo:\n$$\\ln\\!\\left(\\dfrac{x}{e^2}\\right)$$\n¿A qué expresión equivale?",
     "options": [
       "$\\ln(x) + 2$",
       "$\\ln(x) - 2$",
@@ -640,7 +640,7 @@
     ]
   },
   {
-    "question": "El factor que multiplica al logaritmo entra en juego recién después de evaluarlo:\n$$f(x) = 2 \\cdot \\log_2(x)$$\n¿Cuánto vale $f(4)$?",
+    "question": "Una función multiplica un logaritmo por un factor:\n$$f(x) = 2 \\cdot \\log_2(x)$$\n¿Cuánto vale $f(4)$?",
     "options": [
       "$8$",
       "$4$",

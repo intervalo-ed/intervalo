@@ -80,7 +80,7 @@
     ]
   },
   {
-    "question": "El valor de la base decide por completo hacia dónde va una exponencial:\n$$f(x) = b^x, \\quad b > 1$$\n¿Cómo se comporta esta función?",
+    "question": "Una función exponencial queda definida por su base:\n$$f(x) = b^x, \\quad b > 1$$\n¿Cómo se comporta esta función?",
     "options": [
       "Periódica",
       "Decreciente",
@@ -735,7 +735,7 @@
     ]
   },
   {
-    "question": "Las dos partes de esta igualdad se pueden escribir con la misma base:\n$$3^x = \\dfrac{1}{9}$$\n¿Cuánto vale $x$?",
+    "question": "Una igualdad entre potencias se plantea así:\n$$3^x = \\dfrac{1}{9}$$\n¿Cuánto vale $x$?",
     "options": [
       "$x = -2$",
       "$x = 2$",

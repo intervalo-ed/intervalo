@@ -1,6 +1,6 @@
 [
   {
-    "question": "En el camino de un límite aparece esta expresión, y hay que escribirla como producto para poder cancelar.\n$$x^2 - 25$$\n¿Qué caso de factoreo le corresponde?",
+    "question": "Una expresión aparece en el camino de un límite y hay que escribirla como producto:\n$$x^2 - 25$$\n¿Qué caso de factoreo le corresponde?",
     "options": [
       "Trinomio cuadrado perfecto",
       "Diferencia de cuadrados",
@@ -23,7 +23,7 @@
     "reviewed": false
   },
   {
-    "question": "Para avanzar en un límite hay que factorizar esta expresión, y no todas se dejan.\n$$x^2 + 25$$\n¿Qué caso de factoreo corresponde a esta expresión dentro de los números reales?",
+    "question": "Una expresión de un límite tiene que escribirse como producto, y no todas se dejan:\n$$x^2 + 25$$\n¿Qué caso de factoreo corresponde a esta expresión dentro de los números reales?",
     "options": [
       "Diferencia de cuadrados",
       "Trinomio general",
@@ -138,49 +138,49 @@
     "reviewed": false
   },
   {
-    "question": "En un límite con tendencia $x \\to -2$ la sustitución directa deja 0/0, y el **teorema del factor** explica por qué.\n\n¿Qué factor aparece en el numerador y en el denominador?",
+    "question": "En un límite el numerador se anula en el punto de tendencia, pero el denominador no.\n\n¿Qué se puede concluir?",
     "options": [
-      "$(x-2)$",
-      "$(x+2)$",
-      "$(x+2)^2$"
+      "Hay una indeterminación por salvar",
+      "El límite vale cero directamente",
+      "El límite no existe en ese punto"
     ],
     "correct_index": 1,
     "tags": [
       "teorema-del-factor"
     ],
     "has_math": true,
-    "feedback_correct": "Correcto, el factor obligatorio es $(x+2)$.",
+    "feedback_correct": "Un numerador que se anula sobre un denominador que no lo hace da cero, sin ninguna indeterminación que resolver.",
     "feedback_incorrect": [
-      "El signo dentro del paréntesis va opuesto al valor de tendencia, y como la tendencia es $-2$, el factor correcto suma en vez de restar.",
+      "La indeterminación aparece cuando los dos se anulan a la vez. Acá el denominador llega con un valor distinto de cero.",
       null,
-      "No hace falta que el factor esté elevado al cuadrado para que la sustitución directa dé $0$, alcanza con la primera potencia."
+      "El límite existe y se calcula sustituyendo directo, porque el denominador no se anula en ese punto."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando la tendencia de un límite es $x \\to a$, el **teorema del factor** exige que $(x-a)$ divida tanto al numerador como al denominador si ambos se anulan ahí.\n\nLa regla del signo es crítica: el factor siempre es $(x-a)$, con el signo opuesto al valor de tendencia.\n\nPara esta tendencia corresponde el factor $(x+2)$, no $(x-2)$.\n\nCopiar el número de la tendencia tal cual, sin invertir el signo, es el desliz más frecuente al aplicar este teorema.",
+    "explanation": "El **teorema del factor** entra en juego solo cuando numerador y denominador se anulan **los dos** en el punto de tendencia.\n\nAcá se anula uno solo, así que la fracción queda con la forma $0/k$, con $k \\neq 0$.\n\nEse cociente no tiene nada de ambiguo, vale cero, y la sustitución directa alcanza para resolverlo.\n\nLa razón de fondo es que una indeterminación aparece cuando dos efectos opuestos compiten.\n\nUn numerador que se achica hacia cero empuja el cociente hacia cero, y hace falta que el denominador también se achique para que haya competencia.\n\nReservá la factorización para el caso en que los dos se anulan juntos, que es el único donde sustituir no decide nada.",
     "reviewed": false
   },
   {
-    "question": "En un límite con tendencia $x \\to 0$, numerador y denominador se anulan al sustituir. El **teorema del factor** lo justifica.\n\n¿Qué factor comparten los dos?",
+    "question": "Un polinomio se anula al reemplazar $x$ por $3$.\n\n¿Qué garantiza el **teorema del factor** sobre ese polinomio?",
     "options": [
-      "$(x-1)$",
-      "$(x+1)$",
-      "$x$"
+      "Que $3$ es uno de sus coeficientes",
+      "Que su grado es al menos $3$",
+      "Que $(x-3)$ es uno de sus factores"
     ],
     "correct_index": 2,
     "tags": [
       "teorema-del-factor"
     ],
     "has_math": true,
-    "feedback_correct": "Correcto, cuando $a=0$ el factor obligatorio es simplemente $x$.",
+    "feedback_correct": "Que el polinomio valga cero en $x=3$ equivale a que $(x-3)$ lo divida sin resto.",
     "feedback_incorrect": [
-      "Ese factor se anularía en $x=1$, no en $x=0$, que es la tendencia del límite.",
-      "Ese factor se anularía en $x=-1$, no en $x=0$, que es la tendencia del límite.",
+      "Los coeficientes son los números que acompañan a cada potencia, y no tienen por qué coincidir con la raíz.",
+      "Una raíz no dice nada sobre el grado. Una recta como $x-3$ se anula en $3$ y tiene grado $1$.",
       null
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **teorema del factor** exige el factor $(x-a)$ para el valor de tendencia $a$.\n\nCuando la tendencia es $0$, esa expresión se reduce simplemente a $x$.\n\nEso pasa porque $(x-0)=x$.\n\nEste caso particular es fácil de pasar por alto porque no muestra ningún número dentro del paréntesis, aunque sigue exactamente la misma regla que cualquier otra tendencia.\n\nBuscar un factor distinto, como $(x-1)$ o $(x+1)$, es un desliz frecuente para esta tendencia.\n\nEl factor obligatorio cuando $a=0$ es siempre una potencia de $x$ sola.",
+    "explanation": "El **teorema del factor** conecta dos cosas que parecen distintas, las raíces de un polinomio y su escritura como producto.\n\nSi un polinomio $P$ cumple $P(a)=0$, entonces se puede escribir así:\n$$P(x) = (x-a)\\,Q(x)$$\nCon $Q$ un polinomio de un grado menos.\n\nLa intuición viene del teorema del resto, que dice que dividir el polinomio por $(x-a)$ deja un resto igual a su evaluación en $a$.\n\nSi esa evaluación da cero, el resto es cero, y una división sin resto es exactamente una factorización.\n\nEs el puente que hace útil la factorización en límites, porque avisa que el factor que se va a cancelar está garantizado antes de buscarlo.",
     "reviewed": false
   },
   {

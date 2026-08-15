@@ -408,7 +408,7 @@
     ]
   },
   {
-    "question": "Cerca de $x=1$ la gráfica de una función se dispara hacia $+\\infty$ desde ambos lados.\n\n¿Qué tipo de discontinuidad hay en $x=1$?",
+    "question": "La gráfica de una función se dispara hacia $+\\infty$ desde los dos lados de $x=1$.\n\n¿Qué tipo de discontinuidad hay en $x=1$?",
     "options": [
       "De salto",
       "Esencial",

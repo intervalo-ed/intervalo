@@ -1,6 +1,6 @@
 [
   {
-    "question": "Antes de racionalizar un límite, hay que reconocer el **conjugado** de la expresión con raíz.\n\n¿Cuál es el conjugado de $\\sqrt{x+4} - 2$?",
+    "question": "Racionalizar un límite empieza por reconocer el **conjugado** de la expresión con raíz.\n\n¿Cuál es el conjugado de $\\sqrt{x+4} - 2$?",
     "options": [
       "$\\sqrt{x+4}+2$",
       "$\\sqrt{x-4}+2$",
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "question": "Al multiplicar una expresión con raíz por su **conjugado** aparece siempre el mismo patrón.\n$$(\\sqrt{x+9} - 3)(\\sqrt{x+9} + 3)$$\n¿Cuánto vale ese producto?",
+    "question": "Una expresión con raíz aparece en un límite.\n$$\\sqrt{x+9} - 3$$\nPara racionalizar se la multiplica por su **conjugado**.\n$$(\\sqrt{x+9} - 3)(\\sqrt{x+9} + 3)$$\n¿Cuánto vale ese producto?",
     "options": [
       "$x+6$",
       "$x$",
@@ -184,7 +184,7 @@
     ]
   },
   {
-    "question": "El resultado de un producto de **conjugados** puede conocerse de antemano:\n$$x - 25$$\n¿Qué producto de conjugados lo produce?",
+    "question": "Al racionalizar un límite quedó esta expresión, ya sin raíces.\n$$x - 25$$\n¿Qué producto de conjugados la produjo?",
     "options": [
       "$(\\sqrt{x}-5)(\\sqrt{x}+5)$",
       "$(\\sqrt{x}-5)(\\sqrt{x}-5)$",
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "Antes de tocar nada en este límite hay que decidir por dónde entrar.\n$$\\lim_{x \\to 0} \\dfrac{\\sqrt{x+1}-1}{x}$$\n¿Qué técnica corresponde aplicar?",
+    "question": "Este límite necesita que se elija el camino antes de hacer cualquier cuenta.\n$$\\lim_{x \\to 0} \\dfrac{\\sqrt{x+1}-1}{x}$$\n¿Qué técnica corresponde aplicar?",
     "options": [
       "Sustituir directamente",
       "Sin solución posible",
@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "Frente a este límite, lo primero es elegir con qué herramienta encararlo.\n$$\\lim_{x \\to 2} \\dfrac{\\sqrt{x+7}}{x+1}$$\n¿Qué técnica corresponde aplicar?",
+    "question": "Este límite se resuelve con una de las técnicas del tema, y hay que elegir cuál.\n$$\\lim_{x \\to 2} \\dfrac{\\sqrt{x+7}}{x+1}$$\n¿Qué técnica corresponde aplicar?",
     "options": [
       "Racionalizar y cancelar",
       "Factorizar y cancelar",
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "Un límite con raíz cuadrada e **indeterminación** al sustituir se ataca multiplicando por el **conjugado**.\n\n¿Cuál es el objetivo de esa multiplicación?",
+    "question": "Un límite con raíz da **indeterminación** al sustituir, y se ataca multiplicando por el **conjugado**.\n$$\\lim_{x \\to 4} \\frac{\\sqrt{x}-2}{x-4}$$\n¿Cuál es el objetivo de esa multiplicación?",
     "options": [
       "Cambiar el valor al que tiende $x$",
       "Exponer el factor $(x-a)$ para poder cancelarlo",

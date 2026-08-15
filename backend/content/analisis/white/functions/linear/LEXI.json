@@ -73,7 +73,7 @@
     ]
   },
   {
-    "question": "El grado de la variable alcanza para ubicar una función dentro de su familia:\n$$f(x) = 4 - x$$\n¿A qué familia pertenece?",
+    "question": "Una función tiene que ubicarse dentro de su familia:\n$$f(x) = 4 - x$$\n¿A qué familia pertenece?",
     "options": [
       "Cuadrática sin validar el contexto",
       "Exponencial",
@@ -196,7 +196,7 @@
     ]
   },
   {
-    "question": "Los dos números que definen una recta cumplen papeles bien distintos:\n$$f(x) = 2x + 5$$\n¿Cuál es la **pendiente**?",
+    "question": "Una recta queda definida por dos números con papeles distintos:\n$$f(x) = 2x + 5$$\n¿Cuál es la **pendiente**?",
     "options": [
       "$5$",
       "$2x$",
@@ -294,7 +294,7 @@
     ]
   },
   {
-    "question": "Cuando el coeficiente de $x$ no se escribe, igual está:\n$$f(x) = -x$$\n¿Cuál es la **pendiente**?",
+    "question": "Una función lineal deja su coeficiente sin escribir:\n$$f(x) = -x$$\n¿Cuál es la **pendiente**?",
     "options": [
       "$0$",
       "$-1$",
@@ -367,7 +367,7 @@
     ]
   },
   {
-    "question": "El signo del coeficiente que acompaña a $x$ decide hacia dónde va la recta:\n$$f(x) = -2x + 5$$\n¿En qué intervalo decrece?",
+    "question": "Una función lineal trae un coeficiente con signo propio:\n$$f(x) = -2x + 5$$\n¿En qué intervalo decrece?",
     "options": [
       "$(0, +\\infty)$",
       "Todos los reales",
@@ -542,7 +542,7 @@
     ]
   },
   {
-    "question": "Antes de clasificar una función conviene desarmar los productos que tenga escritos:\n$$f(x) = (x-1)(x+1)$$\n¿Es una función lineal?",
+    "question": "Una función viene escrita como un producto sin desarrollar:\n$$f(x) = (x-1)(x+1)$$\n¿Es una función lineal?",
     "options": [
       "Sí",
       "No, porque se expande a $x^2 - 1$",
@@ -588,7 +588,7 @@
     ]
   },
   {
-    "question": "El signo del coeficiente que acompaña a la variable tiene una consecuencia directa sobre el comportamiento:\n$$f(x) = mx + b, \\quad m > 0$$\n¿Por qué esta función nunca decrece?",
+    "question": "Una función lineal trae un coeficiente acompañando a la variable:\n$$f(x) = mx + b, \\quad m > 0$$\n¿Por qué esta función nunca decrece?",
     "options": [
       "Porque la ordenada al origen es positiva",
       "Porque la pendiente positiva la hace subir",

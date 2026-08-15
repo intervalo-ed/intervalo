@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "En una función se cumple que:\n$$\\lim_{x \\to a^-} f(x) \\neq \\lim_{x \\to a^+} f(x)$$\n¿Cómo se ve reflejado esto en la gráfica de $f$ cerca de $a$?",
+    "question": "Una función cumple la siguiente relación entre sus límites laterales:\n$$\\lim_{x \\to a^-} f(x) \\neq \\lim_{x \\to a^+} f(x)$$\n¿Cómo se ve reflejado esto en la gráfica de $f$ cerca de $a$?",
     "options": [
       "Como un hueco, un único punto removido de la curva",
       "Como un salto, la curva llega a alturas distintas desde cada lado",

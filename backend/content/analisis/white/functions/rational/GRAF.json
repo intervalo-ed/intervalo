@@ -180,7 +180,7 @@
     ]
   },
   {
-    "question": "Cerca de su asíntota vertical, una función racional se dispara sin acotarse.\n\n¿Cuántas ramas tiene esta función racional y en qué dirección van hacia la asíntota?",
+    "question": "Una función racional se estudia cerca de su asíntota vertical.\n\n¿Cuántas ramas tiene esta función racional y en qué dirección van hacia la asíntota?",
     "options": [
       "2 ramas simétricas respecto al eje $X$",
       "1 rama continua",
@@ -275,7 +275,7 @@
       "Solo en $(-\\infty,\\ 0)$",
       "Solo en $(0,\\ +\\infty)$",
       "En ningún intervalo",
-      "En $(-\\infty,\\ 0)$ y en $(0,\\ +\\infty)$"
+      "En ambos intervalos"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -487,7 +487,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "La AV en $x = -1$ indica que ese punto está excluido del dominio.",
+    "feedback_correct": "La asíntota vertical en $x = -1$ indica que ese punto está excluido del dominio.",
     "feedback_incorrect": [
       "Ese conjunto no excluye el punto donde el denominador se anula: revisá si realmente no hay ninguna restricción.",
       null,
@@ -501,7 +501,7 @@
       -5,
       5
     ],
-    "explanation": "El **dominio** de una función racional es todo $\\mathbb{R}$ excepto los valores que anulan el denominador, ya que ahí la división no está definida.\n\nLa AV en $x=-1$ significa que el denominador se anula ahí: $x=-1$ no pertenece al dominio.\n\nEl dominio es $\\mathbb{R}\\setminus\\{-1\\}=(-\\infty,-1)\\cup(-1,+\\infty)$.\n\nConviene no confundir esta exclusión puntual con restringir todo un intervalo completo.",
+    "explanation": "El **dominio** de una función racional son todos los reales excepto los valores que anulan el denominador, ya que ahí la división no está definida.\n\nLa asíntota vertical en $x=-1$ significa que el denominador se anula ahí, así que ese punto no pertenece al dominio.\n\nEl dominio queda así:\n$$\\mathbb{R}\\setminus\\{-1\\}=(-\\infty,-1)\\cup(-1,+\\infty)$$\nUna asíntota vertical saca un solo punto de la recta, no un intervalo entero, porque el denominador se anula en un valor puntual y no en toda una zona.",
     "reviewed": false,
     "tags": [
       "dominio-desde-grafico"
@@ -568,7 +568,7 @@
     ]
   },
   {
-    "question": "Cerca de la asíntota vertical de esta función, el comportamiento de la curva depende de por dónde se acerca $x$.\n\n¿Qué le pasa a $f(x)$ al acercarse a $0$ por la derecha, con valores positivos cada vez más chicos?",
+    "question": "Una función racional se estudia cerca de su asíntota vertical, según por dónde llegue $x$.\n\n¿Qué le pasa a $f(x)$ al acercarse a $0$ por la derecha, con valores positivos cada vez más chicos?",
     "options": [
       "Se acerca a $+\\infty$",
       "Se acerca a $-\\infty$",

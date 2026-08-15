@@ -390,7 +390,7 @@
     ]
   },
   {
-    "question": "El denominador de esta función se puede factorizar antes de buscar sus raíces:\n$$f(x) = \\dfrac{x^2 + 1}{x^3 - x}$$\n¿Cuántas **asíntotas verticales** tiene?",
+    "question": "Una función racional tiene un denominador que se puede factorizar:\n$$f(x) = \\dfrac{x^2 + 1}{x^3 - x}$$\n¿Cuántas **asíntotas verticales** tiene?",
     "options": [
       "1 (en $x = 0$)",
       "2 (en $x = 1$ y $x = -1$)",
@@ -615,7 +615,7 @@
     ]
   },
   {
-    "question": "El numerador de esta función se mantiene fijo mientras el denominador cambia:\n$$f(x) = \\dfrac{5}{x}$$\n¿Qué ocurre cuando $x \\to +\\infty$?",
+    "question": "Una función racional mantiene fijo su numerador mientras cambia el denominador:\n$$f(x) = \\dfrac{5}{x}$$\n¿Qué ocurre cuando $x \\to +\\infty$?",
     "options": [
       "Tiende a $5$",
       "Tiende a $0^+$",
@@ -640,7 +640,7 @@
     ]
   },
   {
-    "question": "El numerador de esta función es un número $k$ mayor que 1:\n$$f(x) = \\dfrac{k}{x}$$\nPartiendo de:\n$$g(x) = \\dfrac{1}{x}$$\n¿Qué transformación relaciona a $f$ con $g$?",
+    "question": "Una función racional tiene por numerador un número $k$ mayor que 1:\n$$f(x) = \\dfrac{k}{x}$$\nPartiendo de:\n$$g(x) = \\dfrac{1}{x}$$\n¿Qué transformación relaciona a $f$ con $g$?",
     "options": [
       "Estira la curva verticalmente",
       "Desplaza la curva $k$ unidades a la derecha",

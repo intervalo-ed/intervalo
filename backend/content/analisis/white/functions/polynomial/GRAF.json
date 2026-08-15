@@ -330,7 +330,7 @@
     ]
   },
   {
-    "question": "El grado de un polinomio deja una huella en la forma de su gráfico:\n$$f(x) = \\dfrac{x^3}{8}$$\n¿El grado del polinomio es par o impar?",
+    "question": "Un polinomio deja una huella de su grado en la forma del gráfico:\n$$f(x) = \\dfrac{x^3}{8}$$\n¿El grado del polinomio es par o impar?",
     "options": [
       "Par",
       "Impar",

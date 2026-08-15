@@ -120,7 +120,7 @@
     ]
   },
   {
-    "question": "El valor de la función en $x=1$ se lee directo sobre el eje vertical.\n\n¿Cuánto vale $f(1)$ según el gráfico?",
+    "question": "La gráfica de una función logarítmica pasa por $x=1$.\n\n¿Cuánto vale $f(1)$ según el gráfico?",
     "options": [
       "$1$",
       "$0$",
@@ -510,7 +510,7 @@
     ]
   },
   {
-    "question": "El valor de la curva en un punto conocido alcanza para descartar bases equivocadas.\n\n¿Qué fórmula corresponde a la curva del gráfico?",
+    "question": "La gráfica de una función logarítmica pasa por un punto conocido.\n\n¿Qué fórmula corresponde a la curva del gráfico?",
     "options": [
       "$f(x) = \\ln(x)$",
       "$f(x) = \\log_2(x)$",

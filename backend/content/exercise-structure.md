@@ -257,6 +257,12 @@ Estas valen en `question`, `options`, `feedback_*` y `explanation` por igual:
   `graph_fn`. El validador no ve esta clase de error, se verifica evaluando la
   función en el punto que la prosa afirma. Y no se pregunta por el valor que el
   propio enunciado ya regala. (R60)
+- **Voz narrativa**: el sujeto de la primera oración es el objeto o una
+  intención (`"Una función…"`, `"Un límite…"`, `"Se quiere…"`), nunca una
+  propiedad suya (`"El punto de tendencia…"`, `"Numerador y denominador…"`).
+  Una sola oración, y sin reportar el resultado de ningún paso que el
+  estudiante podría dar: qué deja la sustitución, si el límite existe, cuál
+  polinomio se impone. Eso es el ejercicio. (R61)
 
 ---
 

@@ -2,17 +2,17 @@
   {
     "question": "En este límite la variable se va a $+\\infty$ mientras el numerador se mantiene fijo.\n$$\\frac{5}{x}$$\n¿A qué tiende el cociente?",
     "options": [
-      "Es una indeterminación",
-      "$0$",
-      "$+\\infty$"
+      "Queda indeterminado",
+      "Se aplasta hacia $0$",
+      "Se dispara a $+\\infty$"
     ],
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Correcto: un numerador fijo sobre un denominador que crece sin cota se aplasta hacia $0$.",
     "feedback_incorrect": [
-      "Dividir un número fijo entre algo que crece sin cota no genera ambigüedad sobre el resultado, no es una indeterminación.",
+      "Dividir un número fijo entre algo que crece sin cota no deja ninguna ambigüedad, no es una indeterminación.",
       null,
-      "Acá es el denominador el que crece sin límite, no el numerador, así que el cociente se achica en vez de dispararse."
+      "Acá el que crece sin límite es el denominador, no el numerador, así que el cociente se achica en vez de dispararse."
     ],
     "graph_fn": null,
     "graph_view": null,

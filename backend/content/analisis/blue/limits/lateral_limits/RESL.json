@@ -1,6 +1,6 @@
 [
   {
-    "question": "Una **función a trozos** está definida por:\n$$f(x) = \\begin{cases} x + 2 & \\text{si } x < 3 \\\\ 3x - 2 & \\text{si } x \\geq 3 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 3^-} f(x)$?",
+    "question": "Una **función a trozos** se estudia cerca de su punto de corte.\n$$f(x) = \\begin{cases} x + 2 & \\text{si } x < 3 \\\\ 3x - 2 & \\text{si } x \\geq 3 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 3^-} f(x)$?",
     "options": [
       "$7$",
       "$6$",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "El punto de corte de esta **función a trozos** está en $x=3$:\n$$f(x) = \\begin{cases} x + 2 & \\text{si } x < 3 \\\\ 3x - 2 & \\text{si } x \\geq 3 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 3^+} f(x)$?",
+    "question": "El límite lateral de una **función a trozos** se plantea en su punto de corte.\n$$f(x) = \\begin{cases} x + 2 & \\text{si } x < 3 \\\\ 3x - 2 & \\text{si } x \\geq 3 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 3^+} f(x)$?",
     "options": [
       "$7$",
       "$5$",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "Una **función a trozos** está definida por:\n$$f(x) = \\begin{cases} -x + 1 & \\text{si } x < 2 \\\\ x + 3 & \\text{si } x \\geq 2 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 2^-} f(x)$?",
+    "question": "Se quiere calcular un límite lateral de la siguiente **función a trozos**.\n$$f(x) = \\begin{cases} -x + 1 & \\text{si } x < 2 \\\\ x + 3 & \\text{si } x \\geq 2 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 2^-} f(x)$?",
     "options": [
       "$1$",
       "$5$",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "question": "Dada la **función a trozos**:\n$$f(x) = \\begin{cases} 2x - 1 & \\text{si } x \\leq 1 \\\\ x + 4 & \\text{si } x > 1 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 1^-} f(x)$?",
+    "question": "Una **función a trozos** se estudia por la izquierda de su punto de corte:\n$$f(x) = \\begin{cases} 2x - 1 & \\text{si } x \\leq 1 \\\\ x + 4 & \\text{si } x > 1 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 1^-} f(x)$?",
     "options": [
       "$5$",
       "$1$",
@@ -100,7 +100,7 @@
     ]
   },
   {
-    "question": "Las dos ramas de esta **función a trozos** son la misma parábola a distinta altura:\n$$f(x) = \\begin{cases} x^2 + 1 & \\text{si } x < 1 \\\\ x^2 + 4 & \\text{si } x \\geq 1 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 1^+} f(x)$?",
+    "question": "Una **función a trozos** armada con dos parábolas se evalúa en su punto de corte.\n$$f(x) = \\begin{cases} x^2 + 1 & \\text{si } x < 1 \\\\ x^2 + 4 & \\text{si } x \\geq 1 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 1^+} f(x)$?",
     "options": [
       "$2$",
       "$4$",
@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "Con la **función a trozos**:\n$$f(x) = \\begin{cases} 3x & \\text{si } x < 0 \\\\ x + 5 & \\text{si } x \\geq 0 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 0^-} f(x)$?",
+    "question": "Se busca un límite lateral de la siguiente **función a trozos**.\n$$f(x) = \\begin{cases} 3x & \\text{si } x < 0 \\\\ x + 5 & \\text{si } x \\geq 0 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 0^-} f(x)$?",
     "options": [
       "$5$",
       "$3$",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "Para la **función a trozos** que sigue:\n$$f(x) = \\begin{cases} x + 1 & \\text{si } x < 1 \\\\ x + 5 & \\text{si } x \\geq 1 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 1} f(x)$?",
+    "question": "Se quiere saber si el límite bilateral existe en el punto de corte de esta **función a trozos**.\n$$f(x) = \\begin{cases} x + 1 & \\text{si } x < 1 \\\\ x + 5 & \\text{si } x \\geq 1 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 1} f(x)$?",
     "options": [
       "$2$",
       "$6$",
@@ -200,7 +200,7 @@
     ]
   },
   {
-    "question": "Las dos ramas de esta **función a trozos** llegan con coeficientes decimales:\n$$f(x) = \\begin{cases} x + 1{,}5 & \\text{si } x < 3 \\\\ 2x - 1{,}5 & \\text{si } x \\geq 3 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 3} f(x)$?",
+    "question": "Una **función a trozos** con coeficientes decimales se estudia en su punto de corte.\n$$f(x) = \\begin{cases} x + 1{,}5 & \\text{si } x < 3 \\\\ 2x - 1{,}5 & \\text{si } x \\geq 3 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 3} f(x)$?",
     "options": [
       "$4{,}5$",
       "No existe",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "La **función a trozos**:\n$$f(x) = \\begin{cases} x - 2 & \\text{si } x < 5 \\\\ -x + 2 & \\text{si } x \\geq 5 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 5} f(x)$?",
+    "question": "El límite bilateral de una **función a trozos** se plantea en el punto donde cambia de rama.\n$$f(x) = \\begin{cases} x - 2 & \\text{si } x < 5 \\\\ -x + 2 & \\text{si } x \\geq 5 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 5} f(x)$?",
     "options": [
       "$3$",
       "$-3$",
@@ -350,7 +350,7 @@
     ]
   },
   {
-    "question": "Con $c \\neq 0$ fijo, el punto de tendencia coincide con el valor que anula el denominador:\n$$f(x) = \\frac{|x - c|}{x - c}$$\n¿Cuánto vale $\\lim_{x \\to c} f(x)$?",
+    "question": "Una función con **valor absoluto** en el numerador se estudia en el punto donde el denominador se anula, con $c \\neq 0$.\n$$f(x) = \\frac{|x - c|}{x - c}$$\n¿Cuánto vale $\\lim_{x \\to c} f(x)$?",
     "options": [
       "No existe",
       "$1$",

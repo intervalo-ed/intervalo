@@ -130,7 +130,7 @@
     ]
   },
   {
-    "question": "El denominador de esta función se anula en un punto, y eso deja un valor afuera:\n$$f(x) = \\dfrac{x + 1}{x - 3}$$\n¿Cuál es su dominio en notación de intervalos?",
+    "question": "Una función racional tiene un denominador que se anula en un punto:\n$$f(x) = \\dfrac{x + 1}{x - 3}$$\n¿Cuál es su dominio en notación de intervalos?",
     "options": [
       "$(-\\infty, 3] \\cup [3, +\\infty)$",
       "$(-\\infty, 3) \\cup (3, +\\infty)$",
@@ -155,7 +155,7 @@
     ]
   },
   {
-    "question": "El valor de una función racional en un punto se obtiene reemplazando arriba y abajo:\n$$f(x) = \\dfrac{2x - 1}{x + 2}$$\n¿Cuánto vale $f(3)$?",
+    "question": "Una función racional se evalúa en un punto:\n$$f(x) = \\dfrac{2x - 1}{x + 2}$$\n¿Cuánto vale $f(3)$?",
     "options": [
       "$1$",
       "$\\dfrac{5}{3}$",
@@ -305,7 +305,7 @@
     ]
   },
   {
-    "question": "El denominador de esta función racional se anula en un único valor:\n$$f(x) = \\dfrac{x - 1}{x + 4}$$\n¿Cuál es su dominio en notación de intervalos?",
+    "question": "Una función racional tiene un denominador que se anula en un único valor:\n$$f(x) = \\dfrac{x - 1}{x + 4}$$\n¿Cuál es su dominio en notación de intervalos?",
     "options": [
       "$(-\\infty, 4) \\cup (4, +\\infty)$",
       "$(-\\infty, -4) \\cup (-4, +\\infty)$",
@@ -330,7 +330,7 @@
     ]
   },
   {
-    "question": "El denominador de esta función es una diferencia de cuadrados:\n$$f(x) = \\dfrac{2}{x^2 - 9}$$\n¿Cuál es su dominio?",
+    "question": "Una función racional tiene una diferencia de cuadrados en el denominador:\n$$f(x) = \\dfrac{2}{x^2 - 9}$$\n¿Cuál es su dominio?",
     "options": [
       "$(-\\infty, 3) \\cup (3, +\\infty)$",
       "$\\mathbb{R} \\setminus \\{9\\}$",
@@ -490,7 +490,7 @@
     ]
   },
   {
-    "question": "Las dos ramas de esta curva están separadas por una recta que el gráfico nunca cruza.\n\n¿Dónde está la asíntota vertical?",
+    "question": "Una función racional tiene dos ramas separadas por una recta.\n\n¿Dónde está la asíntota vertical?",
     "options": [
       "$x = 2$",
       "$x = 0$",
@@ -595,7 +595,7 @@
     ]
   },
   {
-    "question": "Antes de decidir qué ocurre en un punto conviene mirar numerador y denominador por separado:\n$$f(x) = \\dfrac{x^2 - 1}{x - 1}$$\n¿Qué pasa en $x = 1$?",
+    "question": "Una función racional se analiza en un punto de su dominio:\n$$f(x) = \\dfrac{x^2 - 1}{x - 1}$$\n¿Qué pasa en $x = 1$?",
     "options": [
       "Hay una asíntota vertical",
       "La función vale $1$ en ese punto",
@@ -620,7 +620,7 @@
     ]
   },
   {
-    "question": "Numerador y denominador de esta función son ambos de grado 2:\n$$f(x) = \\dfrac{x^2 + 3x}{x^2 - 1}$$\n¿Cuál es la asíntota vertical?",
+    "question": "Una función racional tiene numerador y denominador de grado 2:\n$$f(x) = \\dfrac{x^2 + 3x}{x^2 - 1}$$\n¿Cuál es la asíntota vertical?",
     "options": [
       "Una sola AV en $x = 0$",
       "No tiene AV",
@@ -670,7 +670,7 @@
     ]
   },
   {
-    "question": "El denominador de esta función es un trinomio que se puede factorizar:\n$$f(x) = \\dfrac{x - 2}{x^2 + 2x + 1}$$\n¿Cuál es el dominio?",
+    "question": "Una función racional tiene un trinomio factorizable en el denominador:\n$$f(x) = \\dfrac{x - 2}{x^2 + 2x + 1}$$\n¿Cuál es el dominio?",
     "options": [
       "$\\mathbb{R} \\setminus \\{2\\}$",
       "$\\mathbb{R}$",
@@ -720,7 +720,7 @@
     ]
   },
   {
-    "question": "Numerador y denominador de esta función son ambos de grado 1, con coeficientes distintos:\n$$f(x) = \\dfrac{5x - 10}{2x + 6}$$\n¿Cuáles son la asíntota vertical y la horizontal?",
+    "question": "Una función racional tiene numerador y denominador de grado 1:\n$$f(x) = \\dfrac{5x - 10}{2x + 6}$$\n¿Cuáles son la asíntota vertical y la horizontal?",
     "options": [
       "AV: $x = 3$, AH: $y = \\dfrac{5}{2}$",
       "AV: $x = -3$, AH: $y = \\dfrac{2}{5}$",

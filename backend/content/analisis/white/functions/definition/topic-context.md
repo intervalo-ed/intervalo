@@ -202,3 +202,15 @@ Además del checklist global del `generation-instructions.md`, verificá lo espe
 - [ ] `correct_index` variado, no siempre 0
 - [ ] La palabra "inyectividad" NO aparece en options ni feedback (se describe el concepto)
 - [ ] Sin nombres propios en ningún ejercicio (revisar el del DNI/persona)
+
+---
+
+## Auditoría ronda 9 (feedback de testeo 467, ago-2026)
+
+La ronda 7 arregló **de qué** hablaba la apertura (del comportamiento, no de la tipografía) pero no **que describiera**. El enunciado quedó haciendo el análisis y entregando el diagnóstico terminado: `"El punto de tendencia anula las dos partes de la fracción. La función no está definida ahí, pero sí se acerca a un número."` son tres conclusiones que el estudiante tendría que sacar, y le dejan solo la aritmética.
+
+De ahí sale la **regla 61** de `authoring-context.md`: el sujeto de la primera oración es el objeto o una intención (`"Una función…"`, `"Un límite…"`, `"Se quiere…"`), va **una sola oración**, y no se reporta el resultado de ningún paso que el estudiante podría dar. La regla 59 sigue vigente contra la fórmula desnuda; la 61 la acota para que el enunciado no razone en su lugar.
+
+Pasada de voz narrativa sobre las aperturas que tenían una propiedad de sujeto (`"El denominador de esta función…"`, `"El interior de este logaritmo…"`, `"El coeficiente principal es…"`). Son 56 en toda la unidad, heredadas de la misma ronda 6 que produjo el problema en `limites`.
+
+**Los preámbulos `"Dada la función:"` / `"Sea la función:"` no se tocaron**: tienen el objeto de sujeto y la sección *Sin preámbulos colgantes* los admite explícitamente.
