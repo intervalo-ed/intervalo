@@ -127,7 +127,7 @@ Construir o leer la fórmula $f(x) = ax^2 + bx + c$ y sus formas vértice / fact
 
 ### Distribución objetivo
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 30 ejercicios actuales de `FORM.json` (recorte proporcional ronda 2, ago-2026, aplicado sobre los tags reales; el slug `dominio` de una versión anterior de esta tabla no tenía ningún ejercicio real con ese slug, y en cambio hay 1 ejercicio con el slug `nombre-parabola`, residual de otra categorización; se ajustó la tabla a los tags reales):
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 30 ejercicios actuales de `FORM.json` (recorte proporcional ronda 2, ago-2026, aplicado sobre los tags reales; el slug `dominio` de una versión anterior de esta tabla no tenía ningún ejercicio real con ese slug; se ajustó la tabla a los tags reales. En la ronda 10 (ago-2026) se sacó además la fila residual `nombre-parabola`, que declaraba 1 ejercicio y en el banco de FORM tiene 0; ese slug sigue vivo en LEXI y GRAF):
 
 | Concepto | Slug | Cantidad actual |
 |----------|------|-----------------:|
@@ -241,7 +241,7 @@ Variar números, no repetir personajes. Montos con `\\$` en JSON. Sin nombres pr
 **GRAF:**
 - [ ] 30 ejercicios con `graph_fn`, `graph_view` cuadrado y `|a| ≤ 0.5`
 - [ ] Verificado numéricamente que las raíces (para las de $a < 0$) caen dentro del `graph_view`
-- [ ] Los 7 slugs reales cubiertos al menos una vez (ver nota de discrepancia en "Arquetipos de pregunta": `raiz`/`concavidad`/`duracion` no existen como slugs propios hoy, están agrupados bajo `nombre-parabola`)
+- [ ] Los 6 slugs reales cubiertos al menos una vez (ver nota de discrepancia en "Arquetipos de pregunta": `raiz`/`concavidad`/`duracion` no existen como slugs propios hoy, están agrupados bajo `nombre-parabola`; `eje-simetria` se sacó de la tabla en la ronda 10 por no tener ningún ejercicio, y sigue vivo en LEXI)
 - [ ] Mínimos ($a > 0$) sin ejercicios de raíz ni de duración
 - [ ] `correct_index` con presencia mínima en los cuatro índices (hoy no hay ninguno en 3)
 
