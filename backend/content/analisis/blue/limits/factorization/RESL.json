@@ -1,6 +1,6 @@
 [
   {
-    "question": "Numerador y denominador se anulan los dos en el punto de tendencia:\n$$\\lim_{x \\to 2} \\frac{x^2-4}{x-2}$$\n¿Cuánto vale?",
+    "question": "En $x=2$ esta función no se puede evaluar, pero el límite no pregunta cuánto vale ahí, sino a qué valor se arrima cerca.\n$$\\lim_{x \\to 2} \\frac{x^2-4}{x-2}$$\n¿Cuál es ese valor?",
     "options": [
       "$4$",
       "$2$",
@@ -25,7 +25,7 @@
     "reviewed": false
   },
   {
-    "question": "Reemplazar directamente deja la fracción en la forma 0/0, que por sí sola no dice nada:\n$$\\lim_{x \\to 0} \\frac{x^2+3x}{x}$$\n¿Cuál es su resultado?",
+    "question": "Sustituir deja la fracción en la forma 0/0, que no decide nada. La función igual se acerca a un número concreto.\n$$\\lim_{x \\to 0} \\frac{x^2+3x}{x}$$\n¿A qué número se acerca?",
     "options": [
       "$0$",
       "$3$",
@@ -50,7 +50,7 @@
     "reviewed": false
   },
   {
-    "question": "Arriba y abajo aparece el mismo cero cuando $x$ llega a $3$:\n$$\\lim_{x \\to 3} \\frac{x^2-9}{x-3}$$\n¿Cuánto da?",
+    "question": "Numerador y denominador se anulan a la vez, así que sustituir no sirve. El valor al que tiende la función existe igual.\n$$\\lim_{x \\to 3} \\frac{x^2-9}{x-3}$$\n¿Cuál es ese valor?",
     "options": [
       "$3$",
       "$0$",
@@ -75,7 +75,7 @@
     "reviewed": false
   },
   {
-    "question": "El punto de tendencia es negativo y anula a la vez el numerador y el denominador:\n$$\\lim_{x \\to -1} \\frac{x^2-1}{x+1}$$\n¿Cuánto vale?",
+    "question": "El punto de tendencia anula las dos partes de la fracción. La función no está definida ahí, pero sí se acerca a un número.\n$$\\lim_{x \\to -1} \\frac{x^2-1}{x+1}$$\n¿Cuál es ese número?",
     "options": [
       "$1$",
       "$0$",
@@ -100,7 +100,7 @@
     "reviewed": false
   },
   {
-    "question": "El numerador arranca con un coeficiente $2$ que conviene no perder de vista:\n$$\\lim_{x \\to 5} \\frac{2x^2-10x}{x-5}$$\n¿Cuál es su valor?",
+    "question": "En $x=5$ la fracción no está definida. El límite mide a qué valor se aproxima la función alrededor de ese punto.\n$$\\lim_{x \\to 5} \\frac{2x^2-10x}{x-5}$$\n¿A qué valor se aproxima?",
     "options": [
       "$5$",
       "$10$",
@@ -125,7 +125,7 @@
     "reviewed": false
   },
   {
-    "question": "Sustituir directo no lleva a ningún lado porque los dos términos se anulan a la vez:\n$$\\lim_{x \\to 4} \\frac{x^2-16}{x-4}$$\n¿Cuánto vale?",
+    "question": "Sustituir directo no lleva a ningún lado, los dos términos se anulan a la vez. Aun así la función se acerca a un valor.\n$$\\lim_{x \\to 4} \\frac{x^2-16}{x-4}$$\n¿Cuánto vale ese límite?",
     "options": [
       "$8$",
       "$4$",
@@ -150,7 +150,7 @@
     "reviewed": false
   },
   {
-    "question": "Arriba hay un trinomio de segundo grado y abajo una resta simple:\n$$\\lim_{x \\to 2} \\frac{x^2-5x+6}{x-2}$$\n¿Cuánto da?",
+    "question": "La sustitución choca con un cero en las dos partes de la fracción. La función igual tiende a un número cerca del punto.\n$$\\lim_{x \\to 2} \\frac{x^2-5x+6}{x-2}$$\n¿A qué número tiende?",
     "options": [
       "$1$",
       "$0$",
@@ -175,7 +175,7 @@
     "reviewed": false
   },
   {
-    "question": "El trinomio del numerador llega con signo negativo en el término lineal y en el independiente:\n$$\\lim_{x \\to 3} \\frac{x^2-x-6}{x-3}$$\n¿Cuál es su valor?",
+    "question": "Cerca de $x=3$ la función toma valores perfectamente normales, aunque justo en ese punto la fórmula no se pueda evaluar.\n$$\\lim_{x \\to 3} \\frac{x^2-x-6}{x-3}$$\n¿A qué valor tiende la función?",
     "options": [
       "$-1$",
       "$5$",
@@ -200,7 +200,7 @@
     "reviewed": false
   },
   {
-    "question": "El punto de tendencia es negativo, y ahí se anulan tanto el trinomio como el denominador:\n$$\\lim_{x \\to -2} \\frac{x^2+x-2}{x+2}$$\n¿Cuánto vale?",
+    "question": "Con un punto de tendencia negativo, la sustitución vuelve a dar 0/0. El límite pide el valor al que se arrima la función.\n$$\\lim_{x \\to -2} \\frac{x^2+x-2}{x+2}$$\n¿Cuál es ese valor?",
     "options": [
       "$-3$",
       "$1$",
@@ -225,32 +225,32 @@
     "reviewed": false
   },
   {
-    "question": "Reemplazar $x$ por $1$ deja en cero tanto al trinomio como al denominador:\n$$\\lim_{x \\to 1} \\frac{x^2-2x+1}{x-1}$$\n¿Cuánto da?",
+    "question": "Reemplazar $x$ por $1$ anula numerador y denominador, y sustituir no da ningún número. La función igual se acerca a un valor.\n$$\\lim_{x \\to 1} \\frac{x^2+2x-3}{x-1}$$\n¿Qué valor toma el límite?",
     "options": [
-      "$1$",
-      "$-1$",
+      "$2$",
       "$0$",
-      "$2$"
+      "$4$",
+      "$3$"
     ],
     "correct_index": 2,
     "tags": [
       "factorizacion-trinomios"
     ],
     "has_math": true,
-    "feedback_correct": "Correcto, cancelando un factor $(x-1)$ queda $x-1$, que en $x=1$ vale $0$.",
+    "feedback_correct": "Correcto, cancelando $(x-1)$ queda $x+3$, que en $x=1$ vale $4$.",
     "feedback_incorrect": [
-      "Estás sustituyendo $x=1$ en el factor cancelado en vez de hacerlo en el cociente simplificado $x-1$.",
-      "Revisá el signo de la factorización, $x^2-2x+1=(x-1)^2$, con ambos factores iguales y negativos, no uno de cada signo.",
+      "Sustituiste el punto de tendencia con el signo cambiado, el cociente simplificado hay que evaluarlo en $x=1$.",
+      "La forma 0/0 no vale $0$, no vale nada por sí sola. Es la señal de que hay un factor común esperando a que lo canceles.",
       null,
-      "Sustituiste el valor de tendencia con el signo cambiado, el cociente simplificado es $x-1$, no $x+1$."
+      "Evaluaste solo el término independiente del cociente, en $x+3$ también hay que reemplazar la $x$ por $1$."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La sustitución directa de $x=1$ anula numerador y denominador, la **indeterminación** 0/0.\n\nEl numerador es un **trinomio cuadrado perfecto**, con un término lineal que coincide con el doble producto de sus raíces.\n\nComo el numerador factoriza como $(x-1)^2$, cancelando un factor $(x-1)$:\n$$\\begin{aligned}\n\\lim_{x \\to 1}\\frac{x^2-2x+1}{x-1} &= \\lim_{x \\to 1}\\frac{(x-1)^2}{x-1} \\\\\n&= \\lim_{x \\to 1}(x-1) \\\\\n&= 0\n\\end{aligned}$$\nDe los dos factores $(x-1)$ del numerador, solo uno se cancela con el denominador, y queda el otro en el cociente.\n\nQue el resultado dé $0$ no es un problema, la indeterminación ya se resolvió al cancelar y ese es un valor final válido.",
+    "explanation": "La sustitución directa de $x=1$ anula numerador y denominador, la **indeterminación** 0/0.\n\nEse resultado no es un número, es un aviso. Dice que numerador y denominador comparten el factor $(x-1)$, porque los dos se anulan en el mismo punto.\n\nEso es justo lo que garantiza el **teorema del factor**, y es la razón de que factorizar sea el camino.\n\nFactorizando el trinomio y cancelando:\n$$\\begin{aligned}\n\\frac{x^2+2x-3}{x-1} &= \\frac{(x+3)(x-1)}{x-1} \\\\\n&= x+3\n\\end{aligned}$$\nCancelar es legítimo porque el límite mira los valores cercanos, nunca el punto exacto, y ahí ese factor no es cero.\n\nReemplazando en el cociente simplificado, $1+3=4$.\n\nSi tomás 0/0 como si valiera $0$, todas las indeterminaciones de esta forma tendrían el mismo resultado, y cada una tiene el suyo.",
     "reviewed": false
   },
   {
-    "question": "Los coeficientes del trinomio son todos positivos, pero el punto de tendencia no:\n$$\\lim_{x \\to -5} \\frac{x^2+8x+15}{x+5}$$\n¿Cuánto vale?",
+    "question": "Numerador y denominador se hacen cero a la vez, y la fracción deja de estar definida ahí. El límite igual tiene respuesta.\n$$\\lim_{x \\to -5} \\frac{x^2+8x+15}{x+5}$$\n¿Cuál es el valor del límite?",
     "options": [
       "$2$",
       "$-2$",
@@ -275,7 +275,7 @@
     "reviewed": false
   },
   {
-    "question": "El término independiente del trinomio es bastante más grande que los otros coeficientes:\n$$\\lim_{x \\to 6} \\frac{x^2-4x-12}{x-6}$$\n¿Cuál es su resultado?",
+    "question": "La función se rompe justo en el punto de tendencia. Lo que el límite mide es a qué número se acerca cuando $x$ ronda ese valor.\n$$\\lim_{x \\to 6} \\frac{x^2-4x-12}{x-6}$$\n¿Cuál es ese número?",
     "options": [
       "$-4$",
       "$4$",
@@ -300,7 +300,7 @@
     "reviewed": false
   },
   {
-    "question": "El denominador de esta fracción ya no es una resta simple, también es de segundo grado:\n$$\\lim_{x \\to 3} \\frac{x^2-9}{x^2-5x+6}$$\n¿Cuánto vale?",
+    "question": "Las dos partes de la fracción son de segundo grado y se anulan en el mismo punto. La función igual se acerca a un valor.\n$$\\lim_{x \\to 3} \\frac{x^2-9}{x^2-5x+6}$$\n¿A qué valor tiende?",
     "options": [
       "$1$",
       "$0$",
@@ -325,7 +325,7 @@
     "reviewed": false
   },
   {
-    "question": "Arriba y abajo hay polinomios de segundo grado, y los dos se anulan en el punto:\n$$\\lim_{x \\to 2} \\frac{x^2-4}{x^2-3x+2}$$\n¿Cuánto da?",
+    "question": "Numerador y denominador comparten el cero en $x=2$. La sustitución no decide nada, pero la función sí se acerca a un número.\n$$\\lim_{x \\to 2} \\frac{x^2-4}{x^2-3x+2}$$\n¿A qué número se acerca?",
     "options": [
       "$4$",
       "$1$",
@@ -350,7 +350,7 @@
     "reviewed": false
   },
   {
-    "question": "Los dos polinomios de la fracción comparten una raíz justo en el punto de tendencia:\n$$\\lim_{x \\to -2} \\frac{x^2-4}{x^2+5x+6}$$\n¿Cuál es su valor?",
+    "question": "Los dos polinomios se anulan en el punto de tendencia, así que reemplazar deja 0/0. El límite existe de todos modos.\n$$\\lim_{x \\to -2} \\frac{x^2-4}{x^2+5x+6}$$\n¿Cuánto vale ese límite?",
     "options": [
       "$1$",
       "$-4$",

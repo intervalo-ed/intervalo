@@ -186,3 +186,17 @@ Pasada de redacción para llevar los enunciados al estándar de las reglas 47-51
 En `LEXI.json` se reescribió la apertura del ejercicio que abría con "Considerá". Las aperturas se variaron ejercicio a ejercicio para no leerse como plantilla (regla 32).
 
 No hubo ningún cambio de contenido matemático: límites, opciones y respuestas correctas quedaron intactos.
+
+---
+
+## Auditoría ronda 7 (feedback de testeo 465, ago-2026)
+
+El feedback marcó que las aperturas de la unidad describían **dónde caen los símbolos en la hoja** (`"Arriba hay un trinomio y abajo una resta simple"`, `"La raíz ocupa el denominador"`) en vez de decir qué le pasa a la función o al límite. La ronda 6 había sacado el imperativo de cálculo (`"Calculá el límite:"`) y lo reemplazó por un inventario de la fórmula, y en esa sustitución se perdió el objeto. Sobre 225 ítems, 123 aperturas no nombraban límite, función ni tendencia, y 38 preguntas eran genéricas (`"¿Cuánto da?"`, `"¿Cuál es su resultado?"`).
+
+De ahí sale la **regla 59** de `authoring-context.md`: la apertura nombra el objeto y la tensión que genera el ejercicio (el camino directo falla y sin embargo hay respuesta), y si ya lo nombró, la pregunta puede señalarlo hacia atrás (`"¿Cuál es ese valor?"`) en vez de repetir la misma fórmula quince veces.
+
+En `RESL.json` se reescribieron 14 de los 15 enunciados. **El ítem 0 quedó intacto a propósito**: el feedback lo marcó como el único que introducía bien el concepto de límite, y es el patrón de referencia del archivo (`"su valor acompaña a $x$ sin sobresaltos"` describe comportamiento, no tipografía).
+
+En `LEXI.json` se corrigieron 6 aperturas. Una de ellas era un leak de fondo: el ítem 9 abría diciendo `"el resultado es una **indeterminación** $0/0$"` y la respuesta correcta era `"Que hay una indeterminación"`. La apertura ahora dice solo que numerador y denominador dan cero.
+
+La lista de trabajo salió del inventario de las 225 aperturas de la unidad, no del validador: estos enunciados ya pasaban 0/0 antes de la ronda. El defecto era semántico.

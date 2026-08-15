@@ -1,6 +1,6 @@
 [
   {
-    "question": "Arriba y abajo hay polinomios que crecen sin freno, y el resultado depende de cuál de los dos manda:\n$$\\lim_{x \\to +\\infty} \\frac{3x^2 + x}{x^2 - 5}$$\n¿Cuál es el valor del límite?",
+    "question": "En un cociente de polinomios, lo que le pasa a la función cuando $x$ se va al infinito depende de cuál crece más rápido.\n$$\\lim_{x \\to +\\infty} \\frac{3x^2 + x}{x^2 - 5}$$\n¿A qué tiende la función?",
     "options": [
       "$3$",
       "$1$",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "El crecimiento de arriba y el de abajo compiten mientras $x$ se va al infinito:\n$$\\lim_{x \\to +\\infty} \\frac{-2x^2 + 7x}{x^2 + 4}$$\n¿Cuál es el resultado del límite?",
+    "question": "Los dos polinomios de esta fracción crecen sin freno mientras $x$ se agranda, y el límite sale de compararlos.\n$$\\lim_{x \\to +\\infty} \\frac{-2x^2 + 7x}{x^2 + 4}$$\n¿Cuál es el resultado del límite?",
     "options": [
       "$2$",
       "$-2$",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "La variable se va al infinito por el lado negativo, y cada polinomio de la fracción crece a su propio ritmo:\n$$\\lim_{x \\to -\\infty} \\frac{5x + 1}{x^3 - 2x}$$\n¿A qué valor tiende el cociente?",
+    "question": "La variable se va al infinito por el lado negativo, y cada polinomio crece a su propio ritmo. El límite sale de esa comparación.\n$$\\lim_{x \\to -\\infty} \\frac{5x + 1}{x^3 - 2x}$$\n¿A qué valor tiende el cociente?",
     "options": [
       "$0$",
       "$5$",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "question": "Vale la pena mirar qué término de cada polinomio pesa más cuando $x$ se hace enorme:\n$$\\lim_{x \\to -\\infty} \\frac{4x^3 - x}{-2x^3 + 6}$$\n¿Cuál es el valor del límite?",
+    "question": "Con $x$ yéndose al infinito negativo no hay ningún punto donde evaluar. El límite describe la tendencia de fondo de la función.\n$$\\lim_{x \\to -\\infty} \\frac{4x^3 - x}{-2x^3 + 6}$$\n¿Cuál es el valor del límite?",
     "options": [
       "$-2$",
       "$2$",
@@ -100,7 +100,7 @@
     ]
   },
   {
-    "question": "Arriba y abajo el crecimiento no está parejo, y esa diferencia decide todo el resultado:\n$$\\lim_{x \\to +\\infty} \\frac{-3x + 2}{x^2 + 1}$$\n¿A qué número tiende esta fracción?",
+    "question": "En este límite el numerador y el denominador se agrandan a ritmos distintos mientras $x$ crece sin tope.\n$$\\lim_{x \\to +\\infty} \\frac{-3x + 2}{x^2 + 1}$$\n¿A qué número tiende la fracción?",
     "options": [
       "$0$",
       "$-3$",
@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "Los términos de mayor potencia son los que se imponen cuando $x$ se agranda sin tope:\n$$\\lim_{x \\to +\\infty} \\frac{x^4 - 6x^2}{-5x^4 + x}$$\n¿Cuál es el resultado del límite?",
+    "question": "Cuando $x$ se agranda sin tope, cada polinomio de este límite queda dominado por su término de mayor potencia.\n$$\\lim_{x \\to +\\infty} \\frac{x^4 - 6x^2}{-5x^4 + x}$$\n¿Qué valor toma el límite?",
     "options": [
       "$\\frac{1}{5}$",
       "$-\\frac{1}{5}$",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "Con $x$ creciendo sin tope, conviene ver cómo queda la carrera entre numerador y denominador:\n$$\\lim_{x \\to +\\infty} \\frac{2x^3 - 5x}{x + 1}$$\n¿Cuál es el valor del límite?",
+    "question": "Con $x$ creciendo sin tope, numerador y denominador corren una carrera, y el límite dice cómo termina.\n$$\\lim_{x \\to +\\infty} \\frac{2x^3 - 5x}{x + 1}$$\n¿Qué valor toma el límite?",
     "options": [
       "$-\\infty$",
       "$2$",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "Con $x$ yéndose hacia el extremo negativo del eje, el signo del resultado no se puede dar por sentado:\n$$\\lim_{x \\to -\\infty} \\frac{x^4 - 3x}{x + 2}$$\n¿A qué tiende el cociente?",
+    "question": "Con $x$ yéndose hacia el extremo negativo del eje, el signo del resultado no se puede dar por sentado. El límite lo decide.\n$$\\lim_{x \\to -\\infty} \\frac{x^4 - 3x}{x + 2}$$\n¿A qué tiende el cociente?",
     "options": [
       "$+\\infty$",
       "$1$",
@@ -200,7 +200,7 @@
     ]
   },
   {
-    "question": "Conviene mirar juntos el tamaño y el signo de cada polinomio antes de decidir:\n$$\\lim_{x \\to +\\infty} \\frac{-x^3 + x}{x^2 - 4}$$\n¿Cuál es el resultado del límite?",
+    "question": "En este límite el tamaño de cada polinomio y su signo mandan juntos sobre lo que hace la función a lo lejos.\n$$\\lim_{x \\to +\\infty} \\frac{-x^3 + x}{x^2 - 4}$$\n¿Cuál es el resultado del límite?",
     "options": [
       "$-\\infty$",
       "$+\\infty$",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "El denominador se anula exactamente en el punto de tendencia, así que el lado del acercamiento manda:\n$$\\lim_{x \\to 2^+} \\frac{1}{x - 2}$$\n¿Cuál es el valor del límite?",
+    "question": "El denominador se anula exactamente en el punto de tendencia, y $x$ llega a ese punto por un solo lado.\n$$\\lim_{x \\to 2^+} \\frac{1}{x - 2}$$\n¿A qué tiende la función?",
     "options": [
       "$-\\infty$",
       "$+\\infty$",
@@ -250,7 +250,7 @@
     ]
   },
   {
-    "question": "Un denominador que se achica hacia cero hace crecer el cociente sin cota, y falta decidir para qué lado:\n$$\\lim_{x \\to 2^-} \\frac{1}{x - 2}$$\n¿Cuál es el valor del límite?",
+    "question": "En este límite el denominador se achica hacia cero, y el lado por el que $x$ llega al punto decide el resto.\n$$\\lim_{x \\to 2^-} \\frac{1}{x - 2}$$\n¿Cuál es el valor del límite?",
     "options": [
       "$+\\infty$",
       "$0$",
@@ -275,7 +275,7 @@
     ]
   },
   {
-    "question": "Dos cosas deciden el signo del resultado, el numerador constante y el lado por el que llega $x$:\n$$\\lim_{x \\to 2^+} \\frac{-3}{x - 2}$$\n¿Hacia dónde diverge el cociente?",
+    "question": "El numerador de este límite es una constante negativa, y el denominador se anula en el punto al que llega $x$.\n$$\\lim_{x \\to 2^+} \\frac{-3}{x - 2}$$\n¿A qué tiende el cociente?",
     "options": [
       "$+\\infty$",
       "$0$",
@@ -300,7 +300,7 @@
     ]
   },
   {
-    "question": "Numerador y denominador aportan cada uno su propio signo, y el resultado sale de cruzarlos:\n$$\\lim_{x \\to 2^-} \\frac{-3}{x - 2}$$\n¿Cuál es el valor del límite?",
+    "question": "El signo del numerador y el lado por el que llega $x$ se combinan para decidir qué hace la función cerca del punto.\n$$\\lim_{x \\to 2^-} \\frac{-3}{x - 2}$$\n¿Cuál es el resultado del límite?",
     "options": [
       "$+\\infty$",
       "$-\\infty$",
@@ -325,7 +325,7 @@
     ]
   },
   {
-    "question": "Conviene leer con cuidado cómo está escrita la tendencia debajo del símbolo de límite:\n$$\\lim_{x \\to 3} \\frac{2}{x - 3}$$\n¿Qué ocurre con el límite en ese punto?",
+    "question": "Debajo del símbolo de límite la tendencia está escrita sin indicar ningún lado, y eso cambia la pregunta.\n$$\\lim_{x \\to 3} \\frac{2}{x - 3}$$\n¿Qué ocurre con el límite en ese punto?",
     "options": [
       "$+\\infty$",
       "No existe",
@@ -350,7 +350,7 @@
     ]
   },
   {
-    "question": "Conviene mirar con atención cómo está escrito el denominador antes de decidir el signo:\n$$\\lim_{x \\to 1^+} \\frac{5}{1 - x}$$\n¿Cuál es el valor del límite?",
+    "question": "En este límite el denominador tiene la variable restando, no sumando, y se anula justo en el punto de tendencia.\n$$\\lim_{x \\to 1^+} \\frac{5}{1 - x}$$\n¿Cuál es el resultado del límite?",
     "options": [
       "$+\\infty$",
       "$5$",

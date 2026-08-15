@@ -1,6 +1,6 @@
 [
   {
-    "question": "Antes de calcular un límite, conviene reconocer el caso de **factorización** que corresponde. Considerá la expresión:\n$$x^2 - 25$$\n¿Qué caso de factoreo corresponde a esta expresión?",
+    "question": "En el camino de un límite aparece esta expresión, y hay que escribirla como producto para poder cancelar.\n$$x^2 - 25$$\n¿Qué caso de factoreo le corresponde?",
     "options": [
       "Trinomio cuadrado perfecto",
       "Diferencia de cuadrados",
@@ -23,7 +23,7 @@
     "reviewed": false
   },
   {
-    "question": "Antes de factorizar conviene mirar cuántos términos hay y con qué signos:\n$$x^2 + 25$$\n¿Qué caso de factoreo corresponde a esta expresión dentro de los números reales?",
+    "question": "Para avanzar en un límite hay que factorizar esta expresión, y no todas se dejan.\n$$x^2 + 25$$\n¿Qué caso de factoreo corresponde a esta expresión dentro de los números reales?",
     "options": [
       "Diferencia de cuadrados",
       "Trinomio general",
@@ -46,7 +46,7 @@
     "reviewed": false
   },
   {
-    "question": "Un enunciado presenta la expresión:\n$$x^2 + 8x + 16$$\n¿Qué caso de factoreo corresponde a esta expresión?",
+    "question": "Este trinomio aparece en el numerador de un límite que hay que factorizar para avanzar.\n$$x^2 + 8x + 16$$\n¿A qué caso de factoreo responde?",
     "options": [
       "Trinomio cuadrado perfecto",
       "Diferencia de cuadrados",
@@ -69,7 +69,7 @@
     "reviewed": false
   },
   {
-    "question": "Reconocer el caso de factoreo empieza por comparar los términos entre sí:\n$$3x^2 + 9x$$\n¿Qué caso de factoreo corresponde a esta expresión?",
+    "question": "Al resolver un límite aparece esta expresión, y antes de operar con ella hay que ver si se puede escribir como producto.\n$$3x^2 + 9x$$\n¿Qué caso de factoreo le corresponde, si es que hay alguno?",
     "options": [
       "Trinomio general",
       "Factor común",
@@ -82,9 +82,9 @@
     "has_math": true,
     "feedback_correct": "Correcto, $3x$ es el máximo factor que comparten ambos términos.",
     "feedback_incorrect": [
-      "Un trinomio general tiene tres términos con exponentes decrecientes, y esta expresión tiene solo dos términos.",
+      "Un trinomio general tiene tres términos, y esta expresión tiene dos.",
       null,
-      "Que el máximo común divisor sea distinto de $1$ no impide factorizar: $3x$ sale como factor común de ambos términos."
+      "Sí factoriza, los dos términos comparten un factor que se puede sacar afuera."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -92,7 +92,7 @@
     "reviewed": false
   },
   {
-    "question": "Los coeficientes de un trinomio guardan la información de sus dos factores:\n$$x^2 + 7x + 6$$\n¿Cuál es su **factorización** correcta como trinomio?",
+    "question": "Este trinomio aparece en un límite y hay que partirlo en dos factores para poder cancelar.\n$$x^2 + 7x + 6$$\n¿Cuál es su **factorización** correcta como trinomio?",
     "options": [
       "$(x+2)(x+3)$",
       "$(x-1)(x-6)$",
@@ -115,7 +115,7 @@
     "reviewed": false
   },
   {
-    "question": "En un límite se sustituye $x=4$ y tanto el numerador como el denominador dan $0$, según el **teorema del factor**.\n\n¿Qué factor debe aparecer necesariamente en ambos?",
+    "question": "En un límite se sustituye $x=4$ y numerador y denominador dan $0$. El **teorema del factor** dice qué se deduce de ahí.\n\n¿Qué factor debe aparecer en los dos?",
     "options": [
       "$(x-4)$",
       "$(x+4)$",
@@ -138,7 +138,7 @@
     "reviewed": false
   },
   {
-    "question": "En un límite con tendencia $x \\to -2$, la sustitución directa da 0/0, según el **teorema del factor**.\n\n¿Qué factor debe aparecer necesariamente en el numerador y en el denominador?",
+    "question": "En un límite con tendencia $x \\to -2$ la sustitución directa deja 0/0, y el **teorema del factor** explica por qué.\n\n¿Qué factor aparece en el numerador y en el denominador?",
     "options": [
       "$(x-2)$",
       "$(x+2)$",
@@ -161,7 +161,7 @@
     "reviewed": false
   },
   {
-    "question": "En un límite con tendencia $x \\to 0$, el numerador y el denominador se anulan al sustituir, según el **teorema del factor**.\n\n¿Qué factor debe aparecer necesariamente en ambos?",
+    "question": "En un límite con tendencia $x \\to 0$, numerador y denominador se anulan al sustituir. El **teorema del factor** lo justifica.\n\n¿Qué factor comparten los dos?",
     "options": [
       "$(x-1)$",
       "$(x+1)$",

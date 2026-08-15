@@ -186,3 +186,19 @@ Pasada de redacción para llevar los enunciados al estándar de las reglas 47-51
 En `LEXI.json` se reescribieron 4 enunciados: 3 que abrían con "Considerá" y uno que arrancaba directo con `¿`. En `RESL.json` se verticalizaron además 3 bloques `aligned` cuya primera fila juntaba el planteo y su desarrollo completo (regla 38): el límite original queda solo en su fila, con `&` propio y sin `=`.
 
 No hubo ningún cambio de contenido matemático: límites, factorizaciones, opciones y respuestas correctas quedaron intactos.
+
+---
+
+## Auditoría ronda 7 (feedback de testeo 465, ago-2026)
+
+El feedback marcó que las aperturas de la unidad describían **dónde caen los símbolos en la hoja** (`"Arriba hay un trinomio y abajo una resta simple"`, `"La raíz ocupa el denominador"`) en vez de decir qué le pasa a la función o al límite. La ronda 6 había sacado el imperativo de cálculo (`"Calculá el límite:"`) y lo reemplazó por un inventario de la fórmula, y en esa sustitución se perdió el objeto. Sobre 225 ítems, 123 aperturas no nombraban límite, función ni tendencia, y 38 preguntas eran genéricas (`"¿Cuánto da?"`, `"¿Cuál es su resultado?"`).
+
+De ahí sale la **regla 59** de `authoring-context.md`: la apertura nombra el objeto y la tensión que genera el ejercicio (el camino directo falla y sin embargo hay respuesta), y si ya lo nombró, la pregunta puede señalarlo hacia atrás (`"¿Cuál es ese valor?"`) en vez de repetir la misma fórmula quince veces.
+
+En `RESL.json` se reescribieron los 15 enunciados. La apertura pasa a nombrar que la sustitución falla **y que el límite existe igual**, que es la tensión que el feedback pedía y la que avisa que hay que transformar la expresión sin delatar que el camino es factorizar.
+
+**Cambio de contenido matemático en el ítem 9.** Era $\lim_{x \to 1}\frac{x^2-2x+1}{x-1}$, con respuesta $0$: el alumno que concluye mal que "0/0 vale 0" llegaba al mismo número que el que factoriza bien, así que el ítem no distinguía a nadie. Pasa a $\lim_{x \to 1}\frac{x^2+2x-3}{x-1}$, con respuesta $4$, y el $0$ queda como distractor con su propio `feedback_incorrect`. Todo cociente de la forma $(x-a)^k/(x-a)$ da $0$, así que no había manera de conservar el trinomio cuadrado perfecto y romper la coincidencia a la vez.
+
+En `LEXI.json`, el ítem 3 decía `"Reconocer **el** caso de factoreo"` teniendo `No factoriza en R` entre las opciones: el artículo determinado daba por hecho que factorizaba. Ahora la pregunta cierra con `"si es que hay alguno"`. La misma apertura además nombraba la técnica del caso correcto (`"empieza por comparar los términos entre sí"` es exactamente el factor común).
+
+La lista de trabajo salió del inventario de las 225 aperturas de la unidad, no del validador: estos enunciados ya pasaban 0/0 antes de la ronda. El defecto era semántico.

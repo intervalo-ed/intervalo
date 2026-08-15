@@ -244,3 +244,17 @@ Pasada de redacción para llevar los enunciados al estándar de las reglas 47-51
 Se reescribieron las aperturas de `CLSF.json` (4 ejercicios que abrían con "Considerá", pasando además la función a su propio bloque display) y de `RESL.json` (8 ejercicios: 3 con imperativo de atención vacío y 5 con imperativo de cálculo).
 
 No hubo ningún cambio de contenido matemático: funciones, puntos de quiebre, opciones y respuestas correctas quedaron intactas.
+
+---
+
+## Auditoría ronda 7 (feedback de testeo 465, ago-2026)
+
+El feedback marcó que las aperturas de la unidad describían **dónde caen los símbolos en la hoja** (`"Arriba hay un trinomio y abajo una resta simple"`, `"La raíz ocupa el denominador"`) en vez de decir qué le pasa a la función o al límite. La ronda 6 había sacado el imperativo de cálculo (`"Calculá el límite:"`) y lo reemplazó por un inventario de la fórmula, y en esa sustitución se perdió el objeto. Sobre 225 ítems, 123 aperturas no nombraban límite, función ni tendencia, y 38 preguntas eran genéricas (`"¿Cuánto da?"`, `"¿Cuál es su resultado?"`).
+
+De ahí sale la **regla 59** de `authoring-context.md`: la apertura nombra el objeto y la tensión que genera el ejercicio (el camino directo falla y sin embargo hay respuesta), y si ya lo nombró, la pregunta puede señalarlo hacia atrás (`"¿Cuál es ese valor?"`) en vez de repetir la misma fórmula quince veces.
+
+Pasada de aperturas en `CLSF.json`, `GRAF.json` y `RESL.json`: las que describían la fórmula (`"Una fracción obliga a mirar el denominador"`) o daban consejo de método pasan a nombrar la función. Se corrigió además el uso de "curva" para gráficos que son rectas o una V.
+
+Sin cambios de contenido matemático en este topic.
+
+La lista de trabajo salió del inventario de las 225 aperturas de la unidad, no del validador: estos enunciados ya pasaban 0/0 antes de la ronda. El defecto era semántico.

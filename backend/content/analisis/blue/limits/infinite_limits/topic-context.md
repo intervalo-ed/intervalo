@@ -236,3 +236,17 @@ Pasada de redacción para llevar los enunciados al estándar de las reglas 47-51
 En `LEXI.json` se reescribieron 3 enunciados: dos que arrancaban directo con `¿` y uno que abría con "Analiza" sin voseo. En `RESL.json` se verticalizaron 8 bloques `aligned` cuya primera fila juntaba el planteo y su desarrollo completo (regla 38).
 
 No hubo ningún cambio de contenido matemático: límites, opciones y respuestas correctas quedaron intactos.
+
+---
+
+## Auditoría ronda 7 (feedback de testeo 465, ago-2026)
+
+El feedback marcó que las aperturas de la unidad describían **dónde caen los símbolos en la hoja** (`"Arriba hay un trinomio y abajo una resta simple"`, `"La raíz ocupa el denominador"`) en vez de decir qué le pasa a la función o al límite. La ronda 6 había sacado el imperativo de cálculo (`"Calculá el límite:"`) y lo reemplazó por un inventario de la fórmula, y en esa sustitución se perdió el objeto. Sobre 225 ítems, 123 aperturas no nombraban límite, función ni tendencia, y 38 preguntas eran genéricas (`"¿Cuánto da?"`, `"¿Cuál es su resultado?"`).
+
+De ahí sale la **regla 59** de `authoring-context.md`: la apertura nombra el objeto y la tensión que genera el ejercicio (el camino directo falla y sin embargo hay respuesta), y si ya lo nombró, la pregunta puede señalarlo hacia atrás (`"¿Cuál es ese valor?"`) en vez de repetir la misma fórmula quince veces.
+
+En `RESL.json` se reescribieron los 15 enunciados. El feedback marcó dos ítems donde la apertura no mencionaba ni la palabra límite ni la palabra función.
+
+**`LEXI.json` ítem 1 estaba roto**: terminaba en `"Cuando $x \to 0^+$?"`, sin signo de apertura y sin pregunta real. Ahora pregunta `"¿Qué hace el cociente?"`.
+
+La lista de trabajo salió del inventario de las 225 aperturas de la unidad, no del validador: estos enunciados ya pasaban 0/0 antes de la ronda. El defecto era semántico.

@@ -300,7 +300,7 @@
     ]
   },
   {
-    "question": "El numerador de esta expresión lleva **valor absoluto** y el denominador no:\n$$f(x) = \\frac{|x|}{x}$$\n¿Cuánto vale $\\lim_{x \\to 0^-} f(x)$?",
+    "question": "En esta función el numerador lleva **valor absoluto** y el denominador no:\n$$f(x) = \\frac{|x|}{x}$$\n¿Cuánto vale $\\lim_{x \\to 0^-} f(x)$?",
     "options": [
       "$1$",
       "$0$",
@@ -325,7 +325,7 @@
     ]
   },
   {
-    "question": "El interior del **valor absoluto** y el denominador son la misma expresión, con $c \\neq 0$ fijo:\n$$f(x) = \\frac{|x - c|}{x - c}$$\n¿Cuánto vale $\\lim_{x \\to c^+} f(x)$?",
+    "question": "En esta función el interior del **valor absoluto** y el denominador coinciden, con $c \\neq 0$ fijo:\n$$f(x) = \\frac{|x - c|}{x - c}$$\n¿Cuánto vale $\\lim_{x \\to c^+} f(x)$?",
     "options": [
       "$0$",
       "$1$",

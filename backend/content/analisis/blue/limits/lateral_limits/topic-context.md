@@ -226,3 +226,19 @@ Pasada de redacción para llevar los enunciados al estándar de las reglas 47-51
 Las aperturas nuevas se variaron entre sí para no repetir plantilla (regla 32), cuidando también no aumentar la frecuencia de las aperturas ya existentes en el archivo.
 
 No hubo ningún cambio de contenido matemático: ramas, puntos de quiebre, opciones y respuestas correctas quedaron intactos.
+
+---
+
+## Auditoría ronda 7 (feedback de testeo 465, ago-2026)
+
+El feedback marcó que las aperturas de la unidad describían **dónde caen los símbolos en la hoja** (`"Arriba hay un trinomio y abajo una resta simple"`, `"La raíz ocupa el denominador"`) en vez de decir qué le pasa a la función o al límite. La ronda 6 había sacado el imperativo de cálculo (`"Calculá el límite:"`) y lo reemplazó por un inventario de la fórmula, y en esa sustitución se perdió el objeto. Sobre 225 ítems, 123 aperturas no nombraban límite, función ni tendencia, y 38 preguntas eran genéricas (`"¿Cuánto da?"`, `"¿Cuál es su resultado?"`).
+
+De ahí sale la **regla 59** de `authoring-context.md`: la apertura nombra el objeto y la tensión que genera el ejercicio (el camino directo falla y sin embargo hay respuesta), y si ya lo nombró, la pregunta puede señalarlo hacia atrás (`"¿Cuál es ese valor?"`) en vez de repetir la misma fórmula quince veces.
+
+Pasada de aperturas en `GRAF.json` y `RESL.json` para que nombren la función.
+
+**`GRAF.json` ítem 1 abría con `"En la misma gráfica"`**, referenciando al ítem anterior. El repaso sirve los ejercicios sueltos y en orden aleatorio, así que ese enunciado arrancaba en el aire (regla crítica 24). Ahora describe su propio gráfico.
+
+**`GRAF.json` ítem 13**: las tres ramas tenían pendientes $1$, $1$ y $2$, y el feedback pidió que fueran todas iguales manteniendo las discontinuidades. La tercera rama pasa de `2*x` a `x + 1`: los saltos en $x=0$ y en $x=3$ siguen ahí y los laterales siguen valiendo $5$ y $8$.
+
+La lista de trabajo salió del inventario de las 225 aperturas de la unidad, no del validador: estos enunciados ya pasaban 0/0 antes de la ronda. El defecto era semántico.

@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "El punto donde la definición cambia de rama es el único candidato a dar problema:\n$$f(x) = \\begin{cases} x + 4, & x < 2 \\\\ 3x - 1, & x \\geq 2 \\end{cases}$$\n¿Cómo se clasifica $f$ en $x=2$?",
+    "question": "Esta función cambia de fórmula en un punto, y ahí es donde puede fallar la continuidad:\n$$f(x) = \\begin{cases} x + 4, & x < 2 \\\\ 3x - 1, & x \\geq 2 \\end{cases}$$\n¿Cómo se clasifica $f$ en $x=2$?",
     "options": [
       "Continua",
       "De salto",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "El valor de $k$ queda sin fijar en la rama que gobierna a la izquierda del punto de cambio:\n$$f(x) = \\begin{cases} kx - 2, & x < 4 \\\\ 3x + 2, & x \\geq 4 \\end{cases}$$\n¿Qué valor de $k$ hace que la función resulte **continua** en $x=4$?",
+    "question": "En esta función el valor de $k$ queda sin fijar en la rama que manda a la izquierda:\n$$f(x) = \\begin{cases} kx - 2, & x < 4 \\\\ 3x + 2, & x \\geq 4 \\end{cases}$$\n¿Qué valor de $k$ hace que la función resulte **continua** en $x=4$?",
     "options": [
       "$k = 3$",
       "$k = 3{,}5$",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "El parámetro aparece en la rama que manda desde el punto de cambio hacia la derecha:\n$$f(x) = \\begin{cases} x^2 + 1, & x < 1 \\\\ kx + 3, & x \\geq 1 \\end{cases}$$\n¿Qué valor de $k$ hace **continua** la función en $x=1$?",
+    "question": "En esta función el parámetro aparece en la rama que gobierna hacia la derecha:\n$$f(x) = \\begin{cases} x^2 + 1, & x < 1 \\\\ kx + 3, & x \\geq 1 \\end{cases}$$\n¿Qué valor de $k$ hace **continua** la función en $x=1$?",
     "options": [
       "$k = -1$",
       "$k = 1$",
@@ -200,7 +200,7 @@
     ]
   },
   {
-    "question": "El punto donde cambia la definición cae sobre la parte negativa del eje:\n$$f(x) = \\begin{cases} kx - 1, & x < -1 \\\\ x^2 + 3, & x \\geq -1 \\end{cases}$$\n¿Qué valor de $k$ hace que la función sea **continua** en $x=-1$?",
+    "question": "Esta función cambia de definición en un punto negativo del eje:\n$$f(x) = \\begin{cases} kx - 1, & x < -1 \\\\ x^2 + 3, & x \\geq -1 \\end{cases}$$\n¿Qué valor de $k$ hace que la función sea **continua** en $x=-1$?",
     "options": [
       "$k = 5$",
       "$k = -3$",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "El parámetro entra como término independiente de la primera rama, no como coeficiente:\n$$f(x) = \\begin{cases} 5x + k, & x < 2 \\\\ x^2 + x, & x \\geq 2 \\end{cases}$$\n¿Qué valor de $k$ hace que la función sea **continua** en $x=2$?",
+    "question": "En esta función el parámetro entra como término independiente, no como coeficiente:\n$$f(x) = \\begin{cases} 5x + k, & x < 2 \\\\ x^2 + x, & x \\geq 2 \\end{cases}$$\n¿Qué valor de $k$ hace que la función sea **continua** en $x=2$?",
     "options": [
       "$k = 4$",
       "$k = -10$",
@@ -250,7 +250,7 @@
     ]
   },
   {
-    "question": "Las dos ramas son rectas, y solo una de ellas tiene su pendiente sin definir:\n$$f(x) = \\begin{cases} kx + 7, & x < 1 \\\\ 4x + 5, & x \\geq 1 \\end{cases}$$\n¿Qué valor de $k$ hace **continua** a la función en $x=1$?",
+    "question": "Las dos ramas de esta función son rectas, y solo una tiene su pendiente sin definir:\n$$f(x) = \\begin{cases} kx + 7, & x < 1 \\\\ 4x + 5, & x \\geq 1 \\end{cases}$$\n¿Qué valor de $k$ hace **continua** a la función en $x=1$?",
     "options": [
       "$k = 2$",
       "$k = 9$",
@@ -275,7 +275,7 @@
     ]
   },
   {
-    "question": "Buscá el valor de $k$ en la **función a trozos**:\n$$f(x) = \\begin{cases} x^2 - 2, & x < 2 \\\\ kx + 1, & x \\geq 2 \\end{cases}$$\n¿Qué valor de $k$ hace que la función sea **continua** en $x=2$?",
+    "question": "Esta **función a trozos** trae un parámetro $k$ todavía sin valor fijo:\n$$f(x) = \\begin{cases} x^2 - 2, & x < 2 \\\\ kx + 1, & x \\geq 2 \\end{cases}$$\n¿Qué valor de $k$ hace que la función sea **continua** en $x=2$?",
     "options": [
       "$k = 1$",
       "$k = 0{,}5$",

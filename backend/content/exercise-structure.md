@@ -245,6 +245,13 @@ Estas valen en `question`, `options`, `feedback_*` y `explanation` por igual:
   original va centrada en el enunciado aunque no haga falta para resolver. El
   enunciado y las opciones son todo el contexto que el estudiante tiene.
   Prohibida la apertura deíctica `"Acá..."`. (R58)
+- **La apertura describe comportamiento, no tipografía**: nombra el objeto y
+  qué le pasa (el límite, la función, a qué se acerca), no dónde caen los
+  símbolos (`arriba`, `abajo`, `ocupa el denominador`). Dice qué está en juego
+  — el camino directo falla y sin embargo hay respuesta — y recién ahí viene la
+  fórmula. Si la apertura ya nombró el objeto, la pregunta puede señalarlo
+  hacia atrás (`"¿Cuál es ese valor?"`). Prohibidas las preguntas genéricas
+  `"¿Cuánto da?"` / `"¿Cuál es su resultado?"`. (R59)
 
 ---
 

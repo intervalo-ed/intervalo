@@ -30,7 +30,7 @@
     ]
   },
   {
-    "question": "La gráfica muestra dos ramas que no se encuentran a la misma altura.\n\n¿En qué valor de $x$ la función NO es continua?",
+    "question": "La gráfica de una función muestra dos ramas que no se encuentran a la misma altura.\n\n¿En qué valor de $x$ la función NO es continua?",
     "options": [
       "$x = -2$",
       "$x = 0$",
@@ -60,7 +60,7 @@
     ]
   },
   {
-    "question": "La curva se dispara hacia arriba y hacia abajo cerca de un valor de $x$, sin tocarlo nunca.\n\n¿En qué valor de $x$ la función NO es continua?",
+    "question": "La gráfica de una función se dispara hacia arriba y hacia abajo cerca de un valor de $x$, sin tocarlo.\n\n¿En qué valor de $x$ la función NO es continua?",
     "options": [
       "$x = 0$",
       "$x = -1$",
@@ -90,7 +90,7 @@
     ]
   },
   {
-    "question": "La gráfica tiene forma de V con un vértice marcado, y además un hueco en otro punto de la curva.\n\n¿En qué valor de $x$ la función NO es continua?",
+    "question": "La gráfica de una función tiene forma de V con un vértice marcado, y un hueco en otro punto.\n\n¿En qué valor de $x$ la función NO es continua?",
     "options": [
       "$x = -1$",
       "$x = 0$",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "Dos ramas de la gráfica se cortan bruscamente en un valor negativo de $x$.\n\n¿En qué valor de $x$ la función NO es continua?",
+    "question": "Dos ramas de la gráfica de una función se cortan bruscamente en un valor negativo de $x$.\n\n¿En qué valor de $x$ la función NO es continua?",
     "options": [
       "$x = -2$",
       "$x = -4$",
@@ -210,7 +210,7 @@
     ]
   },
   {
-    "question": "La curva se acerca cada vez más a una vertical sin cruzarla nunca, cerca de un valor negativo de $x$.\n\n¿En qué valor de $x$ la función NO es continua?",
+    "question": "La gráfica de una función se acerca cada vez más a una vertical sin cruzarla nunca.\n\n¿En qué valor de $x$ la función NO es continua?",
     "options": [
       "$x = -3$",
       "$x = -2$",
@@ -268,7 +268,7 @@
     ]
   },
   {
-    "question": "En $x=1$ hay un círculo abierto sobre la curva y, además, un punto cerrado marcado a otra altura distinta.\n\n¿Qué tipo de discontinuidad hay en $x=1$?",
+    "question": "En $x=1$ la gráfica de una función tiene un círculo abierto y un punto cerrado a otra altura.\n\n¿Qué tipo de discontinuidad hay en $x=1$?",
     "options": [
       "Esencial",
       "Removible",
@@ -324,7 +324,7 @@
     ]
   },
   {
-    "question": "La curva se dispara hacia $+\\infty$ de un lado y hacia $-\\infty$ del otro, cerca de un mismo punto.\n\n¿Qué tipo de discontinuidad hay en $x=0$?",
+    "question": "La gráfica de una función se dispara hacia $+\\infty$ de un lado y hacia $-\\infty$ del otro.\n\n¿Qué tipo de discontinuidad hay en $x=0$?",
     "options": [
       "De salto",
       "Esencial",
@@ -352,7 +352,7 @@
     ]
   },
   {
-    "question": "La curva tiene forma de V con el vértice exactamente en $x=-2$, sin ningún hueco ni salto visible.\n\n¿Qué tipo de discontinuidad hay en $x=-2$?",
+    "question": "La gráfica de una función tiene forma de V con el vértice en $x=-2$, sin huecos ni saltos.\n\n¿Qué tipo de discontinuidad hay en $x=-2$?",
     "options": [
       "Removible",
       "De salto",
@@ -408,7 +408,7 @@
     ]
   },
   {
-    "question": "Cerca de $x=1$ la curva se dispara hacia $+\\infty$ desde ambos lados, sin tocar la vertical.\n\n¿Qué tipo de discontinuidad hay en $x=1$?",
+    "question": "Cerca de $x=1$ la gráfica de una función se dispara hacia $+\\infty$ desde ambos lados.\n\n¿Qué tipo de discontinuidad hay en $x=1$?",
     "options": [
       "De salto",
       "Esencial",

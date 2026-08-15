@@ -1,6 +1,6 @@
 [
   {
-    "question": "En la gráfica se muestra una **función a trozos** con un quiebre en $x=1$.\n\n¿Cuánto vale $\\lim_{x \\to 1^-} f(x)$?",
+    "question": "La gráfica de una **función a trozos** tiene un quiebre en $x=1$.\n\n¿Cuánto vale $\\lim_{x \\to 1^-} f(x)$?",
     "options": [
       "$2$",
       "$5$",
@@ -30,7 +30,7 @@
     ]
   },
   {
-    "question": "En la misma gráfica, con el quiebre en $x=1$.\n\n¿Cuánto vale $\\lim_{x \\to 1^+} f(x)$?",
+    "question": "Una **función a trozos** tiene su quiebre en $x=1$, como muestra la gráfica.\n\n¿Cuánto vale $\\lim_{x \\to 1^+} f(x)$?",
     "options": [
       "$2$",
       "$5$",
@@ -60,7 +60,7 @@
     ]
   },
   {
-    "question": "En la gráfica se muestra un **salto** en $x=2$.\n\n¿Cuánto vale $\\lim_{x \\to 2^-} f(x)$?",
+    "question": "La gráfica de una función muestra un **salto** en $x=2$.\n\n¿Cuánto vale $\\lim_{x \\to 2^-} f(x)$?",
     "options": [
       "$7$",
       "$4$",
@@ -90,7 +90,7 @@
     ]
   },
   {
-    "question": "La gráfica marca un **hueco** en $x=3$ con un punto abierto, y un punto cerrado a otra altura en el mismo $x=3$.\n\n¿Cuánto vale $\\lim_{x \\to 3^+} f(x)$?",
+    "question": "La gráfica de una función marca un **hueco** en $x=3$, y un punto cerrado a otra altura en ese mismo $x$.\n\n¿Cuánto vale $\\lim_{x \\to 3^+} f(x)$?",
     "options": [
       "$9$",
       "No existe",
@@ -120,7 +120,7 @@
     ]
   },
   {
-    "question": "La gráfica tiene forma de V, típica de una expresión con **valor absoluto**, con el vértice en $x=2$.\n\n¿Cuánto vale $\\lim_{x \\to 2^-} f(x)$?",
+    "question": "La gráfica de una función tiene forma de V, típica del **valor absoluto**, con el vértice en $x=2$.\n\n¿Cuánto vale $\\lim_{x \\to 2^-} f(x)$?",
     "options": [
       "$0$",
       "$2$",
@@ -180,7 +180,7 @@
     ]
   },
   {
-    "question": "La gráfica muestra un **salto** en $x=0$.\n\n¿Existe $\\lim_{x \\to 0} f(x)$?",
+    "question": "La gráfica de una función muestra un **salto** en $x=0$.\n\n¿Existe $\\lim_{x \\to 0} f(x)$?",
     "options": [
       "Sí",
       "No",
@@ -208,7 +208,7 @@
     ]
   },
   {
-    "question": "La gráfica muestra una parábola continua, sin ningún quiebre visible.\n\n¿Existe $\\lim_{x \\to 1} f(x)$?",
+    "question": "La gráfica de una función es una parábola continua, sin ningún quiebre visible.\n\n¿Existe $\\lim_{x \\to 1} f(x)$?",
     "options": [
       "Sí",
       "No",
@@ -236,7 +236,7 @@
     ]
   },
   {
-    "question": "La gráfica muestra un **hueco** en $x=1$, pero ambas ramas se acercan a la misma altura desde los dos lados.\n\n¿Existe $\\lim_{x \\to 1} f(x)$?",
+    "question": "La gráfica de una función muestra un **hueco** en $x=1$, con las dos ramas llegando a la misma altura.\n\n¿Existe $\\lim_{x \\to 1} f(x)$?",
     "options": [
       "No",
       "No se puede determinar",
@@ -264,7 +264,7 @@
     ]
   },
   {
-    "question": "La gráfica combina un **hueco** en $x=2$ con un **salto**: las dos ramas no llegan a la misma altura.\n\n¿Existe $\\lim_{x \\to 2} f(x)$?",
+    "question": "La gráfica de una función combina un **hueco** en $x=2$ con un **salto** entre sus dos ramas.\n\n¿Existe $\\lim_{x \\to 2} f(x)$?",
     "options": [
       "No se puede determinar",
       "No",
@@ -292,7 +292,7 @@
     ]
   },
   {
-    "question": "La gráfica marca dos puntos: uno en $x=-1$, dentro de un tramo sin interrupciones, y otro en $x=2$, donde hay un **salto**.\n\n¿En cuál de los dos puntos existe el límite bilateral?",
+    "question": "La gráfica de una función marca dos puntos, uno en $x=-1$, en un tramo liso, y otro en $x=2$, donde salta.\n\n¿En cuál de los dos puntos existe el límite bilateral?",
     "options": [
       "Solo en $x=-1$",
       "Solo en $x=2$",
@@ -320,7 +320,7 @@
     ]
   },
   {
-    "question": "En la gráfica, en $x=2$ se observa un **salto**.\n\n¿Cuánto vale $\\lim_{x \\to 2^+} f(x) - \\lim_{x \\to 2^-} f(x)$?",
+    "question": "En la gráfica de una función, en $x=2$ se observa un **salto**.\n\n¿Cuánto vale $\\lim_{x \\to 2^+} f(x) - \\lim_{x \\to 2^-} f(x)$?",
     "options": [
       "$3$",
       "$6$",
@@ -350,7 +350,7 @@
     ]
   },
   {
-    "question": "En la gráfica, en $x=1$ se observa un **salto**.\n\n¿Cuánto vale $\\lim_{x \\to 1^-} f(x) - \\lim_{x \\to 1^+} f(x)$?",
+    "question": "En la gráfica de una función, en $x=1$ se observa un **salto**.\n\n¿Cuánto vale $\\lim_{x \\to 1^-} f(x) - \\lim_{x \\to 1^+} f(x)$?",
     "options": [
       "$-3$",
       "$3$",
@@ -380,7 +380,7 @@
     ]
   },
   {
-    "question": "La gráfica marca dos puntos de quiebre: en $x=0$ y en $x=3$.\n\n¿Cuál es el valor del límite lateral más grande entre $\\lim_{x \\to 0^+} f(x)$ y $\\lim_{x \\to 3^-} f(x)$?",
+    "question": "La gráfica de una función marca dos puntos de quiebre, en $x=0$ y en $x=3$.\n\n¿Cuál es el valor del límite lateral más grande entre $\\lim_{x \\to 0^+} f(x)$ y $\\lim_{x \\to 3^-} f(x)$?",
     "options": [
       "$5$",
       "$3$",
@@ -396,7 +396,7 @@
       "Esa sería la suma de los dos laterales, no el mayor de ellos.",
       null
     ],
-    "graph_fn": "Piecewise((x + 1, x < 0), (x + 5, (x >= 0) & (x < 3)), (2 * x, x >= 3))",
+    "graph_fn": "Piecewise((x + 1, x < 0), (x + 5, (x >= 0) & (x < 3)), (x + 1, x >= 3))",
     "graph_view": [
       -3,
       5,
@@ -410,7 +410,7 @@
     ]
   },
   {
-    "question": "En la gráfica, en $x=1$ ambos límites laterales tienen valor negativo.\n\n¿Cuánto vale $\\lim_{x \\to 1^-} f(x) - \\lim_{x \\to 1^+} f(x)$?",
+    "question": "En la gráfica de una función, en $x=1$ ambos límites laterales son negativos.\n\n¿Cuánto vale $\\lim_{x \\to 1^-} f(x) - \\lim_{x \\to 1^+} f(x)$?",
     "options": [
       "$-4$",
       "$4$",

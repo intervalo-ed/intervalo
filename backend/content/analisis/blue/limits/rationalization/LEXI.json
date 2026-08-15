@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "Al racionalizar hace falta armar primero el **conjugado** de la expresión con raíz:\n$$\\sqrt{x+9} + 5$$\n¿Cuál es ese conjugado?",
+    "question": "Para racionalizar un límite hay que armar primero el **conjugado** de la expresión con raíz.\n$$\\sqrt{x+9} + 5$$\n¿Cuál es ese conjugado?",
     "options": [
       "$\\sqrt{x-9}+5$",
       "$\\sqrt{x+9}-5$",
@@ -46,7 +46,7 @@
     ]
   },
   {
-    "question": "Toda expresión formada por una raíz y un término suelto tiene su propio **conjugado**:\n$$\\sqrt{2x+1} - 3$$\n¿Cuál es su conjugado?",
+    "question": "En un límite con raíz, una expresión de este tipo tiene su propio **conjugado**.\n$$\\sqrt{2x+1} - 3$$\n¿Cuál es su conjugado?",
     "options": [
       "$(2x+1)+3$",
       "$\\sqrt{2x-1}+3$",
@@ -69,7 +69,7 @@
     ]
   },
   {
-    "question": "Una raíz cuadrada acompañada de un número admite un **conjugado**:\n$$\\sqrt{x-5} - 4$$\n¿Cuál es su conjugado?",
+    "question": "En el denominador de un límite aparece una raíz acompañada de un número, y eso admite **conjugado**.\n$$\\sqrt{x-5} - 4$$\n¿Cuál es su conjugado?",
     "options": [
       "$\\sqrt{x-5}+4$",
       "$\\sqrt{x+5}+4$",
@@ -92,7 +92,7 @@
     ]
   },
   {
-    "question": "El **conjugado** es la pieza por la que se multiplica una expresión con raíz al racionalizar:\n$$\\sqrt{3x+2} + 1$$\n¿Cuál es el conjugado de esta expresión?",
+    "question": "Racionalizar un límite es multiplicar por el **conjugado**, y para eso primero hay que saber cuál es.\n$$\\sqrt{3x+2} + 1$$\n¿Cuál es el conjugado de esta expresión?",
     "options": [
       "$\\sqrt{3x-2}-1$",
       "$(3x+2)-1$",
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "question": "Al multiplicar una expresión con raíz por su **conjugado** aparece siempre el mismo patrón:\n$$(\\sqrt{x+9} - 3)(\\sqrt{x+9} + 3)$$\n¿Cuánto vale ese producto?",
+    "question": "Al multiplicar una expresión con raíz por su **conjugado** aparece siempre el mismo patrón.\n$$(\\sqrt{x+9} - 3)(\\sqrt{x+9} + 3)$$\n¿Cuánto vale ese producto?",
     "options": [
       "$x+6$",
       "$x$",
@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "Antes de elegir una técnica conviene ver qué deja la sustitución directa:\n$$\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$$\n¿Qué técnica corresponde aplicar?",
+    "question": "En este límite hay que decidir el camino antes de hacer cualquier cuenta.\n$$\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$$\n¿Qué técnica corresponde aplicar?",
     "options": [
       "Racionalizar y cancelar",
       "Factorizar y cancelar",
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "El primer paso es mirar qué pasa al sustituir, y después qué forma tiene la expresión:\n$$\\lim_{x \\to 0} \\dfrac{\\sqrt{x+1}-1}{x}$$\n¿Qué técnica corresponde aplicar?",
+    "question": "Antes de tocar nada en este límite hay que decidir por dónde entrar.\n$$\\lim_{x \\to 0} \\dfrac{\\sqrt{x+1}-1}{x}$$\n¿Qué técnica corresponde aplicar?",
     "options": [
       "Sustituir directamente",
       "Sin solución posible",
@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "La forma de la expresión no alcanza para decidir, lo que manda es qué pasa en el punto:\n$$\\lim_{x \\to 2} \\dfrac{\\sqrt{x+7}}{x+1}$$\n¿Qué técnica corresponde aplicar?",
+    "question": "Frente a este límite, lo primero es elegir con qué herramienta encararlo.\n$$\\lim_{x \\to 2} \\dfrac{\\sqrt{x+7}}{x+1}$$\n¿Qué técnica corresponde aplicar?",
     "options": [
       "Racionalizar y cancelar",
       "Factorizar y cancelar",
@@ -276,23 +276,23 @@
     ]
   },
   {
-    "question": "Al **racionalizar**, se multiplica tanto el numerador como el denominador por el **conjugado**.\n\n¿Por qué no alcanza con multiplicar solo el numerador?",
+    "question": "Al racionalizar el numerador de un límite, la raíz no se evapora, cambia de lugar.\n\n¿Adónde va a parar?",
     "options": [
-      "Porque el denominador nunca tiene raíces que romper",
-      "Para no alterar la función que se está evaluando",
-      "Porque así se elimina la variable $x$ del límite"
+      "Se va al denominador, donde ya no estorba",
+      "Desaparece del todo de la expresión",
+      "Sale del límite como factor constante"
     ],
-    "correct_index": 1,
+    "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Multiplicar arriba y abajo por el mismo conjugado equivale a multiplicar por $1$, así la función original no cambia.",
+    "feedback_correct": "El producto de conjugados limpia el numerador, y el conjugado por el que multiplicaste queda abajo, con la raíz adentro.",
     "feedback_incorrect": [
-      "El denominador puede o no tener raíz, pero esa no es la razón por la que hace falta multiplicarlo también.",
       null,
-      "El objetivo no es eliminar la variable $x$, sino romper la raíz y dejar libre el factor que se puede cancelar."
+      "La raíz sigue estando en la expresión, lo que cambia es de qué lado de la barra queda.",
+      "El conjugado depende de $x$, así que no puede salir del límite como si fuera una constante."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El propósito de multiplicar por el **conjugado** es transformar algebraicamente la expresión para que la **indeterminación** desaparezca.\n\nUn límite nos ayuda a entender a qué valor se aproxima la función, incluso en puntos donde no está definida.\n\nEl conjugado se multiplica arriba y abajo porque la fracción conjugado sobre conjugado es igual a $1$.\n\nMultiplicar por $1$ transforma la forma de la expresión sin cambiar su valor, lo que permite reescribirla hasta que la indeterminación desaparezca.\n\nSi se multiplicara solo el numerador, la función dejaría de ser la misma, y el límite calculado ya no correspondería al original.",
+    "explanation": "Racionalizar el numerador es multiplicar arriba y abajo por el **conjugado**, o sea multiplicar por $1$.\n\nArriba, el producto de conjugados borra la raíz, porque $(\\sqrt{u}-c)(\\sqrt{u}+c)$ da $u - c^2$.\n\nAbajo, en cambio, el conjugado queda escrito tal cual, con su raíz adentro:\n$$\\begin{aligned}\n\\frac{\\sqrt{x+9}-3}{x} &= \\frac{(x+9)-9}{x(\\sqrt{x+9}+3)} \\\\\n&= \\frac{x}{x(\\sqrt{x+9}+3)}\n\\end{aligned}$$\nLa raíz no se fue, cruzó la barra.\n\nY ese cruce es justo lo que sirve. Arriba queda un factor $x$ que se cancela con el de abajo, y lo que sobra ya se puede evaluar en el punto.\n\nPensar que la raíz desaparece lleva a esperar una expresión sin raíces, y entonces el resultado del paso siguiente no cierra con lo que quedó escrito.",
     "reviewed": false,
     "tags": [
       "proposito-logico-conjugado"
@@ -322,7 +322,7 @@
     ]
   },
   {
-    "question": "Al racionalizar, una variante consiste en multiplicar solo el numerador por el **conjugado**, sin tocar el denominador.\n\n¿Qué ocurre en ese caso?",
+    "question": "Al racionalizar un límite, un estudiante multiplica solo el numerador por el **conjugado** y deja el denominador sin tocar.\n\n¿Qué consecuencia tiene esa maniobra?",
     "options": [
       "El límite da siempre $0$",
       "La raíz desaparece, sin ningún otro efecto",
