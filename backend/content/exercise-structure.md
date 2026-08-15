@@ -224,6 +224,27 @@ Estas valen en `question`, `options`, `feedback_*` y `explanation` por igual:
   delimitador y rompe el render. (LaTeX y signo `$`)
 - **Fórmulas anchas → partir en pasos**, nunca scroll horizontal ni cadena
   `A = B = C = D` larga. (Fórmulas anchas)
+- **Dentro de un `aligned`, cada FILA se mide con el mismo límite de ancho que
+  un bloque suelto**, no solo el bloque completo. La fila de planteo lleva su
+  propio `&` sin `=` y va sola; el desarrollo arranca en la fila siguiente.
+  (R38)
+- **Techo de carga mental**: todo ítem de cálculo cerrado (`RESL`) tiene que
+  responderse sin papel en <90s. Sin 3+ operaciones encadenadas, sin números
+  intermedios > 20, sin denominadores > 12, sin factorización final a forma
+  compacta. Si el contenido lo exige, cambiar el formato (verificar
+  derivando, detectar el paso mal) en vez de bajar el contenido. (R52-55)
+- **Paso troceado**: un procedimiento largo se reparte en ítems que evalúan
+  una decisión cada uno (dado $u$, cómo queda la integral reescrita; dados
+  $u$ y $dv$, cuál es $v$). Ningún ítem troceado pide el resultado final.
+  (R56)
+- **La primera oración introduce, no etiqueta**: lenguaje llano, sin jerga
+  estructural (`binomio lineal`, `recíproco de la variable`), sin repetir lo
+  que la fórmula ya muestra y sin filtrar la respuesta. (R57)
+- **Contexto mínimo**: si el ítem trabaja sobre algo derivado de una integral
+  (un cambio de variable, un armado, un resultado a medio camino), la integral
+  original va centrada en el enunciado aunque no haga falta para resolver. El
+  enunciado y las opciones son todo el contexto que el estudiante tiene.
+  Prohibida la apertura deíctica `"Acá..."`. (R58)
 
 ---
 
