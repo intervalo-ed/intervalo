@@ -234,3 +234,13 @@ Corrección puntual del usuario sobre ejercicios de prueba de este topic (`corre
 - [ ] Sub-B con un solo parámetro por ejercicio, verificando $\lim_{x\to a^-} f(x) = \lim_{x\to a^+} f(x) = f(a)$ en el despeje
 - [ ] Sub-C con dominio bien definido; el enunciado precisa qué punto se pide cuando hay varios candidatos
 - [ ] Ninguna aplicación de L'Hôpital
+
+---
+
+## Hallazgos de auditoría (ronda 6, ago-2026)
+
+Pasada de redacción para llevar los enunciados al estándar de las reglas 47-51 de `authoring-context.md`: ninguna consigna queda como orden y toda apertura sitúa el objeto en lenguaje llano antes de la fórmula.
+
+Se reescribieron las aperturas de `CLSF.json` (4 ejercicios que abrían con "Considerá", pasando además la función a su propio bloque display) y de `RESL.json` (8 ejercicios: 3 con imperativo de atención vacío y 5 con imperativo de cálculo).
+
+No hubo ningún cambio de contenido matemático: funciones, puntos de quiebre, opciones y respuestas correctas quedaron intactas.

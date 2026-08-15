@@ -226,3 +226,13 @@ Corrección puntual del usuario sobre ejercicios de prueba de este topic (`corre
 - [ ] Ninguna aplicación de L'Hôpital
 - [ ] Resultado como valor real, `+\infty`, `-\infty` o `No existe` (nunca expresión sin evaluar)
 - [ ] Ningún renglón final de `aligned` encadena 2 igualdades (ej. `&= 2x^2 = +\infty`); partir en un renglón más
+
+---
+
+## Hallazgos de auditoría (ronda 6, ago-2026)
+
+Pasada de redacción para llevar los enunciados al estándar de las reglas 47-51 de `authoring-context.md`. `RESL.json` estaba 15/15 con consignas del tipo "Calculá el siguiente límite al infinito" y sin ninguna pregunta `¿...?`; se reescribieron los 15 enunciados completos, quitando además las aperturas que anunciaban el método a aplicar (regla 51).
+
+En `LEXI.json` se reescribieron 3 enunciados: dos que arrancaban directo con `¿` y uno que abría con "Analiza" sin voseo. En `RESL.json` se verticalizaron 8 bloques `aligned` cuya primera fila juntaba el planteo y su desarrollo completo (regla 38).
+
+No hubo ningún cambio de contenido matemático: límites, opciones y respuestas correctas quedaron intactos.

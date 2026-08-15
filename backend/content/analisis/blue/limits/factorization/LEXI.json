@@ -23,7 +23,7 @@
     "reviewed": false
   },
   {
-    "question": "Considerá ahora la expresión:\n$$x^2 + 25$$\n¿Qué caso de factoreo corresponde a esta expresión dentro de los números reales?",
+    "question": "Antes de factorizar conviene mirar cuántos términos hay y con qué signos:\n$$x^2 + 25$$\n¿Qué caso de factoreo corresponde a esta expresión dentro de los números reales?",
     "options": [
       "Diferencia de cuadrados",
       "Trinomio general",
@@ -69,7 +69,7 @@
     "reviewed": false
   },
   {
-    "question": "Considerá la expresión:\n$$3x^2 + 9x$$\n¿Qué caso de factoreo corresponde a esta expresión?",
+    "question": "Reconocer el caso de factoreo empieza por comparar los términos entre sí:\n$$3x^2 + 9x$$\n¿Qué caso de factoreo corresponde a esta expresión?",
     "options": [
       "Trinomio general",
       "Factor común",
@@ -92,7 +92,7 @@
     "reviewed": false
   },
   {
-    "question": "Considerá la expresión:\n$$x^2 + 7x + 6$$\n¿Cuál es su **factorización** correcta como trinomio?",
+    "question": "Los coeficientes de un trinomio guardan la información de sus dos factores:\n$$x^2 + 7x + 6$$\n¿Cuál es su **factorización** correcta como trinomio?",
     "options": [
       "$(x+2)(x+3)$",
       "$(x-1)(x-6)$",
@@ -230,7 +230,7 @@
     "reviewed": false
   },
   {
-    "question": "¿Cuánto vale 0/0 dentro del cálculo de un límite?",
+    "question": "Al sustituir directo en un límite, a veces el numerador y el denominador se anulan a la vez.\n\n¿Cuánto vale ese 0/0?",
     "options": [
       "No es un número definido",
       "El resultado final es $0$",

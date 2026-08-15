@@ -216,3 +216,13 @@ Corrección puntual del usuario sobre ejercicios de prueba de este topic (`corre
 - [ ] `"No existe"` (texto exacto) presente como opción solo cuando corresponde
 - [ ] Funciones a trozos con 2 ramas por defecto; punto de quiebre único
 - [ ] Ningún desarrollo con 3+ igualdades encadenadas en una línea horizontal (ver hallazgo `LEXI_09`, aplica igual a `RESL`)
+
+---
+
+## Hallazgos de auditoría (ronda 6, ago-2026)
+
+Pasada de redacción para llevar los enunciados al estándar de las reglas 47-51 de `authoring-context.md`. En `RESL.json` se reescribieron las 7 aperturas que eran imperativos de atención vacíos ("Observá", "Analizá", "Verificá", "Examiná" y tres "Considerá") por oraciones que sitúan la función a trozos o la expresión con valor absoluto.
+
+Las aperturas nuevas se variaron entre sí para no repetir plantilla (regla 32), cuidando también no aumentar la frecuencia de las aperturas ya existentes en el archivo.
+
+No hubo ningún cambio de contenido matemático: ramas, puntos de quiebre, opciones y respuestas correctas quedaron intactos.

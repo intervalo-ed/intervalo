@@ -180,3 +180,13 @@ Corrección puntual del usuario sobre ejercicios de prueba de este topic (`corre
 - [ ] **El planteo de la multiplicación por el conjugado va en su propio renglón del `aligned`**, separado de su resultado ya simplificado (ver hallazgos `RESL_01`/`RESL_02`/`RESL_05`)
 - [ ] **Ningún ejercicio con $c>5$** (verificar los 30 ejercicios, no solo los señalados en la auditoría; se encontraron 4 de 15 en la ronda 1)
 - [ ] **Ningún desplazamiento $\pm1$ dentro de la raíz**; sub-A y sub-B usan por default tendencia $x\to0$ con radicando $x+c^2$, reservando tendencias no nulas a una minoría avanzada sin desplazamiento $\pm1$
+
+---
+
+## Hallazgos de auditoría (ronda 6, ago-2026)
+
+Pasada de redacción para llevar los enunciados al estándar de las reglas 47-51 de `authoring-context.md`. En `RESL.json` se reemplazaron las 15 aperturas con imperativo de cálculo, y se verticalizaron 4 bloques `aligned` cuya primera fila juntaba el planteo y la multiplicación por el conjugado (regla 38). En `LEXI.json` se reescribieron 11 enunciados: 8 que arrancaban directo con `¿` y 3 que abrían con un imperativo de atención vacío.
+
+Renombre de etiquetas de estrategia en la sub-familia `diagnostico-racionalizar-vs-factorizar` de `LEXI.json`, por sesgo de longitud (reglas 4 y 15): el juego viejo mezclaba "Factorizar" con "Sustitución directa" e "Indeterminación no resoluble", y la correcta se delataba por tamaño. El juego nuevo, aplicado de forma uniforme en todo el archivo, es **"Racionalizar y cancelar"**, **"Factorizar y cancelar"**, **"Sustituir directamente"** y **"Sin solución posible"** (render 23/21/22/20), todas nombrando el gesto concreto y dentro de una banda de 3 caracteres. Se alinearon los `feedback_correct` de esos ejercicios al vocabulario nuevo.
+
+No hubo ningún cambio de contenido matemático: límites, conjugados, opciones correctas y `correct_index` quedaron intactos.

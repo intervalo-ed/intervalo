@@ -176,3 +176,13 @@ Corrección puntual del usuario sobre ejercicios de prueba de este topic (`corre
 - [ ] Explicaciones con la secuencia diagnóstico → factorización → cancelación → sustitución
 - [ ] Ningún resultado dejado como expresión sin evaluar
 - [ ] Ninguna aplicación de L'Hôpital ni racionalización
+
+---
+
+## Hallazgos de auditoría (ronda 6, ago-2026)
+
+Pasada de redacción para llevar los enunciados al estándar de las reglas 47-51 de `authoring-context.md`. En `RESL.json` se reemplazaron las 15 aperturas con imperativo de cálculo por oraciones que sitúan qué conviene notar en cada cociente, variadas ejercicio a ejercicio (regla 32).
+
+En `LEXI.json` se reescribieron 4 enunciados: 3 que abrían con "Considerá" y uno que arrancaba directo con `¿`. En `RESL.json` se verticalizaron además 3 bloques `aligned` cuya primera fila juntaba el planteo y su desarrollo completo (regla 38): el límite original queda solo en su fila, con `&` propio y sin `=`.
+
+No hubo ningún cambio de contenido matemático: límites, factorizaciones, opciones y respuestas correctas quedaron intactos.

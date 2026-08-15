@@ -1,6 +1,6 @@
 [
   {
-    "question": "Calculá el siguiente límite:\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+9}-3}{x}$$\n¿Cuánto vale?",
+    "question": "La raíz del numerador impide simplificar de entrada, y el denominador es apenas una $x$:\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+9}-3}{x}$$\n¿Cuánto vale?",
     "options": [
       "$-\\frac{1}{6}$",
       "$\\frac{1}{6}$",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "Determiná el valor del siguiente límite:\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+16}-4}{x}$$\n¿Cuál es su resultado?",
+    "question": "Numerador y denominador se anulan a la vez, y arriba hay una raíz de por medio:\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+16}-4}{x}$$\n¿Cuál es su resultado?",
     "options": [
       "$\\frac{1}{4}$",
       "$-\\frac{1}{8}$",
@@ -43,14 +43,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El valor de un **límite** depende de cómo se comporta la función alrededor del punto, no del punto mismo.\n\nLa sustitución directa da una **indeterminación** $0/0$, y la raíz en el numerador indica que corresponde **racionalizar** multiplicando por su **conjugado**.\n\nMultiplicando numerador y denominador por el conjugado y aplicando la **diferencia de cuadrados**:\n$$\\begin{aligned}\n\\lim_{x \\to 0} \\frac{\\sqrt{x+16}-4}{x} &= \\lim_{x \\to 0} \\frac{\\sqrt{x+16}-4}{x}\\cdot\\frac{\\sqrt{x+16}+4}{\\sqrt{x+16}+4} \\\\\n&= \\lim_{x \\to 0} \\frac{x}{x(\\sqrt{x+16}+4)} \\\\\n&= \\lim_{x \\to 0} \\frac{1}{\\sqrt{x+16}+4} \\\\\n&= \\frac{1}{8}\n\\end{aligned}$$\nCancelar el factor $x$ antes de sustituir es lo que resuelve la indeterminación.\n\nFijate que el factor cancelado es justo el que genera el $0/0$ original: sin cancelarlo, sustituir repite la misma indeterminación.",
+    "explanation": "El valor de un **límite** depende de cómo se comporta la función alrededor del punto, no del punto mismo.\n\nLa sustitución directa da una **indeterminación** $0/0$, y la raíz en el numerador indica que corresponde **racionalizar** multiplicando por su **conjugado**.\n\nMultiplicando numerador y denominador por el conjugado y aplicando la **diferencia de cuadrados**:\n$$\\begin{aligned}\n&\\lim_{x \\to 0} \\frac{\\sqrt{x+16}-4}{x} \\\\\n&= \\lim_{x \\to 0} \\frac{\\sqrt{x+16}-4}{x}\\cdot\\frac{\\sqrt{x+16}+4}{\\sqrt{x+16}+4} \\\\\n&= \\lim_{x \\to 0} \\frac{x}{x(\\sqrt{x+16}+4)} \\\\\n&= \\lim_{x \\to 0} \\frac{1}{\\sqrt{x+16}+4} \\\\\n&= \\frac{1}{8}\n\\end{aligned}$$\nCancelar el factor $x$ antes de sustituir es lo que resuelve la indeterminación.\n\nFijate que el factor cancelado es justo el que genera el $0/0$ original: sin cancelarlo, sustituir repite la misma indeterminación.",
     "reviewed": false,
     "tags": [
       "raiz-en-el-numerador"
     ]
   },
   {
-    "question": "Resolvé el siguiente límite:\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+4}-2}{x}$$\n¿Cuánto da?",
+    "question": "Reemplazar $x$ por $0$ deja arriba y abajo un cero, con la raíz todavía sin resolver:\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+4}-2}{x}$$\n¿Cuánto da?",
     "options": [
       "$\\frac{1}{4}$",
       "$\\frac{1}{2}$",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "question": "Encontrá el valor del siguiente límite:\n$$\\lim_{x \\to 4} \\frac{\\sqrt{x+21}-5}{x-4}$$\n¿Cuál es el resultado?",
+    "question": "El radicando en el punto de tendencia da un cuadrado perfecto, y por eso el numerador se anula:\n$$\\lim_{x \\to 4} \\frac{\\sqrt{x+21}-5}{x-4}$$\n¿Cuál es el resultado?",
     "options": [
       "$\\frac{1}{5}$",
       "$\\frac{1}{20}$",
@@ -93,14 +93,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Estudiar un límite es preguntar hacia qué número se acerca la función, aunque nunca lo toque exactamente.\n\nLa sustitución directa da una **indeterminación** $0/0$, y la raíz en el numerador indica que corresponde **racionalizar** multiplicando por el **conjugado**.\n\nMultiplicando por el conjugado y simplificando la **diferencia de cuadrados**:\n$$\\begin{aligned}\n\\lim_{x \\to 4} \\frac{\\sqrt{x+21}-5}{x-4} &= \\lim_{x \\to 4} \\frac{\\sqrt{x+21}-5}{x-4}\\cdot\\frac{\\sqrt{x+21}+5}{\\sqrt{x+21}+5} \\\\\n&= \\lim_{x \\to 4} \\frac{x-4}{(x-4)(\\sqrt{x+21}+5)} \\\\\n&= \\lim_{x \\to 4} \\frac{1}{\\sqrt{x+21}+5} \\\\\n&= \\frac{1}{10}\n\\end{aligned}$$\nCancelar el factor $(x-4)$ antes de sustituir es lo que resuelve la indeterminación.\n\nConviene verificar que el radicando en $x=4$ dé un cuadrado perfecto antes de sustituir, así se evita un error de cálculo final.",
+    "explanation": "Estudiar un límite es preguntar hacia qué número se acerca la función, aunque nunca lo toque exactamente.\n\nLa sustitución directa da una **indeterminación** $0/0$, y la raíz en el numerador indica que corresponde **racionalizar** multiplicando por el **conjugado**.\n\nMultiplicando por el conjugado y simplificando la **diferencia de cuadrados**:\n$$\\begin{aligned}\n&\\lim_{x \\to 4} \\frac{\\sqrt{x+21}-5}{x-4} \\\\\n&= \\lim_{x \\to 4} \\frac{\\sqrt{x+21}-5}{x-4}\\cdot\\frac{\\sqrt{x+21}+5}{\\sqrt{x+21}+5} \\\\\n&= \\lim_{x \\to 4} \\frac{x-4}{(x-4)(\\sqrt{x+21}+5)} \\\\\n&= \\lim_{x \\to 4} \\frac{1}{\\sqrt{x+21}+5} \\\\\n&= \\frac{1}{10}\n\\end{aligned}$$\nCancelar el factor $(x-4)$ antes de sustituir es lo que resuelve la indeterminación.\n\nConviene verificar que el radicando en $x=4$ dé un cuadrado perfecto antes de sustituir, así se evita un error de cálculo final.",
     "reviewed": false,
     "tags": [
       "raiz-en-el-numerador"
     ]
   },
   {
-    "question": "Evaluá el siguiente límite:\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+25}-5}{x}$$\n¿A qué valor tiende?",
+    "question": "La resta del numerador se vuelve cero justo en el punto al que tiende $x$:\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+25}-5}{x}$$\n¿A qué valor tiende?",
     "options": [
       "$\\frac{1}{5}$",
       "$\\frac{1}{10}$",
@@ -118,14 +118,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El comportamiento de una función cerca de un punto es justamente lo que mide un límite.\n\nLa sustitución directa da una **indeterminación** $0/0$, y la raíz en el numerador señala que corresponde **racionalizar** multiplicando por el **conjugado**.\n\nRacionalizando con el conjugado y aplicando la **diferencia de cuadrados**:\n$$\\begin{aligned}\n\\lim_{x \\to 0} \\frac{\\sqrt{x+25}-5}{x} &= \\lim_{x \\to 0} \\frac{\\sqrt{x+25}-5}{x}\\cdot\\frac{\\sqrt{x+25}+5}{\\sqrt{x+25}+5} \\\\\n&= \\lim_{x \\to 0} \\frac{x}{x(\\sqrt{x+25}+5)} \\\\\n&= \\lim_{x \\to 0} \\frac{1}{\\sqrt{x+25}+5} \\\\\n&= \\frac{1}{10}\n\\end{aligned}$$\nCancelar el factor $x$ antes de sustituir evita repetir la indeterminación original.\n\nSustituir $x=0$ en la fracción original sin cancelar antes solo repite la forma $0/0$ de partida.",
+    "explanation": "El comportamiento de una función cerca de un punto es justamente lo que mide un límite.\n\nLa sustitución directa da una **indeterminación** $0/0$, y la raíz en el numerador señala que corresponde **racionalizar** multiplicando por el **conjugado**.\n\nRacionalizando con el conjugado y aplicando la **diferencia de cuadrados**:\n$$\\begin{aligned}\n&\\lim_{x \\to 0} \\frac{\\sqrt{x+25}-5}{x} \\\\\n&= \\lim_{x \\to 0} \\frac{\\sqrt{x+25}-5}{x}\\cdot\\frac{\\sqrt{x+25}+5}{\\sqrt{x+25}+5} \\\\\n&= \\lim_{x \\to 0} \\frac{x}{x(\\sqrt{x+25}+5)} \\\\\n&= \\lim_{x \\to 0} \\frac{1}{\\sqrt{x+25}+5} \\\\\n&= \\frac{1}{10}\n\\end{aligned}$$\nCancelar el factor $x$ antes de sustituir evita repetir la indeterminación original.\n\nSustituir $x=0$ en la fracción original sin cancelar antes solo repite la forma $0/0$ de partida.",
     "reviewed": false,
     "tags": [
       "raiz-en-el-numerador"
     ]
   },
   {
-    "question": "Hallá el resultado del siguiente límite:\n$$\\lim_{x \\to 1} \\frac{\\sqrt{x+24}-5}{x-1}$$\n¿Cuánto vale?",
+    "question": "El punto de tendencia no es cero, pero el denominador se anula ahí igual:\n$$\\lim_{x \\to 1} \\frac{\\sqrt{x+24}-5}{x-1}$$\n¿Cuánto vale?",
     "options": [
       "$\\frac{1}{5}$",
       "$\\frac{1}{10}$",
@@ -143,14 +143,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un límite no pregunta cuánto vale la función en el punto, sino hacia dónde se dirige cerca de él.\n\nLa sustitución directa da una **indeterminación** $0/0$, y la raíz en el numerador indica que corresponde **racionalizar** multiplicando por el **conjugado**.\n\nMultiplicando por el conjugado del numerador y aplicando la **diferencia de cuadrados**:\n$$\\begin{aligned}\n\\lim_{x \\to 1} \\frac{\\sqrt{x+24}-5}{x-1} &= \\lim_{x \\to 1} \\frac{\\sqrt{x+24}-5}{x-1}\\cdot\\frac{\\sqrt{x+24}+5}{\\sqrt{x+24}+5} \\\\\n&= \\lim_{x \\to 1} \\frac{x-1}{(x-1)(\\sqrt{x+24}+5)} \\\\\n&= \\lim_{x \\to 1} \\frac{1}{\\sqrt{x+24}+5} \\\\\n&= \\frac{1}{10}\n\\end{aligned}$$\nCancelar el factor $(x-1)$ antes de sustituir es el paso que resuelve la indeterminación.\n\nFijate que el radicando en $x=1$ da exactamente $25$, un cuadrado perfecto que simplifica la sustitución final.",
+    "explanation": "Un límite no pregunta cuánto vale la función en el punto, sino hacia dónde se dirige cerca de él.\n\nLa sustitución directa da una **indeterminación** $0/0$, y la raíz en el numerador indica que corresponde **racionalizar** multiplicando por el **conjugado**.\n\nMultiplicando por el conjugado del numerador y aplicando la **diferencia de cuadrados**:\n$$\\begin{aligned}\n&\\lim_{x \\to 1} \\frac{\\sqrt{x+24}-5}{x-1} \\\\\n&= \\lim_{x \\to 1} \\frac{\\sqrt{x+24}-5}{x-1}\\cdot\\frac{\\sqrt{x+24}+5}{\\sqrt{x+24}+5} \\\\\n&= \\lim_{x \\to 1} \\frac{x-1}{(x-1)(\\sqrt{x+24}+5)} \\\\\n&= \\lim_{x \\to 1} \\frac{1}{\\sqrt{x+24}+5} \\\\\n&= \\frac{1}{10}\n\\end{aligned}$$\nCancelar el factor $(x-1)$ antes de sustituir es el paso que resuelve la indeterminación.\n\nFijate que el radicando en $x=1$ da exactamente $25$, un cuadrado perfecto que simplifica la sustitución final.",
     "reviewed": false,
     "tags": [
       "raiz-en-el-numerador"
     ]
   },
   {
-    "question": "Calculá el valor del siguiente límite:\n$$\\lim_{x \\to 4} \\frac{x-4}{\\sqrt{x}-2}$$\n¿Cuál es su resultado?",
+    "question": "La raíz aparece en el denominador, y arriba queda una resta simple:\n$$\\lim_{x \\to 4} \\frac{x-4}{\\sqrt{x}-2}$$\n¿Cuál es su resultado?",
     "options": [
       "$2$",
       "$4$",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "Resolvé el valor del siguiente límite:\n$$\\lim_{x \\to 9} \\frac{x-9}{\\sqrt{x}-3}$$\n¿Cuánto da?",
+    "question": "El denominador con raíz se anula en el punto de tendencia, y el numerador también:\n$$\\lim_{x \\to 9} \\frac{x-9}{\\sqrt{x}-3}$$\n¿Cuánto da?",
     "options": [
       "$-6$",
       "$3$",
@@ -200,7 +200,7 @@
     ]
   },
   {
-    "question": "Determiná el resultado del siguiente límite:\n$$\\lim_{x \\to 16} \\frac{x-16}{\\sqrt{x}-4}$$\n¿A qué valor tiende?",
+    "question": "El punto de tendencia es un cuadrado perfecto, y eso hace que el denominador se anule:\n$$\\lim_{x \\to 16} \\frac{x-16}{\\sqrt{x}-4}$$\n¿A qué valor tiende?",
     "options": [
       "$8$",
       "$4$",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "Encontrá el resultado del siguiente límite:\n$$\\lim_{x \\to 25} \\frac{x-25}{\\sqrt{x}-5}$$\n¿Cuál es el resultado?",
+    "question": "Arriba hay una resta de enteros y abajo una resta con raíz, y las dos se anulan:\n$$\\lim_{x \\to 25} \\frac{x-25}{\\sqrt{x}-5}$$\n¿Cuál es el resultado?",
     "options": [
       "$5$",
       "$-10$",
@@ -250,7 +250,7 @@
     ]
   },
   {
-    "question": "Evaluá el valor del siguiente límite:\n$$\\lim_{x \\to 1} \\frac{x-1}{\\sqrt{x}-1}$$\n¿Cuánto vale?",
+    "question": "La raíz del denominador y el número que se le resta coinciden en el punto de tendencia:\n$$\\lim_{x \\to 1} \\frac{x-1}{\\sqrt{x}-1}$$\n¿Cuánto vale?",
     "options": [
       "$2$",
       "$1$",
@@ -275,7 +275,7 @@
     ]
   },
   {
-    "question": "Hallá el valor del siguiente límite:\n$$\\lim_{x \\to 9} \\frac{2x-18}{\\sqrt{x}-3}$$\n¿Cuál es su resultado?",
+    "question": "Un coeficiente $2$ multiplica al numerador y acompaña todo el desarrollo:\n$$\\lim_{x \\to 9} \\frac{2x-18}{\\sqrt{x}-3}$$\n¿Cuál es su resultado?",
     "options": [
       "$6$",
       "$24$",
@@ -300,7 +300,7 @@
     ]
   },
   {
-    "question": "Calculá el resultado del siguiente límite:\n$$\\lim_{x \\to 4} \\frac{4-x}{\\sqrt{x}-2}$$\n¿Cuánto da?",
+    "question": "El orden de la resta del numerador es lo primero que conviene mirar:\n$$\\lim_{x \\to 4} \\frac{4-x}{\\sqrt{x}-2}$$\n¿Cuánto da?",
     "options": [
       "$4$",
       "$-4$",
@@ -325,7 +325,7 @@
     ]
   },
   {
-    "question": "Obtené el resultado del siguiente límite:\n$$\\lim_{x \\to 9} \\frac{9-x}{\\sqrt{x}-3}$$\n¿A qué valor tiende?",
+    "question": "Arriba la variable aparece restando al número, y abajo la raíz aparece primero:\n$$\\lim_{x \\to 9} \\frac{9-x}{\\sqrt{x}-3}$$\n¿A qué valor tiende?",
     "options": [
       "$6$",
       "$-3$",
@@ -350,7 +350,7 @@
     ]
   },
   {
-    "question": "Determiná el siguiente límite:\n$$\\lim_{x \\to 25} \\frac{25-x}{\\sqrt{x}-5}$$\n¿Cuánto vale?",
+    "question": "El signo del resultado depende de cómo estén ordenadas las dos restas:\n$$\\lim_{x \\to 25} \\frac{25-x}{\\sqrt{x}-5}$$\n¿Cuánto vale?",
     "options": [
       "$10$",
       "$-5$",

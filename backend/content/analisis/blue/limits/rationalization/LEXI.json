@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el **conjugado** de $\\sqrt{x+9} + 5$?",
+    "question": "Al racionalizar hace falta armar primero el **conjugado** de la expresión con raíz:\n$$\\sqrt{x+9} + 5$$\n¿Cuál es ese conjugado?",
     "options": [
       "$\\sqrt{x-9}+5$",
       "$\\sqrt{x+9}-5$",
@@ -46,7 +46,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el **conjugado** de $\\sqrt{2x+1} - 3$?",
+    "question": "Toda expresión formada por una raíz y un término suelto tiene su propio **conjugado**:\n$$\\sqrt{2x+1} - 3$$\n¿Cuál es su conjugado?",
     "options": [
       "$(2x+1)+3$",
       "$\\sqrt{2x-1}+3$",
@@ -69,7 +69,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el **conjugado** de $\\sqrt{x-5} - 4$?",
+    "question": "Una raíz cuadrada acompañada de un número admite un **conjugado**:\n$$\\sqrt{x-5} - 4$$\n¿Cuál es su conjugado?",
     "options": [
       "$\\sqrt{x-5}+4$",
       "$\\sqrt{x+5}+4$",
@@ -92,7 +92,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el **conjugado** de $\\sqrt{3x+2} + 1$?",
+    "question": "El **conjugado** es la pieza por la que se multiplica una expresión con raíz al racionalizar:\n$$\\sqrt{3x+2} + 1$$\n¿Cuál es el conjugado de esta expresión?",
     "options": [
       "$\\sqrt{3x-2}-1$",
       "$(3x+2)-1$",
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale el producto $(\\sqrt{x+9} - 3)(\\sqrt{x+9} + 3)$?",
+    "question": "Al multiplicar una expresión con raíz por su **conjugado** aparece siempre el mismo patrón:\n$$(\\sqrt{x+9} - 3)(\\sqrt{x+9} + 3)$$\n¿Cuánto vale ese producto?",
     "options": [
       "$x+6$",
       "$x$",
@@ -161,7 +161,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale el producto $(\\sqrt{x+16} - 4)(\\sqrt{x+16} + 4)$?",
+    "question": "Este producto repite el esquema de una expresión con raíz multiplicada por su **conjugado**:\n$$(\\sqrt{x+16} - 4)(\\sqrt{x+16} + 4)$$\n¿Cuál es su resultado?",
     "options": [
       "$x+32$",
       "$x+8$",
@@ -184,7 +184,7 @@
     ]
   },
   {
-    "question": "¿Qué producto de **conjugados** da como resultado $x - 25$?",
+    "question": "El resultado de un producto de **conjugados** puede conocerse de antemano:\n$$x - 25$$\n¿Qué producto de conjugados lo produce?",
     "options": [
       "$(\\sqrt{x}-5)(\\sqrt{x}+5)$",
       "$(\\sqrt{x}-5)(\\sqrt{x}-5)$",
@@ -207,15 +207,15 @@
     ]
   },
   {
-    "question": "Estudiá la función:\n$$\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$$\nEste cociente presenta una **indeterminación** $0/0$ al sustituir, y no tiene ninguna raíz cuadrada.\n\n¿Qué técnica corresponde?",
+    "question": "Antes de elegir una técnica conviene ver qué deja la sustitución directa:\n$$\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$$\n¿Qué técnica corresponde aplicar?",
     "options": [
-      "Racionalizar",
-      "Factorizar",
-      "Sustitución directa"
+      "Racionalizar y cancelar",
+      "Factorizar y cancelar",
+      "Sustituir directamente"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Sin raíces en la expresión, corresponde aplicar la técnica de factoreo sobre el polinomio del tópico anterior.",
+    "feedback_correct": "Sin raíces en la expresión, corresponde factorizar el polinomio y cancelar el factor que se repite.",
     "feedback_incorrect": [
       "La racionalización se reserva para expresiones con raíz cuadrada, y acá el cociente es puramente polinómico.",
       null,
@@ -230,15 +230,15 @@
     ]
   },
   {
-    "question": "Examiná la función:\n$$\\lim_{x \\to 0} \\dfrac{\\sqrt{x+1}-1}{x}$$\nEste cociente presenta una **indeterminación** $0/0$ al sustituir, y sí tiene una raíz cuadrada.\n\n¿Qué técnica corresponde?",
+    "question": "El primer paso es mirar qué pasa al sustituir, y después qué forma tiene la expresión:\n$$\\lim_{x \\to 0} \\dfrac{\\sqrt{x+1}-1}{x}$$\n¿Qué técnica corresponde aplicar?",
     "options": [
-      "Sustitución directa",
-      "Indeterminación no resoluble",
-      "Racionalizar"
+      "Sustituir directamente",
+      "Sin solución posible",
+      "Racionalizar y cancelar"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Con una raíz cuadrada presente y una indeterminación al sustituir, corresponde multiplicar por el conjugado.",
+    "feedback_correct": "Con una raíz cuadrada y una indeterminación al sustituir, corresponde racionalizar y después cancelar.",
     "feedback_incorrect": [
       "Sustituir $x=0$ directamente da una indeterminación $0/0$, así que hace falta transformar la expresión antes de poder evaluarla.",
       "El límite sí tiene solución: la indeterminación con raíz cuadrada se resuelve con la técnica del conjugado, no queda sin resolver.",
@@ -253,11 +253,11 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$\\lim_{x \\to 2} \\dfrac{\\sqrt{x+7}}{x+1}$$\n¿Qué técnica corresponde aplicar?",
+    "question": "La forma de la expresión no alcanza para decidir, lo que manda es qué pasa en el punto:\n$$\\lim_{x \\to 2} \\dfrac{\\sqrt{x+7}}{x+1}$$\n¿Qué técnica corresponde aplicar?",
     "options": [
-      "Racionalizar",
-      "Factorizar",
-      "Sustitución directa"
+      "Racionalizar y cancelar",
+      "Factorizar y cancelar",
+      "Sustituir directamente"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "¿Cuál es el objetivo de multiplicar por el **conjugado** en un límite con raíz cuadrada?",
+    "question": "Un límite con raíz cuadrada e **indeterminación** al sustituir se ataca multiplicando por el **conjugado**.\n\n¿Cuál es el objetivo de esa multiplicación?",
     "options": [
       "Cambiar el valor al que tiende $x$",
       "Exponer el factor $(x-a)$ para poder cancelarlo",

@@ -1,6 +1,6 @@
 [
   {
-    "question": "Considerá la expresión:\n$$\\lim_{x \\to 3} f(x)$$\n¿Qué describe mejor la flecha $\\to$ en esta notación?",
+    "question": "En la notación de un límite, cada símbolo cumple un papel distinto:\n$$\\lim_{x \\to 3} f(x)$$\n¿Qué describe mejor la flecha $\\to$ en esta notación?",
     "options": [
       "Que $x$ es igual a $3$ en ese instante",
       "Que $x$ se acerca a $3$ sin llegar a valer eso",

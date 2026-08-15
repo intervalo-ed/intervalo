@@ -176,3 +176,13 @@ Todo lo anterior se aplica en el próximo round de generación de este topic (no
 - [ ] Distribución A/B respetada (15/15); sin sub-familias de propiedades de linealidad (descartadas, ronda ago-2026)
 - [ ] Ninguna sustitución ilegal en la respuesta correcta (denominador $\to 0$ o argumento fuera de dominio)
 - [ ] Fórmula a evaluar/calcular separada del texto en su propio bloque `$$...$$` centrado (regla crítica 18)
+
+---
+
+## Hallazgos de auditoría (ronda 6, ago-2026)
+
+Pasada de redacción para llevar los enunciados al estándar de las reglas 47-51 de `authoring-context.md`. `RESL.json` estaba 15/15 con consignas del tipo "Calculá el límite:" y sin ninguna pregunta `¿...?`, así que se reescribieron los 15 enunciados completos con la anatomía canónica: apertura que sitúa el límite, fórmula en su propio bloque display y pregunta en su propio tramo.
+
+En `LEXI.json` se reescribió la apertura del ejercicio que abría con "Considerá". Las aperturas se variaron ejercicio a ejercicio para no leerse como plantilla (regla 32).
+
+No hubo ningún cambio de contenido matemático: límites, opciones y respuestas correctas quedaron intactos.

@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "Considerá la función polinómica $f(x) = x^3 - 2x + 1$.\n\n¿En qué conjunto es **continua**?",
+    "question": "El primer paso para responder por continuidad es preguntarse qué valores de $x$ admite la función:\n$$f(x) = x^3 - 2x + 1$$\n¿En qué conjunto es **continua**?",
     "options": [
       "Solo en $x > 0$",
       "Solo donde $f(x) \\neq 0$",
@@ -276,7 +276,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$r(x) = \\dfrac{1}{x - 3}$$\n¿En qué conjunto es **continua**?",
+    "question": "Una fracción obliga a mirar el denominador antes que cualquier otra cosa:\n$$r(x) = \\dfrac{1}{x - 3}$$\n¿En qué conjunto es **continua**?",
     "options": [
       "En todo $\\mathbb{R}$ sin excepciones",
       "En su dominio, $\\mathbb{R}$ excepto $x=3$",
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "Considerá la función logarítmica $f(x) = \\ln(x)$.\n\n¿En qué conjunto es **continua**?",
+    "question": "El interior de un logaritmo no admite cualquier valor:\n$$f(x) = \\ln(x)$$\n¿En qué conjunto es **continua**?",
     "options": [
       "En todo $\\mathbb{R}$",
       "$x \\neq 0$",
@@ -322,7 +322,7 @@
     ]
   },
   {
-    "question": "Considerá la función con raíz par $f(x) = \\sqrt{x - 2}$.\n\n¿En qué conjunto es **continua**?",
+    "question": "Una raíz de índice par pone condiciones sobre lo que queda debajo del signo radical:\n$$f(x) = \\sqrt{x - 2}$$\n¿En qué conjunto es **continua**?",
     "options": [
       "$x \\geq 2$",
       "En todo $\\mathbb{R}$",
