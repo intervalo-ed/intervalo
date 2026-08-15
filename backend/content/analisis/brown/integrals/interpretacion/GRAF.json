@@ -358,5 +358,245 @@
     "tags": [
       "acumulacion-y-comparacion"
     ]
+  },
+  {
+    "question": "Una manguera riega cada vez con menos presión.\n\nLa recta muestra su caudal en litros por minuto, con el tiempo en minutos.\n\nPara estimar el agua total, alguien congela el caudal en su valor inicial.\n\n¿Cómo queda esa estimación?",
+    "options": [
+      "Queda por encima de lo real",
+      "Queda por debajo de lo real",
+      "Coincide con lo real"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, el caudal real baja enseguida, así que al rectángulo imaginado le sobra área.",
+    "feedback_incorrect": [
+      null,
+      "Para quedar corta el caudal tendría que crecer, y acá arranca en su punto más alto.",
+      "Coincidiría solo si el caudal fuera constante de verdad, y acá baja durante todo el tramo."
+    ],
+    "graph_fn": "4-x",
+    "graph_view": [-1, 5, -1, 5],
+    "graph_shade": [0, 4],
+    "explanation": "Congelar el ritmo convierte la región en un rectángulo imaginario: el alto inicial sostenido durante todo el tramo.\n\nComo el caudal real baja desde el primer minuto, la recta queda siempre por debajo de ese techo, y la región sombreada es más chica que el rectángulo.\n\nLa estimación sobra justo donde el caudal ya no es el del arranque. Esa diferencia es la mentira de congelar.\n\nAlto por ancho solo es exacto cuando el ritmo no cambia. Todo lo demás de la integral existe para arreglar esa mentira.",
+    "reviewed": false,
+    "tags": [
+      "congelar-el-ritmo"
+    ]
+  },
+  {
+    "question": "Un colectivo acelera de a poco durante cuatro segundos.\n\nLa recta muestra su velocidad en metros por segundo, con el tiempo en segundos.\n\nPara estimar la distancia, alguien congela la velocidad en su valor inicial.\n\n¿Cómo queda esa estimación?",
+    "options": [
+      "Queda por encima de lo real",
+      "Queda por debajo de lo real",
+      "Coincide con lo real"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, la velocidad real supera enseguida a la congelada, y esos metros extra quedan afuera.",
+    "feedback_incorrect": [
+      "Para quedar pasada la velocidad tendría que bajar, y acá sube durante todo el tramo.",
+      null,
+      "Coincidiría solo con velocidad constante, y acá el colectivo acelera todo el tiempo."
+    ],
+    "graph_fn": "x/2+1",
+    "graph_view": [-1, 5, -1, 5],
+    "graph_shade": [0, 4],
+    "explanation": "El rectángulo imaginario usa el alto del arranque, que acá es el más bajo de todo el tramo.\n\nLa recta real le pasa por arriba desde el primer segundo, así que la región sombreada guarda área que el rectángulo no cuenta.\n\nPor eso la estimación queda corta: le faltan los metros que el colectivo ganó al acelerar.\n\nEl sentido de la mentira depende de hacia dónde va el ritmo. Con un ritmo que sube, congelar al principio subestima; con uno que baja, sobra.",
+    "reviewed": false,
+    "tags": [
+      "congelar-el-ritmo"
+    ]
+  },
+  {
+    "question": "Una cinta transportadora despacha cajas a un ritmo que no cambia.\n\nLa recta muestra ese ritmo en cajas por minuto, con el tiempo en minutos.\n\nPara estimar el total, alguien congela el ritmo en su valor inicial.\n\n¿Cómo queda esa estimación?",
+    "options": [
+      "Queda por encima de lo real",
+      "Queda por debajo de lo real",
+      "Coincide justo con lo real"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, congelar un ritmo que ya está quieto no miente nada: el rectángulo es la región.",
+    "feedback_incorrect": [
+      "Para que sobre área el ritmo real tendría que bajar en algún momento, y acá está quieto.",
+      "Para que falte área el ritmo real tendría que subir en algún momento, y acá está quieto.",
+      null
+    ],
+    "graph_fn": "2",
+    "graph_view": [-1, 5, -1, 5],
+    "graph_shade": [0, 3],
+    "explanation": "Con ritmo constante, la región sombreada ya es un rectángulo. Congelar el ritmo no imagina nada nuevo: calca lo que hay.\n\nEste es el único caso donde alto por ancho da la respuesta exacta sin ninguna corrección.\n\nTodo el método de la integral parte de acá. Cuando el ritmo cambia, se lo trata como si fuera constante en tramos muy cortos, donde casi no llega a mentir.\n\nEl caso constante no es el aburrido: es el ladrillo con el que se construyen todos los demás.",
+    "reviewed": false,
+    "tags": [
+      "congelar-el-ritmo"
+    ]
+  },
+  {
+    "question": "Una estufa consume gas cada vez más despacio hasta apagarse.\n\nLa recta muestra el consumo en metros cúbicos por hora, con el tiempo en horas.\n\nEl gas total se estima congelando el consumo por tramos.\n\n¿Qué pasa si los tramos se hacen más cortos?",
+    "options": [
+      "Mejora, se achica la mentira de cada tramo",
+      "Empeora, porque hay más tramos para sumar",
+      "No cambia, las mentiras se compensan solas"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, en un tramo corto el consumo casi no se aleja del valor congelado.",
+    "feedback_incorrect": [
+      null,
+      "Hay más tramos, pero cada uno miente tanto menos que el total de la mentira igual se achica.",
+      "Las mentiras de estos tramos van todas para el mismo lado, así que no hay compensación posible."
+    ],
+    "graph_fn": "3-x",
+    "graph_view": [-1, 4, -1, 4],
+    "graph_shade": [0, 3],
+    "explanation": "Cada tramo congelado miente exactamente lo que el consumo alcanzó a cambiar dentro de él.\n\nCon tramos más cortos, el consumo tiene menos tiempo para alejarse del valor congelado, y la mentira de cada tramo se achica.\n\nEs cierto que aparecen más tramos, pero cada mentira individual se reduce más rápido de lo que crece la cantidad de tramos, y el error total baja.\n\nLlevada al extremo, la estimación deja de ser estimación. Ese límite, donde la mentira desaparece, es exactamente lo que mide la integral.",
+    "reviewed": false,
+    "tags": [
+      "congelar-el-ritmo"
+    ]
+  },
+  {
+    "question": "Un surtidor carga nafta cada vez más lento hacia el final.\n\nLa recta muestra el caudal en litros por minuto, con el tiempo en minutos.\n\nPara estimar los litros, alguien congela el caudal en su valor final.\n\n¿Cómo queda esa estimación?",
+    "options": [
+      "Queda por encima de lo real",
+      "Queda por debajo de lo real",
+      "Coincide con lo real"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, el valor final es el más bajo del tramo, y sostenerlo hacia atrás deja litros afuera.",
+    "feedback_incorrect": [
+      "Para que sobre área habría que congelar en un valor alto, y el final es el punto más bajo del tramo.",
+      null,
+      "Coincidiría solo con caudal constante, y acá baja durante toda la carga."
+    ],
+    "graph_fn": "4-x",
+    "graph_view": [-1, 5, -1, 5],
+    "graph_shade": [0, 3],
+    "explanation": "Congelar en el valor final arma un rectángulo con el alto más chico de todo el tramo.\n\nLa recta real queda por encima de ese piso en todo el recorrido, así que la región sombreada guarda litros que el rectángulo no cuenta.\n\nCon el mismo gráfico, congelar al principio habría sobrado y congelar al final queda corto. La respuesta verdadera vive entre esas dos estimaciones.\n\nEncerrar el valor real entre una estimación que sobra y una que falta es una idea vieja y poderosa: afinando los tramos, las dos se aprietan contra la respuesta.",
+    "reviewed": false,
+    "tags": [
+      "congelar-el-ritmo"
+    ]
+  },
+  {
+    "question": "Una panadería hornea cada vez más despacio, sin llegar a frenar.\n\nLa recta muestra el ritmo en kilos de pan por hora, con el tiempo en horas. Baja todo el tramo, pero sigue arriba del eje.\n\n¿Qué le pasa al pan acumulado?",
+    "options": [
+      "Baja, porque el ritmo viene bajando",
+      "Se queda quieto en el valor que tenía",
+      "Sube, aunque cada vez más despacio"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, mientras el ritmo siga arriba del eje, cada hora suma pan, aunque sume menos que la anterior.",
+    "feedback_incorrect": [
+      "Lo que baja es el ritmo. El pan acumulado solo bajaría si el ritmo cruzara abajo del eje.",
+      "Se quedaría quieto solo con el ritmo en cero, y acá la recta no llega a tocar el eje.",
+      null
+    ],
+    "graph_fn": "3-x/2",
+    "graph_view": [-1, 5, -1, 5],
+    "graph_shade": [0, 4],
+    "explanation": "El área sombreada engorda mientras la recta esté por encima del eje, porque cada ratito agrega una franja nueva de área.\n\nQue la recta baje significa que las franjas nuevas son más flacas que las anteriores, no que se pierda lo ya juntado.\n\nEl alto de la recta es la velocidad a la que crece el área: alto grande, el acumulado sube rápido; alto chico, sube despacio; alto cero, se frena.\n\nLeer la recta como la velocidad del área es el atajo de toda esta familia de preguntas.",
+    "reviewed": false,
+    "tags": [
+      "la-velocidad-del-area"
+    ]
+  },
+  {
+    "question": "Un maratonista arranca trotando y termina a fondo.\n\nLa recta muestra su velocidad en kilómetros por hora, con el tiempo en horas.\n\n¿En qué momento la distancia acumulada crece más rápido?",
+    "options": [
+      "Al final del tramo, con la recta más alta",
+      "Al principio del tramo, apenas arranca",
+      "En ningún momento, crece siempre igual"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, la distancia crece al ritmo que marca la recta, y la recta está más alta al final.",
+    "feedback_incorrect": [
+      null,
+      "Al principio la recta está en su punto más bajo, así que ahí la distancia crece más lento.",
+      "Crecería siempre igual solo con velocidad constante, y acá la recta sube todo el tramo."
+    ],
+    "graph_fn": "x/2",
+    "graph_view": [-1, 5, -1, 5],
+    "graph_shade": [0, 4],
+    "explanation": "La pregunta no es cuánta distancia hay acumulada, sino a qué velocidad se está acumulando en cada momento.\n\nEsa velocidad se lee directo en el alto de la recta: donde la recta está más alta, el área debajo engorda más rápido.\n\nAcá la recta sube durante todo el tramo, así que el crecimiento más veloz del acumulado ocurre al final.\n\nEl acumulado crece en todo el tramo, eso no cambia. Lo que cambia es el ritmo de ese crecimiento, y ese ritmo es exactamente la recta.",
+    "reviewed": false,
+    "tags": [
+      "la-velocidad-del-area"
+    ]
+  },
+  {
+    "question": "Una descarga arranca a toda velocidad y se va frenando.\n\nLa recta muestra esa velocidad en megabytes por segundo, con el tiempo en segundos.\n\n¿En qué parte del tramo se suman más megabytes?",
+    "options": [
+      "Hacia el final, cuando ya se estabiliza",
+      "Al principio, con la recta más alta",
+      "Parejo a lo largo de todo el tramo"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, los megabytes entran al ritmo que marca la recta, y la recta arranca en su punto más alto.",
+    "feedback_incorrect": [
+      "Hacia el final la recta está en su punto más bajo, así que ahí entran menos megabytes por segundo.",
+      null,
+      "Sería parejo solo con velocidad constante, y acá la recta baja durante todo el tramo."
+    ],
+    "graph_fn": "4-x",
+    "graph_view": [-1, 5, -1, 5],
+    "graph_shade": [0, 4],
+    "explanation": "El total descargado es el área, pero la pregunta apunta a otra cosa: dónde crece más rápido ese total.\n\nLa respuesta está en el alto de la recta. Al principio la franja de cada segundo es alta y aporta mucho; hacia el final, cada segundo aporta poco.\n\nPor eso el mismo intervalo de tiempo no siempre vale lo mismo: el primer segundo de esta descarga rinde más que el último.\n\nEl alto de la recta funciona como el velocímetro del área: no dice cuánto hay, dice a qué ritmo está entrando.",
+    "reviewed": false,
+    "tags": [
+      "la-velocidad-del-area"
+    ]
+  },
+  {
+    "question": "El caudal neto de un dique pasa de positivo a negativo: primero entra agua y después sale.\n\nLa recta lo muestra en metros cúbicos por minuto, con el tiempo en minutos.\n\n¿Cuándo alcanza el agua embalsada su punto más alto?",
+    "options": [
+      "Al final del tramo, tras cinco minutos",
+      "Al principio, con el caudal más alto",
+      "Justo cuando la recta cruza el eje"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, hasta el cruce el agua sube y después baja, así que el máximo está en el cruce.",
+    "feedback_incorrect": [
+      "En el último tramo el caudal ya es negativo, así que el agua viene bajando desde el cruce.",
+      "Ahí el agua sube al ritmo más rápido, pero sigue subiendo un rato más: todavía no es el máximo.",
+      null
+    ],
+    "graph_fn": "3-x",
+    "graph_view": [-1, 6, -3, 4],
+    "graph_shade": [0, 5],
+    "explanation": "Mientras la recta está arriba del eje entra agua, y el embalse sube. Cuando pasa abajo, sale, y el embalse baja.\n\nEl instante del cruce es el único donde el agua deja de subir sin haber empezado a bajar: ahí vive el máximo.\n\nEl caudal más alto, al principio, marca la subida más rápida, que es otra cosa: subir rápido no es haber terminado de subir.\n\nEl signo de la recta dice si el acumulado sube o baja, y su cruce por cero marca el punto de giro. Todo eso se lee sin calcular nada.",
+    "reviewed": false,
+    "tags": [
+      "la-velocidad-del-area"
+    ]
+  },
+  {
+    "question": "Un suero gotea a un ritmo que no cambia en todo el tramo.\n\nLa recta muestra ese ritmo en mililitros por minuto, con el tiempo en minutos.\n\n¿Cómo crece el líquido acumulado?",
+    "options": [
+      "Parejo, al mismo ritmo todo el tramo",
+      "Cada vez más rápido, porque se acumula",
+      "Cada vez más despacio, porque se agota"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, con la recta quieta, el área debajo engorda siempre a la misma velocidad.",
+    "feedback_incorrect": [
+      null,
+      "Acumular no acelera nada: la velocidad del acumulado la marca el alto de la recta, que acá no cambia.",
+      "El gráfico no muestra ningún agotamiento: el ritmo se mantiene igual de punta a punta."
+    ],
+    "graph_fn": "2",
+    "graph_view": [-1, 5, -1, 5],
+    "graph_shade": [0, 4],
+    "explanation": "Cada minuto agrega una franja idéntica a la anterior, porque el alto de la recta no se mueve.\n\nPor eso el acumulado crece en línea recta: mismo aporte, minuto tras minuto.\n\nQue el total sea cada vez más grande no significa que crezca cada vez más rápido. El tamaño del acumulado y la velocidad a la que crece son dos cosas distintas.\n\nEsa velocidad se lee siempre en el mismo lugar: el alto de la recta. Quieta la recta, quieto el ritmo del área.",
+    "reviewed": false,
+    "tags": [
+      "la-velocidad-del-area"
+    ]
   }
 ]

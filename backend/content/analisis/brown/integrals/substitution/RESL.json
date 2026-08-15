@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El término constante del interior no interviene en el diferencial. Derivando $u=2x-1$ queda $du=2\\,dx$, y el ajuste sale de ahí:\n$$dx=\\frac{1}{2}\\,du$$\nEl $-1$ desaparece del ajuste porque la derivada de una constante es cero.\n\nReemplazando el interior por la variable auxiliar y el diferencial por su despeje, el integrando entero colapsa a una entrada de tabla con un factor constante delante.\n$$\\int \\cos(2x-1)\\,dx=\\frac{1}{2}\\int \\cos u\\,du$$\nEse medio se queda afuera hasta el final, sin volver a tocarse.\n\nMirar solo el coeficiente y no el término independiente es lo que vuelve idéntico este ajuste sin importar cuánto esté corrido el interior.",
+    "explanation": "El término constante del interior no interviene en el diferencial. Derivando $u=2x-1$ queda $du=2\\,dx$, y el ajuste sale de ahí:\n$$dx=\\frac{1}{2}\\,du$$\nEl $-1$ desaparece del ajuste porque la derivada de una constante es cero.\n\nReemplazando el interior por la variable auxiliar y el diferencial por su despeje, el integrando entero colapsa a una entrada de tabla con un factor constante delante.\n$$\\int \\cos(2x-1)\\,dx=\\frac{1}{2}\\int \\cos u\\,du$$\nEse medio se queda afuera hasta el final, sin volver a tocarse.\n\nMirar solo el coeficiente y no el término independiente es lo que vuelve idéntico este ajuste sin importar cuánto esté desplazado el interior.",
     "reviewed": false,
     "tags": [
       "sustitucion-lineal-inmediata"

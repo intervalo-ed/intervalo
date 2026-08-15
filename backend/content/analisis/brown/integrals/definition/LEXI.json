@@ -35,11 +35,11 @@
     "feedback_incorrect": [
       "La primitiva es $F(x)$, el resultado de la integración, un objeto distinto del diferencial.",
       null,
-      "$dx$ no se multiplica aritméticamente con el integrando, es un símbolo que indica la variable de integración."
+      "$dx$ no es un número suelto que se multiplica y se cancela, es la marca de la variable de integración."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **diferencial** $dx$ indica respecto de qué variable se está integrando, sin actuar como un número que se pueda multiplicar o cancelar.\n\nLeer $dx$ como si fuera un factor aritmético es un error frecuente, su función es puramente notacional, marca la variable del proceso.\n\nIntentar cancelar o despejar el $dx$ como si fuera un factor algebraico deja la expresión sin sentido, porque no representa ninguna cantidad numérica.",
+    "explanation": "El **diferencial** $dx$ indica respecto de qué variable se está integrando: es la marca que cierra la notación.\n\nEl error no es asociarlo con multiplicar, sino tratarlo como un número suelto que se cancela o se despeja algebraicamente. Eso deja la expresión sin sentido.\n\nMás adelante en el curso, el diferencial va a ganar una segunda lectura como parte de la acumulación. Las dos conviven, y ninguna lo convierte en un número que se simplifica.",
     "reviewed": false,
     "tags": [
       "anatomia-notacion-integral"

@@ -178,6 +178,12 @@ Mudarlos habría dejado a `LEXI` en 12 ítems y habría roto dos líneas de este
 
 ---
 
+## Nota de coherencia con `interpretacion` (ronda 5, ago-2026)
+
+`interpretacion` sumó una sub-familia que lee la notación de acumulación, donde $f(t)\,dt$ se lee como un producto con unidades. Para que las dos lecturas no choquen en el repaso mezclado, el ítem de $dx$ en `LEXI` (sub-A) ajustó su redacción: el error que señala es tratar al diferencial como *un número suelto que se cancela o se despeja*, no leerlo como parte de un producto. La explicación anticipa en una oración que el diferencial va a ganar una segunda lectura más adelante, sin nombrar área ni acumulación. Ver la Advertencia de coherencia en `interpretacion/topic-context.md`.
+
+---
+
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 3 skills):**

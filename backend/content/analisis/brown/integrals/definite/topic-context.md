@@ -170,6 +170,8 @@ La frontera entre los dos es **cualitativo contra cuantitativo**. Un ítem que p
 
 **3. Jerga en una apertura (regla 57, nueva).** `RESL#5` decía "el recíproco de $x$", del mismo tipo que las etiquetas que el usuario marcó en `reglas`. Reescrita en lenguaje llano.
 
+**Candidato aparcado para el backfill (ronda 5)**: el **valor promedio** de un ritmo como "aplanar la curva" (Essence of Calculus, capítulo 9): el rectángulo de igual área cuya altura es total dividido ancho. No entra en `interpretacion` porque exige calcular, y el renderer no puede dibujar la recta del promedio sobre la función. Acá sí encaja: una sub-familia de GRAF o RESL donde el estudiante calcule el promedio desde el área leída del gráfico.
+
 ---
 
 ## Hallazgos de auditoría (ronda 4, ago-2026)

@@ -138,7 +138,7 @@
     ]
   },
   {
-    "question": "Adentro del seno no está la variable sola, sino multiplicada por un número y corrida:\n$$\\int \\sin(2x-1)\\,dx$$\n¿Cómo conviene abordarla?",
+    "question": "Adentro del seno no está la variable sola, sino multiplicada por un número y desplazada:\n$$\\int \\sin(2x-1)\\,dx$$\n¿Cómo conviene abordarla?",
     "options": [
       "Regla directa",
       "Sustitución",

@@ -343,5 +343,120 @@
     "tags": [
       "del-numero-a-su-significado"
     ]
+  },
+  {
+    "question": "Una pileta se llena con un caudal $c(t)$ que varía, en litros por minuto, con $t$ en minutos.\n\nLos litros del primer cuarto de hora se escriben así:\n$$\\int_0^{15} c(t)\\,dt$$\n¿Qué representa el bloque de adentro, el caudal multiplicado por el $dt$?",
+    "options": [
+      "El aporte de un ratito: caudal por duración",
+      "El caudal promedio de los quince minutos",
+      "Los litros que ya había en la pileta"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, es un alto por un ancho: el agua de un instante del llenado.",
+    "feedback_incorrect": [
+      null,
+      "El promedio no aparece en la notación: saldría de repartir el total, una cuenta posterior.",
+      "Lo que ya había no figura en ninguna parte de la escritura: la integral solo cuenta lo que entra."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La notación se lee por partes, y cada parte dice algo. El factor $c(t)$ es el alto: el caudal vigente en ese instante, en litros por minuto.\n\nEl $dt$ es el ancho: un ratito de tiempo, en minutos. Multiplicados dan litros, el agua de ese instante del llenado.\n\nEl símbolo de la integral junta todos esos aportes, del minuto $0$ al $15$.\n\nEn la integral indefinida, el $dt$ marca respecto de qué variable se integra. Leído como acumulación, además es el ancho del ratito.\n\nLas dos lecturas conviven sin pelearse, y ninguna convierte al diferencial en un número suelto que se pueda cancelar.",
+    "reviewed": false,
+    "tags": [
+      "leer-la-notacion"
+    ]
+  },
+  {
+    "question": "Un tren viaja con velocidad $v(t)$ en kilómetros por hora, con $t$ en horas.\n\nParte de su recorrido se escribe así:\n$$\\int_2^5 v(t)\\,dt$$\n¿Qué papel juegan el $2$ y el $5$?",
+    "options": [
+      "Son las velocidades mínima y máxima del tren",
+      "Marcan desde cuándo y hasta cuándo se acumula",
+      "Escalan el resultado final de toda la cuenta"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, recortan el tramo del viaje: de la hora $2$ a la hora $5$.",
+    "feedback_incorrect": [
+      "Las velocidades viven en $v(t)$, no en los límites: estos dos números son horas del viaje.",
+      null,
+      "No multiplican nada: delimitan el tramo sobre el que se suman los aportes."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Los números pegados al símbolo de la integral se llaman límites de integración, y son la parte de la notación que dice cuándo empieza y cuándo termina la cuenta.\n\nAcá recortan el tramo entre la hora $2$ y la hora $5$ del viaje. Todo lo que pasa fuera de ese tramo queda afuera de la suma.\n\nUn desliz frecuente es leerlos como valores de la función. No lo son: están en la unidad de la variable, horas, no en la del ritmo.\n\nCambiar los límites no cambia qué se acumula, cambia durante cuánto. Son la ventana de la acumulación.",
+    "reviewed": false,
+    "tags": [
+      "leer-la-notacion"
+    ]
+  },
+  {
+    "question": "La lluvia cae sobre un pluviómetro a un ritmo $f(t)$ en milímetros por hora, con $t$ en horas.\n\nEl agua de la madrugada se escribe así:\n$$\\int_0^6 f(t)\\,dt$$\nEl símbolo que envuelve todo tiene una forma particular.\n\n¿De dónde viene esa forma?",
+    "options": [
+      "Es la inicial estilizada de la palabra integral",
+      "Es una barra que separa la función del diferencial",
+      "Es una S estirada, de sumar los aportes de a uno"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, la S viene de suma: el símbolo anuncia que se juntan infinitos aportes chiquitos.",
+    "feedback_incorrect": [
+      "La palabra integral llegó después: el símbolo nació de otra palabra, la que describe lo que la operación hace.",
+      "No separa nada: envuelve a la expresión entera y anuncia qué se va a hacer con ella.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El símbolo es una S alargada, elegida hace más de tres siglos como abreviatura de suma.\n\nNo es un adorno: anuncia exactamente lo que la operación hace. Cada aporte es el agua de un ratito de lluvia, y la S estirada los junta a todos, de la hora cero a la seis.\n\nLeída así, la escritura entera es una oración: sumar, aporte por aporte, el ritmo multiplicado por su ratito, desde el arranque hasta el final.\n\nCuando la notación se lee como una oración, deja de ser un jeroglífico para memorizar.",
+    "reviewed": false,
+    "tags": [
+      "leer-la-notacion"
+    ]
+  },
+  {
+    "question": "Una impresora deposita tinta a un ritmo $r(t)$ en mililitros por segundo, con $t$ en segundos.\n\nLa tinta de una pasada se escribe así:\n$$\\int_0^{30} r(t)\\,dt$$\n¿Por qué el resultado queda en mililitros y no en mililitros por segundo?",
+    "options": [
+      "Porque cada aporte multiplica ritmo por ratito",
+      "Porque la integral borra la unidad del tiempo siempre",
+      "Porque los límites ya vienen escritos en segundos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, los segundos del ritmo se cancelan contra los del ratito, y quedan mililitros.",
+    "feedback_incorrect": [
+      null,
+      "La integral no borra unidades por decreto: la cancelación sale de una multiplicación concreta.",
+      "Los límites recortan el tramo, pero la unidad del resultado se decide en el producto de adentro."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La clave está en que $r(t)\\,dt$ es un producto de verdad, no una notación decorativa.\n\nEl ritmo aporta mililitros por segundo y el ratito aporta segundos. Al multiplicarlos, los segundos se cancelan entre sí y cada aporte queda en mililitros.\n\nSumar aportes en mililitros da un total en mililitros. La unidad del resultado ya estaba decidida dentro del bloque, antes de sumar nada.\n\nEsa multiplicación de unidades es el mejor control del planteo: si lo que sale no responde la pregunta, algo del armado está mal.",
+    "reviewed": false,
+    "tags": [
+      "leer-la-notacion"
+    ]
+  },
+  {
+    "question": "Un dique suelta agua a un ritmo $q(t)$ en metros cúbicos por segundo, con $t$ en segundos.\n\nEl agua del primer minuto se escribe así:\n$$\\int_0^{60} q(t)\\,dt$$\nAdentro de la escritura aparece la letra $t$.\n\n¿El resultado depende de esa letra?",
+    "options": [
+      "Sí, el resultado es una función de $t$",
+      "No, es un número: la $t$ se consume al sumar",
+      "Depende de la fórmula que tenga la función $q$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, la $t$ recorre los ratitos del tramo y desaparece en la suma: queda un solo número.",
+    "feedback_incorrect": [
+      "La $t$ no sobrevive a la suma: recorre el tramo por adentro y el resultado ya no la contiene.",
+      null,
+      "Con cualquier fórmula pasa lo mismo: la variable interna se agota al recorrer el tramo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La letra de adentro es una variable interna: su único trabajo es recorrer los ratitos del tramo, del segundo cero al sesenta, mientras la suma avanza.\n\nCuando la suma termina, no queda ninguna $t$ dando vueltas. El resultado es un solo número: los metros cúbicos que soltó el dique en ese minuto.\n\nEsto distingue a la integral con límites de la indefinida, cuyo resultado sí es una función.\n\nUna pregunta rápida lo verifica: cambiarle el nombre a la letra interna, de $t$ a cualquier otra, no cambia en nada el resultado. Lo que no aparece en el resultado no puede afectarlo.",
+    "reviewed": false,
+    "tags": [
+      "leer-la-notacion"
+    ]
   }
 ]

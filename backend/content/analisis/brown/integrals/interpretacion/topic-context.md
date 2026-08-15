@@ -84,8 +84,10 @@ Repertorio, con tope de repetición del 30% por skill: velocidad y distancia rec
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Qué mide el área sombreada | El gráfico muestra un ritmo y el sombreado marca un tramo. Qué cantidad representa esa área, en qué unidad queda, y qué dice el signo cuando la recta pasa por debajo del eje. Incluye la distinción entre lo acumulado y el valor final, que solo coinciden si el punto de partida es cero. | `que-mide-el-area-sombreada` | 15 |
-| B. Acumulación y comparación | Lecturas relativas sobre el mismo gráfico: en qué tramo se acumuló más, en qué momento lo acumulado toca su valor más bajo, si un tramo entra sumando o restando al total, y la confusión entre que el ritmo suba y que la cantidad suba. | `acumulacion-y-comparacion` | 15 |
+| A. Qué mide el área sombreada | El gráfico muestra un ritmo y el sombreado marca un tramo. Qué cantidad representa esa área, en qué unidad queda, y qué dice el signo cuando la recta pasa por debajo del eje. Incluye la distinción entre lo acumulado y el valor final, que solo coinciden si el punto de partida es cero. | `que-mide-el-area-sombreada` | 10 |
+| B. Acumulación y comparación | Lecturas relativas sobre el mismo gráfico: en qué tramo se acumuló más, en qué momento lo acumulado toca su valor más bajo, si un tramo entra sumando o restando al total, y la confusión entre que el ritmo suba y que la cantidad suba. | `acumulacion-y-comparacion` | 10 |
+| C. Congelar el ritmo | Por qué alto por ancho funciona cuando el ritmo cambia (ronda 5, ver Ampliación). Se imagina el ritmo congelado en un valor, y se compara ese rectángulo contra la región real: con ritmo que baja, congelar al arranque sobra y congelar al final falta; con ritmo constante, coincide exacto; con tramos más cortos, la mentira de cada tramo se achica. Nunca se dibujan los rectángulos, se comparan mentalmente contra la región sombreada, y jamás aparece la notación de sumatoria. | `congelar-el-ritmo` | 5 |
+| D. La velocidad del área | El alto de la recta es la velocidad a la que crece lo acumulado (ronda 5, ver Ampliación). Dónde crece más rápido el total, qué le pasa al acumulado cuando el ritmo baja pero sigue positivo, cuándo el acumulado toca su máximo (el cruce por cero bajando), y el caso constante donde el acumulado crece parejo. Es la semilla del TFC contada sin nombrarlo, sin primitivas y sin Barrow. | `la-velocidad-del-area` | 5 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -127,8 +129,9 @@ Se muestra en la app como **Planteo**.
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. De la situación a la integral | Elegir la integral que modela la situación descripta. Los tres ejes de decisión: **qué se integra** (el ritmo, no la cantidad, y nunca su derivada), **entre qué límites** (con las unidades del enunciado, que a veces no son las del intervalo dado), y **si hace falta sumar el valor inicial** para responder lo que se pregunta. | `de-la-situacion-a-la-integral` | 15 |
-| B. Del número a su significado | Dada una integral en contexto y su valor, decidir qué afirma ese número. Distinguir lo acumulado del valor final, del promedio y del valor instantáneo al cierre del intervalo. Incluye el caso del resultado negativo y el del resultado cero. | `del-numero-a-su-significado` | 15 |
+| A. De la situación a la integral | Elegir la integral que modela la situación descripta. Los tres ejes de decisión: **qué se integra** (el ritmo, no la cantidad, y nunca su derivada), **entre qué límites** (con las unidades del enunciado, que a veces no son las del intervalo dado), y **si hace falta sumar el valor inicial** para responder lo que se pregunta. | `de-la-situacion-a-la-integral` | 10 |
+| B. Del número a su significado | Dada una integral en contexto y su valor, decidir qué afirma ese número. Distinguir lo acumulado del valor final, del promedio y del valor instantáneo al cierre del intervalo. Incluye el caso del resultado negativo y el del resultado cero. | `del-numero-a-su-significado` | 10 |
+| C. Leer la notación | La escritura $\int_a^b f(t)\,dt$ leída como una oración (ronda 5, ver Ampliación): el bloque $f(t)\,dt$ es un producto con unidades, el aporte de un ratito; los límites son la ventana de la acumulación, en la unidad de la variable; el símbolo es una S estirada que viene de suma; y la variable interna se consume al sumar, así que el resultado es un número y no una función. Siempre en contexto, con la función nombrada por letra y unidad. | `leer-la-notacion` | 10 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -150,6 +153,22 @@ Se muestra en la app como **Planteo**.
 
 ---
 
+## Ampliación (ronda 5, ago-2026): sub-familias Essence of Calculus
+
+Tres sub-familias nuevas inspiradas en la serie **Essence of Calculus** de 3Blue1Brown (capítulos 1, 8 y 9), pedidas para darle al estudiante momentos de comprensión genuina, no más práctica del mismo corte. Cada una entra dentro del target de 30 por skill, recuoteando las tablas.
+
+**`congelar-el-ritmo` (GRAF, capítulos 1 y 8).** El hueco que cubre: el topic afirmaba que "el área acumula" pero el estudiante nunca confrontaba **por qué** eso se justifica cuando el ritmo varía. La familia trabaja la aproximación por ritmo congelado sin dibujar rectángulos (el renderer traza una función y un sombreado, nada más): el rectángulo se imagina y se compara contra la región sombreada visible. La sub-familia respeta al pie la regla dura existente: la idea de rebanar se cuenta en palabras y gráfico, la notación de sumatoria sigue prohibida.
+
+**`la-velocidad-del-area` (GRAF, capítulo 8).** La revelación central de la serie, en versión cualitativa: el alto de la recta es la velocidad a la que engorda el área. Prepara el terreno para que Barrow, en `definite`, resulte casi obvio. Límites estrictos: no se nombra el TFC, no se nombra la primitiva, no se calcula nada. El ítem existente del mínimo en el cruce (sub-B) es pariente de esta familia y se queda donde está.
+
+**`leer-la-notacion` (ESTR, capítulo 8).** La notación leída como oración: S estirada de suma, $f(t)\,dt$ como producto con unidades, límites como ventana, variable interna que se consume.
+
+**Advertencia de coherencia con `definition`, obligatoria al escribir esta familia.** `definition/LEXI` enseña que $dx$ marca la variable de integración y advierte contra tratarlo como un número que se cancela. La lectura de acumulación dice que $f(t)\,dt$ **sí** es un producto. Las dos lecturas son correctas y conviven, pero servidas en orden aleatorio pueden chocar: por eso, todo ítem de esta familia que lea el diferencial como ancho **debe puentear explícitamente en su explicación** ("en la indefinida marca la variable; leído como acumulación, además es el ancho del ratito"), y ninguna puede validar la idea de que el diferencial se simplifica algebraicamente. El feedback de `definition/LEXI` se ajustó en espejo: el error señalado ahí es tratarlo como *un número suelto que se cancela*, no leerlo como ancho.
+
+**Considerado y aparcado**: el valor promedio como "aplanar la curva" (capítulo 9). El rectángulo de igual área no se puede dibujar con el renderer actual, y la versión sin gráfico exige dividir total por ancho, que viola la regla dura de este topic. Queda anotado como candidato para el backfill de `definite`.
+
+---
+
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 2 skills):**
@@ -164,7 +183,9 @@ Se muestra en la app como **Planteo**.
 
 **GRAF:**
 - [ ] 30 ejercicios; **exactamente 3 opciones** por ejercicio
-- [ ] Distribución A/B respetada (15/15)
+- [ ] Distribución A/B/C/D respetada (10/10/5/5)
+- [ ] `congelar-el-ritmo`: ningún rectángulo dibujado, ninguna sumatoria; el rectángulo se imagina contra la región sombreada
+- [ ] `la-velocidad-del-area`: sin TFC, sin primitivas, sin Barrow; solo lectura del alto como velocidad del acumulado
 - [ ] `graph_shade` presente en todo ítem que hable de un tramo
 - [ ] `graph_view` cuadrado, mismo ancho que alto; sin `graph_free_aspect`; pendientes $|m| \leq 3$
 - [ ] El eje horizontal visible en todos los gráficos, incluidos los de función negativa
@@ -173,7 +194,8 @@ Se muestra en la app como **Planteo**.
 
 **ESTR:**
 - [ ] 30 ejercicios; **exactamente 3 opciones** por ejercicio
-- [ ] Distribución A/B respetada (15/15)
+- [ ] Distribución A/B/C respetada (10/10/10)
+- [ ] `leer-la-notacion`: toda lectura del diferencial como ancho lleva el puente con la lectura de `definition` en la explicación
 - [ ] En sub-A, al menos una opción por ítem no es una integral
 - [ ] En sub-B, el valor numérico siempre viene dado en el enunciado
 - [ ] Ninguna función se define por fórmula, solo por letra y unidad
