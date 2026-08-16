@@ -10,6 +10,23 @@
 export const FIRST_UTM_SOURCE = "first_utm_source"
 
 /**
+ * Grupo de WhatsApp por el que llegó la persona.
+ *
+ * Los links que Hermes manda a cada grupo son `intervalo.xyz/?g=uba042`: el id
+ * identifica al grupo puntual y su prefijo es la universidad, de modo que
+ * `?g=uba042` produce el mismo `first_utm_source` que el viejo `?utm_source=uba`
+ * y los reportes por universidad siguen andando.
+ *
+ * Es query propia y no `utm_content` porque el link tiene que verse corto en el
+ * mensaje de WhatsApp. La contra es que PostHog no lo parsea solo como parámetro
+ * de campaña, así que se registra a mano igual que `first_utm_source`.
+ */
+export const FIRST_GROUP_ID = "first_group_id"
+
+/** Formato del id de grupo: prefijo de universidad + número. */
+export const GROUP_ID_PATTERN = /^([a-z]{2,6})(\d{1,5})$/
+
+/**
  * Primera vez que vimos a esta persona usando la app instalada. Se guarda en el
  * perfil con $set_once para poder segmentar sin depender del evento puntual.
  */
