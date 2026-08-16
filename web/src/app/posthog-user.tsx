@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react"
 import { useAuth, useUser } from "@clerk/nextjs"
 import posthog from "posthog-js"
 import {
+  FIRST_GROUP_ID,
   FIRST_PWA_USE_AT,
   FIRST_PWA_USE_STORAGE_KEY,
   FIRST_UTM_SOURCE,
@@ -23,6 +24,9 @@ export function PostHogUser() {
       // registrarse. Se copia acá como $set_once para poder segmentar retención
       // y progreso por universidad.
       const firstUtmSource = posthog.get_property(FIRST_UTM_SOURCE)
+      // Mismo mecanismo, un nivel más fino: qué grupo de WhatsApp trajo a esta
+      // persona, para saber cuáles convierten y cuáles no.
+      const firstGroupId = posthog.get_property(FIRST_GROUP_ID)
 
       // Mismo problema que la atribución, del otro lado: el evento pwa_install
       // sale una sola vez por dispositivo y si se pierde no hay reintento. Este
@@ -38,6 +42,7 @@ export function PostHogUser() {
 
       const setOnce: Record<string, string> = {}
       if (firstUtmSource) setOnce[FIRST_UTM_SOURCE] = String(firstUtmSource)
+      if (firstGroupId) setOnce[FIRST_GROUP_ID] = String(firstGroupId)
       if (firstPwaUseAt) setOnce[FIRST_PWA_USE_AT] = firstPwaUseAt
 
       posthog.identify(
