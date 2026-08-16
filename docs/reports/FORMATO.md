@@ -138,6 +138,58 @@ Reglas para el próximo reporte:
 | Registros, inscripciones, sesiones, respuestas | Postgres de producción |
 | Grupos publicados por día | Google Sheet del tracker de difusión |
 
+### Atribución: usar `first_utm_source`, NO el `utm_source` nativo
+
+Desde 2026-08-16 los links de difusión a grupos de WhatsApp son
+`intervalo.xyz/?g=<id>` (ej. `?g=uba042`), uno por grupo, en vez del
+`?utm_source=<universidad>` compartido por toda la facultad.
+
+Como el parámetro ya no se llama `utm_*`, **PostHog no lo parsea a su propiedad
+nativa de campaña**: en esos eventos `properties.utm_source` viene vacío. La
+atribución se registra a mano en `web/src/instrumentation-client.ts` y vive en
+dos propiedades **de persona**:
+
+| Propiedad | Qué trae | Ejemplo |
+|---|---|---|
+| `first_utm_source` | universidad (derivada del prefijo del id) | `uba` |
+| `first_group_id` | el grupo puntual | `uba042` |
+
+Ambas son `$set_once` sobre el perfil: **gana el primer contacto** y sobreviven
+al login con Google, que es donde se perdía la atribución antes (por eso existen).
+
+Consecuencia para los reportes: una consulta que filtre por
+`properties.utm_source` **no ve el tráfico nuevo**. Siempre usar
+`person.properties.first_utm_source`.
+
+```sql
+-- Personas por universidad
+SELECT person.properties.first_utm_source AS universidad,
+       uniq(person_id) AS personas
+FROM events
+WHERE timestamp >= now() - INTERVAL 30 DAY
+  AND person.properties.first_utm_source != ''
+GROUP BY universidad
+ORDER BY personas DESC
+
+-- Personas por grupo de WhatsApp (la granularidad nueva)
+SELECT person.properties.first_group_id AS grupo,
+       uniq(person_id) AS personas
+FROM events
+WHERE timestamp >= now() - INTERVAL 30 DAY
+  AND person.properties.first_group_id != ''
+GROUP BY grupo
+ORDER BY personas DESC
+```
+
+Los links viejos (`?utm_source=uba`) siguen funcionando y siguen llenando
+`first_utm_source`: hay cientos ya enviados a grupos, grabados en esos chats
+para siempre. Lo que **no** tienen es `first_group_id`, así que en cualquier
+análisis por grupo esas personas aparecen sin asignar. Al comparar períodos,
+tener presente que la granularidad por grupo arranca el 2026-08-16.
+
+Para traducir un `first_group_id` a universidad, materia, comisión o cátedra,
+cruzar contra la columna `ID` del Google Sheet del tracker.
+
 Para Postgres se usa el helper `backend/dbq.py` a través de Railway, que evita
 tener la URL de conexión en el repo:
 
@@ -157,4 +209,7 @@ escapeo de comillas en línea rompe con facilidad.
 - [ ] Las líneas de texto llegan al margen derecho.
 - [ ] Cada figura tiene pie y cada pie dice qué mira y qué concluir.
 - [ ] Los porcentajes citados en el abstract coinciden con los de las figuras.
+- [ ] La atribución se consultó por `first_utm_source` / `first_group_id`, no por
+      el `utm_source` nativo (ver §7) — si no, el tráfico de los links nuevos
+      queda afuera y el reporte subestima la difusión.
 - [ ] El PDF quedó en `docs/reports/` y no se subió al repo.
