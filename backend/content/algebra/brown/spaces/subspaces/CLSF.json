@@ -1,22 +1,371 @@
 [
   {
-    "question": "¿Cuál de estos conjuntos de $\\mathbb{R}^2$ es un **subespacio**?",
+    "question": "Tres subconjuntos del plano quedan definidos por una condición sobre sus coordenadas.\n$$S_1 = \\{(x,y) : y = 3x\\}$$\n$$S_2 = \\{(x,y) : y = 3x + 2\\}$$\n$$S_3 = \\{(x,y) : x \\geq 0\\}$$\n¿Cuál de los tres es un subespacio?",
     "options": [
-      "La recta $y=2x$",
-      "La recta $y=2x+1$",
-      "El conjunto $\\{(x,y) : x\\geq 0\\}$"
+      "$S_1$",
+      "$S_2$",
+      "$S_3$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$y=2x$ pasa por el origen y es cerrada bajo suma y escalar: es un subespacio.",
+    "feedback_correct": "Su condición es lineal y sin término independiente, así que sumar y escalar la siguen cumpliendo.",
     "feedback_incorrect": [
       null,
-      "$y=2x+1$ no pasa por el origen, así que no es un subespacio.",
-      "Ese conjunto no es cerrado bajo el producto por un escalar negativo."
+      "El par $(0,0)$ no la cumple, porque al reemplazar queda cero igual a dos.",
+      "Multiplicar $(1,0)$ por menos uno da $(-1,0)$, que ya no cumple la desigualdad."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Toda recta que sea subespacio debe pasar por el origen, ya que el vector nulo tiene que pertenecer a $S$.\n\n$y=2x$ cumple esa condición y además es cerrada bajo suma y producto por escalar.\n\n$y=2x+1$ no pasa por el origen (falla en $x=0$, $y=1\\neq0$), y $\\{x\\geq0\\}$ no es cerrado bajo escalares negativos: multiplicar por $-1$ saca al vector del conjunto.",
-    "reviewed": false
+    "explanation": "La condición que define al conjunto es lo único que hay que mirar, y conviene revisarla en tres pasos.\n\nEl vector nulo descarta a $S_2$ de entrada. Reemplazando por ceros queda $0 = 2$, que es falso, así que el origen no pertenece.\n\nEl producto por un escalar negativo descarta a $S_3$. Sus elementos tienen la primera coordenada positiva, y multiplicar por menos uno la vuelve negativa.\n\nEn $S_1$, en cambio, la condición es lineal e igualada a cero. Sumar dos pares que la cumplen o escalar uno de ellos vuelve a producir un par que la cumple.\n\nLa diferencia entre $S_1$ y $S_2$ es solo el término independiente, y alcanza para que una recta califique y la otra no.",
+    "reviewed": false,
+    "tags": [
+      "decidir-si-es-subespacio"
+    ]
+  },
+  {
+    "question": "Tres subconjuntos de $\\mathbb{R}^3$ quedan definidos por una condición.\n$$S_1 = \\{(x,y,z) : x + y + z = 0\\}$$\n$$S_2 = \\{(x,y,z) : x = 1\\}$$\n$$S_3 = \\{(x,y,z) : y = z^2\\}$$\n¿Cuál de los tres es un subespacio?",
+    "options": [
+      "$S_3$",
+      "$S_1$",
+      "$S_2$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Su condición es lineal y sin término independiente, así que sumar y escalar la conservan.",
+    "feedback_incorrect": [
+      "La terna $(0,1,1)$ pertenece, pero duplicada queda $(0,2,2)$, y dos no es cuatro.",
+      null,
+      "La terna nula no la cumple, porque cero no es uno, así que el origen quedó afuera."
+    ],
+    "explanation": "Una condición califica cuando es lineal en las coordenadas y está igualada a cero, y las tres candidatas se separan por eso.\n$$(1,-1,0) + (0,2,-2) = (1,1,-2)$$\nLas tres coordenadas del resultado siguen sumando cero, porque la suma de dos ceros es cero.\n\nLa segunda condición fija un valor distinto de cero, y el origen ya no la cumple.\n\nLa tercera tiene un cuadrado, y ahí la escala rompe todo: duplicar una terna duplica la coordenada de la izquierda y cuadruplica la de la derecha.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-si-es-subespacio"
+    ]
+  },
+  {
+    "question": "Tres subconjuntos del plano se comparan por su condición sobre las coordenadas.\n$$S_1 = \\{(x,y) : x = 0\\}$$\n$$S_2 = \\{(x,y) : xy = 1\\}$$\n$$S_3 = \\{(x,y) : x + y = 4\\}$$\n¿Cuál de los tres es un subespacio?",
+    "options": [
+      "$S_2$",
+      "$S_3$",
+      "$S_1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Es el eje vertical, y sumar o escalar pares con primera coordenada nula la deja nula.",
+    "feedback_incorrect": [
+      "El par nulo no lo cumple, porque cero por cero da cero y no uno.",
+      "El par nulo tampoco lo cumple, porque cero más cero da cero y no cuatro.",
+      null
+    ],
+    "explanation": "El primer conjunto es el eje vertical, una recta que pasa por el origen, y su condición sobrevive a las dos operaciones.\n$$(0,3) + (0,-5) = (0,-2)$$\nLa primera coordenada se mantiene en cero, y multiplicar por cualquier número tampoco la despierta.\n\nLos otros dos conjuntos se descartan con el mismo control: el par nulo no cumple ninguna de las dos condiciones restantes.\n\nEl segundo además es una curva, y el tercero una recta desplazada, así que aunque el origen perteneciera habría que revisar las operaciones igual.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-si-es-subespacio"
+    ]
+  },
+  {
+    "question": "Tres subconjuntos del plano se describen con condiciones de distinto tipo.\n$$S_1 = \\{(x,y) : y = -x\\}$$\n$$S_2 = \\{(x,y) : |x| = |y|\\}$$\n$$S_3 = \\{(x,y) : y \\geq x\\}$$\n¿Cuál de los tres es un subespacio?",
+    "options": [
+      "$S_1$",
+      "$S_2$",
+      "$S_3$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Es una recta por el origen, y la condición aguanta las dos operaciones sin romperse.",
+    "feedback_incorrect": [
+      null,
+      "Los pares $(1,1)$ y $(1,-1)$ pertenecen, pero su suma es $(2,0)$, que no cumple la igualdad.",
+      "El par $(0,3)$ pertenece, pero multiplicado por menos uno queda $(0,-3)$, que no cumple."
+    ],
+    "explanation": "El primero es la recta por el origen de pendiente negativa, y su condición es lineal e igualada a cero.\n$$(2,-2) + (-5,5) = (-3,3)$$\nEl resultado sigue teniendo la segunda coordenada opuesta a la primera, así que pertenece.\n\nEl segundo conjunto son las dos diagonales juntas, y sumar un elemento de cada una produce algo que no está en ninguna de las dos.\n\nEl tercero es un semiplano, y las desigualdades siempre se rompen al multiplicar por un número negativo, que da vuelta el sentido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-si-es-subespacio"
+    ]
+  },
+  {
+    "question": "Tres subconjuntos de $\\mathbb{R}^3$ se proponen como subespacios.\n$$S_1 = \\{(x,y,z) : z = 0\\}$$\n$$S_2 = \\{(x,y,z) : x + y = z + 2\\}$$\n$$S_3 = \\{(x,y,z) : xyz = 0\\}$$\n¿Cuál de los tres es un subespacio?",
+    "options": [
+      "$S_3$",
+      "$S_1$",
+      "$S_2$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Es un plano por el origen, y ninguna operación puede despertar una coordenada que vale cero.",
+    "feedback_incorrect": [
+      "Las ternas $(1,1,0)$ y $(0,1,1)$ pertenecen, pero su suma es $(1,2,1)$, con producto dos.",
+      null,
+      "La terna nula no lo cumple, porque cero más cero no da dos."
+    ],
+    "explanation": "El primer conjunto es el plano horizontal que pasa por el origen, definido por una condición lineal e igualada a cero.\n$$(3,1,0) + (-2,4,0) = (1,5,0)$$\nLa última coordenada del resultado sigue valiendo cero, y multiplicar por cualquier número tampoco la cambia.\n\nEl segundo tiene término independiente, así que el origen queda afuera y se descarta de inmediato.\n\nEl tercero contiene al origen y aun así falla, porque reúne los tres planos coordenados y sumar elementos de dos de ellos produce algo que no está en ninguno.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-si-es-subespacio"
+    ]
+  },
+  {
+    "question": "Un subconjunto del plano reúne los pares cuyo producto de coordenadas es cero.\n$$S = \\{(x,y) : xy = 0\\}$$\n¿Cuál de las condiciones de subespacio le falla?",
+    "options": [
+      "La suma de dos elementos puede caer fuera del conjunto",
+      "El vector nulo no pertenece al conjunto",
+      "Multiplicar un elemento por un escalar puede sacarlo del conjunto"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Los pares $(1,0)$ y $(0,1)$ pertenecen, pero su suma $(1,1)$ tiene producto uno y queda afuera.",
+    "feedback_incorrect": [
+      null,
+      "El par $(0,0)$ tiene producto cero, así que el vector nulo sí pertenece a este conjunto.",
+      "Si un par tiene una coordenada nula, escalarlo la deja nula, así que el producto sigue dando cero."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Este conjunto es la unión de los dos ejes, y es el ejemplo que muestra que contener al vector nulo no alcanza.\n\nDe las tres condiciones, dos se cumplen. El origen pertenece, y escalar un par con una coordenada en cero la deja en cero.\n\nLa que falla es la suma, y falla porque los dos ejes son direcciones distintas.\n$$(1,0) + (0,1) = (1,1)$$\nEse par tiene producto uno, así que ya no pertenece al conjunto.\n\nEs el mismo motivo por el que la unión de dos rectas por el origen nunca es un subespacio, aunque cada una por separado sí lo sea.",
+    "reviewed": false,
+    "tags": [
+      "identificar-la-condicion-que-se-rompe"
+    ]
+  },
+  {
+    "question": "Un subconjunto del plano reúne los pares cuya segunda coordenada no es negativa.\n$$S = \\{(x,y) : y \\geq 0\\}$$\n¿Cuál de las condiciones de subespacio le falla?",
+    "options": [
+      "La suma de dos elementos puede caer fuera del conjunto",
+      "Multiplicar un elemento por un escalar lo saca del conjunto",
+      "El vector nulo del plano no pertenece a este conjunto"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Multiplicando por un número negativo, la coordenada pasa a serlo y deja de cumplir.",
+    "feedback_incorrect": [
+      "Sumando dos pares con segunda coordenada no negativa el resultado tampoco lo es.",
+      null,
+      "El par nulo tiene segunda coordenada cero, que no es negativa, así que sí pertenece."
+    ],
+    "explanation": "Las condiciones con desigualdad sobreviven a la suma y se rompen con el producto por un escalar negativo.\n$$-1 \\cdot (2,5) = (-2,-5)$$\nLa segunda coordenada del resultado quedó negativa, así que se salió del conjunto.\n\nLa suma no delata nada, porque sumar dos números no negativos siempre da otro no negativo.\n\nY el par nulo pertenece sin problema, lo que confirma que ese control sirve para descartar pero nunca para confirmar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-la-condicion-que-se-rompe"
+    ]
+  },
+  {
+    "question": "Un subconjunto del plano reúne los pares cuyas coordenadas suman tres.\n$$S = \\{(x,y) : x + y = 3\\}$$\n¿Cuál de las condiciones de subespacio le falla?",
+    "options": [
+      "Multiplicar un elemento por un escalar nunca lo saca",
+      "La condición no resulta lineal en las dos coordenadas",
+      "El vector nulo del plano no pertenece a este conjunto"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Reemplazando por ceros queda cero igual a tres, así que el origen quedó afuera.",
+    "feedback_incorrect": [
+      "Duplicando un par que suma tres se obtiene uno que suma seis, así que sí lo saca.",
+      "La condición es perfectamente lineal, lo que la descalifica es el término independiente.",
+      null
+    ],
+    "explanation": "Una recta desplazada del origen falla el control más barato de todos, que es el del vector nulo.\n$$0 + 0 = 0 \\neq 3$$\nEl par nulo no verifica la condición, y como todo subespacio tiene que contenerlo, el conjunto queda descartado sin más trámite.\n\nLas otras dos condiciones también fallan, porque sumar dos pares que suman tres da uno que suma seis.\n\nEl problema no es que la condición sea complicada, es el término independiente: con un cero en lugar del tres, el mismo conjunto sería un subespacio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-la-condicion-que-se-rompe"
+    ]
+  },
+  {
+    "question": "Un subconjunto del plano reúne los pares que están sobre una parábola.\n$$S = \\{(x,y) : y = x^2\\}$$\n¿Cuál de las condiciones de subespacio le falla?",
+    "options": [
+      "La suma de dos elementos puede caer fuera del conjunto",
+      "El vector nulo no pertenece al conjunto",
+      "Ninguna, porque la condición es una igualdad sin término independiente"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Sumando dos pares de la parábola, la coordenada de arriba crece más rápido que el cuadrado.",
+    "feedback_incorrect": [
+      null,
+      "El par nulo pertenece, porque cero es el cuadrado de cero.",
+      "Que no tenga término independiente no alcanza, la condición además tiene que ser lineal."
+    ],
+    "explanation": "Que la condición esté igualada a cero no alcanza: además tiene que ser lineal, y un cuadrado no lo es.\n$$(1,1) + (2,4) = (3,5)$$\nLos dos pares de la izquierda están sobre la parábola, y el resultado no, porque el cuadrado de tres es nueve y no cinco.\n\nEl producto por un escalar falla por la misma razón, ya que duplicar una coordenada cuadruplica su cuadrado.\n\nEl par nulo pertenece igual, y ese es justamente el motivo por el que su presencia nunca confirma nada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-la-condicion-que-se-rompe"
+    ]
+  },
+  {
+    "question": "Un subconjunto de $\\mathbb{R}^3$ reúne las ternas de coordenadas enteras.\n$$S = \\{(x,y,z) : x,\\ y,\\ z \\text{ enteros}\\}$$\n¿Cuál de las condiciones de subespacio le falla?",
+    "options": [
+      "El vector nulo del espacio no pertenece a este conjunto",
+      "Multiplicar un elemento por un escalar lo saca del conjunto",
+      "La suma de dos elementos puede caer fuera del conjunto"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El escalar puede ser una fracción, y ahí las coordenadas dejan de ser enteras.",
+    "feedback_incorrect": [
+      "La terna con las tres coordenadas en cero pertenece, porque el cero es un número entero.",
+      null,
+      "Sumar dos ternas de coordenadas enteras devuelve siempre otra de coordenadas enteras."
+    ],
+    "explanation": "Este conjunto resiste la suma sin ninguna dificultad, y por eso conviene atacarlo con la otra operación.\n$$\\tfrac{1}{3} \\cdot (1, 2, 4) = (1/3,\\ 2/3,\\ 4/3)$$\nEl escalar recorre todos los números reales, así que alcanza con una fracción para que el resultado se salga.\n\nEl vector nulo pertenece y la suma cierra, de modo que dos de los tres controles no detectan nada.\n\nEs el caso que mejor muestra por qué hay que probar siempre con un escalar incómodo antes de dar un conjunto por bueno.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-la-condicion-que-se-rompe"
+    ]
+  },
+  {
+    "question": "Dos ecuaciones lineales en tres incógnitas se diferencian solo en su término independiente.\n$$2x - y + z = 0$$\n$$2x - y + z = 5$$\n¿Cuál de los dos conjuntos de soluciones es un subespacio?",
+    "options": [
+      "Solo el de la ecuación igualada a cero",
+      "Solo el de la ecuación igualada a cinco",
+      "Los dos, porque las dos ecuaciones son lineales"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Una ecuación homogénea tiene siempre a la terna nula entre sus soluciones, y la otra no.",
+    "feedback_incorrect": [
+      null,
+      "La terna nula no verifica esa ecuación, porque cero no es cinco, así que queda afuera.",
+      "Que la ecuación sea lineal no alcanza, hace falta además que el término independiente sea cero."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El conjunto de soluciones de un sistema de ecuaciones **homogéneo**, o sea con todos los términos independientes en cero, siempre es un subespacio, y tiene nombre propio.\n$$\\text{Nul}(A) = \\{\\vec{x} : A\\vec{x} = \\vec{0}\\}$$\nLa razón es directa. La terna nula lo verifica siempre, y si dos ternas anulan la ecuación, su suma también la anula, porque cada término se suma por separado.\n\nCon término independiente no nulo eso se rompe. Si dos ternas dan cinco, su suma da diez, así que el conjunto ni siquiera es cerrado.\n\nEsto le pone nombre a algo que ya se usaba al resolver sistemas de ecuaciones, cuando toda solución salía de sumarle a una conocida algo que resolvía el sistema homogéneo.",
+    "reviewed": false,
+    "tags": [
+      "reconocer-el-conjunto-solucion"
+    ]
+  },
+  {
+    "question": "Un sistema de dos ecuaciones con tres incógnitas tiene todos sus términos independientes en cero.\n$$x - y + 2z = 0$$\n$$3x + z = 0$$\n¿Qué se puede afirmar de su conjunto de soluciones?",
+    "options": [
+      "Que no es un subespacio, porque hay dos condiciones y no una sola",
+      "Que es un subespacio, porque la terna nula pertenece y nada se sale",
+      "Que es un subespacio solo si el sistema tiene infinitas soluciones"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Todas las ecuaciones están igualadas a cero, y eso es lo único que hace falta.",
+    "feedback_incorrect": [
+      "Varias condiciones lineales igualadas a cero se pueden cumplir todas a la vez sin problema.",
+      null,
+      "La cantidad de soluciones no cambia nada, con solución única el conjunto sigue calificando."
+    ],
+    "explanation": "El conjunto de soluciones de un sistema **homogéneo** es siempre un subespacio, sin importar cuántas ecuaciones tenga.\n$$\\text{Nul}(A) = \\{\\vec{x} : A\\vec{x} = \\vec{0}\\}$$\nLa terna nula verifica todas las ecuaciones a la vez, porque todas están igualadas a cero.\n\nY si dos ternas anulan una ecuación, su suma también la anula, porque cada término se suma por separado. Escalar una solución tampoco rompe nada.\n\nCuando la única solución es la trivial, el conjunto se reduce al formado por la terna nula, que también es un subespacio perfectamente válido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-el-conjunto-solucion"
+    ]
+  },
+  {
+    "question": "El conjunto de soluciones de un sistema de ecuaciones resultó ser un subespacio.\n$$A\\vec{x} = \\vec{b}$$\n¿Qué se puede afirmar del término independiente?",
+    "options": [
+      "Que tiene todas sus componentes distintas de cero, sin excepción",
+      "Que puede ser cualquiera, porque el sistema es lineal de todos modos",
+      "Que es el vector nulo, porque si no la terna nula quedaría afuera"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Todo subespacio contiene al vector nulo, y ese solo resuelve el sistema homogéneo.",
+    "feedback_incorrect": [
+      "Con componentes no nulas el vector nulo no sería solución, y el conjunto quedaría descartado.",
+      "El término independiente decide todo: con uno no nulo el conjunto deja de ser subespacio.",
+      null
+    ],
+    "explanation": "Este es el camino de vuelta del criterio, y funciona igual de bien.\n$$A\\vec{0} = \\vec{0}$$\nSi el conjunto de soluciones es un subespacio, entonces contiene al vector nulo, así que el vector nulo tiene que resolver el sistema.\n\nReemplazándolo, el lado izquierdo da el vector nulo, de modo que el término independiente también tiene que serlo.\n\nPor eso los sistemas homogéneos son los únicos cuyo conjunto de soluciones califica, y por eso ese conjunto tiene nombre propio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-el-conjunto-solucion"
+    ]
+  },
+  {
+    "question": "El conjunto de soluciones de un sistema homogéneo nunca resulta ser un conjunto vacío.\n$$A\\vec{x} = \\vec{0}$$\n¿De dónde sale esa garantía?",
+    "options": [
+      "De que el vector nulo siempre lo resuelve, sin importar cómo sea la matriz",
+      "De que todo sistema de ecuaciones tiene por lo menos una solución",
+      "De que la matriz de un sistema homogéneo siempre es inversible"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Reemplazando por ceros, cada ecuación queda como cero igual a cero.",
+    "feedback_incorrect": [
+      null,
+      "Hay sistemas sin ninguna solución, pero ninguno de ellos tiene términos independientes nulos.",
+      "La matriz puede perfectamente no ser inversible, y ahí las soluciones son infinitas."
+    ],
+    "explanation": "Un sistema homogéneo tiene siempre al menos una solución, y por eso $\\text{Nul}(A)$ nunca queda vacío.\n$$A\\vec{0} = \\vec{0}$$\nReemplazando todas las incógnitas por cero, cada ecuación se convierte en cero igual a cero, que es verdadera sin importar los coeficientes.\n\nA esa solución se la llama trivial, y su valor no es resolver nada sino garantizar que el conjunto tiene al menos un elemento.\n\nEs también la razón por la que un sistema homogéneo nunca puede ser incompatible, algo que sí le pasa a los sistemas con términos independientes no nulos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-el-conjunto-solucion"
+    ]
+  },
+  {
+    "question": "Un sistema homogéneo tiene dos ecuaciones y tres incógnitas.\n$$2x + y - z = 0$$\n$$x - 4z = 0$$\n¿De qué espacio es subespacio su conjunto de soluciones?",
+    "options": [
+      "Del espacio de las ternas cuando hay tres ecuaciones y del plano cuando hay dos",
+      "Del espacio de las ternas, porque cada solución tiene tres incógnitas",
+      "Del plano, porque el sistema tiene dos ecuaciones"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada solución asigna un valor a cada incógnita, así que es una terna.",
+    "feedback_incorrect": [
+      "La cantidad de ecuaciones puede ser cualquiera sin cambiar cuántas coordenadas tiene una solución.",
+      null,
+      "La cantidad de ecuaciones no define dónde viven las soluciones, solo cuántas condiciones hay."
+    ],
+    "explanation": "Una solución de este sistema es una asignación de valores a las tres incógnitas, así que se escribe como una terna.\n$$(x, y, z) \\in \\mathbb{R}^3$$\nEl conjunto de soluciones vive entonces en ese mismo espacio, y es un subespacio suyo.\n\nLa cantidad de ecuaciones no cambia eso. Lo que hace cada ecuación es agregar una condición y recortar el conjunto.\n\nCon más ecuaciones el subespacio se achica, pero sigue viviendo en el mismo lugar, porque las incógnitas siguen siendo tres.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-el-conjunto-solucion"
+    ]
   }
 ]

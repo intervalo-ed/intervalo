@@ -1,24 +1,407 @@
 [
   {
-    "question": "Al calcular el **logaritmo**:\n$$\\log_3(81)$$\n¿Cuál es su valor?",
+    "question": "La magnitud de un sismo en la escala de Richter se calcula como:\n$$M = \\log_{10}(I/I_0)$$\nAcá $I$ es la intensidad del sismo e $I_0$ es una intensidad de referencia.\n\nUn sismo tiene una intensidad $1000$ veces mayor que la de referencia.\n\n¿Cuál es su magnitud?",
     "options": [
-      "$4$",
-      "$27$",
       "$3$",
-      "$5$"
+      "$1000$",
+      "$100$",
+      "$30$"
     ],
     "correct_index": 0,
-    "feedback_correct": "$3^4=81$, así que $\\log_3(81)=4$.",
+    "feedback_correct": "$10^3=1000$, así que $\\log_{10}(1000)=3$.",
     "feedback_incorrect": [
       null,
-      "Eso sale de dividir $81$ por $3$ una sola vez, en vez de buscar cuántas veces hay que multiplicar $3$ por sí mismo para llegar a $81$.",
-      "Eso confunde el resultado del logaritmo con la base $3$; el logaritmo es el exponente, no la base.",
-      "Eso sale de contar una multiplicación de más: $3^5=243$, que ya se pasó de $81$."
+      "Eso confunde el resultado del logaritmo con la razón de intensidades misma, que es el dato de entrada, no el resultado.",
+      "Eso sale de dividir la razón de intensidades por la base una sola vez, en vez de contar cuántas veces hay que multiplicarla para llegar a ella.",
+      "Eso sale de multiplicar el resultado correcto por $10$, un cálculo que no corresponde a ninguna propiedad del logaritmo."
     ],
-    "explanation": "El **logaritmo** deshace a la potenciación: $\\log_b(x)$ pregunta a qué exponente hay que elevar la base $b$ para obtener $x$.\n\nAplicando esto al cálculo pedido, hay que encontrar el exponente $y$ tal que:\n$$3^{y} = 81$$\nProbando potencias sucesivas de $3$:\n$$\\begin{aligned} 3^1 &= 3 \\\\ 3^2 &= 9 \\\\ 3^3 &= 27 \\\\ 3^4 &= 81 \\end{aligned}$$\nComo $3^4=81$, se cumple que $\\log_3(81)=4$.\n\nUn error frecuente es confundir el resultado del logaritmo con la base o con el argumento, cuando en realidad es el exponente que los conecta.",
+    "explanation": "La **magnitud de Richter** es el exponente al que hay que elevar $10$ para obtener la razón entre las intensidades.\n\nSi esa razón es $1000$, hay que encontrar el exponente $y$ tal que:\n$$10^{y} = 1000$$\nComo $10^3=1000$, la magnitud es $\\log_{10}(1000)=3$.\n\nUsar directamente la razón de intensidades como si fuera la magnitud confunde el dato de entrada con el resultado del logaritmo.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-escala-richter"
+    ]
+  },
+  {
+    "question": "La magnitud de un sismo se calcula con el logaritmo de la razón entre su intensidad y una de referencia.\n$$M = \\log_{10}(I/I_{0})$$\nUn sismo tiene una intensidad $100000$ veces mayor que la de referencia.\n\n¿Cuál es su magnitud?",
+    "options": [
+      "$50$",
+      "$5$",
+      "$100000$",
+      "$10000$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cien mil es diez elevado a la quinta, así que la magnitud es cinco.",
+    "feedback_incorrect": [
+      "Ahí se multiplicó la cantidad de ceros por diez en vez de contarla.",
+      null,
+      "Esa es la razón de intensidades, no su logaritmo.",
+      "Ese número tiene un cero de menos respecto de la razón, y tampoco es la magnitud."
+    ],
+    "explanation": "La magnitud es el **exponente** al que hay que elevar diez para llegar a la razón de intensidades.\n$$100000 = 10^{5}$$\nContar los ceros de la razón da directamente ese exponente cuando la base es diez.\n$$M = \\log_{10}(10^{5}) = 5$$\nLa escala comprime factores enormes en números chicos, y por eso una magnitud cinco corresponde a cien mil veces la intensidad de referencia.\n\nConfundir la magnitud con la razón es perder por completo esa compresión.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-escala-richter"
+    ]
+  },
+  {
+    "question": "La magnitud de un sismo se calcula con el logaritmo de la razón entre su intensidad y una de referencia.\n$$M = \\log_{10}(I/I_{0})$$\nUn sismo alcanza magnitud $6$.\n\n¿Cuántas veces más intenso es que la referencia?",
+    "options": [
+      "$60$",
+      "$600000$",
+      "$6$",
+      "$1000000$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "La razón es diez elevado a la magnitud, o sea un uno seguido de seis ceros.",
+    "feedback_incorrect": [
+      "Ahí se multiplicó la magnitud por diez en vez de usarla como exponente.",
+      "Ahí quedó un cero de menos: el exponente es seis, así que van seis ceros.",
+      "Esa es la magnitud, no la razón de intensidades.",
+      null
+    ],
+    "explanation": "Despejar la razón de intensidades es reescribir el logaritmo como una potencia.\n$$\\log_{10}(x) = 6 \\iff x = 10^{6}$$\nLa base sigue siendo diez y la magnitud pasa a ser el exponente.\n\nUn millón de veces la intensidad de referencia es lo que hay detrás de un número tan chico como el seis.\n\nEse salto entre la escala y la realidad física es lo que explica que un sismo de magnitud siete sea diez veces más intenso que uno de seis, y no un séptimo peor.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-escala-richter"
+    ]
+  },
+  {
+    "question": "La magnitud de un sismo se calcula con el logaritmo de la razón entre su intensidad y una de referencia.\n$$M = \\log_{10}(I/I_{0})$$\nUn sismo tiene magnitud $4$ y otro tiene magnitud $7$.\n\n¿Cuántas veces más intenso es el segundo que el primero?",
+    "options": [
+      "$1000$",
+      "$3$",
+      "$28$",
+      "$10000000$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La diferencia de magnitudes es el exponente de la razón entre las dos intensidades.",
+    "feedback_incorrect": [
+      null,
+      "Esa es la diferencia entre las magnitudes, no entre las intensidades.",
+      "Ahí se multiplicaron las dos magnitudes, que no corresponde a ninguna propiedad.",
+      "Esa es la intensidad del segundo sismo respecto de la referencia, no respecto del primero."
+    ],
+    "explanation": "Restar dos logaritmos equivale a dividir sus argumentos, así que la diferencia de magnitudes es el logaritmo de la razón entre las dos intensidades.\n$$\\log_{10}(x) - \\log_{10}(y) = \\log_{10}(x/y)$$\nLa diferencia vale tres, así que la razón entre las intensidades es diez elevado a tres.\n$$10^{3} = 1000$$\nTres puntos de magnitud parecen poco en la escala y son mil veces más intensidad en la realidad.\n\nEse es exactamente el efecto que la escala logarítmica está diseñada para comprimir.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-escala-richter"
+    ]
+  },
+  {
+    "question": "Un sismo alcanza magnitud $2$ según la fórmula de Richter, el logaritmo de la razón entre su intensidad y una de referencia.\n$$M = \\log_{10}(I/I_{0})$$\n¿Cuántas veces más intenso es que la referencia?",
+    "options": [
+      "$100$",
+      "$20$",
+      "$2$",
+      "$1000$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La razón es diez elevado a la magnitud, o sea un uno seguido de dos ceros.",
+    "feedback_incorrect": [
+      null,
+      "Ahí se multiplicó la magnitud por diez en vez de usarla como exponente.",
+      "Esa es la magnitud, no la razón de intensidades.",
+      "Ahí sobra un cero: el exponente es dos, así que van solo dos ceros."
+    ],
+    "explanation": "Despejar la razón de intensidades es reescribir el logaritmo como una potencia.\n$$\\log_{10}(x) = 2 \\iff x = 10^{2}$$\nLa base sigue siendo diez y la magnitud pasa a ser el exponente.\n$$10^{2} = 100$$\nCien veces la intensidad de referencia es lo que hay detrás de una magnitud tan chica como el dos.\n\nEse salto entre la escala y la realidad física es lo que explica que un sismo de magnitud tres sea diez veces más intenso que uno de dos, y no apenas un poco peor.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-escala-richter"
+    ]
+  },
+  {
+    "question": "Un sonido pasa por dos etapas de amplificación seguidas.\n\nLa primera multiplica su intensidad por $100$, y la segunda la multiplica por $1000$ más.\n\nEl nivel del sonido, en la escala de decibeles, usa $\\log_{10}$ del factor total de amplificación.\n\n¿Cuál es $\\log_{10}$ del factor total?",
+    "options": [
+      "$5$",
+      "$3$",
+      "$2$",
+      "$6$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Sumando los logaritmos de cada etapa, $\\log_{10}(100)=2$ y $\\log_{10}(1000)=3$, el total es $5$.",
+    "feedback_incorrect": [
+      null,
+      "Eso corresponde solo al logaritmo de la segunda etapa; falta sumar el de la primera.",
+      "Eso corresponde solo al logaritmo de la primera etapa; falta sumar el de la segunda.",
+      "Eso sale de sumar un $1$ de más al resultado correcto."
+    ],
+    "explanation": "Cuando el **argumento de un logaritmo es un producto**, ese logaritmo es la suma de los logaritmos de cada factor.\n\nEl factor total de amplificación es el producto de las dos etapas:\n$$100 \\cdot 1000$$\nAplicando la propiedad del producto:\n$$\\log_{10}(100\\cdot1000) = \\log_{10}(100) + \\log_{10}(1000)$$\nComo $\\log_{10}(100)=2$ y $\\log_{10}(1000)=3$, la suma da 5.\n\nSumar los logaritmos de las etapas por separado evita tener que calcular primero el producto completo, $100\\,000$, antes de aplicar el logaritmo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-propiedad-producto"
+    ]
+  },
+  {
+    "question": "Una señal pasa por dos amplificadores seguidos.\n\nEl primero multiplica su intensidad por $10$ y el segundo la multiplica por $10000$.\n\n¿Cuánto vale el $\\log_{10}$ del factor total de amplificación?",
+    "options": [
+      "$40$",
+      "$5$",
+      "$4$",
+      "$10010$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los dos logaritmos se suman, uno más cuatro, y el total es cinco.",
+    "feedback_incorrect": [
+      "Ahí se multiplicó el logaritmo de una etapa por diez, como si la fórmula llevara el coeficiente de decibeles, que acá no corresponde.",
+      null,
+      "Ese es el logaritmo del segundo amplificador solo, sin sumar el primero.",
+      "Ahí se sumaron los factores en vez de multiplicarlos, y sin tomar el logaritmo."
+    ],
+    "explanation": "Dos amplificaciones seguidas multiplican sus factores, y el logaritmo de un producto es la suma de los logaritmos.\n$$\\log_{10}(x \\cdot y) = \\log_{10}(x) + \\log_{10}(y)$$\nCada factor aporta su propio exponente, uno y cuatro respectivamente.\n$$1 + 4 = 5$$\nEl factor total es cien mil, que efectivamente es diez elevado a la quinta.\n\nSumar los factores en vez de multiplicarlos confunde etapas sucesivas con etapas paralelas, que son situaciones distintas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-propiedad-producto"
+    ]
+  },
+  {
+    "question": "Una señal pasa por dos etapas de amplificación seguidas.\n\nLa primera multiplica la intensidad por $1000$, y la segunda la multiplica por $100000$.\n\n¿Cuánto vale el $\\log_{10}$ del factor total de amplificación?",
+    "options": [
+      "$8$",
+      "$3$",
+      "$5$",
+      "$9$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Sumando los logaritmos de cada etapa, $\\log_{10}(1000)=3$ y $\\log_{10}(100000)=5$, el total es $8$.",
+    "feedback_incorrect": [
+      null,
+      "Eso corresponde solo al logaritmo de la primera etapa; falta sumar el de la segunda.",
+      "Eso corresponde solo al logaritmo de la segunda etapa; falta sumar el de la primera.",
+      "Eso sale de sumar un $1$ de más al resultado correcto."
+    ],
+    "explanation": "Cuando el **argumento de un logaritmo es un producto**, ese logaritmo es la suma de los logaritmos de cada factor.\n\nEl factor total de amplificación es el producto de las dos etapas:\n$$1000 \\cdot 100000$$\nAplicando la propiedad del producto:\n$$\\log_{10}(1000\\cdot100000)$$\n$$= \\log_{10}(1000) + \\log_{10}(100000)$$\n$$= 3 + 5 = 8$$\nSumar los logaritmos de las etapas por separado evita tener que calcular primero el producto completo, cien millones, antes de aplicar el logaritmo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-propiedad-producto"
+    ]
+  },
+  {
+    "question": "Un proceso amplifica una señal en dos etapas seguidas.\n\nLa primera etapa la multiplica por $10$ y la segunda la multiplica por $100$.\n\n¿Cuánto vale el $\\log_{10}$ del factor total?",
+    "options": [
+      "$1$",
+      "$2$",
+      "$3$",
+      "$4$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Sumando los logaritmos de cada etapa, $\\log_{10}(10)=1$ y $\\log_{10}(100)=2$, el total es $3$.",
+    "feedback_incorrect": [
+      "Eso corresponde solo al logaritmo de la primera etapa; falta sumar el de la segunda.",
+      "Eso corresponde solo al logaritmo de la segunda etapa; falta sumar el de la primera.",
+      null,
+      "Eso sale de sumar un $1$ de más al resultado correcto."
+    ],
+    "explanation": "Cuando el **argumento de un logaritmo es un producto**, ese logaritmo es la suma de los logaritmos de cada factor.\n\nEl factor total de amplificación es el producto de las dos etapas:\n$$10 \\cdot 100$$\nAplicando la propiedad del producto:\n$$\\log_{10}(10\\cdot100) = \\log_{10}(10) + \\log_{10}(100)$$\n$$= 1 + 2 = 3$$\nSumar los logaritmos de las etapas por separado evita tener que calcular primero el producto completo, mil, antes de aplicar el logaritmo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-propiedad-producto"
+    ]
+  },
+  {
+    "question": "Dos fuentes de sonido actúan una después de la otra sobre la misma señal.\n\nLa primera multiplica su intensidad por $1000$ y la segunda por $10$.\n\n¿Cuál es el nivel total en decibeles, sabiendo que se calcula como $10\\log_{10}$ del factor total?",
+    "options": [
+      "$10100$",
+      "$30$",
+      "$40$",
+      "$4$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Los logaritmos suman cuatro, y el coeficiente diez lo lleva a cuarenta decibeles.",
+    "feedback_incorrect": [
+      "Ahí se sumaron los factores en vez de multiplicarlos, y ese resultado se multiplicó por el coeficiente diez de la fórmula, sin tomar ningún logaritmo.",
+      "Ese es el nivel de la primera fuente sola, sin sumar el aporte de la segunda.",
+      null,
+      "Ese es el logaritmo del factor total, sin multiplicar por el coeficiente de la fórmula."
+    ],
+    "explanation": "Las dos etapas multiplican sus factores, así que sus logaritmos se suman.\n$$\\log_{10}(1000 \\cdot 10) = 3 + 1 = 4$$\nRecién sobre ese resultado se aplica el coeficiente que define la escala de decibeles.\n$$N = 10 \\cdot 4 = 40$$\nEl factor total es diez mil, y el nivel resultante son cuarenta decibeles.\n\nEl coeficiente se aplica una sola vez, al final, y no a cada etapa por separado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-propiedad-producto"
+    ]
+  },
+  {
+    "question": "Un repetidor de señal amplifica la intensidad por un factor de $10$ en cada una de $4$ etapas idénticas seguidas.\n\nEl factor total de amplificación es $10^{4}$, y el nivel en decibeles usa $\\log_{10}$ de ese factor.\n\n¿Cuál es $\\log_{10}(10^{4})$?",
+    "options": [
+      "$4$",
+      "$10$",
+      "$40$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La propiedad de la potencia dice que $\\log_{10}(10^4)=4\\log_{10}(10)$, y como $\\log_{10}(10)=1$, el resultado es $4$.",
+    "feedback_incorrect": [
+      null,
+      "Eso confunde el resultado del logaritmo con la base de la potencia, $10$.",
+      "Eso sale de multiplicar el exponente por la base en vez de aplicar la propiedad de la potencia del logaritmo.",
+      "Eso sale de calcular $\\log_{10}(10)$ solo, ignorando el exponente $4$ por completo."
+    ],
+    "explanation": "Cuando el **argumento de un logaritmo es una potencia**, ese logaritmo es el exponente multiplicado por el logaritmo de la base.\n\nLa propiedad dice:\n$$\\log_b(x^n) = n\\log_b(x)$$\nAplicada al factor total de amplificación:\n$$\\log_{10}(10^{4}) = 4\\log_{10}(10)$$\nComo $\\log_{10}(10)=1$, el resultado es $4$.\n\nCalcular $10^4=10\\,000$ antes de aplicar el logaritmo lleva al mismo resultado, pero exige operar con un número mucho más grande de lo necesario.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-propiedad-potencia"
+    ]
+  },
+  {
+    "question": "Un repetidor amplifica una señal por un factor de $100$ en cada una de $3$ etapas idénticas.\n\nEl factor total es $100^{3}$, y el nivel de la escala usa su logaritmo.\n\n¿Cuánto vale $\\log_{10}(100^{3})$?",
+    "options": [
+      "$5$",
+      "$6$",
+      "$3$",
+      "$300$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El exponente baja al frente y multiplica al logaritmo de cien, que vale dos.",
+    "feedback_incorrect": [
+      "Ahí se sumaron el exponente y el logaritmo en vez de multiplicarlos.",
+      null,
+      "Ese es el exponente solo, sin multiplicarlo por el logaritmo del factor de cada etapa.",
+      "Ahí se multiplicó el factor por el exponente, sin tomar el logaritmo."
+    ],
+    "explanation": "El exponente del argumento sale multiplicando afuera del logaritmo.\n$$\\log_{b}(x^{n}) = n\\log_{b}(x)$$\nEl logaritmo de cien en base diez vale dos, así que la cuenta queda como tres por dos.\n$$3 \\cdot 2 = 6$$\nEl factor total es un millón, coherente con multiplicar por cien tres veces seguidas.\n\nCalcular la potencia primero llega al mismo número, pero obliga a manejar siete cifras en lugar de una cuenta de una línea.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-propiedad-potencia"
+    ]
+  },
+  {
+    "question": "Una señal se atenúa quedando en $1/10$ de su intensidad en cada uno de $4$ tramos.\n\nEl factor total es $10^{-4}$, y el nivel de la escala usa su logaritmo.\n\n¿Cuánto vale $\\log_{10}(10^{-4})$?",
+    "options": [
+      "$4$",
+      "$-40$",
+      "$-0{,}4$",
+      "$-4$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El logaritmo de una potencia de la propia base es directamente su exponente.",
+    "feedback_incorrect": [
+      "El factor es menor que uno, así que el logaritmo tiene que quedar negativo.",
+      "Ahí se multiplicó el exponente por la base en vez de leerlo directamente.",
+      "Ahí el exponente quedó dividido por diez sin ninguna razón.",
+      null
+    ],
+    "explanation": "Cuando el argumento es una potencia de la propia base, el logaritmo devuelve el exponente sin más cuenta.\n$$\\log_{10}(10^{n}) = n$$\nAcá el exponente es menos cuatro, y ese es directamente el resultado.\n\nEl signo negativo indica que la señal se debilitó en vez de amplificarse, y es coherente con un factor menor que uno.\n\nTodo argumento entre cero y uno da logaritmo negativo, así que un resultado positivo habría sido señal de error.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-propiedad-potencia"
+    ]
+  },
+  {
+    "question": "Un proceso multiplica una magnitud por un factor de $1000$ en cada una de $2$ etapas idénticas.\n\nEl factor total es $1000^{2}$, y la escala usa su logaritmo.\n\n¿Cuánto vale $\\log_{10}(1000^{2})$?",
+    "options": [
+      "$6$",
+      "$3$",
+      "$2000$",
+      "$5$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El exponente baja al frente y multiplica al logaritmo de mil, que vale tres.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el logaritmo de una sola etapa, sin contar que son dos.",
+      "Ahí se multiplicó el factor por el exponente, sin tomar el logaritmo.",
+      "Ahí se sumaron el exponente y el logaritmo en vez de multiplicarlos."
+    ],
+    "explanation": "Repetir una etapa es elevar su factor a una potencia, y el logaritmo baja ese exponente al frente.\n$$\\log_{10}(1000^{2}) = 2\\log_{10}(1000)$$\nEl logaritmo de mil en base diez vale tres, porque mil es diez al cubo.\n$$2 \\cdot 3 = 6$$\nEl factor total es un millón, y el resultado coincide con contar sus seis ceros.\n\nLos dos caminos coinciden porque bajar el exponente es exactamente lo que hace la propiedad de la potencia de potencia, leída desde el logaritmo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-propiedad-potencia"
+    ]
+  },
+  {
+    "question": "Una escala de intensidad usa base $2$ en vez de base $10$.\n\nUna señal se duplica en cada uno de $5$ pasos, así que el factor total es $2^{5}$.\n\n¿Cuánto vale $\\log_{2}(2^{5})$?",
+    "options": [
+      "$10$",
+      "$2$",
+      "$5$",
+      "$32$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El logaritmo de una potencia de la propia base devuelve directamente el exponente.",
+    "feedback_incorrect": [
+      "Ahí se multiplicó el exponente por la base en vez de leerlo directamente.",
+      "Esa es la base de la escala, no el resultado del logaritmo.",
+      null,
+      "Ese es el valor del factor total, no su logaritmo."
+    ],
+    "explanation": "La propiedad de la potencia baja el exponente al frente, y el logaritmo que queda es el de la base consigo misma.\n$$\\log_{2}(2^{5}) = 5\\log_{2}(2) = 5$$\nEl logaritmo de una base consigo misma vale uno, así que el resultado es el exponente sin cambios.\n\nEse patrón vale para cualquier base, y por eso una escala en base dos cuenta directamente duplicaciones.\n\nEl resultado del logaritmo cuenta duplicaciones, mientras que el factor total cuenta la magnitud acumulada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-propiedad-potencia"
+    ]
   }
 ]

@@ -1,24 +1,407 @@
 [
   {
-    "question": "Al simplificar la **expresión** con potencias de igual base:\n$$\\frac{2^5 \\cdot 2^{-2}}{2^4}$$\n¿Cuál es el resultado como potencia de $2$?",
+    "question": "Un depósito tiene $2^{8}$ bolsas de arroz para donar.\n\nEsas bolsas se reparten en partes iguales entre $2^{3}$ pueblos.\n\nLo que recibe cada pueblo se vuelve a repartir en partes iguales entre $2^{2}$ familias.\n\nLa cantidad de bolsas que recibe cada familia es:\n$$\\dfrac{2^{8}}{2^{3} \\cdot 2^{2}}$$\n¿Cuál es el resultado como potencia de $2$?",
     "options": [
-      "$2^{-1}$",
-      "$2^{7}$",
       "$2^{3}$",
-      "$2^{1}$"
+      "$2^{13}$",
+      "$2^{5}$",
+      "$2^{-3}$"
     ],
     "correct_index": 0,
-    "feedback_correct": "En el numerador los exponentes se suman: $5+(-2)=3$; al dividir por $2^4$ se resta: $3-4=-1$, así que el resultado es $2^{-1}$.",
+    "feedback_correct": "En el denominador los exponentes se suman: $3+2=5$; luego se resta del numerador: $8-5=3$, así que el resultado es $2^3$.",
     "feedback_incorrect": [
       null,
-      "Eso sale de sumar también el exponente del denominador en vez de restarlo, como si toda la expresión fuera una multiplicación.",
-      "Eso sale de ignorar la resta final por el denominador $2^4$ y quedarse solo con el resultado del numerador.",
-      "Eso sale de invertir el orden de la resta entre los exponentes."
+      "Eso sale de sumar los tres exponentes en vez de restar los del denominador al del numerador.",
+      "Eso sale de restar solo el exponente de los pueblos y olvidarse de la segunda repartición entre familias.",
+      "Eso sale de invertir el orden de la resta, restando el exponente del numerador al del denominador."
     ],
-    "explanation": "Al **multiplicar potencias de igual base** los exponentes se suman, y al dividirlas se restan; estas reglas evitan tener que desarrollar cada potencia por separado.\n\nAplicando la propiedad a la expresión dada:\n$$\\frac{2^5 \\cdot 2^{-2}}{2^4}$$\nEn el numerador los exponentes se suman:\n$$2^5 \\cdot 2^{-2} = 2^{3}$$\nDividiendo por $2^4$ se resta el exponente del denominador:\n$$2^{3} \\div 2^{4} = 2^{-1}$$\nUn error frecuente es olvidar que dividir potencias resta exponentes, no los suma, sobre todo cuando alguno de ellos ya es negativo.",
+    "explanation": "Al **dividir potencias de igual base** los exponentes se restan, y cuando el denominador ya es un producto de potencias de igual base, esos exponentes se suman primero.\n\nLos pueblos y las familias combinan dos repartos sucesivos, así que el denominador se arma multiplicando esas dos cantidades:\n$$2^{3} \\cdot 2^{2} = 2^{5}$$\nDividiendo por el total de bolsas del depósito:\n$$2^{8} \\div 2^{5} = 2^{3}$$\nRestar solo uno de los dos exponentes del denominador, sin combinarlos primero, deja afuera una de las dos repeticiones del reparto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "graph_free_aspect": false,
+    "reviewed": false,
+    "tags": [
+      "resl-cadena-igual-base"
+    ]
+  },
+  {
+    "question": "Un centro de logística tiene $3^{7}$ cajas para distribuir.\n\nSe reparten en partes iguales entre $3^{2}$ depósitos, y lo de cada depósito se vuelve a repartir entre $3^{3}$ sucursales.\n$$\\dfrac{3^{7}}{3^{2} \\cdot 3^{3}}$$\n¿Cuántas cajas recibe cada sucursal, como potencia de $3$?",
+    "options": [
+      "$3^{-2}$",
+      "$3^{2}$",
+      "$3^{12}$",
+      "$3^{5}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los exponentes de abajo se suman y después se restan del de arriba, y queda dos.",
+    "feedback_incorrect": [
+      "Ahí la resta quedó invertida, restando el exponente de arriba al de abajo.",
+      null,
+      "Ahí se sumaron los tres exponentes, en vez de restar los del denominador.",
+      "Ahí se restó solo el primero de los dos repartos, dejando afuera el segundo."
+    ],
+    "explanation": "Los dos repartos sucesivos se combinan multiplicando, así que el denominador es un producto de potencias de igual base.\n$$3^{2} \\cdot 3^{3} = 3^{5}$$\nCon el denominador reducido a una sola potencia, el cociente se resuelve restando exponentes.\n$$\\dfrac{3^{7}}{3^{5}} = 3^{2}$$\nCada sucursal recibe nueve cajas, que es un número mucho menor que el total, como corresponde después de dos repartos.\n\nRestar un solo exponente deja afuera una de las dos etapas y da un resultado demasiado grande.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-cadena-igual-base"
+    ]
+  },
+  {
+    "question": "Una señal se mide a dos distancias: cerca vale $2^{9}$ unidades y lejos vale $2^{4}$.\n$$\\dfrac{2^{9}}{2^{4}}$$\n¿Cuántas veces más intensa es la medición cercana?",
+    "options": [
+      "$2$",
+      "$8192$",
+      "$1/32$",
+      "$32$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Restando los exponentes queda dos elevado a la quinta, o sea treinta y dos.",
+    "feedback_incorrect": [
+      "Ahí quedó la base sola, sin aplicar ninguna potencia: el $2$ es la base, no el resultado de comparar ambas mediciones.",
+      "Ahí se sumaron los exponentes, que corresponde a un producto y no a un cociente.",
+      "Ahí la resta quedó invertida, y el resultado salió menor que uno.",
+      null
+    ],
+    "explanation": "Comparar dos cantidades es dividirlas, y al **dividir potencias de igual base** los exponentes se restan.\n$$\\dfrac{2^{9}}{2^{4}} = 2^{9-4} = 2^{5}$$\n$$2^{5} = 32$$\nCada factor del denominador cancela uno del numerador, y sobran cinco.\n\nEl resultado tiene que ser mayor que uno porque la medición cercana es la más intensa de las dos.\n\nInvertir el orden de la resta da el recíproco, que responde la pregunta al revés.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-cadena-igual-base"
+    ]
+  },
+  {
+    "question": "Un cultivo se multiplica por $5^{2}$ durante el primer día y por $5^{3}$ durante el segundo.\n$$5^{2} \\cdot 5^{3}$$\n¿Por cuánto se multiplicó en total, como potencia de $5$?",
+    "options": [
+      "$5^{5}$",
+      "$5^{6}$",
+      "$25^{5}$",
+      "$5^{1}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Los factores de los dos días se juntan, así que los exponentes se suman.",
+    "feedback_incorrect": [
+      null,
+      "Ahí se multiplicaron los exponentes, que corresponde a una potencia de potencia.",
+      "Ahí se multiplicaron también las bases, cuando la base se mantiene y solo cambia el exponente.",
+      "Ahí se restaron los exponentes, que corresponde a un cociente y no a un producto."
+    ],
+    "explanation": "Dos crecimientos sucesivos se combinan multiplicando sus factores, y al **multiplicar potencias de igual base** los exponentes se suman.\n$$5^{2} \\cdot 5^{3} = 5^{2+3} = 5^{5}$$\nEl primer día aporta dos factores de cinco y el segundo aporta tres, cinco en total.\n\nLa base no se multiplica entre sí: lo que se acumula es la cantidad de repeticiones.\n\nPor eso el resultado sigue siendo una potencia de la misma base, con un exponente más grande.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-cadena-igual-base"
+    ]
+  },
+  {
+    "question": "Una producción se multiplica por $2^{5}$ en la primera etapa y por $2^{3}$ en la segunda.\n\nLo producido se reparte después entre $2^{4}$ puestos de control.\n$$\\dfrac{2^{5} \\cdot 2^{3}}{2^{4}}$$\n¿Cuál es el factor final por puesto, como potencia de $2$?",
+    "options": [
+      "$2^{6}$",
+      "$2^{-4}$",
+      "$2^{4}$",
+      "$2^{12}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Arriba los exponentes se suman y después se resta el de abajo, y queda cuatro.",
+    "feedback_incorrect": [
+      "Ahí se restó el segundo exponente de arriba en vez de sumarlo, y se sumó el de abajo en vez de restarlo.",
+      "Ahí la resta quedó invertida, restando el numerador al denominador.",
+      null,
+      "Ahí se sumaron los tres exponentes, sin restar el del reparto."
+    ],
+    "explanation": "El numerador combina dos crecimientos, así que primero se junta en una sola potencia.\n$$2^{5} \\cdot 2^{3} = 2^{8}$$\nCon arriba y abajo reducidos a una potencia cada uno, el cociente se resuelve restando.\n$$\\dfrac{2^{8}}{2^{4}} = 2^{4}$$\nEl resultado es menor que el crecimiento total porque el reparto lo divide, pero sigue siendo mayor que cada etapa por separado.\n\nReducir cada nivel antes de combinarlos es lo que evita perder alguno de los tres exponentes.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-cadena-igual-base"
+    ]
+  },
+  {
+    "question": "Un cultivo de bacterias duplica su cantidad cada hora. En este momento hay $2^{6}$ bacterias.\n\nLa cantidad que había hace $4$ horas se calcula como:\n$$2^{6} \\cdot 2^{-4}$$\n¿Cuántas bacterias había hace $4$ horas?",
+    "options": [
+      "$4$",
+      "$-4$",
+      "$2$",
+      "$16$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El exponente negativo invierte la base: $2^{-4} = 1/2^4$, y multiplicando queda $2^6 \\cdot 1/2^4 = 4$.",
+    "feedback_incorrect": [
+      null,
+      "El resultado de una potencia de base positiva nunca es negativo, aunque el exponente lo sea.",
+      "Eso sale de calcular solo $2^6 \\div 2^{-4}$ como si el exponente negativo restara una unidad al cociente, en vez de invertir la base.",
+      "Eso sale de calcular $2^4$ en vez de aplicar el exponente negativo, ignorando que hay que invertir la base antes de operar."
+    ],
+    "explanation": "Un **exponente negativo** indica que hay que invertir la base como fracción.\n\nLa regla general es:\n$$a^{-n} = 1/a^n$$\nPara encontrar cuántas bacterias había hace 4 horas, se aplica esa regla a $2^{-4}$, que queda $1/2^4$.\n\nMultiplicando por la cantidad actual:\n$$2^{6} \\cdot 2^{-4} = 2^{2} = 4$$\nHabía $4$ bacterias. Tratar el exponente negativo como una simple resta sobre el resultado, sin invertir la base primero, da un número distinto al correcto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": false,
+    "reviewed": false,
+    "tags": [
+      "resl-exponente-negativo"
+    ]
+  },
+  {
+    "question": "Una señal conserva la mitad de su intensidad por cada kilómetro recorrido, y ahora mide $2^{8}$ unidades.\n\nLa intensidad dentro de $4$ kilómetros se calcula así:\n$$2^{8} \\cdot 2^{-4}$$\n¿Cuánto vale?",
+    "options": [
+      "$1/16$",
+      "$16$",
+      "$-16$",
+      "$4096$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El exponente negativo resta cuatro factores a los ocho de partida, y quedan cuatro.",
+    "feedback_incorrect": [
+      "Ahí la resta quedó invertida, y el resultado salió menor que uno.",
+      null,
+      "Una potencia de base positiva nunca da un resultado negativo, aunque el exponente lo sea.",
+      "Ahí se sumaron los exponentes en vez de restarlos, tratando la reducción de la señal como si fuera un crecimiento."
+    ],
+    "explanation": "Un **exponente negativo** indica invertir la base, o sea aportar factores del lado del denominador.\n$$a^{-n} = 1/a^{n}$$\nAl multiplicar potencias de igual base los exponentes se suman, y sumar un negativo ya es restar.\n$$2^{8} \\cdot 2^{-4} = 2^{4} = 16$$\nLa intensidad baja de doscientos cincuenta y seis a dieciséis, que es lo esperable después de cuatro reducciones a la mitad.\n\nTratar el signo del exponente como el signo del resultado da un número negativo, que no tiene sentido para una intensidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-exponente-negativo"
+    ]
+  },
+  {
+    "question": "El grosor de una hoja se reduce a la mitad en cada corte, partiendo de una unidad.\n\nDespués de $4$ cortes el grosor es:\n$$2^{-4}$$\n¿Cuánto vale?",
+    "options": [
+      "$-16$",
+      "$16$",
+      "$-1/16$",
+      "$1/16$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Invertir la base y elevarla a la cuarta deja un dieciseisavo de la unidad original.",
+    "feedback_incorrect": [
+      "El signo del exponente no viaja al resultado: una base positiva da siempre un valor positivo.",
+      "Ese es el valor con exponente positivo, sin aplicar la inversión que pide el signo.",
+      "La inversión no agrega ningún signo menos: el resultado es positivo y menor que uno.",
+      null
+    ],
+    "explanation": "Un **exponente negativo** manda invertir la base antes de elevarla, y el exponente se aplica ya en positivo.\n$$a^{-n} = 1/a^{n}$$\nAplicado acá, la potencia queda como uno dividido dos a la cuarta.\n$$2^{-4} = \\dfrac{1}{2^{4}} = \\dfrac{1}{16}$$\nTiene sentido físico: cuatro cortes a la mitad dejan la hoja dieciséis veces más fina.\n\nEl resultado tiene que quedar entre cero y uno, y eso descarta de entrada cualquier valor negativo o mayor que la unidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-exponente-negativo"
+    ]
+  },
+  {
+    "question": "Dos mediciones de una misma magnitud dan $3^{2}$ y $3^{-1}$.\n$$\\dfrac{3^{2}}{3^{-1}}$$\n¿Cuántas veces mayor es la primera?",
+    "options": [
+      "$27$",
+      "$3$",
+      "$1/27$",
+      "$9$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Restar un exponente negativo suma, así que el exponente final es tres.",
+    "feedback_incorrect": [
+      null,
+      "Ahí se sumó el exponente negativo en vez de restarlo, y el resultado quedó más chico.",
+      "Ahí la resta quedó invertida, y el resultado salió menor que uno.",
+      "Ese es el valor de la primera medición sola, sin compararla con la segunda."
+    ],
+    "explanation": "Al **dividir potencias de igual base** los exponentes se restan, y eso vale también cuando alguno es negativo.\n$$\\dfrac{3^{2}}{3^{-1}} = 3^{2-(-1)} = 3^{3}$$\n$$3^{3} = 27$$\nRestar una cantidad negativa equivale a sumarla, y por eso el exponente crece en vez de bajar.\n\nEl chequeo de tamaño confirma el signo del paso: dividir por algo menor que uno agranda el resultado.\n\nLa segunda medición vale un tercio, así que la primera tiene que superarla por bastante más que su propio valor.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-exponente-negativo"
+    ]
+  },
+  {
+    "question": "Una población se reduce a la quinta parte en cada ciclo, y ahora tiene $5^{3}$ individuos.\n\nLa cantidad dentro de $4$ ciclos se calcula así:\n$$5^{3} \\cdot 5^{-4}$$\n¿Cuánto vale?",
+    "options": [
+      "$5$",
+      "$1$",
+      "$1/5$",
+      "$-5$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El exponente final queda negativo, así que el resultado es una fracción menor que uno.",
+    "feedback_incorrect": [
+      "Ese es el valor con el exponente final en positivo, sin respetar que la resta dio negativa.",
+      "Ahí se restó un ciclo de menos: la diferencia entre los dos exponentes es de uno, no de cero.",
+      null,
+      "El signo del exponente no viaja al resultado: una base positiva da siempre un valor positivo."
+    ],
+    "explanation": "Sumar los exponentes al multiplicar potencias de igual base funciona con cualquier signo, y acá la suma da negativa.\n$$5^{3} \\cdot 5^{-4} = 5^{-1}$$\nUn exponente negativo indica invertir la base, así que el resultado es una fracción.\n$$5^{-1} = \\dfrac{1}{5^{1}} = \\dfrac{1}{5}$$\nTiene sentido: la población se reduce durante más ciclos de los que alcanzaría a cubrir su tamaño actual, así que termina por debajo de un individuo.\n\nUn exponente final negativo siempre deja el resultado entre cero y uno.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-exponente-negativo"
+    ]
+  },
+  {
+    "question": "Un rumor duplica su alcance con cada comentario que lo reenvía.\n\nUna tanda son $2$ reenvíos seguidos, así que en una tanda el alcance queda multiplicado por $2^{2}$.\n\nSi pasan $3$ tandas seguidas, el factor total de crecimiento es:\n$$(2^{2})^{3}$$\n¿Por qué factor total queda multiplicado el alcance del rumor?",
+    "options": [
+      "$64$",
+      "$8$",
+      "$16$",
+      "$32$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "En una potencia de potencia los exponentes se multiplican: $(2^2)^3 = 2^{6} = 64$.",
+    "feedback_incorrect": [
+      null,
+      "Eso sale de calcular solo $2^3$, sin tener en cuenta que cada tanda ya duplica el alcance dos veces.",
+      "Eso sale de calcular $2^4$, un exponente que no corresponde a ninguna combinación válida de $2$ y $3$ en esta propiedad.",
+      "Eso sale de sumar los exponentes $2$ y $3$ en vez de multiplicarlos, confundiendo esta propiedad con la del producto de potencias."
+    ],
+    "explanation": "En una **potencia de potencia**, los exponentes se multiplican entre sí en vez de sumarse, porque repetir una tanda $3$ veces significa multiplicar el factor de una tanda por sí mismo $3$ veces.\n\nAplicando la regla $(a^m)^n = a^{m\\cdot n}$ a la expresión dada:\n$$(2^{2})^{3} = 2^{2\\cdot 3}$$\n$$= 2^{6} = 64$$\nEl alcance del rumor queda multiplicado por $64$.\n\nSumar los exponentes en vez de multiplicarlos confunde esta propiedad con la del producto de potencias de igual base, y da un factor mucho menor al real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": false,
+    "reviewed": false,
+    "tags": [
+      "resl-potencia-de-potencia"
+    ]
+  },
+  {
+    "question": "Una máquina triplica su producción en cada ciclo, y un turno son $2$ ciclos seguidos.\n\nSi pasan $3$ turnos, el factor total de crecimiento es:\n$$(3^{2})^{3}$$\n¿Por cuánto queda multiplicada la producción?",
+    "options": [
+      "$27$",
+      "$729$",
+      "$243$",
+      "$81$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los exponentes se multiplican, así que el factor es tres elevado a la sexta.",
+    "feedback_incorrect": [
+      "Ahí se aplicó directamente el exponente de afuera a la base, sin tener en cuenta el exponente de adentro.",
+      null,
+      "Ahí se sumaron los exponentes en vez de multiplicarlos, confundiendo esta propiedad con la del producto.",
+      "Ahí se calculó tres a la cuarta, un exponente que no sale de multiplicar ni de sumar los dados."
+    ],
+    "explanation": "En una **potencia de potencia** los exponentes se multiplican, porque el bloque de adentro se repite entero tantas veces como diga el de afuera.\n$$(3^{2})^{3} = 3^{2 \\cdot 3} = 3^{6}$$\nCada turno aporta dos factores de tres, y tres turnos aportan seis en total.\n$$3^{6} = 729$$\nSumar los exponentes daría tres a la quinta, que corresponde a juntar dos crecimientos distintos y no a repetir el mismo bloque.\n\nContar los factores es la forma más segura de decidir cuál de las dos propiedades corresponde.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-potencia-de-potencia"
+    ]
+  },
+  {
+    "question": "Un cultivo se multiplica por $2^{4}$ en cada etapa del proceso.\n\nEl proceso completo tiene $2$ etapas, así que el factor total es:\n$$(2^{4})^{2}$$\n¿Por cuánto queda multiplicado el cultivo?",
+    "options": [
+      "$64$",
+      "$32$",
+      "$16$",
+      "$256$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Los exponentes se multiplican y queda dos elevado a la octava.",
+    "feedback_incorrect": [
+      "Ahí se sumaron los exponentes en vez de multiplicarlos.",
+      "Ahí se calculó dos a la quinta, que no sale de ninguna de las dos propiedades.",
+      "Ahí se contó una sola etapa, sin repetir el bloque de crecimiento.",
+      null
+    ],
+    "explanation": "Repetir dos veces un bloque que ya multiplica por dieciséis deja un factor mucho mayor que el doble.\n$$(2^{4})^{2} = 2^{4 \\cdot 2} = 2^{8}$$\nCada etapa aporta cuatro factores de dos, y dos etapas aportan ocho.\n$$2^{8} = 256$$\nEl resultado es el cuadrado del factor de una etapa, que es exactamente lo que significa repetirlo dos veces.\n\nSumar los exponentes daría treinta y dos, un número que corresponde a juntar cinco factores, no ocho.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-potencia-de-potencia"
+    ]
+  },
+  {
+    "question": "Una inversión se multiplica por $2^{2}$ en cada trimestre, y un año son $4$ trimestres.\n\nEl factor de un año, comparado con el de un solo trimestre, es:\n$$\\dfrac{(2^{2})^{4}}{2^{2}}$$\n¿Cuál es el resultado como potencia de $2$?",
+    "options": [
+      "$2^{6}$",
+      "$2^{4}$",
+      "$2^{8}$",
+      "$2^{16}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El paréntesis da dos a la octava, y restando el trimestre suelto quedan seis.",
+    "feedback_incorrect": [
+      null,
+      "Ahí se restó el exponente de afuera del paréntesis en vez del exponente completo.",
+      "Ahí se resolvió el paréntesis pero no se restó el trimestre del denominador.",
+      "Ahí se multiplicaron todos los exponentes entre sí, incluido el del denominador."
+    ],
+    "explanation": "Primero se resuelve la potencia de potencia, multiplicando los exponentes del paréntesis.\n$$(2^{2})^{4} = 2^{8}$$\nRecién con el paréntesis resuelto aparece un cociente común de potencias de igual base.\n$$\\dfrac{2^{8}}{2^{2}} = 2^{6}$$\nEl resultado dice que el año multiplica sesenta y cuatro veces más que un trimestre suelto.\n\nMezclar los dos pasos en uno solo es lo que hace perder alguno de los tres exponentes en juego.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-potencia-de-potencia"
+    ]
+  },
+  {
+    "question": "Una red de contactos multiplica su alcance por $5$ con cada reenvío, y una ronda son $2$ reenvíos.\n\nDespués de $2$ rondas el factor total es:\n$$(5^{2})^{2}$$\n¿Por cuánto queda multiplicado el alcance?",
+    "options": [
+      "$50$",
+      "$25$",
+      "$625$",
+      "$125$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Los exponentes se multiplican y queda cinco elevado a la cuarta.",
+    "feedback_incorrect": [
+      "Ahí se multiplicó $5^2$ por el exponente de afuera en vez de elevarlo a esa potencia.",
+      "Ahí se contó una sola ronda, sin repetir el bloque de reenvíos.",
+      null,
+      "Ahí se contó que la segunda ronda solo agrega un reenvío más, en vez de repetir el bloque completo de dos reenvíos."
+    ],
+    "explanation": "Cada ronda multiplica el alcance por cinco al cuadrado, y dos rondas repiten ese bloque entero.\n$$(5^{2})^{2} = 5^{2 \\cdot 2} = 5^{4}$$\nSon cuatro reenvíos en total, y cada uno aporta un factor de cinco.\n$$5^{4} = 625$$\nContar los reenvíos individuales da el mismo exponente que multiplicar los dos números del paréntesis, que es la razón de fondo de la propiedad.\n\nSumar los exponentes daría solo tres reenvíos, uno menos de los que efectivamente ocurren.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-potencia-de-potencia"
+    ]
   }
 ]

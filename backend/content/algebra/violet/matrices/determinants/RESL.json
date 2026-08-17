@@ -1,24 +1,401 @@
 [
   {
-    "question": "¿Cuál es el determinante de $A = \\begin{pmatrix} 2 & 3 \\\\ 1 & 4 \\end{pmatrix}$?",
+    "question": "Una transformación del plano está dada por esta matriz:\n$$A = \\begin{pmatrix} 5 & 2 \\\\ 3 & 4 \\end{pmatrix}$$\n¿Cuál es su determinante?",
     "options": [
-      "$5$",
-      "$11$",
-      "$8$",
-      "$-5$"
+      "$14$",
+      "$26$",
+      "$-14$",
+      "$20$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$\\det(A) = 2\\cdot4 - 3\\cdot1 = 8-3 = 5$.",
+    "feedback_correct": "El determinante de una matriz de dos por dos es el producto de la diagonal principal menos el de la otra.",
     "feedback_incorrect": [
       null,
-      "Eso sale de sumar en vez de restar el producto cruzado.",
-      "Falta restar el segundo producto, quedó solo el primero.",
-      "El signo del resultado quedó invertido."
+      "Los dos productos se restan, no se suman: la segunda diagonal entra restando.",
+      "El orden quedó invertido: se le resta el producto de la segunda diagonal al de la primera.",
+      "Faltó restar el producto de la otra diagonal, que vale seis."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El determinante de una matriz $2\\times2$ se calcula con el producto cruzado de sus elementos.\n$$\\det(A) = a_{11}a_{22} - a_{12}a_{21} = 2\\cdot4 - 3\\cdot1$$\n\nCalculando, $8-3=5$: ese es el determinante de $A$.\n\nUn error común es sumar ambos productos en vez de restarlos, o invertir cuál producto se resta de cuál.",
-    "reviewed": false
+    "explanation": "El determinante de una matriz de dos por dos se calcula restando, al producto de la diagonal principal, el producto de la otra diagonal.\n$$\\det(A) = (5)(4) - (2)(3)$$\nCon esos valores queda veinte menos seis.\n$$\\det(A) = 14$$\nEse número dice que la transformación agranda catorce veces las áreas, y que al ser positivo conserva la orientación del plano.\n\nSumar las dos diagonales en vez de restarlas devuelve siempre un valor positivo, lo que borra toda la información sobre orientación que el determinante guarda en su signo.",
+    "reviewed": false,
+    "tags": [
+      "calcular-determinante-2x2"
+    ]
+  },
+  {
+    "question": "Una transformación del plano está dada por esta matriz.\n$$A = \\begin{pmatrix} 6 & 1 \\\\ 2 & 7 \\end{pmatrix}$$\n¿Cuál es su determinante?",
+    "options": [
+      "$16$",
+      "$40$",
+      "$44$",
+      "$-40$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cuarenta y dos menos dos da cuarenta.",
+    "feedback_incorrect": [
+      "Ahí se sumaron las entradas en vez de multiplicarlas.",
+      null,
+      "Ahí los dos productos se sumaron en vez de restarse.",
+      "Ahí la resta quedó invertida entre las dos diagonales."
+    ],
+    "explanation": "El determinante de una matriz del plano resta los dos productos cruzados.\n$$\\det(A) = 6 \\cdot 7 - 1 \\cdot 2 = 40$$\nEl primer producto toma la diagonal principal y el segundo la otra diagonal.\n\nEl resultado positivo indica que la transformación conserva la orientación y multiplica las áreas por cuarenta.\n\nInvertir el orden de la resta da el opuesto, que describiría una transformación con orientación invertida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-determinante-2x2"
+    ]
+  },
+  {
+    "question": "Una matriz del plano representa una transformación.\n$$A = \\begin{pmatrix} 3 & 8 \\\\ 1 & 2 \\end{pmatrix}$$\n¿Cuál es su determinante?",
+    "options": [
+      "$14$",
+      "$2$",
+      "$6$",
+      "$-2$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Seis menos ocho da menos dos.",
+    "feedback_incorrect": [
+      "Ahí los dos productos se sumaron en vez de restarse.",
+      "Ahí la resta quedó invertida entre las dos diagonales.",
+      "Ahí quedó solo el producto de la diagonal principal, sin restar el de la otra.",
+      null
+    ],
+    "explanation": "El determinante puede dar negativo, y eso es un resultado válido.\n$$\\det(A) = 3 \\cdot 2 - 8 \\cdot 1 = -2$$\nEl producto de la otra diagonal supera al de la principal, y por eso la resta queda negativa.\n\nEl signo indica que la transformación invierte la orientación del plano.\n\nTomar el valor absoluto perdería justamente esa información, así que el signo se conserva.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-determinante-2x2"
+    ]
+  },
+  {
+    "question": "Se quiere medir el efecto de esta matriz sobre las áreas.\n$$A = \\begin{pmatrix} 4 & 6 \\\\ 2 & 3 \\end{pmatrix}$$\n¿Cuál es su determinante?",
+    "options": [
+      "$0$",
+      "$24$",
+      "$12$",
+      "$-12$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Doce menos doce da cero, porque las dos filas son proporcionales.",
+    "feedback_incorrect": [
+      null,
+      "Ahí los dos productos se sumaron en vez de restarse.",
+      "Ahí quedó solo uno de los dos productos.",
+      "Ahí quedó el opuesto del producto de la diagonal principal, sin sumar ni restar el otro término."
+    ],
+    "explanation": "Cuando las dos filas son proporcionales, los dos productos coinciden y la resta se anula.\n$$\\det(A) = 4 \\cdot 3 - 6 \\cdot 2 = 0$$\nLa primera fila es el doble de la segunda, así que las dos describen la misma dirección.\n\nDetectar esa proporcionalidad permite anticipar el resultado sin hacer la cuenta.\n\nUn determinante nulo indica que la transformación aplasta el plano, perdiendo una dirección entera.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-determinante-2x2"
+    ]
+  },
+  {
+    "question": "Una matriz con entradas negativas describe una transformación del plano.\n$$A = \\begin{pmatrix} -2 & 5 \\\\ 3 & -1 \\end{pmatrix}$$\n¿Cuál es su determinante?",
+    "options": [
+      "$17$",
+      "$-17$",
+      "$-13$",
+      "$13$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Dos menos quince da menos trece.",
+    "feedback_incorrect": [
+      "Ahí los dos productos se sumaron en vez de restarse.",
+      "Ahí el signo del primer producto quedó invertido.",
+      null,
+      "Ahí la resta quedó invertida entre las dos diagonales."
+    ],
+    "explanation": "Los signos de las entradas entran en los dos productos antes de restar.\n$$\\det(A) = (-2)(-1) - 5 \\cdot 3 = 2 - 15$$\nEl producto de la diagonal principal es positivo porque los dos factores son negativos.\n$$= -13$$\nCon varias entradas negativas conviene calcular los dos productos por separado antes de restar.\n\nEl resultado negativo indica que la transformación invierte la orientación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-determinante-2x2"
+    ]
+  },
+  {
+    "question": "Una matriz de dos filas y dos columnas tiene determinante $3$.\n\nDespués se multiplican todas sus entradas por dos.\n\n¿Cuánto vale el determinante de $2A$?",
+    "options": [
+      "$12$",
+      "$6$",
+      "$3$",
+      "$9$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El escalar estira las dos direcciones del plano, así que el área queda multiplicada por dos al cuadrado.",
+    "feedback_incorrect": [
+      null,
+      "El escalar multiplica a las dos filas, no a una sola, así que su efecto sobre el área se aplica dos veces.",
+      "Multiplicar todas las entradas sí cambia el determinante: las dos direcciones quedan estiradas.",
+      "El exponente acompaña al escalar, no al determinante: es el dos el que se eleva al cuadrado."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Multiplicar una matriz por un número multiplica cada una de sus entradas, así que estira por igual las dos direcciones que la matriz registra.\n\nUn rectángulo cuyos dos lados se duplican queda cuatro veces más grande, no dos.\n$$\\det(2A) = 2^2 \\cdot \\det(A)$$\nCon el determinante original igual a tres, el resultado es doce.\n\nEl exponente coincide con la cantidad de filas de la matriz, porque cuenta cuántas direcciones se estiraron. En una matriz de tres por tres el mismo escalar aparecería al cubo.\n\nAplicar el factor una sola vez es tratar a la matriz como si tuviera una única dirección, y ahí se pierde justamente lo que el determinante mide.",
+    "reviewed": false,
+    "tags": [
+      "calcular-con-propiedades"
+    ]
+  },
+  {
+    "question": "Una matriz de dos filas y dos columnas tiene determinante $5$.\n\nDespués se multiplican todas sus entradas por tres.\n\n¿Cuánto vale el determinante de la nueva matriz?",
+    "options": [
+      "$25$",
+      "$45$",
+      "$15$",
+      "$5$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El escalar entra elevado al orden de la matriz, que es dos.",
+    "feedback_incorrect": [
+      "Ahí se elevó el determinante en vez del escalar.",
+      null,
+      "Ahí el escalar entró sin elevar, como si afectara a una sola fila.",
+      "Ahí el escalar no se aplicó al determinante."
+    ],
+    "explanation": "Multiplicar toda la matriz por un escalar estira las dos direcciones a la vez.\n$$\\det(kA) = k^{n}\\det(A)$$\nCada dirección estirada aporta el factor una vez, así que el escalar entra al cuadrado.\n$$3^{2} \\cdot 5 = 45$$\nEl exponente coincide siempre con el orden de la matriz, y por eso en el espacio sería tres.\n\nMultiplicar una sola fila, en cambio, haría entrar el factor una sola vez.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-con-propiedades"
+    ]
+  },
+  {
+    "question": "Una matriz tiene determinante $4$ y otra tiene determinante $6$.\n\nLas dos son cuadradas del mismo orden.\n\n¿Cuánto vale el determinante de su producto?",
+    "options": [
+      "$10$",
+      "$2$",
+      "$4$",
+      "$24$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El determinante de un producto es el producto de los determinantes.",
+    "feedback_incorrect": [
+      "Ahí los dos determinantes se sumaron en vez de multiplicarse.",
+      "Ahí se restaron los dos determinantes.",
+      "Ahí quedó solo uno de los dos determinantes.",
+      null
+    ],
+    "explanation": "Aplicar dos transformaciones seguidas multiplica el área por los dos factores.\n$$\\det(AB) = \\det(A)\\det(B) = 24$$\nEl resultado no depende del orden en que se multipliquen las matrices, porque los números conmutan.\n\nLa suma de determinantes no corresponde a ninguna propiedad: el determinante no se reparte sobre la suma.\n\nEsta es la propiedad que hace que el determinante sea tan útil para analizar composiciones de transformaciones.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-con-propiedades"
+    ]
+  },
+  {
+    "question": "Una matriz cuadrada tiene determinante $7$.\n\n¿Cuánto vale el determinante de su traspuesta?",
+    "options": [
+      "$7$",
+      "$-7$",
+      "$49$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El determinante no cambia al trasponer la matriz.",
+    "feedback_incorrect": [
+      null,
+      "Trasponer no invierte ninguna orientación, así que el signo se conserva.",
+      "Trasponer no eleva el determinante al cuadrado.",
+      "El determinante no se reduce a uno al trasponer la matriz."
+    ],
+    "explanation": "Trasponer intercambia filas por columnas, y el determinante trata a las dos por igual.\n$$\\det(A^{T}) = \\det(A) = 7$$\nPor eso el valor queda idéntico, incluido su signo.\n\nEsa propiedad es la que permite trasladar cualquier propiedad de filas a las columnas.\n\nTambién explica por qué una matriz con dos columnas proporcionales tiene determinante nulo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-con-propiedades"
+    ]
+  },
+  {
+    "question": "Una matriz cuadrada de orden dos tiene determinante $3$.\n\n¿Cuánto vale el determinante de su cuadrado?",
+    "options": [
+      "$3$",
+      "$81$",
+      "$9$",
+      "$6$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El determinante del producto multiplica los dos determinantes, que acá son el mismo.",
+    "feedback_incorrect": [
+      "Ahí el determinante quedó sin operar.",
+      "Ahí el determinante se elevó a la cuarta en vez de al cuadrado.",
+      null,
+      "Ahí el determinante se duplicó en vez de multiplicarse por sí mismo."
+    ],
+    "explanation": "Elevar al cuadrado una matriz es multiplicarla por sí misma.\n$$\\det(A^{2}) = \\det(A)\\det(A) = 9$$\nLa propiedad del producto se aplica con los dos factores iguales.\n\nEl exponente del determinante coincide con el de la matriz, y no con el orden de la matriz.\n\nConviene no confundir esta propiedad con la del escalar, donde el exponente sí viene del orden.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-con-propiedades"
+    ]
+  },
+  {
+    "question": "Una matriz depende de un parámetro todavía sin fijar:\n$$A = \\begin{pmatrix} k & 4 \\\\ 3 & 6 \\end{pmatrix}$$\n¿Para qué valor de $k$ se anula su determinante?",
+    "options": [
+      "$2$",
+      "$12$",
+      "$-2$",
+      "$0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Igualando el determinante a cero queda una ecuación lineal cuyo despeje da el valor del parámetro.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el valor al que llega la ecuación antes de dividir por el coeficiente que acompaña al parámetro.",
+      "El signo quedó invertido al despejar: el producto de la otra diagonal entra restando.",
+      "El determinante no necesita entradas nulas para anularse; alcanza con que las dos filas queden alineadas."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El determinante se anula cuando las dos filas quedan alineadas, y con un parámetro adentro esa condición se convierte en una ecuación.\n$$\\det(A) = 6k - 12$$\nIgualar esa expresión a cero deja una ecuación lineal con una sola incógnita.\n$$6k = 12$$\nDe donde el parámetro vale dos, y con ese valor las dos filas de la matriz quedan alineadas.\n\nQuedarse en el paso anterior devuelve el número que aparece del otro lado del igual, no el valor del parámetro: falta dividir por el coeficiente que lo acompaña.",
+    "reviewed": false,
+    "tags": [
+      "hallar-parametro-para-anular"
+    ]
+  },
+  {
+    "question": "Una matriz depende de un parámetro todavía sin fijar.\n$$A = \\begin{pmatrix} k & 3 \\\\ 4 & 6 \\end{pmatrix}$$\n¿Para qué valor del parámetro se anula su determinante?",
+    "options": [
+      "$8$",
+      "$2$",
+      "$-2$",
+      "$12$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Igualando la resta de los dos productos a cero, el parámetro queda en dos.",
+    "feedback_incorrect": [
+      "Ahí se multiplicó $k$ por el $3$ que tiene al lado en la fila, en vez de por el $6$ de la diagonal principal.",
+      null,
+      "Ahí el signo quedó invertido al despejar.",
+      "Ahí se despejó sin dividir por el coeficiente."
+    ],
+    "explanation": "El determinante se plantea como una ecuación igualada a cero.\n$$6k - 12 = 0$$\nEl término conocido pasa sumando y después se divide por el coeficiente.\n$$k = 2$$\nCon ese valor las dos filas quedan proporcionales, que es la lectura geométrica de la anulación.\n\nReemplazar el valor hallado y verificar que el determinante dé cero cierra el ejercicio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-parametro-para-anular"
+    ]
+  },
+  {
+    "question": "Una matriz depende de un parámetro todavía sin fijar.\n$$A = \\begin{pmatrix} 5 & k \\\\ 2 & 4 \\end{pmatrix}$$\n¿Para qué valor del parámetro se anula su determinante?",
+    "options": [
+      "$-10$",
+      "$20$",
+      "$4$",
+      "$10$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Igualando veinte menos dos veces el parámetro a cero, queda diez.",
+    "feedback_incorrect": [
+      "Ahí el signo quedó invertido al despejar.",
+      "Ahí se despejó sin dividir por el coeficiente.",
+      "Ahí se usó el $5$ de la otra diagonal como si fuera el coeficiente de $k$, en vez del $2$ que lo acompaña.",
+      null
+    ],
+    "explanation": "La ecuación sale de igualar a cero la resta de los dos productos cruzados.\n$$20 - 2k = 0$$\nEl término con el parámetro pasa al otro lado y después se divide por su coeficiente.\n$$k = 10$$\nCon ese valor la primera fila resulta ser dos veces y media la segunda, así que son proporcionales.\n\nAnticipar que el resultado tiene que ser positivo, mirando los signos de la ecuación, sirve como control.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-parametro-para-anular"
+    ]
+  },
+  {
+    "question": "Una matriz depende de un parámetro todavía sin fijar.\n$$A = \\begin{pmatrix} 3 & 6 \\\\ k & 8 \\end{pmatrix}$$\n¿Para qué valor del parámetro se anula su determinante?",
+    "options": [
+      "$4$",
+      "$-4$",
+      "$24$",
+      "$2$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Igualando veinticuatro menos seis veces el parámetro a cero, queda cuatro.",
+    "feedback_incorrect": [
+      null,
+      "Ahí el signo quedó invertido al despejar.",
+      "Ahí se despejó sin dividir por el coeficiente.",
+      "Ahí se dividió por el coeficiente equivocado."
+    ],
+    "explanation": "La incógnita puede estar en cualquiera de las cuatro entradas: la ecuación se plantea igual.\n$$24 - 6k = 0$$\nEl coeficiente del parámetro sale del producto de la otra diagonal.\n$$k = 4$$\nCon ese valor la segunda fila resulta proporcional a la primera, con factor cuatro tercios.\n\nIdentificar bien qué entrada multiplica al parámetro es el paso donde más se confunde el coeficiente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-parametro-para-anular"
+    ]
+  },
+  {
+    "question": "Una matriz cuadrada tiene un parámetro sin fijar en una sola entrada.\n$$A = \\begin{pmatrix} 3 & 4 \\\\ 6 & k \\end{pmatrix}$$\n¿Para qué valor del parámetro se anula su determinante?",
+    "options": [
+      "$-8$",
+      "$8$",
+      "$24$",
+      "$2$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Igualando tres veces el parámetro menos veinticuatro a cero, queda ocho.",
+    "feedback_incorrect": [
+      "Ahí el signo quedó invertido al despejar.",
+      null,
+      "Ahí se despejó sin dividir por el coeficiente.",
+      "Ahí se multiplicó $k$ por el $6$ que tiene al lado en la fila, en vez de por el $3$ de la diagonal principal."
+    ],
+    "explanation": "La incógnita puede estar en cualquiera de las cuatro entradas, y acá conviene que aparezca en una sola para que la ecuación quede lineal.\n$$3k - 24 = 0$$\nEl coeficiente de $k$ sale de la diagonal principal, y el término independiente del producto de la otra diagonal.\n$$k = 8$$\nCon ese valor las dos filas quedan proporcionales, que es la lectura geométrica de la anulación.\n\nConfundir con qué entrada se multiplica $k$, o saltear la división final, son los dos errores más frecuentes en este tipo de despeje.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-parametro-para-anular"
+    ]
   }
 ]

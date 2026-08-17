@@ -1,24 +1,407 @@
 [
   {
-    "question": "Al resolver la ecuación con **valor absoluto**:\n$$|2x-3|=7$$\n¿Cuál es el conjunto solución?",
+    "question": "Una pieza tiene una medida nominal de $50$ mm. Su medida real $x$, en mm, cumple:\n$$|x-50|=3$$\n¿Cuáles son los dos valores posibles de $x$?",
     "options": [
-      "$\\{5, -2\\}$",
-      "$\\{5\\}$",
-      "$\\{5, -5\\}$",
-      "$\\{5, 2\\}$"
+      "$53$ y $47$",
+      "$53$",
+      "$53$ y $-47$",
+      "$56$ y $44$"
     ],
     "correct_index": 0,
-    "feedback_correct": "Las dos ramas de la ecuación dan como soluciones $x=5$ y $x=-2$.",
+    "feedback_correct": "Las dos ramas de la ecuación dan como soluciones $x=53$ y $x=47$: la pieza puede medir 3 mm de más o 3 mm de menos.",
     "feedback_incorrect": [
       null,
-      "Faltó la segunda rama: la ecuación también se cumple cuando lo que está dentro de las barras es $-7$.",
-      "En la segunda rama el signo se aplica mal: $2x-3=-7$ da $x=-2$, no $x=-5$.",
-      "La segunda rama sale de $2x-3=-7$, no de $2x+3=7$; el signo se cambia del lado derecho, no dentro de las barras."
+      "Faltó la segunda rama: la ecuación también se cumple cuando $x-50$ es $-3$.",
+      "La medida real $x$ no puede ser negativa en este contexto; la segunda solución sale de $x-50=-3$, que da $x=47$.",
+      "Esos valores corresponden a un error de $6$ mm, no de $3$ mm como plantea el enunciado."
     ],
-    "explanation": "Una ecuación de la forma $|A|=k$ con $k>0$ equivale a dos ecuaciones sin barras.\n\nUna es $A=k$ y la otra es $A=-k$, porque tanto un número como su opuesto tienen la misma distancia al cero.\n\nAplicando esto a la ecuación dada, se separan las dos ramas:\n$$2x-3=7$$\n$$2x-3=-7$$\nDespejando $x$ en cada una:\n$$x=5$$\n$$x=-2$$\nEl error más común es plantear una sola ecuación, solo el caso positivo, y perder la segunda solución, que es igual de válida.",
+    "explanation": "Una ecuación con valor absoluto igualado a un número positivo, $|A|=k$, equivale a dos ecuaciones sin barras:\n$$A=k \\text{ o } A=-k$$\nTanto un número como su opuesto están a la misma distancia del cero, por eso valen las dos ramas.\n\nAplicando esto a la ecuación dada, se separan las dos ramas:\n$$x-50=3 \\text{ o } x-50=-3$$\nDespejando $x$ en cada una:\n$$x=53 \\text{ o } x=47$$\nEl conjunto solución es $\\{53, 47\\}$: la pieza defectuosa mide 3 mm de más o 3 mm de menos que el nominal.\n\nPlantear solo el caso positivo pierde la segunda solución, que es igual de válida.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-ecuacion"
+    ]
+  },
+  {
+    "question": "Una barra tiene una longitud nominal de $120$ cm.\n\nSu longitud real $x$, en centímetros, cumple:\n$$|x-120|=5$$\n¿Cuáles son los dos valores posibles?",
+    "options": [
+      "$130$ y $110$",
+      "$125$ y $115$",
+      "$125$",
+      "$125$ y $-115$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los dos valores están a cinco centímetros del nominal, uno de cada lado.",
+    "feedback_incorrect": [
+      "Ahí la cota se sumó y restó dos veces: la distancia al nominal es de cinco, no de diez.",
+      null,
+      "Ese es uno de los dos casos: también hay que resolver el que deja la diferencia negativa.",
+      "Ahí el signo se aplicó al valor final en vez de aplicarse a la diferencia."
+    ],
+    "explanation": "El valor absoluto mide la distancia entre la medida real y la nominal, así que hay dos casos.\n$$x - 120 = 5 \\quad \\text{o} \\quad x - 120 = -5$$\nDespejando cada caso por separado quedan los dos valores posibles.\n$$x = 125 \\quad \\text{o} \\quad x = 115$$\nLos dos están a la misma distancia del nominal, uno por encima y otro por debajo.\n\nQuedarse con un solo caso pierde la mitad de las medidas que cumplen la tolerancia.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-ecuacion"
+    ]
+  },
+  {
+    "question": "Una temperatura de referencia es de $18$ grados.\n\nUna medición $x$, en grados, cumple:\n$$|x-18|=7$$\n¿Cuáles son los dos valores posibles?",
+    "options": [
+      "$25$",
+      "$25$ y $-11$",
+      "$32$ y $4$",
+      "$25$ y $11$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Los dos valores están a siete grados de la referencia, uno de cada lado.",
+    "feedback_incorrect": [
+      "Ese es uno de los dos casos: también hay que resolver el que deja la diferencia negativa.",
+      "Ahí el signo se aplicó al valor final en vez de aplicarse a la diferencia.",
+      "Ahí la cota se sumó y restó dos veces: la distancia a la referencia es de siete, no de catorce.",
+      null
+    ],
+    "explanation": "Una igualdad con valor absoluto se abre en dos ecuaciones, una por cada signo posible del interior.\n$$x - 18 = 7 \\quad \\text{o} \\quad x - 18 = -7$$\nCada una se despeja por separado y aporta una solución.\n$$x = 25 \\quad \\text{o} \\quad x = 11$$\nEl chequeo es directo: las dos mediciones se apartan siete grados de la referencia.\n\nAplicar el signo negativo al resultado en vez de a la diferencia da un valor que ni siquiera es una temperatura del rango.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-ecuacion"
+    ]
+  },
+  {
+    "question": "Un coeficiente acompaña al valor absoluto en la condición de una pieza.\n$$2|x-30|=16$$\n¿Cuáles son los dos valores posibles de $x$?",
+    "options": [
+      "$38$ y $22$",
+      "$46$ y $14$",
+      "$38$",
+      "$23$ y $7$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Despejando el coeficiente, la distancia al centro es de ocho, no de dieciséis.",
+    "feedback_incorrect": [
+      null,
+      "Ahí el coeficiente quedó ignorado, y los valores salieron al doble de distancia.",
+      "Ese es uno de los dos casos: también hay que resolver el que deja la diferencia negativa.",
+      "Ahí también se dividió el centro, $30$, por el coeficiente, y quedó $15$ en vez de $30$: el coeficiente solo divide a la cota, $16$, no a los demás términos de la ecuación."
+    ],
+    "explanation": "El valor absoluto tiene que quedar solo antes de abrir los dos casos.\n$$2|x-30| = 16 \\implies |x-30| = 8$$\nCon la cota despejada, los dos casos se plantean como siempre.\n$$x = 38 \\quad \\text{o} \\quad x = 22$$\nLos dos valores están a ocho unidades del centro, que es la mitad de lo que sugiere la cota original.\n\nVerificar reemplazando en la ecuación completa, con el coeficiente incluido, detecta el error de inmediato.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-ecuacion"
+    ]
+  },
+  {
+    "question": "Una condición de calidad se plantea con una cota negativa.\n$$|x-45|=-2$$\n¿Cuál es el conjunto solución?",
+    "options": [
+      "El valor $45$, que es el único que anula el interior",
+      "Los valores $-2$ y $2$, que son la cota y su opuesto",
+      "Ningún valor, porque un valor absoluto nunca da negativo",
+      "Los valores $47$ y $43$, uno a cada lado del centro"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Ninguna distancia al centro puede valer una cantidad negativa.",
+    "feedback_incorrect": [
+      "Ese valor anula el interior, y ahí el valor absoluto vale cero, no menos dos.",
+      "Esos números son la cota y su opuesto, no valores de la incógnita.",
+      null,
+      "Esos valores saldrían de una cota positiva de dos, que no es la que plantea la condición."
+    ],
+    "explanation": "El valor absoluto devuelve una distancia, y ninguna distancia es negativa.\n$$|A| \\geq 0$$\nPor eso ningún valor de la incógnita puede cumplir la condición, y el conjunto solución es vacío.\n\nMirar el signo de la cota antes de abrir los dos casos resuelve el ejercicio sin ninguna cuenta.\n\nAbrir los casos igual produce dos valores que, al reemplazarlos, no verifican la ecuación original.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-ecuacion"
+    ]
+  },
+  {
+    "question": "Un termostato acepta como válida cualquier temperatura $x$, en grados, cuyo error respecto de los $20°$ de referencia cumpla:\n$$|x-20|<2$$\n¿Cuál es el rango de temperaturas aceptadas?",
+    "options": [
+      "$(18, 22)$",
+      "$(-2, 2)$",
+      "$(-\\infty,18)\\cup(22,\\infty)$",
+      "$(18, 20)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La doble desigualdad $-2<x-20<2$ despejada da $18<x<22$: el intervalo de temperaturas aceptadas.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el rango del error $x-20$ antes de despejar $x$, no el rango final de temperaturas.",
+      "Esa es la forma de la solución de una inecuación \"mayor que\", con dos regiones separadas; acá la condición es \"menor que\", un solo tramo.",
+      "Ese intervalo deja afuera la mitad superior del rango aceptado, entre $20$ y $22$."
+    ],
+    "explanation": "Una condición de valor absoluto menor que un número positivo equivale a una doble desigualdad:\n$$|A|<k \\iff -k<A<k$$\nEstar a menos de esa distancia del cero significa quedar en el medio de esos dos límites, ni por encima ni por debajo de ellos.\n\nAplicando esto a la condición dada:\n$$-2<x-20<2$$\nSumando $20$ en cada tramo de la desigualdad:\n$$18<x<22$$\nEl rango de temperaturas aceptadas es el intervalo $(18, 22)$.\n\nUsar la forma de unión de dos regiones, en vez de un único intervalo acotado, corresponde a una condición \"mayor que\", no a esta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-inecuacion-menor"
+    ]
+  },
+  {
+    "question": "Una máquina acepta piezas cuya medida $x$, en milímetros, se aparte poco de los $60$ mm nominales.\n$$|x-60|<4$$\n¿Cuál es el rango de medidas aceptadas?",
+    "options": [
+      "$(56, 60)$",
+      "$(56, 64)$",
+      "$(-4, 4)$",
+      "$(-\\infty,56)\\cup(64,\\infty)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La cadena queda entre menos cuatro y cuatro, y sumando el nominal da el intervalo.",
+    "feedback_incorrect": [
+      "Ahí el intervalo quedó cortado en el nominal, sin incluir el tramo superior.",
+      null,
+      "Ese es el rango de la diferencia con el nominal, no el de la medida.",
+      "Ese es el conjunto de las medidas rechazadas, que cumplen la condición contraria."
+    ],
+    "explanation": "Una desigualdad de menor con valor absoluto se abre en una única cadena.\n$$-4 < x - 60 < 4$$\nSumando el nominal en los tres tramos a la vez, la incógnita queda despejada en el centro.\n$$56 < x < 64$$\nEl intervalo es abierto porque la desigualdad original es estricta, así que los extremos no entran.\n\nQuedarse con la cadena sin despejar responde sobre la diferencia y no sobre la medida, que es lo que el enunciado pregunta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-inecuacion-menor"
+    ]
+  },
+  {
+    "question": "Un proceso acepta tiempos $x$, en segundos, que se aparten poco de los $15$ segundos previstos.\n$$|x-15| \\leq 3$$\n¿Cuál es el rango de tiempos aceptados?",
+    "options": [
+      "$(12, 18)$",
+      "$[-3, 3]$",
+      "$(-\\infty,12]\\cup[18,\\infty)$",
+      "$[12, 18]$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Los extremos entran, porque la desigualdad original incluye el igual.",
+    "feedback_incorrect": [
+      "Ahí los extremos quedaron excluidos, cuando la condición los admite.",
+      "Ese es el rango de la diferencia con lo previsto, no el de los tiempos.",
+      "Ese es el conjunto de los tiempos rechazados, que cumplen la condición contraria.",
+      null
+    ],
+    "explanation": "El tipo de desigualdad se conserva al abrir la cadena y también al despejar.\n$$-3 \\leq x - 15 \\leq 3$$\nSumando lo previsto en los tres tramos, la incógnita queda sola en el centro.\n$$12 \\leq x \\leq 18$$\nEl intervalo se escribe con corchetes justamente porque los dos extremos cumplen la condición.\n\nCambiar corchete por paréntesis deja afuera dos tiempos que el proceso sí acepta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-inecuacion-menor"
+    ]
+  },
+  {
+    "question": "Una tolerancia se expresa con un coeficiente delante del valor absoluto.\n$$3|x-10|<12$$\n¿Cuál es el conjunto solución?",
+    "options": [
+      "$(6, 14)$",
+      "$(-2, 22)$",
+      "$(-4, 4)$",
+      "$(6, 10)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Despejando el coeficiente, la cota baja a cuatro y el intervalo queda centrado en diez.",
+    "feedback_incorrect": [
+      null,
+      "Ahí el coeficiente quedó ignorado, y el intervalo salió tres veces más ancho.",
+      "Ese es el rango de la diferencia con el centro, no el de la incógnita.",
+      "Ahí el intervalo quedó cortado en el centro, sin incluir el tramo superior."
+    ],
+    "explanation": "El valor absoluto tiene que quedar solo antes de abrir la cadena.\n$$3|x-10| < 12 \\implies |x-10| < 4$$\nCon la cota despejada, la cadena y el despeje son los de siempre.\n$$6 < x < 14$$\nEl coeficiente es positivo, así que dividir no invierte el sentido de la desigualdad.\n\nIgnorarlo triplica el ancho del intervalo, e incluye valores que la condición original rechaza.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-inecuacion-menor"
+    ]
+  },
+  {
+    "question": "Una condición de menor se plantea con una cota negativa.\n$$|x-25|<-1$$\n¿Cuál es el conjunto solución?",
+    "options": [
+      "El intervalo $(-1, 1)$, que va de la cota a su opuesto",
+      "Todos los números reales, sin ninguna restricción",
+      "Ningún valor de $x$, porque un valor absoluto nunca es negativo",
+      "El intervalo $(24, 26)$, centrado en el valor de referencia"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Ninguna distancia al centro puede ser menor que una cantidad negativa.",
+    "feedback_incorrect": [
+      "Ese es el intervalo de la cota y su opuesto, no de la incógnita.",
+      "Todos los reales es la respuesta del caso de mayor con cota negativa, no del de menor.",
+      null,
+      "Ese intervalo saldría de una cota positiva de uno, que no es la que plantea la condición."
+    ],
+    "explanation": "El valor absoluto nunca es negativo, así que nunca puede ser menor que un número negativo.\n$$|A| \\geq 0 > -1$$\nNingún valor de la incógnita cumple la condición, y el conjunto solución es vacío.\n\nMirar el signo de la cota antes de abrir la cadena resuelve el ejercicio sin despejar nada.\n\nEl caso de mayor con cota negativa es el espejo exacto, y ahí la respuesta son todos los reales.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-inecuacion-menor"
+    ]
+  },
+  {
+    "question": "Un control de calidad descarta piezas cuya medida $x$, en mm, se aleje del valor nominal de $80$ mm según:\n$$|x-80|>4$$\n¿Cuál es el conjunto de medidas descartadas?",
+    "options": [
+      "$(-\\infty,76)\\cup(84,\\infty)$",
+      "$(76, 84)$",
+      "$(-\\infty,-4)\\cup(4,\\infty)$",
+      "$(-\\infty,84)\\cup(76,\\infty)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Las dos condiciones separadas $x<76$ o $x>84$ dan el conjunto $(-\\infty,76)\\cup(84,\\infty)$: piezas con mucho error de más o de menos.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el intervalo acotado de una condición \"menor que\", el rango de piezas aceptadas, no el de las descartadas.",
+      "Ese es el rango del error $x-80$ antes de despejar $x$, no el conjunto final de medidas descartadas.",
+      "Los dos intervalos están mal ordenados: la rama de la izquierda va hasta $76$, y la de la derecha empieza en $84$, no al revés."
+    ],
+    "explanation": "Una condición de valor absoluto mayor que un número positivo equivale a dos condiciones separadas:\n$$|A|>k \\iff A<-k \\text{ o } A>k$$\nEstar a más de esa distancia del cero significa quedar afuera de ese rango, por cualquiera de los dos lados.\n\nAplicando esto a la condición dada:\n$$x-80<-4 \\text{ o } x-80>4$$\nDespejando $x$ en cada condición:\n$$x<76 \\text{ o } x>84$$\nEl conjunto de medidas descartadas es la unión $(-\\infty,76)\\cup(84,\\infty)$.\n\nEncadenar las dos condiciones en una doble desigualdad, como en el caso \"menor que\", combina en un solo tramo dos regiones que en realidad quedan separadas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-inecuacion-mayor"
+    ]
+  },
+  {
+    "question": "Una alarma se activa cuando la presión $x$, en unidades, se aleja de las $90$ de referencia.\n$$|x-90|>6$$\n¿Cuál es el conjunto de presiones que activan la alarma?",
+    "options": [
+      "$(-\\infty,96)\\cup(84,\\infty)$",
+      "$(-\\infty,84)\\cup(96,\\infty)$",
+      "$(84, 96)$",
+      "$(-\\infty,-6)\\cup(6,\\infty)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Son los dos tramos que quedan afuera de la franja centrada en la referencia.",
+    "feedback_incorrect": [
+      "Ahí los dos extremos quedaron cruzados, y la unión abarca todos los reales.",
+      null,
+      "Ese es el conjunto de presiones que no activan la alarma.",
+      "Ese es el conjunto de la diferencia con la referencia, no el de la presión."
+    ],
+    "explanation": "Una desigualdad de mayor con valor absoluto se abre en dos tramos separados.\n$$x - 90 < -6 \\quad \\text{o} \\quad x - 90 > 6$$\nSumando la referencia en cada tramo, la incógnita queda despejada en los dos.\n$$x < 84 \\quad \\text{o} \\quad x > 96$$\nEl conjunto solución es la unión de los dos intervalos, porque alcanza con cumplir uno de los dos.\n\nCruzar los extremos al escribir la unión produce un conjunto que abarca todos los reales, y eso activaría la alarma siempre.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-inecuacion-mayor"
+    ]
+  },
+  {
+    "question": "Un control descarta lotes cuyo peso $x$, en kilogramos, se aparte de los $50$ nominales.\n$$|x-50| \\geq 8$$\n¿Cuál es el conjunto de pesos descartados?",
+    "options": [
+      "$(-\\infty,42)\\cup(58,\\infty)$",
+      "$[42, 58]$",
+      "$(-\\infty,-8]\\cup[8,\\infty)$",
+      "$(-\\infty,42]\\cup[58,\\infty)$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Los dos extremos entran, porque la desigualdad original incluye el igual.",
+    "feedback_incorrect": [
+      "Ahí los extremos quedaron excluidos, cuando la condición los incluye.",
+      "Ese es el conjunto de los pesos que sí se aceptan.",
+      "Ese es el conjunto de la diferencia con el nominal, no el del peso.",
+      null
+    ],
+    "explanation": "El tipo de desigualdad se conserva en los dos tramos y también al despejar.\n$$x - 50 \\leq -8 \\quad \\text{o} \\quad x - 50 \\geq 8$$\nSumando el nominal en cada tramo, quedan los dos intervalos del conjunto solución.\n$$x \\leq 42 \\quad \\text{o} \\quad x \\geq 58$$\nLos corchetes indican que los pesos exactamente a ocho kilos del nominal también se descartan.\n\nEse detalle define el borde entre aceptar y rechazar, así que no es un matiz de escritura.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-inecuacion-mayor"
+    ]
+  },
+  {
+    "question": "Una condición de mayor viene con un coeficiente delante del valor absoluto.\n$$2|x-20|>14$$\n¿Cuál es el conjunto solución?",
+    "options": [
+      "$(-\\infty,13)\\cup(27,\\infty)$",
+      "$(-\\infty,6)\\cup(34,\\infty)$",
+      "$(13, 27)$",
+      "$(-\\infty,-7)\\cup(7,\\infty)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Despejando el coeficiente, la cota baja a siete y los tramos quedan a esa distancia del centro.",
+    "feedback_incorrect": [
+      null,
+      "Ahí el coeficiente quedó ignorado, y los tramos salieron al doble de distancia.",
+      "Ese es el intervalo que no cumple la condición.",
+      "Ese es el conjunto de la diferencia con el centro, no el de la incógnita."
+    ],
+    "explanation": "El valor absoluto tiene que quedar solo antes de abrir los dos tramos.\n$$2|x-20| > 14 \\implies |x-20| > 7$$\nCon la cota despejada, los dos tramos se plantean y se despejan como siempre.\n$$x < 13 \\quad \\text{o} \\quad x > 27$$\nEl coeficiente es positivo, así que dividir no invierte el sentido de la desigualdad.\n\nIgnorarlo aleja los dos tramos al doble de distancia y deja afuera valores que sí cumplen.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-inecuacion-mayor"
+    ]
+  },
+  {
+    "question": "Una condición de mayor se plantea con una cota negativa.\n$$|x-40|>-3$$\n¿Cuál es el conjunto solución?",
+    "options": [
+      "Vacío, porque la cota es negativa",
+      "$(-3, 3)$",
+      "Todos los números reales",
+      "$(-\\infty,37)\\cup(43,\\infty)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Cualquier distancia al centro supera a una cantidad negativa.",
+    "feedback_incorrect": [
+      "El caso sin solución es el de menor con cota negativa, no el de mayor.",
+      "Ese es el intervalo de la cota y su opuesto, no de la incógnita.",
+      null,
+      "Esos tramos saldrían de una cota positiva de tres, que no es la que plantea la condición."
+    ],
+    "explanation": "El valor absoluto nunca es negativo, así que siempre supera a cualquier cota negativa.\n$$|A| \\geq 0 > -3$$\nLa condición se cumple para todos los valores de la incógnita, sin ninguna excepción.\n\nMirar el signo de la cota antes de abrir los tramos resuelve el ejercicio sin despejar nada.\n\nEs el caso espejo del de menor con cota negativa, que no tiene ninguna solución.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-inecuacion-mayor"
+    ]
   }
 ]

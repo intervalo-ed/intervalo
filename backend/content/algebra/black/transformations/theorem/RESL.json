@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El teorema de la dimensión relaciona el dominio, el núcleo y la imagen de una transformación.\n$$\\dim(\\ker(T)) + \\dim(\\text{Im}(T)) = \\dim(V)$$\n\nDespejando, $\\dim(\\text{Im}(T)) = \\dim(V) - \\dim(\\ker(T)) = 5-2 = 3$.\n\nConviene recordar que la fórmula es una suma que da el dominio, así que para despejar la imagen hay que restar la dimensión del núcleo, no sumarla.",
+    "explanation": "El teorema de la dimensión relaciona el dominio, el núcleo y la imagen de una transformación.\n$$\\dim(\\ker(T)) + \\dim(\\text{Im}(T)) = \\dim(V)$$\nDespejando, $\\dim(\\text{Im}(T)) = \\dim(V) - \\dim(\\ker(T)) = 5-2 = 3$.\n\nConviene recordar que la fórmula es una suma que da el dominio, así que para despejar la imagen hay que restar la dimensión del núcleo, no sumarla.",
     "reviewed": false
   }
 ]

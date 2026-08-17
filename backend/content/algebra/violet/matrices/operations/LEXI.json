@@ -1,22 +1,371 @@
 [
   {
-    "question": "¿Cómo se calcula el elemento $C_{ij}$ del producto matricial $C=AB$?",
+    "question": "Se intenta sumar una matriz de orden $2 \\times 3$ con otra de orden $3 \\times 2$, y la operación queda sin definir.\n\n¿Cuál es la razón?",
     "options": [
-      "Sumando los productos de la fila $i$ de $A$ por la columna $j$ de $B$",
-      "Multiplicando el elemento $A_{ij}$ por $B_{ij}$",
-      "Sumando todos los elementos de $A$ y de $B$"
+      "Que hay posiciones que no tienen con qué sumarse",
+      "Que una de las dos tiene más columnas que filas",
+      "Que el resultado no sería una matriz cuadrada"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$C_{ij} = \\sum_k A_{ik}B_{kj}$: fila de $A$ por columna de $B$.",
+    "feedback_correct": "La suma se hace posición por posición, así que cada casillero de una necesita su casillero gemelo en la otra.",
     "feedback_incorrect": [
       null,
-      "Eso sería un producto elemento a elemento, no el producto matricial.",
-      "Eso ignora la estructura de filas y columnas del producto matricial."
+      "Que una matriz sea más ancha que alta no impide nada por sí solo: dos matrices de $2 \\times 3$ se suman sin problema.",
+      "El resultado de una suma no tiene por qué ser cuadrado; sumar dos matrices de $2 \\times 3$ da otra de ese mismo orden."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **producto matricial** combina la fila $i$ de $A$ con la columna $j$ de $B$.\n$$C_{ij} = \\sum_{k=1}^n A_{ik}B_{kj}$$\n\nCada elemento del resultado surge de sumar productos término a término entre una fila y una columna.\n\nA diferencia del producto de números reales, la multiplicación de matrices no es conmutativa: el orden de los factores altera el resultado.",
-    "reviewed": false
+    "explanation": "La suma de matrices se define entrada a entrada: cada posición del resultado sale de sumar las dos que ocupan ese mismo lugar.\n$$(A+B)_{ij} = a_{ij} + b_{ij}$$\nPara que esa cuenta tenga sentido, toda posición de una matriz necesita existir también en la otra, y eso solo ocurre si ambas tienen la misma cantidad de filas y de columnas.\n\nUna de dos filas por tres columnas y otra de tres por dos guardan la misma cantidad de números, pero repartidos en lugares distintos, así que ninguna posición encuentra su par.\n\nEs la misma razón por la que dos planillas de tamaños distintos no se pueden superponer celda con celda.",
+    "reviewed": false,
+    "tags": [
+      "por-que-mismo-orden"
+    ]
+  },
+  {
+    "question": "Dos matrices del mismo orden se suman entrada por entrada.\n$$c_{ij} = a_{ij} + b_{ij}$$\n¿Qué exige esa definición sobre las dos matrices?",
+    "options": [
+      "Que las dos sean cuadradas para que la diagonal coincida",
+      "Que cada posición de una tenga su correspondiente en la otra",
+      "Que las dos tengan la misma cantidad de entradas en total"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La suma se define posición por posición, así que las posiciones tienen que existir en las dos.",
+    "feedback_incorrect": [
+      "La suma no exige que las matrices sean cuadradas: exige que compartan la forma.",
+      null,
+      "Dos matrices pueden tener la misma cantidad de entradas repartidas en formas distintas."
+    ],
+    "explanation": "La suma de matrices se define emparejando cada posición con la misma posición de la otra.\n$$c_{ij} = a_{ij} + b_{ij}$$\nPara que ese emparejamiento sea completo, las dos matrices tienen que tener exactamente la misma forma.\n\nCoincidir en la cantidad total de entradas no alcanza: una de dos por tres y una de tres por dos tienen seis cada una y no se pueden sumar.\n\nSer cuadrada no es un requisito: dos rectangulares del mismo orden se suman sin problema.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-mismo-orden"
+    ]
+  },
+  {
+    "question": "Se intenta sumar una matriz de orden $2 \\times 2$ con otra de orden $2 \\times 3$.\n$$A + B$$\n¿Qué impide esa operación?",
+    "options": [
+      "Que la primera resulta cuadrada y la segunda no lo resulta",
+      "Que el resultado no llegaría a tener diagonal principal",
+      "Que la segunda tiene una columna sin par en la primera"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Sobra una columna entera que no tiene con qué sumarse.",
+    "feedback_incorrect": [
+      "Ser cuadrada o no es indiferente: lo que importa es que las dos formas coincidan.",
+      "Una matriz rectangular puede ser el resultado de una suma sin ningún problema.",
+      null
+    ],
+    "explanation": "Las dos matrices coinciden en la cantidad de filas, pero no en la de columnas.\n$$A + B$$\nLa tercera columna de la segunda no tiene ninguna columna con la que emparejarse.\n\nComo la suma exige que **todas** las posiciones se emparejen, la operación queda sin definir.\n\nCoincidir en una de las dos dimensiones no alcanza: la condición es sobre el orden completo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-mismo-orden"
+    ]
+  },
+  {
+    "question": "La resta de matrices tiene la misma restricción de orden que la suma.\n$$A - B = A + (-B)$$\n¿Por qué comparten esa condición?",
+    "options": [
+      "Porque restar es sumar la opuesta, y la opuesta conserva el orden",
+      "Porque la resta invierte el orden de la segunda matriz antes de operar",
+      "Porque la resta solo está definida entre matrices cuadradas"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La resta se reduce a una suma, así que hereda sus condiciones.",
+    "feedback_incorrect": [
+      null,
+      "Multiplicar por menos uno no cambia la forma de una matriz, solo sus valores.",
+      "La resta funciona entre rectangulares igual que la suma."
+    ],
+    "explanation": "Restar dos matrices es sumar la primera con la opuesta de la segunda.\n$$A - B = A + (-B)$$\nLa opuesta se obtiene multiplicando por menos uno, y eso cambia los valores pero no la forma.\n\nComo al final la operación es una suma, la condición de orden es exactamente la misma.\n\nEse razonamiento evita tener que memorizar reglas separadas para cada operación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-mismo-orden"
+    ]
+  },
+  {
+    "question": "La suma de matrices no impone ninguna condición sobre los valores de las entradas.\n$$c_{ij} = a_{ij} + b_{ij}$$\n¿Qué se puede afirmar sobre el orden del resultado?",
+    "options": [
+      "Que depende de cuántas entradas nulas tenga la suma",
+      "Que coincide con el orden de las dos matrices sumadas",
+      "Que siempre resulta una matriz cuadrada del mismo tamaño"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada posición de las originales aporta una posición al resultado, ni más ni menos.",
+    "feedback_incorrect": [
+      "Las entradas nulas ocupan posición igual que cualquier otra.",
+      null,
+      "El resultado es cuadrado solo si las matrices sumadas también lo eran."
+    ],
+    "explanation": "El resultado de una suma tiene una entrada por cada posición emparejada.\n$$c_{ij} = a_{ij} + b_{ij}$$\nComo las dos matrices comparten la forma, el resultado la comparte también.\n\nLos valores de las entradas no intervienen: una entrada que da cero sigue ocupando su posición.\n\nPor eso el conjunto de matrices de un orden fijo es cerrado para la suma, y esa es la propiedad que vuelve cómoda la operación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-mismo-orden"
+    ]
+  },
+  {
+    "question": "Al multiplicar una matriz por $3$, una resolución aplica el factor únicamente a la diagonal principal.\n\n¿Qué deja de cumplirse con esa versión?",
+    "options": [
+      "Que multiplicar por tres coincida con sumarla tres veces",
+      "Que el resultado siga siendo una matriz del mismo orden",
+      "Que la diagonal principal quede bien multiplicada por tres"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Sumar la matriz tres veces triplica todas las posiciones, no solo las de la diagonal, así que las dos operaciones dejarían de coincidir.",
+    "feedback_incorrect": [
+      null,
+      "El orden no cambia: tocar unas entradas y otras no deja la matriz del mismo tamaño.",
+      "La diagonal es justamente la única parte que sí quedó multiplicada por tres."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El producto de un número por una matriz se define entrada a entrada, igual que la suma.\n$$(kA)_{ij} = k \\cdot a_{ij}$$\nEsa definición no es arbitraria: es la que mantiene compatibles las dos operaciones. Sumar una matriz consigo misma tres veces triplica cada posición por separado.\n\nSi el factor alcanzara solo a la diagonal, el resto de las entradas quedaría intacto, y la suma repetida daría un resultado distinto del producto.\n\nDejar entradas sin multiplicar cambia además las proporciones internas de la tabla, y con eso deja de ser la misma información a otra escala.",
+    "reviewed": false,
+    "tags": [
+      "por-que-escalar-multiplica-todo"
+    ]
+  },
+  {
+    "question": "Multiplicar una matriz por un número afecta a todas sus entradas.\n$$\\alpha A$$\n¿Por qué el factor no puede aplicarse solo a algunas?",
+    "options": [
+      "Porque las entradas de una matriz tienen que ser todas iguales entre sí",
+      "Porque el resultado tiene que coincidir con sumar la matriz esa cantidad de veces",
+      "Porque de otro modo el resultado dejaría de tener el mismo orden"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Escalar por un entero equivale a sumar la matriz consigo misma, y ahí todas las entradas crecen.",
+    "feedback_incorrect": [
+      "Las entradas de una matriz pueden ser todas distintas sin ningún problema.",
+      null,
+      "El orden se conserva igual: lo que fallaría es el valor de las entradas no afectadas."
+    ],
+    "explanation": "Multiplicar por un entero positivo tiene que dar lo mismo que sumar la matriz consigo misma esa cantidad de veces.\n$$3A = A + A + A$$\nEn esa suma cada posición se suma tres veces, así que todas las entradas quedan triplicadas.\n\nAplicar el factor a una parte de la matriz rompería esa coincidencia, y la operación dejaría de ser coherente con la suma.\n\nLa definición se extiende después a escalares no enteros conservando esa misma regla.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-escalar-multiplica-todo"
+    ]
+  },
+  {
+    "question": "Al multiplicar una matriz por un escalar negativo, todas sus entradas cambian de signo.\n$$(-1)A$$\n¿Qué matriz se obtiene?",
+    "options": [
+      "La traspuesta, con las filas y las columnas intercambiadas",
+      "La matriz nula, porque un escalar negativo anula todas las entradas",
+      "La opuesta, que sumada a la original da la matriz nula"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Cada entrada queda con su opuesto, y sumarlas posición por posición da cero.",
+    "feedback_incorrect": [
+      "La traspuesta reordena posiciones; acá lo que cambia son los valores.",
+      "Un escalar negativo cambia el signo de las entradas, no las anula: la matriz nula tiene ceros, no valores opuestos.",
+      null
+    ],
+    "explanation": "Multiplicar por menos uno cambia el signo de cada entrada por separado.\n$$(-1)A$$\nAl sumar esa matriz con la original, cada posición queda con un número y su opuesto, y da cero.\n\nEl resultado es la matriz nula, así que la opuesta cumple el papel de inverso aditivo.\n\nEs la misma estructura que entre números, y por eso la resta de matrices se puede definir a partir de la suma.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-escalar-multiplica-todo"
+    ]
+  },
+  {
+    "question": "Multiplicar una matriz por cero produce siempre el mismo resultado.\n$$0 \\cdot A$$\n¿Cuál es?",
+    "options": [
+      "La matriz nula del mismo orden que la original",
+      "El número cero, porque el escalar domina la operación",
+      "Una matriz de una sola entrada, que vale cero"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Todas las entradas quedan en cero, y la forma no cambia.",
+    "feedback_incorrect": [
+      null,
+      "El resultado de multiplicar una matriz por un escalar es siempre otra matriz.",
+      "El orden de la matriz no cambia al multiplicar por un escalar."
+    ],
+    "explanation": "El escalar multiplica a cada entrada, y multiplicar por cero anula todas.\n$$0 \\cdot A$$\nEl resultado es una matriz con ceros en todas sus posiciones, del mismo orden que la original.\n\nNo es el número cero: el producto por un escalar devuelve siempre una matriz, nunca un número suelto.\n\nDistinguir la matriz nula del número cero es lo que después evita errores al despejar ecuaciones matriciales.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-escalar-multiplica-todo"
+    ]
+  },
+  {
+    "question": "Multiplicar una matriz por un escalar conserva su forma.\n$$\\alpha A$$\n¿Qué orden tiene el resultado?",
+    "options": [
+      "Siempre un orden cuadrado, porque el escalar iguala las dimensiones",
+      "El mismo que la matriz original, sin importar el escalar",
+      "El orden original multiplicado por el valor del escalar"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El escalar cambia los valores de las entradas, no la cantidad de posiciones.",
+    "feedback_incorrect": [
+      "El escalar no puede volver cuadrada a una matriz que no lo era.",
+      null,
+      "El escalar no agrega ni quita posiciones: solo cambia lo que hay en cada una."
+    ],
+    "explanation": "El producto por un escalar actúa sobre el contenido de cada entrada, una por una.\n$$\\alpha A$$\nLa cantidad de filas y de columnas queda intacta, porque no se crea ni se elimina ninguna posición.\n\nPor eso el conjunto de matrices de un orden fijo también es cerrado para esta operación.\n\nEsa clausura, junto con la de la suma, es lo que permite combinar libremente las dos sin salirse del conjunto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-escalar-multiplica-todo"
+    ]
+  },
+  {
+    "question": "La suma de matrices cumple que $A+B$ y $B+A$ dan siempre el mismo resultado, igual que ocurre entre números.\n\n¿De dónde sale esa propiedad?",
+    "options": [
+      "De que cada posición se suma por separado, y ahí ya conmuta",
+      "De que las dos matrices tienen el mismo orden al sumarse",
+      "De que la matriz nula funciona como elemento neutro"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada entrada del resultado es una suma de dos números, y esa suma conmuta, así que la matriz entera conmuta.",
+    "feedback_incorrect": [
+      null,
+      "Tener el mismo orden es la condición para poder sumar, pero no explica por qué el orden de los sumandos da igual.",
+      "La matriz nula explica que exista un neutro, no que se puedan intercambiar dos matrices cualesquiera."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La suma de matrices no inventa propiedades nuevas: hereda las de la suma de números, porque opera cada posición por separado.\n$$(A+B)_{ij} = a_{ij} + b_{ij} = b_{ij} + a_{ij}$$\nComo en cada casillero hay una suma de dos números y esa suma conmuta, el resultado completo también conmuta.\n\nEl mismo argumento explica la asociatividad y el papel de la matriz nula como neutro. Alcanza con verificar la propiedad en una posición cualquiera, porque ninguna posición interfiere con las demás.\n\nEsa independencia entre casilleros es lo que vuelve tan barata a la suma: cada posición resuelve su propio problema sin mirar a las otras.",
+    "reviewed": false,
+    "tags": [
+      "por-que-hereda-propiedades"
+    ]
+  },
+  {
+    "question": "La suma de matrices cumple que agrupar de una forma u otra da el mismo resultado.\n$$(A+B)+C = A+(B+C)$$\n¿De dónde sale esa propiedad?",
+    "options": [
+      "De que la matriz nula funciona como elemento neutro de la suma",
+      "De que cada posición se suma por separado, y ahí ya vale",
+      "De que las tres matrices tienen que compartir el mismo orden"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La suma de matrices es un montón de sumas de números en paralelo, y hereda sus propiedades.",
+    "feedback_incorrect": [
+      "El neutro es otra propiedad, que se demuestra por separado.",
+      null,
+      "Compartir el orden es la condición para poder sumar, no la razón de esta propiedad."
+    ],
+    "explanation": "La suma de matrices no es una operación nueva: es una suma de números repetida en cada posición.\n$$(A+B)+C = A+(B+C)$$\nEn cada posición la igualdad se reduce a la asociatividad entre números, que ya vale.\n\nComo se cumple en todas las posiciones a la vez, se cumple para las matrices completas.\n\nEse argumento sirve para cualquier propiedad de la suma, y por eso se las hereda todas juntas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-hereda-propiedades"
+    ]
+  },
+  {
+    "question": "La matriz nula cumple un papel especial en la suma.\n$$A + O = A$$\n¿Por qué esa igualdad vale siempre?",
+    "options": [
+      "Porque la matriz nula tiene el mismo orden que cualquier otra",
+      "Porque la suma de matrices se define solo entre matrices no nulas",
+      "Porque en cada posición se está sumando cero al valor original"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Sumar cero deja cualquier número igual, y eso ocurre en todas las posiciones a la vez.",
+    "feedback_incorrect": [
+      "La matriz nula existe en cada orden, y hay que usar la del orden correcto.",
+      "La suma está definida entre matrices cualesquiera del mismo orden, incluida la nula.",
+      null
+    ],
+    "explanation": "La matriz nula tiene un cero en cada posición, así que sumarla suma cero en todas ellas.\n$$A + O = A$$\nComo sumar cero deja cualquier número intacto, todas las entradas del resultado coinciden con las originales.\n\nHay una matriz nula por cada orden, y la que funciona como neutro es la del orden de la matriz que se está sumando.\n\nEs el mismo papel que cumple el cero entre números, heredado posición por posición.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-hereda-propiedades"
+    ]
+  },
+  {
+    "question": "El producto por un escalar se reparte sobre una suma de matrices.\n$$\\alpha(A+B) = \\alpha A + \\alpha B$$\n¿De dónde sale esa propiedad?",
+    "options": [
+      "De que en cada posición vale la distributiva entre números",
+      "De que las dos matrices tienen que tener el mismo orden",
+      "De que el escalar puede entrar en cualquier lugar de la expresión"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "En cada posición la igualdad es la distributiva de siempre, aplicada a tres números.",
+    "feedback_incorrect": [
+      null,
+      "Compartir el orden es la condición para sumar, no la razón de la distributiva.",
+      "El escalar no entra en cualquier lugar: la propiedad dice exactamente dónde puede entrar."
+    ],
+    "explanation": "Las dos operaciones actúan posición por posición, así que la igualdad se verifica en cada una.\n$$\\alpha(a_{ij}+b_{ij}) = \\alpha a_{ij} + \\alpha b_{ij}$$\nEsa es la propiedad distributiva entre números, que ya se conoce.\n\nComo vale en todas las posiciones a la vez, vale para las matrices completas.\n\nEl mismo argumento explica por qué la distributiva funciona también cuando lo que se reparte es una suma de escalares sobre una misma matriz.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-hereda-propiedades"
+    ]
+  },
+  {
+    "question": "El producto por un escalar también se reparte cuando lo que se suma son dos escalares sobre una misma matriz.\n$$(\\alpha+\\beta)A = \\alpha A + \\beta A$$\n¿De dónde sale esa propiedad?",
+    "options": [
+      "De que en cada posición vale la distributiva entre números",
+      "De que los dos escalares tienen que ser del mismo signo",
+      "De que la matriz $A$ tiene que ser cuadrada"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "En cada posición la igualdad es la distributiva de siempre, ahora repartiendo una suma de escalares sobre un mismo número.",
+    "feedback_incorrect": [
+      null,
+      "El signo de cada escalar no interviene: la distributiva vale sea cual sea el signo de cada uno.",
+      "La propiedad no depende de la forma de $A$: vale para una matriz de cualquier orden."
+    ],
+    "explanation": "Cada entrada de $A$ se multiplica por separado por la suma de los dos escalares.\n$$(\\alpha+\\beta)a_{ij} = \\alpha a_{ij} + \\beta a_{ij}$$\nEsa es la distributiva de siempre entre números, aplicada al valor de cada casillero.\n\nComo vale en todas las posiciones a la vez, vale para la matriz completa.\n\nEs la misma idea que ya aparece al repartir un escalar sobre una suma de matrices, ahora del otro lado de la operación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-hereda-propiedades"
+    ]
   }
 ]

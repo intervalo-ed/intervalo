@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Toda transformación lineal entre espacios de dimensión finita puede representarse multiplicando un vector de coordenadas por una **matriz asociada**.\n$$T(\\vec{x}) = A\\vec{x}$$\n\nEsta matriz actúa como un diccionario algebraico: calcula el efecto exacto de $T$ sobre cualquier vector.\n\nLas columnas de $A$ son, precisamente, las imágenes de los vectores de la base elegida en el dominio.",
+    "explanation": "Toda transformación lineal entre espacios de dimensión finita puede representarse multiplicando un vector de coordenadas por una **matriz asociada**.\n$$T(\\vec{x}) = A\\vec{x}$$\nEsta matriz actúa como un diccionario algebraico: calcula el efecto exacto de $T$ sobre cualquier vector.\n\nLas columnas de $A$ son, precisamente, las imágenes de los vectores de la base elegida en el dominio.",
     "reviewed": false
   }
 ]

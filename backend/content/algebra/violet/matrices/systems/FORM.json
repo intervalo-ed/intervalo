@@ -1,0 +1,371 @@
+[
+  {
+    "question": "Entre dos cajas hay $7$ tornillos, y la primera tiene $3$ más que la segunda.\n\nEl sistema de ecuaciones se escribe en forma matricial así:\n$$AX = \\begin{pmatrix} 7 \\\\ 3 \\end{pmatrix}$$\n¿Cuál es la matriz de coeficientes $A$?",
+    "options": [
+      "$\\begin{pmatrix} 1 & 1 \\\\ 1 & -1 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 1 \\\\ 1 & 1 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 1 \\\\ -1 & 1 \\end{pmatrix}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La primera fila recoge el total y la segunda la diferencia, con los coeficientes en el mismo orden que las incógnitas.",
+    "feedback_incorrect": [
+      null,
+      "Con esos coeficientes las dos ecuaciones dicen lo mismo: falta el signo que convierte la segunda en una diferencia.",
+      "El signo negativo quedó en la incógnita equivocada: es la segunda caja la que se resta a la primera."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Escribir un sistema de ecuaciones en forma matricial separa tres piezas: los coeficientes, las incógnitas y los términos independientes.\n\nCada ecuación ocupa una fila de la matriz de coeficientes, y cada incógnita una columna, siempre en el mismo orden.\n$$x + y = 7, \\quad x - y = 3$$\nLa segunda condición dice que la primera caja tiene tres tornillos más, lo que se escribe como una resta igualada a esa diferencia.\n\nEl signo negativo es lo único que distingue una diferencia de una suma. Perderlo convierte las dos ecuaciones en la misma condición repetida, un sistema que ya no describe la situación.",
+    "reviewed": false,
+    "tags": [
+      "traducir-situacion-a-sistema-matricial"
+    ]
+  },
+  {
+    "question": "Entre dos estantes hay $20$ libros, y el primero tiene $4$ menos que el segundo.\n\nEl sistema de ecuaciones se escribe en forma matricial así:\n$$AX = \\begin{pmatrix} 20 \\\\ -4 \\end{pmatrix}$$\n¿Cuál es la matriz de coeficientes?",
+    "options": [
+      "$\\begin{pmatrix} 1 & 1 \\\\ 1 & 1 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 1 \\\\ 1 & -1 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 1 \\\\ -1 & 1 \\end{pmatrix}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La primera fila suma las dos cantidades y la segunda resta la segunda a la primera.",
+    "feedback_incorrect": [
+      "Ahí la segunda ecuación quedó igual que la primera.",
+      null,
+      "Ahí la resta quedó invertida, restando la primera a la segunda."
+    ],
+    "explanation": "Cada fila de la matriz de coeficientes recoge una de las dos ecuaciones.\n$$\\begin{pmatrix} 1 & 1 \\\\ 1 & -1 \\end{pmatrix}$$\nLa primera dice que las dos cantidades suman veinte, así que los dos coeficientes valen uno.\n\nLa segunda dice que la primera es cuatro menos que la segunda, o sea que su diferencia vale menos cuatro.\n\nEl orden de la resta tiene que coincidir con el signo del término independiente, y ahí es donde más se invierte.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "traducir-situacion-a-sistema-matricial"
+    ]
+  },
+  {
+    "question": "Dos productos cuestan $50$ pesos en total, y el primero cuesta el doble que el segundo.\n\nEl sistema de ecuaciones se escribe en forma matricial así:\n$$AX = \\begin{pmatrix} 50 \\\\ 0 \\end{pmatrix}$$\n¿Cuál es la matriz de coeficientes?",
+    "options": [
+      "$\\begin{pmatrix} 1 & 1 \\\\ 2 & -1 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 1 \\\\ 1 & 2 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 1 \\\\ 1 & -2 \\end{pmatrix}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La segunda ecuación dice que la primera cantidad menos el doble de la segunda da cero.",
+    "feedback_incorrect": [
+      "Ahí el factor dos quedó del lado equivocado.",
+      "Ahí la relación quedó como una suma en vez de una diferencia.",
+      null
+    ],
+    "explanation": "Una relación de proporción se escribe pasando todo a un lado, para que el término independiente quede en cero.\n$$\\begin{pmatrix} 1 & 1 \\\\ 1 & -2 \\end{pmatrix}$$\nDecir que el primero es el doble del segundo equivale a decir que su diferencia con el doble se anula.\n\nEl coeficiente dos acompaña a la segunda incógnita, que es la que aparece duplicada.\n\nEl término independiente en cero es la señal de que la ecuación expresa una proporción y no una cantidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "traducir-situacion-a-sistema-matricial"
+    ]
+  },
+  {
+    "question": "Una mezcla de $30$ litros combina dos líquidos, y del segundo hay $6$ litros más que del primero.\n\nEl sistema de ecuaciones se escribe en forma matricial así:\n$$AX = \\begin{pmatrix} 30 \\\\ 6 \\end{pmatrix}$$\n¿Cuál es la matriz de coeficientes?",
+    "options": [
+      "$\\begin{pmatrix} 1 & 1 \\\\ -1 & 1 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 1 \\\\ 1 & -1 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & -1 \\\\ 1 & 1 \\end{pmatrix}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El excedente del segundo sobre el primero se escribe restando el primero.",
+    "feedback_incorrect": [
+      null,
+      "Ahí la resta quedó invertida, y el excedente cambiaría de signo.",
+      "Ahí las dos ecuaciones quedaron intercambiadas de fila."
+    ],
+    "explanation": "El orden de la resta lo fija cuál de las dos cantidades es la mayor según el enunciado.\n$$\\begin{pmatrix} 1 & 1 \\\\ -1 & 1 \\end{pmatrix}$$\nComo el segundo supera al primero en seis, la resta que da seis positivo es la del segundo menos el primero.\n\nInvertirla daría menos seis, que contradice el término independiente escrito.\n\nContrastar el signo del término independiente con el orden de la resta es el chequeo que resuelve este tipo de traducción.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "traducir-situacion-a-sistema-matricial"
+    ]
+  },
+  {
+    "question": "Dos turnos producen $90$ unidades en total, y el primero produce $10$ más que el segundo.\n\nEl sistema de ecuaciones se escribe en forma matricial así:\n$$AX = B$$\n¿Cuál es la matriz de términos independientes?",
+    "options": [
+      "$\\begin{pmatrix} 10 \\\\ 90 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 90 \\\\ 10 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 90 \\\\ -10 \\end{pmatrix}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El total va en la primera fila y la diferencia en la segunda, con signo positivo.",
+    "feedback_incorrect": [
+      "Ahí las dos ecuaciones quedaron intercambiadas de fila.",
+      null,
+      "Ese signo correspondería a la resta escrita en el orden inverso."
+    ],
+    "explanation": "La matriz de términos independientes recoge, en cada fila, el número al que iguala esa ecuación.\n$$\\begin{pmatrix} 90 \\\\ 10 \\end{pmatrix}$$\nLa primera ecuación iguala al total, y la segunda a la diferencia entre los dos turnos.\n\nEl signo positivo corresponde a la resta escrita como el primero menos el segundo, que es la que el enunciado describe.\n\nEl orden de las filas tiene que ser el mismo en las dos matrices, y por eso conviene fijarlo antes de escribir cualquiera de las dos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "traducir-situacion-a-sistema-matricial"
+    ]
+  },
+  {
+    "question": "Un sistema de dos ecuaciones con dos incógnitas está escrito así:\n$$\\begin{aligned} 2x + y &= 5 \\\\ x - 3y &= 4 \\end{aligned}$$\n¿Cuál es su matriz ampliada?",
+    "options": [
+      "$\\begin{pmatrix} 2 & 1 & 5 \\\\ 1 & -3 & 4 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 2 & 1 \\\\ 1 & -3 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 2 & 1 & 5 \\\\ 1 & 3 & 4 \\end{pmatrix}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La matriz ampliada agrega, a la de coeficientes, una columna con los términos independientes.",
+    "feedback_incorrect": [
+      null,
+      "Esa es la matriz de coeficientes; la ampliada suma además la columna de los términos independientes.",
+      "El coeficiente de la segunda ecuación es negativo, y ese signo forma parte de la matriz."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La matriz ampliada guarda toda la información de un sistema de ecuaciones en un solo arreglo: los coeficientes de cada incógnita y también los términos independientes.\n\nCada ecuación ocupa una fila, cada incógnita una columna, y la última columna reúne lo que está del otro lado del igual.\n$$\\begin{pmatrix} 2 & 1 & 5 \\\\ 1 & -3 & 4 \\end{pmatrix}$$\nEsa última columna es lo que distingue a la ampliada de la matriz de coeficientes sola, y es la que permite operar sobre el sistema entero escalonando filas.\n\nUn coeficiente negativo entra con su signo. Anotarlo en positivo describe otro sistema, con otras soluciones.",
+    "reviewed": false,
+    "tags": [
+      "identificar-matriz-ampliada"
+    ]
+  },
+  {
+    "question": "Un sistema de dos ecuaciones con dos incógnitas está escrito así.\n$$\\begin{aligned} 3x + 2y &= 7 \\\\ x - y &= 1 \\end{aligned}$$\n¿Cuál es su matriz ampliada?",
+    "options": [
+      "$\\begin{pmatrix} 3 & 2 & 7 \\\\ 1 & 1 & 1 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 3 & 2 & 7 \\\\ 1 & -1 & 1 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 3 & 2 \\\\ 1 & -1 \\end{pmatrix}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La ampliada agrega una columna con los términos independientes.",
+    "feedback_incorrect": [
+      "Ahí se perdió el signo negativo de la segunda ecuación.",
+      null,
+      "Esa es la matriz de coeficientes, sin la columna de términos independientes."
+    ],
+    "explanation": "La matriz **ampliada** guarda los coeficientes y además los términos independientes.\n$$\\begin{pmatrix} 3 & 2 & 7 \\\\ 1 & -1 & 1 \\end{pmatrix}$$\nCada fila corresponde a una ecuación, con sus coeficientes primero y su término independiente al final.\n\nLos signos de los coeficientes se conservan tal como aparecen en la ecuación.\n\nLa matriz de coeficientes es la misma sin la última columna, y se usa para calcular el determinante.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-matriz-ampliada"
+    ]
+  },
+  {
+    "question": "Un sistema de dos ecuaciones con dos incógnitas está escrito así.\n$$\\begin{aligned} x + 4y &= 0 \\\\ 5x &= 2 \\end{aligned}$$\n¿Cuál es su matriz ampliada?",
+    "options": [
+      "$\\begin{pmatrix} 1 & 4 & 0 \\\\ 5 & 2 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 4 & 0 \\\\ 0 & 5 & 2 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 4 & 0 \\\\ 5 & 0 & 2 \\end{pmatrix}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La incógnita ausente aporta un coeficiente cero en su columna.",
+    "feedback_incorrect": [
+      "Esa fila tiene una entrada menos: falta el coeficiente de la incógnita ausente.",
+      "Ahí el coeficiente quedó corrido a la columna equivocada.",
+      null
+    ],
+    "explanation": "Toda incógnita ocupa su columna en la matriz ampliada, aunque no aparezca escrita en la ecuación.\n$$\\begin{pmatrix} 1 & 4 & 0 \\\\ 5 & 0 & 2 \\end{pmatrix}$$\nLa segunda ecuación no menciona la segunda incógnita, así que su coeficiente es cero.\n\nEse cero no se puede omitir: sin él las columnas dejarían de corresponder a las mismas incógnitas.\n\nTodas las filas de la ampliada tienen la misma cantidad de entradas, y eso sirve como chequeo rápido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-matriz-ampliada"
+    ]
+  },
+  {
+    "question": "Un sistema de tres ecuaciones con tres incógnitas está escrito así.\n$$\\begin{aligned} x + y + z &= 6 \\\\ 2x - z &= 1 \\\\ y + 3z &= 8 \\end{aligned}$$\n¿Cuál es su matriz ampliada?",
+    "options": [
+      "$\\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 2 & 0 & -1 & 1 \\\\ 0 & 1 & 3 & 8 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 2 & -1 & 1 \\\\ 1 & 3 & 8 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 2 & 0 & 1 & 1 \\\\ 0 & 1 & 3 & 8 \\end{pmatrix}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Cada incógnita ausente aporta un cero, y los signos se conservan.",
+    "feedback_incorrect": [
+      null,
+      "Ahí faltan los ceros de las incógnitas ausentes, y las filas quedan de distinto largo.",
+      "Ahí se perdió el signo negativo de la segunda ecuación."
+    ],
+    "explanation": "Con tres incógnitas, la ampliada tiene tres columnas de coeficientes más la de términos independientes.\n$$\\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 2 & 0 & -1 & 1 \\\\ 0 & 1 & 3 & 8 \\end{pmatrix}$$\nCada incógnita que no aparece en una ecuación aporta un cero en su columna.\n\nLos signos negativos se conservan tal como están escritos en la ecuación.\n\nQue todas las filas tengan la misma cantidad de entradas es la señal de que no se omitió ningún cero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-matriz-ampliada"
+    ]
+  },
+  {
+    "question": "Un sistema de ecuaciones está escrito con los términos desordenados.\n$$\\begin{aligned} 2y + x &= 9 \\\\ 4 - y &= x \\end{aligned}$$\n¿Cuál es su matriz ampliada?",
+    "options": [
+      "$\\begin{pmatrix} 1 & 2 & 9 \\\\ 1 & -1 & 4 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 2 & 9 \\\\ 1 & 1 & 4 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 2 & 1 & 9 \\\\ -1 & 1 & 4 \\end{pmatrix}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Primero hay que ordenar cada ecuación con las incógnitas de un lado y el número del otro.",
+    "feedback_incorrect": [
+      "Ahí la segunda ecuación quedó sin pasar la incógnita al otro lado.",
+      null,
+      "Ahí la primera ecuación quedó sin reordenar y los coeficientes cambiaron de columna."
+    ],
+    "explanation": "Antes de armar la matriz hay que llevar cada ecuación a la forma estándar.\n$$\\begin{aligned} x + 2y &= 9 \\\\ x + y &= 4 \\end{aligned}$$\nLa primera se reordena y la segunda pasa la incógnita al lado izquierdo, cambiándole el signo.\n$$\\begin{pmatrix} 1 & 2 & 9 \\\\ 1 & 1 & 4 \\end{pmatrix}$$\nCada columna tiene que corresponder siempre a la misma incógnita en todas las filas.\n\nEl orden estándar es el que garantiza que cada columna corresponda siempre a la misma incógnita.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-matriz-ampliada"
+    ]
+  },
+  {
+    "question": "Un sistema de ecuaciones quedó guardado en su matriz ampliada:\n$$\\begin{pmatrix} 1 & 0 & 4 \\\\ 0 & 1 & -2 \\end{pmatrix}$$\n¿Qué dice ese sistema de ecuaciones?",
+    "options": [
+      "Que $x$ vale $4$ y que $y$ vale $-2$",
+      "Que $x$ vale $0$ y que $y$ vale $1$",
+      "Que la suma de $x$ e $y$ vale $2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada fila deja una sola incógnita con coeficiente uno, así que el sistema ya viene resuelto.",
+    "feedback_incorrect": [
+      null,
+      "Los ceros y unos son los coeficientes de las incógnitas, no sus valores; los valores están en la última columna.",
+      "Cada fila corresponde a una ecuación por separado, y ninguna de las dos suma las dos incógnitas."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En una matriz ampliada cada fila es una ecuación: las primeras columnas son los coeficientes y la última es el término independiente.\n\nLa primera fila dice que una vez la primera incógnita, más cero veces la segunda, da cuatro.\n$$x = 4, \\quad y = -2$$\nCuando la parte de coeficientes queda con unos en la diagonal y ceros en el resto, cada ecuación aísla una sola incógnita.\n\nEsa es exactamente la forma a la que apunta el escalonamiento. No se escalona por prolijidad, sino para llegar a una matriz donde la respuesta se lee directamente en la última columna.",
+    "reviewed": false,
+    "tags": [
+      "leer-el-sistema-desde-la-matriz"
+    ]
+  },
+  {
+    "question": "Un sistema de ecuaciones quedó guardado en su matriz ampliada.\n$$\\begin{pmatrix} 1 & 0 & 7 \\\\ 0 & 1 & 3 \\end{pmatrix}$$\n¿Qué dice ese sistema?",
+    "options": [
+      "Que la suma de las dos incógnitas vale $10$",
+      "Que la primera incógnita vale $7$ y la segunda vale $3$",
+      "Que la primera incógnita vale $0$ y la segunda vale $1$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada fila deja una sola incógnita con coeficiente uno, igualada a su término independiente.",
+    "feedback_incorrect": [
+      "Ese sería el resultado si las dos incógnitas estuvieran en la misma ecuación.",
+      null,
+      "Esos son los coeficientes de las incógnitas, no sus valores."
+    ],
+    "explanation": "Cada fila de la matriz ampliada se lee como una ecuación completa.\n$$\\begin{pmatrix} 1 & 0 & 7 \\\\ 0 & 1 & 3 \\end{pmatrix}$$\nLa primera fila dice que una vez la primera incógnita, más cero veces la segunda, da siete.\n\nLa segunda hace lo mismo con la otra incógnita, así que el sistema ya está resuelto.\n\nEsa forma, con la identidad en las columnas de coeficientes, es el objetivo de cualquier método de resolución.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "leer-el-sistema-desde-la-matriz"
+    ]
+  },
+  {
+    "question": "Una matriz ampliada guarda un sistema de dos ecuaciones.\n$$\\begin{pmatrix} 2 & 3 & 12 \\\\ 1 & -1 & 1 \\end{pmatrix}$$\n¿Qué dice la segunda ecuación?",
+    "options": [
+      "Que la suma de las dos incógnitas da $1$",
+      "Que la primera incógnita vale exactamente $1$",
+      "Que la diferencia entre las incógnitas vale $1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Los coeficientes uno y menos uno describen una resta entre las dos incógnitas.",
+    "feedback_incorrect": [
+      "El signo negativo indica una resta, no una suma.",
+      "La fila tiene dos coeficientes no nulos, así que involucra a las dos incógnitas.",
+      null
+    ],
+    "explanation": "Cada entrada de una fila es el coeficiente de la incógnita de esa columna.\n$$\\begin{pmatrix} 2 & 3 & 12 \\\\ 1 & -1 & 1 \\end{pmatrix}$$\nLa segunda fila tiene coeficientes uno y menos uno, así que expresa una diferencia.\n\nEl término independiente dice cuánto vale esa diferencia.\n\nLeer los signos con cuidado es lo que distingue una suma de una resta en esta traducción.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "leer-el-sistema-desde-la-matriz"
+    ]
+  },
+  {
+    "question": "De un sistema de ecuaciones solo se conserva su matriz ampliada.\n$$\\begin{pmatrix} 1 & 5 & 0 \\\\ 0 & 0 & 4 \\end{pmatrix}$$\n¿Qué dice la segunda ecuación?",
+    "options": [
+      "Que cero es igual a cuatro, algo imposible",
+      "Que las dos incógnitas valen exactamente cero",
+      "Que la segunda incógnita vale justo cuatro"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Con todos los coeficientes nulos y término independiente no nulo, la ecuación no se puede cumplir.",
+    "feedback_incorrect": [
+      null,
+      "Los ceros son coeficientes, no valores de las incógnitas.",
+      "El coeficiente de la segunda incógnita es cero, así que no aparece en la ecuación."
+    ],
+    "explanation": "Una fila con todos los coeficientes nulos y término independiente distinto de cero es una contradicción.\n$$0x + 0y = 4$$\nNingún par de valores puede cumplir esa igualdad, así que el sistema es incompatible.\n\nLos ceros de la fila son coeficientes de las incógnitas, no los valores que estas toman.\n\nDetectar esa fila es la forma más rápida de clasificar un sistema escalonado como incompatible.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "leer-el-sistema-desde-la-matriz"
+    ]
+  },
+  {
+    "question": "Una matriz ampliada resume un sistema de ecuaciones con varias incógnitas.\n$$\\begin{pmatrix} 1 & 2 & 0 & 5 \\\\ 0 & 1 & 3 & 2 \\end{pmatrix}$$\n¿Cuántas incógnitas tiene ese sistema?",
+    "options": [
+      "Cuatro, una por cada columna de la matriz",
+      "Tres, una por cada columna de coeficientes",
+      "Dos, una por cada fila de la matriz"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Las columnas de coeficientes son todas menos la última.",
+    "feedback_incorrect": [
+      "La última columna guarda los términos independientes, no una incógnita.",
+      null,
+      "Las filas cuentan ecuaciones, no incógnitas."
+    ],
+    "explanation": "En una matriz ampliada, la última columna guarda los términos independientes y el resto los coeficientes.\n$$\\begin{pmatrix} 1 & 2 & 0 & 5 \\\\ 0 & 1 & 3 & 2 \\end{pmatrix}$$\nHay cuatro columnas en total, así que tres corresponden a incógnitas.\n\nLas dos filas indican que hay dos ecuaciones, que es un dato distinto.\n\nCon menos ecuaciones que incógnitas el sistema no puede tener solución única, y ese conteo lo anticipa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "leer-el-sistema-desde-la-matriz"
+    ]
+  }
+]

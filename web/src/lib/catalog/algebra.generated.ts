@@ -150,17 +150,6 @@ export const catalog: Catalog = {
                 "RESL",
                 "FORM"
               ]
-            },
-            {
-              "key": "algebraic_properties",
-              "name": "Propiedades",
-              "tooltip": "La **propiedad distributiva** y la extracción de **factor común** permiten transformar una expresión con paréntesis en una suma de términos, y viceversa.\n$$a(b + c) = ab + ac$$\nDominar el manejo de signos al abrir o cerrar paréntesis, sobre todo cuando el signo exterior es negativo, es el paso operativo que conecta la aritmética numérica con el álgebra simbólica de las unidades siguientes.",
-              "short_description": "La **distributiva** transforma una expresión entre paréntesis en una suma de términos.\n$$a(b+c) = ab + ac$$",
-              "skills": [
-                "LEXI",
-                "RESL",
-                "FORM"
-              ]
             }
           ]
         }
@@ -183,7 +172,7 @@ export const catalog: Catalog = {
               "short_description": "Un **vector** es un ente matemático que pertenece a un espacio $\\mathbb{R}^n$, definido por una tupla ordenada de componentes.\n$$\\vec{v} = (v_1, v_2, \\dots, v_n)$$",
               "skills": [
                 "LEXI",
-                "CLSF"
+                "FORM"
               ]
             },
             {
@@ -192,7 +181,7 @@ export const catalog: Catalog = {
               "tooltip": "Las operaciones básicas entre vectores son la **suma** componente a componente y el **producto por un escalar**.\n$$\\alpha\\vec{v} = (\\alpha v_1, \\alpha v_2, \\dots, \\alpha v_n)$$\nEstas operaciones permiten escalar, invertir o combinar vectores geométricamente. Son las dos operaciones que estructuran axiomáticamente a cualquier espacio vectorial.",
               "short_description": "Las operaciones básicas entre vectores son la **suma** componente a componente y el **producto por un escalar**.\n$$\\alpha\\vec{v} = (\\alpha v_1, \\alpha v_2, \\dots, \\alpha v_n)$$",
               "skills": [
-                "LEXI",
+                "FORM",
                 "RESL"
               ]
             },
@@ -213,6 +202,7 @@ export const catalog: Catalog = {
               "short_description": "La operación **escalar** (producto interno) toma dos vectores y devuelve un número real, vinculando sus magnitudes con el ángulo que forman.\n$$\\vec{u} \\cdot \\vec{v} = \\| \\vec{u} \\| \\| \\vec{v} \\| \\cos(\\theta)$$",
               "skills": [
                 "LEXI",
+                "CLSF",
                 "RESL"
               ]
             },
@@ -234,7 +224,7 @@ export const catalog: Catalog = {
               "short_description": "El **producto** vectorial es una operación exclusiva de $\\mathbb{R}^3$ que toma dos vectores y devuelve un tercer vector, perpendicular a ambos.\n$$\\vec{w} = \\vec{u} \\times \\vec{v}$$",
               "skills": [
                 "LEXI",
-                "RESL"
+                "CLSF"
               ]
             }
           ]
@@ -254,50 +244,66 @@ export const catalog: Catalog = {
             {
               "key": "definition",
               "name": "Definición",
-              "tooltip": "Una **matriz** es un arreglo rectangular de escalares dispuestos en filas y columnas.\n$$A \\in \\mathbb{R}^{m \\times n}$$\nFunciona como una estructura de datos para organizar coeficientes de sistemas de ecuaciones y como el operador matemático que aplica transformaciones lineales sobre vectores.",
+              "tooltip": "Una **matriz** es un arreglo rectangular de escalares dispuestos en filas y columnas.\n$$A \\in \\mathbb{R}^{m \\times n}$$\nOrganiza datos en forma de tabla, pero sobre todo describe una transformación: cada columna registra en qué se convierte una de las direcciones básicas del espacio.",
               "short_description": "Una **matriz** es un arreglo rectangular de escalares dispuestos en filas y columnas.\n$$A \\in \\mathbb{R}^{m \\times n}$$",
               "skills": [
                 "LEXI",
-                "CLSF"
+                "CLSF",
+                "FORM"
               ]
             },
             {
               "key": "operations",
               "name": "Operaciones",
-              "tooltip": "La suma de matrices se realiza elemento a elemento, mientras que el **producto matricial** combina las filas de la primera con las columnas de la segunda.\n$$C_{ij} = \\sum_{k=1}^n A_{ik}B_{kj}$$\nA diferencia del producto de números reales, la multiplicación de matrices no es conmutativa. El orden de los factores altera el resultado, reflejando transformaciones secuenciales.",
-              "short_description": "La suma de matrices se realiza elemento a elemento, mientras que el **producto matricial** combina las filas de la primera con las columnas de la segunda.\n$$C_{ij} = \\sum_{k=1}^n A_{ik}B_{kj}$$",
+              "tooltip": "La **suma de matrices** y el **producto por un escalar** se calculan entrada a entrada, y solo tienen sentido entre matrices del mismo orden.\n$$(A+B)_{ij} = A_{ij} + B_{ij}$$\nHeredan de los números reales la conmutatividad y la asociatividad, porque cada posición se opera por separado y sin interferir con las demás.",
+              "short_description": "La **suma de matrices** y el **producto por un escalar** se calculan entrada a entrada.\n$$(A+B)_{ij} = A_{ij} + B_{ij}$$",
               "skills": [
                 "LEXI",
-                "RESL"
+                "RESL",
+                "FORM"
               ]
             },
             {
-              "key": "transpose",
-              "name": "Transpuesta",
-              "tooltip": "La **matriz transpuesta** se obtiene intercambiando las filas por las columnas de la matriz original.\n$$(A^T)_{ij} = A_{ji}$$\nSi una matriz es igual a su transpuesta, se clasifica como simétrica. Esta operación conserva la diagonal principal inalterada e invierte el orden en el caso del producto matricial.",
-              "short_description": "La **matriz transpuesta** se obtiene intercambiando las filas por las columnas de la matriz original.\n$$(A^T)_{ij} = A_{ji}$$",
+              "key": "product",
+              "name": "Producto",
+              "tooltip": "El **producto matricial** combina cada fila de la primera matriz con cada columna de la segunda, y solo está definido si las dimensiones encajan.\n$$C_{ij} = \\sum_{k=1}^n A_{ik}B_{kj}$$\nA diferencia del producto de números, el orden de los factores altera el resultado: multiplicar matrices es encadenar transformaciones, y encadenarlas al revés lleva a otro lado.",
+              "short_description": "El **producto matricial** combina cada fila de la primera matriz con cada columna de la segunda.\n$$C_{ij} = \\sum_{k=1}^n A_{ik}B_{kj}$$",
               "skills": [
                 "LEXI",
+                "CLSF",
                 "RESL"
               ]
             },
             {
               "key": "determinants",
               "name": "Determinantes",
-              "tooltip": "El **determinante** es un escalar asociado a una matriz cuadrada que indica, entre otras propiedades, si el sistema tiene solución única.\n$$\\det(A) \\neq 0 \\iff \\text{Inversible}$$\nGeométricamente, representa el factor por el cual la matriz expande o contrae el volumen en el espacio. Si el determinante es cero, la transformación colapsa el espacio.",
-              "short_description": "El **determinante** es un escalar asociado a una matriz cuadrada que indica si la matriz es inversible.\n$$\\det(A) \\neq 0 \\iff \\text{Inversible}$$",
+              "tooltip": "El **determinante** es un número asociado a una matriz cuadrada que mide cuánto agranda o achica las áreas que transforma.\n$$\\det\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} = ad - bc$$\nUn signo negativo indica que la orientación se invirtió, y un determinante nulo indica que la transformación aplasta el espacio contra una recta.",
+              "short_description": "El **determinante** mide cuánto agranda o achica las áreas la transformación de una matriz cuadrada.\n$$\\det\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} = ad - bc$$",
               "skills": [
                 "LEXI",
+                "CLSF",
                 "RESL"
               ]
             },
             {
               "key": "inverse",
               "name": "Inversa",
-              "tooltip": "La **matriz inversa** es aquella que, al multiplicarse por la matriz original, da como resultado la matriz identidad.\n$$A A^{-1} = A^{-1} A = I$$\nFunciona como la operación de división en el álgebra matricial, deshaciendo la transformación aplicada por la matriz original. Solo existe para matrices cuadradas de determinante no nulo.",
-              "short_description": "La **matriz inversa** es aquella que, al multiplicarse por la matriz original, da como resultado la matriz identidad.\n$$A A^{-1} = A^{-1} A = I$$",
+              "tooltip": "La **matriz inversa** es la que deshace exactamente lo que hizo la original, devolviendo la matriz identidad.\n$$A A^{-1} = A^{-1} A = I$$\nCumple el papel que la división cumple entre números, pero solo existe cuando el determinante no es nulo: una transformación que aplastó el espacio ya no se puede revertir.",
+              "short_description": "La **matriz inversa** es la que deshace la transformación original y devuelve la identidad.\n$$A A^{-1} = A^{-1} A = I$$",
               "skills": [
                 "LEXI",
+                "CLSF",
+                "RESL"
+              ]
+            },
+            {
+              "key": "systems",
+              "name": "Sistemas",
+              "tooltip": "Un **sistema de ecuaciones lineales** se escribe de forma compacta como una matriz de coeficientes multiplicada por el vector de incógnitas.\n$$AX = B$$\nEscalonar la matriz ampliada permite clasificar el sistema en compatible determinado, compatible indeterminado o incompatible, sin despejar cada incógnita por separado.",
+              "short_description": "Un **sistema de ecuaciones lineales** se escribe de forma compacta como una ecuación matricial.\n$$AX = B$$",
+              "skills": [
+                "FORM",
+                "CLSF",
                 "RESL"
               ]
             }
@@ -308,28 +314,18 @@ export const catalog: Catalog = {
     {
       "key": "brown",
       "headline": "Espacios",
-      "description": "Un **espacio vectorial** es un conjunto de elementos sobre un cuerpo que cumple los axiomas de clausura y linealidad.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$\nEsta unidad introduce los conceptos fundamentales de subespacios, combinaciones lineales, independencia, generadores, bases y dimensión.",
+      "description": "Un **espacio vectorial** es un conjunto donde sumar dos elementos o multiplicar uno por un número nunca saca del conjunto.\n$$\\alpha\\vec{u} + \\vec{v} \\in V$$\nEsta unidad formaliza los subespacios, el conjunto generado, la independencia lineal, las bases y la dimensión.",
       "units": [
         {
           "key": "spaces",
           "name": "Espacios",
-          "description": "Un espacio vectorial es un conjunto de elementos sobre un cuerpo que cumple los axiomas de clausura y linealidad.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$\nEsta unidad introduce los conceptos fundamentales de subespacios, combinaciones, bases y dimensión.",
+          "description": "Un espacio vectorial es un conjunto donde sumar dos elementos o multiplicar uno por un número nunca saca del conjunto.\n$$\\alpha\\vec{u} + \\vec{v} \\in V$$\nEsta unidad formaliza los subespacios, el conjunto generado, la independencia, las bases y la dimensión.",
           "topics": [
             {
               "key": "definition",
               "name": "Definición",
-              "tooltip": "Un **espacio vectorial** es un conjunto $V$ con dos operaciones, suma y producto por escalar, que satisfacen un conjunto de axiomas: clausura, asociatividad, existencia de neutro y opuesto, y distributividad.\n$$\\vec{u}+\\vec{v} \\in V, \\quad \\alpha\\vec{v} \\in V$$\n$\\mathbb{R}^n$ es el ejemplo prototípico, pero la definición abstracta permite trabajar con otros conjuntos, como polinomios o matrices, bajo la misma estructura.",
-              "short_description": "Un **espacio vectorial** es un conjunto $V$ con operaciones de suma y producto por escalar que satisface un conjunto de axiomas de clausura y linealidad.\n$$\\vec{u}+\\vec{v} \\in V, \\quad \\alpha\\vec{v} \\in V$$",
-              "skills": [
-                "LEXI",
-                "CLSF"
-              ]
-            },
-            {
-              "key": "subspaces",
-              "name": "Subespacios",
-              "tooltip": "Un **subespacio vectorial** es un subconjunto de un espacio mayor que se comporta como un espacio vectorial por sí mismo.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$\nPara calificar como tal, debe ser cerrado bajo la suma y el producto por escalar, lo que exige geométricamente que incluya al vector nulo. Rectas y planos por el origen son ejemplos clásicos.",
-              "short_description": "Un **subespacio vectorial** es un subconjunto de un espacio mayor cerrado bajo sumas y productos escalares.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$",
+              "tooltip": "Un **espacio vectorial** es un conjunto donde sumar dos elementos o multiplicar uno por un número nunca saca del conjunto.\n$$\\vec{u}+\\vec{v} \\in V, \\quad \\alpha\\vec{v} \\in V$$\n$\\mathbb{R}^2$ y $\\mathbb{R}^3$ son los ejemplos conocidos, pero los polinomios y las matrices cumplen las mismas reglas, y por eso todo lo que valga para uno vale para los otros.",
+              "short_description": "Un **espacio vectorial** es un conjunto donde sumar dos elementos o multiplicar uno por un número nunca saca del conjunto.\n$$\\vec{u}+\\vec{v} \\in V, \\quad \\alpha\\vec{v} \\in V$$",
               "skills": [
                 "LEXI",
                 "CLSF",
@@ -337,20 +333,10 @@ export const catalog: Catalog = {
               ]
             },
             {
-              "key": "combinations",
-              "name": "Combinaciones",
-              "tooltip": "Una **combinación lineal** es el vector resultante de sumar un conjunto de vectores previamente multiplicados por escalares.\n$$\\vec{v} = c_1\\vec{v}_1 + c_2\\vec{v}_2 + \\dots + c_k\\vec{v}_k$$\nEs la forma fundamental de moverse dentro de un espacio vectorial: cada escalar dicta la intensidad del desplazamiento en la dirección de su vector correspondiente.",
-              "short_description": "Una **combinación lineal** es la suma de vectores previamente multiplicados por coeficientes escalares.\n$$\\vec{v} = c_1\\vec{v}_1 + c_2\\vec{v}_2 + \\dots + c_k\\vec{v}_k$$",
-              "skills": [
-                "LEXI",
-                "RESL"
-              ]
-            },
-            {
-              "key": "independence",
-              "name": "Independencia",
-              "tooltip": "Un conjunto de vectores es **linealmente independiente** si ninguno de ellos puede expresarse como combinación lineal del resto.\n$$c_1\\vec{v}_1 + \\dots + c_k\\vec{v}_k = \\vec{0} \\implies c_i = 0$$\nLa única forma de obtener el vector nulo es con coeficientes nulos. Asegura que cada vector aporta una nueva dimensión útil.",
-              "short_description": "Un conjunto es **linealmente independiente** si ningún vector puede expresarse en función de los otros.\n$$c_1\\vec{v}_1 + \\dots + c_k\\vec{v}_k = \\vec{0} \\implies c_i = 0$$",
+              "key": "subspaces",
+              "name": "Subespacios",
+              "tooltip": "Un **subespacio** es un subconjunto que se comporta como un espacio vectorial por sí solo.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$\nTiene que ser cerrado bajo la suma y el producto por escalar, y eso obliga a que contenga al vector nulo. Las rectas y los planos que pasan por el origen son el caso típico.",
+              "short_description": "Un **subespacio** es un subconjunto cerrado bajo la suma y el producto por escalar.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$",
               "skills": [
                 "LEXI",
                 "CLSF",
@@ -360,8 +346,19 @@ export const catalog: Catalog = {
             {
               "key": "generators",
               "name": "Generadores",
-              "tooltip": "Un conjunto de **generadores** es un grupo de vectores cuyas combinaciones lineales permiten construir cualquier vector de un espacio dado.\n$$\\text{gen}(\\{\\vec{v}_1, \\dots, \\vec{v}_k\\}) = V$$\nAbarcan todo el subespacio, pero no necesariamente con eficiencia: pueden existir elementos redundantes que no comprometan el espacio cubierto.",
-              "short_description": "Un conjunto de **generadores** es un grupo de vectores cuyas combinaciones generan todo un espacio.\n$$\\text{gen}(\\{\\vec{v}_1, \\dots, \\vec{v}_k\\}) = V$$",
+              "tooltip": "El **conjunto generado** por unos vectores reúne todas sus combinaciones lineales, y describe hasta dónde se puede llegar con ellos.\n$$\\text{gen}\\{\\vec{v}_1, \\dots, \\vec{v}_k\\} = V$$\nUn conjunto generador cubre todo el espacio, pero no necesariamente sin desperdicio: puede tener vectores de más que no agregan ningún alcance nuevo.",
+              "short_description": "Un **conjunto generador** es un grupo de vectores cuyas combinaciones lineales cubren todo el espacio.\n$$\\text{gen}\\{\\vec{v}_1, \\dots, \\vec{v}_k\\} = V$$",
+              "skills": [
+                "LEXI",
+                "CLSF",
+                "RESL"
+              ]
+            },
+            {
+              "key": "independence",
+              "name": "Independencia",
+              "tooltip": "Un conjunto es **linealmente independiente** cuando ninguno de sus vectores se puede armar combinando los otros, o sea cuando ninguno sobra.\n$$\\alpha_1\\vec{v}_1 + \\dots + \\alpha_k\\vec{v}_k = \\vec{0} \\implies \\alpha_i = 0$$\nEsa igualdad es la versión que se calcula: la única manera de llegar al vector nulo es con todos los coeficientes en cero.",
+              "short_description": "Un conjunto es **linealmente independiente** cuando ninguno de sus vectores se puede armar combinando los otros.\n$$\\alpha_1\\vec{v}_1 + \\dots + \\alpha_k\\vec{v}_k = \\vec{0} \\implies \\alpha_i = 0$$",
               "skills": [
                 "LEXI",
                 "CLSF",
@@ -371,8 +368,8 @@ export const catalog: Catalog = {
             {
               "key": "bases",
               "name": "Bases",
-              "tooltip": "Una **base** es un conjunto de vectores que actúa como sistema de referencia óptimo: genera todo el espacio y es linealmente independiente.\n$$V = \\text{gen}(B) \\quad \\text{y} \\quad B \\text{ es L.I.}$$\nGarantiza que cualquier vector del espacio se escriba de forma única como combinación lineal de los vectores de la base.",
-              "short_description": "Una **base** es un conjunto linealmente independiente que genera la totalidad de un espacio.\n$$V = \\text{gen}(B) \\quad \\text{y} \\quad B \\text{ es L.I.}$$",
+              "tooltip": "Una **base** es un conjunto que genera todo el espacio y además es linealmente independiente: no falta ninguno y no sobra ninguno.\n$$B = \\{\\vec{v}_1, \\dots, \\vec{v}_n\\}$$\nEsa doble condición es la que hace que cada vector del espacio se escriba de una única manera, y por eso una base funciona como sistema de referencia.",
+              "short_description": "Una **base** es un conjunto linealmente independiente que además genera todo el espacio.\n$$B = \\{\\vec{v}_1, \\dots, \\vec{v}_n\\}$$",
               "skills": [
                 "LEXI",
                 "ESTR",
@@ -382,8 +379,8 @@ export const catalog: Catalog = {
             {
               "key": "dimension",
               "name": "Dimensión",
-              "tooltip": "La **dimensión** de un espacio vectorial es la cantidad exacta de vectores que contiene cualquiera de sus bases.\n$$\\dim(V) = n$$\nEs una propiedad intrínseca del espacio que representa sus grados de libertad. Aunque existan infinitas bases, todas poseen la misma cantidad de elementos.",
-              "short_description": "La **dimensión** de un espacio vectorial es la cantidad de elementos que posee cualquiera de sus bases.\n$$\\dim(V) = n$$",
+              "tooltip": "La **dimensión** de un espacio es la cantidad de vectores que tiene cualquiera de sus bases.\n$$\\dim(V) = n$$\nQue ese número no dependa de la base elegida es lo que lo vuelve una propiedad del espacio. Por eso los polinomios de grado hasta dos, que tienen dimensión tres, se comportan igual que $\\mathbb{R}^3$.",
+              "short_description": "La **dimensión** de un espacio es la cantidad de vectores que tiene cualquiera de sus bases.\n$$\\dim(V) = n$$",
               "skills": [
                 "LEXI",
                 "CLSF",

@@ -1,0 +1,371 @@
+[
+  {
+    "question": "Se quiere multiplicar una matriz de orden $3 \\times 2$ por otra de orden $2 \\times 4$, en ese mismo orden.\n\n¿Está definido ese producto y de qué orden es el resultado?",
+    "options": [
+      "Sí, y el resultado es de $3 \\times 4$",
+      "Sí, y el resultado es de $2 \\times 2$",
+      "No, porque las dos no tienen el mismo orden"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Las dos columnas de la primera coinciden con las dos filas de la segunda, y quedan las dimensiones de los extremos.",
+    "feedback_incorrect": [
+      null,
+      "Los números que se encuentran en el medio son los que desaparecen; sobreviven las filas de la primera y las columnas de la segunda.",
+      "El mismo orden es la condición de la suma, no la del producto, que solo exige que las columnas de una coincidan con las filas de la otra."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El producto está definido cuando la cantidad de columnas de la primera matriz coincide con la cantidad de filas de la segunda.\n\nEsos dos números se encuentran y desaparecen, y el orden del resultado queda determinado por los dos que sobran.\n$$(3 \\times 2)(2 \\times 4) = 3 \\times 4$$\nCada entrada del resultado combina una fila entera de la primera con una columna entera de la segunda, y para eso las dos tienen que tener la misma cantidad de números.\n\nLa suma exige que las dos matrices sean idénticas en forma. El producto solo exige que se toquen en el medio, y por eso admite matrices de tamaños muy distintos entre sí.",
+    "reviewed": false,
+    "tags": [
+      "decidir-si-esta-definido"
+    ]
+  },
+  {
+    "question": "Se quiere multiplicar una matriz de orden $2 \\times 5$ por otra de orden $5 \\times 3$, en ese orden.\n$$AB$$\n¿Está definido ese producto y de qué orden es el resultado?",
+    "options": [
+      "No, porque las dos matrices no comparten el mismo orden",
+      "Sí, y el resultado es de $2 \\times 3$",
+      "Sí, y el resultado es de $5 \\times 5$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Las dimensiones internas coinciden, y el resultado toma las externas.",
+    "feedback_incorrect": [
+      "El producto no exige el mismo orden: exige que las internas coincidan.",
+      null,
+      "El orden del resultado sale de las dimensiones externas, no de la interna."
+    ],
+    "explanation": "El producto está definido cuando la cantidad de columnas del primero coincide con la de filas del segundo.\n$$AB$$\nAcá las dos dimensiones internas valen cinco, así que la operación se puede plantear.\n\nEl resultado toma la cantidad de filas del primero y la de columnas del segundo.\n\nEscribir los dos órdenes uno al lado del otro y verificar que los números del medio coincidan resuelve el ejercicio de un vistazo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-si-esta-definido"
+    ]
+  },
+  {
+    "question": "Se quiere multiplicar una matriz de orden $4 \\times 2$ por otra de orden $3 \\times 4$, en ese orden.\n$$AB$$\n¿Está definido ese producto?",
+    "options": [
+      "Sí, y el resultado que da es de orden $4 \\times 4$",
+      "Sí, y el resultado que da es de orden $3 \\times 2$",
+      "No, porque las dimensiones internas no coinciden entre sí"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El primero aporta dos columnas y el segundo pide tres filas.",
+    "feedback_incorrect": [
+      "Sin coincidencia de dimensiones internas el producto no llega a estar definido.",
+      "Ese sería el orden del producto en el otro sentido, que sí está definido.",
+      null
+    ],
+    "explanation": "La condición para que el producto exista es que las dimensiones internas coincidan.\n$$AB$$\nEl primero termina con dos columnas y el segundo empieza con tres filas, así que no hay emparejamiento posible.\n\nEn el orden inverso sí funciona, porque ahí las internas valen cuatro las dos.\n\nQue un producto exista en un orden y no en el otro es habitual, y es la forma más visible de la no conmutatividad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-si-esta-definido"
+    ]
+  },
+  {
+    "question": "Se quiere multiplicar una matriz de orden $3 \\times 3$ por otra del mismo orden.\n$$AB$$\n¿Qué se puede afirmar sobre ese producto?",
+    "options": [
+      "Que está definido en los dos órdenes, y los dos resultados son de $3 \\times 3$",
+      "Que está definido en un solo orden, según cuál matriz vaya primero",
+      "Que está definido, pero el resultado tiene un orden distinto al de las originales"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Con matrices cuadradas del mismo orden, las internas siempre coinciden.",
+    "feedback_incorrect": [
+      null,
+      "Los dos órdenes cumplen la condición, así que los dos productos existen.",
+      "Las dimensiones externas también coinciden, así que el resultado conserva el orden."
+    ],
+    "explanation": "Entre matrices cuadradas del mismo orden, la dimensión interna coincide en cualquier orden.\n$$AB \\quad \\text{y} \\quad BA$$\nLos dos productos están definidos, y los dos resultan del mismo orden que las matrices originales.\n\nEso no significa que los dos resultados coincidan: en general son matrices distintas.\n\nEs el único caso en que tiene sentido preguntarse si dos matrices conmutan, porque es el único en que las dos cuentas existen y son comparables.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-si-esta-definido"
+    ]
+  },
+  {
+    "question": "Se quiere multiplicar una matriz de orden $1 \\times 4$ por otra de orden $4 \\times 1$, en ese orden.\n$$AB$$\n¿De qué orden es el resultado?",
+    "options": [
+      "De $4 \\times 1$, conservando el orden del segundo factor",
+      "De $1 \\times 1$, o sea una matriz de una sola entrada",
+      "De $4 \\times 4$, tomando las dos dimensiones internas"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Las dimensiones externas son uno y uno, así que el resultado tiene una sola entrada.",
+    "feedback_incorrect": [
+      "El resultado no conserva el orden de ninguno de los dos factores.",
+      null,
+      "Ese sería el resultado en el orden inverso, tomando las externas de ese caso."
+    ],
+    "explanation": "El resultado toma la cantidad de filas del primer factor y la de columnas del segundo.\n$$AB$$\nAcá las dos dimensiones externas valen uno, así que el producto tiene una única entrada.\n\nEsa entrada es la suma de los cuatro productos entre las componentes correspondientes.\n\nEn el orden inverso el resultado sería de cuatro por cuatro, y es el ejemplo más extremo de cuánto puede cambiar un producto al invertir el orden.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-si-esta-definido"
+    ]
+  },
+  {
+    "question": "Entre matrices cuadradas del mismo orden, no todas las identidades del álgebra de números siguen valiendo.\n$$A, B \\in \\mathbb{R}^{n \\times n}$$\n¿Cuál de estas igualdades vale siempre?",
+    "options": [
+      "$A^2 - I = (A+I)(A-I)$",
+      "$(A+B)^2 = A^2 + 2AB + B^2$",
+      "$A^2 - B^2 = (A+B)(A-B)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La identidad conmuta con toda matriz, así que los dos términos cruzados se cancelan y la factorización sobrevive.",
+    "feedback_incorrect": [
+      null,
+      "Al desarrollar quedan los dos productos cruzados por separado, y juntarlos en un solo término supone que coinciden.",
+      "El desarrollo deja un producto cruzado restando y el otro sumando, y solo se cancelan si las dos matrices conmutan."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Las factorizaciones del álgebra de números se apoyan en que los factores se puedan intercambiar, y el producto de matrices no lo permite en general.\n\nAl desarrollar el producto de dos binomios quedan dos términos cruzados que no se pueden juntar.\n$$(A+B)(A-B) = A^2 - AB + BA - B^2$$\nEsos dos términos solo se cancelan cuando los dos productos cruzados coinciden, que es exactamente lo que no se puede dar por sentado.\n\nEl caso con la identidad es la excepción, y no por casualidad: la identidad conmuta con cualquier matriz, así que ahí los cruzados sí se cancelan y la igualdad vale siempre.\n\nDescartar todas las factorizaciones por igual deja afuera este caso, que aparece seguido y es perfectamente válido.",
+    "reviewed": false,
+    "tags": [
+      "identificar-igualdad-valida"
+    ]
+  },
+  {
+    "question": "Entre matrices cuadradas del mismo orden, no todo desarrollo del álgebra de números sigue valiendo.\n$$A, B \\in \\mathbb{R}^{n \\times n}$$\n¿Cuál de estas igualdades vale siempre?",
+    "options": [
+      "$(AB)^{2} = A^{2}B^{2}$",
+      "$A(B+C) = AB + AC$",
+      "$(A+B)(A-B) = A^{2}-B^{2}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La distributiva del producto sobre la suma sí se conserva entre matrices.",
+    "feedback_incorrect": [
+      "Al desarrollar quedan los factores intercalados, y reordenarlos exige que conmuten.",
+      null,
+      "Al desarrollar quedan dos términos cruzados que no se cancelan si las matrices no conmutan."
+    ],
+    "explanation": "La distributiva vale porque no exige mover ningún factor de lado.\n$$A(B+C) = AB + AC$$\nLos desarrollos que fallan son los que necesitan intercambiar el orden de dos factores en algún paso.\n\nAl desarrollar el producto de una suma por una diferencia quedan dos términos cruzados que solo se cancelan si las matrices conmutan.\n\nEl criterio para revisar cualquier identidad es el mismo: desarrollarla y ver si algún paso exige conmutar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-igualdad-valida"
+    ]
+  },
+  {
+    "question": "Un desarrollo del álgebra de números se intenta trasladar a matrices.\n$$(A+B)^{2}$$\n¿Cuál es su desarrollo correcto?",
+    "options": [
+      "$A^{2}+AB+AB+B^{2}$",
+      "$A^{2}+BA+BA+B^{2}$",
+      "$A^{2}+AB+BA+B^{2}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Los dos términos cruzados quedan por separado, porque no se pueden juntar.",
+    "feedback_incorrect": [
+      "Juntar los dos cruzados en uno solo exige que las dos matrices conmuten.",
+      "Los términos cruzados no desaparecen: el desarrollo los produce igual.",
+      null
+    ],
+    "explanation": "El cuadrado de una suma se desarrolla multiplicando término a término, respetando el orden.\n$$(A+B)^{2} = A^{2}+AB+BA+B^{2}$$\nLos dos términos cruzados aparecen en órdenes distintos, y solo se pueden sumar si coinciden.\n\nEntre números coinciden siempre, y por eso ahí el desarrollo tiene el doble producto.\n\nCuando las dos matrices conmutan, el desarrollo matricial se reduce al de números, y no antes.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-igualdad-valida"
+    ]
+  },
+  {
+    "question": "Un desarrollo válido entre números se traslada a matrices que además conmutan.\n$$AB = BA$$\n¿Cuál de estas igualdades vale en ese caso?",
+    "options": [
+      "$(A+B)^{2} = A^{2}+2AB+B^{2}$",
+      "$(AB)^{T} = A^{T}B^{T}+I$",
+      "$(A+B)^{T} = A^{T}B^{T}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Con las dos matrices conmutando, los dos términos cruzados se pueden juntar.",
+    "feedback_incorrect": [
+      null,
+      "La traspuesta invierte el orden por una razón de dimensiones, y eso no cambia porque conmuten.",
+      "La suma y el producto son operaciones distintas, conmuten o no las matrices."
+    ],
+    "explanation": "Cuando dos matrices conmutan, los desarrollos que necesitaban intercambiar factores vuelven a valer.\n$$(A+B)^{2} = A^{2}+AB+BA+B^{2} = A^{2}+2AB+B^{2}$$\nLos dos términos cruzados coinciden, así que se suman en uno solo con coeficiente dos.\n\nLa regla de la traspuesta es otra cosa: invierte el orden por una razón de dimensiones, y sigue invirtiéndolo.\n\nConviene tener claro cuáles propiedades se recuperan con la conmutatividad y cuáles no dependen de ella.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-igualdad-valida"
+    ]
+  },
+  {
+    "question": "Un desarrollo se propone para el cubo de un producto.\n$$(AB)^{3}$$\n¿Cuál es su desarrollo correcto?",
+    "options": [
+      "$A^{3}+B^{3}$",
+      "$ABABAB$",
+      "$A^{3}B^{3}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La potencia repite el producto entero, sin reordenar los factores.",
+    "feedback_incorrect": [
+      "Una potencia es un producto repetido, no una suma.",
+      null,
+      "Agrupar todas las de un lado exige conmutar los factores intercalados."
+    ],
+    "explanation": "Elevar un producto a una potencia repite el producto completo esa cantidad de veces.\n$$(AB)^{3} = (AB)(AB)(AB)$$\nLos factores quedan intercalados, y agruparlos por matriz exigiría intercambiar su orden.\n\nEse reordenamiento solo es válido si las dos matrices conmutan, y en general no lo hacen.\n\nEntre números el agrupamiento es automático, y por eso este es uno de los desarrollos que más se traslada por inercia.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-igualdad-valida"
+    ]
+  },
+  {
+    "question": "En general el producto de matrices no conmuta, pero existen pares donde el orden de los factores no cambia nada.\n$$AB = BA$$\n¿Cuál de estos pares conmuta siempre?",
+    "options": [
+      "Una matriz cuadrada y una potencia de sí misma",
+      "Una matriz cuadrada y su propia traspuesta",
+      "Dos matrices triangulares del mismo tipo"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "Los dos productos apilan la misma cantidad de copias del mismo factor, así que el orden no cambia el resultado.",
+    "feedback_incorrect": [
+      null,
+      "Los dos productos existen y hasta son simétricos, pero salen de combinar filas y columnas distintas, y en general difieren.",
+      "El producto de dos triangulares del mismo tipo vuelve a ser triangular, pero eso no obliga a que se puedan intercambiar."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Que el producto de matrices no conmute en general no significa que no conmute nunca: hay pares donde el orden efectivamente da igual.\n\nEl caso más claro es el de una matriz y una potencia de sí misma, porque los dos productos son la misma cantidad de copias del mismo factor.\n$$A \\cdot A^2 = A^2 \\cdot A$$\nLos dos lados valen $A^3$, así que el orden no cambia nada. La matriz identidad cumple lo mismo con cualquier matriz cuadrada de su orden, y por eso funciona como neutro del producto.\n\nTratar la no conmutatividad como una prohibición absoluta hace perder de vista estos casos, que son justamente los que permiten operar con potencias como si fueran números.",
+    "reviewed": false,
+    "tags": [
+      "reconocer-cuando-si-conmutan"
+    ]
+  },
+  {
+    "question": "Algunos pares de matrices conmutan aunque la regla general no lo garantice.\n$$AB = BA$$\n¿Cuál de estos pares conmuta siempre?",
+    "options": [
+      "Dos matrices triangulares superiores del mismo orden",
+      "Una matriz cuadrada y la identidad de su mismo orden",
+      "Una matriz cuadrada y su propia traspuesta"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La identidad deja cualquier matriz sin cambios, desde los dos lados.",
+    "feedback_incorrect": [
+      "Dos triangulares del mismo tipo en general no conmutan entre sí.",
+      null,
+      "El producto de una matriz por su traspuesta cambia según el orden."
+    ],
+    "explanation": "La identidad es el neutro del producto, y ese papel vale desde los dos lados.\n$$AI = IA = A$$\nPor eso conmuta con cualquier matriz cuadrada de su orden, sin excepción.\n\nLos otros dos casos parecen simétricos pero no lo son: los dos productos dan matrices distintas en general.\n\nLa lista de pares que conmutan siempre es corta, y conviene tenerla identificada en vez de suponerlo caso por caso.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-cuando-si-conmutan"
+    ]
+  },
+  {
+    "question": "Algunas matrices conmutan con todas las demás de su mismo orden.\n$$AB = BA$$\n¿Cuál de estas matrices tiene esa propiedad?",
+    "options": [
+      "Cualquier matriz diagonal con entradas distintas",
+      "Cualquier matriz simétrica de ese orden",
+      "Un múltiplo escalar de la identidad"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Multiplicar por un múltiplo de la identidad equivale a escalar, y eso conmuta.",
+    "feedback_incorrect": [
+      "Dos diagonales conmutan entre sí, pero no con cualquier matriz.",
+      "Ser simétrica no garantiza conmutar con las demás.",
+      null
+    ],
+    "explanation": "Un múltiplo de la identidad actúa como un escalar, y escalar conmuta con cualquier producto.\n$$(\\alpha I)A = \\alpha A = A(\\alpha I)$$\nPor eso esas matrices conmutan con todas las de su orden, no solo con algunas.\n\nUna diagonal con entradas distintas conmuta con otras diagonales, pero no con una matriz cualquiera.\n\nEse contraste muestra que la propiedad no viene de la forma de la matriz sino de que actúe como un escalar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-cuando-si-conmutan"
+    ]
+  },
+  {
+    "question": "Una matriz y sus potencias siempre conmutan entre sí.\n$$A \\cdot A^{2} = A^{2} \\cdot A$$\n¿Por qué?",
+    "options": [
+      "Porque los dos lados son la misma cantidad de copias del factor",
+      "Porque elevar al cuadrado convierte a la matriz en simétrica",
+      "Porque las potencias de una matriz siempre resultan diagonales"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Los dos lados se desarrollan como tres copias de la misma matriz, en el mismo orden.",
+    "feedback_incorrect": [
+      null,
+      "Elevar al cuadrado no vuelve simétrica a ninguna matriz.",
+      "Las potencias de una matriz no tienen por qué ser diagonales."
+    ],
+    "explanation": "Desarrollando los dos lados aparece la misma secuencia de factores.\n$$A \\cdot A^{2} = AAA = A^{2} \\cdot A$$\nComo todos los factores son la misma matriz, no hay ningún intercambio de orden que hacer.\n\nPor eso las potencias de una misma matriz se pueden manipular con las reglas de los números.\n\nEs el caso que permite escribir cualquier producto de potencias de una misma matriz sumando exponentes.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-cuando-si-conmutan"
+    ]
+  },
+  {
+    "question": "Dos matrices que conmutan recuperan varias propiedades del álgebra de números.\n$$AB = BA$$\n¿Cuál de estas igualdades pasa a valer en ese caso?",
+    "options": [
+      "$A^{2}+B^{2} = (A+B)^{2}$",
+      "$(AB)^{2} = A^{2}B^{2}$",
+      "$(AB)^{T} = A^{T}B^{T}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Con los factores conmutando, se pueden reagrupar todas las copias de cada matriz.",
+    "feedback_incorrect": [
+      "Ni conmutando se cumple: al desarrollar $(A+B)^2$ siempre aparece el término $2AB$, que no desaparece.",
+      null,
+      "La traspuesta invierte el orden por una razón de dimensiones, independiente de la conmutatividad."
+    ],
+    "explanation": "Elevar un producto al cuadrado deja los factores intercalados, y reagruparlos exige conmutar.\n$$(AB)^{2} = ABAB$$\n$$= AABB = A^{2}B^{2}$$\nCon la conmutatividad disponible, el paso del medio es válido y la igualdad se recupera.\n\nLa regla de la traspuesta no depende de eso: invierte el orden porque las dimensiones lo exigen.\n\nTampoco alcanza conmutar para la otra opción.\n$$(A+B)^2 = A^2+2AB+B^2$$\nEl término $2AB$ no desaparece nunca, así que esa igualdad no se recupera en ningún caso.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-cuando-si-conmutan"
+    ]
+  }
+]

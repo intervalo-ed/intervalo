@@ -1,22 +1,371 @@
 [
   {
-    "question": "¿Cuándo se dice que dos vectores son **ortogonales**?",
+    "question": "El producto escalar se usa como test para decidir si dos vectores no nulos son perpendiculares.\n$$\\vec{u} \\cdot \\vec{v} = 0$$\n¿Por qué alcanza con que dé cero para asegurar el ángulo recto?",
     "options": [
-      "Cuando su producto escalar es $0$",
-      "Cuando tienen la misma norma",
-      "Cuando son paralelos entre sí"
+      "Porque con las dos normas distintas de cero, el único factor que puede anularse es el coseno, y solo se anula en $90°$",
+      "Porque el producto escalar da cero siempre que alguna componente de alguno de los dos vectores sea cero",
+      "Porque un producto escalar nulo obliga a que los dos vectores tengan exactamente la misma norma"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Dos vectores son ortogonales si su producto escalar da cero.",
+    "feedback_correct": "Con las dos normas positivas, lo único que puede anular el producto es el coseno, y el coseno se anula en un solo ángulo.",
     "feedback_incorrect": [
       null,
-      "Tener la misma norma no implica perpendicularidad.",
-      "Vectores paralelos forman ángulo $0°$, no $90°$."
+      "Un vector perpendicular a otro puede tener sus dos componentes distintas de cero: $(1,1)$ y $(1,-1)$ dan producto cero.",
+      "Las normas pueden ser muy distintas entre sí; lo que un producto nulo fija es el ángulo, no el tamaño de los vectores."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dos vectores son **ortogonales** cuando el ángulo entre ellos es recto, lo que se verifica con el producto escalar.\n$$\\vec{u}\\cdot\\vec{v} = 0$$\n\nSi el producto escalar da distinto de cero, los vectores no son perpendiculares entre sí.\n\nEsta condición es clave para construir sistemas de coordenadas donde el movimiento en una dirección no afecta a la otra.",
-    "reviewed": false
+    "explanation": "La fórmula geométrica del producto escalar es un producto de tres factores:\n$$\\vec{u}\\cdot\\vec{v} = \\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\theta)$$\nUn producto da cero solo si alguno de sus factores es cero. Si ninguno de los dos vectores es nulo, sus normas son positivas, así que el único factor que puede anularse es el coseno.\n\nEl coseno se anula en un solo ángulo entre $0°$ y $180°$, y ese ángulo es el recto.\n\nPor eso el test sirve en los dos sentidos: la perpendicularidad obliga al producto a dar cero, y un producto nulo obliga al ángulo a ser recto.\n\nLa condición de que ninguno sea el vector nulo no es un detalle de escritura: el vector nulo da producto cero contra cualquier vector, y no tiene ninguna dirección con la cual formar un ángulo.",
+    "reviewed": false,
+    "tags": [
+      "por-que-condicion-cero"
+    ]
+  },
+  {
+    "question": "El producto escalar sirve como test de perpendicularidad entre vectores no nulos.\n$$\\vec{u} \\cdot \\vec{v} = 0$$\n¿Por qué hace falta pedir que ninguno de los dos sea nulo?",
+    "options": [
+      "Porque el vector nulo es perpendicular a todos los demás vectores",
+      "Porque el vector nulo da producto cero contra cualquier otro vector",
+      "Porque el vector nulo tiene un producto escalar indefinido"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sin esa condición, el test daría positivo en un caso donde no hay ángulo que medir.",
+    "feedback_incorrect": [
+      "El vector nulo no tiene dirección, así que no forma ángulo con nadie.",
+      null,
+      "El producto escalar contra el vector nulo está perfectamente definido y vale cero."
+    ],
+    "explanation": "El test funciona porque las dos normas son positivas y el único factor que puede anularse es el coseno.\n$$\\vec{u} \\cdot \\vec{v} = \\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\theta) = 0$$\nSi uno de los vectores fuera nulo, su norma también lo sería y el producto se anularía por esa vía, no por el ángulo.\n\nEl vector nulo no tiene ninguna dirección, así que no forma ángulo con nadie y hablar de perpendicularidad no significa nada.\n\nPor eso la equivalencia entre producto nulo y ángulo recto se enuncia siempre para vectores no nulos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-condicion-cero"
+    ]
+  },
+  {
+    "question": "Un producto escalar nulo entre vectores no nulos obliga a que el coseno se anule.\n$$\\cos(\\theta) = 0$$\n¿Por qué eso deja un único ángulo posible?",
+    "options": [
+      "Porque el coseno se anula en todos los ángulos mayores que el recto",
+      "Porque el coseno nunca llega a valer cero exactamente",
+      "Porque entre $0°$ y $180°$ el coseno se anula una sola vez"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El ángulo entre dos vectores se mide entre cero y ciento ochenta grados, y ahí el cero es único.",
+    "feedback_incorrect": [
+      "Para ángulos mayores que el recto el coseno es negativo, no nulo.",
+      "El coseno sí alcanza el cero, y eso es lo que hace funcionar el criterio.",
+      null
+    ],
+    "explanation": "El ángulo entre dos vectores se define entre $0°$ y $180°$, y en ese intervalo el coseno baja de forma continua de uno a menos uno.\n$$\\cos(\\theta) = 0$$\nAl ser estrictamente decreciente, cruza el cero exactamente una vez.\n\nEse cruce ocurre en el ángulo recto, así que un coseno nulo determina el ángulo sin ambigüedad.\n\nEsa unicidad es lo que convierte a la condición en un test: no solo detecta, además identifica.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-condicion-cero"
+    ]
+  },
+  {
+    "question": "El criterio de ortogonalidad funciona en los dos sentidos.\n$$\\vec{u} \\perp \\vec{v} \\iff \\vec{u} \\cdot \\vec{v} = 0$$\n¿Qué aporta la dirección que va del cero al ángulo recto?",
+    "options": [
+      "Que un cálculo sin ninguna referencia geométrica alcanza para concluir perpendicularidad",
+      "Que el ángulo recto se puede calcular a partir de las longitudes de los vectores",
+      "Que el producto escalar deja de depender de las direcciones involucradas"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Sin esa dirección habría que medir el ángulo para concluir algo, y con ella alcanza con la cuenta.",
+    "feedback_incorrect": [
+      null,
+      "Las longitudes no determinan el ángulo: dos vectores de las mismas normas pueden formar cualquiera.",
+      "El producto escalar depende de las direcciones, y justamente por eso sirve como test."
+    ],
+    "explanation": "Una implicación dice que el ángulo recto produce producto nulo, y la recíproca dice que un producto nulo garantiza el ángulo recto.\n$$\\vec{u} \\perp \\vec{v} \\iff \\vec{u} \\cdot \\vec{v} = 0$$\nLa primera dirección permite predecir un resultado; la segunda permite **concluir** algo geométrico desde una cuenta.\n\nCon las componentes de dos vectores y una multiplicación se decide si son perpendiculares, sin dibujar ni medir nada.\n\nEsa es la utilidad concreta del criterio, y por eso hace falta que la equivalencia valga en los dos sentidos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-condicion-cero"
+    ]
+  },
+  {
+    "question": "Un par de vectores da producto escalar nulo.\n$$\\vec{u} \\cdot \\vec{v} = 0$$\n¿Qué se puede concluir si además se sabe que ninguno de los dos es nulo?",
+    "options": [
+      "Que sus longitudes son iguales entre sí",
+      "Que forman un ángulo recto, sin ninguna otra posibilidad",
+      "Que forman un ángulo recto o bien uno de los dos es muy corto"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Con las dos normas positivas, el único factor que pudo anularse es el coseno.",
+    "feedback_incorrect": [
+      "Las longitudes pueden ser muy distintas y aun así dar producto nulo.",
+      null,
+      "La longitud de los vectores no interviene una vez que se sabe que no son nulos."
+    ],
+    "explanation": "Descartados los vectores nulos, las dos normas son estrictamente positivas.\n$$\\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\theta) = 0$$\nEn un producto de tres factores, si dos son positivos el tercero tiene que ser cero.\n\nEse tercer factor es el coseno, que se anula únicamente en el ángulo recto.\n\nLa conclusión es entonces sin excepciones: el par es perpendicular, midan lo que midan los dos vectores.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-condicion-cero"
+    ]
+  },
+  {
+    "question": "Los ejes horizontal y vertical del plano quedan marcados por dos vectores.\n$$\\vec{u} = (1,0), \\qquad \\vec{v} = (0,1)$$\n¿Por qué son ortogonales entre sí?",
+    "options": [
+      "Porque su producto escalar es $1\\cdot 0+0\\cdot 1=0$",
+      "Porque los dos tienen norma igual a $1$",
+      "Porque ninguno de los dos tiene componentes negativas"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El producto escalar entre $(1,0)$ y $(0,1)$ da cero, así que son ortogonales.",
+    "feedback_incorrect": [
+      null,
+      "Que ambos tengan norma $1$ los hace unitarios, no ortogonales; eso depende del ángulo, no del tamaño.",
+      "El signo de las componentes no tiene relación con la ortogonalidad; lo que importa es el producto escalar."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Los vectores $(1,0)$ y $(0,1)$ representan los ejes horizontal y vertical, que por construcción forman un ángulo recto.\n\nEsto se confirma calculando su producto escalar:\n$$(1,0)\\cdot(0,1) = (1)(0)+(0)(1) = 0$$\nComo el resultado es cero, los dos vectores son ortogonales, tal como esperamos de dos ejes perpendiculares.\n\nEsta pareja es el ejemplo más simple de un par ortogonal: cada uno vive en un eje distinto, sin superposición.",
+    "reviewed": false,
+    "tags": [
+      "ortogonalidad-y-ejes"
+    ]
+  },
+  {
+    "question": "Dos de los vectores que marcan los ejes del espacio dan producto escalar nulo entre sí.\n$$(1,0,0) \\cdot (0,1,0) = 0$$\n¿Qué garantiza ese resultado sobre esos dos vectores?",
+    "options": [
+      "Que los dos vectores tienen la misma norma",
+      "Que forman un ángulo recto, ya que ninguno de los dos es nulo",
+      "Que uno de los dos vectores es necesariamente el vector nulo"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Con las dos normas positivas, un producto escalar nulo solo puede salir de un ángulo de $90°$.",
+    "feedback_incorrect": [
+      "La norma no interviene en esta conclusión: lo que el cero fija es el ángulo, no el tamaño.",
+      null,
+      "Los dos vectores son no nulos, cada uno con una única componente distinta de cero."
+    ],
+    "explanation": "Un producto escalar nulo entre dos vectores no nulos solo puede salir de un factor: el coseno del ángulo.\n$$(1,0,0) \\cdot (0,1,0) = 0$$\nEn cada término, uno de los dos factores vale cero, y por eso el resultado también lo es.\n\nComo ninguno es nulo, ese cero obliga a que el coseno del ángulo entre ellos sea cero.\n\nUn coseno nulo corresponde exactamente al ángulo recto, así que los dos vectores son ortogonales.\n\nLo mismo vale para cualquier otro par de vectores de los ejes: cada uno tiene su único uno en una posición distinta, y el producto siempre da cero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "ortogonalidad-y-ejes"
+    ]
+  },
+  {
+    "question": "En el producto escalar entre dos vectores distintos de los ejes canónicos, cada término se multiplica por un cero.\n$$(1,0,0) \\cdot (0,0,1) = 0$$\n¿Qué asegura esa estructura sobre cualquier par de esos vectores?",
+    "options": [
+      "Que dos vectores cualesquiera del espacio dan siempre producto escalar cero",
+      "Que el producto escalar entre ellos depende del orden en que se multiplican",
+      "Que dos vectores distintos de los ejes canónicos son siempre ortogonales entre sí"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Como cada término se anula por tener un factor cero, la suma completa da cero para cualquier par distinto de esos vectores.",
+    "feedback_incorrect": [
+      "Eso solo vale para pares de vectores de los ejes canónicos, no para dos vectores cualesquiera del espacio.",
+      "El producto escalar no depende del orden de los factores; da lo mismo multiplicarlos en cualquier orden.",
+      null
+    ],
+    "explanation": "Cada vector de los ejes canónicos tiene un único uno, en una posición distinta a la de los otros dos.\n$$(1,0,0) \\cdot (0,0,1) = 0$$\nEn cada término del producto, uno de los dos factores cae justo en una posición con cero.\n\nPor eso la suma completa siempre da cero, sin importar cuál de los tres pares se elija.\n\nEsa estructura es la que garantiza que los tres ejes son perpendiculares entre sí, de a pares.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "ortogonalidad-y-ejes"
+    ]
+  },
+  {
+    "question": "Los ejes de referencia se eligen perpendiculares entre sí por una razón práctica.\n$$(1,0) \\perp (0,1)$$\n¿Qué facilita esa elección?",
+    "options": [
+      "Que cada componente mide un avance que las otras no registran",
+      "Que las componentes de cualquier vector resultan siempre positivas",
+      "Que la norma de cualquier vector coincide con la suma de sus componentes"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Con ejes perpendiculares, avanzar en uno no cambia en nada la componente del otro.",
+    "feedback_incorrect": [
+      null,
+      "Las componentes pueden ser negativas sin ningún problema.",
+      "La norma nunca es la suma de las componentes: sale de una suma de cuadrados."
+    ],
+    "explanation": "Que los ejes sean perpendiculares significa que avanzar sobre uno no produce ningún avance sobre el otro.\n$$(1,0) \\cdot (0,1) = 0$$\nPor eso cada componente de un vector mide una información que ninguna otra componente repite.\n\nSi los ejes no fueran perpendiculares, moverse en uno cambiaría también la lectura del otro y las cuentas se complicarían mucho.\n\nEsa independencia entre ejes es también la razón por la que el teorema de Pitágoras se aplica directamente a las componentes.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "ortogonalidad-y-ejes"
+    ]
+  },
+  {
+    "question": "Dos vectores están apoyados sobre los ejes del plano, pero uno de ellos apunta en sentido contrario al semieje positivo.\n$$(-1,0) \\qquad (0,1)$$\n¿Su producto escalar sigue siendo cero?",
+    "options": [
+      "No, porque el signo negativo hace que el producto dé un valor negativo",
+      "Sí, porque cada término del producto sigue teniendo un factor nulo",
+      "No, porque uno de los dos vectores dejó de estar sobre su eje"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El signo no cambia qué componente vale cero: sigue habiendo un cero en cada término.",
+    "feedback_incorrect": [
+      "El signo negativo no le cambia el resultado a este producto en particular: sigue dando cero.",
+      null,
+      "Un signo negativo no saca al vector de su eje: sigue estando apoyado sobre él."
+    ],
+    "explanation": "Que un vector apunte hacia el lado negativo de su eje no cambia cuál de sus componentes es cero.\n$$(-1,0) \\cdot (0,1) = 0$$\nEl signo solo afecta a la componente no nula, que multiplica siempre a un cero del otro vector.\n\nPor eso el producto sigue dando cero, sin importar hacia qué lado del eje apunte cada vector.\n\nLa ortogonalidad entre ejes no depende del sentido, solo de que cada vector viva en un eje distinto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "ortogonalidad-y-ejes"
+    ]
+  },
+  {
+    "question": "Dos vectores ortogonales cumplen que su producto escalar da cero.\n$$\\vec{u} \\cdot \\vec{v} = 0$$\n¿Eso obliga a que tengan la misma norma?",
+    "options": [
+      "No, depende solo de que el ángulo entre ellos sea de $90°$, no de sus tamaños",
+      "Sí, si las normas fueran distintas el producto escalar no podría dar cero",
+      "Sí, pero solo cuando ambos vectores están en $\\mathbb{R}^2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La ortogonalidad depende del ángulo entre los vectores, no de sus longitudes: pueden ser ortogonales con normas muy distintas.",
+    "feedback_incorrect": [
+      null,
+      "El producto escalar puede dar cero con normas distintas, porque lo que se anula es el coseno del ángulo, no las normas.",
+      "Esta propiedad no depende de la dimensión del espacio; vale igual en $\\mathbb{R}^2$, $\\mathbb{R}^3$ o cualquier $\\mathbb{R}^n$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El producto escalar geométrico multiplica las normas por el coseno del ángulo:\n$$\\vec{u}\\cdot\\vec{v} = \\|\\vec{u}\\|\\|\\vec{v}\\|\\cos(\\theta)$$\nCuando el ángulo es de $90°$, el coseno vale cero, y ese cero anula el producto completo sin importar cuánto valgan las normas.\n\nPor eso dos vectores pueden ser ortogonales aunque uno sea mucho más largo que el otro: lo único que importa es el ángulo entre ambos.",
+    "reviewed": false,
+    "tags": [
+      "ortogonalidad-no-implica-igual-norma"
+    ]
+  },
+  {
+    "question": "Dos vectores perpendiculares pueden tener longitudes muy distintas.\n$$(10,0) \\qquad (0,1)$$\n¿Por qué la diferencia de longitudes no rompe la perpendicularidad?",
+    "options": [
+      "Porque las longitudes se cancelan entre sí en la fórmula",
+      "Porque las longitudes multiplican a un coseno que ya vale cero",
+      "Porque el producto escalar no tiene en cuenta las longitudes"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cualquier número multiplicado por cero da cero, por distinto que sea del otro.",
+    "feedback_incorrect": [
+      "Las longitudes no se cancelan: se multiplican entre sí y con el coseno.",
+      null,
+      "La fórmula geométrica sí incluye las dos longitudes, como factores."
+    ],
+    "explanation": "En la fórmula geométrica las dos longitudes son factores, y el coseno es el tercero.\n$$\\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(90°) = 0$$\nCuando el coseno se anula, el producto entero se anula sin importar cuánto valgan los otros dos factores.\n\nPor eso un vector larguísimo puede ser perpendicular a uno cortísimo sin ninguna contradicción.\n\nLa perpendicularidad es una propiedad puramente angular, y la longitud no participa de ella.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "ortogonalidad-no-implica-igual-norma"
+    ]
+  },
+  {
+    "question": "Dos vectores tienen exactamente la misma longitud.\n$$\\|\\vec{u}\\| = \\|\\vec{v}\\|$$\n¿Qué se puede afirmar sobre el ángulo entre ellos?",
+    "options": [
+      "Que necesariamente son perpendiculares entre sí",
+      "Que necesariamente apuntan en la misma dirección",
+      "Nada: pueden formar cualquier ángulo entre $0°$ y $180°$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La norma no guarda ninguna información sobre la dirección de un vector.",
+    "feedback_incorrect": [
+      "Dos vectores de la misma longitud pueden formar cualquier ángulo, incluido el nulo.",
+      "Dos vectores de la misma longitud pueden apuntar hacia lados completamente distintos.",
+      null
+    ],
+    "explanation": "La norma reduce un vector a un solo número y pierde toda la información de dirección.\n$$\\|\\vec{u}\\| = \\|\\vec{v}\\|$$\nTodos los vectores de una misma longitud forman una circunferencia alrededor del origen, y entre dos puntos cualesquiera de ella hay cualquier ángulo posible.\n\nPor eso la igualdad de normas no dice absolutamente nada sobre la perpendicularidad.\n\nLas dos propiedades, longitud y ángulo, son independientes entre sí y hay que verificarlas por separado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "ortogonalidad-no-implica-igual-norma"
+    ]
+  },
+  {
+    "question": "Escalar uno de dos vectores perpendiculares no rompe la perpendicularidad.\n$$\\vec{u} \\cdot \\vec{v} = 0 \\implies (\\alpha\\vec{u}) \\cdot \\vec{v} = 0$$\n¿Por qué?",
+    "options": [
+      "Porque el escalar multiplica a algo que ya vale cero",
+      "Porque escalar un vector no llega a cambiar su longitud",
+      "Porque el escalar se cancela contra el otro vector"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El escalar sale multiplicando afuera, y multiplicar cero por cualquier número da cero.",
+    "feedback_incorrect": [
+      null,
+      "Escalar sí cambia la longitud: lo que no cambia es la dirección.",
+      "El escalar no se cancela con nada: queda multiplicando al resultado."
+    ],
+    "explanation": "El escalar de uno de los factores sale multiplicando al producto escalar completo.\n$$(\\alpha\\vec{u}) \\cdot \\vec{v} = \\alpha(\\vec{u} \\cdot \\vec{v})$$\nSi el producto original era cero, cualquier escalar lo deja en cero.\n\nGeométricamente es evidente: estirar o acortar un vector no cambia hacia dónde apunta, y la perpendicularidad depende solo de eso.\n\nUn escalar negativo tampoco la rompe, porque invertir el sentido conserva el ángulo recto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "ortogonalidad-no-implica-igual-norma"
+    ]
+  },
+  {
+    "question": "Un vector tiene infinitos perpendiculares en el plano.\n$$\\vec{u} \\perp \\vec{v}$$\n¿Qué tienen en común todos ellos?",
+    "options": [
+      "Que apuntan todos hacia el mismo lado del plano",
+      "Que están sobre una misma recta, con distinta longitud",
+      "Que tienen todos la misma longitud que el vector original"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Todos comparten la dirección perpendicular, y se diferencian en longitud y sentido.",
+    "feedback_incorrect": [
+      "Los perpendiculares apuntan hacia los dos lados de la recta, no hacia uno solo.",
+      null,
+      "Las longitudes pueden ser cualesquiera: la perpendicularidad no las restringe."
+    ],
+    "explanation": "En el plano hay una única dirección perpendicular a una dirección dada.\n$$\\vec{u} \\perp \\vec{v}$$\nTodos los vectores perpendiculares a un mismo vector están sobre esa recta, y difieren solo en cuánto miden y hacia qué lado apuntan.\n\nPor eso hallar un perpendicular no tiene respuesta única: cualquier múltiplo no nulo del que se encuentre también sirve.\n\nEse conjunto se obtiene escalando un perpendicular cualquiera por todos los números distintos de cero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "ortogonalidad-no-implica-igual-norma"
+    ]
   }
 ]

@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **teorema de la dimensión** establece que la dimensión del dominio se conserva y se reparte entre la imagen y el núcleo.\n$$\\dim(\\ker(T)) + \\dim(\\text{Im}(T)) = \\dim(V)$$\n\nCada dimensión del dominio que colapsa en el núcleo se resta directamente de las dimensiones efectivas que tendrá la imagen.\n\nEste resultado permite calcular una de las tres cantidades si se conocen las otras dos.",
+    "explanation": "El **teorema de la dimensión** establece que la dimensión del dominio se conserva y se reparte entre la imagen y el núcleo.\n$$\\dim(\\ker(T)) + \\dim(\\text{Im}(T)) = \\dim(V)$$\nCada dimensión del dominio que colapsa en el núcleo se resta directamente de las dimensiones efectivas que tendrá la imagen.\n\nEste resultado permite calcular una de las tres cantidades si se conocen las otras dos.",
     "reviewed": false
   }
 ]

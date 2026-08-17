@@ -1,27 +1,147 @@
 [
   {
-    "question": "De una producción de piezas se aparta la fracción $5/8$ para control de calidad.\n\nDe esa muestra apartada, se separa la fracción $2/3$ para un ensayo más exigente.\n\n¿Qué fracción del total de piezas producidas llega a ese ensayo más exigente?",
-    "options": ["$5/24$", "$15/16$", "$5/12$", "$7/11$"],
-    "correct_index": 2,
-    "feedback_correct": "Multiplicando numerador con numerador y denominador con denominador se llega a $10/24$, que simplificado es $5/12$.",
-    "feedback_incorrect": [
-      "Se multiplicaron los denominadores pero no los dos numeradores: falta multiplicar $5\\times2$ arriba.",
-      "Se multiplicaron en cruz, $5\\times3$ y $8\\times2$, en vez de numerador con numerador y denominador con denominador.",
-      null,
-      "Sumar numerador con numerador y denominador con denominador no es la operación entre fracciones: hay que multiplicar."
+    "question": "De una producción de piezas se aparta la fracción $3/4$ para control de calidad.\n\nEsa parte apartada se organiza en cajas que llevan cada una la fracción $3/8$ del total producido.\n$$\\dfrac{3/4}{3/8}$$\n¿Cuántas cajas se arman con las piezas apartadas?",
+    "options": [
+      "$9/32$",
+      "$2$",
+      "$32/9$",
+      "$1/2$"
     ],
-    "explanation": "Tomar una fracción de una fracción del total se calcula **multiplicando** ambas fracciones: numerador con numerador, denominador con denominador.\n$$\\dfrac{5}{8}\\times\\dfrac{2}{3} = \\dfrac{5\\times2}{8\\times3} = \\dfrac{10}{24}$$\nSimplificando entre $2$, queda $5/12$: esa es la fracción del total que llega al ensayo más exigente.\n\nCada nueva fracción se aplica sobre lo que quedó del paso anterior, no sobre el total original directamente, por eso hace falta multiplicar y no sumar ni promediar las dos fracciones.",
+    "correct_index": 1,
+    "feedback_correct": "Invertir la fracción del denominador y multiplicar da $3/4\\times8/3=2$: se arman dos cajas completas.",
+    "feedback_incorrect": [
+      "Ahí se multiplicaron las dos fracciones tal como estaban escritas, sin invertir la del denominador primero.",
+      null,
+      "Ahí se invirtió la fracción de arriba en vez de la de abajo: en una división siempre se invierte el divisor.",
+      "Ahí se sumaron los numeradores entre sí y los denominadores entre sí, en vez de invertir y multiplicar."
+    ],
+    "explanation": "Una **fracción compuesta** con una fracción arriba y otra abajo es, en el fondo, una división entre las dos: la de arriba dividida por la de abajo.\n$$\\dfrac{3/4}{3/8} = \\dfrac{3}{4}\\div\\dfrac{3}{8}$$\nPara dividir fracciones se invierte la de abajo y se multiplica.\n$$\\dfrac{3}{4}\\times\\dfrac{8}{3} = 2$$\nLa caja mide exactamente la mitad de lo apartado para control, así que hacen falta dos cajas para guardarlo entero.\n\nSi el resultado hubiese dado menor que $1$, sería señal de haber multiplicado las fracciones tal como estaban, sin invertir ninguna.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["resl-fraccion-compuesta"]
+    "tags": [
+      "resl-fraccion-compuesta"
+    ]
+  },
+  {
+    "question": "Un tanque destina la fracción $2/3$ de su agua a riego.\n\nEsa agua para riego se reparte en baldes que llevan cada uno la fracción $2/9$ del tanque.\n$$\\dfrac{2/3}{2/9}$$\n¿Cuántos baldes se llenan con el agua destinada a riego?",
+    "options": [
+      "$3$",
+      "$4/27$",
+      "$27/4$",
+      "$1/3$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Invertir la fracción del denominador y multiplicar da $2/3\\times9/2=3$: se llenan tres baldes.",
+    "feedback_incorrect": [
+      null,
+      "Ahí se multiplicaron las dos fracciones tal como estaban escritas, sin invertir la del denominador primero.",
+      "Ahí se invirtió la fracción de arriba en vez de la de abajo: en una división siempre se invierte el divisor.",
+      "Ahí se sumaron los numeradores entre sí y los denominadores entre sí, en vez de invertir y multiplicar."
+    ],
+    "explanation": "Una fracción compuesta con una fracción arriba y otra abajo es una división entre las dos: la de arriba dividida por la de abajo.\n$$\\dfrac{2/3}{2/9} = \\dfrac{2}{3}\\div\\dfrac{2}{9}$$\nPara dividir fracciones se invierte la de abajo y se multiplica.\n$$\\dfrac{2}{3}\\times\\dfrac{9}{2} = 3$$\nCada balde guarda un tercio del agua destinada a riego, así que hacen falta tres baldes para juntarla entera.\n\nSi el resultado hubiese dado menor que $1$, sería señal de haber multiplicado las fracciones tal como estaban, sin invertir ninguna.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-fraccion-compuesta"
+    ]
+  },
+  {
+    "question": "Un lote de mercadería reserva la fracción $2/3$ de su volumen para exportación.\n\nUn lote más chico reserva la fracción $4/9$ de su volumen para el mismo destino.\n$$\\dfrac{2/3}{4/9}$$\n¿Cuántas veces mayor es la fracción reservada por el primer lote, respecto de la reservada por el segundo?",
+    "options": [
+      "$8/27$",
+      "$27/8$",
+      "$3/2$",
+      "$1/2$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Invertir la segunda fracción y multiplicar da $2/3\\times9/4=3/2$: la reserva del primer lote es una vez y media la del segundo.",
+    "feedback_incorrect": [
+      "Ahí se multiplicaron las dos fracciones tal como estaban escritas, sin invertir la segunda primero.",
+      "Ahí se invirtió la primera fracción en vez de la segunda: en una división siempre se invierte el divisor.",
+      null,
+      "Ahí se sumaron los numeradores entre sí y los denominadores entre sí, en vez de invertir y multiplicar."
+    ],
+    "explanation": "Comparar dos fracciones preguntando cuántas veces mayor es una respecto de la otra es una división entre las dos.\n$$\\dfrac{2/3}{4/9} = \\dfrac{2}{3}\\div\\dfrac{4}{9}$$\nPara dividir fracciones se invierte la segunda y se multiplica.\n$$\\dfrac{2}{3}\\times\\dfrac{9}{4} = \\dfrac{3}{2}$$\nEl resultado mayor que $1$ confirma que el primer lote reserva más que el segundo, ya que su fracción de partida era la mayor de las dos.\n\nSi el resultado hubiese dado menor que $1$, la relación estaría invertida: el primer lote reservaría menos que el segundo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-fraccion-compuesta"
+    ]
+  },
+  {
+    "question": "Una receta pide repartir la fracción $3/4$ de una masa en porciones de $1/8$ de masa cada una.\n$$\\dfrac{3/4}{1/8}$$\n¿Cuántas porciones salen?",
+    "options": [
+      "$6$",
+      "$24$",
+      "$32$",
+      "$2$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Invirtiendo el denominador queda $3/4$ por $8$, o sea seis porciones.",
+    "feedback_incorrect": [
+      null,
+      "Ahí se multiplicó el numerador de arriba por el denominador de abajo, sin dividir por el $4$.",
+      "Ahí se multiplicaron los dos denominadores entre sí, que no interviene en esta cuenta.",
+      "Ahí se dividió el $8$ por el $4$ sin usar el numerador de arriba."
+    ],
+    "explanation": "Preguntar cuántas veces entra una cantidad en otra es una **división**, y dividir por una fracción es multiplicar por su inversa.\n$$\\dfrac{3/4}{1/8} = \\dfrac{3}{4}\\times 8 = 6$$\nInvertir $1/8$ da $8$, así que la cuenta pasa a ser tres cuartos de ocho.\n\nEl resultado tiene que ser mayor que $1$ porque cada porción es mucho más chica que la masa disponible, y eso descarta de entrada cualquier respuesta fraccionaria.\n\nSi el resultado diera menor que la cantidad repartida, sería señal de haber multiplicado en vez de dividir.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-fraccion-compuesta"
+    ]
+  },
+  {
+    "question": "Una lata chica de pintura alcanza para cubrir la fracción $2/5$ de una pared.\n\nUna lata grande de la misma pintura alcanza para cubrir la fracción $4/5$ de esa pared.\n$$\\dfrac{2/5}{4/5}$$\n¿Qué fracción del rendimiento de la lata grande representa el rendimiento de la lata chica?",
+    "options": [
+      "$1/2$",
+      "$8/25$",
+      "$25/8$",
+      "$3/5$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Invertir la segunda fracción y multiplicar da $2/5\\times5/4=1/2$: la lata chica rinde la mitad que la grande.",
+    "feedback_incorrect": [
+      null,
+      "Ahí se multiplicaron las dos fracciones tal como estaban escritas, sin invertir la segunda primero.",
+      "Ahí se invirtió la primera fracción en vez de la segunda: en una división siempre se invierte el divisor.",
+      "Ahí se sumaron los numeradores entre sí y los denominadores entre sí, en vez de invertir y multiplicar."
+    ],
+    "explanation": "Preguntar qué fracción es un rendimiento respecto de otro es una división: el rendimiento de la lata chica dividido por el de la lata grande.\n$$\\dfrac{2/5}{4/5} = \\dfrac{2}{5}\\div\\dfrac{4}{5}$$\nPara dividir fracciones se invierte la segunda y se multiplica.\n$$\\dfrac{2}{5}\\times\\dfrac{5}{4} = \\dfrac{1}{2}$$\nEl resultado menor que $1$ tiene sentido, porque la lata chica cubre menos pared que la grande.\n\nSi el resultado hubiese dado mayor que $1$, estaría diciendo que la lata chica rinde más que la grande, al revés de lo esperable.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-fraccion-compuesta"
+    ]
   },
   {
     "question": "En una carrera, un auto tarda $3/4$ de hora menos que lo previsto en el primer tramo.\n\nEn el segundo tramo, en cambio, tarda $1/6$ de hora más de lo previsto.\n\n¿Cuál es la diferencia total, en horas, respecto de lo previsto?",
-    "options": ["$-11/12$", "$-7/12$", "$7/12$", "$-1/5$"],
+    "options": [
+      "$-11/12$",
+      "$-7/12$",
+      "$7/12$",
+      "$-1/5$"
+    ],
     "correct_index": 1,
     "feedback_correct": "Con denominador común $12$: $-9/12+2/12=-7/12$, siete doceavos de hora menos en total.",
     "feedback_incorrect": [
@@ -37,11 +157,126 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["resl-signos-combinados"]
+    "tags": [
+      "resl-signos-combinados"
+    ]
+  },
+  {
+    "question": "La temperatura baja $5/6$ de grado durante la mañana.\n\nA la tarde vuelve a subir $1/3$ de grado.\n\n¿Cuál es la variación total del día, en grados?",
+    "options": [
+      "$-4/9$",
+      "$-1/2$",
+      "$-7/6$",
+      "$1/2$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Con denominador común $6$ queda $-5/6+2/6$, o sea medio grado menos en total.",
+    "feedback_incorrect": [
+      "Ahí se sumaron numeradores entre sí y denominadores entre sí, sin igualar denominadores primero.",
+      null,
+      "La suba de la tarde se suma, no se resta: su fracción entra con signo positivo.",
+      "El resultado es negativo: la baja de la mañana fue mayor que la suba de la tarde."
+    ],
+    "explanation": "Una baja se anota negativa y una suba positiva, y para sumarlas hace falta un **denominador común**.\n$$-\\dfrac{5}{6} + \\dfrac{1}{3} = -\\dfrac{5}{6} + \\dfrac{2}{6}$$\nCon las dos en sextos, la suma se resuelve sobre los numeradores y da $-3/6$, que se simplifica a $-1/2$.\n\nEl signo negativo del total dice que el día cerró más frío que como empezó.\n\nConviene anotar el signo de cada término antes de igualar denominadores, porque es en la amplificación donde más se pierde.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-signos-combinados"
+    ]
+  },
+  {
+    "question": "Una cuenta recibe un depósito de $2/5$ de su saldo de referencia.\n\nDespués se hace un retiro de $7/10$ de ese mismo saldo de referencia.\n\n¿Cómo queda la cuenta respecto de la referencia?",
+    "options": [
+      "$3/10$",
+      "$-11/10$",
+      "$-1/2$",
+      "$-3/10$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Llevando el depósito a décimos queda $4/10-7/10$, o sea tres décimos por debajo.",
+    "feedback_incorrect": [
+      "El retiro fue mayor que el depósito, así que el resultado queda por debajo de la referencia.",
+      "Ahí las dos operaciones se sumaron: el retiro entra restando, no sumando.",
+      "Al llevar $2/5$ a décimos el numerador pasa a $4$, no queda en $2$.",
+      null
+    ],
+    "explanation": "Un depósito suma y un retiro resta, así que la cuenta es una resta entre las dos fracciones.\n$$\\dfrac{2}{5} - \\dfrac{7}{10} = \\dfrac{4}{10} - \\dfrac{7}{10} = -\\dfrac{3}{10}$$\nPara restar hace falta el mismo denominador, y $10$ ya es múltiplo de $5$, así que solo hay que amplificar la primera fracción.\n\nAmplificar significa multiplicar arriba y abajo por el mismo número, y por eso el numerador pasa de $2$ a $4$.\n\nEl resultado negativo indica que se retiró más de lo que se había depositado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-signos-combinados"
+    ]
+  },
+  {
+    "question": "El nivel de un depósito de agua baja $3/8$ de metro por hora.\n\nEsa caída se mantiene constante durante $2/3$ de hora.\n\n¿Cuánto baja el nivel en ese tiempo, en metros?",
+    "options": [
+      "$-1/4$",
+      "$1/4$",
+      "$-9/16$",
+      "$-5/11$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El producto da $-6/24$, que simplificado es un cuarto de metro de bajada.",
+    "feedback_incorrect": [
+      null,
+      "La variación es una bajada, así que el resultado tiene que quedar negativo.",
+      "Ahí se multiplicó en cruz, numerador de una por denominador de la otra.",
+      "Ahí se sumó el $3$ con el $2$ y el $8$ con el $3$ por separado, y se le agregó el signo negativo aparte: eso no es la operación entre fracciones, hay que multiplicar."
+    ],
+    "explanation": "Una variación por unidad de tiempo, multiplicada por el tiempo transcurrido, da la variación total, y el signo se arrastra igual que en cualquier producto.\n$$-\\dfrac{3}{8}\\times\\dfrac{2}{3} = -\\dfrac{6}{24} = -\\dfrac{1}{4}$$\nUn solo factor es negativo, así que el resultado queda negativo.\n\nConviene cancelar antes de multiplicar, porque el numerador de una fracción coincide con el denominador de la otra, y así la cuenta sale directo en su forma mínima.\n\nEl resultado es menor que la caída de una hora entera, que es lo esperable porque pasó menos de una hora.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-signos-combinados"
+    ]
+  },
+  {
+    "question": "El saldo de un fondo cae $7/8$ de una unidad de referencia.\n\nDespués se revierte una caída anterior de $1/4$, que estaba anotada como negativa.\n\n¿Cuál es la variación total?",
+    "options": [
+      "$5/8$",
+      "$-3/4$",
+      "$-5/8$",
+      "$-9/8$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Revertir una caída suma, así que queda $-7/8+2/8$, cinco octavos por debajo.",
+    "feedback_incorrect": [
+      "El resultado queda negativo, porque la caída revertida es más chica que la nueva.",
+      "Al llevar $1/4$ a octavos el numerador pasa a $2$, no queda en $1$.",
+      null,
+      "Ahí las dos caídas se sumaron: revertir una caída entra con signo positivo, no negativo."
+    ],
+    "explanation": "Revertir una cantidad negativa es restarla, y restar un negativo equivale a sumar su opuesta.\n$$-\\dfrac{7}{8} - \\left(-\\dfrac{1}{4}\\right) = -\\dfrac{7}{8} + \\dfrac{1}{4}$$\nLos dos signos negativos que quedaban pegados se compensan, y lo que sigue es una suma común.\n\nAmplificando el segundo término a octavos, la cuenta queda $-7/8+2/8$ y da $-5/8$.\n\nEl total sigue siendo negativo porque lo revertido es más chico que la caída nueva, y ese chequeo de tamaño confirma el signo antes de terminar la cuenta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-signos-combinados"
+    ]
   },
   {
     "question": "Una pelota pierde la mitad de su altura en cada rebote.\n\nPara saber cuántas veces mayor era la altura tres rebotes atrás respecto de la actual, hay que calcular:\n$$\\left(\\dfrac{1}{2}\\right)^{-3}$$\n¿Cuánto da esa potencia?",
-    "options": ["$1/8$", "$-8$", "$6$", "$8$"],
+    "options": [
+      "$1/8$",
+      "$-8$",
+      "$6$",
+      "$8$"
+    ],
     "correct_index": 3,
     "feedback_correct": "Al invertir la fracción, $(1/2)^{-3}=2^3=8$: la altura era ocho veces mayor tres rebotes atrás.",
     "feedback_incorrect": [
@@ -50,13 +285,123 @@
       "$2\\times3$ no es la operación: hay que invertir la fracción y elevarla al cubo, no multiplicar la base por el exponente.",
       null
     ],
-    "explanation": "Elevar una fracción a un **exponente negativo** significa invertir la fracción y elevarla a ese mismo exponente en positivo.\n$$\\left(\\dfrac{a}{b}\\right)^{-n} = \\left(\\dfrac{b}{a}\\right)^n$$\nLa base de este caso es $1/2$ y el exponente es $-3$, así que primero se invierte a $2$ y después se eleva al cubo:\n$$\\left(\\dfrac{1}{2}\\right)^{-3} = 2^3 = 8$$\nTiene sentido físicamente: si cada rebote hacia adelante multiplica la altura por la mitad, ir tres rebotes hacia atrás multiplica por el inverso, $2$, tres veces seguidas.",
+    "explanation": "Elevar una fracción a un **exponente negativo** significa invertir la fracción y elevarla a ese mismo exponente en positivo.\n$$\\left(\\dfrac{a}{b}\\right)^{-n} = \\left(\\dfrac{b}{a}\\right)^n$$\nAcá la base es $1/2$ y el exponente es $-3$.\n\nPrimero se invierte la base y después se eleva al cubo:\n$$\\left(\\dfrac{1}{2}\\right)^{-3} = 2^3 = 8$$\nTiene sentido físicamente: si cada rebote hacia adelante multiplica la altura por la mitad, ir tres rebotes hacia atrás multiplica por el inverso, $2$, tres veces seguidas.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["resl-potencia-fraccion"]
+    "tags": [
+      "resl-potencia-fraccion"
+    ]
+  },
+  {
+    "question": "Una tintura conserva $3/5$ de su concentración en cada dilución.\n\nPara saber qué fracción de la concentración inicial queda después de dos diluciones hay que calcular:\n$$\\left(\\dfrac{3}{5}\\right)^{2}$$\n¿Cuánto da esa potencia?",
+    "options": [
+      "$27/125$",
+      "$9/25$",
+      "$3/25$",
+      "$9/5$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Elevar una fracción eleva el numerador y el denominador por separado, y queda $9/25$.",
+    "feedback_incorrect": [
+      "Ese es el resultado de elevar al cubo, y el exponente de esta cuenta es $2$.",
+      null,
+      "Ahí se elevó solo el denominador: el numerador también va elevado.",
+      "Ahí se elevó solo el numerador: el denominador también va elevado."
+    ],
+    "explanation": "Elevar una fracción a una potencia es multiplicarla por sí misma tantas veces como diga el exponente.\n\nY en un producto de fracciones se multiplican los numeradores entre sí y los denominadores entre sí.\n$$\\left(\\dfrac{3}{5}\\right)^{2} = \\dfrac{3\\times3}{5\\times5} = \\dfrac{9}{25}$$\nPor eso el exponente termina aplicándose a los dos niveles y no a uno solo.\n\nEl resultado es menor que la base, que es lo esperable: multiplicar por una fracción menor que uno achica la cantidad.\n\nEse chequeo descarta de entrada cualquier resultado mayor que la fracción de partida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-potencia-fraccion"
+    ]
+  },
+  {
+    "question": "Un medicamento conserva $3/4$ de su concentración en sangre cada hora.\n\nPara saber cuántas veces mayor era la concentración dos horas atrás hay que calcular:\n$$\\left(\\dfrac{3}{4}\\right)^{-2}$$\n¿Cuánto da esa potencia?",
+    "options": [
+      "$9/16$",
+      "$-9/16$",
+      "$4/3$",
+      "$16/9$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Invirtiendo la fracción y elevando al cuadrado queda $16/9$, algo menos del doble.",
+    "feedback_incorrect": [
+      "Ahí se elevó la fracción sin invertirla, que es lo que haría un exponente positivo.",
+      "Un exponente negativo no vuelve negativo el resultado: indica que hay que invertir la fracción.",
+      "Ahí se invirtió la fracción pero no se la elevó al cuadrado.",
+      null
+    ],
+    "explanation": "Un **exponente negativo** significa invertir la fracción y elevarla a ese mismo exponente en positivo.\n$$\\left(\\dfrac{a}{b}\\right)^{-n} = \\left(\\dfrac{b}{a}\\right)^{n}$$\nLa razón es que ir hacia atrás en el tiempo deshace cada paso, y deshacer una multiplicación por una fracción es multiplicar por su inversa.\n$$\\left(\\dfrac{3}{4}\\right)^{-2} = \\left(\\dfrac{4}{3}\\right)^{2} = \\dfrac{16}{9}$$\nEl resultado es mayor que $1$, que es lo esperable: dos horas atrás había más concentración que ahora.\n\nCualquier respuesta menor que $1$ estaría diciendo que la concentración creció con el tiempo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-potencia-fraccion"
+    ]
+  },
+  {
+    "question": "Una señal conserva $1/5$ de su intensidad al atravesar cada tramo.\n\nPara saber cuántas veces más intensa era dos tramos atrás hay que calcular:\n$$\\left(\\dfrac{1}{5}\\right)^{-2}$$\n¿Cuánto da esa potencia?",
+    "options": [
+      "$25$",
+      "$1/25$",
+      "$-25$",
+      "$10$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Invirtiendo la fracción queda $5$, y elevado al cuadrado da $25$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el resultado con exponente positivo: acá el exponente es negativo y hay que invertir primero.",
+      "Un exponente negativo no vuelve negativo el resultado: indica que hay que invertir la fracción.",
+      "Ahí se multiplicó la base por el exponente, en vez de elevar la fracción invertida."
+    ],
+    "explanation": "Un **exponente negativo** manda invertir la fracción antes de elevarla, y el exponente se aplica ya en positivo.\n$$\\left(\\dfrac{a}{b}\\right)^{-n} = \\left(\\dfrac{b}{a}\\right)^{n}$$\nInvertir $1/5$ da $5$, así que la cuenta pasa a ser cinco al cuadrado.\n$$\\left(\\dfrac{1}{5}\\right)^{-2} = 5^{2} = 25$$\nTiene sentido físicamente: si cada tramo deja solo una quinta parte de la intensidad, dos tramos atrás había veinticinco veces más.\n\nEl resultado tiene que ser un número grande, porque la fracción que se pierde en cada tramo es grande.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-potencia-fraccion"
+    ]
+  },
+  {
+    "question": "Un presupuesto queda en $2/3$ del anterior después de cada recorte.\n\nPara saber cuántas veces mayor era tres recortes atrás hay que calcular:\n$$\\left(\\dfrac{2}{3}\\right)^{-3}$$\n¿Cuánto da esa potencia?",
+    "options": [
+      "$-27/8$",
+      "$3/2$",
+      "$27/8$",
+      "$8/27$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Invirtiendo la fracción y elevando al cubo queda $27/8$, algo más del triple.",
+    "feedback_incorrect": [
+      "Un exponente negativo no vuelve negativo el resultado: indica que hay que invertir la fracción.",
+      "Ahí se invirtió la fracción pero no se la elevó al cubo.",
+      null,
+      "Ahí se elevó la fracción sin invertirla, que es lo que haría un exponente positivo."
+    ],
+    "explanation": "Elevar a un **exponente negativo** es invertir la fracción y después elevarla al exponente en positivo.\n$$\\left(\\dfrac{a}{b}\\right)^{-n} = \\left(\\dfrac{b}{a}\\right)^{n}$$\nCada recorte multiplica el presupuesto por una fracción menor que uno, así que ir hacia atrás multiplica por su inversa, que es mayor que uno.\n$$\\left(\\dfrac{2}{3}\\right)^{-3} = \\left(\\dfrac{3}{2}\\right)^{3} = \\dfrac{27}{8}$$\nEl resultado mayor que $1$ confirma que tres recortes atrás el presupuesto era más grande.\n\nInvertir sin elevar, o elevar sin invertir, son los dos errores que dejan el resultado del lado equivocado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-potencia-fraccion"
+    ]
   }
 ]

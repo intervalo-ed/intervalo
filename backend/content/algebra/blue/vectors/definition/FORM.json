@@ -1,0 +1,401 @@
+[
+  {
+    "question": "Un dron parte del origen y se mueve 4 unidades al este y 3 al norte.\n\n¿Qué vector representa su desplazamiento?",
+    "options": [
+      "$(4,3)$",
+      "$(3,4)$",
+      "$(4,-3)$",
+      "$4+3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El desplazamiento al este va en la primera componente y al norte en la segunda: $(4,3)$.",
+    "feedback_incorrect": [
+      null,
+      "Esa opción invierte las componentes: el este va primero, el norte segundo.",
+      "El norte es el sentido positivo del eje $y$ en este contexto, no negativo.",
+      "Sumar las dos distancias da un solo número, y se pierde la información de dirección que aporta cada eje por separado."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para traducir un desplazamiento a notación vectorial, cada dirección independiente ocupa una posición fija en la tupla: este/oeste en la primera, norte/sur en la segunda.\n\nEl dron se mueve $4$ unidades al este y $3$ al norte, así que:\n$$\\vec{v} = (4,3)$$\nInvertir el orden de las componentes, cambiar un signo, o sumar las dos distancias en un solo número no representa correctamente un desplazamiento en dos direcciones independientes.",
+    "reviewed": false,
+    "tags": [
+      "elegir-vector-basico"
+    ]
+  },
+  {
+    "question": "Un excursionista avanza 5 kilómetros hacia el este y después 2 hacia el norte.\n\n¿Qué vector representa su desplazamiento?",
+    "options": [
+      "$5+2$",
+      "$(5,2)$",
+      "$(2,5)$",
+      "$(5,-2)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El avance al este va en la primera posición y el avance al norte en la segunda.",
+    "feedback_incorrect": [
+      "La suma de los dos números pierde la información de dirección.",
+      null,
+      "Ahí las dos componentes quedaron intercambiadas de eje.",
+      "El avance al norte va en el sentido del eje, así que su componente es positiva."
+    ],
+    "explanation": "Cada dirección independiente ocupa una posición fija de la tupla, y el orden se respeta siempre.\n$$\\vec{d} = (5,2)$$\nEl primer número corresponde al eje este-oeste y el segundo al eje norte-sur.\n\nLos dos avances van en el sentido positivo de su eje, así que las dos componentes quedan positivas.\n\nSumar los dos números daría un solo valor, y con eso se perdería hacia dónde fue el excursionista.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-vector-basico"
+    ]
+  },
+  {
+    "question": "Un robot recorre 6 metros hacia el este y después 6 hacia el norte.\n\n¿Qué vector representa su desplazamiento?",
+    "options": [
+      "$(6,0)$",
+      "$(0,6)$",
+      "$(12,0)$",
+      "$(6,6)$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Hubo avance en las dos direcciones, así que las dos componentes son distintas de cero.",
+    "feedback_incorrect": [
+      "Ahí quedó registrado solo el primer tramo.",
+      "Ahí quedó registrado solo el segundo tramo.",
+      "Ahí los dos tramos se sumaron sobre un mismo eje, cuando van en ejes distintos.",
+      null
+    ],
+    "explanation": "Que dos componentes coincidan no significa que el vector sea más simple: cada una sigue correspondiendo a su eje.\n$$\\vec{d} = (6,6)$$\nEl robot avanzó lo mismo en las dos direcciones, y por eso su desplazamiento apunta en diagonal.\n\nDejar una componente en cero equivaldría a decir que uno de los dos tramos no ocurrió.\n\nSumar los dos avances en una sola componente los pondría sobre el mismo eje, que es otro movimiento.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-vector-basico"
+    ]
+  },
+  {
+    "question": "Un ascensor de carga se desplaza 3 metros hacia el este sobre rieles y sube 4 metros.\n\n¿Qué vector representa su desplazamiento?",
+    "options": [
+      "$(3,4)$",
+      "$(4,3)$",
+      "$(3,-4)$",
+      "$(7,0)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El avance horizontal va primero y el ascenso va en la segunda posición, con signo positivo.",
+    "feedback_incorrect": [
+      null,
+      "Ahí las dos componentes quedaron intercambiadas de eje.",
+      "Subir va en el sentido positivo del eje vertical, así que la componente no es negativa.",
+      "Ahí los dos tramos se sumaron sobre un mismo eje, cuando van en ejes distintos."
+    ],
+    "explanation": "El mismo criterio del plano horizontal vale cuando uno de los ejes es la altura.\n$$\\vec{d} = (3,4)$$\nLa primera posición registra el avance horizontal y la segunda el vertical.\n\nSubir es el sentido positivo del eje vertical, igual que ir al este lo es del horizontal.\n\nMantener el mismo orden en todos los vectores del problema es lo que después permite compararlos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-vector-basico"
+    ]
+  },
+  {
+    "question": "Una grúa mueve una carga 8 metros hacia el este y 1 metro hacia el norte.\n\n¿Qué vector representa ese movimiento?",
+    "options": [
+      "$(8,0)$",
+      "$(9,1)$",
+      "$(8,1)$",
+      "$(1,8)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Los dos avances existen, cada uno en la posición de su eje.",
+    "feedback_incorrect": [
+      "Ahí quedó registrado solo el primer tramo, y el segundo se perdió.",
+      "Ahí el primer avance quedó sumado con el segundo, cuando van en ejes distintos.",
+      null,
+      "Ahí las dos componentes quedaron intercambiadas de eje."
+    ],
+    "explanation": "Una componente chica no es una componente despreciable: sigue ocupando su posición.\n$$\\vec{d} = (8,1)$$\nEl movimiento es casi horizontal, pero el metro hacia el norte forma parte del desplazamiento.\n\nRedondearlo a cero cambiaría el punto de llegada, aunque poco.\n\nLa traducción de la descripción a la tupla no decide qué es importante: registra todo lo que se dijo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-vector-basico"
+    ]
+  },
+  {
+    "question": "Un buzo se desplaza 2 metros al este mientras desciende 5 metros. La profundidad se mide como negativa.\n\n¿Qué vector representa su movimiento?",
+    "options": [
+      "$(2,-5)$",
+      "$(2,5)$",
+      "$(-2,-5)$",
+      "$(-5,2)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El desplazamiento al este es positivo y la profundidad, al ser un descenso, se anota con signo negativo: $(2,-5)$.",
+    "feedback_incorrect": [
+      null,
+      "La profundidad se mide como negativa: bajar $5$ metros no puede anotarse con signo positivo.",
+      "El desplazamiento al este es positivo, no negativo; solo la profundidad lleva signo negativo.",
+      "Esa opción invierte el orden de las componentes además de los signos."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El signo de una componente indica el sentido del movimiento respecto del eje de referencia, no un error de cálculo.\n\nEl este es el sentido positivo del primer eje, y la profundidad se mide como negativa:\n$$\\vec{v} = (2,-5)$$\nSi el eje estuviera orientado al revés, el signo cambiaría, pero acá la convención dada es que bajar es negativo.",
+    "reviewed": false,
+    "tags": [
+      "elegir-vector-signo-negativo"
+    ]
+  },
+  {
+    "question": "Un excursionista camina 7 kilómetros hacia el este y después retrocede 3 hacia el oeste.\n\n¿Qué vector representa cada tramo, en ese orden?",
+    "options": [
+      "$(7,-3)$",
+      "$(7,0)$ y $(-3,0)$",
+      "$(7,0)$ y $(3,0)$",
+      "$(0,7)$ y $(0,-3)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El retroceso va en sentido contrario al eje, así que su componente es negativa.",
+    "feedback_incorrect": [
+      "Ahí los dos tramos quedaron mezclados en un solo vector, sobre ejes distintos.",
+      null,
+      "El segundo tramo va en sentido opuesto al primero, y eso se anota con signo.",
+      "Los dos tramos son sobre el eje este-oeste, así que ocupan la primera componente."
+    ],
+    "explanation": "El signo de una componente indica el **sentido**, no un error de cálculo.\n$$(7,0) \\qquad (-3,0)$$\nLos dos tramos ocurren sobre el mismo eje, así que los dos ocupan la primera componente.\n\nEl segundo va en el sentido contrario al elegido como positivo, y por eso lleva el menos.\n\nSin ese signo, los dos tramos se leerían como avances en el mismo sentido y el recorrido sería otro.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-vector-signo-negativo"
+    ]
+  },
+  {
+    "question": "Un ascensor de carga se recorre 2 tramos hacia el este mientras baja 6 pisos.\n\nLa altura se mide positiva hacia arriba.\n\n¿Qué vector representa ese movimiento?",
+    "options": [
+      "$(2,6)$",
+      "$(-2,-6)$",
+      "$(-6,2)$",
+      "$(2,-6)$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Bajar va en sentido opuesto al eje vertical, así que esa componente es negativa.",
+    "feedback_incorrect": [
+      "Bajar es el sentido contrario al positivo del eje, así que la componente lleva signo menos.",
+      "El avance hacia el este va en el sentido positivo del eje horizontal.",
+      "Ahí las dos componentes quedaron intercambiadas de eje.",
+      null
+    ],
+    "explanation": "El sentido positivo de cada eje se elige de antemano, y el signo de la componente lo refleja.\n$$\\vec{d} = (2,-6)$$\nEl enunciado fija la altura positiva hacia arriba, así que bajar seis pisos es una componente negativa.\n\nEl avance hacia el este no cambia de signo, porque va en el sentido elegido como positivo.\n\nLeer primero cuál es el sentido positivo de cada eje es lo que evita perder o inventar un signo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-vector-signo-negativo"
+    ]
+  },
+  {
+    "question": "Un buzo avanza 4 metros hacia el este mientras desciende 9 metros.\n\nLa profundidad se mide negativa.\n\n¿Qué vector representa su movimiento?",
+    "options": [
+      "$(4,-9)$",
+      "$(4,9)$",
+      "$(-4,9)$",
+      "$(-9,4)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El descenso lleva signo negativo por convención del enunciado, y el avance no.",
+    "feedback_incorrect": [
+      null,
+      "El enunciado fija la profundidad como negativa, así que esa componente lleva signo menos.",
+      "El avance hacia el este va en el sentido positivo del eje horizontal.",
+      "Ahí las dos componentes quedaron intercambiadas de eje."
+    ],
+    "explanation": "Cuando el enunciado fija una convención de signos, la traducción tiene que respetarla.\n$$\\vec{d} = (4,-9)$$\nEl avance horizontal ocupa la primera posición y el descenso la segunda, con su signo.\n\nEl orden en que la descripción menciona las dos direcciones coincide con el orden de la tupla, y conviene que sea así para no confundirse.\n\nCambiar el signo del descenso describiría un buzo que sube, que es el movimiento contrario.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-vector-signo-negativo"
+    ]
+  },
+  {
+    "question": "Una cuenta registra un ingreso de 5 unidades y después un egreso de 8.\n\nLos ingresos se anotan positivos.\n\n¿Qué vector representa los dos movimientos, en ese orden?",
+    "options": [
+      "$(-5,8)$",
+      "$(-3,0)$",
+      "$(5,-8)$",
+      "$(5,8)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El egreso va en el sentido contrario al elegido como positivo, así que lleva signo menos.",
+    "feedback_incorrect": [
+      "El ingreso va en el sentido elegido como positivo, así que no lleva signo menos.",
+      "Ahí los dos movimientos se combinaron en un solo número, y se perdió cada uno por separado.",
+      null,
+      "El egreso descuenta, así que su componente tiene que ser negativa."
+    ],
+    "explanation": "El signo negativo indica sentido contrario, y eso vale también fuera de la geometría.\n$$\\vec{m} = (5,-8)$$\nCada posición registra un movimiento, y su signo dice si suma o descuenta.\n\nCombinar los dos en un solo número daría el saldo neto, que es otra cantidad y responde otra pregunta.\n\nEl vector conserva los dos movimientos por separado, que es justamente lo que el enunciado pide.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-vector-signo-negativo"
+    ]
+  },
+  {
+    "question": "Un dron se mueve 2 unidades al este, 4 al norte y sube 3 unidades de altura.\n\n¿Qué vector en $\\mathbb{R}^3$ representa ese movimiento?",
+    "options": [
+      "$(2,4,3)$",
+      "$(2,4)$",
+      "$(2,3,4)$",
+      "$(4,2,3)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada dirección independiente ocupa su propia posición: este, norte y altura dan $(2,4,3)$.",
+    "feedback_incorrect": [
+      null,
+      "Esa tupla solo tiene dos componentes; falta la tercera dirección, la altura.",
+      "Esa opción invierte el orden entre el norte y la altura.",
+      "Esa opción invierte el orden entre el este y el norte."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Agregar una tercera dirección independiente, como la altura, agrega una tercera componente a la tupla, sin alterar el orden de las dos anteriores.\n\nEl dron se mueve al este, al norte y sube en altura; en ese orden, sus tres desplazamientos forman la tupla:\n$$\\vec{v} = (2,4,3)$$\nOmitir la tercera componente, o intercambiar el orden entre alguna de las tres direcciones, no representa correctamente el movimiento en $\\mathbb{R}^3$.",
+    "reviewed": false,
+    "tags": [
+      "elegir-vector-tercera-dimension"
+    ]
+  },
+  {
+    "question": "Un dron avanza 5 unidades al este, 1 al norte y sube 4 de altura.\n\n¿Qué vector representa ese movimiento?",
+    "options": [
+      "$(5,1)$",
+      "$(5,1,4)$",
+      "$(5,4,1)$",
+      "$(1,5,4)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada una de las tres direcciones ocupa su posición, en el orden en que se enuncian.",
+    "feedback_incorrect": [
+      "Ahí se perdió la tercera dirección, y el vector describe solo el movimiento sobre el plano.",
+      null,
+      "Ahí la altura y el avance al norte quedaron intercambiados.",
+      "Ahí los dos avances horizontales quedaron intercambiados."
+    ],
+    "explanation": "Tres direcciones independientes exigen tres componentes, una por cada una.\n$$\\vec{d} = (5,1,4)$$\nEl orden habitual pone primero las dos direcciones horizontales y después la altura.\n\nDejar la altura afuera describiría la sombra del dron sobre el piso, no su movimiento real.\n\nLa cantidad de componentes sigue a la cantidad de direcciones que la descripción menciona.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-vector-tercera-dimension"
+    ]
+  },
+  {
+    "question": "Una grúa mueve una carga 2 unidades al este, 6 al norte y la baja 3 de altura.\n\n¿Qué vector representa ese movimiento?",
+    "options": [
+      "$(2,6,3)$",
+      "$(2,-6,3)$",
+      "$(-3,2,6)$",
+      "$(2,6,-3)$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Bajar va en sentido contrario al eje vertical, así que la tercera componente es negativa.",
+    "feedback_incorrect": [
+      "Bajar es el sentido contrario al positivo del eje de altura, así que lleva signo menos.",
+      "El avance al norte va en el sentido positivo de su eje, así que no lleva signo menos.",
+      "Ahí la altura quedó en la primera posición, desplazando a las otras dos.",
+      null
+    ],
+    "explanation": "Con tres direcciones el criterio no cambia: cada una tiene su posición y su signo.\n$$\\vec{d} = (2,6,-3)$$\nLos dos avances horizontales van en el sentido positivo de sus ejes, y el descenso no.\n\nMover la altura de posición cambiaría el significado de las tres componentes a la vez.\n\nPor eso el orden de los ejes se fija una vez para todo el problema, igual que en el plano.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-vector-tercera-dimension"
+    ]
+  },
+  {
+    "question": "Un dron avanza 7 unidades al este y 2 al norte mientras mantiene su altura.\n\n¿Qué vector de tres componentes representa ese movimiento?",
+    "options": [
+      "$(7,2,0)$",
+      "$(7,2)$",
+      "$(7,0,2)$",
+      "$(0,7,2)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "No hubo cambio de altura, y eso se anota con un cero en la tercera posición.",
+    "feedback_incorrect": [
+      null,
+      "Ese vector tiene dos componentes, así que pertenece a otro espacio.",
+      "Ahí el avance al norte quedó en la posición de la altura.",
+      "Ahí las tres componentes quedaron corridas un lugar."
+    ],
+    "explanation": "Mantener la altura no significa que la dirección vertical desaparezca: significa que su componente vale cero.\n$$\\vec{d} = (7,2,0)$$\nEl vector sigue teniendo tres componentes, porque el problema tiene tres direcciones disponibles.\n\nEscribirlo con dos lo mandaría a otro espacio, y ahí ya no se podría comparar con los movimientos que sí cambian de altura.\n\nEl cero es un dato, no una ausencia de dato.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-vector-tercera-dimension"
+    ]
+  },
+  {
+    "question": "Un elevador de carga retrocede 4 unidades al oeste, avanza 3 al norte y sube 8.\n\n¿Qué vector representa ese movimiento?",
+    "options": [
+      "$(-4,-3,8)$",
+      "$(4,-3,-8)$",
+      "$(-4,3,8)$",
+      "$(4,3,8)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Solo el tramo hacia el oeste va en sentido contrario, así que es el único negativo.",
+    "feedback_incorrect": [
+      "El avance al norte va en el sentido positivo de su eje, así que no lleva signo menos.",
+      "Ahí quedaron negativas las dos componentes equivocadas, y positiva la que sí debía serlo.",
+      null,
+      "Ir al oeste es el sentido contrario al positivo del primer eje, así que lleva signo menos."
+    ],
+    "explanation": "Cada componente lleva su propio signo, y hay que decidirlo dirección por dirección.\n$$\\vec{d} = (-4,3,8)$$\nEl oeste es el sentido opuesto al este, que es el positivo del primer eje, así que esa componente es negativa.\n\nEl norte y la subida coinciden con el sentido positivo de sus ejes, y quedan sin signo.\n\nRevisar los tres signos por separado, en vez de asumir que todos comparten uno, es lo que evita el error.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-vector-tercera-dimension"
+    ]
+  }
+]

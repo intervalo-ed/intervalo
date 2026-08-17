@@ -1,28 +1,138 @@
 [
   {
-    "question": "Un premio se reparte primero en la fracción $8/15$ de lo recaudado.\n\nDe esa parte, un socio se queda con la fracción $5/12$.\n\nHay que calcular la siguiente multiplicación sin manejar números grandes:\n$$\\dfrac{8}{15}\\times\\dfrac{5}{12}$$\n¿Cuál es la estrategia más conveniente?",
+    "question": "Un premio se reparte primero en la fracción $3/10$ de lo recaudado.\n\nDe esa parte, un socio se queda con la fracción $4/9$.\n\nHay que calcular la siguiente multiplicación sin manejar números grandes:\n$$\\dfrac{3}{10}\\times\\dfrac{4}{9}$$\n¿Cuál es la estrategia más conveniente?",
     "options": [
       "Sumar los numeradores entre sí y los denominadores entre sí antes de simplificar.",
-      "Multiplicar primero $8\\times5$ y $15\\times12$, y recién al final buscar el factor común del resultado.",
-      "Simplificar antes de multiplicar, cancelando el factor común entre el $5$ y el $15$, y entre el $8$ y el $12$.",
+      "Multiplicar primero $3\\times4$ y $10\\times9$, y recién al final buscar el factor común del resultado.",
+      "Simplificar antes de multiplicar, cancelando el factor común entre el $4$ y el $10$, y entre el $3$ y el $9$.",
       "Convertir ambas fracciones a decimal, multiplicarlas, y pasar el resultado de nuevo a fracción al final."
     ],
     "correct_index": 2,
-    "feedback_correct": "Cancelar los factores comunes cruzados antes de multiplicar evita arrastrar números grandes como $40/180$.",
+    "feedback_correct": "Cancelar los factores comunes cruzados antes de multiplicar evita arrastrar números grandes como $12/90$.",
     "feedback_incorrect": [
       "Sumar numeradores y denominadores no es la operación entre fracciones, para esto hace falta multiplicar.",
-      "Multiplicar todo primero deja $40/180$, que después hay que simplificar igual, con números más grandes de lo necesario.",
+      "Multiplicar todo primero deja $12/90$, que después hay que simplificar igual, con números más grandes de lo necesario.",
       null,
       "Pasar a decimal agrega un paso extra y arriesga perder precisión, sin necesidad."
     ],
-    "explanation": "Antes de multiplicar dos fracciones conviene buscar **factores comunes cruzados**: un factor que comparta el numerador de una con el denominador de la otra, aunque no estén en la misma fracción.\n\nAcá el $5$ del segundo numerador comparte factor con el $15$ del primer denominador.\n\nY el $8$ del primer numerador comparte factor con el $12$ del segundo denominador. Simplificando esos pares antes de multiplicar:\n$$\\dfrac{8}{15}\\times\\dfrac{5}{12} = \\dfrac{2}{3}\\times\\dfrac{1}{3} = \\dfrac{2}{9}$$\nEs el mismo resultado que multiplicar todo primero y simplificar después, pero sin pasar nunca por números tan grandes.\n\nSumar numeradores y denominadores por separado, en cambio, no corresponde a ninguna operación entre fracciones.",
+    "explanation": "Antes de multiplicar dos fracciones conviene buscar **factores comunes cruzados**: un factor que comparta el numerador de una con el denominador de la otra, aunque no estén en la misma fracción.\n\nAcá el $4$ del segundo numerador comparte factor con el $10$ del primer denominador.\n\nY el $3$ del primer numerador comparte factor con el $9$ del segundo denominador. Simplificando esos pares antes de multiplicar:\n$$\\dfrac{3}{10}\\times\\dfrac{4}{9} = \\dfrac{1}{5}\\times\\dfrac{2}{3} = \\dfrac{2}{15}$$\nEs el mismo resultado que multiplicar todo primero y simplificar después, pero sin pasar nunca por números tan grandes.\n\nSumar numeradores y denominadores por separado, en cambio, no corresponde a ninguna operación entre fracciones.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["elegir-simplificar-antes-despues"]
+    "tags": [
+      "elegir-simplificar-antes-despues"
+    ]
+  },
+  {
+    "question": "Un presupuesto se reparte en tres etapas sucesivas, y hay que saber qué fracción del total queda al final.\n$$\\dfrac{3}{10}\\times\\dfrac{5}{9}\\times\\dfrac{2}{7}$$\n¿Qué conviene hacer antes de multiplicar?",
+    "options": [
+      "Buscar un denominador común entre las tres antes de multiplicar.",
+      "Cancelar el $5$ contra el $10$ y el $3$ contra el $9$, y recién ahí multiplicar lo que queda.",
+      "Multiplicar los tres numeradores y los tres denominadores, y simplificar el resultado final.",
+      "Resolver primero las dos primeras fracciones y dejar la tercera para el final."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los factores comunes cruzados se pueden cancelar entre fracciones distintas, incluso si no son vecinas.",
+    "feedback_incorrect": [
+      "El denominador común sirve para sumar, no para multiplicar, donde no hace ninguna falta.",
+      null,
+      "Multiplicar todo primero deja $30/630$, que hay que simplificar igual pero con números mucho más grandes.",
+      "Resolver de a dos no evita el problema: los factores que se cancelan están en fracciones no vecinas."
+    ],
+    "explanation": "En un producto de fracciones, cualquier numerador se puede cancelar contra cualquier denominador, estén o no en la misma fracción.\n$$\\dfrac{3}{10}\\times\\dfrac{5}{9}\\times\\dfrac{2}{7} = \\dfrac{1}{21}$$\nEl $5$ del segundo numerador entra dos veces en el $10$ del primer denominador.\n\nY el $3$ del primer numerador entra tres veces en el $9$ del segundo.\n\nCancelando eso primero, los números que quedan son de una cifra y el producto sale de cabeza.\n\nMultiplicar todo de entrada llega al mismo resultado, pero obliga a simplificar una fracción de tres cifras arriba y abajo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-simplificar-antes-despues"
+    ]
+  },
+  {
+    "question": "Dos etapas de un reparto llevan fracciones cuyos números no comparten nada entre sí.\n$$\\dfrac{2}{7}\\times\\dfrac{3}{5}$$\n¿Qué conviene hacer?",
+    "options": [
+      "Cancelar el $2$ contra el $7$, que son los dos números de la primera fracción.",
+      "Buscar un denominador común entre los dos denominadores antes de multiplicar.",
+      "Pasar las dos fracciones a decimal, para no tener que simplificar al final.",
+      "Multiplicar directo, porque no hay ningún factor común entre los cuatro números."
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Los cuatro números son primos entre sí, así que no hay nada que cancelar y el producto ya sale chico.",
+    "feedback_incorrect": [
+      "La cancelación va cruzada, entre el numerador de una y el denominador de la otra, no adentro de la misma.",
+      "El denominador común es la herramienta para sumar fracciones; el producto no lo necesita.",
+      "El decimal agrega un paso y arriesga precisión, y acá el producto de enteros chicos ya sale directo.",
+      null
+    ],
+    "explanation": "Simplificar antes de multiplicar es un atajo, no un paso obligatorio: sirve cuando hay algo que cancelar.\n$$\\dfrac{2}{7}\\times\\dfrac{3}{5} = \\dfrac{6}{35}$$\nAcá ningún numerador comparte factores con ningún denominador, así que el producto directo ya deja la fracción en su forma mínima.\n\nReconocer cuándo el atajo no aplica es parte de la estrategia: buscar factores comunes que no existen cuesta tiempo y no ahorra ninguno.\n\nLa señal rápida es que los cuatro números sean primos o no tengan divisores en común.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-simplificar-antes-despues"
+    ]
+  },
+  {
+    "question": "Dos aportes a un fondo se anotan como fracciones del mismo total.\n$$\\dfrac{4}{9}+\\dfrac{5}{6}$$\n¿Por qué acá no sirve cancelar factores cruzados antes de operar?",
+    "options": [
+      "Porque la cancelación cruzada vale en un producto, y esto es una suma.",
+      "Porque los cuatro números son primos entre sí y no hay nada que cancelar.",
+      "Porque la cancelación exige que los dos numeradores sean iguales entre sí.",
+      "Porque toda suma de fracciones se resuelve pasando las dos a decimal."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La cancelación cruzada sale de multiplicar numeradores con denominadores, y una suma no hace eso.",
+    "feedback_incorrect": [
+      null,
+      "Sí hay factores compartidos, el $9$ y el $6$ comparten el $3$; el problema es que la operación es otra.",
+      "La cancelación no depende de que los numeradores coincidan, sino de que la operación sea un producto.",
+      "El decimal no hace falta: con denominador común la suma se resuelve entera en fracciones."
+    ],
+    "explanation": "Cancelar un factor arriba contra el mismo factor abajo funciona porque en un producto todos los numeradores terminan multiplicados entre sí, y todos los denominadores también.\n$$\\dfrac{4}{9}+\\dfrac{5}{6} = \\dfrac{8}{18}+\\dfrac{15}{18} = \\dfrac{23}{18}$$\nEn una suma eso no pasa: cada fracción conserva su propio denominador hasta que se los iguala, así que no hay ningún cruce donde cancelar.\n\nEl paso que sí ahorra trabajo acá es elegir el mínimo común múltiplo, $18$, en vez del producto de los dos denominadores.\n\nLa diferencia de fondo es que cancelar en un producto cambia el camino, y cancelar en una suma cambiaría la operación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-simplificar-antes-despues"
+    ]
+  },
+  {
+    "question": "Una división entre fracciones se convierte en un producto al invertir la segunda.\n$$\\dfrac{9}{8}\\div\\dfrac{3}{4}$$\n¿Cuándo conviene buscar los factores comunes?",
+    "options": [
+      "Nunca, porque en una división entre fracciones no se pueden cancelar factores.",
+      "Al final, buscando el factor común del resultado ya multiplicado.",
+      "Después de invertir la segunda fracción, porque ahí la cuenta ya es un producto.",
+      "Antes de invertir, cancelando el $4$ contra el $8$ tal como están escritos."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Invertir primero deja la cuenta como un producto, y ahí sí cada numerador enfrenta a cada denominador.",
+    "feedback_incorrect": [
+      "Sí se pueden cancelar, pero después de convertir la división en producto.",
+      "Dejarlo para el final funciona, pero obliga a simplificar números más grandes de lo necesario.",
+      null,
+      "Antes de invertir, esos dos números están los dos en el lugar de denominador, así que no se cancelan entre sí."
+    ],
+    "explanation": "En una división, los cuatro números todavía no ocupan el lugar que van a ocupar en la cuenta final.\n$$\\dfrac{9}{8}\\div\\dfrac{3}{4} = \\dfrac{9}{8}\\times\\dfrac{4}{3} = \\dfrac{3}{2}$$\nRecién con la segunda fracción invertida el $4$ pasa a ser numerador, y ahí sí se puede cancelar contra el $8$.\n\nLo mismo pasa con el $3$ y el $9$, que antes de invertir estaban los dos arriba y no se enfrentaban.\n\nEl orden importa porque cancelar dos números que están del mismo lado de la barra cambia el valor de la cuenta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-simplificar-antes-despues"
+    ]
   },
   {
     "question": "Dos ofertas para un mismo producto anuncian un descuento de $3/8$ y de $2/5$ sobre el precio de lista.\n\nSe quiere saber cuál descuento es mayor, sin pasar ninguna fracción a decimal.\n\n¿Qué conviene hacer?",
@@ -40,14 +150,124 @@
       "El denominador solo no alcanza: hay que combinarlo con su numerador correspondiente, si no se ignora la mitad de la información.",
       "El numerador solo tampoco alcanza: un numerador mayor no garantiza una fracción mayor si el denominador también es distinto."
     ],
-    "explanation": "Para comparar dos fracciones sin decimales se usa el **producto cruzado**: multiplicar el numerador de cada una por el denominador de la otra.\n$$\\begin{aligned} 3\\times5 &= 15 \\\\ 2\\times8 &= 16 \\end{aligned}$$\nComo $16>15$, la fracción $2/5$ es mayor que $3/8$: ese segundo descuento es más grande.\n\nMirar solo el denominador ignora el numerador por completo, y mirar solo el numerador tiene el problema opuesto: ambos datos hay que combinarlos juntos, nunca por separado.",
+    "explanation": "Para comparar dos fracciones sin decimales se usa el **producto cruzado**: multiplicar el numerador de cada una por el denominador de la otra.\n$$\\begin{aligned} 3\\times5 &= 15 \\\\ 2\\times8 &= 16 \\end{aligned}$$\nEl segundo producto es el mayor, así que la fracción $2/5$ supera a $3/8$: ese descuento es más grande.\n\nMirar solo el denominador ignora el numerador por completo, y mirar solo el numerador tiene el problema opuesto: ambos datos hay que combinarlos juntos, nunca por separado.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["elegir-metodo-comparacion"]
+    "tags": [
+      "elegir-metodo-comparacion"
+    ]
+  },
+  {
+    "question": "Dos mezclas se preparan con estas fracciones de un mismo componente.\n$$\\dfrac{5}{12} \\qquad \\dfrac{7}{12}$$\n¿Cuál es el camino más corto para decidir cuál lleva más?",
+    "options": [
+      "Buscar un denominador común nuevo para las dos fracciones.",
+      "Comparar los numeradores, porque el denominador ya es el mismo.",
+      "Multiplicar en cruz y comparar los dos productos obtenidos.",
+      "Pasar las dos fracciones a decimal y comparar los resultados."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Con el mismo denominador, las dos fracciones cuentan partes del mismo tamaño y gana la que tiene más.",
+    "feedback_incorrect": [
+      "El denominador común ya está: es el que las dos fracciones tienen escrito.",
+      null,
+      "Funciona, pero multiplica los dos numeradores por el mismo número y llega a la misma conclusión con más cuentas.",
+      "El decimal agrega dos divisiones que no hacen falta cuando los denominadores ya coinciden."
+    ],
+    "explanation": "Cuando dos fracciones tienen el mismo denominador, están midiendo con la misma unidad.\n$$\\dfrac{5}{12} < \\dfrac{7}{12}$$\nCada una cuenta cuántas partes de un doceavo hay, así que la que cuenta más partes es la mayor.\n\nEl producto cruzado también funciona, pero acá multiplica los dos numeradores por el mismo $12$, y ese paso no cambia el orden.\n\nElegir el método por la estructura que ya tienen los datos es lo que separa una comparación de un renglón de una de cuatro.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-metodo-comparacion"
+    ]
+  },
+  {
+    "question": "Dos descuentos sobre un mismo precio se anuncian con el mismo numerador.\n$$\\dfrac{3}{7} \\qquad \\dfrac{3}{11}$$\n¿Cuál es el camino más corto para decidir cuál descuenta más?",
+    "options": [
+      "Comparar los numeradores, que son iguales, y concluir que los dos descuentos son iguales.",
+      "Multiplicar en cruz, que es el único método que sirve para cualquier par.",
+      "Pasar las dos a decimal, porque los denominadores no son múltiplos uno del otro.",
+      "Comparar los denominadores: con el mismo numerador, el de denominador más chico es mayor."
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Repartir lo mismo entre menos partes deja cada parte más grande, así que el denominador chico gana.",
+    "feedback_incorrect": [
+      "Los numeradores iguales no alcanzan: cada uno cuenta partes de distinto tamaño.",
+      "Funciona, pero acá multiplica los dos denominadores por el mismo $3$ y no aporta información nueva.",
+      "El decimal no hace falta: con el numerador repetido la comparación sale de un vistazo.",
+      null
+    ],
+    "explanation": "Con el mismo numerador, las dos fracciones cuentan la misma cantidad de partes, pero de tamaños distintos.\n$$\\dfrac{3}{7} > \\dfrac{3}{11}$$\nEl denominador dice en cuántos pedazos se partió el total, así que cuanto más grande es, más chico es cada pedazo.\n\nTres pedazos de un total partido en siete pesan más que tres pedazos del mismo total partido en once.\n\nEs el caso donde la intuición se invierte respecto de los enteros, y por eso conviene tenerlo identificado como un patrón aparte.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-metodo-comparacion"
+    ]
+  },
+  {
+    "question": "Dos porciones de un mismo lote quedan una a cada lado de la mitad.\n$$\\dfrac{5}{11} \\qquad \\dfrac{7}{12}$$\n¿Qué conviene hacer para ordenarlas?",
+    "options": [
+      "Comparar cada una con $1/2$: la que la supera es la mayor, sin más cuentas.",
+      "Restar los numeradores y los denominadores por separado y comparar las diferencias.",
+      "Elevar las dos al cuadrado para agrandar la diferencia entre ellas.",
+      "Buscar el denominador común entre $11$ y $12$, que es $132$."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Alcanza con ver si el numerador llega o no a la mitad del denominador en cada una.",
+    "feedback_incorrect": [
+      null,
+      "Restar numeradores y denominadores por separado no corresponde a ninguna operación entre fracciones.",
+      "Elevar al cuadrado conserva el orden, pero deja números más grandes y no ahorra ningún paso.",
+      "Ese denominador común funciona, pero obliga a multiplicar por números de dos cifras sin necesidad."
+    ],
+    "explanation": "Usar un valor de referencia intermedio evita comparar las dos fracciones entre sí.\n$$\\dfrac{5}{11} < \\dfrac{1}{2} < \\dfrac{7}{12}$$\nEn la primera, el numerador no llega a la mitad del denominador, porque la mitad de once es más de cinco. En la segunda sí la pasa.\n\nCon una a cada lado de la referencia, el orden queda decidido sin igualar denominadores ni multiplicar en cruz.\n\nEl método solo sirve cuando las dos caen de lados distintos: si las dos superan la mitad, hay que volver al producto cruzado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-metodo-comparacion"
+    ]
+  },
+  {
+    "question": "Dos recetas de una misma salsa llevan estas fracciones de aceite, con denominadores donde uno es múltiplo del otro.\n$$\\dfrac{5}{6} \\qquad \\dfrac{9}{12}$$\n¿Qué método deja la comparación en un solo paso?",
+    "options": [
+      "Usar el producto de los dos denominadores, $72$, como denominador común.",
+      "Pasar las dos fracciones a decimal y después comparar los resultados.",
+      "Llevar la primera a doceavos, porque un denominador ya es múltiplo del otro.",
+      "Multiplicar en cruz y comparar los dos productos que resultan."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Amplificando solo una de las dos, las dos quedan con el mismo denominador en un único paso.",
+    "feedback_incorrect": [
+      "Ese denominador común sirve, pero es seis veces más grande que el necesario.",
+      "El decimal agrega dos divisiones que no hacen falta cuando un denominador ya es múltiplo del otro.",
+      null,
+      "Funciona, pero obliga a hacer dos multiplicaciones cuando alcanza con una."
+    ],
+    "explanation": "Cuando un denominador es múltiplo del otro, el mínimo común múltiplo es directamente el mayor de los dos.\n$$\\dfrac{5}{6} = \\dfrac{10}{12}$$\nCon una sola amplificación las dos fracciones quedan en doceavos, y ahí se comparan los numeradores.\n\nDiez es mayor que nueve, así que la primera receta lleva más aceite.\n\nElegir el mínimo común múltiplo en vez del producto de los denominadores es lo que mantiene los números chicos en cualquier comparación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-metodo-comparacion"
+    ]
   },
   {
     "question": "Un presupuesto se reparte según la siguiente fracción compuesta:\n$$\\dfrac{3/4}{2/5}$$\n¿Qué conviene hacer primero para resolverla en el menor número de pasos?",
@@ -72,6 +292,116 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["elegir-orden-fraccion-compuesta"]
+    "tags": [
+      "elegir-orden-fraccion-compuesta"
+    ]
+  },
+  {
+    "question": "Una fracción compuesta puede tener más de dos niveles encajados.\n$$\\dfrac{2}{3/(4/5)}$$\n¿Por dónde conviene empezar?",
+    "options": [
+      "Buscando un denominador común entre los tres números que aparecen abajo.",
+      "Por el nivel más profundo, resolviendo primero la división de adentro.",
+      "Por el nivel externo, invirtiendo todo el denominador tal como está escrito.",
+      "Multiplicando los tres numeradores entre sí y los tres denominadores entre sí."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Resolver el nivel más profundo deja una fracción compuesta común, de dos niveles.",
+    "feedback_incorrect": [
+      "El denominador común es para sumar; acá los niveles indican divisiones encajadas.",
+      null,
+      "El denominador todavía no es una fracción sola: hasta resolver lo de adentro no se sabe qué invertir.",
+      "Multiplicar todo de una trata los tres niveles como si fueran un solo producto, y no lo son."
+    ],
+    "explanation": "Una expresión con varios niveles se resuelve de adentro hacia afuera, igual que un paréntesis anidado.\n$$\\dfrac{3}{4/5} = \\dfrac{15}{4}$$\nCon el nivel profundo ya resuelto, lo que queda es una fracción compuesta común, con un entero arriba y una fracción abajo.\n\nRecién ahí tiene sentido invertir el denominador y multiplicar, porque hay una única fracción que invertir.\n\nEmpezar por afuera obliga a arrastrar una expresión sin resolver adentro del paso siguiente, que es donde se pierden los niveles.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-orden-fraccion-compuesta"
+    ]
+  },
+  {
+    "question": "Cuando el numerador de una fracción compuesta es un entero, sigue valiendo la misma regla.\n$$\\dfrac{6}{2/7}$$\n¿Qué conviene hacer?",
+    "options": [
+      "Invertir el numerador, que es el nivel más simple de los dos.",
+      "Multiplicar el numerador por el numerador del denominador y dividir por su denominador.",
+      "Escribir el entero como fracción y sumar los dos niveles.",
+      "Invertir el denominador y multiplicarlo por el numerador entero."
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Lo que se invierte es siempre el nivel de abajo, sin importar qué haya arriba.",
+    "feedback_incorrect": [
+      "El nivel que se invierte lo decide la posición, no la simplicidad: siempre es el de abajo.",
+      "Esa cuenta invierte los papeles del $2$ y del $7$, y da un resultado distinto.",
+      "Los niveles de una fracción compuesta indican una división, no una suma.",
+      null
+    ],
+    "explanation": "Una fracción compuesta es una división disfrazada, y en una división siempre se invierte el divisor, que es el nivel de abajo.\n$$\\dfrac{6}{2/7} = 6 \\times \\dfrac{7}{2} = 21$$\nQue arriba haya un entero no cambia nada: se lo puede pensar como una fracción de denominador $1$.\n\nLa lectura concreta ayuda a chequear el resultado: preguntarse cuántas veces entra $2/7$ en $6$ tiene que dar un número grande, porque el divisor es chico.\n\nSi el resultado da más chico que el numerador, es señal de que se invirtió el nivel equivocado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-orden-fraccion-compuesta"
+    ]
+  },
+  {
+    "question": "En una fracción compuesta se puede simplificar adentro de cada nivel antes de invertir.\n$$\\dfrac{4/6}{8/9}$$\n¿Qué conviene hacer primero?",
+    "options": [
+      "Simplificar el numerador, para invertir y multiplicar con números chicos.",
+      "Invertir los dos niveles a la vez y después multiplicarlos entre sí.",
+      "Multiplicar los cuatro números entre sí y simplificar el resultado al final.",
+      "Sumar los dos niveles entre sí antes de hacer la división."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El numerador se reduce solo, y eso deja la multiplicación posterior con números de una cifra.",
+    "feedback_incorrect": [
+      null,
+      "Invertir los dos niveles cambia la cuenta: en una división se invierte únicamente el divisor.",
+      "Multiplicar los cuatro sin más no respeta que el nivel de abajo indica una división.",
+      "Los dos niveles de una fracción compuesta se dividen entre sí, no se suman."
+    ],
+    "explanation": "Simplificar adentro de cada nivel no cambia el valor de ninguno de los dos, así que se puede hacer en cualquier momento, y conviene hacerlo antes.\n$$\\dfrac{4}{6} = \\dfrac{2}{3}$$\nCon el numerador ya reducido, la división queda entre fracciones de números chicos y el producto posterior sale de cabeza.\n\nEl resultado es el mismo que simplificando al final, pero sin pasar por una fracción de dos cifras arriba y abajo.\n\nEs el mismo criterio que en cualquier producto de fracciones: achicar los números antes de multiplicarlos, nunca después.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-orden-fraccion-compuesta"
+    ]
+  },
+  {
+    "question": "Cuando el denominador de una fracción compuesta es un entero, invertirlo deja una fracción de numerador $1$.\n$$\\dfrac{5/8}{3}$$\n¿Qué operación resuelve esa expresión?",
+    "options": [
+      "$\\dfrac{8}{5}\\times\\dfrac{1}{3}$",
+      "$\\dfrac{5}{8}+\\dfrac{1}{3}$",
+      "$\\dfrac{5}{8}\\times\\dfrac{1}{3}$",
+      "$\\dfrac{5}{8}\\times 3$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El entero invertido es una fracción de numerador $1$, y por eso el producto lo deja en el denominador.",
+    "feedback_incorrect": [
+      "Ahí se invirtió el numerador además del denominador, y eso cambia la cuenta.",
+      "Los dos niveles de una fracción compuesta se dividen entre sí, no se suman.",
+      null,
+      "Ahí el entero quedó sin invertir, que es lo que haría una multiplicación y no una división."
+    ],
+    "explanation": "Todo entero se puede escribir como una fracción de denominador $1$, y ahí la regla de invertir el nivel de abajo se aplica sin ningún caso especial.\n$$\\dfrac{5/8}{3} = \\dfrac{5}{8}\\times\\dfrac{1}{3} = \\dfrac{5}{24}$$\nInvertir $3$ da $1/3$, así que dividir por un entero es lo mismo que multiplicar por su inverso.\n\nEl resultado tiene que ser más chico que el numerador original, porque se lo está repartiendo en tres partes.\n\nEse chequeo rápido detecta el error de multiplicar por el entero en vez de por su inverso.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-orden-fraccion-compuesta"
+    ]
   }
 ]

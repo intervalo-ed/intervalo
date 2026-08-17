@@ -1,0 +1,371 @@
+[
+  {
+    "question": "Dos sucursales venden los mismos tres productos, y cada sucursal ocupa una fila.\n\nLa primera vendió 4, 0 y 7 unidades, y la segunda 2, 5 y 1.\n\n¿Qué matriz representa esas ventas?",
+    "options": [
+      "$\\begin{pmatrix} 4 & 0 & 7 \\\\ 2 & 5 & 1 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 4 & 2 \\\\ 0 & 5 \\\\ 7 & 1 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 2 & 5 & 1 \\\\ 4 & 0 & 7 \\end{pmatrix}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada sucursal ocupa una fila y cada producto una columna, así que la matriz queda de orden $2 \\times 3$.",
+    "feedback_incorrect": [
+      null,
+      "Esa disposición pone los productos en las filas y las sucursales en las columnas, al revés de lo acordado.",
+      "Los valores son los correctos, pero la primera fila tiene que corresponder a la primera sucursal."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Traducir una tabla a una matriz exige decidir primero qué categoría ocupa las filas y cuál las columnas.\n\nAcá cada sucursal es una fila, y como hay dos sucursales y tres productos, el orden queda de dos por tres.\n$$\\begin{pmatrix} 4 & 0 & 7 \\\\ 2 & 5 & 1 \\end{pmatrix}$$\nCada número conserva su significado por partida doble: la fila dice de qué sucursal es y la columna de qué producto.\n\nIntercambiar filas por columnas produce la traspuesta, que guarda exactamente los mismos datos pero responde otra pregunta al leerla.",
+    "reviewed": false,
+    "tags": [
+      "escribir-matriz-desde-situacion"
+    ]
+  },
+  {
+    "question": "Tres depósitos almacenan dos productos, y cada depósito ocupa una fila.\n\nEl primero guarda 5 y 2 unidades, el segundo 0 y 6, y el tercero 4 y 1.\n\n¿Qué matriz representa ese stock?",
+    "options": [
+      "$\\begin{pmatrix} 2 & 5 \\\\ 6 & 0 \\\\ 1 & 4 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 5 & 2 \\\\ 0 & 6 \\\\ 4 & 1 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 5 & 0 & 4 \\\\ 2 & 6 & 1 \\end{pmatrix}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada depósito ocupa una fila y cada producto una columna, en el orden en que se enuncian.",
+    "feedback_incorrect": [
+      "Ahí los dos productos quedaron intercambiados de columna.",
+      null,
+      "Ahí los depósitos quedaron en las columnas y los productos en las filas."
+    ],
+    "explanation": "El enunciado fija qué ocupa las filas, y eso decide toda la disposición.\n$$\\begin{pmatrix} 5 & 2 \\\\ 0 & 6 \\\\ 4 & 1 \\end{pmatrix}$$\nCada fila corresponde a un depósito y cada columna a un producto, respetando el orden de la descripción.\n\nIntercambiar filas por columnas produce la traspuesta, que guarda los mismos datos con otra lectura.\n\nEl orden resultante es tres por dos, que sale de contar los depósitos y los productos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "escribir-matriz-desde-situacion"
+    ]
+  },
+  {
+    "question": "Dos turnos de una fábrica producen tres artículos, y cada turno ocupa una fila.\n\nEl turno mañana produjo 8, 3 y 0 unidades, y el turno tarde 1, 9 y 5.\n\n¿Qué matriz representa esa producción?",
+    "options": [
+      "$\\begin{pmatrix} 1 & 9 & 5 \\\\ 8 & 3 & 0 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 8 & 1 \\\\ 3 & 9 \\\\ 0 & 5 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 8 & 3 & 0 \\\\ 1 & 9 & 5 \\end{pmatrix}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El primer turno mencionado ocupa la primera fila, y los artículos van en columnas.",
+    "feedback_incorrect": [
+      "Ahí los dos turnos quedaron intercambiados de fila.",
+      "Ahí los turnos quedaron en las columnas y los artículos en las filas.",
+      null
+    ],
+    "explanation": "El orden de mención en el enunciado fija el orden de las filas.\n$$\\begin{pmatrix} 8 & 3 & 0 \\\\ 1 & 9 & 5 \\end{pmatrix}$$\nEl turno que se nombra primero ocupa la primera fila, y cada artículo mantiene su columna en las dos.\n\nIntercambiar las dos filas describe la misma situación con otra convención, y eso ya es otra matriz.\n\nQue las columnas signifiquen lo mismo en todas las filas es lo que después permite comparar los dos turnos entrada por entrada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "escribir-matriz-desde-situacion"
+    ]
+  },
+  {
+    "question": "Un relevamiento mide dos variables en dos momentos, con una fila por variable.\n\nLa primera variable dio 12 y 7, y la segunda dio 4 y 9.\n\n¿Qué matriz representa ese relevamiento?",
+    "options": [
+      "$\\begin{pmatrix} 12 & 7 \\\\ 4 & 9 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 12 & 4 \\\\ 7 & 9 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 7 & 12 \\\\ 9 & 4 \\end{pmatrix}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Cada variable ocupa una fila y cada momento una columna, en el orden enunciado.",
+    "feedback_incorrect": [
+      null,
+      "Ahí los datos quedaron cargados por columnas en vez de por filas.",
+      "Ahí los dos momentos quedaron intercambiados de columna."
+    ],
+    "explanation": "Cargar por filas significa que los dos primeros valores enunciados llenan la primera fila.\n$$\\begin{pmatrix} 12 & 7 \\\\ 4 & 9 \\end{pmatrix}$$\nCada columna corresponde a un momento, y ese significado se mantiene para las dos variables.\n\nCargar los mismos números por columnas produce la traspuesta, que en una matriz cuadrada es fácil de confundir con la original.\n\nVerificar una entrada fuera de la diagonal alcanza para distinguirlas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "escribir-matriz-desde-situacion"
+    ]
+  },
+  {
+    "question": "Dos vendedores registran sus ventas de dos meses, con una fila por vendedor.\n\nEl primero vendió 30 y 45 unidades, y el segundo 25 y 50.\n\n¿Qué matriz representa esas ventas?",
+    "options": [
+      "$\\begin{pmatrix} 45 & 30 \\\\ 50 & 25 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 30 & 45 \\\\ 25 & 50 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 30 & 25 \\\\ 45 & 50 \\end{pmatrix}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada vendedor ocupa una fila y cada mes una columna, en el orden enunciado.",
+    "feedback_incorrect": [
+      "Ahí los dos meses quedaron intercambiados de columna.",
+      null,
+      "Ahí los datos quedaron cargados por columnas en vez de por filas."
+    ],
+    "explanation": "El enunciado dice que cada fila es un vendedor, así que sus dos datos van juntos en una misma fila.\n$$\\begin{pmatrix} 30 & 45 \\\\ 25 & 50 \\end{pmatrix}$$\nLas columnas quedan asignadas a los meses, en el orden en que se los menciona.\n\nCon esa disposición, comparar los dos vendedores en un mismo mes es leer una columna completa.\n\nEsa comodidad de lectura es la razón por la que conviene fijar el criterio antes de cargar los datos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "escribir-matriz-desde-situacion"
+    ]
+  },
+  {
+    "question": "Se tiene una matriz de orden $2 \\times 3$ cuyos valores no están escritos, sino que salen de una fórmula:\n$$a_{ij} = i + j$$\n¿Cuál es esa matriz?",
+    "options": [
+      "$\\begin{pmatrix} 2 & 3 & 4 \\\\ 3 & 4 & 5 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 0 & 1 & 2 \\\\ 1 & 2 & 3 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 2 & 3 \\\\ 3 & 4 \\\\ 4 & 5 \\end{pmatrix}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada entrada se obtiene sumando el número de su fila y el de su columna, arrancando ambos en $1$.",
+    "feedback_incorrect": [
+      null,
+      "Esa matriz sale de numerar filas y columnas desde $0$; en notación matricial los índices arrancan en $1$.",
+      "Los valores son los correctos, pero están dispuestos en tres filas y dos columnas, y el orden pedido es el inverso."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando una matriz se define por fórmula, cada posición se calcula reemplazando sus propios índices en la expresión.\n\nLas filas se numeran desde $1$ hasta la cantidad de filas, y las columnas de la misma manera.\n$$\\begin{pmatrix} 2 & 3 & 4 \\\\ 3 & 4 & 5 \\end{pmatrix}$$\nLa entrada de arriba a la izquierda ocupa la primera fila y la primera columna, así que suma uno más uno y vale dos.\n\nArrancar los índices en cero corre todos los valores una unidad hacia abajo y produce una matriz que no corresponde a ninguna posición real.",
+    "reviewed": false,
+    "tags": [
+      "escribir-matriz-desde-formula"
+    ]
+  },
+  {
+    "question": "Se tiene una matriz de orden $2 \\times 2$ cuyos valores salen de una fórmula.\n$$a_{ij} = 2i - j$$\n¿Cuál es esa matriz?",
+    "options": [
+      "$\\begin{pmatrix} 2 & 1 \\\\ 4 & 3 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 0 \\\\ 3 & 2 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 3 \\\\ 0 & 2 \\end{pmatrix}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada entrada se calcula reemplazando su fila en $i$ y su columna en $j$.",
+    "feedback_incorrect": [
+      "Ahí la columna se numeró arrancando en $0$, mientras la fila siguió arrancando en $1$: una mezcla inconsistente de las dos convenciones.",
+      null,
+      "Ahí la matriz quedó traspuesta respecto de la que produce la fórmula."
+    ],
+    "explanation": "La fórmula se evalúa una vez por cada posición, reemplazando los dos subíndices.\n$$a_{11} = 2 \\cdot 1 - 1 = 1$$\nEl primer subíndice es siempre la fila y el segundo la columna, en ese orden.\n$$\\begin{pmatrix} 1 & 0 \\\\ 3 & 2 \\end{pmatrix}$$\nInvertir los papeles produce la traspuesta, que en general es otra matriz.\n\nConviene calcular las cuatro entradas por separado antes de armar la matriz, para no arrastrar el orden de una a la siguiente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "escribir-matriz-desde-formula"
+    ]
+  },
+  {
+    "question": "Se tiene una matriz de orden $2 \\times 3$ cuyos valores salen de una fórmula.\n$$a_{ij} = i \\cdot j$$\n¿Cuál es esa matriz?",
+    "options": [
+      "$\\begin{pmatrix} 1 & 2 \\\\ 2 & 4 \\\\ 3 & 6 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 2 & 3 & 4 \\\\ 3 & 4 & 5 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 2 & 3 \\\\ 2 & 4 & 6 \\end{pmatrix}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Cada entrada es el producto de su número de fila por su número de columna.",
+    "feedback_incorrect": [
+      "Ahí la matriz quedó traspuesta, con tres filas en vez de dos.",
+      "Ahí se sumaron los dos subíndices en vez de multiplicarlos.",
+      null
+    ],
+    "explanation": "La fórmula se aplica posición por posición, con la fila en el primer subíndice.\n$$a_{23} = 2 \\cdot 3 = 6$$\nLa matriz tiene dos filas y tres columnas, así que se calculan seis entradas.\n$$\\begin{pmatrix} 1 & 2 & 3 \\\\ 2 & 4 & 6 \\end{pmatrix}$$\nEl orden pedido decide cuántas entradas hay que calcular, y conviene verificarlo antes de empezar.\n\nUna matriz de tres filas y dos columnas guardaría los mismos valores, pero no es la que el enunciado pide.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "escribir-matriz-desde-formula"
+    ]
+  },
+  {
+    "question": "Se tiene una matriz de orden $3 \\times 3$ cuyos valores salen de una fórmula.\n$$a_{ij} = i - j$$\n¿Cuál es esa matriz?",
+    "options": [
+      "$\\begin{pmatrix} 0 & -1 & -2 \\\\ 1 & 0 & -1 \\\\ 2 & 1 & 0 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 0 & 1 & 2 \\\\ -1 & 0 & 1 \\\\ -2 & -1 & 0 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 0 & 1 & 2 \\\\ 1 & 0 & 1 \\\\ 2 & 1 & 0 \\end{pmatrix}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Por encima de la diagonal la columna supera a la fila, así que las entradas quedan negativas.",
+    "feedback_incorrect": [
+      null,
+      "Ahí los signos quedaron invertidos respecto de lo que da la fórmula.",
+      "Ahí se tomó el valor absoluto de la resta, y la matriz quedó simétrica."
+    ],
+    "explanation": "La resta no es conmutativa, así que el orden de los subíndices decide el signo.\n$$a_{12} = 1 - 2 = -1$$\nPor encima de la diagonal el segundo subíndice es mayor, y las entradas quedan negativas.\n$$\\begin{pmatrix} 0 & -1 & -2 \\\\ 1 & 0 & -1 \\\\ 2 & 1 & 0 \\end{pmatrix}$$\nLa diagonal queda en cero porque ahí los dos subíndices coinciden.\n\nEl resultado es una matriz antisimétrica, y eso sirve como chequeo de que los signos quedaron bien.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "escribir-matriz-desde-formula"
+    ]
+  },
+  {
+    "question": "Se tiene una matriz de orden $2 \\times 2$ cuyos valores salen de una fórmula.\n$$a_{ij} = j^{2}$$\n¿Cuál es esa matriz?",
+    "options": [
+      "$\\begin{pmatrix} 1 & 4 \\\\ 4 & 16 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 4 \\\\ 1 & 4 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 1 \\\\ 4 & 4 \\end{pmatrix}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La fórmula no usa la fila, así que las dos filas quedan iguales entre sí.",
+    "feedback_incorrect": [
+      "Ahí se elevaron al cuadrado los dos subíndices y se los multiplicó.",
+      null,
+      "Ahí se usó el número de fila en vez del de columna."
+    ],
+    "explanation": "Una fórmula puede depender de un solo subíndice, y entonces el otro no interviene.\n$$a_{ij} = j^{2}$$\nEl valor de cada entrada depende únicamente de su columna, así que todas las filas quedan idénticas.\n$$\\begin{pmatrix} 1 & 4 \\\\ 1 & 4 \\end{pmatrix}$$\nSi la fórmula dependiera solo de la fila, serían las columnas las que quedarían repetidas.\n\nDetectar qué subíndice falta en la fórmula anticipa la forma del resultado antes de calcular nada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "escribir-matriz-desde-formula"
+    ]
+  },
+  {
+    "question": "Una transformación del plano mueve las dos direcciones básicas hasta estos destinos:\n$$\\vec{e}_1 \\to (3,1), \\quad \\vec{e}_2 \\to (-2,4)$$\n¿Qué matriz registra esa transformación?",
+    "options": [
+      "$\\begin{pmatrix} 3 & -2 \\\\ 1 & 4 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 3 & 1 \\\\ -2 & 4 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 4 \\\\ 3 & -2 \\end{pmatrix}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada destino se escribe como una columna, en el mismo orden en que se transformaron las direcciones básicas.",
+    "feedback_incorrect": [
+      null,
+      "Ahí los destinos quedaron escritos como filas; el registro se arma poniendo cada uno en una columna.",
+      "Ahí las dos filas quedaron invertidas de posición, aunque cada columna sigue guardando el destino correcto."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una matriz registra una transformación anotando en qué se convierte cada dirección básica, y cada uno de esos destinos ocupa una columna entera.\n\nEl destino de la primera dirección va en la primera columna, y el de la segunda en la segunda.\n$$\\begin{pmatrix} 3 & -2 \\\\ 1 & 4 \\end{pmatrix}$$\nLeyendo la matriz al revés se recupera el dato original: la primera columna dice que la primera dirección terminó en el punto de coordenadas tres y uno.\n\nEscribir los destinos como filas parece equivalente porque usa los mismos cuatro números, pero describe una transformación distinta.",
+    "reviewed": false,
+    "tags": [
+      "escribir-matriz-desde-imagenes-de-base"
+    ]
+  },
+  {
+    "question": "Una transformación del plano manda las dos direcciones básicas a estos destinos.\n$$\\vec{e}_1 \\to (2,5), \\quad \\vec{e}_2 \\to (0,-3)$$\n¿Qué matriz registra esa transformación?",
+    "options": [
+      "$\\begin{pmatrix} 0 & -3 \\\\ 2 & 5 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 2 & 0 \\\\ 5 & -3 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 2 & 5 \\\\ 0 & -3 \\end{pmatrix}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada destino se escribe como una columna, en el orden de las direcciones.",
+    "feedback_incorrect": [
+      "Ahí los destinos quedaron cargados como filas y además en el orden invertido, con el de $\\vec{e}_2$ en la primera fila.",
+      null,
+      "Ahí los destinos quedaron cargados como filas en vez de como columnas."
+    ],
+    "explanation": "La matriz de una transformación se arma poniendo cada destino en una **columna**.\n$$\\begin{pmatrix} 2 & 0 \\\\ 5 & -3 \\end{pmatrix}$$\nLa primera columna es el destino de la primera dirección básica, y la segunda el de la segunda.\n\nCargar los destinos como filas produce la traspuesta, que describe otra transformación.\n\nEl chequeo rápido es mirar la primera columna y confirmar que coincide con el primer destino enunciado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "escribir-matriz-desde-imagenes-de-base"
+    ]
+  },
+  {
+    "question": "Una transformación del plano envía las dos direcciones básicas a estos destinos:\n$$\\vec{e}_1 \\to (4,1), \\quad \\vec{e}_2 \\to (3,2)$$\n¿Qué matriz registra esa transformación?",
+    "options": [
+      "$\\begin{pmatrix} 3 & 4 \\\\ 2 & 1 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 4 & 1 \\\\ 3 & 2 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 4 & 3 \\\\ 1 & 2 \\end{pmatrix}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Cada destino se escribe como una columna, en el orden en que se transformaron las direcciones básicas.",
+    "feedback_incorrect": [
+      "Ahí las dos columnas quedaron intercambiadas, y eso describe otra transformación.",
+      "Ahí los destinos quedaron cargados como filas en vez de como columnas.",
+      null
+    ],
+    "explanation": "Cada destino se escribe como una columna completa, respetando el orden en que se transformaron las direcciones básicas.\n$$\\begin{pmatrix} 4 & 3 \\\\ 1 & 2 \\end{pmatrix}$$\nLa primera columna es el destino de $\\vec{e}_1$ y la segunda el de $\\vec{e}_2$.\n\nCargar los mismos cuatro números por filas produce la traspuesta de esta matriz, una transformación distinta.\n\nIntercambiar las dos columnas también cambia la transformación, porque le asigna a cada dirección básica el destino de la otra.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "escribir-matriz-desde-imagenes-de-base"
+    ]
+  },
+  {
+    "question": "Una transformación del plano manda las dos direcciones básicas a estos destinos.\n$$\\vec{e}_1 \\to (0,1), \\quad \\vec{e}_2 \\to (-1,0)$$\n¿Qué matriz registra esa transformación?",
+    "options": [
+      "$\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 0 & 1 \\\\ -1 & 0 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 0 \\\\ 0 & -1 \\end{pmatrix}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El primer destino es la primera columna y el segundo es la segunda.",
+    "feedback_incorrect": [
+      null,
+      "Ahí los destinos quedaron cargados como filas en vez de como columnas.",
+      "Ahí las entradas no corresponden a ninguno de los dos destinos enunciados."
+    ],
+    "explanation": "Cada destino ocupa una columna completa, con sus dos componentes en el orden en que vienen.\n$$\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$$\nLa primera columna guarda el destino de la primera dirección, que sube al eje vertical.\n\nLa segunda guarda el de la segunda dirección, que pasa al lado negativo del eje horizontal.\n\nEsta matriz describe un giro de un cuarto de vuelta, y leer sus columnas es lo que lo hace evidente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "escribir-matriz-desde-imagenes-de-base"
+    ]
+  },
+  {
+    "question": "Una transformación lleva el plano al espacio de tres dimensiones.\n$$\\vec{e}_1 \\to (1,2,0), \\quad \\vec{e}_2 \\to (3,0,4)$$\n¿Qué matriz registra esa transformación?",
+    "options": [
+      "$\\begin{pmatrix} 1 & 3 \\\\ 2 & 4 \\\\ 0 & 0 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 3 \\\\ 2 & 0 \\\\ 0 & 4 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 2 & 0 \\\\ 3 & 0 & 4 \\end{pmatrix}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada destino ocupa una columna de tres entradas, y hay dos destinos.",
+    "feedback_incorrect": [
+      "Ahí la primera columna quedó bien, pero las dos últimas entradas de la segunda columna se intercambiaron entre sí.",
+      null,
+      "Ahí los destinos quedaron cargados como filas, y el orden de la matriz salió invertido."
+    ],
+    "explanation": "La cantidad de columnas la fija el espacio de partida y la de filas el de llegada.\n$$\\begin{pmatrix} 1 & 3 \\\\ 2 & 0 \\\\ 0 & 4 \\end{pmatrix}$$\nHay dos direcciones básicas de partida, así que hay dos columnas, y cada destino tiene tres componentes, así que hay tres filas.\n\nEl orden resultante es tres por dos, y no coincide con el de la traspuesta.\n\nEs el caso que muestra que la matriz de una transformación no tiene por qué ser cuadrada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "escribir-matriz-desde-imagenes-de-base"
+    ]
+  }
+]

@@ -1,0 +1,371 @@
+[
+  {
+    "question": "Si $\\vec{u}$ apunta hacia el este y $\\vec{v}$ hacia el norte.\n$$\\vec{u}\\times\\vec{v}$$\n¿Hacia dónde apunta ese producto cruz?",
+    "options": [
+      "Hacia arriba, saliendo del plano este-norte",
+      "Hacia abajo, hundiéndose en el plano este-norte",
+      "Hacia el este, en la misma dirección que $\\vec{u}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\vec{u}\\times\\vec{v}$ es perpendicular al plano este-norte, y con esta orientación apunta hacia arriba.",
+    "feedback_incorrect": [
+      null,
+      "Con esta orientación el resultado apunta hacia arriba, no hacia abajo.",
+      "El resultado es perpendicular a ambos vectores originales, así que no puede compartir la dirección de ninguno de los dos."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El producto cruz siempre apunta perpendicular al plano que forman los dos vectores originales.\n\nSi $\\vec{u}$ apunta al este y $\\vec{v}$ al norte, esos dos vectores viven en el plano horizontal, así que el resultado sale de ese plano.\n\nCon esta orientación, $\\vec{u}\\times\\vec{v}$ apunta hacia arriba: es el caso base de referencia para predecir el resto de las direcciones.",
+    "reviewed": false,
+    "tags": [
+      "predecir-direccion-basica"
+    ]
+  },
+  {
+    "question": "Si $\\vec{u}$ apunta hacia el norte y $\\vec{v}$ hacia arriba.\n$$\\vec{u} \\times \\vec{v}$$\n¿Hacia dónde apunta ese producto cruz?",
+    "options": [
+      "Hacia arriba, en la misma dirección que el segundo factor",
+      "Hacia el este, perpendicular al plano norte-arriba",
+      "Hacia el norte, en la misma dirección que el primer factor"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El resultado sale del plano que forman los dos factores, y ese plano es el norte-arriba.",
+    "feedback_incorrect": [
+      "El resultado nunca coincide con uno de los factores: es perpendicular a los dos.",
+      null,
+      "El resultado nunca coincide con uno de los factores: es perpendicular a los dos."
+    ],
+    "explanation": "El producto cruz devuelve una dirección perpendicular a los dos factores a la vez.\n$$\\vec{u} \\times \\vec{v}$$\nLos dos factores determinan el plano que contiene al norte y a la vertical, así que el resultado sale de ese plano.\n\nLas únicas dos direcciones perpendiculares a ese plano son el este y el oeste, y el orden de los factores elige entre ellas.\n\nDescartar de entrada las direcciones de los propios factores ya deja el problema resuelto a la mitad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "predecir-direccion-basica"
+    ]
+  },
+  {
+    "question": "Si $\\vec{u}$ apunta hacia arriba y $\\vec{v}$ hacia el este.\n$$\\vec{u} \\times \\vec{v}$$\n¿Hacia dónde apunta ese producto cruz?",
+    "options": [
+      "Hacia arriba, en la misma dirección que el primer factor",
+      "Hacia el este, en la misma dirección que el segundo factor",
+      "Hacia el norte, perpendicular al plano arriba-este"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El resultado es perpendicular a los dos factores, y esa perpendicular es el eje norte-sur.",
+    "feedback_incorrect": [
+      "El resultado nunca coincide con uno de los factores: es perpendicular a los dos.",
+      "El resultado nunca coincide con uno de los factores: es perpendicular a los dos.",
+      null
+    ],
+    "explanation": "Los dos factores determinan un plano, y el producto cruz apunta perpendicular a ese plano.\n$$\\vec{u} \\times \\vec{v}$$\nEl plano que contiene a la vertical y al este deja libre el eje norte-sur, y ahí cae el resultado.\n\nEl orden en que se toman los factores, arriba y después este, es lo que elige el norte entre las dos posibilidades.\n\nEl patrón se repite siempre: identificar el plano de los factores y quedarse con el eje que sobra.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "predecir-direccion-basica"
+    ]
+  },
+  {
+    "question": "Dos vectores del espacio apuntan en direcciones perpendiculares entre sí.\n$$\\vec{u} \\perp \\vec{v}$$\n¿Qué se puede afirmar sobre la dirección de su producto cruz?",
+    "options": [
+      "Que es perpendicular a los dos, sin importar cuáles sean",
+      "Que coincide con la dirección del primer factor",
+      "Que está contenida en el plano que forman los dos"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La perpendicularidad del resultado con los dos factores vale siempre, no solo en casos particulares.",
+    "feedback_incorrect": [
+      null,
+      "El resultado nunca coincide con uno de los factores.",
+      "El resultado sale del plano de los factores, no queda adentro de él."
+    ],
+    "explanation": "La propiedad que define al producto cruz es que su resultado sea perpendicular a los dos factores.\n$$\\vec{u} \\perp \\vec{v}$$\nEso vale siempre, sean los factores perpendiculares entre sí o formen cualquier otro ángulo.\n\nLo que sí cambia con el ángulo es la magnitud del resultado, que es máxima justamente cuando los factores son perpendiculares.\n\nSeparar lo que depende del ángulo de lo que no es la clave para predecir la dirección sin calcular.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "predecir-direccion-basica"
+    ]
+  },
+  {
+    "question": "Dos vectores apuntan exactamente en la misma dirección.\n$$\\vec{v} = 3\\vec{u}$$\n¿Qué se puede afirmar sobre su producto cruz?",
+    "options": [
+      "Que es perpendicular a los dos, con magnitud triplicada",
+      "Que es el vector nulo, porque no determinan ningún plano",
+      "Que apunta en la misma dirección que los dos factores"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sin dos direcciones distintas no hay plano, y sin plano no hay perpendicular que señalar.",
+    "feedback_incorrect": [
+      "La magnitud del producto cruz se anula cuando los factores son paralelos.",
+      null,
+      "El resultado nunca coincide con la dirección de los factores."
+    ],
+    "explanation": "El producto cruz necesita dos direcciones distintas para determinar un plano.\n$$\\vec{v} = 3\\vec{u} \\implies \\vec{u} \\times \\vec{v} = \\vec{0}$$\nCuando un factor es múltiplo del otro, los dos apuntan sobre la misma recta y no hay plano definido.\n\nLa magnitud del resultado depende del ángulo entre los factores, y con ángulo nulo esa magnitud se anula.\n\nPor eso el producto cruz sirve además como test de paralelismo: se anula exactamente en ese caso.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "predecir-direccion-basica"
+    ]
+  },
+  {
+    "question": "Un producto cruz da un vector que apunta hacia arriba.\n$$\\vec{u}\\times\\vec{v}$$\n¿Hacia dónde apunta $\\vec{v}\\times\\vec{u}$?",
+    "options": [
+      "Hacia abajo, en sentido contrario al caso base",
+      "Hacia arriba, igual que $\\vec{u}\\times\\vec{v}$",
+      "Hacia el este, en la misma dirección que $\\vec{u}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Invertir el orden invierte el sentido del resultado: si $\\vec{u}\\times\\vec{v}$ apunta hacia arriba, $\\vec{v}\\times\\vec{u}$ apunta hacia abajo.",
+    "feedback_incorrect": [
+      null,
+      "Invertir el orden de los factores invierte el sentido del resultado, no lo deja igual.",
+      "El resultado del producto cruz nunca comparte dirección con ninguno de los vectores originales."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Invertir el orden de los factores en un producto cruz invierte el sentido del resultado:\n$$\\vec{v}\\times\\vec{u} = -(\\vec{u}\\times\\vec{v})$$\nComo el primero apunta hacia arriba, su opuesto apunta hacia abajo.\n\nNo hace falta recalcular todo desde cero: alcanza con invertir el sentido del resultado ya conocido.",
+    "reviewed": false,
+    "tags": [
+      "predecir-direccion-orden-invertido"
+    ]
+  },
+  {
+    "question": "Un producto cruz da un vector que apunta hacia el este.\n$$\\vec{v} \\times \\vec{u}$$\n¿Hacia dónde apunta el producto con los factores invertidos?",
+    "options": [
+      "Hacia el norte, perpendicular al vector original",
+      "Hacia el oeste, en sentido contrario al original",
+      "Hacia el este, exactamente igual que el original"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Invertir el orden invierte el sentido del resultado, sin cambiar la recta sobre la que está.",
+    "feedback_incorrect": [
+      "La dirección no cambia al invertir el orden: los dos resultados están sobre la misma recta.",
+      null,
+      "El orden de los factores sí cambia el resultado: le invierte el sentido."
+    ],
+    "explanation": "Los dos productos son perpendiculares al mismo par de vectores, así que comparten la recta.\n$$\\vec{v} \\times \\vec{u} = -(\\vec{u} \\times \\vec{v})$$\nLo único que cambia es hacia qué lado de esa recta apunta el resultado.\n\nLa magnitud tampoco cambia, porque depende del ángulo entre los factores y ese ángulo es el mismo.\n\nPredecir el resultado invertido no exige ninguna cuenta: alcanza con dar vuelta el sentido del original.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "predecir-direccion-orden-invertido"
+    ]
+  },
+  {
+    "question": "Un producto cruz da un vector que apunta hacia abajo.\n$$\\vec{v} \\times \\vec{u}$$\n¿Hacia dónde apunta el producto con los factores invertidos?",
+    "options": [
+      "Hacia abajo, exactamente igual que el original",
+      "Hacia el este, perpendicular al vector original",
+      "Hacia arriba, en sentido contrario al original"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El resultado invertido es el opuesto del original, sobre la misma recta vertical.",
+    "feedback_incorrect": [
+      "El orden de los factores sí cambia el resultado: le invierte el sentido.",
+      "La dirección no cambia al invertir el orden: los dos resultados están sobre la misma recta.",
+      null
+    ],
+    "explanation": "La anticonmutatividad dice que invertir los factores multiplica el resultado por menos uno.\n$$\\vec{v} \\times \\vec{u} = -(\\vec{u} \\times \\vec{v})$$\nUn vector multiplicado por menos uno conserva su recta y su magnitud, y solo cambia de sentido.\n\nPor eso un resultado que apuntaba hacia abajo pasa a apuntar hacia arriba, sin ninguna otra modificación.\n\nEse comportamiento es el mismo cualquiera sea la dirección del resultado original.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "predecir-direccion-orden-invertido"
+    ]
+  },
+  {
+    "question": "Dos vectores paralelos entre sí dan producto cruz nulo.\n$$\\vec{u} \\times \\vec{v} = \\vec{0}$$\n¿Qué da el producto con los factores invertidos?",
+    "options": [
+      "También el vector nulo, porque su opuesto es él mismo",
+      "Un vector perpendicular a los dos, de magnitud no nula",
+      "El opuesto de uno de los dos factores"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El opuesto del vector nulo es el propio vector nulo.",
+    "feedback_incorrect": [
+      null,
+      "Los dos factores siguen siendo paralelos, así que el resultado sigue anulándose.",
+      "El resultado de un producto cruz nunca es uno de los factores ni su opuesto."
+    ],
+    "explanation": "Invertir el orden multiplica el resultado por menos uno, y eso se aplica también cuando el resultado es nulo.\n$$-\\vec{0} = \\vec{0}$$\nEl vector nulo es el único que coincide con su propio opuesto, así que el orden deja de importar.\n\nEs coherente con la geometría: dos vectores paralelos no determinan un plano en ningún orden.\n\nEse caso es la única situación en que el producto cruz se comporta como si conmutara.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "predecir-direccion-orden-invertido"
+    ]
+  },
+  {
+    "question": "Un producto cruz da un vector que apunta hacia el norte.\n$$-(\\vec{u} \\times \\vec{v})$$\n¿Qué operación produce un vector que apunta hacia el sur?",
+    "options": [
+      "Calcular el producto escalar en lugar del cruz",
+      "Invertir el orden de los dos factores",
+      "Multiplicar los dos factores por menos uno"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Invertir el orden es exactamente lo que da vuelta el sentido del resultado.",
+    "feedback_incorrect": [
+      "El producto escalar devuelve un número, que no apunta hacia ninguna dirección.",
+      null,
+      "Invertir los dos factores a la vez deja el resultado igual, porque los dos signos se compensan."
+    ],
+    "explanation": "El sentido del resultado lo decide el orden de los factores.\n$$\\vec{v} \\times \\vec{u} = -(\\vec{u} \\times \\vec{v})$$\nInvertir ese orden da vuelta el resultado y lo deja apuntando al sur.\n\nInvertir los dos factores a la vez, en cambio, introduce dos signos negativos que se cancelan entre sí y dejan el resultado sin cambios.\n\nContar cuántas inversiones hay en juego es lo que decide el signo final.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "predecir-direccion-orden-invertido"
+    ]
+  },
+  {
+    "question": "Un producto cruz da un vector que apunta hacia arriba.\n$$\\vec{u}\\times\\vec{v}$$\n¿Hacia dónde apunta $(-2\\vec{u})\\times\\vec{v}$?",
+    "options": [
+      "Hacia abajo, en sentido contrario al caso base",
+      "Hacia arriba, igual que $\\vec{u}\\times\\vec{v}$",
+      "Hacia el este, en la misma dirección que $\\vec{u}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Escalar uno de los vectores por un número negativo invierte el sentido del resultado; la magnitud cambia, pero eso no afecta la dirección.",
+    "feedback_incorrect": [
+      null,
+      "Escalar por un número negativo invierte el sentido del resultado, no lo deja igual.",
+      "El resultado del producto cruz nunca comparte dirección con ninguno de los vectores originales."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Escalar uno de los dos vectores por un número negativo invierte el sentido del resultado del producto cruz, sin importar cuánto cambie su magnitud:\n$$(-2\\vec{u})\\times\\vec{v} = -2(\\vec{u}\\times\\vec{v})$$\nComo el escalar es negativo, el resultado apunta en el sentido contrario al caso base.\n\nSi el escalar fuera positivo, el resultado mantendría el mismo sentido, solo que con otra magnitud.",
+    "reviewed": false,
+    "tags": [
+      "predecir-direccion-vector-escalado"
+    ]
+  },
+  {
+    "question": "Un producto cruz da un vector que apunta hacia arriba.\n$$(3\\vec{u}) \\times \\vec{v}$$\n¿Hacia dónde apunta el producto con el primer factor triplicado?",
+    "options": [
+      "Hacia arriba, con la misma magnitud que el original",
+      "Hacia arriba, con el triple de magnitud",
+      "Hacia abajo, con el triple de magnitud"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Un escalar positivo conserva el sentido y multiplica la magnitud del resultado.",
+    "feedback_incorrect": [
+      "La magnitud sí cambia: queda multiplicada por el escalar.",
+      null,
+      "El sentido solo se invierte con un escalar negativo o al invertir el orden."
+    ],
+    "explanation": "Escalar uno de los factores escala el resultado por el mismo número.\n$$(\\alpha\\vec{u}) \\times \\vec{v} = \\alpha(\\vec{u} \\times \\vec{v})$$\nComo el escalar es positivo, el sentido del resultado no cambia y solo crece su magnitud.\n\nGeométricamente tiene sentido: estirar uno de los lados agranda el paralelogramo que los dos factores determinan, y la magnitud del producto cruz mide justamente esa área.\n\nLa dirección no depende del tamaño de los factores, solo de sus direcciones.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "predecir-direccion-vector-escalado"
+    ]
+  },
+  {
+    "question": "Un producto cruz da un vector que apunta hacia el este.\n$$\\vec{u} \\times (-4\\vec{v})$$\n¿Hacia dónde apunta el producto con el segundo factor multiplicado por menos cuatro?",
+    "options": [
+      "Hacia el este, con el cuádruple de magnitud",
+      "Hacia el oeste, con la misma magnitud que el original",
+      "Hacia el oeste, con el cuádruple de magnitud"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El signo negativo invierte el sentido y el cuatro cuadruplica la magnitud.",
+    "feedback_incorrect": [
+      "El escalar es negativo, así que además de agrandar invierte el sentido.",
+      "La magnitud sí cambia: queda multiplicada por el valor absoluto del escalar.",
+      null
+    ],
+    "explanation": "Escalar un factor traslada el escalar completo al resultado, con su signo incluido.\n$$\\vec{u} \\times (\\alpha\\vec{v}) = \\alpha(\\vec{u} \\times \\vec{v})$$\nEl signo negativo invierte el sentido y el valor absoluto multiplica la magnitud.\n\nLas dos cosas ocurren a la vez, y conviene decidirlas por separado antes de dar la respuesta.\n\nDa lo mismo cuál de los dos factores se escale: el efecto sobre el resultado es idéntico.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "predecir-direccion-vector-escalado"
+    ]
+  },
+  {
+    "question": "Un producto cruz da un vector que apunta hacia el norte.\n$$(-\\vec{u}) \\times (-\\vec{v})$$\n¿Hacia dónde apunta el producto con los dos factores invertidos?",
+    "options": [
+      "Hacia el norte, igual que el original",
+      "Hacia el sur, en sentido contrario al original",
+      "Hacia arriba, perpendicular al original"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Los dos signos negativos se multiplican entre sí y dejan el resultado sin cambios.",
+    "feedback_incorrect": [
+      null,
+      "Los dos signos se compensan, así que el sentido no llega a invertirse.",
+      "La dirección del resultado no cambia al escalar los factores."
+    ],
+    "explanation": "Cada escalar viaja al resultado, y los dos se multiplican entre sí.\n$$(-\\vec{u}) \\times (-\\vec{v}) = \\vec{u} \\times \\vec{v}$$\nMenos uno por menos uno da uno, así que el resultado queda idéntico al original.\n\nEs el mismo comportamiento que en un producto de números, y por eso conviene contar cuántos signos negativos hay en juego.\n\nInvertir un solo factor sí daría vuelta el resultado; lo que lo deja igual es invertir los dos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "predecir-direccion-vector-escalado"
+    ]
+  },
+  {
+    "question": "Un producto cruz da un vector que apunta hacia abajo.\n$$\\vec{u} \\times (0\\vec{v})$$\n¿Qué da el producto con el segundo factor multiplicado por cero?",
+    "options": [
+      "Un vector hacia arriba, con magnitud sin cambios",
+      "El vector nulo, porque uno de los factores se anuló",
+      "Un vector hacia abajo, con magnitud sin cambios"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Multiplicar por cero deja el vector nulo, y el producto cruz con el nulo se anula.",
+    "feedback_incorrect": [
+      "El cero no invierte sentidos: anula el resultado por completo.",
+      null,
+      "El segundo factor pasó a ser el vector nulo, así que el producto no puede conservar su magnitud."
+    ],
+    "explanation": "El escalar viaja al resultado, y un escalar nulo lo anula.\n$$\\vec{u} \\times (0\\vec{v}) = 0(\\vec{u} \\times \\vec{v}) = \\vec{0}$$\nGeométricamente, el segundo factor dejó de tener dirección, así que los dos ya no determinan ningún plano.\n\nEs el mismo motivo por el que el producto cruz de dos vectores paralelos también se anula.\n\nEl vector nulo es paralelo a cualquier vector, así que ese caso queda incluido en la misma regla.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "predecir-direccion-vector-escalado"
+    ]
+  }
+]

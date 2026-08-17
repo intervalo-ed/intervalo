@@ -1,24 +1,401 @@
 [
   {
-    "question": "¿Qué combinación de $(1,0)$ y $(0,1)$ da el vector $(5,3)$?",
+    "question": "Un subespacio de $\\mathbb{R}^3$ queda descripto por los vectores que lo generan.\n$$S = \\text{gen}\\{(1,0,1), (0,1,1)\\}$$\n¿Cuál de estas ternas pertenece a $S$?",
     "options": [
-      "$5(1,0)+3(0,1)$",
-      "$3(1,0)+5(0,1)$",
-      "$5(1,0)-3(0,1)$",
-      "$(5,3)(1,0)$"
+      "$(2,3,5)$",
+      "$(2,1,4)$",
+      "$(1,1,1)$",
+      "$(0,2,1)$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$5(1,0)+3(0,1) = (5,0)+(0,3) = (5,3)$.",
+    "feedback_correct": "Sale de tomar dos veces el primer vector y tres el segundo, y ahí la tercera componente da cinco.",
     "feedback_incorrect": [
       null,
-      "Los coeficientes quedaron invertidos entre los dos vectores.",
-      "El signo del segundo término no corresponde, el vector pedido tiene ambas componentes positivas.",
-      "Los coeficientes deben ser escalares, no un vector completo multiplicando."
+      "Las dos primeras componentes fijan los coeficientes en dos y uno, y con eso la tercera da tres.",
+      "Con las dos primeras componentes en uno, la tercera queda obligada a valer dos.",
+      "Con la primera componente nula y la segunda en dos, la tercera tiene que dar dos."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para expresar un vector como combinación de $(1,0)$ y $(0,1)$, cada componente del vector es directamente el coeficiente de su versor correspondiente.\n$$(5,3) = 5(1,0) + 3(0,1)$$\n\nLa primera componente acompaña a $(1,0)$, y la segunda a $(0,1)$.\n\nInvertir el orden de los coeficientes es un error común al no prestar atención a qué versor corresponde a cada eje.",
-    "reviewed": false
+    "explanation": "Un vector pertenece al generado si existen coeficientes que lo arman, así que la pregunta se convierte en un sistema de ecuaciones.\n$$\\alpha_1(1,0,1) + \\alpha_2(0,1,1) = (2,3,5)$$\nLas dos primeras componentes dan los coeficientes de una, porque cada vector aporta a una sola de ellas. Queda $\\alpha_1 = 2$ y $\\alpha_2 = 3$.\n\nLa tercera componente es la que decide, porque los dos vectores aportan ahí y tiene que dar exactamente lo pedido.\n$$2 + 3 = 5$$\nEso deja a la vista una regla más rápida para este subespacio. La tercera componente siempre es la suma de las dos primeras, y con eso se descarta cualquier terna de un vistazo.",
+    "reviewed": false,
+    "tags": [
+      "decidir-pertenencia-al-generado"
+    ]
+  },
+  {
+    "question": "Un subespacio del plano queda descripto por un único vector generador.\n$$S = \\text{gen}\\{(2,1)\\}$$\n¿Cuál de estos pares pertenece a $S$?",
+    "options": [
+      "$(3,6)$",
+      "$(6,3)$",
+      "$(4,3)$",
+      "$(1,2)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Es el vector generador multiplicado por tres, así que es una combinación válida.",
+    "feedback_incorrect": [
+      "Ese par es el triple del generador con las coordenadas cambiadas de lugar.",
+      null,
+      "La primera coordenada se duplicó y la segunda se triplicó, así que no es un múltiplo.",
+      "Ahí las coordenadas quedaron invertidas respecto del generador."
+    ],
+    "explanation": "Con un solo generador, pertenecer al generado significa ser un múltiplo suyo, y eso se verifica de un vistazo.\n$$3 \\cdot (2,1) = (6,3)$$\nLas dos coordenadas tienen que quedar multiplicadas por el **mismo** número, y acá las dos se triplican.\n\nCuando una se duplica y la otra se triplica, el par apunta a otra dirección y queda fuera de la recta.\n\nEl control más rápido es comparar el cociente entre las coordenadas: en el generador vale dos, y cualquier múltiplo suyo mantiene ese mismo valor.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-pertenencia-al-generado"
+    ]
+  },
+  {
+    "question": "Un subespacio de $\\mathbb{R}^3$ viene descripto por dos generadores.\n$$S = \\text{gen}\\{(1,1,0), (0,1,1)\\}$$\n¿Cuál de estas ternas pertenece a $S$?",
+    "options": [
+      "$(2,4,3)$",
+      "$(1,2,3)$",
+      "$(3,3,1)$",
+      "$(2,5,3)$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Sale de tomar dos veces el primer generador y tres el segundo.",
+    "feedback_incorrect": [
+      "Con la primera y la última coordenada en dos y tres, la del medio queda obligada a valer cinco.",
+      "Con la primera coordenada en uno y la última en tres, la del medio tendría que valer cuatro.",
+      "Con la primera en tres y la última en uno, la del medio tendría que valer cuatro.",
+      null
+    ],
+    "explanation": "Cada generador aporta a una sola de las coordenadas de los extremos, así que esas dos fijan los coeficientes de inmediato.\n$$2(1,1,0) + 3(0,1,1) = (2,5,3)$$\nEl primer coeficiente sale de la coordenada inicial y el segundo de la final, y la del medio recibe los dos.\n\nDe ahí sale una regla rápida para este subespacio: la coordenada del medio siempre es la suma de las otras dos.\n\nCon esa lectura, cualquier terna se descarta o se acepta sin plantear un solo sistema de ecuaciones.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-pertenencia-al-generado"
+    ]
+  },
+  {
+    "question": "Los dos generadores de un subespacio del plano resultan ser uno múltiplo del otro.\n$$S = \\text{gen}\\{(1,2), (2,4)\\}$$\n¿Cuál de estos pares pertenece a $S$?",
+    "options": [
+      "$(3,6)$",
+      "$(2,1)$",
+      "$(4,2)$",
+      "$(1,3)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Los dos generadores marcan la misma dirección, y ese par es el triple del primero.",
+    "feedback_incorrect": [
+      null,
+      "Ahí las coordenadas del primer generador quedaron invertidas.",
+      "Ese par es el doble del anterior, y tampoco guarda la proporción del generador.",
+      "La segunda coordenada tendría que ser el doble de la primera, y acá es el triple."
+    ],
+    "explanation": "Cuando los dos generadores son múltiplos entre sí, el subespacio es una recta y no un plano.\n$$(2,4) = 2(1,2)$$\nCualquier combinación de los dos termina siendo un múltiplo del primero, así que pertenecer se reduce a mantener la proporción entre las coordenadas.\n\nEl par correcto la mantiene, porque su segunda coordenada es el doble de la primera.\n\nEste es el caso que más engaña, porque con dos generadores escritos el reflejo es dar por sentado que el subespacio es todo el plano.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-pertenencia-al-generado"
+    ]
+  },
+  {
+    "question": "Un subespacio de $\\mathbb{R}^3$ viene descripto por tres generadores.\n$$S = \\text{gen}\\{(1,0,1), (0,1,0), (1,1,1)\\}$$\n¿Cuál de estas ternas pertenece a $S$?",
+    "options": [
+      "$(2,1,5)$",
+      "$(0,4,1)$",
+      "$(3,7,3)$",
+      "$(3,7,4)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El tercer generador es la suma de los dos primeros, y en todos la primera coordenada iguala a la última.",
+    "feedback_incorrect": [
+      "La primera coordenada vale dos y la última cinco, así que no coinciden.",
+      "La primera coordenada es cero y la última uno, así que tampoco coinciden.",
+      null,
+      "La primera y la última coordenada tienen que coincidir, y acá difieren en una unidad."
+    ],
+    "explanation": "Antes de plantear el sistema conviene mirar si algún generador se arma con los otros.\n$$(1,1,1) = (1,0,1) + (0,1,0)$$\nEl tercero no aporta nada, así que el subespacio es el mismo que generan los dos primeros.\n\nEn cualquier combinación de esos dos, la primera coordenada y la última reciben el mismo coeficiente y la del medio queda libre.\n\nLa condición de pertenencia es entonces que la primera coordenada coincida con la última, y con eso las cuatro candidatas se resuelven de un vistazo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-pertenencia-al-generado"
+    ]
+  },
+  {
+    "question": "Un vector del plano se quiere escribir como combinación de otros dos.\n$$\\vec{u} = (1,2), \\quad \\vec{v} = (3,1)$$\nEl vector a escribir es $(5,5)$.\n\n¿Qué coeficientes lo arman?",
+    "options": [
+      "$\\alpha_1 = 2, \\ \\alpha_2 = 1$",
+      "$\\alpha_1 = 1, \\ \\alpha_2 = 2$",
+      "$\\alpha_1 = 5, \\ \\alpha_2 = 5$",
+      "$\\alpha_1 = 1, \\ \\alpha_2 = 1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Dos veces el primero da $(2,4)$, y sumándole el segundo se llega a $(5,5)$.",
+    "feedback_incorrect": [
+      null,
+      "Los coeficientes quedaron cruzados, y así el resultado es $(7,4)$.",
+      "Esas son las componentes del vector buscado, no los coeficientes de la combinación.",
+      "Con los dos coeficientes en uno la suma da $(4,3)$, que se queda corta."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Escribir un vector como combinación de otros dos es plantear un sistema de ecuaciones, una ecuación por coordenada.\n$$\\alpha_1(1,2) + \\alpha_2(3,1) = (5,5)$$\nLa primera coordenada pide $\\alpha_1 + 3\\alpha_2 = 5$ y la segunda pide $2\\alpha_1 + \\alpha_2 = 5$.\n\nDespejando de la segunda y reemplazando en la primera salen los dos coeficientes.\n$$\\alpha_1 = 2, \\quad \\alpha_2 = 1$$\nQue el vector buscado tenga sus dos coordenadas iguales no obliga a que los coeficientes también lo sean.\n\nSi cruzás los coeficientes, verificar cualquiera de las dos coordenadas lo delata enseguida.",
+    "reviewed": false,
+    "tags": [
+      "hallar-los-coeficientes"
+    ]
+  },
+  {
+    "question": "Un vector del plano se quiere escribir combinando otros dos.\n$$\\vec{u} = (1,1), \\quad \\vec{v} = (2,-1)$$\nEl vector a escribir es $(7,1)$.\n\n¿Qué coeficientes lo arman?",
+    "options": [
+      "$\\alpha_1 = 5, \\ \\alpha_2 = 1$",
+      "$\\alpha_1 = 3, \\ \\alpha_2 = 2$",
+      "$\\alpha_1 = 2, \\ \\alpha_2 = 3$",
+      "$\\alpha_1 = 7, \\ \\alpha_2 = 1$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Tres veces el primero da $(3,3)$, y sumándole dos veces el segundo se llega a $(7,1)$.",
+    "feedback_incorrect": [
+      "Con esos coeficientes la primera coordenada da siete, pero la segunda da cuatro.",
+      null,
+      "Los coeficientes quedaron cruzados, y así el resultado es $(8,-1)$.",
+      "Esas son las componentes del vector buscado, no los coeficientes de la combinación."
+    ],
+    "explanation": "Escribir un vector como combinación de otros dos es plantear un sistema con una ecuación por coordenada.\n$$\\alpha_1 + 2\\alpha_2 = 7$$\n$$\\alpha_1 - \\alpha_2 = 1$$\nRestando la segunda de la primera, los términos con el primer coeficiente se cancelan y queda el segundo.\n$$\\alpha_1 = 3, \\quad \\alpha_2 = 2$$\nQue el segundo vector tenga una coordenada negativa es lo que permite que la segunda ecuación quede tan corta.\n\nVerificar reemplazando cuesta una línea y descarta cualquier error de signo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-los-coeficientes"
+    ]
+  },
+  {
+    "question": "Dos vectores del plano se combinan para llegar a un tercero con una coordenada negativa.\n$$\\vec{u} = (2,3), \\quad \\vec{v} = (1,-1)$$\nEl vector a escribir es $(6,-1)$.\n\n¿Qué coeficientes lo arman?",
+    "options": [
+      "$\\alpha_1 = 4, \\ \\alpha_2 = 1$",
+      "$\\alpha_1 = 2, \\ \\alpha_2 = 2$",
+      "$\\alpha_1 = 3, \\ \\alpha_2 = 0$",
+      "$\\alpha_1 = 1, \\ \\alpha_2 = 4$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El primero entra una vez y el segundo cuatro, y así las dos coordenadas cierran.",
+    "feedback_incorrect": [
+      "Los coeficientes quedaron cruzados, y así el resultado es $(9,11)$.",
+      "Con los dos coeficientes en dos, la primera coordenada da seis pero la segunda da cuatro.",
+      "Sin usar el segundo vector la segunda coordenada queda positiva, y tiene que ser negativa.",
+      null
+    ],
+    "explanation": "El sistema se arma igual que siempre, una ecuación por coordenada, con los coeficientes como incógnitas.\n$$2\\alpha_1 + \\alpha_2 = 6$$\n$$3\\alpha_1 - \\alpha_2 = -1$$\nSumando las dos ecuaciones se cancela el segundo coeficiente y queda el primero de inmediato.\n$$\\alpha_1 = 1, \\quad \\alpha_2 = 4$$\nLa coordenada negativa del resultado obliga a que el segundo vector entre con bastante peso, y eso sirve como control de que el orden de magnitud está bien.\n\nCruzar los dos coeficientes es lo que más se equivoca, y verificar cualquiera de las dos coordenadas lo delata.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-los-coeficientes"
+    ]
+  },
+  {
+    "question": "Un vector de $\\mathbb{R}^3$ se escribe con dos generadores.\n$$\\vec{u} = (1,0,2), \\quad \\vec{v} = (0,1,1)$$\nEl vector a escribir es $(3,4,10)$.\n\n¿Qué coeficientes lo arman?",
+    "options": [
+      "$\\alpha_1 = 3, \\ \\alpha_2 = 4$",
+      "$\\alpha_1 = 4, \\ \\alpha_2 = 3$",
+      "$\\alpha_1 = 3, \\ \\alpha_2 = 10$",
+      "$\\alpha_1 = 5, \\ \\alpha_2 = 0$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Las dos primeras coordenadas fijan los coeficientes, y la tercera confirma que cierran.",
+    "feedback_incorrect": [
+      null,
+      "Los coeficientes quedaron cruzados, y así la primera coordenada daría cuatro.",
+      "La última coordenada no es un coeficiente, es el resultado de combinar los dos.",
+      "Sin usar el segundo vector la segunda coordenada quedaría en cero, y tiene que valer cuatro."
+    ],
+    "explanation": "Cuando cada generador aporta a una coordenada distinta, los coeficientes se leen sin resolver nada.\n$$\\alpha_1 = 3, \\quad \\alpha_2 = 4$$\nLa primera coordenada solo recibe del primer generador y la segunda solo del segundo, así que las dos quedan determinadas de entrada.\n\nLa tercera coordenada es la que hay que verificar, porque los dos generadores aportan ahí.\n$$2 \\cdot 3 + 1 \\cdot 4 = 10$$\nComo el resultado coincide con lo pedido, el vector pertenece al generado y los coeficientes son esos.\n\nSi esa última cuenta no cerrara, el vector simplemente no se podría escribir con esos dos generadores.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-los-coeficientes"
+    ]
+  },
+  {
+    "question": "Uno de los coeficientes que arman un vector resulta ser negativo.\n$$\\vec{u} = (4,1), \\quad \\vec{v} = (1,3)$$\nEl vector a escribir es $(7,-1)$.\n\n¿Qué coeficientes lo arman?",
+    "options": [
+      "$\\alpha_1 = 2, \\ \\alpha_2 = 1$",
+      "$\\alpha_1 = 1, \\ \\alpha_2 = 3$",
+      "$\\alpha_1 = 2, \\ \\alpha_2 = -1$",
+      "$\\alpha_1 = -1, \\ \\alpha_2 = 2$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Dos veces el primero da $(8,2)$, y restándole el segundo se llega a $(7,-1)$.",
+    "feedback_incorrect": [
+      "Con los dos coeficientes positivos las dos coordenadas dan positivas, y la segunda no lo es.",
+      "Con esos coeficientes la primera coordenada da siete, pero la segunda da diez.",
+      null,
+      "Los coeficientes quedaron cruzados, y así el resultado es $(-2,5)$."
+    ],
+    "explanation": "Nada obliga a que los coeficientes de una combinación sean positivos, y acá uno tiene que ser negativo.\n$$4\\alpha_1 + \\alpha_2 = 7$$\n$$\\alpha_1 + 3\\alpha_2 = -1$$\nDespejando el segundo coeficiente de la primera ecuación y reemplazando en la segunda se llega al resultado.\n$$\\alpha_1 = 2, \\quad \\alpha_2 = -1$$\nLa segunda coordenada del vector buscado es negativa mientras que las de los dos generadores son positivas, y eso ya anticipa que algún coeficiente tiene que restar.\n\nLeer ese signo antes de calcular descarta la mitad de las opciones sin hacer ninguna cuenta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-los-coeficientes"
+    ]
+  },
+  {
+    "question": "Un sistema de ecuaciones homogéneo con tres incógnitas tiene su matriz de coeficientes ya escalonada.\n$$\\begin{pmatrix} 1 & 0 & -2 \\\\ 0 & 1 & 3 \\end{pmatrix}$$\n¿Qué vector genera su conjunto de soluciones?",
+    "options": [
+      "$(2, -3, 1)$",
+      "$(-2, 3, 1)$",
+      "$(1, 1, 0)$",
+      "$(0, 0, 0)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Tomando la tercera incógnita igual a uno, las dos primeras quedan valiendo dos y menos tres.",
+    "feedback_incorrect": [
+      null,
+      "Los signos quedaron sin despejar, hay que pasar los coeficientes al otro lado de la igualdad.",
+      "Esa terna no verifica la primera ecuación, que pide restar el doble de la tercera incógnita.",
+      "La terna nula siempre es solución, pero por sí sola no genera nada más que el origen."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una matriz escalonada de un sistema de ecuaciones homogéneo se lee ecuación por ecuación, con la última incógnita quedando libre.\n$$x - 2z = 0, \\quad y + 3z = 0$$\nDespejando las dos primeras en función de la tercera queda $x = 2z$ e $y = -3z$.\n\nTomando $z = 1$ se obtiene una terna concreta, y todas las demás soluciones son múltiplos de ella.\n$$\\text{Nul}(A) = \\text{gen}\\{(2,-3,1)\\}$$\nEl signo es donde más se falla, porque los coeficientes de la matriz aparecen invertidos al pasarlos al otro lado.\n\nEl conjunto solución queda así descripto por un solo vector, que es una forma mucho más útil que enumerar soluciones sueltas.",
+    "reviewed": false,
+    "tags": [
+      "hallar-generadores-del-nulo"
+    ]
+  },
+  {
+    "question": "Un sistema de ecuaciones homogéneo con tres incógnitas viene con su matriz ya escalonada.\n$$\\begin{pmatrix} 1 & 0 & 3 \\\\ 0 & 1 & -2 \\end{pmatrix}$$\n¿Qué vector genera su conjunto de soluciones?",
+    "options": [
+      "$(3, 2, 0)$",
+      "$(-3, 2, 1)$",
+      "$(3, -2, 1)$",
+      "$(1, 1, 1)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Tomando la última incógnita igual a uno, las dos primeras quedan valiendo menos tres y dos.",
+    "feedback_incorrect": [
+      "Con la última incógnita en cero solo se obtiene la solución trivial.",
+      null,
+      "Los signos quedaron sin despejar, hay que pasar los coeficientes al otro lado.",
+      "Esa terna no verifica la primera ecuación, que pide restar el triple de la última incógnita."
+    ],
+    "explanation": "Una matriz escalonada de un sistema homogéneo se lee ecuación por ecuación, con la última incógnita quedando libre.\n$$x + 3z = 0, \\quad y - 2z = 0$$\nDespejando las dos primeras en función de la tercera queda que la primera es menos tres veces la última y la segunda es el doble.\n\nTomando la última igual a uno se obtiene una terna concreta, y todas las demás soluciones son múltiplos suyos.\n$$\\text{Nul}(A) = \\text{gen}\\{(-3,2,1)\\}$$\nEl signo es donde más se falla, porque los coeficientes de la matriz cambian de signo al pasarlos al otro lado de la igualdad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-generadores-del-nulo"
+    ]
+  },
+  {
+    "question": "Una matriz escalonada tiene un escalón en la primera columna y otro en la última.\n$$\\begin{pmatrix} 1 & 2 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$$\n¿Qué vector genera el conjunto de soluciones del sistema homogéneo?",
+    "options": [
+      "$(2, 1, 0)$",
+      "$(-2, 1, 1)$",
+      "$(1, 2, 0)$",
+      "$(-2, 1, 0)$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "La incógnita libre es la del medio, y la última queda obligada a valer cero.",
+    "feedback_incorrect": [
+      "El signo quedó sin despejar, el dos de la matriz pasa restando al otro lado.",
+      "La segunda ecuación obliga a que la última incógnita valga cero.",
+      "Esos son los coeficientes de la primera fila, no la solución del sistema.",
+      null
+    ],
+    "explanation": "La incógnita libre no siempre es la última: es la que no tiene ningún escalón en su columna.\n$$x + 2y = 0, \\quad z = 0$$\nAcá los escalones están en la primera y la tercera columna, así que la incógnita libre es la del medio.\n\nTomándola igual a uno, la primera queda valiendo menos dos y la última está obligada a valer cero.\n$$\\text{Nul}(A) = \\text{gen}\\{(-2,1,0)\\}$$\nIdentificar cuál es la incógnita libre antes de despejar es lo que evita el error más caro de este tipo de lectura.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-generadores-del-nulo"
+    ]
+  },
+  {
+    "question": "Un sistema homogéneo con tres incógnitas tiene una sola ecuación.\n$$\\begin{pmatrix} 1 & 2 & -1 \\end{pmatrix}$$\n¿Qué conjunto genera sus soluciones?",
+    "options": [
+      "$\\{(-2,1,0), (1,0,1)\\}$",
+      "$\\{(2,1,0), (1,0,1)\\}$",
+      "$\\{(1,2,-1)\\}$",
+      "$\\{(-2,1,0)\\}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Quedan dos incógnitas libres, así que hacen falta dos vectores para describir las soluciones.",
+    "feedback_incorrect": [
+      null,
+      "Los signos quedaron sin despejar, los coeficientes cambian de signo al pasarlos.",
+      "Esos son los coeficientes de la ecuación, que no resuelven el sistema.",
+      "Con un solo vector se describe una recta, y acá las soluciones forman un plano."
+    ],
+    "explanation": "Con una sola ecuación y tres incógnitas quedan **dos** incógnitas libres, y cada una aporta un generador.\n$$x = -2y + z$$\nTomando la segunda incógnita en uno y la tercera en cero se obtiene el primer generador, y al revés se obtiene el segundo.\n\nLas dos ternas se verifican reemplazando en la ecuación original, y las dos la anulan.\n$$\\text{Nul}(A) = \\text{gen}\\{(-2,1,0), (1,0,1)\\}$$\nEl conjunto de soluciones es entonces un plano que pasa por el origen, descripto por dos vectores en lugar de por una ecuación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-generadores-del-nulo"
+    ]
+  },
+  {
+    "question": "Una matriz escalonada de dos incógnitas tiene un escalón en cada columna.\n$$\\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$$\n¿Cuál es el conjunto de soluciones del sistema homogéneo?",
+    "options": [
+      "Todo el plano, porque las dos ecuaciones se cumplen",
+      "El eje generado por $(1,0)$",
+      "El formado únicamente por el par nulo",
+      "La recta generada por $(1,1)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Las dos ecuaciones obligan a que las dos incógnitas valgan cero.",
+    "feedback_incorrect": [
+      "Las dos ecuaciones son exigentes: obligan a cada incógnita a valer cero.",
+      "Ese eje tampoco verifica la primera ecuación, que obliga a la primera incógnita a anularse.",
+      null,
+      "Esa recta no verifica ninguna de las dos ecuaciones, salvo en el origen."
+    ],
+    "explanation": "Cuando cada columna tiene su escalón no queda ninguna incógnita libre, y el sistema tiene solución única.\n$$x = 0, \\quad y = 0$$\nEl conjunto de soluciones se reduce entonces al par nulo, que es el subespacio más chico posible.\n\nEse caso siempre existe como posibilidad, porque un sistema homogéneo nunca puede quedarse sin soluciones.\n\nLa cantidad de incógnitas libres es lo que decide el tamaño del resultado: ninguna da un solo punto, una da una recta y dos dan un plano.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-generadores-del-nulo"
+    ]
   }
 ]

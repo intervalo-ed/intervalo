@@ -1,24 +1,401 @@
 [
   {
-    "question": "¿Para qué valor de $k$ son ortogonales $\\vec{u}=(k,4)$ y $\\vec{v}=(3,-6)$?",
+    "question": "Un vector $\\vec{u}=(5,3)$ representa una dirección.\n\n¿Cuál de estos vectores es perpendicular a $\\vec{u}$?",
     "options": [
-      "$8$",
-      "$-8$",
-      "$2$",
-      "$24$"
+      "$(-3,5)$",
+      "$(3,5)$",
+      "$(5,-3)$",
+      "$(-5,-3)$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$3k - 24 = 0 \\Rightarrow k = 8$.",
+    "feedback_correct": "$(5,3)\\cdot(-3,5) = -15+15 = 0$: es perpendicular a $\\vec{u}$.",
     "feedback_incorrect": [
       null,
-      "El signo de $k$ quedó invertido.",
-      "Ese valor no anula la suma $3k-24$.",
-      "Ese es el término independiente antes de despejar, falta dividir por $3$."
+      "Esa opción intercambia las componentes pero no invierte ningún signo; el producto escalar no da cero.",
+      "Esa opción invierte el signo de la componente equivocada; el producto escalar no da cero.",
+      "Ese es el vector opuesto a $\\vec{u}$, no uno perpendicular: apunta en la misma dirección, sentido contrario."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dos vectores son ortogonales cuando su producto escalar es cero.\n$$\\vec{u}\\cdot\\vec{v} = 3k + 4(-6) = 3k - 24 = 0$$\n\nDespejando, $3k=24$, así que $k=8$.\n\nConviene armar la ecuación completa antes de despejar, para no perder algún término en el camino. cuando su producto escalar es cero. Esto significa que no tienen ningún componente en la misma dirección; sus direcciones son perpendiculares. La ortogonalidad es fundamental en geometría vectorial y aparece constantemente en álgebra lineal: en bases ortonormales, en descomposiciones, y en proyecciones. Dos vectores ortogonales pueden tener magnitudes completamente diferentes; la ortogonalidad solo describe su ángulo relativo, no sus longitudes.",
-    "reviewed": false
+    "explanation": "Para hallar un vector perpendicular en $\\mathbb{R}^2$, se intercambian las componentes y se invierte el signo de una de ellas.\n\nA partir de $\\vec{u}=(5,3)$, intercambiando y cambiando un signo se obtiene:\n$$\\vec{v} = (-3,5)$$\nVerificando con el producto escalar:\n$$\\begin{aligned} \\vec{u}\\cdot\\vec{v} &= (5)(-3)+(3)(5) \\\\ &= -15+15 = 0 \\end{aligned}$$\nComo da cero, $\\vec{v}$ es efectivamente perpendicular a $\\vec{u}$.",
+    "reviewed": false,
+    "tags": [
+      "resl-hallar-perpendicular-2d"
+    ]
+  },
+  {
+    "question": "Un vector $\\vec{u}=(2,7)$ representa una dirección.\n\n¿Cuál de estos vectores es perpendicular a él?",
+    "options": [
+      "$(-2,-7)$",
+      "$(-7,2)$",
+      "$(7,2)$",
+      "$(2,-7)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Se intercambian las componentes y se le cambia el signo a una de las dos.",
+    "feedback_incorrect": [
+      "Ese es el vector opuesto, que apunta al revés pero sobre la misma recta.",
+      null,
+      "Ahí las componentes se intercambiaron pero ningún signo cambió.",
+      "Ahí cambió un signo pero las componentes no se intercambiaron."
+    ],
+    "explanation": "Un perpendicular en el plano se construye intercambiando las componentes y cambiando el signo de una.\n$$2 \\cdot (-7) + 7 \\cdot 2 = -14 + 14 = 0$$\nEsa receta garantiza que los dos términos del producto escalar se cancelen.\n\nCambiar el signo de la otra componente da el perpendicular opuesto, que también es válido.\n\nEl vector opuesto al original, en cambio, sigue estando sobre la misma recta y no es perpendicular a nada de eso.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-hallar-perpendicular-2d"
+    ]
+  },
+  {
+    "question": "Un vector $\\vec{u}=(-3,6)$ representa una dirección.\n\n¿Cuál de estos vectores es perpendicular a él?",
+    "options": [
+      "$(6,-3)$",
+      "$(-6,3)$",
+      "$(3,6)$",
+      "$(6,3)$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El producto da menos dieciocho más dieciocho, o sea cero.",
+    "feedback_incorrect": [
+      "Ese producto da menos treinta y seis, así que el ángulo es obtuso.",
+      "Ese producto da treinta y seis, así que el ángulo es agudo.",
+      "Ese producto da veintisiete, así que el ángulo es agudo.",
+      null
+    ],
+    "explanation": "Intercambiar las componentes y cambiar un signo funciona también cuando el vector original tiene componentes negativas.\n$$(-3) \\cdot 6 + 6 \\cdot 3 = -18 + 18 = 0$$\nEl signo que hay que cambiar es el de una sola de las dos componentes, no el de las dos.\n\nCambiar los dos daría el opuesto del perpendicular, que también sirve, pero cambiar ninguno no produce nada útil.\n\nEl chequeo final es siempre el mismo: calcular el producto escalar y verificar que dé cero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-hallar-perpendicular-2d"
+    ]
+  },
+  {
+    "question": "Un vector $\\vec{u}=(5,0)$ representa una dirección.\n\n¿Cuál de estos vectores es perpendicular a él?",
+    "options": [
+      "$(0,4)$",
+      "$(4,0)$",
+      "$(5,5)$",
+      "$(-5,0)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Los dos términos se anulan porque en cada eje uno de los factores es cero.",
+    "feedback_incorrect": [
+      null,
+      "Ese vector está sobre el mismo eje que el original, así que el ángulo es nulo.",
+      "Ese producto da veinticinco, así que el ángulo es agudo.",
+      "Ese es el vector opuesto, que apunta al revés sobre la misma recta."
+    ],
+    "explanation": "Cuando el vector original está sobre un eje, su perpendicular está sobre el otro.\n$$5 \\cdot 0 + 0 \\cdot 4 = 0$$\nLa receta general da lo mismo: intercambiando las componentes y cambiando un signo se llega a un vector sobre el eje vertical.\n\nEl signo de ese perpendicular no importa, porque los dos sentidos son igual de perpendiculares.\n\nEl opuesto del vector original nunca es una respuesta válida: forma un ángulo llano, no recto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-hallar-perpendicular-2d"
+    ]
+  },
+  {
+    "question": "Un vector $\\vec{u}=(4,-6)$ representa una dirección.\n\n¿Cuál de estos vectores es perpendicular a él?",
+    "options": [
+      "$(-3,2)$",
+      "$(4,6)$",
+      "$(3,2)$",
+      "$(2,3)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El producto da doce menos doce, o sea cero.",
+    "feedback_incorrect": [
+      "Ese producto da menos veinticuatro, así que el ángulo es obtuso.",
+      "Ese producto da menos veinte, así que faltó cambiarle el signo a una componente.",
+      null,
+      "Ese producto da menos diez, así que el ángulo es obtuso."
+    ],
+    "explanation": "Cualquier múltiplo no nulo de un perpendicular también es perpendicular.\n$$4 \\cdot 3 + (-6) \\cdot 2 = 12 - 12 = 0$$\nIntercambiar las componentes del original y cambiarle el signo a una de las dos es lo que produce un perpendicular; simplificarlo da el más chico posible.\n\nIntercambiar las componentes sin cambiar ningún signo, en cambio, no alcanza: ese producto da menos veinte, no cero.\n\nConviene simplificar el perpendicular hallado antes de compararlo con las opciones.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-hallar-perpendicular-2d"
+    ]
+  },
+  {
+    "question": "Dados $\\vec{u}=(6,-2)$ y $\\vec{v}=(1,3)$.\n\n¿Son ortogonales?",
+    "options": [
+      "Sí, porque $\\vec{u}\\cdot\\vec{v}=0$",
+      "No, porque $\\vec{u}\\cdot\\vec{v}=4$",
+      "No, porque $\\vec{u}\\cdot\\vec{v}=-8$",
+      "Sí, porque ambos tienen la misma norma"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$6(1)+(-2)(3) = 6-6 = 0$: son ortogonales.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor no corresponde al producto escalar real entre estos dos vectores.",
+      "Ese valor tampoco corresponde al producto escalar real entre estos dos vectores.",
+      "La norma de cada vector no tiene relación con la ortogonalidad; lo que importa es el producto escalar."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Verificar ortogonalidad por cálculo significa obtener el producto escalar y revisar si da exactamente cero.\n$$\\begin{aligned} \\vec{u}\\cdot\\vec{v} &= (6)(1)+(-2)(3) \\\\ &= 6-6 = 0 \\end{aligned}$$\nCada término mide cuánto se refuerzan los vectores en esa dirección: acá un término positivo y otro negativo se cancelan exactamente, así que no queda ningún alineamiento neto entre ambos.\n\nComo el resultado es cero, los vectores son ortogonales. No hace falta calcular ni comparar normas: el único dato que decide la ortogonalidad es el valor del producto escalar.",
+    "reviewed": false,
+    "tags": [
+      "resl-verificar-mediante-calculo"
+    ]
+  },
+  {
+    "question": "Se conocen las componentes de dos vectores.\n$$\\vec{u}=(3,9) \\qquad \\vec{v}=(6,-2)$$\n¿Son ortogonales?",
+    "options": [
+      "Sí, porque los dos tienen componentes de distinto signo",
+      "Sí, porque su producto escalar da $0$",
+      "No, porque su producto escalar da $36$",
+      "No, porque su producto escalar da $-18$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Dieciocho menos dieciocho da cero, así que el par es perpendicular.",
+    "feedback_incorrect": [
+      "Los signos de las componentes no deciden nada por sí solos.",
+      null,
+      "Los dos términos se cancelan: el segundo entra restando por el signo negativo.",
+      "El resultado no es negativo: los dos términos se compensan exactamente."
+    ],
+    "explanation": "El criterio se aplica calculando el producto escalar por componentes.\n$$3 \\cdot 6 + 9 \\cdot (-2) = 18 - 18 = 0$$\nEl primer término suma dieciocho y el segundo resta exactamente lo mismo.\n\nComo ninguno de los dos vectores es nulo, el producto cero garantiza el ángulo recto.\n\nLa respuesta es binaria: lo único que hay que decidir es si el resultado es cero o no.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-verificar-mediante-calculo"
+    ]
+  },
+  {
+    "question": "Se conocen las componentes de dos vectores.\n$$\\vec{u}=(5,4) \\qquad \\vec{v}=(2,3)$$\n¿Son ortogonales?",
+    "options": [
+      "Sí, porque su producto escalar da $0$",
+      "No, porque su producto escalar da $-2$",
+      "No, porque tienen longitudes distintas",
+      "No, porque su producto escalar da $22$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Diez más doce da veintidós, distinto de cero.",
+    "feedback_incorrect": [
+      "El producto no se anula: los dos términos son positivos y se acumulan.",
+      "El resultado no es negativo: las cuatro componentes son positivas.",
+      "Las longitudes distintas no impiden la perpendicularidad.",
+      null
+    ],
+    "explanation": "Con las cuatro componentes positivas, los dos términos del producto escalar son positivos.\n$$5 \\cdot 2 + 4 \\cdot 3 = 10 + 12 = 22$$\nUna suma de términos positivos no puede anularse, así que el par no es perpendicular sin necesidad de terminar la cuenta.\n\nEl valor positivo indica además que el ángulo entre los dos es agudo.\n\nEse descarte por signos es el atajo más rápido cuando ninguna componente es negativa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-verificar-mediante-calculo"
+    ]
+  },
+  {
+    "question": "Se conocen las componentes de dos vectores.\n$$\\vec{u}=(8,-1) \\qquad \\vec{v}=(1,8)$$\n¿Son ortogonales?",
+    "options": [
+      "Sí, porque su producto escalar da $0$",
+      "No, porque su producto escalar da $16$",
+      "No, porque su producto escalar da $-16$",
+      "Sí, porque los dos tienen la misma longitud"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Ocho menos ocho da cero, así que el par es perpendicular.",
+    "feedback_incorrect": [
+      null,
+      "Los dos términos se cancelan: el segundo entra restando por el signo negativo.",
+      "El resultado no es negativo: los dos términos se compensan exactamente.",
+      "La igualdad de longitudes no es lo que decide la perpendicularidad."
+    ],
+    "explanation": "El segundo vector se obtiene del primero intercambiando componentes y cambiando un signo.\n$$8 \\cdot 1 + (-1) \\cdot 8 = 8 - 8 = 0$$\nEsa construcción garantiza la cancelación, y de paso hace que los dos vectores tengan la misma longitud.\n\nEsa coincidencia de longitudes es una consecuencia de cómo se armó el par, no un requisito de la perpendicularidad.\n\nUn perpendicular escalado tendría otra longitud y seguiría cumpliendo la condición.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-verificar-mediante-calculo"
+    ]
+  },
+  {
+    "question": "Se conocen las componentes de dos vectores del espacio.\n$$\\vec{u}=(2,3,1) \\qquad \\vec{v}=(1,-1,1)$$\n¿Son ortogonales?",
+    "options": [
+      "No, porque su producto escalar da $-2$",
+      "No, porque el criterio solo vale en el plano",
+      "Sí, porque su producto escalar da $0$",
+      "No, porque su producto escalar da $6$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Dos menos tres más uno da cero, así que el par es perpendicular.",
+    "feedback_incorrect": [
+      "El resultado no es negativo: el tercer término compensa lo que falta.",
+      "El criterio vale en cualquier cantidad de dimensiones.",
+      null,
+      "El término del medio entra restando por el signo negativo del segundo vector."
+    ],
+    "explanation": "El criterio de ortogonalidad no depende de la dimensión: se aplica igual con tres componentes.\n$$2 \\cdot 1 + 3 \\cdot (-1) + 1 \\cdot 1$$\n$$= 2 - 3 + 1 = 0$$\nLos tres términos se compensan entre sí, y el total se anula.\n\nComo ninguno de los dos vectores es nulo, eso significa que forman un ángulo recto en el espacio.\n\nEl producto escalar se define en cualquier dimensión, y el criterio de perpendicularidad lo acompaña.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-verificar-mediante-calculo"
+    ]
+  },
+  {
+    "question": "$\\vec{u}=(3,4)$ y $\\vec{v}=(k,6)$ son ortogonales.\n\n¿Cuánto vale $k$?",
+    "options": [
+      "$-8$",
+      "$8$",
+      "$-6$",
+      "$2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Despejando $k$ de $3k+24=0$ se obtiene $k=-8$.",
+    "feedback_incorrect": [
+      null,
+      "El signo de $k$ quedó invertido al despejar.",
+      "Ese valor no anula la ecuación $3k+24=0$.",
+      "Ese valor tampoco anula la ecuación $3k+24=0$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para hallar el parámetro que hace ortogonales a dos vectores, se plantea el producto escalar igualado a cero y se despeja.\n$$\\vec{u}\\cdot\\vec{v} = 3k+4(6) = 3k+24$$\nIgualando a cero para que sean ortogonales:\n$$3k+24=0 \\;\\Rightarrow\\; k=-8$$\nCualquier otro valor de $k$ deja un producto escalar distinto de cero, y los vectores dejan de ser perpendiculares.",
+    "reviewed": false,
+    "tags": [
+      "resl-hallar-parametro-para-ortogonalidad"
+    ]
+  },
+  {
+    "question": "Dos vectores son ortogonales entre sí.\n$$\\vec{u}=(2,5) \\qquad \\vec{v}=(k,4)$$\n¿Cuánto vale $k$?",
+    "options": [
+      "$-2$",
+      "$-10$",
+      "$10$",
+      "$-4$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Del producto igualado a cero sale que dos por $k$ vale menos veinte.",
+    "feedback_incorrect": [
+      "Ahí se restaron las componentes en vez de plantear el producto escalar.",
+      null,
+      "Ahí el signo quedó invertido al despejar.",
+      "Ahí se despejó sin multiplicar por la primera componente."
+    ],
+    "explanation": "La condición de ortogonalidad se plantea como una ecuación con el producto escalar igualado a cero.\n$$2k + 5 \\cdot 4 = 0$$\nEl término conocido pasa restando y después se divide por el coeficiente.\n$$2k = -20 \\implies k = -10$$\nEl signo negativo es esperable: para compensar un término positivo hace falta uno negativo.\n\nReemplazar el valor hallado en el producto escalar y verificar que dé cero cierra el ejercicio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-hallar-parametro-para-ortogonalidad"
+    ]
+  },
+  {
+    "question": "Dos vectores son ortogonales entre sí.\n$$\\vec{u}=(6,-3) \\qquad \\vec{v}=(2,k)$$\n¿Cuánto vale $k$?",
+    "options": [
+      "$-4$",
+      "$12$",
+      "$2$",
+      "$4$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Del producto igualado a cero sale que menos tres por $k$ vale menos doce.",
+    "feedback_incorrect": [
+      "Ahí el signo quedó invertido al despejar.",
+      "Ahí se despejó sin dividir por el coeficiente.",
+      "Ahí se restaron las componentes en vez de plantear el producto escalar.",
+      null
+    ],
+    "explanation": "La ecuación sale de igualar el producto escalar a cero.\n$$6 \\cdot 2 + (-3)k = 0$$\nEl término conocido pasa restando y el coeficiente negativo se despeja dividiendo.\n$$-3k = -12 \\implies k = 4$$\nDividir dos números negativos da positivo, y ahí es donde más se pierde el signo.\n\nEl chequeo es directo: doce menos doce da cero, así que el valor hallado cumple la condición.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-hallar-parametro-para-ortogonalidad"
+    ]
+  },
+  {
+    "question": "Dos vectores son ortogonales entre sí.\n$$\\vec{u}=(k,7) \\qquad \\vec{v}=(3,-6)$$\n¿Cuánto vale $k$?",
+    "options": [
+      "$14$",
+      "$-14$",
+      "$42$",
+      "$7$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Del producto igualado a cero sale que tres por $k$ vale cuarenta y dos.",
+    "feedback_incorrect": [
+      null,
+      "Ahí el signo quedó invertido al despejar.",
+      "Ahí se despejó sin dividir por el coeficiente.",
+      "Ahí se restaron las componentes en vez de plantear el producto escalar."
+    ],
+    "explanation": "La incógnita puede estar en cualquiera de los dos vectores: la ecuación se plantea igual.\n$$3k + 7 \\cdot (-6) = 0$$\nEl término conocido es negativo, así que al pasarlo al otro lado queda positivo.\n$$3k = 42 \\implies k = 14$$\nEl resultado positivo es coherente: el segundo término resta, así que el primero tiene que sumar.\n\nAnticipar el signo del resultado antes de despejar es un buen control del propio trabajo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-hallar-parametro-para-ortogonalidad"
+    ]
+  },
+  {
+    "question": "Dos vectores del espacio son ortogonales entre sí.\n$$\\vec{u}=(1,2,k) \\qquad \\vec{v}=(4,-1,2)$$\n¿Cuánto vale $k$?",
+    "options": [
+      "$-2$",
+      "$2$",
+      "$-1$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Cuatro menos dos más dos por $k$ igualado a cero deja $k$ en menos uno.",
+    "feedback_incorrect": [
+      "Ahí se despejó sin dividir por el coeficiente.",
+      "Ahí se sumaron los dos términos conocidos en vez de restarlos.",
+      null,
+      "Ahí el signo quedó invertido al despejar."
+    ],
+    "explanation": "Con tres componentes la ecuación tiene un término más, pero se plantea igual.\n$$1 \\cdot 4 + 2 \\cdot (-1) + 2k = 0$$\nLos dos términos conocidos se combinan primero y después se despeja la incógnita.\n$$2 + 2k = 0 \\implies k = -1$$\nConviene resolver la parte conocida antes de despejar, para no arrastrar dos operaciones a la vez.\n\nReemplazar el valor y verificar que los tres términos sumen cero confirma el resultado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-hallar-parametro-para-ortogonalidad"
+    ]
   }
 ]

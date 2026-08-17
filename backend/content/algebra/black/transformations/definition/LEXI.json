@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **transformación lineal** es una función entre espacios vectoriales que preserva la suma y la multiplicación por escalar.\n$$T(\\alpha\\vec{u} + \\vec{v}) = \\alpha T(\\vec{u}) + T(\\vec{v})$$\n\nEsta condición garantiza que la estructura geométrica se mantenga: rectas siguen siendo rectas y el origen no varía.\n\nRotaciones, proyecciones y reflexiones son ejemplos típicos de transformaciones lineales.",
+    "explanation": "Una **transformación lineal** es una función entre espacios vectoriales que preserva la suma y la multiplicación por escalar.\n$$T(\\alpha\\vec{u} + \\vec{v}) = \\alpha T(\\vec{u}) + T(\\vec{v})$$\nEsta condición garantiza que la estructura geométrica se mantenga: rectas siguen siendo rectas y el origen no varía.\n\nRotaciones, proyecciones y reflexiones son ejemplos típicos de transformaciones lineales.",
     "reviewed": false
   }
 ]

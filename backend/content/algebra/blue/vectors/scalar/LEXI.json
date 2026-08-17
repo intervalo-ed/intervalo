@@ -1,22 +1,371 @@
 [
   {
-    "question": "¿Qué devuelve la operación **escalar** entre dos vectores?",
+    "question": "El producto escalar se calcula sumando los productos de las componentes.\n$$\\vec{u} \\cdot \\vec{v} = u_1v_1 + u_2v_2$$\n¿Por qué ese número termina relacionado con el ángulo entre los dos vectores?",
     "options": [
-      "Un número real",
-      "Un nuevo vector",
-      "Una matriz"
+      "Porque su fórmula geométrica es $\\|\\vec{u}\\|\\|\\vec{v}\\|\\cos(\\theta)$, donde $\\theta$ es el ángulo entre ambos",
+      "Porque el ángulo determina la longitud de cada vector por separado",
+      "Porque el producto escalar mide directamente cuántos grados hay entre los vectores"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "El producto escalar combina dos vectores y devuelve un número real.",
+    "feedback_correct": "La fórmula geométrica del producto escalar incluye el coseno del ángulo entre los dos vectores.",
     "feedback_incorrect": [
       null,
-      "Eso describe al producto vectorial (en $\\mathbb{R}^3$), no al escalar.",
-      "El resultado del producto escalar no es una matriz."
+      "La longitud de cada vector depende solo de sus propias componentes, no del ángulo entre ambos.",
+      "El resultado del producto escalar es un número que combina magnitudes y coseno, no directamente un ángulo en grados."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **producto escalar** (o interno) toma dos vectores y devuelve un número real.\n$$\\vec{u}\\cdot\\vec{v} = u_1v_1 + u_2v_2 + \\dots + u_nv_n$$\n\nA diferencia del producto vectorial, que da como resultado otro vector, acá el resultado siempre es un escalar.\n\nEste número vincula las magnitudes de ambos vectores con el ángulo que forman entre sí.",
-    "reviewed": false
+    "explanation": "El producto escalar tiene una fórmula geométrica equivalente a la fórmula por componentes:\n$$\\vec{u}\\cdot\\vec{v} = \\|\\vec{u}\\|\\|\\vec{v}\\|\\cos(\\theta)$$\nAhí $\\theta$ es el ángulo entre los dos vectores, así que el resultado depende de cuánto se parecen en dirección, no solo de sus longitudes.\n\nDos vectores de la misma longitud pueden dar productos escalares muy distintos según el ángulo que formen entre sí.",
+    "reviewed": false,
+    "tags": [
+      "por-que-relacion-angulo"
+    ]
+  },
+  {
+    "question": "El producto escalar se puede calcular sin conocer ningún ángulo.\n$$\\vec{u} \\cdot \\vec{v} = u_1v_1 + u_2v_2$$\n¿Qué hace que ese número dependa igual de la dirección relativa?",
+    "options": [
+      "Que el resultado siempre coincide con el ángulo medido en grados",
+      "Que cada término compara las dos componentes de un mismo eje",
+      "Que la fórmula incluye de forma oculta la longitud de los dos vectores"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cuando las dos componentes de un eje tienen el mismo signo el término suma, y si no, resta.",
+    "feedback_incorrect": [
+      "El resultado es un número que no se mide en grados ni coincide con un ángulo.",
+      null,
+      "Las longitudes intervienen, pero lo que decide el signo es la coincidencia de sentidos eje por eje."
+    ],
+    "explanation": "Cada término del producto escalar multiplica las dos componentes de un mismo eje.\n$$\\vec{u} \\cdot \\vec{v} = u_1v_1 + u_2v_2$$\nSi en ese eje los dos vectores van hacia el mismo lado, el producto es positivo y el término suma.\n\nSi van hacia lados opuestos, el término resta, y el total refleja cuánto se contradicen los dos vectores eje por eje.\n\nEsa acumulación de coincidencias y contradicciones es lo que termina midiendo la dirección relativa, aunque ningún ángulo aparezca escrito.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-relacion-angulo"
+    ]
+  },
+  {
+    "question": "Dos vectores mantienen su longitud y solo cambia el ángulo entre ellos.\n$$\\vec{u} \\cdot \\vec{v}$$\n¿Qué le pasa al producto escalar a medida que ese ángulo crece de cero a $180°$?",
+    "options": [
+      "Aumenta de forma continua, porque el ángulo también aumenta",
+      "Se mantiene constante, porque las longitudes no cambian",
+      "Disminuye de forma continua, pasa por cero y termina negativo"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El producto es máximo cuando apuntan igual y mínimo cuando apuntan al revés.",
+    "feedback_incorrect": [
+      "El producto baja cuando el ángulo crece: son magnitudes que se mueven al revés.",
+      "Las longitudes fijan el rango posible, pero adentro de ese rango manda el ángulo.",
+      null
+    ],
+    "explanation": "Con las longitudes fijas, lo único que puede mover el producto escalar es la dirección relativa.\n$$\\vec{u} \\cdot \\vec{v}$$\nCon ángulo nulo los dos apuntan igual y el producto alcanza su valor máximo.\n\nA medida que el ángulo crece el valor baja, cruza el cero en el ángulo recto y sigue bajando hasta el mínimo, con los vectores opuestos.\n\nEse recorrido convierte al producto escalar en una medida de cuánto coinciden dos direcciones.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-relacion-angulo"
+    ]
+  },
+  {
+    "question": "El producto escalar puede dar negativo.\n$$\\vec{u} \\cdot \\vec{v} < 0$$\n¿Qué información sobre las dos direcciones aporta ese signo?",
+    "options": [
+      "Que el ángulo que forman los dos vectores supera al recto",
+      "Que uno de los dos vectores tiene componentes negativas",
+      "Que los dos vectores tienen longitudes distintas entre sí"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Un producto negativo indica que los dos vectores apuntan más en contra que a favor.",
+    "feedback_incorrect": [
+      null,
+      "Las componentes negativas no deciden el signo: lo que decide es la dirección relativa.",
+      "Las longitudes son siempre positivas y no pueden cambiar el signo del producto."
+    ],
+    "explanation": "El signo del producto escalar resume si dos vectores apuntan más a favor o más en contra.\n$$\\vec{u} \\cdot \\vec{v} < 0$$\nLas longitudes son siempre positivas, así que el signo lo aporta únicamente la dirección relativa.\n\nUn resultado negativo dice que el ángulo pasó el recto, o sea que los dos vectores se oponen más de lo que colaboran.\n\nEse es el dato más útil de la operación, y se obtiene sin calcular ningún ángulo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-relacion-angulo"
+    ]
+  },
+  {
+    "question": "Dos vectores tienen producto escalar muy grande.\n$$\\vec{u} \\cdot \\vec{v} \\gg 0$$\n¿Qué se puede afirmar a partir de ese dato?",
+    "options": [
+      "Que los dos vectores tienen exactamente la misma longitud",
+      "Que apuntan parecido, que son largos, o las dos cosas a la vez",
+      "Que el ángulo entre ellos es necesariamente cero"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El valor combina longitudes y ángulo, así que un número grande admite varias explicaciones.",
+    "feedback_incorrect": [
+      "Las longitudes pueden ser muy distintas y aun así dar un producto grande.",
+      null,
+      "Un ángulo chico pero no nulo también puede dar un producto grande si los vectores son largos."
+    ],
+    "explanation": "El producto escalar mezcla tres cosas: las dos longitudes y el ángulo entre los vectores.\n$$\\vec{u} \\cdot \\vec{v} \\gg 0$$\nUn valor grande puede venir de vectores muy largos con un ángulo mediano, o de vectores cortos casi alineados.\n\nPor eso la magnitud del resultado, sola, no permite recuperar el ángulo.\n\nLo que sí se lee directamente del resultado es su **signo**, que depende únicamente de la dirección relativa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-relacion-angulo"
+    ]
+  },
+  {
+    "question": "Dos vectores perpendiculares tienen su producto escalar fijado de antemano.\n$$\\vec{u} \\perp \\vec{v} \\implies \\vec{u} \\cdot \\vec{v} = 0$$\n¿Por qué ese producto da siempre cero?",
+    "options": [
+      "Porque en la fórmula geométrica, el coseno de un ángulo de $90°$ es cero",
+      "Porque las componentes de vectores perpendiculares siempre son cero",
+      "Porque el producto escalar solo se define entre vectores no perpendiculares"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "En la fórmula geométrica, el coseno de $90°$ es cero, así que todo el producto escalar se anula.",
+    "feedback_incorrect": [
+      null,
+      "Las componentes de un vector perpendicular pueden ser cualquier número; lo que se anula es el coseno del ángulo.",
+      "El producto escalar está definido para cualquier par de vectores, sean o no perpendiculares."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La fórmula geométrica del producto escalar multiplica las normas por el coseno del ángulo entre los vectores:\n$$\\vec{u}\\cdot\\vec{v} = \\|\\vec{u}\\|\\|\\vec{v}\\|\\cos(\\theta)$$\nCuando el ángulo entre los vectores es de $90°$, el coseno vale cero, y multiplicar cualquier cosa por cero da cero.\n\nPor eso el producto escalar entre dos vectores perpendiculares siempre da cero, sin importar cuánto midan.",
+    "reviewed": false,
+    "tags": [
+      "por-que-perpendicular-cero"
+    ]
+  },
+  {
+    "question": "La fórmula geométrica del producto escalar es un producto de tres factores.\n$$\\vec{u} \\cdot \\vec{v} = \\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\theta)$$\n¿Cuál de los tres se anula cuando el ángulo es recto?",
+    "options": [
+      "Los tres a la vez, y por eso el producto se anula",
+      "El coseno, porque el coseno de un ángulo recto vale cero",
+      "Una de las dos normas, porque el ángulo recto la reduce"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Las normas no dependen del ángulo, así que el único factor que puede anularse es el coseno.",
+    "feedback_incorrect": [
+      "Solo uno de los tres se anula, y las dos normas siguen siendo positivas.",
+      null,
+      "Las longitudes de los vectores no cambian cuando cambia el ángulo entre ellos."
+    ],
+    "explanation": "En la fórmula geométrica, las dos normas dependen solo de cada vector por separado.\n$$\\vec{u} \\cdot \\vec{v} = \\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\theta)$$\nEl ángulo entra únicamente en el coseno, así que es el único factor sensible a la dirección relativa.\n\nEl coseno de un ángulo recto vale cero, y un producto con un factor nulo se anula por completo.\n\nPor eso el producto escalar de dos vectores perpendiculares da cero, sin importar cuánto midan.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-perpendicular-cero"
+    ]
+  },
+  {
+    "question": "Dos vectores perpendiculares dan producto escalar nulo, midan lo que midan.\n$$\\vec{u} \\perp \\vec{v} \\implies \\vec{u} \\cdot \\vec{v} = 0$$\n¿Por qué las longitudes no cambian ese resultado?",
+    "options": [
+      "Porque las longitudes se cancelan entre sí en la fórmula",
+      "Porque la fórmula geométrica no incluye las longitudes",
+      "Porque multiplican a un factor que ya vale cero"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Cualquier número multiplicado por cero da cero, por grande que sea.",
+    "feedback_incorrect": [
+      "Las longitudes no se cancelan: se multiplican entre sí y con el coseno.",
+      "La fórmula geométrica sí incluye las dos longitudes, como factores.",
+      null
+    ],
+    "explanation": "El producto escalar es un producto de tres factores, y basta con que uno se anule.\n$$\\vec{u} \\cdot \\vec{v} = \\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(90°) = 0$$\nLas dos longitudes multiplican a un coseno que ya vale cero, así que su tamaño es irrelevante.\n\nUn vector larguísimo y uno cortísimo dan el mismo resultado si forman un ángulo recto.\n\nEsa independencia del tamaño es lo que después vuelve al producto escalar un criterio limpio de perpendicularidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-perpendicular-cero"
+    ]
+  },
+  {
+    "question": "El coseno recorre todos los valores entre $1$ y $-1$ según el ángulo.\n$$\\cos(0°)=1 \\qquad \\cos(180°)=-1$$\n¿Qué tiene de particular el valor que toma en el ángulo recto?",
+    "options": [
+      "Que es el único cero, y separa los positivos de los negativos",
+      "Que es el valor máximo que el coseno llega a alcanzar",
+      "Que es el único valor que el coseno repite dos veces"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El ángulo recto es la frontera entre apuntar a favor y apuntar en contra.",
+    "feedback_incorrect": [
+      null,
+      "El máximo del coseno se alcanza con ángulo nulo, no con ángulo recto.",
+      "Entre cero y ciento ochenta grados el coseno no repite ningún valor."
+    ],
+    "explanation": "Entre $0°$ y $180°$ el coseno baja de forma continua desde uno hasta menos uno.\n$$\\cos(90°) = 0$$\nPasa por cero exactamente una vez, y ese cruce ocurre en el ángulo recto.\n\nA un lado de esa frontera el producto escalar es positivo, y al otro lado negativo.\n\nPor eso el signo del producto separa limpiamente los pares que colaboran de los que se oponen, con la perpendicularidad justo en el medio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-perpendicular-cero"
+    ]
+  },
+  {
+    "question": "Una fuerza empuja un objeto que se mueve en dirección perpendicular a ella.\n$$\\vec{F} \\perp \\vec{d}$$\n¿Qué significa que su producto escalar sea nulo?",
+    "options": [
+      "Que el objeto no se está moviendo en ninguna dirección",
+      "Que esa fuerza no aporta nada al avance en esa dirección",
+      "Que esa fuerza no tiene ninguna magnitud"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Un producto escalar nulo indica aporte nulo en la dirección considerada.",
+    "feedback_incorrect": [
+      "El objeto puede moverse perfectamente: lo que no aporta es esa fuerza en particular.",
+      null,
+      "La fuerza puede ser enorme: lo que vale cero es su aporte en esa dirección."
+    ],
+    "explanation": "El producto escalar entre una fuerza y una dirección mide cuánto de esa fuerza empuja hacia allí.\n$$\\vec{F} \\perp \\vec{d} \\implies \\vec{F} \\cdot \\vec{d} = 0$$\nUna fuerza perpendicular al movimiento no lo acelera ni lo frena: solo lo desviaría.\n\nLa fuerza sigue existiendo y puede ser muy grande, pero su aporte en esa dirección concreta es nulo.\n\nEsa lectura concreta es la que vuelve útil al producto escalar en cualquier problema de aportes direccionales.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-perpendicular-cero"
+    ]
+  },
+  {
+    "question": "El producto escalar tiene dos fórmulas que no se parecen en nada.\n$$u_1v_1 + u_2v_2 = \\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\theta)$$\n¿Por qué dan siempre el mismo resultado?",
+    "options": [
+      "Porque ambas describen la misma operación, solo que con datos distintos",
+      "Porque una fórmula se usa solo en $\\mathbb{R}^2$ y la otra solo en $\\mathbb{R}^3$",
+      "Porque las dos fórmulas dan resultados distintos y hay que promediarlos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Son dos maneras de calcular la misma operación: una a partir de las componentes, la otra a partir de la geometría del ángulo.",
+    "feedback_incorrect": [
+      null,
+      "Ambas fórmulas valen en cualquier dimensión; no están restringidas cada una a un espacio distinto.",
+      "Las dos fórmulas son equivalentes: dan exactamente el mismo número, no dos resultados para promediar."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El producto escalar es una única operación que se puede calcular de dos maneras equivalentes:\n$$\\vec{u}\\cdot\\vec{v} = u_1v_1+u_2v_2 = \\|\\vec{u}\\|\\|\\vec{v}\\|\\cos(\\theta)$$\nLa primera forma usa directamente las coordenadas de los vectores; la segunda usa sus longitudes y el ángulo entre ambos.\n\nComo describen la misma cantidad, siempre coinciden en el resultado, aunque partan de datos distintos.",
+    "reviewed": false,
+    "tags": [
+      "dos-formulas-equivalentes"
+    ]
+  },
+  {
+    "question": "Las dos fórmulas del producto escalar usan datos completamente distintos.\n$$u_1v_1+u_2v_2 = \\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\theta)$$\n¿Cuándo conviene usar cada una?",
+    "options": [
+      "La geométrica siempre, porque la de componentes solo vale en el plano",
+      "La de componentes con las coordenadas, y la geométrica con el ángulo",
+      "La de componentes siempre, porque la geométrica da resultados aproximados"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Las dos dan el mismo número, así que se elige según qué datos hay disponibles.",
+    "feedback_incorrect": [
+      "La fórmula por componentes vale en cualquier cantidad de dimensiones.",
+      null,
+      "Las dos son exactas: la geométrica no aproxima nada."
+    ],
+    "explanation": "Las dos fórmulas calculan la misma cantidad y siempre coinciden.\n$$u_1v_1+u_2v_2 = \\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\theta)$$\nLo único que las distingue es qué datos piden: una las coordenadas y la otra las longitudes con el ángulo.\n\nPor eso la elección es práctica y no matemática: se usa la que corresponde a los datos del problema.\n\nY como las dos son iguales, igualarlas permite despejar el ángulo cuando se conocen las coordenadas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "dos-formulas-equivalentes"
+    ]
+  },
+  {
+    "question": "Igualar las dos fórmulas del producto escalar permite despejar algo que no estaba a la vista.\n$$u_1v_1+u_2v_2 = \\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\theta)$$\n¿Qué se puede obtener así?",
+    "options": [
+      "Las coordenadas de los vectores, a partir del ángulo entre ellos",
+      "La longitud de uno de los dos vectores, a partir del otro",
+      "El coseno del ángulo, a partir de las coordenadas de los dos vectores"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Con las coordenadas se calculan los dos lados salvo el coseno, que queda despejado.",
+    "feedback_incorrect": [
+      "Muchos pares de vectores distintos forman el mismo ángulo, así que las coordenadas no quedan fijadas.",
+      "Cada longitud depende solo de su propio vector y no se puede deducir del otro.",
+      null
+    ],
+    "explanation": "A partir de las coordenadas se calculan el producto escalar y las dos normas.\n$$u_1v_1+u_2v_2 = \\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\theta)$$\nEl único término que queda sin conocer es el coseno, así que despejarlo es inmediato.\n\nEse es el método estándar para obtener el ángulo entre dos vectores dados por sus componentes.\n\nEl camino inverso no funciona: el ángulo no determina las coordenadas, porque infinitos pares de vectores lo comparten.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "dos-formulas-equivalentes"
+    ]
+  },
+  {
+    "question": "La fórmula por componentes no menciona ningún ángulo y la geométrica no menciona coordenadas.\n$$u_1v_1+u_2v_2 = \\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\theta)$$\n¿Por qué las dos dan siempre el mismo número?",
+    "options": [
+      "Porque describen la misma operación desde dos puntos de vista",
+      "Porque el ángulo se puede calcular como la suma de las componentes",
+      "Porque las dos fórmulas solo coinciden cuando el ángulo es recto"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "No son dos operaciones distintas que casualmente coinciden: son la misma escrita de dos formas.",
+    "feedback_incorrect": [
+      null,
+      "El ángulo no sale de sumar componentes: sale de despejar la igualdad completa.",
+      "Las dos fórmulas coinciden para cualquier ángulo, no solo para el recto."
+    ],
+    "explanation": "El producto escalar es una única operación, y las dos fórmulas son dos maneras de calcularla.\n$$u_1v_1+u_2v_2 = \\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\theta)$$\nUna parte de las coordenadas y la otra de la geometría, pero las dos llegan al mismo número.\n\nLa igualdad vale para cualquier par de vectores y cualquier ángulo, no solo en casos particulares.\n\nQue una operación tenga dos expresiones tan distintas es lo que la vuelve un puente entre el álgebra y la geometría.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "dos-formulas-equivalentes"
+    ]
+  },
+  {
+    "question": "Un mismo par de vectores se puede describir con coordenadas o con longitudes y ángulo.\n$$\\vec{u} \\cdot \\vec{v}$$\n¿Qué pasaría si las dos fórmulas dieran resultados distintos?",
+    "options": [
+      "Habría que quedarse con el resultado de la fórmula por componentes",
+      "Sería señal de un error de cálculo, porque las dos son la misma operación",
+      "Habría que promediar los dos resultados para obtener el valor correcto"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La igualdad entre las dos fórmulas vale siempre, así que una discrepancia es un error.",
+    "feedback_incorrect": [
+      "Ninguna de las dos es más confiable que la otra: las dos son exactas.",
+      null,
+      "Promediar no tiene sentido: no son dos mediciones sino dos caminos hacia el mismo número."
+    ],
+    "explanation": "Las dos expresiones no son aproximaciones ni mediciones independientes: son la misma cantidad.\n$$u_1v_1+u_2v_2 = \\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\theta)$$\nSi al calcularlas dan valores distintos, en alguno de los dos caminos hubo un error.\n\nPor eso calcular las dos y compararlas funciona como una verificación del propio trabajo.\n\nPromediar o elegir una sería tratar el problema como si hubiera incertidumbre, y no la hay.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "dos-formulas-equivalentes"
+    ]
   }
 ]

@@ -1,24 +1,407 @@
 [
   {
-    "question": "Al multiplicar estos dos números en **notación científica**:\n$$(3\\times10^{4}) \\times (2\\times10^{-6})$$\n¿Cuál es el resultado en notación científica?",
+    "question": "Una bacteria mide aproximadamente $0{,}0000025$ metros de diámetro.\n\n¿Cuál es esa medida expresada en notación científica?",
     "options": [
-      "$6\\times10^{-2}$",
-      "$6\\times10^{10}$",
-      "$5\\times10^{-2}$",
-      "$6\\times10^{4}$"
+      "$2{,}5 \\times 10^{-6}$ metros",
+      "$2{,}5 \\times 10^{6}$ metros",
+      "$25 \\times 10^{-7}$ metros",
+      "$2{,}5 \\times 10^{-5}$ metros"
     ],
     "correct_index": 0,
-    "feedback_correct": "Los coeficientes se multiplican ($3\\times2=6$) y los exponentes se suman ($4+(-6)=-2$), así que el resultado es $6\\times10^{-2}$.",
+    "feedback_correct": "Moviendo la coma 6 lugares a la derecha para dejar un solo dígito antes de ella, el exponente queda en $-6$, negativo porque el número es menor a $1$.",
     "feedback_incorrect": [
       null,
-      "Eso sale de sumar los exponentes ignorando el signo negativo del segundo: $4+6=10$ en vez de $4+(-6)=-2$.",
-      "Eso sale de sumar los coeficientes en vez de multiplicarlos: $3+2=5$ en vez de $3\\times2=6$.",
-      "Eso sale de copiar solo el exponente del primer factor y no sumarle el del segundo."
+      "El exponente positivo corresponde a un número mucho más grande que $1$, no a una medida microscópica como esta.",
+      "El coeficiente $25$ tiene dos dígitos antes de la coma, no cumple $1 \\leq \\lvert a \\rvert < 10$.",
+      "Ese exponente corresponde a mover la coma un lugar de menos de lo necesario."
     ],
-    "explanation": "Para **multiplicar números en notación científica** se multiplican los coeficientes entre sí y se suman los exponentes de las potencias de $10$, porque $10^a \\cdot 10^b = 10^{a+b}$.\n\nAplicando esta regla al producto dado:\n$$(3\\times10^{4}) \\times (2\\times10^{-6})$$\nLos coeficientes se multiplican:\n$$3 \\times 2 = 6$$\nY los exponentes se suman:\n$$4 + (-6) = -2$$\nCombinando ambos resultados:\n$$6\\times10^{-2}$$\nUn error común es sumar los coeficientes en vez de multiplicarlos, o descuidar el signo del exponente negativo al combinarlo con el positivo.",
+    "explanation": "Para convertir un número decimal a **notación científica**, hay que mover la coma hasta dejar un solo dígito distinto de cero antes de ella, y contar cuántos lugares se movió.\n\nLa coma se mueve 6 lugares hacia la derecha para llegar a $2{,}5$. Cuando la coma se mueve hacia la derecha, el número original era menor que $1$, así que el exponente es negativo:\n$$0{,}0000025 = 2{,}5 \\times 10^{-6}$$\nUsar exponente positivo invertiría el sentido: describiría un número gigantesco en vez de una medida diminuta como el diámetro de una bacteria.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-convertir-a-notacion"
+    ]
+  },
+  {
+    "question": "La distancia entre dos ciudades es de $284\\,000$ metros.\n\n¿Cuál es esa distancia expresada en notación científica?",
+    "options": [
+      "$2{,}84 \\times 10^{4}$ metros",
+      "$2{,}84 \\times 10^{5}$ metros",
+      "$28{,}4 \\times 10^{4}$ metros",
+      "$2{,}84 \\times 10^{6}$ metros"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La coma se corre cinco lugares a la izquierda y el coeficiente queda entre uno y diez.",
+    "feedback_incorrect": [
+      "Ahí la coma se corrió un lugar de menos.",
+      null,
+      "Ese coeficiente no está entre uno y diez, así que la expresión no es válida.",
+      "Ahí la coma se corrió un lugar de más: el número tiene seis cifras."
+    ],
+    "explanation": "El exponente cuenta cuántos lugares se corre la coma hasta dejar una sola cifra adelante.\n$$284\\,000 = 2{,}84 \\times 10^{5}$$\nEl número tiene seis cifras, así que la coma se mueve cinco lugares hacia la izquierda.\n\nUn chequeo rápido es contar las cifras del número entero: el exponente es siempre una menos.\n\nDejar dos cifras antes de la coma da un valor correcto pero una expresión fuera de forma.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-convertir-a-notacion"
+    ]
+  },
+  {
+    "question": "Una lámina metálica tiene un espesor de $0{,}00058$ metros.\n\n¿Cuál es ese espesor expresado en notación científica?",
+    "options": [
+      "$5{,}8 \\times 10^{4}$ metros",
+      "$58 \\times 10^{-5}$ metros",
+      "$5{,}8 \\times 10^{-3}$ metros",
+      "$5{,}8 \\times 10^{-4}$ metros"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "La coma se corre cuatro lugares a la derecha, así que el exponente queda en menos cuatro.",
+    "feedback_incorrect": [
+      "El número es menor que uno, así que el exponente tiene que ser negativo.",
+      "Ese coeficiente no está entre uno y diez, así que la expresión no es válida.",
+      "Ahí la coma se corrió un lugar de menos: hay tres ceros antes de la primera cifra.",
+      null
+    ],
+    "explanation": "Con números menores que uno la coma se corre hacia la derecha, y el exponente queda negativo.\n$$0{,}00058 = 5{,}8 \\times 10^{-4}$$\nHay que contar los lugares hasta llegar a la primera cifra distinta de cero, que acá son cuatro.\n\nEl signo del exponente dice de qué lado del uno está el número, y eso se puede chequear antes de contar nada.\n\nEscribir el número completo de nuevo, a partir de la expresión obtenida, confirma el conteo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-convertir-a-notacion"
+    ]
+  },
+  {
+    "question": "Una población es de $73\\,500\\,000$ habitantes.\n\n¿Cuál es esa cantidad expresada en notación científica?",
+    "options": [
+      "$7{,}35 \\times 10^{7}$",
+      "$73{,}5 \\times 10^{6}$",
+      "$7{,}35 \\times 10^{6}$",
+      "$7{,}35 \\times 10^{8}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La coma se corre siete lugares a la izquierda y el coeficiente queda entre uno y diez.",
+    "feedback_incorrect": [
+      null,
+      "Ese coeficiente no está entre uno y diez, así que la expresión no es válida.",
+      "Ahí la coma se corrió un lugar de menos: el número tiene ocho cifras.",
+      "Ahí la coma se corrió un lugar de más."
+    ],
+    "explanation": "El exponente es siempre una unidad menos que la cantidad de cifras del número entero.\n$$73\\,500\\,000 = 7{,}35 \\times 10^{7}$$\nEl número tiene ocho cifras, así que el exponente es siete.\n\nLos ceros finales no aportan cifras significativas, pero sí cuentan para el exponente.\n\nEse atajo de contar cifras evita tener que mover la coma de a un lugar por vez.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-convertir-a-notacion"
+    ]
+  },
+  {
+    "question": "Una medición de masa da $0{,}00000091$ gramos.\n\n¿Cuál es esa masa expresada en notación científica?",
+    "options": [
+      "$91 \\times 10^{-8}$ gramos",
+      "$9{,}1 \\times 10^{7}$ gramos",
+      "$9{,}1 \\times 10^{-7}$ gramos",
+      "$9{,}1 \\times 10^{-6}$ gramos"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Hay siete lugares que correr hasta la primera cifra distinta de cero.",
+    "feedback_incorrect": [
+      "Ese coeficiente no está entre uno y diez, así que la expresión no es válida.",
+      "El número es menor que uno, así que el exponente tiene que ser negativo.",
+      null,
+      "Ahí la coma se corrió un lugar de menos: hay seis ceros después de la coma."
+    ],
+    "explanation": "Para números menores que uno, el exponente negativo cuenta los lugares hasta la primera cifra significativa.\n$$0{,}00000091 = 9{,}1 \\times 10^{-7}$$\nDespués de la coma hay seis ceros, y la primera cifra ocupa el séptimo lugar.\n\nPor eso el exponente es menos siete, y no menos seis como sugiere contar solo los ceros.\n\nEse lugar de diferencia es lo que hace que el error más común deje el resultado diez veces más grande.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-convertir-a-notacion"
+    ]
+  },
+  {
+    "question": "Un centro de datos guarda $8\\times10^{6}$ archivos, y cada archivo ocupa en promedio $5\\times10^{3}$ bytes.\n\n¿Cuántos bytes ocupan todos los archivos juntos, en notación científica?",
+    "options": [
+      "$4\\times10^{10}$ bytes",
+      "$4\\times10^{18}$ bytes",
+      "$13\\times10^{9}$ bytes",
+      "$4\\times10^{9}$ bytes"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Los coeficientes se multiplican y los exponentes se suman: $8\\times5=40$ y $6+3=9$, dando $40\\times10^{9}$; renormalizando, $4\\times10^{10}$.",
+    "feedback_incorrect": [
+      null,
+      "Eso sale de multiplicar los exponentes en vez de sumarlos: $6\\times3=18$ en vez de $6+3=9$.",
+      "Eso suma los coeficientes en vez de multiplicarlos, $8+5=13$, y ese coeficiente además queda fuera de rango sin renormalizar.",
+      "El coeficiente $40$ de un paso intermedio no está renormalizado: falta absorber el $10$ de más en el exponente."
+    ],
+    "explanation": "El total de bytes es la cantidad de archivos multiplicada por el tamaño promedio de cada uno.\n\nEsto se apoya en la propiedad de la potenciación $10^a \\cdot 10^b = 10^{a+b}$: agrupar los factores de $10$ de ambos números en un solo exponente.\n\nSe multiplican los coeficientes y, por separado, se suman los exponentes:\n$$(8\\times10^{6}) \\times (5\\times10^{3}) = (8\\times5)\\times10^{6+3} = 40\\times10^{9}$$\nEl coeficiente $40$ queda fuera del rango $1 \\leq a < 10$, así que hace falta renormalizar.\n\nComo $40 = 4\\times10^{1}$, ese $10^1$ se absorbe en el exponente ya calculado:\n$$\\begin{aligned} 40\\times10^{9} &= 4\\times10^{1}\\times10^{9} \\\\ &= 4\\times10^{10} \\end{aligned}$$\nEse es el resultado final, en bytes.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-multiplicar-dividir"
+    ]
+  },
+  {
+    "question": "Una fábrica produce $4\\times10^{5}$ piezas por mes.\n\nCada pieza pesa $3\\times10^{-2}$ kilogramos.\n\n¿Cuánto pesa la producción mensual completa, en notación científica?",
+    "options": [
+      "$7 \\times 10^{3}$ kg",
+      "$1{,}2 \\times 10^{4}$ kg",
+      "$1{,}2 \\times 10^{5}$ kg",
+      "$12 \\times 10^{3}$ kg"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los coeficientes dan doce, y al renormalizar el exponente sube de tres a cuatro.",
+    "feedback_incorrect": [
+      "Ahí se sumaron los coeficientes en vez de multiplicarlos.",
+      null,
+      "Ahí se dejó el exponente mayor de los dos números, como se hace al sumar, en vez de sumar los dos exponentes entre sí como corresponde a un producto.",
+      "Ese coeficiente no está entre uno y diez, así que falta el reajuste final."
+    ],
+    "explanation": "Al multiplicar, los coeficientes se multiplican entre sí y los exponentes se suman.\n$$(4 \\times 3) \\times 10^{5+(-2)} = 12 \\times 10^{3}$$\nEl coeficiente quedó por encima de diez, así que se corre la coma y el exponente sube uno.\n$$1{,}2 \\times 10^{4}$$\nSon doce mil kilogramos, un valor coherente con cuatrocientas mil piezas de treinta gramos cada una.\n\nSaltear el reajuste deja un número correcto en valor pero fuera de la forma pedida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-multiplicar-dividir"
+    ]
+  },
+  {
+    "question": "Un depósito almacena $9\\times10^{7}$ litros de agua.\n\nSe reparte en bidones de $3\\times10^{2}$ litros cada uno.\n\n¿Cuántos bidones se llenan, en notación científica?",
+    "options": [
+      "$3 \\times 10^{9}$",
+      "$6 \\times 10^{5}$",
+      "$3 \\times 10^{4}$",
+      "$3 \\times 10^{5}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Los coeficientes se dividen y los exponentes se restan, quedando tres por diez a la quinta.",
+    "feedback_incorrect": [
+      "Ahí los exponentes se sumaron, que corresponde a un producto y no a una división.",
+      "Ahí se restaron los coeficientes en vez de dividirlos.",
+      "Ahí la resta de exponentes quedó con una unidad de menos.",
+      null
+    ],
+    "explanation": "Al dividir, los coeficientes se dividen entre sí y los exponentes se restan.\n$$\\dfrac{9}{3} \\times 10^{7-2} = 3 \\times 10^{5}$$\nEl coeficiente ya queda entre uno y diez, así que no hace falta reajustar nada.\n\nSon trescientos mil bidones, coherente con repartir noventa millones de litros de a trescientos.\n\nLos exponentes se suman en un producto y se restan en un cociente, y esa es la única diferencia entre las dos cuentas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-multiplicar-dividir"
+    ]
+  },
+  {
+    "question": "Una señal recorre $2\\times10^{8}$ metros por segundo durante $4\\times10^{-3}$ segundos.\n\n¿Qué distancia recorre, en notación científica?",
+    "options": [
+      "$8 \\times 10^{5}$ metros",
+      "$8 \\times 10^{11}$ metros",
+      "$6 \\times 10^{5}$ metros",
+      "$8 \\times 10^{-24}$ metros"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Los coeficientes dan ocho y los exponentes suman cinco.",
+    "feedback_incorrect": [
+      null,
+      "Ahí el exponente negativo se sumó como si fuera positivo.",
+      "Ahí se sumaron los coeficientes en vez de multiplicarlos.",
+      "Ahí se multiplicaron los exponentes en vez de sumarlos."
+    ],
+    "explanation": "La distancia es velocidad por tiempo, así que los dos números se multiplican.\n$$(2 \\times 4) \\times 10^{8+(-3)} = 8 \\times 10^{5}$$\nSumar un exponente negativo es restar, y por eso el resultado tiene un orden de magnitud mucho menor que el de la velocidad.\n\nSon ochocientos mil metros, coherente con una velocidad enorme durante un tiempo muy corto.\n\nTratar el exponente negativo como positivo da un número imposible para una distancia física.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-multiplicar-dividir"
+    ]
+  },
+  {
+    "question": "Un archivo de $6\\times10^{9}$ bytes se transfiere a $4\\times10^{6}$ bytes por segundo.\n\n¿Cuántos segundos tarda la transferencia, en notación científica?",
+    "options": [
+      "$0{,}15 \\times 10^{4}$ segundos",
+      "$2 \\times 10^{3}$ segundos",
+      "$1{,}5 \\times 10^{3}$ segundos",
+      "$1{,}5 \\times 10^{15}$ segundos"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Seis dividido cuatro da uno coma cinco, y los exponentes se restan.",
+    "feedback_incorrect": [
+      "Ese coeficiente es menor que uno, así que la expresión no está en forma válida.",
+      "Ahí se restaron los coeficientes en vez de dividirlos.",
+      null,
+      "Ahí los exponentes se sumaron, que corresponde a un producto y no a una división."
+    ],
+    "explanation": "El tiempo es el tamaño dividido por la velocidad, así que los dos números se dividen.\n$$\\dfrac{6}{4} \\times 10^{9-6} = 1{,}5 \\times 10^{3}$$\nEl cociente de coeficientes no es entero, pero sí queda entre uno y diez, así que la forma ya es válida.\n\nSon mil quinientos segundos, algo más de veinticinco minutos, coherente con el tamaño y la velocidad dadas.\n\nUn coeficiente decimal es perfectamente válido: lo que no se admite es que quede fuera del rango.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-multiplicar-dividir"
+    ]
+  },
+  {
+    "question": "El PBI de un país fue $3{,}2\\times10^{11}$ dólares un año, y al año siguiente aumentó en $5\\times10^{9}$ dólares.\n\n¿Cuál fue el PBI del segundo año, en notación científica?",
+    "options": [
+      "$3{,}25\\times10^{11}$ dólares",
+      "$8{,}2\\times10^{20}$ dólares",
+      "$3{,}7\\times10^{11}$ dólares",
+      "$3{,}25\\times10^{9}$ dólares"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Igualando exponentes a $10^{11}$, el aumento es $0{,}05\\times10^{11}$; sumado a $3{,}2\\times10^{11}$ da $3{,}25\\times10^{11}$.",
+    "feedback_incorrect": [
+      null,
+      "Eso sale de sumar los coeficientes sin antes igualar los exponentes de ambos números, que representan escalas distintas: $3{,}2+5=8{,}2$.",
+      "Sumar dos números en notación científica no multiplica sus exponentes; esa operación correspondería a una multiplicación, no a una suma.",
+      "El exponente del resultado no puede ser menor que el de ambos sumandos: sumar dos cantidades no puede dar un total más chico que la mayor de ellas."
+    ],
+    "explanation": "A diferencia de multiplicar o dividir, para **sumar o restar** dos números en notación científica hace falta que ambos tengan el mismo exponente antes de combinar los coeficientes.\n\nSolo así ambos coeficientes representan la misma \"unidad\" de potencia de $10$, igual que no se pueden sumar fracciones con distinto denominador sin igualarlo antes.\n\nEl aumento se reescribe con exponente $11$ para igualarlo al PBI original:\n$$5\\times10^{9} = 0{,}05\\times10^{11}$$\nAhora sí se pueden sumar los coeficientes, dejando el exponente común sin tocar:\n$$3{,}2\\times10^{11} + 0{,}05\\times10^{11} = 3{,}25\\times10^{11}$$\nSumar los coeficientes sin igualar antes los exponentes trata cantidades de escalas distintas como si fueran comparables.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-sumar-restar"
+    ]
+  },
+  {
+    "question": "Un depósito tiene $7\\times10^{5}$ litros y recibe otros $2\\times10^{4}$ litros.\n\n¿Cuántos litros hay en total, en notación científica?",
+    "options": [
+      "$7{,}2 \\times 10^{4}$",
+      "$7{,}2 \\times 10^{5}$",
+      "$9 \\times 10^{9}$",
+      "$9 \\times 10^{5}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Llevando el segundo término a la misma potencia, los coeficientes suman siete coma dos.",
+    "feedback_incorrect": [
+      "Ahí el exponente final quedó en el menor de los dos, y el total resulta diez veces más chico.",
+      null,
+      "Ahí se sumaron coeficientes y exponentes por separado, que no corresponde a una suma.",
+      "Ahí se sumaron los coeficientes sin llevar los dos términos al mismo exponente."
+    ],
+    "explanation": "Para sumar hay que llevar los dos términos a la misma potencia de diez, igual que se igualan denominadores.\n$$2 \\times 10^{4} = 0{,}2 \\times 10^{5}$$\nCon el mismo exponente, los coeficientes se suman directamente.\n$$(7 + 0{,}2) \\times 10^{5} = 7{,}2 \\times 10^{5}$$\nEl aporte del segundo depósito es chico frente al primero, y el resultado lo refleja.\n\nSumar los coeficientes sin igualar exponentes suma cantidades de escalas distintas, y el resultado no significa nada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-sumar-restar"
+    ]
+  },
+  {
+    "question": "Una cuenta registra $5{,}4\\times10^{8}$ pesos y se descuentan $4\\times10^{7}$ pesos.\n\n¿Cuánto queda, en notación científica?",
+    "options": [
+      "$1{,}4 \\times 10^{1}$",
+      "$5{,}0 \\times 10^{7}$",
+      "$5{,}36 \\times 10^{8}$",
+      "$5 \\times 10^{8}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El descuento equivale a cero coma cuatro por diez a la octava, y la resta da cinco justo.",
+    "feedback_incorrect": [
+      "Ahí se restaron coeficientes y exponentes por separado, que no corresponde a una resta.",
+      "Ahí el exponente final quedó en el menor de los dos, y el resultado es diez veces más chico.",
+      "Ahí se restó el coeficiente sin ajustarlo al exponente común.",
+      null
+    ],
+    "explanation": "Restar exige el mismo exponente en los dos términos, igual que sumar.\n$$4 \\times 10^{7} = 0{,}4 \\times 10^{8}$$\nCon los dos en la misma potencia, los coeficientes se restan directamente.\n$$(5{,}4 - 0{,}4) \\times 10^{8} = 5 \\times 10^{8}$$\nEl resultado conserva el exponente común, que es el mayor de los dos originales.\n\nRestar el coeficiente sin ajustarlo descuenta diez veces menos de lo que corresponde.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-sumar-restar"
+    ]
+  },
+  {
+    "question": "Dos mediciones dan $8{,}1\\times10^{-3}$ y $9\\times10^{-4}$ metros.\n\n¿Cuál es la suma de las dos, en notación científica?",
+    "options": [
+      "$9 \\times 10^{-3}$ metros",
+      "$1{,}71 \\times 10^{-3}$ metros",
+      "$17{,}1 \\times 10^{-7}$ metros",
+      "$8{,}19 \\times 10^{-3}$ metros"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El segundo término equivale a cero coma nueve por diez a la menos tres, y la suma da nueve justo.",
+    "feedback_incorrect": [
+      null,
+      "Ahí los coeficientes se sumaron sin ajustar el segundo al exponente común.",
+      "Ahí se sumaron coeficientes y exponentes por separado, que no corresponde a una suma.",
+      "Ahí el segundo coeficiente se ajustó un lugar de más al pasarlo al exponente común."
+    ],
+    "explanation": "Con exponentes negativos el procedimiento no cambia: hay que llevarlos al mismo valor antes de sumar.\n$$9 \\times 10^{-4} = 0{,}9 \\times 10^{-3}$$\nSubir el exponente de menos cuatro a menos tres obliga a dividir el coeficiente por diez.\n$$(8{,}1 + 0{,}9) \\times 10^{-3} = 9 \\times 10^{-3}$$\nEl resultado queda con el coeficiente justo en nueve, ya dentro del rango válido.\n\nCon exponentes negativos conviene chequear el sentido del ajuste escribiendo el número completo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-sumar-restar"
+    ]
+  },
+  {
+    "question": "Un stock inicial de $2{,}5\\times10^{6}$ unidades se reduce en $3\\times10^{5}$ unidades.\n\n¿Cuántas unidades quedan, en notación científica?",
+    "options": [
+      "$2{,}47 \\times 10^{6}$",
+      "$-0{,}5 \\times 10^{1}$",
+      "$2{,}2 \\times 10^{6}$",
+      "$2{,}2 \\times 10^{5}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El descuento equivale a cero coma tres por diez a la sexta, y la resta da dos coma dos.",
+    "feedback_incorrect": [
+      "Ahí se restó el coeficiente sin ajustarlo al exponente común.",
+      "Ahí se restaron coeficientes y exponentes por separado, que no corresponde a una resta.",
+      null,
+      "Ahí el exponente final quedó en el menor de los dos, y el resultado es diez veces más chico."
+    ],
+    "explanation": "El término que se resta se lleva al exponente del otro antes de operar.\n$$3 \\times 10^{5} = 0{,}3 \\times 10^{6}$$\nCon los dos en la misma potencia, la resta se hace sobre los coeficientes.\n$$(2{,}5 - 0{,}3) \\times 10^{6} = 2{,}2 \\times 10^{6}$$\nEl resultado es apenas menor que el stock inicial, coherente con un descuento diez veces más chico.\n\nConservar el exponente mayor es lo que mantiene el orden de magnitud del resultado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-sumar-restar"
+    ]
   }
 ]

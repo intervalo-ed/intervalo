@@ -1,22 +1,371 @@
 [
   {
-    "question": "¿Cuál de estos conjuntos es **linealmente independiente**?",
+    "question": "Tres conjuntos de vectores del plano se comparan por su independencia lineal.\n$$A = \\{(2,3), (4,6)\\}$$\n$$B = \\{(2,3), (3,2)\\}$$\n$$C = \\{(1,5), (2,10)\\}$$\n¿Cuál de los tres es linealmente independiente?",
     "options": [
-      "$\\{(1,0), (0,1)\\}$",
-      "$\\{(1,2), (2,4)\\}$",
-      "$\\{(1,1), (2,2), (3,3)\\}$"
+      "$B$",
+      "$A$",
+      "$C$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$(1,0)$ y $(0,1)$ no son múltiplos entre sí: son independientes.",
+    "feedback_correct": "Ninguno de sus dos vectores es múltiplo del otro, así que ninguno se puede armar con el otro.",
     "feedback_incorrect": [
       null,
-      "$(2,4) = 2(1,2)$: uno es múltiplo del otro, son dependientes.",
-      "Los tres vectores son múltiplos de $(1,1)$: son dependientes entre sí."
+      "Duplicando $(2,3)$ se llega exactamente a $(4,6)$, así que ese conjunto es dependiente.",
+      "Duplicando $(1,5)$ se llega exactamente a $(2,10)$, con lo cual uno de los dos sobra."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dos vectores son dependientes si uno es múltiplo escalar del otro.\n\n$(1,0)$ y $(0,1)$ no cumplen esa relación: ningún escalar transforma uno en el otro, así que son independientes.\n\nEn cambio, $(2,4)=2\\cdot(1,2)$, y los tres vectores $(1,1)$, $(2,2)$, $(3,3)$ son todos múltiplos entre sí: ambos conjuntos son dependientes.",
-    "reviewed": false
+    "explanation": "Con solo dos vectores, la independencia se decide mirando si uno es múltiplo del otro, sin plantear ningún sistema.\n\nEn $A$ y en $C$ el segundo vector duplica al primero, así que cada conjunto tiene un vector de más.\n\nEn $B$ eso no ocurre. El factor que llevaría la primera coordenada de dos a tres no es el mismo que llevaría la segunda de tres a dos.\n$$\\frac{3}{2} \\neq \\frac{2}{3}$$\nEsa comparación entre las dos coordenadas es el chequeo más rápido del tema, y solo funciona con dos vectores. Con tres o más hay que volver a la definición.",
+    "reviewed": false,
+    "tags": [
+      "decidir-si-es-independiente"
+    ]
+  },
+  {
+    "question": "Tres conjuntos de dos vectores de $\\mathbb{R}^3$ se comparan.\n$$A = \\{(1,2,3), (2,4,6)\\}$$\n$$B = \\{(1,2,3), (1,2,4)\\}$$\n$$C = \\{(0,0,0), (1,1,1)\\}$$\n¿Cuál de los tres es linealmente independiente?",
+    "options": [
+      "$C$",
+      "$B$",
+      "$A$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sus dos vectores coinciden en dos coordenadas y difieren en la tercera, así que no son múltiplos.",
+    "feedback_incorrect": [
+      "El conjunto contiene al vector nulo, y eso lo vuelve dependiente en cualquier caso.",
+      null,
+      "El segundo vector duplica al primero en las tres coordenadas, así que uno sobra."
+    ],
+    "explanation": "Con dos vectores, la independencia se decide viendo si uno es múltiplo del otro, sin plantear ningún sistema.\n$$(2,4,6) = 2(1,2,3)$$\nEn el primer conjunto la proporción es la misma en las tres coordenadas, así que los dos vectores apuntan al mismo lado.\n\nEn el segundo, las dos primeras coordenadas sugieren un factor uno y la tercera pide otro, así que no hay ningún múltiplo posible.\n\nEl tercero se descarta sin mirar nada: multiplicando el vector nulo por cualquier número no nulo y dejando el otro coeficiente en cero se arma una combinación nula no trivial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-si-es-independiente"
+    ]
+  },
+  {
+    "question": "Tres vectores de $\\mathbb{R}^3$ se relacionan entre sí.\n$$\\{(1,1,0), (0,1,1), (1,2,1)\\}$$\n¿Es un conjunto linealmente independiente?",
+    "options": [
+      "Sí, porque los tres vectores son distintos entre sí",
+      "No, porque ninguno tiene sus tres coordenadas no nulas",
+      "No, porque el tercero es la suma de los dos primeros"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Sumando coordenada a coordenada los dos primeros se obtiene exactamente el tercero.",
+    "feedback_incorrect": [
+      "Ser distintos no alcanza, la pregunta es si alguno se arma combinando los otros.",
+      "Tener coordenadas nulas no decide nada, hay conjuntos independientes con muchos ceros.",
+      null
+    ],
+    "explanation": "Con tres vectores ya no alcanza con mirar múltiplos de a pares, hay que buscar si alguno se arma con los otros dos.\n$$(1,1,0) + (0,1,1) = (1,2,1)$$\nLa suma de los dos primeros da exactamente el tercero, así que el conjunto es dependiente.\n\nEscrito con el vector nulo de un lado, eso es una combinación nula con coeficientes uno, uno y menos uno, todos distintos de cero.\n\nConviene revisar primero las sumas y restas simples entre los vectores dados, porque en los casos de guía la relación suele ser de ese tipo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-si-es-independiente"
+    ]
+  },
+  {
+    "question": "Un conjunto tiene un solo vector, y ese vector no es el nulo.\n$$\\{(3,-1)\\}$$\n¿Es linealmente independiente?",
+    "options": [
+      "Sí, porque solo se anula multiplicándolo por cero",
+      "No, porque un solo vector no alcanza para generar el plano",
+      "Sí, porque tiene una de sus dos coordenadas negativa"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La única manera de que su múltiplo dé el vector nulo es con el coeficiente en cero.",
+    "feedback_incorrect": [
+      null,
+      "El alcance es una pregunta separada, y no interviene en la independencia.",
+      "El signo de las coordenadas no aparece en ninguna parte de la definición."
+    ],
+    "explanation": "Un conjunto de un solo vector es independiente exactamente cuando ese vector no es el nulo.\n$$\\alpha(3,-1) = (0,0) \\implies \\alpha = 0$$\nPara que el resultado se anule, las dos coordenadas tienen que dar cero, y con un vector no nulo eso obliga al coeficiente a valer cero.\n\nLa combinación trivial queda entonces como la única, que es justo lo que pide la definición.\n\nQue ese vector no alcance a generar el plano es cierto y es irrelevante acá: son dos preguntas distintas, y esta mide solo si sobra algo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-si-es-independiente"
+    ]
+  },
+  {
+    "question": "Dos vectores del plano se acomodan como filas de una matriz y se calcula su determinante.\n$$\\det \\begin{pmatrix} 2 & 4 \\\\ 3 & 6 \\end{pmatrix} = 0$$\n¿Qué se concluye sobre el conjunto?",
+    "options": [
+      "Que no se puede concluir nada, porque falta resolver un sistema",
+      "Que es dependiente, porque las dos direcciones colapsan en una sola",
+      "Que es independiente, porque el determinante llegó a calcularse"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Un determinante nulo indica que los dos vectores dejaron de cubrir un área.",
+    "feedback_incorrect": [
+      "El determinante ya resuelve la pregunta, no hace falta ningún sistema adicional.",
+      null,
+      "El determinante siempre se puede calcular, lo que informa es cuánto vale."
+    ],
+    "explanation": "El determinante mide cuánta área cubren los dos vectores, y cuando se anula es porque el paralelogramo que forman quedó aplastado.\n$$2 \\cdot 6 - 4 \\cdot 3 = 0$$\nEso significa que los dos apuntan en la misma dirección, así que uno se arma con el otro y el conjunto es dependiente.\n\nEn este caso se ve directo, porque el segundo vector es el primero multiplicado por un número y medio.\n\nEl criterio del determinante es el que se generaliza a tres vectores del espacio, donde comparar múltiplos a ojo ya no alcanza.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-si-es-independiente"
+    ]
+  },
+  {
+    "question": "Algunos conjuntos se pueden clasificar como dependientes sin hacer una sola cuenta.\n$$A = \\{(1,3), (0,0), (2,5)\\}$$\n$$B = \\{(1,3), (2,5)\\}$$\n$$C = \\{(1,3,0), (2,5,1)\\}$$\n¿Cuál es dependiente por inspección?",
+    "options": [
+      "$A$, porque contiene al vector nulo entre sus elementos",
+      "$B$, porque tiene tantos vectores como coordenadas",
+      "$C$, porque uno de sus vectores tiene una coordenada nula"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Un conjunto que contiene al vector nulo es dependiente siempre, sin importar los otros vectores.",
+    "feedback_incorrect": [
+      null,
+      "Tener tantos vectores como coordenadas no fuerza nada, ese conjunto es perfectamente independiente.",
+      "Una coordenada nula no dice nada por sí sola, esos dos vectores no son múltiplos entre sí."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Hay dos situaciones que resuelven la clasificación de un vistazo, y conviene tenerlas siempre presentes.\n\nLa primera es que el conjunto contenga al **vector nulo**. Multiplicándolo por cualquier número distinto de cero y dejando los demás coeficientes en cero se arma una combinación nula no trivial.\n$$0\\vec{v}_1 + 5 \\cdot \\vec{0} + 0\\vec{v}_3 = \\vec{0}$$\nLa segunda es tener más vectores que coordenadas. Tres vectores en el plano son siempre dependientes, porque con dos ya se alcanza todo y el tercero queda necesariamente adentro.\n\nTener tantos vectores como coordenadas, o menos, no decide nada, y ahí sí hay que mirar los vectores concretos.",
+    "reviewed": false,
+    "tags": [
+      "reconocer-dependencia-a-ojo"
+    ]
+  },
+  {
+    "question": "Un conjunto tiene tres vectores y todos viven en el plano.\n$$\\{(1,3), (2,5), (4,1)\\}$$\n¿Qué se puede afirmar sin hacer ninguna cuenta?",
+    "options": [
+      "Que hace falta calcular, porque ninguno es múltiplo de otro",
+      "Que es dependiente, porque hay más vectores que coordenadas",
+      "Que es independiente, porque los tres apuntan a lados distintos"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Con dos vectores del plano que no son múltiplos ya se alcanza todo, así que el tercero sobra.",
+    "feedback_incorrect": [
+      "La cantidad ya decide, y ese es el valor de mirarla antes de calcular.",
+      null,
+      "Apuntar a lados distintos no alcanza cuando hay más vectores que coordenadas."
+    ],
+    "explanation": "Cuando la cantidad de vectores supera a la de coordenadas, el conjunto es dependiente sin excepciones.\n$$\\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\} \\subset \\mathbb{R}^2$$\nEl motivo es que dos vectores del plano que no sean múltiplos ya alcanzan cualquier punto, así que el tercero está necesariamente adentro de lo que ellos generan.\n\nY si los dos primeros sí fueran múltiplos, el conjunto ya sería dependiente por esa vía.\n\nEste descarte es el más barato del tema, y conviene usarlo como primer filtro antes de mirar los valores concretos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-dependencia-a-ojo"
+    ]
+  },
+  {
+    "question": "Un conjunto de $\\mathbb{R}^3$ tiene un vector escrito dos veces.\n$$\\{(2,1,5), (3,4,0), (2,1,5)\\}$$\n¿Qué se puede afirmar sin hacer ninguna cuenta?",
+    "options": [
+      "Que es independiente, porque el del medio apunta a otro lado",
+      "Que hace falta calcular, porque hay tres vectores en el espacio",
+      "Que es dependiente, porque un vector repetido no aporta nada nuevo"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Restando las dos copias del vector repetido se obtiene una combinación nula no trivial.",
+    "feedback_incorrect": [
+      "Alcanza con que dos de los tres estén relacionados para que todo el conjunto sea dependiente.",
+      "Tres vectores en el espacio pueden ser independientes, pero no si dos de ellos coinciden.",
+      null
+    ],
+    "explanation": "Un vector repetido es el caso más extremo de redundancia, porque el segundo ejemplar no agrega absolutamente nada.\n$$1 \\cdot \\vec{v}_1 + 0 \\cdot \\vec{v}_2 - 1 \\cdot \\vec{v}_3 = \\vec{0}$$\nRestando las dos copias se obtiene una combinación que da el vector nulo con coeficientes uno y menos uno, que no son cero.\n\nEso alcanza para que el conjunto entero sea dependiente, sin importar cómo sea el vector del medio.\n\nVale la pena revisar si hay repetidos antes de plantear cualquier sistema, porque la respuesta ya está escrita en el enunciado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-dependencia-a-ojo"
+    ]
+  },
+  {
+    "question": "Dos vectores de $\\mathbb{R}^3$ tienen todas sus coordenadas proporcionales.\n$$\\{(1,-2,3), (-3,6,-9)\\}$$\n¿Qué se puede afirmar sin plantear un sistema?",
+    "options": [
+      "Que es dependiente, porque el segundo es el primero por menos tres",
+      "Que es independiente, porque tienen signos distintos entre sí",
+      "Que hace falta calcular, porque los signos hacen difícil compararlos"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Multiplicando el primero por menos tres se obtiene exactamente el segundo.",
+    "feedback_incorrect": [
+      null,
+      "Los signos opuestos son parte de la proporción, no un indicio de direcciones distintas.",
+      "Comparar las tres coordenadas de a una alcanza, aunque los signos cambien."
+    ],
+    "explanation": "El factor que relaciona dos vectores puede ser negativo, y eso no cambia nada de la conclusión.\n$$-3 \\cdot (1,-2,3) = (-3,6,-9)$$\nLas tres coordenadas se multiplican por el mismo número, así que el segundo vector es un múltiplo del primero.\n\nGeométricamente los dos apuntan sobre la misma recta, uno en un sentido y el otro en el opuesto, y eso alcanza para que uno sobre.\n\nEl control es siempre el mismo: dividir coordenada a coordenada y ver si sale el mismo número las tres veces.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-dependencia-a-ojo"
+    ]
+  },
+  {
+    "question": "Dos vectores del plano no son múltiplos entre sí.\n$$\\{(1,4), (3,2)\\}$$\n¿Se puede clasificar el conjunto sin hacer cuentas largas?",
+    "options": [
+      "Sí, es dependiente, porque hay dos vectores en un plano de dos coordenadas",
+      "Sí, es independiente, porque ninguno de los dos es múltiplo del otro",
+      "No, con dos vectores siempre hace falta plantear la combinación nula"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Con solo dos vectores, no ser múltiplos es exactamente lo mismo que ser independientes.",
+    "feedback_incorrect": [
+      "Tener tantos vectores como coordenadas no fuerza nada, puede ser independiente o no.",
+      null,
+      "Con dos vectores la comparación de múltiplos ya resuelve la pregunta por completo."
+    ],
+    "explanation": "La inspección rápida sirve para confirmar tanto como para descartar, y con dos vectores es definitiva.\n$$\\tfrac{3}{1} \\neq \\tfrac{2}{4}$$\nEl factor que llevaría la primera coordenada de uno a tres no es el mismo que llevaría la segunda de cuatro a dos, así que ninguno es múltiplo del otro.\n\nCon exactamente dos vectores, eso ya equivale a la independencia, porque una combinación nula no trivial obligaría a que uno fuera múltiplo del otro.\n\nCon tres o más vectores el atajo deja de funcionar, y ahí sí hay que volver a la definición.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-dependencia-a-ojo"
+    ]
+  },
+  {
+    "question": "Un conjunto de tres vectores del plano es linealmente dependiente.\n$$\\vec{v}_1 = (1,0), \\quad \\vec{v}_2 = (0,1)$$\n$$\\vec{v}_3 = (3,2)$$\n¿Cuál de ellos se puede escribir usando los otros dos?",
+    "options": [
+      "Cualquiera de los tres, sin que importe el orden",
+      "El tercero, por ser el que se agregó al final",
+      "Ninguno, porque los dos primeros ya apuntan a distinto lado"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada uno tiene coeficiente no nulo en la combinación, así que cualquiera se puede despejar.",
+    "feedback_incorrect": [
+      null,
+      "El orden en que se escriben no cambia nada, la relación entre los tres es simétrica.",
+      "Que dos apunten en direcciones distintas no impide que el tercero se arme con ellos."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La dependencia es una propiedad del conjunto entero, no de un vector señalado, y eso se ve al escribir la relación completa.\n$$3\\vec{v}_1 + 2\\vec{v}_2 - \\vec{v}_3 = \\vec{0}$$\nComo los tres coeficientes son distintos de cero, cualquiera de los tres vectores se puede despejar y quedar escrito en función de los otros dos.\n\nDespejando el primero, por ejemplo, queda una expresión igual de válida que la del tercero.\n$$\\vec{v}_1 = \\frac{1}{3}(\\vec{v}_3 - 2\\vec{v}_2)$$\nLa cosa cambia cuando algún coeficiente es cero. Ese vector queda afuera de la relación y no se puede despejar de ella.",
+    "reviewed": false,
+    "tags": [
+      "identificar-el-redundante"
+    ]
+  },
+  {
+    "question": "Dos de los tres vectores de un conjunto del plano apuntan en la misma dirección.\n$$\\vec{v}_1 = (1,0), \\quad \\vec{v}_2 = (2,0)$$\n$$\\vec{v}_3 = (0,1)$$\n¿Cuál de los tres no se puede escribir con los otros dos?",
+    "options": [
+      "Ninguno, porque el conjunto entero es dependiente",
+      "El tercero, porque los otros dos no lo alcanzan",
+      "El primero, porque es el más corto de los tres"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los dos primeros tienen la segunda coordenada nula, y sumarlos nunca la despierta.",
+    "feedback_incorrect": [
+      "Que el conjunto sea dependiente no obliga a que todos los vectores se puedan despejar.",
+      null,
+      "El primero es la mitad del segundo, así que se escribe con él sin ningún problema."
+    ],
+    "explanation": "En un conjunto dependiente no siempre todos los vectores se pueden despejar, y este caso lo muestra bien.\n$$2\\vec{v}_1 - \\vec{v}_2 + 0\\vec{v}_3 = \\vec{0}$$\nLa relación entre los tres deja al tercero con coeficiente cero, así que no participa y no se puede despejar de ahí.\n\nLa razón de fondo es geométrica: los dos primeros están sobre el eje horizontal, y cualquier combinación suya también.\n\nLos dos primeros, en cambio, se escriben uno con el otro sin dificultad, porque son múltiplos entre sí.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-el-redundante"
+    ]
+  },
+  {
+    "question": "Un conjunto de tres vectores del plano tiene dos que guardan una proporción exacta.\n$$\\vec{v}_1 = (1,1), \\quad \\vec{v}_2 = (2,2)$$\n$$\\vec{v}_3 = (0,3)$$\n¿Cuál se puede escribir usando uno solo de los otros?",
+    "options": [
+      "El tercero, que tiene una coordenada nula",
+      "Ninguno, porque hacen falta siempre los otros dos",
+      "El segundo, que es el doble del primero"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Duplicando el primer vector se obtiene exactamente el segundo.",
+    "feedback_incorrect": [
+      "Ese vector no está sobre la recta de los otros dos, así que necesita a los dos para armarse.",
+      "Cuando dos vectores son múltiplos entre sí, uno se escribe con el otro solo.",
+      null
+    ],
+    "explanation": "Cuando dos vectores de un conjunto son múltiplos entre sí, cualquiera de los dos se escribe usando únicamente al otro.\n$$\\vec{v}_2 = 2\\vec{v}_1$$\nEl tercero es otra historia: no está sobre esa recta, así que para armarlo harían falta los dos, y ni siquiera así se llega.\n\nEsa asimetría es la que explica por qué al buscar qué sacar conviene empezar por los múltiplos evidentes.\n\nSacando el segundo, el conjunto que queda alcanza exactamente lo mismo que el original y ya no tiene ningún vector de más.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-el-redundante"
+    ]
+  },
+  {
+    "question": "Un conjunto del plano incluye al vector nulo entre sus tres elementos.\n$$\\vec{v}_1 = (2,5), \\quad \\vec{v}_2 = (0,0)$$\n$$\\vec{v}_3 = (1,3)$$\n¿Cuál de los tres se escribe combinando los otros dos?",
+    "options": [
+      "El segundo, tomando los dos coeficientes en cero",
+      "El primero, que es el de coordenadas más grandes",
+      "Ninguno, porque el vector nulo no se puede armar"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Con los dos coeficientes en cero, la combinación de los otros da el vector nulo.",
+    "feedback_incorrect": [
+      null,
+      "Ese vector no está sobre la recta del tercero, así que no se arma con él.",
+      "El vector nulo es el más fácil de armar, sale con todos los coeficientes en cero."
+    ],
+    "explanation": "El vector nulo se escribe como combinación de cualquier conjunto de vectores, tomando todos los coeficientes en cero.\n$$0\\vec{v}_1 + 0\\vec{v}_3 = \\vec{0}$$\nPor eso un conjunto que lo contiene es siempre dependiente, sin importar cómo sean los demás vectores.\n\nLos otros dos no son múltiplos entre sí, así que ninguno se escribe usando al otro.\n\nSacando el vector nulo, el conjunto que queda alcanza exactamente lo mismo y ya no tiene vectores de más.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-el-redundante"
+    ]
+  },
+  {
+    "question": "Un conjunto de cuatro vectores del plano tiene dos pares de direcciones repetidas.\n$$\\{(1,0), (0,1), (2,0), (0,3)\\}$$\n¿Cuáles se pueden sacar sin cambiar el alcance?",
+    "options": [
+      "Ninguno, porque los cuatro apuntan a lugares distintos",
+      "El tercero y el cuarto, que son múltiplos de los dos primeros",
+      "Únicamente el cuarto, que es el último de la lista"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada uno de los dos últimos repite la dirección de uno de los dos primeros.",
+    "feedback_incorrect": [
+      "El tercero repite la dirección del primero y el cuarto la del segundo.",
+      null,
+      "El tercero también es un múltiplo, así que también se puede descartar."
+    ],
+    "explanation": "Un conjunto puede tener varios vectores de más a la vez, y cada uno se descarta por su cuenta.\n$$(2,0) = 2(1,0), \\quad (0,3) = 3(0,1)$$\nLos dos últimos son múltiplos de los dos primeros, así que ninguno de ellos aporta una dirección nueva.\n\nSacando los dos, el conjunto sigue alcanzando todo el plano, ahora con dos vectores en lugar de cuatro.\n\nSe podría haber sacado el primero en lugar del tercero, y el resultado sería igual de válido: lo que importa es cuántas direcciones quedan, no cuáles se eligieron.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-el-redundante"
+    ]
   }
 ]

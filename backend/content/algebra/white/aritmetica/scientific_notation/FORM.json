@@ -8,17 +8,400 @@
       "$475 \\times 10^{2}$"
     ],
     "correct_index": 0,
-    "feedback_correct": "Moviendo la coma 4 lugares a la izquierda para dejar un solo dígito antes de la coma, el exponente de $10$ queda en $4$.",
+    "feedback_correct": "Moviendo la coma 4 lugares a la izquierda para dejar un solo dígito antes de ella, el exponente de $10$ queda en $4$.",
     "feedback_incorrect": [
       null,
-      "El coeficiente ahí no cumple $1 \\leq |a| < 10$, tiene dos dígitos antes de la coma.",
-      "Ese exponente corresponde a mover la coma un lugar de más.",
-      "El coeficiente ahí no cumple $1 \\leq |a| < 10$, tiene tres dígitos antes de la coma."
+      "Ese coeficiente tiene dos dígitos antes de la coma, no cumple $1 \\leq \\lvert a \\rvert < 10$.",
+      "Ese exponente corresponde a mover la coma un lugar de más de lo necesario.",
+      "Ese coeficiente tiene tres dígitos antes de la coma, no cumple $1 \\leq \\lvert a \\rvert < 10$."
     ],
-    "explanation": "Antes de calcular, hay que identificar la **expresión en notación científica** que cumple $a \\times 10^n$ con $1 \\leq |a| < 10$.\n\nPara $47500$, hay que mover la coma hasta dejar un solo dígito antes de ella: $4{,}75$, y contar cuántos lugares se movió (4 hacia la izquierda), lo que da el exponente:\n$$47500 = 4{,}75 \\times 10^{4}$$\nUn error frecuente es dejar más de un dígito antes de la coma en el coeficiente, lo que rompe la condición $1 \\leq |a| < 10$.",
+    "explanation": "La **notación científica** escribe cualquier número como $a \\times 10^n$, con una condición sobre el coeficiente:\n$$1 \\leq \\lvert a \\rvert < 10$$\nUn solo dígito distinto de cero antes de la coma.\n\nEsta condición no es arbitraria: sirve para que cada número tenga una única forma científica posible, en vez de varias formas equivalentes que generarían ambigüedad.\n\nPara $47500$, hay que mover la coma hasta dejar un solo dígito antes de ella: $4{,}75$.\n\nEl exponente de la potencia de diez es la cantidad de lugares que se movió esa coma, contando hacia la izquierda como positivo:\n$$47500 = 4{,}75 \\times 10^{4}$$\nDejar más de un dígito antes de la coma en el coeficiente rompe esa unicidad, y contar mal los lugares movidos cambia el exponente sin cambiar el coeficiente.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-expresion-correcta"
+    ]
+  },
+  {
+    "question": "Un número está en notación científica cuando su coeficiente queda entre $1$ y $10$.\n$$0{,}00034$$\n¿Qué expresión le corresponde?",
+    "options": [
+      "$3{,}4 \\times 10^{-3}$",
+      "$3{,}4 \\times 10^{-4}$",
+      "$3{,}4 \\times 10^{4}$",
+      "$34 \\times 10^{-5}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La coma se corre cuatro lugares a la derecha, así que el exponente es menos cuatro.",
+    "feedback_incorrect": [
+      "Ahí la coma se corrió un lugar de menos: hay tres ceros antes de la primera cifra.",
+      null,
+      "El número es menor que uno, así que el exponente tiene que ser negativo.",
+      "Ese coeficiente no está entre uno y diez, así que la expresión no es válida."
+    ],
+    "explanation": "En notación científica el coeficiente tiene una sola cifra antes de la coma, y el exponente cuenta cuántos lugares se movió esa coma.\n$$0{,}00034 = 3{,}4 \\times 10^{-4}$$\nComo el número original es menor que uno, la coma se corre hacia la derecha y el exponente queda negativo.\n\nContar los ceros después de la coma, incluido el que se salta al llegar a la primera cifra significativa, da directamente ese exponente.\n\nDejar un coeficiente mayor que diez produce una expresión correcta en valor pero fuera de la forma pedida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-expresion-correcta"
+    ]
+  },
+  {
+    "question": "El exponente de la notación científica cuenta cuántos lugares se corre la coma.\n$$6\\,200\\,000$$\n¿Qué expresión le corresponde?",
+    "options": [
+      "$62 \\times 10^{5}$",
+      "$6{,}2 \\times 10^{7}$",
+      "$0{,}62 \\times 10^{7}$",
+      "$6{,}2 \\times 10^{6}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "La coma se corre seis lugares a la izquierda y el coeficiente queda entre uno y diez.",
+    "feedback_incorrect": [
+      "Ese coeficiente no está entre uno y diez, así que la expresión no es válida.",
+      "Ahí la coma se corrió un lugar de más: el número tiene siete cifras, no ocho.",
+      "Ese coeficiente es menor que uno, así que la expresión no está en forma válida.",
+      null
+    ],
+    "explanation": "El coeficiente de una notación científica válida tiene exactamente una cifra distinta de cero antes de la coma.\n$$6\\,200\\,000 = 6{,}2 \\times 10^{6}$$\nContar cuántos lugares hay que correr la coma hacia la izquierda da directamente el exponente.\n\nLos dos coeficientes fuera de rango dan el mismo valor numérico, pero no cumplen la forma que la notación exige.\n\nEsa forma no es un capricho: sirve para comparar dos números de un vistazo mirando solo el exponente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-expresion-correcta"
+    ]
+  },
+  {
+    "question": "Dos expresiones pueden valer lo mismo y solo una estar en notación científica.\n$$0{,}45 \\times 10^{6}$$\n¿Cuál es su forma correcta?",
+    "options": [
+      "$4{,}5 \\times 10^{5}$",
+      "$45 \\times 10^{4}$",
+      "$4{,}5 \\times 10^{7}$",
+      "$0{,}45 \\times 10^{5}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El coeficiente sube un lugar y el exponente baja uno, así que el valor no cambia.",
+    "feedback_incorrect": [
+      null,
+      "Ese coeficiente no está entre uno y diez, así que la expresión sigue sin ser válida.",
+      "Ahí el exponente subió en vez de bajar, y el valor quedó cien veces más grande.",
+      "Ese coeficiente sigue siendo menor que uno, y además el valor quedó diez veces más chico que el original: $0{,}45\\times10^5=45\\,000$, no $450\\,000$."
+    ],
+    "explanation": "Cuando el coeficiente queda fuera del rango, se lo ajusta compensando con el exponente.\n$$0{,}45 \\times 10^{6} = 4{,}5 \\times 10^{5}$$\nCorrer la coma un lugar a la derecha multiplica el coeficiente por diez, así que el exponente tiene que bajar uno para compensar.\n\nEl valor total no cambia en ningún momento: lo único que cambia es cómo se reparte entre coeficiente y potencia.\n\nEl coeficiente y el exponente se mueven siempre en sentidos opuestos, uno compensando al otro.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-expresion-correcta"
+    ]
+  },
+  {
+    "question": "Un número está en notación científica cuando su coeficiente queda entre $1$ y $10$.\n$$0{,}0091$$\n¿Qué expresión le corresponde?",
+    "options": [
+      "$9{,}1 \\times 10^{-3}$",
+      "$9{,}1 \\times 10^{-2}$",
+      "$9{,}1 \\times 10^{2}$",
+      "$91 \\times 10^{-4}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La coma se corre tres lugares a la derecha, así que el exponente es menos tres.",
+    "feedback_incorrect": [
+      null,
+      "Ahí la coma se corrió un lugar de menos: hay dos ceros antes de la primera cifra, no uno.",
+      "El número es menor que uno, así que el exponente tiene que ser negativo.",
+      "Ese coeficiente no está entre uno y diez, así que la expresión no es válida."
+    ],
+    "explanation": "En notación científica el coeficiente tiene una sola cifra antes de la coma, y el exponente cuenta cuántos lugares se movió esa coma.\n$$0{,}0091 = 9{,}1 \\times 10^{-3}$$\nComo el número original es menor que uno, la coma se corre hacia la derecha y el exponente queda negativo.\n\nContar los ceros después de la coma, incluido el que se salta al llegar a la primera cifra significativa, da directamente ese exponente.\n\nDejar un coeficiente mayor que diez, como noventa y uno, produce un valor correcto pero fuera de la forma pedida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-expresion-correcta"
+    ]
+  },
+  {
+    "question": "Se quiere calcular:\n$$(6\\times10^{8}) \\div (2\\times10^{3})$$\n¿Qué corresponde hacer primero?",
+    "options": [
+      "Dividir los coeficientes entre sí y restar los exponentes entre sí, por separado",
+      "Restar los coeficientes entre sí y dividir los exponentes entre sí",
+      "Dividir el coeficiente del primero por el exponente del segundo",
+      "Restar directamente los dos números completos, coeficiente y exponente juntos"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Coeficientes y exponentes son cantidades distintas, así que se operan por separado: los coeficientes se dividen, y los exponentes se restan.",
+    "feedback_incorrect": [
+      null,
+      "Las dos operaciones están invertidas: los coeficientes se dividen, no se restan, y los exponentes se restan, no se dividen.",
+      "El coeficiente y el exponente de un mismo número no se combinan entre sí, cada uno se opera con su análogo del otro número.",
+      "Restar los dos números completos no es la operación planteada, que es una división, y tampoco separa coeficiente de exponente."
+    ],
+    "explanation": "Antes de calcular el resultado final, hay que identificar que un número en notación científica tiene dos partes con roles distintos: el coeficiente $a$ y la potencia $10^n$.\n\nDividir dos potencias de igual base resta sus exponentes, propiedad vista en `Potenciación`:\n$$10^n \\div 10^m = 10^{n-m}$$\nEsa resta cuenta los factores de $10$ que sobran al simplificar la división.\n\nPor eso, al dividir dos números en notación científica, los coeficientes se dividen entre sí y, por separado, los exponentes de $10$ se restan entre sí:\n$$(6\\times10^{8}) \\div (2\\times10^{3}) = (6\\div2)\\times10^{8-3}$$\nMezclar coeficiente con exponente, como restarlos entre sí o dividir uno por el otro, combina dos cantidades que no representan lo mismo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-orden-operacion"
+    ]
+  },
+  {
+    "question": "Se quiere multiplicar dos números escritos en notación científica.\n$$(3\\times10^{4}) \\times (2\\times10^{5})$$\n¿Qué corresponde hacer?",
+    "options": [
+      "Multiplicar los cuatro números que aparecen escritos, todos juntos",
+      "Multiplicar los coeficientes entre sí y sumar los exponentes entre sí",
+      "Multiplicar los coeficientes entre sí y multiplicar también los exponentes",
+      "Sumar los coeficientes entre sí y sumar también los exponentes entre sí"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada parte se opera con su par: los coeficientes se multiplican y los exponentes se suman.",
+    "feedback_incorrect": [
+      "Los coeficientes y los exponentes no se mezclan entre sí en ningún paso.",
+      null,
+      "Los exponentes se suman al multiplicar potencias de igual base, no se multiplican.",
+      "Los coeficientes se multiplican, porque la operación planteada es un producto."
+    ],
+    "explanation": "Un número en notación científica es un producto, así que multiplicar dos de ellos reordena cuatro factores.\n$$(3 \\times 2) \\times (10^{4} \\times 10^{5})$$\nLos coeficientes se multiplican entre sí, y las potencias de diez se combinan sumando exponentes, como cualquier producto de potencias de igual base.\n$$6 \\times 10^{9}$$\nEl coeficiente resultante ya está entre uno y diez, así que no hace falta reajustar nada.\n\nMezclar un coeficiente con un exponente rompe la separación entre las dos partes, que es lo que vuelve cómoda la notación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-orden-operacion"
+    ]
+  },
+  {
+    "question": "Se quiere multiplicar dos números escritos en notación científica con distinto orden de magnitud.\n$$(5\\times10^{2}) \\times (4\\times10^{6})$$\n¿Qué corresponde hacer primero?",
+    "options": [
+      "Sumar los coeficientes entre sí y sumar los exponentes entre sí",
+      "Multiplicar los coeficientes entre sí y sumar los exponentes entre sí",
+      "Multiplicar los coeficientes entre sí y también multiplicar los exponentes",
+      "Igualar los exponentes de los dos números antes de multiplicar los coeficientes"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Multiplicar coeficientes y sumar exponentes no depende de que los números tengan órdenes de magnitud parecidos.",
+    "feedback_incorrect": [
+      "Sumar los coeficientes no corresponde a un producto, que multiplica esa parte en vez de sumarla.",
+      null,
+      "Los exponentes se suman al multiplicar potencias de igual base, no se multiplican entre sí.",
+      "Igualar exponentes es necesario para sumar o restar, pero un producto no lo exige: cada exponente se combina tal como está."
+    ],
+    "explanation": "Un número en notación científica es un producto, así que multiplicar dos de ellos reordena cuatro factores.\n$$(5 \\times 4) \\times (10^{2} \\times 10^{6})$$\nLos coeficientes se multiplican entre sí, y las potencias de diez se combinan sumando exponentes, sin importar qué tan distintos sean.\n$$20 \\times 10^{8}$$\nA diferencia de una suma, el producto no exige que los dos números compartan exponente antes de operar.\n\nEse coeficiente, veinte, todavía queda fuera de rango y necesitaría un reajuste aparte, que es el tema de otra sub-familia.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-orden-operacion"
+    ]
+  },
+  {
+    "question": "Se quiere dividir dos números escritos en notación científica.\n$$(8\\times10^{7}) \\div (4\\times10^{2})$$\n¿Qué corresponde hacer primero?",
+    "options": [
+      "Dividir los coeficientes entre sí y restar los exponentes entre sí",
+      "Restar los coeficientes entre sí y dividir los exponentes entre sí",
+      "Dividir los coeficientes entre sí y también dividir los exponentes entre sí",
+      "Igualar los exponentes de los dos números antes de dividir los coeficientes"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Coeficientes y exponentes se operan cada uno con su par: los coeficientes se dividen y los exponentes se restan.",
+    "feedback_incorrect": [
+      null,
+      "Las dos operaciones están invertidas: los coeficientes se dividen, no se restan, y los exponentes se restan, no se dividen.",
+      "Dividir los exponentes entre sí no corresponde a ninguna propiedad de las potencias: lo que se restan son los exponentes.",
+      "Igualar exponentes es necesario para sumar o restar, pero un cociente no lo exige: cada exponente se combina tal como está."
+    ],
+    "explanation": "Un número en notación científica separa coeficiente y potencia de diez, y dividir dos de ellos opera cada parte con su análogo del otro número.\n$$(8\\times10^{7}) \\div (4\\times10^{2}) = (8\\div4)\\times10^{7-2}$$\nLos coeficientes se dividen entre sí, y las potencias de diez se combinan restando exponentes, propiedad vista en Potenciación.\n$$2 \\times 10^{5}$$\nA diferencia de una suma, un cociente no exige que los dos números compartan exponente antes de operar.\n\nMezclar coeficiente con exponente, como restarlos o dividirlos entre sí, combina dos cantidades que no representan lo mismo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-orden-operacion"
+    ]
+  },
+  {
+    "question": "Se quiere dividir dos números escritos en notación científica cuyos coeficientes no dividen exacto.\n$$(3\\times10^{5}) \\div (6\\times10^{2})$$\n¿Qué corresponde hacer?",
+    "options": [
+      "Invertir solo el coeficiente del segundo número y multiplicar los coeficientes entre sí",
+      "Restar los coeficientes y dividir los exponentes entre sí",
+      "Dividir los coeficientes, restar los exponentes y después reajustar el coeficiente",
+      "Dividir los coeficientes, restar los exponentes y dejar el resultado como está"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El cociente de coeficientes queda menor que uno, así que hay que renormalizar al final.",
+    "feedback_incorrect": [
+      "Invertir el segundo número exige invertir también el signo de su exponente; hacerlo solo con el coeficiente cambia el resultado.",
+      "Los coeficientes se dividen y los exponentes se restan, nunca al revés.",
+      null,
+      "Un coeficiente menor que uno no cumple la forma de la notación, así que falta un paso."
+    ],
+    "explanation": "La división separa coeficientes y potencias igual que el producto, pero el resultado puede quedar fuera de forma.\n$$\\dfrac{3}{6} \\times 10^{5-2} = 0{,}5 \\times 10^{3}$$\nEl coeficiente quedó menor que uno, así que se corre la coma un lugar y se compensa bajando el exponente.\n$$5 \\times 10^{2}$$\nEse reajuste final es parte del procedimiento, no un detalle opcional.\n\nDejar un coeficiente fuera del rango da un valor correcto pero una expresión que no es notación científica.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-orden-operacion"
+    ]
+  },
+  {
+    "question": "Al multiplicar dos números en notación científica se obtuvo este resultado intermedio, sin renormalizar todavía:\n$$14 \\times 10^{7}$$\n¿Qué corresponde hacer para dejarlo en notación científica válida?",
+    "options": [
+      "Reescribir $14$ como $1{,}4 \\times 10^{1}$ y sumar ese exponente al $7$, quedando $1{,}4 \\times 10^{8}$",
+      "Redondear $14$ a $10$ y dejar el resultado como $10 \\times 10^{7}$",
+      "Dividir el coeficiente $14$ por $10$ sin modificar el exponente, quedando $1{,}4 \\times 10^{7}$",
+      "Dejar el resultado tal cual, $14 \\times 10^{7}$, porque el exponente ya está calculado correctamente"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$14$ no cumple $1 \\leq \\lvert a \\rvert < 10$, así que hay que reescribirlo como $1{,}4 \\times 10^{1}$ y absorber ese $10^1$ en el exponente ya calculado.",
+    "feedback_incorrect": [
+      null,
+      "Redondear cambia el valor del número; $10 \\times 10^{7}$ tampoco es una forma válida, porque el coeficiente $10$ no cumple $\\lvert a \\rvert < 10$.",
+      "Dividir el coeficiente sin ajustar el exponente cambia el valor total del número, que ya no sería igual al resultado original.",
+      "El coeficiente $14$ tiene dos dígitos antes de la coma, no cumple $1 \\leq \\lvert a \\rvert < 10$: el resultado todavía no está en notación científica válida."
+    ],
+    "explanation": "Al operar dos números en notación científica, el coeficiente resultante puede quedar fuera del rango $1 \\leq \\lvert a \\rvert < 10$, como pasa acá con $14$.\n\nEsto no es un error de cálculo: falta un paso más, **renormalizar**. El propio $14$ se puede escribir en notación científica:\n$$14 = 1{,}4 \\times 10^{1}$$\nEse $10^1$ se junta con el exponente que ya estaba, usando la misma propiedad que combina potencias de igual base:\n$$\\begin{aligned} 14 \\times 10^{7} &= 1{,}4 \\times 10^{1} \\times 10^{7} \\\\ &= 1{,}4 \\times 10^{8} \\end{aligned}$$\nEl valor del número no cambia en este paso, solo se reescribe de otra forma.\n\nDejar el coeficiente fuera de rango, o ajustarlo sin compensar el exponente correspondiente, deja una expresión inválida o cambia el valor original.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-reajuste-coeficiente"
+    ]
+  },
+  {
+    "question": "Un resultado intermedio quedó con el coeficiente por debajo de $1$.\n$$0{,}8 \\times 10^{5}$$\n¿Qué corresponde hacer para dejarlo en notación científica válida?",
+    "options": [
+      "Dejarlo como está, porque el exponente ya está bien calculado",
+      "Correr la coma un lugar a la derecha y bajar el exponente en $1$",
+      "Correr la coma un lugar a la derecha y subir el exponente en $1$",
+      "Redondear el coeficiente a $1$ y dejar el exponente sin cambios"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Al agrandar el coeficiente diez veces, el exponente tiene que bajar uno para compensar.",
+    "feedback_incorrect": [
+      "Un coeficiente menor que uno no cumple la forma que exige la notación.",
+      null,
+      "Mover los dos en el mismo sentido multiplica el número por cien.",
+      "Redondear cambia el valor del número, no solo su forma de escritura."
+    ],
+    "explanation": "El reajuste tiene que dejar el valor intacto: lo que se le agrega a una parte se le quita a la otra.\n$$0{,}8 \\times 10^{5} = 8 \\times 10^{4}$$\nCorrer la coma a la derecha multiplica el coeficiente por diez, así que el exponente baja uno.\n\nEl chequeo rápido es escribir los dos números completos y verificar que coincidan: ochenta mil en los dos casos.\n\nRedondear el coeficiente sí cambiaría el valor, y por eso nunca es parte del reajuste.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-reajuste-coeficiente"
+    ]
+  },
+  {
+    "question": "Un producto dejó el coeficiente por encima de $10$.\n$$35 \\times 10^{-6}$$\n¿Qué corresponde hacer para dejarlo en notación científica válida?",
+    "options": [
+      "Correr la coma un lugar a la izquierda y bajar el exponente en $1$",
+      "Dividir el coeficiente por $10$ sin tocar el exponente",
+      "Dejarlo como está, porque el exponente negativo ya lo compensa",
+      "Correr la coma un lugar a la izquierda y subir el exponente en $1$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Al achicar el coeficiente diez veces, el exponente tiene que subir uno para compensar.",
+    "feedback_incorrect": [
+      "Mover los dos en el mismo sentido divide el número por cien.",
+      "Dividir el coeficiente sin compensar cambia el valor del número.",
+      "El signo del exponente no interviene: el coeficiente sigue fuera del rango permitido.",
+      null
+    ],
+    "explanation": "El reajuste funciona igual con exponentes negativos: lo que baja de un lado sube del otro.\n$$35 \\times 10^{-6} = 3{,}5 \\times 10^{-5}$$\nEl coeficiente se dividió por diez, así que el exponente subió uno, de menos seis a menos cinco.\n\nSubir un exponente negativo significa acercarlo a cero, que es lo que suele confundir cuando el número es muy chico.\n\nEl valor total no cambia: los dos escritos completos dan el mismo treinta y cinco millonésimos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-reajuste-coeficiente"
+    ]
+  },
+  {
+    "question": "Una suma dejó el coeficiente con dos cifras antes de la coma.\n$$12{,}4 \\times 10^{3}$$\n¿Cuál es su forma válida en notación científica?",
+    "options": [
+      "$1{,}24 \\times 10^{4}$",
+      "$12{,}4 \\times 10^{4}$",
+      "$1{,}24 \\times 10^{2}$",
+      "$124 \\times 10^{2}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La coma se corre un lugar a la izquierda y el exponente sube uno.",
+    "feedback_incorrect": [
+      null,
+      "Ahí el exponente subió pero el coeficiente quedó igual, y el valor se multiplicó por diez.",
+      "Ahí el exponente bajó en vez de subir, y el valor quedó cien veces más chico.",
+      "Ese coeficiente sigue estando fuera del rango entre uno y diez."
+    ],
+    "explanation": "Un coeficiente válido tiene exactamente una cifra distinta de cero antes de la coma.\n$$12{,}4 \\times 10^{3} = 1{,}24 \\times 10^{4}$$\nCorrer la coma un lugar a la izquierda divide el coeficiente por diez, y el exponente sube uno para compensar.\n\nLos dos escritos completos dan doce mil cuatrocientos, así que el valor se conservó.\n\nEl reajuste es siempre un intercambio: nunca se toca una sola de las dos partes.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-reajuste-coeficiente"
+    ]
+  },
+  {
+    "question": "El reajuste del coeficiente puede exigir mover la coma más de un lugar.\n$$0{,}0072 \\times 10^{8}$$\n¿Cuál es su forma válida en notación científica?",
+    "options": [
+      "$72 \\times 10^{5}$",
+      "$7{,}2 \\times 10^{4}$",
+      "$7{,}2 \\times 10^{5}$",
+      "$7{,}2 \\times 10^{11}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La coma se corre tres lugares a la derecha, así que el exponente baja tres.",
+    "feedback_incorrect": [
+      "Ese coeficiente no solo está fuera de rango: además el valor quedó diez veces más grande que el original, $72\\times10^5=7\\,200\\,000$ en vez de $720\\,000$.",
+      "Ahí la coma se corrió un lugar de más: hay tres ceros que saltar, no cuatro.",
+      null,
+      "Ahí el exponente subió en vez de bajar, y el valor quedó enormemente más grande."
+    ],
+    "explanation": "La cantidad de lugares que se corre la coma es exactamente lo que cambia el exponente, en sentido opuesto.\n$$0{,}0072 \\times 10^{8} = 7{,}2 \\times 10^{5}$$\nCorrer tres lugares a la derecha multiplica el coeficiente por mil, así que el exponente baja tres.\n\nEl chequeo es siempre el mismo: escribir el número completo antes y después y verificar que coincidan.\n\nContar mal los ceros es lo que produce un resultado con el orden de magnitud corrido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-reajuste-coeficiente"
+    ]
   }
 ]

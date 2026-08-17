@@ -1,22 +1,371 @@
 [
   {
-    "question": "¿Qué dos operaciones debe tener un conjunto $V$ para ser un **espacio vectorial**?",
+    "question": "La definición de espacio vectorial pide solamente que se pueda sumar dos elementos y multiplicar uno por un número.\n$$\\vec{u}+\\vec{v} \\in V, \\quad \\alpha\\vec{v} \\in V$$\n¿Por qué no exige además poder medir la longitud de sus elementos?",
     "options": [
-      "Suma y producto por escalar",
-      "Producto escalar y producto vectorial",
-      "Suma y resta únicamente"
+      "Porque exigir más dejaría afuera conjuntos donde igual valen todas las conclusiones",
+      "Porque la longitud siempre se puede reconstruir a partir de la suma y el escalar",
+      "Porque medir longitudes solo tiene sentido en el plano y en el espacio"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Un espacio vectorial necesita suma entre elementos y producto por un escalar.",
+    "feedback_correct": "Toda la teoría se construye con esas dos operaciones, así que pedir más solo achicaría el alcance.",
     "feedback_incorrect": [
       null,
-      "El producto vectorial es una operación específica de $\\mathbb{R}^3$, no parte de la definición general.",
-      "La resta se deriva de la suma más el opuesto, no es una operación independiente exigida por los axiomas."
+      "La longitud no sale de la suma ni del producto por escalar, es información extra que hay que agregar aparte.",
+      "Los polinomios y las matrices también forman espacios vectoriales, y ahí la longitud no aparece por ningún lado."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un **espacio vectorial** es un conjunto $V$ equipado con dos operaciones: la suma entre elementos de $V$ y el producto de un elemento de $V$ por un escalar.\n$$\\vec{u}+\\vec{v} \\in V, \\quad \\alpha\\vec{v} \\in V$$\n\nEstas dos operaciones deben cumplir un conjunto de axiomas: clausura, asociatividad, existencia de neutro y opuesto, y distributividad respecto a la suma de escalares y de vectores.\n\n$\\mathbb{R}^n$ es el ejemplo más común, pero la misma estructura aplica a conjuntos de polinomios o de matrices.",
-    "reviewed": false
+    "explanation": "Un **espacio vectorial** se define con dos operaciones y nada más, sumar dos elementos y multiplicar uno por un número.\n$$\\vec{u}+\\vec{v} \\in V, \\quad \\alpha\\vec{v} \\in V$$\nLa razón de que alcance con tan poco es que todos los resultados del tema se demuestran usando solo esas dos operaciones. Ningún paso necesita saber cuánto mide un elemento.\n\nY el beneficio es concreto. Los polinomios se suman y se escalan, las matrices también, así que todo lo demostrado cae sobre ellos sin volver a probarse.\n\nPedir además una longitud dejaría esos conjuntos afuera sin ganar nada a cambio.",
+    "reviewed": false,
+    "tags": [
+      "por-que-alcanzan-dos-operaciones"
+    ]
+  },
+  {
+    "question": "La definición permite sumar dos elementos y escalar uno, pero nunca multiplicar dos entre sí.\n$$\\vec{u}+\\vec{v} \\in V, \\quad \\alpha\\vec{v} \\in V$$\n¿Por qué esa tercera operación queda afuera?",
+    "options": [
+      "Porque ese producto se obtiene sumando varias veces uno de los dos",
+      "Porque en muchos conjuntos que interesan no hay forma razonable de multiplicar",
+      "Porque multiplicar dos elementos siempre da un resultado fuera del conjunto"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sumar y escalar están disponibles en todos ellos, multiplicar entre sí no siempre.",
+    "feedback_incorrect": [
+      "Sumar un elemento varias veces reproduce el producto por un entero, no un producto entre dos.",
+      null,
+      "En las matrices cuadradas el producto está definido y cae adentro del conjunto."
+    ],
+    "explanation": "Un **espacio vectorial** se define con dos operaciones, y dejar afuera el producto entre elementos no es un olvido.\n$$\\vec{u}+\\vec{v} \\in V, \\quad \\alpha\\vec{v} \\in V$$\nEntre dos pares del plano no hay ninguna forma natural de multiplicar. Se podría inventar una, pero no habría razón para preferirla a otra.\n\nExigirla dejaría afuera a $\\mathbb{R}^2$ y a los polinomios sin ganar nada, porque ningún resultado del tema la necesita.\n\nLas matrices cuadradas sí tienen un producto, y eso las convierte en un objeto más rico. Esa riqueza extra no forma parte de lo que las vuelve espacio vectorial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-alcanzan-dos-operaciones"
+    ]
+  },
+  {
+    "question": "Entre las operaciones de la definición no figura la resta, y sin embargo se resta todo el tiempo.\n$$\\vec{u} - \\vec{v}$$\n¿Cómo se explica que esté permitida?",
+    "options": [
+      "Restar es una tercera operación que cada espacio agrega por su cuenta",
+      "Restar solo está permitido cuando los dos elementos son distintos entre sí",
+      "Restar es sumar el opuesto, así que ya está incluida en las dos operaciones"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El opuesto sale de multiplicar por menos uno, y sumarlo es exactamente restar.",
+    "feedback_incorrect": [
+      "No hace falta agregar nada, la resta se arma con las dos operaciones que ya están.",
+      "La resta está definida entre dos elementos cualesquiera, incluso entre uno y sí mismo.",
+      null
+    ],
+    "explanation": "La resta no aparece en la definición porque no hace falta: se construye con las dos operaciones que sí están.\n$$\\vec{u} - \\vec{v} = \\vec{u} + (-1)\\vec{v}$$\nMultiplicar por menos uno produce el opuesto, y sumarlo es lo que se entiende por restar.\n\nEse es el criterio con el que está armada la lista. Todo lo que se puede reconstruir queda afuera, para que la definición pida lo mínimo.\n\nLa ventaja es concreta. Cuantas menos cosas se exigen, más conjuntos califican, y todo lo demostrado cae sobre todos ellos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-alcanzan-dos-operaciones"
+    ]
+  },
+  {
+    "question": "En un espacio vectorial no hay ninguna manera de decidir si un elemento es mayor que otro.\n$$\\vec{u}, \\vec{v} \\in V$$\n¿Por qué la definición no incluye esa comparación?",
+    "options": [
+      "Porque ningún resultado del tema la necesita, y exigirla dejaría espacios afuera",
+      "Porque comparar dos elementos siempre se puede hacer mirando sus componentes",
+      "Porque la comparación se deduce de la suma cuando el conjunto es infinito"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Todo se demuestra con la suma y el escalar, así que el orden sería una exigencia sin uso.",
+    "feedback_incorrect": [
+      null,
+      "Entre dos polinomios no hay ninguna comparación natural, y son un espacio vectorial.",
+      "No hay tal deducción, la suma no dice nada sobre cuál de los dos elementos sería mayor."
+    ],
+    "explanation": "La definición pide poco a propósito, y cada cosa que no pide es una decisión.\n$$\\vec{u}+\\vec{v} \\in V, \\quad \\alpha\\vec{v} \\in V$$\nComparar dos elementos parece inofensivo en el plano, donde uno podría mirar cuál mide más. Entre dos polinomios ya no hay nada parecido.\n\nY aunque se pudiera, no serviría: ninguna demostración del tema usa un orden entre los elementos.\n\nPedir una comparación tendría entonces un solo efecto, que es expulsar conjuntos donde toda la teoría funcionaba perfectamente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-alcanzan-dos-operaciones"
+    ]
+  },
+  {
+    "question": "Tres conjuntos muy distintos entre sí califican como espacios vectoriales.\n$$\\mathbb{R}^2, \\quad P_2, \\quad \\mathbb{R}^{2 \\times 2}$$\n¿Qué es lo único que los tres comparten?",
+    "options": [
+      "Que los tres se pueden dibujar como flechas apoyadas en un origen",
+      "Que en los tres se puede sumar y escalar sin salirse del conjunto",
+      "Que en los tres cada elemento queda descripto por tres números"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Es la única exigencia de la definición, y los tres la cumplen con sus operaciones habituales.",
+    "feedback_incorrect": [
+      "Los polinomios y las matrices no se dibujan como flechas, y son espacios igual.",
+      null,
+      "Un par lleva dos números y una matriz de dos por dos lleva cuatro, así que no coincide."
+    ],
+    "explanation": "Un par de números, un polinomio y una matriz no se parecen en nada, y aun así el tema los trata de la misma manera.\n$$\\mathbb{R}^2, \\quad P_2, \\quad \\mathbb{R}^{2 \\times 2}$$\nLo que comparten es que en los tres se puede sumar dos elementos y multiplicar uno por un número sin que el resultado se escape.\n\nCon eso alcanza, porque todas las demostraciones del tema usan únicamente esas dos operaciones.\n\nPor eso conviene leer la palabra **vector** como un papel que un objeto cumple, y no como una flecha. Un polinomio hace ese papel sin ninguna dificultad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-alcanzan-dos-operaciones"
+    ]
+  },
+  {
+    "question": "Un conjunto es cerrado para una operación cuando el resultado nunca se sale de él.\n$$\\vec{u},\\vec{v} \\in S \\implies \\vec{u}+\\vec{v} \\in S$$\n¿Qué problema trae que la suma de dos elementos caiga fuera del conjunto?",
+    "options": [
+      "Que las reglas del conjunto dejan de aplicarse justo al resultado de una cuenta válida",
+      "Que el conjunto pasa a tener infinitos elementos y ya no se puede describir",
+      "Que la suma deja de ser conmutativa entre los elementos que quedaron adentro"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Si el resultado no pertenece, todo lo que se sabe del conjunto deja de valer justo donde se lo necesita.",
+    "feedback_incorrect": [
+      null,
+      "La cantidad de elementos no tiene nada que ver, el plano es infinito y es cerrado sin ningún problema.",
+      "La conmutatividad se hereda de los números y no se rompe porque el resultado caiga afuera."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Que un conjunto sea **cerrado** para una operación significa que operar dos de sus elementos siempre devuelve otro elemento del mismo conjunto.\n\nSi eso falla se rompe algo más grave que una cuenta suelta. Las propiedades que valen adentro dejan de decir nada sobre el resultado, porque el resultado ya no está adentro.\n\nEl caso típico son los polinomios de grado exactamente dos, donde la suma puede bajar el grado.\n$$(x^2+1) + (-x^2+3) = 4$$\nEse resultado ya no tiene grado dos, así que se salió del conjunto.\n\nPor eso la clausura no es un requisito burocrático, es lo que sostiene todo lo demás.",
+    "reviewed": false,
+    "tags": [
+      "que-significa-ser-cerrado"
+    ]
+  },
+  {
+    "question": "Alguien prueba con dos elementos de un conjunto, ve que la suma cae adentro, y lo da por cerrado.\n$$\\vec{u}+\\vec{v} \\in S$$\n¿Qué falla en ese razonamiento?",
+    "options": [
+      "Que la suma de dos elementos no decide nada sobre un conjunto",
+      "Que la clausura exige que eso pase con todos los pares, no con uno",
+      "Que hace falta probar además con el mismo elemento sumado a sí mismo"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Un caso favorable no prueba nada, mientras que un solo caso desfavorable descarta.",
+    "feedback_incorrect": [
+      "La suma sí decide, y de hecho un solo par que se salga descarta al conjunto entero.",
+      null,
+      "Ese par está incluido entre todos los pares posibles, y revisarlo tampoco alcanzaría."
+    ],
+    "explanation": "La **clausura** es una afirmación sobre todos los pares de elementos a la vez, no sobre los que uno eligió probar.\n$$\\vec{u},\\vec{v} \\in S \\implies \\vec{u}+\\vec{v} \\in S$$\nPor eso los dos sentidos no cuestan lo mismo. Encontrar un par cuya suma se salga descarta al conjunto de inmediato.\n\nConfirmar, en cambio, obliga a un argumento general sobre la condición que define al conjunto.\n\nCon los pares del plano cuyas dos coordenadas son iguales, ese argumento es corto: sumando dos así, las coordenadas del resultado siguen siendo iguales entre sí.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-significa-ser-cerrado"
+    ]
+  },
+  {
+    "question": "Los números naturales se pueden sumar entre sí sin salirse nunca del conjunto.\n$$3 + 5 = 8$$\n¿Alcanza eso para que sean un espacio vectorial?",
+    "options": [
+      "Sí, porque la suma es la operación principal de toda la definición",
+      "No, porque la suma de dos naturales a veces deja de ser natural",
+      "No, porque multiplicarlos por un número negativo los saca del conjunto"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Las dos operaciones cuentan igual, y el producto por un escalar negativo se sale enseguida.",
+    "feedback_incorrect": [
+      "Las dos operaciones pesan lo mismo, y la definición exige que ninguna se escape.",
+      "Eso no puede pasar, sumar dos naturales siempre da otro número natural.",
+      null
+    ],
+    "explanation": "Un conjunto puede portarse perfecto con una operación y romperse con la otra, así que hay que revisar las dos.\n$$(-1) \\cdot 3 = -3$$\nLos naturales aguantan la suma sin problemas, pero multiplicar por menos uno produce un número que ya no pertenece.\n\nY con un solo caso alcanza, porque la clausura pide que el resultado quede adentro siempre.\n\nEl mismo conjunto muestra otra falla, porque tampoco hay un elemento que sumado a $3$ devuelva el neutro. Las dos ausencias vienen de haber recortado los negativos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-significa-ser-cerrado"
+    ]
+  },
+  {
+    "question": "Cuando la suma de dos elementos cae fuera del conjunto, el problema no queda en esa cuenta suelta.\n$$\\vec{u}+\\vec{v} \\notin S$$\n¿Qué más deja de tener sentido?",
+    "options": [
+      "Las demás condiciones, porque todas hablan del resultado de operar",
+      "Únicamente el producto por un escalar, que se apoya en la suma",
+      "Nada más, porque las demás condiciones se verifican por separado"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Una condición sobre una suma que no pertenece al conjunto no afirma nada útil.",
+    "feedback_incorrect": [
+      null,
+      "El producto por un escalar se puede verificar solo, sin pasar por la suma.",
+      "Las condiciones hablan justamente de sumas y productos, así que dependen de que caigan adentro."
+    ],
+    "explanation": "La clausura no es la primera de una lista de condiciones independientes, es la que sostiene a todas las demás.\n$$(\\vec{u}+\\vec{v}) + \\vec{w} = \\vec{u} + (\\vec{v}+\\vec{w})$$\nLa asociatividad, por ejemplo, compara dos maneras de sumar tres elementos. Si la suma de los dos primeros ya se salió, la igualdad habla de objetos ajenos al conjunto.\n\nLo mismo pasa con las distributividades, que combinan una suma con un escalar.\n\nPor eso la clausura se mira primero, y por eso su falla descarta al conjunto sin que haga falta revisar ninguna otra cosa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-significa-ser-cerrado"
+    ]
+  },
+  {
+    "question": "Ser cerrado para el producto por un escalar es una exigencia más fuerte de lo que suena.\n$$\\alpha\\vec{v} \\in S$$\n¿Para qué escalares tiene que valer?",
+    "options": [
+      "Para los escalares que dejan el resultado con el mismo tamaño",
+      "Para todos los números reales, incluidos los negativos y los que no son enteros",
+      "Para todos los números enteros, que son los que aparecen en las cuentas"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El escalar recorre todos los reales, así que basta uno que se salga para descartar.",
+    "feedback_incorrect": [
+      "El tamaño del resultado no interviene, la definición ni siquiera lo menciona.",
+      null,
+      "Los escalares del tema son todos los números reales, no solo los enteros."
+    ],
+    "explanation": "Los escalares de un espacio vectorial son **todos** los números reales, y esa generosidad es lo que vuelve exigente a la condición.\n$$\\alpha\\vec{v} \\in S \\quad \\text{para todo } \\alpha$$\nUn conjunto puede resistir los escalares enteros y romperse con una fracción, como pasa con los pares de coordenadas enteras.\n\nY puede resistir los positivos y romperse con un negativo, como pasa con los pares de primera coordenada positiva.\n\nPor eso conviene probar siempre con esos dos casos incómodos antes de dar un conjunto por cerrado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-significa-ser-cerrado"
+    ]
+  },
+  {
+    "question": "Verificar que un conjunto cumple los axiomas de espacio vectorial es un trabajo que se hace una sola vez.\n$$\\alpha(\\vec{u}+\\vec{v}) = \\alpha\\vec{u} + \\alpha\\vec{v}$$\n¿Qué se gana con esa verificación?",
+    "options": [
+      "Todo lo demostrado para espacios vectoriales vale ahí sin volver a probarse",
+      "El conjunto pasa a tener una única forma de escribir cada uno de sus elementos",
+      "Las operaciones del conjunto pasan a calcularse más rápido que antes"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Los axiomas funcionan como un contrato, y cumplidos una vez habilitan todo el catálogo de resultados.",
+    "feedback_incorrect": [
+      null,
+      "Esa unicidad depende de haber elegido antes un conjunto de referencia, y no sale de los axiomas.",
+      "Los axiomas no cambian cómo se calcula nada, solo dicen qué conjuntos entran al tema."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Los **axiomas** de espacio vectorial no son propiedades que haya que demostrar en cada ejercicio, son las condiciones que un conjunto tiene que cumplir para entrar al tema.\n\nUna vez verificadas, cualquier resultado probado para espacios vectoriales en general cae automáticamente sobre ese conjunto.\n\nPor eso conviene pensarlos como un contrato entre quien demuestra y quien aplica. El primero trabaja con un espacio genérico, el segundo solo verifica que el suyo cumple.\n\nEsa es toda la ganancia, y no es poca, porque se demuestra una vez y se usa en polinomios, en matrices y en cualquier conjunto que califique.",
+    "reviewed": false,
+    "tags": [
+      "para-que-sirven-los-axiomas"
+    ]
+  },
+  {
+    "question": "Al resolver un ejercicio en un espacio vectorial se usa la distributividad sin demostrarla.\n$$\\alpha(\\vec{u}+\\vec{v}) = \\alpha\\vec{u} + \\alpha\\vec{v}$$\n¿Por qué está permitido usarla así?",
+    "options": [
+      "Porque es una propiedad de los números reales y no de los elementos",
+      "Porque quedó verificada al comprobar que ese conjunto es un espacio vectorial",
+      "Porque la distributividad vale en cualquier conjunto donde haya una suma"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Las condiciones se verifican una vez por espacio y después se usan libremente.",
+    "feedback_incorrect": [
+      "La igualdad combina elementos del espacio con un número, así que no es solo sobre números.",
+      null,
+      "No vale en cualquier conjunto, y por eso figura en la lista de condiciones a verificar."
+    ],
+    "explanation": "Las condiciones de espacio vectorial no son propiedades que haya que redemostrar en cada ejercicio, son requisitos de entrada.\n$$\\alpha(\\vec{u}+\\vec{v}) = \\alpha\\vec{u} + \\alpha\\vec{v}$$\nComprobar que un conjunto las cumple es un trabajo que se hace una sola vez, cuando se lo presenta.\n\nA partir de ahí quedan disponibles como herramientas, igual que las propiedades de los números en cualquier cuenta.\n\nLa distributividad no viene de arriba: en un conjunto con operaciones inventadas puede fallar, y por eso está en la lista y no se supone.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "para-que-sirven-los-axiomas"
+    ]
+  },
+  {
+    "question": "Un conjunto con dos operaciones cumple siete de las ocho condiciones y falla en la restante.\n$$1 \\cdot \\vec{v} \\neq \\vec{v}$$\n¿Qué se puede usar sobre él?",
+    "options": [
+      "Casi todo, porque siete condiciones de ocho ya son una mayoría amplia",
+      "Todo, siempre que la condición que falla no aparezca escrita",
+      "Nada de lo demostrado para espacios vectoriales, porque no llegó a serlo"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Las condiciones funcionan como un paquete: se cumplen todas o el conjunto queda afuera.",
+    "feedback_incorrect": [
+      "Las demostraciones usan las condiciones libremente, sin llevar la cuenta de cuáles.",
+      "Ninguna demostración aclara qué condiciones usó, así que no hay forma de saber cuáles sobreviven.",
+      null
+    ],
+    "explanation": "Los axiomas se comportan como un **contrato**, y un contrato no se cumple en un ochenta por ciento.\n$$1 \\cdot \\vec{v} = \\vec{v}$$\nCualquier resultado general del tema se demuestra encadenando esas condiciones, sin registrar cuáles usó en cada paso.\n\nSi una falla, no hay manera de saber qué demostraciones siguen en pie y cuáles se caen.\n\nPor eso el conjunto queda afuera del tema. No es una descalificación, es que el catálogo de resultados no le aplica y habría que rehacerlo desde cero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "para-que-sirven-los-axiomas"
+    ]
+  },
+  {
+    "question": "Entre las condiciones hay una que parece no decir nada, porque multiplicar por uno no cambiaría nada.\n$$1 \\cdot \\vec{v} = \\vec{v}$$\n¿Por qué se la incluye igual?",
+    "options": [
+      "Porque no se deduce de las otras y sin ella el escalar queda suelto",
+      "Porque sin ella el número uno no se podría usar como escalar válido",
+      "Porque es la condición que define al vector nulo de cada espacio"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Es la que amarra el producto por escalar a la suma, y ninguna otra la implica.",
+    "feedback_incorrect": [
+      null,
+      "El uno se podría usar igual, lo que no quedaría garantizado es qué devuelve.",
+      "El vector nulo queda definido por la suma, y esta condición habla del producto."
+    ],
+    "explanation": "Las condiciones de la definición son las que **no** se deducen de las otras, y esta es el caso más llamativo de la lista.\n$$1 \\cdot \\vec{v} = \\vec{v}$$\nSi se la quita, se puede armar un conjunto con dos operaciones que cumple las siete restantes y donde multiplicar por uno devuelve siempre el vector nulo.\n\nAhí el producto por escalar queda desconectado de la suma, y el conjunto deja de comportarse como se espera.\n\nQue una condición parezca obvia no significa que sobre. Significa que en los ejemplos conocidos se cumple, que es otra cosa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "para-que-sirven-los-axiomas"
+    ]
+  },
+  {
+    "question": "Los polinomios y las matrices se suman de maneras distintas y los dos conjuntos son espacios.\n$$p(x)+q(x), \\quad A+B$$\n¿Qué exigen entonces las condiciones?",
+    "options": [
+      "Que las dos operaciones sean exactamente las mismas en todos los espacios",
+      "Cómo se tiene que comportar la suma, sin fijar cómo se calcula",
+      "Que la suma se calcule sumando componente a componente en todos"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada espacio trae sus propias operaciones y las condiciones solo les ponen requisitos.",
+    "feedback_incorrect": [
+      "Si fueran las mismas operaciones, habría un solo espacio vectorial y no un tema entero.",
+      null,
+      "Un espacio puede traer una suma definida de cualquier manera, mientras cumpla las condiciones."
+    ],
+    "explanation": "Las condiciones no dicen **cómo** se suma, dicen cómo tiene que portarse la suma que cada espacio traiga.\n$$\\vec{u}+\\vec{v} = \\vec{v}+\\vec{u}$$\nEn los polinomios sumar es agrupar por grado, en las matrices es hacerlo casillero por casillero. Son cuentas distintas.\n\nLas dos, sin embargo, resultan conmutativas y asociativas, y en las dos hay un neutro y un opuesto.\n\nEsa separación entre la regla de cálculo y las propiedades es lo que permite demostrar una vez y aplicar en conjuntos que no se parecen en nada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "para-que-sirven-los-axiomas"
+    ]
   }
 ]

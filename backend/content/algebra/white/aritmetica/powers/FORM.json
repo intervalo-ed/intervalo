@@ -1,11 +1,11 @@
 [
   {
-    "question": "Se quiere simplificar la expresión $\\dfrac{a^5 \\cdot a^{-2}}{a^3}$.\n\n¿Qué propiedad de la potenciación corresponde aplicar primero?",
+    "question": "Se quiere simplificar la expresión:\n$$\\dfrac{a^5 \\cdot a^{-2}}{a^3}$$\n¿Qué propiedad de la potenciación corresponde aplicar primero?",
     "options": [
       "$a^m \\cdot a^n = a^{m+n}$ en el numerador",
       "$(a^m)^n = a^{m \\cdot n}$ en el numerador",
       "$a^m \\cdot a^n = a^{m+n}$ en el denominador",
-      "$a^{-n} = \\dfrac{1}{a^n}$ en el denominador"
+      "$a^{-n} = 1/a^n$ en el denominador"
     ],
     "correct_index": 0,
     "feedback_correct": "El numerador combina dos potencias de igual base multiplicadas, así que corresponde sumar los exponentes: $a^5 \\cdot a^{-2} = a^3$.",
@@ -15,10 +15,393 @@
       "El denominador tiene una sola potencia, no un producto de dos potencias.",
       "El exponente negativo ya está en la base del numerador, no hace falta invertir nada todavía."
     ],
-    "explanation": "Antes de calcular el resultado final, hay que identificar qué **propiedad de la potenciación** corresponde a cada parte de la expresión.\n\nEn $\\dfrac{a^5 \\cdot a^{-2}}{a^3}$, el numerador multiplica dos potencias de igual base, así que se aplica $a^m \\cdot a^n = a^{m+n}$: $a^5 \\cdot a^{-2} = a^{3}$.\nRecién después se aplica la propiedad del cociente entre el resultado y $a^3$.\nUn error frecuente es aplicar la propiedad del cociente antes de simplificar el producto del numerador.",
+    "explanation": "Antes de calcular el resultado final, hay que identificar qué **propiedad de la potenciación** corresponde a cada parte de la expresión.\n\nEl exponente cuenta factores de la base multiplicados entre sí, así que multiplicar dos potencias de igual base simplemente suma esas cantidades de factores.\n\nEl numerador multiplica dos potencias de igual base, así que ahí se aplica esa propiedad:\n$$a^{5} \\cdot a^{-2} = a^{3}$$\nLa propiedad del cociente entre ese resultado y $a^3$ se aplica en un paso posterior. Empezar por el cociente arrastra el producto del numerador sin simplificar y desordena toda la cuenta.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "graph_free_aspect": false,
+    "reviewed": false,
+    "tags": [
+      "elegir-propiedad-de-potencias-primero"
+    ]
+  },
+  {
+    "question": "Se quiere simplificar una cadena de potencias de la misma base.\n$$a^{4} \\cdot a^{3} \\cdot a^{-4}$$\n¿Qué propiedad corresponde aplicar?",
+    "options": [
+      "$a^m / a^n = a^{m-n}$, porque uno de los exponentes es negativo",
+      "$a^m \\cdot a^n = a^{m+n}$, sumando los tres exponentes de una vez",
+      "$(a^m)^n = a^{m \\cdot n}$, porque hay tres exponentes en juego",
+      "$a^{-n} = 1/a^n$, empezando por invertir la tercera potencia"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los tres factores comparten la base, así que la suma de exponentes resuelve todo en un solo paso.",
+    "feedback_incorrect": [
+      "No hay ninguna división planteada: los tres factores están multiplicados.",
+      null,
+      "No hay ninguna potencia elevada a otro exponente en esta expresión.",
+      "Invertir primero funciona, pero convierte un producto simple en un cociente sin necesidad."
+    ],
+    "explanation": "La propiedad del producto vale para cualquier cantidad de factores de la misma base, y no distingue el signo de los exponentes.\n$$a^{4} \\cdot a^{3} \\cdot a^{-4} = a^{4+3-4} = a^{3}$$\nSumar un exponente negativo ya es restar, así que no hace falta reescribirlo antes.\n\nInvertir la tercera potencia primero lleva al mismo resultado, pero obliga a armar un cociente y a aplicar una segunda propiedad.\n\nElegir la propiedad que cubre toda la expresión de una vez es lo que mantiene la cuenta en un renglón.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-propiedad-de-potencias-primero"
+    ]
+  },
+  {
+    "question": "Se quiere simplificar una expresión con un producto en el denominador.\n$$\\dfrac{a^{5}}{a^{1} \\cdot a^{2}}$$\n¿Qué propiedad corresponde aplicar primero?",
+    "options": [
+      "$a^m / a^n = a^{m-n}$ entre el numerador y el primer factor de abajo",
+      "$(a^m)^n = a^{m \\cdot n}$ en el denominador",
+      "$a^{-n} = 1/a^n$ subiendo el denominador al numerador",
+      "$a^m \\cdot a^n = a^{m+n}$ en el denominador"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El denominador es un producto de potencias de igual base, así que primero se junta en una sola.",
+    "feedback_incorrect": [
+      "Dividir por un factor a la vez funciona, pero deja el otro sin combinar y alarga la cuenta.",
+      "No hay ninguna potencia elevada a otro exponente en el denominador.",
+      "Subir el denominador es válido, pero primero conviene reducirlo a una sola potencia.",
+      null
+    ],
+    "explanation": "Antes de dividir conviene dejar una sola potencia arriba y una sola abajo, porque cada exponente cuenta factores de la base y combinarlos primero evita perder alguno en el camino.\n$$a^{1} \\cdot a^{2} = a^{3}$$\nCon el denominador reducido, el cociente se resuelve restando exponentes en un único paso: los factores de abajo cancelan esa misma cantidad de los de arriba.\n$$\\dfrac{a^{5}}{a^{3}} = a^{2}$$\nEmpezar por el cociente obliga a dividir dos veces seguidas, y es donde más se pierde alguno de los dos exponentes de abajo.\n\nEl criterio general es reducir cada nivel a una sola potencia antes de combinarlos entre sí.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-propiedad-de-potencias-primero"
+    ]
+  },
+  {
+    "question": "Se quiere simplificar un cociente con el exponente negativo en el denominador.\n$$\\dfrac{a^{3}}{a^{-2}}$$\n¿Qué propiedad deja la cuenta en un solo paso?",
+    "options": [
+      "$a^m / a^n = a^{m-n}$, restando el exponente negativo del de arriba",
+      "$a^{-n} = 1/a^n$ en el denominador, y después multiplicar las dos potencias",
+      "$(a^m)^n = a^{m \\cdot n}$, multiplicando los dos exponentes entre sí",
+      "$a^m \\cdot a^n = a^{m+n}$, sumando directamente los dos exponentes"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La regla del cociente no pide que los exponentes sean positivos: restar un negativo suma.",
+    "feedback_incorrect": [
+      null,
+      "Llega al mismo resultado, pero en dos pasos en vez de uno.",
+      "No hay ninguna potencia elevada a otro exponente en esta expresión.",
+      "Sumar directo ignora que la expresión es un cociente, no un producto."
+    ],
+    "explanation": "La propiedad del cociente resta exponentes porque cada uno cuenta factores de la base, y dividir cancela de arriba tantos factores como haya abajo, sin importar el signo.\n$$\\dfrac{a^{3}}{a^{-2}} = a^{3-(-2)} = a^{5}$$\nRestar una cantidad negativa suma, y por eso el exponente final es mayor que el de arriba: los factores del denominador negativo se suman a los del numerador en vez de cancelarlos.\n\nBajar primero el exponente negativo también funciona, pero convierte el cociente en un producto y agrega un paso.\n\nEl chequeo rápido es de tamaño: dividir por algo menor que uno tiene que agrandar el resultado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-propiedad-de-potencias-primero"
+    ]
+  },
+  {
+    "question": "Se quiere simplificar una expresión con un producto arriba y otro abajo.\n$$\\dfrac{a^{5} \\cdot a^{2}}{a^{4} \\cdot a^{3}}$$\n¿Qué conviene hacer primero?",
+    "options": [
+      "Restar cada exponente de arriba del que tiene enfrente abajo, factor por factor",
+      "Multiplicar entre sí los cuatro exponentes antes de simplificar nada",
+      "Sumar los exponentes de cada lado por separado, para dejar una sola potencia arriba y otra abajo",
+      "Cancelar el primer factor de arriba contra el primer factor de abajo, y después los otros dos"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Reducir cada nivel a una sola potencia deja el cociente en un único paso de resta.",
+    "feedback_incorrect": [
+      "Enfrentar los factores de a uno depende de cómo estén escritos, y cambia si se los reordena.",
+      "Multiplicar los exponentes corresponde a una potencia de potencia, que acá no hay.",
+      null,
+      "Cancelar de a pares funciona, pero obliga a llevar la cuenta de cuatro restas en vez de una."
+    ],
+    "explanation": "Cada lado de la barra es un producto de potencias de igual base, así que primero se junta cada uno.\n$$\\dfrac{a^{5+2}}{a^{4+3}} = \\dfrac{a^{7}}{a^{7}}$$\n$$a^{7-7} = a^{0} = 1$$\nCon una sola potencia arriba y una abajo, el cociente se resuelve con una resta.\n\nEl resultado es uno porque arriba y abajo hay la misma cantidad de factores, y se cancelan todos.\n\nEse caso es el que hace visible por qué la potencia de exponente cero tiene que valer uno.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-propiedad-de-potencias-primero"
+    ]
+  },
+  {
+    "question": "Antes de seguir operando, se quiere reescribir la potencia $a^{-3}$ sin exponente negativo.\n\n¿Cuál es la reescritura correcta?",
+    "options": [
+      "$1/a^{3}$",
+      "$1/a^{-3}$",
+      "$a^{3}$",
+      "$-1/a^{3}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El exponente negativo invierte la base completa y cambia el signo del exponente: $a^{-3} = 1/a^{3}$.",
+    "feedback_incorrect": [
+      null,
+      "Al invertir la base, el exponente pasa a ser positivo, no se queda negativo en el denominador.",
+      "Eso elimina el exponente negativo sin invertir la base, cambiando el valor de la expresión.",
+      "El resultado de invertir un exponente negativo nunca lleva un signo menos adelante, solo se invierte la base."
+    ],
+    "explanation": "Antes de operar con una potencia de **exponente negativo**, conviene reescribirla sin ese signo para no arrastrar errores en los pasos siguientes.\n\nLa razón detrás de la regla se ve extendiendo el patrón de sumar exponentes al multiplicar una potencia por su versión de exponente negativo:\n$$a^{n}\\cdot a^{-n} = a^{0} = 1$$\nEse producto tiene que dar exactamente 1, así que $a^{-n}$ es el recíproco de $a^n$.\n\nPor eso:\n$$a^{-n} = 1/a^n$$\nLa base se invierte como fracción y el exponente cambia de signo.\n\nAplicada a $a^{-3}$, la reescritura correcta queda $1/a^{3}$. Dejar el exponente negativo en el denominador, o agregarle un signo menos al resultado, produce una expresión distinta de la original.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": false,
+    "reviewed": false,
+    "tags": [
+      "elegir-reescritura-exponente-negativo"
+    ]
+  },
+  {
+    "question": "Un exponente negativo en el denominador se puede subir al numerador cambiándole el signo.\n$$\\dfrac{1}{a^{-2}}$$\n¿Cuál es la reescritura correcta?",
+    "options": [
+      "$a^{-2}$",
+      "$a^{2}$",
+      "$1/a^{2}$",
+      "$-a^{2}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Invertir una potencia de exponente negativo la deja arriba con el exponente en positivo.",
+    "feedback_incorrect": [
+      "Ahí la expresión quedó igual que antes, sin eliminar el exponente negativo.",
+      null,
+      "Ahí se cambió el signo del exponente pero la potencia quedó abajo, y eso invierte dos veces.",
+      "La inversión no agrega ningún signo menos al resultado."
+    ],
+    "explanation": "Una potencia de exponente negativo ya es una fracción, así que dividir uno por ella la da vuelta otra vez.\n$$\\dfrac{1}{a^{-2}} = \\dfrac{1}{1/a^{2}} = a^{2}$$\nDar vuelta dos veces devuelve la potencia a su forma original, con el exponente en positivo.\n\nPor eso una potencia de exponente negativo cruza la barra de fracción cambiándole el signo al exponente.\n\nEs la misma regla leída al revés, y sirve tanto para bajar del numerador como para subir del denominador.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-reescritura-exponente-negativo"
+    ]
+  },
+  {
+    "question": "Antes de operar conviene sacar el exponente negativo de la expresión.\n$$3 \\cdot a^{-4}$$\n¿Cuál es la reescritura correcta?",
+    "options": [
+      "$1/(3a)^{4}$",
+      "$(3/a)^{4}$",
+      "$-3a^{4}$",
+      "$3/a^{4}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El exponente negativo afecta únicamente a la potencia, y el coeficiente queda multiplicando arriba.",
+    "feedback_incorrect": [
+      "Ahí el coeficiente entró adentro de la potencia, cuando estaba multiplicando desde afuera.",
+      "Ahí el exponente se aplicó también al coeficiente, que no llevaba ninguno.",
+      "La inversión no agrega ningún signo menos al resultado.",
+      null
+    ],
+    "explanation": "El exponente negativo afecta solo a la base que lo lleva escrito, no a lo que la multiplica desde afuera.\n$$3 \\cdot a^{-4} = 3 \\cdot \\dfrac{1}{a^{4}} = \\dfrac{3}{a^{4}}$$\nEl coeficiente se queda arriba y la potencia baja al denominador.\n\nMeter el coeficiente adentro de la potencia lo elevaría también, y eso cambia el valor de la expresión.\n\nEl chequeo rápido es contar qué está adentro del alcance del exponente y qué queda afuera.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-reescritura-exponente-negativo"
+    ]
+  },
+  {
+    "question": "Cuando la base es una fracción, el exponente negativo la da vuelta entera.\n$$\\left(\\dfrac{2}{7}\\right)^{-3}$$\n¿Cuál es la reescritura correcta?",
+    "options": [
+      "$(7/2)^{3}$",
+      "$(2/7)^{3}$",
+      "$-(2/7)^{3}$",
+      "$(7/2)^{-3}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Numerador y denominador se intercambian, y el exponente pasa a positivo.",
+    "feedback_incorrect": [
+      null,
+      "Ahí se sacó el signo del exponente sin invertir la fracción, y eso cambia el valor.",
+      "La inversión no agrega ningún signo menos al resultado.",
+      "Ahí la fracción se invirtió pero el exponente quedó negativo, o sea que se invirtió dos veces."
+    ],
+    "explanation": "Invertir una fracción es intercambiar su numerador con su denominador, y eso es lo que pide el exponente negativo.\n$$\\left(\\dfrac{a}{b}\\right)^{-n} = \\left(\\dfrac{b}{a}\\right)^{n}$$\nCon la fracción ya dada vuelta, el exponente se aplica en positivo a los dos niveles.\n\nHacer una sola de las dos cosas, invertir sin cambiar el signo o cambiar el signo sin invertir, deja una expresión distinta de la original.\n\nEl chequeo de tamaño ayuda: elevar una fracción menor que uno a un exponente negativo tiene que dar un resultado mayor que uno.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-reescritura-exponente-negativo"
+    ]
+  },
+  {
+    "question": "Los exponentes negativos de arriba y de abajo cruzan la barra en sentidos opuestos.\n$$\\dfrac{a^{-3}}{b^{-2}}$$\n¿Cuál es la reescritura sin exponentes negativos?",
+    "options": [
+      "$-\\dfrac{a^{3}}{b^{2}}$",
+      "$\\dfrac{1}{a^{3}b^{2}}$",
+      "$\\dfrac{b^{2}}{a^{3}}$",
+      "$\\dfrac{a^{3}}{b^{2}}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Cada potencia cruza la barra hacia el lado opuesto, y ahí el exponente queda positivo.",
+    "feedback_incorrect": [
+      "La inversión no agrega ningún signo menos al resultado.",
+      "Ahí las dos potencias bajaron al denominador, cuando la de abajo tenía que subir.",
+      null,
+      "Ahí se sacaron los dos signos sin mover ninguna potencia de lugar."
+    ],
+    "explanation": "Una potencia con exponente negativo cambia de lado de la barra y ahí su exponente queda positivo.\n$$\\dfrac{a^{-3}}{b^{-2}} = \\dfrac{b^{2}}{a^{3}}$$\nLa que estaba arriba baja y la que estaba abajo sube, cada una en el sentido que le corresponde.\n\nDejar las dos del mismo lado significa haber movido una sola, y eso cambia el valor de la expresión.\n\nConviene tratar cada potencia por separado, porque el signo de una no dice nada sobre la otra.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-reescritura-exponente-negativo"
+    ]
+  },
+  {
+    "question": "Se quiere resolver la expresión:\n$$(a^{2})^{3} \\cdot a^{4}$$\n¿Qué corresponde hacer primero?",
+    "options": [
+      "Aplicar $(a^m)^n = a^{m \\cdot n}$ a $(a^2)^3$",
+      "Sumar los exponentes $2$ y $4$ directamente",
+      "Aplicar $(a^m)^n = a^{m \\cdot n}$ a toda la expresión junta",
+      "Restar el exponente $4$ del exponente $3$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$(a^2)^3$ es una potencia elevada a otro exponente, así que conviene resolverla primero multiplicando $2 \\cdot 3$ antes de combinarla con $a^4$.",
+    "feedback_incorrect": [
+      null,
+      "El exponente $2$ pertenece a la base interna de $(a^2)^3$, no está listo todavía para combinarse con el $4$ de afuera.",
+      "La potencia de potencia solo involucra a $(a^2)^3$, el factor $a^4$ queda afuera de ese paréntesis.",
+      "No hay ninguna división planteada en esta expresión, los dos factores están multiplicados."
+    ],
+    "explanation": "Cuando una expresión combina una **potencia de potencia** con otro factor de la misma base, conviene resolver primero el paréntesis anidado.\n\n$(a^2)^3$ significa multiplicar $a^2$ por sí mismo 3 veces, y cada factor aporta 2 factores de la base, un total de 6.\n\nPor eso, la parte $(a^2)^3$ se resuelve multiplicando sus exponentes:\n$$(a^{2})^{3} = a^{6}$$\nRecién ahí queda un producto de potencias de igual base entre $a^6$ y $a^4$, que se resuelve sumando exponentes.\n\nSumar $2$ y $4$ sin antes desarmar el paréntesis mezcla dos propiedades distintas en un solo paso, y da un resultado que no corresponde a ninguna de las dos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": false,
+    "reviewed": false,
+    "tags": [
+      "elegir-orden-potencia-de-potencia"
+    ]
+  },
+  {
+    "question": "Se quiere simplificar un producto de dos potencias de potencia.\n$$(a^{3})^{2} \\cdot (a^{2})^{4}$$\n¿Qué corresponde hacer primero?",
+    "options": [
+      "Aplicar el exponente de afuera de un paréntesis al contenido del otro",
+      "Resolver los dos paréntesis por separado, multiplicando los exponentes de cada uno",
+      "Sumar los cuatro exponentes de una vez, porque los dos factores comparten la base",
+      "Multiplicar entre sí los cuatro exponentes antes de combinar los factores"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada paréntesis se resuelve solo, y recién con dos potencias sueltas se suman los exponentes.",
+    "feedback_incorrect": [
+      "Cada exponente de afuera alcanza únicamente al paréntesis que lo lleva escrito.",
+      null,
+      "Sumar de entrada mezcla exponentes que todavía están adentro de un paréntesis.",
+      "Multiplicar los cuatro trata el producto como si fuera una sola potencia anidada."
+    ],
+    "explanation": "Cada paréntesis es una potencia de potencia independiente, y se resuelve multiplicando sus dos exponentes.\n$$(a^{3})^{2} = a^{6} \\qquad (a^{2})^{4} = a^{8}$$\nCon los dos paréntesis resueltos, lo que queda es un producto de potencias de igual base.\n$$a^{6} \\cdot a^{8} = a^{14}$$\nRecién en ese segundo paso los exponentes se suman, porque ahí sí se están juntando factores.\n\nMezclar las dos propiedades en un solo paso es lo que produce exponentes que no corresponden a ninguna de las dos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-orden-potencia-de-potencia"
+    ]
+  },
+  {
+    "question": "Una potencia de potencia puede estar anidada más de una vez.\n$$\\left((a^{2})^{3}\\right)^{2}$$\n¿Qué corresponde hacer?",
+    "options": [
+      "Sumar los tres exponentes, porque todos pertenecen a la misma base",
+      "Aplicar solo el exponente más grande, que absorbe a los otros dos",
+      "Multiplicar los dos exponentes de adentro y sumarle el de afuera",
+      "Multiplicar los tres exponentes entre sí, de adentro hacia afuera"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Cada nivel repite el grupo de factores del nivel anterior, y los tres exponentes se multiplican.",
+    "feedback_incorrect": [
+      "Sumar corresponde a un producto de potencias distintas, y acá los paréntesis indican repetición.",
+      "Ningún exponente absorbe a otro: los tres intervienen en el resultado.",
+      "Mezclar una multiplicación con una suma aplica dos propiedades distintas a la misma expresión.",
+      null
+    ],
+    "explanation": "Cada paréntesis repite lo que tiene adentro tantas veces como diga su exponente, y eso se acumula multiplicando.\n$$\\left((a^{2})^{3}\\right)^{2} = (a^{6})^{2} = a^{12}$$\nEl primer nivel deja seis factores, y el segundo repite ese grupo dos veces.\n\nResolver de adentro hacia afuera mantiene el orden correcto y evita perder alguno de los niveles.\n\nContar factores confirma el resultado: doce es la cantidad total de repeticiones de la base.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-orden-potencia-de-potencia"
+    ]
+  },
+  {
+    "question": "Se quiere simplificar un cociente entre dos potencias de potencia.\n$$\\dfrac{(a^{4})^{2}}{(a^{3})^{2}}$$\n¿Qué conviene hacer primero?",
+    "options": [
+      "Resolver los dos paréntesis, y después restar los exponentes que queden",
+      "Restar los exponentes de adentro y elevar la diferencia al exponente de afuera",
+      "Cancelar los dos exponentes de afuera, que son iguales, y quedarse con lo de adentro",
+      "Sumar los exponentes de cada paréntesis antes de dividir"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Con los paréntesis resueltos queda un cociente común de potencias de igual base.",
+    "feedback_incorrect": [
+      null,
+      "Ese atajo llega al mismo número acá, pero mezcla dos propiedades y falla apenas los exponentes de afuera difieren.",
+      "Cancelar exponentes de afuera no es una propiedad de la potenciación, aunque coincidan.",
+      "Sumar los exponentes de un paréntesis corresponde a un producto, y acá hay una potencia anidada."
+    ],
+    "explanation": "Cada paréntesis se resuelve por separado multiplicando sus exponentes, porque el exponente de afuera indica cuántas veces se repite el grupo de factores que arma el de adentro.\n$$\\dfrac{(a^{4})^{2}}{(a^{3})^{2}} = \\dfrac{a^{8}}{a^{6}} = a^{2}$$\nArriba se repiten dos grupos de cuatro factores, y abajo dos grupos de tres, y por eso quedan ocho arriba y seis abajo antes de restar.\n\nResolver primero cada nivel evita depender de que los exponentes de afuera coincidan, que acá pasa pero no siempre pasa.\n\nEl criterio general es el mismo de toda la unidad: dejar una sola potencia por nivel antes de combinar niveles.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-orden-potencia-de-potencia"
+    ]
+  },
+  {
+    "question": "Una potencia de potencia puede tener el exponente negativo adentro del paréntesis.\n$$(a^{-2})^{3}$$\n¿Qué corresponde hacer?",
+    "options": [
+      "Sumar los dos exponentes, porque uno de ellos es negativo",
+      "Ignorar el signo al multiplicar y agregarlo al final del resultado",
+      "Multiplicar los dos exponentes respetando el signo del de adentro",
+      "Invertir la base primero y después elevar al exponente de afuera"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La regla de la potencia de potencia no cambia por el signo: los exponentes se multiplican igual.",
+    "feedback_incorrect": [
+      "Sumar corresponde a un producto de potencias, no a una potencia anidada.",
+      "El signo no se agrega al final: forma parte del exponente desde el principio.",
+      null,
+      "Llega al mismo resultado, pero agrega un paso que la propiedad ya resuelve sola."
+    ],
+    "explanation": "La propiedad de la potencia de potencia vale con cualquier signo, así que los exponentes se multiplican tal como están.\n$$(a^{-2})^{3} = a^{-6}$$\nRepetir tres veces un grupo de dos factores que están en el denominador deja seis factores abajo.\n\nInvertir la base primero también llega, pero obliga a arrastrar una fracción durante todo el paso siguiente.\n\nEl resultado con exponente negativo es una forma final válida, y se lo puede dejar así salvo que el ejercicio pida el valor numérico.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-orden-potencia-de-potencia"
+    ]
   }
 ]
