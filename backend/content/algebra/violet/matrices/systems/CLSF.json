@@ -1,0 +1,371 @@
+[
+  {
+    "question": "Un sistema de dos ecuaciones con dos incógnitas quedó escalonado así:\n$$\\begin{pmatrix} 1 & 2 & 5 \\\\ 0 & 0 & 3 \\end{pmatrix}$$\n¿Cómo se clasifica?",
+    "options": [
+      "Incompatible, no admite ninguna solución posible",
+      "Compatible indeterminado, tiene infinitas soluciones",
+      "Compatible determinado, tiene una única solución"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La última fila afirma que cero es igual a tres, algo que ningún par de valores puede cumplir.",
+    "feedback_incorrect": [
+      null,
+      "Una fila de ceros con término independiente también nulo daría infinitas soluciones, pero acá ese término no es cero.",
+      "Para una solución única harían falta dos filas con información sobre incógnitas distintas, y la segunda no aporta ninguna."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una matriz escalonada se clasifica leyendo la última fila que tenga algo distinto de cero.\n\nAcá la segunda fila tiene ceros en las dos columnas de coeficientes, pero un tres en la de términos independientes.\n$$0x + 0y = 3$$\nEsa ecuación es imposible: por más valores que se prueben, el lado izquierdo siempre da cero. El sistema no tiene ninguna solución.\n\nSi ese tres fuera un cero, la fila no diría nada y el sistema pasaría a tener infinitas soluciones. Todo el diagnóstico depende de un único número, el de la esquina.",
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-escalonada"
+    ]
+  },
+  {
+    "question": "Un sistema de dos ecuaciones con dos incógnitas quedó escalonado así.\n$$\\begin{pmatrix} 1 & 3 & 4 \\\\ 0 & 2 & 6 \\end{pmatrix}$$\n¿Cómo se clasifica?",
+    "options": [
+      "Incompatible, no admite ninguna solución posible",
+      "Compatible determinado, tiene una única solución",
+      "Compatible indeterminado, tiene infinitas soluciones"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Hay un pivote por cada incógnita, así que las dos quedan determinadas.",
+    "feedback_incorrect": [
+      "Ninguna fila expresa una contradicción.",
+      null,
+      "Para que hubiera infinitas soluciones tendría que faltar algún pivote."
+    ],
+    "explanation": "En una escalonada, cada fila con un pivote determina una incógnita.\n$$\\begin{pmatrix} 1 & 3 & 4 \\\\ 0 & 2 & 6 \\end{pmatrix}$$\nLas dos filas tienen pivote, y hay dos incógnitas, así que el sistema queda completamente determinado.\n\nLa segunda fila da directamente el valor de la segunda incógnita, y con eso la primera sale por sustitución.\n\nContar pivotes contra incógnitas es lo que clasifica el sistema sin necesidad de resolverlo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-escalonada"
+    ]
+  },
+  {
+    "question": "Un sistema de dos ecuaciones con dos incógnitas quedó escalonado así.\n$$\\begin{pmatrix} 1 & 4 & 3 \\\\ 0 & 0 & 0 \\end{pmatrix}$$\n¿Cómo se clasifica?",
+    "options": [
+      "Compatible determinado, tiene una única solución",
+      "Incompatible, no admite ninguna solución posible",
+      "Compatible indeterminado, tiene infinitas soluciones"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La segunda fila no aporta información, así que queda una incógnita libre.",
+    "feedback_incorrect": [
+      "Con un solo pivote y dos incógnitas no alcanza para determinar las dos.",
+      "Una fila de ceros completa no es una contradicción: es una ecuación que se cumple siempre.",
+      null
+    ],
+    "explanation": "Una fila completamente nula corresponde a una ecuación que se cumple para cualquier valor.\n$$\\begin{pmatrix} 1 & 4 & 3 \\\\ 0 & 0 & 0 \\end{pmatrix}$$\nQueda una sola ecuación útil para dos incógnitas, así que una de ellas queda libre.\n\nCada valor que se le asigne a esa incógnita libre produce una solución distinta, y por eso hay infinitas.\n\nLa diferencia con el caso incompatible está en el término independiente: acá también vale cero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-escalonada"
+    ]
+  },
+  {
+    "question": "Un sistema de tres ecuaciones con tres incógnitas quedó escalonado así.\n$$\\begin{pmatrix} 1 & 2 & 1 & 5 \\\\ 0 & 1 & 3 & 2 \\\\ 0 & 0 & 0 & 7 \\end{pmatrix}$$\n¿Cómo se clasifica?",
+    "options": [
+      "Incompatible, no admite ninguna solución posible",
+      "Compatible indeterminado, tiene infinitas soluciones",
+      "Compatible determinado, tiene una única solución"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La última fila afirma que cero es igual a siete, lo cual es imposible.",
+    "feedback_incorrect": [
+      null,
+      "Una contradicción no deja ninguna solución, ni siquiera infinitas.",
+      "Sin la tercera incógnita determinada no hay solución única, y además hay contradicción."
+    ],
+    "explanation": "La última fila tiene todos los coeficientes nulos y un término independiente distinto de cero.\n$$0x + 0y + 0z = 7$$\nEsa ecuación no se puede cumplir con ningún valor, así que el sistema no tiene solución.\n\nLa contradicción invalida el sistema completo, sin importar qué digan las otras dos filas.\n\nBuscar primero una fila de ese tipo es el paso más rápido al clasificar una escalonada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-escalonada"
+    ]
+  },
+  {
+    "question": "Un sistema de tres ecuaciones con tres incógnitas quedó escalonado así.\n$$\\begin{pmatrix} 1 & 1 & 2 & 4 \\\\ 0 & 3 & 1 & 5 \\\\ 0 & 0 & 0 & 0 \\end{pmatrix}$$\n¿Cómo se clasifica?",
+    "options": [
+      "Incompatible, no admite ninguna solución posible",
+      "Compatible indeterminado, tiene infinitas soluciones",
+      "Compatible determinado, tiene una única solución"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Hay dos pivotes para tres incógnitas, así que una queda libre.",
+    "feedback_incorrect": [
+      "La fila nula no genera contradicción, porque su término independiente también es cero.",
+      null,
+      "Faltan pivotes: con dos no alcanza para determinar tres incógnitas."
+    ],
+    "explanation": "Contando pivotes se ve cuántas incógnitas quedan determinadas.\n$$\\begin{pmatrix} 1 & 1 & 2 & 4 \\\\ 0 & 3 & 1 & 5 \\\\ 0 & 0 & 0 & 0 \\end{pmatrix}$$\nHay dos pivotes y tres incógnitas, así que una queda libre y puede tomar cualquier valor.\n\nLa fila nula no aporta ninguna restricción, pero tampoco genera una contradicción.\n\nEl criterio general es comparar la cantidad de pivotes con la de incógnitas, después de descartar que haya alguna contradicción.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-escalonada"
+    ]
+  },
+  {
+    "question": "Un sistema de tres ecuaciones con tres incógnitas tiene todos sus términos independientes iguales a cero.\n$$AX = 0$$\n¿Qué se puede afirmar sin resolverlo?",
+    "options": [
+      "Que tiene solución, porque todas las incógnitas en cero la cumplen",
+      "Que no tiene solución, porque las ecuaciones se anulan entre sí",
+      "Que tiene una única solución, con todas las incógnitas en cero"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Reemplazar todas las incógnitas por cero satisface cualquier ecuación cuyo término independiente sea nulo.",
+    "feedback_incorrect": [
+      null,
+      "Las ecuaciones no se anulan entre sí: cada una sigue siendo una condición, solo que igualada a cero.",
+      "Esa solución existe siempre, pero puede no ser la única; un sistema de este tipo también puede tener infinitas."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un sistema de ecuaciones cuyos términos independientes son todos nulos se llama **homogéneo**, y tiene una particularidad que se ve sin hacer ninguna cuenta.\n\nSi todas las incógnitas valen cero, cada ecuación queda con cero de un lado y cero del otro, así que se cumple.\n$$AX = 0$$\nPor eso un sistema homogéneo nunca puede ser incompatible: esa solución, llamada trivial, siempre está disponible.\n\nLo que sí queda abierto es si hay otras además de esa. En un sistema homogéneo la pregunta interesante nunca es si tiene solución, sino si tiene alguna distinta de la trivial.",
+    "reviewed": false,
+    "tags": [
+      "clasificar-sin-resolver"
+    ]
+  },
+  {
+    "question": "Un sistema de ecuaciones tiene más incógnitas que ecuaciones, y todas sus ecuaciones son distintas.\n$$AX = B$$\n¿Qué se puede afirmar sin resolverlo?",
+    "options": [
+      "Que necesariamente tiene infinitas soluciones",
+      "Que no puede tener una única solución",
+      "Que necesariamente no tiene ninguna solución"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Con menos ecuaciones que incógnitas nunca alcanzan las restricciones para fijar todos los valores.",
+    "feedback_incorrect": [
+      "También puede ser incompatible, según los términos independientes.",
+      null,
+      "Puede tener infinitas soluciones, así que no se puede descartar que tenga alguna."
+    ],
+    "explanation": "Cada ecuación aporta a lo sumo una restricción, y hacen falta tantas como incógnitas para determinar todo.\n$$AX = B$$\nCon menos ecuaciones que incógnitas, alguna queda siempre sin determinar.\n\nEso descarta la solución única, pero deja abiertas las otras dos posibilidades.\n\nCuál de las dos ocurre depende de los términos independientes, y eso sí exige mirar el sistema.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-sin-resolver"
+    ]
+  },
+  {
+    "question": "Un sistema de ecuaciones homogéneo tiene más incógnitas que ecuaciones.\n$$AX = 0$$\n¿Qué se puede afirmar sin resolverlo?",
+    "options": [
+      "Que tiene una única solución, que es la trivial",
+      "Que puede llegar a no tener ninguna solución",
+      "Que tiene infinitas soluciones, además de la trivial"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Un homogéneo siempre tiene solución, y con incógnitas libres tiene infinitas.",
+    "feedback_incorrect": [
+      "La solución trivial existe, pero con incógnitas libres hay muchas más.",
+      "Un sistema homogéneo nunca es incompatible.",
+      null
+    ],
+    "explanation": "Un sistema homogéneo siempre admite la solución con todas las incógnitas en cero.\n$$AX = 0$$\nEso descarta de entrada que sea incompatible, sin mirar ningún coeficiente.\n\nCon menos ecuaciones que incógnitas queda al menos una libre, y cada valor que tome da otra solución.\n\nPor eso un homogéneo con incógnitas libres tiene siempre infinitas soluciones, y no solo la trivial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-sin-resolver"
+    ]
+  },
+  {
+    "question": "En un sistema de ecuaciones, dos de las ecuaciones resultan ser una múltiplo de la otra.\n$$\\begin{aligned} 2x + 4y &= 6 \\\\ x + 2y &= 3 \\end{aligned}$$\n¿Qué se puede afirmar sin resolverlo?",
+    "options": [
+      "Que tiene infinitas soluciones, porque una ecuación se repite",
+      "Que tiene una única solución, porque hay dos ecuaciones escritas",
+      "Que no tiene ninguna solución, porque las dos se contradicen"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La segunda ecuación es la primera dividida por dos, así que aporta la misma restricción.",
+    "feedback_incorrect": [
+      null,
+      "Tener dos ecuaciones no alcanza si una repite a la otra.",
+      "No hay contradicción: las dos ecuaciones dicen exactamente lo mismo."
+    ],
+    "explanation": "Cuando una ecuación es múltiplo de otra, las dos describen la misma restricción.\n$$\\begin{aligned} 2x + 4y &= 6 \\\\ x + 2y &= 3 \\end{aligned}$$\nEl sistema tiene en los hechos una sola ecuación útil para dos incógnitas.\n\nQueda una incógnita libre, y por eso hay infinitas soluciones.\n\nSi los términos independientes no fueran proporcionales en la misma medida, el sistema sería incompatible en vez de indeterminado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-sin-resolver"
+    ]
+  },
+  {
+    "question": "En un sistema de ecuaciones, dos de las ecuaciones tienen los mismos coeficientes y distinto término independiente.\n$$\\begin{aligned} x + 3y &= 5 \\\\ x + 3y &= 9 \\end{aligned}$$\n¿Qué se puede afirmar sin resolverlo?",
+    "options": [
+      "Que tiene una única solución, porque hay dos ecuaciones",
+      "Que no tiene ninguna solución, porque las dos se contradicen",
+      "Que tiene infinitas soluciones, porque las ecuaciones son proporcionales"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Una misma expresión no puede valer dos números distintos a la vez.",
+    "feedback_incorrect": [
+      "Las dos ecuaciones son incompatibles, así que no hay ninguna solución.",
+      null,
+      "Los coeficientes son proporcionales pero los términos independientes no, y eso genera contradicción."
+    ],
+    "explanation": "Las dos ecuaciones piden que la misma combinación de incógnitas valga dos números distintos.\n$$\\begin{aligned} x + 3y &= 5 \\\\ x + 3y &= 9 \\end{aligned}$$\nNingún par de valores puede cumplir las dos a la vez, así que el sistema es incompatible.\n\nEl contraste con el caso anterior es exacto: ahí los términos independientes acompañaban la proporción y acá no.\n\nComparar coeficientes y términos independientes por separado es lo que distingue los dos casos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-sin-resolver"
+    ]
+  },
+  {
+    "question": "Un sistema de dos ecuaciones con dos incógnitas tiene una matriz de coeficientes cuyo determinante no se anula.\n$$\\det(A) \\neq 0$$\n¿Cómo se clasifica, sin importar cuáles sean los términos independientes?",
+    "options": [
+      "Compatible determinado, con una única solución",
+      "Compatible indeterminado, con infinitas soluciones",
+      "No se puede saber sin conocer los términos independientes"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "Con determinante no nulo la matriz tiene inversa, y multiplicar por ella deja una única matriz de incógnitas posible.",
+    "feedback_incorrect": [
+      null,
+      "Las infinitas soluciones aparecen cuando el determinante se anula y las ecuaciones dejan de aportar información distinta.",
+      "Cuando el determinante no se anula, los términos independientes cambian cuál es la solución, pero no cuántas hay."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un sistema de dos ecuaciones con dos incógnitas se escribe como una matriz de coeficientes multiplicada por la matriz de incógnitas.\n$$AX = B$$\nSi el determinante de esa matriz no se anula, la matriz tiene inversa, y multiplicar por ella a la izquierda despeja la solución sin ninguna ambigüedad.\n\nComo la inversa es única, la solución también lo es, y eso vale cualesquiera sean los términos independientes.\n\nCambiar el lado derecho mueve la solución a otro punto, pero no cambia que haya exactamente una. La cantidad de soluciones la decide únicamente la matriz de coeficientes.",
+    "reviewed": false,
+    "tags": [
+      "clasificar-segun-determinante"
+    ]
+  },
+  {
+    "question": "Un sistema de dos ecuaciones con dos incógnitas tiene esta matriz de coeficientes.\n$$A = \\begin{pmatrix} 4 & 10 \\\\ 2 & 5 \\end{pmatrix}$$\n¿Qué se puede afirmar sobre su cantidad de soluciones?",
+    "options": [
+      "Que no tiene ninguna solución, cualesquiera sean los términos independientes",
+      "Que no tiene solución única, y hay que mirar los términos independientes",
+      "Que tiene una única solución, cualesquiera sean los términos independientes"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El determinante se anula, así que la solución única queda descartada.",
+    "feedback_incorrect": [
+      "Con determinante nulo puede ser incompatible o indeterminado, según el lado derecho.",
+      null,
+      "La solución única exige determinante no nulo, y acá se anula."
+    ],
+    "explanation": "El determinante de la matriz de coeficientes decide si la solución es única.\n$$\\det(A) = 4 \\cdot 5 - 10 \\cdot 2 = 0$$\nCon determinante nulo la matriz no tiene inversa, y el despeje directo no es posible.\n\nQuedan dos escenarios, incompatible o indeterminado, y cuál ocurre depende del lado derecho.\n\nPor eso el determinante clasifica de forma completa solo cuando no se anula.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-segun-determinante"
+    ]
+  },
+  {
+    "question": "Un sistema de dos ecuaciones con dos incógnitas tiene esta matriz de coeficientes.\n$$A = \\begin{pmatrix} 4 & 1 \\\\ 2 & 3 \\end{pmatrix}$$\n¿Qué se puede afirmar sobre su cantidad de soluciones?",
+    "options": [
+      "Que tiene infinitas soluciones, cualesquiera sean los términos independientes",
+      "Que hay que conocer los términos independientes para poder clasificarlo",
+      "Que tiene una única solución, cualesquiera sean los términos independientes"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El determinante no se anula, así que la matriz tiene inversa y el despeje es único.",
+    "feedback_incorrect": [
+      "Las infinitas soluciones aparecen cuando el determinante se anula.",
+      "Con determinante no nulo la clasificación queda cerrada sin mirar el lado derecho.",
+      null
+    ],
+    "explanation": "El determinante vale diez, así que la matriz de coeficientes tiene inversa.\n$$\\det(A) = 4 \\cdot 3 - 1 \\cdot 2 = 10$$\nMultiplicando por esa inversa se despeja la solución, y como la inversa es única la solución también.\n\nEse razonamiento no usa en ningún momento los términos independientes.\n\nCambiar el lado derecho mueve la solución a otro punto, pero no cambia que haya exactamente una.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-segun-determinante"
+    ]
+  },
+  {
+    "question": "Un sistema homogéneo de dos ecuaciones tiene matriz de coeficientes con determinante no nulo.\n$$AX = 0$$\n¿Cuál es su conjunto solución?",
+    "options": [
+      "Solo la trivial, con todas las incógnitas en cero",
+      "Infinitas soluciones, incluida entre ellas la trivial",
+      "Ninguna solución, porque el determinante no llega a anularse"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Con solución única, y sabiendo que la trivial siempre existe, esa es la única.",
+    "feedback_incorrect": [
+      null,
+      "Las infinitas soluciones aparecen cuando el determinante se anula.",
+      "Un sistema homogéneo nunca es incompatible."
+    ],
+    "explanation": "Un sistema homogéneo siempre admite la solución con todas las incógnitas en cero.\n$$AX = 0$$\nCon determinante no nulo la solución es única, y como la trivial existe, tiene que ser esa.\n\nLos dos hechos juntos cierran la clasificación sin resolver nada.\n\nCuando el determinante se anula el homogéneo pasa a tener infinitas soluciones, y ahí aparecen las no triviales.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-segun-determinante"
+    ]
+  },
+  {
+    "question": "Un sistema de dos ecuaciones con dos incógnitas se resuelve despejando con la inversa.\n$$X = A^{-1}B$$\n¿Qué garantiza ese despeje?",
+    "options": [
+      "Que hay tantas soluciones como entradas tenga la inversa",
+      "Que la solución es única, porque la inversa también lo resulta",
+      "Que la solución existe solo con términos independientes no nulos"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Una única inversa produce un único resultado al multiplicar.",
+    "feedback_incorrect": [
+      "La cantidad de entradas de la inversa no tiene relación con la cantidad de soluciones.",
+      null,
+      "El lado derecho puede ser nulo: ahí la solución es la trivial."
+    ],
+    "explanation": "Cuando la matriz de coeficientes tiene inversa, esa inversa es única.\n$$X = A^{-1}B$$\nEl producto de dos matrices determinadas da un único resultado, así que la solución es única.\n\nEse argumento vale para cualquier lado derecho, incluido el nulo.\n\nEs la traducción algebraica de que el determinante no nulo garantiza compatibilidad determinada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-segun-determinante"
+    ]
+  }
+]

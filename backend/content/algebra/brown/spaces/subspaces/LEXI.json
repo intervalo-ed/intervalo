@@ -1,22 +1,371 @@
 [
   {
-    "question": "¿Qué condición debe cumplir un **subespacio vectorial** $S$?",
+    "question": "Para decidir si un subconjunto es un subespacio alcanza con verificar que sea cerrado para las dos operaciones.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$\n¿Por qué no hace falta verificar el resto de las condiciones?",
     "options": [
-      "Ser cerrado bajo la suma y el producto por escalar",
-      "Tener exactamente $n$ elementos",
-      "Estar formado solo por vectores positivos"
+      "Porque ya valen en el espacio grande, y los del subconjunto son elementos suyos",
+      "Porque las demás condiciones se deducen de la clausura mediante un cálculo",
+      "Porque las demás condiciones solo se exigen a los espacios y no a los subespacios"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Un subespacio debe ser cerrado bajo suma y producto por escalar.",
+    "feedback_correct": "Lo que vale para todos vale también para unos pocos, así que esas condiciones se heredan sin trabajo.",
     "feedback_incorrect": [
       null,
-      "La cantidad de elementos no es la condición que define un subespacio.",
-      "El signo de las componentes no forma parte de la definición de subespacio."
+      "No hay tal deducción, la clausura no implica la asociatividad ni la distributividad por sí sola.",
+      "Un subespacio es un espacio vectorial en sí mismo, así que tiene que cumplir absolutamente todas."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un **subespacio vectorial** es un subconjunto de un espacio mayor que se comporta como espacio vectorial por sí mismo.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$\n\nPara calificar como tal, debe ser cerrado bajo la suma y el producto por escalar: combinar elementos de $S$ siempre da otro elemento de $S$.\n\nEsta condición exige, en particular, que el vector nulo pertenezca siempre al subespacio.",
-    "reviewed": false
+    "explanation": "Un **subespacio** tiene que cumplir todas las condiciones de espacio vectorial, sin excepción. Lo que cambia es cuántas hay que verificar.\n\nLa asociatividad, la conmutatividad y las distributividades son afirmaciones sobre todos los elementos del espacio grande. Si valen para todos, valen en particular para los del subconjunto.\n\nLo único que no se hereda es que el resultado de operar siga adentro. El espacio grande garantiza que la suma existe, no que caiga dentro del subconjunto elegido.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$\nPor eso el trabajo se reduce a esa sola verificación, y no porque las demás condiciones dejen de exigirse.",
+    "reviewed": false,
+    "tags": [
+      "por-que-alcanzan-dos-condiciones"
+    ]
+  },
+  {
+    "question": "De las condiciones que definen un espacio vectorial, casi todas se heredan del espacio grande.\n$$S \\subset V$$\n¿Cuál es la que no se hereda?",
+    "options": [
+      "Que multiplicar por uno devuelva el mismo elemento",
+      "Que el resultado de operar dos elementos caiga adentro",
+      "Que la suma entre dos elementos resulte conmutativa"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Las igualdades valen para todos los elementos del espacio grande, pero el resultado puede escaparse.",
+    "feedback_incorrect": [
+      "Esa igualdad vale para todo el espacio grande, así que vale para cualquier parte suya.",
+      null,
+      "Si la suma conmuta para todos los elementos, conmuta también para los del subconjunto."
+    ],
+    "explanation": "Las condiciones de espacio vectorial son de dos tipos, y solo uno de ellos da trabajo.\n$$\\vec{u}+\\vec{v} = \\vec{v}+\\vec{u}$$\nLas igualdades, como esta, afirman algo sobre todos los elementos del espacio grande. Si valen para todos, valen en particular para los del subconjunto elegido.\n\nLa clausura no es una igualdad, es una afirmación de pertenencia, y depende de qué subconjunto se eligió.\n\nEl espacio grande garantiza que la suma existe y da algún elemento suyo. Nada garantiza que ese elemento caiga dentro de la parte que uno recortó.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-alcanzan-dos-condiciones"
+    ]
+  },
+  {
+    "question": "Las dos condiciones de subespacio se pueden juntar en una sola verificación.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$\n¿Por qué esa única expresión cubre las dos?",
+    "options": [
+      "Porque la suma y el producto por un escalar son en realidad la misma operación",
+      "Porque verificar una de las dos condiciones ya implica la otra",
+      "Porque cada operación se recupera eligiendo bien el escalar o el segundo vector"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Con el escalar en uno queda la suma, y con el segundo vector nulo queda el producto.",
+    "feedback_incorrect": [
+      "Son operaciones distintas, y la expresión las combina justamente para probar las dos de una vez.",
+      "Ninguna de las dos implica a la otra, hay conjuntos que cumplen una sola.",
+      null
+    ],
+    "explanation": "La expresión combinada no es una condición nueva, es las dos de siempre escritas juntas para verificarlas de una sola vez.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$\nTomando el escalar igual a uno queda la suma de dos elementos, que es la primera condición.\n\nTomando el segundo vector igual al nulo queda el producto por un escalar, que es la segunda.\n\nEl ahorro es real cuando hay que escribir la verificación, porque se plantea una sola cuenta en lugar de dos casi idénticas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-alcanzan-dos-condiciones"
+    ]
+  },
+  {
+    "question": "Un subconjunto de un espacio vectorial resulta ser cerrado para las dos operaciones.\n$$S \\subset V$$\n¿Qué se puede afirmar de él?",
+    "options": [
+      "Que es un espacio vectorial en sí mismo, con las mismas operaciones",
+      "Que cumple la mitad de las condiciones y le faltan las restantes",
+      "Que es un espacio vectorial solo si además tiene infinitos elementos"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Las demás condiciones las hereda, así que cumple todas y califica por derecho propio.",
+    "feedback_incorrect": [
+      null,
+      "Las condiciones que no se verificaron no faltan, se heredan del espacio grande.",
+      "La cantidad de elementos no aparece en ninguna condición de la definición."
+    ],
+    "explanation": "Un **subespacio** no es una categoría intermedia, es un espacio vectorial completo que además vive adentro de otro.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$\nVerificar la clausura alcanza porque las demás condiciones son igualdades que ya valen en todo el espacio grande, y sus elementos son también elementos suyos.\n\nPor eso el trabajo se reduce a dos verificaciones y no a ocho.\n\nLa consecuencia práctica es que todo lo demostrado para espacios vectoriales se puede usar adentro del subespacio sin ninguna adaptación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-alcanzan-dos-condiciones"
+    ]
+  },
+  {
+    "question": "El atajo de verificar solo dos condiciones se apoya en que el conjunto viva adentro de otro.\n$$S \\subset V$$\n¿Qué pasa con un conjunto suelto que es cerrado para dos operaciones?",
+    "options": [
+      "Que tampoco alcanza, porque un conjunto suelto no puede tener operaciones",
+      "Que no alcanza, porque no hay ningún espacio del cual heredar las demás condiciones",
+      "Que también alcanza, porque la clausura implica todas las demás condiciones"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La herencia es el corazón del atajo, y sin espacio grande no hay nada que heredar.",
+    "feedback_incorrect": [
+      "Un conjunto suelto puede traer sus propias operaciones, y de hecho así se presentan varios espacios.",
+      null,
+      "La clausura no implica la asociatividad ni la distributividad, que son afirmaciones distintas."
+    ],
+    "explanation": "El atajo de las dos condiciones no dice que la clausura sea suficiente en general, dice que alcanza **cuando** el conjunto está adentro de un espacio conocido.\n$$S \\subset V$$\nAhí la asociatividad, la conmutatividad y las distributividades ya están garantizadas, porque valen para todos los elementos del espacio grande.\n\nUn conjunto presentado por su cuenta, con operaciones propias, no tiene de dónde heredarlas y hay que verificarlas una por una.\n\nPor eso el primer paso al leer un ejercicio es distinguir si el conjunto es un recorte de un espacio conocido o si viene solo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-alcanzan-dos-condiciones"
+    ]
+  },
+  {
+    "question": "Todo subespacio contiene necesariamente al vector nulo.\n$$S \\subset V \\implies \\vec{0} \\in S$$\n¿De dónde sale esa obligación?",
+    "options": [
+      "De multiplicar cualquiera de sus elementos por el escalar cero",
+      "De que el vector nulo pertenece a cualquier subconjunto por convención",
+      "De que sin él la suma entre elementos del subespacio no estaría definida"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Escalar por cero es una operación permitida, y su resultado tiene que quedar adentro del subespacio.",
+    "feedback_incorrect": [
+      null,
+      "No hay tal convención, un subconjunto cualquiera puede perfectamente no contener al vector nulo.",
+      "La suma queda definida igual, lo que falla es que el resultado de escalar por cero se sale."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La pertenencia del **vector nulo** no es una condición aparte que alguien decidió agregar, es una consecuencia directa de la clausura.\n\nSi $S$ es un subespacio y tiene al menos un elemento $\\vec{u}$, entonces está permitido multiplicarlo por cualquier número, incluido el cero.\n$$0 \\cdot \\vec{u} = \\vec{0}$$\nY como el resultado tiene que quedar adentro, el vector nulo pertenece sí o sí.\n\nDe ahí sale el criterio de descarte más barato del tema. Si el nulo no está, no hay nada más que revisar. Al revés no funciona: que esté no garantiza nada.",
+    "reviewed": false,
+    "tags": [
+      "por-que-el-cero-es-obligatorio"
+    ]
+  },
+  {
+    "question": "Un subconjunto contiene al vector nulo, y alguien concluye que ya es un subespacio.\n$$\\vec{0} \\in S$$\n¿Qué tiene de malo esa conclusión?",
+    "options": [
+      "Que además hay que verificar que el subconjunto sea infinito",
+      "Que la pertenencia del nulo sirve para descartar, nunca para confirmar",
+      "Que el vector nulo pertenece a cualquier subconjunto, así que no dice nada"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Es una consecuencia de las condiciones, no un reemplazo de ellas.",
+    "feedback_incorrect": [
+      "La cantidad de elementos no interviene en ninguna de las dos condiciones.",
+      null,
+      "No pertenece a cualquiera, y por eso su ausencia sí permite descartar de inmediato."
+    ],
+    "explanation": "La pertenencia del vector nulo es una **consecuencia** de las condiciones de subespacio, no una de ellas.\n$$S = \\{(x,y) : xy = 0\\}$$\nEse conjunto contiene al par nulo, porque su producto da cero, y aun así no es subespacio: sumando un par de cada eje el resultado se sale.\n\nLa lógica del criterio funciona en un solo sentido. Si el nulo no está, no hay nada más que revisar.\n\nSi está, el conjunto sigue siendo sospechoso y hay que verificar las dos condiciones igual, que es el trabajo que el criterio nunca ahorra.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-el-cero-es-obligatorio"
+    ]
+  },
+  {
+    "question": "Una recta del plano no pasa por el origen, y se quiere saber si es un subespacio.\n$$y = 2x + 3$$\n¿Qué se puede afirmar sin hacer ninguna cuenta más?",
+    "options": [
+      "Que no lo es, porque una recta nunca alcanza a cubrir todo el plano",
+      "Que sí lo es, porque la condición que la define es una ecuación lineal",
+      "Que no lo es, porque el vector nulo tiene que pertenecer y no pertenece"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Reemplazando por ceros queda cero igual a tres, así que el origen quedó afuera.",
+    "feedback_incorrect": [
+      "Las rectas que pasan por el origen sí son subespacios, aunque tampoco cubran el plano.",
+      "Que la ecuación sea lineal no alcanza, hace falta además que no tenga término independiente.",
+      null
+    ],
+    "explanation": "El criterio del vector nulo es el descarte más barato del tema, porque cuesta un solo reemplazo.\n$$0 = 2 \\cdot 0 + 3$$\nLa igualdad es falsa, así que el origen no está en la recta, y eso ya descarta al conjunto.\n\nLa razón de fondo es que multiplicar cualquier elemento por el escalar cero produce el vector nulo, y la clausura obliga a que el resultado quede adentro.\n\nEl término independiente es lo único que separa a esta recta de una que sí califica, y alcanza para cambiar la respuesta por completo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-el-cero-es-obligatorio"
+    ]
+  },
+  {
+    "question": "Un subespacio del plano tiene un elemento distinto del vector nulo.\n$$\\vec{v} \\in S, \\quad \\vec{v} \\neq \\vec{0}$$\n¿Puede tener exactamente dos elementos?",
+    "options": [
+      "No, porque todos los múltiplos de ese elemento tienen que pertenecer también",
+      "Sí, alcanza con que los dos elementos sumen el vector nulo entre ellos",
+      "No, porque un subespacio tiene que contener al menos tres elementos"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Multiplicar por cada número real produce un elemento distinto, y hay infinitos números.",
+    "feedback_incorrect": [
+      null,
+      "Que dos elementos se cancelen no libera al conjunto de contener todos sus múltiplos.",
+      "El conjunto formado solo por el vector nulo tiene un único elemento y es subespacio."
+    ],
+    "explanation": "La clausura para el producto por un escalar es muy exigente, porque el escalar recorre todos los números reales.\n$$\\alpha\\vec{v} \\in S \\quad \\text{para todo } \\alpha$$\nSi el subespacio tiene un elemento no nulo, entonces contiene a todos sus múltiplos, y cada escalar distinto produce un elemento distinto.\n\nEso ya son infinitos elementos, así que no hay subespacios de dos ni de tres elementos.\n\nEl único caso finito es el conjunto formado solamente por el vector nulo, donde multiplicar por cualquier número devuelve siempre lo mismo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-el-cero-es-obligatorio"
+    ]
+  },
+  {
+    "question": "Dos subespacios distintos se comparan entre sí.\n$$S_1 \\subset \\mathbb{R}^3, \\quad S_2 \\subset \\mathbb{R}^3$$\n¿Pueden no tener ningún elemento en común?",
+    "options": [
+      "Sí, siempre que estén definidos por condiciones distintas",
+      "No, porque los dos contienen al vector nulo por obligación",
+      "Sí, si uno es una recta y el otro un plano que no la toca"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El vector nulo pertenece a todo subespacio, así que aparece en los dos.",
+    "feedback_incorrect": [
+      "La condición que los define puede ser cualquiera, el vector nulo la cumple igual.",
+      null,
+      "Un plano que sea subespacio pasa por el origen, y la recta también, así que se tocan ahí."
+    ],
+    "explanation": "Todo subespacio contiene al vector nulo, y de ahí sale una consecuencia que sorprende.\n$$\\vec{0} \\in S_1, \\quad \\vec{0} \\in S_2$$\nDos subespacios cualesquiera comparten al menos ese elemento, sin importar cuán distintos sean entre sí.\n\nLa imagen geométrica lo confirma. Un plano y una recta que sean subespacios pasan los dos por el origen, así que se cortan ahí.\n\nDos rectas que no se cortan existen en el plano, pero una de las dos no pasa por el origen, y entonces esa no es subespacio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-el-cero-es-obligatorio"
+    ]
+  },
+  {
+    "question": "Entre todos los subconjuntos del espacio, solo algunas figuras llegan a ser subespacios.\n$$S \\subset \\mathbb{R}^3$$\n¿Qué tienen en común las que sí lo son?",
+    "options": [
+      "Todas contienen al origen y ninguna está desplazada de él",
+      "Todas son planos, porque una recta tiene pocos elementos",
+      "Todas están formadas por vectores de igual longitud"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Rectas y planos que pasan por el origen califican, y cualquier figura desplazada queda afuera.",
+    "feedback_incorrect": [
+      null,
+      "Una recta por el origen es un subespacio perfectamente válido, y contiene infinitos vectores.",
+      "Un subespacio nunca puede estar formado por vectores de una misma longitud fija."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Las dos condiciones de subespacio se traducen en una imagen bastante concreta cuando el espacio es el plano o $\\mathbb{R}^3$.\n\nQue el conjunto tenga que contener al origen descarta cualquier figura desplazada, como una recta que no pasa por él.\n\nQue tenga que ser cerrado al multiplicar por cualquier número descarta cualquier figura acotada, porque agrandar un elemento suficientes veces se saldría.\n\nLa excepción es el conjunto formado solo por el origen, donde no hay nada que agrandar y por eso califica igual.\n\nLo que queda es una lista corta: ese conjunto, las rectas que pasan por el origen, los planos que pasan por él, y el espacio entero.",
+    "reviewed": false,
+    "tags": [
+      "que-figuras-son-subespacios"
+    ]
+  },
+  {
+    "question": "En el plano, la lista de subconjuntos que llegan a ser subespacios es muy corta.\n$$S \\subset \\mathbb{R}^2$$\n¿Cuál es esa lista completa?",
+    "options": [
+      "Cualquier recta, cualquier semiplano y el plano entero",
+      "El origen solo, las rectas por el origen y todo el plano",
+      "Solo las rectas que pasan por el origen y el plano entero"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Son las únicas figuras que contienen al origen y aguantan agrandar cualquier elemento.",
+    "feedback_incorrect": [
+      "Una recta que no pasa por el origen no califica, y un semiplano tampoco.",
+      null,
+      "El conjunto formado únicamente por el origen también cumple las dos condiciones."
+    ],
+    "explanation": "Las dos condiciones de subespacio recortan muchísimo, y en el plano dejan solo tres formas posibles.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$\nQue el conjunto tenga que contener al origen descarta cualquier figura corrida de él.\n\nQue tenga que aguantar el producto por cualquier número descarta cualquier figura acotada, porque agrandando un elemento lo suficiente se saldría.\n\nLo que queda es el conjunto formado solo por el origen, las rectas que pasan por él y el plano entero, y esa clasificación es la que le da sentido geométrico al tema.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-figuras-son-subespacios"
+    ]
+  },
+  {
+    "question": "Un segmento del plano arranca en el origen y termina en un punto a distancia finita.\n$$\\{\\alpha(1,2) : 0 \\leq \\alpha \\leq 1\\}$$\n¿Por qué no es un subespacio?",
+    "options": [
+      "Porque el vector nulo no figura entre los elementos del segmento",
+      "Porque sus elementos no están alineados con el origen del plano",
+      "Porque al agrandar un elemento el resultado se pasa del extremo"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El producto por un escalar grande saca del segmento, aunque la dirección sea la correcta.",
+    "feedback_incorrect": [
+      "El origen pertenece, porque el escalar puede valer cero y ahí queda el vector nulo.",
+      "Todos sus elementos son múltiplos del mismo vector, así que sí están alineados.",
+      null
+    ],
+    "explanation": "Este conjunto pasa dos de los controles y falla el tercero, que es el que descarta a todas las figuras acotadas.\n$$3 \\cdot (1,2) = (3,6)$$\nEl vector $(1,2)$ pertenece al segmento, pero triplicarlo produce un elemento que quedó mucho más lejos que su extremo.\n\nLa clausura pide que el resultado pertenezca para **cualquier** escalar, sin ningún tope.\n\nPor eso ningún subespacio puede ser acotado, salvo el formado únicamente por el vector nulo, donde no hay nada que agrandar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-figuras-son-subespacios"
+    ]
+  },
+  {
+    "question": "Una circunferencia del plano tiene su centro exactamente en el origen.\n$$\\{(x,y) : x^2 + y^2 = 4\\}$$\n¿Es un subespacio?",
+    "options": [
+      "No, porque el origen es el centro pero no pertenece a la circunferencia",
+      "Sí, porque está centrada en el origen y es simétrica respecto de él",
+      "No, porque sus elementos tienen coordenadas que pueden ser negativas"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El par nulo no cumple la condición, ya que cero más cero no da cuatro.",
+    "feedback_incorrect": [
+      null,
+      "Estar centrada en el origen no es lo mismo que contenerlo, y la condición pide lo segundo.",
+      "Las coordenadas negativas no molestan, cualquier recta por el origen tiene elementos así."
+    ],
+    "explanation": "Que una figura esté centrada en el origen no dice nada sobre si lo contiene, y acá esa diferencia decide todo.\n$$0^2 + 0^2 = 0 \\neq 4$$\nEl par nulo no verifica la condición, así que no pertenece a la circunferencia y el conjunto queda descartado de entrada.\n\nEl producto por un escalar falla por su cuenta, porque estirar un elemento cambia su distancia al centro y lo saca del conjunto.\n\nEs el mismo motivo por el que los vectores de una longitud fija nunca forman un subespacio, sin importar cuál sea esa longitud.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-figuras-son-subespacios"
+    ]
+  },
+  {
+    "question": "El conjunto más chico posible dentro de un espacio vectorial tiene un solo elemento.\n$$S = \\{\\vec{0}\\}$$\n¿Es un subespacio?",
+    "options": [
+      "No, porque con un solo elemento no se puede plantear ninguna suma",
+      "Sí, porque la única suma posible y cualquier múltiplo devuelven el vector nulo",
+      "No, porque un subespacio tiene que contener al menos una recta entera"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Las dos operaciones devuelven siempre el mismo elemento, así que nunca se sale.",
+    "feedback_incorrect": [
+      "La suma se puede plantear igual, sumando ese elemento consigo mismo.",
+      null,
+      "No hay ninguna condición sobre el tamaño, solo sobre cómo se comportan las operaciones."
+    ],
+    "explanation": "El conjunto formado únicamente por el vector nulo cumple las dos condiciones sin ningún esfuerzo, así que es un subespacio.\n$$\\vec{0} + \\vec{0} = \\vec{0}, \\quad \\alpha\\vec{0} = \\vec{0}$$\nLa única suma disponible cae adentro, y multiplicar por cualquier número también devuelve el mismo elemento.\n\nEs además el único subespacio con una cantidad finita de elementos, porque cualquier otro contiene todos los múltiplos de un elemento no nulo.\n\nConviene tenerlo presente porque aparece como respuesta cada vez que un sistema de ecuaciones homogéneo tiene solución única.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-figuras-son-subespacios"
+    ]
   }
 ]

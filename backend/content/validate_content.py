@@ -33,7 +33,7 @@ from statistics import median
 
 CONTENT_DIR = Path(__file__).resolve().parent
 
-ALL_CHECKS = ["options", "explanations", "questions", "feedbacks", "structure"]
+ALL_CHECKS = ["options", "explanations", "questions", "feedbacks", "structure", "duplicates"]
 
 # --- Umbrales calibrables -----------------------------------------------------
 
@@ -52,6 +52,8 @@ INLINE_EQUATION_MAX = 18       # regla 35: ecuación inline más ancha que esto 
 DISPLAY_RENDER_MAX = 36        # regla 38: fila display más ancha que esto → verticalizar/partir
 OPTION_RENDER_MAX = 35         # regla 39: opción más ancha que la grilla 2×2
 CHAIN_FACTORS_MIN = 3          # regla 41: 3+ factores P(...) multiplicados sin "+" → verticalizar
+DUPLICATE_MIN_NUMBERS = 4      # regla 65: firma numérica mínima para comparar dos enunciados
+DUPLICATE_MIN_DISTINCT = 3     # regla 65: y variedad mínima, para no comparar firmas triviales
 
 # Regla 45: última palabra de una opción que casi nunca cierra legítimamente
 # una frase en español (preposición, artículo, conjunción). Señal fuerte de
@@ -200,10 +202,32 @@ NAMED_FUNCTIONS = {
 NAMED_FUNCTIONS_RE = re.compile(r"\\(" + "|".join(NAMED_FUNCTIONS) + r")\b")
 
 
+MATRIX_ENV_RE = re.compile(
+    r"\\begin\{([bBpvV]?matrix|smallmatrix)\}(.*?)\\end\{\1\}", re.DOTALL
+)
+
+
+def matrix_render_len(body: str) -> int:
+    r"""Ancho de render de un entorno de matriz.
+
+    Lo que ocupa en pantalla lo fija la fila más ancha, no la cantidad total de
+    caracteres del código: cada columna pesa lo que su entrada más larga, más
+    un espacio de separación entre columnas y los dos delimitadores. Una matriz
+    de 2x2 con dígitos sueltos mide unos 5, aunque su fuente pase de 30.
+    """
+    rows = [[cell.strip() for cell in row.split("&")] for row in re.split(r"\\\\", body)]
+    columns = max(len(row) for row in rows)
+    width = sum(
+        max(len(row[col]) if col < len(row) else 0 for row in rows) for col in range(columns)
+    )
+    return width + (columns - 1) + 2
+
+
 def render_len(s: str) -> int:
     """Longitud de render estimada: descuenta sintaxis LaTeX y delimitadores."""
     t = s
     t = t.replace("$$", "").replace("$", "")
+    t = MATRIX_ENV_RE.sub(lambda m: "x" * matrix_render_len(m.group(2)), t)
     t = TEXTCMD_RE.sub(lambda m: m.group(1), t)
     t = NAMED_FUNCTIONS_RE.sub(lambda m: "x" * len(m.group(1)), t)
     t = WEIGHTED_CMD_RE.sub(lambda m: "x" * RENDER_WEIGHT_CMDS[m.group(1)], t)
@@ -400,8 +424,20 @@ def _check_display_width(text, field, file, label, F: Findings) -> None:
         # se lee mejor verticalizada. Requiere \cdot explícito para no
         # confundirse con una fracción simple tipo P(A\mid B)=P(A\cap B)/P(B),
         # que también menciona 3 "P(" pero no es una cadena de factores.
-        cdot_count = inner.count("\\cdot")
-        if (cdot_count >= CHAIN_FACTORS_MIN - 1 and "+" not in inner
+        #
+        # Dos acotaciones de la ronda de algebra (ago-2026), que quitaron 3
+        # falsos positivos sin perder ninguna detección real en los tres
+        # cursos: (a) los \cdot se cuentan **por lado de la igualdad**, porque
+        # "\sqrt{ab}=\sqrt{a}\cdot\sqrt{b}" tiene dos factores por lado y se
+        # leía como una cadena de tres; (b) los factores tienen que ser
+        # expresiones aplicadas del tipo "P(...)", que es lo que la regla dice
+        # y lo que justifica verticalizar — "a^5 = a\cdot a\cdot a\cdot a\cdot a"
+        # es una cadena de cinco factores que se lee perfecto en una línea.
+        sides = inner.split("=")
+        cdot_count = max(s.count("\\cdot") for s in sides)
+        factores_aplicados = max(s.count("(") for s in sides) >= CHAIN_FACTORS_MIN
+        if (cdot_count >= CHAIN_FACTORS_MIN - 1 and factores_aplicados
+                and "+" not in inner
                 and "\\sum" not in inner and "frac" not in inner):
             F.add("WARNING", field, "41", file, label,
                   f"cadena de {cdot_count + 1} factores P(...) multiplicados "
@@ -872,6 +908,39 @@ def check_structure(items, file, F: Findings, targets: dict[str, int],
                   "(esperable durante generación parcial; al cierre debe coincidir)")
 
 
+NUMBER_RE = re.compile(r"-?\d+")
+
+
+def check_unit_duplicates(unit: str, entries: list[tuple[str, int, str]], F: Findings) -> None:
+    """Regla 65: dos ítems de la misma unidad que reutilizan los mismos números.
+
+    El repaso mezcla topics de una misma unidad en la misma sesión, así que dos
+    enunciados con los mismos datos se leen como el mismo ejercicio repetido,
+    aunque pregunten cosas distintas.
+
+    Se compara la secuencia de enteros del `question`, que es lo que el alumno
+    ve. Solo se miran enunciados con al menos `DUPLICATE_MIN_NUMBERS` números,
+    para no marcar preguntas conceptuales que casi no tienen datos.
+
+    Es WARNING y no ERROR porque el formato "paso troceado" (regla 56) reparte a
+    propósito un mismo objeto entre varios ítems, y ahí la repetición es el
+    diseño, no un descuido.
+    """
+    by_signature: dict[tuple[str, ...], list[str]] = {}
+    for file, idx, question in entries:
+        numbers = tuple(NUMBER_RE.findall(question))
+        # Se piden varios números y además variedad entre ellos: una firma como
+        # (1,1,1,1) o (0,0,1,1) coincide entre ítems que no tienen nada que ver.
+        if len(numbers) < DUPLICATE_MIN_NUMBERS or len(set(numbers)) < DUPLICATE_MIN_DISTINCT:
+            continue
+        by_signature.setdefault(numbers, []).append(f"{file}#{idx}")
+    for numbers, labels in sorted(by_signature.items()):
+        if len(labels) > 1:
+            F.add("WARNING", "duplicates", "65", unit, "ALL",
+                  f"mismos {len(numbers)} números en {len(labels)} ítems de la unidad: "
+                  f"{', '.join(labels)} (legítimo solo en paso troceado, regla 56)")
+
+
 # --- Runner -------------------------------------------------------------------
 
 def main() -> int:
@@ -908,6 +977,9 @@ def main() -> int:
     F = Findings()
     files_scanned = 0
     items_scanned = 0
+    # regla 65: los duplicados se comparan dentro de la unidad (belt/unit), que
+    # es el alcance con el que el repaso arma una sesión.
+    unit_entries: dict[str, list[tuple[str, int, str]]] = {}
     for topic_dir in topic_dirs:
         targets_by_skill, known_slugs = parse_distribution(topic_dir / "topic-context.md")
         for jf in sorted(topic_dir.glob("[A-Z]*.json")):
@@ -935,6 +1007,15 @@ def main() -> int:
                 # el doc no separa por skill, se cae a la unión del topic.
                 skill_targets = targets_by_skill.get(jf.stem) or known_slugs
                 check_structure(items, rel, F, skill_targets, known_slugs)
+            if "duplicates" in checks:
+                unit = "/".join(rel.split("/")[:2])
+                unit_entries.setdefault(unit, []).extend(
+                    (rel, idx, it.get("question") or "")
+                    for idx, it in enumerate(items)
+                )
+
+    for unit, entries in sorted(unit_entries.items()):
+        check_unit_duplicates(unit, entries, F)
 
     if args.as_json:
         print(json.dumps({

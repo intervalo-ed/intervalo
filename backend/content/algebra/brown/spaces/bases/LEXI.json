@@ -1,22 +1,371 @@
 [
   {
-    "question": "¿Qué dos condiciones debe cumplir un conjunto para ser **base** de un espacio $V$?",
+    "question": "Una base tiene que generar el espacio y además ser linealmente independiente.\n$$B = \\{\\vec{v}_1, \\dots, \\vec{v}_n\\}$$\n¿Por qué no alcanza con pedir solo una de las dos condiciones?",
     "options": [
-      "Ser generador de $V$ y linealmente independiente",
-      "Tener más elementos que la dimensión de $V$",
-      "Estar formado por vectores unitarios"
+      "Porque hay conjuntos que generan y sobran, y otros que no sobran pero no alcanzan",
+      "Porque cada una de las dos condiciones implica la otra en la mayoría de los casos",
+      "Porque generar es una condición sobre el espacio y la independencia lo es sobre el conjunto"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Una base debe generar el espacio y ser linealmente independiente.",
+    "feedback_correct": "Las dos preguntas son distintas, una mira si llego a todos y la otra si me sobra alguno.",
     "feedback_incorrect": [
       null,
-      "Tener más elementos que la dimensión rompe la independencia lineal.",
-      "Los vectores de una base no necesitan tener norma $1$."
+      "No hay tal implicación, salvo en el caso puntual de tener exactamente la cantidad justa de vectores.",
+      "Las dos condiciones se refieren al mismo conjunto de vectores, solo miden cosas distintas."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **base** es un conjunto de vectores que actúa como sistema de referencia óptimo.\n$$V = \\text{gen}(B) \\quad \\text{y} \\quad B \\text{ es L.I.}$$\n\nGenera todo el espacio (no falta ningún vector) y es linealmente independiente (no sobra ninguno).\n\nEsta doble condición garantiza que cualquier vector del espacio se escriba de forma única como combinación lineal de la base.",
-    "reviewed": false
+    "explanation": "Generar e independencia responden preguntas independientes entre sí, y por eso una base necesita las dos.\n\nEste conjunto del plano genera todo, pero tiene un vector de más, así que cumple una condición y falla la otra.\n$$\\{(1,0), (0,1), (2,3)\\}$$\nEl conjunto formado solo por el primero de ellos falla al revés, porque es independiente y no alcanza a cubrir el plano.\n\nUna **base** es el punto justo entre esos dos defectos, no falta ninguno y no sobra ninguno, y esa es toda la idea del concepto.",
+    "reviewed": false,
+    "tags": [
+      "por-que-las-dos-condiciones"
+    ]
+  },
+  {
+    "question": "Un conjunto del plano tiene tres vectores y con ellos se alcanza cualquier punto.\n$$\\{(1,0), (0,1), (2,3)\\}$$\n¿Qué condición de base cumple y cuál no?",
+    "options": [
+      "Cumple las dos, porque alcanza cualquier punto del plano",
+      "Genera todo el plano, pero le sobra un vector",
+      "No genera todo el plano, pero no le sobra ninguno"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los dos primeros ya alcanzan todo, así que el tercero está de más.",
+    "feedback_incorrect": [
+      "El tercero se arma con los dos primeros, así que le sobra uno.",
+      null,
+      "Con los dos primeros ya se llega a cualquier punto, así que sí genera."
+    ],
+    "explanation": "Generar y no tener vectores de más son dos preguntas separadas, y este conjunto responde distinto a cada una.\n$$(2,3) = 2(1,0) + 3(0,1)$$\nLos dos primeros vectores alcanzan cualquier punto del plano, así que el conjunto genera sin problemas.\n\nPero el tercero se arma con ellos, de modo que repite información que ya estaba.\n\nUna **base** exige las dos cosas a la vez, y por eso este conjunto se queda a mitad de camino aunque cubra todo el plano.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-las-dos-condiciones"
+    ]
+  },
+  {
+    "question": "Un conjunto del plano tiene un solo vector, que no es el nulo.\n$$\\{(2,5)\\}$$\n¿Qué condición de base cumple y cuál no?",
+    "options": [
+      "Alcanza todo el plano, pero le sobra un vector",
+      "No cumple ninguna de las dos condiciones de base",
+      "No le sobra ninguno, pero no alcanza todo el plano"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Con un vector no nulo no hay nada redundante, pero solo se cubre una recta.",
+    "feedback_incorrect": [
+      "Los múltiplos de un solo vector forman una recta, que es mucho menos que el plano.",
+      "Un único vector no nulo no puede tener nada de más, porque no hay con qué armarlo.",
+      null
+    ],
+    "explanation": "Este conjunto falla justo al revés que uno con vectores de más, y por eso las dos condiciones son independientes entre sí.\n$$\\text{gen}\\{(2,5)\\} \\neq \\mathbb{R}^2$$\nLos múltiplos de ese vector cubren una recta que pasa por el origen, así que queda muchísimo plano sin alcanzar.\n\nEn cambio no hay nada redundante: con un solo vector no nulo no hay manera de que algo sobre.\n\nPara convertirlo en base habría que agregarle un vector que quede fuera de esa recta, y ahí sí se cumplirían las dos condiciones.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-las-dos-condiciones"
+    ]
+  },
+  {
+    "question": "Un conjunto del plano tiene dos vectores que apuntan en la misma dirección.\n$$\\{(1,3), (2,6)\\}$$\n¿Qué condición de base cumple y cuál no?",
+    "options": [
+      "No cumple ninguna, porque no alcanza y además sobra",
+      "Genera todo el plano, pero le sobra un vector",
+      "No alcanza todo el plano, pero no le sobra ninguno"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El segundo duplica al primero, así que sobra, y entre los dos solo cubren una recta.",
+    "feedback_incorrect": [
+      null,
+      "Los dos vectores apuntan al mismo lado, así que juntos alcanzan una recta y no el plano.",
+      "El segundo es el doble del primero, de modo que sí hay un vector de más."
+    ],
+    "explanation": "Las dos condiciones pueden fallar a la vez, y este es el caso donde eso se ve más claro.\n$$(2,6) = 2(1,3)$$\nEl segundo vector es un múltiplo del primero, así que no aporta ninguna dirección nueva y sobra.\n\nY como entre los dos aportan una sola dirección, el alcance es una recta y no el plano entero.\n\nReparar el conjunto pide las dos operaciones: sacar el que sobra y agregar uno que apunte hacia otro lado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-las-dos-condiciones"
+    ]
+  },
+  {
+    "question": "Las dos condiciones de base garantizan cosas distintas sobre un conjunto de vectores.\n$$B = \\{\\vec{v}_1, \\dots, \\vec{v}_n\\}$$\n¿Qué garantiza cada una?",
+    "options": [
+      "Que el conjunto sea finito, y que sus vectores sean distintos",
+      "Que se llegue a todos los vectores, y que no sobre ninguno",
+      "Que se llegue a todos los vectores, y que ninguno sea el nulo"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Generar habla del alcance y la independencia habla de la economía.",
+    "feedback_incorrect": [
+      "Ninguna de las dos condiciones habla de cuántos elementos tiene el conjunto.",
+      null,
+      "Que ninguno sea el nulo es apenas un caso particular de que ninguno esté de más."
+    ],
+    "explanation": "Cada condición de base responde una pregunta distinta, y por eso hacen falta las dos.\n$$\\text{gen}\\{\\vec{v}_1, \\dots, \\vec{v}_n\\} = V$$\nLa primera es sobre el **alcance**: con estos vectores, ¿se llega a cualquier elemento del espacio?\n\nLa segunda es sobre la **economía**: de estos vectores, ¿hay alguno que ya se armaba con los otros?\n\nUn conjunto puede cumplir una y fallar la otra en cualquiera de las dos direcciones, y de ahí que la definición pida las dos juntas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-las-dos-condiciones"
+    ]
+  },
+  {
+    "question": "Fijada una base de un espacio, cada vector se escribe como combinación de ella de una sola manera.\n$$\\vec{v} = \\alpha_1\\vec{v}_1 + \\dots + \\alpha_n\\vec{v}_n$$\n¿De dónde sale esa unicidad?",
+    "options": [
+      "De que dos escrituras distintas, restadas, darían una combinación nula no trivial",
+      "De que los vectores de la base generan todo el espacio sin dejar huecos",
+      "De que los coeficientes de la combinación son siempre números enteros"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Restar dos escrituras distintas contradice la independencia, así que no pueden existir las dos.",
+    "feedback_incorrect": [
+      null,
+      "Que generen asegura que exista al menos una escritura, no que sea la única posible.",
+      "Los coeficientes pueden ser cualquier número real, y eso no tiene que ver con la unicidad."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La unicidad no es una condición extra que se pide, es una consecuencia de la independencia lineal.\n\nSupongamos que un mismo vector admitiera dos escrituras distintas en la misma base. Restándolas se obtiene una combinación de los vectores de la base que da el vector nulo.\n$$(\\alpha_1 - \\beta_1)\\vec{v}_1 + \\dots + (\\alpha_n - \\beta_n)\\vec{v}_n = \\vec{0}$$\nComo las dos escrituras eran distintas, alguna de esas restas no da cero, y eso es exactamente una combinación nula no trivial.\n\nPero la base es independiente, así que eso no puede pasar. Por lo tanto las dos escrituras eran en realidad la misma.\n\nEsta unicidad es lo que permite hablar de **las** coordenadas de un vector, en lugar de una entre varias posibles.",
+    "reviewed": false,
+    "tags": [
+      "por-que-la-escritura-es-unica"
+    ]
+  },
+  {
+    "question": "Un conjunto genera todo el plano pero tiene un vector de más.\n$$\\{(1,0), (0,1), (1,1)\\}$$\n¿De cuántas maneras se escribe un vector con ellos?",
+    "options": [
+      "De ninguna, porque con vectores de más la escritura falla",
+      "De infinitas maneras, porque el vector de más abre otros caminos",
+      "De una sola manera, igual que en cualquier conjunto generador"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Con un vector redundante hay más coeficientes que ecuaciones, así que sobran soluciones.",
+    "feedback_incorrect": [
+      "El conjunto genera todo el plano, así que cualquier vector se escribe al menos de una manera.",
+      null,
+      "La unicidad viene de que no haya vectores de más, y acá hay uno."
+    ],
+    "explanation": "La unicidad de la escritura no viene de generar, viene de que no haya vectores de más.\n$$(2,3) = 2(1,0) + 3(0,1)$$\nEse mismo vector también se arma usando el tercero, por ejemplo tomando una vez cada uno de los dos primeros y una vez el último.\n\nLas dos escrituras son igual de válidas, y cambiando los coeficientes aparecen infinitas más.\n\nPor eso una **base** pide las dos condiciones: generar garantiza que exista alguna escritura, y no tener vectores de más garantiza que sea una sola.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-la-escritura-es-unica"
+    ]
+  },
+  {
+    "question": "De las dos condiciones que definen una base, una es la responsable de la unicidad.\n$$\\vec{v} = \\alpha_1\\vec{v}_1 + \\dots + \\alpha_n\\vec{v}_n$$\n¿Cuál de las dos es?",
+    "options": [
+      "La de generar, porque sin ella habría vectores sin ninguna escritura",
+      "Las dos por igual, porque la unicidad necesita de ambas",
+      "La de no tener vectores de más, porque sin ella habría varias escrituras"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Generar asegura que exista alguna escritura, y la otra condición asegura que sea única.",
+    "feedback_incorrect": [
+      "Generar garantiza que exista al menos una escritura, no que sea la única.",
+      "Cada condición aporta algo distinto, y la unicidad depende solo de una de las dos.",
+      null
+    ],
+    "explanation": "Las dos condiciones de base tienen efectos separados, y conviene tenerlos distinguidos.\n$$\\vec{v} = \\alpha_1\\vec{v}_1 + \\dots + \\alpha_n\\vec{v}_n$$\nGenerar garantiza que esa igualdad se pueda escribir para cualquier vector, o sea que exista al menos una lista de coeficientes.\n\nNo tener vectores de más garantiza que esa lista sea la única posible.\n\nLa razón es que dos escrituras distintas, restadas, producirían una combinación nula con algún coeficiente no nulo, y eso es exactamente lo que la segunda condición prohíbe.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-la-escritura-es-unica"
+    ]
+  },
+  {
+    "question": "En una base fija, el vector nulo también se escribe como combinación.\n$$\\vec{0} = \\alpha_1\\vec{v}_1 + \\dots + \\alpha_n\\vec{v}_n$$\n¿De cuántas maneras se escribe?",
+    "options": [
+      "De una sola, con todos los coeficientes valiendo cero",
+      "De infinitas, porque cualquier combinación puede anularse",
+      "De ninguna, porque el vector nulo no pertenece a la base"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Cualquier otra escritura contradiría la independencia de los vectores de la base.",
+    "feedback_incorrect": [
+      null,
+      "Si hubiera otra, el conjunto tendría vectores de más y no sería base.",
+      "El vector nulo pertenece al espacio, aunque nunca pertenezca a una base."
+    ],
+    "explanation": "El vector nulo es el caso que mejor muestra la unicidad, porque su escritura es la más simple posible.\n$$0\\vec{v}_1 + \\dots + 0\\vec{v}_n = \\vec{0}$$\nEsa escritura existe siempre, con cualquier conjunto de vectores. Lo que la base agrega es que sea la **única**.\n\nSi hubiera otra, con algún coeficiente distinto de cero, el conjunto tendría un vector armado con los demás y no sería base.\n\nPor eso las coordenadas del vector nulo en cualquier base son todas cero, sin importar qué base se haya elegido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-la-escritura-es-unica"
+    ]
+  },
+  {
+    "question": "La escritura única de cada vector en una base habilita una manera de nombrarlo.\n$$[\\vec{v}]_B$$\n¿Qué permite hacer esa unicidad?",
+    "options": [
+      "Comparar vectores de espacios distintos entre sí sin traducir",
+      "Hablar de las coordenadas de un vector y no de unas entre varias",
+      "Calcular la longitud de un vector sin usar sus componentes"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sin unicidad, la lista de coeficientes no identificaría al vector.",
+    "feedback_incorrect": [
+      "Las coordenadas dependen de la base elegida, así que no sirven para comparar espacios distintos.",
+      null,
+      "La longitud no aparece en el tema, y las coordenadas no la calculan."
+    ],
+    "explanation": "La unicidad es lo que convierte a una lista de coeficientes en un nombre válido para el vector.\n$$[\\vec{v}]_B$$\nSi un mismo vector admitiera varias escrituras, esa lista no lo identificaría, porque otra lista distinta nombraría al mismo objeto.\n\nCon la unicidad garantizada, en cambio, cada vector tiene su lista y cada lista su vector.\n\nEso es lo que permite trabajar con coordenadas en lugar de con los vectores originales, que es el pago concreto de todo el tema.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-la-escritura-es-unica"
+    ]
+  },
+  {
+    "question": "La base canónica del plano es la formada por los dos vectores que valen uno en una coordenada y cero en la otra.\n$$E_2 = \\{(1,0), (0,1)\\}$$\n¿Qué la distingue de las demás bases del plano?",
+    "options": [
+      "Nada estructural, solo que en ella las coordenadas coinciden con las componentes",
+      "Que es la única cuyos vectores son linealmente independientes entre sí",
+      "Que es la única con la que se puede escribir cualquier vector del plano"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Es una base más entre infinitas, y su comodidad viene de que no hay nada que traducir.",
+    "feedback_incorrect": [
+      null,
+      "Cualquier base es independiente por definición, no es una particularidad de esta.",
+      "Cualquier base permite escribir cualquier vector del espacio, eso también es parte de la definición."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **base canónica** $E_2$ está formada por los dos vectores que valen uno en una coordenada y cero en la otra, y no tiene ninguna propiedad que las demás bases no tengan.\n\nLo que la hace cómoda es que las coordenadas de un vector en ella coinciden con sus componentes de siempre.\n$$(4,-3) = 4(1,0) - 3(0,1)$$\nEn cualquier otra base eso deja de pasar. Con los vectores $(1,1)$ y $(1,-1)$, ese mismo vector se escribe con coeficientes distintos.\n\nEse es el punto que más cuesta aceptar: el sistema de coordenadas es una **elección**, y la que se usa por costumbre es una entre infinitas.",
+    "reviewed": false,
+    "tags": [
+      "por-que-hay-muchas-bases"
+    ]
+  },
+  {
+    "question": "El plano admite muchas bases distintas entre sí, y esta es una de ellas.\n$$B = \\{(2,1), (1,1)\\}$$\n¿Cuántas bases distintas tiene el plano?",
+    "options": [
+      "Cuatro, una por cada combinación de signos posible",
+      "Infinitas, porque cualquier par de direcciones sirve",
+      "Una sola, que es la que aparece escrita arriba"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cualquier par de vectores que no sean múltiplos entre sí forma una base del plano.",
+    "feedback_incorrect": [
+      "Los signos no tienen nada que ver, hay infinitos pares de direcciones distintas.",
+      null,
+      "La escrita es apenas una entre muchas, y no tiene ninguna propiedad exclusiva."
+    ],
+    "explanation": "Cualquier par de vectores del plano que no sean múltiplos entre sí forma una base, y hay infinitos pares así.\n$$\\{(1,1), (1,-1)\\}, \\quad \\{(2,1), (1,1)\\}$$\nLos dos conjuntos escritos son bases tan válidas como la más simple, y con cualquiera de ellos se escribe cualquier vector del plano de una sola manera.\n\nLa razón es que con dos direcciones distintas ya se alcanza todo el plano, y ninguna de las dos sobra.\n\nLo que cambia entre una base y otra son las coordenadas de cada vector, no el vector ni el espacio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-hay-muchas-bases"
+    ]
+  },
+  {
+    "question": "Un mismo vector del plano se mira desde dos bases distintas.\n$$[\\vec{v}]_B \\neq [\\vec{v}]_C$$\n¿Qué cambia al cambiar de base?",
+    "options": [
+      "El vector cambia, porque queda descripto por otros números",
+      "No cambia nada, porque las coordenadas son propias del vector",
+      "Las coordenadas cambian, pero el vector sigue siendo el mismo"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Las coordenadas dicen cuánto tomar de cada dirección, y esas direcciones cambiaron.",
+    "feedback_incorrect": [
+      "El vector es un objeto del espacio, y no depende de con qué base se lo mire.",
+      "Las coordenadas dependen de la base elegida, y con otra base dan otros números.",
+      null
+    ],
+    "explanation": "Las coordenadas son instrucciones para armar el vector desde una base, no una segunda identidad suya.\n$$(4,-3) = 4(1,0) - 3(0,1)$$\nCon los dos vectores más simples las coordenadas coinciden con las componentes de siempre, y por eso la distinción pasa desapercibida.\n\nCon la base formada por $(1,1)$ y $(1,-1)$, ese mismo vector se escribe con coeficientes completamente distintos.\n\nEl punto del plano no se movió: lo que cambió es desde qué par de direcciones se lo está midiendo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-hay-muchas-bases"
+    ]
+  },
+  {
+    "question": "Dos bases distintas del plano se comparan vector por vector.\n$$B = \\{(1,1), (1,-1)\\}$$\n$$C = \\{(2,1), (1,1)\\}$$\n¿Tienen que compartir algún vector entre sí?",
+    "options": [
+      "No, dos bases del mismo espacio pueden no tener nada en común",
+      "Sí, al menos uno, porque las dos describen el mismo espacio",
+      "Sí, todos, porque un espacio tiene una sola base posible"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Lo que las iguala es lo que alcanzan, no los vectores concretos que las forman.",
+    "feedback_incorrect": [
+      null,
+      "Las dos bases escritas no comparten ningún vector y las dos describen el plano entero.",
+      "Un espacio tiene infinitas bases distintas, no una sola."
+    ],
+    "explanation": "Dos bases del mismo espacio pueden estar formadas por vectores completamente distintos.\n$$\\begin{aligned} &\\text{gen}\\{(1,1), (1,-1)\\} \\\\ &= \\text{gen}\\{(2,1), (1,1)\\} \\end{aligned}$$\nLos dos conjuntos escritos no comparten ningún vector y aun así los dos generan todo el plano y ninguno tiene vectores de más.\n\nLo que las vuelve equivalentes es lo que alcanzan, no de qué están hechas.\n\nEs la misma idea que aparece al comparar conjuntos generadores: comparar elemento por elemento no sirve, hay que comparar direcciones.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-hay-muchas-bases"
+    ]
+  },
+  {
+    "question": "Elegir una base distinta de la más simple parece un trabajo extra sin beneficio.\n$$B = \\{(1,1), (1,-1)\\}$$\n¿Qué se puede ganar con esa elección?",
+    "options": [
+      "Que el espacio pase a contener más vectores que antes",
+      "Que ciertos problemas se describan más simple desde esas direcciones",
+      "Que los vectores del espacio pasen a tener coordenadas más chicas"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada base es un punto de vista, y algunos vuelven más simple lo que se quiere describir.",
+    "feedback_incorrect": [
+      "El espacio no cambia por elegir otra base, sigue teniendo exactamente los mismos vectores.",
+      null,
+      "Las coordenadas pueden dar más grandes o más chicas, y eso no es lo que se busca."
+    ],
+    "explanation": "Cambiar de base es cambiar de punto de vista, y algunos puntos de vista simplifican muchísimo un problema.\n$$B = \\{(1,1), (1,-1)\\}$$\nSi una situación distingue naturalmente esas dos direcciones, describir todo desde ellas evita traducir en cada paso.\n\nEl espacio y sus vectores no cambian. Lo único que cambia son los números con los que se los nombra.\n\nQue la elección exista es lo importante: el sistema de coordenadas de siempre es una decisión cómoda, no una propiedad del espacio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-hay-muchas-bases"
+    ]
   }
 ]

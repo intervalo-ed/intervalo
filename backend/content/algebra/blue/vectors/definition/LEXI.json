@@ -1,22 +1,371 @@
 [
   {
-    "question": "¿Qué caracteriza a un **vector** en $\\mathbb{R}^n$?",
+    "question": "La velocidad de un auto se anota como un vector, aunque el velocímetro marque un solo número.\n$$\\vec{v} = (v_1, v_2)$$\n¿Por qué no alcanza con ese único número?",
     "options": [
-      "Una tupla ordenada de $n$ componentes reales",
-      "Un único número real sin dirección",
-      "Una ecuación que vincula dos variables"
+      "Porque además de la rapidez, incluye una dirección y un sentido de movimiento",
+      "Porque la rapidez de un auto cambia todo el tiempo, y un vector permite que cambie",
+      "Porque un vector permite expresar el resultado con más precisión"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Un vector es una tupla ordenada $(v_1, \\dots, v_n)$ de componentes reales.",
+    "feedback_correct": "La velocidad combina una magnitud, la rapidez, con una dirección: por eso necesita un vector, no alcanza con un solo número.",
     "feedback_incorrect": [
       null,
-      "Eso describe un escalar, sin componentes ni dirección.",
-      "Eso describe una ecuación, no la estructura de un vector."
+      "Que un valor cambie con el tiempo no es la razón: un escalar también puede cambiar, por ejemplo la temperatura.",
+      "La precisión numérica no depende de si se usa un vector o un escalar."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un **vector** en $\\mathbb{R}^n$ es una tupla ordenada de $n$ componentes reales.\n$$\\vec{v} = (v_1, v_2, \\dots, v_n)$$\n\nPor ejemplo, $\\vec{v} = (3, -1, 2)$ es un vector de $\\mathbb{R}^3$: tres componentes reales, en un orden fijo.\n\nUn escalar es apenas un número, sin componentes ni orden interno; confundir ambos objetos es un error común al empezar con notación vectorial.",
-    "reviewed": false
+    "explanation": "Un escalar es un único número: describe una magnitud, pero no distingue direcciones. Un vector agrega esa información faltante:\n$$\\vec{v} = (v_1, v_2)$$\nLa velocidad de un auto no es solo qué tan rápido va, sino también hacia dónde va: la rapidez es un escalar, pero la velocidad completa necesita un vector.\n\nCuando una cantidad describe algo con dirección y sentido, un solo número nunca alcanza para representarla por completo.",
+    "reviewed": false,
+    "tags": [
+      "distinguir-escalar-vector"
+    ]
+  },
+  {
+    "question": "Dos personas empujan una caja con la misma intensidad y la caja no se mueve.\n$$\\vec{F}_1 + \\vec{F}_2 = \\vec{0}$$\n¿Qué información se pierde si cada empuje se anota con un solo número?",
+    "options": [
+      "El punto exacto de la caja donde se aplica cada uno de los empujes",
+      "La dirección y el sentido, que es lo que hace que se cancelen",
+      "La intensidad de cada empuje, que es lo que quedaría sin registrar"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Que la caja quede quieta depende de que los dos empujes apunten en sentidos opuestos, algo que un número solo no puede indicar.",
+    "feedback_incorrect": [
+      "El punto de aplicación no interviene: dos empujes iguales y opuestos se cancelan igual.",
+      null,
+      "La intensidad es precisamente lo único que un número suelto sí conserva."
+    ],
+    "explanation": "Un **escalar** guarda una magnitud y nada más; un **vector** guarda además hacia dónde apunta.\n$$\\vec{F}_1 + \\vec{F}_2 = \\vec{0}$$\nSi los dos empujes se anotaran solo con su intensidad, los dos serían el mismo número, sin ninguna forma de distinguir si se refuerzan o se anulan.\n\nLo que explica que la caja quede quieta es que los dos apuntan en sentidos contrarios.\n\nPor eso toda cantidad que se pueda cancelar con otra de la misma magnitud necesita un vector.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "distinguir-escalar-vector"
+    ]
+  },
+  {
+    "question": "La temperatura de una habitación se anota con un solo número, y el desplazamiento de un objeto no.\n$$T \\in \\mathbb{R} \\qquad \\vec{d} \\in \\mathbb{R}^{2}$$\n¿Qué diferencia entre las dos cantidades explica eso?",
+    "options": [
+      "Que la temperatura admite valores negativos y el desplazamiento no los admite",
+      "Que el desplazamiento se mide siempre en unidades bastante más grandes",
+      "Que el desplazamiento tiene una dirección asociada y la temperatura carece de ella"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Preguntar hacia dónde apunta una temperatura no tiene sentido, y para un desplazamiento sí.",
+    "feedback_incorrect": [
+      "Las dos pueden ser negativas: una componente de desplazamiento indica sentido opuesto al eje.",
+      "Las unidades no deciden nada: lo que decide es si la cantidad tiene dirección.",
+      null
+    ],
+    "explanation": "Lo que separa un escalar de un vector no es el tamaño ni el signo, sino si la cantidad apunta hacia algún lado.\n$$T \\in \\mathbb{R} \\qquad \\vec{d} \\in \\mathbb{R}^{2}$$\nUna temperatura queda descripta por completo con su valor: preguntar en qué dirección está no significa nada.\n\nUn desplazamiento, en cambio, no queda descripto hasta que se dice hacia dónde fue.\n\nEse chequeo, preguntarse si la pregunta \"hacia dónde\" tiene sentido, alcanza para decidir de qué tipo es una cantidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "distinguir-escalar-vector"
+    ]
+  },
+  {
+    "question": "Dos aviones vuelan a la misma rapidez y sin embargo se alejan uno del otro.\n$$\\vec{v}_1 \\neq \\vec{v}_2$$\n¿Cómo puede pasar eso?",
+    "options": [
+      "Porque la rapidez no dice hacia dónde va cada uno de los aviones",
+      "Porque uno de los dos cambió su rapidez sin que se note",
+      "Porque la rapidez de un avión no se mide con un solo número"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Dos velocidades pueden tener la misma magnitud y apuntar en direcciones distintas.",
+    "feedback_incorrect": [
+      null,
+      "El enunciado dice que las dos rapideces son iguales, así que ninguna cambió.",
+      "La rapidez sí es un número suelto: lo que necesita más datos es la velocidad."
+    ],
+    "explanation": "La **rapidez** es la magnitud de la velocidad, un escalar; la **velocidad** es un vector.\n$$\\vec{v}_1 \\neq \\vec{v}_2$$\nDos vectores distintos pueden tener exactamente la misma magnitud si apuntan hacia lados distintos.\n\nPor eso dos aviones igual de rápidos pueden acercarse, alejarse o volar en paralelo.\n\nEl velocímetro mide la magnitud, y lo que falta para describir el movimiento es la dirección.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "distinguir-escalar-vector"
+    ]
+  },
+  {
+    "question": "Una corriente desvía a un nadador que apunta perpendicular a la orilla.\n$$\\vec{v}_n + \\vec{v}_c$$\n¿Por qué no alcanza con sumar las dos rapideces para saber a qué velocidad avanza?",
+    "options": [
+      "Porque una de las dos velocidades tiene una magnitud que resulta negativa",
+      "Porque las dos apuntan en direcciones distintas y no se suman como números",
+      "Porque la corriente siempre termina restando en vez de sumar su magnitud"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sumar magnitudes solo funciona cuando las dos cantidades apuntan hacia el mismo lado.",
+    "feedback_incorrect": [
+      "Las dos magnitudes son positivas: lo que difiere es la dirección de cada una.",
+      null,
+      "La corriente puede sumar, restar o desviar, según hacia dónde apunte respecto del nadador."
+    ],
+    "explanation": "Sumar dos vectores no es sumar sus magnitudes, salvo en el caso particular en que apunten igual.\n$$\\vec{v}_n + \\vec{v}_c$$\nAcá los dos forman un ángulo recto, así que el resultado apunta en diagonal y su magnitud no es la suma de las dos.\n\nEse es exactamente el motivo por el que el nadador termina más abajo de donde apuntaba.\n\nLa suma de dos vectores siempre da como resultado otro vector, que respeta la dirección de cada uno en vez de solo acumular magnitudes.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "distinguir-escalar-vector"
+    ]
+  },
+  {
+    "question": "Dos vectores pueden describir la misma clase de movimiento y sin embargo vivir en espacios distintos.\n$$\\vec{v} \\in \\mathbb{R}^n$$\n¿Qué determina que un vector pertenezca a $\\mathbb{R}^3$ en vez de a $\\mathbb{R}^2$?",
+    "options": [
+      "Que tenga exactamente 3 componentes reales",
+      "Que sus componentes sean todas positivas",
+      "Que se pueda dibujar en un plano"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La dimensión de un vector es la cantidad de componentes que tiene: 3 componentes lo ubican en $\\mathbb{R}^3$.",
+    "feedback_incorrect": [
+      null,
+      "El signo de las componentes no afecta la dimensión del espacio al que pertenece el vector.",
+      "Un vector de $\\mathbb{R}^3$ no se puede dibujar completo en un plano; necesita tres ejes."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La dimensión de un vector es simplemente la cantidad de componentes que tiene:\n$$\\vec{v} = (v_1, v_2, v_3) \\in \\mathbb{R}^3$$\nCada componente corresponde a un eje independiente del espacio, así que tres componentes ubican al vector en un espacio de tres ejes.\n\nUn vector de $\\mathbb{R}^2$, en cambio, tiene solo dos componentes, sin importar si sus valores son positivos, negativos o nulos.",
+    "reviewed": false,
+    "tags": [
+      "componentes-dimension"
+    ]
+  },
+  {
+    "question": "Un dron que además de moverse sobre el plano puede subir necesita un dato más.\n$$\\vec{v} = (v_1, v_2, v_3)$$\n¿Qué representa esa tercera componente?",
+    "options": [
+      "El orden en que se recorrieron las otras dos direcciones",
+      "Una tercera dirección independiente de las otras dos",
+      "La magnitud total del movimiento del dron"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada componente corresponde a una dirección que no se puede armar con las demás.",
+    "feedback_incorrect": [
+      "El orden del recorrido no se guarda: el vector describe el desplazamiento total.",
+      null,
+      "La magnitud no es una componente: sale de combinar todas ellas."
+    ],
+    "explanation": "La cantidad de componentes de un vector es la cantidad de **direcciones independientes** que hacen falta para describirlo.\n$$\\vec{v} = (v_1, v_2, v_3)$$\nMoverse en el plano necesita dos, y agregar la altura obliga a una tercera, porque subir no se puede lograr combinando avances horizontales.\n\nPor eso el vector pasa de vivir en un espacio de dos dimensiones a uno de tres.\n\nEl criterio siempre es el mismo: cuántas direcciones que no se derivan unas de otras intervienen.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "componentes-dimension"
+    ]
+  },
+  {
+    "question": "Dos vectores distintos pueden pertenecer al mismo espacio.\n$$\\vec{u}, \\vec{v} \\in \\mathbb{R}^{4}$$\n¿Qué significa que los dos pertenezcan al mismo espacio?",
+    "options": [
+      "Que los dos tienen exactamente la misma longitud entre sí",
+      "Que los dos apuntan en una misma dirección del espacio",
+      "Que los dos se describen con la misma cantidad de números"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Pertenecer al mismo espacio es tener la misma cantidad de componentes, nada más.",
+    "feedback_incorrect": [
+      "La longitud puede ser distinta: el espacio no dice nada sobre el tamaño.",
+      "La dirección puede ser distinta: el espacio solo fija cuántas componentes hay.",
+      null
+    ],
+    "explanation": "El espacio al que pertenece un vector queda determinado por su cantidad de componentes.\n$$\\vec{u}, \\vec{v} \\in \\mathbb{R}^{4}$$\nLos dos se anotan como cuatro números reales, y eso es todo lo que tienen en común por vivir ahí.\n\nPueden tener tamaños muy distintos y apuntar hacia lados opuestos sin dejar de compartir el espacio.\n\nLo útil de esa clasificación es que agrupa vectores comparables entre sí, aunque cada uno describa un movimiento totalmente distinto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "componentes-dimension"
+    ]
+  },
+  {
+    "question": "Un vector puede tener una componente nula y seguir perteneciendo al mismo espacio.\n$$(5, 0, 2) \\in \\mathbb{R}^{3}$$\n¿Por qué el cero cuenta como una componente?",
+    "options": [
+      "Porque ocupa una posición fija de la tupla, y esa posición existe igual",
+      "Porque cualquier vector con un cero pertenece a un espacio más chico",
+      "Porque el cero indica que esa dirección directamente no existe"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Un cero dice que no hay avance en ese eje, no que el eje haya desaparecido.",
+    "feedback_incorrect": [
+      null,
+      "Sacar la componente cambiaría el espacio, y con eso el significado de las otras dos posiciones.",
+      "La dirección existe: lo que vale cero es cuánto se avanzó en ella."
+    ],
+    "explanation": "Las componentes de un vector son posiciones fijas, y cada una corresponde a un eje del espacio.\n$$(5, 0, 2) \\in \\mathbb{R}^{3}$$\nEl cero de la segunda posición informa que no hubo avance en ese eje, que es un dato tan válido como cualquier otro.\n\nSi se lo borrara, la tercera componente pasaría a leerse como si fuera la segunda, y el vector describiría otro movimiento.\n\nPor eso la cantidad de componentes no depende de cuáles sean sus valores.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "componentes-dimension"
+    ]
+  },
+  {
+    "question": "La cantidad de componentes de un vector no dice nada sobre su tamaño.\n$$(1,1,1,1) \\qquad (100, 0)$$\n¿Cuál de los dos pertenece a un espacio de mayor dimensión?",
+    "options": [
+      "Los dos pertenecen al mismo espacio",
+      "El primero, porque tiene más componentes",
+      "El segundo, porque sus números son más grandes"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La dimensión del espacio la fija la cantidad de posiciones, no el valor que hay en ellas.",
+    "feedback_incorrect": [
+      "Uno tiene cuatro componentes y el otro dos, así que viven en espacios distintos.",
+      null,
+      "El tamaño de los números no interviene en la dimensión del espacio."
+    ],
+    "explanation": "La dimensión del espacio cuenta **posiciones**, no magnitudes.\n$$(1,1,1,1) \\in \\mathbb{R}^{4} \\qquad (100, 0) \\in \\mathbb{R}^{2}$$\nEl primero necesita cuatro números para quedar descripto, aunque todos sean chicos.\n\nEl segundo se describe con dos, aunque uno de ellos sea grande.\n\nConfundir cantidad de componentes con tamaño es lo que después lleva a intentar sumar vectores de espacios distintos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "componentes-dimension"
+    ]
+  },
+  {
+    "question": "Dos vectores pueden estar armados con los mismos dos números y aun así no ser el mismo vector.\n$$(2,5) \\neq (5,2)$$\n¿Por qué representan desplazamientos distintos?",
+    "options": [
+      "Porque cada posición de la tupla está atada a un eje fijo",
+      "Porque uno de los dos vectores tiene componente negativa",
+      "Porque los dos vectores tienen distinta norma"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Un vector es una tupla ordenada: la primera posición siempre es el eje $x$ y la segunda el eje $y$, así que intercambiar las componentes cambia el vector.",
+    "feedback_incorrect": [
+      null,
+      "Ninguna de las dos tiene componentes negativas; el problema no es de signo.",
+      "El tamaño de cada vector no es lo que los distingue acá: lo que cambia es a qué eje corresponde cada valor."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un vector no es una colección libre de números: es una tupla ordenada, donde cada posición está atada a un eje fijo:\n$$(2,5) \\neq (5,2)$$\nLa primera componente es siempre el desplazamiento en $x$, y la segunda el desplazamiento en $y$: intercambiarlas cambia a qué eje corresponde cada valor.\n\nAmbos vectores tienen la misma longitud, pero apuntan en direcciones distintas: el orden de las componentes es lo que define esa dirección.",
+    "reviewed": false,
+    "tags": [
+      "notacion-orden-componentes"
+    ]
+  },
+  {
+    "question": "Un repartidor anota su recorrido como un par de números con las posiciones fijadas de antemano.\n$$\\vec{v} = (v_1, v_2)$$\n¿Por qué no puede escribir su avance al norte en la primera posición?",
+    "options": [
+      "Porque un avance al norte no se puede anotar como una componente",
+      "Porque cada posición está reservada a un eje fijo para todos los vectores",
+      "Porque la primera posición siempre lleva el número más grande"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El significado de cada posición se fija una vez y vale para todos los vectores del problema.",
+    "feedback_incorrect": [
+      "Todo avance en una dirección del plano se anota como componente; lo que se fija es cuál.",
+      null,
+      "No hay ninguna regla sobre el tamaño: la primera posición puede llevar el número más chico."
+    ],
+    "explanation": "Un vector no es una lista libre de números: cada posición corresponde a un eje elegido de antemano.\n$$\\vec{v} = (v_1, v_2)$$\nSi un vector anotara primero el este y otro primero el norte, los dos serían incomparables entre sí.\n\nPor eso la convención se fija una vez, al principio, y todos los vectores del mismo problema la respetan.\n\nEsa disciplina es lo que después permite sumar dos vectores componente por componente sin ambigüedad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "notacion-orden-componentes"
+    ]
+  },
+  {
+    "question": "Dos vectores pueden tener las mismas dos componentes escritas en distinto orden.\n$$(1,7) \\qquad (7,1)$$\n¿Qué los diferencia?",
+    "options": [
+      "Nada, porque son el mismo vector escrito de dos maneras",
+      "El signo de una de sus dos componentes, que quedó invertido",
+      "El punto al que llegan, porque cada posición es de un eje distinto"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Avanzar mucho en un eje y poco en el otro no es lo mismo que hacerlo al revés.",
+    "feedback_incorrect": [
+      "Son vectores distintos: llegan a puntos diferentes del plano.",
+      "Las dos componentes son positivas en los dos casos, así que ningún signo cambió.",
+      null
+    ],
+    "explanation": "El orden de las componentes no es una convención de escritura: cambia a qué eje va cada valor.\n$$(1,7) \\neq (7,1)$$\nEl primero avanza poco en el primer eje y mucho en el segundo, y el otro hace exactamente lo contrario.\n\nSon dos desplazamientos que terminan en puntos distintos, aunque usen los mismos dos números.\n\nPor eso una tupla se escribe entre paréntesis y con las posiciones ordenadas, no como una colección cualquiera.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "notacion-orden-componentes"
+    ]
+  },
+  {
+    "question": "En un espacio de tres dimensiones el orden importa igual que en el plano.\n$$(2,0,5) \\qquad (5,0,2)$$\n¿Qué cambia entre esos dos vectores?",
+    "options": [
+      "Qué eje recibe cada valor, y con eso el punto al que llegan",
+      "La cantidad de direcciones que cada uno describe",
+      "Nada, porque la componente del medio es la misma en los dos"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Los valores extremos están intercambiados, así que cada uno va a un eje distinto.",
+    "feedback_incorrect": [
+      null,
+      "Los dos describen tres direcciones: la cantidad de componentes no cambió.",
+      "Que una componente coincida no alcanza: las otras dos están intercambiadas."
+    ],
+    "explanation": "Intercambiar dos componentes cambia el vector aunque el resto quede igual.\n$$(2,0,5) \\neq (5,0,2)$$\nEl primero avanza poco en el primer eje y mucho en el tercero, y el segundo hace lo inverso.\n\nLa componente del medio coincide, pero eso no compensa el intercambio de las otras dos.\n\nPara que dos vectores sean iguales tienen que coincidir en **todas** sus componentes, una por una.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "notacion-orden-componentes"
+    ]
+  },
+  {
+    "question": "Un conjunto de números no cambia si se los reordena, y un vector sí.\n$$\\{2,5\\} = \\{5,2\\}$$\n¿Por qué un vector no se comporta así?",
+    "options": [
+      "Porque un vector siempre tiene más elementos que un conjunto",
+      "Porque en un vector cada posición está atada a un eje fijo",
+      "Porque un vector solo admite números positivos entre sus componentes"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Un conjunto solo registra qué elementos hay, y un vector registra además dónde está cada uno.",
+    "feedback_incorrect": [
+      "Un vector y un conjunto pueden tener la misma cantidad de números y aun así ser cosas distintas.",
+      null,
+      "Las componentes de un vector pueden ser negativas sin ningún problema."
+    ],
+    "explanation": "Un conjunto guarda qué elementos lo forman; una tupla guarda además en qué posición está cada uno.\n$$\\{2,5\\} = \\{5,2\\} \\qquad (2,5) \\neq (5,2)$$\nPor eso los vectores se escriben con paréntesis y no con llaves: la notación misma marca que el orden cuenta.\n\nCada posición está atada a un eje, y mover un número de lugar lo manda a otra dirección.\n\nEsa es la razón de fondo por la que un vector se llama **tupla ordenada** y no simplemente conjunto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "notacion-orden-componentes"
+    ]
   }
 ]

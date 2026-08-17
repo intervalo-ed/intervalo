@@ -1,24 +1,399 @@
 [
   {
-    "question": "¿Para qué valor de $k$ el conjunto $\\{(1,2), (3,k)\\}$ es linealmente **dependiente**?",
+    "question": "Un conjunto de dos vectores del plano tiene una coordenada sin determinar.\n$$\\{(2, 3), (4, k)\\}$$\n¿Para qué valor de $k$ el conjunto pasa a ser linealmente dependiente?",
     "options": [
       "$6$",
-      "$3$",
-      "$2$",
-      "$9$"
+      "$5$",
+      "$8$",
+      "$-6$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Dependiente cuando $(3,k)=3(1,2)=(3,6)$, es decir $k=6$.",
+    "feedback_correct": "El segundo vector tiene que ser el doble del primero, y el doble de tres es seis.",
     "feedback_incorrect": [
       null,
-      "Ese valor no hace que $(3,k)$ sea múltiplo de $(1,2)$.",
-      "Ese es el factor de escala, no el valor de $k$.",
-      "Ese valor tampoco produce un múltiplo exacto de $(1,2)$."
+      "Ese valor sale de sumarle dos a la coordenada, y lo que hace falta es multiplicarla.",
+      "Ese valor duplica la primera coordenada del segundo vector, que no es la que hay que copiar.",
+      "El factor que relaciona las primeras coordenadas es dos y es positivo, así que el signo no cambia."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dos vectores son dependientes cuando uno es múltiplo escalar del otro.\n$$(3,k) = \\lambda(1,2) \\Rightarrow \\lambda=3 \\Rightarrow k=3\\cdot2=6$$\n\nComo la primera componente ya fija $\\lambda=3$ (porque $3=3\\cdot1$), la segunda componente debe ser $3\\cdot2=6$ para mantener la misma proporción.\n\nSi $k$ tomara cualquier otro valor, los vectores dejarían de ser paralelos y pasarían a ser independientes.",
-    "reviewed": false
+    "explanation": "Dos vectores son dependientes exactamente cuando uno es múltiplo del otro, así que el factor se lee de la coordenada que ya está determinada.\n\nLa primera coordenada pasa de dos a cuatro, así que el factor es dos. Para que la relación se sostenga, la segunda tiene que seguir el mismo factor.\n$$k = 2 \\cdot 3 = 6$$\nEl mismo resultado sale de anular el determinante de la matriz que forman los dos vectores.\n$$2k - 12 = 0$$\nEse camino es el que se generaliza a tres vectores en el espacio, donde mirar múltiplos a ojo ya no alcanza.\n\nCon cualquier otro valor de $k$ los dos vectores apuntan en direcciones distintas y el conjunto es independiente.",
+    "reviewed": false,
+    "tags": [
+      "hallar-el-parametro-que-vuelve-dependiente"
+    ]
+  },
+  {
+    "question": "Un conjunto de dos vectores del plano tiene la segunda coordenada del primero sin determinar.\n$$\\{(1, k), (3, 12)\\}$$\n¿Para qué valor de $k$ el conjunto es linealmente dependiente?",
+    "options": [
+      "$9$",
+      "$4$",
+      "$12$",
+      "$-4$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El segundo vector tiene que ser el triple del primero, y el triple de cuatro es doce.",
+    "feedback_incorrect": [
+      "Ese valor sale de restar las dos primeras coordenadas en lugar de dividirlas.",
+      null,
+      "Ese es el valor de la segunda coordenada del otro vector, no el que produce la proporción.",
+      "El factor que relaciona las primeras coordenadas es tres y es positivo, así que el signo no cambia."
+    ],
+    "explanation": "Dos vectores son dependientes exactamente cuando uno es múltiplo del otro, y el factor se lee de la coordenada que ya está determinada.\n$$3 \\cdot 1 = 3$$\nLa primera coordenada pasa de uno a tres, así que el factor es tres, y la segunda tiene que seguir el mismo factor.\n$$3k = 12 \\implies k = 4$$\nEl mismo resultado sale de anular el determinante de la matriz que forman los dos vectores.\n\nCon cualquier otro valor los dos vectores apuntan en direcciones distintas y el conjunto es independiente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-parametro-que-vuelve-dependiente"
+    ]
+  },
+  {
+    "question": "El parámetro sin determinar está en la primera coordenada de uno de los vectores.\n$$\\{(k, 2), (6, 4)\\}$$\n¿Para qué valor de $k$ el conjunto es linealmente dependiente?",
+    "options": [
+      "$2$",
+      "$8$",
+      "$12$",
+      "$3$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Las segundas coordenadas fijan el factor en dos, y la mitad de seis es tres.",
+    "feedback_incorrect": [
+      "Ese es el valor de la segunda coordenada del primer vector, no el del parámetro.",
+      "Ese valor sale de sumarle dos al seis, y lo que hace falta es dividirlo.",
+      "Ese valor es el doble del seis, y el factor va en el sentido contrario.",
+      null
+    ],
+    "explanation": "Acá la coordenada determinada es la segunda, así que de ahí sale el factor que relaciona los dos vectores.\n$$4 = 2 \\cdot 2$$\nEl segundo vector es el doble del primero en la segunda coordenada, así que también tiene que serlo en la primera.\n$$6 = 2k \\implies k = 3$$\nEl sentido del factor es lo que más se equivoca: va del primer vector al segundo, no al revés.\n\nVerificarlo cuesta una línea, porque duplicando el par obtenido tiene que aparecer el segundo vector completo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-parametro-que-vuelve-dependiente"
+    ]
+  },
+  {
+    "question": "Uno de los dos vectores tiene una coordenada negativa y el otro un parámetro sin fijar.\n$$\\{(3, -2), (k, 4)\\}$$\n¿Para qué valor de $k$ el conjunto es linealmente dependiente?",
+    "options": [
+      "$-6$",
+      "$6$",
+      "$-4$",
+      "$12$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Las segundas coordenadas fijan el factor en menos dos, y el triple de eso es menos seis.",
+    "feedback_incorrect": [
+      null,
+      "El factor es negativo, porque la segunda coordenada cambia de signo entre los dos vectores.",
+      "Ese es el valor de la segunda coordenada del segundo vector, no el del parámetro.",
+      "Ese valor sale de multiplicar las dos coordenadas conocidas del segundo vector."
+    ],
+    "explanation": "El factor que relaciona dos vectores puede ser negativo, y el signo se lee de la coordenada que ya está determinada.\n$$4 = -2 \\cdot (-2)$$\nLa segunda coordenada pasa de menos dos a cuatro, así que el factor es menos dos.\n$$k = -2 \\cdot 3 = -6$$\nAplicando ese mismo factor a la primera coordenada se obtiene el valor buscado, que también resulta negativo.\n\nPerder el signo en este paso es lo más frecuente, y se detecta verificando que las dos coordenadas queden con el factor correcto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-parametro-que-vuelve-dependiente"
+    ]
+  },
+  {
+    "question": "El mismo parámetro aparece en los dos vectores del conjunto.\n$$\\{(k, 1), (4, k)\\}$$\n¿Para qué valores de $k$ el conjunto es linealmente dependiente?",
+    "options": [
+      "$4$ y $-4$",
+      "Únicamente $16$",
+      "$2$ y $-2$",
+      "Únicamente $2$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Anulando el determinante queda que el cuadrado del parámetro vale cuatro, con dos soluciones.",
+    "feedback_incorrect": [
+      "Esos valores salen de la primera coordenada del segundo vector, no de resolver la ecuación.",
+      "Ese es el cuadrado de la coordenada conocida, y falta tomar la raíz.",
+      null,
+      "La ecuación es cuadrática, así que el valor negativo también sirve."
+    ],
+    "explanation": "Cuando el parámetro aparece dos veces, mirar múltiplos a ojo se complica y conviene ir al determinante.\n$$k \\cdot k - 1 \\cdot 4 = 0$$\nLa ecuación que queda es cuadrática, y por eso tiene dos soluciones opuestas entre sí.\n$$k = 2 \\quad \\text{o} \\quad k = -2$$\nCon el primer valor los vectores son $(2,1)$ y $(4,2)$, y el segundo es el doble del primero.\n\nCon el segundo son $(-2,1)$ y $(4,-2)$, y ahí el factor es menos dos. Los dos casos producen la misma dependencia por caminos distintos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-parametro-que-vuelve-dependiente"
+    ]
+  },
+  {
+    "question": "Tres vectores del plano forman un conjunto dependiente, y el tercero se puede armar con los otros dos.\n$$\\vec{v}_1 = (1,2), \\quad \\vec{v}_2 = (2,1)$$\n$$\\vec{v}_3 = (4,5)$$\n¿Qué combinación de los dos primeros da el tercero?",
+    "options": [
+      "$2\\vec{v}_1 + \\vec{v}_2$",
+      "$\\vec{v}_1 + 2\\vec{v}_2$",
+      "$3\\vec{v}_1 - \\vec{v}_2$",
+      "$\\vec{v}_1 + \\vec{v}_2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Dos veces el primero da $(2,4)$, y sumándole el segundo se llega a $(4,5)$.",
+    "feedback_incorrect": [
+      null,
+      "Los coeficientes quedaron cruzados, así queda $(5,4)$ y no $(4,5)$.",
+      "Con esos coeficientes la primera coordenada da uno, muy lejos de cuatro.",
+      "Sumar los dos vectores tal cual da $(3,3)$, que no es el vector buscado."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Escribir el vector redundante en función de los otros es plantear un sistema de ecuaciones con una ecuación por coordenada.\n$$\\alpha_1(1,2) + \\alpha_2(2,1) = (4,5)$$\nQueda $\\alpha_1 + 2\\alpha_2 = 4$ para la primera coordenada y $2\\alpha_1 + \\alpha_2 = 5$ para la segunda.\n\nResolviendo se obtienen los dos coeficientes.\n$$\\alpha_1 = 2, \\quad \\alpha_2 = 1$$\nCruzar los coeficientes es el error más frecuente, y se detecta enseguida verificando cualquiera de las dos coordenadas.\n\nEsta cuenta también confirma lo que ya se sabía sin calcular, que tres vectores del plano nunca pueden ser independientes.",
+    "reviewed": false,
+    "tags": [
+      "escribir-la-combinacion-redundante"
+    ]
+  },
+  {
+    "question": "Tres vectores del plano forman un conjunto dependiente y el tercero se arma con los otros.\n$$\\vec{v}_1 = (1,3), \\quad \\vec{v}_2 = (2,1)$$\n$$\\vec{v}_3 = (5,5)$$\n¿Qué combinación de los dos primeros da el tercero?",
+    "options": [
+      "$\\vec{v}_1 + \\vec{v}_2$",
+      "$\\vec{v}_1 + 2\\vec{v}_2$",
+      "$2\\vec{v}_1 + \\vec{v}_2$",
+      "$3\\vec{v}_1 - \\vec{v}_2$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El primero entra una vez y el segundo dos, y así las dos coordenadas cierran.",
+    "feedback_incorrect": [
+      "Sumar los dos vectores tal cual da $(3,4)$, que no es el vector buscado.",
+      null,
+      "Los coeficientes quedaron cruzados, y así el resultado es $(4,7)$.",
+      "Con esos coeficientes la segunda coordenada da ocho, muy lejos de cinco."
+    ],
+    "explanation": "Escribir el vector redundante en función de los otros es plantear un sistema con una ecuación por coordenada.\n$$\\alpha_1 + 2\\alpha_2 = 5$$\n$$3\\alpha_1 + \\alpha_2 = 5$$\nDespejando de la segunda y reemplazando en la primera se obtienen los dos coeficientes.\n$$\\alpha_1 = 1, \\quad \\alpha_2 = 2$$\nCruzar los coeficientes entre los dos vectores es el descuido más frecuente, y verificar cualquiera de las dos coordenadas lo delata.\n\nEsta cuenta confirma además lo que ya se sabía sin calcular, que tres vectores del plano nunca pueden ser independientes.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "escribir-la-combinacion-redundante"
+    ]
+  },
+  {
+    "question": "Uno de los coeficientes que arman el vector redundante resulta ser negativo.\n$$\\vec{v}_1 = (2,1), \\quad \\vec{v}_2 = (1,3)$$\n$$\\vec{v}_3 = (3,-1)$$\n¿Qué combinación de los dos primeros da el tercero?",
+    "options": [
+      "$\\vec{v}_1 + \\vec{v}_2$",
+      "$2\\vec{v}_1 + \\vec{v}_2$",
+      "$-\\vec{v}_1 + 2\\vec{v}_2$",
+      "$2\\vec{v}_1 - \\vec{v}_2$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Dos veces el primero da $(4,2)$, y restándole el segundo se llega a $(3,-1)$.",
+    "feedback_incorrect": [
+      "Sumar los dos vectores tal cual da $(3,4)$, con la segunda coordenada positiva.",
+      "Con esos coeficientes el resultado es $(5,5)$, bastante lejos del buscado.",
+      "Los coeficientes quedaron cruzados y con los signos al revés, y así el resultado es $(0,5)$.",
+      null
+    ],
+    "explanation": "La segunda coordenada del vector buscado es negativa mientras que las de los dos primeros son positivas, y eso ya anticipa que algún coeficiente tiene que restar.\n$$2\\alpha_1 + \\alpha_2 = 3$$\n$$\\alpha_1 + 3\\alpha_2 = -1$$\nResolviendo el sistema se obtienen los dos coeficientes, uno positivo y el otro negativo.\n$$\\alpha_1 = 2, \\quad \\alpha_2 = -1$$\nLeer el signo antes de calcular descarta varias opciones sin hacer una sola cuenta.\n\nNada obliga a que los coeficientes de una combinación sean positivos, y las guías usan mucho este caso justamente por eso.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "escribir-la-combinacion-redundante"
+    ]
+  },
+  {
+    "question": "El conjunto dependiente vive en $\\mathbb{R}^3$.\n$$\\vec{v}_1 = (1,0,1), \\quad \\vec{v}_2 = (0,1,2)$$\n$$\\vec{v}_3 = (3,2,7)$$\n¿Qué combinación de los dos primeros da el tercero?",
+    "options": [
+      "$3\\vec{v}_1 + 2\\vec{v}_2$",
+      "$2\\vec{v}_1 + 3\\vec{v}_2$",
+      "$3\\vec{v}_1 - 2\\vec{v}_2$",
+      "$\\vec{v}_1 + \\vec{v}_2$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Las dos primeras coordenadas fijan los coeficientes, y la tercera confirma que cierran.",
+    "feedback_incorrect": [
+      null,
+      "Los coeficientes quedaron cruzados, y así la primera coordenada daría dos.",
+      "Con el segundo coeficiente negativo, la segunda coordenada daría menos dos.",
+      "Con los dos coeficientes en uno el resultado es $(1,1,3)$, muy lejos del buscado."
+    ],
+    "explanation": "Cuando cada uno de los dos primeros vectores aporta a una coordenada distinta, los coeficientes se leen sin resolver ningún sistema.\n$$\\alpha_1 = 3, \\quad \\alpha_2 = 2$$\nLa primera coordenada solo recibe del primer vector y la segunda solo del segundo, así que las dos quedan determinadas de entrada.\n\nLa tercera coordenada es la que hay que verificar, porque los dos aportan ahí.\n$$1 \\cdot 3 + 2 \\cdot 2 = 7$$\nComo el resultado coincide, la combinación es correcta y el tercer vector queda escrito con los otros dos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "escribir-la-combinacion-redundante"
+    ]
+  },
+  {
+    "question": "Un conjunto de dos vectores del plano resulta dependiente por una razón evidente.\n$$\\vec{v}_1 = (2,-3), \\quad \\vec{v}_2 = (6,-9)$$\n¿Qué combinación del primero da el segundo?",
+    "options": [
+      "$2\\vec{v}_1$",
+      "$\\tfrac{1}{3}\\vec{v}_1$",
+      "$3\\vec{v}_1$",
+      "$-3\\vec{v}_1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Las dos coordenadas del primero quedan multiplicadas por tres.",
+    "feedback_incorrect": [
+      "Duplicando el primero se obtiene $(4,-6)$, que no es el segundo vector.",
+      "Ese factor achica el vector en lugar de agrandarlo, y va en el sentido contrario.",
+      null,
+      "El factor es positivo, porque las dos coordenadas conservan su signo."
+    ],
+    "explanation": "Con solo dos vectores, escribir uno en función del otro se reduce a encontrar el factor.\n$$3 \\cdot (2,-3) = (6,-9)$$\nLas dos coordenadas quedan multiplicadas por el mismo número, y por eso el factor es único.\n\nEl signo se conserva en las dos, así que el factor es positivo aunque las coordenadas sean negativas.\n\nEl control rápido es dividir coordenada a coordenada: si los dos cocientes no dieran lo mismo, los vectores no serían múltiplos y no habría ninguna combinación posible.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "escribir-la-combinacion-redundante"
+    ]
+  },
+  {
+    "question": "Los vectores de un conjunto se acomodaron como filas de una matriz, que después se llevó a forma escalonada.\n$$\\begin{pmatrix} 1 & 2 & 1 \\\\ 0 & 1 & 3 \\\\ 0 & 0 & 0 \\end{pmatrix}$$\nEl conjunto de partida tenía tres vectores.\n\n¿Cuántos de ellos son independientes entre sí?",
+    "options": [
+      "$2$",
+      "$3$",
+      "$1$",
+      "$0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La escalonada tiene dos filas no nulas, así que solo dos de los tres vectores aportan algo nuevo.",
+    "feedback_incorrect": [
+      null,
+      "La tercera fila quedó completamente en cero, y eso indica que un vector se armaba con los otros.",
+      "Hay dos filas con entradas no nulas, no una sola.",
+      "Si ninguno fuera independiente todas las filas habrían quedado en cero."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Escalonar una matriz cuyas filas son los vectores del conjunto va cancelando exactamente la información repetida.\n\nCada fila que queda en cero corresponde a un vector que se armaba combinando los anteriores, así que no aportaba ninguna dirección nueva.\n\nAcá quedaron dos filas no nulas, y por lo tanto dos vectores independientes de los tres originales.\n\nEse conteo de filas no nulas es lo que en la unidad anterior se llamaba **rango**, y acá empieza a mostrar lo que mide realmente, la cantidad de direcciones distintas que aportan los vectores.",
+    "reviewed": false,
+    "tags": [
+      "decidir-desde-la-escalonada"
+    ]
+  },
+  {
+    "question": "Tres vectores se acomodaron como filas de una matriz que después se escalonó.\n$$\\begin{pmatrix} 1 & 3 & 2 \\\\ 0 & 1 & 5 \\\\ 0 & 0 & 4 \\end{pmatrix}$$\n¿Cuántos de ellos son independientes entre sí?",
+    "options": [
+      "$0$",
+      "$3$",
+      "$2$",
+      "$1$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Ninguna fila quedó en cero, así que los tres vectores aportan una dirección propia.",
+    "feedback_incorrect": [
+      "Si ninguno fuera independiente todas las filas habrían quedado en cero.",
+      null,
+      "Las tres filas tienen alguna entrada no nula, así que ninguna se canceló.",
+      "Hay tres filas con entradas no nulas, no una sola."
+    ],
+    "explanation": "Escalonar va cancelando la información repetida, así que las filas que sobreviven son las que aportaban algo propio.\n$$\\begin{pmatrix} 1 & 3 & 2 \\\\ 0 & 1 & 5 \\\\ 0 & 0 & 4 \\end{pmatrix}$$\nAcá las tres filas tienen alguna entrada distinta de cero, de modo que ninguno de los tres vectores se armaba con los otros.\n\nEl conjunto es entonces independiente, y esa es la lectura directa del conteo.\n\nCada fila nula que hubiera aparecido señalaría un vector que se armaba combinando los anteriores, y acá no hay ninguna.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-desde-la-escalonada"
+    ]
+  },
+  {
+    "question": "Dos vectores se acomodaron como filas de una matriz y al escalonarla una fila se anuló.\n$$\\begin{pmatrix} 1 & 2 \\\\ 0 & 0 \\end{pmatrix}$$\n¿Cuántos de ellos son independientes entre sí?",
+    "options": [
+      "$2$",
+      "$0$",
+      "$4$",
+      "$1$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Queda una sola fila no nula, así que uno de los dos vectores se armaba con el otro.",
+    "feedback_incorrect": [
+      "La segunda fila quedó completamente en cero, y eso descarta a uno de los dos.",
+      "La primera fila tiene entradas no nulas, así que al menos un vector aporta algo.",
+      "El conteo no puede superar la cantidad de vectores de partida, que son dos.",
+      null
+    ],
+    "explanation": "Una fila que se anula al escalonar corresponde a un vector que era múltiplo de otro, o combinación de los anteriores.\n$$\\begin{pmatrix} 1 & 2 \\\\ 0 & 0 \\end{pmatrix}$$\nCon dos vectores de partida y una sola fila no nula, la conclusión es que uno de los dos sobraba.\n\nEl conjunto es dependiente, y el vector que quedó alcanza exactamente lo mismo que los dos juntos.\n\nEse conteo de filas no nulas es lo que en la unidad anterior se llamaba rango, y acá empieza a mostrar qué mide realmente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-desde-la-escalonada"
+    ]
+  },
+  {
+    "question": "Cuatro vectores de $\\mathbb{R}^3$ se escalonaron como filas de una matriz.\n$$\\begin{pmatrix} 1 & 0 & 2 \\\\ 0 & 1 & 1 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\end{pmatrix}$$\n¿Cuántos de ellos son independientes entre sí?",
+    "options": [
+      "$2$",
+      "$4$",
+      "$3$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Quedaron dos filas no nulas, así que dos de los cuatro vectores se armaban con los otros.",
+    "feedback_incorrect": [
+      null,
+      "Esa es la cantidad de vectores de partida, y dos de ellos resultaron redundantes.",
+      "Hay dos filas con entradas no nulas, no tres.",
+      "La segunda fila también tiene entradas no nulas, así que el conteo no es uno."
+    ],
+    "explanation": "El conteo se hace siempre sobre las filas no nulas de la escalonada, no sobre las filas de partida.\n$$\\begin{pmatrix} 1 & 0 & 2 \\\\ 0 & 1 & 1 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\end{pmatrix}$$\nAcá dos filas se anularon, así que dos de los cuatro vectores se armaban combinando los otros.\n\nQue cuatro vectores de $\\mathbb{R}^3$ sean dependientes no sorprende, porque hay más vectores que coordenadas.\n\nLo que la escalonada agrega es **cuántos** aportan algo propio, que es una información más fina que el simple descarte por cantidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-desde-la-escalonada"
+    ]
+  },
+  {
+    "question": "Un conjunto de tres vectores se escalonó para decidir si alguno sobra.\n$$\\begin{pmatrix} 1 & 4 & 0 \\\\ 0 & 2 & 3 \\\\ 0 & 0 & 0 \\end{pmatrix}$$\n¿Qué se concluye sobre el conjunto?",
+    "options": [
+      "Que hace falta escalonar de nuevo, porque quedó una fila en cero",
+      "Que es dependiente, porque hay menos filas no nulas que vectores",
+      "Que es independiente, porque las dos primeras filas no se anularon"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Con tres vectores y dos filas no nulas, uno de ellos se armaba con los otros.",
+    "feedback_incorrect": [
+      "Una fila nula es un resultado válido del escalonamiento, no un error de cálculo.",
+      null,
+      "Alcanza con que una fila se anule para que el conjunto entero sea dependiente."
+    ],
+    "explanation": "La comparación que decide es entre la cantidad de filas no nulas y la cantidad de vectores de partida.\n$$\\begin{pmatrix} 1 & 4 & 0 \\\\ 0 & 2 & 3 \\\\ 0 & 0 & 0 \\end{pmatrix}$$\nAcá hay tres vectores y solo dos filas sobrevivieron, así que uno de ellos se armaba combinando los otros dos.\n\nEl conjunto es dependiente, y además se sabe cuántos vectores aportan algo propio.\n\nCuando los dos números coinciden, en cambio, el conjunto es independiente, porque ninguna fila se canceló durante el escalonamiento.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-desde-la-escalonada"
+    ]
   }
 ]

@@ -1,22 +1,371 @@
 [
   {
-    "question": "¿Cuál de estos conjuntos, con sus operaciones usuales, es un **espacio vectorial**?",
+    "question": "Con la suma y el producto por escalar habituales, algunos conjuntos califican como espacio vectorial y otros no.\n$$\\vec{u}+\\vec{v} \\in V, \\quad \\alpha\\vec{v} \\in V$$\n¿Cuál de estos califica?",
     "options": [
-      "$\\mathbb{R}^2$ con la suma y el producto por escalar habituales",
-      "Los enteros positivos con la suma habitual",
-      "Los vectores de norma $1$ en $\\mathbb{R}^2$, con la suma habitual"
+      "Los polinomios de grado menor o igual a $2$",
+      "Los polinomios de grado exactamente $2$",
+      "Las matrices de $2 \\times 2$ con determinante no nulo"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$\\mathbb{R}^2$ con sus operaciones habituales cumple todos los axiomas de espacio vectorial.",
+    "feedback_correct": "Sumar o escalar polinomios de grado a lo sumo dos nunca sube el grado, así que el resultado sigue adentro.",
     "feedback_incorrect": [
       null,
-      "Los enteros positivos no son cerrados bajo el producto por escalares negativos, y no tienen opuesto dentro del conjunto.",
-      "La suma de dos vectores de norma $1$ no necesariamente tiene norma $1$: ese conjunto no es cerrado bajo la suma."
+      "Sumar $x^2+1$ con $-x^2+3$ da una constante, que ya no tiene grado dos.",
+      "La identidad y su opuesta tienen determinante no nulo, pero su suma es la matriz nula."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para ser espacio vectorial, un conjunto debe ser cerrado bajo sus operaciones y cumplir los axiomas asociados.\n\n$\\mathbb{R}^2$ con la suma y el producto escalar habituales cumple todos los axiomas: es el ejemplo canónico de espacio vectorial.\n\nLos enteros positivos fallan porque no tienen opuesto ni son cerrados bajo escalares negativos, y los vectores de norma $1$ fallan porque sumar dos de ellos puede dar un vector de norma distinta de $1$, rompiendo la clausura.",
-    "reviewed": false
+    "explanation": "Para que un conjunto sea **espacio vectorial** con las operaciones habituales, lo primero que hay que mirar es si operar dos elementos deja el resultado adentro.\n\nEn $P_2$ eso siempre pasa. Sumar dos polinomios suma sus coeficientes y multiplicar por un número los escala, sin que el grado suba nunca.\n$$(3x^2 - x) + (-3x^2 + 4) = -x + 4$$\nAcá el grado incluso bajó, y eso está permitido justamente porque la condición pide grado menor o igual a dos.\n\nEse mismo cálculo es el que descarta a los polinomios de grado exactamente dos. Pedir el grado exacto convierte a la bajada de grado en una fuga del conjunto.",
+    "reviewed": false,
+    "tags": [
+      "decidir-si-es-espacio-vectorial"
+    ]
+  },
+  {
+    "question": "Tres conjuntos de matrices de dos por dos se comparan con las operaciones habituales.\n$$S_1 = \\{A : a_{21} = 0\\}$$\n$$S_2 = \\{A : \\det(A) = 1\\}$$\n$$S_3 = \\{A : a_{11} = 1\\}$$\n¿Cuál de los tres es un espacio vectorial?",
+    "options": [
+      "$S_3$",
+      "$S_1$",
+      "$S_2$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sumar o escalar dos matrices con un cero abajo a la izquierda deja ese lugar en cero.",
+    "feedback_incorrect": [
+      "Sumando dos matrices con un uno arriba a la izquierda queda un dos en ese lugar.",
+      null,
+      "La identidad tiene determinante uno, y sumándola consigo misma queda determinante cuatro."
+    ],
+    "explanation": "La condición que define al conjunto es lo único que hay que mirar, y conviene probarla contra las dos operaciones.\n$$\\begin{pmatrix} 1 & 5 \\\\ 0 & 3 \\end{pmatrix} + \\begin{pmatrix} 2 & 0 \\\\ 0 & 4 \\end{pmatrix} = \\begin{pmatrix} 3 & 5 \\\\ 0 & 7 \\end{pmatrix}$$\nEn $S_1$ el cero de esa posición se conserva, porque cero más cero es cero y cualquier múltiplo de cero también lo es.\n\nLas otras dos condiciones fijan un valor distinto de cero, y ahí la suma lo duplica en lugar de mantenerlo.\n\nEsa es la diferencia que decide: una condición igualada a cero sobrevive a las operaciones, y una igualada a otro número no.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-si-es-espacio-vectorial"
+    ]
+  },
+  {
+    "question": "Tres conjuntos de polinomios quedan descriptos por condiciones sobre sus coeficientes.\n$$p(x) = ax^2 + bx + c$$\n$$S_1: c = 0 \\qquad S_2: c = 1$$\n$$S_3: a \\neq 0$$\n¿Cuál de los tres es un espacio vectorial?",
+    "options": [
+      "$S_2$",
+      "$S_3$",
+      "$S_1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Sumar dos polinomios sin término independiente deja el resultado sin término independiente.",
+    "feedback_incorrect": [
+      "Sumando dos polinomios con término independiente uno queda un dos en ese lugar.",
+      "Ese conjunto reúne los de grado exactamente dos, y sumando dos de ellos el grado puede bajar.",
+      null
+    ],
+    "explanation": "Cada condición se pone a prueba operando dos elementos que la cumplen y mirando si el resultado también la cumple.\n$$(3x^2 - x) + (x^2 + 4x) = 4x^2 + 3x$$\nEn $S_1$ los dos términos independientes valen cero, así que el del resultado también, y escalar tampoco lo despierta.\n\nEn $S_2$ los dos valen uno y el resultado queda con dos, que ya no cumple la condición.\n\nEn $S_3$ el problema es el opuesto: los coeficientes principales pueden cancelarse entre sí y dejar un polinomio que ya no tiene grado dos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-si-es-espacio-vectorial"
+    ]
+  },
+  {
+    "question": "Tres conjuntos de números se consideran con la suma y el producto por un número real cualquiera.\n$$\\mathbb{R}, \\quad \\mathbb{Z}, \\quad \\{x : x > 0\\}$$\n¿Cuál de los tres es un espacio vectorial?",
+    "options": [
+      "El conjunto de todos los números reales",
+      "El conjunto de todos los números enteros",
+      "El conjunto de los números positivos"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Sumar dos reales o multiplicar uno por un real siempre devuelve otro número real.",
+    "feedback_incorrect": [
+      null,
+      "Multiplicar un entero por un medio da un número que ya dejó de ser entero.",
+      "Multiplicar un número positivo por menos uno da uno negativo, que queda afuera."
+    ],
+    "explanation": "Los números reales forman un espacio vectorial con sus propias operaciones, y es el ejemplo más chico que existe fuera del trivial.\n$$\\tfrac{1}{2} \\cdot 7 = 3{,}5$$\nLos enteros aguantan la suma pero no el producto por un escalar cualquiera, porque el escalar puede ser una fracción.\n\nLos positivos aguantan la suma y los escalares positivos, y se rompen con el primer escalar negativo que aparezca.\n\nEn los dos casos el conjunto se defiende bien contra una operación y cae con la otra, que es la razón por la que hay que revisar siempre las dos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-si-es-espacio-vectorial"
+    ]
+  },
+  {
+    "question": "Un conjunto puede tener un solo elemento y cumplir la definición sin ningún problema.\n$$S = \\{\\begin{pmatrix} 0 & 0 \\\\ 0 & 0 \\end{pmatrix}\\}$$\n¿Es un espacio vectorial?",
+    "options": [
+      "No, porque no hay ningún elemento que funcione como neutro",
+      "Sí, porque sumarlo o escalarlo devuelve siempre ese mismo elemento",
+      "No, porque un espacio vectorial tiene que tener infinitos elementos"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La única suma posible da la matriz nula, y cualquier múltiplo suyo también.",
+    "feedback_incorrect": [
+      "La matriz nula es justamente el neutro, y sumarla no cambia nada.",
+      null,
+      "No hay ninguna condición sobre la cantidad de elementos, solo sobre cómo se comportan."
+    ],
+    "explanation": "El conjunto formado únicamente por el elemento neutro cumple todo lo que la definición pide, y por eso cuenta como espacio vectorial.\n$$\\begin{pmatrix} 0 & 0 \\\\ 0 & 0 \\end{pmatrix} + \\begin{pmatrix} 0 & 0 \\\\ 0 & 0 \\end{pmatrix} = \\begin{pmatrix} 0 & 0 \\\\ 0 & 0 \\end{pmatrix}$$\nLa única suma disponible cae adentro, y multiplicar por cualquier número también devuelve la misma matriz.\n\nLas demás condiciones se verifican solas, porque hay un único elemento con el cual escribirlas.\n\nEs el ejemplo más chico posible, y conviene tenerlo presente: la definición no pide tamaño, pide comportamiento.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-si-es-espacio-vectorial"
+    ]
+  },
+  {
+    "question": "Los números enteros positivos, con las operaciones habituales, no llegan a ser un espacio vectorial.\n$$\\{1, 2, 3, 4, \\dots\\}$$\n¿Cuál de estas condiciones es una de las que les falla?",
+    "options": [
+      "Ningún elemento tiene un opuesto dentro del conjunto",
+      "La suma de dos de ellos puede caer fuera del conjunto",
+      "La suma no es asociativa entre números enteros positivos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El opuesto de un entero positivo es negativo, y los negativos no están en el conjunto.",
+    "feedback_incorrect": [
+      null,
+      "La suma de dos enteros positivos siempre es un entero positivo, esa condición sí se cumple.",
+      "La asociatividad se hereda de los números reales y vale sin ningún problema acá."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Entre las condiciones de espacio vectorial hay una que exige que cada elemento tenga su **opuesto** dentro del conjunto, el que sumado a él devuelve el neutro.\n\nEn los enteros positivos eso es imposible. El único candidato a opuesto de $5$ es $-5$, que quedó afuera por definición del conjunto.\n\nY el neutro tampoco está, porque el cero no es positivo. Las dos ausencias vienen de la misma restricción.\n\nTampoco sobrevive el producto por un escalar, porque multiplicar por un medio saca del conjunto enseguida. La falla del opuesto es la que se detecta sin hacer ninguna cuenta.\n\nLo que sí se cumple es la clausura de la suma, y por eso el caso obliga a mirar más allá de la primera condición.",
+    "reviewed": false,
+    "tags": [
+      "identificar-la-condicion-que-falla"
+    ]
+  },
+  {
+    "question": "Los polinomios de grado exactamente dos no llegan a formar un espacio vectorial.\n$$\\{p : p(x) = ax^2+bx+c,\\ a \\neq 0\\}$$\n¿Cuál es la condición que les falla?",
+    "options": [
+      "La suma entre ellos deja de ser una operación conmutativa",
+      "La suma de dos de ellos puede caer fuera del conjunto",
+      "Ninguno de ellos tiene su opuesto dentro del conjunto"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Dos polinomios de grado dos pueden cancelar su término principal al sumarse.",
+    "feedback_incorrect": [
+      "La conmutatividad se hereda de los números reales y no se rompe en ningún caso.",
+      null,
+      "El opuesto de un polinomio de grado dos también tiene grado dos, así que está adentro."
+    ],
+    "explanation": "Pedir el grado **exacto** convierte a la cancelación del término principal en una fuga del conjunto.\n$$(5x^2 + x) + (-5x^2 + 3) = x + 3$$\nLos dos polinomios de la izquierda tienen grado dos y el resultado tiene grado uno, así que la suma se salió.\n\nEl opuesto, en cambio, nunca es problema, porque cambiarle el signo a un polinomio de grado dos devuelve otro de grado dos.\n\nCon pedir grado menor o igual a dos, la misma cuenta pasa a estar permitida y el conjunto sí califica.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-la-condicion-que-falla"
+    ]
+  },
+  {
+    "question": "Las matrices inversibles de dos por dos se quedan a mitad de camino de ser un espacio vectorial.\n$$\\{A : \\det(A) \\neq 0\\}$$\n¿Cuál de estas condiciones les falla?",
+    "options": [
+      "El producto entre dos de ellas puede caer fuera del conjunto",
+      "Ninguna de ellas tiene su opuesta dentro del conjunto",
+      "El conjunto no contiene al elemento neutro de la suma"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La matriz con las cuatro entradas en cero no es inversible, así que el neutro quedó afuera.",
+    "feedback_incorrect": [
+      "El determinante de un producto es el producto de los determinantes, así que no se anula.",
+      "La opuesta de una matriz inversible tiene el mismo determinante, así que también es inversible.",
+      null
+    ],
+    "explanation": "El elemento neutro de la suma en las matrices de dos por dos es la matriz con las cuatro entradas en cero.\n$$\\det \\begin{pmatrix} 0 & 0 \\\\ 0 & 0 \\end{pmatrix} = 0$$\nSu determinante vale cero, así que no pertenece al conjunto de las inversibles y ahí falla una condición que la definición exige.\n\nEl producto se porta bien, porque el determinante de un producto es el producto de los determinantes y ninguno de los dos se anula.\n\nLa suma también falla por su cuenta, porque dos matrices inversibles pueden sumar una que no lo sea, y el caso del neutro es apenas el más visible.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-la-condicion-que-falla"
+    ]
+  },
+  {
+    "question": "El conjunto de los vectores del plano que miden exactamente uno tampoco califica.\n$$\\{\\vec{v} : \\|\\vec{v}\\| = 1\\}$$\n¿Cuál es la condición que se rompe?",
+    "options": [
+      "Multiplicar uno de ellos por dos lo saca del conjunto",
+      "El conjunto no contiene ningún vector con una coordenada nula",
+      "La suma entre ellos deja de ser una operación asociativa"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Al duplicar un vector su longitud también se duplica, y deja de valer uno.",
+    "feedback_incorrect": [
+      null,
+      "El par que vale uno en una coordenada y cero en la otra mide uno y pertenece al conjunto.",
+      "La asociatividad se hereda del plano y vale para cualquier subconjunto suyo."
+    ],
+    "explanation": "Multiplicar por un escalar estira o encoge, y este conjunto está definido justamente por una longitud fija.\n$$\\|2\\vec{v}\\| = 2\\|\\vec{v}\\| = 2$$\nEl resultado mide dos, así que dejó de cumplir la condición y se salió del conjunto.\n\nLo mismo pasa con casi cualquier escalar. Los únicos que dejan la longitud intacta son el uno y el menos uno.\n\nCualquier conjunto definido por un tamaño fijo va a fallar por la misma razón, y por eso la longitud no aparece en la definición de espacio vectorial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-la-condicion-que-falla"
+    ]
+  },
+  {
+    "question": "Los pares de coordenadas enteras se pueden sumar entre sí sin salirse nunca del conjunto.\n$$\\{(x,y) : x,\\ y \\text{ enteros}\\}$$\n¿Cuál es la condición que les falla?",
+    "options": [
+      "Ninguno de ellos tiene su opuesto dentro del conjunto",
+      "Multiplicarlos por un número que no sea entero los saca del conjunto",
+      "La suma de dos de ellos puede dar coordenadas que no son enteras"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los escalares son todos los números reales, y una fracción rompe las coordenadas enteras.",
+    "feedback_incorrect": [
+      "El opuesto de un par de enteros tiene las dos coordenadas enteras, así que pertenece.",
+      null,
+      "Sumar dos números enteros siempre da otro entero, así que esa operación no falla."
+    ],
+    "explanation": "El conjunto resiste la suma sin ninguna dificultad, y ese es justamente el motivo por el que conviene revisar la otra operación.\n$$\\tfrac{1}{2} \\cdot (3, 5) = (3/2,\\ 5/2)$$\nEl escalar puede ser cualquier número real, así que alcanza con una fracción para que las coordenadas dejen de ser enteras.\n\nEl opuesto tampoco es problema, porque cambiar de signo dos enteros devuelve dos enteros.\n\nEs el mismo fenómeno que aparece con los números enteros solos, y la lección es que un conjunto elegido por una propiedad aritmética rara vez sobrevive a los escalares.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-la-condicion-que-falla"
+    ]
+  },
+  {
+    "question": "En cada espacio vectorial hay un elemento que sumado a cualquier otro lo deja igual.\n$$\\vec{v} + \\vec{0} = \\vec{v}$$\n¿Cuál es ese elemento en el espacio de las matrices de $2 \\times 2$?",
+    "options": [
+      "La matriz con sus cuatro entradas en cero",
+      "La matriz identidad de orden dos",
+      "La matriz con sus cuatro entradas en uno"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Sumarla deja cada casillero como estaba, porque le agrega cero a cada uno.",
+    "feedback_incorrect": [
+      null,
+      "Esa es la que deja igual al multiplicar, no al sumar, y son dos operaciones distintas.",
+      "Sumarla le agrega uno a cada casillero, así que cambia la matriz."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **vector nulo** de un espacio es el que no modifica a ningún otro cuando se lo suma, y su forma depende del espacio.\n\nEn las matrices de $2 \\times 2$ la suma se hace casillero por casillero, así que el neutro tiene que aportar cero en cada uno.\n$$\\begin{pmatrix} 0 & 0 \\\\ 0 & 0 \\end{pmatrix}$$\nLa identidad es una tentación fuerte porque también es un neutro, pero lo es para el producto, que es otra operación.\n\nEn el plano el neutro es el par con las dos componentes nulas, y en $P_2$ es el polinomio con sus tres coeficientes en cero.\n\nSiempre es el elemento cuyas partes valen cero, escrito con la forma que tenga el espacio.",
+    "reviewed": false,
+    "tags": [
+      "reconocer-el-vector-nulo"
+    ]
+  },
+  {
+    "question": "El elemento neutro de la suma toma una forma distinta en cada espacio.\n$$p(x) + \\vec{0} = p(x)$$\n¿Cuál es el vector nulo del espacio de los polinomios de grado a lo sumo dos?",
+    "options": [
+      "La terna formada por tres ceros",
+      "El polinomio con sus tres coeficientes en cero",
+      "El polinomio constante que vale uno en todos lados"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sumarlo no cambia ningún coeficiente, porque le agrega cero a cada uno.",
+    "feedback_incorrect": [
+      "El vector nulo de un espacio de polinomios tiene que ser un polinomio, no una terna.",
+      null,
+      "Ese es el neutro del producto entre números, y la operación de acá es la suma."
+    ],
+    "explanation": "El **vector nulo** se reconoce por lo que hace, no por su aspecto: es el que sumado a cualquier otro lo deja igual.\n$$(3x^2 - x + 4) + 0 = 3x^2 - x + 4$$\nEn un espacio de polinomios eso lo cumple el polinomio cuyos coeficientes son todos cero, porque cada grado recibe un cero.\n\nEl polinomio constante uno no sirve, porque sumarlo corre el término independiente en una unidad.\n\nY la terna de ceros tampoco, porque no es un polinomio: el neutro tiene que ser un elemento del mismo espacio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-el-vector-nulo"
+    ]
+  },
+  {
+    "question": "En un espacio vectorial el vector nulo es el que sumado a cualquier otro lo deja igual.\n$$\\vec{v} + \\vec{0} = \\vec{v}$$\n¿Puede haber dos elementos distintos con esa propiedad?",
+    "options": [
+      "Sí, uno para la suma y otro para el producto por un escalar",
+      "Sí, siempre que el espacio tenga infinitos elementos distintos",
+      "No, porque cada uno dejaría igual al otro y resultarían ser el mismo"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Sumándolos entre sí, el resultado tiene que ser los dos a la vez.",
+    "feedback_incorrect": [
+      "El producto por escalar no tiene un neutro propio adentro del espacio, el uno es un número.",
+      "La cantidad de elementos no interviene, el argumento vale en cualquier espacio.",
+      null
+    ],
+    "explanation": "Que el neutro sea único no se pide en la definición, se demuestra, y la demostración cabe en una línea.\n$$\\vec{0}_1 + \\vec{0}_2 = \\vec{0}_1$$\nSi hubiera dos, se los puede sumar entre sí. Como el segundo es neutro, el resultado es el primero.\n\nComo el primero también es neutro, el mismo resultado es el segundo. Los dos son entonces el mismo elemento.\n\nPor eso se habla de **el** vector nulo de un espacio, y no de uno entre varios posibles.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-el-vector-nulo"
+    ]
+  },
+  {
+    "question": "Multiplicar un elemento cualquiera por el escalar cero da siempre el mismo resultado.\n$$p(x) = 4x^3 - x + 2$$\n¿Qué se obtiene al multiplicarlo por cero?",
+    "options": [
+      "El polinomio con todos sus coeficientes en cero",
+      "El número cero, sin ninguna potencia de la variable",
+      "El polinomio constante que vale dos en todos lados"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Cada coeficiente se multiplica por cero, y el resultado sigue siendo un polinomio.",
+    "feedback_incorrect": [
+      null,
+      "El resultado pertenece al mismo espacio, así que tiene que ser un polinomio y no un número.",
+      "El término independiente también se multiplica por cero, no queda intacto."
+    ],
+    "explanation": "Multiplicar por el escalar cero es una operación permitida, y su resultado es el vector nulo del espacio donde se esté trabajando.\n$$0 \\cdot (4x^3 - x + 2) = 0x^3 + 0x + 0$$\nCada coeficiente queda multiplicado por cero, incluido el término independiente, así que el resultado es el polinomio nulo.\n\nEscribir el número cero pelado parece lo mismo, y no lo es. El resultado de una operación del espacio es siempre un elemento del espacio.\n\nEsa distinción es la que permite después hablar del vector nulo de las matrices o de las ternas sin confundirlo con el número.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-el-vector-nulo"
+    ]
+  },
+  {
+    "question": "El opuesto de un elemento es el que sumado a él devuelve el vector nulo del espacio.\n$$\\vec{v} + (-\\vec{v}) = \\vec{0}$$\n¿Qué elemento resulta ser su propio opuesto?",
+    "options": [
+      "El que se obtiene multiplicando a cualquier otro por uno",
+      "El vector nulo, y además es el único que lo cumple",
+      "Cualquiera que tenga todas sus componentes iguales entre sí"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sumando el nulo consigo mismo se obtiene el nulo, que es exactamente lo pedido.",
+    "feedback_incorrect": [
+      "Multiplicar por uno devuelve el mismo elemento, que rara vez es su propio opuesto.",
+      null,
+      "Sumar dos veces un par con las coordenadas iguales lo duplica, no lo cancela."
+    ],
+    "explanation": "Un elemento es su propio opuesto cuando sumado a sí mismo da el vector nulo, y eso deja muy poco margen.\n$$\\vec{v} + \\vec{v} = \\vec{0} \\implies 2\\vec{v} = \\vec{0}$$\nDividiendo por dos queda que el elemento es el vector nulo, así que no hay ningún otro candidato.\n\nEn el plano se ve directo: el único par que sumado a sí mismo da el par nulo es el que ya tenía las dos coordenadas en cero.\n\nEl mismo argumento vale en cualquier espacio, porque usa nada más que la suma y el producto por un escalar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-el-vector-nulo"
+    ]
   }
 ]

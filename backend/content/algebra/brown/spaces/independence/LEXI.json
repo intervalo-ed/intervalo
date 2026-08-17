@@ -1,22 +1,371 @@
 [
   {
-    "question": "¿Cuándo un conjunto de vectores es **linealmente independiente**?",
+    "question": "Dentro de un conjunto de vectores, se dice que uno es redundante cuando el conjunto se puede achicar sin perder nada.\n$$\\{\\vec{v}_1, \\dots, \\vec{v}_k\\} \\to \\{\\vec{v}_1, \\dots, \\vec{v}_{k-1}\\}$$\n¿Qué es exactamente lo que no se pierde al sacarlo?",
     "options": [
-      "Cuando la única combinación lineal que da $\\vec{0}$ es la trivial ($c_i=0$)",
-      "Cuando todos los vectores son paralelos entre sí",
-      "Cuando la cantidad de vectores es mayor que la dimensión del espacio"
+      "El conjunto de vectores que se alcanzan combinando los que quedan",
+      "La cantidad de vectores que tenía el conjunto original",
+      "La posibilidad de escribir al vector nulo como combinación de ellos"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Un conjunto es independiente si solo la combinación trivial (todos los escalares en cero) da el vector nulo.",
+    "feedback_correct": "El vector redundante ya estaba alcanzado por los otros, así que sacarlo no achica el generado.",
     "feedback_incorrect": [
       null,
-      "Vectores paralelos son, de hecho, el caso típico de dependencia lineal.",
-      "Tener más vectores que la dimensión del espacio garantiza dependencia, no independencia."
+      "Esa cantidad justamente sí baja, y esa es la ganancia de sacar el vector que sobra.",
+      "El vector nulo se escribe con todos los coeficientes en cero, y eso se puede siempre."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un conjunto de vectores es **linealmente independiente** si ninguno puede expresarse como combinación lineal del resto.\n$$c_1\\vec{v}_1 + \\dots + c_k\\vec{v}_k = \\vec{0} \\implies c_i = 0$$\n\nLa única forma de obtener el vector nulo con esa combinación es que todos los coeficientes sean cero.\n\nEsto asegura que cada vector del conjunto aporta una dirección genuinamente nueva, sin redundancia.",
-    "reviewed": false
+    "explanation": "Que un vector sea **redundante** dentro de un conjunto significa que ya se podía armar combinando los demás, así que agregarlo no amplió el alcance.\n\nEn el plano, este conjunto genera todo, y los dos primeros vectores solos también.\n$$\\{(1,0), (0,1), (2,3)\\}$$\nSacar el tercero deja el mismo generado con menos vectores escritos, y eso es exactamente lo que se busca al hablar de independencia.\n\nLa palabra que se usa cuando hay al menos un vector redundante es **linealmente dependiente**, y lo que describe es que al conjunto le sobra algo, no que haya un error de cálculo.",
+    "reviewed": false,
+    "tags": [
+      "que-significa-redundante"
+    ]
+  },
+  {
+    "question": "Un conjunto de vectores tiene uno que se arma combinando los otros.\n$$\\vec{v}_3 = \\alpha_1\\vec{v}_1 + \\alpha_2\\vec{v}_2$$\n¿Eso significa que hay un error en el conjunto?",
+    "options": [
+      "Sí, porque el tercer vector fue mal calculado a partir de los otros",
+      "No, significa que ese vector repite información que ya estaba",
+      "Sí, porque un conjunto no puede tener vectores relacionados entre sí"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La dependencia describe una relación entre los vectores, no una equivocación.",
+    "feedback_incorrect": [
+      "Los vectores están donde tienen que estar, lo único que pasa es que uno ya estaba alcanzado.",
+      null,
+      "Los vectores de un conjunto pueden relacionarse como quieran, eso no lo invalida."
+    ],
+    "explanation": "Que un conjunto sea **linealmente dependiente** no es un diagnóstico de error, es una descripción de cómo se relacionan sus vectores.\n$$\\{(1,0), (0,1), (2,3)\\}$$\nEl tercer vector de ese conjunto se arma con los dos primeros, y aun así el conjunto es perfectamente legítimo y generará todo el plano.\n\nLo único que ocurre es que la descripción tiene datos repetidos, así que se la puede acortar.\n\nConfundir la dependencia con un defecto lleva a descartar conjuntos que sirven, cuando lo que corresponde es simplemente sacar lo que sobra.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-significa-redundante"
+    ]
+  },
+  {
+    "question": "Dos vectores de un conjunto apuntan exactamente en la misma dirección.\n$$\\vec{v}_2 = 4\\vec{v}_1$$\n¿Por qué se dice que uno de los dos sobra?",
+    "options": [
+      "Porque los dos tienen que apuntar en direcciones opuestas para servir",
+      "Porque un conjunto no puede tener dos vectores de la misma longitud",
+      "Porque todo lo que se alcanza con los dos ya se alcanzaba con uno"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El segundo es un múltiplo del primero, así que no agrega ningún destino nuevo.",
+    "feedback_incorrect": [
+      "Apuntar en direcciones opuestas es lo mismo que apuntar en la misma, uno sigue siendo múltiplo.",
+      "Las longitudes no intervienen para nada, lo que importa son las direcciones.",
+      null
+    ],
+    "explanation": "Un vector sobra cuando su presencia no agranda el conjunto de destinos alcanzables.\n$$\\alpha_1\\vec{v}_1 + \\alpha_2(4\\vec{v}_1) = (\\alpha_1 + 4\\alpha_2)\\vec{v}_1$$\nCualquier combinación de los dos termina siendo un múltiplo del primero, así que el alcance es el mismo que tenía él solo.\n\nPor eso la palabra clave es **alcance** y no cantidad: dos vectores escritos, una sola dirección efectiva.\n\nEl caso de dos vectores opuestos entra en la misma bolsa, porque menos uno también es un número y el segundo sigue siendo múltiplo del primero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-significa-redundante"
+    ]
+  },
+  {
+    "question": "En un conjunto dependiente, distintos vectores podrían ser los que sobran.\n$$\\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\}$$\n¿De qué depende cuál es el redundante?",
+    "options": [
+      "De la relación entre los tres, no del orden en que se escriben",
+      "Del orden en que aparecen, porque siempre sobra el último",
+      "Del tamaño de cada uno, porque siempre sobra el más largo"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La dependencia es una propiedad del conjunto entero, y el orden no interviene.",
+    "feedback_incorrect": [
+      null,
+      "El orden es una elección de quien escribe, y la relación entre los vectores no cambia por eso.",
+      "La longitud de los vectores no aparece en ninguna parte de la definición."
+    ],
+    "explanation": "La dependencia describe una relación entre todos los vectores a la vez, y esa relación no distingue posiciones.\n$$3\\vec{v}_1 + 2\\vec{v}_2 - \\vec{v}_3 = \\vec{0}$$\nEn una relación así, cualquiera de los tres vectores se puede despejar y quedar escrito con los otros dos, porque los tres coeficientes son distintos de cero.\n\nElegir cuál sacar es entonces una decisión práctica y no una consecuencia de la relación.\n\nLa única excepción es un vector cuyo coeficiente en la relación valga cero: ese no se puede despejar, y por lo tanto no es candidato a sobrar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-significa-redundante"
+    ]
+  },
+  {
+    "question": "Cualquier conjunto de tres vectores del plano resulta ser dependiente.\n$$\\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\} \\subset \\mathbb{R}^2$$\n¿Por qué pasa siempre, sin mirar cuáles son?",
+    "options": [
+      "Porque el tercero siempre resulta ser la suma exacta de los otros dos",
+      "Porque con dos direcciones ya se cubre el plano y el tercero queda adentro",
+      "Porque tres vectores del plano nunca pueden apuntar a lados distintos"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Si los dos primeros ya alcanzan todo el plano, el tercero está necesariamente alcanzado.",
+    "feedback_incorrect": [
+      "Es una combinación de los otros dos, pero no tiene por qué ser justo la suma.",
+      null,
+      "Pueden apuntar a tres lados distintos, y aun así el conjunto es dependiente."
+    ],
+    "explanation": "El resultado vale para **cualquier** terna de vectores del plano, y el argumento no usa sus valores concretos.\n$$\\vec{v}_3 \\in \\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\}$$\nSi los dos primeros no son múltiplos entre sí, ya alcanzan todo el plano, así que el tercero está necesariamente adentro de lo que ellos generan.\n\nY si sí son múltiplos, el conjunto ya era dependiente por esa vía, sin necesidad de mirar el tercero.\n\nLos dos casos posibles llevan a lo mismo, y por eso la conclusión se puede sacar contando vectores y coordenadas, sin hacer una sola cuenta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-significa-redundante"
+    ]
+  },
+  {
+    "question": "Un vector de un conjunto se puede escribir usando los otros dos.\n$$\\vec{v}_3 = 2\\vec{v}_1 - \\vec{v}_2$$\n¿Cómo queda esa misma información escrita con el vector nulo de un lado?",
+    "options": [
+      "$2\\vec{v}_1 - \\vec{v}_2 - \\vec{v}_3 = \\vec{0}$",
+      "$2\\vec{v}_1 - \\vec{v}_2 + \\vec{v}_3 = \\vec{0}$",
+      "$\\vec{v}_1 + \\vec{v}_2 + \\vec{v}_3 = \\vec{0}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Pasar el tercer vector al otro lado le cambia el signo, y queda una combinación nula con coeficientes no nulos.",
+    "feedback_incorrect": [
+      null,
+      "El tercer vector estaba solo de un lado, así que al pasarlo tiene que cambiar de signo.",
+      "Esa igualdad no sale de la dada, los coeficientes dos y menos uno no pueden desaparecer."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Las dos maneras de decir que un conjunto es **linealmente dependiente** son la misma afirmación, separadas por un pasaje de términos.\n\nLa versión intuitiva dice que un vector se arma con los otros. Pasando todo a un lado se llega a la versión que se calcula.\n$$2\\vec{v}_1 - \\vec{v}_2 - \\vec{v}_3 = \\vec{0}$$\nLo importante es que el coeficiente del vector despejado quedó valiendo menos uno, que no es cero. Por eso esta combinación cuenta como no trivial.\n\nY el camino de vuelta también funciona. Si hay una combinación nula con algún coeficiente distinto de cero, ese vector se puede despejar y escribir con los demás.\n\nTener las dos versiones a mano es lo que permite entender qué se está midiendo y además poder calcularlo.",
+    "reviewed": false,
+    "tags": [
+      "traducir-entre-las-dos-versiones"
+    ]
+  },
+  {
+    "question": "Una combinación de tres vectores da el vector nulo con coeficientes no nulos.\n$$3\\vec{v}_1 - \\vec{v}_2 + 2\\vec{v}_3 = \\vec{0}$$\n¿Cómo queda el segundo vector escrito con los otros dos?",
+    "options": [
+      "$\\vec{v}_2 = 3\\vec{v}_1 - 2\\vec{v}_3$",
+      "$\\vec{v}_2 = 3\\vec{v}_1 + 2\\vec{v}_3$",
+      "$\\vec{v}_2 = -3\\vec{v}_1 - 2\\vec{v}_3$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El segundo pasa al otro lado y cambia de signo, junto con toda la igualdad.",
+    "feedback_incorrect": [
+      "El último término mantiene su signo al pasar el segundo vector al otro lado.",
+      null,
+      "Los dos términos cambiaron de signo de más, el segundo vector ya venía restando."
+    ],
+    "explanation": "Despejar un vector de una combinación nula es el mismo pasaje de términos de cualquier ecuación.\n$$-\\vec{v}_2 = -3\\vec{v}_1 - 2\\vec{v}_3$$\nDejando solo al segundo vector de un lado queda esa igualdad, y multiplicando todo por menos uno se llega a la forma pedida.\n$$\\vec{v}_2 = 3\\vec{v}_1 + 2\\vec{v}_3$$\nEl paso que más se equivoca es cambiar de signo un solo término en lugar de toda la igualdad.\n\nQue el coeficiente del segundo vector no sea cero es justamente lo que permite despejarlo. Si valiera cero, ese vector no aparecería en la relación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "traducir-entre-las-dos-versiones"
+    ]
+  },
+  {
+    "question": "Un vector resulta ser un múltiplo de otro dentro del mismo conjunto.\n$$\\vec{v}_2 = -4\\vec{v}_1$$\n¿Cómo queda esa información escrita con el vector nulo de un lado?",
+    "options": [
+      "$4\\vec{v}_1 - \\vec{v}_2 = \\vec{0}$",
+      "$\\vec{v}_1 + \\vec{v}_2 = \\vec{0}$",
+      "$4\\vec{v}_1 + \\vec{v}_2 = \\vec{0}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Pasando el término de la derecha al otro lado, su signo se invierte y queda sumando.",
+    "feedback_incorrect": [
+      "El término que se pasa cambia de signo, así que el cuatro queda positivo y el otro sumando.",
+      "El coeficiente cuatro no puede desaparecer, es parte de la relación entre los dos vectores.",
+      null
+    ],
+    "explanation": "La versión que se calcula se obtiene pasando todo a un lado de la igualdad.\n$$\\vec{v}_2 + 4\\vec{v}_1 = \\vec{0}$$\nEl término que estaba a la derecha cruza cambiando de signo, y menos cuatro se vuelve más cuatro.\n\nLos dos coeficientes que quedaron son distintos de cero, y eso es exactamente lo que hace que la combinación cuente como no trivial.\n\nEl camino de vuelta también funciona, y esa ida y vuelta es la que conecta la idea de que un vector sobra con la cuenta que lo detecta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "traducir-entre-las-dos-versiones"
+    ]
+  },
+  {
+    "question": "Una combinación nula tiene uno de sus coeficientes valiendo cero.\n$$2\\vec{v}_1 - 6\\vec{v}_2 + 0\\vec{v}_3 = \\vec{0}$$\n¿Qué vector no se puede despejar de esa relación?",
+    "options": [
+      "El tercero, porque su coeficiente en la relación vale cero",
+      "El primero, porque es el que tiene el coeficiente más chico",
+      "Ninguno, porque de una combinación nula se despeja cualquiera"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Al despejarlo habría que dividir por cero, así que ese camino no está disponible.",
+    "feedback_incorrect": [
+      null,
+      "El primer coeficiente es distinto de cero, así que ese vector sí se puede despejar.",
+      "Solo se pueden despejar los vectores cuyo coeficiente no sea cero."
+    ],
+    "explanation": "Despejar un vector de una combinación nula obliga a dividir por su coeficiente, así que hace falta que ese coeficiente no sea cero.\n$$\\vec{v}_1 = 3\\vec{v}_2$$\nLos dos primeros vectores sí se despejan, y la relación entre ellos queda a la vista.\n\nEl tercero, en cambio, ni siquiera participa: su término se anula, así que la relación no dice nada sobre él.\n\nPor eso una combinación nula no trivial señala a algunos vectores como redundantes y deja a otros afuera del asunto, según qué coeficientes tenga.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "traducir-entre-las-dos-versiones"
+    ]
+  },
+  {
+    "question": "De un conjunto se sabe que existe una combinación nula con algún coeficiente distinto de cero.\n$$\\alpha_1\\vec{v}_1 + \\dots + \\alpha_k\\vec{v}_k = \\vec{0}$$\n¿Qué se puede concluir?",
+    "options": [
+      "Que ninguno de los vectores puede escribirse con los demás",
+      "Que al menos uno de los vectores se escribe con los demás",
+      "Que todos los vectores se escriben con los demás"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El vector cuyo coeficiente no es cero se despeja y queda escrito con los otros.",
+    "feedback_incorrect": [
+      "Justamente al revés: la existencia de esa combinación garantiza que alguno se despeja.",
+      null,
+      "Solo se despejan los que tienen coeficiente no nulo, y puede haber varios en cero."
+    ],
+    "explanation": "La traducción entre las dos versiones funciona en los dos sentidos, y este es el camino de vuelta.\n$$\\vec{v}_1 = -\\tfrac{\\alpha_2}{\\alpha_1}\\vec{v}_2 - \\dots$$\nTomando cualquier vector cuyo coeficiente no sea cero y despejándolo, queda escrito como combinación de todos los demás.\n\nLa conclusión es entonces que **alguno** sobra, no que sobren todos: los que tienen coeficiente cero no quedan señalados por esta relación.\n\nTener las dos versiones a mano permite saber qué se está midiendo y además poder calcularlo, que es justo lo que una sola de las dos no da.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "traducir-entre-las-dos-versiones"
+    ]
+  },
+  {
+    "question": "La independencia lineal exige que la única combinación que da el vector nulo sea la de todos los coeficientes en cero.\n$$\\alpha_1\\vec{v}_1 + \\dots + \\alpha_k\\vec{v}_k = \\vec{0}$$\n¿Por qué se elige el vector nulo para plantear la condición?",
+    "options": [
+      "Porque preguntar por él equivale a preguntar por todos los vectores del conjunto a la vez",
+      "Porque el vector nulo es el único que pertenece a cualquier conjunto de vectores",
+      "Porque es el único vector que no se puede escribir como combinación de los demás"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Una combinación nula no trivial revela de inmediato que alguno de los vectores se despeja con los otros.",
+    "feedback_incorrect": [
+      null,
+      "El vector nulo no pertenece a cualquier conjunto de vectores, y de hecho tenerlo adentro produce dependencia.",
+      "Se escribe con todos los coeficientes en cero, así que es el más fácil de armar de todos."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Preguntar de cuántas maneras se llega al vector nulo es una forma económica de preguntar por todos los vectores del conjunto de una sola vez.\n$$\\alpha_1\\vec{v}_1 + \\dots + \\alpha_k\\vec{v}_k = \\vec{0}$$\nSiempre existe una manera, la de todos los coeficientes en cero, y por eso se la llama trivial. Como está disponible para cualquier conjunto, no distingue nada.\n\nLo informativo es si hay **otra**. Si aparece una con algún coeficiente distinto de cero, ese vector se despeja y queda escrito con los demás, o sea que sobraba.\n\nPor eso la definición no dice que exista una combinación nula, dice que la trivial sea la única.",
+    "reviewed": false,
+    "tags": [
+      "por-que-se-define-con-el-nulo"
+    ]
+  },
+  {
+    "question": "La condición de independencia se plantea igualando una combinación al vector nulo.\n$$\\alpha_1\\vec{v}_1 + \\dots + \\alpha_k\\vec{v}_k = \\vec{0}$$\n¿Por qué se elige el vector nulo y no otro?",
+    "options": [
+      "Porque es el único vector que no pertenece a ningún generado",
+      "Porque es el único al que llega cualquier conjunto de vectores",
+      "Porque es el más fácil de calcular entre todos los vectores"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Con cualquier otro vector la pregunta dependería de si el conjunto lo alcanza.",
+    "feedback_incorrect": [
+      "El vector nulo pertenece a todos los generados, no a ninguno.",
+      null,
+      "No se trata de facilidad, sino de que sea alcanzable para cualquier conjunto."
+    ],
+    "explanation": "Igualar al vector nulo no es una elección cómoda, es la única que sirve para todos los conjuntos.\n$$0\\vec{v}_1 + \\dots + 0\\vec{v}_k = \\vec{0}$$\nCualquier conjunto llega al vector nulo, con todos los coeficientes en cero, así que la pregunta siempre tiene sentido.\n\nCon otro vector la respuesta dependería de si el conjunto lo alcanza, y eso mezclaría dos preguntas distintas.\n\nAsí queda separado: el alcance es una pregunta y la economía es otra, y esta condición mide solo la segunda.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-se-define-con-el-nulo"
+    ]
+  },
+  {
+    "question": "De un conjunto se comprueba que la única combinación nula es la de todos los coeficientes en cero.\n$$\\alpha_i = 0 \\quad \\text{para todo } i$$\n¿Qué se concluye?",
+    "options": [
+      "Que sus vectores alcanzan todos los puntos del espacio",
+      "Que el conjunto contiene al vector nulo entre sus elementos",
+      "Que ninguno de sus vectores se puede armar con los demás"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Si alguno se armara con los otros, habría una combinación nula con coeficientes no nulos.",
+    "feedback_incorrect": [
+      "El alcance es una pregunta separada, y esta condición no dice nada sobre él.",
+      "Un conjunto con el vector nulo adentro tiene combinaciones nulas de sobra, así que sería lo opuesto.",
+      null
+    ],
+    "explanation": "Que la combinación trivial sea la **única** es exactamente la negación de que algún vector sobre.\n$$\\alpha_1\\vec{v}_1 + \\dots + \\alpha_k\\vec{v}_k = \\vec{0}$$\nSi algún vector se armara con los demás, pasando todo a un lado aparecería una combinación nula con su coeficiente distinto de cero.\n\nComo esa combinación no existe, ningún vector se arma con los otros y ninguno es redundante.\n\nLo que la condición no dice es cuánto alcanzan. Un conjunto sin vectores de más puede quedarse muy corto, y eso se pregunta aparte.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-se-define-con-el-nulo"
+    ]
+  },
+  {
+    "question": "Alguien encuentra una combinación de los vectores de un conjunto que da el vector nulo.\n$$0\\vec{v}_1 + 0\\vec{v}_2 + 0\\vec{v}_3 = \\vec{0}$$\n¿Alcanza eso para afirmar que el conjunto es dependiente?",
+    "options": [
+      "No, porque esa combinación existe para cualquier conjunto",
+      "Sí, porque encontró una combinación que da el vector nulo",
+      "No, porque hacen falta al menos dos combinaciones distintas"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La combinación con todos los coeficientes en cero está siempre disponible y no distingue nada.",
+    "feedback_incorrect": [
+      null,
+      "La definición pide una combinación con algún coeficiente distinto de cero, y esta no lo tiene.",
+      "Con una sola combinación no trivial alcanza, el problema es que esta es la trivial."
+    ],
+    "explanation": "La combinación con todos los coeficientes en cero se llama **trivial**, y existe para absolutamente cualquier conjunto de vectores.\n$$0\\vec{v}_1 + 0\\vec{v}_2 + 0\\vec{v}_3 = \\vec{0}$$\nComo está siempre disponible, encontrarla no aporta ninguna información sobre el conjunto que se está mirando.\n\nLo informativo es si además hay **otra**, con algún coeficiente distinto de cero.\n\nPor eso la definición no dice que exista una combinación nula, dice que la trivial sea la única, y esa diferencia de redacción es todo el concepto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-se-define-con-el-nulo"
+    ]
+  },
+  {
+    "question": "Un conjunto resulta ser dependiente, así que tiene una combinación nula no trivial.\n$$2\\vec{v}_1 - 3\\vec{v}_2 = \\vec{0}$$\n¿Cuántas combinaciones nulas no triviales tiene?",
+    "options": [
+      "Dos, la encontrada y la que resulta de cambiarle los signos",
+      "Infinitas, porque escalando esa se obtiene otra",
+      "Una sola, que es justamente la que se encontró"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Escalando una combinación nula se obtiene otra combinación nula igual de válida.",
+    "feedback_incorrect": [
+      "Cambiar los signos da una más, pero también sirve multiplicar por cualquier otro número.",
+      null,
+      "Duplicando los coeficientes se obtiene otra combinación nula, distinta de la primera."
+    ],
+    "explanation": "Una combinación nula no trivial nunca viene sola, porque escalarla produce otras.\n$$4\\vec{v}_1 - 6\\vec{v}_2 = \\vec{0}$$\nDuplicando los dos coeficientes se obtiene otra combinación que también da el vector nulo, y lo mismo con cualquier otro factor.\n\nPor eso la definición está redactada como una alternativa entre dos casos: o la trivial es la única, o hay infinitas.\n\nNunca puede haber exactamente dos o tres, y esa rigidez es lo que vuelve tan tajante la clasificación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-se-define-con-el-nulo"
+    ]
   }
 ]

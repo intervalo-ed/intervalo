@@ -1,22 +1,371 @@
 [
   {
-    "question": "Para verificar si un conjunto de $n$ vectores es **base** de $\\mathbb{R}^n$, ¿qué estrategia alcanza?",
+    "question": "Se tienen exactamente tres vectores y se quiere saber si forman una base.\n$$\\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\} \\subset \\mathbb{R}^3$$\n¿Qué alcanza con verificar?",
     "options": [
-      "Verificar que son linealmente independientes",
-      "Verificar que todos tienen la misma norma",
-      "Verificar que ninguno tiene componentes negativas"
+      "Que los tres sean linealmente independientes entre sí",
+      "Que ninguno de los tres sea el vector nulo",
+      "Que las dos condiciones de base se cumplan por separado"
     ],
     "correct_index": 0,
-    "has_math": false,
-    "feedback_correct": "Si son exactamente $n$ vectores en $\\mathbb{R}^n$, alcanza con verificar independencia lineal.",
+    "has_math": true,
+    "feedback_correct": "Con la cantidad justa de vectores, la independencia obliga a que también generen todo el espacio.",
     "feedback_incorrect": [
       null,
-      "La norma de los vectores no determina si forman una base.",
-      "El signo de las componentes no es relevante para ser base."
+      "Eso descarta un caso de dependencia, pero tres vectores no nulos igual pueden ser dependientes.",
+      "Verificar las dos es correcto pero innecesario, y el atajo existe justamente para evitarlo."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando ya se tienen exactamente $n$ vectores en un espacio de dimensión $n$, verificar la independencia lineal alcanza para confirmar que forman una base.\n\nSi son independientes, automáticamente también son generadores: no puede faltarles alcanzar ninguna dirección del espacio.\n\nEsta es una simplificación importante, no hace falta probar por separado que generan el espacio, con la cantidad correcta de vectores independientes ya está garantizado.",
-    "reviewed": false
+    "explanation": "Cuando la cantidad de vectores coincide con la cantidad de coordenadas del espacio, las dos condiciones de base dejan de ser independientes entre sí.\n\nSi los tres vectores fueran independientes y no generaran todo el espacio, se les podría agregar un cuarto que quedara fuera de lo alcanzado, y el conjunto de cuatro seguiría siendo independiente.\n\nEso es imposible, porque en $\\mathbb{R}^3$ cualquier conjunto de cuatro vectores es dependiente. Por lo tanto los tres originales sí generaban todo.\n\nEl atajo depende por completo de la cantidad. Con dos vectores independientes en $\\mathbb{R}^3$ no se puede concluir nada, y de hecho generan solo un plano.",
+    "reviewed": false,
+    "tags": [
+      "que-alcanza-verificar"
+    ]
+  },
+  {
+    "question": "Se comprobó que tres vectores alcanzan cualquier punto.\n$$\\text{gen}\\{\\vec{u}, \\vec{v}, \\vec{w}\\} = \\mathbb{R}^3$$\n¿Hace falta verificar algo más para saber si forman una base?",
+    "options": [
+      "Sí, hay que verificar además que ninguno se arme con los otros dos",
+      "No, porque con la cantidad justa generar ya obliga a que no sobre ninguno",
+      "Sí, hay que verificar además que ninguno de los tres sea el vector nulo"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Con exactamente tres vectores en tres dimensiones, cada condición implica la otra.",
+    "feedback_incorrect": [
+      "Si alguno se armara con los otros dos, los tres alcanzarían apenas un plano.",
+      null,
+      "Si alguno fuera el vector nulo, los otros dos no alcanzarían a generar todo el espacio."
+    ],
+    "explanation": "El atajo de la cantidad justa funciona en los dos sentidos, y este es el que menos se usa.\n$$\\text{gen}\\{\\vec{u}, \\vec{v}, \\vec{w}\\} = \\mathbb{R}^3$$\nSi a alguno de los tres se lo pudiera armar con los otros dos, entonces los otros dos solos alcanzarían lo mismo que los tres.\n\nPero dos vectores nunca llegan más allá de un plano, así que no podrían generar el espacio entero.\n\nComo sí lo generan, ninguno se arma con los otros, y el conjunto cumple las dos condiciones sin que haya que verificar nada más.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-alcanza-verificar"
+    ]
+  },
+  {
+    "question": "Se comprobó que dos vectores no son múltiplos entre sí.\n$$\\{\\vec{v}_1, \\vec{v}_2\\} \\subset \\mathbb{R}^3$$\n¿Alcanza eso para afirmar que forman una base del espacio?",
+    "options": [
+      "Sí, porque no ser múltiplos ya garantiza las dos condiciones",
+      "No, porque además hay que verificar que ninguno sea el nulo",
+      "No, porque el atajo pide tantos vectores como coordenadas"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Con dos vectores en tres dimensiones el alcance no pasa de un plano.",
+    "feedback_incorrect": [
+      "El atajo vale cuando la cantidad coincide, y acá hay dos vectores para tres coordenadas.",
+      "Un vector nulo sería múltiplo de cualquiera, así que esa verificación ya está hecha.",
+      null
+    ],
+    "explanation": "El atajo depende por completo de que la cantidad de vectores coincida con la cantidad de coordenadas.\n$$\\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\} \\neq \\mathbb{R}^3$$\nCon dos vectores que no son múltiplos entre sí se alcanza un plano que pasa por el origen, y nunca más que eso.\n\nEl conjunto cumple entonces una condición y falla la otra, así que no es base del espacio.\n\nSí es base del plano que genera, pero esa es otra afirmación: siempre hay que aclarar de qué espacio se está hablando.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-alcanza-verificar"
+    ]
+  },
+  {
+    "question": "Dos vectores del plano se proponen como base y se quiere hacer la verificación más corta.\n$$\\{(4,1), (1,3)\\} \\subset \\mathbb{R}^2$$\n¿Qué alcanza con verificar?",
+    "options": [
+      "Que ninguno de los dos sea múltiplo del otro",
+      "Que los dos juntos alcancen cualquier punto del plano",
+      "Que se cumplan las dos condiciones por separado"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Con dos vectores en dos coordenadas, no ser múltiplos ya implica que generan.",
+    "feedback_incorrect": [
+      null,
+      "Verificar eso también sirve, pero obliga a resolver un sistema con un vector genérico.",
+      "Verificar las dos es correcto y es justamente lo que el atajo permite evitar."
+    ],
+    "explanation": "Cuando la cantidad de vectores coincide con la de coordenadas, verificar una sola condición alcanza, y conviene elegir la más barata.\n$$\\tfrac{1}{4} \\neq \\tfrac{3}{1}$$\nComparar si uno es múltiplo del otro cuesta una división y una comparación.\n\nVerificar que generan, en cambio, obliga a plantear un sistema con un vector genérico del plano y mostrar que siempre tiene solución.\n\nLas dos verificaciones llevan a la misma conclusión, así que la elección es puramente de comodidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-alcanza-verificar"
+    ]
+  },
+  {
+    "question": "Tres vectores de $\\mathbb{R}^3$ se proponen como base.\n$$B = \\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\}$$\n¿Cuál de las dos condiciones conviene verificar?",
+    "options": [
+      "Las dos, porque con tres vectores el atajo deja de valer",
+      "Que ninguno se arme con los otros, porque se resuelve con un determinante",
+      "Que generen el espacio, porque es la condición más importante de las dos"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El determinante de la matriz que forman decide en una sola cuenta.",
+    "feedback_incorrect": [
+      "El atajo vale justamente porque hay tres vectores para tres coordenadas.",
+      null,
+      "Las dos condiciones pesan igual, y la elección se hace por cuál cuesta menos."
+    ],
+    "explanation": "Con la cantidad justa de vectores, las dos condiciones son equivalentes, así que se elige la que cueste menos trabajo.\n$$\\det \\neq 0$$\nAcomodando los tres vectores como filas de una matriz, un determinante distinto de cero indica que ninguno se arma con los otros.\n\nVerificar que generan pediría resolver un sistema con un vector genérico del espacio, que es bastante más largo.\n\nLas dos rutas llevan a la misma respuesta, y por eso conviene tener presente cuál es más corta antes de empezar a calcular.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-alcanza-verificar"
+    ]
+  },
+  {
+    "question": "Un conjunto de cuatro vectores se propone como base.\n$$\\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3, \\vec{v}_4\\} \\subset \\mathbb{R}^3$$\n¿Qué se puede afirmar antes de mirar cuáles son?",
+    "options": [
+      "Que no es base, porque le sobra al menos un vector",
+      "Que no es base, porque no llega a generar todo el espacio",
+      "Que hace falta calcular para poder decidirlo"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cuatro vectores en un espacio de tres coordenadas son siempre dependientes, así que alguno sobra.",
+    "feedback_incorrect": [
+      null,
+      "Con cuatro vectores el problema es el contrario, pueden generar todo de sobra pero repitiendo direcciones.",
+      "La cantidad ya decide, y ese es justamente el valor de mirarla antes de calcular."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La cantidad de vectores permite descartar sin abrir ninguna cuenta, y conviene usarla siempre como primer filtro.\n\nEn $\\mathbb{R}^3$, cualquier conjunto de cuatro o más vectores es linealmente dependiente.\n\nLa razón es que con tres ya se cubre todo, así que el cuarto queda necesariamente adentro de lo que los otros alcanzan.\n\nEl descarte funciona también en el otro sentido. Un conjunto de dos vectores nunca puede ser base de $\\mathbb{R}^3$, porque a lo sumo genera un plano.\n\nLo que la cantidad **no** puede hacer es confirmar. Tres vectores en $\\mathbb{R}^3$ pueden o no ser base, y ahí sí hay que mirarlos.",
+    "reviewed": false,
+    "tags": [
+      "descartar-por-cantidad"
+    ]
+  },
+  {
+    "question": "Un conjunto de dos vectores se propone como base.\n$$\\{\\vec{v}_1, \\vec{v}_2\\} \\subset \\mathbb{R}^3$$\n¿Qué se puede afirmar antes de mirar cuáles son?",
+    "options": [
+      "Que hace falta calcular para poder decidirlo bien",
+      "Que no es base, porque no alcanza todo el espacio",
+      "Que no es base, porque le sobra al menos un vector"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Con dos vectores el alcance no pasa de un plano, así que falta una dirección.",
+    "feedback_incorrect": [
+      "La cantidad ya decide, y ese es el valor de mirarla antes de calcular.",
+      null,
+      "Con dos vectores el problema es el contrario, puede que ninguno sobre y aun así no alcancen."
+    ],
+    "explanation": "El descarte por cantidad funciona en los dos sentidos, y este es el caso de los vectores que faltan.\n$$\\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\} \\neq \\mathbb{R}^3$$\nCon un vector se alcanza una recta y con dos, a lo sumo, un plano, así que el espacio entero queda fuera de alcance.\n\nNo importa cuáles sean los dos vectores concretos: la conclusión sale de contarlos.\n\nLo que la cantidad **no** puede hacer es confirmar. Con tres vectores en tres coordenadas hay que mirarlos, porque pueden ser base o no.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "descartar-por-cantidad"
+    ]
+  },
+  {
+    "question": "Un conjunto de tres vectores del plano se propone como base.\n$$B = \\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\}$$\n¿Qué se puede afirmar antes de mirar cuáles son?",
+    "options": [
+      "Que no es base, porque no llega a alcanzar todo el plano",
+      "Que hace falta calcular para poder decidirlo",
+      "Que no es base, porque le sobra al menos un vector"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Tres vectores en dos coordenadas son siempre dependientes, así que alguno se arma con los otros.",
+    "feedback_incorrect": [
+      "Puede perfectamente alcanzar todo el plano, y aun así no ser base por tener uno de más.",
+      "La cantidad ya decide, sin necesidad de mirar los vectores concretos.",
+      null
+    ],
+    "explanation": "Cuando hay más vectores que coordenadas, alguno se arma siempre con los demás.\n$$\\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\} \\subset \\mathbb{R}^2$$\nLa razón es que con dos direcciones distintas ya se cubre todo el plano, así que el tercero queda necesariamente adentro de lo que los otros alcanzan.\n\nEl conjunto puede generar el plano sin ningún problema, pero le sobra un vector y por eso no es base.\n\nEs el descarte más barato del tema, y conviene aplicarlo antes de abrir cualquier cuenta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "descartar-por-cantidad"
+    ]
+  },
+  {
+    "question": "Contar los vectores de un conjunto alcanza para descartarlo en algunos casos.\n$$B = \\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\}$$\n¿Puede la cantidad confirmar que un conjunto sí es base?",
+    "options": [
+      "No, con la cantidad justa todavía hay que mirar los vectores",
+      "Sí, con tantos vectores como coordenadas ya alcanza",
+      "No, porque la cantidad nunca aporta ninguna información útil"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Tres vectores en tres coordenadas pueden ser base o no, según cómo sean.",
+    "feedback_incorrect": [
+      null,
+      "Tres vectores del espacio pueden estar todos sobre un mismo plano y no ser base.",
+      "La cantidad sirve muchísimo para descartar, lo que no puede hacer es confirmar."
+    ],
+    "explanation": "El criterio de la cantidad es asimétrico, y esa asimetría es lo que hay que tener claro.\n$$\\{(1,0,0), (0,1,0), (2,3,0)\\}$$\nEse conjunto tiene tres vectores en tres coordenadas y no es base, porque los tres están sobre un mismo plano.\n\nCon una cantidad distinta de la justa, en cambio, el descarte es inmediato y no admite excepciones.\n\nPor eso conviene usar la cantidad como primer filtro y, cuando coincide, pasar a verificar una de las dos condiciones.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "descartar-por-cantidad"
+    ]
+  },
+  {
+    "question": "Se quiere saber cuántos vectores tiene que tener cualquier base del plano.\n$$B \\subset \\mathbb{R}^2$$\n¿Cuál es esa cantidad?",
+    "options": [
+      "Cualquier cantidad, mientras generen el plano",
+      "Exactamente dos vectores, nunca otra cantidad",
+      "Al menos dos, y pueden ser tres o cuatro"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Con menos no se alcanza el plano y con más siempre sobra alguno.",
+    "feedback_incorrect": [
+      "Generar es solo una de las dos condiciones, y la otra limita la cantidad.",
+      null,
+      "Con tres o más vectores alguno se arma con los otros, así que dejaría de ser base."
+    ],
+    "explanation": "Las dos condiciones de base se aprietan mutuamente y dejan una única cantidad posible.\n$$B \\subset \\mathbb{R}^2$$\nCon un solo vector el alcance es una recta, así que no se llega a generar el plano.\n\nCon tres o más, alguno queda necesariamente adentro de lo que alcanzan los otros, y por lo tanto sobra.\n\nQueda entonces exactamente dos, y el mismo razonamiento en $\\mathbb{R}^3$ deja exactamente tres.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "descartar-por-cantidad"
+    ]
+  },
+  {
+    "question": "Un conjunto de cuatro vectores genera un subespacio, pero no es base porque tiene vectores de más.\n$$\\text{gen}\\{\\vec{v}_1, \\dots, \\vec{v}_4\\} = S$$\n¿Qué conviene hacer para obtener una base de ese mismo subespacio?",
+    "options": [
+      "Descartar los vectores que se arman con los otros, hasta que no sobre ninguno",
+      "Agregar vectores nuevos hasta que el conjunto pase a ser independiente",
+      "Reemplazar los cuatro por los vectores de la base canónica del espacio"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Sacar un vector redundante no cambia el generado, así que se llega a una base del mismo subespacio.",
+    "feedback_incorrect": [
+      null,
+      "Agregar vectores nunca arregla la dependencia, la empeora. Ese camino sirve cuando falta alcance.",
+      "La base canónica genera todo el espacio, que es más grande que el subespacio en cuestión."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Hay dos caminos para llegar a una base, y cuál corresponde depende de cuál de las dos condiciones esté fallando.\n\nSi el conjunto **genera pero sobra**, el camino es sacar. Cada vector redundante que se descarta deja el generado intacto, porque ya estaba alcanzado por los demás.\n\nRepitiendo el descarte se llega a un conjunto donde ya no queda ninguno de más.\n\nSi el conjunto es **independiente pero no alcanza**, el camino es el contrario, agregar vectores que caigan fuera de lo ya generado hasta cubrir todo.\n\nConfundir los dos caminos es lo más común, y se evita preguntándose primero cuál de las dos condiciones falla.",
+    "reviewed": false,
+    "tags": [
+      "elegir-el-camino"
+    ]
+  },
+  {
+    "question": "Un conjunto no tiene ningún vector de más, pero no alcanza a cubrir todo el espacio.\n$$\\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\} \\neq \\mathbb{R}^3$$\n¿Qué conviene hacer para obtener una base del espacio?",
+    "options": [
+      "Reemplazar los dos por un único vector más largo",
+      "Agregar un vector que quede fuera de lo que ya se alcanza",
+      "Sacar uno de los dos vectores y volver a verificar"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Falta alcance, así que el camino es sumar direcciones y no quitarlas.",
+    "feedback_incorrect": [
+      "La longitud de un vector no cambia nada, lo que importa es la dirección que aporta.",
+      null,
+      "Sacar un vector achica todavía más el alcance, y el problema era justamente que faltaba."
+    ],
+    "explanation": "Cuál de los dos caminos corresponde depende de cuál de las dos condiciones está fallando.\n$$\\vec{v}_3 \\notin \\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\}$$\nAcá el conjunto no tiene nada de más, así que sacar vectores solo empeoraría las cosas.\n\nEl camino es agregar, y el vector que se agrega tiene que quedar fuera de lo que ya se alcanzaba: si estuviera adentro, no aportaría ninguna dirección nueva.\n\nRepitiendo el paso hasta cubrir todo el espacio se llega a una base, porque en ningún momento se introduce un vector redundante.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-el-camino"
+    ]
+  },
+  {
+    "question": "Se quiere agregar un vector a un conjunto para acercarlo a ser una base.\n$$\\{\\vec{v}_1, \\vec{v}_2\\} \\subset \\mathbb{R}^3$$\n¿Cómo tiene que ser el vector que se agrega?",
+    "options": [
+      "Tiene que ser múltiplo de alguno de los dos que ya están",
+      "Tiene que tener todas sus coordenadas distintas de cero",
+      "Tiene que quedar fuera de lo que los dos ya alcanzan"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Un vector ya alcanzado no agrega ninguna dirección nueva al conjunto.",
+    "feedback_incorrect": [
+      "Un múltiplo de los que ya están queda adentro de lo alcanzado, así que no aporta nada.",
+      "El valor de las coordenadas no decide nada, lo que importa es si ya estaba alcanzado.",
+      null
+    ],
+    "explanation": "Agregar un vector sirve solo si ese vector no estaba ya alcanzado por los que había.\n$$\\vec{v}_3 \\notin \\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\}$$\nSi estuviera adentro, el generado no cambiaría y el conjunto quedaría con un vector de más, que es justamente lo que una base no puede tener.\n\nEstando afuera, el alcance crece y el conjunto sigue sin tener nada redundante.\n\nCon dos vectores que generan un plano, alcanza con elegir cualquier vector que no esté sobre ese plano.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-el-camino"
+    ]
+  },
+  {
+    "question": "Se quiere sacar un vector de un conjunto generador sin perder alcance.\n$$\\text{gen}\\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\} = S$$\n¿Cuál conviene sacar?",
+    "options": [
+      "Uno que se arme combinando los otros dos",
+      "El que tenga las coordenadas más grandes",
+      "El último de la lista, sea cual sea"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Un vector armado con los otros ya estaba alcanzado, así que sacarlo no quita nada.",
+    "feedback_incorrect": [
+      null,
+      "El tamaño de las coordenadas no tiene nada que ver con lo que el vector aporta.",
+      "El orden en que están escritos es una elección de quien los escribió, no una propiedad."
+    ],
+    "explanation": "Sacar un vector deja el generado intacto exactamente cuando ese vector ya se armaba con los otros.\n$$\\vec{v}_3 \\in \\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\}$$\nCualquier combinación que lo usara se puede reescribir sin él, así que ningún destino se pierde.\n\nSi en cambio se saca uno que aportaba una dirección propia, el generado se achica y el conjunto que queda ya no describe el mismo subespacio.\n\nCuando hay varios candidatos, cualquiera de ellos sirve, y la elección es puramente de comodidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-el-camino"
+    ]
+  },
+  {
+    "question": "Un conjunto de $\\mathbb{R}^3$ no alcanza a generarlo y además tiene un vector repetido.\n$$\\{\\vec{v}_1, \\vec{v}_1, \\vec{v}_2\\}$$\n¿Qué conviene hacer para obtener una base del espacio?",
+    "options": [
+      "Sacar los tres y empezar de nuevo con otros vectores",
+      "Sacar la copia repetida y después agregar lo que falte",
+      "Agregar vectores hasta que el repetido deje de molestar"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Las dos condiciones fallan, así que hay que aplicar los dos caminos en orden.",
+    "feedback_incorrect": [
+      "Los vectores que aportan direcciones propias sirven, no hay razón para descartarlos.",
+      null,
+      "Agregar vectores no resuelve la repetición, el conjunto seguiría con uno de más."
+    ],
+    "explanation": "Cuando las dos condiciones fallan a la vez, los dos caminos se aplican uno después del otro.\n$$\\{\\vec{v}_1, \\vec{v}_2\\} \\to \\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\}$$\nPrimero se saca lo que sobra, porque es lo más barato y deja el alcance intacto.\n\nDespués se agregan vectores que queden fuera de lo alcanzado, hasta cubrir todo el espacio.\n\nInvertir el orden también funciona, pero obliga a revisar la redundancia otra vez al final, así que conviene limpiar primero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-el-camino"
+    ]
   }
 ]

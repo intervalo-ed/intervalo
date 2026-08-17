@@ -1,0 +1,399 @@
+[
+  {
+    "question": "Entre dos cajas hay $12$ tornillos, y la primera tiene el doble que la segunda.\n\n¿Cuántos tornillos hay en cada caja?",
+    "options": [
+      "$(8, 4)$",
+      "$(4, 8)$",
+      "$(6, 6)$",
+      "$(9, 3)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Con la primera caja al doble, el total se reparte en tres partes iguales de cuatro tornillos cada una.",
+    "feedback_incorrect": [
+      null,
+      "Los valores son los correctos pero están al revés: la primera caja es la que tiene el doble.",
+      "Un reparto en partes iguales cumple el total, pero no la condición de que una caja tenga el doble.",
+      "Ese reparto también suma doce, pero deja la primera caja con el triple de la segunda, no con el doble."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Escribir las dos condiciones como ecuaciones deja un sistema de dos incógnitas.\n$$\\begin{aligned} x + y &= 12 \\\\ x &= 2y \\end{aligned}$$\nReemplazando la segunda condición dentro de la primera, el total queda expresado con una sola incógnita.\n$$3y = 12$$\nDe donde la segunda caja tiene cuatro tornillos y la primera, que tiene el doble, tiene ocho.\n\nUna respuesta puede cumplir una de las condiciones y fallar la otra, así que conviene verificar las dos antes de darla por buena.\n\nDoce se reparte de muchas maneras, pero solo una respeta además la proporción.",
+    "reviewed": false,
+    "tags": [
+      "resolver-sistema-2x2"
+    ]
+  },
+  {
+    "question": "Entre dos cajas hay $15$ tornillos, y la primera tiene $3$ más que la segunda.\n\n¿Cuántos tornillos hay en cada caja?",
+    "options": [
+      "$(7{,}5, 7{,}5)$",
+      "$(9, 6)$",
+      "$(6, 9)$",
+      "$(12, 3)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sumando las dos ecuaciones se despeja la primera caja en nueve.",
+    "feedback_incorrect": [
+      "Ahí se ignoró la diferencia entre las dos cajas.",
+      null,
+      "Ahí las dos cantidades quedaron intercambiadas entre las cajas.",
+      "Ahí la diferencia se aplicó entera en vez de repartirse."
+    ],
+    "explanation": "El sistema tiene una ecuación para el total y otra para la diferencia.\n$$\\begin{aligned} x + y &= 15 \\\\ x - y &= 3 \\end{aligned}$$\nSumando las dos ecuaciones, la segunda incógnita se cancela y queda el doble de la primera.\n$$2x = 18 \\implies x = 9$$\nLa segunda sale por sustitución y vale seis, y las dos suman quince como pedía el enunciado.\n\nVerificar las dos condiciones sobre el resultado es lo que cierra cualquier problema de este tipo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resolver-sistema-2x2"
+    ]
+  },
+  {
+    "question": "Dos productos cuestan $40$ pesos en total, y el primero cuesta el triple que el segundo.\n\n¿Cuánto cuesta cada uno?",
+    "options": [
+      "$(10, 30)$",
+      "$(20, 20)$",
+      "$(36, 12)$",
+      "$(30, 10)$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El total se reparte en cuatro partes iguales, tres para el primero y una para el segundo.",
+    "feedback_incorrect": [
+      "Ahí los dos precios quedaron intercambiados entre los productos.",
+      "Ahí se ignoró la relación de triple entre los dos.",
+      "Ahí la relación se cumple pero el total no da cuarenta.",
+      null
+    ],
+    "explanation": "La relación de proporción se escribe como una ecuación más del sistema.\n$$\\begin{aligned} x + y &= 40 \\\\ x &= 3y \\end{aligned}$$\nSustituyendo la segunda en la primera, el total queda repartido en cuatro partes iguales.\n$$4y = 40 \\implies y = 10$$\nEl primero vale treinta, que es el triple, y los dos suman cuarenta.\n\nVerificar las dos condiciones descarta enseguida las opciones que cumplen una sola.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resolver-sistema-2x2"
+    ]
+  },
+  {
+    "question": "Una mezcla de $24$ litros combina dos líquidos, y del primero hay el doble que del segundo.\n\n¿Cuántos litros hay de cada uno?",
+    "options": [
+      "$(16, 8)$",
+      "$(8, 16)$",
+      "$(12, 12)$",
+      "$(18, 6)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El total se reparte en tres partes, dos para el primero y una para el segundo.",
+    "feedback_incorrect": [
+      null,
+      "Ahí las dos cantidades quedaron intercambiadas entre los líquidos.",
+      "Ahí se ignoró la relación de doble entre los dos.",
+      "Ahí la proporción quedó de tres a uno en vez de dos a uno."
+    ],
+    "explanation": "Una relación de doble reparte el total en tres partes iguales.\n$$\\begin{aligned} x + y &= 24 \\\\ x &= 2y \\end{aligned}$$\nSustituyendo, el total queda igualado al triple de la segunda cantidad.\n$$3y = 24 \\implies y = 8$$\nEl primero vale dieciséis, que es el doble, y los dos suman veinticuatro.\n\nPensar la proporción como un reparto en partes iguales permite anticipar el resultado antes de resolver.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resolver-sistema-2x2"
+    ]
+  },
+  {
+    "question": "Dos turnos producen $50$ unidades en total, y el segundo produce $10$ menos que el primero.\n\n¿Cuántas unidades produce cada uno?",
+    "options": [
+      "$(25, 15)$",
+      "$(40, 10)$",
+      "$(30, 20)$",
+      "$(20, 30)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Sumando las dos ecuaciones se despeja el primer turno en treinta.",
+    "feedback_incorrect": [
+      "Ahí la diferencia se cumple pero el total no da cincuenta.",
+      "Ahí la diferencia se aplicó entera en vez de repartirse.",
+      null,
+      "Ahí las dos cantidades quedaron intercambiadas entre los turnos."
+    ],
+    "explanation": "El sistema combina una ecuación de total con una de diferencia.\n$$\\begin{aligned} x + y &= 50 \\\\ x - y &= 10 \\end{aligned}$$\nSumando las dos, la segunda incógnita se cancela y queda el doble de la primera.\n$$2x = 60 \\implies x = 30$$\nEl segundo turno produce veinte, y la diferencia entre los dos es de diez.\n\nDescartar las opciones que fallan el total, antes de mirar la diferencia, acorta bastante la verificación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resolver-sistema-2x2"
+    ]
+  },
+  {
+    "question": "Un sistema de dos ecuaciones con dos incógnitas tiene esta matriz de coeficientes:\n$$\\begin{pmatrix} 1 & 2 \\\\ 3 & k \\end{pmatrix}$$\n¿Para qué valor de $k$ el sistema deja de tener solución única?",
+    "options": [
+      "$6$",
+      "$-6$",
+      "$2$",
+      "$3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El determinante vale $k$ menos seis, y se anula justo cuando el parámetro vale seis.",
+    "feedback_incorrect": [
+      null,
+      "El signo quedó invertido al despejar: el producto de la otra diagonal entra restando.",
+      "Ese es uno de los coeficientes de la matriz, no el valor que anula el determinante.",
+      "Ese es el otro coeficiente de la primera columna, no la solución de la ecuación del determinante."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un sistema de dos ecuaciones con dos incógnitas tiene solución única exactamente cuando el determinante de su matriz de coeficientes no se anula.\n$$\\det(A) = k - 6$$\nIgualar esa expresión a cero indica en qué valor del parámetro se pierde la unicidad.\n$$k = 6$$\nCon ese valor la segunda fila resulta el triple de la primera, así que las dos ecuaciones dejan de aportar información distinta.\n\nA partir de ahí el sistema pasa a tener infinitas soluciones o ninguna, según cómo queden los términos independientes, pero en ningún caso vuelve a tener una sola.",
+    "reviewed": false,
+    "tags": [
+      "hallar-el-parametro-critico"
+    ]
+  },
+  {
+    "question": "Un sistema de dos ecuaciones con dos incógnitas tiene esta matriz de coeficientes.\n$$\\begin{pmatrix} 2 & 3 \\\\ 4 & k \\end{pmatrix}$$\n¿Para qué valor del parámetro deja de tener solución única?",
+    "options": [
+      "$3$",
+      "$6$",
+      "$-6$",
+      "$12$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El determinante se anula cuando el parámetro vale seis.",
+    "feedback_incorrect": [
+      "Ahí se dividió por el $4$ de la otra fila en vez de por el $2$ de la diagonal principal.",
+      null,
+      "Ahí se sumaron los dos productos en vez de restarlos.",
+      "Ahí se despejó sin dividir por el coeficiente."
+    ],
+    "explanation": "La solución deja de ser única exactamente cuando el determinante de los coeficientes se anula.\n$$2k - 12 = 0$$\nDespejando, el parámetro queda en seis.\n$$k = 6$$\nCon ese valor las dos filas resultan proporcionales, y el sistema pasa a ser indeterminado o incompatible.\n\nCuál de los dos casos ocurre depende de los términos independientes, que este enunciado no fija.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-parametro-critico"
+    ]
+  },
+  {
+    "question": "Los coeficientes de un sistema de ecuaciones dependen de un parámetro.\n$$\\begin{pmatrix} k & 5 \\\\ 3 & 6 \\end{pmatrix}$$\n¿Para qué valor del parámetro deja de tener solución única?",
+    "options": [
+      "$\\tfrac{2}{5}$",
+      "$15$",
+      "$-\\tfrac{5}{2}$",
+      "$\\tfrac{5}{2}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Igualando el determinante a cero y despejando queda dos y medio.",
+    "feedback_incorrect": [
+      "Ahí el cociente quedó invertido al despejar.",
+      "Ahí se despejó sin dividir por el coeficiente.",
+      "Ahí el signo quedó invertido al despejar.",
+      null
+    ],
+    "explanation": "El determinante se plantea como una ecuación igualada a cero.\n$$6k - 15 = 0$$\nEl término conocido pasa sumando y después se divide por el coeficiente.\n$$k = \\tfrac{5}{2}$$\nEl valor crítico no tiene por qué ser entero: cualquier número que anule el determinante sirve.\n\nReemplazarlo y verificar que las dos filas quedan proporcionales confirma el resultado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-parametro-critico"
+    ]
+  },
+  {
+    "question": "Un parámetro aparece dos veces entre los coeficientes de un sistema de ecuaciones.\n$$\\begin{pmatrix} 1 & k \\\\ k & 4 \\end{pmatrix}$$\n¿Para qué valores del parámetro deja de tener solución única?",
+    "options": [
+      "$2$ y $-2$",
+      "$2$ solo",
+      "$4$ y $-4$",
+      "$0$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La ecuación queda cuadrática, así que tiene dos soluciones opuestas.",
+    "feedback_incorrect": [
+      null,
+      "La ecuación es cuadrática, así que el valor negativo también la resuelve.",
+      "Ahí quedó sin extraerse la raíz cuadrada.",
+      "Con el parámetro en cero el determinante vale cuatro, no cero."
+    ],
+    "explanation": "Cuando el parámetro aparece en las dos entradas de una diagonal, la ecuación queda cuadrática.\n$$4 - k^{2} = 0$$\nDespejando, el cuadrado queda igualado a cuatro, y eso admite dos raíces opuestas.\n$$k = 2 \\quad \\text{o} \\quad k = -2$$\nLos dos valores anulan el determinante, así que los dos son críticos.\n\nQuedarse con la raíz positiva deja afuera la mitad de los valores problemáticos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-parametro-critico"
+    ]
+  },
+  {
+    "question": "Los coeficientes de un sistema de ecuaciones incluyen un parámetro sin fijar.\n$$\\begin{pmatrix} 3 & k \\\\ 1 & 2 \\end{pmatrix}$$\n¿Para qué valores del parámetro **sí** tiene solución única?",
+    "options": [
+      "Todos los reales salvo $0$",
+      "Todos los reales",
+      "Todos los reales salvo $6$",
+      "Únicamente $6$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El determinante se anula en un único valor, y ese es el que hay que excluir.",
+    "feedback_incorrect": [
+      "Ese valor no anula el determinante.",
+      "Hay un valor que anula el determinante y hay que excluirlo.",
+      null,
+      "Ese es justamente el valor problemático, no el único válido."
+    ],
+    "explanation": "Primero se busca cuándo se anula el determinante y después se excluye ese valor.\n$$6 - k = 0 \\implies k = 6$$\nPara cualquier otro valor el determinante no se anula y la solución es única.\n\nLa respuesta se enuncia como el conjunto de los reales con una exclusión.\n\nConfundir el valor crítico con el conjunto de los válidos invierte por completo la respuesta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-parametro-critico"
+    ]
+  },
+  {
+    "question": "Toda solución de un sistema de ecuaciones se obtiene sumándole algo a una solución ya conocida.\n\nEse algo tiene que resolver el mismo sistema, pero con los términos independientes en cero.\n\nDos ternas distintas verifican un sistema:\n$$(1, 3, -1), \\quad (0, 1, 2)$$\n¿Cuál de estas otras ternas también lo verifica?",
+    "options": [
+      "$(2, 5, -4)$",
+      "$(1, 4, 1)$",
+      "$(1, 2, -3)$",
+      "$(2, 6, -2)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La diferencia entre las dos ternas dadas resuelve el sistema con ceros, así que sumársela a una de ellas da otra solución.",
+    "feedback_incorrect": [
+      null,
+      "Sumar las dos soluciones duplica los términos independientes, y el resultado ya no verifica el sistema original.",
+      "Esa terna es la diferencia entre las dos dadas: resuelve el sistema con ceros, pero no el original.",
+      "Duplicar una solución también duplica los términos independientes, así que deja de verificar el sistema."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Las soluciones de un sistema de ecuaciones no son puntos sueltos: tienen una estructura que permite generar unas a partir de otras.\n\nLa diferencia entre dos soluciones cualesquiera resuelve el mismo sistema con todos los términos independientes en cero.\n$$(1, 3, -1) - (0, 1, 2) = (1, 2, -3)$$\nSumarle esa diferencia a una solución conocida devuelve otra solución, porque el aporte extra no altera los términos independientes.\n$$(1, 3, -1) + (1, 2, -3) = (2, 5, -4)$$\nSumar dos soluciones entre sí no funciona: los términos independientes se suman también, y el resultado verifica un sistema con el doble del lado derecho.\n\nPor eso un sistema con dos soluciones distintas tiene automáticamente infinitas. La diferencia se puede volver a sumar tantas veces como se quiera.",
+    "reviewed": false,
+    "tags": [
+      "construir-otra-solucion"
+    ]
+  },
+  {
+    "question": "Toda solución de un sistema de ecuaciones se obtiene sumándole a una conocida algo que resuelva el sistema homogéneo asociado.\n$$X = X_{p} + X_{h}$$\nUna solución conocida es $(3,1)$ y el homogéneo admite $(2,-2)$.\n\n¿Cuál es otra solución del sistema?",
+    "options": [
+      "$(2, -2)$",
+      "$(5, -1)$",
+      "$(5, 1)$",
+      "$(6, 2)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sumando la solución del homogéneo a la conocida se obtiene otra solución.",
+    "feedback_incorrect": [
+      "Esa es la solución del homogéneo sola, que no resuelve el sistema completo.",
+      null,
+      "Ahí solo se sumó la primera componente de la solución del homogéneo, y la segunda quedó igual.",
+      "Ahí se duplicó la solución conocida, en vez de sumarle la del homogéneo."
+    ],
+    "explanation": "El conjunto solución se arma sumando a una solución particular cualquier solución del homogéneo.\n$$X = X_{p} + X_{h}$$\nSumando componente por componente se obtiene otro punto que también resuelve el sistema.\n$$(3,1) + (2,-2) = (5,-1)$$\nLa solución del homogéneo sola no sirve: solo aporta el desplazamiento, no la solución completa.\n\nCualquier múltiplo de esa solución del homogéneo también funciona, y por eso hay infinitas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "construir-otra-solucion"
+    ]
+  },
+  {
+    "question": "Toda solución de un sistema de ecuaciones se obtiene sumándole a una conocida algo que resuelva el sistema homogéneo asociado.\n$$X = X_{p} + X_{h}$$\nUna solución conocida es $(1,4)$ y el homogéneo admite $(3,-1)$.\n\n¿Cuál de estos también es solución del sistema?",
+    "options": [
+      "$(4, 4)$",
+      "$(3, -1)$",
+      "$(2, 8)$",
+      "$(7, 2)$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Sumando el doble de la solución del homogéneo se obtiene otra solución válida.",
+    "feedback_incorrect": [
+      "Ahí solo se sumó la primera componente de la solución del homogéneo, y la segunda quedó igual.",
+      "Esa es la solución del homogéneo sola, que no resuelve el sistema completo.",
+      "Ahí se duplicó la solución conocida, en vez de sumarle la del homogéneo.",
+      null
+    ],
+    "explanation": "Cualquier múltiplo de una solución del homogéneo sigue resolviendo el homogéneo.\n$$X = X_{p} + \\alpha X_{h}$$\nTomando el doble y sumándolo a la solución conocida se obtiene otro punto del conjunto solución.\n$$(1,4) + 2(3,-1) = (7,2)$$\nEse mecanismo genera infinitas soluciones a partir de una sola conocida.\n\nLa solución del homogéneo por sí sola no resuelve el sistema original, salvo que este sea homogéneo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "construir-otra-solucion"
+    ]
+  },
+  {
+    "question": "Un sistema de ecuaciones homogéneo admite la solución $(2,-3)$ además de la trivial.\n$$AX = 0$$\n¿Cuál de estos también resuelve ese sistema homogéneo?",
+    "options": [
+      "$(-4, 6)$",
+      "$(2, 3)$",
+      "$(-2, -3)$",
+      "$(5, -3)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Cualquier múltiplo de una solución del homogéneo también lo resuelve.",
+    "feedback_incorrect": [
+      null,
+      "Ahí solo se cambió el signo de una de las dos componentes.",
+      "Ahí solo se cambió el signo de una de las dos componentes.",
+      "Ahí se modificó una componente sin escalar la otra."
+    ],
+    "explanation": "El conjunto solución de un sistema homogéneo es cerrado para el producto por un escalar.\n$$A(\\alpha X) = \\alpha(AX) = 0$$\nMultiplicar una solución por menos dos da otra solución del mismo sistema.\n$$-2(2,-3) = (-4,6)$$\nCambiar el signo de una sola componente no es escalar, y en general rompe la solución.\n\nEsa propiedad de cierre es la que hace que un homogéneo con solución no trivial tenga infinitas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "construir-otra-solucion"
+    ]
+  },
+  {
+    "question": "Dos soluciones distintas de un mismo sistema de ecuaciones se conocen de antemano.\n$$X_{1} = (5,2), \\quad X_{2} = (8,0)$$\n¿Qué resuelve la diferencia entre las dos?",
+    "options": [
+      "Un sistema con el lado derecho duplicado",
+      "El sistema homogéneo asociado al original",
+      "El mismo sistema, igual que las dos originales"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Al restar dos soluciones, los lados derechos se cancelan y queda el homogéneo.",
+    "feedback_incorrect": [
+      "Restar cancela los lados derechos en vez de duplicarlos.",
+      null,
+      "La diferencia ya no cumple el sistema original: su lado derecho da cero."
+    ],
+    "explanation": "Si dos vectores resuelven el mismo sistema, al restarlos los lados derechos se cancelan.\n$$A(X_{1}-X_{2}) = B - B = 0$$\nLa diferencia resuelve entonces el sistema homogéneo asociado.\n$$(5,2) - (8,0) = (-3,2)$$\nEse es el mecanismo inverso al de construir soluciones: de dos soluciones se extrae el desplazamiento.\n\nLas dos lecturas juntas explican por qué el conjunto solución tiene siempre esa estructura.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "construir-otra-solucion"
+    ]
+  }
+]

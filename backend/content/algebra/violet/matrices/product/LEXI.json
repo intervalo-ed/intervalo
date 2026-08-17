@@ -1,0 +1,371 @@
+[
+  {
+    "question": "Multiplicar dos matrices equivale a aplicar una transformación del plano y después la otra, condensadas en un solo paso.\n\n¿Por qué en general $AB$ y $BA$ dan resultados distintos?",
+    "options": [
+      "Porque cambia cuál de las dos transformaciones se aplica primero",
+      "Porque al invertir el orden se reordenan las entradas del resultado",
+      "Porque el producto de matrices no está definido en un orden"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Aplicar una transformación y después la otra deja los puntos en un lugar distinto que hacerlo al revés.",
+    "feedback_incorrect": [
+      null,
+      "El resultado no es la misma tabla con las entradas cambiadas de lugar: los valores que aparecen son directamente otros.",
+      "Entre matrices cuadradas del mismo orden las dos multiplicaciones están definidas, y aun así dan distinto."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Multiplicar dos matrices no es operar casillero contra casillero: es encadenar dos transformaciones en una sola.\n\nEn el producto se aplica primero la transformación de la derecha y después la de la izquierda, igual que ocurre al componer dos funciones.\n\nPor eso el orden importa. Rotar el plano y después estirarlo en sentido horizontal deja cada punto en un lugar distinto que estirarlo primero y rotarlo después.\n$$AB \\neq BA$$\nLa desigualdad no es un capricho de la definición: es lo que pasa cuando dos acciones sobre el mismo objeto no son intercambiables. El orden en que se hacen forma parte del resultado.",
+    "reviewed": false,
+    "tags": [
+      "por-que-no-conmuta"
+    ]
+  },
+  {
+    "question": "Un giro y un estiramiento del plano se aplican uno después del otro.\n$$AB \\neq BA$$\n¿Por qué el orden de esos dos pasos cambia el resultado?",
+    "options": [
+      "Porque el producto en el otro orden ni siquiera queda definido",
+      "Porque estirar y después girar deja los puntos en otro lugar que al revés",
+      "Porque cada matriz reordena las entradas de la otra al multiplicarse"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada paso actúa sobre lo que dejó el anterior, así que el orden importa.",
+    "feedback_incorrect": [
+      "Entre matrices cuadradas del mismo orden los dos productos están definidos.",
+      null,
+      "El producto no reordena entradas: combina filas con columnas."
+    ],
+    "explanation": "El producto de matrices condensa dos transformaciones aplicadas una después de la otra.\n$$AB \\neq BA$$\nEl segundo paso actúa sobre el resultado del primero, así que intercambiarlos cambia sobre qué actúa cada uno.\n\nGirar una figura estirada no es lo mismo que estirar una figura girada, y esa diferencia es la que las matrices registran.\n\nEs la misma razón por la que ponerse las medias y después los zapatos no da lo mismo que al revés.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-no-conmuta"
+    ]
+  },
+  {
+    "question": "En un producto de matrices, cada entrada del resultado combina una fila con una columna.\n$$c_{ij} = \\text{fila } i \\text{ de } A \\text{ por columna } j \\text{ de } B$$\n¿Qué cambia al invertir el orden de los factores?",
+    "options": [
+      "El orden en que se recorren las entradas dentro de cada fila",
+      "La cantidad de términos que se suman en cada entrada",
+      "Qué matriz aporta las filas y cuál aporta las columnas"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El primer factor aporta las filas y el segundo las columnas, y eso se intercambia.",
+    "feedback_incorrect": [
+      "El recorrido dentro de una fila es el mismo en los dos casos.",
+      "La cantidad de términos la fija la dimensión compartida, que no cambia.",
+      null
+    ],
+    "explanation": "En el producto, el primer factor aporta las filas y el segundo las columnas.\n$$AB \\neq BA$$\nAl intercambiar el orden, cada matriz cambia de papel y las combinaciones que se calculan son otras.\n\nLos números que intervienen son los mismos, pero se emparejan de forma distinta, y el resultado cambia.\n\nPor eso la no conmutatividad no es una rareza: sale directamente de cómo está definida la operación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-no-conmuta"
+    ]
+  },
+  {
+    "question": "Dos matrices se multiplican en los dos órdenes posibles.\n$$A \\in \\mathbb{R}^{2 \\times 3}, \\quad B \\in \\mathbb{R}^{3 \\times 2}$$\n¿Qué se puede afirmar sobre los dos productos?",
+    "options": [
+      "Que están definidos los dos, pero con órdenes distintos",
+      "Que solo uno de los dos llega a estar bien definido",
+      "Que los dos dan una matriz de exactamente el mismo orden"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Uno da una matriz de dos por dos y el otro de tres por tres.",
+    "feedback_incorrect": [
+      null,
+      "Las dimensiones internas coinciden en los dos órdenes, así que los dos productos existen.",
+      "El orden del resultado lo fijan las dimensiones externas, que cambian al invertir."
+    ],
+    "explanation": "El producto está definido cuando las dimensiones internas coinciden, y el resultado toma las externas.\n$$A \\in \\mathbb{R}^{2 \\times 3}, \\quad B \\in \\mathbb{R}^{3 \\times 2}$$\nEn un orden las internas son tres y tres, y el resultado queda de dos por dos.\n\nEn el otro orden las internas son dos y dos, y el resultado queda de tres por tres.\n\nCuando los dos productos ni siquiera tienen el mismo orden, la pregunta por la conmutatividad se responde sin hacer ninguna cuenta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-no-conmuta"
+    ]
+  },
+  {
+    "question": "Que el producto no conmute no significa que nunca dé lo mismo.\n$$AI = IA$$\n¿Qué muestra ese caso?",
+    "options": [
+      "Que la propiedad conmutativa vale entre matrices cuadradas",
+      "Que hay pares concretos que sí conmutan, más allá de la regla",
+      "Que la identidad es la única matriz que conmuta con las demás"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La no conmutatividad dice que no vale siempre, no que no valga nunca.",
+    "feedback_incorrect": [
+      "Ser cuadradas no alcanza: la mayoría de los pares cuadrados no conmuta.",
+      null,
+      "También conmutan una matriz con sus potencias, entre otros casos."
+    ],
+    "explanation": "Decir que una propiedad no vale en general significa que hay contraejemplos, no que falle siempre.\n$$AI = IA$$\nLa identidad conmuta con cualquier matriz cuadrada de su orden, y también lo hace toda potencia de una matriz consigo misma.\n\nLo que no se puede hacer es dar por sentado que dos matrices cualesquiera conmutan.\n\nEsa distinción entre *nunca* y *no siempre* es la que evita descartar simplificaciones que sí son válidas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-no-conmuta"
+    ]
+  },
+  {
+    "question": "Al trasponer un producto de matrices, el resultado no es $A^T B^T$ sino $B^T A^T$.\n\n¿Qué muestra de inmediato que el otro orden no puede funcionar?",
+    "options": [
+      "Que en ese orden las dimensiones ni siquiera permiten multiplicar",
+      "Que trasponer cambia los valores de cada entrada de la matriz",
+      "Que la traspuesta de un producto no siempre está definida"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Con una matriz de $2 \\times 3$ por una de $3 \\times 4$, al trasponer cada factor queda un $3$ enfrentado a un $4$.",
+    "feedback_incorrect": [
+      null,
+      "Trasponer reubica las entradas sin modificar ninguno de sus valores: los mismos números cambian de lugar.",
+      "Si el producto original está definido, su traspuesta siempre existe; el problema está en el orden de los factores."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El producto de matrices exige que la cantidad de columnas de la primera coincida con la cantidad de filas de la segunda.\n\nTrasponer intercambia filas por columnas, así que da vuelta justamente el dato que hacía encajar a los factores.\n$$(AB)^T = B^T A^T$$\nCon una matriz de dos por tres multiplicada por una de tres por cuatro, el producto es de dos por cuatro y su traspuesta de cuatro por dos. Solo el orden invertido reconstruye ese resultado.\n\nEscribirlo en el orden original no produce un resultado equivocado: produce una operación que directamente no existe, porque las dimensiones no se pueden enfrentar.",
+    "reviewed": false,
+    "tags": [
+      "por-que-se-invierte-en-la-traspuesta"
+    ]
+  },
+  {
+    "question": "La traspuesta de un producto invierte el orden de los factores.\n$$(AB)^{T} = B^{T}A^{T}$$\n¿Qué le pasa a las dimensiones si no se invirtieran?",
+    "options": [
+      "Que el producto existiría igual, pero daría una matriz no cuadrada",
+      "Que las dimensiones internas dejarían de coincidir y el producto no existiría",
+      "Que el resultado tendría el orden correcto pero con las entradas cambiadas"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Trasponer intercambia filas por columnas, y eso descoloca el emparejamiento de dimensiones.",
+    "feedback_incorrect": [
+      "El producto directamente no queda definido, así que no da ninguna matriz.",
+      null,
+      "El problema no es de valores: en ese orden el producto ni siquiera se puede plantear."
+    ],
+    "explanation": "Trasponer una matriz intercambia su cantidad de filas con la de columnas.\n$$(AB)^{T} = B^{T}A^{T}$$\nDespués de trasponer, la que aportaba la dimensión interna por la izquierda pasa a aportarla por la derecha.\n\nSolo invirtiendo el orden vuelven a coincidir las dimensiones internas y el producto queda definido.\n\nEse chequeo de dimensiones descarta el orden equivocado sin necesidad de calcular ninguna entrada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-se-invierte-en-la-traspuesta"
+    ]
+  },
+  {
+    "question": "Trasponer dos veces devuelve la matriz original.\n$$(A^{T})^{T} = A$$\n¿Por qué?",
+    "options": [
+      "Porque la traspuesta de una matriz siempre coincide con la original",
+      "Porque trasponer no modifica la posición de ninguna entrada",
+      "Porque intercambiar filas por columnas dos veces deja todo como estaba"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La segunda trasposición deshace exactamente lo que hizo la primera.",
+    "feedback_incorrect": [
+      "La traspuesta coincide con la original solo cuando la matriz es simétrica.",
+      "Trasponer sí cambia las posiciones: es justamente lo que hace.",
+      null
+    ],
+    "explanation": "Trasponer intercambia cada entrada con la que ocupa la posición espejada respecto de la diagonal.\n$$(A^{T})^{T} = A$$\nAplicar ese intercambio dos veces devuelve cada entrada a su lugar original.\n\nEs una operación que se deshace a sí misma al repetirla, igual que cambiar dos veces el signo de un número devuelve el original.\n\nLas matrices que coinciden con su traspuesta en un solo paso son las simétricas, que son un caso particular.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-se-invierte-en-la-traspuesta"
+    ]
+  },
+  {
+    "question": "La traspuesta de una suma no invierte nada.\n$$(A+B)^{T} = A^{T}+B^{T}$$\n¿Por qué la suma se comporta distinto que el producto?",
+    "options": [
+      "Porque la suma opera posición por posición, sin emparejar filas",
+      "Porque la suma solo está definida entre matrices que son cuadradas",
+      "Porque trasponer una suma no cambia ninguna de las dos matrices"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "En la suma no hay dimensiones internas que emparejar, así que el orden no interviene.",
+    "feedback_incorrect": [
+      null,
+      "La suma está definida entre rectangulares del mismo orden, no solo entre cuadradas.",
+      "Trasponer sí cambia cada matriz: lo que no cambia es el orden en que se suman."
+    ],
+    "explanation": "La suma combina cada posición con la misma posición de la otra matriz.\n$$(A+B)^{T} = A^{T}+B^{T}$$\nTrasponer mueve todas las posiciones de la misma forma en las dos matrices, así que el emparejamiento se conserva.\n\nEn el producto, en cambio, filas y columnas cumplen papeles distintos, y trasponer los intercambia.\n\nEsa diferencia estructural es la que explica por qué una propiedad invierte el orden y la otra no.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-se-invierte-en-la-traspuesta"
+    ]
+  },
+  {
+    "question": "Una matriz simétrica coincide con su propia traspuesta.\n$$A^{T} = A$$\n¿Qué se puede afirmar sobre el producto de dos matrices simétricas?",
+    "options": [
+      "Que nunca resulta simétrico, salvo que una sea la identidad",
+      "Que no tiene por qué ser simétrico, porque el orden se invierte",
+      "Que siempre resulta simétrico, porque las dos lo son de por sí"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Al trasponer el producto queda con los factores invertidos, y eso en general no coincide.",
+    "feedback_incorrect": [
+      "Cuando las dos matrices conmutan el producto sí resulta simétrico, y eso pasa en más casos.",
+      null,
+      "Trasponer el producto lo deja con los factores al revés, y eso no tiene por qué coincidir."
+    ],
+    "explanation": "Al trasponer el producto de dos simétricas, cada factor queda igual pero el orden se invierte.\n$$(AB)^{T} = B^{T}A^{T} = BA$$\nEl resultado es simétrico solo si ese producto invertido coincide con el original.\n\nComo el producto de matrices no conmuta en general, esa coincidencia no está garantizada.\n\nEl caso en que sí ocurre es exactamente el de los pares que conmutan, y ahí la propiedad se recupera.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-se-invierte-en-la-traspuesta"
+    ]
+  },
+  {
+    "question": "Entre números, un producto nulo obliga a que alguno de los factores sea cero.\n\nCon matrices eso deja de valer. El producto de estas dos da la matriz nula:\n$$A = \\begin{pmatrix} 1 & 1 \\\\ 1 & 1 \\end{pmatrix}$$\n$$B = \\begin{pmatrix} 1 & 1 \\\\ -1 & -1 \\end{pmatrix}$$\n¿Por qué el resultado es nulo sin que ninguno de los factores lo sea?",
+    "options": [
+      "Porque en cada casillero se cancelan dos términos opuestos",
+      "Porque las entradas se multiplican una a una y dan cero",
+      "Porque las dos matrices tienen filas repetidas entre sí"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada entrada del resultado suma un número y su opuesto, así que la cancelación ocurre sin que nada valga cero.",
+    "feedback_incorrect": [
+      null,
+      "Multiplicando entrada por entrada quedarían los valores de la segunda matriz, no ceros: el producto matricial es otra cuenta.",
+      "Tener filas repetidas no anula nada por sí solo; el cero sale de que los términos de cada suma se compensan."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cada entrada de un producto de matrices es una suma de varios productos, no un producto suelto.\n$$c_{11} = (1)(1) + (1)(-1)$$\nEsa suma puede dar cero por cancelación entre sus términos, aunque ninguno de los números que intervienen sea nulo.\n\nAcá las columnas de la segunda matriz tienen un valor y su opuesto, así que cualquier fila de la primera con entradas iguales los compensa exactamente.\n\nEntre números vale que un producto nulo delata un factor nulo, porque ahí no hay ninguna suma donde esconder una cancelación. Con matrices esa garantía desaparece.",
+    "reviewed": false,
+    "tags": [
+      "por-que-no-hay-anulacion"
+    ]
+  },
+  {
+    "question": "Entre números, un producto nulo obliga a que algún factor sea cero.\n$$AB = O, \\quad A \\neq O, \\quad B \\neq O$$\n¿Por qué con matrices eso puede fallar?",
+    "options": [
+      "Porque la matriz nula se comporta como el número uno en el producto",
+      "Porque cada entrada es una suma de términos que pueden cancelarse entre sí",
+      "Porque las entradas de una matriz se multiplican una a una con las de la otra"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada entrada del producto suma varios términos, y esa suma puede dar cero sin que ningún factor lo sea.",
+    "feedback_incorrect": [
+      "La matriz nula se comporta como el cero, no como el uno.",
+      null,
+      "El producto de matrices no multiplica entrada con entrada: combina filas con columnas."
+    ],
+    "explanation": "Cada entrada del producto es una suma de productos entre una fila y una columna.\n$$AB = O$$\nEsa suma puede dar cero por cancelación entre sus términos, sin que ninguno de ellos sea nulo.\n\nEntre números no hay suma intermedia: el producto de dos no nulos nunca puede anularse.\n\nPor eso de una igualdad matricial igualada a la matriz nula no se puede despejar ningún factor.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-no-hay-anulacion"
+    ]
+  },
+  {
+    "question": "Entre números, de una igualdad se puede cancelar un factor común no nulo.\n$$AB = AC, \\quad A \\neq O$$\n¿Se puede concluir que las otras dos matrices coinciden?",
+    "options": [
+      "Sí, siempre que el factor común no sea la matriz nula",
+      "Sí, porque la igualdad se mantiene al operar en los dos lados",
+      "No, porque de $A(B-C)=O$ no se puede concluir que $B-C$ sea nula"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Restando queda $A(B-C)=O$, y ya sabemos que un producto nulo no obliga a que ningún factor lo sea.",
+    "feedback_incorrect": [
+      "Que no sea nula no alcanza: hay matrices no nulas para las que igual falla la cancelación.",
+      "Operar en los dos lados es válido, pero de ahí solo se llega a $A(B-C)=O$, no a $B=C$.",
+      null
+    ],
+    "explanation": "Cancelar un factor común en una igualdad entre números equivale a dividir por él, y eso siempre es posible cuando el factor no es cero.\n\nEntre matrices, restar los dos lados de la igualdad $AB=AC$ deja un producto igualado a la matriz nula.\n$$AB = AC \\implies A(B-C) = O$$\nComo un producto de matrices puede dar la matriz nula sin que ninguno de los factores lo sea, de ahí no se puede concluir que $B-C$ sea nula.\n\nPor eso $B$ no tiene por qué coincidir con $C$: la ausencia de ley de anulación es la misma razón por la que tampoco hay ley de cancelación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-no-hay-anulacion"
+    ]
+  },
+  {
+    "question": "Una matriz no nula puede dar la matriz nula al multiplicarse por sí misma.\n$$A^{2} = O, \\quad A \\neq O$$\n¿Qué muestra ese caso?",
+    "options": [
+      "Que una matriz puede anularse al repetirse, sin ser nula ella misma",
+      "Que esa matriz tiene que ser la matriz nula disfrazada",
+      "Que el cuadrado de una matriz nunca puede ser la matriz nula"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El producto de una matriz consigo misma también puede cancelarse entrada por entrada.",
+    "feedback_incorrect": [
+      null,
+      "La matriz original tiene entradas distintas de cero: lo que se anula es el producto.",
+      "El caso existe, y es una de las diferencias más fuertes con los números."
+    ],
+    "explanation": "El fenómeno de la cancelación interna se da también cuando los dos factores son la misma matriz.\n$$A^{2} = O$$\nCada entrada del producto suma términos que se compensan entre sí, aunque la matriz no sea nula.\n\nEntre números eso es imposible: el cuadrado de un número no nulo nunca es cero.\n\nEs otra muestra de que la ausencia de ley de anulación no es un caso aislado: reaparece cada vez que una matriz no nula logra cancelarse a sí misma dentro de una suma.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-no-hay-anulacion"
+    ]
+  },
+  {
+    "question": "Entre números vale siempre que restar dos cuadrados se factoriza como el producto de la suma por la diferencia.\n$$A^2 - B^2 \\neq (A-B)(A+B)$$\n¿Por qué esta igualdad familiar deja de valer entre matrices?",
+    "options": [
+      "Porque las matrices $A$ y $B$ no se pueden restar entre sí en esta expresión",
+      "Porque al expandir aparece el término $AB-BA$, que no se cancela salvo que las matrices conmuten",
+      "Porque el cuadrado de una matriz no está definido de la misma forma que el de un número"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Expandir como si fueran números deja un resto, $AB-BA$, que solo desaparece cuando las dos matrices conmutan.",
+    "feedback_incorrect": [
+      "Restar matrices del mismo orden está definido desde antes; el problema no está ahí.",
+      null,
+      "El cuadrado de una matriz se define igual que el de un número, como el producto de la matriz por sí misma."
+    ],
+    "explanation": "Expandir el producto de la suma por la diferencia, igual que se haría entre números, da cuatro términos.\n$$(A-B)(A+B) = A^2 + AB - BA - B^2$$\nEntre números esos dos términos del medio son el mismo producto escrito dos veces y se cancelan directo.\n\nEntre matrices, $AB$ y $BA$ combinan filas con columnas en órdenes distintos, así que en general son matrices diferentes y no se cancelan.\n\nLa igualdad solo se recupera cuando las dos matrices conmutan, que es exactamente el caso en que $AB-BA$ vale la matriz nula.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-no-hay-anulacion"
+    ]
+  }
+]

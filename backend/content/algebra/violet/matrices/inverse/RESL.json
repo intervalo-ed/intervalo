@@ -1,24 +1,401 @@
 [
   {
-    "question": "¿Existe la inversa de $A = \\begin{pmatrix} 2 & 4 \\\\ 1 & 2 \\end{pmatrix}$?",
+    "question": "La inversa de una matriz de $2 \\times 2$ se arma intercambiando la diagonal principal y cambiando el signo de la otra.\n\nTodo eso se divide después por el determinante.\n$$A = \\begin{pmatrix} 3 & 5 \\\\ 1 & 2 \\end{pmatrix}$$\n¿Cuál es $A^{-1}$?",
     "options": [
-      "No, porque $\\det(A)=0$",
-      "Sí, porque $A$ es cuadrada",
-      "Sí, porque todos sus elementos son positivos",
-      "No, porque $A$ no es simétrica"
+      "$\\begin{pmatrix} 2 & -5 \\\\ -1 & 3 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 2 & 5 \\\\ 1 & 3 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 3 & -5 \\\\ -1 & 2 \\end{pmatrix}$",
+      "$\\begin{pmatrix} -3 & -5 \\\\ -1 & -2 \\end{pmatrix}$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$\\det(A) = 2\\cdot2 - 4\\cdot1 = 0$: no existe $A^{-1}$.",
+    "feedback_correct": "El determinante vale uno, así que alcanza con intercambiar la diagonal principal y cambiar el signo de la otra.",
     "feedback_incorrect": [
       null,
-      "Ser cuadrada es necesaria pero no alcanza, además hace falta determinante no nulo.",
-      "El signo de los elementos no garantiza que exista la inversa.",
-      "La simetría no es la condición que determina si existe la inversa."
+      "La diagonal quedó bien intercambiada, pero faltó cambiar el signo de las otras dos entradas.",
+      "Los signos están bien, pero los dos valores de la diagonal principal quedaron en su lugar original.",
+      "Ese resultado es el opuesto de la matriz original: la diagonal ni siquiera llegó a intercambiarse."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una matriz cuadrada tiene inversa únicamente si su determinante es distinto de cero.\n$$\\det(A) = 2\\cdot2 - 4\\cdot1 = 4-4 = 0$$\n\nComo el determinante da cero, esta matriz no es inversible: no existe $A^{-1}$ que la multiplique y dé la identidad.\n\nQue una matriz sea cuadrada es condición necesaria pero no suficiente, también hace falta que el determinante no se anule.",
-    "reviewed": false
+    "explanation": "La inversa de una matriz de dos por dos se construye con tres gestos: intercambiar la diagonal principal, cambiar el signo de la otra, y dividir por el determinante.\n$$\\det(A) = (3)(2) - (5)(1) = 1$$\nComo el determinante vale uno, la división no modifica nada y quedan solo los dos primeros gestos.\n$$A^{-1} = \\begin{pmatrix} 2 & -5 \\\\ -1 & 3 \\end{pmatrix}$$\nLos tres gestos son independientes entre sí, y saltearse cualquiera de ellos produce una matriz que al multiplicarse por la original no devuelve la identidad.",
+    "reviewed": false,
+    "tags": [
+      "calcular-inversa-2x2"
+    ]
+  },
+  {
+    "question": "La inversa de una matriz del plano intercambia la diagonal principal, cambia el signo de la otra y divide por el determinante.\n$$A = \\begin{pmatrix} 4 & 3 \\\\ 1 & 1 \\end{pmatrix}$$\n¿Cuál es su inversa?",
+    "options": [
+      "$\\begin{pmatrix} -1 & 3 \\\\ 1 & -4 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & -3 \\\\ -1 & 4 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 3 \\\\ 1 & 4 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 4 & -3 \\\\ -1 & 1 \\end{pmatrix}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El determinante vale uno, así que solo hay que intercambiar y cambiar signos.",
+    "feedback_incorrect": [
+      "Ahí los signos quedaron cambiados en las entradas equivocadas.",
+      null,
+      "Ahí faltó cambiarle el signo a las dos entradas de la otra diagonal.",
+      "Ahí no se intercambiaron las dos entradas de la diagonal principal."
+    ],
+    "explanation": "La receta tiene tres pasos: intercambiar la diagonal principal, cambiar el signo de la otra y dividir por el determinante.\n$$\\det(A) = 4 \\cdot 1 - 3 \\cdot 1 = 1$$\nComo el determinante vale uno, la división no cambia nada.\n$$A^{-1} = \\begin{pmatrix} 1 & -3 \\\\ -1 & 4 \\end{pmatrix}$$\nVerificar multiplicando y comprobando que da la identidad cierra el ejercicio.\n\nLos tres pasos son independientes, y olvidar cualquiera de ellos produce una matriz distinta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-inversa-2x2"
+    ]
+  },
+  {
+    "question": "La inversa de una matriz del plano intercambia la diagonal principal, cambia el signo de la otra y divide por el determinante.\n$$A = \\begin{pmatrix} 2 & 0 \\\\ 0 & 5 \\end{pmatrix}$$\n¿Cuál es su inversa?",
+    "options": [
+      "$\\begin{pmatrix} 5 & 0 \\\\ 0 & 2 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1/5 & 0 \\\\ 0 & 1/2 \\end{pmatrix}$",
+      "$\\begin{pmatrix} -2 & 0 \\\\ 0 & -5 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1/2 & 0 \\\\ 0 & 1/5 \\end{pmatrix}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "En una diagonal la receta se reduce a tomar el recíproco de cada entrada.",
+    "feedback_incorrect": [
+      "Ahí quedó el intercambio sin dividir por el determinante.",
+      "Ahí los dos recíprocos quedaron intercambiados de posición.",
+      "Ahí se cambió el signo en vez de tomar el recíproco.",
+      null
+    ],
+    "explanation": "Aplicando la receta general, el determinante vale diez y la diagonal se intercambia.\n$$\\dfrac{1}{10}\\begin{pmatrix} 5 & 0 \\\\ 0 & 2 \\end{pmatrix}$$\nAl dividir por diez, cada entrada queda como el recíproco de la original.\n$$A^{-1} = \\begin{pmatrix} 1/2 & 0 \\\\ 0 & 1/5 \\end{pmatrix}$$\nEl resultado coincide con el atajo de las diagonales, que dice tomar el recíproco de cada entrada.\n\nQue los dos caminos coincidan es una buena verificación de que la receta general se aplicó bien.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-inversa-2x2"
+    ]
+  },
+  {
+    "question": "La inversa de una matriz del plano intercambia la diagonal principal, cambia el signo de la otra y divide por el determinante.\n$$A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 8 \\end{pmatrix}$$\n¿Cuál es su inversa?",
+    "options": [
+      "$\\begin{pmatrix} 4 & -1 \\\\ -3/2 & 1/2 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 8 & -2 \\\\ -3 & 1 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1/8 & -1/2 \\\\ -1/3 & 1 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 4 & -1 \\\\ 3/2 & 1/2 \\end{pmatrix}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El determinante vale dos, así que hay que dividir las cuatro entradas por dos.",
+    "feedback_incorrect": [
+      null,
+      "Ahí quedó el intercambio con los signos, pero sin dividir por el determinante.",
+      "Ahí se tomó el recíproco de cada entrada, que no es lo que la receta indica.",
+      "Ahí quedó un signo sin cambiar en la otra diagonal."
+    ],
+    "explanation": "Los tres pasos se aplican en orden, y el último es el que más se olvida.\n$$\\det(A) = 1 \\cdot 8 - 2 \\cdot 3 = 2$$\nCon la diagonal intercambiada y los signos cambiados, se divide todo por el determinante.\n$$A^{-1} = \\dfrac{1}{2}\\begin{pmatrix} 8 & -2 \\\\ -3 & 1 \\end{pmatrix}$$\nEl resultado tiene entradas fraccionarias, que es lo habitual cuando el determinante no vale uno.\n\nTomar el recíproco de cada entrada es un atajo que solo funciona en matrices diagonales.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-inversa-2x2"
+    ]
+  },
+  {
+    "question": "Una matriz del plano tiene determinante nulo.\n$$A = \\begin{pmatrix} 2 & 6 \\\\ 1 & 3 \\end{pmatrix}$$\n¿Cuál es su inversa?",
+    "options": [
+      "$\\begin{pmatrix} 1/2 & 1/6 \\\\ 1 & 1/3 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 3 & 6 \\\\ 1 & 2 \\end{pmatrix}$",
+      "No tiene inversa, porque su determinante se anula",
+      "$\\begin{pmatrix} 3 & -6 \\\\ -1 & 2 \\end{pmatrix}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La receta divide por el determinante, y con determinante cero ese paso es imposible.",
+    "feedback_incorrect": [
+      "Tomar recíprocos no es la receta, y además no resuelve el problema del determinante.",
+      "Esa matriz no cumple la condición de inversa con la original.",
+      null,
+      "Esa sería la matriz intermedia, pero falta dividir por un determinante que vale cero."
+    ],
+    "explanation": "La receta general termina dividiendo por el determinante, así que exige que no se anule.\n$$\\det(A) = 2 \\cdot 3 - 6 \\cdot 1 = 0$$\nCon determinante cero ese paso final es imposible, y la matriz no tiene inversa.\n\nLas dos filas son proporcionales, lo que anticipa el resultado sin hacer la cuenta.\n\nCalcular el determinante **antes** de aplicar la receta evita todo el desarrollo cuando no hay inversa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-inversa-2x2"
+    ]
+  },
+  {
+    "question": "Una matriz depende de un parámetro todavía sin fijar:\n$$A = \\begin{pmatrix} k & 3 \\\\ 3 & k \\end{pmatrix}$$\n¿Para qué valores de $k$ tiene inversa la matriz?",
+    "options": [
+      "Todos los reales salvo $3$ y $-3$",
+      "Únicamente $3$ y $-3$",
+      "Todos los reales salvo $9$ y $-9$",
+      "Todos los reales"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El determinante se anula en $k=3$ y $k=-3$; para cualquier otro valor la inversa existe.",
+    "feedback_incorrect": [
+      null,
+      "Esos son justamente los valores que hay que excluir, no los únicos que sirven.",
+      "Esos son los valores de $k^2$, no los de $k$: la ecuación ya está resuelta antes de elevar al cuadrado.",
+      "Hay dos valores que anulan el determinante, y hay que excluirlos."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una matriz cuadrada tiene inversa exactamente cuando su determinante no se anula, así que conviene empezar buscando cuándo sí se anula.\n$$\\det(A) = k^2 - 9$$\nIgualar esa expresión a cero deja una ecuación cuadrática con dos soluciones opuestas.\n$$k^2 = 9$$\n$$k = 3 \\text{ o } k = -3$$\nEsos dos valores son los únicos problemáticos, y para cualquier otro la inversa existe.\n\nLa respuesta se enuncia como un conjunto con dos exclusiones, no como los dos valores sueltos: son justamente los que hay que descartar.",
+    "reviewed": false,
+    "tags": [
+      "hallar-parametro-para-inversibilidad"
+    ]
+  },
+  {
+    "question": "Una matriz depende de un parámetro todavía sin fijar.\n$$A = \\begin{pmatrix} k & 2 \\\\ 8 & k \\end{pmatrix}$$\n¿Para qué valores del parámetro tiene inversa la matriz?",
+    "options": [
+      "Todos los reales salvo $0$",
+      "Todos los reales salvo $4$ y $-4$",
+      "Únicamente $4$ y $-4$",
+      "Todos los reales salvo $16$ y $-16$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El determinante se anula en $k=4$ y $k=-4$; para cualquier otro valor la inversa existe.",
+    "feedback_incorrect": [
+      "Con el parámetro en cero el determinante vale menos dieciséis, no cero: ese valor no hay que excluirlo.",
+      null,
+      "Esos son justamente los valores que hay que excluir, no los únicos que sirven.",
+      "Esos son los valores de $k^2$, no los de $k$."
+    ],
+    "explanation": "La matriz tiene inversa siempre que su determinante no se anule.\n$$k^{2} - 16 = 0$$\nEsa ecuación es cuadrática y tiene dos soluciones opuestas entre sí.\n$$k = 4 \\quad \\text{o} \\quad k = -4$$\nPara cualquier otro valor el determinante no se anula y la inversa existe.\n\nLa respuesta se enuncia excluyendo esos dos valores del conjunto de todos los reales, no listándolos como si fueran la respuesta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-parametro-para-inversibilidad"
+    ]
+  },
+  {
+    "question": "Una matriz depende de un parámetro todavía sin fijar.\n$$A = \\begin{pmatrix} 1 & k \\\\ 4 & 8 \\end{pmatrix}$$\n¿Para qué valores del parámetro **sí** tiene inversa?",
+    "options": [
+      "Únicamente $2$",
+      "Todos los reales salvo $8$",
+      "Todos los reales",
+      "Todos los reales salvo $2$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El determinante se anula en un único valor, y ahí es donde falta la inversa.",
+    "feedback_incorrect": [
+      "Ese es justamente el valor que hay que excluir, no el único válido.",
+      "Ese valor no anula el determinante.",
+      "Hay un valor que sí anula el determinante y hay que excluirlo.",
+      null
+    ],
+    "explanation": "La inversa existe cuando el determinante no se anula, así que primero se busca cuándo sí lo hace.\n$$8 - 4k = 0 \\implies k = 2$$\nEse es el único valor problemático, y para todos los demás la inversa existe.\n\nLa respuesta se enuncia como un conjunto con una exclusión, no como un valor puntual.\n\nConfundir el valor que anula con el conjunto de los que sirven es invertir por completo la respuesta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-parametro-para-inversibilidad"
+    ]
+  },
+  {
+    "question": "Una matriz diagonal depende de un parámetro todavía sin fijar.\n$$D = \\begin{pmatrix} k & 0 \\\\ 0 & 3 \\end{pmatrix}$$\n¿Para qué valores del parámetro tiene inversa la matriz?",
+    "options": [
+      "Todos los reales salvo $0$",
+      "Todos los reales salvo $3$",
+      "Todos los reales salvo $0$ y $3$",
+      "Todos los reales salvo $-3$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El determinante de una diagonal es el producto de su diagonal, y se anula únicamente con $k=0$.",
+    "feedback_incorrect": [
+      null,
+      "El $3$ ya es una entrada fija de la matriz, no depende del parámetro; el determinante no se anula por su culpa.",
+      "El $3$ no anula el producto de la diagonal; solo $k=0$ lo hace.",
+      "Ese valor tampoco anula el producto de la diagonal."
+    ],
+    "explanation": "En una matriz diagonal el determinante es el producto de las entradas de la diagonal.\n$$\\det(D) = 3k$$\nEse producto se anula únicamente cuando el parámetro vale cero.\n\nPara cualquier otro valor las dos entradas de la diagonal son no nulas y la inversa existe.\n\nLa respuesta se enuncia excluyendo ese único valor, no señalándolo como si fuera la respuesta en sí.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-parametro-para-inversibilidad"
+    ]
+  },
+  {
+    "question": "Una matriz depende de un parámetro en dos entradas de la misma fila.\n$$A = \\begin{pmatrix} k & k \\\\ 2 & 5 \\end{pmatrix}$$\n¿Para qué valores del parámetro tiene inversa la matriz?",
+    "options": [
+      "Todos los reales salvo $3$",
+      "Todos los reales salvo $0$ y $3$",
+      "Todos los reales salvo $0$",
+      "Todos los reales salvo $2$ y $5$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El determinante queda como el parámetro por tres, y solo se anula en $k=0$.",
+    "feedback_incorrect": [
+      "Ese valor no anula el determinante; no hace falta excluirlo.",
+      "Solo uno de esos dos valores anula el determinante.",
+      null,
+      "Esos son los valores de la segunda fila, no las soluciones de la ecuación."
+    ],
+    "explanation": "El determinante se calcula igual, con el parámetro apareciendo en los dos productos.\n$$5k - 2k = 3k$$\nLos dos términos se combinan y dejan una ecuación lineal, no cuadrática.\n$$3k = 0 \\implies k = 0$$\nCon el parámetro en cero la primera fila se anula entera, lo que confirma el resultado.\n\nLa respuesta excluye ese único valor del conjunto de todos los reales, en vez de señalarlo como si fuera la respuesta en sí.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-parametro-para-inversibilidad"
+    ]
+  },
+  {
+    "question": "En esta ecuación matricial la incógnita aparece multiplicada por la izquierda, y la matriz que la acompaña tiene inversa:\n$$AX = B$$\n¿Cómo queda despejada $X$?",
+    "options": [
+      "$X = A^{-1}B$",
+      "$X = BA^{-1}$",
+      "$X = AB^{-1}$",
+      "$X = B^{-1}A$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Hay que multiplicar por la inversa del mismo lado en que la matriz acompaña a la incógnita, es decir por la izquierda.",
+    "feedback_incorrect": [
+      null,
+      "Multiplicar por la derecha deja la matriz original pegada a la incógnita por la izquierda, sin cancelarse.",
+      "La que hay que invertir es la matriz que acompaña a la incógnita, no la del otro miembro.",
+      "Esa expresión invierte la matriz equivocada y además la ubica del lado que no cancela nada."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para despejar una incógnita matricial hay que cancelar la matriz que la acompaña, y eso se logra multiplicando por su inversa.\n\nComo el producto no conmuta, el lado importa: la inversa tiene que entrar del mismo lado en que está la matriz a cancelar.\n$$A^{-1}AX = A^{-1}B$$\nDel lado izquierdo la matriz se encuentra con su inversa y queda la identidad, que no altera nada.\n$$X = A^{-1}B$$\nMultiplicar por la derecha no cancela nada. La matriz original queda pegada a la incógnita por la izquierda y la inversa se va al otro extremo, dejando la incógnita atrapada.",
+    "reviewed": false,
+    "tags": [
+      "despejar-matriz-con-inversa"
+    ]
+  },
+  {
+    "question": "En esta ecuación matricial la incógnita aparece multiplicada por la derecha, y la matriz que la acompaña tiene inversa.\n$$XA = B$$\n¿Cómo queda despejada la incógnita?",
+    "options": [
+      "$X = B^{-1}A$",
+      "$X = BA^{-1}$",
+      "$X = A^{-1}B$",
+      "$X = AB^{-1}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La inversa entra por el mismo lado en que está la matriz que se quiere cancelar.",
+    "feedback_incorrect": [
+      "Ahí se invirtió la matriz equivocada y además del lado que no corresponde.",
+      null,
+      "Ese es el despeje cuando la matriz acompaña por la izquierda.",
+      "Ahí se invirtió la matriz equivocada."
+    ],
+    "explanation": "Para cancelar una matriz hay que multiplicar por su inversa del mismo lado en que está.\n$$XAA^{-1} = BA^{-1}$$\nDel lado izquierdo la matriz se encuentra con su inversa y queda la identidad, que no altera nada.\n$$X = BA^{-1}$$\nMultiplicar por la izquierda dejaría la incógnita atrapada, porque los factores no se encontrarían.\n\nEl producto no conmuta, así que el lado no es un detalle de escritura sino parte del despeje.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "despejar-matriz-con-inversa"
+    ]
+  },
+  {
+    "question": "Una ecuación matricial tiene la incógnita entre dos matrices inversibles.\n$$AXB = C$$\n¿Cómo queda despejada la incógnita?",
+    "options": [
+      "$X = A^{-1}B^{-1}C$",
+      "$X = CA^{-1}B^{-1}$",
+      "$X = B^{-1}CA^{-1}$",
+      "$X = A^{-1}CB^{-1}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Cada inversa entra del lado en que está su matriz, y la conocida queda en el medio.",
+    "feedback_incorrect": [
+      "Ahí las dos inversas quedaron a la izquierda, y una no cancela nada.",
+      "Ahí las dos inversas quedaron a la derecha, y una no cancela nada.",
+      "Ahí las dos inversas quedaron del lado equivocado.",
+      null
+    ],
+    "explanation": "Cada matriz que acompaña se cancela multiplicando por su inversa del lado en que está.\n$$A^{-1}AXBB^{-1} = A^{-1}CB^{-1}$$\nDel lado izquierdo las dos parejas se cancelan y dejan la incógnita sola.\n$$X = A^{-1}CB^{-1}$$\nLa matriz conocida queda entre las dos inversas, respetando de qué lado estaba cada una.\n\nLos dos pasos se pueden hacer en cualquier orden, pero cada inversa siempre entra por su lado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "despejar-matriz-con-inversa"
+    ]
+  },
+  {
+    "question": "Una ecuación matricial combina un producto con una suma.\n$$AX + C = B$$\n¿Cómo queda despejada la incógnita?",
+    "options": [
+      "$X = A^{-1}(B-C)$",
+      "$X = A^{-1}B - C$",
+      "$X = (B-C)A^{-1}$",
+      "$X = B - A^{-1}C$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Primero se pasa el término sumando y recién después se multiplica por la inversa.",
+    "feedback_incorrect": [
+      null,
+      "Ahí la inversa se aplicó antes de pasar el término sumando.",
+      "Ahí la inversa entró por la derecha, y la matriz acompaña por la izquierda.",
+      "Ahí la inversa se aplicó a un solo término de la resta."
+    ],
+    "explanation": "El orden de despeje es el inverso del orden de las operaciones: primero la suma, después el producto.\n$$AX = B - C$$\nCon el producto aislado, se multiplica por la inversa del lado en que está la matriz.\n$$X = A^{-1}(B-C)$$\nEl paréntesis es obligatorio: la inversa multiplica al resultado completo de la resta.\n\nAplicar la inversa antes de despejar la suma deja términos sin la operación que les corresponde.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "despejar-matriz-con-inversa"
+    ]
+  },
+  {
+    "question": "Una ecuación matricial tiene la incógnita multiplicada por dos matrices del mismo lado.\n$$ABX = C$$\n¿Cómo queda despejada la incógnita?",
+    "options": [
+      "$X = CB^{-1}A^{-1}$",
+      "$X = (AB)C^{-1}$",
+      "$X = B^{-1}A^{-1}C$",
+      "$X = A^{-1}B^{-1}C$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La inversa de un producto invierte el orden de los factores.",
+    "feedback_incorrect": [
+      "Ahí las inversas entraron por la derecha, y las matrices acompañan por la izquierda.",
+      "Ahí se invirtió la matriz conocida en vez de las que acompañan.",
+      null,
+      "Ahí las dos inversas quedaron en el orden original, y no cancelan."
+    ],
+    "explanation": "Las dos matrices que acompañan forman un producto, y la inversa de un producto invierte el orden.\n$$(AB)^{-1} = B^{-1}A^{-1}$$\nMultiplicando por ella a la izquierda de los dos lados, la incógnita queda sola.\n$$X = B^{-1}A^{-1}C$$\nEl orden invertido es lo que permite que las cancelaciones ocurran de a pares, de adentro hacia afuera.\n\nConservar el orden original dejaría los factores sin encontrarse con sus inversas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "despejar-matriz-con-inversa"
+    ]
   }
 ]

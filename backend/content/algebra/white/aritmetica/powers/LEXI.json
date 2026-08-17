@@ -1,18 +1,407 @@
 [
   {
     "question": "En la expresión $a^n$, la base $a$ se multiplica por sí misma una cierta cantidad de veces.\n\n¿Qué nombre recibe $n$ en esa expresión?",
-    "options": ["Exponente", "Base", "Coeficiente"],
+    "options": [
+      "Exponente",
+      "Base",
+      "Coeficiente",
+      "Radicando"
+    ],
     "correct_index": 0,
     "feedback_correct": "El $n$ indica cuántas veces se multiplica la base por sí misma: es el exponente.",
     "feedback_incorrect": [
       null,
       "La base es $a$, el factor que se repite; $n$ es quien indica cuántas veces se repite.",
-      "El coeficiente multiplica a toda la potencia desde afuera, no indica repeticiones de la base."
+      "El coeficiente multiplica a toda la potencia desde afuera, no indica repeticiones de la base.",
+      "El radicando es el número dentro de una raíz, un objeto distinto al de una potencia."
     ],
-    "explanation": "En una **potencia** $a^n$, la base $a$ es el número que se multiplica por sí mismo, y el **exponente** $n$ indica cuántas veces se repite esa multiplicación.\n\nPor ejemplo, en $5^3$, la base es $5$ y el exponente es $3$, lo que significa $5 \\times 5 \\times 5$.\n\nUna confusión común es invertir los roles y pensar que el exponente es el número que se repite, cuando en realidad ese es siempre el papel de la base.",
+    "explanation": "En una **potencia**, la base es el número que se repite, y el **exponente** indica cuántas veces se repite esa multiplicación.\n\nPor ejemplo:\n$$5^{3} = 5 \\times 5 \\times 5$$\nAcá la base es el $5$ y el exponente es el $3$.\n\nPensar que el exponente es el número que se repite invierte los roles de la potencia: ese papel es siempre el de la base.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "graph_free_aspect": false,
+    "reviewed": false,
+    "tags": [
+      "identificar-base-exponente"
+    ]
+  },
+  {
+    "question": "En una expresión pueden convivir un factor que multiplica desde afuera y una potencia.\n$$3 \\cdot 2^{4}$$\n¿Cuál es la base de esa potencia?",
+    "options": [
+      "$6$",
+      "$2$",
+      "$3$",
+      "$4$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El $2$ es el número que se repite como factor, y eso es lo que define a la base.",
+    "feedback_incorrect": [
+      "Ese número sale de multiplicar el coeficiente por la base, y no cumple ningún rol en la potencia.",
+      null,
+      "Ese número multiplica a la potencia desde afuera, así que es un coeficiente, no la base.",
+      "Ese número indica cuántas veces se repite la base, así que es el exponente."
+    ],
+    "explanation": "En una **potencia**, la base es el factor que se repite y el **exponente** cuenta las repeticiones.\n$$2^{4} = 2 \\times 2 \\times 2 \\times 2$$\nEl coeficiente que aparece adelante multiplica al resultado de esa potencia, pero no participa de la repetición.\n\nPor eso la expresión completa vale tres veces dieciséis, y no algo elevado a la cuarta.\n\nConfundir el coeficiente con la base cambia por completo cuántos factores hay en juego.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-base-exponente"
+    ]
+  },
+  {
+    "question": "El paréntesis decide si el signo menos forma parte de la base o queda afuera de la potencia.\n$$(-2)^{4}$$\n¿Cuál es la base?",
+    "options": [
+      "$2$",
+      "$4$",
+      "$-4$",
+      "$-2$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El paréntesis encierra al signo, así que el factor que se repite es el número negativo completo.",
+    "feedback_incorrect": [
+      "El signo también forma parte de la base, porque el paréntesis lo encierra junto al número.",
+      "Ese número indica cuántas veces se repite la base, así que es el exponente.",
+      "Ese número no aparece en la expresión: mezcla el signo de la base con el valor del exponente.",
+      null
+    ],
+    "explanation": "Cuando el paréntesis encierra al signo, el factor que se repite es la cantidad negativa entera.\n$$(-2)^{4} = (-2)(-2)(-2)(-2)$$\nLos cuatro factores negativos se multiplican de a pares y el resultado queda positivo.\n\nSin el paréntesis la expresión sería otra: el signo quedaría afuera y solo el $2$ se elevaría.\n\nPor eso el paréntesis no es decorativo, decide qué se repite.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-base-exponente"
+    ]
+  },
+  {
+    "question": "El exponente cuenta cuántas veces aparece la base como factor de la multiplicación.\n$$5 \\times 5 \\times 5 \\times 5$$\n¿Cómo se escribe ese producto como potencia?",
+    "options": [
+      "$5^{4}$",
+      "$4^{5}$",
+      "$5 \\cdot 4$",
+      "$5^{5}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El $5$ se repite cuatro veces, así que va como base y el $4$ como exponente.",
+    "feedback_incorrect": [
+      null,
+      "Ahí se invirtieron los roles: el número que se repite va abajo y la cantidad de veces va arriba.",
+      "Multiplicar la base por la cantidad de repeticiones da otra cosa: la potencia multiplica factores, no suma.",
+      "Ese exponente cuenta una repetición de más: en el producto hay cuatro factores, no cinco."
+    ],
+    "explanation": "Una potencia es una forma corta de anotar una multiplicación con el mismo factor repetido.\n$$5 \\times 5 \\times 5 \\times 5 = 5^{4}$$\nAbajo va el factor que se repite y arriba la cantidad de veces que aparece.\n\nInvertir los dos roles cambia el valor por completo, porque cuatro elevado a la quinta es un número mucho más grande.\n\nContar los factores escritos es la forma más segura de decidir cuál va arriba y cuál abajo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-base-exponente"
+    ]
+  },
+  {
+    "question": "Una potencia puede tener exponente negativo sin que eso cambie cuál es la base.\n$$4^{-3}$$\n¿Cuál es el exponente?",
+    "options": [
+      "$4$",
+      "$-4$",
+      "$-3$",
+      "$3$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El exponente es todo lo que está arriba, incluido su signo.",
+    "feedback_incorrect": [
+      "Ese número es la base, el factor que se repite, no la cantidad de repeticiones.",
+      "Ese número mezcla el signo del exponente con el valor de la base.",
+      null,
+      "El signo forma parte del exponente, y sacárselo cambia el valor de la potencia."
+    ],
+    "explanation": "En una potencia, el exponente es todo lo que está escrito arriba, y el signo es parte de él.\n$$4^{-3}$$\nEl signo negativo no pertenece a la base ni al resultado: indica que la base se invierte antes de elevarla.\n\nLa base sigue siendo el número de abajo, exactamente igual que con un exponente positivo.\n\nSeparar bien los dos roles es lo que evita mover el signo al lugar equivocado en el paso siguiente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-base-exponente"
+    ]
+  },
+  {
+    "question": "Una potencia con exponente negativo, como $a^{-n}$, tiene una forma equivalente sin exponente negativo.\n\n¿Cuál es esa forma equivalente?",
+    "options": [
+      "$1/a^n$",
+      "$-a^n$",
+      "$1/(-a)^n$",
+      "$-1/a^n$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El exponente negativo invierte la base: $a^{-n}$ equivale a $1/a^n$, sin que aparezca ningún signo menos en el resultado.",
+    "feedback_incorrect": [
+      null,
+      "Poner un signo menos adelante cambia el resultado a negativo, pero $a^{-n}$ nunca es negativo si $a$ es positivo.",
+      "El exponente negativo no cambia el signo de la base dentro del paréntesis, solo la invierte como fracción.",
+      "El resultado de $a^{-n}$ no lleva signo menos: el exponente negativo se traduce en invertir la base, no en un valor negativo."
+    ],
+    "explanation": "Un **exponente negativo** no vuelve negativo el resultado: indica que hay que invertir la base.\n\nLa regla general es:\n$$a^{-n} = 1/a^n$$\nPor ejemplo, $3^{-2} = 1/9$, un número positivo menor que $1$.\n\nEl signo del exponente y el signo del resultado son dos cosas completamente distintas, y confundirlas lleva a agregarle un signo menos que no corresponde.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": false,
+    "reviewed": false,
+    "tags": [
+      "reconocer-exponente-negativo-equivalente"
+    ]
+  },
+  {
+    "question": "Un exponente negativo indica invertir la base, no cambiar el signo del resultado.\n$$2^{-3}$$\n¿Cuál de estas expresiones **no** vale lo mismo?",
+    "options": [
+      "$(1/2)^{3}$",
+      "$-8$",
+      "$1/2^{3}$",
+      "$1/8$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Una potencia de base positiva nunca da un resultado negativo, aunque el exponente lo sea.",
+    "feedback_incorrect": [
+      "Esa sí vale lo mismo: invertir la base y elevarla da el mismo resultado.",
+      null,
+      "Esa sí vale lo mismo: es exactamente lo que dice la regla del exponente negativo.",
+      "Esa sí vale lo mismo: es el valor numérico de la potencia invertida."
+    ],
+    "explanation": "El signo del exponente y el signo del resultado son dos cosas distintas.\n$$2^{-3} = 1/2^{3} = 1/8$$\nEl exponente negativo manda invertir la base, y el resultado queda positivo y menor que uno.\n\nInvertir la base antes de elevar, o elevar y después invertir, llegan al mismo número.\n\nLo único que nunca aparece es un signo menos en el resultado, salvo que la base ya fuera negativa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-exponente-negativo-equivalente"
+    ]
+  },
+  {
+    "question": "El exponente negativo da vuelta la base entera, y eso vale también cuando la base ya es una fracción.\n$$\\left(\\dfrac{2}{5}\\right)^{-2}$$\n¿Cuál es su forma equivalente?",
+    "options": [
+      "$-(2/5)^{2}$",
+      "$(2/5)^{2}$",
+      "$(-2/5)^{2}$",
+      "$(5/2)^{2}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Invertir la fracción y dejar el exponente en positivo es exactamente lo que dice la regla.",
+    "feedback_incorrect": [
+      "Un exponente negativo no agrega ningún signo menos adelante del resultado.",
+      "Ahí se sacó el signo del exponente sin invertir la base, y eso cambia el valor.",
+      "Ahí el signo se movió adentro de la base, que es otra cantidad distinta.",
+      null
+    ],
+    "explanation": "Invertir la base es lo que hace un **exponente negativo**, y una fracción se invierte dando vuelta numerador y denominador.\n$$\\left(\\dfrac{a}{b}\\right)^{-n} = \\left(\\dfrac{b}{a}\\right)^{n}$$\nCon la fracción ya invertida, el exponente se aplica en positivo como en cualquier potencia.\n\nEl signo del exponente no viaja al resultado ni a la base: solo indica la inversión.\n\nMover ese signo a la base produce una cantidad distinta, aunque en algunos exponentes pares el valor coincida por casualidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-exponente-negativo-equivalente"
+    ]
+  },
+  {
+    "question": "Multiplicar una potencia por la misma potencia de exponente opuesto tiene que dar $1$.\n$$a^{n} \\cdot a^{-n} = 1$$\n¿Qué dice esa igualdad sobre la potencia de exponente negativo?",
+    "options": [
+      "Que es el recíproco de la otra, o sea $1/a^{n}$",
+      "Que es el opuesto de la otra, o sea $-a^{n}$",
+      "Que vale $0$, porque el producto termina anulándose",
+      "Que vale lo mismo que la otra, porque el signo se ignora"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Lo único que multiplicado por una cantidad da uno es su recíproco.",
+    "feedback_incorrect": [
+      null,
+      "El opuesto multiplicado por la cantidad daría un resultado negativo, no uno.",
+      "Un factor nulo dejaría el producto en cero, no en uno.",
+      "Si valieran lo mismo, el producto sería la potencia al cuadrado, no uno."
+    ],
+    "explanation": "Al multiplicar potencias de igual base los exponentes se suman, y sumar un número con su opuesto da cero.\n$$a^{n} \\cdot a^{-n} = a^{0} = 1$$\nComo el producto da uno, la segunda potencia tiene que ser exactamente el recíproco de la primera.\n\nDe ahí sale la regla, que no es una convención arbitraria sino la única definición compatible con la suma de exponentes.\n\nEse razonamiento también explica por qué toda potencia de exponente cero vale uno.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-exponente-negativo-equivalente"
+    ]
+  },
+  {
+    "question": "El signo de la base y el signo del exponente son dos cosas distintas.\n$$(-3)^{-2}$$\n¿Cuál es su forma equivalente sin exponente negativo?",
+    "options": [
+      "$(-1/3)^{-2}$",
+      "$-(1/3)^{2}$",
+      "$1/(-3)^{2}$",
+      "$-1/3^{2}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La base entera, con su signo incluido, es la que se invierte, y el exponente queda positivo.",
+    "feedback_incorrect": [
+      "Ahí el exponente quedó negativo, así que la reescritura no eliminó nada.",
+      "Ahí el signo quedó afuera de la potencia, cuando el paréntesis lo tenía adentro.",
+      null,
+      "Ahí el signo saltó de la base al resultado, que son dos lugares distintos."
+    ],
+    "explanation": "El exponente negativo invierte la base tal como está escrita, con paréntesis y signo incluidos.\n$$(-3)^{-2} = \\dfrac{1}{(-3)^{2}} = \\dfrac{1}{9}$$\nLos dos signos negativos cumplen papeles distintos: uno pertenece a la base y el otro indica la inversión.\n\nComo el exponente es par, los dos factores negativos se compensan y el resultado queda positivo.\n\nSacar el signo de adentro del paréntesis cambia la base, y con ella el resultado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-exponente-negativo-equivalente"
+    ]
+  },
+  {
+    "question": "En un desarrollo se muestra este paso ya resuelto:\n$$a^{5} \\cdot a^{2} = a^{7}$$\n¿Por qué es correcto este paso?",
+    "options": [
+      "Porque $a^5$ aporta 5 factores de $a$ y $a^2$ aporta 2 más, y multiplicarlas junta esos factores en un total de 7",
+      "Porque multiplicar dos potencias de igual base multiplica también sus exponentes, en vez de sumarlos",
+      "Porque el exponente del resultado es siempre el promedio entre los dos exponentes originales",
+      "Porque en este caso puntual $5+2$ coincide con $7$, pero en general no hay ninguna relación fija entre los exponentes"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El exponente cuenta factores de la base multiplicados entre sí, y multiplicar dos potencias junta esos factores: $5+2=7$.",
+    "feedback_incorrect": [
+      null,
+      "Multiplicar potencias de igual base suma los exponentes, no los multiplica; eso es lo que pasa en cambio con una potencia de una potencia.",
+      "No existe esa regla general: el exponente del resultado es la suma de los dos exponentes, no su promedio.",
+      "La relación no es casualidad de este ejemplo puntual, vale siempre, porque el exponente cuenta cuántas veces se multiplica la base por sí misma."
+    ],
+    "explanation": "El **exponente** de una potencia indica cuántas veces se multiplica la base por sí misma.\n\nEscribiendo cada potencia como una multiplicación repetida:\n$$a^{5} = a\\cdot a\\cdot a\\cdot a\\cdot a$$\n$$a^{2} = a\\cdot a$$\nMultiplicar ambas potencias junta esos factores en un solo producto de 7 factores de $a$, así que $a^5\\cdot a^2=a^7$.\n\nEsta es la razón por la que sumar exponentes funciona: no es una regla arbitraria, es contar cuántas veces se repite la base en total.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": false,
+    "reviewed": false,
+    "tags": [
+      "reconocer-propiedad-de-potencias"
+    ]
+  },
+  {
+    "question": "Un apunte resuelve un cociente de potencias en un solo renglón:\n$$\\dfrac{a^{5}}{a^{2}} = a^{3}$$\n¿Por qué es correcto ese paso?",
+    "options": [
+      "Porque en este caso puntual la resta coincide, sin ninguna regla general detrás",
+      "Porque los $2$ factores de abajo cancelan $2$ de los $5$ de arriba, y quedan $3$",
+      "Porque al dividir potencias de igual base los exponentes se dividen entre sí",
+      "Porque el exponente del resultado es la diferencia, pero solo si el de arriba es mayor"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El exponente cuenta factores, y dividir cancela de arriba tantos como haya abajo.",
+    "feedback_incorrect": [
+      "La coincidencia no es del ejemplo: restar exponentes funciona con cualquier par de valores.",
+      null,
+      "Dividir los exponentes daría otro número; lo que se restan son las cantidades de factores.",
+      "La diferencia vale siempre: si el de abajo es mayor, el exponente queda negativo y la regla sigue."
+    ],
+    "explanation": "El **exponente** cuenta cuántas veces la base aparece como factor, así que dividir es cancelar factores de arriba contra factores de abajo.\n$$\\dfrac{a\\,a\\,a\\,a\\,a}{a\\,a} = a\\,a\\,a$$\nCada factor del denominador se lleva uno del numerador, y sobran tres.\n\nPor eso restar los exponentes no es una regla arbitraria: es contar cuántos factores quedan sin cancelar.\n\nCuando el denominador tiene más factores que el numerador, la resta da negativa y el resultado queda como una fracción.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-propiedad-de-potencias"
+    ]
+  },
+  {
+    "question": "Al desarrollar una expresión aparece este paso:\n$$(a^{3})^{2} = a^{6}$$\n¿Por qué es correcto ese paso?",
+    "options": [
+      "Porque los exponentes se suman, y esa suma se anota como un producto",
+      "Porque el exponente de afuera reemplaza al de adentro cuando es más chico",
+      "Porque elevar al cuadrado duplica la base, y la base duplicada da ese resultado",
+      "Porque la potencia de adentro se repite $2$ veces y cada copia aporta $3$ factores"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Repetir dos veces un grupo de tres factores deja seis factores en total.",
+    "feedback_incorrect": [
+      "Sumar los exponentes daría cinco factores, no seis: acá los grupos se repiten, no se juntan.",
+      "Ningún exponente reemplaza a otro: los dos intervienen en el resultado.",
+      "Elevar al cuadrado repite la potencia entera, no duplica el valor de la base.",
+      null
+    ],
+    "explanation": "Una **potencia de potencia** significa repetir la potencia de adentro tantas veces como diga el exponente de afuera.\n$$(a^{3})^{2} = a^{3} \\cdot a^{3}$$\nCada copia aporta tres factores de la base, y dos copias dejan seis.\n\nPor eso los exponentes se multiplican: se cuentan grupos de factores, no factores sueltos.\n\nSumarlos correspondería a un producto de dos potencias distintas, que es la otra propiedad y da otro resultado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-propiedad-de-potencias"
+    ]
+  },
+  {
+    "question": "Una cuenta incluye un factor que parece no hacer nada:\n$$a^{4} \\cdot a^{0} = a^{4}$$\n¿Por qué la potencia de exponente cero no cambia nada?",
+    "options": [
+      "Porque no agrega ningún factor, y multiplicar por ella deja el producto igual",
+      "Porque cualquier cosa multiplicada por cero da cero, y eso hace desaparecer el término",
+      "Porque la potencia de exponente cero vale la base, y multiplicar por ella no altera nada",
+      "Porque el exponente cero se ignora por convención, sin ninguna razón detrás"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Cero factores de la base es no multiplicar por nada, o sea multiplicar por uno.",
+    "feedback_incorrect": [
+      null,
+      "El cero está en el exponente, no como factor: no anula el producto.",
+      "Si valiera la base, el producto tendría un factor más y el exponente subiría a cinco.",
+      "No es una convención suelta: sale de que sumar cero al exponente no cambia la cantidad de factores."
+    ],
+    "explanation": "Sumar los exponentes al multiplicar potencias de igual base implica que sumar cero no puede cambiar el resultado.\n$$a^{4} \\cdot a^{0} = a^{4+0} = a^{4}$$\nLo único que multiplicado por cualquier cantidad la deja igual es el uno, así que la potencia de exponente cero tiene que valer uno.\n\nContando factores se ve lo mismo: cero repeticiones de la base es no agregar ningún factor.\n\nConfundir el exponente cero con un factor cero convierte un producto neutro en una anulación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-propiedad-de-potencias"
+    ]
+  },
+  {
+    "question": "En una simplificación aparece esta igualdad:\n$$a^{5} \\cdot a^{-3} = a^{2}$$\n¿Por qué es correcto ese paso?",
+    "options": [
+      "Porque el signo negativo del exponente vuelve negativo el resultado antes de simplificar",
+      "Porque los exponentes se combinan tomando la diferencia solo si el mayor va primero",
+      "Porque los $3$ factores del exponente negativo cancelan $3$ de los $5$, y quedan $2$",
+      "Porque los exponentes se restan cuando alguno de los dos es negativo"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El exponente negativo aporta factores en el denominador, y esos cancelan factores del numerador.",
+    "feedback_incorrect": [
+      "El signo del exponente no viaja al resultado: una base positiva da siempre un valor positivo.",
+      "El orden no interviene: la suma de exponentes da lo mismo escrita al derecho o al revés.",
+      null,
+      "La regla no cambia: los exponentes siempre se suman, y sumar un negativo ya es restar."
+    ],
+    "explanation": "Un **exponente negativo** aporta factores del lado del denominador, y ahí se cancelan contra los del numerador.\n$$a^{5} \\cdot a^{-3} = \\dfrac{a^{5}}{a^{3}} = a^{2}$$\nTres de los cinco factores de arriba se cancelan, y sobran dos.\n\nEscrito con exponentes es la misma cuenta: sumar un negativo equivale a restar, y la regla del producto sigue valiendo sin ningún caso especial.\n\nPor eso no hace falta una regla aparte para los exponentes negativos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-propiedad-de-potencias"
+    ]
   }
 ]

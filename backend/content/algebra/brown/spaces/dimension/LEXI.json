@@ -1,22 +1,371 @@
 [
   {
-    "question": "¿Qué representa la **dimensión** $\\dim(V)$ de un espacio vectorial?",
+    "question": "Un mismo espacio admite infinitas bases distintas, y todas resultan tener la misma cantidad de vectores.\n$$\\dim(V) = n$$\n¿Por qué no puede haber una base con más elementos que otra?",
     "options": [
-      "La cantidad de vectores en cualquiera de sus bases",
-      "La norma del vector más grande de $V$",
-      "La cantidad de subespacios que contiene"
+      "Porque los elementos de más quedarían alcanzados por los otros, y eso rompe la independencia",
+      "Porque todas las bases de un mismo espacio están formadas por los mismos vectores",
+      "Porque la cantidad de vectores de una base se elige al definir el espacio"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "La dimensión es la cantidad de vectores que tiene cualquier base de $V$.",
+    "feedback_correct": "Una base más grande tendría vectores redundantes, y una base no puede tener ninguno.",
     "feedback_incorrect": [
       null,
-      "La norma de un vector particular no define la dimensión del espacio.",
-      "La cantidad de subespacios de un espacio no es lo que mide la dimensión."
+      "Las bases de un mismo espacio suelen estar formadas por vectores completamente distintos.",
+      "No hay ninguna elección de ese tipo, el número queda determinado por el espacio mismo."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **dimensión** de un espacio vectorial es la cantidad exacta de vectores que contiene cualquiera de sus bases.\n$$\\dim(V) = n$$\n\nEs una propiedad intrínseca del espacio, representa sus grados de libertad.\n\nAunque un espacio tenga infinitas bases posibles, todas ellas comparten la misma cantidad de elementos.",
-    "reviewed": false
+    "explanation": "Que todas las bases tengan la misma cantidad de elementos no es evidente, y es justamente lo que vuelve útil al concepto de **dimensión**.\n\nSi una base tuviera más vectores que otra, esos vectores de más estarían alcanzados por la base chica, que ya genera todo el espacio.\n\nEstar alcanzado por los demás es exactamente ser redundante, y una base no puede tener ningún vector redundante, porque es independiente por definición.\n\nDe ahí que el número sea una propiedad del **espacio** y no de la base elegida. Por eso tiene sentido escribirlo sin aclarar respecto de qué base se cuenta.\n$$\\dim(V) = n$$",
+    "reviewed": false,
+    "tags": [
+      "por-que-el-numero-no-cambia"
+    ]
+  },
+  {
+    "question": "Dos personas eligen bases distintas del mismo espacio y cuentan sus elementos.\n$$\\dim(V) = n$$\n¿Qué obtiene cada una?",
+    "options": [
+      "El mismo número solo si eligieron bases parecidas entre sí",
+      "El mismo número, porque no depende de la base elegida",
+      "Números distintos, porque cada base tiene sus propios vectores"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La cantidad de elementos de una base es una propiedad del espacio y no de la elección.",
+    "feedback_incorrect": [
+      "El parecido entre las bases no interviene, el resultado vale para cualquier par de ellas.",
+      null,
+      "Los vectores de las dos bases pueden ser todos distintos y la cantidad coincide igual."
+    ],
+    "explanation": "Que dos bases cualesquiera del mismo espacio tengan la misma cantidad de elementos es lo que vuelve útil al concepto de **dimensión**.\n$$\\{(1,0), (0,1)\\}, \\quad \\{(1,1), (1,-1)\\}$$\nEsas dos bases del plano no comparten ningún vector, y las dos tienen dos elementos.\n\nLa razón es que si una tuviera más que la otra, sus vectores de más estarían alcanzados por la base chica, que ya genera todo el espacio.\n\nEstar alcanzado por los demás es ser redundante, y una base no puede tener nada redundante.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-el-numero-no-cambia"
+    ]
+  },
+  {
+    "question": "La dimensión de un espacio se escribe sin aclarar respecto de qué base se contó.\n$$\\dim(V) = n$$\n¿Por qué está permitido omitir ese dato?",
+    "options": [
+      "Porque siempre se sobreentiende que se usó la base canónica",
+      "Porque el número se define al construir el espacio",
+      "Porque todas las bases del espacio dan el mismo número"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Si el número dependiera de la base, la notación tendría que aclararlo.",
+    "feedback_incorrect": [
+      "Muchos espacios ni siquiera tienen una base canónica, y la dimensión se define igual.",
+      "El número no se elige al construir el espacio, sale de contar los elementos de una base.",
+      null
+    ],
+    "explanation": "La notación omite la base porque el resultado no depende de ella, y eso hay que demostrarlo antes de poder escribirla así.\n$$\\dim(V) = n$$\nSi dos bases pudieran dar números distintos, habría que aclarar siempre respecto de cuál se contó, y el número no diría nada sobre el espacio.\n\nComo todas dan lo mismo, el número pasa a ser una propiedad del espacio.\n\nUn subespacio como un plano que pasa por el origen no tiene ninguna base privilegiada, y aun así su dimensión está perfectamente definida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-el-numero-no-cambia"
+    ]
+  },
+  {
+    "question": "Se imagina por un momento que la cantidad de elementos dependiera de la base elegida.\n$$\\dim(V) = n$$\n¿Qué se perdería en ese caso?",
+    "options": [
+      "La posibilidad de comparar dos espacios por ese número",
+      "La posibilidad de elegir bases distintas del mismo espacio",
+      "La posibilidad de escribir un vector como combinación"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Un número que cambia con la elección no describe al espacio, describe a la elección.",
+    "feedback_incorrect": [
+      null,
+      "Elegir bases distintas seguiría siendo posible, lo que se perdería es que el conteo sirva.",
+      "Escribir un vector como combinación depende de la base, no de cuántos elementos tenga."
+    ],
+    "explanation": "Un número que dependiera de la elección no serviría para describir al espacio.\n$$\\dim(P_2) = \\dim(\\mathbb{R}^3) = 3$$\nEsa igualdad afirma algo sobre los dos espacios, y solo tiene sentido porque cada número está bien definido de su lado.\n\nSi cambiara con la base, comparar dos espacios exigiría aclarar qué bases se eligieron en cada uno, y el resultado no diría nada.\n\nPor eso este resultado no es un detalle técnico: es lo que convierte al conteo en una herramienta para comparar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-el-numero-no-cambia"
+    ]
+  },
+  {
+    "question": "El plano admite infinitas bases distintas entre sí.\n$$B \\subset \\mathbb{R}^2$$\n¿Qué tienen todas en común?",
+    "options": [
+      "Que todas están formadas por vectores de la misma longitud",
+      "Que todas están formadas por exactamente dos vectores",
+      "Que todas contienen al menos un vector de la base canónica"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La cantidad de elementos es lo único que no cambia entre una base y otra.",
+    "feedback_incorrect": [
+      "Las longitudes pueden ser cualquiera, no intervienen en la definición de base.",
+      null,
+      "Hay bases del plano que no comparten ningún vector con la canónica."
+    ],
+    "explanation": "Entre todas las bases posibles de un espacio, lo único que se mantiene fijo es cuántos vectores tienen.\n$$\\{(1,0), (0,1)\\}, \\quad \\{(2,1), (1,1)\\}$$\nLos vectores concretos, sus longitudes y sus direcciones cambian de una base a otra sin ninguna restricción.\n\nLa cantidad, en cambio, es siempre dos en el plano y siempre tres en el espacio de tres dimensiones.\n\nEse número invariante es exactamente lo que se llama dimensión, y por eso se lo puede usar para describir al espacio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-el-numero-no-cambia"
+    ]
+  },
+  {
+    "question": "La dimensión de un espacio se define contando los vectores de cualquiera de sus bases.\n$$\\dim(\\mathbb{R}^3) = 3$$\n¿Qué es lo que ese número está midiendo?",
+    "options": [
+      "La cantidad de direcciones independientes que hacen falta",
+      "La cantidad de coordenadas que tienen escritos sus vectores",
+      "La cantidad de vectores distintos que contiene el espacio"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada vector de la base aporta una dirección nueva, y la dimensión cuenta cuántas hacen falta.",
+    "feedback_incorrect": [
+      null,
+      "Una recta dentro del espacio de tres dimensiones tiene vectores de tres coordenadas y dimensión uno.",
+      "Cualquier subespacio que no sea el nulo tiene infinitos vectores, sin importar su dimensión."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **dimensión** cuenta direcciones independientes, no coordenadas escritas ni cantidad de elementos.\n\nLa confusión más frecuente aparece con los subespacios. Una recta que pasa por el origen dentro del espacio de tres dimensiones está formada por ternas.\n\nAun así le alcanza un solo vector para generarse entera, así que su dimensión es uno. Un plano que pasa por el origen necesita dos, y su dimensión es dos.\n\nEl caso extremo es el subespacio formado únicamente por el vector nulo. No necesita ningún vector para generarse, así que su dimensión es cero.\n\nPensarla como grados de libertad ayuda, porque es cuántos números hay que elegir libremente para determinar un elemento del espacio.",
+    "reviewed": false,
+    "tags": [
+      "que-mide-la-dimension"
+    ]
+  },
+  {
+    "question": "Una recta que pasa por el origen dentro del espacio de tres dimensiones tiene dimensión uno.\n$$\\dim(S) = 1$$\n¿Por qué ese número es uno y no tres?",
+    "options": [
+      "Porque contiene una sola dirección de las tres del espacio",
+      "Porque alcanza un solo vector para generarla entera",
+      "Porque sus vectores tienen una sola coordenada distinta de cero"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La dimensión cuenta cuántos vectores hacen falta, no cuántas componentes tienen.",
+    "feedback_incorrect": [
+      "El espacio no tiene tres direcciones fijas para repartir, tiene infinitas direcciones posibles.",
+      null,
+      "Sus vectores pueden tener las tres coordenadas distintas de cero y la dimensión sigue siendo uno."
+    ],
+    "explanation": "La dimensión cuenta cuántos vectores hacen falta para generar el subespacio, y no cuántas componentes tienen esos vectores.\n$$S = \\text{gen}\\{(2,-1,3)\\}$$\nLos elementos de esa recta son ternas, con sus tres componentes, y aun así alcanza un solo vector para generarla entera.\n\nCada punto de la recta se obtiene multiplicando ese vector por un número, así que hay un único grado de libertad.\n\nConfundir la cantidad de componentes con la dimensión es la equivocación más frecuente del tema, y este caso la separa de raíz.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-mide-la-dimension"
+    ]
+  },
+  {
+    "question": "El subespacio formado únicamente por el vector nulo tiene dimensión cero.\n$$\\dim(\\{\\vec{0}\\}) = 0$$\n¿Por qué ese número es cero y no uno?",
+    "options": [
+      "Porque el vector nulo no cuenta como un vector del espacio",
+      "Porque tiene un solo elemento y hay que restarle uno",
+      "Porque no hace falta ningún vector para generarlo"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Su único elemento se obtiene sin tomar ninguna dirección, con la combinación vacía.",
+    "feedback_incorrect": [
+      "El vector nulo es un vector como cualquier otro, lo que no aporta es una dirección.",
+      "La dimensión no cuenta elementos del subespacio, cuenta direcciones que hacen falta.",
+      null
+    ],
+    "explanation": "La dimensión cuenta direcciones necesarias, y este subespacio no necesita ninguna.\n$$\\{\\vec{0}\\}$$\nSu único elemento es el vector nulo, que ya pertenece a cualquier subespacio sin que haga falta generarlo con nada.\n\nPoner un vector adentro sería un error, porque el vector nulo no aporta ninguna dirección: todos sus múltiplos son él mismo.\n\nContar el elemento en lugar de las direcciones es lo que lleva a responder uno, y es la misma confusión que aparece con cualquier subespacio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-mide-la-dimension"
+    ]
+  },
+  {
+    "question": "La dimensión se puede leer como la cantidad de grados de libertad de un espacio.\n$$\\dim(V) = n$$\n¿Qué significa esa lectura?",
+    "options": [
+      "Cuántos números hay que elegir para determinar un elemento",
+      "Cuántos elementos distintos contiene el espacio en total",
+      "Cuántas veces se puede achicar el espacio antes de vaciarlo"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Cada vector de una base aporta un coeficiente que se elige libremente.",
+    "feedback_incorrect": [
+      null,
+      "Cualquier espacio que no sea el nulo tiene infinitos elementos, sin importar su dimensión.",
+      "Los subespacios no se achican por pasos, esa lectura no corresponde a ninguna operación."
+    ],
+    "explanation": "Fijada una base, cada elemento del espacio queda determinado por sus coordenadas, y esas coordenadas se eligen libremente.\n$$\\vec{v} = \\alpha_1\\vec{v}_1 + \\dots + \\alpha_n\\vec{v}_n$$\nHay tantos números a elegir como vectores tenga la base, o sea tantos como diga la dimensión.\n\nEn un plano que pasa por el origen dentro del espacio de tres dimensiones hay dos números a elegir, aunque el resultado se escriba con tres componentes.\n\nEsa lectura es la que mejor se traslada a espacios donde no hay ningún dibujo del cual leer la respuesta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-mide-la-dimension"
+    ]
+  },
+  {
+    "question": "Un subespacio vive adentro del espacio de tres dimensiones.\n$$S \\subset \\mathbb{R}^3$$\n¿Puede su dimensión valer cuatro?",
+    "options": [
+      "Sí, si sus vectores tienen más de tres componentes",
+      "No, porque nunca supera a la del espacio que lo contiene",
+      "Sí, si está descripto por cuatro vectores generadores"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Una base suya sería un conjunto independiente con más vectores que coordenadas.",
+    "feedback_incorrect": [
+      "Sus vectores son elementos del espacio que lo contiene, así que tienen tres componentes.",
+      null,
+      "La cantidad de generadores escritos no mide la dimensión, puede haber varios de más."
+    ],
+    "explanation": "La dimensión de un subespacio nunca supera a la del espacio donde vive, y el argumento es directo.\n$$\\dim(S) \\leq 3$$\nUna base del subespacio es un conjunto de vectores del espacio grande donde ninguno se arma con los otros.\n\nCon cuatro vectores de tres componentes eso es imposible, porque alguno queda necesariamente alcanzado por los demás.\n\nLos valores posibles quedan entonces en cero, uno, dos o tres, que corresponden al origen solo, a una recta, a un plano y al espacio entero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-mide-la-dimension"
+    ]
+  },
+  {
+    "question": "El espacio de los polinomios de grado menor o igual a dos tiene dimensión tres, igual que el espacio de las ternas.\n$$\\dim(P_2) = \\dim(\\mathbb{R}^3) = 3$$\n¿Qué consecuencia tiene esa coincidencia?",
+    "options": [
+      "Que fijando una base, todo lo que vale para uno vale para el otro leyendo coordenadas",
+      "Que los polinomios de ese espacio son en realidad ternas escritas de otra manera",
+      "Que cualquier polinomio de ese espacio se puede sumar con cualquier terna"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Fijada una base, cada polinomio queda representado por sus coordenadas y todo se traduce.",
+    "feedback_incorrect": [
+      null,
+      "Siguen siendo objetos distintos, lo que coincide es cómo se comportan, no lo que son.",
+      "Son espacios separados, y sumar un elemento de uno con uno del otro no está definido."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $P_2$ cada polinomio queda determinado por sus tres coeficientes, así que hacen falta tres direcciones independientes para generarlo entero.\n$$\\dim(P_2) = 3$$\nFijando la base formada por las tres potencias más simples, cada polinomio queda representado por una terna de coeficientes.\n$$\\{1,\\ x,\\ x^2\\}$$\nToda operación entre polinomios se traduce entonces en la operación correspondiente entre ternas, y al revés.\n\nPor eso todo lo que se demostró en esta unidad trabajando con ternas cae sobre los polinomios sin cambiar nada.\n\nLo que **no** dice es que sean el mismo conjunto. Un polinomio no es una terna, se comporta como una vez elegida la base.",
+    "reviewed": false,
+    "tags": [
+      "por-que-la-dimension-los-iguala"
+    ]
+  },
+  {
+    "question": "Dos espacios muy distintos entre sí resultan tener la misma dimensión.\n$$\\dim(P_3) = \\dim(\\mathbb{R}^{2 \\times 2}) = 4$$\n¿Qué consecuencia tiene esa coincidencia?",
+    "options": [
+      "Que se puede sumar un polinomio con una matriz sin problema",
+      "Que fijando una base en cada uno, todo se traduce de uno al otro",
+      "Que un polinomio de grado tres es en realidad una matriz"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los dos quedan descriptos por cuatro coeficientes, y las operaciones se corresponden.",
+    "feedback_incorrect": [
+      "Son espacios separados, y sumar un elemento de uno con uno del otro no está definido.",
+      null,
+      "Siguen siendo objetos distintos, lo que coincide es cómo se comportan."
+    ],
+    "explanation": "Los polinomios de grado a lo sumo tres tienen cuatro coeficientes, y las matrices de dos por dos tienen cuatro casilleros.\n$$\\dim(P_3) = \\dim(\\mathbb{R}^{2 \\times 2}) = 4$$\nFijando una base en cada espacio, los dos quedan descriptos por listas de cuatro números, y las operaciones se corresponden una a una.\n\nTodo lo que se demuestre para uno vale para el otro leyendo esas listas.\n\nLo que **no** dice es que sean el mismo conjunto. Un polinomio no es una matriz, se comporta como una vez elegidas las bases.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-la-dimension-los-iguala"
+    ]
+  },
+  {
+    "question": "Se afirma que los polinomios de grado a lo sumo dos se comportan como las ternas.\n$$\\dim(P_2) = \\dim(\\mathbb{R}^3) = 3$$\n¿Significa eso que un polinomio es una terna?",
+    "options": [
+      "Sí, porque los dos quedan descriptos por tres números",
+      "No, porque los polinomios tienen infinitos valores posibles",
+      "No, significa que se traducen entre sí una vez fijada una base"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La correspondencia depende de haber elegido una base, así que no es una identidad.",
+    "feedback_incorrect": [
+      "Estar descripto por tres números no vuelve al objeto igual a la lista de esos números.",
+      "La cantidad de valores que toma un polinomio no interviene en esta comparación.",
+      null
+    ],
+    "explanation": "La igualdad de dimensiones dice que los dos espacios se comportan igual, no que sean el mismo conjunto.\n$$x^2 + 3x + 5 \\to (5, 3, 1)$$\nEsa traducción depende de haber elegido antes una base, y con otra base el mismo polinomio correspondería a otra terna.\n\nUn polinomio se evalúa, se deriva y se multiplica por otro polinomio, cosas que con una terna no tienen sentido.\n\nLo que se traslada es la estructura de sumar y escalar, que es exactamente lo que este tema estudia, y por eso todo lo demostrado vale en los dos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-la-dimension-los-iguala"
+    ]
+  },
+  {
+    "question": "Para traducir entre dos espacios de la misma dimensión hace falta un paso previo.\n$$\\dim(V) = \\dim(W)$$\n¿Cuál es ese paso?",
+    "options": [
+      "Elegir una base en cada uno de los dos espacios",
+      "Verificar que los dos tengan la misma cantidad de elementos",
+      "Comprobar que los elementos de los dos se escriban igual"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Sin una base fija no hay coordenadas, y sin coordenadas no hay traducción.",
+    "feedback_incorrect": [
+      null,
+      "Los dos tienen infinitos elementos, así que esa comparación no aporta nada.",
+      "Los elementos pueden escribirse de maneras completamente distintas y traducirse igual."
+    ],
+    "explanation": "La traducción entre dos espacios de la misma dimensión pasa siempre por las coordenadas, y las coordenadas necesitan una base.\n$$\\vec{v} \\to [\\vec{v}]_B$$\nCon una base fija en cada espacio, cada elemento queda descripto por una lista de números, y las dos listas tienen la misma longitud.\n\nHaciendo corresponder listas iguales queda armada la traducción, y las operaciones se corresponden solas.\n\nCambiando la base cambia la traducción, así que hay muchas posibles, y ninguna es más verdadera que las demás.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-la-dimension-los-iguala"
+    ]
+  },
+  {
+    "question": "Dos espacios tienen dimensiones distintas entre sí.\n$$\\dim(V) = 2, \\quad \\dim(W) = 3$$\n¿Pueden comportarse igual bajo las dos operaciones?",
+    "options": [
+      "Sí, siempre que uno de los dos esté contenido en el otro",
+      "No, porque harían falta listas de coordenadas de distinta longitud",
+      "Sí, si los dos están formados por vectores del mismo tipo"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Una traducción que respete las operaciones obliga a que las dimensiones coincidan.",
+    "feedback_incorrect": [
+      "Un plano dentro del espacio de tres dimensiones está contenido y no se comporta igual que él.",
+      null,
+      "El tipo de objeto no interviene: polinomios y ternas se comportan igual con la misma dimensión."
+    ],
+    "explanation": "La dimensión es lo que decide si dos espacios se comportan igual, y por eso números distintos descartan la posibilidad.\n$$\\dim(V) = 2, \\quad \\dim(W) = 3$$\nFijando bases, los elementos del primero quedan descriptos por dos números y los del segundo por tres.\n\nUna traducción que respetara las operaciones tendría que hacer corresponder esas listas, y no hay manera de hacerlo sin perder o inventar información.\n\nUn plano que pasa por el origen dentro del espacio de tres dimensiones es el ejemplo más claro: está contenido en él y no se comporta igual.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-la-dimension-los-iguala"
+    ]
   }
 ]

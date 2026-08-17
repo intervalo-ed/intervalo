@@ -1,22 +1,371 @@
 [
   {
-    "question": "¿Cuál de estos conjuntos es **generador** de $\\mathbb{R}^2$?",
+    "question": "Tres conjuntos de vectores del plano se proponen como generadores de todo el plano.\n$$A = \\{(1,2), (2,4)\\}$$\n$$B = \\{(1,2), (3,1)\\}$$\n$$C = \\{(2,4)\\}$$\n¿Cuál de los tres genera todo el plano?",
     "options": [
-      "$\\{(1,0), (0,1)\\}$",
-      "$\\{(1,0)\\}$",
-      "$\\{(2,4)\\}$"
+      "$B$",
+      "$A$",
+      "$C$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$(1,0)$ y $(0,1)$ generan cualquier vector de $\\mathbb{R}^2$ combinándolos.",
+    "feedback_correct": "Sus dos vectores apuntan en direcciones distintas, así que sus combinaciones cubren el plano entero.",
     "feedback_incorrect": [
       null,
-      "Un solo vector solo genera una recta, no todo $\\mathbb{R}^2$.",
-      "Un único vector, aunque distinto, sigue generando solo una recta, no el plano completo."
+      "El segundo vector es el doble del primero, así que las dos direcciones son la misma y solo dan una recta.",
+      "Un solo vector genera únicamente la recta que pasa por el origen en su dirección."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para generar $\\mathbb{R}^2$ hacen falta al menos dos vectores no paralelos.\n\n$(1,0)$ y $(0,1)$ cumplen esa condición: cualquier punto del plano se escribe como $a(1,0)+b(0,1)$.\n\nUn único vector, sea cual sea, solo genera la recta que pasa por el origen en su dirección, nunca el plano completo. no paralelos. Dos vectores paralelos (uno es múltiplo del otro) generan solo una línea, no el plano completo. La independencia lineal es la característica clave: los vectores deben apuntar en direcciones realmente distintas para llenar todo el espacio. Si los dos vectores son independientes, cualquier punto del plano puede escribirse como combinación lineal de ellos. Generar un espacio significa que sus combinaciones lineales cubren todos los puntos posibles.",
-    "reviewed": false
+    "explanation": "Para generar el plano hacen falta dos vectores que apunten en direcciones distintas, y esa condición es más exigente que simplemente tener dos vectores.\n\nEn el conjunto $A$ hay dos vectores escritos, pero el segundo se obtiene del primero.\n$$(2,4) = 2 \\cdot (1,2)$$\nComo cualquier combinación de los dos termina siendo un múltiplo de $(1,2)$, el generado es una recta y no el plano.\n\nEn $B$ eso no pasa, ningún vector es múltiplo del otro, y ahí sí se llega a cualquier punto.\n\nContar cuántos vectores hay escritos no alcanza para decidir, hay que mirar si aportan direcciones distintas.",
+    "reviewed": false,
+    "tags": [
+      "decidir-si-genera"
+    ]
+  },
+  {
+    "question": "Tres conjuntos de vectores de $\\mathbb{R}^3$ se proponen como generadores.\n$$A = \\{(1,0,0), (0,1,0)\\}$$\n$$B = \\{(1,0,0), (0,1,0), (2,3,0)\\}$$\n$$C = \\{(1,0,0), (0,1,0), (1,1,1)\\}$$\n¿Cuál de los tres genera todo el espacio?",
+    "options": [
+      "$B$",
+      "$C$",
+      "$A$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Su tercer vector tiene la última coordenada no nula, así que se sale del plano de los otros dos.",
+    "feedback_incorrect": [
+      "Su tercer vector tiene la última coordenada nula, así que sigue dentro del mismo plano.",
+      null,
+      "Con dos vectores se llega a un plano, y el espacio tiene una dirección más."
+    ],
+    "explanation": "Para generar $\\mathbb{R}^3$ hacen falta tres direcciones que no estén todas sobre un mismo plano.\n$$(2,3,0) = 2(1,0,0) + 3(0,1,0)$$\nEl tercer vector del segundo conjunto se arma con los dos primeros, así que no agrega nada y el generado sigue siendo el plano horizontal.\n\nEl del tercer conjunto, en cambio, tiene la última coordenada distinta de cero, y ninguna combinación de los dos primeros puede producir eso.\n\nContar vectores no alcanza para decidir: los dos últimos conjuntos tienen tres cada uno y solo uno llega a cubrir el espacio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-si-genera"
+    ]
+  },
+  {
+    "question": "Un conjunto del plano incluye al vector nulo entre sus dos elementos.\n$$A = \\{(3,1), (0,0)\\}$$\n¿Genera todo el plano?",
+    "options": [
+      "Sí, porque el conjunto tiene dos vectores distintos entre sí",
+      "No, porque ninguno de los dos tiene la primera coordenada en uno",
+      "No, porque el vector nulo no aporta ninguna dirección nueva"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Las combinaciones quedan reducidas a los múltiplos del primer vector, o sea una recta.",
+    "feedback_incorrect": [
+      "Los múltiplos del vector nulo son siempre el vector nulo, así que el segundo no suma alcance.",
+      "El valor de las coordenadas no importa, lo que decide es si aportan direcciones distintas.",
+      null
+    ],
+    "explanation": "Contar los vectores escritos es el atajo que más engaña, y este conjunto lo muestra bien.\n$$\\alpha_1(3,1) + \\alpha_2(0,0) = \\alpha_1(3,1)$$\nEl segundo término se cancela sin importar el coeficiente, así que toda combinación termina siendo un múltiplo del primer vector.\n\nEl generado es entonces la recta que pasa por el origen en la dirección de $(3,1)$, y no el plano entero.\n\nPara llegar al plano haría falta un segundo vector que apunte a otro lado, y el vector nulo no apunta a ninguno.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-si-genera"
+    ]
+  },
+  {
+    "question": "Se quiere saber cuántos vectores se necesitan como mínimo para generar todo el espacio.\n$$\\text{gen}\\{\\vec{v}_1, \\dots, \\vec{v}_k\\} = \\mathbb{R}^3$$\n¿Cuál es la respuesta?",
+    "options": [
+      "Tres, y además tienen que aportar direcciones distintas",
+      "Dos, siempre que ninguno sea múltiplo del otro",
+      "Cualquier cantidad, mientras no haya vectores repetidos"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Con menos de tres el alcance no pasa de un plano, y con tres puede alcanzar o no.",
+    "feedback_incorrect": [
+      null,
+      "Dos vectores que no son múltiplos generan un plano, que es menos que todo el espacio.",
+      "Cuatro vectores pueden generar solo una recta si todos apuntan en la misma dirección."
+    ],
+    "explanation": "La cantidad de vectores es una condición necesaria, pero nunca suficiente.\n$$\\text{gen}\\{(1,0,0), (0,1,0)\\} \\neq \\mathbb{R}^3$$\nCon uno se llega a una recta y con dos a un plano, así que menos de tres nunca alcanza para cubrir el espacio entero.\n\nCon tres puede pasar o no. Si uno de ellos se arma con los otros dos, el generado sigue siendo un plano.\n\nPor eso la respuesta tiene dos partes: hace falta esa cantidad y además hace falta que cada vector aporte una dirección que los otros no tenían.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-si-genera"
+    ]
+  },
+  {
+    "question": "Un conjunto de cuatro vectores del plano se propone como generador.\n$$A = \\{(1,0), (0,1), (2,3), (5,1)\\}$$\n¿Genera todo el plano?",
+    "options": [
+      "No, porque hay más vectores escritos que coordenadas",
+      "Sí, porque dos de ellos ya aportan las dos direcciones necesarias",
+      "No, porque cuatro vectores en el plano terminan estorbándose entre sí"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Con los dos primeros ya se llega a cualquier punto, y los demás no quitan nada.",
+    "feedback_incorrect": [
+      "La cantidad de vectores puede superar a la de coordenadas sin ningún problema.",
+      null,
+      "Tener vectores de más no impide generar, lo único que hace es repetir direcciones."
+    ],
+    "explanation": "Tener vectores de más nunca impide generar: lo que hace es agregar información repetida.\n$$\\text{gen}\\{(1,0), (0,1)\\} = \\mathbb{R}^2$$\nCon los dos primeros vectores ya se alcanza cualquier punto del plano, así que el generado del conjunto completo también es el plano entero.\n\nLos otros dos no aportan destinos nuevos, y tampoco los sacan.\n\nEl único efecto real es que ahora cada punto se puede armar de muchas maneras distintas, en lugar de una sola, porque hay coeficientes de sobra.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-si-genera"
+    ]
+  },
+  {
+    "question": "Dos vectores de $\\mathbb{R}^3$ no son múltiplos entre sí.\n$$\\vec{u} = (1,0,2), \\quad \\vec{v} = (0,1,1)$$\n¿Qué subespacio es $\\text{gen}\\{\\vec{u}, \\vec{v}\\}$?",
+    "options": [
+      "Un plano que pasa por el origen",
+      "Todo $\\mathbb{R}^3$",
+      "Una recta que pasa por el origen"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Dos direcciones distintas alcanzan para un plano, pero falta una tercera para llenar el espacio.",
+    "feedback_incorrect": [
+      null,
+      "Para llenar $\\mathbb{R}^3$ hacen falta tres direcciones distintas, y acá hay dos.",
+      "Una recta sale de un solo vector, o de varios que sean múltiplos entre sí."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El generado crece con la cantidad de direcciones **distintas** que aportan los vectores, no con cuántos vectores hay.\n\nCon uno solo se recorre una recta que pasa por el origen. Con dos que no son múltiplos, las combinaciones barren toda una lámina plana apoyada en el origen.\n\nPara llegar al espacio completo haría falta un tercer vector que se salga de ese plano. Cualquier vector que ya esté sobre él no agregaría nada.\n\nEl caso de dos vectores en $\\mathbb{R}^3$ es el que más se confunde, porque el reflejo es asociar dos vectores con el plano de siempre y olvidar que el espacio tiene una dirección más.",
+    "reviewed": false,
+    "tags": [
+      "identificar-que-genera"
+    ]
+  },
+  {
+    "question": "Un único vector de $\\mathbb{R}^3$ arma un conjunto generado.\n$$\\vec{u} = (2, -1, 3)$$\n¿Qué subespacio es $\\text{gen}\\{\\vec{u}\\}$?",
+    "options": [
+      "El conjunto formado únicamente por el origen",
+      "Una recta que pasa por el origen",
+      "Un plano que pasa por el origen"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los múltiplos de un vector no nulo dibujan la recta que pasa por el origen en su dirección.",
+    "feedback_incorrect": [
+      "El vector dado no es nulo, así que sus múltiplos son infinitos y distintos entre sí.",
+      null,
+      "Para un plano hacen falta dos direcciones distintas, y acá hay una sola."
+    ],
+    "explanation": "Un solo vector no nulo genera exactamente una recta, la que pasa por el origen en su dirección.\n$$\\text{gen}\\{\\vec{u}\\} = \\{\\alpha(2,-1,3)\\}$$\nCada valor del coeficiente produce un punto distinto sobre esa recta, incluido el origen cuando el coeficiente vale cero.\n\nQue el vector tenga tres coordenadas no cambia nada. Vive en $\\mathbb{R}^3$, pero alcanza una sola de sus direcciones.\n\nDónde vive un vector y hasta dónde alcanza son dos lecturas distintas, y el generado responde solo la segunda.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-que-genera"
+    ]
+  },
+  {
+    "question": "Dos vectores de $\\mathbb{R}^3$ son uno múltiplo del otro.\n$$\\vec{u} = (1,2,3), \\quad \\vec{v} = (2,4,6)$$\n¿Qué subespacio es $\\text{gen}\\{\\vec{u}, \\vec{v}\\}$?",
+    "options": [
+      "Un plano que pasa por el origen",
+      "Todo $\\mathbb{R}^3$",
+      "Una recta que pasa por el origen"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El segundo vector duplica al primero, así que las dos direcciones son una sola.",
+    "feedback_incorrect": [
+      "Para un plano hacen falta dos direcciones distintas, y acá los dos vectores apuntan al mismo lado.",
+      "Ni siquiera dos direcciones distintas alcanzarían para el espacio entero.",
+      null
+    ],
+    "explanation": "Que haya dos vectores escritos no garantiza dos direcciones, y este es el caso que mejor lo muestra.\n$$(2,4,6) = 2(1,2,3)$$\nCualquier combinación de los dos termina siendo un múltiplo del primero, así que el generado es una recta.\n\nLa cuenta lo confirma: sumando el primero multiplicado por un número y el segundo por otro, el resultado siempre queda en la misma dirección.\n\nEl chequeo rápido es comparar las coordenadas de a pares. Si todas guardan la misma proporción, uno de los dos vectores no aporta nada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-que-genera"
+    ]
+  },
+  {
+    "question": "Tres vectores de $\\mathbb{R}^3$ tienen la última coordenada nula.\n$$A = \\{(1,0,0), (0,1,0), (2,5,0)\\}$$\n¿Qué subespacio genera ese conjunto?",
+    "options": [
+      "Un plano que pasa por el origen",
+      "Todo $\\mathbb{R}^3$",
+      "Una recta que pasa por el origen"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Ninguna combinación puede producir una última coordenada distinta de cero.",
+    "feedback_incorrect": [
+      null,
+      "Los tres vectores tienen la última coordenada nula, y sumarlos nunca la despierta.",
+      "Los dos primeros ya aportan dos direcciones distintas, así que el alcance pasa de una recta."
+    ],
+    "explanation": "Tres vectores no garantizan el espacio entero, y acá la última coordenada delata el problema.\n$$(2,5,0) = 2(1,0,0) + 5(0,1,0)$$\nEl tercer vector se arma con los dos primeros, así que no agrega ninguna dirección nueva.\n\nY ninguna combinación de los tres puede tener la última coordenada distinta de cero, porque los tres la tienen nula.\n\nEl generado es el plano horizontal que pasa por el origen, que es exactamente lo que alcanzan los dos primeros vectores solos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-que-genera"
+    ]
+  },
+  {
+    "question": "Un conjunto generador tiene un solo elemento, y ese elemento es el vector nulo.\n$$A = \\{(0,0)\\}$$\n¿Qué subespacio genera?",
+    "options": [
+      "Todo el plano, porque el origen pertenece a cualquier parte",
+      "El conjunto formado únicamente por el origen",
+      "Una recta cualquiera que pase por el origen"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Todos los múltiplos del vector nulo vuelven a dar el vector nulo.",
+    "feedback_incorrect": [
+      "El generado reúne solo las combinaciones de los vectores dados, y acá todas dan lo mismo.",
+      null,
+      "Para marcar la dirección de una recta hace falta un vector que no sea el nulo."
+    ],
+    "explanation": "Multiplicar el vector nulo por cualquier número devuelve siempre el vector nulo, así que el generado tiene un solo elemento.\n$$\\alpha(0,0) = (0,0)$$\nEse conjunto es el subespacio más chico posible, y aparece cada vez que un conjunto generador no aporta ninguna dirección.\n\nNo es lo mismo que una recta, aunque las dos pasen por el origen: la recta tiene infinitos elementos y este tiene uno solo.\n\nEs el caso extremo de la lectura general: el generado crece con la cantidad de direcciones distintas, y acá esa cantidad es cero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-que-genera"
+    ]
+  },
+  {
+    "question": "Dos conjuntos distintos de vectores del plano se comparan por lo que generan.\n$$A = \\{(1,1), (2,2)\\}$$\n$$B = \\{(3,3)\\}$$\n¿Cómo se relacionan sus generados?",
+    "options": [
+      "Generan exactamente el mismo subespacio",
+      "El de $A$ contiene estrictamente al de $B$",
+      "Generan subespacios distintos que solo comparten el origen"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Los tres vectores son múltiplos de $(1,1)$, así que los dos conjuntos describen la misma recta.",
+    "feedback_incorrect": [
+      null,
+      "El segundo vector de $A$ es múltiplo del primero, así que $A$ no llega más lejos que $B$.",
+      "Los tres vectores apuntan en la misma dirección, así que las dos rectas coinciden por completo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un mismo subespacio admite muchas descripciones distintas por generadores, y reconocerlo evita trabajo de más.\n\nAcá los tres vectores en juego son múltiplos de uno solo.\n$$(2,2) = 2(1,1), \\quad (3,3) = 3(1,1)$$\nPor lo tanto los dos conjuntos generan la misma recta, la que pasa por el origen en la dirección de $(1,1)$.\n\nQue $A$ tenga dos vectores y $B$ uno solo no cambia el resultado, porque la cantidad de vectores escritos no mide el alcance.\n\nLa conclusión práctica es que para comparar dos generados hay que mirar las direcciones que aportan, nunca la cantidad de elementos de cada conjunto.",
+    "reviewed": false,
+    "tags": [
+      "reconocer-generados-iguales"
+    ]
+  },
+  {
+    "question": "Dos conjuntos del plano no comparten ningún vector entre sí.\n$$A = \\{(1,0), (0,1)\\}$$\n$$B = \\{(1,1), (1,-1)\\}$$\n¿Cómo se relacionan sus generados?",
+    "options": [
+      "Generan subespacios distintos que solo comparten el origen",
+      "Generan exactamente el mismo subespacio, que es todo el plano",
+      "El de $A$ contiene estrictamente al de $B$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los dos pares aportan dos direcciones distintas, así que los dos cubren el plano entero.",
+    "feedback_incorrect": [
+      "Dos subespacios que son los dos el plano entero coinciden por completo, no solo en el origen.",
+      null,
+      "Los dos vectores de $B$ tampoco son múltiplos entre sí, así que también alcanzan todo el plano."
+    ],
+    "explanation": "Dos conjuntos sin ningún vector en común pueden generar exactamente lo mismo, y esa es la razón por la que un subespacio admite muchas descripciones.\n$$(1,0) = \\tfrac{1}{2}(1,1) + \\tfrac{1}{2}(1,-1)$$\nLos vectores del segundo conjunto alcanzan a los del primero, y al revés también, así que los dos generados coinciden.\n\nLa comprobación rápida es que en los dos casos hay dos vectores que no son múltiplos entre sí, y eso en el plano ya alcanza para cubrirlo entero.\n\nComparar los conjuntos elemento por elemento no sirve para nada acá: lo que hay que comparar son las direcciones que aportan.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-generados-iguales"
+    ]
+  },
+  {
+    "question": "Dos conjuntos de $\\mathbb{R}^3$ tienen distinta cantidad de vectores.\n$$A = \\{(1,2,0)\\}$$\n$$B = \\{(2,4,0), (3,6,0)\\}$$\n¿Cómo se relacionan sus generados?",
+    "options": [
+      "El de $B$ es un plano y contiene al de $A$",
+      "Generan subespacios distintos que solo comparten el origen",
+      "Generan la misma recta que pasa por el origen"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Los tres vectores en juego son múltiplos del primero, así que describen la misma dirección.",
+    "feedback_incorrect": [
+      "Los dos vectores de $B$ son múltiplos entre sí, así que su generado sigue siendo una recta.",
+      "Las tres direcciones coinciden, de modo que las rectas generadas son exactamente la misma.",
+      null
+    ],
+    "explanation": "La cantidad de vectores escritos no dice nada sobre el alcance, y acá el conjunto más grande genera lo mismo que el más chico.\n$$(2,4,0) = 2(1,2,0)$$\n$$(3,6,0) = 3(1,2,0)$$\nLos tres vectores son múltiplos de uno solo, así que los dos generados son la misma recta.\n\nPara comparar dos descripciones conviene entonces buscar la más corta posible de cada una y recién ahí compararlas.\n\nAcá esa versión corta es la misma para los dos, un único vector que marca la dirección.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-generados-iguales"
+    ]
+  },
+  {
+    "question": "Se quiere agregar un vector a un conjunto sin que su generado cambie.\n$$A = \\{(1,0,0)\\}$$\n¿Cuál de estos vectores se puede agregar?",
+    "options": [
+      "$(3,0,0)$",
+      "$(0,3,0)$",
+      "$(1,1,1)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Es un múltiplo del vector que ya estaba, así que no aporta ninguna dirección nueva.",
+    "feedback_incorrect": [
+      null,
+      "Ese vector apunta en otra dirección, y agregarlo convierte la recta en un plano.",
+      "Ese vector no está sobre la recta generada, así que el alcance se agranda."
+    ],
+    "explanation": "Agregar un vector deja el generado igual exactamente cuando ese vector ya pertenecía.\n$$(3,0,0) = 3(1,0,0)$$\nEl primer candidato es un múltiplo del vector original, así que ya estaba alcanzado y no cambia nada.\n\nLos otros dos tienen alguna coordenada no nula donde el original tiene un cero, así que ninguna combinación del original los produce.\n\nAgregando cualquiera de ellos, el generado pasa de ser una recta a ser un plano, porque aparece una segunda dirección.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-generados-iguales"
+    ]
+  },
+  {
+    "question": "Dos conjuntos del plano se comparan por lo que alcanzan.\n$$A = \\{(1,0), (0,1)\\}$$\n$$B = \\{(2,0)\\}$$\n¿Cómo se relacionan sus generados?",
+    "options": [
+      "Generan subespacios distintos que solo comparten el origen",
+      "El de $B$ está contenido en el de $A$, pero no al revés",
+      "Generan exactamente el mismo subespacio"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El de $B$ es una recta y el de $A$ es todo el plano, así que uno está adentro del otro.",
+    "feedback_incorrect": [
+      "La recta generada por $B$ está entera adentro del plano, no solo su origen.",
+      null,
+      "El de $A$ es el plano entero y el de $B$ es una sola recta, así que no coinciden."
+    ],
+    "explanation": "Cuando dos generados no coinciden, la pregunta siguiente es si uno está contenido en el otro.\n$$(2,0) = 2(1,0)$$\nEl vector de $B$ se arma con los del primer conjunto, así que todo lo que alcanza ya estaba cubierto.\n\nAl revés no funciona, porque ninguna combinación de $(2,0)$ produce un vector con la segunda coordenada distinta de cero.\n\nEl de $B$ es entonces una recta contenida en el plano completo que genera $A$, y comparten muchísimo más que el origen.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-generados-iguales"
+    ]
   }
 ]

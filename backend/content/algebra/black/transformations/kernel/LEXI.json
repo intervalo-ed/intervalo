@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **núcleo** o *kernel* de una transformación es el conjunto de vectores del dominio que se mapean al vector nulo.\n$$\\ker(T) = \\{ \\vec{v} \\in V \\mid T(\\vec{v}) = \\vec{0} \\}$$\n\nEs un subespacio del dominio que mide cuánta información se pierde al aplicar la transformación.\n\nSi el núcleo contiene solo al vector nulo, la transformación es inyectiva.",
+    "explanation": "El **núcleo** o *kernel* de una transformación es el conjunto de vectores del dominio que se mapean al vector nulo.\n$$\\ker(T) = \\{ \\vec{v} \\in V \\mid T(\\vec{v}) = \\vec{0} \\}$$\nEs un subespacio del dominio que mide cuánta información se pierde al aplicar la transformación.\n\nSi el núcleo contiene solo al vector nulo, la transformación es inyectiva.",
     "reviewed": false
   }
 ]

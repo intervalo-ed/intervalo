@@ -432,6 +432,29 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/internal/sessions/sweep-abandoned": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Internal Sweep Abandoned Sessions
+         * @description Worker-facing: marcar como abandonadas las sesiones que quedaron abiertas.
+         *
+         *     El abandono no se puede detectar en el momento (nadie avisa que se fue), así
+         *     que se barre por tiempo. Ver session_store.sweep_abandoned_sessions.
+         */
+        post: operations["internal_sweep_abandoned_sessions_internal_sessions_sweep_abandoned_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/email/unsubscribe": {
         parameters: {
             query?: never;
@@ -440,13 +463,28 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Email Unsubscribe
-         * @description No-login unsubscribe link clicked from an email. Marks the user opted
-         *     out of lifecycle emails and shows a minimal confirmation page.
+         * Email Unsubscribe Page
+         * @description Pantalla de confirmación del link de baja del pie de los mails.
+         *
+         *     El GET no escribe nada a propósito. Los escáneres de links de Gmail y
+         *     Outlook visitan las URLs del cuerpo de un mail antes de que el usuario las
+         *     toque, así que un GET que diera de baja desuscribiría gente sin que se
+         *     entere y sin dejar rastro de que fue un bot. La baja real vive en el POST
+         *     de abajo, que ningún prefetch dispara.
+         *
+         *     El token se regenera desde el user_id ya verificado en vez de reflejar el
+         *     de la query: así nada de lo que venga en la URL llega al HTML.
          */
-        get: operations["email_unsubscribe_email_unsubscribe_get"];
+        get: operations["email_unsubscribe_page_email_unsubscribe_get"];
         put?: never;
-        post?: never;
+        /**
+         * Email Unsubscribe Confirm
+         * @description Baja efectiva. La disparan dos cosas: el botón de la pantalla de arriba,
+         *     y el POST que hacen Gmail y Yahoo por su propio botón de baja gracias al
+         *     header `List-Unsubscribe-Post` (ver lifecycle_emails._send). Los dos casos
+         *     son una acción deliberada de la persona, así que acá sí se escribe.
+         */
+        post: operations["email_unsubscribe_confirm_email_unsubscribe_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1255,6 +1293,11 @@ export interface components {
             belt: string;
             /** Correct */
             correct: boolean;
+        };
+        /** SweepAbandonedResponse */
+        SweepAbandonedResponse: {
+            /** Marked */
+            marked: number;
         };
         /** TestFilters */
         TestFilters: {
@@ -2171,7 +2214,69 @@ export interface operations {
             };
         };
     };
-    email_unsubscribe_email_unsubscribe_get: {
+    internal_sweep_abandoned_sessions_internal_sessions_sweep_abandoned_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "x-internal-secret"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SweepAbandonedResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    email_unsubscribe_page_email_unsubscribe_get: {
+        parameters: {
+            query: {
+                token: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "text/html": string;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    email_unsubscribe_confirm_email_unsubscribe_post: {
         parameters: {
             query: {
                 token: string;

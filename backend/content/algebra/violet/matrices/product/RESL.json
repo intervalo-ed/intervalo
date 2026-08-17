@@ -1,0 +1,401 @@
+[
+  {
+    "question": "Dos talleres compran los mismos dos insumos, y cada uno elige entre dos proveedores.\n\nLa matriz $A$ dice cuántas unidades de cada insumo usa cada taller.\n$$A = \\begin{pmatrix} 2 & 1 \\\\ 0 & 3 \\end{pmatrix}$$\nLa matriz $B$ dice el precio de cada insumo en cada proveedor.\n$$B = \\begin{pmatrix} 4 & 5 \\\\ 1 & 2 \\end{pmatrix}$$\n¿Cuánto gastaría el segundo taller comprándole al primer proveedor?",
+    "options": [
+      "$3$",
+      "$0$",
+      "$9$",
+      "$2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Se combina la fila del segundo taller con la columna del primer proveedor: cero por cuatro más tres por uno.",
+    "feedback_incorrect": [
+      null,
+      "Multiplicar directamente las dos entradas que ocupan esa posición no combina las unidades con sus precios.",
+      "Ese es el gasto del primer taller; el segundo ocupa la otra fila de la matriz de cantidades.",
+      "Los papeles quedaron cambiados: las cantidades salen de la primera matriz y los precios de la segunda."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cada entrada de un producto de matrices combina una fila de la primera con una columna de la segunda, término a término y sumando todo.\n\nAcá esa cuenta tiene un significado directo: cada unidad usada se multiplica por lo que cuesta, y los aportes se suman.\n$$c_{21} = (0)(4) + (3)(1)$$\nEl segundo taller no usa nada del primer insumo y usa tres unidades del segundo, que en el primer proveedor cuesta uno.\n$$c_{21} = 3$$\nEsto explica por qué el producto exige que las columnas de la primera coincidan con las filas de la segunda: son el mismo conjunto de insumos, mirado una vez como consumo y otra como precio.\n\nY explica también por qué conviene poder calcular una sola entrada sin armar el producto entero: cada gasto puntual involucra un único taller y un único proveedor.",
+    "reviewed": false,
+    "tags": [
+      "calcular-una-entrada"
+    ]
+  },
+  {
+    "question": "Se quiere una única entrada del producto de estas dos matrices.\n$$A = \\begin{pmatrix} 2 & 3 \\\\ 1 & 4 \\end{pmatrix} \\quad B = \\begin{pmatrix} 5 & 0 \\\\ 1 & 6 \\end{pmatrix}$$\n¿Cuánto vale la entrada de la primera fila y la segunda columna?",
+    "options": [
+      "$11$",
+      "$18$",
+      "$13$",
+      "$0$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Se combina la primera fila con la segunda columna, término a término.",
+    "feedback_incorrect": [
+      "Ahí se sumaron las cuatro entradas involucradas, las dos de la fila y las dos de la columna, en vez de multiplicar cada par y sumar esos productos.",
+      null,
+      "Ahí se combinó la primera fila con la primera columna.",
+      "Ahí se multiplicaron las entradas que ocupan esa misma posición."
+    ],
+    "explanation": "Cada entrada del producto combina una fila del primer factor con una columna del segundo.\n$$2 \\cdot 0 + 3 \\cdot 6 = 18$$\nEl primer subíndice dice qué fila usar y el segundo qué columna, igual que en cualquier entrada.\n\nCalcular una sola entrada evita resolver el producto completo cuando solo interesa un dato.\n\nAnotar primero cuáles son la fila y la columna que hay que combinar deja la cuenta en un solo paso.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-una-entrada"
+    ]
+  },
+  {
+    "question": "De un producto entre matrices de distinto orden interesa un solo dato.\n$$A = \\begin{pmatrix} 1 & 0 & 2 \\\\ 3 & 5 & 1 \\end{pmatrix} \\quad B = \\begin{pmatrix} 4 & 1 \\\\ 2 & 0 \\\\ 6 & 3 \\end{pmatrix}$$\n¿Cuánto vale la entrada de la segunda fila y la primera columna?",
+    "options": [
+      "$16$",
+      "$12$",
+      "$9$",
+      "$28$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Se combina la segunda fila con la primera columna, sumando los tres productos.",
+    "feedback_incorrect": [
+      "Ahí se combinó la primera fila con la primera columna.",
+      "Ahí quedó solo el primer producto de la suma, sin sumar los otros dos términos.",
+      "Ahí se sumaron los términos de la fila sin multiplicarlos por la columna.",
+      null
+    ],
+    "explanation": "Con matrices más grandes cada entrada suma tantos términos como diga la dimensión interna.\n$$3 \\cdot 4 + 5 \\cdot 2 + 1 \\cdot 6 = 28$$\nLa segunda fila del primero se empareja con la primera columna del segundo, término a término.\n\nLos tres productos se suman, y saltear uno es el error que más se repite cuando la dimensión interna crece.\n\nAnotar la fila y la columna en vertical, una al lado de la otra, ayuda a no perder ningún término.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-una-entrada"
+    ]
+  },
+  {
+    "question": "De este producto entre matrices interesa una sola posición.\n$$A = \\begin{pmatrix} 4 & -2 \\\\ 0 & 3 \\end{pmatrix} \\quad B = \\begin{pmatrix} 1 & 5 \\\\ 2 & 1 \\end{pmatrix}$$\n¿Cuánto vale la entrada de la primera fila y la primera columna?",
+    "options": [
+      "$0$",
+      "$8$",
+      "$4$",
+      "$18$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Cuatro menos cuatro da cero, aunque ninguna de las entradas sea nula.",
+    "feedback_incorrect": [
+      null,
+      "Ahí el segundo término se sumó ignorando el signo negativo.",
+      "Ahí quedó solo el primer término de la suma.",
+      "Ahí se combinó la primera fila con la segunda columna."
+    ],
+    "explanation": "Cada entrada del producto es una suma, así que puede anularse por cancelación.\n$$4 \\cdot 1 + (-2) \\cdot 2 = 4 - 4 = 0$$\nNinguna de las cuatro entradas involucradas es nula, y sin embargo el resultado da cero.\n\nEse fenómeno es el que explica que un producto de matrices pueda dar la matriz nula sin que ninguna lo sea.\n\nLos signos de las entradas entran en la cuenta como en cualquier producto, y conviene anotarlos antes de sumar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-una-entrada"
+    ]
+  },
+  {
+    "question": "Hace falta una única posición del producto entre estas matrices.\n$$A = \\begin{pmatrix} 6 & 1 \\\\ 2 & 7 \\end{pmatrix} \\quad B = \\begin{pmatrix} 0 & 3 \\\\ 4 & 2 \\end{pmatrix}$$\n¿Cuánto vale la entrada de la segunda fila y la segunda columna?",
+    "options": [
+      "$14$",
+      "$6$",
+      "$20$",
+      "$28$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Se combina la segunda fila con la segunda columna, sumando los dos productos.",
+    "feedback_incorrect": [
+      "Ahí quedó solo el término $7\\cdot 2$ de la suma, sin sumar $2\\cdot 3$.",
+      "Ahí quedó solo el término $2\\cdot 3$ de la suma, sin sumar $7\\cdot 2$.",
+      null,
+      "Ahí se combinó la segunda fila con la primera columna."
+    ],
+    "explanation": "Los dos subíndices de la entrada indican exactamente qué fila y qué columna combinar.\n$$2 \\cdot 3 + 7 \\cdot 2 = 20$$\nLa segunda fila del primer factor se empareja con la segunda columna del segundo.\n\nUn cero entre las entradas no anula nada por sí solo: aporta un término nulo a la suma.\n\nVerificar que se estén usando la fila y la columna correctas antes de multiplicar es el paso que más errores evita.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-una-entrada"
+    ]
+  },
+  {
+    "question": "Una matriz aplicada a un vector devuelve otro vector.\n$$A = \\begin{pmatrix} 2 & -1 \\\\ 3 & 4 \\end{pmatrix}$$\nEl vector al que se aplica es $\\vec{x} = (1, 2)$.\n\n¿Cuál es el resultado de $A\\vec{x}$?",
+    "options": [
+      "$(0, 11)$",
+      "$(8, 7)$",
+      "$(4, 11)$",
+      "$(3, 10)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada componente combina una fila de la matriz con el vector: dos menos dos da cero, y tres más ocho da once.",
+    "feedback_incorrect": [
+      null,
+      "Ese resultado sale de combinar las columnas de la matriz con el vector, y las que se combinan son las filas.",
+      "El signo negativo de la matriz quedó sin aplicar en la primera componente.",
+      "Los coeficientes del vector quedaron cruzados: el primero acompaña a la primera columna, no a la segunda."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Al multiplicar una matriz por un vector, cada componente del resultado combina una fila de la matriz con el vector completo.\n$$\\begin{aligned} (2)(1) + (-1)(2) &= 0 \\\\ (3)(1) + (4)(2) &= 11 \\end{aligned}$$\nHay otra forma de leer la misma cuenta, que suele ser más rápida: el resultado es la suma de las columnas de la matriz, cada una multiplicada por su coeficiente del vector.\n\nDesde esa lectura se entiende por qué las columnas describen la transformación. Aplicar la matriz al vector que vale uno y cero devuelve exactamente la primera columna.\n\nCombinar columnas en vez de filas, o cruzar los coeficientes, produce un vector del tamaño correcto pero con las contribuciones mezcladas entre sí.",
+    "reviewed": false,
+    "tags": [
+      "calcular-matriz-por-vector"
+    ]
+  },
+  {
+    "question": "Una matriz aplicada a un vector devuelve otro vector.\n$$A = \\begin{pmatrix} 3 & 1 \\\\ 0 & 2 \\end{pmatrix}$$\nEl vector al que se aplica es $\\vec{x}=(4,5)$.\n\n¿Cuál es el resultado?",
+    "options": [
+      "$(7, 7)$",
+      "$(17, 10)$",
+      "$(12, 10)$",
+      "$(17, 5)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada componente del resultado combina una fila de la matriz con el vector entero.",
+    "feedback_incorrect": [
+      "Ahí se sumó cada entrada de la diagonal con la coordenada del vector que está en su misma posición, en vez de combinar toda la fila.",
+      null,
+      "Ahí quedó afuera el segundo término de la primera componente.",
+      "Ahí la segunda componente quedó igual a la segunda coordenada del vector, sin multiplicarla por la entrada de la fila que le corresponde."
+    ],
+    "explanation": "El producto de una matriz por un vector combina cada fila con el vector completo.\n$$3 \\cdot 4 + 1 \\cdot 5 = 17$$\nLa segunda componente sale de la segunda fila, con la misma mecánica.\n$$0 \\cdot 4 + 2 \\cdot 5 = 10$$\nEl resultado tiene tantas componentes como filas tenga la matriz.\n\nLeer el resultado como el destino del vector bajo la transformación es lo que conecta esta cuenta con el significado de las columnas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-matriz-por-vector"
+    ]
+  },
+  {
+    "question": "Una matriz aplicada a un vector devuelve otro vector.\n$$A = \\begin{pmatrix} 1 & -2 \\\\ 4 & 3 \\end{pmatrix}$$\nEl vector al que se aplica es $\\vec{x}=(5,1)$.\n\n¿Cuál es el resultado?",
+    "options": [
+      "$(7, 23)$",
+      "$(3, 17)$",
+      "$(5, 3)$",
+      "$(3, 23)$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El signo negativo entra en la cuenta de la primera componente.",
+    "feedback_incorrect": [
+      "Ahí el segundo término se sumó ignorando el signo negativo.",
+      "Ahí la segunda componente se calculó restando los dos términos en vez de sumarlos.",
+      "Ahí se multiplicaron las entradas de la diagonal con las del vector.",
+      null
+    ],
+    "explanation": "Cada componente del resultado suma los productos de una fila con las componentes del vector.\n$$1 \\cdot 5 + (-2) \\cdot 1 = 3$$\nEl signo negativo de la matriz entra en la cuenta como cualquier otro número.\n$$4 \\cdot 5 + 3 \\cdot 1 = 23$$\nEl vector resultante puede apuntar en una dirección muy distinta de la original.\n\nEse cambio de dirección es exactamente lo que la transformación hace, y por eso el resultado no tiene por qué parecerse al vector de partida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-matriz-por-vector"
+    ]
+  },
+  {
+    "question": "La matriz identidad aplicada a un vector tiene un efecto conocido.\n$$I = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$$\nEl vector al que se aplica es $\\vec{x}=(7,-3)$.\n\n¿Cuál es el resultado?",
+    "options": [
+      "$(7, -3)$",
+      "$(-3, 7)$",
+      "$(1, 1)$",
+      "$(4, 4)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La identidad deja cada vector exactamente donde estaba.",
+    "feedback_incorrect": [
+      null,
+      "Ahí las dos componentes quedaron intercambiadas de lugar.",
+      "Ahí se tomaron las entradas de la matriz en vez de las del vector.",
+      "Ahí se sumaron las dos componentes del vector en cada posición."
+    ],
+    "explanation": "Cada fila de la identidad tiene un uno en su propia posición y ceros en el resto.\n$$1 \\cdot 7 + 0 \\cdot (-3) = 7$$\nEl uno deja pasar la componente que le corresponde y el cero anula la otra.\n\nPor eso el resultado coincide con el vector original, componente por componente.\n\nEs la versión concreta de que la identidad sea el neutro del producto, y explica por qué se la llama así.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-matriz-por-vector"
+    ]
+  },
+  {
+    "question": "Una matriz de tres filas aplicada a un vector del plano devuelve un vector del espacio.\n$$A = \\begin{pmatrix} 1 & 2 \\\\ 0 & 1 \\\\ 3 & 0 \\end{pmatrix}$$\nEl vector al que se aplica es $\\vec{x}=(2,4)$.\n\n¿Cuál es el resultado?",
+    "options": [
+      "$(10, 6, 4)$",
+      "$(2, 4, 6)$",
+      "$(10, 4, 6)$",
+      "$(10, 4)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El resultado tiene tres componentes, una por cada fila de la matriz.",
+    "feedback_incorrect": [
+      "Ahí las dos últimas componentes quedaron intercambiadas.",
+      "Ahí quedaron las componentes del vector original en vez del resultado.",
+      null,
+      "El resultado tiene tantas componentes como filas, y la matriz tiene tres."
+    ],
+    "explanation": "El producto de una matriz por un vector devuelve un vector con tantas componentes como filas.\n$$1 \\cdot 2 + 2 \\cdot 4 = 10$$\nLas otras dos componentes salen de las filas restantes, con la misma mecánica.\n$$0 \\cdot 2 + 1 \\cdot 4 = 4$$\n$$3 \\cdot 2 + 0 \\cdot 4 = 6$$\nLa cantidad de columnas tiene que coincidir con la cantidad de componentes del vector de entrada.\n\nEse par de condiciones es el que hace que una transformación pueda llevar el plano al espacio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-matriz-por-vector"
+    ]
+  },
+  {
+    "question": "Elevar al cuadrado una matriz cuadrada significa multiplicarla por sí misma:\n$$A = \\begin{pmatrix} 2 & 1 \\\\ 0 & 3 \\end{pmatrix}$$\n¿Cuál es $A^2$?",
+    "options": [
+      "$\\begin{pmatrix} 4 & 5 \\\\ 0 & 9 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 4 & 1 \\\\ 0 & 9 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 4 & 2 \\\\ 0 & 6 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 4 & 5 \\\\ 0 & 6 \\end{pmatrix}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Se multiplica la matriz por sí misma combinando cada fila con cada columna, no elevando entrada por entrada.",
+    "feedback_incorrect": [
+      null,
+      "Ahí se elevó al cuadrado cada entrada por separado, y la potencia de una matriz es un producto de matrices.",
+      "Ese resultado es el doble de la matriz; duplicarla y multiplicarla por sí misma son operaciones distintas.",
+      "La última entrada quedó mal: la segunda fila se combina con la segunda columna y da tres por tres."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La potencia de una matriz cuadrada es un producto de matrices, no una operación entrada a entrada.\n$$A^2 = A \\cdot A$$\nCada casillero del resultado combina una fila de la matriz con una columna de esa misma matriz, término a término.\n$$\\begin{pmatrix} 4 & 5 \\\\ 0 & 9 \\end{pmatrix}$$\nLa entrada de arriba a la derecha es la que más se nota: sale de dos por uno más uno por tres, y ahí participan dos filas distintas de la matriz original.\n\nElevar cada entrada por separado deja intactos los ceros y la diagonal, así que en una matriz triangular el resultado se parece mucho al correcto y el error pasa desapercibido.",
+    "reviewed": false,
+    "tags": [
+      "calcular-potencia-chica"
+    ]
+  },
+  {
+    "question": "Elevar al cuadrado una matriz cuadrada significa multiplicarla por sí misma.\n$$A = \\begin{pmatrix} 1 & 2 \\\\ 0 & 3 \\end{pmatrix}$$\n¿Cuál es su cuadrado?",
+    "options": [
+      "$\\begin{pmatrix} 2 & 4 \\\\ 0 & 6 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 8 \\\\ 0 & 9 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 4 \\\\ 0 & 9 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 2 \\\\ 0 & 9 \\end{pmatrix}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada entrada sale de combinar una fila con una columna, no de elevar entrada por entrada.",
+    "feedback_incorrect": [
+      "Ahí la matriz se duplicó en vez de multiplicarse por sí misma.",
+      null,
+      "Ahí la entrada de arriba a la derecha se calculó elevando al cuadrado en vez de combinando.",
+      "Ahí esa misma entrada quedó sin recalcular."
+    ],
+    "explanation": "La potencia de una matriz es un producto, así que se resuelve combinando filas con columnas.\n$$1 \\cdot 2 + 2 \\cdot 3 = 8$$\nElevar cada entrada al cuadrado por separado daría otra matriz, que no es la potencia.\n$$\\begin{pmatrix} 1 & 8 \\\\ 0 & 9 \\end{pmatrix}$$\nEn una matriz triangular la diagonal sí queda con los cuadrados, y eso puede confundir.\n\nFuera de la diagonal la cuenta es la del producto completo, y ahí se ve la diferencia.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-potencia-chica"
+    ]
+  },
+  {
+    "question": "Elevar al cuadrado una matriz cuadrada significa multiplicarla por sí misma.\n$$A = \\begin{pmatrix} 2 & 0 \\\\ 1 & 2 \\end{pmatrix}$$\n¿Cuál es su cuadrado?",
+    "options": [
+      "$\\begin{pmatrix} 4 & 0 \\\\ 1 & 4 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 4 & 0 \\\\ 2 & 4 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 4 & 0 \\\\ 4 & 2 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 4 & 0 \\\\ 4 & 4 \\end{pmatrix}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "La entrada de abajo a la izquierda suma dos términos, y por eso duplica su valor.",
+    "feedback_incorrect": [
+      "Ahí esa entrada quedó sin recalcular.",
+      "Ahí quedó solo uno de los dos términos de esa entrada.",
+      "Ahí la entrada de la diagonal quedó sin elevar.",
+      null
+    ],
+    "explanation": "Cada entrada del cuadrado combina una fila con una columna de la misma matriz.\n$$1 \\cdot 2 + 2 \\cdot 1 = 4$$\nLos dos términos aportan lo mismo, y por eso esa entrada termina valiendo el doble de la original.\n$$\\begin{pmatrix} 4 & 0 \\\\ 4 & 4 \\end{pmatrix}$$\nLas entradas de la diagonal sí coinciden con el cuadrado de las originales, porque la matriz es triangular.\n\nEsa coincidencia parcial es la que hace tan tentador elevar entrada por entrada, y por eso conviene verificar siempre una entrada fuera de la diagonal.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-potencia-chica"
+    ]
+  },
+  {
+    "question": "La matriz identidad elevada a cualquier potencia tiene un resultado conocido.\n$$I = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$$\n¿Cuál es su cubo?",
+    "options": [
+      "$\\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 3 & 0 \\\\ 0 & 3 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 1 \\\\ 1 & 1 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 0 & 0 \\\\ 0 & 0 \\end{pmatrix}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Multiplicar por la identidad no cambia nada, así que cualquier potencia suya la devuelve.",
+    "feedback_incorrect": [
+      null,
+      "Ahí la identidad se multiplicó por el exponente en vez de elevarse.",
+      "Ahí las entradas nulas se completaron con unos.",
+      "Ahí el resultado quedó como la matriz nula, sin hacer la cuenta."
+    ],
+    "explanation": "La identidad es el neutro del producto, así que multiplicarla por sí misma la deja igual.\n$$I \\cdot I = I$$\nAplicando eso dos veces, el cubo también es la identidad, y lo mismo cualquier potencia.\n\nMultiplicar por el exponente correspondería a un producto por un escalar, que es otra operación.\n\nEse comportamiento hace de la identidad la contraparte matricial del número uno.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-potencia-chica"
+    ]
+  },
+  {
+    "question": "Elevar al cuadrado una matriz cuadrada significa multiplicarla por sí misma.\n$$A = \\begin{pmatrix} 0 & 1 \\\\ 0 & 0 \\end{pmatrix}$$\n¿Cuál es su cuadrado?",
+    "options": [
+      "$\\begin{pmatrix} 0 & 2 \\\\ 0 & 0 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 0 & 0 \\\\ 0 & 0 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 0 & 1 \\\\ 0 & 0 \\end{pmatrix}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Todas las entradas del producto se anulan, aunque la matriz no sea nula.",
+    "feedback_incorrect": [
+      "Ahí la entrada se duplicó en vez de calcularse como producto.",
+      "Ahí el resultado quedó como la identidad, sin hacer la cuenta.",
+      null,
+      "Ahí la matriz quedó sin elevar."
+    ],
+    "explanation": "Cada entrada del cuadrado combina una fila con una columna, y acá todas las combinaciones se anulan.\n$$0 \\cdot 0 + 1 \\cdot 0 = 0$$\nEl resultado es la matriz nula, aunque la matriz original tenga una entrada distinta de cero.\n$$\\begin{pmatrix} 0 & 0 \\\\ 0 & 0 \\end{pmatrix}$$\nEs el caso concreto de una matriz no nula cuyo cuadrado se anula, algo imposible entre números.\n\nEse ejemplo es el que hace tangible por qué de un producto nulo no se puede despejar ningún factor.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-potencia-chica"
+    ]
+  }
+]

@@ -1,22 +1,371 @@
 [
   {
-    "question": "¿Qué es una **matriz** $A \\in \\mathbb{R}^{m\\times n}$?",
+    "question": "Un local anota sus ventas en una matriz: cada fila es un día y cada columna un producto.\n\nUn mismo valor aparece en dos posiciones distintas:\n$$a_{23}, \\quad a_{32}$$\n¿Por qué esos dos números no dicen lo mismo?",
     "options": [
-      "Un arreglo rectangular de $m$ filas y $n$ columnas",
-      "Una tupla ordenada de $n$ componentes",
-      "Un único número real"
+      "Uno es el día 2 del producto 3, y el otro el día 3 del producto 2",
+      "Uno está sobre la diagonal y el otro no, y eso cambia su lectura",
+      "Son el mismo dato cargado dos veces, la matriz quedó repetida"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Una matriz es un arreglo rectangular de escalares, con $m$ filas y $n$ columnas.",
+    "feedback_correct": "El primer subíndice recorre las filas y el segundo las columnas, así que las dos posiciones apuntan a celdas distintas.",
     "feedback_incorrect": [
       null,
-      "Eso describe a un vector, no a una matriz.",
-      "Eso describe a un escalar, no a una matriz."
+      "Ninguna de las dos posiciones está sobre la diagonal, que es donde los dos subíndices coinciden.",
+      "Que dos celdas guarden el mismo número no las convierte en la misma celda: cada una tiene su propia fila y su propia columna."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **matriz** $A \\in \\mathbb{R}^{m\\times n}$ es un arreglo rectangular de escalares ordenados en $m$ filas y $n$ columnas.\n\nPor ejemplo, una matriz de $2\\times 3$ tiene 2 filas y 3 columnas, con 6 elementos en total.\n\nUn vector es un caso particular con una sola fila o columna; un escalar es apenas un número, sin filas ni columnas.",
-    "reviewed": false
+    "explanation": "En la notación $a_{ij}$, el primer subíndice indica la fila y el segundo la columna, siempre en ese orden.\n\nPor eso una celda queda determinada por su par de índices y no por el valor que guarda.\n$$a_{23} \\neq a_{32}$$\nLa primera es la celda del segundo día y el tercer producto. La segunda es la del tercer día y el segundo producto.\n\nUna matriz no es una bolsa de números, es una tabla donde cada número viene con su dirección. Leer los subíndices al revés devuelve el dato de otra celda.",
+    "reviewed": false,
+    "tags": [
+      "por-que-la-posicion-importa"
+    ]
+  },
+  {
+    "question": "En la notación de una entrada, los dos subíndices cumplen papeles distintos.\n$$a_{ij}$$\n¿Qué indica el primero de los dos?",
+    "options": [
+      "El valor numérico que guarda esa entrada",
+      "La fila en la que está ubicada esa entrada",
+      "La columna en la que está ubicada esa entrada"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El primer subíndice recorre las filas y el segundo las columnas.",
+    "feedback_incorrect": [
+      "Los subíndices dicen dónde está la entrada, no cuánto vale.",
+      null,
+      "Ese papel lo cumple el segundo subíndice, no el primero."
+    ],
+    "explanation": "Una entrada de una matriz se identifica por su posición, y esa posición necesita dos datos.\n$$a_{ij}$$\nEl primer subíndice indica la fila y el segundo la columna, en ese orden fijo.\n\nEl valor que guarda la entrada es otra cosa: los subíndices son la dirección, no el contenido.\n\nEse orden se respeta también en el orden de la matriz, que se escribe filas por columnas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-la-posicion-importa"
+    ]
+  },
+  {
+    "question": "Una matriz de orden $2 \\times 4$ guarda datos de dos sucursales y cuatro productos.\n$$a_{31}$$\n¿Por qué esa entrada no existe?",
+    "options": [
+      "Porque la matriz llega hasta la segunda columna, y se pide la primera",
+      "Porque los dos subíndices tendrían que ser iguales entre sí",
+      "Porque la matriz llega hasta la segunda fila, y se pide la tercera"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El primer subíndice recorre las filas, y acá pide una tercera que no existe.",
+    "feedback_incorrect": [
+      "La matriz tiene cuatro columnas, así que el segundo subíndice no es el problema.",
+      "Los subíndices pueden ser distintos entre sí sin ningún inconveniente.",
+      null
+    ],
+    "explanation": "El orden de una matriz fija hasta dónde llega cada subíndice.\n$$a_{31}$$\nEl primer subíndice pide la fila tres, y una matriz de dos filas no la tiene.\n\nEl segundo pide la columna uno, que sí existe, pero eso no alcanza para que la entrada esté definida.\n\nChequear cada subíndice contra su dimensión correspondiente es lo que evita referirse a posiciones inexistentes.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-la-posicion-importa"
+    ]
+  },
+  {
+    "question": "Dos matrices guardan los mismos cuatro números en posiciones distintas.\n$$\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix} \\qquad \\begin{pmatrix} 4 & 3 \\\\ 2 & 1 \\end{pmatrix}$$\n¿Son la misma matriz?",
+    "options": [
+      "No, porque cada posición guarda un dato distinto en cada matriz",
+      "Sí, porque las dos contienen exactamente los mismos números",
+      "No, porque una de las dos no llega a ser cuadrada del todo"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Dos matrices son iguales solo si coinciden entrada por entrada.",
+    "feedback_incorrect": [
+      null,
+      "Una matriz no es un conjunto de números: cada uno ocupa una posición con significado.",
+      "Las dos son cuadradas de orden dos, así que la forma no las distingue."
+    ],
+    "explanation": "La igualdad entre matrices se verifica posición por posición, no comparando qué números aparecen.\n$$\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix} \\neq \\begin{pmatrix} 4 & 3 \\\\ 2 & 1 \\end{pmatrix}$$\nEn la primera, la entrada de arriba a la izquierda vale uno, y en la segunda vale cuatro.\n\nCon una sola posición distinta ya alcanza para que las dos matrices sean diferentes.\n\nEs la misma lógica que en un vector: lo que importa no es qué números hay, sino dónde está cada uno.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-la-posicion-importa"
+    ]
+  },
+  {
+    "question": "El orden de una matriz se escribe siempre con las filas primero.\n$$m \\times n$$\n¿Qué pasaría si esa convención no estuviera fijada?",
+    "options": [
+      "Las entradas perderían el valor numérico que tienen guardado",
+      "Un mismo par de números describiría dos matrices distintas",
+      "Las matrices dejarían de poder sumarse entre sí en cualquier caso"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sin un orden fijo, decir dos por tres no alcanzaría para saber qué forma tiene la matriz.",
+    "feedback_incorrect": [
+      "Los valores de las entradas no dependen de cómo se anuncie el orden.",
+      null,
+      "La suma sigue siendo posible: lo que se perdería es saber qué forma tiene cada matriz."
+    ],
+    "explanation": "El orden de una matriz es un par de números, y su lectura depende de una convención.\n$$m \\times n$$\nCon las filas siempre primero, decir dos por tres describe una única forma posible.\n\nSin esa convención, el mismo par describiría dos matrices distintas y habría que aclararlo cada vez.\n\nLa convención también fija el orden de los subíndices, así que las dos cosas se aprenden juntas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-la-posicion-importa"
+    ]
+  },
+  {
+    "question": "Las dos direcciones básicas del plano son:\n$$\\vec{e}_1=(1,0), \\quad \\vec{e}_2=(0,1)$$\nTodo vector se arma multiplicando cada una por un número y sumando los resultados.\n\n¿Qué representan entonces las coordenadas de un vector como $(4,-3)$?",
+    "options": [
+      "Cuánto se toma de cada dirección básica para armar el vector",
+      "La longitud del vector medida sobre cada uno de los ejes",
+      "Los dos puntos del plano que el vector conecta entre sí"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Las coordenadas son los coeficientes de la combinación: $(4,-3) = 4\\vec{e}_1 - 3\\vec{e}_2$.",
+    "feedback_incorrect": [
+      null,
+      "Una longitud nunca es negativa, y acá la segunda coordenada vale $-3$: el signo indica sentido, no medida.",
+      "Un vector no queda definido por dos puntos sueltos del plano, sino por cuánto avanza en cada dirección desde el origen."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **combinación lineal** de dos vectores es el resultado de multiplicar cada uno por un número y sumar lo que queda.\n\nCon las direcciones básicas del plano, esa combinación reconstruye cualquier vector.\n$$(4,-3) = 4\\vec{e}_1 - 3\\vec{e}_2$$\nEsos dos números no son el vector: son las instrucciones para armarlo, cuánto avanzar en cada dirección.\n\nPor eso el signo importa tanto como el tamaño. Un coeficiente negativo no achica el vector, lo manda para el lado contrario en esa dirección.",
+    "reviewed": false,
+    "tags": [
+      "combinacion-lineal-y-base"
+    ]
+  },
+  {
+    "question": "Una combinación lineal multiplica cada vector por un número y suma los resultados.\n$$3\\vec{u} - 2\\vec{v}$$\n¿Qué la distingue de una suma común de vectores?",
+    "options": [
+      "Que el resultado siempre es más largo que los dos originales",
+      "Que cada vector entra con su propio factor antes de sumarse",
+      "Que los dos vectores tienen que ser perpendiculares entre sí"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los factores son lo que agrega la combinación lineal por sobre una suma.",
+    "feedback_incorrect": [
+      "Con factores chicos o negativos el resultado puede quedar más corto que los originales.",
+      null,
+      "La perpendicularidad no interviene: cualquier par de vectores admite una combinación."
+    ],
+    "explanation": "Una combinación lineal es una suma en la que cada término viene escalado.\n$$3\\vec{u} - 2\\vec{v}$$\nEl primer vector se toma tres veces y el segundo se toma dos veces en sentido contrario.\n\nUna suma común es el caso particular en que los dos factores valen uno.\n\nEsa generalidad es la que después permite alcanzar cualquier vector del plano a partir de dos direcciones fijas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "combinacion-lineal-y-base"
+    ]
+  },
+  {
+    "question": "En el espacio hacen falta tres direcciones básicas en vez de dos.\n$$\\vec{e}_1, \\quad \\vec{e}_2, \\quad \\vec{e}_3$$\n¿Por qué no alcanza con dos?",
+    "options": [
+      "Porque las dos primeras direcciones resultan paralelas entre sí",
+      "Porque una tercera dirección duplica el alcance de las otras dos",
+      "Porque combinando dos direcciones no se sale nunca de un plano"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Todas las combinaciones de dos direcciones quedan sobre el plano que ellas determinan.",
+    "feedback_incorrect": [
+      "Las direcciones básicas son perpendiculares entre sí, nunca paralelas.",
+      "La tercera no duplica nada: agrega los destinos que las otras dos no podían alcanzar.",
+      null
+    ],
+    "explanation": "Cualquier combinación de dos vectores queda dentro del plano que esos dos determinan.\n$$\\vec{e}_1, \\quad \\vec{e}_2, \\quad \\vec{e}_3$$\nPor más factores que se prueben, ninguna combinación de dos direcciones sale de ese plano.\n\nPara alcanzar puntos fuera de él hace falta una tercera dirección que no esté contenida ahí.\n\nEse es el mismo criterio que fija cuántas componentes tiene un vector en cada espacio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "combinacion-lineal-y-base"
+    ]
+  },
+  {
+    "question": "Los factores de una combinación lineal pueden ser negativos.\n$$2\\vec{e}_1 - 3\\vec{e}_2$$\n¿Qué significa ese factor negativo?",
+    "options": [
+      "Que se avanza en el sentido contrario de esa dirección básica",
+      "Que esa dirección básica no participa de la combinación lineal",
+      "Que el resultado queda necesariamente en el tercer cuadrante"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El signo del factor decide hacia qué lado de la dirección se avanza.",
+    "feedback_incorrect": [
+      null,
+      "Un factor nulo dejaría afuera a esa dirección; uno negativo la usa hacia el otro lado.",
+      "El cuadrante depende de los dos factores a la vez, no de uno solo."
+    ],
+    "explanation": "Cada factor de una combinación lineal decide cuánto y hacia qué lado se avanza en su dirección.\n$$2\\vec{e}_1 - 3\\vec{e}_2$$\nEl signo negativo indica que en la segunda dirección se avanza en sentido contrario al positivo.\n\nLa dirección sigue participando: lo que cambia es el sentido, no su presencia.\n\nAdmitir factores negativos es lo que permite que las combinaciones cubran todo el plano y no solo un cuadrante.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "combinacion-lineal-y-base"
+    ]
+  },
+  {
+    "question": "Las dos direcciones básicas llevan un uno y un cero en posiciones distintas.\n$$(5,2) = 5\\vec{e}_1 + 2\\vec{e}_2$$\n¿Qué ventaja tiene esa elección?",
+    "options": [
+      "Que cualquier otra elección daría vectores de longitud distinta",
+      "Que los factores de la combinación coinciden con las componentes",
+      "Que son las dos únicas direcciones perpendiculares que hay en el plano"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Con esa base, leer las componentes de un vector es leer directamente sus factores.",
+    "feedback_incorrect": [
+      "Otras elecciones también pueden tener longitud uno, y aun así no son estas.",
+      null,
+      "Hay infinitos pares de direcciones perpendiculares en el plano."
+    ],
+    "explanation": "Cada dirección básica tiene un uno en su propia posición y ceros en el resto.\n$$(5,2) = 5\\vec{e}_1 + 2\\vec{e}_2$$\nAl armar la combinación, cada factor queda multiplicando a un uno y a un cero, y el resultado es la propia componente.\n\nPor eso las componentes de un vector se pueden leer directamente como sus factores, sin ninguna cuenta.\n\nCon otra elección de direcciones esa coincidencia se pierde, y hay que resolver un sistema para recuperar los factores.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "combinacion-lineal-y-base"
+    ]
+  },
+  {
+    "question": "Una transformación estira, rota o inclina todo el plano, y respeta las combinaciones lineales.\n\nDe ella se anota únicamente en qué se convierten las dos direcciones básicas.\n$$\\vec{e}_1 = (1,0), \\qquad \\vec{e}_2 = (0,1)$$\n¿Por qué alcanza con esos dos datos para saber adónde va cualquier vector?",
+    "options": [
+      "Porque todo vector combina esos dos, y la combinación se conserva",
+      "Porque los demás vectores del plano se quedan fijos en su lugar",
+      "Porque una transformación solo puede mover a los vectores básicos"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "Todo vector es una combinación de las dos direcciones básicas, y la transformación respeta esa combinación: por eso sus imágenes alcanzan.",
+    "feedback_incorrect": [
+      null,
+      "Una transformación mueve todos los vectores del plano, no solo dos: lo que se conserva es la forma de combinarlos.",
+      "Los vectores básicos no tienen nada de especial para la transformación, que actúa sobre todo el plano por igual."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una transformación que respeta las combinaciones lineales convierte una suma de partes en la suma de las partes ya transformadas.\n\nSi un vector se arma tomando cierta cantidad de cada dirección básica, su imagen se arma con esas mismas cantidades, pero sobre las direcciones transformadas.\n\nPor eso alcanza con registrar en qué se convierten las dos direcciones básicas para reconstruir la imagen de cualquier vector del plano.\n\nEsos dos resultados son exactamente las columnas de la matriz.\n\nDos vectores anotados describen el destino de infinitos puntos, y eso es lo que permite que cuatro números representen una transformación entera.",
+    "reviewed": false,
+    "tags": [
+      "por-que-las-columnas-describen"
+    ]
+  },
+  {
+    "question": "Una transformación del espacio de tres dimensiones se registra en una matriz.\n$$\\vec{e}_1, \\quad \\vec{e}_2, \\quad \\vec{e}_3$$\n¿Cuántas columnas necesita esa matriz?",
+    "options": [
+      "Nueve, una por cada par de direcciones básicas",
+      "Tres, una por cada dirección básica del espacio",
+      "Una sola, porque registra una única transformación"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada columna guarda el destino de una dirección básica, así que hay tantas como direcciones.",
+    "feedback_incorrect": [
+      "Los pares de direcciones no intervienen: se registra el destino de cada una por separado.",
+      null,
+      "La transformación es una, pero para describirla hacen falta los tres destinos."
+    ],
+    "explanation": "La matriz de una transformación guarda, en cada columna, el destino de una dirección básica.\n$$\\vec{e}_1, \\quad \\vec{e}_2, \\quad \\vec{e}_3$$\nEn el espacio hay tres direcciones básicas, así que hacen falta tres columnas.\n\nLa cantidad de filas la fija otra cosa: cuántas componentes tiene cada destino.\n\nPor eso el orden de la matriz sale de dos datos distintos, y no tiene por qué ser cuadrada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-las-columnas-describen"
+    ]
+  },
+  {
+    "question": "En la matriz de una transformación del plano, cada columna guarda un dato concreto.\n$$A = \\begin{pmatrix} 3 & -1 \\\\ 2 & 4 \\end{pmatrix}$$\n¿Qué representa su primera columna?",
+    "options": [
+      "El destino del primer vector que se transforme con ella",
+      "Los dos primeros valores que toma la transformación",
+      "El destino de la primera dirección básica del plano"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Cada columna registra en qué se convierte una de las direcciones básicas.",
+    "feedback_incorrect": [
+      "La matriz no depende de qué vector se transforme después: ya está fijada de antemano.",
+      "La transformación no toma valores en un orden: cada columna corresponde a una dirección.",
+      null
+    ],
+    "explanation": "La matriz se arma poniendo en cada columna el destino de una dirección básica.\n$$A = \\begin{pmatrix} 3 & -1 \\\\ 2 & 4 \\end{pmatrix}$$\nLa primera columna dice que la primera dirección va a parar al punto que marcan sus dos entradas.\n\nLa segunda columna hace lo mismo con la segunda dirección, y con esos dos datos la transformación queda descripta por completo.\n\nLeer la matriz por columnas, y no por filas, es lo que vuelve visible esa información.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-las-columnas-describen"
+    ]
+  },
+  {
+    "question": "Una transformación respeta las combinaciones lineales: transformar una combinación da la misma combinación de los transformados.\n$$\\vec{v} = v_1\\vec{e}_1 + v_2\\vec{e}_2$$\n¿Por qué eso hace que alcance con los destinos de las direcciones básicas?",
+    "options": [
+      "Porque el destino de un vector se arma combinando los destinos de las básicas",
+      "Porque todos los vectores del plano terminan en el mismo destino",
+      "Porque las direcciones básicas no se mueven al transformar el plano"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Todo vector es una combinación de las básicas, y la transformación conserva esa combinación.",
+    "feedback_incorrect": [
+      null,
+      "Cada vector tiene su propio destino: lo que se comparte es la forma de calcularlo.",
+      "Las direcciones básicas sí se mueven, y justamente sus destinos son lo que la matriz guarda."
+    ],
+    "explanation": "Todo vector del plano se escribe como una combinación de las dos direcciones básicas.\n$$\\vec{v} = v_1\\vec{e}_1 + v_2\\vec{e}_2$$\nComo la transformación respeta las combinaciones, el destino del vector es esa misma combinación de los destinos de las básicas.\n\nConociendo esos dos destinos, el de cualquier otro vector sale de una cuenta, sin información adicional.\n\nPor eso la matriz, que guarda solo esos dos datos, describe la transformación entera.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-las-columnas-describen"
+    ]
+  },
+  {
+    "question": "Una transformación puede llevar vectores del plano al espacio de tres dimensiones.\n$$\\mathbb{R}^{2} \\to \\mathbb{R}^{3}$$\n¿Qué orden tiene la matriz que la registra?",
+    "options": [
+      "Tres filas y tres columnas, por ser el espacio de llegada",
+      "Tres filas y dos columnas, en ese orden",
+      "Dos filas y tres columnas, en ese orden"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Las columnas cuentan las direcciones de partida y las filas las componentes de llegada.",
+    "feedback_incorrect": [
+      "La cantidad de columnas la fija el espacio de partida, no el de llegada.",
+      null,
+      "Ahí las dos dimensiones quedaron intercambiadas de lugar."
+    ],
+    "explanation": "Cada columna de la matriz guarda el destino de una dirección básica del espacio de partida.\n$$\\mathbb{R}^{2} \\to \\mathbb{R}^{3}$$\nEl plano tiene dos direcciones básicas, así que hacen falta dos columnas.\n\nCada destino vive en el espacio de tres dimensiones, así que cada columna tiene tres entradas, y eso fija las tres filas.\n\nPor eso la matriz de una transformación es cuadrada solo cuando la partida y la llegada tienen la misma cantidad de dimensiones.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-las-columnas-describen"
+    ]
   }
 ]

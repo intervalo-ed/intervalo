@@ -1,22 +1,389 @@
 [
   {
-    "question": "¿Cuál es la **dimensión** de $\\mathbb{R}^3$?",
+    "question": "Un subespacio del espacio de tres dimensiones queda definido por una sola ecuación.\n$$S = \\{(x,y,z) : x + 2y - z = 0\\}$$\n¿Cuál es su dimensión?",
     "options": [
-      "$3$",
       "$2$",
-      "Infinita"
+      "$3$",
+      "$1$",
+      "$0$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$\\mathbb{R}^3$ tiene dimensión $3$: cualquier base suya tiene 3 vectores.",
+    "feedback_correct": "La ecuación deja dos coordenadas libres y la tercera determinada, así que hacen falta dos direcciones.",
     "feedback_incorrect": [
       null,
-      "Esa sería la dimensión de $\\mathbb{R}^2$, no de $\\mathbb{R}^3$.",
-      "$\\mathbb{R}^3$ es un espacio de dimensión finita, no infinita."
+      "Esa es la dimensión del espacio entero, y la ecuación recorta una parte de él.",
+      "Una sola ecuación no alcanza a dejar una recta, para eso harían falta dos condiciones.",
+      "El subespacio tiene infinitos elementos además del nulo, así que su dimensión no es cero."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La dimensión de $\\mathbb{R}^n$ coincide siempre con el valor de $n$.\n\nPara $\\mathbb{R}^3$, la base canónica $\\{(1,0,0),(0,1,0),(0,0,1)\\}$ tiene exactamente 3 vectores.\n\nNinguna base de $\\mathbb{R}^3$ puede tener una cantidad distinta de elementos, sea cual sea la base elegida. con el valor de $n$. Para generar $\\mathbb{R}^n$ se necesitan exactamente $n$ vectores linealmente independientes, ni más ni menos. Esta dimensión refleja el número de grados de libertad en el espacio: en $\\mathbb{R}^2$ (el plano) necesitas 2 direcciones independientes para alcanzar cualquier punto, en $\\mathbb{R}^3$ (el espacio 3D) necesitas 3 direcciones, y así sucesivamente. La dimensión es una propiedad invariante de cada espacio euclidiano.",
-    "reviewed": false
+    "explanation": "Cuando el subespacio viene dado por ecuaciones, la dimensión se lee contando cuántas coordenadas quedan libres.\n\nAcá se pueden elegir las dos primeras como se quiera, y la ecuación fija la tercera. Son dos elecciones libres, así que la dimensión es dos.\n\nEso coincide con la lectura geométrica. Una única ecuación lineal e igualada a cero en el espacio de tres dimensiones describe un plano que pasa por el origen.\n\nUna base se obtiene dándole a las coordenadas libres los valores más simples posibles.\n$$\\{(1,0,1), (0,1,2)\\}$$\nCada condición independiente que se agregue baja la dimensión en uno. Con dos ecuaciones quedaría una recta y con tres solo el origen.",
+    "reviewed": false,
+    "tags": [
+      "dimension-de-un-subespacio"
+    ]
+  },
+  {
+    "question": "Un subespacio del espacio de tres dimensiones viene dado por un único generador.\n$$S = \\text{gen}\\{(1,2,3)\\}$$\n¿Cuál es su dimensión?",
+    "options": [
+      "$0$",
+      "$1$",
+      "$3$",
+      "$2$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Alcanza ese único vector para generarlo entero, así que hace falta una sola dirección.",
+    "feedback_incorrect": [
+      "El subespacio contiene vectores no nulos, así que su dimensión no puede ser cero.",
+      null,
+      "Esa es la cantidad de componentes de sus vectores, que es otra cosa.",
+      "Para dimensión dos harían falta dos vectores que no fueran múltiplos entre sí."
+    ],
+    "explanation": "La dimensión cuenta cuántos vectores hacen falta para generar el subespacio, y acá alcanza con uno.\n$$S = \\{\\alpha(1,2,3)\\}$$\nTodos sus elementos son múltiplos de ese vector, así que hay un solo grado de libertad.\n\nGeométricamente es la recta que pasa por el origen en esa dirección, dentro del espacio de tres dimensiones.\n\nQue sus vectores tengan tres componentes no cambia nada: eso dice dónde vive el subespacio, no cuánto ocupa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "dimension-de-un-subespacio"
+    ]
+  },
+  {
+    "question": "Un subespacio del plano contiene un solo elemento.\n$$S = \\{(0,0)\\}$$\n¿Cuál es su dimensión?",
+    "options": [
+      "$1$",
+      "$2$",
+      "$-1$",
+      "$0$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "No hace falta ningún vector para generarlo, porque su único elemento ya está en cualquier subespacio.",
+    "feedback_incorrect": [
+      "Contar el elemento que tiene devuelve uno, y la dimensión cuenta direcciones.",
+      "Esa es la dimensión del plano entero, y este subespacio es apenas un punto de él.",
+      "La dimensión nunca es negativa, porque cuenta cuántos vectores hacen falta.",
+      null
+    ],
+    "explanation": "El subespacio formado únicamente por el vector nulo es el único con dimensión cero.\n$$S = \\{\\vec{0}\\}$$\nNo hace falta ningún vector para generarlo, porque el vector nulo aparece solo con la combinación de todos los coeficientes en cero.\n\nPoner un vector adentro de la base sería un error: el vector nulo no aporta ninguna dirección, ya que todos sus múltiplos son él mismo.\n\nContar el elemento en lugar de las direcciones es lo que lleva a responder uno.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "dimension-de-un-subespacio"
+    ]
+  },
+  {
+    "question": "Un subespacio del espacio de tres dimensiones queda definido por dos ecuaciones.\n$$x = 0, \\quad y = 0$$\n¿Cuál es la dimensión del subespacio que definen?",
+    "options": [
+      "$1$",
+      "$2$",
+      "$3$",
+      "$0$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Las dos ecuaciones fijan dos coordenadas y dejan una sola libre.",
+    "feedback_incorrect": [
+      null,
+      "Con una sola ecuación quedarían dos coordenadas libres, pero acá hay dos condiciones.",
+      "Esa es la dimensión del espacio entero, y las ecuaciones recortan una parte de él.",
+      "El subespacio contiene vectores no nulos, así que su dimensión no puede ser cero."
+    ],
+    "explanation": "Cuando el subespacio viene dado por ecuaciones, la dimensión se lee contando cuántas coordenadas quedan libres.\n$$S = \\{(0,0,z)\\}$$\nLas dos ecuaciones obligan a que las dos primeras coordenadas valgan cero, y la última queda libre.\n\nHay entonces un solo grado de libertad, y el subespacio es la recta que pasa por el origen en la dirección del tercer eje.\n\nCada condición independiente que se agregue baja la dimensión en uno: con una ecuación queda un plano, con dos una recta y con tres solo el origen.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "dimension-de-un-subespacio"
+    ]
+  },
+  {
+    "question": "Un subespacio del espacio de tres dimensiones viene dado por tres generadores.\n$$S = \\text{gen}\\{(1,0,0), (1,1,0), (1,1,1)\\}$$\n¿Cuál es su dimensión?",
+    "options": [
+      "$1$",
+      "$0$",
+      "$3$",
+      "$2$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Los tres aportan una dirección propia, así que el subespacio es todo el espacio.",
+    "feedback_incorrect": [
+      "Los tres generadores apuntan a lados distintos, así que el alcance pasa de una recta.",
+      "El subespacio contiene vectores no nulos, así que su dimensión no puede ser cero.",
+      null,
+      "Para dimensión dos alguno de los tres tendría que armarse con los otros, y ninguno lo hace."
+    ],
+    "explanation": "Cuando ninguno de los generadores se arma con los otros, la dimensión coincide con cuántos hay.\n$$S = \\mathbb{R}^3$$\nEl último tiene la tercera coordenada distinta de cero y los otros dos no, así que no puede armarse con ellos.\n\nY entre los dos primeros tampoco hay ninguna relación, porque el segundo tiene la segunda coordenada no nula y el primero no.\n\nLos tres aportan una dirección propia, de modo que generan el espacio entero y la dimensión es tres.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "dimension-de-un-subespacio"
+    ]
+  },
+  {
+    "question": "Las matrices de dos filas y dos columnas forman un espacio vectorial con la suma y el producto por escalar habituales.\n$$\\mathbb{R}^{2 \\times 2}$$\n¿Cuál es su dimensión?",
+    "options": [
+      "$4$",
+      "$2$",
+      "$3$",
+      "$8$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada uno de los cuatro casilleros se elige libremente, así que hacen falta cuatro direcciones.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el orden de la matriz, no la cantidad de valores que se eligen libremente.",
+      "Ese sería el caso si algún casillero quedara determinado por los otros, y ninguno lo está.",
+      "Los casilleros de una matriz de dos por dos son cuatro, no ocho."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para hallar la dimensión de un espacio conviene preguntarse cuántos números hay que elegir libremente para determinar uno de sus elementos.\n\nEn una matriz de dos por dos, los cuatro casilleros se eligen sin ninguna restricción entre sí, así que la dimensión es cuatro.\n$$\\dim(\\mathbb{R}^{2 \\times 2}) = 4$$\nUna base natural la forman las cuatro matrices que tienen un uno en un casillero y ceros en el resto, porque cualquier matriz se arma combinándolas.\n\nEl mismo razonamiento vale en $P_2$, donde los tres coeficientes se eligen libres y la dimensión es tres.\n\nLeer el dos por dos como si fuera la respuesta devuelve el orden de la matriz, que es otra cosa distinta de su dimensión.",
+    "reviewed": false,
+    "tags": [
+      "dimension-de-un-espacio-abstracto"
+    ]
+  },
+  {
+    "question": "Los polinomios de grado a lo sumo dos forman un espacio vectorial.\n$$P_2$$\n¿Cuál es su dimensión?",
+    "options": [
+      "$4$",
+      "$3$",
+      "$2$",
+      "$1$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Hay tres coeficientes que se eligen libremente, uno por cada grado hasta el dos.",
+    "feedback_incorrect": [
+      "Con cuatro coeficientes se llegaría hasta el grado tres, que queda fuera de este espacio.",
+      null,
+      "Ese es el subíndice del nombre, que cuenta el grado máximo y no los coeficientes.",
+      "Un solo grado de libertad daría solo los polinomios múltiplos de uno fijo."
+    ],
+    "explanation": "Para hallar la dimensión conviene preguntarse cuántos números hay que elegir libremente para determinar un elemento.\n$$p(x) = ax^2 + bx + c$$\nLos tres coeficientes se eligen sin ninguna restricción entre sí, así que hay tres grados de libertad.\n$$\\dim(P_2) = 3$$\nUna base natural la forman los tres polinomios más simples, el que vale uno, el que es la variable sola y el que es su cuadrado.\n\nEl subíndice indica el grado máximo, y el término independiente se elige con la misma libertad que los demás coeficientes.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "dimension-de-un-espacio-abstracto"
+    ]
+  },
+  {
+    "question": "Los polinomios de grado a lo sumo tres forman un espacio vectorial.\n$$P_3$$\n¿Cuál es su dimensión?",
+    "options": [
+      "$3$",
+      "$6$",
+      "$2$",
+      "$4$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Hay cuatro coeficientes libres, uno por cada grado desde cero hasta tres.",
+    "feedback_incorrect": [
+      "Ese es el subíndice del nombre, y falta contar el término independiente.",
+      "Los coeficientes son cuatro, no seis: uno por cada grado desde cero hasta tres.",
+      "Con dos coeficientes solo se llega hasta el grado uno.",
+      null
+    ],
+    "explanation": "El conteo es siempre el mismo: cuántos números hay que elegir para determinar un elemento del espacio.\n$$p(x) = ax^3 + bx^2 + cx + d$$\nLos cuatro coeficientes se eligen libremente, así que la dimensión es cuatro.\n$$\\dim(P_3) = 4$$\nEl subíndice indica el grado máximo, y siempre hay un coeficiente más que ese número, porque el grado cero también cuenta.\n\nEse espacio tiene la misma dimensión que las matrices de dos por dos, y por eso los dos se comportan de la misma manera.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "dimension-de-un-espacio-abstracto"
+    ]
+  },
+  {
+    "question": "El subíndice del nombre de un espacio de polinomios y su dimensión no coinciden.\n$$\\dim(P_2) = 3$$\n¿Por qué hay una unidad de diferencia?",
+    "options": [
+      "Porque el término independiente también es un coeficiente libre",
+      "Porque el polinomio nulo se cuenta como un elemento aparte",
+      "Porque los polinomios de grado exacto dos quedan afuera"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Los grados van desde cero hasta el subíndice, así que son uno más que él.",
+    "feedback_incorrect": [
+      null,
+      "El polinomio nulo pertenece al espacio pero no aporta ninguna dirección propia.",
+      "Los de grado exactamente dos pertenecen al espacio, y son los que tienen el primer coeficiente no nulo."
+    ],
+    "explanation": "El subíndice cuenta el grado máximo permitido, y los grados arrancan en cero.\n$$p(x) = ax^2 + bx + c$$\nHay entonces un coeficiente para el grado dos, uno para el grado uno y uno para el grado cero, o sea tres en total.\n\nEl del grado cero es el término independiente, y es justamente el que más se olvida al contar.\n\nLa misma cuenta vale en cualquier espacio de polinomios, así que su dimensión es siempre una unidad más que el subíndice del nombre.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "dimension-de-un-espacio-abstracto"
+    ]
+  },
+  {
+    "question": "Un espacio de polinomios contiene un único elemento.\n$$V = \\{p : p(x) = 0\\}$$\n¿Cuál es su dimensión?",
+    "options": [
+      "$2$",
+      "$3$",
+      "$0$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Su único elemento es el polinomio nulo, que no aporta ninguna dirección.",
+    "feedback_incorrect": [
+      "Ese sería el caso de un espacio con dos coeficientes libres, y acá no hay ninguno.",
+      "Esa es la dimensión de los polinomios de grado a lo sumo dos, que es un espacio mucho más grande.",
+      null,
+      "Contar el elemento que tiene devuelve uno, y la dimensión cuenta direcciones."
+    ],
+    "explanation": "El espacio formado únicamente por el polinomio nulo tiene dimensión cero, igual que el formado únicamente por el vector nulo en cualquier otro espacio.\n$$V = \\{\\vec{0}\\}$$\nNo hace falta ningún polinomio para generarlo, porque su único elemento aparece con todos los coeficientes en cero.\n\nEs el mismo caso que el subespacio formado solo por el origen dentro del plano, escrito con otros objetos.\n\nEse paralelismo es justamente lo que la dimensión permite ver: dos espacios de objetos distintos que se comportan exactamente igual.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "dimension-de-un-espacio-abstracto"
+    ]
+  },
+  {
+    "question": "De un subespacio del espacio de tres dimensiones se sabe únicamente que está generado por cuatro vectores.\n$$S = \\text{gen}\\{\\vec{v}_1, \\dots, \\vec{v}_4\\}$$\n¿Alcanza ese dato para dar su dimensión?",
+    "options": [
+      "No, porque algunos de esos cuatro pueden ser redundantes",
+      "Sí, la dimensión es cuatro, una por cada generador",
+      "Sí, la dimensión es tres, porque no puede superar la del espacio"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La cantidad de generadores es una cota superior, no la dimensión, que puede ser menor.",
+    "feedback_incorrect": [
+      null,
+      "Cuatro vectores en el espacio de tres dimensiones son siempre dependientes, así que alguno sobra.",
+      "Podría ser tres, pero también uno o dos si los generadores repiten direcciones."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La cantidad de vectores de un conjunto generador y la dimensión del subespacio que generan son cosas distintas, y confundirlas es la equivocación más frecuente del tema.\n\nLa dimensión cuenta cuántos hacen falta, no cuántos hay escritos. Un conjunto generador puede tener todos los vectores redundantes que se quiera sin que eso cambie el subespacio.\n\nCuatro vectores en el espacio de tres dimensiones son necesariamente dependientes, así que la dimensión es como mucho tres, pero podría ser uno si los cuatro fueran múltiplos entre sí.\n\nPara decidirlo hay que mirar los vectores concretos y descartar los que se arman con los otros.\n\nSi en cambio el dato fuera que los cuatro son **independientes**, ahí sí la dimensión quedaría determinada, aunque en este espacio ese dato sería imposible.",
+    "reviewed": false,
+    "tags": [
+      "que-informacion-alcanza"
+    ]
+  },
+  {
+    "question": "De un conjunto de tres vectores del espacio de tres dimensiones se sabe que ninguno se arma con los otros.\n$$S = \\text{gen}\\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\}$$\n¿Alcanza ese dato para dar la dimensión de lo que generan?",
+    "options": [
+      "No, porque hay que conocer los vectores concretos para contarlos",
+      "Sí, la dimensión es tres, porque los tres aportan una dirección propia",
+      "No, porque falta saber si además generan todo el espacio"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sin vectores de más, la cantidad de generadores y la dimensión coinciden.",
+    "feedback_incorrect": [
+      "Los valores concretos no cambian el conteo mientras ninguno se arme con los otros.",
+      null,
+      "Que generen todo el espacio es una consecuencia, no un dato que falte."
+    ],
+    "explanation": "Cuando ningún vector del conjunto se arma con los demás, la dimensión del subespacio que generan coincide con cuántos vectores hay.\n$$\\dim(\\text{gen}\\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\}) = 3$$\nLa razón es que el conjunto ya cumple las dos condiciones de base para lo que genera: alcanza todo lo suyo y no le sobra ninguno.\n\nLos valores concretos no intervienen, así que el dato alcanza tal como está.\n\nCon ese resultado se deduce además que generan todo el espacio, porque tres vectores sin nada de más en tres coordenadas no pueden quedarse cortos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-informacion-alcanza"
+    ]
+  },
+  {
+    "question": "De un subespacio del espacio de tres dimensiones se sabe que está generado por dos vectores.\n$$S = \\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\}$$\n¿Qué se puede afirmar sobre su dimensión?",
+    "options": [
+      "Que vale exactamente dos, una por cada generador",
+      "Que vale exactamente tres, porque los vectores tienen tres componentes",
+      "Que vale a lo sumo dos, sin poder precisarla mejor"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La cantidad de generadores es una cota superior, y puede sobrar alguno.",
+    "feedback_incorrect": [
+      "Si los dos fueran múltiplos entre sí, la dimensión sería uno en lugar de dos.",
+      "La cantidad de componentes dice dónde vive el subespacio, no cuánto ocupa.",
+      null
+    ],
+    "explanation": "La cantidad de generadores acota la dimensión por arriba, pero no la determina.\n$$\\dim(S) \\leq 2$$\nSi los dos vectores no son múltiplos entre sí, la dimensión es dos y el subespacio es un plano que pasa por el origen.\n\nSi uno es múltiplo del otro, la dimensión baja a uno y el subespacio es una recta.\n\nY si los dos fueran el vector nulo, la dimensión sería cero. Para decidir entre los tres casos hay que mirar los vectores concretos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-informacion-alcanza"
+    ]
+  },
+  {
+    "question": "De un subespacio se sabe que cierto conjunto de tres vectores es una base suya.\n$$B = \\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\}$$\n¿Alcanza ese dato para dar su dimensión?",
+    "options": [
+      "Sí, la dimensión es tres, porque se cuentan los vectores de una base",
+      "No, porque hay que verificar antes que los tres sean distintos",
+      "No, porque otra base del mismo subespacio podría tener otra cantidad"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La dimensión se define contando los elementos de cualquier base.",
+    "feedback_incorrect": [
+      null,
+      "Una base nunca puede tener vectores repetidos, así que esa verificación ya está hecha.",
+      "Todas las bases de un mismo subespacio tienen exactamente la misma cantidad de elementos."
+    ],
+    "explanation": "Saber que un conjunto es una base es el dato más directo que existe para dar una dimensión.\n$$\\dim(S) = 3$$\nLa definición es literalmente contar los elementos de una base, así que no hace falta nada más.\n\nQue otra base pudiera dar otro número está descartado, porque todas las bases de un mismo subespacio tienen la misma cantidad de elementos.\n\nLa diferencia con un conjunto generador es que la base ya viene sin vectores de más, y por eso el conteo es exacto y no una cota.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-informacion-alcanza"
+    ]
+  },
+  {
+    "question": "De un subespacio del plano se sabe únicamente que contiene cinco vectores distintos entre sí.\n$$\\vec{v}_1, \\dots, \\vec{v}_5 \\in S$$\n¿Alcanza ese dato para dar su dimensión?",
+    "options": [
+      "Sí, la dimensión es dos, porque el subespacio vive en el plano",
+      "No, porque los elementos de un subespacio no se cuentan para eso",
+      "Sí, la dimensión es cinco, una por cada vector conocido"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cualquier subespacio que no sea el nulo tiene infinitos elementos.",
+    "feedback_incorrect": [
+      "Podría ser una recta, y ahí la dimensión sería uno en lugar de dos.",
+      null,
+      "Los elementos que uno conozca no miden nada, la dimensión cuenta direcciones necesarias."
+    ],
+    "explanation": "Conocer elementos de un subespacio no dice nada sobre su dimensión, porque cualquier subespacio no nulo tiene infinitos.\n$$\\dim(S) = 1 \\quad \\text{o} \\quad \\dim(S) = 2$$\nLos cinco vectores podrían estar todos sobre una misma recta que pasa por el origen, y entonces la dimensión sería uno.\n\nO podrían apuntar a direcciones distintas, y entonces sería dos.\n\nLo que hace falta saber es cuántas direcciones distintas aportan, y para eso hay que mirar los vectores concretos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-informacion-alcanza"
+    ]
   }
 ]

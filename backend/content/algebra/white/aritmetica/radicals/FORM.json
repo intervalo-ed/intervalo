@@ -1,6 +1,6 @@
 [
   {
-    "question": "Se quiere racionalizar la fracción $\\dfrac{5}{\\sqrt{3}}$.\n\n¿Qué expresión corresponde al factor por el que hay que multiplicar numerador y denominador?",
+    "question": "Se quiere racionalizar la fracción:\n$$\\dfrac{5}{\\sqrt{3}}$$\n¿Qué expresión corresponde al factor por el que hay que multiplicar numerador y denominador?",
     "options": [
       "$\\dfrac{\\sqrt{3}}{\\sqrt{3}}$",
       "$\\dfrac{3}{3}$",
@@ -8,17 +8,400 @@
       "$\\dfrac{5}{5}$"
     ],
     "correct_index": 0,
-    "feedback_correct": "Multiplicar por $\\sqrt{3}/\\sqrt{3}$ (una forma de $1$) hace que el denominador quede como $(\\sqrt{3})^2 = 3$, sin raíz.",
+    "feedback_correct": "Multiplicar por $\\sqrt{3}/\\sqrt{3}$, una forma de $1$, hace que el denominador quede como $(\\sqrt{3})^2=3$, sin raíz.",
     "feedback_incorrect": [
       null,
       "Ese factor no es una raíz, no elimina el radical del denominador.",
       "Ese factor no representa una forma de $1$ construida a partir del radical del denominador.",
       "Multiplicar por ese factor no afecta al radical del denominador, que es lo que hay que eliminar."
     ],
-    "explanation": "Antes de resolver, hay que identificar la **expresión racionalizante**: una forma de $1$ construida con el mismo radical del denominador.\n\nPara $\\dfrac{5}{\\sqrt{3}}$, el factor correcto es $\\dfrac{\\sqrt{3}}{\\sqrt{3}}$, porque al multiplicar el denominador queda $(\\sqrt{3})^2=3$, un número entero sin raíz.\nUn error común es multiplicar por un factor que no coincide con el radical presente, lo que no elimina la raíz del denominador.",
+    "explanation": "Antes de resolver, hay que identificar la **expresión racionalizante**: una forma de $1$ construida con el mismo radical del denominador.\n\nElevar al cuadrado deshace una raíz cuadrada, porque son operaciones inversas: por eso multiplicar el denominador por sí mismo elimina la raíz.\n\nEl factor correcto para $5/\\sqrt{3}$ es $\\sqrt{3}/\\sqrt{3}$.\n\nAl multiplicarlo, el denominador queda como $(\\sqrt{3})^2$, que es un número entero sin raíz.\n\nMultiplicar por un factor que no coincide con el radical presente no elimina la raíz del denominador, y deja la fracción sin racionalizar.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-factor-racionalizante"
+    ]
+  },
+  {
+    "question": "Se quiere racionalizar una fracción con una raíz acompañada de un coeficiente.\n$$\\dfrac{4}{3\\sqrt{2}}$$\n¿Por qué factor hay que multiplicar el numerador y el denominador?",
+    "options": [
+      "$\\dfrac{\\sqrt{2}}{2}$",
+      "$\\dfrac{\\sqrt{2}}{\\sqrt{2}}$",
+      "$\\dfrac{\\sqrt{3}}{\\sqrt{3}}$",
+      "$\\dfrac{2}{2}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Alcanza con la raíz del denominador: el coeficiente entero ya no molesta.",
+    "feedback_incorrect": [
+      "Ese factor no vale uno, así que cambia el valor de la fracción.",
+      null,
+      "Esa raíz no aparece en el denominador, así que no cancela nada.",
+      "Multiplicar por un entero no elimina la raíz, solo agranda los dos niveles."
+    ],
+    "explanation": "Lo único que hay que eliminar del denominador es la raíz; el coeficiente entero puede quedarse.\n$$\\dfrac{4}{3\\sqrt{2}} \\cdot \\dfrac{\\sqrt{2}}{\\sqrt{2}} = \\dfrac{4\\sqrt{2}}{6}$$\nLa raíz multiplicada por sí misma devuelve el radicando, que es entero, y el denominador queda limpio.\n\nEl factor tiene que valer uno para no cambiar el valor de la fracción, y por eso lleva lo mismo arriba y abajo.\n\nIncluir el coeficiente en el factor también funciona, pero deja números más grandes para simplificar después.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-factor-racionalizante"
+    ]
+  },
+  {
+    "question": "Racionalizar una raíz cúbica exige completar el cubo del radicando, no solo repetir la raíz.\n$$\\dfrac{1}{\\sqrt[3]{5}}$$\n¿Por qué factor hay que multiplicar el numerador y el denominador?",
+    "options": [
+      "$\\dfrac{\\sqrt[3]{5}}{\\sqrt[3]{5}}$",
+      "$\\dfrac{5}{5}$",
+      "$\\dfrac{\\sqrt{5}}{\\sqrt{5}}$",
+      "$\\dfrac{\\sqrt[3]{25}}{\\sqrt[3]{25}}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Hacen falta tres factores iguales adentro de la raíz cúbica para que salga un entero.",
+    "feedback_incorrect": [
+      "Con dos factores adentro todavía falta uno para completar el cubo.",
+      "Multiplicar por un entero no elimina la raíz del denominador.",
+      "Esa raíz tiene otro índice, así que no se combina con la del denominador.",
+      null
+    ],
+    "explanation": "Una raíz cúbica se limpia cuando el radicando queda elevado al cubo, y para eso hacen falta tres factores iguales.\n$$\\sqrt[3]{5} \\cdot \\sqrt[3]{25} = \\sqrt[3]{125} = 5$$\nEl denominador ya aportaba uno, así que el factor tiene que aportar los dos que faltan.\n\nCon índice dos alcanzaba con repetir la misma raíz, y por eso el caso cúbico se resuelve mal por analogía.\n\nLa regla general es completar el radicando hasta una potencia igual al índice.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-factor-racionalizante"
+    ]
+  },
+  {
+    "question": "No toda fracción que contiene una raíz necesita racionalizarse.\n$$\\dfrac{\\sqrt{7}}{4}$$\n¿Qué corresponde hacer?",
+    "options": [
+      "Nada, porque el denominador ya es un número entero",
+      "Multiplicar el numerador y el denominador por la raíz de siete",
+      "Multiplicar el numerador y el denominador por cuatro",
+      "Elevar al cuadrado los dos niveles de la fracción"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Racionalizar es un procedimiento para el denominador, y acá ya está limpio.",
+    "feedback_incorrect": [
+      null,
+      "Eso movería la raíz al denominador, que es justo lo contrario de lo que busca racionalizar.",
+      "Multiplicar por un entero agranda los dos niveles sin cambiar nada de la forma.",
+      "Elevar al cuadrado cambia el valor de la fracción, no solo su escritura."
+    ],
+    "explanation": "Racionalizar significa dejar el **denominador** sin raíces, y no dice nada sobre el numerador.\n$$\\dfrac{\\sqrt{7}}{4}$$\nAcá el denominador ya es entero, así que la fracción está en su forma final.\n\nAplicar el procedimiento igual movería la raíz de arriba hacia abajo y empeoraría la expresión.\n\nReconocer cuándo un procedimiento no hace falta es parte de elegirlo bien.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-factor-racionalizante"
+    ]
+  },
+  {
+    "question": "Racionalizar se apoya en que multiplicar una raíz por sí misma deshace el radical.\n$$(\\sqrt{a})^{2} = a$$\n¿Por qué eso limpia el denominador?",
+    "options": [
+      "Porque el denominador termina cancelándose contra el numerador",
+      "Porque multiplicar por una raíz achica el denominador hasta volverlo entero",
+      "Porque la raíz multiplicada por sí misma devuelve el radicando, que es entero",
+      "Porque el producto de dos raíces cualesquiera da siempre un entero"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Elevar al cuadrado y extraer la raíz cuadrada son operaciones inversas, y una deshace a la otra.",
+    "feedback_incorrect": [
+      "El numerador no interviene: lo que se limpia es únicamente el denominador.",
+      "El denominador no se achica, cambia de forma: pasa de una raíz a un entero.",
+      null,
+      "El producto de dos raíces distintas suele ser otra raíz, no un entero."
+    ],
+    "explanation": "La raíz cuadrada y el cuadrado son operaciones inversas, así que aplicarlas seguidas devuelve el número original.\n$$\\sqrt{a} \\cdot \\sqrt{a} = a$$\nPor eso multiplicar el denominador por su propia raíz lo convierte en el radicando, que es entero.\n\nPara que el valor de la fracción no cambie, el mismo factor tiene que aparecer también en el numerador.\n\nToda la técnica sale de esa única propiedad, y por eso cambia cuando el índice deja de ser dos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-factor-racionalizante"
+    ]
+  },
+  {
+    "question": "Se quiere simplificar $\\sqrt{72}$ extrayendo el mayor factor que sea un cuadrado perfecto.\n\n¿Cuál es ese factor?",
+    "options": [
+      "$36$",
+      "$9$",
+      "$4$",
+      "$8$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$72 = 36 \\cdot 2$, y $36$ es el mayor cuadrado perfecto que divide a $72$.",
+    "feedback_incorrect": [
+      null,
+      "$9$ es un cuadrado perfecto que divide a $72$, pero no es el mayor: todavía queda $36$ sin usar.",
+      "$4$ es un cuadrado perfecto que divide a $72$, pero no es el mayor: todavía queda $36$ sin usar.",
+      "$8$ no es un cuadrado perfecto, así que no sirve como factor para extraer una raíz exacta."
+    ],
+    "explanation": "Al simplificar un radical, conviene extraer el **mayor** factor que sea una potencia perfecta del índice, no cualquier factor que funcione.\n\nExtraer un factor se apoya en que la raíz de un producto es el producto de las raíces:\n$$\\sqrt{a\\cdot b}=\\sqrt{a}\\cdot\\sqrt{b}$$\nElevando ambos lados al cuadrado se llega al mismo $a\\cdot b$, así que valen lo mismo.\n\nEl número $72$ se puede dividir exactamente por varios cuadrados perfectos, y el mayor de ellos es $36$.\n\nTambién se puede dividir por cuadrados perfectos más chicos, como 4 o 9, pero usar alguno de esos dos deja trabajo de más para terminar de simplificar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-factor-a-extraer"
+    ]
+  },
+  {
+    "question": "Se quiere simplificar una raíz extrayendo el mayor factor que sea un cuadrado perfecto.\n$$\\sqrt{50}$$\n¿Cuál es ese factor?",
+    "options": [
+      "$2$",
+      "$25$",
+      "$5$",
+      "$10$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cincuenta es veinticinco por dos, y el veinticinco tiene raíz entera.",
+    "feedback_incorrect": [
+      "Ese número divide al radicando, pero no es un cuadrado perfecto.",
+      null,
+      "Ese número divide al radicando, pero no es un cuadrado perfecto.",
+      "Ese número divide al radicando, pero no es un cuadrado perfecto."
+    ],
+    "explanation": "Extraer un factor exige que ese factor sea un **cuadrado perfecto**, o sea que tenga raíz entera.\n$$\\sqrt{50} = \\sqrt{25 \\cdot 2} = 5\\sqrt{2}$$\nDe los divisores de cincuenta, el único con raíz entera es el veinticinco.\n\nElegir un cuadrado más chico dejaría el radical a medio simplificar, y habría que repetir el paso.\n\nConviene buscar de mayor a menor entre los cuadrados conocidos: cien, ochenta y uno, sesenta y cuatro, cuarenta y nueve, treinta y seis, veinticinco.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-factor-a-extraer"
+    ]
+  },
+  {
+    "question": "Se quiere simplificar una raíz de radicando grande en un solo paso.\n$$\\sqrt{200}$$\n¿Cuál es el mayor factor cuadrado perfecto que se puede extraer?",
+    "options": [
+      "$25$",
+      "$4$",
+      "$20$",
+      "$100$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Doscientos es cien por dos, y el cien sale de la raíz como un diez.",
+    "feedback_incorrect": [
+      "Ese cuadrado divide al radicando, pero hay uno mayor que también lo hace.",
+      "Ese cuadrado divide al radicando, pero hay uno mayor que también lo hace.",
+      "Ese número divide al radicando, pero no es un cuadrado perfecto.",
+      null
+    ],
+    "explanation": "Cuando el radicando admite varios cuadrados, conviene extraer el mayor para terminar en un solo paso.\n$$\\sqrt{200} = \\sqrt{100 \\cdot 2} = 10\\sqrt{2}$$\nEmpezar por un cuadrado más chico también llega al mismo resultado, pero obliga a revisar de nuevo lo que quedó adentro.\n\nEl chequeo final es siempre el mismo: lo que queda adentro del radical no puede tener ningún cuadrado perfecto entre sus factores.\n\nAcá queda un dos, que es primo, así que la simplificación está terminada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-factor-a-extraer"
+    ]
+  },
+  {
+    "question": "Con índice tres, lo que hay que buscar adentro del radicando ya no son cuadrados.\n$$\\sqrt[3]{54}$$\n¿Cuál es el factor que corresponde extraer?",
+    "options": [
+      "$27$",
+      "$9$",
+      "$6$",
+      "$8$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Cincuenta y cuatro es veintisiete por dos, y el veintisiete es un cubo perfecto.",
+    "feedback_incorrect": [
+      null,
+      "Ese número divide al radicando, pero es un cuadrado perfecto y no un cubo.",
+      "Ese número divide al radicando, pero no es una potencia perfecta de ningún índice.",
+      "Ese número es un cubo perfecto, pero no divide al radicando."
+    ],
+    "explanation": "El factor que sale del radical tiene que ser una **potencia perfecta del índice**, así que con índice tres hacen falta cubos.\n$$\\sqrt[3]{54} = \\sqrt[3]{27 \\cdot 2} = 3\\sqrt[3]{2}$$\nEl veintisiete es tres al cubo, así que sale de la raíz convertido en un tres.\n\nUn cuadrado perfecto no sirve acá: para salir de una raíz cúbica hace falta el factor repetido tres veces, no dos.\n\nConfundir los dos criterios es lo que deja el radical sin simplificar aunque el factor elegido parezca razonable.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-factor-a-extraer"
+    ]
+  },
+  {
+    "question": "Un radicando puede tener varios cuadrados perfectos entre sus divisores.\n$$\\sqrt{48}$$\n¿Cuál conviene extraer?",
+    "options": [
+      "$12$",
+      "$8$",
+      "$16$",
+      "$4$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Cuarenta y ocho es dieciséis por tres, y el dieciséis es el mayor cuadrado que lo divide.",
+    "feedback_incorrect": [
+      "Ese número divide al radicando, pero no es un cuadrado perfecto.",
+      "Ese número divide al radicando, pero no es un cuadrado perfecto.",
+      null,
+      "Ese cuadrado divide al radicando, pero deja adentro otro cuadrado y obliga a repetir el paso."
+    ],
+    "explanation": "Extraer el mayor cuadrado posible deja el radical terminado en un solo paso.\n$$\\sqrt{48} = \\sqrt{16 \\cdot 3} = 4\\sqrt{3}$$\nEmpezar por el cuatro deja adentro un doce, que todavía contiene otro cuatro, y hay que volver a simplificar.\n\nLos dos caminos llegan al mismo resultado, pero uno de ellos tiene el doble de pasos.\n\nLa señal de que la simplificación terminó es que el radicando final no tenga ningún factor repetido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-factor-a-extraer"
+    ]
+  },
+  {
+    "question": "Se quiere sumar:\n$$\\sqrt{20} + \\sqrt{45}$$\n¿Qué corresponde hacer primero, antes de sumar?",
+    "options": [
+      "Simplificar cada radical y ver si son semejantes",
+      "Sumar los radicandos directamente: $\\sqrt{20+45}$",
+      "Sumar los índices de ambas raíces",
+      "Multiplicar los dos radicandos entre sí"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Simplificando primero, $\\sqrt{20}=2\\sqrt{5}$ y $\\sqrt{45}=3\\sqrt{5}$ quedan con el mismo radicando, así que sí se pueden sumar.",
+    "feedback_incorrect": [
+      null,
+      "Sumar los radicandos directamente no es una propiedad válida de las raíces: $\\sqrt{a}+\\sqrt{b}$ no es lo mismo que $\\sqrt{a+b}$.",
+      "Los índices no se suman entre sí; ambas raíces ya comparten el mismo índice $2$ desde el principio.",
+      "Multiplicar los radicandos correspondería a una multiplicación de raíces, no a una suma."
+    ],
+    "explanation": "Dos radicales se pueden sumar o restar combinando sus coeficientes solo cuando son **semejantes**: mismo índice y mismo radicando.\n\nEsto funciona igual que sumar términos semejantes en álgebra: se saca el radical como factor común, tal como se saca una variable común, por ejemplo $2x+3x=(2+3)x$.\n\nAntes de sumar, conviene simplificar cada radical por separado para ver si terminan siendo semejantes.\n\nSimplificando:\n$$\\sqrt{20} = 2\\sqrt{5}, \\quad \\sqrt{45} = 3\\sqrt{5}$$\nComo ambos quedan con el mismo radicando, ahora sí se pueden sumar.\n\nSumar los radicandos originales sin simplificar antes trata a las raíces como si fueran un único número, cuando en realidad hay que operar sobre coeficientes iguales.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-condicion-radicales-semejantes"
+    ]
+  },
+  {
+    "question": "Dos radicales solo se pueden sumar si son semejantes, o sea si comparten índice y radicando.\n$$\\sqrt{12} + \\sqrt{27}$$\n¿Qué corresponde hacer primero?",
+    "options": [
+      "Sumar los índices de las dos raíces y conservar el radicando",
+      "Simplificar los dos radicales y ver si quedan con el mismo radicando",
+      "Sumar los radicandos y dejar el resultado adentro de una sola raíz",
+      "Multiplicar los dos radicandos entre sí antes de sumarlos"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los radicandos no coinciden como están escritos, pero pueden coincidir después de simplificar.",
+    "feedback_incorrect": [
+      "Los índices no se suman en ninguna operación entre radicales.",
+      null,
+      "La raíz de una suma no es la suma de las raíces: esa propiedad no existe.",
+      "Multiplicar cambia la operación planteada, que es una suma."
+    ],
+    "explanation": "Dos radicales se suman como términos semejantes, igual que en álgebra se suman dos términos con la misma letra.\n$$\\sqrt{12} = 2\\sqrt{3} \\qquad \\sqrt{27} = 3\\sqrt{3}$$\nSimplificados, los dos quedan con el mismo radicando, así que se pueden combinar.\n\nRecién ahí se suman los coeficientes y el radical queda como está, exactamente como en la suma de términos con una misma incógnita.\n\nSumar los radicandos directamente daría otro número, porque la raíz no se reparte sobre una suma.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-condicion-radicales-semejantes"
+    ]
+  },
+  {
+    "question": "Dos radicales pueden seguir siendo distintos después de simplificarlos.\n$$\\sqrt{8} + \\sqrt{12}$$\n¿Qué se puede afirmar sobre esa suma?",
+    "options": [
+      "Que se combina en una sola raíz sumando los dos radicandos",
+      "Que se combina sumando los coeficientes y dejando el mayor radicando",
+      "Que se combina multiplicando los dos radicales entre sí",
+      "Que no se puede combinar, porque los radicandos no coinciden"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Uno queda con radicando dos y el otro con radicando tres, así que no son términos semejantes.",
+    "feedback_incorrect": [
+      "La raíz de una suma no es la suma de las raíces: esa propiedad no existe.",
+      "Los coeficientes solo se suman cuando el radicando es el mismo en los dos términos.",
+      "Multiplicar cambia la operación planteada, que es una suma.",
+      null
+    ],
+    "explanation": "Simplificar es el paso previo obligatorio, pero no garantiza que los dos radicales terminen siendo semejantes.\n$$\\sqrt{8} = 2\\sqrt{2} \\qquad \\sqrt{12} = 2\\sqrt{3}$$\nLos coeficientes coinciden por casualidad, pero los radicandos no, y son los radicandos los que deciden.\n\nEs la misma situación que sumar dos términos con letras distintas: la suma queda expresada, sin resolverse en un único término.\n\nQue una suma no se pueda combinar es un resultado válido, no un error del planteo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-condicion-radicales-semejantes"
+    ]
+  },
+  {
+    "question": "Dos radicales semejantes se suman igual que dos términos con la misma letra.\n$$2x + 3x = 5x$$\n¿Qué condición tienen que cumplir dos radicales para sumarse así?",
+    "options": [
+      "Tener el mismo índice y el mismo radicando",
+      "Tener el mismo coeficiente adelante del radical",
+      "Tener radicandos que sean los dos números primos",
+      "Tener el mismo índice, sin importar el radicando"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El radical entero cumple el papel de la letra, así que tiene que ser idéntico en los dos términos.",
+    "feedback_incorrect": [
+      null,
+      "Los coeficientes son justamente lo que se suma, así que no necesitan coincidir.",
+      "Ser primos no interviene: lo que importa es que los dos radicandos sean iguales entre sí.",
+      "Con el mismo índice y radicandos distintos, los términos siguen sin ser semejantes."
+    ],
+    "explanation": "Sumar radicales semejantes es la misma operación que sumar términos semejantes en álgebra.\n$$2\\sqrt{5} + 3\\sqrt{5} = 5\\sqrt{5}$$\nEl radical completo, índice y radicando incluidos, ocupa el lugar que tendría una incógnita.\n\nPor eso los coeficientes se suman y el radical se repite sin cambios, igual que la letra en la suma algebraica.\n\nSi el índice o el radicando difieren, los dos términos no son semejantes y la suma queda expresada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-condicion-radicales-semejantes"
+    ]
+  },
+  {
+    "question": "Dos radicales de índice distinto no se combinan aunque el radicando coincida.\n$$\\sqrt{5} + \\sqrt[3]{5}$$\n¿Qué corresponde hacer?",
+    "options": [
+      "Promediar los dos índices y escribir un único radical",
+      "Multiplicar los dos radicales para unificar el índice",
+      "Dejar la suma expresada, porque los índices no coinciden",
+      "Sumar los coeficientes y conservar el radicando común"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Un mismo radicando con índices distintos son dos cantidades diferentes.",
+    "feedback_incorrect": [
+      "Promediar índices no es ninguna operación válida entre radicales.",
+      "Multiplicar cambia la operación planteada, que es una suma.",
+      null,
+      "Los coeficientes solo se suman cuando índice y radicando coinciden los dos."
+    ],
+    "explanation": "Un radical queda definido por dos datos, el índice y el radicando, y los dos tienen que coincidir para que dos términos sean semejantes.\n$$\\sqrt{5} \\neq \\sqrt[3]{5}$$\nLa raíz cuadrada de cinco y la raíz cúbica de cinco son números distintos, así que no se pueden juntar en un solo término.\n\nEs el mismo criterio que impide sumar dos términos con la misma letra pero distinto exponente.\n\nLa suma queda expresada tal como está, y eso ya es la respuesta final.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-condicion-radicales-semejantes"
+    ]
   }
 ]

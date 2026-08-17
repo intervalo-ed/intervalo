@@ -1,22 +1,371 @@
 [
   {
-    "question": "¿Cuál de estos objetos es una **matriz**?",
+    "question": "Los tres jueces de un concurso le ponen puntaje a un mismo participante, y los puntajes se guardan en un único arreglo:\n$$\\begin{pmatrix} 8 \\\\ 7 \\\\ 9 \\end{pmatrix}$$\n¿Qué forma tiene esa matriz?",
     "options": [
-      "$\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$",
-      "$(1, 2, 3)$",
-      "$5$"
+      "Matriz columna, de orden $3 \\times 1$",
+      "Matriz fila, de orden $1 \\times 3$",
+      "Matriz cuadrada, de orden $3 \\times 3$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "El arreglo con filas y columnas es una matriz de $2\\times 2$.",
+    "feedback_correct": "Los tres puntajes ocupan tres filas y una sola columna, así que el orden es $3 \\times 1$.",
     "feedback_incorrect": [
       null,
-      "Eso es un vector, una única fila de componentes.",
-      "Eso es un escalar, un único número."
+      "Una matriz fila tendría los tres puntajes acostados en una única fila, no apilados uno debajo del otro.",
+      "Para ser cuadrada necesitaría tres columnas además de las tres filas, y acá hay una sola columna."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una matriz necesita al menos dos filas o dos columnas para distinguirse de un vector.\n\n$\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$ tiene 2 filas y 2 columnas: es una matriz de $2\\times2$.\n\n$(1,2,3)$ es un vector (una sola fila), y $5$ es apenas un escalar, sin estructura de filas ni columnas. para distinguirse de un vector. Una matriz es un arreglo rectangular de números organizados en filas y columnas, con su propia álgebra de operaciones. Una matriz $1 \\times n$ es esencialmente un vector fila, y una matriz $m \\times 1$ es un vector columna, pero matrices verdaderas tienen dimensiones mayores. Las matrices permiten representar transformaciones lineales, sistemas de ecuaciones, y otras estructuras matemáticas de forma compacta y manipulable.",
-    "reviewed": false
+    "explanation": "El orden de una matriz se escribe siempre como cantidad de filas por cantidad de columnas, en ese orden.\n\nAcá los tres puntajes están apilados uno debajo del otro, así que ocupan tres filas y una única columna.\n$$3 \\times 1$$\nUna matriz con una sola columna se llama matriz columna, y es la forma habitual de escribir un vector dentro del álgebra de matrices.\n\nAnotar el orden al revés cambia el objeto: una matriz de $1 \\times 3$ guardaría los mismos tres números, pero acostados en una fila.",
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-forma"
+    ]
+  },
+  {
+    "question": "Las ventas diarias de un único producto durante cuatro días se guardan en un solo arreglo.\n$$\\begin{pmatrix} 6 & 2 & 9 & 4 \\end{pmatrix}$$\n¿Qué tipo de matriz es?",
+    "options": [
+      "Matriz cuadrada, de orden $4 \\times 4$",
+      "Matriz fila, de orden $1 \\times 4$",
+      "Matriz columna, de orden $4 \\times 1$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los cuatro datos están alineados en una sola fila.",
+    "feedback_incorrect": [
+      "Una matriz cuadrada necesita tantas filas como columnas.",
+      null,
+      "Una matriz columna apila los datos en vertical, uno debajo del otro."
+    ],
+    "explanation": "El orden de una matriz se lee contando primero las filas y después las columnas.\n$$\\begin{pmatrix} 6 & 2 & 9 & 4 \\end{pmatrix}$$\nAcá hay una sola fila con cuatro entradas, así que el orden es uno por cuatro.\n\nUna matriz de una sola fila se llama **matriz fila**, y la de una sola columna se llama matriz columna.\n\nLas dos guardan la misma cantidad de datos, pero no son la misma matriz: la posición de cada dato cambia.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-forma"
+    ]
+  },
+  {
+    "question": "Los puntajes de dos jurados sobre dos participantes se guardan en un arreglo.\n$$\\begin{pmatrix} 7 & 9 \\\\ 8 & 6 \\end{pmatrix}$$\n¿Qué tipo de matriz es?",
+    "options": [
+      "Matriz fila, de orden $1 \\times 4$",
+      "Matriz rectangular, de orden $2 \\times 4$",
+      "Matriz cuadrada, de orden $2 \\times 2$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Tiene la misma cantidad de filas que de columnas.",
+    "feedback_incorrect": [
+      "Los cuatro datos están repartidos en dos filas, no alineados en una sola.",
+      "Cada fila tiene dos entradas, no cuatro.",
+      null
+    ],
+    "explanation": "Una matriz es **cuadrada** cuando su cantidad de filas coincide con su cantidad de columnas.\n$$\\begin{pmatrix} 7 & 9 \\\\ 8 & 6 \\end{pmatrix}$$\nAcá hay dos filas y dos columnas, así que el orden es dos por dos.\n\nSer cuadrada no es un detalle de forma: es la condición que después permite hablar de diagonal, de determinante y de inversa.\n\nContar las entradas totales no alcanza para clasificar: cuatro datos pueden formar varias matrices distintas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-forma"
+    ]
+  },
+  {
+    "question": "El stock de tres depósitos para dos productos se guarda en un arreglo.\n$$\\begin{pmatrix} 5 & 1 \\\\ 0 & 8 \\\\ 3 & 6 \\end{pmatrix}$$\n¿Qué tipo de matriz es?",
+    "options": [
+      "Matriz rectangular, de orden $3 \\times 2$",
+      "Matriz rectangular, de orden $2 \\times 3$",
+      "Matriz cuadrada, de orden $3 \\times 3$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Hay tres filas y dos columnas, en ese orden.",
+    "feedback_incorrect": [
+      null,
+      "Ahí las dos dimensiones quedaron intercambiadas de lugar.",
+      "Las filas y las columnas no coinciden, así que no es cuadrada."
+    ],
+    "explanation": "El orden se escribe siempre filas por columnas, en ese orden fijo.\n$$\\begin{pmatrix} 5 & 1 \\\\ 0 & 8 \\\\ 3 & 6 \\end{pmatrix}$$\nContando de arriba hacia abajo hay tres filas, y de izquierda a derecha hay dos columnas.\n\nInvertir los dos números describe otra matriz, que guardaría los mismos datos con otra disposición.\n\nPor eso conviene contar las dos dimensiones por separado antes de anunciar el orden.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-forma"
+    ]
+  },
+  {
+    "question": "Una única medición se guarda igual en formato de matriz.\n$$\\begin{pmatrix} 7 \\end{pmatrix}$$\n¿Qué tipo de matriz es?",
+    "options": [
+      "No es una matriz, porque tiene un solo dato",
+      "Matriz cuadrada, de orden $1 \\times 1$",
+      "Matriz fila, de orden $1 \\times 7$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Una fila y una columna es el caso más chico de matriz cuadrada.",
+    "feedback_incorrect": [
+      "Una matriz de una sola entrada es un caso válido, no una excepción.",
+      null,
+      "El siete es el valor de la entrada, no la cantidad de columnas."
+    ],
+    "explanation": "Una matriz de una fila y una columna es perfectamente válida, y además es cuadrada.\n$$\\begin{pmatrix} 7 \\end{pmatrix}$$\nEl número que contiene es el valor de su única entrada, y no dice nada sobre su orden.\n\nConfundir el valor de una entrada con una dimensión es el error que este caso deja al descubierto.\n\nEl caso vale la pena porque muestra que la clasificación depende solo de la forma, nunca del contenido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-forma"
+    ]
+  },
+  {
+    "question": "Los costos acumulados de un proceso de tres etapas se registran en este arreglo cuadrado:\n$$\\begin{pmatrix} 2 & 5 & 1 \\\\ 0 & 3 & 4 \\\\ 0 & 0 & 7 \\end{pmatrix}$$\n¿Qué tipo de matriz es?",
+    "options": [
+      "Triangular superior",
+      "Triangular inferior",
+      "Diagonal"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Los elementos no nulos quedan sobre la diagonal y por encima de ella, así que es triangular superior.",
+    "feedback_incorrect": [
+      null,
+      "En una triangular inferior los ceros quedan arriba de la diagonal, y acá están abajo.",
+      "Una matriz diagonal tiene ceros en todas las posiciones fuera de la diagonal, y acá hay valores arriba."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una matriz cuadrada es **triangular** cuando todos los elementos de un lado de la diagonal valen cero.\n\nEl nombre se toma del lado donde quedan los valores que sí importan, no del lado donde quedan los ceros.\n$$\\begin{pmatrix} 2 & 5 & 1 \\\\ 0 & 3 & 4 \\\\ 0 & 0 & 7 \\end{pmatrix}$$\nAcá los ceros ocupan el triángulo de abajo y los valores no nulos el de arriba, así que la matriz es triangular superior.\n\nMirar dónde están los ceros en vez de dónde están los datos invierte el nombre y lleva a llamarla inferior.",
+    "reviewed": false,
+    "tags": [
+      "identificar-matriz-especial"
+    ]
+  },
+  {
+    "question": "Los aportes acumulados de un proceso se registran en este arreglo cuadrado.\n$$\\begin{pmatrix} 3 & 0 & 0 \\\\ 6 & 2 & 0 \\\\ 1 & 4 & 5 \\end{pmatrix}$$\n¿Qué tipo especial de matriz es?",
+    "options": [
+      "Diagonal, con ceros a los dos lados de la diagonal",
+      "Triangular inferior, con ceros por encima de la diagonal",
+      "Triangular superior, con ceros por debajo de la diagonal"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Todas las entradas por encima de la diagonal principal valen cero.",
+    "feedback_incorrect": [
+      "Una matriz diagonal tiene ceros a los dos lados de la diagonal principal.",
+      null,
+      "En una triangular superior los ceros quedan por debajo de la diagonal, no por encima."
+    ],
+    "explanation": "Una matriz es **triangular inferior** cuando todas las entradas por encima de su diagonal principal valen cero.\n$$\\begin{pmatrix} 3 & 0 & 0 \\\\ 6 & 2 & 0 \\\\ 1 & 4 & 5 \\end{pmatrix}$$\nLos valores distintos de cero quedan en la diagonal y por debajo de ella.\n\nEl nombre viene de dónde queda el triángulo de datos, no de dónde quedan los ceros.\n\nCuando los ceros están de los dos lados, la matriz pasa a ser diagonal, que es un caso más restrictivo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-matriz-especial"
+    ]
+  },
+  {
+    "question": "Cada etapa de un proceso afecta únicamente a su propia variable.\n$$\\begin{pmatrix} 4 & 0 & 0 \\\\ 0 & 7 & 0 \\\\ 0 & 0 & 2 \\end{pmatrix}$$\n¿Qué tipo especial de matriz es?",
+    "options": [
+      "Triangular superior, con ceros por debajo de la diagonal",
+      "Identidad, con unos en toda su diagonal principal",
+      "Diagonal, con ceros fuera de la diagonal principal"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Todas las entradas fuera de la diagonal principal valen cero.",
+    "feedback_incorrect": [
+      "Una triangular superior admite valores por encima de la diagonal, y acá no hay ninguno.",
+      "La identidad tiene unos en toda la diagonal, y acá los valores son otros.",
+      null
+    ],
+    "explanation": "Una matriz es **diagonal** cuando toda entrada fuera de la diagonal principal vale cero.\n$$\\begin{pmatrix} 4 & 0 & 0 \\\\ 0 & 7 & 0 \\\\ 0 & 0 & 2 \\end{pmatrix}$$\nEs a la vez triangular superior y triangular inferior, porque cumple las dos condiciones.\n\nLa identidad es el caso particular en que además todos los valores de la diagonal valen uno.\n\nEstas matrices son las más simples de operar, porque cada entrada de la diagonal actúa de forma independiente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-matriz-especial"
+    ]
+  },
+  {
+    "question": "Una operación deja cada dato exactamente como estaba.\n$$\\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$$\n¿Qué tipo especial de matriz es?",
+    "options": [
+      "Identidad, con unos en su diagonal principal",
+      "Nula, con ceros en todas sus entradas",
+      "Triangular inferior, con ceros por encima"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Es diagonal y además todos los valores de su diagonal valen uno.",
+    "feedback_incorrect": [
+      null,
+      "La matriz nula tiene todas sus entradas en cero, incluida la diagonal.",
+      "Es triangular inferior, pero eso no la describe: hay un nombre más preciso."
+    ],
+    "explanation": "La matriz **identidad** es la diagonal cuyos valores son todos unos.\n$$\\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$$\nCumple también las definiciones de diagonal y de triangular, pero el nombre propio es el que más información aporta.\n\nSu papel es el de neutro del producto: multiplicar por ella deja la otra matriz sin cambios.\n\nLa matriz nula, en cambio, tiene ceros en todas sus entradas y anula cualquier producto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-matriz-especial"
+    ]
+  },
+  {
+    "question": "Un registro de tres etapas permite que la primera afecte directamente a la última, sin pasar por la del medio.\n$$\\begin{pmatrix} 5 & 0 & 3 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 6 \\end{pmatrix}$$\n¿Qué tipo especial de matriz es?",
+    "options": [
+      "Triangular superior, con ceros por debajo de la diagonal",
+      "Diagonal, con ceros fuera de la diagonal principal",
+      "Triangular inferior, con ceros por encima de la diagonal"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Todas las entradas por debajo de la diagonal principal valen cero, aunque arriba no todas lo sean.",
+    "feedback_incorrect": [
+      null,
+      "La entrada de la esquina superior derecha vale $3$, así que no todas las posiciones fuera de la diagonal son cero.",
+      "Los valores no nulos quedan arriba de la diagonal, no abajo: el nombre mira dónde están los datos, no los ceros."
+    ],
+    "explanation": "Una matriz cuadrada es **triangular superior** cuando todas las entradas por debajo de la diagonal principal valen cero, sin importar cuántas de las de arriba también lo sean.\n$$\\begin{pmatrix} 5 & 0 & 3 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 6 \\end{pmatrix}$$\nAcá $a_{13}=3$ es distinto de cero, así que la matriz no es diagonal aunque la mayoría de las posiciones fuera de la diagonal sí lo sean.\n\nAlcanza con una sola entrada no nula por debajo de la diagonal para perder la condición, y acá todas esas posiciones están en cero.\n\nMirar cuántos ceros hay no sirve: lo que importa es de qué lado de la diagonal cae el valor que no es cero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-matriz-especial"
+    ]
+  },
+  {
+    "question": "Una tabla guarda la distancia en kilómetros entre Rosario, Córdoba y Mendoza, con las mismas ciudades en filas y en columnas.\n$$\\begin{pmatrix} 0 & 40 & 90 \\\\ 40 & 0 & 60 \\\\ 90 & 60 & 0 \\end{pmatrix}$$\n¿Por qué una tabla así es necesariamente simétrica?",
+    "options": [
+      "Porque la distancia entre dos ciudades no depende del orden",
+      "Porque su diagonal principal está formada solo por ceros",
+      "Porque las tres ciudades están a distancias distintas"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Ir de la primera ciudad a la segunda cubre los mismos kilómetros que el trayecto inverso, así que cada valor coincide con su reflejo.",
+    "feedback_incorrect": [
+      null,
+      "La diagonal nula dice que la distancia de una ciudad a sí misma es cero, pero no obliga a que los demás valores se reflejen.",
+      "Aunque las tres distancias fueran iguales entre sí, la tabla seguiría siendo simétrica: lo que la define es el reflejo, no los valores."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una matriz es **simétrica** cuando coincide con su traspuesta, es decir cuando intercambiar filas por columnas la deja igual.\n$$a_{ij} = a_{ji}$$\nEn una tabla de distancias eso se cumple siempre, porque recorrer un trayecto y recorrerlo al revés cubre exactamente los mismos kilómetros.\n\nLa simetría acá no es una casualidad de estos números: viene del significado de la tabla, y se mantendría con cualquier otro conjunto de ciudades.\n\nLa diagonal queda nula porque la distancia de una ciudad a sí misma es cero, pero eso es una consecuencia aparte y no alcanza para hablar de antisimetría, que exigiría valores negativos.",
+    "reviewed": false,
+    "tags": [
+      "reconocer-simetria"
+    ]
+  },
+  {
+    "question": "Una tabla guarda cuántos viajes hay entre tres estaciones, en los dos sentidos.\n$$\\begin{pmatrix} 0 & 7 & 3 \\\\ 7 & 0 & 5 \\\\ 3 & 5 & 0 \\end{pmatrix}$$\n¿Qué propiedad tiene esa matriz?",
+    "options": [
+      "Es diagonal, porque los datos se reparten a los costados",
+      "Es simétrica, porque coincide con su traspuesta",
+      "Es antisimétrica, porque su diagonal está llena de ceros"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada entrada coincide con la que está en la posición espejada respecto de la diagonal.",
+    "feedback_incorrect": [
+      "Una matriz diagonal tiene ceros fuera de la diagonal, y acá los datos están ahí.",
+      null,
+      "La diagonal nula no alcanza: una antisimétrica exige signos opuestos fuera de ella."
+    ],
+    "explanation": "Una matriz es **simétrica** cuando coincide con su traspuesta, entrada por entrada.\n$$a_{ij} = a_{ji}$$\nAcá el dato de la fila uno columna dos coincide con el de la fila dos columna uno, y lo mismo con todos los pares espejados.\n\nTiene sentido con lo que la tabla guarda: la cantidad de viajes entre dos estaciones no depende del orden en que se las nombre.\n\nLa diagonal en cero indica que no hay viajes de una estación a sí misma, y es un dato aparte de la simetría.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-simetria"
+    ]
+  },
+  {
+    "question": "Una tabla guarda la diferencia de puntaje entre tres equipos, tomada en cada sentido.\n$$\\begin{pmatrix} 0 & 2 & -5 \\\\ -2 & 0 & 4 \\\\ 5 & -4 & 0 \\end{pmatrix}$$\n¿Qué propiedad tiene esa matriz?",
+    "options": [
+      "Es simétrica, porque cada par espejado tiene el mismo valor",
+      "Es diagonal, porque toda su diagonal principal vale cero",
+      "Es antisimétrica, porque cada par espejado tiene signos opuestos"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Las entradas espejadas coinciden en magnitud y difieren en el signo.",
+    "feedback_incorrect": [
+      "En una simétrica los pares espejados coinciden también en el signo, y acá no.",
+      "Una matriz diagonal tiene ceros fuera de la diagonal, y acá los datos están ahí.",
+      null
+    ],
+    "explanation": "Una matriz es **antisimétrica** cuando cada entrada es el opuesto de su espejada.\n$$a_{ij} = -a_{ji}$$\nEs coherente con lo que la tabla mide: si un equipo aventaja al otro por dos puntos, el otro lo aventaja por menos dos.\n\nLa diagonal en cero no es una casualidad: una entrada de la diagonal tendría que ser su propio opuesto, y el único número que cumple eso es el cero.\n\nPor eso toda matriz antisimétrica tiene su diagonal principal nula.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-simetria"
+    ]
+  },
+  {
+    "question": "Una tabla guarda cuántas unidades envía cada depósito a cada otro.\n$$\\begin{pmatrix} 0 & 6 & 1 \\\\ 2 & 0 & 8 \\\\ 4 & 3 & 0 \\end{pmatrix}$$\n¿Qué propiedad tiene esa matriz?",
+    "options": [
+      "Ninguna de las dos: no es simétrica ni antisimétrica",
+      "Es simétrica, porque su diagonal principal está en cero",
+      "Es antisimétrica, porque los envíos van en dos sentidos"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Los pares espejados no coinciden ni en valor ni en signo opuesto.",
+    "feedback_incorrect": [
+      null,
+      "La diagonal en cero no dice nada sobre la simetría del resto de las entradas.",
+      "Que haya dos sentidos no basta: los valores espejados tendrían que ser opuestos."
+    ],
+    "explanation": "Para que una matriz sea simétrica o antisimétrica, la condición tiene que cumplirse en **todos** los pares espejados.\n$$a_{12} = 6 \\qquad a_{21} = 2$$\nEsos dos valores no coinciden, así que la matriz no es simétrica, y tampoco son opuestos, así que no es antisimétrica.\n\nTiene sentido con lo que guarda: lo que un depósito envía a otro no tiene por qué relacionarse con lo que recibe.\n\nLa mayoría de las matrices no cumple ninguna de las dos propiedades, y por eso vale la pena verificar en vez de suponer.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-simetria"
+    ]
+  },
+  {
+    "question": "En una matriz antisimétrica, las entradas de la diagonal principal están obligadas a un valor.\n$$a_{ii} = -a_{ii}$$\n¿Qué valor es ese?",
+    "options": [
+      "Cualquiera, porque la condición no alcanza a la diagonal",
+      "Cero, porque es el único número que es su propio opuesto",
+      "Uno, porque la diagonal se comporta como la identidad"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La condición aplicada a una entrada de la diagonal la iguala a su propio opuesto.",
+    "feedback_incorrect": [
+      "La condición vale para todos los pares, incluido el que una entrada forma consigo misma.",
+      null,
+      "El uno no coincide con su opuesto, así que no puede cumplir la condición."
+    ],
+    "explanation": "La condición de antisimetría vale para cualquier par de posiciones espejadas, incluidas las que coinciden consigo mismas.\n$$a_{ii} = -a_{ii}$$\nSumando la entrada a los dos lados, queda que el doble de esa entrada vale cero.\n\nEl único número real que cumple eso es el cero, así que toda la diagonal queda determinada.\n\nEs un buen chequeo rápido: una matriz con algún valor no nulo en la diagonal no puede ser antisimétrica.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-simetria"
+    ]
   }
 ]

@@ -1,24 +1,407 @@
 [
   {
-    "question": "Al **racionalizar** la fracción:\n$$\\frac{3}{\\sqrt{5}}$$\n¿Cuál es el resultado equivalente sin raíz en el denominador?",
+    "question": "Un terreno cuadrado tiene un área de $72$ m².\n\nLa medida del lado es:\n$$\\sqrt{72}$$\n¿Cómo se simplifica esa expresión?",
     "options": [
-      "$\\dfrac{3\\sqrt{5}}{5}$",
-      "$\\dfrac{3}{5}$",
-      "$\\dfrac{3\\sqrt{5}}{25}$",
-      "$\\dfrac{9}{5}$"
+      "$6\\sqrt{2}$",
+      "$3\\sqrt{8}$",
+      "$2\\sqrt{18}$",
+      "$36\\sqrt{2}$"
     ],
     "correct_index": 0,
-    "feedback_correct": "Multiplicando numerador y denominador por $\\sqrt{5}$: $\\dfrac{3}{\\sqrt5}\\cdot\\dfrac{\\sqrt5}{\\sqrt5}=\\dfrac{3\\sqrt5}{5}$.",
+    "feedback_correct": "El mayor cuadrado perfecto que divide a $72$ es $36$, y $\\sqrt{36\\cdot 2}=6\\sqrt{2}$.",
     "feedback_incorrect": [
       null,
-      "Eso sale de multiplicar el denominador por $\\sqrt{5}$ pero olvidar multiplicar también el numerador.",
-      "Eso sale de elevar el denominador al cuadrado dos veces, cuando $(\\sqrt{5})^2$ ya da $5$ sin necesidad de otra multiplicación.",
-      "Eso sale de elevar toda la fracción original al cuadrado en vez de racionalizarla."
+      "Ese factor usa $9$ en vez de $36$, que sí es cuadrado perfecto pero no es el mayor que divide a $72$.",
+      "Ese factor usa $4$ en vez de $36$, que también es cuadrado perfecto pero no es el mayor que divide a $72$.",
+      "Eso sale de extraer $36$ como factor pero olvidar calcular su raíz cuadrada, que es $6$."
     ],
-    "explanation": "**Racionalizar** un denominador consiste en multiplicar la fracción por una forma de $1$, el mismo radical sobre sí mismo, para que la raíz desaparezca del denominador y quede en el numerador.\n\nAplicando el factor racionalizante a la fracción dada:\n$$\\frac{3}{\\sqrt{5}} \\cdot \\frac{\\sqrt{5}}{\\sqrt{5}} = \\frac{3\\sqrt{5}}{5}$$\nEl denominador queda como $(\\sqrt{5})^2=5$, un número entero sin raíz.\n\nUn error común es multiplicar solo el denominador por el radical y olvidar aplicar la misma multiplicación al numerador, lo que cambia el valor de la fracción.",
+    "explanation": "Para **simplificar un radical**, conviene extraer el mayor factor que sea una potencia perfecta del índice, no cualquier factor cuadrado perfecto que aparezca primero.\n\nEl número $72$ tiene como mayor cuadrado perfecto a $36$:\n$$\\sqrt{72} = \\sqrt{36\\cdot 2} = 6\\sqrt{2}$$\nUsar un cuadrado perfecto menor, como $9$ o $4$, deja un radical parcialmente simplificado que todavía se puede reducir más.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-simplificar-radical"
+    ]
+  },
+  {
+    "question": "Una habitación cuadrada tiene una superficie de $108$ metros cuadrados.\n\nLa medida de su lado es:\n$$\\sqrt{108}$$\n¿Cómo queda esa expresión simplificada?",
+    "options": [
+      "$36\\sqrt{3}$",
+      "$6\\sqrt{3}$",
+      "$3\\sqrt{12}$",
+      "$2\\sqrt{27}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Treinta y seis por tres es ciento ocho, y el treinta y seis sale de la raíz como un seis.",
+    "feedback_incorrect": [
+      "Ahí el factor salió del radical sin extraerle la raíz: sale la raíz del cuadrado, no el cuadrado.",
+      null,
+      "Ese paso extrajo un cuadrado más chico y dejó otro adentro del radical.",
+      "Ese paso extrajo un cuadrado más chico y dejó otro adentro del radical."
+    ],
+    "explanation": "Simplificar un radical es separar el radicando en un cuadrado perfecto por lo que sobre.\n$$\\sqrt{a \\cdot b} = \\sqrt{a} \\cdot \\sqrt{b}$$\nEl mayor cuadrado que divide a ciento ocho es treinta y seis, y su raíz es seis.\n$$\\sqrt{108} = \\sqrt{36 \\cdot 3} = 6\\sqrt{3}$$\nEl lado mide algo más de diez metros, que es coherente con una superficie de ciento ocho metros cuadrados.\n\nLo que queda adentro es un tres, que es primo, así que la simplificación terminó.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-simplificar-radical"
+    ]
+  },
+  {
+    "question": "Un recipiente cúbico tiene un volumen de $54$ litros.\n\nLa medida de su arista es:\n$$\\sqrt[3]{54}$$\n¿Cómo queda esa expresión simplificada?",
+    "options": [
+      "$2\\sqrt[3]{3}$",
+      "$27\\sqrt[3]{2}$",
+      "$\\sqrt[3]{27} \\cdot 2$",
+      "$3\\sqrt[3]{2}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Veintisiete por dos es cincuenta y cuatro, y el veintisiete sale de la raíz cúbica como un tres.",
+    "feedback_incorrect": [
+      "Ahí se intercambiaron el factor que sale y el que queda adentro.",
+      "Ahí el factor salió del radical sin extraerle la raíz cúbica.",
+      "Ahí el radical quedó sin resolver y el factor que sobra quedó afuera.",
+      null
+    ],
+    "explanation": "Con índice tres, el factor que sale del radical tiene que ser un **cubo perfecto**.\n$$\\sqrt[3]{a \\cdot b} = \\sqrt[3]{a} \\cdot \\sqrt[3]{b}$$\nEl veintisiete es tres al cubo, así que su raíz cúbica es tres.\n$$\\sqrt[3]{54} = \\sqrt[3]{27 \\cdot 2} = 3\\sqrt[3]{2}$$\nLa arista mide algo menos de cuatro decímetros de lado, coherente con un volumen de cincuenta y cuatro litros.\n\nCon índice tres el factor que sale tiene que estar repetido tres veces adentro del radicando, no dos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-simplificar-radical"
+    ]
+  },
+  {
+    "question": "Una cinta métrica marca una longitud que sale de una diagonal, y ese valor es:\n$$\\sqrt{200}$$\n¿Cómo queda esa expresión simplificada?",
+    "options": [
+      "$10\\sqrt{2}$",
+      "$2\\sqrt{50}$",
+      "$5\\sqrt{8}$",
+      "$100\\sqrt{2}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Cien por dos es doscientos, y el cien sale de la raíz como un diez.",
+    "feedback_incorrect": [
+      null,
+      "Ese paso extrajo un cuadrado más chico y dejó otro adentro del radical.",
+      "Ese paso extrajo un cuadrado más chico y dejó otro adentro del radical.",
+      "Ahí el factor salió del radical sin extraerle la raíz."
+    ],
+    "explanation": "Conviene buscar el mayor cuadrado perfecto que divida al radicando, para terminar en un solo paso.\n$$\\sqrt{200} = \\sqrt{100 \\cdot 2} = 10\\sqrt{2}$$\nEl cien tiene raíz entera, así que sale del radical convertido en un diez.\n\nExtraer primero un cuadrado más chico llega al mismo resultado, pero deja adentro otro cuadrado y obliga a repetir el paso.\n\nEl radicando final es un dos, que es primo, y por eso la expresión ya no se puede reducir más.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-simplificar-radical"
+    ]
+  },
+  {
+    "question": "Una maqueta usa una escala cuyo factor de reducción es:\n$$\\sqrt{147}$$\n¿Cómo queda esa expresión simplificada?",
+    "options": [
+      "$21\\sqrt{3}$",
+      "$\\sqrt{49} \\cdot 3$",
+      "$7\\sqrt{3}$",
+      "$3\\sqrt{49}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Cuarenta y nueve por tres es ciento cuarenta y siete, y el cuarenta y nueve sale como un siete.",
+    "feedback_incorrect": [
+      "Ahí el factor salió del radical multiplicado por lo que sobraba, en vez de quedar aparte.",
+      "Ahí el radical quedó sin resolver y el factor que sobra quedó afuera.",
+      null,
+      "Ahí se intercambiaron el factor que sale y el que queda adentro."
+    ],
+    "explanation": "Descomponer el radicando en un cuadrado perfecto por un resto es lo que permite sacar un factor entero.\n$$147 = 49 \\cdot 3$$\nEl cuarenta y nueve es siete al cuadrado, así que su raíz es siete.\n$$\\sqrt{147} = 7\\sqrt{3}$$\nEl factor que sale es la raíz del cuadrado, no el cuadrado entero, y confundirlos multiplica el resultado por siete de más.\n\nLo que queda adentro es un tres, primo, así que la expresión está terminada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-simplificar-radical"
+    ]
+  },
+  {
+    "question": "Un terreno cuadrado tiene área $3$ m², y otro terreno cuadrado tiene área $5$ m².\n\nLa relación entre el lado del primer terreno y el lado del segundo es:\n$$\\dfrac{\\sqrt{3}}{\\sqrt{5}}$$\n¿Cuál es el resultado racionalizado, sin raíz en el denominador?",
+    "options": [
+      "$\\dfrac{\\sqrt{15}}{5}$",
+      "$\\dfrac{\\sqrt{3}}{5}$",
+      "$\\dfrac{\\sqrt{15}}{25}$",
+      "$\\dfrac{3}{5}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Multiplicando numerador y denominador por $\\sqrt{5}$: $(\\sqrt{3}\\cdot\\sqrt{5})/5=\\sqrt{15}/5$.",
+    "feedback_incorrect": [
+      null,
+      "Eso sale de multiplicar el denominador por $\\sqrt{5}$ pero olvidar multiplicar también el numerador.",
+      "Eso sale de elevar el denominador al cuadrado dos veces: $(\\sqrt{5})^2$ ya da $5$, sin necesidad de otra multiplicación.",
+      "Eso sale de ignorar los radicales en vez de racionalizar la fracción."
+    ],
+    "explanation": "**Racionalizar** un denominador consiste en multiplicar la fracción por una forma de $1$, el mismo radical sobre sí mismo, para que la raíz desaparezca del denominador.\n\nAplicando el factor racionalizante a la relación entre los dos lados:\n$$\\dfrac{\\sqrt{3}}{\\sqrt{5}} \\cdot \\dfrac{\\sqrt{5}}{\\sqrt{5}} = \\dfrac{\\sqrt{15}}{5}$$\nEl denominador queda como $(\\sqrt{5})^2=5$, un número entero sin raíz.\n\nMultiplicar solo el denominador por el radical y olvidar el numerador cambia el valor de la fracción.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-racionalizar"
+    ]
+  },
+  {
+    "question": "Un reparto deja una cantidad por persona que se expresa así:\n$$\\dfrac{6}{\\sqrt{3}}$$\n¿Cuál es el resultado racionalizado, sin raíz en el denominador?",
+    "options": [
+      "$2\\sqrt{9}$",
+      "$2\\sqrt{3}$",
+      "$\\dfrac{6\\sqrt{3}}{9}$",
+      "$\\dfrac{\\sqrt{3}}{2}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Multiplicando arriba y abajo por la raíz, el denominador queda en tres y la fracción se simplifica.",
+    "feedback_incorrect": [
+      "Ahí el radicando quedó elevado al cuadrado, cuando lo que se eleva es la raíz del denominador.",
+      null,
+      "El denominador queda en tres, no en nueve: la raíz por sí misma devuelve el radicando.",
+      "Ahí la fracción quedó invertida respecto del resultado correcto."
+    ],
+    "explanation": "Multiplicar por la propia raíz limpia el denominador, porque una raíz por sí misma devuelve el radicando.\n$$\\sqrt{a} \\cdot \\sqrt{a} = a$$\nAplicándolo acá, el denominador pasa de una raíz a un entero.\n$$\\dfrac{6}{\\sqrt{3}} \\cdot \\dfrac{\\sqrt{3}}{\\sqrt{3}} = \\dfrac{6\\sqrt{3}}{3} = 2\\sqrt{3}$$\nEl factor por el que se multiplica vale uno, así que la cantidad no cambia: cambia solo cómo está escrita.\n\nEl paso final es simplificar la fracción que queda, que es donde se pierde el resultado más limpio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-racionalizar"
+    ]
+  },
+  {
+    "question": "La razón entre dos escalas de un plano queda expresada así:\n$$\\dfrac{\\sqrt{2}}{\\sqrt{7}}$$\n¿Cuál es el resultado racionalizado, sin raíz en el denominador?",
+    "options": [
+      "$\\dfrac{\\sqrt{2}}{7}$",
+      "$\\dfrac{\\sqrt{14}}{49}$",
+      "$\\dfrac{2}{7}$",
+      "$\\dfrac{\\sqrt{14}}{7}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Las dos raíces del numerador se juntan en una sola y el denominador queda entero.",
+    "feedback_incorrect": [
+      "Ahí se multiplicó solo el denominador: el factor tiene que aplicarse también arriba.",
+      "El denominador queda en siete, no en cuarenta y nueve: la raíz por sí misma devuelve el radicando.",
+      "Ahí las dos raíces desaparecieron, cuando la del numerador se conserva.",
+      null
+    ],
+    "explanation": "El factor racionalizante es la raíz del denominador, aplicada arriba y abajo para no cambiar el valor.\n$$\\dfrac{\\sqrt{2}}{\\sqrt{7}} \\cdot \\dfrac{\\sqrt{7}}{\\sqrt{7}} = \\dfrac{\\sqrt{14}}{7}$$\nArriba las dos raíces se combinan en una sola, porque el producto de raíces del mismo índice es la raíz del producto.\n\nAbajo la raíz multiplicada por sí misma devuelve el radicando, que es entero.\n\nMultiplicar un solo nivel cambiaría el valor de la razón, y por eso el factor siempre va completo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-racionalizar"
+    ]
+  },
+  {
+    "question": "La intensidad de una señal, a cierta distancia de una antena, es una constante dividida por la raíz de esa distancia.\n$$\\dfrac{10}{\\sqrt{5}}$$\n¿Cuál es esa intensidad, racionalizada y sin raíz en el denominador?",
+    "options": [
+      "$2\\sqrt{5}$",
+      "$\\dfrac{10\\sqrt{5}}{25}$",
+      "$\\dfrac{\\sqrt{5}}{2}$",
+      "$10\\sqrt{5}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El denominador queda en cinco y la fracción se simplifica a dos por la raíz.",
+    "feedback_incorrect": [
+      null,
+      "El denominador queda en cinco, no en veinticinco: la raíz por sí misma devuelve el radicando.",
+      "Ahí la fracción quedó invertida respecto del resultado correcto.",
+      "Ahí quedó sin dividirse por el denominador que resultó de racionalizar."
+    ],
+    "explanation": "Racionalizar deja el denominador entero, y después conviene simplificar la fracción resultante.\n$$\\dfrac{10}{\\sqrt{5}} \\cdot \\dfrac{\\sqrt{5}}{\\sqrt{5}} = \\dfrac{10\\sqrt{5}}{5}$$\nDiez dividido cinco da dos, y el radical se conserva como está.\n$$= 2\\sqrt{5}$$\nEl resultado es algo mayor que cuatro, coherente con dividir diez por un número algo mayor que dos.\n\nSaltear la simplificación final deja una expresión correcta pero sin terminar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-racionalizar"
+    ]
+  },
+  {
+    "question": "Un depósito cúbico se reduce a un modelo a escala, y el factor de reducción de cada arista es:\n$$\\dfrac{1}{\\sqrt[3]{2}}$$\n¿Cuál es ese factor, racionalizado?",
+    "options": [
+      "$\\dfrac{\\sqrt[3]{4}}{4}$",
+      "$\\dfrac{\\sqrt{2}}{2}$",
+      "$\\dfrac{\\sqrt[3]{4}}{2}$",
+      "$\\dfrac{\\sqrt[3]{2}}{2}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Hacen falta tres factores iguales adentro de la raíz cúbica, y el denominador ya aportaba uno.",
+    "feedback_incorrect": [
+      "El denominador queda en dos, no en cuatro: la raíz cúbica de ocho es dos.",
+      "Ahí el índice cambió de tres a dos, y eso es otra cantidad.",
+      null,
+      "Con dos factores adentro la raíz cúbica todavía no se limpia: faltaba uno más."
+    ],
+    "explanation": "Una raíz cúbica se limpia cuando su radicando queda elevado al cubo, así que hacen falta tres factores iguales.\n$$\\sqrt[3]{2} \\cdot \\sqrt[3]{4} = \\sqrt[3]{8} = 2$$\nEl denominador aportaba un factor, así que el racionalizante tiene que aportar los dos restantes.\n$$\\dfrac{1}{\\sqrt[3]{2}} \\cdot \\dfrac{\\sqrt[3]{4}}{\\sqrt[3]{4}} = \\dfrac{\\sqrt[3]{4}}{2}$$\nRepetir la misma raíz, como se hace con índice dos, dejaría el denominador todavía con un radical.\n\nEl criterio general es completar el radicando hasta la potencia que marca el índice.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-racionalizar"
+    ]
+  },
+  {
+    "question": "Para cercar un terreno se necesitan dos tramos de alambre de distinta longitud.\n\nLa longitud total, simplificada y sumada, es:\n$$\\sqrt{8} + \\sqrt{18}$$\n¿Cuál es el resultado, en metros?",
+    "options": [
+      "$5\\sqrt{2}$",
+      "$\\sqrt{26}$",
+      "$6\\sqrt{2}$",
+      "$5\\sqrt{20}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Simplificando primero, $\\sqrt{8}=2\\sqrt{2}$ y $\\sqrt{18}=3\\sqrt{2}$; los coeficientes se suman y el resultado es $5\\sqrt{2}$.",
+    "feedback_incorrect": [
+      null,
+      "Eso sale de sumar los radicandos directamente sin simplificar primero cada raíz por separado.",
+      "Eso sale de multiplicar los coeficientes en vez de sumarlos, una vez que ambos radicales ya son semejantes.",
+      "Eso sale de sumar bien los coeficientes pero también sumar por error los radicandos, que deben quedar iguales entre sí."
+    ],
+    "explanation": "Dos radicales son **semejantes** cuando tienen el mismo índice y el mismo radicando, y solo entonces se pueden sumar o restar combinando sus coeficientes.\n\nAntes de sumar, cada radical se simplifica por separado:\n$$\\sqrt{8} = 2\\sqrt{2}, \\quad \\sqrt{18} = 3\\sqrt{2}$$\nUna vez que ambos quedan con el mismo radicando, los coeficientes se suman:\n$$2\\sqrt{2} + 3\\sqrt{2} = 5\\sqrt{2}$$\nSumar los radicandos originales sin simplificar antes mezcla números que en realidad representan la misma raíz.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-combinar-radicales-semejantes"
+    ]
+  },
+  {
+    "question": "Dos cortes de una misma cinta miden longitudes distintas, y el total es:\n$$\\sqrt{12} + \\sqrt{27}$$\n¿Cuál es la longitud total simplificada?",
+    "options": [
+      "$5\\sqrt{39}$",
+      "$5\\sqrt{3}$",
+      "$\\sqrt{39}$",
+      "$6\\sqrt{3}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Simplificados quedan dos y tres veces la misma raíz, y los coeficientes se suman.",
+    "feedback_incorrect": [
+      "Ahí se sumaron los coeficientes y también los radicandos, cuando el radicando se conserva.",
+      null,
+      "La raíz de una suma no es la suma de las raíces: primero hay que simplificar cada término.",
+      "Ahí los coeficientes se multiplicaron en vez de sumarse."
+    ],
+    "explanation": "Dos radicales se suman como términos semejantes, y para eso primero hay que simplificarlos.\n$$\\sqrt{12} = 2\\sqrt{3} \\qquad \\sqrt{27} = 3\\sqrt{3}$$\nCon el mismo radicando en los dos términos, se suman los coeficientes y el radical queda intacto.\n$$2\\sqrt{3} + 3\\sqrt{3} = 5\\sqrt{3}$$\nEs exactamente lo mismo que sumar dos términos con una misma letra, donde la letra no cambia.\n\nSumar los radicandos daría la raíz de treinta y nueve, un número bastante menor que el correcto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-combinar-radicales-semejantes"
+    ]
+  },
+  {
+    "question": "De un tramo de alambre se descuenta otro tramo más corto, y la diferencia es:\n$$\\sqrt{50} - \\sqrt{8}$$\n¿Cuál es el resultado simplificado?",
+    "options": [
+      "$\\sqrt{42}$",
+      "$7\\sqrt{2}$",
+      "$3\\sqrt{42}$",
+      "$3\\sqrt{2}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Simplificados quedan cinco y dos veces la misma raíz, y los coeficientes se restan.",
+    "feedback_incorrect": [
+      "La raíz de una resta no es la resta de las raíces: primero hay que simplificar cada término.",
+      "Ahí los coeficientes se sumaron en vez de restarse.",
+      "Ahí se restaron los coeficientes y también los radicandos, cuando el radicando se conserva.",
+      null
+    ],
+    "explanation": "La resta de radicales funciona igual que la suma: primero se simplifica cada término y después se opera con los coeficientes.\n$$\\sqrt{50} = 5\\sqrt{2} \\qquad \\sqrt{8} = 2\\sqrt{2}$$\nLos dos quedan con radicando dos, así que son términos semejantes.\n$$5\\sqrt{2} - 2\\sqrt{2} = 3\\sqrt{2}$$\nEl radical se comporta como una unidad de medida: se restan las cantidades y la unidad se mantiene.\n\nRestar los radicandos rompería esa lógica, igual que restar las letras en una expresión algebraica.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-combinar-radicales-semejantes"
+    ]
+  },
+  {
+    "question": "Dos tramos de una misma cuerda se suman, y uno de ellos aparece duplicado:\n$$2\\sqrt{45} + \\sqrt{20}$$\n¿Cuál es la longitud total simplificada?",
+    "options": [
+      "$8\\sqrt{5}$",
+      "$3\\sqrt{65}$",
+      "$5\\sqrt{5}$",
+      "$8\\sqrt{65}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El primer término queda en seis y el segundo en dos veces la misma raíz.",
+    "feedback_incorrect": [
+      null,
+      "La raíz de una suma no es la suma de las raíces: primero hay que simplificar cada término.",
+      "Ahí faltó multiplicar por el coeficiente que ya traía el primer término.",
+      "Ahí se sumaron los coeficientes y también los radicandos, cuando el radicando se conserva."
+    ],
+    "explanation": "Cuando un radical ya viene con coeficiente, ese coeficiente se multiplica por el que sale al simplificar.\n$$2\\sqrt{45} = 2 \\cdot 3\\sqrt{5} = 6\\sqrt{5}$$\nEl segundo término se simplifica igual y queda con el mismo radicando.\n$$\\sqrt{20} = 2\\sqrt{5}$$\nCon los dos términos semejantes, los coeficientes se suman y dan ocho.\n\nEl coeficiente original y el que sale al simplificar se multiplican entre sí, no se reemplazan.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-combinar-radicales-semejantes"
+    ]
+  },
+  {
+    "question": "Una receta pide descontar una medida de otra, y la diferencia queda expresada así:\n$$\\sqrt{75} - \\sqrt{12}$$\n¿Cuál es el resultado simplificado?",
+    "options": [
+      "$7\\sqrt{3}$",
+      "$3\\sqrt{63}$",
+      "$3\\sqrt{3}$",
+      "$\\sqrt{63}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Simplificados quedan cinco y dos veces la misma raíz, y los coeficientes se restan.",
+    "feedback_incorrect": [
+      "Ahí los coeficientes se sumaron en vez de restarse.",
+      "Ahí se restaron los coeficientes y también los radicandos, cuando el radicando se conserva.",
+      null,
+      "La raíz de una resta no es la resta de las raíces: primero hay que simplificar cada término."
+    ],
+    "explanation": "Los dos radicandos esconden un cuadrado perfecto, y al extraerlo quedan con la misma raíz adentro.\n$$\\sqrt{75} = 5\\sqrt{3} \\qquad \\sqrt{12} = 2\\sqrt{3}$$\nRecién con los dos simplificados se ve que son términos semejantes.\n$$5\\sqrt{3} - 2\\sqrt{3} = 3\\sqrt{3}$$\nMirar los radicandos originales, setenta y cinco y doce, no alcanza para decidir si se pueden combinar.\n\nPor eso simplificar es siempre el primer paso, incluso cuando parece que los términos no tienen nada en común.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-combinar-radicales-semejantes"
+    ]
   }
 ]

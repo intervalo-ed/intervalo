@@ -1,22 +1,371 @@
 [
   {
-    "question": "¿Qué propiedad cumple la **matriz inversa** $A^{-1}$?",
+    "question": "Una transformación con determinante nulo aplasta todo el plano sobre una recta.\n$$A A^{-1} = I$$\n¿Por qué eso vuelve imposible que exista una matriz capaz de deshacerla?",
     "options": [
-      "$AA^{-1} = A^{-1}A = I$",
-      "$AA^{-1} = 0$",
-      "$A^{-1} = A^T$ siempre"
+      "Porque muchos puntos distintos terminaron en el mismo lugar",
+      "Porque una matriz de determinante nulo deja de ser cuadrada",
+      "Porque el determinante de la inversa daría un número negativo"
     ],
     "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "La inversa cumple $AA^{-1}=A^{-1}A=I$, la matriz identidad.",
+    "has_math": false,
+    "feedback_correct": "Volver atrás exigiría devolver cada punto de la recta a varios lugares del plano a la vez, y eso ninguna matriz lo hace.",
     "feedback_incorrect": [
       null,
-      "El producto de una matriz por su inversa da la identidad, no la matriz nula.",
-      "La inversa y la transpuesta son operaciones distintas, no coinciden en general."
+      "El determinante no cambia la forma de la matriz: una matriz cuadrada sigue siendo cuadrada aunque su determinante se anule.",
+      "El signo del determinante habla de orientación; acá el problema es que el área desapareció por completo."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **matriz inversa** $A^{-1}$ es aquella que, multiplicada por $A$, da la matriz identidad.\n$$AA^{-1} = A^{-1}A = I$$\n\nFunciona como la operación de división en el álgebra matricial, deshaciendo la transformación que aplica $A$.\n\nSolo existe para matrices cuadradas con determinante distinto de cero; si $\\det(A)=0$, la matriz no tiene inversa.",
-    "reviewed": false
+    "explanation": "Deshacer una transformación significa devolver cada punto a su lugar de partida, y para eso hace falta que cada destino tenga un único origen.\n\nCuando el determinante es nulo el plano queda aplastado sobre una recta, así que infinitos puntos distintos terminan sobre un mismo punto de esa recta.\n\nDesde ese destino ya no hay forma de saber de dónde venía cada uno. La información se perdió al aplastar, no quedó escondida en ningún lado.\n\nUna recta no se puede des-aplastar para volverla un plano.\n\nPor eso la condición sobre el determinante no es un requisito formal: es la traducción algebraica de que la transformación no destruyó ninguna dirección.",
+    "reviewed": false,
+    "tags": [
+      "por-que-determinante-cero-impide"
+    ]
+  },
+  {
+    "question": "Una matriz tiene inversa cuando existe otra que deshace su efecto.\n$$A A^{-1} = I$$\n¿Qué le exige esa igualdad a la transformación original?",
+    "options": [
+      "Que la transformación conserve el tamaño de las áreas",
+      "Que cada destino provenga de un único punto de partida",
+      "Que la transformación deje algún punto en su lugar"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Para poder volver atrás hace falta poder identificar de dónde vino cada destino.",
+    "feedback_incorrect": [
+      "El tamaño puede cambiar: lo que no puede pasar es que dos puntos compartan destino.",
+      null,
+      "Dejar algún punto fijo no dice nada sobre poder deshacer la transformación."
+    ],
+    "explanation": "La inversa tiene que llevar cada destino de vuelta a su punto de partida.\n$$A A^{-1} = I$$\nEso solo es posible si cada destino proviene de un único punto: con dos candidatos la vuelta sería ambigua.\n\nUna transformación que aplasta el plano manda toda una recta de puntos al mismo destino, y ahí la vuelta es imposible.\n\nEl tamaño de las áreas puede cambiar libremente: lo único prohibido es que el factor sea cero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-determinante-cero-impide"
+    ]
+  },
+  {
+    "question": "Una matriz con determinante nulo no tiene inversa.\n$$\\det(A) = 0$$\n¿Qué pasaría con el determinante de esa supuesta inversa?",
+    "options": [
+      "Tendría que ser negativo para compensar el determinante nulo",
+      "Tendría que valer cero también, y eso sí es posible",
+      "Tendría que multiplicarse por cero y dar uno, algo imposible"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El determinante de un producto es el producto de los determinantes, y el de la identidad vale uno.",
+    "feedback_incorrect": [
+      "Ningún número multiplicado por cero da uno, sea del signo que sea.",
+      "Si los dos valieran cero, su producto también, y la identidad no tiene determinante nulo.",
+      null
+    ],
+    "explanation": "El determinante de un producto es el producto de los determinantes.\n$$\\det(A)\\det(A^{-1}) = \\det(I) = 1$$\nSi el primer factor vale cero, el producto vale cero, y nunca puede llegar a uno.\n\nPor eso ninguna matriz puede ser la inversa de una con determinante nulo.\n\nEse argumento demuestra la condición sin apelar a ninguna interpretación geométrica.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-determinante-cero-impide"
+    ]
+  },
+  {
+    "question": "Una matriz con determinante distinto de cero siempre tiene inversa.\n$$\\det(A) \\neq 0$$\n¿Qué garantiza esa condición?",
+    "options": [
+      "Que la transformación no aplasta el plano y se puede deshacer",
+      "Que la transformación conserva el tamaño de todas las áreas",
+      "Que la transformación deja fijos los puntos de alguna recta"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Con un factor de áreas no nulo, ninguna dirección colapsa y la vuelta es posible.",
+    "feedback_incorrect": [
+      null,
+      "El tamaño de las áreas cambia salvo que el determinante valga uno o menos uno.",
+      "Que haya puntos fijos depende de la matriz, no de que tenga inversa."
+    ],
+    "explanation": "Un determinante no nulo significa que el factor de áreas no se anula.\n$$\\det(A) \\neq 0$$\nNinguna dirección colapsa, así que la transformación no pierde información y se puede revertir.\n\nEl valor concreto del determinante dice cuánto se agrandan las áreas, pero solo su anulación decide si hay inversa.\n\nPor eso la condición se enuncia como una desigualdad y no como un valor particular.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-determinante-cero-impide"
+    ]
+  },
+  {
+    "question": "Una matriz no cuadrada nunca tiene inversa.\n$$A \\in \\mathbb{R}^{2 \\times 3}$$\n¿Cuál es la razón?",
+    "options": [
+      "Que sus filas siempre resultan proporcionales entre sí",
+      "Que no se puede plantear el producto que daría la identidad",
+      "Que su determinante siempre termina anulándose por definición"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La condición de inversa exige dos productos, y con matrices no cuadradas no dan la misma identidad.",
+    "feedback_incorrect": [
+      "Las filas de una matriz no cuadrada no tienen por qué ser proporcionales entre sí: el problema real es otro.",
+      null,
+      "El determinante solo está definido para matrices cuadradas, así que no se puede evaluar."
+    ],
+    "explanation": "La definición de inversa exige que los dos productos den la identidad.\n$$AA^{-1} = A^{-1}A = I$$\nCon una matriz no cuadrada, los dos productos dan identidades de órdenes distintos y la condición no se puede cumplir.\n\nEl determinante ni siquiera entra en la discusión, porque solo está definido para matrices cuadradas.\n\nPor eso ser cuadrada es un requisito previo, y el determinante decide dentro de ese conjunto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-determinante-cero-impide"
+    ]
+  },
+  {
+    "question": "Para deshacer un producto de dos matrices, la inversa no es $A^{-1}B^{-1}$ sino $B^{-1}A^{-1}$.\n\n¿Por qué el orden de los factores se invierte?",
+    "options": [
+      "Porque hay que deshacer primero lo último que se hizo",
+      "Porque la inversa siempre cambia el orden de los factores",
+      "Porque de lo contrario el producto quedaría sin definir"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El producto aplica primero una transformación y después la otra, así que revertirlo empieza por la que actuó al final.",
+    "feedback_incorrect": [
+      null,
+      "La inversa de una sola matriz no invierte ningún orden; el cambio aparece justamente porque hay dos pasos encadenados.",
+      "Como las inversas existen solo entre matrices cuadradas del mismo orden, el producto queda definido en cualquiera de los dos órdenes."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un producto de matrices encadena dos transformaciones: primero actúa la de la derecha y después la de la izquierda.\n\nRevertir esa cadena exige empezar por el final, deshaciendo el último paso antes que el primero.\n$$(AB)^{-1} = B^{-1}A^{-1}$$\nEs la misma lógica de envolver un objeto: primero se lo guarda en una bolsa y después la bolsa entra en una caja. Para sacarlo hay que abrir la caja primero, y recién después la bolsa.\n\nEscrito en ese orden, cada matriz del medio se encuentra con su propia inversa y se cancela, dejando la identidad.\n\nEn el orden original cada matriz queda enfrentada con la inversa de la otra, que no tienen ninguna razón para cancelarse entre sí.",
+    "reviewed": false,
+    "tags": [
+      "por-que-se-invierte-el-orden"
+    ]
+  },
+  {
+    "question": "Deshacer una cadena de pasos exige recorrerla al revés.\n$$(AB)^{-1} = B^{-1}A^{-1}$$\n¿Qué situación cotidiana sigue la misma lógica?",
+    "options": [
+      "Guardar dos objetos en una caja y sacarlos juntos",
+      "Ponerse las medias y los zapatos, y después sacárselos",
+      "Sumar dos números y después restarlos en cualquier orden"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Lo último que se puso es lo primero que hay que sacar.",
+    "feedback_incorrect": [
+      "Sacar dos objetos juntos no es una secuencia de pasos que haya que revertir.",
+      null,
+      "La suma conmuta, así que ahí el orden efectivamente no importa."
+    ],
+    "explanation": "Al componer dos transformaciones, la segunda actúa sobre el resultado de la primera.\n$$(AB)^{-1} = B^{-1}A^{-1}$$\nPara volver atrás hay que deshacer primero lo último que se hizo, y después lo anterior.\n\nEs la misma lógica de sacarse primero los zapatos y después las medias.\n\nLa suma no sirve de analogía justamente porque conmuta, y ahí el orden de deshacer no importa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-se-invierte-el-orden"
+    ]
+  },
+  {
+    "question": "Se verifica que el orden invertido es el correcto multiplicando y cancelando.\n$$(AB)(B^{-1}A^{-1}) = I$$\n¿Qué permite esa cancelación?",
+    "options": [
+      "Que el producto de matrices conmuta cuando aparecen inversas",
+      "Que la identidad se puede insertar en cualquier lugar del producto",
+      "Que los dos factores del medio son inversos entre sí y dan la identidad"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Los dos factores centrales se cancelan y dejan el resto pegado.",
+    "feedback_incorrect": [
+      "El producto no conmuta ni siquiera con inversas: lo que se usa es la asociatividad.",
+      "Insertar la identidad es válido, pero acá lo que ocurre es que aparece por cancelación.",
+      null
+    ],
+    "explanation": "El producto de matrices es asociativo, así que se pueden reagrupar los factores.\n$$A(BB^{-1})A^{-1} = AIA^{-1}$$\n$$= AA^{-1} = I$$\nLos dos factores centrales son inversos entre sí y dan la identidad, que después desaparece.\n\nCon el orden sin invertir los factores centrales no serían inversos entre sí y no habría cancelación.\n\nEsa verificación es la demostración de la propiedad, y no depende de ninguna interpretación geométrica.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-se-invierte-el-orden"
+    ]
+  },
+  {
+    "question": "La traspuesta de un producto también invierte el orden.\n$$(AB)^{T} = B^{T}A^{T}$$\n¿Qué tienen en común las dos propiedades?",
+    "options": [
+      "Que las dos revierten algo, y revertir invierte la secuencia",
+      "Que las dos operaciones producen siempre matrices simétricas",
+      "Que las dos operaciones solo valen entre matrices cuadradas"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Las dos revierten algo, y revertir una secuencia obliga a recorrerla al revés.",
+    "feedback_incorrect": [
+      null,
+      "Ninguna de las dos produce matrices simétricas en general.",
+      "La traspuesta se aplica a cualquier matriz, no solo a las cuadradas."
+    ],
+    "explanation": "Tanto la inversa como la traspuesta reordenan lo que el producto había armado.\n$$(AB)^{-1} = B^{-1}A^{-1} \\qquad (AB)^{T} = B^{T}A^{T}$$\nEn los dos casos la operación invierte el orden de los factores, por razones distintas pero análogas.\n\nLa inversa lo hace porque deshace pasos, y la traspuesta porque intercambia filas con columnas.\n\nQue las dos propiedades tengan la misma forma ayuda a recordarlas juntas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-se-invierte-el-orden"
+    ]
+  },
+  {
+    "question": "La inversa de una inversa devuelve la matriz original.\n$$(A^{-1})^{-1} = A$$\n¿Por qué?",
+    "options": [
+      "Porque el determinante de la inversa es el recíproco del original",
+      "Porque deshacer lo que ya se deshizo devuelve el punto de partida",
+      "Porque la inversa de cualquier matriz es siempre la identidad"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La relación entre una matriz y su inversa es simétrica: cada una deshace a la otra.",
+    "feedback_incorrect": [
+      "Eso es cierto, pero no es lo que explica que la doble inversa devuelva la original.",
+      null,
+      "La inversa es la identidad solo cuando la matriz original también lo es."
+    ],
+    "explanation": "La condición que define a la inversa es simétrica en las dos matrices.\n$$AA^{-1} = A^{-1}A = I$$\nLeída al revés, esa misma igualdad dice que la matriz original es la inversa de su inversa.\n\nPor eso aplicar la operación dos veces devuelve el punto de partida, igual que con la traspuesta.\n\nLa relación entre los determinantes es una consecuencia de esto, no su causa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-se-invierte-el-orden"
+    ]
+  },
+  {
+    "question": "En el álgebra de matrices no existe ninguna operación de división.\n$$AX = B$$\n¿Por qué se multiplica por la inversa en lugar de dividir?",
+    "options": [
+      "Porque hace falta decidir de qué lado se multiplica cada vez",
+      "Porque la inversa es más fácil de calcular que un cociente",
+      "Porque dividir exigiría matrices cuadradas del mismo orden"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "Como el producto no conmuta, multiplicar por la inversa a la izquierda y a la derecha da resultados distintos.",
+    "feedback_incorrect": [
+      null,
+      "La dificultad de la cuenta no es el punto: aunque fuera sencilla, una división no tendría un único significado.",
+      "Las inversas también exigen matrices cuadradas del mismo orden, así que esa condición no distingue una operación de la otra."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Dividir entre números tiene un único significado porque el producto conmuta: da lo mismo multiplicar por el recíproco de un lado o del otro.\n\nCon matrices esa garantía desaparece, así que una supuesta división sería ambigua.\n$$A^{-1}B \\neq BA^{-1}$$\nPor eso no se escribe un cociente sino un producto por la inversa, y hay que decir explícitamente de qué lado se multiplica.\n\nEsa distinción no es un tecnicismo de notación. Al despejar una ecuación matricial, multiplicar del lado equivocado deja la incógnita atrapada entre dos factores en vez de despejarla.",
+    "reviewed": false,
+    "tags": [
+      "por-que-no-existe-division"
+    ]
+  },
+  {
+    "question": "Al despejar una incógnita matricial, el lado por el que se multiplica importa.\n$$AX = B$$\n¿Por qué no se puede escribir el resultado como un cociente?",
+    "options": [
+      "Porque el cociente entre matrices da siempre la matriz nula",
+      "Porque un cociente no dice de qué lado se multiplicó por la inversa",
+      "Porque la inversa no siempre existe para la matriz que acompaña"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Como el producto no conmuta, hay dos despejes posibles y la notación de cociente no los distingue.",
+    "feedback_incorrect": [
+      "El cociente entre matrices directamente no está definido, no da la matriz nula.",
+      null,
+      "El planteo supone que la inversa existe; el problema es la ambigüedad del lado."
+    ],
+    "explanation": "El producto de matrices no conmuta, así que multiplicar por la inversa a la izquierda o a la derecha da resultados distintos.\n$$AX = B \\implies X = A^{-1}B$$\nUna notación de cociente no permitiría distinguir ese caso del que resulta de multiplicar por la derecha.\n\nEscribir explícitamente la inversa y de qué lado se la multiplica elimina la ambigüedad.\n\nPor eso el álgebra de matrices prescinde de la división y trabaja siempre con inversas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-no-existe-division"
+    ]
+  },
+  {
+    "question": "Para despejar $X$ de esta ecuación, alguien multiplicó los dos lados por $A^{-1}$ por la izquierda.\n$$XA = B$$\n¿Por qué ese camino no despeja la incógnita?",
+    "options": [
+      "Porque $A^{-1}$ no existe para ninguna matriz que multiplique por la derecha",
+      "Porque multiplicar por la izquierda cambia el orden de $B$ en la ecuación",
+      "Porque $A^{-1}$ no se encuentra con la $A$, pegada a $X$ por la derecha"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La $A$ está pegada a $X$ por la derecha, así que solo una inversa entrando por la derecha la cancela.",
+    "feedback_incorrect": [
+      "La existencia de la inversa no depende de qué lado se multiplique.",
+      "$B$ no cambia de lugar; lo que falla es que los factores no llegan a cancelarse.",
+      null
+    ],
+    "explanation": "Multiplicar los dos lados de una ecuación por la misma matriz es válido, pero solo cancela si esa matriz se encuentra cara a cara con la que quiere eliminar.\n$$A^{-1}(XA) = A^{-1}B$$\nAcá $A^{-1}$ quedó pegada a $X$, no a la matriz que debía cancelar: los dos factores no están juntos.\n\nComo el producto no conmuta, $A^{-1}XA$ no se simplifica a $X$; falta multiplicar por el lado correcto.\n$$XAA^{-1} = BA^{-1} \\implies X = BA^{-1}$$\nMultiplicar por la derecha sí encuentra a la $A$ justo al lado y la cancela.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-no-existe-division"
+    ]
+  },
+  {
+    "question": "Entre números, dividir por un número es multiplicar por su recíproco.\n$$\\dfrac{a}{b} = a \\cdot b^{-1}$$\n¿Por qué esa traducción no alcanza entre matrices?",
+    "options": [
+      "Porque el producto no conmuta y el recíproco puede entrar por dos lados",
+      "Porque el recíproco de una matriz no siempre está definido",
+      "Porque entre matrices no se puede multiplicar por un solo factor"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Entre números los dos lados dan lo mismo; entre matrices no.",
+    "feedback_incorrect": [
+      null,
+      "Ese es otro problema, y aparece también entre números con el cero.",
+      "Multiplicar por un factor es exactamente lo que se hace al despejar."
+    ],
+    "explanation": "Entre números la división se define como el producto por el recíproco, y da lo mismo de qué lado se escriba.\n$$\\dfrac{a}{b} = a \\cdot b^{-1} = b^{-1} \\cdot a$$\nEntre matrices esos dos productos son distintos, así que la notación de cociente sería ambigua.\n\nLa existencia de la inversa es un problema aparte, y tiene su análogo entre números con el cero.\n\nLo que se pierde al pasar a matrices es la conmutatividad, y eso es lo que hace inviable la división.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-no-existe-division"
+    ]
+  },
+  {
+    "question": "Para despejar $X$ de esta ecuación, alguien multiplicó los dos lados por las dos inversas, las dos por la izquierda.\n$$AXB = C$$\n¿Por qué ese camino no despeja la incógnita?",
+    "options": [
+      "Porque no se puede multiplicar una ecuación por dos matrices distintas",
+      "Porque $B^{-1}$ no encuentra a la $B$, que está pegada a $X$ por la derecha",
+      "Porque $A$ y $B$ tendrían que ser la misma matriz para poder despejar"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$A$ está pegada a $X$ por la izquierda y $B$ por la derecha: cada inversa tiene que entrar por el lado de la matriz que cancela.",
+    "feedback_incorrect": [
+      "Multiplicar por dos matrices distintas es válido, siempre que cada una entre por el lado que corresponde.",
+      null,
+      "$A$ y $B$ pueden ser matrices completamente distintas; el despeje funciona igual."
+    ],
+    "explanation": "$A$ multiplica a la incógnita por la izquierda, y $B$ lo hace por la derecha.\n$$AXB = C$$\nMultiplicar por $A^{-1}$ a la izquierda sí cancela a $A$, porque quedan pegadas.\n$$A^{-1}(AXB) = A^{-1}C \\implies XB = A^{-1}C$$\nPero $B$ sigue del otro lado de la incógnita, y multiplicar $B^{-1}$ también por la izquierda no la alcanza.\n$$B^{-1}(XB) \\neq X$$\nPara cancelarla hace falta multiplicar por $B^{-1}$ del lado en que $B$ está, es decir por la derecha.\n$$X = A^{-1}CB^{-1}$$\nCada matriz que acompaña se cancela solo si su inversa entra exactamente por el lado en que esa matriz está.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-no-existe-division"
+    ]
   }
 ]

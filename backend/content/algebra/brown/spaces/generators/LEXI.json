@@ -1,22 +1,371 @@
 [
   {
-    "question": "¿Qué significa que un conjunto de vectores sea **generador** de un espacio $V$?",
+    "question": "Dos notaciones parecidas nombran cosas muy distintas cuando se parte de los mismos dos vectores.\n$$\\{\\vec{v}_1, \\vec{v}_2\\}$$\n$$\\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\}$$\n¿En qué se diferencian?",
     "options": [
-      "Que toda combinación lineal de ellos puede construir cualquier vector de $V$",
-      "Que son linealmente independientes entre sí",
-      "Que tienen la misma norma que los vectores de $V$"
+      "La primera tiene dos elementos y la segunda tiene infinitos",
+      "La primera está ordenada y la segunda no tiene un orden definido",
+      "La primera admite vectores repetidos y la segunda los descarta"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Un conjunto generador permite construir, mediante combinaciones lineales, cualquier vector del espacio.",
+    "feedback_correct": "El generado reúne todas las combinaciones posibles de esos dos vectores, y hay infinitas.",
     "feedback_incorrect": [
       null,
-      "La independencia lineal es una propiedad distinta, no lo que define a un generador.",
-      "La norma de los vectores no está relacionada con la propiedad de generar el espacio."
+      "Ninguna de las dos está ordenada, las llaves indican conjunto en los dos casos.",
+      "La diferencia no está en qué se puede escribir adentro sino en qué representa cada notación."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un conjunto de **generadores** es un grupo de vectores cuyas combinaciones lineales permiten construir cualquier vector de un espacio dado.\n$$\\text{gen}(\\{\\vec{v}_1, \\dots, \\vec{v}_k\\}) = V$$\n\nAbarcan todo el espacio, aunque no necesariamente de forma eficiente: puede haber vectores redundantes en el conjunto.\n\nUn conjunto generador que además es linealmente independiente recibe un nombre especial: base.",
-    "reviewed": false
+    "explanation": "El **conjunto generado** por unos vectores reúne todas las combinaciones lineales que se pueden armar con ellos.\n$$\\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\} = \\{\\alpha_1\\vec{v}_1 + \\alpha_2\\vec{v}_2\\}$$\nComo los coeficientes recorren todos los números reales, el resultado es infinito aunque se parta de dos vectores nada más.\n\nCon $(1,0)$ y $(0,1)$, el conjunto tiene dos elementos y el generado es el plano entero.\n\nLas cátedras marcan esta distinción de forma explícita porque es la que más se confunde. Escribir una por la otra cambia por completo lo que dice la afirmación.",
+    "reviewed": false,
+    "tags": [
+      "que-es-el-conjunto-generado"
+    ]
+  },
+  {
+    "question": "Un solo vector no nulo alcanza para armar un conjunto generado.\n$$\\text{gen}\\{\\vec{v}\\}$$\n¿Cuántos elementos tiene ese conjunto?",
+    "options": [
+      "Dos, que son el vector dado y el vector nulo",
+      "Infinitos, porque reúne los múltiplos de ese vector",
+      "Uno solo, que es el vector con el que se lo armó"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El coeficiente recorre todos los números reales, y cada uno produce un elemento distinto.",
+    "feedback_incorrect": [
+      "El vector nulo pertenece, pero también todos los demás múltiplos del vector dado.",
+      null,
+      "El vector dado es apenas uno de los elementos, el que sale de tomar el coeficiente en uno."
+    ],
+    "explanation": "El **conjunto generado** por un vector reúne todos los resultados de multiplicarlo por un número.\n$$\\text{gen}\\{\\vec{v}\\} = \\{\\alpha\\vec{v}\\}$$\nComo el coeficiente puede ser cualquier número real, y cada uno da un resultado distinto, el conjunto tiene infinitos elementos.\n\nEn el plano eso se ve directo: los múltiplos de un vector cubren toda la recta que pasa por el origen en su dirección.\n\nLa confusión entre el vector de partida y el conjunto que arma es la más frecuente del tema, y viene de que las dos cosas se escriben casi igual.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-es-el-conjunto-generado"
+    ]
+  },
+  {
+    "question": "Los vectores con los que se arma un generado guardan una relación con él.\n$$\\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\}$$\n¿Pertenecen esos dos vectores al conjunto que generan?",
+    "options": [
+      "No, porque el generado reúne combinaciones y no vectores sueltos",
+      "Solo el primero, porque el segundo se arma a partir de él",
+      "Sí, tomando su propio coeficiente en uno y el otro en cero"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Cada vector es una combinación de los dos, con el coeficiente del otro anulado.",
+    "feedback_incorrect": [
+      "Un vector solo también cuenta como combinación, con los demás coeficientes en cero.",
+      "Los dos vectores están en igualdad de condiciones, ninguno depende del otro por escribirse primero.",
+      null
+    ],
+    "explanation": "Un vector cualquiera del conjunto de partida es también una combinación de todos ellos, y por eso pertenece al generado.\n$$\\vec{v}_1 = 1 \\cdot \\vec{v}_1 + 0 \\cdot \\vec{v}_2$$\nTomando su coeficiente en uno y el resto en cero se obtiene exactamente ese vector.\n\nEs un caso particular de una idea general: en una combinación lineal, los coeficientes pueden valer cualquier cosa, incluido cero.\n\nPor eso el generado siempre contiene al conjunto de partida, y en general contiene muchísimo más.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-es-el-conjunto-generado"
+    ]
+  },
+  {
+    "question": "Un conjunto de vectores se amplía agregándole un vector más.\n$$\\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\} \\quad \\text{y} \\quad \\text{gen}\\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\}$$\n¿Cómo se comparan los dos generados?",
+    "options": [
+      "El segundo contiene al primero, y puede llegar a ser igual",
+      "El segundo contiene al primero, y siempre es más grande",
+      "Los dos son iguales, porque el alcance ya estaba fijado"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Agregar un vector nunca achica el alcance, aunque puede no agrandarlo.",
+    "feedback_incorrect": [
+      null,
+      "Si el vector agregado ya estaba alcanzado, el generado queda exactamente igual.",
+      "Si el vector agregado no estaba alcanzado, el generado sí se agranda."
+    ],
+    "explanation": "Agregar un vector a un conjunto nunca puede achicar su generado, porque todas las combinaciones anteriores siguen disponibles con el coeficiente nuevo en cero.\n$$\\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\} \\subset \\text{gen}\\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\}$$\nLo que no está garantizado es que lo agrande. Eso depende de si el vector nuevo ya estaba alcanzado.\n\nEn el plano, agregarle $(2,3)$ a los dos vectores que valen uno en una coordenada no cambia nada, porque el generado ya era todo el plano.\n\nAgregarle un vector fuera del plano a dos vectores de $\\mathbb{R}^3$, en cambio, convierte una lámina plana en el espacio entero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-es-el-conjunto-generado"
+    ]
+  },
+  {
+    "question": "Se afirma que un vector pertenece a un conjunto generado.\n$$\\vec{w} \\in \\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\}$$\n¿Qué está diciendo exactamente esa afirmación?",
+    "options": [
+      "Que ese vector tiene la misma dirección que alguno de los dos",
+      "Que existen dos coeficientes que arman ese vector con los otros dos",
+      "Que ese vector es uno de los dos con los que se armó el generado"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Pertenecer al generado es poder escribirse como combinación de los vectores dados.",
+    "feedback_incorrect": [
+      "Una combinación mezcla las dos direcciones, así que el resultado puede no coincidir con ninguna.",
+      null,
+      "Los dos vectores de partida pertenecen, pero el generado tiene muchísimos elementos más."
+    ],
+    "explanation": "Pertenecer a un generado no es una propiedad geométrica difusa, es la existencia de unos coeficientes.\n$$\\vec{w} = \\alpha_1\\vec{v}_1 + \\alpha_2\\vec{v}_2$$\nDecidirlo se convierte entonces en resolver un sistema de ecuaciones, con los coeficientes como incógnitas.\n\nSi el sistema tiene solución, el vector pertenece. Si no la tiene, queda afuera.\n\nEsa traducción es la que vuelve calculable una pregunta que de otro modo habría que responder mirando un dibujo, algo imposible apenas se pasa de tres coordenadas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-es-el-conjunto-generado"
+    ]
+  },
+  {
+    "question": "El conjunto generado por unos vectores cualesquiera siempre resulta ser un subespacio.\n$$\\text{gen}\\{\\vec{v}_1, \\dots, \\vec{v}_k\\}$$\n¿Por qué se cumple sin importar qué vectores se elijan?",
+    "options": [
+      "Porque sumar dos combinaciones de ellos vuelve a dar una combinación de ellos",
+      "Porque los vectores elegidos nunca son múltiplos entre sí",
+      "Porque cualquier conjunto infinito de vectores cumple las condiciones de subespacio"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La clausura sale sola: operar combinaciones produce otra combinación de los mismos vectores.",
+    "feedback_incorrect": [
+      null,
+      "No hace falta que sea así, el generado es un subespacio igual aunque uno de ellos sobre.",
+      "Ser infinito no alcanza, una recta que no pasa por el origen es infinita y no califica."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Que el generado sea un subespacio no es una casualidad afortunada, sale de cómo está construido.\n\nUn elemento del generado es una suma de los vectores dados, cada uno multiplicado por un número. Sumar dos elementos así agrupa los coeficientes de a pares.\n$$\\begin{aligned} &(\\alpha_1\\vec{v}_1 + \\alpha_2\\vec{v}_2) + (\\beta_1\\vec{v}_1 + \\beta_2\\vec{v}_2) \\\\ &= (\\alpha_1+\\beta_1)\\vec{v}_1 + (\\alpha_2+\\beta_2)\\vec{v}_2 \\end{aligned}$$\nEl resultado tiene la misma forma que los de partida, así que sigue perteneciendo al generado.\n\nCon el producto por un escalar pasa lo mismo, cada coeficiente se multiplica y la forma se conserva. Y el vector nulo aparece tomando todos los coeficientes en cero.",
+    "reviewed": false,
+    "tags": [
+      "por-que-el-generado-es-subespacio"
+    ]
+  },
+  {
+    "question": "El vector nulo pertenece a cualquier conjunto generado, sin importar con qué vectores se lo armó.\n$$\\vec{0} \\in \\text{gen}\\{\\vec{v}_1, \\dots, \\vec{v}_k\\}$$\n¿De dónde sale esa garantía?",
+    "options": [
+      "De que alguno de los vectores dados tiene que ser el nulo",
+      "De tomar todos los coeficientes de la combinación en cero",
+      "De que el vector nulo se agrega siempre a cualquier conjunto"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Con todos los coeficientes en cero, la combinación da el vector nulo.",
+    "feedback_incorrect": [
+      "Los vectores dados pueden ser todos no nulos y el generado contiene al nulo igual.",
+      null,
+      "El vector nulo no se agrega a nada, aparece porque es una combinación posible."
+    ],
+    "explanation": "Que el generado contenga al vector nulo no es una condición extra que haya que verificar, sale de la propia construcción.\n$$0\\vec{v}_1 + \\dots + 0\\vec{v}_k = \\vec{0}$$\nLos coeficientes de una combinación pueden valer cualquier número, incluido el cero, y tomándolos todos en cero se obtiene el vector nulo.\n\nEs el primer control que un subespacio tiene que pasar, y el generado lo pasa siempre.\n\nPor eso ningún conjunto generado puede ser una recta corrida del origen, por más que sus vectores apunten en esa dirección.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-el-generado-es-subespacio"
+    ]
+  },
+  {
+    "question": "Un elemento cualquiera de un conjunto generado se multiplica por un número.\n$$\\beta\\,(\\alpha_1\\vec{v}_1 + \\alpha_2\\vec{v}_2)$$\n¿Qué se obtiene?",
+    "options": [
+      "Un vector que ya no pertenece al conjunto generado por ellos",
+      "Una combinación de otros vectores distintos de los originales",
+      "Otra combinación de los mismos vectores, con coeficientes nuevos"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La distributividad reparte el escalar sobre cada término y la forma se conserva.",
+    "feedback_incorrect": [
+      "El resultado tiene la misma forma que los elementos del generado, así que pertenece.",
+      "Los vectores que aparecen son los mismos, lo único que cambia son los coeficientes.",
+      null
+    ],
+    "explanation": "La clausura del generado para el producto por un escalar sale de aplicar la distributividad.\n$$\\beta(\\alpha_1\\vec{v}_1 + \\alpha_2\\vec{v}_2) = \\beta\\alpha_1\\vec{v}_1 + \\beta\\alpha_2\\vec{v}_2$$\nEl resultado vuelve a ser una combinación de los mismos vectores, con coeficientes nuevos, así que sigue perteneciendo al generado.\n\nCon la suma pasa lo mismo, agrupando los coeficientes de a pares.\n\nEse es todo el argumento de que un generado es siempre un subespacio, y no depende para nada de qué vectores se hayan elegido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-el-generado-es-subespacio"
+    ]
+  },
+  {
+    "question": "Dos vectores de un conjunto resultan ser uno múltiplo del otro.\n$$\\vec{v}_2 = 3\\vec{v}_1$$\n¿Sigue siendo un subespacio lo que generan?",
+    "options": [
+      "Sí, y resulta ser la recta que pasa por el origen en esa dirección",
+      "No, porque un vector repetido rompe las condiciones de subespacio",
+      "Sí, pero solo si se descarta antes el vector repetido"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El argumento no usa en ningún momento qué vectores se eligieron.",
+    "feedback_incorrect": [
+      null,
+      "Repetir una dirección achica el alcance, pero no rompe ninguna de las dos condiciones.",
+      "No hace falta descartar nada, el generado ya es un subespacio tal como está escrito."
+    ],
+    "explanation": "El generado es un subespacio **siempre**, sin ninguna condición sobre los vectores de partida.\n$$\\text{gen}\\{\\vec{v}_1, 3\\vec{v}_1\\} = \\text{gen}\\{\\vec{v}_1\\}$$\nLa razón es que el argumento de la clausura solo usa que una suma de combinaciones vuelve a ser una combinación, y eso no depende de qué vectores sean.\n\nLo que sí cambia es **cuál** subespacio resulta. Con dos vectores que apuntan a la misma dirección, el generado es una recta y no un plano.\n\nTener vectores de más afecta al tamaño del alcance, no a que el resultado califique.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-el-generado-es-subespacio"
+    ]
+  },
+  {
+    "question": "Entre todos los conjuntos generados posibles hay uno que es el más chico de todos.\n$$\\text{gen}\\{\\vec{0}\\}$$\n¿Cuál es ese conjunto?",
+    "options": [
+      "Una recta cualquiera que pase por el origen",
+      "El formado únicamente por el vector nulo",
+      "El formado por el vector nulo y sus múltiplos"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cualquier múltiplo del vector nulo vuelve a dar el vector nulo.",
+    "feedback_incorrect": [
+      "Para generar una recta hace falta un vector no nulo que marque su dirección.",
+      null,
+      "Los múltiplos del vector nulo son todos el vector nulo, así que no agrega ningún elemento."
+    ],
+    "explanation": "Multiplicar el vector nulo por cualquier número devuelve siempre el vector nulo, así que el conjunto generado tiene un solo elemento.\n$$\\alpha\\vec{0} = \\vec{0}$$\nEse conjunto es un subespacio perfectamente válido, el más chico que existe dentro de cualquier espacio.\n\nEl mismo razonamiento explica por qué agregar el vector nulo a un conjunto generador no cambia nada: lo único que aporta es un elemento que ya estaba.\n\nEs el caso extremo que confirma la regla general, porque hasta acá el generado sigue siendo un subespacio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-el-generado-es-subespacio"
+    ]
+  },
+  {
+    "question": "Un conjunto generador cubre todo el espacio, pero eso no lo convierte automáticamente en la mejor descripción posible.\n$$\\text{gen}\\{\\vec{v}_1, \\dots, \\vec{v}_k\\} = V$$\n¿Qué le puede seguir faltando?",
+    "options": [
+      "Puede tener vectores de más que no agregan ningún alcance nuevo",
+      "Puede dejar sin cubrir algunas direcciones del espacio",
+      "Puede no contener al vector nulo entre sus elementos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Generar habla del alcance, no de la economía: un generador puede tener vectores redundantes.",
+    "feedback_incorrect": [
+      null,
+      "Si dejara direcciones sin cubrir no sería generador, eso es justamente lo que significa generar.",
+      "El generador es un conjunto de vectores elegidos, y no tiene por qué contener al vector nulo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Que un conjunto **genere** un espacio significa que sus combinaciones alcanzan todos sus vectores. No dice nada sobre si hacían falta todos.\n\nEn el plano, estos tres vectores generan todo, igual que los dos primeros solos.\n$$\\{(1,0), (0,1), (2,3)\\}$$\nEl tercero ya estaba alcanzado, así que no agrega nada. Quitarlo no cambia el generado, y quedarse con él tampoco es un error, solo es información repetida.\n\nEsa distinción entre cubrir todo y no repetir es la que abre la pregunta siguiente del tema, que es cuándo un vector le está sobrando a un conjunto.",
+    "reviewed": false,
+    "tags": [
+      "generar-no-es-ser-base"
+    ]
+  },
+  {
+    "question": "Un conjunto de vectores tiene uno que ya estaba alcanzado por los demás.\n$$\\vec{v}_3 \\in \\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\}$$\n¿Qué pasa si se lo saca del conjunto?",
+    "options": [
+      "El generado se agranda, porque los otros dos quedan más libres",
+      "El generado no cambia, porque ese vector ya se armaba con los otros",
+      "El generado se achica, porque queda un vector menos para combinar"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Un vector alcanzado no agrega destinos nuevos, así que sacarlo no quita ninguno.",
+    "feedback_incorrect": [
+      "Sacar un vector nunca puede agrandar el conjunto de combinaciones posibles.",
+      null,
+      "La cantidad de vectores escritos no mide el alcance, lo que importa son las direcciones."
+    ],
+    "explanation": "Sacar un vector que ya estaba alcanzado deja el generado exactamente igual, y esa es la operación que permite achicar una descripción sin perder nada.\n$$\\begin{aligned} &\\text{gen}\\{(1,0), (0,1), (2,3)\\} \\\\ &= \\text{gen}\\{(1,0), (0,1)\\} \\end{aligned}$$\nEl tercer vector se arma con los dos primeros, así que cualquier combinación que lo use se puede reescribir sin él.\n\nLa cantidad de vectores escritos y el alcance del generado son entonces dos cosas distintas.\n\nEsa distinción es la que abre la pregunta siguiente del tema, que es cuándo un conjunto tiene vectores de más.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "generar-no-es-ser-base"
+    ]
+  },
+  {
+    "question": "A un conjunto que ya genera todo el plano se le agrega un vector cualquiera.\n$$\\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\} = \\mathbb{R}^2$$\n¿Qué le pasa al generado?",
+    "options": [
+      "Se agranda, porque ahora hay tres direcciones en juego",
+      "Se rompe, porque tres vectores no pueden generar el plano",
+      "Queda igual, porque ya no había ningún destino nuevo por alcanzar"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El plano ya estaba cubierto entero, así que no queda nada por agregar.",
+    "feedback_incorrect": [
+      "El vector agregado ya pertenecía al plano, así que no aporta ningún destino nuevo.",
+      "Un conjunto puede generar el plano con tres vectores, o con diez, sin ningún problema.",
+      null
+    ],
+    "explanation": "Cuando el generado ya es todo el espacio, agregarle vectores no cambia nada, porque el vector nuevo necesariamente ya estaba adentro.\n$$\\text{gen}\\{(1,0), (0,1), (7,2)\\} = \\mathbb{R}^2$$\nEl conjunto sigue generando el plano, ahora con un vector de más que no aporta ningún destino nuevo.\n\nEso no lo convierte en un conjunto incorrecto. Generar es una afirmación sobre el alcance, y el alcance sigue siendo el mismo.\n\nLo que sí queda es una descripción más larga de lo necesario, y esa economía es una pregunta separada de la del alcance.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "generar-no-es-ser-base"
+    ]
+  },
+  {
+    "question": "Entre dos descripciones del mismo subespacio, una tiene más vectores que la otra.\n$$\\text{gen}\\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\} = \\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\}$$\n¿Qué se gana quedándose con la más corta?",
+    "options": [
+      "Una descripción más corta del mismo subespacio",
+      "Un subespacio más chico, que resulta más fácil de manejar",
+      "La garantía de que el subespacio pasa por el origen"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El alcance es idéntico, y la descripción usa menos vectores para decir lo mismo.",
+    "feedback_incorrect": [
+      null,
+      "El subespacio es el mismo, lo único que cambia es cuántos vectores se escriben para describirlo.",
+      "Cualquier generado pasa por el origen, con vectores de más o sin ellos."
+    ],
+    "explanation": "Las dos descripciones nombran al mismo subespacio, así que la elección entre ellas no es matemática sino práctica.\n$$\\begin{aligned} &\\text{gen}\\{(1,0), (0,1), (2,3)\\} \\\\ &= \\text{gen}\\{(1,0), (0,1)\\} \\end{aligned}$$\nCon menos vectores hay menos coeficientes que resolver cuando se pregunta si algo pertenece, y menos datos que arrastrar.\n\nLa ventaja es de practicidad, no matemática: el subespacio sigue siendo el mismo, solo cambia con cuántos vectores se lo nombra.\n\nCargar un vector redundante en cada cuenta es trabajo que se puede evitar desde el principio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "generar-no-es-ser-base"
+    ]
+  },
+  {
+    "question": "Un conjunto generador incluye al vector nulo entre sus elementos.\n$$\\text{gen}\\{\\vec{v}_1, \\vec{0}, \\vec{v}_2\\}$$\n¿Qué efecto tiene sobre el alcance?",
+    "options": [
+      "Lo anula, porque cualquier combinación termina dando cero",
+      "Ninguno, porque sus múltiplos son todos el vector nulo",
+      "Lo agranda, porque suma un elemento más al conjunto"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El vector nulo no aporta ninguna dirección, así que el generado no cambia.",
+    "feedback_incorrect": [
+      "El coeficiente del vector nulo puede valer cualquier cosa sin afectar al resto de la combinación.",
+      null,
+      "El vector nulo ya pertenecía al generado antes de escribirlo entre los generadores."
+    ],
+    "explanation": "El vector nulo es el ejemplo más claro de un generador que no aporta nada.\n$$\\alpha_1\\vec{v}_1 + \\alpha_2\\vec{0} + \\alpha_3\\vec{v}_2 = \\alpha_1\\vec{v}_1 + \\alpha_3\\vec{v}_2$$\nSu término se cancela sin importar qué coeficiente lleve, así que el generado es el mismo que sin él.\n\nTampoco anula nada, porque los otros coeficientes siguen sueltos y las demás direcciones siguen disponibles.\n\nEs un buen recordatorio de que contar vectores escritos no dice nada sobre el alcance, ni siquiera cuando uno de ellos es evidentemente inútil.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "generar-no-es-ser-base"
+    ]
   }
 ]
