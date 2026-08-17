@@ -1,17 +1,20 @@
 "use client"
 
 import { motion } from "motion/react"
-import { getInstallSteps } from "@/components/install-dialog"
+import { getInstallSteps } from "@/components/install-steps"
 import { usePlatform, type Platform } from "@/lib/platform/detect"
 
-// Los pasos para instalar la PWA, como slide del resumen de sesión. Antes eran
-// una pantalla sin salida justo después del registro; ahora se llega acá desde
-// el botón "Agregar" de notify-hint-pane.tsx, con la sesión ya hecha, y el CTA
-// "Continuar" del summary sigue estando.
+// Los pasos para instalar la PWA. Es la única explicación de instalación de la
+// app, en dos contextos: como slide del resumen de sesión (se llega desde el
+// botón "Agregar" de notify-hint-pane.tsx, y el CTA "Continuar" del summary
+// sigue estando) y a pantalla completa desde la smart bar (install-sheet.tsx).
+// El contenedor pone la salida; el pane es solo el contenido.
 export function InstallHintPane({
   platformOverride,
 }: {
-  // Solo para /dev/notify-pane: en la app real la plataforma se detecta sola.
+  // La smart bar ya detectó la plataforma antes de decidir si mostrarse, y
+  // /dev/notify-pane la fuerza para poder mirar las variantes desde cualquier
+  // navegador. Sin override se detecta sola.
   platformOverride?: Platform
 }) {
   const detected = usePlatform()
@@ -41,21 +44,17 @@ export function InstallHintPane({
             en el server no existe), así que el primer paint va sin pasos. */}
         {platform && (
           <div className="flex flex-col gap-4">
-            {getInstallSteps({ platform, withReopenStep: true }).map(
-              (step, i) => (
-                <p key={i} className="leading-relaxed text-foreground/85">
-                  <span className="tabular-nums text-foreground/45">
-                    {i + 1}.
-                  </span>{" "}
-                  {step.text}
-                  {step.icon ? (
-                    <span className="ml-1.5 inline-flex align-middle">
-                      {step.icon}
-                    </span>
-                  ) : null}
-                </p>
-              ),
-            )}
+            {getInstallSteps(platform).map((step, i) => (
+              <p key={i} className="leading-relaxed text-foreground/85">
+                <span className="tabular-nums text-foreground/45">{i + 1}.</span>{" "}
+                {step.text}
+                {step.icon ? (
+                  <span className="ml-1.5 inline-flex align-middle">
+                    {step.icon}
+                  </span>
+                ) : null}
+              </p>
+            ))}
           </div>
         )}
 

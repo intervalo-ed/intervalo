@@ -8,7 +8,7 @@ import {
   NotifyHintPane,
   type NotifyHintPreview,
 } from "@/app/(app)/session/[sessionId]/summary/notify-hint-pane"
-import { InstallHintPane } from "@/app/(app)/session/[sessionId]/summary/install-hint-pane"
+import { InstallHintPane } from "@/components/install-hint-pane"
 import {
   SLIDE_TRANSITION,
   slideVariants,
