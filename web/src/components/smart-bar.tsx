@@ -40,7 +40,7 @@ function SmartBar({ platform }: { platform: Platform }) {
               setOpen(true)
             }}
           >
-            ABRIR
+            AÑADIR
           </Button>
         </div>
       </div>
