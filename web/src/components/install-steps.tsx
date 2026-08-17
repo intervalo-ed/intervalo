@@ -8,15 +8,13 @@ export type Step = { text: ReactNode; icon?: ReactNode }
 
 // Lo que hay que buscar en la pantalla del navegador: el nombre del control, sin
 // las comillas, que son puntuación de la oración y no están en ningún menú.
-// chart-5 y no primary — el mismo índigo pero más claro, que sobre el fondo
-// oscuro resalta bastante más — igual que "pantalla de inicio" en el pane.
+// Solo negrita: el índigo lo tiene "pantalla de inicio" en el encabezado del
+// pane, y repetirlo cuatro veces más abajo dejaba de destacar nada.
 function Control({ children }: { children: ReactNode }) {
-  return <strong className="font-semibold text-chart-5">{children}</strong>
+  return <strong className="font-semibold">{children}</strong>
 }
 
-// Los íconos van del mismo color que el nombre del control: son la otra mitad de
-// la misma pista visual.
-const ICON_CLS = "size-4 text-chart-5"
+const ICON_CLS = "size-4"
 
 // Último paso, común a mobile: sin volver a abrirla desde el inicio el usuario
 // se queda en la pestaña del navegador y cree que no pasó nada. En escritorio no
