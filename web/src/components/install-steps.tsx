@@ -6,6 +6,18 @@ import { MoreVerticalIcon, ShareIcon, SquarePlusIcon } from "lucide-react"
 // control que hay que tocar (ver «Compartir»).
 export type Step = { text: ReactNode; icon?: ReactNode }
 
+// Lo que hay que buscar en la pantalla del navegador: el nombre del control, sin
+// las comillas, que son puntuación de la oración y no están en ningún menú.
+// chart-5 y no primary — el mismo índigo pero más claro, que sobre el fondo
+// oscuro resalta bastante más — igual que "pantalla de inicio" en el pane.
+function Control({ children }: { children: ReactNode }) {
+  return <strong className="font-semibold text-chart-5">{children}</strong>
+}
+
+// Los íconos van del mismo color que el nombre del control: son la otra mitad de
+// la misma pista visual.
+const ICON_CLS = "size-4 text-chart-5"
+
 // Último paso, común a mobile: sin volver a abrirla desde el inicio el usuario
 // se queda en la pestaña del navegador y cree que no pasó nada. En escritorio no
 // aplica, ahí la instalación ya deja la app abierta.
@@ -18,23 +30,52 @@ const PLATFORM_STEPS: Record<Platform, Step[]> = {
     {
       text: (
         <>
-          Tocá el botón <strong className="font-semibold">Compartir</strong>
+          Tocá el botón <Control>Compartir</Control>
         </>
       ),
-      icon: <ShareIcon className="size-4" />,
+      icon: <ShareIcon className={ICON_CLS} />,
     },
     {
       // El share sheet de iOS muestra ese ícono a la derecha de la fila; el
       // menú de Chrome en Android no, así que ahí el paso va sin ícono.
-      text: "Elegí «Agregar a inicio»",
-      icon: <SquarePlusIcon className="size-4" />,
+      text: (
+        <>
+          Elegí «<Control>Agregar a inicio</Control>»
+        </>
+      ),
+      icon: <SquarePlusIcon className={ICON_CLS} />,
     },
-    { text: "Confirmá tocando «Agregar»." },
+    {
+      text: (
+        <>
+          Confirmá tocando «<Control>Agregar</Control>».
+        </>
+      ),
+    },
   ],
   android: [
-    { text: "Abrí el menú", icon: <MoreVerticalIcon className="size-4" /> },
-    { text: "Elegí «Agregar a la pantalla principal»." },
-    { text: "Confirmá tocando «Agregar»." },
+    {
+      text: (
+        <>
+          Abrí el <Control>menú</Control>
+        </>
+      ),
+      icon: <MoreVerticalIcon className={ICON_CLS} />,
+    },
+    {
+      text: (
+        <>
+          Elegí «<Control>Agregar a la pantalla principal</Control>».
+        </>
+      ),
+    },
+    {
+      text: (
+        <>
+          Confirmá tocando «<Control>Agregar</Control>».
+        </>
+      ),
+    },
   ],
   desktop: [
     {
