@@ -22,6 +22,11 @@ const HIDDEN_SUFFIXES = ["/summary"]
 function SmartBar({ platform }: { platform: Platform }) {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
+  // Cuándo se abrió la sheet, para medir cuánto duró abierta al cerrarse. Es la
+  // diferencia entre quien la cerró en dos segundos (no lo convenció el título)
+  // y quien estuvo veinte y no instaló igual (los pasos no se entienden, o no
+  // estaba frente al menú del navegador). Son dos problemas distintos.
+  const openedAtRef = useRef(0)
 
   return (
     <>
@@ -37,6 +42,7 @@ function SmartBar({ platform }: { platform: Platform }) {
                 platform,
                 page: pathname,
               })
+              openedAtRef.current = Date.now()
               setOpen(true)
             }}
           >
@@ -44,7 +50,24 @@ function SmartBar({ platform }: { platform: Platform }) {
           </Button>
         </div>
       </div>
-      <InstallSheet platform={platform} open={open} onOpenChange={setOpen} />
+      {/* El cierre se mide acá y no en la sheet (que queda presentacional) para
+          que el evento salga igual por el botón, por Escape o por el gesto de
+          atrás: los tres pasan por onOpenChange. Si instaló o no lo dice el
+          pwa_install posterior (ver instrumentation-client.ts), no este evento. */}
+      <InstallSheet
+        platform={platform}
+        open={open}
+        onOpenChange={(next) => {
+          if (!next && open) {
+            posthog.capture("install_sheet_dismiss", {
+              platform,
+              page: pathname,
+              ms_open: Date.now() - openedAtRef.current,
+            })
+          }
+          setOpen(next)
+        }}
+      />
     </>
   )
 }
