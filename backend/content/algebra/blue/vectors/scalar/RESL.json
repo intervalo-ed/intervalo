@@ -1,24 +1,401 @@
 [
   {
-    "question": "Si $\\vec{u}=(1,2)$ y $\\vec{v}=(3,-1)$, ¿cuánto vale $\\vec{u}\\cdot\\vec{v}$?",
+    "question": "Dados $\\vec{u}=(4,-2)$ y $\\vec{v}=(3,5)$.\n\n¿Cuánto vale $\\vec{u}\\cdot\\vec{v}$?",
     "options": [
-      "$1$",
-      "$5$",
-      "$-1$",
-      "$(3,-2)$"
+      "$2$",
+      "$22$",
+      "$(12,-10)$",
+      "$-2$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$\\vec{u}\\cdot\\vec{v} = 1\\cdot3 + 2\\cdot(-1) = 3-2 = 1$.",
+    "feedback_correct": "$4(3)+(-2)(5) = 12-10 = 2$.",
     "feedback_incorrect": [
       null,
-      "Eso sale de sumar los productos sin restar el segundo término.",
-      "El signo de alguno de los productos quedó invertido.",
-      "El resultado del producto escalar es un número, no un vector."
+      "Esa suma los productos sin restar el signo negativo del segundo término.",
+      "El producto escalar da un número, no un vector: hay que sumar los dos productos.",
+      "El signo del resultado quedó invertido."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El producto escalar se calcula sumando el producto de las componentes homólogas.\n$$\\vec{u}\\cdot\\vec{v} = (1)(3) + (2)(-1) = 3 - 2 = 1$$\n\nCada componente de $\\vec{u}$ se multiplica por la componente en la misma posición de $\\vec{v}$, y después se suman los resultados.\n\nUn olvido común es no respetar el signo negativo de una componente al multiplicar.",
-    "reviewed": false
+    "explanation": "El producto escalar se calcula sumando el producto de las componentes homólogas.\n$$\\begin{aligned} \\vec{u}\\cdot\\vec{v} &= (4)(3)+(-2)(5) \\\\ &= 12-10 = 2 \\end{aligned}$$\nCada componente de $\\vec{u}$ se multiplica por la componente en la misma posición de $\\vec{v}$, y después se suman los resultados respetando el signo.\n\nNo respetar el signo negativo de una componente al multiplicar cambia el resultado final.",
+    "reviewed": false,
+    "tags": [
+      "resl-producto-escalar-directo"
+    ]
+  },
+  {
+    "question": "Se conocen las componentes de dos vectores.\n$$\\vec{u}=(3,6) \\qquad \\vec{v}=(5,-2)$$\n¿Cuánto vale su producto escalar?",
+    "options": [
+      "$-3$",
+      "$3$",
+      "$27$",
+      "$(15,-12)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Quince menos doce da tres.",
+    "feedback_incorrect": [
+      "Ahí el resultado quedó con el signo invertido.",
+      null,
+      "Ahí el segundo término se sumó ignorando el signo negativo.",
+      "Ahí los productos quedaron sin sumarse, como si el resultado fuera un vector."
+    ],
+    "explanation": "El producto escalar multiplica las componentes del mismo eje y suma los dos resultados.\n$$3 \\cdot 5 + 6 \\cdot (-2) = 15 - 12$$\nEl signo negativo del segundo vector entra en la cuenta y hace que ese término reste.\n$$= 3$$\nEl resultado es un **número**, no un vector: por eso la operación se llama producto escalar.\n\nUn valor positivo chico indica que los dos vectores apuntan a favor, pero con un ángulo cercano al recto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-producto-escalar-directo"
+    ]
+  },
+  {
+    "question": "Se conocen las componentes de dos vectores.\n$$\\vec{u}=(-4,3) \\qquad \\vec{v}=(2,7)$$\n¿Cuánto vale su producto escalar?",
+    "options": [
+      "$29$",
+      "$(-8,21)$",
+      "$-13$",
+      "$13$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Menos ocho más veintiuno da trece.",
+    "feedback_incorrect": [
+      "Ahí el primer término se sumó ignorando el signo negativo.",
+      "Ahí los productos quedaron sin sumarse, como si el resultado fuera un vector.",
+      "Ahí el resultado quedó con el signo invertido.",
+      null
+    ],
+    "explanation": "Cada término lleva el signo que resulta de multiplicar las dos componentes del eje.\n$$(-4) \\cdot 2 + 3 \\cdot 7 = -8 + 21$$\nEl primer eje aporta un término negativo y el segundo uno positivo, más grande.\n$$= 13$$\nEl resultado positivo indica que, en conjunto, los dos vectores apuntan más a favor que en contra.\n\nCalcular los dos términos por separado antes de sumarlos es lo que evita perder alguno de los signos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-producto-escalar-directo"
+    ]
+  },
+  {
+    "question": "Se conocen las componentes de dos vectores.\n$$\\vec{u}=(5,-3) \\qquad \\vec{v}=(-2,-4)$$\n¿Cuánto vale su producto escalar?",
+    "options": [
+      "$2$",
+      "$-22$",
+      "$(-10,12)$",
+      "$-2$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Menos diez más doce da dos.",
+    "feedback_incorrect": [
+      null,
+      "Ahí los dos términos se sumaron con el mismo signo, sin notar que el segundo es positivo.",
+      "Ahí los productos quedaron sin sumarse, como si el resultado fuera un vector.",
+      "Ahí el resultado quedó con el signo invertido."
+    ],
+    "explanation": "Dos componentes negativas dan un producto positivo, igual que en cualquier multiplicación.\n$$5 \\cdot (-2) + (-3) \\cdot (-4) = -10 + 12$$\nEl segundo término es positivo aunque las dos componentes sean negativas, y eso es lo que más se pasa por alto.\n$$= 2$$\nEl resultado queda apenas positivo, lo que indica un ángulo cercano al recto pero todavía agudo.\n\nCuando aparecen varios signos negativos conviene escribir los dos productos completos antes de sumar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-producto-escalar-directo"
+    ]
+  },
+  {
+    "question": "Se conocen las componentes de dos vectores del espacio.\n$$\\vec{u}=(2,1,4) \\qquad \\vec{v}=(3,-5,1)$$\n¿Cuánto vale su producto escalar?",
+    "options": [
+      "$(6,-5,4)$",
+      "$-5$",
+      "$5$",
+      "$15$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Seis menos cinco más cuatro da cinco.",
+    "feedback_incorrect": [
+      "Ahí los productos quedaron sin sumarse, como si el resultado fuera un vector.",
+      "Ahí el resultado quedó con el signo invertido.",
+      null,
+      "Ahí el término del medio se sumó ignorando el signo negativo."
+    ],
+    "explanation": "La fórmula por componentes se extiende sin cambios a cualquier cantidad de dimensiones.\n$$2 \\cdot 3 + 1 \\cdot (-5) + 4 \\cdot 1$$\n$$= 6 - 5 + 4$$\nCada eje aporta un término, y todos se suman al final en un único número.\n$$= 5$$\nEl resultado sigue siendo un escalar, aunque los vectores tengan tres componentes.\n\nEsa independencia de la dimensión es una de las diferencias centrales con el producto cruz.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-producto-escalar-directo"
+    ]
+  },
+  {
+    "question": "Una persona empuja un objeto con $\\vec{F}=(6,3)$ mientras el objeto se mueve en la dirección $\\vec{d}=(1,0)$.\n\n¿Cuánto de esa fuerza efectivamente aporta al movimiento en esa dirección?",
+    "options": [
+      "$6$",
+      "$9$",
+      "$3$",
+      "$0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\vec{F}\\cdot\\vec{d} = (6)(1)+(3)(0) = 6$: eso es lo que la fuerza aporta en esa dirección.",
+    "feedback_incorrect": [
+      null,
+      "Esa suma las dos componentes de la fuerza, sin multiplicarlas por las del vector dirección.",
+      "Esa toma la segunda componente de la fuerza, pero la dirección del movimiento no tiene componente en ese eje.",
+      "El producto escalar entre estos dos vectores no da cero: la fuerza sí aporta algo al movimiento."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El producto escalar entre una fuerza y la dirección del movimiento mide cuánto de esa fuerza efectivamente empuja en esa dirección.\n$$\\vec{F}\\cdot\\vec{d} = (6)(1)+(3)(0) = 6$$\nComo $\\vec{d}$ apunta puramente en la dirección del primer eje, el resultado coincide con la primera componente de $\\vec{F}$.\n\nSolo la parte de la fuerza alineada con la dirección del movimiento cuenta; el resto no aporta a ese desplazamiento.",
+    "reviewed": false,
+    "tags": [
+      "resl-producto-escalar-contexto-fuerza"
+    ]
+  },
+  {
+    "question": "Una persona empuja un carro con $\\vec{F}=(8,5)$ mientras el carro avanza en la dirección $\\vec{d}=(1,0)$.\n\n¿Cuánto de esa fuerza aporta al avance en esa dirección?",
+    "options": [
+      "$0$",
+      "$8$",
+      "$13$",
+      "$5$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El aporte es el producto escalar, y contra esa dirección queda solo la primera componente.",
+    "feedback_incorrect": [
+      "El aporte sería nulo solo si la fuerza fuera perpendicular al avance.",
+      null,
+      "Ahí se sumaron las dos componentes de la fuerza en vez de proyectarla sobre la dirección.",
+      "Ahí quedó la componente que no aporta a esa dirección."
+    ],
+    "explanation": "El aporte de una fuerza en una dirección es su producto escalar contra esa dirección.\n$$8 \\cdot 1 + 5 \\cdot 0 = 8$$\nLa dirección de avance solo tiene componente en el primer eje, así que el segundo término se anula.\n\nEl resultado es exactamente la primera componente de la fuerza, que es la parte que empuja hacia adelante.\n\nLa segunda componente existe y es grande, pero empuja hacia un lado y no colabora con el avance.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-producto-escalar-contexto-fuerza"
+    ]
+  },
+  {
+    "question": "Una fuerza $\\vec{F}=(6,-4)$ actúa mientras un objeto se desplaza según $\\vec{d}=(2,3)$.\n\n¿Cuánto de esa fuerza aporta al desplazamiento?",
+    "options": [
+      "$24$",
+      "$2$",
+      "$-12$",
+      "$0$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Doce menos doce da cero, así que la fuerza no aporta nada en esa dirección.",
+    "feedback_incorrect": [
+      "Ahí los dos términos se sumaron con el mismo signo, sin notar que el segundo es negativo.",
+      "Ahí se sumaron las dos componentes de la fuerza en vez de multiplicarlas por las de la dirección.",
+      "Ahí quedó solo el segundo término, sin sumarle el primero.",
+      null
+    ],
+    "explanation": "Un aporte nulo significa que la fuerza es perpendicular al desplazamiento.\n$$6 \\cdot 2 + (-4) \\cdot 3 = 12 - 12 = 0$$\nLos dos términos se cancelan exactamente, y eso es la condición de perpendicularidad.\n\nLa fuerza sigue existiendo y es considerable, pero empuja de costado y no acelera ni frena el movimiento.\n\nEse caso es el que hace visible que el producto escalar mide aporte direccional y no magnitud.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-producto-escalar-contexto-fuerza"
+    ]
+  },
+  {
+    "question": "Una fuerza $\\vec{F}=(-3,7)$ actúa mientras un objeto se desplaza según $\\vec{d}=(4,1)$.\n\n¿Cuánto de esa fuerza aporta al desplazamiento?",
+    "options": [
+      "$-5$",
+      "$5$",
+      "$-12$",
+      "$19$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Menos doce más siete da menos cinco, así que la fuerza frena el movimiento.",
+    "feedback_incorrect": [
+      null,
+      "Ahí el resultado quedó con el signo invertido.",
+      "Ahí quedó solo el primer término, sin sumarle el segundo.",
+      "Ahí los dos términos se sumaron con el mismo signo."
+    ],
+    "explanation": "Un aporte negativo significa que la fuerza tiene una componente en contra del movimiento.\n$$(-3) \\cdot 4 + 7 \\cdot 1 = -12 + 7 = -5$$\nEl primer eje aporta en contra con más peso del que el segundo aporta a favor.\n\nEl resultado negativo dice que, en conjunto, esa fuerza frena en lugar de impulsar.\n\nEl signo del producto escalar es lo que distingue una fuerza que empuja de una que retiene.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-producto-escalar-contexto-fuerza"
+    ]
+  },
+  {
+    "question": "Una fuerza $\\vec{F}=(5,2)$ actúa mientras un objeto se desplaza según $\\vec{d}=(3,6)$.\n\n¿Cuánto de esa fuerza aporta al desplazamiento?",
+    "options": [
+      "$15$",
+      "$-3$",
+      "$27$",
+      "$16$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Quince más doce da veintisiete.",
+    "feedback_incorrect": [
+      "Ahí quedó solo el primer término, sin sumarle el segundo.",
+      "Ahí los términos se restaron en vez de sumarse.",
+      null,
+      "Ahí se sumaron las componentes de los dos vectores en vez de multiplicarlas por pares."
+    ],
+    "explanation": "Los dos ejes aportan a favor, así que los dos términos son positivos y se acumulan.\n$$5 \\cdot 3 + 2 \\cdot 6 = 15 + 12 = 27$$\nEl resultado positivo grande indica que la fuerza y el desplazamiento apuntan bastante en la misma dirección.\n\nUna misma fuerza aporta más cuanto más alineada esté con el movimiento, y su aporte máximo se alcanza cuando coinciden.\n\nComparar este resultado con el de una fuerza perpendicular, que da cero, muestra el rango completo de la operación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-producto-escalar-contexto-fuerza"
+    ]
+  },
+  {
+    "question": "Dado $\\vec{v}=(7,-4)$.\n\n¿Cuánto vale $\\vec{v}\\cdot(0,1)$?",
+    "options": [
+      "$-4$",
+      "$7$",
+      "$3$",
+      "$0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\vec{v}\\cdot(0,1) = (7)(0)+(-4)(1) = -4$: el producto escalar contra $(0,1)$ da la segunda componente de $\\vec{v}$.",
+    "feedback_incorrect": [
+      null,
+      "Esa es la primera componente de $\\vec{v}$; el vector $(0,1)$ selecciona la segunda, no la primera.",
+      "Esa suma las componentes de $\\vec{v}$ en vez de calcular el producto escalar contra $(0,1)$.",
+      "El producto escalar contra $(0,1)$ no anula el resultado: selecciona la segunda componente, no la elimina."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Multiplicar por el vector $(0,1)$ anula la primera componente y deja intacta la segunda.\n$$\\vec{v}\\cdot(0,1) = (7)(0)+(-4)(1) = -4$$\nPor eso el producto escalar contra $(0,1)$ siempre da exactamente la segunda componente del otro vector, cualquiera sea.\n\nDe la misma manera, multiplicar contra $(1,0)$ daría la primera componente.",
+    "reviewed": false,
+    "tags": [
+      "resl-producto-escalar-vector-unitario"
+    ]
+  },
+  {
+    "question": "Se conoce un vector del plano.\n$$\\vec{v}=(9,-5)$$\n¿Cuánto vale su producto escalar contra $(1,0)$?",
+    "options": [
+      "$0$",
+      "$9$",
+      "$-5$",
+      "$4$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Contra esa dirección sobrevive solo la primera componente.",
+    "feedback_incorrect": [
+      "El resultado sería nulo solo si la primera componente lo fuera.",
+      null,
+      "Ahí quedó la segunda componente, que es la que el cero anula.",
+      "Ahí se sumaron las dos componentes del vector."
+    ],
+    "explanation": "Multiplicar contra un vector con un uno y un cero selecciona una sola componente.\n$$9 \\cdot 1 + (-5) \\cdot 0 = 9$$\nEl cero anula por completo el término del segundo eje, y el uno deja el primero intacto.\n\nPor eso el producto escalar contra esa dirección devuelve directamente la primera componente.\n\nEs la forma más simple de ver que el producto escalar mide el aporte en una dirección concreta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-producto-escalar-vector-unitario"
+    ]
+  },
+  {
+    "question": "Se conoce un vector del plano.\n$$\\vec{v}=(-6,8)$$\n¿Cuánto vale su producto escalar contra $(0,1)$?",
+    "options": [
+      "$-6$",
+      "$2$",
+      "$0$",
+      "$8$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Contra esa dirección sobrevive solo la segunda componente.",
+    "feedback_incorrect": [
+      "Ahí quedó la primera componente, que es la que el cero anula.",
+      "Ahí se sumaron las dos componentes del vector.",
+      "El resultado sería nulo solo si la segunda componente lo fuera.",
+      null
+    ],
+    "explanation": "El cero de la primera posición anula el término del primer eje.\n$$(-6) \\cdot 0 + 8 \\cdot 1 = 8$$\nLo que queda es exactamente la componente del vector en el segundo eje.\n\nCambiar cuál de las dos posiciones lleva el uno cambia qué componente se selecciona.\n\nEse comportamiento es lo que después permite pensar cada componente como el aporte del vector en la dirección de un eje.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-producto-escalar-vector-unitario"
+    ]
+  },
+  {
+    "question": "Se conoce un vector del plano.\n$$\\vec{v}=(7,3)$$\n¿Cuánto vale su producto escalar contra $(1,0)$?",
+    "options": [
+      "$7$",
+      "$0$",
+      "$3$",
+      "$10$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El uno de esa dirección deja pasar la primera componente, y el cero anula la segunda.",
+    "feedback_incorrect": [
+      null,
+      "El resultado sería nulo solo si la primera componente lo fuera.",
+      "Ahí quedó la segunda componente, que es la que el cero anula.",
+      "Ahí se sumaron las dos componentes del vector."
+    ],
+    "explanation": "Contra un vector con un uno y un cero, uno de los dos términos se anula por completo.\n$$7 \\cdot 1 + 3 \\cdot 0 = 7$$\nEl uno en la primera posición conserva esa componente tal cual, y el cero borra la segunda.\n\nEl resultado coincide exactamente con la primera componente de $\\vec{v}$, sin necesidad de ningún otro cálculo.\n\nEse mecanismo es el que permite leer las componentes de cualquier vector como productos escalares contra los ejes.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-producto-escalar-vector-unitario"
+    ]
+  },
+  {
+    "question": "Se conoce un vector del espacio.\n$$\\vec{v}=(4,-2,6)$$\n¿Cuánto vale su producto escalar contra $(0,0,1)$?",
+    "options": [
+      "$-2$",
+      "$8$",
+      "$6$",
+      "$4$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Contra esa dirección sobrevive solo la tercera componente.",
+    "feedback_incorrect": [
+      "Ahí quedó la segunda componente, que es la que el segundo cero anula.",
+      "Ahí se sumaron las tres componentes del vector.",
+      null,
+      "Ahí quedó la primera componente, que es la que el primer cero anula."
+    ],
+    "explanation": "Los dos ceros anulan los términos de sus ejes y el uno deja pasar el que le corresponde.\n$$4 \\cdot 0 + (-2) \\cdot 0 + 6 \\cdot 1 = 6$$\nEl resultado es la componente vertical del vector, o sea su aporte en esa dirección.\n\nEl mismo mecanismo funciona en cualquier dimensión: el uno selecciona y los ceros descartan.\n\nPor eso las componentes de un vector se pueden leer como sus productos escalares contra cada dirección básica.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-producto-escalar-vector-unitario"
+    ]
   }
 ]

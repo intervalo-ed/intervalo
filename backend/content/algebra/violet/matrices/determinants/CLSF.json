@@ -1,0 +1,371 @@
+[
+  {
+    "question": "Algunos determinantes se pueden dar por nulos sin hacer ninguna cuenta, mirando solo la relación entre las filas.\n\n¿Cuál de estas matrices tiene determinante cero?",
+    "options": [
+      "$\\begin{pmatrix} 2 & 6 \\\\ 1 & 3 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 2 & 6 \\\\ 3 & 1 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 2 & 3 \\\\ 1 & 6 \\end{pmatrix}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La primera fila es exactamente el doble de la segunda, así que las dos direcciones quedan sobre la misma recta.",
+    "feedback_incorrect": [
+      null,
+      "Ninguna de esas dos filas se obtiene multiplicando a la otra por un número, así que apuntan a lados distintos.",
+      "Esas dos filas tampoco guardan una relación de múltiplo entre sí, y el área que determinan no se anula."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El determinante se anula cuando las filas quedan alineadas, es decir cuando una se obtiene multiplicando a la otra por un número.\n\nEn ese caso las dos direcciones que la matriz registra caen sobre la misma recta, y toda figura se aplasta contra ella.\n$$\\begin{pmatrix} 2 & 6 \\\\ 1 & 3 \\end{pmatrix}$$\nAcá la primera fila es el doble de la segunda, así que el determinante se puede dar por nulo antes de hacer ninguna resta.\n\nBuscar primero esta clase de relación ahorra el cálculo completo, y en matrices más grandes es la diferencia entre resolver de un vistazo y desarrollar varios términos.",
+    "reviewed": false,
+    "tags": [
+      "identificar-nulo-sin-calcular"
+    ]
+  },
+  {
+    "question": "Algunos determinantes se dan por nulos sin ninguna cuenta, mirando la relación entre las filas.\n\n¿Cuál de estas matrices tiene determinante cero?",
+    "options": [
+      "$\\begin{pmatrix} 3 & 1 \\\\ 9 & 4 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 3 & 9 \\\\ 1 & 3 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 3 & 9 \\\\ 1 & 4 \\end{pmatrix}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La primera fila es el triple de la segunda, así que las dos direcciones coinciden.",
+    "feedback_incorrect": [
+      "Las dos filas de esa matriz no son proporcionales entre sí.",
+      null,
+      "Las dos filas de esa matriz no son proporcionales entre sí."
+    ],
+    "explanation": "Cuando una fila es múltiplo de la otra, las dos describen la misma dirección.\n$$\\begin{pmatrix} 3 & 9 \\\\ 1 & 3 \\end{pmatrix}$$\nSin dos direcciones independientes no queda ninguna superficie, y el determinante se anula.\n\nEl chequeo es rápido: dividir las dos entradas de una fila por las de la otra y ver si da el mismo cociente.\n\nEn los otros dos casos esos cocientes no coinciden, así que las filas apuntan a direcciones distintas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-nulo-sin-calcular"
+    ]
+  },
+  {
+    "question": "Una matriz tiene una fila entera de ceros.\n$$\\begin{pmatrix} 4 & 7 \\\\ 0 & 0 \\end{pmatrix}$$\n¿Qué se puede afirmar sobre su determinante?",
+    "options": [
+      "Que vale cuatro, tomando la única fila que tiene datos",
+      "Que no se puede calcular teniendo una fila nula",
+      "Que vale cero, porque una dirección desapareció"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Una fila nula no aporta ninguna dirección, y sin dos direcciones no hay área.",
+    "feedback_incorrect": [
+      "El determinante combina las dos filas, no toma una sola.",
+      "El determinante se calcula igual: lo que ocurre es que da cero.",
+      null
+    ],
+    "explanation": "Cada fila describe una dirección, y una fila de ceros no describe ninguna.\n$$\\begin{pmatrix} 4 & 7 \\\\ 0 & 0 \\end{pmatrix}$$\nCon una sola dirección disponible no se puede formar ninguna superficie, así que el área es nula.\n\nEl cálculo lo confirma: los dos productos de la fórmula involucran un cero y se anulan.\n\nUna columna de ceros produce el mismo efecto, por la misma razón.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-nulo-sin-calcular"
+    ]
+  },
+  {
+    "question": "Una matriz tiene sus dos filas iguales entre sí.\n$$\\begin{pmatrix} 5 & 2 \\\\ 5 & 2 \\end{pmatrix}$$\n¿Qué se puede afirmar sobre su determinante?",
+    "options": [
+      "Que vale cero, porque las filas son la misma dirección",
+      "Que vale el doble del que daría una sola de las dos filas",
+      "Que vale la suma de las dos entradas de la primera fila"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Filas iguales es el caso más extremo de filas proporcionales.",
+    "feedback_incorrect": [
+      null,
+      "El determinante no se calcula a partir de una sola fila.",
+      "El determinante no es una suma de entradas."
+    ],
+    "explanation": "Dos filas iguales son un caso particular de filas proporcionales, con factor uno.\n$$\\begin{pmatrix} 5 & 2 \\\\ 5 & 2 \\end{pmatrix}$$\nLas dos describen exactamente la misma dirección, así que no determinan ninguna superficie.\n\nEl cálculo lo confirma: los dos productos de la fórmula dan lo mismo y se cancelan.\n\nReconocer filas iguales o proporcionales es el atajo más frecuente para dar un determinante por nulo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-nulo-sin-calcular"
+    ]
+  },
+  {
+    "question": "En una matriz del espacio, una fila es el doble de otra.\n$$\\begin{pmatrix} 1 & 2 & 3 \\\\ 2 & 4 & 6 \\\\ 0 & 5 & 1 \\end{pmatrix}$$\n¿Qué se puede afirmar sobre su determinante?",
+    "options": [
+      "Que no se puede anticipar sin desarrollar el cálculo",
+      "Que vale cero, porque una dirección se repite en otra",
+      "Que vale la suma de los determinantes de las submatrices"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La segunda fila es el doble de la primera, así que las dos apuntan a la misma dirección y no queda volumen.",
+    "feedback_incorrect": [
+      "La relación entre las filas alcanza para anticiparlo sin ninguna cuenta.",
+      null,
+      "El determinante no se calcula sumando determinantes de submatrices."
+    ],
+    "explanation": "El determinante se anula cuando dos filas describen la misma dirección, aunque tengan distinta longitud.\n$$\\begin{pmatrix} 1 & 2 & 3 \\\\ 2 & 4 & 6 \\\\ 0 & 5 & 1 \\end{pmatrix}$$\nLa segunda fila es exactamente el doble de la primera, así que no aporta ninguna dirección nueva.\n\nCon dos de las tres direcciones alineadas, el cuerpo que determinan queda aplastado sobre un plano y pierde todo su volumen.\n\nReconocer esa proporción de un vistazo evita desarrollar el determinante por cofactores.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-nulo-sin-calcular"
+    ]
+  },
+  {
+    "question": "Una transformación del plano tiene determinante $-1$.\n\n¿Cómo se comporta con las áreas y con la orientación?",
+    "options": [
+      "Conserva las áreas e invierte la orientación",
+      "Achica las áreas y conserva la orientación",
+      "Conserva las áreas y también la orientación"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El valor absoluto vale uno, así que las áreas no cambian, y el signo negativo indica que el plano quedó espejado.",
+    "feedback_incorrect": [
+      null,
+      "Un factor de área menor a uno achicaría, pero acá el valor absoluto es exactamente uno.",
+      "La orientación se conserva solo con determinante positivo, y este es negativo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El determinante guarda dos informaciones a la vez, y conviene leerlas por separado.\n\nSu valor absoluto es el factor por el que se multiplican las áreas, y su signo dice si la orientación del plano se conservó o se invirtió.\n$$|-1| = 1$$\nCon valor absoluto uno, toda figura mantiene exactamente su área. El signo negativo agrega que el plano quedó dado vuelta.\n\nUna reflexión es el ejemplo típico: no deforma nada, pero lo que estaba a la izquierda pasa a estar a la derecha.\n\nLeer el signo como si midiera tamaño lleva a esperar figuras más chicas donde en realidad son idénticas a las originales.",
+    "reviewed": false,
+    "tags": [
+      "clasificar-el-efecto"
+    ]
+  },
+  {
+    "question": "Una transformación del plano tiene determinante $3$.\n$$\\det(A) = 3$$\n¿Cómo se comporta con las áreas y con la orientación?",
+    "options": [
+      "Conserva las áreas y triplica la orientación",
+      "Triplica las áreas y conserva la orientación",
+      "Triplica las áreas e invierte la orientación"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El valor absoluto tres triplica las áreas y el signo positivo conserva la orientación.",
+    "feedback_incorrect": [
+      "La orientación no se multiplica: se conserva o se invierte.",
+      null,
+      "La orientación se invierte solo con determinante negativo."
+    ],
+    "explanation": "El determinante informa dos cosas a la vez, con su valor absoluto y con su signo.\n$$\\det(A) = 3$$\nEl valor absoluto dice que las áreas quedan triplicadas.\n\nEl signo positivo dice que la orientación del plano se mantiene, sin reflexiones.\n\nLa orientación es una propiedad binaria: se conserva o se invierte, y no admite grados.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-el-efecto"
+    ]
+  },
+  {
+    "question": "Una transformación del plano tiene determinante $-2$.\n$$\\det(A) = -2$$\n¿Cómo se comporta con las áreas y con la orientación?",
+    "options": [
+      "Achica las áreas a la mitad e invierte la orientación",
+      "Duplica las áreas y conserva la orientación",
+      "Duplica las áreas e invierte la orientación"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El valor absoluto duplica las áreas y el signo negativo invierte la orientación.",
+    "feedback_incorrect": [
+      "El valor absoluto es dos, así que las áreas se duplican en vez de achicarse.",
+      "El signo es negativo, así que la orientación se invierte.",
+      null
+    ],
+    "explanation": "El signo y el valor absoluto se leen por separado, sin mezclarse.\n$$\\det(A) = -2$$\nEl valor absoluto vale dos, así que las áreas quedan duplicadas.\n\nEl signo negativo indica que además el plano queda dado vuelta.\n\nEl signo y el valor absoluto se leen por separado, y ninguno de los dos informa sobre el otro.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-el-efecto"
+    ]
+  },
+  {
+    "question": "Una transformación del plano tiene un determinante menor que uno.\n$$\\det(A) = \\tfrac{1}{2}$$\n¿Cómo se comporta con las áreas y con la orientación?",
+    "options": [
+      "Reduce las áreas a la mitad y conserva la orientación",
+      "Duplica las áreas y conserva la orientación",
+      "Reduce las áreas a la mitad e invierte la orientación"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Un valor absoluto menor que uno achica las áreas, y el signo positivo conserva la orientación.",
+    "feedback_incorrect": [
+      null,
+      "Un factor menor que uno achica, no agranda.",
+      "El signo es positivo, así que la orientación se conserva."
+    ],
+    "explanation": "Un determinante entre cero y uno indica que las áreas se achican.\n$$\\det(A) = \\tfrac{1}{2}$$\nEl factor es la mitad, así que cualquier figura pierde la mitad de su superficie.\n\nEl signo positivo indica que la orientación se mantiene, sin reflexión.\n\nAchicar no es lo mismo que aplastar: mientras el determinante no sea cero, siempre queda superficie.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-el-efecto"
+    ]
+  },
+  {
+    "question": "Una transformación del plano tiene determinante $0$.\n$$\\det(A) = 0$$\n¿Cómo se comporta con las áreas y con la orientación?",
+    "options": [
+      "Achica mucho las áreas y conserva la orientación",
+      "Anula las áreas, y la orientación deja de tener sentido",
+      "Conserva las áreas e invierte la orientación"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sin superficie no hay figura a la que atribuirle una orientación.",
+    "feedback_incorrect": [
+      "El cero no achica: anula por completo.",
+      null,
+      "El valor absoluto es cero, así que las áreas no se conservan."
+    ],
+    "explanation": "Un determinante nulo aplasta el plano y todas las figuras pierden su superficie.\n$$\\det(A) = 0$$\nSin superficie no queda ninguna figura orientada, así que preguntar por la orientación deja de tener sentido.\n\nEs el único valor del determinante para el que la lectura del signo no aporta nada.\n\nTambién es el único caso en que la transformación no se puede deshacer.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-el-efecto"
+    ]
+  },
+  {
+    "question": "El determinante de una matriz vale $7$.\n\nSe le suma a la primera fila el doble de la segunda, y el determinante sigue valiendo $7$.\n\n¿Qué propiedad lo explica?",
+    "options": [
+      "Sumarle a una fila un múltiplo de otra no altera el determinante",
+      "Permutar dos filas cualesquiera no altera el determinante",
+      "Multiplicar una fila por un número no altera el determinante"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Esa operación desplaza una dirección a lo largo de la otra, lo que inclina el paralelogramo sin cambiar su área.",
+    "feedback_incorrect": [
+      null,
+      "Permutar dos filas sí altera el determinante: le cambia el signo.",
+      "Multiplicar una fila por un número multiplica el determinante por ese mismo número."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Sumarle a una fila un múltiplo de otra es la única de las tres operaciones elementales que deja el determinante intacto, y tiene una razón geométrica clara.\n\nDesplazar una de las direcciones a lo largo de la otra inclina el paralelogramo que forman, pero no cambia ni su base ni su altura.\n$$\\det(A) = 7$$\nComo el área se conserva, el determinante también.\n\nLas otras dos operaciones sí lo modifican de forma previsible: permutar dos filas le cambia el signo, y multiplicar una fila por un número lo multiplica por ese número.\n\nSaber cuál de las tres conserva el valor es lo que permite simplificar una matriz antes de calcular, en vez de desarrollar todos los términos.",
+    "reviewed": false,
+    "tags": [
+      "elegir-la-propiedad-que-aplica"
+    ]
+  },
+  {
+    "question": "El determinante de una matriz vale $6$.\n\nSe intercambian sus dos filas y el determinante pasa a valer $-6$.\n\n¿Qué propiedad se aplicó?",
+    "options": [
+      "Permutar dos filas multiplica el determinante por dos",
+      "Permutar dos filas cambia el signo del determinante",
+      "Permutar dos filas no altera el valor del determinante"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Intercambiar dos filas invierte la orientación, y eso cambia el signo.",
+    "feedback_incorrect": [
+      "El valor absoluto no cambia al permutar: lo único que cambia es el signo.",
+      null,
+      "El valor absoluto se conserva, pero el signo no."
+    ],
+    "explanation": "Intercambiar dos filas equivale a invertir el orden de dos direcciones.\n$$\\det(A) = 6 \\to -6$$\nLa superficie que determinan es la misma, así que el valor absoluto no cambia.\n\nLo que cambia es la orientación, y eso se refleja en el signo del determinante.\n\nEs la propiedad que explica por qué el determinante de una matriz con dos filas iguales tiene que ser cero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-la-propiedad-que-aplica"
+    ]
+  },
+  {
+    "question": "El determinante de una matriz del plano vale $5$.\n\nSe multiplica su primera fila por $3$ y el determinante pasa a valer $15$.\n\n¿Qué propiedad se aplicó?",
+    "options": [
+      "Multiplicar una fila por un número no altera el determinante",
+      "Multiplicar una fila por un número eleva el determinante a ese exponente",
+      "Multiplicar una fila por un número multiplica el determinante por ese número"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Estirar una sola dirección multiplica el área una sola vez.",
+    "feedback_incorrect": [
+      "El determinante sí se altera: queda multiplicado por el mismo número.",
+      "El exponente aparece cuando se multiplican todas las filas a la vez.",
+      null
+    ],
+    "explanation": "Cada fila describe una dirección, y estirarla multiplica el área por ese factor.\n$$\\det(A) = 5 \\to 15$$\nComo se estira una sola dirección, el factor entra una sola vez.\n\nSi se multiplicaran las dos filas, el factor entraría dos veces y aparecería elevado al cuadrado.\n\nEsa diferencia entre una fila y la matriz entera es la que explica el exponente de la propiedad del escalar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-la-propiedad-que-aplica"
+    ]
+  },
+  {
+    "question": "El determinante de una matriz del espacio vale $-4$.\n\nSe intercambian su primera y su tercera fila, y el determinante pasa a valer $4$.\n\n¿Qué propiedad se aplicó?",
+    "options": [
+      "Sumarle a una fila un múltiplo de otra no altera el determinante",
+      "Multiplicar una fila por un número multiplica el determinante por ese número",
+      "Permutar dos filas cambia el signo del determinante, sin tocar su valor absoluto"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Intercambiar dos filas invierte la orientación de las direcciones, y eso cambia el signo sin tocar el valor absoluto.",
+    "feedback_incorrect": [
+      "Sumar un múltiplo de otra fila no habría cambiado nada, y acá el valor cambió de signo.",
+      "Multiplicar por un número también cambiaría el valor absoluto, y acá se mantuvo en cuatro.",
+      null
+    ],
+    "explanation": "Intercambiar dos filas invierte el orden de dos direcciones, y esa inversión es justamente lo que el signo del determinante registra.\n$$\\det(A) = -4 \\to 4$$\nEl valor absoluto no cambió, así que ninguna dirección se estiró ni se combinó con otra.\n\nSolo cambió el signo, y esa es la marca característica de haber permutado dos filas.\n\nLas otras dos operaciones elementales no producen este efecto: sumar un múltiplo de otra fila no altera nada, y multiplicar una fila por un número también cambia el valor absoluto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-la-propiedad-que-aplica"
+    ]
+  },
+  {
+    "question": "El determinante de una matriz vale $10$.\n\nSe le suma a la segunda fila el triple de la primera, y el determinante sigue valiendo $10$.\n\n¿Qué propiedad lo explica?",
+    "options": [
+      "Sumarle a una fila un múltiplo de otra no altera el determinante",
+      "Multiplicar una fila por un número no altera el determinante",
+      "Permutar dos filas cualesquiera no altera el determinante"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Desplazar una dirección a lo largo de otra inclina el paralelogramo sin cambiar su base ni su altura, así que el área queda igual.",
+    "feedback_incorrect": [
+      null,
+      "Multiplicar una fila por un número sí altera el determinante: lo multiplica por ese mismo número.",
+      "Permutar dos filas sí altera el determinante: le cambia el signo."
+    ],
+    "explanation": "Sumarle a una fila un múltiplo de otra es la única de las tres operaciones elementales que deja el determinante intacto.\n$$\\det(A) = 10$$\nGeométricamente, esa operación inclina el paralelogramo que forman las direcciones, pero no cambia su base ni su altura.\n\nComo el área no cambia, el determinante tampoco.\n\nLas otras dos operaciones sí lo modifican de forma previsible: multiplicar una fila lo escala por ese número, y permutar dos filas le cambia el signo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-la-propiedad-que-aplica"
+    ]
+  }
+]

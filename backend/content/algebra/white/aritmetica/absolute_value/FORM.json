@@ -1,24 +1,407 @@
 [
   {
-    "question": "Se quiere resolver la inecuación $|x - 3| < 5$.\n\n¿Qué expresión equivalente corresponde plantear antes de despejar $x$?",
+    "question": "Se quiere resolver la ecuación $|2x+1|=9$.\n\n¿Qué corresponde plantear antes de despejar $x$?",
     "options": [
-      "$-5 < x - 3 < 5$",
-      "$x - 3 < 5$ o $x - 3 < -5$",
-      "$x - 3 = 5$ o $x - 3 = -5$",
-      "$x - 3 > -5$ y $x - 3 > 5$"
+      "$2x+1=9$ o $2x+1=-9$",
+      "$2x+1=9$",
+      "$-9<2x+1<9$",
+      "$2x+1=9$ y $2x+1=-9$"
     ],
     "correct_index": 0,
-    "feedback_correct": "La condición $|a| < b$ (con $b>0$) equivale a la doble desigualdad $-b < a < b$, que es el planteo correcto antes de despejar.",
+    "feedback_correct": "Un valor absoluto igual a un número positivo equivale a dos ecuaciones separadas por \"o\": $A=k$ o $A=-k$.",
     "feedback_incorrect": [
       null,
-      "Esa opción no combina ambas condiciones en una sola cadena de desigualdades, y usa \"o\" en vez de la doble desigualdad.",
-      "Esa opción plantea igualdades, pero el enunciado pide una inecuación con desigualdad estricta.",
-      "Los signos de esas desigualdades no corresponden a $|a| < b$."
+      "Esa opción deja afuera la rama negativa, así que se pierde una de las dos soluciones válidas.",
+      "Esa es la equivalencia de una desigualdad \"menor que\", no de una ecuación con igualdad.",
+      "Las dos ramas no se cumplen a la vez con \"y\": corresponde \"o\", porque $x$ satisface una condición o la otra, no ambas juntas."
     ],
-    "explanation": "Antes de resolver, hay que identificar la **expresión equivalente** a la desigualdad con valor absoluto.\n\nPara $|x-3| < 5$, la equivalencia $|a| < b \\iff -b < a < b$ da:\n$$-5 < x-3 < 5$$\nRecién sobre esa doble desigualdad se despeja $x$ sumando $3$ en cada tramo.\nUn error común es plantear la equivalencia con \"o\" en vez de una única cadena de desigualdades, que es la forma correcta cuando el valor absoluto es menor que una cota.",
+    "explanation": "Antes de despejar, hay que identificar la **equivalencia sin barras** de una ecuación con valor absoluto.\n\nEl valor absoluto mide una distancia al cero, y un número y su opuesto quedan siempre a la misma distancia, así que los dos pueden ser la cota que buscamos.\n\nPara $|2x+1|=9$, la equivalencia $|A|=k \\iff A=k \\text{ o } A=-k$ da:\n$$2x+1=9 \\text{ o } 2x+1=-9$$\nRecién sobre esas dos ecuaciones separadas se despeja $x$ en cada una.\n\nDejar solo una de las dos ramas, o unirlas con \"y\" en vez de \"o\", no captura correctamente las dos soluciones que admite la ecuación.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-equivalencia-ecuacion"
+    ]
+  },
+  {
+    "question": "Una ecuación con valor absoluto tiene siempre dos casos posibles.\n$$|x-7|=4$$\n¿Qué corresponde plantear antes de despejar?",
+    "options": [
+      "$x-7=4$ y $x-7=-4$",
+      "$x-7=4$ o $x-7=-4$",
+      "$x-7=4$",
+      "$-4<x-7<4$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El interior puede valer la cota o su opuesto, y los dos casos se plantean con \"o\".",
+    "feedback_incorrect": [
+      "Los dos casos no se cumplen a la vez: se cumple uno u otro.",
+      null,
+      "Ese planteo deja afuera el caso donde el interior es negativo.",
+      "Esa es la equivalencia de una desigualdad, no de una igualdad."
+    ],
+    "explanation": "El valor absoluto mide distancia al cero, así que una igualdad se cumple a los dos lados.\n$$|A| = k$$\n$$A = k \\quad \\text{o} \\quad A = -k$$\nCada caso se resuelve por separado y las dos soluciones son válidas.\n\nEl conector es \"o\" y no \"y\", porque una misma expresión no puede valer cuatro y menos cuatro a la vez.\n\nQuedarse con un solo caso pierde la mitad del conjunto solución.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-equivalencia-ecuacion"
+    ]
+  },
+  {
+    "question": "Una ecuación con valor absoluto puede no tener ninguna solución.\n$$|x+2|=-5$$\n¿Qué corresponde concluir?",
+    "options": [
+      "Que hay que plantear los dos casos, igual que con una cota positiva",
+      "Que la única solución es el valor que anula el interior",
+      "Que hay que cambiar el signo de la cota y resolver normalmente",
+      "Que no tiene solución, porque un valor absoluto nunca es negativo"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Una distancia al cero nunca puede dar un número negativo.",
+    "feedback_incorrect": [
+      "Plantear los dos casos daría soluciones que no cumplen la ecuación original.",
+      "Ese valor anula el interior, y el valor absoluto ahí vale cero, no menos cinco.",
+      "Cambiar el signo de la cota produce otra ecuación, no la que se pidió resolver.",
+      null
+    ],
+    "explanation": "El valor absoluto devuelve la distancia de un número al cero, y una distancia nunca es negativa.\n$$|A| \\geq 0$$\nPor eso ninguna expresión con valor absoluto puede igualar a un número negativo.\n\nConviene mirar el signo de la cota antes de plantear los casos: ahorra todo el desarrollo.\n\nPlantear los dos casos igual produce valores que, al verificarlos, no cumplen la ecuación original.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-equivalencia-ecuacion"
+    ]
+  },
+  {
+    "question": "Una ecuación con valor absoluto puede tener una sola solución.\n$$|3x-6|=0$$\n¿Qué corresponde plantear?",
+    "options": [
+      "$3x-6=0$, un único caso",
+      "$3x-6=0$ o $3x-6=-0$, dos casos distintos",
+      "$-0<3x-6<0$",
+      "Nada, porque la ecuación no tiene solución"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El cero es su propio opuesto, así que los dos casos se colapsan en uno solo.",
+    "feedback_incorrect": [
+      null,
+      "Los dos casos coinciden, porque el cero y su opuesto son el mismo número.",
+      "Esa es la equivalencia de una desigualdad, no de una igualdad.",
+      "Sí tiene solución: el valor que anula el interior cumple la ecuación."
+    ],
+    "explanation": "La cota cero es el caso frontera entre tener dos soluciones y no tener ninguna.\n$$|A| = 0 \\iff A = 0$$\nComo el opuesto del cero es el propio cero, los dos casos habituales se vuelven el mismo.\n\nPor eso este tipo de ecuación tiene exactamente una solución, que es la que anula el interior.\n\nCon cota positiva hay dos soluciones, con cota cero hay una, y con cota negativa no hay ninguna.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-equivalencia-ecuacion"
+    ]
+  },
+  {
+    "question": "Un coeficiente afuera del valor absoluto tiene que despejarse antes de plantear los casos.\n$$3|x-1|=12$$\n¿Qué corresponde hacer primero?",
+    "options": [
+      "Entrar el $3$ adentro del valor absoluto como un sumando",
+      "Restar $3$ a los dos lados y después abrir los dos casos",
+      "Dividir los dos lados por $3$, dejando el valor absoluto solo",
+      "Plantear directamente que $x-1$ vale $12$ o vale $-12$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La equivalencia de los dos casos vale cuando el valor absoluto está solo de un lado.",
+    "feedback_incorrect": [
+      "El coeficiente multiplica, así que no puede entrar como sumando.",
+      "Restar no despeja: el coeficiente está multiplicando al valor absoluto.",
+      null,
+      "Ahí el coeficiente quedó ignorado, y las soluciones resultan tres veces más lejanas."
+    ],
+    "explanation": "La equivalencia entre el valor absoluto y sus dos casos se aplica cuando queda solo de un lado.\n$$3|x-1| = 12 \\implies |x-1| = 4$$\nCon la cota ya despejada, los dos casos se plantean como siempre.\n\nLas soluciones quedan a cuatro unidades del uno, no a doce, que es lo que da ignorar el coeficiente.\n\nEl chequeo final es reemplazar los dos valores en la ecuación original, con el coeficiente incluido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-equivalencia-ecuacion"
+    ]
+  },
+  {
+    "question": "Se quiere resolver una inecuación con valor absoluto.\n$$|x-3|<5$$\n¿Qué expresión equivalente corresponde plantear antes de despejar $x$?",
+    "options": [
+      "$-5<x-3<5$",
+      "$x-3<-5$ o $x-3>5$",
+      "$0<x-3<5$",
+      "$-5<x+3<5$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Un valor absoluto menor que un número positivo equivale a la doble desigualdad $-k<A<k$, el planteo correcto antes de despejar.",
+    "feedback_incorrect": [
+      null,
+      "Esa es la equivalencia de $|A|>k$, que deja dos tramos separados; con $<$ la condición se cumple en una sola franja.",
+      "Ese planteo deja afuera los valores donde $x-3$ resulta negativo, que también cumplen la condición.",
+      "Lo que está adentro del valor absoluto es $x-3$, y la doble desigualdad tiene que envolver esa misma expresión."
+    ],
+    "explanation": "Antes de resolver, hay que identificar la **expresión equivalente** a la desigualdad con valor absoluto.\n\nPara $|x-3|<5$, la equivalencia $|A|<k \\iff -k<A<k$ da:\n$$-5<x-3<5$$\nRecién sobre esa doble desigualdad se despeja $x$ sumando $3$ en cada tramo.\n\nPlantear la equivalencia con \"o\" corresponde al caso $|A|>k$, donde la condición se cumple lejos del centro. Con $<$ se cumple en una única franja alrededor de él.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-equivalencia-menor"
+    ]
+  },
+  {
+    "question": "Una desigualdad de menor con valor absoluto describe una franja alrededor de un centro.\n$$|x+2|<7$$\n¿Qué expresión equivalente corresponde plantear?",
+    "options": [
+      "$-7<x-2<7$",
+      "$-7<x+2<7$",
+      "$x+2<-7$ o $x+2>7$",
+      "$0<x+2<7$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La condición se cumple entre las dos cotas, y eso se escribe como una sola cadena.",
+    "feedback_incorrect": [
+      "Lo que está adentro del valor absoluto es una suma, y la cadena tiene que envolver esa expresión.",
+      null,
+      "Esa es la equivalencia de una desigualdad de mayor, que deja dos tramos separados.",
+      "Ese planteo deja afuera los valores donde el interior resulta negativo."
+    ],
+    "explanation": "El valor absoluto mide distancia al cero, así que pedirlo menor que una cota es pedir estar cerca.\n$$|A| < k \\iff -k < A < k$$\nLa condición se cumple en un único tramo, centrado en el cero y limitado a los dos lados.\n\nPor eso se escribe como una sola cadena de desigualdades, y no como dos condiciones separadas.\n\nRecién sobre esa cadena se despeja la incógnita, restando en los tres tramos a la vez.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-equivalencia-menor"
+    ]
+  },
+  {
+    "question": "Una desigualdad de menor o igual admite también los extremos de la franja.\n$$|x-5| \\leq 3$$\n¿Qué expresión equivalente corresponde plantear?",
+    "options": [
+      "$-3 < x-5 < 3$",
+      "$x-5 \\leq -3$ o $x-5 \\geq 3$",
+      "$0 \\leq x-5 \\leq 3$",
+      "$-3 \\leq x-5 \\leq 3$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Los dos extremos entran, así que las dos desigualdades llevan el igual.",
+    "feedback_incorrect": [
+      "Ahí los extremos quedaron excluidos, cuando la desigualdad original los incluye.",
+      "Esa es la equivalencia de una desigualdad de mayor, que deja dos tramos separados.",
+      "Ese planteo deja afuera los valores donde el interior resulta negativo.",
+      null
+    ],
+    "explanation": "El tipo de desigualdad se conserva al pasar a la cadena: si el original incluye el igual, la cadena también.\n$$|A| \\leq k \\iff -k \\leq A \\leq k$$\nLos extremos corresponden a los puntos que están exactamente a la distancia de la cota.\n\nDespejando después, esos extremos definen un intervalo cerrado en lugar de uno abierto.\n\nCambiar el tipo de desigualdad en el camino deja afuera dos valores que sí cumplen la condición.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-equivalencia-menor"
+    ]
+  },
+  {
+    "question": "Un coeficiente adentro del valor absoluto no cambia la forma de la equivalencia.\n$$|2x-1|<9$$\n¿Qué expresión equivalente corresponde plantear?",
+    "options": [
+      "$-9<2x-1<9$",
+      "$-9<2x<9$",
+      "$-9<x-1<9$",
+      "$2x-1<-9$ o $2x-1>9$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La cadena envuelve a toda la expresión que estaba adentro del valor absoluto.",
+    "feedback_incorrect": [
+      null,
+      "Ahí desapareció el término independiente de la expresión interior.",
+      "Ahí desapareció el coeficiente de la incógnita.",
+      "Esa es la equivalencia de una desigualdad de mayor, que deja dos tramos separados."
+    ],
+    "explanation": "La equivalencia se aplica a la expresión completa que está adentro del valor absoluto, sea cual sea su forma.\n$$|A| < k \\iff -k < A < k$$\nRecién con la cadena planteada se despeja la incógnita, operando en los tres tramos a la vez.\n$$-8 < 2x < 10$$\nEl paso siguiente es dividir los tres tramos por el coeficiente, que acá es positivo y no invierte las desigualdades.\n\nSimplificar la expresión interior antes de plantear la cadena es lo que hace perder alguno de sus términos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-equivalencia-menor"
+    ]
+  },
+  {
+    "question": "Una desigualdad de menor puede no tener ninguna solución.\n$$|x+6|<-2$$\n¿Qué corresponde concluir?",
+    "options": [
+      "Que la solución es todo el conjunto de los números reales",
+      "Que hay que cambiar el signo de la cota y resolver normalmente",
+      "Que no tiene solución, porque un valor absoluto nunca es negativo",
+      "Que la solución es la franja entre menos dos y dos"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Ningún número tiene una distancia al cero menor que una cantidad negativa.",
+    "feedback_incorrect": [
+      "Ningún valor cumple la condición, así que el conjunto solución es vacío.",
+      "Cambiar el signo de la cota produce otra desigualdad, no la que se pidió resolver.",
+      null,
+      "Esa franja sale de una cota positiva, y acá la cota es negativa."
+    ],
+    "explanation": "El valor absoluto devuelve una distancia, y ninguna distancia puede ser menor que un número negativo.\n$$|A| \\geq 0 > -2$$\nPor eso la condición no se cumple para ningún valor de la incógnita, y el conjunto solución es vacío.\n\nMirar el signo de la cota antes de plantear la cadena resuelve el ejercicio sin ninguna cuenta.\n\nEl caso de mayor es el opuesto: con cota negativa la condición se cumple siempre, para todos los reales.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-equivalencia-menor"
+    ]
+  },
+  {
+    "question": "Se quiere resolver la inecuación $|x+4|>6$.\n\n¿Qué expresión equivalente corresponde plantear antes de despejar $x$?",
+    "options": [
+      "$x+4<-6$ o $x+4>6$",
+      "$-6<x+4<6$",
+      "$x+4<-6$ y $x+4>6$",
+      "$x+4=6$ o $x+4=-6$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Un valor absoluto mayor que un número positivo equivale a dos condiciones separadas por \"o\": $A<-k$ o $A>k$, dos regiones distintas.",
+    "feedback_incorrect": [
+      null,
+      "Esa es la doble desigualdad de una inecuación \"menor que\", no de una \"mayor que\": acá las dos regiones van separadas, no encadenadas.",
+      "Ningún valor cumple ambas condiciones al mismo tiempo, así que no corresponde unirlas con \"y\".",
+      "Esa es la equivalencia de una ecuación con igualdad, pero el enunciado pide una desigualdad estricta."
+    ],
+    "explanation": "Antes de resolver, hay que identificar la **expresión equivalente** a la desigualdad con valor absoluto.\n\nEl valor absoluto mide distancia al cero, y pedir que esa distancia supere una cota deja afuera toda la franja central: solo queda lo que está muy a la izquierda o muy a la derecha.\n\nPara $|x+4|>6$, la equivalencia $|A|>k \\iff A<-k \\text{ o } A>k$ da:\n$$x+4<-6 \\text{ o } x+4>6$$\nRecién sobre esas dos condiciones separadas se despeja $x$ en cada una.\n\nEncadenar ambas condiciones en una doble desigualdad, como en el caso \"menor que\", combina dos regiones que en realidad quedan separadas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-equivalencia-mayor"
+    ]
+  },
+  {
+    "question": "Una desigualdad de mayor con valor absoluto describe estar lejos de un centro.\n$$|x-3|>5$$\n¿Qué expresión equivalente corresponde plantear?",
+    "options": [
+      "$x-3>5$",
+      "$x-3<-5$ o $x-3>5$",
+      "$-5<x-3<5$",
+      "$x-3<-5$ y $x-3>5$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La condición se cumple en dos tramos separados, uno a cada lado del centro.",
+    "feedback_incorrect": [
+      "Ese planteo deja afuera el tramo donde el interior es muy negativo.",
+      null,
+      "Esa es la equivalencia de una desigualdad de menor, que describe una única franja.",
+      "Los dos tramos no se cumplen a la vez: se cumple uno u otro."
+    ],
+    "explanation": "Pedir que la distancia al cero supere una cota deja afuera toda la franja central.\n$$|A| > k \\iff A < -k \\text{ o } A > k$$\nLo que queda son dos tramos separados, uno hacia cada lado, y por eso el conector es \"o\".\n\nEl conjunto solución se escribe como una unión de dos intervalos, no como un intervalo único.\n\nUsar \"y\" en lugar de \"o\" pide que la expresión esté a los dos lados a la vez, algo imposible.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-equivalencia-mayor"
+    ]
+  },
+  {
+    "question": "Una desigualdad de mayor o igual incluye los dos puntos frontera.\n$$|x+1| \\geq 4$$\n¿Qué expresión equivalente corresponde plantear?",
+    "options": [
+      "$x+1 < -4$ o $x+1 > 4$",
+      "$-4 \\leq x+1 \\leq 4$",
+      "$x+1 \\geq 4$",
+      "$x+1 \\leq -4$ o $x+1 \\geq 4$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Los dos tramos llevan el igual, porque los puntos a distancia exacta también cumplen.",
+    "feedback_incorrect": [
+      "Ahí los extremos quedaron excluidos, cuando la desigualdad original los incluye.",
+      "Esa es la equivalencia de una desigualdad de menor, que describe una única franja.",
+      "Ese planteo deja afuera el tramo donde el interior es muy negativo.",
+      null
+    ],
+    "explanation": "El tipo de desigualdad se conserva en los dos tramos al pasar a la forma equivalente.\n$$|A| \\geq k \\iff A \\leq -k \\text{ o } A \\geq k$$\nLos puntos que están exactamente a la distancia de la cota cumplen la condición, así que entran.\n\nEl conjunto solución resulta una unión de dos intervalos cerrados en su extremo interior.\n\nPerder el igual al pasar a los dos tramos deja afuera precisamente los dos puntos frontera.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-equivalencia-mayor"
+    ]
+  },
+  {
+    "question": "Una desigualdad de mayor puede cumplirse para todos los números reales.\n$$|x-8|>-1$$\n¿Qué corresponde concluir?",
+    "options": [
+      "Que se cumple para todos los reales, porque el valor absoluto nunca es negativo",
+      "Que no tiene ninguna solución, justamente porque la cota es negativa",
+      "Que la solución son los dos tramos fuera del intervalo de menos uno a uno",
+      "Que hay que cambiarle el signo a la cota y resolver de la forma habitual"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Cualquier distancia al cero es mayor o igual que cero, y por lo tanto mayor que un negativo.",
+    "feedback_incorrect": [
+      null,
+      "El caso sin solución es el de menor con cota negativa, no el de mayor.",
+      "Esos tramos salen de una cota positiva, y acá la cota es negativa.",
+      "Cambiar el signo de la cota produce otra desigualdad, no la que se pidió resolver."
+    ],
+    "explanation": "El valor absoluto nunca es negativo, así que siempre supera a cualquier cota negativa.\n$$|A| \\geq 0 > -1$$\nLa condición se cumple para cualquier valor de la incógnita, y el conjunto solución son todos los reales.\n\nEs el caso espejo del de menor con cota negativa, que no tiene ninguna solución.\n\nLos dos se resuelven mirando el signo de la cota, antes de plantear ningún tramo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-equivalencia-mayor"
+    ]
+  },
+  {
+    "question": "Un coeficiente afuera del valor absoluto se despeja antes de plantear los tramos.\n$$2|x-4|>10$$\n¿Qué corresponde hacer primero?",
+    "options": [
+      "Entrar el $2$ adentro del valor absoluto como un sumando",
+      "Restar $2$ a los dos lados y después abrir los dos tramos",
+      "Dividir los dos lados por $2$, dejando el valor absoluto solo",
+      "Plantear directamente que $x-4$ es menor que $-10$ o mayor que $10$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La equivalencia de los dos tramos vale cuando el valor absoluto está solo de un lado.",
+    "feedback_incorrect": [
+      "El coeficiente multiplica, así que no puede entrar como sumando.",
+      "Restar no despeja: el coeficiente está multiplicando al valor absoluto.",
+      null,
+      "Ahí el coeficiente quedó ignorado, y los tramos resultan al doble de distancia."
+    ],
+    "explanation": "La equivalencia entre el valor absoluto y sus dos tramos se aplica cuando queda solo de un lado.\n$$2|x-4| > 10 \\implies |x-4| > 5$$\nCon la cota ya despejada, los dos tramos se plantean como siempre.\n\nEl coeficiente es positivo, así que dividir no invierte el sentido de la desigualdad.\n\nIgnorarlo deja los tramos al doble de distancia del centro, y el conjunto solución resulta más chico de lo que corresponde.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-equivalencia-mayor"
+    ]
   }
 ]

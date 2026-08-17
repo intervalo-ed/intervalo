@@ -1,6 +1,6 @@
 [
   {
-    "question": "¿Cuál es la norma de $\\vec{v} = (3, 4)$?",
+    "question": "Un ciclista se desplaza según el vector $\\vec{v}=(3,4)$, en km.\n\n¿Qué distancia recorrió en línea recta?",
     "options": [
       "$5$",
       "$7$",
@@ -9,16 +9,393 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$\\|\\vec{v}\\| = \\sqrt{3^2+4^2} = \\sqrt{25} = 5$.",
+    "feedback_correct": "$\\sqrt{3^2+4^2}=\\sqrt{25}=5$.",
     "feedback_incorrect": [
       null,
-      "Eso sale de sumar las componentes en vez de elevarlas al cuadrado.",
-      "Eso es la suma de los cuadrados, falta la raíz cuadrada final.",
-      "Faltó elevar cada componente al cuadrado antes de sumar."
+      "Eso suma las componentes en vez de elevarlas al cuadrado.",
+      "Eso es la suma de los cuadrados, sin la raíz cuadrada final.",
+      "Eso aplica la raíz sobre la suma de las componentes, no sobre la suma de sus cuadrados."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La norma se calcula elevando al cuadrado cada componente, sumando, y sacando raíz cuadrada.\n$$\\|\\vec{v}\\| = \\sqrt{3^2 + 4^2} = \\sqrt{9+16} = \\sqrt{25} = 5$$\n\nEste vector, $(3,4)$, es un caso clásico porque su norma da un número entero.\n\nUn error frecuente es olvidar la raíz cuadrada final y quedarse con la suma de los cuadrados.",
-    "reviewed": false
+    "explanation": "La norma se calcula elevando al cuadrado cada componente, sumando, y sacando raíz cuadrada.\n$$\\begin{aligned} \\|\\vec{v}\\| &= \\sqrt{3^2+4^2} \\\\ &= \\sqrt{9+16} \\\\ &= \\sqrt{25} = 5 \\end{aligned}$$\nEl ciclista recorrió $5$ km en línea recta.\n\nSumar las componentes sin elevarlas al cuadrado, u olvidar la raíz final, da un resultado que no representa la distancia real.",
+    "reviewed": false,
+    "tags": [
+      "resl-norma-directa"
+    ]
+  },
+  {
+    "question": "Un dron se desplaza según el vector $\\vec{v}=(5,12)$, en kilómetros.\n\n¿Qué distancia recorrió en línea recta?",
+    "options": [
+      "$\\sqrt{17}$",
+      "$13$",
+      "$17$",
+      "$169$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La raíz de veinticinco más ciento cuarenta y cuatro da trece.",
+    "feedback_incorrect": [
+      "Ahí se sumaron las componentes y recién después se tomó la raíz.",
+      null,
+      "Ahí se sumaron las componentes sin elevarlas al cuadrado.",
+      "Ahí quedó la suma de cuadrados sin sacarle la raíz."
+    ],
+    "explanation": "La norma se calcula elevando cada componente al cuadrado, sumando y sacando la raíz.\n$$\\|\\vec{v}\\| = \\sqrt{5^{2}+12^{2}} = \\sqrt{169}$$\nLa suma de cuadrados da ciento sesenta y nueve, cuya raíz es trece.\n\nEl resultado tiene que ser mayor que cada componente por separado y menor que su suma, y trece cumple las dos cosas.\n\nEse chequeo de rango detecta enseguida los dos errores más frecuentes, sumar sin elevar y olvidar la raíz.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-norma-directa"
+    ]
+  },
+  {
+    "question": "Un excursionista se desplaza según el vector $\\vec{v}=(9,12)$, en kilómetros.\n\n¿Qué distancia recorrió en línea recta?",
+    "options": [
+      "$21$",
+      "$225$",
+      "$\\sqrt{21}$",
+      "$15$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "La raíz de ochenta y uno más ciento cuarenta y cuatro da quince.",
+    "feedback_incorrect": [
+      "Ahí se sumaron las componentes sin elevarlas al cuadrado.",
+      "Ahí quedó la suma de cuadrados sin sacarle la raíz.",
+      "Ahí se sumaron las componentes y recién después se tomó la raíz.",
+      null
+    ],
+    "explanation": "Cada componente entra elevada al cuadrado, y la raíz se aplica al final sobre la suma completa.\n$$\\|\\vec{v}\\| = \\sqrt{9^{2}+12^{2}} = \\sqrt{225}$$\n$$\\sqrt{225} = 15$$\nEl resultado queda entre la componente mayor y la suma de las dos, como en cualquier triángulo rectángulo.\n\nTomar la raíz antes de sumar cambia por completo la cuenta, porque la raíz no se reparte sobre una suma.\n\nEse es el mismo motivo por el que la norma de una suma no es la suma de las normas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-norma-directa"
+    ]
+  },
+  {
+    "question": "Un vehículo se desplaza según el vector $\\vec{v}=(-6,8)$, en kilómetros.\n\n¿Qué distancia recorrió en línea recta?",
+    "options": [
+      "$10$",
+      "$2$",
+      "$-10$",
+      "$100$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El cuadrado borra el signo, así que la componente negativa aporta lo mismo que su opuesta.",
+    "feedback_incorrect": [
+      null,
+      "Ahí se sumaron las componentes con su signo, sin elevarlas al cuadrado.",
+      "Una distancia nunca es negativa: el cuadrado descarta el signo antes de sumar.",
+      "Ahí quedó la suma de cuadrados sin sacarle la raíz."
+    ],
+    "explanation": "El signo de una componente desaparece al elevarla al cuadrado, y por eso no afecta a la norma.\n$$\\|\\vec{v}\\| = \\sqrt{(-6)^{2}+8^{2}} = \\sqrt{100}$$\n$$\\sqrt{100} = 10$$\nEs coherente con lo que la norma mide: la distancia recorrida no depende de hacia qué lado se fue.\n\nUn vector y su opuesto tienen exactamente la misma norma, aunque apunten al revés.\n\nArrastrar el signo hasta el resultado daría una distancia negativa, que no significa nada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-norma-directa"
+    ]
+  },
+  {
+    "question": "Una lancha se desplaza según el vector $\\vec{v}=(8,15)$, en kilómetros.\n\n¿Qué distancia recorrió en línea recta?",
+    "options": [
+      "$289$",
+      "$\\sqrt{23}$",
+      "$17$",
+      "$23$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La raíz de sesenta y cuatro más doscientos veinticinco da diecisiete.",
+    "feedback_incorrect": [
+      "Ahí quedó la suma de cuadrados sin sacarle la raíz.",
+      "Ahí se sumaron las componentes y recién después se tomó la raíz.",
+      null,
+      "Ahí se sumaron las componentes sin elevarlas al cuadrado."
+    ],
+    "explanation": "La norma es la hipotenusa del triángulo rectángulo que forman las dos componentes.\n$$\\|\\vec{v}\\| = \\sqrt{8^{2}+15^{2}} = \\sqrt{289}$$\n$$\\sqrt{289} = 17$$\nDiecisiete es mayor que quince, que es el cateto más largo, y menor que veintitrés, que es la suma de los dos.\n\nEsa desigualdad vale siempre, y por eso sirve como chequeo rápido de cualquier norma.\n\nLos tríos de enteros que cierran exacto, como este, son los que permiten resolver de cabeza.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-norma-directa"
+    ]
+  },
+  {
+    "question": "Un repartidor va desde el punto $(1,2)$ hasta el punto $(4,6)$, en cuadras.\n\n¿Qué distancia recorrió en línea recta?",
+    "options": [
+      "$5$",
+      "$7$",
+      "$\\sqrt{7}$",
+      "$3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El vector entre los dos puntos es $(3,4)$, y su norma es $5$.",
+    "feedback_incorrect": [
+      null,
+      "Esa suma las diferencias en vez de elevarlas al cuadrado antes de sumar.",
+      "Esa sale de sumar las diferencias y recién ahí sacar la raíz, en vez de elevarlas al cuadrado primero.",
+      "Esa es solo la diferencia en la primera coordenada; falta la segunda."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La distancia entre dos puntos es la norma del vector que va de uno al otro.\n\nRestando las coordenadas del punto de llegada menos las del punto de partida se obtiene el vector del desplazamiento:\n$$\\vec{v} = (4-1,\\, 6-2) = (3,4)$$\nY su norma da la distancia recorrida:\n$$\\|\\vec{v}\\| = \\sqrt{3^2+4^2} = 5$$\nEl repartidor recorrió $5$ cuadras en línea recta.",
+    "reviewed": false,
+    "tags": [
+      "resl-distancia-entre-puntos"
+    ]
+  },
+  {
+    "question": "Un ciclista va desde el punto $(2,1)$ hasta el punto $(7,13)$, en cuadras.\n\n¿Qué distancia recorrió en línea recta?",
+    "options": [
+      "$\\sqrt{17}$",
+      "$13$",
+      "$17$",
+      "$23$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El vector diferencia es de cinco por doce, y su norma es trece.",
+    "feedback_incorrect": [
+      "Ahí se tomó la raíz de la suma de las diferencias, sin elevarlas antes.",
+      null,
+      "Ahí se sumaron las diferencias sin elevarlas al cuadrado.",
+      "Ahí se sumaron las cuatro coordenadas en vez de restarlas de a pares."
+    ],
+    "explanation": "La distancia entre dos puntos es la norma del vector que va de uno al otro.\n$$(7,13) - (2,1) = (5,12)$$\nEse vector diferencia se arma restando componente por componente, cada eje con el suyo.\n$$\\|(5,12)\\| = \\sqrt{169} = 13$$\nEl orden de la resta no importa para la distancia, porque el vector opuesto tiene la misma norma.\n\nLo que sí importa es restar coordenadas del mismo eje, no mezclarlas entre sí.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-distancia-entre-puntos"
+    ]
+  },
+  {
+    "question": "Un dron vuela desde el punto $(3,5)$ hasta el punto $(11,20)$, en kilómetros.\n\n¿Qué distancia recorrió en línea recta?",
+    "options": [
+      "$23$",
+      "$39$",
+      "$\\sqrt{23}$",
+      "$17$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El vector diferencia es de ocho por quince, y su norma es diecisiete.",
+    "feedback_incorrect": [
+      "Ahí se sumaron las diferencias sin elevarlas al cuadrado.",
+      "Ahí se sumaron las cuatro coordenadas en vez de restarlas de a pares.",
+      "Ahí se tomó la raíz de la suma de las diferencias, sin elevarlas antes.",
+      null
+    ],
+    "explanation": "Restar los dos puntos da el vector que los conecta, y su norma es la distancia buscada.\n$$(11,20) - (3,5) = (8,15)$$\nLas dos diferencias son los catetos del triángulo rectángulo que separa a los dos puntos.\n$$\\|(8,15)\\| = \\sqrt{289} = 17$$\nEl resultado supera a la mayor de las dos diferencias y queda por debajo de su suma.\n\nSumar las coordenadas en vez de restarlas responde otra pregunta, y no da ninguna distancia.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-distancia-entre-puntos"
+    ]
+  },
+  {
+    "question": "Un vehículo va desde el punto $(-1,2)$ hasta el punto $(5,10)$, en kilómetros.\n\n¿Qué distancia recorrió en línea recta?",
+    "options": [
+      "$10$",
+      "$14$",
+      "$16$",
+      "$\\sqrt{14}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El vector diferencia es de seis por ocho, y su norma es diez.",
+    "feedback_incorrect": [
+      null,
+      "Ahí se sumaron las diferencias sin elevarlas al cuadrado.",
+      "Ahí se sumaron las cuatro coordenadas en vez de restarlas de a pares.",
+      "Ahí se tomó la raíz de la suma de las diferencias, sin elevarlas antes."
+    ],
+    "explanation": "La coordenada negativa entra en la resta como cualquier otra, con su signo.\n$$(5,10) - (-1,2) = (6,8)$$\nRestar un número negativo suma, y por eso la primera diferencia da seis y no cuatro.\n$$\\|(6,8)\\| = \\sqrt{100} = 10$$\nEse es el punto donde más se pierde el signo, y conviene escribir la resta completa antes de operar.\n\nEl resultado final es positivo siempre, porque las diferencias se elevan al cuadrado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-distancia-entre-puntos"
+    ]
+  },
+  {
+    "question": "Un excursionista va desde el punto $(4,4)$ hasta el punto $(13,16)$, en kilómetros.\n\n¿Qué distancia recorrió en línea recta?",
+    "options": [
+      "$37$",
+      "$\\sqrt{21}$",
+      "$15$",
+      "$21$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El vector diferencia es de nueve por doce, y su norma es quince.",
+    "feedback_incorrect": [
+      "Ahí se sumaron las cuatro coordenadas en vez de restarlas de a pares.",
+      "Ahí se tomó la raíz de la suma de las diferencias, sin elevarlas antes.",
+      null,
+      "Ahí se sumaron las diferencias sin elevarlas al cuadrado."
+    ],
+    "explanation": "El vector que conecta los dos puntos sale de restarlos componente por componente.\n$$(13,16) - (4,4) = (9,12)$$\nSu norma es la distancia en línea recta, sin importar el camino que se haya recorrido en realidad.\n$$\\|(9,12)\\| = \\sqrt{225} = 15$$\nQuince es menor que veintiuno, que es lo que se recorrería yendo primero por un eje y después por el otro.\n\nEsa diferencia entre el camino recto y el camino por los ejes es lo que la norma cuantifica.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-distancia-entre-puntos"
+    ]
+  },
+  {
+    "question": "Dos drones parten del origen: uno llega al punto $(6,8)$ y el otro al punto $(5,12)$, en km.\n\n¿Cuál de los dos recorrió más distancia en línea recta?",
+    "options": [
+      "El segundo dron, aunque tenga menor componente en $x$",
+      "El primer dron, porque tiene mayor componente en $x$",
+      "Recorrieron la misma distancia, porque combinan una chica y una grande",
+      "El primer dron, porque tiene menor componente en $y$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El primer dron recorre $\\sqrt{6^2+8^2}=\\sqrt{100}$ km y el segundo $\\sqrt{5^2+12^2}=\\sqrt{169}$ km: como $169>100$, el segundo recorrió más.",
+    "feedback_incorrect": [
+      null,
+      "Tener una componente más grande en un solo eje no alcanza: hay que combinar las dos antes de comparar.",
+      "Las dos combinaciones dan resultados distintos, $100$ contra $169$; no son iguales.",
+      "Una componente más chica en $y$ no define la comparación por sí sola: hay que combinar ambas componentes."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Comparar distancias entre vectores requiere combinar las dos componentes de cada uno, no alcanza con mirar cada eje por separado.\n$$\\begin{aligned} \\|\\vec{v}_1\\|^2 &= 6^2+8^2 = 100 \\\\ \\|\\vec{v}_2\\|^2 &= 5^2+12^2 = 169 \\end{aligned}$$\nComparar estas dos sumas ya alcanza para decidir cuál norma es mayor, sin necesidad de calcular la raíz de cada una.\n\nAunque el segundo dron tiene una componente más chica, $5$ contra $6$, su otra componente es mucho más grande, y eso hace que su suma final sea mayor: el segundo dron recorrió más distancia.",
+    "reviewed": false,
+    "tags": [
+      "resl-comparacion-normas"
+    ]
+  },
+  {
+    "question": "Dos ciclistas parten del origen: uno llega al punto $(9,12)$ y el otro al punto $(8,15)$, en km.\n\n¿Cuál de los dos recorrió más distancia en línea recta?",
+    "options": [
+      "El primero, porque la suma de sus componentes es mayor",
+      "El segundo, aunque su primera componente sea más chica",
+      "El primero, porque su primera componente es más grande",
+      "Los dos recorrieron la misma distancia en línea recta"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Las normas son quince y diecisiete, así que el segundo recorrió más.",
+    "feedback_incorrect": [
+      "La suma de las componentes no es la norma, y acá ni siquiera coincide en el orden.",
+      null,
+      "Una sola componente no decide: hay que calcular las dos normas completas.",
+      "Las normas son distintas, quince contra diecisiete."
+    ],
+    "explanation": "Comparar dos vectores exige calcular las dos normas: ninguna componente suelta alcanza.\n$$\\|(9,12)\\| = 15 \\qquad \\|(8,15)\\| = 17$$\nEl segundo ciclista tiene la primera componente más chica y aun así recorre más, porque la segunda compensa de sobra.\n\nLa suma de las componentes tampoco sirve como atajo: da veintiuno y veintitrés, que en este caso ordena igual pero no siempre lo hace.\n\nEl único criterio confiable es la norma, porque es lo que efectivamente mide la distancia.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-comparacion-normas"
+    ]
+  },
+  {
+    "question": "Dos vehículos parten del origen: uno llega al punto $(5,12)$ y el otro al punto $(12,5)$, en km.\n\n¿Cuál de los dos recorrió más distancia en línea recta?",
+    "options": [
+      "El primero, porque su segunda componente es la más grande",
+      "El segundo, porque su primera componente es la más grande",
+      "No se puede saber sin conocer el camino que hizo cada uno",
+      "Los dos recorrieron la misma distancia en línea recta"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Las dos componentes están intercambiadas, y la suma de cuadrados no depende del orden.",
+    "feedback_incorrect": [
+      "Las dos normas coinciden: intercambiar las componentes no cambia la suma de cuadrados.",
+      "Las dos normas coinciden: intercambiar las componentes no cambia la suma de cuadrados.",
+      "La norma no depende del camino recorrido, solo del punto de llegada.",
+      null
+    ],
+    "explanation": "La norma suma los cuadrados de las componentes, y una suma no cambia si se reordenan sus términos.\n$$\\|(5,12)\\| = \\|(12,5)\\| = 13$$\nLos dos vectores son distintos y llegan a puntos distintos, pero están a la misma distancia del origen.\n\nEs un buen recordatorio de que la norma pierde información: dos vectores con la misma norma pueden apuntar a cualquier lado.\n\nLa distancia recorrida en línea recta depende solo del punto de llegada, no del recorrido real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-comparacion-normas"
+    ]
+  },
+  {
+    "question": "Dos excursionistas parten del origen: uno llega al punto $(7,24)$ y el otro al punto $(20,15)$, en km.\n\n¿Cuál de los dos recorrió más distancia en línea recta?",
+    "options": [
+      "Los dos recorrieron la misma distancia en línea recta",
+      "El primero, porque su segunda componente es mucho más grande",
+      "El segundo, porque sus dos componentes resultan más parejas",
+      "El segundo, porque la suma de sus componentes es mayor"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Las dos normas dan veinticinco, aunque las componentes no se parezcan en nada.",
+    "feedback_incorrect": [
+      null,
+      "Una componente grande no garantiza una norma mayor: la otra también interviene.",
+      "Que las componentes sean parejas no dice nada sobre la norma.",
+      "La suma de las componentes no es la norma: acá da treinta y uno contra treinta y cinco, y sin embargo las normas coinciden."
+    ],
+    "explanation": "Dos vectores muy distintos pueden estar exactamente a la misma distancia del origen.\n$$\\|(7,24)\\| = \\|(20,15)\\| = 25$$\nUno es casi vertical y el otro apunta en diagonal, y aun así los dos puntos caen sobre la misma circunferencia.\n\nLa suma de las componentes ordena los dos vectores al revés que la norma, así que no sirve como atajo.\n\nEse contraejemplo es la mejor razón para calcular siempre la norma completa antes de comparar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-comparacion-normas"
+    ]
+  },
+  {
+    "question": "Dos botes parten del origen: uno llega al punto $(3,4)$ y el otro al punto $(0,6)$, en km.\n\n¿Cuál de los dos recorrió más distancia en línea recta?",
+    "options": [
+      "Los dos recorrieron la misma distancia en línea recta",
+      "El primero, porque la suma de sus componentes es mayor",
+      "El segundo, aunque una de sus componentes sea nula",
+      "El primero, porque tiene sus dos componentes distintas de cero"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Las normas son cinco y seis, así que el segundo recorrió más.",
+    "feedback_incorrect": [
+      "Las normas son distintas, cinco contra seis.",
+      "La suma de las componentes da siete contra seis, y sin embargo la norma ordena al revés.",
+      null,
+      "Tener las dos componentes no nulas no garantiza una norma mayor."
+    ],
+    "explanation": "Un vector apoyado sobre un eje tiene norma igual al valor absoluto de su única componente no nula.\n$$\\|(3,4)\\| = 5 \\qquad \\|(0,6)\\| = 6$$\nEl segundo recorre más, aunque a simple vista parezca más simple por tener un cero.\n\nLa suma de las componentes ordena los dos vectores al revés que la norma, y por eso no sirve como criterio.\n\nEl cero es una componente como cualquier otra: aporta un cuadrado nulo, no invalida la cuenta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "resl-comparacion-normas"
+    ]
   }
 ]

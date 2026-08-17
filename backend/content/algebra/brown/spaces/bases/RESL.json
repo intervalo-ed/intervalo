@@ -1,24 +1,401 @@
 [
   {
-    "question": "Si $B=\\{(1,1),(1,-1)\\}$ es base de $\\mathbb{R}^2$, ¿qué coeficientes escriben a $(4,2)$ como combinación de $B$?",
+    "question": "Una base del plano distinta de la canónica sirve como sistema de referencia.\n$$B = \\{(1,1), (1,-1)\\}$$\n¿Cuáles son las coordenadas del vector $(6,2)$ en esa base?",
     "options": [
-      "$a=3,\\ b=1$",
-      "$a=1,\\ b=3$",
-      "$a=2,\\ b=2$",
-      "$a=4,\\ b=2$"
+      "$(4, 2)$",
+      "$(6, 2)$",
+      "$(2, 4)$",
+      "$(3, 1)$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Resolviendo $a+b=4$ y $a-b=2$: $a=3$, $b=1$.",
+    "feedback_correct": "Cuatro veces el primer vector más dos veces el segundo reconstruye exactamente $(6,2)$.",
     "feedback_incorrect": [
       null,
-      "Los valores de $a$ y $b$ quedaron intercambiados.",
-      "Esos valores no satisfacen ambas ecuaciones a la vez.",
-      "Esos son directamente las componentes de $(4,2)$, no los coeficientes de la combinación."
+      "Esas son las componentes del vector, que solo coinciden con las coordenadas en la base canónica.",
+      "Los dos coeficientes quedaron cruzados, y así la segunda componente daría menos dos.",
+      "Esos coeficientes son la mitad de los correctos y reconstruyen $(3,1)$."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para expresar un vector en una base distinta a la canónica, se plantea un sistema con las componentes del vector.\n$$a(1,1)+b(1,-1) = (4,2) \\Rightarrow a+b=4,\\ a-b=2$$\n\nSumando ambas ecuaciones, $2a=6$, entonces $a=3$; reemplazando, $b=1$.\n\nUn error común es tomar directamente las componentes del vector como los coeficientes, sin resolver el sistema que impone la base elegida.",
-    "reviewed": false
+    "explanation": "Las **coordenadas** de un vector en una base son los coeficientes que lo arman a partir de ella, así que hallarlas es resolver un sistema de ecuaciones.\n$$\\alpha_1(1,1) + \\alpha_2(1,-1) = (6,2)$$\nLa primera componente pide que los coeficientes sumen seis y la segunda que resten dos. Sumando las dos ecuaciones sale el primero, y de ahí el segundo.\n$$[\\vec{v}]_B = (4, 2)$$\nEl vector no cambió, sigue siendo el mismo punto del plano. Lo que cambió es desde qué par de direcciones se lo mide.\n\nSi tomás las componentes como si ya fueran las coordenadas, estás usando una costumbre que solo vale en la base canónica.",
+    "reviewed": false,
+    "tags": [
+      "hallar-las-coordenadas"
+    ]
+  },
+  {
+    "question": "Un vector del plano se quiere describir desde otro par de direcciones.\n$$B = \\{(2,1), (1,1)\\}$$\n¿Cuáles son las coordenadas del vector $(5,3)$ en esa base?",
+    "options": [
+      "$(3, 2)$",
+      "$(2, 1)$",
+      "$(5, 3)$",
+      "$(1, 2)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Dos veces el primer vector más una vez el segundo reconstruye exactamente $(5,3)$.",
+    "feedback_incorrect": [
+      "Con esos coeficientes el resultado es $(8,5)$, bastante lejos del vector buscado.",
+      null,
+      "Esas son las componentes del vector, que solo coinciden con las coordenadas en la base más simple.",
+      "Los dos coeficientes quedaron cruzados, y así se llega a $(4,3)$."
+    ],
+    "explanation": "Hallar las coordenadas es resolver el sistema que da los coeficientes de la combinación.\n$$\\alpha_1(2,1) + \\alpha_2(1,1) = (5,3)$$\nLa primera componente pide que el doble del primer coeficiente más el segundo dé cinco, y la segunda que los dos sumen tres.\n$$[\\vec{v}]_B = (2, 1)$$\nRestando la segunda ecuación de la primera se obtiene el primer coeficiente de inmediato.\n\nEl vector no cambió, sigue siendo el mismo punto del plano. Lo que cambió es desde qué par de direcciones se lo mide.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-las-coordenadas"
+    ]
+  },
+  {
+    "question": "Una de las coordenadas de un vector en cierta base resulta negativa.\n$$B = \\{(1,0), (1,1)\\}$$\n¿Cuáles son las coordenadas del vector $(3,5)$ en esa base?",
+    "options": [
+      "$(3, 5)$",
+      "$(5, -2)$",
+      "$(2, 5)$",
+      "$(-2, 5)$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "La segunda componente fija el segundo coeficiente en cinco, y el primero queda negativo.",
+    "feedback_incorrect": [
+      "Esas son las componentes del vector, que no son sus coordenadas en esta base.",
+      "Los dos coeficientes quedaron cruzados, y así el resultado es $(0,-2)$.",
+      "Con el primer coeficiente positivo la primera componente daría siete, no tres.",
+      null
+    ],
+    "explanation": "Cuando un vector de la base tiene una coordenada nula, el sistema se resuelve casi de un vistazo.\n$$\\alpha_1(1,0) + \\alpha_2(1,1) = (3,5)$$\nLa segunda componente solo recibe del segundo vector, así que ese coeficiente queda determinado de entrada.\n$$[\\vec{v}]_B = (-2, 5)$$\nReemplazando en la primera componente se despeja el otro coeficiente, que resulta negativo.\n\nNada impide que una coordenada sea negativa: significa que hay que restar esa dirección en lugar de sumarla.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-las-coordenadas"
+    ]
+  },
+  {
+    "question": "Un vector del plano se mide desde la base canónica, la formada por los dos vectores más simples.\n$$E_2 = \\{(1,0), (0,1)\\}$$\n¿Cuáles son las coordenadas del vector $(4,-3)$ en esa base?",
+    "options": [
+      "$(4, -3)$",
+      "$(-3, 4)$",
+      "$(4, 3)$",
+      "$(1, -1)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "En esta base los coeficientes coinciden con las componentes, y eso es propio de ella.",
+    "feedback_incorrect": [
+      null,
+      "Los dos coeficientes quedaron cruzados, y así se llega a $(-3,4)$.",
+      "El signo de la segunda coordenada se perdió, y el vector tiene la segunda componente negativa.",
+      "Esos coeficientes reconstruyen $(1,-1)$, que es otro vector del plano."
+    ],
+    "explanation": "La base canónica es la única donde las coordenadas coinciden con las componentes de siempre, y conviene ver por qué.\n$$4(1,0) - 3(0,1) = (4,-3)$$\nCada vector de la base aporta a una sola componente, así que el coeficiente que le corresponde es directamente el valor de esa componente.\n\nEn cualquier otra base eso deja de pasar, porque los vectores mezclan sus aportes.\n\nEsa comodidad es lo único que distingue a $E_2$ de las demás bases, y es la razón por la que se la usa sin aclararlo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-las-coordenadas"
+    ]
+  },
+  {
+    "question": "Un plano que pasa por el origen tiene una base de dos vectores.\n$$B = \\{(1,0,1), (0,1,1)\\}$$\n¿Cuáles son las coordenadas del vector $(2,3,5)$ en esa base?",
+    "options": [
+      "$(3, 2)$",
+      "$(2, 5)$",
+      "$(2, 3)$",
+      "$(2, 3, 5)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Las dos primeras componentes fijan los coeficientes, y la tercera confirma que cierran.",
+    "feedback_incorrect": [
+      "Los dos coeficientes quedaron cruzados, y así el resultado es $(3,2,5)$.",
+      "La última componente no es un coeficiente, es el resultado de sumar los dos aportes.",
+      null,
+      "Las coordenadas se cuentan por vector de la base, y la base tiene dos vectores."
+    ],
+    "explanation": "Cuando la base describe un subespacio, las coordenadas tienen tantos números como vectores tenga la base, no como componentes tengan los vectores.\n$$2(1,0,1) + 3(0,1,1) = (2,3,5)$$\nLos dos primeros lugares reciben cada uno de un solo vector, así que los coeficientes se leen de ahí.\n$$[\\vec{v}]_B = (2, 3)$$\nEl último lugar recibe de los dos, y sirve para verificar: dos más tres da cinco, así que el vector pertenece al plano.\n\nUn vector de tres componentes queda entonces descripto con dos números, porque vive en un plano y no en todo el espacio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-las-coordenadas"
+    ]
+  },
+  {
+    "question": "Un vector está dado por sus coordenadas en una base que no es la canónica.\n$$B = \\{(2,1), (1,3)\\}, \\quad [\\vec{v}]_B = (3, 1)$$\n¿Qué vector del plano es?",
+    "options": [
+      "$(7, 6)$",
+      "$(3, 1)$",
+      "$(3, 4)$",
+      "$(6, 3)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Tres veces $(2,1)$ da $(6,3)$, y sumándole $(1,3)$ se llega a $(7,6)$.",
+    "feedback_incorrect": [
+      null,
+      "Esas son las coordenadas dadas, que no son las componentes salvo en la base canónica.",
+      "Ahí los dos vectores de la base se sumaron sin aplicar los coeficientes.",
+      "Ese es solo el primer término de la combinación, falta sumarle el segundo vector."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Recuperar el vector desde sus coordenadas es armar la combinación, que es el camino inverso al de hallarlas y mucho más corto.\n\nCada coordenada dice cuánto tomar del vector de la base que le corresponde.\n$$3(2,1) + 1(1,3) = (6,3) + (1,3)$$\n$$\\vec{v} = (7,6)$$\nAcá se ve bien por qué las coordenadas son instrucciones y no una segunda identidad del vector. El par $(3,1)$ y el par $(7,6)$ describen el mismo objeto, leído desde bases distintas.\n\nPor eso escribir un par de números sin decir en qué base está es ambiguo, y solo se omite cuando se sobreentiende que la base es la canónica.",
+    "reviewed": false,
+    "tags": [
+      "recuperar-el-vector"
+    ]
+  },
+  {
+    "question": "Un vector está dado por sus coordenadas en una base del plano.\n$$B = \\{(1,1), (1,-1)\\}$$\n$$[\\vec{v}]_B = (2, 3)$$\n¿Qué vector del plano es?",
+    "options": [
+      "$(3, 5)$",
+      "$(5, -1)$",
+      "$(2, 3)$",
+      "$(5, 1)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Dos veces el primero da $(2,2)$, y sumándole tres veces el segundo se llega a $(5,-1)$.",
+    "feedback_incorrect": [
+      "Ahí los dos coeficientes quedaron cruzados entre los vectores de la base.",
+      null,
+      "Esas son las coordenadas dadas, que no son las componentes salvo en la base canónica.",
+      "El segundo vector de la base tiene la segunda componente negativa, así que el resultado resta."
+    ],
+    "explanation": "Recuperar el vector desde sus coordenadas es armar la combinación, que es el camino inverso al de hallarlas.\n$$2(1,1) + 3(1,-1) = (2,2) + (3,-3)$$\nCada coordenada dice cuánto tomar del vector de la base que le corresponde.\n$$\\vec{v} = (5,-1)$$\nLa segunda componente es donde más se falla, porque el segundo vector de la base aporta en negativo.\n\nEl par de coordenadas y el par de componentes describen el mismo objeto leído desde bases distintas, y por eso no se parecen entre sí.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "recuperar-el-vector"
+    ]
+  },
+  {
+    "question": "Un plano que pasa por el origen tiene una base de dos vectores y se conocen unas coordenadas.\n$$B = \\{(1,0,1), (0,1,1)\\}$$\n$$[\\vec{v}]_B = (4, 2)$$\n¿Qué vector del espacio es?",
+    "options": [
+      "$(4, 2)$",
+      "$(4, 2, 2)$",
+      "$(2, 4, 6)$",
+      "$(4, 2, 6)$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Cuatro veces el primero más dos veces el segundo da esa terna.",
+    "feedback_incorrect": [
+      "El vector vive en $\\mathbb{R}^3$, así que tiene tres componentes.",
+      "La última componente recibe de los dos vectores, así que suma cuatro más dos.",
+      "Ahí los dos coeficientes quedaron cruzados entre los vectores de la base.",
+      null
+    ],
+    "explanation": "Las coordenadas tienen dos números porque la base tiene dos vectores, y el resultado tiene tres componentes porque vive en $\\mathbb{R}^3$.\n$$\\begin{aligned} &4(1,0,1) + 2(0,1,1) \\\\ &= (4,0,4) + (0,2,2) \\end{aligned}$$\nSumando los dos aportes se obtiene la terna buscada.\n$$\\vec{v} = (4,2,6)$$\nLa última componente es la que más se equivoca, porque los dos vectores de la base aportan ahí.\n\nEse vector pertenece al plano generado por la base, y cualquier otra elección de coordenadas produce otro punto del mismo plano.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "recuperar-el-vector"
+    ]
+  },
+  {
+    "question": "Un vector está dado por sus coordenadas en la base canónica del plano.\n$$E_2 = \\{(1,0), (0,1)\\}$$\n$$[\\vec{v}]_{E_2} = (3, -2)$$\n¿Qué vector del plano es?",
+    "options": [
+      "$(3, -2)$",
+      "$(-2, 3)$",
+      "$(3, 2)$",
+      "$(1, 1)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "En esta base los coeficientes coinciden con las componentes del vector.",
+    "feedback_incorrect": [
+      null,
+      "Ahí los dos coeficientes quedaron cruzados entre los vectores de la base.",
+      "El signo de la segunda coordenada se perdió al armar la combinación.",
+      "Esos coeficientes reconstruyen otro vector, no el que las coordenadas describen."
+    ],
+    "explanation": "En la base canónica el camino de vuelta es tan corto que casi no se nota que hay una cuenta.\n$$3(1,0) - 2(0,1) = (3,-2)$$\nCada vector de la base aporta a una sola componente, así que el coeficiente aparece tal cual en el resultado.\n\nPor eso es la base que se usa sin aclararlo, y por eso también se confunden tan seguido las coordenadas con las componentes.\n\nCon cualquier otra base el resultado sería otro, y ahí la diferencia entre las dos cosas se vuelve imposible de ignorar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "recuperar-el-vector"
+    ]
+  },
+  {
+    "question": "Al armar la combinación, uno de los vectores de la base entra restando.\n$$B = \\{(3,1), (1,2)\\}$$\n$$[\\vec{v}]_B = (2, -1)$$\n¿Qué vector del plano es?",
+    "options": [
+      "$(2, -1)$",
+      "$(0, 5)$",
+      "$(5, 0)$",
+      "$(7, 4)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Dos veces el primero da $(6,2)$, y restándole el segundo se llega a $(5,0)$.",
+    "feedback_incorrect": [
+      "Esas son las coordenadas dadas, que no son las componentes en esta base.",
+      "Ahí las dos componentes del resultado quedaron intercambiadas.",
+      null,
+      "Ahí el segundo vector de la base entró sumando, cuando la coordenada es negativa."
+    ],
+    "explanation": "Una coordenada negativa significa restar esa dirección en lugar de sumarla, y el procedimiento no cambia en nada.\n$$2(3,1) - 1(1,2) = (6,2) - (1,2)$$\nRestando componente a componente se llega al vector buscado.\n$$\\vec{v} = (5,0)$$\nQue la segunda componente dé cero no significa que algo salió mal: es un vector perfectamente válido del plano, apoyado sobre el eje horizontal.\n\nVerificar el resultado cuesta una línea, porque alcanza con recalcular la combinación con los coeficientes dados.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "recuperar-el-vector"
+    ]
+  },
+  {
+    "question": "Un subespacio de $\\mathbb{R}^3$ viene descripto por tres generadores.\n$$S = \\text{gen}\\{(1,0,1), (2,0,2), (0,1,1)\\}$$\n¿Cuál es una base de $S$?",
+    "options": [
+      "$\\{(1,0,1), (0,1,1)\\}$",
+      "$\\{(1,0,1), (2,0,2)\\}$",
+      "$\\{(1,0,1), (2,0,2), (0,1,1)\\}$",
+      "$\\{(1,0,1), (0,1,1), (1,1,2)\\}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El segundo generador duplica al primero, así que sacándolo quedan dos vectores independientes.",
+    "feedback_incorrect": [
+      null,
+      "Esos dos vectores son múltiplos entre sí, así que generan una recta y no todo el subespacio.",
+      "Ese es el conjunto de partida, que genera bien pero tiene un vector de más.",
+      "El tercer vector es la suma de los dos primeros, así que sigue sobrando uno."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Extraer una base de un conjunto generador es sacar los vectores redundantes, cuidando de no tocar los que sí aportan.\n\nAcá el segundo generador es el doble del primero, así que no agrega ninguna dirección nueva.\n$$(2,0,2) = 2(1,0,1)$$\nSacándolo quedan dos vectores que no son múltiplos entre sí, así que son independientes, y siguen generando lo mismo que los tres originales.\n\nEl subespacio resulta ser un plano que pasa por el origen, descripto ahora sin repeticiones.\n\nSacar un vector que sí hacía falta deja un conjunto más chico que ya no genera el mismo subespacio.",
+    "reviewed": false,
+    "tags": [
+      "extraer-una-base"
+    ]
+  },
+  {
+    "question": "Un subespacio del plano viene descripto por tres generadores.\n$$S = \\text{gen}\\{(1,2), (2,4), (3,1)\\}$$\n¿Cuál es una base de $S$?",
+    "options": [
+      "$\\{(3,1)\\}$",
+      "$\\{(1,2), (3,1)\\}$",
+      "$\\{(1,2), (2,4)\\}$",
+      "$\\{(1,2), (2,4), (3,1)\\}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El segundo generador duplica al primero, y los dos que quedan aportan direcciones distintas.",
+    "feedback_incorrect": [
+      "Con un solo vector se genera una recta, y este subespacio es todo el plano.",
+      null,
+      "Esos dos vectores son múltiplos entre sí, así que generan una recta y no todo el subespacio.",
+      "Ese es el conjunto de partida, que genera bien pero tiene un vector de más."
+    ],
+    "explanation": "Extraer una base es sacar los generadores redundantes cuidando de no tocar los que aportan una dirección propia.\n$$(2,4) = 2(1,2)$$\nEl segundo es el doble del primero, así que no agrega nada y se descarta.\n\nLos dos que quedan no son múltiplos entre sí, de modo que aportan dos direcciones distintas y generan todo el plano.\n\nSacar el tercero en lugar del segundo habría sido un error, porque el conjunto resultante generaría apenas una recta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "extraer-una-base"
+    ]
+  },
+  {
+    "question": "Un conjunto generador incluye al vector nulo entre sus elementos.\n$$S = \\text{gen}\\{(1,1,0), (0,0,0), (0,1,1)\\}$$\n¿Cuál es una base de $S$?",
+    "options": [
+      "$\\{(1,1,0), (0,0,0)\\}$",
+      "$\\{(1,1,0), (0,0,0), (0,1,1)\\}$",
+      "$\\{(1,1,0)\\}$",
+      "$\\{(1,1,0), (0,1,1)\\}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El vector nulo no aporta ninguna dirección, y los otros dos no son múltiplos entre sí.",
+    "feedback_incorrect": [
+      "El vector nulo no puede formar parte de ninguna base, porque no aporta ninguna dirección.",
+      "Ese es el conjunto de partida, que tiene un elemento que no aporta nada.",
+      "Con un solo vector se genera una recta, y acá hay dos direcciones distintas.",
+      null
+    ],
+    "explanation": "El vector nulo es siempre el primero que se descarta, porque no aporta ninguna dirección.\n$$\\alpha(0,0,0) = (0,0,0)$$\nCualquier múltiplo suyo vuelve a dar el vector nulo, así que su presencia no cambia el generado.\n\nLos dos que quedan no son múltiplos entre sí, de modo que aportan dos direcciones distintas y no sobra ninguno.\n\nNinguna base puede contener al vector nulo, porque un conjunto que lo tiene siempre tiene algo de más.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "extraer-una-base"
+    ]
+  },
+  {
+    "question": "Uno de los generadores resulta ser la suma de los otros dos.\n$$S = \\text{gen}\\{(1,0,0), (0,1,0), (1,1,0)\\}$$\n¿Cuál es una base de $S$?",
+    "options": [
+      "$\\{(1,0,0), (0,1,0)\\}$",
+      "$\\{(1,0,0), (0,1,0), (1,1,0)\\}$",
+      "$\\{(1,1,0)\\}$",
+      "$\\{(1,0,0), (0,0,1)\\}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El tercero se arma sumando los dos primeros, así que se descarta sin perder alcance.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el conjunto de partida, que genera bien pero tiene un vector de más.",
+      "Con un solo vector se genera una recta, y este subespacio es un plano.",
+      "El último vector de ese conjunto ni siquiera pertenece al subespacio."
+    ],
+    "explanation": "La redundancia no siempre aparece como un múltiplo: acá el tercer generador es la suma de los dos primeros.\n$$(1,0,0) + (0,1,0) = (1,1,0)$$\nSacándolo, los dos que quedan siguen generando lo mismo y ninguno se arma con el otro.\n\nEl subespacio resulta ser el plano horizontal que pasa por el origen, descripto ahora sin repeticiones.\n\nConviene revisar las sumas y restas simples entre los generadores, porque la redundancia se esconde ahí tanto como en los múltiplos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "extraer-una-base"
+    ]
+  },
+  {
+    "question": "Los tres generadores de un subespacio apuntan todos en la misma dirección.\n$$S = \\text{gen}\\{(2,4), (1,2), (3,6)\\}$$\n¿Cuál es una base de $S$?",
+    "options": [
+      "$\\{(0,0)\\}$",
+      "$\\{(1,2), (2,1)\\}$",
+      "$\\{(1,2)\\}$",
+      "$\\{(2,4), (3,6)\\}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Los tres son múltiplos entre sí, así que con uno solo alcanza para generar la recta.",
+    "feedback_incorrect": [
+      "El vector nulo no aporta ninguna dirección, así que no genera la recta.",
+      "El segundo de esos vectores no pertenece al subespacio, porque no es múltiplo del primero.",
+      null,
+      "Esos dos son múltiplos entre sí, de modo que sigue sobrando uno."
+    ],
+    "explanation": "Cuando todos los generadores apuntan en la misma dirección, la base tiene un solo vector.\n$$(2,4) = 2(1,2), \\quad (3,6) = 3(1,2)$$\nLos tres son múltiplos de uno solo, así que dos de ellos no aportan nada.\n\nCualquiera de los tres serviría como base: quedarse con el de coordenadas más chicas es apenas una comodidad.\n\nEl subespacio resulta ser una recta que pasa por el origen, descripta con un único vector en lugar de con tres.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "extraer-una-base"
+    ]
   }
 ]

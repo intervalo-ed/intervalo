@@ -1,18 +1,407 @@
 [
   {
-    "question": "En la expresión $\\sqrt[n]{a}$, el número $n$ indica qué tipo de raíz se está calculando (cuadrada, cúbica, etc.).\n\n¿Qué nombre recibe $n$ en esa expresión?",
-    "options": ["Índice", "Radicando", "Coeficiente"],
+    "question": "En la expresión $\\sqrt[n]{a}$, el número $n$ indica qué tipo de raíz se calcula, cuadrada, cúbica o de otro orden.\n\n¿Qué nombre recibe $n$ en esa expresión?",
+    "options": [
+      "Índice",
+      "Radicando",
+      "Coeficiente",
+      "Exponente"
+    ],
     "correct_index": 0,
     "feedback_correct": "El número que indica el tipo de raíz, ubicado en la muesca del símbolo, es el índice.",
     "feedback_incorrect": [
       null,
       "El radicando es $a$, el número al que se le calcula la raíz, no el que indica el tipo de raíz.",
-      "El coeficiente multiplicaría a toda la raíz desde afuera, no indica el tipo de raíz."
+      "El coeficiente multiplicaría a toda la raíz desde afuera, no indica el tipo de raíz.",
+      "El exponente es el número que multiplica una base por sí misma en una potencia, un rol distinto al de un radical."
     ],
-    "explanation": "En una **raíz** $\\sqrt[n]{a}$, el **índice** $n$ indica qué tipo de raíz se calcula (cuadrada si $n=2$, cúbica si $n=3$, etc.), mientras que el **radicando** $a$ es el número al que se le calcula esa raíz.\n\nPor ejemplo, en $\\sqrt[3]{27}$, el índice es $3$ y el radicando es $27$, y el resultado es $3$ porque $3^3=27$.\n\nUna confusión común es no fijarse en el índice y asumir siempre raíz cuadrada, incluso cuando la muesca indica un índice distinto.",
+    "explanation": "En una **raíz**, el **índice** indica qué tipo de raíz se calcula, y el **radicando** es el número al que se le calcula esa raíz.\n\nPor ejemplo:\n$$\\sqrt[3]{27} = 3$$\nEl índice es $3$ y el radicando es $27$.\n\nEl resultado también es $3$, porque $3^3=27$.\n\nNo fijarse en el índice y asumir siempre raíz cuadrada, incluso cuando la muesca indica un índice distinto, cambia por completo el resultado esperado.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-indice-radicando"
+    ]
+  },
+  {
+    "question": "En una raíz, el número de adentro y el de la muesca cumplen papeles distintos.\n$$\\sqrt[3]{27}$$\n¿Cuál es el radicando?",
+    "options": [
+      "$81$",
+      "$27$",
+      "$3$",
+      "$9$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El radicando es el número que está adentro de la raíz.",
+    "feedback_incorrect": [
+      "Ese número no aparece en la expresión: sale de multiplicar el radicando por el índice.",
+      null,
+      "Ese número está en la muesca, así que es el índice, no el radicando.",
+      "Ese número es el resultado de la raíz, no lo que está adentro de ella."
+    ],
+    "explanation": "En un radical, el **radicando** es el número de adentro y el **índice** es el número de la muesca.\n$$\\sqrt[3]{27} = 3$$\nEl índice indica qué potencia hay que deshacer, y el radicando es la cantidad sobre la que se trabaja.\n\nAcá la raíz pregunta qué número elevado al cubo da veintisiete, y la respuesta es tres.\n\nConfundir el radicando con el resultado hace leer la expresión al revés, sobre todo cuando los dos números son parecidos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-indice-radicando"
+    ]
+  },
+  {
+    "question": "Cuando la muesca de la raíz no lleva ningún número, el índice queda sobreentendido.\n$$\\sqrt{50}$$\n¿Cuál es el índice de esa raíz?",
+    "options": [
+      "$1$",
+      "$50$",
+      "$0$",
+      "$2$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Una raíz sin número en la muesca es siempre una raíz cuadrada.",
+    "feedback_incorrect": [
+      "Un índice uno dejaría la expresión igual al radicando, y entonces la raíz no haría nada.",
+      "Ese número es el radicando, lo que está adentro de la raíz.",
+      "Un índice cero no está definido, porque ninguna potencia de exponente cero devuelve el radicando.",
+      null
+    ],
+    "explanation": "La raíz cuadrada es tan frecuente que se la escribe sin índice, y esa omisión es una convención fija.\n$$\\sqrt{a} = \\sqrt[2]{a}$$\nCualquier otro índice sí se escribe, justamente para distinguirlo del caso por defecto.\n\nPor eso una muesca vacía nunca significa que falte un dato: significa que el índice es dos.\n\nLeer bien el índice es lo primero, porque decide qué potencia hay que buscar adentro del radicando.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-indice-radicando"
+    ]
+  },
+  {
+    "question": "En una misma expresión pueden convivir un índice y un exponente, y no son lo mismo.\n$$\\sqrt[3]{a^{5}}$$\n¿Cuál es el índice?",
+    "options": [
+      "$3$",
+      "$5$",
+      "$15$",
+      "$2$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El índice es el número de la muesca, y el exponente vive adentro del radicando.",
+    "feedback_incorrect": [
+      null,
+      "Ese número es el exponente del radicando, no el índice de la raíz.",
+      "Ese número sale de multiplicar el índice por el exponente, y no cumple ningún rol en la expresión.",
+      "Ese sería el índice si la muesca estuviera vacía, pero acá está escrito."
+    ],
+    "explanation": "El **índice** vive en la muesca de la raíz y el **exponente** vive adentro del radicando, pegado a su base.\n$$\\sqrt[3]{a^{5}}$$\nLos dos son números chicos escritos arriba, y por eso se confunden, pero indican cosas opuestas: uno eleva y el otro deshace.\n\nEl índice dice qué potencia hay que deshacer, y el exponente dice qué potencia ya se aplicó.\n\nDistinguirlos es lo que después permite simplificar la expresión sin invertir la operación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-indice-radicando"
+    ]
+  },
+  {
+    "question": "El índice dice qué número elevado a esa potencia devuelve el radicando.\n$$\\sqrt[4]{16}$$\n¿Qué pregunta responde esa expresión?",
+    "options": [
+      "Cuánto vale $16$ elevado a la cuarta",
+      "Qué número elevado a $16$ da $4$",
+      "Qué número elevado a la cuarta da $16$",
+      "Qué número multiplicado por $4$ da $16$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La raíz busca la base de una potencia cuyo exponente es el índice.",
+    "feedback_incorrect": [
+      "Esa es la operación inversa: elevar en vez de extraer la raíz.",
+      "Ahí el índice y el radicando cambiaron de lugar, y la pregunta pasa a ser otra.",
+      null,
+      "La raíz deshace una potencia, no una multiplicación: resolver eso da $4$, y la raíz cuarta de $16$ es $2$."
+    ],
+    "explanation": "Una **raíz** es la operación inversa de una potencia: busca la base, conociendo el exponente y el resultado.\n$$\\sqrt[4]{16} = 2 \\quad \\text{porque} \\quad 2^{4} = 16$$\nEl índice ocupa el lugar del exponente y el radicando ocupa el lugar del resultado.\n\nBuscar qué número multiplicado por cuatro da dieciséis es una pregunta distinta, y da un resultado distinto: ese número es cuatro, no dos.\n\nCon cualquier índice, confundir la multiplicación con la potencia lleva a esa misma clase de error.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-indice-radicando"
+    ]
+  },
+  {
+    "question": "La raíz $\\sqrt[n]{-8}$ tiene solución real para algunos valores del índice $n$, pero no para otros.\n\n¿En qué caso NO existe una raíz real?",
+    "options": [
+      "Cuando el índice de la raíz es par",
+      "Cuando el índice es impar",
+      "Cuando el índice es mayor a $2$",
+      "Cuando el índice es múltiplo de $3$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Ningún número real elevado a una potencia par da un resultado negativo, así que un índice par no tiene raíz real de un radicando negativo.",
+    "feedback_incorrect": [
+      null,
+      "Un índice impar sí tiene solución real para un radicando negativo, como $\\sqrt[3]{-8}=-2$.",
+      "Hay índices mayores a $2$ que sí tienen solución real, como cualquier índice impar.",
+      "Hay índices múltiplos de $3$ que son impares, como $3$ o $9$, y esos sí tienen solución real."
+    ],
+    "explanation": "Elevar un número real a una potencia **par** siempre da un resultado positivo o cero, nunca negativo.\n\nPor eso, si el índice de una raíz es par y el radicando es negativo, no existe ningún número real que elevado a ese índice dé ese radicando.\n\nEn cambio, con índice impar sí hay solución:\n$$\\sqrt[3]{-8} = -2$$\nPorque $(-2)^3=-8$, un resultado negativo obtenido con un exponente impar.\n\nAsumir que toda raíz de un número negativo carece de solución ignora que el índice impar sí la permite.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-raiz-no-definida"
+    ]
+  },
+  {
+    "question": "Una raíz de radicando negativo puede tener resultado real o no, según el índice.\n$$\\sqrt[n]{-a}$$\n¿Cuál de estas raíces **no** tiene resultado real?",
+    "options": [
+      "$\\sqrt[3]{-27}$",
+      "$\\sqrt{-16}$",
+      "$\\sqrt[3]{-8}$",
+      "$\\sqrt[5]{-32}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Con índice par no hay ningún número real que elevado a esa potencia dé un resultado negativo.",
+    "feedback_incorrect": [
+      "Con índice impar sí existe, y el resultado es negativo.",
+      null,
+      "Con índice impar sí existe, y el resultado es negativo.",
+      "Con índice impar sí existe, y el resultado es negativo."
+    ],
+    "explanation": "Elevar un número real a una potencia **par** siempre da un resultado positivo o cero, sea la base positiva o negativa.\n$$x^{2} \\geq 0$$\nPor eso ninguna raíz de índice par puede devolver un radicando negativo: no hay candidato posible.\n\nCon índice impar la situación cambia, porque una base negativa elevada a una potencia impar queda negativa.\n\nLa regla depende únicamente de la paridad del índice, no de su tamaño.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-raiz-no-definida"
+    ]
+  },
+  {
+    "question": "Ningún número real elevado a una potencia par da un resultado negativo.\n$$x^{2} \\geq 0$$\n¿Qué consecuencia tiene eso para las raíces de índice par?",
+    "options": [
+      "Que la raíz de un radicando negativo da un resultado negativo",
+      "Que la raíz solo existe si el radicando es un cuadrado perfecto",
+      "Que el resultado queda indefinido también para radicandos positivos",
+      "Que no existe ninguna raíz real de un radicando negativo"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Si ninguna potencia par da negativo, ningún número puede ser esa raíz.",
+    "feedback_incorrect": [
+      "No hay ningún candidato: elevar cualquier real a una potencia par nunca devuelve un negativo.",
+      "Un radicando positivo cualquiera tiene raíz real, aunque no sea un número entero.",
+      "Los radicandos positivos siempre tienen raíz real, con cualquier índice.",
+      null
+    ],
+    "explanation": "Una raíz busca un número que, elevado al índice, devuelva el radicando.\n$$\\sqrt[2]{a} = x \\iff x^{2} = a$$\nSi el índice es par, el lado derecho nunca puede quedar negativo, así que un radicando negativo deja la ecuación sin solución real.\n\nNo es que el resultado sea difícil de calcular: directamente no existe entre los números reales.\n\nSer o no un cuadrado perfecto cambia si la raíz es entera, pero no si existe.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-raiz-no-definida"
+    ]
+  },
+  {
+    "question": "Un número negativo elevado a una potencia impar sigue siendo negativo.\n$$(-2)^{3} = -8$$\n¿Qué se puede afirmar sobre la raíz cúbica de un número negativo?",
+    "options": [
+      "Que existe y es negativa",
+      "Que existe y es positiva",
+      "Que no existe entre los números reales",
+      "Que existe solo si el radicando es un cubo perfecto"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Hay un candidato real, y tiene que ser negativo para que el cubo quede negativo.",
+    "feedback_incorrect": [
+      null,
+      "Un resultado positivo elevado al cubo daría un radicando positivo, no negativo.",
+      "Con índice impar sí existe: la restricción vale solo para los índices pares.",
+      "Ser un cubo perfecto decide si el resultado es entero, no si la raíz existe."
+    ],
+    "explanation": "En una potencia de exponente **impar**, el signo de la base se conserva en el resultado.\n$$(-2)^{3} = -8$$\nPor eso siempre hay un número real cuyo cubo da cualquier radicando, positivo o negativo.\n\nLa raíz cúbica de un negativo existe y queda negativa, sin ninguna excepción.\n\nQue el radicando sea o no un cubo perfecto solo cambia si el resultado se escribe con un entero o con un decimal infinito.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-raiz-no-definida"
+    ]
+  },
+  {
+    "question": "El signo del radicando y la paridad del índice deciden juntos si la raíz existe.\n$$\\sqrt[n]{a}$$\n¿Cuál de estas raíces **sí** tiene resultado real?",
+    "options": [
+      "$\\sqrt[4]{-16}$",
+      "$\\sqrt[6]{-64}$",
+      "$\\sqrt[5]{-32}$",
+      "$\\sqrt{-4}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El índice impar admite radicandos negativos, y el resultado queda negativo.",
+    "feedback_incorrect": [
+      "El índice es par, así que ningún número real elevado a esa potencia da un radicando negativo.",
+      "El índice es par, así que ningún número real elevado a esa potencia da un radicando negativo.",
+      null,
+      "El índice es par, así que ningún número real elevado a esa potencia da un radicando negativo."
+    ],
+    "explanation": "La existencia de una raíz real con radicando negativo depende solo de la paridad del índice.\n$$(-2)^{5} = -32$$\nCon índice impar el signo de la base sobrevive a la potencia, así que hay un candidato negativo.\n\nCon índice par la potencia borra el signo, y ningún real puede devolver un radicando negativo.\n\nEl tamaño del índice no interviene: lo único que decide es si es par o impar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-raiz-no-definida"
+    ]
+  },
+  {
+    "question": "Un radical está simplificado cuando el radicando no tiene ningún factor que sea una potencia perfecta del índice.\n\n¿Cuál de estas raíces ya está simplificada?",
+    "options": [
+      "$\\sqrt{13}$",
+      "$\\sqrt{50}$",
+      "$\\sqrt{8}$",
+      "$\\sqrt{20}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$13$ es un número primo, no tiene ningún factor que sea un cuadrado perfecto, así que $\\sqrt{13}$ ya está simplificada.",
+    "feedback_incorrect": [
+      null,
+      "$50=25\\cdot 2$, y $25$ es un cuadrado perfecto que todavía se puede extraer.",
+      "$8=4\\cdot 2$, y $4$ es un cuadrado perfecto que todavía se puede extraer.",
+      "$20=4\\cdot 5$, y $4$ es un cuadrado perfecto que todavía se puede extraer."
+    ],
+    "explanation": "Un radical queda **simplificado** cuando su radicando ya no contiene ningún factor que sea una potencia perfecta del índice.\n\nEntre las cuatro opciones, $13$ es el único radicando que es un número primo: no se puede descomponer en ningún factor cuadrado perfecto mayor a $1$.\n\nLos demás radicandos sí contienen un cuadrado perfecto escondido, aunque a simple vista no siempre se note de inmediato.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-radical-simplificado"
+    ]
+  },
+  {
+    "question": "Un radical deja de estar simplificado apenas su radicando esconde un cuadrado perfecto.\n\n¿Cuál de estas raíces todavía se puede simplificar?",
+    "options": [
+      "$\\sqrt{11}$",
+      "$\\sqrt{18}$",
+      "$\\sqrt{7}$",
+      "$\\sqrt{15}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El radicando es nueve por dos, y el nueve sale de la raíz como un tres.",
+    "feedback_incorrect": [
+      "Ese radicando es primo, así que no esconde ningún cuadrado perfecto.",
+      null,
+      "Ese radicando es primo, así que no esconde ningún cuadrado perfecto.",
+      "Ese radicando es tres por cinco, y ninguno de los dos factores es un cuadrado perfecto."
+    ],
+    "explanation": "Simplificar un radical es buscar adentro del radicando un factor que sea un cuadrado perfecto.\n$$\\sqrt{18} = \\sqrt{9 \\cdot 2} = 3\\sqrt{2}$$\nEl nueve tiene raíz entera, así que sale del radical convertido en un factor de afuera.\n\nEn los otros tres casos el radicando no tiene ningún factor con raíz entera, así que no hay nada por extraer.\n\nCon radicandos primos el chequeo es inmediato, porque su única descomposición no incluye cuadrados.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-radical-simplificado"
+    ]
+  },
+  {
+    "question": "Un radical de índice tres está simplificado cuando su radicando no esconde ningún cubo perfecto.\n$$\\sqrt[3]{a}$$\n¿Cuál de estas raíces cúbicas ya está simplificada?",
+    "options": [
+      "$\\sqrt[3]{24}$",
+      "$\\sqrt[3]{54}$",
+      "$\\sqrt[3]{16}$",
+      "$\\sqrt[3]{10}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Diez es dos por cinco, y ninguno de los dos factores es un cubo perfecto.",
+    "feedback_incorrect": [
+      "Ese radicando contiene el factor ocho, que es un cubo perfecto y sale como un dos.",
+      "Ese radicando contiene el factor veintisiete, que es un cubo perfecto y sale como un tres.",
+      "Ese radicando contiene el factor ocho, que es un cubo perfecto y sale como un dos.",
+      null
+    ],
+    "explanation": "Con índice tres, lo que hay que buscar adentro del radicando ya no son cuadrados sino **cubos perfectos**.\n$$\\sqrt[3]{24} = \\sqrt[3]{8 \\cdot 3} = 2\\sqrt[3]{3}$$\nEl criterio general es el mismo de siempre: sale del radical cualquier factor que sea una potencia perfecta del índice.\n\nPor eso una raíz puede estar simplificada como cúbica y no estarlo como cuadrada, o al revés.\n\nLos cubos perfectos chicos son ocho, veintisiete y sesenta y cuatro, y conviene tenerlos a mano.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-radical-simplificado"
+    ]
+  },
+  {
+    "question": "Extraer un factor de adentro de la raíz se apoya en que la raíz de un producto se puede separar.\n$$\\sqrt{a \\cdot b} = \\sqrt{a} \\cdot \\sqrt{b}$$\n¿Por qué esa propiedad permite simplificar un radical?",
+    "options": [
+      "Porque si un factor es un cuadrado perfecto, su raíz sale como un entero",
+      "Porque el producto de dos raíces cualesquiera da siempre un entero",
+      "Porque separar el radicando siempre achica el valor de la expresión",
+      "Porque ningún radicando compuesto tiene raíz cuadrada exacta"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Separar el radicando aísla el factor que tiene raíz entera y lo saca del radical.",
+    "feedback_incorrect": [
+      null,
+      "El producto de dos raíces es entero solo si las dos lo son, y eso no pasa siempre.",
+      "Separar el radicando no cambia el valor de la expresión, solo cómo está escrita.",
+      "Todo número positivo tiene raíz cuadrada, aunque no sea entera."
+    ],
+    "explanation": "La raíz de un producto se puede repartir entre los factores, y eso es lo que habilita la simplificación.\n$$\\sqrt{a \\cdot b} = \\sqrt{a} \\cdot \\sqrt{b}$$\nSi uno de los dos factores es un cuadrado perfecto, su raíz es un entero y queda multiplicando afuera del radical.\n$$\\sqrt{50} = \\sqrt{25} \\cdot \\sqrt{2} = 5\\sqrt{2}$$\nEl valor no cambia en ningún momento: lo único que cambia es qué parte queda adentro y qué parte queda afuera.\n\nPor eso simplificar un radical no es aproximarlo, es reescribirlo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-radical-simplificado"
+    ]
+  },
+  {
+    "question": "Entre varias raíces, algunas ya están simplificadas y otras esconden un cuadrado perfecto.\n$$\\sqrt{12} \\quad \\sqrt{14} \\quad \\sqrt{45} \\quad \\sqrt{21}$$\n¿Cuántas de esas cuatro ya están simplificadas?",
+    "options": [
+      "$3$",
+      "$4$",
+      "$2$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Son las dos cuyos radicandos son productos de primos distintos, sin ningún cuadrado adentro.",
+    "feedback_incorrect": [
+      "Una de las que se contaron como simplificadas sí esconde un cuadrado perfecto.",
+      "Dos de las cuatro contienen un cuadrado perfecto entre sus factores.",
+      null,
+      "Hay dos que no se pueden simplificar, no una: conviene revisar las que no son múltiplos de cuatro ni de nueve."
+    ],
+    "explanation": "Conviene descomponer cada radicando y buscar un factor repetido, que es lo que forma un cuadrado.\n$$\\sqrt{12} = 2\\sqrt{3} \\qquad \\sqrt{45} = 3\\sqrt{5}$$\nEsas dos esconden un cuatro y un nueve, así que todavía se simplifican.\n\nLas otras dos son productos de dos primos distintos, y sin un factor repetido no hay ningún cuadrado para extraer.\n\nEl atajo más rápido es descartar primero los múltiplos de cuatro y de nueve, que son los cuadrados más frecuentes.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-radical-simplificado"
+    ]
   }
 ]

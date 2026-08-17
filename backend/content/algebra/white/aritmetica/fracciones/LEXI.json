@@ -1,7 +1,12 @@
 [
   {
     "question": "Una **fracción compuesta** es aquella cuyo numerador o denominador es, a su vez, una fracción.\n\n¿Cuál de las siguientes expresiones es una fracción compuesta?",
-    "options": ["$\\dfrac{7}{9}$", "$\\dfrac{2/3}{5}$", "$\\dfrac{0{,}4}{5}$", "$\\dfrac{5}{0{,}2}$"],
+    "options": [
+      "$\\dfrac{7}{9}$",
+      "$\\dfrac{2/3}{5}$",
+      "$\\dfrac{0{,}4}{5}$",
+      "$\\dfrac{5}{0{,}2}$"
+    ],
     "correct_index": 1,
     "feedback_correct": "Claro: el numerador $2/3$ es a su vez una fracción, por eso $(2/3)/5$ es compuesta.",
     "feedback_incorrect": [
@@ -10,53 +15,393 @@
       "Que el numerador sea un decimal no la vuelve compuesta: compuesta es cuando arriba o abajo hay otra fracción, no un decimal.",
       "Que el denominador sea un decimal tampoco la vuelve compuesta: sigue sin haber otra fracción arriba ni abajo."
     ],
-    "explanation": "Una **fracción compuesta** tiene, en el lugar del numerador o del denominador, otra fracción completa en vez de un número entero.\n$$\\dfrac{2/3}{5}$$\nAcá arriba, donde debería ir un entero, hay una fracción completa: $2/3$. Eso es lo que la vuelve compuesta.\n\nEn cambio $7/9$ tiene dos enteros, y ni $0{,}4/5$ ni $5/0{,}2$ tienen una fracción propia arriba o abajo, solo un decimal.\n\nPara detectarla de un vistazo conviene buscar una barra de fracción adicional dentro de la expresión, no fijarse en si los números son grandes o tienen coma.",
+    "explanation": "Una **fracción compuesta** tiene, en el lugar del numerador o del denominador, otra fracción completa en vez de un número entero.\n$$\\dfrac{2/3}{5}$$\nAcá arriba, donde debería ir un entero, hay una fracción completa: $2/3$. Eso es lo que la vuelve compuesta.\n\nEn cambio $7/9$ tiene un entero arriba y otro abajo.\n\nY ni $0{,}4/5$ ni $5/0{,}2$ llevan una fracción en ninguno de los dos lugares, solo un decimal.\n\nPara detectarla de un vistazo conviene buscar una barra de fracción adicional dentro de la expresión, no fijarse en si los números son grandes o tienen coma.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["identificar-fraccion-compuesta"]
+    "tags": [
+      "identificar-fraccion-compuesta"
+    ]
   },
   {
-    "question": "Una fracción negativa se puede escribir con el signo en distintos lugares sin que cambie su valor:\n$$-\\dfrac{a}{b} = \\dfrac{-a}{b} = \\dfrac{a}{-b}$$\n¿Cuál de las siguientes expresiones **no** es igual a $-5/8$?",
-    "options": ["$\\dfrac{-5}{8}$", "$\\dfrac{5}{-8}$", "$\\dfrac{-5}{-8}$", "$\\dfrac{-10}{16}$"],
-    "correct_index": 2,
-    "feedback_correct": "Exacto: dos signos negativos se cancelan, $-5/-8=5/8$, que es positiva, no $-5/8$.",
-    "feedback_incorrect": [
-      "Esa expresión sí es igual a $-5/8$: es la forma más directa de escribir el signo en el numerador.",
-      "Esa expresión sí es igual a $-5/8$: el signo puede estar en el denominador sin cambiar el valor.",
-      null,
-      "Esa expresión también es igual a $-5/8$: multiplicar numerador y denominador por 2 no cambia el valor de la fracción."
+    "question": "Una fracción compuesta tiene otra fracción adentro, y esa fracción interna puede estar arriba o abajo.\n\n¿Cuál de estas expresiones la tiene en el **denominador**?",
+    "options": [
+      "$\\dfrac{7}{5}$",
+      "$\\dfrac{7}{3/5}$",
+      "$\\dfrac{3/5}{7}$",
+      "$\\dfrac{3}{5}$"
     ],
-    "explanation": "El signo negativo de una fracción puede ubicarse en el numerador, en el denominador o adelante de toda la fracción, sin que cambie el valor, siempre que haya un único signo negativo en juego.\n$$-\\dfrac{5}{8} = \\dfrac{-5}{8} = \\dfrac{5}{-8}$$\nPero si el signo negativo aparece **dos veces**, arriba y abajo a la vez, ambos se cancelan entre sí y el resultado pasa a ser positivo:\n$$\\dfrac{-5}{-8}=\\dfrac{5}{8}$$\nMultiplicar numerador y denominador por el mismo número tampoco cambia el valor: $-10/16$ sigue siendo la misma fracción que $-5/8$.\n\nConviene contar cuántos signos negativos hay en juego antes de decidir el signo final: una cantidad impar de negativos da negativo, una cantidad par da positivo.",
+    "correct_index": 1,
+    "feedback_correct": "El nivel de abajo es $3/5$, una fracción completa, así que la fracción interna está en el denominador.",
+    "feedback_incorrect": [
+      "Esa también es simple, aunque los números sean otros: no aparece ninguna barra de fracción adentro.",
+      null,
+      "Esa también es compuesta, pero la fracción interna está arriba, en el numerador.",
+      "Esa es una fracción simple: arriba y abajo hay enteros sueltos, sin ninguna barra adentro."
+    ],
+    "explanation": "Lo que vuelve compuesta a una expresión es que alguno de sus dos niveles sea a su vez una fracción.\n$$\\dfrac{7}{3/5}$$\nAcá el numerador es el entero $7$ y el denominador es $3/5$, así que la fracción interna vive abajo.\n\nCuando la interna está arriba, como en $(3/5)/7$, la expresión también es compuesta, pero los papeles se invierten.\n\nDistinguir en qué nivel está la fracción interna es lo que después permite resolverla, porque al dividir siempre se invierte el nivel de abajo.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["signo-equivalente"]
+    "tags": [
+      "identificar-fraccion-compuesta"
+    ]
+  },
+  {
+    "question": "En una fracción compuesta el numerador y el denominador pueden ser fracciones los dos a la vez.\n\n¿Cuál de estas expresiones es compuesta en los dos niveles?",
+    "options": [
+      "$\\dfrac{2/5}{4}$",
+      "$\\dfrac{2}{3/4}$",
+      "$\\dfrac{2}{5}$",
+      "$\\dfrac{2/5}{3/4}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Arriba hay $2/5$ y abajo hay $3/4$, así que los dos niveles son fracciones.",
+    "feedback_incorrect": [
+      "Esa tiene una fracción arriba, pero abajo hay un entero suelto.",
+      "Esa tiene una fracción abajo, pero arriba hay un entero suelto.",
+      "Esa es una fracción simple, sin ninguna barra adentro de otra.",
+      null
+    ],
+    "explanation": "Una fracción compuesta necesita al menos una fracción adentro, pero puede tener dos.\n$$\\dfrac{2/5}{3/4}$$\nAcá los dos niveles son fracciones, así que la expresión completa lleva tres barras: la de arriba, la de abajo y la que las separa.\n\nContar las barras es la forma más rápida de clasificar cada expresión: una sola indica una fracción simple, dos o tres indican que hay una fracción adentro de otra.\n\nEso importa porque el nivel de abajo es el que se invierte al resolver, y si abajo hay un entero, invertirlo deja una fracción de numerador $1$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-fraccion-compuesta"
+    ]
+  },
+  {
+    "question": "Tres de estas cuatro expresiones tienen una fracción adentro de otra.\n\n¿Cuál **no** es una fracción compuesta?",
+    "options": [
+      "$\\dfrac{9}{4}$",
+      "$\\dfrac{9/4}{2}$",
+      "$\\dfrac{9}{4/7}$",
+      "$\\dfrac{9/2}{4/7}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Arriba y abajo hay enteros sueltos, así que es una fracción simple.",
+    "feedback_incorrect": [
+      null,
+      "Esa sí es compuesta: el numerador $9/4$ es a su vez una fracción.",
+      "Esa sí es compuesta: el denominador $4/7$ es a su vez una fracción.",
+      "Esa es compuesta en los dos niveles, con una fracción arriba y otra abajo."
+    ],
+    "explanation": "Una fracción es **simple** cuando su numerador y su denominador son números sueltos, sin ninguna barra adentro.\n$$\\dfrac{9}{4}$$\nLas otras tres tienen una fracción en el numerador, en el denominador, o en los dos.\n\nEl tamaño de los números no interviene: $9/4$ es simple aunque el numerador sea mayor que el denominador.\n\nLo único que hay que buscar es una barra de fracción adicional adentro de la expresión.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-fraccion-compuesta"
+    ]
+  },
+  {
+    "question": "Lo que vuelve compuesta a una expresión es que aparezca una barra de fracción adentro de otra, no que haya operaciones.\n\n¿Cuál de estas expresiones es compuesta?",
+    "options": [
+      "$\\dfrac{5}{6\\times4}$",
+      "$\\dfrac{5+6}{4}$",
+      "$\\dfrac{5/6}{4}$",
+      "$\\dfrac{5\\times6}{4}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El numerador $5/6$ es una fracción, y eso es lo que la vuelve compuesta.",
+    "feedback_incorrect": [
+      "Ese denominador es un producto de dos enteros, así que sigue sin haber una barra de fracción adentro.",
+      "Ese numerador es una suma de dos enteros, que da otro entero, y la expresión sigue siendo simple.",
+      null,
+      "Ese numerador es un producto de dos enteros, que da otro entero: no hay ninguna fracción adentro."
+    ],
+    "explanation": "Un numerador o un denominador puede tener operaciones adentro y aun así ser un número entero.\n$$\\dfrac{5\\times6}{4} = \\dfrac{30}{4}$$\nResolviendo el producto queda una fracción simple, con enteros arriba y abajo.\n\nLo que no se puede resolver a un entero es una fracción interna: $5/6$ no es entero, y por eso $(5/6)/4$ queda con una barra adentro de otra.\n\nEs una distinción de estructura, no de tamaño, y alcanza con contar cuántas barras de fracción hay.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-fraccion-compuesta"
+    ]
+  },
+  {
+    "question": "Una fracción negativa se puede escribir con el signo en distintos lugares sin que cambie su valor:\n$$-\\dfrac{a}{b} = \\dfrac{-a}{b} = \\dfrac{a}{-b}$$\n¿Cuál de las siguientes expresiones **no** es igual a $-3/4$?",
+    "options": [
+      "$\\dfrac{-3}{4}$",
+      "$\\dfrac{3}{-4}$",
+      "$\\dfrac{-3}{-4}$",
+      "$\\dfrac{-6}{8}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Exacto: dos signos negativos se cancelan, $-3/-4=3/4$, que es positiva, no $-3/4$.",
+    "feedback_incorrect": [
+      "Esa expresión sí es igual a $-3/4$: es la forma más directa de escribir el signo en el numerador.",
+      "Esa expresión sí es igual a $-3/4$: el signo puede estar en el denominador sin cambiar el valor.",
+      null,
+      "Esa expresión también es igual a $-3/4$: multiplicar numerador y denominador por 2 no cambia el valor de la fracción."
+    ],
+    "explanation": "El signo negativo de una fracción puede ubicarse en el numerador, en el denominador o adelante de toda la fracción, sin que cambie el valor, siempre que haya un único signo negativo en juego.\n$$-\\dfrac{3}{4} = \\dfrac{-3}{4} = \\dfrac{3}{-4}$$\nPero si el signo negativo aparece **dos veces**, arriba y abajo a la vez, ambos se cancelan entre sí y el resultado pasa a ser positivo:\n$$\\dfrac{-3}{-4}=\\dfrac{3}{4}$$\nMultiplicar numerador y denominador por el mismo número tampoco cambia el valor: $-6/8$ sigue siendo la misma fracción que $-3/4$.\n\nConviene contar cuántos signos negativos hay en juego antes de decidir el signo final: una cantidad impar de negativos da negativo, una cantidad par da positivo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "signo-equivalente"
+    ]
+  },
+  {
+    "question": "Una fracción negativa admite el signo adelante, en el numerador o en el denominador, siempre que aparezca una sola vez.\n$$-\\dfrac{4}{9}$$\n¿Cuál de estas expresiones vale lo mismo?",
+    "options": [
+      "$\\dfrac{4}{9}$",
+      "$\\dfrac{4}{-9}$",
+      "$\\dfrac{-4}{-9}$",
+      "$\\dfrac{-9}{4}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El signo bajó al denominador y sigue siendo uno solo, así que el valor no cambió.",
+    "feedback_incorrect": [
+      "Ahí desapareció el signo negativo, así que la fracción quedó positiva.",
+      null,
+      "Ahí hay dos signos negativos, que se cancelan entre sí y dejan una fracción positiva.",
+      "Ahí se invirtieron el numerador y el denominador, que da otra cantidad."
+    ],
+    "explanation": "Una fracción es un cociente, y el signo de un cociente lo decide la cantidad de negativos que intervienen, no dónde estén escritos.\n$$-\\dfrac{4}{9} = \\dfrac{-4}{9} = \\dfrac{4}{-9}$$\nLas tres formas tienen exactamente un signo negativo, así que las tres son la misma cantidad.\n\nCon dos negativos el cociente pasa a positivo, y sin ninguno también, así que esas dos versiones valen lo mismo entre sí pero no lo mismo que la original.\n\nContar los signos antes de operar evita el error más común al mover un negativo de lugar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "signo-equivalente"
+    ]
+  },
+  {
+    "question": "El signo de una fracción lo decide cuántos signos negativos intervienen en el cociente.\n$$\\dfrac{-2}{-5}$$\n¿Qué signo tiene esa fracción?",
+    "options": [
+      "Negativa, porque el numerador es un número negativo",
+      "Negativa, porque hay dos signos negativos en juego",
+      "Depende de cuál de los dos números tenga mayor valor",
+      "Positiva, porque los dos signos negativos se cancelan"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Dividir dos cantidades negativas da una cantidad positiva, igual que multiplicarlas.",
+    "feedback_incorrect": [
+      "El numerador negativo no manda solo: el denominador también es negativo y los dos se compensan.",
+      "Con dos signos negativos el cociente queda positivo; sería negativo con uno solo.",
+      "El tamaño de los números no interviene en el signo, solo la cantidad de negativos.",
+      null
+    ],
+    "explanation": "Dividir dos cantidades del mismo signo da un resultado positivo, y dividir dos de signos distintos da uno negativo. Es la misma regla que rige el producto.\n$$\\dfrac{-2}{-5} = \\dfrac{2}{5}$$\nLa razón es que el cociente pregunta por cuánto hay que multiplicar el denominador para llegar al numerador, y para ir de un negativo a otro negativo hace falta un factor positivo.\n\nUna cantidad impar de signos negativos deja el resultado negativo, y una cantidad par lo deja positivo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "signo-equivalente"
+    ]
+  },
+  {
+    "question": "Multiplicar el numerador y el denominador por un mismo número no cambia el valor de una fracción, y eso vale también para el $-1$.\n$$\\dfrac{2}{7} = \\dfrac{-2}{-7}$$\n¿Por qué el valor no cambia?",
+    "options": [
+      "Porque el cociente de dos cantidades del mismo signo es positivo",
+      "Porque multiplicar por $-1$ no modifica el valor de un número",
+      "Porque el signo del denominador no se tiene en cuenta al dividir",
+      "Porque una fracción con dos signos negativos queda sin definir"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Antes y después hay dos cantidades del mismo signo, así que el cociente sigue siendo el mismo.",
+    "feedback_incorrect": [
+      null,
+      "Multiplicar por $-1$ sí cambia cada número por separado; lo que no cambia es el cociente entre los dos.",
+      "El signo del denominador sí interviene: si solo él fuera negativo, la fracción quedaría negativa.",
+      "Una fracción con dos signos negativos está perfectamente definida y equivale a la positiva."
+    ],
+    "explanation": "Amplificar una fracción es multiplicar arriba y abajo por el mismo número, y funciona porque el cociente compara las dos cantidades entre sí.\n$$\\dfrac{2}{7} = \\dfrac{-2}{-7}$$\nAl multiplicar los dos niveles por $-1$, las dos cantidades cambian de signo a la vez, así que la relación entre ellas queda igual.\n\nSi ese factor se aplicara a uno solo de los dos niveles, la relación sí cambiaría y la fracción pasaría a ser negativa.\n\nPor eso la regla se enuncia siempre con la condición de aplicar el mismo número arriba y abajo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "signo-equivalente"
+    ]
+  },
+  {
+    "question": "Restar una fracción negativa equivale a sumar su opuesta, porque los dos signos que se juntan se compensan.\n$$\\dfrac{2}{9} - \\left(-\\dfrac{4}{9}\\right)$$\n¿Con qué suma equivale esa resta?",
+    "options": [
+      "$-\\dfrac{2}{9} + \\dfrac{4}{9}$",
+      "$-\\dfrac{2}{9} - \\dfrac{4}{9}$",
+      "$\\dfrac{2}{9} + \\dfrac{4}{9}$",
+      "$\\dfrac{2}{9} - \\dfrac{4}{9}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El menos de la resta y el menos de la fracción se compensan, y lo que queda es una suma.",
+    "feedback_incorrect": [
+      "Ahí el signo se movió al primer término, que no era el que estaba negativo.",
+      "Ahí quedaron dos negativos sueltos, uno en cada término, en vez de compensarse entre sí.",
+      null,
+      "Ahí quedó un solo signo negativo: se perdió el de la fracción que se estaba restando."
+    ],
+    "explanation": "Restar una cantidad es sumar su opuesta, y el opuesto de una cantidad negativa es positivo.\n$$\\dfrac{2}{9} - \\left(-\\dfrac{4}{9}\\right) = \\dfrac{2}{9} + \\dfrac{4}{9}$$\nLos dos signos negativos que quedaban pegados, el de la resta y el de la fracción, se compensan y dejan una suma.\n\nLa lectura concreta ayuda a no perderlo de vista: quitar una pérdida es lo mismo que agregar una ganancia del mismo tamaño.\n\nCon los denominadores ya iguales, esa suma se resuelve directo sobre los numeradores.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "signo-equivalente"
+    ]
   },
   {
     "question": "Una fracción está **simplificada** cuando su numerador y su denominador no comparten ningún factor común mayor que $1$.\n\n¿Cuál de las siguientes fracciones ya está simplificada?",
-    "options": ["$\\dfrac{8}{12}$", "$\\dfrac{6}{10}$", "$\\dfrac{9}{14}$", "$\\dfrac{15}{20}$"],
+    "options": [
+      "$\\dfrac{8}{12}$",
+      "$\\dfrac{6}{10}$",
+      "$\\dfrac{7}{12}$",
+      "$\\dfrac{5}{10}$"
+    ],
     "correct_index": 2,
-    "feedback_correct": "Sí: $9$ y $14$ no comparten ningún factor mayor que $1$, así que ya está simplificada.",
+    "feedback_correct": "Sí: $7$ y $12$ no comparten ningún factor mayor que $1$, así que ya está simplificada.",
     "feedback_incorrect": [
       "$8$ y $12$ comparten el factor $4$: se puede simplificar a $2/3$.",
       "$6$ y $10$ comparten el factor $2$: se puede simplificar a $3/5$.",
       null,
-      "$15$ y $20$ comparten el factor $5$: se puede simplificar a $3/4$."
+      "$5$ y $10$ comparten el factor $5$: se puede simplificar a $1/2$."
     ],
-    "explanation": "El **MCD**, el máximo común divisor entre numerador y denominador, indica si una fracción se puede simplificar: si es mayor que uno, todavía queda un factor común por sacar.\n$$\\begin{aligned} 9 &= 3^2 \\\\ 14 &= 2\\times7 \\end{aligned}$$\nNingún factor de $9$ aparece en $14$, así que esta fracción ya está simplificada.\n\nEn cambio $8/12$ tiene el factor común $4$, $6/10$ tiene el factor común $2$, y $15/20$ tiene el factor común $5$: las tres todavía se pueden reducir.\n\nConviene probar los primeros números primos contra numerador y denominador antes de asumir que una fracción ya está simplificada.",
+    "explanation": "El **MCD**, el máximo común divisor entre numerador y denominador, indica si una fracción se puede simplificar: si es mayor que uno, todavía queda un factor común por sacar.\n$$\\begin{aligned} 7 &= 7 \\\\ 12 &= 2^2\\times3 \\end{aligned}$$\nNingún factor de $7$ aparece en $12$, así que esta fracción ya está simplificada.\n\nEn cambio, en las otras tres el numerador y el denominador comparten un factor, así que todavía se pueden reducir.\n$$\\begin{aligned} \\dfrac{8}{12} &= \\dfrac{2}{3} \\\\ \\dfrac{6}{10} &= \\dfrac{3}{5} \\\\ \\dfrac{5}{10} &= \\dfrac{1}{2} \\end{aligned}$$\nConviene probar los primeros números primos contra numerador y denominador antes de asumir que una fracción ya está simplificada.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
-    "tags": ["fraccion-simplificada"]
+    "tags": [
+      "fraccion-simplificada"
+    ]
+  },
+  {
+    "question": "Una fracción deja de estar simplificada apenas su numerador y su denominador comparten un factor mayor que $1$.\n\n¿Cuál de estas fracciones todavía se puede reducir?",
+    "options": [
+      "$\\dfrac{11}{6}$",
+      "$\\dfrac{6}{12}$",
+      "$\\dfrac{7}{12}$",
+      "$\\dfrac{5}{9}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los dos números son múltiplos de $6$, así que la fracción se reduce a $1/2$.",
+    "feedback_incorrect": [
+      "El numerador es primo y no divide al denominador; que sea mayor no impide que esté simplificada.",
+      null,
+      "El numerador es primo y no divide al denominador, así que no hay ningún factor común.",
+      "El numerador es primo y no divide al denominador, así que esa fracción ya está en su forma mínima."
+    ],
+    "explanation": "Simplificar es dividir arriba y abajo por un factor que los dos compartan, y el trabajo está en encontrarlo.\n$$\\dfrac{6}{12} = \\dfrac{1}{2}$$\nAcá los dos son múltiplos de $6$, y dividiendo por $6$ queda la forma mínima.\n\nEn las otras tres el numerador es primo y no divide al denominador, así que no hay nada por sacar.\n\nCuando uno de los dos números es primo el chequeo es corto: o divide al otro, o la fracción ya está simplificada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "fraccion-simplificada"
+    ]
+  },
+  {
+    "question": "Dos números son **coprimos** cuando no comparten ningún factor mayor que $1$.\n$$\\dfrac{7}{10}$$\n¿Por qué esa fracción no se puede reducir?",
+    "options": [
+      "Porque el numerador es más chico que el denominador",
+      "Porque el denominador es par y el numerador es impar",
+      "Porque los dos números son bastante chicos",
+      "Porque el numerador es primo y no divide al denominador"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Un primo solo se divide por sí mismo y por $1$, y ese primo no entra en el denominador.",
+    "feedback_incorrect": [
+      "Que el numerador sea menor no dice nada: en $6/10$ también lo es y esa fracción sí se reduce.",
+      "La paridad no alcanza: $9/12$ también tiene numerador impar y denominador par, y comparte el factor $3$.",
+      "El tamaño no interviene: los dos números de $8/12$ también son chicos y sí comparten un factor.",
+      null
+    ],
+    "explanation": "Un número **primo** tiene exactamente dos divisores, el $1$ y él mismo. Eso vuelve muy corto el chequeo cuando el numerador es primo.\n$$\\dfrac{7}{10}$$\nSi ese primo divide al denominador, hay factor común; si no lo divide, no hay ninguno y la fracción ya está simplificada.\n\nAcá el numerador no divide al denominador, así que no queda nada por sacar.\n\nCuando ninguno de los dos es primo hay que buscar el máximo común divisor, probando los primeros primos contra los dos números.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "fraccion-simplificada"
+    ]
+  },
+  {
+    "question": "Que el numerador sea impar y el denominador par no alcanza para asegurar que una fracción esté simplificada.\n$$\\dfrac{9}{12}$$\n¿Qué factor mayor que $1$ comparten esos dos números?",
+    "options": [
+      "$3$",
+      "$2$",
+      "$4$",
+      "$6$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El numerador es $3 \\times 3$ y el denominador es $3 \\times 4$, así que el $3$ está en los dos.",
+    "feedback_incorrect": [
+      null,
+      "El denominador es par, pero el numerador no, así que el $2$ no entra arriba.",
+      "Ese número divide al denominador, pero no al numerador.",
+      "Ese número divide al denominador, pero no al numerador, que ni siquiera es par."
+    ],
+    "explanation": "Para encontrar un factor común conviene descomponer los dos números y ver qué se repite.\n$$\\begin{aligned} 9 &= 3 \\times 3 \\\\ 12 &= 3 \\times 4 \\end{aligned}$$\nEl $3$ aparece en los dos, así que se puede dividir arriba y abajo por él.\n$$\\dfrac{9}{12} = \\dfrac{3}{4}$$\nLos otros candidatos dividen al denominador pero no al numerador, y un factor común tiene que dividir a los dos.\n\nBuscar el factor mirando solo el número que se factoriza más fácil es lo que deja pasar este caso.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "fraccion-simplificada"
+    ]
+  },
+  {
+    "question": "Entre varias fracciones, algunas ya están simplificadas y otras todavía comparten un factor.\n$$\\dfrac{4}{9} \\quad \\dfrac{6}{8} \\quad \\dfrac{5}{11} \\quad \\dfrac{10}{12}$$\n¿Cuántas de esas cuatro ya están simplificadas?",
+    "options": [
+      "$3$",
+      "$4$",
+      "$2$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Son las dos que no comparten ningún factor; las otras dos tienen numerador y denominador pares.",
+    "feedback_incorrect": [
+      "Una de las que se contaron como simplificadas sí se reduce, y conviene revisar las de números pares.",
+      "Dos de las cuatro tienen numerador y denominador pares, así que las dos comparten el factor $2$.",
+      null,
+      "Hay dos que no se pueden reducir, no una: la que tiene numerador par y denominador impar tampoco se reduce."
+    ],
+    "explanation": "Conviene revisar las cuatro por separado, buscando en cada una un factor que divida al numerador y al denominador a la vez.\n$$\\begin{aligned} \\dfrac{6}{8} &= \\dfrac{3}{4} \\\\ \\dfrac{10}{12} &= \\dfrac{5}{6} \\end{aligned}$$\nEsas dos comparten el factor $2$, así que todavía se reducen.\n\nEn cambio las otras dos no comparten nada: en una el denominador es impar y el numerador par, y en la otra los dos números son primos.\n\nEl atajo más rápido es descartar primero las que tienen los dos números pares, que seguro se reducen.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "fraccion-simplificada"
+    ]
   }
 ]

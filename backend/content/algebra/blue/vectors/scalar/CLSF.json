@@ -1,0 +1,371 @@
+[
+  {
+    "question": "Dos vectores cumplen $\\vec{u}\\cdot\\vec{v} = -8$.\n\n¿Qué relación tienen sus direcciones?",
+    "options": [
+      "Apuntan en sentidos opuestos, con ángulo obtuso entre ellos",
+      "Son perpendiculares",
+      "Apuntan en sentidos parecidos, con ángulo agudo entre ellos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Un producto escalar negativo indica un ángulo obtuso entre los vectores: apuntan en sentidos opuestos.",
+    "feedback_incorrect": [
+      null,
+      "Si fueran perpendiculares, el producto escalar daría cero, no un valor negativo.",
+      "Un ángulo agudo da un producto escalar positivo, no negativo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El signo del producto escalar indica el tipo de ángulo entre los vectores, sin necesidad de calcularlo.\n\nUn producto escalar negativo corresponde a un ángulo obtuso, entre $90°$ y $180°$: los vectores apuntan en sentidos opuestos.\n$$\\vec{u}\\cdot\\vec{v} = -8 < 0$$\nUn producto escalar positivo indicaría ángulo agudo, y un producto escalar cero indicaría perpendicularidad.",
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-signo-numerico"
+    ]
+  },
+  {
+    "question": "Dos vectores cumplen la siguiente relación.\n$$\\vec{u} \\cdot \\vec{v} = 12$$\n¿Qué relación tienen sus direcciones?",
+    "options": [
+      "Se cruzan en ángulo recto, perpendiculares entre sí",
+      "Apuntan en sentidos parecidos, con ángulo agudo entre ellos",
+      "Apuntan en sentidos opuestos, con ángulo obtuso entre ellos"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Un producto escalar positivo indica un ángulo menor que el recto.",
+    "feedback_incorrect": [
+      "El ángulo recto daría producto nulo, no positivo.",
+      null,
+      "Un producto positivo descarta el ángulo obtuso, que daría un resultado negativo."
+    ],
+    "explanation": "El signo del producto escalar clasifica la dirección relativa de dos vectores.\n$$\\vec{u} \\cdot \\vec{v} = 12 > 0$$\nUn resultado positivo significa que el coseno del ángulo es positivo, y eso ocurre por debajo del ángulo recto.\n\nLos dos vectores apuntan más a favor que en contra, aunque no estén perfectamente alineados.\n\nLa magnitud del resultado depende además de las longitudes, así que no informa nada sobre el ángulo por sí sola.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-signo-numerico"
+    ]
+  },
+  {
+    "question": "El producto escalar de dos vectores ya viene calculado.\n$$\\vec{u} \\cdot \\vec{v} = 0$$\n¿Qué relación tienen sus direcciones?",
+    "options": [
+      "Apuntan en sentidos parecidos, con ángulo agudo entre ellos",
+      "Apuntan en sentidos opuestos, con ángulo obtuso entre ellos",
+      "Se cruzan en ángulo recto, perpendiculares entre sí"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Un producto escalar nulo es exactamente la condición de perpendicularidad.",
+    "feedback_incorrect": [
+      "Un ángulo agudo daría un producto positivo, no nulo.",
+      "Un ángulo obtuso daría un producto negativo, no nulo.",
+      null
+    ],
+    "explanation": "El cero es el valor frontera entre los productos positivos y los negativos.\n$$\\vec{u} \\cdot \\vec{v} = 0$$\nSe alcanza cuando el coseno del ángulo se anula, y eso ocurre en un único ángulo entre $0°$ y $180°$.\n\nEse ángulo es el recto, así que un producto nulo caracteriza exactamente a los pares perpendiculares.\n\nLa condición vale suponiendo que ninguno de los dos vectores sea nulo, porque el nulo da producto cero contra cualquiera.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-signo-numerico"
+    ]
+  },
+  {
+    "question": "Un cálculo previo dejó este valor para un par de vectores.\n$$\\vec{u} \\cdot \\vec{v} = -3$$\n¿Qué relación tienen sus direcciones?",
+    "options": [
+      "Apuntan en sentidos opuestos, con ángulo obtuso entre ellos",
+      "Se cruzan en ángulo recto, perpendiculares entre sí",
+      "Apuntan en sentidos parecidos, con ángulo agudo entre ellos"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Un producto escalar negativo indica un ángulo mayor que el recto.",
+    "feedback_incorrect": [
+      null,
+      "El ángulo recto daría producto nulo, no negativo.",
+      "Un ángulo agudo daría un producto positivo, no negativo."
+    ],
+    "explanation": "El signo negativo indica que el coseno del ángulo es negativo.\n$$\\vec{u} \\cdot \\vec{v} = -3 < 0$$\nEso ocurre para todos los ángulos entre el recto y el llano, o sea cuando los vectores se oponen más de lo que colaboran.\n\nQue el número sea chico en valor absoluto no cambia la clasificación: lo único que decide es el signo.\n\nUn valor cercano a cero indica un ángulo cercano al recto, pero mientras no sea cero sigue habiendo oposición.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-signo-numerico"
+    ]
+  },
+  {
+    "question": "De un par de vectores se conoce únicamente este número.\n$$\\vec{u} \\cdot \\vec{v} = -20$$\n¿Qué relación tienen sus direcciones?",
+    "options": [
+      "Apuntan en sentidos parecidos, con ángulo agudo entre ellos",
+      "Apuntan en sentidos opuestos, con ángulo obtuso entre ellos",
+      "Se cruzan en ángulo recto, perpendiculares entre sí"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El signo negativo clasifica el par como opuesto, sin importar cuán grande sea el número.",
+    "feedback_incorrect": [
+      "Un ángulo agudo daría un producto positivo, no negativo.",
+      null,
+      "El ángulo recto daría producto nulo, no un valor grande."
+    ],
+    "explanation": "La clasificación depende únicamente del signo, no de la magnitud del resultado.\n$$\\vec{u} \\cdot \\vec{v} = -20 < 0$$\nUn valor negativo grande puede venir de vectores largos con un ángulo apenas obtuso, o de vectores cortos casi opuestos.\n\nLos dos casos comparten la misma clasificación, porque el coseno es negativo en los dos.\n\nSeparar lo que informa el signo de lo que informa la magnitud evita leer de más en el resultado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-signo-numerico"
+    ]
+  },
+  {
+    "question": "Dados $\\vec{u}=(3,1)$ y $\\vec{v}=(-2,-5)$.\n\n¿Qué relación tienen sus direcciones?",
+    "options": [
+      "Apuntan en sentidos opuestos, con ángulo obtuso entre ellos",
+      "Son perpendiculares",
+      "Apuntan en sentidos parecidos, con ángulo agudo entre ellos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\vec{u}\\cdot\\vec{v} = 3(-2)+1(-5) = -11$, un valor negativo: los vectores apuntan en sentidos opuestos.",
+    "feedback_incorrect": [
+      null,
+      "El producto escalar da $-11$, distinto de cero, así que los vectores no son perpendiculares.",
+      "El resultado es negativo, no positivo, así que el ángulo entre ellos es obtuso, no agudo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para clasificar la relación entre dos vectores por sus componentes, primero se calcula el producto escalar y después se mira su signo.\n$$\\begin{aligned} \\vec{u}\\cdot\\vec{v} &= (3)(-2)+(1)(-5) \\\\ &= -6-5 = -11 \\end{aligned}$$\nComo el resultado es negativo, los vectores forman un ángulo obtuso: apuntan en sentidos opuestos.\n\nUn resultado positivo indicaría ángulo agudo, y un resultado cero indicaría perpendicularidad.",
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-signo-a-calcular"
+    ]
+  },
+  {
+    "question": "Se conocen las componentes de dos vectores.\n$$\\vec{u}=(4,2) \\qquad \\vec{v}=(1,3)$$\n¿Qué relación tienen sus direcciones?",
+    "options": [
+      "Se cruzan en ángulo recto, perpendiculares entre sí",
+      "Apuntan en sentidos parecidos, con ángulo agudo entre ellos",
+      "Apuntan en sentidos opuestos, con ángulo obtuso entre ellos"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El producto escalar da diez, positivo, así que el ángulo es agudo.",
+    "feedback_incorrect": [
+      "El producto no se anula, así que los vectores no son perpendiculares.",
+      null,
+      "Un producto positivo descarta el ángulo obtuso."
+    ],
+    "explanation": "Primero se calcula el producto escalar por componentes y después se lee su signo.\n$$4 \\cdot 1 + 2 \\cdot 3 = 10$$\nLos dos términos son positivos, porque en los dos ejes los vectores apuntan hacia el mismo lado.\n\nEl resultado positivo clasifica al par como de ángulo agudo.\n\nNo hace falta calcular el ángulo: el signo alcanza para responder.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-signo-a-calcular"
+    ]
+  },
+  {
+    "question": "Un par de vectores viene dado por sus componentes.\n$$\\vec{u}=(5,-1) \\qquad \\vec{v}=(2,10)$$\n¿Qué relación tienen sus direcciones?",
+    "options": [
+      "Apuntan en sentidos parecidos, con ángulo agudo entre ellos",
+      "Apuntan en sentidos opuestos, con ángulo obtuso entre ellos",
+      "Se cruzan en ángulo recto, perpendiculares entre sí"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El producto escalar se anula, así que el par es perpendicular.",
+    "feedback_incorrect": [
+      "El producto no es positivo: los dos términos se cancelan exactamente.",
+      "El producto no es negativo: los dos términos se cancelan exactamente.",
+      null
+    ],
+    "explanation": "Los dos términos del producto escalar pueden cancelarse entre sí.\n$$5 \\cdot 2 + (-1) \\cdot 10 = 10 - 10 = 0$$\nEn el primer eje los vectores coinciden y en el segundo se oponen, y los dos aportes se compensan exactamente.\n\nEse equilibrio es lo que caracteriza al ángulo recto.\n\nConviene calcular los dos términos por separado antes de sumarlos, porque es ahí donde más se pierden los signos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-signo-a-calcular"
+    ]
+  },
+  {
+    "question": "Dos direcciones se describen con sus componentes.\n$$\\vec{u}=(-2,4) \\qquad \\vec{v}=(3,-1)$$\n¿Qué relación tienen sus direcciones?",
+    "options": [
+      "Apuntan en sentidos opuestos, con ángulo obtuso entre ellos",
+      "Se cruzan en ángulo recto, perpendiculares entre sí",
+      "Apuntan en sentidos parecidos, con ángulo agudo entre ellos"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El producto escalar da menos diez, así que el ángulo supera al recto.",
+    "feedback_incorrect": [
+      null,
+      "El producto no se anula, así que los vectores no son perpendiculares.",
+      "Un producto negativo descarta el ángulo agudo."
+    ],
+    "explanation": "Los signos de las componentes entran en la cuenta y deciden el signo de cada término.\n$$(-2) \\cdot 3 + 4 \\cdot (-1) = -6 - 4 = -10$$\nEn los dos ejes los vectores apuntan hacia lados opuestos, así que los dos términos son negativos.\n\nEl resultado negativo clasifica al par como de ángulo obtuso.\n\nCuando los dos términos comparten signo, el resultado no puede cancelarse y la clasificación queda decidida de entrada.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-signo-a-calcular"
+    ]
+  },
+  {
+    "question": "Se dan las componentes de dos vectores del plano.\n$$\\vec{u}=(6,3) \\qquad \\vec{v}=(-1,4)$$\n¿Qué relación tienen sus direcciones?",
+    "options": [
+      "Se cruzan en ángulo recto, perpendiculares entre sí",
+      "Apuntan en sentidos parecidos, con ángulo agudo entre ellos",
+      "Apuntan en sentidos opuestos, con ángulo obtuso entre ellos"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El producto escalar da seis, positivo, así que el ángulo es agudo.",
+    "feedback_incorrect": [
+      "El producto no se anula, así que los vectores no son perpendiculares.",
+      null,
+      "Un producto positivo descarta el ángulo obtuso."
+    ],
+    "explanation": "Los dos términos pueden tener signos distintos y aun así dejar un resultado positivo.\n$$6 \\cdot (-1) + 3 \\cdot 4 = -6 + 12 = 6$$\nEn el primer eje los vectores se oponen, pero en el segundo coinciden con más peso.\n\nLo que decide la clasificación es el resultado total, no el signo de cada término por separado.\n\nPor eso no se puede anticipar el signo mirando solo un eje: hay que completar la suma.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-signo-a-calcular"
+    ]
+  },
+  {
+    "question": "Dos personas empujan un mismo objeto, cada una con su propia fuerza.\n\nEl producto escalar entre esas dos fuerzas es positivo:\n$$\\vec{F}_1\\cdot\\vec{F}_2 > 0$$\n¿Qué indica ese resultado sobre sus empujes?",
+    "options": [
+      "Que sus empujes apuntan en un sentido parecido",
+      "Que sus empujes no tienen ninguna relación entre sí",
+      "Que uno de los dos empujes tiene magnitud negativa"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Un producto escalar positivo indica ángulo agudo entre las fuerzas: van en un sentido parecido y se ayudan.",
+    "feedback_incorrect": [
+      null,
+      "El signo del producto escalar sí dice algo concreto sobre la relación entre las direcciones.",
+      "La magnitud de una fuerza, su norma, nunca es negativa; un signo negativo en el producto vendría del ángulo, no de la magnitud."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El signo del producto escalar entre dos fuerzas indica si se ayudan, se estorban o no se afectan en absoluto.\n\nUn resultado positivo corresponde a un ángulo agudo entre las fuerzas: apuntan en un sentido parecido, así que una refuerza el efecto de la otra.\n$$\\vec{F}_1\\cdot\\vec{F}_2 > 0$$\nUn resultado negativo indicaría que se oponen, y un resultado cero indicaría que una no afecta en nada a la dirección de la otra.",
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-contexto"
+    ]
+  },
+  {
+    "question": "Dos remolcadores tiran de una misma barcaza, y el producto escalar entre sus fuerzas es negativo.\n$$\\vec{F}_1 \\cdot \\vec{F}_2 < 0$$\n¿Qué indica ese resultado?",
+    "options": [
+      "Que uno de los dos tirones tiene magnitud negativa",
+      "Que sus tirones se oponen más de lo que colaboran",
+      "Que sus tirones apuntan en un sentido bastante parecido"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Un producto negativo indica un ángulo obtuso entre las dos fuerzas.",
+    "feedback_incorrect": [
+      "Ninguna magnitud es negativa: lo que puede ser negativo es el producto.",
+      null,
+      "Un sentido parecido daría un producto positivo, no negativo."
+    ],
+    "explanation": "El signo del producto escalar entre dos fuerzas dice si colaboran o se estorban.\n$$\\vec{F}_1 \\cdot \\vec{F}_2 < 0$$\nUn resultado negativo significa que el ángulo entre ellas supera el recto, o sea que apuntan más en contra que a favor.\n\nParte del esfuerzo de cada remolcador se gasta en compensar al otro en lugar de mover la barcaza.\n\nLas magnitudes de las fuerzas son siempre positivas: lo que lleva signo es el resultado de la operación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-contexto"
+    ]
+  },
+  {
+    "question": "Dos personas empujan un mueble, y el producto escalar entre sus empujes es nulo.\n$$\\vec{F}_1 \\cdot \\vec{F}_2 = 0$$\n¿Qué indica ese resultado?",
+    "options": [
+      "Que una de las dos no está haciendo ninguna fuerza",
+      "Que las dos fuerzas se cancelan y el mueble no se mueve",
+      "Que empujan en direcciones perpendiculares entre sí"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Un producto nulo entre dos fuerzas no nulas indica ángulo recto.",
+    "feedback_incorrect": [
+      "Las dos pueden estar empujando con mucha fuerza y aun así dar producto cero.",
+      "Cancelarse exigiría que apunten en sentidos opuestos, y ahí el producto sería negativo.",
+      null
+    ],
+    "explanation": "El producto escalar nulo caracteriza el ángulo recto, siempre que ninguna de las dos fuerzas sea nula.\n$$\\vec{F}_1 \\cdot \\vec{F}_2 = 0$$\nLas dos personas pueden estar empujando fuerte: lo que ocurre es que sus direcciones no se solapan en absoluto.\n\nEl mueble sí se mueve, en una diagonal entre las dos direcciones, porque las fuerzas se suman como vectores.\n\nCancelarse es otra cosa, y correspondería a un producto escalar negativo con fuerzas opuestas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-contexto"
+    ]
+  },
+  {
+    "question": "Una fuerza empuja un carro que avanza, y el producto escalar entre la fuerza y el avance es positivo.\n$$\\vec{F} \\cdot \\vec{d} > 0$$\n¿Qué indica ese resultado?",
+    "options": [
+      "Que la fuerza aporta al avance en esa dirección",
+      "Que la fuerza frena el avance del carro",
+      "Que la fuerza es perpendicular al avance"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Un producto positivo indica que la fuerza y el avance apuntan más a favor que en contra.",
+    "feedback_incorrect": [
+      null,
+      "Frenar daría un producto negativo, con la fuerza opuesta al avance.",
+      "La perpendicularidad daría producto nulo, no positivo."
+    ],
+    "explanation": "El producto escalar entre una fuerza y un desplazamiento mide cuánto de esa fuerza empuja en la dirección del movimiento.\n$$\\vec{F} \\cdot \\vec{d} > 0$$\nUn resultado positivo significa que la fuerza tiene una componente a favor del avance.\n\nCuanto más alineadas estén las dos direcciones, mayor es ese aporte para una misma magnitud de fuerza.\n\nEl caso negativo corresponde a una fuerza que frena, y el nulo a una que solo desvía.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-contexto"
+    ]
+  },
+  {
+    "question": "Dos corrientes actúan sobre un mismo bote, y el producto escalar entre sus velocidades es positivo.\n$$\\vec{v}_1 \\cdot \\vec{v}_2 > 0$$\n¿Qué indica ese resultado?",
+    "options": [
+      "Que las dos corrientes terminan anulándose entre sí",
+      "Que las dos corrientes lo arrastran hacia lados parecidos",
+      "Que las dos corrientes tienen exactamente la misma velocidad"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Un producto positivo indica un ángulo agudo entre las dos direcciones.",
+    "feedback_incorrect": [
+      "Anularse exigiría sentidos opuestos, y ahí el producto sería negativo.",
+      null,
+      "Las velocidades pueden ser muy distintas y dar producto positivo igual."
+    ],
+    "explanation": "El signo del producto escalar resume la dirección relativa, sin decir nada de las magnitudes.\n$$\\vec{v}_1 \\cdot \\vec{v}_2 > 0$$\nUn resultado positivo indica que el ángulo entre las dos corrientes es menor que el recto.\n\nLas dos empujan al bote hacia lados parecidos, así que sus efectos se refuerzan en buena medida.\n\nDos corrientes de velocidades muy distintas pueden dar el mismo signo, porque lo que se lee ahí es solo la dirección.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "clasificar-por-contexto"
+    ]
+  }
+]

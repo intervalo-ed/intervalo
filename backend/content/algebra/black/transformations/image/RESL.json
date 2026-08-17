@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar la imagen de un vector puntual, se reemplazan sus componentes en la fórmula de la transformación.\n$$T(2,1) = (2+1,\\; 2-1) = (3, 1)$$\n\nCada componente del resultado sale de una combinación distinta de $x$ e $y$: la primera los suma, la segunda los resta.\n\nUn error común es calcular bien cada componente pero después mezclar el orden al escribir el resultado final.",
+    "explanation": "Para hallar la imagen de un vector puntual, se reemplazan sus componentes en la fórmula de la transformación.\n$$T(2,1) = (2+1,\\; 2-1) = (3, 1)$$\nCada componente del resultado sale de una combinación distinta de $x$ e $y$: la primera los suma, la segunda los resta.\n\nUn error común es calcular bien cada componente pero después mezclar el orden al escribir el resultado final.",
     "reviewed": false
   }
 ]

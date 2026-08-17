@@ -1,22 +1,371 @@
 [
   {
-    "question": "¿En qué espacio está definido el **producto** vectorial (cruz) entre dos vectores?",
+    "question": "El producto escalar de dos vectores devuelve un número; el producto cruz no.\n$$\\vec{u} \\times \\vec{v} = \\vec{w}$$\n¿Por qué su resultado es otro vector?",
     "options": [
-      "Solo en $\\mathbb{R}^3$",
-      "En cualquier $\\mathbb{R}^n$",
-      "Solo en $\\mathbb{R}^2$"
+      "Porque devuelve un vector perpendicular a los dos originales",
+      "Porque el producto escalar tampoco devuelve un número",
+      "Porque el resultado siempre tiene la misma dirección que $\\vec{u}$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "El producto vectorial es una operación exclusiva de $\\mathbb{R}^3$.",
+    "feedback_correct": "El producto cruz devuelve un nuevo vector, perpendicular a los dos originales; por eso necesita dirección propia, no solo magnitud.",
     "feedback_incorrect": [
       null,
-      "El producto cruz, tal como se define acá, no se generaliza a cualquier $n$.",
-      "En $\\mathbb{R}^2$ no está definido el producto cruz de esta forma."
+      "El producto escalar sí devuelve un número; son operaciones distintas con resultados de naturaleza distinta.",
+      "El vector resultante no comparte dirección con ninguno de los dos originales, es perpendicular a ambos."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **producto** vectorial (o cruz) es una operación exclusiva de $\\mathbb{R}^3$.\n$$\\vec{w} = \\vec{u}\\times\\vec{v}$$\n\nToma dos vectores del espacio y devuelve un tercer vector, perpendicular a ambos.\n\nSu norma equivale al área del paralelogramo que forman los vectores originales, y se usa habitualmente para hallar vectores normales a un plano.",
-    "reviewed": false
+    "explanation": "El producto cruz combina dos vectores y devuelve un tercer vector, perpendicular a los dos originales:\n$$\\vec{w} = \\vec{u}\\times\\vec{v}$$\nComo ese resultado apunta en una dirección propia, distinta de $\\vec{u}$ y de $\\vec{v}$, necesita representarse con un vector, no con un simple número.\n\nEsto contrasta con el producto escalar, que sí da un número, porque mide algo sin dirección propia: cuánto se parecen dos direcciones entre sí.",
+    "reviewed": false,
+    "tags": [
+      "por-que-resultado-es-vector"
+    ]
+  },
+  {
+    "question": "El producto cruz devuelve un objeto distinto del que devuelve el producto escalar.\n$$\\vec{u} \\times \\vec{v} = \\vec{w}$$\n¿Qué información necesita ese resultado que un número no podría guardar?",
+    "options": [
+      "El orden en que se escribieron los dos factores",
+      "La dirección perpendicular a los dos vectores originales",
+      "La magnitud del ángulo que forman los dos vectores"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La respuesta que da el producto cruz es una dirección, y una dirección no cabe en un número.",
+    "feedback_incorrect": [
+      "El orden cambia el resultado, pero se registra en el signo, no en el tipo de objeto.",
+      null,
+      "Un ángulo sí se puede guardar en un número, y de hecho eso es lo que hace el producto escalar."
+    ],
+    "explanation": "El producto cruz responde a la pregunta de qué dirección es perpendicular a otras dos a la vez.\n$$\\vec{u} \\times \\vec{v} = \\vec{w}$$\nUna dirección en el espacio necesita tres componentes para quedar descripta, así que la respuesta tiene que ser un vector.\n\nEl producto escalar, en cambio, responde con cuánto se parecen dos direcciones, y eso sí es un solo número.\n\nEl tipo del resultado no es un capricho de la definición: sale de qué pregunta contesta cada operación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-resultado-es-vector"
+    ]
+  },
+  {
+    "question": "Un vector perpendicular a otros dos queda determinado salvo por su sentido y su tamaño.\n$$\\vec{w} \\perp \\vec{u}, \\qquad \\vec{w} \\perp \\vec{v}$$\n¿Qué agrega el producto cruz a esa descripción?",
+    "options": [
+      "Fija únicamente la dirección, y deja el sentido sin definir",
+      "Fija la magnitud, y deja la dirección librada a elección",
+      "Fija el sentido y la magnitud, no solo la dirección"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El resultado es un vector concreto, con dirección, sentido y magnitud definidos.",
+    "feedback_incorrect": [
+      "El sentido queda fijado por el orden de los factores, no libre.",
+      "La dirección es lo primero que el producto cruz determina, no algo que quede a elección.",
+      null
+    ],
+    "explanation": "Muchos vectores son perpendiculares a otros dos a la vez: todos los que están sobre una misma recta.\n$$\\vec{w} \\perp \\vec{u}, \\qquad \\vec{w} \\perp \\vec{v}$$\nEl producto cruz elige uno concreto de esa recta, fijando además hacia qué lado apunta y cuánto mide.\n\nEl sentido lo decide el orden de los factores y la magnitud depende del ángulo entre los dos vectores originales.\n\nPor eso el resultado es un vector determinado, y no una familia de vectores posibles.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-resultado-es-vector"
+    ]
+  },
+  {
+    "question": "El producto escalar y el producto cruz responden preguntas distintas sobre el mismo par de vectores.\n$$\\vec{u} \\cdot \\vec{v} \\qquad \\vec{u} \\times \\vec{v}$$\n¿Qué distingue a los dos resultados?",
+    "options": [
+      "Que uno es un número y el otro es un vector con dirección propia",
+      "Que uno solo se define en el plano y el otro en cualquier espacio",
+      "Que uno depende del orden de los factores y el otro también"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El escalar devuelve una cantidad y el cruz devuelve una dirección nueva.",
+    "feedback_incorrect": [
+      null,
+      "El producto escalar se define en cualquier dimensión, y el cruz solo en tres.",
+      "El producto escalar no depende del orden; el cruz sí, y cambia de signo."
+    ],
+    "explanation": "Las dos operaciones toman dos vectores, pero devuelven objetos de naturaleza distinta.\n$$\\vec{u} \\cdot \\vec{v} \\in \\mathbb{R} \\qquad \\vec{u} \\times \\vec{v} \\in \\mathbb{R}^{3}$$\nEl producto escalar mide cuánto apuntan hacia el mismo lado, y eso es una cantidad.\n\nEl producto cruz construye una dirección nueva, perpendicular a las dos originales, y eso es un vector.\n\nEl nombre de cada uno viene justamente del tipo de resultado que devuelve.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-resultado-es-vector"
+    ]
+  },
+  {
+    "question": "Si el producto cruz devolviera un número, se perdería una de sus aplicaciones centrales.\n$$\\vec{u} \\times \\vec{v} = \\vec{w}$$\n¿Cuál de estas cosas dejaría de poder hacerse?",
+    "options": [
+      "Decidir si los dos vectores originales son paralelos",
+      "Encontrar una dirección perpendicular a un plano dado",
+      "Medir el ángulo que forman los dos vectores originales"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sin un vector como resultado no hay ninguna dirección nueva que señalar.",
+    "feedback_incorrect": [
+      "El paralelismo se detecta mirando si el resultado se anula, y para eso alcanza con su magnitud.",
+      null,
+      "El ángulo se puede medir con el producto escalar, que sí devuelve un número."
+    ],
+    "explanation": "Dos vectores no paralelos determinan un plano, y el producto cruz devuelve la dirección perpendicular a ese plano.\n$$\\vec{u} \\times \\vec{v} = \\vec{w}$$\nEsa dirección es lo que hace falta, por ejemplo, para describir cómo está orientada una superficie en el espacio.\n\nUn número no puede señalar una dirección, así que esa aplicación desaparecería por completo.\n\nLas otras dos preguntas dependen de la magnitud del resultado o del producto escalar, y sobrevivirían.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-resultado-es-vector"
+    ]
+  },
+  {
+    "question": "El producto cruz no está disponible en cualquier espacio.\n$$\\vec{u} \\times \\vec{v} \\in \\mathbb{R}^3$$\n¿Por qué solo está definido ahí?",
+    "options": [
+      "Porque hace falta una tercera dirección para que exista una perpendicular a los otros dos",
+      "Porque en $\\mathbb{R}^2$ los vectores no pueden ser perpendiculares",
+      "Porque en $\\mathbb{R}^3$ los vectores siempre tienen norma mayor a la de $\\mathbb{R}^2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "En tres dimensiones hace falta esa tercera dirección para construir una perpendicular a los otros dos vectores.",
+    "feedback_incorrect": [
+      null,
+      "La perpendicularidad sí existe en $\\mathbb{R}^2$; de hecho el topic anterior de esta unidad trabaja justo con eso.",
+      "La norma de un vector no depende de la dimensión del espacio en que vive, sino de sus propias componentes."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El producto cruz necesita encontrar una dirección perpendicular a dos vectores dados al mismo tiempo.\n\nEn $\\mathbb{R}^3$ existe una única dirección más, fuera del plano de los dos vectores originales, que resulta perpendicular a ambos.\n\nEn $\\mathbb{R}^2$ no hay una tercera dirección disponible: cualquier vector vive en el mismo plano, así que no hay adónde apuntar para ser perpendicular a los dos a la vez.",
+    "reviewed": false,
+    "tags": [
+      "por-que-exclusivo-r3"
+    ]
+  },
+  {
+    "question": "En el plano, dos vectores no paralelos ya ocupan todas las direcciones disponibles.\n$$\\vec{u}, \\vec{v} \\in \\mathbb{R}^{2}$$\n¿Por qué eso impide definir un producto cruz ahí?",
+    "options": [
+      "Porque el plano no admite vectores de tres componentes",
+      "Porque no queda ninguna dirección perpendicular a los dos dentro del plano",
+      "Porque en el plano los vectores nunca pueden ser perpendiculares entre sí"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El resultado tendría que salirse del plano, y ahí ya no sería un vector del mismo espacio.",
+    "feedback_incorrect": [
+      "Que el plano tenga dos componentes es el dato, pero la razón es que no queda dirección libre.",
+      null,
+      "En el plano hay pares perpendiculares de sobra: lo que falta es una tercera dirección."
+    ],
+    "explanation": "El producto cruz devuelve un vector perpendicular a los dos originales a la vez.\n$$\\vec{u}, \\vec{v} \\in \\mathbb{R}^{2}$$\nEn el plano, cualquier dirección perpendicular a dos direcciones no paralelas tendría que salirse del plano.\n\nEse vector existiría, pero ya no pertenecería al mismo espacio que los dos originales.\n\nEn tres dimensiones sí queda una dirección libre, y por eso ahí la operación cierra dentro del espacio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-exclusivo-r3"
+    ]
+  },
+  {
+    "question": "El producto cruz necesita que sobre exactamente una dirección después de fijar dos.\n$$\\mathbb{R}^{3}$$\n¿Qué pasaría en un espacio de cuatro dimensiones?",
+    "options": [
+      "No sobraría ninguna dirección perpendicular a los dos vectores",
+      "El resultado pasaría a ser un número en vez de un vector",
+      "Sobrarían varias perpendiculares, y el resultado no quedaría único"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Con más dimensiones hay más de una perpendicular posible, y la operación deja de tener un único valor.",
+    "feedback_incorrect": [
+      "Al contrario: cuantas más dimensiones haya, más direcciones perpendiculares quedan libres.",
+      "El tipo del resultado no cambia con la dimensión: el problema es que dejaría de ser único.",
+      null
+    ],
+    "explanation": "En tres dimensiones, fijar dos direcciones no paralelas deja exactamente una dirección perpendicular a las dos.\n$$\\mathbb{R}^{3}$$\nEsa unicidad es lo que permite que el producto cruz devuelva un resultado bien definido.\n\nCon cuatro dimensiones quedaría todo un plano de direcciones perpendiculares, y habría que elegir una sin ningún criterio.\n\nCon dos dimensiones el problema es el opuesto, no queda ninguna, y por eso la operación existe solo en el medio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-exclusivo-r3"
+    ]
+  },
+  {
+    "question": "Dos vectores del plano se pueden pensar apoyados en el espacio, con la tercera componente nula.\n$$(a,b,0)$$\n¿Qué se obtiene al calcular su producto cruz?",
+    "options": [
+      "Un vector perpendicular al plano, con las dos primeras componentes nulas",
+      "Un vector dentro del mismo plano, con la tercera componente nula",
+      "El vector nulo, porque los dos originales están en un plano"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El resultado sale del plano y apunta en la dirección que quedaba libre.",
+    "feedback_incorrect": [
+      null,
+      "El resultado no puede quedar en el plano: tiene que ser perpendicular a los dos originales.",
+      "El resultado se anula solo si los dos vectores son paralelos entre sí."
+    ],
+    "explanation": "Meter dos vectores del plano en el espacio es la forma habitual de aplicarles el producto cruz.\n$$(a,b,0) \\times (c,d,0)$$\nEl resultado es perpendicular a los dos, así que necesariamente apunta en la dirección que sale del plano.\n\nSus dos primeras componentes se anulan, y toda la información queda en la tercera.\n\nEse caso muestra con claridad por qué la operación necesita la tercera dimensión: es ahí donde vive la respuesta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-exclusivo-r3"
+    ]
+  },
+  {
+    "question": "El producto escalar no tiene la misma restricción que el producto cruz.\n$$\\vec{u} \\cdot \\vec{v} \\in \\mathbb{R}$$\n¿Por qué el escalar sí se define en cualquier dimensión?",
+    "options": [
+      "Porque solo se puede calcular entre vectores perpendiculares",
+      "Porque su resultado es un número y no necesita ninguna dirección libre",
+      "Porque su resultado siempre vive en el mismo espacio que los dos vectores"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Un número no ocupa ninguna dirección, así que no compite con las que ya están usadas.",
+    "feedback_incorrect": [
+      "El producto escalar se calcula entre cualquier par de vectores, perpendiculares o no.",
+      null,
+      "El resultado del producto escalar no es un vector, así que no vive en ningún espacio de vectores."
+    ],
+    "explanation": "La restricción del producto cruz viene de que su resultado es un vector que necesita una dirección disponible.\n$$\\vec{u} \\cdot \\vec{v} \\in \\mathbb{R}$$\nEl producto escalar devuelve un número, y los números no ocupan direcciones ni compiten con las de los vectores originales.\n\nPor eso se lo puede calcular entre vectores de dos, tres o cualquier cantidad de componentes.\n\nLa diferencia entre las dos operaciones no está en cómo se calculan, sino en qué tipo de objeto devuelven.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-exclusivo-r3"
+    ]
+  },
+  {
+    "question": "En el producto cruz, invertir el orden de los factores cambia el resultado.\n$$\\vec{u} \\times \\vec{v} \\neq \\vec{v} \\times \\vec{u}$$\n¿Por qué el orden importa?",
+    "options": [
+      "Porque apuntan en sentidos opuestos: $\\vec{u}\\times\\vec{v} = -(\\vec{v}\\times\\vec{u})$",
+      "Porque tienen distinta magnitud según el orden de los factores",
+      "Porque solo uno de los dos órdenes da un resultado válido"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Invertir el orden de los factores invierte el sentido del resultado, aunque la magnitud sea la misma.",
+    "feedback_incorrect": [
+      null,
+      "La magnitud del resultado no cambia con el orden; lo que cambia es el sentido del vector.",
+      "Los dos órdenes son válidos; ambos dan un vector perpendicular a los originales, pero en sentidos opuestos."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "A diferencia de la suma o el producto escalar, en el producto cruz el orden de los factores sí importa:\n$$\\vec{u}\\times\\vec{v} = -(\\vec{v}\\times\\vec{u})$$\nLos dos resultados tienen la misma magnitud y la misma línea de dirección, pero apuntan en sentidos opuestos.\n\nPor eso, antes de calcular, conviene fijarse en qué orden pide el enunciado: invertirlo no cambia el tamaño del resultado, pero sí lo manda para el otro lado.",
+    "reviewed": false,
+    "tags": [
+      "por-que-orden-importa"
+    ]
+  },
+  {
+    "question": "Invertir el orden de los factores en un producto cruz cambia el resultado.\n$$\\vec{u} \\times \\vec{v} \\neq \\vec{v} \\times \\vec{u}$$\n¿Qué es lo que cambia exactamente?",
+    "options": [
+      "La dirección del vector resultante, que deja de ser perpendicular",
+      "El sentido del vector resultante, que pasa a apuntar al revés",
+      "La magnitud del vector resultante, que se reduce a la mitad"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los dos resultados están sobre la misma recta, apuntando hacia lados opuestos.",
+    "feedback_incorrect": [
+      "La dirección tampoco cambia: los dos siguen siendo perpendiculares a los originales.",
+      null,
+      "La magnitud no cambia: los dos resultados miden exactamente lo mismo."
+    ],
+    "explanation": "Los dos resultados son perpendiculares al mismo par de vectores, así que están sobre la misma recta.\n$$\\vec{v} \\times \\vec{u} = -(\\vec{u} \\times \\vec{v})$$\nLo único que los distingue es hacia qué lado de esa recta apuntan.\n\nLa magnitud se conserva, porque depende del ángulo entre los dos vectores y ese ángulo no cambia al invertirlos.\n\nPor eso la operación se llama **anticonmutativa**: el orden no da lo mismo, pero el cambio es exactamente un signo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-orden-importa"
+    ]
+  },
+  {
+    "question": "El producto escalar da lo mismo en cualquier orden y el producto cruz no.\n$$\\vec{u} \\cdot \\vec{v} = \\vec{v} \\cdot \\vec{u}$$\n¿Por qué el escalar sí conmuta?",
+    "options": [
+      "Porque su resultado es siempre positivo, sin importar el orden",
+      "Porque el producto de dos números reales conmuta",
+      "Porque mide cuánto se parecen dos direcciones, y eso es simétrico"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Preguntar cuánto se parece el primero al segundo es la misma pregunta que al revés.",
+    "feedback_incorrect": [
+      "El producto escalar puede dar negativo cuando el ángulo es obtuso.",
+      "Que los números conmuten explica la cuenta, pero no por qué la operación es simétrica.",
+      null
+    ],
+    "explanation": "El producto escalar responde cuánto apuntan dos vectores hacia el mismo lado, y esa relación no distingue cuál va primero.\n$$\\vec{u} \\cdot \\vec{v} = \\vec{v} \\cdot \\vec{u}$$\nEl producto cruz, en cambio, responde con una dirección, y una dirección tiene dos sentidos posibles.\n\nHace falta un criterio que elija uno de los dos, y ese criterio usa el orden de los factores.\n\nPor eso una operación conmuta y la otra no, aunque las dos tomen el mismo par de vectores.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-orden-importa"
+    ]
+  },
+  {
+    "question": "Un mismo par de vectores admite dos direcciones perpendiculares opuestas entre sí.\n$$\\vec{w} \\qquad -\\vec{w}$$\n¿Cómo se decide cuál de las dos devuelve el producto cruz?",
+    "options": [
+      "Por el orden en que se escriben los dos factores",
+      "Por cuál de los dos vectores tiene la mayor magnitud",
+      "Por cuál de las dos direcciones apunta hacia arriba"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El orden de los factores es lo único que distingue una de las dos direcciones posibles.",
+    "feedback_incorrect": [
+      null,
+      "Las magnitudes no intervienen en la elección del sentido.",
+      "No hay ningún arriba absoluto en el espacio: el sentido depende de los vectores, no de la posición."
+    ],
+    "explanation": "Ser perpendicular a dos vectores no alcanza para elegir un sentido: quedan dos candidatos opuestos.\n$$\\vec{w} \\qquad -\\vec{w}$$\nEl producto cruz resuelve la ambigüedad usando el orden de los factores.\n\nPor eso invertir el orden invierte el sentido, y por eso la operación no puede conmutar.\n\nSin una convención de ese tipo, la operación no tendría un resultado único y no sería una función.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-orden-importa"
+    ]
+  },
+  {
+    "question": "Un caso particular del producto cruz se puede resolver sin ninguna cuenta.\n$$\\vec{u} \\times \\vec{u}$$\n¿Cuánto vale?",
+    "options": [
+      "El propio vector, porque multiplicar por sí mismo no lo cambia",
+      "El vector nulo, porque los dos factores tienen la misma dirección",
+      "Un vector perpendicular al original, de la misma magnitud"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Dos vectores paralelos no determinan ningún plano, y el resultado se anula.",
+    "feedback_incorrect": [
+      "El producto cruz nunca devuelve alguno de sus factores: el resultado es perpendicular a los dos.",
+      null,
+      "No hay ninguna dirección perpendicular privilegiada: el par no determina un plano."
+    ],
+    "explanation": "El producto cruz devuelve la dirección perpendicular al plano que determinan los dos factores.\n$$\\vec{u} \\times \\vec{u} = \\vec{0}$$\nDos vectores con la misma dirección no determinan ningún plano, así que no hay perpendicular que señalar.\n\nLa anticonmutatividad lo confirma por otro camino: el resultado tendría que ser igual a su propio opuesto, y el único vector que cumple eso es el nulo.\n\nLo mismo vale para cualquier par de vectores paralelos, no solo para un vector consigo mismo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-orden-importa"
+    ]
   }
 ]

@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para aplicar la transformación, se multiplica la matriz asociada por el vector, fila por vector.\n$$T(3,1) = A\\begin{pmatrix}3\\\\1\\end{pmatrix} = \\begin{pmatrix} 1\\cdot3+2\\cdot1 \\\\ 0\\cdot3+1\\cdot1 \\end{pmatrix} = \\begin{pmatrix} 5 \\\\ 1 \\end{pmatrix}$$\n\nLa primera fila de $A$ combina ambas componentes del vector, mientras que la segunda fila solo conserva la segunda componente.\n\nConviene calcular cada fila del producto por separado, para no mezclar los coeficientes de una fila con los de la otra.",
+    "explanation": "Para aplicar la transformación, se multiplica la matriz asociada por el vector, fila por vector.\n$$T(3,1) = A\\begin{pmatrix}3\\\\1\\end{pmatrix} = \\begin{pmatrix} 1\\cdot3+2\\cdot1 \\\\ 0\\cdot3+1\\cdot1 \\end{pmatrix} = \\begin{pmatrix} 5 \\\\ 1 \\end{pmatrix}$$\nLa primera fila de $A$ combina ambas componentes del vector, mientras que la segunda fila solo conserva la segunda componente.\n\nConviene calcular cada fila del producto por separado, para no mezclar los coeficientes de una fila con los de la otra.",
     "reviewed": false
   }
 ]

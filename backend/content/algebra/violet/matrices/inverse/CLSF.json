@@ -1,0 +1,371 @@
+[
+  {
+    "question": "Una matriz cuadrada tiene inversa solamente cuando su determinante no se anula:\n$$A = \\begin{pmatrix} 2 & 4 \\\\ 1 & 2 \\end{pmatrix}$$\n¿Tiene inversa esta matriz?",
+    "options": [
+      "No, porque su determinante se anula y el plano colapsa",
+      "Sí, porque todas sus entradas son distintas de cero",
+      "Sí, porque toda matriz cuadrada admite una inversa"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El determinante da cuatro menos cuatro, es decir cero, y una transformación que aplasta el plano no se puede deshacer.",
+    "feedback_incorrect": [
+      null,
+      "Que ninguna entrada sea nula no impide que las filas queden alineadas, que es lo que anula el determinante.",
+      "Ser cuadrada es necesario pero no alcanza: además el determinante tiene que ser distinto de cero."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una matriz cuadrada tiene inversa exactamente cuando su determinante no se anula.\n$$\\det(A) = (2)(2) - (4)(1) = 0$$\nAcá la primera fila es el doble de la segunda, así que las dos direcciones quedan sobre la misma recta y la transformación aplasta el plano.\n\nUna vez aplastado, infinitos puntos comparten destino y ya no hay forma de devolverlos a su lugar de origen.\n\nMirar si alguna entrada es cero no sirve como criterio. Una matriz sin ningún cero puede tener determinante nulo, y una matriz con varios ceros puede tener inversa perfectamente.",
+    "reviewed": false,
+    "tags": [
+      "decidir-si-tiene-inversa"
+    ]
+  },
+  {
+    "question": "Una matriz cuadrada tiene inversa solo cuando su determinante no se anula.\n$$A = \\begin{pmatrix} 3 & 5 \\\\ 1 & 4 \\end{pmatrix}$$\n¿Tiene inversa esa matriz?",
+    "options": [
+      "No, porque sus entradas no son todas distintas entre sí",
+      "Sí, porque su determinante vale siete y no se anula",
+      "No, porque sus dos filas resultan proporcionales entre sí"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El determinante da siete, así que la transformación no aplasta el plano.",
+    "feedback_incorrect": [
+      "Los valores de las entradas no deciden la existencia de la inversa.",
+      null,
+      "Las dos filas no son proporcionales: sus cocientes no coinciden."
+    ],
+    "explanation": "La condición se verifica calculando el determinante y viendo si se anula.\n$$\\det(A) = 3 \\cdot 4 - 5 \\cdot 1 = 7$$\nComo no vale cero, la transformación no aplasta el plano y se puede deshacer.\n\nQue las entradas se repitan o no es irrelevante: lo único que decide es el determinante.\n\nEl valor concreto solo importa después, al calcular la inversa, donde aparece dividiendo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-si-tiene-inversa"
+    ]
+  },
+  {
+    "question": "Una matriz cuadrada tiene inversa solo cuando su determinante no se anula.\n$$A = \\begin{pmatrix} 6 & 9 \\\\ 2 & 3 \\end{pmatrix}$$\n¿Tiene inversa esa matriz?",
+    "options": [
+      "Sí, porque todas sus entradas resultan distintas de cero",
+      "Sí, porque es cuadrada, y toda matriz cuadrada tiene inversa",
+      "No, porque su determinante se anula y el plano queda aplastado"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Las dos filas son proporcionales, así que el determinante da cero.",
+    "feedback_incorrect": [
+      "Que las entradas no sean nulas no garantiza nada sobre el determinante.",
+      "Ser cuadrada es necesario pero no suficiente para tener inversa.",
+      null
+    ],
+    "explanation": "La primera fila es el triple de la segunda, así que las dos describen la misma dirección.\n$$\\det(A) = 6 \\cdot 3 - 9 \\cdot 2 = 0$$\nCon determinante nulo la transformación aplasta el plano sobre una recta, y no hay vuelta atrás.\n\nDetectar la proporcionalidad entre filas permite responder sin hacer la cuenta.\n\nSer cuadrada es un requisito previo, pero no alcanza: hace falta además que el determinante no se anule.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-si-tiene-inversa"
+    ]
+  },
+  {
+    "question": "Una matriz no cuadrada nunca cumple la condición de inversa.\n$$A = \\begin{pmatrix} 1 & 2 & 0 \\\\ 3 & 1 & 4 \\end{pmatrix}$$\n¿Tiene inversa esa matriz?",
+    "options": [
+      "No, porque no es cuadrada y la condición no se plantea",
+      "No, porque su determinante se anula al calcularlo entero",
+      "Sí, porque sus filas no resultan proporcionales entre sí"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Ser cuadrada es un requisito previo, antes de mirar cualquier determinante.",
+    "feedback_incorrect": [
+      null,
+      "El determinante solo está definido para matrices cuadradas, así que no se puede calcular.",
+      "Que las filas no sean proporcionales no alcanza: para una matriz que no es cuadrada la pregunta ni siquiera se puede plantear."
+    ],
+    "explanation": "La definición de inversa exige que los dos productos den la misma identidad.\n$$A \\in \\mathbb{R}^{2 \\times 3}$$\nCon una matriz de dos filas y tres columnas, esos dos productos tendrían órdenes distintos.\n\nEl determinante ni siquiera entra en la discusión, porque solo se define para matrices cuadradas.\n\nVerificar primero la forma y después el determinante es el orden correcto de los dos chequeos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-si-tiene-inversa"
+    ]
+  },
+  {
+    "question": "Una matriz diagonal tiene inversa bajo una condición sencilla.\n$$D = \\begin{pmatrix} 5 & 0 \\\\ 0 & 0 \\end{pmatrix}$$\n¿Tiene inversa esa matriz?",
+    "options": [
+      "Sí, porque su primera entrada es distinta de cero",
+      "No, porque una de las entradas de su diagonal vale cero",
+      "Sí, porque las matrices diagonales siempre tienen inversa"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El determinante de una diagonal es el producto de su diagonal, y un cero lo anula.",
+    "feedback_incorrect": [
+      "Alcanza con que una sola entrada de la diagonal se anule para que no haya inversa.",
+      null,
+      "Una diagonal con algún cero en su diagonal no tiene inversa."
+    ],
+    "explanation": "En una matriz diagonal, el determinante es el producto de las entradas de su diagonal.\n$$\\det(D) = 5 \\cdot 0 = 0$$\nUn solo cero en la diagonal anula ese producto, y con él la posibilidad de inversa.\n\nGeométricamente, esa dirección queda aplastada mientras la otra se estira, y el plano colapsa igual.\n\nLa condición para una diagonal es entonces que **todas** sus entradas diagonales sean distintas de cero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-si-tiene-inversa"
+    ]
+  },
+  {
+    "question": "Se propone una candidata a inversa de una matriz dada.\n$$A = \\begin{pmatrix} 3 & 1 \\\\ 2 & 1 \\end{pmatrix}$$\n$$B = \\begin{pmatrix} 1 & -1 \\\\ -2 & 3 \\end{pmatrix}$$\n¿Son inversas entre sí?",
+    "options": [
+      "Sí, porque su producto da la matriz identidad",
+      "No, porque sus determinantes no son recíprocos",
+      "No, porque ninguna es la traspuesta de la otra"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Al multiplicarlas, la diagonal queda en unos y el resto en ceros, que es exactamente la identidad.",
+    "feedback_incorrect": [
+      null,
+      "Los dos determinantes valen uno, así que sí son recíprocos; de todos modos esa condición sola no confirmaría nada.",
+      "La traspuesta y la inversa son operaciones distintas, y coinciden solo en casos muy particulares."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Dos matrices son inversas entre sí cuando su producto devuelve la matriz identidad, que es la transformación que deja todo en su lugar.\n$$AB = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$$\nVerificarlo exige hacer el producto: no alcanza con comparar determinantes ni con mirar la forma de las dos matrices.\n\nCada entrada del resultado combina una fila con una columna, y acá los términos cruzados se cancelan mientras que los de la diagonal dan uno.\n\nAlcanza con verificar el producto en un solo orden. Si una matriz cuadrada deshace a otra por un lado, también la deshace por el otro.",
+    "reviewed": false,
+    "tags": [
+      "verificar-si-dos-son-inversas"
+    ]
+  },
+  {
+    "question": "Se propone una candidata a inversa de una matriz dada.\n$$A = \\begin{pmatrix} 2 & 1 \\\\ 5 & 3 \\end{pmatrix} \\quad C = \\begin{pmatrix} 3 & -1 \\\\ -5 & 2 \\end{pmatrix}$$\n¿Son inversas entre sí?",
+    "options": [
+      "No, porque ninguna es la traspuesta de la otra",
+      "Sí, porque su producto da la matriz identidad",
+      "No, porque sus determinantes no resultan recíprocos entre sí"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Multiplicándolas se obtiene la identidad, que es la definición de inversa.",
+    "feedback_incorrect": [
+      "La traspuesta no interviene en la definición de inversa.",
+      null,
+      "Los dos determinantes valen uno, así que sí son recíprocos."
+    ],
+    "explanation": "La única forma de verificar es multiplicar las dos matrices y comparar con la identidad.\n$$AC = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$$\nEl producto da la identidad, así que la candidata efectivamente es la inversa.\n\nAlcanza con verificar uno de los dos productos: entre matrices cuadradas, si uno da la identidad el otro también.\n\nLa traspuesta es otra operación y no tiene ninguna relación con la inversa, salvo en casos particulares.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "verificar-si-dos-son-inversas"
+    ]
+  },
+  {
+    "question": "Una matriz viene acompañada de una candidata a inversa.\n$$A = \\begin{pmatrix} 4 & 2 \\\\ 3 & 2 \\end{pmatrix} \\quad C = \\begin{pmatrix} 2 & -2 \\\\ -3 & 4 \\end{pmatrix}$$\n¿Son inversas entre sí?",
+    "options": [
+      "Sí, porque su producto da la matriz identidad",
+      "No, porque las dos tienen el mismo determinante",
+      "No, porque su producto da el doble de la identidad"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El producto da una matriz diagonal con doses, no la identidad.",
+    "feedback_incorrect": [
+      "El producto no da la identidad: da esa matriz multiplicada por dos.",
+      "Los determinantes valen dos y dos, y ese no es el criterio.",
+      null
+    ],
+    "explanation": "El producto de las dos se calcula y se compara con la identidad, entrada por entrada.\n$$AC = \\begin{pmatrix} 2 & 0 \\\\ 0 & 2 \\end{pmatrix}$$\nEl resultado es la identidad multiplicada por dos, así que la candidata no es la inversa.\n\nLa inversa verdadera es esa candidata dividida por dos, y ese factor sale del determinante.\n\nEl paso de dividir por el determinante es independiente del intercambio de entradas, y va después.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "verificar-si-dos-son-inversas"
+    ]
+  },
+  {
+    "question": "Alguien propuso esta matriz como inversa de la primera.\n$$A = \\begin{pmatrix} 1 & 3 \\\\ 2 & 7 \\end{pmatrix} \\quad C = \\begin{pmatrix} 7 & 3 \\\\ 2 & 1 \\end{pmatrix}$$\n¿Son inversas entre sí?",
+    "options": [
+      "No, porque faltó cambiarle el signo a dos de las entradas",
+      "Sí, porque su producto da la matriz identidad",
+      "No, porque las dos matrices tienen determinante uno"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La candidata intercambió la diagonal pero dejó los otros dos signos sin cambiar.",
+    "feedback_incorrect": [
+      null,
+      "El producto no da la identidad: quedan entradas distintas de cero fuera de la diagonal.",
+      "Que los determinantes valgan uno es correcto y además favorable, no un impedimento."
+    ],
+    "explanation": "La inversa de una matriz del plano intercambia la diagonal principal y cambia el signo de la otra.\n$$A^{-1} = \\begin{pmatrix} 7 & -3 \\\\ -2 & 1 \\end{pmatrix}$$\nLa candidata hizo el intercambio pero conservó los signos, así que el producto no da la identidad.\n\nVerificar multiplicando detecta el error enseguida, porque quedan entradas no nulas fuera de la diagonal.\n\nCon determinante uno la división final no hace falta, y por eso el único error posible es el de los signos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "verificar-si-dos-son-inversas"
+    ]
+  },
+  {
+    "question": "Una matriz se propone como inversa de sí misma.\n$$A = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}$$\n¿Es su propia inversa?",
+    "options": [
+      "No, porque ninguna matriz puede ser su propia inversa",
+      "Sí, porque multiplicada por sí misma da la identidad",
+      "No, porque su determinante es negativo"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El producto de la matriz consigo misma da la identidad.",
+    "feedback_incorrect": [
+      "La identidad misma es un ejemplo de matriz que es su propia inversa.",
+      null,
+      "El determinante negativo no impide nada: la condición es que el producto dé la identidad."
+    ],
+    "explanation": "La condición se verifica igual, multiplicando la matriz por la candidata.\n$$A \\cdot A = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$$\nEl producto da la identidad, así que la matriz efectivamente es su propia inversa.\n\nTiene sentido geométrico: esta matriz intercambia los dos ejes, y aplicarla dos veces los devuelve a su lugar.\n\nToda transformación que se deshace repitiéndose cumple esa propiedad, y las reflexiones son el ejemplo típico.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "verificar-si-dos-son-inversas"
+    ]
+  },
+  {
+    "question": "Algunas matrices tienen una inversa que se puede escribir sin aplicar ninguna fórmula:\n$$D = \\begin{pmatrix} 4 & 0 \\\\ 0 & 5 \\end{pmatrix}$$\n¿Cuál es su inversa?",
+    "options": [
+      "$\\begin{pmatrix} 1/4 & 0 \\\\ 0 & 1/5 \\end{pmatrix}$",
+      "$\\begin{pmatrix} -4 & 0 \\\\ 0 & -5 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 5 & 0 \\\\ 0 & 4 \\end{pmatrix}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada dirección se estira por su propio factor, así que deshacerlo es dividir por ese mismo factor.",
+    "feedback_incorrect": [
+      null,
+      "Cambiar el signo invierte el sentido de cada dirección, pero no deshace ninguno de los dos estiramientos.",
+      "Intercambiar los dos valores cambia cuál dirección se estira más, sin revertir el estiramiento de ninguna."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una matriz diagonal estira cada dirección básica por su propio factor, sin mezclarlas entre sí.\n\nComo ninguna dirección interfiere con la otra, deshacer la transformación es deshacer cada estiramiento por separado.\n$$\\begin{pmatrix} 1/4 & 0 \\\\ 0 & 1/5 \\end{pmatrix}$$\nEstirar por cuatro se deshace dividiendo por cuatro, y lo mismo con el cinco: la inversa de una diagonal es la de los recíprocos.\n\nEso también explica por qué una diagonal con algún cero no tiene inversa. Una dirección multiplicada por cero queda aplastada, y no hay número que la devuelva a su lugar.",
+    "reviewed": false,
+    "tags": [
+      "reconocer-inversa-de-caso-simple"
+    ]
+  },
+  {
+    "question": "Algunas matrices tienen una inversa que se escribe sin aplicar ninguna fórmula.\n$$D = \\begin{pmatrix} 2 & 0 \\\\ 0 & 7 \\end{pmatrix}$$\n¿Cuál es su inversa?",
+    "options": [
+      "$\\begin{pmatrix} 7 & 0 \\\\ 0 & 2 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1/2 & 0 \\\\ 0 & 1/7 \\end{pmatrix}$",
+      "$\\begin{pmatrix} -2 & 0 \\\\ 0 & -7 \\end{pmatrix}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "En una matriz diagonal, cada entrada se reemplaza por su recíproco.",
+    "feedback_incorrect": [
+      "Intercambiar las dos entradas describe otra transformación.",
+      null,
+      "Cambiar el signo no deshace un estiramiento: lo refleja."
+    ],
+    "explanation": "Una matriz diagonal estira cada eje por su propia entrada, de forma independiente.\n$$D^{-1} = \\begin{pmatrix} 1/2 & 0 \\\\ 0 & 1/7 \\end{pmatrix}$$\nPara deshacer cada estiramiento alcanza con multiplicar por el recíproco correspondiente.\n\nEl producto de las dos da la identidad, porque cada entrada se multiplica por su recíproco.\n\nEse atajo vale solo para matrices diagonales, donde los ejes no se mezclan entre sí.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-inversa-de-caso-simple"
+    ]
+  },
+  {
+    "question": "La identidad tiene una inversa que se puede escribir de inmediato.\n$$I = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$$\n¿Cuál es su inversa?",
+    "options": [
+      "La matriz nula, porque anula el efecto de la identidad",
+      "La identidad con signo negativo en toda su diagonal",
+      "La propia identidad, porque no cambia nada al aplicarse"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Deshacer una transformación que no hace nada es no hacer nada.",
+    "feedback_incorrect": [
+      "La matriz nula no tiene inversa, y su producto con la identidad no da la identidad.",
+      "Esa matriz refleja el plano en vez de dejarlo quieto.",
+      null
+    ],
+    "explanation": "La identidad deja cada punto en su lugar, así que deshacerla no requiere ningún cambio.\n$$I \\cdot I = I$$\nEl producto de la identidad consigo misma da la identidad, que es exactamente la condición pedida.\n\nEs el caso más simple de una matriz que es su propia inversa.\n\nLa matriz nula, en cambio, no tiene inversa: su determinante vale cero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-inversa-de-caso-simple"
+    ]
+  },
+  {
+    "question": "Una matriz que solo escala el plano tiene una inversa directa.\n$$A = \\begin{pmatrix} 3 & 0 \\\\ 0 & 3 \\end{pmatrix}$$\n¿Cuál es su inversa?",
+    "options": [
+      "$\\begin{pmatrix} 1/3 & 0 \\\\ 0 & 1/3 \\end{pmatrix}$",
+      "$\\begin{pmatrix} -3 & 0 \\\\ 0 & -3 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 3 & 0 \\\\ 0 & 3 \\end{pmatrix}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Deshacer un escalado por tres es escalar por un tercio.",
+    "feedback_incorrect": [
+      null,
+      "Cambiar el signo refleja el plano en vez de devolverlo a su tamaño.",
+      "Aplicar la misma matriz otra vez escala por nueve, no deshace nada."
+    ],
+    "explanation": "Un múltiplo de la identidad estira todo el plano por el mismo factor.\n$$A^{-1} = \\begin{pmatrix} 1/3 & 0 \\\\ 0 & 1/3 \\end{pmatrix}$$\nPara deshacerlo hay que escalar por el recíproco de ese factor.\n\nEl producto de las dos da la identidad, porque tres por un tercio da uno en cada entrada de la diagonal.\n\nEs el mismo criterio que en cualquier diagonal, aplicado al caso en que las dos entradas coinciden.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-inversa-de-caso-simple"
+    ]
+  },
+  {
+    "question": "Una matriz que intercambia los dos ejes tiene una inversa conocida.\n$$A = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}$$\n¿Cuál es su inversa?",
+    "options": [
+      "La matriz con signos negativos en las dos entradas no nulas",
+      "La misma matriz, porque aplicarla dos veces deshace el intercambio",
+      "La identidad, porque el intercambio no altera las áreas"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Intercambiar dos veces los mismos ejes los devuelve a su posición original.",
+    "feedback_incorrect": [
+      "Cambiar los signos refleja además el plano, y eso no se pedía deshacer.",
+      null,
+      "La identidad no deshace el intercambio: lo dejaría hecho."
+    ],
+    "explanation": "Intercambiar los dos ejes es una operación que se deshace repitiéndola.\n$$A \\cdot A = I$$\nAplicarla dos veces devuelve cada eje a su lugar original, así que la matriz es su propia inversa.\n\nEl determinante vale menos uno, lo que confirma que conserva las áreas pero invierte la orientación.\n\nLas transformaciones que se deshacen repitiéndose son siempre su propia inversa, y las reflexiones son el caso más común.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-inversa-de-caso-simple"
+    ]
+  }
+]

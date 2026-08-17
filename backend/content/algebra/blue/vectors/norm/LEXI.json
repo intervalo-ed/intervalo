@@ -1,22 +1,371 @@
 [
   {
-    "question": "¿Qué representa la **norma** $\\|\\vec{v}\\|$ de un vector?",
+    "question": "La norma de un vector se calcula a partir de sus componentes, que pueden ser negativas.\n$$\\|\\vec{v}\\| \\geq 0$$\n¿Por qué el resultado nunca puede ser negativo?",
     "options": [
-      "Su longitud o magnitud en el espacio",
-      "La cantidad de componentes que tiene",
-      "El ángulo que forma con el eje $x$"
+      "Porque se calcula como la raíz cuadrada de una suma de cuadrados",
+      "Porque las componentes de un vector nunca son negativas",
+      "Porque la norma se define como el promedio de las componentes"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "La norma mide la longitud del vector, calculada a partir de sus componentes.",
+    "feedback_correct": "La norma suma cuadrados, que nunca son negativos, y después aplica una raíz cuadrada, que tampoco da negativo.",
     "feedback_incorrect": [
       null,
-      "Eso es la dimensión del espacio al que pertenece, no su longitud.",
-      "El ángulo se calcula con el producto escalar, no con la norma."
+      "Las componentes de un vector sí pueden ser negativas; lo que nunca es negativo es su cuadrado.",
+      "La norma no es un promedio: es la raíz cuadrada de la suma de los cuadrados de las componentes."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **norma** de un vector mide su longitud en el espacio.\n$$\\|\\vec{v}\\| = \\sqrt{v_1^2 + v_2^2 + \\dots + v_n^2}$$\n\nPor ejemplo, el vector $\\vec{v}=(3,4)$ tiene norma $\\|\\vec{v}\\| = \\sqrt{9+16} = 5$.\n\nLa norma siempre da un número no negativo, y solo vale cero para el vector nulo.La **norma** mide magnitud y es fundamental en análisis de vectores. Aparece en cálculos de distancia, ángulos entre vectores, y en definiciones de ortogonalidad. La norma euclidiana $\\|\\vec{v}\\| = \\sqrt{v_1^2 + v_2^2 + ... + v_n^2}$ es la más común, pero existen otras normas (norma 1, norma infinito) con aplicaciones distintas. Comprender la norma es la base para trabajar con espacios vectoriales en dimensiones superiores.",
-    "reviewed": false
+    "explanation": "La norma se define como una raíz cuadrada de una suma de cuadrados:\n$$\\|\\vec{v}\\| = \\sqrt{v_1^2 + v_2^2 + \\dots + v_n^2}$$\nCada componente elevada al cuadrado da un número no negativo, sin importar el signo original de esa componente, y la raíz cuadrada de un número no negativo tampoco puede ser negativa.\n\nPor eso la norma de cualquier vector, tenga componentes positivas, negativas o nulas, siempre da un resultado mayor o igual a cero.",
+    "reviewed": false,
+    "tags": [
+      "por-que-norma-no-negativa"
+    ]
+  },
+  {
+    "question": "Un vector con las dos componentes negativas tiene la misma norma que su opuesto.\n$$\\|\\vec{v}\\| = \\|-\\vec{v}\\|$$\n¿Por qué el signo de las componentes no cambia el resultado?",
+    "options": [
+      "Porque un vector con componentes negativas apunta hacia el mismo lado que su opuesto",
+      "Porque las componentes entran elevadas al cuadrado, y el cuadrado borra el signo",
+      "Porque la norma toma el valor absoluto de cada componente antes de sumarlas"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Elevar al cuadrado deja el mismo número para una componente y para su opuesta.",
+    "feedback_incorrect": [
+      "El opuesto apunta exactamente al revés; lo que comparten es la magnitud, no el sentido.",
+      null,
+      "No hay ningún valor absoluto en la fórmula: lo que borra el signo es el cuadrado."
+    ],
+    "explanation": "La norma sale de una suma de cuadrados, y un cuadrado nunca distingue el signo de su base.\n$$(-3)^{2} = 3^{2}$$\nPor eso un vector y su opuesto, que difieren solo en los signos, terminan con la misma norma.\n\nEs coherente con lo que la norma mide: una distancia no depende de hacia qué lado se recorrió.\n\nEl signo se pierde a propósito, y esa pérdida es lo que vuelve a la norma un escalar y no un vector.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-norma-no-negativa"
+    ]
+  },
+  {
+    "question": "La norma de un vector se compara con la longitud de un segmento.\n$$\\|\\vec{v}\\| \\geq 0$$\n¿Qué pasaría si una norma pudiera dar negativa?",
+    "options": [
+      "El vector correspondiente tendría sus componentes negativas",
+      "La fórmula funcionaría igual, cambiando solo el signo",
+      "Dejaría de poder interpretarse como la longitud de un segmento"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Ninguna longitud puede ser negativa, y por eso la definición está construida para evitarlo.",
+    "feedback_incorrect": [
+      "Un vector con componentes negativas tiene norma positiva, igual que cualquier otro.",
+      "El resultado no es una cuestión de signo: una longitud negativa no significa nada.",
+      null
+    ],
+    "explanation": "La norma se define para que coincida con la longitud del segmento que va del origen al punto.\n$$\\|\\vec{v}\\| \\geq 0$$\nUna longitud negativa no tiene ninguna interpretación, así que la definición se construye para que eso no pueda pasar.\n\nEl cuadrado de cada componente y la raíz positiva son justamente los dos ingredientes que lo garantizan.\n\nPor eso la norma es siempre un escalar no negativo, sin importar cómo sea el vector.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-norma-no-negativa"
+    ]
+  },
+  {
+    "question": "La raíz cuadrada que aparece en la norma se toma siempre en su valor positivo.\n$$\\|\\vec{v}\\| = \\sqrt{v_1^{2}+v_2^{2}}$$\n¿Por qué se descarta la raíz negativa?",
+    "options": [
+      "Porque el resultado tiene que ser una longitud, y no las hay negativas",
+      "Porque la raíz negativa daría como resultado un número imaginario",
+      "Porque una suma de cuadrados nunca llega a tener raíz negativa"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "De las dos raíces posibles se elige la positiva, porque es la que representa una distancia.",
+    "feedback_incorrect": [
+      null,
+      "El radicando es una suma de cuadrados, así que nunca es negativo y la raíz es real.",
+      "Todo número positivo tiene dos raíces; la definición elige quedarse con una de ellas."
+    ],
+    "explanation": "Un número positivo tiene dos raíces cuadradas, una positiva y una negativa, y la definición de norma elige la positiva.\n$$\\|\\vec{v}\\| = \\sqrt{v_1^{2}+v_2^{2}}$$\nEsa elección no es arbitraria: el resultado tiene que poder leerse como la longitud de un segmento.\n\nEl radicando, al ser una suma de cuadrados, ya es no negativo, así que la raíz siempre existe entre los reales.\n\nLas dos decisiones juntas, elevar al cuadrado y tomar la raíz positiva, son las que fijan el signo del resultado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-norma-no-negativa"
+    ]
+  },
+  {
+    "question": "El único caso en que una suma de cuadrados no es positiva es cuando todos los términos se anulan.\n$$\\|\\vec{v}\\|^{2} \\geq 0$$\n¿Qué garantiza esa desigualdad sobre la norma?",
+    "options": [
+      "Que la norma es siempre un número entero",
+      "Que la norma nunca es negativa, y solo llega a cero en un caso",
+      "Que la norma siempre es mayor que cada una de las componentes"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada término es no negativo, así que la suma tampoco puede serlo, y su raíz menos todavía.",
+    "feedback_incorrect": [
+      "La norma de un vector con componentes enteras casi nunca es entera.",
+      null,
+      "Una componente puede superar a la otra sin que eso diga nada sobre la relación con la norma."
+    ],
+    "explanation": "Cada cuadrado es no negativo, así que sumarlos nunca puede dar un resultado negativo.\n$$v_1^{2}+v_2^{2} \\geq 0$$\nLa raíz positiva de un número no negativo tampoco puede serlo, y con eso queda garantizado el signo de la norma.\n\nEl caso de igualdad, cuando la suma vale cero, exige que los dos cuadrados se anulen a la vez.\n\nEsa condición tan restrictiva es la que después identifica un único vector con norma nula.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-norma-no-negativa"
+    ]
+  },
+  {
+    "question": "Entre todos los vectores del plano hay uno solo cuya norma da cero.\n$$\\|\\vec{v}\\| = 0 \\iff \\vec{v} = \\vec{0}$$\n¿Por qué ningún otro vector puede lograrlo?",
+    "options": [
+      "Porque la suma de cuadrados solo da cero si todas las componentes son cero",
+      "Porque cualquier vector con una componente negativa tiene norma cero",
+      "Porque la norma de un vector siempre es menor que la suma de sus componentes"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Una suma de cuadrados solo puede dar cero si cada término es cero, así que todas las componentes tienen que ser cero.",
+    "feedback_incorrect": [
+      null,
+      "Una componente negativa eleva al cuadrado a un número positivo, así que no anula la norma.",
+      "Esa comparación no tiene que ver con qué vector tiene norma cero."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La norma es cero cuando la suma de cuadrados bajo la raíz es cero:\n$$\\|\\vec{v}\\| = \\sqrt{v_1^2 + \\dots + v_n^2} = 0$$\nUna suma de términos no negativos solo puede dar cero si cada término individual es cero, así que cada componente tiene que valer cero.\n\nEso descarta cualquier vector con al menos una componente distinta de cero: su cuadrado sería positivo, y la suma ya no podría dar cero.",
+    "reviewed": false,
+    "tags": [
+      "unico-vector-norma-cero"
+    ]
+  },
+  {
+    "question": "Una suma de cuadrados se anula solo si cada término se anula por separado.\n$$v_1^{2}+v_2^{2} = 0$$\n¿Qué obliga esa igualdad?",
+    "options": [
+      "Que una de las dos componentes valga cero",
+      "Que las dos componentes valgan cero",
+      "Que las dos componentes sean opuestas entre sí"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Ningún cuadrado es negativo, así que ninguno puede compensar a otro.",
+    "feedback_incorrect": [
+      "Con una sola componente nula, la otra sigue aportando un cuadrado positivo.",
+      null,
+      "Dos cuadrados de números opuestos son iguales y positivos, así que su suma no se anula."
+    ],
+    "explanation": "En una suma de términos no negativos, ningún término puede compensar a otro.\n$$v_1^{2}+v_2^{2} = 0$$\nSi uno de los dos fuera positivo, la suma también lo sería, porque el otro no puede restarle nada.\n\nPor eso la única forma de llegar a cero es que los dos cuadrados sean cero a la vez.\n\nEse razonamiento no depende de la cantidad de componentes: vale igual en cualquier espacio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "unico-vector-norma-cero"
+    ]
+  },
+  {
+    "question": "En una suma común, un término positivo puede cancelar a uno negativo, pero acá no hay ningún término negativo.\n$$v_1^{2}+v_2^{2}+v_3^{2} = 0$$\n¿Por qué ningún término puede compensar a otro?",
+    "options": [
+      "Porque una componente negativa aporta un cuadrado negativo que cancela al positivo",
+      "Porque la suma nunca puede superar el valor de sus términos",
+      "Porque cada término es un cuadrado, y ningún cuadrado da negativo"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Al no haber ningún cuadrado negativo, no hay nada que le pueda restar a la suma.",
+    "feedback_incorrect": [
+      "El cuadrado de una componente negativa también da positivo, así que no hay ningún cuadrado negativo que reste.",
+      "Esa comparación no dice nada sobre por qué la suma se anula ni por qué ningún término compensa a otro.",
+      null
+    ],
+    "explanation": "En una suma común, un término positivo puede cancelar a uno negativo.\n$$v_1^{2}+v_2^{2}+v_3^{2} = 0$$\nPero acá no hay términos negativos: cada uno es un cuadrado, que nunca da negativo.\n\nSin nada que pueda restar, la única forma de que la suma llegue a cero es que los tres términos valgan cero por separado.\n\nEse mismo argumento vale sin importar cuántas componentes tenga el vector.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "unico-vector-norma-cero"
+    ]
+  },
+  {
+    "question": "Un vector con una sola componente distinta de cero ya tiene norma positiva.\n$$(0,3)$$\n¿Por qué su norma no es cero?",
+    "options": [
+      "Porque una de las dos componentes aporta un cuadrado positivo a la suma",
+      "Porque la componente nula no se tiene en cuenta al calcular la norma",
+      "Porque una componente positiva siempre da una norma mayor que ella misma"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Alcanza con un solo término positivo para que la suma de cuadrados no se anule.",
+    "feedback_incorrect": [
+      null,
+      "La componente nula sí entra en la cuenta: lo que aporta es un cuadrado de valor cero.",
+      "La norma de este vector coincide con esa componente, no la supera."
+    ],
+    "explanation": "Cada componente aporta su cuadrado a la suma, y basta con uno positivo para que el total lo sea.\n$$\\|(0,3)\\| = \\sqrt{0+9} = 3$$\nLa componente nula participa de la cuenta, aportando cero, y la otra aporta nueve.\n\nCuando el vector está sobre un eje, la norma coincide exactamente con el valor absoluto de su única componente no nula.\n\nPor eso hacen falta **todas** las componentes en cero para que la norma se anule, no una sola.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "unico-vector-norma-cero"
+    ]
+  },
+  {
+    "question": "En un espacio de tres dimensiones la condición no cambia.\n$$\\|(v_1,v_2,v_3)\\| = 0$$\n¿Cuántas componentes tienen que anularse?",
+    "options": [
+      "Una sola, porque un factor nulo anula toda la suma",
+      "Las tres, porque cada una aporta un cuadrado no negativo",
+      "Dos de las tres, porque la tercera puede compensarlas"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Todos los términos de la suma son no negativos, así que ninguno puede compensar a otro.",
+    "feedback_incorrect": [
+      "La expresión es una suma, no un producto: un término nulo no anula el total.",
+      null,
+      "Ningún cuadrado puede compensar a otro, porque ninguno es negativo."
+    ],
+    "explanation": "El argumento vale para cualquier cantidad de componentes, porque todos los términos son cuadrados.\n$$v_1^{2}+v_2^{2}+v_3^{2} = 0$$\nNinguno puede ser negativo, así que ninguno puede cancelar el aporte de otro.\n\nLa única salida es que los tres valgan cero al mismo tiempo, y eso deja un único vector posible.\n\nConfundir la suma con un producto es lo que sugiere que una sola componente nula alcanzaría.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "unico-vector-norma-cero"
+    ]
+  },
+  {
+    "question": "La norma de un vector se interpreta geométricamente como una distancia.\n$$\\vec{v} = (v_1, v_2)$$\n¿Qué distancia mide?",
+    "options": [
+      "La distancia entre el origen y el punto que marca el vector",
+      "La distancia entre las dos componentes del vector",
+      "La distancia que recorrería el vector en un segundo"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La norma mide qué tan lejos está del origen el punto al que apunta el vector.",
+    "feedback_incorrect": [
+      null,
+      "Las componentes no son puntos entre los que se mide distancia; son las coordenadas de un único punto.",
+      "La norma no tiene relación con el tiempo; es una medida geométrica fija, no una velocidad."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un vector $\\vec{v}=(v_1,v_2)$ se puede pensar como una flecha que va del origen al punto $(v_1,v_2)$.\n\nLa norma mide la longitud de esa flecha, es decir, la distancia entre el origen y ese punto:\n$$\\|\\vec{v}\\| = \\sqrt{v_1^2+v_2^2}$$\nEsa es la misma fórmula que la distancia entre dos puntos cualesquiera, aplicada al caso particular en que uno de los dos puntos es el origen.",
+    "reviewed": false,
+    "tags": [
+      "norma-como-distancia"
+    ]
+  },
+  {
+    "question": "La fórmula de la norma repite la estructura de un resultado conocido de geometría.\n$$\\|\\vec{v}\\| = \\sqrt{v_1^{2}+v_2^{2}}$$\n¿De qué resultado se trata?",
+    "options": [
+      "De la fórmula del perímetro de un triángulo rectángulo cualquiera",
+      "Del teorema de Pitágoras aplicado al triángulo de las componentes",
+      "De la fórmula del área de un rectángulo cuyos lados son las componentes"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Las dos componentes son los catetos y la norma es la hipotenusa.",
+    "feedback_incorrect": [
+      "El perímetro suma los tres lados sin elevarlos al cuadrado.",
+      null,
+      "El área multiplica los lados; acá los lados aparecen elevados al cuadrado y sumados."
+    ],
+    "explanation": "Las dos componentes de un vector del plano forman los catetos de un triángulo rectángulo, y el vector es su hipotenusa.\n$$\\|\\vec{v}\\| = \\sqrt{v_1^{2}+v_2^{2}}$$\nPor eso la fórmula de la norma es el teorema de Pitágoras despejado para la hipotenusa.\n\nEsa conexión explica de dónde salen los cuadrados y la raíz, que si no parecen arbitrarios.\n\nEn tres dimensiones la fórmula agrega un término más, y sale de aplicar el mismo teorema dos veces seguidas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "norma-como-distancia"
+    ]
+  },
+  {
+    "question": "La norma de un vector se puede leer como la distancia entre dos puntos.\n$$\\vec{v} = B - A$$\n¿Entre qué dos puntos mide esa distancia?",
+    "options": [
+      "Entre el origen y el punto medio del vector diferencia",
+      "Entre las dos componentes que forman el vector",
+      "Entre los dos puntos que el vector diferencia conecta"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El vector diferencia va de un punto al otro, y su norma es la distancia entre ellos.",
+    "feedback_incorrect": [
+      "El punto medio no interviene: la norma mide el largo completo del vector.",
+      "Las componentes son números, no puntos, así que no hay distancia entre ellas.",
+      null
+    ],
+    "explanation": "Restar dos puntos da el vector que va de uno al otro, y su norma es la distancia que los separa.\n$$\\vec{v} = B - A$$\nEse vector arranca en el primer punto y termina en el segundo, así que su largo es exactamente lo que se busca.\n\nCuando el primer punto es el origen, la resta deja el segundo punto tal cual, y se recupera el caso habitual.\n\nPor eso la distancia entre dos puntos y la norma de un vector son la misma cuenta escrita de dos maneras.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "norma-como-distancia"
+    ]
+  },
+  {
+    "question": "Dos vectores distintos pueden tener exactamente la misma norma.\n$$\\|\\vec{u}\\| = \\|\\vec{v}\\|$$\n¿Qué significa eso geométricamente?",
+    "options": [
+      "Que los dos puntos están a la misma distancia del origen",
+      "Que los dos vectores apuntan en la misma dirección",
+      "Que los dos vectores tienen las mismas componentes"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La norma solo informa la distancia, y muchos puntos comparten la misma.",
+    "feedback_incorrect": [
+      null,
+      "La norma no guarda ninguna información sobre la dirección.",
+      "Vectores de componentes distintas pueden tener la misma norma sin ningún problema."
+    ],
+    "explanation": "La norma es un escalar, y al reducir un vector a un solo número pierde toda la información de dirección.\n$$\\|\\vec{u}\\| = \\|\\vec{v}\\|$$\nTodos los puntos que están a la misma distancia del origen forman una circunferencia, y cualquiera de ellos da la misma norma.\n\nPor eso dos vectores con la misma norma pueden apuntar hacia lados completamente distintos.\n\nRecuperar la dirección exige mirar las componentes, no alcanza con el número que devuelve la norma.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "norma-como-distancia"
+    ]
+  },
+  {
+    "question": "Un vector arranca en el origen y termina en el punto que marcan sus componentes.\n$$\\vec{v} = (6,8), \\qquad \\|\\vec{v}\\| = 10$$\n¿Qué representa ese resultado, $10$?",
+    "options": [
+      "La diferencia entre las dos coordenadas del punto",
+      "La suma de las dos coordenadas del punto",
+      "La distancia directa entre el origen y el punto $(6,8)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El vector arranca en el origen, así que su norma es exactamente esa distancia.",
+    "feedback_incorrect": [
+      "La norma no resta componentes: eleva cada una al cuadrado y las suma bajo una raíz.",
+      "$6+8=14$, un número distinto de la norma: sumar las componentes no es la cuenta que corresponde.",
+      null
+    ],
+    "explanation": "Un vector que arranca en el origen termina en el punto que marcan sus componentes. La norma mide qué tan lejos está ese punto del origen, es decir, la distancia entre los dos.\n\nEsa distancia se calcula así:\n$$\\|\\vec{v}\\| = \\sqrt{6^2+8^2} = 10$$\nY no sale de sumar ni restar las coordenadas, sino de aplicar el teorema de Pitágoras al triángulo que forman.\n\nPor eso el $10$ no es una de las coordenadas ni una combinación simple de ellas: es la longitud de la flecha completa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "norma-como-distancia"
+    ]
   }
 ]

@@ -91,6 +91,7 @@ Ningún experimento supera ~30% de los ítems de una misma sub-familia (misma re
 
 ## Checklist del topic
 
+- [ ] Todo enunciado lleva un bloque `$$...$$` entre la apertura y la pregunta, con la notación abstracta del objeto en los conceptuales; solo se exceptúan los ítems cuyo objeto ya está en las opciones o **es** la respuesta que se pide construir (regla 66)
 - [ ] Ningún contexto exige conocimiento previo de una carrera puntual (registro Paenza, sin jerga de nicho)
 - [ ] Todo numerador/denominador es entero, valor absoluto entre 2 y 12
 - [ ] Todo resultado final está simplificado, salvo en `fraccion-simplificada`

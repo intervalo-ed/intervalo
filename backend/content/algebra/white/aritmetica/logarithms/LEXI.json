@@ -1,18 +1,407 @@
 [
   {
-    "question": "En la expresión $\\log_b(x)$, el número $b$ determina a qué número hay que elevarlo para obtener $x$.\n\n¿Qué nombre recibe $b$ en esa expresión?",
-    "options": ["Base", "Argumento", "Exponente"],
+    "question": "En la expresión $\\log_b(x)$, el número $x$ es al que se le calcula el logaritmo.\n\n¿Qué nombre recibe $x$ en esa expresión?",
+    "options": [
+      "Argumento",
+      "Base",
+      "Exponente",
+      "Coeficiente"
+    ],
     "correct_index": 0,
-    "feedback_correct": "El número que se eleva a una potencia para obtener $x$ es la base del logaritmo.",
+    "feedback_correct": "El número al que se le calcula el logaritmo es el argumento.",
     "feedback_incorrect": [
       null,
-      "El argumento es $x$, el número al que se le calcula el logaritmo, no el que se eleva a una potencia.",
-      "El exponente es el resultado del logaritmo, no un dato de entrada de la expresión."
+      "La base es $b$, el número que se eleva a una potencia, no el que recibe el logaritmo.",
+      "El exponente es el resultado del logaritmo, no un dato de entrada de la expresión.",
+      "El coeficiente multiplicaría a todo el logaritmo desde afuera, no cumple ningún rol dentro de la expresión."
     ],
-    "explanation": "En un **logaritmo** $\\log_b(x)$, la **base** $b$ es el número que se eleva a una potencia, y el **argumento** $x$ es el número al que se le calcula el logaritmo.\n\nPor ejemplo, en $\\log_2(8)$, la base es $2$ y el argumento es $8$, y el resultado es $3$ porque $2^3=8$.\n\nUna confusión común es confundir la base del logaritmo con su resultado, cuando en realidad el resultado es el exponente al que se eleva la base.",
+    "explanation": "En un **logaritmo**, la **base** es el número que se eleva a una potencia, y el **argumento** es el número al que se le calcula el logaritmo.\n\nPor ejemplo:\n$$\\log_2(8) = 3$$\nLa base es $2$ y el argumento es $8$.\n\nEsta misma idea es la que usa la escala de Richter para medir sismos: la base $10$ se eleva a una potencia para llegar a la razón de intensidad que se está midiendo.\n\nConfundir el argumento con el resultado del logaritmo es un desliz habitual, cuando en realidad el resultado es el exponente al que se eleva la base.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-base-argumento"
+    ]
+  },
+  {
+    "question": "En un logaritmo, el número del subíndice y el de adentro del paréntesis cumplen papeles distintos.\n$$\\log_{3}(81)$$\n¿Cuál es la base?",
+    "options": [
+      "$27$",
+      "$3$",
+      "$81$",
+      "$4$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La base es el número del subíndice, el que se va elevando hasta llegar al argumento.",
+    "feedback_incorrect": [
+      "Ese número no aparece en la expresión: sale de operar la base con el resultado.",
+      null,
+      "Ese número está adentro del paréntesis, así que es el argumento.",
+      "Ese número es el resultado del logaritmo, no la base."
+    ],
+    "explanation": "Un logaritmo pregunta a qué exponente hay que elevar la **base** para obtener el **argumento**.\n$$\\log_{3}(81) = 4 \\quad \\text{porque} \\quad 3^{4} = 81$$\nLa base va en el subíndice y el argumento va adentro del paréntesis.\n\nEl resultado es el exponente, así que nunca es ninguno de los dos números escritos.\n\nDistinguir los tres roles es lo que evita leer la expresión al revés cuando los números son parecidos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-base-argumento"
+    ]
+  },
+  {
+    "question": "El resultado de un logaritmo no es ninguno de los dos números que aparecen escritos.\n$$\\log_{5}(125)$$\n¿Qué representa el resultado de esa expresión?",
+    "options": [
+      "El producto entre la base y el argumento de la expresión",
+      "La cantidad de veces que el argumento contiene a la base entera",
+      "El cociente entre el argumento y la base de la expresión",
+      "El exponente al que hay que elevar la base para llegar al argumento"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El logaritmo devuelve un exponente, no una cantidad de la misma clase que los datos.",
+    "feedback_incorrect": [
+      "El logaritmo no multiplica los dos números, busca la potencia que los conecta.",
+      "Contar cuántas veces entra un número en otro es una división, no un logaritmo.",
+      "El cociente da otro número: acá lo que se busca es el exponente.",
+      null
+    ],
+    "explanation": "El logaritmo es la operación que despeja el **exponente** de una potencia.\n$$\\log_{5}(125) = 3 \\quad \\text{porque} \\quad 5^{3} = 125$$\nLos datos son la base y el resultado de la potencia, y lo que falta es cuántas veces se multiplicó la base por sí misma.\n\nPor eso el valor del logaritmo suele ser mucho más chico que los números del enunciado.\n\nEse contraste de tamaños es un buen chequeo rápido de que la lectura fue correcta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-base-argumento"
+    ]
+  },
+  {
+    "question": "Un logaritmo y una potencia dicen lo mismo con los datos ordenados de otra manera.\n$$2^{6} = 64$$\n¿Cómo se escribe esa igualdad en forma de logaritmo?",
+    "options": [
+      "$\\log_{2}(64) = 6$",
+      "$\\log_{6}(64) = 2$",
+      "$\\log_{64}(2) = 6$",
+      "$\\log_{2}(6) = 64$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La base de la potencia pasa a ser la base del logaritmo, y el resultado pasa a ser el argumento.",
+    "feedback_incorrect": [
+      null,
+      "Ahí la base y el exponente cambiaron de lugar.",
+      "Ahí el argumento pasó a ser la base, invirtiendo la relación.",
+      "Ahí el exponente quedó adentro del paréntesis, en el lugar del argumento."
+    ],
+    "explanation": "Las dos formas contienen los mismos tres números, con roles intercambiados.\n$$b^{n} = x \\iff \\log_{b}(x) = n$$\nLa base se mantiene como base en las dos escrituras, y lo que se intercambia es el exponente con el resultado.\n\nAplicado acá, el dos sigue siendo la base, el sesenta y cuatro pasa a ser el argumento y el seis pasa a ser el valor del logaritmo.\n\nTraducir de una forma a la otra es el paso que después permite despejar una incógnita atrapada en un exponente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-base-argumento"
+    ]
+  },
+  {
+    "question": "El argumento de un logaritmo puede ser una fracción sin que eso cambie los roles.\n$$\\log_{2}\\left(\\dfrac{1}{8}\\right)$$\n¿Cuál es el argumento?",
+    "options": [
+      "$8$",
+      "$-3$",
+      "$\\dfrac{1}{8}$",
+      "$2$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El argumento es todo lo que está adentro del paréntesis, fracción incluida.",
+    "feedback_incorrect": [
+      "Ese número es solo el denominador del argumento, no el argumento completo.",
+      "Ese número es el resultado del logaritmo, no lo que está adentro del paréntesis.",
+      null,
+      "Ese número está en el subíndice, así que es la base."
+    ],
+    "explanation": "El **argumento** es la expresión completa que está adentro del paréntesis, aunque no sea un entero.\n$$\\log_{2}\\left(\\dfrac{1}{8}\\right) = -3$$\nQue el argumento sea menor que uno hace que el resultado quede negativo, porque hace falta un exponente negativo para llegar a él.\n\nLos roles no cambian por eso: la base sigue en el subíndice y el resultado sigue siendo el exponente.\n\nTomar solo el denominador de la fracción cambia el argumento y también el signo del resultado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-base-argumento"
+    ]
+  },
+  {
+    "question": "El logaritmo $\\log_b(x)$ no está definido para cualquier valor de $x$.\n\n¿Qué condición tiene que cumplir el argumento $x$ para que el logaritmo exista?",
+    "options": [
+      "Ser un número mayor a $0$",
+      "Ser mayor o igual a $0$",
+      "Ser un número entero",
+      "Ser mayor a la base $b$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El argumento de un logaritmo siempre tiene que ser un número positivo, mayor a $0$.",
+    "feedback_incorrect": [
+      null,
+      "El argumento no puede ser $0$: no existe ningún exponente que, aplicado a la base, dé $0$.",
+      "El argumento no necesita ser entero, puede ser cualquier número positivo.",
+      "El argumento puede ser menor a la base; por ejemplo $\\log_{10}(5)$ está definido aunque $5$ sea menor a $10$."
+    ],
+    "explanation": "El **argumento** de un logaritmo tiene que ser un número positivo, mayor a $0$.\n\nNinguna potencia de una base positiva da como resultado $0$ ni un número negativo, así que no existe ningún exponente que resuelva esa igualdad.\n\nEsta misma restricción aparece en la escala de decibeles: no tiene sentido calcular el nivel de un sonido con intensidad $0$ o negativa.\n\nPensar que el argumento puede ser cualquier número, igual que pasa con la base de una potencia, ignora esta restricción propia del logaritmo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-log-no-definido"
+    ]
+  },
+  {
+    "question": "Un logaritmo devuelve el exponente que conecta la base con el argumento.\n$$\\log_{2}(x)$$\n¿Cuál de estos argumentos deja el logaritmo sin definir?",
+    "options": [
+      "$\\dfrac{1}{4}$",
+      "$-4$",
+      "$1$",
+      "$8$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Ninguna potencia de una base positiva puede dar un resultado negativo.",
+    "feedback_incorrect": [
+      "Ese argumento sí está definido, y el logaritmo vale menos dos.",
+      null,
+      "Ese argumento sí está definido, y el logaritmo vale cero.",
+      "Ese argumento sí está definido, y el logaritmo vale tres."
+    ],
+    "explanation": "Elevar una base positiva a cualquier exponente da siempre un resultado positivo, sin excepción.\n$$2^{n} > 0$$\nPor eso ningún exponente puede llevar la base hasta un argumento negativo, y el logaritmo queda sin definir.\n\nLos argumentos entre cero y uno sí funcionan: se alcanzan con exponentes negativos, que dan valores chicos pero positivos.\n\nLa frontera está en el cero, no en el uno, y confundir las dos cosas descarta argumentos que sí son válidos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-log-no-definido"
+    ]
+  },
+  {
+    "question": "El argumento cero es un caso aparte dentro de los argumentos no válidos.\n$$\\log_{10}(0)$$\n¿Por qué esa expresión no está definida?",
+    "options": [
+      "Porque el cero no es un número positivo ni negativo",
+      "Porque el logaritmo de cero vale cero, y eso genera una ambigüedad",
+      "Porque la base tendría que ser cero para que el argumento lo sea",
+      "Porque ninguna potencia de la base llega nunca a valer exactamente cero"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Ninguna potencia de una base positiva puede valer exactamente cero: es un producto de factores iguales a esa base, que nunca es cero.",
+    "feedback_incorrect": [
+      "Que el cero no tenga signo no es lo que impide el cálculo: el problema es que no hay exponente posible.",
+      "El logaritmo de uno vale cero; el de cero directamente no existe.",
+      "La base se elige de antemano y no depende del argumento.",
+      null
+    ],
+    "explanation": "Toda potencia de una base positiva es un producto de factores iguales a esa base, o a su inverso si el exponente es negativo, y la base nunca es cero.\n$$10^{-3} = \\dfrac{1}{10^{3}} = 0{,}001$$\nUn producto de números distintos de cero nunca da exactamente cero, así que no existe ningún exponente que lleve la base hasta el $0$.\n\nEs el mismo motivo que descarta los argumentos negativos: ninguna potencia de una base positiva cruza al otro lado del cero.\n\nPor eso la condición se enuncia como argumento estrictamente mayor que cero, y no mayor o igual.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-log-no-definido"
+    ]
+  },
+  {
+    "question": "El argumento de un logaritmo puede ser menor que la base sin ningún problema.\n$$\\log_{5}(x)$$\n¿Cuál de estos argumentos **sí** deja el logaritmo definido?",
+    "options": [
+      "$\\dfrac{1}{25}$",
+      "$-5$",
+      "$0$",
+      "$-1$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Es un número positivo, y eso alcanza: se llega a él con un exponente negativo.",
+    "feedback_incorrect": [
+      null,
+      "Ningún exponente lleva una base positiva a un resultado negativo.",
+      "Ninguna potencia de una base positiva puede valer exactamente cero: es un producto de factores iguales a la base, que nunca es cero.",
+      "Ningún exponente lleva una base positiva a un resultado negativo."
+    ],
+    "explanation": "La única condición sobre el argumento es que sea estrictamente positivo.\n$$5^{-2} = \\dfrac{1}{25}$$\nSer más chico que la base, o incluso menor que uno, no es ningún obstáculo: significa simplemente que el exponente queda negativo.\n\nLo que queda afuera son el cero y los números negativos, que ninguna potencia de base positiva alcanza.\n\nPedirle al argumento que supere a la base es una restricción inventada que descarta la mitad de los casos válidos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-log-no-definido"
+    ]
+  },
+  {
+    "question": "El argumento negativo es, junto con el cero, el otro caso que deja un logaritmo sin definir.\n$$\\log_{2}(-8)$$\n¿Por qué esa expresión no está definida?",
+    "options": [
+      "Porque el número negativo no tiene ninguna raíz cuadrada real",
+      "Porque el logaritmo de $-8$ sería el opuesto del logaritmo de $8$",
+      "Porque la base tendría que ser negativa para que el argumento lo sea",
+      "Porque ninguna potencia de base positiva da un resultado negativo"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Elevar una base positiva a cualquier exponente da siempre un resultado positivo, así que nunca se llega a un argumento negativo.",
+    "feedback_incorrect": [
+      "La raíz cuadrada no interviene acá: el logaritmo pregunta por un exponente, no por una raíz.",
+      "El logaritmo de un argumento negativo no es el opuesto del de su valor positivo: directamente no existe.",
+      "La base se elige de antemano, siempre positiva, y no depende del signo del argumento.",
+      null
+    ],
+    "explanation": "El **argumento** de un logaritmo tiene que ser positivo, por la misma razón que descarta al cero.\n$$2^{n} > 0$$\nCualquier potencia de una base positiva da siempre un resultado positivo, sin importar el signo del exponente.\n\nPor eso no existe ningún exponente que lleve la base $2$ hasta $-8$: ese argumento queda directamente afuera del alcance de la función.\n\nEsta es la misma restricción que aparece en la escala de decibeles: no tiene sentido un nivel de sonido con una intensidad negativa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-log-no-definido"
+    ]
+  },
+  {
+    "question": "La propiedad del producto de logaritmos dice que:\n$$\\log_2(8\\cdot4) = \\log_2(8) + \\log_2(4)$$\n¿Por qué es correcta esa propiedad?",
+    "options": [
+      "Porque $8$ y $4$ son potencias de la misma base, y multiplicar potencias de igual base suma los exponentes",
+      "Porque el logaritmo convierte cualquier multiplicación en una suma, sin relación con las potencias de la base",
+      "Porque $8\\cdot4=32$ coincide con $\\log_2(8)+\\log_2(4)=5$ en este ejemplo puntual, y esa coincidencia es la propiedad",
+      "Porque el logaritmo de un producto siempre es menor que el producto de los logaritmos, y sumar es la única forma de lograrlo"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Escribiendo $8=2^3$ y $4=2^2$, el producto $8\\cdot4$ es $2^{3+2}$, y el logaritmo en base $2$ de eso es exactamente $3+2$.",
+    "feedback_incorrect": [
+      null,
+      "El logaritmo no es una regla separada de las potencias: la propiedad funciona precisamente porque multiplicar potencias de igual base suma sus exponentes.",
+      "La igualdad no es una coincidencia de este ejemplo puntual: vale para cualquier par de números, apoyada en la propiedad del producto de potencias de igual base.",
+      "Esa comparación no es la razón detrás de la propiedad, ni una afirmación general válida entre esas dos cantidades."
+    ],
+    "explanation": "Un **logaritmo es un exponente**: pregunta a qué exponente hay que elevar la base para llegar al argumento.\n\nEscribiendo $8=2^3$ y $4=2^2$, multiplicarlos aplica la propiedad de **producto de potencias de igual base** vista en Potenciación:\n$$8\\cdot4 = 2^{3}\\cdot2^{2} = 2^{3+2}$$\nComo el logaritmo en base $2$ de esa potencia es exactamente su exponente, $\\log_2(8\\cdot4)=3+2$.\n\nLa propiedad del producto no es una regla aislada de los logaritmos: es la traducción directa, a exponentes, de que multiplicar potencias de igual base suma sus exponentes.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-propiedad-de-logaritmos"
+    ]
+  },
+  {
+    "question": "Un apunte resuelve un cociente adentro de un logaritmo en un solo renglón:\n$$\\log_{3}\\left(\\dfrac{27}{9}\\right) = \\log_{3}(27) - \\log_{3}(9)$$\n¿Por qué es correcto ese paso?",
+    "options": [
+      "Porque el logaritmo de un cociente siempre es menor que el cociente de los logaritmos",
+      "Porque los dos argumentos son potencias de la misma base, y dividirlas resta sus exponentes",
+      "Porque el logaritmo convierte cualquier división en una resta, sin relación con las potencias",
+      "Porque la resta de los dos logaritmos coincide con el cociente solo en este ejemplo puntual"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El logaritmo devuelve exponentes, y dividir potencias de igual base los resta.",
+    "feedback_incorrect": [
+      "La comparación de tamaños no explica nada: lo que explica la regla es la resta de exponentes.",
+      null,
+      "La propiedad no es un truco del logaritmo: sale de cómo se comportan los exponentes al dividir.",
+      "La igualdad vale para cualquier par de argumentos positivos, no solo para este."
+    ],
+    "explanation": "El logaritmo devuelve el exponente, así que toda propiedad suya es una propiedad de las potencias leída al revés.\n$$\\dfrac{3^{3}}{3^{2}} = 3^{3-2}$$\nDividir potencias de igual base resta los exponentes, y esos exponentes son justamente los dos logaritmos.\n\nPor eso el logaritmo de un cociente es la resta de los logaritmos, y no un cociente entre ellos.\n\nCada propiedad de logaritmos tiene detrás una propiedad de potencias, y reconocerla evita memorizarlas sueltas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-propiedad-de-logaritmos"
+    ]
+  },
+  {
+    "question": "En un desarrollo aparece este paso:\n$$\\log_{2}(8^{3}) = 3\\log_{2}(8)$$\n¿Por qué es correcto ese paso?",
+    "options": [
+      "Porque el exponente del argumento siempre se puede mover afuera, cualquiera sea la operación",
+      "Porque multiplicar por tres es lo mismo que elevar al cubo en cualquier expresión",
+      "Porque el logaritmo de una potencia coincide con la potencia del logaritmo",
+      "Porque elevar una potencia multiplica su exponente, y el logaritmo devuelve ese exponente"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Una potencia de potencia multiplica los exponentes, y el logaritmo lee ese producto.",
+    "feedback_incorrect": [
+      "El exponente sale afuera por una razón concreta, no como una regla general de escritura.",
+      "Multiplicar y elevar son operaciones distintas: acá coinciden porque el logaritmo traduce una en otra.",
+      "El logaritmo de una potencia y la potencia del logaritmo son cantidades distintas.",
+      null
+    ],
+    "explanation": "El argumento es una potencia de la base elevada a otro exponente, o sea una potencia de potencia.\n$$8^{3} = (2^{3})^{3} = 2^{9}$$\nLos exponentes se multiplican, y el logaritmo devuelve ese producto: nueve, que es tres por tres.\n\nPor eso el exponente del argumento sale multiplicando afuera del logaritmo.\n\nEs la traducción exacta de la propiedad de la potencia de potencia, no una regla de manipulación aparte.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-propiedad-de-logaritmos"
+    ]
+  },
+  {
+    "question": "En una simplificación aparece esta igualdad:\n$$\\log_{7}(1) = 0$$\n¿Por qué el logaritmo de $1$ vale cero en cualquier base?",
+    "options": [
+      "Porque toda base elevada a la potencia cero devuelve exactamente $1$",
+      "Porque el argumento y el resultado coinciden si el argumento es chico",
+      "Porque el logaritmo de cualquier número menor que la base vale cero",
+      "Porque uno dividido por sí mismo da uno, y eso anula el logaritmo"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El exponente que lleva cualquier base hasta uno es siempre el cero.",
+    "feedback_incorrect": [
+      null,
+      "El argumento y el resultado casi nunca coinciden: son cantidades de naturaleza distinta.",
+      "Los argumentos menores que la base dan resultados menores que uno, no necesariamente cero.",
+      "Esa cuenta no interviene: lo que decide es qué exponente lleva la base hasta el argumento."
+    ],
+    "explanation": "El logaritmo pregunta a qué exponente hay que elevar la base para llegar al argumento.\n$$b^{0} = 1$$\nComo toda base positiva elevada a cero da uno, el exponente buscado es siempre el cero, sin importar cuál sea la base.\n\nPor eso todas las curvas logarítmicas pasan por el mismo punto, más allá de su base.\n\nEl caso vecino también conviene tenerlo: el logaritmo de la propia base vale uno, porque la base elevada a uno se devuelve a sí misma.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-propiedad-de-logaritmos"
+    ]
+  },
+  {
+    "question": "Un desarrollo separa un argumento compuesto en dos términos:\n$$\\log_{2}(4 \\cdot 8) = \\log_{2}(4) + \\log_{2}(8)$$\n¿Qué pasa si los dos argumentos **no** son potencias de la base?",
+    "options": [
+      "La propiedad vale solo si el producto de los argumentos es potencia de la base",
+      "La propiedad se invierte, y el logaritmo del producto pasa a ser una resta",
+      "La propiedad sigue valiendo, aunque los dos logaritmos dejen de ser enteros",
+      "La propiedad deja de valer, porque exige que los argumentos sean potencias de la base"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La propiedad sale de la suma de exponentes, que no exige que los exponentes sean enteros.",
+    "feedback_incorrect": [
+      "El producto no interviene en la validez: la propiedad vale argumento por argumento.",
+      "El logaritmo de un producto es una suma, y el de un cociente una resta, siempre.",
+      null,
+      "Que los logaritmos sean enteros es una comodidad del ejemplo, no una condición de la propiedad."
+    ],
+    "explanation": "La propiedad del producto sale de que multiplicar potencias de igual base suma sus exponentes, y eso vale para cualquier exponente.\n$$b^{m} \\cdot b^{n} = b^{m+n}$$\nTodo argumento positivo es alguna potencia de la base, aunque el exponente no sea un número redondo.\n\nLos ejemplos del curso eligen potencias exactas para que la cuenta cierre de cabeza, pero la propiedad no depende de eso.\n\nLa única condición real es que los dos argumentos sean positivos, que es la misma que pide la definición.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-propiedad-de-logaritmos"
+    ]
   }
 ]

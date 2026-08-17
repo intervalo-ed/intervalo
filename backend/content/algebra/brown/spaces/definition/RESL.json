@@ -1,0 +1,401 @@
+[
+  {
+    "question": "Dos polinomios de $P_2$ se combinan igual que dos vectores, multiplicando cada uno por un número y sumando.\n$$p(x) = 2x^2 - x + 3$$\n$$q(x) = x^2 + 4x - 1$$\n¿Cuál es el resultado de $2p(x) - q(x)$?",
+    "options": [
+      "$3x^2 - 6x + 7$",
+      "$3x^2 + 2x + 5$",
+      "$5x^2 - 6x + 7$",
+      "$3x^2 - 6x + 5$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Se opera coeficiente a coeficiente, agrupando por grado, igual que componente a componente en un vector.",
+    "feedback_incorrect": [
+      null,
+      "Solo el término de grado dos se restó, en los otros dos se sumó en vez de restar.",
+      "El coeficiente de $x^2$ salió de sumar en vez de restar, aunque el resto sí se restó.",
+      "El término independiente quedó mal, dos por tres son seis y hay que restarle menos uno."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Combinar polinomios funciona exactamente como combinar tuplas, con la única diferencia de que cada grado ocupa el lugar de una componente.\n\nPrimero se escala cada uno y después se agrupan los términos del mismo grado.\n$$2p(x) = 4x^2 - 2x + 6$$\n$$2p(x) - q(x) = 3x^2 - 6x + 7$$\nEl coeficiente de $x$ es el que más se equivoca, porque hay que restarle cuatro a un número que ya era negativo.\n\nVer que la cuenta es idéntica a la de un vector de tres componentes es justamente el punto, y por eso los polinomios forman un espacio vectorial.",
+    "reviewed": false,
+    "tags": [
+      "calcular-combinacion-de-polinomios"
+    ]
+  },
+  {
+    "question": "Dos polinomios de $P_2$ se combinan escalando cada uno y sumando después.\n$$p(x) = x^2 + 2x$$\n$$q(x) = 2x^2 - x + 4$$\n¿Cuál es el resultado de $3p(x) - 2q(x)$?",
+    "options": [
+      "$7x^2 + 8x - 8$",
+      "$-x^2 + 8x - 8$",
+      "$-x^2 + 4x - 8$",
+      "$-x^2 + 8x + 8$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada polinomio se escala primero y después se agrupan los términos del mismo grado.",
+    "feedback_incorrect": [
+      "Los términos de grado dos se restan entre sí, no se suman.",
+      null,
+      "El término de grado uno quedó mal: menos dos por menos uno da más dos, y hay que sumarlo.",
+      "El término independiente se resta, porque el segundo polinomio entra restando."
+    ],
+    "explanation": "Combinar polinomios es la misma cuenta que combinar tuplas, con cada grado ocupando el lugar de una componente.\n$$3p(x) = 3x^2 + 6x$$\n$$2q(x) = 4x^2 - 2x + 8$$\nRestando término a término, el grado dos da menos uno, el grado uno da ocho y el independiente da menos ocho.\n$$3p(x) - 2q(x) = -x^2 + 8x - 8$$\nEl término del medio es el que más se equivoca, porque el signo de la resta se combina con el coeficiente negativo del segundo polinomio.\n\nConviene escalar los dos por separado antes de restar, para no arrastrar dos operaciones a la vez.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-combinacion-de-polinomios"
+    ]
+  },
+  {
+    "question": "Un espacio de polinomios de grado a lo sumo tres admite las mismas combinaciones.\n$$p(x) = x^3 - 3x + 1$$\n$$q(x) = 2x^3 + x^2 - 5$$\n¿Cuál es el resultado de $p(x) + 2q(x)$?",
+    "options": [
+      "$3x^3 + 2x^2 - 3x - 9$",
+      "$5x^3 + x^2 - 3x - 9$",
+      "$5x^3 + 2x^2 - 3x - 4$",
+      "$5x^3 + 2x^2 - 3x - 9$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El escalar alcanza a los cuatro coeficientes del segundo polinomio, incluido el independiente.",
+    "feedback_incorrect": [
+      "El coeficiente de grado tres del segundo polinomio también se duplica antes de sumar.",
+      "El término de grado dos aparece solo en el segundo polinomio, así que se duplica.",
+      "El término independiente del segundo vale menos cinco, y duplicado es menos diez.",
+      null
+    ],
+    "explanation": "Al escalar un polinomio, el número alcanza a todos sus coeficientes, sin excepción.\n$$2q(x) = 4x^3 + 2x^2 - 10$$\nRecién después se suman los términos del mismo grado, dejando intactos los que aparecen en uno solo de los dos.\n$$p(x) + 2q(x) = 5x^3 + 2x^2 - 3x - 9$$\nEl término de grado uno viaja solo, porque el segundo polinomio no tiene ninguno, y por eso queda igual que en el original.\n\nEscribir los dos polinomios ordenados por grado, dejando huecos donde falta un término, evita casi todos los descuidos de este tipo de cuenta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-combinacion-de-polinomios"
+    ]
+  },
+  {
+    "question": "Una combinación puede tener coeficientes de distinto signo sin cambiar el procedimiento.\n$$p(x) = 2x^2 - 5$$\n$$q(x) = x^2 + x - 1$$\n¿Cuál es el resultado de $-p(x) + 3q(x)$?",
+    "options": [
+      "$x^2 + 3x + 2$",
+      "$-x^2 + 3x + 2$",
+      "$x^2 + x + 2$",
+      "$x^2 + 3x + 8$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El primer polinomio entra con el signo cambiado y el segundo triplicado, y después se agrupa.",
+    "feedback_incorrect": [
+      null,
+      "El grado dos da menos dos más tres, que es uno positivo.",
+      "El término de grado uno aparece solo en el segundo polinomio, así que se triplica.",
+      "El independiente da cinco menos tres, porque el del segundo polinomio es negativo."
+    ],
+    "explanation": "Multiplicar por menos uno es cambiarle el signo a todos los coeficientes, y multiplicar por tres es triplicarlos.\n$$-p(x) = -2x^2 + 5$$\n$$3q(x) = 3x^2 + 3x - 3$$\nSumando los dos resultados, cada grado se resuelve por separado.\n$$-p(x) + 3q(x) = x^2 + 3x + 2$$\nEl término independiente es el que más cuesta, porque hay que combinar el cinco que quedó positivo con el menos tres del segundo polinomio.\n\nQue el coeficiente de grado dos termine valiendo uno es una coincidencia de estos números, no una señal de que la cuenta esté bien.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-combinacion-de-polinomios"
+    ]
+  },
+  {
+    "question": "Un paréntesis cambia el alcance del escalar en una combinación de polinomios.\n$$p(x) = 3x^2 + x$$\n$$q(x) = x^2 - 2x + 3$$\n¿Cuál es el resultado de $2\\,(p(x) - q(x))$?",
+    "options": [
+      "$4x^2 - 2x - 6$",
+      "$4x^2 + 6x - 3$",
+      "$4x^2 + 6x - 6$",
+      "$2x^2 + 3x - 3$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Primero se resta dentro del paréntesis y después el dos alcanza a los tres términos.",
+    "feedback_incorrect": [
+      "El término de grado uno da uno más dos, porque el segundo polinomio entra restando.",
+      "El término independiente también queda adentro del paréntesis y se duplica.",
+      null,
+      "El paréntesis está multiplicado por dos, así que los tres coeficientes se duplican."
+    ],
+    "explanation": "El paréntesis obliga a resolver la resta primero, y recién ahí el escalar alcanza a todo el resultado.\n$$p(x) - q(x) = 2x^2 + 3x - 3$$\nDuplicando ese polinomio se llega al resultado final.\n$$2\\,(p(x) - q(x)) = 4x^2 + 6x - 6$$\nEl término de grado uno es el que más se equivoca, porque restar menos dos equis es sumar dos equis.\n\nSin el paréntesis la expresión sería otra: el dos alcanzaría solo al primer polinomio y el segundo entraría sin modificar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-combinacion-de-polinomios"
+    ]
+  },
+  {
+    "question": "En un espacio vectorial, el opuesto de un elemento es el que sumado a él devuelve el vector nulo.\n$$A = \\begin{pmatrix} 2 & -1 \\\\ 0 & 3 \\end{pmatrix}$$\n¿Cuál es el opuesto de esta matriz?",
+    "options": [
+      "$\\begin{pmatrix} -2 & 1 \\\\ 0 & -3 \\end{pmatrix}$",
+      "$\\begin{pmatrix} -2 & -1 \\\\ 0 & -3 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 3 & 0 \\\\ -1 & 2 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1/2 & -1 \\\\ 0 & 1/3 \\end{pmatrix}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El opuesto cambia el signo de cada entrada, y así la suma da la matriz con las cuatro entradas en cero.",
+    "feedback_incorrect": [
+      null,
+      "La entrada que ya era negativa también cambia de signo, y menos uno se vuelve uno.",
+      "Eso es la matriz dada acomodada de otra forma, y sumarla no devuelve el vector nulo.",
+      "Ahí se invirtió cada entrada como si fuera un número suelto, y eso no cancela ninguna de las dos operaciones."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **opuesto** de un elemento se define por lo que hace, no por su forma: es el que sumado al original devuelve el vector nulo del espacio.\n\nEn las matrices de $2 \\times 2$ la suma se hace casillero por casillero, así que para que cada casillero dé cero hay que cambiarle el signo a cada entrada.\n$$\\begin{pmatrix} 2 & -1 \\\\ 0 & 3 \\end{pmatrix} + \\begin{pmatrix} -2 & 1 \\\\ 0 & -3 \\end{pmatrix} = \\begin{pmatrix} 0 & 0 \\\\ 0 & 0 \\end{pmatrix}$$\nEl cero se queda en cero, porque su opuesto es él mismo.\n\nConfundirlo con la matriz inversa es frecuente, y son cosas distintas: la inversa cancela el producto, el opuesto cancela la suma.",
+    "reviewed": false,
+    "tags": [
+      "hallar-el-neutro-o-el-opuesto"
+    ]
+  },
+  {
+    "question": "El opuesto de un polinomio es el que sumado a él devuelve el polinomio nulo.\n$$p(x) = -x^2 + 4x - 5$$\n¿Cuál es el opuesto de este polinomio?",
+    "options": [
+      "$x^2 + 4x + 5$",
+      "$x^2 - 4x + 5$",
+      "$x^2 - 4x - 5$",
+      "$-x^2 + 4x + 5$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cambian de signo los tres coeficientes, y así cada grado se cancela con el original.",
+    "feedback_incorrect": [
+      "El término de grado uno era positivo, así que en el opuesto tiene que ser negativo.",
+      null,
+      "El término independiente también cambia de signo, y menos cinco se vuelve más cinco.",
+      "El coeficiente de grado dos era negativo, así que en el opuesto tiene que ser positivo."
+    ],
+    "explanation": "El **opuesto** se define por lo que hace: sumado al original tiene que dar el vector nulo del espacio.\n$$(-x^2 + 4x - 5) + (x^2 - 4x + 5) = 0$$\nEn un espacio de polinomios eso obliga a que cada grado se cancele por separado, así que hay que cambiarle el signo a los tres coeficientes.\n\nEl coeficiente que ya era negativo también cambia, y queda positivo.\n\nEl mismo resultado sale de multiplicar el polinomio por menos uno, que es la forma corta de escribir el opuesto en cualquier espacio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-neutro-o-el-opuesto"
+    ]
+  },
+  {
+    "question": "En el espacio de las ternas, el opuesto se busca coordenada por coordenada.\n$$\\vec{v} = (2, -5, 0)$$\n¿Qué terna sumada a $\\vec{v}$ devuelve el vector nulo?",
+    "options": [
+      "$(-2, -5, 0)$",
+      "$(2, 5, 0)$",
+      "$(0, 0, 0)$",
+      "$(-2, 5, 0)$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Cada coordenada cambia de signo, y la que ya valía cero se queda en cero.",
+    "feedback_incorrect": [
+      "La segunda coordenada era negativa, así que en el opuesto tiene que ser positiva.",
+      "La primera coordenada era positiva, así que en el opuesto tiene que ser negativa.",
+      "Sumar la terna nula no cambia nada, devuelve la terna de partida.",
+      null
+    ],
+    "explanation": "El opuesto de una terna se obtiene cambiándole el signo a cada coordenada, porque la suma se hace coordenada por coordenada.\n$$(2, -5, 0) + (-2, 5, 0) = (0, 0, 0)$$\nLa coordenada que valía cero se queda igual, porque el opuesto del cero es el cero.\n\nLa segunda es donde más se falla, porque el signo negativo del original se cambia y queda positivo.\n\nSumar la terna nula es otra cosa distinta: no cancela nada, deja el vector como estaba, y por eso es el neutro y no el opuesto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-neutro-o-el-opuesto"
+    ]
+  },
+  {
+    "question": "Una igualdad entre polinomios deja un sumando sin determinar.\n$$p(x) = x^2 - 2x, \\quad q(x) = 3x^2 + 1$$\n¿Qué polinomio sumado a $p(x)$ da $q(x)$?",
+    "options": [
+      "$2x^2 + 2x + 1$",
+      "$2x^2 - 2x + 1$",
+      "$4x^2 + 2x + 1$",
+      "$2x^2 + 2x - 1$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Sale de restarle el primero al segundo, y cada grado se resuelve por separado.",
+    "feedback_incorrect": [
+      null,
+      "El término de grado uno del primer polinomio es negativo, y al restarlo queda positivo.",
+      "Los coeficientes de grado dos se restan entre sí, tres menos uno da dos.",
+      "El primer polinomio no tiene término independiente, así que queda el del segundo tal cual."
+    ],
+    "explanation": "Buscar el sumando que falta es despejar, igual que en una ecuación numérica.\n$$X = q(x) - p(x)$$\nLa resta se hace grado por grado, cuidando el signo de cada coeficiente del polinomio que se resta.\n$$X = 2x^2 + 2x + 1$$\nEl término de grado uno es el que decide, porque restar menos dos equis es sumar dos equis.\n\nCuando el segundo polinomio es el nulo, esta misma cuenta devuelve el opuesto del primero. El opuesto es entonces un caso particular de este despeje.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-neutro-o-el-opuesto"
+    ]
+  },
+  {
+    "question": "El opuesto de un elemento se puede obtener con una sola multiplicación por un escalar.\n$$p(x) = 5x^2 - 3$$\n¿Por qué escalar hay que multiplicarlo?",
+    "options": [
+      "$1$",
+      "$-5$",
+      "$-1$",
+      "$0$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Multiplicar por menos uno cambia el signo de cada coeficiente, que es lo que hace el opuesto.",
+    "feedback_incorrect": [
+      "Multiplicar por uno devuelve el polinomio exactamente como estaba.",
+      "Ese es el coeficiente principal cambiado de signo, no el escalar que hay que usar.",
+      null,
+      "Multiplicar por cero da el polinomio nulo, que es el neutro y no el opuesto."
+    ],
+    "explanation": "El opuesto de un elemento siempre se obtiene multiplicándolo por menos uno, en cualquier espacio vectorial.\n$$(-1) \\cdot (5x^2 - 3) = -5x^2 + 3$$\nLa razón es que sumando el original con ese resultado, cada coeficiente se cancela con su opuesto.\n\nCon cero el resultado es el polinomio nulo, que sirve como neutro pero no cancela nada al sumarse.\n\nQue el escalar sea siempre el mismo, sin importar el espacio, es lo que permite hablar del opuesto sin aclarar cómo se calcula en cada caso.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-neutro-o-el-opuesto"
+    ]
+  },
+  {
+    "question": "Para que un conjunto sea espacio vectorial, sumar dos de sus elementos tiene que dar otro elemento del conjunto.\n\nSe toman dos vectores del conjunto de los que tienen norma $1$.\n$$\\vec{u} = (1,0), \\quad \\vec{v} = (0,1)$$\n¿Qué norma tiene la suma de los dos?",
+    "options": [
+      "$\\sqrt{2}$",
+      "$1$",
+      "$2$",
+      "$0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La suma es $(1,1)$, cuya norma es raíz de dos, así que el resultado se salió del conjunto.",
+    "feedback_incorrect": [
+      null,
+      "Ese sería el caso si el conjunto fuera cerrado, y justamente el ejercicio muestra que no lo es.",
+      "Las normas no se suman entre sí, hay que calcular la norma del vector que resulta de la suma.",
+      "La suma de esos dos vectores no es el vector nulo, ninguna componente se cancela."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El conjunto de los vectores de norma $1$ parece razonable, pero la cuenta lo descarta enseguida.\n\nLos dos vectores dados pertenecen, porque cada uno mide uno. Su suma, en cambio, es otra cosa.\n$$\\vec{u} + \\vec{v} = (1,1)$$\n$$\\|(1,1)\\| = \\sqrt{2}$$\nComo raíz de dos no es uno, el resultado quedó fuera del conjunto, y con eso alcanza para que no sea espacio vectorial.\n\nEste es el valor de buscar un contraejemplo concreto: una sola cuenta descarta al conjunto, sin necesidad de revisar ninguna otra condición.",
+    "reviewed": false,
+    "tags": [
+      "verificar-la-clausura-en-un-caso"
+    ]
+  },
+  {
+    "question": "Se toman dos polinomios del conjunto de los que tienen grado exactamente tres.\n$$p(x) = x^3 + 2x$$\n$$q(x) = -x^3 + 5$$\n¿Qué grado tiene la suma de los dos?",
+    "options": [
+      "$6$",
+      "$1$",
+      "$3$",
+      "$0$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los términos de grado tres se cancelan y sobrevive el de grado uno.",
+    "feedback_incorrect": [
+      "Los grados no se suman al sumar dos polinomios.",
+      null,
+      "Ese sería el grado si los términos principales no se cancelaran entre sí.",
+      "El resultado todavía tiene un término con la variable, así que no es constante."
+    ],
+    "explanation": "Sumar dos polinomios de grado exactamente tres puede dar uno de grado mucho menor, y eso es exactamente una fuga del conjunto.\n$$(x^3 + 2x) + (-x^3 + 5) = 2x + 5$$\nLos dos términos de grado tres son opuestos, así que se cancelan, y el resultado tiene grado uno.\n\nCon eso alcanza para descartar al conjunto, porque la clausura pide que el resultado pertenezca siempre.\n\nEl conjunto de los polinomios de grado **menor o igual** a tres no tiene ese problema, porque un resultado de grado uno sigue cumpliendo la condición.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "verificar-la-clausura-en-un-caso"
+    ]
+  },
+  {
+    "question": "Dos matrices inversibles se suman y el resultado se examina.\n$$A = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}, \\quad B = \\begin{pmatrix} -1 & 0 \\\\ 0 & -1 \\end{pmatrix}$$\n¿Cuánto vale el determinante de la suma?",
+    "options": [
+      "$1$",
+      "$-1$",
+      "$2$",
+      "$0$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "La suma es la matriz con las cuatro entradas en cero, y su determinante se anula.",
+    "feedback_incorrect": [
+      "Ese es el determinante de la primera matriz, no el de la suma.",
+      "Ese es el determinante de la segunda matriz, que también vale uno al multiplicar los signos.",
+      "Los determinantes no se suman entre sí, hay que calcular el de la matriz resultante.",
+      null
+    ],
+    "explanation": "Las dos matrices son inversibles, porque las dos tienen determinante distinto de cero. Su suma, en cambio, es otra cosa.\n$$A + B = \\begin{pmatrix} 0 & 0 \\\\ 0 & 0 \\end{pmatrix}$$\nLa matriz nula tiene determinante cero, así que el resultado quedó fuera del conjunto de las inversibles.\n\nEse único caso alcanza para descartar al conjunto, sin revisar ninguna otra condición.\n\nEl determinante de la segunda matriz vale uno, porque los dos signos negativos se multiplican entre sí. Aun así, sumarla con la primera cancela todo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "verificar-la-clausura-en-un-caso"
+    ]
+  },
+  {
+    "question": "Se multiplica un par de coordenadas enteras por un escalar que no lo es.\n$$\\tfrac{1}{2} \\cdot (3, 5)$$\n¿Qué par se obtiene?",
+    "options": [
+      "$(3/2,\\ 5/2)$",
+      "$(1,\\ 2)$",
+      "$(6,\\ 10)$",
+      "$(3,\\ 5)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Cada coordenada se divide por dos, y ninguna de las dos queda entera.",
+    "feedback_incorrect": [
+      null,
+      "Las coordenadas no se redondean, la mitad de tres es tres medios.",
+      "Multiplicar por un medio achica el par, no lo agranda.",
+      "Multiplicar por un medio cambia las dos coordenadas, no las deja igual."
+    ],
+    "explanation": "El escalar alcanza a las dos coordenadas por igual, y acá ninguna de las dos es divisible por dos.\n$$\\tfrac{1}{2} \\cdot (3, 5) = (3/2,\\ 5/2)$$\nEl resultado es un par perfectamente válido del plano, pero ya no tiene las dos coordenadas enteras, así que se salió del conjunto.\n\nAlcanza con ese caso para concluir que los pares de coordenadas enteras no forman un espacio vectorial.\n\nLa suma no habría delatado nada, porque sumar dos enteros siempre da un entero. Por eso conviene atacar primero con un escalar fraccionario.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "verificar-la-clausura-en-un-caso"
+    ]
+  },
+  {
+    "question": "Una matriz de determinante uno se multiplica por el escalar dos.\n$$A = \\begin{pmatrix} 3 & 1 \\\\ 2 & 1 \\end{pmatrix}$$\n¿Cuánto vale el determinante de $2A$?",
+    "options": [
+      "$2$",
+      "$8$",
+      "$4$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Al duplicar las cuatro entradas, cada producto de la diagonal queda multiplicado por cuatro.",
+    "feedback_incorrect": [
+      "Ese es el escalar por el que se multiplicó, no el determinante del resultado.",
+      "El determinante no se duplica dos veces, hay que calcularlo sobre la matriz nueva.",
+      null,
+      "Ese es el determinante de la matriz original, y al escalarla el valor cambia."
+    ],
+    "explanation": "El conjunto de las matrices de determinante uno no resiste el producto por un escalar, y la cuenta lo muestra directo.\n$$2A = \\begin{pmatrix} 6 & 2 \\\\ 4 & 2 \\end{pmatrix}$$\nCalculando el determinante de esa matriz nueva se obtiene doce menos ocho.\n$$\\det(2A) = 4$$\nLa razón es que los dos factores de cada producto quedaron duplicados, así que cada término del determinante quedó multiplicado por cuatro.\n\nComo cuatro no es uno, el resultado se salió del conjunto, y con eso queda descartado como espacio vectorial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "verificar-la-clausura-en-un-caso"
+    ]
+  }
+]

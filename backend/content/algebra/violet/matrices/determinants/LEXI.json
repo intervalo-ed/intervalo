@@ -1,22 +1,371 @@
 [
   {
-    "question": "¿Qué indica que $\\det(A) \\neq 0$ para una matriz cuadrada $A$?",
+    "question": "El determinante mide cuánto agranda o achica las áreas la transformación que representa una matriz.\n\nCuando ese determinante da cero, el resultado no es una figura chica sino ningún área en absoluto.\n$$\\det(A) = 0$$\n¿Qué le pasó al plano en ese caso?",
     "options": [
-      "Que $A$ es inversible",
-      "Que $A$ es simétrica",
-      "Que todos los elementos de $A$ son positivos"
+      "Quedó aplastado sobre una recta o sobre un punto",
+      "Se achicó mucho, pero sigue siendo un plano completo",
+      "La transformación no tuvo ningún efecto sobre él"
     ],
     "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "Un determinante no nulo indica que la matriz es inversible.",
+    "has_math": false,
+    "feedback_correct": "Un factor de área cero significa que ninguna figura conserva superficie: todo el plano se comprimió a algo sin área.",
     "feedback_incorrect": [
       null,
-      "La simetría depende de si $A=A^T$, no del valor del determinante.",
-      "El signo de los elementos no está relacionado con el determinante."
+      "Un plano achicado, por chico que sea, sigue teniendo área; un factor cero exige que esa área desaparezca del todo.",
+      "Que el determinante valga uno es la marca de que el área no cambia; un determinante nulo indica exactamente lo contrario."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **determinante** es un escalar asociado a una matriz cuadrada.\n$$\\det(A) \\neq 0 \\iff A \\text{ es inversible}$$\n\nGeométricamente, el determinante mide el factor por el cual la matriz expande o contrae el volumen del espacio.\n\nSi el determinante es cero, la matriz colapsa el espacio en una dimensión menor y no tiene inversa.",
-    "reviewed": false
+    "explanation": "El determinante es el factor por el que se multiplican las áreas al aplicar la transformación que la matriz representa.\n\nSi ese factor vale cero, cualquier figura con área queda transformada en algo sin área: una recta, o un solo punto.\n$$\\det(A) = 0$$\nNo es que el plano se achique mucho, es que colapsa a menos dimensiones de las que tenía: pierde una dirección entera.\n\nUn factor de uno dejaría las áreas intactas, y cualquier otro valor positivo las agrandaría o achicaría sin destruirlas. Solo el cero borra el área por completo.",
+    "reviewed": false,
+    "tags": [
+      "que-significa-cero"
+    ]
+  },
+  {
+    "question": "Una transformación del plano tiene determinante nulo.\n$$\\det(A) = 0$$\n¿Qué le pasa a un cuadrado unitario al transformarse?",
+    "options": [
+      "Cambia de forma sin cambiar su superficie",
+      "Se aplasta hasta perder toda su superficie",
+      "Se achica pero conserva algo de superficie"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El determinante mide el factor por el que se multiplica el área, y cero la anula.",
+    "feedback_incorrect": [
+      "Conservar la superficie corresponde a un determinante de valor absoluto uno.",
+      null,
+      "Un factor no nulo dejaría alguna superficie: el cero la elimina por completo."
+    ],
+    "explanation": "El determinante es el factor por el que la transformación multiplica las áreas.\n$$\\det(A) = 0$$\nMultiplicar cualquier área por cero la deja sin superficie, así que la figura se aplasta.\n\nEl resultado queda sobre una recta o reducido a un punto, según cuántas direcciones colapsen.\n\nEsa pérdida total de superficie es lo que después impide deshacer la transformación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-significa-cero"
+    ]
+  },
+  {
+    "question": "Una matriz tiene dos filas proporcionales entre sí.\n$$\\det(A) = 0$$\n¿Qué relación tiene eso con el determinante nulo?",
+    "options": [
+      "Que las dos filas tienen que ser iguales entre sí para anularlo",
+      "Que el determinante se anula solo si alguna fila es nula",
+      "Que las dos direcciones que la matriz describe son la misma"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Con filas proporcionales no hay dos direcciones distintas, así que no queda superficie.",
+    "feedback_incorrect": [
+      "Alcanza con que sean proporcionales: no hace falta que coincidan.",
+      "Una fila nula anula el determinante, pero no es el único caso.",
+      null
+    ],
+    "explanation": "Cuando dos filas son proporcionales, la matriz describe una sola dirección repetida.\n$$\\det(A) = 0$$\nSin dos direcciones independientes no se puede formar ninguna superficie, y el factor de áreas se anula.\n\nLa proporcionalidad incluye el caso en que las filas coincidan, pero es más general que eso.\n\nDetectar filas proporcionales a simple vista permite dar el determinante por nulo sin ninguna cuenta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-significa-cero"
+    ]
+  },
+  {
+    "question": "Una transformación con determinante nulo manda distintos puntos al mismo destino.\n$$\\det(A) = 0$$\n¿Qué consecuencia tiene eso?",
+    "options": [
+      "Que no hay forma de recuperar el punto de partida desde el destino",
+      "Que la transformación deja de estar definida para algunos puntos",
+      "Que la transformación solo se puede aplicar una vez"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Si varios puntos comparten destino, el destino no alcanza para identificar el origen.",
+    "feedback_incorrect": [
+      null,
+      "La transformación está definida para todos los puntos: lo que falla es volver atrás.",
+      "Se puede aplicar tantas veces como se quiera; el problema es deshacerla."
+    ],
+    "explanation": "Al aplastar el plano, la transformación manda una recta entera de puntos a un mismo destino.\n$$\\det(A) = 0$$\nConociendo el destino no hay forma de saber de cuál de esos puntos se venía.\n\nPor eso ninguna transformación puede deshacer lo que esta hizo: la información sobre el punto de origen ya se perdió en el camino.\n\nEsa pérdida de información es la marca de fondo que deja un determinante nulo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-significa-cero"
+    ]
+  },
+  {
+    "question": "El determinante de una matriz del espacio de tres dimensiones también mide un factor.\n$$\\det(A) = 0$$\n¿Qué mide en ese caso?",
+    "options": [
+      "La cantidad de direcciones que la transformación conserva",
+      "El factor por el que se multiplican los volúmenes",
+      "El factor por el que se multiplican las áreas de las caras"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "En el espacio, el análogo del área es el volumen.",
+    "feedback_incorrect": [
+      "El determinante es un número que mide un factor, no una cantidad de direcciones.",
+      null,
+      "Las áreas de las caras no se transforman con un único factor común."
+    ],
+    "explanation": "El determinante mide cuánto multiplica la transformación la medida del espacio en el que actúa.\n$$\\det(A) = 0$$\nEn el plano esa medida es el área, y en el espacio de tres dimensiones es el volumen.\n\nUn determinante nulo indica que el cuerpo se aplasta hasta perder todo su volumen, quedando sobre un plano, una recta o un punto.\n\nLa lectura es la misma en cualquier dimensión, y por eso la propiedad se enuncia una sola vez.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-significa-cero"
+    ]
+  },
+  {
+    "question": "Una transformación tiene determinante $-3$, y otra tiene determinante $3$.\n\nLas dos multiplican las áreas por el mismo factor.\n\n¿En qué se diferencian entonces?",
+    "options": [
+      "La de signo negativo invierte la orientación del plano",
+      "La de signo negativo achica más las áreas que la otra",
+      "No hay ninguna diferencia real entre las dos transformaciones"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El valor absoluto ya fija cuánto se agranda el área; el signo dice si el plano quedó dado vuelta.",
+    "feedback_incorrect": [
+      null,
+      "El tamaño del efecto sobre el área lo da el valor absoluto, y ahí las dos transformaciones coinciden exactamente.",
+      "Una transformación con determinante negativo deja el plano como una hoja de papel dada vuelta, algo que la otra no hace."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El determinante guarda dos informaciones distintas en un solo número: su valor absoluto y su signo.\n$$\\det(A) = -3$$\nEl valor absoluto, en este caso $3$, es el factor por el que se multiplican las áreas, y en eso coincide exactamente con una transformación de determinante $3$.\n\nEl signo es otra cosa: indica si la orientación del plano se invirtió, como si fuera una hoja de papel dada vuelta. Con signo positivo la orientación se conserva; con signo negativo, no.\n\nDos transformaciones con el mismo valor absoluto pero distinto signo agrandan las figuras exactamente igual, pero una las deja del derecho y la otra las deja del revés.",
+    "reviewed": false,
+    "tags": [
+      "que-informa-el-signo"
+    ]
+  },
+  {
+    "question": "Una transformación del plano tiene determinante negativo.\n$$\\det(A) < 0$$\n¿Qué indica ese signo?",
+    "options": [
+      "Que la transformación deja alguna dirección sin mover",
+      "Que la transformación invierte la orientación del plano",
+      "Que la transformación achica las áreas en vez de agrandarlas"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El signo informa sobre la orientación, y el tamaño del área lo informa el valor absoluto.",
+    "feedback_incorrect": [
+      "Las direcciones que quedan fijas no dependen del signo del determinante.",
+      null,
+      "Que las áreas crezcan o se achiquen lo decide el valor absoluto, no el signo."
+    ],
+    "explanation": "El determinante guarda dos informaciones distintas en un solo número.\n$$\\det(A) < 0$$\nSu valor absoluto dice por cuánto se multiplican las áreas, y su signo dice si la orientación se conserva.\n\nUn signo negativo indica que el plano quedó dado vuelta, como si se lo hubiera reflejado.\n\nSeparar las dos lecturas evita confundir una transformación que refleja con una que achica.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-informa-el-signo"
+    ]
+  },
+  {
+    "question": "Dos transformaciones del plano tienen determinantes opuestos.\n$$\\det(A) = 5, \\quad \\det(B) = -5$$\n¿En qué se parecen y en qué se diferencian?",
+    "options": [
+      "Invierten la orientación las dos, pero multiplican las áreas distinto",
+      "No tienen nada en común, porque los signos son distintos",
+      "Multiplican las áreas por lo mismo, pero una invierte la orientación"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El valor absoluto coincide, así que el efecto sobre las áreas es el mismo.",
+    "feedback_incorrect": [
+      "Solo la de determinante negativo invierte la orientación.",
+      "Comparten el valor absoluto, así que sí tienen algo en común.",
+      null
+    ],
+    "explanation": "El valor absoluto y el signo del determinante informan cosas independientes.\n$$|{-5}| = |5| = 5$$\nLas dos transformaciones quintuplican las áreas, porque su valor absoluto coincide.\n\nLa diferencia está en la orientación: solo la de signo negativo deja el plano dado vuelta.\n\nLeer el determinante como dos datos en un número es lo que permite responder este tipo de comparación sin hacer ninguna cuenta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-informa-el-signo"
+    ]
+  },
+  {
+    "question": "Una transformación del plano tiene determinante igual a uno.\n$$\\det(A) = 1$$\n¿Qué se puede afirmar sobre ella?",
+    "options": [
+      "Que conserva las áreas y también la orientación",
+      "Que deja todos los puntos del plano en su lugar",
+      "Que multiplica todas las distancias por uno"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El valor absoluto uno conserva las áreas, y el signo positivo conserva la orientación.",
+    "feedback_incorrect": [
+      null,
+      "Solo la identidad deja todos los puntos fijos, y hay muchas transformaciones con ese determinante.",
+      "El determinante habla de áreas, no de distancias: un estiramiento compensado las cambia."
+    ],
+    "explanation": "Un determinante igual a uno significa que el factor de áreas vale uno y el signo es positivo.\n$$\\det(A) = 1$$\nLas áreas quedan iguales y la orientación se conserva, pero la figura puede deformarse mucho.\n\nUn estiramiento en una dirección compensado con una compresión en la otra cumple esa condición.\n\nConservar el área y dejar los puntos quietos son dos condiciones distintas, y la segunda es mucho más fuerte.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-informa-el-signo"
+    ]
+  },
+  {
+    "question": "Una transformación del plano refleja las figuras sobre un eje.\n$$\\det(A) = -1$$\n¿Qué se puede afirmar sobre ella?",
+    "options": [
+      "Que anula las áreas de todas las figuras",
+      "Que conserva las áreas e invierte la orientación",
+      "Que achica las áreas a la mitad y conserva la orientación"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El valor absoluto uno conserva las áreas, y el signo negativo invierte la orientación.",
+    "feedback_incorrect": [
+      "Un determinante distinto de cero nunca anula las áreas.",
+      null,
+      "El valor absoluto es uno, así que las áreas quedan iguales."
+    ],
+    "explanation": "Una reflexión no cambia el tamaño de las figuras, pero las deja dadas vuelta.\n$$\\det(A) = -1$$\nEl valor absoluto uno recoge lo primero y el signo negativo recoge lo segundo.\n\nEs el ejemplo más limpio de que las dos informaciones del determinante son independientes.\n\nUn determinante nulo sería otra cosa por completo: ahí las figuras pierden toda su superficie.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "que-informa-el-signo"
+    ]
+  },
+  {
+    "question": "Al multiplicar por dos todas las entradas de una matriz del plano, el determinante no se duplica:\n$$\\det(2A) = 4\\det(A)$$\n¿Por qué el escalar entra elevado al orden de la matriz?",
+    "options": [
+      "Porque el escalar estira las dos direcciones del plano a la vez",
+      "Porque el escalar solo afecta a una de las dos direcciones",
+      "Porque el área se calcula sumando el efecto de cada dirección"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada dirección se estira por el mismo factor, y un área se agranda multiplicando los dos estiramientos entre sí.",
+    "feedback_incorrect": [
+      null,
+      "Multiplicar la matriz completa por un escalar afecta a todas sus columnas, no a una sola dirección.",
+      "El área no es una suma de efectos por dirección, es un producto: por eso el determinante de una suma tampoco es la suma de los determinantes."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Multiplicar una matriz por un escalar estira todas sus columnas por igual, así que las dos direcciones del plano se agrandan al mismo tiempo.\n\nUn área se agranda multiplicando los dos estiramientos entre sí, no sumándolos.\n$$\\det(kA) = k^n\\det(A)$$\nEl exponente cuenta cuántas direcciones se estiraron: dos en el plano, tres en el espacio.\n\nLa misma razón geométrica explica por qué el determinante de una suma no es la suma de los determinantes.\n\nSumar matrices deforma el paralelogramo de una manera que no se reduce a agrandar cada lado, así que no hay ningún atajo lineal para su área.",
+    "reviewed": false,
+    "tags": [
+      "por-que-no-se-reparte-en-la-suma"
+    ]
+  },
+  {
+    "question": "El determinante no se reparte sobre una suma de matrices.\n$$\\det(A+B) \\neq \\det(A)+\\det(B)$$\n¿Por qué falla esa propiedad?",
+    "options": [
+      "Porque el determinante solo está definido para matrices cuadradas",
+      "Porque el determinante mide un área, y las áreas no se suman al sumar direcciones",
+      "Porque la suma de matrices no siempre está definida entre dos matrices"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sumar dos matrices cambia las direcciones, y el área resultante no es la suma de las dos áreas.",
+    "feedback_incorrect": [
+      "Las dos matrices y la suma son cuadradas, así que los tres determinantes existen.",
+      null,
+      "Entre matrices cuadradas del mismo orden la suma siempre está definida."
+    ],
+    "explanation": "El determinante mide el área que determinan las direcciones de la matriz.\n$$\\det(A+B) \\neq \\det(A)+\\det(B)$$\nAl sumar dos matrices, cada dirección cambia, y el área del resultado no tiene por qué relacionarse con las dos áreas originales.\n\nEs el mismo motivo por el que el área de un rectángulo no es la suma de las áreas de dos rectángulos cuyos lados se sumaron.\n\nLa propiedad que sí vale es la del producto, donde los determinantes se multiplican.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-no-se-reparte-en-la-suma"
+    ]
+  },
+  {
+    "question": "El escalar sale del determinante elevado al orden de la matriz, un patrón claro y predecible.\n$$\\det(kA) = k^n\\det(A)$$\nLa suma de matrices no tiene ninguna fórmula parecida para su determinante.\n\n¿Por qué no hay un patrón igual de simple para $\\det(A+B)$?",
+    "options": [
+      "Porque el escalar estira todas las direcciones igual, y la suma las cambia de otro modo cada vez",
+      "Porque la suma de matrices no siempre está definida, y el escalar sí",
+      "Porque el determinante de una suma nunca existe, mientras que el de un escalar siempre existe"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El escalar repite el mismo estiramiento en cada dirección; la suma cambia cada dirección de una manera distinta según el caso, sin ningún patrón fijo.",
+    "feedback_incorrect": [
+      null,
+      "La suma de matrices está definida siempre que las dos compartan el orden, igual que en cualquier otro ítem de esta unidad.",
+      "El determinante de una suma existe siempre que $A+B$ sea cuadrada, tanto como el de $kA$."
+    ],
+    "explanation": "El producto por un escalar tiene un efecto uniforme: estira todas las direcciones por el mismo número, así que ese único factor alcanza para predecir el nuevo determinante.\n$$\\det(kA) = k^n\\det(A)$$\nSumar dos matrices no tiene ese comportamiento uniforme: cada dirección de la matriz resultante depende de cómo se combinan las direcciones de las dos originales, de una forma distinta según el caso.\n\nPor eso no existe una fórmula que reparta el determinante de una suma en los determinantes de sus partes, mientras que el escalar sí admite esa fórmula.\n\nBuscar un patrón parecido al del escalar para la suma es un atajo natural, pero la suma simplemente no tiene esa estructura.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-no-se-reparte-en-la-suma"
+    ]
+  },
+  {
+    "question": "Al multiplicar por un escalar todas las entradas de una matriz del espacio, el determinante crece más de lo esperado.\n$$\\det(2A) = 8\\det(A)$$\n¿Por qué aparece ese exponente?",
+    "options": [
+      "Porque el escalar estira las tres direcciones a la vez",
+      "Porque el escalar se aplica tres veces seguidas a la matriz",
+      "Porque el determinante multiplica las entradas de la diagonal"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Cada dirección estirada aporta su propio factor al volumen.",
+    "feedback_incorrect": [
+      null,
+      "El escalar se aplica una sola vez, pero afecta a las tres direcciones.",
+      "El determinante de una matriz cualquiera no es el producto de su diagonal."
+    ],
+    "explanation": "Multiplicar la matriz por un escalar estira todas sus direcciones por ese factor.\n$$\\det(2A) = 8\\det(A)$$\nEl volumen crece una vez por cada dirección estirada, así que el factor aparece elevado al cubo.\n\nEn el plano el exponente es dos, porque hay dos direcciones que se estiran.\n\nEl exponente coincide siempre con el orden de la matriz, y esa coincidencia tiene esa razón geométrica detrás.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-no-se-reparte-en-la-suma"
+    ]
+  },
+  {
+    "question": "Multiplicar una sola fila de una matriz por un número afecta al determinante de forma distinta.\n$$\\det(A) \\to k\\det(A)$$\n¿Por qué acá el factor no aparece elevado?",
+    "options": [
+      "Porque el determinante solo se altera si se multiplican todas las filas",
+      "Porque se estira una sola dirección, no todas a la vez",
+      "Porque una fila no interviene en el cálculo del determinante"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Una sola dirección estirada aporta el factor una sola vez.",
+    "feedback_incorrect": [
+      "Multiplicar una sola fila sí altera el determinante, en un factor.",
+      null,
+      "Todas las filas intervienen en el determinante."
+    ],
+    "explanation": "Cada fila de la matriz describe una de las direcciones que determinan el área o el volumen.\n$$\\det(A) \\to k\\det(A)$$\nEstirar una sola dirección multiplica la medida una sola vez, así que el factor entra sin exponente.\n\nMultiplicar la matriz entera estira todas las direcciones, y por eso ahí el factor aparece elevado al orden.\n\nComparar los dos casos es lo que vuelve intuitivo el exponente, que si no parece una regla arbitraria.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "por-que-no-se-reparte-en-la-suma"
+    ]
   }
 ]

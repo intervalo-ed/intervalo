@@ -1,24 +1,401 @@
 [
   {
-    "question": "Si $A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$ y $\\vec{x}=(1,0)$, ¿cuánto vale $A\\vec{x}$?",
+    "question": "Una fábrica anota su producción con una fila por turno y una columna por producto.\n\nEl lunes y el martes produjo esto:\n$$L = \\begin{pmatrix} 4 & 2 \\\\ 1 & 5 \\end{pmatrix}$$\n$$M = \\begin{pmatrix} 3 & 0 \\\\ 6 & 2 \\end{pmatrix}$$\n¿Qué matriz da el total de los dos días?",
     "options": [
-      "$(1,3)$",
-      "$(1,2)$",
-      "$(3,4)$",
-      "$(2,4)$"
+      "$\\begin{pmatrix} 7 & 2 \\\\ 7 & 7 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 7 & 2 \\\\ 7 & 3 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & 2 \\\\ -5 & 3 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 12 & 0 \\\\ 6 & 10 \\end{pmatrix}$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$A\\vec{x}$ con $\\vec{x}=(1,0)$ da la primera columna de $A$: $(1,3)$.",
+    "feedback_correct": "La suma se hace posición por posición, sumando cada casillero con el que ocupa su mismo lugar.",
     "feedback_incorrect": [
       null,
-      "Esa es la primera fila de $A$, no el resultado del producto.",
-      "Esa es la segunda fila de $A$, no la columna correspondiente.",
-      "Esa es la segunda columna de $A$, pero $\\vec{x}$ selecciona la primera."
+      "Las tres primeras posiciones están bien sumadas, pero la última quedó restada en vez de sumada.",
+      "Ese resultado sale de restarle el martes al lunes, y lo que se busca es el acumulado de los dos días.",
+      "Multiplicar casillero por casillero no es la suma de matrices; cada posición del total es una suma."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Multiplicar una matriz por el vector $(1,0)$ selecciona la primera columna de la matriz.\n$$A\\vec{x} = \\begin{pmatrix} 1\\cdot1+2\\cdot0 \\\\ 3\\cdot1+4\\cdot0 \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 3 \\end{pmatrix}$$\n\nCada fila de $A$ se combina con las componentes de $\\vec{x}$, y como la segunda componente es cero, solo sobrevive la primera columna.\n\nUn error común es confundir filas con columnas al armar el resultado.",
-    "reviewed": false
+    "explanation": "La suma de matrices opera cada posición por separado: el total de un casillero es la suma de los dos casilleros que ocupan ese mismo lugar.\n$$\\begin{pmatrix} 4+3 & 2+0 \\\\ 1+6 & 5+2 \\end{pmatrix}$$\nCada turno y cada producto conservan su lugar, así que el resultado se lee igual que las matrices originales.\n$$\\begin{pmatrix} 7 & 2 \\\\ 7 & 7 \\end{pmatrix}$$\nMultiplicar los casilleros entre sí produciría otra tabla, pero no respondería nada.\n\nAcumular unidades producidas es sumarlas: el producto de dos cantidades de unidades no mide ninguna producción real.",
+    "reviewed": false,
+    "tags": [
+      "calcular-suma-o-diferencia"
+    ]
+  },
+  {
+    "question": "Un depósito anota su stock con una fila por sucursal y una columna por producto.\n$$A = \\begin{pmatrix} 6 & 3 \\\\ 2 & 7 \\end{pmatrix}$$\n$$B = \\begin{pmatrix} 1 & 5 \\\\ 4 & 0 \\end{pmatrix}$$\n¿Cuál es el stock total?",
+    "options": [
+      "$\\begin{pmatrix} 6 & 15 \\\\ 8 & 0 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 7 & 8 \\\\ 6 & 7 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 5 & -2 \\\\ -2 & 7 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 7 & 8 \\\\ 6 & 0 \\end{pmatrix}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada posición del resultado es la suma de las dos posiciones correspondientes.",
+    "feedback_incorrect": [
+      "Ahí las entradas se multiplicaron en vez de sumarse.",
+      null,
+      "Ahí las matrices se restaron en vez de sumarse.",
+      "Ahí quedó una posición sin sumar, con el valor de una sola de las dos matrices."
+    ],
+    "explanation": "La suma de matrices se resuelve posición por posición, sin mezclar entradas de posiciones distintas.\n$$\\begin{pmatrix} 6 & 3 \\\\ 2 & 7 \\end{pmatrix} + \\begin{pmatrix} 1 & 5 \\\\ 4 & 0 \\end{pmatrix} = \\begin{pmatrix} 7 & 8 \\\\ 6 & 7 \\end{pmatrix}$$\nCada entrada del resultado sale de sumar las dos que ocupan ese mismo lugar.\n\nEl orden del resultado coincide con el de las dos matrices originales.\n\nConviene recorrer las posiciones en un orden fijo, fila por fila, para no saltearse ninguna.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-suma-o-diferencia"
+    ]
+  },
+  {
+    "question": "Dos turnos registran su producción con una fila por línea y una columna por artículo.\n$$A = \\begin{pmatrix} 9 & 4 \\\\ 3 & 8 \\end{pmatrix}$$\n$$B = \\begin{pmatrix} 2 & 6 \\\\ 5 & 1 \\end{pmatrix}$$\n¿Cuál es la diferencia entre el primero y el segundo?",
+    "options": [
+      "$\\begin{pmatrix} 11 & 10 \\\\ 8 & 9 \\end{pmatrix}$",
+      "$\\begin{pmatrix} -7 & 2 \\\\ 2 & -7 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 7 & 2 \\\\ 2 & 7 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 7 & -2 \\\\ -2 & 7 \\end{pmatrix}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Cada posición del resultado es la resta de las dos posiciones correspondientes.",
+    "feedback_incorrect": [
+      "Ahí las matrices se sumaron en vez de restarse.",
+      "Ahí la resta quedó invertida, restando la primera a la segunda.",
+      "Ahí se tomó el valor absoluto de cada resta, perdiendo los signos negativos.",
+      null
+    ],
+    "explanation": "La resta de matrices funciona igual que la suma, posición por posición.\n$$\\begin{pmatrix} 9 & 4 \\\\ 3 & 8 \\end{pmatrix} - \\begin{pmatrix} 2 & 6 \\\\ 5 & 1 \\end{pmatrix} = \\begin{pmatrix} 7 & -2 \\\\ -2 & 7 \\end{pmatrix}$$\nLos resultados negativos son entradas legítimas e indican que el segundo turno superó al primero en esa posición.\n\nEl orden de la resta importa: invertirlo da la matriz opuesta.\n\nDescartar los signos negativos perdería precisamente la información que la resta aporta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-suma-o-diferencia"
+    ]
+  },
+  {
+    "question": "Dos relevamientos se registran en matrices de tres filas y dos columnas.\n$$A = \\begin{pmatrix} 1 & 4 \\\\ 7 & 0 \\\\ 2 & 5 \\end{pmatrix}$$\n$$B = \\begin{pmatrix} 3 & 2 \\\\ 1 & 6 \\\\ 0 & 4 \\end{pmatrix}$$\n¿Cuál es la suma de los dos?",
+    "options": [
+      "$\\begin{pmatrix} 4 & 6 \\\\ 8 & 6 \\\\ 2 & 9 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 4 & 6 \\\\ 8 & 6 \\\\ 2 & 5 \\end{pmatrix}$",
+      "$\\begin{pmatrix} -2 & 2 \\\\ 6 & -6 \\\\ 2 & 1 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 4 & 8 \\\\ 6 & 6 \\\\ 2 & 9 \\end{pmatrix}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Las seis posiciones se suman una por una, respetando su lugar.",
+    "feedback_incorrect": [
+      null,
+      "Ahí quedó una posición sin sumar, con el valor de una sola de las dos matrices.",
+      "Ahí las matrices se restaron en vez de sumarse.",
+      "Ahí dos entradas quedaron intercambiadas de posición al armar el resultado."
+    ],
+    "explanation": "La suma funciona igual en matrices rectangulares: cada posición con la suya.\n$$\\begin{pmatrix} 1 & 4 \\\\ 7 & 0 \\\\ 2 & 5 \\end{pmatrix} + \\begin{pmatrix} 3 & 2 \\\\ 1 & 6 \\\\ 0 & 4 \\end{pmatrix} = \\begin{pmatrix} 4 & 6 \\\\ 8 & 6 \\\\ 2 & 9 \\end{pmatrix}$$\nEl resultado conserva las tres filas y las dos columnas de las matrices originales.\n\nSer cuadrada no es un requisito de la suma: lo que hace falta es que las dos formas coincidan.\n\nCon más posiciones el riesgo es saltear alguna, y por eso conviene recorrerlas en un orden fijo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-suma-o-diferencia"
+    ]
+  },
+  {
+    "question": "Dos matrices registran valores con signos mezclados.\n$$A = \\begin{pmatrix} -2 & 5 \\\\ 3 & -1 \\end{pmatrix}$$\n$$B = \\begin{pmatrix} 4 & -5 \\\\ -3 & 6 \\end{pmatrix}$$\n¿Cuál es la suma de las dos?",
+    "options": [
+      "$\\begin{pmatrix} 2 & 0 \\\\ 0 & -5 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 2 & 10 \\\\ 6 & 5 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 2 & 0 \\\\ 0 & 5 \\end{pmatrix}$",
+      "$\\begin{pmatrix} -6 & 10 \\\\ 6 & -7 \\end{pmatrix}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Dos de las posiciones se cancelan y las otras dos dejan un resto.",
+    "feedback_incorrect": [
+      "Ahí una de las entradas quedó con el signo invertido.",
+      "Ahí dos posiciones se sumaron ignorando los signos negativos.",
+      null,
+      "Ahí las matrices se restaron en vez de sumarse."
+    ],
+    "explanation": "Los signos de cada entrada entran en la suma como en cualquier operación entre números.\n$$\\begin{pmatrix} -2 & 5 \\\\ 3 & -1 \\end{pmatrix} + \\begin{pmatrix} 4 & -5 \\\\ -3 & 6 \\end{pmatrix} = \\begin{pmatrix} 2 & 0 \\\\ 0 & 5 \\end{pmatrix}$$\nDos de las posiciones tienen valores opuestos y se cancelan, dejando ceros en el resultado.\n\nQue aparezcan ceros no significa que la matriz sea nula: las otras dos posiciones conservan su valor.\n\nConviene resolver las cuatro posiciones por separado antes de armar el resultado, para no arrastrar un signo de una a otra.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-suma-o-diferencia"
+    ]
+  },
+  {
+    "question": "Los costos de dos talleres se proyectan al doble, descontando un ahorro ya calculado.\n$$A = \\begin{pmatrix} 5 & 1 \\\\ 2 & 4 \\end{pmatrix}$$\n$$B = \\begin{pmatrix} 3 & 0 \\\\ 1 & 2 \\end{pmatrix}$$\n¿Cuál es la matriz $2A - B$?",
+    "options": [
+      "$\\begin{pmatrix} 7 & 2 \\\\ 3 & 6 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 13 & 2 \\\\ 5 & 10 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 2 & 1 \\\\ 1 & 2 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 4 & 2 \\\\ 2 & 4 \\end{pmatrix}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Primero se duplica cada entrada de la primera matriz y recién después se resta, posición por posición.",
+    "feedback_incorrect": [
+      null,
+      "El signo quedó invertido: la segunda matriz se resta, no se suma.",
+      "Faltó duplicar la primera matriz antes de restar; ese resultado es la diferencia sin el escalar.",
+      "Ahí el $2$ se aplicó a la resta completa, y en la expresión pedida multiplica solo a la primera matriz."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una combinación de matrices se resuelve aplicando primero cada escalar a su propia matriz, y sumando o restando después, siempre posición por posición.\n$$2A = \\begin{pmatrix} 10 & 2 \\\\ 4 & 8 \\end{pmatrix}$$\nCon la primera matriz ya duplicada, la resta se hace casillero contra casillero.\n$$\\begin{pmatrix} 7 & 2 \\\\ 3 & 6 \\end{pmatrix}$$\nEl escalar acompaña únicamente a la matriz que tiene al lado. Aplicarlo a la resta completa multiplicaría también a la segunda matriz, que en la expresión entra sin ningún factor.",
+    "reviewed": false,
+    "tags": [
+      "calcular-combinacion-con-escalar"
+    ]
+  },
+  {
+    "question": "Un presupuesto se triplica y después se le descuenta un ajuste ya calculado.\n$$A = \\begin{pmatrix} 2 & 1 \\\\ 0 & 3 \\end{pmatrix}$$\n$$B = \\begin{pmatrix} 1 & 2 \\\\ 4 & 5 \\end{pmatrix}$$\n¿Cuál es el resultado de $3A - B$?",
+    "options": [
+      "$\\begin{pmatrix} 7 & 5 \\\\ 4 & 14 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 5 & 1 \\\\ -4 & 4 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 5 & 1 \\\\ -4 & -2 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 5 & 1 \\\\ -4 & 14 \\end{pmatrix}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Primero se triplica la primera matriz y recién después se resta la segunda.",
+    "feedback_incorrect": [
+      "Ahí el escalar sí se aplicó, pero después las dos matrices se sumaron en vez de restarse.",
+      null,
+      "Ahí el escalar triplicó la primera fila de la matriz, pero la segunda fila quedó sin escalar.",
+      "Ahí una posición quedó sumada en vez de restada."
+    ],
+    "explanation": "El producto por un escalar se resuelve antes que la suma o la resta.\n$$3A = \\begin{pmatrix} 6 & 3 \\\\ 0 & 9 \\end{pmatrix}$$\nCon la primera matriz ya escalada, la resta se hace posición por posición.\n$$\\begin{pmatrix} 6 & 3 \\\\ 0 & 9 \\end{pmatrix} - \\begin{pmatrix} 1 & 2 \\\\ 4 & 5 \\end{pmatrix} = \\begin{pmatrix} 5 & 1 \\\\ -4 & 4 \\end{pmatrix}$$\nEl escalar alcanza a todas las entradas de su matriz, sin excepción.\n\nResolver el escalar primero y la resta después evita mezclar las dos operaciones en un solo paso.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-combinacion-con-escalar"
+    ]
+  },
+  {
+    "question": "Dos mediciones se combinan tomando el doble de una y la mitad de la otra.\n$$A = \\begin{pmatrix} 3 & 5 \\\\ 1 & 0 \\end{pmatrix}$$\n$$B = \\begin{pmatrix} 4 & 2 \\\\ 6 & 8 \\end{pmatrix}$$\n¿Cuál es el resultado de esa combinación?\n$$2A + 0{,}5B$$",
+    "options": [
+      "$\\begin{pmatrix} 10 & 12 \\\\ 8 & 8 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 8 & 11 \\\\ 5 & 8 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 9{,}5 & 6{,}5 \\\\ 12{,}5 & 16 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 8 & 11 \\\\ 5 & 4 \\end{pmatrix}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Cada matriz lleva su propio escalar y recién después se suman.",
+    "feedback_incorrect": [
+      "Ahí la primera matriz sí se duplicó, pero a la segunda se le sumó entera, sin aplicar el escalar $0{,}5$.",
+      "Ahí una posición quedó sin escalar antes de la suma.",
+      "Ahí los dos escalares quedaron intercambiados entre las matrices: la primera se escaló por $0{,}5$ y la segunda por $2$.",
+      null
+    ],
+    "explanation": "Cada matriz se escala por separado antes de combinarlas.\n$$2A = \\begin{pmatrix} 6 & 10 \\\\ 2 & 0 \\end{pmatrix} \\qquad 0{,}5B = \\begin{pmatrix} 2 & 1 \\\\ 3 & 4 \\end{pmatrix}$$\nCon las dos ya escaladas, la suma se resuelve posición por posición.\n$$\\begin{pmatrix} 8 & 11 \\\\ 5 & 4 \\end{pmatrix}$$\nUn escalar menor que uno achica las entradas, y uno mayor las agranda, cada uno sobre su matriz.\n\nAplicar un escalar a la matriz equivocada cambia el resultado por completo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-combinacion-con-escalar"
+    ]
+  },
+  {
+    "question": "Dos costos se combinan restando el triple del segundo al primero.\n$$A = \\begin{pmatrix} 9 & 7 \\\\ 4 & 6 \\end{pmatrix}$$\n$$B = \\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}$$\n¿Cuál es el resultado de $A - 3B$?",
+    "options": [
+      "$\\begin{pmatrix} 3 & 4 \\\\ 4 & 0 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 7 & 6 \\\\ 4 & 4 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 15 & 10 \\\\ 4 & 12 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 3 & 4 \\\\ 4 & 6 \\end{pmatrix}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El escalar se aplica a la segunda matriz y después se resta entera.",
+    "feedback_incorrect": [
+      null,
+      "Ahí la segunda matriz se restó sin haberla triplicado.",
+      "Ahí las dos matrices se sumaron en vez de restarse.",
+      "Ahí quedó una posición sin restar."
+    ],
+    "explanation": "El escalar afecta únicamente a la matriz que lo tiene escrito al lado.\n$$3B = \\begin{pmatrix} 6 & 3 \\\\ 0 & 6 \\end{pmatrix}$$\nCon la segunda matriz ya triplicada, la resta se resuelve posición por posición.\n$$\\begin{pmatrix} 9 & 7 \\\\ 4 & 6 \\end{pmatrix} - \\begin{pmatrix} 6 & 3 \\\\ 0 & 6 \\end{pmatrix} = \\begin{pmatrix} 3 & 4 \\\\ 4 & 0 \\end{pmatrix}$$\nUna entrada que da cero es un resultado válido, no una posición sin resolver.\n\nEl chequeo final es que el resultado tenga el mismo orden que las dos matrices originales.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-combinacion-con-escalar"
+    ]
+  },
+  {
+    "question": "Dos registros del mismo orden se combinan, triplicando uno de ellos antes de restar el otro.\n$$A = \\begin{pmatrix} 4 & 1 \\\\ 2 & 5 \\end{pmatrix} \\quad B = \\begin{pmatrix} 1 & 3 \\\\ 0 & 2 \\end{pmatrix}$$\n¿Cuál es el resultado de $3B - A$?",
+    "options": [
+      "$\\begin{pmatrix} -3 & 2 \\\\ -2 & -3 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 11 & 0 \\\\ 6 & 13 \\end{pmatrix}$",
+      "$\\begin{pmatrix} -1 & 8 \\\\ -2 & 1 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 1 & -8 \\\\ 2 & -1 \\end{pmatrix}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El escalar triplica a la segunda matriz, y recién después se resta la primera.",
+    "feedback_incorrect": [
+      "Ahí las matrices se restaron sin aplicar el escalar a la segunda.",
+      "Ahí el escalar triplicó a la matriz que no lo llevaba al lado.",
+      null,
+      "Ahí la resta quedó invertida: se le restó el triple de la segunda matriz a la primera."
+    ],
+    "explanation": "El escalar entra antes que la resta, y alcanza únicamente a la matriz que lo acompaña.\n$$3B = \\begin{pmatrix} 3 & 9 \\\\ 0 & 6 \\end{pmatrix}$$\nCon la segunda matriz ya triplicada, la resta se resuelve posición por posición.\n$$\\begin{pmatrix} 3 & 9 \\\\ 0 & 6 \\end{pmatrix} - \\begin{pmatrix} 4 & 1 \\\\ 2 & 5 \\end{pmatrix} = \\begin{pmatrix} -1 & 8 \\\\ -2 & 1 \\end{pmatrix}$$\nUn resultado negativo es un valor legítimo, no una señal de error.\n\nEscalar la matriz equivocada o invertir el orden de la resta cambia el resultado por completo, así que conviene verificar antes de operar cuál matriz lleva el escalar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-combinacion-con-escalar"
+    ]
+  },
+  {
+    "question": "En una ecuación entre matrices la incógnita también es una matriz:\n$$X + A = B$$\nLas dos matrices conocidas son estas.\n$$A = \\begin{pmatrix} 2 & 5 \\\\ 1 & 4 \\end{pmatrix}$$\n$$B = \\begin{pmatrix} 6 & 3 \\\\ 7 & 4 \\end{pmatrix}$$\n¿Cuál es $X$?",
+    "options": [
+      "$\\begin{pmatrix} 4 & -2 \\\\ 6 & 0 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 8 & 8 \\\\ 8 & 8 \\end{pmatrix}$",
+      "$\\begin{pmatrix} -4 & 2 \\\\ -6 & 0 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 4 & 2 \\\\ 6 & 0 \\end{pmatrix}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Se despeja restando, a cada entrada del segundo miembro, la que le corresponde en el primero.",
+    "feedback_incorrect": [
+      null,
+      "Ese resultado sale de sumar las dos matrices; para despejar hay que restar la que acompaña a la incógnita.",
+      "La resta quedó hecha al revés: se le resta la matriz conocida al resultado, y no al revés.",
+      "Una de las restas dio negativo y quedó anotada en positivo; el signo forma parte del valor."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una ecuación entre matrices se despeja igual que una ecuación entre números, restando a ambos miembros la matriz que acompaña a la incógnita.\n\nComo la resta se hace entrada a entrada, el despeje se resuelve casillero por casillero.\n$$\\begin{pmatrix} 6-2 & 3-5 \\\\ 7-1 & 4-4 \\end{pmatrix}$$\nCada posición se resuelve por su cuenta, sin mirar lo que pasa en las demás.\n$$\\begin{pmatrix} 4 & -2 \\\\ 6 & 0 \\end{pmatrix}$$\nUna diferencia negativa es un valor legítimo dentro de una matriz. Anotarla en positivo cambia el dato, y con eso la matriz deja de verificar la ecuación original.",
+    "reviewed": false,
+    "tags": [
+      "despejar-matriz-incognita"
+    ]
+  },
+  {
+    "question": "En una ecuación entre matrices la incógnita también es una matriz.\n$$X + A = B$$\n$$A = \\begin{pmatrix} 1 & 3 \\\\ 2 & 0 \\end{pmatrix} \\quad B = \\begin{pmatrix} 5 & 4 \\\\ 7 & 6 \\end{pmatrix}$$\n¿Cuál es la matriz incógnita?",
+    "options": [
+      "$\\begin{pmatrix} 4 & 1 \\\\ 5 & 0 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 4 & 1 \\\\ 5 & 6 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 6 & 7 \\\\ 9 & 6 \\end{pmatrix}$",
+      "$\\begin{pmatrix} -4 & -1 \\\\ -5 & -6 \\end{pmatrix}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La incógnita sale restando la matriz conocida a los dos lados.",
+    "feedback_incorrect": [
+      "Ahí quedó una posición sin resolver.",
+      null,
+      "Ahí las dos matrices se sumaron en vez de restarse.",
+      "Ahí la resta quedó invertida, restando la segunda a la primera."
+    ],
+    "explanation": "Una ecuación matricial se despeja igual que una numérica, aplicando la misma operación a los dos lados.\n$$X = B - A$$\nLa resta se resuelve posición por posición, como cualquier resta de matrices.\n$$\\begin{pmatrix} 5 & 4 \\\\ 7 & 6 \\end{pmatrix} - \\begin{pmatrix} 1 & 3 \\\\ 2 & 0 \\end{pmatrix} = \\begin{pmatrix} 4 & 1 \\\\ 5 & 6 \\end{pmatrix}$$\nEl resultado es una matriz del mismo orden que las dos conocidas.\n\nVerificar sumándole la matriz conocida y comprobando que da la otra cierra el ejercicio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "despejar-matriz-incognita"
+    ]
+  },
+  {
+    "question": "En una ecuación entre matrices la incógnita aparece restando.\n$$A - X = B$$\n$$A = \\begin{pmatrix} 8 & 2 \\\\ 5 & 9 \\end{pmatrix} \\quad B = \\begin{pmatrix} 3 & 0 \\\\ 1 & 4 \\end{pmatrix}$$\n¿Cuál es la matriz incógnita?",
+    "options": [
+      "$\\begin{pmatrix} -5 & -2 \\\\ -4 & -5 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 11 & 2 \\\\ 6 & 13 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 5 & 2 \\\\ 4 & 9 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 5 & 2 \\\\ 4 & 5 \\end{pmatrix}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Despejando queda la primera matriz menos la segunda.",
+    "feedback_incorrect": [
+      "Ahí la resta quedó invertida, restando la primera a la segunda.",
+      "Ahí las dos matrices se sumaron en vez de restarse.",
+      "Ahí quedó una posición sin resolver.",
+      null
+    ],
+    "explanation": "Con la incógnita restando, hay que despejarla en dos pasos o reordenar la ecuación.\n$$A - X = B \\implies X = A - B$$\nLa resta se resuelve después posición por posición.\n$$\\begin{pmatrix} 8 & 2 \\\\ 5 & 9 \\end{pmatrix} - \\begin{pmatrix} 3 & 0 \\\\ 1 & 4 \\end{pmatrix} = \\begin{pmatrix} 5 & 2 \\\\ 4 & 5 \\end{pmatrix}$$\nInvertir el orden de la resta da la matriz opuesta, que no verifica la ecuación original.\n\nReemplazar el resultado en la ecuación de partida detecta ese error de inmediato.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "despejar-matriz-incognita"
+    ]
+  },
+  {
+    "question": "Una ecuación entre matrices incluye un escalar sobre la incógnita.\n$$2X = A$$\n$$A = \\begin{pmatrix} 6 & 4 \\\\ 10 & 2 \\end{pmatrix}$$\n¿Cuál es la matriz incógnita?",
+    "options": [
+      "$\\begin{pmatrix} 3 & 2 \\\\ 5 & 1 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 12 & 8 \\\\ 20 & 4 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 4 & 2 \\\\ 8 & 0 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 3 & 2 \\\\ 5 & 2 \\end{pmatrix}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Dividir por el escalar afecta a todas las entradas por igual.",
+    "feedback_incorrect": [
+      null,
+      "Ahí la matriz se multiplicó por el escalar en vez de dividirse.",
+      "Ahí se restó el escalar a cada entrada en vez de dividir por él.",
+      "Ahí quedó una posición sin dividir."
+    ],
+    "explanation": "Un escalar que multiplica a la incógnita se despeja dividiendo los dos lados por él.\n$$X = \\tfrac{1}{2}A$$\nDividir una matriz por un número es multiplicarla por el inverso de ese número, y alcanza a todas las entradas.\n$$\\begin{pmatrix} 3 & 2 \\\\ 5 & 1 \\end{pmatrix}$$\nRestar el escalar en vez de dividir es el error más frecuente, y se detecta chequeando una sola entrada.\n\nVerificar duplicando el resultado y comparándolo con la matriz conocida cierra el ejercicio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "despejar-matriz-incognita"
+    ]
+  },
+  {
+    "question": "Una ecuación entre matrices combina un escalar con una suma.\n$$X + 2A = B$$\n$$A = \\begin{pmatrix} 1 & 0 \\\\ 2 & 3 \\end{pmatrix} \\quad B = \\begin{pmatrix} 7 & 5 \\\\ 8 & 9 \\end{pmatrix}$$\n¿Cuál es la matriz incógnita?",
+    "options": [
+      "$\\begin{pmatrix} 9 & 5 \\\\ 12 & 15 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 5 & 5 \\\\ 4 & 9 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 5 & 5 \\\\ 4 & 3 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 6 & 5 \\\\ 6 & 6 \\end{pmatrix}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Primero se duplica la matriz conocida y después se la resta.",
+    "feedback_incorrect": [
+      "Ahí las dos matrices se sumaron en vez de restarse.",
+      "Ahí quedó una posición sin resolver.",
+      null,
+      "Ahí la matriz se restó sin haberla duplicado antes."
+    ],
+    "explanation": "El término conocido se calcula completo antes de pasarlo al otro lado.\n$$2A = \\begin{pmatrix} 2 & 0 \\\\ 4 & 6 \\end{pmatrix}$$\nRecién con ese producto resuelto se despeja la incógnita restando.\n$$X = \\begin{pmatrix} 7 & 5 \\\\ 8 & 9 \\end{pmatrix} - \\begin{pmatrix} 2 & 0 \\\\ 4 & 6 \\end{pmatrix} = \\begin{pmatrix} 5 & 5 \\\\ 4 & 3 \\end{pmatrix}$$\nSaltear el escalar deja un resultado que no verifica la ecuación original.\n\nReemplazar el resultado y comprobar la igualdad es el chequeo que detecta cualquiera de los dos errores.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "despejar-matriz-incognita"
+    ]
   }
 ]

@@ -1,6 +1,6 @@
 [
   {
-    "question": "¿Cuál de estos pares de vectores es **ortogonal**?",
+    "question": "Dos vectores son ortogonales cuando forman un ángulo recto entre sí.\n\n¿Cuál de estos pares de vectores es ortogonal?",
     "options": [
       "$\\vec{u}=(2,0)$ y $\\vec{v}=(0,3)$",
       "$\\vec{u}=(1,1)$ y $\\vec{v}=(2,2)$",
@@ -11,12 +11,361 @@
     "feedback_correct": "$(2,0)\\cdot(0,3) = 0+0 = 0$: son ortogonales.",
     "feedback_incorrect": [
       null,
-      "$(1,1)\\cdot(2,2) = 4 \\neq 0$: no son ortogonales, son paralelos.",
-      "$(1,2)\\cdot(3,1) = 5 \\neq 0$: no son ortogonales."
+      "$(1,1)\\cdot(2,2) = 2+2 = 4 \\neq 0$: no son ortogonales, son paralelos.",
+      "$(1,2)\\cdot(3,1) = 3+2 = 5 \\neq 0$: no son ortogonales."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para verificar ortogonalidad se calcula el producto escalar entre el par de vectores.\n\n$(2,0)\\cdot(0,3) = 2\\cdot0 + 0\\cdot3 = 0$: al dar cero, el par es ortogonal.\n\nLos otros dos pares dan productos escalares distintos de cero ($4$ y $5$ respectivamente), así que no cumplen la condición de perpendicularidad.",
-    "reviewed": false
+    "explanation": "Para verificar ortogonalidad se calcula el producto escalar entre el par de vectores; si el resultado da cero, son ortogonales.\n$$(2,0)\\cdot(0,3) = (2)(0)+(0)(3) = 0$$\nLos otros dos pares dan productos escalares distintos de cero, $4$ y $5$ respectivamente, así que no cumplen la condición de perpendicularidad entre sus direcciones.",
+    "reviewed": false,
+    "tags": [
+      "identificar-par-ortogonal-numerico"
+    ]
+  },
+  {
+    "question": "Solo uno de estos pares cumple la condición de perpendicularidad.\n\n¿Cuál de estos pares de vectores es ortogonal?",
+    "options": [
+      "$\\vec{u}=(2,6)$ y $\\vec{v}=(3,1)$",
+      "$\\vec{u}=(2,6)$ y $\\vec{v}=(3,-1)$",
+      "$\\vec{u}=(2,6)$ y $\\vec{v}=(1,3)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Seis menos seis da cero, así que ese par es el perpendicular.",
+    "feedback_incorrect": [
+      "Ese producto da doce, positivo, así que el ángulo es agudo.",
+      null,
+      "Ese producto da veinte, positivo, así que el ángulo es agudo."
+    ],
+    "explanation": "El criterio es calcular el producto escalar de cada par y quedarse con el que se anula.\n$$2 \\cdot 3 + 6 \\cdot (-1) = 6 - 6 = 0$$\nLos dos términos se cancelan exactamente, que es la forma habitual de llegar a cero cuando ninguna componente es nula.\n\nEn los otros dos pares los dos términos son positivos, así que no hay forma de que se anulen.\n\nEse chequeo de signos permite descartar candidatos antes de terminar la cuenta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-par-ortogonal-numerico"
+    ]
+  },
+  {
+    "question": "Solo uno de estos pares cumple la condición de perpendicularidad.\n\n¿Cuál de estos pares de vectores es ortogonal?",
+    "options": [
+      "$\\vec{u}=(4,-2)$ y $\\vec{v}=(2,1)$",
+      "$\\vec{u}=(4,-2)$ y $\\vec{v}=(2,-1)$",
+      "$\\vec{u}=(4,-2)$ y $\\vec{v}=(1,2)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Cuatro menos cuatro da cero, así que ese par es el perpendicular.",
+    "feedback_incorrect": [
+      "Ese producto da seis, positivo, así que el ángulo es agudo.",
+      "Ese producto da diez, positivo, así que el ángulo es agudo.",
+      null
+    ],
+    "explanation": "Se calcula el producto escalar de cada par hasta encontrar el que se anula.\n$$4 \\cdot 1 + (-2) \\cdot 2 = 4 - 4 = 0$$\nEl signo negativo del primer vector es lo que permite que los dos términos se compensen exactamente en este par.\n\nLos otros dos candidatos comparten el primer vector, pero en ninguno de los dos los términos llegan a cancelarse.\n\nCuando varios candidatos comparten el primer vector, alcanza con revisar cómo cambia el signo de cada término.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-par-ortogonal-numerico"
+    ]
+  },
+  {
+    "question": "Solo uno de estos pares cumple la condición de perpendicularidad.\n\n¿Cuál de estos pares de vectores es ortogonal?",
+    "options": [
+      "$\\vec{u}=(3,5)$ y $\\vec{v}=(5,-3)$",
+      "$\\vec{u}=(3,5)$ y $\\vec{v}=(5,3)$",
+      "$\\vec{u}=(3,5)$ y $\\vec{v}=(-5,-3)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Quince menos quince da cero, así que ese par es el perpendicular.",
+    "feedback_incorrect": [
+      null,
+      "Ese producto da treinta, positivo, así que el ángulo es agudo.",
+      "Ese producto da menos treinta, negativo, así que el ángulo es obtuso."
+    ],
+    "explanation": "El segundo vector del par correcto sale de intercambiar las componentes del primero y cambiarle el signo a una.\n$$3 \\cdot 5 + 5 \\cdot (-3) = 15 - 15 = 0$$\nEsa construcción produce siempre un perpendicular, y por eso conviene reconocerla de un vistazo.\n\nLos otros dos candidatos tienen los dos términos del mismo signo, así que no pueden anularse.\n\nReconocer el patrón ahorra hacer las tres cuentas completas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-par-ortogonal-numerico"
+    ]
+  },
+  {
+    "question": "Solo uno de estos pares cumple la condición de perpendicularidad.\n\n¿Cuál de estos pares de vectores es ortogonal?",
+    "options": [
+      "$\\vec{u}=(7,0)$ y $\\vec{v}=(-4,3)$",
+      "$\\vec{u}=(7,0)$ y $\\vec{v}=(0,-4)$",
+      "$\\vec{u}=(7,0)$ y $\\vec{v}=(4,0)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los dos términos se anulan porque en cada eje uno de los factores es cero.",
+    "feedback_incorrect": [
+      "Ese producto da menos veintiocho, negativo, así que el ángulo es obtuso.",
+      null,
+      "Ese producto da veintiocho, positivo: los dos vectores están sobre el mismo eje."
+    ],
+    "explanation": "Cuando cada vector tiene su componente no nula en un eje distinto, el producto se anula término a término.\n$$7 \\cdot 0 + 0 \\cdot (-4) = 0$$\nNo hay ninguna cancelación entre términos: cada uno vale cero por su cuenta.\n\nEl segundo candidato tiene los dos vectores sobre el mismo eje, así que están alineados y el ángulo es nulo.\n\nEsa configuración, un vector por eje, es el caso de perpendicularidad más rápido de detectar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-par-ortogonal-numerico"
+    ]
+  },
+  {
+    "question": "Un dron vuela en línea recta según $\\vec{u}=(4,0)$, y un segundo dron cruza su ruta en ángulo recto según uno de estos rumbos.\n\n¿Cuál de estos rumbos cruza en ángulo recto a $\\vec{u}$?",
+    "options": [
+      "$(0,5)$",
+      "$(3,2)$",
+      "$(2,1)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$(4,0)\\cdot(0,5) = 0$: ese rumbo cruza la ruta del primer dron en ángulo recto.",
+    "feedback_incorrect": [
+      null,
+      "$(4,0)\\cdot(3,2) = 12 \\neq 0$: ese rumbo no cruza en ángulo recto.",
+      "$(4,0)\\cdot(2,1) = 8 \\neq 0$: ese rumbo tampoco cruza en ángulo recto."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Que dos rutas se crucen en ángulo recto es lo mismo que decir que los vectores que las representan son ortogonales.\n$$(4,0)\\cdot(0,5) = (4)(0)+(0)(5) = 0$$\nEse producto escalar da cero, así que ese rumbo cruza en ángulo recto a la ruta del primer dron.\n\nLos otros dos rumbos dan productos escalares distintos de cero, así que cruzarían la ruta en un ángulo distinto de $90°$.",
+    "reviewed": false,
+    "tags": [
+      "identificar-par-ortogonal-contexto"
+    ]
+  },
+  {
+    "question": "Una ruta sigue la dirección $\\vec{u}=(2,5)$ y otra la cruza en ángulo recto.\n\n¿Cuál de estos rumbos cruza en ángulo recto a esa ruta?",
+    "options": [
+      "$(2,-5)$",
+      "$(5,-2)$",
+      "$(5,2)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Diez menos diez da cero, así que ese rumbo cruza perpendicular.",
+    "feedback_incorrect": [
+      "Ese producto da menos veintiuno, negativo: el rumbo va en contra de la ruta.",
+      null,
+      "Ese producto da veinte, positivo: el rumbo acompaña a la ruta en vez de cruzarla."
+    ],
+    "explanation": "Cruzar en ángulo recto es exactamente la condición de producto escalar nulo.\n$$2 \\cdot 5 + 5 \\cdot (-2) = 10 - 10 = 0$$\nEl rumbo correcto se obtiene intercambiando las componentes de la ruta y cambiándole el signo a una.\n\nCambiarle el signo a la otra componente también funciona, y da el rumbo opuesto, que cruza igual de perpendicular.\n\nLos otros dos candidatos dan producto no nulo, así que cruzan en diagonal.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-par-ortogonal-contexto"
+    ]
+  },
+  {
+    "question": "Una cinta transportadora avanza según $\\vec{u}=(6,3)$ y un brazo mecánico empuja perpendicular a ella.\n\n¿Cuál de estas direcciones es perpendicular al avance?",
+    "options": [
+      "$(2,1)$",
+      "$(1,2)$",
+      "$(1,-2)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Seis menos seis da cero, así que esa dirección es perpendicular al avance.",
+    "feedback_incorrect": [
+      "Ese producto da quince, positivo: la dirección acompaña al avance.",
+      "Ese producto da doce, positivo: la dirección acompaña al avance.",
+      null
+    ],
+    "explanation": "El brazo empuja perpendicular cuando su producto escalar con el avance se anula.\n$$6 \\cdot 1 + 3 \\cdot (-2) = 6 - 6 = 0$$\nLos dos términos se compensan exactamente, y eso caracteriza al ángulo recto.\n\nEl vector correcto es proporcional al que se obtiene intercambiando componentes y cambiando un signo, y cualquier múltiplo suyo también sirve.\n\nPor eso conviene simplificar las componentes antes de comparar: la dirección es lo que importa, no la longitud.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-par-ortogonal-contexto"
+    ]
+  },
+  {
+    "question": "Un río corre según $\\vec{u}=(4,1)$ y un nadador apunta perpendicular a la corriente.\n\n¿Cuál de estas direcciones apunta perpendicular al río?",
+    "options": [
+      "$(-1,4)$",
+      "$(1,4)$",
+      "$(4,-1)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Menos cuatro más cuatro da cero, así que esa dirección cruza perpendicular.",
+    "feedback_incorrect": [
+      null,
+      "Ese producto da ocho, positivo: la dirección acompaña a la corriente.",
+      "Ese producto da quince, positivo: la dirección acompaña a la corriente."
+    ],
+    "explanation": "Nadar perpendicular a la corriente significa producto escalar nulo con su dirección.\n$$4 \\cdot (-1) + 1 \\cdot 4 = -4 + 4 = 0$$\nEl primer término resta y el segundo suma exactamente lo mismo, así que el total se anula.\n\nApuntar perpendicular no significa cruzar en línea recta: la corriente igual desvía al nadador río abajo.\n\nEsa distinción entre hacia dónde se apunta y hacia dónde se termina yendo es la que resuelve la suma de vectores.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-par-ortogonal-contexto"
+    ]
+  },
+  {
+    "question": "Una viga se apoya según $\\vec{u}=(3,-4)$ y un tensor la sostiene en ángulo recto.\n\n¿Cuál de estas direcciones es perpendicular a la viga?",
+    "options": [
+      "$(-3,4)$",
+      "$(4,3)$",
+      "$(3,4)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Doce menos doce da cero, así que ese tensor forma ángulo recto con la viga.",
+    "feedback_incorrect": [
+      "Ese producto da menos veinticinco, lejos de cero: no es perpendicular.",
+      null,
+      "Ese producto da menos siete, negativo: el tensor no es perpendicular."
+    ],
+    "explanation": "El tensor es perpendicular cuando su producto escalar con la viga se anula.\n$$3 \\cdot 4 + (-4) \\cdot 3 = 12 - 12 = 0$$\nEl signo negativo de la viga es lo que permite que los dos términos se compensen.\n\nCualquier múltiplo no nulo de esa dirección también sería perpendicular, pero acá alcanza con reconocer esta.\n\nLas otras dos direcciones fallan la condición: ninguna de las dos da un producto escalar igual a cero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-par-ortogonal-contexto"
+    ]
+  },
+  {
+    "question": "Se quiere decidir si dos direcciones se cruzan en ángulo recto.\n$$\\vec{u}=(3,4), \\qquad \\vec{v}=(4,-2)$$\n¿Es ortogonal este par?",
+    "options": [
+      "No, porque su producto escalar da $4$, no cero",
+      "Sí, porque su producto escalar da un número chico",
+      "Sí, porque las componentes tienen signos opuestos en algún lugar"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El producto escalar da $4$, no cero: por más chico que sea, cualquier valor distinto de cero descarta la ortogonalidad.",
+    "feedback_incorrect": [
+      null,
+      "El criterio de ortogonalidad es exacto: solo un producto escalar igual a cero cuenta, sin importar cuán chico sea el resultado.",
+      "Tener algún signo opuesto entre componentes no es el criterio; lo que importa es el valor final del producto escalar."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El criterio de ortogonalidad es exacto, no aproximado: el producto escalar tiene que dar exactamente cero.\n$$\\begin{aligned} \\vec{u}\\cdot\\vec{v} &= (3)(4)+(4)(-2) \\\\ &= 12-8 = 4 \\end{aligned}$$\nAunque $4$ es un número chico comparado con las componentes de los vectores, sigue siendo distinto de cero.\n\nUn producto escalar cercano a cero, pero no igual a cero, no corresponde a un ángulo de exactamente $90°$.",
+    "reviewed": false,
+    "tags": [
+      "identificar-no-ortogonal-cercano"
+    ]
+  },
+  {
+    "question": "Se quiere decidir si dos direcciones se cruzan exactamente en ángulo recto.\n$$\\vec{u}=(5,2) \\qquad \\vec{v}=(2,-4)$$\n¿Es ortogonal este par?",
+    "options": [
+      "Sí, porque uno tiene una componente negativa y el otro ninguna",
+      "No, porque su producto escalar da $2$",
+      "Sí, porque su producto escalar da $0$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El producto da dos, y cualquier valor distinto de cero descarta la perpendicularidad.",
+    "feedback_incorrect": [
+      "Los signos de las componentes no deciden nada por sí solos.",
+      null,
+      "El producto no se anula: diez menos ocho deja un resto de dos."
+    ],
+    "explanation": "El criterio es exacto: alcanza con que el producto escalar sea distinto de cero para descartar el ángulo recto.\n$$5 \\cdot 2 + 2 \\cdot (-4) = 10 - 8 = 2$$\nUn valor chico indica un ángulo cercano al recto, pero no el recto.\n\nNo hay margen de tolerancia en la definición: dos es tan distinto de cero como doscientos.\n\nEl signo positivo agrega además que el ángulo es apenas menor que el recto, no mayor.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-no-ortogonal-cercano"
+    ]
+  },
+  {
+    "question": "Un par de direcciones parece formar un ángulo recto.\n$$\\vec{u}=(7,3) \\qquad \\vec{v}=(3,-6)$$\n¿Es ortogonal este par?",
+    "options": [
+      "Sí, porque su producto escalar da $0$",
+      "No, porque su producto escalar da $3$",
+      "Sí, porque las componentes tienen el mismo patrón que un par perpendicular"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El producto da tres, y cualquier valor distinto de cero descarta la perpendicularidad.",
+    "feedback_incorrect": [
+      "El producto no se anula: veintiuno menos dieciocho deja un resto de tres.",
+      null,
+      "Parecerse a la construcción de un perpendicular no alcanza si el cálculo no da exactamente cero."
+    ],
+    "explanation": "El criterio de ortogonalidad es exacto: alcanza con que el producto escalar sea distinto de cero para descartar el ángulo recto.\n$$7 \\cdot 3 + 3 \\cdot (-6) = 21 - 18 = 3$$\nEste par se parece al patrón que sí produce un perpendicular exacto, pero una de las componentes no coincide.\n\nUn valor chico como tres indica un ángulo muy cercano al recto, pero no exactamente el recto.\n\nNo hay margen de tolerancia en la definición: tres es tan distinto de cero como trescientos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-no-ortogonal-cercano"
+    ]
+  },
+  {
+    "question": "Dos direcciones se cruzan con un ángulo cercano al recto.\n$$\\vec{u}=(6,1) \\qquad \\vec{v}=(1,-5)$$\n¿Es ortogonal este par?",
+    "options": [
+      "No, porque su producto escalar da un valor distinto de $0$",
+      "Sí, porque su producto escalar queda muy cerca de $0$",
+      "No, porque los dos vectores tienen longitudes distintas"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El producto da uno, y eso alcanza para descartar el ángulo recto.",
+    "feedback_incorrect": [
+      null,
+      "Estar cerca de cero no alcanza: el criterio pide exactamente cero.",
+      "Las longitudes distintas no impiden la perpendicularidad."
+    ],
+    "explanation": "El criterio de ortogonalidad es una igualdad exacta, no una aproximación.\n$$6 \\cdot 1 + 1 \\cdot (-5) = 6 - 5 = 1$$\nUn resultado de uno indica que el ángulo es muy cercano al recto, pero no lo es.\n\nAceptar valores cercanos convertiría la perpendicularidad en algo aproximado, y dejaría de servir como criterio.\n\nLas longitudes de los dos vectores, muy distintas entre sí, no tienen ninguna incidencia en la conclusión.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-no-ortogonal-cercano"
+    ]
+  },
+  {
+    "question": "Hay que verificar el cruce entre dos direcciones dadas.\n$$\\vec{u}=(2,8) \\qquad \\vec{v}=(-3,1)$$\n¿Es ortogonal este par?",
+    "options": [
+      "Sí, porque el producto escalar es un número chico",
+      "Sí, porque una de las componentes de cada vector es negativa",
+      "No, porque su producto escalar da $2$, no cero"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El producto escalar da dos, no cero: alcanza para descartar la perpendicularidad exacta.",
+    "feedback_incorrect": [
+      "Un número chico no es lo mismo que cero: el criterio no admite aproximaciones.",
+      "Que haya una componente negativa en cada vector no dice nada sobre la ortogonalidad.",
+      null
+    ],
+    "explanation": "Este par se parece a uno realmente perpendicular, pero el cálculo no cierra en cero.\n$$2 \\cdot (-3) + 8 \\cdot 1 = -6 + 8 = 2$$\nEl resultado, dos, es chico comparado con las componentes originales, pero sigue siendo distinto de cero.\n\nLa ortogonalidad no admite gradualidad: un producto que casi se cancela no es lo mismo que uno que se cancela.\n\nRevisar la cuenta completa, en vez de confiar en que el par se ve perpendicular a simple vista, es lo que evita este error.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "identificar-no-ortogonal-cercano"
+    ]
   }
 ]

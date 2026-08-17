@@ -1,24 +1,401 @@
 [
   {
-    "question": "¿El vector $(4,2)$ pertenece al subespacio $S: x - 2y = 0$?",
+    "question": "Un subespacio de $\\mathbb{R}^3$ queda definido por una única ecuación.\n$$S = \\{(x,y,z) : x - 2y + z = 0\\}$$\n¿Cuál de estas ternas pertenece a $S$?",
     "options": [
-      "Sí, porque $4 - 2(2) = 0$",
-      "No, porque $4 - 2(2) \\neq 0$",
-      "Sí, porque ambas componentes son positivas",
-      "No, porque la primera componente es mayor que la segunda"
+      "$(3, 2, 1)$",
+      "$(1, 2, 1)$",
+      "$(2, 3, 1)$",
+      "$(1, 1, 2)$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$4-2(2)=0$: el vector cumple la ecuación del subespacio.",
+    "feedback_correct": "Reemplazando queda tres menos cuatro más uno, que da cero, así que la terna cumple la condición.",
     "feedback_incorrect": [
       null,
-      "El cálculo $4-2(2)$ sí da cero, la condición se cumple.",
-      "El signo de las componentes no es el criterio para pertenecer al subespacio.",
-      "Comparar el tamaño de las componentes no es la condición del subespacio."
+      "Con esos valores la cuenta da uno menos cuatro más uno, que es menos dos y no cero.",
+      "Con esos valores queda dos menos seis más uno, que da menos tres.",
+      "Con esos valores queda uno menos dos más dos, que da uno."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para verificar si un vector pertenece a un subespacio definido por una ecuación, se reemplazan sus componentes.\n$$x - 2y = 4 - 2(2) = 4-4 = 0$$\n\nComo el resultado da cero, el vector $(4,2)$ satisface la ecuación y pertenece a $S$.\n\nLa pertenencia a un subespacio se decide siempre verificando la ecuación que lo define, no por el signo o el tamaño relativo de las componentes.",
-    "reviewed": false
+    "explanation": "Decidir si un vector pertenece a un subespacio definido por una ecuación es reemplazar y verificar, sin ningún truco.\n\nCon la terna correcta, cada coordenada ocupa su lugar en la condición.\n$$3 - 2(2) + 1 = 0$$\nEl signo del término del medio es donde más se falla, porque el menos dos multiplica a la segunda coordenada y no se distribuye sobre las otras.\n\nGeométricamente esta condición describe un plano que pasa por el origen, y la pregunta es simplemente si el punto está apoyado sobre él.",
+    "reviewed": false,
+    "tags": [
+      "decidir-pertenencia-por-la-condicion"
+    ]
+  },
+  {
+    "question": "Un subespacio de $\\mathbb{R}^3$ queda definido por dos condiciones a la vez.\n$$x + y = 0$$\n$$z = 2x$$\n¿Cuál de estas ternas cumple las dos condiciones?",
+    "options": [
+      "$(2, -2, 6)$",
+      "$(3, -3, 6)$",
+      "$(3, -3, 3)$",
+      "$(3, 3, 6)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Las dos coordenadas de adelante se cancelan y la última es el doble de la primera.",
+    "feedback_incorrect": [
+      "Las dos primeras se cancelan, pero el doble de dos es cuatro y no seis.",
+      null,
+      "La primera condición se cumple, pero la última coordenada tendría que valer seis.",
+      "La segunda condición se cumple, pero las dos primeras coordenadas suman seis y no cero."
+    ],
+    "explanation": "Cuando el subespacio está definido por más de una condición, hay que verificarlas **todas**, no la primera que cierre.\n$$3 + (-3) = 0, \\quad 6 = 2 \\cdot 3$$\nLa terna correcta cumple las dos: las dos primeras coordenadas se cancelan entre sí y la tercera resulta el doble de la primera.\n\nLas otras candidatas están armadas para cumplir una sola, que es el descuido más frecuente en este tipo de verificación.\n\nGeométricamente cada condición recorta un plano por el origen, y el conjunto que queda es la recta donde los dos planos se cortan.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-pertenencia-por-la-condicion"
+    ]
+  },
+  {
+    "question": "Un subespacio del plano queda definido por una única condición sobre las coordenadas.\n$$S = \\{(x,y) : 5x = 2y\\}$$\n¿Cuál de estos pares pertenece a $S$?",
+    "options": [
+      "$(5, 2)$",
+      "$(2, -5)$",
+      "$(1, 3)$",
+      "$(2, 5)$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Cinco por dos da diez, y dos por cinco también, así que la igualdad se verifica.",
+    "feedback_incorrect": [
+      "Con esos valores queda veinticinco de un lado y cuatro del otro.",
+      "El signo negativo rompe la igualdad, porque un lado da diez y el otro menos diez.",
+      "Con esos valores queda cinco de un lado y seis del otro.",
+      null
+    ],
+    "explanation": "La condición es una igualdad entre dos expresiones, así que hay que calcular los dos lados y compararlos.\n$$5 \\cdot 2 = 10, \\quad 2 \\cdot 5 = 10$$\nLos dos lados coinciden, así que el par pertenece al subespacio.\n\nQue las coordenadas aparezcan cruzadas respecto de los coeficientes no es casualidad: la condición obliga a que la proporción entre ellas sea la inversa de la proporción entre los números.\n\nGeométricamente el conjunto es la recta que pasa por el origen y por ese par, y cualquier múltiplo suyo también pertenece.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-pertenencia-por-la-condicion"
+    ]
+  },
+  {
+    "question": "Un subespacio de $\\mathbb{R}^3$ queda definido por una sola ecuación.\n$$S = \\{(x,y,z) : 3x - y + 2z = 0\\}$$\n¿Cuál de estas ternas pertenece a $S$?",
+    "options": [
+      "$(1, 5, 1)$",
+      "$(1, 1, 5)$",
+      "$(2, 4, 1)$",
+      "$(1, 5, -1)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Tres menos cinco más dos da cero, así que la terna verifica la condición.",
+    "feedback_incorrect": [
+      null,
+      "Con esos valores queda tres menos uno más diez, que da doce.",
+      "Con esos valores queda seis menos cuatro más dos, que da cuatro.",
+      "Con esos valores queda tres menos cinco menos dos, que da menos cuatro."
+    ],
+    "explanation": "Verificar la pertenencia es reemplazar cada coordenada en su lugar y ver si la igualdad se cumple.\n$$3 \\cdot 1 - 5 + 2 \\cdot 1 = 0$$\nLos tres términos se combinan y el resultado da exactamente cero, así que la terna pertenece.\n\nEl signo del término del medio es donde más se falla, porque el menos afecta solo a la segunda coordenada y no se distribuye sobre las otras.\n\nLa condición describe un plano que pasa por el origen, y la pregunta es si el punto está apoyado sobre él.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-pertenencia-por-la-condicion"
+    ]
+  },
+  {
+    "question": "Un subespacio del plano se describe con coeficientes de distinto signo.\n$$S = \\{(x,y) : x + 4y = 0\\}$$\n¿Cuál de estos pares pertenece a $S$?",
+    "options": [
+      "$(-2, 8)$",
+      "$(-8, -2)$",
+      "$(-8, 2)$",
+      "$(8, 2)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Menos ocho más cuatro por dos da cero, así que la condición se cumple.",
+    "feedback_incorrect": [
+      "Con esos valores queda menos dos más treinta y dos, que da treinta.",
+      "Con esos valores queda menos ocho menos ocho, que da menos dieciséis.",
+      null,
+      "Con esos valores queda ocho más ocho, que da dieciséis."
+    ],
+    "explanation": "El coeficiente que multiplica a la segunda coordenada es el que obliga a que el par tenga esa proporción.\n$$-8 + 4 \\cdot 2 = 0$$\nLa primera coordenada tiene que ser cuatro veces la segunda cambiada de signo, y ese par lo cumple.\n\nCambiar el signo de las dos coordenadas a la vez daría otro elemento del conjunto, porque es un múltiplo del anterior.\n\nCambiar el signo de una sola, en cambio, lo saca, y ese es el descuido que más aparece cuando la condición mezcla signos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-pertenencia-por-la-condicion"
+    ]
+  },
+  {
+    "question": "Un subespacio del plano queda definido por una condición con un parámetro sin determinar.\n$$S = \\{(x,y) : 3x - ky = 0\\}$$\nSe quiere que el par $(2, 3)$ pertenezca a $S$.\n\n¿Qué valor tiene que tomar $k$?",
+    "options": [
+      "$2$",
+      "$3$",
+      "$-2$",
+      "$3/2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Reemplazando queda seis menos tres por $k$ igual a cero, y de ahí sale que $k$ vale dos.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el valor de la segunda coordenada del par, no el que resuelve la ecuación.",
+      "El signo quedó invertido al despejar, la ecuación pide que tres por $k$ sea seis.",
+      "Ese es el cociente entre las dos coordenadas del par, y la ecuación pide multiplicar antes de comparar."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Pedir que un vector pertenezca a un conjunto definido por una condición convierte esa condición en una ecuación, y la incógnita pasa a ser el parámetro.\n\nSe reemplazan las coordenadas del par y se despeja.\n$$3(2) - k(3) = 0$$\n$$6 = 3k$$\n$$k = 2$$\nDividir una coordenada por la otra da un número parecido y no resuelve la ecuación, porque acá el parámetro está multiplicando.\n\nCon cualquier otro valor de $k$ el conjunto sigue siendo un subespacio, pero es una recta distinta, y ese par en particular queda afuera.",
+    "reviewed": false,
+    "tags": [
+      "hallar-el-parametro-de-pertenencia"
+    ]
+  },
+  {
+    "question": "Un subespacio de $\\mathbb{R}^3$ tiene un coeficiente sin determinar.\n$$S = \\{(x,y,z) : x + ky - z = 0\\}$$\nSe quiere que la terna $(4, 2, 10)$ pertenezca a $S$.\n\n¿Qué valor tiene que tomar $k$?",
+    "options": [
+      "$7$",
+      "$3$",
+      "$2$",
+      "$-3$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Reemplazando queda cuatro más dos por $k$ menos diez igual a cero, y de ahí sale tres.",
+    "feedback_incorrect": [
+      "Ese valor sale de restar las dos coordenadas de los extremos sin dividir después.",
+      null,
+      "Ese es el valor de la segunda coordenada de la terna, no el que resuelve la ecuación.",
+      "El signo quedó invertido al despejar, la ecuación pide que dos por $k$ sea seis."
+    ],
+    "explanation": "La condición se convierte en una ecuación donde la incógnita es el coeficiente.\n$$4 + 2k - 10 = 0$$\nAgrupando los números conocidos queda que dos por el coeficiente vale seis.\n$$k = 3$$\nEl orden de los pasos importa: primero se juntan los términos sin incógnita y recién después se divide.\n\nCon cualquier otro valor el conjunto sigue siendo un subespacio, pero es otro plano, y esa terna en particular queda afuera.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-parametro-de-pertenencia"
+    ]
+  },
+  {
+    "question": "Un subespacio del plano tiene una condición conocida y un par con una coordenada libre.\n$$S = \\{(x,y) : 2x + 3y = 0\\}$$\nSe quiere que el par $(k, -4)$ pertenezca a $S$.\n\n¿Qué valor tiene que tomar $k$?",
+    "options": [
+      "$-6$",
+      "$4$",
+      "$12$",
+      "$6$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Reemplazando queda dos por $k$ menos doce igual a cero, y de ahí sale seis.",
+    "feedback_incorrect": [
+      "El signo quedó invertido, porque el término con la segunda coordenada ya era negativo.",
+      "Ese es el valor de la segunda coordenada cambiado de signo, no el que resuelve la ecuación.",
+      "Ese valor es el doble del correcto, falta dividir por el coeficiente de la primera coordenada.",
+      null
+    ],
+    "explanation": "Acá la incógnita es una coordenada y no un coeficiente, pero el procedimiento es el mismo.\n$$2k + 3 \\cdot (-4) = 0$$\nEl segundo término da menos doce, así que la ecuación pide que el doble del par buscado valga doce.\n$$k = 6$$\nDividir por el coeficiente de la primera coordenada es el paso que más se olvida, y sin él el resultado queda al doble.\n\nEl par obtenido es múltiplo del que se armaría con los coeficientes cruzados, lo que confirma que está sobre la recta correcta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-parametro-de-pertenencia"
+    ]
+  },
+  {
+    "question": "Un subespacio de $\\mathbb{R}^3$ tiene el coeficiente de la última coordenada sin fijar.\n$$S = \\{(x,y,z) : 5x - y + kz = 0\\}$$\nSe quiere que la terna $(1, 3, 2)$ pertenezca a $S$.\n\n¿Qué valor tiene que tomar $k$?",
+    "options": [
+      "$-1$",
+      "$1$",
+      "$-2$",
+      "$2$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Reemplazando queda cinco menos tres más dos por $k$ igual a cero, y de ahí sale menos uno.",
+    "feedback_incorrect": [
+      null,
+      "El signo quedó invertido, la parte conocida da dos y hay que compensarla con un negativo.",
+      "Ese es el resultado de la parte conocida sin dividir por la coordenada que multiplica.",
+      "Ese es el valor de la última coordenada, no el del coeficiente buscado."
+    ],
+    "explanation": "Los dos primeros términos ya están determinados, así que se resuelven primero y el resto queda como una ecuación simple.\n$$5 - 3 + 2k = 0$$\nLa parte conocida vale dos, de modo que el término con el coeficiente tiene que valer menos dos.\n$$k = -1$$\nEl signo negativo aparece porque la parte conocida quedó positiva y hay que cancelarla.\n\nConviene verificar el resultado reemplazándolo en la condición original, que es una cuenta corta y descarta cualquier error de signo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-parametro-de-pertenencia"
+    ]
+  },
+  {
+    "question": "Un subespacio del plano tiene el coeficiente de la primera coordenada sin determinar.\n$$S = \\{(x,y) : kx - y = 0\\}$$\nSe quiere que el par $(3, 12)$ pertenezca a $S$.\n\n¿Qué valor tiene que tomar $k$?",
+    "options": [
+      "$-4$",
+      "$9$",
+      "$4$",
+      "$3$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Reemplazando queda tres por $k$ igual a doce, así que el coeficiente vale cuatro.",
+    "feedback_incorrect": [
+      "El signo quedó invertido al pasar la segunda coordenada al otro lado.",
+      "Ese valor sale de restar las dos coordenadas, y la ecuación pide dividirlas.",
+      null,
+      "Ese es el valor de la primera coordenada del par, no el del coeficiente."
+    ],
+    "explanation": "La condición pide que la segunda coordenada sea un múltiplo fijo de la primera, y ese múltiplo es justamente el coeficiente.\n$$3k - 12 = 0$$\nPasando el término conocido al otro lado y dividiendo por tres se obtiene el valor buscado.\n$$k = 4$$\nEl resultado es el cociente entre las dos coordenadas, y en este caso da exacto porque doce es múltiplo de tres.\n\nCambiando el par por cualquier múltiplo suyo, como $(6, 24)$, el coeficiente sale idéntico, porque todos esos pares están sobre la misma recta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-parametro-de-pertenencia"
+    ]
+  },
+  {
+    "question": "Un subconjunto del plano reúne los pares cuya primera coordenada no es negativa.\n$$S = \\{(x,y) : x \\geq 0\\}$$\nAlcanza con una sola operación para mostrar que no es un subespacio.\n\n¿Cuál de estas la muestra?",
+    "options": [
+      "Multiplicar $(2, 1)$ por $-1$",
+      "Sumar $(2, 1)$ con $(3, 4)$",
+      "Multiplicar $(2, 1)$ por $0$",
+      "Sumar $(2, 1)$ con $(0, 0)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El resultado es $(-2, -1)$, cuya primera coordenada es negativa, así que quedó fuera del conjunto.",
+    "feedback_incorrect": [
+      null,
+      "Esa suma da $(5, 5)$, que tiene primera coordenada positiva y sigue perteneciendo al conjunto.",
+      "Eso da el par nulo, que cumple la condición porque cero no es negativo.",
+      "Sumar el par nulo no cambia nada, el resultado es el mismo par de partida."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para descartar un conjunto alcanza con **un** contraejemplo, pero tiene que ser uno que efectivamente se salga.\n\nLa condición de este conjunto es una desigualdad, y las desigualdades sobreviven a la suma de elementos positivos pero no al producto por un número negativo.\n$$-1 \\cdot (2, 1) = (-2, -1)$$\nLa primera coordenada pasó a ser negativa, así que el resultado ya no pertenece.\n\nSi te quedás probando solo con sumas, todas cierran bien y el conjunto parece calificar. La operación que lo rompe es la otra.",
+    "reviewed": false,
+    "tags": [
+      "encontrar-el-contraejemplo"
+    ]
+  },
+  {
+    "question": "Un subconjunto del plano reúne los pares que están sobre una parábola.\n$$S = \\{(x,y) : y = x^2\\}$$\n¿Cuál de estas operaciones muestra que no es un subespacio?",
+    "options": [
+      "Multiplicar $(1, 1)$ por $1$",
+      "Sumar $(1, 1)$ con $(2, 4)$",
+      "Sumar $(1, 1)$ con $(0, 0)$",
+      "Multiplicar $(0, 0)$ por $5$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El resultado es $(3, 5)$, y el cuadrado de tres es nueve, así que quedó afuera.",
+    "feedback_incorrect": [
+      "Multiplicar por uno deja el par exactamente como estaba.",
+      null,
+      "Esa suma da $(1, 1)$, que sigue estando sobre la parábola.",
+      "Eso da el par nulo, que pertenece porque cero es el cuadrado de cero."
+    ],
+    "explanation": "Un contraejemplo tiene que producir un resultado que efectivamente se salga, así que hay que elegir los elementos con intención.\n$$(1,1) + (2,4) = (3,5)$$\nLos dos pares de la izquierda están sobre la parábola, y el resultado no, porque el cuadrado de tres es nueve.\n\nLas operaciones con el par nulo o con el escalar uno nunca sirven, porque devuelven algo que ya estaba en el conjunto.\n\nEl vector nulo pertenece a este conjunto, y aun así no es subespacio, que es exactamente lo que un contraejemplo de este tipo deja demostrado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "encontrar-el-contraejemplo"
+    ]
+  },
+  {
+    "question": "Un subconjunto del plano reúne los pares cuyas coordenadas suman cuatro.\n$$S = \\{(x,y) : x + y = 4\\}$$\n¿Cuál de estas operaciones muestra que no es un subespacio?",
+    "options": [
+      "Restar $(1, 3)$ menos $(2, 2)$",
+      "Multiplicar $(2, 2)$ por $1$",
+      "Sumar $(1, 3)$ con $(0, 4)$",
+      "Sumar $(1, 3)$ con $(2, 2)$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El resultado es $(3, 5)$, cuyas coordenadas suman ocho y no cuatro.",
+    "feedback_incorrect": [
+      "Esa resta da $(-1, 1)$, cuyas coordenadas suman cero, y el par de partida no pertenecía.",
+      "Multiplicar por uno deja el par igual, y sigue perteneciendo al conjunto.",
+      "El segundo par no pertenece al conjunto, así que la operación no prueba nada.",
+      null
+    ],
+    "explanation": "Un contraejemplo válido tiene que arrancar con elementos que **sí** pertenezcan al conjunto, y terminar afuera.\n$$(1,3) + (2,2) = (3,5)$$\nLos dos pares suman cuatro, así que pertenecen, y el resultado suma ocho, así que se salió.\n\nLa resta también da algo que no pertenece, pero como uno de los dos operandos ya estaba afuera del conjunto, la cuenta no demuestra nada.\n\nEste conjunto además se descarta mucho antes con el criterio del vector nulo, porque cero más cero no da cuatro.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "encontrar-el-contraejemplo"
+    ]
+  },
+  {
+    "question": "Un subconjunto del plano reúne los pares cuyas coordenadas tienen el mismo signo o alguna nula.\n$$S = \\{(x,y) : xy \\geq 0\\}$$\n¿Cuál de estas operaciones muestra que no es un subespacio?",
+    "options": [
+      "Sumar $(1, 0)$ con $(0, -1)$",
+      "Sumar $(2, 3)$ con $(1, 5)$",
+      "Multiplicar $(1, 0)$ por $-4$",
+      "Multiplicar $(2, 3)$ por $0$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El resultado es $(1, -1)$, cuyo producto de coordenadas da menos uno.",
+    "feedback_incorrect": [
+      null,
+      "Esa suma da $(3, 8)$, que sigue en el primer cuadrante y el producto sigue siendo positivo.",
+      "Eso da $(-4, 0)$, que sigue sobre el eje, con producto cero, y el cero cumple la condición.",
+      "Eso da el par nulo, cuyo producto vale cero y cumple la condición."
+    ],
+    "explanation": "Este conjunto es la unión del primer cuadrante con el tercero, más los dos ejes, y aguanta bastante antes de romperse.\n$$(1,0) + (0,-1) = (1,-1)$$\nLos dos pares de la izquierda pertenecen: cada uno está sobre un eje, y en los dos casos el producto de sus coordenadas da cero, que cumple la condición sin problema.\n\nEl resultado, en cambio, tiene sus dos coordenadas de signo distinto, así que su producto es negativo y ya no pertenece a $S$.\n\nMultiplicar por un número no rompe esta condición, porque cambia el signo de las dos coordenadas a la vez y el producto queda igual.\n\nEs la suma la que falla, y solo cuando los dos pares vienen de ejes o cuadrantes distintos, que es lo que hay que buscar a propósito.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "encontrar-el-contraejemplo"
+    ]
+  },
+  {
+    "question": "Un subconjunto del plano reúne los pares cuyas coordenadas tienen el mismo valor absoluto.\n$$S = \\{(x,y) : |x| = |y|\\}$$\n¿Cuál de estas operaciones muestra que no es un subespacio?",
+    "options": [
+      "Multiplicar $(3, -3)$ por $-1$",
+      "Multiplicar $(1, 1)$ por $7$",
+      "Sumar $(1, 1)$ con $(3, -3)$",
+      "Sumar $(1, 1)$ con $(2, 2)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El resultado es $(4, -2)$, y cuatro no coincide con dos en valor absoluto.",
+    "feedback_incorrect": [
+      "Eso da $(-3, 3)$, que también cumple la condición.",
+      "Eso da $(7, 7)$, que cumple la condición igual que el par de partida.",
+      null,
+      "Esa suma da $(3, 3)$, que sigue teniendo las dos coordenadas con el mismo valor absoluto."
+    ],
+    "explanation": "Este conjunto son las dos diagonales del plano juntas, y cada una por separado sí es un subespacio.\n$$(1,1) + (3,-3) = (4,-2)$$\nEl primer par está sobre una diagonal y el segundo sobre la otra, así que el resultado no cae en ninguna de las dos.\n\nCualquier operación que se quede adentro de una sola diagonal no rompe nada, porque ahí la condición se comporta bien.\n\nEs el mismo motivo por el que la unión de dos rectas que pasan por el origen nunca es un subespacio, aunque cada una por separado lo sea.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "encontrar-el-contraejemplo"
+    ]
   }
 ]

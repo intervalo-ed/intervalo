@@ -1,24 +1,403 @@
 [
   {
-    "question": "¿Cuál es la dimensión del subespacio generado por $\\{(1,2), (2,4)\\}$?",
+    "question": "Un subespacio del espacio de tres dimensiones viene dado por tres generadores.\n$$S = \\text{gen}\\{(1,2,0), (2,4,0), (0,1,1)\\}$$\n¿Cuál es la dimensión de $S$?",
     "options": [
-      "$1$",
       "$2$",
-      "$0$",
-      "$3$"
+      "$3$",
+      "$1$",
+      "$0$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$(2,4)=2(1,2)$: son dependientes, así que el subespacio generado tiene dimensión $1$.",
+    "feedback_correct": "El segundo generador duplica al primero, así que solo dos de los tres aportan una dirección propia.",
     "feedback_incorrect": [
       null,
-      "Esa sería la dimensión si ambos vectores fueran independientes, pero acá son dependientes.",
-      "El subespacio no es solo el vector nulo, contiene infinitos vectores en una recta.",
-      "$\\mathbb{R}^2$ no puede contener un subespacio de dimensión $3$."
+      "Esa es la cantidad de generadores escritos, y uno de ellos no agrega ninguna dirección nueva.",
+      "El tercer generador no es múltiplo del primero, así que aporta una segunda dirección.",
+      "El subespacio contiene vectores no nulos, así que su dimensión no puede ser cero."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La dimensión de un subespacio generado por un conjunto de vectores es la cantidad de vectores independientes entre ellos.\n\nAcá $(2,4) = 2(1,2)$: el segundo vector es múltiplo del primero, así que son dependientes.\n\nCon un solo vector independiente, el subespacio generado es una recta que pasa por el origen: su dimensión es $1$, no $2$.",
-    "reviewed": false
+    "explanation": "La dimensión de un subespacio dado por generadores se obtiene descartando los redundantes y contando los que quedan.\n\nAcá el segundo es el doble del primero, así que no aporta nada.\n$$(2,4,0) = 2(1,2,0)$$\nQuedan dos vectores que no son múltiplos entre sí, y por lo tanto aportan dos direcciones distintas.\n$$\\dim(S) = 2$$\nContar los tres generadores escritos es el error a evitar. La dimensión mide cuántos hacen falta, no cuántos figuran en la descripción.\n\nGeométricamente el subespacio resulta ser un plano que pasa por el origen, coherente con la dimensión que dio la cuenta.",
+    "reviewed": false,
+    "tags": [
+      "calcular-dimension-del-generado"
+    ]
+  },
+  {
+    "question": "Un subespacio del plano viene dado por tres generadores.\n$$S = \\text{gen}\\{(1,0), (0,1), (3,5)\\}$$\n¿Cuál es la dimensión de $S$?",
+    "options": [
+      "$0$",
+      "$2$",
+      "$3$",
+      "$1$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El tercer generador se arma con los dos primeros, que ya aportan las dos direcciones.",
+    "feedback_incorrect": [
+      "El subespacio contiene vectores no nulos, así que su dimensión no puede ser cero.",
+      null,
+      "Esa es la cantidad de generadores escritos, y uno de ellos no agrega ninguna dirección.",
+      "Los dos primeros generadores no son múltiplos entre sí, así que aportan dos direcciones."
+    ],
+    "explanation": "La dimensión de un subespacio dado por generadores se obtiene descartando los redundantes y contando los que quedan.\n$$(3,5) = 3(1,0) + 5(0,1)$$\nEl tercer generador se arma con los dos primeros, así que no aporta ninguna dirección nueva.\n\nLos dos que quedan no son múltiplos entre sí, de modo que la dimensión es dos y el subespacio es todo el plano.\n$$\\dim(S) = 2$$\nContar los generadores escritos devuelve tres, y ese es el conteo que hay que evitar: la dimensión mide cuántos hacen falta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-dimension-del-generado"
+    ]
+  },
+  {
+    "question": "Los dos generadores de un subespacio del espacio de tres dimensiones guardan una proporción.\n$$S = \\text{gen}\\{(2,4,6), (1,2,3)\\}$$\n¿Cuál es la dimensión de $S$?",
+    "options": [
+      "$2$",
+      "$3$",
+      "$0$",
+      "$1$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El primero es el doble del segundo, así que los dos aportan una sola dirección.",
+    "feedback_incorrect": [
+      "Esa es la cantidad de generadores escritos, y uno de los dos es múltiplo del otro.",
+      "Esa es la cantidad de componentes de sus vectores, que no mide la dimensión.",
+      "El subespacio contiene vectores no nulos, así que su dimensión no puede ser cero.",
+      null
+    ],
+    "explanation": "Dos generadores que son múltiplos entre sí aportan una sola dirección, y la dimensión lo refleja.\n$$(2,4,6) = 2(1,2,3)$$\nLas tres componentes guardan la misma proporción, así que uno de los dos no agrega nada.\n\nQueda un único vector aportando, de modo que la dimensión es uno y el subespacio es una recta que pasa por el origen.\n$$\\dim(S) = 1$$\nQue los vectores tengan tres componentes no interviene: eso dice dónde vive el subespacio, no cuánto ocupa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-dimension-del-generado"
+    ]
+  },
+  {
+    "question": "Tres generadores del espacio de tres dimensiones no guardan ninguna relación evidente.\n$$S = \\text{gen}\\{(1,1,0), (0,1,1), (1,0,1)\\}$$\n¿Cuál es la dimensión de $S$?",
+    "options": [
+      "$3$",
+      "$2$",
+      "$1$",
+      "$0$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Ninguno se arma con los otros dos, así que los tres aportan una dirección propia.",
+    "feedback_incorrect": [
+      null,
+      "Para dimensión dos alguno tendría que armarse con los otros, y ninguno lo hace.",
+      "Los generadores apuntan a lados distintos, así que el alcance pasa de una recta.",
+      "El subespacio contiene vectores no nulos, así que su dimensión no puede ser cero."
+    ],
+    "explanation": "Cuando ningún generador se arma con los otros, la dimensión coincide con cuántos hay.\n$$(1,1,0) + (0,1,1) = (1,2,1)$$\nLa suma de los dos primeros no da el tercero, y ninguna otra combinación simple tampoco.\n\nEl determinante de la matriz que forman los tres confirma la conclusión, porque no se anula.\n$$\\dim(S) = 3$$\nLos tres aportan una dirección propia, así que el subespacio generado es el espacio entero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-dimension-del-generado"
+    ]
+  },
+  {
+    "question": "Los dos generadores de un subespacio resultan ser el vector nulo.\n$$S = \\text{gen}\\{(0,0,0), (0,0,0)\\}$$\n¿Cuál es la dimensión de $S$?",
+    "options": [
+      "$2$",
+      "$3$",
+      "$0$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Todas las combinaciones dan el vector nulo, así que no hace falta ninguna dirección.",
+    "feedback_incorrect": [
+      "Esa es la cantidad de generadores escritos, y ninguno de los dos aporta nada.",
+      "Esa es la dimensión del espacio entero, y este subespacio tiene un solo elemento.",
+      null,
+      "Contar un generador devuelve uno, y el vector nulo no aporta ninguna dirección."
+    ],
+    "explanation": "Multiplicar el vector nulo por cualquier número devuelve el vector nulo, así que el subespacio generado tiene un único elemento.\n$$S = \\{(0,0,0)\\}$$\nNo hace falta ningún vector para generarlo, de modo que la dimensión es cero.\n\nContar los generadores escritos daría dos, y ese conteo falla justamente porque ninguno de los dos aporta una dirección.\n$$\\dim(S) = 0$$\nEs el caso extremo de la regla general: la dimensión mide cuántos vectores hacen falta, y acá no hace falta ninguno.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "calcular-dimension-del-generado"
+    ]
+  },
+  {
+    "question": "Una matriz escalonada de tres columnas tiene su última fila nula.\n$$\\begin{pmatrix} 1 & 2 & 3 \\\\ 0 & 1 & 4 \\\\ 0 & 0 & 0 \\end{pmatrix}$$\n¿Cuál es la dimensión del subespacio generado por sus columnas?",
+    "options": [
+      "$2$",
+      "$3$",
+      "$1$",
+      "$0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La escalonada tiene dos filas no nulas, y ese número es el rango y también la dimensión buscada.",
+    "feedback_incorrect": [
+      null,
+      "La matriz tiene tres columnas, pero la última fila quedó en cero y eso baja el conteo.",
+      "Hay dos filas con entradas no nulas, no una sola.",
+      "Si el rango fuera cero, todas las entradas de la escalonada tendrían que ser nulas."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **rango** se venía contando como la cantidad de filas no nulas de una matriz escalonada, y acá se ve qué es lo que ese número mide en realidad.\n$$\\text{rg}(A) = \\dim(\\text{Col}(A)) = \\dim(\\text{Fil}(A))$$\nEl espacio columna es el subespacio generado por las columnas de la matriz, y su dimensión resulta ser exactamente ese conteo.\n\nLa razón es que escalonar va cancelando la información repetida. Cada fila que queda en cero corresponde a una dirección que ya estaba cubierta por las anteriores.\n\nAcá quedaron dos filas no nulas, así que el rango es dos y las tres columnas generan un plano dentro del espacio de tres dimensiones.\n\nLo llamativo es que el mismo número mide las columnas y las filas, dos conjuntos de vectores que ni siquiera viven en el mismo espacio.",
+    "reviewed": false,
+    "tags": [
+      "hallar-el-rango-como-dimension"
+    ]
+  },
+  {
+    "question": "Una matriz escalonada de tres columnas no tiene ninguna fila nula.\n$$\\begin{pmatrix} 1 & 2 & 5 \\\\ 0 & 3 & 1 \\\\ 0 & 0 & 2 \\end{pmatrix}$$\n¿Cuál es la dimensión del subespacio generado por sus columnas?",
+    "options": [
+      "$0$",
+      "$3$",
+      "$2$",
+      "$1$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Las tres filas tienen alguna entrada no nula, así que el rango es tres.",
+    "feedback_incorrect": [
+      "Si el rango fuera cero, todas las entradas de la escalonada tendrían que anularse.",
+      null,
+      "Para que fuera dos, alguna de las tres filas tendría que haber quedado en cero.",
+      "Hay tres filas con entradas no nulas, no una sola."
+    ],
+    "explanation": "El rango de una matriz es la cantidad de filas no nulas de una escalonada equivalente, y ese número es también una dimensión.\n$$\\text{rg}(A) = \\dim(\\text{Col}(A))$$\nAcá ninguna fila se anuló, así que el rango es tres y las tres columnas aportan una dirección propia.\n\nEl subespacio que generan es entonces todo el espacio de tres dimensiones.\n\nQue el mismo número mida las columnas y las filas es lo más llamativo del resultado, porque son dos conjuntos de vectores distintos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-rango-como-dimension"
+    ]
+  },
+  {
+    "question": "Una matriz escalonada tiene dos filas y tres columnas.\n$$\\begin{pmatrix} 1 & 5 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$$\n¿Cuál es la dimensión del subespacio generado por sus columnas?",
+    "options": [
+      "$3$",
+      "$1$",
+      "$0$",
+      "$2$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Las dos filas tienen entradas no nulas, así que el rango es dos.",
+    "feedback_incorrect": [
+      "La matriz tiene tres columnas, pero solo dos de ellas aportan una dirección propia.",
+      "Las dos filas tienen alguna entrada distinta de cero, así que ninguna se canceló.",
+      "Si el rango fuera cero, todas las entradas tendrían que anularse.",
+      null
+    ],
+    "explanation": "El conteo se hace siempre sobre las filas no nulas, y no sobre la cantidad de columnas.\n$$\\text{rg}(A) = \\dim(\\text{Col}(A)) = 2$$\nAcá hay tres columnas y dos filas no nulas, así que una de las columnas se arma con las otras dos.\n\nEl subespacio generado por las columnas es un plano que pasa por el origen, dentro del espacio de dos dimensiones al que pertenecen.\n\nEl mismo número cuenta las filas que aportan algo propio, y esa coincidencia es lo que el rango mide en realidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-rango-como-dimension"
+    ]
+  },
+  {
+    "question": "Una matriz escalonada de tres filas tiene dos de ellas completamente nulas.\n$$\\begin{pmatrix} 2 & 6 & 4 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\end{pmatrix}$$\n¿Cuál es la dimensión del subespacio generado por sus columnas?",
+    "options": [
+      "$1$",
+      "$3$",
+      "$2$",
+      "$0$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Queda una sola fila no nula, así que todas las columnas apuntan en la misma dirección.",
+    "feedback_incorrect": [
+      null,
+      "Esa es la cantidad de columnas, y dos de las tres filas quedaron anuladas.",
+      "Hay una sola fila con entradas no nulas, no dos.",
+      "La primera fila tiene entradas distintas de cero, así que el rango no es cero."
+    ],
+    "explanation": "Cada fila que se anula al escalonar corresponde a una dirección que ya estaba cubierta.\n$$\\text{rg}(A) = \\dim(\\text{Col}(A)) = 1$$\nAcá sobrevivió una sola fila, así que las tres columnas generan apenas una recta que pasa por el origen.\n\nSe puede verificar directamente: las tres columnas de la matriz son múltiplos entre sí, porque las dos últimas filas no aportan nada.\n\nEl rango vale uno, y ese es también el número de direcciones distintas que aportan las columnas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-rango-como-dimension"
+    ]
+  },
+  {
+    "question": "De una matriz se sabe únicamente cuánto vale su rango.\n$$\\text{rg}(A) = 2$$\n¿Cuál es la dimensión del subespacio generado por sus columnas?",
+    "options": [
+      "$1$",
+      "$0$",
+      "$2$",
+      "$4$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El rango y la dimensión del espacio columna son el mismo número.",
+    "feedback_incorrect": [
+      "Ese sería el caso si el rango valiera uno, y el dato dice que vale dos.",
+      "Un rango distinto de cero garantiza que las columnas generan algo más que el origen.",
+      null,
+      "El rango no se duplica al pasar a las columnas, es exactamente el mismo número."
+    ],
+    "explanation": "El rango se venía contando como la cantidad de filas no nulas de una escalonada, y acá se ve qué mide en realidad.\n$$\\text{rg}(A) = \\dim(\\text{Col}(A)) = \\dim(\\text{Fil}(A))$$\nEl espacio columna es el subespacio generado por las columnas de la matriz, y su dimensión resulta ser exactamente ese conteo.\n\nLa razón es que escalonar va cancelando la información repetida, así que las filas que sobreviven cuentan cuántas columnas aportan una dirección nueva.\n\nNo hay dos números distintos que calcular: el rango de la unidad anterior y esta dimensión son lo mismo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-rango-como-dimension"
+    ]
+  },
+  {
+    "question": "Un subespacio del plano está generado por dos vectores y uno tiene una coordenada sin determinar.\n$$S = \\text{gen}\\{(1,4), (3,k)\\}$$\nEl parámetro toma el valor $12$.\n\n¿Cuál es la dimensión de $S$?",
+    "options": [
+      "$1$",
+      "$2$",
+      "$3$",
+      "$0$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Con ese valor el segundo generador triplica al primero, así que las dos direcciones se vuelven una.",
+    "feedback_incorrect": [
+      null,
+      "Esa sería la dimensión si los dos generadores apuntaran a lados distintos.",
+      "El subespacio vive en el plano, así que su dimensión no puede llegar a tres.",
+      "Los generadores no son nulos, así que el subespacio contiene mucho más que el origen."
+    ],
+    "explanation": "La dimensión de un generado baja cuando alguno de los generadores deja de aportar una dirección propia.\n$$(3,12) = 3(1,4)$$\nCon el valor dado, el segundo generador es el triple del primero, así que los dos describen la misma recta.\n\nQueda un solo vector aportando, de modo que la dimensión vale uno.\n$$\\dim(S) = 1$$\nCon cualquier otro valor del parámetro los dos generadores apuntan a lados distintos y la dimensión vale dos.\n\nEl salto es de golpe: un único valor la baja y todos los demás la dejan igual.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-parametro-que-la-cambia"
+    ]
+  },
+  {
+    "question": "Un subespacio del plano está generado por dos vectores y uno tiene un parámetro sin fijar.\n$$S = \\text{gen}\\{(1,3), (2,k)\\}$$\n¿Qué dimensión tiene $S$ según el valor de $k$?",
+    "options": [
+      "Dos para cualquier valor de $k$, sin excepciones",
+      "Uno cuando $k$ vale $6$, y dos en todos los demás casos",
+      "Dos cuando $k$ vale $6$, y uno en todos los demás casos",
+      "Uno cuando $k$ vale $3$, y dos en todos los demás casos"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Con ese valor el segundo vector duplica al primero y las dos direcciones se vuelven una.",
+    "feedback_incorrect": [
+      "Hay un valor donde los dos vectores se vuelven múltiplos, y ahí la dimensión baja.",
+      null,
+      "Es al revés: el valor crítico es el que hace coincidir las direcciones y baja la dimensión.",
+      "Ese es el valor de la segunda coordenada del primer vector, no el que produce la proporción."
+    ],
+    "explanation": "La dimensión de un generado baja cuando alguno de los generadores deja de aportar una dirección propia.\n$$k = 2 \\cdot 3 = 6$$\nEl factor lo fija la coordenada ya determinada: la primera pasa de uno a dos, así que el factor es dos.\n\nCon ese valor los dos generadores describen la misma recta y la dimensión vale uno.\n$$\\dim(S) = 1$$\nCon cualquier otro valor los vectores apuntan a lados distintos y el generado es todo el plano, así que la dimensión vale dos.\n\nEl salto es de golpe: un único valor la baja y todos los demás la dejan igual.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-parametro-que-la-cambia"
+    ]
+  },
+  {
+    "question": "Un subespacio del plano tiene un parámetro en el segundo de sus generadores.\n$$S = \\text{gen}\\{(1,2), (k,8)\\}$$\n¿Para qué valores de $k$ la dimensión de $S$ vale dos?",
+    "options": [
+      "Únicamente $4$",
+      "Todos los reales salvo $2$",
+      "Todos los reales sin excepción",
+      "Todos los reales salvo $4$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Con cuatro los dos vectores se vuelven múltiplos y la dimensión baja a uno.",
+    "feedback_incorrect": [
+      "Ese valor es justamente el que hace coincidir las direcciones y baja la dimensión.",
+      "Ese es el valor de la segunda coordenada del primer vector, no el que produce la proporción.",
+      "Hay un valor que vuelve múltiplos a los dos generadores, y ahí la dimensión no vale dos.",
+      null
+    ],
+    "explanation": "La dimensión vale dos mientras los dos generadores aporten direcciones distintas.\n$$8 = 4 \\cdot 2$$\nEl factor lo fija la segunda coordenada, que pasa de dos a ocho, así que vale cuatro.\n\nCon la primera coordenada valiendo cuatro, el segundo generador es el cuádruple del primero y los dos describen la misma recta.\n$$\\dim(S) = 1$$\nPara cualquier otro valor los dos aportan direcciones distintas y la dimensión vale dos.\n\nAnular el determinante de la matriz que forman los dos vectores lleva a la misma ecuación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-parametro-que-la-cambia"
+    ]
+  },
+  {
+    "question": "Un subespacio del espacio de tres dimensiones tiene tres generadores y un parámetro sin fijar.\n$$S = \\text{gen}\\{(1,0,1), (0,1,0), (2,k,2)\\}$$\n¿Cuál es la dimensión de $S$ cuando $k$ vale cero?",
+    "options": [
+      "$2$",
+      "$3$",
+      "$1$",
+      "$0$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Con ese valor el tercer generador es el doble del primero y deja de aportar.",
+    "feedback_incorrect": [
+      null,
+      "Para dimensión tres el tercer generador tendría que aportar una dirección propia.",
+      "Los dos primeros generadores no son múltiplos entre sí, así que aportan dos direcciones.",
+      "El subespacio contiene vectores no nulos, así que su dimensión no puede ser cero."
+    ],
+    "explanation": "Reemplazando el parámetro por el valor dado, el tercer generador queda completamente determinado.\n$$(2,0,2) = 2(1,0,1)$$\nResulta ser el doble del primero, así que no aporta ninguna dirección nueva.\n\nQuedan dos generadores que no son múltiplos entre sí, de modo que la dimensión vale dos y el subespacio es un plano que pasa por el origen.\n$$\\dim(S) = 2$$\nCon cualquier otro valor del parámetro el tercer generador se sale de ese plano y la dimensión sube a tres.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-parametro-que-la-cambia"
+    ]
+  },
+  {
+    "question": "El mismo parámetro aparece en los dos generadores de un subespacio del plano.\n$$S = \\text{gen}\\{(1,k), (k,4)\\}$$\n¿Cuál es la dimensión de $S$ cuando $k$ vale dos?",
+    "options": [
+      "$3$",
+      "$0$",
+      "$1$",
+      "$2$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Con ese valor los generadores quedan $(1,2)$ y $(2,4)$, y el segundo duplica al primero.",
+    "feedback_incorrect": [
+      "El subespacio vive en el plano, así que su dimensión no puede pasar de dos.",
+      "El subespacio contiene vectores no nulos, así que su dimensión no puede ser cero.",
+      null,
+      "Para dimensión dos los dos generadores tendrían que apuntar a lados distintos."
+    ],
+    "explanation": "Conviene reemplazar el parámetro primero y recién después mirar la relación entre los generadores.\n$$(2,4) = 2(1,2)$$\nCon el valor dado el segundo generador es el doble del primero, así que los dos describen la misma recta.\n$$\\dim(S) = 1$$\nEl determinante de la matriz que forman confirma la conclusión, porque el producto de la diagonal da cuatro en los dos sentidos.\n\nEse mismo determinante se anula también con el valor opuesto, así que hay dos valores del parámetro que bajan la dimensión.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "hallar-el-parametro-que-la-cambia"
+    ]
   }
 ]

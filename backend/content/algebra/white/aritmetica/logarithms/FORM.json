@@ -1,24 +1,407 @@
 [
   {
-    "question": "Se quiere calcular $\\log_2(8 \\cdot 4)$ usando propiedades de los logaritmos.\n\n¿Qué expresión corresponde aplicar antes de calcular el valor final?",
+    "question": "Se quiere calcular:\n$$\\log_2\\left(\\dfrac{8\\cdot4}{2}\\right)$$\n¿Qué propiedad corresponde aplicar primero?",
     "options": [
-      "$\\log_2(8) + \\log_2(4)$",
-      "$\\log_2(8) \\cdot \\log_2(4)$",
-      "$\\log_2(8) - \\log_2(4)$",
-      "$\\log_2(8 + 4)$"
+      "Propiedad del producto, en el numerador",
+      "Propiedad de la potencia, en el numerador",
+      "Propiedad del cociente, en el denominador",
+      "Propiedad del cociente, sobre toda la expresión de una sola vez"
     ],
     "correct_index": 0,
-    "feedback_correct": "La propiedad del producto $\\log_b(x\\cdot y) = \\log_b(x) + \\log_b(y)$ convierte el logaritmo de un producto en una suma de logaritmos.",
+    "feedback_correct": "El numerador combina dos números multiplicados, así que primero corresponde aplicar la propiedad del producto para separarlos en una suma.",
     "feedback_incorrect": [
       null,
-      "La propiedad del producto convierte el logaritmo de un producto en una suma, no en un producto de logaritmos.",
-      "Esa expresión corresponde a la propiedad del cociente, pero acá los dos números están multiplicados, no divididos.",
-      "Sumar los números dentro del logaritmo no es una propiedad válida; el logaritmo de una suma no se puede simplificar así."
+      "No hay ningún exponente dentro del argumento, así que la propiedad de la potencia no aplica acá.",
+      "El denominador es un solo número, $2$, no hay ningún cociente dentro de él para simplificar primero.",
+      "Aplicar el cociente primero también es matemáticamente válido, pero conviene resolver el producto del numerador antes para no arrastrar una multiplicación sin simplificar en el resto de la cuenta."
     ],
-    "explanation": "Antes de calcular el valor final, hay que identificar la **propiedad del logaritmo** que corresponde a la operación dentro del argumento.\n\nComo $8 \\cdot 4$ es un producto, se aplica la propiedad $\\log_b(x\\cdot y) = \\log_b(x) + \\log_b(y)$:\n$$\\log_2(8\\cdot4) = \\log_2(8) + \\log_2(4)$$\nUn error frecuente es confundir esta propiedad con la del cociente (que resta) o intentar sumar los números antes de aplicar el logaritmo.",
+    "explanation": "Antes de calcular el valor final, hay que identificar qué **propiedad de los logaritmos** corresponde a cada parte del argumento, y por qué esa propiedad es cierta.\n\nUn logaritmo es un exponente.\n\nSi dos números se escriben como potencias de una misma base, multiplicarlos suma esos exponentes: la propiedad de **producto de potencias de igual base**, vista en Potenciación.\n\nPor eso el logaritmo de un producto es la suma de los logaritmos de cada factor. El numerador $8\\cdot4$ es ese caso, así que ahí se aplica la propiedad:\n$$\\log_2(8\\cdot4) = \\log_2(8) + \\log_2(4)$$\nLa propiedad del cociente entre ese resultado y $\\log_2(2)$ se aplica en un paso posterior.\n\nEmpezar por el cociente no cambia el resultado final, pero deja una multiplicación sin simplificar dando vueltas en la cuenta, con más chances de perder algún término en el camino.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-propiedad-de-logaritmos-primero"
+    ]
+  },
+  {
+    "question": "Se quiere calcular un logaritmo cuyo argumento combina un producto y un cociente.\n$$\\log_{2}\\left(\\dfrac{32}{4\\cdot2}\\right)$$\n¿Qué propiedad corresponde aplicar primero?",
+    "options": [
+      "Propiedad del producto, en el denominador",
+      "Propiedad de la potencia, en el denominador",
+      "Propiedad del cociente, sobre el numerador",
+      "Propiedad del cociente, sobre toda la expresión de una sola vez"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El denominador combina dos números multiplicados, así que conviene separarlos primero para no arrastrar una multiplicación sin resolver.",
+    "feedback_incorrect": [
+      null,
+      "No hay ningún exponente dentro del argumento, así que la propiedad de la potencia no aplica acá.",
+      "El numerador es un solo número, $32$, no hay ningún cociente dentro de él para simplificar primero.",
+      "Aplicar el cociente primero también es matemáticamente válido, pero conviene resolver el producto del denominador antes para no arrastrar una multiplicación sin simplificar en el resto de la cuenta."
+    ],
+    "explanation": "Antes de calcular el valor final, conviene identificar la estructura del argumento antes de aplicar ninguna propiedad.\n\nEl denominador combina dos números multiplicados, $4$ y $2$, así que ahí corresponde aplicar primero la propiedad del **producto**:\n$$\\log_{2}(4\\cdot2) = \\log_{2}(4) + \\log_{2}(2)$$\nUna vez que el denominador queda como una suma de logaritmos, se aplica la propiedad del cociente entre el numerador y ese resultado.\n\nEmpezar por el cociente sobre toda la expresión también llega al mismo resultado, pero deja una multiplicación sin resolver dando vueltas en la cuenta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-propiedad-de-logaritmos-primero"
+    ]
+  },
+  {
+    "question": "Se quiere calcular un logaritmo con un producto y una potencia en el mismo argumento.\n$$\\log_{2}(4 \\cdot 8^{2})$$\n¿Qué propiedad corresponde aplicar primero?",
+    "options": [
+      "Propiedad de la potencia, bajando el exponente de todo el argumento",
+      "Propiedad del cociente, sobre los dos factores",
+      "Ninguna: hay que resolver el producto completo antes de aplicar nada",
+      "Propiedad del producto, para separar los dos factores"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El argumento es un producto, y separarlo deja cada factor listo para su propia propiedad.",
+    "feedback_incorrect": [
+      "El exponente afecta a un solo factor, no a todo el argumento, así que todavía no se puede bajar.",
+      "No hay ninguna división planteada en el argumento.",
+      "Resolver el producto entero desaprovecha la estructura que el enunciado ya trae separada.",
+      null
+    ],
+    "explanation": "Cuando el argumento combina varias operaciones, se aplica primero la de afuera, que acá es el producto.\n$$\\log_{2}(4 \\cdot 8^{2}) = \\log_{2}(4) + \\log_{2}(8^{2})$$\nRecién con los factores separados, el exponente queda afectando a un argumento suelto y se lo puede bajar al frente.\n\nBajar el exponente antes de separar lo aplicaría a los dos factores, que es otra expresión.\n\nEl criterio es el mismo de siempre: respetar el alcance de cada operación antes de moverla de lugar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-propiedad-de-logaritmos-primero"
+    ]
+  },
+  {
+    "question": "Se quiere calcular un logaritmo cuyo argumento es una fracción con potencias.\n$$\\log_{5}\\left(\\dfrac{125}{5^{2}}\\right)$$\n¿Qué propiedad corresponde aplicar primero?",
+    "options": [
+      "Propiedad del cociente, para separar el numerador del denominador",
+      "Propiedad de la potencia, bajando el exponente del denominador al frente de todo",
+      "Propiedad del producto, sobre el numerador",
+      "Ninguna: el argumento ya es una potencia de la base y no admite propiedades"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La operación de afuera es la división, así que se la separa antes de tocar el exponente.",
+    "feedback_incorrect": [
+      null,
+      "El exponente afecta solo al denominador, así que bajarlo al frente de todo cambia la expresión.",
+      "No hay ningún producto planteado en el argumento.",
+      "El argumento sí admite propiedades: es un cociente entre dos potencias de la base."
+    ],
+    "explanation": "La propiedad que se aplica primero es siempre la de la operación más externa del argumento.\n$$\\log_{5}\\left(\\dfrac{125}{5^{2}}\\right) = \\log_{5}(125) - \\log_{5}(5^{2})$$\nCon el cociente ya separado, el exponente del segundo término afecta a un argumento suelto y se puede bajar al frente.\n\nBajarlo antes lo aplicaría a la fracción entera, que es una cantidad distinta.\n\nRespetar ese orden es lo que mantiene la equivalencia paso a paso.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-propiedad-de-logaritmos-primero"
+    ]
+  },
+  {
+    "question": "Se quiere calcular un logaritmo cuyo argumento combina productos arriba y abajo de un cociente.\n$$\\log_{3}\\left(\\dfrac{9\\cdot27}{3\\cdot3}\\right)$$\n¿Qué corresponde hacer primero?",
+    "options": [
+      "Propiedad de la potencia, sobre los cuatro factores",
+      "Propiedad del producto, en el numerador y en el denominador",
+      "Propiedad del cociente, sobre toda la expresión de una sola vez",
+      "Propiedad del producto, solo en el numerador"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Arriba y abajo hay productos de dos factores, así que conviene separar los dos antes de aplicar el cociente entre ambos resultados.",
+    "feedback_incorrect": [
+      "No hay ningún exponente escrito en el argumento, así que la propiedad de la potencia no aplica acá.",
+      null,
+      "Aplicar el cociente antes deja dos productos sin resolver a cada lado de la resta, y hay que separarlos de todos modos.",
+      "El denominador también es un producto de dos factores, $3\\cdot3$, así que separarlo también corresponde, no solo el numerador."
+    ],
+    "explanation": "Antes de calcular el valor final, conviene identificar todas las operaciones que combina el argumento.\n\nArriba hay un producto de dos factores, y abajo también, así que la propiedad del **producto** se aplica a los dos lados.\n$$\\log_{3}(9\\cdot27) = \\log_{3}(9)+\\log_{3}(27)$$\n$$\\log_{3}(3\\cdot3) = \\log_{3}(3)+\\log_{3}(3)$$\nCon los dos lados separados en sumas, recién ahí se aplica la propiedad del cociente entre esos dos resultados.\n\nAplicar el cociente antes de separar los productos también llega al mismo número, pero deja dos multiplicaciones sin resolver dando vueltas en la cuenta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-propiedad-de-logaritmos-primero"
+    ]
+  },
+  {
+    "question": "La magnitud de un sismo cumple $\\log_{10}(x)=4$, donde $x$ es la razón entre su intensidad y una de referencia.\n\n¿Qué corresponde hacer para despejar $x$?",
+    "options": [
+      "Reescribir la ecuación como $x=10^{4}$",
+      "Reescribir la ecuación como $x=4^{10}$",
+      "Dividir ambos lados por $10$",
+      "Restar $4$ a ambos lados de la ecuación"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Por la definición del logaritmo, $\\log_{10}(x)=4$ equivale a $x=10^{4}$.",
+    "feedback_incorrect": [
+      null,
+      "Eso invierte los roles de la base y el exponente: la base es $10$, no $4$.",
+      "Dividir no deshace un logaritmo; la operación inversa de un logaritmo es elevar la base a una potencia.",
+      "Restar no deshace un logaritmo; la operación inversa de un logaritmo es elevar la base a una potencia."
+    ],
+    "explanation": "Un **logaritmo** y una **potencia** son operaciones inversas: $\\log_b(x)=y$ dice exactamente lo mismo que $x=b^y$.\n\nPara despejar $x$ en $\\log_{10}(x)=4$, se reescribe usando esa equivalencia:\n$$x = 10^{4}$$\nOperar sobre la ecuación logarítmica con una suma, resta o división no deshace el logaritmo. La única forma de despejar el argumento es reescribir la ecuación como una potencia.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-reescritura-log-a-potencia"
+    ]
+  },
+  {
+    "question": "Una ecuación deja la incógnita adentro de un logaritmo.\n$$\\log_{2}(x) = 5$$\n¿Qué corresponde hacer para despejarla?",
+    "options": [
+      "Restar $5$ a los dos lados",
+      "Reescribir la ecuación como $x = 2^{5}$",
+      "Reescribir la ecuación como $x = 5^{2}$",
+      "Dividir los dos lados por $2$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El logaritmo devuelve un exponente, así que la base elevada al resultado da el argumento.",
+    "feedback_incorrect": [
+      "Restar tampoco despeja: la incógnita no está sumada, está adentro del logaritmo.",
+      null,
+      "Ahí la base y el resultado cambiaron de lugar.",
+      "Dividir no despeja un argumento que está adentro de un logaritmo."
+    ],
+    "explanation": "Un logaritmo y una potencia son la misma relación escrita de dos formas.\n$$\\log_{b}(x) = n \\iff x = b^{n}$$\nLa base se mantiene como base, el resultado del logaritmo pasa a ser el exponente, y el argumento queda despejado.\n\nAplicado acá, el argumento vale dos elevado a la quinta, o sea treinta y dos.\n\nLa base se mantiene como base en las dos escrituras: lo que se intercambia es el exponente con el resultado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-reescritura-log-a-potencia"
+    ]
+  },
+  {
+    "question": "Una ecuación deja la incógnita en el lugar de la base.\n$$\\log_{b}(64) = 3$$\n¿Qué corresponde hacer para despejarla?",
+    "options": [
+      "Reescribir la ecuación como $3^{b} = 64$",
+      "Reescribir la ecuación como $b = 64^{3}$",
+      "Dividir $64$ por $3$",
+      "Reescribir la ecuación como $b^{3} = 64$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "La misma traducción sirve cuando lo desconocido es la base en vez del argumento.",
+    "feedback_incorrect": [
+      "Ahí la base y el resultado cambiaron de lugar.",
+      "Ahí el argumento quedó como base de la potencia, invirtiendo la relación.",
+      "Dividir no despeja una incógnita que está en la base de un logaritmo.",
+      null
+    ],
+    "explanation": "La equivalencia entre logaritmo y potencia no depende de cuál de los tres números sea la incógnita.\n$$\\log_{b}(x) = n \\iff b^{n} = x$$\nEscrita como potencia, la ecuación pide qué número elevado al cubo da sesenta y cuatro, y la respuesta es cuatro.\n\nTraducir primero y despejar después evita tener que recordar reglas distintas según dónde esté la incógnita.\n\nEl chequeo final es siempre el mismo: reemplazar el valor hallado y verificar que la potencia cierre.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-reescritura-log-a-potencia"
+    ]
+  },
+  {
+    "question": "El nivel de un sonido en decibeles cumple una ecuación logarítmica.\n$$\\log_{10}(x) = 6$$\n¿Qué corresponde hacer para despejar el factor de amplificación?",
+    "options": [
+      "Reescribir la ecuación como $x = 10^{6}$",
+      "Reescribir la ecuación como $x = 6^{10}$",
+      "Multiplicar los dos lados por $10$",
+      "Elevar los dos lados al cuadrado"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La base elevada al resultado devuelve el argumento, y ese argumento es el factor buscado.",
+    "feedback_incorrect": [
+      null,
+      "Ahí la base y el resultado cambiaron de lugar, y el número resultante es muchísimo mayor.",
+      "Multiplicar no despeja un argumento que está adentro de un logaritmo.",
+      "Elevar al cuadrado cambia la ecuación sin sacar la incógnita de adentro del logaritmo."
+    ],
+    "explanation": "Para sacar una incógnita de adentro de un logaritmo hay que reescribir la igualdad como potencia.\n$$\\log_{10}(x) = 6 \\iff x = 10^{6}$$\nEl factor de amplificación es un millón, un número enorme comparado con el seis que se mide.\n\nEsa compresión es justamente para lo que sirven las escalas logarítmicas: convertir factores gigantes en números manejables.\n\nInvertir la base con el exponente daría un número de siete cifras distinto, sin ningún sentido físico en la escala.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-reescritura-log-a-potencia"
+    ]
+  },
+  {
+    "question": "Una ecuación logarítmica tiene un coeficiente delante del logaritmo.\n$$2\\log_{3}(x) = 4$$\n¿Qué corresponde hacer primero?",
+    "options": [
+      "Bajar el $2$ adentro del logaritmo como un factor del argumento",
+      "Restar $2$ a los dos lados de la ecuación",
+      "Dividir los dos lados por $2$, para dejar el logaritmo solo",
+      "Reescribir directamente la ecuación como $x = 3^{4}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La traducción a potencia necesita el logaritmo solo de un lado, sin nada multiplicándolo.",
+    "feedback_incorrect": [
+      "El coeficiente entra al logaritmo como exponente del argumento, no como factor.",
+      "Restar no despeja: el coeficiente está multiplicando, no sumando.",
+      null,
+      "Ahí el coeficiente quedó ignorado, y el argumento resulta mayor que el verdadero."
+    ],
+    "explanation": "La equivalencia entre logaritmo y potencia se aplica cuando el logaritmo está solo, sin coeficientes.\n$$2\\log_{3}(x) = 4 \\implies \\log_{3}(x) = 2$$\nCon el logaritmo despejado, la traducción a potencia es directa y da un argumento de nueve.\n$$x = 3^{2} = 9$$\nEl coeficiente también se puede subir como exponente del argumento, pero eso deja una ecuación con una potencia adentro del logaritmo y no simplifica nada.\n\nIgnorarlo directamente da ochenta y uno, que es el cuadrado del valor correcto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-reescritura-log-a-potencia"
+    ]
+  },
+  {
+    "question": "Se quiere calcular $\\log_{10}(1000^{2})$ de la forma más simple posible.\n\n¿Qué corresponde hacer primero?",
+    "options": [
+      "Aplicar $\\log_b(x^n)=n\\log_b(x)$",
+      "Calcular $1000^2$ y después el logaritmo",
+      "Aplicar la propiedad del producto",
+      "Aplicar la propiedad del cociente"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La propiedad de la potencia permite bajar el exponente como factor antes de calcular nada más grande.",
+    "feedback_incorrect": [
+      null,
+      "Calcular $1000^2$ primero obliga a operar con un millón antes de poder aplicar el logaritmo, un camino mucho más largo.",
+      "No hay ningún producto dentro del argumento, solo una potencia.",
+      "No hay ningún cociente dentro del argumento, solo una potencia."
+    ],
+    "explanation": "Cuando el **argumento de un logaritmo tiene un exponente**, la propiedad de la potencia no es una regla aislada: viene directo de la potencia de una potencia vista en Potenciación.\n\nSi $x=b^y$, entonces $x^n=(b^y)^n=b^{y\\cdot n}$.\n\nEl exponente que responde el logaritmo de esa potencia queda multiplicado por $n$:\n$$\\log_b(x^n) = n\\log_b(x)$$\nAplicada a $\\log_{10}(1000^2)$, el exponente $2$ pasa a multiplicar:\n$$\\log_{10}(1000^{2}) = 2\\log_{10}(1000)$$\nCalcular la potencia completa también llega al mismo resultado, pero obliga a operar con números mucho más grandes de lo necesario.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-propiedad-potencia"
+    ]
+  },
+  {
+    "question": "Se quiere calcular un logaritmo cuyo argumento viene elevado a una potencia.\n$$\\log_{2}(8^{5})$$\n¿Qué conviene hacer primero?",
+    "options": [
+      "Aplicar la propiedad del cociente sobre el argumento",
+      "Bajar el exponente al frente del logaritmo",
+      "Calcular la potencia del argumento y después el logaritmo",
+      "Aplicar la propiedad del producto sobre el argumento"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Bajar el exponente deja un logaritmo chico multiplicado por un entero.",
+    "feedback_incorrect": [
+      "No hay ninguna división escrita adentro del argumento.",
+      null,
+      "Calcular la potencia primero llega al mismo resultado, pero obliga a manejar un número de cinco cifras.",
+      "No hay ningún producto escrito adentro del argumento."
+    ],
+    "explanation": "El exponente del argumento sale multiplicando afuera del logaritmo, y eso evita calcular la potencia.\n$$\\log_{b}(x^{n}) = n\\log_{b}(x)$$\nAplicado acá, la cuenta queda como cinco veces el logaritmo de ocho en base dos, que vale tres.\n$$5 \\cdot 3 = 15$$\nResolver la potencia primero daría treinta y dos mil setecientos sesenta y ocho, un número correcto pero incómodo.\n\nLa propiedad existe justamente para no tener que pasar por esos números intermedios.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-propiedad-potencia"
+    ]
+  },
+  {
+    "question": "Una raíz adentro del argumento también es una potencia, aunque no lo parezca.\n$$\\log_{3}\\left(\\sqrt{81}\\right)$$\n¿Qué conviene hacer primero?",
+    "options": [
+      "Aplicar la propiedad del producto sobre los dos factores del argumento",
+      "Bajar el índice de la raíz al frente del logaritmo, tal como está",
+      "Elevar al cuadrado los dos lados de la expresión completa",
+      "Reescribir la raíz como una potencia de exponente fraccionario"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Escrita como potencia, la raíz habilita la propiedad que baja el exponente al frente.",
+    "feedback_incorrect": [
+      "No hay ningún producto escrito adentro del argumento.",
+      "Lo que baja al frente es el exponente, y el índice de la raíz todavía no está escrito como tal.",
+      "Elevar al cuadrado cambia el valor de la expresión, no solo su escritura.",
+      null
+    ],
+    "explanation": "Toda raíz se puede escribir como una potencia de exponente fraccionario, y ahí entra la propiedad de la potencia.\n$$\\sqrt{x} = x^{1/2}$$\nCon el argumento escrito así, el exponente baja al frente del logaritmo como cualquier otro.\n$$\\log_{3}\\left(81^{1/2}\\right) = \\dfrac{1}{2}\\log_{3}(81) = 2$$\nResolver la raíz primero también funciona acá, porque ochenta y uno es un cuadrado perfecto, pero deja de servir apenas no lo sea.\n\nReescribir la raíz como potencia es el paso que unifica los dos casos bajo la misma propiedad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-propiedad-potencia"
+    ]
+  },
+  {
+    "question": "Un exponente negativo adentro del argumento no cambia qué propiedad corresponde.\n$$\\log_{5}(25^{-2})$$\n¿Qué conviene hacer primero?",
+    "options": [
+      "Bajar el exponente al frente, con su signo incluido",
+      "Invertir el argumento antes de aplicar ninguna propiedad",
+      "Bajar el exponente al frente y cambiarle el signo",
+      "Descartar la expresión, porque el argumento queda negativo"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La propiedad no distingue el signo del exponente: baja tal como está escrito.",
+    "feedback_incorrect": [
+      null,
+      "Invertir primero también llega, pero agrega un paso que la propiedad ya resuelve sola.",
+      "Cambiarle el signo altera el resultado: el exponente baja tal cual.",
+      "El argumento no es negativo: un exponente negativo da un valor positivo y chico."
+    ],
+    "explanation": "La propiedad de la potencia vale con cualquier exponente, positivo, negativo o fraccionario.\n$$\\log_{b}(x^{n}) = n\\log_{b}(x)$$\nAplicada acá, el menos dos baja al frente y multiplica al logaritmo de veinticinco, que vale dos.\n$$-2 \\cdot 2 = -4$$\nEl resultado negativo tiene sentido: el argumento es un número entre cero y uno, y esos siempre dan logaritmos negativos.\n\nConfundir el signo del exponente con el signo del argumento es lo que lleva a descartar una expresión que está perfectamente definida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-propiedad-potencia"
+    ]
+  },
+  {
+    "question": "Cuando la base y el argumento coinciden, la propiedad de la potencia deja la cuenta lista.\n$$\\log_{7}(7^{9})$$\n¿Qué conviene hacer?",
+    "options": [
+      "Aplicar la propiedad del producto entre la base y el argumento",
+      "Dividir el exponente del argumento por la base del logaritmo",
+      "Bajar el exponente al frente, porque el logaritmo que queda vale $1$",
+      "Calcular la potencia del argumento y recién después el logaritmo"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El logaritmo de la propia base vale uno, así que el exponente queda solo.",
+    "feedback_incorrect": [
+      "No hay ningún producto escrito adentro del argumento.",
+      "Dividir no corresponde a ninguna propiedad de los logaritmos.",
+      null,
+      "Esa potencia es un número enorme y no hace falta calcularla para responder."
+    ],
+    "explanation": "El exponente baja al frente y deja el logaritmo de la base consigo misma.\n$$\\log_{7}(7^{9}) = 9\\log_{7}(7)$$\nEse logaritmo vale uno, porque el exponente que lleva una base hasta sí misma es siempre uno.\n$$9 \\cdot 1 = 9$$\nEl resultado es directamente el exponente, y ese patrón vale para cualquier base.\n\nEs el caso que muestra con más claridad que el logaritmo y la potencia se deshacen mutuamente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "elegir-propiedad-potencia"
+    ]
   }
 ]

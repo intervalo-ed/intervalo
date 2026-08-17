@@ -1,0 +1,371 @@
+[
+  {
+    "question": "Una cadena guarda su stock por sucursal y producto, y recibe un envío repartido entre esas mismas filas y columnas.\n$$S = \\begin{pmatrix} 5 & 3 \\\\ 2 & 7 \\end{pmatrix}$$\n$$E = \\begin{pmatrix} 4 & 1 \\\\ 0 & 6 \\end{pmatrix}$$\n¿Qué operación da el stock actualizado?",
+    "options": [
+      "Sumar a la matriz de stock la matriz del envío recibido",
+      "Multiplicar la matriz de stock por la matriz del envío",
+      "Sumar a cada entrada del stock el total de unidades del envío"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "Cada casillero del envío se suma con el casillero del mismo producto en la misma sucursal.",
+    "feedback_incorrect": [
+      null,
+      "Multiplicar no acumula unidades: el stock nuevo sale de agregar lo que llegó a lo que ya había.",
+      "Ese total se repartiría entero en cada casillero, sumando muchas más unidades de las que llegaron."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando dos tablas comparten exactamente las mismas categorías en filas y en columnas, acumular una sobre la otra es una suma de matrices.\n$$(A+B)_{ij} = a_{ij} + b_{ij}$$\nCada casillero del envío corresponde a un producto puntual en una sucursal puntual, así que se suma con el casillero que ocupa ese mismo lugar en el stock.\n\nLa condición de mismo orden no es un tecnicismo: es lo que garantiza que cada unidad recibida vaya a parar al producto y a la sucursal correctos.\n\nSumar un único número a todas las entradas repartiría el envío completo en cada casillero, multiplicando el total recibido por la cantidad de posiciones de la tabla.",
+    "reviewed": false,
+    "tags": [
+      "traducir-situacion-a-suma"
+    ]
+  },
+  {
+    "question": "Dos sucursales llevan por separado el registro de sus ventas, con las mismas filas y columnas.\n$$A = \\begin{pmatrix} 4 & 2 \\\\ 1 & 6 \\end{pmatrix} \\quad B = \\begin{pmatrix} 3 & 5 \\\\ 0 & 2 \\end{pmatrix}$$\n¿Qué operación da el total vendido entre las dos?",
+    "options": [
+      "Sumar todas las entradas de las dos matrices",
+      "Sumar las dos matrices entrada por entrada",
+      "Promediar las dos matrices, dividiendo la suma por dos"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada posición representa lo mismo en las dos, así que se combinan sumando.",
+    "feedback_incorrect": [
+      "Sumar todo daría un único número, y se perdería el detalle por producto y sucursal.",
+      null,
+      "Promediar reparte la suma entre las dos sucursales; la pregunta pide el total conjunto, no un reparto."
+    ],
+    "explanation": "Cuando dos matrices guardan la misma información en las mismas posiciones, el total se obtiene sumándolas.\n$$A + B$$\nCada posición del resultado acumula lo que las dos aportan en ese mismo lugar.\n\nEl resultado conserva el detalle: sigue habiendo una entrada por combinación de fila y columna.\n\nSumar todas las entradas en un solo número respondería otra pregunta, la del total general.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "traducir-situacion-a-suma"
+    ]
+  },
+  {
+    "question": "Un inventario se corrige descontando las unidades dañadas, registradas con la misma disposición.\n$$A = \\begin{pmatrix} 9 & 4 \\\\ 6 & 3 \\end{pmatrix} \\quad D = \\begin{pmatrix} 1 & 0 \\\\ 2 & 1 \\end{pmatrix}$$\n¿Qué operación da el inventario corregido?",
+    "options": [
+      "Sumar las dos matrices entrada por entrada",
+      "Restar el total de dañadas a cada entrada del inventario",
+      "Restar la segunda matriz a la primera, entrada por entrada"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Cada posición se corrige con el dato dañado que le corresponde.",
+    "feedback_incorrect": [
+      "Sumar agregaría las unidades dañadas en vez de descontarlas.",
+      "Descontar el total a cada entrada restaría de más en todas las posiciones.",
+      null
+    ],
+    "explanation": "La resta de matrices descuenta, en cada posición, lo que la segunda matriz indica para esa posición.\n$$A - D$$\nEl descuento no es un número único: cada combinación de fila y columna tiene el suyo.\n\nRestar el total a cada entrada aplicaría la misma corrección en todos lados, y eso deforma el inventario.\n\nQue las dos matrices compartan la disposición es lo que hace que la resta tenga sentido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "traducir-situacion-a-suma"
+    ]
+  },
+  {
+    "question": "Tres relevamientos independientes se registran con la misma disposición de filas y columnas.\n$$A, \\quad B, \\quad C$$\n¿Qué operación da el acumulado de los tres?",
+    "options": [
+      "Sumar las tres matrices entrada por entrada, en cualquier orden",
+      "Promediar los tres relevamientos, dividiendo la suma por tres",
+      "Sumar solo dos de los tres relevamientos, dejando afuera al restante"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La suma se extiende a cualquier cantidad de matrices del mismo orden.",
+    "feedback_incorrect": [
+      null,
+      "Promediar reparte el total entre los tres relevamientos; el acumulado es la suma completa, sin repartir nada.",
+      "Dejar un relevamiento afuera pierde justamente los datos que ese registro aportaba al acumulado."
+    ],
+    "explanation": "La suma de matrices se extiende a cualquier cantidad de sumandos, siempre que compartan el orden.\n$$A + B + C$$\nEl resultado acumula, en cada posición, lo que las tres matrices aportan ahí.\n\nComo la suma es asociativa, el orden en que se agrupen los tres no cambia el resultado.\n\nRepartir el total entre los tres relevamientos, o dejar alguno afuera, cambia lo que se está calculando.\n\nAcumular pide sumar los tres aportes completos, sin promediar ni descartar ninguno.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "traducir-situacion-a-suma"
+    ]
+  },
+  {
+    "question": "Un registro mensual se compara contra el del mes anterior, con la misma disposición.\n$$A = \\begin{pmatrix} 12 & 8 \\\\ 5 & 10 \\end{pmatrix} \\quad P = \\begin{pmatrix} 10 & 9 \\\\ 7 & 6 \\end{pmatrix}$$\n¿Qué operación da la variación de cada casillero?",
+    "options": [
+      "Sumar las dos matrices y dividir el resultado por dos",
+      "Restar la matriz del mes anterior a la del mes actual",
+      "Restar la matriz del mes actual a la del mes anterior"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La variación es lo actual menos lo anterior, posición por posición.",
+    "feedback_incorrect": [
+      "Ese cálculo da el promedio de los dos meses, no la variación entre ellos.",
+      null,
+      "Ese orden da la variación con el signo invertido en todas las posiciones."
+    ],
+    "explanation": "Una variación se calcula restando el valor anterior al actual, y eso vale posición por posición.\n$$A - P$$\nLas entradas positivas indican crecimiento y las negativas indican caída, en cada casillero.\n\nInvertir el orden de la resta da la matriz opuesta, y con ella se leería al revés cada variación.\n\nEl promedio de los dos meses es otra cantidad, y no informa nada sobre cómo cambió cada casillero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "traducir-situacion-a-suma"
+    ]
+  },
+  {
+    "question": "Los precios de una lista de productos aumentan un $15\\%$, todos por igual y sin excepciones.\n\nLa lista está guardada en una matriz.\n\n¿Qué operación da la lista actualizada?",
+    "options": [
+      "Multiplicar toda la matriz por $1{,}15$",
+      "Sumar $0{,}15$ a cada entrada de la matriz",
+      "Multiplicar toda la matriz por $0{,}15$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Un aumento del $15\\%$ deja cada precio en $1{,}15$ veces su valor, y ese factor multiplica a la matriz completa.",
+    "feedback_incorrect": [
+      null,
+      "Sumar $0{,}15$ agregaría quince centavos a cada precio, sin importar cuánto valía originalmente.",
+      "Ese factor deja solo el aumento y borra el precio original: cada valor quedaría reducido al $15\\%$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Aumentar una cantidad un quince por ciento equivale a multiplicarla por uno coma quince, porque conserva el valor original y le agrega su quince por ciento.\n\nComo el aumento es idéntico para todos los precios, el factor se aplica a la matriz completa.\n$$1{,}15 \\cdot P$$\nEl producto por un escalar multiplica cada entrada por ese número, que es exactamente lo que hace falta acá: una operación por precio, todas con el mismo factor.\n\nUn aumento porcentual siempre es un producto, nunca una suma. Sumar un valor fijo trataría igual a un producto barato y a uno caro, que es justo lo que un porcentaje evita.",
+    "reviewed": false,
+    "tags": [
+      "traducir-situacion-a-escalar"
+    ]
+  },
+  {
+    "question": "Todos los valores de una tabla se reducen a la mitad, sin ninguna excepción.\n$$A$$\n¿Qué operación da la tabla reducida?",
+    "options": [
+      "Dividir cada entrada por la cantidad de entradas",
+      "Multiplicar toda la matriz por $0{,}5$",
+      "Restar $0{,}5$ a cada entrada de la matriz"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Reducir a la mitad es multiplicar por un escalar menor que uno.",
+    "feedback_incorrect": [
+      "Dividir por la cantidad de entradas daría un promedio, no una reducción proporcional.",
+      null,
+      "Restar aplica la misma cantidad fija a todas las entradas, sin importar su valor."
+    ],
+    "explanation": "Una reducción proporcional afecta a cada entrada según su propio valor, y eso lo hace un escalar.\n$$0{,}5 \\cdot A$$\nEl factor multiplica a todas las entradas por igual, así que las proporciones entre ellas se conservan.\n\nRestar una cantidad fija afectaría más a las entradas chicas que a las grandes, y eso deforma la tabla.\n\nDistinguir un cambio proporcional de uno absoluto es lo que decide entre un escalar y una suma.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "traducir-situacion-a-escalar"
+    ]
+  },
+  {
+    "question": "Los valores de una tabla de costos aumentan un $20\\%$, todos por igual.\n$$A$$\n¿Qué operación da la tabla actualizada?",
+    "options": [
+      "Multiplicar toda la matriz por $0{,}2$",
+      "Sumar $20$ a cada entrada de la matriz",
+      "Multiplicar toda la matriz por $1{,}2$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Un aumento porcentual multiplica por uno más la proporción del aumento.",
+    "feedback_incorrect": [
+      "Ese factor da únicamente el aumento, sin el valor original.",
+      "Sumar una cantidad fija no es un aumento porcentual.",
+      null
+    ],
+    "explanation": "Un aumento porcentual conserva el valor original y le agrega una fracción de sí mismo.\n$$1{,}2 \\cdot A$$\nEl factor se arma sumando uno, que conserva lo que había, más la proporción del aumento.\n\nMultiplicar solo por la proporción daría el aumento suelto, sin el valor de partida.\n\nSumar una cantidad fija afectaría por igual a un costo grande y a uno chico, que es otro efecto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "traducir-situacion-a-escalar"
+    ]
+  },
+  {
+    "question": "Una tabla de valores se convierte a otra unidad, dividiendo todos sus datos por mil.\n$$A$$\n¿Qué operación da la tabla convertida?",
+    "options": [
+      "Multiplicar toda la matriz por $0{,}001$",
+      "Restar $1000$ a cada entrada de la matriz",
+      "Multiplicar toda la matriz por $1000$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Dividir por un número es multiplicar por su inverso, y eso alcanza a todas las entradas.",
+    "feedback_incorrect": [
+      null,
+      "Restar una cantidad fija no convierte unidades: cambia los valores de forma absoluta.",
+      "Ese factor agrandaría los valores en vez de achicarlos."
+    ],
+    "explanation": "Un cambio de unidad es un cambio de escala, y eso se representa con un escalar.\n$$0{,}001 \\cdot A$$\nDividir por mil equivale a multiplicar por su inverso, y el factor alcanza a todas las entradas por igual.\n\nLas proporciones entre las entradas se conservan, que es lo que se espera de un cambio de unidad.\n\nRestar una cantidad fija cambiaría las proporciones, y el resultado ya no representaría la misma información.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "traducir-situacion-a-escalar"
+    ]
+  },
+  {
+    "question": "Una tabla de saldos se invierte de signo por completo, para registrarla como deuda.\n$$A$$\n¿Qué operación da la tabla invertida?",
+    "options": [
+      "Cambiar de signo solo los valores de la diagonal principal",
+      "Multiplicar toda la matriz por el escalar $-1$",
+      "Restar cada entrada de la matriz a sí misma"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Multiplicar por menos uno cambia el signo de todas las entradas.",
+    "feedback_incorrect": [
+      "Cambiar el signo solo en la diagonal deja las demás entradas sin invertir; el escalar tiene que alcanzar a la matriz completa.",
+      null,
+      "Restar una entrada a sí misma da cero, no su opuesto."
+    ],
+    "explanation": "Invertir el signo de todas las entradas es multiplicar la matriz por menos uno.\n$$(-1) \\cdot A$$\nEl resultado es la matriz opuesta, que sumada a la original da la matriz nula.\n\nRestar cada entrada a sí misma anularía la tabla entera, que es otro resultado.\n\nEl escalar negativo es la forma más directa de expresar un cambio de signo generalizado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "traducir-situacion-a-escalar"
+    ]
+  },
+  {
+    "question": "Dos matrices guardan las ventas de enero y de febrero, con las mismas filas y columnas.\n$$E = \\begin{pmatrix} 6 & 4 \\\\ 2 & 8 \\end{pmatrix}$$\n$$F = \\begin{pmatrix} 8 & 6 \\\\ 4 & 2 \\end{pmatrix}$$\n¿Qué operación da el promedio mensual en cada casillero?",
+    "options": [
+      "Sumar las dos matrices y multiplicar el total por $0{,}5$",
+      "Multiplicar las dos matrices y dividir el resultado por $2$",
+      "Sumar las dos matrices y restarles $2$ en cada entrada"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El promedio de dos valores es su suma dividida por dos, y acá esa cuenta se repite en cada casillero.",
+    "feedback_incorrect": [
+      null,
+      "Multiplicar las ventas de los dos meses no acumula nada: el promedio parte de la suma, no del producto.",
+      "Restar dos unidades a cada casillero no divide nada; promediar exige repartir la suma entre los dos meses."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El promedio de dos números es su suma dividida por dos, y con matrices esa cuenta se aplica en cada posición por separado.\n\nPrimero se acumulan los dos meses y después se reparte el total entre ambos.\n$$0{,}5 \\cdot (E + F)$$\nLa suma respeta el significado de cada casillero, y el escalar afecta a todas las entradas por igual, que es lo que hace falta para promediar producto por producto.\n\nLas dos operaciones se pueden hacer en cualquier orden. Promediar cada mes por separado y sumar después da exactamente el mismo resultado, porque el escalar se reparte sobre la suma.",
+    "reviewed": false,
+    "tags": [
+      "traducir-situacion-a-combinacion"
+    ]
+  },
+  {
+    "question": "Dos registros mensuales se combinan para estimar un mes con el doble de actividad del primero más el segundo entero.\n$$A, \\quad B$$\n¿Qué operación representa esa estimación?",
+    "options": [
+      "Multiplicar las dos matrices entre sí y duplicar el resultado",
+      "Multiplicar la primera matriz por $2$ y sumarle la segunda",
+      "Sumar las dos matrices y multiplicar el total por $2$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El escalar afecta solo a la primera matriz, y la segunda entra entera.",
+    "feedback_incorrect": [
+      "El producto de matrices no combina registros de esa forma.",
+      null,
+      "Ese cálculo duplicaría también la segunda matriz, que va sin escalar."
+    ],
+    "explanation": "Cada matriz entra con su propio factor, y el orden de las operaciones decide el alcance de cada uno.\n$$2A + B$$\nEl escalar alcanza únicamente a la matriz que tiene escrita al lado, no a la suma completa.\n\nEncerrar la suma en un paréntesis con el dos afuera duplicaría también el segundo registro.\n\nLeer la expresión al revés y contrastarla con el enunciado es el chequeo más rápido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "traducir-situacion-a-combinacion"
+    ]
+  },
+  {
+    "question": "Dos mediciones se promedian entre sí, casillero por casillero.\n$$A, \\quad B$$\n¿Qué operación da ese promedio?",
+    "options": [
+      "Multiplicar cada matriz por $0{,}5$ y restarlas entre sí",
+      "Sumar las dos matrices y restarles $2$ en cada entrada",
+      "Sumar las dos matrices y multiplicar el total por $0{,}5$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El promedio es la suma dividida por dos, aplicada a cada posición.",
+    "feedback_incorrect": [
+      "Restar no promedia: daría la mitad de la diferencia entre las dos.",
+      "Restar una cantidad fija no divide por dos.",
+      null
+    ],
+    "explanation": "El promedio de dos valores es su suma dividida por dos, y eso se aplica en cada posición.\n$$0{,}5(A+B)$$\nEl paréntesis indica que el escalar afecta al resultado de la suma completa.\n\nComo el escalar se reparte sobre la suma, también se puede escribir con el $0{,}5$ en los dos sumandos.\n\nRestar en vez de sumar responde otra pregunta, la de cuánto difieren las dos mediciones.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "traducir-situacion-a-combinacion"
+    ]
+  },
+  {
+    "question": "Un pronóstico toma el triple del primer registro y le descuenta el segundo.\n$$A, \\quad B$$\n¿Qué operación representa ese pronóstico?",
+    "options": [
+      "Multiplicar la primera matriz por $3$ y restarle la segunda",
+      "Restar las dos matrices y multiplicar el resultado por $3$",
+      "Multiplicar la primera matriz por $3$ y sumarle la segunda"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El escalar afecta solo a la primera matriz, y la segunda entra restando entera.",
+    "feedback_incorrect": [
+      null,
+      "Ese cálculo triplicaría también la segunda matriz, que va sin escalar.",
+      "Ahí la segunda matriz entra sumando, cuando el enunciado pide descontarla."
+    ],
+    "explanation": "Cada operación alcanza a lo que tiene escrito al lado, y el enunciado fija el orden.\n$$3A - B$$\nEl escalar se aplica antes de la resta, así que la segunda matriz entra sin modificar.\n\nEl paréntesis cambiaría el alcance del escalar y con eso el resultado en todas las posiciones.\n\nAnticipar el signo de alguna entrada del resultado sirve como control rápido de la expresión elegida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "traducir-situacion-a-combinacion"
+    ]
+  },
+  {
+    "question": "Tres registros se combinan sumando el primero, el doble del segundo y la mitad del tercero.\n$$A, \\quad B, \\quad C$$\n¿Qué operación representa esa combinación?",
+    "options": [
+      "Multiplicar las tres matrices entre sí en el orden dado",
+      "Escalar cada matriz por su propio factor y sumar las tres",
+      "Sumar las tres matrices y multiplicar el total por $3{,}5$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada registro lleva su propio factor, y los tres resultados se suman.",
+    "feedback_incorrect": [
+      "El producto de matrices no combina registros de esa forma.",
+      null,
+      "Un único factor común obligaría a que los tres registros pesen lo mismo."
+    ],
+    "explanation": "Cuando cada matriz entra con un peso distinto, cada una lleva su propio escalar.\n$$A + 2B + 0{,}5C$$\nLos tres productos se calculan por separado y recién después se suman posición por posición.\n\nUn escalar común aplicaría el mismo peso a los tres, que es una combinación distinta.\n\nEse tipo de expresión, una suma de matrices escaladas, es la forma general de combinar registros con pesos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "traducir-situacion-a-combinacion"
+    ]
+  }
+]

@@ -1,0 +1,371 @@
+[
+  {
+    "question": "Un repartidor camina 3 cuadras al este y después 2 cuadras al norte.\n$$\\vec{u} = (3,0), \\qquad \\vec{v} = (0,2)$$\n¿Qué operación entre esos dos vectores da su desplazamiento total?",
+    "options": [
+      "La suma de los dos vectores de desplazamiento",
+      "El producto de uno de los vectores por un escalar",
+      "La resta de los dos vectores de desplazamiento"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Combinar dos desplazamientos distintos y sucesivos es sumar los dos vectores que los representan.",
+    "feedback_incorrect": [
+      null,
+      "Acá no se redimensiona un único vector: son dos desplazamientos distintos que se combinan.",
+      "No hay ningún desplazamiento que se reste; los dos tramos se combinan, no se cancelan."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Sumar dos vectores combina dos desplazamientos independientes en uno solo; escalar un vector cambia el tamaño o el sentido de uno solo, sin agregar un segundo desplazamiento.\n\nEste repartidor hace dos tramos distintos, uno al este y otro al norte, así que su desplazamiento total es la suma de los dos vectores que los representan:\n$$\\vec{u} + \\vec{v}$$\nNo hay un único vector que se esté agrandando, achicando o invirtiendo: hay dos desplazamientos que se combinan.",
+    "reviewed": false,
+    "tags": [
+      "decidir-suma-vs-escalar"
+    ]
+  },
+  {
+    "question": "Un mismo empuje se aplica tres veces seguidas en la misma dirección y sentido.\n$$\\vec{u}$$\n¿Qué operación describe el empuje total?",
+    "options": [
+      "La resta del vector consigo mismo",
+      "El producto de ese vector por un escalar",
+      "La suma de tres vectores distintos entre sí"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Repetir el mismo vector varias veces es multiplicarlo por la cantidad de repeticiones.",
+    "feedback_incorrect": [
+      "Restar un vector consigo mismo da el vector nulo, no un empuje mayor.",
+      null,
+      "Los tres empujes son el mismo vector, no tres vectores distintos."
+    ],
+    "explanation": "Cuando el mismo vector se repite, sumarlo consigo mismo equivale a escalarlo.\n$$\\vec{u} + \\vec{u} + \\vec{u} = 3\\vec{u}$$\nEl resultado apunta en la misma dirección y sentido, y su magnitud queda multiplicada por tres.\n\nLa suma de vectores distintos, en cambio, produce una dirección nueva que ninguno de los dos tenía.\n\nDistinguir las dos situaciones es lo que decide qué operación plantear.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-suma-vs-escalar"
+    ]
+  },
+  {
+    "question": "Dos remolcadores tiran de una misma barcaza en direcciones distintas.\n$$\\vec{u}, \\vec{v}$$\n¿Qué operación da el efecto conjunto de los dos?",
+    "options": [
+      "El producto de uno de los vectores por un escalar",
+      "La resta del segundo vector al primero",
+      "La suma de los dos vectores de fuerza"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Dos fuerzas distintas actuando a la vez se combinan sumándose.",
+    "feedback_incorrect": [
+      "Escalar un solo vector deja afuera por completo la fuerza del otro remolcador.",
+      "Restar describiría a un remolcador oponiéndose al otro, y los dos tiran de la barcaza.",
+      null
+    ],
+    "explanation": "Dos vectores distintos que actúan a la vez se combinan con una **suma**, componente por componente.\n$$\\vec{u} + \\vec{v}$$\nEl resultado apunta en una dirección intermedia, que en general no coincide con ninguno de los dos.\n\nEscalar uno solo de los dos vectores describiría a un único remolcador tirando más fuerte.\n\nLa resta correspondería a fuerzas que se oponen, que no es lo que plantea el enunciado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-suma-vs-escalar"
+    ]
+  },
+  {
+    "question": "Un desplazamiento se hace en un tramo, y después se recorre la mitad de ese mismo tramo otra vez.\n$$\\vec{u}$$\n¿Qué operación describe el recorrido total?",
+    "options": [
+      "El producto del vector por un escalar mayor que uno",
+      "La suma de dos vectores que apuntan en direcciones distintas",
+      "El producto del vector por un escalar entre cero y uno"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Los dos tramos van en la misma dirección, así que el total es el vector escalado.",
+    "feedback_incorrect": [
+      null,
+      "Los dos tramos comparten dirección, así que no aparece ninguna dirección nueva.",
+      "Un escalar menor que uno achicaría el recorrido, y acá el total es mayor que el tramo original."
+    ],
+    "explanation": "Recorrer un tramo y después una fracción del mismo tramo deja un desplazamiento en la misma dirección.\n$$\\vec{u} + \\tfrac{1}{2}\\vec{u} = \\tfrac{3}{2}\\vec{u}$$\nEl escalar resultante es mayor que uno, porque el recorrido total supera al tramo original.\n\nLa dirección y el sentido no cambian en ningún momento: lo único que cambia es la magnitud.\n\nUn escalar entre cero y uno describiría lo contrario, un recorrido más corto que el original.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-suma-vs-escalar"
+    ]
+  },
+  {
+    "question": "Una corriente arrastra a un bote mientras su motor lo impulsa en otra dirección.\n$$\\vec{u}, \\vec{v}$$\n¿Qué operación da el movimiento resultante del bote?",
+    "options": [
+      "La resta de la corriente al vector del motor",
+      "La suma de los dos vectores de velocidad",
+      "El producto del vector del motor por un escalar"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Las dos velocidades actúan a la vez sobre el mismo bote, así que se suman.",
+    "feedback_incorrect": [
+      "La resta correspondería a una corriente que se opone frontalmente, y acá apunta en otra dirección.",
+      null,
+      "Escalar la velocidad del motor deja afuera el arrastre de la corriente."
+    ],
+    "explanation": "Dos velocidades que actúan a la vez sobre el mismo cuerpo se combinan sumando sus vectores.\n$$\\vec{u} + \\vec{v}$$\nEl bote termina moviéndose en una dirección intermedia entre la del motor y la de la corriente.\n\nEso es lo que explica que, aunque el motor apunte derecho hacia la otra orilla, el bote no cruce justo enfrente de donde arrancó.\n\nLa resta describiría una corriente exactamente contraria al motor, un caso particular y no el general.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-suma-vs-escalar"
+    ]
+  },
+  {
+    "question": "Se quiere invertir por completo el sentido de un empuje $\\vec{u}$, sin cambiar su magnitud.\n$$\\alpha\\vec{u}$$\n¿Qué escalar $\\alpha$ corresponde aplicar?",
+    "options": [
+      "$-1$",
+      "$1$",
+      "$2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Multiplicar por $-1$ da el vector opuesto: misma magnitud, sentido invertido.",
+    "feedback_incorrect": [
+      null,
+      "Multiplicar por $1$ deja el vector exactamente igual, sin invertir el sentido.",
+      "Multiplicar por $2$ duplica la magnitud, pero mantiene el mismo sentido."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El signo de un escalar indica si el vector mantiene su sentido o se invierte; su valor absoluto indica cuánto cambia la magnitud.\n\nUn escalar de valor absoluto $1$ no cambia el tamaño del vector, así que su signo decide todo el efecto:\n$$-1 \\cdot \\vec{v}$$\nEscalar por $-1$ da exactamente el vector opuesto: mismo tamaño, sentido contrario.",
+    "reviewed": false,
+    "tags": [
+      "decidir-signo-escalar"
+    ]
+  },
+  {
+    "question": "Se quiere duplicar un empuje sin cambiar hacia dónde apunta.\n$$\\alpha\\vec{u}$$\n¿Qué escalar corresponde aplicar?",
+    "options": [
+      "$\\tfrac{1}{2}$",
+      "$2$",
+      "$-2$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Un escalar positivo mayor que uno agranda la magnitud y conserva el sentido.",
+    "feedback_incorrect": [
+      "Un escalar entre cero y uno achicaría la magnitud en vez de agrandarla.",
+      null,
+      "Un escalar negativo invertiría el sentido del empuje."
+    ],
+    "explanation": "El **signo** del escalar decide el sentido y su **valor absoluto** decide la magnitud.\n$$2\\vec{u}$$\nUn escalar positivo conserva la dirección y el sentido originales.\n\nComo su valor absoluto es mayor que uno, el vector resultante es más largo que el original.\n\nLas dos decisiones son independientes, y conviene tomarlas por separado antes de elegir el número.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-signo-escalar"
+    ]
+  },
+  {
+    "question": "Se quiere reducir un empuje a la mitad, manteniendo su sentido.\n$$\\alpha\\vec{u}$$\n¿Qué escalar corresponde aplicar?",
+    "options": [
+      "$-\\tfrac{1}{2}$",
+      "$2$",
+      "$\\tfrac{1}{2}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Un escalar positivo menor que uno achica la magnitud y conserva el sentido.",
+    "feedback_incorrect": [
+      "Un escalar negativo invertiría el sentido del empuje.",
+      "Un escalar mayor que uno agrandaría la magnitud en vez de reducirla.",
+      null
+    ],
+    "explanation": "Multiplicar por un número entre cero y uno acorta el vector sin cambiar hacia dónde apunta.\n$$\\tfrac{1}{2}\\vec{u}$$\nEl signo positivo conserva el sentido y el valor absoluto menor que uno reduce la magnitud.\n\nEl resultado apunta exactamente hacia el mismo lado que el vector original, solo que más cerca del origen.\n\nUn escalar negativo de la misma magnitud daría un vector igual de largo pero apuntando al revés.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-signo-escalar"
+    ]
+  },
+  {
+    "question": "Se quiere invertir el sentido de un empuje y además duplicar su intensidad.\n$$\\alpha\\vec{u}$$\n¿Qué escalar corresponde aplicar?",
+    "options": [
+      "$-2$",
+      "$2$",
+      "$-\\tfrac{1}{2}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El signo negativo invierte el sentido y el dos duplica la magnitud.",
+    "feedback_incorrect": [
+      null,
+      "Un escalar positivo conservaría el sentido original en vez de invertirlo.",
+      "Ese escalar invierte el sentido, pero reduce la magnitud a la mitad."
+    ],
+    "explanation": "Un solo escalar puede cambiar las dos cosas a la vez, porque su signo y su magnitud actúan por separado.\n$$-2\\vec{u}$$\nEl signo negativo da vuelta el vector, y el valor absoluto lo estira al doble.\n\nEl resultado apunta exactamente en sentido contrario al original, con el doble de magnitud.\n\nElegir primero el signo y después la magnitud evita mezclar las dos decisiones en una.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-signo-escalar"
+    ]
+  },
+  {
+    "question": "Se quiere anular por completo el efecto de un empuje aplicando otro sobre el mismo objeto.\n$$\\alpha\\vec{u}$$\n¿Qué escalar corresponde aplicar al empuje original?",
+    "options": [
+      "$1$",
+      "$-1$",
+      "$0$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El opuesto tiene la misma magnitud y sentido contrario, así que la suma da el vector nulo.",
+    "feedback_incorrect": [
+      "Ese escalar repite el empuje original, y el efecto queda duplicado.",
+      null,
+      "Ese escalar produce el vector nulo, que no empuja nada y no cancela al original."
+    ],
+    "explanation": "Anular un empuje es sumarle otro que lo cancele, y ese otro es su **opuesto**.\n$$\\vec{u} + (-1)\\vec{u} = \\vec{0}$$\nEl opuesto conserva la magnitud y apunta exactamente al revés, y por eso la suma se anula.\n\nMultiplicar por cero produciría el vector nulo, que no es un empuje que cancele nada: es la ausencia de empuje.\n\nLa diferencia entre las dos cosas es la misma que entre empujar en contra y no empujar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-signo-escalar"
+    ]
+  },
+  {
+    "question": "Se quiere duplicar un empuje $\\vec{u}$ y después sumarle un segundo empuje $\\vec{v}$.\n\n¿Qué expresión representa el resultado?",
+    "options": [
+      "$2\\vec{u}+\\vec{v}$",
+      "$\\vec{u}+\\vec{v}$",
+      "$2(\\vec{u}+\\vec{v})$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Duplicar un vector y sumarle otro sin escalar es $2\\vec{u}+\\vec{v}$.",
+    "feedback_incorrect": [
+      null,
+      "Esa expresión no duplica el primer empuje, lo deja igual antes de sumar.",
+      "Esa expresión escala también al segundo empuje, que en este caso no cambia de tamaño."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una combinación de escalar y suma aplica el escalar solo al vector que corresponde, antes de sumar el resto.\n\nDuplicar el primer empuje escala ese vector; sumarle el segundo, sin escalarlo, agrega el otro vector tal cual:\n$$2\\vec{u}+\\vec{v}$$\nEscalar ambos vectores por igual, o no escalar ninguno, no representa la combinación que pide el enunciado.",
+    "reviewed": false,
+    "tags": [
+      "decidir-combinacion-suma-escalar"
+    ]
+  },
+  {
+    "question": "Se quiere triplicar un empuje $\\vec{u}$ y restarle después un segundo empuje $\\vec{v}$.\n\n¿Qué expresión representa el resultado?",
+    "options": [
+      "$3\\vec{u}+\\vec{v}$",
+      "$3\\vec{u}-\\vec{v}$",
+      "$3(\\vec{u}-\\vec{v})$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El escalar afecta solo al primer vector, y el segundo entra restando.",
+    "feedback_incorrect": [
+      "Ahí el segundo empuje entra sumando, cuando el enunciado pide restarlo.",
+      null,
+      "Ahí el escalar quedó multiplicando también al segundo empuje."
+    ],
+    "explanation": "Cada operación afecta a lo que tiene escrito al lado, y el orden de la descripción lo indica.\n$$3\\vec{u} - \\vec{v}$$\nEl escalar se aplica antes de la resta, así que alcanza únicamente al primer vector.\n\nPoner un paréntesis alrededor de la resta triplicaría también al segundo empuje, que es otra cuenta.\n\nEl chequeo es leer la expresión al revés y ver si describe lo que el enunciado plantea.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-combinacion-suma-escalar"
+    ]
+  },
+  {
+    "question": "Se quiere sumar dos empujes y después reducir a la mitad el resultado conjunto.\n\n¿Qué expresión representa esa operación?",
+    "options": [
+      "$\\tfrac{1}{2}\\vec{u}+\\vec{v}$",
+      "$\\tfrac{1}{2}\\vec{u}+\\tfrac{1}{2}\\vec{v}+\\vec{u}$",
+      "$\\tfrac{1}{2}(\\vec{u}+\\vec{v})$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El paréntesis indica que el escalar se aplica al resultado de la suma completa.",
+    "feedback_incorrect": [
+      "Ahí el escalar alcanza solo al primer empuje, y el segundo queda entero.",
+      "Ahí aparece un empuje de más que el enunciado no menciona.",
+      null
+    ],
+    "explanation": "Cuando el escalar afecta al resultado de una suma, el paréntesis es obligatorio.\n$$\\tfrac{1}{2}(\\vec{u}+\\vec{v})$$\nSin él, el escalar se leería aplicado solo al primer término y el segundo quedaría sin reducir.\n\nComo el producto por un escalar se reparte sobre la suma, esa expresión también se puede escribir con el escalar en los dos términos.\n\nLas dos escrituras valen lo mismo; lo que no vale es dejar un solo término escalado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-combinacion-suma-escalar"
+    ]
+  },
+  {
+    "question": "Se quiere aplicar un empuje $\\vec{u}$ y después el opuesto de un segundo empuje $\\vec{v}$, duplicado.\n\n¿Qué expresión representa el resultado?",
+    "options": [
+      "$\\vec{u}-2\\vec{v}$",
+      "$\\vec{u}+2\\vec{v}$",
+      "$2(\\vec{u}-\\vec{v})$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El opuesto duplicado es el segundo vector multiplicado por menos dos.",
+    "feedback_incorrect": [
+      null,
+      "Ahí el segundo empuje entra en su sentido original, no en el opuesto.",
+      "Ahí el escalar quedó multiplicando también al primer empuje."
+    ],
+    "explanation": "El opuesto de un vector es el mismo vector multiplicado por menos uno, y duplicarlo lo lleva a menos dos.\n$$\\vec{u} + (-2)\\vec{v} = \\vec{u} - 2\\vec{v}$$\nEl signo y la magnitud del escalar se deciden por separado y después se combinan en un solo número.\n\nEl primer empuje entra sin escalar, así que ningún factor lo alcanza.\n\nEncerrar los dos vectores en un paréntesis con el escalar afuera duplicaría también al primero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-combinacion-suma-escalar"
+    ]
+  },
+  {
+    "question": "Un tramo se recorre dos veces y otro tramo distinto se recorre tres veces.\n\n¿Qué expresión representa el desplazamiento total?",
+    "options": [
+      "$6\\vec{u}\\vec{v}$",
+      "$2\\vec{u}+3\\vec{v}$",
+      "$5(\\vec{u}+\\vec{v})$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada tramo lleva su propio escalar, y los dos resultados se suman.",
+    "feedback_incorrect": [
+      "Ahí los dos vectores quedaron multiplicados entre sí, que no es ninguna de las dos operaciones.",
+      null,
+      "Ahí los dos tramos quedaron con el mismo escalar, que es la suma de los dos originales."
+    ],
+    "explanation": "Cuando cada vector se repite una cantidad distinta de veces, cada uno lleva su propio escalar.\n$$2\\vec{u} + 3\\vec{v}$$\nLos dos productos se calculan por separado y recién después se suman.\n\nUn único escalar común obligaría a que los dos tramos se repitan la misma cantidad de veces.\n\nMultiplicar los dos vectores entre sí no corresponde a ninguna de las dos operaciones de este topic.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "tags": [
+      "decidir-combinacion-suma-escalar"
+    ]
+  }
+]
