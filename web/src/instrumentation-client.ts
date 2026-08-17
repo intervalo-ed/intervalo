@@ -1,7 +1,9 @@
 import posthog from "posthog-js"
 import {
+  FIRST_GROUP_ID,
   FIRST_PWA_USE_STORAGE_KEY,
   FIRST_UTM_SOURCE,
+  GROUP_ID_PATTERN,
 } from "@/lib/analytics/attribution"
 import { getPlatform, isStandalone } from "@/lib/platform/detect"
 
@@ -15,7 +17,21 @@ posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
 // siguientes, incluidos los de después del OAuth (ver lib/analytics/attribution).
 // "once" es a propósito: gana el primer contacto, así que si la persona vuelve a
 // entrar por otro link no se le pisa el origen real.
-const utmSource = new URLSearchParams(window.location.search).get("utm_source")
+const params = new URLSearchParams(window.location.search)
+
+// `?g=<id>` son los links por grupo de WhatsApp (ver lib/analytics/attribution).
+// El prefijo del id es la universidad, así que de un solo parámetro salen las dos
+// cosas: el grupo puntual y el `utm_source` que los reportes ya usan.
+//
+// Los links viejos con `?utm_source=` siguen funcionando: hay cientos ya enviados
+// a grupos, grabados en esos chats para siempre.
+const groupId = params.get("g")
+const groupMatch = groupId ? GROUP_ID_PATTERN.exec(groupId) : null
+const utmSource = params.get("utm_source") ?? groupMatch?.[1]
+
+if (groupMatch) {
+  posthog.register_once({ [FIRST_GROUP_ID]: groupId })
+}
 if (utmSource) {
   posthog.register_once({ [FIRST_UTM_SOURCE]: utmSource })
 }

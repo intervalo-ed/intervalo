@@ -37,7 +37,7 @@ import {
   NotifyHintAction,
   NotifyHintPane,
 } from "./notify-hint-pane"
-import { InstallHintPane } from "./install-hint-pane"
+import { InstallHintPane } from "@/components/install-hint-pane"
 import { SLIDE_TRANSITION, slideVariants } from "./slide-variants"
 import { useSummary } from "./UseSummary"
 
@@ -586,7 +586,11 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
             onClick={onContinue}
             disabled={!showButton || notifyButtonDisabled}
           >
-            Continuar
+            {/* En la pestaña de instalación no se sigue a ningún lado: los pasos
+                se hacen en el menú del navegador, así que el botón acusa recibo
+                en vez de prometer un paso siguiente. Mismo texto que la sheet de
+                la smart bar (install-sheet.tsx), que muestra estos mismos pasos. */}
+            {phase === "install" ? "Entendido" : "Continuar"}
           </Button>
         </motion.div>
       </div>
