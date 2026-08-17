@@ -6,7 +6,7 @@ import { useUser } from "@clerk/nextjs"
 import posthog from "posthog-js"
 import { AppIcon } from "@/components/app-icon"
 import { Button } from "@/components/ui/button"
-import { InstallDialog } from "@/components/install-dialog"
+import { InstallSheet } from "@/components/install-sheet"
 import { getPlatform, isStandalone, type Platform } from "@/lib/platform/detect"
 
 // Rutas donde NO debe verse la smart bar (marketing queda fuera porque ahí el
@@ -44,7 +44,7 @@ function SmartBar({ platform }: { platform: Platform }) {
           </Button>
         </div>
       </div>
-      <InstallDialog platform={platform} open={open} onOpenChange={setOpen} />
+      <InstallSheet platform={platform} open={open} onOpenChange={setOpen} />
     </>
   )
 }

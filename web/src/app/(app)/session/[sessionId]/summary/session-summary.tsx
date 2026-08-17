@@ -37,7 +37,7 @@ import {
   NotifyHintAction,
   NotifyHintPane,
 } from "./notify-hint-pane"
-import { InstallHintPane } from "./install-hint-pane"
+import { InstallHintPane } from "@/components/install-hint-pane"
 import { SLIDE_TRANSITION, slideVariants } from "./slide-variants"
 import { useSummary } from "./UseSummary"
 
