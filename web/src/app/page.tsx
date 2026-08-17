@@ -12,6 +12,13 @@ export default async function Home() {
   const { userId, getToken } = await auth()
   if (!userId) return <MarketingHome />
 
+  // Cuentas sin enrollment van a /onboarding/complete, que decide entre el
+  // wizard completo o el formulario corto de recuperación según tengan o no
+  // progreso. OJO: redirect() funciona tirando una excepción NEXT_REDIRECT,
+  // así que tiene que quedar FUERA del try — adentro, el catch se la tragaba
+  // y este gate fue un no-op desde que se escribió (usuarios 137/172 pasaron
+  // por acá sin perfil).
+  let enrolled = true
   try {
     const token = await getToken()
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000"}/user/status`, {
@@ -20,16 +27,15 @@ export default async function Home() {
     })
     if (res.ok) {
       const status = await res.json()
-      // Antes solo entraba acá sin enrollment NI progreso — pero eso dejaba
-      // pasar a cuentas con progreso real (unit_states) que nunca llegaron a
-      // enrolarse (ej. el bug de "Ya tengo una cuenta"), sin universidad ni
-      // carrera para siempre. /onboarding/complete decide entre el wizard
-      // completo o el formulario corto de recuperación según el caso.
-      if (!status.enrolled) redirect("/onboarding/complete")
+      enrolled = Boolean(status.enrolled)
     }
-  } catch {
-    // Si el backend no responde, deja pasar al dashboard
+  } catch (err) {
+    // Si el backend no responde, deja pasar al dashboard — DashboardEntry
+    // re-chequea del lado del cliente. El log queda para poder ver en Railway
+    // con qué frecuencia este chequeo falla en silencio.
+    console.error("[home-gate] /user/status check failed:", err)
   }
+  if (!enrolled) redirect("/onboarding/complete")
 
   return <DashboardEntry />
 }
