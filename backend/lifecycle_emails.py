@@ -256,11 +256,11 @@ def send_bounce_email(db: DBSession, user: User) -> bool:
     html = render_email(
         greeting=f"Hola {name}, tu cuenta ya está lista y tus temas te esperan.",
         highlight="Solo falta la primera sesión.",
-        cta_label="Hacer mi primera sesión",
+        cta_label="Volver",
         cta_url=_app_base_url(),
         unsubscribe_url=unsubscribe_url,
     )
-    sent = _send(user.email, f"{name}, empecemos por tu primer repaso", html, unsubscribe_url)
+    sent = _send(user.email, f"¡Volvé {name}!", html, unsubscribe_url)
     if sent:
         user.bounce_email_sent_at = datetime.utcnow()
         db.commit()
@@ -273,11 +273,11 @@ def send_winback_email(db: DBSession, user: User) -> bool:
     html = render_email(
         greeting=f"Hola {name}, hace unos días que no repasás. Lo que ya entendiste sigue ahí, pero se afloja si no lo tocás.",
         highlight="Una sesión corta alcanza para volver al ritmo.",
-        cta_label="Retomar mis repasos",
+        cta_label="Volver",
         cta_url=_app_base_url(),
         unsubscribe_url=unsubscribe_url,
     )
-    sent = _send(user.email, f"{name}, no pierdas lo que ya entendiste", html, unsubscribe_url)
+    sent = _send(user.email, f"¡Volvé {name}!", html, unsubscribe_url)
     if sent:
         user.winback_email_sent_at = datetime.utcnow()
         db.commit()
