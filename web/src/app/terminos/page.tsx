@@ -1,3 +1,4 @@
+import { LegalIndex } from "@/components/legal-index"
 import { SiteFooter } from "@/components/site-footer"
 import { Wordmark } from "@/components/wordmark"
 import type { Metadata } from "next"
@@ -47,11 +48,20 @@ export default function TerminosPage() {
             </Link>
             , que es parte de este mismo trato.
           </p>
+          <LegalIndex
+            items={[
+              { href: "#que-es", label: "Qué es Intervalo, y qué no" },
+              { href: "#cuenta", label: "Tu cuenta y el juego limpio" },
+              { href: "#contenido", label: "El contenido" },
+              { href: "#disponibilidad", label: "Disponibilidad y responsabilidad" },
+              { href: "#cambios", label: "Si esto cambia" },
+            ]}
+          />
         </div>
       </section>
 
       {/* Qué es Intervalo */}
-      <section className="border-b border-[#38385A] px-5 py-20">
+      <section id="que-es" className="scroll-mt-16 border-b border-[#38385A] px-5 py-20">
         <div className="mx-auto max-w-[960px]">
           <h2 className="mb-10 font-sans text-[clamp(1.6rem,4vw,2.25rem)] font-semibold text-[#F6F8FC]">
             Qué es Intervalo, y qué no
@@ -74,7 +84,7 @@ export default function TerminosPage() {
       </section>
 
       {/* Tu cuenta y el juego limpio */}
-      <section className="border-b border-[#38385A] px-5 py-20" style={GRID_BG_STYLE}>
+      <section id="cuenta" className="scroll-mt-16 border-b border-[#38385A] px-5 py-20" style={GRID_BG_STYLE}>
         <div className="mx-auto max-w-[960px]">
           <h2 className="mb-10 font-sans text-[clamp(1.6rem,4vw,2.25rem)] font-semibold text-[#F6F8FC]">
             Tu cuenta y el juego limpio
@@ -112,7 +122,7 @@ export default function TerminosPage() {
       </section>
 
       {/* El contenido */}
-      <section className="border-b border-[#38385A] px-5 py-20">
+      <section id="contenido" className="scroll-mt-16 border-b border-[#38385A] px-5 py-20">
         <div className="mx-auto max-w-[960px]">
           <h2 className="mb-10 font-sans text-[clamp(1.6rem,4vw,2.25rem)] font-semibold text-[#F6F8FC]">
             El contenido
@@ -135,7 +145,7 @@ export default function TerminosPage() {
       </section>
 
       {/* Disponibilidad y responsabilidad */}
-      <section className="border-b border-[#38385A] px-5 py-20" style={GRID_BG_STYLE}>
+      <section id="disponibilidad" className="scroll-mt-16 border-b border-[#38385A] px-5 py-20" style={GRID_BG_STYLE}>
         <div className="mx-auto max-w-[960px]">
           <h2 className="mb-10 font-sans text-[clamp(1.6rem,4vw,2.25rem)] font-semibold text-[#F6F8FC]">
             Disponibilidad y responsabilidad
@@ -159,7 +169,7 @@ export default function TerminosPage() {
       </section>
 
       {/* Cambios y ley aplicable */}
-      <section className="border-b border-[#38385A] px-5 py-20">
+      <section id="cambios" className="scroll-mt-16 border-b border-[#38385A] px-5 py-20">
         <div className="mx-auto max-w-[960px]">
           <h2 className="mb-10 font-sans text-[clamp(1.6rem,4vw,2.25rem)] font-semibold text-[#F6F8FC]">
             Si esto cambia
