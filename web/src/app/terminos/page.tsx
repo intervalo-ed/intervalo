@@ -69,8 +69,7 @@ export default function TerminosPage() {
           </p>
           <p className="max-w-[44rem] text-[clamp(1rem,3vw,1.2rem)] leading-[1.8] text-[#E6EEFA]">
             El contenido puede tener errores. Nos esforzamos para que no, y
-            cada ejercicio tiene un botón para reportarlos, pero si algo de acá
-            contradice a tu profesor o a tu bibliografía, les creas a ellos.
+            cada ejercicio tiene un botón para reportarlos.
           </p>
         </div>
       </section>
