@@ -173,15 +173,14 @@ export default function TerminosPage() {
           </p>
           <p className="mb-8 max-w-[44rem] text-[clamp(1rem,3vw,1.2rem)] leading-[1.8] text-[#E6EEFA]">
             Estos términos se rigen por las leyes de la República Argentina.
-            Ante cualquier duda o problema, el primer paso es siempre el mismo:
-            escribinos a{" "}
+            Cualquier duda, escribinos a{" "}
             <a
               href="mailto:hola@intervalo.xyz"
               className="font-medium text-[#F6F8FC] underline underline-offset-2 transition-colors hover:text-[#7E80F7]"
             >
               hola@intervalo.xyz
-            </a>{" "}
-            y lo resolvemos hablando.
+            </a>
+            .
           </p>
           <p className="max-w-[44rem] text-[0.875rem] leading-[1.8] text-[#768899]">
             Última actualización: agosto de 2026.
