@@ -172,7 +172,6 @@ export default function TerminosPage() {
             cierra, podés dejar de usarlo o pedirnos borrar tu cuenta.
           </p>
           <p className="mb-8 max-w-[44rem] text-[clamp(1rem,3vw,1.2rem)] leading-[1.8] text-[#E6EEFA]">
-            Estos términos se rigen por las leyes de la República Argentina.
             Cualquier duda, escribinos a{" "}
             <a
               href="mailto:hola@intervalo.xyz"
