@@ -171,7 +171,8 @@ export default function TerminosPage() {
             cierra, podés dejar de usarlo o pedirnos borrar tu cuenta.
           </p>
           <p className="mb-8 max-w-[44rem] text-[clamp(1rem,3vw,1.2rem)] leading-[1.8] text-[#E6EEFA]">
-            Cualquier duda, escribinos a{" "}
+            Intervalo opera desde Argentina y estos términos se rigen por sus
+            leyes. Cualquier duda, escribinos a{" "}
             <a
               href="mailto:hola@intervalo.xyz"
               className="font-medium text-[#F6F8FC] underline underline-offset-2 transition-colors hover:text-[#7E80F7]"
