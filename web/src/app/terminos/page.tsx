@@ -32,8 +32,7 @@ export default function TerminosPage() {
           </h2>
           <p className="mb-8 max-w-[44rem] text-[clamp(1rem,3vw,1.2rem)] leading-[1.8] text-[#E6EEFA]">
             Intervalo es gratis y está para ayudarte a estudiar. Estas son las
-            reglas del trato — cortas, en castellano, sin trampas en la letra
-            chica.{" "}
+            reglas para usarlo.{" "}
             <span className="font-medium text-[#F6F8FC]">
               Al crear tu cuenta, las estás aceptando.
             </span>
