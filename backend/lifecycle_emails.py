@@ -153,14 +153,20 @@ def _logo_html() -> str:
     )
 
 
-def render_email(*, greeting: str, question: str, cta_label: str, cta_url: str, unsubscribe_url: str) -> str:
+def render_email(*, greeting: str, highlight: str, cta_label: str, cta_url: str, unsubscribe_url: str) -> str:
     # La app usa DM Sans para el cuerpo; Gmail no carga webfonts, así que se
     # aproxima con un stack sans-serif web-safe (antes no se declaraba nada y
     # el cuerpo caía en Times).
     sans = "font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;"
+    # Misma forma que el CTA de la app y de la landing: esquinas de 4px,
+    # mayúsculas y tracking de 0.1em (1.3px sobre 13px). Antes era una píldora
+    # de 8px en minúsculas, que no se parecía a ningún botón del producto. El
+    # texto va en caja normal y las mayúsculas las pone el CSS: si un cliente
+    # ignora text-transform, la etiqueta se sigue leyendo bien.
     btn = (
-        f"display:inline-block;background:#5457e5;color:#ffffff;{sans}font-size:14px;"
-        "font-weight:700;padding:12px 28px;border-radius:8px;text-decoration:none"
+        f"display:inline-block;background:#5457e5;color:#ffffff;{sans}font-size:13px;"
+        "font-weight:600;letter-spacing:1.3px;text-transform:uppercase;"
+        "padding:15px 30px;border-radius:4px;text-decoration:none"
     )
     return f"""<!DOCTYPE html>
 <html>
@@ -179,9 +185,9 @@ def render_email(*, greeting: str, question: str, cta_label: str, cta_url: str, 
 <tr><td align="center" style="padding:0 24px;">
 {_logo_html()}
 <p style="{sans}font-size:15px;line-height:1.6;margin:0 0 8px;max-width:22rem;color:#131324;">{greeting}</p>
-<p style="{sans}font-size:15px;line-height:1.6;margin:0 0 24px;font-weight:700;color:#131324;">{question}</p>
+<p style="{sans}font-size:15px;line-height:1.6;margin:0 0 24px;font-weight:700;color:#131324;">{highlight}</p>
 <a href="{cta_url}" style="{btn}">{cta_label}</a>
-<p style="{sans}font-size:11px;color:#768899;margin:32px 0 0">Intervalo 2026. Desarrollado por y para estudiantes. <a href="{unsubscribe_url}" style="color:#768899">Desuscribirse</a>.</p>
+<p style="{sans}font-size:11px;line-height:1.7;color:#768899;margin:32px 0 0">Intervalo 2026. Desarrollado por y para estudiantes.<br><a href="{_app_base_url()}/privacidad" style="color:#768899">Política de privacidad</a> &middot; <a href="{unsubscribe_url}" style="color:#768899">Desuscribirse</a></p>
 </td></tr>
 </table>
 </td></tr></table>
@@ -248,13 +254,13 @@ def send_bounce_email(db: DBSession, user: User) -> bool:
     name = greeting_name(user)
     unsubscribe_url = f"{_api_base_url()}/email/unsubscribe?token={unsubscribe_token(user.id)}"
     html = render_email(
-        greeting=f"Hola {name}, empezaste a explorar Intervalo pero todavía no terminaste tu primera sesión de repaso.",
-        question="¿Arrancamos?",
-        cta_label="Continuar",
+        greeting=f"Hola {name}, tu cuenta ya está lista y tus temas te esperan.",
+        highlight="Solo falta la primera sesión.",
+        cta_label="Hacer mi primera sesión",
         cta_url=_app_base_url(),
         unsubscribe_url=unsubscribe_url,
     )
-    sent = _send(user.email, f"¡Volvé {name}!", html, unsubscribe_url)
+    sent = _send(user.email, f"{name}, empecemos por tu primer repaso", html, unsubscribe_url)
     if sent:
         user.bounce_email_sent_at = datetime.utcnow()
         db.commit()
@@ -265,13 +271,13 @@ def send_winback_email(db: DBSession, user: User) -> bool:
     name = greeting_name(user)
     unsubscribe_url = f"{_api_base_url()}/email/unsubscribe?token={unsubscribe_token(user.id)}"
     html = render_email(
-        greeting=f"Hola {name}, no te vemos hace algunos días. Nada urgente, pero tus repasos pendientes van a seguir ahí hasta que vuelvas.",
-        question="¿Volvemos?",
-        cta_label="Continuar",
+        greeting=f"Hola {name}, hace unos días que no repasás. Lo que ya entendiste sigue ahí, pero se afloja si no lo tocás.",
+        highlight="Una sesión corta alcanza para volver al ritmo.",
+        cta_label="Retomar mis repasos",
         cta_url=_app_base_url(),
         unsubscribe_url=unsubscribe_url,
     )
-    sent = _send(user.email, f"¡Volvé {name}!", html, unsubscribe_url)
+    sent = _send(user.email, f"{name}, no pierdas lo que ya entendiste", html, unsubscribe_url)
     if sent:
         user.winback_email_sent_at = datetime.utcnow()
         db.commit()
