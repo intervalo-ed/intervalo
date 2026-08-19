@@ -1474,6 +1474,32 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
                     </Button>
                   )}
                   {authError && <p className="text-sm text-red-500">{authError}</p>}
+                  {/* La aceptación va acá y no en un checkbox: crear la cuenta ES
+                      aceptar el trato, y los dos documentos quedan a un tap.
+                      target _blank para no perder el estado del wizard. */}
+                  {!alreadySignedIn && (
+                    <p className="max-w-[19rem] text-xs leading-relaxed text-foreground/45">
+                      Al crear tu cuenta aceptás los{" "}
+                      <a
+                        href="/terminos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline underline-offset-2 hover:text-foreground/70"
+                      >
+                        términos y condiciones
+                      </a>{" "}
+                      y la{" "}
+                      <a
+                        href="/privacidad"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline underline-offset-2 hover:text-foreground/70"
+                      >
+                        política de privacidad
+                      </a>
+                      .
+                    </p>
+                  )}
                 </div>
               )}
               </>

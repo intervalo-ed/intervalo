@@ -72,12 +72,21 @@ export function SiteFooter({
         </div>
         <div className="mx-auto flex max-w-[960px] flex-col items-center gap-1.5 pt-6 text-center text-[0.68rem] text-[#768899]">
           <p>Intervalo 2026. Desarrollado por y para estudiantes.</p>
-          <Link
-            href="/privacidad"
-            className="underline underline-offset-2 transition-colors hover:text-[#F6F8FC]"
-          >
-            Política de privacidad
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/terminos"
+              className="underline underline-offset-2 transition-colors hover:text-[#F6F8FC]"
+            >
+              Términos y condiciones
+            </Link>
+            <span aria-hidden>·</span>
+            <Link
+              href="/privacidad"
+              className="underline underline-offset-2 transition-colors hover:text-[#F6F8FC]"
+            >
+              Política de privacidad
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

@@ -1,3 +1,4 @@
+import { LegalIndex } from "@/components/legal-index"
 import { SiteFooter } from "@/components/site-footer"
 import { Wordmark } from "@/components/wordmark"
 import type { Metadata } from "next"
@@ -54,11 +55,20 @@ export default function PrivacidadPage() {
             El resto de esta página explica eso mismo con detalle, sin letra
             chica: qué guardamos, para qué, y qué derechos tenés.
           </p>
+          <LegalIndex
+            items={[
+              { href: "#datos", label: "Qué datos guardamos" },
+              { href: "#uso", label: "Para qué los usamos" },
+              { href: "#terceros", label: "Con quién los compartimos" },
+              { href: "#derechos", label: "Tus derechos" },
+              { href: "#cambios", label: "Si esto cambia" },
+            ]}
+          />
         </div>
       </section>
 
       {/* Qué datos guardamos */}
-      <section className="border-b border-[#38385A] px-5 py-20">
+      <section id="datos" className="scroll-mt-16 border-b border-[#38385A] px-5 py-20">
         <div className="mx-auto max-w-[960px]">
           <h2 className="mb-10 font-sans text-[clamp(1.6rem,4vw,2.25rem)] font-semibold text-[#F6F8FC]">
             Qué datos guardamos
@@ -110,7 +120,7 @@ export default function PrivacidadPage() {
       </section>
 
       {/* Para qué los usamos */}
-      <section className="border-b border-[#38385A] px-5 py-20" style={GRID_BG_STYLE}>
+      <section id="uso" className="scroll-mt-16 border-b border-[#38385A] px-5 py-20" style={GRID_BG_STYLE}>
         <div className="mx-auto max-w-[960px]">
           <h2 className="mb-10 font-sans text-[clamp(1.6rem,4vw,2.25rem)] font-semibold text-[#F6F8FC]">
             Para qué los usamos
@@ -137,7 +147,7 @@ export default function PrivacidadPage() {
       </section>
 
       {/* Con quién los compartimos */}
-      <section className="border-b border-[#38385A] px-5 py-20">
+      <section id="terceros" className="scroll-mt-16 border-b border-[#38385A] px-5 py-20">
         <div className="mx-auto max-w-[960px]">
           <h2 className="mb-10 font-sans text-[clamp(1.6rem,4vw,2.25rem)] font-semibold text-[#F6F8FC]">
             Con quién los compartimos
@@ -175,7 +185,7 @@ export default function PrivacidadPage() {
       </section>
 
       {/* Tus derechos */}
-      <section className="border-b border-[#38385A] px-5 py-20" style={GRID_BG_STYLE}>
+      <section id="derechos" className="scroll-mt-16 border-b border-[#38385A] px-5 py-20" style={GRID_BG_STYLE}>
         <div className="mx-auto max-w-[960px]">
           <h2 className="mb-10 font-sans text-[clamp(1.6rem,4vw,2.25rem)] font-semibold text-[#F6F8FC]">
             Tus derechos
@@ -207,7 +217,7 @@ export default function PrivacidadPage() {
       </section>
 
       {/* Cambios */}
-      <section className="border-b border-[#38385A] px-5 py-20">
+      <section id="cambios" className="scroll-mt-16 border-b border-[#38385A] px-5 py-20">
         <div className="mx-auto max-w-[960px]">
           <h2 className="mb-10 font-sans text-[clamp(1.6rem,4vw,2.25rem)] font-semibold text-[#F6F8FC]">
             Si esto cambia
