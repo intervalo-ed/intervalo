@@ -254,7 +254,7 @@ def send_bounce_email(db: DBSession, user: User) -> bool:
     name = greeting_name(user)
     unsubscribe_url = f"{_api_base_url()}/email/unsubscribe?token={unsubscribe_token(user.id)}"
     html = render_email(
-        greeting=f"Hola {name}, tu cuenta ya está lista y tus temas te esperan.",
+        greeting="Tu cuenta ya está lista y los ejercicios te esperan.",
         highlight="Solo falta la primera sesión.",
         cta_label="Volver",
         cta_url=_app_base_url(),
