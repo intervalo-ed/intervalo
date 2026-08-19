@@ -20,13 +20,24 @@ export const POST_ONBOARDING_RANKING_FLAG = "post-onboarding-ranking"
 // sorteada. Mismo criterio que el experimento del orden del onboarding.
 export type PostOnboardingRankingVariant = "control" | "test" | "unavailable"
 
-// Atajo para probar las dos variantes en local con `?variant=test`. Fuera de
-// desarrollo no existe, así que no hay forma de forzarse un brazo en
+// Atajo para probar las dos variantes en local con `?variant=test`. A
+// diferencia del override del wizard, este flag se consulta en pantallas a las
+// que el query param no llega (complete/ está del otro lado del round-trip de
+// Google, y el summary a varias navegaciones de distancia), así que el valor
+// visto una vez queda en sessionStorage y vale para toda la pestaña. Fuera de
+// desarrollo no existe nada de esto: no hay forma de forzarse un brazo en
 // producción y ensuciar los datos del experimento.
+const FORCED_KEY = "intervalo:ab-post-onboarding-ranking"
+
 function forcedVariant(): PostOnboardingRankingVariant | null {
   if (process.env.NODE_ENV === "production" || typeof window === "undefined") return null
-  const forced = new URLSearchParams(window.location.search).get("variant")
-  return forced === "control" || forced === "test" ? forced : null
+  const fromUrl = new URLSearchParams(window.location.search).get("variant")
+  if (fromUrl === "control" || fromUrl === "test") {
+    window.sessionStorage.setItem(FORCED_KEY, fromUrl)
+    return fromUrl
+  }
+  const stored = window.sessionStorage.getItem(FORCED_KEY)
+  return stored === "control" || stored === "test" ? stored : null
 }
 
 // Versión promesa, para decidir dentro de un flujo async (el redirect al final
