@@ -74,7 +74,7 @@ export default function PrivacidadPage() {
               />
               <DataItem
                 name="Lo que nos contás al registrarte"
-                why="Tu universidad, tu carrera, qué te trajo a Intervalo y el apodo que elegís. Sirven para armar el ranking de universidades y para entender a quién le estamos sirviendo."
+                why="Tu universidad, tu carrera, qué te trajo a Intervalo, y el apodo y nombre de usuario que elegís. Sirven para armar el ranking de universidades y para entender a quién le estamos sirviendo."
               />
             </div>
 
@@ -163,7 +163,7 @@ export default function PrivacidadPage() {
               Qué es público
             </h3>
             <p className="max-w-[44rem] text-[clamp(1rem,3vw,1.2rem)] leading-[1.8] text-[#E6EEFA]">
-              Tu apodo, tu universidad y tu experiencia aparecen en el ranking,
+              Tu nombre de usuario, tu universidad y tu experiencia aparecen en el ranking,
               visibles para otros usuarios: es la parte del juego de bancar a tu
               universidad.{" "}
               <span className="font-medium text-[#F6F8FC]">
