@@ -272,8 +272,8 @@ def send_winback_email(db: DBSession, user: User) -> bool:
     unsubscribe_url = f"{_api_base_url()}/email/unsubscribe?token={unsubscribe_token(user.id)}"
     html = render_email(
         greeting="Hace unos días que no repasás. Tus temas te extrañan y te están sacando puestos en el ranking.",
-        highlight="Una sesión corta alcanza para volver al ritmo.",
-        cta_label="Recuperar puestos",
+        highlight="Todavía estás a tiempo de recuperarlos.",
+        cta_label="Volver",
         cta_url=_app_base_url(),
         unsubscribe_url=unsubscribe_url,
     )
