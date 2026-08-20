@@ -434,8 +434,9 @@ def send_streak_tier_email(db: DBSession, user: User, tier: int) -> bool:
         nxt_days, nxt_mult = nxt
         highlight = f"El próximo escalón es ×{nxt_mult:.1f}, a los {nxt_days} días."
 
+    greeting = f"Llegaste a {tier} días seguidos repasando: cada ejercicio que resolvés ahora {gain}."
     html = render_email(
-        greeting=f"Llegaste a {tier} días seguidos repasando: cada ejercicio que resolvés ahora {gain}.",
+        greeting=greeting,
         highlight=highlight,
         # "Continuar" y no "Volver": este mail no le habla a alguien que se fue,
         # sino a alguien que viene bien y tiene que seguir.
@@ -443,7 +444,7 @@ def send_streak_tier_email(db: DBSession, user: User, tier: int) -> bool:
         cta_url=_app_base_url(),
         unsubscribe_url=unsubscribe_url,
     )
-    sent = _send(user.email, f"¡Llegaste a ×{mult:.1f}, {name}!", html, unsubscribe_url)
+    sent = _send(user.email, f"¡Llegaste a ×{mult:.1f}, {name}!", html, unsubscribe_url, text=f"{greeting} {highlight}")
     if sent:
         user.streak_email_sent_tier = tier
         user.streak_email_sent_at = datetime.utcnow()
