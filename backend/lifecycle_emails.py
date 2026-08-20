@@ -284,7 +284,7 @@ def send_bounce_email(db: DBSession, user: User) -> bool:
         cta_url=_app_base_url(),
         unsubscribe_url=unsubscribe_url,
     )
-    sent = _send(user.email, f"¡Todo listo {name}! ✅", html, unsubscribe_url, text=f"{greeting} {highlight}")
+    sent = _send(user.email, f"¡Todo listo {name}! 🏁", html, unsubscribe_url, text=f"{greeting} {highlight}")
     if sent:
         user.bounce_email_sent_at = datetime.utcnow()
         db.commit()
