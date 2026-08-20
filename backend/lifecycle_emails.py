@@ -455,9 +455,12 @@ def send_streak_tier_email(db: DBSession, user: User, tier: int) -> bool:
         cta_label="Continuar",
         cta_url=_app_base_url(),
         unsubscribe_url=unsubscribe_url,
+        # La preview corta en el saludo: el próximo escalón (la negrita) se
+        # descubre recién adentro del mail.
+        preview=greeting,
     )
     emoji = STREAK_TIER_EMOJI.get(tier, "🔥")
-    sent = _send(user.email, f"¡Llegaste a ×{mult:.1f} {name}! {emoji}", html, unsubscribe_url, text=f"{greeting} {highlight}")
+    sent = _send(user.email, f"¡Llegaste a ×{mult:.1f} {name}! {emoji}", html, unsubscribe_url, text=greeting)
     if sent:
         user.streak_email_sent_tier = tier
         user.streak_email_sent_at = datetime.utcnow()
