@@ -127,6 +127,7 @@ class SimpleResponse(BaseModel):
 class EmailRunResponse(BaseModel):
     bounce_sent: int
     winback_sent: int
+    streak_tier_sent: int
 
 
 class SweepAbandonedResponse(BaseModel):
