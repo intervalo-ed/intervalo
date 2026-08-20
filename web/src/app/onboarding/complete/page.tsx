@@ -7,7 +7,9 @@ import { useEnrollMutation } from "@/app/onboarding/UseEnrollMutation"
 import { LAST_COURSE_KEY } from "@/app/dashboard-entry"
 import { Button } from "@/components/ui/button"
 import { Spinner } from "@/components/ui/spinner"
+import posthog from "posthog-js"
 import { useApi } from "@/lib/api/useApi"
+import { resolvePostOnboardingRankingVariant } from "@/lib/experiments/UsePostOnboardingRanking"
 import { clearOnboarding, readOnboarding } from "@/lib/onboarding/storage"
 import { RecoverProfileForm } from "./recover-profile-form"
 
@@ -51,10 +53,16 @@ export default function OnboardingCompletePage() {
     // para que abra ahí de entrada (antes de que responda el back).
     window.localStorage.setItem(LAST_COURSE_KEY, data.course)
     clearOnboarding()
-    // Directo al dashboard, a hacer la primera sesión. La instalación se pide
-    // recién al terminarla (ver notify-hint-pane.tsx): antes era una pantalla
-    // sin salida acá y se perdía la mitad de la gente ya registrada.
-    router.replace("/")
+    // Experimento post-onboarding-ranking: el brazo test aterriza en el
+    // ranking (donde con 0 XP se ve último — el gancho es "empezá a subir");
+    // control va directo al dashboard a hacer la primera sesión, como siempre.
+    // Esperar el flag acá no agrega latencia visible: para cuando el enroll
+    // terminó, los flags casi siempre ya resolvieron. Es el único evento de
+    // "onboarding completado" que existe — el denominador del embudo.
+    const variant = await resolvePostOnboardingRankingVariant()
+    const destination = variant === "test" ? "/leaderboard" : "/"
+    posthog.capture("onboarding_complete", { variant, destination })
+    router.replace(destination)
   }
 
   // The DB is authoritative for new-vs-returning. Returning users go straight
