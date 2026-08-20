@@ -53,7 +53,15 @@ export default function PrivacidadPage() {
           </p>
           <p className="max-w-[44rem] text-[clamp(1rem,3vw,1.2rem)] leading-[1.8] text-[#E6EEFA]">
             El resto de esta página explica eso mismo con detalle, sin letra
-            chica: qué guardamos, para qué, y qué derechos tenés.
+            chica: qué guardamos, para qué, y qué derechos tenés. Y las reglas
+            para usar Intervalo viven en los{" "}
+            <Link
+              href="/terminos"
+              className="font-medium text-[#F6F8FC] underline underline-offset-2 transition-colors hover:text-[#7E80F7]"
+            >
+              términos y condiciones
+            </Link>
+            , de los que esta política es parte.
           </p>
           <LegalIndex
             items={[
