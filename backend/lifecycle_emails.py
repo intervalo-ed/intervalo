@@ -276,7 +276,7 @@ def send_bounce_email(db: DBSession, user: User) -> bool:
     name = greeting_name(user)
     unsubscribe_url = f"{_api_base_url()}/email/unsubscribe?token={unsubscribe_token(user.id)}"
     greeting = "Tu cuenta ya está lista y los ejercicios te esperan."
-    highlight = "Solo falta la primera sesión."
+    highlight = "Solo falta tu primera sesión."
     html = render_email(
         greeting=greeting,
         highlight=highlight,
@@ -284,7 +284,7 @@ def send_bounce_email(db: DBSession, user: User) -> bool:
         cta_url=_app_base_url(),
         unsubscribe_url=unsubscribe_url,
     )
-    sent = _send(user.email, f"¡Volvé {name}!", html, unsubscribe_url, text=f"{greeting} {highlight}")
+    sent = _send(user.email, f"¡Todo listo {name}! ✅", html, unsubscribe_url, text=f"{greeting} {highlight}")
     if sent:
         user.bounce_email_sent_at = datetime.utcnow()
         db.commit()
@@ -303,7 +303,7 @@ def send_winback_email(db: DBSession, user: User) -> bool:
         cta_url=_app_base_url(),
         unsubscribe_url=unsubscribe_url,
     )
-    sent = _send(user.email, f"¡Volvé {name}!", html, unsubscribe_url, text=f"{greeting} {highlight}")
+    sent = _send(user.email, f"¡Volvé {name}! 👀", html, unsubscribe_url, text=f"{greeting} {highlight}")
     if sent:
         user.winback_email_sent_at = datetime.utcnow()
         db.commit()
