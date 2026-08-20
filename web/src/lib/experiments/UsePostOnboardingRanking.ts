@@ -48,21 +48,33 @@ export function resolvePostOnboardingRankingVariant(): Promise<PostOnboardingRan
   if (forced !== null) return Promise.resolve(forced)
 
   return new Promise((resolve) => {
+    // onFeatureFlags dispara al toque si ya estaban cargados — sincrónico,
+    // ANTES de retornar. Por eso estas dos van declaradas con `let` acá
+    // arriba: con `const` después del callback, settle() explotaba en la
+    // temporal dead zone (`?.` no protege de eso), posthog-js se tragaba la
+    // excepción con settled ya en true, y la promesa no resolvía nunca —
+    // runOnboarding quedaba colgado en /onboarding/complete sin redirect.
+    // eslint-disable-next-line prefer-const -- settle() la lee antes de la asignación; con const eso es TDZ
+    let unsubscribe: (() => void) | undefined
+    let timeout: ReturnType<typeof setTimeout> | undefined
     let settled = false
     function settle(v: PostOnboardingRankingVariant) {
       if (settled) return
       settled = true
       unsubscribe?.()
-      clearTimeout(timeout)
+      if (timeout !== undefined) clearTimeout(timeout)
       resolve(v)
     }
 
-    // onFeatureFlags dispara al toque si ya estaban cargados.
-    const unsubscribe = posthog.onFeatureFlags(() => {
+    unsubscribe = posthog.onFeatureFlags(() => {
       const value = posthog.getFeatureFlag(POST_ONBOARDING_RANKING_FLAG)
       settle(value === "test" ? "test" : value === "control" ? "control" : "unavailable")
     })
-    const timeout = setTimeout(() => settle("unavailable"), 2500)
+    // En el camino sincrónico settle() corre con `unsubscribe` todavía
+    // undefined: el handler queda registrado en posthog, así que se saca acá.
+    // El timeout recién arranca si de verdad quedamos esperando la red.
+    if (settled) unsubscribe()
+    else timeout = setTimeout(() => settle("unavailable"), 2500)
   })
 }
 
