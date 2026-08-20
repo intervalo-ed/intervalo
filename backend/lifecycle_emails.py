@@ -24,6 +24,7 @@ import hashlib
 import hmac
 import logging
 import os
+import uuid
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -232,6 +233,13 @@ def _send(to_email: str, subject: str, html: str, unsubscribe_url: str) -> bool:
             "headers": {
                 "List-Unsubscribe": f"<{unsubscribe_url}>",
                 "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+                # Los mails de ciclo de vida comparten asunto ("¡Volvé X!"):
+                # sin esto Gmail los encadena en un hilo y recorta el contenido
+                # repetido entre mensajes — el botón y el pie, idénticos de un
+                # mail al otro, quedan escondidos detrás de los "···". Un id
+                # único por envío le dice a Gmail que no son la misma
+                # conversación.
+                "X-Entity-Ref-ID": uuid.uuid4().hex,
             },
         }
         if LOGO_PATH.exists():
