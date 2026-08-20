@@ -296,7 +296,7 @@ def send_bounce_email(db: DBSession, user: User) -> bool:
 def send_winback_email(db: DBSession, user: User) -> bool:
     name = greeting_name(user)
     unsubscribe_url = f"{_api_base_url()}/email/unsubscribe?token={unsubscribe_token(user.id)}"
-    greeting = "Hace unos días que no repasás. Tus temas te extrañan y te están sacando puestos en el ranking."
+    greeting = "Tus temas te extrañan y te están sacando puestos en el ranking."
     highlight = "Recuperalos hoy mismo."
     html = render_email(
         greeting=greeting,
