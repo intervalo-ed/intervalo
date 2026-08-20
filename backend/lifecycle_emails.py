@@ -154,7 +154,7 @@ def _logo_html() -> str:
     )
 
 
-def render_email(*, greeting: str, highlight: str, cta_label: str, cta_url: str, unsubscribe_url: str) -> str:
+def render_email(*, greeting: str, highlight: str, cta_label: str, cta_url: str, unsubscribe_url: str, preview: str | None = None) -> str:
     # La app usa DM Sans para el cuerpo; Gmail no carga webfonts, así que se
     # aproxima con un stack sans-serif web-safe (antes no se declaraba nada y
     # el cuerpo caía en Times).
@@ -173,7 +173,9 @@ def render_email(*, greeting: str, highlight: str, cta_label: str, cta_url: str,
     # y en la notificación. Sin esto el snippet se arma con TODO el texto del
     # mail en orden — botón, URL y pie incluidos. Va invisible al principio del
     # body, y el relleno de &nbsp;&zwnj; empuja lo que sigue fuera del recorte.
-    preview = f"{greeting} {highlight}"
+    # `preview` permite recortarlo (ej: el mail de hito deja la negrita solo
+    # adentro del mail); por defecto es saludo + negrita.
+    preview = preview if preview is not None else f"{greeting} {highlight}"
     preheader = (
         '<div style="display:none;font-size:1px;line-height:1px;max-height:0;'
         f'max-width:0;opacity:0;overflow:hidden;">{preview}{"&nbsp;&zwnj;" * 40}</div>'
