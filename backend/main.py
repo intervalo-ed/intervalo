@@ -1025,6 +1025,11 @@ def get_leaderboard(
     """
     enroll = _first_enrollment_subq()
     filters = _scope_filters(enroll, university, career)
+    # Solo aparecen los que ya sumaron XP; las cuentas que nunca arrancaron solo
+    # inflaban la cola. El propio usuario entra igual con 0: verse último dice
+    # "estás acá, empezá a subir" — no aparecer diría "no existís". Con 0 XP su
+    # rank queda count(>0)+1 y los demás ceros no compiten el desempate.
+    filters = [*filters, sa_or(User.total_xp > 0, User.id == current_user.id)]
 
     # Universidades presentes (set completo, sin aplicar el scope), para poblar
     # el filtro del front.
@@ -1190,6 +1195,9 @@ def get_university_leaderboard(
     filters = [
         enroll.c.university.isnot(None),
         enroll.c.university != "",
+        # Mismo criterio que el leaderboard individual: los que nunca sumaron
+        # XP no cuentan como estudiantes de su universidad.
+        User.total_xp > 0,
     ]
     if university is not None:
         filters.append(enroll.c.university == university)
@@ -1263,9 +1271,9 @@ def get_leaderboard_summary(
     `total_students`/`total_exercises` respetan `career`/`university` si se
     pasan, igual que el scope de `/leaderboard`.
 
-    El scope acá se cuenta sobre `enrollments` (no sobre `users`): un enrollment
-    con universidad cuenta como estudiante registrado aunque el usuario ya no
-    exista. Se mantiene esa semántica, solo que contada en SQL."""
+    `total_students` cuenta solo usuarios con XP positivo: el ranking ya no
+    muestra a los que nunca arrancaron, y el contador tiene que hablar de la
+    misma gente que la lista de abajo."""
     enroll = _first_enrollment_subq()
     has_university = sa_and(
         enroll.c.university.isnot(None), enroll.c.university != ""
@@ -1282,7 +1290,11 @@ def get_leaderboard_summary(
 
     if university is None and career is None:
         total_students = (
-            db.query(func.count()).select_from(enroll).filter(has_university).scalar()
+            db.query(func.count())
+            .select_from(enroll)
+            .join(User, User.id == enroll.c.user_id)
+            .filter(has_university, User.total_xp > 0)
+            .scalar()
             or 0
         )
         total_exercises = db.query(func.count(Answer.id)).scalar() or 0
@@ -1293,7 +1305,12 @@ def get_leaderboard_summary(
         if career is not None:
             scoped.append(_career_bucket_sql(enroll.c.career) == career)
         total_students = (
-            db.query(func.count()).select_from(enroll).filter(*scoped).scalar() or 0
+            db.query(func.count())
+            .select_from(enroll)
+            .join(User, User.id == enroll.c.user_id)
+            .filter(*scoped, User.total_xp > 0)
+            .scalar()
+            or 0
         )
         total_exercises = (
             db.query(func.count(Answer.id))
@@ -1319,9 +1336,9 @@ def get_public_university_leaderboard(db: Session = Depends(get_db)):
 
     Es el único endpoint del leaderboard sin auth, así que es el que más importa
     que no traiga `users` + `enrollments` enteras a memoria en cada visita a la
-    landing: un GROUP BY devuelve una fila por universidad. Los estudiantes se
-    cuentan por enrollment (aunque el usuario ya no exista, igual que antes) y su
-    XP con LEFT JOIN, que aporta 0 en ese caso."""
+    landing: un GROUP BY devuelve una fila por universidad. Solo cuentan los
+    usuarios con XP positivo, igual que en el leaderboard de la app — los dos
+    números tienen que hablar de la misma gente."""
     enroll = _first_enrollment_subq()
 
     # El orden de inserción sigue el enrollment más antiguo de cada universidad,
@@ -1332,8 +1349,12 @@ def get_public_university_leaderboard(db: Session = Depends(get_db)):
             func.count().label("students"),
             func.coalesce(func.sum(User.total_xp), 0).label("total_xp"),
         )
-        .outerjoin(User, User.id == enroll.c.user_id)
-        .filter(enroll.c.university.isnot(None), enroll.c.university != "")
+        .join(User, User.id == enroll.c.user_id)
+        .filter(
+            enroll.c.university.isnot(None),
+            enroll.c.university != "",
+            User.total_xp > 0,
+        )
         .group_by(enroll.c.university)
         .order_by(func.min(enroll.c.enrolled_at).asc(), enroll.c.university.asc())
         .all()
