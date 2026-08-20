@@ -844,6 +844,24 @@ def internal_sweep_abandoned_sessions(db: Session = Depends(get_db)):
     return {"marked": session_store.sweep_abandoned_sessions(db)}
 
 
+@app.get("/email/logo.png", include_in_schema=False)
+def email_logo():
+    """El wordmark de los mails, para las pantallas de desuscripción. Es el
+    mismo PNG que viaja como adjunto CID en cada email (fondo #131324 y bordes
+    redondeados propios, así que sobre el fondo de la página queda invisible
+    el recorte)."""
+    import lifecycle_emails
+    from fastapi.responses import FileResponse
+
+    if not lifecycle_emails.LOGO_PATH.exists():
+        raise HTTPException(status_code=404, detail="Not Found")
+    return FileResponse(
+        lifecycle_emails.LOGO_PATH,
+        media_type="image/png",
+        headers={"Cache-Control": "public, max-age=86400"},
+    )
+
+
 def _unsub_page(body: str, status_code: int = 200) -> HTMLResponse:
     return HTMLResponse(
         "<html><head><meta name='viewport' content='width=device-width, initial-scale=1'>"
@@ -856,7 +874,7 @@ def _unsub_page(body: str, status_code: int = 200) -> HTMLResponse:
 
 _UNSUB_INVALID = "Ese link no es válido."
 _UNSUB_DONE = (
-    "<p style='font-size:20px;font-weight:700;margin:0 0 8px;'>intervalo</p>"
+    "<img src='/email/logo.png' width='163' height='61' alt='intervalo' style='display:block;margin:0 auto 24px;'>"
     "<p>Te desuscribiste de estos emails. No vas a recibir más.</p>"
 )
 
@@ -881,7 +899,7 @@ def email_unsubscribe_page(token: str):
 
     safe_token = lifecycle_emails.unsubscribe_token(user_id)
     return _unsub_page(
-        "<p style='font-size:20px;font-weight:700;margin:0 0 8px;'>intervalo</p>"
+        "<img src='/email/logo.png' width='163' height='61' alt='intervalo' style='display:block;margin:0 auto 24px;'>"
         "<p style='margin:0 0 24px;'>¿Querés dejar de recibir estos emails?</p>"
         f"<form method='post' action='/email/unsubscribe?token={safe_token}'>"
         "<button type='submit' style='background:#5457e5;color:#fff;border:0;"
