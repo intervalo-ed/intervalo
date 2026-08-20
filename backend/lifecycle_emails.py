@@ -437,7 +437,9 @@ def send_streak_tier_email(db: DBSession, user: User, tier: int) -> bool:
     html = render_email(
         greeting=f"Llegaste a {tier} días seguidos repasando: cada ejercicio que resolvés ahora {gain}.",
         highlight=highlight,
-        cta_label="Volver",
+        # "Continuar" y no "Volver": este mail no le habla a alguien que se fue,
+        # sino a alguien que viene bien y tiene que seguir.
+        cta_label="Continuar",
         cta_url=_app_base_url(),
         unsubscribe_url=unsubscribe_url,
     )
