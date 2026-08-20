@@ -82,6 +82,18 @@ def _tier_multiplier(threshold: int) -> float:
     return dict(STREAK_TIERS)[threshold]
 
 
+# El emoji del asunto escala con el hito: fueguitos de arranque, el moai de
+# quien ya se planta serio, el rayo y el cohete del envion, y el GOAT en la
+# cima. Mismo lenguaje que las push, que cierran con emoji.
+STREAK_TIER_EMOJI = {
+    3: "🔥🔥🔥",
+    9: "🗿",
+    18: "⚡",
+    30: "🚀",
+    45: "🐐",
+}
+
+
 def _next_tier(threshold: int) -> tuple[int, float] | None:
     """(umbral, multiplicador) del escalón siguiente, None en el máximo."""
     thresholds = [t for t, _ in STREAK_TIERS if t > 0]
@@ -444,7 +456,8 @@ def send_streak_tier_email(db: DBSession, user: User, tier: int) -> bool:
         cta_url=_app_base_url(),
         unsubscribe_url=unsubscribe_url,
     )
-    sent = _send(user.email, f"¡Llegaste a ×{mult:.1f}, {name}!", html, unsubscribe_url, text=f"{greeting} {highlight}")
+    emoji = STREAK_TIER_EMOJI.get(tier, "🔥")
+    sent = _send(user.email, f"¡Llegaste a ×{mult:.1f}, {name}! {emoji}", html, unsubscribe_url, text=f"{greeting} {highlight}")
     if sent:
         user.streak_email_sent_tier = tier
         user.streak_email_sent_at = datetime.utcnow()
