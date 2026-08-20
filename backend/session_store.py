@@ -1522,6 +1522,9 @@ def get_summary_db(
         )
         if inactive_days > STREAK_RESET_AFTER_DAYS:
             user.streak_days = 0
+            # Quien pierde la racha y vuelve a llegar a un hito merece la
+            # felicitación de nuevo (ver lifecycle_emails.due_streak_tier_emails).
+            user.streak_email_sent_tier = None
         user.streak_days = (user.streak_days or 0) + 1
         user.streak_last_date = today
         streak_counted_today = True

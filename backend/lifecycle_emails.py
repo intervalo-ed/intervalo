@@ -11,6 +11,12 @@ el envío no necesita un worker separado — Resend se llama directo desde acá)
   terminar una sesión y cae inactivo de nuevo (`winback_email_sent_at` se
   compara contra el último `finished_at`, no solo contra "ya se mandó alguna
   vez").
+- "streak tier": el usuario alcanzó un hito del multiplicador de XP (3/9/18/
+  30/45 días de racha). Se felicita A LA MAÑANA SIGUIENTE (ventana 8-12 hora
+  local): el multiplicador se disfruta en la próxima sesión, así el mail
+  felicita y a la vez ofrece algo para hacer ahora. Si a esa altura el usuario
+  ya repasó hoy por su cuenta, el hito se marca como avisado SIN mandar nada —
+  volvió solo, el mail no tiene trabajo que hacer.
 
 Un worker externo (notifier/) pollea `/internal/emails/run` por hora; ver
 `due_bounce_emails` / `due_winback_emails` + `send_bounce_email` /
@@ -24,17 +30,78 @@ import hashlib
 import hmac
 import logging
 import os
+import sys
 import uuid
 from datetime import datetime, timedelta
 from pathlib import Path
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-from sqlalchemy import func
+from sqlalchemy import func, or_
 from sqlalchemy.orm import Session as DBSession
 
+# `algorithm` vive en la raíz del repo; mismo patrón que session_store para
+# que el módulo también se pueda importar suelto (scripts, previews).
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from algorithm import STREAK_TIERS
 from models import Session as SessionModel, User
 
 BOUNCE_MIN_ACCOUNT_AGE = timedelta(hours=24)
 WINBACK_INACTIVITY = timedelta(days=5)
+
+# Ventana local del mail de hito: entre las 8 y las 12. El worker corre cada
+# hora en el minuto :00, así que en la práctica llega entre las 8 y las 9.
+STREAK_EMAIL_HOUR_FROM = 8
+STREAK_EMAIL_HOUR_TO = 12
+
+# Misma política que session_store: la tz la reporta el navegador y puede venir
+# rota; fallback Argentina, donde vive casi toda la base.
+_DEFAULT_TZ = "America/Argentina/Buenos_Aires"
+
+
+def _user_zone(user: User) -> ZoneInfo:
+    try:
+        return ZoneInfo(user.timezone or _DEFAULT_TZ)
+    except ZoneInfoNotFoundError:
+        return ZoneInfo(_DEFAULT_TZ)
+
+
+def _reached_tier(streak_days: int) -> int:
+    """El mayor umbral de STREAK_TIERS alcanzado por `streak_days`, 0 si
+    ninguno. Derivar el hito de los días (en vez de usar `tier_reached`, que
+    solo es True el día exacto) hace que el mail sobreviva a cualquier retraso
+    del worker."""
+    reached = 0
+    for threshold, _mult in STREAK_TIERS:
+        if threshold > 0 and streak_days >= threshold:
+            reached = threshold
+    return reached
+
+
+def _tier_multiplier(threshold: int) -> float:
+    return dict(STREAK_TIERS)[threshold]
+
+
+# El emoji del asunto escala con el hito: el fueguito del arranque, el moai de
+# quien ya se planta serio, el cerebro entrenado, el brazo bionico (el mismo
+# de las push) y el GOAT en la cima.
+STREAK_TIER_EMOJI = {
+    3: "🔥",
+    9: "🗿",
+    18: "🧠",
+    30: "🦾",
+    45: "🐐",
+}
+
+
+def _next_tier(threshold: int) -> tuple[int, float] | None:
+    """(umbral, multiplicador) del escalón siguiente, None en el máximo."""
+    thresholds = [t for t, _ in STREAK_TIERS if t > 0]
+    i = thresholds.index(threshold)
+    if i + 1 >= len(thresholds):
+        return None
+    nxt = thresholds[i + 1]
+    return nxt, _tier_multiplier(nxt)
 
 
 # ── Apodo ────────────────────────────────────────────────────────────────────
@@ -99,6 +166,57 @@ def due_winback_emails(db: DBSession) -> list[tuple[User, datetime]]:
         if user.winback_email_sent_at is None
         or user.winback_email_sent_at < last_finished_at
     ]
+
+
+def due_streak_tier_emails(db: DBSession) -> tuple[list[tuple[User, int]], list[tuple[User, int]]]:
+    """Candidatos del mail de hito de multiplicador.
+
+    Devuelve dos listas de pares (user, tier): `to_send` (mandar ahora) y
+    `to_mark` (marcar como avisado sin mandar: el hito fue un día anterior y
+    el usuario ya volvió hoy por su cuenta — la felicitación no tiene trabajo
+    que hacer).
+
+    El filtro SQL es grueso a propósito (tier exacto y hora local se resuelven
+    en Python, son un puñado de filas): streak_days en zona de hitos y marcador
+    por detrás de los días — como el tier nunca supera los días, si el marcador
+    ya está en streak_days o más, no puede haber hito pendiente.
+    """
+    candidates = (
+        db.query(User)
+        .filter(
+            User.email_unsubscribed.is_(False),
+            User.streak_days >= 3,
+            or_(
+                User.streak_email_sent_tier.is_(None),
+                User.streak_email_sent_tier < User.streak_days,
+            ),
+        )
+        .all()
+    )
+
+    to_send: list[tuple[User, int]] = []
+    to_mark: list[tuple[User, int]] = []
+    for user in candidates:
+        tier = _reached_tier(user.streak_days)
+        if tier <= (user.streak_email_sent_tier or 0):
+            continue
+        # Sin fecha de racha no hay forma de saber si "hoy ya repasó"; no
+        # debería pasar con streak_days > 0, pero ante datos raros, silencio.
+        if user.streak_last_date is None:
+            continue
+        local_now = datetime.now(_user_zone(user))
+        if user.streak_last_date >= local_now.date():
+            # Repaso hoy. Si streak_days == tier el hito es de HOY y el mail va
+            # recien manana: ni mandar ni marcar todavia. Si es mayor, el hito
+            # fue un dia anterior y hoy volvio solo: marcar sin mandar.
+            if user.streak_days > tier:
+                to_mark.append((user, tier))
+            continue
+        # Recién a la mañana siguiente, en la ventana.
+        if not (STREAK_EMAIL_HOUR_FROM <= local_now.hour < STREAK_EMAIL_HOUR_TO):
+            continue
+        to_send.append((user, tier))
+    return to_send, to_mark
 
 
 # ── Desuscripción (token sin login) ──────────────────────────────────────────
@@ -312,6 +430,44 @@ def send_winback_email(db: DBSession, user: User) -> bool:
     return sent
 
 
+def send_streak_tier_email(db: DBSession, user: User, tier: int) -> bool:
+    name = greeting_name(user)
+    mult = _tier_multiplier(tier)
+    unsubscribe_url = f"{_api_base_url()}/email/unsubscribe?token={unsubscribe_token(user.id)}"
+
+    if mult == 2.0:
+        gain = "vale el doble de XP"
+    else:
+        gain = f"suma un {round((mult - 1) * 100)}% más de XP"
+    nxt = _next_tier(tier)
+    if nxt is None:
+        highlight = "Es el multiplicador más alto que hay. Ahora se trata de no perderlo."
+    else:
+        nxt_days, nxt_mult = nxt
+        highlight = f"El próximo escalón es ×{nxt_mult:.1f}, a los {nxt_days} días."
+
+    greeting = f"Llegaste a {tier} días seguidos repasando, cada ejercicio que resolvés ahora {gain} para el ranking."
+    html = render_email(
+        greeting=greeting,
+        highlight=highlight,
+        # "Continuar" y no "Volver": este mail no le habla a alguien que se fue,
+        # sino a alguien que viene bien y tiene que seguir.
+        cta_label="Continuar",
+        cta_url=_app_base_url(),
+        unsubscribe_url=unsubscribe_url,
+        # La preview corta en el saludo: el próximo escalón (la negrita) se
+        # descubre recién adentro del mail.
+        preview=greeting,
+    )
+    emoji = STREAK_TIER_EMOJI.get(tier, "🔥")
+    sent = _send(user.email, f"¡Llegaste a ×{mult:.1f} {name}! {emoji}", html, unsubscribe_url, text=greeting)
+    if sent:
+        user.streak_email_sent_tier = tier
+        user.streak_email_sent_at = datetime.utcnow()
+        db.commit()
+    return sent
+
+
 def run_lifecycle_emails(db: DBSession) -> dict:
     bounce_sent = 0
     for user in due_bounce_emails(db):
@@ -323,4 +479,18 @@ def run_lifecycle_emails(db: DBSession) -> dict:
         if send_winback_email(db, user):
             winback_sent += 1
 
-    return {"bounce_sent": bounce_sent, "winback_sent": winback_sent}
+    streak_tier_sent = 0
+    to_send, to_mark = due_streak_tier_emails(db)
+    for user, tier in to_mark:
+        user.streak_email_sent_tier = tier
+    if to_mark:
+        db.commit()
+    for user, tier in to_send:
+        if send_streak_tier_email(db, user, tier):
+            streak_tier_sent += 1
+
+    return {
+        "bounce_sent": bounce_sent,
+        "winback_sent": winback_sent,
+        "streak_tier_sent": streak_tier_sent,
+    }

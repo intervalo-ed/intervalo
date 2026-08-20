@@ -1141,6 +1141,56 @@
         }
       }
     },
+    "/internal/push/delivery": {
+      "post": {
+        "summary": "Internal Push Delivery",
+        "description": "Worker-facing: qu\u00e9 devolvi\u00f3 el push service para cada env\u00edo del tick.\n\nLa fila de notification_sends se crea al elegir el copy, antes de intentar\nmandar, as\u00ed que sin este reporte un env\u00edo fallido queda indistinguible de uno\nexitoso.",
+        "operationId": "internal_push_delivery_internal_push_delivery_post",
+        "parameters": [
+          {
+            "name": "x-internal-secret",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Internal-Secret"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PushDeliveryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimpleResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/internal/emails/run": {
       "post": {
         "summary": "Internal Run Lifecycle Emails",
@@ -1851,6 +1901,43 @@
         }
       }
     },
+    "/dev/test-feedback": {
+      "post": {
+        "summary": "Save Test Feedback",
+        "description": "QA-only: vuelca a disco el feedback de una pasada de test mode, sobre-\nescribiendo el mismo archivo en cada guardado (debounce del lado del\ncliente). Existe porque localStorage por s\u00ed solo no alcanza: si el tab\npierde el sessionStorage de la sesi\u00f3n (se cierra, se refresca), la UI\nmuestra \"sesi\u00f3n expirada\" y no hay forma de volver a entrar al runner\npara descargar el feedback ya tipeado.",
+        "operationId": "save_test_feedback_dev_test_feedback_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestFeedbackSaveRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/session/feedback": {
       "post": {
         "summary": "Submit Session Feedback",
@@ -2102,6 +2189,24 @@
         ],
         "title": "CourseResetResponse"
       },
+      "DeliveryResult": {
+        "properties": {
+          "notification_id": {
+            "type": "integer",
+            "title": "Notification Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "notification_id",
+          "status"
+        ],
+        "title": "DeliveryResult"
+      },
       "DueNotification": {
         "properties": {
           "user_id": {
@@ -2152,12 +2257,17 @@
           "winback_sent": {
             "type": "integer",
             "title": "Winback Sent"
+          },
+          "streak_tier_sent": {
+            "type": "integer",
+            "title": "Streak Tier Sent"
           }
         },
         "type": "object",
         "required": [
           "bounce_sent",
-          "winback_sent"
+          "winback_sent",
+          "streak_tier_sent"
         ],
         "title": "EmailRunResponse"
       },
@@ -2710,6 +2820,22 @@
           "total_xp"
         ],
         "title": "PublicUniversityStat"
+      },
+      "PushDeliveryRequest": {
+        "properties": {
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/DeliveryResult"
+            },
+            "type": "array",
+            "title": "Results"
+          }
+        },
+        "type": "object",
+        "required": [
+          "results"
+        ],
+        "title": "PushDeliveryRequest"
       },
       "PushKeys": {
         "properties": {
@@ -3418,6 +3544,24 @@
           "marked"
         ],
         "title": "SweepAbandonedResponse"
+      },
+      "TestFeedbackSaveRequest": {
+        "properties": {
+          "session_id": {
+            "type": "string",
+            "title": "Session Id"
+          },
+          "doc": {
+            "type": "string",
+            "title": "Doc"
+          }
+        },
+        "type": "object",
+        "required": [
+          "session_id",
+          "doc"
+        ],
+        "title": "TestFeedbackSaveRequest"
       },
       "TestFilters": {
         "properties": {

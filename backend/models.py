@@ -76,6 +76,12 @@ class User(Base):
     email_unsubscribed = Column(Boolean, nullable=False, default=False, server_default="false")
     bounce_email_sent_at = Column(DateTime, nullable=True)
     winback_email_sent_at = Column(DateTime, nullable=True)
+    # Último hito de multiplicador ya felicitado por email (3/9/18/30/45 días).
+    # Se compara contra el tier derivado de streak_days: mayor ⇒ hay mail
+    # pendiente. Se limpia al resetear la racha, así quien la pierde y vuelve a
+    # llegar recibe la felicitación de nuevo. `sent_at` es observabilidad.
+    streak_email_sent_tier = Column(Integer, nullable=True)
+    streak_email_sent_at = Column(DateTime, nullable=True)
 
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
