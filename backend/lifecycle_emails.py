@@ -83,12 +83,12 @@ def _tier_multiplier(threshold: int) -> float:
 
 
 # El emoji del asunto escala con el hito: el fueguito del arranque, el moai de
-# quien ya se planta serio, el diamante de la constancia, el brazo bionico (el
-# mismo de las push) y el GOAT en la cima.
+# quien ya se planta serio, el cerebro entrenado, el brazo bionico (el mismo
+# de las push) y el GOAT en la cima.
 STREAK_TIER_EMOJI = {
     3: "🔥",
     9: "🗿",
-    18: "💎",
+    18: "🧠",
     30: "🦾",
     45: "🐐",
 }
