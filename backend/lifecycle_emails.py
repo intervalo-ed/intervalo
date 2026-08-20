@@ -169,6 +169,15 @@ def render_email(*, greeting: str, highlight: str, cta_label: str, cta_url: str,
         "font-weight:600;letter-spacing:1.3px;text-transform:uppercase;"
         "padding:15px 30px;border-radius:4px;text-decoration:none"
     )
+    # Preheader: lo que Gmail y Apple Mail muestran como preview en la bandeja
+    # y en la notificación. Sin esto el snippet se arma con TODO el texto del
+    # mail en orden — botón, URL y pie incluidos. Va invisible al principio del
+    # body, y el relleno de &nbsp;&zwnj; empuja lo que sigue fuera del recorte.
+    preview = f"{greeting} {highlight}"
+    preheader = (
+        '<div style="display:none;font-size:1px;line-height:1px;max-height:0;'
+        f'max-width:0;opacity:0;overflow:hidden;">{preview}{"&nbsp;&zwnj;" * 40}</div>'
+    )
     return f"""<!DOCTYPE html>
 <html>
 <head>
@@ -181,6 +190,7 @@ def render_email(*, greeting: str, highlight: str, cta_label: str, cta_url: str,
 </style>
 </head>
 <body>
+{preheader}
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:48px 16px;">
 <table role="presentation" width="420" cellpadding="0" cellspacing="0" style="max-width:420px;">
 <tr><td align="center" style="padding:0 24px;">
@@ -206,7 +216,7 @@ def _api_base_url() -> str:
     return os.environ.get("API_BASE_URL", "https://api.intervalo.xyz")
 
 
-def _send(to_email: str, subject: str, html: str, unsubscribe_url: str) -> bool:
+def _send(to_email: str, subject: str, html: str, unsubscribe_url: str, text: str | None = None) -> bool:
     """Best-effort send via Resend. Returns True on success, logs and swallows
     any failure so one bad address never blocks the rest of the batch."""
     api_key = os.environ.get("RESEND_API_KEY")
@@ -225,6 +235,10 @@ def _send(to_email: str, subject: str, html: str, unsubscribe_url: str) -> bool:
             "to": to_email,
             "subject": subject,
             "html": html,
+            # Sin esto Resend autogenera el texto plano convirtiendo el HTML
+            # entero (botón, URL y pie incluidos), y es lo que Gmail muestra en
+            # la notificación. La versión propia lleva solo el copy.
+            **({"text": text} if text else {}),
             # Gmail y Yahoo ponen su propio botón de "Cancelar suscripción" arriba
             # de todo cuando existe este par de headers, y cuentan su ausencia como
             # señal negativa de reputación aunque el link esté en el pie. El POST
@@ -261,14 +275,16 @@ def _send(to_email: str, subject: str, html: str, unsubscribe_url: str) -> bool:
 def send_bounce_email(db: DBSession, user: User) -> bool:
     name = greeting_name(user)
     unsubscribe_url = f"{_api_base_url()}/email/unsubscribe?token={unsubscribe_token(user.id)}"
+    greeting = "Tu cuenta ya está lista y los ejercicios te esperan."
+    highlight = "Solo falta la primera sesión."
     html = render_email(
-        greeting="Tu cuenta ya está lista y los ejercicios te esperan.",
-        highlight="Solo falta la primera sesión.",
+        greeting=greeting,
+        highlight=highlight,
         cta_label="Volver",
         cta_url=_app_base_url(),
         unsubscribe_url=unsubscribe_url,
     )
-    sent = _send(user.email, f"¡Volvé {name}!", html, unsubscribe_url)
+    sent = _send(user.email, f"¡Volvé {name}!", html, unsubscribe_url, text=f"{greeting} {highlight}")
     if sent:
         user.bounce_email_sent_at = datetime.utcnow()
         db.commit()
@@ -278,14 +294,16 @@ def send_bounce_email(db: DBSession, user: User) -> bool:
 def send_winback_email(db: DBSession, user: User) -> bool:
     name = greeting_name(user)
     unsubscribe_url = f"{_api_base_url()}/email/unsubscribe?token={unsubscribe_token(user.id)}"
+    greeting = "Hace unos días que no repasás. Tus temas te extrañan y te están sacando puestos en el ranking."
+    highlight = "Recuperalos hoy mismo."
     html = render_email(
-        greeting="Hace unos días que no repasás. Tus temas te extrañan y te están sacando puestos en el ranking.",
-        highlight="Recuperalos hoy mismo.",
+        greeting=greeting,
+        highlight=highlight,
         cta_label="Volver",
         cta_url=_app_base_url(),
         unsubscribe_url=unsubscribe_url,
     )
-    sent = _send(user.email, f"¡Volvé {name}!", html, unsubscribe_url)
+    sent = _send(user.email, f"¡Volvé {name}!", html, unsubscribe_url, text=f"{greeting} {highlight}")
     if sent:
         user.winback_email_sent_at = datetime.utcnow()
         db.commit()
