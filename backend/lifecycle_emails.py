@@ -446,7 +446,7 @@ def send_streak_tier_email(db: DBSession, user: User, tier: int) -> bool:
         nxt_days, nxt_mult = nxt
         highlight = f"El próximo escalón es ×{nxt_mult:.1f}, a los {nxt_days} días."
 
-    greeting = f"Llegaste a {tier} días seguidos repasando: cada ejercicio que resolvés ahora {gain}."
+    greeting = f"Llegaste a {tier} días seguidos repasando, cada ejercicio que resolvés ahora {gain}."
     html = render_email(
         greeting=greeting,
         highlight=highlight,
