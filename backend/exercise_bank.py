@@ -54,6 +54,14 @@ def _row_to_dict(row: Exercise) -> dict:
             gs = _normalize_graph_view(json.loads(row.graph_shade))
         except (json.JSONDecodeError, TypeError):
             pass
+    table = None
+    if row.table_data:
+        try:
+            parsed = json.loads(row.table_data)
+            if isinstance(parsed, dict):
+                table = parsed
+        except (json.JSONDecodeError, TypeError):
+            pass
     return {
         "external_id": row.external_id,
         "exercise_type": row.exercise_type,
@@ -67,6 +75,7 @@ def _row_to_dict(row: Exercise) -> dict:
         "graph_view": gv,
         "graph_shade": gs,
         "graph_free_aspect": row.graph_free_aspect or False,
+        "table": table,
         "explanation": row.explanation,
     }
 

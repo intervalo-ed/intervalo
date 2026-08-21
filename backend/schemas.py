@@ -255,6 +255,7 @@ class SessionExercise(BaseModel):
     graph_view: list[Any] | None = None
     graph_shade: list[Any] | None = None
     graph_free_aspect: bool | None = None
+    table: dict[str, Any] | None = None
     feedback_correct: str
     feedback_incorrect: str | list[str | None]
     explanation: str | None = None

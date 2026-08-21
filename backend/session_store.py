@@ -170,6 +170,7 @@ class ExerciseInSession:
     graph_view: list | None = None
     graph_shade: list | None = None
     graph_free_aspect: bool = False
+    table: dict | None = None
     explanation: str | None = None
     external_id: str = ""
 
@@ -544,18 +545,24 @@ def _exercise_to_dict(ex: ExerciseInSession) -> dict:
         "graph_view": ex.graph_view,
         "graph_shade": ex.graph_shade,
         "graph_free_aspect": ex.graph_free_aspect,
+        "table": ex.table,
         "feedback_correct": ex.feedback_correct,
         "feedback_incorrect": ex.feedback_incorrect,
         "explanation": ex.explanation,
     }
 
 
-def _shuffle_options(ex: dict) -> tuple[list, int, list | None]:
-    """Shuffle options preserving the parallel alignment of feedback_incorrect.
+def _shuffle_options(ex: dict) -> tuple[list, int, list | None, dict | None]:
+    """Shuffle options preserving every per-option array aligned with them.
 
-    feedback_incorrect is a per-option array (null on the correct index); it must
-    be permuted with the exact same order as options, or hints end up attached to
-    the wrong option.
+    Hay dos estructuras paralelas a `options` que se tienen que permutar con el
+    MISMO orden, o quedan pegadas a la opción equivocada:
+
+    - `feedback_incorrect`: array por opción (null en el índice correcto).
+    - `table.reveal.by_option`: la columna (o la celda) que pinta cada opción.
+
+    Las dos fallan en silencio si no se permutan: no hay error, solo una pista o
+    una tabla que corresponde a otra opción.
     """
     order = list(range(len(ex["options"])))
     random.shuffle(order)
@@ -565,7 +572,23 @@ def _shuffle_options(ex: dict) -> tuple[list, int, list | None]:
     shuffled_feedback = (
         [feedback[i] for i in order] if isinstance(feedback, list) else feedback
     )
-    return shuffled, new_correct_index, shuffled_feedback
+    return shuffled, new_correct_index, shuffled_feedback, _permute_table(ex.get("table"), order)
+
+
+def _permute_table(table: dict | None, order: list[int]) -> dict | None:
+    """Reorder `table.reveal.by_option` to match a shuffled `options` array."""
+    if not isinstance(table, dict):
+        return None
+    reveal = table.get("reveal")
+    if not isinstance(reveal, dict):
+        return table
+    by_option = reveal.get("by_option")
+    if not isinstance(by_option, list) or len(by_option) != len(order):
+        return table
+    return {
+        **table,
+        "reveal": {**reveal, "by_option": [by_option[i] for i in order]},
+    }
 
 
 def _build_exercise(
@@ -594,7 +617,7 @@ def _build_exercise(
     )
     if ex.get("external_id"):
         extra_exclude.add(ex["external_id"])
-    shuffled, new_correct_index, shuffled_feedback = _shuffle_options(ex)
+    shuffled, new_correct_index, shuffled_feedback, shuffled_table = _shuffle_options(ex)
     return ExerciseInSession(
         exercise_id=f"ex_{idx:03d}",
         unit_key=unit_key,
@@ -608,6 +631,7 @@ def _build_exercise(
         graph_view=ex.get("graph_view"),
         graph_shade=ex.get("graph_shade"),
         graph_free_aspect=bool(ex.get("graph_free_aspect", False)),
+        table=shuffled_table,
         explanation=ex.get("explanation"),
         external_id=ex.get("external_id", ""),
     )
@@ -978,11 +1002,12 @@ def create_test_session_db(
     (belt, topic, exercise_type). No SR tracking.
 
     `items` is a list of {belt, topic, exercise_type} dicts.
-    `filters` may contain `has_math: bool` and `has_graph: bool` to narrow the
-    exercise set (both default to no-op).
+    `filters` may contain `has_math`, `has_graph` and `has_table` (bool) to
+    narrow the exercise set (all default to no-op).
     """
     only_math = bool(filters and filters.get("has_math"))
     only_graph = bool(filters and filters.get("has_graph"))
+    only_table = bool(filters and filters.get("has_table"))
 
     exercises: list[ExerciseInSession] = []
     idx = 0
@@ -1001,7 +1026,9 @@ def create_test_session_db(
                 continue
             if only_graph and not ex.get("graph_fn"):
                 continue
-            shuffled, new_correct_index, shuffled_feedback = _shuffle_options(ex)
+            if only_table and not ex.get("table"):
+                continue
+            shuffled, new_correct_index, shuffled_feedback, shuffled_table = _shuffle_options(ex)
             exercises.append(
                 ExerciseInSession(
                     exercise_id=f"ex_{idx:03d}",
@@ -1016,6 +1043,7 @@ def create_test_session_db(
                     graph_view=ex.get("graph_view"),
                     graph_shade=ex.get("graph_shade"),
                     graph_free_aspect=bool(ex.get("graph_free_aspect", False)),
+                    table=shuffled_table,
                     explanation=ex.get("explanation"),
                     external_id=ex.get("external_id", ""),
                 )

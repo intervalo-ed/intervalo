@@ -1529,7 +1529,7 @@
     "/leaderboard/summary": {
       "get": {
         "summary": "Get Leaderboard Summary",
-        "description": "N\u00fameros de la cabecera del leaderboard: estudiantes registrados,\nejercicios completados y universidades presentes.\n\n`universities` siempre lista el set completo (para poblar el filtro), pero\n`total_students`/`total_exercises` respetan `career`/`university` si se\npasan, igual que el scope de `/leaderboard`.\n\nEl scope ac\u00e1 se cuenta sobre `enrollments` (no sobre `users`): un enrollment\ncon universidad cuenta como estudiante registrado aunque el usuario ya no\nexista. Se mantiene esa sem\u00e1ntica, solo que contada en SQL.",
+        "description": "N\u00fameros de la cabecera del leaderboard: estudiantes registrados,\nejercicios completados y universidades presentes.\n\n`universities` siempre lista el set completo (para poblar el filtro), pero\n`total_students`/`total_exercises` respetan `career`/`university` si se\npasan, igual que el scope de `/leaderboard`.\n\n`total_students` cuenta solo usuarios con XP positivo: el ranking ya no\nmuestra a los que nunca arrancaron, y el contador tiene que hablar de la\nmisma gente que la lista de abajo.",
         "operationId": "get_leaderboard_summary_leaderboard_summary_get",
         "parameters": [
           {
@@ -1601,7 +1601,7 @@
     "/public/university-leaderboard": {
       "get": {
         "summary": "Get Public University Leaderboard",
-        "description": "Snapshot agregado sin auth de las universidades top (por XP, mismo\norden que /leaderboard/universities), para la landing (marketing-home.tsx)\n\u2014 un visitante sin cuenta no tiene sesi\u00f3n para pegarle a ese endpoint. Sin\nPII: solo universidad + conteos, los mismos n\u00fameros que ya ve cualquier\nusuario logueado en el leaderboard.\n\nEs el \u00fanico endpoint del leaderboard sin auth, as\u00ed que es el que m\u00e1s importa\nque no traiga `users` + `enrollments` enteras a memoria en cada visita a la\nlanding: un GROUP BY devuelve una fila por universidad. Los estudiantes se\ncuentan por enrollment (aunque el usuario ya no exista, igual que antes) y su\nXP con LEFT JOIN, que aporta 0 en ese caso.",
+        "description": "Snapshot agregado sin auth de las universidades top (por XP, mismo\norden que /leaderboard/universities), para la landing (marketing-home.tsx)\n\u2014 un visitante sin cuenta no tiene sesi\u00f3n para pegarle a ese endpoint. Sin\nPII: solo universidad + conteos, los mismos n\u00fameros que ya ve cualquier\nusuario logueado en el leaderboard.\n\nEs el \u00fanico endpoint del leaderboard sin auth, as\u00ed que es el que m\u00e1s importa\nque no traiga `users` + `enrollments` enteras a memoria en cada visita a la\nlanding: un GROUP BY devuelve una fila por universidad. Solo cuentan los\nusuarios con XP positivo, igual que en el leaderboard de la app \u2014 los dos\nn\u00fameros tienen que hablar de la misma gente.",
         "operationId": "get_public_university_leaderboard_public_university_leaderboard_get",
         "responses": {
           "200": {
@@ -2995,6 +2995,18 @@
             ],
             "title": "Graph Free Aspect"
           },
+          "table": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Table"
+          },
           "feedback_correct": {
             "type": "string",
             "title": "Feedback Correct"
@@ -3573,6 +3585,11 @@
           "has_graph": {
             "type": "boolean",
             "title": "Has Graph",
+            "default": false
+          },
+          "has_table": {
+            "type": "boolean",
+            "title": "Has Table",
             "default": false
           }
         },

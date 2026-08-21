@@ -101,6 +101,13 @@ def _serialize_tags(tags: Any) -> str | None:
     return None
 
 
+def _serialize_table(table: Any) -> str | None:
+    """Store the table object as a JSON string; absent/invalid stays None."""
+    if isinstance(table, dict):
+        return json.dumps(table, ensure_ascii=False)
+    return None
+
+
 # ── Seeders por tabla ──────────────────────────────────────────────────────────
 
 def seed_course(db: DBSession, data: dict) -> Course:
@@ -277,6 +284,7 @@ def seed_exercises(
                     graph_view=_serialize_graph_view(entry.get("graph_view")),
                     graph_shade=_serialize_graph_view(entry.get("graph_shade")),
                     graph_free_aspect=bool(entry.get("graph_free_aspect", False)),
+                    table_data=_serialize_table(entry.get("table")),
                     explanation=entry.get("explanation"),
                     tags=_serialize_tags(entry.get("tags")),
                     reviewed=entry.get("reviewed"),
@@ -300,6 +308,7 @@ def seed_exercises(
                     "graph_view":         _serialize_graph_view(entry.get("graph_view")),
                     "graph_shade":        _serialize_graph_view(entry.get("graph_shade")),
                     "graph_free_aspect":  bool(entry.get("graph_free_aspect", False)),
+                    "table_data":         _serialize_table(entry.get("table")),
                     "explanation":        entry.get("explanation"),
                     "tags":               _serialize_tags(entry.get("tags")),
                     "reviewed":           entry.get("reviewed"),
