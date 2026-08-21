@@ -2,9 +2,11 @@
 
 Belt: `white`, Unit: `conteo`, Topic: `reglas`
 
-Skills en este topic: `FORM`, `ESTR`, `RESL`.
+Skills en este topic: `FORM`, `ESTR`.
 
-Este topic tiene 3 ítems (uno por skill): `FORM`, `ESTR`, `RESL`.
+Este topic tiene 2 ítems (uno por skill): `FORM`, `ESTR`.
+
+> **RESL archivado (ago-2026):** se sacó de este topic por decisión pedagógica: acá el cálculo no aporta sobre el planteo. Una vez que el alumno eligió la regla (`ESTR`) y armó la expresión (`FORM`), evaluar $9 \times 10 \times 10$ es aritmética sin contenido combinatorio, y el ítem no agrega señal de diagnóstico que las otras dos skills no den ya. Mismo criterio que el archivado de `ESTR` en `analisis/violet/derivatives/limit_definition`. Contenido preservado en `backend/content/archive/probabilidad/white/conteo/reglas/RESL.json`, incluidos los 4 ejercicios con tabla de la sub-familia `total-desde-tabla`. No generar `RESL` para este topic en rondas futuras. El cupo no se redistribuye (mismo criterio que los archivados anteriores). Las menciones históricas de `RESL` en el resto de este documento quedan como referencia, no como guía de generación.
 
 Concepto: la **regla del producto** (decisiones secuenciales o independientes, se multiplican las opciones de cada paso) y la **regla de la suma** (alternativas mutuamente excluyentes, se suman los casos). Este topic es la base de todo el resto de la unidad: `factoriales`, `permutaciones`, `variaciones` y `combinaciones` son casos particulares donde ya no alcanza con producto/suma directos y hace falta una fórmula específica.
 
@@ -14,7 +16,7 @@ Concepto: la **regla del producto** (decisiones secuenciales o independientes, s
 
 ## FORM, 19 ejercicios
 
-Armar la **expresión** que cuenta el total (no calcular el valor numérico, eso es `RESL`).
+Armar la **expresión** que cuenta el total, no calcular el valor numérico. El cálculo se evalúa en los topics siguientes de la unidad; `RESL` está archivado acá.
 
 ### Distribución objetivo
 
@@ -53,7 +55,7 @@ Elegir **qué regla conviene aplicar**, sin calcular el resultado. Los distracto
 
 ---
 
-## RESL, 19 ejercicios
+## RESL, 19 ejercicios  *(ARCHIVADO ago-2026, ver aviso arriba: no generar)*
 
 Calcular el **resultado numérico**.
 
@@ -74,7 +76,7 @@ Calcular el **resultado numérico**.
 
 ---
 
-## `feedback_incorrect`, confusiones típicas (las 3 skills)
+## `feedback_incorrect`, confusiones típicas (las 2 skills vigentes)
 
 | Concepto preguntado | Confusión a diagnosticar |
 |---|---|
@@ -93,11 +95,11 @@ Calcular el **resultado numérico**.
 - **"Y" vs. "o" en el enunciado**: la palabra que conecta las decisiones es la pista central del ejercicio (regla crítica: nombrar la estructura, no explicarla). Un enunciado de regla del producto conecta decisiones con "y luego", "seguido de"; uno de regla de la suma con "o", "en cualquiera de los casos".
 - **Restricciones explícitas y verificables**: "el primer carácter no puede ser $0$", "no se puede repetir el mismo color dos veces seguidas". Nunca una restricción ambigua que admita más de una lectura.
 
-### Ejercicios con tabla (`patron-tabla`, `regla-desde-tabla`, `total-desde-tabla`)
+### Ejercicios con tabla (`patron-tabla`, `regla-desde-tabla`)
 
 Reglas 68-75 de `authoring-context.md` más lo específico de este topic:
 
-- **3 opciones, siempre**, también en `RESL`. Es la excepción a la cardinalidad de arriba, y no es
+- **3 opciones, siempre.** Coincide con la cardinalidad conceptual del topic, y no es
   cosmética: las restricciones anti-descarte (regla 71) son mucho más difíciles de satisfacer con
   cuatro candidatos, y con tres cada distractor puede ser un error real y no relleno. Con 3
   opciones tampoco se activa la grilla 2×2, que es lo deseable teniendo una tabla arriba.
@@ -121,5 +123,5 @@ Reglas 68-75 de `authoring-context.md` más lo específico de este topic:
 - [ ] La palabra conectora del enunciado ("y"/"o") es consistente con la regla que evalúa el ejercicio
 - [ ] En restricciones, el enunciado dice explícitamente sobre qué paso aplica
 - [ ] `tags` con el slug de la tabla de distribución, conteo por slug verificado contra el target
-- [ ] Cardinalidad: FORM/ESTR conceptuales → 3 opciones; RESL numérico → 4 opciones ≤35 caracteres
+- [ ] Cardinalidad: FORM/ESTR conceptuales → 3 opciones
 - [ ] **Ejercicios con `table`: 3 opciones, fila trampa presente (A1), entradas consecutivas**

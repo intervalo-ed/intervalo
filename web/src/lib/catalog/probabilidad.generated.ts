@@ -94,8 +94,7 @@ export const catalog: Catalog = {
               "short_description": "Las **reglas de conteo** cuantifican la cantidad de resultados posibles de un experimento compuesto.\n$$N = m \\times n$$",
               "skills": [
                 "FORM",
-                "ESTR",
-                "RESL"
+                "ESTR"
               ]
             },
             {
