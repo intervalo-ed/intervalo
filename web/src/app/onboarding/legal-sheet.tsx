@@ -78,8 +78,12 @@ export function LegalSheet({
         {/* max(42dvh, 320px): corta justo después del primer párrafo de la
             política, con un poco de aire; el piso evita que en pantallas
             bajas quede cortado a mitad de texto. */}
+        {/* initialFocus al popup: sin esto el Dialog enfoca el primer link del
+            contenido y el navegador lo scrollea a la vista, abriendo el panel
+            ya scrolleado en vez de en el título. */}
         <DialogPrimitive.Popup
           ref={popupRef}
+          initialFocus={popupRef}
           className="fixed inset-x-0 bottom-0 z-50 flex h-[max(42dvh,320px)] flex-col overflow-hidden rounded-t-2xl border-t border-[#38385A] bg-[#131324] font-sans text-[#F6F8FC] outline-none duration-200 data-open:animate-in data-open:slide-in-from-bottom-[100%] data-closed:animate-out data-closed:slide-out-to-bottom-[100%]"
         >
           <DialogPrimitive.Title className="sr-only">
