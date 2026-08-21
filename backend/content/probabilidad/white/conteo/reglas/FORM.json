@@ -373,5 +373,349 @@
     "tags": [
       "producto-con-restriccion"
     ]
+  },
+  {
+    "question": "Un código de barras usa $n$ franjas y cada franja puede ser clara u oscura.\n\nLa tabla registra cuántos códigos distintos se pueden formar según la cantidad de franjas.\n\n¿Cuántos códigos hay con $n$ franjas?",
+    "options": [
+      "$2n$",
+      "$2^{n}$",
+      "$n^{2}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada franja nueva duplica el total, así que las 2 opciones se repiten $n$ veces.",
+    "feedback_incorrect": [
+      "Duplicar la cantidad de franjas supone que cada franja agrega dos códigos, pero con 3 franjas la tabla muestra 8 y no 6.",
+      null,
+      "Ahí la base y el exponente están cambiados de lugar: lo que se repite es el 2, una vez por cada franja."
+    ],
+    "explanation": "La **regla del producto** dice que cuando algo se arma tomando una decisión por paso, el total es el producto de las opciones de cada paso.\n\nAcá cada franja es un paso con 2 opciones, y las franjas se completan una detrás de otra:\n$$2 \\times 2 \\times \\cdots \\times 2 = 2^{n}$$\nCon 2 franjas da 4 y con 3 da 8, que es el salto que registra la tabla.\n\nLa fila de 2 franjas no alcanza para decidir, porque ahí las tres expresiones dan lo mismo. Recién en 3 franjas se separan.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Franjas"
+        },
+        {
+          "icon": "🏷️",
+          "label": "Códigos"
+        }
+      ],
+      "rows": [
+        [
+          "$1$",
+          "$2$"
+        ],
+        [
+          "$2$",
+          "$4$"
+        ],
+        [
+          "$3$",
+          "$8$"
+        ],
+        [
+          "$n$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$2n$",
+            "cells": [
+              "$2$",
+              "$4$",
+              "$6$",
+              "$2n$"
+            ]
+          },
+          {
+            "header": "$2^{n}$",
+            "cells": [
+              "$2$",
+              "$4$",
+              "$8$",
+              "$2^{n}$"
+            ]
+          },
+          {
+            "header": "$n^{2}$",
+            "cells": [
+              "$1$",
+              "$4$",
+              "$9$",
+              "$n^{2}$"
+            ]
+          }
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "patron-tabla"
+    ]
+  },
+  {
+    "question": "Una cerradura usa un código de 2 posiciones y cada posición admite cualquiera de los $n$ símbolos del teclado.\n\nLa tabla registra cuántos códigos hay según la cantidad de símbolos disponibles.\n\n¿Cuántos códigos hay con $n$ símbolos?",
+    "options": [
+      "$2n$",
+      "$n+2$",
+      "$n^{2}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Cada posición se elige entre los mismos $n$ símbolos, y son dos posiciones seguidas.",
+    "feedback_incorrect": [
+      "Duplicar cuenta cada posición por separado en vez de combinarlas, y con 3 símbolos la tabla ya muestra 9.",
+      "Sumar deja el total casi igual al agregar un símbolo, y la tabla muestra que salta de 4 a 9.",
+      null
+    ],
+    "explanation": "La **regla del producto** aplica cuando el objeto se arma con decisiones sucesivas: el total multiplica las opciones de cada una.\n\nLas dos posiciones se eligen entre los mismos $n$ símbolos, así que:\n$$n \\times n = n^{2}$$\nCon 3 símbolos da 9 y con 5 daría 25.\n\nCon 2 símbolos las tres expresiones dan 4, así que esa fila no distingue nada: hay que mirar la siguiente para separarlas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Símbolos"
+        },
+        {
+          "icon": "🔑",
+          "label": "Códigos"
+        }
+      ],
+      "rows": [
+        [
+          "$2$",
+          "$4$"
+        ],
+        [
+          "$3$",
+          "$9$"
+        ],
+        [
+          "$5$",
+          null
+        ],
+        [
+          "$n$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$2n$",
+            "cells": [
+              "$4$",
+              "$6$",
+              "$10$",
+              "$2n$"
+            ]
+          },
+          {
+            "header": "$n+2$",
+            "cells": [
+              "$4$",
+              "$5$",
+              "$7$",
+              "$n+2$"
+            ]
+          },
+          {
+            "header": "$n^{2}$",
+            "cells": [
+              "$4$",
+              "$9$",
+              "$25$",
+              "$n^{2}$"
+            ]
+          }
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "patron-tabla"
+    ]
+  },
+  {
+    "question": "Una heladería ofrece $n$ gustos y cada helado se sirve en 2 tamaños.\n\nLa tabla registra cuántos helados distintos se pueden pedir según la cantidad de gustos.\n\n¿Cuántos helados hay con $n$ gustos?",
+    "options": [
+      "$2n$",
+      "$n+2$",
+      "$n^{2}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Se elige gusto y además tamaño, así que cada gusto se abre en 2 helados posibles.",
+    "feedback_incorrect": [
+      null,
+      "Sumar trata al tamaño como una alternativa aparte, y acá el pedido lleva gusto y además tamaño.",
+      "Elevar al cuadrado supone que los dos pasos tienen la misma cantidad de opciones, pero los tamaños son siempre 2."
+    ],
+    "explanation": "La **regla del producto** multiplica las opciones de cada decisión cuando el resultado necesita todas.\n\nUn helado necesita un gusto entre $n$ y un tamaño entre 2:\n$$n \\times 2 = 2n$$\nCon 3 gustos da 6 helados y con 6 gustos daría 12.\n\nLos tamaños no crecen con los gustos: por eso el 2 se queda fijo como factor y no aparece como exponente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "table": {
+      "columns": [
+        {
+          "icon": "🍦",
+          "label": "Gustos"
+        },
+        {
+          "icon": "🍨",
+          "label": "Helados"
+        }
+      ],
+      "rows": [
+        [
+          "$2$",
+          "$4$"
+        ],
+        [
+          "$3$",
+          "$6$"
+        ],
+        [
+          "$6$",
+          null
+        ],
+        [
+          "$n$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$2n$",
+            "cells": [
+              "$4$",
+              "$6$",
+              "$12$",
+              "$2n$"
+            ]
+          },
+          {
+            "header": "$n+2$",
+            "cells": [
+              "$4$",
+              "$5$",
+              "$8$",
+              "$n+2$"
+            ]
+          },
+          {
+            "header": "$n^{2}$",
+            "cells": [
+              "$4$",
+              "$9$",
+              "$36$",
+              "$n^{2}$"
+            ]
+          }
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "patron-tabla"
+    ]
+  },
+  {
+    "question": "Un edificio se abre con una de las $n$ tarjetas de los vecinos, o bien con uno de los 2 códigos de invitado.\n\nNunca se usan las dos cosas en el mismo ingreso, y la tabla registra cuántas formas de entrar hay.\n\n¿Cuántas formas hay con $n$ tarjetas?",
+    "options": [
+      "$2n$",
+      "$n+2$",
+      "$n^{2}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Se entra con una tarjeta o con un código, así que las dos alternativas se suman.",
+    "feedback_incorrect": [
+      "Duplicar supone que cada tarjeta habilita también un código, y los códigos de invitado son 2 en total, no uno por vecino.",
+      null,
+      "Multiplicar combinaría una tarjeta con un código, pero el ingreso usa una cosa o la otra."
+    ],
+    "explanation": "La **regla de la suma** aplica cuando el resultado sale de una sola de varias alternativas que se excluyen entre sí.\n\nUn ingreso usa una tarjeta entre $n$ o un código entre 2, nunca los dos:\n$$n + 2$$\nCon 3 tarjetas hay 5 formas de entrar y con 7 tarjetas habría 9.\n\nLa palabra que decide es la que conecta las alternativas: acá dice o, y por eso los casos se cuentan por separado en vez de combinarse.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "table": {
+      "columns": [
+        {
+          "icon": "🪪",
+          "label": "Tarjetas"
+        },
+        {
+          "icon": "🚪",
+          "label": "Formas"
+        }
+      ],
+      "rows": [
+        [
+          "$2$",
+          "$4$"
+        ],
+        [
+          "$3$",
+          "$5$"
+        ],
+        [
+          "$7$",
+          null
+        ],
+        [
+          "$n$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$2n$",
+            "cells": [
+              "$4$",
+              "$6$",
+              "$14$",
+              "$2n$"
+            ]
+          },
+          {
+            "header": "$n+2$",
+            "cells": [
+              "$4$",
+              "$5$",
+              "$9$",
+              "$n+2$"
+            ]
+          },
+          {
+            "header": "$n^{2}$",
+            "cells": [
+              "$4$",
+              "$9$",
+              "$49$",
+              "$n^{2}$"
+            ]
+          }
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "patron-tabla"
+    ]
   }
 ]

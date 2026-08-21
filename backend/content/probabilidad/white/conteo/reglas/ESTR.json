@@ -339,5 +339,127 @@
     "tags": [
       "reconocer-fuera-de-alcance"
     ]
+  },
+  {
+    "question": "Un sistema de acceso pide una tarjeta magnética y además una clave numérica, y cada una se elige de una lista propia.\n\nLa tabla muestra cuántas alternativas ofrece cada paso.\n\n¿Qué regla conviene aplicar para contar los accesos posibles?",
+    "options": [
+      "La regla del producto entre los pasos",
+      "La regla de la suma entre los pasos",
+      "Ninguna, porque hay que ordenar los elementos"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Entrar pide tarjeta y además clave: son dos decisiones seguidas y se multiplican.",
+    "feedback_incorrect": [
+      null,
+      "La suma cuenta alternativas que se excluyen entre sí, y acá el acceso necesita la tarjeta y también la clave.",
+      "Ordenar haría falta si los elementos se acomodaran en una secuencia, pero acá cada paso se elige de una lista propia."
+    ],
+    "explanation": "La **regla del producto** aplica cuando el resultado se arma tomando una decisión por paso y todas las decisiones ocurren.\n\nAcá el acceso necesita una tarjeta entre 4 y además una clave entre 6, así que cada tarjeta se combina con cada clave.\n\nLa palabra que conecta los pasos es la que decide la regla.\n\nUn y encadena decisiones y multiplica; un o abre alternativas excluyentes y suma. La diferencia no está en los números sino en cómo está redactada la situación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "table": {
+      "columns": [
+        {
+          "icon": "🔐",
+          "label": "Paso"
+        },
+        {
+          "icon": null,
+          "label": "Opciones"
+        }
+      ],
+      "rows": [
+        [
+          "Tarjeta",
+          "$4$"
+        ],
+        [
+          "Clave",
+          "$6$"
+        ],
+        [
+          "**Total**",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "cell",
+        "at": [
+          2,
+          1
+        ],
+        "by_option": [
+          "$24$",
+          "$10$",
+          null
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "regla-desde-tabla"
+    ]
+  },
+  {
+    "question": "Un envío se despacha por uno de los 3 correos privados, o bien por una de las 5 sucursales del correo público, nunca por los dos.\n\nLa tabla muestra cuántas alternativas ofrece cada vía.\n\n¿Qué regla conviene aplicar para contar los despachos posibles?",
+    "options": [
+      "La regla del producto entre las vías",
+      "La regla de la suma entre las vías",
+      "Ninguna, porque hay que elegir un subconjunto"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El envío va por una vía o por la otra, así que las alternativas se suman.",
+    "feedback_incorrect": [
+      "El producto combinaría un correo privado con una sucursal pública, pero el envío usa una sola vía.",
+      null,
+      "Elegir un subconjunto haría falta si se despacharan varios paquetes juntos, y acá se despacha uno solo."
+    ],
+    "explanation": "La **regla de la suma** aplica cuando el resultado sale de una sola de varias alternativas mutuamente excluyentes: se cuenta cada rama por separado y se suman.\n\nAcá el envío usa un correo privado entre 3 o una sucursal pública entre 5, nunca los dos a la vez.\n\nMultiplicar en cuanto aparecen dos conjuntos ignora que el producto corresponde cuando se toma un elemento de cada uno, no cuando se elige uno u otro.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "table": {
+      "columns": [
+        {
+          "icon": "📦",
+          "label": "Vía"
+        },
+        {
+          "icon": null,
+          "label": "Opciones"
+        }
+      ],
+      "rows": [
+        [
+          "Privado",
+          "$3$"
+        ],
+        [
+          "Público",
+          "$5$"
+        ],
+        [
+          "**Total**",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "cell",
+        "at": [
+          2,
+          1
+        ],
+        "by_option": [
+          "$15$",
+          "$8$",
+          null
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "regla-desde-tabla"
+    ]
   }
 ]
