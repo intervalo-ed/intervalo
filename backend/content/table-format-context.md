@@ -1,0 +1,403 @@
+# Ejercicios con tabla: investigación, diseño y cómo trasladarlo a otros cursos
+
+Este documento es el punto de partida para llevar el formato **tabla** a `analisis` y `algebra`.
+Tiene tres partes:
+
+1. **La investigación pedagógica**, que es lo que no hay que volver a hacer desde cero.
+2. **Las decisiones de diseño y su evidencia**, o sea por qué el formato quedó como quedó.
+3. **El traslado**: dónde entra en cada curso, dónde está contraindicado, y el protocolo para
+   repetir la investigación con el rigor de la primera vez.
+
+Las reglas operativas viven en `authoring-context.md` (R68-R75) y la forma del campo en su sección
+*Tablas*. Acá está el **porqué**; allá el **qué**.
+
+Convención de evidencia, la misma que se usó al investigar:
+**[LIT]** = respaldado por literatura leída en fuente primaria · **[LIT-2ª]** = cita verificada en
+una fuente secundaria, original no accesible · **[INF]** = inferencia razonada, sin respaldo directo.
+
+---
+
+## Parte 1 — Qué entrena este formato
+
+### 1.1 Los tres modos de pensamiento funcional
+
+**[LIT]** Stephens, Ellis, Blanton & Brizuela (2020, *JRME* 51(5)) modelan el pensamiento
+funcional en tres modos, en orden creciente:
+
+| Modo | Qué hace el alumno | Ejemplo |
+|---|---|---|
+| **Recursivo** | Mira una sola columna | "la salida sube de a 3" |
+| **Covariacional** | Coordina los dos cambios | "cuando la entrada sube 1, la salida sube 3" |
+| **Correspondencia** | Relaciona entrada con salida | "la salida es la entrada más 3" |
+
+Solo el tercero produce una fórmula. El formato tabla apunta ahí, que es el **objetivo terminal**
+de una progresión que en early algebra lleva años. No es un ejercicio fácil disfrazado de tabla.
+
+### 1.2 El riesgo estructural: inducción ingenua
+
+**[LIT]** Radford (2006, PME-NA 28) distingue **generalización algebraica** de **inducción
+ingenua**: probar reglas y chequear contra algunos casos. Transcribe a un grupo que produjo una
+fórmula correcta y, al preguntarles cómo la encontraron, respondió *"la encontramos de casualidad"*.
+
+Su frase, que conviene tener presente al diseñar: *"así como no toda simbolización es algebraica,
+no toda actividad de patrones lleva a pensamiento algebraico"*.
+
+**Un ítem de opción múltiple con tabla es, por su mecánica, una invitación estructural a la
+inducción ingenua**: le servís al alumno 3 o 4 hipótesis y 3 casos para testearlas. Casi todo el
+diseño del formato es pelear contra eso.
+
+### 1.3 La advertencia sobre tablas existe desde 1995
+
+**[LIT]** Radford (2006), citando a MacGregor & Stacey (1992, 1995) y Castro Martínez (1995):
+
+> "las tablas X-Y enfatizaban un aspecto formulaico de la generalidad basado en heurísticas de
+> ensayo y error, confinando a las notaciones algebraicas al estatus de marcadores de posición con
+> muy poco significado algebraico."
+
+**[LIT]** Moss, Boyce & Lamberg (2020, *IEJME* 15(2)) agregan una segunda advertencia, distinta:
+*"una representación de tabla de función puede connotar a las variables como valores conocidos"*,
+en vez de como cantidades que varían. La tabla, sola, empuja a leer la letra como un número fijo.
+
+**Ninguna de las dos invalida el formato. Las dos dicen qué hay que compensar por diseño.**
+
+### 1.4 El dato que decide el diseño
+
+**[LIT]** Stephens, Fonger, Blanton & Knuth (2016, AERA ED566523), 104 estudiantes. Misma tabla,
+entradas consecutivas 1..7, dos consignas distintas:
+
+| Consigna | Respuesta recursiva | Respuesta funcional en variables |
+|---|---:|---:|
+| Abierta: *"¿ves algún patrón?"* | **70%** | 1% |
+| Dirigida: *"escribí la regla con variables"* | — | **37%** (3.º) / **64%** (4.º) |
+
+**La consigna pesa tanto como la estructura de la tabla.** Y ahí tenemos suerte estructural:
+nuestras opciones son expresiones simbólicas, así que la consigna es intrínsecamente de
+correspondencia. Eso solo ya nos blinda contra el peor modo de falla.
+
+Hallazgo secundario del mismo paper, contraintuitivo y a favor nuestro: los alumnos fueron
+**sistemáticamente mejores expresando la regla en variables que en palabras**. Las opciones van en
+notación, no en prosa.
+
+### 1.5 Entradas no consecutivas: confirmado en fuente primaria
+
+**[LIT]** Ellis, Ozgur, Kulow, Dogan, Williams & Amidon (2013, PME-NA 35, ED584480), experimento
+de enseñanza de 12 días. Textual (p. 124):
+
+> "el hueco de 11 semanas fue suficientemente grande como para desalentar a Uditi de apoyarse en
+> una imagen mental de multiplicación repetida."
+
+Usaron huecos grandes **deliberadamente** para bloquear la estrategia recursiva, y funcionó. La
+tabla de su Figura 3 es casi exactamente nuestro formato: entradas no consecutivas con huecos
+crecientes, celdas vacías y **una fila simbólica al final** (`x → ?`).
+
+Matiz que el mismo paper deja: correspondencia no es "mejor" en abstracto. Lo covariacional es el
+punto de entrada natural, y matarlo tiene costo. **El objetivo no es prohibir la lectura recursiva,
+sino que no alcance para resolver el ítem.**
+
+### 1.6 La fila simbólica es la decisión de mayor impacto
+
+Y hay un refinamiento que vale más que la fila en sí: **las opciones son los candidatos para llenar
+la celda simbólica**. Eso reencuadra el ítem entero. Deja de ser "¿qué fórmula genera estos
+números?" (inducción) y pasa a ser "¿cuál es la salida cuando la entrada es $n$?", que es
+literalmente la definición de generalización algebraica de Radford: producir la expresión de un
+término cualquiera.
+
+Es un cambio de redacción gratis que mueve el ítem un nivel entero en la progresión.
+
+### 1.7 Los emojis tienen un riesgo con nombre
+
+Se llama **fruit-salad algebra**. **[LIT]** Moss et al. (2020) catalogan "letras como etiquetas de
+categorías" con el ejemplo exacto (`3r + 2g` para 3 rojos y 2 verdes). **[LIT]** Küchemann (1978)
+y McNeil et al. (2010) documentan que tratar la variable como etiqueta de un objeto es una de las
+concepciones erróneas más persistentes que hay.
+
+De ahí salen las tres reglas de R69: el emoji va solo en el encabezado, nunca dentro de una
+expresión, y la letra variable no debería ser la inicial del sustantivo que ilustra el emoji.
+**Las capturas de Brilliant violan la tercera** (`o` para *ordered*, `b` para *bottles*): es el
+punto donde no conviene copiarlos.
+
+### 1.8 Qué importa de Brilliant
+
+No se pudo verificar directamente un ejercicio suyo con tabla (las páginas se renderizan del lado
+del cliente y detrás de paywall). Lo que sí está verificado es su filosofía, de `brilliant.org/about`:
+
+> "no enseñamos cómo hacer algo antes de preguntar. En cambio, pre-testeamos sobre el material,
+> dejando que el que aprende intente encontrar una solución antes de aprender el procedimiento."
+
+**Lo importable no es "usar tablas": es la estructura predicción → consecuencia → explicación.** El
+alumno compromete una hipótesis y recién ahí ve qué produce. De ahí sale la decisión de repintar al
+confirmar y no al tocar la opción (§2.2).
+
+---
+
+## Parte 2 — Decisiones de diseño y su evidencia
+
+### 2.1 Anti-descarte: A1, A2, A3
+
+El formato es MC, así que el alumno siempre puede intentar descartar en vez de modelar. **No se
+puede prohibir el descarte, pero se lo puede volver más caro que entender.** Sean `f` la correcta y
+`gᵢ` los distractores, evaluados sobre las filas que ya muestran un valor:
+
+- **A1, fila trampa** — tiene que existir una fila visible donde **todos** los candidatos den el
+  mismo valor. Es lo que impide que la primera fila que el alumno mira resuelva el ítem.
+- **A2** — cada distractor coincide con `f` en al menos una fila visible. Si difiere en todas, se
+  descarta de un vistazo y no compite.
+- **A3** — cada distractor difiere de `f` en al menos una fila visible, o el ítem no es decidible.
+
+**Lección que costó descubrir:** la formulación intuitiva de A1 —"que ninguna fila refute a todos
+los distractores"— es **aritméticamente insatisfacible**. Cualquier fila lo bastante lejana separa a
+todos los candidatos, y sin una fila así el ítem violaría A3. Lo exigible es la fila trampa, no la
+ausencia de fila decisiva.
+
+**Familia productiva para armar la trampa:** $\{2n,\ n+2,\ n^{2},\ 2^{n}\}$ **valen $4$ en $n=2$**
+las cuatro. Casi todos los ítems de `reglas` se armaron eligiendo la correcta de ese conjunto y dos
+distractores del resto, con $n=2$ como fila trampa. **[INF]** Vale para cualquier curso: buscar el
+punto donde las funciones candidatas se cruzan.
+
+### 2.2 El repintado va al confirmar, no al tocar
+
+Copiar a Brilliant sería repintar al tocar la opción. **La evidencia lo desaconseja.** Si el alumno
+puede recorrer las opciones viendo la tabla responder, el ítem deja de ser de generalización y pasa
+a ser una máquina de ensayo y error con buena interfaz: exactamente la inducción ingenua de Radford,
+automatizada. Y lo peor es que **es una estrategia que funciona**, así que la aprende y la
+generaliza a todo el banco.
+
+Repintar al confirmar conserva el contraste (el runner da dos intentos) y respeta la secuencia
+predicción → consecuencia que el propio Brilliant declara como principio.
+
+### 2.3 Los dos regímenes de consecutividad, y cómo generalizarlos
+
+En `conteo` la regla quedó partida en dos, y **esa partición es lo más transferible del documento**:
+
+- **Fórmula cerrada** → entradas **no consecutivas** con espaciados irregulares.
+- **Regla del producto y recursión factorial** → entradas **consecutivas**, a propósito.
+
+El motivo: en combinatoria la lectura recursiva no es un atajo que evita entender. $n! = n\cdot(n-1)!$
+y "una etapa más multiplica el conteo" **son** el mecanismo. Bloquearla sería bloquear el contenido.
+
+**La pregunta a hacerse en cada topic nuevo, en cualquier curso:**
+
+> ¿Leer hacia abajo una columna es un atajo que **reemplaza** la comprensión, o es el **mecanismo**
+> que quiero enseñar?
+
+Si reemplaza → entradas no consecutivas. Si es el mecanismo → consecutivas. **[INF]** En `analisis`
+esto va a separar, por ejemplo, `functions/linear` (la diferencia constante reemplaza: no
+consecutivas) de una eventual unidad de sucesiones o recurrencias (la diferencia **es** el
+contenido: consecutivas).
+
+### 2.4 La familia de explosión: cuándo A1 y A2 no aplican
+
+En `factoriales` A1 y A2 son insatisfacibles: nada se parece a un factorial en dos puntos seguidos.
+No es un defecto del ejercicio, es aritmética. **Y está bien, porque ahí el trabajo de la tabla es
+otro.**
+
+**[LIT-2ª]** Wagenaar & Sagaria (1975, *Perception & Psychophysics* 18): el crecimiento exponencial
+se **subestima groseramente**, y *"no es inusual que dos tercios de los sujetos produzcan
+estimaciones por debajo del 10% del valor normativo"*. El dato clave: **ni la instrucción explícita
+ni la experiencia cotidiana mejoraron las extrapolaciones**. Réplicas de 2022 y 2023 lo confirman.
+
+**[LIT]** Thomas, Kapp & Pöhler (2026, *Frontiers in Education*), 161 estudiantes de 17-18 años:
+44% interpretó $n!$ como producto decreciente y **solo 12% reconoció el significado combinatorio**;
+en $5!$, 69% acertó el resultado y **solo 32% pudo explicarlo**.
+
+Una tabla que muestra $3\to6$, $5\to120$, $8\to40320$ en una pantalla entrega la explosión **de un
+vistazo**, que es exactamente el canal que la instrucción verbal no alcanza.
+
+**Consecuencia de diseño:** en la familia de explosión, el distractor bueno **no es una fórmula
+rival, es la correcta desfasada**. $(n-1)!$ pinta la columna correcta corrida un renglón: el alumno
+no lee un número mal, ve un desfasaje. Es el error conceptual hecho imagen.
+
+**[INF]** Esta familia se traslada directo a `algebra/white/aritmetica/powers` y a
+`analisis/white/functions/exponential`.
+
+### 2.5 El problema profundo del traslado a conteo (y su análogo en otros dominios)
+
+**[LIT]** Lockwood (2013, *JMB* 32) modela el pensamiento combinatorio con tres componentes:
+fórmulas, procesos de conteo y **conjuntos de resultados**. En su diagrama, la relación entre
+fórmula y conjunto está dibujada con línea punteada porque es la más débil. **[LIT]** Wasserman
+(2019, *FLM* 39(3)) va más lejos: el simbolismo combinatorio **es** el impedimento, porque
+$\binom{n}{k}$ y $n!$ denotan cardinalidades y **no hay ningún símbolo que denote el conjunto**.
+
+Implicación incómoda: una tabla `n → n!` con opciones simbólicas entrena justo el eslabón
+fórmula↔cardinalidad, que ya está sobre-representado, y **el conjunto de resultados no aparece en
+ningún lado**.
+
+De ahí sale **R73, la fila ancla enumerable**: cuando la salida es una cardinalidad, la primera
+fila es un caso tan chico que el conjunto se puede enumerar, y la celda lo muestra (`2 (AB, BA)`).
+
+**A favor:** **[LIT-2ª]** Lockwood (2015, *IJRUME* 1(3)) encontró que **solo 10 de 22
+universitarios usaron espontáneamente la estrategia de resolver casos más chicos; 12 nunca la
+usaron**. La tabla es una versión andamiada y obligatoria de una heurística experta que la mayoría
+no despliega sola.
+
+**[INF] Cómo se generaliza la pregunta a otro curso:** *¿qué objeto está representando esta columna,
+y ese objeto tiene una representación que la tabla oculta?* En conteo era el conjunto. En
+`analisis/functions` es la **gráfica**, y ahí ya tenemos `GRAF` para cubrirla. En
+`algebra/matrices` sería la matriz misma.
+
+### 2.6 Contraindicaciones
+
+| Contenido | Por qué no |
+|---|---|
+| **Cuando la dificultad real es el modelado** | La tabla **regala los números**. Si la pregunta es "¿acá importa el orden?", una tabla de conteos la responde por el alumno. Es la contraindicación más importante. |
+| **Límites** | Una tabla de valores **no puede** establecer un límite y engaña activamente. Ver §3.2: es la trampa nº1 de `analisis`. |
+| Relaciones de dos parámetros | Dos columnas no representan $\binom{n}{k}$ variando ambos. |
+| Recursiones sin fórmula cerrada accesible | Fibonacci, particiones, desarreglos: el formato promete una fórmula que no existe al alcance. |
+| Salidas no enteras o feas | La relación se pierde en el ruido aritmético. |
+| Justificación y demostración | **[LIT-2ª]** Lockwood, Swinyard & Caughman (2015): reinventar la fórmula correcta **no implica** poder justificarla. El formato es estructuralmente incapaz de entrenar justificación. |
+
+### 2.7 Un problema de sistema que conviene tener anotado
+
+**[LIT-2ª]** La teoría de la variación (Marton; *intelligent practice* de Craig Barton) depende de
+la **yuxtaposición**: el efecto viene de ver ítems que difieren en una sola dimensión, uno al lado
+del otro. **Un sistema de repetición espaciada, por diseño, dispersa y mezcla los ítems: el efecto
+se pierde casi entero.**
+
+**[INF]** Mitigación posible, fuera del alcance del formato pero anotada: **micro-bloques** de 2-3
+ítems que el scheduler libere juntos, variando una dimensión por vez ($n+3$ → $n+5$ → $3n$ →
+$3n+1$). Es una familia que enseña más junta que dispersa.
+
+### 2.8 Cardinalidad: 3 o 4 opciones
+
+**[LIT-2ª]** Rodriguez (2005, *EM:IP* 24(2)), meta-análisis de 80 años: **tres opciones maximizan
+la confiabilidad por unidad de tiempo**.
+
+Lo que se hizo en `conteo`, y el criterio a reusar: **3 opciones donde A1-A3 aprietan** (con cuatro
+candidatos es mucho más difícil que todos coincidan en la fila trampa y que cada uno sea un error
+real), **4 donde A1 y A2 no aplican** (familia de explosión), porque ahí la cuarta sale gratis.
+
+---
+
+## Parte 3 — Traslado a `analisis` y `algebra`
+
+### 3.1 `analisis` es el hogar nativo del formato
+
+El function-table se inventó para esto. `white/functions` es el mejor encaje de todo el producto.
+
+| Topic | Skills | Encaje | Notas |
+|---|---|---|---|
+| `functions/linear` | LEXI/FORM/GRAF | **muy fuerte** | El caso canónico. El error clásico está documentado: **[LIT-2ª]** Stacey (1989), usar la diferencia entre filas como coeficiente y olvidar el término independiente ($y=dx$ en vez de $y=dx+b$). Entradas **no consecutivas**. |
+| `functions/quadratic` | LEXI/FORM/GRAF | fuerte | La diferencia segunda es constante: cuidado, es una lectura recursiva que funciona y puede reemplazar el modelado. Reforzar con entradas irregulares. |
+| `functions/exponential` | LEXI/FORM/GRAF | **muy fuerte** | Aplica §2.4 completo: el sesgo de subestimación exponencial es el mismo que justifica `factoriales`. Es el segundo mejor candidato del producto. |
+| `functions/logarithmic` | LEXI/FORM/GRAF | fuerte | La tabla inversa de la exponencial. Buen contraste si se generan en la misma tanda. |
+| `functions/polynomial` | LEXI/FORM/GRAF | medio | Valores crecen rápido; cuidar el techo de 5 caracteres por celda (R74). |
+| `functions/rational` | LEXI/FORM/GRAF | medio | Ojo con las salidas no enteras (§2.6). |
+| `functions/trigonometric` | LEXI/FORM/GRAF | **débil** | Salidas irracionales; la tabla ilumina poco frente a `GRAF`. |
+| `derivatives/differentiation_rules` | FORM/ESTR/RESL | medio | Tabla $f \to f'$: es un mapeo, no una covariación. Funciona, pero pierde el argumento pedagógico central. |
+| `limits/*` | — | **contraindicado** | Ver §3.2. |
+| `integrals/*` | — | débil | El objeto es un área o una primitiva, no una familia parametrizada por un entero. |
+
+### 3.2 La trampa nº1 de `analisis`: límites
+
+**Es el topic donde un autor desprevenido va a querer usar una tabla primero, y es exactamente
+donde no hay que usarla.**
+
+Una tabla de valores **no puede** establecer un límite: los contraejemplos estándar ($\sin(1/x)$
+cerca de 0, funciones definidas por casos sobre los racionales) muestran tablas perfectamente
+convincentes que llevan a la respuesta equivocada. Enseñar límites por tabla instala una concepción
+errónea difícil de desarmar, y `blue/limits/lateral_limits` —una tabla acercándose por cada lado—
+es literalmente el dispositivo engañoso clásico.
+
+*(Esto es conocimiento estándar de didáctica del cálculo; no se verificó con búsqueda en esta
+sesión. Tratar como **[INF]** hasta confirmarlo, pero la carga de la prueba está del lado de quien
+quiera usar tablas ahí.)*
+
+### 3.3 `algebra`: encaje más acotado
+
+| Topic | Skills | Encaje | Notas |
+|---|---|---|---|
+| `aritmetica/powers` | LEXI/RESL/FORM | **muy fuerte** | $n \to 2^{n}$. Familia de explosión (§2.4) con toda su evidencia. |
+| `aritmetica/logarithms` | LEXI/RESL/FORM | fuerte | La tabla inversa. Buen par con `powers`. |
+| `aritmetica/scientific_notation` | RESL/FORM | fuerte | Tabla de órdenes de magnitud: es calibración, que es justo lo que el sesgo de §2.4 predice que falta. |
+| `aritmetica/radicals` | LEXI/RESL/FORM | medio | Salidas irracionales salvo que se elijan cuadrados perfectos. |
+| `matrices/determinants` | LEXI/CLSF/RESL | medio | Familia de matrices parametrizada por $n$ → su determinante. Nicho pero legítimo. |
+| `spaces/dimension` | LEXI/CLSF/RESL | medio | Familia de subespacios parametrizada → dimensión. |
+| `vectors/*` | — | **débil** | Norma y operaciones no son familias de un solo parámetro. |
+| `black/transformations` | — | fuera de alcance | Declarado en `course.json` pero no cableado en el catálogo del front. |
+
+### 3.4 La trampa nº1 de `algebra`: confundir "mostrar una matriz" con "usar el campo `table`"
+
+**R62 nació en `algebra/violet/matrices`**, del feedback *"acá pondría a la matriz como ejemplo"*.
+Es tentador leer eso como "usemos el campo `table` para las matrices". **No.**
+
+- Una **matriz** es un objeto matemático y va en `$$\begin{bmatrix}...\end{bmatrix}$$`, como
+  cualquier fórmula.
+- El campo **`table`** es una tabla de datos con encabezados en palabras y una columna que se
+  recalcula según la opción.
+
+Usar `table` para renderizar una matriz rompe R68 en espíritu y agrega una interacción que el
+objeto no pide. Son dos necesidades distintas que se parecen en pantalla.
+
+### 3.5 Protocolo para repetir la investigación
+
+Lo que funcionó en esta sesión, en orden:
+
+1. **Definir antes de investigar.** Cuatro decisiones cerradas por adelantado (semántica, taxonomía,
+   rol del emoji, volumen) evitaron que la investigación divagara. Ninguna de las cuatro se
+   revirtió; sí se revirtieron dos decisiones *derivadas* que la evidencia dio vuelta (§2.2 y el
+   criterio de ancho).
+2. **Agentes en paralelo, uno por frente.** Traza del pipeline en el codebase · extracción del
+   tracker · digesto de los docs de autoría · investigación pedagógica web · programas
+   universitarios. Los frentes no se pisan y cada uno vuelve con material citable.
+3. **Exigir el etiquetado de evidencia.** Pedirle al agente que marque [LIT] / [LIT-2ª] / [INF] y
+   que **diga explícitamente cuándo no encontró nada** cambió la calidad del resultado: así se supo
+   que *no existe literatura sobre tablas entrada-salida en combinatoria*, y que toda esa sección
+   era extrapolación. Sin esa instrucción habría vuelto con afirmaciones de confianza uniforme.
+4. **Medir en vez de estimar.** Tres veces en esta sesión una estimación razonable resultó falsa:
+   A1 parecía satisfacible y no lo era; el ancho de columna "siempre cambia" en modo `cell` y
+   resultó depender del encabezado; el pulso "funcionaba al acertar" y en realidad funcionaba por
+   accidente. Las tres se resolvieron midiendo.
+5. **Auditar el propio contenido contra las reglas nuevas.** El primer ejemplo escrito no pasaba
+   A1 ni A2. Escribir la regla y después pasarle los ejemplos propios encontró el problema antes
+   que el testeo manual.
+
+Para `analisis` y `algebra` el frente de **programas universitarios** cambia de filtro: el tracker
+usa la columna D con `Análisis` y `Álgebra`, y la misma consulta gviz sirve. Ojo con lo que se
+aprendió ahí: **las filas mixtas** (`Análisis, Probabilidad`) quedan fuera de un filtro por igualdad
+exacta, y en esta sesión eso escondía al grupo más grande de toda la base.
+
+### 3.6 Lo que la implementación enseñó, para quien extienda el formato
+
+Cinco trampas técnicas, todas verificadas en el código:
+
+1. **`_shuffle_options` desalinea en silencio.** Baraja las opciones en cada sesión; cualquier
+   estructura paralela a `options` tiene que permutarse con el mismo orden. No tira error: cada
+   opción pinta la columna de otra.
+2. **El índice revelado no puede salir de `cur.selection`.** `onRevisar` lo resetea a `null` al
+   errar, así que la columna equivocada aparecería y desaparecería en el mismo frame. Se deriva de
+   `wrongOptions`/`solved`.
+3. **La altura de una celda de tabla no se fija con `height`.** En CSS de tablas es un mínimo y el
+   contenido igual la estira. Va en un contenedor propio, o revelar corre las opciones de abajo.
+4. **`initial`/`animate` de Motion solo disparan al montar.** Sin un `key` que cambie, la animación
+   no se repite en el segundo intento. Y si dos elementos hermanos comparten `key`, React descarta
+   uno.
+5. **El seeder ignora en silencio los campos que no conoce.** Agregar un campo al JSON sin tocar
+   `seed_content.py` lo pierde sin error ni warning.
+
+---
+
+## Fuentes
+
+**Leídas en texto completo:**
+
+- Radford, L. (2006). *Algebraic thinking and the generalization of patterns*. PME-NA 28. https://www.luisradford.ca/pub/60_pmena06.pdf
+- Ellis, A. et al. (2013). *Correspondence and covariation*. PME-NA 35, 119-126. https://files.eric.ed.gov/fulltext/ED584480.pdf
+- Stephens, A., Fonger, N., Blanton, M. & Knuth, E. (2016). AERA. https://files.eric.ed.gov/fulltext/ED566523.pdf
+- Moss, D., Boyce, S. & Lamberg, T. (2020). *IEJME* 15(2). https://files.eric.ed.gov/fulltext/EJ1235427.pdf
+- Wasserman, N. (2019). *Duality in combinatorial notation*. *FLM* 39(3). https://flm-journal.org/Articles/5324ACE6181DF572F5733488DBCBB4.pdf
+
+**Consultadas por abstract o fuente secundaria:**
+
+- Stephens, Ellis, Blanton & Brizuela (2020). *JRME* 51(5), 631.
+- MacGregor & Stacey (1995). *MERJ* 7, 69-85 · Stacey (1989). *ESM* 20, 147-164.
+- Lockwood, E. (2013). *JMB* 32(2) · (2015). *IJRUME* 1(3) · Lockwood, Swinyard & Caughman (2015). *IJRUME* 1(1).
+- Wagenaar & Sagaria (1975). *Perception & Psychophysics* 18, 416-422.
+- Thomas, Kapp & Pöhler (2026). *Frontiers in Education*. https://www.frontiersin.org/journals/education/articles/10.3389/feduc.2026.1678978/full
+- Rodriguez, M. (2005). *EM:IP* 24(2) · Küchemann (1978) · Marton & Tsui (2004) · Barton, https://variationtheory.com/
+- Brilliant: https://brilliant.org/about/
+
+**No encontrado, y vale decirlo:** no existe literatura sobre tablas entrada-salida aplicadas a
+combinatoria o probabilidad. Toda la Parte 2 que toca conteo es extrapolación razonada desde
+educación combinatoria (Lockwood, Wasserman, Batanero) y desde el sesgo de crecimiento exponencial.
+Tampoco se encontró literatura que dé un número óptimo de filas, ni una descripción verificable de
+un ejercicio de Brilliant con tabla.

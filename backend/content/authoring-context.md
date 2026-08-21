@@ -802,6 +802,11 @@ valores precalculados de la opción que el estudiante confirmó**. El error no s
 
 Reglas 68 a 75. Componente: `web/src/components/exercise-table.tsx`.
 
+**El porqué de cada regla, la investigación pedagógica que las respalda y el análisis de dónde
+entra el formato en `analisis` y `algebra` están en `table-format-context.md`.** Leerlo antes de
+llevar el formato a un curso o topic nuevo: tiene las contraindicaciones y los dos topics donde el
+formato parece encajar y no encaja.
+
 ### Forma del campo
 
 ```json
