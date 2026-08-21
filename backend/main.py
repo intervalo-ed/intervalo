@@ -12,7 +12,8 @@ load_dotenv(env_path)
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from fastapi import FastAPI, HTTPException, Depends, Header, Query
+from fastapi import FastAPI, HTTPException, Depends, Header, Query, Request
+from fastapi.concurrency import run_in_threadpool
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
@@ -927,6 +928,45 @@ def email_unsubscribe_confirm(token: str, db: Session = Depends(get_db)):
         db.commit()
 
     return _unsub_page(_UNSUB_DONE)
+
+
+# ── Correo entrante ───────────────────────────────────────────────────────────
+
+@app.post("/webhooks/resend-inbound")
+async def resend_inbound_webhook(request: Request):
+    """Recibe el webhook email.received de Resend y reenvía el mail al buzón
+    real (ver inbound_forward.py).
+
+    Async y con el reenvío en threadpool: el SDK de Resend es bloqueante y una
+    llamada lenta colgaría el event loop para toda la app. Ante un fallo se
+    responde 500 a propósito — Resend reintenta con backoff y el mail nunca se
+    pierde (queda guardado en Resend igual).
+    """
+    import json
+
+    from inbound_forward import forward_received_email, verify_inbound_signature
+
+    payload = (await request.body()).decode("utf-8")
+    headers = {
+        "svix-id": request.headers.get("svix-id"),
+        "svix-timestamp": request.headers.get("svix-timestamp"),
+        "svix-signature": request.headers.get("svix-signature"),
+    }
+    if not verify_inbound_signature(payload, headers):
+        raise HTTPException(status_code=401, detail="Invalid webhook signature")
+
+    event = json.loads(payload)
+    # Cualquier otro evento suscripto por error se acusa como recibido y listo:
+    # devolver error haría que Resend lo reintente para siempre.
+    if event.get("type") != "email.received":
+        return {"ok": True}
+
+    email_id = (event.get("data") or {}).get("email_id")
+    if not email_id:
+        return {"ok": True}
+
+    await run_in_threadpool(forward_received_email, email_id)
+    return {"ok": True}
 
 
 # ── Leaderboard ───────────────────────────────────────────────────────────────
