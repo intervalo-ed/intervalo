@@ -17,7 +17,7 @@ const GRID_BG_STYLE: CSSProperties = {
 }
 
 const H2_CLASS =
-  "mb-10 font-sans text-[clamp(1.6rem,4vw,2.25rem)] font-semibold text-[#F6F8FC]"
+  "font-sans text-[clamp(1.6rem,4vw,2.25rem)] font-semibold text-[#F6F8FC]"
 const H3_CLASS = "font-sans text-[1.15rem] font-semibold text-[#F6F8FC]"
 const P_CLASS =
   "max-w-[44rem] text-[clamp(1rem,3vw,1.2rem)] leading-[1.8] text-[#E6EEFA]"
@@ -39,11 +39,17 @@ function Section({
   return (
     <section
       id={id}
-      className={`scroll-mt-16 border-b border-[#38385A] px-5 ${compact ? "py-10" : "py-20"}`}
+      className={`scroll-mt-16 border-b border-[#38385A] px-5 ${compact ? "py-6" : "py-20"}`}
       style={grid ? GRID_BG_STYLE : undefined}
     >
       <div className="mx-auto max-w-[960px]">{children}</div>
     </section>
+  )
+}
+
+function H2({ compact, children }: { compact: boolean; children: ReactNode }) {
+  return (
+    <h2 className={`${compact ? "mb-6" : "mb-10"} ${H2_CLASS}`}>{children}</h2>
   )
 }
 
@@ -94,7 +100,7 @@ export function PrivacidadContent({
     <>
       {/* Lo esencial */}
       <Section grid compact={compact}>
-        <h2 className={H2_CLASS}>Política de privacidad</h2>
+        <H2 compact={compact}>Política de privacidad</H2>
         <p className={`mb-8 ${P_CLASS}`}>
           Lo esencial, en tres frases: usamos tus datos para que Intervalo
           funcione y para mejorarlo.{" "}
@@ -126,7 +132,7 @@ export function PrivacidadContent({
 
       {/* Qué datos guardamos */}
       <Section id="datos" compact={compact}>
-        <h2 className={H2_CLASS}>Qué datos guardamos</h2>
+        <H2 compact={compact}>Qué datos guardamos</H2>
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-3.5">
             <h3 className={H3_CLASS}>Tu cuenta</h3>
@@ -168,7 +174,7 @@ export function PrivacidadContent({
 
       {/* Para qué los usamos */}
       <Section id="uso" grid compact={compact}>
-        <h2 className={H2_CLASS}>Para qué los usamos</h2>
+        <H2 compact={compact}>Para qué los usamos</H2>
         <p className={`mb-8 ${P_CLASS}`}>
           Para tres cosas.{" "}
           <span className={STRONG_CLASS}>Que el producto funcione</span>:
@@ -187,7 +193,7 @@ export function PrivacidadContent({
 
       {/* Con quién los compartimos */}
       <Section id="terceros" compact={compact}>
-        <h2 className={H2_CLASS}>Con quién los compartimos</h2>
+        <H2 compact={compact}>Con quién los compartimos</H2>
         <p className={`mb-8 ${P_CLASS}`}>
           <span className={STRONG_CLASS}>Con nadie, para sus propios fines.</span>{" "}
           No vendemos datos, no los alquilamos, no los cedemos a anunciantes ni
@@ -216,7 +222,7 @@ export function PrivacidadContent({
 
       {/* Tus derechos */}
       <Section id="derechos" grid compact={compact}>
-        <h2 className={H2_CLASS}>Tus derechos</h2>
+        <H2 compact={compact}>Tus derechos</H2>
         <p className={`mb-8 ${P_CLASS}`}>
           Tus datos son tuyos. Podés pedirnos{" "}
           <span className={STRONG_CLASS}>
@@ -241,7 +247,7 @@ export function PrivacidadContent({
 
       {/* Cambios */}
       <Section id="cambios" compact={compact}>
-        <h2 className={H2_CLASS}>Si esto cambia</h2>
+        <H2 compact={compact}>Si esto cambia</H2>
         <p className={`mb-8 ${P_CLASS}`}>
           Si alguna vez cambiamos qué datos guardamos o para qué, lo vas a leer
           acá antes de que pase, con la fecha actualizada. No vamos a esconder
@@ -266,7 +272,7 @@ export function TerminosContent({
     <>
       {/* Lo esencial */}
       <Section grid compact={compact}>
-        <h2 className={H2_CLASS}>Términos y condiciones</h2>
+        <H2 compact={compact}>Términos y condiciones</H2>
         <p className={`mb-8 ${P_CLASS}`}>
           Intervalo es gratis y está para ayudarte a estudiar. Estas son las
           reglas para usarlo.{" "}
@@ -294,7 +300,7 @@ export function TerminosContent({
 
       {/* Qué es Intervalo */}
       <Section id="que-es" compact={compact}>
-        <h2 className={H2_CLASS}>Qué es Intervalo, y qué no</h2>
+        <H2 compact={compact}>Qué es Intervalo, y qué no</H2>
         <p className={`mb-8 ${P_CLASS}`}>
           Intervalo es una herramienta de repaso:{" "}
           <span className={STRONG_CLASS}>
@@ -313,7 +319,7 @@ export function TerminosContent({
 
       {/* Tu cuenta y el juego limpio */}
       <Section id="cuenta" grid compact={compact}>
-        <h2 className={H2_CLASS}>Tu cuenta y el juego limpio</h2>
+        <H2 compact={compact}>Tu cuenta y el juego limpio</H2>
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-3.5">
             <h3 className={H3_CLASS}>Tu cuenta</h3>
@@ -343,7 +349,7 @@ export function TerminosContent({
 
       {/* El contenido */}
       <Section id="contenido" compact={compact}>
-        <h2 className={H2_CLASS}>El contenido</h2>
+        <H2 compact={compact}>El contenido</H2>
         <p className={`mb-8 ${P_CLASS}`}>
           Los ejercicios, explicaciones y demás material de Intervalo son
           nuestros.{" "}
@@ -362,7 +368,7 @@ export function TerminosContent({
 
       {/* Disponibilidad y responsabilidad */}
       <Section id="disponibilidad" grid compact={compact}>
-        <h2 className={H2_CLASS}>Disponibilidad y responsabilidad</h2>
+        <H2 compact={compact}>Disponibilidad y responsabilidad</H2>
         <p className={`mb-8 ${P_CLASS}`}>
           Intervalo es un producto gratuito en desarrollo activo. Hacemos
           nuestro mejor esfuerzo para que ande siempre, pero se ofrece{" "}
@@ -382,7 +388,7 @@ export function TerminosContent({
 
       {/* Cambios y ley aplicable */}
       <Section id="cambios" compact={compact}>
-        <h2 className={H2_CLASS}>Si esto cambia</h2>
+        <H2 compact={compact}>Si esto cambia</H2>
         <p className={`mb-8 ${P_CLASS}`}>
           Si alguna vez cambiamos estas reglas, lo vas a leer acá con la fecha
           actualizada, igual que en la política de privacidad. Seguir usando
