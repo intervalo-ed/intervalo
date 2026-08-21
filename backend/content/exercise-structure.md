@@ -8,7 +8,9 @@ generó contenido entienda la estructura antes de escribir el primero.
 - **Este documento es el resumen legible.** Da la forma y los números clave.
 - **`authoring-context.md` es la fuente de verdad exhaustiva.** Cada regla acá cita
   su número (`R4`, `R18`, …) para que puedas ir al detalle fino, los ejemplos
-  ❌/✅ y las excepciones. Si algo de acá y de allá parecen chocar, gana
+  ❌/✅ y las excepciones. La numeración llega hoy hasta **R75**; ojo que `R23`
+  no existe, que hay `R17b` y `R44b`, y que dos párrafos sueltos titulados
+  "Regla 43/44 (no automatizable)" no son las R43/R44 de la lista numerada. Si algo de acá y de allá parecen chocar, gana
   `authoring-context.md`; avisá para actualizar este resumen.
 - **Se mantiene al día.** Cuando cambia una regla estructural, este plano se
   actualiza junto con `authoring-context.md`.
@@ -36,6 +38,7 @@ campos:
 | `graph_fn`, `graph_view` | `string`/`array`/`null` | Gráfico embebido (solo skills `GRAF`). |
 | `graph_shade` | `array`/`null` | `[xMin, xMax]` opcional: sombrea el área bajo `graph_fn` en ese tramo. |
 | `graph_free_aspect` | `boolean`/`null` | `true` desactiva el aspecto 1:1 forzado de Mafs (solo `probabilidad`; nunca en `analisis`). Ver sección Gráficos de `authoring-context.md`. |
+| `table` | `object`/`null` | **Tabla embebida** (tercer formato, junto a texto plano y gráfico). `columns` + `rows` + `reveal`, con una columna precalculada por opción. Ver sección Tablas de `authoring-context.md`. |
 | `correct_index`, `reviewed` | | metadata. `external_id` **no va en el JSON** (lo infiere el seeder de la ruta). |
 
 Los **cuatro componentes que redactás** son `question`, `options`, `feedback_*` y
@@ -268,6 +271,11 @@ Estas valen en `question`, `options`, `feedback_*` y `explanation` por igual:
   Una sola oración, y sin reportar el resultado de ningún paso que el
   estudiante podría dar: qué deja la sustitución, si el límite existe, cuál
   polinomio se impone. Eso es el ejercicio. (R61)
+- **La tabla va en el campo `table`, nunca como LaTeX**, y el emoji vive solo en
+  `table.columns[].icon`: nunca dentro de una opción, de una celda o de la prosa
+  (eso enseña que la letra es la etiqueta del objeto, no la cantidad). Las celdas
+  ya visibles coinciden con lo que pinta la opción correcta, y cada distractor
+  difiere de ella en al menos una fila visible. (R68-R75)
 
 ---
 

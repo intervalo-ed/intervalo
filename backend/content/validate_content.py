@@ -33,7 +33,14 @@ from statistics import median
 
 CONTENT_DIR = Path(__file__).resolve().parent
 
-ALL_CHECKS = ["options", "explanations", "questions", "feedbacks", "structure", "duplicates"]
+# La consola de Windows arranca en cp1252 y el contenido es español con acentos
+# (y, desde las tablas, con emoji). Sin esto los mensajes salen con mojibake y un
+# emoji en un hallazgo directamente tira UnicodeEncodeError a mitad del reporte.
+for _stream in (sys.stdout, sys.stderr):
+    if hasattr(_stream, "reconfigure"):
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+
+ALL_CHECKS = ["options", "explanations", "questions", "feedbacks", "structure", "tables", "duplicates"]
 
 # --- Umbrales calibrables -----------------------------------------------------
 
@@ -908,6 +915,238 @@ def check_structure(items, file, F: Findings, targets: dict[str, int],
                   "(esperable durante generación parcial; al cierre debe coincidir)")
 
 
+# --- Tablas (reglas 68-75) ----------------------------------------------------
+
+TABLE_ROWS_MIN = 3
+TABLE_ROWS_MAX = 5
+TABLE_CELL_RENDER_MAX = 5      # regla 74: celda numérica en una tabla de 2 columnas
+
+# Regla 69: el emoji vive SOLO en columns[].icon. Se detecta por rango Unicode y
+# no por lista blanca, porque la lista de emoji crece con cada versión del
+# estándar y una lista se queda corta en silencio.
+EMOJI_RANGES = (
+    (0x1F300, 0x1FAFF),   # pictogramas, símbolos suplementarios, extendidos-A
+    (0x1F000, 0x1F0FF),   # fichas de mahjong/dominó/naipes
+    (0x2600, 0x27BF),     # misceláneos y dingbats
+    (0x2B00, 0x2BFF),     # flechas y formas geométricas suplementarias
+)
+
+# U+FE0F es el selector de variación que fuerza la presentación emoji; viene
+# pegado a muchos íconos comunes (🏷️, 🍽️) y NO es un emoji en sí. Contarlo
+# como uno hacía que cualquier ícono con selector se leyera como dos emoji y,
+# peor, que el propio selector cayera en el set de veredicto de abajo.
+VARIATION_SELECTOR = "️"
+
+# Regla 69: emoji que leen como veredicto. Son la regla 14 (✓/✗) con otra
+# tipografía, así que quedan prohibidos incluso en el encabezado. Se listan por
+# separado y no como un string suelto: un `set("✔️")` mete el selector adentro.
+VERDICT_EMOJI = {"✅", "❌", "✔", "✖", "❎", "🔴", "🟢", "🟥", "🟩", "⭕"}
+
+
+def _emoji_chars(s: str) -> list[str]:
+    out = []
+    for ch in (s or "").replace(VARIATION_SELECTOR, ""):
+        cp = ord(ch)
+        if any(lo <= cp <= hi for lo, hi in EMOJI_RANGES):
+            out.append(ch)
+    return out
+
+
+def _cells_for_option(reveal: dict, i: int) -> list | None:
+    """Los valores que la opción `i` pinta, normalizados a lista.
+
+    En modo `column` es la columna entera; en modo `cell`, la única celda que
+    llena. Devolver siempre una lista deja que las comparaciones de abajo no se
+    tengan que ramificar por modo.
+    """
+    by_option = reveal.get("by_option")
+    if not isinstance(by_option, list) or i >= len(by_option):
+        return None
+    entry = by_option[i]
+    if reveal.get("mode") == "cell":
+        return [entry]
+    if isinstance(entry, dict) and isinstance(entry.get("cells"), list):
+        return entry["cells"]
+    return None
+
+
+def check_tables(items, file, F: Findings) -> None:
+    """Reglas 68-75: forma de la tabla, coherencia con la correcta y distractores.
+
+    A diferencia de la regla 60 (coherencia entre la prosa y `graph_fn`, que el
+    validador no puede ver porque hay que evaluar una función), acá los dos lados
+    son strings literales: la coherencia SÍ se chequea mecánicamente.
+    """
+    for idx, it in enumerate(items):
+        table = it.get("table")
+        if table is None:
+            continue
+        label = f"#{idx}"
+        if not isinstance(table, dict):
+            F.add("ERROR", "tables", "68", file, label, "`table` no es un objeto")
+            continue
+
+        columns = table.get("columns")
+        rows = table.get("rows")
+        if not isinstance(columns, list) or len(columns) != 2:
+            F.add("ERROR", "tables", "74", file, label,
+                  f"`columns` debe tener exactamente 2 entradas (tiene {len(columns) if isinstance(columns, list) else '?'})")
+            continue
+        if not isinstance(rows, list) or not (TABLE_ROWS_MIN <= len(rows) <= TABLE_ROWS_MAX):
+            F.add("ERROR", "tables", "74", file, label,
+                  f"`rows` debe tener {TABLE_ROWS_MIN}-{TABLE_ROWS_MAX} filas "
+                  f"(tiene {len(rows) if isinstance(rows, list) else '?'})")
+            continue
+        for r, row in enumerate(rows):
+            if not isinstance(row, list) or len(row) != len(columns):
+                F.add("ERROR", "tables", "74", file, label,
+                      f"fila {r}: {len(row) if isinstance(row, list) else '?'} celdas para {len(columns)} columnas")
+
+        # Regla 69: emoji solo en columns[].icon, y nunca uno de veredicto.
+        for c, col in enumerate(columns):
+            icon = ((col or {}).get("icon") or "").replace(VARIATION_SELECTOR, "")
+            bad = VERDICT_EMOJI.intersection(icon)
+            if bad:
+                F.add("ERROR", "tables", "69", file, label,
+                      f"columna {c}: emoji de veredicto {''.join(sorted(bad))!r} (regla 14 con otra tipografía)")
+            if len(_emoji_chars(icon)) > 1:
+                F.add("WARNING", "tables", "69", file, label,
+                      f"columna {c}: más de un emoji en el ícono")
+            label_text = (col or {}).get("label") or ""
+            if _emoji_chars(label_text):
+                F.add("ERROR", "tables", "69", file, label,
+                      f"columna {c}: emoji en `label` (va solo en `icon`)")
+            # El emoji ilustra una cosa; una columna cuyo encabezado es notación
+            # matemática no tiene cosa que ilustrar y el ícono compite con la
+            # fórmula.
+            if icon and "$" in label_text:
+                F.add("ERROR", "tables", "69", file, label,
+                      f"columna {c}: ícono en una columna de notación matemática ({label_text!r})")
+
+        stray = []
+        for field in ("question", "explanation", "feedback_correct"):
+            stray += _emoji_chars(it.get(field) or "")
+        for opt in (it.get("options") or []):
+            stray += _emoji_chars(opt or "")
+        for row in rows:
+            for cell in (row if isinstance(row, list) else []):
+                stray += _emoji_chars(cell or "")
+        if stray:
+            F.add("ERROR", "tables", "69", file, label,
+                  f"emoji fuera de columns[].icon: {''.join(sorted(set(stray)))!r} "
+                  "(en una opción es fruit-salad algebra)")
+
+        reveal = table.get("reveal")
+        if reveal is None:
+            continue
+        if not isinstance(reveal, dict):
+            F.add("ERROR", "tables", "68", file, label, "`reveal` no es un objeto")
+            continue
+        mode = reveal.get("mode")
+        if mode not in ("column", "cell"):
+            F.add("ERROR", "tables", "68", file, label,
+                  f"`reveal.mode` inválido: {mode!r} (esperado 'column' o 'cell')")
+            continue
+
+        opts = it.get("options") or []
+        by_option = reveal.get("by_option")
+        if not isinstance(by_option, list) or len(by_option) != len(opts):
+            F.add("ERROR", "tables", "70", file, label,
+                  f"`by_option` tiene {len(by_option) if isinstance(by_option, list) else '?'} "
+                  f"entradas para {len(opts)} opciones (tienen que ser paralelas)")
+            continue
+
+        ci = it.get("correct_index")
+        if not isinstance(ci, int) or not (0 <= ci < len(opts)):
+            continue  # ya lo reporta check_structure
+        correct = _cells_for_option(reveal, ci)
+        if correct is None:
+            F.add("ERROR", "tables", "70", file, label,
+                  "la opción correcta no trae los valores que pinta")
+            continue
+
+        # Regla 70: la tabla y el enunciado dicen lo mismo. Toda celda ya visible
+        # tiene que coincidir con lo que pinta la correcta en esa misma posición.
+        col = reveal.get("col", 1)
+        if mode == "column":
+            if len(correct) != len(rows):
+                F.add("ERROR", "tables", "70", file, label,
+                      f"la correcta pinta {len(correct)} celdas para {len(rows)} filas")
+                continue
+            for r, row in enumerate(rows):
+                given = row[col] if isinstance(row, list) and col < len(row) else None
+                if given is not None and given != correct[r]:
+                    F.add("ERROR", "tables", "70", file, label,
+                          f"fila {r}: la tabla muestra {given!r} pero la correcta pinta {correct[r]!r}")
+        else:
+            at = reveal.get("at")
+            if not (isinstance(at, list) and len(at) == 2):
+                F.add("ERROR", "tables", "68", file, label,
+                      "modo 'cell' sin `at: [fila, col]` válido")
+                continue
+            r, c = at
+            if not (isinstance(r, int) and isinstance(c, int) and 0 <= r < len(rows)
+                    and isinstance(rows[r], list) and 0 <= c < len(rows[r])):
+                F.add("ERROR", "tables", "68", file, label, f"`at` fuera de rango: {at!r}")
+                continue
+            if rows[r][c] is not None:
+                F.add("ERROR", "tables", "70", file, label,
+                      f"la celda {at!r} ya está completa: no queda nada que revelar")
+
+        # A3 (ERROR): cada distractor difiere de la correcta en alguna fila
+        # visible, o el ítem no es decidible con lo que se muestra.
+        # A2 (WARNING): cada distractor coincide en alguna fila visible, o se
+        # descarta de un vistazo. Es WARNING y no ERROR porque en la familia de
+        # explosión combinatoria (factoriales, potencias) es insatisfacible:
+        # nada se parece a un factorial en dos puntos seguidos.
+        visible = [r for r, row in enumerate(rows)
+                   if isinstance(row, list) and col < len(row) and row[col] is not None] \
+            if mode == "column" else []
+        for i, opt in enumerate(opts):
+            if i == ci:
+                continue
+            cells = _cells_for_option(reveal, i)
+            if cells is None:
+                F.add("ERROR", "tables", "70", file, label,
+                      f"opción {i} sin valores que pintar")
+                continue
+            if mode == "cell":
+                if cells == correct:
+                    F.add("ERROR", "tables", "71", file, label,
+                          f"opción {i} pinta el mismo valor que la correcta")
+                continue
+            if not any(cells[r] != correct[r] for r in range(len(correct))):
+                F.add("ERROR", "tables", "71", file, label,
+                      f"opción {i} pinta una columna idéntica a la correcta")
+                continue
+            if visible:
+                if not any(cells[r] != correct[r] for r in visible):
+                    F.add("ERROR", "tables", "71", file, label,
+                          f"opción {i} (A3): no difiere en ninguna fila visible, "
+                          "el ítem no se puede decidir con lo que se muestra")
+                if not any(cells[r] == correct[r] for r in visible):
+                    F.add("WARNING", "tables", "71", file, label,
+                          f"opción {i} (A2): difiere en TODAS las filas visibles, "
+                          "se descarta de un vistazo (esperable en factoriales)")
+
+        # Regla 74: ancho de celda. Solo se miden las celdas NUMÉRICAS: la fila
+        # simbólica lleva la expresión entera ($n(n-1)(n-2)$) y ahí el ancho es
+        # el que es, igual que en una opción.
+        every_cell = [(r, c, cell)
+                      for r, row in enumerate(rows) if isinstance(row, list)
+                      for c, cell in enumerate(row)]
+        for entry in _cells_for_option(reveal, ci) or []:
+            every_cell.append((-1, col, entry))
+        for r, c, cell in every_cell:
+            if not cell:
+                continue
+            rendered = render_len(cell)
+            if rendered > TABLE_CELL_RENDER_MAX and re.fullmatch(r"[\d.,]+", cell.strip("$")):
+                F.add("WARNING", "tables", "74", file, label,
+                      f"celda numérica [{r},{c}] mide {rendered} de render "
+                      f"(máx {TABLE_CELL_RENDER_MAX})")
+
+
 NUMBER_RE = re.compile(r"-?\d+")
 
 
@@ -1007,6 +1246,8 @@ def main() -> int:
                 # el doc no separa por skill, se cae a la unión del topic.
                 skill_targets = targets_by_skill.get(jf.stem) or known_slugs
                 check_structure(items, rel, F, skill_targets, known_slugs)
+            if "tables" in checks:
+                check_tables(items, rel, F)
             if "duplicates" in checks:
                 unit = "/".join(rel.split("/")[:2])
                 unit_entries.setdefault(unit, []).extend(
