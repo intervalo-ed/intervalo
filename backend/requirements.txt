@@ -7,3 +7,7 @@ alembic
 pyjwt[crypto]
 httpx
 resend
+# zoneinfo necesita una base IANA completa: la imagen de Railway trae una tzdata
+# del sistema SIN los links de compatibilidad ("America/Buenos_Aires"), que es
+# justo lo que mandan los navegadores. Este paquete es el respaldo de zoneinfo.
+tzdata

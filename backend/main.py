@@ -71,6 +71,20 @@ def startup_event():
     """
     from seed_content import seed_all
 
+    # Los navegadores reportan alias IANA viejos ("America/Buenos_Aires", el
+    # nombre que usa ICU/CLDR) y acá se validan y guardan tal cual. Si la
+    # imagen trae una tzdata sin esos links, la validación rechaza a todos los
+    # usuarios y el loop de notificaciones los saltea en silencio (pasó el
+    # 19/8/2026 con un rebuild de Railway). Mejor que el deploy falle acá y
+    # siga sirviendo el contenedor anterior.
+    try:
+        ZoneInfo("America/Buenos_Aires")
+    except ZoneInfoNotFoundError:
+        raise RuntimeError(
+            "tzdata sin links de compatibilidad IANA: falta el paquete pip "
+            "`tzdata` (ver requirements.txt)"
+        )
+
     db = SessionLocal()
     try:
         # prune=True: la tabla `exercises` es un espejo de backend/content/. Sin

@@ -4,6 +4,7 @@ import { useApi } from "@/lib/api/useApi"
 import { getTimezone, subscribeToPush } from "@/lib/push/register"
 import { queryKeys } from "@/lib/query/keys"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import posthog from "posthog-js"
 import { toast } from "sonner"
 
 export const DEFAULT_REMINDER_TIME = "19:00"
@@ -41,6 +42,14 @@ export function useEnableNotifications({
       onSuccess?.()
     },
     onError: (err: Error) => {
+      // Los errores del backend llegan como body {detail}, no como Error. Sin
+      // este evento una falla de persistencia es invisible en PostHog: la
+      // semana del 18/8 hubo 22 permisos otorgados que terminaban en un 400
+      // del PUT y ninguna señal del lado del cliente.
+      const detail = (err as Error & { detail?: unknown }).detail
+      posthog.capture("notify_enable_failed", {
+        reason: err.message || JSON.stringify(detail) || "unknown",
+      })
       if (err.message === "permission-denied") {
         toast.error("Tenés que permitir las notificaciones en el navegador.")
       } else if (err.message === "unsupported") {
