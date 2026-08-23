@@ -22,6 +22,7 @@ import jwt
 from dotenv import load_dotenv
 from jwt import PyJWKClient
 from pydantic import BaseModel
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from models import User
@@ -241,6 +242,21 @@ def get_or_create_user_from_clerk(db: Session, claims: ClerkClaims) -> User:
         username=assign_unique_username(db, name),
     )
     db.add(user)
-    db.commit()
+    try:
+        db.commit()
+    except IntegrityError:
+        # Esta función corre en TODA request autenticada, así que el alta de un
+        # usuario nuevo se intenta en paralelo desde varias a la vez (el
+        # dashboard pide los tres cursos de una). El perdedor de la carrera
+        # choca contra el único de clerk_user_id/email/username; la fila del
+        # ganador es la misma que íbamos a crear, así que la usamos.
+        db.rollback()
+        existing = (
+            db.query(User).filter(User.clerk_user_id == claims.sub).first()
+            or db.query(User).filter(User.email == email).first()
+        )
+        if existing is None:
+            raise
+        return existing
     db.refresh(user)
     return user

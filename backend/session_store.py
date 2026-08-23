@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import random
 import sys
+from contextlib import contextmanager
 from dataclasses import dataclass, field
 from datetime import datetime, date, time, timedelta
 from pathlib import Path
@@ -45,6 +46,7 @@ from exercise_bank import (
     list_exercises_db,
     mark_exercise_served,
 )
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session as DBSession
 from models import (
     Answer,
@@ -65,6 +67,49 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 # medianoche de Argentina (UTC−3) date.today() ya es "mañana" y habilita repasos
 # antes de tiempo. Fallback a Argentina mientras el usuario no tenga tz persistida.
 DEFAULT_TZ = "America/Argentina/Buenos_Aires"
+
+
+# ── Creación concurrente de filas ─────────────────────────────────────────────
+# Varias filas de este módulo se crean "lazy": se busca, y si no está, se
+# inserta. Entre el SELECT y el INSERT hay una ventana, y el frontend la abre de
+# par en par — el dashboard pide /user/progress de los tres cursos en paralelo y
+# el alta de onboarding siembra units mientras esas requests ya están en vuelo.
+# Dos requests del mismo usuario llegaban al INSERT a la vez y el perdedor
+# reventaba con UniqueViolation → 500 (visto en producción sobre
+# `unique_user_course_progress`).
+#
+# La fila que ganó la carrera es igual de buena que la nuestra: estas funciones
+# la descartan y siguen con la del otro. Nada que reintentar ni que reconciliar.
+
+class _Conflicto:
+    """Resultado de _tolerating_duplicates: guarda el choque, si lo hubo."""
+
+    error: IntegrityError | None = None
+
+
+@contextmanager
+def _tolerating_duplicates(db: DBSession):
+    """Inserta filas tolerando que otra transacción haya creado las mismas.
+
+    Va sobre un SAVEPOINT y no sobre un rollback pelado a propósito: estas
+    inserciones ocurren en medio de requests que ya traen cambios propios sin
+    guardar (el update SM-2 de una respuesta, sin ir más lejos). Un rollback
+    entero descartaría también ESO, y perder la respuesta del usuario en
+    silencio es peor que el 500 que veníamos a arreglar. Con el savepoint se
+    revierte únicamente lo de adentro.
+
+    El flush previo es parte del contrato: asienta lo pendiente del caller
+    ANTES de abrir el savepoint, para que quede afuera de lo que se revierte."""
+    conflicto = _Conflicto()
+    db.flush()
+    try:
+        with db.begin_nested():
+            yield conflicto
+    except IntegrityError as exc:
+        # Savepoint ya revertido por el context manager. Nos ganaron de mano y
+        # sus filas son las que queríamos: seguimos con esas. Se guarda el error
+        # por si el caller descubre que el choque era por otra cosa.
+        conflicto.error = exc
 
 
 def _user_zone(db: DBSession, user_id: int) -> ZoneInfo:
@@ -399,8 +444,12 @@ def seed_intro_item(
 
     if course_slug not in _INTRO_SEEDLESS_COURSES:
         if not _topic_has_any_units(user_id, course_id, intro_item, db):
-            _create_topic_units(user_id, course_id, intro_item, db)
-            db.flush()
+            # El alta termina justo cuando el dashboard ya está pidiendo
+            # /user/progress de los tres cursos, así que estas mismas units se
+            # pueden estar creando en paralelo. Si nos ganaron de mano, la
+            # búsqueda de abajo encuentra las de ellos igual.
+            with _tolerating_duplicates(db):
+                _create_topic_units(user_id, course_id, intro_item, db)
 
         row = db.query(UnitState).filter(
             UnitState.user_id == user_id,
@@ -649,22 +698,43 @@ SESSION_SIZE_MIN = 1
 SESSION_SIZE_MAX = 30
 
 
-def _get_course_progress(user_id: int, course_id: int, db: DBSession) -> CourseProgress:
-    """Fila de CourseProgress del usuario para el curso, creada lazy con defaults."""
-    cp = db.query(CourseProgress).filter(
+def _lookup_course_progress(
+    user_id: int, course_id: int, db: DBSession
+) -> CourseProgress | None:
+    return db.query(CourseProgress).filter(
         CourseProgress.user_id == user_id,
         CourseProgress.course_id == course_id,
     ).first()
-    if cp is None:
-        slug = _get_course_slug(course_id, db)
-        cp = CourseProgress(
+
+
+def _get_course_progress(user_id: int, course_id: int, db: DBSession) -> CourseProgress:
+    """Fila de CourseProgress del usuario para el curso, creada lazy con defaults.
+
+    Tolera la creación concurrente: ver _tolerating_duplicates."""
+    cp = _lookup_course_progress(user_id, course_id, db)
+    if cp is not None:
+        return cp
+
+    slug = _get_course_slug(course_id, db)
+    with _tolerating_duplicates(db) as conflicto:
+        db.add(CourseProgress(
             user_id=user_id,
             course_id=course_id,
             iteration=1,
             active_cap=ACTIVE_CAP_DEFAULTS.get(slug, ACTIVE_CAP_DEFAULT_FALLBACK),
+        ))
+    # La fila tiene que quedar guardada sí o sí: /user/progress es de solo
+    # lectura y su sesión se cierra sin commitear, así que sin esto la creación
+    # se perdería en cada request.
+    db.commit()
+
+    cp = _lookup_course_progress(user_id, course_id, db)
+    if cp is None:
+        # El choque no fue por la fila que queríamos crear: es otro bug y
+        # taparlo lo dejaría invisible, como pasó con este.
+        raise conflicto.error or RuntimeError(
+            f"no se pudo crear course_progress (user={user_id}, course={course_id})"
         )
-        db.add(cp)
-        db.commit()
     return cp
 
 
@@ -723,15 +793,22 @@ def _fill_catchup_units(
     topics_with_units = {(r.belt, r.topic) for r in rows}
 
     today = user_today(db, user_id)
-    changed = False
-    for tk in topic_keys:
+    faltantes = [
+        (tk, et)
+        for tk in topic_keys
         # Solo rellenar temas que el usuario ya tocó: evita auto-desbloquear
         # temas nuevos (o keys renombradas) que quedan "atrás" en el catálogo.
-        if (tk.belt.value, tk.topic) not in topics_with_units:
-            continue
-        for et in sorted(types.get((tk.belt.value, tk.topic), [])):
-            if (tk.belt.value, tk.topic, et) in existing:
-                continue
+        if (tk.belt.value, tk.topic) in topics_with_units
+        for et in sorted(types.get((tk.belt.value, tk.topic), []))
+        if (tk.belt.value, tk.topic, et) not in existing
+    ]
+    if not faltantes:
+        return
+
+    # Si otra request del mismo usuario ya las creó, sus filas valen igual que
+    # las nuestras (ver _tolerating_duplicates).
+    with _tolerating_duplicates(db):
+        for tk, et in faltantes:
             db.add(UnitState(
                 user_id=user_id,
                 course_id=course_id,
@@ -747,9 +824,7 @@ def _fill_catchup_units(
                 attempted=False,
                 is_catchup=True,
             ))
-            changed = True
-    if changed:
-        db.commit()
+    db.commit()
 
 
 def _ensure_active_units(
@@ -791,7 +866,7 @@ def _ensure_active_units(
     if active >= cap:
         return
     seen_topics = {(r.belt, r.topic) for r in live}
-    changed = False
+    a_desbloquear = []
     for tk in _all_topic_keys(course_id, db):
         if active >= cap:
             break
@@ -802,11 +877,17 @@ def _ensure_active_units(
         # frenar (no saltearlo) para no desbloquear temas fuera de orden.
         if active + len(topic_types) > cap:
             break
-        _create_topic_units(user_id, course_id, tk, db, types=types)
+        a_desbloquear.append(tk)
         active += len(topic_types)
-        changed = True
-    if changed:
-        db.commit()
+    if not a_desbloquear:
+        return
+
+    # Desbloquear es idempotente: si otra request desbloqueó los mismos temas
+    # primero, la BD queda igual que si lo hubiéramos hecho nosotros.
+    with _tolerating_duplicates(db):
+        for tk in a_desbloquear:
+            _create_topic_units(user_id, course_id, tk, db, types=types)
+    db.commit()
 
 
 def _load_unit_states(
