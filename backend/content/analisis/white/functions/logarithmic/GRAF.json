@@ -286,7 +286,7 @@
       null,
       "Una curva constante sería una recta horizontal, acá la altura cambia todo el tiempo."
     ],
-    "graph_fn": "ln(x)",
+    "graph_fn": "log(x)",
     "graph_view": [
       -0.5,
       8.5,
@@ -496,7 +496,7 @@
       "El punto que identifica la base $2$ está en $x=2$, fijate si la curva vale $1$ ahí o en otro valor de $x$.",
       "El punto que identifica la base $3$ está en $x=3$, fijate si la curva vale $1$ ahí o en otro valor de $x$."
     ],
-    "graph_fn": "ln(x)",
+    "graph_fn": "log(x)",
     "graph_view": [
       -0.5,
       8.5,
@@ -646,7 +646,7 @@
       "Fijate si la asíntota vertical sigue en $x=0$ o si un corrimiento horizontal la movió a otro valor.",
       null
     ],
-    "graph_fn": "ln(x-1)",
+    "graph_fn": "log(x-1)",
     "graph_view": [
       0.5,
       9.5,
