@@ -740,6 +740,8 @@ Registro formal y sencillo, sin jerga ni informalismos, en `question`, `options`
 
 El componente `web/src/components/math-graph.tsx` renderiza con **relación de aspecto 1:1** (misma escala px/unidad en ambos ejes) y grilla cuadrada dinámica.
 
+- **Solo funciones que mathjs conozca.** El motor es [mathjs](https://mathjs.org), no SymPy ni LaTeX. Disponibles: `abs`, `cos`, `exp`, `log`, `log10`, `log2`, `pow`, `sign`, `sin`, `sqrt`, `tan`, más `pi` y `e`. **El logaritmo natural es `log`, no `ln`** — `ln(x)` no existe en mathjs. Un nombre desconocido no rompe nada a la vista: `toRealFn` atrapa la excepción y devuelve `NaN` para todo $x$, así que **el gráfico sale en blanco** sin ningún error en consola ni en los logs. Detectado en agosto 2026 por el reporte de un alumno ("no ando el grafico"): tres ítems de logarítmicas usaban `ln(x)` y venían saliendo vacíos. Lo cubre `validate_content.py --check graphs`, que ahora falla con ERROR ante cualquier nombre fuera de la lista.
+  - `Piecewise(...)` es la excepción: no es de mathjs, lo desarma `parsePiecewise` en `math-graph.tsx` antes de compilar cada rama. Dentro de una rama, `None` marca a propósito el hueco de una discontinuidad evitable.
 - **Pendientes legibles a 1:1**: `|m| ≤ 2`. Con 1:1, `m=2 → 63°`, todavía legible cuadrito a cuadrito. Pendientes grandes (ej. `m=15`) salen casi verticales e ilegibles.
 - **`graph_view` cuadrado**: `[xmin, xmax, ymin, ymax]` con `xRange ≈ yRange`. Los puntos clave deben caer dentro de la vista.
 - Si un contexto cotidiano exige magnitudes dispares, **rediseñar el ejercicio** con números chicos en vez de romper el 1:1.
