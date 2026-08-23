@@ -871,10 +871,13 @@ hipótesis y recién ahí ve qué produce.
   columna, que es para lo que el formato existe.
 - **`RESL`**: solo en la forma invertida (modo `cell`), donde la tabla desglosa los datos y se pide
   la celda faltante. El estudiante calcula, no lee.
-- **`ESTR`**: con cuidado, y en observación. La contraindicación más importante del formato es que
-  **cuando la dificultad real es el modelado, la tabla regala los números** — y `ESTR` es
-  justamente la skill de modelado. Solo funciona si las opciones son modelos estructuralmente
-  distintos (qué regla aplicar), y el resultado aparece recién al confirmar.
+- **`ESTR`**: **no.** Es la contraindicación más importante del formato, y quedó confirmada
+  empíricamente: **cuando la dificultad real es el modelado, la tabla regala los números**, y
+  `ESTR` es justamente la skill de modelado. Se probaron 2 ítems con tabla en
+  `probabilidad/white/conteo/reglas/ESTR` (ago-2026) y se sacaron después del testeo: al listar los
+  pasos y sus opciones, la tabla ya hacía el trabajo que el ítem venía a evaluar. Antes de volver a
+  intentarlo en otro topic, hay que poder explicar qué queda por modelar **después** de mirar la
+  tabla.
 
 ### Contenidos que se prestan mal
 

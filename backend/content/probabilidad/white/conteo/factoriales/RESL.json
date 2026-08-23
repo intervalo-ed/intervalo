@@ -385,12 +385,12 @@
     "correct_index": 1,
     "feedback_correct": "Se llega multiplicando $4!$ por 5, y se confirma dividiendo $6!$ por 6.",
     "feedback_incorrect": [
-      "Ese es $4 \\times 4!$: para subir un escalón se multiplica por el índice nuevo, no por el anterior.",
+      "Ese es $4 \times 4!$: para subir un escalón se multiplica por el índice nuevo, no por el anterior.",
       null,
-      "Ese es $5^{3}$, una potencia; el factorial es el producto decreciente $5\\times4\\times3\\times2\\times1$.",
+      "Ese es $5^{3}$, una potencia; el factorial es el producto decreciente $5\times4\times3\times2\times1$.",
       "Ese sale de dividir $720$ por 5, pero para bajar de $6!$ a $5!$ hay que dividir por 6."
     ],
-    "explanation": "El **factorial** cumple la relación recursiva $n! = n \\times (n-1)!$, que conecta cada fila de la tabla con la de al lado.\n\nDesde $4! = 24$ se sube multiplicando por el índice nuevo:\n$$5! = 5 \\times 24 = 120$$\nY el control cierra por el otro lado: multiplicar 120 por 6 devuelve el 720 que la tabla ya trae abajo.\n\nTener las dos filas vecinas visibles permite verificar el resultado en las dos direcciones, algo que conviene hacer siempre que la columna crece tan rápido.",
+    "explanation": "El **factorial** cumple la relación recursiva $n! = n \times (n-1)!$, que conecta cada fila de la tabla con la de al lado.\n\nDesde $4! = 24$ se sube multiplicando por el índice nuevo:\n$$5! = 5 \times 24 = 120$$\nY el control cierra por el otro lado: multiplicar 120 por 6 devuelve el 720 que la tabla ya trae abajo.\n\nTener las dos filas vecinas visibles permite verificar el resultado en las dos direcciones, algo que conviene hacer siempre que la columna crece tan rápido.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -445,20 +445,20 @@
   {
     "question": "El **factorial** de un número natural multiplica todos los enteros positivos hasta ese número.\n\nEn la tabla falta el valor de una de las filas.\n\n¿Cuánto vale $4!$?",
     "options": [
-      "$12$",
       "$18$",
       "$24$",
+      "$30$",
       "$64$"
     ],
-    "correct_index": 2,
-    "feedback_correct": "Se llega multiplicando $3!$ por 4.",
+    "correct_index": 1,
+    "feedback_correct": "Se llega multiplicando $3!$ por 4, y se confirma dividiendo $5!$ por 5.",
     "feedback_incorrect": [
-      "Ese es $4 \\times 3$: el factorial arrastra todo el producto decreciente, no solo los dos últimos factores.",
-      "Ese es $3 \\times 3!$: el factor que entra al subir de fila es el índice nuevo, no el anterior.",
+      "Ese es $3 \times 3!$: el factor que entra al subir de fila es el índice nuevo, no el anterior.",
       null,
+      "Ese sale de dividir $120$ por 4, pero para bajar de $5!$ a $4!$ hay que dividir por 5.",
       "Ese es $4^{3}$, una potencia; el factorial multiplica factores que bajan de a uno."
     ],
-    "explanation": "El **factorial** de un número es el producto de todos los enteros positivos hasta ese número, y cada fila sale de la anterior multiplicando por el índice que entra:\n$$4! = 4 \\times 3!$$\nCon $3! = 6$, el producto queda:\n$$4 \\times 6 = 24$$\nEl resultado es 24.\n\nLa distancia hasta la fila de abajo muestra el salto real: de 24 a 720 hay un factor 30, que sale de multiplicar por 5 y después por 6.",
+    "explanation": "El **factorial** cumple la relación recursiva $n! = n \times (n-1)!$, que conecta cada fila con su vecina.\n\nDesde $3! = 6$ se sube multiplicando por el índice nuevo:\n$$4! = 4 \times 6 = 24$$\nY el control cierra desde abajo, porque dividir 120 por 5 devuelve ese mismo 24.\n\nLas dos rutas tienen que coincidir. Cuando no coinciden, casi siempre es porque se usó el índice de la fila equivocada como factor.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -475,16 +475,16 @@
       ],
       "rows": [
         [
-          "$2$",
-          "$2$"
-        ],
-        [
           "$3$",
           "$6$"
         ],
         [
           "$4$",
           null
+        ],
+        [
+          "$5$",
+          "$120$"
         ],
         [
           "$6$",
@@ -494,13 +494,13 @@
       "reveal": {
         "mode": "cell",
         "at": [
-          2,
+          1,
           1
         ],
         "by_option": [
-          "$12$",
           "$18$",
           "$24$",
+          "$30$",
           "$64$"
         ]
       }
@@ -511,22 +511,22 @@
     ]
   },
   {
-    "question": "El **factorial** de un número natural multiplica todos los enteros desde $1$ hasta ese número, y crece muy rápido.\n\nLa tabla deja sin completar el valor de $7!$.\n\n¿Qué valor le corresponde?",
+    "question": "El **factorial** de un número natural multiplica todos los enteros desde $1$ hasta ese número, y crece muy rápido.\n\nLa tabla deja sin completar el valor de $6!$.\n\n¿Qué valor le corresponde?",
     "options": [
-      "$3600$",
-      "$4320$",
-      "$5040$",
-      "$5760$"
+      "$216$",
+      "$600$",
+      "$720$",
+      "$840$"
     ],
     "correct_index": 2,
-    "feedback_correct": "Se llega multiplicando $6!$ por 7, y se confirma dividiendo $8!$ por 8.",
+    "feedback_correct": "Se llega multiplicando $5!$ por 6.",
     "feedback_incorrect": [
-      "Ese es $5 \\times 720$: el factor que entra es el índice de la fila que se busca, no uno de dos filas atrás.",
-      "Ese es $6 \\times 720$, o sea el índice de la fila de arriba repetido; al subir un escalón el factor nuevo es 7.",
+      "Ese es $6^{3}$, una potencia; el factorial multiplica factores que bajan de a uno hasta 1.",
+      "Ese es $5 \times 120$: el factor que entra es el índice de la fila que se busca, no el de la fila de arriba.",
       null,
-      "Ese sale de dividir $40320$ por 7, pero para bajar desde $8!$ hay que dividir por 8."
+      "Ese es $7 \times 120$: el índice que entra al pasar de $5!$ a $6!$ es 6, no 7."
     ],
-    "explanation": "La relación recursiva $n! = n \\times (n-1)!$ permite moverse de una fila a la vecina sin expandir el producto entero.\n\nSubiendo desde $6! = 720$, el factor que entra es 7:\n$$7! = 7 \\times 720 = 5040$$\nBajando desde $8! = 40320$ se divide por 8 y se llega al mismo lugar:\n$$40320 \\div 8 = 5040$$\nLas dos rutas coinciden, que es la señal de que el valor es el correcto.\n\nLa columna pasa de 120 a 40320 en tres filas. Ese crecimiento se subestima casi siempre si se intenta anticipar de memoria, y es justamente lo que la tabla deja ver de un vistazo.",
+    "explanation": "La relación recursiva $n! = n \times (n-1)!$ permite moverse de una fila a la vecina sin expandir el producto entero.\n\nSubiendo desde $5! = 120$, el factor que entra es 6:\n$$6! = 6 \times 120 = 720$$\nLa columna pasa de 6 a 720 en tres filas. Ese crecimiento se subestima casi siempre si se intenta anticipar de memoria, y es justamente lo que la tabla deja ver de un vistazo.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -543,33 +543,33 @@
       ],
       "rows": [
         [
+          "$3$",
+          "$6$"
+        ],
+        [
+          "$4$",
+          "$24$"
+        ],
+        [
           "$5$",
           "$120$"
         ],
         [
           "$6$",
-          "$720$"
-        ],
-        [
-          "$7$",
           null
-        ],
-        [
-          "$8$",
-          "$40320$"
         ]
       ],
       "reveal": {
         "mode": "cell",
         "at": [
-          2,
+          3,
           1
         ],
         "by_option": [
-          "$3600$",
-          "$4320$",
-          "$5040$",
-          "$5760$"
+          "$216$",
+          "$600$",
+          "$720$",
+          "$840$"
         ]
       }
     },

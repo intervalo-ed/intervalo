@@ -717,5 +717,177 @@
     "tags": [
       "patron-tabla"
     ]
+  },
+  {
+    "question": "En una fábrica cada pieza pasa por $n$ estaciones, y en cada estación se le aplica uno de 3 acabados posibles.\n\nLa tabla registra cuántas piezas distintas salen de la línea según la cantidad de estaciones.\n\n¿Cuántas piezas distintas hay con $n$ estaciones?",
+    "options": [
+      "$3^{n}$",
+      "$3n$",
+      "$n+2$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Cada estación multiplica por 3 las variantes que ya había, así que las 3 opciones se repiten $n$ veces.",
+    "feedback_incorrect": [
+      null,
+      "Triplicar la cantidad de estaciones supone que cada estación agrega 3 piezas, pero con 2 estaciones la tabla ya muestra 9.",
+      "Sumar deja el total casi igual al agregar una estación, y la tabla muestra que se multiplica por 3."
+    ],
+    "explanation": "La **regla del producto** dice que cuando algo se arma tomando una decisión por paso, el total es el producto de las opciones de cada paso.\n\nCada estación es un paso con 3 acabados, y las estaciones se recorren una detrás de otra:\n$$3 \\times 3 \\times \\cdots \\times 3 = 3^{n}$$\nCon 2 estaciones da 9 y con 4 daría 81.\n\nLa fila de una sola estación no alcanza para decidir, porque ahí las tres expresiones dan 3. Recién en la segunda se separan.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Estaciones"
+        },
+        {
+          "icon": "⚙️",
+          "label": "Piezas"
+        }
+      ],
+      "rows": [
+        [
+          "$1$",
+          "$3$"
+        ],
+        [
+          "$2$",
+          "$9$"
+        ],
+        [
+          "$4$",
+          null
+        ],
+        [
+          "$n$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$3^{n}$",
+            "cells": [
+              "$3$",
+              "$9$",
+              "$81$",
+              "$3^{n}$"
+            ]
+          },
+          {
+            "header": "$3n$",
+            "cells": [
+              "$3$",
+              "$6$",
+              "$12$",
+              "$3n$"
+            ]
+          },
+          {
+            "header": "$n+2$",
+            "cells": [
+              "$3$",
+              "$4$",
+              "$6$",
+              "$n+2$"
+            ]
+          }
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "patron-tabla"
+    ]
+  },
+  {
+    "question": "Un taller arma un kit eligiendo una herramienta entre $n$ modelos y uno de los 2 estuches disponibles.\n\nComo alternativa vende 3 kits ya armados, y la tabla registra cuántas formas de comprar hay en total.\n\n¿Cuántas formas hay con $n$ modelos?",
+    "options": [
+      "$5n$",
+      "$n+4$",
+      "$2n+3$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El kit multiplica modelo por estuche, y esa cantidad se suma con los 3 kits ya armados.",
+    "feedback_incorrect": [
+      "Multiplicar por 5 mezcla los estuches con los kits ya armados, y esos son una alternativa aparte del kit que se arma.",
+      "Sumar trata al estuche como una alternativa más, pero el kit lleva herramienta y además estuche.",
+      null
+    ],
+    "explanation": "Cuando una **regla del producto** vive adentro de una rama de una **regla de la suma**, primero se resuelve el producto y después se suma la otra rama.\n\nEl kit a medida combina $n$ modelos con 2 estuches, y los 3 kits cerrados se cuentan aparte:\n$$2n + 3$$\nCon 2 modelos hay 7 formas de comprar y con 5 modelos habría 13.\n\nEl 3 no crece con los modelos: por eso entra como sumando fijo y no como factor.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Modelos"
+        },
+        {
+          "icon": "🧰",
+          "label": "Formas"
+        }
+      ],
+      "rows": [
+        [
+          "$1$",
+          "$5$"
+        ],
+        [
+          "$2$",
+          "$7$"
+        ],
+        [
+          "$5$",
+          null
+        ],
+        [
+          "$n$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$5n$",
+            "cells": [
+              "$5$",
+              "$10$",
+              "$25$",
+              "$5n$"
+            ]
+          },
+          {
+            "header": "$n+4$",
+            "cells": [
+              "$5$",
+              "$6$",
+              "$9$",
+              "$n+4$"
+            ]
+          },
+          {
+            "header": "$2n+3$",
+            "cells": [
+              "$5$",
+              "$7$",
+              "$13$",
+              "$2n+3$"
+            ]
+          }
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "patron-tabla"
+    ]
   }
 ]

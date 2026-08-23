@@ -341,125 +341,49 @@
     ]
   },
   {
-    "question": "Un sistema de acceso pide una tarjeta magnética y además una clave numérica, y cada una se elige de una lista propia.\n\nLa tabla muestra cuántas alternativas ofrece cada paso.\n\n¿Qué regla conviene aplicar para contar los accesos posibles?",
+    "question": "Una fábrica arma cada pedido eligiendo un modelo entre 7 y, después, una terminación entre 3.\n\n¿Qué regla conviene usar para contar los pedidos posibles?",
     "options": [
-      "La regla del producto entre los pasos",
-      "La regla de la suma entre los pasos",
-      "Ninguna, porque hay que ordenar los elementos"
+      "Regla de la suma: son alternativas excluyentes.",
+      "Combinaciones: el orden no importa.",
+      "Regla del producto: son decisiones consecutivas."
     ],
-    "correct_index": 0,
-    "feedback_correct": "Entrar pide tarjeta y además clave: son dos decisiones seguidas y se multiplican.",
+    "correct_index": 2,
+    "feedback_correct": "Elegir modelo Y terminación son dos decisiones consecutivas: se multiplican.",
     "feedback_incorrect": [
-      null,
-      "La suma cuenta alternativas que se excluyen entre sí, y acá el acceso necesita la tarjeta y también la clave.",
-      "Ordenar haría falta si los elementos se acomodaran en una secuencia, pero acá cada paso se elige de una lista propia."
+      "No hay alternativas excluyentes acá: el pedido lleva modelo y también terminación, no uno u otra.",
+      "No se está eligiendo un subconjunto de un mismo conjunto, son dos decisiones distintas en secuencia.",
+      null
     ],
-    "explanation": "La **regla del producto** aplica cuando el resultado se arma tomando una decisión por paso y todas las decisiones ocurren.\n\nAcá el acceso necesita una tarjeta entre 4 y además una clave entre 6, así que cada tarjeta se combina con cada clave.\n\nLa palabra que conecta los pasos es la que decide la regla.\n\nUn y encadena decisiones y multiplica; un o abre alternativas excluyentes y suma. La diferencia no está en los números sino en cómo está redactada la situación.",
+    "explanation": "La **regla del producto** aplica cuando el resultado se arma tomando una decisión por paso y todas las decisiones ocurren.\n\nAcá el pedido necesita un modelo entre 7 y además una terminación entre 3, así que cada modelo se combina con cada terminación.\n\nLa palabra que conecta los pasos es la que decide la regla.\n\nUn y encadena decisiones y multiplica; un o abre alternativas excluyentes y suma. La diferencia no está en los números sino en cómo está redactada la situación.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "table": {
-      "columns": [
-        {
-          "icon": "🔐",
-          "label": "Paso"
-        },
-        {
-          "icon": null,
-          "label": "Opciones"
-        }
-      ],
-      "rows": [
-        [
-          "Tarjeta",
-          "$4$"
-        ],
-        [
-          "Clave",
-          "$6$"
-        ],
-        [
-          "**Total**",
-          null
-        ]
-      ],
-      "reveal": {
-        "mode": "cell",
-        "at": [
-          2,
-          1
-        ],
-        "by_option": [
-          "$24$",
-          "$10$",
-          null
-        ]
-      }
-    },
     "reviewed": false,
     "tags": [
-      "regla-desde-tabla"
+      "reconocer-producto"
     ]
   },
   {
-    "question": "Un envío se despacha por uno de los 3 correos privados, o bien por una de las 5 sucursales del correo público, nunca por los dos.\n\nLa tabla muestra cuántas alternativas ofrece cada vía.\n\n¿Qué regla conviene aplicar para contar los despachos posibles?",
+    "question": "Un taller arma un kit con una herramienta entre 6 y un estuche entre 3, o vende 7 kits ya armados que no admiten cambios.\n\n¿Qué regla conviene aplicar para contar el total de formas de comprar?",
     "options": [
-      "La regla del producto entre las vías",
-      "La regla de la suma entre las vías",
-      "Ninguna, porque hay que elegir un subconjunto"
+      "Solo la regla de la suma.",
+      "Solo la regla del producto.",
+      "Producto y suma combinados."
     ],
-    "correct_index": 1,
-    "feedback_correct": "El envío va por una vía o por la otra, así que las alternativas se suman.",
+    "correct_index": 2,
+    "feedback_correct": "El kit multiplica herramienta por estuche, y esa cantidad se suma con los kits ya armados.",
     "feedback_incorrect": [
-      "El producto combinaría un correo privado con una sucursal pública, pero el envío usa una sola vía.",
-      null,
-      "Elegir un subconjunto haría falta si se despacharan varios paquetes juntos, y acá se despacha uno solo."
+      "La suma sola no alcanza: armar el kit son dos decisiones consecutivas, herramienta y estuche, que hay que multiplicar primero.",
+      "El producto solo no alcanza: los kits ya armados son una alternativa aparte, excluyente del kit que se arma, y esa parte se suma.",
+      null
     ],
-    "explanation": "La **regla de la suma** aplica cuando el resultado sale de una sola de varias alternativas mutuamente excluyentes: se cuenta cada rama por separado y se suman.\n\nAcá el envío usa un correo privado entre 3 o una sucursal pública entre 5, nunca los dos a la vez.\n\nMultiplicar en cuanto aparecen dos conjuntos ignora que el producto corresponde cuando se toma un elemento de cada uno, no cuando se elige uno u otro.",
+    "explanation": "Cuando un problema mete una **regla del producto** adentro de una rama de una **regla de la suma**, primero se resuelve cada producto y después se suman las ramas excluyentes.\n\nEl kit armado a medida combina 6 herramientas con 3 estuches, y los 7 kits cerrados son una alternativa que no se combina con nada.\n\nEl error más caro acá no es equivocar una cuenta sino quedarse con media situación: resolver el producto y olvidar la rama que se suma, o al revés.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "table": {
-      "columns": [
-        {
-          "icon": "📦",
-          "label": "Vía"
-        },
-        {
-          "icon": null,
-          "label": "Opciones"
-        }
-      ],
-      "rows": [
-        [
-          "Privado",
-          "$3$"
-        ],
-        [
-          "Público",
-          "$5$"
-        ],
-        [
-          "**Total**",
-          null
-        ]
-      ],
-      "reveal": {
-        "mode": "cell",
-        "at": [
-          2,
-          1
-        ],
-        "by_option": [
-          "$15$",
-          "$8$",
-          null
-        ]
-      }
-    },
     "reviewed": false,
     "tags": [
-      "regla-desde-tabla"
+      "reconocer-combinada"
     ]
   }
 ]

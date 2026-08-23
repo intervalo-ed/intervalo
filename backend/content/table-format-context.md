@@ -239,7 +239,13 @@ y ese objeto tiene una representación que la tabla oculta?* En conteo era el co
 
 | Contenido | Por qué no |
 |---|---|
-| **Cuando la dificultad real es el modelado** | La tabla **regala los números**. Si la pregunta es "¿acá importa el orden?", una tabla de conteos la responde por el alumno. Es la contraindicación más importante. |
+| **Cuando la dificultad real es el modelado** | La tabla **regala los números**. Si la pregunta es "¿acá importa el orden?", una tabla de conteos la responde por el alumno. Es la contraindicación más importante, y la única **confirmada empíricamente**: ver abajo. |
+
+> **Confirmación en testeo (ago-2026).** Se generaron 2 ítems con tabla en `probabilidad/white/conteo/reglas/ESTR` como piloto, con el cupo deliberadamente chico por esta misma contraindicación. El testeo manual las descartó: al desglosar los pasos y sus opciones, la tabla ya hacía el trabajo de modelado que `ESTR` viene a evaluar. Se reemplazaron por ítems clásicos y el cupo se movió a `FORM`, que subió de 4 a 6 tablas.
+>
+> **La regla que queda, para cualquier curso:** antes de poner una tabla en una skill de planteo o clasificación, hay que poder responder *¿qué queda por decidir después de mirar la tabla?* Si la respuesta es "nada que no esté ahí", el ítem se vació.
+>
+> Corolario a favor: en las skills de **formulación** el formato no tiene reservas. La tabla es la evidencia y la fórmula es la decisión, así que mirarla no adelanta la respuesta.
 | **Límites** | Una tabla de valores **no puede** establecer un límite y engaña activamente. Ver §3.2: es la trampa nº1 de `analisis`. |
 | Relaciones de dos parámetros | Dos columnas no representan $\binom{n}{k}$ variando ambos. |
 | Recursiones sin fórmula cerrada accesible | Fibonacci, particiones, desarreglos: el formato promete una fórmula que no existe al alcance. |

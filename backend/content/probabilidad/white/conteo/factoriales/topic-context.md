@@ -12,7 +12,7 @@ Concepto: el **factorial** $n! = n \times (n-1) \times \cdots \times 1$, con la 
 
 ---
 
-## FORM, 19 ejercicios
+## FORM, 15 ejercicios
 
 Identificar o armar la **expresión** equivalente (no calcular el valor numérico).
 
@@ -25,9 +25,7 @@ Identificar o armar la **expresión** equivalente (no calcular el valor numéric
 | Relación recursiva $n! = n \cdot (n-1)!$ aplicada para reescribir una expresión | 3 | `relacion-recursiva` |
 | Caso especial $0! = 1$ y $1! = 1$ | 2 | `casos-especiales` |
 | Expresión con suma/resta de factoriales sin simplificar todavía (identificar que no se puede sumar/restar los $n$ antes de expandir) | 2 | `suma-resta-factoriales` |
-| **Con tabla** (`table`, modo `column`, sub-formato patrón): la tabla trae $n!$ para dos valores y deja los siguientes vacíos; las opciones reconstruyen $n!$ desde la fila de arriba | 2 | `recursiva-tabla` |
-| **Con tabla** (`table`, modo `column`, sub-formato modelo): la columna arranca vacía y la regla está en la prosa; las opciones dan el cociente $\dfrac{n!}{(n-k)!}$ | 2 | `cociente-tabla` |
-| **Total** | **19** | |
+| **Total** | **15** | |
 
 ---
 
@@ -44,7 +42,7 @@ Calcular el **valor numérico**.
 | Expresión con suma o resta de factoriales ya expandidos (ej. $4! + 3!$, $5! - 4!$) | 3 | `suma-resta-evaluada` |
 | Comparación entre dos factoriales (cuál es mayor, o la razón entre ambos) | 2 | `comparacion-factoriales` |
 | Factorial dentro de una fracción con producto simple en el denominador (ej. $\dfrac{6!}{2! \cdot 3!}$, preparación directa para `combinaciones`, sin nombrar todavía el binomial) | 2 | `fraccion-producto-denominador` |
-| **Con tabla** (`table`, modo `cell`): la tabla evalúa $n!$ para varios $n$ y deja **una celda intermedia** vacía, que se puede llegar desde arriba o desde abajo | 3 | `valor-desde-tabla` |
+| **Con tabla** (`table`, modo `cell`): la tabla evalúa $n!$ sobre la grilla fija $n=3,4,5,6$ y deja **una celda vacía**, distinta en cada ejercicio | 3 | `valor-desde-tabla` |
 | **Total** | **18** | |
 
 **Cardinalidad**: numérica corta → 4 opciones (grilla 2×2). **Los ejercicios con `table` de este topic también van con 4 opciones** (ver *Reglas específicas*).
@@ -72,36 +70,40 @@ Calcular el **valor numérico**.
 - **Reintroducir la definición** (regla crítica 31): cada ejercicio que usa $n!$ reintroduce brevemente qué es (aunque sea en una subordinada corta), no asume que el alumno la vio en otro ejercicio de la sesión.
 - **En `fraccion-producto-denominador`, la división final tiene que ser mental**: el objetivo del ítem es practicar expandir cada factorial y multiplicar el denominador, no hacer una cuenta larga al final. Elegir $n$/denominador de forma que el cociente salga limpio y chico (ej. $\dfrac{5!}{2!\cdot3!}=\dfrac{120}{12}=10$, no $\dfrac{6!}{2!\cdot3!}=\dfrac{720}{12}=60$, que ya obliga a dividir un número de 3 cifras a mano).
 
-### Ejercicios con tabla (`recursiva-tabla`, `cociente-tabla`, `valor-desde-tabla`)
+### Ejercicios con tabla (`valor-desde-tabla`)
 
 Reglas 68-75 de `authoring-context.md` más lo específico de este topic:
 
-- **4 opciones**, igual que el resto del topic. Acá la cuarta opción sale gratis porque las
-  restricciones A1 y A2 (regla 71) **no aplican** a esta familia.
-- **Por qué no aplican A1 y A2.** Nada se parece a un factorial en dos puntos seguidos: cualquier
-  distractor va a diferir de la correcta en todas las filas visibles, y casi cualquier fila va a
-  separar a todos los candidatos. No es un defecto del ejercicio, es aritmética. El validador tira
-  el WARNING de A2 en estos ítems y es **esperable**; se deja pasar.
+- **Grilla fija $n = 3, 4, 5, 6$** en los tres ejercicios, o sea la columna $6, 24, 120, 720$. Lo
+  que cambia entre ellos es **cuál celda queda vacía**, no la tabla. Es deliberado: el alumno
+  reconoce la misma tabla y lo que varía es desde dónde tiene que llegar al valor que falta.
+- **4 opciones**, igual que el resto del topic.
+- **A1 y A2 (regla 71) no aplican**, por dos motivos que se refuerzan. El operativo: estos ítems son
+  modo `cell`, y ahí no hay columnas rivales que compitan fila por fila, solo un valor contra otro.
+  El de fondo: nada se parece a un factorial en dos puntos seguidos, así que aunque fueran modo
+  `column` serían insatisfacibles. Lo único que el validador exige acá es que los cuatro valores
+  sean distintos entre sí.
+- **La celda vacía va entre filas dadas siempre que se pueda**, para que se pueda llegar desde
+  arriba ($5 	imes 24$) y verificar desde abajo ($720 / 6$). Eso convierte a la tabla en un
+  mecanismo de autoverificación y no en decoración. En el ejercicio que deja vacío el $6!$ solo se
+  puede subir, y ahí el distractor bueno es el que usa el índice equivocado como factor.
 - **El trabajo de la tabla acá es perceptual, no discriminativo.** El crecimiento factorial se
-  subestima de forma masiva y la instrucción verbal no lo corrige. Una tabla que muestra
-  $3\to6$, $5\to120$, $8\to40320$ en una pantalla entrega la explosión de un vistazo, que es el
-  canal que las palabras no alcanzan. Ése es el motivo de existir de estos ítems.
-- **El distractor bueno es la correcta desfasada, no una fórmula rival.** Cuando los órdenes de
-  magnitud no compiten, lo que compite visualmente es una columna corrida un renglón: $(n-1)!$
-  contra $n\cdot(n-1)!$ pinta exactamente la columna correcta un lugar más abajo, y el alumno no
-  lee un número mal, ve un desfasaje. Es el error conceptual hecho imagen.
-- **Régimen de consecutividad (regla 72): consecutivas** en `recursiva-tabla` (la recursión $n! =
-  n\cdot(n-1)!$ **es** el contenido) y **no consecutivas** en `cociente-tabla`, que apunta a una
-  fórmula cerrada ($5, 6, 8$, no $5, 6, 7$).
+  subestima de forma masiva y la instrucción verbal no lo corrige. Ver $6, 24, 120, 720$ de un
+  vistazo entrega la explosión por el canal que las palabras no alcanzan. Ése es el motivo de
+  existir de estos ítems.
+- **Los distractores salen del índice equivocado**, no de fórmulas rivales: multiplicar por el
+  índice de la fila de arriba, por el de la de abajo, o dividir por el que no corresponde. La
+  potencia ($5^{3}$, $4^{3}$, $6^{3}$) es el único distractor de otra naturaleza y aparece una vez
+  por ejercicio.
 - **La tabla es contexto visual, no narrativo**, así que no viola la regla de "sin contexto
   narrativo" de este topic: sigue sin haber personas ni objetos que ordenar. Es justamente por eso
   que el formato encaja acá.
-- **En `valor-desde-tabla`, la celda vacía va entre dos filas dadas**, para que se pueda llegar
-  desde arriba ($5\times 24$) y verificar desde abajo ($720/6$). Eso convierte a la tabla en un
-  mecanismo de autoverificación y no en decoración.
-- $n \leq 8$ sigue valiendo, pero **los valores mostrados en la tabla pueden pasarse** ($8! =
-  40320$) cuando la explosión es el punto: el techo acota lo que hay que *calcular*, no lo que se
-  puede *mostrar*.
+
+> **Sin tablas en `FORM` (ago-2026).** Hubo 4 ítems con tabla en `FORM` (`recursiva-tabla` y
+> `cociente-tabla`, modo `column`) y se sacaron después del testeo. En este topic la tabla rinde
+> cuando el alumno **completa un valor**, no cuando elige entre expresiones: para eso ya están los
+> ítems simbólicos de `FORM`, que muestran la expresión directamente y no necesitan la tabla como
+> intermediaria. El cupo no se redistribuye. No volver a proponer tablas para `FORM` en este topic.
 
 ## Checklist del topic
 
@@ -110,4 +112,4 @@ Reglas 68-75 de `authoring-context.md` más lo específico de este topic:
 - [ ] $0!$ tratado como $1$ en todos los ejercicios que lo usan
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
 - [ ] Cardinalidad numérica → 4 opciones ≤35 caracteres
-- [ ] **Ejercicios con `table`: el WARNING de A2 del validador es esperable acá, no se "arregla"**
+- [ ] Ejercicios con `table`: solo en `RESL`, grilla fija $n=3,4,5,6$, una celda vacía distinta en cada uno
