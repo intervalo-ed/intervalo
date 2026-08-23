@@ -331,7 +331,14 @@ export default function ExerciseTable({
                   c,
                   <>
                     {headers[c] ? <MathText text={headers[c]!} /> : EMPTY}
-                    {col.icon && <span aria-hidden> {col.icon}</span>}
+                    {/* La separación va por margen y no por un espacio de
+                        texto: un espacio depende de la fuente y quedaba pegado
+                        contra la palabra. */}
+                    {col.icon && (
+                      <span aria-hidden className="ml-2">
+                        {col.icon}
+                      </span>
+                    )}
                   </>,
                 )}
               </th>
