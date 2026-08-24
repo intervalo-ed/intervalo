@@ -1206,17 +1206,20 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
               {/* ── SLIDE 4: Cómo se organiza el contenido ── */}
               {step === 4 && (
                 <div className="flex flex-col gap-6 pt-6">
+                  <h2 className="text-left text-2xl font-bold">{COURSE_LABEL[courseKey]}</h2>
+                  <div className="flex flex-col gap-3 leading-relaxed text-foreground/85">
+                    <p>
+                      Las unidades son{" "}
+                      <strong className="text-foreground">correlativas</strong>: cada una se apoya
+                      en la anterior.
+                    </p>
+                  </div>
                   <UnitSegmentedBar units={currentUnits} />
                   <p className="leading-relaxed text-foreground/85">
                     Dentro de cada unidad hay una serie de{" "}
                     <strong className="text-foreground">temas</strong>, y cada uno contempla distintos{" "}
                     <strong className="text-foreground">tipos</strong> de{" "}
                     <strong className="text-foreground">ejercicios</strong>.
-                  </p>
-                  <p className="leading-relaxed text-foreground/85">
-                    {knownUnits.length > 0
-                      ? "Vas a arrancar por el principio igual: el repaso te va a ir salteando rápido lo que ya domines."
-                      : "No hace falta que sepas nada de antemano: el repaso arranca por el principio y avanza a tu ritmo."}
                   </p>
                   <p className="font-medium text-foreground/90">
                     ¿Vamos con uno de prueba?
