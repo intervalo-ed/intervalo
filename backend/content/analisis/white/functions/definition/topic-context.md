@@ -118,55 +118,41 @@ El **humor es excepcional** (una minoría de los 30 ejercicios) y solo como **an
 
 ---
 
-## CLSF, 30 ejercicios
+## CLSF, 21 ejercicios
 
 ### Distribución objetivo
 
-**CLSF es el skill de aplicación: identificar y calcular sobre casos concretos.** Se apoya en el vocabulario que LEXI define y lo pone a trabajar. Dos bloques:
+**CLSF es el skill de aplicación: identificar y calcular sobre casos concretos.** Se apoya en el vocabulario que LEXI define y lo pone a trabajar. Todo el skill es de **identificación**: calcular o distinguir el conjunto concreto en un caso dado (cuál es el dominio de esta $f$, cuál es su conjunto imagen, qué valores excluye el dominio natural, cuáles son las preimágenes de $k$).
 
-- **~9 de unicidad ("¿es función?")**, acotados a los dos casos que de verdad enseñan: **unicidad rota disfrazada** en contexto (no la tabla obvia de "una entrada con dos salidas") y **trampa de inyectividad** (dos entradas comparten salida y eso NO rompe la función). Este bloque entrena la confusión central unicidad↔inyectividad; los casos de unicidad rota explícita y evidente ya no se repiten en masa.
-- **~21 de identificación**, calcular o distinguir el conjunto concreto en un caso dado: cuál es el dominio de esta $f$, cuál es su conjunto imagen, qué valores excluye el dominio natural, cuáles son las preimágenes de $k$.
+> **El bloque de unicidad se archivó (ago-2026, feedback de testeo 485).** Las dos sub-familias que preguntaban "¿esta asignación define una función?" —`unicidad-rota-disfrazada` (4) y `trampa-inyectividad` (5)— salieron del curso por decisión de producto: **el criterio de unicidad dejó de considerarse relevante para el alumno de esta unidad.** Los 9 ítems están en `backend/content/archive/analisis/white/functions/definition/CLSF.json` con su `id` original preservado, así que esos ids quedan quemados y no se reusan (la asignación de ids nuevos es `max(sufijos)+1`, nunca el primer hueco libre). CLSF pasó de 30 a 21 y **no hay que reponer los 9**: el objetivo del skill es 21.
 
 `tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 | Categoría | Slug | Cantidad |
 |-----------|------|----------|
-| Unicidad **rota disfrazada** en contexto cotidiano ("¿es función?") | `unicidad-rota-disfrazada` | 4 |
-| **Trampa de inyectividad**: sí es función aunque dos entradas compartan salida | `trampa-inyectividad` | 5 |
 | **Dominio**: identificar el conjunto de entradas en un caso concreto | `dominio-identificacion` | 4 |
 | **Dominio natural**: restricción algebraica (división, raíz, combinadas) | `dominio-natural` | 6 |
 | **Imagen / conjunto imagen**: salidas alcanzadas vs. codominio | `imagen-identificacion` | 5 |
 | **Codominio**: distinguir del conjunto imagen | `codominio-identificacion` | 2 |
 | **Preimagen**: calcular preimágenes / distinguir de la imagen | `preimagen-identificacion` | 4 |
-| **Total** | | **30** |
+| **Total** | | **21** |
 
 **No duplicar LEXI.** El límite: **LEXI define/reconoce el término** ("¿qué es el dominio?", "¿qué representa este conjunto?"), en general 2-3 opciones y registro definicional. **CLSF identifica o calcula el conjunto concreto** ("¿cuál es el dominio de esta $f$?", "¿cuáles son las preimágenes del 0?"), computacional. Si un ejercicio se resuelve solo sabiendo la definición sin mirar el caso, es LEXI, no CLSF.
 
-**Fuera de alcance de `white`.** No incluir inyectiva/sobreyectiva/biyectiva como clasificación explícita (se agenda para un topic posterior con codominio bien trabajado). La inyectividad aparece únicamente como *distractor* en el bloque de unicidad, y siempre descrita, nunca nombrada.
+**Fuera de alcance de `white`.** No incluir inyectiva/sobreyectiva/biyectiva como clasificación explícita (se agenda para un topic posterior con codominio bien trabajado).
 
 ### Cardinalidad
 
-- **Unicidad ("¿es función?")**: **3 opciones, no binario Sí/No.** El binario en masa vuelve la sesión un juego de moneda (ver `authoring-context.md` §Cardinalidad y regla anti-binario). Reformulá el sí/no como tres respuestas que integran el porqué:
-  - **Cuando NO es función** (correcta = negativa con razón correcta): `No, hay una entrada con dos salidas` (correcta) · `Sí, cada entrada tiene una sola salida` (afirmativa falsa) · `No, dos salidas distintas vienen de la misma entrada` u otra negativa con razón espuria.
-  - **Cuando SÍ es función** (correcta = afirmativa): `Sí, cada entrada tiene una sola salida` (correcta) · `No, dos entradas comparten la misma salida` (negativa con la confusión de inyectividad: describila, NO uses la palabra "inyectividad") · `No, la salida se repite` u otra negativa espuria.
-  - El alumno no solo decide si es función, sino que discrimina **por qué**, y la confusión inyectividad↔unicidad queda como distractor central.
 - **Identificación**: **4 opciones**, cuando hay 4 confusiones genuinamente distintas (p. ej. dominio ↔ imagen ↔ codominio + una espuria). Si solo hay 3 confusiones reales, usá 3 y no rellenes con un absurdo delator.
 - **Layout:** con 3 opciones el front usa lista vertical; la grilla 2×2 se activa solo con exactamente 4 opciones, todas ≤35 caracteres (ver `session-runner.tsx`). No fuerces el largo para "caer en grilla".
 
 ### `feedback_incorrect` para CLSF
 
-Array paralelo a `options`, `null` en el índice correcto, mismo largo que `options` (3 en unicidad, 4 en identificación). Voz descriptiva del concepto, nunca acusatoria ("confunde X con Y" está prohibido).
-
-**En unicidad:**
-- **Distractor afirmativo cuando NO es función:** describir el conflicto, "Acá una misma entrada produce dos salidas, y eso rompe la condición de función."
-- **Distractor negativo con la confusión de inyectividad cuando SÍ es función:** "Que dos entradas distintas compartan la misma salida no rompe la condición de función: la unicidad mira que cada entrada tenga una sola salida, no al revés." (Describí el concepto sin usar la palabra "inyectividad".)
-- **Distractor negativo con razón espuria:** nombrar por qué esa razón no invalida la función ("Que una salida se repita, o que sobren elementos del codominio, no contradice la definición de función.").
+Array paralelo a `options`, `null` en el índice correcto, mismo largo que `options`. Voz descriptiva del concepto, nunca acusatoria ("confunde X con Y" está prohibido).
 
 **En identificación:** cada distractor nombra qué conjunto se agarró en su lugar ("Ese es el codominio, las salidas posibles, no las efectivamente alcanzadas."; "Ese es el conjunto de salidas; el dominio son las entradas."; "El 600 es lo que se reparte, no una cota inferior para las personas.").
 
 ### Reglas específicas para CLSF
-
-**Unicidad ≠ inyectividad, es el eje del bloque de unicidad.** La confusión central que entrena es creer que "dos entradas con la misma salida" rompe la función. No la rompe. Describí el concepto sin nombrar "inyectividad" (fuera del alcance de `white`): hablá de "cada entrada, una sola salida" y "al revés".
 
 **Identificar sobre el caso, no recitar la definición.** Todo ejercicio de identificación debe obligar a mirar los datos concretos (el conjunto, la fórmula, la restricción) para responder; si se contesta de memoria con la definición, movelo a LEXI.
 
@@ -192,17 +178,14 @@ Además del checklist global del `generation-instructions.md`, verificá lo espe
 - [ ] Variedad de apertura en las `explanation`: proporción similar de pregunta retórica, contraejemplo y definición formal entre los que queden
 
 **CLSF:**
-- [ ] 30 ejercicios exactos
-- [ ] Distribución: 9 de unicidad (4 rota disfrazada + 5 trampa de inyectividad) + 21 de identificación (4 dominio, 6 dominio natural, 5 imagen/conjunto imagen, 2 codominio, 4 preimagen)
-- [ ] Los 9 de unicidad son SOLO rota disfrazada o trampa de inyectividad; ningún caso obvio de "una entrada con dos salidas" en tabla explícita
-- [ ] Todo ejercicio de identificación obliga a mirar el caso concreto; ninguno se resuelve solo con la definición (si sí, es LEXI)
-- [ ] NINGÚN ejercicio de inyectiva/sobreyectiva/biyectiva como clasificación (solo como distractor descrito en unicidad)
-- [ ] Los 9 de unicidad tienen 3 opciones (afirmativa + negativa correcta + negativa con confusión), no binario Sí/No
-- [ ] Los 21 de identificación tienen 4 opciones (o 3 si no hay 4 confusiones reales), sin relleno absurdo delator
+- [ ] 21 ejercicios exactos
+- [ ] Distribución: 4 dominio, 6 dominio natural, 5 imagen/conjunto imagen, 2 codominio, 4 preimagen
+- [ ] Ningún ejercicio de "¿esta asignación define una función?": el bloque de unicidad se archivó (ago-2026), no se repone
+- [ ] Todo ejercicio obliga a mirar el caso concreto; ninguno se resuelve solo con la definición (si sí, es LEXI)
+- [ ] NINGÚN ejercicio de inyectiva/sobreyectiva/biyectiva como clasificación
+- [ ] 4 opciones (o 3 si no hay 4 confusiones reales), sin relleno absurdo delator
 - [ ] `feedback_incorrect` en TODOS los ejercicios, array del mismo largo que `options`, `null` en el correcto
-- [ ] Balance en unicidad: no todas "Sí" ni todas "No"
 - [ ] `correct_index` variado, no siempre 0
-- [ ] La palabra "inyectividad" NO aparece en options ni feedback (se describe el concepto)
 - [ ] Sin nombres propios en ningún ejercicio (revisar el del DNI/persona)
 
 ---
