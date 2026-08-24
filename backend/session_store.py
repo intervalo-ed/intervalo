@@ -46,6 +46,7 @@ from exercise_bank import (
     list_exercises_db,
     mark_exercise_served,
 )
+from sqlalchemy import func
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session as DBSession
 from models import (
@@ -215,6 +216,7 @@ class ExerciseInSession:
     graph_view: list | None = None
     graph_shade: list | None = None
     graph_free_aspect: bool = False
+    table: dict | None = None
     explanation: str | None = None
     external_id: str = ""
 
@@ -593,18 +595,24 @@ def _exercise_to_dict(ex: ExerciseInSession) -> dict:
         "graph_view": ex.graph_view,
         "graph_shade": ex.graph_shade,
         "graph_free_aspect": ex.graph_free_aspect,
+        "table": ex.table,
         "feedback_correct": ex.feedback_correct,
         "feedback_incorrect": ex.feedback_incorrect,
         "explanation": ex.explanation,
     }
 
 
-def _shuffle_options(ex: dict) -> tuple[list, int, list | None]:
-    """Shuffle options preserving the parallel alignment of feedback_incorrect.
+def _shuffle_options(ex: dict) -> tuple[list, int, list | None, dict | None]:
+    """Shuffle options preserving every per-option array aligned with them.
 
-    feedback_incorrect is a per-option array (null on the correct index); it must
-    be permuted with the exact same order as options, or hints end up attached to
-    the wrong option.
+    Hay dos estructuras paralelas a `options` que se tienen que permutar con el
+    MISMO orden, o quedan pegadas a la opción equivocada:
+
+    - `feedback_incorrect`: array por opción (null en el índice correcto).
+    - `table.reveal.by_option`: la columna (o la celda) que pinta cada opción.
+
+    Las dos fallan en silencio si no se permutan: no hay error, solo una pista o
+    una tabla que corresponde a otra opción.
     """
     order = list(range(len(ex["options"])))
     random.shuffle(order)
@@ -614,7 +622,23 @@ def _shuffle_options(ex: dict) -> tuple[list, int, list | None]:
     shuffled_feedback = (
         [feedback[i] for i in order] if isinstance(feedback, list) else feedback
     )
-    return shuffled, new_correct_index, shuffled_feedback
+    return shuffled, new_correct_index, shuffled_feedback, _permute_table(ex.get("table"), order)
+
+
+def _permute_table(table: dict | None, order: list[int]) -> dict | None:
+    """Reorder `table.reveal.by_option` to match a shuffled `options` array."""
+    if not isinstance(table, dict):
+        return None
+    reveal = table.get("reveal")
+    if not isinstance(reveal, dict):
+        return table
+    by_option = reveal.get("by_option")
+    if not isinstance(by_option, list) or len(by_option) != len(order):
+        return table
+    return {
+        **table,
+        "reveal": {**reveal, "by_option": [by_option[i] for i in order]},
+    }
 
 
 def _build_exercise(
@@ -624,6 +648,8 @@ def _build_exercise(
     db: DBSession,
     user_id: int,
     exclude_by_unit: dict[UnitKey, set[str]] | None = None,
+    table_boost: float = 1.0,
+    require_table: bool = False,
 ) -> ExerciseInSession:
     # Se pasa el set REAL (no una copia): get_exercise_db lo vacía si esta
     # sesión ya agotó el pool de la unidad, para arrancar otra pasada completa.
@@ -640,10 +666,12 @@ def _build_exercise(
         db,
         user_id,
         extra_exclude=extra_exclude,
+        table_boost=table_boost,
+        require_table=require_table,
     )
     if ex.get("external_id"):
         extra_exclude.add(ex["external_id"])
-    shuffled, new_correct_index, shuffled_feedback = _shuffle_options(ex)
+    shuffled, new_correct_index, shuffled_feedback, shuffled_table = _shuffle_options(ex)
     return ExerciseInSession(
         exercise_id=f"ex_{idx:03d}",
         unit_key=unit_key,
@@ -657,6 +685,7 @@ def _build_exercise(
         graph_view=ex.get("graph_view"),
         graph_shade=ex.get("graph_shade"),
         graph_free_aspect=bool(ex.get("graph_free_aspect", False)),
+        table=shuffled_table,
         explanation=ex.get("explanation"),
         external_id=ex.get("external_id", ""),
     )
@@ -684,6 +713,52 @@ def _rows_to_unit_states(
         )
         attempted[uk] = row.attempted
     return states, attempted
+
+
+# ── Empuje inicial de los ejercicios con tabla ────────────────────────────────
+# El formato tabla es el más nuevo y el que mejor engancha, pero en el banco es
+# minoría (en probabilidad, 9 de 206 del blanco), así que con sorteo uniforme el
+# 64% de los usuarios nuevos no veía ninguno en su primera sesión — justo la
+# sesión donde se juega la retención.
+#
+# La corrección es un peso que decae linealmente: x6 en la primera sesión del
+# curso, x1 (sin empuje) de la sesión 10 en adelante. Es deliberadamente un
+# sesgo de SORTEO y no una cuota: el ciclo por ítem (ver
+# exercise_bank.get_exercise_db) ya garantiza que cada ejercicio del pool se
+# sirve una sola vez por ciclo, así que esto cambia el ORDEN en que aparecen,
+# nunca cuáles. No distorsiona las proporciones de largo plazo ni "gasta" el
+# banco: adelanta las tablas y se autocorrige solo.
+#
+# Agnóstico del curso: donde no hay tablas todos los pesos valen 1 y no cambia
+# nada, así que álgebra y análisis lo heredan gratis cuando tengan las suyas.
+TABLE_BOOST_MAX = 6.0
+TABLE_BOOST_SESSIONS = 10
+
+
+def _table_boost(user_id: int, course_id: int, db: DBSession) -> tuple[float, bool]:
+    """Peso de los ejercicios con tabla y si hay que garantizar uno.
+
+    Devuelve `(peso, garantizar)`. `garantizar` es True solo en la primera
+    sesión del curso: el peso por sí solo deja ~13% de usuarios sin ver ninguna
+    tabla, y la primera sesión es demasiado cara como para dejarla al azar.
+
+    La cuenta es de sesiones `main` TERMINADAS: las de onboarding son sintéticas
+    (mode="onboarding") y una sesión abandonada no debería gastar el empuje."""
+    hechas = (
+        db.query(func.count(SessionModel.id))
+        .filter(
+            SessionModel.user_id == user_id,
+            SessionModel.course_id == course_id,
+            SessionModel.mode == "main",
+            SessionModel.finished_at.isnot(None),
+        )
+        .scalar()
+    ) or 0
+    n = hechas + 1  # la sesión que se está armando
+    if n >= TABLE_BOOST_SESSIONS:
+        return 1.0, False
+    tramo = (TABLE_BOOST_SESSIONS - n) / (TABLE_BOOST_SESSIONS - 1)
+    return 1.0 + (TABLE_BOOST_MAX - 1.0) * tramo, n == 1
 
 
 ACTIVE_CAP_DEFAULTS = {
@@ -938,11 +1013,20 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
         config=SM2Config(max_session_exercises=course_progress.session_size),
     )
 
+    boost, garantizar = _table_boost(user_id, course_id, db)
     exclude_by_unit: dict[UnitKey, set[str]] = {}
-    exercises = [
-        _build_exercise(idx, su.key, course_id, db, user_id, exclude_by_unit)
-        for idx, su in enumerate(session_units)
-    ]
+    exercises = []
+    for idx, su in enumerate(session_units):
+        exercises.append(_build_exercise(
+            idx, su.key, course_id, db, user_id, exclude_by_unit,
+            table_boost=boost,
+            # La garantía es "el primer slot que pueda dar tabla la da": se
+            # apaga apenas se usa, así que un segundo ítem con tabla en el
+            # pool queda solo con el empuje de `boost`, no forzado también.
+            require_table=garantizar,
+        ))
+        if exercises[-1].table is not None:
+            garantizar = False
 
     db_session = SessionModel(
         user_id=user_id,
@@ -1061,11 +1145,12 @@ def create_test_session_db(
     (belt, topic, exercise_type). No SR tracking.
 
     `items` is a list of {belt, topic, exercise_type} dicts.
-    `filters` may contain `has_math: bool` and `has_graph: bool` to narrow the
-    exercise set (both default to no-op).
+    `filters` may contain `has_math`, `has_graph` and `has_table` (bool) to
+    narrow the exercise set (all default to no-op).
     """
     only_math = bool(filters and filters.get("has_math"))
     only_graph = bool(filters and filters.get("has_graph"))
+    only_table = bool(filters and filters.get("has_table"))
 
     exercises: list[ExerciseInSession] = []
     idx = 0
@@ -1084,7 +1169,9 @@ def create_test_session_db(
                 continue
             if only_graph and not ex.get("graph_fn"):
                 continue
-            shuffled, new_correct_index, shuffled_feedback = _shuffle_options(ex)
+            if only_table and not ex.get("table"):
+                continue
+            shuffled, new_correct_index, shuffled_feedback, shuffled_table = _shuffle_options(ex)
             exercises.append(
                 ExerciseInSession(
                     exercise_id=f"ex_{idx:03d}",
@@ -1099,6 +1186,7 @@ def create_test_session_db(
                     graph_view=ex.get("graph_view"),
                     graph_shade=ex.get("graph_shade"),
                     graph_free_aspect=bool(ex.get("graph_free_aspect", False)),
+                    table=shuffled_table,
                     explanation=ex.get("explanation"),
                     external_id=ex.get("external_id", ""),
                 )

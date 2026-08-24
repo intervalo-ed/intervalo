@@ -80,6 +80,7 @@ Antes de devolver los archivos, corré este checklist ejercicio por ejercicio. S
 - [ ] Regla 11: sin rótulos tipo `"Nota:"`, `"Verificación:"`, `"Regla general:"` abriendo un párrafo
 - [ ] **Regla 12, frontera matemática**: en `white` (conteo) no existen todavía espacio muestral, probabilidad, variable aleatoria, distribuciones, esperanza ni varianza. Ninguna `explanation`/`feedback_incorrect` los invoca. Tampoco se asume Álgebra o Análisis más allá de aritmética/álgebra básica de primer año
 - [ ] Regla 14: sin símbolos ✓/✗/✘ en ningún campo
+- [ ] **Reglas 68-75, solo en ejercicios con `table`**: la tabla va en el campo `table`, no en LaTeX; el emoji solo en `columns[].icon` y nunca dentro de una opción, celda o prosa; `by_option` del mismo largo que `options`; las celdas visibles coinciden con lo que pinta la correcta; cada distractor difiere de la correcta en alguna fila visible; **fila trampa** presente (ninguna fila sola refuta a todos los distractores), salvo en `factoriales`, donde no aplica; sin `$$...$$` extra encima de la tabla
 - [ ] Regla 16: ningún `\begin{aligned}` con una línea de puro texto sin `&`
 - [ ] Regla 17: todo párrafo cierra con puntuación terminal
 - [ ] Regla 18, 21: fórmula central del `question` en su propio `$$...$$`, nunca tejida inline dentro de la oración; 2+ fragmentos LaTeX inline sueltos en un mismo párrafo se dividen
@@ -136,3 +137,4 @@ Estas reglas anulan cualquier intuición estética. El texto completo de cada un
 26. **NUNCA agregues el nombre de familia entre paréntesis al lado de una opción `CLSF` que ya es una fórmula.**
 27. **NUNCA enmarques un ejercicio en relación a otro ejercicio de la sesión**, y nombrá la estructura en la primera oración sin explicarla (regla crítica 24 de `authoring-context.md`).
 28. **Cada ejercicio reintroduce la fórmula/definición central que usa** (regla crítica 31).
+29. **Los ejercicios con tabla van en el campo `table`, con una columna precalculada por opción** (reglas críticas 68-75 y sección *Tablas* de `authoring-context.md`). Tres cosas que se olvidan seguido: el emoji va **solo** en `columns[].icon` (nunca dentro de una opción: eso enseña que la letra es la etiqueta del objeto y no la cantidad); las celdas ya visibles tienen que coincidir con lo que pinta la correcta; y la tabla **ya es** el ancla visual del enunciado, así que no se le agrega un `$$...$$` encima.

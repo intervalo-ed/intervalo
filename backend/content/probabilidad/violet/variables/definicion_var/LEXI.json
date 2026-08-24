@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_definicion_var_LEXI_01",
     "question": "¿Cuál es la definición correcta de **variable aleatoria**?",
     "options": [
       "Una función que asigna un número real a cada resultado del espacio muestral.",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_LEXI_02",
     "question": "¿Cuál de las siguientes afirmaciones distingue correctamente una variable **discreta** de una variable **continua**?",
     "options": [
       "La discreta toma valores aislados y contables, la continua toma cualquier valor de un intervalo.",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_LEXI_03",
     "question": "Se lanza un dado equilibrado y $X$ es el número que queda hacia arriba.\n\n¿Cómo se llama el conjunto $\\{1,2,3,4,5,6\\}$ de valores que puede tomar $X$?",
     "options": [
       "El soporte de la variable aleatoria.",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_LEXI_04",
     "question": "Toda **variable aleatoria** se define mediante la notación:\n$$X:\\Omega\\to\\mathbb{R}$$\n¿Qué representa $\\Omega$ en esa notación?",
     "options": [
       "El conjunto de valores numéricos que toma $X$.",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_LEXI_05",
     "question": "Un **evento** es un subconjunto del espacio muestral con una probabilidad asociada.\n\n¿En qué se diferencia de una variable aleatoria?",
     "options": [
       "Son el mismo objeto matemático, cambia el nombre usado según el contexto.",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_LEXI_06",
     "question": "Al lanzar dos dados, se define $X$ como la suma de los números obtenidos.\n\n¿Cuál de las siguientes afirmaciones describe correctamente a la **variable aleatoria** $X$?",
     "options": [
       "$X$ es la función que asigna la suma de resultados a cada par.",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_LEXI_07",
     "question": "Considerá una **variable aleatoria** $X:\\Omega\\to\\mathbb{R}$.\n\n¿Cuál es el dominio de $X$?",
     "options": [
       "El conjunto de números reales $\\mathbb{R}$.",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_LEXI_08",
     "question": "Toda **variable aleatoria** $X:\\Omega\\to\\mathbb{R}$ tiene como codominio al conjunto de números reales.\n\n¿Es correcto afirmar que $X$ siempre toma efectivamente todos los valores de $\\mathbb{R}$?",
     "options": [
       "No, $X$ solo toma los valores de su soporte, un subconjunto de $\\mathbb{R}$.",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_LEXI_09",
     "question": "¿Cuál es la definición de una **variable discreta**?",
     "options": [
       "Una variable cuyos valores son siempre números enteros positivos.",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_LEXI_10",
     "question": "¿Cuál es la definición de una **variable continua**?",
     "options": [
       "Una variable cuyos valores recorren un intervalo real.",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_LEXI_11",
     "question": "¿Puede una **variable discreta** tomar valores con parte decimal, y seguir siendo discreta?",
     "options": [
       "No, cualquier valor con decimales hace que la variable sea continua.",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_LEXI_12",
     "question": "Una **variable discreta** tiene, por definición, un conjunto de valores contable.\n\n¿Qué significa que ese conjunto sea contable?",
     "options": [
       "Que la cantidad de valores es siempre finita.",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_LEXI_13",
     "question": "Se lanza una moneda dos veces y $X$ es la cantidad de caras obtenidas.\n\n¿Cuál es el dominio de la **variable aleatoria** $X$?",
     "options": [
       "El espacio muestral de las cuatro tiradas posibles.",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_LEXI_14",
     "question": "Una ruleta tiene 4 sectores numerados del 1 al 4, y $X$ es el número que indica la flecha al detenerse.\n\n¿Cómo se llama el conjunto $\\{1,2,3,4\\}$ de valores que puede tomar $X$?",
     "options": [
       "El espacio muestral del experimento.",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_LEXI_15",
     "question": "Una urna tiene 5 bolillas numeradas del 1 al 5, y $X$ es el número de la bolilla que se extrae al azar.\n\n¿Cuál es el soporte de la **variable aleatoria** $X$?",
     "options": [
       "El conjunto de las 5 bolillas físicas dentro de la urna.",

@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_laplace_FORM_01",
     "question": "Se lanza un dado equilibrado de 6 caras.\n\n¿Qué expresión da la probabilidad de obtener un múltiplo de 3?",
     "options": ["$\\dfrac{2}{6}$", "$\\dfrac{3}{6}$", "$\\dfrac{6}{2}$", "$\\dfrac{1}{6}$"],
     "correct_index": 0,
@@ -18,6 +19,7 @@
     "tags": ["formula-conteo-simple"]
   },
   {
+    "id": "blue_laplace_FORM_02",
     "question": "De un grupo de 8 personas, 5 mujeres y 3 hombres, se elige un comité de 3 personas al azar.\n\n¿Qué expresión da la probabilidad de que el comité esté formado solo por mujeres?",
     "options": [
       "$5/8$",
@@ -41,6 +43,7 @@
     "tags": ["formula-con-combinaciones"]
   },
   {
+    "id": "blue_laplace_FORM_03",
     "question": "Se lanza un dado equilibrado de 6 caras 3 veces.\n\n¿Qué expresión da la probabilidad de obtener al menos un 6?",
     "options": [
       "$\\left(\\dfrac{1}{6}\\right)^{3}$",
@@ -64,6 +67,7 @@
     "tags": ["formula-con-complemento"]
   },
   {
+    "id": "blue_laplace_FORM_04",
     "question": "Una urna tiene bolitas de distinto tamaño, por lo que unas se extraen con más facilidad que otras al tacto.\n\n¿Por qué no se puede usar la regla de Laplace para calcular la probabilidad de sacar una bolita de un color determinado?",
     "options": [
       "Porque faltan datos sobre cuántas bolitas hay de cada color.",
@@ -85,6 +89,7 @@
     "tags": ["reconocer-no-equiprobable"]
   },
   {
+    "id": "blue_laplace_FORM_05",
     "question": "Se lanzan dos monedas equilibradas al mismo tiempo.\n\n¿Qué expresión da la probabilidad de obtener exactamente una cara?",
     "options": ["$\\dfrac{2}{4}$", "$\\dfrac{1}{4}$", "$\\dfrac{4}{2}$", "$\\dfrac{3}{4}$"],
     "correct_index": 0,
@@ -103,6 +108,7 @@
     "tags": ["formula-conteo-simple"]
   },
   {
+    "id": "blue_laplace_FORM_06",
     "question": "Se extrae una carta de un mazo español de 40 cartas.\n\n¿Qué expresión da la probabilidad de que sea del palo de oro?",
     "options": ["$\\dfrac{10}{40}$", "$\\dfrac{4}{40}$", "$\\dfrac{40}{10}$", "$\\dfrac{1}{40}$"],
     "correct_index": 0,
@@ -121,6 +127,7 @@
     "tags": ["formula-conteo-simple"]
   },
   {
+    "id": "blue_laplace_FORM_07",
     "question": "Una urna tiene 12 bolitas: 5 rojas, 4 azules y 3 verdes, indistinguibles al tacto.\n\n¿Qué expresión da la probabilidad de extraer una bolita verde?",
     "options": ["$\\dfrac{3}{12}$", "$\\dfrac{4}{12}$", "$\\dfrac{12}{3}$", "$\\dfrac{5}{12}$"],
     "correct_index": 0,
@@ -139,6 +146,7 @@
     "tags": ["formula-conteo-simple"]
   },
   {
+    "id": "blue_laplace_FORM_08",
     "question": "En una rifa hay 50 números, del 1 al 50, y se sortea uno al azar.\n\n¿Qué expresión da la probabilidad de que el número sorteado sea múltiplo de 5?",
     "options": ["$\\dfrac{10}{50}$", "$\\dfrac{5}{50}$", "$\\dfrac{50}{10}$", "$\\dfrac{1}{50}$"],
     "correct_index": 0,
@@ -157,6 +165,7 @@
     "tags": ["formula-conteo-simple"]
   },
   {
+    "id": "blue_laplace_FORM_09",
     "question": "Una urna tiene 10 bolitas: 6 rojas y 4 azules. Se extraen 3 bolitas al azar sin reposición.\n\n¿Qué expresión da la probabilidad de que las 3 sean rojas?",
     "options": ["$6/10$", "$\\binom{6}{3}/\\binom{10}{3}$", "$\\binom{6}{3}/\\binom{4}{3}$", "$4/10$"],
     "correct_index": 1,
@@ -175,6 +184,7 @@
     "tags": ["formula-con-combinaciones"]
   },
   {
+    "id": "blue_laplace_FORM_10",
     "question": "Un curso tiene 12 estudiantes, de los cuales 5 son de primer año. Se elige al azar un equipo de 4 para una olimpíada.\n\n¿Qué expresión da la probabilidad de que los 4 sean de primer año?",
     "options": ["$5/12$", "$\\binom{5}{4}/\\binom{12}{4}$", "$\\binom{5}{4}/\\binom{7}{4}$", "$7/12$"],
     "correct_index": 1,
@@ -193,6 +203,7 @@
     "tags": ["formula-con-combinaciones"]
   },
   {
+    "id": "blue_laplace_FORM_11",
     "question": "Se extraen 3 cartas de un mazo español de 40 sin reposición.\n\n¿Qué expresión da la probabilidad de que las 3 sean del palo de copa?",
     "options": ["$10/40$", "$\\binom{10}{3}/\\binom{40}{3}$", "$\\binom{10}{3}/\\binom{30}{3}$", "$30/40$"],
     "correct_index": 1,
@@ -211,6 +222,7 @@
     "tags": ["formula-con-combinaciones"]
   },
   {
+    "id": "blue_laplace_FORM_12",
     "question": "Se lanza una moneda equilibrada 4 veces.\n\n¿Qué expresión da la probabilidad de obtener al menos una cruz?",
     "options": [
       "$\\left(\\dfrac{1}{2}\\right)^{4}$",
@@ -234,6 +246,7 @@
     "tags": ["formula-con-complemento"]
   },
   {
+    "id": "blue_laplace_FORM_13",
     "question": "Se extraen 3 cartas de un mazo español de 40 sin reposición.\n\n¿Qué expresión da la probabilidad de que al menos una sea rey?",
     "options": [
       "$\\binom{4}{3}/\\binom{40}{3}$",
@@ -257,6 +270,7 @@
     "tags": ["formula-con-complemento"]
   },
   {
+    "id": "blue_laplace_FORM_14",
     "question": "Una caja tiene 20 piezas, de las cuales 5 están defectuosas. Se eligen 4 piezas al azar.\n\n¿Qué expresión da la probabilidad de que al menos una esté defectuosa?",
     "options": [
       "$\\binom{5}{4}/\\binom{20}{4}$",
@@ -280,6 +294,7 @@
     "tags": ["formula-con-complemento"]
   },
   {
+    "id": "blue_laplace_FORM_15",
     "question": "Un dado está cargado de forma que el número 6 sale con más frecuencia que los demás.\n\n¿Por qué no se puede usar la regla de Laplace para calcular la probabilidad de obtener cada número?",
     "options": [
       "Porque faltan datos sobre cuántas veces se lanzó el dado.",

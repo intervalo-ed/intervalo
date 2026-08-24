@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_orthogonality_CLSF_01",
     "question": "Dos vectores son ortogonales cuando forman un ángulo recto entre sí.\n\n¿Cuál de estos pares de vectores es ortogonal?",
     "options": [
       "$\\vec{u}=(2,0)$ y $\\vec{v}=(0,3)$",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_CLSF_02",
     "question": "Solo uno de estos pares cumple la condición de perpendicularidad.\n\n¿Cuál de estos pares de vectores es ortogonal?",
     "options": [
       "$\\vec{u}=(2,6)$ y $\\vec{v}=(3,1)$",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_CLSF_03",
     "question": "Solo uno de estos pares cumple la condición de perpendicularidad.\n\n¿Cuál de estos pares de vectores es ortogonal?",
     "options": [
       "$\\vec{u}=(4,-2)$ y $\\vec{v}=(2,1)$",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_CLSF_04",
     "question": "Solo uno de estos pares cumple la condición de perpendicularidad.\n\n¿Cuál de estos pares de vectores es ortogonal?",
     "options": [
       "$\\vec{u}=(3,5)$ y $\\vec{v}=(5,-3)$",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_CLSF_05",
     "question": "Solo uno de estos pares cumple la condición de perpendicularidad.\n\n¿Cuál de estos pares de vectores es ortogonal?",
     "options": [
       "$\\vec{u}=(7,0)$ y $\\vec{v}=(-4,3)$",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_CLSF_06",
     "question": "Un dron vuela en línea recta según $\\vec{u}=(4,0)$, y un segundo dron cruza su ruta en ángulo recto según uno de estos rumbos.\n\n¿Cuál de estos rumbos cruza en ángulo recto a $\\vec{u}$?",
     "options": [
       "$(0,5)$",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_CLSF_07",
     "question": "Una ruta sigue la dirección $\\vec{u}=(2,5)$ y otra la cruza en ángulo recto.\n\n¿Cuál de estos rumbos cruza en ángulo recto a esa ruta?",
     "options": [
       "$(2,-5)$",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_CLSF_08",
     "question": "Una cinta transportadora avanza según $\\vec{u}=(6,3)$ y un brazo mecánico empuja perpendicular a ella.\n\n¿Cuál de estas direcciones es perpendicular al avance?",
     "options": [
       "$(2,1)$",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_CLSF_09",
     "question": "Un río corre según $\\vec{u}=(4,1)$ y un nadador apunta perpendicular a la corriente.\n\n¿Cuál de estas direcciones apunta perpendicular al río?",
     "options": [
       "$(-1,4)$",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_CLSF_10",
     "question": "Una viga se apoya según $\\vec{u}=(3,-4)$ y un tensor la sostiene en ángulo recto.\n\n¿Cuál de estas direcciones es perpendicular a la viga?",
     "options": [
       "$(-3,4)$",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_CLSF_11",
     "question": "Se quiere decidir si dos direcciones se cruzan en ángulo recto.\n$$\\vec{u}=(3,4), \\qquad \\vec{v}=(4,-2)$$\n¿Es ortogonal este par?",
     "options": [
       "No, porque su producto escalar da $4$, no cero",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_CLSF_12",
     "question": "Se quiere decidir si dos direcciones se cruzan exactamente en ángulo recto.\n$$\\vec{u}=(5,2) \\qquad \\vec{v}=(2,-4)$$\n¿Es ortogonal este par?",
     "options": [
       "Sí, porque uno tiene una componente negativa y el otro ninguna",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_CLSF_13",
     "question": "Un par de direcciones parece formar un ángulo recto.\n$$\\vec{u}=(7,3) \\qquad \\vec{v}=(3,-6)$$\n¿Es ortogonal este par?",
     "options": [
       "Sí, porque su producto escalar da $0$",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_CLSF_14",
     "question": "Dos direcciones se cruzan con un ángulo cercano al recto.\n$$\\vec{u}=(6,1) \\qquad \\vec{v}=(1,-5)$$\n¿Es ortogonal este par?",
     "options": [
       "No, porque su producto escalar da un valor distinto de $0$",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_CLSF_15",
     "question": "Hay que verificar el cruce entre dos direcciones dadas.\n$$\\vec{u}=(2,8) \\qquad \\vec{v}=(-3,1)$$\n¿Es ortogonal este par?",
     "options": [
       "Sí, porque el producto escalar es un número chico",

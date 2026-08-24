@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_exponential_GRAF_01",
     "question": "La gráfica muestra una función exponencial.\n\n¿La función es creciente o decreciente?",
     "options": [
       "Creciente",
@@ -30,6 +31,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_02",
     "question": "La gráfica muestra una función exponencial.\n\n¿La función es creciente o decreciente?",
     "options": [
       "Creciente",
@@ -60,6 +62,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_03",
     "question": "La gráfica muestra una función exponencial.\n\n¿Cuál es la ecuación de la asíntota horizontal?",
     "options": [
       "$y = 1$",
@@ -90,6 +93,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_04",
     "question": "La gráfica muestra una función exponencial con desplazamiento vertical.\n\n¿Cuál es la asíntota horizontal de esta curva?",
     "options": [
       "$y = 0$",
@@ -120,6 +124,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_05",
     "question": "La gráfica muestra una función exponencial decreciente.\n\n¿Hacia qué valor se aproxima la función cuando $x \\to +\\infty$?",
     "options": [
       "$+\\infty$",
@@ -150,6 +155,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_06",
     "question": "La gráfica muestra una función exponencial.\n\n¿Cuánto vale $f(0)$?",
     "options": [
       "$f(0) = 0$",
@@ -180,6 +186,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_07",
     "question": "La gráfica muestra una función exponencial.\n\n¿Cuánto vale $f(0)$?",
     "options": [
       "$1$",
@@ -210,6 +217,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_08",
     "question": "La gráfica muestra una función exponencial con asíntota en $y = -1$.\n\n¿La función tiene alguna raíz real?",
     "options": [
       "No, porque es exponencial",
@@ -240,6 +248,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_09",
     "question": "La gráfica muestra una función exponencial.\n\n¿Cuántos extremos locales tiene la función?",
     "options": [
       "Ninguno",
@@ -270,6 +279,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_10",
     "question": "La gráfica muestra una función exponencial que pasa por $(0, 1)$.\n\n¿Cuánto vale $f(1)$?",
     "options": [
       "$1$",
@@ -300,6 +310,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_11",
     "question": "La gráfica muestra una función exponencial que pasa por $(0, 1)$.\n\n¿Cuánto vale $f(1)$?",
     "options": [
       "$0{,}3$",
@@ -330,6 +341,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_12",
     "question": "La gráfica muestra una función exponencial creciente.\n\n¿Qué le pasa a la función cuando $x \\to -\\infty$?",
     "options": [
       "Crece sin límite",
@@ -360,6 +372,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_13",
     "question": "La gráfica muestra una función exponencial con asíntota en $y = 1$.\n\n¿Cuánto vale $f(0)$?",
     "options": [
       "$1$",
@@ -390,6 +403,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_14",
     "question": "La gráfica muestra $f(x) = 2 \\cdot (1{,}5)^x$.\n\n¿Cuánto vale $f(2)$ aproximadamente? Usar que $(1{,}5)^2 = 2{,}25$.",
     "options": [
       "$3$",
@@ -420,6 +434,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_15",
     "question": "La gráfica muestra $f(x) = 3 \\cdot (0{,}6)^x$.\n\n¿Cuánto vale $f(1)$?",
     "options": [
       "$1{,}8$",
@@ -450,6 +465,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_16",
     "question": "Todas las exponenciales sin factor delante pasan por el mismo punto del eje vertical, y la diferencia queda en el ritmo.\n\n¿Qué fórmula corresponde a la curva del gráfico?",
     "options": [
       "$f(x) = (0{,}5)^x$",
@@ -480,6 +496,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_17",
     "question": "La altura a la que se aplana la curva y su valor en $x=0$ son los dos datos que la identifican.\n\n¿Qué fórmula corresponde al gráfico?",
     "options": [
       "$f(x) = 2^x$",
@@ -510,6 +527,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_18",
     "question": "En un gráfico exponencial conviene mirar primero si la curva sube o baja al avanzar hacia la derecha.\n\n¿Qué fórmula le corresponde?",
     "options": [
       "$f(x) = (0{,}5)^x + 1$",
@@ -540,6 +558,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_19",
     "question": "El punto donde la curva cruza el eje vertical es el primer dato que se lee en una exponencial.\n\n¿Qué fórmula corresponde al gráfico?",
     "options": [
       "$f(x) = (1{,}5)^x$",
@@ -570,6 +589,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_20",
     "question": "Una exponencial que baja y otra que sube pueden compartir el mismo valor inicial.\n\n¿Qué fórmula corresponde a la curva del gráfico?",
     "options": [
       "$f(x) = 3 \\cdot 2^x$",
@@ -600,6 +620,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_21",
     "question": "Multiplicar una exponencial por un número estira la curva en vertical sin mover su asíntota.\n\n¿Qué fórmula corresponde al gráfico?",
     "options": [
       "$f(x) = 4 \\cdot (0{,}5)^x$",
@@ -630,6 +651,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_22",
     "question": "Cuanto más grande es la base, más empinada se ve la curva a la derecha del eje vertical.\n\n¿Qué fórmula corresponde al gráfico?",
     "options": [
       "$f(x) = e^x$",
@@ -660,6 +682,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_23",
     "question": "Dos curvas pueden compartir la misma asíntota y crecer en direcciones opuestas.\n\n¿Qué fórmula corresponde al gráfico?",
     "options": [
       "$f(x) = (0{,}5)^x - 1$",
@@ -690,6 +713,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_24",
     "question": "En una exponencial, el factor que multiplica y el número que se suma cumplen papeles distintos.\n\n¿Qué fórmula corresponde a la curva?",
     "options": [
       "$f(x) = 2 \\cdot (1{,}5)^x + 1$",
@@ -720,6 +744,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_25",
     "question": "La gráfica muestra una inversión de \\$1000 que crece un $50\\%$ anual.\n\nEl eje $y$ muestra el monto en miles de pesos, el eje $x$ muestra los años.\n\n¿Cuánto vale la inversión después de $1$ año?",
     "options": [
       "\\$1000",
@@ -750,6 +775,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_26",
     "question": "La gráfica muestra cómo se enfría una taza de café.\n\nEl eje $y$ muestra la diferencia de temperatura con el ambiente en °C, y el eje $x$ el tiempo en minutos.\n\nAl inicio, la diferencia es $3$ °C.\n\n¿Qué le pasa a la diferencia de temperatura a medida que pasa el tiempo?",
     "options": [
       "Aumenta sin límite",
@@ -780,6 +806,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_27",
     "question": "La gráfica muestra el valor de una moto, en miles de pesos, en función de los años.\n\nLa moto costó \\$3000 y pierde valor cada año.\n\n¿Cuánto vale la moto después de $1$ año aproximadamente?",
     "options": [
       "\\$1800",
@@ -810,6 +837,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_28",
     "question": "La gráfica muestra el saldo de una cuenta bancaria, en miles de pesos, con interés compuesto.\n\nEl saldo inicial es \\$2000.\n\n¿Cuánto hay en la cuenta después de $2$ años si el punto $(2, 4{,}5)$ está en la curva?",
     "options": [
       "\\$2000",
@@ -840,6 +868,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_29",
     "question": "La gráfica muestra cuántos gramos quedan de una muestra radiactiva en función de los años.\nEmpieza con $4$ gramos.\n\n¿Cuántos gramos quedan después de $1$ año?",
     "options": [
       "$4$",
@@ -870,6 +899,7 @@
     ]
   },
   {
+    "id": "white_exponential_GRAF_30",
     "question": "La gráfica muestra el crecimiento de seguidores de un canal, medido en miles.\n\nArranca con $3000$ seguidores y la cantidad se duplica cada mes.\n\n¿Qué valor tiene la curva en $t = 1$?",
     "options": [
       "$3$",

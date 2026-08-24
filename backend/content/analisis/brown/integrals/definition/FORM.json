@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_definition_FORM_01",
     "question": "El integrando resta dos familias distintas, una potencia con coeficiente y un seno con coeficiente:\n$$\\int (4x^2 - 3\\sin x)\\,dx$$\n¿Cuál reescritura por **linealidad** deja la expresión más simple para integrar término a término?",
     "options": [
       "$4\\int x^2\\,dx - 3\\int \\sin x\\,dx$",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "brown_definition_FORM_02",
     "question": "El integrando es una suma de dos familias distintas, un polinomio y un seno:\n$$\\int (x+\\sin x)\\,dx$$\n¿Cuál reescritura por **linealidad** deja cada término en condiciones de integrarse por separado?",
     "options": [
       "$\\int (x+\\sin x)\\,dx$",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "brown_definition_FORM_03",
     "question": "El integrando resta dos potencias de $x$, cada una con su propio coeficiente:\n$$\\int (5x^3 - 2x)\\,dx$$\n¿Cuál reescritura por **linealidad** conviene para integrar término a término?",
     "options": [
       "$5\\int x^3\\,dx + 2\\int x\\,dx$",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "brown_definition_FORM_04",
     "question": "El integrando es un único término, una exponencial multiplicada por un coeficiente fijo:\n$$\\int 7e^x\\,dx$$\n¿Cuál reescritura por **linealidad** deja la integral más simple de trabajar?",
     "options": [
       "$7\\int e^x\\,dx$",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "brown_definition_FORM_05",
     "question": "El integrando encadena tres términos, dos potencias y una constante:\n$$\\int (x^2+x-4)\\,dx$$\n¿Cuál reescritura por **linealidad** separa la integral para trabajar cada término por su cuenta?",
     "options": [
       "$\\int x^{2+1}\\,dx$",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "brown_definition_FORM_06",
     "question": "El integrando arranca con un término trigonométrico de coeficiente negativo, seguido de una potencia:\n$$\\int (-6\\cos x+x^4)\\,dx$$\n¿Cuál reescritura extrae el escalar por **linealidad** sin alterar la estructura original?",
     "options": [
       "$6\\int\\cos x\\,dx+\\int x^4\\,dx$",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "brown_definition_FORM_07",
     "question": "El integrando mezcla una potencia con un logaritmo, cada uno con su coeficiente:\n$$\\int (2x-9\\ln x)\\,dx$$\n¿Cuál reescritura por **linealidad** deja los coeficientes afuera y cada familia en su propia integral?",
     "options": [
       "$2\\int x\\,dx-9\\int \\ln x\\,dx$",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "brown_definition_FORM_08",
     "question": "El integrando suma y resta tres potencias de distinto grado, con un coeficiente solo en la del medio:\n$$\\int (x^3+2x^2-x)\\,dx$$\n¿Cuál reescritura lleva la **linealidad** hasta el final, sin dejar pasos a medias?",
     "options": [
       "$\\int x^3\\,dx+\\int 2x^2\\,dx-\\int x\\,dx$",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "brown_definition_FORM_09",
     "question": "El integrando es un producto entre dos funciones de $x$, un polinomio y un coseno:\n$$\\int x\\cos x\\,dx$$\n¿Se puede separar esta integral usando **linealidad**?",
     "options": [
       "Sí, es $\\int x\\,dx \\cdot \\int \\cos x\\,dx$",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "brown_definition_FORM_10",
     "question": "Dentro de la integral, un seno se divide por un polinomio, dos funciones de $x$ en una misma fracción:\n$$\\int \\frac{\\sin x}{x}\\,dx$$\n¿Se puede separar esta integral usando **linealidad**?",
     "options": [
       "No, el cociente no se puede separar así",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "brown_definition_FORM_11",
     "question": "El integrando multiplica una exponencial por un logaritmo, dos funciones de $x$ de familias distintas:\n$$\\int e^x \\ln x\\,dx$$\n¿Se puede separar esta integral usando **linealidad**?",
     "options": [
       "Sí, es $\\int e^x\\,dx + \\int \\ln x\\,dx$",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "brown_definition_FORM_12",
     "question": "El integrando es una suma de dos términos, uno con la variable y otro constante:\n$$\\int (3x+5)\\,dx$$\n¿Se puede separar esta integral usando **linealidad**?",
     "options": [
       "No, hay que integrar por partes",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "brown_definition_FORM_13",
     "question": "El integrando llega escrito como una fracción:\n$$\\int \\frac{x^2+3}{5}\\,dx$$\n¿Se puede separar esta integral usando **linealidad**?",
     "options": [
       "Sí, dividir por una constante es un múltiplo escalar",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "brown_definition_FORM_14",
     "question": "Bajo el signo integral, la expresión aparece escrita con forma de producto:\n$$\\int x^2 \\cdot 4\\,dx$$\n¿Se puede separar esta integral usando **linealidad**?",
     "options": [
       "No, hay que aplicar integración por partes",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "brown_definition_FORM_15",
     "question": "El integrando multiplica dos funciones trigonométricas de $x$ entre sí:\n$$\\int \\tan x \\cdot \\sec x\\,dx$$\n¿Se puede separar esta integral usando **linealidad**?",
     "options": [
       "Sí, es $\\int \\tan x\\,dx \\cdot \\int \\sec x\\,dx$",

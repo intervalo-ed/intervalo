@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_independencia_FORM_01",
     "question": "Se sabe que $P(A) = 0{,}4$ y $P(B) = 0{,}3$, siendo ambos eventos independientes.\n\n¿Qué expresión da $P(A \\cap B)$?",
     "options": [
       "$0{,}4 + 0{,}3$",
@@ -21,6 +22,7 @@
     "tags": ["formula-directa"]
   },
   {
+    "id": "blue_independencia_FORM_02",
     "question": "En un experimento, $P(A)=0{,}5$ y $P(B)=0{,}4$.\n\nAdemás, se sabe que $P(A\\cap B)=0{,}2$.\n\n¿Qué comparación permite verificar si ambos eventos son independientes?",
     "options": [
       "Comparar $P(A\\cap B)$ con $P(A)\\cdot P(B)$.",
@@ -42,6 +44,7 @@
     "tags": ["formula-verificacion"]
   },
   {
+    "id": "blue_independencia_FORM_03",
     "question": "Se lanzan 3 monedas balanceadas de forma independiente y en un orden fijo.\n\nLlamamos $A, B, C$ a obtener cara en la primera, segunda y tercera moneda respectivamente.\n\n¿Qué expresión da $P(A\\cap B\\cap C)$?",
     "options": [
       "$P(A)+P(B)+P(C)$",
@@ -63,6 +66,7 @@
     "tags": ["formula-tres-eventos"]
   },
   {
+    "id": "blue_independencia_FORM_04",
     "question": "Se sabe que $P(A) = 0{,}6$ y $P(B) = 0{,}5$, siendo ambos eventos independientes.\n\n¿Qué expresión da $P(A \\cap B)$?",
     "options": [
       "$0{,}6 + 0{,}5$",
@@ -84,6 +88,7 @@
     "tags": ["formula-directa"]
   },
   {
+    "id": "blue_independencia_FORM_05",
     "question": "Se sabe que $P(A) = 0{,}25$ y $P(B) = 0{,}8$, siendo ambos eventos independientes.\n\n¿Qué expresión da $P(A \\cap B)$?",
     "options": [
       "$0{,}25 \\cdot 0{,}8$",
@@ -105,6 +110,7 @@
     "tags": ["formula-directa"]
   },
   {
+    "id": "blue_independencia_FORM_06",
     "question": "Se sabe que $P(A) = 0{,}7$ y $P(B) = 0{,}2$, siendo ambos eventos independientes.\n\n¿Qué expresión da $P(A \\cap B)$?",
     "options": [
       "$0{,}7 - 0{,}2$",
@@ -126,6 +132,7 @@
     "tags": ["formula-directa"]
   },
   {
+    "id": "blue_independencia_FORM_07",
     "question": "Se sabe que $P(A) = 0{,}9$ y $P(B) = 0{,}1$, siendo ambos eventos independientes.\n\n¿Qué expresión da $P(A \\cap B)$?",
     "options": [
       "$0{,}9 \\cdot 0{,}1$",
@@ -147,6 +154,7 @@
     "tags": ["formula-directa"]
   },
   {
+    "id": "blue_independencia_FORM_08",
     "question": "Se sabe que $P(A) = 0{,}45$ y $P(B) = 0{,}6$, siendo ambos eventos independientes.\n\n¿Qué expresión da $P(A \\cap B)$?",
     "options": [
       "$0{,}45 + 0{,}6$",
@@ -168,6 +176,7 @@
     "tags": ["formula-directa"]
   },
   {
+    "id": "blue_independencia_FORM_09",
     "question": "En un experimento, $P(A)=0{,}3$ y $P(B)=0{,}6$.\n\nAdemás, se sabe que $P(A\\cap B)=0{,}18$.\n\n¿Qué comparación permite verificar si ambos eventos son independientes?",
     "options": [
       "Comparar $P(A\\cap B)$ con $P(A)\\cdot P(B)$.",
@@ -189,6 +198,7 @@
     "tags": ["formula-verificacion"]
   },
   {
+    "id": "blue_independencia_FORM_10",
     "question": "En un experimento, $P(A)=0{,}8$ y $P(B)=0{,}25$.\n\nAdemás, se sabe que $P(A\\cap B)=0{,}2$.\n\n¿Qué comparación permite verificar si ambos eventos son independientes?",
     "options": [
       "Comparar $P(A)$ con $P(B)$.",
@@ -210,6 +220,7 @@
     "tags": ["formula-verificacion"]
   },
   {
+    "id": "blue_independencia_FORM_11",
     "question": "En un experimento, $P(A)=0{,}5$ y $P(B)=0{,}5$.\n\nAdemás, se sabe que $P(A\\cap B)=0{,}3$.\n\n¿Qué comparación permite verificar si ambos eventos son independientes?",
     "options": [
       "Comparar $P(A\\cap B)$ con $P(A)+P(B)$.",
@@ -231,6 +242,7 @@
     "tags": ["formula-verificacion"]
   },
   {
+    "id": "blue_independencia_FORM_12",
     "question": "En un experimento, $P(A)=0{,}9$ y $P(B)=0{,}2$.\n\nAdemás, se sabe que $P(A\\cap B)=0{,}18$.\n\n¿Qué comparación permite verificar si ambos eventos son independientes?",
     "options": [
       "Comparar $P(A\\cap B)$ con $P(A)-P(B)$.",
@@ -252,6 +264,7 @@
     "tags": ["formula-verificacion"]
   },
   {
+    "id": "blue_independencia_FORM_13",
     "question": "Se lanzan 3 dados balanceados de forma independiente y en un orden fijo.\n\nLlamamos $D_1, D_2, D_3$ al evento de que cada dado, respectivamente, salga 6.\n\n¿Qué expresión da $P(D_1\\cap D_2\\cap D_3)$?",
     "options": [
       "$P(D_1)\\cdot P(D_2)+P(D_3)$",
@@ -273,6 +286,7 @@
     "tags": ["formula-tres-eventos"]
   },
   {
+    "id": "blue_independencia_FORM_14",
     "question": "Los eventos $A, B, C$ son independientes, con estas probabilidades:\n$$\\begin{aligned} P(A) &= 0{,}5 \\\\ P(B) &= 0{,}4 \\\\ P(C) &= 0{,}2 \\end{aligned}$$\n¿Qué expresión da su intersección $P(A\\cap B\\cap C)$?",
     "options": [
       "$P(A)\\cdot P(B)\\cdot P(C)$",
@@ -294,6 +308,7 @@
     "tags": ["formula-tres-eventos"]
   },
   {
+    "id": "blue_independencia_FORM_15",
     "question": "Se encuesta a 3 personas distintas, sin ningún contacto entre ellas, sobre si usarían un nuevo servicio.\n\nLlamamos $A, B, C$ al evento de que cada persona, respectivamente, responda que sí.\n\n¿Qué expresión da $P(A\\cap B\\cap C)$?",
     "options": [
       "$P(A)+P(B)+P(C)$",

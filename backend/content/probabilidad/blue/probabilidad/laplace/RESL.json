@@ -1,272 +1,392 @@
 [
   {
+    "id": "blue_laplace_RESL_01",
     "question": "De una urna con 4 bolas rojas y 6 azules se extraen 2 bolas al azar sin reposición.\n\n¿Cuál es la probabilidad de que ambas sean rojas?",
-    "options": ["$6/45$", "$4/10$", "$2/45$", "$12/45$"],
+    "options": [
+      "$6/45$",
+      "$4/45$",
+      "$4/10$",
+      "$12/45$"
+    ],
     "correct_index": 0,
     "feedback_correct": "$\\binom{4}{2}=6$ formas de elegir 2 rojas sobre $\\binom{10}{2}=45$ formas totales.",
     "feedback_incorrect": [
       null,
+      "Ese numerador cuenta las bolas rojas que hay, no las formas de elegir 2 de ellas.",
       "Esa fracción compara cantidades individuales de bolas, no formas de elegir 2 a la vez.",
-      "Ese numerador no corresponde a ninguna forma válida de elegir 2 bolas rojas.",
-      "Ese numerador sale de contar mal las combinaciones de 2 rojas entre las 4 disponibles."
+      "Ese numerador cuenta pares ordenados, $4\\times 3$, mientras el denominador cuenta sin orden."
     ],
-    "explanation": "Cuando se extraen varios elementos sin reposición y el orden no importa, favorables y posibles se cuentan con **combinaciones**.\n\nLos casos posibles son todas las formas de elegir 2 bolas de las 10 totales, $\\binom{10}{2}=45$, y los favorables son las formas de elegir 2 entre las 4 rojas, $\\binom{4}{2}=6$:\n$$P(\\text{ambas rojas}) = \\frac{6}{45}$$\nComparar la cantidad de bolas rojas con el total, en vez de contar las combinaciones completas, es una simplificación que no representa el conteo real.",
+    "explanation": "Cuando se extraen varios elementos sin reposición y el orden no importa, favorables y posibles se cuentan con **combinaciones**.\n\nLos casos posibles son todas las formas de elegir 2 bolas de las 10, $\\binom{10}{2}=45$, y los favorables son las formas de elegir 2 entre las 4 rojas, $\\binom{4}{2}=6$:\n$$P(\\text{ambas rojas}) = \\frac{6}{45}$$\nEl error más caro acá no es contar mal sino contar con dos convenciones distintas: si el denominador va sin orden, el numerador también.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["resl-con-combinaciones"]
+    "tags": [
+      "resl-con-combinaciones"
+    ]
   },
   {
-    "question": "En una caja hay 12 piezas, de las cuales 3 están defectuosas. Se eligen 2 piezas al azar.\n\n¿Cuál es la probabilidad de que al menos una esté defectuosa?",
-    "options": ["$36/66$", "$1-36/66$", "$3/12$", "$1-3/12$"],
+    "id": "blue_laplace_RESL_16",
+    "question": "En una comisión de 9 estudiantes, 5 cursan de mañana.\n\nSe sortean 2 al azar para representar al curso.\n\n¿Cuál es la probabilidad de que ambos sean de mañana?",
+    "options": [
+      "$20/36$",
+      "$10/36$",
+      "$10/45$",
+      "$4/9$"
+    ],
     "correct_index": 1,
-    "feedback_correct": "Al menos una defectuosa es el complemento de que ninguna lo esté.",
+    "feedback_correct": "$\\binom{5}{2}=10$ formas de elegir 2 de mañana sobre $\\binom{9}{2}=36$ formas totales.",
     "feedback_incorrect": [
-      "Ese cociente es la probabilidad de que ninguna esté defectuosa, el evento complementario al pedido.",
+      "Ese numerador cuenta pares ordenados, $5\\times 4$, mientras el denominador cuenta sin orden.",
       null,
+      "Ese denominador cuenta sobre 10 estudiantes, y la comisión tiene 9.",
+      "Esa fracción usa a los que no cursan de mañana, y sobre cantidades individuales."
+    ],
+    "explanation": "La regla de Laplace divide **casos favorables sobre casos posibles**, y cuando se eligen varios elementos a la vez sin que importe el orden, los dos lados se cuentan con combinaciones.\n\nElegir 2 entre 9 da $\\binom{9}{2}=36$ formas, y elegir 2 entre los 5 de mañana da $\\binom{5}{2}=10$:\n$$P(\\text{ambos}) = \\frac{10}{36}$$\nSortear dos representantes a la vez no distingue quién salió primero, así que $\\{A,B\\}$ y $\\{B,A\\}$ son el mismo resultado y se cuentan una sola vez.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-con-combinaciones"
+    ]
+  },
+  {
+    "id": "blue_laplace_RESL_10",
+    "question": "Un curso tiene 8 estudiantes: 5 varones y 3 mujeres.\n\nSe elige al azar un comité de 2.\n\n¿Cuál es la probabilidad de que el comité esté formado solo por mujeres?",
+    "options": [
+      "$3/8$",
+      "$6/28$",
+      "$3/28$",
+      "$3/64$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$\\binom{3}{2}=3$ formas de elegir 2 mujeres sobre $\\binom{8}{2}=28$ formas totales.",
+    "feedback_incorrect": [
+      "Esa fracción compara cantidades individuales, no formas de elegir 2 personas a la vez.",
+      "Ese numerador cuenta pares ordenados, $3\\times 2$, mientras el denominador cuenta sin orden.",
+      null,
+      "Ese denominador trata cada lugar del comité como independiente, $8\\times 8$, pero nadie ocupa los dos."
+    ],
+    "explanation": "Un comité no tiene puestos distinguidos: elegir a Ana y Bruna es el mismo comité que elegir a Bruna y Ana. Por eso los dos lados de la fracción se cuentan con **combinaciones**.\n\nLos posibles son $\\binom{8}{2}=28$ y los favorables, elegir 2 entre las 3 mujeres, son $\\binom{3}{2}=3$:\n$$P(\\text{solo mujeres}) = \\frac{3}{28}$$\nMultiplicar $3\\times 2$ para el numerador cuenta cada comité dos veces, una por cada orden en que podrían haber sido elegidas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-con-combinaciones"
+    ]
+  },
+  {
+    "id": "blue_laplace_RESL_11",
+    "question": "Una caja tiene 7 lamparitas, de las cuales 2 están quemadas.\n\nSe eligen 2 al azar.\n\n¿Cuál es la probabilidad de que ninguna esté quemada?",
+    "options": [
+      "$10/21$",
+      "$5/7$",
+      "$1/21$",
+      "$11/21$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$\\binom{5}{2}=10$ formas de elegir 2 sanas sobre $\\binom{7}{2}=21$ formas totales.",
+    "feedback_incorrect": [
+      null,
+      "Esa fracción compara cantidades individuales de lamparitas, no formas de elegir 2 a la vez.",
+      "Ese numerador cuenta la única forma de elegir las 2 quemadas, que es el caso opuesto al pedido.",
+      "Ese numerador cuenta los casos que sí incluyen alguna quemada."
+    ],
+    "explanation": "«Ninguna quemada» significa que las 2 elegidas salen del grupo de las sanas, así que se cuenta directo, sin complemento.\n\nDe las 7 lamparitas, 5 están sanas, y elegir 2 entre esas 5 da 10 formas sobre las 21 posibles:\n$$P(\\text{ninguna quemada}) = \\frac{10}{21}$$\nEse resultado y el de «al menos una quemada» suman 1: son los dos pedazos en que queda partido el total de 21.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-con-combinaciones"
+    ]
+  },
+  {
+    "id": "blue_laplace_RESL_02",
+    "question": "En una caja hay 6 piezas, de las cuales 2 están falladas.\n\nSe eligen 2 al azar.\n\n¿Cuál es la probabilidad de que al menos una esté fallada?",
+    "options": [
+      "$6/15$",
+      "$2/6$",
+      "$9/15$",
+      "$1/15$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "De las 15 formas de elegir 2 piezas, 6 no incluyen ninguna fallada: quedan $15-6=9$.",
+    "feedback_incorrect": [
+      "Ese es el caso opuesto, «ninguna fallada». Falta restarlo del total.",
       "Esa fracción compara cantidades individuales de piezas, no formas de elegir 2 a la vez.",
-      "Ese resto no descuenta la probabilidad correcta del evento sin ninguna defectuosa."
-    ],
-    "explanation": "Al menos una conviene resolverlo con el **complemento**: se calcula la probabilidad de que ninguna esté defectuosa y se resta de 1.\n\nHay $\\binom{9}{2}=36$ formas de elegir 2 piezas sanas entre las 9 sin defecto, sobre $\\binom{12}{2}=66$ formas totales.\n\nLa probabilidad de que al menos una esté defectuosa es:\n$$1 - \\frac{36}{66}$$\nIntentar contar directamente los casos con 1 o 2 piezas defectuosas por separado es un camino mucho más largo que el complemento.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": ["resl-con-complemento"]
-  },
-  {
-    "question": "Se lanzan dos dados de 6 caras y se observa la suma de los valores.\n\n¿Cuál es la probabilidad de obtener una suma igual a 8?",
-    "options": ["$1/6$", "$4/36$", "$5/36$", "$8/36$"],
-    "correct_index": 2,
-    "feedback_correct": "5 pares $(2,6),(3,5),(4,4),(5,3),(6,2)$ dan suma 8, sobre 36 pares posibles.",
-    "feedback_incorrect": [
-      "Ese valor corresponde a la probabilidad de la suma 7, no de la suma 8.",
-      "Ese resultado sale de contar solo algunos de los pares que suman 8, faltan pares por incluir.",
       null,
-      "Estás poniendo el valor 8 en el numerador, los favorables son los pares cuya suma da 8, no el número 8."
+      "Ese numerador cuenta solo el caso en que las 2 están falladas, y «al menos una» también incluye que sea una sola."
     ],
-    "explanation": "La **regla de Laplace** exige contar bien los casos favorables y posibles. Con dos dados hay $6\\times 6=36$ pares ordenados posibles, todos equiprobables.\n\nLos pares que suman 8 son:\n$$\\begin{aligned} (2,6),\\ (3,5),\\ (4,4),\\\\ (5,3),\\ (6,2) \\end{aligned}$$\nSon 5 pares favorables, así que:\n$$P(\\text{suma}=8) = \\frac{5}{36}$$\nContar solo las combinaciones no ordenadas y perder pares como $(6,2)$ separado de $(2,6)$ es un desliz común, en dos dados distinguibles ambos son resultados distintos.",
+    "explanation": "«Al menos una» es incómodo de contar de frente, porque son dos casos distintos: una fallada o las dos. Conviene contar el **complemento**, que es un solo caso.\n\nLos posibles son $\\binom{6}{2}=15$. Que ninguna esté fallada es elegir 2 entre las 4 sanas: $\\binom{4}{2}=6$. Los favorables son todo lo demás:\n$$P(\\text{≥1 fallada}) = \\frac{15-6}{15} = \\frac{9}{15}$$\nEl error clásico acá es frenar en el 6 y entregarlo como respuesta: ese número cuenta exactamente los casos que el enunciado descarta.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["resl-suma-valores"]
+    "tags": [
+      "resl-con-complemento"
+    ]
   },
   {
+    "id": "blue_laplace_RESL_12",
+    "question": "Se lanza una moneda equilibrada 3 veces.\n\n¿Cuál es la probabilidad de obtener al menos una cara?",
+    "options": [
+      "$1/8$",
+      "$3/8$",
+      "$7/8$",
+      "$4/8$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "De las 8 secuencias posibles, una sola no tiene ninguna cara: quedan $8-1=7$.",
+    "feedback_incorrect": [
+      "Ese es el caso opuesto, «ninguna cara». Falta restarlo del total.",
+      "Ese numerador cuenta solo las secuencias con exactamente una cara.",
+      null,
+      "Esa fracción mira una sola tirada, no las tres juntas."
+    ],
+    "explanation": "Cada tirada tiene 2 resultados y las tres son independientes, así que el espacio muestral tiene $2^{3}=8$ secuencias igual de probables.\n\n«Al menos una cara» abarca casi todo: lo único que queda afuera es la secuencia cruz-cruz-cruz, que es 1 sola. Contando por **complemento**:\n$$P(\\text{≥1 cara}) = \\frac{8-1}{8} = \\frac{7}{8}$$\nSumar las probabilidades de cada tirada por separado daría más que 1, que es la señal de que las tres tiradas no son casos excluyentes entre sí.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-con-complemento"
+    ]
+  },
+  {
+    "id": "blue_laplace_RESL_17",
+    "question": "En un grupo de 5 amigos, 2 tienen auto.\n\nSe eligen 2 al azar para hacer un trámite.\n\n¿Cuál es la probabilidad de que al menos uno de los elegidos tenga auto?",
+    "options": [
+      "$3/10$",
+      "$7/10$",
+      "$2/5$",
+      "$1/10$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "De las 10 formas de elegir 2 amigos, 3 no incluyen a nadie con auto: quedan $10-3=7$.",
+    "feedback_incorrect": [
+      "Ese es el caso opuesto, «ninguno con auto». Falta restarlo del total.",
+      null,
+      "Esa fracción compara cantidades individuales de personas, no formas de elegir 2 a la vez.",
+      "Ese numerador cuenta solo el caso en que los 2 elegidos tienen auto, y «al menos uno» también incluye que sea uno solo."
+    ],
+    "explanation": "Contar «al menos uno» de frente obliga a sumar dos casos separados, uno con auto o los dos, y es más corto contar el **complemento**, que es uno solo.\n\nLos posibles son $\\binom{5}{2}=10$, y que ninguno tenga auto es elegir 2 entre los 3 que no tienen, o sea $\\binom{3}{2}=3$. Los favorables son el resto:\n$$P(\\text{≥1 auto}) = \\frac{10-3}{10} = \\frac{7}{10}$$\nQue la respuesta sea más de la mitad tiene sentido: con solo 3 personas sin auto sobre 5, es difícil que la pareja elegida los esquive a los dos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-con-complemento"
+    ]
+  },
+  {
+    "id": "blue_laplace_RESL_14",
+    "question": "Se lanzan dos dados equilibrados de 6 caras.\n\n¿Cuál es la probabilidad de obtener al menos un 6?",
+    "options": [
+      "$25/36$",
+      "$2/6$",
+      "$11/36$",
+      "$1/36$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "De los 36 resultados posibles, 25 no tienen ningún 6: quedan $36-25=11$.",
+    "feedback_incorrect": [
+      "Ese es el caso opuesto, «ningún 6». Falta restarlo del total.",
+      "Esa fracción suma $\\tfrac16+\\tfrac16$, pero el caso en que salen dos 6 quedaría contado dos veces.",
+      null,
+      "Ese numerador cuenta solo el caso en que los dos dados muestran 6."
+    ],
+    "explanation": "Los dos dados dan $6\\times 6=36$ resultados igual de probables, contando cuál salió en cada uno.\n\nQue **ningún** dado muestre 6 deja 5 valores para cada uno, o sea $5\\times 5=25$ resultados. «Al menos un 6» es todo lo demás:\n$$P(\\text{≥1 seis}) = \\frac{36-25}{36} = \\frac{11}{36}$$\nSumar la probabilidad de cada dado por separado cuenta dos veces el resultado $(6,6)$, y por eso da de más.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-con-complemento"
+    ]
+  },
+  {
+    "id": "blue_laplace_RESL_04",
     "question": "Se extrae una carta de un mazo español de 40 cartas.\n\n¿Cuál es la probabilidad de que sea un as de cualquier palo?",
-    "options": ["$1/40$", "$10/40$", "$4/10$", "$4/40$"],
+    "options": [
+      "$1/40$",
+      "$10/40$",
+      "$4/10$",
+      "$4/40$"
+    ],
     "correct_index": 3,
-    "feedback_correct": "Hay 4 ases entre las 40 cartas, uno por cada palo.",
+    "feedback_correct": "Hay 4 ases, uno por palo, sobre las 40 cartas del mazo.",
     "feedback_incorrect": [
-      "Ese numerador cuenta un solo as, cuando hay uno por cada uno de los 4 palos.",
-      "Ese numerador no corresponde a la cantidad de ases del mazo.",
-      "Estás usando un denominador que no es el total de cartas del mazo.",
+      "Ese numerador cuenta un solo as, y hay uno por cada palo.",
+      "Ese numerador cuenta las cartas de un palo, no los ases.",
+      "Esa fracción divide por la cantidad de cartas de un palo, no por el mazo entero.",
       null
     ],
-    "explanation": "Con la **regla de Laplace**, la probabilidad se calcula contando los casos favorables sobre los posibles.\n\nEn un mazo de 40 cartas hay un as por cada uno de los 4 palos, así que hay 4 casos favorables sobre 40 posibles:\n$$P(\\text{as}) = \\frac{4}{40}$$\nSimplificando, esa fracción equivale a $1/10$, aunque cualquiera de las dos formas es una respuesta válida.\n\nContar solo un as en vez de los 4 palos es un desliz común al no recorrer el mazo completo.",
+    "explanation": "La **regla de Laplace** vale porque la carta se extrae al azar y las 40 cartas tienen la misma chance:\n$$P(A) = \\frac{\\#\\text{favorables}}{\\#\\text{posibles}}$$\nEl mazo español tiene 4 palos y un as en cada uno, así que los favorables son 4 y los posibles 40:\n$$P(\\text{as}) = \\frac{4}{40}$$\nEl denominador es siempre el espacio muestral completo, no el pedazo del que sale el caso favorable.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["resl-conteo-simple"]
+    "tags": [
+      "resl-conteo-simple"
+    ]
   },
   {
+    "id": "blue_laplace_RESL_05",
     "question": "Se lanzan dos dados equilibrados de 6 caras.\n\n¿Cuál es la probabilidad de que ambos muestren el mismo número?",
-    "options": ["$1/36$", "$1/6$", "$6/12$", "$2/36$"],
-    "correct_index": 1,
-    "feedback_correct": "Hay 6 pares iguales, de $(1,1)$ a $(6,6)$, sobre 36 pares posibles.",
-    "feedback_incorrect": [
-      "Ese valor corresponde a un solo par igual, cuando hay 6 pares que cumplen la condición.",
-      null,
-      "Ese cociente no compara favorables con el total de pares posibles de los dos dados.",
-      "Ese numerador cuenta solo algunos de los pares iguales, faltan varios entre los 6 posibles."
+    "options": [
+      "$1/36$",
+      "$6/36$",
+      "$6/12$",
+      "$2/36$"
     ],
-    "explanation": "La **regla de Laplace** aplica cuando el espacio muestral es finito y equiprobable:\n$$P(A) = \\dfrac{\\text{favorables}}{\\text{posibles}}$$\nCon dos dados hay $6\\times 6=36$ pares ordenados posibles. Los pares con ambos números iguales son:\n$$\\begin{aligned} (1,1),\\ (2,2),\\ (3,3),\\\\ (4,4),\\ (5,5),\\ (6,6) \\end{aligned}$$\nSon 6 pares favorables, así que:\n$$P(\\text{mismo número}) = \\frac{6}{36}$$\nOlvidar que cada par ordenado cuenta una sola vez, sin duplicarlo ni perderlo, es clave para no desajustar ni el numerador ni el denominador.",
+    "correct_index": 1,
+    "feedback_correct": "Los pares iguales son 6, uno por cada valor del dado, sobre 36 resultados posibles.",
+    "feedback_incorrect": [
+      "Ese numerador cuenta un solo par igual, y hay uno por cada número del dado.",
+      null,
+      "Ese denominador suma las caras de los dos dados en vez de combinarlas.",
+      "Ese numerador cuenta dos pares iguales, y hay uno por cada número del 1 al 6."
+    ],
+    "explanation": "Con dos dados el espacio muestral son los pares ordenados $(a,b)$: $6\\times 6=36$ resultados igual de probables.\n\nLos pares con los dos valores iguales son $(1,1),\\ (2,2),\\ \\ldots,\\ (6,6)$: exactamente 6, uno por número.\n$$P(\\text{iguales}) = \\frac{6}{36}$$\nSumar las caras en vez de multiplicarlas da 12, que contaría cada dado por separado en vez de contar las parejas.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["resl-conteo-simple"]
+    "tags": [
+      "resl-conteo-simple"
+    ]
   },
   {
+    "id": "blue_laplace_RESL_06",
     "question": "Una ruleta tiene 8 sectores iguales numerados del 1 al 8, y se hace girar una vez.\n\n¿Cuál es la probabilidad de que caiga en un número mayor a 5?",
-    "options": ["$5/8$", "$1/8$", "$3/8$", "$6/8$"],
-    "correct_index": 2,
-    "feedback_correct": "Los números mayores a 5 son el 6, el 7 y el 8, tres sobre los 8 sectores.",
-    "feedback_incorrect": [
-      "Ese numerador cuenta los sectores que no cumplen la condición, no los que sí.",
-      "Ese numerador corresponde a un solo sector, cuando hay tres mayores a 5.",
-      null,
-      "Ese numerador cuenta un sector de más, revisá cuáles son mayores a 5 entre los 8."
+    "options": [
+      "$5/8$",
+      "$1/8$",
+      "$3/8$",
+      "$6/8$"
     ],
-    "explanation": "Con la **regla de Laplace**, la probabilidad se calcula contando los casos favorables sobre los posibles.\n\nDe los 8 sectores iguales de la ruleta, los mayores a 5 son el 6, el 7 y el 8, tres casos favorables:\n$$P(\\text{mayor a }5) = \\frac{3}{8}$$\nContar los números menores o iguales a 5 en vez de los mayores es un desliz fácil al leer rápido la condición del enunciado.",
+    "correct_index": 2,
+    "feedback_correct": "Mayores a 5 hay tres: 6, 7 y 8, sobre los 8 sectores.",
+    "feedback_incorrect": [
+      "Ese numerador cuenta los números hasta el 5, que son justamente los que quedan afuera.",
+      "Ese numerador cuenta un solo sector.",
+      null,
+      "Ese numerador incluye el 5, y el enunciado pide estrictamente mayores."
+    ],
+    "explanation": "Los 8 sectores son iguales, así que la **regla de Laplace** aplica y cada uno tiene la misma chance.\n\nLos números mayores a 5 entre 1 y 8 son 6, 7 y 8: tres favorables sobre 8 posibles.\n$$P(>5) = \\frac{3}{8}$$\n«Mayor a 5» deja el 5 afuera. Si el enunciado dijera «5 o más», los favorables pasarían a ser 4 y la probabilidad sería $4/8$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["resl-conteo-simple"]
+    "tags": [
+      "resl-conteo-simple"
+    ]
   },
   {
+    "id": "blue_laplace_RESL_07",
     "question": "Una urna tiene 15 bolitas: 5 rojas, 5 azules y 5 verdes, indistinguibles al tacto.\n\n¿Cuál es la probabilidad de extraer una bolita roja?",
-    "options": ["$1/5$", "$5/10$", "$2/15$", "$1/3$"],
-    "correct_index": 3,
-    "feedback_correct": "Hay 5 bolitas rojas entre las 15 totales de la urna.",
-    "feedback_incorrect": [
-      "Ese valor no corresponde a comparar las bolitas rojas con el total de la urna.",
-      "Esa fracción compara solo dos colores, no las 15 bolitas totales de la urna.",
-      "Ese numerador no corresponde a la cantidad real de bolitas rojas.",
-      null
+    "options": [
+      "$5/15$",
+      "$3/15$",
+      "$5/10$",
+      "$10/15$"
     ],
-    "explanation": "La **regla de Laplace** aplica cuando el espacio muestral es finito y equiprobable:\n$$P(A) = \\dfrac{\\text{favorables}}{\\text{posibles}}$$\nCada bolita tiene la misma chance de salir, al ser indistinguibles al tacto. De las 15 bolitas de la urna, 5 son rojas, así que:\n$$P(\\text{roja}) = \\frac{5}{15} = \\frac{1}{3}$$\nMezclar la cantidad de un color con la de otro, o compararla contra solo una parte de la urna, es un desliz fácil cuando hay varios colores juntos.",
+    "correct_index": 0,
+    "feedback_correct": "Las rojas son 5 sobre las 15 bolitas de la urna.",
+    "feedback_incorrect": [
+      null,
+      "Ese numerador cuenta los colores que hay, no las bolitas rojas.",
+      "Ese denominador cuenta las bolitas de los otros dos colores, no el total.",
+      "Ese numerador cuenta las bolitas que NO son rojas."
+    ],
+    "explanation": "Que las bolitas sean indistinguibles al tacto es lo que habilita la **regla de Laplace**: las 15 tienen la misma chance de salir.\n\nLos favorables son las 5 rojas y los posibles las 15 de la urna:\n$$P(\\text{roja}) = \\frac{5}{15}$$\nQue haya tres colores no significa que el denominador sea 3: el espacio muestral son las bolitas, no las categorías.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["resl-conteo-simple"]
+    "tags": [
+      "resl-conteo-simple"
+    ]
   },
   {
+    "id": "blue_laplace_RESL_08",
     "question": "En una rifa hay 100 números, del 1 al 100, y se sortea uno al azar.\n\n¿Cuál es la probabilidad de que el número sorteado sea múltiplo de 25?",
-    "options": ["$1/25$", "$1/4$", "$4/25$", "$1/100$"],
+    "options": [
+      "$4/100$",
+      "$25/100$",
+      "$1/100$",
+      "$5/100$"
+    ],
     "correct_index": 0,
-    "feedback_correct": "Hay 4 múltiplos de 25 entre 1 y 100: el 25, el 50, el 75 y el 100.",
+    "feedback_correct": "Los múltiplos de 25 hasta 100 son cuatro: 25, 50, 75 y 100.",
     "feedback_incorrect": [
       null,
-      "Ese valor no corresponde a comparar los múltiplos de 25 con el total de números de la rifa.",
-      "Ese numerador confunde la cantidad de favorables con el número 25 mismo, no con el conteo de múltiplos.",
-      "Ese numerador cuenta un solo múltiplo de 25, cuando hay cuatro entre 1 y 100."
+      "Ese numerador usa el 25 del enunciado como cantidad, pero es el número del que se buscan múltiplos.",
+      "Ese numerador cuenta solo el 25, y hay tres múltiplos más dentro del rango.",
+      "Ese numerador cuenta un múltiplo de más: el siguiente, 125, se pasa de 100."
     ],
-    "explanation": "La **regla de Laplace** aplica cuando el espacio muestral es finito y equiprobable:\n$$P(A) = \\dfrac{\\text{favorables}}{\\text{posibles}}$$\nEntre 1 y 100 hay 4 múltiplos de 25, así que:\n$$P(\\text{múltiplo de }25) = \\frac{4}{100} = \\frac{1}{25}$$\nContar solo el primer múltiplo que viene a la mente, sin recorrer todo el rango hasta 100, deja afuera varios casos favorables.",
+    "explanation": "El sorteo es al azar entre 100 números, así que los 100 son igual de probables y vale la **regla de Laplace**.\n\nLos múltiplos de 25 que entran en el rango son 25, 50, 75 y 100: cuatro favorables.\n$$P(\\text{múltiplo de }25) = \\frac{4}{100}$$\nConviene listarlos y frenar al pasarse del tope: el 125 ya no está en la rifa.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["resl-conteo-simple"]
+    "tags": [
+      "resl-conteo-simple"
+    ]
   },
   {
-    "question": "Se extraen 2 cartas de un mazo español de 40 sin reposición.\n\n¿Cuál es la probabilidad de que ambas sean del palo de basto?",
-    "options": ["$10/40$", "$45/780$", "$20/780$", "$90/780$"],
-    "correct_index": 1,
-    "feedback_correct": "$\\binom{10}{2}=45$ formas de elegir 2 bastos sobre $\\binom{40}{2}=780$ formas totales.",
-    "feedback_incorrect": [
-      "Esa fracción compara cartas individuales, no formas de elegir 2 a la vez.",
-      null,
-      "Ese numerador no corresponde a ninguna forma válida de elegir 2 cartas de basto.",
-      "Ese numerador sale de contar mal las combinaciones de 2 bastos entre las 10 disponibles."
+    "id": "blue_laplace_RESL_03",
+    "question": "Se lanzan dos dados de 6 caras y se observa la suma de los valores.\n\n¿Cuál es la probabilidad de obtener una suma igual a 8?",
+    "options": [
+      "$1/6$",
+      "$4/36$",
+      "$5/36$",
+      "$8/36$"
     ],
-    "explanation": "Cuando se extraen varias cartas sin reposición y el orden no importa, favorables y posibles se cuentan con **combinaciones**.\n\nLos casos posibles son todas las formas de elegir 2 cartas de las 40 totales, $\\binom{40}{2}=780$, y los favorables son las formas de elegir 2 entre las 10 de basto, $\\binom{10}{2}=45$:\n$$P(\\text{ambas basto}) = \\frac{45}{780}$$\nComparar la cantidad de cartas de un palo con el total, en vez de contar las combinaciones completas, es una simplificación que no representa el conteo real.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": ["resl-con-combinaciones"]
-  },
-  {
-    "question": "Un curso tiene 10 estudiantes, 6 varones y 4 mujeres. Se elige un comité de 3 al azar.\n\n¿Cuál es la probabilidad de que el comité esté formado solo por mujeres?",
-    "options": ["$4/10$", "$6/120$", "$4/120$", "$12/120$"],
     "correct_index": 2,
-    "feedback_correct": "$\\binom{4}{3}=4$ formas de elegir 3 mujeres sobre $\\binom{10}{3}=120$ formas totales.",
+    "feedback_correct": "Las parejas que suman 8 son cinco: $(2,6)$, $(3,5)$, $(4,4)$, $(5,3)$ y $(6,2)$.",
     "feedback_incorrect": [
-      "Esa fracción compara estudiantes individuales, no formas de elegir el comité completo de 3.",
-      "Ese numerador no corresponde a ninguna forma válida de elegir 3 mujeres entre las 4 disponibles.",
+      "Esa fracción trata las 11 sumas posibles como si fueran igual de probables, y no lo son.",
+      "Ese numerador deja afuera una de las parejas que suman 8.",
       null,
-      "Ese numerador sale de contar mal las combinaciones de 3 mujeres entre las 4 disponibles."
+      "Ese numerador usa el valor de la suma como si fuera la cantidad de casos favorables."
     ],
-    "explanation": "Cuando se elige un subconjunto de personas sin importar el orden, favorables y posibles se cuentan con **combinaciones**.\n\nLos comités posibles son todas las formas de elegir 3 estudiantes de los 10 totales, $\\binom{10}{3}=120$, y los favorables son las formas de elegir 3 entre las 4 mujeres, $\\binom{4}{3}=4$:\n$$P(\\text{solo mujeres}) = \\frac{4}{120}$$\nContar con la misma convención de orden en favorables y posibles evita mezclar dos técnicas incompatibles.",
+    "explanation": "El espacio muestral equiprobable son los pares ordenados $(a,b)$, no las sumas: hay $6\\times 6=36$ resultados con la misma chance.\n\nLas parejas que suman 8 son $(2,6),\\ (3,5),\\ (4,4),\\ (5,3),\\ (6,2)$: cinco.\n$$P(\\text{suma}=8) = \\frac{5}{36}$$\nLas sumas del 2 al 12 **no** son igual de probables. El 7 tiene 6 parejas y el 2 una sola, así que dividir por 11 aplicaría Laplace sobre un espacio donde no vale.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["resl-con-combinaciones"]
+    "tags": [
+      "resl-suma-valores"
+    ]
   },
   {
-    "question": "Una caja tiene 15 lamparitas, de las cuales 4 están defectuosas. Se eligen 3 al azar.\n\n¿Cuál es la probabilidad de que ninguna esté defectuosa?",
-    "options": ["$11/15$", "$4/455$", "$44/455$", "$165/455$"],
-    "correct_index": 3,
-    "feedback_correct": "$\\binom{11}{3}=165$ formas de elegir 3 sanas sobre $\\binom{15}{3}=455$ formas totales.",
-    "feedback_incorrect": [
-      "Esa fracción compara lamparitas individuales, no formas de elegir 3 a la vez.",
-      "Ese numerador no corresponde a ninguna forma válida de elegir 3 lamparitas sanas.",
-      "Ese numerador sale de contar mal las combinaciones de 3 sanas entre las 11 disponibles.",
-      null
-    ],
-    "explanation": "Cuando se eligen varias unidades sin reposición y el orden no importa, favorables y posibles se cuentan con **combinaciones**.\n\nLos casos posibles son todas las formas de elegir 3 lamparitas de las 15 totales, $\\binom{15}{3}=455$, y los favorables son las formas de elegir 3 entre las 11 sanas, $\\binom{11}{3}=165$:\n$$P(\\text{ninguna defectuosa}) = \\frac{165}{455}$$\nComparar la cantidad de lamparitas sanas con el total, en vez de contar las combinaciones completas, es una simplificación que no representa el conteo real.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": ["resl-con-combinaciones"]
-  },
-  {
-    "question": "Se lanza una moneda equilibrada 5 veces.\n\n¿Cuál es la probabilidad de obtener al menos una cara?",
-    "options": ["$31/32$", "$1/32$", "$5/32$", "$16/32$"],
-    "correct_index": 0,
-    "feedback_correct": "Al menos una cara es el complemento de que salgan 5 cruces seguidas.",
-    "feedback_incorrect": [
-      null,
-      "Ese valor es la probabilidad de que salgan cinco cruces seguidas, el evento complementario al pedido.",
-      "Ese numerador no corresponde a ningún conteo real de las 5 tiradas.",
-      "Ese valor no descuenta correctamente la probabilidad del evento sin ninguna cara."
-    ],
-    "explanation": "Al menos una conviene resolverlo con el **complemento**: se calcula la probabilidad de que no salga ninguna cara y se resta de 1.\n\nEn cada tirada, la probabilidad de que salga cruz es $1/2$. Como las 5 tiradas son independientes entre sí:\n$$P(\\text{ninguna cara}) = \\left(\\frac{1}{2}\\right)^{5} = \\frac{1}{32}$$\nRestando ese valor de 1 se obtiene:\n$$P(\\text{≥1 cara}) = \\frac{31}{32}$$\nSumar directamente las probabilidades de una, dos, tres, cuatro o cinco caras es un camino mucho más largo que usar el complemento.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": ["resl-con-complemento"]
-  },
-  {
-    "question": "Se extraen 2 cartas de un mazo español de 40 sin reposición.\n\n¿Cuál es la probabilidad de que al menos una sea rey?",
-    "options": ["$630/780$", "$150/780$", "$4/40$", "$1-4/40$"],
-    "correct_index": 1,
-    "feedback_correct": "Al menos un rey es el complemento de que las 2 cartas no sean reyes.",
-    "feedback_incorrect": [
-      "Ese cociente es la probabilidad de que ninguna de las 2 cartas sea rey, el evento complementario al pedido.",
-      null,
-      "Esa fracción compara cartas individuales, no formas de elegir 2 a la vez.",
-      "Ese resto usa un dato individual de cartas, no el conteo real de las combinaciones de 2."
-    ],
-    "explanation": "Al menos uno conviene resolverlo con el **complemento**: se calcula la probabilidad de que ninguna de las 2 cartas sea rey y se resta de 1.\n\nHay $\\binom{36}{2}=630$ formas de elegir 2 cartas entre las 36 que no son rey, sobre $\\binom{40}{2}=780$ formas totales:\n$$P(\\text{ningún rey}) = \\frac{630}{780}$$\nRestando ese valor de 1:\n$$P(\\text{≥1 rey}) = \\frac{150}{780}$$\nContar directamente los casos con una o dos cartas rey por separado es un camino mucho más largo que el complemento.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": ["resl-con-complemento"]
-  },
-  {
-    "question": "Se lanza un dado equilibrado de 6 caras 4 veces.\n\n¿Cuál es la probabilidad de obtener al menos un 6?",
-    "options": ["$625/1296$", "$4/6$", "$671/1296$", "$1-4/6$"],
-    "correct_index": 2,
-    "feedback_correct": "Al menos un 6 es el complemento de que no salga ningún 6 en las 4 tiradas.",
-    "feedback_incorrect": [
-      "Ese valor es la probabilidad de que no salga ningún 6, el evento complementario al pedido.",
-      "Esa fracción no corresponde a ningún conteo real de las 4 tiradas del dado.",
-      null,
-      "Ese resto usa una sola tirada, mientras que el evento involucra las 4 tiradas completas."
-    ],
-    "explanation": "Al menos uno conviene resolverlo con el **complemento**: se calcula la probabilidad de que ningún resultado cumpla la condición y se resta de 1.\n\nEn cada tirada, la probabilidad de no sacar un 6 es $5/6$. Como las 4 tiradas son independientes entre sí:\n$$P(\\text{ningún 6}) = \\left(\\frac{5}{6}\\right)^{4} = \\frac{625}{1296}$$\nRestando ese valor de 1:\n$$P(\\text{≥1 seis}) = \\frac{671}{1296}$$\nIntentar sumar directamente las probabilidades de sacar exactamente uno, dos, tres o cuatro 6 es un camino mucho más largo que usar el complemento.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": ["resl-con-complemento"]
-  },
-  {
+    "id": "blue_laplace_RESL_15",
     "question": "Se lanzan dos dados de 6 caras y se observa la suma de los valores.\n\n¿Cuál es la probabilidad de obtener una suma igual a 10?",
-    "options": ["$1/6$", "$2/36$", "$4/36$", "$3/36$"],
+    "options": [
+      "$1/6$",
+      "$2/36$",
+      "$4/36$",
+      "$3/36$"
+    ],
     "correct_index": 3,
-    "feedback_correct": "3 pares $(4,6),(5,5),(6,4)$ dan suma 10, sobre 36 pares posibles.",
+    "feedback_correct": "Las parejas que suman 10 son tres: $(4,6)$, $(5,5)$ y $(6,4)$.",
     "feedback_incorrect": [
-      "Ese valor no corresponde al conteo real de pares que suman 10 sobre el total de 36.",
-      "Ese resultado sale de contar solo algunos de los pares que suman 10, falta uno por incluir.",
-      "Ese numerador cuenta un par de más, revisá cuáles de los 36 pares dan exactamente 10.",
+      "Esa fracción trata las 11 sumas posibles como si fueran igual de probables, y no lo son.",
+      "Ese numerador cuenta solo las parejas con valores distintos y deja afuera $(5,5)$.",
+      "Ese numerador agrega una pareja que no llega a sumar 10.",
       null
     ],
-    "explanation": "La **regla de Laplace** exige contar bien los casos favorables y posibles. Con dos dados hay $6\\times 6=36$ pares ordenados posibles, todos equiprobables.\n\nLos pares que suman 10 son:\n$$\\begin{aligned} (4,6),\\ (5,5),\\\\ (6,4) \\end{aligned}$$\nSon 3 pares favorables, así que:\n$$P(\\text{suma}=10) = \\frac{3}{36}$$\nContar solo las combinaciones no ordenadas y perder pares como $(6,4)$ separado de $(4,6)$ es un desliz común, en dos dados distinguibles ambos son resultados distintos.",
+    "explanation": "Igual que con cualquier suma de dos dados, el espacio equiprobable son los 36 pares ordenados, no las sumas.\n\nLas parejas que dan 10 son $(4,6),\\ (5,5),\\ (6,4)$: tres.\n$$P(\\text{suma}=10) = \\frac{3}{36}$$\nEl par $(5,5)$ cuenta una sola vez porque los dos dados muestran lo mismo, mientras que $(4,6)$ y $(6,4)$ son resultados distintos.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["resl-suma-valores"]
+    "tags": [
+      "resl-suma-valores"
+    ]
   }
 ]

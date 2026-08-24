@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_definicion_var_CLSF_01",
     "question": "Se cuenta la cantidad de llamadas que recibe un call center en una hora.\n\n¿Qué tipo de variable aleatoria representa esa cantidad?",
     "options": [
       "Discreta.",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_CLSF_02",
     "question": "Se mide la duración exacta, en horas, de una batería antes de agotarse.\n\n¿Qué tipo de variable aleatoria representa esa duración?",
     "options": [
       "Discreta.",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_CLSF_03",
     "question": "Se registra la edad de una persona en años cumplidos.\n\n¿Qué tipo de variable aleatoria representa esa edad?",
     "options": [
       "Discreta, porque se redondea a un número entero.",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_CLSF_04",
     "question": "Un local comercial registra la cantidad de clientes que ingresan en una hora.\n\n¿Qué tipo de **variable aleatoria** representa esa cantidad?",
     "options": [
       "Discreta.",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_CLSF_05",
     "question": "En un control de calidad se cuenta la cantidad de artículos defectuosos en un lote de producción.\n\n¿Qué tipo de **variable aleatoria** representa esa cantidad?",
     "options": [
       "Continua.",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_CLSF_06",
     "question": "Se lanza una moneda 5 veces y se cuenta la cantidad de caras obtenidas.\n\n¿Qué tipo de **variable aleatoria** representa esa cantidad?",
     "options": [
       "Discreta.",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_CLSF_07",
     "question": "Se registra la cantidad de mensajes que recibe un teléfono durante un día.\n\n¿Qué tipo de **variable aleatoria** representa esa cantidad?",
     "options": [
       "Continua.",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_CLSF_08",
     "question": "En un peaje se cuenta la cantidad de autos que cruzan durante un minuto.\n\n¿Qué tipo de **variable aleatoria** representa esa cantidad?",
     "options": [
       "Continua.",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_CLSF_09",
     "question": "Se mide el tiempo que un cliente espera en la fila de un banco, en minutos.\n\n¿Qué tipo de **variable aleatoria** representa ese tiempo?",
     "options": [
       "Discreta.",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_CLSF_10",
     "question": "Se mide el peso exacto de un paquete en una balanza de precisión, en kilogramos.\n\n¿Qué tipo de **variable aleatoria** representa ese peso?",
     "options": [
       "Continua.",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_CLSF_11",
     "question": "Se mide la altura de una persona adulta, en centímetros.\n\n¿Qué tipo de **variable aleatoria** representa esa altura?",
     "options": [
       "Discreta.",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_CLSF_12",
     "question": "Se mide la temperatura ambiente en un laboratorio, en grados Celsius.\n\n¿Qué tipo de **variable aleatoria** representa esa temperatura?",
     "options": [
       "Discreta.",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_CLSF_13",
     "question": "Se mide la distancia recorrida por un auto en un viaje, en kilómetros.\n\n¿Qué tipo de **variable aleatoria** representa esa distancia?",
     "options": [
       "Continua.",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_CLSF_14",
     "question": "Se registra el monto que paga cada cliente en una caja, en pesos con centavos.\n\n¿Qué tipo de **variable aleatoria** representa ese monto?",
     "options": [
       "Discreta, es un múltiplo exacto del centavo.",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "violet_definicion_var_CLSF_15",
     "question": "Un examen se califica con un número entero del 1 al 10.\n\n¿Qué tipo de **variable aleatoria** representa esa calificación?",
     "options": [
       "Continua, porque mide qué tan bien rindió el estudiante.",

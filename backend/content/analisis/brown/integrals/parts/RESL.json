@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_parts_RESL_01",
     "question": "En esta integral se tomó $u=x$ y $dv=\\sin x\\,dx$:\n$$\\int x\\sin x\\,dx$$\n¿Cómo queda armada la fórmula de partes?",
     "options": [
       "$-x\\cos x+\\int \\cos x\\,dx$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "brown_parts_RESL_02",
     "question": "Para armar la fórmula hace falta integrar la parte elegida como $dv=e^{2x}\\,dx$:\n$$\\int xe^{2x}\\,dx$$\n¿Cuánto vale $v$?",
     "options": [
       "$2e^{2x}$",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "brown_parts_RESL_03",
     "question": "Derivando esta expresión se recupera el integrando de una de estas integrales:\n$$F(x)=x\\sin x+\\cos x$$\n¿Cuál de ellas es?",
     "options": [
       "$\\int x\\sin x\\,dx$",
@@ -75,6 +78,7 @@
     ]
   },
   {
+    "id": "brown_parts_RESL_04",
     "question": "Alguien resolvió esta integral y llegó a este resultado:\n$$\\int xe^x\\,dx=xe^x+e^x+C$$\n¿Qué falla en esa resolución?",
     "options": [
       "La elección de $u$ y $dv$",
@@ -100,6 +104,7 @@
     ]
   },
   {
+    "id": "brown_parts_RESL_05",
     "question": "Esta integral se abrió por partes, con $u=x$ y $dv=e^{-x}\\,dx$:\n$$\\int xe^{-x}\\,dx$$\nEl armado ya está hecho y queda un solo paso por delante:\n$$-xe^{-x}+\\int e^{-x}\\,dx$$\n¿Cuál es el resultado final?",
     "options": [
       "$-xe^{-x}-e^{-x}+C$",
@@ -125,6 +130,7 @@
     ]
   },
   {
+    "id": "brown_parts_RESL_06",
     "question": "Una sola de estas integrales tiene esta expresión por resultado:\n$$F(x)=-3x\\cos x+3\\sin x$$\n¿Cuál es?",
     "options": [
       "$\\int 3x\\cos x\\,dx$",
@@ -150,6 +156,7 @@
     ]
   },
   {
+    "id": "brown_parts_RESL_07",
     "question": "Este resultado tiene un problema en uno de sus dos términos:\n$$\\int 2xe^x\\,dx=2xe^x-e^x+C$$\n¿En cuál y por qué?",
     "options": [
       "La elección de $u$ y $dv$",
@@ -175,6 +182,7 @@
     ]
   },
   {
+    "id": "brown_parts_RESL_08",
     "question": "En la siguiente integral la parte elegida para derivar tiene dos términos, con $u=x+1$ y $dv=\\cos x\\,dx$:\n$$\\int (x+1)\\cos x\\,dx$$\n¿Cómo queda armada la fórmula?",
     "options": [
       "$(x+1)\\sin x+\\int \\sin x\\,dx$",
@@ -200,6 +208,7 @@
     ]
   },
   {
+    "id": "brown_parts_RESL_09",
     "question": "Este integrando se puede leer como un producto aunque no lo parezca, con $u=\\ln x$ y $dv=1\\,dx$:\n$$\\int \\ln x\\,dx$$\n¿Cómo queda armada la fórmula?",
     "options": [
       "$x\\ln x-\\int 1\\,dx$",
@@ -225,6 +234,7 @@
     ]
   },
   {
+    "id": "brown_parts_RESL_10",
     "question": "Al derivar esta expresión aparece exactamente uno de estos integrandos:\n$$F(x)=x\\ln x-x$$\n¿Cuál de las integrales es?",
     "options": [
       "$\\int x\\ln x\\,dx$",
@@ -250,6 +260,7 @@
     ]
   },
   {
+    "id": "brown_parts_RESL_11",
     "question": "Esta resolución llegó hasta el final, pero uno de los dos términos no cierra:\n$$\\int x\\ln x\\,dx=\\frac{x^2\\ln x}{2}-x+C$$\n¿Cuál de los dos?",
     "options": [
       "El primer término del resultado",
@@ -275,6 +286,7 @@
     ]
   },
   {
+    "id": "brown_parts_RESL_12",
     "question": "Con $u=\\ln x$ y $dv=x^2\\,dx$, la fórmula ya se puede armar:\n$$\\int x^2\\ln x\\,dx$$\n¿Cómo queda?",
     "options": [
       "$\\frac{x^3\\ln x}{3}-\\int \\frac{x^3}{3}\\,dx$",
@@ -300,6 +312,7 @@
     ]
   },
   {
+    "id": "brown_parts_RESL_13",
     "question": "Solo una de estas integrales devuelve esta expresión al resolverse:\n$$F(x)=x\\ln(2x)-x$$\n¿Cuál de ellas?",
     "options": [
       "$\\int \\ln(2x)\\,dx$",
@@ -325,6 +338,7 @@
     ]
   },
   {
+    "id": "brown_parts_RESL_14",
     "question": "El resultado de esta resolución no vuelve al integrando si se lo deriva:\n$$\\int 3\\ln x\\,dx=3x\\ln x-x+C$$\n¿Dónde está el error?",
     "options": [
       "El signo de la fórmula",
@@ -350,6 +364,7 @@
     ]
   },
   {
+    "id": "brown_parts_RESL_15",
     "question": "Este logaritmo solo se integró por partes, tomando $u=\\ln(x-1)$ y $dv=dx$:\n$$\\int \\ln(x-1)\\,dx$$\nDel armado quedó pendiente una sola cuenta:\n$$(x-1)\\ln(x-1)-\\int 1\\,dx$$\n¿Cuál es el resultado final?",
     "options": [
       "$(x-1)\\ln(x-1)+x+C$",

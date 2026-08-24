@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_product_CLSF_01",
     "question": "Si $\\vec{u}$ apunta hacia el este y $\\vec{v}$ hacia el norte.\n$$\\vec{u}\\times\\vec{v}$$\n¿Hacia dónde apunta ese producto cruz?",
     "options": [
       "Hacia arriba, saliendo del plano este-norte",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "blue_product_CLSF_02",
     "question": "Si $\\vec{u}$ apunta hacia el norte y $\\vec{v}$ hacia arriba.\n$$\\vec{u} \\times \\vec{v}$$\n¿Hacia dónde apunta ese producto cruz?",
     "options": [
       "Hacia arriba, en la misma dirección que el segundo factor",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "blue_product_CLSF_03",
     "question": "Si $\\vec{u}$ apunta hacia arriba y $\\vec{v}$ hacia el este.\n$$\\vec{u} \\times \\vec{v}$$\n¿Hacia dónde apunta ese producto cruz?",
     "options": [
       "Hacia arriba, en la misma dirección que el primer factor",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "blue_product_CLSF_04",
     "question": "Dos vectores del espacio apuntan en direcciones perpendiculares entre sí.\n$$\\vec{u} \\perp \\vec{v}$$\n¿Qué se puede afirmar sobre la dirección de su producto cruz?",
     "options": [
       "Que es perpendicular a los dos, sin importar cuáles sean",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "blue_product_CLSF_05",
     "question": "Dos vectores apuntan exactamente en la misma dirección.\n$$\\vec{v} = 3\\vec{u}$$\n¿Qué se puede afirmar sobre su producto cruz?",
     "options": [
       "Que es perpendicular a los dos, con magnitud triplicada",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "blue_product_CLSF_06",
     "question": "Un producto cruz da un vector que apunta hacia arriba.\n$$\\vec{u}\\times\\vec{v}$$\n¿Hacia dónde apunta $\\vec{v}\\times\\vec{u}$?",
     "options": [
       "Hacia abajo, en sentido contrario al caso base",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "blue_product_CLSF_07",
     "question": "Un producto cruz da un vector que apunta hacia el este.\n$$\\vec{v} \\times \\vec{u}$$\n¿Hacia dónde apunta el producto con los factores invertidos?",
     "options": [
       "Hacia el norte, perpendicular al vector original",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "blue_product_CLSF_08",
     "question": "Un producto cruz da un vector que apunta hacia abajo.\n$$\\vec{v} \\times \\vec{u}$$\n¿Hacia dónde apunta el producto con los factores invertidos?",
     "options": [
       "Hacia abajo, exactamente igual que el original",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "blue_product_CLSF_09",
     "question": "Dos vectores paralelos entre sí dan producto cruz nulo.\n$$\\vec{u} \\times \\vec{v} = \\vec{0}$$\n¿Qué da el producto con los factores invertidos?",
     "options": [
       "También el vector nulo, porque su opuesto es él mismo",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "blue_product_CLSF_10",
     "question": "Un producto cruz da un vector que apunta hacia el norte.\n$$-(\\vec{u} \\times \\vec{v})$$\n¿Qué operación produce un vector que apunta hacia el sur?",
     "options": [
       "Calcular el producto escalar en lugar del cruz",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "blue_product_CLSF_11",
     "question": "Un producto cruz da un vector que apunta hacia arriba.\n$$\\vec{u}\\times\\vec{v}$$\n¿Hacia dónde apunta $(-2\\vec{u})\\times\\vec{v}$?",
     "options": [
       "Hacia abajo, en sentido contrario al caso base",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "blue_product_CLSF_12",
     "question": "Un producto cruz da un vector que apunta hacia arriba.\n$$(3\\vec{u}) \\times \\vec{v}$$\n¿Hacia dónde apunta el producto con el primer factor triplicado?",
     "options": [
       "Hacia arriba, con la misma magnitud que el original",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "blue_product_CLSF_13",
     "question": "Un producto cruz da un vector que apunta hacia el este.\n$$\\vec{u} \\times (-4\\vec{v})$$\n¿Hacia dónde apunta el producto con el segundo factor multiplicado por menos cuatro?",
     "options": [
       "Hacia el este, con el cuádruple de magnitud",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "blue_product_CLSF_14",
     "question": "Un producto cruz da un vector que apunta hacia el norte.\n$$(-\\vec{u}) \\times (-\\vec{v})$$\n¿Hacia dónde apunta el producto con los dos factores invertidos?",
     "options": [
       "Hacia el norte, igual que el original",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "blue_product_CLSF_15",
     "question": "Un producto cruz da un vector que apunta hacia abajo.\n$$\\vec{u} \\times (0\\vec{v})$$\n¿Qué da el producto con el segundo factor multiplicado por cero?",
     "options": [
       "Un vector hacia arriba, con magnitud sin cambios",

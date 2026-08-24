@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_axiomas_ESTR_01",
     "question": "Se sabe que $P(A) = 0{,}3$ y $P(B) = 0{,}2$, siendo ambos eventos mutuamente excluyentes.\n\n¿Qué propiedad conviene aplicar para calcular $P(A \\cup B)$?",
     "options": [
       "Sumar directamente $P(A)+P(B)$.",
@@ -21,6 +22,7 @@
     "tags": ["elegir-suma-excluyentes"]
   },
   {
+    "id": "blue_axiomas_ESTR_02",
     "question": "En un control de calidad, $P(A) = 0{,}25$ y $P(B) = 0{,}15$, y algunas piezas tienen ambos defectos a la vez.\n\n¿Qué propiedad conviene aplicar para calcular $P(A \\cup B)$?",
     "options": [
       "La suma simple $P(A)+P(B)$, sin restar nada.",
@@ -42,6 +44,7 @@
     "tags": ["elegir-regla-general-union"]
   },
   {
+    "id": "blue_axiomas_ESTR_03",
     "question": "En una encuesta, $P(A) = 0{,}65$, donde $A$ es que la persona usa transporte público.\n\n¿Qué propiedad conviene aplicar para calcular la probabilidad de que la persona no lo use?",
     "options": [
       "La regla general de la unión entre dos eventos.",
@@ -63,6 +66,7 @@
     "tags": ["elegir-complemento"]
   },
   {
+    "id": "blue_axiomas_ESTR_04",
     "question": "Un estudio calcula la probabilidad de un evento a partir de dos muestras distintas.\n\nPara eso, suma las probabilidades parciales $0{,}65$ y $0{,}50$.\n\n¿Qué propiedad permite descartar ese resultado sin más información?",
     "options": [
       "La acotación, válida para toda probabilidad.",
@@ -84,6 +88,7 @@
     "tags": ["elegir-acotacion"]
   },
   {
+    "id": "blue_axiomas_ESTR_05",
     "question": "En un mazo de cartas de truco, $P(A) = 0{,}35$ y $P(B) = 0{,}2$, siendo ambos eventos mutuamente excluyentes.\n\n¿Qué propiedad conviene aplicar para calcular $P(A \\cup B)$?",
     "options": [
       "Sumar directamente $P(A)+P(B)$.",
@@ -105,6 +110,7 @@
     "tags": ["elegir-suma-excluyentes"]
   },
   {
+    "id": "blue_axiomas_ESTR_06",
     "question": "En una urna, $P(A) = 0{,}4$ y $P(B) = 0{,}15$, siendo ambos eventos mutuamente excluyentes.\n\n¿Qué propiedad conviene aplicar para calcular $P(A \\cup B)$?",
     "options": [
       "Multiplicar $P(A)$ por $P(B)$.",
@@ -126,6 +132,7 @@
     "tags": ["elegir-suma-excluyentes"]
   },
   {
+    "id": "blue_axiomas_ESTR_07",
     "question": "Un estudio previo determina que $P(A) = 0{,}28$ y $P(B) = 0{,}33$ para dos categorías de diagnóstico mutuamente excluyentes.\n\n¿Qué propiedad conviene aplicar para calcular $P(A \\cup B)$?",
     "options": [
       "Aplicar la regla general y restar $P(A\\cap B)$.",
@@ -147,6 +154,7 @@
     "tags": ["elegir-suma-excluyentes"]
   },
   {
+    "id": "blue_axiomas_ESTR_08",
     "question": "En una encuesta, $P(A) = 0{,}5$ y $P(B) = 0{,}3$, y algunas personas cumplen ambas condiciones a la vez.\n\n¿Qué propiedad conviene aplicar para calcular $P(A \\cup B)$?",
     "options": [
       "La suma simple $P(A)+P(B)$, sin restar nada.",
@@ -168,6 +176,7 @@
     "tags": ["elegir-regla-general-union"]
   },
   {
+    "id": "blue_axiomas_ESTR_09",
     "question": "En una urna, $P(A) = 0{,}45$ y $P(B) = 0{,}3$, y algunas bolitas cumplen ambas condiciones a la vez.\n\n¿Qué propiedad conviene aplicar para calcular $P(A \\cup B)$?",
     "options": [
       "El complemento de $A$.",
@@ -189,6 +198,7 @@
     "tags": ["elegir-regla-general-union"]
   },
   {
+    "id": "blue_axiomas_ESTR_10",
     "question": "En un control de calidad, $P(A) = 0{,}18$, donde $A$ es que una pieza tenga un defecto visible.\n\n¿Qué propiedad conviene aplicar para calcular la probabilidad de que la pieza no tenga ese defecto?",
     "options": [
       "La suma de $P(A)$ con otro evento cualquiera.",
@@ -210,6 +220,7 @@
     "tags": ["elegir-complemento"]
   },
   {
+    "id": "blue_axiomas_ESTR_11",
     "question": "Con un mazo de cartas de truco, $P(A) = 0{,}55$, donde $A$ es sacar una carta de oro.\n\n¿Qué propiedad conviene aplicar para calcular la probabilidad de sacar una carta que no sea de oro?",
     "options": [
       "El complemento de $A$, calculado como $1-P(A)$.",
@@ -231,6 +242,7 @@
     "tags": ["elegir-complemento"]
   },
   {
+    "id": "blue_axiomas_ESTR_12",
     "question": "En una urna, $P(A) = 0{,}68$, donde $A$ es sacar una bolita numerada.\n\n¿Qué propiedad conviene aplicar para calcular la probabilidad de sacar una bolita no numerada?",
     "options": [
       "La regla general de la unión entre dos eventos.",
@@ -252,6 +264,7 @@
     "tags": ["elegir-complemento"]
   },
   {
+    "id": "blue_axiomas_ESTR_13",
     "question": "Una encuesta calcula la probabilidad de un evento sumando las respuestas de dos grupos distintos: $0{,}6$ y $0{,}55$.\n\n¿Qué propiedad permite descartar ese resultado sin más información?",
     "options": [
       "El complemento de un evento cualquiera.",
@@ -273,6 +286,7 @@
     "tags": ["elegir-acotacion"]
   },
   {
+    "id": "blue_axiomas_ESTR_14",
     "question": "Con un mazo de cartas de truco, se calcula la probabilidad de un evento sumando dos probabilidades parciales: $0{,}72$ y $0{,}5$.\n\n¿Qué propiedad permite descartar ese resultado sin más información?",
     "options": [
       "La regla general de la unión entre eventos.",
@@ -294,6 +308,7 @@
     "tags": ["elegir-acotacion"]
   },
   {
+    "id": "blue_axiomas_ESTR_15",
     "question": "En una urna, se calcula la probabilidad de un evento sumando dos proporciones de distintos lotes: $0{,}58$ y $0{,}5$.\n\n¿Qué propiedad permite descartar ese resultado sin más información?",
     "options": [
       "La acotación, válida para toda probabilidad.",

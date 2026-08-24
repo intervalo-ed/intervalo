@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_lateral_limits_LEXI_01",
     "question": "En la notación de **límites laterales** $x \\to 2^-$, el signo $-$ indica una dirección de acercamiento, no el signo de un número.\n\n¿Qué significa exactamente $x \\to 2^-$?",
     "options": [
       "$x$ se acerca al número $-2$",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_LEXI_02",
     "question": "La notación de un límite lateral se lee de una manera precisa en términos de acercamiento.\n$$\\lim_{x \\to 3^+} f(x)$$\n¿Cuál de las siguientes lecturas es correcta?",
     "options": [
       "El valor de $f(x)$ cuando $x$ se acerca a $3$ por valores menores, como $2{,}99$",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_LEXI_03",
     "question": "Cuando el punto de tendencia es negativo, hay que separar dos roles del signo menos en los **límites laterales**.\n$$\\lim_{x \\to (-2)^+} f(x)$$\n¿Qué valores toma $x$ al acercarse de esta manera?",
     "options": [
       "Valores como $-1{,}9$, $-1{,}99$, $-1{,}999$",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_LEXI_04",
     "question": "Al escribir a mano la notación de **límites laterales**, es fácil ubicar mal el signo de dirección.\n\n¿Cuál de las siguientes expresiones representa correctamente el límite de $f(x)$ por la izquierda en $5$?",
     "options": [
       "$$\\lim_{x \\to 5} f(x)^-$$",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_LEXI_05",
     "question": "Los dos **límites laterales** de una función en un punto $a$ comparten algo esencial, sin importar si coinciden o no.\n\n¿Qué tienen en común $\\lim_{x \\to a^-} f(x)$ y $\\lim_{x \\to a^+} f(x)$?",
     "options": [
       "Ambos deben dar necesariamente el mismo resultado numérico",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_LEXI_06",
     "question": "El **teorema de existencia** del límite bilateral establece una condición precisa para que $\\lim_{x \\to a} f(x)$ exista.\n\n¿Cuál es esa condición?",
     "options": [
       "Que $\\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x)$",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_LEXI_07",
     "question": "Se sabe que $\\lim_{x \\to a} f(x)$ existe y vale $6$.\n\n¿Qué se puede afirmar sobre los límites laterales en $a$?",
     "options": [
       "Al menos uno de los laterales es distinto de $6$",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_LEXI_08",
     "question": "Una función $f$ no está definida en $x=a$.\n\n¿Puede existir igualmente $\\lim_{x \\to a} f(x)$?",
     "options": [
       "No, si $f(a)$ no existe el límite tampoco puede existir",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_LEXI_09",
     "question": "Una función cumple $\\lim_{x \\to a^-} f(x) = 8$ y $\\lim_{x \\to a^+} f(x) = 8$.\n\nAdemás, $f(a) = 2$.\n\n¿Cuánto vale $\\lim_{x \\to a} f(x)$?",
     "options": [
       "$8$",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_LEXI_10",
     "question": "Una función cumple la siguiente relación entre sus límites laterales:\n$$\\lim_{x \\to a^-} f(x) \\neq \\lim_{x \\to a^+} f(x)$$\n¿Cómo se ve reflejado esto en la gráfica de $f$ cerca de $a$?",
     "options": [
       "Como un hueco, un único punto removido de la curva",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_LEXI_11",
     "question": "Una gráfica muestra un **salto** en $x=a$: las dos ramas llegan a alturas distintas.\n\n¿Qué se puede afirmar sobre $\\lim_{x \\to a} f(x)$?",
     "options": [
       "Existe, y vale el promedio de las dos alturas",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_LEXI_12",
     "question": "Una tarifa de estacionamiento cobra un monto fijo durante la primera hora y un monto mayor a partir de superar ese umbral.\n\nCerca de esa hora exacta, la tarifa muestra un **salto**: el costo justo antes del umbral es menor que justo después.\n\n¿Existe el límite bilateral del costo en ese instante?",
     "options": [
       "No, no siempre: hay puntos de quiebre donde la función salta",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_LEXI_13",
     "question": "En un punto dado, $\\lim_{x \\to a^-} f(x) = 3$ y $\\lim_{x \\to a^+} f(x) = 7$.\n\n¿Cuál es el tamaño del **salto** de $f$ en ese punto?",
     "options": [
       "$7-3=4$",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_LEXI_14",
     "question": "En un punto dado, $\\lim_{x \\to a^-} f(x) = 4$ y $\\lim_{x \\to a^+} f(x) = 9$.\n\n¿Se puede afirmar cuál de los dos laterales es mayor?",
     "options": [
       "No, los límites laterales no se pueden comparar entre sí",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_LEXI_15",
     "question": "Una afirmación dice que si el **límite bilateral** no existe en $a$, entonces tampoco existen los límites laterales en $a$.\n\n¿Es correcta esa afirmación?",
     "options": [
       "No, los laterales pueden existir perfectamente aunque sean distintos entre sí",

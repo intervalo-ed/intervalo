@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_bases_RESL_01",
     "question": "Una base del plano distinta de la canónica sirve como sistema de referencia.\n$$B = \\{(1,1), (1,-1)\\}$$\n¿Cuáles son las coordenadas del vector $(6,2)$ en esa base?",
     "options": [
       "$(4, 2)$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "brown_bases_RESL_02",
     "question": "Un vector del plano se quiere describir desde otro par de direcciones.\n$$B = \\{(2,1), (1,1)\\}$$\n¿Cuáles son las coordenadas del vector $(5,3)$ en esa base?",
     "options": [
       "$(3, 2)$",
@@ -52,6 +54,7 @@
     ]
   },
   {
+    "id": "brown_bases_RESL_03",
     "question": "Una de las coordenadas de un vector en cierta base resulta negativa.\n$$B = \\{(1,0), (1,1)\\}$$\n¿Cuáles son las coordenadas del vector $(3,5)$ en esa base?",
     "options": [
       "$(3, 5)$",
@@ -79,6 +82,7 @@
     ]
   },
   {
+    "id": "brown_bases_RESL_04",
     "question": "Un vector del plano se mide desde la base canónica, la formada por los dos vectores más simples.\n$$E_2 = \\{(1,0), (0,1)\\}$$\n¿Cuáles son las coordenadas del vector $(4,-3)$ en esa base?",
     "options": [
       "$(4, -3)$",
@@ -106,6 +110,7 @@
     ]
   },
   {
+    "id": "brown_bases_RESL_05",
     "question": "Un plano que pasa por el origen tiene una base de dos vectores.\n$$B = \\{(1,0,1), (0,1,1)\\}$$\n¿Cuáles son las coordenadas del vector $(2,3,5)$ en esa base?",
     "options": [
       "$(3, 2)$",
@@ -133,6 +138,7 @@
     ]
   },
   {
+    "id": "brown_bases_RESL_06",
     "question": "Un vector está dado por sus coordenadas en una base que no es la canónica.\n$$B = \\{(2,1), (1,3)\\}, \\quad [\\vec{v}]_B = (3, 1)$$\n¿Qué vector del plano es?",
     "options": [
       "$(7, 6)$",
@@ -158,6 +164,7 @@
     ]
   },
   {
+    "id": "brown_bases_RESL_07",
     "question": "Un vector está dado por sus coordenadas en una base del plano.\n$$B = \\{(1,1), (1,-1)\\}$$\n$$[\\vec{v}]_B = (2, 3)$$\n¿Qué vector del plano es?",
     "options": [
       "$(3, 5)$",
@@ -185,6 +192,7 @@
     ]
   },
   {
+    "id": "brown_bases_RESL_08",
     "question": "Un plano que pasa por el origen tiene una base de dos vectores y se conocen unas coordenadas.\n$$B = \\{(1,0,1), (0,1,1)\\}$$\n$$[\\vec{v}]_B = (4, 2)$$\n¿Qué vector del espacio es?",
     "options": [
       "$(4, 2)$",
@@ -212,6 +220,7 @@
     ]
   },
   {
+    "id": "brown_bases_RESL_09",
     "question": "Un vector está dado por sus coordenadas en la base canónica del plano.\n$$E_2 = \\{(1,0), (0,1)\\}$$\n$$[\\vec{v}]_{E_2} = (3, -2)$$\n¿Qué vector del plano es?",
     "options": [
       "$(3, -2)$",
@@ -239,6 +248,7 @@
     ]
   },
   {
+    "id": "brown_bases_RESL_10",
     "question": "Al armar la combinación, uno de los vectores de la base entra restando.\n$$B = \\{(3,1), (1,2)\\}$$\n$$[\\vec{v}]_B = (2, -1)$$\n¿Qué vector del plano es?",
     "options": [
       "$(2, -1)$",
@@ -266,6 +276,7 @@
     ]
   },
   {
+    "id": "brown_bases_RESL_11",
     "question": "Un subespacio de $\\mathbb{R}^3$ viene descripto por tres generadores.\n$$S = \\text{gen}\\{(1,0,1), (2,0,2), (0,1,1)\\}$$\n¿Cuál es una base de $S$?",
     "options": [
       "$\\{(1,0,1), (0,1,1)\\}$",
@@ -291,6 +302,7 @@
     ]
   },
   {
+    "id": "brown_bases_RESL_12",
     "question": "Un subespacio del plano viene descripto por tres generadores.\n$$S = \\text{gen}\\{(1,2), (2,4), (3,1)\\}$$\n¿Cuál es una base de $S$?",
     "options": [
       "$\\{(3,1)\\}$",
@@ -318,6 +330,7 @@
     ]
   },
   {
+    "id": "brown_bases_RESL_13",
     "question": "Un conjunto generador incluye al vector nulo entre sus elementos.\n$$S = \\text{gen}\\{(1,1,0), (0,0,0), (0,1,1)\\}$$\n¿Cuál es una base de $S$?",
     "options": [
       "$\\{(1,1,0), (0,0,0)\\}$",
@@ -345,6 +358,7 @@
     ]
   },
   {
+    "id": "brown_bases_RESL_14",
     "question": "Uno de los generadores resulta ser la suma de los otros dos.\n$$S = \\text{gen}\\{(1,0,0), (0,1,0), (1,1,0)\\}$$\n¿Cuál es una base de $S$?",
     "options": [
       "$\\{(1,0,0), (0,1,0)\\}$",
@@ -372,6 +386,7 @@
     ]
   },
   {
+    "id": "brown_bases_RESL_15",
     "question": "Los tres generadores de un subespacio apuntan todos en la misma dirección.\n$$S = \\text{gen}\\{(2,4), (1,2), (3,6)\\}$$\n¿Cuál es una base de $S$?",
     "options": [
       "$\\{(0,0)\\}$",

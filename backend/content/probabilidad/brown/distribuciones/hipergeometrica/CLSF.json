@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_hipergeometrica_CLSF_01",
     "question": "Una empresa sortea 3 nombres de una lista de 12 empleados para un bono, sin repetir nombres.\n\nDe esos 12 empleados, 4 pertenecen al área de ventas.\n\n¿Qué distribución sigue la cantidad de empleados de ventas entre los 3 sorteados?",
     "options": [
       "$Hip(12,4,3)$",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_CLSF_02",
     "question": "Un control de calidad extrae 4 piezas de un lote de 15 sin reponerlas, para inspeccionarlas una por una.\n\nDel lote, 5 piezas están fuera de norma.\n\n¿Qué distribución sigue la cantidad de piezas fuera de norma entre las 4 inspeccionadas?",
     "options": [
       "$Hip(15,5,4)$",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_CLSF_03",
     "question": "Un inspector revisa cajas de un envío para detectar cuáles están dañadas, sacándolas sin reponerlas.\n\nA mitad de la inspección, el proveedor agrega 3 cajas nuevas sin daños al lote que falta revisar.\n\n¿Se puede seguir modelando la cantidad de cajas dañadas encontradas con una única hipergeométrica de parámetros fijos?",
     "options": [
       "No, la población y los éxitos cambian a mitad de camino.",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_CLSF_04",
     "question": "Una urna contiene 14 bochas, de las cuales 5 son rojas y el resto azules.\n\nSe extraen 4 bochas sin reposición, una tras otra.\n\n¿Qué distribución sigue la cantidad de bochas rojas entre las 4 extraídas?",
     "options": [
       "$Bin(4,\\, 5/14)$",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_CLSF_05",
     "question": "Un mazo de 16 cartas tiene 6 cartas con figura.\n\nSe reparten 3 cartas sin reponer al mazo.\n\n¿Qué distribución sigue la cantidad de cartas con figura entre las 3 repartidas?",
     "options": [
       "$Geom(3/8)$",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_CLSF_06",
     "question": "Un panel de 17 candidatos para jurado tiene 7 con experiencia previa.\n\nSe eligen 5 jurados al azar, sin repetir candidatos.\n\n¿Qué distribución sigue la cantidad de jurados con experiencia entre los 5 elegidos?",
     "options": [
       "$Hip(17,7,5)$",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_CLSF_07",
     "question": "Un estanque cerrado tiene 20 peces, de los cuales 6 están marcados de una campaña anterior.\n\nSe pescan 4 peces al azar, sin devolverlos al agua.\n\n¿Qué distribución sigue la cantidad de peces marcados entre los 4 pescados?",
     "options": [
       "$Bin(4,\\, 3/10)$",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_CLSF_08",
     "question": "Un lote de 13 piezas tiene 4 piezas fuera de norma.\n\nSe extraen 5 piezas del lote sin reponerlas, para un ensayo destructivo.\n\n¿Qué distribución sigue la cantidad de piezas fuera de norma entre las 5 extraídas?",
     "options": [
       "$Geom(4/13)$",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_CLSF_09",
     "question": "Una urna contiene 16 bochas, de las cuales 6 son rojas y el resto azules.\n\nSe extraen 4 bochas al azar, devolviendo cada bocha a la urna antes de la siguiente extracción.\n\n¿Qué distribución sigue la cantidad de bochas rojas entre las 4 extraídas?",
     "options": [
       "$Hip(16,6,4)$",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_CLSF_10",
     "question": "Un mazo de 15 cartas tiene 5 ases.\n\nSe arma una mano de 3 cartas elegidas al azar sin reposición.\n\n¿Qué representa la cantidad de manos distintas de 3 cartas que tienen exactamente 2 ases?",
     "options": [
       "Es la distribución $Hip(15,5,3)$",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_CLSF_11",
     "question": "Un panel de 17 candidatos para jurado tiene 6 con experiencia previa.\n\nSe eligen 4 jurados al azar, uno por vez, pero cada candidato entrevistado vuelve a estar disponible para la siguiente elección.\n\n¿Qué distribución sigue la cantidad de jurados con experiencia entre los 4 elegidos?",
     "options": [
       "$Geom(6/17)$",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_CLSF_12",
     "question": "Un estanque cerrado tiene 18 peces, de los cuales 7 están marcados.\n\nSe pesca un grupo de 5 peces sin reposición.\n\n¿Qué representa la cantidad de grupos distintos de 5 peces que tienen exactamente 3 marcados?",
     "options": [
       "Es la distribución $Bin(5,\\, 7/18)$",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_CLSF_13",
     "question": "Un pescador cuenta peces marcados a medida que los pesca de un estanque cerrado, sin devolverlos al agua.\n\nA mitad de la jornada, se liberan 5 peces recién marcados de otra campaña dentro del mismo estanque.\n\n¿Se puede seguir modelando la cantidad de peces marcados pescados con una única hipergeométrica de parámetros fijos?",
     "options": [
       "No, la población y los marcados cambian a mitad de camino.",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_CLSF_14",
     "question": "Una empresa sortea nombres de una lista fija de empleados para un bono, sin repetir nombres ya sorteados.\n\nA mitad del sorteo, se suman a la lista 4 empleados recién transferidos de otra sucursal.\n\n¿Se puede seguir modelando la cantidad de empleados sorteados de cierto equipo con una única hipergeométrica de parámetros fijos?",
     "options": [
       "Sí, el sorteo sigue siendo sin reposición en todo momento.",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_CLSF_15",
     "question": "Un comité entrevista candidatos de un panel fijo para elegir jurados, sin repetir candidatos ya entrevistados.\n\nA mitad de las entrevistas, se incorporan 3 candidatos nuevos con experiencia previa al panel restante.\n\n¿Se puede seguir modelando la cantidad de jurados con experiencia elegidos con una única hipergeométrica de parámetros fijos?",
     "options": [
       "Sí, los candidatos nuevos también podrían tener experiencia.",

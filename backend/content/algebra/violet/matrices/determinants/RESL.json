@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_determinants_RESL_01",
     "question": "Una transformación del plano está dada por esta matriz:\n$$A = \\begin{pmatrix} 5 & 2 \\\\ 3 & 4 \\end{pmatrix}$$\n¿Cuál es su determinante?",
     "options": [
       "$14$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "violet_determinants_RESL_02",
     "question": "Una transformación del plano está dada por esta matriz.\n$$A = \\begin{pmatrix} 6 & 1 \\\\ 2 & 7 \\end{pmatrix}$$\n¿Cuál es su determinante?",
     "options": [
       "$16$",
@@ -52,6 +54,7 @@
     ]
   },
   {
+    "id": "violet_determinants_RESL_03",
     "question": "Una matriz del plano representa una transformación.\n$$A = \\begin{pmatrix} 3 & 8 \\\\ 1 & 2 \\end{pmatrix}$$\n¿Cuál es su determinante?",
     "options": [
       "$14$",
@@ -79,6 +82,7 @@
     ]
   },
   {
+    "id": "violet_determinants_RESL_04",
     "question": "Se quiere medir el efecto de esta matriz sobre las áreas.\n$$A = \\begin{pmatrix} 4 & 6 \\\\ 2 & 3 \\end{pmatrix}$$\n¿Cuál es su determinante?",
     "options": [
       "$0$",
@@ -106,6 +110,7 @@
     ]
   },
   {
+    "id": "violet_determinants_RESL_05",
     "question": "Una matriz con entradas negativas describe una transformación del plano.\n$$A = \\begin{pmatrix} -2 & 5 \\\\ 3 & -1 \\end{pmatrix}$$\n¿Cuál es su determinante?",
     "options": [
       "$17$",
@@ -133,6 +138,7 @@
     ]
   },
   {
+    "id": "violet_determinants_RESL_06",
     "question": "Una matriz de dos filas y dos columnas tiene determinante $3$.\n\nDespués se multiplican todas sus entradas por dos.\n\n¿Cuánto vale el determinante de $2A$?",
     "options": [
       "$12$",
@@ -158,6 +164,7 @@
     ]
   },
   {
+    "id": "violet_determinants_RESL_07",
     "question": "Una matriz de dos filas y dos columnas tiene determinante $5$.\n\nDespués se multiplican todas sus entradas por tres.\n\n¿Cuánto vale el determinante de la nueva matriz?",
     "options": [
       "$25$",
@@ -185,6 +192,7 @@
     ]
   },
   {
+    "id": "violet_determinants_RESL_08",
     "question": "Una matriz tiene determinante $4$ y otra tiene determinante $6$.\n\nLas dos son cuadradas del mismo orden.\n\n¿Cuánto vale el determinante de su producto?",
     "options": [
       "$10$",
@@ -212,6 +220,7 @@
     ]
   },
   {
+    "id": "violet_determinants_RESL_09",
     "question": "Una matriz cuadrada tiene determinante $7$.\n\n¿Cuánto vale el determinante de su traspuesta?",
     "options": [
       "$7$",
@@ -239,6 +248,7 @@
     ]
   },
   {
+    "id": "violet_determinants_RESL_10",
     "question": "Una matriz cuadrada de orden dos tiene determinante $3$.\n\n¿Cuánto vale el determinante de su cuadrado?",
     "options": [
       "$3$",
@@ -266,6 +276,7 @@
     ]
   },
   {
+    "id": "violet_determinants_RESL_11",
     "question": "Una matriz depende de un parámetro todavía sin fijar:\n$$A = \\begin{pmatrix} k & 4 \\\\ 3 & 6 \\end{pmatrix}$$\n¿Para qué valor de $k$ se anula su determinante?",
     "options": [
       "$2$",
@@ -291,6 +302,7 @@
     ]
   },
   {
+    "id": "violet_determinants_RESL_12",
     "question": "Una matriz depende de un parámetro todavía sin fijar.\n$$A = \\begin{pmatrix} k & 3 \\\\ 4 & 6 \\end{pmatrix}$$\n¿Para qué valor del parámetro se anula su determinante?",
     "options": [
       "$8$",
@@ -318,6 +330,7 @@
     ]
   },
   {
+    "id": "violet_determinants_RESL_13",
     "question": "Una matriz depende de un parámetro todavía sin fijar.\n$$A = \\begin{pmatrix} 5 & k \\\\ 2 & 4 \\end{pmatrix}$$\n¿Para qué valor del parámetro se anula su determinante?",
     "options": [
       "$-10$",
@@ -345,6 +358,7 @@
     ]
   },
   {
+    "id": "violet_determinants_RESL_14",
     "question": "Una matriz depende de un parámetro todavía sin fijar.\n$$A = \\begin{pmatrix} 3 & 6 \\\\ k & 8 \\end{pmatrix}$$\n¿Para qué valor del parámetro se anula su determinante?",
     "options": [
       "$4$",
@@ -372,6 +386,7 @@
     ]
   },
   {
+    "id": "violet_determinants_RESL_15",
     "question": "Una matriz cuadrada tiene un parámetro sin fijar en una sola entrada.\n$$A = \\begin{pmatrix} 3 & 4 \\\\ 6 & k \\end{pmatrix}$$\n¿Para qué valor del parámetro se anula su determinante?",
     "options": [
       "$-8$",

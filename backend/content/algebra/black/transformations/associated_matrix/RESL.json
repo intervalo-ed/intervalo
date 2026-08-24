@@ -1,5 +1,6 @@
 [
   {
+    "id": "black_associated_matrix_RESL_01",
     "question": "Si $A = \\begin{pmatrix} 1 & 2 \\\\ 0 & 1 \\end{pmatrix}$ es la matriz asociada a $T$, ¿cuánto vale $T(3,1)$?",
     "options": [
       "$(5,1)$",

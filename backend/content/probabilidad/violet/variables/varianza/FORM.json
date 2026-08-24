@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_varianza_FORM_01",
     "question": "Sea $X$ una variable aleatoria con esperanza $\\mu = E[X]$.\n\n¿Qué expresión define la **varianza** $Var(X)$?",
     "options": [
       "$E[X] - \\mu$",
@@ -26,6 +27,7 @@
     ]
   },
   {
+    "id": "violet_varianza_FORM_02",
     "question": "¿Qué expresión es equivalente a $Var(X)=E[(X-\\mu)^{2}]$ y suele ser más práctica para calcular?",
     "options": [
       "$E[X^{2}]-(E[X])^{2}$",
@@ -52,6 +54,7 @@
     ]
   },
   {
+    "id": "violet_varianza_FORM_03",
     "question": "¿Cómo se relaciona $Var(aX+b)$ con $Var(X)$?",
     "options": [
       "$a^{2}\\,Var(X)$",
@@ -78,6 +81,7 @@
     ]
   },
   {
+    "id": "violet_varianza_FORM_04",
     "question": "La **varianza** se define como $Var(X)=E[(X-\\mu)^{2}]$, con $\\mu=E[X]$.\n\n¿Qué mide esa expresión?",
     "options": [
       "El promedio ponderado de los valores de $X$",
@@ -102,6 +106,7 @@
     ]
   },
   {
+    "id": "violet_varianza_FORM_05",
     "question": "En la definición $Var(X)=E[(X-\\mu)^{2}]$.\n\n¿Qué representa $\\mu$?",
     "options": [
       "El valor máximo que puede tomar $X$",
@@ -126,6 +131,7 @@
     ]
   },
   {
+    "id": "violet_varianza_FORM_06",
     "question": "Si $X$ mide una distancia en metros.\n\n¿En qué unidad queda expresada $Var(X)$?",
     "options": [
       "Queda expresada en metros al cuadrado",
@@ -150,6 +156,7 @@
     ]
   },
   {
+    "id": "violet_varianza_FORM_07",
     "question": "¿Por qué la definición de la **varianza** usa $(X-\\mu)^{2}$ en vez de $X-\\mu$ directamente?",
     "options": [
       "Porque elevar al cuadrado agranda artificialmente el resultado",
@@ -174,6 +181,7 @@
     ]
   },
   {
+    "id": "violet_varianza_FORM_08",
     "question": "En la fórmula operativa de la varianza.\n\n¿Qué representa el término $E[X^{2}]$?",
     "options": [
       "El cuadrado de la esperanza de la variable $X$",
@@ -198,6 +206,7 @@
     ]
   },
   {
+    "id": "violet_varianza_FORM_09",
     "question": "La **varianza** se calcula expandiendo el cuadrado de la definición:\n$$(X-\\mu)^{2}=X^{2}-2\\mu X+\\mu^{2}$$\nAl aplicar esperanza a cada término de esa expansión.\n\n¿Qué expresión se obtiene antes de simplificar a la fórmula operativa?",
     "options": [
       "$E[X^{2}]-2\\mu E[X]+\\mu^{2}$",
@@ -222,6 +231,7 @@
     ]
   },
   {
+    "id": "violet_varianza_FORM_10",
     "question": "La **varianza** puede calcularse con su definición:\n$$Var(X)=E[(X-\\mu)^{2}]$$\nO con la fórmula operativa:\n$$Var(X)=E[X^{2}]-(E[X])^{2}$$\n¿Cuál es la ventaja práctica de usar la segunda en vez de la primera?",
     "options": [
       "Da un resultado distinto y más preciso que la definición original",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "violet_varianza_FORM_11",
     "question": "¿Cuál de estas expresiones **no** es una fórmula válida para $Var(X)$?",
     "options": [
       "$E[X^{2}]-(E[X])^{2}$",
@@ -272,6 +283,7 @@
     ]
   },
   {
+    "id": "violet_varianza_FORM_12",
     "question": "La **varianza** cumple la propiedad de escalado:\n$$Var(aX+b)=a^{2}\\,Var(X)$$\nSi $Y=5X$.\n\n¿Cómo se expresa $Var(Y)$ en términos de $Var(X)$?",
     "options": [
       "$5\\,Var(X)$",
@@ -298,6 +310,7 @@
     ]
   },
   {
+    "id": "violet_varianza_FORM_13",
     "question": "La **varianza** cumple $Var(aX+b)=a^{2}\\,Var(X)$.\n\nSi a $X$ se le suma una constante, sin escalarla, por ejemplo $Var(X+7)$.\n\n¿Qué le pasa a $Var(X)$?",
     "options": [
       "Aumenta en 7",
@@ -324,6 +337,7 @@
     ]
   },
   {
+    "id": "violet_varianza_FORM_14",
     "question": "La **varianza** cumple $Var(aX+b)=a^{2}\\,Var(X)$.\n\n¿Por qué el coeficiente $a$ aparece elevado al cuadrado, mientras que $b$ no aparece en el resultado?",
     "options": [
       "Porque $a$ estira la dispersión, y $b$ solo desplaza los valores",
@@ -348,6 +362,7 @@
     ]
   },
   {
+    "id": "violet_varianza_FORM_15",
     "question": "La **varianza** cumple $Var(aX+b)=a^{2}\\,Var(X)$.\n\n¿Cuál es $Var(3X-4)$ en función de $Var(X)$?",
     "options": [
       "$3\\,Var(X)$",

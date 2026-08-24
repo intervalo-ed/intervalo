@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_varianza_RESL_01",
     "question": "Un call center registra $X$, la cantidad de llamadas perdidas por turno, con función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 0{,}5 \\\\ p(2) &= 0{,}5 \\end{aligned}$$\n¿Cuánto vale $Var(X)$?",
     "options": [
       "$0$",
@@ -26,6 +27,7 @@
     ]
   },
   {
+    "id": "violet_varianza_RESL_02",
     "question": "El tiempo de armado de un mueble tiene varianza $Var(X)=4$ minutos².\n\n¿Cuál es la desviación estándar $\\sigma$?",
     "options": [
       "$1$",
@@ -52,6 +54,7 @@
     ]
   },
   {
+    "id": "violet_varianza_RESL_03",
     "question": "El costo de envío es $Y=3X+2$ dólares, con $Var(X)=5$.\n\n¿Cuánto vale $Var(Y)$?",
     "options": [
       "$45$",
@@ -78,6 +81,7 @@
     ]
   },
   {
+    "id": "violet_varianza_RESL_04",
     "question": "Dos máquinas producen piezas con el mismo diámetro promedio, pero distinta varianza.\n\nLa Máquina A tiene $Var(X)=0{,}5$ y la Máquina B tiene $Var(X)=4$.\n\n¿Qué significa esto?",
     "options": [
       "La Máquina A es más consistente, sus piezas varían menos",
@@ -104,6 +108,7 @@
     ]
   },
   {
+    "id": "violet_varianza_RESL_05",
     "question": "Un control de calidad registra $X$, la cantidad de piezas defectuosas halladas por lote, con función de probabilidad puntual:\n$$\\begin{aligned} p(2) &= 0{,}5 \\\\ p(6) &= 0{,}5 \\end{aligned}$$\n¿Cuánto vale $Var(X)$?",
     "options": [
       "$24$",
@@ -130,6 +135,7 @@
     ]
   },
   {
+    "id": "violet_varianza_RESL_06",
     "question": "Un arquero registra $X$, la cantidad de goles recibidos en un partido, con función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 0{,}2 \\\\ p(1) &= 0{,}2 \\\\ p(2) &= 0{,}6 \\end{aligned}$$\n¿Cuánto vale $Var(X)$?",
     "options": [
       "$2{,}6$",
@@ -156,6 +162,7 @@
     ]
   },
   {
+    "id": "violet_varianza_RESL_07",
     "question": "Una caja registra $X$, la cantidad de clientes que llegan por minuto, con función de probabilidad puntual:\n$$\\begin{aligned} p(1) &= 0{,}75 \\\\ p(5) &= 0{,}25 \\end{aligned}$$\n¿Cuánto vale $Var(X)$?",
     "options": [
       "$3$",
@@ -182,6 +189,7 @@
     ]
   },
   {
+    "id": "violet_varianza_RESL_08",
     "question": "Una central telefónica registra $X$, la cantidad de llamadas recibidas en un lapso breve, con función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 1/3 \\\\ p(3) &= 1/3 \\\\ p(6) &= 1/3 \\end{aligned}$$\n¿Cuánto vale $Var(X)$?",
     "options": [
       "$15$",
@@ -208,6 +216,7 @@
     ]
   },
   {
+    "id": "violet_varianza_RESL_09",
     "question": "El tiempo de espera en la fila de un banco tiene $Var(X)=9$ minutos².\n\n¿Cuál es la desviación estándar $\\sigma$?",
     "options": [
       "$9$",
@@ -234,6 +243,7 @@
     ]
   },
   {
+    "id": "violet_varianza_RESL_10",
     "question": "El peso de los paquetes que despacha una empresa de correo tiene $Var(X)=2{,}25$ kg².\n\n¿Cuál es la desviación estándar $\\sigma$?",
     "options": [
       "$2{,}25$",
@@ -260,6 +270,7 @@
     ]
   },
   {
+    "id": "violet_varianza_RESL_11",
     "question": "La duración de las llamadas en un call center tiene $Var(X)=25$ segundos².\n\n¿Cuál es la desviación estándar $\\sigma$?",
     "options": [
       "$5$",
@@ -286,6 +297,7 @@
     ]
   },
   {
+    "id": "violet_varianza_RESL_12",
     "question": "El peso neto en gramos de un producto se calcula como $Y=2X-5$.\n\nLa medición original $X$ tiene $Var(X)=10$ gramos².\n\n¿Cuánto vale $Var(Y)$?",
     "options": [
       "$20$",
@@ -312,6 +324,7 @@
     ]
   },
   {
+    "id": "violet_varianza_RESL_13",
     "question": "El puntaje ajustado de un examen se calcula como $Y=4X+10$.\n\nEl puntaje original $X$ tiene $Var(X)=3$.\n\n¿Cuánto vale $Var(Y)$?",
     "options": [
       "$12$",
@@ -338,6 +351,7 @@
     ]
   },
   {
+    "id": "violet_varianza_RESL_14",
     "question": "Dos rutas de entrega tienen el mismo tiempo promedio, pero distinta varianza.\n\nLa Ruta A tiene $Var(X)=1$ y la Ruta B tiene $Var(X)=9$.\n\n¿Qué significa esto?",
     "options": [
       "La Ruta B entrega en promedio más rápido que la Ruta A",
@@ -364,6 +378,7 @@
     ]
   },
   {
+    "id": "violet_varianza_RESL_15",
     "question": "Dos grupos de un examen tienen el mismo puntaje promedio, pero distinta varianza.\n\nEl Grupo 1 tiene $Var(X)=2$ y el Grupo 2 tiene $Var(X)=20$.\n\n¿Qué implica esta diferencia?",
     "options": [
       "Los puntajes del Grupo 1 están más cerca del promedio entre sí",

@@ -1,5 +1,6 @@
 [
   {
+    "id": "black_definition_CLSF_01",
     "question": "¿Cuál de estas funciones es una **transformación lineal** de $\\mathbb{R}^2$ en $\\mathbb{R}^2$?",
     "options": [
       "$T(x,y) = (2x, -y)$",

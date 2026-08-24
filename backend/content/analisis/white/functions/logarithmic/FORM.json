@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_logarithmic_FORM_01",
     "question": "Un logaritmo lleva siempre una base escrita como subíndice, aunque a veces quede sobreentendida:\n$$f(x) = \\log_5(x)$$\n¿Cuál es la base de este logaritmo?",
     "options": [
       "$5$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_02",
     "question": "Un logaritmo lleva adentro algo más que la variable sola:\n$$f(x) = \\log_3(x - 2)$$\n¿Cuál es la asíntota vertical?",
     "options": [
       "$x = 2$",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_03",
     "question": "Un logaritmo puede venir acompañado de un número que lo escala:\n$$f(x) = 2 \\cdot \\log(x)$$\n¿Cuál es el factor multiplicativo?",
     "options": [
       "$x$",
@@ -75,6 +78,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_04",
     "question": "Un logaritmo solo acepta valores positivos adentro, y eso restringe qué entradas sirven:\n$$f(x) = \\log(x - 3)$$\n¿Para qué valores de $x$ está definida?",
     "options": [
       "$x > 3$",
@@ -100,6 +104,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_05",
     "question": "Preguntarse cuánto vale un logaritmo es preguntarse a qué exponente hay que elevar la base:\n$$f(x) = \\log_5(x)$$\n¿Cuánto vale $f(1)$?",
     "options": [
       "$1$",
@@ -125,6 +130,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_06",
     "question": "Un logaritmo lleva adentro una expresión que cambia de signo:\n$$f(x) = \\log_2(2x - 6)$$\n¿Cuál es su dominio?",
     "options": [
       "$(-3, +\\infty)$",
@@ -150,6 +156,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_07",
     "question": "La asíntota vertical de un logaritmo aparece justo donde su interior se anula:\n$$f(x) = \\log_3(x - 4)$$\n¿Cuál es esa asíntota?",
     "options": [
       "$x = 3$",
@@ -175,6 +182,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_08",
     "question": "Un logaritmo trae un coeficiente multiplicando a $x$ en su interior:\n$$f(x) = \\log_2(3x - 6)$$\n¿Cuál es su dominio?",
     "options": [
       "$x > 6$",
@@ -200,6 +208,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_09",
     "question": "El logaritmo natural tiene como base el número $e$, así que las potencias de $e$ le salen redondas:\n$$f(x) = \\ln(x)$$\n¿Cuánto vale $f(e^3)$?",
     "options": [
       "$e^3$",
@@ -225,6 +234,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_10",
     "question": "Un logaritmo aparece escrito sin subíndice:\n$$f(x) = \\log(x)$$\n¿Cuánto vale $f(100)$?",
     "options": [
       "$10$",
@@ -250,6 +260,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_11",
     "question": "Sumar dentro del logaritmo desplaza toda la curva en horizontal:\n$$f(x) = \\ln(x + 4)$$\n¿Cuál es la asíntota vertical?",
     "options": [
       "$x = 0$",
@@ -275,6 +286,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_12",
     "question": "La curva del gráfico se despega del eje vertical y crece cada vez más despacio.\n\n¿Qué expresión le corresponde?",
     "options": [
       "$f(x) = \\log_2(x) + 1$",
@@ -305,6 +317,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_13",
     "question": "En el gráfico conviene mirar en qué punto la curva cruza el eje horizontal.\n\n¿Qué expresión le corresponde?",
     "options": [
       "$f(x) = \\log_2(x)$",
@@ -335,6 +348,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_14",
     "question": "Cambiar un signo en un logaritmo puede reflejar la curva o mover su asíntota, según dónde vaya.\n\n¿Qué expresión corresponde a la curva del gráfico?",
     "options": [
       "$f(x) = \\log_2(x)$",
@@ -365,6 +379,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_15",
     "question": "Trabajar con logaritmos suele empezar por descomponer lo que tienen adentro:\n$$\\log_2(4x)$$\n¿A qué expresión equivale?",
     "options": [
       "$4 \\cdot \\log_2(x)$",
@@ -390,6 +405,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_16",
     "question": "Adentro de este logaritmo natural hay una potencia de $e$:\n$$\\ln(e^{2x})$$\n¿A qué expresión es equivalente?",
     "options": [
       "$2x$",
@@ -415,6 +431,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_17",
     "question": "Preguntar por la inversa de una función es preguntar cómo volver de la salida a la entrada:\n$$f(x) = \\log_2(x)$$\n¿Cuál es su función inversa?",
     "options": [
       "$f^{-1}(x) = \\dfrac{x}{2}$",
@@ -440,6 +457,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_18",
     "question": "El cruce con el eje $X$ ocurre donde la función vale cero:\n$$f(x) = \\log_2(x + 1)$$\n¿En qué valor de $x$ cruza ese eje?",
     "options": [
       "$x = -1$",
@@ -465,6 +483,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_19",
     "question": "Esta función suma dos logaritmos, y cada uno impone su propia condición:\n$$f(x) = \\log(x - 2) + \\log(x + 2)$$\n¿Cuál es su dominio?",
     "options": [
       "$x > 2$",
@@ -490,6 +509,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_20",
     "question": "Una función logarítmica tiene asíntota vertical en $x = 3$, es creciente y pasa por el punto $(4,\\, 0)$.\n\n¿Cuál de estas fórmulas la describe?",
     "options": [
       "$f(x) = \\log_2(x + 3)$",
@@ -515,6 +535,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_21",
     "question": "El valor que entra al logaritmo no es $7$ sino lo que queda después de sumar:\n$$f(x) = \\log_2(x + 1)$$\n¿Cuánto vale $f(7)$?",
     "options": [
       "$4$",
@@ -540,6 +561,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_22",
     "question": "En esta función la variable aparece restándose dentro del logaritmo:\n$$f(x) = \\ln(4 - x)$$\n¿Cuál es su dominio?",
     "options": [
       "$x > 4$",
@@ -565,6 +587,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_23",
     "question": "En esta función el número aparece por fuera del logaritmo, no adentro:\n$$f(x) = \\log_2(x) - 3$$\n¿Cuál es la asíntota vertical?",
     "options": [
       "$x = 3$",
@@ -590,6 +613,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_24",
     "question": "Un logaritmo lleva adentro un cociente con una potencia de $e$ abajo:\n$$\\ln\\!\\left(\\dfrac{x}{e^2}\\right)$$\n¿A qué expresión equivale?",
     "options": [
       "$\\ln(x) + 2$",
@@ -615,6 +639,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_25",
     "question": "Un cuadrado adentro del logaritmo cambia el análisis del dominio respecto del caso lineal:\n$$f(x) = \\log_2(x^2)$$\n¿Cuál es su dominio?",
     "options": [
       "$x \\neq 0$",
@@ -640,6 +665,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_26",
     "question": "Una función multiplica un logaritmo por un factor:\n$$f(x) = 2 \\cdot \\log_2(x)$$\n¿Cuánto vale $f(4)$?",
     "options": [
       "$8$",
@@ -665,6 +691,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_27",
     "question": "Dos logaritmos de bases distintas comparten asíntota y cruce con el eje horizontal, pero no el ritmo.\n\n¿Qué expresión corresponde a la curva del gráfico?",
     "options": [
       "$f(x) = \\log_2(x)$",
@@ -695,6 +722,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_28",
     "question": "Restar una constante a un logaritmo mueve el punto donde la curva corta el eje horizontal:\n$$f(x) = \\log_2(x) - 1$$\n¿En qué valor de $x$ cruza el eje $X$?",
     "options": [
       "$x = 1$",
@@ -720,6 +748,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_29",
     "question": "Al haber un coeficiente multiplicando a $x$, la asíntota no queda donde uno la esperaría de una:\n$$f(x) = \\log_2(2x + 6)$$\n¿Cuál es la asíntota vertical?",
     "options": [
       "$x = 6$",
@@ -745,6 +774,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_FORM_30",
     "question": "Una resta de logaritmos de la misma base se puede encarar de dos maneras:\n$$\\log_2(8) - \\log_2(4)$$\n¿Cuánto vale esta expresión?",
     "options": [
       "$2$",

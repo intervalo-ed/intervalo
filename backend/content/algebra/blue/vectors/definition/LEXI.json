@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_definition_LEXI_01",
     "question": "La velocidad de un auto se anota como un vector, aunque el velocímetro marque un solo número.\n$$\\vec{v} = (v_1, v_2)$$\n¿Por qué no alcanza con ese único número?",
     "options": [
       "Porque además de la rapidez, incluye una dirección y un sentido de movimiento",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_02",
     "question": "Dos personas empujan una caja con la misma intensidad y la caja no se mueve.\n$$\\vec{F}_1 + \\vec{F}_2 = \\vec{0}$$\n¿Qué información se pierde si cada empuje se anota con un solo número?",
     "options": [
       "El punto exacto de la caja donde se aplica cada uno de los empujes",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_03",
     "question": "La temperatura de una habitación se anota con un solo número, y el desplazamiento de un objeto no.\n$$T \\in \\mathbb{R} \\qquad \\vec{d} \\in \\mathbb{R}^{2}$$\n¿Qué diferencia entre las dos cantidades explica eso?",
     "options": [
       "Que la temperatura admite valores negativos y el desplazamiento no los admite",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_04",
     "question": "Dos aviones vuelan a la misma rapidez y sin embargo se alejan uno del otro.\n$$\\vec{v}_1 \\neq \\vec{v}_2$$\n¿Cómo puede pasar eso?",
     "options": [
       "Porque la rapidez no dice hacia dónde va cada uno de los aviones",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_05",
     "question": "Una corriente desvía a un nadador que apunta perpendicular a la orilla.\n$$\\vec{v}_n + \\vec{v}_c$$\n¿Por qué no alcanza con sumar las dos rapideces para saber a qué velocidad avanza?",
     "options": [
       "Porque una de las dos velocidades tiene una magnitud que resulta negativa",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_06",
     "question": "Dos vectores pueden describir la misma clase de movimiento y sin embargo vivir en espacios distintos.\n$$\\vec{v} \\in \\mathbb{R}^n$$\n¿Qué determina que un vector pertenezca a $\\mathbb{R}^3$ en vez de a $\\mathbb{R}^2$?",
     "options": [
       "Que tenga exactamente 3 componentes reales",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_07",
     "question": "Un dron que además de moverse sobre el plano puede subir necesita un dato más.\n$$\\vec{v} = (v_1, v_2, v_3)$$\n¿Qué representa esa tercera componente?",
     "options": [
       "El orden en que se recorrieron las otras dos direcciones",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_08",
     "question": "Dos vectores distintos pueden pertenecer al mismo espacio.\n$$\\vec{u}, \\vec{v} \\in \\mathbb{R}^{4}$$\n¿Qué significa que los dos pertenezcan al mismo espacio?",
     "options": [
       "Que los dos tienen exactamente la misma longitud entre sí",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_09",
     "question": "Un vector puede tener una componente nula y seguir perteneciendo al mismo espacio.\n$$(5, 0, 2) \\in \\mathbb{R}^{3}$$\n¿Por qué el cero cuenta como una componente?",
     "options": [
       "Porque ocupa una posición fija de la tupla, y esa posición existe igual",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_10",
     "question": "La cantidad de componentes de un vector no dice nada sobre su tamaño.\n$$(1,1,1,1) \\qquad (100, 0)$$\n¿Cuál de los dos pertenece a un espacio de mayor dimensión?",
     "options": [
       "Los dos pertenecen al mismo espacio",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_11",
     "question": "Dos vectores pueden estar armados con los mismos dos números y aun así no ser el mismo vector.\n$$(2,5) \\neq (5,2)$$\n¿Por qué representan desplazamientos distintos?",
     "options": [
       "Porque cada posición de la tupla está atada a un eje fijo",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_12",
     "question": "Un repartidor anota su recorrido como un par de números con las posiciones fijadas de antemano.\n$$\\vec{v} = (v_1, v_2)$$\n¿Por qué no puede escribir su avance al norte en la primera posición?",
     "options": [
       "Porque un avance al norte no se puede anotar como una componente",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_13",
     "question": "Dos vectores pueden tener las mismas dos componentes escritas en distinto orden.\n$$(1,7) \\qquad (7,1)$$\n¿Qué los diferencia?",
     "options": [
       "Nada, porque son el mismo vector escrito de dos maneras",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_14",
     "question": "En un espacio de tres dimensiones el orden importa igual que en el plano.\n$$(2,0,5) \\qquad (5,0,2)$$\n¿Qué cambia entre esos dos vectores?",
     "options": [
       "Qué eje recibe cada valor, y con eso el punto al que llegan",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_15",
     "question": "Un conjunto de números no cambia si se los reordena, y un vector sí.\n$$\\{2,5\\} = \\{5,2\\}$$\n¿Por qué un vector no se comporta así?",
     "options": [
       "Porque un vector siempre tiene más elementos que un conjunto",

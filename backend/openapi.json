@@ -3011,6 +3011,18 @@
             ],
             "title": "Graph Free Aspect"
           },
+          "table": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Table"
+          },
           "feedback_correct": {
             "type": "string",
             "title": "Feedback Correct"
@@ -3600,6 +3612,11 @@
           "has_graph": {
             "type": "boolean",
             "title": "Has Graph",
+            "default": false
+          },
+          "has_table": {
+            "type": "boolean",
+            "title": "Has Table",
             "default": false
           }
         },

@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_fracciones_LEXI_01",
     "question": "Una **fracción compuesta** es aquella cuyo numerador o denominador es, a su vez, una fracción.\n\n¿Cuál de las siguientes expresiones es una fracción compuesta?",
     "options": [
       "$\\dfrac{7}{9}$",
@@ -27,12 +28,13 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_02",
     "question": "Una fracción compuesta tiene otra fracción adentro, y esa fracción interna puede estar arriba o abajo.\n\n¿Cuál de estas expresiones la tiene en el **denominador**?",
     "options": [
       "$\\dfrac{7}{5}$",
       "$\\dfrac{7}{3/5}$",
       "$\\dfrac{3/5}{7}$",
-      "$\\dfrac{3}{5}$"
+      "$\\dfrac{2/3}{4/5}$"
     ],
     "correct_index": 1,
     "feedback_correct": "El nivel de abajo es $3/5$, una fracción completa, así que la fracción interna está en el denominador.",
@@ -40,7 +42,7 @@
       "Esa también es simple, aunque los números sean otros: no aparece ninguna barra de fracción adentro.",
       null,
       "Esa también es compuesta, pero la fracción interna está arriba, en el numerador.",
-      "Esa es una fracción simple: arriba y abajo hay enteros sueltos, sin ninguna barra adentro."
+      "Esa es compuesta en los dos niveles a la vez, no solo en el denominador."
     ],
     "explanation": "Lo que vuelve compuesta a una expresión es que alguno de sus dos niveles sea a su vez una fracción.\n$$\\dfrac{7}{3/5}$$\nAcá el numerador es el entero $7$ y el denominador es $3/5$, así que la fracción interna vive abajo.\n\nCuando la interna está arriba, como en $(3/5)/7$, la expresión también es compuesta, pero los papeles se invierten.\n\nDistinguir en qué nivel está la fracción interna es lo que después permite resolverla, porque al dividir siempre se invierte el nivel de abajo.",
     "has_math": true,
@@ -54,6 +56,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_03",
     "question": "En una fracción compuesta el numerador y el denominador pueden ser fracciones los dos a la vez.\n\n¿Cuál de estas expresiones es compuesta en los dos niveles?",
     "options": [
       "$\\dfrac{2/5}{4}$",
@@ -81,6 +84,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_04",
     "question": "Tres de estas cuatro expresiones tienen una fracción adentro de otra.\n\n¿Cuál **no** es una fracción compuesta?",
     "options": [
       "$\\dfrac{9}{4}$",
@@ -108,6 +112,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_05",
     "question": "Lo que vuelve compuesta a una expresión es que aparezca una barra de fracción adentro de otra, no que haya operaciones.\n\n¿Cuál de estas expresiones es compuesta?",
     "options": [
       "$\\dfrac{5}{6\\times4}$",
@@ -135,6 +140,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_06",
     "question": "Una fracción negativa se puede escribir con el signo en distintos lugares sin que cambie su valor:\n$$-\\dfrac{a}{b} = \\dfrac{-a}{b} = \\dfrac{a}{-b}$$\n¿Cuál de las siguientes expresiones **no** es igual a $-3/4$?",
     "options": [
       "$\\dfrac{-3}{4}$",
@@ -162,6 +168,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_07",
     "question": "Una fracción negativa admite el signo adelante, en el numerador o en el denominador, siempre que aparezca una sola vez.\n$$-\\dfrac{4}{9}$$\n¿Cuál de estas expresiones vale lo mismo?",
     "options": [
       "$\\dfrac{4}{9}$",
@@ -189,6 +196,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_08",
     "question": "El signo de una fracción lo decide cuántos signos negativos intervienen en el cociente.\n$$\\dfrac{-2}{-5}$$\n¿Qué signo tiene esa fracción?",
     "options": [
       "Negativa, porque el numerador es un número negativo",
@@ -216,6 +224,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_09",
     "question": "Multiplicar el numerador y el denominador por un mismo número no cambia el valor de una fracción, y eso vale también para el $-1$.\n$$\\dfrac{2}{7} = \\dfrac{-2}{-7}$$\n¿Por qué el valor no cambia?",
     "options": [
       "Porque el cociente de dos cantidades del mismo signo es positivo",
@@ -243,6 +252,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_10",
     "question": "Restar una fracción negativa equivale a sumar su opuesta, porque los dos signos que se juntan se compensan.\n$$\\dfrac{2}{9} - \\left(-\\dfrac{4}{9}\\right)$$\n¿Con qué suma equivale esa resta?",
     "options": [
       "$-\\dfrac{2}{9} + \\dfrac{4}{9}$",
@@ -270,6 +280,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_11",
     "question": "Una fracción está **simplificada** cuando su numerador y su denominador no comparten ningún factor común mayor que $1$.\n\n¿Cuál de las siguientes fracciones ya está simplificada?",
     "options": [
       "$\\dfrac{8}{12}$",
@@ -297,6 +308,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_12",
     "question": "Una fracción deja de estar simplificada apenas su numerador y su denominador comparten un factor mayor que $1$.\n\n¿Cuál de estas fracciones todavía se puede reducir?",
     "options": [
       "$\\dfrac{11}{6}$",
@@ -324,9 +336,10 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_13",
     "question": "Dos números son **coprimos** cuando no comparten ningún factor mayor que $1$.\n$$\\dfrac{7}{10}$$\n¿Por qué esa fracción no se puede reducir?",
     "options": [
-      "Porque el numerador es más chico que el denominador",
+      "Porque a simple vista no se ve ningún factor en común",
       "Porque el denominador es par y el numerador es impar",
       "Porque los dos números son bastante chicos",
       "Porque el numerador es primo y no divide al denominador"
@@ -334,7 +347,7 @@
     "correct_index": 3,
     "feedback_correct": "Un primo solo se divide por sí mismo y por $1$, y ese primo no entra en el denominador.",
     "feedback_incorrect": [
-      "Que el numerador sea menor no dice nada: en $6/10$ también lo es y esa fracción sí se reduce.",
+      "Que no salte a la vista un factor común no prueba que no exista: hay que revisar los divisores, no confiar en la primera mirada.",
       "La paridad no alcanza: $9/12$ también tiene numerador impar y denominador par, y comparte el factor $3$.",
       "El tamaño no interviene: los dos números de $8/12$ también son chicos y sí comparten un factor.",
       null
@@ -351,6 +364,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_14",
     "question": "Que el numerador sea impar y el denominador par no alcanza para asegurar que una fracción esté simplificada.\n$$\\dfrac{9}{12}$$\n¿Qué factor mayor que $1$ comparten esos dos números?",
     "options": [
       "$3$",
@@ -378,6 +392,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_15",
     "question": "Entre varias fracciones, algunas ya están simplificadas y otras todavía comparten un factor.\n$$\\dfrac{4}{9} \\quad \\dfrac{6}{8} \\quad \\dfrac{5}{11} \\quad \\dfrac{10}{12}$$\n¿Cuántas de esas cuatro ya están simplificadas?",
     "options": [
       "$3$",
@@ -400,6 +415,62 @@
     "graph_shade": null,
     "graph_free_aspect": null,
     "reviewed": false,
+    "tags": [
+      "fraccion-simplificada"
+    ]
+  },
+  {
+    "id": "white_fracciones_LEXI_16",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "question": "Simplificar una fracción es dividir el numerador y el denominador por un **factor** que los dos compartan.\n$$\\dfrac{5+a}{5}$$\n¿Cuál de estas afirmaciones es correcta?",
+    "options": [
+      "No se puede simplificar: arriba el $5$ está sumado, no multiplicando",
+      "Se simplifica a $a$, tachando el $5$ de arriba con el de abajo",
+      "Se simplifica a $a/5$, borrando el $5$ que aparece en el numerador",
+      "No se puede simplificar: $5$ y $a$ no comparten ningún factor común"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Ese $5$ es uno de los dos sumandos del numerador, no un factor de todo él.",
+    "feedback_incorrect": [
+      null,
+      "Tachar así deja afuera la $a$: con $a=5$ el original vale $2$ y esa expresión vale $5$.",
+      "Borrar un sumando del numerador cambia la cantidad: el $5$ de arriba no desaparece solo.",
+      "Aunque compartieran un factor tampoco se podría, porque arriba hay una suma y no un producto."
+    ],
+    "explanation": "Dividir arriba y abajo por el mismo número conserva el valor de la fracción. Pero esa división le cae a **todo** el numerador, y cuando arriba hay una suma cada sumando la recibe por separado:\n$$\\dfrac{5+a}{5} = 1 + \\dfrac{a}{5}$$\nAhí se ve por qué quedarse con $a$ está mal: el $5$ de arriba no desaparece, se convierte en un uno.\n\nEl contraste con el caso que sí funciona es lo que fija la regla. Si ese cinco multiplicara a todo el numerador en vez de estar sumado, se cancelaría entero:\n$$\\dfrac{5\\cdot a}{5} = a$$\nLa diferencia no está en los números sino en la operación que los une.\n\nReemplazando $a$ por cinco se comprueba en una línea: el original vale dos, y la expresión tachada valdría cinco.",
+    "tags": [
+      "fraccion-simplificada"
+    ]
+  },
+  {
+    "id": "white_fracciones_LEXI_17",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "question": "Al simplificar, el factor que se saca tiene que dividir a **todos** los términos del numerador y del denominador.\n$$\\dfrac{4}{2+2a}$$\n¿Cuál es su forma simplificada?",
+    "options": [
+      "$\\dfrac{2}{1+a}$",
+      "$\\dfrac{2}{1+2a}$",
+      "$\\dfrac{2}{2+2a}$",
+      "$\\dfrac{4}{1+a}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El $2$ sale de los dos términos de abajo: $2+2a$ es $2(1+a)$.",
+    "feedback_incorrect": [
+      null,
+      "Ahí abajo se dividió solo el primer sumando por $2$, y el segundo quedó sin dividir.",
+      "Ahí se dividió el numerador por $2$ y el denominador quedó intacto, así que cambió el valor.",
+      "Ahí se dividió el denominador por $2$ y el numerador quedó intacto, así que cambió el valor."
+    ],
+    "explanation": "Antes de cancelar hay que ver el denominador como un **producto**, no como una suma. Sacando factor común queda a la vista qué se puede dividir:\n$$2+2a = 2(1+a)$$\nRecién ahí el $2$ es un factor de todo el denominador, y se cancela contra el que está adentro del $4$:\n$$\\dfrac{4}{2(1+a)} = \\dfrac{2}{1+a}$$\nEl error más común es dividir por dos uno solo de los dos sumandos de abajo. Eso no es simplificar sino cambiar el número, porque dividir una suma exige dividir sus dos partes.\n\nReemplazando $a$ por uno se comprueba: el original da uno, y la forma simplificada también.",
     "tags": [
       "fraccion-simplificada"
     ]

@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_operations_RESL_01",
     "question": "Un repartidor camina el vector $\\vec{u}=(3,1)$ y después $\\vec{v}=(-1,2)$, en cuadras.\n\n¿Cuál es su desplazamiento total?",
     "options": [
       "$(2,3)$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "blue_operations_RESL_02",
     "question": "Un excursionista camina el vector $\\vec{u}=(2,5)$ y después $\\vec{v}=(4,-1)$, en kilómetros.\n\n¿Cuál es su desplazamiento total?",
     "options": [
       "$(8,-5)$",
@@ -52,6 +54,7 @@
     ]
   },
   {
+    "id": "blue_operations_RESL_03",
     "question": "Un dron vuela el vector $\\vec{u}=(-3,2)$ y después $\\vec{v}=(5,4)$, en kilómetros.\n\n¿Cuál es su desplazamiento total?",
     "options": [
       "$(8,6)$",
@@ -79,6 +82,7 @@
     ]
   },
   {
+    "id": "blue_operations_RESL_04",
     "question": "Un repartidor camina $\\vec{u}=(6,-2)$ y después $\\vec{v}=(-6,2)$, en cuadras.\n\n¿Cuál es su desplazamiento total?",
     "options": [
       "$(0,0)$",
@@ -106,6 +110,7 @@
     ]
   },
   {
+    "id": "blue_operations_RESL_05",
     "question": "Un bote se mueve $\\vec{u}=(1,7)$ por su motor y $\\vec{v}=(3,-3)$ por la corriente, en metros por segundo.\n\n¿Cuál es su velocidad total?",
     "options": [
       "$(-2,10)$",
@@ -133,6 +138,7 @@
     ]
   },
   {
+    "id": "blue_operations_RESL_06",
     "question": "Se quiere triplicar la fuerza de un empuje representado por $\\vec{F}=(2,-1)$, sin cambiar su dirección.\n\n¿Cuál es el nuevo vector?",
     "options": [
       "$(6,-3)$",
@@ -158,6 +164,7 @@
     ]
   },
   {
+    "id": "blue_operations_RESL_07",
     "question": "Se quiere duplicar un empuje representado por $\\vec{F}=(3,-5)$, sin cambiar su dirección.\n\n¿Cuál es el nuevo vector?",
     "options": [
       "$(6,10)$",
@@ -185,6 +192,7 @@
     ]
   },
   {
+    "id": "blue_operations_RESL_08",
     "question": "Se quiere invertir por completo un empuje representado por $\\vec{F}=(4,7)$, sin cambiar su intensidad.\n\n¿Cuál es el nuevo vector?",
     "options": [
       "$(4,-7)$",
@@ -212,6 +220,7 @@
     ]
   },
   {
+    "id": "blue_operations_RESL_09",
     "question": "Se quiere reducir a la mitad un desplazamiento representado por $\\vec{d}=(8,-6)$, en metros.\n\n¿Cuál es el nuevo vector?",
     "options": [
       "$(4,-3)$",
@@ -239,6 +248,7 @@
     ]
   },
   {
+    "id": "blue_operations_RESL_10",
     "question": "Un empuje $\\vec{F}=(-2,5)$ se aplica en sentido contrario y con el triple de intensidad.\n\n¿Cuál es el nuevo vector?",
     "options": [
       "$(6,15)$",
@@ -266,6 +276,7 @@
     ]
   },
   {
+    "id": "blue_operations_RESL_11",
     "question": "Un dron duplica su primer tramo, $\\vec{u}=(1,3)$, y le suma un segundo tramo sin escalar, $\\vec{v}=(4,-2)$.\n\n¿Cuál es su desplazamiento total?",
     "options": [
       "$(6,4)$",
@@ -291,6 +302,7 @@
     ]
   },
   {
+    "id": "blue_operations_RESL_12",
     "question": "Un dron triplica su primer tramo, $\\vec{u}=(2,-1)$, y le suma un segundo tramo sin escalar, $\\vec{v}=(1,5)$.\n\n¿Cuál es su desplazamiento total?",
     "options": [
       "$(7,14)$",
@@ -318,6 +330,7 @@
     ]
   },
   {
+    "id": "blue_operations_RESL_13",
     "question": "Un excursionista recorre $\\vec{u}=(4,3)$ y después el doble del opuesto de $\\vec{v}=(1,2)$.\n\n¿Cuál es su desplazamiento total?",
     "options": [
       "$(6,7)$",
@@ -345,6 +358,7 @@
     ]
   },
   {
+    "id": "blue_operations_RESL_14",
     "question": "Dos empujes actúan sobre un objeto: $\\vec{u}=(5,1)$ se aplica dos veces y $\\vec{v}=(-3,4)$ se aplica tres veces.\n\n¿Cuál es el empuje total?",
     "options": [
       "$(1,14)$",
@@ -372,6 +386,7 @@
     ]
   },
   {
+    "id": "blue_operations_RESL_15",
     "question": "Un bote combina media velocidad de motor, $\\vec{u}=(6,-4)$, con la velocidad completa de la corriente, $\\vec{v}=(2,7)$.\n\n¿Cuál es su velocidad total?",
     "options": [
       "$(3,-2)$",
@@ -396,6 +411,170 @@
     "reviewed": false,
     "tags": [
       "resl-combinacion-suma-escalar"
+    ]
+  },
+  {
+    "id": "blue_operations_RESL_16",
+    "question": "Un vector $\\vec{v}$ tiene norma $5$.\n\nLa tabla registra la norma de $k\\vec{v}$ según el valor del escalar $k$.\n\n¿Cuál es la norma de $k\\vec{v}$ en función de $k$?",
+    "options": [
+      "$5|k|$",
+      "$5k$",
+      "$5k^{2}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Escalar un vector multiplica su norma por el valor absoluto del escalar.",
+    "feedback_incorrect": [
+      null,
+      "Con esa expresión un escalar negativo daría una norma negativa, y ninguna norma puede serlo.",
+      "Esa expresión no coincide con $k=-2$: ahí la norma vale $10$, no $20$."
+    ],
+    "explanation": "Escalar un vector multiplica cada componente por $k$, y la norma queda multiplicada por el **valor absoluto** de ese escalar.\n$$\\lVert k\\vec{v} \\rVert = |k|\\,\\lVert \\vec{v} \\rVert$$\nCon norma $5$, la expresión queda $5|k|$.\n\nLa fila de $k=1$ no alcanza para decidir, porque ahí las tres expresiones dan lo mismo. Recién en $k=-2$ se separan.\n\nUna norma no puede ser negativa, así que la opción sin valor absoluto falla apenas el escalar cambia de signo: daría un resultado negativo, que es imposible.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "$k$"
+        },
+        {
+          "icon": null,
+          "label": "$\\lVert k\\vec{v} \\rVert$"
+        }
+      ],
+      "rows": [
+        [
+          "$1$",
+          "$5$"
+        ],
+        [
+          "$-2$",
+          "$10$"
+        ],
+        [
+          "$k$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$5|k|$",
+            "cells": [
+              "$5$",
+              "$10$",
+              "$5|k|$"
+            ]
+          },
+          {
+            "header": "$5k$",
+            "cells": [
+              "$5$",
+              "$-10$",
+              "$5k$"
+            ]
+          },
+          {
+            "header": "$5k^{2}$",
+            "cells": [
+              "$5$",
+              "$20$",
+              "$5k^{2}$"
+            ]
+          }
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "resl-norma-vector-escalado"
+    ]
+  },
+  {
+    "id": "blue_operations_RESL_17",
+    "question": "Un vector $\\vec{v}$ tiene norma $13$.\n\nLa tabla registra la norma de $k\\vec{v}$ según el valor del escalar $k$.\n\n¿Cuál es la norma de $k\\vec{v}$ en función de $k$?",
+    "options": [
+      "$13k^{2}$",
+      "$13k$",
+      "$13|k|$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Escalar un vector multiplica su norma por el valor absoluto del escalar, sea entero o no.",
+    "feedback_incorrect": [
+      "Esa expresión no coincide con $k=-1/2$: ahí la norma vale $6{,}5$, no $3{,}25$.",
+      "Con esa expresión un escalar negativo daría una norma negativa, y ninguna norma puede serlo.",
+      null
+    ],
+    "explanation": "El mismo mecanismo vale para cualquier escalar, sea entero, fraccionario o negativo: la norma queda multiplicada por su **valor absoluto**.\n$$\\lVert k\\vec{v} \\rVert = |k|\\,\\lVert \\vec{v} \\rVert$$\nCon norma $13$, la expresión queda $13|k|$.\n\nLa fila de $k=3$ no alcanza para decidir, porque ahí las tres expresiones dan lo mismo. Recién en $k=-1/2$ se separan.\n\nAchicar un vector a la mitad y encima invertirlo sigue dando una norma positiva: la mitad de la original, sin importar que el vector haya cambiado de sentido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "$k$"
+        },
+        {
+          "icon": null,
+          "label": "$\\lVert k\\vec{v} \\rVert$"
+        }
+      ],
+      "rows": [
+        [
+          "$3$",
+          "$39$"
+        ],
+        [
+          "$-1/2$",
+          "$6{,}5$"
+        ],
+        [
+          "$k$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$13k^{2}$",
+            "cells": [
+              "$39$",
+              "$3{,}25$",
+              "$13k^{2}$"
+            ]
+          },
+          {
+            "header": "$13k$",
+            "cells": [
+              "$39$",
+              "$-6{,}5$",
+              "$13k$"
+            ]
+          },
+          {
+            "header": "$13|k|$",
+            "cells": [
+              "$39$",
+              "$6{,}5$",
+              "$13|k|$"
+            ]
+          }
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "resl-norma-vector-escalado"
     ]
   }
 ]

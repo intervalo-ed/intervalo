@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_uniforme_FORM_01",
     "question": "El nivel de líquido restante en un dispensador antes de la próxima recarga se modela como uniforme entre 0 y 8 litros.\n\n¿Cuál es su densidad $f(x)$ dentro de ese intervalo?",
     "options": [
       "$1/8$",
@@ -27,6 +28,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_FORM_02",
     "question": "El tiempo que tarda en descargarse un archivo se modela como uniforme entre 2 y 10 segundos.\n\n¿Cuánto vale $E[X]$?",
     "options": [
       "$6$",
@@ -54,6 +56,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_FORM_03",
     "question": "El tiempo de espera en la fila de un cajero automático se modela como uniforme entre 0 y 6 minutos.\n\nSea $X$ ese tiempo de espera. Calculá $P(2\\leq X\\leq5)$.",
     "options": [
       "$1/2$",
@@ -81,6 +84,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_FORM_04",
     "question": "El tiempo que un cliente espera en la fila de un banco se modela como uniforme entre 0 y 7 minutos.\n\n¿Cuál es su densidad $f(x)$ dentro de ese intervalo?",
     "options": [
       "$1/7$",
@@ -108,6 +112,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_FORM_05",
     "question": "Un puntero se detiene en cualquier posición de una escala uniforme entre 0 y 6 centímetros.\n\n¿Cuál es su densidad $f(x)$ dentro de ese intervalo?",
     "options": [
       "$6$",
@@ -135,6 +140,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_FORM_06",
     "question": "La posición donde cae una partícula dentro de un canal se modela como uniforme entre 0 y 5 milímetros.\n\n¿Cuál es su densidad $f(x)$ dentro de ese intervalo?",
     "options": [
       "$5$",
@@ -162,6 +168,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_FORM_07",
     "question": "La hora de llegada de un colectivo dentro de una franja se modela como uniforme entre 2 y 6 minutos después de las 9:00.\n\n¿Cuál es su densidad $f(x)$ dentro de ese intervalo?",
     "options": [
       "$4$",
@@ -189,6 +196,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_FORM_08",
     "question": "El tiempo que un cliente espera en la fila de un banco se modela como uniforme entre 1 y 7 minutos.\n\n¿Cuánto vale $E[X]$?",
     "options": [
       "$4$",
@@ -216,6 +224,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_FORM_09",
     "question": "Un puntero se detiene en cualquier posición de una escala uniforme entre 1 y 5 centímetros.\n\n¿Cuánto vale $E[X]$?",
     "options": [
       "$2$",
@@ -243,6 +252,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_FORM_10",
     "question": "La posición donde cae una partícula dentro de un canal se modela como uniforme entre 2 y 8 milímetros.\n\n¿Cuánto vale $E[X]$?",
     "options": [
       "$3$",
@@ -270,6 +280,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_FORM_11",
     "question": "La hora de llegada de un colectivo dentro de una franja se modela como uniforme entre 4 y 8 minutos después de las 9:00.\n\n¿Cuánto vale $E[X]$?",
     "options": [
       "$2$",
@@ -297,6 +308,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_FORM_12",
     "question": "Un puntero se detiene en cualquier posición de una escala uniforme entre 0 y 8 centímetros.\n\nSea $X$ esa posición. Calculá $P(2\\leq X\\leq5)$.",
     "options": [
       "$3/8$",
@@ -324,6 +336,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_FORM_13",
     "question": "La posición donde cae una partícula dentro de un canal se modela como uniforme entre 0 y 5 milímetros.\n\nSea $X$ esa posición. Calculá $P(1\\leq X\\leq4)$.",
     "options": [
       "$1/5$",
@@ -351,6 +364,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_FORM_14",
     "question": "La hora de llegada de un colectivo dentro de una franja se modela como uniforme entre 0 y 7 minutos después de las 10:00.\n\nSea $X$ ese tiempo de llegada. Calculá $P(2\\leq X\\leq6)$.",
     "options": [
       "$2/7$",
@@ -378,6 +392,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_FORM_15",
     "question": "El nivel de líquido restante en un dispensador antes de la próxima recarga se modela como uniforme entre 1 y 9 litros.\n\nSea $X$ ese nivel restante. Calculá $P(3\\leq X\\leq7)$.",
     "options": [
       "$3/8$",

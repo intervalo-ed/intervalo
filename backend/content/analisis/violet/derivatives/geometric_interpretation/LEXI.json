@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_geometric_interpretation_LEXI_01",
     "question": "Sobre una misma curva se pueden trazar rectas de varios tipos, y cada tipo tiene nombre propio.\n\n¿Cómo se llama la recta que toca a la curva en un único punto y comparte con $f$ la misma dirección instantánea ahí?",
     "options": [
       "Tangente",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "violet_geometric_interpretation_LEXI_02",
     "question": "No todas las rectas que atraviesan una curva lo hacen de la misma manera.\n\n¿Cómo se llama la que corta a la curva en dos puntos distintos y representa la tasa de cambio media entre ellos?",
     "options": [
       "Transversal",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "violet_geometric_interpretation_LEXI_03",
     "question": "Al trazar la recta tangente a una curva, hay un único lugar donde ambas se tocan.\n\n¿Cómo se llama ese punto?",
     "options": [
       "Punto de corte",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "violet_geometric_interpretation_LEXI_04",
     "question": "La recta secante, la que se apoya en dos puntos distintos de una curva, tiene su propia pendiente.\n\n¿Qué representa esa pendiente?",
     "options": [
       "La tasa de cambio media entre esos dos puntos",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "violet_geometric_interpretation_LEXI_05",
     "question": "En un punto cualquiera de una curva se traza la recta tangente.\n\n¿Qué representa la pendiente de esa recta en ese punto?",
     "options": [
       "El valor de la función en ese punto",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "violet_geometric_interpretation_LEXI_06",
     "question": "Sobre una curva se marcan dos puntos muy cercanos entre sí y se traza la recta que los une, sin tomar ningún límite.\n\n¿Qué puede decirse de esa recta?",
     "options": [
       "Ya es la recta tangente",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "violet_geometric_interpretation_LEXI_07",
     "question": "En la ecuación punto-pendiente de la recta tangente:\n$$y = f'(a)(x-a) + f(a)$$\n¿Qué representa $f'(a)$?",
     "options": [
       "La inclinación de la recta tangente",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "violet_geometric_interpretation_LEXI_08",
     "question": "Cada pieza de la ecuación punto-pendiente de la tangente cumple un rol propio:\n$$y = f'(a)(x-a) + f(a)$$\n¿Qué representa el punto $(a, f(a))$?",
     "options": [
       "La pendiente",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "violet_geometric_interpretation_LEXI_09",
     "question": "La ecuación punto-pendiente de la tangente admite reescrituras que no cambian su contenido:\n$$y = f'(a)(x-a) + f(a)$$\n¿Cuál de las siguientes es una forma equivalente?",
     "options": [
       "$y = f'(a) \\cdot x + f(a)$",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "violet_geometric_interpretation_LEXI_10",
     "question": "La ecuación punto-pendiente de la recta tangente usa un valor $a$ en varios lugares:\n$$y = f'(a)(x-a) + f(a)$$\n¿Qué papel cumple $a$?",
     "options": [
       "Es la coordenada $x$ del punto de tangencia",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "violet_geometric_interpretation_LEXI_11",
     "question": "Una función cumple $f(3)=7$ y $f'(3)=2$.\n\n¿Cuál es la ecuación punto-pendiente de la tangente en $x=3$?",
     "options": [
       "$y = 2(x+3)+7$",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "violet_geometric_interpretation_LEXI_12",
     "question": "La recta tangente sirve como aproximación lineal, una recta que reemplaza a la curva cerca del punto de tangencia.\n\n¿Por qué funciona como aproximación justo ahí?",
     "options": [
       "Porque coincide con $f$ en todo su dominio",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "violet_geometric_interpretation_LEXI_13",
     "question": "Para estimar valores de $f$ sin calcularlos, se usa su aproximación lineal, la recta tangente trazada en un punto cercano.\n\n¿Qué ocurre con el error de esa estimación a medida que uno se aleja del punto de tangencia?",
     "options": [
       "El error crece con la distancia",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "violet_geometric_interpretation_LEXI_14",
     "question": "La recta tangente a $f$ copia el valor y la inclinación de la curva en el punto donde se traza.\n\n¿Es correcto afirmar que, gracias a eso, aproxima bien a $f$ en todo el dominio?",
     "options": [
       "No, la tangente nunca se aproxima a $f$ en ningún punto",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "violet_geometric_interpretation_LEXI_15",
     "question": "La aproximación lineal, la recta tangente usada para estimar la curva, depende de la forma de $f$ cerca del punto de tangencia.\n\n¿Qué pasa con esa aproximación cuando la curvatura de $f$ ahí aumenta?",
     "options": [
       "Se mantiene exacta sin importar la curvatura",

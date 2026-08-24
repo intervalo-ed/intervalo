@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_puntual_RESL_01",
     "question": "Sea $X$ la cantidad de caras al lanzar 2 monedas balanceadas.\n\n¿Cuál es $P(X = 1)$?",
     "options": [
       "$\\dfrac{1}{4}$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "violet_puntual_RESL_02",
     "question": "Sea $X$ la cantidad de caras al lanzar 3 monedas balanceadas.\n\n¿Cuál es $P(X\\leq 1)$?",
     "options": [
       "$\\dfrac{1}{8}$",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "violet_puntual_RESL_03",
     "question": "Se define una función $p(x)$ sobre el dominio $\\{0,1,2\\}$.\n\nSus valores son:\n$$\\begin{aligned} p(0) &= 0{,}3 \\\\ p(1) &= 0{,}5 \\\\ p(2) &= 0{,}3 \\end{aligned}$$\n¿Es $p(x)$ una función de probabilidad puntual válida?",
     "options": [
       "Sí, porque cada valor es no negativo.",
@@ -75,6 +78,7 @@
     ]
   },
   {
+    "id": "violet_puntual_RESL_04",
     "question": "Sea $X$ la suma de los resultados al tirar 2 dados equilibrados.\n\n¿Cuál es $P(X=7)$?",
     "options": [
       "$\\dfrac{1}{36}$",
@@ -100,6 +104,7 @@
     ]
   },
   {
+    "id": "violet_puntual_RESL_05",
     "question": "Sea $X$ el resultado de tirar un dado equilibrado de 6 caras.\n\n¿Cuál es $P(X=4)$?",
     "options": [
       "$\\dfrac{1}{6}$",
@@ -125,6 +130,7 @@
     ]
   },
   {
+    "id": "violet_puntual_RESL_06",
     "question": "Sea $X$ la diferencia absoluta entre los resultados de 2 dados equilibrados.\n\n¿Cuál es $P(X=0)$?",
     "options": [
       "$\\dfrac{1}{36}$",
@@ -150,6 +156,7 @@
     ]
   },
   {
+    "id": "violet_puntual_RESL_07",
     "question": "Sea $X$ la cantidad de aciertos en 3 tiros libres al arco, cada uno con la misma chance de acierto o fallo.\n\n¿Cuál es $P(X=2)$?",
     "options": [
       "$\\dfrac{1}{8}$",
@@ -175,6 +182,7 @@
     ]
   },
   {
+    "id": "violet_puntual_RESL_08",
     "question": "Sea $X$ la cantidad de respuestas correctas en un cuestionario de 2 preguntas de verdadero o falso, respondidas al azar.\n\n¿Cuál es $P(X=1)$?",
     "options": [
       "$\\dfrac{1}{4}$",
@@ -200,20 +208,21 @@
     ]
   },
   {
+    "id": "violet_puntual_RESL_09",
     "question": "Sea $X$ la suma de los resultados al tirar 2 dados equilibrados.\n\n¿Cuál es $P(X\\leq 4)$?",
     "options": [
       "$\\dfrac{3}{36}$",
       "$\\dfrac{6}{36}$",
       "$\\dfrac{9}{36}$",
-      "$\\dfrac{1}{6}$"
+      "$\\dfrac{10}{36}$"
     ],
     "correct_index": 1,
-    "feedback_correct": "$P(X\\leq 4)=\\frac{6}{36}=\\frac{1}{6}$.",
+    "feedback_correct": "$P(X\\leq 4)=\\frac{6}{36}$, sumando los pares que dan 2, 3 y 4.",
     "feedback_incorrect": [
       "Esa cuenta deja afuera alguno de los tres valores puntuales que forman el evento $X\\leq 4$.",
       null,
       "Esa cuenta suma pares de más, no corresponde a los resultados con suma 2, 3 o 4.",
-      "Ese valor coincide en el resultado final con la opción correcta pero está expresado sin la base 36 sobre la que se contó."
+      "Esa cuenta incluye también la suma 5, que queda fuera de $X\\leq 4$."
     ],
     "explanation": "El espacio muestral de tirar 2 dados tiene 36 resultados equiprobables.\n\nLas sumas que cumplen $X\\leq 4$ son 2, 3 y 4, con 1, 2 y 3 pares favorables respectivamente:\n$$\\begin{aligned} P(X\\leq 4) &= p(2)+p(3)+p(4) \\\\ &= \\frac{1}{36}+\\frac{2}{36}+\\frac{3}{36} \\\\ &= \\frac{6}{36} \\end{aligned}$$\nSumar solo alguno de los tres valores puntuales en vez de los tres completos deja afuera parte del evento compuesto que pide el enunciado.",
     "has_math": true,
@@ -225,6 +234,7 @@
     ]
   },
   {
+    "id": "violet_puntual_RESL_10",
     "question": "Sea $X$ la cantidad de llamadas que recibe un conmutador en un minuto.\n\nSu función de probabilidad puntual, con dominio $\\{0,1,2,3,4\\}$, es:\n$$\\begin{aligned} p(0) &= 0{,}1 \\\\ p(1) &= 0{,}2 \\\\ p(2) &= 0{,}3 \\\\ p(3) &= 0{,}25 \\\\ p(4) &= 0{,}15 \\end{aligned}$$\n¿Cuál es $P(X\\leq 2)$?",
     "options": [
       "$0{,}3$",
@@ -250,6 +260,7 @@
     ]
   },
   {
+    "id": "violet_puntual_RESL_11",
     "question": "Sea $X$ la cantidad de aciertos en 3 tiros libres al arco, cada uno con la misma chance de acierto o fallo.\n\n¿Cuál es $P(X\\geq 2)$?",
     "options": [
       "$\\dfrac{1}{8}$",
@@ -275,6 +286,7 @@
     ]
   },
   {
+    "id": "violet_puntual_RESL_12",
     "question": "Sea $X$ la cantidad de clientes que llegan a una farmacia en 10 minutos.\n\nSu función de probabilidad puntual, con dominio $\\{0,1,2,3\\}$, es:\n$$\\begin{aligned} p(0) &= 0{,}2 \\\\ p(1) &= 0{,}3 \\\\ p(2) &= 0{,}3 \\\\ p(3) &= 0{,}2 \\end{aligned}$$\n¿Cuál es $P(X\\leq 1)$?",
     "options": [
       "$0{,}2$",
@@ -300,6 +312,7 @@
     ]
   },
   {
+    "id": "violet_puntual_RESL_13",
     "question": "Sea $X$ la cantidad de artículos defectuosos en una muestra de 4, con dominio $\\{0,1,2,3,4\\}$ y función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 0{,}4 \\\\ p(1) &= 0{,}3 \\\\ p(2) &= 0{,}2 \\\\ p(3) &= 0{,}07 \\\\ p(4) &= 0{,}03 \\end{aligned}$$\n¿Cuál es $P(X\\geq 3)$?",
     "options": [
       "$0{,}03$",
@@ -325,6 +338,7 @@
     ]
   },
   {
+    "id": "violet_puntual_RESL_14",
     "question": "Se define una función $p(x)$ sobre el dominio $\\{0,1,2,3\\}$.\n\nSus valores son:\n$$\\begin{aligned} p(0) &= -0{,}1 \\\\ p(1) &= 0{,}4 \\\\ p(2) &= 0{,}3 \\\\ p(3) &= 0{,}4 \\end{aligned}$$\n¿Es $p(x)$ una función de probabilidad puntual válida?",
     "options": [
       "No, porque uno de los valores es negativo.",
@@ -350,6 +364,7 @@
     ]
   },
   {
+    "id": "violet_puntual_RESL_15",
     "question": "Se define una función $p(x)$ sobre el dominio $\\{0,1,2\\}$.\n\nSus valores son:\n$$\\begin{aligned} p(0) &= 0{,}2 \\\\ p(1) &= 0{,}5 \\\\ p(2) &= 0{,}3 \\end{aligned}$$\n¿Es $p(x)$ una función de probabilidad puntual válida?",
     "options": [
       "Sí, porque todos los valores son no negativos y suman 1.",

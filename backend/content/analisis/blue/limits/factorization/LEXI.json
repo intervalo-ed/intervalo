@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_factorization_LEXI_01",
     "question": "Una expresión aparece al resolver un límite y hay que escribirla como producto:\n$$x^2 - 25$$\n¿Qué caso de factoreo le corresponde?",
     "options": [
       "Trinomio cuadrado perfecto",
@@ -23,6 +24,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_factorization_LEXI_02",
     "question": "En un límite aparece la siguiente expresión:\n$$x^2 + 25$$\n¿Qué caso de factoreo corresponde a esta expresión dentro de los números reales?",
     "options": [
       "Diferencia de cuadrados",
@@ -46,6 +48,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_factorization_LEXI_03",
     "question": "Este trinomio aparece en el numerador de un límite que hay que factorizar para avanzar.\n$$x^2 + 8x + 16$$\n¿A qué caso de factoreo responde?",
     "options": [
       "Trinomio cuadrado perfecto",
@@ -69,6 +72,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_factorization_LEXI_04",
     "question": "Al resolver un límite aparece esta expresión, y antes de operar con ella hay que ver si se puede escribir como producto.\n$$3x^2 + 9x$$\n¿Qué caso de factoreo le corresponde, si es que hay alguno?",
     "options": [
       "Trinomio general",
@@ -92,6 +96,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_factorization_LEXI_05",
     "question": "Este trinomio aparece en un límite y hay que partirlo en dos factores para poder cancelar.\n$$x^2 + 7x + 6$$\n¿Cuál es su **factorización** correcta como trinomio?",
     "options": [
       "$(x+2)(x+3)$",
@@ -115,6 +120,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_factorization_LEXI_06",
     "question": "En un límite se sustituye $x=4$ y numerador y denominador dan $0$. El **teorema del factor** dice qué se deduce de ahí.\n\n¿Qué factor debe aparecer en los dos?",
     "options": [
       "$(x-4)$",
@@ -138,6 +144,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_factorization_LEXI_07",
     "question": "En un límite el numerador se anula en el punto de tendencia, pero el denominador no.\n\n¿Qué se puede concluir?",
     "options": [
       "Hay una indeterminación por salvar",
@@ -161,6 +168,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_factorization_LEXI_08",
     "question": "Un polinomio se anula al reemplazar $x$ por $3$.\n\n¿Qué garantiza el **teorema del factor** sobre ese polinomio?",
     "options": [
       "Que $3$ es uno de sus coeficientes",
@@ -184,6 +192,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_factorization_LEXI_09",
     "question": "Al sustituir el valor de tendencia en un límite, tanto el numerador como el denominador dan $0$.\n\n¿Qué garantiza el **teorema del factor** en esta situación?",
     "options": [
       "Que $(x-a)$ divide a ambos, numerador y denominador",
@@ -207,6 +216,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_factorization_LEXI_10",
     "question": "Al calcular un límite por sustitución directa se obtiene 0/0.\n\n¿Qué representa este resultado?",
     "options": [
       "El valor exacto del límite",
@@ -230,6 +240,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_factorization_LEXI_11",
     "question": "Al sustituir directo en un límite, a veces el numerador y el denominador se anulan a la vez.\n\n¿Cuánto vale ese 0/0?",
     "options": [
       "No es un número definido",
@@ -253,6 +264,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_factorization_LEXI_12",
     "question": "Al sustituir $x=3$ en un límite se obtiene 0/0.\n\n¿Qué corresponde hacer a continuación?",
     "options": [
       "Concluir que el límite no existe",
@@ -276,6 +288,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_factorization_LEXI_13",
     "question": "Un límite presenta la expresión:\n$$\\frac{x^2-9}{x-3}$$\nLa sustitución directa da 0/0.\n\n¿Qué característica de la expresión permite aplicar **factorización** para salvar la **indeterminación**?",
     "options": [
       "Que ambos, numerador y denominador, sean polinomios",
@@ -299,6 +312,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_factorization_LEXI_14",
     "question": "Un límite presenta la expresión:\n$$\\frac{\\sqrt{x}-2}{x-4}$$\nLa sustitución directa en $x=4$ da 0/0.\n\n¿Se puede resolver esta **indeterminación** aplicando **factorización** polinómica?",
     "options": [
       "No, la raíz cuadrada impide factorizar como si fuera un polinomio",
@@ -322,6 +336,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_factorization_LEXI_15",
     "question": "Un límite presenta una **indeterminación**:\n$$0/0$$\n¿Cuál es la señal que indica que la **factorización** polinómica ya no resuelve la indeterminación?",
     "options": [
       "Que el denominador sea un binomio",

@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_esperanza_FORM_01",
     "question": "La cantidad de fallas detectadas por lote en una fábrica es una variable aleatoria discreta $X$.\n\nSu función de probabilidad puntual es $p(x)$.\n\n¿Qué expresión define su **esperanza** $E[X]$?",
     "options": [
       "$\\sum_x p(x)$",
@@ -24,6 +25,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_FORM_02",
     "question": "El tiempo de espera en la fila de un banco es una variable aleatoria $X$.\n\nUn cajero transforma ese tiempo en un costo $Y=aX+b$, con tarifa por minuto y un cargo fijo.\n\n¿Cómo se calcula $E[Y]$ a partir de $E[X]$?",
     "options": [
       "$E[Y] = a \\cdot E[X] + b$",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_FORM_03",
     "question": "El tiempo de espera en un cajero automático es una variable aleatoria continua $X$ con densidad $f(x)$.\n\n¿Qué expresión define su **esperanza** $E[X]$?",
     "options": [
       "$\\displaystyle \\int x f(x)\\,dx$",
@@ -72,6 +75,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_FORM_04",
     "question": "La cantidad de clientes que llegan a una caja de un supermercado durante un minuto es una variable aleatoria discreta $X$.\n\nSu función de probabilidad puntual es $p(x)$.\n\n¿Qué expresión define su **esperanza** $E[X]$?",
     "options": [
       "$\\sum_x x \\cdot p(x)$",
@@ -96,6 +100,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_FORM_05",
     "question": "En una muestra de piezas producidas, la cantidad de piezas defectuosas es una variable aleatoria discreta $X$.\n\nSu función de probabilidad puntual es $p(x)$.\n\n¿Qué expresión permite calcular su **esperanza** $E[X]$?",
     "options": [
       "$\\dfrac{1}{n}\\sum_x x$",
@@ -120,6 +125,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_FORM_06",
     "question": "En una línea de producción, la cantidad de fallas detectadas por lote es una variable aleatoria discreta $X$.\n\nSu función de probabilidad puntual es $p(x)$.\n\n¿Qué expresión define su **esperanza** $E[X]$?",
     "options": [
       "$\\sum_x p(x)$",
@@ -144,6 +150,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_FORM_07",
     "question": "La cantidad de clientes que llegan a la caja de una farmacia en un minuto es una variable aleatoria discreta $X$.\n\nSu función de probabilidad puntual es $p(x)$.\n\n¿Qué expresión define su **esperanza** $E[X]$?",
     "options": [
       "$\\sum_x x \\cdot p(x)$",
@@ -168,6 +175,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_FORM_08",
     "question": "En un lote de tornillos, la cantidad de unidades defectuosas es una variable aleatoria discreta $X$.\n\nSu función de probabilidad puntual es $p(x)$.\n\n¿Qué expresión permite calcular su **esperanza** $E[X]$?",
     "options": [
       "$\\sum_x p(x)$",
@@ -192,6 +200,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_FORM_09",
     "question": "La cantidad de piezas defectuosas en un lote es una variable aleatoria discreta $X$.\n\nUn taller cobra un costo de reproceso $Y=aX+b$, con un monto por pieza más un cargo fijo de revisión.\n\n¿Cómo se calcula $E[Y]$ a partir de $E[X]$?",
     "options": [
       "$E[Y] = a \\cdot E[X] + b$",
@@ -216,6 +225,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_FORM_10",
     "question": "La cantidad de clientes atendidos en una caja durante una hora es una variable aleatoria discreta $X$.\n\nUn empleado recibe una comisión $Y=aX+b$, con un monto por cliente más un fijo por turno.\n\n¿Cómo se calcula $E[Y]$ a partir de $E[X]$?",
     "options": [
       "$E[Y] = a \\cdot (E[X] + b)$",
@@ -240,6 +250,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_FORM_11",
     "question": "La posición de un punto elegido al azar sobre un segmento es una variable aleatoria continua $X$.\n\nAl cambiar de escala, esa posición se transforma en $Y=aX+b$, con un factor multiplicativo y un corrimiento fijo.\n\n¿Cómo se calcula $E[Y]$ a partir de $E[X]$?",
     "options": [
       "$E[Y] = a \\cdot E[X]$",
@@ -264,6 +275,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_FORM_12",
     "question": "La cantidad de fallas detectadas por lote en una fábrica es una variable aleatoria discreta $X$.\n\nEl costo de garantía se modela como $Y=aX+b$, con un monto por falla más un cargo fijo administrativo.\n\n¿Cómo se calcula $E[Y]$ a partir de $E[X]$?",
     "options": [
       "$E[Y] = a \\cdot E[X]$",
@@ -288,6 +300,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_FORM_13",
     "question": "El tiempo que un cliente espera en la fila de un banco es una variable aleatoria continua $X$ con densidad $f(x)$.\n\n¿Qué expresión define su **esperanza** $E[X]$?",
     "options": [
       "$\\displaystyle \\int x f(x)\\,dx$",
@@ -312,6 +325,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_FORM_14",
     "question": "La posición de un punto elegido al azar sobre un segmento es una variable aleatoria continua $X$ con densidad $f(x)$.\n\n¿Qué expresión define su **esperanza** $E[X]$?",
     "options": [
       "$\\displaystyle \\int f(x)\\,dx$",
@@ -336,6 +350,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_FORM_15",
     "question": "El tiempo que un cliente espera en la fila de un supermercado es una variable aleatoria continua $X$ con densidad $f(x)$.\n\n¿Qué expresión define su **esperanza** $E[X]$?",
     "options": [
       "$\\displaystyle \\int x\\,dx$",

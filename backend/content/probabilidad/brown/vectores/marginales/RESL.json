@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_marginales_RESL_01",
     "question": "Un vector discreto $(X, Y)$ tiene la siguiente conjunta:\n$$\\begin{aligned} p(0, 0) &= 0{,}1 \\\\ p(0, 1) &= 0{,}2 \\\\ p(1, 0) &= 0{,}3 \\\\ p(1, 1) &= 0{,}4 \\end{aligned}$$\n\n¿Cuánto vale la marginal $p_X(1)$?",
     "options": ["$0{,}3$", "$0{,}4$", "$0{,}5$", "$0{,}7$"],
     "correct_index": 3,

@@ -1,5 +1,6 @@
 [
   {
+    "id": "black_kernel_RESL_01",
     "question": "¿Cuál de estos vectores pertenece al núcleo de $T(x,y,z)=(x-y,\\, y-z)$?",
     "options": [
       "$(1,1,1)$",

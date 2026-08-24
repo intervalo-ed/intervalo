@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_condicional_FORM_01",
     "question": "Se sabe que $P(A \\cap B) = 0{,}12$ y $P(B) = 0{,}4$.\n\n¿Qué expresión permite calcular $P(A \\mid B)$?",
     "options": [
       "$\\dfrac{P(B)}{P(A \\cap B)}$",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "blue_condicional_FORM_02",
     "question": "Se sabe que $P(A \\mid B) = 0{,}5$ y $P(B) = 0{,}6$.\n\n¿Qué expresión permite calcular $P(A \\cap B)$?",
     "options": [
       "$P(A \\mid B) \\cdot P(B)$",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "blue_condicional_FORM_03",
     "question": "Se busca identificar cuál expresión corresponde a la definición de la probabilidad condicional $P(A \\mid B)$.\n\n¿Cuál es la expresión correcta?",
     "options": [
       "$\\dfrac{P(B)}{P(A \\cap B)}$",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "blue_condicional_FORM_04",
     "question": "Se sabe que $P(A \\cap B) = 0{,}24$ y $P(B) = 0{,}6$.\n\n¿Qué expresión permite calcular $P(A \\mid B)$?",
     "options": [
       "$\\dfrac{P(A \\cap B)}{P(B)}$",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "blue_condicional_FORM_05",
     "question": "Se sabe que $P(A \\cap B) = 0{,}15$ y $P(B) = 0{,}3$.\n\n¿Qué expresión permite calcular $P(A \\mid B)$?",
     "options": [
       "$\\dfrac{P(B)}{P(A \\cap B)}$",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "blue_condicional_FORM_06",
     "question": "Se sabe que $P(A \\cap B) = 0{,}08$ y $P(B) = 0{,}4$.\n\n¿Qué expresión permite calcular $P(A \\mid B)$?",
     "options": [
       "$P(A \\cap B) \\cdot P(B)$",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "blue_condicional_FORM_07",
     "question": "Se sabe que $P(A \\cap B) = 0{,}18$ y $P(B) = 0{,}3$.\n\n¿Qué expresión permite calcular $P(A \\mid B)$?",
     "options": [
       "$\\dfrac{P(A \\cap B)}{P(B)}$",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "blue_condicional_FORM_08",
     "question": "Se sabe que $P(A \\cap B) = 0{,}05$ y $P(B) = 0{,}5$.\n\n¿Qué expresión permite calcular $P(A \\mid B)$?",
     "options": [
       "$\\dfrac{P(B)}{P(A \\cap B)}$",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "blue_condicional_FORM_09",
     "question": "Se sabe que $P(A \\mid B) = 0{,}4$ y $P(B) = 0{,}5$.\n\n¿Qué expresión permite calcular $P(A \\cap B)$?",
     "options": [
       "$\\dfrac{P(A \\mid B)}{P(B)}$",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "blue_condicional_FORM_10",
     "question": "Se sabe que $P(A \\mid B) = 0{,}6$ y $P(B) = 0{,}5$.\n\n¿Qué expresión permite calcular $P(A \\cap B)$?",
     "options": [
       "$\\dfrac{P(A \\mid B)}{P(B)}$",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "blue_condicional_FORM_11",
     "question": "Se sabe que $P(A \\mid B) = 0{,}8$ y $P(B) = 0{,}25$.\n\n¿Qué expresión permite calcular $P(A \\cap B)$?",
     "options": [
       "$P(A \\mid B) \\cdot P(B)$",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "blue_condicional_FORM_12",
     "question": "Se sabe que $P(A \\mid B) = 0{,}9$ y $P(B) = 0{,}2$.\n\n¿Qué expresión permite calcular $P(A \\cap B)$?",
     "options": [
       "$\\dfrac{P(A \\mid B)}{P(B)}$",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "blue_condicional_FORM_13",
     "question": "Se busca identificar cuál expresión corresponde a la definición de la probabilidad condicional $P(A \\mid B)$.\n\n¿Cuál es la expresión correcta?",
     "options": [
       "$\\dfrac{P(A \\cap B)}{P(B)}$",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "blue_condicional_FORM_14",
     "question": "Se busca identificar cuál expresión define correctamente a la probabilidad condicional $P(A \\mid B)$.\n\n¿Cuál es la expresión correcta?",
     "options": [
       "$\\dfrac{P(B)}{P(A \\cap B)}$",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "blue_condicional_FORM_15",
     "question": "Se busca identificar cuál expresión define correctamente a la probabilidad condicional $P(A \\mid B)$ a partir de la intersección.\n\n¿Cuál es la expresión correcta?",
     "options": [
       "$\\dfrac{P(B)}{P(A)}$",

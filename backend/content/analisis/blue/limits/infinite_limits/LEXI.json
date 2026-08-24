@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_infinite_limits_LEXI_01",
     "question": "En este límite la variable se va a $+\\infty$ mientras el numerador se mantiene fijo.\n$$\\frac{5}{x}$$\n¿A qué tiende el cociente?",
     "options": [
       "Queda indeterminado",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_LEXI_02",
     "question": "En este límite la variable se acerca a cero por la derecha, y el numerador se mantiene fijo.\n$$\\frac{3}{x}$$\n¿Qué hace el cociente?",
     "options": [
       "Es una indeterminación",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_LEXI_03",
     "question": "Al sustituir en un límite pueden aparecer distintas formas con un cero o un infinito de por medio.\n\n¿Cuál de estas expresiones es efectivamente una indeterminación?",
     "options": [
       "$\\frac{0}{0}$",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_LEXI_04",
     "question": "En el álgebra de límites aparece una forma donde el numerador y el denominador crecen sin cota a la vez:\n$$\\frac{\\infty}{\\infty}$$\n¿Qué se puede afirmar de ese cociente?",
     "options": [
       "Siempre vale $1$",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_LEXI_05",
     "question": "Dos cantidades que crecen sin cota también pueden restarse una a la otra dentro de un límite.\n\n¿Qué resultado tiene, en general, esa resta $\\infty - \\infty$?",
     "options": [
       "Siempre da $0$",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_LEXI_06",
     "question": "Cuando $x \\to \\pm\\infty$ y una función se acerca a un valor finito $L$, se dice que tiene una **asíntota horizontal**.\n\n¿Cuál es la recta que describe este comportamiento?",
     "options": [
       "$y = L$",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_LEXI_07",
     "question": "Cuando $x$ se acerca a un valor finito y una función diverge a $\\pm\\infty$, se dice que tiene una **asíntota vertical**.\n\n¿Cuál es la recta que describe este comportamiento?",
     "options": [
       "$y = a$",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_LEXI_08",
     "question": "Al leer la gráfica de una función, mirar los extremos del eje $x$ equivale a analizar $x \\to \\pm\\infty$.\n\n¿Qué tipo de asíntota se identifica con esa lectura?",
     "options": [
       "Vertical",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_LEXI_09",
     "question": "Se busca una recta $x = a$ tal que la función se rompa y diverja a $\\pm\\infty$ exactamente en ese punto.\n\n¿Qué tipo de asíntota describe esa recta?",
     "options": [
       "Una asíntota vertical",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_LEXI_10",
     "question": "Un límite al infinito trabaja sobre un cociente de polinomios.\n$$\\frac{P(x)}{Q(x)}$$\nEl grado del denominador $Q(x)$ es estrictamente mayor que el grado del numerador $P(x)$.\n\nAl calcular este límite:\n$$\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$$\n¿Qué sucede con su resultado?",
     "options": [
       "El resultado se aplasta hasta $0$",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_LEXI_11",
     "question": "En este límite al infinito se comparan dos polinomios en forma de cociente.\n$$\\frac{P(x)}{Q(x)}$$\nEl grado del numerador $P(x)$ es estrictamente mayor que el grado del denominador $Q(x)$.\n\nPara este límite:\n$$\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$$\n¿Cuál es su resultado?",
     "options": [
       "El resultado se aplasta hasta $0$",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_LEXI_12",
     "question": "Un cociente de polinomios se evalúa cuando la variable se va al infinito.\n$$\\frac{P(x)}{Q(x)}$$\nEl numerador $P(x)$ y el denominador $Q(x)$ tienen exactamente el mismo grado.\n\nAl evaluar este límite:\n$$\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$$\n¿Qué resultado se obtiene?",
     "options": [
       "El resultado se aplasta hasta $0$",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_LEXI_13",
     "question": "Se comparan una función exponencial y una función polinómica de cualquier grado, cuando $x \\to +\\infty$.\n\n¿Cuál domina el crecimiento?",
     "options": [
       "La polinómica, si su grado es suficientemente alto",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_LEXI_14",
     "question": "Se comparan una función polinómica y una función logarítmica, cuando $x \\to +\\infty$.\n\n¿Cuál domina el crecimiento?",
     "options": [
       "La logarítmica, sin importar la base",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_LEXI_15",
     "question": "Se comparan un polinomio de grado $100$ y una función exponencial, cuando $x \\to +\\infty$.\n\n¿Cuál de las dos domina el crecimiento?",
     "options": [
       "El polinomio, por tener un grado tan alto",

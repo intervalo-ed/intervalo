@@ -1,5 +1,6 @@
 [
   {
+    "id": "black_theorem_ESTR_01",
     "question": "Si $\\dim(V)=4$ y $\\dim(\\ker(T))=0$, ¿qué se puede afirmar sobre $T$?",
     "options": [
       "Es inyectiva",

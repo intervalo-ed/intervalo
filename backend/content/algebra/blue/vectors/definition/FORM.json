@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_definition_FORM_01",
     "question": "Un dron parte del origen y se mueve 4 unidades al este y 3 al norte.\n\n¿Qué vector representa su desplazamiento?",
     "options": [
       "$(4,3)$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "blue_definition_FORM_02",
     "question": "Un excursionista avanza 5 kilómetros hacia el este y después 2 hacia el norte.\n\n¿Qué vector representa su desplazamiento?",
     "options": [
       "$5+2$",
@@ -52,6 +54,7 @@
     ]
   },
   {
+    "id": "blue_definition_FORM_03",
     "question": "Un robot recorre 6 metros hacia el este y después 6 hacia el norte.\n\n¿Qué vector representa su desplazamiento?",
     "options": [
       "$(6,0)$",
@@ -79,6 +82,7 @@
     ]
   },
   {
+    "id": "blue_definition_FORM_04",
     "question": "Un ascensor de carga se desplaza 3 metros hacia el este sobre rieles y sube 4 metros.\n\n¿Qué vector representa su desplazamiento?",
     "options": [
       "$(3,4)$",
@@ -106,6 +110,7 @@
     ]
   },
   {
+    "id": "blue_definition_FORM_05",
     "question": "Una grúa mueve una carga 8 metros hacia el este y 1 metro hacia el norte.\n\n¿Qué vector representa ese movimiento?",
     "options": [
       "$(8,0)$",
@@ -133,6 +138,7 @@
     ]
   },
   {
+    "id": "blue_definition_FORM_06",
     "question": "Un buzo se desplaza 2 metros al este mientras desciende 5 metros. La profundidad se mide como negativa.\n\n¿Qué vector representa su movimiento?",
     "options": [
       "$(2,-5)$",
@@ -158,6 +164,7 @@
     ]
   },
   {
+    "id": "blue_definition_FORM_07",
     "question": "Un excursionista camina 7 kilómetros hacia el este y después retrocede 3 hacia el oeste.\n\n¿Qué vector representa cada tramo, en ese orden?",
     "options": [
       "$(7,-3)$",
@@ -185,6 +192,7 @@
     ]
   },
   {
+    "id": "blue_definition_FORM_08",
     "question": "Un ascensor de carga se recorre 2 tramos hacia el este mientras baja 6 pisos.\n\nLa altura se mide positiva hacia arriba.\n\n¿Qué vector representa ese movimiento?",
     "options": [
       "$(2,6)$",
@@ -212,6 +220,7 @@
     ]
   },
   {
+    "id": "blue_definition_FORM_09",
     "question": "Un buzo avanza 4 metros hacia el este mientras desciende 9 metros.\n\nLa profundidad se mide negativa.\n\n¿Qué vector representa su movimiento?",
     "options": [
       "$(4,-9)$",
@@ -239,6 +248,7 @@
     ]
   },
   {
+    "id": "blue_definition_FORM_10",
     "question": "Una cuenta registra un ingreso de 5 unidades y después un egreso de 8.\n\nLos ingresos se anotan positivos.\n\n¿Qué vector representa los dos movimientos, en ese orden?",
     "options": [
       "$(-5,8)$",
@@ -266,6 +276,7 @@
     ]
   },
   {
+    "id": "blue_definition_FORM_11",
     "question": "Un dron se mueve 2 unidades al este, 4 al norte y sube 3 unidades de altura.\n\n¿Qué vector en $\\mathbb{R}^3$ representa ese movimiento?",
     "options": [
       "$(2,4,3)$",
@@ -291,6 +302,7 @@
     ]
   },
   {
+    "id": "blue_definition_FORM_12",
     "question": "Un dron avanza 5 unidades al este, 1 al norte y sube 4 de altura.\n\n¿Qué vector representa ese movimiento?",
     "options": [
       "$(5,1)$",
@@ -318,6 +330,7 @@
     ]
   },
   {
+    "id": "blue_definition_FORM_13",
     "question": "Una grúa mueve una carga 2 unidades al este, 6 al norte y la baja 3 de altura.\n\n¿Qué vector representa ese movimiento?",
     "options": [
       "$(2,6,3)$",
@@ -345,6 +358,7 @@
     ]
   },
   {
+    "id": "blue_definition_FORM_14",
     "question": "Un dron avanza 7 unidades al este y 2 al norte mientras mantiene su altura.\n\n¿Qué vector de tres componentes representa ese movimiento?",
     "options": [
       "$(7,2,0)$",
@@ -372,6 +386,7 @@
     ]
   },
   {
+    "id": "blue_definition_FORM_15",
     "question": "Un elevador de carga retrocede 4 unidades al oeste, avanza 3 al norte y sube 8.\n\n¿Qué vector representa ese movimiento?",
     "options": [
       "$(-4,-3,8)$",

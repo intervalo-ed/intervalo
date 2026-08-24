@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_exponential_LEXI_01",
     "question": "Cuatro familias distintas de funciones se parecen a simple vista cuando aparecen escritas una al lado de la otra.\n\n¿Cuál de estas expresiones representa una función exponencial?",
     "options": [
       "$f(x) = 5 \\cdot 2^x$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_02",
     "question": "Hacia la izquierda, la curva del gráfico se pega cada vez más a una recta sin llegar a cruzarla.\n\n¿Cómo se llama esa recta?",
     "options": [
       "Asíntota vertical",
@@ -55,6 +57,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_03",
     "question": "Lo que distingue a una exponencial de una potencia común es el lugar que ocupa la variable:\n$$f(x) = a \\cdot b^x$$\n¿Dónde aparece $x$ en esta fórmula?",
     "options": [
       "Como coeficiente",
@@ -80,6 +83,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_04",
     "question": "Una función exponencial queda definida por su base:\n$$f(x) = b^x, \\quad b > 1$$\n¿Cómo se comporta esta función?",
     "options": [
       "Periódica",
@@ -105,6 +109,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_05",
     "question": "Cambiar la base de una exponencial puede dar vuelta por completo su comportamiento:\n$$f(x) = b^x$$\n¿Para qué valores de $b$ resulta decreciente?",
     "options": [
       "Cuando $b = 1$",
@@ -130,6 +135,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_06",
     "question": "Toda exponencial de base positiva está definida para cualquier valor de $x$, incluido el cero:\n$$f(x) = b^x, \\quad b > 0$$\n¿Cuánto vale $f(0)$?",
     "options": [
       "$-1$",
@@ -155,6 +161,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_07",
     "question": "En el gráfico, el cruce con el eje vertical es el dato más directo de leer en una exponencial.\n\n¿Por qué punto del eje $Y$ pasa la curva?",
     "options": [
       "$(0,\\; 1)$",
@@ -185,6 +192,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_08",
     "question": "Una exponencial se acerca al eje horizontal por un lado y se dispara por el otro:\n$$f(x) = a^x, \\quad a > 0,\\; a \\neq 1$$\n¿Cuál es su **imagen**?",
     "options": [
       "$(0, +\\infty)$",
@@ -210,6 +218,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_09",
     "question": "Elevar 2 a un exponente entero es fácil de imaginar, pero la función exponencial admite bastante más:\n$$f(x) = 2^x$$\n¿Por qué su **dominio** es $\\mathbb{R}$ y no solo los enteros?",
     "options": [
       "Porque $2^x$ solo se define para $x \\geq 0$",
@@ -235,6 +244,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_10",
     "question": "En los modelos de crecimiento, el valor en $x=0$ es el punto de partida de todo lo que viene después:\n$$f(x) = 6 \\cdot 3^x$$\n¿Cuál es ese **valor inicial** $f(0)$?",
     "options": [
       "$6$",
@@ -260,6 +270,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_11",
     "question": "Una exponencial con factor delante tiene dos números en juego, y cada uno cumple un papel distinto:\n$$f(x) = 4 \\cdot 2^x$$\n¿Cuál de esos parámetros determina si la función crece o decrece?",
     "options": [
       "El coeficiente $a = 4$",
@@ -285,6 +296,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_12",
     "question": "Una inversión crece un $8\\%$ anual.\n\n¿Cuál es la **base** de la función exponencial que la modela?",
     "options": [
       "$1{,}08$",
@@ -310,6 +322,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_13",
     "question": "Un objeto pierde el $20\\%$ de su valor cada año.\n\n¿Cuál es la **base** del modelo exponencial?",
     "options": [
       "$0{,}8$",
@@ -335,6 +348,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_14",
     "question": "Los modelos de crecimiento exponencial tienen un nombre propio para el intervalo en que la cantidad pasa al doble.\n\n¿Cómo se llama ese tiempo?",
     "options": [
       "Tiempo de saturación",
@@ -360,6 +374,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_15",
     "question": "En una muestra radiactiva, la cantidad que queda se achica siempre en la misma proporción por unidad de tiempo.\n\n¿Cómo se llama el tiempo que tarda en reducirse a la mitad?",
     "options": [
       "Período de duplicación",
@@ -385,6 +400,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_16",
     "question": "El comportamiento de una exponencial en los extremos del eje es lo que la separa de un polinomio.\n\n¿Qué le pasa a $2^x$ cuando $x \\to +\\infty$?",
     "options": [
       "Sigue creciendo sin parar",
@@ -410,6 +426,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_17",
     "question": "Sumarle una constante a una exponencial levanta toda la curva, asíntota incluida:\n$$f(x) = 2^x + 3$$\n¿Cuál es su **imagen**?",
     "options": [
       "$\\mathbb{R}$",
@@ -435,6 +452,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_18",
     "question": "Partiendo de una exponencial pura se arma otra función sumándole una constante:\n$$g(x) = b^x + k$$\n¿Qué le pasa a la **asíntota horizontal** de $b^x$ con ese cambio?",
     "options": [
       "Se mantiene en $y = 0$",
@@ -460,6 +478,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_19",
     "question": "El exponente cero suele generar dudas cuando se lo compara con los demás:\n$$3^0$$\n¿Cuánto vale esta potencia?",
     "options": [
       "$0$",
@@ -485,6 +504,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_20",
     "question": "Los exponentes negativos aparecen apenas se extiende la definición de potencia más allá de los naturales:\n$$2^{-3}$$\n¿Cuánto vale esta potencia?",
     "options": [
       "$-8$",
@@ -510,6 +530,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_21",
     "question": "Al multiplicar potencias de la misma base, no siempre es obvio qué pasa con los exponentes.\n\n¿Cuál de estas igualdades es correcta?",
     "options": [
       "$2^3 \\cdot 2^4 = 2^{12}$",
@@ -535,6 +556,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_22",
     "question": "Elevar una potencia a otra potencia deja una sola potencia, con un exponente que hay que armar:\n$$(b^x)^2$$\n¿A qué expresión equivale?",
     "options": [
       "$b^{x+2}$",
@@ -560,6 +582,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_23",
     "question": "Toda exponencial de base positiva y distinta de 1 tiene una función que deshace lo que ella hace:\n$$f(x) = 2^x$$\n¿Cuál es su función **inversa**?",
     "options": [
       "$f^{-1}(x) = \\log_2(x)$",
@@ -578,13 +601,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dos funciones son **inversas** si una deshace lo que hace la otra:\n\nEntonces $f^{-1}(x) = \\log_2(x)$.\n\nEn términos de gráfica, la inversa se obtiene reflejando la curva en la recta $y = x$.\n\nLa exponencial tiene **dominio** $\\mathbb{R}$ e **imagen** $(0, +\\infty)$.\n\nSu inversa, el logaritmo, tiene dominio $(0, +\\infty)$ e imagen $\\mathbb{R}$: exactamente al revés.",
+    "explanation": "Dos funciones son **inversas** si una deshace lo que hace la otra.\n\nEl **logaritmo en base 2** se define como la operación que responde a qué exponente hay que elevar el $2$ para obtener un número:\n$$\\log_2(x) = y \\iff 2^y = x$$\nPor eso aplicar $\\log_2$ después de $2^x$ devuelve el exponente original:\n$$\\log_2(2^x) = x$$\nEse deshacer mutuo es lo que define a $f^{-1}(x) = \\log_2(x)$ como la inversa.\n\nLa exponencial tiene **dominio** $\\mathbb{R}$ e **imagen** $(0, +\\infty)$; su inversa tiene esos dos conjuntos invertidos.",
     "reviewed": false,
     "tags": [
       "valor-inicial-f0"
     ]
   },
   {
+    "id": "white_exponential_LEXI_24",
     "question": "Una raíz real es un valor de $x$ donde la función vale cero:\n$$f(x) = 3^x$$\n¿Cuántas raíces reales tiene?",
     "options": [
       "Una sola",
@@ -610,6 +634,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_25",
     "question": "Resolver una ecuación exponencial es buscar el exponente que produce cierto valor:\n$$5^x = -2$$\n¿Esta ecuación tiene solución real?",
     "options": [
       "No, porque $5^x > 0$ para todo $x$ real",
@@ -635,6 +660,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_26",
     "question": "Una exponencial se comporta de forma muy distinta en cada extremo del eje horizontal:\n$$f(x) = 3^x$$\n¿Qué le pasa a $f(x)$ cuando $x \\to -\\infty$?",
     "options": [
       "$f(x) \\to -\\infty$",
@@ -660,6 +686,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_27",
     "question": "La definición de función exponencial pide una base positiva y además deja afuera un valor puntual:\n$$f(x) = b^x$$\n¿Por qué se excluye $b = 1$?",
     "options": [
       "Porque $1^x$ no está definida para $x < 0$",
@@ -685,6 +712,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_28",
     "question": "Un extremo local es un punto donde la función deja de subir y empieza a bajar, o al revés:\n$$f(x) = 5^x$$\n¿Cuántos extremos locales tiene?",
     "options": [
       "Uno (mínimo global)",
@@ -710,6 +738,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_29",
     "question": "Una función lineal crece en $+10$ por unidad, mientras que una exponencial crece un $10\\%$ por unidad.\n\n¿Cuál de las dos tiene valores mayores para $x$ muy grande?",
     "options": [
       "La lineal, porque $+10$ es mayor que $10\\%$",
@@ -735,6 +764,7 @@
     ]
   },
   {
+    "id": "white_exponential_LEXI_30",
     "question": "Una igualdad entre potencias se plantea así:\n$$3^x = \\dfrac{1}{9}$$\n¿Cuánto vale $x$?",
     "options": [
       "$x = -2$",

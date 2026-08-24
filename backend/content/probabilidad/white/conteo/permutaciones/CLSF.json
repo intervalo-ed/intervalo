@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_permutaciones_CLSF_01",
     "question": "Se quiere contar de cuántas maneras se pueden ordenar en fila las 5 personas de un equipo de fútbol sala.\n\nEs para sacarse una foto.\n\n¿Qué técnica de conteo corresponde?",
     "options": [
       "Permutación de 5 elementos.",
@@ -21,6 +22,7 @@
     "tags": ["reconocer-permutacion-simple"]
   },
   {
+    "id": "white_permutaciones_CLSF_02",
     "question": "Se quiere contar de cuántas formas distintas se pueden reordenar todas las letras de la palabra **ANANA**.\n\nLa A se repite 3 veces y la N se repite 2 veces.\n\n¿Qué técnica de conteo corresponde?",
     "options": [
       "Permutación con repetición.",
@@ -42,6 +44,7 @@
     "tags": ["reconocer-permutacion-repeticion"]
   },
   {
+    "id": "white_permutaciones_CLSF_03",
     "question": "En una oficina de 8 empleados se quiere elegir y ordenar solo a 3 de ellos.\n\nEs para ocupar 3 puestos distintos de un podio de reconocimiento.\n\n¿Corresponde tratar este problema como una permutación simple de los 8 empleados?",
     "options": [
       "No, porque solo se usan 3 de los 8 elementos.",
@@ -61,6 +64,7 @@
     "tags": ["distractor-variacion"]
   },
   {
+    "id": "white_permutaciones_CLSF_04",
     "question": "Se quiere formar una fila con las 6 personas de un grupo familiar para sacarse una foto.\n\nCada posición en la fila es un lugar distinto.\n\n¿Corresponde tratar este problema como una combinación de las 6 personas?",
     "options": [
       "No, porque el orden de las personas en la fila sí importa.",
@@ -80,6 +84,7 @@
     "tags": ["distractor-combinacion"]
   },
   {
+    "id": "white_permutaciones_CLSF_05",
     "question": "Un examen tiene 4 preguntas y cada una se responde eligiendo una opción entre 3 posibles, de forma independiente entre preguntas.\n\n¿Corresponde tratar este problema como una permutación de 4 elementos?",
     "options": [
       "No: cada pregunta tiene sus propias opciones y no se reordena un mismo conjunto.",
@@ -99,6 +104,7 @@
     "tags": ["distractor-regla-producto"]
   },
   {
+    "id": "white_permutaciones_CLSF_06",
     "question": "Se quiere anotar el orden de llegada de los 5 corredores de una carrera de barrio, del primero al último puesto.\n\n¿Qué técnica de conteo corresponde?",
     "options": [
       "Combinación de 5 tomados de 5.",
@@ -120,6 +126,7 @@
     "tags": ["reconocer-permutacion-simple"]
   },
   {
+    "id": "white_permutaciones_CLSF_07",
     "question": "Una playlist tiene 4 canciones y se quiere definir el orden exacto en que se van a reproducir todas.\n\n¿Qué técnica de conteo corresponde?",
     "options": [
       "Combinación de 4 tomados de 4.",
@@ -141,6 +148,7 @@
     "tags": ["reconocer-permutacion-simple"]
   },
   {
+    "id": "white_permutaciones_CLSF_08",
     "question": "En un concurso de talentos con 3 finalistas se quiere definir el podio completo, asignando el 1º, 2º y 3º puesto.\n\n¿Qué técnica de conteo corresponde?",
     "options": [
       "Permutación de 3 elementos.",
@@ -162,6 +170,7 @@
     "tags": ["reconocer-permutacion-simple"]
   },
   {
+    "id": "white_permutaciones_CLSF_09",
     "question": "Se quiere contar de cuántas formas distintas se pueden reordenar todas las letras de la palabra **MESA**.\n\nLas 4 letras son distintas entre sí.\n\n¿Qué técnica de conteo corresponde?",
     "options": [
       "Combinación de 4 tomados de 4.",
@@ -183,6 +192,7 @@
     "tags": ["reconocer-permutacion-simple"]
   },
   {
+    "id": "white_permutaciones_CLSF_10",
     "question": "Se quiere contar de cuántas formas distintas se pueden reordenar todas las letras de la palabra **CARRO**.\n\nLa R se repite 2 veces.\n\n¿Qué técnica de conteo corresponde?",
     "options": [
       "Permutación simple, sin repetición.",
@@ -204,6 +214,7 @@
     "tags": ["reconocer-permutacion-repeticion"]
   },
   {
+    "id": "white_permutaciones_CLSF_11",
     "question": "Se quiere contar de cuántas formas distintas se pueden reordenar todas las letras de la palabra **SILLA**.\n\nLa L se repite 2 veces.\n\n¿Qué técnica de conteo corresponde?",
     "options": [
       "Permutación simple, sin repetición.",
@@ -225,6 +236,7 @@
     "tags": ["reconocer-permutacion-repeticion"]
   },
   {
+    "id": "white_permutaciones_CLSF_12",
     "question": "De los 10 corredores de una carrera se quiere anotar únicamente el orden de llegada de los primeros 4 puestos.\n\n¿Corresponde tratar este problema como una permutación simple de los 10 corredores?",
     "options": [
       "Sí, porque el orden de los puestos importa.",
@@ -244,6 +256,7 @@
     "tags": ["distractor-variacion"]
   },
   {
+    "id": "white_permutaciones_CLSF_13",
     "question": "De los 12 alumnos de un curso se quiere elegir y ubicar en orden a 4 de ellos en la primera fila para una foto escolar.\n\n¿Corresponde tratar este problema como una permutación simple de los 12 alumnos?",
     "options": [
       "No, porque solo se usan 4 de los 12 elementos.",
@@ -263,6 +276,7 @@
     "tags": ["distractor-variacion"]
   },
   {
+    "id": "white_permutaciones_CLSF_14",
     "question": "De las 15 canciones de un álbum se quiere elegir y ordenar solo 5 para armar un adelanto promocional.\n\n¿Corresponde tratar este problema como una permutación simple de las 15 canciones?",
     "options": [
       "Sí, porque el orden de las canciones importa.",
@@ -282,6 +296,7 @@
     "tags": ["distractor-variacion"]
   },
   {
+    "id": "white_permutaciones_CLSF_15",
     "question": "Se quiere registrar el orden de llegada de 4 corredores de una carrera, indicando qué puesto exacto ocupó cada uno.\n\nCada puesto del podio es un lugar distinto.\n\n¿Corresponde tratar este problema como una combinación de los 4 corredores?",
     "options": [
       "Sí, porque un podio es un subconjunto sin roles definidos.",

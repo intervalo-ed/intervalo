@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_bayes_FORM_01",
     "question": "Un test diagnóstico se usa para estimar si un paciente tiene una enfermedad a partir de un resultado positivo.\n\nSe quiere calcular $P(\\text{enfermo} \\mid \\text{positivo})$ con el teorema de Bayes.\n\nSe conocen la verosimilitud, la probabilidad a priori y la probabilidad total de la evidencia.\n\n¿Qué expresión corresponde al numerador de la fórmula?",
     "options": [
       "$P(\\text{positivo}\\mid\\text{enfermo}) \\cdot P(\\text{enfermo})$",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "blue_bayes_FORM_02",
     "question": "En una fábrica hay dos líneas de producción, $A_1$ y $A_2$, cada una con su propia proporción de producción.\n\nSe conoce además la probabilidad de que una pieza defectuosa $D$ salga de cada línea. Se quiere calcular $P(A_1\\mid D)$.\n\n¿Cuál es la expresión completa del teorema de Bayes para este caso?",
     "options": [
       "$\\dfrac{P(D\\mid A_2)P(A_2)}{\\sum_i P(D\\mid A_i)P(A_i)}$",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "blue_bayes_FORM_03",
     "question": "Un test rápido se usa para determinar si una persona tiene gripe a partir de un resultado positivo.\n\nSe quiere calcular $P(\\text{gripe} \\mid \\text{positivo})$ con el teorema de Bayes.\n\nSe conocen la verosimilitud, la probabilidad a priori y la probabilidad total de la evidencia.\n\n¿Qué expresión corresponde al numerador de la fórmula?",
     "options": [
       "$P(\\text{positivo})$",
@@ -69,6 +72,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_FORM_04",
     "question": "Una fábrica arma piezas que pueden venir de dos máquinas, la máquina $M_1$ y la máquina $M_2$.\n\nSe quiere calcular $P(M_1 \\mid \\text{defectuosa})$ con el teorema de Bayes.\n\nSe conocen la verosimilitud, la probabilidad a priori y la probabilidad total de la evidencia.\n\n¿Qué expresión corresponde al numerador de la fórmula?",
     "options": [
       "$P(\\text{defectuosa})$",
@@ -92,6 +96,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_FORM_05",
     "question": "Un lote de tornillos puede provenir del proveedor $R$ o del proveedor $S$.\n\nSe quiere calcular $P(R \\mid F)$ con el teorema de Bayes, donde $F$ es el evento de que el tornillo falle.\n\nSe conocen la verosimilitud, la probabilidad a priori y la probabilidad total de la evidencia.\n\n¿Qué expresión corresponde al numerador de la fórmula?",
     "options": [
       "$P(F\\mid R) \\cdot P(R)$",
@@ -115,6 +120,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_FORM_06",
     "question": "Hay dos urnas, la urna $A$ y la urna $B$, y se elige una al azar antes de sacar una bolita.\n\nSe quiere calcular $P(A \\mid \\text{roja})$ con el teorema de Bayes.\n\nSe conocen la verosimilitud, la probabilidad a priori y la probabilidad total de la evidencia.\n\n¿Qué expresión corresponde al numerador de la fórmula?",
     "options": [
       "$P(\\text{roja})$",
@@ -138,6 +144,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_FORM_07",
     "question": "Hay tres cajas con fichas, y se elige una al azar antes de sacar una ficha.\n\nSe quiere calcular $P(C_2 \\mid \\text{verde})$ con el teorema de Bayes.\n\nSe conocen la verosimilitud, la probabilidad a priori y la probabilidad total de la evidencia.\n\n¿Qué expresión corresponde al numerador de la fórmula?",
     "options": [
       "$P(C_2) \\cdot P(\\text{verde}\\mid C_1)$",
@@ -161,6 +168,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_FORM_08",
     "question": "Un filtro de spam analiza si un correo contiene un archivo adjunto sospechoso.\n\nSe quiere calcular $P(\\text{spam} \\mid \\text{adjunto})$ con el teorema de Bayes.\n\nSe conocen la verosimilitud, la probabilidad a priori y la probabilidad total de la evidencia.\n\n¿Qué expresión corresponde al numerador de la fórmula?",
     "options": [
       "$P(\\text{adjunto}\\mid\\text{spam}) \\cdot P(\\text{spam})$",
@@ -184,6 +192,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_FORM_09",
     "question": "Un filtro de spam revisa si el remitente de un correo no está en la lista de contactos conocidos.\n\nSe quiere calcular $P(\\text{spam} \\mid \\text{desconocido})$ con el teorema de Bayes.\n\nSe conocen la verosimilitud, la probabilidad a priori y la probabilidad total de la evidencia.\n\n¿Qué expresión corresponde al numerador de la fórmula?",
     "options": [
       "$P(\\text{spam}) \\cdot P(\\text{desconocido}\\mid\\overline{\\text{spam}})$",
@@ -207,6 +216,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_FORM_10",
     "question": "En un chequeo médico, un paciente puede pertenecer al grupo de riesgo $A_1$ o al grupo sin riesgo $A_2$.\n\nCada grupo tiene su propia proporción poblacional.\n\nSe conoce la probabilidad de que el chequeo dé positivo $T$ en cada uno. Se quiere calcular $P(A_1\\mid T)$.\n\n¿Cuál es la expresión completa del teorema de Bayes para este caso?",
     "options": [
       "$\\dfrac{P(T\\mid A_1)P(A_1)}{\\sum_i P(T\\mid A_i)P(A_i)}$",
@@ -230,6 +240,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_FORM_11",
     "question": "En una campaña de detección, una persona puede tener el virus $B_1$ o no tenerlo $B_2$.\n\nCada grupo tiene su propia proporción poblacional.\n\nSe conoce la probabilidad de un resultado positivo $R$ en cada uno. Se quiere calcular $P(B_1\\mid R)$.\n\n¿Cuál es la expresión completa del teorema de Bayes para este caso?",
     "options": [
       "$\\dfrac{P(B_1)P(R\\mid B_2)}{\\sum_i P(R\\mid B_i)P(B_i)}$",
@@ -253,6 +264,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_FORM_12",
     "question": "Hay dos urnas, la urna $U_1$ y la urna $U_2$, y se elige una al azar antes de sacar una bolita.\n\nSe conoce la probabilidad de sacar una bolita verde $V$ de cada urna. Se quiere calcular $P(U_1\\mid V)$.\n\n¿Cuál es la expresión completa del teorema de Bayes para este caso?",
     "options": [
       "$\\dfrac{P(V\\mid U_2)P(U_2)}{\\sum_i P(V\\mid U_i)P(U_i)}$",
@@ -276,6 +288,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_FORM_13",
     "question": "Hay tres cajas $\\{C_1, C_2, C_3\\}$, y se elige una al azar antes de sacar una ficha.\n\nSe conoce la probabilidad de sacar una ficha negra $N$ de cada caja. Se quiere calcular $P(C_2\\mid N)$.\n\n¿Cuál es la expresión completa del teorema de Bayes para este caso?",
     "options": [
       "$\\dfrac{P(N\\mid C_2)P(C_2)}{\\sum_i P(N\\mid C_i)P(C_i)}$",
@@ -299,6 +312,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_FORM_14",
     "question": "En un taller, un motor puede haber sido ensamblado por el turno $T_1$ o el turno $T_2$.\n\nCada turno tiene su propia proporción de producción.\n\nSe conoce la probabilidad de que un motor falle $F$ según el turno. Se quiere calcular $P(T_2\\mid F)$.\n\n¿Cuál es la expresión completa del teorema de Bayes para este caso?",
     "options": [
       "$\\dfrac{P(F\\mid T_1)P(T_1)}{\\sum_i P(F\\mid T_i)P(T_i)}$",
@@ -322,6 +336,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_FORM_15",
     "question": "Un filtro de spam clasifica correos como spam $S_1$ o no spam $S_2$, cada categoría con su propia proporción.\n\nSe conoce la probabilidad de que aparezca cierto enlace $E$ en cada categoría. Se quiere calcular $P(S_1\\mid E)$.\n\n¿Cuál es la expresión completa del teorema de Bayes para este caso?",
     "options": [
       "$\\dfrac{P(S_1)P(E\\mid S_2)}{\\sum_i P(E\\mid S_i)P(S_i)}$",

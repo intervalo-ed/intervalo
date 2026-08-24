@@ -1,6 +1,7 @@
 "use client"
 
 import posthog from "posthog-js"
+import ExerciseTable, { type TableTone } from "@/components/exercise-table"
 import MathGraph from "@/components/math-graph"
 import MathText from "@/components/math-text"
 import { XpDots } from "@/components/xp-dots"
@@ -462,6 +463,20 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
   const solved = cur.result === "correct"
   // Resuelto recién después de haber fallado al menos una vez → acento lima.
   const solvedAfterError = solved && cur.wrongOptions.length > 0
+  // Qué columna pinta la tabla de un ejercicio con `table`. NO puede ser
+  // cur.selection: onRevisar la resetea a null al errar, así que la columna
+  // equivocada aparecería y desaparecería en el mismo frame. La opción
+  // confirmada sobrevive en wrongOptions (o es la correcta, si ya resolvió).
+  //
+  // Antes de confirmar queda en null a propósito: si el alumno pudiera ir
+  // tocando opciones y viendo la tabla responder, el ítem se convierte en una
+  // máquina de ensayo y error en vez de uno de generalización.
+  const lastWrongOption =
+    cur.wrongOptions.length > 0 ? cur.wrongOptions[cur.wrongOptions.length - 1] : null
+  const tableRevealIndex = solved ? exercise.correct_index : lastWrongOption
+  // La columna se marca con el mismo color que la opción que la produjo, para
+  // que la tabla y el feedback sean una sola señal y no dos.
+  const tableTone: TableTone = solved ? (solvedAfterError ? "retry" : "correct") : "wrong"
   const continueLabel = isLast ? "Finalizar" : "Continuar"
   const canGoBack =
     idx > 0 || cur.showWhy || cur.showSurvey || cur.showReport
@@ -1072,6 +1087,14 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                       graphView={exercise.graph_view}
                       graphShade={exercise.graph_shade}
                       graphFreeAspect={exercise.graph_free_aspect}
+                    />
+                  )}
+
+                  {exercise.table && (
+                    <ExerciseTable
+                      table={exercise.table}
+                      revealIndex={tableRevealIndex}
+                      tone={tableTone}
                     />
                   )}
 

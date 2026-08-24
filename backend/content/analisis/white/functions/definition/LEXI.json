@@ -1,51 +1,54 @@
 [
   {
-    "question": "Un cajero automático asigna a cada cuenta bancaria su saldo disponible.\n\n¿Qué pasaría en este sistema si no se cumpliera la **unicidad**?",
+    "id": "white_definition_LEXI_01",
+    "question": "Una encuesta puntúa cada respuesta con un entero del 1 al 10, aunque este mes nadie puntuó por debajo de 6.$$P : \\{\\text{respuestas}\\} \\to \\{1, \\dots, 10\\}$$¿Cuál es el **codominio** de $P$?",
     "options": [
-      "Una misma cuenta mostraría distintos saldos al mismo tiempo",
-      "Dos cuentas distintas tendrían exactamente el mismo saldo",
-      "Habría cuentas bancarias que no tendrían ningún saldo asignado"
+      "El conjunto $\\{1, \\dots, 10\\}$ declarado en la asignación",
+      "El conjunto $\\{6, \\dots, 10\\}$ de puntajes que aparecieron",
+      "El conjunto de respuestas de la encuesta"
     ],
     "correct_index": 0,
     "has_math": false,
-    "feedback_correct": "Si no hay unicidad, la misma cuenta arroja más de un saldo a la vez.",
+    "feedback_correct": "El codominio es el conjunto de salidas declarado, $\\{1, \\dots, 10\\}$, use o no la función todos sus valores.",
     "feedback_incorrect": [
       null,
-      "Que dos cuentas tengan el mismo saldo no rompe la unicidad, solo afecta la inyectividad de la relación.",
-      "Eso violaría que la regla esté definida para todo el dominio, pero la unicidad trata sobre no dar respuestas múltiples a una misma entrada."
+      "Ese es el conjunto de puntajes efectivamente alcanzados, que forma la imagen; el codominio no depende de lo que pasó este mes.",
+      "Ese es el dominio, las entradas que la función procesa; el codominio agrupa las salidas posibles."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **unicidad** exige que una función asigne a cada entrada una sola salida.\n\nAcá la entrada es la cuenta y la salida es el saldo.\n\nSi fallara esta propiedad, una misma cuenta podría devolver \\$100 y \\$5000 a la vez.\n\nNo confundas unicidad con inyectividad: acá se exige que cada cuenta tenga un solo saldo, no que cada saldo venga de una sola cuenta.",
+    "explanation": "El **codominio** es el conjunto de llegada declarado al definir la función, y no cambia según qué valores se alcancen.\n\nAcá la asignación declara los enteros del 1 al 10, así que ese es el codominio completo.\n\nQue este mes nadie haya puntuado por debajo de 6 afecta a la **imagen**, que reúne solo las salidas realmente alcanzadas, pero deja el codominio intacto.\n\nLa imagen siempre está contenida en el codominio, y solo coinciden cuando la función alcanza todos los valores declarados.",
     "reviewed": false,
     "tags": [
-      "unicidad"
+      "codominio"
     ]
   },
   {
-    "question": "Un termómetro digital asigna a cada instante de tiempo la temperatura del ambiente.\n\n¿Qué garantía te da la **unicidad** en esta medición?",
+    "id": "white_definition_LEXI_02",
+    "question": "Una app de delivery asigna a cada pedido su tiempo estimado de entrega, en minutos, con un tope de 90.$$T : \\{\\text{pedidos}\\} \\to \\{1, \\dots, 90\\}$$¿Qué representa el conjunto de llegada?",
     "options": [
-      "El termómetro no puede repetir la misma temperatura en distintos instantes",
-      "En un mismo instante, el termómetro marca un único valor de temperatura",
-      "Cada temperatura es alcanzada en un único instante del día"
+      "Los tiempos que la app efectivamente estimó hoy",
+      "Los tiempos que la app puede llegar a estimar",
+      "La cantidad de pedidos que se pueden registrar"
     ],
     "correct_index": 1,
     "has_math": false,
-    "feedback_correct": "La unicidad asegura que a cada instante le corresponde una sola medición.",
+    "feedback_correct": "Es el **codominio**: el conjunto de salidas que la asignación declara como posibles.",
     "feedback_incorrect": [
-      "Que se repita el valor a la tarde no rompe la unicidad; lo que importa es que a cada instante le corresponda uno solo.",
+      "Esos forman la imagen, las salidas realmente alcanzadas; el codominio se declara de antemano.",
       null,
-      "Eso confundiría unicidad con inyectividad; la temperatura puede repetirse a la tarde, lo que importa es que no dé valores dobles en simultáneo."
+      "Los pedidos son el dominio, las entradas; el conjunto de llegada agrupa los tiempos."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **unicidad** asegura que cada entrada de una función tenga exactamente una salida asociada.\n\nSi el termómetro cumple esto, a las 14:00 horas registrará una sola medición válida, sin importar si ese valor vuelve a repetirse más tarde.\n\nQue esa medición se repita en otro horario no rompe la unicidad: importa que cada instante tenga una sola lectura, no que cada lectura ocurra una sola vez.",
+    "explanation": "Al definir una función se declaran dos conjuntos: de dónde salen las entradas y a dónde pueden ir a parar las salidas.\n\nEl segundo es el **codominio**, y acá son los tiempos del 1 al 90 que la app admite como estimación posible.\n\nNo hace falta que la app haya usado los 90 valores para que el codominio sea ese: basta con que estén declarados como alcanzables.\n\nEl subconjunto de tiempos que sí aparecieron en los pedidos de hoy es la **imagen**, que se lee de los datos y no de la definición.",
     "reviewed": false,
     "tags": [
-      "unicidad"
+      "codominio"
     ]
   },
   {
+    "id": "white_definition_LEXI_03",
     "question": "Una heladería cobra \\$600 por bocha y arma conos de hasta 4 bochas. El precio de $n$ bochas es:$$f(n) = 600n, \\qquad n \\in \\{1,2,3,4\\}$$ ¿Cuál es el **dominio** de esta función?",
     "options": [
       "$\\{600, 1200, 1800, 2400\\}$",
@@ -71,6 +74,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_04",
     "question": "Un municipio asigna un número de expediente a cada uno de sus 40000 vecinos, numerados del 1 al 40000. $$E : \\{1,\\dots,40000\\} \\to \\mathbb{N}$$ ¿Cuál es el **dominio**?",
     "options": [
       "Los números de expediente asignados a cada vecino",
@@ -94,6 +98,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_05",
     "question": "La velocidad promedio de un viaje de 120 km que dura $t$ horas es:$$v(t) = \\frac{120}{t}$$ ¿Cuál es el **dominio** natural de esta función?",
     "options": [
       "$t \\geq 120$",
@@ -119,6 +124,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_06",
     "question": "El costo por asistente para un alquiler de \\$4800 dividido entre $n$ personas es:$$c(n) = \\frac{4800}{n}$$ ¿Cuál es el **dominio** natural de esta función?",
     "options": [
       "$\\mathbb{R}$",
@@ -144,6 +150,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_07",
     "question": "Una función transforma cada número en la raíz de su diferencia con 10. $$g(x) = \\sqrt{10 - x}$$ ¿Cuál es el **dominio** natural de esta función?",
     "options": [
       "$x \\geq 10$",
@@ -169,6 +176,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_08",
     "question": "Una función transforma cada valor según:\n$$r(x) = \\frac{1}{x - 3}$$\n¿Cuál es el **dominio** natural de esta función?",
     "options": [
       "$x > 3$",
@@ -194,6 +202,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_09",
     "question": "El radio de una circunferencia en función de su área $A$ es:$$r(A) = \\sqrt{\\frac{A}{\\pi}}$$ ¿Cuál es el **dominio** natural?",
     "options": [
       "$A \\geq 0$",
@@ -219,6 +228,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_10",
     "question": "Tu sueldo base son \\$15000 más \\$3000 por cada hora extra $h$. $$S(h) = 15000 + 3000h$$ ¿Qué tipo de magnitud es el sueldo $S$?",
     "options": [
       "Variable dependiente",
@@ -235,13 +245,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La variable **dependiente** es aquella que resulta como salida al aplicar la función.\n\nAcá ingresás las horas extra $h$, y el total se obtiene multiplicando esas horas por el valor de cada una y sumando el sueldo base.\n\nComo $S$ está sujeta a cuántas horas decidas trabajar, asume el rol dependiente.\n\nReconocés la dependiente porque es la salida de la función: $S$ se calcula a partir de $h$, no al revés.",
+    "explanation": "La variable **dependiente** es la que resulta como salida al aplicar la función; la **independiente** es la que se elige libremente como entrada.\n\nAcá elegís cuántas horas extra vas a trabajar, y el sueldo sale de aplicar la fórmula a ese valor: depende de las horas, nunca al revés.\n\nQue $S$ aparezca del lado izquierdo de la igualdad no la vuelve independiente: el orden en que se escribe la fórmula no dice nada sobre qué varía libremente y qué se calcula a partir de eso.",
     "reviewed": false,
     "tags": [
       "variable-indep-dep"
     ]
   },
   {
+    "id": "white_definition_LEXI_11",
     "question": "Una heladera consume 0,4 kWh por hora de uso. El consumo total tras $h$ horas es:$$C(h) = 0{,}4h$$ ¿Cuál es la variable **independiente**?",
     "options": [
       "Las horas de uso $h$",
@@ -265,6 +276,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_12",
     "question": "El total a pagar por $v$ litros de nafta a \\$700 el litro se calcula con:$$P(v) = 700v$$ ¿Qué sería el total $P$ en este caso?",
     "options": [
       "Es un parámetro constante",
@@ -288,6 +300,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_13",
     "question": "Una caja de madera pesa 2 kg. Cada bloque que se guarda adentro pesa 0,3 kg. El peso total con $m$ bloques es:$$W(m) = 2 + 0{,}3m$$ ¿Cuál es la variable **dependiente**?",
     "options": [
       "La cantidad de bloques $m$",
@@ -311,6 +324,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_14",
     "question": "La temperatura en grados Fahrenheit a partir de los Celsius $c$ es:$$F(c) = \\frac{9}{5}c + 32$$ ¿Cuál es la variable **independiente**?",
     "options": [
       "Los grados Fahrenheit $F$",
@@ -334,6 +348,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_15",
     "question": "Una cuenta de banco otorga interés sobre un capital. El dinero extra acumulado tras $a$ años es:$$I(a) = 300a$$ ¿Cuál es la variable **dependiente**?",
     "options": [
       "El tiempo en años $a$",
@@ -357,6 +372,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_16",
     "question": "Un cine tiene 8 salas. La función asigna a cada sala su capacidad en butacas. $$C : \\{1,\\dots,8\\} \\to \\{1,\\dots,500\\}$$ ¿Qué conjunto cumple el rol del **codominio**?",
     "options": [
       "Las capacidades que realmente poseen las 8 salas",
@@ -380,6 +396,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_17",
     "question": "Un taller cobra un servicio fijo según el modelo de auto, variando entre \\$5000 y \\$50000. $$S : \\{\\text{modelos}\\} \\to \\{5000,\\dots,50000\\}$$ ¿Cuál es el **codominio** de la asignación?",
     "options": [
       "El intervalo $\\{5000, \\dots, 50000\\}$",
@@ -403,6 +420,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_18",
     "question": "Un profesor carga en el sistema si un alumno aprobó con un 1 o desaprobó con un 0.\n$$A : \\{\\text{alumnos}\\} \\to \\{0, 1\\}$$\n¿Qué conjunto representa al **codominio** de la función?",
     "options": [
       "El grupo de notas obtenidas al final",
@@ -426,6 +444,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_19",
     "question": "Una máquina de café prepara vasos que contienen entre 50 ml y 200 ml según el botón. $$V : \\{\\text{botones}\\} \\to [50, 200]$$ ¿Qué elemento conforma el **codominio**?",
     "options": [
       "El intervalo continuo $[50, 200]$",
@@ -449,6 +468,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_20",
     "question": "Se toma un conjunto de números y se los eleva al cuadrado, según:\n$$f(x) = x^2, \\qquad x \\in \\{-3, -1, 0, 1, 3\\}$$\n¿Cuál es el conjunto **imagen** de esta operación?",
     "options": [
       "$\\{-9, -1, 0, 1, 9\\}$",
@@ -474,6 +494,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_21",
     "question": "Un ascensor tiene botonera del 1 al 20, pero los pisos 13 y 17 están rotos y jamás se alcanzan. $$A : \\{\\text{viajes}\\} \\to \\{1,\\dots,20\\}$$ ¿Cuál es el conjunto **imagen** del ascensor?",
     "options": [
       "Todos los pisos del 1 al 20",
@@ -497,6 +518,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_22",
     "question": "Un kiosco vende 5 productos numerados del 1 al 5. La función $P$ asigna a cada producto su precio en pesos. $$\\begin{aligned} P(1) &= 100 \\\\ P(2) &= 150 \\\\ P(3) &= 100 \\\\ P(4) &= 200 \\\\ P(5) &= 150 \\end{aligned}$$ ¿Cuál es el conjunto **imagen** de $P$?",
     "options": [
       "$\\{100, 150, 100, 200, 150\\}$",
@@ -522,6 +544,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_23",
     "question": "Una función constante asocia el número 5 a cualquier entrada del **dominio**. $$f(x) = 5, \\qquad x \\in \\mathbb{R}$$ ¿Cuál es el conjunto **imagen** de esta función?",
     "options": [
       "$\\{5\\}$",
@@ -547,6 +570,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_24",
     "question": "Una empresa de envíos cobra \\$1000 por paquetes de hasta 1 kg y \\$2000 si supera ese límite, usando pesos positivos. $$C(p) = \\begin{cases} 1000 & p \\leq 1 \\\\ 2000 & p > 1 \\end{cases}$$ ¿Cuál es el conjunto **imagen**?",
     "options": [
       "$[1000, 2000]$",
@@ -572,6 +596,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_25",
     "question": "Una función transforma cada número en su cubo. Al evaluar el 3 se obtiene 27. $$f(3) = 27$$ ¿Qué sería el 27 respecto del 3 en este caso?",
     "options": [
       "El dominio puntual",
@@ -595,6 +620,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_26",
     "question": "Una función eleva cada número al cuadrado y le suma 1. Al evaluar en $-2$, se llega a 5.\n$$f(-2) = 5$$\n¿Qué sería el 5 respecto del $-2$ en este caso?",
     "options": [
       "Una preimagen de $-2$",
@@ -618,6 +644,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_27",
     "question": "Se usa una regla del valor absoluto para procesar datos numéricos. $$f(x) = |x|$$ ¿Cuántas **preimágenes** tiene el 1 bajo esta función?",
     "options": [
       "Solo el $1$",
@@ -643,6 +670,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_28",
     "question": "Una función constante asocia el número 8 a cualquier valor real de entrada. $$g(x) = 8$$ ¿Qué ocurre si querés encontrar la **preimagen** del 10?",
     "options": [
       "No tiene ninguna preimagen",
@@ -666,6 +694,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_29",
     "question": "Una función lineal modela el costo total en función de los artículos comprados. $$C(a) = 5a + 10$$ ¿Cuál es la **preimagen** del costo 35?",
     "options": [
       "$a = 4$",
@@ -691,6 +720,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_30",
     "question": "Una aplicación asigna el cubo a las entradas. Al ingresar el 4, la pantalla muestra 64. $$V(4) = 64$$ ¿Qué sería el 4 respecto del 64 en este caso?",
     "options": [
       "Es el dominio puntual",

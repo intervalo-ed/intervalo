@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_combinaciones_CLSF_01",
     "question": "Considerá el siguiente problema: se quiere formar un comité de 4 personas elegidas entre los 12 empleados de una oficina.\n\nDentro del comité no se distinguen roles.\n\n¿Qué técnica de conteo corresponde?",
     "options": [
       "Combinación de 12 tomados de 4.",
@@ -21,6 +22,7 @@
     "tags": ["reconocer-combinacion"]
   },
   {
+    "id": "white_combinaciones_CLSF_02",
     "question": "En un equipo de 10 jugadores se quiere elegir un capitán y un vicecapitán, dos roles distintos entre sí.\n\n¿Corresponde tratar este problema como una combinación de 10 tomados de 2?",
     "options": [
       "No, porque capitán y vicecapitán son roles distintos, no intercambiables.",
@@ -40,6 +42,7 @@
     "tags": ["distractor-variacion"]
   },
   {
+    "id": "white_combinaciones_CLSF_03",
     "question": "Un menú ofrece 5 entradas y, de forma independiente, 3 postres, y un cliente arma su pedido eligiendo una entrada y un postre.\n\n¿Corresponde tratar este problema como una combinación de 8 tomados de 2?",
     "options": [
       "No, porque las entradas y los postres son conjuntos distintos.",
@@ -59,6 +62,7 @@
     "tags": ["distractor-regla-basica"]
   },
   {
+    "id": "white_combinaciones_CLSF_04",
     "question": "De un grupo de 10 personas se quiere formar un comité de 4 integrantes que incluya obligatoriamente a una persona en particular.\n\n¿Cómo se cuenta la cantidad de comités posibles?",
     "options": [
       "Eligiendo los 3 integrantes restantes entre las otras 9 personas: $\\dbinom{9}{3}$.",
@@ -80,6 +84,7 @@
     "tags": ["combinacion-con-condicion"]
   },
   {
+    "id": "white_combinaciones_CLSF_05",
     "question": "Un jugador arma su mano tomando 5 cartas de un mazo de 52, sin que el orden en que las recibe importe.\n\n¿Qué técnica de conteo corresponde para contar las manos posibles?",
     "options": [
       "Combinación de 52 tomados de 5.",
@@ -101,6 +106,7 @@
     "tags": ["reconocer-combinacion"]
   },
   {
+    "id": "white_combinaciones_CLSF_06",
     "question": "De una urna con 20 bolitas numeradas se extraen 3 al mismo tiempo, sin que el orden de extracción se registre.\n\n¿Qué técnica de conteo corresponde para contar los resultados posibles?",
     "options": [
       "Variación de 20 tomados de 3.",
@@ -122,6 +128,7 @@
     "tags": ["reconocer-combinacion"]
   },
   {
+    "id": "white_combinaciones_CLSF_07",
     "question": "Una heladería ofrece 10 sabores y un cliente arma un pote eligiendo 4 sabores, sin que el orden en que los pide altere el pote.\n\n¿Qué técnica de conteo corresponde para contar los potes posibles?",
     "options": [
       "Variación de 10 tomados de 4.",
@@ -143,6 +150,7 @@
     "tags": ["reconocer-combinacion"]
   },
   {
+    "id": "white_combinaciones_CLSF_08",
     "question": "De un curso de 25 estudiantes se elige una delegación de 3 para representarlo, sin roles distintos entre sí.\n\n¿Qué técnica de conteo corresponde para contar las delegaciones posibles?",
     "options": [
       "Permutación de 25 elementos.",
@@ -164,6 +172,7 @@
     "tags": ["reconocer-combinacion"]
   },
   {
+    "id": "white_combinaciones_CLSF_09",
     "question": "De un grupo de 15 personas se elige una pareja de 2 para jugar dobles, sin posiciones distintas entre sí.\n\n¿Qué técnica de conteo corresponde para contar las parejas posibles?",
     "options": [
       "Permutación de 15 elementos.",
@@ -185,6 +194,7 @@
     "tags": ["reconocer-combinacion"]
   },
   {
+    "id": "white_combinaciones_CLSF_10",
     "question": "En una carrera de 8 corredores se van a entregar medalla de oro, plata y bronce a 3 de ellos, cada medalla un premio distinto.\n\n¿Corresponde tratar este problema como una combinación de 8 tomados de 3?",
     "options": [
       "Sí, porque se eligen solo 3 corredores de los 8 que participan.",
@@ -204,6 +214,7 @@
     "tags": ["distractor-variacion"]
   },
   {
+    "id": "white_combinaciones_CLSF_11",
     "question": "En una comisión de 12 personas se van a elegir un presidente y un secretario, dos cargos distintos entre sí.\n\n¿Corresponde tratar este problema como una combinación de 12 tomados de 2?",
     "options": [
       "No, porque presidente y secretario son cargos distintos, no intercambiables.",
@@ -223,6 +234,7 @@
     "tags": ["distractor-variacion"]
   },
   {
+    "id": "white_combinaciones_CLSF_12",
     "question": "De una estantería con 9 libros se eligen 3 para exhibir en una vidriera, ubicados en una posición fija de izquierda a derecha.\n\n¿Corresponde tratar este problema como una combinación de 9 tomados de 3?",
     "options": [
       "Sí, porque se eligen solo 3 libros de los 9 disponibles en la estantería.",
@@ -242,6 +254,7 @@
     "tags": ["distractor-variacion"]
   },
   {
+    "id": "white_combinaciones_CLSF_13",
     "question": "Entre 14 candidatos se van a elegir un capitán para el equipo A y un capitán para el equipo B, dos roles distintos entre sí.\n\n¿Corresponde tratar este problema como una combinación de 14 tomados de 2?",
     "options": [
       "No, porque capitán de A y capitán de B son roles distintos entre sí.",
@@ -261,6 +274,7 @@
     "tags": ["distractor-variacion"]
   },
   {
+    "id": "white_combinaciones_CLSF_14",
     "question": "Un restaurante ofrece 6 platos principales y 4 bebidas, y un cliente arma su pedido eligiendo un plato y una bebida.\n\n¿Corresponde tratar este problema como una combinación de 10 tomados de 2?",
     "options": [
       "Sí, porque en total se eligen 2 elementos entre las opciones de la carta.",
@@ -280,6 +294,7 @@
     "tags": ["distractor-regla-basica"]
   },
   {
+    "id": "white_combinaciones_CLSF_15",
     "question": "De un grupo de 11 personas se arma una comisión de 5 que debe excluir obligatoriamente a una persona en particular.\n\n¿Cómo se cuenta la cantidad de comisiones posibles?",
     "options": [
       "Eligiendo los 5 integrantes entre las 11 personas: $\\dbinom{11}{5}$.",

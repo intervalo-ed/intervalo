@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_chain_rule_ESTR_01",
     "question": "El exponente de esta función queda pegado al nombre de la función trigonométrica:\n$$f(x) = \\sin^2(x)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "$g(u)=u^2, h(x)=\\sin x$",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "violet_chain_rule_ESTR_02",
     "question": "Acá el exponente queda adentro, elevando a la propia variable:\n$$f(x) = \\sin(x^2)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "No es una composición, es un producto $\\sin(x) \\cdot x^2$",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "violet_chain_rule_ESTR_03",
     "question": "Esta función anida una exponencial y un logaritmo:\n$$f(x) = e^{\\ln x}$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "$g(u)=\\ln u, h(x)=e^x$",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "violet_chain_rule_ESTR_04",
     "question": "Esta función tiene el logaritmo envolviendo a una potencia de $x$:\n$$f(x) = \\ln(x^2)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "$g(u)=\\ln u, h(x)=x^2$",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "violet_chain_rule_ESTR_05",
     "question": "Acá el logaritmo queda adentro, y el cuadrado lo envuelve:\n$$f(x) = (\\ln x)^2$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "No es una composición, es un producto $\\ln x \\cdot \\ln x$",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "violet_chain_rule_ESTR_06",
     "question": "Para la función:\n$$f(x) = \\cos(3x+1)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "$g(u)=3u+1, h(x)=\\cos x$",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "violet_chain_rule_ESTR_07",
     "question": "El argumento de esta exponencial no es $x$ solo, sino una expresión lineal:\n$$f(x) = e^{3x}$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "$g(u)=e^u, h(x)=3x$",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "violet_chain_rule_ESTR_08",
     "question": "Igual que con el seno, la tangente admite esta misma notación con exponente:\n$$f(x) = \\tan^2(x)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "No es una composición, es un producto $\\tan x \\cdot \\tan x$",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "violet_chain_rule_ESTR_09",
     "question": "Dada:\n$$f(x) = e^{3x}$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla del producto",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "violet_chain_rule_ESTR_10",
     "question": "Esta expresión combina una variable lineal con la exponencial, multiplicadas entre sí:\n$$f(x) = 3x \\cdot e^x$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla del producto",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "violet_chain_rule_ESTR_11",
     "question": "El logaritmo de esta función no actúa directamente sobre $x$, sino sobre su cuadrado:\n$$f(x) = \\ln(x^2)$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla del cociente",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "violet_chain_rule_ESTR_12",
     "question": "Esta expresión tiene el seno arriba y $x$ abajo, como una fracción:\n$$f(x) = \\frac{\\sin x}{x}$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla de la cadena",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "violet_chain_rule_ESTR_13",
     "question": "El argumento del seno en esta función no es $x$ solo:\n$$f(x) = \\sin(5x)$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla de la cadena",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "violet_chain_rule_ESTR_14",
     "question": "Un coeficiente multiplica al seno completo en esta función:\n$$f(x) = 5\\sin x$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla del producto",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "violet_chain_rule_ESTR_15",
     "question": "Una potencia y una función trigonométrica se multiplican en esta expresión:\n$$f(x) = x^2 \\cdot \\cos x$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla de la cadena",

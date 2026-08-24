@@ -1183,6 +1183,10 @@ export interface components {
             graph_shade?: unknown[] | null;
             /** Graph Free Aspect */
             graph_free_aspect?: boolean | null;
+            /** Table */
+            table?: {
+                [key: string]: unknown;
+            } | null;
             /** Feedback Correct */
             feedback_correct: string;
             /** Feedback Incorrect */
@@ -1387,6 +1391,11 @@ export interface components {
              * @default false
              */
             has_graph: boolean;
+            /**
+             * Has Table
+             * @default false
+             */
+            has_table: boolean;
         };
         /** TestSessionItem */
         TestSessionItem: {

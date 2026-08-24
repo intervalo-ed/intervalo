@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_continuity_CLSF_01",
     "question": "En un punto $x=a$ el límite bilateral existe y vale $4$.\n\nSin embargo, $f(a)$ no está definida.\n\n¿Qué tipo de **discontinuidad** genera esta situación?",
     "options": [
       "Removible",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "blue_continuity_CLSF_02",
     "question": "En $x=a$ se cumple que $f(a) = 5$.\n\nAdemás, el límite bilateral existe y también vale $5$.\n\n¿Qué diagnóstico corresponde en ese punto?",
     "options": [
       "Removible",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "blue_continuity_CLSF_03",
     "question": "En $x=a$ el límite lateral izquierdo vale $3$.\n\nEl límite lateral derecho vale $7$.\n\nAdemás, $f(a)$ está definida y vale $3$.\n\n¿Qué tipo de **discontinuidad** corresponde en ese punto?",
     "options": [
       "Removible",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "blue_continuity_CLSF_04",
     "question": "En $x=a$ el límite lateral izquierdo diverge a $+\\infty$.\n\nEn cambio, el límite lateral derecho vale $2$.\n\n¿Qué tipo de **discontinuidad** corresponde en ese punto?",
     "options": [
       "De salto",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "blue_continuity_CLSF_05",
     "question": "En $x=a$ el límite bilateral existe y vale $8$.\n\nAdemás, $f(a)$ está definida, pero su valor es $2$.\n\n¿Qué tipo de **discontinuidad** corresponde?",
     "options": [
       "Esencial",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "blue_continuity_CLSF_06",
     "question": "Una función cumple $\\lim_{x \\to a^-} f(x) = 3$ y $\\lim_{x \\to a^+} f(x) = 3$.\n\nSin embargo, $f(a)$ no está definida.\n\n¿Cómo se clasifica en $x=a$?",
     "options": [
       "Removible",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "blue_continuity_CLSF_07",
     "question": "Una función cumple $\\lim_{x \\to a^-} f(x) = 4$ y $\\lim_{x \\to a^+} f(x) = 6$.\n\n¿Cómo se clasifica en $x=a$?",
     "options": [
       "Removible",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "blue_continuity_CLSF_08",
     "question": "Una función cumple $\\lim_{x \\to a^-} f(x) = +\\infty$ y $\\lim_{x \\to a^+} f(x) = 5$.\n\n¿Cómo se clasifica en $x=a$?",
     "options": [
       "Esencial",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "blue_continuity_CLSF_09",
     "question": "Una función cumple $\\lim_{x \\to a^-} f(x) = 2$ y $\\lim_{x \\to a^+} f(x) = 2$.\n\nAdemás, $f(a) = 2$.\n\n¿Cómo se clasifica en $x=a$?",
     "options": [
       "Removible",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "blue_continuity_CLSF_10",
     "question": "Una función cumple $\\lim_{x \\to a^-} f(x) = 5$ y $\\lim_{x \\to a^+} f(x) = 5$.\n\nSin embargo, $f(a) = 9$.\n\n¿Cómo se clasifica en $x=a$?",
     "options": [
       "Removible",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "blue_continuity_CLSF_11",
     "question": "Una función cumple $\\lim_{x \\to a^-} f(x) = -\\infty$ y $\\lim_{x \\to a^+} f(x) = -\\infty$.\n\n¿Cómo se clasifica en $x=a$?",
     "options": [
       "Continua",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "blue_continuity_CLSF_12",
     "question": "Se quiere estudiar la continuidad de la siguiente función:\n$$f(x) = x^3 - 2x + 1$$\n¿En qué conjunto es **continua**?",
     "options": [
       "Solo en $x > 0$",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "blue_continuity_CLSF_13",
     "question": "Esta función es una fracción, y el denominador limita dónde puede estar definida:\n$$r(x) = \\dfrac{1}{x - 3}$$\n¿En qué conjunto es **continua**?",
     "options": [
       "En todo $\\mathbb{R}$ sin excepciones",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "blue_continuity_CLSF_14",
     "question": "Esta función tiene un logaritmo, y su interior no admite cualquier valor:\n$$f(x) = \\ln(x)$$\n¿En qué conjunto es **continua**?",
     "options": [
       "En todo $\\mathbb{R}$",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "blue_continuity_CLSF_15",
     "question": "Esta función tiene una raíz de índice par, y eso condiciona lo que va debajo:\n$$f(x) = \\sqrt{x - 2}$$\n¿En qué conjunto es **continua**?",
     "options": [
       "$x \\geq 2$",

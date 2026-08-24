@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_rational_LEXI_01",
     "question": "La curva del gráfico se acerca a dos rectas sin llegar a tocarlas nunca.\n\n¿Cómo se llaman esas rectas?",
     "options": [
       "Tangentes",
@@ -30,6 +31,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_02",
     "question": "Toda función racional es un cociente de dos polinomios:\n$$f(x) = \\dfrac{P(x)}{Q(x)}$$\n¿Cuándo no está definida una **función racional**?",
     "options": [
       "Cuando $f(x) < 0$",
@@ -55,6 +57,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_03",
     "question": "En el gráfico, la curva se dispara justo al lado de un valor del eje horizontal.\n\n¿Cuántas **asíntotas verticales** tiene esta **función racional**?",
     "options": [
       "Dos",
@@ -85,6 +88,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_04",
     "question": "Esta función racional tiene una **asíntota horizontal**, una recta a la que se arrima cuando $x$ se va al infinito.\n$$f(x) = \\dfrac{1}{x}$$\n¿Cuál es su ecuación?",
     "options": [
       "$y = 1$",
@@ -110,6 +114,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_05",
     "question": "La asíntota vertical parte el gráfico de una función racional en tramos separados.\n\n¿Cuántas ramas separadas tiene la gráfica de esta **función racional**?",
     "options": [
       "2",
@@ -140,6 +145,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_06",
     "question": "Una función racional se arma dividiendo un polinomio por otro:\n$$f(x) = \\dfrac{p(x)}{q(x)}$$\n¿Por qué tiene restricciones en su **dominio**?",
     "options": [
       "Porque el numerador $p(x)$ puede ser cero",
@@ -165,6 +171,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_07",
     "question": "No todas las funciones racionales se comportan igual cerca de los bordes de su dominio.\n\n¿Puede una **función racional** **no** tener **asíntota vertical**?",
     "options": [
       "No, toda racional tiene al menos una asíntota vertical",
@@ -190,6 +197,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_08",
     "question": "El eje $Y$ corta al gráfico en un solo punto, cuando lo corta.\n\n¿Cuándo existe el intercepto con el eje $Y$ de una **función racional**?",
     "options": [
       "Siempre existe para cualquier racional",
@@ -215,6 +223,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_09",
     "question": "Dada la función:\n$$f(x) = \\dfrac{x - 4}{x + 2}$$\n¿Cuál es el intercepto con el eje $X$?",
     "options": [
       "$x = 4$",
@@ -240,6 +249,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_10",
     "question": "El nombre asíntota suele sugerir que la curva nunca llega a alcanzarla.\n\n¿Puede una **función racional** cruzar su propia **asíntota horizontal**?",
     "options": [
       "No, las asíntotas nunca se cruzan con la función",
@@ -265,6 +275,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_11",
     "question": "Con la función:\n$$f(x) = \\dfrac{1}{x-2}$$\n¿Qué ocurre con $f(x)$ cuando $x \\to 2^-$?",
     "options": [
       "La función tiende a $+\\infty$",
@@ -290,6 +301,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_12",
     "question": "Para la función:\n$$f(x) = \\dfrac{1}{x}$$\n¿Tiene **extremos** locales?",
     "options": [
       "Sí, tiene un mínimo en $x = 1$",
@@ -315,6 +327,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_13",
     "question": "Tomá en cuenta la función:\n$$f(x) = \\dfrac{x^2 - 1}{(x-1)(x+3)}$$\n¿Cuál es el **dominio**?",
     "options": [
       "$\\mathbb{R} \\setminus \\{1\\}$",
@@ -340,6 +353,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_14",
     "question": "Pequeños cambios en la fórmula de una racional mueven o dan vuelta su gráfico:\n$$f(x) = \\dfrac{1}{x-3}$$\nPartiendo de:\n$$g(x) = \\dfrac{1}{x}$$\n¿Qué transformación relaciona a $f$ con $g$?",
     "options": [
       "Desplazamiento horizontal de 3 unidades a la derecha",
@@ -365,6 +379,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_15",
     "question": "Un signo menos delante de una fracción afecta a toda la función:\n$$f(x) = -\\dfrac{1}{x}$$\nPartiendo de:\n$$g(x) = \\dfrac{1}{x}$$\n¿Qué transformación relaciona a $f$ con $g$?",
     "options": [
       "Reflexión respecto al eje $Y$",
@@ -390,6 +405,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_16",
     "question": "Una función racional tiene un denominador que se puede factorizar:\n$$f(x) = \\dfrac{x^2 + 1}{x^3 - x}$$\n¿Cuántas **asíntotas verticales** tiene?",
     "options": [
       "1 (en $x = 0$)",
@@ -415,6 +431,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_17",
     "question": "Dada la función:\n$$f(x) = \\dfrac{P(x)}{Q(x)}$$\n¿Cuándo NO tiene **asíntota horizontal**?",
     "options": [
       "Cuando el grado del numerador es mayor que el del denominador",
@@ -440,6 +457,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_18",
     "question": "Sea la función:\n$$f(x) = \\dfrac{x^2 + 1}{x}$$\n¿Cuál es la **asíntota oblicua**?",
     "options": [
       "$y = x + 1$",
@@ -465,6 +483,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_19",
     "question": "Esta forma general de racional muestra tres parámetros con papeles distintos:\n$$f(x) = \\dfrac{k}{x-a} + b$$\n¿Cuáles son la **asíntota vertical** y la asíntota horizontal?",
     "options": [
       "AV: $x = b$ y AH: $y = a$",
@@ -490,6 +509,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_20",
     "question": "Con la función:\n$$f(x) = \\dfrac{1}{x^2}$$\n¿Es una función par, impar, o ninguna de las dos?",
     "options": [
       "Impar, porque $f(-x) = -f(x)$",
@@ -515,6 +535,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_21",
     "question": "Dos fórmulas distintas pueden describir curvas casi iguales:\n$$f(x) = \\dfrac{1}{x}$$\nLa otra función es:\n$$g(x) = \\dfrac{x-1}{x(x-1)}$$\n¿Qué relación hay entre sus dominios?",
     "options": [
       "Son idénticos: $\\mathbb{R}\\setminus\\{0\\}$",
@@ -540,6 +561,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_22",
     "question": "El comportamiento de una racional depende sobre todo de lo que pasa abajo:\n$$f(x) = \\dfrac{P(x)}{Q(x)}$$\n¿Cuántas asíntotas verticales puede tener, a lo sumo?",
     "options": [
       "Exactamente una, siempre",
@@ -565,6 +587,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_23",
     "question": "Una función continua se puede dibujar sin levantar el lápiz dentro de cada tramo.\n\n¿Es una **función racional** siempre **continua** en su **dominio**?",
     "options": [
       "No, puede tener saltos dentro del dominio",
@@ -590,6 +613,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_24",
     "question": "No toda función racional termina acercándose a una recta horizontal.\n\n¿Cuándo una **función racional** tiene **asíntota oblicua** en vez de horizontal?",
     "options": [
       "Grado del numerador es uno más que el del denominador",
@@ -615,6 +639,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_25",
     "question": "Una función racional mantiene fijo su numerador mientras cambia el denominador:\n$$f(x) = \\dfrac{5}{x}$$\n¿Qué ocurre cuando $x \\to +\\infty$?",
     "options": [
       "Tiende a $5$",
@@ -640,6 +665,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_26",
     "question": "Una función racional tiene por numerador un número $k$ mayor que 1:\n$$f(x) = \\dfrac{k}{x}$$\nPartiendo de:\n$$g(x) = \\dfrac{1}{x}$$\n¿Qué transformación relaciona a $f$ con $g$?",
     "options": [
       "Estira la curva verticalmente",
@@ -665,6 +691,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_27",
     "question": "Dada la función:\n$$f(x) = \\dfrac{x^2 - 4}{x + 1}$$\n¿Cuántas raíces reales tiene?",
     "options": [
       "Una sola ($x = 2$)",
@@ -690,6 +717,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_28",
     "question": "Además de dónde están las asíntotas, importa hacia qué lado se escapan las ramas.\n\n¿Qué dice el signo del coeficiente principal del numerador sobre las ramas de una racional?",
     "options": [
       "Determina la posición de la asíntota vertical",
@@ -715,6 +743,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_29",
     "question": "Los puntos donde una racional no está definida no son todos del mismo tipo.\n\n¿Qué ocurre si tanto el numerador como el denominador se anulan en el mismo punto $x = c$?",
     "options": [
       "La función es cero en $x = c$",
@@ -740,6 +769,7 @@
     ]
   },
   {
+    "id": "white_rational_LEXI_30",
     "question": "Las afirmaciones generales sobre una familia de funciones tienen que valer para todos sus casos.\n\n¿Cuál de estas afirmaciones sobre **funciones racionales** es verdadera?",
     "options": [
       "Siempre tienen exactamente una asíntota vertical",

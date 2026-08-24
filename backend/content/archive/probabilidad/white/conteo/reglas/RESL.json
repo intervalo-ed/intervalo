@@ -373,5 +373,265 @@
     "tags": [
       "producto-con-restriccion"
     ]
+  },
+  {
+    "question": "Un código de acceso se arma con una vocal seguida de dos dígitos, y el primer dígito no puede ser $0$.\n\nLa tabla desglosa cuántas opciones admite cada posición.\n\n¿Cuántos códigos distintos se pueden formar?",
+    "options": [
+      "$450$",
+      "$405$",
+      "$500$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El primer dígito tiene 9 opciones, sin el 0, y el segundo tiene las 10.",
+    "feedback_incorrect": [
+      null,
+      "Ahí la restricción se aplicó a los dos dígitos, pero el enunciado la pone solo sobre el primero.",
+      "Ese total ignora la restricción y cuenta el primer dígito con las 10 cifras disponibles."
+    ],
+    "explanation": "La **regla del producto** con una restricción puntual solo reduce las opciones del paso afectado y deja el resto sin cambios.\n\nLa vocal aporta 5 opciones, el primer dígito 9 porque no puede ser $0$, y el segundo las 10:\n$$5 \\times 9 \\times 10 = 450$$\nSon 450 códigos posibles.\n\nTener el desglose en la tabla ayuda a ver que la condición pesa sobre una sola fila: aplicarla a todas las posiciones cambia un número que el enunciado nunca tocó.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "table": {
+      "columns": [
+        {
+          "icon": "🔒",
+          "label": "Posición"
+        },
+        {
+          "icon": null,
+          "label": "Opciones"
+        }
+      ],
+      "rows": [
+        [
+          "Vocal",
+          "$5$"
+        ],
+        [
+          "Dígito 1",
+          "$9$"
+        ],
+        [
+          "Dígito 2",
+          "$10$"
+        ],
+        [
+          "**Total**",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "cell",
+        "at": [
+          3,
+          1
+        ],
+        "by_option": [
+          "$450$",
+          "$405$",
+          "$500$"
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "total-desde-tabla"
+    ]
+  },
+  {
+    "question": "Un menú arma un combo eligiendo una entrada, un plato principal y un postre.\n\nLa tabla desglosa cuántas opciones ofrece cada paso.\n\n¿Cuántos combos distintos se pueden armar?",
+    "options": [
+      "$9$",
+      "$12$",
+      "$24$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Los tres pasos ocurren en el mismo combo, así que sus opciones se multiplican.",
+    "feedback_incorrect": [
+      "Ese total suma las opciones de cada paso en vez de multiplicarlas, como si el combo fuera una sola elección entre alternativas.",
+      "Ese total multiplica solo dos de los tres pasos y deja el postre afuera.",
+      null
+    ],
+    "explanation": "La **regla del producto** cuenta las combinaciones de decisiones sucesivas multiplicando las opciones de cada una.\n\nEl combo necesita entrada, plato y postre, los tres a la vez:\n$$4 \\times 3 \\times 2 = 24$$\nSon 24 combos posibles.\n\nCada fila de la tabla es un paso obligatorio, no una alternativa: por eso ninguna se puede dejar afuera del producto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "table": {
+      "columns": [
+        {
+          "icon": "🍽️",
+          "label": "Paso"
+        },
+        {
+          "icon": null,
+          "label": "Opciones"
+        }
+      ],
+      "rows": [
+        [
+          "Entrada",
+          "$4$"
+        ],
+        [
+          "Plato",
+          "$3$"
+        ],
+        [
+          "Postre",
+          "$2$"
+        ],
+        [
+          "**Total**",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "cell",
+        "at": [
+          3,
+          1
+        ],
+        "by_option": [
+          "$9$",
+          "$12$",
+          "$24$"
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "total-desde-tabla"
+    ]
+  },
+  {
+    "question": "Una cafetería arma un combo con una de sus bebidas y uno de sus sándwiches.\n\nComo alternativa ofrece platos del día, que ya vienen completos y no se combinan con nada.\n\n¿Cuántas formas de pedir hay en total?",
+    "options": [
+      "$17$",
+      "$12$",
+      "$60$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El combo multiplica bebida por sándwich, y esa cantidad se suma con los platos del día.",
+    "feedback_incorrect": [
+      null,
+      "Ese total cuenta solo los combos y deja afuera los platos del día, que son otra forma de pedir.",
+      "Ese total multiplica también por los platos del día, pero esos no son un tercer paso del combo."
+    ],
+    "explanation": "Cuando un problema mete una **regla del producto** adentro de una rama de una **regla de la suma**, primero se resuelve cada producto y después se suman las ramas excluyentes.\n\nEl combo tiene $3 \\times 4 = 12$ variantes, y los platos del día agregan 5 alternativas aparte:\n$$3 \\times 4 + 5 = 17$$\nHay 17 formas de pedir.\n\nLas dos primeras filas de la tabla son pasos del mismo combo; la tercera es una rama alternativa. Tratarlas todas igual es lo que produce los dos errores clásicos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "table": {
+      "columns": [
+        {
+          "icon": "☕",
+          "label": "Alternativa"
+        },
+        {
+          "icon": null,
+          "label": "Opciones"
+        }
+      ],
+      "rows": [
+        [
+          "Combo: bebida",
+          "$3$"
+        ],
+        [
+          "Combo: sándwich",
+          "$4$"
+        ],
+        [
+          "Plato del día",
+          "$5$"
+        ],
+        [
+          "**Total**",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "cell",
+        "at": [
+          3,
+          1
+        ],
+        "by_option": [
+          "$17$",
+          "$12$",
+          "$60$"
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "total-desde-tabla"
+    ]
+  },
+  {
+    "question": "Una señal se arma con dos franjas de colores distintos, elegidos entre 5 colores, y un número del 1 al 10.\n\nLa tabla desglosa cuántas opciones admite cada parte de la señal.\n\n¿Cuántas señales distintas se pueden armar?",
+    "options": [
+      "$50$",
+      "$250$",
+      "$200$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La segunda franja tiene 4 colores disponibles porque uno ya se usó en la primera.",
+    "feedback_incorrect": [
+      "Ese total deja afuera la segunda franja y cuenta la señal como si tuviera dos partes.",
+      "Ese total le da 5 colores a la segunda franja, pero uno ya se usó y los colores tienen que ser distintos.",
+      null
+    ],
+    "explanation": "La **regla del producto** con una restricción de no repetición reduce las opciones del paso que sufre la condición, no las de todos.\n\nLa primera franja tiene 5 colores, la segunda 4 porque uno ya se usó, y el número aporta 10:\n$$5 \\times 4 \\times 10 = 200$$\nSon 200 señales posibles.\n\nEl número no se ve afectado por la condición de los colores, así que conserva sus 10 opciones enteras.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "table": {
+      "columns": [
+        {
+          "icon": "🚩",
+          "label": "Parte"
+        },
+        {
+          "icon": null,
+          "label": "Opciones"
+        }
+      ],
+      "rows": [
+        [
+          "Franja 1",
+          "$5$"
+        ],
+        [
+          "Franja 2",
+          "$4$"
+        ],
+        [
+          "Número",
+          "$10$"
+        ],
+        [
+          "**Total**",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "cell",
+        "at": [
+          3,
+          1
+        ],
+        "by_option": [
+          "$50$",
+          "$250$",
+          "$200$"
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "total-desde-tabla"
+    ]
   }
 ]

@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_product_LEXI_01",
     "question": "El producto escalar de dos vectores devuelve un número; el producto cruz no.\n$$\\vec{u} \\times \\vec{v} = \\vec{w}$$\n¿Por qué su resultado es otro vector?",
     "options": [
       "Porque devuelve un vector perpendicular a los dos originales",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "blue_product_LEXI_02",
     "question": "El producto cruz devuelve un objeto distinto del que devuelve el producto escalar.\n$$\\vec{u} \\times \\vec{v} = \\vec{w}$$\n¿Qué información necesita ese resultado que un número no podría guardar?",
     "options": [
       "El orden en que se escribieron los dos factores",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "blue_product_LEXI_03",
     "question": "Un vector perpendicular a otros dos queda determinado salvo por su sentido y su tamaño.\n$$\\vec{w} \\perp \\vec{u}, \\qquad \\vec{w} \\perp \\vec{v}$$\n¿Qué agrega el producto cruz a esa descripción?",
     "options": [
       "Fija únicamente la dirección, y deja el sentido sin definir",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "blue_product_LEXI_04",
     "question": "El producto escalar y el producto cruz responden preguntas distintas sobre el mismo par de vectores.\n$$\\vec{u} \\cdot \\vec{v} \\qquad \\vec{u} \\times \\vec{v}$$\n¿Qué distingue a los dos resultados?",
     "options": [
       "Que uno es un número y el otro es un vector con dirección propia",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "blue_product_LEXI_05",
     "question": "Si el producto cruz devolviera un número, se perdería una de sus aplicaciones centrales.\n$$\\vec{u} \\times \\vec{v} = \\vec{w}$$\n¿Cuál de estas cosas dejaría de poder hacerse?",
     "options": [
       "Decidir si los dos vectores originales son paralelos",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "blue_product_LEXI_06",
     "question": "El producto cruz no está disponible en cualquier espacio.\n$$\\vec{u} \\times \\vec{v} \\in \\mathbb{R}^3$$\n¿Por qué solo está definido ahí?",
     "options": [
       "Porque hace falta una tercera dirección para que exista una perpendicular a los otros dos",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "blue_product_LEXI_07",
     "question": "En el plano, dos vectores no paralelos ya ocupan todas las direcciones disponibles.\n$$\\vec{u}, \\vec{v} \\in \\mathbb{R}^{2}$$\n¿Por qué eso impide definir un producto cruz ahí?",
     "options": [
       "Porque el plano no admite vectores de tres componentes",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "blue_product_LEXI_08",
     "question": "El producto cruz necesita que sobre exactamente una dirección después de fijar dos.\n$$\\mathbb{R}^{3}$$\n¿Qué pasaría en un espacio de cuatro dimensiones?",
     "options": [
       "No sobraría ninguna dirección perpendicular a los dos vectores",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "blue_product_LEXI_09",
     "question": "Dos vectores del plano se pueden pensar apoyados en el espacio, con la tercera componente nula.\n$$(a,b,0)$$\n¿Qué se obtiene al calcular su producto cruz?",
     "options": [
       "Un vector perpendicular al plano, con las dos primeras componentes nulas",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "blue_product_LEXI_10",
     "question": "El producto escalar no tiene la misma restricción que el producto cruz.\n$$\\vec{u} \\cdot \\vec{v} \\in \\mathbb{R}$$\n¿Por qué el escalar sí se define en cualquier dimensión?",
     "options": [
       "Porque solo se puede calcular entre vectores perpendiculares",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "blue_product_LEXI_11",
     "question": "En el producto cruz, invertir el orden de los factores cambia el resultado.\n$$\\vec{u} \\times \\vec{v} \\neq \\vec{v} \\times \\vec{u}$$\n¿Por qué el orden importa?",
     "options": [
       "Porque apuntan en sentidos opuestos: $\\vec{u}\\times\\vec{v} = -(\\vec{v}\\times\\vec{u})$",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "blue_product_LEXI_12",
     "question": "Invertir el orden de los factores en un producto cruz cambia el resultado.\n$$\\vec{u} \\times \\vec{v} \\neq \\vec{v} \\times \\vec{u}$$\n¿Qué es lo que cambia exactamente?",
     "options": [
       "La dirección del vector resultante, que deja de ser perpendicular",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "blue_product_LEXI_13",
     "question": "El producto escalar da lo mismo en cualquier orden y el producto cruz no.\n$$\\vec{u} \\cdot \\vec{v} = \\vec{v} \\cdot \\vec{u}$$\n¿Por qué el escalar sí conmuta?",
     "options": [
       "Porque su resultado es siempre positivo, sin importar el orden",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "blue_product_LEXI_14",
     "question": "Un mismo par de vectores admite dos direcciones perpendiculares opuestas entre sí.\n$$\\vec{w} \\qquad -\\vec{w}$$\n¿Cómo se decide cuál de las dos devuelve el producto cruz?",
     "options": [
       "Por el orden en que se escriben los dos factores",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "blue_product_LEXI_15",
     "question": "Un caso particular del producto cruz se puede resolver sin ninguna cuenta.\n$$\\vec{u} \\times \\vec{u}$$\n¿Cuánto vale?",
     "options": [
       "El propio vector, porque multiplicar por sí mismo no lo cambia",

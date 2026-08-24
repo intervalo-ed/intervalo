@@ -386,6 +386,11 @@ class Exercise(Base):
     # authoring-context.md sección Gráficos); ausente/false = comportamiento
     # actual sin cambios.
     graph_free_aspect = Column(Boolean, nullable=True)
+    # Tabla de datos embebida en el enunciado, serializada como JSON (columnas,
+    # filas y la columna que pinta cada opción). Ver authoring-context.md,
+    # sección Tablas. Se llama table_data y no table para no confundirse con el
+    # __table__ de SQLAlchemy; en el JSON de autoría y en la API es "table".
+    table_data = Column(Text, nullable=True)
     explanation = Column(Text, nullable=True)
     tags = Column(Text, nullable=True)
     # Estado editorial del contenido (viene del JSON de autoría, ver
