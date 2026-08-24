@@ -83,6 +83,20 @@ class User(Base):
     streak_email_sent_tier = Column(Integer, nullable=True)
     streak_email_sent_at = Column(DateTime, nullable=True)
 
+    # Atribución de primer contacto: por qué grupo de WhatsApp llegó la persona
+    # ("uba042") y su prefijo de universidad ("uba"). Lo manda el cliente al
+    # completar el onboarding, desde lo que capturó al aterrizar (ver
+    # web/src/lib/analytics/attribution.ts).
+    #
+    # Se escriben UNA sola vez, solo si están en NULL (ver enroll_user): gana el
+    # primer contacto, igual que el register_once del cliente. Si alguien vuelve
+    # a entrar por otro link, no se le pisa el origen real.
+    #
+    # NULL es esperable en dos casos: usuarios anteriores a la columna, y quien
+    # llegó sin `?g=` (link directo, boca a boca).
+    first_group_id = Column(String(20), nullable=True, index=True)
+    first_utm_source = Column(String(20), nullable=True)
+
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 

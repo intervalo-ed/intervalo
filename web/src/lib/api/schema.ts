@@ -965,6 +965,10 @@ export interface components {
             motivation?: string | null;
             /** Known Units */
             known_units?: string | null;
+            /** First Group Id */
+            first_group_id?: string | null;
+            /** First Utm Source */
+            first_utm_source?: string | null;
             /** Intro Item Correct */
             intro_item_correct?: boolean | null;
             /** Attempts */

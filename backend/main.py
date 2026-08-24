@@ -453,6 +453,10 @@ class EnrollmentRequest(BaseModel):
     motivation: str | None = None
     # Unidades declaradas como conocidas, claves del catálogo separadas por coma.
     known_units: str | None = None
+    # Atribución de primer contacto, capturada al aterrizar (ver
+    # web/src/lib/analytics/attribution.ts). Se persiste una sola vez por usuario.
+    first_group_id: str | None = None
+    first_utm_source: str | None = None
     # Resultado del ejercicio de prueba del onboarding (primer ítem del curso).
     # True = acertó al primer intento, False = falló alguna vez, None = sin dato.
     intro_item_correct: bool | None = None
@@ -507,6 +511,21 @@ def enroll_user(
     # Save display name from tutorial
     if body.name:
         current_user.display_name = body.name
+
+    # Atribución de primer contacto: gana el primer valor que se haya guardado,
+    # nunca se pisa. El cliente ya aplica la misma regla de su lado
+    # (register_once), pero repetirla acá la vuelve independiente de que el
+    # localStorage se haya limpiado entre el aterrizaje y el alta.
+    #
+    # El id se valida contra el mismo formato que usa el cliente (prefijo de
+    # universidad + número); lo que no matchee se descarta en vez de guardarse,
+    # así un parámetro basureado no se convierte en una cohorte fantasma.
+    if current_user.first_group_id is None and body.first_group_id:
+        if re.fullmatch(r"[a-z]{2,6}\d{1,5}", body.first_group_id):
+            current_user.first_group_id = body.first_group_id
+    if current_user.first_utm_source is None and body.first_utm_source:
+        if re.fullmatch(r"[a-z]{2,20}", body.first_utm_source):
+            current_user.first_utm_source = body.first_utm_source
 
     try:
         db.commit()
@@ -1927,3 +1946,91 @@ def submit_feedback(
     _send_feedback_email(body.categoria, current_user.id, mensaje)
 
     return {"success": True}
+
+
+# ── Panel de métricas ─────────────────────────────────────────────────────────
+#
+# Un panel de solo lectura detrás de un link secreto, montado acá y no en un
+# servicio aparte: la sesión de base, los modelos y el pipeline de deploy ya
+# existen, y los datos son lo bastante chicos como para que agregarlos no
+# justifique una infraestructura propia (ver backend/metrics/queries.py).
+#
+# La ruta es `def` (no `async def`), así que FastAPI la corre en el threadpool:
+# una consulta lenta del panel no bloquea el event loop de la API.
+
+# El panel hace un puñado de SELECT completos por carga. Un F5 repetido no tiene
+# por qué pegarle a la base cada vez, y los números no cambian de un segundo al
+# otro. El backend corre con una réplica, así que un dict en proceso alcanza.
+_PANEL_TTL_SECONDS = 120
+_panel_cache: dict[str, tuple[float, dict]] = {}
+
+
+def _panel_payload(week, db: Session) -> dict:
+    from metrics import queries
+
+    key = week.isoformat()
+    hit = _panel_cache.get(key)
+    if hit and time.time() - hit[0] < _PANEL_TTL_SECONDS:
+        return hit[1]
+    payload = queries.build(db, week)
+    _panel_cache.clear()  # una sola semana en memoria; el panel se mira de a una
+    _panel_cache[key] = (time.time(), payload)
+    return payload
+
+
+def _panel_week(w: str | None):
+    """`?w=YYYY-MM-DD` → el lunes de esa semana. Sin parámetro, la semana en
+    curso. Una fecha inválida cae a la semana actual en vez de tirar 422: es un
+    panel, no una API, y un link mal pegado tiene que mostrar algo."""
+    from datetime import date as _date
+
+    from metrics.queries import week_start
+    from metrics.render import week_of_today
+
+    if w:
+        try:
+            return week_start(_date.fromisoformat(w))
+        except ValueError:
+            pass
+    return week_of_today()
+
+
+def _require_panel_token(token: str) -> None:
+    """404 y no 403, por el mismo motivo que `require_dev_endpoints`: una ruta
+    que no existe no le confirma a nadie que exista en otro lado. Vale también
+    cuando la variable no está configurada — un entorno nuevo no expone el panel
+    por olvidarse de setearla."""
+    expected = os.environ.get("DASHBOARD_TOKEN")
+    if not expected or not hmac.compare_digest(token, expected):
+        raise HTTPException(status_code=404, detail="Not Found")
+
+
+_PANEL_HEADERS = {
+    "Cache-Control": "private, no-store",
+    "X-Robots-Tag": "noindex, nofollow",
+}
+
+
+@app.get("/panel/{token}", response_class=HTMLResponse, include_in_schema=False)
+def panel_page(token: str, w: str | None = None, db: Session = Depends(get_db)):
+    from metrics.render import page
+
+    _require_panel_token(token)
+    week = _panel_week(w)
+    return HTMLResponse(
+        page(_panel_payload(week, db), token=token),
+        headers=_PANEL_HEADERS,
+    )
+
+
+@app.get("/panel/{token}/data.json", include_in_schema=False)
+def panel_data(token: str, w: str | None = None, db: Session = Depends(get_db)):
+    """El mismo payload que la página, en JSON.
+
+    Es lo que hace que el reporte del domingo salga de una sola fuente en vez de
+    copiar doscientos números a mano desde cuatro sistemas, que es como se armó
+    el de la semana del 22/08."""
+    from fastapi.responses import JSONResponse
+
+    _require_panel_token(token)
+    return JSONResponse(_panel_payload(_panel_week(w), db), headers=_PANEL_HEADERS)

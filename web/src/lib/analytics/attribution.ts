@@ -27,6 +27,62 @@ export const FIRST_GROUP_ID = "first_group_id"
 export const GROUP_ID_PATTERN = /^([a-z]{2,6})(\d{1,5})$/
 
 /**
+ * Copia de la atribución en localStorage, aparte de las super properties de
+ * PostHog.
+ *
+ * PostHog la tiene, pero para el análisis por cohortes no alcanza: subcuenta
+ * ~2x por bloqueadores, así que las tasas por origen salen sobre un denominador
+ * que no es el real, y cruzarla con comportamiento (sesiones, retención, XP)
+ * obliga a un join manual entre dos sistemas. Con esta copia el backend la
+ * guarda en `users.first_group_id` al completar el onboarding y el origen pasa
+ * a ser una columna más.
+ *
+ * Se lee al dar de alta, no al aterrizar: entre las dos cosas está el OAuth de
+ * Google, que se lleva puesto el query param.
+ */
+const ATTRIBUTION_KEYS = {
+  group: "first-group-id",
+  utm: "first-utm-source",
+} as const
+
+/**
+ * Guarda el origen la PRIMERA vez y nunca lo pisa, igual que el
+ * `register_once` de PostHog: si la persona vuelve a entrar por otro link, el
+ * origen real sigue siendo el primero.
+ */
+export function rememberAttribution({
+  groupId,
+  utmSource,
+}: {
+  groupId?: string | null
+  utmSource?: string | null
+}) {
+  try {
+    if (groupId && !localStorage.getItem(ATTRIBUTION_KEYS.group)) {
+      localStorage.setItem(ATTRIBUTION_KEYS.group, groupId)
+    }
+    if (utmSource && !localStorage.getItem(ATTRIBUTION_KEYS.utm)) {
+      localStorage.setItem(ATTRIBUTION_KEYS.utm, utmSource)
+    }
+  } catch {
+    // Safari en modo privado tira al escribir. La atribución es un extra: que
+    // falle no puede romper el aterrizaje.
+  }
+}
+
+export function readAttribution(): { groupId?: string; utmSource?: string } {
+  if (typeof window === "undefined") return {}
+  try {
+    return {
+      groupId: localStorage.getItem(ATTRIBUTION_KEYS.group) ?? undefined,
+      utmSource: localStorage.getItem(ATTRIBUTION_KEYS.utm) ?? undefined,
+    }
+  } catch {
+    return {}
+  }
+}
+
+/**
  * Primera vez que vimos a esta persona usando la app instalada. Se guarda en el
  * perfil con $set_once para poder segmentar sin depender del evento puntual.
  */

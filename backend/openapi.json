@@ -2380,6 +2380,28 @@
             ],
             "title": "Known Units"
           },
+          "first_group_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "First Group Id"
+          },
+          "first_utm_source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "First Utm Source"
+          },
           "intro_item_correct": {
             "anyOf": [
               {
