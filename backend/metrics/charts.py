@@ -208,6 +208,11 @@ def lines(series: list[dict], x_labels: list[str], *, suffix: str = "%",
     Va como `<title>` dentro del círculo: es el tooltip nativo del navegador,
     así que no necesita JS ni se rompe si el panel se guarda como archivo.
 
+    `weak` (opcional) es un booleano por punto: marca los que se apoyan en poca
+    base. Salen con el círculo hueco y la línea punteada. No es lo mismo que un
+    None —el dato existe— pero un 0% sobre 4 personas dibujado igual de firme
+    que uno sobre 95 hace leer como derrumbe lo que es ruido de la cola.
+
     `mono=True` dibuja todas las series con el mismo color y una rampa de
     intensidad (ver `ramp`)."""""
     pts_all = [v for s in series for v in s["values"] if v is not None]
@@ -234,6 +239,13 @@ def lines(series: list[dict], x_labels: list[str], *, suffix: str = "%",
     for si, s in enumerate(series):
         color = MONO if mono else SERIES[si % len(SERIES)]
         op = alphas[si]
+        weak = s.get("weak") or [False] * len(s["values"])
+        if mono and len(series) > 1:
+            lo_w, hi_w = RAMP_WIDTH
+            w = round(lo_w + (hi_w - lo_w) * si / (len(series) - 1), 2)
+        else:
+            w = 2
+
         seg, dots = [], []
         for i, v in enumerate(s["values"]):
             if v is None:
@@ -244,29 +256,40 @@ def lines(series: list[dict], x_labels: list[str], *, suffix: str = "%",
             seg.append((x, y))
             tip = (s.get("tips") or [None] * len(s["values"]))[i]
             titulo = f"<title>{esc(tip)}</title>" if tip else ""
+            # El punto flojo va hueco: relleno del fondo de la tarjeta y borde
+            # del color de la serie. Se distingue del sólido de un vistazo sin
+            # necesitar leyenda.
+            cara = (f'fill="var(--surface)" stroke="{color}" stroke-opacity="{op}" '
+                    f'stroke-width="1.4"' if weak[i]
+                    else f'fill="{color}" fill-opacity="{op}"')
             # Dos círculos: el visible (chico, para no tapar la línea) y uno
             # transparente y grande que es el blanco del mouse — con r=2.8 hay
             # que acertarle a 5 píxeles y el tooltip no aparece nunca.
             dots.append(
-                f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2.8" fill="{color}" '
-                f'fill-opacity="{op}"/>'
+                f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2.8" {cara}/>'
                 f'<circle cx="{x:.1f}" cy="{y:.1f}" r="11" fill="transparent" '
                 f'style="cursor:help">{titulo}</circle>')
-        d, pen_up = [], True
-        for p in seg:
+
+        # Dos trazos por serie: el sólido y el punteado. Un punto flojo ensucia
+        # los dos segmentos que toca, así que ambos salen punteados — el tramo
+        # dibujado con línea llena es exactamente el que se puede leer entero.
+        runs: dict[bool, list[str]] = {False: [], True: []}
+        prev = None
+        for i, p in enumerate(seg):
             if p is None:
-                pen_up = True
+                prev = None
                 continue
-            d.append(("M" if pen_up else "L") + f"{p[0]:.1f},{p[1]:.1f}")
-            pen_up = False
-        if d:
-            if mono and len(series) > 1:
-                lo_w, hi_w = RAMP_WIDTH
-                w = round(lo_w + (hi_w - lo_w) * si / (len(series) - 1), 2)
-            else:
-                w = 2
-            out.append(f'<path d="{" ".join(d)}" fill="none" stroke="{color}" '
-                       f'stroke-opacity="{op}" stroke-width="{w}" '
+            if prev is not None:
+                a = seg[prev]
+                runs[weak[i] or weak[prev]].append(
+                    f"M{a[0]:.1f},{a[1]:.1f}L{p[0]:.1f},{p[1]:.1f}")
+            prev = i
+        for dashed, cmds in ((False, runs[False]), (True, runs[True])):
+            if not cmds:
+                continue
+            dash = f' stroke-dasharray="{w * 2:.1f} {w * 1.6:.1f}"' if dashed else ""
+            out.append(f'<path d="{"".join(cmds)}" fill="none" stroke="{color}" '
+                       f'stroke-opacity="{op}" stroke-width="{w}"{dash} '
                        f'stroke-linejoin="round" stroke-linecap="round"/>')
         out.extend(dots)
 

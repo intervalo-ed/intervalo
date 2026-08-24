@@ -12,6 +12,7 @@ from datetime import date, timedelta
 
 from . import charts as ch
 from .charts import esc, num
+from .queries import FIRST_WEEK
 
 CSS = """
 :root{
@@ -304,6 +305,23 @@ _COHORT_NOTE = (
     'y no vuelve.</p>')
 
 
+def _flojo(pt: dict, base: int) -> bool:
+    """Un punto de la curva es «flojo» cuando menos de la mitad de la cohorte
+    llegó a vivir ese día.
+
+    La curva se apoya en `obs`, que se achica con k porque dentro de una misma
+    semana la gente se activa en días distintos. Eso está bien —lo contrario
+    contaría como «no volvió» a quien todavía no llegó a esa fecha— pero deja
+    una cola sostenida por poquísima gente: en la cohorte del 10/08 el D+13 son
+    4 personas de 23, y dibujado con el mismo trazo firme que el D+1 se lee
+    como un derrumbe en vez de como ruido.
+
+    La mitad y no un mínimo absoluto para que el umbral escale con el tamaño de
+    la cohorte: 12 personas son cola en una tanda de 95 y son casi todo en una
+    de 23."""
+    return pt["pct"] is not None and pt["obs"] * 2 < base
+
+
 def _section(n: int, title: str, body: str, sub: str = "", anchor: str = "") -> str:
     a = f' id="{esc(anchor)}"' if anchor else ""
     s = f'<p class="sub">{sub}</p>' if sub else ""
@@ -317,13 +335,16 @@ def page(p: dict, *, token: str) -> str:
     week = date.fromisoformat(m["week"])
     labels = m["labels"]
 
-    # Navegación de semanas: la actual y las cuatro anteriores. No hay "siguiente"
-    # más allá de hoy — una semana futura solo puede mostrar ceros y se lee como
-    # una caída.
+    # Navegación de semanas: la actual y las cuatro anteriores, sin bajar de
+    # FIRST_WEEK (ver su comentario: antes de eso las cohortes son de 1 y 2
+    # personas). No hay "siguiente" más allá de hoy — una semana futura solo
+    # puede mostrar ceros y se lee como una caída.
     today_week = week_of_today()
     nav = []
     for i in range(4, -1, -1):
         w = today_week - timedelta(weeks=i)
+        if w < FIRST_WEEK:
+            continue
         lab = f"{w.strftime('%d/%m')}"
         if w == week:
             nav.append(f'<span class="cur">{lab}</span>')
@@ -374,7 +395,8 @@ def page(p: dict, *, token: str) -> str:
 
     # 2 · Cohortes
     r = p["retencion"]
-    def tip(label: str, pt: dict) -> str:
+
+    def tip(label: str, pt: dict, base: int) -> str:
         """Tooltip de un punto, escrito como frase.
 
         El eje dice «D+3» y eso no significa nada solo, así que cada tooltip
@@ -396,16 +418,31 @@ def page(p: dict, *, token: str) -> str:
                 f'{cab}\n\n'
                 f'Todavía no hay a quién medir: nadie de esta cohorte llegó a cumplir '
                 f'{k} días desde su primera sesión.')
+        falta = base - obs
+        # Por qué el denominador no es la cohorte entera, dicho con el número
+        # que falta: "83 de 95" no explica nada, "las otras 12 todavía no
+        # llegaron a ese día" sí.
+        porque = (
+            f'La cohorte son {base} personas, pero {falta} todavía no cumplieron '
+            f'{k} días desde que arrancaron, así que su D+{k} no pasó todavía. '
+            f'Meterlas en el denominador las contaría como «no volvió» y '
+            f'hundiría la curva por calendario, no por comportamiento.'
+            if falta else
+            f'Acá el denominador es la cohorte entera: las {base} ya cumplieron '
+            f'{k} días desde que arrancaron.')
+        cola = ('\n\nTramo punteado: menos de la mitad de la cohorte llegó a este día, '
+                'así que el porcentaje se mueve mucho con pocos casos.'
+                if _flojo(pt, base) else '')
         return (
             f'{cab}\n\n'
             f'{n} de {obs} personas volvieron a estudiar {cuando}  ({num(pt["pct"], "%")}).\n\n'
-            f'El denominador son las {obs} que ya llegaron a ese día, no toda la cohorte: '
-            f'quien arrancó anteayer todavía no puede tener un D+{k}.')
+            f'{porque}{cola}')
 
     ret_series = [{
         "label": f'{c["label"]} (n={c["n"]})',
         "values": [pt["pct"] for pt in c["points"]],
-        "tips": [tip(c["label"], pt) for pt in c["points"]],
+        "tips": [tip(c["label"], pt, c["n"]) for pt in c["points"]],
+        "weak": [_flojo(pt, c["n"]) for pt in c["points"]],
     } for c in r["cohortes"]]
     co = p["cohortes"]
     atr = co["atribucion"]
@@ -426,9 +463,15 @@ def page(p: dict, *, token: str) -> str:
         '<p class="note">El 100% son <b>los que terminaron alguna sesión</b>, no los que se dieron '
         'de alta: quien se registró y nunca estudió no tiene nada que repetir, y cuánta gente '
         'llega a estudiar ya se mide en el embudo. La cohorte sigue siendo la semana de alta, así '
-        'que se comparan tandas de usuarios aunque el reloj de cada uno arranque cuando se activó. '
-        'El denominador de cada k son solo los que ya vivieron ese día. <b>Pasá el mouse por un '
-        'punto</b> para ver el detalle.</p>'
+        'que se comparan tandas de usuarios aunque el reloj de cada uno arranque cuando se activó.</p>'
+        '<p class="note"><b>El denominador de cada día no es la cohorte entera</b>, y por eso el '
+        'n de la leyenda no coincide con el del tooltip: son solo los que ya vivieron ese día. '
+        'Dentro de una misma semana cada uno se activa un día distinto, así que quien estudió por '
+        'primera vez anteayer todavía no puede tener un D+5 — y contarlo como «no volvió» hundiría '
+        'la curva por calendario y no por comportamiento. Es también por eso que cada línea termina '
+        'en un k distinto. <b>Donde la línea va punteada y el punto hueco</b>, menos de la mitad de '
+        'la cohorte llegó a ese día: el dato existe pero se mueve mucho con pocos casos. '
+        '<b>Pasá el mouse por un punto</b> para ver el detalle.</p>'
         '</div>',
         # A ancho completo y una debajo de la otra: son el corte principal de la
         # semana y en media pantalla no entraban sin scrollear.
