@@ -392,23 +392,29 @@ def _create_topic_units(
     return types_for_topic
 
 
-# Ítem del ejercicio de prueba del onboarding, por curso. Para analisis/algebra
-# es el primer ítem real del curso (primer skill del primer tema del cinturón
-# blanco) y se siembra su UnitState. Mapea uno a uno con el ejercicio que
-# muestra el wizard en el front (ver ONBOARDING_EXERCISES).
+# Ítem del ejercicio de prueba del onboarding, por curso. Mapea uno a uno con el
+# ejercicio que muestra el wizard en el front (ver ONBOARDING_EXERCISES): si allá
+# se cambia el ejercicio, acá hay que mover el tema, o el Answer queda etiquetado
+# con un ítem que no es el que la persona respondió.
 #
-# Probabilidad es la excepción: el ejercicio del wizard (moneda 2 veces, al
-# menos una cara) corresponde a Laplace, un tema del cinturón azul — sembrarlo
-# crearía sus units el día cero y metería un ítem del azul en la primera sesión,
-# fuera de orden. Por eso está en _INTRO_SEEDLESS_COURSES: el Answer se registra
-# con estas etiquetas para auditoría, pero no se toca ningún UnitState y la
-# progresión arranca virgen en blanco/conteo.
+# Los tres caen en el cinturón BLANCO de su curso, y eso es lo que importa: no
+# hace falta que sea el primer tema de la unidad, porque sembrar un tema blanco
+# no adelanta contenido y la primera sesión desbloquea el resto igual
+# (_ensure_active_units).
+#
+# Probabilidad supo ser la excepción: su ejercicio era Laplace, cinturón AZUL, y
+# sembrarlo habría metido un ítem del azul en la primera sesión, eso sí fuera de
+# orden — se registraba el Answer sin tocar UnitState. Ahora es blanco/conteo y
+# la excepción no hace falta.
 _INTRO_ITEM_BY_COURSE: dict[str, tuple[TopicKey, str]] = {
     "analisis": (TopicKey(belt=Belt.WHITE, topic="definition"), "LEXI"),
-    "algebra": (TopicKey(belt=Belt.WHITE, topic="powers"), "LEXI"),
-    "probabilidad": (TopicKey(belt=Belt.BLUE, topic="laplace"), "RESL"),
+    "algebra": (TopicKey(belt=Belt.WHITE, topic="absolute_value"), "RESL"),
+    "probabilidad": (TopicKey(belt=Belt.WHITE, topic="reglas"), "FORM"),
 }
-_INTRO_SEEDLESS_COURSES = {"probabilidad"}
+# Vacío desde que probabilidad dejó de apuntar al azul. Se conserva el mecanismo
+# porque el día que un ejercicio del wizard vuelva a caer fuera del blanco, esta
+# es la salida.
+_INTRO_SEEDLESS_COURSES: set[str] = set()
 # Fallback para cursos no mapeados (o datos viejos sin curso).
 _INTRO_ITEM_DEFAULT = _INTRO_ITEM_BY_COURSE["analisis"]
 
