@@ -22,6 +22,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import time
 from pathlib import Path
 from typing import Any
 
@@ -437,11 +438,26 @@ def seed_one_course(slug: str, db: DBSession, prune: bool = False) -> None:
     print(f"[seed] {slug}")
     # course.json es la fuente única de estructura y lo consumían cuatro pasos
     # distintos; se parsea una vez y se pasa hacia abajo.
+    #
+    # Los tiempos por fase van al log porque este seed corre en cada arranque
+    # y define cuánto tarda el proceso en atender: sin separar carga, upsert y
+    # commit no se sabe cuál de los tres hay que optimizar.
+    t0 = time.perf_counter()
     data = _load_json(course_dir / "course.json")
+    t_load = time.perf_counter()
     course = seed_course(db, data)
     seed_belt_info(db, course, data)
     seed_exercises(db, course, course_dir, data, prune=prune)
+    t_upsert = time.perf_counter()
+    # Un solo commit por curso, prune incluido: mantiene la lectura atómica
+    # para las conexiones que estén sirviendo mientras esto corre en segundo
+    # plano (ver el docstring de `lifespan` en main.py). No partirlo.
     db.commit()
+    print(
+        f"[seed] {slug} load {t_load - t0:.2f}s "
+        f"upsert {t_upsert - t_load:.2f}s commit {time.perf_counter() - t_upsert:.2f}s",
+        flush=True,
+    )
 
 
 def seed_all(db: DBSession, prune: bool = False) -> None:

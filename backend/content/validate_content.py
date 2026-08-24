@@ -41,7 +41,7 @@ for _stream in (sys.stdout, sys.stderr):
     if hasattr(_stream, "reconfigure"):
         _stream.reconfigure(encoding="utf-8", errors="replace")
 
-ALL_CHECKS = ["options", "explanations", "questions", "feedbacks", "structure", "tables", "ids", "duplicates"]
+ALL_CHECKS = ["options", "explanations", "questions", "feedbacks", "structure", "tables", "ids", "duplicates", "graphs"]
 
 # --- Umbrales calibrables -----------------------------------------------------
 
@@ -1220,6 +1220,46 @@ def check_tables(items, file, F: Findings) -> None:
 NUMBER_RE = re.compile(r"-?\d+")
 
 
+# Funciones que mathjs (el motor de `web/src/components/math-graph.tsx`) sabe
+# evaluar. Fuera de esta lista el gráfico NO se dibuja: toRealFn atrapa la
+# excepción y devuelve NaN para todo x, así que la curva sale en blanco, sin
+# ningún error visible en consola ni en los logs.
+#
+# `Piecewise` no es de mathjs: lo desarma parsePiecewise antes de compilar cada
+# rama. `None` es el hueco deliberado de una discontinuidad evitable (da NaN a
+# propósito, ver el comentario de toRealFn).
+MATHJS_FNS = {
+    "abs", "cos", "exp", "log", "log10", "log2", "pow", "sign", "sin", "sqrt",
+    "tan", "Piecewise",
+}
+MATHJS_SYMS = {"x", "e", "pi", "None"}
+# Errores clásicos de traducción desde SymPy/LaTeX, con su equivalente real.
+GRAPH_FN_ALIAS = {"ln": "log(x) (en mathjs log es el natural)",
+                  "Abs": "abs", "Exp": "exp", "Sqrt": "sqrt", "Log": "log"}
+GRAPH_IDENT_RE = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
+
+
+def check_graphs(items, file, F: Findings) -> None:
+    """Cada nombre que aparece en `graph_fn` tiene que existir en mathjs.
+
+    Detectado en agosto 2026 por el reporte de un alumno ("no ando el
+    grafico"): tres ítems de logarítmicas usaban `ln(x)`, que en mathjs no
+    existe —el logaritmo natural es `log`— y salían con el gráfico vacío."""
+    for idx, it in enumerate(items):
+        fn = it.get("graph_fn")
+        if not isinstance(fn, str) or not fn.strip():
+            continue
+        label = f"#{idx}"
+        for name in set(GRAPH_IDENT_RE.findall(fn)):
+            if name in MATHJS_FNS or name in MATHJS_SYMS:
+                continue
+            sugerencia = GRAPH_FN_ALIAS.get(name)
+            detalle = f"; usar {sugerencia}" if sugerencia else ""
+            F.add("ERROR", "graphs", "-", file, label,
+                  f"graph_fn usa '{name}', que mathjs no conoce: el gráfico "
+                  f"queda en blanco{detalle} ({fn})")
+
+
 def check_unit_duplicates(unit: str, entries: list[tuple[str, int, str]], F: Findings) -> None:
     """Regla 65: dos ítems de la misma unidad que reutilizan los mismos números.
 
@@ -1320,6 +1360,8 @@ def main() -> int:
                 check_tables(items, rel, F)
             if "ids" in checks:
                 check_ids(items, rel, F)
+            if "graphs" in checks:
+                check_graphs(items, rel, F)
             if "duplicates" in checks:
                 unit = "/".join(rel.split("/")[:2])
                 unit_entries.setdefault(unit, []).extend(

@@ -7,3 +7,8 @@ alembic
 pyjwt[crypto]
 httpx
 resend
+# Este es el requirements que instala el build de Railway (raíz del repo, no
+# backend/requirements.txt — mantener los dos en espejo). zoneinfo necesita el
+# paquete tzdata como respaldo: la imagen trae una base IANA sin los alias
+# viejos ("America/Buenos_Aires") que mandan los navegadores.
+tzdata
