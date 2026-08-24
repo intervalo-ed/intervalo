@@ -323,6 +323,20 @@ check("render: el calor es relativo a la columna, no absoluto",
       "background:rgba(126,128,247,0.1" in _heat_cell(20.0, 20, 60, dim=False)
       and "background:rgba(126,128,247,0.52" in _heat_cell(60.0, 20, 60, dim=False),
       f"(min={_heat_cell(20.0, 20, 60, dim=False)} max={_heat_cell(60.0, 20, 60, dim=False)})")
+# El techo del eje: con la iteración al revés, 252 escalaba contra 1000 y la
+# barra ocupaba un cuarto del ancho. Se comprueba la propiedad —ninguna barra
+# puede quedar por debajo de ~70% del ancho— y no valores sueltos.
+from metrics.charts import _nice_max  # noqa: E402
+ocupacion = [(v, 100 * v / _nice_max(v))
+             for v in (1, 3, 7, 16, 23, 37, 69, 75, 95, 151, 242, 252, 1000, 4321)]
+check("gráficos: el techo del eje no desperdicia el ancho de la barra",
+      all(pct >= 70 for _v, pct in ocupacion),
+      f"(peor: {min(ocupacion, key=lambda t: t[1])})")
+check("gráficos: el techo siempre deja aire arriba del valor",
+      all(_nice_max(v) > v for v in (1, 7, 100, 252, 1000)))
+check("gráficos: la grilla en cuartos da números legibles",
+      all(round(_nice_max(v) / 4, 2) == _nice_max(v) / 4 for v in (3, 7, 75, 252, 951)))
+
 check("render: sin dato no se pinta nada",
       _heat_cell(None, 0, 100, dim=False) == '<td class="dim">—</td>')
 check("render: las filas con base chica quedan atenuadas en la tabla real",
