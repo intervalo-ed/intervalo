@@ -12,6 +12,7 @@ import {
   BELT_ONDARK_VIVID,
   CATALOGS,
   COURSE_LABEL,
+  topicShortLabel,
   type BeltKey,
   type CourseId,
 } from "@/lib/catalog"
@@ -1190,6 +1191,7 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
                       <KnownUnitRow
                         key={u.key}
                         unit={u}
+                        course={courseKey}
                         selected={knownUnits.includes(u.key)}
                         onToggle={() => toggleKnownUnit(u.key)}
                       />
@@ -1941,10 +1943,12 @@ export function OptionButton({
 // solo <button> — un botón adentro de otro no es HTML válido.
 function KnownUnitRow({
   unit,
+  course,
   selected,
   onToggle,
 }: {
   unit: ReturnType<typeof courseUnitsFull>[number]
+  course: CourseId
   selected: boolean
   onToggle: () => void
 }) {
@@ -1993,7 +1997,9 @@ function KnownUnitRow({
           <div className="flex flex-col gap-2.5">
             {unit.topics.map((t) => (
               <div key={t.key} className="flex items-center justify-between gap-3">
-                <span className="text-sm leading-tight text-foreground/80">{t.name}</span>
+                <span className="text-sm leading-tight text-foreground/80">
+                  {topicShortLabel({ topic: t.key, course, fallback: t.name })}
+                </span>
                 {/* Un cuadradito por tipo de ejercicio del tema: da la escala de
                     cuánto hay adentro sin tener que enumerarlo. */}
                 <span className="flex shrink-0" style={{ gap: UNIT_GAP_PX }}>
@@ -2003,6 +2009,7 @@ function KnownUnitRow({
                       style={{
                         width: UNIT_SQ_PX,
                         height: UNIT_SQ_PX,
+                        borderRadius: UNIT_GRID_RADIUS_PX,
                         backgroundColor: unit.gridColor,
                       }}
                     />
