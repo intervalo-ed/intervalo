@@ -59,11 +59,10 @@ SKIP_PAUSE_DAYS = 14
 SURVEY_TYPES = ("A", "B", "D")
 
 # Reparto entre canales. D se lleva la mayoría por ser el canal norte; A queda
-# como muestra de calibración y B es el más chico.
-# TODO(rollout): D arranca en 0.0 a propósito. Subirlo a 0.60 (y A a 0.25)
-# recién cuando el frontend con el pane de D esté desplegado y verificado en
-# producción. Es un cambio de una línea y revertible en un deploy.
-SURVEY_WEIGHTS = {"D": 0.0, "A": 0.6, "B": 0.4}
+# como muestra de calibración (ya tiene 183 votos y su banda 55-77% establecida)
+# y B es el más chico. Revertible en un deploy: bajar D a 0.0 apaga el canal sin
+# tocar nada más.
+SURVEY_WEIGHTS = {"D": 0.60, "A": 0.25, "B": 0.15}
 
 # Chips de razón del canal D, por polo. Lista cerrada: el endpoint valida
 # contra esto antes de persistir. Espejada en web/.../survey-pane.tsx — si
