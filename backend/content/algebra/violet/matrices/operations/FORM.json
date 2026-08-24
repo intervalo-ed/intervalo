@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_operations_FORM_01",
     "question": "Una cadena guarda su stock por sucursal y producto, y recibe un envío repartido entre esas mismas filas y columnas.\n$$S = \\begin{pmatrix} 5 & 3 \\\\ 2 & 7 \\end{pmatrix}$$\n$$E = \\begin{pmatrix} 4 & 1 \\\\ 0 & 6 \\end{pmatrix}$$\n¿Qué operación da el stock actualizado?",
     "options": [
       "Sumar a la matriz de stock la matriz del envío recibido",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "violet_operations_FORM_02",
     "question": "Dos sucursales llevan por separado el registro de sus ventas, con las mismas filas y columnas.\n$$A = \\begin{pmatrix} 4 & 2 \\\\ 1 & 6 \\end{pmatrix} \\quad B = \\begin{pmatrix} 3 & 5 \\\\ 0 & 2 \\end{pmatrix}$$\n¿Qué operación da el total vendido entre las dos?",
     "options": [
       "Sumar todas las entradas de las dos matrices",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "violet_operations_FORM_03",
     "question": "Un inventario se corrige descontando las unidades dañadas, registradas con la misma disposición.\n$$A = \\begin{pmatrix} 9 & 4 \\\\ 6 & 3 \\end{pmatrix} \\quad D = \\begin{pmatrix} 1 & 0 \\\\ 2 & 1 \\end{pmatrix}$$\n¿Qué operación da el inventario corregido?",
     "options": [
       "Sumar las dos matrices entrada por entrada",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "violet_operations_FORM_04",
     "question": "Tres relevamientos independientes se registran con la misma disposición de filas y columnas.\n$$A, \\quad B, \\quad C$$\n¿Qué operación da el acumulado de los tres?",
     "options": [
       "Sumar las tres matrices entrada por entrada, en cualquier orden",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "violet_operations_FORM_05",
     "question": "Un registro mensual se compara contra el del mes anterior, con la misma disposición.\n$$A = \\begin{pmatrix} 12 & 8 \\\\ 5 & 10 \\end{pmatrix} \\quad P = \\begin{pmatrix} 10 & 9 \\\\ 7 & 6 \\end{pmatrix}$$\n¿Qué operación da la variación de cada casillero?",
     "options": [
       "Sumar las dos matrices y dividir el resultado por dos",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "violet_operations_FORM_06",
     "question": "Los precios de una lista de productos aumentan un $15\\%$, todos por igual y sin excepciones.\n\nLa lista está guardada en una matriz.\n\n¿Qué operación da la lista actualizada?",
     "options": [
       "Multiplicar toda la matriz por $1{,}15$",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "violet_operations_FORM_07",
     "question": "Todos los valores de una tabla se reducen a la mitad, sin ninguna excepción.\n$$A$$\n¿Qué operación da la tabla reducida?",
     "options": [
       "Dividir cada entrada por la cantidad de entradas",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "violet_operations_FORM_08",
     "question": "Los valores de una tabla de costos aumentan un $20\\%$, todos por igual.\n$$A$$\n¿Qué operación da la tabla actualizada?",
     "options": [
       "Multiplicar toda la matriz por $0{,}2$",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "violet_operations_FORM_09",
     "question": "Una tabla de valores se convierte a otra unidad, dividiendo todos sus datos por mil.\n$$A$$\n¿Qué operación da la tabla convertida?",
     "options": [
       "Multiplicar toda la matriz por $0{,}001$",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "violet_operations_FORM_10",
     "question": "Una tabla de saldos se invierte de signo por completo, para registrarla como deuda.\n$$A$$\n¿Qué operación da la tabla invertida?",
     "options": [
       "Cambiar de signo solo los valores de la diagonal principal",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "violet_operations_FORM_11",
     "question": "Dos matrices guardan las ventas de enero y de febrero, con las mismas filas y columnas.\n$$E = \\begin{pmatrix} 6 & 4 \\\\ 2 & 8 \\end{pmatrix}$$\n$$F = \\begin{pmatrix} 8 & 6 \\\\ 4 & 2 \\end{pmatrix}$$\n¿Qué operación da el promedio mensual en cada casillero?",
     "options": [
       "Sumar las dos matrices y multiplicar el total por $0{,}5$",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "violet_operations_FORM_12",
     "question": "Dos registros mensuales se combinan para estimar un mes con el doble de actividad del primero más el segundo entero.\n$$A, \\quad B$$\n¿Qué operación representa esa estimación?",
     "options": [
       "Multiplicar las dos matrices entre sí y duplicar el resultado",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "violet_operations_FORM_13",
     "question": "Dos mediciones se promedian entre sí, casillero por casillero.\n$$A, \\quad B$$\n¿Qué operación da ese promedio?",
     "options": [
       "Multiplicar cada matriz por $0{,}5$ y restarlas entre sí",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "violet_operations_FORM_14",
     "question": "Un pronóstico toma el triple del primer registro y le descuenta el segundo.\n$$A, \\quad B$$\n¿Qué operación representa ese pronóstico?",
     "options": [
       "Multiplicar la primera matriz por $3$ y restarle la segunda",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "violet_operations_FORM_15",
     "question": "Tres registros se combinan sumando el primero, el doble del segundo y la mitad del tercero.\n$$A, \\quad B, \\quad C$$\n¿Qué operación representa esa combinación?",
     "options": [
       "Multiplicar las tres matrices entre sí en el orden dado",

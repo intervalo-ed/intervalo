@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_esperanza_RESL_01",
     "question": "La cantidad de clientes que llegan a una caja durante un minuto tiene función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 0{,}2 \\\\ p(1) &= 0{,}5 \\\\ p(2) &= 0{,}3 \\end{aligned}$$\n¿Cuánto vale $E[X]$?",
     "options": [
       "$1{,}0$",
@@ -26,6 +27,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_RESL_02",
     "question": "El tiempo que un cliente espera en la fila de un banco tiene una esperanza de 4 minutos.\n\nUn cajero cobra \\$2 por minuto de espera más un cargo fijo de \\$1.\n\n¿Cuál es el costo esperado?",
     "options": [
       "\\$8",
@@ -52,6 +54,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_RESL_03",
     "question": "El tiempo que un cliente espera en un cajero automático se modela con una densidad uniforme sobre $[0,5]$ minutos.\n\n¿Cuánto vale $E[X]$?",
     "options": [
       "$2{,}0$",
@@ -78,6 +81,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_RESL_04",
     "question": "El tiempo de espera en la fila de un supermercado tiene esperanza $E[X]=3$ minutos.\n\n¿Qué significa este valor?",
     "options": [
       "Es el tiempo que esperará exactamente cada cliente",
@@ -104,6 +108,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_RESL_05",
     "question": "En una muestra de piezas producidas, la cantidad de unidades defectuosas tiene función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 0{,}5 \\\\ p(1) &= 0{,}3 \\\\ p(2) &= 0{,}2 \\end{aligned}$$\n¿Cuánto vale $E[X]$?",
     "options": [
       "$1{,}0$",
@@ -130,6 +135,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_RESL_06",
     "question": "La cantidad de fallas detectadas por lote en una línea de producción tiene función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 0{,}4 \\\\ p(1) &= 0{,}3 \\\\ p(2) &= 0{,}2 \\\\ p(3) &= 0{,}1 \\end{aligned}$$\n¿Cuánto vale $E[X]$?",
     "options": [
       "$1{,}5$",
@@ -156,6 +162,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_RESL_07",
     "question": "La cantidad de clientes que llegan a la caja de una farmacia durante un minuto tiene función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 0{,}1 \\\\ p(1) &= 0{,}6 \\\\ p(2) &= 0{,}3 \\end{aligned}$$\n¿Cuánto vale $E[X]$?",
     "options": [
       "$1{,}0$",
@@ -182,6 +189,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_RESL_08",
     "question": "En una muestra de tornillos, la cantidad de unidades defectuosas tiene función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 0{,}6 \\\\ p(1) &= 0{,}3 \\\\ p(2) &= 0{,}1 \\end{aligned}$$\n¿Cuánto vale $E[X]$?",
     "options": [
       "$1{,}0$",
@@ -208,6 +216,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_RESL_09",
     "question": "La cantidad de piezas defectuosas en un lote tiene una esperanza de 2 piezas.\n\nUn taller cobra \\$5 por cada pieza a reprocesar más un cargo fijo de \\$8.\n\n¿Cuál es el costo esperado de reproceso?",
     "options": [
       "\\$10",
@@ -234,6 +243,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_RESL_10",
     "question": "La cantidad de clientes atendidos en una caja por hora tiene una esperanza de 6 clientes.\n\nUn empleado recibe \\$3 por cliente atendido más un fijo de \\$5 por hora.\n\n¿Cuál es la comisión esperada por hora?",
     "options": [
       "\\$23",
@@ -260,6 +270,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_RESL_11",
     "question": "La posición de un punto elegido al azar sobre un segmento tiene una esperanza de 3 metros.\n\nAl cambiar de unidad, la posición se transforma según $Y=2X+1$.\n\n¿Cuál es la esperanza de $Y$?",
     "options": [
       "$6$",
@@ -286,6 +297,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_RESL_12",
     "question": "La posición de un punto elegido al azar sobre un segmento se modela con una densidad uniforme sobre $[2,8]$.\n\n¿Cuánto vale $E[X]$?",
     "options": [
       "$4{,}0$",
@@ -312,6 +324,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_RESL_13",
     "question": "El tiempo que un cliente espera en la fila de un banco se modela con una densidad uniforme sobre $[0,8]$ minutos.\n\n¿Cuánto vale $E[X]$?",
     "options": [
       "$8{,}0$",
@@ -338,6 +351,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_RESL_14",
     "question": "La cantidad de fallas detectadas por lote en una fábrica tiene esperanza $E[X]=2{,}4$.\n\n¿Qué interpretación es correcta sobre este valor?",
     "options": [
       "Es el promedio de fallas a largo plazo, tras inspeccionar muchos lotes",
@@ -362,6 +376,7 @@
     ]
   },
   {
+    "id": "violet_esperanza_RESL_15",
     "question": "El tiempo que un cliente espera en un cajero automático tiene esperanza $E[X]=6$ minutos.\n\n¿Qué representa este valor?",
     "options": [
       "El tiempo que más se repite entre los clientes",

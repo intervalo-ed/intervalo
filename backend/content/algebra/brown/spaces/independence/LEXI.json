@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_independence_LEXI_01",
     "question": "Dentro de un conjunto de vectores, se dice que uno es redundante cuando el conjunto se puede achicar sin perder nada.\n$$\\{\\vec{v}_1, \\dots, \\vec{v}_k\\} \\to \\{\\vec{v}_1, \\dots, \\vec{v}_{k-1}\\}$$\n¿Qué es exactamente lo que no se pierde al sacarlo?",
     "options": [
       "El conjunto de vectores que se alcanzan combinando los que quedan",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "brown_independence_LEXI_02",
     "question": "Un conjunto de vectores tiene uno que se arma combinando los otros.\n$$\\vec{v}_3 = \\alpha_1\\vec{v}_1 + \\alpha_2\\vec{v}_2$$\n¿Eso significa que hay un error en el conjunto?",
     "options": [
       "Sí, porque el tercer vector fue mal calculado a partir de los otros",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "brown_independence_LEXI_03",
     "question": "Dos vectores de un conjunto apuntan exactamente en la misma dirección.\n$$\\vec{v}_2 = 4\\vec{v}_1$$\n¿Por qué se dice que uno de los dos sobra?",
     "options": [
       "Porque los dos tienen que apuntar en direcciones opuestas para servir",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "brown_independence_LEXI_04",
     "question": "En un conjunto dependiente, distintos vectores podrían ser los que sobran.\n$$\\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\}$$\n¿De qué depende cuál es el redundante?",
     "options": [
       "De la relación entre los tres, no del orden en que se escriben",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "brown_independence_LEXI_05",
     "question": "Cualquier conjunto de tres vectores del plano resulta ser dependiente.\n$$\\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\} \\subset \\mathbb{R}^2$$\n¿Por qué pasa siempre, sin mirar cuáles son?",
     "options": [
       "Porque el tercero siempre resulta ser la suma exacta de los otros dos",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "brown_independence_LEXI_06",
     "question": "Un vector de un conjunto se puede escribir usando los otros dos.\n$$\\vec{v}_3 = 2\\vec{v}_1 - \\vec{v}_2$$\n¿Cómo queda esa misma información escrita con el vector nulo de un lado?",
     "options": [
       "$2\\vec{v}_1 - \\vec{v}_2 - \\vec{v}_3 = \\vec{0}$",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "brown_independence_LEXI_07",
     "question": "Una combinación de tres vectores da el vector nulo con coeficientes no nulos.\n$$3\\vec{v}_1 - \\vec{v}_2 + 2\\vec{v}_3 = \\vec{0}$$\n¿Cómo queda el segundo vector escrito con los otros dos?",
     "options": [
       "$\\vec{v}_2 = 3\\vec{v}_1 - 2\\vec{v}_3$",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "brown_independence_LEXI_08",
     "question": "Un vector resulta ser un múltiplo de otro dentro del mismo conjunto.\n$$\\vec{v}_2 = -4\\vec{v}_1$$\n¿Cómo queda esa información escrita con el vector nulo de un lado?",
     "options": [
       "$4\\vec{v}_1 - \\vec{v}_2 = \\vec{0}$",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "brown_independence_LEXI_09",
     "question": "Una combinación nula tiene uno de sus coeficientes valiendo cero.\n$$2\\vec{v}_1 - 6\\vec{v}_2 + 0\\vec{v}_3 = \\vec{0}$$\n¿Qué vector no se puede despejar de esa relación?",
     "options": [
       "El tercero, porque su coeficiente en la relación vale cero",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "brown_independence_LEXI_10",
     "question": "De un conjunto se sabe que existe una combinación nula con algún coeficiente distinto de cero.\n$$\\alpha_1\\vec{v}_1 + \\dots + \\alpha_k\\vec{v}_k = \\vec{0}$$\n¿Qué se puede concluir?",
     "options": [
       "Que ninguno de los vectores puede escribirse con los demás",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "brown_independence_LEXI_11",
     "question": "La independencia lineal exige que la única combinación que da el vector nulo sea la de todos los coeficientes en cero.\n$$\\alpha_1\\vec{v}_1 + \\dots + \\alpha_k\\vec{v}_k = \\vec{0}$$\n¿Por qué se elige el vector nulo para plantear la condición?",
     "options": [
       "Porque preguntar por él equivale a preguntar por todos los vectores del conjunto a la vez",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "brown_independence_LEXI_12",
     "question": "La condición de independencia se plantea igualando una combinación al vector nulo.\n$$\\alpha_1\\vec{v}_1 + \\dots + \\alpha_k\\vec{v}_k = \\vec{0}$$\n¿Por qué se elige el vector nulo y no otro?",
     "options": [
       "Porque es el único vector que no pertenece a ningún generado",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "brown_independence_LEXI_13",
     "question": "De un conjunto se comprueba que la única combinación nula es la de todos los coeficientes en cero.\n$$\\alpha_i = 0 \\quad \\text{para todo } i$$\n¿Qué se concluye?",
     "options": [
       "Que sus vectores alcanzan todos los puntos del espacio",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "brown_independence_LEXI_14",
     "question": "Alguien encuentra una combinación de los vectores de un conjunto que da el vector nulo.\n$$0\\vec{v}_1 + 0\\vec{v}_2 + 0\\vec{v}_3 = \\vec{0}$$\n¿Alcanza eso para afirmar que el conjunto es dependiente?",
     "options": [
       "No, porque esa combinación existe para cualquier conjunto",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "brown_independence_LEXI_15",
     "question": "Un conjunto resulta ser dependiente, así que tiene una combinación nula no trivial.\n$$2\\vec{v}_1 - 3\\vec{v}_2 = \\vec{0}$$\n¿Cuántas combinaciones nulas no triviales tiene?",
     "options": [
       "Dos, la encontrada y la que resulta de cambiarle los signos",

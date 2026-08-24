@@ -1,5 +1,6 @@
 [
   {
+    "id": "black_associated_matrix_LEXI_01",
     "question": "¿Cómo se relaciona la **matriz asociada** $A$ con una transformación lineal $T$?",
     "options": [
       "$T(\\vec{x}) = A\\vec{x}$",

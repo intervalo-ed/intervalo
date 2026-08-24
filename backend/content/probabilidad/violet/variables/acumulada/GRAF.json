@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_acumulada_GRAF_01",
     "question": "El tiempo que un cliente espera en la fila de un banco se modela con una densidad uniforme sobre $[0,4]$ minutos.\n\nEl área sombreada de azul representa $P(1 < X \\leq 3)$.\n\n¿Cuánto vale esa probabilidad?",
     "options": [
       "$\\dfrac{1}{4}$",
@@ -35,6 +36,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_GRAF_02",
     "question": "El tiempo que tarda en confirmarse un pago online tiene función de distribución acumulada $F(x)$.\n\nSe observa que $F(3)=0{,}98$, y que $F(x)$ apenas cambia para pagos que tardan más de 3 segundos.\n\n¿A qué valor se acerca $F(x)$ cuando $x$ crece indefinidamente hacia la derecha?",
     "options": [
       "$0$",
@@ -59,6 +61,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_GRAF_03",
     "question": "El gráfico muestra $F(x)$, la cantidad de fallas detectadas en una inspección, con varios saltos verticales.\n\n¿Qué tipo de variable representa?",
     "options": [
       "Discreta",
@@ -89,6 +92,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_GRAF_04",
     "question": "La posición donde cae una moneda lanzada sobre una regla de $5$ cm se modela con una densidad uniforme sobre $[0,5]$.\n\nEl área sombreada de azul representa $P(1 < X \\leq 4)$.\n\n¿Cuánto vale esa probabilidad?",
     "options": [
       "$\\dfrac{3}{5}$",
@@ -124,6 +128,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_GRAF_05",
     "question": "La hora en la que llega un paquete dentro de una franja horaria de $6$ horas se modela con una densidad uniforme sobre $[0,6]$.\n\nEl área sombreada de azul representa $P(1 < X \\leq 5)$.\n\n¿Cuánto vale esa probabilidad?",
     "options": [
       "$\\dfrac{1}{6}$",
@@ -159,6 +164,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_GRAF_06",
     "question": "El tiempo que tarda una impresora 3D en completar una pieza se modela con una densidad uniforme sobre $[0,10]$ minutos.\n\nEl área sombreada de azul representa $P(2 < X \\leq 8)$.\n\n¿Cuánto vale esa probabilidad?",
     "options": [
       "$\\dfrac{2}{5}$",
@@ -194,6 +200,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_GRAF_07",
     "question": "El tiempo que un peatón espera en un semáforo se modela con una densidad uniforme sobre $[0,8]$ segundos.\n\nEl área acumulada entre la densidad y el eje $x$ sobre el tramo $(2,6]$ representa esa probabilidad.\n\nEn notación, es $P(2 < X \\leq 6)$.\n\n¿Cuánto vale esa probabilidad?",
     "options": [
       "$\\dfrac{1}{4}$",
@@ -220,6 +227,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_GRAF_08",
     "question": "La posición de una partícula dentro de un tubo de $12$ cm de longitud se modela con una densidad uniforme sobre $[0,12]$.\n\nEl área acumulada entre la densidad y el eje $x$ sobre el tramo $(3,9]$ representa esa probabilidad.\n\nEn notación, es $P(3 < X \\leq 9)$.\n\n¿Cuánto vale esa probabilidad?",
     "options": [
       "$\\dfrac{1}{4}$",
@@ -246,6 +254,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_GRAF_09",
     "question": "El gráfico muestra $F(x)$, el tiempo que tarda en descargarse un archivo, en segundos.\n\n¿A qué valor se acerca $F(x)$ para $x$ mucho mayor a 5?",
     "options": [
       "$0$",
@@ -276,6 +285,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_GRAF_10",
     "question": "El gráfico muestra $F(x)$, la posición de una partícula sobre un riel de $7$ metros.\n\n¿A qué valor se acerca $F(x)$ para $x$ mucho menor a 0?",
     "options": [
       "$0$",
@@ -306,6 +316,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_GRAF_11",
     "question": "El gráfico muestra $F(x)$, la hora de arribo de un tren dentro de una franja de $10$ minutos.\n\n¿Qué valor toma $F(x)$ para cualquier $x$ menor a 0?",
     "options": [
       "$0$",
@@ -336,6 +347,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_GRAF_12",
     "question": "El tiempo que tarda un ascensor en llegar a destino tiene función de distribución acumulada $F(x)$.\n\nSe sabe que $F(x)=0$ para todo $x$ menor a 2, y que recién después empieza a crecer.\n\n¿A qué valor tiende $F(x)$ cuando $x$ decrece sin límite hacia la izquierda?",
     "options": [
       "$0$",
@@ -360,6 +372,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_GRAF_13",
     "question": "El gráfico muestra $F(x)$, la cantidad de caras al lanzar dos monedas, con saltos verticales en cada valor posible.\n\n¿Qué tipo de variable representa?",
     "options": [
       "Continua",
@@ -390,6 +403,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_GRAF_14",
     "question": "El gráfico muestra $F(x)$, el tiempo de espera en un cajero automático, como una curva suave sin saltos.\n\n¿Qué tipo de variable representa?",
     "options": [
       "Discreta",
@@ -420,6 +434,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_GRAF_15",
     "question": "La cantidad de defectos por lote toma valores en $\\{0,1,2\\}$.\n\nSu función de distribución acumulada $F(x)$ sube solo en esos tres saltos, sin ningún tramo curvo entre medio.\n\n¿Qué tipo de variable representa?",
     "options": [
       "Discreta",

@@ -278,6 +278,7 @@ class TestSessionItem(BaseModel):
 class TestFilters(BaseModel):
     has_math: bool = False
     has_graph: bool = False
+    has_table: bool = False
 
 
 class StartTestSessionRequest(BaseModel):

@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_polynomial_GRAF_01",
     "question": "La gráfica muestra una función polinómica.\n\n¿Cuántas raíces reales tiene?",
     "options": [
       "$1$",
@@ -30,6 +31,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_02",
     "question": "La gráfica muestra una función polinómica de grado 3.\n\n¿El coeficiente principal es positivo o negativo?",
     "options": [
       "Positivo",
@@ -60,6 +62,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_03",
     "question": "La gráfica muestra una función polinómica de grado 4.\n\n¿Hacia dónde tienden los extremos de la curva cuando $x \\to \\pm\\infty$?",
     "options": [
       "Ambos hacia $+\\infty$",
@@ -90,6 +93,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_04",
     "question": "Los extremos locales se ven en el gráfico como los puntos donde la curva cambia de dirección:\n$$f(x) = \\dfrac{x(x-2)(x+2)}{4}$$\n¿Cuántos extremos locales tiene?",
     "options": [
       "$2$",
@@ -120,6 +124,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_05",
     "question": "La gráfica muestra una función polinómica de grado 4.\n\n¿Cuántos extremos locales tiene?",
     "options": [
       "$2$",
@@ -150,6 +155,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_06",
     "question": "La gráfica muestra un polinomio de grado 3 con coeficiente principal positivo.\n\n¿La imagen de $f$, el conjunto de valores que la función alcanza, es $\\mathbb{R}$ completo?",
     "options": [
       "No, está acotada por abajo",
@@ -180,6 +186,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_07",
     "question": "Sea la función:\n$$f(x) = \\dfrac{-x(x-2)(x+2)}{4}$$\n¿Qué ocurre con $f(x)$ cuando $x \\to -\\infty$?",
     "options": [
       "$f(x) \\to -\\infty$",
@@ -210,6 +217,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_08",
     "question": "El gráfico y la fórmula dicen lo mismo, y el valor en cero se puede leer de cualquiera de los dos:\n$$f(x) = \\dfrac{x(x-2)(x+2)}{4}$$\n¿Cuánto vale $f(0)$?",
     "options": [
       "$-4$",
@@ -240,6 +248,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_09",
     "question": "La gráfica muestra un polinomio de grado 4.\n\n¿Cuántas raíces reales tiene?",
     "options": [
       "$2$",
@@ -270,6 +279,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_10",
     "question": "La gráfica muestra un polinomio de grado 4.\n\n¿Cuántos máximos locales tiene?",
     "options": [
       "$0$",
@@ -300,6 +310,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_11",
     "question": "La gráfica muestra un polinomio de grado 4 con coeficiente principal negativo.\n\n¿La función tiene mínimo global?",
     "options": [
       "No",
@@ -330,6 +341,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_12",
     "question": "Un polinomio deja una huella de su grado en la forma del gráfico:\n$$f(x) = \\dfrac{x^3}{8}$$\n¿El grado del polinomio es par o impar?",
     "options": [
       "Par",
@@ -360,6 +372,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_13",
     "question": "La gráfica muestra un polinomio.\n\n¿El grado es par o impar?",
     "options": [
       "Impar",
@@ -390,6 +403,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_14",
     "question": "El dominio de una función es el conjunto de valores de entrada que admite:\n$$f(x) = \\dfrac{x^3}{8}$$\n¿El dominio de $f$ es $\\mathbb{R}$?",
     "options": [
       "Sí, el dominio es todo $\\mathbb{R}$",
@@ -420,6 +434,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_15",
     "question": "La gráfica muestra un polinomio con raíz en $x = 0$. La curva **toca** el eje $x$ en ese punto sin cruzarlo.\n\n¿Cuál es la multiplicidad de esa raíz?",
     "options": [
       "$1$ (simple)",
@@ -450,6 +465,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_16",
     "question": "La gráfica muestra una curva polinómica de grado 3 con raíces en $x \\in \\{-2, 0, 2\\}$ y coeficiente principal positivo.\n\n¿Cuál de estas expresiones corresponde a la curva?",
     "options": [
       "$\\dfrac{-x(x-2)(x+2)}{4}$",
@@ -480,6 +496,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_17",
     "question": "La gráfica muestra una curva de grado 3 con raíces en $x \\in \\{-1, 0, 3\\}$, y coeficiente principal positivo.\n\n¿Cuál expresión corresponde a la curva?",
     "options": [
       "$\\dfrac{(x+1) \\cdot x \\cdot (x-3)}{5}$",
@@ -510,6 +527,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_18",
     "question": "La gráfica muestra una curva de grado 4 con raíces en $x \\in \\{-2, -1, 1, 2\\}$, y coeficiente principal positivo.\n\n¿Cuál expresión corresponde a la curva?",
     "options": [
       "$\\dfrac{-(x^2-1)(x^2-4)}{4}$",
@@ -540,6 +558,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_19",
     "question": "La gráfica muestra una curva de grado 3 con raíces en $x \\in \\{-2, 0, 2\\}$, y coeficiente principal **negativo**.\n\n¿Cuál expresión corresponde a la curva?",
     "options": [
       "$\\dfrac{x(x-2)(x+2)}{4}$",
@@ -570,6 +589,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_20",
     "question": "La gráfica muestra una curva con raíz **doble** en $x = 0$, que toca el eje sin cruzarlo.\n\nTambién tiene raíz simple en $x = 3$, donde sí lo cruza.\n\n¿Cuál expresión corresponde a la curva?",
     "options": [
       "$\\dfrac{x(x-3)^2}{5}$",
@@ -600,6 +620,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_21",
     "question": "La gráfica muestra una curva que solo tiene raíz en $x = 0$, no tiene extremos locales y es creciente en todo $\\mathbb{R}$.\n\n¿Cuál expresión corresponde a la curva?",
     "options": [
       "$\\dfrac{x^2}{4}$",
@@ -630,6 +651,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_22",
     "question": "La gráfica muestra una curva de grado 3 con raíces en $x \\in \\{-1, 0, 2\\}$, y coeficiente principal **negativo**.\n\n¿Cuál expresión corresponde?",
     "options": [
       "$\\dfrac{-(x+1) \\cdot x \\cdot (x-2)}{4}$",
@@ -660,6 +682,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_23",
     "question": "La gráfica muestra una curva de grado 4 con raíces en $x \\in \\{-3, -1, 1, 3\\}$, con coeficiente principal positivo.\n\n¿Cuál expresión corresponde?",
     "options": [
       "$\\dfrac{(x^2-1)(x^2-9)}{4}$",
@@ -690,6 +713,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_24",
     "question": "La gráfica muestra una curva de grado 4 con raíces en $x \\in \\{-1, 0, 1, 2\\}$, con coeficiente principal positivo.\n\n¿Cuál expresión corresponde?",
     "options": [
       "$\\dfrac{x(x-1)(x+1)(x-2)}{6}$",
@@ -720,6 +744,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_25",
     "question": "La gráfica muestra el perfil de altura $h(x)$ de una montaña rusa, medida en metros, según la posición horizontal $x$.\n\nLa altura cero representa el nivel del suelo.\n\n¿Cuántas veces vuelve la vía al nivel $h = 0$?",
     "options": [
       "$1$",
@@ -750,6 +775,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_26",
     "question": "La gráfica muestra el caudal $C(t)$ de un río a lo largo del año. El modelo es polinómico.\n\n¿El coeficiente principal del polinomio es positivo o negativo?",
     "options": [
       "Negativo, los extremos del gráfico van hacia abajo",
@@ -780,6 +806,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_27",
     "question": "Un modelo de temperatura anual tiene la forma de un polinomio de grado 4 con coeficiente principal negativo.\n\nLa gráfica muestra cómo varía la temperatura durante el año.\n\n¿El modelo tiene un mínimo global de temperatura?",
     "options": [
       "Sí, hay un mes más frío que todos los demás",
@@ -810,6 +837,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_28",
     "question": "La gráfica muestra el caudal $C(t)$ de un río a lo largo de dos años, modelado por un polinomio de grado 4.\n\nEl caudal $C = 0$ representa el río seco.\n\n¿Cuántas veces el caudal llega exactamente a cero en el período mostrado?",
     "options": [
       "$4$",
@@ -840,6 +868,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_29",
     "question": "La gráfica muestra las ventas semanales $V(t)$ de un negocio estacional.\n\nEl modelo es un polinomio cúbico con coeficiente principal negativo.\n\n¿Cuántos picos, esos máximos locales de la curva, tiene el modelo en el período mostrado?",
     "options": [
       "$0$",
@@ -870,6 +899,7 @@
     ]
   },
   {
+    "id": "white_polynomial_GRAF_30",
     "question": "La gráfica muestra el perfil de elevación $e(x)$ de un viaje en colectivo por la montaña.\n\nLa función es un polinomio con raíz doble en $x = 0$ y raíz simple en $x = 3$.\n\n¿Cuántos mínimos locales tiene el perfil en el trayecto?",
     "options": [
       "$0$",

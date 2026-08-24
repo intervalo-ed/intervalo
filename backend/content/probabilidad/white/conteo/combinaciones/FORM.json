@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_combinaciones_FORM_01",
     "question": "Se quiere expresar la cantidad de formas de elegir 3 cartas de un mazo de 40, sin importar el orden.\n\n¿Qué expresión corresponde?",
     "options": [
       "$\\dfrac{40!}{3!}$",
@@ -23,8 +24,14 @@
     "tags": ["formula-directa"]
   },
   {
-    "question": "Entre las siguientes expresiones, se busca identificar cuál corresponde a la combinación de $n$ elementos tomados de a $k$.\n\n¿Cuál es la expresión correcta?",
-    "options": ["$\\dfrac{n!}{k!\\,(n-k)!}$", "$\\dfrac{n!}{(n-k)!}$", "$n!$", "$\\dfrac{n!}{k!}$"],
+    "id": "white_combinaciones_FORM_02",
+    "question": "Con 6 elementos y 2 a elegir, $\\binom{6}{2}=15$.\n\n¿Qué expresión general corresponde a la combinación de $n$ elementos tomados de a $k$?",
+    "options": [
+      "$\\dfrac{n!}{k!\\,(n-k)!}$",
+      "$\\dfrac{n!}{(n-k)!}$",
+      "$n!$",
+      "$\\dfrac{n!}{k!}$"
+    ],
     "correct_index": 0,
     "feedback_correct": "La combinación de $n$ tomados de $k$ divide por $k!$ y por $(n-k)!$ para ignorar el orden y los no elegidos.",
     "feedback_incorrect": [
@@ -33,14 +40,17 @@
       "Esa es la permutación completa, que usa todos los $n$ elementos, no un subconjunto de $k$.",
       "Esa expresión no cancela los elementos no elegidos, le falta dividir también por $(n-k)!$."
     ],
-    "explanation": "La **combinación** de elementos tomados de un total, sin importar el orden, se define como:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nSin el $k!$ del denominador queda la variación, que sí distingue el orden.\n\nOlvidar alguno de los dos factores del denominador deja el conteo mal ajustado; conviene recordar que uno cancela el orden interno y el otro los elementos no elegidos.",
+    "explanation": "La **combinación** de elementos tomados de un total, sin importar el orden, se define como:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nCon 6 elementos y 2 a elegir esa fórmula da:\n$$\\frac{6!}{2!\\,4!}=15$$\nEl mismo valor que ya adelanta el enunciado.\n\nSin el $k!$ del denominador queda la variación, que sí distingue el orden.\n\nOlvidar alguno de los dos factores del denominador deja el conteo mal ajustado; conviene recordar que uno cancela el orden interno y el otro los elementos no elegidos.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["identificar-formula-correcta"]
+    "tags": [
+      "identificar-formula-correcta"
+    ]
   },
   {
+    "id": "white_combinaciones_FORM_03",
     "question": "Sabiendo que $\\binom{10}{3} = 120$, se quiere calcular $\\binom{10}{7}$ sin repetir todo el cálculo desde cero.\n\n¿Cuál es el valor de $\\binom{10}{7}$?",
     "options": ["$120$", "$720$", "$210$", "$45$"],
     "correct_index": 0,
@@ -59,6 +69,7 @@
     "tags": ["propiedad-simetria"]
   },
   {
+    "id": "white_combinaciones_FORM_04",
     "question": "De un grupo de $n$ personas se arma un comité de $k$ integrantes que debe excluir obligatoriamente a una persona en particular.\n\n¿Qué expresión cuenta la cantidad de comités posibles?",
     "options": ["$\\dbinom{n-1}{k}$", "$\\dbinom{n-1}{k-1}$", "$\\dbinom{n}{k}$", "$\\dbinom{n}{k-1}$"],
     "correct_index": 0,
@@ -77,6 +88,7 @@
     "tags": ["formula-con-condicion"]
   },
   {
+    "id": "white_combinaciones_FORM_05",
     "question": "Se quiere expresar la cantidad de formas de elegir 4 jugadores de un plantel de 15, sin importar el orden.\n\n¿Qué expresión corresponde?",
     "options": [
       "$\\dfrac{15!}{4!}$",
@@ -100,6 +112,7 @@
     "tags": ["formula-directa"]
   },
   {
+    "id": "white_combinaciones_FORM_06",
     "question": "Se quiere expresar la cantidad de formas de elegir 2 números ganadores de una rifa con 30 boletos, sin importar el orden.\n\n¿Qué expresión corresponde?",
     "options": [
       "$\\dfrac{30!}{2!}$",
@@ -123,6 +136,7 @@
     "tags": ["formula-directa"]
   },
   {
+    "id": "white_combinaciones_FORM_07",
     "question": "Se quiere expresar la cantidad de formas de elegir 6 libros de una biblioteca de 20 para donar, sin importar el orden.\n\n¿Qué expresión corresponde?",
     "options": [
       "$\\dfrac{20!}{6!}$",
@@ -146,6 +160,7 @@
     "tags": ["formula-directa"]
   },
   {
+    "id": "white_combinaciones_FORM_08",
     "question": "Se quiere expresar la cantidad de formas de elegir 5 ingredientes de una lista de 12 para armar una pizza, sin importar el orden.\n\n¿Qué expresión corresponde?",
     "options": [
       "$\\dfrac{12!}{5!}$",
@@ -169,6 +184,7 @@
     "tags": ["formula-directa"]
   },
   {
+    "id": "white_combinaciones_FORM_09",
     "question": "Se quiere expresar la cantidad de formas de elegir un jurado de 3 personas entre 18 candidatos, sin importar el orden.\n\n¿Qué expresión corresponde?",
     "options": [
       "$\\dfrac{18!}{3!}$",
@@ -192,6 +208,7 @@
     "tags": ["formula-directa"]
   },
   {
+    "id": "white_combinaciones_FORM_10",
     "question": "Se quiere expresar la cantidad de formas de elegir 4 cartas de un mazo de 48, sin importar el orden.\n\n¿Qué expresión corresponde?",
     "options": [
       "$\\dfrac{48!}{4!}$",
@@ -215,6 +232,7 @@
     "tags": ["formula-directa"]
   },
   {
+    "id": "white_combinaciones_FORM_11",
     "question": "Un equipo se arma eligiendo $k$ jugadores entre $n$ candidatos, sin diferenciar roles entre los elegidos.\n\n¿Qué expresión general cuenta la cantidad de equipos posibles?",
     "options": ["$\\dfrac{n!}{k!\\,(n-k)!}$", "$\\dfrac{n!}{(n-k)!}$", "$n!$", "$\\dfrac{n!}{k!}$"],
     "correct_index": 0,
@@ -233,6 +251,7 @@
     "tags": ["identificar-formula-correcta"]
   },
   {
+    "id": "white_combinaciones_FORM_12",
     "question": "De una rifa con $n$ boletos se sortean $k$ premios idénticos, todos entregan el mismo premio.\n\n¿Qué expresión general cuenta la cantidad de grupos de ganadores posibles?",
     "options": ["$\\dfrac{n!}{(n-k)!}$", "$\\dfrac{n!}{k!\\,(n-k)!}$", "$n!$", "$\\dfrac{n!}{k!}$"],
     "correct_index": 1,
@@ -251,6 +270,7 @@
     "tags": ["identificar-formula-correcta"]
   },
   {
+    "id": "white_combinaciones_FORM_13",
     "question": "Se quiere identificar la expresión que corresponde a $\\binom{9}{4}$, la combinación de 9 libros tomados de a 4.\n\n¿Cuál es la expresión correcta?",
     "options": ["$\\dfrac{9!}{5!}$", "$9!$", "$\\dfrac{9!}{4!\\,5!}$", "$\\dfrac{9!}{4!}$"],
     "correct_index": 2,
@@ -269,6 +289,7 @@
     "tags": ["identificar-formula-correcta"]
   },
   {
+    "id": "white_combinaciones_FORM_14",
     "question": "Sabiendo que $\\binom{14}{5} = 2002$, se quiere calcular $\\binom{14}{9}$ sin repetir todo el cálculo desde cero.\n\n¿Cuál es el valor de $\\binom{14}{9}$?",
     "options": ["$18018$", "$2002$", "$1001$", "$3003$"],
     "correct_index": 1,
@@ -287,6 +308,7 @@
     "tags": ["propiedad-simetria"]
   },
   {
+    "id": "white_combinaciones_FORM_15",
     "question": "De un grupo de $n$ personas se arma un comité de $k$ integrantes que debe incluir obligatoriamente a una persona en particular.\n\n¿Qué expresión cuenta la cantidad de comités posibles?",
     "options": ["$\\dbinom{n-1}{k}$", "$\\dbinom{n}{k}$", "$\\dbinom{n}{k-1}$", "$\\dbinom{n-1}{k-1}$"],
     "correct_index": 3,

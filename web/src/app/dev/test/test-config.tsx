@@ -62,6 +62,7 @@ export default function TestConfig() {
   const [shuffle, setShuffle] = useState(true)
   const [onlyMath, setOnlyMath] = useState(false)
   const [onlyGraph, setOnlyGraph] = useState(false)
+  const [onlyTable, setOnlyTable] = useState(false)
 
   function selectCourse(next: CourseId) {
     setCourse(next)
@@ -112,7 +113,7 @@ export default function TestConfig() {
       {
         items: selectedItems,
         shuffle,
-        filters: { has_math: onlyMath, has_graph: onlyGraph },
+        filters: { has_math: onlyMath, has_graph: onlyGraph, has_table: onlyTable },
         course,
       },
       { onSuccess: (p) => router.push(`/session/${p.session_id}`) },
@@ -173,6 +174,14 @@ export default function TestConfig() {
                 onChange={(e) => setOnlyGraph(e.target.checked)}
               />
               Solo ítems con gráfico
+            </label>
+            <label className="flex items-center gap-2 text-foreground/80">
+              <input
+                type="checkbox"
+                checked={onlyTable}
+                onChange={(e) => setOnlyTable(e.target.checked)}
+              />
+              Solo ítems con tabla
             </label>
           </div>
         </section>

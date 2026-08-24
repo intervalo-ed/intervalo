@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_marginales_FORM_01",
     "question": "Sea $(X, Y)$ un vector continuo con densidad conjunta $f(x, y)$.\n\n¿Qué expresión da la marginal $f_X(x)$?",
     "options": [
       "$f_X(x) = f(x, x)$",

@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_determinants_CLSF_01",
     "question": "Algunos determinantes se pueden dar por nulos sin hacer ninguna cuenta, mirando solo la relación entre las filas.\n\n¿Cuál de estas matrices tiene determinante cero?",
     "options": [
       "$\\begin{pmatrix} 2 & 6 \\\\ 1 & 3 \\end{pmatrix}$",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "violet_determinants_CLSF_02",
     "question": "Algunos determinantes se dan por nulos sin ninguna cuenta, mirando la relación entre las filas.\n\n¿Cuál de estas matrices tiene determinante cero?",
     "options": [
       "$\\begin{pmatrix} 3 & 1 \\\\ 9 & 4 \\end{pmatrix}$",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "violet_determinants_CLSF_03",
     "question": "Una matriz tiene una fila entera de ceros.\n$$\\begin{pmatrix} 4 & 7 \\\\ 0 & 0 \\end{pmatrix}$$\n¿Qué se puede afirmar sobre su determinante?",
     "options": [
       "Que vale cuatro, tomando la única fila que tiene datos",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "violet_determinants_CLSF_04",
     "question": "Una matriz tiene sus dos filas iguales entre sí.\n$$\\begin{pmatrix} 5 & 2 \\\\ 5 & 2 \\end{pmatrix}$$\n¿Qué se puede afirmar sobre su determinante?",
     "options": [
       "Que vale cero, porque las filas son la misma dirección",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "violet_determinants_CLSF_05",
     "question": "En una matriz del espacio, una fila es el doble de otra.\n$$\\begin{pmatrix} 1 & 2 & 3 \\\\ 2 & 4 & 6 \\\\ 0 & 5 & 1 \\end{pmatrix}$$\n¿Qué se puede afirmar sobre su determinante?",
     "options": [
       "Que no se puede anticipar sin desarrollar el cálculo",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "violet_determinants_CLSF_06",
     "question": "Una transformación del plano tiene determinante $-1$.\n\n¿Cómo se comporta con las áreas y con la orientación?",
     "options": [
       "Conserva las áreas e invierte la orientación",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "violet_determinants_CLSF_07",
     "question": "Una transformación del plano tiene determinante $3$.\n$$\\det(A) = 3$$\n¿Cómo se comporta con las áreas y con la orientación?",
     "options": [
       "Conserva las áreas y triplica la orientación",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "violet_determinants_CLSF_08",
     "question": "Una transformación del plano tiene determinante $-2$.\n$$\\det(A) = -2$$\n¿Cómo se comporta con las áreas y con la orientación?",
     "options": [
       "Achica las áreas a la mitad e invierte la orientación",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "violet_determinants_CLSF_09",
     "question": "Una transformación del plano tiene un determinante menor que uno.\n$$\\det(A) = \\tfrac{1}{2}$$\n¿Cómo se comporta con las áreas y con la orientación?",
     "options": [
       "Reduce las áreas a la mitad y conserva la orientación",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "violet_determinants_CLSF_10",
     "question": "Una transformación del plano tiene determinante $0$.\n$$\\det(A) = 0$$\n¿Cómo se comporta con las áreas y con la orientación?",
     "options": [
       "Achica mucho las áreas y conserva la orientación",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "violet_determinants_CLSF_11",
     "question": "El determinante de una matriz vale $7$.\n\nSe le suma a la primera fila el doble de la segunda, y el determinante sigue valiendo $7$.\n\n¿Qué propiedad lo explica?",
     "options": [
       "Sumarle a una fila un múltiplo de otra no altera el determinante",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "violet_determinants_CLSF_12",
     "question": "El determinante de una matriz vale $6$.\n\nSe intercambian sus dos filas y el determinante pasa a valer $-6$.\n\n¿Qué propiedad se aplicó?",
     "options": [
       "Permutar dos filas multiplica el determinante por dos",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "violet_determinants_CLSF_13",
     "question": "El determinante de una matriz del plano vale $5$.\n\nSe multiplica su primera fila por $3$ y el determinante pasa a valer $15$.\n\n¿Qué propiedad se aplicó?",
     "options": [
       "Multiplicar una fila por un número no altera el determinante",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "violet_determinants_CLSF_14",
     "question": "El determinante de una matriz del espacio vale $-4$.\n\nSe intercambian su primera y su tercera fila, y el determinante pasa a valer $4$.\n\n¿Qué propiedad se aplicó?",
     "options": [
       "Sumarle a una fila un múltiplo de otra no altera el determinante",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "violet_determinants_CLSF_15",
     "question": "El determinante de una matriz vale $10$.\n\nSe le suma a la segunda fila el triple de la primera, y el determinante sigue valiendo $10$.\n\n¿Qué propiedad lo explica?",
     "options": [
       "Sumarle a una fila un múltiplo de otra no altera el determinante",

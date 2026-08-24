@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_rational_FORM_01",
     "question": "Sea la función:\n$$f(x) = \\dfrac{2x + 3}{x - 5}$$\n¿Para qué valor de $x$ no está definida?",
     "options": [
       "$x = 5$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_02",
     "question": "Con la función:\n$$f(x) = \\dfrac{2}{x^2 - 4}$$\n¿Cuáles son los valores excluidos del dominio?",
     "options": [
       "$x = 2$",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_03",
     "question": "La curva del gráfico tiene dos ramas separadas por una recta vertical.\n\n¿Qué expresión le corresponde?",
     "options": [
       "$f(x) = \\dfrac{1}{x+2}$",
@@ -80,6 +83,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_04",
     "question": "Para la función:\n$$f(x) = \\dfrac{3x + 1}{x - 2}$$\nCuando $x \\to \\infty$?",
     "options": [
       "$y = 1$",
@@ -105,6 +109,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_05",
     "question": "Tomá en cuenta la función:\n$$f(x) = \\dfrac{x+1}{x-3}$$\n¿Cuál es la asíntota vertical?",
     "options": [
       "$x = 1$",
@@ -130,6 +135,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_06",
     "question": "Una función racional tiene un denominador que se anula en un punto:\n$$f(x) = \\dfrac{x + 1}{x - 3}$$\n¿Cuál es su dominio en notación de intervalos?",
     "options": [
       "$(-\\infty, 3] \\cup [3, +\\infty)$",
@@ -155,6 +161,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_07",
     "question": "Una función racional se evalúa en un punto:\n$$f(x) = \\dfrac{2x - 1}{x + 2}$$\n¿Cuánto vale $f(3)$?",
     "options": [
       "$1$",
@@ -180,6 +187,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_08",
     "question": "Dada la función:\n$$g(x) = \\dfrac{x^2 + 1}{x + 3}$$\n¿Cuánto vale $g(-2)$ si?",
     "options": [
       "$\\dfrac{5}{2}$",
@@ -205,6 +213,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_09",
     "question": "Sea la función:\n$$f(x) = \\dfrac{3x + 6}{x - 4}$$\n¿Cuánto vale $f(0)$ si?",
     "options": [
       "$\\dfrac{3}{2}$",
@@ -230,6 +239,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_10",
     "question": "Una función racional tiene la forma:\n$$f(x) = \\dfrac{k}{x-a}+b$$\nSu asíntota vertical está en $x=2$ y la horizontal en $y=1$.\n\nAdemás pasa por el punto $(3,4)$.\n\n¿Cuál es la fórmula de $f$?",
     "options": [
       "$f(x) = 3/(x-2)+1$",
@@ -255,6 +265,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_11",
     "question": "La función $f(x) = k/(x+3)$ pasa por el punto $(1,2)$.\n\n¿Cuánto vale $k$?",
     "options": [
       "2",
@@ -280,6 +291,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_12",
     "question": "Para la función:\n$$f(x) = \\dfrac{x+1}{x^2 - 4x + 3}$$\n¿Cuántas asíntotas verticales tiene?",
     "options": [
       "1, en $x=1$",
@@ -305,6 +317,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_13",
     "question": "Una función racional tiene un denominador que se anula en un único valor:\n$$f(x) = \\dfrac{x - 1}{x + 4}$$\n¿Cuál es su dominio en notación de intervalos?",
     "options": [
       "$(-\\infty, 4) \\cup (4, +\\infty)$",
@@ -330,6 +343,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_14",
     "question": "Una función racional tiene una diferencia de cuadrados en el denominador:\n$$f(x) = \\dfrac{2}{x^2 - 9}$$\n¿Cuál es su dominio?",
     "options": [
       "$(-\\infty, 3) \\cup (3, +\\infty)$",
@@ -355,6 +369,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_15",
     "question": "Dada la función:\n$$f(x) = \\dfrac{2x - 6}{x + 1}$$\n¿Cuál es el intercepto con el eje $X$?",
     "options": [
       "$x = -1$",
@@ -380,6 +395,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_16",
     "question": "Sea la función:\n$$f(x) = \\dfrac{5}{x - 2}$$\n¿Tiene intercepto con el eje $X$ la función?",
     "options": [
       "Sí, en $x = 5$",
@@ -405,6 +421,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_17",
     "question": "Con la función:\n$$f(x) = \\dfrac{x + 3}{x}$$\n¿Existe el intercepto con el eje $Y$?",
     "options": [
       "Sí, en $y = 3$",
@@ -430,6 +447,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_18",
     "question": "La curva del gráfico se dispara hacia arriba y hacia abajo cerca de un valor puntual.\n\n¿Cuál es la asíntota vertical de la función?",
     "options": [
       "$x = -1$",
@@ -460,6 +478,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_19",
     "question": "En el gráfico, la altura de la curva se lee igual que en cualquier otra función.\n\n¿Cuánto vale $f(3)$ aproximadamente?",
     "options": [
       "$1$",
@@ -490,6 +509,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_20",
     "question": "Una función racional tiene dos ramas separadas por una recta.\n\n¿Dónde está la asíntota vertical?",
     "options": [
       "$x = 2$",
@@ -520,6 +540,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_21",
     "question": "Para la función:\n$$g(x) = \\dfrac{1}{x}$$\n¿Cómo se obtiene $f(x) = 1/x - 3$ a partir de $g$?",
     "options": [
       "Desplazando $g$ 3 unidades hacia la derecha",
@@ -545,6 +566,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_22",
     "question": "Tomá en cuenta la función:\n$$f(x) = \\dfrac{1}{x + 5} - 2$$\n¿Cuál es la AV?",
     "options": [
       "$x = 5$",
@@ -570,6 +592,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_23",
     "question": "Sumar una constante a una función racional levanta la curva completa:\n$$f(x) = \\dfrac{3}{x - 4} + 2$$\n¿Cuáles son la asíntota vertical y la horizontal?",
     "options": [
       "AV: $x = 4$, AH: $y = 2$",
@@ -595,6 +618,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_24",
     "question": "Una función racional se analiza en un punto de su dominio:\n$$f(x) = \\dfrac{x^2 - 1}{x - 1}$$\n¿Qué pasa en $x = 1$?",
     "options": [
       "Hay una asíntota vertical",
@@ -620,6 +644,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_25",
     "question": "Una función racional tiene numerador y denominador de grado 2:\n$$f(x) = \\dfrac{x^2 + 3x}{x^2 - 1}$$\n¿Cuál es la asíntota vertical?",
     "options": [
       "Una sola AV en $x = 0$",
@@ -645,6 +670,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_26",
     "question": "Los grados del numerador y del denominador deciden qué pasa lejos del origen:\n$$f(x) = \\dfrac{x^3 - 1}{x^2 + 1}$$\n¿Cuál es la asíntota horizontal?",
     "options": [
       "$y = 1$",
@@ -670,6 +696,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_27",
     "question": "Una función racional tiene un trinomio factorizable en el denominador:\n$$f(x) = \\dfrac{x - 2}{x^2 + 2x + 1}$$\n¿Cuál es el dominio?",
     "options": [
       "$\\mathbb{R} \\setminus \\{2\\}$",
@@ -695,6 +722,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_28",
     "question": "El intercepto con el eje $X$ sale de anular el numerador, siempre que el denominador no se anule ahí:\n$$f(x) = \\dfrac{x^2 - 9}{x + 5}$$\n¿Cuál es el intercepto con el eje $X$?",
     "options": [
       "$x = 9$",
@@ -720,6 +748,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_29",
     "question": "Una función racional tiene numerador y denominador de grado 1:\n$$f(x) = \\dfrac{5x - 10}{2x + 6}$$\n¿Cuáles son la asíntota vertical y la horizontal?",
     "options": [
       "AV: $x = 3$, AH: $y = \\dfrac{5}{2}$",
@@ -745,6 +774,7 @@
     ]
   },
   {
+    "id": "white_rational_FORM_30",
     "question": "Dada la función:\n$$f(x) = \\dfrac{3x}{x^2 - 4}$$\n¿Cuáles son todas las asíntotas?",
     "options": [
       "AV: $x=2$; AH: $y=3$",

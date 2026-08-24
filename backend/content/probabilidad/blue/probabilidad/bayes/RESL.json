@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_bayes_RESL_01",
     "question": "En una población, el 10% tiene cierta condición.\n\nEntre quienes la tienen, un test da positivo el 90% de las veces; entre quienes no la tienen, da positivo el 20% de las veces.\n\nSe quiere calcular $P(\\text{condición}\\mid\\text{positivo})$, dejando expresado el cálculo sin resolver.\n\n¿Cuál es la expresión correcta?",
     "options": [
       "$\\dfrac{0{,}9 \\cdot 0{,}9}{0{,}9 \\cdot 0{,}1 + 0{,}2 \\cdot 0{,}9}$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "blue_bayes_RESL_02",
     "question": "De 1000 personas, 40 tienen cierta condición. Entre las 40 que la tienen, 34 dan positivo en el test.\n\nEntre las 960 que no la tienen, 58 también dan positivo por error.\n\n¿Cuál es la probabilidad de tener la condición, sabiendo que el test dio positivo?",
     "options": [
       "$34/92$",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "blue_bayes_RESL_03",
     "question": "En una población, el 20% tiene cierta condición.\n\nEntre quienes la tienen, un test da positivo el 70% de las veces; entre quienes no la tienen, da positivo el 40% de las veces.\n\nSe quiere calcular $P(\\text{condición}\\mid\\text{positivo})$, dejando expresado el cálculo sin resolver.\n\n¿Cuál es la expresión correcta?",
     "options": [
       "$\\dfrac{0{,}7 \\cdot 0{,}2}{0{,}7 \\cdot 0{,}2 + 0{,}4 \\cdot 0{,}8}$",
@@ -75,6 +78,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_RESL_04",
     "question": "Una fábrica arma piezas con dos líneas de producción.\n\nLa línea $A$ produce el 30% de las piezas, con una tasa de defectos del 12%.\n\nLa línea $B$ produce el 70%, con una tasa de defectos del 4%.\n\nSe quiere calcular $P(A\\mid\\text{defectuosa})$, dejando expresado el cálculo sin resolver.\n\n¿Cuál es la expresión correcta?",
     "options": [
       "$\\dfrac{0{,}12\\cdot0{,}12}{0{,}12\\cdot0{,}3+0{,}04\\cdot0{,}7}$",
@@ -100,6 +104,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_RESL_05",
     "question": "Un taller recibe tornillos de dos proveedores.\n\nEl proveedor $P$ entrega el 60% de los tornillos, con una tasa de falla del 6%.\n\nEl proveedor $Q$ entrega el 40%, con una tasa de falla del 9%.\n\nSe quiere calcular $P(Q\\mid\\text{falla})$, dejando expresado el cálculo sin resolver.\n\n¿Cuál es la expresión correcta?",
     "options": [
       "$\\dfrac{0{,}09\\cdot0{,}09}{0{,}06\\cdot0{,}6+0{,}09\\cdot0{,}4}$",
@@ -125,6 +130,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_RESL_06",
     "question": "Hay dos urnas, la urna $A$ y la urna $B$.\n\nLa urna $A$ se elige con un 40% de probabilidad y tiene un 70% de bolitas rojas.\n\nLa urna $B$ se elige con un 60% y tiene un 25% de bolitas rojas.\n\nSe quiere calcular $P(A\\mid\\text{roja})$, dejando expresado el cálculo sin resolver.\n\n¿Cuál es la expresión correcta?",
     "options": [
       "$\\dfrac{0{,}7\\cdot0{,}7}{0{,}7\\cdot0{,}4+0{,}25\\cdot0{,}6}$",
@@ -150,6 +156,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_RESL_07",
     "question": "Hay dos cajas, la caja $X$ y la caja $Y$.\n\nLa caja $X$ se elige con un 55% de probabilidad y tiene un 30% de fichas negras.\n\nLa caja $Y$ se elige con un 45% y tiene un 60% de fichas negras.\n\nSe quiere calcular $P(Y\\mid\\text{negra})$, dejando expresado el cálculo sin resolver.\n\n¿Cuál es la expresión correcta?",
     "options": [
       "$\\dfrac{0{,}6\\cdot0{,}45}{0{,}3\\cdot0{,}55+0{,}6\\cdot0{,}45}$",
@@ -175,6 +182,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_RESL_08",
     "question": "Un filtro de spam analiza correos. El 15% de los correos recibidos son spam.\n\nEntre los spam, un 75% contiene cierta palabra clave, y entre los no spam, un 10% la contiene.\n\nSe quiere calcular $P(\\text{spam}\\mid\\text{palabra})$, dejando expresado el cálculo sin resolver.\n\n¿Cuál es la expresión correcta?",
     "options": [
       "$\\dfrac{0{,}75\\cdot0{,}75}{0{,}75\\cdot0{,}15+0{,}1\\cdot0{,}85}$",
@@ -200,6 +208,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_RESL_09",
     "question": "Un filtro de spam revisa el remitente de los correos. El 20% de los correos recibidos son spam.\n\nEntre los spam, un 60% tiene remitente desconocido, y entre los no spam, un 5% lo tiene.\n\nSe quiere calcular $P(\\text{spam}\\mid\\text{desconocido})$, dejando expresado el cálculo sin resolver.\n\n¿Cuál es la expresión correcta?",
     "options": [
       "$\\dfrac{0{,}6\\cdot0{,}6}{0{,}6\\cdot0{,}2+0{,}05\\cdot0{,}8}$",
@@ -225,6 +234,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_RESL_10",
     "question": "De 800 personas, 80 tienen cierta condición. Entre las 80 que la tienen, 68 dan positivo en un test.\n\nEntre las 720 que no la tienen, 36 también dan positivo por error.\n\n¿Cuál es la probabilidad de tener la condición, sabiendo que el test dio positivo?",
     "options": [
       "$68/80$",
@@ -250,6 +260,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_RESL_11",
     "question": "En una fábrica se producen 600 piezas. De la línea $A$ salen 200 piezas, de las cuales 30 son defectuosas.\n\nDe la línea $B$ salen 400 piezas, de las cuales 20 son defectuosas.\n\n¿Cuál es la probabilidad de que una pieza defectuosa haya salido de la línea $A$?",
     "options": [
       "$30/200$",
@@ -275,6 +286,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_RESL_12",
     "question": "Un taller recibe 900 tornillos. Del proveedor $P$ llegan 600 tornillos, de los cuales 24 fallan.\n\nDel proveedor $Q$ llegan 300 tornillos, de los cuales 36 fallan.\n\n¿Cuál es la probabilidad de que un tornillo que falló venga del proveedor $Q$?",
     "options": [
       "$36/300$",
@@ -300,6 +312,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_RESL_13",
     "question": "En 500 sorteos se elige una urna al azar antes de sacar una bolita.\n\nLa urna $A$ se elige 250 veces, y en esos casos sale roja 175 veces.\n\nLa urna $B$ se elige las otras 250 veces, y en esos casos sale roja 50 veces.\n\n¿Cuál es la probabilidad de que una bolita roja haya salido de la urna $A$?",
     "options": [
       "$175/250$",
@@ -325,6 +338,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_RESL_14",
     "question": "En 1000 sorteos se elige una caja al azar antes de sacar una ficha.\n\nLa caja $X$ se elige 400 veces, y en esos casos sale negra 80 veces.\n\nLa caja $Y$ se elige las otras 600 veces, y en esos casos sale negra 180 veces.\n\n¿Cuál es la probabilidad de que una ficha negra haya salido de la caja $Y$?",
     "options": [
       "$180/600$",
@@ -350,6 +364,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_RESL_15",
     "question": "De 2000 correos recibidos, 300 son spam. Entre los 300 spam, 240 contienen cierta palabra clave.\n\nEntre los 1700 correos legítimos, 85 también contienen esa palabra por casualidad.\n\n¿Cuál es la probabilidad de que un correo sea spam, sabiendo que contiene esa palabra?",
     "options": [
       "$240/300$",

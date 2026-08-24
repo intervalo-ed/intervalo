@@ -1,7 +1,13 @@
 [
   {
+    "id": "white_factoriales_RESL_01",
     "question": "¿Cuál es el valor de $6!$?",
-    "options": ["$36$", "$120$", "$720$", "$46656$"],
+    "options": [
+      "$36$",
+      "$120$",
+      "$720$",
+      "$46656$"
+    ],
     "correct_index": 2,
     "feedback_correct": "$6!=6\\times5\\times4\\times3\\times2\\times1=720$.",
     "feedback_incorrect": [
@@ -15,11 +21,19 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["factorial-directo"]
+    "tags": [
+      "factorial-directo"
+    ]
   },
   {
+    "id": "white_factoriales_RESL_02",
     "question": "Calculá el valor de la siguiente expresión:\n$$\\frac{7!}{5!}$$\n¿Cuál es el resultado?",
-    "options": ["$2$", "$12$", "$42$", "$5040$"],
+    "options": [
+      "$2$",
+      "$12$",
+      "$42$",
+      "$5040$"
+    ],
     "correct_index": 2,
     "feedback_correct": "Se simplifica $\\frac{7!}{5!} = 7 \\times 6 = 42$.",
     "feedback_incorrect": [
@@ -33,11 +47,19 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["cociente-factoriales"]
+    "tags": [
+      "cociente-factoriales"
+    ]
   },
   {
+    "id": "white_factoriales_RESL_03",
     "question": "Resolvé la siguiente resta de factoriales:\n$$5! - 4!$$\n¿Cuál es el resultado?",
-    "options": ["$1$", "$24$", "$96$", "$120$"],
+    "options": [
+      "$1$",
+      "$24$",
+      "$96$",
+      "$120$"
+    ],
     "correct_index": 2,
     "feedback_correct": "Se expanden ambos factoriales y se resta.",
     "feedback_incorrect": [
@@ -51,9 +73,12 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["suma-resta-evaluada"]
+    "tags": [
+      "suma-resta-evaluada"
+    ]
   },
   {
+    "id": "white_factoriales_RESL_04",
     "question": "Se quiere comparar $5!$ y $6!$ sin calcular ambos valores completos.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
     "options": [
       "$6! = 6 \\times 5!$, así que $6!$ es 6 veces mayor que $5!$.",
@@ -74,11 +99,19 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["comparacion-factoriales"]
+    "tags": [
+      "comparacion-factoriales"
+    ]
   },
   {
+    "id": "white_factoriales_RESL_05",
     "question": "Encontrá el resultado de la siguiente fracción de factoriales:\n$$\\frac{6!}{2!\\,3!}$$\n¿Cuál es el resultado?",
-    "options": ["$120$", "$60$", "$360$", "$6$"],
+    "options": [
+      "$120$",
+      "$60$",
+      "$360$",
+      "$6$"
+    ],
     "correct_index": 1,
     "feedback_correct": "Se expanden los tres factoriales y se divide.",
     "feedback_incorrect": [
@@ -92,11 +125,19 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["fraccion-producto-denominador"]
+    "tags": [
+      "fraccion-producto-denominador"
+    ]
   },
   {
+    "id": "white_factoriales_RESL_06",
     "question": "¿Cuál es el valor de $5!$?",
-    "options": ["$25$", "$24$", "$120$", "$3125$"],
+    "options": [
+      "$25$",
+      "$24$",
+      "$120$",
+      "$3125$"
+    ],
     "correct_index": 2,
     "feedback_correct": "$5!=5\\times4\\times3\\times2\\times1=120$.",
     "feedback_incorrect": [
@@ -110,11 +151,19 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["factorial-directo"]
+    "tags": [
+      "factorial-directo"
+    ]
   },
   {
+    "id": "white_factoriales_RESL_07",
     "question": "¿Cuál es el valor de $4!$?",
-    "options": ["$16$", "$24$", "$6$", "$256$"],
+    "options": [
+      "$16$",
+      "$24$",
+      "$6$",
+      "$256$"
+    ],
     "correct_index": 1,
     "feedback_correct": "$4!=4\\times3\\times2\\times1=24$.",
     "feedback_incorrect": [
@@ -128,11 +177,19 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["factorial-directo"]
+    "tags": [
+      "factorial-directo"
+    ]
   },
   {
+    "id": "white_factoriales_RESL_08",
     "question": "Calculá el valor de la siguiente expresión:\n$$\\frac{6!}{4!}$$\n¿Cuál es el resultado?",
-    "options": ["$2$", "$6$", "$30$", "$720$"],
+    "options": [
+      "$2$",
+      "$6$",
+      "$30$",
+      "$720$"
+    ],
     "correct_index": 2,
     "feedback_correct": "Se simplifica $\\frac{6!}{4!} = 6 \\times 5 = 30$.",
     "feedback_incorrect": [
@@ -146,11 +203,19 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["cociente-factoriales"]
+    "tags": [
+      "cociente-factoriales"
+    ]
   },
   {
+    "id": "white_factoriales_RESL_09",
     "question": "Determiná el valor de la siguiente expresión:\n$$\\frac{8!}{6!}$$\n¿Cuál es el resultado?",
-    "options": ["$56$", "$2$", "$336$", "$40320$"],
+    "options": [
+      "$56$",
+      "$2$",
+      "$336$",
+      "$40320$"
+    ],
     "correct_index": 0,
     "feedback_correct": "Se simplifica $\\frac{8!}{6!} = 8 \\times 7 = 56$.",
     "feedback_incorrect": [
@@ -164,11 +229,19 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["cociente-factoriales"]
+    "tags": [
+      "cociente-factoriales"
+    ]
   },
   {
+    "id": "white_factoriales_RESL_10",
     "question": "Resolvé la siguiente expresión de factoriales:\n$$\\frac{5!}{2!}$$\n¿Cuál es el resultado?",
-    "options": ["$3$", "$20$", "$120$", "$60$"],
+    "options": [
+      "$3$",
+      "$20$",
+      "$120$",
+      "$60$"
+    ],
     "correct_index": 3,
     "feedback_correct": "Se simplifica $\\frac{5!}{2!} = 5 \\times 4 \\times 3 = 60$.",
     "feedback_incorrect": [
@@ -182,11 +255,19 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["cociente-factoriales"]
+    "tags": [
+      "cociente-factoriales"
+    ]
   },
   {
+    "id": "white_factoriales_RESL_11",
     "question": "Encontrá el valor de la siguiente expresión:\n$$\\frac{8!}{7!}$$\n¿Cuál es el resultado?",
-    "options": ["$1$", "$8$", "$56$", "$40320$"],
+    "options": [
+      "$1$",
+      "$8$",
+      "$56$",
+      "$40320$"
+    ],
     "correct_index": 1,
     "feedback_correct": "Se simplifica $\\frac{8!}{7!} = 8$.",
     "feedback_incorrect": [
@@ -200,11 +281,19 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["cociente-factoriales"]
+    "tags": [
+      "cociente-factoriales"
+    ]
   },
   {
+    "id": "white_factoriales_RESL_12",
     "question": "Resolvé la siguiente suma de factoriales:\n$$4! + 3!$$\n¿Cuál es el resultado?",
-    "options": ["$7$", "$6$", "$24$", "$30$"],
+    "options": [
+      "$7$",
+      "$6$",
+      "$24$",
+      "$30$"
+    ],
     "correct_index": 3,
     "feedback_correct": "Se expanden ambos factoriales y se suman.",
     "feedback_incorrect": [
@@ -218,11 +307,19 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["suma-resta-evaluada"]
+    "tags": [
+      "suma-resta-evaluada"
+    ]
   },
   {
+    "id": "white_factoriales_RESL_13",
     "question": "Resolvé la siguiente resta de factoriales:\n$$6! - 5!$$\n¿Cuál es el resultado?",
-    "options": ["$600$", "$1$", "$120$", "$720$"],
+    "options": [
+      "$600$",
+      "$1$",
+      "$120$",
+      "$720$"
+    ],
     "correct_index": 0,
     "feedback_correct": "Se expanden ambos factoriales y se resta.",
     "feedback_incorrect": [
@@ -236,9 +333,12 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["suma-resta-evaluada"]
+    "tags": [
+      "suma-resta-evaluada"
+    ]
   },
   {
+    "id": "white_factoriales_RESL_14",
     "question": "Se quiere comparar $7!$ y $8!$ sin calcular ambos valores completos.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
     "options": [
       "$7!$ es mayor, porque $7<8$ aporta menos factores.",
@@ -259,11 +359,19 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["comparacion-factoriales"]
+    "tags": [
+      "comparacion-factoriales"
+    ]
   },
   {
+    "id": "white_factoriales_RESL_15",
     "question": "Encontrá el resultado de la siguiente fracción de factoriales:\n$$\\frac{5!}{2!\\,3!}$$\n¿Cuál es el resultado?",
-    "options": ["$20$", "$10$", "$60$", "$5$"],
+    "options": [
+      "$20$",
+      "$10$",
+      "$60$",
+      "$5$"
+    ],
     "correct_index": 1,
     "feedback_correct": "Se expanden los tres factoriales y se divide.",
     "feedback_incorrect": [
@@ -277,6 +385,215 @@
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["fraccion-producto-denominador"]
+    "tags": [
+      "fraccion-producto-denominador"
+    ]
+  },
+  {
+    "id": "white_factoriales_RESL_16",
+    "question": "El **factorial** de un número natural es el producto de todos los enteros positivos desde $1$ hasta ese número.\n\nLa tabla evalúa $n!$ y deja una celda sin completar.\n\n¿Qué valor va en esa celda?",
+    "options": [
+      "$96$",
+      "$120$",
+      "$125$",
+      "$144$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Se llega multiplicando $4!$ por 5, y se confirma dividiendo $6!$ por 6.",
+    "feedback_incorrect": [
+      "Ese es $4 \times 4!$: para subir un escalón se multiplica por el índice nuevo, no por el anterior.",
+      null,
+      "Ese es $5^{3}$, una potencia; el factorial es el producto decreciente $5\times4\times3\times2\times1$.",
+      "Ese sale de dividir $720$ por 5, pero para bajar de $6!$ a $5!$ hay que dividir por 6."
+    ],
+    "explanation": "El **factorial** cumple la relación recursiva $n! = n \times (n-1)!$, que conecta cada fila de la tabla con la de al lado.\n\nDesde $4! = 24$ se sube multiplicando por el índice nuevo:\n$$5! = 5 \times 24 = 120$$\nY el control cierra por el otro lado: multiplicar 120 por 6 devuelve el 720 que la tabla ya trae abajo.\n\nTener las dos filas vecinas visibles permite verificar el resultado en las dos direcciones, algo que conviene hacer siempre que la columna crece tan rápido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "$n$"
+        },
+        {
+          "icon": null,
+          "label": "$n!$"
+        }
+      ],
+      "rows": [
+        [
+          "$3$",
+          "$6$"
+        ],
+        [
+          "$4$",
+          "$24$"
+        ],
+        [
+          "$5$",
+          null
+        ],
+        [
+          "$6$",
+          "$720$"
+        ]
+      ],
+      "reveal": {
+        "mode": "cell",
+        "at": [
+          2,
+          1
+        ],
+        "by_option": [
+          "$96$",
+          "$120$",
+          "$125$",
+          "$144$"
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "valor-desde-tabla"
+    ]
+  },
+  {
+    "id": "white_factoriales_RESL_17",
+    "question": "El **factorial** de un número natural multiplica todos los enteros positivos hasta ese número.\n\nEn la tabla falta el valor de una de las filas.\n\n¿Cuánto vale $4!$?",
+    "options": [
+      "$18$",
+      "$24$",
+      "$30$",
+      "$64$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Se llega multiplicando $3!$ por 4, y se confirma dividiendo $5!$ por 5.",
+    "feedback_incorrect": [
+      "Ese es $3 \times 3!$: el factor que entra al subir de fila es el índice nuevo, no el anterior.",
+      null,
+      "Ese sale de dividir $120$ por 4, pero para bajar de $5!$ a $4!$ hay que dividir por 5.",
+      "Ese es $4^{3}$, una potencia; el factorial multiplica factores que bajan de a uno."
+    ],
+    "explanation": "El **factorial** cumple la relación recursiva $n! = n \times (n-1)!$, que conecta cada fila con su vecina.\n\nDesde $3! = 6$ se sube multiplicando por el índice nuevo:\n$$4! = 4 \times 6 = 24$$\nY el control cierra desde abajo, porque dividir 120 por 5 devuelve ese mismo 24.\n\nLas dos rutas tienen que coincidir. Cuando no coinciden, casi siempre es porque se usó el índice de la fila equivocada como factor.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "$n$"
+        },
+        {
+          "icon": null,
+          "label": "$n!$"
+        }
+      ],
+      "rows": [
+        [
+          "$3$",
+          "$6$"
+        ],
+        [
+          "$4$",
+          null
+        ],
+        [
+          "$5$",
+          "$120$"
+        ],
+        [
+          "$6$",
+          "$720$"
+        ]
+      ],
+      "reveal": {
+        "mode": "cell",
+        "at": [
+          1,
+          1
+        ],
+        "by_option": [
+          "$18$",
+          "$24$",
+          "$30$",
+          "$64$"
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "valor-desde-tabla"
+    ]
+  },
+  {
+    "id": "white_factoriales_RESL_18",
+    "question": "El **factorial** de un número natural multiplica todos los enteros desde $1$ hasta ese número, y crece muy rápido.\n\nLa tabla deja sin completar el valor de $6!$.\n\n¿Qué valor le corresponde?",
+    "options": [
+      "$216$",
+      "$600$",
+      "$720$",
+      "$840$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Se llega multiplicando $5!$ por 6.",
+    "feedback_incorrect": [
+      "Ese es $6^{3}$, una potencia; el factorial multiplica factores que bajan de a uno hasta 1.",
+      "Ese es $5 \times 120$: el factor que entra es el índice de la fila que se busca, no el de la fila de arriba.",
+      null,
+      "Ese es $7 \times 120$: el índice que entra al pasar de $5!$ a $6!$ es 6, no 7."
+    ],
+    "explanation": "La relación recursiva $n! = n \times (n-1)!$ permite moverse de una fila a la vecina sin expandir el producto entero.\n\nSubiendo desde $5! = 120$, el factor que entra es 6:\n$$6! = 6 \times 120 = 720$$\nLa columna pasa de 6 a 720 en tres filas. Ese crecimiento se subestima casi siempre si se intenta anticipar de memoria, y es justamente lo que la tabla deja ver de un vistazo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "$n$"
+        },
+        {
+          "icon": null,
+          "label": "$n!$"
+        }
+      ],
+      "rows": [
+        [
+          "$3$",
+          "$6$"
+        ],
+        [
+          "$4$",
+          "$24$"
+        ],
+        [
+          "$5$",
+          "$120$"
+        ],
+        [
+          "$6$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "cell",
+        "at": [
+          3,
+          1
+        ],
+        "by_option": [
+          "$216$",
+          "$600$",
+          "$720$",
+          "$840$"
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "valor-desde-tabla"
+    ]
   }
 ]

@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_parts_CLSF_01",
     "question": "En la siguiente integral la exponencial aparece sola, sin ningún factor que la acompañe ni nada adentro:\n$$\\int e^x\\,dx$$\n¿Qué camino conviene tomar?",
     "options": [
       "Regla directa",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "brown_parts_CLSF_02",
     "question": "Ninguno de los dos factores de acá es la derivada del otro:\n$$\\int x^2\\ln x\\,dx$$\n¿Qué camino abre esta integral?",
     "options": [
       "Por partes",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "brown_parts_CLSF_03",
     "question": "Adentro del coseno no está la variable sola, sino multiplicada por tres y con un número restando:\n$$\\int \\cos(3x-2)\\,dx$$\n¿Cómo conviene abordarla?",
     "options": [
       "Sustitución",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "brown_parts_CLSF_04",
     "question": "El seno y la variable que lo multiplica no tienen ninguna relación entre sí:\n$$\\int x\\sin x\\,dx$$\n¿Qué camino corresponde?",
     "options": [
       "Sustitución",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "brown_parts_CLSF_05",
     "question": "En esta fracción, el numerador coincide exacto con la derivada del denominador:\n$$\\int \\frac{3x^2}{x^3+1}\\,dx$$\n¿Qué camino abre esta integral?",
     "options": [
       "Por partes",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "brown_parts_CLSF_06",
     "question": "Este integrando ya apareció en derivadas, como resultado de derivar la tangente:\n$$\\int \\sec^2 x\\,dx$$\n¿Qué camino conviene tomar?",
     "options": [
       "Regla directa",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "brown_parts_CLSF_07",
     "question": "Este integrando es una única función que no parece, a primera vista, un producto:\n$$\\int \\ln x\\,dx$$\n¿Cómo conviene abordarla?",
     "options": [
       "Sustitución",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "brown_parts_CLSF_08",
     "question": "En la siguiente integral hay una sola potencia, sin ningún factor ni función alrededor:\n$$\\int x^4\\,dx$$\n¿Qué camino corresponde?",
     "options": [
       "Regla directa",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "brown_parts_CLSF_09",
     "question": "Este cociente se puede repartir término a término antes de integrar nada:\n$$\\int \\frac{x^4+3x^2}{x^2}\\,dx$$\n¿Qué camino conviene tomar?",
     "options": [
       "Sustitución",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "brown_parts_CLSF_10",
     "question": "En este integrando, un factor es exactamente la derivada de lo que hay dentro de la exponencial:\n$$\\int xe^{x^2}\\,dx$$\n¿Qué camino abre esta integral?",
     "options": [
       "Reescribir antes",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "brown_parts_CLSF_11",
     "question": "Esta raíz cúbica se puede convertir a exponente fraccionario antes de integrar:\n$$\\int \\sqrt[3]{x}\\,dx$$\n¿Qué camino corresponde?",
     "options": [
       "Sustitución",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "brown_parts_CLSF_12",
     "question": "El logaritmo no trae acá su propia derivada acompañándolo:\n$$\\int x\\ln x\\,dx$$\n¿Qué camino conviene tomar?",
     "options": [
       "Reescribir antes",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "brown_parts_CLSF_13",
     "question": "En este integrando el logaritmo viene acompañado de algo muy parecido a su propia derivada:\n$$\\int \\frac{\\ln x}{x}\\,dx$$\n¿Cómo conviene abordarla?",
     "options": [
       "Por partes",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "brown_parts_CLSF_14",
     "question": "En la siguiente integral hay dos funciones multiplicándose y ninguna sale de derivar la otra:\n$$\\int x\\cos x\\,dx$$\n¿Qué camino corresponde?",
     "options": [
       "Reescribir antes",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "brown_parts_CLSF_15",
     "question": "En este cociente, tanto el numerador como el denominador comparten un factor común:\n$$\\int \\frac{x^3-4x}{x}\\,dx$$\n¿Qué camino abre esta integral?",
     "options": [
       "Regla directa",

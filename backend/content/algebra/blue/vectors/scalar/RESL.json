@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_scalar_RESL_01",
     "question": "Dados $\\vec{u}=(4,-2)$ y $\\vec{v}=(3,5)$.\n\n¿Cuánto vale $\\vec{u}\\cdot\\vec{v}$?",
     "options": [
       "$2$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "blue_scalar_RESL_02",
     "question": "Se conocen las componentes de dos vectores.\n$$\\vec{u}=(3,6) \\qquad \\vec{v}=(5,-2)$$\n¿Cuánto vale su producto escalar?",
     "options": [
       "$-3$",
@@ -52,6 +54,7 @@
     ]
   },
   {
+    "id": "blue_scalar_RESL_03",
     "question": "Se conocen las componentes de dos vectores.\n$$\\vec{u}=(-4,3) \\qquad \\vec{v}=(2,7)$$\n¿Cuánto vale su producto escalar?",
     "options": [
       "$29$",
@@ -79,6 +82,7 @@
     ]
   },
   {
+    "id": "blue_scalar_RESL_04",
     "question": "Se conocen las componentes de dos vectores.\n$$\\vec{u}=(5,-3) \\qquad \\vec{v}=(-2,-4)$$\n¿Cuánto vale su producto escalar?",
     "options": [
       "$2$",
@@ -106,6 +110,7 @@
     ]
   },
   {
+    "id": "blue_scalar_RESL_05",
     "question": "Se conocen las componentes de dos vectores del espacio.\n$$\\vec{u}=(2,1,4) \\qquad \\vec{v}=(3,-5,1)$$\n¿Cuánto vale su producto escalar?",
     "options": [
       "$(6,-5,4)$",
@@ -133,6 +138,7 @@
     ]
   },
   {
+    "id": "blue_scalar_RESL_06",
     "question": "Una persona empuja un objeto con $\\vec{F}=(6,3)$ mientras el objeto se mueve en la dirección $\\vec{d}=(1,0)$.\n\n¿Cuánto de esa fuerza efectivamente aporta al movimiento en esa dirección?",
     "options": [
       "$6$",
@@ -158,6 +164,7 @@
     ]
   },
   {
+    "id": "blue_scalar_RESL_07",
     "question": "Una persona empuja un carro con $\\vec{F}=(8,5)$ mientras el carro avanza en la dirección $\\vec{d}=(1,0)$.\n\n¿Cuánto de esa fuerza aporta al avance en esa dirección?",
     "options": [
       "$0$",
@@ -185,6 +192,7 @@
     ]
   },
   {
+    "id": "blue_scalar_RESL_08",
     "question": "Una fuerza $\\vec{F}=(6,-4)$ actúa mientras un objeto se desplaza según $\\vec{d}=(2,3)$.\n\n¿Cuánto de esa fuerza aporta al desplazamiento?",
     "options": [
       "$24$",
@@ -212,6 +220,7 @@
     ]
   },
   {
+    "id": "blue_scalar_RESL_09",
     "question": "Una fuerza $\\vec{F}=(-3,7)$ actúa mientras un objeto se desplaza según $\\vec{d}=(4,1)$.\n\n¿Cuánto de esa fuerza aporta al desplazamiento?",
     "options": [
       "$-5$",
@@ -239,6 +248,7 @@
     ]
   },
   {
+    "id": "blue_scalar_RESL_10",
     "question": "Una fuerza $\\vec{F}=(5,2)$ actúa mientras un objeto se desplaza según $\\vec{d}=(3,6)$.\n\n¿Cuánto de esa fuerza aporta al desplazamiento?",
     "options": [
       "$15$",
@@ -266,6 +276,7 @@
     ]
   },
   {
+    "id": "blue_scalar_RESL_11",
     "question": "Dado $\\vec{v}=(7,-4)$.\n\n¿Cuánto vale $\\vec{v}\\cdot(0,1)$?",
     "options": [
       "$-4$",
@@ -291,6 +302,7 @@
     ]
   },
   {
+    "id": "blue_scalar_RESL_12",
     "question": "Se conoce un vector del plano.\n$$\\vec{v}=(9,-5)$$\n¿Cuánto vale su producto escalar contra $(1,0)$?",
     "options": [
       "$0$",
@@ -318,6 +330,7 @@
     ]
   },
   {
+    "id": "blue_scalar_RESL_13",
     "question": "Se conoce un vector del plano.\n$$\\vec{v}=(-6,8)$$\n¿Cuánto vale su producto escalar contra $(0,1)$?",
     "options": [
       "$-6$",
@@ -345,6 +358,7 @@
     ]
   },
   {
+    "id": "blue_scalar_RESL_14",
     "question": "Se conoce un vector del plano.\n$$\\vec{v}=(7,3)$$\n¿Cuánto vale su producto escalar contra $(1,0)$?",
     "options": [
       "$7$",
@@ -372,6 +386,7 @@
     ]
   },
   {
+    "id": "blue_scalar_RESL_15",
     "question": "Se conoce un vector del espacio.\n$$\\vec{v}=(4,-2,6)$$\n¿Cuánto vale su producto escalar contra $(0,0,1)$?",
     "options": [
       "$-2$",

@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_subspaces_RESL_01",
     "question": "Un subespacio de $\\mathbb{R}^3$ queda definido por una única ecuación.\n$$S = \\{(x,y,z) : x - 2y + z = 0\\}$$\n¿Cuál de estas ternas pertenece a $S$?",
     "options": [
       "$(3, 2, 1)$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_RESL_02",
     "question": "Un subespacio de $\\mathbb{R}^3$ queda definido por dos condiciones a la vez.\n$$x + y = 0$$\n$$z = 2x$$\n¿Cuál de estas ternas cumple las dos condiciones?",
     "options": [
       "$(2, -2, 6)$",
@@ -52,6 +54,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_RESL_03",
     "question": "Un subespacio del plano queda definido por una única condición sobre las coordenadas.\n$$S = \\{(x,y) : 5x = 2y\\}$$\n¿Cuál de estos pares pertenece a $S$?",
     "options": [
       "$(5, 2)$",
@@ -79,6 +82,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_RESL_04",
     "question": "Un subespacio de $\\mathbb{R}^3$ queda definido por una sola ecuación.\n$$S = \\{(x,y,z) : 3x - y + 2z = 0\\}$$\n¿Cuál de estas ternas pertenece a $S$?",
     "options": [
       "$(1, 5, 1)$",
@@ -106,6 +110,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_RESL_05",
     "question": "Un subespacio del plano se describe con coeficientes de distinto signo.\n$$S = \\{(x,y) : x + 4y = 0\\}$$\n¿Cuál de estos pares pertenece a $S$?",
     "options": [
       "$(-2, 8)$",
@@ -133,6 +138,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_RESL_06",
     "question": "Un subespacio del plano queda definido por una condición con un parámetro sin determinar.\n$$S = \\{(x,y) : 3x - ky = 0\\}$$\nSe quiere que el par $(2, 3)$ pertenezca a $S$.\n\n¿Qué valor tiene que tomar $k$?",
     "options": [
       "$2$",
@@ -158,6 +164,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_RESL_07",
     "question": "Un subespacio de $\\mathbb{R}^3$ tiene un coeficiente sin determinar.\n$$S = \\{(x,y,z) : x + ky - z = 0\\}$$\nSe quiere que la terna $(4, 2, 10)$ pertenezca a $S$.\n\n¿Qué valor tiene que tomar $k$?",
     "options": [
       "$7$",
@@ -185,6 +192,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_RESL_08",
     "question": "Un subespacio del plano tiene una condición conocida y un par con una coordenada libre.\n$$S = \\{(x,y) : 2x + 3y = 0\\}$$\nSe quiere que el par $(k, -4)$ pertenezca a $S$.\n\n¿Qué valor tiene que tomar $k$?",
     "options": [
       "$-6$",
@@ -212,6 +220,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_RESL_09",
     "question": "Un subespacio de $\\mathbb{R}^3$ tiene el coeficiente de la última coordenada sin fijar.\n$$S = \\{(x,y,z) : 5x - y + kz = 0\\}$$\nSe quiere que la terna $(1, 3, 2)$ pertenezca a $S$.\n\n¿Qué valor tiene que tomar $k$?",
     "options": [
       "$-1$",
@@ -239,6 +248,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_RESL_10",
     "question": "Un subespacio del plano tiene el coeficiente de la primera coordenada sin determinar.\n$$S = \\{(x,y) : kx - y = 0\\}$$\nSe quiere que el par $(3, 12)$ pertenezca a $S$.\n\n¿Qué valor tiene que tomar $k$?",
     "options": [
       "$-4$",
@@ -266,6 +276,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_RESL_11",
     "question": "Un subconjunto del plano reúne los pares cuya primera coordenada no es negativa.\n$$S = \\{(x,y) : x \\geq 0\\}$$\nAlcanza con una sola operación para mostrar que no es un subespacio.\n\n¿Cuál de estas la muestra?",
     "options": [
       "Multiplicar $(2, 1)$ por $-1$",
@@ -291,6 +302,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_RESL_12",
     "question": "Un subconjunto del plano reúne los pares que están sobre una parábola.\n$$S = \\{(x,y) : y = x^2\\}$$\n¿Cuál de estas operaciones muestra que no es un subespacio?",
     "options": [
       "Multiplicar $(1, 1)$ por $1$",
@@ -318,6 +330,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_RESL_13",
     "question": "Un subconjunto del plano reúne los pares cuyas coordenadas suman cuatro.\n$$S = \\{(x,y) : x + y = 4\\}$$\n¿Cuál de estas operaciones muestra que no es un subespacio?",
     "options": [
       "Restar $(1, 3)$ menos $(2, 2)$",
@@ -345,6 +358,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_RESL_14",
     "question": "Un subconjunto del plano reúne los pares cuyas coordenadas tienen el mismo signo o alguna nula.\n$$S = \\{(x,y) : xy \\geq 0\\}$$\n¿Cuál de estas operaciones muestra que no es un subespacio?",
     "options": [
       "Sumar $(1, 0)$ con $(0, -1)$",
@@ -372,6 +386,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_RESL_15",
     "question": "Un subconjunto del plano reúne los pares cuyas coordenadas tienen el mismo valor absoluto.\n$$S = \\{(x,y) : |x| = |y|\\}$$\n¿Cuál de estas operaciones muestra que no es un subespacio?",
     "options": [
       "Multiplicar $(3, -3)$ por $-1$",

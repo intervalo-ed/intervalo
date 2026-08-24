@@ -8,7 +8,9 @@ generó contenido entienda la estructura antes de escribir el primero.
 - **Este documento es el resumen legible.** Da la forma y los números clave.
 - **`authoring-context.md` es la fuente de verdad exhaustiva.** Cada regla acá cita
   su número (`R4`, `R18`, …) para que puedas ir al detalle fino, los ejemplos
-  ❌/✅ y las excepciones. Si algo de acá y de allá parecen chocar, gana
+  ❌/✅ y las excepciones. La numeración llega hoy hasta **R80**; ojo que `R23`
+  no existe, que hay `R17b` y `R44b`, y que dos párrafos sueltos titulados
+  "Regla 43/44 (no automatizable)" no son las R43/R44 de la lista numerada. Si algo de acá y de allá parecen chocar, gana
   `authoring-context.md`; avisá para actualizar este resumen.
 - **Se mantiene al día.** Cuando cambia una regla estructural, este plano se
   actualiza junto con `authoring-context.md`.
@@ -25,6 +27,7 @@ campos:
 
 | Campo | Tipo | Rol |
 |-------|------|-----|
+| `id` | `string` | **Identidad estable del ejercicio.** Va primero y no se escribe a mano: lo estampa `python content/stamp_ids.py`. Ver abajo. |
 | `question` | `string` | **El enunciado.** Contexto + fórmula + pregunta. |
 | `options` | `array<string>` | **Las respuestas.** 2 a 4. Una correcta, el resto distractores. |
 | `correct_index` | `int` | Índice (0-based) de la opción correcta. |
@@ -36,10 +39,38 @@ campos:
 | `graph_fn`, `graph_view` | `string`/`array`/`null` | Gráfico embebido (solo skills `GRAF`). |
 | `graph_shade` | `array`/`null` | `[xMin, xMax]` opcional: sombrea el área bajo `graph_fn` en ese tramo. |
 | `graph_free_aspect` | `boolean`/`null` | `true` desactiva el aspecto 1:1 forzado de Mafs (solo `probabilidad`; nunca en `analisis`). Ver sección Gráficos de `authoring-context.md`. |
-| `correct_index`, `reviewed` | | metadata. `external_id` **no va en el JSON** (lo infiere el seeder de la ruta). |
+| `table` | `object`/`null` | **Tabla embebida** (tercer formato, junto a texto plano y gráfico). `columns` + `rows` + `reveal`, con una columna precalculada por opción. Ver sección Tablas de `authoring-context.md`. |
+| `reviewed` | `bool` | metadata editorial. |
 
 Los **cuatro componentes que redactás** son `question`, `options`, `feedback_*` y
 `explanation`. Una sección para cada uno abajo.
+
+### El campo `id`
+
+`seed_content.py` usa `(course_id, external_id)` como clave del upsert, y ese
+`external_id` sale de `entry["id"]`. Si el campo falta, cae al id posicional
+(`{belt}_{topic}_{skill}_{idx+1:02d}`), que es como funcionaba hasta ago-2026 y que
+tiene un problema serio: **borrar o insertar un ejercicio en el medio del archivo
+renumera a todos los que siguen**, y las respuestas ya guardadas en
+`answers.exercise_external_id` pasan a describir otro contenido. En producción quedaron
+123 ids apuntando a ejercicios que no existen y varias unidades con más ids en el
+histórico que ejercicios en el catálogo.
+
+Reglas de uso:
+
+- **No lo escribas a mano.** Después de generar, corré `python content/stamp_ids.py`.
+  Es idempotente y sella sólo lo que no tiene id.
+- **Un id nunca se reasigna ni se reusa.** El script asigna `max(sufijos) + 1`, no el
+  primer hueco libre: si el `_05` se archivó, ese id queda quemado. Reusarlo mezclaría
+  las respuestas del ejercicio viejo con las del nuevo.
+- **No lo edites cuando renombrás un topic.** El id es un identificador, no una ruta: si
+  la carpeta pasa de `factorizacion` a `factorization`, los ids se quedan con el nombre
+  viejo a propósito. Cortar la serie histórica es peor que un id que no matchea la
+  carpeta — ese renombre exacto ya nos costó 129 respuestas partidas en dos slugs.
+- Reordenar el array es libre y no cambia nada.
+
+El validador lo chequea (`--check ids`): falta de `id`, `id` vacío y duplicados son
+ERROR.
 
 ---
 
@@ -268,6 +299,11 @@ Estas valen en `question`, `options`, `feedback_*` y `explanation` por igual:
   Una sola oración, y sin reportar el resultado de ningún paso que el
   estudiante podría dar: qué deja la sustitución, si el límite existe, cuál
   polinomio se impone. Eso es el ejercicio. (R61)
+- **La tabla va en el campo `table`, nunca como LaTeX**, y el emoji vive solo en
+  `table.columns[].icon`: nunca dentro de una opción, de una celda o de la prosa
+  (eso enseña que la letra es la etiqueta del objeto, no la cantidad). Las celdas
+  ya visibles coinciden con lo que pinta la opción correcta, y cada distractor
+  difiere de ella en al menos una fila visible. (R68-R75)
 
 ---
 
@@ -285,6 +321,11 @@ python content/validate_content.py --course analisis --topic <belt/unit/topic>
   formado…).
 - **WARNING** (se revisa con criterio): heurísticas (sesgo de longitud de opciones,
   párrafo largo, 2+ inline, feedback acusatorio, plantilla de apertura).
+
+Lo que el validador **no** puede chequear es la dificultad real: para eso hace falta
+`content/report_difficulty.py` contra la base de producción (ver regla 80 de
+`authoring-context.md`), porque la señal solo existe una vez que el ítem tuvo
+exposición real.
 
 Lo que **no** es automatizable y queda en el checklist manual del `topic-context.md`:
 que la explicación razone el porqué (R25), que un `aligned` no aliñe datos sueltos

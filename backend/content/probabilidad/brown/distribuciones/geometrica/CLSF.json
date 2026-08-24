@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_geometrica_CLSF_01",
     "question": "Un jugador de básquet tira al aro repetidamente hasta encestar el primer tiro.\n\nCada tiro tiene la misma probabilidad de acierto $0{,}4$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de tiros hasta encestar el primero?",
     "options": [
       "$Geom(0{,}4)$",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "brown_geometrica_CLSF_02",
     "question": "Un reclutador revisa currículums recibidos hasta encontrar el primero que cumple los requisitos del puesto.\n\nCada currículum cumple los requisitos con probabilidad $0{,}25$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de currículums revisados hasta encontrar el segundo que cumple los requisitos?",
     "options": [
       "$BinNeg(2,\\, 0{,}25)$",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "brown_geometrica_CLSF_03",
     "question": "Un tirador va mejorando su puntería con la práctica: cada vez que erra, su probabilidad de acierto en el próximo tiro sube.\n\nTira al blanco hasta acertar por primera vez.\n\n¿Se puede modelar la cantidad de tiros hasta el primer acierto como una distribución geométrica?",
     "options": [
       "No, la probabilidad de acierto no es la misma en cada tiro.",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "brown_geometrica_CLSF_04",
     "question": "En una mañana fría, un conductor intenta arrancar el auto una y otra vez hasta lograrlo por primera vez.\n\nCada intento enciende el motor con probabilidad $0{,}6$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de intentos hasta el primer arranque exitoso?",
     "options": [
       "$Geom(0{,}6)$",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "brown_geometrica_CLSF_05",
     "question": "Un call center llama a un mismo cliente repetidamente hasta que atiende el teléfono por primera vez.\n\nCada llamada tiene probabilidad $0{,}3$ de ser atendida, en forma independiente.\n\n¿Qué distribución sigue la cantidad de llamadas hasta que el cliente atiende por primera vez?",
     "options": [
       "$Bin(6,\\, 0{,}3)$",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "brown_geometrica_CLSF_06",
     "question": "Un sistema prueba dígitos al azar, con reposición, para adivinar la primera cifra correcta de una clave.\n\nCada intento acierta el dígito con probabilidad $0{,}1$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de intentos hasta acertar la cifra por primera vez?",
     "options": [
       "$Bin(10,\\, 0{,}1)$",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "brown_geometrica_CLSF_07",
     "question": "En un juego de mesa, un jugador tira un dado equilibrado, una vez por ronda, hasta obtener el primer $6$.\n\nCada tirada tiene probabilidad $1/6$ de dar $6$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de tiradas hasta obtener el primer $6$?",
     "options": [
       "$Geom(1/6)$",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "brown_geometrica_CLSF_08",
     "question": "Un egresado se postula a distintos puestos de trabajo hasta recibir la primera respuesta positiva.\n\nCada postulación recibe respuesta positiva con probabilidad $0{,}2$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de postulaciones hasta la primera respuesta positiva?",
     "options": [
       "$Bin(5,\\, 0{,}2)$",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "brown_geometrica_CLSF_09",
     "question": "Un mecánico prueba encender un auto exactamente 5 veces en un test de calidad de la batería.\n\nCada intento enciende con probabilidad $0{,}6$, en forma independiente entre intentos.\n\n¿Qué distribución sigue la cantidad de intentos que logran encender, entre esos 5?",
     "options": [
       "$Geom(0{,}6)$",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "brown_geometrica_CLSF_10",
     "question": "Un jugador tira exactamente 8 veces al aro en un ejercicio de entrenamiento.\n\nCada tiro entra con probabilidad $0{,}5$, en forma independiente entre tiros.\n\n¿Qué distribución sigue la cantidad de tiros que entran, entre esos 8?",
     "options": [
       "$Bin(8,\\, 0{,}5)$",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "brown_geometrica_CLSF_11",
     "question": "Un vendedor llama a distintos clientes hasta lograr su tercera venta.\n\nCada llamada termina en venta con probabilidad $0{,}3$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de llamadas hasta lograr la tercera venta?",
     "options": [
       "$Geom(0{,}3)$",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "brown_geometrica_CLSF_12",
     "question": "Un sistema prueba dígitos al azar, con reposición, hasta acertar la segunda cifra correcta de una clave.\n\nCada intento acierta con probabilidad $0{,}1$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de intentos hasta el segundo acierto?",
     "options": [
       "$Geom(0{,}1)$",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "brown_geometrica_CLSF_13",
     "question": "Un vendedor se pone cada vez más nervioso después de cada rechazo.\n\nSu probabilidad de cerrar la venta en la próxima llamada baja con cada rechazo acumulado.\n\nLlama a clientes hasta lograr su primera venta.\n\n¿Se puede modelar la cantidad de llamadas hasta la primera venta como una distribución geométrica?",
     "options": [
       "No, la probabilidad de venta no es la misma en cada llamada.",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "brown_geometrica_CLSF_14",
     "question": "Una batería se va descargando con cada intento fallido, así que la probabilidad de encender el auto baja en cada intento sucesivo.\n\nEl conductor intenta arrancar hasta lograrlo por primera vez.\n\n¿Se puede modelar la cantidad de intentos hasta el primer arranque exitoso como una distribución geométrica?",
     "options": [
       "Sí, porque se busca un primer éxito y no un total fijo.",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "brown_geometrica_CLSF_15",
     "question": "Un candidato mejora su desempeño en las entrevistas con cada postulación.\n\nSu probabilidad de recibir una respuesta positiva sube con la práctica acumulada.\n\nSe postula a puestos hasta lograr la primera respuesta positiva.\n\n¿Se puede modelar la cantidad de postulaciones hasta la primera respuesta positiva como una distribución geométrica?",
     "options": [
       "Sí, porque se busca un primer éxito y no un total fijo.",

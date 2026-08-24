@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_conjunta_CLSF_01",
     "question": "Se lanzan dos dados balanceados. Sea $X$ el resultado del primer dado e $Y$ el del segundo.\n\nConsiderá la función $p(x, y)$ que asigna probabilidad al par $(X=x, Y=y)$.\n\n¿Qué representa $p(x, y)$?",
     "options": [
       "La distribución conjunta discreta de $X$ e $Y$.",

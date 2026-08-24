@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_definition_ESTR_01",
     "question": "La potencia de acá envuelve una suma, no una variable sola:\n$$\\int (x+2)^2\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Desarrollar el binomio y luego integrar",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "brown_definition_ESTR_02",
     "question": "Arriba de esta fracción hay dos términos y abajo uno solo:\n$$\\int \\frac{x^3+5x}{x}\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Derivar el integrando",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "brown_definition_ESTR_03",
     "question": "Los dos factores de acá son polinomios cortos, sin nada compuesto:\n$$\\int x(x^2-1)\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Integrar el interior y elevar al cuadrado",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "brown_definition_ESTR_04",
     "question": "Adentro de la integral, un polinomio entero se divide por una potencia de $x$:\n$$\\int \\frac{x^4-3x^2}{x^2}\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Repartir el denominador",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "brown_definition_ESTR_05",
     "question": "La potencia envuelve una resta entre la variable y un número:\n$$\\int (x-3)^2\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Derivar el integrando",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "brown_definition_ESTR_06",
     "question": "En la siguiente integral una potencia multiplica a una resta de dos términos:\n$$\\int x^2(x-4)\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Integrar el interior y elevar al cuadrado",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "brown_definition_ESTR_07",
     "question": "El integrando es una fracción cuyo denominador arrastra su propio coeficiente numérico:\n$$\\int \\frac{6x^2+2x}{2x}\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Repartir el denominador",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "brown_definition_ESTR_08",
     "question": "Adentro de la potencia hay una suma en la que la variable lleva coeficiente:\n$$\\int (2x+1)^2\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Derivar el integrando",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "brown_definition_ESTR_09",
     "question": "El integrando deja toda la potencia de $x$ en el denominador:\n$$\\int \\frac{1}{x^3}\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Dejar la expresión sin reescribir",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "brown_definition_ESTR_10",
     "question": "La expresión a integrar es una raíz cuadrada de la variable:\n$$\\int \\sqrt{x}\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Reescribir como potencia fraccionaria: $x^{1/2}$",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "brown_definition_ESTR_11",
     "question": "El integrando es una raíz cúbica aplicada sobre una potencia:\n$$\\int \\sqrt[3]{x^2}\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Reescribir como potencia fraccionaria invertida: $x^{3/2}$",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "brown_definition_ESTR_12",
     "question": "El integrando combina dos estructuras a la vez, una fracción con una raíz en el denominador:\n$$\\int \\frac{1}{\\sqrt{x}}\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Dejar la expresión sin reescribir",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "brown_definition_ESTR_13",
     "question": "La variable está abajo de la fracción, elevada a una potencia alta:\n$$\\int \\frac{1}{x^5}\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Reescribir como potencia negativa: $x^{-5}$",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "brown_definition_ESTR_14",
     "question": "Bajo el signo integral aparece una raíz cuarta sobre una potencia de $x$:\n$$\\int \\sqrt[4]{x^3}\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Reescribir como potencia fraccionaria invertida: $x^{4/3}$",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "brown_definition_ESTR_15",
     "question": "El integrando es una fracción con la variable elevada en el denominador:\n$$\\int \\frac{1}{x^2}\\,dx$$\n¿Qué paso previo conviene dar antes de integrarla?",
     "options": [
       "Dejar la expresión sin reescribir",

@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_covarianza_RESL_01",
     "question": "Se conocen los momentos $E[X]=2$, $E[Y]=3$ y $E[XY]=7$.\n\n¿Cuánto vale $Cov(X, Y)$?",
     "options": ["$1$", "$5$", "$6$", "$13$"],
     "correct_index": 0,

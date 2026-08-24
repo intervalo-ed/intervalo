@@ -1,5 +1,6 @@
 [
   {
+    "id": "black_theorem_LEXI_01",
     "question": "¿Qué establece el **teorema de la dimensión** para una transformación $T: V \\to W$?",
     "options": [
       "$\\dim(\\ker(T)) + \\dim(\\text{Im}(T)) = \\dim(V)$",

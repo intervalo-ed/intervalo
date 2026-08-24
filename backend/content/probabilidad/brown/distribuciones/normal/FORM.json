@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_normal_FORM_01",
     "question": "La duración de la batería de un dispositivo entre cargas sigue una densidad normal.\n$$f(x) = \\frac{1}{5\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-20}{5}\\right)^{2}}$$\n¿Cuáles son $\\mu$ y $\\sigma$ para esta variable?",
     "options": [
       "$\\mu=20$, $\\sigma=5$",
@@ -27,6 +28,7 @@
     ]
   },
   {
+    "id": "brown_normal_FORM_02",
     "question": "El tiempo que tarda un corredor en completar una carrera de una población entrenada sigue $N(50, 6^{2})$, en minutos.\n\nUn corredor en particular tardó 62 minutos.\n\nCalculá su valor $Z$ estandarizado.",
     "options": [
       "$2$",
@@ -54,6 +56,7 @@
     ]
   },
   {
+    "id": "brown_normal_FORM_03",
     "question": "El peso de los paquetes despachados por una fábrica sigue una normal de media $\\mu=12$ kg.\n\n¿Cuánto vale $P(X<12)$?",
     "options": [
       "$0{,}5$",
@@ -81,6 +84,7 @@
     ]
   },
   {
+    "id": "brown_normal_FORM_04",
     "question": "El puntaje de un examen estandarizado, en una población de rendidores, sigue una densidad normal.\n$$f(x) = \\frac{1}{100\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-500}{100}\\right)^{2}}$$\n¿Cuáles son $\\mu$ y $\\sigma$ para esta variable?",
     "options": [
       "$\\mu=100$, $\\sigma=500$",
@@ -108,6 +112,7 @@
     ]
   },
   {
+    "id": "brown_normal_FORM_05",
     "question": "Las estaturas de una población adulta siguen la distribución normal:\n$$X \\sim N(170,\\, 8^{2})$$\n¿Cuáles son $\\mu$ y $\\sigma$ para esta variable?",
     "options": [
       "$\\mu=8$, $\\sigma=170$",
@@ -135,6 +140,7 @@
     ]
   },
   {
+    "id": "brown_normal_FORM_06",
     "question": "La temperatura corporal medida en un consultorio a lo largo de un día sigue una densidad normal.\n$$f(x) = \\frac{1}{0{,}3\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-36{,}5}{0{,}3}\\right)^{2}}$$\n¿Cuáles son $\\mu$ y $\\sigma$ para esta variable?",
     "options": [
       "$\\mu=0{,}3$, $\\sigma=36{,}5$",
@@ -162,6 +168,7 @@
     ]
   },
   {
+    "id": "brown_normal_FORM_07",
     "question": "Las estaturas de una población adulta siguen $N(170, 8^{2})$, en centímetros.\n\nUna persona en particular mide 154 cm.\n\nCalculá su valor $Z$ estandarizado.",
     "options": [
       "$-2$",
@@ -189,6 +196,7 @@
     ]
   },
   {
+    "id": "brown_normal_FORM_08",
     "question": "El peso de los paquetes despachados por una fábrica sigue $N(25, 2^{2})$, en kilogramos.\n\nUn paquete en particular pesa 28 kg.\n\nCalculá su valor $Z$ estandarizado.",
     "options": [
       "$-1{,}5$",
@@ -216,6 +224,7 @@
     ]
   },
   {
+    "id": "brown_normal_FORM_09",
     "question": "El puntaje de un examen estandarizado, en una población de rendidores, sigue $N(500, 100^{2})$.\n\nUn rendidor en particular obtuvo 350 puntos.\n\nCalculá su valor $Z$ estandarizado.",
     "options": [
       "$1{,}5$",
@@ -243,6 +252,7 @@
     ]
   },
   {
+    "id": "brown_normal_FORM_10",
     "question": "La duración de la batería de un dispositivo entre cargas sigue $N(18, 3^{2})$, en horas, con datos de fabricación.\n\nUn dispositivo en particular duró 27 horas.\n\nCalculá su valor $Z$ estandarizado.",
     "options": [
       "$-3$",
@@ -270,6 +280,7 @@
     ]
   },
   {
+    "id": "brown_normal_FORM_11",
     "question": "La temperatura corporal medida en un consultorio a lo largo de un día sigue $N(36{,}5, 0{,}3^{2})$, en grados Celsius.\n\nUna medición en particular dio 36,65°C.\n\nCalculá su valor $Z$ estandarizado.",
     "options": [
       "$-0{,}5$",
@@ -297,6 +308,7 @@
     ]
   },
   {
+    "id": "brown_normal_FORM_12",
     "question": "Las estaturas de una población adulta siguen una normal de media $\\mu=170$ cm.\n\n¿Cuánto vale $P(X>170)$?",
     "options": [
       "$1$",
@@ -324,6 +336,7 @@
     ]
   },
   {
+    "id": "brown_normal_FORM_13",
     "question": "El tiempo que tarda un corredor en completar una carrera de una población entrenada sigue una normal de media $\\mu=50$ minutos.\n\n¿Qué fracción de esa población termina en menos de 50 minutos?",
     "options": [
       "Un cuarto de los corredores.",
@@ -349,6 +362,7 @@
     ]
   },
   {
+    "id": "brown_normal_FORM_14",
     "question": "El puntaje de un examen estandarizado, en una población de rendidores, sigue una normal de media $\\mu=500$ puntos.\n\n¿Cuánto vale $P(X<500)$?",
     "options": [
       "$1$",
@@ -376,6 +390,7 @@
     ]
   },
   {
+    "id": "brown_normal_FORM_15",
     "question": "La duración de la batería de un dispositivo entre cargas sigue una normal de media $\\mu=15$ horas.\n\n¿Cuánto vale $P(X>15)$?",
     "options": [
       "$1$",

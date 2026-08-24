@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_exponencial_FORM_01",
     "question": "El tiempo entre sismos leves sucesivos registrados por un sismógrafo sigue una exponencial de tasa $\\lambda=0{,}1$ por día.\n\n¿Cuál es la densidad $f(x)$ de ese tiempo entre sismos?",
     "options": [
       "$0{,}1e^{-0{,}1x}$",
@@ -27,6 +28,7 @@
     ]
   },
   {
+    "id": "brown_exponencial_FORM_02",
     "question": "El tiempo entre llegadas sucesivas de clientes a un local sigue una exponencial de tasa $\\lambda=0{,}5$ por minuto.\n\n¿Cuánto vale $E[X]$?",
     "options": [
       "$2$",
@@ -54,6 +56,7 @@
     ]
   },
   {
+    "id": "brown_exponencial_FORM_03",
     "question": "La duración de una llamada de atención al cliente sigue una exponencial de tasa $\\lambda=0{,}25$ por minuto.\n\nSe sabe que $e^{-1}\\approx 0{,}37$.\n\nCalculá $P(X\\leq 4)$, la probabilidad de que la llamada dure a lo sumo 4 minutos.",
     "options": [
       "$0{,}63$",
@@ -81,6 +84,7 @@
     ]
   },
   {
+    "id": "brown_exponencial_FORM_04",
     "question": "El tiempo entre llegadas sucesivas de clientes a un local sigue una exponencial de tasa $\\lambda=0{,}3$ por minuto.\n\n¿Cuál es la densidad $f(x)$ de ese tiempo entre llegadas?",
     "options": [
       "$0{,}3e^{-0{,}3x}$",
@@ -108,6 +112,7 @@
     ]
   },
   {
+    "id": "brown_exponencial_FORM_05",
     "question": "La vida útil de un componente electrónico antes de fallar sigue una exponencial de tasa $\\lambda=2$ por año.\n\n¿Cuál es la densidad $f(x)$ de esa vida útil?",
     "options": [
       "$e^{-2x}/2$",
@@ -135,6 +140,7 @@
     ]
   },
   {
+    "id": "brown_exponencial_FORM_06",
     "question": "El tiempo entre fallas sucesivas de una máquina en una fábrica sigue una exponencial de tasa $\\lambda=0{,}75$ por hora.\n\n¿Cuál es la densidad $f(x)$ de ese tiempo entre fallas?",
     "options": [
       "$0{,}75e^{0{,}75x}$",
@@ -162,6 +168,7 @@
     ]
   },
   {
+    "id": "brown_exponencial_FORM_07",
     "question": "La duración de una llamada telefónica de atención al cliente sigue una exponencial de tasa $\\lambda=1{,}5$ por minuto.\n\n¿Cuál es la densidad $f(x)$ de esa duración?",
     "options": [
       "$e^{-1{,}5x}$",
@@ -189,6 +196,7 @@
     ]
   },
   {
+    "id": "brown_exponencial_FORM_08",
     "question": "La vida útil de un componente electrónico antes de fallar sigue una exponencial de tasa $\\lambda=0{,}25$ por año.\n\n¿Cuánto vale $E[X]$?",
     "options": [
       "$0{,}25$",
@@ -216,6 +224,7 @@
     ]
   },
   {
+    "id": "brown_exponencial_FORM_09",
     "question": "El tiempo que tarda un mensaje en recibir respuesta en un canal de soporte sigue una exponencial de tasa $\\lambda=4$ por hora.\n\n¿Cuánto vale $E[X]$?",
     "options": [
       "$4$",
@@ -243,6 +252,7 @@
     ]
   },
   {
+    "id": "brown_exponencial_FORM_10",
     "question": "El tiempo entre fallas sucesivas de una máquina en una fábrica sigue una exponencial de tasa $\\lambda$.\n\nYa pasaron 3 horas desde la última falla sin que ocurra otra.\n\n¿Cómo es la distribución del tiempo que falta para la próxima falla?",
     "options": [
       "Más concentrada en tiempos cortos, porque ya pasó bastante tiempo sin fallar.",
@@ -268,6 +278,7 @@
     ]
   },
   {
+    "id": "brown_exponencial_FORM_11",
     "question": "El tiempo entre sismos leves sucesivos registrados por un sismógrafo sigue una exponencial de tasa $\\lambda$.\n\nYa pasaron 10 días sin que ocurra un sismo leve.\n\n¿Afecta esto la distribución del tiempo que falta para el próximo sismo?",
     "options": [
       "Sí, el próximo sismo se vuelve más probable en el corto plazo.",
@@ -293,6 +304,7 @@
     ]
   },
   {
+    "id": "brown_exponencial_FORM_12",
     "question": "La vida útil de un componente electrónico antes de fallar sigue una exponencial de tasa $\\lambda=0{,}4$ por año.\n\nSe sabe que $e^{-2}\\approx 0{,}14$.\n\nCalculá $P(X\\leq 5)$, la probabilidad de que falle a lo sumo a los 5 años.",
     "options": [
       "$0{,}86$",
@@ -320,6 +332,7 @@
     ]
   },
   {
+    "id": "brown_exponencial_FORM_13",
     "question": "El tiempo entre fallas sucesivas de una máquina en una fábrica sigue una exponencial de tasa $\\lambda=0{,}5$ por hora.\n\nSe sabe que $e^{-1{,}5}\\approx 0{,}22$.\n\nCalculá $P(X\\geq 3)$, la probabilidad de que pasen al menos 3 horas hasta la próxima falla.",
     "options": [
       "$0{,}78$",
@@ -347,6 +360,7 @@
     ]
   },
   {
+    "id": "brown_exponencial_FORM_14",
     "question": "El tiempo que tarda un mensaje en recibir respuesta en un canal de soporte sigue una exponencial de tasa $\\lambda=0{,}3$ por hora.\n\nSe sabe que $e^{-3}\\approx 0{,}05$.\n\nCalculá $P(X\\leq 10)$, la probabilidad de recibir respuesta en 10 horas o menos.",
     "options": [
       "$0{,}05$",
@@ -374,6 +388,7 @@
     ]
   },
   {
+    "id": "brown_exponencial_FORM_15",
     "question": "El tiempo entre sismos leves sucesivos registrados por un sismógrafo sigue una exponencial de tasa $\\lambda=0{,}05$ por día.\n\nSe sabe que $e^{-0{,}5}\\approx 0{,}61$.\n\nCalculá $P(X\\leq 10)$, la probabilidad de que el próximo sismo ocurra dentro de los primeros 10 días.",
     "options": [
       "$0{,}61$",

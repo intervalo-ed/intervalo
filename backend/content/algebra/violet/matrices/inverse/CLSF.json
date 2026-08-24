@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_inverse_CLSF_01",
     "question": "Una matriz cuadrada tiene inversa solamente cuando su determinante no se anula:\n$$A = \\begin{pmatrix} 2 & 4 \\\\ 1 & 2 \\end{pmatrix}$$\n¿Tiene inversa esta matriz?",
     "options": [
       "No, porque su determinante se anula y el plano colapsa",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "violet_inverse_CLSF_02",
     "question": "Una matriz cuadrada tiene inversa solo cuando su determinante no se anula.\n$$A = \\begin{pmatrix} 3 & 5 \\\\ 1 & 4 \\end{pmatrix}$$\n¿Tiene inversa esa matriz?",
     "options": [
       "No, porque sus entradas no son todas distintas entre sí",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "violet_inverse_CLSF_03",
     "question": "Una matriz cuadrada tiene inversa solo cuando su determinante no se anula.\n$$A = \\begin{pmatrix} 6 & 9 \\\\ 2 & 3 \\end{pmatrix}$$\n¿Tiene inversa esa matriz?",
     "options": [
       "Sí, porque todas sus entradas resultan distintas de cero",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "violet_inverse_CLSF_04",
     "question": "Una matriz no cuadrada nunca cumple la condición de inversa.\n$$A = \\begin{pmatrix} 1 & 2 & 0 \\\\ 3 & 1 & 4 \\end{pmatrix}$$\n¿Tiene inversa esa matriz?",
     "options": [
       "No, porque no es cuadrada y la condición no se plantea",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "violet_inverse_CLSF_05",
     "question": "Una matriz diagonal tiene inversa bajo una condición sencilla.\n$$D = \\begin{pmatrix} 5 & 0 \\\\ 0 & 0 \\end{pmatrix}$$\n¿Tiene inversa esa matriz?",
     "options": [
       "Sí, porque su primera entrada es distinta de cero",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "violet_inverse_CLSF_06",
     "question": "Se propone una candidata a inversa de una matriz dada.\n$$A = \\begin{pmatrix} 3 & 1 \\\\ 2 & 1 \\end{pmatrix}$$\n$$B = \\begin{pmatrix} 1 & -1 \\\\ -2 & 3 \\end{pmatrix}$$\n¿Son inversas entre sí?",
     "options": [
       "Sí, porque su producto da la matriz identidad",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "violet_inverse_CLSF_07",
     "question": "Se propone una candidata a inversa de una matriz dada.\n$$A = \\begin{pmatrix} 2 & 1 \\\\ 5 & 3 \\end{pmatrix} \\quad C = \\begin{pmatrix} 3 & -1 \\\\ -5 & 2 \\end{pmatrix}$$\n¿Son inversas entre sí?",
     "options": [
       "No, porque ninguna es la traspuesta de la otra",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "violet_inverse_CLSF_08",
     "question": "Una matriz viene acompañada de una candidata a inversa.\n$$A = \\begin{pmatrix} 4 & 2 \\\\ 3 & 2 \\end{pmatrix} \\quad C = \\begin{pmatrix} 2 & -2 \\\\ -3 & 4 \\end{pmatrix}$$\n¿Son inversas entre sí?",
     "options": [
       "Sí, porque su producto da la matriz identidad",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "violet_inverse_CLSF_09",
     "question": "Alguien propuso esta matriz como inversa de la primera.\n$$A = \\begin{pmatrix} 1 & 3 \\\\ 2 & 7 \\end{pmatrix} \\quad C = \\begin{pmatrix} 7 & 3 \\\\ 2 & 1 \\end{pmatrix}$$\n¿Son inversas entre sí?",
     "options": [
       "No, porque faltó cambiarle el signo a dos de las entradas",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "violet_inverse_CLSF_10",
     "question": "Una matriz se propone como inversa de sí misma.\n$$A = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}$$\n¿Es su propia inversa?",
     "options": [
       "No, porque ninguna matriz puede ser su propia inversa",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "violet_inverse_CLSF_11",
     "question": "Algunas matrices tienen una inversa que se puede escribir sin aplicar ninguna fórmula:\n$$D = \\begin{pmatrix} 4 & 0 \\\\ 0 & 5 \\end{pmatrix}$$\n¿Cuál es su inversa?",
     "options": [
       "$\\begin{pmatrix} 1/4 & 0 \\\\ 0 & 1/5 \\end{pmatrix}$",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "violet_inverse_CLSF_12",
     "question": "Algunas matrices tienen una inversa que se escribe sin aplicar ninguna fórmula.\n$$D = \\begin{pmatrix} 2 & 0 \\\\ 0 & 7 \\end{pmatrix}$$\n¿Cuál es su inversa?",
     "options": [
       "$\\begin{pmatrix} 7 & 0 \\\\ 0 & 2 \\end{pmatrix}$",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "violet_inverse_CLSF_13",
     "question": "La identidad tiene una inversa que se puede escribir de inmediato.\n$$I = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$$\n¿Cuál es su inversa?",
     "options": [
       "La matriz nula, porque anula el efecto de la identidad",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "violet_inverse_CLSF_14",
     "question": "Una matriz que solo escala el plano tiene una inversa directa.\n$$A = \\begin{pmatrix} 3 & 0 \\\\ 0 & 3 \\end{pmatrix}$$\n¿Cuál es su inversa?",
     "options": [
       "$\\begin{pmatrix} 1/3 & 0 \\\\ 0 & 1/3 \\end{pmatrix}$",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "violet_inverse_CLSF_15",
     "question": "Una matriz que intercambia los dos ejes tiene una inversa conocida.\n$$A = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}$$\n¿Cuál es su inversa?",
     "options": [
       "La matriz con signos negativos en las dos entradas no nulas",

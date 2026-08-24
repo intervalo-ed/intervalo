@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_determinants_LEXI_01",
     "question": "El determinante mide cuánto agranda o achica las áreas la transformación que representa una matriz.\n\nCuando ese determinante da cero, el resultado no es una figura chica sino ningún área en absoluto.\n$$\\det(A) = 0$$\n¿Qué le pasó al plano en ese caso?",
     "options": [
       "Quedó aplastado sobre una recta o sobre un punto",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "violet_determinants_LEXI_02",
     "question": "Una transformación del plano tiene determinante nulo.\n$$\\det(A) = 0$$\n¿Qué le pasa a un cuadrado unitario al transformarse?",
     "options": [
       "Cambia de forma sin cambiar su superficie",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "violet_determinants_LEXI_03",
     "question": "Una matriz tiene dos filas proporcionales entre sí.\n$$\\det(A) = 0$$\n¿Qué relación tiene eso con el determinante nulo?",
     "options": [
       "Que las dos filas tienen que ser iguales entre sí para anularlo",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "violet_determinants_LEXI_04",
     "question": "Una transformación con determinante nulo manda distintos puntos al mismo destino.\n$$\\det(A) = 0$$\n¿Qué consecuencia tiene eso?",
     "options": [
       "Que no hay forma de recuperar el punto de partida desde el destino",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "violet_determinants_LEXI_05",
     "question": "El determinante de una matriz del espacio de tres dimensiones también mide un factor.\n$$\\det(A) = 0$$\n¿Qué mide en ese caso?",
     "options": [
       "La cantidad de direcciones que la transformación conserva",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "violet_determinants_LEXI_06",
     "question": "Una transformación tiene determinante $-3$, y otra tiene determinante $3$.\n\nLas dos multiplican las áreas por el mismo factor.\n\n¿En qué se diferencian entonces?",
     "options": [
       "La de signo negativo invierte la orientación del plano",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "violet_determinants_LEXI_07",
     "question": "Una transformación del plano tiene determinante negativo.\n$$\\det(A) < 0$$\n¿Qué indica ese signo?",
     "options": [
       "Que la transformación deja alguna dirección sin mover",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "violet_determinants_LEXI_08",
     "question": "Dos transformaciones del plano tienen determinantes opuestos.\n$$\\det(A) = 5, \\quad \\det(B) = -5$$\n¿En qué se parecen y en qué se diferencian?",
     "options": [
       "Invierten la orientación las dos, pero multiplican las áreas distinto",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "violet_determinants_LEXI_09",
     "question": "Una transformación del plano tiene determinante igual a uno.\n$$\\det(A) = 1$$\n¿Qué se puede afirmar sobre ella?",
     "options": [
       "Que conserva las áreas y también la orientación",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "violet_determinants_LEXI_10",
     "question": "Una transformación del plano refleja las figuras sobre un eje.\n$$\\det(A) = -1$$\n¿Qué se puede afirmar sobre ella?",
     "options": [
       "Que anula las áreas de todas las figuras",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "violet_determinants_LEXI_11",
     "question": "Al multiplicar por dos todas las entradas de una matriz del plano, el determinante no se duplica:\n$$\\det(2A) = 4\\det(A)$$\n¿Por qué el escalar entra elevado al orden de la matriz?",
     "options": [
       "Porque el escalar estira las dos direcciones del plano a la vez",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "violet_determinants_LEXI_12",
     "question": "El determinante no se reparte sobre una suma de matrices.\n$$\\det(A+B) \\neq \\det(A)+\\det(B)$$\n¿Por qué falla esa propiedad?",
     "options": [
       "Porque el determinante solo está definido para matrices cuadradas",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "violet_determinants_LEXI_13",
     "question": "El escalar sale del determinante elevado al orden de la matriz, un patrón claro y predecible.\n$$\\det(kA) = k^n\\det(A)$$\nLa suma de matrices no tiene ninguna fórmula parecida para su determinante.\n\n¿Por qué no hay un patrón igual de simple para $\\det(A+B)$?",
     "options": [
       "Porque el escalar estira todas las direcciones igual, y la suma las cambia de otro modo cada vez",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "violet_determinants_LEXI_14",
     "question": "Al multiplicar por un escalar todas las entradas de una matriz del espacio, el determinante crece más de lo esperado.\n$$\\det(2A) = 8\\det(A)$$\n¿Por qué aparece ese exponente?",
     "options": [
       "Porque el escalar estira las tres direcciones a la vez",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "violet_determinants_LEXI_15",
     "question": "Multiplicar una sola fila de una matriz por un número afecta al determinante de forma distinta.\n$$\\det(A) \\to k\\det(A)$$\n¿Por qué acá el factor no aparece elevado?",
     "options": [
       "Porque el determinante solo se altera si se multiplican todas las filas",

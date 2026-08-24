@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_limit_definition_LEXI_01",
     "question": "La **derivada** de una función en un punto se define mediante el límite:\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$\n¿Qué representa $h$ en esta expresión?",
     "options": [
       "El incremento que tiende a cero",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "violet_limit_definition_LEXI_02",
     "question": "La **derivada** de una función se define mediante el límite:\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$\n¿Qué representa $a$ en esta expresión?",
     "options": [
       "La variable independiente que recorre todo el dominio",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "violet_limit_definition_LEXI_03",
     "question": "La derivada en un punto se define mediante el límite:\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$\nAl sustituir directamente $h=0$ en el cociente, aparece una indeterminación.\n\n¿Por qué se obtiene esa indeterminación?",
     "options": [
       "Porque $h$ no puede tomar valores reales",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "violet_limit_definition_LEXI_04",
     "question": "El cociente incremental, la expresión que da origen a la derivada, tiene dos partes con roles distintos:\n$$\\frac{f(a+h) - f(a)}{h}$$\n¿Qué representa su numerador?",
     "options": [
       "La variación del valor de la función entre $a$ y $a+h$",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "violet_limit_definition_LEXI_05",
     "question": "Este cociente es el corazón de la definición de derivada, y cada símbolo cumple un papel:\n$$\\frac{f(a+h) - f(a)}{h}$$\n¿Qué representa el denominador $h$?",
     "options": [
       "El resultado final del límite",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "violet_limit_definition_LEXI_06",
     "question": "El cociente incremental, la expresión cuyo límite define la derivada, tiene una escritura precisa.\n\n¿Cuál de las siguientes expresiones lo escribe correctamente para $f$ en el punto $a$?",
     "options": [
       "$\\frac{f(a+h)}{h} - f(a)$",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "violet_limit_definition_LEXI_07",
     "question": "Para dos puntos fijos $a$ y $b$ del dominio se forma el cociente:\n$$\\frac{f(b)-f(a)}{b-a}$$\n¿Qué representa este cociente?",
     "options": [
       "La tasa de cambio promedio de $f$ entre $a$ y $b$",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "violet_limit_definition_LEXI_08",
     "question": "El cociente que compara los valores de $f$ en dos puntos cercanos aparece ahora con su límite:\n$$\\lim_{h \\to 0}\\frac{f(a+h)-f(a)}{h}$$\n¿En qué se transforma la tasa de cambio promedio al tomar este límite?",
     "options": [
       "La pendiente de una recta secante distinta",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "violet_limit_definition_LEXI_09",
     "question": "La tasa de cambio promedio de una función entre dos puntos $a$ y $b$ tiene una traducción visual directa sobre el gráfico.\n\n¿Con qué concepto geométrico se corresponde?",
     "options": [
       "La pendiente de la recta tangente en $a$",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "violet_limit_definition_LEXI_10",
     "question": "También la tasa de cambio instantánea de $f$ en un punto $a$ se puede leer geométricamente.\n\n¿Con qué concepto geométrico se corresponde?",
     "options": [
       "La pendiente de la recta tangente en el punto $a$",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "violet_limit_definition_LEXI_11",
     "question": "Con un valor fijo de $h$, sin tomar ningún límite, se evalúa el cociente:\n$$\\frac{f(a+h)-f(a)}{h}$$\n¿Qué tasa se obtiene en ese caso?",
     "options": [
       "La derivada de $f$ en $a+h$",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "violet_limit_definition_LEXI_12",
     "question": "La derivada de $y=f(x)$ admite varias escrituras equivalentes, cada una con nombre propio.\n\n¿Cuál de las siguientes corresponde a la **notación de Leibniz**?",
     "options": [
       "$f'(x)$",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "violet_limit_definition_LEXI_13",
     "question": "Entre las escrituras equivalentes de la derivada, una usa un apóstrofe sobre el nombre de la función.\n\n¿Cuál de las siguientes corresponde a la **notación de Lagrange**?",
     "options": [
       "$f'(x)$",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "violet_limit_definition_LEXI_14",
     "question": "Estas dos escrituras para una razón de cambio se distinguen por una sola letra:\n$$\\frac{\\Delta y}{\\Delta x}$$\n$$\\frac{dy}{dx}$$\n¿Cuál es la diferencia entre ambas?",
     "options": [
       "$\\frac{dy}{dx}$ representa siempre una tasa promedio",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "violet_limit_definition_LEXI_15",
     "question": "El apóstrofe de la derivada admite una única posición correcta en la escritura.\n\n¿Cuál es la **notación de Lagrange** correctamente escrita para la derivada de $f$ evaluada en $x$?",
     "options": [
       "$f(x)'$",

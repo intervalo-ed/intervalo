@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_definition_RESL_01",
     "question": "Dos polinomios de $P_2$ se combinan igual que dos vectores, multiplicando cada uno por un número y sumando.\n$$p(x) = 2x^2 - x + 3$$\n$$q(x) = x^2 + 4x - 1$$\n¿Cuál es el resultado de $2p(x) - q(x)$?",
     "options": [
       "$3x^2 - 6x + 7$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "brown_definition_RESL_02",
     "question": "Dos polinomios de $P_2$ se combinan escalando cada uno y sumando después.\n$$p(x) = x^2 + 2x$$\n$$q(x) = 2x^2 - x + 4$$\n¿Cuál es el resultado de $3p(x) - 2q(x)$?",
     "options": [
       "$7x^2 + 8x - 8$",
@@ -52,6 +54,7 @@
     ]
   },
   {
+    "id": "brown_definition_RESL_03",
     "question": "Un espacio de polinomios de grado a lo sumo tres admite las mismas combinaciones.\n$$p(x) = x^3 - 3x + 1$$\n$$q(x) = 2x^3 + x^2 - 5$$\n¿Cuál es el resultado de $p(x) + 2q(x)$?",
     "options": [
       "$3x^3 + 2x^2 - 3x - 9$",
@@ -79,6 +82,7 @@
     ]
   },
   {
+    "id": "brown_definition_RESL_04",
     "question": "Una combinación puede tener coeficientes de distinto signo sin cambiar el procedimiento.\n$$p(x) = 2x^2 - 5$$\n$$q(x) = x^2 + x - 1$$\n¿Cuál es el resultado de $-p(x) + 3q(x)$?",
     "options": [
       "$x^2 + 3x + 2$",
@@ -106,6 +110,7 @@
     ]
   },
   {
+    "id": "brown_definition_RESL_05",
     "question": "Un paréntesis cambia el alcance del escalar en una combinación de polinomios.\n$$p(x) = 3x^2 + x$$\n$$q(x) = x^2 - 2x + 3$$\n¿Cuál es el resultado de $2\\,(p(x) - q(x))$?",
     "options": [
       "$4x^2 - 2x - 6$",
@@ -133,6 +138,7 @@
     ]
   },
   {
+    "id": "brown_definition_RESL_06",
     "question": "En un espacio vectorial, el opuesto de un elemento es el que sumado a él devuelve el vector nulo.\n$$A = \\begin{pmatrix} 2 & -1 \\\\ 0 & 3 \\end{pmatrix}$$\n¿Cuál es el opuesto de esta matriz?",
     "options": [
       "$\\begin{pmatrix} -2 & 1 \\\\ 0 & -3 \\end{pmatrix}$",
@@ -158,6 +164,7 @@
     ]
   },
   {
+    "id": "brown_definition_RESL_07",
     "question": "El opuesto de un polinomio es el que sumado a él devuelve el polinomio nulo.\n$$p(x) = -x^2 + 4x - 5$$\n¿Cuál es el opuesto de este polinomio?",
     "options": [
       "$x^2 + 4x + 5$",
@@ -185,6 +192,7 @@
     ]
   },
   {
+    "id": "brown_definition_RESL_08",
     "question": "En el espacio de las ternas, el opuesto se busca coordenada por coordenada.\n$$\\vec{v} = (2, -5, 0)$$\n¿Qué terna sumada a $\\vec{v}$ devuelve el vector nulo?",
     "options": [
       "$(-2, -5, 0)$",
@@ -212,6 +220,7 @@
     ]
   },
   {
+    "id": "brown_definition_RESL_09",
     "question": "Una igualdad entre polinomios deja un sumando sin determinar.\n$$p(x) = x^2 - 2x, \\quad q(x) = 3x^2 + 1$$\n¿Qué polinomio sumado a $p(x)$ da $q(x)$?",
     "options": [
       "$2x^2 + 2x + 1$",
@@ -239,6 +248,7 @@
     ]
   },
   {
+    "id": "brown_definition_RESL_10",
     "question": "El opuesto de un elemento se puede obtener con una sola multiplicación por un escalar.\n$$p(x) = 5x^2 - 3$$\n¿Por qué escalar hay que multiplicarlo?",
     "options": [
       "$1$",
@@ -266,6 +276,7 @@
     ]
   },
   {
+    "id": "brown_definition_RESL_11",
     "question": "Para que un conjunto sea espacio vectorial, sumar dos de sus elementos tiene que dar otro elemento del conjunto.\n\nSe toman dos vectores del conjunto de los que tienen norma $1$.\n$$\\vec{u} = (1,0), \\quad \\vec{v} = (0,1)$$\n¿Qué norma tiene la suma de los dos?",
     "options": [
       "$\\sqrt{2}$",
@@ -291,6 +302,7 @@
     ]
   },
   {
+    "id": "brown_definition_RESL_12",
     "question": "Se toman dos polinomios del conjunto de los que tienen grado exactamente tres.\n$$p(x) = x^3 + 2x$$\n$$q(x) = -x^3 + 5$$\n¿Qué grado tiene la suma de los dos?",
     "options": [
       "$6$",
@@ -318,6 +330,7 @@
     ]
   },
   {
+    "id": "brown_definition_RESL_13",
     "question": "Dos matrices inversibles se suman y el resultado se examina.\n$$A = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}, \\quad B = \\begin{pmatrix} -1 & 0 \\\\ 0 & -1 \\end{pmatrix}$$\n¿Cuánto vale el determinante de la suma?",
     "options": [
       "$1$",
@@ -345,6 +358,7 @@
     ]
   },
   {
+    "id": "brown_definition_RESL_14",
     "question": "Se multiplica un par de coordenadas enteras por un escalar que no lo es.\n$$\\tfrac{1}{2} \\cdot (3, 5)$$\n¿Qué par se obtiene?",
     "options": [
       "$(3/2,\\ 5/2)$",
@@ -372,6 +386,7 @@
     ]
   },
   {
+    "id": "brown_definition_RESL_15",
     "question": "Una matriz de determinante uno se multiplica por el escalar dos.\n$$A = \\begin{pmatrix} 3 & 1 \\\\ 2 & 1 \\end{pmatrix}$$\n¿Cuánto vale el determinante de $2A$?",
     "options": [
       "$2$",

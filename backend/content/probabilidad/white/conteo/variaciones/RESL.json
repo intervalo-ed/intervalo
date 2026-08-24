@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_variaciones_RESL_01",
     "question": "En un curso de 6 estudiantes hay que elegir un representante titular y un suplente distintos.\n\n¿Cuántas asignaciones distintas de los dos cargos son posibles?",
     "options": [
       "$12$",
@@ -11,7 +12,7 @@
     "feedback_correct": "$V_{6,2} = 6 \\times 5 = 30$.",
     "feedback_incorrect": [
       "Ese es $6 \\times 2$: aparece si se multiplica la población por la cantidad de cargos en vez de asignarlos.",
-      "Ese es $\\dbinom{6}{2}$, la combinación, que ignora la distinción entre titular y suplente.",
+      "Ese es $\\dfrac{6!}{2!\\,4!}$, la combinación, que ignora la distinción entre titular y suplente.",
       null,
       "Ese es $6^{2}$: aparece si se permite que la misma persona ocupe los dos cargos, pero acá titular y suplente deben ser distintos."
     ],
@@ -25,31 +26,33 @@
     ]
   },
   {
-    "question": "Con $n=7$ y $k=2$, se quiere comparar el resultado de la variación contra el de la combinación.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
+    "id": "white_variaciones_RESL_02",
+    "question": "Con 7 símbolos disponibles se arman claves de 2 posiciones.\n\nUna clave puede repetir símbolo o no, y cada caso da un total distinto.\n\n¿Cuántas claves más hay si se permite repetir?",
     "options": [
-      "$V_{7,2}$ es el doble de $\\dbinom{7}{2}$.",
-      "Ambas dan el mismo resultado.",
-      "$\\dbinom{7}{2}$ es mayor que $V_{7,2}$.",
-      "$V_{7,2}$ es la mitad de $\\dbinom{7}{2}$."
+      "$7$",
+      "$14$",
+      "$0$",
+      "$49$"
     ],
     "correct_index": 0,
-    "feedback_correct": "$V_{7,2}=42$ y $\\dbinom{7}{2}=21$: la variación cuenta cada par dos veces, una por cada orden.",
+    "feedback_correct": "Las claves que se agregan son las de símbolo repetido, y hay una por símbolo.",
     "feedback_incorrect": [
       null,
-      "No dan el mismo resultado: la variación distingue el orden entre los 2 elegidos y la combinación no.",
-      "La combinación nunca supera a la variación con los mismos $n,k$: ignorar el orden reduce el conteo, no lo aumenta.",
-      "Es al revés: la variación es la que multiplica a la combinación por $k!$, no la divide."
+      "Ese número duplica la cantidad de símbolos, pero cada símbolo aporta una sola clave repetida.",
+      "Los dos totales no coinciden: permitir la repetición agrega claves que antes no existían.",
+      "Ese es el total de claves con repetición, no la diferencia entre los dos totales."
     ],
-    "explanation": "Las dos fórmulas comparten el mismo numerador y el mismo factor $(n-k)!$ en el denominador:\n$$V_{n,k} = \\dfrac{n!}{(n-k)!}$$\n$$\\binom{n}{k} = \\dfrac{n!}{k!\\,(n-k)!}$$\nLa única diferencia es el $k!$ extra que divide al binomial.\n\nDividir una fórmula por la otra cancela todo lo demás:\n$$\\dfrac{V_{n,k}}{\\binom{n}{k}} = k!$$\nPor eso la variación es $k!$ veces la combinación.\n\nLa variación cuenta cada subconjunto elegido tantas veces como formas de ordenarlo internamente; la combinación ya perdió esa información al dividir por $k!$.\n\nCon 7 y 2, y $k!=2$, la combinación vale 21 y la variación $21\\times2=42$.\n\nAsumir que ambas técnicas dan el mismo número ignora el factor que las distingue siempre, $k!$, la cantidad de ordenamientos internos del subconjunto elegido.",
+    "explanation": "Con repetición cada posición se elige libremente entre los 7 símbolos, así que hay $7 \\times 7 = 49$ claves.\n\nSin repetición la segunda posición pierde el símbolo ya usado, y quedan $7 \\times 6 = 42$. La diferencia es:\n$$49 - 42 = 7$$\nEsas 7 claves de más son exactamente las de símbolo repetido, una por cada símbolo: la que lleva dos veces el primero, dos veces el segundo, y así.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "resl-comparacion-combinacion"
+      "resl-comparacion"
     ]
   },
   {
+    "id": "white_variaciones_RESL_03",
     "question": "Un club tiene 9 socios disponibles para cubrir 2 cargos distintos, presidente y tesorero.\n\nLa misma persona no puede ocupar los dos cargos.\n\n¿De cuántas formas se pueden asignar ambos cargos?",
     "options": [
       "$17$",
@@ -61,7 +64,7 @@
     "feedback_correct": "Hay 9 opciones para presidente y, una vez asignado, 8 para tesorero: $9\\times8=72$.",
     "feedback_incorrect": [
       "Ese resultado sale de sumar en vez de multiplicar las opciones de cada cargo.",
-      "Ese es $\\dbinom{9}{2}$, que ignora la diferencia entre presidente y tesorero.",
+      "Ese es $\\dfrac{9!}{2!\\,7!}$, que ignora la diferencia entre presidente y tesorero.",
       null,
       "Ese resultado permite que la misma persona ocupe los dos cargos, algo que el enunciado prohíbe."
     ],
@@ -75,6 +78,7 @@
     ]
   },
   {
+    "id": "white_variaciones_RESL_04",
     "question": "Un club de 5 amigos va a elegir presidente y tesorero, dos cargos distintos.\n\n¿Cuántas asignaciones distintas de los dos cargos son posibles?",
     "options": [
       "$20$",
@@ -87,7 +91,7 @@
     "feedback_incorrect": [
       null,
       "Ese resultado sale de sumar en vez de multiplicar las opciones de cada cargo.",
-      "Ese es $\\dbinom{5}{2}$, la combinación, que ignora la distinción entre presidente y tesorero.",
+      "Ese es $\\dfrac{5!}{2!\\,3!}$, la combinación, que ignora la distinción entre presidente y tesorero.",
       "Ese es $5^{2}$: aparece si se permite que la misma persona ocupe los dos cargos, pero acá deben ser distintos."
     ],
     "explanation": "En una **variación** sin repetición se eligen y ordenan algunos elementos de un total, sin repetir ninguno.\n\nCon 5 amigos y 2 cargos distintos:\n$$V_{5,2} = \\frac{5!}{3!}$$\n$$= 5 \\times 4 = 20$$\nHay 20 asignaciones posibles.\n\nAplicar $5^{2}$, el arreglo con repetición, pasa por alto que un mismo integrante no puede ocupar los dos cargos a la vez; siempre revisá si el enunciado prohíbe la repetición.",
@@ -100,6 +104,7 @@
     ]
   },
   {
+    "id": "white_variaciones_RESL_05",
     "question": "En una carrera de 4 corredores se van a entregar medallas de oro y plata a los 2 primeros en llegar.\n\n¿Cuántas formas distintas hay de entregar las dos medallas?",
     "options": [
       "$6$",
@@ -110,7 +115,7 @@
     "correct_index": 2,
     "feedback_correct": "$V_{4,2} = 4 \\times 3 = 12$.",
     "feedback_incorrect": [
-      "Ese es $\\dbinom{4}{2}$, la combinación, que ignora la distinción entre oro y plata.",
+      "Ese es $\\dfrac{4!}{2!\\,2!}$, la combinación, que ignora la distinción entre oro y plata.",
       "Ese resultado sale de sumar en vez de multiplicar las opciones de cada medalla.",
       null,
       "Ese es $4^{2}$: aparece si se permite que el mismo corredor reciba las dos medallas, algo que no es posible."
@@ -125,6 +130,7 @@
     ]
   },
   {
+    "id": "white_variaciones_RESL_06",
     "question": "Se va a diseñar una bandera con 2 franjas de colores distintos, eligiendo entre 8 colores disponibles.\n\n¿Cuántas banderas distintas se pueden armar?",
     "options": [
       "$15$",
@@ -137,7 +143,7 @@
     "feedback_incorrect": [
       "Ese resultado sale de sumar en vez de multiplicar las opciones de cada franja.",
       null,
-      "Ese es $\\dbinom{8}{2}$, la combinación, que ignora cuál franja va primero.",
+      "Ese es $\\dfrac{8!}{2!\\,6!}$, la combinación, que ignora cuál franja va primero.",
       "Ese es $8^{2}$: aparece si se permite repetir el mismo color en las dos franjas."
     ],
     "explanation": "En una **variación** sin repetición se eligen y ordenan algunos elementos de un total, sin repetir ninguno.\n\nCon 8 colores y 2 franjas:\n$$V_{8,2} = \\frac{8!}{6!}$$\n$$= 8 \\times 7 = 56$$\nHay 56 banderas distintas.\n\nAplicar $8^{2}$, el arreglo con repetición, pasa por alto que un mismo color no puede repetirse en las dos franjas de esta bandera; siempre revisá si el enunciado prohíbe la repetición.",
@@ -150,6 +156,7 @@
     ]
   },
   {
+    "id": "white_variaciones_RESL_07",
     "question": "Se arma una clave de acceso eligiendo y ordenando 3 dígitos distintos entre 5 disponibles.\n\n¿Cuántas claves distintas se pueden armar?",
     "options": [
       "$10$",
@@ -160,7 +167,7 @@
     "correct_index": 2,
     "feedback_correct": "$V_{5,3} = 5 \\times 4 \\times 3 = 60$.",
     "feedback_incorrect": [
-      "Ese es $\\dbinom{5}{3}$, la combinación, que ignora el orden de los dígitos en la clave.",
+      "Ese es $\\dfrac{5!}{3!\\,2!}$, la combinación, que ignora el orden de los dígitos en la clave.",
       "Ese resultado usa solo 2 factores decrecientes en vez de los 3 que corresponden.",
       null,
       "Ese es $5^{3}$: aparece si se permite repetir un dígito en más de una posición."
@@ -175,6 +182,7 @@
     ]
   },
   {
+    "id": "white_variaciones_RESL_08",
     "question": "En una competencia de 6 atletas se van a entregar medallas de oro, plata y bronce a los 3 primeros puestos.\n\n¿Cuántas formas distintas hay de entregar las tres medallas?",
     "options": [
       "$120$",
@@ -186,7 +194,7 @@
     "feedback_correct": "$V_{6,3} = 6 \\times 5 \\times 4 = 120$.",
     "feedback_incorrect": [
       null,
-      "Ese es $\\dbinom{6}{3}$, la combinación, que ignora el orden de las medallas.",
+      "Ese es $\\dfrac{6!}{3!\\,3!}$, la combinación, que ignora el orden de las medallas.",
       "Ese resultado usa solo 2 factores decrecientes en vez de los 3 que corresponden.",
       "Ese es $6^{3}$: aparece si se permite que el mismo atleta reciba más de una medalla."
     ],
@@ -200,6 +208,7 @@
     ]
   },
   {
+    "id": "white_variaciones_RESL_09",
     "question": "Un comité de 7 integrantes va a asignar tres cargos distintos: presidente, secretario y tesorero.\n\n¿Cuántas asignaciones distintas de los tres cargos son posibles?",
     "options": [
       "$35$",
@@ -210,7 +219,7 @@
     "correct_index": 2,
     "feedback_correct": "$V_{7,3} = 7 \\times 6 \\times 5 = 210$.",
     "feedback_incorrect": [
-      "Ese es $\\dbinom{7}{3}$, la combinación, que ignora la distinción entre los tres cargos.",
+      "Ese es $\\dfrac{7!}{3!\\,4!}$, la combinación, que ignora la distinción entre los tres cargos.",
       "Ese resultado es la mitad del producto correcto: falta un factor en la multiplicación.",
       null,
       "Ese es $7^{3}$: aparece si se permite que la misma persona ocupe más de un cargo."
@@ -225,6 +234,7 @@
     ]
   },
   {
+    "id": "white_variaciones_RESL_10",
     "question": "Se arma una clave de acceso eligiendo y ordenando 3 símbolos distintos entre 8 disponibles.\n\n¿Cuántas claves distintas se pueden armar?",
     "options": [
       "$56$",
@@ -235,7 +245,7 @@
     "correct_index": 3,
     "feedback_correct": "$V_{8,3} = 8 \\times 7 \\times 6 = 336$.",
     "feedback_incorrect": [
-      "Ese es $\\dbinom{8}{3}$, la combinación, que ignora el orden de los símbolos en la clave.",
+      "Ese es $\\dfrac{8!}{3!\\,5!}$, la combinación, que ignora el orden de los símbolos en la clave.",
       "Ese resultado es la mitad del producto correcto: falta un factor en la multiplicación.",
       "Ese es $8^{3}$: aparece si se permite repetir un símbolo en más de una posición.",
       null
@@ -250,81 +260,85 @@
     ]
   },
   {
-    "question": "Con $n=9$ y $k=3$, se quiere comparar el resultado de la variación contra el de la combinación.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
+    "id": "white_variaciones_RESL_11",
+    "question": "Con 5 símbolos disponibles se arman claves de 3 posiciones, y se permite repetir.\n\n¿Cuántas de esas claves tienen al menos un símbolo repetido?",
     "options": [
-      "$V_{9,3}$ es 6 veces $\\dbinom{9}{3}$.",
-      "Ambas dan el mismo resultado.",
-      "$\\dbinom{9}{3}$ es mayor que $V_{9,3}$.",
-      "$V_{9,3}$ es el doble de $\\dbinom{9}{3}$."
-    ],
-    "correct_index": 0,
-    "feedback_correct": "$V_{9,3}=504$ y $\\dbinom{9}{3}=84$.",
-    "feedback_incorrect": [
-      null,
-      "No dan el mismo resultado: la variación distingue el orden entre los 3 elegidos y la combinación no.",
-      "La combinación nunca supera a la variación con los mismos $n,k$: ignorar el orden reduce el conteo, no lo aumenta.",
-      "El factor que las relaciona es $k!=3!=6$, no $2$."
-    ],
-    "explanation": "Las dos fórmulas comparten el mismo numerador y el mismo factor $(n-k)!$ en el denominador:\n$$V_{n,k} = \\dfrac{n!}{(n-k)!}$$\n$$\\binom{n}{k} = \\dfrac{n!}{k!\\,(n-k)!}$$\nLa única diferencia es el $k!$ extra que divide al binomial.\n\nDividir una fórmula por la otra cancela todo lo demás:\n$$\\dfrac{V_{n,k}}{\\binom{n}{k}} = k!$$\nPor eso la variación es $k!$ veces la combinación.\n\nLa variación cuenta cada subconjunto elegido tantas veces como formas de ordenarlo internamente; la combinación ya perdió esa información al dividir por $k!$.\n\nCon 9 y 3, y $k!=6$, la combinación vale 84 y la variación $84\\times6=504$.\n\nAsumir que el factor entre ambas es siempre 2, en vez de $k!$, ignora que ese factor crece con la cantidad de elegidos.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": [
-      "resl-comparacion-combinacion"
-    ]
-  },
-  {
-    "question": "Con $n=6$ y $k=4$, se quiere comparar el resultado de la variación contra el de la combinación.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
-    "options": [
-      "$\\dbinom{6}{4}$ es mayor que $V_{6,4}$.",
-      "Ambas dan el mismo resultado.",
-      "$V_{6,4}$ es 24 veces $\\dbinom{6}{4}$.",
-      "$V_{6,4}$ es el doble de $\\dbinom{6}{4}$."
-    ],
-    "correct_index": 2,
-    "feedback_correct": "$V_{6,4}=360$ y $\\dbinom{6}{4}=15$.",
-    "feedback_incorrect": [
-      "La combinación nunca supera a la variación con los mismos $n,k$: ignorar el orden reduce el conteo, no lo aumenta.",
-      "No dan el mismo resultado: la variación distingue el orden entre los 4 elegidos y la combinación no.",
-      null,
-      "El factor que las relaciona es $k!=4!=24$, no $2$."
-    ],
-    "explanation": "Las dos fórmulas comparten el mismo numerador y el mismo factor $(n-k)!$ en el denominador:\n$$V_{n,k} = \\dfrac{n!}{(n-k)!}$$\n$$\\binom{n}{k} = \\dfrac{n!}{k!\\,(n-k)!}$$\nLa única diferencia es el $k!$ extra que divide al binomial.\n\nDividir una fórmula por la otra cancela todo lo demás:\n$$\\dfrac{V_{n,k}}{\\binom{n}{k}} = k!$$\nPor eso la variación es $k!$ veces la combinación.\n\nLa variación cuenta cada subconjunto elegido tantas veces como formas de ordenarlo internamente; la combinación ya perdió esa información al dividir por $k!$.\n\nCon 6 y 4, y $k!=24$, la combinación vale 15 y la variación $15\\times24=360$.\n\nAsumir que el factor entre ambas es siempre 2, en vez de $k!$, ignora que ese factor crece con la cantidad de elegidos.",
-    "has_math": true,
-    "graph_fn": null,
-    "graph_view": null,
-    "reviewed": false,
-    "tags": [
-      "resl-comparacion-combinacion"
-    ]
-  },
-  {
-    "question": "Con $n=7$ y $k=4$, se quiere comparar el resultado de la variación contra el de la combinación.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
-    "options": [
-      "Ambas dan el mismo resultado.",
-      "$V_{7,4}$ es 24 veces $\\dbinom{7}{4}$.",
-      "$\\dbinom{7}{4}$ es mayor que $V_{7,4}$.",
-      "$V_{7,4}$ es el doble de $\\dbinom{7}{4}$."
+      "$60$",
+      "$65$",
+      "$125$",
+      "$25$"
     ],
     "correct_index": 1,
-    "feedback_correct": "$V_{7,4}=840$ y $\\dbinom{7}{4}=35$.",
+    "feedback_correct": "De las 125 claves posibles, 60 tienen los tres símbolos distintos: quedan $125-60=65$.",
     "feedback_incorrect": [
-      "No dan el mismo resultado: la variación distingue el orden entre los 4 elegidos y la combinación no.",
+      "Ese es el total de claves sin ningún símbolo repetido, que es el caso opuesto.",
       null,
-      "La combinación nunca supera a la variación con los mismos $n,k$: ignorar el orden reduce el conteo, no lo aumenta.",
-      "El factor que las relaciona es $k!=4!=24$, no $2$."
+      "Ese es el total de claves posibles, sin descontar las que no repiten ningún símbolo.",
+      "Ese número cuenta claves de 2 posiciones, no de 3."
     ],
-    "explanation": "Las dos fórmulas comparten el mismo numerador y el mismo factor $(n-k)!$ en el denominador:\n$$V_{n,k} = \\dfrac{n!}{(n-k)!}$$\n$$\\binom{n}{k} = \\dfrac{n!}{k!\\,(n-k)!}$$\nLa única diferencia es el $k!$ extra que divide al binomial.\n\nDividir una fórmula por la otra cancela todo lo demás:\n$$\\dfrac{V_{n,k}}{\\binom{n}{k}} = k!$$\nPor eso la variación es $k!$ veces la combinación.\n\nLa variación cuenta cada subconjunto elegido tantas veces como formas de ordenarlo internamente; la combinación ya perdió esa información al dividir por $k!$.\n\nCon 7 y 4, y $k!=24$, la combinación vale 35 y la variación $35\\times24=840$.\n\nAsumir que el factor entre ambas es siempre 2, en vez de $k!$, ignora que ese factor crece con la cantidad de elegidos.",
+    "explanation": "Permitir la repetición pone $5 \\times 5 \\times 5 = 125$ claves sobre la mesa.\n\nLas que **no** repiten ningún símbolo son una variación, porque cada posición descarta los símbolos ya usados:\n$$5 \\times 4 \\times 3 = 60$$\nTodo lo demás repite algo, así que son $125-60=65$.\n\nContar «al menos un repetido» de frente obligaría a separar los casos de un repetido y de dos, y por eso conviene ir por el opuesto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
     "tags": [
-      "resl-comparacion-combinacion"
+      "resl-comparacion"
     ]
   },
   {
+    "id": "white_variaciones_RESL_12",
+    "question": "Un jurado de 5 personas puede armar un ranking completo de las 5, o elegir y ordenar solo a las 2 primeras.\n\n¿Cuántas veces más rankings completos que ternas de 2 primeras hay?",
+    "options": [
+      "$2$",
+      "$4$",
+      "$6$",
+      "$100$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Son $120$ rankings completos contra $20$ formas de ordenar las 2 primeras: $120/20=6$.",
+    "feedback_incorrect": [
+      "Ese número compara la cantidad de puestos, no la cantidad de rankings.",
+      "Ese número sale de restar los puestos que quedan sin asignar, no de comparar los totales.",
+      null,
+      "Ese número multiplica los dos totales en vez de dividirlos."
+    ],
+    "explanation": "Ordenar a las 5 personas es una permutación: $5!=120$. Elegir y ordenar solo a las 2 primeras es una variación: $5\\times 4=20$.\n\nEl cociente entre las dos cantidades es:\n$$\\frac{120}{20}=6$$\nEse 6 es $3!$, y no es casualidad: por cada terna de 2 primeras quedan 3 personas sin ubicar, y ordenarlas entre sí da $3!$ rankings completos distintos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-comparacion"
+    ]
+  },
+  {
+    "id": "white_variaciones_RESL_13",
+    "question": "Con 6 corredores se puede armar la tabla final completa, o solo el orden de los 4 primeros puestos.\n\n¿Cuántas veces más tablas completas que órdenes de los 4 primeros hay?",
+    "options": [
+      "$2$",
+      "$6$",
+      "$24$",
+      "$360$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Son $720$ tablas completas contra $360$ órdenes de los 4 primeros: $720/360=2$.",
+    "feedback_incorrect": [
+      null,
+      "Ese número cuenta los corredores, no la relación entre los dos totales.",
+      "Ese número sería la relación si quedaran 4 corredores sin ubicar, y quedan 2.",
+      "Ese es el total de órdenes de los 4 primeros, no la relación entre los dos totales."
+    ],
+    "explanation": "La tabla completa es una permutación de los 6: $6!=720$. El orden de los 4 primeros es una variación: $6\\times 5\\times 4\\times 3=360$.\n\nEl cociente es:\n$$\\frac{720}{360}=2$$\nLos 2 corredores que quedan sin ubicar se pueden ordenar entre sí de $2!=2$ maneras, y ése es exactamente el factor que separa a las dos cuentas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "resl-comparacion"
+    ]
+  },
+  {
+    "id": "white_variaciones_RESL_14",
     "question": "Un concurso de canciones tiene 5 finalistas y se va a armar el ranking completo de las 4 primeras posiciones.\n\n¿De cuántas formas se puede armar ese ranking?",
     "options": [
       "$20$",
@@ -350,22 +364,23 @@
     ]
   },
   {
-    "question": "Un hospital cuenta con 9 médicos disponibles para cubrir 4 guardias distintas de la semana.\n\nCada médico puede cubrir como máximo una de esas guardias.\n\n¿De cuántas formas se pueden asignar las 4 guardias?",
+    "id": "white_variaciones_RESL_15",
+    "question": "Un hospital cuenta con 9 médicos disponibles para cubrir 3 guardias distintas de la semana.\n\nCada médico puede cubrir como máximo una de esas guardias.\n\n¿De cuántas formas distintas se pueden asignar las 3 guardias?",
     "options": [
-      "$126$",
+      "$27$",
       "$504$",
-      "$3024$",
-      "$6561$"
+      "$84$",
+      "$729$"
     ],
-    "correct_index": 2,
-    "feedback_correct": "Hay 9 opciones para la primera guardia, 8 para la segunda, 7 para la tercera y 6 para la cuarta: $9\\times8\\times7\\times6=3024$.",
+    "correct_index": 1,
+    "feedback_correct": "$9\\times 8\\times 7=504$ formas, descontando en cada guardia a los médicos ya asignados.",
     "feedback_incorrect": [
-      "Ese es $\\dbinom{9}{4}$, que ignora la diferencia entre las 4 guardias.",
-      "Ese resultado sale de multiplicar solo 3 factores en vez de las 4 guardias que se asignan.",
+      "Ese número multiplica los médicos por las guardias, pero cada guardia se cubre con una persona distinta.",
       null,
-      "Ese resultado permite que un mismo médico cubra más de una guardia, algo que el enunciado prohíbe."
+      "Ese número cuenta qué 3 médicos trabajan, sin distinguir a cuál guardia va cada uno.",
+      "Ese es el total si un mismo médico pudiera cubrir varias guardias."
     ],
-    "explanation": "Cuando se eligen y asignan cargos o turnos distintos entre varios elementos, sin repetir a nadie, corresponde una **variación**:\n$$V_{n,k} = \\frac{n!}{(n-k)!}$$\nCon 9 médicos y 4 guardias distintas:\n$$V_{9,4} = 9 \\times 8 \\times 7 \\times 6 = 3024$$\nHay 3024 asignaciones posibles.\n\nNo reconocer la variación sin su notación explícita subestima el conteo; conviene notar palabras clave como guardias distintas, que señalan que el orden importa.",
+    "explanation": "Las guardias son distintas entre sí, así que no alcanza con saber qué 3 médicos trabajan: importa cuál va a cada una. Eso es una **variación**.\n\nLa primera guardia tiene 9 candidatos, la segunda 8 y la tercera 7, porque cada médico cubre una sola:\n$$9\\times 8\\times 7=504$$\nSi el enunciado no distinguiera las guardias entre sí, el orden dejaría de importar y el total sería mucho menor.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

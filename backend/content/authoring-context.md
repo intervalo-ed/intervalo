@@ -320,7 +320,61 @@ Estas reglas son las que más se violan y las que más rompen el render o la coh
     - **El arreglo no es podar una de las dos.** Suele haber una razón real para que el concepto reaparezca en el topic siguiente. Lo que hay que hacer es **fijar por escrito qué cambia**, y el cambio tiene que estar en el objeto de entrada o en la forma de la respuesta, nunca solo en la redacción del enunciado. En el caso de `blue`: `scalar` va de la fórmula al hecho (por qué el ángulo recto anula el producto) y `orthogonality` va en la dirección inversa (por qué un cero garantiza el ángulo recto, y por qué hace falta que ningún vector sea nulo), que es lo que convierte al producto escalar en un test.
     - **Dónde se escribe:** en las **dos** `topic-context.md`, no en una sola, porque las dos se leen por separado al generar.
 
+68. **La tabla de un ejercicio va en el campo `table`, nunca escrita como LaTeX.** Prohibido armar la tabla con `\begin{array}`, `\begin{matrix}` o alineaciones dentro de un `$$`. Dos motivos: la regla 26 prohíbe meter palabras en un bloque display (y los encabezados de una tabla son palabras), y una tabla escrita en LaTeX no se puede repintar según la opción elegida ni se adapta al ancho de un teléfono. El contenido de cada celda se escribe como prosa corta y puede llevar `$...$` inline, nunca `$$`.
+    - Ver la sección *Tablas* más abajo para la forma completa del campo.
+
+69. **El emoji va SOLO en `table.columns[].icon`, uno por columna, y solo cuando representa una cosa. Es la única excepción a la regla 14.** La regla 14 prohíbe ✓/✗ "en ningún campo", y sin esta aclaración se lee como que también prohíbe esto. La diferencia es que ahí el emoji **ilustra el objeto que la columna cuenta**, no sustituye prosa.
+    - **Se renderiza a la derecha de la etiqueta, separado por un espacio**: `Códigos 🔑`, no `🔑` encima ni a la izquierda. La palabra manda y el emoji acompaña.
+    - **Nunca en una columna de notación matemática.** Si el encabezado es `$n$`, `$n!$` o `$\dfrac{n!}{(n-2)!}$`, va sin emoji: no hay ninguna cosa que ilustrar y el ícono compite con la fórmula. En la práctica esto deja a `factoriales` sin emoji en ninguna tabla, que es lo correcto.
+    - **Tampoco en una columna abstracta.** `"Opciones"` o `"Total"` no son cosas. El emoji va en la columna que nombra el objeto del contexto (`Vía 📦`, `Alternativa ☕`).
+    - **Prohibido el emoji dentro de una expresión, de una opción o de una celda.** Es *fruit-salad algebra*, una concepción errónea documentada: el alumno lee la letra como etiqueta del objeto ("$b$ = botella") en vez de como cantidad ("$b$ = cuántas botellas"). Por el mismo motivo, **la letra variable no debería ser la inicial del sustantivo que ilustra el emoji**.
+    - **Prohibidos los emoji que leen como veredicto** (✅ ❌ ✔️ ✖️ 🔴 🟢) incluso en el encabezado: son la regla 14 con otra tipografía.
+    - **El encabezado nombra la cantidad, no el objeto**: `"Posiciones"`, no `"Cerradura"`.
+
+70. **La tabla y el enunciado tienen que decir lo mismo.** Toda celda ya visible en `rows` tiene que coincidir con el valor que la opción correcta pinta en esa misma posición. Y el enunciado no repite en prosa un valor que la tabla ya muestra, ni pregunta por una celda que ya está a la vista. Es el análogo de la regla 60 para gráficos, con una diferencia importante: **acá el validador SÍ lo ve**, porque los dos lados son strings literales comparables. Sale como ERROR de `check_tables`.
+
+71. **Anti-descarte: los distractores tienen que competir sobre los datos visibles.** Tres condiciones, evaluadas sobre las filas que ya muestran un valor:
+    - **A3 (siempre ERROR):** cada distractor difiere de la correcta en al menos una fila visible. Si no, el ítem no se puede decidir con lo que se muestra.
+    - **A2 (WARNING):** cada distractor coincide con la correcta en al menos una fila visible. Si difiere en todas, se descarta de un vistazo y no compite.
+    - **A1, fila trampa (manual, no automatizable):** tiene que existir una fila visible donde **todos** los candidatos den el mismo valor. Es lo que impide que la primera fila que el alumno mira resuelva el ítem, y lo obliga a consultar más de una. La familia más productiva para armarla es $\{2n,\ n+2,\ n^{2},\ 2^{n}\}$, que **valen todas $4$ en $n=2$**.
+      - Ojo con la formulación ingenua de esta regla ("que ninguna fila refute a todos los distractores"): es **insatisfacible**, porque cualquier fila lo bastante lejana separa a todos los candidatos, y sin una fila así el ítem no sería decidible (A3). Lo que se exige es la fila trampa, no la ausencia de fila decisiva.
+    - **A1 y A2 no aplican a la familia de explosión combinatoria** (`factoriales`, potencias): nada se parece a un factorial en dos puntos seguidos, así que son insatisfacibles por aritmética. Y ahí el trabajo de la tabla no es discriminar entre candidatos sino **hacer visible el crecimiento**; la fila que separa a todos exige calcular $5!$, que es justamente el contenido del ítem, así que el descarte no es más barato que entender.
+
+72. **Consecutividad de las entradas: dos regímenes, y hay que declarar cuál se está usando.**
+    - **Fórmula cerrada** (combinaciones, variaciones, cocientes de factoriales): entradas **no consecutivas y con espaciados irregulares** ($5, 6, 8$; mejor que $4, 8, 16$, que al ser regular todavía admite lectura covariacional). Está confirmado experimentalmente que los huecos grandes bloquean la estrategia recursiva.
+    - **Regla del producto y recursión factorial**: entradas **consecutivas**, a propósito. En combinatoria la lectura recursiva no es un atajo que evita entender: $n! = n\cdot(n-1)!$ y "una etapa más multiplica el conteo" **son** el mecanismo. Bloquearla acá sería bloquear el contenido.
+    - **Funciones lineales en contexto (`analisis/white/linear`): entradas consecutivas $1, 2, 3$, por decisión de producto tras testeo real (feedback 485, ago-2026).** Es una excepción deliberada al primer régimen, no un descuido: la fórmula es cerrada y el criterio de arriba pediría espaciados irregulares. **No "corregirlo" en una ronda futura.** El testeo mostró que con entradas separadas el alumno no llega a ver el patrón y el ítem se vuelve ilegible antes que exigente. Se acepta el costo conocido: con entradas consecutivas, leer la diferencia entre filas ($+150$ por fila) alcanza para contestar sin modelar la función. Lo que se conserva es la fila trampa (A1): en $x=1$ las tres opciones coinciden, así que la primera fila nunca decide sola.
+      - **Filas siempre ordenadas de forma ascendente.** Barajar el orden de las filas ($4, 1, 9$) no es una forma válida de cumplir el corolario de rotación de la regla 77: confunde sin agregar dificultad real, y el testeo lo marcó explícitamente. Para rotar la posición de la fila trampa, se varía **cuál es el punto compartido** por las opciones, no el orden de las filas.
+
+73. **Cuando la salida de la tabla es una cardinalidad, la primera fila muestra el conjunto, no solo el número.** `2 (AB, BA)` en vez de `2`. El simbolismo combinatorio ($n!$, $\binom{n}{k}$) denota cardinalidades y **no tiene ningún símbolo para el conjunto**, que es justo el eslabón que los estudiantes tienen más flojo. Sin esa fila ancla, la tabla entrena solo fórmula↔número y refuerza el problema en vez de aliviarlo.
+
+74. **Techo de tamaño de la tabla.** 2 columnas. 3 a 5 filas de datos. Celdas numéricas de hasta ~5 caracteres de render; la fila simbólica puede llevar la expresión completa. Sin scroll horizontal en mobile, nunca. Si el contenido no entra, se cambia el ejercicio, no la tabla (mismo criterio que la regla 39).
+    - **La altura NUNCA cambia, el ancho SÍ.** Son dos criterios opuestos a propósito:
+      - *Altura fija.* Un `—` mide menos que un número renderizado, así que al revelar la columna las filas crecían unos píxeles y **las opciones de abajo se corrían justo cuando el alumno mira el resultado**. Cada celda fija su alto con un contenedor propio (en una tabla, `height` sobre la celda es solo un mínimo y el contenido igual la estira). El encabezado usa un alto mayor cuando alguno de sus estados posibles lleva fracción, decidido una sola vez para todo el ejercicio.
+      - *Ancho adaptable.* Reservar de entrada el ancho del candidato más largo **delata que alguna opción es larga**: una columna ancha con un `—` adentro es información que el alumno no debería tener. Cada columna arranca en lo mínimo (piso de 3,5rem para que una columna de un dígito no colapse) y se ensancha recién cuando hay algo que mostrar.
+    - La tabla no ocupa el ancho disponible ni reparte mitades: se encoge a su contenido y se centra.
+
+75. **El `feedback_incorrect` puede citar la tabla, y conviene que lo haga.** Es una capacidad nueva: hasta ahora ninguna pista podía apoyarse en algo que el alumno tuviera a la vista. `"Con esa expresión dos posiciones darían 20 claves, y la tabla ya muestra 100."` Siguen valiendo las reglas de siempre: nombra el error, no la cura, y nunca nombra ni describe la opción correcta.
+
+76. **La tabla tiene que aportar algo que la prosa sola no aporta.** Es la pregunta que hay que hacerse antes de escribir el ítem: *si tapo la tabla, ¿el enunciado ya alcanza para contestar?* Si alcanza, la tabla es decoración y el ítem se escribe sin ella. Hay **dos** formas legítimas de aportar, y con una basta:
+    - **El patrón no se deduce del enunciado.** La prosa describe la situación pero no la regla por paso, así que los datos de la tabla son la única fuente del patrón. Es la forma más limpia y la que conviene por defecto.
+    - **El patrón se deduce, pero la tabla hace visible algo que la fórmula esconde.** El caso típico es la magnitud: una columna que salta de 4 a 8 a 32 entrega la explosión exponencial de un vistazo, que es justo el canal que la instrucción verbal no alcanza (ver §2.4 de `table-format-context.md`). Vale, pero hay que poder decir qué se hace visible.
+    - **Respaldo externo, y es inusualmente explícito:** UTN FRN repite como consigna *"graficar sin tabla de valores"* para lineales, cuadráticas en forma canónica y módulo —donde el comportamiento se deduce de los parámetros— y en cambio pide *"graficar ayudándose con una tabla de valores"* para exponenciales y logarítmicas. Es exactamente este criterio, escrito por una cátedra de ingreso.
+    - **Anti-patrón concreto que ya se detectó:** convertir en ítem un **cuadro de propiedades** (el tipo de cuadro *"Producto de igual base | $a^{m}\cdot a^{n} = a^{m+n}$"* que tiene el material de UNLP). Es memorización tabulada: la tabla no revela nada que la fórmula no diga ya. Es el mismo error de categoría que §3.4 de `table-format-context.md` describe para las matrices, o sea confundir *mostrar un objeto* con *usar el campo `table`*.
+
+77. **El ítem le pide algo a la tabla como conjunto, no el relleno de una celda.** La versión editorial de lo que A1 (fila trampa) impone aritméticamente: si el estudiante puede contestar mirando un solo renglón, la tabla se convirtió en un contenedor de cuentas repetidas. Los mejores ejemplares del relevamiento curricular siempre piden algo del conjunto —*"establecé la relación entre peso y alargamiento"* (UTN FRBB), *"interprete geométricamente los resultados de la sexta columna"* (UTN FRBA)—. Y UTN FRLP lo dice de frente: *"no se trata de una tabla de valores, no es una expresión simbólica, no es un gráfico: es todo lo anterior de manera integrada"*.
+    - En modo `column` esto sale gratis: la fila simbólica obliga a mirar todas las filas.
+    - En modo `cell` hay que cuidarlo a mano: la celda vacía tiene que necesitar **dos o más** filas para completarse. Una celda que se despeja mirando su propio renglón no cumple.
+    - **Corolario para sub-familias de 3 o más ítems**: si la respuesta correcta es siempre del mismo tipo (siempre la exponencial, siempre la que lleva módulo), el estudiante aprende una meta-estrategia que funciona sin entender nada y la exporta al resto del banco. **Rotar cuál es la correcta**, y **rotar la posición de la fila trampa**, es parte del diseño de la sub-familia, no del ítem. Ninguna de las dos cosas la ve el validador.
+
+78. **Todo ejercicio lleva un `id` estable, y no lo escribís vos.** Después de cada ronda de generación corré `python content/stamp_ids.py`: estampa el campo `id` en los ejercicios que no lo tienen y no toca los que ya lo tienen. Ese `id` es lo que `seed_content.py` usa como `external_id`, o sea la clave a la que quedan atadas todas las respuestas del histórico. Sin él, el id sale de la posición en el array y **borrar o insertar un ejercicio en el medio renumera a todos los que siguen**, con lo cual las respuestas viejas pasan a describir otro contenido (en prod ya pasó: 123 ids apuntando a ejercicios que no existen). Tres cosas que se siguen de esto: un id **nunca se reusa** aunque el ejercicio se archive; un id **no se edita al renombrar un topic**, porque es identificador y no ruta; y reordenar el array es libre. Ver `exercise-structure.md`, sección *El campo `id`*.
+
+79. **Dos opciones que valen lo mismo son dos respuestas correctas.** Si la correcta es $6/36$, entonces $1/6$ no puede ser distractor: el alumno que simplifica llega al número bien y elige la opción marcada como error. El caso más común es que una opción sea la versión simplificada de otra, y se escribe sin darse cuenta. **Corolario para cualquier ítem cuya respuesta sea una cantidad: elegí una forma —cruda o simplificada— y usala en las cuatro opciones y en todos los ejercicios del topic.** El validador lo chequea cuando las cuatro opciones son fracciones de enteros; cuando alguna trae radicales o variables, la pregunta es por la forma y no por el valor, y ahí la equivalencia puede ser deliberada (en `algebra/white/radicals/FORM` las cuatro opciones valen 1 y elegir cuál racionaliza **es** el ejercicio).
+
+80. **Banda de dificultad empírica: 55-77 % de acierto al primer intento, centro en 61 %.** No es un número inventado: sale de cruzar los votos de la micro-encuesta de dificultad (`exercise_feedback`, pregunta A) con el P1 medido de los ítems votados. Los votados "muy fácil" promedian 77 % de P1; "justo", 61 %; "muy difícil", 55 %. **P1 es el % de respuestas con `quality_score = 5`** (acierto al primer intento) — no usar `Answer.is_correct`, que es `attempts <= 3` y por eso da 90-100 % en cualquier ítem de 3 opciones sin decir nada sobre dificultad. Correr `python content/report_difficulty.py` (necesita `DB_URL`) para ver qué unidades están fuera de banda. No es un chequeo del validador porque no ve datos de producción; es una revisión editorial que solo tiene sentido después de que el ítem acumuló exposición real (n≥20 orientativo). Dos causas ya identificadas que empujan por debajo de 55 %: **techo aritmético** (ver regla de abajo) y **notación de un topic posterior** filtrada en las opciones/feedback/explicación (caso real: `variaciones` usaba $\binom{n}{k}$, que se enseña recién en `combinaciones`).
 **Nota de dificultad (no automatizable, criterio editorial):** un valor "sospechoso" que el ejercicio pide detectar (una probabilidad fuera de $[0,1]$, un resultado imposible) no debería aparecer literal y aislado en el enunciado — eso lo vuelve trivial de detectar a simple vista sin razonar la regla. Camuflarlo con una operación mínima (ej. pedir $P(A)+P(B)$ de dos datos que individualmente parecen válidos, y que la suma supere 1) obliga a aplicar el axioma en vez de solo leer el número.
+
+**Nota de dificultad, techo aritmético (no automatizable, criterio editorial):** un ítem que evalúa conteo/probabilidad no debería exigir una cuenta que nadie hace de memoria ($\binom{40}{2}=780$, $6^{4}=1296$). Cuando el resultado tiene más de 3 cifras o hace falta multiplicar/dividir números de 2 cifras entre sí más de una vez, el ítem deja de medir el concepto y empieza a medir paciencia — visible en los datos como `quality_score=1` (agotó las 4 opciones) muy por encima del resto del topic. Casos reales: `blue/laplace/RESL` y `white/variaciones/RESL`, ver los avisos fechados en sus respectivos `topic-context.md`.
 
 **Regla 43 (no automatizable, criterio editorial): si `explanation` despeja/deriva una fórmula a partir de otra, mostrar primero la fórmula base de la que parte, y recién después el despeje — nunca solo el resultado derivado.** Un ejercicio que pide $P(A\cap B)$ a partir de $P(A\mid B)$ y $P(B)$ está despejando la fórmula condicional; la explicación reintroduce esa fórmula base antes de mostrar el despeje, aunque el ejercicio en sí no la pregunte directamente.
 - ❌ `"explanation": "Despejando la intersección de la fórmula condicional se obtiene la regla de la multiplicación:\n$$P(A \cap B) = P(A \mid B) \cdot P(B)$$..."` (nunca muestra de dónde sale)
@@ -762,6 +816,126 @@ El componente `web/src/components/math-graph.tsx` renderiza con **relación de a
 
 ---
 
+## Tablas (`table`)
+
+Tercer formato de ejercicio, además del texto plano y del gráfico. Una tabla chica de dos
+columnas, con un emoji como ícono de encabezado, donde **la columna derivada se rellena con los
+valores precalculados de la opción que el estudiante confirmó**. El error no se explica: se ve.
+
+Reglas 68 a 77. Componente: `web/src/components/exercise-table.tsx`.
+
+**El porqué de cada regla, la investigación pedagógica que las respalda y el análisis de dónde
+entra el formato en `analisis` y `algebra` están en `table-format-context.md`.** Leerlo antes de
+llevar el formato a un curso o topic nuevo: tiene las contraindicaciones y los dos topics donde el
+formato parece encajar y no encaja.
+
+### Forma del campo
+
+```json
+"table": {
+  "columns": [
+    { "icon": "🔣", "label": "Símbolos" },
+    { "icon": "🔑", "label": "Claves" }
+  ],
+  "rows": [["$2$","$4$"], ["$3$","$9$"], ["$5$",null], ["$n$",null]],
+  "reveal": {
+    "mode": "column",
+    "col": 1,
+    "by_option": [
+      { "header": "$n^{2}$", "cells": ["$4$","$9$","$25$","$n^{2}$"] },
+      { "header": "$2n$",    "cells": ["$4$","$6$","$10$","$2n$"] },
+      { "header": "$n+2$",   "cells": ["$4$","$5$","$7$","$n+2$"] }
+    ]
+  }
+}
+```
+
+- `columns[].icon`: emoji opcional, se renderiza **a la derecha de `label`, tras un espacio**, y
+  solo si ilustra una cosa concreta (regla 69). Las columnas de notación matemática van sin ícono.
+- `rows`: matriz de strings. `null` es celda vacía y se pinta `—`. Cada celda pasa por `MathText`,
+  así que acepta `$...$` inline.
+- `by_option` es **paralelo a `options`**, igual que `feedback_incorrect`. El backend lo permuta
+  con el mismo orden al barajar las opciones.
+- Los valores están **precalculados por el autor**: no hay evaluador de expresiones en runtime.
+  Es lo que permite que el validador chequee la coherencia (regla 70) y que el autor controle el
+  formato (dinero, fracciones, unidades).
+
+### Los tres modos de `reveal`
+
+| Modo | Qué revela | Estado inicial de la columna derivada | Skill natural |
+|------|-----------|---------------------------------------|---------------|
+| `column` | Header + **toda** la columna `col` | 1-2 filas dadas (**patrón**) o vacía (**modelo**) | `FORM` |
+| `cell` | Una sola celda, `at: [fila, col]` | Todo dado salvo esa celda | `RESL`, `ESTR` |
+| ausente | Nada, la tabla es contexto estático | Toda dada | cualquiera |
+
+Los dos usos de `column` no son un campo, son una decisión de autoría:
+
+- **Patrón** (inducción): **todas las filas de datos vienen completas y la única celda vacía es la
+  de la fila simbólica.** El estudiante infiere la regla desde los datos, y al elegir mal la
+  columna se repinta entera y **contradice a la vista** las filas que estaban dadas. Ese choque es
+  el corazón del formato, y cuantas más filas dadas haya, más fuerte es.
+  - **Corregido tras el primer testeo real (ago-2026).** Los ítems se habían escrito con 2 filas
+    dadas y 2 vacías (una numérica más la simbólica), y el feedback fue unánime en los 9: la fila
+    numérica vacía confunde, porque no se entiende si también hay que completarla. Y hay un
+    problema más de fondo: **con solo 2 puntos la regla se puede verificar pero no generar.**
+    De $1$ y $4$ salen "×4", "+3" o "cuadrados", así que para elegir hay que ir a probar las
+    opciones — que es exactamente la **inducción ingenua** que el formato existe para combatir.
+    Con tres filas dadas el patrón se genera solo. **Mínimo 3 filas de datos completas.**
+  - Llenar filas no debilita A1-A3 (regla 71): se evalúan sobre las filas *visibles*, así que más
+    filas dadas las hace más fáciles de cumplir, no menos.
+- **Modelo** (aplicación): la columna arranca vacía y la regla está enunciada en la prosa. La tabla
+  solo dice a qué entradas aplicarla.
+
+### La tabla se pinta al CONFIRMAR, nunca al tocar la opción
+
+Decisión de producto con consecuencia pedagógica, y va en contra de lo que hace la referencia
+(Brilliant). Si el estudiante puede tocar cada opción y ver cómo quedaría la tabla *antes* de
+comprometerse, el ítem deja de ser un ejercicio de generalización y pasa a ser una máquina de
+ensayo y error con buena interfaz. Y lo peor es que **es una estrategia que funciona**, así que la
+aprende y la generaliza a todo el banco.
+
+La secuencia correcta es **predicción → consecuencia → explicación**: el alumno compromete una
+hipótesis y recién ahí ve qué produce.
+
+### Qué skills lo aprovechan
+
+- **`FORM`**: encaje fuerte, es el uso por default. El ítem pregunta qué expresión genera la
+  columna, que es para lo que el formato existe.
+- **`RESL`**: solo en la forma invertida (modo `cell`), donde la tabla desglosa los datos y se pide
+  la celda faltante. El estudiante calcula, no lee.
+- **`ESTR`**: **no.** Es la contraindicación más importante del formato, y quedó confirmada
+  empíricamente: **cuando la dificultad real es el modelado, la tabla regala los números**, y
+  `ESTR` es justamente la skill de modelado. Se probaron 2 ítems con tabla en
+  `probabilidad/white/conteo/reglas/ESTR` (ago-2026) y se sacaron después del testeo: al listar los
+  pasos y sus opciones, la tabla ya hacía el trabajo que el ítem venía a evaluar. Antes de volver a
+  intentarlo en otro topic, hay que poder explicar qué queda por modelar **después** de mirar la
+  tabla.
+
+### Contenidos que se prestan mal
+
+- Cuando la dificultad real es decidir el modelo ("¿acá importa el orden?"): la tabla lo responde
+  por el alumno.
+- Probabilidad condicional, independencia, Bayes: no hay un parámetro entero natural para la
+  columna de entrada; la estructura es relacional, no paramétrica.
+- $\binom{n}{k}$ variando los dos parámetros: dos columnas no lo representan.
+- Conteos recursivos sin fórmula cerrada accesible (Fibonacci, particiones, desarreglos): el
+  formato promete una fórmula que no existe al alcance del estudiante.
+- Salidas no enteras o feas: la relación se pierde en el ruido aritmético.
+
+### Verificación
+
+```bash
+python content/validate_content.py --course <curso> --check tables
+```
+
+`check_tables` cubre forma, paralelismo con `options`, la regla 70 completa, A3 y los emoji fuera
+de lugar como ERROR; A2 y el ancho de celda como WARNING. **A1 (fila trampa) no es automatizable**
+y vive en el checklist manual del `topic-context.md`. Tampoco son automatizables las **reglas 76 y 77**
+(que la tabla aporte algo, y que el ítem le pida algo al conjunto), ni el corolario de rotación de la
+regla 77, que solo se ve leyendo la sub-familia entera de corrido.
+
+---
+
 ## Estructura de la explicación (`explanation`)
 
 Cada campo `explanation` sigue una estructura de **tres partes**:
@@ -860,6 +1034,12 @@ Están duplicadas arriba a propósito, para que también estén disponibles al f
 - NUNCA dejar una distractora que sea el mismo objeto que la correcta escrito de otra forma (el polinomio nulo y "el número cero", una fracción y su decimal exacto); se cambia el ejemplo, no se inventa la diferencia en el `feedback_incorrect`.
 - NUNCA reutilizar los mismos números en dos ítems de la misma unidad, aunque estén en topics distintos y pregunten cosas distintas; la única excepción es el formato "paso troceado" (regla 56).
 - NUNCA dejar dos sub-familias de la misma unidad que se resuelvan con el mismo procedimiento; se detecta leyendo las tablas de la unidad entera de corrido, y se arregla fijando por escrito qué cambia (el objeto de entrada o la forma de la respuesta) en las dos `topic-context.md`.
+- NUNCA armar una tabla con `\begin{array}`/`\begin{matrix}` dentro de un `$$`; va en el campo `table` (regla 68).
+- NUNCA poner un emoji fuera de `table.columns[].icon`: ni en una opción, ni en una celda, ni en `question`/`explanation`/`feedback_*`. Un emoji dentro de una expresión enseña que la letra es la etiqueta del objeto y no la cantidad (regla 69).
+- NUNCA poner un emoji en una columna cuyo encabezado es notación matemática (`$n$`, `$n!$`) o un rótulo abstracto (`Opciones`, `Total`): el emoji ilustra cosas, no fórmulas (regla 69).
+- NUNCA usar emoji de veredicto (✅ ❌ ✔️ ✖️ 🔴 🟢) ni siquiera como ícono de columna; son la regla 14 con otra tipografía.
+- NUNCA dejar un distractor de un ejercicio con tabla que no difiera de la correcta en ninguna fila visible (el ítem no se puede decidir), ni uno que difiera en todas (se descarta de un vistazo, salvo en factoriales y potencias).
+- NUNCA repetir en la prosa del enunciado un valor que la tabla ya muestra, ni preguntar por una celda que ya está a la vista.
 
 **SIEMPRE:**
 - SIEMPRE un bloque `$$...$$` entre la apertura y la pregunta, también en los ítems conceptuales: si no hay caso concreto que mostrar, va la notación abstracta del objeto, nunca el paso que la pregunta pide dar. Se exceptúan los ítems cuyo objeto ya está en las opciones o **es** la respuesta que se pide construir.
@@ -871,3 +1051,7 @@ Están duplicadas arriba a propósito, para que también estén disponibles al f
 - SIEMPRE párrafos de `explanation` ≤200 caracteres (ideal ~100); cortar con `\n\n` si se pasa.
 - SIEMPRE mayúscula al empezar una oración, incluso si arranca con una variable en minúscula (`$b$`, `$x$`) o después de una fórmula display.
 - SIEMPRE camuflar un valor "sospechoso" que el ejercicio pide detectar (fuera de rango, imposible) con una operación mínima, en vez de mostrarlo literal y aislado en el enunciado.
+- SIEMPRE `table.reveal.by_option` del mismo largo que `options` y en el mismo orden, igual que `feedback_incorrect`.
+- SIEMPRE hacer coincidir las celdas ya visibles de la tabla con lo que pinta la opción correcta (regla 70).
+- SIEMPRE, en una tabla cuya salida es una cardinalidad, dejar la primera fila en un caso tan chico que el conjunto se pueda enumerar, y mostrarlo: `2 (AB, BA)` (regla 73).
+- SIEMPRE en un ítem con tabla, la tabla ya cumple el rol de ancla visual: no agregar además un `$$...$$` encima (excepción explícita a la regla 66).

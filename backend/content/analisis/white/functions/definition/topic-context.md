@@ -38,13 +38,14 @@ Revisión manual ejercicio por ejercicio vía `/test`. Los siguientes son ejempl
 | Variable independiente / dependiente |, | `variable-indep-dep` | 6 |
 | Imagen | como conjunto (¿cuál es el conjunto imagen?) | `imagen-conjunto` | 5 |
 | Imagen | puntual (respecto de $x$, ¿qué es $f(x)$?) | `imagen-puntual` | 2 |
-| Codominio |, | `codominio` | 4 |
+| Codominio |, | `codominio` | 6 |
 | Preimagen | como cálculo (¿qué entradas dan $y$?) | `preimagen-calculo` | 3 |
 | Preimagen | puntual (respecto de $f(x)=y$, ¿qué rol cumple $x$?) | `preimagen-puntual` | 1 |
-| Unicidad (cupo estricto, ver abajo) |, | `unicidad` | 2 |
 | **Total** | | | **30** |
 
-**Cantidades exactas, no aproximadas.** La Gem debe respetar exactamente estos números; no más ejercicios de imagen o unicidad "porque salieron mejor".
+> **Unicidad salió de LEXI (ago-2026, junto con el archivado en CLSF).** Los 2 ítems de `unicidad` (cajero y termómetro) se **reemplazaron** por 2 de `codominio`, que pasó de 4 a 6. LEXI se mantiene en 30. El motivo: al archivarse el bloque de unicidad de CLSF, esos 2 quedaban enseñando un concepto que ningún otro ejercicio del topic reforzaba. Se eligió `codominio` como reemplazo porque era la cobertura más fina tras el archivado y porque codominio↔imagen es la confusión que la tabla de confusiones de abajo ya declara como central.
+
+**Cantidades exactas, no aproximadas.** La Gem debe respetar exactamente estos números; no más ejercicios de imagen "porque salieron mejor".
 
 **No hay bucket "contexto general".** Cada ejercicio debe encajar en uno de los conceptos de arriba. Si un ejercicio no encaja en ninguno, es porque no pertenece a este skill, descartalo, no lo forces.
 
@@ -56,16 +57,11 @@ Revisión manual ejercicio por ejercicio vía `/test`. Los siguientes son ejempl
 
 Imagen, codominio y preimagen deben estar balanceados entre sí. Los ejercicios de estos tres conceptos son **cuantitativos y lógicos**: el alumno identifica el conjunto concreto, calcula las preimágenes de un valor, o distingue entre lo que la función "promete" (codominio) y lo que realmente produce (imagen). No generar ejercicios que sean puramente de vocabulario en abstracto ("¿qué es la imagen?").
 
-### Unicidad, cupo estricto: 2 ejercicios, ni más ni menos
+### Unicidad: fuera del topic (ago-2026)
 
-**OBLIGATORIO, no negociable.** El cupo de unicidad se recortó de 4 a 2 al reducir el ítem de 50 a 30 ejercicios, pero los 2 que quedan son, sin excepción, los dos obligatorios:
+**El cupo de unicidad es 0, y no se repone.** Existía un cupo estricto de 2 ejercicios (cajero automático y termómetro) que era "obligatorio, no negociable"; esa regla queda derogada. El criterio de unicidad salió del curso entero: el bloque de CLSF se archivó y estos 2 de LEXI se reemplazaron por `codominio`.
 
-- Uno de cajero automático que muestra dos saldos distintos según quién consulta.
-- Uno de termómetro que da dos lecturas simultáneas del mismo ambiente.
-
-La pregunta debe ser del tipo "¿qué garantía te da la unicidad acá?" o "¿qué pasaría si esta regla no fuera función?", NO "¿cumple la unicidad?".
-
-Ya no hay cupo para los ejercicios "clásicos" adicionales de "¿es función o no?" (contexto que sí respeta unicidad / contexto con una entrada y dos salidas) ni para los contextos alternativos (app con dos precios, GPS con dos rutas): quedaron fuera del recorte. Si en una futura ronda se necesita volver a ampliar el cupo de unicidad, agregarlos ahí respetando que cajero y termómetro nunca se tocan.
+No agregar ejercicios de "¿es función o no?", ni de "¿qué garantía te da la unicidad?", ni contextos del tipo app con dos precios o GPS con dos rutas. Si alguna ronda futura reabre el tema, es una decisión de producto que tiene que tomarse explícita, no un hueco a rellenar.
 
 ### Cardinalidad
 
@@ -91,7 +87,6 @@ Requerido. Array del mismo largo que `options`, `null` en `correct_index`. 1 ora
 | Preimagen de k | preimagen tomada como f(k), o como codominio restringido | "Ese es el valor que sale al evaluar en k; la preimagen es lo que entra para obtener k." |
 | Variable independiente | entrada y salida intercambiadas | "La variable independiente es la que elegís libremente, la entrada; la otra sale de aplicar la regla." |
 | Variable dependiente | entrada y salida intercambiadas | "Esa es la que elegís libremente; la dependiente es la que resulta de aplicar la regla." |
-| Unicidad | unicidad tomada como inyectividad | "Eso describe inyectividad (cada salida viene de una sola entrada); la unicidad pide que cada entrada tenga una sola salida." |
 
 ### Reglas específicas de este topic
 
@@ -110,7 +105,7 @@ No repetir la misma estructura de apertura en ejercicios consecutivos del mismo 
 - Dominio: "No lo confundas con la imagen: el dominio son las entradas, no las salidas."
 - Imagen vs. codominio: "El codominio es lo que la función podría alcanzar; la imagen, lo que realmente alcanza."
 - Preimagen: "Preimagen de $k$ no es $f(k)$: es qué entrada produce $k$, no qué produce $k$."
-- Unicidad: "Ojo, unicidad no es inyectividad: acá miramos que cada entrada dé una sola salida, no al revés."
+- Codominio declarado vs. alcanzado: "Que la función no use todos los valores declarados no achica el codominio; eso solo describe su imagen."
 
 El **humor es excepcional** (una minoría de los 30 ejercicios) y solo como **analogía cotidiana exagerada** en tono formal, del tipo escena burocrática o consecuencia práctica absurda ("Un registro que le asigna dos expedientes al mismo trámite no tiene un error de tipeo: tiene un problema de unicidad."). **Nunca antropomorfismos** ("la raíz detesta los negativos") ni chistes externos. Si no hay advertencia pertinente ni analogía que cierre bien, terminá en la aplicación.
 
@@ -118,59 +113,47 @@ El **humor es excepcional** (una minoría de los 30 ejercicios) y solo como **an
 
 ---
 
-## CLSF, 30 ejercicios
+## CLSF, 21 ejercicios
 
 ### Distribución objetivo
 
-**CLSF es el skill de aplicación: identificar y calcular sobre casos concretos.** Se apoya en el vocabulario que LEXI define y lo pone a trabajar. Dos bloques:
+**CLSF es el skill de aplicación: identificar y calcular sobre casos concretos.** Se apoya en el vocabulario que LEXI define y lo pone a trabajar. Todo el skill es de **identificación**: calcular o distinguir el conjunto concreto en un caso dado (cuál es el dominio de esta $f$, cuál es su conjunto imagen, qué valores excluye el dominio natural, cuáles son las preimágenes de $k$).
 
-- **~9 de unicidad ("¿es función?")**, acotados a los dos casos que de verdad enseñan: **unicidad rota disfrazada** en contexto (no la tabla obvia de "una entrada con dos salidas") y **trampa de inyectividad** (dos entradas comparten salida y eso NO rompe la función). Este bloque entrena la confusión central unicidad↔inyectividad; los casos de unicidad rota explícita y evidente ya no se repiten en masa.
-- **~21 de identificación**, calcular o distinguir el conjunto concreto en un caso dado: cuál es el dominio de esta $f$, cuál es su conjunto imagen, qué valores excluye el dominio natural, cuáles son las preimágenes de $k$.
+> **El bloque de unicidad se archivó (ago-2026, feedback de testeo 485).** Las dos sub-familias que preguntaban "¿esta asignación define una función?" —`unicidad-rota-disfrazada` (4) y `trampa-inyectividad` (5)— salieron del curso por decisión de producto: **el criterio de unicidad dejó de considerarse relevante para el alumno de esta unidad.** Los 9 ítems están en `backend/content/archive/analisis/white/functions/definition/CLSF.json` con su `id` original preservado, así que esos ids quedan quemados y no se reusan (la asignación de ids nuevos es `max(sufijos)+1`, nunca el primer hueco libre). CLSF pasó de 30 a 21 y **no hay que reponer los 9**: el objetivo del skill es 21.
 
 `tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 | Categoría | Slug | Cantidad |
 |-----------|------|----------|
-| Unicidad **rota disfrazada** en contexto cotidiano ("¿es función?") | `unicidad-rota-disfrazada` | 4 |
-| **Trampa de inyectividad**: sí es función aunque dos entradas compartan salida | `trampa-inyectividad` | 5 |
 | **Dominio**: identificar el conjunto de entradas en un caso concreto | `dominio-identificacion` | 4 |
 | **Dominio natural**: restricción algebraica (división, raíz, combinadas) | `dominio-natural` | 6 |
 | **Imagen / conjunto imagen**: salidas alcanzadas vs. codominio | `imagen-identificacion` | 5 |
 | **Codominio**: distinguir del conjunto imagen | `codominio-identificacion` | 2 |
 | **Preimagen**: calcular preimágenes / distinguir de la imagen | `preimagen-identificacion` | 4 |
-| **Total** | | **30** |
+| **Total** | | **21** |
 
 **No duplicar LEXI.** El límite: **LEXI define/reconoce el término** ("¿qué es el dominio?", "¿qué representa este conjunto?"), en general 2-3 opciones y registro definicional. **CLSF identifica o calcula el conjunto concreto** ("¿cuál es el dominio de esta $f$?", "¿cuáles son las preimágenes del 0?"), computacional. Si un ejercicio se resuelve solo sabiendo la definición sin mirar el caso, es LEXI, no CLSF.
 
-**Fuera de alcance de `white`.** No incluir inyectiva/sobreyectiva/biyectiva como clasificación explícita (se agenda para un topic posterior con codominio bien trabajado). La inyectividad aparece únicamente como *distractor* en el bloque de unicidad, y siempre descrita, nunca nombrada.
+**Fuera de alcance de `white`.** No incluir inyectiva/sobreyectiva/biyectiva como clasificación explícita (se agenda para un topic posterior con codominio bien trabajado).
 
 ### Cardinalidad
 
-- **Unicidad ("¿es función?")**: **3 opciones, no binario Sí/No.** El binario en masa vuelve la sesión un juego de moneda (ver `authoring-context.md` §Cardinalidad y regla anti-binario). Reformulá el sí/no como tres respuestas que integran el porqué:
-  - **Cuando NO es función** (correcta = negativa con razón correcta): `No, hay una entrada con dos salidas` (correcta) · `Sí, cada entrada tiene una sola salida` (afirmativa falsa) · `No, dos salidas distintas vienen de la misma entrada` u otra negativa con razón espuria.
-  - **Cuando SÍ es función** (correcta = afirmativa): `Sí, cada entrada tiene una sola salida` (correcta) · `No, dos entradas comparten la misma salida` (negativa con la confusión de inyectividad: describila, NO uses la palabra "inyectividad") · `No, la salida se repite` u otra negativa espuria.
-  - El alumno no solo decide si es función, sino que discrimina **por qué**, y la confusión inyectividad↔unicidad queda como distractor central.
 - **Identificación**: **4 opciones**, cuando hay 4 confusiones genuinamente distintas (p. ej. dominio ↔ imagen ↔ codominio + una espuria). Si solo hay 3 confusiones reales, usá 3 y no rellenes con un absurdo delator.
 - **Layout:** con 3 opciones el front usa lista vertical; la grilla 2×2 se activa solo con exactamente 4 opciones, todas ≤35 caracteres (ver `session-runner.tsx`). No fuerces el largo para "caer en grilla".
 
 ### `feedback_incorrect` para CLSF
 
-Array paralelo a `options`, `null` en el índice correcto, mismo largo que `options` (3 en unicidad, 4 en identificación). Voz descriptiva del concepto, nunca acusatoria ("confunde X con Y" está prohibido).
-
-**En unicidad:**
-- **Distractor afirmativo cuando NO es función:** describir el conflicto, "Acá una misma entrada produce dos salidas, y eso rompe la condición de función."
-- **Distractor negativo con la confusión de inyectividad cuando SÍ es función:** "Que dos entradas distintas compartan la misma salida no rompe la condición de función: la unicidad mira que cada entrada tenga una sola salida, no al revés." (Describí el concepto sin usar la palabra "inyectividad".)
-- **Distractor negativo con razón espuria:** nombrar por qué esa razón no invalida la función ("Que una salida se repita, o que sobren elementos del codominio, no contradice la definición de función.").
+Array paralelo a `options`, `null` en el índice correcto, mismo largo que `options`. Voz descriptiva del concepto, nunca acusatoria ("confunde X con Y" está prohibido).
 
 **En identificación:** cada distractor nombra qué conjunto se agarró en su lugar ("Ese es el codominio, las salidas posibles, no las efectivamente alcanzadas."; "Ese es el conjunto de salidas; el dominio son las entradas."; "El 600 es lo que se reparte, no una cota inferior para las personas.").
 
 ### Reglas específicas para CLSF
 
-**Unicidad ≠ inyectividad, es el eje del bloque de unicidad.** La confusión central que entrena es creer que "dos entradas con la misma salida" rompe la función. No la rompe. Describí el concepto sin nombrar "inyectividad" (fuera del alcance de `white`): hablá de "cada entrada, una sola salida" y "al revés".
-
 **Identificar sobre el caso, no recitar la definición.** Todo ejercicio de identificación debe obligar a mirar los datos concretos (el conjunto, la fórmula, la restricción) para responder; si se contesta de memoria con la definición, movelo a LEXI.
 
-**Dominio natural.** Cubrir las restricciones típicas: denominador ≠ 0, radicando ≥ 0, combinación de ambas, y la restricción de contexto (no comprar kilos negativos, al menos una persona). Variá para no repetir siempre la división.
+**Dominio natural: una sola restricción por ítem, nunca combinada.** *(Corregido tras la auditoría de P1, ver más abajo: "combinación de ambas" fue el origen del ítem con peor P1 de todo el topic.)* Cubrir las restricciones típicas por separado: denominador ≠ 0, radicando ≥ 0 (par), raíz de índice impar sin restricción, y la restricción de contexto. **Nunca combinar dos reglas algebraicas en el mismo ítem** (ej. $1/\sqrt{x}$, que exige radicando ≥ 0 Y denominador ≠ 0 a la vez): CLSF es reconocimiento, un cálculo compuesto pertenece a otra instancia, no a este topic. Si el radicando resta la variable (`√(5-x)`), preferir la forma que no exige invertir el signo de una desigualdad (`√(x-5)`) salvo que ese paso de álgebra sea deliberadamente el contenido del ítem. **Cuando la restricción es de contexto** (no comprar kilos negativos, una velocidad no puede ser negativa), decirlo explícito en el enunciado ("$k$ representa un peso, no puede ser negativo") en vez de dejar que el alumno infiera que "dominio natural" cambió de significado: en la misma sub-familia, unos ítems lo usan en sentido puramente algebraico y otros en sentido físico, y sin la aclaración es indistinguible cuál se está pidiendo. Variá para no repetir siempre la división.
+
+**Índice abstracto: nombrar la correspondencia.** *(Nuevo tras la auditoría de P1.)* Cuando el dominio o codominio es un conjunto de índices `{1,...,n}` que representa entidades con nombre propio en el contexto (vendedores, preguntas, salas), la prosa dice explícito que están numeradas ("numera sus 6 salas", "numeradas del 1 al 3"), nunca lo deja solo en la notación formal `V:{1,...,12}→{0,...,500}`. Sin ese puente, el alumno tiene que inferir la correspondencia índice↔entidad antes de poder razonar sobre el dominio, y eso mide lectura, no el concepto.
 
 **Sin nombres propios.** Usar roles genéricos (un socio, un alumno, un producto), nunca nombres de persona. El ejercicio del DNI/persona debe decir "una persona", no un nombre.
 
@@ -182,25 +165,20 @@ Además del checklist global del `generation-instructions.md`, verificá lo espe
 
 **LEXI:**
 - [ ] 30 ejercicios exactos
-- [ ] Distribución: 7 dominio, 6 var indep/dep, 5 imagen conjunto, 2 imagen puntual, 4 codominio, 3 preimagen cálculo, 1 preimagen puntual, 2 unicidad
-- [ ] El ejercicio del cajero automático (dos saldos) está presente
-- [ ] El ejercicio del termómetro (dos lecturas simultáneas) está presente
-- [ ] El cupo de unicidad son exactamente esos 2 (cajero + termómetro), no quedan ejercicios clásicos adicionales de "¿es función o no?" tras el recorte
+- [ ] Distribución: 7 dominio, 6 var indep/dep, 5 imagen conjunto, 2 imagen puntual, 6 codominio, 3 preimagen cálculo, 1 preimagen puntual
+- [ ] Ningún ejercicio de unicidad ni de "¿es función o no?": el concepto salió del topic (ago-2026)
 - [ ] Ningún ejercicio de imagen/codominio/preimagen es puramente definicional en abstracto, todos identifican, calculan o distinguen conjuntos concretos
 - [ ] Variedad de apertura en las `explanation`: proporción similar de pregunta retórica, contraejemplo y definición formal entre los que queden
 
 **CLSF:**
-- [ ] 30 ejercicios exactos
-- [ ] Distribución: 9 de unicidad (4 rota disfrazada + 5 trampa de inyectividad) + 21 de identificación (4 dominio, 6 dominio natural, 5 imagen/conjunto imagen, 2 codominio, 4 preimagen)
-- [ ] Los 9 de unicidad son SOLO rota disfrazada o trampa de inyectividad; ningún caso obvio de "una entrada con dos salidas" en tabla explícita
-- [ ] Todo ejercicio de identificación obliga a mirar el caso concreto; ninguno se resuelve solo con la definición (si sí, es LEXI)
-- [ ] NINGÚN ejercicio de inyectiva/sobreyectiva/biyectiva como clasificación (solo como distractor descrito en unicidad)
-- [ ] Los 9 de unicidad tienen 3 opciones (afirmativa + negativa correcta + negativa con confusión), no binario Sí/No
-- [ ] Los 21 de identificación tienen 4 opciones (o 3 si no hay 4 confusiones reales), sin relleno absurdo delator
+- [ ] 21 ejercicios exactos
+- [ ] Distribución: 4 dominio, 6 dominio natural, 5 imagen/conjunto imagen, 2 codominio, 4 preimagen
+- [ ] Ningún ejercicio de "¿esta asignación define una función?": el bloque de unicidad se archivó (ago-2026), no se repone
+- [ ] Todo ejercicio obliga a mirar el caso concreto; ninguno se resuelve solo con la definición (si sí, es LEXI)
+- [ ] NINGÚN ejercicio de inyectiva/sobreyectiva/biyectiva como clasificación
+- [ ] 4 opciones (o 3 si no hay 4 confusiones reales), sin relleno absurdo delator
 - [ ] `feedback_incorrect` en TODOS los ejercicios, array del mismo largo que `options`, `null` en el correcto
-- [ ] Balance en unicidad: no todas "Sí" ni todas "No"
 - [ ] `correct_index` variado, no siempre 0
-- [ ] La palabra "inyectividad" NO aparece en options ni feedback (se describe el concepto)
 - [ ] Sin nombres propios en ningún ejercicio (revisar el del DNI/persona)
 
 ---
@@ -214,3 +192,44 @@ De ahí sale la **regla 61** de `authoring-context.md`: el sujeto de la primera 
 Pasada de voz narrativa sobre las aperturas que tenían una propiedad de sujeto (`"El denominador de esta función…"`, `"El interior de este logaritmo…"`, `"El coeficiente principal es…"`). Son 56 en toda la unidad, heredadas de la misma ronda 6 que produjo el problema en `limites`.
 
 **Los preámbulos `"Dada la función:"` / `"Sea la función:"` no se tocaron**: tienen el objeto de sujeto y la sección *Sin preámbulos colgantes* los admite explícitamente.
+
+---
+
+## Auditoría de datos de producción, CLSF (P1, ago-2026)
+
+Informe completo: https://claude.ai/code/artifact/c4a538cf-2993-43f1-aefe-288eba3e5913.
+Métrica **P1** = % de respuestas resueltas al primer intento (`quality_score = 5`), no
+`is_correct` (que es "≤3 intentos" y no discrimina). **Banda de calibración: 55-77%,
+centro 61%**, sacada de cruzar 183 votos de la encuesta con el P1 medido.
+
+`white/definition/CLSF` es la unidad más transitada de toda la plataforma (443
+respuestas, 148 usuarios) y medía **52% de P1**. Se leyeron los 30 ítems con su
+contenido real cruzados contra su P1 individual (n chico en casi todos, 2 a 12; tratar
+como pista de diagnóstico, no como veredicto estadístico).
+
+**Ronda 1, 8 ítems corregidos:** `#12, #14, #15, #17, #19, #21, #22, #30`. Los
+hallazgos sistémicos quedaron en las reglas de arriba ("una sola restricción" y
+"nombrar el índice"). Detalle puntual:
+
+| # | P1 antes (n) | Qué se hizo |
+|---|---|---|
+| 14 | 0% (3, 67% agotó) | Combinaba raíz+denominador; reemplazado por raíz de índice impar (regla nueva) |
+| 21 | 0% (4) | Único ítem con dominio infinito (ℤ) de toda la sub-familia; reemplazado por dominio finito enumerable |
+| 15 | 38% (8, 38% agotó) | "Dominio natural" contextual sin avisar; la restricción física ahora es explícita en el enunciado |
+| 19 | 29% (7, 29% agotó) | Mismo problema que #15, mismo criterio |
+| 17 | 33% (9) | Exigía invertir el signo de una desigualdad (álgebra, no CLSF); radicando reescrito para despeje directo |
+| 12 | 29% (7) | Índice `{1,2,3}` sin nombrar como "preguntas numeradas"; agregado a la prosa |
+| 22 | 33% (6, reporte de usuario) | La correcta decía "Conjunto unitario" (jerga no establecida); cambiada a `$\{7\}$`, igual que la explicación ya decía |
+| 30 | 17% (6) | Formato negativo con 3 permutaciones casi idénticas; reescrito en positivo con una sola distractora real (dirección invertida) |
+
+**Explícitamente fuera de esta ronda**, evidencia más floja o sin diagnóstico firme
+todavía, quedan para una ronda 2:
+
+- `#4` (carta/plato, 20%, n=5): aislado dentro de `unicidad-rota-disfrazada`, que en el
+  resto anda bien (67-75%); sin hipótesis de qué lo distingue de `#1-3`.
+- `#7`, `#8` (`trampa-inyectividad`, 40% cada uno, n=5): moderadamente bajos, sin
+  patrón claro frente a `#5,6,9` que sí están en banda.
+- `#11` (vendedores, 33%, n=6): mismo hallazgo del índice sin nombrar que `#12`; se
+  puede resolver con la misma regla ya escrita arriba cuando llegue la ronda 2.
+- `#24`, `#26`, `#27`, `#28`: bajo banda (38%, 20%, 50%, 50%) con n=5-8, sin
+  diagnóstico propio todavía.

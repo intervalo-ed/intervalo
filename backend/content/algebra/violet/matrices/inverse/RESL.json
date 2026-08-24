@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_inverse_RESL_01",
     "question": "La inversa de una matriz de $2 \\times 2$ se arma intercambiando la diagonal principal y cambiando el signo de la otra.\n\nTodo eso se divide después por el determinante.\n$$A = \\begin{pmatrix} 3 & 5 \\\\ 1 & 2 \\end{pmatrix}$$\n¿Cuál es $A^{-1}$?",
     "options": [
       "$\\begin{pmatrix} 2 & -5 \\\\ -1 & 3 \\end{pmatrix}$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "violet_inverse_RESL_02",
     "question": "La inversa de una matriz del plano intercambia la diagonal principal, cambia el signo de la otra y divide por el determinante.\n$$A = \\begin{pmatrix} 4 & 3 \\\\ 1 & 1 \\end{pmatrix}$$\n¿Cuál es su inversa?",
     "options": [
       "$\\begin{pmatrix} -1 & 3 \\\\ 1 & -4 \\end{pmatrix}$",
@@ -52,6 +54,7 @@
     ]
   },
   {
+    "id": "violet_inverse_RESL_03",
     "question": "La inversa de una matriz del plano intercambia la diagonal principal, cambia el signo de la otra y divide por el determinante.\n$$A = \\begin{pmatrix} 2 & 0 \\\\ 0 & 5 \\end{pmatrix}$$\n¿Cuál es su inversa?",
     "options": [
       "$\\begin{pmatrix} 5 & 0 \\\\ 0 & 2 \\end{pmatrix}$",
@@ -79,6 +82,7 @@
     ]
   },
   {
+    "id": "violet_inverse_RESL_04",
     "question": "La inversa de una matriz del plano intercambia la diagonal principal, cambia el signo de la otra y divide por el determinante.\n$$A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 8 \\end{pmatrix}$$\n¿Cuál es su inversa?",
     "options": [
       "$\\begin{pmatrix} 4 & -1 \\\\ -3/2 & 1/2 \\end{pmatrix}$",
@@ -106,6 +110,7 @@
     ]
   },
   {
+    "id": "violet_inverse_RESL_05",
     "question": "Una matriz del plano tiene determinante nulo.\n$$A = \\begin{pmatrix} 2 & 6 \\\\ 1 & 3 \\end{pmatrix}$$\n¿Cuál es su inversa?",
     "options": [
       "$\\begin{pmatrix} 1/2 & 1/6 \\\\ 1 & 1/3 \\end{pmatrix}$",
@@ -133,6 +138,7 @@
     ]
   },
   {
+    "id": "violet_inverse_RESL_06",
     "question": "Una matriz depende de un parámetro todavía sin fijar:\n$$A = \\begin{pmatrix} k & 3 \\\\ 3 & k \\end{pmatrix}$$\n¿Para qué valores de $k$ tiene inversa la matriz?",
     "options": [
       "Todos los reales salvo $3$ y $-3$",
@@ -158,6 +164,7 @@
     ]
   },
   {
+    "id": "violet_inverse_RESL_07",
     "question": "Una matriz depende de un parámetro todavía sin fijar.\n$$A = \\begin{pmatrix} k & 2 \\\\ 8 & k \\end{pmatrix}$$\n¿Para qué valores del parámetro tiene inversa la matriz?",
     "options": [
       "Todos los reales salvo $0$",
@@ -185,6 +192,7 @@
     ]
   },
   {
+    "id": "violet_inverse_RESL_08",
     "question": "Una matriz depende de un parámetro todavía sin fijar.\n$$A = \\begin{pmatrix} 1 & k \\\\ 4 & 8 \\end{pmatrix}$$\n¿Para qué valores del parámetro **sí** tiene inversa?",
     "options": [
       "Únicamente $2$",
@@ -212,6 +220,7 @@
     ]
   },
   {
+    "id": "violet_inverse_RESL_09",
     "question": "Una matriz diagonal depende de un parámetro todavía sin fijar.\n$$D = \\begin{pmatrix} k & 0 \\\\ 0 & 3 \\end{pmatrix}$$\n¿Para qué valores del parámetro tiene inversa la matriz?",
     "options": [
       "Todos los reales salvo $0$",
@@ -239,6 +248,7 @@
     ]
   },
   {
+    "id": "violet_inverse_RESL_10",
     "question": "Una matriz depende de un parámetro en dos entradas de la misma fila.\n$$A = \\begin{pmatrix} k & k \\\\ 2 & 5 \\end{pmatrix}$$\n¿Para qué valores del parámetro tiene inversa la matriz?",
     "options": [
       "Todos los reales salvo $3$",
@@ -266,6 +276,7 @@
     ]
   },
   {
+    "id": "violet_inverse_RESL_11",
     "question": "En esta ecuación matricial la incógnita aparece multiplicada por la izquierda, y la matriz que la acompaña tiene inversa:\n$$AX = B$$\n¿Cómo queda despejada $X$?",
     "options": [
       "$X = A^{-1}B$",
@@ -291,6 +302,7 @@
     ]
   },
   {
+    "id": "violet_inverse_RESL_12",
     "question": "En esta ecuación matricial la incógnita aparece multiplicada por la derecha, y la matriz que la acompaña tiene inversa.\n$$XA = B$$\n¿Cómo queda despejada la incógnita?",
     "options": [
       "$X = B^{-1}A$",
@@ -318,6 +330,7 @@
     ]
   },
   {
+    "id": "violet_inverse_RESL_13",
     "question": "Una ecuación matricial tiene la incógnita entre dos matrices inversibles.\n$$AXB = C$$\n¿Cómo queda despejada la incógnita?",
     "options": [
       "$X = A^{-1}B^{-1}C$",
@@ -345,6 +358,7 @@
     ]
   },
   {
+    "id": "violet_inverse_RESL_14",
     "question": "Una ecuación matricial combina un producto con una suma.\n$$AX + C = B$$\n¿Cómo queda despejada la incógnita?",
     "options": [
       "$X = A^{-1}(B-C)$",
@@ -372,6 +386,7 @@
     ]
   },
   {
+    "id": "violet_inverse_RESL_15",
     "question": "Una ecuación matricial tiene la incógnita multiplicada por dos matrices del mismo lado.\n$$ABX = C$$\n¿Cómo queda despejada la incógnita?",
     "options": [
       "$X = CB^{-1}A^{-1}$",
