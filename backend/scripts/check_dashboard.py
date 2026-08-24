@@ -217,39 +217,62 @@ check("P1 usa quality_score=5 y no is_correct (todas is_correct=True)",
 # ── 6. Encuestas ─────────────────────────────────────────────────────────────
 # "justo" en los dos canales: es la colisión que hace falsos los cortes por
 # valor sin filtrar el canal.
+# Los external_id llevan el cinturón en el prefijo, que es de donde sale el
+# desglose por unidad: "{cinturón}_{tema}_{SKILL}_{nn}" (ver seed_content.py).
 db.add(ExerciseFeedback(user_id=1, session_id=101, course_id=1,
-                        exercise_external_id="item_0", question_type="A",
+                        exercise_external_id="white_definition_LEXI_01",
+                        question_type="A",
                         value="justo", shown_at=utc(18), answered_at=utc(18)))
 db.add(ExerciseFeedback(user_id=2, session_id=103, course_id=1,
-                        exercise_external_id="item_1", question_type="D",
+                        exercise_external_id="white_definition_CLSF_02",
+                        question_type="D",
                         value="aburrido", reason="pura_cuenta",
                         shown_at=utc(18), answered_at=utc(18)))
+# Este es de OTRO cinturón: si el desglose no leyera el prefijo, caerían juntos.
 db.add(ExerciseFeedback(user_id=1, session_id=102, course_id=1,
-                        exercise_external_id="item_2", question_type="D",
+                        exercise_external_id="blue_continuity_FORM_03",
+                        question_type="D",
                         value="interesante", reason="me_hizo_pensar",
                         shown_at=utc(19), answered_at=utc(19)))
 db.add(ExerciseFeedback(user_id=3, session_id=104, course_id=1,
-                        exercise_external_id="item_0", question_type="D",
+                        exercise_external_id="white_definition_LEXI_01",
+                        question_type="D",
                         value="justo", shown_at=utc(19)))  # sin responder = skip
 db.commit()
 
 en = q.encuestas(q.load(db), [WEEK])
-d = {r["label"]: r["n"] for r in en["d"]}
-check("encuestas: 'justo' del canal A no se suma al canal D",
-      d["justo"] == 0, f"(dio {d})")
-check("encuestas: canal D tiene 1 aburrido y 1 interesante",
-      d["aburrido"] == 1 and d["interesante"] == 1)
 mix = {r["canal"]: r for r in en["mix"]}
 check("encuestas: el skip cuenta como mostrada pero no como respondida",
       mix["D"]["shown"] == 3 and mix["D"]["answered"] == 2)
-ejes = {r["eje"]: r for r in en["ejes"]}
-check("encuestas: las razones se agrupan por eje con su signo",
-      ejes["Ingenio"]["pos"] == 1 and ejes["Ingenio"]["neg"] == 1, f"(dio {ejes})")
-items = {r["item"]: r for r in en["items"]}
-check("encuestas: el ranking ordena de peor a mejor score",
-      en["items"][0]["item"] == "item_1" and items["item_1"]["score"] == -1.0)
-check("encuestas: cada ítem trae su P1 para poder estratificar",
-      items["item_1"]["p1"] is not None)
+
+d_curso = {r["curso"]: r for r in en["d_por_curso"]}
+check("encuestas: 'justo' del canal A no se suma al canal D",
+      d_curso["analisis"]["valores"]["justo"] == 0,
+      f'(dio {d_curso["analisis"]["valores"]})')
+check("encuestas: el canal D por curso separa aburrido de interesante",
+      d_curso["analisis"]["valores"]["aburrido"] == 1
+      and d_curso["analisis"]["valores"]["interesante"] == 1)
+check("encuestas: el skip no entra en el desglose (no tiene respuesta)",
+      d_curso["analisis"]["total"] == 2, f'(dio {d_curso["analisis"]["total"]})')
+a_curso = {r["curso"]: r for r in en["a_por_curso"]}
+check("encuestas: el canal A por curso cuenta su propio 'justo'",
+      a_curso["analisis"]["valores"]["justo"] == 1,
+      f'(dio {a_curso["analisis"]["valores"]})')
+
+# El cinturón sale del prefijo del external_id ("white_...", "brown_...").
+unidades = {u["belt"]: u for u in en["unidades"]}
+check("encuestas: el desglose por unidad saca el cinturón del external_id",
+      set(unidades) == {"white", "blue"}, f"(dio {set(unidades)})")
+check("encuestas: no mezcla cinturones (el 'interesante' es del azul)",
+      unidades["blue"]["D"]["valores"]["interesante"] == 1
+      and unidades["white"]["D"]["valores"]["interesante"] == 0,
+      f'(blanco={unidades["white"]["D"]["valores"]} azul={unidades["blue"]["D"]["valores"]})')
+check("encuestas: por unidad separa los dos canales",
+      unidades["white"]["D"]["total"] == 1 and unidades["white"]["A"]["total"] == 1,
+      f'(D={unidades["white"]["D"]} A={unidades["white"]["A"]})')
+check("encuestas: las unidades salen en el orden del curso, no alfabético",
+      [u["belt"] for u in en["unidades"]] == ["white", "blue"],
+      f'(dio {[u["belt"] for u in en["unidades"]]})')
 
 # ── 8. Mails de ciclo de vida ────────────────────────────────────────────────
 # u1 recibe el winback el 18 y termina una sesión ese mismo día → activó.
@@ -343,6 +366,32 @@ check("render: las filas con base chica quedan atenuadas en la tabla real",
       html.count('class="dim"') > 0 and str(HEAT_MIN_BASE) in html)
 check("render: ya no existe la sección de formato tabla",
       "Formato tabla" not in html)
+# La retención arranca en 100% por construcción: D+0 es el día de la primera
+# sesión de cada uno, no el del alta. Era la confusión que motivó el cambio.
+r0 = payload["retencion"]["cohortes"][0]["points"][0]
+check("retención: D+0 es 100% porque se ancla en la activación",
+      r0["pct"] == 100.0, f"(dio {r0})")
+check("render: los puntos de la curva llevan tooltip nativo",
+      "<title>Cohorte" in html and 'cursor:help' in html)
+check("render: los emojis de la encuesta acompañan los rótulos",
+      all(e in html for e in ("🥱", "🙂", "💡", "😴", "👌", "🤯")))
+# El fixture solo tiene blanco y azul, así que se verifica que salgan esos dos
+# con su color y que el mapa cubra los cuatro cinturones del curso.
+from metrics.render import BELT_COLOR, PUSH_COPY  # noqa: E402
+check("render: las unidades del fixture llevan su color de cinturón",
+      BELT_COLOR["white"] in html and BELT_COLOR["blue"] in html)
+check("render: el mapa de colores cubre las cuatro unidades",
+      set(BELT_COLOR) == {"white", "blue", "violet", "brown"})
+# Sin envíos en el fixture la tabla de push sale vacía, así que el mapa de
+# descripciones se verifica directo contra las categorías reales del backend.
+import notification_copy  # noqa: E402
+check("render: hay descripción y ejemplo para cada categoría de push",
+      set(PUSH_COPY) == set(notification_copy.CATEGORY_WEIGHTS),
+      f"(faltan: {set(notification_copy.CATEGORY_WEIGHTS) - set(PUSH_COPY)})")
+check("render: los pesos nominales de push coinciden con notification_copy",
+      all(PUSH_COPY[k][2] == round(v * 100)
+          for k, v in notification_copy.CATEGORY_WEIGHTS.items()),
+      f"(panel: {[(k, v[2]) for k, v in PUSH_COPY.items()]})")
 
 # ── 10. Semana vacía ─────────────────────────────────────────────────────────
 # Una semana sin datos tiene que renderizar, no explotar: es el caso de la

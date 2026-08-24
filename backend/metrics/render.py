@@ -90,6 +90,10 @@ table.big th,table.big td{padding:11px 10px}
 table.big td{border-radius:4px}
 table.big td.ent{font-size:14px;color:var(--fg)}
 .emo{margin-right:7px;font-size:15px}
+/* Cuadradito de color de la unidad, mismo lenguaje que la grilla de cinturones
+   del onboarding. El borde tenue es para que el blanco no flote sobre el fondo. */
+.belt{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:8px;
+  vertical-align:-1px;border:1px solid rgba(0,0,0,.35)}
 
 /* Chip de universidad: el mismo del ranking (ver web/src/components/university-tag.tsx),
    color de marca sobre su propio fondo translúcido. */
@@ -101,6 +105,11 @@ table.big td.ent{font-size:14px;color:var(--fg)}
 .pill{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;
   background:var(--surface-2);color:var(--muted);margin-left:6px}
 .empty{color:var(--muted);font-style:italic;font-size:13px;margin:10px 0}
+/* Descripción y ejemplo del copy dentro de la celda: la fila necesita respirar
+   en varias líneas, así que acá sí se permite el salto. */
+td .sub2{color:var(--muted);font-size:11.5px;font-weight:400}
+td .ej{color:var(--indigo-soft);font-size:11.5px;font-style:italic}
+td:has(.ej){white-space:normal;max-width:420px;line-height:1.45;padding:10px 7px}
 footer{color:var(--muted);font-size:12px;margin-top:44px;padding-top:18px;
   border-top:1px solid var(--border)}
 footer b{color:var(--fg)}
@@ -166,6 +175,64 @@ COURSE_LABEL = {
     "analisis": ("📈", "Análisis"), "algebra": ("🧮", "Álgebra"),
     "probabilidad": ("🎲", "Probabilidad"),
 }
+
+# Los mismos emojis que el usuario toca al responder la micro-encuesta
+# (web/.../survey-pane.tsx, SURVEY_QUESTIONS). Repetirlos acá hace que el
+# gráfico se lea sin traducir: la barra 🥱 es la misma cara que vio en la app.
+SURVEY_EMOJI = {
+    "aburrido": "🥱", "justo": "🙂", "interesante": "💡",
+    "muy_facil": "😴", "muy_dificil": "🤯",
+}
+SURVEY_TEXT = {
+    "aburrido": "Aburrido", "justo": "Justo", "interesante": "Interesante",
+    "muy_facil": "Muy fácil", "muy_dificil": "Muy difícil",
+}
+D_ORDER = ["aburrido", "justo", "interesante"]
+A_ORDER = ["muy_facil", "justo", "muy_dificil"]
+
+# `justo` aparece en los dos canales con distinto significado, así que el emoji
+# del medio se resuelve por canal: 🙂 en D (ni aburrido ni interesante) y 👌 en A
+# (la dificultad estuvo bien). Ver el comentario de models.ExerciseFeedback.
+SURVEY_EMOJI_A = dict(SURVEY_EMOJI, justo="👌")
+
+# Colores de unidad = cinturón, espejo de BELT_ONDARK_VIVID del catálogo del
+# front (web/src/lib/catalog/index.ts).
+BELT_COLOR = {
+    "white": "#FFFFFF", "blue": "#1B63D6", "violet": "#9B2FC9", "brown": "#8B4A1F",
+}
+BELT_LABEL = {
+    "white": ("", "Blanco"), "blue": ("", "Azul"),
+    "violet": ("", "Violeta"), "brown": ("", "Marrón"),
+}
+
+# Qué dice cada copy de push. Los nombres de categoría son internos
+# ("personal_best", "podium") y no significan nada de un vistazo, así que la
+# tabla muestra para qué sirve cada uno y un ejemplo real del texto.
+#
+# Los ejemplos están copiados de backend/notification_copy.py; las llaves marcan
+# lo que se rellena por usuario. El peso nominal es CATEGORY_WEIGHTS del mismo
+# archivo, para poder contrastar la mezcla real contra la esperada.
+PUSH_COPY = {
+    "practice": ("Recordatorio de repasar, sin gancho particular",
+                 "¡Vení a repasar! Tus ejercicios te esperan 🦾", 15),
+    "university": ("Cuánto XP le aportó a su facultad",
+                   "Sumaste {xp} XP para la {uni} esta semana ¿Seguimos? 🎓", 20),
+    "social": ("Cuántos compañeros de su facultad ya repasaron hoy",
+               "{n} compañeros de la {uni} ya repasaron hoy. ¿Vos? 🎓", 15),
+    "ranking": ("Alguien lo pasó en el ranking",
+                "Alguien te pasó en el ranking. ¿Lo dejás así? 🤼", 15),
+    "podium": ("Qué tan cerca está de entrar al podio",
+               "Estás a {xp} XP del top {n} del ranking. ¡Dale que se puede! 🏅", 15),
+    "reactivation": ("Hace días que no entra",
+                     "Hace {n} días que no practicás. ¿Volvemos? 👀", 10),
+    "personal_best": ("Su récord de ejercicios en un día",
+                      "Tu mejor racha de ejercicios en un día fue {n}. ¿La superás hoy? 🚀", 10),
+}
+
+
+def curso_label(slug: str) -> str:
+    emo, name = COURSE_LABEL.get(slug, ("", slug))
+    return f"{emo} {name}".strip()
 
 
 def _uni_chip(sigla: str) -> str:
@@ -314,20 +381,37 @@ def page(p: dict, *, token: str) -> str:
 
     # 2 · Cohortes
     r = p["retencion"]
-    ret_series = [{"label": f'{c["label"]} (n={c["n"]})',
-                   "values": [pt["pct"] for pt in c["points"]]} for c in r["cohortes"]]
+    ret_series = [{
+        "label": f'{c["label"]} (n={c["n"]})',
+        "values": [pt["pct"] for pt in c["points"]],
+        "tips": [f'Cohorte {c["label"]} · D+{pt["k"]}: {num(pt["pct"], "%")} '
+                 f'({pt["n"]} de {pt["obs"]} que ya vivieron ese día)'
+                 if pt["pct"] is not None else
+                 f'Cohorte {c["label"]} · D+{pt["k"]}: todavía sin observables'
+                 for pt in c["points"]],
+    } for c in r["cohortes"]]
     co = p["cohortes"]
     atr = co["atribucion"]
     body = [
         '<div class="card"><h3>Retención diaria por cohorte semanal</h3>',
         # mono: son la misma métrica en semanas distintas, no categorías. Un
         # solo tono con la más vieja apagada ordena la lectura.
-        ch.lines(ret_series, [f"D+{k}" for k in range(r["horizon"] + 1)], mono=True),
-        '<p class="note">El 100% de cada cohorte son <b>los que terminaron alguna sesión</b>, no '
-        'los que se dieron de alta: retener es traer de vuelta a quien ya usó el producto, y quien '
-        'se registró y nunca estudió no tiene nada que repetir. Cuánta gente llega a estudiar se '
-        'mide en el embudo. El denominador de cada k son además solo los que ya vivieron ese día: '
-        'alguien que se anotó ayer no puede tener D+5 todavía.</p>'
+        # Más alto que el resto: con 14 puntos y la curva pegada al piso a
+        # partir de D+2, en 220px las series se superponen y no se distinguen.
+        ch.lines(ret_series, [f"D+{k}" for k in range(r["horizon"] + 1)], mono=True,
+                 height=330, y_max=100),
+        '<p class="note"><b>D+0 es el día de la primera sesión de cada uno, no el del alta</b>, así '
+        'que arranca en 100% por construcción. Con el alta como ancla no arrancaba ahí: quien se '
+        'registraba el lunes y estudiaba recién el miércoles contaba en la base pero no en D+0, y '
+        'ese escalón inicial mezclaba «tardó en arrancar» con «no volvió». Anclado en la '
+        'activación, cada k mide una sola cosa: cuántos siguen volviendo k días después de haber '
+        'empezado.</p>'
+        '<p class="note">El 100% son <b>los que terminaron alguna sesión</b>, no los que se dieron '
+        'de alta: quien se registró y nunca estudió no tiene nada que repetir, y cuánta gente '
+        'llega a estudiar ya se mide en el embudo. La cohorte sigue siendo la semana de alta, así '
+        'que se comparan tandas de usuarios aunque el reloj de cada uno arranque cuando se activó. '
+        'El denominador de cada k son solo los que ya vivieron ese día. <b>Pasá el mouse por un '
+        'punto</b> para ver el detalle.</p>'
         '</div>',
         # A ancho completo y una debajo de la otra: son el corte principal de la
         # semana y en media pantalla no entraban sin scrollear.
@@ -363,10 +447,6 @@ def page(p: dict, *, token: str) -> str:
     # 3 · Producto
     pr = p["producto"]
     cur = pr["cursos"]
-
-    def curso_label(slug: str) -> str:
-        emo, name = COURSE_LABEL.get(slug, ("", slug))
-        return f"{emo} {name}".strip()
 
     # Accuracy y abandono lado a lado, por curso. Son las dos caras de lo mismo
     # —si un curso cuesta más, se abandona más— y el gráfico existe para poder
@@ -416,43 +496,68 @@ def page(p: dict, *, token: str) -> str:
     e = p["encuestas"]
     mix_rows = [[r["canal"], r["shown"], r["answered"], num(r["tasa"], "%"),
                  num(r["real"], "%"), f'{r["nominal"]}%'] for r in e["mix"]]
-    d_total = sum(s["n"] for s in e["d"])
-    item_rows = [[r["item"], r["n"], num(r["score"]), num(r["p1"], "%"), r["respuestas"]]
-                 for r in e["items"][:12]]
-    ejes_rows = [[r["eje"], r["pos"], r["neg"]] for r in e["ejes"]]
+
+    def encuesta_chart(rows: list[dict], order: list[str], emoji: dict, vacio: str) -> str:
+        """Barras agrupadas por curso, una serie por respuesta posible."""
+        if not rows:
+            return f'<p class="empty">{esc(vacio)}</p>'
+        grupos = [curso_label(r["curso"]) for r in rows]
+        series = [{"label": f'{emoji[v]} {SURVEY_TEXT[v]}',
+                   "values": [r["valores"][v] for r in rows]} for v in order]
+        return ch.vbars(grupos, series, height=230, width=900)
+
+    unidad_rows = []
+    for u in e["unidades"]:
+        emo, name = BELT_LABEL[u["belt"]]
+        celdas = [f'<span class="belt" style="background:{BELT_COLOR[u["belt"]]}"></span>{esc(name)}']
+        celdas += [u["D"]["valores"][v] for v in D_ORDER] + [u["D"]["total"]]
+        celdas += [u["A"]["valores"][v] for v in A_ORDER] + [u["A"]["total"]]
+        unidad_rows.append(celdas)
+    unidad_cols = (["Unidad"] + [SURVEY_EMOJI[v] for v in D_ORDER] + ["D"]
+                   + [SURVEY_EMOJI_A[v] for v in A_ORDER] + ["A"])
+
     out.append(_section(
         4, "Micro-encuestas",
-        '<div class="grid g2">'
         f'<div class="card"><h3>Mezcla de canales</h3>'
         f'{_table(["Canal", "Mostradas", "Respondidas", "Tasa", "Real", "Nominal"], mix_rows)}'
         '<p class="note">D (interés) es el canal norte, A (dificultad) queda como calibración y B '
         '(explicación) es el más chico. La mezcla real va a estar siempre más cargada a D/A: B '
         'solo loguea impresión si la persona abre «¿Por qué?». <b>No compensar subiendo el peso '
         'de B.</b></p></div>'
-        f'<div class="card"><h3>Canal D · ¿fue interesante?</h3>'
-        + (ch.stack(e["d"], colors=["var(--brown)", "var(--muted)", "var(--indigo)"])
-           if d_total else '<p class="empty">Todavía sin respuestas: el canal D se desplegó el '
-                           '24/08 y las reglas anti-fatiga lo muestran como máximo una vez por '
-                           'sesión.</p>')
-        + f'{_table(["Eje", "Positivo", "Negativo"], ejes_rows, empty="sin razones todavía") if ejes_rows else ""}'
-        '<p class="note">Ojo: «justo» existe en el canal A (la dificultad estuvo bien) y en el D '
-        '(ni aburrido ni interesante). Son cosas distintas; cualquier corte por valor tiene que '
-        'filtrar el canal.</p></div>'
+        '<div class="grid g2">'
+        f'<div class="card"><h3>💡 Interés (canal D) por curso</h3>'
+        + encuesta_chart(e["d_por_curso"], D_ORDER, SURVEY_EMOJI,
+                         "Todavía sin respuestas: el canal D se desplegó el 24/08 y las reglas "
+                         "anti-fatiga lo muestran como máximo una vez por sesión.")
+        + '<p class="note">Si un curso concentra los 🥱, el problema es de ese contenido y no del '
+          'mazo entero — que es justo lo que el total escondía.</p></div>'
+        f'<div class="card"><h3>👌 Dificultad (canal A) por curso</h3>'
+        + encuesta_chart(e["a_por_curso"], A_ORDER, SURVEY_EMOJI_A,
+                         "sin respuestas en la ventana")
+        + '<p class="note">Ojo: «justo» existe en los dos canales y significa cosas distintas —acá '
+          'la dificultad estuvo bien, en D ni aburrido ni interesante—. Cualquier corte por valor '
+          'tiene que filtrar el canal.</p></div>'
         '</div>'
-        f'<div class="card"><h3>Ejercicios peor puntuados</h3>'
-        f'{_table(["Ítem", "Votos", "Score", "P1", "Respuestas"], item_rows, empty="el canal D todavía no juntó votos")}'
-        '<p class="note">Score: interesante +1, justo 0, aburrido −1; ordenado de peor a mejor — '
-        'la cola de arriba es la lista de trabajo editorial. La columna <b>P1</b> es el control '
-        'obligatorio: el interés reportado correlaciona fortísimo con «me salió», así que un ítem '
-        'mal puntuado <i>con P1 alto</i> es un problema aburrido de verdad, y uno con P1 bajo '
-        'puede ser solo frustración.</p></div>'
+        f'<div class="card"><h3>Desglose por unidad</h3>'
+        f'{_table(unidad_cols, unidad_rows, empty="sin respuestas en la ventana")}'
+        f'<p class="note">Unidad = cinturón. Sale del prefijo del <code>external_id</code> del '
+        f'ejercicio, que por convención es <code>{{cinturón}}_{{tema}}_{{SKILL}}_{{nn}}</code>: '
+        f'<code>exercise_feedback</code> no guarda el cinturón aparte. Las columnas <b>D</b> y '
+        f'<b>A</b> son el total de cada canal.</p></div>'
         + f'<p class="note">{e["reportes"]} reporte(s) de contenido (canal C) en la ventana.</p>',
         anchor="encuestas"))
 
     # 5 · Re-enganche: push
     rg = p["reenganche"]
-    cat_rows = [[r["categoria"], r["enviadas"], r["abiertas"], num(r["ctr"], "%")]
-                for r in rg["por_categoria"]]
+    enviadas_tot = sum(r["enviadas"] for r in rg["por_categoria"]) or 1
+    cat_rows = []
+    for r in rg["por_categoria"]:
+        desc, ejemplo, peso = PUSH_COPY.get(r["categoria"], ("—", "—", 0))
+        cat_rows.append([
+            f'<b>{esc(r["categoria"])}</b><br><span class="sub2">{esc(desc)}</span>'
+            f'<br><span class="ej">{esc(ejemplo)}</span>',
+            r["enviadas"], num(100 * r["enviadas"] / enviadas_tot, "%"), f"{peso}%",
+            r["abiertas"], num(r["ctr"], "%")])
     out.append(_section(
         5, "Re-enganche · push",
         '<div class="grid g4">'

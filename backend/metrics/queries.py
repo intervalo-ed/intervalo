@@ -58,17 +58,12 @@ ORIGIN_LABEL = {"uba": "UBA", "utn": "UTN", "unc": "UNC", "unlp": "UNLP", "unsam
 # contrastar la mezcla real contra la esperada (ver feedback_survey.py).
 SURVEY_NOMINAL = {"D": 0.60, "A": 0.25, "B": 0.15}
 
+# Unidades = cinturones, en el orden del curso. Espejo de BELT_ORDER del
+# catálogo del front (web/src/lib/catalog).
+BELT_ORDER = ("white", "blue", "violet", "brown")
+
 D_ORDER = ["aburrido", "justo", "interesante"]
 A_ORDER = ["muy_facil", "justo", "muy_dificil"]
-
-# Los chips de razón del canal D vienen apareados por eje: cada eje tiene una
-# razón positiva y una negativa. Agrupar por eje es lo que responde "¿los
-# problemas fallan por contexto o por falta de ingenio?" sin mirar el polo.
-D_AXIS = {
-    "me_hizo_pensar": ("Ingenio", "pos"), "pura_cuenta": ("Ingenio", "neg"),
-    "buen_contexto": ("Contexto", "pos"), "no_le_vi_sentido": ("Contexto", "neg"),
-    "aprendi_algo": ("Aporte", "pos"), "ya_lo_sabia": ("Aporte", "neg"),
-}
 
 # Banda de calibración de dificultad: sale de cruzar los votos de la encuesta de
 # dificultad contra el comportamiento real. Fuera de esa franja el ítem está mal
@@ -258,21 +253,32 @@ def headline(data: dict, weeks: list[date]) -> list[dict]:
 
 
 def retention(data: dict, weeks: list[date], horizon: int = 13) -> dict:
-    """Curva D+k por cohorte semanal.
+    """Curva D+k por cohorte semanal, anclada en la ACTIVACIÓN.
 
-    **El 100% son los que estudiaron, no los que se dieron de alta.** Retener
-    es traer de vuelta a alguien que ya usó el producto; quien se registró y
-    nunca terminó una sesión no llegó a tener nada que repetir, y meterlo en el
+    Dos decisiones que definen qué mide esta curva:
+
+    **El 100% son los que estudiaron, no los que se dieron de alta.** Retener es
+    traer de vuelta a alguien que ya usó el producto; quien se registró y nunca
+    terminó una sesión no llegó a tener nada que repetir, y meterlo en el
     denominador mezcla dos problemas distintos —convertir y retener— en un solo
     número que baja cuando cualquiera de los dos empeora. Cuánta gente convierte
     a estudiar se mide en el embudo, que es donde corresponde.
 
-    `observables` importa por separado: alguien que se dio de alta ayer no puede
-    tener D+5 todavía, así que el denominador de cada k son solo los de la base
-    que ya vivieron ese día.
+    **D+0 es el día de su PRIMERA sesión terminada, no el del alta.** Con el
+    alta como ancla, alguien que se registró el lunes y recién estudió el
+    miércoles quedaba dentro de la base pero fuera de D+0, así que la curva no
+    arrancaba en 100% y el escalón inicial mezclaba "tardó en arrancar" con "no
+    volvió". Anclando en la activación, D+0 es 100% por construcción y cada k
+    mide exactamente lo que interesa: cuántos siguen volviendo k días después de
+    haber empezado.
+
+    La cohorte SIGUE siendo la semana de alta: así se comparan tandas de
+    usuarios entre sí, aunque el reloj de cada uno arranque cuando se activó.
+
+    `observables`: alguien que se activó ayer no puede tener D+5 todavía, así
+    que el denominador de cada k son solo los de la base que ya vivieron ese día.
     """
     uw = _user_week(data["users"])
-    alta = {u["id"]: local_date(u["created_at"]) for u in data["users"]}
     today = local_date(datetime.utcnow())
 
     active = defaultdict(set)  # user_id -> {fechas con sesión terminada}
@@ -284,16 +290,17 @@ def retention(data: dict, weeks: list[date], horizon: int = 13) -> dict:
     for w in weeks:
         altas = [uid for uid, ws in uw.items() if ws == w]
         # La base a retener: los de la cohorte que terminaron alguna sesión.
-        members = [uid for uid in altas if active.get(uid)]
-        if not members:
+        # Su reloj arranca el día de esa primera sesión.
+        inicio = {uid: min(active[uid]) for uid in altas if active.get(uid)}
+        if not inicio:
             continue
         points = []
         for k in range(horizon + 1):
-            obs = [uid for uid in members if alta[uid] + timedelta(days=k) <= today]
-            hit = sum(1 for uid in obs if alta[uid] + timedelta(days=k) in active.get(uid, ()))
+            obs = [uid for uid, d0 in inicio.items() if d0 + timedelta(days=k) <= today]
+            hit = sum(1 for uid in obs if inicio[uid] + timedelta(days=k) in active[uid])
             points.append({"k": k, "obs": len(obs), "n": hit, "pct": _pct(hit, len(obs))})
         cohorts.append({"label": w.strftime("%d/%m"), "week": w.isoformat(),
-                        "n": len(members), "altas": len(altas), "points": points})
+                        "n": len(inicio), "altas": len(altas), "points": points})
     return {"cohortes": cohorts, "horizon": horizon}
 
 
@@ -494,54 +501,56 @@ def encuestas(data: dict, weeks: list[date]) -> dict:
                     "real": _pct(len(shown), sum(1 for f in fb if f["question_type"] in SURVEY_NOMINAL)),
                     "nominal": round(SURVEY_NOMINAL[ch] * 100)})
 
-    def dist(channel: str, order: list[str]) -> list[dict]:
-        vals = Counter(f["value"] for f in fb
-                       if f["question_type"] == channel and f["answered_at"] is not None)
-        tot = sum(vals.values())
-        return [{"label": v, "n": vals.get(v, 0), "pct": _pct(vals.get(v, 0), tot)} for v in order]
+    # Respuestas por curso. El corte que importa: si un curso concentra los
+    # "aburrido" o los "muy difícil", el problema es de ese contenido y no del
+    # mazo entero.
+    course_slug = {c["id"]: c["slug"] for c in data["courses"]}
 
-    razones = Counter(f["reason"] for f in fb
-                      if f["question_type"] == "D" and f["reason"])
-    ejes: dict[str, dict] = defaultdict(lambda: {"pos": 0, "neg": 0})
-    for r, n in razones.items():
-        axis, sign = D_AXIS.get(r, (None, None))
-        if axis:
-            ejes[axis][sign] += n
+    def por_curso(channel: str, order: list[str]) -> list[dict]:
+        cursos = sorted({course_slug.get(f["course_id"], "?") for f in fb
+                         if f["question_type"] == channel and f["answered_at"] is not None})
+        out = []
+        for slug in cursos:
+            vals = Counter(
+                f["value"] for f in fb
+                if f["question_type"] == channel and f["answered_at"] is not None
+                and course_slug.get(f["course_id"]) == slug)
+            tot = sum(vals.values())
+            out.append({"curso": slug, "total": tot,
+                        "valores": {v: vals.get(v, 0) for v in order},
+                        "pct": {v: _pct(vals.get(v, 0), tot) for v in order}})
+        return out
 
-    # P1 por ítem, para estratificar el ranking de interés.
-    p1_item: dict[str, tuple[int, int]] = {}
-    agg = defaultdict(lambda: [0, 0])
-    for a in data["answers"]:
-        if a["exercise_external_id"] and a["quality_score"] is not None:
-            g = agg[a["exercise_external_id"]]
-            g[1] += 1
-            if a["quality_score"] == 5:
-                g[0] += 1
-    p1_item = {k: (ok, tot) for k, (ok, tot) in agg.items()}
+    # Desglose por unidad (= cinturón). El cinturón sale del prefijo del
+    # external_id, que por convención es "{cinturon}_{topic}_{SKILL}_{nn}"
+    # (ver seed_content.py). `exercise_feedback` no guarda el cinturón aparte.
+    def belt_of(ext: str | None) -> str | None:
+        if not ext:
+            return None
+        head = ext.split("_", 1)[0]
+        return head if head in BELT_ORDER else None
 
-    SCORE = {"interesante": 1, "justo": 0, "aburrido": -1}
-    per_item = defaultdict(list)
-    for f in fb:
-        if f["question_type"] == "D" and f["value"] in SCORE:
-            per_item[f["exercise_external_id"]].append(SCORE[f["value"]])
-
-    items = []
-    for ext, scores in per_item.items():
-        ok, tot = p1_item.get(ext, (0, 0))
-        items.append({
-            "item": ext, "n": len(scores),
-            "score": round(sum(scores) / len(scores), 2),
-            "p1": _pct(ok, tot), "respuestas": tot,
-        })
-    items.sort(key=lambda r: r["score"])
+    unidades = []
+    for belt in BELT_ORDER:
+        fila = {"belt": belt}
+        vacia = True
+        for ch, order in (("D", D_ORDER), ("A", A_ORDER)):
+            vals = Counter(
+                f["value"] for f in fb
+                if f["question_type"] == ch and f["answered_at"] is not None
+                and belt_of(f["exercise_external_id"]) == belt)
+            tot = sum(vals.values())
+            vacia = vacia and tot == 0
+            fila[ch] = {"total": tot, "valores": {v: vals.get(v, 0) for v in order}}
+        if not vacia:
+            unidades.append(fila)
 
     reportes = [f for f in fb if f["question_type"] == "C"]
     return {
         "mix": mix,
-        "d": dist("D", D_ORDER),
-        "a": dist("A", A_ORDER),
-        "ejes": [{"eje": k, **v} for k, v in sorted(ejes.items())],
-        "items": items,
+        "d_por_curso": por_curso("D", D_ORDER),
+        "a_por_curso": por_curso("A", A_ORDER),
+        "unidades": unidades,
         "reportes": len(reportes),
         "total": len(fb),
     }

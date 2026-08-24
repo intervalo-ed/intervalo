@@ -200,11 +200,16 @@ def lines(series: list[dict], x_labels: list[str], *, suffix: str = "%",
           width: int = 760, height: int = 220, y_max: float | None = None,
           band: tuple[float, float] | None = None, legend: bool = True,
           mono: bool = False) -> str:
-    """`series` = [{"label": ..., "values": [...]}]. Los None cortan la línea:
-    un hueco es un dato que no existe, y unirlo con una recta lo inventaría.
+    """`series` = [{"label": ..., "values": [...], "tips": [...]}]. Los None
+    cortan la línea: un hueco es un dato que no existe, y unirlo con una recta
+    lo inventaría.
+
+    `tips` (opcional) es un texto por punto que se muestra al pasar el mouse.
+    Va como `<title>` dentro del círculo: es el tooltip nativo del navegador,
+    así que no necesita JS ni se rompe si el panel se guarda como archivo.
 
     `mono=True` dibuja todas las series con el mismo color y una rampa de
-    intensidad (ver `ramp`)."""
+    intensidad (ver `ramp`)."""""
     pts_all = [v for s in series for v in s["values"] if v is not None]
     if not pts_all:
         return _empty()
@@ -237,8 +242,16 @@ def lines(series: list[dict], x_labels: list[str], *, suffix: str = "%",
             x = pad_l + i * step
             y = pad_t + plot_h * (1 - min(v, top) / top)
             seg.append((x, y))
-            dots.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2.8" fill="{color}" '
-                        f'fill-opacity="{op}"/>')
+            tip = (s.get("tips") or [None] * len(s["values"]))[i]
+            titulo = f"<title>{esc(tip)}</title>" if tip else ""
+            # Dos círculos: el visible (chico, para no tapar la línea) y uno
+            # transparente y grande que es el blanco del mouse — con r=2.8 hay
+            # que acertarle a 5 píxeles y el tooltip no aparece nunca.
+            dots.append(
+                f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2.8" fill="{color}" '
+                f'fill-opacity="{op}"/>'
+                f'<circle cx="{x:.1f}" cy="{y:.1f}" r="11" fill="transparent" '
+                f'style="cursor:help">{titulo}</circle>')
         d, pen_up = [], True
         for p in seg:
             if p is None:
