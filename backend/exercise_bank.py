@@ -121,6 +121,8 @@ def get_exercise_db(
     db: DBSession,
     user_id: int,
     extra_exclude: set[str] | None = None,
+    table_boost: float = 1.0,
+    require_table: bool = False,
 ) -> dict:
     """Returns an exercise for the (course, belt, topic, exercise_type) unit,
     avoiding repeats for this user until every exercise in the item's pool has
@@ -131,7 +133,14 @@ def get_exercise_db(
 
     OJO: `extra_exclude` es un set MUTABLE que pertenece al que arma la sesión.
     Si una sesión pide de esta unidad más ejercicios que los que tiene el pool,
-    esta función lo vacía para arrancar otra pasada completa (ver abajo)."""
+    esta función lo vacía para arrancar otra pasada completa (ver abajo).
+
+    `table_boost` (>1) sesga el sorteo hacia los ejercicios con tabla, y
+    `require_table` los exige si la unidad tiene alguno disponible. Los dos
+    actúan SOLO sobre el sorteo dentro de lo que el ciclo ya dejó disponible:
+    cambian el orden en que se sirve el pool, nunca su composición. Sobre un
+    ciclo completo el usuario ve exactamente los mismos ejercicios que antes
+    (ver session_store._table_boost para el porqué)."""
     pool = (
         db.query(Exercise)
         .filter(
@@ -172,6 +181,15 @@ def get_exercise_db(
         # un minuto. Con pool de 1 el resultado es el mismo de siempre: repetir.
         extra_exclude.clear()
         available = list(pool)
+
+    con_tabla = [r for r in available if r.table_data]
+    if require_table and con_tabla:
+        # Garantía de la primera sesión: si esta unidad puede dar tabla, la da.
+        # Si no tiene ninguna, no pasa nada y la garantía la cubre otra unidad.
+        available = con_tabla
+    elif table_boost > 1.0 and con_tabla:
+        pesos = [table_boost if r.table_data else 1.0 for r in available]
+        return _row_to_dict(random.choices(available, weights=pesos, k=1)[0])
 
     row = random.choice(available)
     return _row_to_dict(row)
