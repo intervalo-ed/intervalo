@@ -45,7 +45,10 @@ AR_OFFSET = timedelta(hours=-3)
 
 REAL_MODES = ("main", "practice")
 
-CAREER_LABEL = {"E": "Ingeniería", "S": "Ciencia", "T": "Tecnología", "M": "Matemática"}
+# Códigos de carrera válidos del onboarding (web/.../onboarding-wizard.tsx).
+# Cualquier otra cosa cae en "Otra". Las etiquetas y los emojis viven en
+# render.py: acá solo importa qué claves existen.
+CAREER_LABEL = ("E", "S", "T", "M")
 
 # Prefijo del id de grupo de WhatsApp → facultad. El id es "uba042": prefijo de
 # universidad + número (ver web/src/lib/analytics/attribution.ts).
@@ -149,10 +152,6 @@ def load(db: DBSession) -> dict:
         "push": _rows(db, "SELECT DISTINCT user_id FROM push_subscriptions"),
         "sends": _rows(db, """
             SELECT category, sent_at, delivery_status, opened_at FROM notification_sends"""),
-        # Solo los ítems con tabla: es una lista corta (~47) y evita traer el
-        # banco entero (~3.300 filas con enunciados).
-        "table_items": _rows(db, """
-            SELECT external_id FROM exercises WHERE table_data IS NOT NULL"""),
     }
     return data
 
@@ -350,9 +349,12 @@ def cohorts(data: dict, weeks: list[date]) -> dict:
     by_career: dict[str, set[int]] = defaultdict(set)
     by_course: dict[str, set[int]] = defaultdict(set)
     by_known: dict[str, set[int]] = defaultdict(set)
+    # Se agrupa por la CLAVE cruda (sigla, código de carrera, slug de curso) y
+    # no por su etiqueta legible: el etiquetado es presentación y vive en
+    # render.py, y así `data.json` queda estable para consumir desde afuera.
     for uid, e in enr.items():
         by_uni[e["university"] or "Sin declarar"].add(uid)
-        by_career[CAREER_LABEL.get(e["career"], "Otra")].add(uid)
+        by_career[e["career"] if e["career"] in CAREER_LABEL else "Otra"].add(uid)
         by_course[course_slug.get(e["course_id"], "?")].add(uid)
         ku = (e["known_units"] or "").strip()
         by_known["Marcó alguna" if ku else "No marcó ninguna"].add(uid)
@@ -404,47 +406,17 @@ def producto(data: dict, weeks: list[date]) -> dict:
     sesiones = [{"curso": c, "modo": m, **v, "pct": _pct(v["terminadas"], v["iniciadas"])}
                 for (c, m), v in sorted(por_curso.items())]
 
+    # Sesiones que se abrieron y no resolvieron NADA. Van aparte del abandono
+    # porque son otro problema: quien corta en el ejercicio 6 se cansó, quien
+    # corta en el 0 nunca arrancó (carga lenta, se abrió sin intención, el
+    # primer ejercicio asustó). Mezclarlos esconde el más grande de los dos.
+    #
     # `answers.intra_session_position` está SIEMPRE en NULL en producción (el
-    # cliente nunca la reporta), así que la posición se deriva contando
-    # respuestas por sesión. Si algún día se empieza a escribir, esto sigue
-    # siendo válido.
+    # cliente nunca la reporta), así que esto se cuenta por respuestas.
     por_sesion = Counter()
     for a in data["answers"]:
         if a["session_id"] in ids:
             por_sesion[a["session_id"]] += 1
-
-    abandono = {}
-    for modo in REAL_MODES:
-        msess = [s for s in sess if s["mode"] == modo]
-        if not msess:
-            continue
-        cero = sum(1 for s in msess if por_sesion[s["id"]] == 0)
-        cortes = Counter(por_sesion[s["id"]] for s in msess if s["finished_at"] is None
-                         and por_sesion[s["id"]] > 0)
-        base = len(msess) - cero
-        arrancaron = [s for s in msess if por_sesion[s["id"]] > 0]
-
-        # El denominador de cada k son las sesiones que TENÍAN al menos k
-        # ejercicios asignados, no todas. El largo de sesión es configurable y
-        # su default cambió con el tiempo, así que dividir siempre por el total
-        # hace que la curva se derrumbe apenas se pasa el largo más común —
-        # parece un abandono masivo y en realidad son sesiones que terminaron
-        # bien, más cortas.
-        surv = []
-        for k in range(1, 13):
-            esperadas = [s for s in arrancaron if (s["exercises_total"] or 0) >= k]
-            # Con un puñado de sesiones el porcentaje es ruido; cortar la curva
-            # es más honesto que dibujar un tramo que no significa nada.
-            if len(esperadas) < max(10, 0.1 * base):
-                break
-            llegan = sum(1 for s in esperadas if por_sesion[s["id"]] >= k)
-            surv.append({"k": k, "pct": _pct(llegan, len(esperadas)),
-                         "de": len(esperadas), "cortes": cortes.get(k, 0)})
-        abandono[modo] = {
-            "sesiones": len(msess), "cero": cero, "base": base,
-            "terminadas": sum(1 for s in msess if s["finished_at"] is not None),
-            "curva": surv,
-        }
 
     ans = [a for a in data["answers"]
            if a["session_id"] in ids and a["quality_score"] is not None]
@@ -460,9 +432,37 @@ def producto(data: dict, weeks: list[date]) -> dict:
             [{"label": k, "n": tot, "p1": _pct(ok, tot)} for k, (ok, tot) in agg.items() if tot >= 10],
             key=lambda r: -(r["p1"] or 0))
 
+    # El corte principal del bloque: accuracy y abandono lado a lado por curso.
+    # Son las dos caras de lo mismo —si un curso cuesta más, se abandona más— y
+    # sirven mucho más comparadas entre sí que cada una por su lado.
+    p1_curso = defaultdict(lambda: [0, 0])
+    for a in ans:
+        g = p1_curso[course_slug.get(a["course_id"], "?")]
+        g[1] += 1
+        if a["quality_score"] == 5:
+            g[0] += 1
+
+    cursos = []
+    for slug in sorted({course_slug.get(s["course_id"], "?") for s in sess}):
+        fila = {"curso": slug}
+        ok, tot = p1_curso.get(slug, (0, 0))
+        fila["p1"] = _pct(ok, tot)
+        fila["respuestas"] = tot
+        for modo in REAL_MODES:
+            m = [s for s in sess
+                 if s["mode"] == modo and course_slug.get(s["course_id"]) == slug]
+            sin_fin = sum(1 for s in m if s["finished_at"] is None)
+            fila[f"{modo}_n"] = len(m)
+            fila[f"{modo}_abandono"] = _pct(sin_fin, len(m))
+            fila[f"{modo}_cero"] = sum(1 for s in m if por_sesion[s["id"]] == 0)
+        cursos.append(fila)
+
     return {
         "sesiones": sesiones,
-        "abandono": abandono,
+        "cursos": cursos,
+        "sin_respuesta": {
+            m: sum(1 for s in sess if s["mode"] == m and por_sesion[s["id"]] == 0)
+            for m in REAL_MODES},
         "duracion": {m: round(statistics.median(v) / 60, 1) for m, v in duraciones.items() if v},
         "p1_skill": p1_by("exercise_type"),
         "p1_belt": p1_by("belt"),
@@ -544,68 +544,6 @@ def encuestas(data: dict, weeks: list[date]) -> dict:
         "items": items,
         "reportes": len(reportes),
         "total": len(fb),
-    }
-
-
-def tablas(data: dict, weeks: list[date]) -> dict:
-    """El formato tabla contra el resto: P1 e interés.
-
-    Es la pregunta que motivó el formato y el empuje de las primeras sesiones
-    (`session_store.TABLE_BOOST_MAX`). "Alcance" mide si el contrapeso está
-    haciendo efecto: qué porción de las primeras sesiones de repaso llegó a
-    incluir al menos un ejercicio con tabla.
-    """
-    lo, hi = weeks[0], weeks[-1] + timedelta(days=7)
-    con_tabla = {t["external_id"] for t in data["table_items"] if t["external_id"]}
-
-    ans = [a for a in data["answers"]
-           if a["quality_score"] is not None and a["exercise_external_id"]
-           and lo <= local_date(a["answered_at"]) < hi]
-
-    def p1(rows: list[dict]) -> dict:
-        ok = sum(1 for a in rows if a["quality_score"] == 5)
-        return {"n": len(rows), "p1": _pct(ok, len(rows))}
-
-    dentro = [a for a in ans if a["exercise_external_id"] in con_tabla]
-    fuera = [a for a in ans if a["exercise_external_id"] not in con_tabla]
-
-    fb = [f for f in data["feedback"]
-          if f["question_type"] == "D" and f["answered_at"] is not None
-          and lo <= local_date(f["shown_at"]) < hi]
-    SCORE = {"interesante": 1, "justo": 0, "aburrido": -1}
-
-    def interes(rows: list[dict]) -> dict:
-        s = [SCORE[f["value"]] for f in rows if f["value"] in SCORE]
-        return {"n": len(s), "score": round(sum(s) / len(s), 2) if s else None}
-
-    # Alcance del contrapeso: primera sesión de repaso de cada usuario nuevo.
-    #
-    # Se mide solo sobre la SEMANA elegida y no sobre las tres visibles: es un
-    # indicador de si el empuje está funcionando ahora, y el empuje se desplegó
-    # el 24/08. Promediarlo con semanas anteriores lo diluiría y ocultaría
-    # justamente lo que hay que vigilar.
-    semana_lo, semana_hi = weeks[-1], weeks[-1] + timedelta(days=7)
-    primeras = {}
-    for s in sorted(_real_sessions(data["sessions"]), key=lambda s: s["started_at"]):
-        if s["mode"] == "main" and s["user_id"] not in primeras:
-            primeras[s["user_id"]] = s
-    primeras = {u: s for u, s in primeras.items()
-                if semana_lo <= local_date(s["started_at"]) < semana_hi}
-    por_sesion = defaultdict(set)
-    for a in data["answers"]:
-        if a["exercise_external_id"]:
-            por_sesion[a["session_id"]].add(a["exercise_external_id"])
-    con = sum(1 for s in primeras.values() if por_sesion[s["id"]] & con_tabla)
-
-    return {
-        "items": len(con_tabla),
-        "p1": {"con_tabla": p1(dentro), "sin_tabla": p1(fuera)},
-        "interes": {
-            "con_tabla": interes([f for f in fb if f["exercise_external_id"] in con_tabla]),
-            "sin_tabla": interes([f for f in fb if f["exercise_external_id"] not in con_tabla]),
-        },
-        "alcance": {"primeras": len(primeras), "con_tabla": con,
-                    "pct": _pct(con, len(primeras))},
     }
 
 
@@ -740,7 +678,6 @@ def build(db: DBSession, week: date, weeks_shown: int = 3) -> dict:
         "cohortes": cohorts(data, weeks),
         "producto": producto(data, weeks),
         "encuestas": encuestas(data, weeks),
-        "tablas": tablas(data, weeks),
         "reenganche": reenganche(data, weeks),
         "emails": emails(data, weeks),
     }

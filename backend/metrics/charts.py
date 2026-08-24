@@ -43,12 +43,20 @@ def num(v, suffix: str = "") -> str:
 def _svg(w: int, h: int, body: str, extra: str = "", fluid: bool = True) -> str:
     """`fluid=False` fija el tamaño en px. Lo necesita el sparkline: adentro de
     una tarjeta flex, un `width:100%` se estira a todo el espacio sobrante y la
-    curva se sale de la tarjeta."""
-    size = ('width="100%" height="auto"' if fluid else f'width="{w}" height="{h}"')
+    curva se sale de la tarjeta.
+
+    El `aspect-ratio` explícito no es decorativo. Con `width:100%; height:auto`
+    el alto de un SVG depende de su ancho, y el ancho de una celda de grid
+    depende del alto de la fila: el navegador resuelve esa circularidad
+    midiendo de menos, la tarjeta queda más corta que su contenido y el texto
+    de abajo se derrama fuera de la tarjeta (y encima del título siguiente).
+    Declarando la proporción, el alto se resuelve sin depender de esa pasada.
+    """
+    size = (f'width="100%" style="aspect-ratio:{w}/{h};height:auto;'
+            if fluid else f'width="{w}" height="{h}" style="')
     return (
-        f'<svg viewBox="0 0 {w} {h}" {size} role="img" '
-        f'style="display:block;overflow:visible;flex:none;{extra}" '
-        f'xmlns="http://www.w3.org/2000/svg">{body}</svg>'
+        f'<svg viewBox="0 0 {w} {h}" {size}display:block;flex:none;{extra}" '
+        f'role="img" xmlns="http://www.w3.org/2000/svg">{body}</svg>'
     )
 
 

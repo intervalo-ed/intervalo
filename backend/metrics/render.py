@@ -83,6 +83,21 @@ th:first-child,td:first-child{text-align:left}
 tbody tr:last-child td{border-bottom:0}
 td.dim{color:var(--muted)}
 
+/* Tablas de cohorte: más aire y números más grandes, porque son el corte que
+   más se mira y ocupan el ancho completo. */
+table.big{font-size:14px}
+table.big th,table.big td{padding:11px 10px}
+table.big td{border-radius:4px}
+table.big td.ent{font-size:14px;color:var(--fg)}
+.emo{margin-right:7px;font-size:15px}
+
+/* Chip de universidad: el mismo del ranking (ver web/src/components/university-tag.tsx),
+   color de marca sobre su propio fondo translúcido. */
+.tag{display:inline-flex;align-items:center;border:1px solid;border-radius:6px;
+  padding:2px 7px;font-size:11.5px;font-weight:700;letter-spacing:.02em}
+.tag-plain{border-color:transparent;background:rgba(255,255,255,.1);
+  color:rgba(238,241,247,.7);font-weight:600}
+
 .pill{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;
   background:var(--surface-2);color:var(--muted);margin-left:6px}
 .empty{color:var(--muted);font-style:italic;font-size:13px;margin:10px 0}
@@ -129,17 +144,103 @@ def _table(cols: list[str], rows: list[list], empty: str = "sin datos") -> str:
     return f'<div class="scroll"><table><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table></div>'
 
 
-def _cohort_table(rows: list[dict], head: str) -> str:
-    # Encabezados cortos a propósito: son seis columnas en media pantalla y con
-    # títulos largos la tabla se va de ancho y hay que scrollearla.
-    #
-    # «base» es la columna bisagra: los que estudiaron. «estudió» se mide sobre
-    # el total (conversión) y las dos últimas sobre la base (retención).
-    return _table(
-        [head, "n", "estudió", "base", "volvió", "2+ días"],
-        [[r["label"], r["n"], num(r["estudio"], "%"), r["base"],
-          num(r["volvio"], "%"), num(r["dos_dias"], "%")] for r in rows],
-        empty="todavía no hay usuarios con este dato")
+# Colores de marca de las universidades, espejo de UNIVERSITY_TAGS del front
+# (web/src/lib/university-tags.ts). Es la TERCERA copia de esta lista — el
+# docstring de backend/universities.py ya advierte de las otras dos. Acá van
+# solo las que tienen tag propia; el resto cae en el chip gris genérico, igual
+# que hace <UniTag/>.
+UNIVERSITY_COLOR = {
+    "UBA": "#4F76E0", "UTN": "#EC4869", "UNSAM": "#4D90F2", "UNLP": "#21B8AE",
+    "UNC": "#4A63D6", "UNR": "#D742A0", "UNL": "#29CBD9", "UNT": "#9AA7B8",
+    "UNS": "#2E8FE0", "UADE": "#E3A73C", "ITBA": "#2C7DBE", "UNLaM": "#3FAE5C",
+}
+
+# Los mismos emojis que ve el usuario, para que el panel y la app nombren las
+# cosas igual: carreras de onboarding-wizard.tsx (CAREERS) y cursos de COURSES.
+CAREER_LABEL = {
+    "E": ("⚙️", "Ingeniería"), "S": ("🔬", "Ciencia"),
+    "T": ("🤖", "Tecnología"), "M": ("📐", "Matemática"),
+    "Otra": ("✦", "Otra"),
+}
+COURSE_LABEL = {
+    "analisis": ("📈", "Análisis"), "algebra": ("🧮", "Álgebra"),
+    "probabilidad": ("🎲", "Probabilidad"),
+}
+
+
+def _uni_chip(sigla: str) -> str:
+    """El chip de universidad del ranking: color de marca sobre su propio fondo
+    translúcido, o gris si la universidad entró por «Otra»."""
+    color = UNIVERSITY_COLOR.get(sigla)
+    if not color:
+        return (f'<span class="tag tag-plain">{esc(sigla)}</span>')
+    return (f'<span class="tag" style="color:{color};border-color:{color}99;'
+            f'background:{color}33">{esc(sigla)}</span>')
+
+
+def _emoji_label(pair: tuple[str, str] | None, fallback: str) -> str:
+    if not pair:
+        return esc(fallback)
+    return f'<span class="emo">{pair[0]}</span>{esc(pair[1])}'
+
+
+# Escala de calor para las celdas de porcentaje. La intensidad es relativa a la
+# COLUMNA, no absoluta: lo que interesa es cuál origen rinde mejor que cuál, y
+# una escala fija de 0 a 100 dejaría todas las celdas casi iguales cuando los
+# valores viven apretados en una banda angosta.
+def _heat_cell(v, lo: float, hi: float, dim: bool) -> str:
+    if v is None:
+        return '<td class="dim">—</td>'
+    if dim:
+        # Denominador chico: el porcentaje es ruido y pintarlo lo haría pasar
+        # por señal. Se muestra el número, sin color.
+        return f'<td class="dim">{num(v, "%")}</td>'
+    t = 0.0 if hi <= lo else (v - lo) / (hi - lo)
+    alpha = round(0.10 + 0.42 * t, 3)
+    return (f'<td style="background:rgba(126,128,247,{alpha});'
+            f'border-radius:4px">{num(v, "%")}</td>')
+
+
+# Por debajo de esta base, una tasa de vuelta no es señal. Las filas con menos
+# quedan sin color y con el número atenuado.
+HEAT_MIN_BASE = 8
+
+
+def _cohort_table(rows: list[dict], head: str, kind: str) -> str:
+    """Tabla de cohorte a ancho completo, con chips/emojis y calor por columna."""
+    if not rows:
+        return '<p class="empty">todavía no hay usuarios con este dato</p>'
+
+    def label(r: dict) -> str:
+        if kind == "uni":
+            return _uni_chip(r["label"])
+        if kind == "carrera":
+            return _emoji_label(CAREER_LABEL.get(r["label"]), r["label"])
+        if kind == "curso":
+            return _emoji_label(COURSE_LABEL.get(r["label"]), r["label"])
+        return esc(r["label"])
+
+    cols = ["estudio", "volvio", "dos_dias"]
+    rango = {}
+    for c in cols:
+        vals = [r[c] for r in rows if r[c] is not None and r["base"] >= HEAT_MIN_BASE]
+        rango[c] = (min(vals), max(vals)) if vals else (0.0, 0.0)
+
+    body = []
+    for r in rows:
+        dim = r["base"] < HEAT_MIN_BASE
+        celdas = "".join(_heat_cell(r[c], *rango[c], dim=dim) for c in cols)
+        body.append(
+            f'<tr><td class="ent">{label(r)}</td>'
+            f'<td>{r["n"]}</td><td>{r["base"]}</td>{celdas}</tr>')
+
+    head_html = "".join(f"<th>{esc(c)}</th>" for c in
+                        [head, "n", "base", "estudió", "volvió", "2+ días"])
+    nota = ("" if all(r["base"] >= HEAT_MIN_BASE for r in rows) else
+            f'<p class="note">Las filas atenuadas tienen menos de {HEAT_MIN_BASE} '
+            f'personas en la base: el porcentaje es ruido, no señal.</p>')
+    return (f'<div class="scroll"><table class="big"><thead><tr>{head_html}</tr></thead>'
+            f'<tbody>{"".join(body)}</tbody></table></div>{nota}')
 
 
 _COHORT_NOTE = (
@@ -180,7 +281,7 @@ def page(p: dict, *, token: str) -> str:
     jump = "".join(
         f'<a href="#{a}">{esc(t)}</a>'
         for a, t in [("embudo", "Embudo"), ("cohortes", "Cohortes"), ("producto", "Producto"),
-                     ("encuestas", "Encuestas"), ("tablas", "Tablas"), ("push", "Push"),
+                     ("encuestas", "Encuestas"), ("push", "Push"),
                      ("mails", "Mails")])
 
     out = [
@@ -228,25 +329,30 @@ def page(p: dict, *, token: str) -> str:
         'mide en el embudo. El denominador de cada k son además solo los que ya vivieron ese día: '
         'alguien que se anotó ayer no puede tener D+5 todavía.</p>'
         '</div>',
-        '<div class="grid g2">',
-        f'<div class="card"><h3>Por origen</h3>{_cohort_table(co["origen"], "Facultad")}'
-        f'<p class="note">Atribución nativa (<code>users.first_group_id</code>), capturada al '
-        f'aterrizar y guardada al completar el onboarding. Cubre '
-        f'<b>{atr["con"]} de {atr["total"]}</b> usuarios del rango ({num(atr["pct"], "%")}). '
-        f'Los usuarios anteriores al 24/08 quedan sin atribuir: su origen sigue estando solo en '
-        f'PostHog.</p></div>',
-        f'<div class="card"><h3>Por universidad</h3>{_cohort_table(co["universidad"], "Universidad")}</div>',
-        f'<div class="card"><h3>Por carrera</h3>{_cohort_table(co["carrera"], "Carrera")}</div>',
-        f'<div class="card"><h3>Por curso</h3>{_cohort_table(co["curso"], "Curso")}</div>',
-        '</div>',
+        # A ancho completo y una debajo de la otra: son el corte principal de la
+        # semana y en media pantalla no entraban sin scrollear.
+        f'<div class="card"><h3>Por universidad</h3>'
+        f'{_cohort_table(co["universidad"], "Universidad", "uni")}</div>',
+        f'<div class="card"><h3>Por carrera</h3>'
+        f'{_cohort_table(co["carrera"], "Carrera", "carrera")}</div>',
+        f'<div class="card"><h3>Por curso</h3>'
+        f'{_cohort_table(co["curso"], "Curso", "curso")}</div>',
     ]
     if co["grupos"]:
         body.append(f'<div class="card"><h3>Grupos con volumen</h3>'
-                    f'{_cohort_table(co["grupos"], "Grupo")}'
-                    f'<p class="note">Solo grupos con 5 o más usuarios: por debajo de eso una tasa '
-                    f'de vuelta es ruido, no señal.</p></div>')
+                    f'{_cohort_table(co["grupos"], "Grupo", "plain")}'
+                    f'<p class="note">Atribución nativa (<code>users.first_group_id</code>), '
+                    f'capturada al aterrizar y guardada al completar el onboarding: cubre '
+                    f'<b>{atr["con"]} de {atr["total"]}</b> usuarios del rango '
+                    f'({num(atr["pct"], "%")}). Solo grupos con 5 o más usuarios.</p></div>')
+    else:
+        body.append(
+            f'<p class="note">El corte <b>por grupo de WhatsApp</b> todavía no tiene volumen: '
+            f'la atribución nativa (<code>users.first_group_id</code>) se guarda desde el 24/08, '
+            f'así que cubre {atr["con"]} de {atr["total"]} usuarios del rango. Aparece solo cuando '
+            f'algún grupo llegue a 5 usuarios; hasta entonces el origen vive en PostHog.</p>')
     body.append(f'<div class="card"><h3>Unidades declaradas en el onboarding</h3>'
-                f'{_cohort_table(co["unidades"], "Marcó")}'
+                f'{_cohort_table(co["unidades"], "Marcó", "plain")}'
                 f'<p class="note">Dato declarativo de la slide nueva. No toca SM-2 — está acá para '
                 f'ver si predice algo antes de darle cualquier efecto.</p></div>')
     body.append(_COHORT_NOTE)
@@ -256,25 +362,41 @@ def page(p: dict, *, token: str) -> str:
 
     # 3 · Producto
     pr = p["producto"]
-    ses_rows = [[f'{r["curso"]} · {r["modo"]}', r["iniciadas"], r["terminadas"],
-                 num(r["pct"], "%")] for r in pr["sesiones"]]
-    aband = []
-    for modo, d in pr["abandono"].items():
-        curva = [{"label": "", "values": [k["pct"] for k in d["curva"]]}]
-        aband.append(
-            f'<div class="card"><h3>Abandono · {esc(modo)}</h3>'
-            + ch.lines(curva, [str(k["k"]) for k in d["curva"]], legend=False, y_max=100)
-            + f'<p class="note">De las sesiones que <b>tenían</b> al menos k ejercicios asignados, '
-              f'qué % llegó a resolver el k-ésimo. El denominador baja con k (en k=1 son '
-              f'{d["curva"][0]["de"] if d["curva"] else 0}) porque el largo de sesión es '
-              f'configurable: dividir siempre por el total haría parecer abandono a una sesión '
-              f'corta terminada bien. Aparte quedan <b>{d["cero"]}</b> sesiones que se abrieron y '
-              f'no resolvieron nada — el abandono más grande, y el que no aparece en la curva.</p>'
-              f'</div>')
+    cur = pr["cursos"]
 
+    def curso_label(slug: str) -> str:
+        emo, name = COURSE_LABEL.get(slug, ("", slug))
+        return f"{emo} {name}".strip()
+
+    # Accuracy y abandono lado a lado, por curso. Son las dos caras de lo mismo
+    # —si un curso cuesta más, se abandona más— y el gráfico existe para poder
+    # cruzarlas de un vistazo.
+    grupos = [curso_label(c["curso"]) for c in cur]
+    series = [
+        {"label": "Accuracy (P1)", "values": [c["p1"] for c in cur]},
+        {"label": "Abandono repaso", "values": [c["main_abandono"] for c in cur]},
+        {"label": "Abandono práctica", "values": [c["practice_abandono"] for c in cur]},
+    ]
+    ses_rows = [[f'{curso_label(r["curso"])} · {r["modo"]}', r["iniciadas"],
+                 r["terminadas"], num(r["pct"], "%")] for r in pr["sesiones"]]
     p1_rows = [{"label": r["label"], "value": r["p1"], "note": f'n={r["n"]}'} for r in pr["p1_skill"]]
+    sr = pr["sin_respuesta"]
+
     out.append(_section(
         3, "Producto",
+        f'<div class="card"><h3>Accuracy y abandono por curso</h3>'
+        + ch.vbars(grupos, series, suffix="%", height=250, width=900)
+        + f'<p class="note"><b>Accuracy</b> = P1, aciertos al primer intento '
+          f'(<code>quality_score = 5</code>); global {num(pr["p1_global"], "%")} sobre '
+          f'{pr["respuestas"]} respuestas. <code>is_correct</code> no sirve para esto: cuenta hasta '
+          f'el tercer intento y da ~93% en todos lados. <b>Abandono</b> = sesiones iniciadas que '
+          f'nunca se terminaron. Se leen juntas: un curso con accuracy baja y abandono alto tiene '
+          f'un problema de dificultad; uno con accuracy alta y abandono alto lo tiene en otro '
+          f'lado.</p>'
+          f'<p class="note">Aparte quedan las sesiones que se abren y no resuelven <b>ningún</b> '
+          f'ejercicio — {sr.get("main", 0)} en repaso y {sr.get("practice", 0)} en práctica. No '
+          f'están en el abandono de arriba a propósito: quien corta en el sexto ejercicio se cansó, '
+          f'quien corta en el cero nunca arrancó, y son dos problemas distintos.</p></div>'
         '<div class="grid g2">'
         f'<div class="card"><h3>Sesiones por curso y modo</h3>'
         f'{_table(["Curso · modo", "Iniciadas", "Terminadas", "%"], ses_rows)}'
@@ -282,15 +404,12 @@ def page(p: dict, *, token: str) -> str:
         + " · ".join(f'{k} {num(v)} min' for k, v in pr["duracion"].items())
         + '. <code>duration_seconds</code> está muerta; esto es '
           '<code>finished_at − started_at</code>.</p></div>'
-        f'<div class="card"><h3>P1 por habilidad</h3>'
+        f'<div class="card"><h3>Accuracy por habilidad</h3>'
         + ch.hbars(p1_rows, suffix="%", label_w=70, width=520)
-        + f'<p class="note">P1 = % de aciertos <b>al primer intento</b> '
-          f'(<code>quality_score = 5</code>). Global {num(pr["p1_global"], "%")} sobre '
-          f'{pr["respuestas"]} respuestas. <code>is_correct</code> no sirve acá: cuenta hasta el '
-          f'tercer intento y da ~93% en todos lados. Banda de calibración: '
-          f'{pr["banda"][0]}–{pr["banda"][1]}%.</p></div>'
-        '</div>'
-        f'<div class="grid g2">{"".join(aband)}</div>',
+        + f'<p class="note">La banda de calibración es {pr["banda"][0]}–{pr["banda"][1]}%: sale de '
+          f'cruzar los votos de la encuesta de dificultad contra el comportamiento real. Por '
+          f'encima, el ítem está blando; por debajo, duro.</p></div>'
+        '</div>',
         anchor="producto"))
 
     # 4 · Encuestas
@@ -330,34 +449,12 @@ def page(p: dict, *, token: str) -> str:
         + f'<p class="note">{e["reportes"]} reporte(s) de contenido (canal C) en la ventana.</p>',
         anchor="encuestas"))
 
-    # 5 · Tablas
-    t = p["tablas"]
-    al = t["alcance"]
-    out.append(_section(
-        5, "Formato tabla",
-        '<div class="grid g2">'
-        f'<div class="card"><h3>Alcance del contrapeso</h3>'
-        f'<div class="kpi"><div class="val">{num(al["pct"], "%")}</div>'
-        f'<div class="hint">{al["con_tabla"]} de {al["primeras"]} primeras sesiones de repaso '
-        f'de <b>esta semana</b> incluyeron al menos un ejercicio con tabla</div></div>'
-        '<p class="note">El empuje (<code>TABLE_BOOST_MAX = 6.0</code>) multiplica x6 el peso del '
-        'sorteo en la primera sesión y decae a x1 en la décima, con garantía en la primera. Es '
-        'sesgo de <b>orden</b>, no cuota: el ciclo por ítem sigue sirviendo cada ejercicio una vez '
-        'por vuelta.</p></div>'
-        f'<div class="card"><h3>Con tabla vs. sin tabla</h3>'
-        f'{_table(["", "n", "P1"], [["Con tabla", t["p1"]["con_tabla"]["n"], num(t["p1"]["con_tabla"]["p1"], "%")], ["Sin tabla", t["p1"]["sin_tabla"]["n"], num(t["p1"]["sin_tabla"]["p1"], "%")]])}'
-        f'{_table(["", "Votos D", "Score interés"], [["Con tabla", t["interes"]["con_tabla"]["n"], num(t["interes"]["con_tabla"]["score"])], ["Sin tabla", t["interes"]["sin_tabla"]["n"], num(t["interes"]["sin_tabla"]["score"])]])}'
-        f'<p class="note">{t["items"]} ítems con tabla en el banco. La comparación de interés es '
-        f'la pregunta que motivó el formato; necesita varias semanas de canal D para decir algo.</p>'
-        '</div></div>',
-        anchor="tablas"))
-
-    # 6 · Re-enganche: push
+    # 5 · Re-enganche: push
     rg = p["reenganche"]
     cat_rows = [[r["categoria"], r["enviadas"], r["abiertas"], num(r["ctr"], "%")]
                 for r in rg["por_categoria"]]
     out.append(_section(
-        6, "Re-enganche · push",
+        5, "Re-enganche · push",
         '<div class="grid g4">'
         + "".join(f'<div class="card kpi"><div class="label">{esc(l)}</div>'
                   f'<div class="val">{num(v)}</div></div>'
@@ -373,12 +470,12 @@ def page(p: dict, *, token: str) -> str:
         f'<code>notify_enabled</code>.</p></div>',
         anchor="push"))
 
-    # 7 · Re-enganche: email
+    # 6 · Re-enganche: email
     em = p["emails"]
     mail_rows = [[f'{r["tipo"]}', r["desc"], r["enviados"], r["activados"],
                   num(r["pct"], "%")] for r in em["tipos"]]
     out.append(_section(
-        7, "Re-enganche · mails de ciclo de vida",
+        6, "Re-enganche · mails de ciclo de vida",
         '<div class="grid g4">'
         + "".join(f'<div class="card kpi"><div class="label">{esc(l)}</div>'
                   f'<div class="val">{num(v, sfx)}</div><div class="hint">{esc(h)}</div></div>'
