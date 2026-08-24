@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { useSfx } from "@/lib/audio/useSfx"
 import { saveOnboarding } from "@/lib/onboarding/storage"
 import { cn } from "@/lib/utils"
+import ExerciseTable from "@/components/exercise-table"
 import MathText from "@/components/math-text"
 import {
   BELT_HEX,
@@ -12,7 +13,6 @@ import {
   BELT_ONDARK_VIVID,
   CATALOGS,
   COURSE_LABEL,
-  topicShortLabel,
   type BeltKey,
   type CourseId,
 } from "@/lib/catalog"
@@ -68,6 +68,10 @@ type OnboardingExercise = {
   // error puntual de esa alternativa. `null` en el índice correcto.
   feedbackIncorrect: (string | null)[]
   explanation: string
+  // Tabla embebida en el enunciado, misma forma que el `table` del banco de
+  // ejercicios (ver exercise-table.tsx). La columna derivada se rellena con los
+  // valores de la opción confirmada, así el error se ve en vez de explicarse.
+  table?: Record<string, unknown>
 }
 
 // Ejercicio de prueba por curso (slide 5). Cada uno mapea al primer ítem real del
@@ -103,20 +107,46 @@ const ONBOARDING_EXERCISES: Record<CourseId, OnboardingExercise> = {
     explanation:
       "Una potencia encadena multiplicaciones:\n$$\\begin{aligned} 2^2 \\cdot 2^3 &= (2 \\cdot 2)(2 \\cdot 2 \\cdot 2) \\\\ &= 2^{2+3} \\\\ &= 2^5 \\end{aligned}$$\nPor eso los exponentes **se suman**: $x = 5$.\n\nCada ronda de reenvíos multiplica a la anterior, no la suma: los $2^2$ contactos del primer envío se convierten en $2^5$ personas recién después de que cada uno reenvía a $2^3$ más.",
   },
+  // Espejo de white_reglas_FORM_18 del banco (probabilidad/white/conteo/reglas).
+  // El anterior —"al menos una cara" en 2 tiros— pedía modelar el espacio
+  // muestral desde cero y solo el 18% lo sacaba al primer intento, contra 87% de
+  // análisis y 73% de álgebra. Los otros dos entregan el planteo y piden
+  // ejecutar un paso; este ahora hace lo mismo, con la tabla mostrando el patrón.
   probabilidad: {
     question:
-      "Tirás una moneda equilibrada 2 veces.\n\n¿Cuál es la probabilidad de sacar al menos una cara?",
-    options: ["$3/4$", "$1/2$", "$2/3$", "$1/4$"],
+      "Una heladería ofrece $n$ gustos y cada helado se sirve en 2 tamaños.\n\nLa tabla registra cuántos helados distintos se pueden pedir según la cantidad de gustos.\n\n¿Cuántos helados hay con $n$ gustos?",
+    options: ["$2n$", "$n+2$", "$n^{2}$"],
     correctIndex: 0,
-    feedback: "El único caso sin caras es cruz-cruz ($1/4$): $1 - 1/4 = 3/4$.",
+    feedback:
+      "Se elige gusto y además tamaño, así que cada gusto se abre en 2 helados posibles.",
     feedbackIncorrect: [
       null,
-      "Eso vale para un solo tiro. Con dos tiros hay más chances: solo te quedás sin caras si salen dos cruces seguidas.",
-      "Ese resultado sale de contar {ninguna, una, dos caras} como si fueran igual de probables — pero 'una cara' puede darse de dos maneras (cara-cruz y cruz-cara), y las otras de una sola.",
-      "Esa es la probabilidad de que no salga ninguna cara (cruz y cruz). Lo que buscás es justo lo contrario: $1 - 1/4$.",
+      "Sumar trata al tamaño como una alternativa aparte, y acá el pedido lleva gusto y además tamaño.",
+      "Elevar al cuadrado supone que los dos pasos tienen la misma cantidad de opciones, pero los tamaños son siempre 2.",
     ],
     explanation:
-      "Cada tiro tiene 2 resultados y las posibilidades se multiplican, así que hay $2 \\times 2 = 4$ resultados igual de probables:\n$$\\text{cara-cara}, \\quad \\text{cara-cruz}, \\quad \\text{cruz-cara}, \\quad \\text{cruz-cruz}$$\nEn 3 de los 4 aparece al menos una cara: la probabilidad es $3/4$.\n\nEl atajo: el único caso sin ninguna cara es cruz-cruz, con probabilidad $1/4$, y \"al menos una cara\" es exactamente lo contrario, así que $1 - 1/4 = 3/4$. Más alto que el $1/2$ de un tiro solo — cada tiro extra es una chance más.",
+      "La **regla del producto** multiplica las opciones de cada decisión cuando el resultado necesita todas.\n\nUn helado necesita un gusto entre $n$ y un tamaño entre 2:\n$$n \\times 2 = 2n$$\nCon 3 gustos da 6 helados y con 6 gustos daría 12.\n\nLos tamaños no crecen con los gustos: por eso el 2 se queda fijo como factor y no aparece como exponente.",
+    table: {
+      columns: [
+        { icon: "🍦", label: "Gustos" },
+        { icon: "🍨", label: "Helados" },
+      ],
+      rows: [
+        ["$2$", "$4$"],
+        ["$3$", "$6$"],
+        ["$6$", null],
+        ["$n$", null],
+      ],
+      reveal: {
+        mode: "column",
+        col: 1,
+        by_option: [
+          { header: "$2n$", cells: ["$4$", "$6$", "$12$", "$2n$"] },
+          { header: "$n+2$", cells: ["$4$", "$5$", "$8$", "$n+2$"] },
+          { header: "$n^{2}$", cells: ["$4$", "$9$", "$36$", "$n^{2}$"] },
+        ],
+      },
+    },
   },
 }
 
@@ -139,16 +169,14 @@ function courseUnits(
 }
 
 // Igual que courseUnits pero conservando lo que la slide de "¿cuáles ya viste?"
-// necesita y courseUnits descarta: la clave, la descripción y los temas.
+// necesita y courseUnits descarta: la clave y la descripción.
 function courseUnitsFull(course: CourseId) {
   return CATALOGS[course].belts.flatMap((b) =>
     b.units.map((u) => ({
       key: u.key,
       name: u.name,
       description: u.description,
-      topics: u.topics,
       textColor: BELT_HEX[b.key as BeltKey].onDark,
-      gridColor: BELT_ONDARK_VIVID[b.key as BeltKey],
     })),
   )
 }
@@ -1191,7 +1219,6 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
                       <KnownUnitRow
                         key={u.key}
                         unit={u}
-                        course={courseKey}
                         selected={knownUnits.includes(u.key)}
                         onToggle={() => toggleKnownUnit(u.key)}
                       />
@@ -1233,6 +1260,25 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
                   <div className="text-base leading-snug">
                     <MathText text={exercise.question} />
                   </div>
+                  {exercise.table && (
+                    <ExerciseTable
+                      table={exercise.table}
+                      revealIndex={
+                        exerciseCorrect === true
+                          ? exercise.correctIndex
+                          : wrongOptions.length > 0
+                            ? wrongOptions[wrongOptions.length - 1]
+                            : null
+                      }
+                      tone={
+                        exerciseCorrect !== true
+                          ? "wrong"
+                          : wrongOptions.length > 0
+                            ? "retry"
+                            : "correct"
+                      }
+                    />
+                  )}
                   <div className={exerciseUseGrid ? "grid grid-cols-2 gap-2" : "flex flex-col gap-2"}>
                     {exercise.options.map((opt, i) => {
                       const isSelected = exerciseSelection === i
@@ -1946,12 +1992,10 @@ export function OptionButton({
 // solo <button> — un botón adentro de otro no es HTML válido.
 function KnownUnitRow({
   unit,
-  course,
   selected,
   onToggle,
 }: {
   unit: ReturnType<typeof courseUnitsFull>[number]
-  course: CourseId
   selected: boolean
   onToggle: () => void
 }) {
@@ -1997,30 +2041,6 @@ function KnownUnitRow({
               </DialogDescription>
             )}
           </DialogHeader>
-          <div className="flex flex-col gap-2.5">
-            {unit.topics.map((t) => (
-              <div key={t.key} className="flex items-center justify-between gap-3">
-                <span className="text-sm leading-tight text-foreground/80">
-                  {topicShortLabel({ topic: t.key, course, fallback: t.name })}
-                </span>
-                {/* Un cuadradito por tipo de ejercicio del tema: da la escala de
-                    cuánto hay adentro sin tener que enumerarlo. */}
-                <span className="flex shrink-0" style={{ gap: UNIT_GAP_PX }}>
-                  {t.skills.map((s) => (
-                    <span
-                      key={s}
-                      style={{
-                        width: UNIT_SQ_PX,
-                        height: UNIT_SQ_PX,
-                        borderRadius: UNIT_GRID_RADIUS_PX,
-                        backgroundColor: unit.gridColor,
-                      }}
-                    />
-                  ))}
-                </span>
-              </div>
-            ))}
-          </div>
         </DialogContent>
       </Dialog>
     </div>
