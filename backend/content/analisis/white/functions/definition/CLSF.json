@@ -477,7 +477,7 @@
   },
   {
     "id": "white_definition_CLSF_12",
-    "question": "Una encuesta corta hace 3 preguntas y cada respuesta se registra como sí o no. $$E : \\{1, 2, 3\\} \\to \\{S, N\\}$$ ¿Cuál es el **dominio** de $E$?",
+    "question": "Una encuesta corta tiene sus 3 preguntas numeradas del 1 al 3, y cada respuesta se registra como sí o no.$$E : \\{1, 2, 3\\} \\to \\{S, N\\}$$¿Cuál es el **dominio** de $E$?",
     "options": [
       "Las respuestas $S$ y $N$",
       "Las 3 preguntas de la encuesta",
@@ -529,25 +529,25 @@
   },
   {
     "id": "white_definition_CLSF_14",
-    "question": "Una función transforma $x$ según:$$m(x) = \\frac{1}{\\sqrt{x}}$$ ¿Cuál es el **dominio natural** de esta función?",
+    "question": "Una función transforma $x$ según:$$h(x) = \\sqrt[3]{x - 3}$$ ¿Cuál es el **dominio natural**?",
     "options": [
-      "$x > 0$",
-      "$x \\geq 0$",
-      "$x \\neq 0$",
-      "$\\mathbb{R}$"
+      "$x \\geq 3$",
+      "$\\mathbb{R}$",
+      "$x \\neq 3$",
+      "$x > 3$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "La raíz pide $x \\geq 0$ y la división pide $x \\neq 0$, así que el dominio natural es $x > 0$.",
+    "feedback_correct": "La raíz cúbica está definida para cualquier real, incluidos los negativos, así que no hay restricción.",
     "feedback_incorrect": [
+      "Esa restricción vale para raíces de índice par, no para la cúbica: el radicando puede ser negativo.",
       null,
-      "El 0 no entra: haría $\\sqrt{0} = 0$ en el denominador.",
-      "Además de $x \\neq 0$, la raíz pide $x \\geq 0$; juntas dan $x > 0$.",
-      "Los negativos no tienen raíz cuadrada real, así que no todos los reales sirven."
+      "Esa restricción es de denominador, y acá no hay ninguno.",
+      "Esa restricción vale para raíces pares, y además excluye un punto que acá no hace falta excluir."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio natural** es el mayor conjunto donde la función tiene sentido.\n\nHay dos restricciones a la vez: la raíz exige $x \\geq 0$ y el denominador exige $\\sqrt{x} \\neq 0$.\n\nEso último equivale a $x \\neq 0$.\n\nCombinando ambas queda $x > 0$.\n\nEl descuido habitual es aplicar una sola restricción; cuando se apilan raíz y división, hay que cruzar las dos condiciones.",
+    "explanation": "El dominio natural depende del tipo de raíz que la fórmula use.\n\nLa raíz cuadrada, de índice par, sí exige un radicando no negativo, pero la raíz cúbica, de índice impar, está definida para cualquier número real, positivo, negativo o cero.\n\nComo $\\sqrt[3]{x-3}$ es de índice impar, no hay ninguna restricción: el dominio natural es $\\mathbb{R}$.\n\nAplicar la regla de la raíz par a cualquier raíz, sin fijarse en el índice, es lo que lleva a elegir mal acá.",
     "reviewed": false,
     "tags": [
       "dominio-natural"
@@ -555,7 +555,7 @@
   },
   {
     "id": "white_definition_CLSF_15",
-    "question": "Para recorrer 60 km, el tiempo a $v$ km/h es:$$t(v) = \\frac{60}{v}$$ ¿Qué condición define el **dominio natural**?",
+    "question": "Para recorrer 60 km, el tiempo a $v$ km/h es:$$t(v) = \\frac{60}{v}$$Acá $v$ representa una velocidad, así que no puede ser cero ni negativa.\n\n¿Qué condición define el **dominio natural** en este contexto?",
     "options": [
       "$v \\geq 60$",
       "$v \\neq 60$",
@@ -573,7 +573,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio natural** combina lo que permite la fórmula y lo que permite el contexto.\n\nDividir entre cero no está definido y una velocidad negativa no tiene sentido físico.\n\nEse es el dominio natural.\n\nConviene verificar que no alcanza con $v \\neq 0$: el contexto agrega que la velocidad tampoco puede ser negativa.",
+    "explanation": "El enunciado ya señala que $v$ no puede ser negativa ni cero, porque representa una velocidad real.\n\nDividir entre cero no está definido, y una velocidad negativa no tiene sentido físico.\n\nCombinando las dos cosas, el dominio natural en este contexto es $v > 0$.\n\nAlgebraicamente sola, la fórmula solo pediría $v \\neq 0$; el contexto es lo que además excluye los negativos.",
     "reviewed": false,
     "tags": [
       "dominio-natural"
@@ -607,25 +607,25 @@
   },
   {
     "id": "white_definition_CLSF_17",
-    "question": "Una función transforma $x$ según:$$g(x) = \\sqrt{5 - x}$$ ¿Cuál es la restricción del **dominio natural**?",
+    "question": "Una función transforma $x$ según:$$g(x) = \\sqrt{x - 5}$$ ¿Cuál es la restricción del **dominio natural**?",
     "options": [
       "$x \\geq 5$",
       "$x \\leq 5$",
       "$x \\geq 0$",
       "$x \\neq 5$"
     ],
-    "correct_index": 1,
+    "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "La raíz pide $5 - x \\geq 0$, es decir $x \\leq 5$.",
+    "feedback_correct": "La raíz pide $x - 5 \\geq 0$, es decir $x \\geq 5$.",
     "feedback_incorrect": [
-      "Tiene el sentido invertido: $5 - x \\geq 0$ da $x \\leq 5$.",
       null,
+      "El sentido de la desigualdad no se invierte acá: $x - 5 \\geq 0$ da $x \\geq 5$ directo.",
       "El 0 no es el límite; el radicando se anula en $x = 5$.",
       "En $x = 5$ el radicando es $0$ y la raíz vale $0$, así que sí entra."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio natural** es el mayor conjunto donde la función tiene sentido.\n\nLa raíz cuadrada exige radicando no negativo.\n\nPara $x > 5$ el radicando sería negativo.\n\nComo la $x$ resta dentro de la raíz, al despejar el sentido de la desigualdad se invierte: la solución queda $x \\leq 5$, no al revés.\n\nSaltear esa inversión de signo es fácil al despejar con una $x$ negativa.",
+    "explanation": "El **dominio natural** es el mayor conjunto donde la función tiene sentido.\n\nLa raíz cuadrada exige radicando no negativo: $x - 5 \\geq 0$.\n\nDespejando queda $x \\geq 5$ directamente, sin necesidad de invertir el signo de la desigualdad.\n\nEsa inversión sí hace falta cuando la $x$ resta dentro de la raíz, como en $\\sqrt{5-x}$; acá, al restar una constante, el despeje es directo.",
     "reviewed": false,
     "tags": [
       "dominio-natural"
@@ -659,7 +659,7 @@
   },
   {
     "id": "white_definition_CLSF_19",
-    "question": "El costo de $k$ kg de fruta a \\$350 el kilo es:$$C(k) = 350\\,k$$ ¿Cuál es el **dominio natural** de esta función?",
+    "question": "El costo de $k$ kg de fruta a \\$350 el kilo es:$$C(k) = 350\\,k$$Acá $k$ representa un peso en kilogramos, así que no puede ser negativo.\n\n¿Cuál es el **dominio natural** de esta función en este contexto?",
     "options": [
       "$k \\geq 0$",
       "$k \\geq 350$",
@@ -677,7 +677,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio natural** combina la fórmula y el contexto.\n\nAlgebraicamente la fórmula funciona para cualquier real, pero comprar kilos negativos no tiene sentido.\n\nEse es el dominio natural.\n\nEl descuido habitual es tomar todos los reales por mirar solo la fórmula; en contextos concretos el sentido físico también restringe.",
+    "explanation": "El enunciado ya señala que $k$ no puede ser negativo, porque representa un peso real de fruta.\n\nAlgebraicamente la fórmula funciona para cualquier real, pero comprar kilos negativos no tiene sentido.\n\nCombinando las dos cosas, el dominio natural en este contexto es $k \\geq 0$.\n\nSin esa aclaración del contexto, mirar solo la fórmula llevaría a elegir $\\mathbb{R}$ por error.",
     "reviewed": false,
     "tags": [
       "dominio-natural"
@@ -711,25 +711,25 @@
   },
   {
     "id": "white_definition_CLSF_21",
-    "question": "La función $f$ tiene **dominio** los enteros y **codominio** los reales, y transforma cada entero en su cubo. $$\\begin{aligned} f : \\mathbb{Z} &\\to \\mathbb{R} \\\\ f(x) &= x^3 \\end{aligned}$$ ¿El conjunto **imagen** de $f$ es igual al codominio?",
+    "question": "Una función tiene **dominio** $\\{1,2,3,4,5\\}$ y **codominio** $\\{1,\\dots,10\\}$, y transforma cada número en su doble:$$g(x) = 2x$$¿El conjunto **imagen** de la función es igual al codominio?",
     "options": [
-      "No, solo los cubos de enteros",
-      "Sí, todo real es cubo de un entero",
+      "No, solo los números pares del 1 al 10",
+      "Sí, todos los números del 1 al 10 se alcanzan",
       "No, la imagen está vacía",
-      "Sí, pero solo los negativos"
+      "Sí, pero solo los impares"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Solo los cubos de enteros son imagen; la mayoría de los reales no lo son.",
+    "feedback_correct": "Los cinco valores del dominio dan 2, 4, 6, 8 y 10: solo los pares. Los impares del codominio nunca se alcanzan.",
     "feedback_incorrect": [
       null,
-      "$\\sqrt{2}$ no es cubo de ningún entero, así que no todo real se alcanza.",
-      "La imagen tiene muchos valores, como $0$, $1$, $8$; no está vacía.",
-      "También $8$ o $27$ son imagen; no se limita a los negativos."
+      "$g(1)=2$, no $1$; ningún número impar del codominio se alcanza.",
+      "La imagen tiene cinco valores: $2,4,6,8,10$; no está vacía.",
+      "También $2,4,6,8,10$ son pares, no impares; la imagen son los pares, no los impares."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas efectivamente alcanzadas, que pueden ser menos que el **codominio**.\n\nAcá el codominio es $\\mathbb{R}$, pero solo se alcanzan cubos de enteros, como $\\{0, 1, 8, \\dots\\}$.\n\nNúmeros como $\\sqrt{2}$ no son cubo de ningún entero.\n\nSuponer que la imagen es igual al codominio solo vale cuando se alcanza cada salida posible, y acá no es el caso.",
+    "explanation": "La **imagen** son los valores que la función realmente produce; el **codominio** es el conjunto declarado de llegada, que puede ser más grande.\n\nEvaluando los cinco elementos del dominio:\n$$\\begin{aligned} g(1) &= 2 \\\\ g(2) &= 4 \\\\ g(3) &= 6 \\\\ g(4) &= 8 \\\\ g(5) &= 10 \\end{aligned}$$\nLa imagen es $\\{2,4,6,8,10\\}$, un subconjunto del codominio $\\{1,\\dots,10\\}$: los cinco números impares nunca aparecen.\n\nQue el codominio declare hasta $10$ no garantiza que todos esos valores se alcancen; eso depende de la regla de la función.",
     "reviewed": false,
     "tags": [
       "imagen-identificacion"
@@ -739,18 +739,18 @@
     "id": "white_definition_CLSF_22",
     "question": "Una función asigna el valor 7 a todos los números del 1 al 20. $$f(x) = 7, \\qquad x \\in \\{1, \\dots, 20\\}$$ ¿Cuál es el conjunto **imagen** de $f$?",
     "options": [
-      "$\\{1, \\dots, 20\\}$",
-      "$\\{1, \\dots, 7\\}$",
-      "El número $20$",
-      "Conjunto unitario"
+      "$\\{1,\\dots,20\\}$",
+      "$\\varnothing$",
+      "$\\{6\\}$",
+      "$\\{7\\}$"
     ],
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "La regla siempre produce 7, así que la imagen tiene un único elemento.",
     "feedback_incorrect": [
-      "Ese es el dominio, las entradas; la salida es siempre la misma.",
-      "La regla no recorre del 1 al 7; da siempre 7.",
-      "El 20 es la última entrada, no la salida.",
+      "Ese es el dominio, las entradas del 1 al 20; la salida es siempre la misma.",
+      "La imagen no está vacía: la función sí produce un valor, el 7, en cada entrada.",
+      "La regla da 7, no 6; revisá el valor que aparece en la fórmula.",
       null
     ],
     "graph_fn": null,
@@ -945,25 +945,23 @@
   },
   {
     "id": "white_definition_CLSF_30",
-    "question": "Una función transforma el número 6 en 18. $$g(6) = 18$$ ¿Cuál de estas afirmaciones es **incorrecta**?",
+    "question": "Una función transforma el número 6 en 18: $$g(6) = 18$$ ¿Qué es el 6 respecto del 18?",
     "options": [
-      "$6$ es la imagen de $18$",
-      "$18$ es la imagen de $6$",
-      "$6$ es una preimagen de $18$",
-      "$g(6)$ da $18$"
+      "Una preimagen de 18",
+      "La imagen de 18",
+      "El codominio de $g$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "El 6 es una preimagen de 18, no su imagen; la imagen de 6 es 18.",
+    "feedback_correct": "El 6 es lo que entra para obtener 18, así que es una preimagen de 18.",
     "feedback_incorrect": [
       null,
-      "Eso es correcto: $g(6) = 18$, así que 18 es la imagen de 6.",
-      "Eso es correcto: el 6 entra y sale 18, así que 6 es preimagen de 18.",
-      "Eso es correcto: es la lectura directa de $g(6) = 18$."
+      "Es al revés: 18 es la imagen de 6, no 6 la imagen de 18.",
+      "El codominio es el conjunto declarado de salidas posibles, no un número puntual como el 6."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Si una función transforma una entrada en una salida, la salida es la **imagen** de la entrada y la entrada es una **preimagen** de la salida.\n\nAcá $g(6) = 18$, así que 18 es la imagen de 6 y el 6 es una preimagen de 18.\n\nDecir que 6 es la imagen de 18 invierte los roles, por eso es la afirmación incorrecta.\n\nEl 6 es lo que entra y el 18 es lo que sale: llamar imagen a la entrada intercambia justo lo que la pregunta pone a prueba.",
+    "explanation": "Si una función transforma una entrada en una salida, la salida es la **imagen** de la entrada y la entrada es una **preimagen** de la salida.\n\nAcá $g(6) = 18$: el 6 entra y el 18 sale.\n\nPor eso el 6 es una preimagen de 18, y el 18 es la imagen de 6, no al revés.\n\nInvertir esos dos roles al nombrarlos es lo que hace fallar esta pareja de conceptos.",
     "reviewed": false,
     "tags": [
       "preimagen-identificacion"

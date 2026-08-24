@@ -170,7 +170,9 @@ Array paralelo a `options`, `null` en el índice correcto, mismo largo que `opti
 
 **Identificar sobre el caso, no recitar la definición.** Todo ejercicio de identificación debe obligar a mirar los datos concretos (el conjunto, la fórmula, la restricción) para responder; si se contesta de memoria con la definición, movelo a LEXI.
 
-**Dominio natural.** Cubrir las restricciones típicas: denominador ≠ 0, radicando ≥ 0, combinación de ambas, y la restricción de contexto (no comprar kilos negativos, al menos una persona). Variá para no repetir siempre la división.
+**Dominio natural: una sola restricción por ítem, nunca combinada.** *(Corregido tras la auditoría de P1, ver más abajo: "combinación de ambas" fue el origen del ítem con peor P1 de todo el topic.)* Cubrir las restricciones típicas por separado: denominador ≠ 0, radicando ≥ 0 (par), raíz de índice impar sin restricción, y la restricción de contexto. **Nunca combinar dos reglas algebraicas en el mismo ítem** (ej. $1/\sqrt{x}$, que exige radicando ≥ 0 Y denominador ≠ 0 a la vez): CLSF es reconocimiento, un cálculo compuesto pertenece a otra instancia, no a este topic. Si el radicando resta la variable (`√(5-x)`), preferir la forma que no exige invertir el signo de una desigualdad (`√(x-5)`) salvo que ese paso de álgebra sea deliberadamente el contenido del ítem. **Cuando la restricción es de contexto** (no comprar kilos negativos, una velocidad no puede ser negativa), decirlo explícito en el enunciado ("$k$ representa un peso, no puede ser negativo") en vez de dejar que el alumno infiera que "dominio natural" cambió de significado: en la misma sub-familia, unos ítems lo usan en sentido puramente algebraico y otros en sentido físico, y sin la aclaración es indistinguible cuál se está pidiendo. Variá para no repetir siempre la división.
+
+**Índice abstracto: nombrar la correspondencia.** *(Nuevo tras la auditoría de P1.)* Cuando el dominio o codominio es un conjunto de índices `{1,...,n}` que representa entidades con nombre propio en el contexto (vendedores, preguntas, salas), la prosa dice explícito que están numeradas ("numera sus 6 salas", "numeradas del 1 al 3"), nunca lo deja solo en la notación formal `V:{1,...,12}→{0,...,500}`. Sin ese puente, el alumno tiene que inferir la correspondencia índice↔entidad antes de poder razonar sobre el dominio, y eso mide lectura, no el concepto.
 
 **Sin nombres propios.** Usar roles genéricos (un socio, un alumno, un producto), nunca nombres de persona. El ejercicio del DNI/persona debe decir "una persona", no un nombre.
 
@@ -214,3 +216,44 @@ De ahí sale la **regla 61** de `authoring-context.md`: el sujeto de la primera 
 Pasada de voz narrativa sobre las aperturas que tenían una propiedad de sujeto (`"El denominador de esta función…"`, `"El interior de este logaritmo…"`, `"El coeficiente principal es…"`). Son 56 en toda la unidad, heredadas de la misma ronda 6 que produjo el problema en `limites`.
 
 **Los preámbulos `"Dada la función:"` / `"Sea la función:"` no se tocaron**: tienen el objeto de sujeto y la sección *Sin preámbulos colgantes* los admite explícitamente.
+
+---
+
+## Auditoría de datos de producción, CLSF (P1, ago-2026)
+
+Informe completo: https://claude.ai/code/artifact/c4a538cf-2993-43f1-aefe-288eba3e5913.
+Métrica **P1** = % de respuestas resueltas al primer intento (`quality_score = 5`), no
+`is_correct` (que es "≤3 intentos" y no discrimina). **Banda de calibración: 55-77%,
+centro 61%**, sacada de cruzar 183 votos de la encuesta con el P1 medido.
+
+`white/definition/CLSF` es la unidad más transitada de toda la plataforma (443
+respuestas, 148 usuarios) y medía **52% de P1**. Se leyeron los 30 ítems con su
+contenido real cruzados contra su P1 individual (n chico en casi todos, 2 a 12; tratar
+como pista de diagnóstico, no como veredicto estadístico).
+
+**Ronda 1, 8 ítems corregidos:** `#12, #14, #15, #17, #19, #21, #22, #30`. Los
+hallazgos sistémicos quedaron en las reglas de arriba ("una sola restricción" y
+"nombrar el índice"). Detalle puntual:
+
+| # | P1 antes (n) | Qué se hizo |
+|---|---|---|
+| 14 | 0% (3, 67% agotó) | Combinaba raíz+denominador; reemplazado por raíz de índice impar (regla nueva) |
+| 21 | 0% (4) | Único ítem con dominio infinito (ℤ) de toda la sub-familia; reemplazado por dominio finito enumerable |
+| 15 | 38% (8, 38% agotó) | "Dominio natural" contextual sin avisar; la restricción física ahora es explícita en el enunciado |
+| 19 | 29% (7, 29% agotó) | Mismo problema que #15, mismo criterio |
+| 17 | 33% (9) | Exigía invertir el signo de una desigualdad (álgebra, no CLSF); radicando reescrito para despeje directo |
+| 12 | 29% (7) | Índice `{1,2,3}` sin nombrar como "preguntas numeradas"; agregado a la prosa |
+| 22 | 33% (6, reporte de usuario) | La correcta decía "Conjunto unitario" (jerga no establecida); cambiada a `$\{7\}$`, igual que la explicación ya decía |
+| 30 | 17% (6) | Formato negativo con 3 permutaciones casi idénticas; reescrito en positivo con una sola distractora real (dirección invertida) |
+
+**Explícitamente fuera de esta ronda**, evidencia más floja o sin diagnóstico firme
+todavía, quedan para una ronda 2:
+
+- `#4` (carta/plato, 20%, n=5): aislado dentro de `unicidad-rota-disfrazada`, que en el
+  resto anda bien (67-75%); sin hipótesis de qué lo distingue de `#1-3`.
+- `#7`, `#8` (`trampa-inyectividad`, 40% cada uno, n=5): moderadamente bajos, sin
+  patrón claro frente a `#5,6,9` que sí están en banda.
+- `#11` (vendedores, 33%, n=6): mismo hallazgo del índice sin nombrar que `#12`; se
+  puede resolver con la misma regla ya escrita arriba cuando llegue la ronda 2.
+- `#24`, `#26`, `#27`, `#28`: bajo banda (38%, 20%, 50%, 50%) con n=5-8, sin
+  diagnóstico propio todavía.
