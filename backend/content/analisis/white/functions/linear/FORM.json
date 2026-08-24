@@ -302,29 +302,90 @@
   },
   {
     "id": "white_linear_FORM_12",
-    "question": "Un taxi cobra \\$600 al subir y \\$250 por cada kilómetro recorrido.\n\n¿Cuál es la ecuación del costo total $C$ según los kilómetros $k$?",
+    "question": "Un taxi cobra un monto fijo al subir y una tarifa por cada kilómetro recorrido.\n\nLa tabla registra lo que pagaron distintos pasajeros según los kilómetros del viaje.\n\n¿Cuánto paga un pasajero que recorre $k$ kilómetros?",
     "options": [
       "$C(k) = 250 + 600k$",
       "$C(k) = 600 + 250k$",
-      "$C(k) = 600 - 250k$",
-      "$C(k) = 250k$"
+      "$C(k) = 850k$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "La bajada de \\$600 es el término fijo ($b$) y los \\$250/km son la pendiente: $C(k) = 600 + 250k$.",
+    "feedback_correct": "En $k=1$ las tres coinciden en \\$850, pero en $k=4$ solo esta da \\$1600, como muestra la tabla.",
     "feedback_incorrect": [
-      "Los parámetros están intercambiados: el \\$600 se paga al subir, una sola vez; el que se repite por km es el \\$250.",
+      "Los parámetros están invertidos: revisá cuál monto se paga una sola vez y cuál se repite por kilómetro.",
       null,
-      "El signo está al revés: cada kilómetro suma costo, no lo descuenta.",
-      "A esa fórmula le falta la bajada de bandera: el viaje cuesta algo aunque mida cero kilómetros."
+      "Esa fórmula cobra todo por kilómetro, sin bajada de bandera aparte; compará con otra fila de la tabla."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El costo del viaje combina el fijo con la tarifa por kilómetro: $b = 600$ es la bajada de bandera y $m = 250$ es la tarifa que acompaña a cada kilómetro.\n\nLa verificación rápida es evaluar en cero:\n$$C(0) = 600$$\nEso es lo que cuesta subir al taxi sin viajar.\n\nSi intercambiás la tarifa por km con la bajada de bandera, obtenés valores completamente erróneos.",
+    "explanation": "El costo combina una bajada de bandera fija con una tarifa por kilómetro: la fórmula tiene la forma $C(k) = b + mk$.\n\nEn $k=1$ las tres opciones coinciden en \\$850, así que esa fila sola no alcanza para decidir.\n\nEn $k=4$ esta fórmula da \\$1600, que es justo lo que muestra la tabla; las otras dos dan valores distintos ahí.\n\nInvertir los parámetros o cobrar todo por kilómetro coincide con la tabla en una sola fila, pero se distingue apenas avanza.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
-    ]
+    ],
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Kilómetros"
+        },
+        {
+          "icon": "🚕",
+          "label": "Pagó (pesos)"
+        }
+      ],
+      "rows": [
+        [
+          "$4$",
+          "$1600$"
+        ],
+        [
+          "$1$",
+          "$850$"
+        ],
+        [
+          "$9$",
+          "$2850$"
+        ],
+        [
+          "$k$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$C(k) = 250 + 600k$",
+            "cells": [
+              "$2650$",
+              "$850$",
+              "$5650$",
+              "$C(k) = 250 + 600k$"
+            ]
+          },
+          {
+            "header": "$C(k) = 600 + 250k$",
+            "cells": [
+              "$1600$",
+              "$850$",
+              "$2850$",
+              "$C(k) = 600 + 250k$"
+            ]
+          },
+          {
+            "header": "$C(k) = 850k$",
+            "cells": [
+              "$3400$",
+              "$850$",
+              "$7650$",
+              "$C(k) = 850k$"
+            ]
+          }
+        ]
+      }
+    }
   },
   {
     "id": "white_linear_FORM_13",
@@ -380,29 +441,90 @@
   },
   {
     "id": "white_linear_FORM_15",
-    "question": "El alquiler de una bicicleta cuesta \\$300 más \\$150 por hora de uso.\n\n¿Cuál es la ecuación del costo $C$ según las horas $h$?",
+    "question": "Una bicicletería cobra un monto fijo por el alquiler y suma un extra por cada hora de uso.\n\nLa tabla registra lo que pagó cada cliente según cuántas horas la usó.\n\n¿Cuánto paga un cliente que la usa $h$ horas?",
     "options": [
       "$C(h) = 300 + 150h$",
       "$C(h) = 150 + 300h$",
-      "$C(h) = 300h$",
-      "$C(h) = 300 - 150h$"
+      "$C(h) = 450h$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Costo fijo \\$300 más \\$150 por hora: $C(h) = 300 + 150h$.",
+    "feedback_correct": "En $h=1$ las tres coinciden en \\$450, pero en $h=4$ solo esta da \\$900, como muestra la tabla.",
     "feedback_incorrect": [
       null,
-      "Los montos están cruzados: el fijo es \\$300 y la hora \\$150.",
-      "A esa fórmula le falta el cargo fijo: usar la bici cero horas igual cuesta \\$300.",
-      "El signo está al revés: cada hora de uso suma costo."
+      "Los parámetros están invertidos: revisá cuál monto se paga una sola vez y cuál se repite por hora.",
+      "Esa fórmula cobra todo por hora, sin monto fijo aparte; compará con otra fila de la tabla."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El costo combina el cargo fijo con la tarifa horaria: $b = 300$ se paga al alquilar, sin importar el tiempo, y $m = 150$ es el cargo de cada hora de uso.\n\nAl evaluar en $h = 0$ queda aislado el término fijo:\n$$C(0) = 300$$\nY cada hora agrega \\$150 exactos.\n\nPara no cruzar los montos, buscá en el enunciado la palabra que indica una repetición, como cuánto se cobra por cada hora o unidad extra, y ese monto es siempre la pendiente.",
+    "explanation": "El costo combina un monto fijo con una tarifa por hora: la fórmula tiene la forma $C(h) = b + mh$.\n\nEn $h=1$ las tres opciones coinciden en \\$450, así que esa fila sola no alcanza para decidir.\n\nEn $h=4$ esta fórmula da \\$900, que es justo lo que muestra la tabla; las otras dos dan valores distintos ahí.\n\nInvertir los parámetros o cobrar todo por hora coincide con la tabla en una sola fila, pero se distingue apenas avanza.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
-    ]
+    ],
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Horas"
+        },
+        {
+          "icon": "🚲",
+          "label": "Pagó (pesos)"
+        }
+      ],
+      "rows": [
+        [
+          "$1$",
+          "$450$"
+        ],
+        [
+          "$4$",
+          "$900$"
+        ],
+        [
+          "$9$",
+          "$1650$"
+        ],
+        [
+          "$h$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$C(h) = 300 + 150h$",
+            "cells": [
+              "$450$",
+              "$900$",
+              "$1650$",
+              "$C(h) = 300 + 150h$"
+            ]
+          },
+          {
+            "header": "$C(h) = 150 + 300h$",
+            "cells": [
+              "$450$",
+              "$1350$",
+              "$2850$",
+              "$C(h) = 150 + 300h$"
+            ]
+          },
+          {
+            "header": "$C(h) = 450h$",
+            "cells": [
+              "$450$",
+              "$1800$",
+              "$4050$",
+              "$C(h) = 450h$"
+            ]
+          }
+        ]
+      }
+    }
   },
   {
     "id": "white_linear_FORM_16",
@@ -458,29 +580,90 @@
   },
   {
     "id": "white_linear_FORM_18",
-    "question": "Un abono de internet tiene un costo fijo de \\$1800 más \\$90 por cada GB adicional consumido.\n\n¿Cuál es la ecuación del costo mensual $P$ según los GB adicionales $g$?",
+    "question": "Un abono de internet tiene un costo fijo mensual más un cargo por cada GB adicional consumido.\n\nLa tabla registra lo que pagaron distintos usuarios según los GB extra que consumieron.\n\n¿Cuánto paga un usuario que consume $g$ GB adicionales?",
     "options": [
-      "$P(g) = 1800 + 90g$",
       "$P(g) = 90 + 1800g$",
-      "$P(g) = 1800 - 90g$",
-      "$P(g) = 90g$"
+      "$P(g) = 1890g$",
+      "$P(g) = 1800 + 90g$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Costo fijo \\$1800 más \\$90 por GB adicional: $P(g) = 1800 + 90g$.",
+    "feedback_correct": "En $g=1$ las tres coinciden en \\$1890, pero en $g=4$ solo esta da \\$2160, como muestra la tabla.",
     "feedback_incorrect": [
-      null,
-      "Los montos están cruzados: el abono es \\$1800 y cada GB extra \\$90.",
-      "El signo está al revés: consumir GB suma al costo.",
-      "A esa fórmula le falta el abono fijo: sin GB adicionales igual se pagan \\$1800."
+      "Los parámetros están invertidos: revisá cuál monto se paga una sola vez y cuál se repite por GB.",
+      "Esa fórmula cobra todo por GB, sin abono fijo aparte; compará con otra fila de la tabla.",
+      null
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El costo mensual combina el abono fijo con el precio por GB adicional: $b = 1800$ se paga siempre y $m = 90$ es el cargo de cada GB extra.\n\nEvaluando en $g = 0$ se aísla el costo fijo:\n$$P(0) = 1800$$\nEsa es la factura de un mes sin excedentes.\n\nEl monto que se repite por cada unidad consumida en el enunciado es la pendiente; el otro es el término fijo. Esa lectura evita el intercambio clásico de parámetros.",
+    "explanation": "El costo combina un abono fijo con un cargo por GB adicional: la fórmula tiene la forma $P(g) = b + mg$.\n\nEn $g=1$ las tres opciones coinciden en \\$1890, así que esa fila sola no alcanza para decidir.\n\nEn $g=4$ esta fórmula da \\$2160, que es justo lo que muestra la tabla; las otras dos dan valores distintos ahí.\n\nInvertir los parámetros o cobrar todo por GB coincide con la tabla en una sola fila, pero se distingue apenas avanza.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
-    ]
+    ],
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "GB adicionales"
+        },
+        {
+          "icon": "📶",
+          "label": "Pagó (pesos)"
+        }
+      ],
+      "rows": [
+        [
+          "$4$",
+          "$2160$"
+        ],
+        [
+          "$9$",
+          "$2610$"
+        ],
+        [
+          "$1$",
+          "$1890$"
+        ],
+        [
+          "$g$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$P(g) = 90 + 1800g$",
+            "cells": [
+              "$7290$",
+              "$16290$",
+              "$1890$",
+              "$P(g) = 90 + 1800g$"
+            ]
+          },
+          {
+            "header": "$P(g) = 1890g$",
+            "cells": [
+              "$7560$",
+              "$17010$",
+              "$1890$",
+              "$P(g) = 1890g$"
+            ]
+          },
+          {
+            "header": "$P(g) = 1800 + 90g$",
+            "cells": [
+              "$2160$",
+              "$2610$",
+              "$1890$",
+              "$P(g) = 1800 + 90g$"
+            ]
+          }
+        ]
+      }
+    }
   },
   {
     "id": "white_linear_FORM_19",
@@ -770,28 +953,89 @@
   },
   {
     "id": "white_linear_FORM_30",
-    "question": "Un tanque empieza con 100 litros y pierde 5 litros por hora.\n\n¿Cuál de estas ecuaciones describe correctamente el volumen $V$ según las horas $h$?",
+    "question": "Un tanque de riego arranca con cierto volumen y pierde agua a un ritmo constante por hora.\n\nLa tabla registra cuánta agua quedaba según las horas transcurridas.\n\n¿Cuánta agua queda a las $h$ horas?",
     "options": [
-      "$V(h) = 100h - 5$",
-      "$V(h) = 5h - 100$",
       "$V(h) = 100 - 5h$",
-      "$V(h) = 5 + 100h$"
+      "$V(h) = -5 + 100h$",
+      "$V(h) = 95h$"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Volumen inicial 100 L, pierde 5 L/h: $V(h) = 100 - 5h$.",
+    "feedback_correct": "En $h=1$ las tres coinciden en $95$ litros, pero en $h=4$ solo esta da $80$, como muestra la tabla.",
     "feedback_incorrect": [
-      "Los parámetros están cruzados y el signo perdido: el 100 es el punto de partida, no una tasa por hora.",
-      "El orden de la resta importa: así el tanque arranca en $-100$ litros.",
       null,
-      "Los roles están invertidos: el volumen parte de 100 y baja de a 5."
+      "Los parámetros están invertidos: revisá cuál valor es el volumen inicial y cuál la pérdida por hora.",
+      "Esa fórmula multiplica todo por hora sin volumen inicial aparte; compará con otra fila de la tabla."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El volumen parte de 100 litros y pierde 5 por hora: $b = 100$ es el contenido inicial y $m = -5$ es la pérdida horaria, restando.\n\nPara comprobarlo, $V(0) = 100$ y $V(1) = 95$: bajó exactamente 5 litros.\n\nAntes de elegir, corré el test de sensatez física: la fórmula debe arrancar en el valor inicial del enunciado y moverse en la dirección correcta.\n\nUn tanque que empieza en $-5$ litros o que gana volumen delata parámetros cruzados.",
+    "explanation": "El volumen combina un valor inicial con una pérdida constante por hora: la fórmula tiene la forma $V(h) = b + mh$, con $m$ negativo.\n\nEn $h=1$ las tres opciones dan $95$ litros, así que esa fila sola no alcanza para decidir.\n\nEn $h=4$ esta fórmula da $80$ litros, que es justo lo que muestra la tabla; las otras dos dan valores distintos ahí.\n\nInvertir los parámetros o multiplicar todo por hora coincide con la tabla en una sola fila, pero se distingue apenas avanza.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
-    ]
+    ],
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Horas"
+        },
+        {
+          "icon": "💧",
+          "label": "Volumen (litros)"
+        }
+      ],
+      "rows": [
+        [
+          "$4$",
+          "$80$"
+        ],
+        [
+          "$1$",
+          "$95$"
+        ],
+        [
+          "$9$",
+          "$55$"
+        ],
+        [
+          "$h$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$V(h) = 100 - 5h$",
+            "cells": [
+              "$80$",
+              "$95$",
+              "$55$",
+              "$V(h) = 100 - 5h$"
+            ]
+          },
+          {
+            "header": "$V(h) = -5 + 100h$",
+            "cells": [
+              "$395$",
+              "$95$",
+              "$895$",
+              "$V(h) = -5 + 100h$"
+            ]
+          },
+          {
+            "header": "$V(h) = 95h$",
+            "cells": [
+              "$380$",
+              "$95$",
+              "$855$",
+              "$V(h) = 95h$"
+            ]
+          }
+        ]
+      }
+    }
   }
 ]
