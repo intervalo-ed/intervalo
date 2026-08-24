@@ -343,10 +343,11 @@ class SessionFeedbackRequest(BaseModel):
     action: str  # "impression" | "answer" | "report"
     session_id: str
     exercise_external_id: str | None = None  # impression / report
-    question_type: str | None = None  # "A" | "B" (impression) — "C" implícito en report
+    question_type: str | None = None  # "A" | "B" | "D" (impression) — "C" implícito en report
     feedback_id: int | None = None  # answer
     value: str | None = None
     free_text: str | None = None
+    reason: str | None = None  # answer, canal D: chip de razón (opcional)
 
 
 class SessionFeedbackResponse(BaseModel):
@@ -1752,12 +1753,14 @@ def submit_session_feedback(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Micro-encuesta post-ejercicio (dificultad/explicación) y reporte de
-    problemas de contenido. Flujo en dos pasos para no perder la impression si
+    """Micro-encuesta post-ejercicio (dificultad/explicación/interés) y reporte
+    de problemas de contenido. Flujo en dos pasos para no perder la impression si
     el usuario cierra/navega antes de responder (ver feedback_survey.py):
     "impression" crea la fila (answered_at=None), "answer" la completa. "report"
     (canal C, siempre disponible) crea la fila ya resuelta en un solo paso."""
     from datetime import datetime
+
+    from feedback_survey import SURVEY_TYPES, validate_reason
     from models import Exercise, ExerciseFeedback, Session as SessionModel
 
     try:
@@ -1774,7 +1777,7 @@ def submit_session_feedback(
         raise HTTPException(status_code=404, detail="Session not found")
 
     if body.action == "impression":
-        if not body.exercise_external_id or body.question_type not in ("A", "B"):
+        if not body.exercise_external_id or body.question_type not in SURVEY_TYPES:
             raise HTTPException(status_code=422, detail="Missing exercise_external_id/question_type")
         exists = (
             db.query(Exercise.id)
@@ -1806,6 +1809,7 @@ def submit_session_feedback(
             raise HTTPException(status_code=404, detail="Feedback impression not found")
         entry.value = body.value
         entry.free_text = body.free_text
+        entry.reason = validate_reason(entry.question_type, body.value, body.reason)
         entry.answered_at = datetime.utcnow()
         current_user.total_xp = (current_user.total_xp or 0) + FEEDBACK_XP
         db.commit()

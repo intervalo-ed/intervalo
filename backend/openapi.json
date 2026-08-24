@@ -1529,7 +1529,7 @@
     "/leaderboard/summary": {
       "get": {
         "summary": "Get Leaderboard Summary",
-        "description": "N\u00fameros de la cabecera del leaderboard: estudiantes registrados,\nejercicios completados y universidades presentes.\n\n`universities` siempre lista el set completo (para poblar el filtro), pero\n`total_students`/`total_exercises` respetan `career`/`university` si se\npasan, igual que el scope de `/leaderboard`.\n\nEl scope ac\u00e1 se cuenta sobre `enrollments` (no sobre `users`): un enrollment\ncon universidad cuenta como estudiante registrado aunque el usuario ya no\nexista. Se mantiene esa sem\u00e1ntica, solo que contada en SQL.",
+        "description": "N\u00fameros de la cabecera del leaderboard: estudiantes registrados,\nejercicios completados y universidades presentes.\n\n`universities` siempre lista el set completo (para poblar el filtro), pero\n`total_students`/`total_exercises` respetan `career`/`university` si se\npasan, igual que el scope de `/leaderboard`.\n\n`total_students` cuenta solo usuarios con XP positivo: el ranking ya no\nmuestra a los que nunca arrancaron, y el contador tiene que hablar de la\nmisma gente que la lista de abajo.",
         "operationId": "get_leaderboard_summary_leaderboard_summary_get",
         "parameters": [
           {
@@ -1601,7 +1601,7 @@
     "/public/university-leaderboard": {
       "get": {
         "summary": "Get Public University Leaderboard",
-        "description": "Snapshot agregado sin auth de las universidades top (por XP, mismo\norden que /leaderboard/universities), para la landing (marketing-home.tsx)\n\u2014 un visitante sin cuenta no tiene sesi\u00f3n para pegarle a ese endpoint. Sin\nPII: solo universidad + conteos, los mismos n\u00fameros que ya ve cualquier\nusuario logueado en el leaderboard.\n\nEs el \u00fanico endpoint del leaderboard sin auth, as\u00ed que es el que m\u00e1s importa\nque no traiga `users` + `enrollments` enteras a memoria en cada visita a la\nlanding: un GROUP BY devuelve una fila por universidad. Los estudiantes se\ncuentan por enrollment (aunque el usuario ya no exista, igual que antes) y su\nXP con LEFT JOIN, que aporta 0 en ese caso.",
+        "description": "Snapshot agregado sin auth de las universidades top (por XP, mismo\norden que /leaderboard/universities), para la landing (marketing-home.tsx)\n\u2014 un visitante sin cuenta no tiene sesi\u00f3n para pegarle a ese endpoint. Sin\nPII: solo universidad + conteos, los mismos n\u00fameros que ya ve cualquier\nusuario logueado en el leaderboard.\n\nEs el \u00fanico endpoint del leaderboard sin auth, as\u00ed que es el que m\u00e1s importa\nque no traiga `users` + `enrollments` enteras a memoria en cada visita a la\nlanding: un GROUP BY devuelve una fila por universidad. Solo cuentan los\nusuarios con XP positivo, igual que en el leaderboard de la app \u2014 los dos\nn\u00fameros tienen que hablar de la misma gente.",
         "operationId": "get_public_university_leaderboard_public_university_leaderboard_get",
         "responses": {
           "200": {
@@ -1941,7 +1941,7 @@
     "/session/feedback": {
       "post": {
         "summary": "Submit Session Feedback",
-        "description": "Micro-encuesta post-ejercicio (dificultad/explicaci\u00f3n) y reporte de\nproblemas de contenido. Flujo en dos pasos para no perder la impression si\nel usuario cierra/navega antes de responder (ver feedback_survey.py):\n\"impression\" crea la fila (answered_at=None), \"answer\" la completa. \"report\"\n(canal C, siempre disponible) crea la fila ya resuelta en un solo paso.",
+        "description": "Micro-encuesta post-ejercicio (dificultad/explicaci\u00f3n/inter\u00e9s) y reporte\nde problemas de contenido. Flujo en dos pasos para no perder la impression si\nel usuario cierra/navega antes de responder (ver feedback_survey.py):\n\"impression\" crea la fila (answered_at=None), \"answer\" la completa. \"report\"\n(canal C, siempre disponible) crea la fila ya resuelta en un solo paso.",
         "operationId": "submit_session_feedback_session_feedback_post",
         "parameters": [
           {
@@ -2261,13 +2261,18 @@
           "streak_tier_sent": {
             "type": "integer",
             "title": "Streak Tier Sent"
+          },
+          "report_thanks_sent": {
+            "type": "integer",
+            "title": "Report Thanks Sent"
           }
         },
         "type": "object",
         "required": [
           "bounce_sent",
           "winback_sent",
-          "streak_tier_sent"
+          "streak_tier_sent",
+          "report_thanks_sent"
         ],
         "title": "EmailRunResponse"
       },
@@ -3111,6 +3116,17 @@
               }
             ],
             "title": "Free Text"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
           }
         },
         "type": "object",

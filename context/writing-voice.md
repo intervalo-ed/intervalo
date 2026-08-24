@@ -19,6 +19,9 @@ Regla no negociable: **nunca mencionar XP ni recompensa** al agradecer una respu
 
 - Encuestas de dificultad/utilidad (A/B): *"¡Gracias! Esto ayuda a elegir mejor qué mostrarte."*
 - Reportes de contenido (C): *"Gracias por avisar. Lo revisamos."*
+- Encuesta de interés (D): sin copy propio. Reusa los mismos mensajes de A — el positivo tal cual, y en el negativo el subconjunto que no habla de dificultad ("Esto nos ayuda a mejorar el ejercicio"). Sumar variantes nuevas por canal multiplica el mantenimiento sin que el estudiante note la diferencia.
+
+> Advertencia: esta regla **hoy no se cumple en el código**. `main.py` otorga `FEEDBACK_XP = 1` por responder y el banner muestra el `+1` con el icono de XP, en los cuatro canales. Falta resolver si se saca el XP o se corrige esta regla.
 
 ## Notificaciones push (`backend/notification_copy.py`)
 

@@ -1,5 +1,6 @@
 "use client"
 
+import posthog from "posthog-js"
 import MathGraph from "@/components/math-graph"
 import MathText from "@/components/math-text"
 import { XpDots } from "@/components/xp-dots"
@@ -41,7 +42,7 @@ import { useAnswer } from "./UseAnswer"
 import { useSessionFeedback } from "./UseSessionFeedback"
 import { useSessionPayload } from "./UseSessionPayload"
 import { ReportPane } from "./report-pane"
-import { SurveyPane } from "./survey-pane"
+import { isSurveyType, SurveyPane, type SurveyType } from "./survey-pane"
 import type { SessionExercise } from "@/lib/api/types"
 
 // Persistencia del feedback de test mode en localStorage: sobrevive recargas
@@ -168,10 +169,14 @@ function downloadFeedbackDocument({
 const THANKS_TITLES = ["¡Gracias!", "¡Recibido!", "¡Anotado!", "¡Listo!"]
 
 const SURVEY_THANKS_A_POS = ["Esto nos ayuda a elegir mejor qué mostrarte."]
-const SURVEY_THANKS_A_NEG = [
-  "Nos ayuda a calibrar la dificultad de lo que te mostramos.",
+// D reusa este subconjunto: las dos líneas que no hablan de dificultad.
+const SURVEY_THANKS_GENERIC_NEG = [
   "Esto nos ayuda a mejorar el ejercicio.",
   "Tomamos nota para ajustar lo que te mostramos.",
+]
+const SURVEY_THANKS_A_NEG = [
+  "Nos ayuda a calibrar la dificultad de lo que te mostramos.",
+  ...SURVEY_THANKS_GENERIC_NEG,
 ]
 const SURVEY_THANKS_B_POS = [
   "Sabemos qué explicaciones funcionan gracias a vos.",
@@ -195,7 +200,8 @@ function pickFrom<T>(pool: T[]): T {
   return pool[Math.floor(Math.random() * pool.length)]
 }
 
-function surveyThanksPool(type: "A" | "B", value: string | null): string[] {
+function surveyThanksPool(type: SurveyType, value: string | null): string[] {
+  if (type === "D") return value === "aburrido" ? SURVEY_THANKS_GENERIC_NEG : SURVEY_THANKS_A_POS
   const negative = type === "A" ? value === "muy_dificil" : value === "no_util"
   if (type === "A") return negative ? SURVEY_THANKS_A_NEG : SURVEY_THANKS_A_POS
   return negative ? SURVEY_THANKS_B_NEG : SURVEY_THANKS_B_POS
@@ -237,9 +243,12 @@ type ExState = {
   result: "correct" | "wrong" | null
   xp: number | null
   showWhy: boolean
-  // Micro-encuesta (canal A/B): slide propio, ver survey-pane.tsx.
+  // Micro-encuesta (canales A/B/D): slide propio, ver survey-pane.tsx.
   showSurvey: boolean
   surveyValue: string | null
+  // Canal D: chip de razón. Va al state y no a un ref porque tiene que
+  // re-renderizar el chip seleccionado.
+  surveyReason: string | null
   surveySubmitted: boolean
   surveyThanksTitle: string | null
   surveyThanksMsg: string | null
@@ -263,6 +272,7 @@ const DEFAULT_EX: ExState = {
   showWhy: false,
   showSurvey: false,
   surveyValue: null,
+  surveyReason: null,
   surveySubmitted: false,
   surveyThanksTitle: null,
   surveyThanksMsg: null,
@@ -287,7 +297,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
   // es async; se resuelve acá y se usa recién al enviar la respuesta.
   const surveyFiredRef = useRef<Set<number>>(new Set())
   const surveyImpressionRef = useRef<Record<number, Promise<number>>>({})
-  const surveyTypeRef = useRef<Record<number, "A" | "B">>({})
+  const surveyTypeRef = useRef<Record<number, SurveyType>>({})
   // El texto libre de la encuesta y del reporte vive en un ref (y en un state
   // local de cada pane): tenerlo en el state del runner hacía que cada tecla
   // re-renderizara todo el ejercicio — MathText/MathGraph incluidos. Se lee
@@ -557,6 +567,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
         showSurvey: false,
         surveySubmitted: false,
         surveyValue: null,
+        surveyReason: null,
       })
       return
     }
@@ -616,20 +627,30 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
       return
     }
 
-    // Canal A/B (encuesta): seleccionar + Continuar envía la respuesta y
+    // Canales A/B/D (encuesta): seleccionar + Continuar envía la respuesta y
     // muestra el banner; un segundo Continuar avanza al siguiente ejercicio.
     // Sin selección, Continuar la saltea (skip) y avanza directo.
     if (cur.showSurvey) {
       if (!cur.surveySubmitted) {
+        const surveyType = surveyTypeRef.current[idx] ?? "A"
         if (cur.surveyValue) {
           const value = cur.surveyValue
           const freeText = surveyFreeTextRef.current.trim() || undefined
-          const surveyType = surveyTypeRef.current[idx] ?? "A"
+          const reason = cur.surveyReason ?? undefined
           surveyImpressionRef.current[idx]?.then((feedback_id) => {
             feedback.mutate(
-              { action: "answer", session_id: sessionId, feedback_id, value, free_text: freeText },
+              { action: "answer", session_id: sessionId, feedback_id, value, free_text: freeText, reason },
               { onSuccess: (r) => patch({ surveyThanksXp: r.xp_earned || null }) },
             )
+          })
+          posthog.capture("survey_answered", {
+            channel: surveyType,
+            value,
+            reason: reason ?? null,
+            has_free_text: Boolean(freeText),
+            exercise_external_id: exercise.external_id || exercise.id,
+            session_id: sessionId,
+            position: idx,
           })
           sfx.correct()
           patch({
@@ -639,6 +660,20 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
           })
           return
         }
+        // send_instantly: si es el último, goToSummary navega en la línea
+        // siguiente y el evento encolado se pierde en la descarga de la página.
+        // El skip es el denominador de la tasa de respuesta, no se puede perder.
+        posthog.capture(
+          "survey_skipped",
+          {
+            channel: surveyType,
+            exercise_external_id: exercise.external_id || exercise.id,
+            session_id: sessionId,
+            position: idx,
+            is_last: isLast,
+          },
+          { send_instantly: true },
+        )
         sfx.continue()
         if (isLast) goToSummary()
         else navTo(idx + 1, 1)
@@ -656,14 +691,21 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
     }
 
     // ¿el ejercicio que estamos dejando es el marcado por el backend para
-    // llevar la micro-encuesta? "A" dispara siempre; "B" solo si el usuario
-    // realmente abrió "¿Por qué?" (si no la abrió, esta sesión queda sin
+    // llevar la micro-encuesta? "A" y "D" disparan siempre; "B" solo si el
+    // usuario realmente abrió "¿Por qué?" (si no la abrió, esta sesión queda sin
     // encuesta — no se loguea impression y la alternancia no se consume).
+    // isSurveyType además protege contra un backend que mande un canal que este
+    // frontend todavía no conoce: sin ese guard, SURVEY_QUESTIONS[type] queda
+    // undefined y rompe el runner en plena sesión.
     const survey = payload!.survey
-    const isMarked = !isTest && survey?.exercise_id === exercise.id && !surveyFiredRef.current.has(idx)
-    const shouldFireSurvey = isMarked && (survey!.type === "A" || (survey!.type === "B" && cur.showWhy))
+    const isMarked =
+      !isTest &&
+      survey?.exercise_id === exercise.id &&
+      !surveyFiredRef.current.has(idx) &&
+      isSurveyType(survey.type)
+    const shouldFireSurvey = isMarked && (survey!.type !== "B" || cur.showWhy)
     if (shouldFireSurvey && survey) {
-      const type: "A" | "B" = survey.type as "A" | "B"
+      const type = survey.type as SurveyType
       surveyFiredRef.current.add(idx)
       surveyTypeRef.current[idx] = type
       surveyImpressionRef.current[idx] = feedback
@@ -674,6 +716,13 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
           question_type: type,
         })
         .then((r) => r.feedback_id)
+      posthog.capture("survey_shown", {
+        channel: type,
+        exercise_external_id: exercise.external_id || exercise.id,
+        session_id: sessionId,
+        mode: payload!.mode,
+        position: idx,
+      })
       sfx.continue()
       setDir(1)
       scrollToTop()
@@ -990,9 +1039,11 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                 <SurveyPane
                   type={surveyTypeRef.current[idx] ?? "A"}
                   value={cur.surveyValue}
+                  reason={cur.surveyReason}
+                  onSelectReason={(r) => { sfx.select(); patch({ surveyReason: r }) }}
                   freeTextRef={surveyFreeTextRef}
                   submitted={cur.surveySubmitted}
-                  onSelect={(v) => { sfx.select(); patch({ surveyValue: v }) }}
+                  onSelect={(v) => { sfx.select(); patch({ surveyValue: v, surveyReason: null }) }}
                 />
               ) : cur.showWhy ? (
                 <div className="flex flex-col gap-3 leading-relaxed text-foreground">

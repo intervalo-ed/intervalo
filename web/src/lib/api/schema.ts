@@ -412,6 +412,30 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/internal/push/delivery": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Internal Push Delivery
+         * @description Worker-facing: qué devolvió el push service para cada envío del tick.
+         *
+         *     La fila de notification_sends se crea al elegir el copy, antes de intentar
+         *     mandar, así que sin este reporte un envío fallido queda indistinguible de uno
+         *     exitoso.
+         */
+        post: operations["internal_push_delivery_internal_push_delivery_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/internal/emails/run": {
         parameters: {
             query?: never;
@@ -574,9 +598,9 @@ export interface paths {
          *     `total_students`/`total_exercises` respetan `career`/`university` si se
          *     pasan, igual que el scope de `/leaderboard`.
          *
-         *     El scope acá se cuenta sobre `enrollments` (no sobre `users`): un enrollment
-         *     con universidad cuenta como estudiante registrado aunque el usuario ya no
-         *     exista. Se mantiene esa semántica, solo que contada en SQL.
+         *     `total_students` cuenta solo usuarios con XP positivo: el ranking ya no
+         *     muestra a los que nunca arrancaron, y el contador tiene que hablar de la
+         *     misma gente que la lista de abajo.
          */
         get: operations["get_leaderboard_summary_leaderboard_summary_get"];
         put?: never;
@@ -604,9 +628,9 @@ export interface paths {
          *
          *     Es el único endpoint del leaderboard sin auth, así que es el que más importa
          *     que no traiga `users` + `enrollments` enteras a memoria en cada visita a la
-         *     landing: un GROUP BY devuelve una fila por universidad. Los estudiantes se
-         *     cuentan por enrollment (aunque el usuario ya no exista, igual que antes) y su
-         *     XP con LEFT JOIN, que aporta 0 en ese caso.
+         *     landing: un GROUP BY devuelve una fila por universidad. Solo cuentan los
+         *     usuarios con XP positivo, igual que en el leaderboard de la app — los dos
+         *     números tienen que hablar de la misma gente.
          */
         get: operations["get_public_university_leaderboard_public_university_leaderboard_get"];
         put?: never;
@@ -741,6 +765,31 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/dev/test-feedback": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Save Test Feedback
+         * @description QA-only: vuelca a disco el feedback de una pasada de test mode, sobre-
+         *     escribiendo el mismo archivo en cada guardado (debounce del lado del
+         *     cliente). Existe porque localStorage por sí solo no alcanza: si el tab
+         *     pierde el sessionStorage de la sesión (se cierra, se refresca), la UI
+         *     muestra "sesión expirada" y no hay forma de volver a entrar al runner
+         *     para descargar el feedback ya tipeado.
+         */
+        post: operations["save_test_feedback_dev_test_feedback_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/session/feedback": {
         parameters: {
             query?: never;
@@ -752,8 +801,8 @@ export interface paths {
         put?: never;
         /**
          * Submit Session Feedback
-         * @description Micro-encuesta post-ejercicio (dificultad/explicación) y reporte de
-         *     problemas de contenido. Flujo en dos pasos para no perder la impression si
+         * @description Micro-encuesta post-ejercicio (dificultad/explicación/interés) y reporte
+         *     de problemas de contenido. Flujo en dos pasos para no perder la impression si
          *     el usuario cierra/navega antes de responder (ver feedback_survey.py):
          *     "impression" crea la fila (answered_at=None), "answer" la completa. "report"
          *     (canal C, siempre disponible) crea la fila ya resuelta en un solo paso.
@@ -852,6 +901,13 @@ export interface components {
             /** Iteration */
             iteration: number;
         };
+        /** DeliveryResult */
+        DeliveryResult: {
+            /** Notification Id */
+            notification_id: number;
+            /** Status */
+            status: string;
+        };
         /** DueNotification */
         DueNotification: {
             /** User Id */
@@ -873,6 +929,10 @@ export interface components {
             bounce_sent: number;
             /** Winback Sent */
             winback_sent: number;
+            /** Streak Tier Sent */
+            streak_tier_sent: number;
+            /** Report Thanks Sent */
+            report_thanks_sent: number;
         };
         /** EmojiStateResponse */
         EmojiStateResponse: {
@@ -1053,6 +1113,11 @@ export interface components {
             /** Total Xp */
             total_xp: number;
         };
+        /** PushDeliveryRequest */
+        PushDeliveryRequest: {
+            /** Results */
+            results: components["schemas"]["DeliveryResult"][];
+        };
         /** PushKeys */
         PushKeys: {
             /** P256Dh */
@@ -1139,6 +1204,8 @@ export interface components {
             value?: string | null;
             /** Free Text */
             free_text?: string | null;
+            /** Reason */
+            reason?: string | null;
         };
         /** SessionFeedbackResponse */
         SessionFeedbackResponse: {
@@ -1298,6 +1365,13 @@ export interface components {
         SweepAbandonedResponse: {
             /** Marked */
             marked: number;
+        };
+        /** TestFeedbackSaveRequest */
+        TestFeedbackSaveRequest: {
+            /** Session Id */
+            session_id: string;
+            /** Doc */
+            doc: string;
         };
         /** TestFilters */
         TestFilters: {
@@ -2183,6 +2257,41 @@ export interface operations {
             };
         };
     };
+    internal_push_delivery_internal_push_delivery_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "x-internal-secret"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PushDeliveryRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SimpleResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     internal_run_lifecycle_emails_internal_emails_run_post: {
         parameters: {
             query?: never;
@@ -2615,6 +2724,39 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": components["schemas"]["AnswerRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    save_test_feedback_dev_test_feedback_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TestFeedbackSaveRequest"];
             };
         };
         responses: {
