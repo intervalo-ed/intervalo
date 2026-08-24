@@ -34,10 +34,7 @@ header.top{position:sticky;top:0;z-index:5;background:rgba(19,19,36,.94);
   backdrop-filter:blur(8px);border-bottom:1px solid var(--border);margin-bottom:26px}
 .top .wrap{padding-top:14px;padding-bottom:12px;display:flex;flex-wrap:wrap;
   gap:12px;align-items:baseline;justify-content:space-between}
-/* El PNG del wordmark ya trae el fondo #131324 y sus bordes redondeados, que
-   es justo el fondo de esta página: por eso el recorte queda invisible y no
-   hace falta ningún tratamiento extra. */
-.brand img{display:block;height:26px;width:auto}
+.brand{font-weight:800;font-size:17px;letter-spacing:-.02em}
 .weeknav{display:flex;gap:6px;align-items:center;font-size:13px}
 .weeknav a,.weeknav .cur{padding:4px 10px;border-radius:999px;border:1px solid var(--border)}
 .weeknav .cur{background:var(--indigo);color:#fff;border-color:var(--indigo);font-weight:600}
@@ -341,8 +338,7 @@ def page(p: dict, *, token: str) -> str:
 
     out = [
         "<header class='top'><div class='wrap'>",
-        "<div class='brand'><img src='/email/logo.png' alt='intervalo' "
-        "width='163' height='61'></div>",
+        "<div class='brand'>intervalo</div>",
         f"<div class='weeknav'>{''.join(nav)}</div>",
         "</div></header><div class='wrap'>",
         f"<nav class='jump'>{jump}</nav>",
