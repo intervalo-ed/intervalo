@@ -378,7 +378,7 @@ def page(p: dict, *, token: str) -> str:
              "note": "" if s["pct_prev"] is None else f'{num(s["pct_prev"], "%")} del paso anterior'}
             for s in f["steps"]]
     out.append(_section(
-        1, "Embudo de la cohorte", ch.hbars(rows, colors=["var(--indigo)"] * 5) +
+        1, "Embudo de la cohorte", ch.hbars(rows, colors=["var(--indigo)"]) +
         '<p class="note"><b>Altas</b> son las cuentas que vio esta base. Las crea Clerk, y el '
         'escalón Clerk → backend (273 → 233 en la semana del 18/08) no es medible desde acá, así '
         'que el embudo arranca un paso más adelante.</p>'
@@ -387,10 +387,12 @@ def page(p: dict, *, token: str) -> str:
         'endpoint que el home llama en cada carga. Para las cohortes anteriores al 24/08 es una '
         '<b>cota inferior</b>: se reconstruyó de quien tiene sesiones o zona horaria guardada, y '
         'el resto no dejó rastro.</p>'
-        '<p class="note">Los dos últimos van del más ancho al más angosto —volver otro día '
-        'cualquiera contiene a volver justo al día siguiente— y se miden contra el <b>primer día '
-        'que estudió</b> cada uno, no contra su alta.  A diferencia del PDF, que cortaba las '
-        'sesiones al domingo, la cohorte se sigue <b>hasta hoy</b>.</p>',
+        '<p class="note"><b>Volvió otro día</b> es haber estudiado en dos días distintos, sin '
+        'pedir que sean consecutivos, y se cuenta contra el <b>primer día que estudió</b> cada uno '
+        'y no contra su alta. Antes había un paso más —volver justo al día siguiente— pero eso es '
+        'más estricto que lo que el producto promete: la promesa es la repetición espaciada, no la '
+        'racha diaria. A diferencia del PDF, que cortaba las sesiones al domingo, la cohorte se '
+        'sigue <b>hasta hoy</b>.</p>',
         anchor="embudo"))
 
     # 2 · Cohortes

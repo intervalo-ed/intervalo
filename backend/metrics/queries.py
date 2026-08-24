@@ -201,8 +201,11 @@ def funnel(data: dict, week: date) -> dict:
     la autenticación, y llegar a la app y no tocar «empezar». Para las cohortes
     anteriores al 24/08 es una cota inferior (ver la migración 0038).
 
-    Los dos últimos pasos miden volver, y van del más ancho al más angosto:
-    volver otro día cualquiera contiene a volver justo al día siguiente.
+    El último paso es volver algún otro día. Antes había uno más —volver justo
+    al día siguiente— pero pedirle a alguien que estudie exactamente mañana es
+    más estricto de lo que el producto promete: la promesa es la repetición
+    espaciada, no la racha diaria. Como escalón final del embudo hacía que la
+    cohorte pareciera peor por no cumplir algo que nunca se le pidió.
 
     Ojo al comparar con el PDF semanal: ahí las sesiones se cortaban al domingo
     de la semana; acá la cohorte se sigue hasta hoy, así que los escalones de
@@ -220,12 +223,11 @@ def funnel(data: dict, week: date) -> dict:
             if s["finished_at"] is not None:
                 dias[s["user_id"]].add(local_date(s["finished_at"]))
 
-    # "Volvió" se mide contra el PRIMER día que estudió, no contra el alta:
-    # alguien que se registra el lunes y recién arranca el miércoles vuelve el
-    # jueves, y ese jueves es su D+1 (mismo criterio que la curva de retención).
+    # "Volvió" es haber estudiado en dos días distintos, sin pedir que sean
+    # consecutivos: se cuenta contra el PRIMER día que estudió y no contra el
+    # alta, así que quien se registra el lunes y arranca el miércoles vuelve
+    # cuando estudia de nuevo, cualquiera sea el día.
     otro_dia = sum(1 for d in dias.values() if len(d) >= 2)
-    dia_siguiente = sum(1 for d in dias.values()
-                        if min(d) + timedelta(days=1) in d)
 
     steps = [
         ("Altas", len(cohort)),
@@ -234,7 +236,6 @@ def funnel(data: dict, week: date) -> dict:
         ("Arrancó una sesión", len(opened)),
         ("Terminó una sesión", sum(1 for d in dias.values() if d)),
         ("Volvió otro día", otro_dia),
-        ("Volvió al día siguiente", dia_siguiente),
     ]
     top = steps[0][1]
     out = []
@@ -253,12 +254,18 @@ def headline(data: dict, weeks: list[date]) -> list[dict]:
 
     Las tres responden preguntas distintas a propósito: cuánta gente entra
     (altas), cuánta de la que ya estaba sigue viva (reactivados) y qué tan bien
-    engancha la que entra (D+1). Adquisición, base instalada y calidad del
-    enganche — subir una sin las otras no sirve de nada.
+    engancha la que entra (vuelven otro día). Adquisición, base instalada y
+    calidad del enganche — subir una sin las otras no sirve de nada.
+
+    La tercera mide volver ALGÚN otro día y no específicamente al siguiente:
+    el producto promete repetición espaciada, no racha diaria, así que quien
+    estudia el martes y vuelve el viernes está haciendo exactamente lo que se
+    le pidió. Es también el mismo corte que el último paso del embudo, para que
+    los dos números se puedan leer juntos.
     """
     uw = _user_week(data["users"])
     by_week: dict[date, dict] = {
-        w: {"altas": 0, "reactivados": 0, "d1": 0, "activados": 0} for w in weeks}
+        w: {"altas": 0, "reactivados": 0, "otro_dia": 0, "activados": 0} for w in weeks}
 
     dias_por_user = defaultdict(set)
     for s in _real_sessions(data["sessions"]):
@@ -273,10 +280,10 @@ def headline(data: dict, weeks: list[date]) -> list[dict]:
         dias = dias_por_user.get(uid)
         if dias:
             b["activados"] += 1
-            # D+1 contra su primer día de estudio, no contra el alta: es el
-            # mismo criterio que la curva de retención.
-            if min(dias) + timedelta(days=1) in dias:
-                b["d1"] += 1
+            # Dos días distintos con sesión terminada, sin pedir que sean
+            # consecutivos. Mismo criterio que el último paso del embudo.
+            if len(dias) >= 2:
+                b["otro_dia"] += 1
 
     # Reactivados: gente de cohortes ANTERIORES que estuvo activa en la semana.
     # Es la única métrica del panel que no mira a la cohorte de esa semana, y
@@ -305,8 +312,8 @@ def headline(data: dict, weeks: list[date]) -> list[dict]:
         card("altas", "Altas", "cuentas nuevas de esa semana"),
         card("reactivados", "Reactivados",
              "gente de semanas anteriores que volvió a estudiar en esta"),
-        card("d1", "Vuelven al día siguiente",
-             "de los que llegaron a estudiar, cuántos volvieron al otro día",
+        card("otro_dia", "Vuelven otro día",
+             "de los que llegaron a estudiar, cuántos volvieron algún otro día",
              pct_of="activados"),
     ]
 

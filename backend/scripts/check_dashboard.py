@@ -135,8 +135,34 @@ check("embudo: modo onboarding/test NO cuentan como sesión arrancada",
 check("embudo: terminó una = 2", paso["Terminó una sesión"] == 2)
 check("embudo: «volvió otro día» = 2+ días distintos con sesión",
       paso["Volvió otro día"] == 1, f'(dio {paso["Volvió otro día"]})')
-check("embudo: «volvió al día siguiente» se mide desde su PRIMER día, no del alta",
-      paso["Volvió al día siguiente"] == 1, f'(dio {paso["Volvió al día siguiente"]})')
+# El embudo cierra en "volvió otro día". Pedir el día siguiente exacto es más
+# estricto que lo que el producto promete (repetición espaciada, no racha).
+check("embudo: «volvió otro día» es el último paso",
+      f["steps"][-1]["label"] == "Volvió otro día",
+      f'(último: {f["steps"][-1]["label"]})')
+check("embudo: ya no se pide volver justo al día siguiente",
+      "Volvió al día siguiente" not in paso)
+
+# Que "otro día" NO signifique "el día siguiente" se prueba con días salteados,
+# y el fixture no tiene ninguno: sus dos días son consecutivos y el caso pasaría
+# igual con la regla vieja. Se arma a mano una cohorte mínima con un usuario que
+# estudia martes y viernes.
+def _mini(dias_offset):
+    """Una cohorte de 1 persona que estudia en los días indicados de WEEK."""
+    alta = q.datetime(WEEK.year, WEEK.month, WEEK.day, 12) + q.timedelta(days=1)
+    return {
+        "users": [{"id": 1, "created_at": alta, "reached_home": True}],
+        "enrollments": [{"user_id": 1}],
+        "sessions": [
+            {"user_id": 1, "mode": "main",
+             "finished_at": alta + q.timedelta(days=d)} for d in dias_offset],
+    }
+
+
+check("embudo: volver el viernes después de estudiar el martes cuenta como «otro día»",
+      q.funnel(_mini([0, 3]), WEEK)["steps"][-1]["n"] == 1)
+check("embudo: un solo día, aunque tenga varias sesiones, no es volver",
+      q.funnel(_mini([0, 0]), WEEK)["steps"][-1]["n"] == 0)
 check("embudo: los pasos nunca crecen",
       all(a["n"] >= b["n"] for a, b in zip(f["steps"], f["steps"][1:])),
       f'({[(s["label"], s["n"]) for s in f["steps"]]})')
@@ -148,9 +174,14 @@ cards = {c["key"]: c for c in q.headline(data, q._weeks_back(WEEK, 3))}
 check("titulares: altas de la semana = 5", cards["altas"]["value"] == 5)
 check("titulares: la semana anterior tiene 1 alta",
       cards["altas"]["series"][-2] == 1, f'(serie {cards["altas"]["series"]})')
-# D+1 se mide sobre los que ESTUDIARON (u1 y u2), no sobre las 5 altas.
-check("titulares: D+1 es sobre los activados, no sobre las altas",
-      cards["d1"]["value"] == 50.0, f'(dio {cards["d1"]["value"]})')
+# Se mide sobre los que ESTUDIARON (u1 y u2), no sobre las 5 altas.
+check("titulares: «vuelven otro día» es sobre los activados, no sobre las altas",
+      cards["otro_dia"]["value"] == 50.0, f'(dio {cards["otro_dia"]["value"]})')
+# El titular y el último paso del embudo tienen que ser el mismo corte, para
+# que los dos números se puedan leer juntos sin traducir.
+check("titulares: el tercer titular usa el mismo corte que el embudo",
+      cards["otro_dia"]["value"] == q._pct(paso["Volvió otro día"], 2),
+      f'(titular {cards["otro_dia"]["value"]} vs embudo {paso["Volvió otro día"]}/2)')
 check("titulares: reactivados son de cohortes ANTERIORES, no de esta",
       cards["reactivados"]["value"] == 0, f'(dio {cards["reactivados"]["value"]})')
 
