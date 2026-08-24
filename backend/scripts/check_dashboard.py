@@ -38,7 +38,7 @@ sys.path.insert(0, str(BACKEND.parent))
 
 import database  # noqa: E402
 from models import (  # noqa: E402
-    Answer, Base, Course, Enrollment, ExerciseFeedback, Exercise,
+    Answer, Base, Course, Enrollment, ExerciseFeedback,
     Session as SessionModel, User,
 )
 
@@ -179,8 +179,10 @@ check("cohortes: «estudió» se mide sobre el total del corte (2 de 3)",
 check("cohortes: «volvió» se mide sobre la base, no sobre el total (1 de 2 = 50%)",
       origen["UBA"]["volvio"] == 50.0, f'(dio {origen["UBA"]["volvio"]})')
 carrera = {r["label"]: r["n"] for r in co["carrera"]}
-check("cohortes: la carrera 'E' se muestra como Ingeniería",
-      carrera.get("Ingeniería") == 3, f"(dio {carrera})")
+# El payload emite la CLAVE cruda; la etiqueta y el emoji los pone render.py,
+# así `data.json` queda estable para consumir desde afuera.
+check("cohortes: agrupa por el código de carrera, no por su etiqueta",
+      carrera.get("E") == 3 and carrera.get("S") == 1, f"(dio {carrera})")
 
 # ── 5. Producto ──────────────────────────────────────────────────────────────
 pr = q.producto(data, [WEEK])
@@ -193,11 +195,15 @@ check("producto: no aparecen los modos onboarding/test",
 check("producto: duración mediana 4 min", pr["duracion"]["main"] == 4.0)
 check("producto: P1 global 100% (todas quality_score=5)", pr["p1_global"] == 100.0)
 
-ab = pr["abandono"]["main"]
-check("abandono: base excluye las sesiones sin ninguna respuesta",
-      ab["base"] == 4 and ab["cero"] == 0)
-check("abandono: con menos de 10 sesiones la curva no se dibuja (sería ruido)",
-      ab["curva"] == [], f'(dio {ab["curva"]})')
+# El abandono ahora se mide por curso, no como curva por ejercicio.
+cur = {c["curso"]: c for c in pr["cursos"]}
+check("producto: abandono por curso = iniciadas que no se terminaron",
+      cur["analisis"]["main_abandono"] == 25.0,
+      f'(dio {cur["analisis"]["main_abandono"]} sobre {cur["analisis"]["main_n"]} sesiones)')
+check("producto: accuracy por curso",
+      cur["analisis"]["p1"] == 100.0, f'(dio {cur["analisis"]["p1"]})')
+check("producto: las sesiones sin ninguna respuesta van aparte del abandono",
+      pr["sin_respuesta"]["main"] == 0, f'(dio {pr["sin_respuesta"]})')
 
 # P1 tiene que ignorar is_correct: una respuesta correcta al tercer intento
 # (quality_score bajo) no es P1.
@@ -245,21 +251,6 @@ check("encuestas: el ranking ordena de peor a mejor score",
 check("encuestas: cada ítem trae su P1 para poder estratificar",
       items["item_1"]["p1"] is not None)
 
-# ── 7. Tablas ────────────────────────────────────────────────────────────────
-db.add(Exercise(course_id=1, external_id="item_1", belt="white", topic="definition",
-                exercise_type="LEXI", question="q", option_a="a", option_b="b",
-                option_c="c", option_d="d", correct_index=0,
-                feedback_correct="ok", feedback_incorrect="[]",
-                table_data='{"rows":[]}'))
-db.commit()
-t = q.tablas(q.load(db), [WEEK])
-check("tablas: reconoce el único ítem con table_data", t["items"] == 1)
-check("tablas: separa interés con tabla vs. sin tabla",
-      t["interes"]["con_tabla"]["n"] == 1 and t["interes"]["sin_tabla"]["n"] == 1,
-      f'(dio {t["interes"]})')
-check("tablas: el alcance mide las primeras sesiones de repaso",
-      t["alcance"]["primeras"] == 3, f'(dio {t["alcance"]})')
-
 # ── 8. Mails de ciclo de vida ────────────────────────────────────────────────
 # u1 recibe el winback el 18 y termina una sesión ese mismo día → activó.
 # u2 recibe el bounce el 21, después de su última sesión (el 20) → NO activó:
@@ -294,7 +285,7 @@ check("mails: solo cuenta los envíos de la ventana visible",
 payload = q.build(db, WEEK)
 check("build: devuelve todos los bloques",
       set(payload) == {"meta", "headline", "funnel", "retencion", "cohortes",
-                       "producto", "encuestas", "tablas", "reenganche", "emails"})
+                       "producto", "encuestas", "reenganche", "emails"})
 
 import json  # noqa: E402
 try:
@@ -314,6 +305,30 @@ check("render: produce una página completa",
 check("render: no filtra el token en un link indexable", "noindex" in html)
 check("render: los links de semana llevan el token", "/panel/tok?w=" in html)
 check("render: no hay llaves de formato sin resolver", "{" not in html.split("<style>")[0])
+# El etiquetado vive en render: chips de universidad con color de marca, y
+# emoji + nombre para carreras y cursos, los mismos que ve el usuario.
+check("render: la universidad usa el chip de marca del ranking",
+      'class="tag" style="color:#4F76E0' in html)
+check("render: la carrera se muestra con su emoji y su nombre",
+      "⚙️" in html and "Ingeniería" in html)
+check("render: el curso usa el emoji del onboarding",
+      "📈" in html and "Análisis" in html)
+# Con la base chica del fixture todas las filas caen en el camino atenuado,
+# que es lo correcto: un porcentaje sobre 2 personas no es señal. La escala se
+# comprueba directo.
+from metrics.render import HEAT_MIN_BASE, _heat_cell  # noqa: E402
+check("render: una base chica se muestra sin color",
+      'class="dim"' in _heat_cell(50.0, 0, 100, dim=True))
+check("render: el calor es relativo a la columna, no absoluto",
+      "background:rgba(126,128,247,0.1" in _heat_cell(20.0, 20, 60, dim=False)
+      and "background:rgba(126,128,247,0.52" in _heat_cell(60.0, 20, 60, dim=False),
+      f"(min={_heat_cell(20.0, 20, 60, dim=False)} max={_heat_cell(60.0, 20, 60, dim=False)})")
+check("render: sin dato no se pinta nada",
+      _heat_cell(None, 0, 100, dim=False) == '<td class="dim">—</td>')
+check("render: las filas con base chica quedan atenuadas en la tabla real",
+      html.count('class="dim"') > 0 and str(HEAT_MIN_BASE) in html)
+check("render: ya no existe la sección de formato tabla",
+      "Formato tabla" not in html)
 
 # ── 10. Semana vacía ─────────────────────────────────────────────────────────
 # Una semana sin datos tiene que renderizar, no explotar: es el caso de la
@@ -323,41 +338,6 @@ check("semana sin datos: el embudo queda en cero sin romper",
       vacio["funnel"]["steps"][0]["n"] == 0)
 check("semana sin datos: renderiza igual", page(vacio, token="tok").endswith("</html>"))
 
-
-# ── 11. Curva de abandono con volumen ────────────────────────────────────────
-# Va al final para no correr los denominadores de los checks de arriba. Los
-# usuarios se crean fuera de las tres semanas visibles: así aportan sesiones a
-# `producto` (que filtra por fecha de sesión) sin entrar en las cohortes.
-#
-# El escenario separa el largo real de la sesión del largo asignado:
-#   10 sesiones de 5 ejercicios, TERMINADAS con sus 5;
-#   12 sesiones de 8 ejercicios, abandonadas en el 7.
-# En k=6 las de 5 no tienen por qué aparecer: no fueron abandonadas, eran más
-# cortas. Ese es exactamente el error que la curva vieja cometía.
-for i in range(20, 42):
-    db.add(User(id=i, clerk_user_id=f"c{i}", email=f"u{i}@x.com", name=f"U{i}",
-                created_at=utc(1)))
-db.commit()
-for i in range(20, 30):
-    sesion(i, 19, terminada=True, respuestas=5, total=5)
-for i in range(30, 42):
-    sesion(i, 19, terminada=False, respuestas=7, total=8)
-db.commit()
-
-ab2 = q.producto(q.load(db), [WEEK])["abandono"]["main"]
-curva = {c["k"]: c for c in ab2["curva"]}
-# De las 27 sesiones que arrancaron, en k=6 solo 17 tenían 6 ejercicios o más
-# (las 12 de 8 más las 5 del bloque de arriba, que también son de 8).
-check("abandono: en k=6 el denominador excluye a las sesiones de 5 ejercicios",
-      curva[6]["de"] == 17, f'(dio {curva[6]["de"]} de {ab2["base"]} sesiones)')
-check("abandono: en k=6 llegan 15 de esas 17 (88,2%, no 55,6% sobre el total)",
-      curva[6]["pct"] == 88.2, f'(dio {curva[6]["pct"]})')
-check("abandono: una sesión corta TERMINADA no hunde la curva en k=6",
-      curva[6]["pct"] > 80, f'(k4={curva[4]["pct"]}% k6={curva[6]["pct"]}%)')
-check("abandono: los cortes se registran en el ejercicio donde se cortó",
-      curva[7]["cortes"] == 12, f'(dio {curva[7]["cortes"]})')
-check("abandono: la curva se corta cuando el denominador se vuelve chico",
-      max(curva) <= 8, f"(llegó a k={max(curva)})")
 
 print()
 print("todo ok" if not fallos else f"FALLARON: {fallos}")
