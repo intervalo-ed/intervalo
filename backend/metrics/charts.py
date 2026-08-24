@@ -18,6 +18,7 @@ de acá están calibrados para tarjetas de ~340 a ~1000 px.
 """
 from __future__ import annotations
 
+import math
 from html import escape
 
 # Paleta del reporte semanal (docs/reports/gen_report_2026-08-22.py) para que
@@ -60,17 +61,30 @@ def _svg(w: int, h: int, body: str, extra: str = "", fluid: bool = True) -> str:
     )
 
 
+# Multiplicadores "redondos" del techo del eje. Están elegidos para que el
+# valor dividido en 4 (las cuatro líneas de la grilla) siga dando números que
+# se leen: 3 → 0,75 · 1,5 · 2,25, y no 3,3333.
+_NICE_STEPS = (1, 1.2, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 9, 10)
+
+
 def _nice_max(v: float) -> float:
-    """Techo redondo para el eje: sin esto la barra más alta toca el borde y no
-    se puede leer su etiqueta."""
+    """Techo redondo del eje: el múltiplo redondo más chico que deja al valor
+    más grande con un poco de aire arriba.
+
+    El orden importa y antes estaba al revés. Iterando el multiplicador por
+    fuera y la magnitud por dentro, para 252 se probaba 1 · 1000 antes que
+    3 · 100 y el techo salía 1000: la barra ocupaba el 25% del ancho y todo el
+    gráfico parecía vacío. La magnitud se calcula, no se busca.
+    """
     if v <= 0:
         return 1.0
-    for step in (1, 2, 2.5, 5, 10):
-        for mag in (0.01, 0.1, 1, 10, 100, 1000, 10000):
-            top = step * mag
-            if top >= v * 1.08:
-                return top
-    return v * 1.1
+    target = v * 1.08
+    mag = 10 ** math.floor(math.log10(target))
+    for step in _NICE_STEPS:
+        top = step * mag
+        if top >= target:
+            return round(top, 10)
+    return 10 * mag
 
 
 # ── Barras horizontales ──────────────────────────────────────────────────────
