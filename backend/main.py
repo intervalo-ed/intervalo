@@ -1989,15 +1989,18 @@ def _panel_payload(week, db: Session) -> dict:
 def _panel_week(w: str | None):
     """`?w=YYYY-MM-DD` → el lunes de esa semana. Sin parámetro, la semana en
     curso. Una fecha inválida cae a la semana actual en vez de tirar 422: es un
-    panel, no una API, y un link mal pegado tiene que mostrar algo."""
+    panel, no una API, y un link mal pegado tiene que mostrar algo.
+
+    Se acota con `clamp_week` para que un `?w=` viejo escrito a mano no abra
+    semanas anteriores a la difusión, que el selector ya no ofrece."""
     from datetime import date as _date
 
-    from metrics.queries import week_start
+    from metrics.queries import clamp_week, week_start
     from metrics.render import week_of_today
 
     if w:
         try:
-            return week_start(_date.fromisoformat(w))
+            return clamp_week(week_start(_date.fromisoformat(w)))
         except ValueError:
             pass
     return week_of_today()

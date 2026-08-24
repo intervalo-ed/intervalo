@@ -385,6 +385,64 @@ check("retención: D+0 es 100% porque se ancla en la activación",
       r0["pct"] == 100.0, f"(dio {r0})")
 check("render: los puntos de la curva llevan tooltip nativo",
       "<title>Cohorte" in html and 'cursor:help' in html)
+
+# El denominador de cada k son los OBSERVABLES, no la cohorte entera: es la
+# confusión que motivó todo esto. Cada tooltip tiene que explicar cuál de los
+# dos casos es, sin que haya que deducirlo del gráfico.
+_tips = [t.split("</title>")[0] for t in html.split("<title>")[1:]
+         if t.startswith("Cohorte")]
+_explica = ("todavía no cumplieron", "el denominador es la cohorte entera",
+            "no hay a quién medir", "por definición, su primer día")
+check("render: todos los tooltips explican de dónde sale el denominador",
+      _tips and all(any(e in t for e in _explica) for t in _tips),
+      f"({len(_tips)} tooltips)")
+
+# Marca de cola. `_flojo` es la regla; se prueba directo porque depende de la
+# fecha de corrida y en el fixture no siempre hay una cohorte con cola.
+from metrics.render import _flojo  # noqa: E402
+check("render: un punto con menos de la mitad de la base va marcado como flojo",
+      _flojo({"pct": 0.0, "obs": 4}, 23) and not _flojo({"pct": 0.0, "obs": 12}, 23))
+check("render: el mismo obs es flojo o no según el tamaño de la cohorte",
+      _flojo({"pct": 5.0, "obs": 12}, 95) and not _flojo({"pct": 5.0, "obs": 12}, 23))
+check("render: un punto sin dato no se marca como flojo (ya es un hueco)",
+      not _flojo({"pct": None, "obs": 0}, 23))
+
+# El punteado tiene que salir de `weak` y no de otra cosa: se dibuja a mano una
+# serie con la cola floja y se mira el SVG.
+from metrics import charts as ch  # noqa: E402
+
+_svg_cola = ch.lines(
+    [{"label": "x", "values": [100.0, 20.0, 10.0], "weak": [False, False, True]}],
+    ["D+0", "D+1", "D+2"], legend=False)
+_svg_llena = ch.lines(
+    [{"label": "x", "values": [100.0, 20.0, 10.0], "weak": [False, False, False]}],
+    ["D+0", "D+1", "D+2"], legend=False)
+check("gráficos: el tramo flojo va punteado y el resto lleno",
+      "stroke-dasharray" in _svg_cola and _svg_cola.count("<path") > _svg_llena.count("<path"))
+check("gráficos: sin puntos flojos no hay ningún punteado",
+      "stroke-dasharray" not in _svg_llena)
+check("gráficos: el punto flojo va hueco y el firme relleno",
+      'fill="var(--surface)"' in _svg_cola and 'fill="var(--surface)"' not in _svg_llena)
+# Sin `weak` el gráfico tiene que dibujarse igual que antes: lo usan las otras
+# curvas del panel, que no marcan cola.
+check("gráficos: `weak` es opcional y no cambia las curvas que no lo usan",
+      "stroke-dasharray" not in ch.lines(
+          [{"label": "x", "values": [1.0, 2.0]}], ["a", "b"], legend=False))
+
+# Piso de semanas. Antes del 10/08 las cohortes son de 1 y 2 personas y sus
+# porcentajes son ruido con formato de dato.
+check("semanas: _weeks_back no baja de FIRST_WEEK",
+      q._weeks_back(q.FIRST_WEEK, 3) == [q.FIRST_WEEK])
+check("semanas: por encima del piso sigue trayendo las 3",
+      len(q._weeks_back(q.FIRST_WEEK + q.timedelta(weeks=2), 3)) == 3)
+check("semanas: nunca devuelve una lista vacía",
+      q._weeks_back(q.FIRST_WEEK - q.timedelta(weeks=5), 3) != [])
+check("semanas: clamp_week sube una fecha vieja al piso",
+      q.clamp_week(q.date(2026, 7, 27)) == q.FIRST_WEEK)
+check("semanas: clamp_week no deja pasar una semana futura",
+      q.clamp_week(q.date(2030, 1, 7)) <= q.week_start(q.local_date(q.datetime.utcnow())))
+check("semanas: el selector no ofrece semanas anteriores al piso",
+      ">27/07<" not in html and ">03/08<" not in html)
 check("render: los emojis de la encuesta acompañan los rótulos",
       all(e in html for e in ("🥱", "🙂", "💡", "😴", "👌", "🤯")))
 # El fixture solo tiene blanco y azul, así que se verifica que salgan esos dos

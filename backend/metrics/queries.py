@@ -80,6 +80,25 @@ def week_start(d: date) -> date:
     return d - timedelta(days=d.weekday())
 
 
+# Primera semana que el panel muestra. Antes de esto la app existía pero no se
+# había difundido: el 27/07 tuvo 1 alta y el 03/08 tuvo 2, contra 75 el 10/08 y
+# 252 el 17/08. Con esas bases los porcentajes son ruido con formato de dato —
+# un D+1 de "100%" que son 1 de 1, o de "0%" que son 0 de 2— y al ponerse al
+# lado de las semanas reales invitan a leer una tendencia que no existe.
+#
+# El piso es del panel, no de la base: los datos siguen ahí y las consultas los
+# cuentan (un usuario del 27/07 que estudia hoy aparece en «Reactivados»). Lo
+# único que se corta es ofrecer esas semanas como si fueran comparables.
+FIRST_WEEK = date(2026, 8, 10)
+
+
+def clamp_week(w: date) -> date:
+    """No dejar salir del rango que el panel sabe mostrar: ni antes de la
+    primera semana difundida ni después de la semana en curso (una semana
+    futura solo puede dar ceros, y un cero se lee como caída)."""
+    return min(max(w, FIRST_WEEK), week_start(local_date(datetime.utcnow())))
+
+
 def _as_dt(v):
     """Normaliza una columna de fecha a `datetime`.
 
@@ -154,8 +173,13 @@ def load(db: DBSession) -> dict:
 # ── Bloques ──────────────────────────────────────────────────────────────────
 
 def _weeks_back(week: date, n: int) -> list[date]:
-    """La semana elegida y las n-1 anteriores, de más vieja a más nueva."""
-    return [week - timedelta(weeks=i) for i in range(n - 1, -1, -1)]
+    """La semana elegida y las n-1 anteriores, de más vieja a más nueva.
+
+    Corta en `FIRST_WEEK`: en la vista del 10/08 las dos semanas previas eran
+    cohortes de 1 y 2 personas, y aparecían igual en la curva de retención y en
+    el sparkline de los titulares."""
+    ws = [week - timedelta(weeks=i) for i in range(n - 1, -1, -1)]
+    return [w for w in ws if w >= FIRST_WEEK] or [week]
 
 
 def _user_week(users: list[dict]) -> dict[int, date]:
