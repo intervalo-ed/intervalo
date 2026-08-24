@@ -28,6 +28,7 @@ import re
 import sys
 import unicodedata
 from collections import Counter
+from fractions import Fraction
 from pathlib import Path
 from statistics import median
 
@@ -291,6 +292,23 @@ class Findings:
 
 # --- Checks por familia -------------------------------------------------------
 
+_FRACCION_RE = re.compile(
+    r"^\$\s*(?:\\[dt]?frac\{\s*(\d+)\s*\}\{\s*(\d+)\s*\}|(\d+)\s*/\s*(\d+))\s*\$$"
+)
+
+
+def _valor_fraccion(opt: str) -> Fraction | None:
+    """Valor de una opción que es una fracción sola, en cualquiera de las dos
+    notaciones que usa el corpus. Devuelve None si la opción es otra cosa."""
+    m = _FRACCION_RE.match(opt.strip())
+    if not m:
+        return None
+    num, den = (m.group(1), m.group(2)) if m.group(1) else (m.group(3), m.group(4))
+    if int(den) == 0:
+        return None
+    return Fraction(int(num), int(den))
+
+
 def check_options(items, file, F: Findings) -> None:
     for idx, it in enumerate(items):
         opts = it.get("options") or []
@@ -300,6 +318,28 @@ def check_options(items, file, F: Findings) -> None:
             continue  # structure lo reporta
         if len(opts) < 2:
             continue
+
+        # Regla 77: dos opciones que valen lo mismo son dos respuestas correctas.
+        # Pasa cuando una es la versión simplificada de la otra ($1/6$ conviviendo
+        # con $6/36$), que es fácil de escribir sin darse cuenta. Caso real:
+        # blue/laplace/RESL, donde además la correcta alternaba entre las dos
+        # formas de un ejercicio a otro.
+        #
+        # Solo se aplica cuando LAS CUATRO opciones son fracciones de enteros: ahí
+        # la pregunta es por un número y dos iguales son dos correctas. Si alguna
+        # opción trae radicales o variables, la pregunta es por la forma y la
+        # equivalencia numérica puede ser deliberada — en `radicals/FORM` las
+        # opciones son todas versiones de 1 y elegir cuál racionaliza ES el ítem.
+        valores = [_valor_fraccion(o) for o in opts]
+        if all(v is not None for v in valores):
+            por_valor: dict[Fraction, int] = {}
+            for i, v in enumerate(valores):
+                if v in por_valor:
+                    F.add("ERROR", "options", "77", file, label,
+                          f"opciones equivalentes: {opts[por_valor[v]]!r} y "
+                          f"{opts[i]!r} valen lo mismo")
+                else:
+                    por_valor[v] = i
         raws = [len(o) for o in opts]
         rends = [render_len(o) for o in opts]
         d_raw = [v for i, v in enumerate(raws) if i != ci]

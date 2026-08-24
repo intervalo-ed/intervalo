@@ -27,22 +27,22 @@
   },
   {
     "id": "blue_condicional_RESL_02",
-    "question": "En una tabla de resultados de 40 encuestados, 24 usan transporte público. De esos 24, 15 llegan a horario.\n\nSe elige un encuestado al azar entre quienes usan transporte público.\n\n¿Cuál es la probabilidad de que llegue a horario?",
+    "question": "En una tabla de resultados de 40 encuestados, 25 usan transporte público. De esos 25, 15 llegan a horario.\n\nSe elige un encuestado al azar entre quienes usan transporte público.\n\n¿Cuál es la probabilidad de que llegue a horario?",
     "options": [
       "$15/40$",
-      "$15/24$",
-      "$24/40$",
-      "$9/24$"
+      "$15/25$",
+      "$25/40$",
+      "$10/25$"
     ],
     "correct_index": 1,
-    "feedback_correct": "Restringiendo al subgrupo que usa transporte público, 24 personas, 15 llegan a horario.",
+    "feedback_correct": "Restringiendo al subgrupo que usa transporte público, 25 personas, 15 llegan a horario.",
     "feedback_incorrect": [
       "Ese cociente divide sobre el total de encuestados, sin restringir al subgrupo que usa transporte público.",
       null,
       "Ese cociente no cuenta a quienes llegan a horario, solo a quienes usan transporte público.",
       "Ese cociente cuenta a quienes no llegan a horario dentro del subgrupo, no a quienes sí llegan."
     ],
-    "explanation": "Cuando el conteo ya viene restringido a un subgrupo, el denominador de la probabilidad condicional es el tamaño de ese subgrupo, no el total general.\n\nEntre los 24 encuestados que usan transporte público, 15 llegan a horario:\n$$P(A \\mid B) = \\dfrac{15}{24}$$\nEl resultado es $15/24$.\n\nDividir por el total de 40 encuestados en vez de por los 24 que ya cumplen la condición ignora la restricción del espacio muestral que exige la probabilidad condicional.",
+    "explanation": "Cuando el conteo ya viene restringido a un subgrupo, el denominador de la probabilidad condicional es el tamaño de ese subgrupo, no el total general.\n\nEntre los 25 encuestados que usan transporte público, 15 llegan a horario:\n$$P(A \\mid B) = \\dfrac{15}{25}$$\nEl resultado es $15/25$.\n\nDividir por el total de 40 encuestados en vez de por los 25 que ya cumplen la condición ignora la restricción del espacio muestral que exige la probabilidad condicional.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

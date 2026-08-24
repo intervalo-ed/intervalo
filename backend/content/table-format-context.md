@@ -282,6 +282,7 @@ El function-table se inventó para esto. `white/functions` es el mejor encaje de
 
 | Topic | Skills | Encaje | Notas |
 |---|---|---|---|
+| `functions/definition` | LEXI/CLSF | **fuerte, pero en modo estático** | No es una tabla de generalización: no hay familia parametrizada ni fórmula que descubrir. Es el modo `reveal` ausente, donde **la tabla es la función**. Ver §3.1.1. |
 | `functions/linear` | LEXI/FORM/GRAF | **muy fuerte** | El caso canónico. El error clásico está documentado: **[LIT-2ª]** Stacey (1989), usar la diferencia entre filas como coeficiente y olvidar el término independiente ($y=dx$ en vez de $y=dx+b$). Entradas **no consecutivas**. |
 | `functions/quadratic` | LEXI/FORM/GRAF | fuerte | La diferencia segunda es constante: cuidado, es una lectura recursiva que funciona y puede reemplazar el modelado. Reforzar con entradas irregulares. |
 | `functions/exponential` | LEXI/FORM/GRAF | **muy fuerte** | Aplica §2.4 completo: el sesgo de subestimación exponencial es el mismo que justifica `factoriales`. Es el segundo mejor candidato del producto. |
@@ -292,6 +293,47 @@ El function-table se inventó para esto. `white/functions` es el mejor encaje de
 | `derivatives/differentiation_rules` | FORM/ESTR/RESL | medio | Tabla $f \to f'$: es un mapeo, no una covariación. Funciona, pero pierde el argumento pedagógico central. |
 | `limits/*` | — | **contraindicado** | Ver §3.2. |
 | `integrals/*` | — | débil | El objeto es un área o una primitiva, no una familia parametrizada por un entero. |
+
+### 3.1.1 El punto ciego de esta tabla: solo evalúa el modo `column`
+
+*(Agregado ago-2026, tras el relevamiento de guías de TP de UBA/UTN/UNLP.)*
+
+Todo lo de arriba razona sobre `reveal.mode = "column"`, la tabla de generalización. Con ese lente
+`functions/definition` no aparece, y por eso faltaba en la tabla. Pero `authoring-context.md` declara
+un tercer modo —**`reveal` ausente, la tabla como contexto estático**— que este documento no analizaba
+en ninguna parte.
+
+La diferencia conceptual: en modo columna **la tabla es evidencia de una fórmula oculta**; en modo
+estático **la tabla es la función**. Cuatro fuentes de cátedra declaran explícitamente la tabla como una
+de las representaciones canónicas de función, junto con la fórmula, el gráfico y la descripción verbal:
+CiBEx (UNLP-Exactas, Figura 2.1, *"las 4 formas usadas usualmente"*), *Al infinito y más allá*
+(UNLP-Informática, 2023), Rossini (2018) y el ingreso de UTN-FRBB, que titula una sección
+*"Mediante una tabla de datos"*.
+
+En modo estático **A1, A2 y A3 no aplican**, porque no hay `by_option` que compita. Es el traslado más
+barato del formato y el de menor riesgo.
+
+**Dos hallazgos del relevamiento que corrigen intuiciones de este documento:**
+
+- **`functions/definition` en modo estático NO tiene precedente curricular para dominio/imagen.** El
+  relevamiento no encontró ni un ejercicio universitario argentino que pida deducir dominio o imagen de
+  una tabla de valores: ese trabajo lo hacen invariablemente los gráficos. Coincide con lo que ya
+  advertía §2.5 (el objeto que la columna oculta acá es la gráfica, y `GRAF` ya la cubre). Lo que sí
+  justifica tablas en este topic es R68 —los 9 ítems de `unicidad-rota-disfrazada` y
+  `trampa-inyectividad` ya son tablas dibujadas con `\begin{aligned}` y `\mapsto`— más el encuadre de
+  las cuatro representaciones. **Son dos justificaciones de fuerza muy distinta y conviene no
+  confundirlas.**
+- **`functions/trigonometric` sigue siendo débil para nosotros, aunque el corpus esté lleno de tablas
+  trigonométricas.** La tabla de valores notables parcialmente sembrada es el uso de tabla más universal
+  de las tres universidades, pero es **tabla-planilla** (el alumno la completa) y no **tabla-dato** (el
+  alumno la lee para decidir). Solo la segunda es trasladable a opción múltiple. No corregir el "débil"
+  de la fila de arriba apoyándose en esa frecuencia.
+
+**El formato con más precedentes del corpus, y que este documento no contemplaba:** la tabla de $f$ y
+$g$ para calcular $f(g(1))$, $g(f(2))$, $(f\circ g)(6)$. Aparece casi idéntica en cinco fuentes
+independientes (UBA CBC 51 y 72, CiBEx, *Al infinito*, FCE-UNLP). Es tabla-dato pura y es modo estático.
+Hoy no tiene dónde ir: composición de funciones aparece **una sola vez en toda la unidad**
+`white/functions`, dentro de la explicación de un ítem de inversa.
 
 ### 3.2 La trampa nº1 de `analisis`: límites
 
@@ -304,9 +346,23 @@ convincentes que llevan a la respuesta equivocada. Enseñar límites por tabla i
 errónea difícil de desarmar, y `blue/limits/lateral_limits` —una tabla acercándose por cada lado—
 es literalmente el dispositivo engañoso clásico.
 
-*(Esto es conocimiento estándar de didáctica del cálculo; no se verificó con búsqueda en esta
-sesión. Tratar como **[INF]** hasta confirmarlo, pero la carga de la prueba está del lado de quien
-quiera usar tablas ahí.)*
+**Verificado (ago-2026), y el resultado afila la regla en vez de confirmarla.** El relevamiento de
+guías de TP encontró lo contrario de lo esperado: **toda UNLP usa tablas numéricas de aproximación al
+límite** —CiBEx Actividad 4.1, *Al infinito y más allá* Ejemplo 2.7, los apuntes de Matemática I de
+FCE-UNLP, *Cálculo diferencial* de UNLP-Ingeniería— y **la UBA no las usa nunca**, verificado sobre las
+guías de las cuatro materias y sobre la teórica oficial `Limites2020.pdf` de la cátedra de Análisis 66
+(cero apariciones de la palabra "tabla").
+
+La contraindicación sobrevive, pero por una razón más precisa que "las tablas engañan". Donde se usan,
+la tabla aparece **una sola vez, al abrir la unidad, y no se repite**: es andamiaje para *presentar* la
+noción antes de la definición, y la consigna trae la respuesta ya anticipada (*"¿están de acuerdo que
+los valores de $f(x)$ calculados en la Tabla 4.1 están cerca del número 10?"*). Nuestro formato hace lo
+inverso: pide **decidir** un valor eligiendo entre opciones. Esa inversión es la que instala la
+concepción errónea, porque premia leer el límite de la tabla.
+
+**La regla operativa, entonces:** una tabla puede *presentar* una tendencia, nunca *decidirla*. Como el
+formato `table` solo sabe hacer lo segundo, `limits/*` sigue contraindicado — pero si alguna vez existe
+un modo de tabla puramente ilustrativo sin opción que la resuelva, esta puerta se reabre.
 
 ### 3.3 `algebra`: encaje más acotado
 
