@@ -696,6 +696,7 @@ ACTIVE_CAP_DEFAULT_FALLBACK = 18
 # Límites del "máximo de ejercicios por sesión" configurable.
 SESSION_SIZE_MIN = 1
 SESSION_SIZE_MAX = 30
+SESSION_SIZE_DEFAULT = 5
 
 
 def _lookup_course_progress(
@@ -722,6 +723,7 @@ def _get_course_progress(user_id: int, course_id: int, db: DBSession) -> CourseP
             course_id=course_id,
             iteration=1,
             active_cap=ACTIVE_CAP_DEFAULTS.get(slug, ACTIVE_CAP_DEFAULT_FALLBACK),
+            session_size=SESSION_SIZE_DEFAULT,
         ))
     # La fila tiene que quedar guardada sí o sí: /user/progress es de solo
     # lectura y su sesión se cierra sin commitear, así que sin esto la creación
@@ -1874,6 +1876,10 @@ def reset_course(user_id: int, course_id: int, db: DBSession) -> int:
     cp.iteration += 1
     slug = _get_course_slug(course_id, db)
     cp.active_cap = ACTIVE_CAP_DEFAULTS.get(slug, ACTIVE_CAP_DEFAULT_FALLBACK)
+    # El máximo de ejercicios por sesión también vuelve al default: si el
+    # usuario lo había subido para acelerar y ahora reinicia el curso, arranca
+    # de nuevo con el ritmo pensado para alguien que empieza.
+    cp.session_size = SESSION_SIZE_DEFAULT
     db.commit()
     return cp.iteration
 
