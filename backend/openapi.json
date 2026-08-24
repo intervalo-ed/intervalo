@@ -2369,6 +2369,17 @@
             ],
             "title": "Motivation"
           },
+          "known_units": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Known Units"
+          },
           "intro_item_correct": {
             "anyOf": [
               {

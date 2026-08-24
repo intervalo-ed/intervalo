@@ -120,7 +120,13 @@ class Enrollment(Base):
     course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
     university = Column(String(100), nullable=True)
     career = Column(String(200), nullable=True)
+    # Retirada del onboarding (la respuesta no predecía comportamiento). Se
+    # conserva por los valores históricos; en altas nuevas queda NULL.
     motivation = Column(String(50), nullable=True)
+    # Unidades que la persona declaró conocer en el onboarding, claves del
+    # catálogo separadas por coma ("functions,limits"). Declarativo: no altera
+    # el plan de estudio ni el estado inicial de SM-2.
+    known_units = Column(String(100), nullable=True)
     enrolled_at = Column(DateTime, default=datetime.utcnow)
 
     __table_args__ = (UniqueConstraint("user_id", "course_id", name="unique_user_course"),)

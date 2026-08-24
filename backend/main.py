@@ -447,8 +447,11 @@ class EnrollmentRequest(BaseModel):
     # Curso elegido en el onboarding (slug). None → analisis, por compatibilidad
     # con clientes/datos viejos que no mandaban curso.
     course: str | None = None
-    # Motivación elegida en el onboarding (slug corto: cursada/bases/conceptos).
+    # Motivación: la pregunta se retiró del onboarding, el campo se conserva
+    # para no romper el contrato con clientes viejos.
     motivation: str | None = None
+    # Unidades declaradas como conocidas, claves del catálogo separadas por coma.
+    known_units: str | None = None
     # Resultado del ejercicio de prueba del onboarding (primer ítem del curso).
     # True = acertó al primer intento, False = falló alguna vez, None = sin dato.
     intro_item_correct: bool | None = None
@@ -487,6 +490,7 @@ def enroll_user(
         existing.university = university
         existing.career = body.career
         existing.motivation = body.motivation
+        existing.known_units = body.known_units
     else:
         # Create new enrollment
         enrollment = Enrollment(
@@ -495,6 +499,7 @@ def enroll_user(
             university=university,
             career=body.career,
             motivation=body.motivation,
+            known_units=body.known_units,
         )
         db.add(enrollment)
 
@@ -518,6 +523,7 @@ def enroll_user(
         winner.university = university
         winner.career = body.career
         winner.motivation = body.motivation
+        winner.known_units = body.known_units
         if body.name:
             current_user.display_name = body.name
         db.commit()

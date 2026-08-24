@@ -8,8 +8,10 @@ export type OnboardingData = {
   university: string
   // Curso elegido en el onboarding; define el curso default al registrarse.
   course: CourseId
-  // Motivación elegida (slug corto). Ausente en datos viejos.
-  motivation?: string
+  // Unidades que la persona declara conocer (claves del catálogo, propias de
+  // cada curso). Dato declarativo: no altera el plan de estudio. Ausente en
+  // datos viejos.
+  knownUnits?: string[]
   // Resultado del ejercicio de prueba: true si acertó al primer intento.
   // Ausente en datos viejos → el backend lo trata como "sin dato".
   introItemCorrect?: boolean
@@ -36,7 +38,7 @@ export function readOnboarding(): OnboardingData | null {
         university: parsed.university,
         // Datos viejos sin curso → analisis, por compatibilidad.
         course: parsed.course ?? "analisis",
-        motivation: parsed.motivation,
+        knownUnits: parsed.knownUnits,
         introItemCorrect: parsed.introItemCorrect,
         introItemAttempts: parsed.introItemAttempts,
         introItemResponseTimeMs: parsed.introItemResponseTimeMs,

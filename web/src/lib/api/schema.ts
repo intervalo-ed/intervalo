@@ -963,6 +963,8 @@ export interface components {
             course?: string | null;
             /** Motivation */
             motivation?: string | null;
+            /** Known Units */
+            known_units?: string | null;
             /** Intro Item Correct */
             intro_item_correct?: boolean | null;
             /** Attempts */
