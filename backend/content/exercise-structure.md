@@ -322,6 +322,11 @@ python content/validate_content.py --course analisis --topic <belt/unit/topic>
 - **WARNING** (se revisa con criterio): heurísticas (sesgo de longitud de opciones,
   párrafo largo, 2+ inline, feedback acusatorio, plantilla de apertura).
 
+Lo que el validador **no** puede chequear es la dificultad real: para eso hace falta
+`content/report_difficulty.py` contra la base de producción (ver regla 78 de
+`authoring-context.md`), porque la señal solo existe una vez que el ítem tuvo
+exposición real.
+
 Lo que **no** es automatizable y queda en el checklist manual del `topic-context.md`:
 que la explicación razone el porqué (R25), que un `aligned` no aliñe datos sueltos
 (R30), que cada ejercicio reintroduzca su definición (R31) y las reglas duras del topic

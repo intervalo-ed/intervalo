@@ -335,18 +335,18 @@
   },
   {
     "id": "white_reglas_ESTR_15",
-    "question": "Un concurso de fotografía tiene 6 participantes.\n\nHay que asignar el primer y el segundo premio, sin que un mismo participante gane los dos.\n\n¿Corresponde aplicar directamente la regla del producto o de la suma para contar los resultados posibles?",
+    "question": "Un club tiene 8 socios disponibles para armar una comisión de 3 integrantes, sin diferenciar roles entre ellos.\n\n¿Corresponde aplicar directamente la regla del producto o de la suma para contar las comisiones posibles?",
     "options": [
-      "No, hace falta elegir y ordenar un subconjunto, no solo aplicar producto o suma directos.",
-      "Sí, regla del producto: cada premio es una decisión independiente con las mismas 6 opciones."
+      "Sí, regla del producto: cada lugar de la comisión es una decisión independiente con las mismas 8 opciones.",
+      "No, hace falta elegir un subconjunto sin reposición, no solo aplicar producto o suma directos."
     ],
-    "correct_index": 0,
-    "feedback_correct": "Elegir y ordenar un subconjunto de participantes requiere una herramienta más específica que el producto o la suma directos.",
+    "correct_index": 1,
+    "feedback_correct": "Elegir un subconjunto sin que importen los roles requiere una herramienta más específica que el producto o la suma directos.",
     "feedback_incorrect": [
-      null,
-      "Tratar cada premio como independiente con las mismas opciones ignora que un participante que ya ganó el primer premio no puede ganar también el segundo."
+      "Tratar cada lugar como independiente con las mismas opciones cuenta cada comisión varias veces, una por cada orden en que pudo elegirse.",
+      null
     ],
-    "explanation": "El producto y la suma directos alcanzan cuando cada paso tiene sus propias opciones fijas o cuando se elige una única alternativa entre varias.\n\nAcá hay que elegir 2 participantes de los 6 y además importa cuál gana el primer premio y cuál el segundo, un subconjunto ordenado que ya no se resuelve con un producto de opciones fijas por paso.\n\nReconocer esta frontera es importante: cuando un mismo grupo de elementos se reparte en posiciones distintas sin reponer al elegido, hace falta una técnica más específica.\n\nEsa técnica no es la regla del producto ni la de la suma básicas.",
+    "explanation": "El producto y la suma directos alcanzan cuando cada paso tiene sus propias opciones fijas o cuando se elige una única alternativa entre varias.\n\nAcá hay que elegir un subconjunto de 3 socios entre 8, sin que importe quién quedó en qué lugar de la comisión.\n\nMultiplicar $8\\times7\\times6$ contaría cada comisión una vez por cada orden posible de elegir a sus integrantes, así que ese producto ya no alcanza.\n\nReconocer esta frontera es importante: cuando se elige un subconjunto sin reposición y sin distinguir roles, hace falta una técnica más específica.\n\nEsa técnica no es la regla del producto ni la de la suma básicas.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

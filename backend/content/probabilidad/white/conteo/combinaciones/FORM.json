@@ -25,8 +25,13 @@
   },
   {
     "id": "white_combinaciones_FORM_02",
-    "question": "Entre las siguientes expresiones, se busca identificar cuál corresponde a la combinación de $n$ elementos tomados de a $k$.\n\n¿Cuál es la expresión correcta?",
-    "options": ["$\\dfrac{n!}{k!\\,(n-k)!}$", "$\\dfrac{n!}{(n-k)!}$", "$n!$", "$\\dfrac{n!}{k!}$"],
+    "question": "Con 6 elementos y 2 a elegir, $\\binom{6}{2}=15$.\n\n¿Qué expresión general corresponde a la combinación de $n$ elementos tomados de a $k$?",
+    "options": [
+      "$\\dfrac{n!}{k!\\,(n-k)!}$",
+      "$\\dfrac{n!}{(n-k)!}$",
+      "$n!$",
+      "$\\dfrac{n!}{k!}$"
+    ],
     "correct_index": 0,
     "feedback_correct": "La combinación de $n$ tomados de $k$ divide por $k!$ y por $(n-k)!$ para ignorar el orden y los no elegidos.",
     "feedback_incorrect": [
@@ -35,12 +40,14 @@
       "Esa es la permutación completa, que usa todos los $n$ elementos, no un subconjunto de $k$.",
       "Esa expresión no cancela los elementos no elegidos, le falta dividir también por $(n-k)!$."
     ],
-    "explanation": "La **combinación** de elementos tomados de un total, sin importar el orden, se define como:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nSin el $k!$ del denominador queda la variación, que sí distingue el orden.\n\nOlvidar alguno de los dos factores del denominador deja el conteo mal ajustado; conviene recordar que uno cancela el orden interno y el otro los elementos no elegidos.",
+    "explanation": "La **combinación** de elementos tomados de un total, sin importar el orden, se define como:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nCon 6 elementos y 2 a elegir esa fórmula da:\n$$\\frac{6!}{2!\\,4!}=15$$\nEl mismo valor que ya adelanta el enunciado.\n\nSin el $k!$ del denominador queda la variación, que sí distingue el orden.\n\nOlvidar alguno de los dos factores del denominador deja el conteo mal ajustado; conviene recordar que uno cancela el orden interno y el otro los elementos no elegidos.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["identificar-formula-correcta"]
+    "tags": [
+      "identificar-formula-correcta"
+    ]
   },
   {
     "id": "white_combinaciones_FORM_03",
