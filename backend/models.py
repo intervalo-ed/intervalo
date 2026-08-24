@@ -143,7 +143,7 @@ class CourseProgress(Base):
     iteration = Column(Integer, nullable=False, default=1, server_default="1")
     active_cap = Column(Integer, nullable=False, default=18, server_default="18")
     # Máximo de ejercicios por sesión de repaso (config del editor).
-    session_size = Column(Integer, nullable=False, default=8, server_default="8")
+    session_size = Column(Integer, nullable=False, default=5, server_default="5")
 
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
