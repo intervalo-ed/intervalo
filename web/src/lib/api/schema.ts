@@ -801,8 +801,8 @@ export interface paths {
         put?: never;
         /**
          * Submit Session Feedback
-         * @description Micro-encuesta post-ejercicio (dificultad/explicación) y reporte de
-         *     problemas de contenido. Flujo en dos pasos para no perder la impression si
+         * @description Micro-encuesta post-ejercicio (dificultad/explicación/interés) y reporte
+         *     de problemas de contenido. Flujo en dos pasos para no perder la impression si
          *     el usuario cierra/navega antes de responder (ver feedback_survey.py):
          *     "impression" crea la fila (answered_at=None), "answer" la completa. "report"
          *     (canal C, siempre disponible) crea la fila ya resuelta en un solo paso.
@@ -931,6 +931,8 @@ export interface components {
             winback_sent: number;
             /** Streak Tier Sent */
             streak_tier_sent: number;
+            /** Report Thanks Sent */
+            report_thanks_sent: number;
         };
         /** EmojiStateResponse */
         EmojiStateResponse: {
@@ -961,6 +963,8 @@ export interface components {
             course?: string | null;
             /** Motivation */
             motivation?: string | null;
+            /** Known Units */
+            known_units?: string | null;
             /** Intro Item Correct */
             intro_item_correct?: boolean | null;
             /** Attempts */
@@ -1206,6 +1210,8 @@ export interface components {
             value?: string | null;
             /** Free Text */
             free_text?: string | null;
+            /** Reason */
+            reason?: string | null;
         };
         /** SessionFeedbackResponse */
         SessionFeedbackResponse: {

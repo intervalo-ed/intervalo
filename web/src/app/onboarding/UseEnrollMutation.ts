@@ -14,7 +14,7 @@ export function useEnrollMutation() {
       career,
       name,
       course,
-      motivation,
+      knownUnits,
       introItemCorrect,
       introItemAttempts,
       introItemResponseTimeMs,
@@ -23,7 +23,7 @@ export function useEnrollMutation() {
       career: string
       name?: string | null
       course?: string
-      motivation?: string
+      knownUnits?: string[]
       introItemCorrect?: boolean
       introItemAttempts?: number
       introItemResponseTimeMs?: number
@@ -35,7 +35,7 @@ export function useEnrollMutation() {
             career,
             name,
             course: course ?? null,
-            motivation: motivation ?? null,
+            known_units: knownUnits?.length ? knownUnits.join(",") : null,
             intro_item_correct: introItemCorrect ?? null,
             attempts: introItemAttempts ?? null,
             response_time_ms: introItemResponseTimeMs ?? null,

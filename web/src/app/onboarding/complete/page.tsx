@@ -126,7 +126,7 @@ export default function OnboardingCompletePage() {
         career: data.career,
         name: data.name || user?.fullName || user?.firstName || null,
         course: data.course,
-        motivation: data.motivation,
+        knownUnits: data.knownUnits,
         introItemCorrect: data.introItemCorrect,
         introItemAttempts: data.introItemAttempts,
         introItemResponseTimeMs: data.introItemResponseTimeMs,

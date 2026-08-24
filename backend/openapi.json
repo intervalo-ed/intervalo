@@ -1941,7 +1941,7 @@
     "/session/feedback": {
       "post": {
         "summary": "Submit Session Feedback",
-        "description": "Micro-encuesta post-ejercicio (dificultad/explicaci\u00f3n) y reporte de\nproblemas de contenido. Flujo en dos pasos para no perder la impression si\nel usuario cierra/navega antes de responder (ver feedback_survey.py):\n\"impression\" crea la fila (answered_at=None), \"answer\" la completa. \"report\"\n(canal C, siempre disponible) crea la fila ya resuelta en un solo paso.",
+        "description": "Micro-encuesta post-ejercicio (dificultad/explicaci\u00f3n/inter\u00e9s) y reporte\nde problemas de contenido. Flujo en dos pasos para no perder la impression si\nel usuario cierra/navega antes de responder (ver feedback_survey.py):\n\"impression\" crea la fila (answered_at=None), \"answer\" la completa. \"report\"\n(canal C, siempre disponible) crea la fila ya resuelta en un solo paso.",
         "operationId": "submit_session_feedback_session_feedback_post",
         "parameters": [
           {
@@ -2261,13 +2261,18 @@
           "streak_tier_sent": {
             "type": "integer",
             "title": "Streak Tier Sent"
+          },
+          "report_thanks_sent": {
+            "type": "integer",
+            "title": "Report Thanks Sent"
           }
         },
         "type": "object",
         "required": [
           "bounce_sent",
           "winback_sent",
-          "streak_tier_sent"
+          "streak_tier_sent",
+          "report_thanks_sent"
         ],
         "title": "EmailRunResponse"
       },
@@ -2363,6 +2368,17 @@
               }
             ],
             "title": "Motivation"
+          },
+          "known_units": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Known Units"
           },
           "intro_item_correct": {
             "anyOf": [
@@ -3123,6 +3139,17 @@
               }
             ],
             "title": "Free Text"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
           }
         },
         "type": "object",

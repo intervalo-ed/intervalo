@@ -344,10 +344,11 @@ class SessionFeedbackRequest(BaseModel):
     action: str  # "impression" | "answer" | "report"
     session_id: str
     exercise_external_id: str | None = None  # impression / report
-    question_type: str | None = None  # "A" | "B" (impression) — "C" implícito en report
+    question_type: str | None = None  # "A" | "B" | "D" (impression) — "C" implícito en report
     feedback_id: int | None = None  # answer
     value: str | None = None
     free_text: str | None = None
+    reason: str | None = None  # answer, canal D: chip de razón (opcional)
 
 
 class SessionFeedbackResponse(BaseModel):
@@ -447,8 +448,11 @@ class EnrollmentRequest(BaseModel):
     # Curso elegido en el onboarding (slug). None → analisis, por compatibilidad
     # con clientes/datos viejos que no mandaban curso.
     course: str | None = None
-    # Motivación elegida en el onboarding (slug corto: cursada/bases/conceptos).
+    # Motivación: la pregunta se retiró del onboarding, el campo se conserva
+    # para no romper el contrato con clientes viejos.
     motivation: str | None = None
+    # Unidades declaradas como conocidas, claves del catálogo separadas por coma.
+    known_units: str | None = None
     # Resultado del ejercicio de prueba del onboarding (primer ítem del curso).
     # True = acertó al primer intento, False = falló alguna vez, None = sin dato.
     intro_item_correct: bool | None = None
@@ -487,6 +491,7 @@ def enroll_user(
         existing.university = university
         existing.career = body.career
         existing.motivation = body.motivation
+        existing.known_units = body.known_units
     else:
         # Create new enrollment
         enrollment = Enrollment(
@@ -495,6 +500,7 @@ def enroll_user(
             university=university,
             career=body.career,
             motivation=body.motivation,
+            known_units=body.known_units,
         )
         db.add(enrollment)
 
@@ -518,6 +524,7 @@ def enroll_user(
         winner.university = university
         winner.career = body.career
         winner.motivation = body.motivation
+        winner.known_units = body.known_units
         if body.name:
             current_user.display_name = body.name
         db.commit()
@@ -1753,12 +1760,14 @@ def submit_session_feedback(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Micro-encuesta post-ejercicio (dificultad/explicación) y reporte de
-    problemas de contenido. Flujo en dos pasos para no perder la impression si
+    """Micro-encuesta post-ejercicio (dificultad/explicación/interés) y reporte
+    de problemas de contenido. Flujo en dos pasos para no perder la impression si
     el usuario cierra/navega antes de responder (ver feedback_survey.py):
     "impression" crea la fila (answered_at=None), "answer" la completa. "report"
     (canal C, siempre disponible) crea la fila ya resuelta en un solo paso."""
     from datetime import datetime
+
+    from feedback_survey import SURVEY_TYPES, validate_reason
     from models import Exercise, ExerciseFeedback, Session as SessionModel
 
     try:
@@ -1775,7 +1784,7 @@ def submit_session_feedback(
         raise HTTPException(status_code=404, detail="Session not found")
 
     if body.action == "impression":
-        if not body.exercise_external_id or body.question_type not in ("A", "B"):
+        if not body.exercise_external_id or body.question_type not in SURVEY_TYPES:
             raise HTTPException(status_code=422, detail="Missing exercise_external_id/question_type")
         exists = (
             db.query(Exercise.id)
@@ -1807,6 +1816,7 @@ def submit_session_feedback(
             raise HTTPException(status_code=404, detail="Feedback impression not found")
         entry.value = body.value
         entry.free_text = body.free_text
+        entry.reason = validate_reason(entry.question_type, body.value, body.reason)
         entry.answered_at = datetime.utcnow()
         current_user.total_xp = (current_user.total_xp or 0) + FEEDBACK_XP
         db.commit()

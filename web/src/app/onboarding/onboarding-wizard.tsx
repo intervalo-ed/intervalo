@@ -17,7 +17,15 @@ import {
 } from "@/lib/catalog"
 import { useGridLayout } from "@/lib/latex-visual-length"
 import { ONBOARDING_UNIVERSITIES, UNIVERSITY_TAG_BY_KEY, canonicalUniversity, matchUniversities } from "@/lib/university-tags"
-import { ChevronLeft, LayersIcon, TargetIcon } from "lucide-react"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { CheckIcon, ChevronLeft, Info, LayersIcon, TargetIcon } from "lucide-react"
 import { useSignIn } from "@clerk/nextjs"
 import { useRouter } from "next/navigation"
 import posthog from "posthog-js"
@@ -29,14 +37,6 @@ export const CAREERS = [
   { value: "S", label: "Ciencia", emoji: "🔬" },
   { value: "T", label: "Tecnología", emoji: "🤖" },
   { value: "M", label: "Matemática", emoji: "📐" },
-]
-
-// Pregunta de motivación (slide 2). El slug se persiste en la inscripción.
-const MOTIVATIONS = [
-  { value: "cursada", emoji: "📆", label: "Llevar la cursada al día." },
-  { value: "bases", emoji: "🏗️", label: "Reforzar mis bases." },
-  { value: "conceptos", emoji: "🧠", label: "Incorporar lo que ya aprendí." },
-  { value: "competir", emoji: "🤼", label: "Competir en el ranking." },
 ]
 
 // Selección de curso (slide 3). El value es el slug/CourseId; define el tutorial
@@ -131,6 +131,21 @@ function courseUnits(
   return CATALOGS[course].belts.flatMap((b) =>
     b.units.map((u) => ({
       name: u.name,
+      textColor: BELT_HEX[b.key as BeltKey].onDark,
+      gridColor: BELT_ONDARK_VIVID[b.key as BeltKey],
+    })),
+  )
+}
+
+// Igual que courseUnits pero conservando lo que la slide de "¿cuáles ya viste?"
+// necesita y courseUnits descarta: la clave, la descripción y los temas.
+function courseUnitsFull(course: CourseId) {
+  return CATALOGS[course].belts.flatMap((b) =>
+    b.units.map((u) => ({
+      key: u.key,
+      name: u.name,
+      description: u.description,
+      topics: u.topics,
       textColor: BELT_HEX[b.key as BeltKey].onDark,
       gridColor: BELT_ONDARK_VIVID[b.key as BeltKey],
     })),
@@ -607,7 +622,9 @@ const STEP_NAMES: Record<number, string> = {
   [-1]: "intro",
   0: "nombre",
   1: "bienvenida",
-  2: "motivacion",
+  // 2 ("motivacion") quedó retirada: la respuesta no predecía nada de
+  // comportamiento y la pregunta costaba ~11% del embudo en esa posición. El
+  // índice queda reservado para que nadie lo reutilice y rompa el histórico.
   3: "curso",
   4: "unidades",
   5: "ejercicio",
@@ -617,23 +634,25 @@ const STEP_NAMES: Record<number, string> = {
   9: "carrera",
   10: "universidad",
   11: "registro",
+  12: "unidades-conozco",
 }
 
-const ONBOARDING_FLAG = "onboarding-orden-apodo"
+const ONBOARDING_FLAG = "onboarding-copy-bienvenida"
 
-// Orden de visita de las slides. Los índices siguen significando siempre la misma
-// slide (0 es el apodo en las dos variantes): lo único que cambia es en qué
-// posición se visitan. Así los `{step === N}`, el switch de PinnedCTA y STEP_NAMES
-// quedan intactos, y el embudo histórico de PostHog sigue siendo comparable.
-const ORDER_CONTROL = [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-// En test el apodo (0) cae justo antes de carrera (9): las tres preguntas
-// personales quedan juntas al final y las primeras ocho slides son puro valor.
-const ORDER_TEST = [-1, 1, 2, 3, 4, 5, 6, 7, 8, 0, 9, 10, 11]
+// Orden de visita de las slides. Los índices significan siempre la misma slide:
+// reordenar es cambiar este array, nunca renumerar. Así los `{step === N}`, el
+// switch de PinnedCTA y STEP_NAMES quedan intactos, y el embudo histórico de
+// PostHog sigue siendo comparable.
+//
+// El apodo (0) va sobre el final, junto a carrera y universidad: el A/B
+// anterior mostró que la misma pregunta cuesta 35% en la posición 2 y 0,6% en
+// la 10. Las preguntas personales van todas después del valor.
+const ORDER = [-1, 1, 3, 12, 4, 5, 6, 7, 8, 0, 9, 10, 11]
 
 type Variant = "control" | "test" | "unavailable"
 
-// `unavailable` = los flags no resolvieron (adblock, red caída). Esa gente corre
-// el orden de control, pero se marca distinto para poder sacarla del análisis en
+// `unavailable` = los flags no resolvieron (adblock, red caída). Esa gente ve el
+// copy de control, pero se marca distinto para poder sacarla del análisis en
 // vez de contaminar el brazo de control con gente que nunca fue sorteada.
 // Atajo para probar las dos variantes en local con `?variant=test`. Fuera de
 // desarrollo no existe, así que no hay forma de forzarse un brazo en producción
@@ -764,16 +783,12 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
   const [prevStep, setPrevStep] = useState(-1)
   const [direction, setDirection] = useState<1 | -1>(1)
   const variant = useOnboardingVariant()
-  const order = variant === "test" ? ORDER_TEST : ORDER_CONTROL
+  const order = ORDER
   const position = positionOf(step, order)
-  // Posición 0 es el intro, así que la 1 es la primera slide con la que el usuario
-  // interactúa: el apodo en control, la bienvenida en test. Es la que se lleva el
-  // botón de Google y la que no muestra la barra de progreso.
-  const isFirstContentSlide = position === 1
   const [introDone, setIntroDone] = useState(false)
   const [name, setName] = useState("")
-  const [motivation, setMotivation] = useState("")
   const [course, setCourse] = useState<CourseId | "">("")
+  const [knownUnits, setKnownUnits] = useState<string[]>([])
   const [exerciseSelection, setExerciseSelection] = useState<number | null>(null)
   const [exerciseCorrect, setExerciseCorrect] = useState<boolean | null>(null)
   const [wrongOptions, setWrongOptions] = useState<number[]>([])
@@ -797,6 +812,7 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
   // uno; antes de elegir cae a analisis, pero esas slides van gateadas por course).
   const courseKey: CourseId = course || "analisis"
   const currentUnits = courseUnits(courseKey)
+  const currentUnitsFull = courseUnitsFull(courseKey)
   const exercise = ONBOARDING_EXERCISES[courseKey]
   const exerciseUseGrid = useGridLayout(exercise.options)
 
@@ -888,13 +904,18 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
     setStep(order[Math.max(position - 1, 1)])
   }
 
-  function handleMotivation(value: string) {
+  function toggleKnownUnit(key: string) {
     sfx.select()
-    setMotivation(value)
+    setKnownUnits((prev) =>
+      prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key],
+    )
   }
 
   function handleCourse(value: CourseId) {
     sfx.select()
+    // Las claves de unidad son propias de cada curso, así que lo marcado en el
+    // anterior no significa nada acá.
+    if (value !== course) setKnownUnits([])
     setCourse(value)
   }
 
@@ -1019,7 +1040,7 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
       career,
       university,
       course: courseKey,
-      motivation,
+      knownUnits,
       introItemCorrect: firstTryCorrect,
       // Intentos hasta acertar (el wizard exige acertar para avanzar, así que
       // siempre está definido cuando llegamos acá) y tiempo de respuesta.
@@ -1098,60 +1119,35 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
 
               {/* ── SLIDE 0: Nombre ── */}
               {step === 0 && (
-                <Slide0
-                  name={name}
-                  setName={setName}
-                  sfx={sfx}
-                  onNext={() => goNext()}
-                  onSignIn={signInFromShortcut}
-                  authReady={signIn !== null}
-                  authPending={authPending}
-                  authError={authError}
-                  hideSignIn={alreadySignedIn || !isFirstContentSlide}
-                  isFirstContentSlide={isFirstContentSlide}
-                />
+                <Slide0 name={name} setName={setName} sfx={sfx} onNext={() => goNext()} />
               )}
 
-              {/* ── SLIDE 1: Bienvenida ── */}
+              {/* ── SLIDE 1: Bienvenida (variable del A/B onboarding-copy-bienvenida) ── */}
               {step === 1 && (
                 <div className="flex flex-col gap-5">
-                  {/* En test esta slide va primera, así que todavía no hay nombre. */}
-                  <h2 className="text-2xl font-bold">{name ? `Hola, ${name}` : "¡Bienvenido!"}</h2>
+                  {/* Siempre es la primera slide, así que todavía no hay nombre. */}
+                  <h2 className="text-2xl font-bold">¡Bienvenido!</h2>
                   <div className="flex flex-col gap-3 leading-relaxed text-foreground/85">
                     <p>
                       <strong className="text-foreground">Intervalo</strong> está pensado para
                       acompañarte a repasar los contenidos{" "}
                       <strong className="text-foreground">durante y después</strong> de tu cursada.
                     </p>
-                    <p>
-                      Su propósito principal es <strong className="text-foreground">incentivarte</strong>{" "}
-                      a repasar todos los días los conceptos que{" "}
-                      <strong className="text-foreground">más necesitás reforzar</strong>.
-                    </p>
+                    {variant === "test" ? (
+                      <p>
+                        Su propósito principal es{" "}
+                        <strong className="text-foreground">incentivarte</strong> a repasar en vez
+                        de <strong className="text-foreground">scrolear</strong>.
+                      </p>
+                    ) : (
+                      <p>
+                        Su propósito principal es{" "}
+                        <strong className="text-foreground">incentivarte</strong> a repasar todos
+                        los días los conceptos que{" "}
+                        <strong className="text-foreground">más necesitás reforzar</strong>.
+                      </p>
+                    )}
                     <p>¿Arrancamos?</p>
-                  </div>
-                </div>
-              )}
-
-              {/* ── SLIDE 2: Motivación ── */}
-              {step === 2 && (
-                <div className="flex flex-col gap-5">
-                  <div className="flex flex-col gap-2 text-center">
-                    <h2 className="text-2xl font-bold">¿Qué te motiva?</h2>
-                    <p className="text-foreground/85">
-                      Marcá la que más te identifique.
-                    </p>
-                  </div>
-                  <div className="flex flex-col gap-2.5">
-                    {MOTIVATIONS.map((m) => (
-                      <ChoiceRow
-                        key={m.value}
-                        emoji={m.emoji}
-                        label={m.label}
-                        selected={motivation === m.value}
-                        onClick={() => handleMotivation(m.value)}
-                      />
-                    ))}
                   </div>
                 </div>
               )}
@@ -1179,22 +1175,47 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
                 </div>
               )}
 
-              {/* ── SLIDE 4: Curso + unidades ── */}
-              {step === 4 && (
-                <div className="flex flex-col gap-6 pt-6">
-                  <h2 className="text-left text-2xl font-bold">{COURSE_LABEL[courseKey]}</h2>
-                  <div className="flex flex-col gap-3 leading-relaxed text-foreground/85">
-                    <p>
-                      Los contenidos de este curso se dividen en las siguientes{" "}
-                      <strong className="text-foreground">unidades correlativas</strong>:
+              {/* ── SLIDE 12: Unidades conocidas ── */}
+              {step === 12 && (
+                <div className="flex flex-col gap-5">
+                  <div className="flex flex-col gap-2">
+                    <h2 className="text-2xl font-bold">{COURSE_LABEL[courseKey]}</h2>
+                    <p className="leading-relaxed text-foreground/85">
+                      El curso se divide en estas{" "}
+                      <strong className="text-foreground">unidades correlativas</strong>. ¿Cuáles ya
+                      viste? Tocá la ⓘ para ver qué hay en cada una.
                     </p>
                   </div>
+                  <div className="flex flex-col gap-2.5">
+                    {currentUnitsFull.map((u) => (
+                      <KnownUnitRow
+                        key={u.key}
+                        unit={u}
+                        selected={knownUnits.includes(u.key)}
+                        onToggle={() => toggleKnownUnit(u.key)}
+                      />
+                    ))}
+                  </div>
+                  <p className="text-sm leading-snug text-foreground/60">
+                    Si recién arrancás, seguí de largo.
+                  </p>
+                </div>
+              )}
+
+              {/* ── SLIDE 4: Cómo se organiza el contenido ── */}
+              {step === 4 && (
+                <div className="flex flex-col gap-6 pt-6">
                   <UnitSegmentedBar units={currentUnits} />
                   <p className="leading-relaxed text-foreground/85">
                     Dentro de cada unidad hay una serie de{" "}
                     <strong className="text-foreground">temas</strong>, y cada uno contempla distintos{" "}
                     <strong className="text-foreground">tipos</strong> de{" "}
                     <strong className="text-foreground">ejercicios</strong>.
+                  </p>
+                  <p className="leading-relaxed text-foreground/85">
+                    {knownUnits.length > 0
+                      ? "Vas a arrancar por el principio igual: el repaso te va a ir salteando rápido lo que ya domines."
+                      : "No hace falta que sepas nada de antemano: el repaso arranca por el principio y avanza a tu ritmo."}
                   </p>
                   <p className="font-medium text-foreground/90">
                     ¿Vamos con uno de prueba?
@@ -1500,7 +1521,6 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
         step={step}
         showOther={showOther}
         universityOther={universityOther}
-        motivation={motivation}
         course={course}
         career={career}
         university={university}
@@ -1514,7 +1534,6 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
         goNext={goNext}
         confirmOther={confirmOther}
         onRevisar={onRevisar}
-        isFirstContentSlide={isFirstContentSlide}
         direction={direction}
         name={name}
         onSignIn={signInFromShortcut}
@@ -1532,7 +1551,6 @@ function PinnedCTA({
   step,
   showOther,
   universityOther,
-  motivation,
   course,
   career,
   university,
@@ -1546,7 +1564,6 @@ function PinnedCTA({
   goNext,
   confirmOther,
   onRevisar,
-  isFirstContentSlide,
   direction,
   name,
   onSignIn,
@@ -1558,7 +1575,6 @@ function PinnedCTA({
   step: number
   showOther: boolean
   universityOther: string
-  motivation: string
   course: CourseId | ""
   career: string
   university: string
@@ -1572,7 +1588,6 @@ function PinnedCTA({
   goNext: () => void
   confirmOther: () => void
   onRevisar: () => void
-  isFirstContentSlide: boolean
   direction: 1 | -1
   name: string
   onSignIn: () => void
@@ -1598,10 +1613,7 @@ function PinnedCTA({
   let content: React.ReactNode = null
 
   switch (step) {
-    // Solo cuando el apodo cae en el medio del wizard (test). Abriendo el wizard
-    // (control) los botones van dentro de la slide, centrados, y acá no va nada.
     case 0:
-      if (isFirstContentSlide) return null
       content = (
         <Button
           size="lg"
@@ -1613,12 +1625,12 @@ function PinnedCTA({
         </Button>
       )
       break
-    // En test la bienvenida abre el wizard, así que se lleva la salida para
-    // quien ya tiene cuenta (en control vive en la slide del apodo).
+    // La bienvenida abre el wizard, así que se lleva la salida para quien ya
+    // tiene cuenta.
     case 1:
       content = (
         <div className="flex flex-col gap-2">
-          {isFirstContentSlide && !hideSignIn && (
+          {!hideSignIn && (
             <Button
               variant="outline"
               size="lg"
@@ -1633,7 +1645,7 @@ function PinnedCTA({
           <Button size="lg" className={ctaCls} onClick={() => { sfx.continue(); goNext() }}>
             Continuar
           </Button>
-          {isFirstContentSlide && authError && (
+          {authError && (
             <p className="text-center text-sm text-red-500">{authError}</p>
           )}
         </div>
@@ -1655,9 +1667,10 @@ function PinnedCTA({
         </Button>
       )
       break
-    case 2:
+    // Marcar unidades conocidas es opcional: el CTA nunca se deshabilita.
+    case 12:
       content = (
-        <Button size="lg" className={ctaCls} disabled={!motivation} onClick={() => { sfx.continue(); goNext() }}>
+        <Button size="lg" className={ctaCls} onClick={() => { sfx.continue(); goNext() }}>
           Continuar
         </Button>
       )
@@ -1771,11 +1784,11 @@ function PinnedCTA({
   }
 
   // La barra fija vive fuera del AnimatePresence de las slides, así que su
-  // contenido aparece de golpe. En la slide que abre el wizard se nota, porque el
-  // texto entra deslizándose y los botones no: ahí los acompañamos con la misma
-  // curva y duración que usa slideVariants. En el resto del wizard queda como
-  // estaba — el CTA ya está en pantalla y no tiene que volver a entrar.
-  if (isFirstContentSlide) {
+  // contenido aparece de golpe. En la bienvenida, que abre el wizard, se nota
+  // porque el texto entra deslizándose y los botones no: ahí los acompañamos con
+  // la misma curva y duración que usa slideVariants. En el resto del wizard queda
+  // como estaba — el CTA ya está en pantalla y no tiene que volver a entrar.
+  if (step === 1) {
     return (
       <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center px-4 pt-[var(--cta-pt)] pb-[var(--cta-pb)] bg-gradient-to-t from-background via-background/90 to-transparent pointer-events-none">
         <div className="w-full max-w-md pointer-events-auto overflow-hidden">
@@ -1805,23 +1818,11 @@ function Slide0({
   setName,
   sfx,
   onNext,
-  onSignIn,
-  authReady,
-  authPending,
-  authError,
-  hideSignIn,
-  isFirstContentSlide,
 }: {
   name: string
   setName: (v: string) => void
   sfx: ReturnType<typeof useSfx>
   onNext: () => void
-  onSignIn: () => void
-  authReady: boolean
-  authPending: boolean
-  authError: string | null
-  hideSignIn: boolean
-  isFirstContentSlide: boolean
 }) {
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -1848,57 +1849,16 @@ function Slide0({
     />
   )
 
-  // Cuando el apodo cae en el medio del wizard (test) es una pregunta más: mismo
-  // formato de título y bajada que carrera o motivación, y el Continuar en la
-  // barra de abajo como el resto — lo pone PinnedCTA.
-  if (!isFirstContentSlide) {
-    return (
-      <div className="flex flex-col gap-5">
-        <div className="flex flex-col gap-2 text-center">
-          <h2 className="text-2xl font-bold">¿Cómo te llamás?</h2>
-          <p className="text-foreground/85">Puede ser tu nombre o el apodo que prefieras.</p>
-        </div>
-        {input}
-      </div>
-    )
-  }
-
-  // Abriendo el wizard, en cambio, es una pantalla de bienvenida: saludo grande,
-  // todo centrado en el alto y los botones ahí mismo.
+  // El apodo es una pregunta más, sobre el final: mismo formato de título y
+  // bajada que carrera o universidad, y el Continuar en la barra de abajo como el
+  // resto — lo pone PinnedCTA.
   return (
-    <div className="flex-1 w-full flex flex-col">
-      <motion.div
-        className="flex flex-1 flex-col justify-center gap-7 pt-[16vh]"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-      >
-        <div className="flex flex-col gap-2 text-center">
-          <h2 className="text-3xl font-bold">¡Hola!</h2>
-          <p className="text-lg text-foreground/70">¿Cómo te llamás?</p>
-        </div>
-
-        {input}
-
-        <div className="flex flex-col gap-2">
-          <Button size="lg" className="h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black" disabled={!name.trim()} onClick={handleContinue}>
-            Continuar
-          </Button>
-          {!hideSignIn && (
-            <Button
-              variant="outline"
-              size="lg"
-              className="h-12 w-full rounded-md gap-2"
-              disabled={!authReady || authPending}
-              onClick={onSignIn}
-            >
-              <GoogleIcon className="size-5" />
-              {authPending ? "Conectando..." : "Ya tengo una cuenta"}
-            </Button>
-          )}
-          {authError && <p className="text-center text-sm text-red-500">{authError}</p>}
-        </div>
-      </motion.div>
+    <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-2 text-center">
+        <h2 className="text-2xl font-bold">¿Cómo te llamás?</h2>
+        <p className="text-foreground/85">Puede ser tu nombre o el apodo que prefieras.</p>
+      </div>
+      {input}
     </div>
   )
 }
@@ -1977,6 +1937,87 @@ export function OptionButton({
 
 // Fila de selección con emoji + label (+ bajada opcional). Usada por las slides de
 // motivación y curso.
+// Fila de la slide "¿cuáles ya viste?". No reusa ChoiceRow porque necesita dos
+// zonas táctiles independientes (marcar y abrir el detalle), y ChoiceRow es un
+// solo <button> — un botón adentro de otro no es HTML válido.
+function KnownUnitRow({
+  unit,
+  selected,
+  onToggle,
+}: {
+  unit: ReturnType<typeof courseUnitsFull>[number]
+  selected: boolean
+  onToggle: () => void
+}) {
+  return (
+    <div
+      className={cn(
+        "flex items-center rounded-md border bg-white/5 transition-colors",
+        selected ? "border-[#7e80f7]" : "border-white/10",
+      )}
+    >
+      <button
+        onClick={onToggle}
+        aria-pressed={selected}
+        className="flex flex-1 items-center gap-3 px-4 py-3.5 text-left"
+      >
+        <span
+          className={cn(
+            "flex size-5 shrink-0 items-center justify-center rounded-sm border transition-colors",
+            selected ? "border-[#7e80f7] bg-[#7e80f7]" : "border-white/25",
+          )}
+        >
+          {selected && <CheckIcon className="size-3.5 text-black" />}
+        </span>
+        <span className="font-medium" style={{ color: unit.textColor }}>
+          {unit.name}
+        </span>
+      </button>
+      <Dialog>
+        <DialogTrigger
+          aria-label={`Qué hay en ${unit.name}`}
+          className="px-4 py-3.5 text-foreground/40 outline-none transition-colors hover:text-foreground/70"
+        >
+          <Info className="size-4" />
+        </DialogTrigger>
+        <DialogContent className="max-h-[80vh] overflow-y-auto">
+          <DialogHeader className="gap-2">
+            <DialogTitle className="font-sans text-base font-semibold" style={{ color: unit.textColor }}>
+              {unit.name}
+            </DialogTitle>
+            {unit.description && (
+              <DialogDescription className="whitespace-pre-line text-left text-sm leading-relaxed text-foreground/80">
+                <MathText text={unit.description} />
+              </DialogDescription>
+            )}
+          </DialogHeader>
+          <div className="flex flex-col gap-2.5">
+            {unit.topics.map((t) => (
+              <div key={t.key} className="flex items-center justify-between gap-3">
+                <span className="text-sm leading-tight text-foreground/80">{t.name}</span>
+                {/* Un cuadradito por tipo de ejercicio del tema: da la escala de
+                    cuánto hay adentro sin tener que enumerarlo. */}
+                <span className="flex shrink-0" style={{ gap: UNIT_GAP_PX }}>
+                  {t.skills.map((s) => (
+                    <span
+                      key={s}
+                      style={{
+                        width: UNIT_SQ_PX,
+                        height: UNIT_SQ_PX,
+                        backgroundColor: unit.gridColor,
+                      }}
+                    />
+                  ))}
+                </span>
+              </div>
+            ))}
+          </div>
+        </DialogContent>
+      </Dialog>
+    </div>
+  )
+}
+
 function ChoiceRow({
   emoji,
   label,

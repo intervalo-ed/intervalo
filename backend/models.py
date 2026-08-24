@@ -120,7 +120,13 @@ class Enrollment(Base):
     course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
     university = Column(String(100), nullable=True)
     career = Column(String(200), nullable=True)
+    # Retirada del onboarding (la respuesta no predecía comportamiento). Se
+    # conserva por los valores históricos; en altas nuevas queda NULL.
     motivation = Column(String(50), nullable=True)
+    # Unidades que la persona declaró conocer en el onboarding, claves del
+    # catálogo separadas por coma ("functions,limits"). Declarativo: no altera
+    # el plan de estudio ni el estado inicial de SM-2.
+    known_units = Column(String(100), nullable=True)
     enrolled_at = Column(DateTime, default=datetime.utcnow)
 
     __table_args__ = (UniqueConstraint("user_id", "course_id", name="unique_user_course"),)
@@ -431,8 +437,8 @@ class Feedback(Base):
 
 
 class ExerciseFeedback(Base):
-    """Micro-encuesta post-ejercicio (dificultad/explicación) y reporte de
-    problemas de contenido. `exercise_external_id` es la clave real del
+    """Micro-encuesta post-ejercicio (dificultad/explicación/interés) y reporte
+    de problemas de contenido. `exercise_external_id` es la clave real del
     ejercicio (Exercise.external_id), no el slot de sesión (Answer.exercise_id),
     para poder agregar respuestas del mismo ítem entre sesiones/usuarios.
     `answered_at` NULL = impression mostrada pero no respondida (skip),
@@ -445,9 +451,17 @@ class ExerciseFeedback(Base):
     course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
     exercise_external_id = Column(String(100), nullable=False)
 
-    question_type = Column(String(1), nullable=False)  # "A" | "B" | "C"
-    value = Column(String(30), nullable=True)  # muy_facil|justo|muy_dificil / util|no_util / categoría de reporte
+    question_type = Column(String(1), nullable=False)  # "A" | "B" | "C" | "D"
+    # A: muy_facil|justo|muy_dificil — B: util|no_util — C: categoría de reporte
+    # D: aburrido|justo|interesante
+    # OJO: "justo" existe en A (la dificultad estuvo bien) y en D (ni aburrido ni
+    # interesante). Son cosas distintas: agrupar por `value` sin filtrar
+    # `question_type` da un número plausible y falso.
+    value = Column(String(30), nullable=True)
     free_text = Column(Text, nullable=True)
+    # Canal D: chip de razón, solo en los extremos. Lista cerrada en
+    # feedback_survey.D_REASONS, validada en el endpoint.
+    reason = Column(String(30), nullable=True)
 
     shown_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     answered_at = Column(DateTime, nullable=True)
@@ -460,6 +474,9 @@ class ExerciseFeedback(Base):
         Index("idx_exfb_user_course", "user_id", "course_id"),
         Index("idx_exfb_session", "session_id"),
         Index("idx_exfb_user_item", "user_id", "exercise_external_id"),
+        # Targeting por canal en feedback_survey: cuenta impresiones por
+        # (ítem, canal). idx_exfb_user_item no sirve porque arranca por user_id.
+        Index("idx_exfb_item_type", "exercise_external_id", "question_type"),
     )
 
     user = relationship("User")
