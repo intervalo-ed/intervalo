@@ -116,6 +116,14 @@ Ejecutar la **multiplicación por el conjugado**, simplificar la **diferencia de
 | B. Raíz en el denominador | Límites donde el conjugado se aplica para limpiar la parte inferior. Ejemplo: $\lim_{x \to 4} \tfrac{x - 4}{\sqrt{x} - 2}$. Multiplicar por conjugado del denominador. | `raiz-en-el-denominador` | 12 |
 | C. Cancelación con signos ocultos | Límites donde, tras racionalizar, el factor resultante tiene signos invertidos y hay que extraer un $-1$ para poder cancelar. Ejemplo: $\lim_{x \to 4} \tfrac{4 - x}{\sqrt{x} - 2}$: $4 - x = -(x - 4)$. | `cancelacion-signos-ocultos` | 6 |
 
+### Mezcla obligatoria: mitad valor final, mitad paso troceado
+
+*(Ajuste ago-2026, tras medir P1 en producción.)* El skill medía **30% de acierto al primer intento**, el más bajo de todo el curso después de Laplace en probabilidad. La causa era el formato, no el temario: los 15 ítems pedían el **valor final**, y el procedimiento completo son 5 o 6 operaciones encadenadas (reconocer la indeterminación, multiplicar por el conjugado, desarrollar la diferencia de cuadrados, cancelar, sustituir, y en varios casos terminar en una fracción). Muy por encima del techo de la **regla 55**.
+
+La corrección aplica la **regla 56**: 8 de los 15 pasan a preguntar **qué expresión queda tras multiplicar por el conjugado y simplificar**, que es la decisión con contenido real del método. Se troceó con prioridad `raiz-en-el-numerador`, la sub-familia más cargada porque además cierra en fracción, y los dos de `cancelacion-signos-ocultos` donde el contenido es la extracción del $-1$. Los 7 restantes siguen pidiendo el valor final.
+
+**Los `tags` no cambian con el formato**, así que la tabla de arriba queda igual. Al generar ítems nuevos, mantener la proporción y ubicar el paso troceado donde el procedimiento excede el techo.
+
 ### `feedback_incorrect`, confusiones fuente
 - **Multiplicar solo arriba o solo abajo**: al racionalizar el numerador, no multiplicar el denominador por el mismo conjugado. La fracción $\tfrac{\text{conjugado}}{\text{conjugado}} = 1$; si se rompe, se cambia la función.
 - **Signo de la diferencia de cuadrados invertido**: en $(\sqrt{x + 9} - 3)(\sqrt{x + 9} + 3)$ dar $(x + 9) + 9$ o $9 - (x + 9)$. Es $(x + 9) - 9 = x$.

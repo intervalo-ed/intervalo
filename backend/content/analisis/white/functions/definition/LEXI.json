@@ -1,50 +1,50 @@
 [
   {
     "id": "white_definition_LEXI_01",
-    "question": "Un cajero automático asigna a cada cuenta bancaria su saldo disponible.\n\n¿Qué pasaría en este sistema si no se cumpliera la **unicidad**?",
+    "question": "Una encuesta puntúa cada respuesta con un entero del 1 al 10, aunque este mes nadie puntuó por debajo de 6.$$P : \\{\\text{respuestas}\\} \\to \\{1, \\dots, 10\\}$$¿Cuál es el **codominio** de $P$?",
     "options": [
-      "Una misma cuenta mostraría distintos saldos al mismo tiempo",
-      "Dos cuentas distintas tendrían exactamente el mismo saldo",
-      "Habría cuentas bancarias que no tendrían ningún saldo asignado"
+      "El conjunto $\\{1, \\dots, 10\\}$ declarado en la asignación",
+      "El conjunto $\\{6, \\dots, 10\\}$ de puntajes que aparecieron",
+      "El conjunto de respuestas de la encuesta"
     ],
     "correct_index": 0,
     "has_math": false,
-    "feedback_correct": "Si no hay unicidad, la misma cuenta arroja más de un saldo a la vez.",
+    "feedback_correct": "El codominio es el conjunto de salidas declarado, $\\{1, \\dots, 10\\}$, use o no la función todos sus valores.",
     "feedback_incorrect": [
       null,
-      "Que dos cuentas tengan el mismo saldo no rompe la unicidad, solo afecta la inyectividad de la relación.",
-      "Eso violaría que la regla esté definida para todo el dominio, pero la unicidad trata sobre no dar respuestas múltiples a una misma entrada."
+      "Ese es el conjunto de puntajes efectivamente alcanzados, que forma la imagen; el codominio no depende de lo que pasó este mes.",
+      "Ese es el dominio, las entradas que la función procesa; el codominio agrupa las salidas posibles."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **unicidad** exige que una función asigne a cada entrada una sola salida.\n\nAcá la entrada es la cuenta y la salida es el saldo.\n\nSi fallara esta propiedad, una misma cuenta podría devolver \\$100 y \\$5000 a la vez.\n\nNo confundas unicidad con inyectividad: acá se exige que cada cuenta tenga un solo saldo, no que cada saldo venga de una sola cuenta.",
+    "explanation": "El **codominio** es el conjunto de llegada declarado al definir la función, y no cambia según qué valores se alcancen.\n\nAcá la asignación declara los enteros del 1 al 10, así que ese es el codominio completo.\n\nQue este mes nadie haya puntuado por debajo de 6 afecta a la **imagen**, que reúne solo las salidas realmente alcanzadas, pero deja el codominio intacto.\n\nLa imagen siempre está contenida en el codominio, y solo coinciden cuando la función alcanza todos los valores declarados.",
     "reviewed": false,
     "tags": [
-      "unicidad"
+      "codominio"
     ]
   },
   {
     "id": "white_definition_LEXI_02",
-    "question": "Un termómetro digital asigna a cada instante de tiempo la temperatura del ambiente.\n\n¿Qué garantía te da la **unicidad** en esta medición?",
+    "question": "Una app de delivery asigna a cada pedido su tiempo estimado de entrega, en minutos, con un tope de 90.$$T : \\{\\text{pedidos}\\} \\to \\{1, \\dots, 90\\}$$¿Qué representa el conjunto de llegada?",
     "options": [
-      "El termómetro no puede repetir la misma temperatura en distintos instantes",
-      "En un mismo instante, el termómetro marca un único valor de temperatura",
-      "Cada temperatura es alcanzada en un único instante del día"
+      "Los tiempos que la app efectivamente estimó hoy",
+      "Los tiempos que la app puede llegar a estimar",
+      "La cantidad de pedidos que se pueden registrar"
     ],
     "correct_index": 1,
     "has_math": false,
-    "feedback_correct": "La unicidad asegura que a cada instante le corresponde una sola medición.",
+    "feedback_correct": "Es el **codominio**: el conjunto de salidas que la asignación declara como posibles.",
     "feedback_incorrect": [
-      "Que se repita el valor a la tarde no rompe la unicidad; lo que importa es que a cada instante le corresponda uno solo.",
+      "Esos forman la imagen, las salidas realmente alcanzadas; el codominio se declara de antemano.",
       null,
-      "Eso confundiría unicidad con inyectividad; la temperatura puede repetirse a la tarde, lo que importa es que no dé valores dobles en simultáneo."
+      "Los pedidos son el dominio, las entradas; el conjunto de llegada agrupa los tiempos."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **unicidad** asegura que cada entrada de una función tenga exactamente una salida asociada.\n\nSi el termómetro cumple esto, a las 14:00 horas registrará una sola medición válida, sin importar si ese valor vuelve a repetirse más tarde.\n\nQue esa medición se repita en otro horario no rompe la unicidad: importa que cada instante tenga una sola lectura, no que cada lectura ocurra una sola vez.",
+    "explanation": "Al definir una función se declaran dos conjuntos: de dónde salen las entradas y a dónde pueden ir a parar las salidas.\n\nEl segundo es el **codominio**, y acá son los tiempos del 1 al 90 que la app admite como estimación posible.\n\nNo hace falta que la app haya usado los 90 valores para que el codominio sea ese: basta con que estén declarados como alcanzables.\n\nEl subconjunto de tiempos que sí aparecieron en los pedidos de hoy es la **imagen**, que se lee de los datos y no de la definición.",
     "reviewed": false,
     "tags": [
-      "unicidad"
+      "codominio"
     ]
   },
   {

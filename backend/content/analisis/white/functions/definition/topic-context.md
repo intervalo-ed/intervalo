@@ -38,13 +38,14 @@ Revisión manual ejercicio por ejercicio vía `/test`. Los siguientes son ejempl
 | Variable independiente / dependiente |, | `variable-indep-dep` | 6 |
 | Imagen | como conjunto (¿cuál es el conjunto imagen?) | `imagen-conjunto` | 5 |
 | Imagen | puntual (respecto de $x$, ¿qué es $f(x)$?) | `imagen-puntual` | 2 |
-| Codominio |, | `codominio` | 4 |
+| Codominio |, | `codominio` | 6 |
 | Preimagen | como cálculo (¿qué entradas dan $y$?) | `preimagen-calculo` | 3 |
 | Preimagen | puntual (respecto de $f(x)=y$, ¿qué rol cumple $x$?) | `preimagen-puntual` | 1 |
-| Unicidad (cupo estricto, ver abajo) |, | `unicidad` | 2 |
 | **Total** | | | **30** |
 
-**Cantidades exactas, no aproximadas.** La Gem debe respetar exactamente estos números; no más ejercicios de imagen o unicidad "porque salieron mejor".
+> **Unicidad salió de LEXI (ago-2026, junto con el archivado en CLSF).** Los 2 ítems de `unicidad` (cajero y termómetro) se **reemplazaron** por 2 de `codominio`, que pasó de 4 a 6. LEXI se mantiene en 30. El motivo: al archivarse el bloque de unicidad de CLSF, esos 2 quedaban enseñando un concepto que ningún otro ejercicio del topic reforzaba. Se eligió `codominio` como reemplazo porque era la cobertura más fina tras el archivado y porque codominio↔imagen es la confusión que la tabla de confusiones de abajo ya declara como central.
+
+**Cantidades exactas, no aproximadas.** La Gem debe respetar exactamente estos números; no más ejercicios de imagen "porque salieron mejor".
 
 **No hay bucket "contexto general".** Cada ejercicio debe encajar en uno de los conceptos de arriba. Si un ejercicio no encaja en ninguno, es porque no pertenece a este skill, descartalo, no lo forces.
 
@@ -56,16 +57,11 @@ Revisión manual ejercicio por ejercicio vía `/test`. Los siguientes son ejempl
 
 Imagen, codominio y preimagen deben estar balanceados entre sí. Los ejercicios de estos tres conceptos son **cuantitativos y lógicos**: el alumno identifica el conjunto concreto, calcula las preimágenes de un valor, o distingue entre lo que la función "promete" (codominio) y lo que realmente produce (imagen). No generar ejercicios que sean puramente de vocabulario en abstracto ("¿qué es la imagen?").
 
-### Unicidad, cupo estricto: 2 ejercicios, ni más ni menos
+### Unicidad: fuera del topic (ago-2026)
 
-**OBLIGATORIO, no negociable.** El cupo de unicidad se recortó de 4 a 2 al reducir el ítem de 50 a 30 ejercicios, pero los 2 que quedan son, sin excepción, los dos obligatorios:
+**El cupo de unicidad es 0, y no se repone.** Existía un cupo estricto de 2 ejercicios (cajero automático y termómetro) que era "obligatorio, no negociable"; esa regla queda derogada. El criterio de unicidad salió del curso entero: el bloque de CLSF se archivó y estos 2 de LEXI se reemplazaron por `codominio`.
 
-- Uno de cajero automático que muestra dos saldos distintos según quién consulta.
-- Uno de termómetro que da dos lecturas simultáneas del mismo ambiente.
-
-La pregunta debe ser del tipo "¿qué garantía te da la unicidad acá?" o "¿qué pasaría si esta regla no fuera función?", NO "¿cumple la unicidad?".
-
-Ya no hay cupo para los ejercicios "clásicos" adicionales de "¿es función o no?" (contexto que sí respeta unicidad / contexto con una entrada y dos salidas) ni para los contextos alternativos (app con dos precios, GPS con dos rutas): quedaron fuera del recorte. Si en una futura ronda se necesita volver a ampliar el cupo de unicidad, agregarlos ahí respetando que cajero y termómetro nunca se tocan.
+No agregar ejercicios de "¿es función o no?", ni de "¿qué garantía te da la unicidad?", ni contextos del tipo app con dos precios o GPS con dos rutas. Si alguna ronda futura reabre el tema, es una decisión de producto que tiene que tomarse explícita, no un hueco a rellenar.
 
 ### Cardinalidad
 
@@ -91,7 +87,6 @@ Requerido. Array del mismo largo que `options`, `null` en `correct_index`. 1 ora
 | Preimagen de k | preimagen tomada como f(k), o como codominio restringido | "Ese es el valor que sale al evaluar en k; la preimagen es lo que entra para obtener k." |
 | Variable independiente | entrada y salida intercambiadas | "La variable independiente es la que elegís libremente, la entrada; la otra sale de aplicar la regla." |
 | Variable dependiente | entrada y salida intercambiadas | "Esa es la que elegís libremente; la dependiente es la que resulta de aplicar la regla." |
-| Unicidad | unicidad tomada como inyectividad | "Eso describe inyectividad (cada salida viene de una sola entrada); la unicidad pide que cada entrada tenga una sola salida." |
 
 ### Reglas específicas de este topic
 
@@ -110,7 +105,7 @@ No repetir la misma estructura de apertura en ejercicios consecutivos del mismo 
 - Dominio: "No lo confundas con la imagen: el dominio son las entradas, no las salidas."
 - Imagen vs. codominio: "El codominio es lo que la función podría alcanzar; la imagen, lo que realmente alcanza."
 - Preimagen: "Preimagen de $k$ no es $f(k)$: es qué entrada produce $k$, no qué produce $k$."
-- Unicidad: "Ojo, unicidad no es inyectividad: acá miramos que cada entrada dé una sola salida, no al revés."
+- Codominio declarado vs. alcanzado: "Que la función no use todos los valores declarados no achica el codominio; eso solo describe su imagen."
 
 El **humor es excepcional** (una minoría de los 30 ejercicios) y solo como **analogía cotidiana exagerada** en tono formal, del tipo escena burocrática o consecuencia práctica absurda ("Un registro que le asigna dos expedientes al mismo trámite no tiene un error de tipeo: tiene un problema de unicidad."). **Nunca antropomorfismos** ("la raíz detesta los negativos") ni chistes externos. Si no hay advertencia pertinente ni analogía que cierre bien, terminá en la aplicación.
 
@@ -170,10 +165,8 @@ Además del checklist global del `generation-instructions.md`, verificá lo espe
 
 **LEXI:**
 - [ ] 30 ejercicios exactos
-- [ ] Distribución: 7 dominio, 6 var indep/dep, 5 imagen conjunto, 2 imagen puntual, 4 codominio, 3 preimagen cálculo, 1 preimagen puntual, 2 unicidad
-- [ ] El ejercicio del cajero automático (dos saldos) está presente
-- [ ] El ejercicio del termómetro (dos lecturas simultáneas) está presente
-- [ ] El cupo de unicidad son exactamente esos 2 (cajero + termómetro), no quedan ejercicios clásicos adicionales de "¿es función o no?" tras el recorte
+- [ ] Distribución: 7 dominio, 6 var indep/dep, 5 imagen conjunto, 2 imagen puntual, 6 codominio, 3 preimagen cálculo, 1 preimagen puntual
+- [ ] Ningún ejercicio de unicidad ni de "¿es función o no?": el concepto salió del topic (ago-2026)
 - [ ] Ningún ejercicio de imagen/codominio/preimagen es puramente definicional en abstracto, todos identifican, calculan o distinguen conjuntos concretos
 - [ ] Variedad de apertura en las `explanation`: proporción similar de pregunta retórica, contraejemplo y definición formal entre los que queden
 
