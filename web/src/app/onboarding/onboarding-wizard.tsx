@@ -12,7 +12,6 @@ import {
   BELT_LEGEND_BAR_COLORS,
   BELT_ONDARK_VIVID,
   CATALOGS,
-  COURSE_LABEL,
   type BeltKey,
   type CourseId,
 } from "@/lib/catalog"
@@ -59,6 +58,14 @@ export const UNIVERSITY_LOGOS: Partial<Record<string, string>> = {
   UNL: "/universities/unl.png",
 }
 
+// Tinte del panel de feedback del ejercicio de prueba. Va apilado sobre una base
+// opaca, ver el `style` de PinnedCTA: verde al acertar, naranja al errar. Mismos
+// colores que usa la sesión real (green-500 / orange-500 al 10%).
+const TINTE_FEEDBACK = {
+  ok: "rgba(34, 197, 94, 0.10)",
+  mal: "rgba(249, 115, 22, 0.10)",
+} as const
+
 type OnboardingExercise = {
   question: string
   options: string[]
@@ -92,20 +99,27 @@ const ONBOARDING_EXERCISES: Record<CourseId, OnboardingExercise> = {
     explanation:
       "Evaluamos la función en $k = 3$:\n$$\\begin{aligned} C(3) &= 500 + 300 \\cdot 3 \\\\ &= 500 + 900 \\\\ &= 1400 \\end{aligned}$$\nEl viaje cuesta \\$1400.\n\nLa tarifa por kilómetro se multiplica primero por los kilómetros recorridos, y recién después se suma el fijo: son \\$900 de recorrido más \\$500 de bajada de bandera.",
   },
+  // Espejo de white_absolute_value_RESL_01 del banco (algebra/white/aritmetica).
+  // El anterior (reenvios, 2^2 * 2^3 = 2^x) se resolvia bien el 73% de las
+  // veces pero tardaba 188s: el distractor 32 es el valor de 2^5 y no el
+  // exponente, y ahi se traba. Este mide 83% al primer intento en 34s, casi
+  // igual que el de analisis, y sigue el mismo patron: situacion concreta,
+  // ecuacion servida y un solo paso. Las opciones son enteros, sin exponentes.
   algebra: {
     question:
-      "Un mensaje se reenvía y cada contacto lo manda a $2^2$ personas, que a su vez lo reenvían a $2^3$ personas más cada una.\n$$2^2 \\cdot 2^3 = 2^x$$\n¿Cuál es el valor de $x$?",
-    options: ["$5$", "$6$", "$32$", "$8$"],
+      "Una fábrica produce piezas de $50$ mm y el control de calidad aparta las que se desvían exactamente $3$ mm de esa medida.\n\nSi $x$ es la medida real de una pieza apartada, en mm:\n$$|x-50|=3$$\n¿Qué dos medidas puede tener?",
+    options: ["$53$ y $47$", "$53$", "$53$ y $-47$", "$56$ y $44$"],
     correctIndex: 0,
-    feedback: "Los exponentes se suman: $2^2 \\cdot 2^3 = 2^{2+3} = 2^5$.",
+    feedback:
+      "Las dos ramas de la ecuación dan $x=53$ y $x=47$: la pieza apartada mide 3 mm de más o 3 mm de menos.",
     feedbackIncorrect: [
       null,
-      "Ese resultado sale de multiplicar los exponentes ($2 \\times 3 = 6$) en vez de sumarlos.",
-      "Ese resultado es $2^5$, el valor final de la potencia, no el exponente $x$.",
-      "Ese resultado corresponde solo al segundo factor ($2^3$), sin tener en cuenta el primero.",
+      "Faltó la segunda rama: la ecuación también se cumple cuando $x-50$ es $-3$.",
+      "La medida real $x$ no puede ser negativa en este contexto; la segunda solución sale de $x-50=-3$, que da $x=47$.",
+      "Esos valores corresponden a un error de $6$ mm, no de $3$ mm como plantea el enunciado.",
     ],
     explanation:
-      "Una potencia encadena multiplicaciones:\n$$\\begin{aligned} 2^2 \\cdot 2^3 &= (2 \\cdot 2)(2 \\cdot 2 \\cdot 2) \\\\ &= 2^{2+3} \\\\ &= 2^5 \\end{aligned}$$\nPor eso los exponentes **se suman**: $x = 5$.\n\nCada ronda de reenvíos multiplica a la anterior, no la suma: los $2^2$ contactos del primer envío se convierten en $2^5$ personas recién después de que cada uno reenvía a $2^3$ más.",
+      "Una ecuación con valor absoluto igualado a un número positivo, $|A|=k$, equivale a dos ecuaciones sin barras:\n$$A=k \text{ o } A=-k$$\nTanto un número como su opuesto están a la misma distancia del cero, por eso valen las dos ramas.\n\nAcá se separan así:\n$$x-50=3 \text{ o } x-50=-3$$\nY despejando $x$ en cada una:\n$$x=53 \text{ o } x=47$$\nLa pieza mide 3 mm de más o 3 mm de menos que el nominal.\n\nPlantear solo el caso positivo pierde la segunda solución, que es igual de válida.",
   },
   // Espejo de white_reglas_FORM_18 del banco (probabilidad/white/conteo/reglas).
   // El anterior —"al menos una cara" en 2 tiros— pedía modelar el espacio
@@ -125,25 +139,30 @@ const ONBOARDING_EXERCISES: Record<CourseId, OnboardingExercise> = {
       "Elevar al cuadrado supone que los dos pasos tienen la misma cantidad de opciones, pero los tamaños son siempre 2.",
     ],
     explanation:
-      "La **regla del producto** multiplica las opciones de cada decisión cuando el resultado necesita todas.\n\nUn helado necesita un gusto entre $n$ y un tamaño entre 2:\n$$n \\times 2 = 2n$$\nCon 3 gustos da 6 helados y con 6 gustos daría 12.\n\nLos tamaños no crecen con los gustos: por eso el 2 se queda fijo como factor y no aparece como exponente.",
+      "La **regla del producto** multiplica las opciones de cada decisión cuando el resultado necesita todas.\n\nUn helado necesita un gusto entre $n$ y un tamaño entre 2:\n$$n \\times 2 = 2n$$\nPor eso cada gusto que se suma agrega 2 helados, y con 6 gustos habría 12.\n\nLos tamaños no crecen con los gustos: el 2 se queda fijo como factor y no aparece como exponente.",
     table: {
       columns: [
         { icon: "🍦", label: "Gustos" },
         { icon: "🍨", label: "Helados" },
       ],
+      // Las tres filas concretas van reveladas y solo queda en blanco la de $n$:
+      // es el ejercicio de bienvenida, así que el patrón tiene que estar a la
+      // vista. Con 1, 2 y 3 visibles, una opción incorrecta se contradice con la
+      // tabla en dos filas y no en una — $n+2$ daría 3 donde dice 2 y 5 donde
+      // dice 6.
       rows: [
+        ["$1$", "$2$"],
         ["$2$", "$4$"],
         ["$3$", "$6$"],
-        ["$6$", null],
         ["$n$", null],
       ],
       reveal: {
         mode: "column",
         col: 1,
         by_option: [
-          { header: "$2n$", cells: ["$4$", "$6$", "$12$", "$2n$"] },
-          { header: "$n+2$", cells: ["$4$", "$5$", "$8$", "$n+2$"] },
-          { header: "$n^{2}$", cells: ["$4$", "$9$", "$36$", "$n^{2}$"] },
+          { header: "$2n$", cells: ["$2$", "$4$", "$6$", "$2n$"] },
+          { header: "$n+2$", cells: ["$3$", "$4$", "$5$", "$n+2$"] },
+          { header: "$n^{2}$", cells: ["$1$", "$4$", "$9$", "$n^{2}$"] },
         ],
       },
     },
@@ -1185,9 +1204,9 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
               {step === 3 && (
                 <div className="flex flex-col gap-5">
                   <div className="flex flex-col gap-2 text-center">
-                    <h2 className="text-2xl font-bold">¿Por dónde empezamos?</h2>
+                    <h2 className="text-2xl font-bold">¿Por dónde arrancamos?</h2>
                     <p className="text-foreground/85">
-                      Podés probar los otros después.
+                      Podés probar los otros cursos después.
                     </p>
                   </div>
                   <div className="flex flex-col gap-2.5">
@@ -1208,10 +1227,9 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
               {step === 12 && (
                 <div className="flex flex-col gap-5">
                   <div className="flex flex-col gap-2">
-                    <h2 className="text-2xl font-bold">{COURSE_LABEL[courseKey]}</h2>
                     <p className="leading-relaxed text-foreground/85">
                       Este curso se divide en las siguientes{" "}
-                      <strong className="text-foreground">unidades</strong>. ¿Ya conocés alguna?
+                      <strong className="text-foreground">unidades</strong>. Marcá las que conozcas.
                     </p>
                   </div>
                   <div className="flex flex-col gap-2.5">
@@ -1233,7 +1251,6 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
               {/* ── SLIDE 4: Cómo se organiza el contenido ── */}
               {step === 4 && (
                 <div className="flex flex-col gap-6 pt-6">
-                  <h2 className="text-left text-2xl font-bold">{COURSE_LABEL[courseKey]}</h2>
                   <div className="flex flex-col gap-3 leading-relaxed text-foreground/85">
                     <p>
                       Las unidades son{" "}
@@ -1765,14 +1782,27 @@ function PinnedCTA({
   if (step === 5) {
     return (
       <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center pointer-events-none">
-        <div className={cn(
-          "w-full max-w-md pointer-events-auto px-4 pb-[var(--cta-pb)] transition-colors duration-300",
-          exerciseCorrect === true
-            ? "border-t border-green-500/40 bg-green-500/10 pt-0"
-            : exerciseCorrect === false
-            ? "border-t border-orange-500/40 bg-orange-500/10 pt-0"
-            : "bg-gradient-to-t from-background via-background/90 to-transparent pt-[var(--cta-pt)]",
-        )}>
+        <div
+          className={cn(
+            "w-full max-w-md pointer-events-auto px-4 pb-[var(--cta-pb)] transition-colors duration-300",
+            exerciseCorrect === true
+              ? "border-t border-green-500/40 bg-background pt-0"
+              : exerciseCorrect === false
+              ? "border-t border-orange-500/40 bg-background pt-0"
+              : "bg-gradient-to-t from-background via-background/90 to-transparent pt-[var(--cta-pt)]",
+          )}
+          // El tinte va apilado sobre la base opaca de arriba, o las opciones de
+          // atrás se leen a través del panel. La base va por clase y el tinte por
+          // style a propósito: si los dos fueran clases, tailwind-merge los ve
+          // como el mismo grupo `bg-*` y descarta uno.
+          style={
+            exerciseCorrect === null
+              ? undefined
+              : {
+                  backgroundImage: `linear-gradient(${TINTE_FEEDBACK[exerciseCorrect ? "ok" : "mal"]}, ${TINTE_FEEDBACK[exerciseCorrect ? "ok" : "mal"]})`,
+                }
+          }
+        >
           <AnimatePresence>
             {exerciseCorrect === true && (
               <motion.div
