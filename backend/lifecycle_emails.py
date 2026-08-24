@@ -385,6 +385,21 @@ def _app_base_url() -> str:
     return os.environ.get("APP_BASE_URL", "https://www.intervalo.xyz")
 
 
+def _cta_url(campaign: str) -> str:
+    """URL del botón, etiquetada con el tipo de mail que la generó.
+
+    Sin esto los cuatro mails apuntan al mismo link pelado y un click es
+    indistinguible de una visita cualquiera: no hay forma de saber cuál copy
+    trae gente de vuelta. PostHog levanta los `utm_*` solo, así que alcanza con
+    ponerlos.
+
+    No contamina la atribución de origen: `first_utm_source` se registra con
+    `register_once` (ver web/src/lib/analytics/attribution.ts) y estos mails van
+    únicamente a usuarios que ya existen, o sea que ya lo tienen fijado.
+    """
+    return f"{_app_base_url()}/?utm_source=email&utm_campaign={campaign}"
+
+
 def _api_base_url() -> str:
     return os.environ.get("API_BASE_URL", "https://api.intervalo.xyz")
 
@@ -454,7 +469,7 @@ def send_bounce_email(db: DBSession, user: User) -> bool:
         greeting=greeting,
         highlight=highlight,
         cta_label="Volver",
-        cta_url=_app_base_url(),
+        cta_url=_cta_url("bounce"),
         unsubscribe_url=unsubscribe_url,
     )
     sent = _send(user.email, f"¡Todo listo {name}! 🏁", html, unsubscribe_url, text=f"{greeting} {highlight}")
@@ -473,7 +488,7 @@ def send_winback_email(db: DBSession, user: User) -> bool:
         greeting=greeting,
         highlight=highlight,
         cta_label="Volver",
-        cta_url=_app_base_url(),
+        cta_url=_cta_url("winback"),
         unsubscribe_url=unsubscribe_url,
     )
     sent = _send(user.email, f"¡Volvé {name}! 👀", html, unsubscribe_url, text=f"{greeting} {highlight}")
@@ -506,7 +521,7 @@ def send_streak_tier_email(db: DBSession, user: User, tier: int) -> bool:
         # "Continuar" y no "Volver": este mail no le habla a alguien que se fue,
         # sino a alguien que viene bien y tiene que seguir.
         cta_label="Continuar",
-        cta_url=_app_base_url(),
+        cta_url=_cta_url("streak"),
         unsubscribe_url=unsubscribe_url,
         # La preview corta en el saludo: el próximo escalón (la negrita) se
         # descubre recién adentro del mail.
@@ -533,7 +548,7 @@ def send_report_thanks_email(db: DBSession, user: User, feedback_ids: list[int])
         greeting=greeting,
         highlight=highlight,
         cta_label="Volver",
-        cta_url=_app_base_url(),
+        cta_url=_cta_url("report_thanks"),
         unsubscribe_url=unsubscribe_url,
     )
     sent = _send(user.email, f"¡Gracias {name}! 🙏", html, unsubscribe_url, text=f"{greeting} {highlight}")

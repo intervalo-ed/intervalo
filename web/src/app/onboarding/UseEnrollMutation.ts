@@ -1,6 +1,7 @@
 "use client"
 
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { readAttribution } from "@/lib/analytics/attribution"
 import { isRetriable, unwrap } from "@/lib/api/client"
 import { useApi } from "@/lib/api/useApi"
 import { queryKeys } from "@/lib/query/keys"
@@ -28,6 +29,11 @@ export function useEnrollMutation() {
       introItemAttempts?: number
       introItemResponseTimeMs?: number
     }) => {
+      // La atribución se lee acá y no la pasa quien llama: es estado ambiente
+      // del dispositivo (se capturó al aterrizar, antes de que existiera el
+      // usuario), no una decisión del formulario. Leerla adentro hace que todas
+      // las vías de alta la manden sin tener que acordarse.
+      const { groupId, utmSource } = readAttribution()
       return unwrap(
         await api.POST("/user/enroll", {
           body: {
@@ -36,6 +42,8 @@ export function useEnrollMutation() {
             name,
             course: course ?? null,
             known_units: knownUnits?.length ? knownUnits.join(",") : null,
+            first_group_id: groupId ?? null,
+            first_utm_source: utmSource ?? null,
             intro_item_correct: introItemCorrect ?? null,
             attempts: introItemAttempts ?? null,
             response_time_ms: introItemResponseTimeMs ?? null,
