@@ -10,6 +10,9 @@ Environment variables:
   CLERK_JWKS_URL     — e.g. https://<your-clerk-domain>/.well-known/jwks.json
   CLERK_ISSUER       — e.g. https://<your-clerk-domain>  (value of `iss` claim)
   CLERK_AUDIENCE     — optional, only set if your session template uses `aud`
+  CLERK_SECRET_KEY   — optional, para completar email/nombre vía la Backend API
+                       cuando el JWT no los trae
+  CLERK_WEBHOOK_SECRET — `whsec_…`, firma de los webhooks (ver clerk_webhook.py)
 """
 
 import os
@@ -190,21 +193,19 @@ def _extract_email_and_name(user_data: dict) -> tuple[Optional[str], Optional[st
 
 # ── User management ──────────────────────────────────────────────────────────
 
-def get_or_create_user_from_clerk(db: Session, claims: ClerkClaims) -> User:
-    """
-    Find the local `User` row for this Clerk identity, or create one on first
-    sight (JIT provisioning). Safe to call on every authenticated request.
+PROVISION_ATTEMPTS = 3
 
-    Matching order:
-      1. `clerk_user_id` (stable id from Clerk, `sub` claim)
-      2. `email` (covers users who existed before the Clerk switch, if any)
-    """
-    # 1. Exact Clerk ID match
-    user = db.query(User).filter(User.clerk_user_id == claims.sub).first()
-    if user:
-        return user
 
-    # We need email + name to create/attach. Token might not carry them.
+class UserProvisioningError(RuntimeError):
+    """No se pudo crear ni enlazar la fila de `users` tras varios intentos."""
+
+
+def _resolve_email_and_name(claims: ClerkClaims) -> tuple[str, str]:
+    """Email y nombre definitivos para la fila, o ValueError si no hay email.
+
+    Va fuera del loop de reintentos: puede pegarle a la API de Clerk (5s de
+    timeout) y ese resultado no cambia entre intentos.
+    """
     email = claims.email
     name = claims.name
     if not email or not name:
@@ -219,44 +220,79 @@ def get_or_create_user_from_clerk(db: Session, claims: ClerkClaims) -> User:
             f"Clerk user {claims.sub} has no email on the JWT and no "
             "CLERK_SECRET_KEY is configured to look it up."
         )
-    if not name:
-        name = email  # last-ditch fallback so NOT NULL constraint holds
+    return email, name or email  # sin nombre, el email sostiene el NOT NULL
 
-    # 2. Existing row matched by email → link to Clerk
-    user = db.query(User).filter(User.email == email).first()
-    if user:
-        user.clerk_user_id = claims.sub
-        if not user.name:
-            user.name = name
-        if not user.username:
-            user.username = assign_unique_username(db, user.name)
-        db.commit()
-        db.refresh(user)
-        return user
 
-    # 3. Brand new — create it
-    user = User(
-        clerk_user_id=claims.sub,
-        email=email,
-        name=name,
-        username=assign_unique_username(db, name),
-    )
-    db.add(user)
-    try:
-        db.commit()
-    except IntegrityError:
-        # Esta función corre en TODA request autenticada, así que el alta de un
-        # usuario nuevo se intenta en paralelo desde varias a la vez (el
-        # dashboard pide los tres cursos de una). El perdedor de la carrera
-        # choca contra el único de clerk_user_id/email/username; la fila del
-        # ganador es la misma que íbamos a crear, así que la usamos.
-        db.rollback()
-        existing = (
-            db.query(User).filter(User.clerk_user_id == claims.sub).first()
-            or db.query(User).filter(User.email == email).first()
-        )
-        if existing is None:
-            raise
-        return existing
+def _link_existing_by_email(db: Session, user: User, sub: str, name: str) -> User:
+    """Fila preexistente encontrada por email → engancharla a esta identidad."""
+    user.clerk_user_id = sub
+    if not user.name:
+        user.name = name
+    if not user.username:
+        user.username = assign_unique_username(db, user.name)
+    db.commit()
     db.refresh(user)
     return user
+
+
+def get_or_create_user_from_clerk(
+    db: Session, claims: ClerkClaims, *, via: str = "request"
+) -> User:
+    """
+    Find the local `User` row for this Clerk identity, or create one on first
+    sight (JIT provisioning). Safe to call on every authenticated request.
+
+    Matching order:
+      1. `clerk_user_id` (stable id from Clerk, `sub` claim)
+      2. `email` (covers users who existed before the Clerk switch, if any)
+
+    Los escritores compiten de dos maneras. Dentro del propio request path,
+    porque esto corre en TODA request autenticada y el alta se intenta en
+    paralelo desde varias a la vez (el dashboard pide los tres cursos de una).
+    Y contra el webhook de Clerk, que dispara `user.created` casi en el mismo
+    instante en que el navegador hace su primera llamada.
+
+    Los tres SELECT de acá son TOCTOU contra las constraints únicas de
+    `clerk_user_id`, `email` y `username`, así que el INSERT puede perder la
+    carrera. Reintentamos en vez de resolver de una: el perdedor vuelve a leer
+    y encuentra la fila del ganador — salvo en el caso de `username`, donde no
+    hay fila que reusar porque es otra persona con el mismo nombre, y lo que
+    hace falta es que `assign_unique_username` genere el candidato siguiente.
+    Sin el loop, ese caso le devolvía un 500 al usuario justo en el signup.
+    """
+    email, name = _resolve_email_and_name(claims)
+
+    for attempt in range(PROVISION_ATTEMPTS):
+        try:
+            user = db.query(User).filter(User.clerk_user_id == claims.sub).first()
+            if user:
+                return user
+
+            user = db.query(User).filter(User.email == email).first()
+            if user:
+                return _link_existing_by_email(db, user, claims.sub, name)
+
+            user = User(
+                clerk_user_id=claims.sub,
+                email=email,
+                name=name,
+                username=assign_unique_username(db, name),
+            )
+            db.add(user)
+            db.commit()
+            db.refresh(user)
+            print(
+                f"[provision] created user id={user.id} clerk={claims.sub} via={via}",
+                flush=True,
+            )
+            return user
+        except IntegrityError as exc:
+            db.rollback()
+            print(
+                f"[provision] race en el intento {attempt + 1} para {claims.sub}: {exc.orig}",
+                flush=True,
+            )
+
+    raise UserProvisioningError(
+        f"no se pudo provisionar {claims.sub} tras {PROVISION_ATTEMPTS} intentos"
+    )

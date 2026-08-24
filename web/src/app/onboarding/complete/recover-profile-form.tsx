@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useUser } from "@clerk/nextjs"
 import { CAREERS, CareerCard, OptionButton, UNIVERSITY_LOGOS } from "@/app/onboarding/onboarding-wizard"
 import { useEnrollMutation } from "@/app/onboarding/UseEnrollMutation"
+import { withTimeout } from "@/lib/async/with-timeout"
 import { Button } from "@/components/ui/button"
 import { Spinner } from "@/components/ui/spinner"
 import { cn } from "@/lib/utils"
@@ -43,7 +44,16 @@ export function RecoverProfileForm({ onDone }: { onDone: () => void }) {
       career,
       name: user?.fullName || user?.firstName || null,
     })
-    await user?.update({ unsafeMetadata: { onboarded: true } })
+    // El flag de Clerk es un fast path; la DB es la autoridad. Si tarda o
+    // falla no puede bloquear la salida del formulario.
+    try {
+      await withTimeout(Promise.resolve(user?.update({ unsafeMetadata: { onboarded: true } })), {
+        ms: 5_000,
+        label: "clerk_update",
+      })
+    } catch {
+      // sin acción: el próximo /user/status lo resuelve
+    }
     onDone()
   }
 
