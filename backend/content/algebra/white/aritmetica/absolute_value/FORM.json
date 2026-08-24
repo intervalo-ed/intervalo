@@ -96,7 +96,7 @@
       "Esa es la equivalencia de una desigualdad, no de una igualdad.",
       "Sí tiene solución: el valor que anula el interior cumple la ecuación."
     ],
-    "explanation": "La cota cero es el caso frontera entre tener dos soluciones y no tener ninguna.\n$$|A| = 0 \\iff A = 0$$\nComo el opuesto del cero es el propio cero, los dos casos habituales se vuelven el mismo.\n\nPor eso este tipo de ecuación tiene exactamente una solución, que es la que anula el interior.\n\nCon cota positiva hay dos soluciones, con cota cero hay una, y con cota negativa no hay ninguna.",
+    "explanation": "El **módulo** de una expresión, otro nombre para su valor absoluto, mide su distancia al cero. Y la única cantidad que dista cero del cero es el propio cero.\n\nLa cota cero es el caso frontera entre tener dos soluciones y no tener ninguna.\n$$|A| = 0 \\iff A = 0$$\nComo el opuesto del cero es el propio cero, los dos casos habituales se vuelven el mismo.\n\nPor eso este tipo de ecuación tiene exactamente una solución, que es la que anula el interior.\n\nCon cota positiva hay dos soluciones, con cota cero hay una, y con cota negativa no hay ninguna.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -123,7 +123,7 @@
       null,
       "Ahí el coeficiente quedó ignorado, y las soluciones resultan tres veces más lejanas."
     ],
-    "explanation": "La equivalencia entre el valor absoluto y sus dos casos se aplica cuando queda solo de un lado.\n$$3|x-1| = 12 \\implies |x-1| = 4$$\nCon la cota ya despejada, los dos casos se plantean como siempre.\n\nLas soluciones quedan a cuatro unidades del uno, no a doce, que es lo que da ignorar el coeficiente.\n\nEl chequeo final es reemplazar los dos valores en la ecuación original, con el coeficiente incluido.",
+    "explanation": "La equivalencia entre el valor absoluto y sus dos casos se aplica cuando queda solo de un lado.\n$$3|x-1| = 12 \\implies |x-1| = 4$$\nCon la cota ya despejada, los dos casos se plantean como siempre.\n\nLeído como distancia, $|x-1|$ mide cuánto se aparta $x$ del uno: la ecuación pide los puntos que distan cuatro de él, no doce, que es lo que da ignorar el coeficiente.\n\nEl chequeo final es reemplazar los dos valores en la ecuación original, con el coeficiente incluido.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -150,7 +150,7 @@
       "Ese planteo deja afuera los valores donde $x-3$ resulta negativo, que también cumplen la condición.",
       "Lo que está adentro del valor absoluto es $x-3$, y la doble desigualdad tiene que envolver esa misma expresión."
     ],
-    "explanation": "Antes de resolver, hay que identificar la **expresión equivalente** a la desigualdad con valor absoluto.\n\nPara $|x-3|<5$, la equivalencia $|A|<k \\iff -k<A<k$ da:\n$$-5<x-3<5$$\nRecién sobre esa doble desigualdad se despeja $x$ sumando $3$ en cada tramo.\n\nPlantear la equivalencia con \"o\" corresponde al caso $|A|>k$, donde la condición se cumple lejos del centro. Con $<$ se cumple en una única franja alrededor de él.",
+    "explanation": "Antes de resolver, hay que identificar la **expresión equivalente** a la desigualdad con valor absoluto.\n\nPara $|x-3|<5$, la equivalencia $|A|<k \\iff -k<A<k$ da:\n$$-5<x-3<5$$\nRecién sobre esa doble desigualdad se despeja $x$ sumando $3$ en cada tramo.\n\nLeído como distancia, $|x-3|$ es lo que separa a $x$ del tres en la recta numérica: la condición pide los puntos que distan menos de cinco de él.\n\nPlantear la equivalencia con \"o\" corresponde al caso $|A|>k$, donde la condición se cumple lejos del centro. Con $<$ se cumple en una única franja alrededor de él.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -231,7 +231,7 @@
       "Ahí desapareció el coeficiente de la incógnita.",
       "Esa es la equivalencia de una desigualdad de mayor, que deja dos tramos separados."
     ],
-    "explanation": "La equivalencia se aplica a la expresión completa que está adentro del valor absoluto, sea cual sea su forma.\n$$|A| < k \\iff -k < A < k$$\nRecién con la cadena planteada se despeja la incógnita, operando en los tres tramos a la vez.\n$$-8 < 2x < 10$$\nEl paso siguiente es dividir los tres tramos por el coeficiente, que acá es positivo y no invierte las desigualdades.\n\nSimplificar la expresión interior antes de plantear la cadena es lo que hace perder alguno de sus términos.",
+    "explanation": "El **módulo** mide cuánto se aparta del cero lo que tiene adentro, sin importar qué tan compuesta sea esa expresión.\n\nLa equivalencia se aplica a la expresión completa que está adentro del valor absoluto, sea cual sea su forma.\n$$|A| < k \\iff -k < A < k$$\nRecién con la cadena planteada se despeja la incógnita, operando en los tres tramos a la vez.\n$$-8 < 2x < 10$$\nEl paso siguiente es dividir los tres tramos por el coeficiente, que acá es positivo y no invierte las desigualdades.\n\nSimplificar la expresión interior antes de plantear la cadena es lo que hace perder alguno de sus términos.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -402,6 +402,270 @@
     "reviewed": false,
     "tags": [
       "elegir-equivalencia-mayor"
+    ]
+  },
+  {
+    "question": "En la recta numérica, la distancia entre dos números es lo que los separa, sin importar cuál está a la derecha.\n\nLa tabla registra a qué distancia del $3$ queda cada valor de $x$.\n\n¿Qué expresión da esa distancia?",
+    "options": [
+      "$|x-3|$",
+      "$x-3$",
+      "$|x|-3$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La resta mide la separación y el módulo se queda con su tamaño, sin el signo.",
+    "feedback_incorrect": [
+      null,
+      "Con esa expresión $x=-2$ daría $-5$, y la tabla muestra $5$: una distancia nunca es negativa.",
+      "Con esa expresión $x=-2$ daría $-1$, y la tabla muestra $5$."
+    ],
+    "explanation": "La distancia entre dos números es la resta de uno menos el otro, pero **quedándose solo con su tamaño**. Eso es exactamente lo que hace el módulo.\n$$|x-3|$$\nRestar sin el módulo también mide la separación, pero le agrega un signo que dice de qué lado quedó $x$, y una distancia no tiene lado.\n\nLa fila de $x=5$ no alcanza para decidir, porque ahí las tres expresiones dan lo mismo. Recién en $x=-2$ se separan las tres.\n\nAplicar el módulo solo a $x$ y restar después mide otra cosa: cuánto más lejos del cero está la medición que la referencia, que no es la separación entre las dos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "$x$"
+        },
+        {
+          "icon": null,
+          "label": "Distancia al $3$"
+        }
+      ],
+      "rows": [
+        [
+          "$5$",
+          "$2$"
+        ],
+        [
+          "$-2$",
+          "$5$"
+        ],
+        [
+          "$1$",
+          "$2$"
+        ],
+        [
+          "$x$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$|x-3|$",
+            "cells": [
+              "$2$",
+              "$5$",
+              "$2$",
+              "$|x-3|$"
+            ]
+          },
+          {
+            "header": "$x-3$",
+            "cells": [
+              "$2$",
+              "$-5$",
+              "$-2$",
+              "$x-3$"
+            ]
+          },
+          {
+            "header": "$|x|-3$",
+            "cells": [
+              "$2$",
+              "$-1$",
+              "$-2$",
+              "$|x|-3$"
+            ]
+          }
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "patron-tabla-distancia"
+    ]
+  },
+  {
+    "question": "La distancia de un número a otro se mide igual aunque el punto de referencia sea negativo.\n\nLa tabla registra a qué distancia del $-2$ queda cada valor de $x$.\n\n¿Qué expresión da esa distancia?",
+    "options": [
+      "$x+2$",
+      "$|x+2|$",
+      "$|x|+2$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Restar $-2$ es sumar $2$, y el módulo deja esa separación sin signo.",
+    "feedback_incorrect": [
+      "Con esa expresión $x=-5$ daría $-3$, y la tabla muestra $3$: una distancia nunca es negativa.",
+      null,
+      "Con esa expresión $x=-5$ daría $7$, y la tabla muestra $3$."
+    ],
+    "explanation": "La distancia sigue siendo la resta entre los dos números, y restar un negativo es sumar:\n$$|x-(-2)| = |x+2|$$\nPor eso una referencia negativa hace aparecer un más adentro del módulo, sin cambiar nada del razonamiento.\n\nLa fila de $x=1$ no decide nada: ahí las tres expresiones dan lo mismo. La que separa a las tres es la de $x=-5$.\n\nPoner el módulo alrededor de $x$ y sumar después mide la distancia al cero y le agrega dos, que es otra cantidad: con la referencia en $-2$, los valores negativos quedarían más lejos de lo que están.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "$x$"
+        },
+        {
+          "icon": null,
+          "label": "Distancia al $-2$"
+        }
+      ],
+      "rows": [
+        [
+          "$-8$",
+          "$6$"
+        ],
+        [
+          "$-5$",
+          "$3$"
+        ],
+        [
+          "$1$",
+          "$3$"
+        ],
+        [
+          "$x$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$x+2$",
+            "cells": [
+              "$-6$",
+              "$-3$",
+              "$3$",
+              "$x+2$"
+            ]
+          },
+          {
+            "header": "$|x+2|$",
+            "cells": [
+              "$6$",
+              "$3$",
+              "$3$",
+              "$|x+2|$"
+            ]
+          },
+          {
+            "header": "$|x|+2$",
+            "cells": [
+              "$10$",
+              "$7$",
+              "$3$",
+              "$|x|+2$"
+            ]
+          }
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "patron-tabla-distancia"
+    ]
+  },
+  {
+    "question": "Un control registra el **desvío** de cada medición respecto del valor de referencia $3$.\n\nAnota con signo si la medición quedó por encima o por debajo.\n\nLa tabla registra ese desvío.\n\n¿Qué expresión da el desvío?",
+    "options": [
+      "$|x|-3$",
+      "$x-3$",
+      "$|x-3|$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Acá el signo importa, así que la resta va sin módulo.",
+    "feedback_incorrect": [
+      "Con esa expresión $x=-2$ daría $-1$, y la tabla muestra $-5$.",
+      null,
+      "Con esa expresión $x=-2$ daría $5$, y la tabla muestra $-5$: el módulo borra el signo que acá se pide."
+    ],
+    "explanation": "Un **desvío con signo** no es una distancia. La distancia solo dice cuánto separa, y el desvío dice además para qué lado:\n$$x-3$$\nEl módulo se pone justamente cuando ese lado no interesa, y acá el enunciado pide conservarlo.\n\nLa fila de $x=5$ no sirve para decidir, porque las tres expresiones dan lo mismo: por encima de la referencia el signo no llega a distinguirlas. La que decide es la de $x=-2$.\n\nPoner un módulo donde el enunciado pide signo convierte los desvíos por debajo en desvíos por encima, y el control dejaría de distinguir dos situaciones opuestas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "$x$"
+        },
+        {
+          "icon": null,
+          "label": "Desvío respecto del $3$"
+        }
+      ],
+      "rows": [
+        [
+          "$-2$",
+          "$-5$"
+        ],
+        [
+          "$5$",
+          "$2$"
+        ],
+        [
+          "$7$",
+          "$4$"
+        ],
+        [
+          "$x$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$|x|-3$",
+            "cells": [
+              "$-1$",
+              "$2$",
+              "$4$",
+              "$|x|-3$"
+            ]
+          },
+          {
+            "header": "$x-3$",
+            "cells": [
+              "$-5$",
+              "$2$",
+              "$4$",
+              "$x-3$"
+            ]
+          },
+          {
+            "header": "$|x-3|$",
+            "cells": [
+              "$5$",
+              "$2$",
+              "$4$",
+              "$|x-3|$"
+            ]
+          }
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "patron-tabla-distancia"
     ]
   }
 ]

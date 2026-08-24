@@ -354,6 +354,17 @@ Estas reglas son las que más se violan y las que más rompen el render o la coh
 
 75. **El `feedback_incorrect` puede citar la tabla, y conviene que lo haga.** Es una capacidad nueva: hasta ahora ninguna pista podía apoyarse en algo que el alumno tuviera a la vista. `"Con esa expresión dos posiciones darían 20 claves, y la tabla ya muestra 100."` Siguen valiendo las reglas de siempre: nombra el error, no la cura, y nunca nombra ni describe la opción correcta.
 
+76. **La tabla tiene que aportar algo que la prosa sola no aporta.** Es la pregunta que hay que hacerse antes de escribir el ítem: *si tapo la tabla, ¿el enunciado ya alcanza para contestar?* Si alcanza, la tabla es decoración y el ítem se escribe sin ella. Hay **dos** formas legítimas de aportar, y con una basta:
+    - **El patrón no se deduce del enunciado.** La prosa describe la situación pero no la regla por paso, así que los datos de la tabla son la única fuente del patrón. Es la forma más limpia y la que conviene por defecto.
+    - **El patrón se deduce, pero la tabla hace visible algo que la fórmula esconde.** El caso típico es la magnitud: una columna que salta de 4 a 8 a 32 entrega la explosión exponencial de un vistazo, que es justo el canal que la instrucción verbal no alcanza (ver §2.4 de `table-format-context.md`). Vale, pero hay que poder decir qué se hace visible.
+    - **Respaldo externo, y es inusualmente explícito:** UTN FRN repite como consigna *"graficar sin tabla de valores"* para lineales, cuadráticas en forma canónica y módulo —donde el comportamiento se deduce de los parámetros— y en cambio pide *"graficar ayudándose con una tabla de valores"* para exponenciales y logarítmicas. Es exactamente este criterio, escrito por una cátedra de ingreso.
+    - **Anti-patrón concreto que ya se detectó:** convertir en ítem un **cuadro de propiedades** (el tipo de cuadro *"Producto de igual base | $a^{m}\cdot a^{n} = a^{m+n}$"* que tiene el material de UNLP). Es memorización tabulada: la tabla no revela nada que la fórmula no diga ya. Es el mismo error de categoría que §3.4 de `table-format-context.md` describe para las matrices, o sea confundir *mostrar un objeto* con *usar el campo `table`*.
+
+77. **El ítem le pide algo a la tabla como conjunto, no el relleno de una celda.** La versión editorial de lo que A1 (fila trampa) impone aritméticamente: si el estudiante puede contestar mirando un solo renglón, la tabla se convirtió en un contenedor de cuentas repetidas. Los mejores ejemplares del relevamiento curricular siempre piden algo del conjunto —*"establecé la relación entre peso y alargamiento"* (UTN FRBB), *"interprete geométricamente los resultados de la sexta columna"* (UTN FRBA)—. Y UTN FRLP lo dice de frente: *"no se trata de una tabla de valores, no es una expresión simbólica, no es un gráfico: es todo lo anterior de manera integrada"*.
+    - En modo `column` esto sale gratis: la fila simbólica obliga a mirar todas las filas.
+    - En modo `cell` hay que cuidarlo a mano: la celda vacía tiene que necesitar **dos o más** filas para completarse. Una celda que se despeja mirando su propio renglón no cumple.
+    - **Corolario para sub-familias de 3 o más ítems**: si la respuesta correcta es siempre del mismo tipo (siempre la exponencial, siempre la que lleva módulo), el estudiante aprende una meta-estrategia que funciona sin entender nada y la exporta al resto del banco. **Rotar cuál es la correcta**, y **rotar la posición de la fila trampa**, es parte del diseño de la sub-familia, no del ítem. Ninguna de las dos cosas la ve el validador.
+
 **Nota de dificultad (no automatizable, criterio editorial):** un valor "sospechoso" que el ejercicio pide detectar (una probabilidad fuera de $[0,1]$, un resultado imposible) no debería aparecer literal y aislado en el enunciado — eso lo vuelve trivial de detectar a simple vista sin razonar la regla. Camuflarlo con una operación mínima (ej. pedir $P(A)+P(B)$ de dos datos que individualmente parecen válidos, y que la suma supere 1) obliga a aplicar el axioma en vez de solo leer el número.
 
 **Regla 43 (no automatizable, criterio editorial): si `explanation` despeja/deriva una fórmula a partir de otra, mostrar primero la fórmula base de la que parte, y recién después el despeje — nunca solo el resultado derivado.** Un ejercicio que pide $P(A\cap B)$ a partir de $P(A\mid B)$ y $P(B)$ está despejando la fórmula condicional; la explicación reintroduce esa fórmula base antes de mostrar el despeje, aunque el ejercicio en sí no la pregunte directamente.
@@ -800,7 +811,7 @@ Tercer formato de ejercicio, además del texto plano y del gráfico. Una tabla c
 columnas, con un emoji como ícono de encabezado, donde **la columna derivada se rellena con los
 valores precalculados de la opción que el estudiante confirmó**. El error no se explica: se ve.
 
-Reglas 68 a 75. Componente: `web/src/components/exercise-table.tsx`.
+Reglas 68 a 77. Componente: `web/src/components/exercise-table.tsx`.
 
 **El porqué de cada regla, la investigación pedagógica que las respalda y el análisis de dónde
 entra el formato en `analisis` y `algebra` están en `table-format-context.md`.** Leerlo antes de
@@ -848,9 +859,19 @@ formato parece encajar y no encaja.
 
 Los dos usos de `column` no son un campo, son una decisión de autoría:
 
-- **Patrón** (inducción): la columna trae 2 filas completas y 2 vacías. El estudiante infiere la
-  regla desde los datos, y al elegir mal la columna se repinta entera y **contradice a la vista**
-  las filas que estaban dadas. Ese choque es el corazón del formato.
+- **Patrón** (inducción): **todas las filas de datos vienen completas y la única celda vacía es la
+  de la fila simbólica.** El estudiante infiere la regla desde los datos, y al elegir mal la
+  columna se repinta entera y **contradice a la vista** las filas que estaban dadas. Ese choque es
+  el corazón del formato, y cuantas más filas dadas haya, más fuerte es.
+  - **Corregido tras el primer testeo real (ago-2026).** Los ítems se habían escrito con 2 filas
+    dadas y 2 vacías (una numérica más la simbólica), y el feedback fue unánime en los 9: la fila
+    numérica vacía confunde, porque no se entiende si también hay que completarla. Y hay un
+    problema más de fondo: **con solo 2 puntos la regla se puede verificar pero no generar.**
+    De $1$ y $4$ salen "×4", "+3" o "cuadrados", así que para elegir hay que ir a probar las
+    opciones — que es exactamente la **inducción ingenua** que el formato existe para combatir.
+    Con tres filas dadas el patrón se genera solo. **Mínimo 3 filas de datos completas.**
+  - Llenar filas no debilita A1-A3 (regla 71): se evalúan sobre las filas *visibles*, así que más
+    filas dadas las hace más fáciles de cumplir, no menos.
 - **Modelo** (aplicación): la columna arranca vacía y la regla está enunciada en la prosa. La tabla
   solo dice a qué entradas aplicarla.
 
@@ -895,7 +916,9 @@ python content/validate_content.py --course <curso> --check tables
 
 `check_tables` cubre forma, paralelismo con `options`, la regla 70 completa, A3 y los emoji fuera
 de lugar como ERROR; A2 y el ancho de celda como WARNING. **A1 (fila trampa) no es automatizable**
-y vive en el checklist manual del `topic-context.md`.
+y vive en el checklist manual del `topic-context.md`. Tampoco son automatizables las **reglas 76 y 77**
+(que la tabla aporte algo, y que el ítem le pida algo al conjunto), ni el corolario de rotación de la
+regla 77, que solo se ve leyendo la sub-familia entera de corrido.
 
 ---
 

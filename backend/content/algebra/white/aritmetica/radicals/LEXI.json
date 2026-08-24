@@ -139,18 +139,18 @@
     "options": [
       "Cuando el índice de la raíz es par",
       "Cuando el índice es impar",
-      "Cuando el índice es mayor a $2$",
-      "Cuando el índice es múltiplo de $3$"
+      "Cuando el radicando es negativo, sin importar el índice",
+      "Cuando el radicando es un número par"
     ],
     "correct_index": 0,
     "feedback_correct": "Ningún número real elevado a una potencia par da un resultado negativo, así que un índice par no tiene raíz real de un radicando negativo.",
     "feedback_incorrect": [
       null,
       "Un índice impar sí tiene solución real para un radicando negativo, como $\\sqrt[3]{-8}=-2$.",
-      "Hay índices mayores a $2$ que sí tienen solución real, como cualquier índice impar.",
-      "Hay índices múltiplos de $3$ que son impares, como $3$ o $9$, y esos sí tienen solución real."
+      "El propio enunciado dice que para algunos índices sí hay solución con este mismo radicando negativo: lo que decide es la paridad del índice, no que el radicando sea negativo.",
+      "Que el radicando sea par o impar no interviene: lo que decide si la raíz existe es la paridad del índice, no la del radicando."
     ],
-    "explanation": "Elevar un número real a una potencia **par** siempre da un resultado positivo o cero, nunca negativo.\n\nPor eso, si el índice de una raíz es par y el radicando es negativo, no existe ningún número real que elevado a ese índice dé ese radicando.\n\nEn cambio, con índice impar sí hay solución:\n$$\\sqrt[3]{-8} = -2$$\nPorque $(-2)^3=-8$, un resultado negativo obtenido con un exponente impar.\n\nAsumir que toda raíz de un número negativo carece de solución ignora que el índice impar sí la permite.",
+    "explanation": "Elevar un número real a una potencia **par** siempre da un resultado positivo o cero, nunca negativo.\n\nPor eso, si el índice de una raíz es par y el radicando es negativo, no existe ningún número real que elevado a ese índice dé ese radicando.\n\nEn cambio, con índice impar sí hay solución:\n$$\\sqrt[3]{-8} = -2$$\nPorque $(-2)^3=-8$, un resultado negativo obtenido con un exponente impar.\n\nLo que decide si la raíz existe es la paridad del **índice**, nunca la del radicando: que $-8$ sea par no interviene en absoluto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

@@ -216,7 +216,7 @@
     ]
   },
   {
-    "question": "Dos porciones de un mismo lote quedan una a cada lado de la mitad.\n$$\\dfrac{5}{11} \\qquad \\dfrac{7}{12}$$\n¿Qué conviene hacer para ordenarlas?",
+    "question": "Dos porciones de un mismo lote se van a ordenar de menor a mayor.\n$$\\dfrac{5}{11} \\qquad \\dfrac{7}{12}$$\n¿Qué conviene hacer para ordenarlas?",
     "options": [
       "Comparar cada una con $1/2$: la que la supera es la mayor, sin más cuentas.",
       "Restar los numeradores y los denominadores por separado y comparar las diferencias.",
@@ -402,6 +402,33 @@
     "reviewed": false,
     "tags": [
       "elegir-orden-fraccion-compuesta"
+    ]
+  },
+  {
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "reviewed": false,
+    "question": "Un reparto queda expresado con una suma en el denominador.\n$$\\dfrac{4}{2+2a}$$\n¿Por qué no sirve separarlo como $4/2 + 4/(2a)$ antes de operar?",
+    "options": [
+      "Porque el reparto término a término vale cuando la suma está arriba, no abajo",
+      "Porque los dos sumandos de abajo tendrían que ser iguales para poder separarlos",
+      "Porque hay que pasar la expresión a decimal antes de separarla en dos partes",
+      "Porque el numerador $4$ no es divisible por el segundo sumando del denominador"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Una suma en el numerador sí se reparte; una suma en el denominador no.",
+    "feedback_incorrect": [
+      null,
+      "Que los sumandos coincidan no cambia nada: la separación falla igual, esté o no repetido.",
+      "El decimal no habilita nada nuevo, porque la operación que se está haciendo sigue siendo la misma.",
+      "La divisibilidad no interviene: aunque dividiera justo, separar así seguiría dando otro número."
+    ],
+    "explanation": "Repartir término a término vale en una dirección sola. Cuando la suma está en el **numerador**, cada sumando se lleva su parte del denominador:\n$$\\dfrac{a+b}{c} = \\dfrac{a}{c} + \\dfrac{b}{c}$$\nCuando la suma está en el **denominador** no pasa nada parecido, porque dividir por una suma no es dividir dos veces: el total del que se reparte es uno solo.\n\nEl contraejemplo es de una línea. Reemplazando $a$ por uno, el denominador vale cuatro y la expresión entera da uno; separada daría cuatro, cuatro veces más.\n\nLo que sí conviene hacer antes de operar es lo contrario de separar: sacar factor común abajo, que deja el denominador como un producto y recién ahí habilita cancelar.",
+    "tags": [
+      "elegir-simplificar-antes-despues"
     ]
   }
 ]

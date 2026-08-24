@@ -300,12 +300,12 @@
     "question": "Se quiere calcular un logaritmo cuyo argumento viene elevado a una potencia.\n$$\\log_{2}(8^{5})$$\n¿Qué conviene hacer primero?",
     "options": [
       "Aplicar la propiedad del cociente sobre el argumento",
-      "Bajar el exponente al frente del logaritmo",
+      "Aplicar la propiedad de la potencia sobre el argumento",
       "Calcular la potencia del argumento y después el logaritmo",
       "Aplicar la propiedad del producto sobre el argumento"
     ],
     "correct_index": 1,
-    "feedback_correct": "Bajar el exponente deja un logaritmo chico multiplicado por un entero.",
+    "feedback_correct": "Aplicar la propiedad de la potencia deja un logaritmo chico multiplicado por un entero.",
     "feedback_incorrect": [
       "No hay ninguna división escrita adentro del argumento.",
       null,
@@ -402,6 +402,270 @@
     "reviewed": false,
     "tags": [
       "elegir-propiedad-potencia"
+    ]
+  },
+  {
+    "question": "Un logaritmo y una potencia dicen lo mismo con los mismos tres números ordenados de otra manera.\n\nLa tabla traduce cada igualdad logarítmica a su forma exponencial.\n\n¿Cómo se completa la fila que falta?",
+    "options": [
+      "$3^{4} = 81$",
+      "$4^{3} = 81$",
+      "$81^{4} = 3$",
+      "$3^{81} = 4$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La base del logaritmo es la base de la potencia, y el resultado es el exponente.",
+    "feedback_incorrect": [
+      null,
+      "Ahí la base y el exponente están cambiados de lugar: la base del logaritmo es el $3$.",
+      "Ahí el argumento pasó a ser la base, pero el argumento es el resultado de la potencia.",
+      "Ahí el argumento quedó como exponente, cuando el exponente es el valor del logaritmo."
+    ],
+    "explanation": "Las dos formas contienen los mismos tres números, cada uno con un rol distinto:\n$$\\log_{b}(x) = n \\iff b^{n} = x$$\nLa **base** del logaritmo es la base de la potencia, el **valor** del logaritmo es el exponente, y el **argumento** es el resultado.\n\nLeyendo las dos primeras filas se ve el patrón: el número chico de la izquierda, el que está abajo, reaparece como base a la derecha.\n\nCambiar la base por el exponente da una igualdad que casi siempre es falsa, y reconocer esa traducción es lo que después permite despejar una incógnita atrapada en un exponente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Forma logarítmica"
+        },
+        {
+          "icon": null,
+          "label": "Forma exponencial"
+        }
+      ],
+      "rows": [
+        [
+          "$\\log_{2}(8) = 3$",
+          "$2^{3} = 8$"
+        ],
+        [
+          "$\\log_{5}(25) = 2$",
+          "$5^{2} = 25$"
+        ],
+        [
+          "$\\log_{3}(81) = 4$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "cell",
+        "at": [
+          2,
+          1
+        ],
+        "by_option": [
+          "$3^{4} = 81$",
+          "$4^{3} = 81$",
+          "$81^{4} = 3$",
+          "$3^{81} = 4$"
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "traduccion-desde-tabla"
+    ]
+  },
+  {
+    "question": "Toda potencia se puede reescribir como un logaritmo, que es la operación que despeja el exponente.\n\nLa tabla traduce cada potencia a su forma logarítmica.\n\n¿Cómo se completa la fila que falta?",
+    "options": [
+      "$\\log_{3}(1000) = 10$",
+      "$\\log_{1000}(10) = 3$",
+      "$\\log_{10}(1000) = 3$",
+      "$\\log_{10}(3) = 1000$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La base de la potencia es la base del logaritmo, y el exponente es su resultado.",
+    "feedback_incorrect": [
+      "Ahí el exponente pasó a ser la base, pero la base de la potencia es el $10$.",
+      "Ahí el resultado de la potencia quedó como base del logaritmo.",
+      null,
+      "Ahí el argumento y el resultado están cambiados: el argumento es el número grande."
+    ],
+    "explanation": "El logaritmo es la operación que devuelve el exponente de una potencia, así que traducir es reordenar los mismos tres números:\n$$b^{n} = x \\iff \\log_{b}(x) = n$$\nLa base se queda abajo en las dos formas; lo que se intercambia es el exponente con el resultado.\n\nAcá la base es $10$ y el exponente es $3$, así que el logaritmo conserva esa base, toma el resultado como argumento y vale lo que valía el exponente.\n\nPoner el resultado como base deja una igualdad que no se cumple con ninguno de los tres números en el lugar que les toca.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Forma exponencial"
+        },
+        {
+          "icon": null,
+          "label": "Forma logarítmica"
+        }
+      ],
+      "rows": [
+        [
+          "$2^{5} = 32$",
+          "$\\log_{2}(32) = 5$"
+        ],
+        [
+          "$5^{2} = 25$",
+          "$\\log_{5}(25) = 2$"
+        ],
+        [
+          "$10^{3} = 1000$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "cell",
+        "at": [
+          2,
+          1
+        ],
+        "by_option": [
+          "$\\log_{3}(1000) = 10$",
+          "$\\log_{1000}(10) = 3$",
+          "$\\log_{10}(1000) = 3$",
+          "$\\log_{10}(3) = 1000$"
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "traduccion-desde-tabla"
+    ]
+  },
+  {
+    "question": "La forma exponencial y la logarítmica describen la misma relación entre tres números.\n\nLa tabla traduce cada potencia a su forma logarítmica.\n\n¿Cómo se completa la fila que falta?",
+    "options": [
+      "$\\log_{4}(16) = 2$",
+      "$\\log_{2}(16) = 4$",
+      "$\\log_{16}(2) = 4$",
+      "$\\log_{2}(4) = 16$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La base se conserva, y el exponente pasa a ser el valor del logaritmo.",
+    "feedback_incorrect": [
+      "Ahí el exponente quedó como base del logaritmo, pero la base de la potencia es el $2$.",
+      null,
+      "Ahí el resultado de la potencia quedó como base, y la base pasó a ser el argumento.",
+      "Ahí el argumento y el resultado están cambiados de lugar."
+    ],
+    "explanation": "Un logaritmo pregunta a qué exponente hay que elevar la base para llegar al argumento, que es justo el dato que la potencia ya tiene escrito:\n$$b^{n} = x \\iff \\log_{b}(x) = n$$\nPor eso la traducción no calcula nada: solo cambia de lugar el exponente y el resultado, y deja la base donde estaba.\n\nAcá la potencia tiene base $2$ y exponente $4$, así que el logaritmo conserva esa base y toma ese exponente como su valor.\n\nConfundir la base con el exponente cambia por completo qué se está preguntando, y es el paso donde más se traba el despeje de una ecuación logarítmica.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Forma exponencial"
+        },
+        {
+          "icon": null,
+          "label": "Forma logarítmica"
+        }
+      ],
+      "rows": [
+        [
+          "$3^{3} = 27$",
+          "$\\log_{3}(27) = 3$"
+        ],
+        [
+          "$10^{2} = 100$",
+          "$\\log_{10}(100) = 2$"
+        ],
+        [
+          "$2^{4} = 16$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "cell",
+        "at": [
+          2,
+          1
+        ],
+        "by_option": [
+          "$\\log_{4}(16) = 2$",
+          "$\\log_{2}(16) = 4$",
+          "$\\log_{16}(2) = 4$",
+          "$\\log_{2}(4) = 16$"
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "traduccion-desde-tabla"
+    ]
+  },
+  {
+    "question": "Para despejar el argumento de un logaritmo hay que reescribirlo como una potencia.\n\nLa tabla traduce cada igualdad logarítmica a su forma exponencial.\n\n¿Cómo se completa la fila que falta?",
+    "options": [
+      "$3^{5} = 125$",
+      "$125^{3} = 5$",
+      "$5^{125} = 3$",
+      "$5^{3} = 125$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "La base del logaritmo baja como base de la potencia, y su valor sube como exponente.",
+    "feedback_incorrect": [
+      "Ahí la base y el exponente están cambiados: la base del logaritmo es el $5$.",
+      "Ahí el argumento quedó como base de la potencia, cuando es su resultado.",
+      "Ahí el argumento pasó a ser el exponente, pero el exponente es el valor del logaritmo.",
+      null
+    ],
+    "explanation": "Reescribir un logaritmo como potencia es el paso que libera al argumento, que en la forma logarítmica está atrapado adentro:\n$$\\log_{b}(x) = n \\iff b^{n} = x$$\nLa base no se mueve; lo que cambia de lugar es el valor del logaritmo, que pasa a ser el exponente.\n\nAcá la base es $5$ y el logaritmo vale $3$, así que la potencia es cinco elevado a la tercera, y su resultado es el argumento.\n\nElegir mal cuál de los tres números va como base deja una igualdad que no se cumple, y arrastra el error a todo el despeje posterior.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Forma logarítmica"
+        },
+        {
+          "icon": null,
+          "label": "Forma exponencial"
+        }
+      ],
+      "rows": [
+        [
+          "$\\log_{10}(100) = 2$",
+          "$10^{2} = 100$"
+        ],
+        [
+          "$\\log_{3}(9) = 2$",
+          "$3^{2} = 9$"
+        ],
+        [
+          "$\\log_{5}(125) = 3$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "cell",
+        "at": [
+          2,
+          1
+        ],
+        "by_option": [
+          "$3^{5} = 125$",
+          "$125^{3} = 5$",
+          "$5^{125} = 3$",
+          "$5^{3} = 125$"
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "traduccion-desde-tabla"
     ]
   }
 ]

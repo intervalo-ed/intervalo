@@ -23,25 +23,46 @@ Concepto: la **potenciación** $a^n$ representa la multiplicación repetida de u
 
 ---
 
-## FORM, 15 ejercicios
+## FORM, 21 ejercicios
 
 | Sub-familia | Cantidad | Slug | Objetivo pedagógico | Conceptos que toca |
 |---|---:|---|---|---|
 | Elegir qué propiedad corresponde aplicar primero en una expresión combinada | 5 | `elegir-propiedad-de-potencias-primero` | Decidir con qué parte de una expresión con varias potencias de igual base conviene empezar | Jerarquía de resolución cuando hay producto y cociente combinados en la misma expresión |
 | Elegir cómo reescribir una potencia con exponente negativo antes de seguir operando | 5 | `elegir-reescritura-exponente-negativo` | Decidir la reescritura correcta ($a^{-n} \to \dfrac{1}{a^n}$) frente a reescrituras plausibles pero erróneas | $a^{-n} = \dfrac{1}{a^n}$, distinguir de invertir solo el exponente o solo la base |
 | Elegir el orden de resolución en una potencia de potencia anidada dentro de un producto o cociente | 5 | `elegir-orden-potencia-de-potencia` | Decidir si conviene resolver primero la potencia interna o aplicar la propiedad $(a^m)^n = a^{m \cdot n}$ directamente | $(a^m)^n = a^{m \cdot n}$, jerarquía de resolución interna cuando hay una potencia dentro de otra |
-| **Total** | **15** | | | |
+| **Con tabla** (`table`, modo `column`): la tabla registra una magnitud que crece, y las opciones son expresiones candidatas para la fila simbólica | 4 | `patron-tabla-crecimiento` | Elegir qué expresión genera la columna, distinguiendo crecimiento exponencial de lineal y de cuadrático | $2^{n}$ contra $2n$, $n^{2}$ y $n+2$; el exponente cuenta repeticiones del factor, no del sumando |
+| **Con tabla** (`table`, modo `column`): la magnitud decrece, y las opciones compiten entre caída exponencial y caída por reparto | 2 | `patron-tabla-decaimiento` | Elegir la expresión que genera una columna decreciente, separando $2^{-n}$ de $1/(2n)$ | $a^{-n} = 1/a^{n}$ como "dividir $n$ veces", contra dividir una sola vez entre $n$ partes |
+| **Total** | **21** | | | |
+
+### Las dos sub-familias con tabla: tres excepciones y una regla propia
+
+**Excepción 1, cardinalidad: van con 3 opciones, no con 4.** El resto de la unidad usa 4 por preferencia editorial, pero acá aprietan las condiciones anti-descarte de la regla 71 (A1, A2, A3): con cuatro candidatos es mucho más difícil que todos coincidan en la fila trampa y que cada uno siga siendo un error real. Es el mismo criterio que rige en `probabilidad/white/conteo/reglas`.
+
+**Excepción 2, contexto: estos ítems de `FORM` NO son abstractos.** Los otros 15 arrancan con `Se quiere simplificar…` / `Se quiere resolver…`, amparados en la excepción intencional a la regla 43 que este topic declara. Una tabla de patrón necesita una magnitud concreta en el encabezado, así que estos seis rompen esa convención a propósito.
+
+**Excepción 3, regla 66: no llevan bloque `$$...$$` en el enunciado.** Cae bajo la excepción que la propia regla contempla: el objeto matemático **es** la respuesta que se pide construir, y ya está en las opciones.
+
+**Regla propia de la sub-familia, y es la que más cuesta sostener: la respuesta correcta rota de tipo, y la fila trampa cambia de posición.** Con un solo ítem no importa; con cuatro, si la correcta fuera siempre la exponencial el estudiante aprende una meta-estrategia —*elegí la que crece más rápido*— que funciona sin entender nada y que después exporta al resto del banco. Por eso los cuatro de `patron-tabla-crecimiento` rotan la correcta entre $2^{n}$, $n^{2}$, $2n$ y $n+2$, y en dos de ellos **la exponencial es distractora**. Lo mismo en `patron-tabla-decaimiento`: uno tiene $2^{-n}$ como correcta y el otro la tiene como distractora.
+
+El mismo razonamiento aplica a la **posición** de la fila trampa: si siempre fuera la primera, la meta-estrategia pasaría a ser *ignorá la primera fila*. Está repartida entre la posición 0 y la 1. Ninguna de las dos cosas la ve el validador (A1 no es automatizable), así que se chequean leyendo la sub-familia entera de corrido.
+
+**Todas las filas de datos van completas; la única celda vacía es la simbólica.** Se corrigió así tras el primer testeo real: los seis ítems se habían escrito con una fila numérica vacía además de la simbólica, y confundía —no se entendía si también había que completarla—. El problema de fondo era peor: con solo dos filas dadas la regla se puede *verificar* pero no *generar*, así que el estudiante terminaba probando opciones, que es la inducción ingenua que el formato existe para combatir. Ver la sección Tablas de `authoring-context.md`.
+
+**Las entradas siguen siendo irregulares en el ítem exponencial, y no es un capricho.** Con $2, 3, 4$ la fila del $4$ da $16$ tanto para $2^{n}$ como para $n^{2}$, así que una sola fila discrimina las tres opciones; con $2, 3, 5$ discriminan dos, y además la del $5$ es la que hace visible la explosión ($32$ contra $10$), que es el argumento pedagógico central del formato. En los ítems lineales y cuadrático, en cambio, las entradas $1, 2, 3$ alcanzan y se leen mejor.
+
+**La familia numérica que hace posible la fila trampa** es $\{2n,\ n+2,\ n^{2},\ 2^{n}\}$, que **vale $4$ en $n=2$ las cuatro** (regla 71). Todo ítem nuevo de `patron-tabla-crecimiento` sale de elegir la correcta de ese conjunto y dos distractoras del resto. En `patron-tabla-decaimiento` el punto de cruce es $n=1$, donde $2^{-n}$, $1/(2n)$ y $n/2$ valen todas $1/2$.
 
 ---
 
-## RESL, 15 ejercicios
+## RESL, 19 ejercicios
 
 | Sub-familia | Cantidad | Slug | Objetivo pedagógico | Conceptos que toca |
 |---|---:|---|---|---|
 | Resolver una cadena de producto y cociente de potencias de igual base hasta el resultado final | 5 | `resl-cadena-igual-base` | Calcular el exponente final combinando sumas y restas de exponentes en una sola expresión | $a^m \cdot a^n = a^{m+n}$, $\dfrac{a^m}{a^n} = a^{m-n}$, combinados en una cadena |
 | Resolver una expresión con exponente negativo hasta el resultado numérico final | 5 | `resl-exponente-negativo` | Calcular el valor final de una potencia con exponente negativo, incluido dentro de una expresión más larga | $a^{-n} = \dfrac{1}{a^n}$, reintroducida en cada ejercicio que la usa (regla crítica 31) |
 | Resolver una potencia de potencia hasta el resultado final | 5 | `resl-potencia-de-potencia` | Calcular $(a^m)^n$ multiplicando los exponentes, sin desarrollar cada potencia por separado | $(a^m)^n = a^{m \cdot n}$, reintroducida en cada ejercicio que la usa |
-| **Total** | **15** | | | |
+| **Con tabla** (`table`, modo `cell`): la tabla desglosa por cuánto multiplica o divide cada paso de la cadena y deja vacía la fila del resultado | 4 | `cadena-desde-tabla` | Calcular el exponente final leyendo el desglose, sin que la cadena viva en la prosa | Suma y resta de exponentes de igual base, exponente negativo y potencia de potencia, según el ítem |
+| **Total** | **19** | | | |
 
 **Cardinalidad**: preferencia editorial de esta unidad (igual que `Fracciones`), **4 opciones para prácticamente todo** (`LEXI`, `FORM` y `RESL`), no el default de 3 para conceptual/textual del resto del curso. Cuando las 4 opciones son potencias numéricas cortas entre sí, usar formato de barra/exponente simple (`$2^{-1}$`, `$1/8$`) sin apilar, ancho ≤12 en grilla 2×2; cuando son textos/propiedades (`FORM`) no aplica la restricción de ancho, van como lista.
 

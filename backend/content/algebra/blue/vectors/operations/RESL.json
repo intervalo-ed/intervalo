@@ -397,5 +397,167 @@
     "tags": [
       "resl-combinacion-suma-escalar"
     ]
+  },
+  {
+    "question": "Un vector $\\vec{v}$ tiene norma $5$.\n\nLa tabla registra la norma de $k\\vec{v}$ según el valor del escalar $k$.\n\n¿Cuál es la norma de $k\\vec{v}$ en función de $k$?",
+    "options": [
+      "$5|k|$",
+      "$5k$",
+      "$5k^{2}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Escalar un vector multiplica su norma por el valor absoluto del escalar.",
+    "feedback_incorrect": [
+      null,
+      "Con esa expresión un escalar negativo daría una norma negativa, y ninguna norma puede serlo.",
+      "Esa expresión no coincide con $k=-2$: ahí la norma vale $10$, no $20$."
+    ],
+    "explanation": "Escalar un vector multiplica cada componente por $k$, y la norma queda multiplicada por el **valor absoluto** de ese escalar.\n$$\\lVert k\\vec{v} \\rVert = |k|\\,\\lVert \\vec{v} \\rVert$$\nCon norma $5$, la expresión queda $5|k|$.\n\nLa fila de $k=1$ no alcanza para decidir, porque ahí las tres expresiones dan lo mismo. Recién en $k=-2$ se separan.\n\nUna norma no puede ser negativa, así que la opción sin valor absoluto falla apenas el escalar cambia de signo: daría un resultado negativo, que es imposible.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "$k$"
+        },
+        {
+          "icon": null,
+          "label": "$\\lVert k\\vec{v} \\rVert$"
+        }
+      ],
+      "rows": [
+        [
+          "$1$",
+          "$5$"
+        ],
+        [
+          "$-2$",
+          "$10$"
+        ],
+        [
+          "$k$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$5|k|$",
+            "cells": [
+              "$5$",
+              "$10$",
+              "$5|k|$"
+            ]
+          },
+          {
+            "header": "$5k$",
+            "cells": [
+              "$5$",
+              "$-10$",
+              "$5k$"
+            ]
+          },
+          {
+            "header": "$5k^{2}$",
+            "cells": [
+              "$5$",
+              "$20$",
+              "$5k^{2}$"
+            ]
+          }
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "resl-norma-vector-escalado"
+    ]
+  },
+  {
+    "question": "Un vector $\\vec{v}$ tiene norma $13$.\n\nLa tabla registra la norma de $k\\vec{v}$ según el valor del escalar $k$.\n\n¿Cuál es la norma de $k\\vec{v}$ en función de $k$?",
+    "options": [
+      "$13k^{2}$",
+      "$13k$",
+      "$13|k|$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Escalar un vector multiplica su norma por el valor absoluto del escalar, sea entero o no.",
+    "feedback_incorrect": [
+      "Esa expresión no coincide con $k=-1/2$: ahí la norma vale $6{,}5$, no $3{,}25$.",
+      "Con esa expresión un escalar negativo daría una norma negativa, y ninguna norma puede serlo.",
+      null
+    ],
+    "explanation": "El mismo mecanismo vale para cualquier escalar, sea entero, fraccionario o negativo: la norma queda multiplicada por su **valor absoluto**.\n$$\\lVert k\\vec{v} \\rVert = |k|\\,\\lVert \\vec{v} \\rVert$$\nCon norma $13$, la expresión queda $13|k|$.\n\nLa fila de $k=3$ no alcanza para decidir, porque ahí las tres expresiones dan lo mismo. Recién en $k=-1/2$ se separan.\n\nAchicar un vector a la mitad y encima invertirlo sigue dando una norma positiva: la mitad de la original, sin importar que el vector haya cambiado de sentido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "$k$"
+        },
+        {
+          "icon": null,
+          "label": "$\\lVert k\\vec{v} \\rVert$"
+        }
+      ],
+      "rows": [
+        [
+          "$3$",
+          "$39$"
+        ],
+        [
+          "$-1/2$",
+          "$6{,}5$"
+        ],
+        [
+          "$k$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$13k^{2}$",
+            "cells": [
+              "$39$",
+              "$3{,}25$",
+              "$13k^{2}$"
+            ]
+          },
+          {
+            "header": "$13k$",
+            "cells": [
+              "$39$",
+              "$-6{,}5$",
+              "$13k$"
+            ]
+          },
+          {
+            "header": "$13|k|$",
+            "cells": [
+              "$39$",
+              "$6{,}5$",
+              "$13|k|$"
+            ]
+          }
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "resl-norma-vector-escalado"
+    ]
   }
 ]

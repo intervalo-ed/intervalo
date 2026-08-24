@@ -30,25 +30,35 @@ Concepto: el **logaritmo** en base $b$ de un número $x$ es el exponente al que 
 
 ---
 
-## FORM, 15 ejercicios
+## FORM, 19 ejercicios
 
 | Sub-familia | Cantidad | Slug | Objetivo pedagógico | Conceptos que toca |
 |---|---:|---|---|---|
 | Elegir qué propiedad corresponde aplicar primero en una expresión combinada | 5 | `elegir-propiedad-de-logaritmos-primero` | Decidir con qué parte de una expresión con producto y cociente dentro del argumento conviene empezar | Jerarquía de resolución cuando hay producto y cociente combinados dentro del logaritmo |
 | Elegir cómo reescribir una ecuación logarítmica como potencia para despejar la incógnita | 5 | `elegir-reescritura-log-a-potencia` | Decidir la reescritura correcta ($\log_b(x)=y \to x=b^y$) frente a reescrituras plausibles pero erróneas | $\log_b(x)=y \iff b^y=x$, despejar el argumento a partir del logaritmo |
 | Elegir aplicar la propiedad de la potencia antes de calcular | 5 | `elegir-propiedad-potencia` | Decidir que conviene aplicar $\log_b(x^n)=n\log_b(x)$ antes de calcular una potencia grande | $\log_b(x^n) = n\log_b(x)$, evitar calcular la potencia completa cuando el logaritmo simplifica antes |
-| **Total** | **15** | | | |
+| **Con tabla** (`table`, modo `cell`): la tabla traduce igualdades entre forma logarítmica y forma exponencial, y deja una celda vacía | 4 | `traduccion-desde-tabla` | Completar la traducción que falta, identificando qué papel cumple cada uno de los tres números en cada forma | $b^{n} = x \iff \log_{b}(x) = n$; base, argumento y valor del logaritmo contra base, resultado y exponente |
+| **Total** | **19** | | | |
+
+**`traduccion-desde-tabla` llena un hueco medido del topic.** Antes de esta ronda la dirección **exponencial → logarítmica** tenía **un solo ejercicio en los 45** del topic (`LEXI` #3); las otras cinco traducciones iban todas en la dirección contraria. Dos de estos cuatro ítems van de potencia a logaritmo, y dos al revés, así que la sub-familia queda equilibrada en los dos sentidos.
+
+El formato viene de un precedente verificado: la **tabla de dos columnas `Forma logarítmica | Forma exponencial`** del cuadernillo de ingreso de UTN FRRQ. La celda vacía **no cae siempre en la última fila**, para que la tarea no se resuelva mirando solo el renglón de abajo.
 
 ---
 
-## RESL, 15 ejercicios
+## RESL, 17 ejercicios
 
 | Sub-familia | Cantidad | Slug | Objetivo pedagógico | Conceptos que toca |
 |---|---:|---|---|---|
 | Calcular un logaritmo a partir de una razón de intensidad (escala de Richter) | 5 | `resl-escala-richter` | Calcular $\log_{10}$ de una razón dada hasta el resultado final | Definición de logaritmo como exponente, escala de Richter |
 | Combinar la propiedad del producto para calcular un logaritmo de una amplificación en dos etapas distintas | 5 | `resl-propiedad-producto` | Calcular el logaritmo de un producto de dos factores distintos sumando sus logaritmos por separado | $\log_b(x\cdot y) = \log_b(x)+\log_b(y)$, escala de decibeles |
 | Aplicar la propiedad de la potencia para calcular el logaritmo de una misma amplificación repetida varias veces | 5 | `resl-propiedad-potencia` | Calcular el logaritmo de una potencia multiplicando el logaritmo de la base por el exponente | $\log_b(x^n) = n\log_b(x)$, escala de decibeles con etapas idénticas |
-| **Total** | **15** | | | |
+| **Con tabla** (`table`, modo `cell`): la tabla desglosa por cuánto multiplica cada etapa y deja vacía la fila del resultado | 2 | `etapas-desde-tabla` | Combinar tres pasos leyendo el desglose, incluido uno que divide | Propiedad del producto con tres factores; un factor menor que $1$ aporta un logaritmo negativo, así que resta |
+| **Total** | **17** | | | |
+
+**El coeficiente $10$ de la escala de decibeles se aplica solo cuando el ítem lo pide, y eso es deliberado.** En `resl-propiedad-producto`, cuatro ítems preguntan directamente *"¿cuánto vale el $\log_{10}$ del factor total?"* y uno solo (#9) pide el nivel en decibeles con su $10\log_{10}$. No es una inconsistencia de la sub-familia: lo que se está ejercitando es la **propiedad del producto**, y los decibeles son el contexto que le da sentido físico, no la cuenta que se pide siempre. La prueba de que la distinción es contenido y no descuido está en el `feedback_incorrect` de #6, que diagnostica exactamente el error de aplicar el coeficiente cuando no corresponde: *"como si la fórmula llevara el coeficiente de decibeles, que acá no corresponde"*.
+
+**Por eso no hay que "unificar" los cinco aplicando $10\log_{10}$ en todos.** Hacerlo destruiría ese distractor, volvería las cuatro respuestas múltiplos de $10$ (más fáciles de adivinar) y dejaría a #9 sin nada que lo distinga. La regla operativa: **el enunciado dice explícitamente cuál de las dos cantidades se pide**, y nunca se asume que "nivel en decibeles" y "logaritmo del factor" son lo mismo.
 
 **Cardinalidad**: preferencia editorial de esta unidad (igual que `Fracciones`, `Potenciación` y `Radicales`), **4 opciones para prácticamente todo** (`LEXI`, `FORM` y `RESL`).
 
@@ -84,7 +94,7 @@ Ningún experimento supera ~30% de los ítems de una misma sub-familia (misma re
 
 ## Reglas específicas del topic
 
-- **Bases enteras chicas** (2, 3, 5 o 10) y **argumentos que sean potencias exactas de la base** para que el resultado sea siempre un entero manejable a mano.
+- **Bases enteras chicas** (por defecto 2, 3, 5 o 10) y **argumentos que sean potencias exactas de la base** para que el resultado sea siempre un entero manejable a mano. La condición que importa es la segunda: **otra base entera chica es admisible cuando el argumento sigue siendo una potencia exacta de ella y el ítem gana algo con esa base**. Caso vigente: `elegir-propiedad-potencia` usa 10, 2, 3, 5 y **7**, una base distinta por ítem, justamente para que la sub-familia no enseñe que la propiedad depende de la base; el resultado sigue siendo entero, que es lo que la regla protege. Fuera de ese caso, mantenerse en las cuatro por defecto.
 - **`RESL` siempre en contexto concreto** (Richter o decibeles, ver tabla de arriba); `LEXI` y `FORM` pueden quedar en abstracto por diseño (excepción intencional de la regla 43), aunque su `explanation` puede sumar una nota breve con la escala real detrás del concepto.
 - **Cada ejercicio reintroduce la fórmula o regla que usa** (regla crítica 31): especialmente crítico en `elegir-reescritura-log-a-potencia` y `resl-propiedad-potencia`.
 - **Todo resultado final de `RESL` es un número entero**, salvo que una sub-familia futura lo diseñe explícitamente con decimales.
@@ -95,7 +105,7 @@ Ningún experimento supera ~30% de los ítems de una misma sub-familia (misma re
 
 - [ ] Todo enunciado lleva un bloque `$$...$$` entre la apertura y la pregunta, con la notación abstracta del objeto en los conceptuales; solo se exceptúan los ítems cuyo objeto ya está en las opciones o **es** la respuesta que se pide construir (regla 66)
 - [ ] Ningún contexto exige conocimiento previo de una carrera puntual (registro Paenza, sin jerga de nicho)
-- [ ] Toda base entera (2, 3, 5 o 10) con argumento que sea potencia exacta de esa base
+- [ ] Toda base entera chica con argumento que sea potencia exacta de esa base (por defecto 2, 3, 5 o 10; otra base solo si el ítem gana algo con ella y el resultado sigue siendo entero)
 - [ ] Todo resultado final de `RESL` es un número entero
 - [ ] `elegir-reescritura-log-a-potencia` y `resl-propiedad-potencia` reintroducen su regla desde cero, sin asumir que el alumno la recuerda de otro ejercicio
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target

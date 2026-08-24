@@ -403,5 +403,138 @@
     "tags": [
       "resl-sumar-restar"
     ]
+  },
+  {
+    "question": "Dos muestras de un mismo cultivo se midieron con el mismo instrumento.\n\nLa tabla registra cuántas células contó cada una.\n\n¿Cuántas veces más células tiene la muestra A que la B?",
+    "options": [
+      "$2 \\times 10^{11}$",
+      "$3 \\times 10^{3}$",
+      "$2 \\times 10^{3}$",
+      "$2 \\times 10^{-3}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Los coeficientes se dividen y los exponentes se restan: $6/3$ y $7-4$.",
+    "feedback_incorrect": [
+      "Ahí los exponentes se sumaron en vez de restarse, y una división resta.",
+      "Ahí quedó el coeficiente del divisor en el resultado, en vez del cociente entre los dos.",
+      null,
+      "Ahí los exponentes se restaron en el orden inverso, y da un resultado menor que $1$."
+    ],
+    "explanation": "Comparar dos cantidades es dividirlas, y en notación científica esa división se hace por partes: coeficiente con coeficiente, y potencia con potencia.\n$$\\frac{6 \\times 10^{7}}{3 \\times 10^{4}} = \\frac{6}{3} \\times 10^{7-4}$$\nLos exponentes se restan porque dividir potencias de igual base saca los factores de diez que están repetidos arriba y abajo.\n\nEl cociente de los coeficientes da $2$ y la resta de exponentes da $3$, así que la muestra A tiene dos mil veces más células.\n\nSumar los exponentes en vez de restarlos convierte una comparación en un producto, y da un número muchísimo más grande que cualquiera de los dos datos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": "🧫",
+          "label": "Muestra"
+        },
+        {
+          "icon": null,
+          "label": "Células contadas"
+        }
+      ],
+      "rows": [
+        [
+          "Muestra A",
+          "$6 \\times 10^{7}$"
+        ],
+        [
+          "Muestra B",
+          "$3 \\times 10^{4}$"
+        ],
+        [
+          "**A supera a B en**",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "cell",
+        "at": [
+          2,
+          1
+        ],
+        "by_option": [
+          "$2 \\times 10^{11}$",
+          "$3 \\times 10^{3}$",
+          "$2 \\times 10^{3}$",
+          "$2 \\times 10^{-3}$"
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "comparar-desde-tabla"
+    ]
+  },
+  {
+    "question": "Tres sensores midieron el mismo espesor y cada uno informó su resultado en notación científica.\n\nLa tabla registra las tres medidas.\n\n¿Cuál de las tres es la mayor?",
+    "options": [
+      "$8{,}1 \\times 10^{-3}$",
+      "$9 \\times 10^{-4}$",
+      "$2 \\times 10^{-3}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Entre las dos de igual exponente gana la del coeficiente más grande.",
+    "feedback_incorrect": [
+      null,
+      "Ese tiene el coeficiente más grande de los tres, pero también el exponente más chico.",
+      "Ese comparte exponente con la mayor, y ahí decide el coeficiente."
+    ],
+    "explanation": "En notación científica la comparación se hace en dos pasos, y el primero manda: **gana el exponente más grande**, porque marca la escala del número.\n$$10^{-4} < 10^{-3}$$\nPor eso la medida de exponente $-4$ queda descartada de entrada, aunque su coeficiente sea el mayor de los tres.\n\nEntre las dos que comparten exponente, recién ahí decide el coeficiente: $8{,}1$ es mayor que $2$.\n\nComparar primero por el coeficiente invierte el resultado justamente cuando los exponentes son distintos, que es cuando la diferencia de escala es más grande.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": "📏",
+          "label": "Sensor"
+        },
+        {
+          "icon": null,
+          "label": "Medida"
+        }
+      ],
+      "rows": [
+        [
+          "Sensor 1",
+          "$9 \\times 10^{-4}$"
+        ],
+        [
+          "Sensor 2",
+          "$8{,}1 \\times 10^{-3}$"
+        ],
+        [
+          "Sensor 3",
+          "$2 \\times 10^{-3}$"
+        ],
+        [
+          "**La mayor**",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "cell",
+        "at": [
+          3,
+          1
+        ],
+        "by_option": [
+          "$8{,}1 \\times 10^{-3}$",
+          "$9 \\times 10^{-4}$",
+          "$2 \\times 10^{-3}$"
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "comparar-desde-tabla"
+    ]
   }
 ]

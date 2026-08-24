@@ -351,7 +351,7 @@
     ]
   },
   {
-    "question": "En una simplificación aparece esta igualdad:\n$$\\log_{7}(1) = 0$$\n¿Por qué el logaritmo de $1$ vale cero en cualquier base?",
+    "question": "En una simplificación aparece esta igualdad:\n$$\\log_{5}(1) = 0$$\n¿Por qué el logaritmo de $1$ vale cero en cualquier base?",
     "options": [
       "Porque toda base elevada a la potencia cero devuelve exactamente $1$",
       "Porque el argumento y el resultado coinciden si el argumento es chico",

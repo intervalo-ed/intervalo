@@ -403,5 +403,533 @@
     "tags": [
       "elegir-orden-potencia-de-potencia"
     ]
+  },
+  {
+    "question": "Un torneo de eliminación directa se juega en varias rondas, hasta que queda un solo ganador.\n\nLa tabla registra con cuántos equipos arranca el torneo según la cantidad de rondas que se juegan.\n\n¿Con cuántos equipos arranca un torneo de $n$ rondas?",
+    "options": [
+      "$2n$",
+      "$2^{n}$",
+      "$n^{2}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Cada ronda que se agrega duplica la cantidad de equipos del arranque.",
+    "feedback_incorrect": [
+      "Con esa expresión un torneo de 3 rondas arrancaría con 6 equipos, y la tabla muestra 8.",
+      null,
+      "Ahí la base y el exponente están cambiados de lugar: lo que se repite es el 2, una vez por ronda."
+    ],
+    "explanation": "Cada ronda deja pasar a la mitad de los equipos, así que mirando el torneo desde el final hacia el principio cada ronda **duplica** la cantidad que hacía falta.\n$$2 \\times 2 \\times \\cdots \\times 2 = 2^{n}$$\nEl exponente cuenta cuántas veces se repite ese factor $2$, una por ronda.\n\nLa fila de 2 rondas no alcanza para decidir, porque ahí las tres expresiones dan lo mismo. Recién en 3 rondas se separan.\n\nY esa separación se agranda rápido: con 5 rondas la diferencia ya es de 32 contra 10.\n\nAgregar una ronda no suma equipos, los multiplica. Esa es la marca del crecimiento exponencial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Rondas"
+        },
+        {
+          "icon": "🏆",
+          "label": "Equipos"
+        }
+      ],
+      "rows": [
+        [
+          "$2$",
+          "$4$"
+        ],
+        [
+          "$3$",
+          "$8$"
+        ],
+        [
+          "$5$",
+          "$32$"
+        ],
+        [
+          "$n$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$2n$",
+            "cells": [
+              "$4$",
+              "$6$",
+              "$10$",
+              "$2n$"
+            ]
+          },
+          {
+            "header": "$2^{n}$",
+            "cells": [
+              "$4$",
+              "$8$",
+              "$32$",
+              "$2^{n}$"
+            ]
+          },
+          {
+            "header": "$n^{2}$",
+            "cells": [
+              "$4$",
+              "$9$",
+              "$25$",
+              "$n^{2}$"
+            ]
+          }
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "patron-tabla-crecimiento"
+    ]
+  },
+  {
+    "question": "Un juego entrega fichas cada vez que se completa un nivel, y los niveles más altos entregan más.\n\nLa tabla registra cuántas fichas entrega cada nivel.\n\n¿Cuántas fichas entrega el nivel $n$?",
+    "options": [
+      "$2^{n}$",
+      "$n+2$",
+      "$n^{2}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Cada nivel entrega el número del nivel repetido esa misma cantidad de veces.",
+    "feedback_incorrect": [
+      "Con esa expresión el nivel 1 entregaría 2 fichas, y la tabla muestra 1.",
+      "Con esa expresión el nivel 1 entregaría 3 fichas, y la tabla muestra 1.",
+      null
+    ],
+    "explanation": "Acá el que se repite como factor es el propio número del nivel, y se repite **dos veces**, no una cantidad variable de veces.\n$$n \\times n = n^{2}$$\nEsa es la diferencia de fondo con una potencia de base fija: ahí lo que crece es el exponente, acá lo que crece es la base.\n\nLa fila del nivel 2 no sirve para decidir, porque las tres expresiones dan $4$. La que decide es la del nivel 1, donde ya se separan las tres.\n\nConviene desconfiar del reflejo de leer toda tabla creciente como exponencial: acá duplicar el nivel no duplica las fichas, las cuadruplica.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Nivel"
+        },
+        {
+          "icon": "🎫",
+          "label": "Fichas"
+        }
+      ],
+      "rows": [
+        [
+          "$1$",
+          "$1$"
+        ],
+        [
+          "$2$",
+          "$4$"
+        ],
+        [
+          "$3$",
+          "$9$"
+        ],
+        [
+          "$n$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$2^{n}$",
+            "cells": [
+              "$2$",
+              "$4$",
+              "$8$",
+              "$2^{n}$"
+            ]
+          },
+          {
+            "header": "$n+2$",
+            "cells": [
+              "$3$",
+              "$4$",
+              "$5$",
+              "$n+2$"
+            ]
+          },
+          {
+            "header": "$n^{2}$",
+            "cells": [
+              "$1$",
+              "$4$",
+              "$9$",
+              "$n^{2}$"
+            ]
+          }
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "patron-tabla-crecimiento"
+    ]
+  },
+  {
+    "question": "Una imprenta hace folletos y de cada hoja sale más de uno.\n\nLa tabla registra cuántos folletos salieron según la cantidad de hojas usadas.\n\n¿Cuántos folletos salen con $n$ hojas?",
+    "options": [
+      "$2n$",
+      "$n+2$",
+      "$n^{2}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Cada hoja aporta siempre la misma cantidad, así que el total crece a paso constante.",
+    "feedback_incorrect": [
+      null,
+      "Con esa expresión pasar de 1 a 2 hojas sumaría un solo folleto, y la tabla muestra dos más.",
+      "Con esa expresión una sola hoja daría 1 folleto, y la tabla muestra 2."
+    ],
+    "explanation": "Cuando cada hoja aporta **la misma cantidad**, el total es esa cantidad multiplicada por el número de hojas.\n$$2 + 2 + \\cdots + 2 = 2n$$\nEl $2$ no se repite como factor sino como sumando, y por eso el resultado es un producto y no una potencia.\n\nLa fila de 2 hojas no decide nada: ahí las tres expresiones dan $4$. La de 1 hoja sí, porque separa a las tres de una.\n\nTratar esa repetición como un factor convierte el producto en una potencia: con 3 hojas darían 8 folletos en vez de 6, y la brecha se agranda de ahí en adelante.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Hojas"
+        },
+        {
+          "icon": "📄",
+          "label": "Folletos"
+        }
+      ],
+      "rows": [
+        [
+          "$1$",
+          "$2$"
+        ],
+        [
+          "$2$",
+          "$4$"
+        ],
+        [
+          "$3$",
+          "$6$"
+        ],
+        [
+          "$n$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$2n$",
+            "cells": [
+              "$2$",
+              "$4$",
+              "$6$",
+              "$2n$"
+            ]
+          },
+          {
+            "header": "$n+2$",
+            "cells": [
+              "$3$",
+              "$4$",
+              "$5$",
+              "$n+2$"
+            ]
+          },
+          {
+            "header": "$n^{2}$",
+            "cells": [
+              "$1$",
+              "$4$",
+              "$9$",
+              "$n^{2}$"
+            ]
+          }
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "patron-tabla-crecimiento"
+    ]
+  },
+  {
+    "question": "Un colectivo arranca su recorrido con algunos pasajeros arriba y va sumando gente en el camino.\n\nLa tabla registra cuántos pasajeros lleva según la cantidad de paradas hechas.\n\n¿Cuántos pasajeros lleva después de $n$ paradas?",
+    "options": [
+      "$2n$",
+      "$n+2$",
+      "$n^{2}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Sube uno por parada, y a eso se le suman los dos que ya venían de antes.",
+    "feedback_incorrect": [
+      "Con esa expresión el colectivo arrancaría vacío, y la tabla muestra 3 pasajeros en la primera parada.",
+      null,
+      "Con esa expresión la primera parada dejaría 1 pasajero, y la tabla muestra 3."
+    ],
+    "explanation": "Entre dos filas seguidas la tabla sube siempre de a uno, así que cada parada aporta un pasajero. Pero contar solo las paradas deja afuera a los que ya estaban arriba antes de la primera.\n$$n + 2$$\nEse $2$ es la cantidad con la que arrancó el recorrido, y no depende de cuántas paradas se hagan.\n\nLa fila de 2 paradas no decide nada, porque ahí las tres expresiones dan $4$. La de 1 parada sí las separa.\n\nPerder ese término constante deja la cuenta corrida en dos pasajeros para cualquier cantidad de paradas. La diferencia entre filas da el ritmo, no el punto de partida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Paradas"
+        },
+        {
+          "icon": "🚌",
+          "label": "Pasajeros"
+        }
+      ],
+      "rows": [
+        [
+          "$1$",
+          "$3$"
+        ],
+        [
+          "$2$",
+          "$4$"
+        ],
+        [
+          "$6$",
+          "$8$"
+        ],
+        [
+          "$n$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$2n$",
+            "cells": [
+              "$2$",
+              "$4$",
+              "$12$",
+              "$2n$"
+            ]
+          },
+          {
+            "header": "$n+2$",
+            "cells": [
+              "$3$",
+              "$4$",
+              "$8$",
+              "$n+2$"
+            ]
+          },
+          {
+            "header": "$n^{2}$",
+            "cells": [
+              "$1$",
+              "$4$",
+              "$36$",
+              "$n^{2}$"
+            ]
+          }
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "patron-tabla-crecimiento"
+    ]
+  },
+  {
+    "question": "Un filtro se arma apilando capas iguales, una sobre otra.\n\nLa tabla registra qué fracción de la luz sale del otro lado según cuántas capas tenga el filtro.\n\n¿Qué fracción sale con $n$ capas?",
+    "options": [
+      "$1/(2n)$",
+      "$n/2$",
+      "$2^{-n}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Cada capa deja pasar la mitad de lo que le llega, y esa mitad se toma una vez por capa.",
+    "feedback_incorrect": [
+      "Con esa expresión 3 capas dejarían pasar $1/6$, y la tabla muestra $1/8$.",
+      "Esa expresión crece con las capas, y la tabla muestra que sale cada vez menos luz.",
+      null
+    ],
+    "explanation": "Cada capa deja pasar la mitad de la luz que recibe, así que el factor un medio se aplica una vez por capa, sobre lo que dejó pasar la anterior.\n$$\\frac{1}{2} \\times \\frac{1}{2} \\times \\cdots = 2^{-n}$$\nEl exponente negativo es exactamente eso: cuenta cuántas veces se dividió por dos.\n\nLa fila de 1 capa no alcanza para decidir, porque ahí las tres expresiones dan $1/2$. Recién con 3 capas se separan.\n\nDividir una sola vez por la cantidad de capas deja pasar mucha más luz de la que realmente sale, y la brecha se agranda con cada capa nueva.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Capas"
+        },
+        {
+          "icon": "💡",
+          "label": "Luz que sale"
+        }
+      ],
+      "rows": [
+        [
+          "$1$",
+          "$1/2$"
+        ],
+        [
+          "$3$",
+          "$1/8$"
+        ],
+        [
+          "$4$",
+          "$1/16$"
+        ],
+        [
+          "$n$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$1/(2n)$",
+            "cells": [
+              "$1/2$",
+              "$1/6$",
+              "$1/8$",
+              "$1/(2n)$"
+            ]
+          },
+          {
+            "header": "$n/2$",
+            "cells": [
+              "$1/2$",
+              "$3/2$",
+              "$2$",
+              "$n/2$"
+            ]
+          },
+          {
+            "header": "$2^{-n}$",
+            "cells": [
+              "$1/2$",
+              "$1/8$",
+              "$1/16$",
+              "$2^{-n}$"
+            ]
+          }
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "patron-tabla-decaimiento"
+    ]
+  },
+  {
+    "question": "De un depósito se aparta una reserva y todo lo que queda se reparte en partes iguales entre los turnos del día.\n\nLa tabla registra qué fracción del total recibe cada turno.\n\n¿Qué fracción recibe cada turno si hay $n$ turnos?",
+    "options": [
+      "$1/(2n)$",
+      "$2^{-n}$",
+      "$n/2$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La reserva se lleva siempre la mitad, y esa mitad se divide entre los turnos que haya.",
+    "feedback_incorrect": [
+      null,
+      "Con esa expresión 3 turnos recibirían $1/8$ cada uno, y la tabla muestra $1/6$.",
+      "Esa expresión crece con los turnos, y la tabla muestra que a cada turno le toca cada vez menos."
+    ],
+    "explanation": "La tabla deja ver cuánto se aparta como reserva, que el enunciado no dice. Con un solo turno le toca $1/2$, así que la otra mitad es la reserva.\n$$\\frac{1/2}{n} = \\frac{1}{2n}$$\nEsa mitad fija se divide entre los turnos, y por eso la cantidad de turnos aparece multiplicando abajo.\n\nLa fila de un turno no decide nada: ahí las tres expresiones dan $1/2$. La de 3 turnos sí las separa.\n\nLeer toda tabla decreciente como exponencial parte la porción de más: pasar de 2 a 4 turnos la corta al medio una sola vez, no dos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Turnos"
+        },
+        {
+          "icon": "🥧",
+          "label": "Parte de cada uno"
+        }
+      ],
+      "rows": [
+        [
+          "$1$",
+          "$1/2$"
+        ],
+        [
+          "$3$",
+          "$1/6$"
+        ],
+        [
+          "$5$",
+          "$1/10$"
+        ],
+        [
+          "$n$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$1/(2n)$",
+            "cells": [
+              "$1/2$",
+              "$1/6$",
+              "$1/10$",
+              "$1/(2n)$"
+            ]
+          },
+          {
+            "header": "$2^{-n}$",
+            "cells": [
+              "$1/2$",
+              "$1/8$",
+              "$1/32$",
+              "$2^{-n}$"
+            ]
+          },
+          {
+            "header": "$n/2$",
+            "cells": [
+              "$1/2$",
+              "$3/2$",
+              "$5/2$",
+              "$n/2$"
+            ]
+          }
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "patron-tabla-decaimiento"
+    ]
   }
 ]
