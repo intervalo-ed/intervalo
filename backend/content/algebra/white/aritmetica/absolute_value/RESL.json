@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_absolute_value_RESL_01",
     "question": "Una pieza tiene una medida nominal de $50$ mm. Su medida real $x$, en mm, cumple:\n$$|x-50|=3$$\n¿Cuáles son los dos valores posibles de $x$?",
     "options": [
       "$53$ y $47$",
@@ -27,6 +28,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_02",
     "question": "Una barra tiene una longitud nominal de $120$ cm.\n\nSu longitud real $x$, en centímetros, cumple:\n$$|x-120|=5$$\n¿Cuáles son los dos valores posibles?",
     "options": [
       "$130$ y $110$",
@@ -54,6 +56,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_03",
     "question": "Una temperatura de referencia es de $18$ grados.\n\nUna medición $x$, en grados, cumple:\n$$|x-18|=7$$\n¿Cuáles son los dos valores posibles?",
     "options": [
       "$25$",
@@ -81,6 +84,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_04",
     "question": "Un coeficiente acompaña al valor absoluto en la condición de una pieza.\n$$2|x-30|=16$$\n¿Cuáles son los dos valores posibles de $x$?",
     "options": [
       "$38$ y $22$",
@@ -108,6 +112,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_05",
     "question": "Una condición de calidad se plantea con una cota negativa.\n$$|x-45|=-2$$\n¿Cuál es el conjunto solución?",
     "options": [
       "El valor $45$, que es el único que anula el interior",
@@ -135,12 +140,13 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_06",
     "question": "Un termostato acepta como válida cualquier temperatura $x$, en grados, cuyo error respecto de los $20°$ de referencia cumpla:\n$$|x-20|<2$$\n¿Cuál es el rango de temperaturas aceptadas?",
     "options": [
-      "$(18, 22)$",
-      "$(-2, 2)$",
-      "$(-\\infty,18)\\cup(22,\\infty)$",
-      "$(18, 20)$"
+      "$(18; 22)$",
+      "$(-2; 2)$",
+      "$(-\\infty; 18) \\cup (22; \\infty)$",
+      "$(18; 20)$"
     ],
     "correct_index": 0,
     "feedback_correct": "La doble desigualdad $-2<x-20<2$ despejada da $18<x<22$: el intervalo de temperaturas aceptadas.",
@@ -150,7 +156,7 @@
       "Esa es la forma de la solución de una inecuación \"mayor que\", con dos regiones separadas; acá la condición es \"menor que\", un solo tramo.",
       "Ese intervalo deja afuera la mitad superior del rango aceptado, entre $20$ y $22$."
     ],
-    "explanation": "Una condición de valor absoluto menor que un número positivo equivale a una doble desigualdad:\n$$|A|<k \\iff -k<A<k$$\nEstar a menos de esa distancia del cero significa quedar en el medio de esos dos límites, ni por encima ni por debajo de ellos.\n\nAplicando esto a la condición dada:\n$$-2<x-20<2$$\nSumando $20$ en cada tramo de la desigualdad:\n$$18<x<22$$\nEl rango de temperaturas aceptadas es el intervalo $(18, 22)$.\n\nUsar la forma de unión de dos regiones, en vez de un único intervalo acotado, corresponde a una condición \"mayor que\", no a esta.",
+    "explanation": "Una condición de valor absoluto menor que un número positivo equivale a una doble desigualdad:\n$$|A|<k \\iff -k<A<k$$\nEstar a menos de esa distancia del cero significa quedar en el medio de esos dos límites, ni por encima ni por debajo de ellos.\n\nAplicando esto a la condición dada:\n$$-2<x-20<2$$\nSumando $20$ en cada tramo de la desigualdad:\n$$18<x<22$$\nEl rango de temperaturas aceptadas es el intervalo $(18; 22)$.\n\nUsar la forma de unión de dos regiones, en vez de un único intervalo acotado, corresponde a una condición \"mayor que\", no a esta.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -162,12 +168,13 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_07",
     "question": "Una máquina acepta piezas cuya medida $x$, en milímetros, se aparte poco de los $60$ mm nominales.\n$$|x-60|<4$$\n¿Cuál es el rango de medidas aceptadas?",
     "options": [
-      "$(56, 60)$",
-      "$(56, 64)$",
-      "$(-4, 4)$",
-      "$(-\\infty,56)\\cup(64,\\infty)$"
+      "$(56; 60)$",
+      "$(56; 64)$",
+      "$(-4; 4)$",
+      "$(-\\infty; 56) \\cup (64; \\infty)$"
     ],
     "correct_index": 1,
     "feedback_correct": "La cadena queda entre menos cuatro y cuatro, y sumando el nominal da el intervalo.",
@@ -177,7 +184,7 @@
       "Ese es el rango de la diferencia con el nominal, no el de la medida.",
       "Ese es el conjunto de las medidas rechazadas, que cumplen la condición contraria."
     ],
-    "explanation": "Una desigualdad de menor con valor absoluto se abre en una única cadena.\n$$-4 < x - 60 < 4$$\nSumando el nominal en los tres tramos a la vez, la incógnita queda despejada en el centro.\n$$56 < x < 64$$\nEl intervalo es abierto porque la desigualdad original es estricta, así que los extremos no entran.\n\nQuedarse con la cadena sin despejar responde sobre la diferencia y no sobre la medida, que es lo que el enunciado pregunta.",
+    "explanation": "Leído como distancia, $|x-60|$ mide cuánto se aparta la medida real de los $60$ nominales, así que la condición pide los puntos que distan menos de cuatro de ese valor.\n\nUna desigualdad de menor con valor absoluto se abre en una única cadena.\n$$-4 < x - 60 < 4$$\nSumando el nominal en los tres tramos a la vez, la incógnita queda despejada en el centro.\n$$56 < x < 64$$\nEl intervalo es abierto porque la desigualdad original es estricta, así que los extremos no entran.\n\nQuedarse con la cadena sin despejar responde sobre la diferencia y no sobre la medida, que es lo que el enunciado pregunta.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -189,12 +196,13 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_08",
     "question": "Un proceso acepta tiempos $x$, en segundos, que se aparten poco de los $15$ segundos previstos.\n$$|x-15| \\leq 3$$\n¿Cuál es el rango de tiempos aceptados?",
     "options": [
-      "$(12, 18)$",
-      "$[-3, 3]$",
-      "$(-\\infty,12]\\cup[18,\\infty)$",
-      "$[12, 18]$"
+      "$(12; 18)$",
+      "$[-3; 3]$",
+      "$(-\\infty; 12] \\cup [18; \\infty)$",
+      "$[12; 18]$"
     ],
     "correct_index": 3,
     "feedback_correct": "Los extremos entran, porque la desigualdad original incluye el igual.",
@@ -204,7 +212,7 @@
       "Ese es el conjunto de los tiempos rechazados, que cumplen la condición contraria.",
       null
     ],
-    "explanation": "El tipo de desigualdad se conserva al abrir la cadena y también al despejar.\n$$-3 \\leq x - 15 \\leq 3$$\nSumando lo previsto en los tres tramos, la incógnita queda sola en el centro.\n$$12 \\leq x \\leq 18$$\nEl intervalo se escribe con corchetes justamente porque los dos extremos cumplen la condición.\n\nCambiar corchete por paréntesis deja afuera dos tiempos que el proceso sí acepta.",
+    "explanation": "Leído como distancia, $|x-15|$ mide cuánto se aparta el tiempo real de los $15$ previstos, y la condición admite hasta tres segundos de separación.\n\nEl tipo de desigualdad se conserva al abrir la cadena y también al despejar.\n$$-3 \\leq x - 15 \\leq 3$$\nSumando lo previsto en los tres tramos, la incógnita queda sola en el centro.\n$$12 \\leq x \\leq 18$$\nEl intervalo se escribe con corchetes justamente porque los dos extremos cumplen la condición.\n\nCambiar corchete por paréntesis deja afuera dos tiempos que el proceso sí acepta.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -216,12 +224,13 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_09",
     "question": "Una tolerancia se expresa con un coeficiente delante del valor absoluto.\n$$3|x-10|<12$$\n¿Cuál es el conjunto solución?",
     "options": [
-      "$(6, 14)$",
-      "$(-2, 22)$",
-      "$(-4, 4)$",
-      "$(6, 10)$"
+      "$(6; 14)$",
+      "$(-2; 22)$",
+      "$(-4; 4)$",
+      "$(6; 10)$"
     ],
     "correct_index": 0,
     "feedback_correct": "Despejando el coeficiente, la cota baja a cuatro y el intervalo queda centrado en diez.",
@@ -231,7 +240,7 @@
       "Ese es el rango de la diferencia con el centro, no el de la incógnita.",
       "Ahí el intervalo quedó cortado en el centro, sin incluir el tramo superior."
     ],
-    "explanation": "El valor absoluto tiene que quedar solo antes de abrir la cadena.\n$$3|x-10| < 12 \\implies |x-10| < 4$$\nCon la cota despejada, la cadena y el despeje son los de siempre.\n$$6 < x < 14$$\nEl coeficiente es positivo, así que dividir no invierte el sentido de la desigualdad.\n\nIgnorarlo triplica el ancho del intervalo, e incluye valores que la condición original rechaza.",
+    "explanation": "Leído como distancia, $|x-10|$ mide cuánto se aparta la medida de los $10$ de referencia, y el coeficiente de adelante escala esa separación.\n\nEl valor absoluto tiene que quedar solo antes de abrir la cadena.\n$$3|x-10| < 12 \\implies |x-10| < 4$$\nCon la cota despejada, la cadena y el despeje son los de siempre.\n$$6 < x < 14$$\nEl coeficiente es positivo, así que dividir no invierte el sentido de la desigualdad.\n\nIgnorarlo triplica el ancho del intervalo, e incluye valores que la condición original rechaza.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -243,12 +252,13 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_10",
     "question": "Una condición de menor se plantea con una cota negativa.\n$$|x-25|<-1$$\n¿Cuál es el conjunto solución?",
     "options": [
-      "El intervalo $(-1, 1)$, que va de la cota a su opuesto",
+      "El intervalo $(-1; 1)$, que va de la cota a su opuesto",
       "Todos los números reales, sin ninguna restricción",
       "Ningún valor de $x$, porque un valor absoluto nunca es negativo",
-      "El intervalo $(24, 26)$, centrado en el valor de referencia"
+      "El intervalo $(24; 26)$, centrado en el valor de referencia"
     ],
     "correct_index": 2,
     "feedback_correct": "Ninguna distancia al centro puede ser menor que una cantidad negativa.",
@@ -270,22 +280,23 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_11",
     "question": "Un control de calidad descarta piezas cuya medida $x$, en mm, se aleje del valor nominal de $80$ mm según:\n$$|x-80|>4$$\n¿Cuál es el conjunto de medidas descartadas?",
     "options": [
-      "$(-\\infty,76)\\cup(84,\\infty)$",
-      "$(76, 84)$",
-      "$(-\\infty,-4)\\cup(4,\\infty)$",
-      "$(-\\infty,84)\\cup(76,\\infty)$"
+      "$(-\\infty; 76) \\cup (84; \\infty)$",
+      "$(76; 84)$",
+      "$(-\\infty; -4) \\cup (4; \\infty)$",
+      "$(-\\infty; 84) \\cup (76; \\infty)$"
     ],
     "correct_index": 0,
-    "feedback_correct": "Las dos condiciones separadas $x<76$ o $x>84$ dan el conjunto $(-\\infty,76)\\cup(84,\\infty)$: piezas con mucho error de más o de menos.",
+    "feedback_correct": "Las dos condiciones separadas $x<76$ o $x>84$ dan el conjunto $(-\\infty; 76) \\cup (84; \\infty)$: piezas con mucho error de más o de menos.",
     "feedback_incorrect": [
       null,
       "Ese es el intervalo acotado de una condición \"menor que\", el rango de piezas aceptadas, no el de las descartadas.",
       "Ese es el rango del error $x-80$ antes de despejar $x$, no el conjunto final de medidas descartadas.",
       "Los dos intervalos están mal ordenados: la rama de la izquierda va hasta $76$, y la de la derecha empieza en $84$, no al revés."
     ],
-    "explanation": "Una condición de valor absoluto mayor que un número positivo equivale a dos condiciones separadas:\n$$|A|>k \\iff A<-k \\text{ o } A>k$$\nEstar a más de esa distancia del cero significa quedar afuera de ese rango, por cualquiera de los dos lados.\n\nAplicando esto a la condición dada:\n$$x-80<-4 \\text{ o } x-80>4$$\nDespejando $x$ en cada condición:\n$$x<76 \\text{ o } x>84$$\nEl conjunto de medidas descartadas es la unión $(-\\infty,76)\\cup(84,\\infty)$.\n\nEncadenar las dos condiciones en una doble desigualdad, como en el caso \"menor que\", combina en un solo tramo dos regiones que en realidad quedan separadas.",
+    "explanation": "Una condición de valor absoluto mayor que un número positivo equivale a dos condiciones separadas:\n$$|A|>k \\iff A<-k \\text{ o } A>k$$\nEstar a más de esa distancia del cero significa quedar afuera de ese rango, por cualquiera de los dos lados.\n\nAplicando esto a la condición dada:\n$$x-80<-4 \\text{ o } x-80>4$$\nDespejando $x$ en cada condición:\n$$x<76 \\text{ o } x>84$$\nEl conjunto de medidas descartadas es la unión $(-\\infty; 76) \\cup (84; \\infty)$.\n\nEncadenar las dos condiciones en una doble desigualdad, como en el caso \"menor que\", combina en un solo tramo dos regiones que en realidad quedan separadas.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -297,12 +308,13 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_12",
     "question": "Una alarma se activa cuando la presión $x$, en unidades, se aleja de las $90$ de referencia.\n$$|x-90|>6$$\n¿Cuál es el conjunto de presiones que activan la alarma?",
     "options": [
-      "$(-\\infty,96)\\cup(84,\\infty)$",
-      "$(-\\infty,84)\\cup(96,\\infty)$",
-      "$(84, 96)$",
-      "$(-\\infty,-6)\\cup(6,\\infty)$"
+      "$(-\\infty; 96) \\cup (84; \\infty)$",
+      "$(-\\infty; 84) \\cup (96; \\infty)$",
+      "$(84; 96)$",
+      "$(-\\infty; -6) \\cup (6; \\infty)$"
     ],
     "correct_index": 1,
     "feedback_correct": "Son los dos tramos que quedan afuera de la franja centrada en la referencia.",
@@ -312,7 +324,7 @@
       "Ese es el conjunto de presiones que no activan la alarma.",
       "Ese es el conjunto de la diferencia con la referencia, no el de la presión."
     ],
-    "explanation": "Una desigualdad de mayor con valor absoluto se abre en dos tramos separados.\n$$x - 90 < -6 \\quad \\text{o} \\quad x - 90 > 6$$\nSumando la referencia en cada tramo, la incógnita queda despejada en los dos.\n$$x < 84 \\quad \\text{o} \\quad x > 96$$\nEl conjunto solución es la unión de los dos intervalos, porque alcanza con cumplir uno de los dos.\n\nCruzar los extremos al escribir la unión produce un conjunto que abarca todos los reales, y eso activaría la alarma siempre.",
+    "explanation": "Leído como distancia, $|x-90|$ mide cuánto se aparta la presión de las $90$ de referencia, y la alarma pide que esa separación supere seis.\n\nUna desigualdad de mayor con valor absoluto se abre en dos tramos separados.\n$$x - 90 < -6 \\quad \\text{o} \\quad x - 90 > 6$$\nSumando la referencia en cada tramo, la incógnita queda despejada en los dos.\n$$x < 84 \\quad \\text{o} \\quad x > 96$$\nEl conjunto solución es la unión de los dos intervalos, porque alcanza con cumplir uno de los dos.\n\nCruzar los extremos al escribir la unión produce un conjunto que abarca todos los reales, y eso activaría la alarma siempre.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -324,12 +336,13 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_13",
     "question": "Un control descarta lotes cuyo peso $x$, en kilogramos, se aparte de los $50$ nominales.\n$$|x-50| \\geq 8$$\n¿Cuál es el conjunto de pesos descartados?",
     "options": [
-      "$(-\\infty,42)\\cup(58,\\infty)$",
-      "$[42, 58]$",
-      "$(-\\infty,-8]\\cup[8,\\infty)$",
-      "$(-\\infty,42]\\cup[58,\\infty)$"
+      "$(-\\infty; 42) \\cup (58; \\infty)$",
+      "$[42; 58]$",
+      "$(-\\infty; -8] \\cup [8; \\infty)$",
+      "$(-\\infty; 42] \\cup [58; \\infty)$"
     ],
     "correct_index": 3,
     "feedback_correct": "Los dos extremos entran, porque la desigualdad original incluye el igual.",
@@ -339,7 +352,7 @@
       "Ese es el conjunto de la diferencia con el nominal, no el del peso.",
       null
     ],
-    "explanation": "El tipo de desigualdad se conserva en los dos tramos y también al despejar.\n$$x - 50 \\leq -8 \\quad \\text{o} \\quad x - 50 \\geq 8$$\nSumando el nominal en cada tramo, quedan los dos intervalos del conjunto solución.\n$$x \\leq 42 \\quad \\text{o} \\quad x \\geq 58$$\nLos corchetes indican que los pesos exactamente a ocho kilos del nominal también se descartan.\n\nEse detalle define el borde entre aceptar y rechazar, así que no es un matiz de escritura.",
+    "explanation": "Leído como distancia, $|x-50|$ mide cuánto se aparta el peso de los $50$ nominales, y el lote se descarta cuando esa separación llega a ocho.\n\nEl tipo de desigualdad se conserva en los dos tramos y también al despejar.\n$$x - 50 \\leq -8 \\quad \\text{o} \\quad x - 50 \\geq 8$$\nSumando el nominal en cada tramo, quedan los dos intervalos del conjunto solución.\n$$x \\leq 42 \\quad \\text{o} \\quad x \\geq 58$$\nLos corchetes indican que los pesos exactamente a ocho kilos del nominal también se descartan.\n\nEse detalle define el borde entre aceptar y rechazar, así que no es un matiz de escritura.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -351,12 +364,13 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_14",
     "question": "Una condición de mayor viene con un coeficiente delante del valor absoluto.\n$$2|x-20|>14$$\n¿Cuál es el conjunto solución?",
     "options": [
-      "$(-\\infty,13)\\cup(27,\\infty)$",
-      "$(-\\infty,6)\\cup(34,\\infty)$",
-      "$(13, 27)$",
-      "$(-\\infty,-7)\\cup(7,\\infty)$"
+      "$(-\\infty; 13) \\cup (27; \\infty)$",
+      "$(-\\infty; 6) \\cup (34; \\infty)$",
+      "$(13; 27)$",
+      "$(-\\infty; -7) \\cup (7; \\infty)$"
     ],
     "correct_index": 0,
     "feedback_correct": "Despejando el coeficiente, la cota baja a siete y los tramos quedan a esa distancia del centro.",
@@ -378,12 +392,13 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_15",
     "question": "Una condición de mayor se plantea con una cota negativa.\n$$|x-40|>-3$$\n¿Cuál es el conjunto solución?",
     "options": [
       "Vacío, porque la cota es negativa",
-      "$(-3, 3)$",
+      "$(-3; 3)$",
       "Todos los números reales",
-      "$(-\\infty,37)\\cup(43,\\infty)$"
+      "$(-\\infty; 37) \\cup (43; \\infty)$"
     ],
     "correct_index": 2,
     "feedback_correct": "Cualquier distancia al centro supera a una cantidad negativa.",

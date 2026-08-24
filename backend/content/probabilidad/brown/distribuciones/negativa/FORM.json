@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_negativa_FORM_01",
     "question": "Una editorial revisa manuscritos recibidos hasta aceptar 4 para publicar.\n\nCada manuscrito se acepta con probabilidad $0{,}05$, en forma independiente.\n\n¿Cuáles son los parámetros $r$ y $p$ de la binomial negativa que modela esta situación?",
     "options": [
       "$r=4$, $p=0{,}05$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "brown_negativa_FORM_02",
     "question": "Un jugador de dardos tira al blanco central hasta acertar 2 veces.\n\nCada tiro acierta con probabilidad $0{,}5$, en forma independiente del resto.\n\nSea $X$ la cantidad de tiros hasta el segundo acierto. Calculá $P(X=4)$.",
     "options": [
       "$3/16$",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "brown_negativa_FORM_03",
     "question": "Un reclutador entrevista candidatos hasta encontrar 3 que cumplan el perfil técnico buscado.\n\nCada candidato cumple el perfil con probabilidad $0{,}3$, en forma independiente.\n\nSea $X$ la cantidad de candidatos entrevistados hasta la tercera coincidencia.\n\n¿Cuánto vale $E[X]$?",
     "options": [
       "$10$",
@@ -75,6 +78,7 @@
     ]
   },
   {
+    "id": "brown_negativa_FORM_04",
     "question": "Un vendedor llama a clientes hasta cerrar 3 pólizas de seguro.\n\nCada llamado cierra una póliza con probabilidad $0{,}08$, en forma independiente.\n\n¿Cuáles son los parámetros $r$ y $p$ de la binomial negativa que modela esta situación?",
     "options": [
       "$r=0{,}08$, $p=3$",
@@ -100,6 +104,7 @@
     ]
   },
   {
+    "id": "brown_negativa_FORM_05",
     "question": "Un arquero pica penales hasta convertir 5.\n\nCada penal lo convierte con probabilidad $0{,}4$, en forma independiente.\n\n¿Cuáles son los parámetros $r$ y $p$ de la binomial negativa que modela esta situación?",
     "options": [
       "$r=5$, $p=0{,}6$",
@@ -125,6 +130,7 @@
     ]
   },
   {
+    "id": "brown_negativa_FORM_06",
     "question": "En una ruleta se hacen tiradas hasta que el número 0 salga por segunda vez.\n\nEn cada tirada, el 0 sale con probabilidad $0{,}03$, en forma independiente.\n\n¿Cuáles son los parámetros $r$ y $p$ de la binomial negativa que modela esta situación?",
     "options": [
       "$r=2$, $p=0{,}03$",
@@ -150,6 +156,7 @@
     ]
   },
   {
+    "id": "brown_negativa_FORM_07",
     "question": "Un vendedor llama a clientes hasta cerrar 2 ventas.\n\nCada llamado cierra venta con probabilidad $0{,}5$, en forma independiente del resto.\n\nSea $X$ la cantidad de llamados hasta la segunda venta. Calculá $P(X=5)$.",
     "options": [
       "$1/32$",
@@ -175,6 +182,7 @@
     ]
   },
   {
+    "id": "brown_negativa_FORM_08",
     "question": "Una persona envía currículums hasta recibir 3 respuestas positivas.\n\nCada envío recibe respuesta positiva con probabilidad $0{,}5$, en forma independiente del resto.\n\nSea $X$ la cantidad de currículums enviados hasta la tercera respuesta positiva. Calculá $P(X=7)$.",
     "options": [
       "$15/128$",
@@ -200,6 +208,7 @@
     ]
   },
   {
+    "id": "brown_negativa_FORM_09",
     "question": "En un sorteo se hacen extracciones con reposición hasta que un número salga por cuarta vez.\n\nCada extracción, ese número sale con probabilidad $0{,}5$, en forma independiente.\n\nSea $X$ la cantidad de extracciones hasta la cuarta aparición. Calculá $P(X=7)$.",
     "options": [
       "$1/2$",
@@ -225,6 +234,7 @@
     ]
   },
   {
+    "id": "brown_negativa_FORM_10",
     "question": "Un inspector revisa piezas hasta detectar 2 defectuosas.\n\nCada pieza sale defectuosa con probabilidad $0{,}5$, en forma independiente del resto.\n\nSea $X$ la cantidad de piezas revisadas hasta la segunda defectuosa. Calculá $P(X=6)$.",
     "options": [
       "$1/64$",
@@ -250,6 +260,7 @@
     ]
   },
   {
+    "id": "brown_negativa_FORM_11",
     "question": "Un community manager publica posts hasta lograr que 4 superen las mil interacciones.\n\nCada post supera las mil interacciones con probabilidad $0{,}5$, en forma independiente del resto.\n\nSea $X$ la cantidad de posts publicados hasta el cuarto exitoso. Calculá $P(X=8)$.",
     "options": [
       "$35/256$",
@@ -275,6 +286,7 @@
     ]
   },
   {
+    "id": "brown_negativa_FORM_12",
     "question": "Un arquero pica penales hasta convertir 4.\n\nCada penal lo convierte con probabilidad $0{,}5$, en forma independiente.\n\nSea $X$ la cantidad de penales pateados hasta el cuarto gol.\n\n¿Cuánto vale $E[X]$?",
     "options": [
       "$4$",
@@ -300,6 +312,7 @@
     ]
   },
   {
+    "id": "brown_negativa_FORM_13",
     "question": "En un sorteo se hacen extracciones hasta que un número salga por quinta vez.\n\nCada extracción, ese número sale con probabilidad $0{,}25$, en forma independiente.\n\nSea $X$ la cantidad de extracciones hasta la quinta aparición.\n\n¿Cuánto vale $E[X]$?",
     "options": [
       "$0{,}25$",
@@ -325,6 +338,7 @@
     ]
   },
   {
+    "id": "brown_negativa_FORM_14",
     "question": "Un vendedor llama a clientes hasta cerrar 6 pólizas de seguro.\n\nCada llamado cierra una póliza con probabilidad $0{,}4$, en forma independiente.\n\nSea $X$ la cantidad de llamados hasta la sexta póliza cerrada.\n\n¿Cuánto vale $E[X]$?",
     "options": [
       "$15$",
@@ -350,6 +364,7 @@
     ]
   },
   {
+    "id": "brown_negativa_FORM_15",
     "question": "Un community manager publica posts hasta lograr que 5 superen las mil interacciones.\n\nCada post supera las mil interacciones con probabilidad $0{,}2$, en forma independiente.\n\nSea $X$ la cantidad de posts publicados hasta el quinto exitoso.\n\n¿Cuánto vale $E[X]$?",
     "options": [
       "$1$",

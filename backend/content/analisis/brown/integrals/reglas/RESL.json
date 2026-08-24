@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_reglas_RESL_01",
     "question": "Esta integral resta un término potencial y uno trigonométrico, cada uno con su coeficiente:\n$$\\int (4x^3 - 2\\sin x)\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$x^4+2\\cos x+C$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "brown_reglas_RESL_02",
     "question": "En esta integral, el coeficiente del primer término se va a simplificar con el nuevo exponente:\n$$\\int (6x^2 + \\cos x)\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$2x^2+\\sin x+C$",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "brown_reglas_RESL_03",
     "question": "Esta integral mezcla una exponencial con un término lineal:\n$$\\int (3e^x - 4x)\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$3xe^{x-1}-2x^2+C$",
@@ -75,6 +78,7 @@
     ]
   },
   {
+    "id": "brown_reglas_RESL_04",
     "question": "El primer término de esta integral llega con signo negativo, y al integrar el seno va a aparecer otro:\n$$\\int (-5\\sin x + 2)\\,dx$$\n¿Cuál es el resultado?",
     "options": [
       "$-5\\cos x+2x+C$",
@@ -100,6 +104,7 @@
     ]
   },
   {
+    "id": "brown_reglas_RESL_05",
     "question": "Esta integral combina una potencia de grado alto con un coseno:\n$$\\int (x^5 - 3\\cos x)\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$\\frac{x^6}{6}-3\\sin x+C$",
@@ -125,6 +130,7 @@
     ]
   },
   {
+    "id": "brown_reglas_RESL_06",
     "question": "En este integrando se cruzan la familia trigonométrica de la secante y una potencia:\n$$\\int (2\\sec^2 x - x^2)\\,dx$$\n¿Cuál es el resultado de la integral?",
     "options": [
       "$-2\\tan x-\\frac{x^3}{3}+C$",
@@ -150,6 +156,7 @@
     ]
   },
   {
+    "id": "brown_reglas_RESL_07",
     "question": "El primer término de esta integral es una constante sola, sin variable:\n$$\\int (7 - 4e^x)\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$7x-4xe^{x-1}+C$",
@@ -175,6 +182,7 @@
     ]
   },
   {
+    "id": "brown_reglas_RESL_08",
     "question": "En esta integral, el coeficiente del término potencial se va a simplificar al integrar:\n$$\\int (3\\cos x + 8x^3)\\,dx$$\n¿Cuál es el resultado?",
     "options": [
       "$3\\sin x+8x^4+C$",
@@ -200,6 +208,7 @@
     ]
   },
   {
+    "id": "brown_reglas_RESL_09",
     "question": "El segundo término de esta integral esconde el caso especial de la tabla:\n$$\\int \\left(x^2+\\frac{5}{x}\\right)\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$\\frac{x^3}{3}+5\\ln|x|+C$",
@@ -225,6 +234,7 @@
     ]
   },
   {
+    "id": "brown_reglas_RESL_10",
     "question": "Esta integral arranca con una fracción cuya potencia escapa a la regla general:\n$$\\int \\left(\\frac{3}{x}+x^3\\right)\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$-\\frac{3}{x^2}+\\frac{x^4}{4}+C$",
@@ -250,6 +260,7 @@
     ]
   },
   {
+    "id": "brown_reglas_RESL_11",
     "question": "Esta integral combina un exponente fraccionario con una fracción en la variable:\n$$\\int \\left(x^{1/2}+\\frac{2}{x}\\right)\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$\\frac{1}{2}x^{3/2}+2\\ln|x|+C$",
@@ -275,6 +286,7 @@
     ]
   },
   {
+    "id": "brown_reglas_RESL_12",
     "question": "En la siguiente integral se restan dos cosas que se integran con reglas distintas:\n$$\\int \\left(4x-\\frac{1}{x}\\right)\\,dx$$\n¿Cuál es el resultado?",
     "options": [
       "$2x^2-\\ln x+C$",
@@ -300,6 +312,7 @@
     ]
   },
   {
+    "id": "brown_reglas_RESL_13",
     "question": "El primer término de esta integral trae un exponente negativo, pero distinto de $-1$:\n$$\\int \\left(x^{-2}+3x\\right)\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$-\\frac{1}{x}+\\frac{3x^2}{2}+C$",
@@ -325,6 +338,7 @@
     ]
   },
   {
+    "id": "brown_reglas_RESL_14",
     "question": "Esta integral mezcla el caso especial de la tabla con una potencia común:\n$$\\int \\left(\\frac{6}{x}-x^2\\right)\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$-\\frac{6}{x^2}-\\frac{x^3}{3}+C$",
@@ -350,6 +364,7 @@
     ]
   },
   {
+    "id": "brown_reglas_RESL_15",
     "question": "En esta integral, una potencia común convive con una fracción que dispara la excepción de la tabla:\n$$\\int \\left(x^3-\\frac{4}{x}\\right)\\,dx$$\n¿Cuál es el resultado?",
     "options": [
       "$\\frac{x^4}{4}+4\\ln|x|+C$",

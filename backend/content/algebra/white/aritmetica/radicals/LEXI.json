@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_radicals_LEXI_01",
     "question": "En la expresión $\\sqrt[n]{a}$, el número $n$ indica qué tipo de raíz se calcula, cuadrada, cúbica o de otro orden.\n\n¿Qué nombre recibe $n$ en esa expresión?",
     "options": [
       "Índice",
@@ -27,6 +28,7 @@
     ]
   },
   {
+    "id": "white_radicals_LEXI_02",
     "question": "En una raíz, el número de adentro y el de la muesca cumplen papeles distintos.\n$$\\sqrt[3]{27}$$\n¿Cuál es el radicando?",
     "options": [
       "$81$",
@@ -54,6 +56,7 @@
     ]
   },
   {
+    "id": "white_radicals_LEXI_03",
     "question": "Cuando la muesca de la raíz no lleva ningún número, el índice queda sobreentendido.\n$$\\sqrt{50}$$\n¿Cuál es el índice de esa raíz?",
     "options": [
       "$1$",
@@ -81,6 +84,7 @@
     ]
   },
   {
+    "id": "white_radicals_LEXI_04",
     "question": "En una misma expresión pueden convivir un índice y un exponente, y no son lo mismo.\n$$\\sqrt[3]{a^{5}}$$\n¿Cuál es el índice?",
     "options": [
       "$3$",
@@ -108,6 +112,7 @@
     ]
   },
   {
+    "id": "white_radicals_LEXI_05",
     "question": "El índice dice qué número elevado a esa potencia devuelve el radicando.\n$$\\sqrt[4]{16}$$\n¿Qué pregunta responde esa expresión?",
     "options": [
       "Cuánto vale $16$ elevado a la cuarta",
@@ -135,22 +140,23 @@
     ]
   },
   {
+    "id": "white_radicals_LEXI_06",
     "question": "La raíz $\\sqrt[n]{-8}$ tiene solución real para algunos valores del índice $n$, pero no para otros.\n\n¿En qué caso NO existe una raíz real?",
     "options": [
       "Cuando el índice de la raíz es par",
       "Cuando el índice es impar",
-      "Cuando el índice es mayor a $2$",
-      "Cuando el índice es múltiplo de $3$"
+      "Cuando el radicando es negativo, sin importar el índice",
+      "Cuando el radicando es un número par"
     ],
     "correct_index": 0,
     "feedback_correct": "Ningún número real elevado a una potencia par da un resultado negativo, así que un índice par no tiene raíz real de un radicando negativo.",
     "feedback_incorrect": [
       null,
       "Un índice impar sí tiene solución real para un radicando negativo, como $\\sqrt[3]{-8}=-2$.",
-      "Hay índices mayores a $2$ que sí tienen solución real, como cualquier índice impar.",
-      "Hay índices múltiplos de $3$ que son impares, como $3$ o $9$, y esos sí tienen solución real."
+      "El propio enunciado dice que para algunos índices sí hay solución con este mismo radicando negativo: lo que decide es la paridad del índice, no que el radicando sea negativo.",
+      "Que el radicando sea par o impar no interviene: lo que decide si la raíz existe es la paridad del índice, no la del radicando."
     ],
-    "explanation": "Elevar un número real a una potencia **par** siempre da un resultado positivo o cero, nunca negativo.\n\nPor eso, si el índice de una raíz es par y el radicando es negativo, no existe ningún número real que elevado a ese índice dé ese radicando.\n\nEn cambio, con índice impar sí hay solución:\n$$\\sqrt[3]{-8} = -2$$\nPorque $(-2)^3=-8$, un resultado negativo obtenido con un exponente impar.\n\nAsumir que toda raíz de un número negativo carece de solución ignora que el índice impar sí la permite.",
+    "explanation": "Elevar un número real a una potencia **par** siempre da un resultado positivo o cero, nunca negativo.\n\nPor eso, si el índice de una raíz es par y el radicando es negativo, no existe ningún número real que elevado a ese índice dé ese radicando.\n\nEn cambio, con índice impar sí hay solución:\n$$\\sqrt[3]{-8} = -2$$\nPorque $(-2)^3=-8$, un resultado negativo obtenido con un exponente impar.\n\nLo que decide si la raíz existe es la paridad del **índice**, nunca la del radicando: que $-8$ sea par no interviene en absoluto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -162,6 +168,7 @@
     ]
   },
   {
+    "id": "white_radicals_LEXI_07",
     "question": "Una raíz de radicando negativo puede tener resultado real o no, según el índice.\n$$\\sqrt[n]{-a}$$\n¿Cuál de estas raíces **no** tiene resultado real?",
     "options": [
       "$\\sqrt[3]{-27}$",
@@ -189,6 +196,7 @@
     ]
   },
   {
+    "id": "white_radicals_LEXI_08",
     "question": "Ningún número real elevado a una potencia par da un resultado negativo.\n$$x^{2} \\geq 0$$\n¿Qué consecuencia tiene eso para las raíces de índice par?",
     "options": [
       "Que la raíz de un radicando negativo da un resultado negativo",
@@ -216,6 +224,7 @@
     ]
   },
   {
+    "id": "white_radicals_LEXI_09",
     "question": "Un número negativo elevado a una potencia impar sigue siendo negativo.\n$$(-2)^{3} = -8$$\n¿Qué se puede afirmar sobre la raíz cúbica de un número negativo?",
     "options": [
       "Que existe y es negativa",
@@ -243,6 +252,7 @@
     ]
   },
   {
+    "id": "white_radicals_LEXI_10",
     "question": "El signo del radicando y la paridad del índice deciden juntos si la raíz existe.\n$$\\sqrt[n]{a}$$\n¿Cuál de estas raíces **sí** tiene resultado real?",
     "options": [
       "$\\sqrt[4]{-16}$",
@@ -270,6 +280,7 @@
     ]
   },
   {
+    "id": "white_radicals_LEXI_11",
     "question": "Un radical está simplificado cuando el radicando no tiene ningún factor que sea una potencia perfecta del índice.\n\n¿Cuál de estas raíces ya está simplificada?",
     "options": [
       "$\\sqrt{13}$",
@@ -297,6 +308,7 @@
     ]
   },
   {
+    "id": "white_radicals_LEXI_12",
     "question": "Un radical deja de estar simplificado apenas su radicando esconde un cuadrado perfecto.\n\n¿Cuál de estas raíces todavía se puede simplificar?",
     "options": [
       "$\\sqrt{11}$",
@@ -324,6 +336,7 @@
     ]
   },
   {
+    "id": "white_radicals_LEXI_13",
     "question": "Un radical de índice tres está simplificado cuando su radicando no esconde ningún cubo perfecto.\n$$\\sqrt[3]{a}$$\n¿Cuál de estas raíces cúbicas ya está simplificada?",
     "options": [
       "$\\sqrt[3]{24}$",
@@ -351,6 +364,7 @@
     ]
   },
   {
+    "id": "white_radicals_LEXI_14",
     "question": "Extraer un factor de adentro de la raíz se apoya en que la raíz de un producto se puede separar.\n$$\\sqrt{a \\cdot b} = \\sqrt{a} \\cdot \\sqrt{b}$$\n¿Por qué esa propiedad permite simplificar un radical?",
     "options": [
       "Porque si un factor es un cuadrado perfecto, su raíz sale como un entero",
@@ -378,6 +392,7 @@
     ]
   },
   {
+    "id": "white_radicals_LEXI_15",
     "question": "Entre varias raíces, algunas ya están simplificadas y otras esconden un cuadrado perfecto.\n$$\\sqrt{12} \\quad \\sqrt{14} \\quad \\sqrt{45} \\quad \\sqrt{21}$$\n¿Cuántas de esas cuatro ya están simplificadas?",
     "options": [
       "$3$",

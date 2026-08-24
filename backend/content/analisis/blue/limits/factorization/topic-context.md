@@ -114,6 +114,14 @@ Ejecutar la **factorización**, **cancelar** el factor problemático $(x - a)$ y
 | B. Factorización de trinomios | Límites donde numerador o denominador es un trinomio $x^2 + bx + c$. Requiere encontrar los dos números que sumados dan $b$ y multiplicados dan $c$. | `factorizacion-trinomios` | 12 |
 | C. Cancelación múltiple | Límites que exigen factorizar **tanto** el numerador **como** el denominador para hallar y cancelar el factor común. Ejemplo: $\lim_{x \to 3} \tfrac{x^2 - 9}{x^2 - 5x + 6}$. | `cancelacion-multiple` | 6 |
 
+### Mezcla obligatoria: mitad valor final, mitad paso troceado
+
+*(Ajuste ago-2026, tras medir P1 en producción.)* El skill medía **34% de acierto al primer intento**, muy por debajo de la banda 55-77, y la causa no era el temario sino el formato: los 15 ítems pedían todos lo mismo, el **valor final** del límite. Eso encadena factorizar, cancelar y sustituir en una sola respuesta, por encima del techo de la **regla 55** (menos de 3 operaciones encadenadas, respondible sin papel).
+
+La corrección aplica la **regla 56**: los ítems de `factorizacion-trinomios` y `cancelacion-multiple` —las dos sub-familias más cargadas, porque exigen abrir un trinomio o factorizar los dos polinomios— pasan a preguntar **qué expresión queda tras factorizar y cancelar**, sin llegar a sustituir. Los de `diferencia-cuadrados-factor-comun` siguen pidiendo el valor final, que ahí sí entra en el techo.
+
+**Los `tags` no cambian con el formato**: un ítem sobre trinomios sigue siendo `factorizacion-trinomios` pregunte el paso intermedio o el resultado. La tabla de arriba no se toca. Al generar ítems nuevos, mantener la proporción: **el paso troceado va donde el procedimiento excede el techo, el valor final donde entra.**
+
 ### `feedback_incorrect`, confusiones fuente
 - **Cancelación mal aplicada**: cancelar $x$ de $\tfrac{x^2 + 3x}{x}$ como si fuera $\tfrac{x^2 + 3\cancel{x}}{\cancel{x}} = x^2 + 3$. La cancelación es un **factor común** en toda la expresión, no en un solo término: $\tfrac{x(x+3)}{x} = x + 3$.
 - **Signo en la factorización de trinomio**: para $x^2 - 5x + 6$ dar $(x - 2)(x + 3)$ en vez de $(x - 2)(x - 3)$. Los dos números deben sumar $-5$ y multiplicar $+6$: ambos son negativos.

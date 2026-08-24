@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_condicional_RESL_01",
     "question": "Se sabe que $P(A \\cap B) = 0{,}3$ y $P(B) = 0{,}6$.\n\n¿Cuál es el valor de $P(A \\mid B)$?",
     "options": [
       "$0{,}9$",
@@ -25,22 +26,23 @@
     ]
   },
   {
-    "question": "En una tabla de resultados de 40 encuestados, 24 usan transporte público. De esos 24, 15 llegan a horario.\n\nSe elige un encuestado al azar entre quienes usan transporte público.\n\n¿Cuál es la probabilidad de que llegue a horario?",
+    "id": "blue_condicional_RESL_02",
+    "question": "En una tabla de resultados de 40 encuestados, 25 usan transporte público. De esos 25, 15 llegan a horario.\n\nSe elige un encuestado al azar entre quienes usan transporte público.\n\n¿Cuál es la probabilidad de que llegue a horario?",
     "options": [
       "$15/40$",
-      "$15/24$",
-      "$24/40$",
-      "$9/24$"
+      "$15/25$",
+      "$25/40$",
+      "$10/25$"
     ],
     "correct_index": 1,
-    "feedback_correct": "Restringiendo al subgrupo que usa transporte público, 24 personas, 15 llegan a horario.",
+    "feedback_correct": "Restringiendo al subgrupo que usa transporte público, 25 personas, 15 llegan a horario.",
     "feedback_incorrect": [
       "Ese cociente divide sobre el total de encuestados, sin restringir al subgrupo que usa transporte público.",
       null,
       "Ese cociente no cuenta a quienes llegan a horario, solo a quienes usan transporte público.",
       "Ese cociente cuenta a quienes no llegan a horario dentro del subgrupo, no a quienes sí llegan."
     ],
-    "explanation": "Cuando el conteo ya viene restringido a un subgrupo, el denominador de la probabilidad condicional es el tamaño de ese subgrupo, no el total general.\n\nEntre los 24 encuestados que usan transporte público, 15 llegan a horario:\n$$P(A \\mid B) = \\dfrac{15}{24}$$\nEl resultado es $15/24$.\n\nDividir por el total de 40 encuestados en vez de por los 24 que ya cumplen la condición ignora la restricción del espacio muestral que exige la probabilidad condicional.",
+    "explanation": "Cuando el conteo ya viene restringido a un subgrupo, el denominador de la probabilidad condicional es el tamaño de ese subgrupo, no el total general.\n\nEntre los 25 encuestados que usan transporte público, 15 llegan a horario:\n$$P(A \\mid B) = \\dfrac{15}{25}$$\nEl resultado es $15/25$.\n\nDividir por el total de 40 encuestados en vez de por los 25 que ya cumplen la condición ignora la restricción del espacio muestral que exige la probabilidad condicional.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "blue_condicional_RESL_03",
     "question": "Se sabe que $P(A \\mid B) = 0{,}7$ y $P(B) = 0{,}5$.\n\n¿Cuál es el valor de $P(A \\cap B)$?",
     "options": [
       "$1{,}2$",
@@ -75,6 +78,7 @@
     ]
   },
   {
+    "id": "blue_condicional_RESL_04",
     "question": "Se sabe que $P(A \\cap B) = 0{,}05$ y $P(B) = 0{,}5$.\n\n¿Cuál es el valor de $P(A \\mid B)$?",
     "options": [
       "$0{,}1$",
@@ -100,6 +104,7 @@
     ]
   },
   {
+    "id": "blue_condicional_RESL_05",
     "question": "Se sabe que $P(A \\cap B) = 0{,}08$ y $P(B) = 0{,}4$.\n\n¿Cuál es el valor de $P(A \\mid B)$?",
     "options": [
       "$0{,}48$",
@@ -125,6 +130,7 @@
     ]
   },
   {
+    "id": "blue_condicional_RESL_06",
     "question": "Se sabe que $P(A \\cap B) = 0{,}2$ y $P(B) = 0{,}5$.\n\n¿Cuál es el valor de $P(A \\mid B)$?",
     "options": [
       "$0{,}7$",
@@ -150,6 +156,7 @@
     ]
   },
   {
+    "id": "blue_condicional_RESL_07",
     "question": "Se sabe que $P(A \\cap B) = 0{,}4$ y $P(B) = 0{,}5$.\n\n¿Cuál es el valor de $P(A \\mid B)$?",
     "options": [
       "$0{,}9$",
@@ -175,6 +182,7 @@
     ]
   },
   {
+    "id": "blue_condicional_RESL_08",
     "question": "Se sabe que $P(A \\cap B) = 0{,}21$ y $P(B) = 0{,}3$.\n\n¿Cuál es el valor de $P(A \\mid B)$?",
     "options": [
       "$0{,}7$",
@@ -200,6 +208,7 @@
     ]
   },
   {
+    "id": "blue_condicional_RESL_09",
     "question": "Se lanza un dado equilibrado de 6 caras y se sabe que el resultado fue un número par.\n\n¿Cuál es la probabilidad de que el resultado haya sido mayor a 4, sabiendo que fue par?",
     "options": [
       "$1/6$",
@@ -225,6 +234,7 @@
     ]
   },
   {
+    "id": "blue_condicional_RESL_10",
     "question": "Se lanzan tres monedas equilibradas y se sabe que salieron exactamente dos caras.\n\n¿Cuál es la probabilidad de que la primera moneda haya salido cara, sabiendo que salieron exactamente dos caras?",
     "options": [
       "$1/3$",
@@ -250,6 +260,7 @@
     ]
   },
   {
+    "id": "blue_condicional_RESL_11",
     "question": "De un mazo reducido de 20 cartas, 8 son rojas. De esas 8 rojas, 3 son figuras.\n\nSe elige una carta al azar entre las rojas.\n\n¿Cuál es la probabilidad de que sea figura?",
     "options": [
       "$3/20$",
@@ -275,6 +286,7 @@
     ]
   },
   {
+    "id": "blue_condicional_RESL_12",
     "question": "En una tabla de 60 clientes, 36 compraron en oferta. De esos 36, 21 volvieron a comprar al mes siguiente.\n\nSe elige un cliente al azar entre quienes compraron en oferta.\n\n¿Cuál es la probabilidad de que haya vuelto a comprar al mes siguiente?",
     "options": [
       "$21/60$",
@@ -300,6 +312,7 @@
     ]
   },
   {
+    "id": "blue_condicional_RESL_13",
     "question": "Se sabe que $P(A \\mid B) = 0{,}6$ y $P(B) = 0{,}4$.\n\n¿Cuál es el valor de $P(A \\cap B)$?",
     "options": [
       "$0{,}24$",
@@ -325,6 +338,7 @@
     ]
   },
   {
+    "id": "blue_condicional_RESL_14",
     "question": "Se sabe que $P(A \\mid B) = 0{,}9$ y $P(B) = 0{,}5$.\n\n¿Cuál es el valor de $P(A \\cap B)$?",
     "options": [
       "$1{,}4$",
@@ -350,6 +364,7 @@
     ]
   },
   {
+    "id": "blue_condicional_RESL_15",
     "question": "Se sabe que $P(A \\mid B) = 0{,}8$ y $P(B) = 0{,}25$.\n\n¿Cuál es el valor de $P(A \\cap B)$?",
     "options": [
       "$1{,}05$",

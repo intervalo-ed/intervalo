@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_variaciones_CLSF_01",
     "question": "En una empresa hay 8 empleados y hay que elegir a uno como director y a otro como subdirector.\n\nSon 2 puestos distintos, así que el orden de elección importa.\n\n¿Qué técnica de conteo aplica?",
     "options": [
       "Combinación de 8 tomados de 2.",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "white_variaciones_CLSF_02",
     "question": "En un curso de 10 estudiantes se quiere elegir una pareja de 2 representantes, sin diferenciar roles entre ellos.\n\n¿Corresponde tratar este problema como una variación de 10 tomados de 2?",
     "options": [
       "No, porque los representantes no tienen roles distintos entre ellos.",
@@ -44,6 +46,7 @@
     ]
   },
   {
+    "id": "white_variaciones_CLSF_03",
     "question": "En una carrera de 5 corredores se quiere asignar los puestos 1º, 2º, 3º, 4º y 5º completos, usando a todos los corredores.\n\n¿Corresponde tratar este problema como una variación de 5 tomados de 3?",
     "options": [
       "No, porque se usan los 5 corredores, no un subconjunto.",
@@ -65,6 +68,7 @@
     ]
   },
   {
+    "id": "white_variaciones_CLSF_04",
     "question": "Un examen de 3 preguntas se responde eligiendo una opción en cada una.\n\nLas mismas 4 opciones están disponibles, de forma independiente entre preguntas.\n\n¿Corresponde tratar este problema como una variación de 4 tomados de 3?",
     "options": [
       "No, porque las opciones se repiten libremente en cada pregunta.",
@@ -86,6 +90,7 @@
     ]
   },
   {
+    "id": "white_variaciones_CLSF_05",
     "question": "Un club de fotografía tiene 12 socios y va a elegir presidente y vicepresidente entre ellos.\n\nSon dos cargos distintos, así que asignarle presidente a una persona y vicepresidente a otra no es lo mismo que al revés.\n\n¿Qué técnica de conteo aplica?",
     "options": [
       "Variación de 12 tomados de 2.",
@@ -109,6 +114,7 @@
     ]
   },
   {
+    "id": "white_variaciones_CLSF_06",
     "question": "En una carrera de 10 atletas se van a entregar medallas de oro, plata y bronce a los 3 primeros en llegar.\n\nCada medalla es distinta, así que el orden de llegada determina quién recibe cada una.\n\n¿Qué técnica de conteo aplica?",
     "options": [
       "Combinación de 10 tomados de 3.",
@@ -132,6 +138,7 @@
     ]
   },
   {
+    "id": "white_variaciones_CLSF_07",
     "question": "Se va a diseñar la bandera de un club eligiendo y ordenando 4 franjas de colores.\n\nHay 9 colores disponibles y ninguno se repite dentro de la misma bandera.\n\n¿Qué técnica de conteo aplica?",
     "options": [
       "Variación de 9 tomados de 4.",
@@ -155,6 +162,7 @@
     ]
   },
   {
+    "id": "white_variaciones_CLSF_08",
     "question": "Se arma una clave de acceso eligiendo y ordenando 3 dígitos distintos entre los 10 dígitos del 0 al 9.\n\nNinguno de los dígitos se repite dentro de la misma clave.\n\n¿Qué técnica de conteo aplica?",
     "options": [
       "Permutación de 10 elementos.",
@@ -178,6 +186,7 @@
     ]
   },
   {
+    "id": "white_variaciones_CLSF_09",
     "question": "Un equipo de debate de 8 integrantes va a elegir capitán y vicecapitán entre ellos.\n\nSon dos cargos distintos, así que asignar capitán a una persona y vicecapitán a otra no es lo mismo que al revés.\n\n¿Qué técnica de conteo aplica?",
     "options": [
       "Combinación de 8 tomados de 2.",
@@ -201,6 +210,7 @@
     ]
   },
   {
+    "id": "white_variaciones_CLSF_10",
     "question": "Un departamento académico tiene 12 profesores y va a formar un comité de 3 integrantes, sin diferenciar roles entre ellos.\n\n¿Corresponde tratar este problema como una variación de 12 tomados de 3?",
     "options": [
       "Sí, porque se eligen solo 3 profesores de los 12 disponibles.",
@@ -222,6 +232,7 @@
     ]
   },
   {
+    "id": "white_variaciones_CLSF_11",
     "question": "Una heladería ofrece 6 sabores y se van a elegir 2 sabores para un pote mixto, sin diferenciar cuál va primero.\n\n¿Corresponde tratar este problema como una variación de 6 tomados de 2?",
     "options": [
       "No, porque los dos sabores elegidos no tienen un orden entre sí.",
@@ -243,6 +254,7 @@
     ]
   },
   {
+    "id": "white_variaciones_CLSF_12",
     "question": "Una biblioteca tiene 10 libros disponibles y va a donar 4 de ellos a una escuela, sin diferenciar el orden en que se eligen.\n\n¿Corresponde tratar este problema como una variación de 10 tomados de 4?",
     "options": [
       "Sí, porque se eligen solo 4 libros de los 10 disponibles.",
@@ -264,6 +276,7 @@
     ]
   },
   {
+    "id": "white_variaciones_CLSF_13",
     "question": "Una clase tiene 14 estudiantes y se van a elegir 3 para representar a la clase en una feria, con el mismo rol para los 3.\n\n¿Corresponde tratar este problema como una variación de 14 tomados de 3?",
     "options": [
       "Sí, porque se eligen solo 3 estudiantes de los 14 disponibles.",
@@ -285,6 +298,7 @@
     ]
   },
   {
+    "id": "white_variaciones_CLSF_14",
     "question": "Una familia de 6 integrantes va a repartir 6 tareas del hogar distintas, una tarea para cada integrante.\n\n¿Corresponde tratar este problema como una variación de 6 tomados de 4?",
     "options": [
       "No, porque se usan los 6 integrantes, no un subconjunto.",
@@ -306,6 +320,7 @@
     ]
   },
   {
+    "id": "white_variaciones_CLSF_15",
     "question": "Se arma un código de acceso de 4 dígitos, eligiendo cada dígito libremente entre 0 y 9.\n\nUn mismo dígito puede repetirse en más de una posición del código.\n\n¿Corresponde tratar este problema como una variación de 10 tomados de 4?",
     "options": [
       "Sí, porque hay 4 posiciones que se llenan siguiendo un orden fijo.",

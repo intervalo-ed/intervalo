@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_product_ESTR_01",
     "question": "Esta función tiene una constante multiplicando a una función trigonométrica:\n$$f(x) = 4\\sin x$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Múltiplo por constante",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "violet_product_ESTR_02",
     "question": "Esta función es un producto de dos binomios:\n$$f(x) = (x+2)(x-2)$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Múltiplo por constante",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "violet_product_ESTR_03",
     "question": "Acá se multiplican dos potencias de la misma base:\n$$f(x) = x^2 \\cdot x^3$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del producto",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "violet_product_ESTR_04",
     "question": "Un coeficiente multiplica a una función trigonométrica en esta expresión:\n$$f(x) = 7\\cos x$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Múltiplo por constante",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "violet_product_ESTR_05",
     "question": "Dos binomios se multiplican en esta función:\n$$f(x) = (x-1)(x+5)$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla de la potencia",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "violet_product_ESTR_06",
     "question": "Esta función combina dos potencias de $x$ con exponentes de distinto signo:\n$$f(x) = x^4 \\cdot x^{-1}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del producto",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "violet_product_ESTR_07",
     "question": "Un coeficiente negativo multiplica a la exponencial en esta función:\n$$f(x) = -3e^x$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Múltiplo por constante",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "violet_product_ESTR_08",
     "question": "Esta función es un binomio multiplicado por sí mismo:\n$$f(x) = (x+3)(x+3)$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Reescribir como potencia única",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "violet_product_ESTR_09",
     "question": "Para derivar:\n$$f(x) = x^2 \\ln x$$\nSe va a aplicar la **regla del producto**.\n\n¿Cómo se identifican los factores $u$ y $v$?",
     "options": [
       "$u=x, v=x\\ln x$",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "violet_product_ESTR_10",
     "question": "Antes de derivar:\n$$f(x) = \\sqrt{x}\\, e^x$$\nCorresponde usar la **regla del producto**.\n\n¿Cómo se identifican los factores $u$ y $v$ en este caso?",
     "options": [
       "$u=x^{1/2}, v=e^x$",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "violet_product_ESTR_11",
     "question": "Para calcular la derivada:\n$$f(x) = x\\sin x$$\nEsta expresión requiere la **regla del producto**.\n\n¿Cuál es la partición correcta en $u$ y $v$?",
     "options": [
       "$u=x\\sin x, v=1$",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "violet_product_ESTR_12",
     "question": "Al derivar:\n$$f(x) = x^3\\cos x$$\nHace falta aplicar la **regla del producto**.\n\n¿Cómo quedan definidos los factores $u$ y $v$?",
     "options": [
       "$u=x^2, v=x\\cos x$",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "violet_product_ESTR_13",
     "question": "Esta función combina una potencia y una función trigonométrica:\n$$f(x) = x^2\\tan x$$\nSe resuelve con la **regla del producto**.\n\n¿Cómo se separan los factores $u$ y $v$ acá?",
     "options": [
       "$u=e^x, v=\\ln x$",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "violet_product_ESTR_14",
     "question": "Una raíz y una función trigonométrica se multiplican en esta expresión:\n$$f(x) = \\sqrt{x}\\,\\sin x$$\nCorresponde la **regla del producto**.\n\n¿Cuál es la identificación correcta de $u$ y $v$?",
     "options": [
       "$u=x^2\\tan x, v=1$",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "violet_product_ESTR_15",
     "question": "Una raíz y una función trigonométrica se multiplican en esta expresión:\n$$f(x) = \\sqrt{x}\\,\\sin x$$\nCorresponde la **regla del producto**.\n\n¿Cuál es la identificación correcta de $u$ y $v$?",
     "options": [
       "$u=x, v=\\frac{1}{2}\\sin x$",

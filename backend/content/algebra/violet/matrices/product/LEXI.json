@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_product_LEXI_01",
     "question": "Multiplicar dos matrices equivale a aplicar una transformación del plano y después la otra, condensadas en un solo paso.\n\n¿Por qué en general $AB$ y $BA$ dan resultados distintos?",
     "options": [
       "Porque cambia cuál de las dos transformaciones se aplica primero",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "violet_product_LEXI_02",
     "question": "Un giro y un estiramiento del plano se aplican uno después del otro.\n$$AB \\neq BA$$\n¿Por qué el orden de esos dos pasos cambia el resultado?",
     "options": [
       "Porque el producto en el otro orden ni siquiera queda definido",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "violet_product_LEXI_03",
     "question": "En un producto de matrices, cada entrada del resultado combina una fila con una columna.\n$$c_{ij} = \\text{fila } i \\text{ de } A \\text{ por columna } j \\text{ de } B$$\n¿Qué cambia al invertir el orden de los factores?",
     "options": [
       "El orden en que se recorren las entradas dentro de cada fila",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "violet_product_LEXI_04",
     "question": "Dos matrices se multiplican en los dos órdenes posibles.\n$$A \\in \\mathbb{R}^{2 \\times 3}, \\quad B \\in \\mathbb{R}^{3 \\times 2}$$\n¿Qué se puede afirmar sobre los dos productos?",
     "options": [
       "Que están definidos los dos, pero con órdenes distintos",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "violet_product_LEXI_05",
     "question": "Que el producto no conmute no significa que nunca dé lo mismo.\n$$AI = IA$$\n¿Qué muestra ese caso?",
     "options": [
       "Que la propiedad conmutativa vale entre matrices cuadradas",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "violet_product_LEXI_06",
     "question": "Al trasponer un producto de matrices, el resultado no es $A^T B^T$ sino $B^T A^T$.\n\n¿Qué muestra de inmediato que el otro orden no puede funcionar?",
     "options": [
       "Que en ese orden las dimensiones ni siquiera permiten multiplicar",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "violet_product_LEXI_07",
     "question": "La traspuesta de un producto invierte el orden de los factores.\n$$(AB)^{T} = B^{T}A^{T}$$\n¿Qué le pasa a las dimensiones si no se invirtieran?",
     "options": [
       "Que el producto existiría igual, pero daría una matriz no cuadrada",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "violet_product_LEXI_08",
     "question": "Trasponer dos veces devuelve la matriz original.\n$$(A^{T})^{T} = A$$\n¿Por qué?",
     "options": [
       "Porque la traspuesta de una matriz siempre coincide con la original",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "violet_product_LEXI_09",
     "question": "La traspuesta de una suma no invierte nada.\n$$(A+B)^{T} = A^{T}+B^{T}$$\n¿Por qué la suma se comporta distinto que el producto?",
     "options": [
       "Porque la suma opera posición por posición, sin emparejar filas",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "violet_product_LEXI_10",
     "question": "Una matriz simétrica coincide con su propia traspuesta.\n$$A^{T} = A$$\n¿Qué se puede afirmar sobre el producto de dos matrices simétricas?",
     "options": [
       "Que nunca resulta simétrico, salvo que una sea la identidad",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "violet_product_LEXI_11",
     "question": "Entre números, un producto nulo obliga a que alguno de los factores sea cero.\n\nCon matrices eso deja de valer. El producto de estas dos da la matriz nula:\n$$A = \\begin{pmatrix} 1 & 1 \\\\ 1 & 1 \\end{pmatrix}$$\n$$B = \\begin{pmatrix} 1 & 1 \\\\ -1 & -1 \\end{pmatrix}$$\n¿Por qué el resultado es nulo sin que ninguno de los factores lo sea?",
     "options": [
       "Porque en cada casillero se cancelan dos términos opuestos",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "violet_product_LEXI_12",
     "question": "Entre números, un producto nulo obliga a que algún factor sea cero.\n$$AB = O, \\quad A \\neq O, \\quad B \\neq O$$\n¿Por qué con matrices eso puede fallar?",
     "options": [
       "Porque la matriz nula se comporta como el número uno en el producto",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "violet_product_LEXI_13",
     "question": "Entre números, de una igualdad se puede cancelar un factor común no nulo.\n$$AB = AC, \\quad A \\neq O$$\n¿Se puede concluir que las otras dos matrices coinciden?",
     "options": [
       "Sí, siempre que el factor común no sea la matriz nula",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "violet_product_LEXI_14",
     "question": "Una matriz no nula puede dar la matriz nula al multiplicarse por sí misma.\n$$A^{2} = O, \\quad A \\neq O$$\n¿Qué muestra ese caso?",
     "options": [
       "Que una matriz puede anularse al repetirse, sin ser nula ella misma",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "violet_product_LEXI_15",
     "question": "Entre números vale siempre que restar dos cuadrados se factoriza como el producto de la suma por la diferencia.\n$$A^2 - B^2 \\neq (A-B)(A+B)$$\n¿Por qué esta igualdad familiar deja de valer entre matrices?",
     "options": [
       "Porque las matrices $A$ y $B$ no se pueden restar entre sí en esta expresión",

@@ -1,6 +1,12 @@
+import asyncio
+import hmac
+import json
 import os
 import re
 import sys
+import time
+import traceback
+from contextlib import asynccontextmanager
 from pathlib import Path
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
@@ -12,9 +18,13 @@ load_dotenv(env_path)
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from fastapi import FastAPI, HTTPException, Depends, Header, Query
+# Referencia para medir cuánto tarda el proceso en estar listo (ver _seed_blocking).
+_PROCESS_START = time.perf_counter()
+
+from fastapi import FastAPI, HTTPException, Depends, Header, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
+from starlette.concurrency import run_in_threadpool
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
@@ -22,12 +32,17 @@ import emoji_tree
 from session_store import get_user_progress_db
 from database import SessionLocal
 from auth import (
+    ClerkClaims,
+    UserProvisioningError,
     UserResponse,
+    _extract_email_and_name,
     get_or_create_user_from_clerk,
     verify_clerk_token,
 )
+from clerk_webhook import WebhookVerificationError, verify_svix_signature
 from models import User, Enrollment, Answer, UnitState
 from sqlalchemy import and_ as sa_and, case, func, or_ as sa_or, select
+from sqlalchemy.exc import IntegrityError
 from schemas import (
     AnswerResponse,
     DueNotification,
@@ -58,19 +73,22 @@ from schemas import (
     UserStatusResponse,
 )
 
-app = FastAPI(title="Intervalo Backend")
-
-
-@app.on_event("startup")
-def startup_event():
+def _seed_blocking() -> None:
     """
-    Seed course content from backend/content/ on every startup.
+    Seed course content from backend/content/.
 
     Idempotent upsert — safe to run on each deploy. Alembic handles schema;
     this only touches editable content (courses, belt_info, exercises).
+
+    Corre en un worker thread (ver `lifespan`). Se traga sus excepciones a
+    propósito: antes esto colgaba del startup sin try/except, así que un JSON
+    inválido tumbaba el arranque entero y el deploy quedaba caído. Ahora la app
+    sube igual y sigue sirviendo el contenido de la corrida anterior — por eso
+    el log de fallo tiene que ser ruidoso y fácil de grepear.
     """
     from seed_content import seed_all
 
+    t0 = time.perf_counter()
     db = SessionLocal()
     try:
         # prune=True: la tabla `exercises` es un espejo de backend/content/. Sin
@@ -79,8 +97,66 @@ def startup_event():
         # una ronda anterior. El prune trae su propia rejilla: se aborta solo si
         # dejaría un ítem declarado sin ejercicios (ver seed_exercises).
         seed_all(db, prune=True)
+        print(
+            f"[seed] OK en {time.perf_counter() - t0:.2f}s "
+            f"(T+{time.perf_counter() - _PROCESS_START:.2f}s desde el import)",
+            flush=True,
+        )
+    except Exception:
+        db.rollback()
+        print("[seed] FAILED — la app sigue arriba con el contenido anterior", flush=True)
+        traceback.print_exc()
     finally:
         db.close()
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """
+    Arranca el seed en segundo plano y deja que uvicorn atienda ya.
+
+    El seed hidrata ~3.300 ejercicios desde Postgres y antes corría dentro del
+    handler de startup, así que /health y todo lo demás quedaban en cola hasta
+    que terminaba. Esa ventana de cold start se comía las requests del alta:
+    quien volvía del login de Google justo durante un deploy no llegaba a
+    crear su fila.
+
+    `asyncio.to_thread` y no una llamada directa: el seed es SQLAlchemy
+    síncrono y correrlo en el event loop bloquea todo igual que antes.
+
+    No hace falta un gate de readiness. `seed_one_course` hace un único commit
+    al final, prune incluido, así que bajo MVCC ninguna conexión ve un estado a
+    medio actualizar: se sirve el contenido viejo hasta el commit y el nuevo
+    después. Si alguna vez se parte ese commit en varios por performance, esta
+    garantía se rompe en silencio.
+    """
+    # Los navegadores reportan alias IANA viejos ("America/Buenos_Aires", el
+    # nombre que usa ICU/CLDR) y los validamos y guardamos tal cual. Si la
+    # imagen trae una tzdata sin esos links, la validación rechaza a todos los
+    # usuarios y el loop de notificaciones los saltea en silencio (pasó el
+    # 19/8/2026 con un rebuild de Railway). Mejor que el deploy falle acá y
+    # siga sirviendo el contenedor anterior.
+    #
+    # Va en el lifespan y no adentro de _seed_blocking: ese corre en un thread
+    # que se traga las excepciones, así que ahí el chequeo no podría voltear
+    # el arranque, que es justamente para lo que existe.
+    try:
+        ZoneInfo("America/Buenos_Aires")
+    except ZoneInfoNotFoundError:
+        raise RuntimeError(
+            "tzdata sin links de compatibilidad IANA: falta el paquete pip "
+            "`tzdata` (ver requirements.txt)"
+        )
+
+    task = asyncio.create_task(asyncio.to_thread(_seed_blocking))
+    # Guardar la referencia: sin esto el GC puede llevarse el task y con él la
+    # excepción, y el fallo del seed pasaría inadvertido.
+    app.state.seed_task = task
+    yield
+    task.cancel()
+
+
+app = FastAPI(title="Intervalo Backend", lifespan=lifespan)
 
 ALLOWED_ORIGINS = os.environ.get("ALLOWED_ORIGINS", "http://localhost:5173").split(",")
 
@@ -138,6 +214,14 @@ def get_current_user(
     except ValueError as exc:
         # e.g. Clerk token has no email and no secret key is configured
         raise HTTPException(status_code=401, detail=str(exc))
+    except (UserProvisioningError, IntegrityError) as exc:
+        # Carrera perdida contra el otro escritor (webhook o pestaña paralela).
+        # 503 y no 500: es transitorio y el cliente lo reintenta.
+        db.rollback()
+        print(f"[provision] FAILED clerk={claims.sub}: {exc!r}", flush=True)
+        raise HTTPException(
+            status_code=503, detail="No pudimos crear tu cuenta. Probá de nuevo."
+        )
 
 
 def require_internal_secret(x_internal_secret: str = Header(None)):
@@ -145,7 +229,7 @@ def require_internal_secret(x_internal_secret: str = Header(None)):
     expected = os.environ.get("INTERNAL_API_SECRET")
     if not expected:
         raise HTTPException(status_code=503, detail="INTERNAL_API_SECRET not configured")
-    if x_internal_secret != expected:
+    if not hmac.compare_digest(x_internal_secret or "", expected):
         raise HTTPException(status_code=401, detail="Invalid internal secret")
 
 
@@ -194,6 +278,7 @@ class TestSessionItem(BaseModel):
 class TestFilters(BaseModel):
     has_math: bool = False
     has_graph: bool = False
+    has_table: bool = False
 
 
 class StartTestSessionRequest(BaseModel):
@@ -259,10 +344,11 @@ class SessionFeedbackRequest(BaseModel):
     action: str  # "impression" | "answer" | "report"
     session_id: str
     exercise_external_id: str | None = None  # impression / report
-    question_type: str | None = None  # "A" | "B" (impression) — "C" implícito en report
+    question_type: str | None = None  # "A" | "B" | "D" (impression) — "C" implícito en report
     feedback_id: int | None = None  # answer
     value: str | None = None
     free_text: str | None = None
+    reason: str | None = None  # answer, canal D: chip de razón (opcional)
 
 
 class SessionFeedbackResponse(BaseModel):
@@ -333,7 +419,14 @@ def update_profile(
     if body.display_name is not None:
         current_user.display_name = body.display_name.strip() or None
 
-    db.commit()
+    try:
+        db.commit()
+    except IntegrityError:
+        # El chequeo de `taken` de arriba es TOCTOU: dos personas pidiendo el
+        # mismo handle a la vez llegan las dos hasta acá. Es un conflicto de
+        # usuario, no un error del servidor.
+        db.rollback()
+        raise HTTPException(status_code=409, detail="Ese usuario ya está en uso.")
     db.refresh(current_user)
 
     return UserResponse(
@@ -355,8 +448,15 @@ class EnrollmentRequest(BaseModel):
     # Curso elegido en el onboarding (slug). None → analisis, por compatibilidad
     # con clientes/datos viejos que no mandaban curso.
     course: str | None = None
-    # Motivación elegida en el onboarding (slug corto: cursada/bases/conceptos).
+    # Motivación: la pregunta se retiró del onboarding, el campo se conserva
+    # para no romper el contrato con clientes viejos.
     motivation: str | None = None
+    # Unidades declaradas como conocidas, claves del catálogo separadas por coma.
+    known_units: str | None = None
+    # Atribución de primer contacto, capturada al aterrizar (ver
+    # web/src/lib/analytics/attribution.ts). Se persiste una sola vez por usuario.
+    first_group_id: str | None = None
+    first_utm_source: str | None = None
     # Resultado del ejercicio de prueba del onboarding (primer ítem del curso).
     # True = acertó al primer intento, False = falló alguna vez, None = sin dato.
     intro_item_correct: bool | None = None
@@ -395,6 +495,7 @@ def enroll_user(
         existing.university = university
         existing.career = body.career
         existing.motivation = body.motivation
+        existing.known_units = body.known_units
     else:
         # Create new enrollment
         enrollment = Enrollment(
@@ -403,6 +504,7 @@ def enroll_user(
             university=university,
             career=body.career,
             motivation=body.motivation,
+            known_units=body.known_units,
         )
         db.add(enrollment)
 
@@ -410,7 +512,44 @@ def enroll_user(
     if body.name:
         current_user.display_name = body.name
 
-    db.commit()
+    # Atribución de primer contacto: gana el primer valor que se haya guardado,
+    # nunca se pisa. El cliente ya aplica la misma regla de su lado
+    # (register_once), pero repetirla acá la vuelve independiente de que el
+    # localStorage se haya limpiado entre el aterrizaje y el alta.
+    #
+    # El id se valida contra el mismo formato que usa el cliente (prefijo de
+    # universidad + número); lo que no matchee se descarta en vez de guardarse,
+    # así un parámetro basureado no se convierte en una cohorte fantasma.
+    if current_user.first_group_id is None and body.first_group_id:
+        if re.fullmatch(r"[a-z]{2,6}\d{1,5}", body.first_group_id):
+            current_user.first_group_id = body.first_group_id
+    if current_user.first_utm_source is None and body.first_utm_source:
+        if re.fullmatch(r"[a-z]{2,20}", body.first_utm_source):
+            current_user.first_utm_source = body.first_utm_source
+
+    try:
+        db.commit()
+    except IntegrityError:
+        # El cliente reintentó un POST que en realidad había llegado: el
+        # UNIQUE (user_id, course_id) rebota el segundo INSERT. Sin esto, el
+        # retry del onboarding le devolvía un 500 al usuario.
+        db.rollback()
+        winner = db.query(Enrollment).filter(
+            Enrollment.user_id == current_user.id,
+            Enrollment.course_id == course_id,
+        ).first()
+        if winner is None:
+            raise
+        winner.university = university
+        winner.career = body.career
+        winner.motivation = body.motivation
+        winner.known_units = body.known_units
+        if body.name:
+            current_user.display_name = body.name
+        db.commit()
+        # Sin seed_intro_item: el intento ganador ya sembró el ítem si
+        # correspondía, y acá `existing` era falso solo por la carrera.
+        return {"success": True, "message": "Enrollment successful"}
 
     # Solo en una alta nueva: persistir el resultado del ejercicio de prueba del
     # onboarding sobre el primer ítem del curso (acierto → mañana, fuera de la 1ª
@@ -477,6 +616,14 @@ def get_user_progress(
     `course` (opcional) es el slug del curso a filtrar. Si no viene, se usa el
     curso por defecto (id=1, "analisis").
     """
+    # Este endpoint es el que llama el home en cada carga, así que llegar acá
+    # ES haber llegado al home. Es el escalón del embudo que separa "se trabó
+    # en la autenticación" de "llegó a la app y no tocó empezar" (ver
+    # User.reached_home). Se escribe una sola vez, no en cada carga.
+    if not current_user.reached_home:
+        current_user.reached_home = True
+        db.commit()
+
     if tz and tz != current_user.timezone:
         try:
             ZoneInfo(tz)
@@ -844,6 +991,102 @@ def internal_sweep_abandoned_sessions(db: Session = Depends(get_db)):
     return {"marked": session_store.sweep_abandoned_sessions(db)}
 
 
+@app.post("/webhooks/clerk", include_in_schema=False)
+async def clerk_webhook(
+    request: Request,
+    svix_id: str = Header(None, alias="svix-id"),
+    svix_timestamp: str = Header(None, alias="svix-timestamp"),
+    svix_signature: str = Header(None, alias="svix-signature"),
+    db: Session = Depends(get_db),
+):
+    """Crea la fila de `users` apenas Clerk confirma el alta.
+
+    Sin esto, la fila nacía en la primera request autenticada del navegador y
+    se perdía el 15% de las cuentas: quien cerraba la pestaña volviendo del
+    login quedaba en Clerk y no acá. Con el webhook la persona existe aunque
+    el celular se cuelgue, y entra al circuito de emails como cualquier otra.
+
+    Sin autenticación de Clerk ni secreto interno: acá la credencial es la
+    firma de Svix. Fuera del schema porque el frontend nunca lo llama.
+
+    Nada de 5xx por fallos de negocio — Svix reintenta con backoff durante un
+    día entero y una respuesta así arma una tormenta de reintentos. Solo se
+    deja subir un 500 cuando reintentar de verdad puede ayudar (la base caída).
+    """
+    body = await request.body()
+    try:
+        verify_svix_signature(
+            body=body,
+            svix_id=svix_id,
+            svix_timestamp=svix_timestamp,
+            svix_signature=svix_signature,
+        )
+    except WebhookVerificationError as exc:
+        reason = str(exc)
+        if "no configurado" in reason:
+            # Config faltante: 503 para que Svix reintente y el evento se
+            # recupere solo cuando se cargue la variable.
+            raise HTTPException(status_code=503, detail=reason)
+        if "faltan headers" in reason:
+            raise HTTPException(status_code=400, detail=reason)
+        raise HTTPException(status_code=401, detail=reason)
+
+    try:
+        payload = json.loads(body)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="body no es JSON")
+
+    event_type = payload.get("type")
+    if event_type not in ("user.created", "user.updated"):
+        return {"ignored": event_type}
+
+    user_data = payload.get("data") or {}
+    clerk_id = user_data.get("id")
+    if not clerk_id:
+        return {"ignored": "sin id de usuario"}
+
+    def _provision():
+        email, name = _extract_email_and_name(user_data)
+        if not email:
+            # Alta sin email resuelto (flujos de teléfono, verificación
+            # pendiente). No es un error nuestro y reintentar no lo arregla:
+            # cuando la persona entre, el camino del request la crea.
+            print(f"[provision] webhook sin email para {clerk_id}, se ignora", flush=True)
+            return None
+        claims = ClerkClaims(sub=clerk_id, email=email, name=name)
+        return get_or_create_user_from_clerk(db, claims, via="webhook")
+
+    try:
+        user = await run_in_threadpool(_provision)
+    except (UserProvisioningError, IntegrityError) as exc:
+        # Colisión que el loop no puede resolver — típicamente un user.updated
+        # que mueve el email a uno que ya pertenece a otra cuenta. Reintentar
+        # 24 horas no lo va a arreglar.
+        db.rollback()
+        print(f"[provision] webhook FAILED clerk={clerk_id}: {exc!r}", flush=True)
+        return {"ok": False, "reason": "conflicto de unicidad"}
+
+    return {"ok": True, "user_id": user.id if user else None}
+
+
+@app.get("/email/logo.png", include_in_schema=False)
+def email_logo():
+    """El wordmark de los mails, para las pantallas de desuscripción. Es el
+    mismo PNG que viaja como adjunto CID en cada email (fondo #131324 y bordes
+    redondeados propios, así que sobre el fondo de la página queda invisible
+    el recorte)."""
+    import lifecycle_emails
+    from fastapi.responses import FileResponse
+
+    if not lifecycle_emails.LOGO_PATH.exists():
+        raise HTTPException(status_code=404, detail="Not Found")
+    return FileResponse(
+        lifecycle_emails.LOGO_PATH,
+        media_type="image/png",
+        headers={"Cache-Control": "public, max-age=86400"},
+    )
+
+
 def _unsub_page(body: str, status_code: int = 200) -> HTMLResponse:
     return HTMLResponse(
         "<html><head><meta name='viewport' content='width=device-width, initial-scale=1'>"
@@ -856,7 +1099,7 @@ def _unsub_page(body: str, status_code: int = 200) -> HTMLResponse:
 
 _UNSUB_INVALID = "Ese link no es válido."
 _UNSUB_DONE = (
-    "<p style='font-size:20px;font-weight:700;margin:0 0 8px;'>intervalo</p>"
+    "<img src='/email/logo.png' width='163' height='61' alt='intervalo' style='display:block;margin:0 auto 24px;'>"
     "<p>Te desuscribiste de estos emails. No vas a recibir más.</p>"
 )
 
@@ -881,7 +1124,7 @@ def email_unsubscribe_page(token: str):
 
     safe_token = lifecycle_emails.unsubscribe_token(user_id)
     return _unsub_page(
-        "<p style='font-size:20px;font-weight:700;margin:0 0 8px;'>intervalo</p>"
+        "<img src='/email/logo.png' width='163' height='61' alt='intervalo' style='display:block;margin:0 auto 24px;'>"
         "<p style='margin:0 0 24px;'>¿Querés dejar de recibir estos emails?</p>"
         f"<form method='post' action='/email/unsubscribe?token={safe_token}'>"
         "<button type='submit' style='background:#5457e5;color:#fff;border:0;"
@@ -1007,6 +1250,11 @@ def get_leaderboard(
     """
     enroll = _first_enrollment_subq()
     filters = _scope_filters(enroll, university, career)
+    # Solo aparecen los que ya sumaron XP; las cuentas que nunca arrancaron solo
+    # inflaban la cola. El propio usuario entra igual con 0: verse último dice
+    # "estás acá, empezá a subir" — no aparecer diría "no existís". Con 0 XP su
+    # rank queda count(>0)+1 y los demás ceros no compiten el desempate.
+    filters = [*filters, sa_or(User.total_xp > 0, User.id == current_user.id)]
 
     # Universidades presentes (set completo, sin aplicar el scope), para poblar
     # el filtro del front.
@@ -1172,6 +1420,9 @@ def get_university_leaderboard(
     filters = [
         enroll.c.university.isnot(None),
         enroll.c.university != "",
+        # Mismo criterio que el leaderboard individual: los que nunca sumaron
+        # XP no cuentan como estudiantes de su universidad.
+        User.total_xp > 0,
     ]
     if university is not None:
         filters.append(enroll.c.university == university)
@@ -1245,9 +1496,9 @@ def get_leaderboard_summary(
     `total_students`/`total_exercises` respetan `career`/`university` si se
     pasan, igual que el scope de `/leaderboard`.
 
-    El scope acá se cuenta sobre `enrollments` (no sobre `users`): un enrollment
-    con universidad cuenta como estudiante registrado aunque el usuario ya no
-    exista. Se mantiene esa semántica, solo que contada en SQL."""
+    `total_students` cuenta solo usuarios con XP positivo: el ranking ya no
+    muestra a los que nunca arrancaron, y el contador tiene que hablar de la
+    misma gente que la lista de abajo."""
     enroll = _first_enrollment_subq()
     has_university = sa_and(
         enroll.c.university.isnot(None), enroll.c.university != ""
@@ -1264,7 +1515,11 @@ def get_leaderboard_summary(
 
     if university is None and career is None:
         total_students = (
-            db.query(func.count()).select_from(enroll).filter(has_university).scalar()
+            db.query(func.count())
+            .select_from(enroll)
+            .join(User, User.id == enroll.c.user_id)
+            .filter(has_university, User.total_xp > 0)
+            .scalar()
             or 0
         )
         total_exercises = db.query(func.count(Answer.id)).scalar() or 0
@@ -1275,7 +1530,12 @@ def get_leaderboard_summary(
         if career is not None:
             scoped.append(_career_bucket_sql(enroll.c.career) == career)
         total_students = (
-            db.query(func.count()).select_from(enroll).filter(*scoped).scalar() or 0
+            db.query(func.count())
+            .select_from(enroll)
+            .join(User, User.id == enroll.c.user_id)
+            .filter(*scoped, User.total_xp > 0)
+            .scalar()
+            or 0
         )
         total_exercises = (
             db.query(func.count(Answer.id))
@@ -1301,9 +1561,9 @@ def get_public_university_leaderboard(db: Session = Depends(get_db)):
 
     Es el único endpoint del leaderboard sin auth, así que es el que más importa
     que no traiga `users` + `enrollments` enteras a memoria en cada visita a la
-    landing: un GROUP BY devuelve una fila por universidad. Los estudiantes se
-    cuentan por enrollment (aunque el usuario ya no exista, igual que antes) y su
-    XP con LEFT JOIN, que aporta 0 en ese caso."""
+    landing: un GROUP BY devuelve una fila por universidad. Solo cuentan los
+    usuarios con XP positivo, igual que en el leaderboard de la app — los dos
+    números tienen que hablar de la misma gente."""
     enroll = _first_enrollment_subq()
 
     # El orden de inserción sigue el enrollment más antiguo de cada universidad,
@@ -1314,8 +1574,12 @@ def get_public_university_leaderboard(db: Session = Depends(get_db)):
             func.count().label("students"),
             func.coalesce(func.sum(User.total_xp), 0).label("total_xp"),
         )
-        .outerjoin(User, User.id == enroll.c.user_id)
-        .filter(enroll.c.university.isnot(None), enroll.c.university != "")
+        .join(User, User.id == enroll.c.user_id)
+        .filter(
+            enroll.c.university.isnot(None),
+            enroll.c.university != "",
+            User.total_xp > 0,
+        )
         .group_by(enroll.c.university)
         .order_by(func.min(enroll.c.enrolled_at).asc(), enroll.c.university.asc())
         .all()
@@ -1523,12 +1787,14 @@ def submit_session_feedback(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Micro-encuesta post-ejercicio (dificultad/explicación) y reporte de
-    problemas de contenido. Flujo en dos pasos para no perder la impression si
+    """Micro-encuesta post-ejercicio (dificultad/explicación/interés) y reporte
+    de problemas de contenido. Flujo en dos pasos para no perder la impression si
     el usuario cierra/navega antes de responder (ver feedback_survey.py):
     "impression" crea la fila (answered_at=None), "answer" la completa. "report"
     (canal C, siempre disponible) crea la fila ya resuelta en un solo paso."""
     from datetime import datetime
+
+    from feedback_survey import SURVEY_TYPES, validate_reason
     from models import Exercise, ExerciseFeedback, Session as SessionModel
 
     try:
@@ -1545,7 +1811,7 @@ def submit_session_feedback(
         raise HTTPException(status_code=404, detail="Session not found")
 
     if body.action == "impression":
-        if not body.exercise_external_id or body.question_type not in ("A", "B"):
+        if not body.exercise_external_id or body.question_type not in SURVEY_TYPES:
             raise HTTPException(status_code=422, detail="Missing exercise_external_id/question_type")
         exists = (
             db.query(Exercise.id)
@@ -1577,6 +1843,7 @@ def submit_session_feedback(
             raise HTTPException(status_code=404, detail="Feedback impression not found")
         entry.value = body.value
         entry.free_text = body.free_text
+        entry.reason = validate_reason(entry.question_type, body.value, body.reason)
         entry.answered_at = datetime.utcnow()
         current_user.total_xp = (current_user.total_xp or 0) + FEEDBACK_XP
         db.commit()
@@ -1687,3 +1954,91 @@ def submit_feedback(
     _send_feedback_email(body.categoria, current_user.id, mensaje)
 
     return {"success": True}
+
+
+# ── Panel de métricas ─────────────────────────────────────────────────────────
+#
+# Un panel de solo lectura detrás de un link secreto, montado acá y no en un
+# servicio aparte: la sesión de base, los modelos y el pipeline de deploy ya
+# existen, y los datos son lo bastante chicos como para que agregarlos no
+# justifique una infraestructura propia (ver backend/metrics/queries.py).
+#
+# La ruta es `def` (no `async def`), así que FastAPI la corre en el threadpool:
+# una consulta lenta del panel no bloquea el event loop de la API.
+
+# El panel hace un puñado de SELECT completos por carga. Un F5 repetido no tiene
+# por qué pegarle a la base cada vez, y los números no cambian de un segundo al
+# otro. El backend corre con una réplica, así que un dict en proceso alcanza.
+_PANEL_TTL_SECONDS = 120
+_panel_cache: dict[str, tuple[float, dict]] = {}
+
+
+def _panel_payload(week, db: Session) -> dict:
+    from metrics import queries
+
+    key = week.isoformat()
+    hit = _panel_cache.get(key)
+    if hit and time.time() - hit[0] < _PANEL_TTL_SECONDS:
+        return hit[1]
+    payload = queries.build(db, week)
+    _panel_cache.clear()  # una sola semana en memoria; el panel se mira de a una
+    _panel_cache[key] = (time.time(), payload)
+    return payload
+
+
+def _panel_week(w: str | None):
+    """`?w=YYYY-MM-DD` → el lunes de esa semana. Sin parámetro, la semana en
+    curso. Una fecha inválida cae a la semana actual en vez de tirar 422: es un
+    panel, no una API, y un link mal pegado tiene que mostrar algo."""
+    from datetime import date as _date
+
+    from metrics.queries import week_start
+    from metrics.render import week_of_today
+
+    if w:
+        try:
+            return week_start(_date.fromisoformat(w))
+        except ValueError:
+            pass
+    return week_of_today()
+
+
+def _require_panel_token(token: str) -> None:
+    """404 y no 403, por el mismo motivo que `require_dev_endpoints`: una ruta
+    que no existe no le confirma a nadie que exista en otro lado. Vale también
+    cuando la variable no está configurada — un entorno nuevo no expone el panel
+    por olvidarse de setearla."""
+    expected = os.environ.get("DASHBOARD_TOKEN")
+    if not expected or not hmac.compare_digest(token, expected):
+        raise HTTPException(status_code=404, detail="Not Found")
+
+
+_PANEL_HEADERS = {
+    "Cache-Control": "private, no-store",
+    "X-Robots-Tag": "noindex, nofollow",
+}
+
+
+@app.get("/panel/{token}", response_class=HTMLResponse, include_in_schema=False)
+def panel_page(token: str, w: str | None = None, db: Session = Depends(get_db)):
+    from metrics.render import page
+
+    _require_panel_token(token)
+    week = _panel_week(w)
+    return HTMLResponse(
+        page(_panel_payload(week, db), token=token),
+        headers=_PANEL_HEADERS,
+    )
+
+
+@app.get("/panel/{token}/data.json", include_in_schema=False)
+def panel_data(token: str, w: str | None = None, db: Session = Depends(get_db)):
+    """El mismo payload que la página, en JSON.
+
+    Es lo que hace que el reporte del domingo salga de una sola fuente en vez de
+    copiar doscientos números a mano desde cuatro sistemas, que es como se armó
+    el de la semana del 22/08."""
+    from fastapi.responses import JSONResponse
+
+    _require_panel_token(token)
+    return JSONResponse(_panel_payload(_panel_week(w), db), headers=_PANEL_HEADERS)

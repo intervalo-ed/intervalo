@@ -1,5 +1,6 @@
 [
   {
+    "id": "black_associated_matrix_FORM_01",
     "question": "¿Cuál es la matriz asociada a $T(x,y) = (2x, 3y)$?",
     "options": [
       "$\\begin{pmatrix} 2 & 0 \\\\ 0 & 3 \\end{pmatrix}$",

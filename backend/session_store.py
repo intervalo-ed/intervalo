@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import random
 import sys
+from contextlib import contextmanager
 from dataclasses import dataclass, field
 from datetime import datetime, date, time, timedelta
 from pathlib import Path
@@ -45,6 +46,8 @@ from exercise_bank import (
     list_exercises_db,
     mark_exercise_served,
 )
+from sqlalchemy import func
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session as DBSession
 from models import (
     Answer,
@@ -65,6 +68,49 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 # medianoche de Argentina (UTC−3) date.today() ya es "mañana" y habilita repasos
 # antes de tiempo. Fallback a Argentina mientras el usuario no tenga tz persistida.
 DEFAULT_TZ = "America/Argentina/Buenos_Aires"
+
+
+# ── Creación concurrente de filas ─────────────────────────────────────────────
+# Varias filas de este módulo se crean "lazy": se busca, y si no está, se
+# inserta. Entre el SELECT y el INSERT hay una ventana, y el frontend la abre de
+# par en par — el dashboard pide /user/progress de los tres cursos en paralelo y
+# el alta de onboarding siembra units mientras esas requests ya están en vuelo.
+# Dos requests del mismo usuario llegaban al INSERT a la vez y el perdedor
+# reventaba con UniqueViolation → 500 (visto en producción sobre
+# `unique_user_course_progress`).
+#
+# La fila que ganó la carrera es igual de buena que la nuestra: estas funciones
+# la descartan y siguen con la del otro. Nada que reintentar ni que reconciliar.
+
+class _Conflicto:
+    """Resultado de _tolerating_duplicates: guarda el choque, si lo hubo."""
+
+    error: IntegrityError | None = None
+
+
+@contextmanager
+def _tolerating_duplicates(db: DBSession):
+    """Inserta filas tolerando que otra transacción haya creado las mismas.
+
+    Va sobre un SAVEPOINT y no sobre un rollback pelado a propósito: estas
+    inserciones ocurren en medio de requests que ya traen cambios propios sin
+    guardar (el update SM-2 de una respuesta, sin ir más lejos). Un rollback
+    entero descartaría también ESO, y perder la respuesta del usuario en
+    silencio es peor que el 500 que veníamos a arreglar. Con el savepoint se
+    revierte únicamente lo de adentro.
+
+    El flush previo es parte del contrato: asienta lo pendiente del caller
+    ANTES de abrir el savepoint, para que quede afuera de lo que se revierte."""
+    conflicto = _Conflicto()
+    db.flush()
+    try:
+        with db.begin_nested():
+            yield conflicto
+    except IntegrityError as exc:
+        # Savepoint ya revertido por el context manager. Nos ganaron de mano y
+        # sus filas son las que queríamos: seguimos con esas. Se guarda el error
+        # por si el caller descubre que el choque era por otra cosa.
+        conflicto.error = exc
 
 
 def _user_zone(db: DBSession, user_id: int) -> ZoneInfo:
@@ -170,6 +216,7 @@ class ExerciseInSession:
     graph_view: list | None = None
     graph_shade: list | None = None
     graph_free_aspect: bool = False
+    table: dict | None = None
     explanation: str | None = None
     external_id: str = ""
 
@@ -345,23 +392,29 @@ def _create_topic_units(
     return types_for_topic
 
 
-# Ítem del ejercicio de prueba del onboarding, por curso. Para analisis/algebra
-# es el primer ítem real del curso (primer skill del primer tema del cinturón
-# blanco) y se siembra su UnitState. Mapea uno a uno con el ejercicio que
-# muestra el wizard en el front (ver ONBOARDING_EXERCISES).
+# Ítem del ejercicio de prueba del onboarding, por curso. Mapea uno a uno con el
+# ejercicio que muestra el wizard en el front (ver ONBOARDING_EXERCISES): si allá
+# se cambia el ejercicio, acá hay que mover el tema, o el Answer queda etiquetado
+# con un ítem que no es el que la persona respondió.
 #
-# Probabilidad es la excepción: el ejercicio del wizard (moneda 2 veces, al
-# menos una cara) corresponde a Laplace, un tema del cinturón azul — sembrarlo
-# crearía sus units el día cero y metería un ítem del azul en la primera sesión,
-# fuera de orden. Por eso está en _INTRO_SEEDLESS_COURSES: el Answer se registra
-# con estas etiquetas para auditoría, pero no se toca ningún UnitState y la
-# progresión arranca virgen en blanco/conteo.
+# Los tres caen en el cinturón BLANCO de su curso, y eso es lo que importa: no
+# hace falta que sea el primer tema de la unidad, porque sembrar un tema blanco
+# no adelanta contenido y la primera sesión desbloquea el resto igual
+# (_ensure_active_units).
+#
+# Probabilidad supo ser la excepción: su ejercicio era Laplace, cinturón AZUL, y
+# sembrarlo habría metido un ítem del azul en la primera sesión, eso sí fuera de
+# orden — se registraba el Answer sin tocar UnitState. Ahora es blanco/conteo y
+# la excepción no hace falta.
 _INTRO_ITEM_BY_COURSE: dict[str, tuple[TopicKey, str]] = {
     "analisis": (TopicKey(belt=Belt.WHITE, topic="definition"), "LEXI"),
-    "algebra": (TopicKey(belt=Belt.WHITE, topic="powers"), "LEXI"),
-    "probabilidad": (TopicKey(belt=Belt.BLUE, topic="laplace"), "RESL"),
+    "algebra": (TopicKey(belt=Belt.WHITE, topic="absolute_value"), "RESL"),
+    "probabilidad": (TopicKey(belt=Belt.WHITE, topic="reglas"), "FORM"),
 }
-_INTRO_SEEDLESS_COURSES = {"probabilidad"}
+# Vacío desde que probabilidad dejó de apuntar al azul. Se conserva el mecanismo
+# porque el día que un ejercicio del wizard vuelva a caer fuera del blanco, esta
+# es la salida.
+_INTRO_SEEDLESS_COURSES: set[str] = set()
 # Fallback para cursos no mapeados (o datos viejos sin curso).
 _INTRO_ITEM_DEFAULT = _INTRO_ITEM_BY_COURSE["analisis"]
 
@@ -399,8 +452,12 @@ def seed_intro_item(
 
     if course_slug not in _INTRO_SEEDLESS_COURSES:
         if not _topic_has_any_units(user_id, course_id, intro_item, db):
-            _create_topic_units(user_id, course_id, intro_item, db)
-            db.flush()
+            # El alta termina justo cuando el dashboard ya está pidiendo
+            # /user/progress de los tres cursos, así que estas mismas units se
+            # pueden estar creando en paralelo. Si nos ganaron de mano, la
+            # búsqueda de abajo encuentra las de ellos igual.
+            with _tolerating_duplicates(db):
+                _create_topic_units(user_id, course_id, intro_item, db)
 
         row = db.query(UnitState).filter(
             UnitState.user_id == user_id,
@@ -544,18 +601,24 @@ def _exercise_to_dict(ex: ExerciseInSession) -> dict:
         "graph_view": ex.graph_view,
         "graph_shade": ex.graph_shade,
         "graph_free_aspect": ex.graph_free_aspect,
+        "table": ex.table,
         "feedback_correct": ex.feedback_correct,
         "feedback_incorrect": ex.feedback_incorrect,
         "explanation": ex.explanation,
     }
 
 
-def _shuffle_options(ex: dict) -> tuple[list, int, list | None]:
-    """Shuffle options preserving the parallel alignment of feedback_incorrect.
+def _shuffle_options(ex: dict) -> tuple[list, int, list | None, dict | None]:
+    """Shuffle options preserving every per-option array aligned with them.
 
-    feedback_incorrect is a per-option array (null on the correct index); it must
-    be permuted with the exact same order as options, or hints end up attached to
-    the wrong option.
+    Hay dos estructuras paralelas a `options` que se tienen que permutar con el
+    MISMO orden, o quedan pegadas a la opción equivocada:
+
+    - `feedback_incorrect`: array por opción (null en el índice correcto).
+    - `table.reveal.by_option`: la columna (o la celda) que pinta cada opción.
+
+    Las dos fallan en silencio si no se permutan: no hay error, solo una pista o
+    una tabla que corresponde a otra opción.
     """
     order = list(range(len(ex["options"])))
     random.shuffle(order)
@@ -565,7 +628,23 @@ def _shuffle_options(ex: dict) -> tuple[list, int, list | None]:
     shuffled_feedback = (
         [feedback[i] for i in order] if isinstance(feedback, list) else feedback
     )
-    return shuffled, new_correct_index, shuffled_feedback
+    return shuffled, new_correct_index, shuffled_feedback, _permute_table(ex.get("table"), order)
+
+
+def _permute_table(table: dict | None, order: list[int]) -> dict | None:
+    """Reorder `table.reveal.by_option` to match a shuffled `options` array."""
+    if not isinstance(table, dict):
+        return None
+    reveal = table.get("reveal")
+    if not isinstance(reveal, dict):
+        return table
+    by_option = reveal.get("by_option")
+    if not isinstance(by_option, list) or len(by_option) != len(order):
+        return table
+    return {
+        **table,
+        "reveal": {**reveal, "by_option": [by_option[i] for i in order]},
+    }
 
 
 def _build_exercise(
@@ -575,6 +654,8 @@ def _build_exercise(
     db: DBSession,
     user_id: int,
     exclude_by_unit: dict[UnitKey, set[str]] | None = None,
+    table_boost: float = 1.0,
+    require_table: bool = False,
 ) -> ExerciseInSession:
     # Se pasa el set REAL (no una copia): get_exercise_db lo vacía si esta
     # sesión ya agotó el pool de la unidad, para arrancar otra pasada completa.
@@ -591,10 +672,12 @@ def _build_exercise(
         db,
         user_id,
         extra_exclude=extra_exclude,
+        table_boost=table_boost,
+        require_table=require_table,
     )
     if ex.get("external_id"):
         extra_exclude.add(ex["external_id"])
-    shuffled, new_correct_index, shuffled_feedback = _shuffle_options(ex)
+    shuffled, new_correct_index, shuffled_feedback, shuffled_table = _shuffle_options(ex)
     return ExerciseInSession(
         exercise_id=f"ex_{idx:03d}",
         unit_key=unit_key,
@@ -608,6 +691,7 @@ def _build_exercise(
         graph_view=ex.get("graph_view"),
         graph_shade=ex.get("graph_shade"),
         graph_free_aspect=bool(ex.get("graph_free_aspect", False)),
+        table=shuffled_table,
         explanation=ex.get("explanation"),
         external_id=ex.get("external_id", ""),
     )
@@ -637,6 +721,52 @@ def _rows_to_unit_states(
     return states, attempted
 
 
+# ── Empuje inicial de los ejercicios con tabla ────────────────────────────────
+# El formato tabla es el más nuevo y el que mejor engancha, pero en el banco es
+# minoría (en probabilidad, 9 de 206 del blanco), así que con sorteo uniforme el
+# 64% de los usuarios nuevos no veía ninguno en su primera sesión — justo la
+# sesión donde se juega la retención.
+#
+# La corrección es un peso que decae linealmente: x6 en la primera sesión del
+# curso, x1 (sin empuje) de la sesión 10 en adelante. Es deliberadamente un
+# sesgo de SORTEO y no una cuota: el ciclo por ítem (ver
+# exercise_bank.get_exercise_db) ya garantiza que cada ejercicio del pool se
+# sirve una sola vez por ciclo, así que esto cambia el ORDEN en que aparecen,
+# nunca cuáles. No distorsiona las proporciones de largo plazo ni "gasta" el
+# banco: adelanta las tablas y se autocorrige solo.
+#
+# Agnóstico del curso: donde no hay tablas todos los pesos valen 1 y no cambia
+# nada, así que álgebra y análisis lo heredan gratis cuando tengan las suyas.
+TABLE_BOOST_MAX = 6.0
+TABLE_BOOST_SESSIONS = 10
+
+
+def _table_boost(user_id: int, course_id: int, db: DBSession) -> tuple[float, bool]:
+    """Peso de los ejercicios con tabla y si hay que garantizar uno.
+
+    Devuelve `(peso, garantizar)`. `garantizar` es True solo en la primera
+    sesión del curso: el peso por sí solo deja ~13% de usuarios sin ver ninguna
+    tabla, y la primera sesión es demasiado cara como para dejarla al azar.
+
+    La cuenta es de sesiones `main` TERMINADAS: las de onboarding son sintéticas
+    (mode="onboarding") y una sesión abandonada no debería gastar el empuje."""
+    hechas = (
+        db.query(func.count(SessionModel.id))
+        .filter(
+            SessionModel.user_id == user_id,
+            SessionModel.course_id == course_id,
+            SessionModel.mode == "main",
+            SessionModel.finished_at.isnot(None),
+        )
+        .scalar()
+    ) or 0
+    n = hechas + 1  # la sesión que se está armando
+    if n >= TABLE_BOOST_SESSIONS:
+        return 1.0, False
+    tramo = (TABLE_BOOST_SESSIONS - n) / (TABLE_BOOST_SESSIONS - 1)
+    return 1.0 + (TABLE_BOOST_MAX - 1.0) * tramo, n == 1
+
+
 ACTIVE_CAP_DEFAULTS = {
     "analisis": 11,
     "probabilidad": 11,
@@ -647,24 +777,47 @@ ACTIVE_CAP_DEFAULT_FALLBACK = 18
 # Límites del "máximo de ejercicios por sesión" configurable.
 SESSION_SIZE_MIN = 1
 SESSION_SIZE_MAX = 30
+SESSION_SIZE_DEFAULT = 5
 
 
-def _get_course_progress(user_id: int, course_id: int, db: DBSession) -> CourseProgress:
-    """Fila de CourseProgress del usuario para el curso, creada lazy con defaults."""
-    cp = db.query(CourseProgress).filter(
+def _lookup_course_progress(
+    user_id: int, course_id: int, db: DBSession
+) -> CourseProgress | None:
+    return db.query(CourseProgress).filter(
         CourseProgress.user_id == user_id,
         CourseProgress.course_id == course_id,
     ).first()
-    if cp is None:
-        slug = _get_course_slug(course_id, db)
-        cp = CourseProgress(
+
+
+def _get_course_progress(user_id: int, course_id: int, db: DBSession) -> CourseProgress:
+    """Fila de CourseProgress del usuario para el curso, creada lazy con defaults.
+
+    Tolera la creación concurrente: ver _tolerating_duplicates."""
+    cp = _lookup_course_progress(user_id, course_id, db)
+    if cp is not None:
+        return cp
+
+    slug = _get_course_slug(course_id, db)
+    with _tolerating_duplicates(db) as conflicto:
+        db.add(CourseProgress(
             user_id=user_id,
             course_id=course_id,
             iteration=1,
             active_cap=ACTIVE_CAP_DEFAULTS.get(slug, ACTIVE_CAP_DEFAULT_FALLBACK),
+            session_size=SESSION_SIZE_DEFAULT,
+        ))
+    # La fila tiene que quedar guardada sí o sí: /user/progress es de solo
+    # lectura y su sesión se cierra sin commitear, así que sin esto la creación
+    # se perdería en cada request.
+    db.commit()
+
+    cp = _lookup_course_progress(user_id, course_id, db)
+    if cp is None:
+        # El choque no fue por la fila que queríamos crear: es otro bug y
+        # taparlo lo dejaría invisible, como pasó con este.
+        raise conflicto.error or RuntimeError(
+            f"no se pudo crear course_progress (user={user_id}, course={course_id})"
         )
-        db.add(cp)
-        db.commit()
     return cp
 
 
@@ -723,15 +876,22 @@ def _fill_catchup_units(
     topics_with_units = {(r.belt, r.topic) for r in rows}
 
     today = user_today(db, user_id)
-    changed = False
-    for tk in topic_keys:
+    faltantes = [
+        (tk, et)
+        for tk in topic_keys
         # Solo rellenar temas que el usuario ya tocó: evita auto-desbloquear
         # temas nuevos (o keys renombradas) que quedan "atrás" en el catálogo.
-        if (tk.belt.value, tk.topic) not in topics_with_units:
-            continue
-        for et in sorted(types.get((tk.belt.value, tk.topic), [])):
-            if (tk.belt.value, tk.topic, et) in existing:
-                continue
+        if (tk.belt.value, tk.topic) in topics_with_units
+        for et in sorted(types.get((tk.belt.value, tk.topic), []))
+        if (tk.belt.value, tk.topic, et) not in existing
+    ]
+    if not faltantes:
+        return
+
+    # Si otra request del mismo usuario ya las creó, sus filas valen igual que
+    # las nuestras (ver _tolerating_duplicates).
+    with _tolerating_duplicates(db):
+        for tk, et in faltantes:
             db.add(UnitState(
                 user_id=user_id,
                 course_id=course_id,
@@ -747,9 +907,7 @@ def _fill_catchup_units(
                 attempted=False,
                 is_catchup=True,
             ))
-            changed = True
-    if changed:
-        db.commit()
+    db.commit()
 
 
 def _ensure_active_units(
@@ -791,7 +949,7 @@ def _ensure_active_units(
     if active >= cap:
         return
     seen_topics = {(r.belt, r.topic) for r in live}
-    changed = False
+    a_desbloquear = []
     for tk in _all_topic_keys(course_id, db):
         if active >= cap:
             break
@@ -802,11 +960,17 @@ def _ensure_active_units(
         # frenar (no saltearlo) para no desbloquear temas fuera de orden.
         if active + len(topic_types) > cap:
             break
-        _create_topic_units(user_id, course_id, tk, db, types=types)
+        a_desbloquear.append(tk)
         active += len(topic_types)
-        changed = True
-    if changed:
-        db.commit()
+    if not a_desbloquear:
+        return
+
+    # Desbloquear es idempotente: si otra request desbloqueó los mismos temas
+    # primero, la BD queda igual que si lo hubiéramos hecho nosotros.
+    with _tolerating_duplicates(db):
+        for tk in a_desbloquear:
+            _create_topic_units(user_id, course_id, tk, db, types=types)
+    db.commit()
 
 
 def _load_unit_states(
@@ -855,11 +1019,20 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
         config=SM2Config(max_session_exercises=course_progress.session_size),
     )
 
+    boost, garantizar = _table_boost(user_id, course_id, db)
     exclude_by_unit: dict[UnitKey, set[str]] = {}
-    exercises = [
-        _build_exercise(idx, su.key, course_id, db, user_id, exclude_by_unit)
-        for idx, su in enumerate(session_units)
-    ]
+    exercises = []
+    for idx, su in enumerate(session_units):
+        exercises.append(_build_exercise(
+            idx, su.key, course_id, db, user_id, exclude_by_unit,
+            table_boost=boost,
+            # La garantía es "el primer slot que pueda dar tabla la da": se
+            # apaga apenas se usa, así que un segundo ítem con tabla en el
+            # pool queda solo con el empuje de `boost`, no forzado también.
+            require_table=garantizar,
+        ))
+        if exercises[-1].table is not None:
+            garantizar = False
 
     db_session = SessionModel(
         user_id=user_id,
@@ -978,11 +1151,12 @@ def create_test_session_db(
     (belt, topic, exercise_type). No SR tracking.
 
     `items` is a list of {belt, topic, exercise_type} dicts.
-    `filters` may contain `has_math: bool` and `has_graph: bool` to narrow the
-    exercise set (both default to no-op).
+    `filters` may contain `has_math`, `has_graph` and `has_table` (bool) to
+    narrow the exercise set (all default to no-op).
     """
     only_math = bool(filters and filters.get("has_math"))
     only_graph = bool(filters and filters.get("has_graph"))
+    only_table = bool(filters and filters.get("has_table"))
 
     exercises: list[ExerciseInSession] = []
     idx = 0
@@ -1001,7 +1175,9 @@ def create_test_session_db(
                 continue
             if only_graph and not ex.get("graph_fn"):
                 continue
-            shuffled, new_correct_index, shuffled_feedback = _shuffle_options(ex)
+            if only_table and not ex.get("table"):
+                continue
+            shuffled, new_correct_index, shuffled_feedback, shuffled_table = _shuffle_options(ex)
             exercises.append(
                 ExerciseInSession(
                     exercise_id=f"ex_{idx:03d}",
@@ -1016,6 +1192,7 @@ def create_test_session_db(
                     graph_view=ex.get("graph_view"),
                     graph_shade=ex.get("graph_shade"),
                     graph_free_aspect=bool(ex.get("graph_free_aspect", False)),
+                    table=shuffled_table,
                     explanation=ex.get("explanation"),
                     external_id=ex.get("external_id", ""),
                 )
@@ -1522,6 +1699,9 @@ def get_summary_db(
         )
         if inactive_days > STREAK_RESET_AFTER_DAYS:
             user.streak_days = 0
+            # Quien pierde la racha y vuelve a llegar a un hito merece la
+            # felicitación de nuevo (ver lifecycle_emails.due_streak_tier_emails).
+            user.streak_email_sent_tier = None
         user.streak_days = (user.streak_days or 0) + 1
         user.streak_last_date = today
         streak_counted_today = True
@@ -1790,6 +1970,10 @@ def reset_course(user_id: int, course_id: int, db: DBSession) -> int:
     cp.iteration += 1
     slug = _get_course_slug(course_id, db)
     cp.active_cap = ACTIVE_CAP_DEFAULTS.get(slug, ACTIVE_CAP_DEFAULT_FALLBACK)
+    # El máximo de ejercicios por sesión también vuelve al default: si el
+    # usuario lo había subido para acelerar y ahora reinicia el curso, arranca
+    # de nuevo con el ritmo pensado para alguien que empieza.
+    cp.session_size = SESSION_SIZE_DEFAULT
     db.commit()
     return cp.iteration
 

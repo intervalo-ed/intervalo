@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_reglas_ESTR_01",
     "question": "Un restaurante arma un menú eligiendo una entrada entre 4 opciones y, después, un plato principal entre 6 opciones.\n\n¿Qué regla conviene usar para contar los menús posibles?",
     "options": [
       "Regla de la suma: son alternativas excluyentes.",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "white_reglas_ESTR_02",
     "question": "Una cerradura acepta como clave una sola letra minúscula del alfabeto español, que tiene 27 letras, o un solo dígito del 0 al 9.\n\nCada intento usa un único carácter.\n\n¿Qué regla conviene usar para contar la cantidad de claves posibles?",
     "options": [
       "Regla de la suma: son alternativas excluyentes.",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "white_reglas_ESTR_03",
     "question": "Para viajar de Rosario a Mendoza se puede pasar por Córdoba, con 3 rutas de Rosario a Córdoba y 2 rutas de Córdoba a Mendoza.\n\nComo alternativa, también existen 4 vuelos directos de Rosario a Mendoza.\n\n¿Qué regla conviene aplicar para contar el total de formas de viajar?",
     "options": [
       "Solo la regla de la suma.",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "white_reglas_ESTR_04",
     "question": "En una carrera de 5 atletas hay que determinar quién llega primero y quién llega segundo.\n\nUn mismo atleta no puede ocupar los dos puestos.\n\n¿Corresponde aplicar directamente la regla del producto o de la suma para contar los resultados posibles?",
     "options": [
       "No, hace falta elegir y ordenar un subconjunto, no solo aplicar producto o suma directos.",
@@ -90,6 +94,7 @@
     ]
   },
   {
+    "id": "white_reglas_ESTR_05",
     "question": "Un sistema pide crear una clave.\n\nLa clave combina una letra mayúscula de un alfabeto de 26 letras y, a continuación, un dígito del 0 al 9.\n\n¿Qué regla conviene usar para contar la cantidad de claves posibles?",
     "options": [
       "Regla del producto: son decisiones consecutivas.",
@@ -113,6 +118,7 @@
     ]
   },
   {
+    "id": "white_reglas_ESTR_06",
     "question": "Una patente se arma con una letra entre 20 disponibles y, después, un número de dos cifras entre 00 y 99.\n\n¿Qué regla conviene usar para contar la cantidad de patentes posibles?",
     "options": [
       "Regla de la suma: son alternativas excluyentes.",
@@ -136,6 +142,7 @@
     ]
   },
   {
+    "id": "white_reglas_ESTR_07",
     "question": "Un barco arma una señal izando primero una bandera entre 5 colores y después otra bandera entre 4 colores distintos.\n\n¿Qué regla conviene usar para contar la cantidad de señales posibles?",
     "options": [
       "Regla de la suma: son alternativas excluyentes.",
@@ -159,6 +166,7 @@
     ]
   },
   {
+    "id": "white_reglas_ESTR_08",
     "question": "Un diagrama de decisiones muestra un trayecto en dos etapas.\n\nPrimero hay que elegir entre 3 caminos de entrada y, después, entre 2 caminos de salida para cada uno de ellos.\n\n¿Qué regla conviene usar para contar el total de trayectos posibles?",
     "options": [
       "Regla del producto: son decisiones consecutivas.",
@@ -182,6 +190,7 @@
     ]
   },
   {
+    "id": "white_reglas_ESTR_09",
     "question": "Un restaurante de comida rápida ofrece dos tipos de menú.\n\nHay un menú de hamburguesa con 8 variantes o un menú vegetariano con 5 variantes, y cada cliente elige un solo menú.\n\n¿Qué regla conviene usar para contar las opciones de menú?",
     "options": [
       "Regla de la suma: son alternativas excluyentes.",
@@ -205,6 +214,7 @@
     ]
   },
   {
+    "id": "white_reglas_ESTR_10",
     "question": "Para llegar a un estadio hay 4 colectivos directos o 6 líneas de subte directas, y un hincha usa un solo medio de transporte.\n\n¿Qué regla conviene usar para contar las formas de llegar?",
     "options": [
       "Regla del producto: son decisiones consecutivas.",
@@ -228,6 +238,7 @@
     ]
   },
   {
+    "id": "white_reglas_ESTR_11",
     "question": "Una patente de moto usa un solo carácter.\n\nEse carácter puede ser una letra entre 24 disponibles o un dígito entre 10, nunca los dos a la vez.\n\n¿Qué regla conviene usar para contar los caracteres posibles?",
     "options": [
       "Regla del producto: son decisiones consecutivas.",
@@ -251,6 +262,7 @@
     ]
   },
   {
+    "id": "white_reglas_ESTR_12",
     "question": "Un restaurante arma un combo con una entrada entre 3 y un postre entre 2, o vende 5 platos únicos que ya incluyen todo sin combo.\n\n¿Qué regla conviene aplicar para contar el total de opciones para comer?",
     "options": [
       "Solo la regla de la suma.",
@@ -274,6 +286,7 @@
     ]
   },
   {
+    "id": "white_reglas_ESTR_13",
     "question": "Una clave puede ser una letra entre 4 vocales seguida de un dígito entre 10.\n\nComo alternativa, también puede ser directamente un código de 2 dígitos entre 00 y 99 sin letra.\n\n¿Qué regla conviene aplicar para contar la cantidad de claves posibles?",
     "options": [
       "Producto y suma combinados.",
@@ -297,6 +310,7 @@
     ]
   },
   {
+    "id": "white_reglas_ESTR_14",
     "question": "Una señal se arma izando una bandera entre 3 colores seguida de otra entre 2 colores.\n\nComo alternativa, se puede mostrar directamente una de 4 luces intermitentes sin bandera.\n\n¿Qué regla conviene aplicar para contar el total de señales posibles?",
     "options": [
       "Solo la regla de la suma.",
@@ -320,24 +334,73 @@
     ]
   },
   {
-    "question": "Un concurso de fotografía tiene 6 participantes.\n\nHay que asignar el primer y el segundo premio, sin que un mismo participante gane los dos.\n\n¿Corresponde aplicar directamente la regla del producto o de la suma para contar los resultados posibles?",
+    "id": "white_reglas_ESTR_15",
+    "question": "Un club tiene 8 socios disponibles para armar una comisión de 3 integrantes, sin diferenciar roles entre ellos.\n\n¿Corresponde aplicar directamente la regla del producto o de la suma para contar las comisiones posibles?",
     "options": [
-      "No, hace falta elegir y ordenar un subconjunto, no solo aplicar producto o suma directos.",
-      "Sí, regla del producto: cada premio es una decisión independiente con las mismas 6 opciones."
+      "Sí, regla del producto: cada lugar de la comisión es una decisión independiente con las mismas 8 opciones.",
+      "No, hace falta elegir un subconjunto sin reposición, no solo aplicar producto o suma directos."
     ],
-    "correct_index": 0,
-    "feedback_correct": "Elegir y ordenar un subconjunto de participantes requiere una herramienta más específica que el producto o la suma directos.",
+    "correct_index": 1,
+    "feedback_correct": "Elegir un subconjunto sin que importen los roles requiere una herramienta más específica que el producto o la suma directos.",
     "feedback_incorrect": [
-      null,
-      "Tratar cada premio como independiente con las mismas opciones ignora que un participante que ya ganó el primer premio no puede ganar también el segundo."
+      "Tratar cada lugar como independiente con las mismas opciones cuenta cada comisión varias veces, una por cada orden en que pudo elegirse.",
+      null
     ],
-    "explanation": "El producto y la suma directos alcanzan cuando cada paso tiene sus propias opciones fijas o cuando se elige una única alternativa entre varias.\n\nAcá hay que elegir 2 participantes de los 6 y además importa cuál gana el primer premio y cuál el segundo, un subconjunto ordenado que ya no se resuelve con un producto de opciones fijas por paso.\n\nReconocer esta frontera es importante: cuando un mismo grupo de elementos se reparte en posiciones distintas sin reponer al elegido, hace falta una técnica más específica.\n\nEsa técnica no es la regla del producto ni la de la suma básicas.",
+    "explanation": "El producto y la suma directos alcanzan cuando cada paso tiene sus propias opciones fijas o cuando se elige una única alternativa entre varias.\n\nAcá hay que elegir un subconjunto de 3 socios entre 8, sin que importe quién quedó en qué lugar de la comisión.\n\nMultiplicar $8\\times7\\times6$ contaría cada comisión una vez por cada orden posible de elegir a sus integrantes, así que ese producto ya no alcanza.\n\nReconocer esta frontera es importante: cuando se elige un subconjunto sin reposición y sin distinguir roles, hace falta una técnica más específica.\n\nEsa técnica no es la regla del producto ni la de la suma básicas.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
     "tags": [
       "reconocer-fuera-de-alcance"
+    ]
+  },
+  {
+    "id": "white_reglas_ESTR_16",
+    "question": "Una fábrica arma cada pedido eligiendo un modelo entre 7 y, después, una terminación entre 3.\n\n¿Qué regla conviene usar para contar los pedidos posibles?",
+    "options": [
+      "Regla de la suma: son alternativas excluyentes.",
+      "Combinaciones: el orden no importa.",
+      "Regla del producto: son decisiones consecutivas."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Elegir modelo Y terminación son dos decisiones consecutivas: se multiplican.",
+    "feedback_incorrect": [
+      "No hay alternativas excluyentes acá: el pedido lleva modelo y también terminación, no uno u otra.",
+      "No se está eligiendo un subconjunto de un mismo conjunto, son dos decisiones distintas en secuencia.",
+      null
+    ],
+    "explanation": "La **regla del producto** aplica cuando el resultado se arma tomando una decisión por paso y todas las decisiones ocurren.\n\nAcá el pedido necesita un modelo entre 7 y además una terminación entre 3, así que cada modelo se combina con cada terminación.\n\nLa palabra que conecta los pasos es la que decide la regla.\n\nUn y encadena decisiones y multiplica; un o abre alternativas excluyentes y suma. La diferencia no está en los números sino en cómo está redactada la situación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-producto"
+    ]
+  },
+  {
+    "id": "white_reglas_ESTR_17",
+    "question": "Un taller arma un kit con una herramienta entre 6 y un estuche entre 3, o vende 7 kits ya armados que no admiten cambios.\n\n¿Qué regla conviene aplicar para contar el total de formas de comprar?",
+    "options": [
+      "Solo la regla de la suma.",
+      "Solo la regla del producto.",
+      "Producto y suma combinados."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El kit multiplica herramienta por estuche, y esa cantidad se suma con los kits ya armados.",
+    "feedback_incorrect": [
+      "La suma sola no alcanza: armar el kit son dos decisiones consecutivas, herramienta y estuche, que hay que multiplicar primero.",
+      "El producto solo no alcanza: los kits ya armados son una alternativa aparte, excluyente del kit que se arma, y esa parte se suma.",
+      null
+    ],
+    "explanation": "Cuando un problema mete una **regla del producto** adentro de una rama de una **regla de la suma**, primero se resuelve cada producto y después se suman las ramas excluyentes.\n\nEl kit armado a medida combina 6 herramientas con 3 estuches, y los 7 kits cerrados son una alternativa que no se combina con nada.\n\nEl error más caro acá no es equivocar una cuenta sino quedarse con media situación: resolver el producto y olvidar la rama que se suma, o al revés.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": [
+      "reconocer-combinada"
     ]
   }
 ]

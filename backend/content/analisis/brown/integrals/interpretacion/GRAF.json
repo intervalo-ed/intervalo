@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_interpretacion_GRAF_01",
     "question": "Un ciclista arranca detenido y va acelerando parejo.\n\nLa recta muestra su velocidad en metros por segundo, y el eje horizontal marca el tiempo en segundos.\n\n¿Qué cantidad representa el área sombreada?",
     "options": [
       "Los metros que recorrió en esos $4$ segundos",
@@ -24,6 +25,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_GRAF_02",
     "question": "A un tanque vacío le entra agua, cada vez más despacio.\n\nLa recta muestra el caudal de entrada en litros por minuto, y el eje horizontal marca el tiempo en minutos.\n\n¿Qué cantidad representa el área sombreada?",
     "options": [
       "El caudal promedio de esos $4$ minutos",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_GRAF_03",
     "question": "La recta muestra la velocidad de un ascensor en metros por segundo, con el tiempo en segundos.\n\nLos valores positivos son subida y los negativos, bajada. Las dos partes sombreadas tienen el mismo tamaño.\n\n¿Qué se puede afirmar del recorrido completo?",
     "options": [
       "El ascensor no se movió en ningún momento",
@@ -72,6 +75,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_GRAF_04",
     "question": "La recta muestra a qué ritmo cambia el agua de un tanque, en litros por minuto, con el tiempo en minutos.\n\nTodo el tramo sombreado queda por debajo del eje.\n\n¿Qué significa que el área quede completamente abajo?",
     "options": [
       "Que el tanque perdió agua durante todo el tramo",
@@ -96,6 +100,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_GRAF_05",
     "question": "Una aplicación descarga un archivo a velocidad constante.\n\nLa recta muestra esa velocidad en megabytes por segundo, con el tiempo en segundos.\n\n¿Qué representa el área sombreada?",
     "options": [
       "La velocidad de descarga promedio",
@@ -120,6 +125,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_GRAF_06",
     "question": "La recta muestra el caudal de una canilla en litros por segundo.\n\nEl eje horizontal marca el tiempo en segundos.\n\n¿En qué unidad queda el número que mide el área sombreada?",
     "options": [
       "En segundos, que es lo que dura",
@@ -144,6 +150,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_GRAF_07",
     "question": "La recta muestra la velocidad de un dron en metros por segundo, con el tiempo en segundos.\n\nLos valores positivos son avance y los negativos, retroceso. El área de arriba del eje es más grande que la de abajo.\n\n¿Qué se puede afirmar del recorrido?",
     "options": [
       "El dron terminó más adelante de donde arrancó",
@@ -168,6 +175,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_GRAF_08",
     "question": "Un tanque tenía $10$ litros antes de que se abriera la canilla.\n\nLa recta muestra el caudal de entrada en litros por minuto, con el tiempo en minutos.\n\n¿Qué representa el área sombreada?",
     "options": [
       "Los litros que hay en el tanque al final",
@@ -192,6 +200,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_GRAF_09",
     "question": "La recta muestra el caudal de entrada a una pileta en litros por minuto, con el tiempo en minutos.\n\nEl sombreado marca los últimos dos minutos del tramo.\n\n¿Cómo es esa área comparada con la de los dos primeros minutos?",
     "options": [
       "Menor, porque el tramo dura lo mismo",
@@ -216,6 +225,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_GRAF_10",
     "question": "La recta muestra el ritmo al que cambia el agua de un tanque, en litros por minuto, con el tiempo en minutos.\n\nEmpieza siendo negativo y en algún momento pasa a positivo.\n\n¿Cuándo tiene el tanque la menor cantidad de agua?",
     "options": [
       "Cuando la recta cruza el eje horizontal",
@@ -240,6 +250,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_GRAF_11",
     "question": "La recta muestra el caudal de una canilla en litros por minuto, con el tiempo en minutos, y va bajando.\n\nEl sombreado marca el primer minuto.\n\n¿Cómo es el agua acumulada ahí comparada con la del último minuto?",
     "options": [
       "Igual, porque los dos duran un minuto",
@@ -264,6 +275,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_GRAF_12",
     "question": "La recta muestra la velocidad de un carrito en metros por segundo, y los valores negativos son retroceso.\n\nLa parte sombreada de abajo del eje es más grande que la de arriba.\n\n¿Qué signo tiene el cambio total de posición?",
     "options": [
       "Cero, porque hay área de los dos lados",
@@ -288,6 +300,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_GRAF_13",
     "question": "La recta muestra el ritmo al que cambia el saldo de una cuenta, en pesos por día, con el tiempo en días.\n\nEl ritmo es negativo en todo el tramo, pero va subiendo.\n\n¿Qué le pasa al saldo durante ese tramo?",
     "options": [
       "Baja, aunque cada vez más despacio que antes",
@@ -312,6 +325,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_GRAF_14",
     "question": "La recta muestra la velocidad de un ascensor en metros por segundo, y los valores negativos son bajada.\n\nEl sombreado marca el primer tramo del recorrido.\n\n¿Cómo entra ese tramo en el cambio total de altura?",
     "options": [
       "Sin efecto, porque el ascensor pasa rápido",
@@ -336,6 +350,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_GRAF_15",
     "question": "La recta muestra a qué ritmo se llena un depósito, en litros por minuto, con el tiempo en minutos.\n\n¿Qué mide el alto de la recta y qué mide el área sombreada?",
     "options": [
       "Los dos lo mismo, uno en un instante y otro en el tramo",
@@ -360,6 +375,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_GRAF_16",
     "question": "Una manguera riega cada vez con menos presión.\n\nLa recta muestra su caudal en litros por minuto, con el tiempo en minutos.\n\nPara estimar el agua total, alguien congela el caudal en su valor inicial.\n\n¿Cómo queda esa estimación?",
     "options": [
       "Queda por encima de lo real",
@@ -384,6 +400,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_GRAF_17",
     "question": "Un colectivo acelera de a poco durante cuatro segundos.\n\nLa recta muestra su velocidad en metros por segundo, con el tiempo en segundos.\n\nPara estimar la distancia, alguien congela la velocidad en su valor inicial.\n\n¿Cómo queda esa estimación?",
     "options": [
       "Queda por encima de lo real",
@@ -408,6 +425,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_GRAF_18",
     "question": "Una cinta transportadora despacha cajas a un ritmo que no cambia.\n\nLa recta muestra ese ritmo en cajas por minuto, con el tiempo en minutos.\n\nPara estimar el total, alguien congela el ritmo en su valor inicial.\n\n¿Cómo queda esa estimación?",
     "options": [
       "Queda por encima de lo real",
@@ -432,6 +450,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_GRAF_19",
     "question": "Una estufa consume gas cada vez más despacio hasta apagarse.\n\nLa recta muestra el consumo en metros cúbicos por hora, con el tiempo en horas.\n\nEl gas total se estima congelando el consumo por tramos.\n\n¿Qué pasa si los tramos se hacen más cortos?",
     "options": [
       "Mejora, se achica la mentira de cada tramo",
@@ -456,6 +475,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_GRAF_20",
     "question": "Un surtidor carga nafta cada vez más lento hacia el final.\n\nLa recta muestra el caudal en litros por minuto, con el tiempo en minutos.\n\nPara estimar los litros, alguien congela el caudal en su valor final.\n\n¿Cómo queda esa estimación?",
     "options": [
       "Queda por encima de lo real",
@@ -480,6 +500,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_GRAF_21",
     "question": "Una panadería hornea cada vez más despacio, sin llegar a frenar.\n\nLa recta muestra el ritmo en kilos de pan por hora, con el tiempo en horas. Baja todo el tramo, pero sigue arriba del eje.\n\n¿Qué le pasa al pan acumulado?",
     "options": [
       "Baja, porque el ritmo viene bajando",
@@ -504,6 +525,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_GRAF_22",
     "question": "Un maratonista arranca trotando y termina a fondo.\n\nLa recta muestra su velocidad en kilómetros por hora, con el tiempo en horas.\n\n¿En qué momento la distancia acumulada crece más rápido?",
     "options": [
       "Al final del tramo, con la recta más alta",
@@ -528,6 +550,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_GRAF_23",
     "question": "Una descarga arranca a toda velocidad y se va frenando.\n\nLa recta muestra esa velocidad en megabytes por segundo, con el tiempo en segundos.\n\n¿En qué parte del tramo se suman más megabytes?",
     "options": [
       "Hacia el final, cuando ya se estabiliza",
@@ -552,6 +575,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_GRAF_24",
     "question": "El caudal neto de un dique pasa de positivo a negativo: primero entra agua y después sale.\n\nLa recta lo muestra en metros cúbicos por minuto, con el tiempo en minutos.\n\n¿Cuándo alcanza el agua embalsada su punto más alto?",
     "options": [
       "Al final del tramo, tras cinco minutos",
@@ -576,6 +600,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_GRAF_25",
     "question": "Un suero gotea a un ritmo que no cambia en todo el tramo.\n\nLa recta muestra ese ritmo en mililitros por minuto, con el tiempo en minutos.\n\n¿Cómo crece el líquido acumulado?",
     "options": [
       "Parejo, al mismo ritmo todo el tramo",

@@ -5,37 +5,38 @@ import { Button } from "@/components/ui/button"
 import { useSfx } from "@/lib/audio/useSfx"
 import { saveOnboarding } from "@/lib/onboarding/storage"
 import { cn } from "@/lib/utils"
+import ExerciseTable from "@/components/exercise-table"
 import MathText from "@/components/math-text"
 import {
   BELT_HEX,
   BELT_LEGEND_BAR_COLORS,
   BELT_ONDARK_VIVID,
   CATALOGS,
-  COURSE_LABEL,
   type BeltKey,
   type CourseId,
 } from "@/lib/catalog"
 import { useGridLayout } from "@/lib/latex-visual-length"
 import { ONBOARDING_UNIVERSITIES, UNIVERSITY_TAG_BY_KEY, canonicalUniversity, matchUniversities } from "@/lib/university-tags"
-import { ChevronLeft, LayersIcon, TargetIcon } from "lucide-react"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { CheckIcon, ChevronLeft, Info, LayersIcon, TargetIcon } from "lucide-react"
 import { useSignIn } from "@clerk/nextjs"
 import { useRouter } from "next/navigation"
 import posthog from "posthog-js"
 import { useEffect, useRef, useState } from "react"
+import { LegalSheet } from "./legal-sheet"
 
 export const CAREERS = [
   { value: "E", label: "Ingeniería", emoji: "⚙️" },
   { value: "S", label: "Ciencia", emoji: "🔬" },
   { value: "T", label: "Tecnología", emoji: "🤖" },
   { value: "M", label: "Matemática", emoji: "📐" },
-]
-
-// Pregunta de motivación (slide 2). El slug se persiste en la inscripción.
-const MOTIVATIONS = [
-  { value: "cursada", emoji: "📆", label: "Llevar la cursada al día." },
-  { value: "bases", emoji: "🏗️", label: "Reforzar mis bases." },
-  { value: "conceptos", emoji: "🧠", label: "Incorporar lo que ya aprendí." },
-  { value: "competir", emoji: "🤼", label: "Competir en el ranking." },
 ]
 
 // Selección de curso (slide 3). El value es el slug/CourseId; define el tutorial
@@ -57,6 +58,14 @@ export const UNIVERSITY_LOGOS: Partial<Record<string, string>> = {
   UNL: "/universities/unl.png",
 }
 
+// Tinte del panel de feedback del ejercicio de prueba. Va apilado sobre una base
+// opaca, ver el `style` de PinnedCTA: verde al acertar, naranja al errar. Mismos
+// colores que usa la sesión real (green-500 / orange-500 al 10%).
+const TINTE_FEEDBACK = {
+  ok: "rgba(34, 197, 94, 0.10)",
+  mal: "rgba(249, 115, 22, 0.10)",
+} as const
+
 type OnboardingExercise = {
   question: string
   options: string[]
@@ -66,6 +75,10 @@ type OnboardingExercise = {
   // error puntual de esa alternativa. `null` en el índice correcto.
   feedbackIncorrect: (string | null)[]
   explanation: string
+  // Tabla embebida en el enunciado, misma forma que el `table` del banco de
+  // ejercicios (ver exercise-table.tsx). La columna derivada se rellena con los
+  // valores de la opción confirmada, así el error se ve en vez de explicarse.
+  table?: Record<string, unknown>
 }
 
 // Ejercicio de prueba por curso (slide 5). Cada uno mapea al primer ítem real del
@@ -86,35 +99,73 @@ const ONBOARDING_EXERCISES: Record<CourseId, OnboardingExercise> = {
     explanation:
       "Evaluamos la función en $k = 3$:\n$$\\begin{aligned} C(3) &= 500 + 300 \\cdot 3 \\\\ &= 500 + 900 \\\\ &= 1400 \\end{aligned}$$\nEl viaje cuesta \\$1400.\n\nLa tarifa por kilómetro se multiplica primero por los kilómetros recorridos, y recién después se suma el fijo: son \\$900 de recorrido más \\$500 de bajada de bandera.",
   },
+  // Espejo de white_absolute_value_RESL_01 del banco (algebra/white/aritmetica).
+  // El anterior (reenvios, 2^2 * 2^3 = 2^x) se resolvia bien el 73% de las
+  // veces pero tardaba 188s: el distractor 32 es el valor de 2^5 y no el
+  // exponente, y ahi se traba. Este mide 83% al primer intento en 34s, casi
+  // igual que el de analisis, y sigue el mismo patron: situacion concreta,
+  // ecuacion servida y un solo paso. Las opciones son enteros, sin exponentes.
   algebra: {
     question:
-      "Un mensaje se reenvía y cada contacto lo manda a $2^2$ personas, que a su vez lo reenvían a $2^3$ personas más cada una.\n$$2^2 \\cdot 2^3 = 2^x$$\n¿Cuál es el valor de $x$?",
-    options: ["$5$", "$6$", "$32$", "$8$"],
+      "Una fábrica produce piezas de $50$ mm y el control de calidad aparta las que se desvían exactamente $3$ mm de esa medida.\n\nSi $x$ es la medida real de una pieza apartada, en mm:\n$$|x-50|=3$$\n¿Qué dos medidas puede tener?",
+    options: ["$53$ y $47$", "$53$", "$53$ y $-47$", "$56$ y $44$"],
     correctIndex: 0,
-    feedback: "Los exponentes se suman: $2^2 \\cdot 2^3 = 2^{2+3} = 2^5$.",
+    feedback:
+      "Las dos ramas de la ecuación dan $x=53$ y $x=47$: la pieza apartada mide 3 mm de más o 3 mm de menos.",
     feedbackIncorrect: [
       null,
-      "Ese resultado sale de multiplicar los exponentes ($2 \\times 3 = 6$) en vez de sumarlos.",
-      "Ese resultado es $2^5$, el valor final de la potencia, no el exponente $x$.",
-      "Ese resultado corresponde solo al segundo factor ($2^3$), sin tener en cuenta el primero.",
+      "Faltó la segunda rama: la ecuación también se cumple cuando $x-50$ es $-3$.",
+      "La medida real $x$ no puede ser negativa en este contexto; la segunda solución sale de $x-50=-3$, que da $x=47$.",
+      "Esos valores corresponden a un error de $6$ mm, no de $3$ mm como plantea el enunciado.",
     ],
     explanation:
-      "Una potencia encadena multiplicaciones:\n$$\\begin{aligned} 2^2 \\cdot 2^3 &= (2 \\cdot 2)(2 \\cdot 2 \\cdot 2) \\\\ &= 2^{2+3} \\\\ &= 2^5 \\end{aligned}$$\nPor eso los exponentes **se suman**: $x = 5$.\n\nCada ronda de reenvíos multiplica a la anterior, no la suma: los $2^2$ contactos del primer envío se convierten en $2^5$ personas recién después de que cada uno reenvía a $2^3$ más.",
+      "Una ecuación con valor absoluto igualado a un número positivo, $|A|=k$, equivale a dos ecuaciones sin barras:\n$$A=k \text{ o } A=-k$$\nTanto un número como su opuesto están a la misma distancia del cero, por eso valen las dos ramas.\n\nAcá se separan así:\n$$x-50=3 \text{ o } x-50=-3$$\nY despejando $x$ en cada una:\n$$x=53 \text{ o } x=47$$\nLa pieza mide 3 mm de más o 3 mm de menos que el nominal.\n\nPlantear solo el caso positivo pierde la segunda solución, que es igual de válida.",
   },
+  // Espejo de white_reglas_FORM_18 del banco (probabilidad/white/conteo/reglas).
+  // El anterior —"al menos una cara" en 2 tiros— pedía modelar el espacio
+  // muestral desde cero y solo el 18% lo sacaba al primer intento, contra 87% de
+  // análisis y 73% de álgebra. Los otros dos entregan el planteo y piden
+  // ejecutar un paso; este ahora hace lo mismo, con la tabla mostrando el patrón.
   probabilidad: {
     question:
-      "Tirás una moneda equilibrada 2 veces.\n\n¿Cuál es la probabilidad de sacar al menos una cara?",
-    options: ["$3/4$", "$1/2$", "$2/3$", "$1/4$"],
+      "Una heladería ofrece $n$ gustos y cada helado se sirve en 2 tamaños.\n\nLa tabla registra cuántos helados distintos se pueden pedir según la cantidad de gustos.\n\n¿Cuántos helados hay con $n$ gustos?",
+    options: ["$2n$", "$n+2$", "$n^{2}$"],
     correctIndex: 0,
-    feedback: "El único caso sin caras es cruz-cruz ($1/4$): $1 - 1/4 = 3/4$.",
+    feedback:
+      "Se elige gusto y además tamaño, así que cada gusto se abre en 2 helados posibles.",
     feedbackIncorrect: [
       null,
-      "Eso vale para un solo tiro. Con dos tiros hay más chances: solo te quedás sin caras si salen dos cruces seguidas.",
-      "Ese resultado sale de contar {ninguna, una, dos caras} como si fueran igual de probables — pero 'una cara' puede darse de dos maneras (cara-cruz y cruz-cara), y las otras de una sola.",
-      "Esa es la probabilidad de que no salga ninguna cara (cruz y cruz). Lo que buscás es justo lo contrario: $1 - 1/4$.",
+      "Sumar trata al tamaño como una alternativa aparte, y acá el pedido lleva gusto y además tamaño.",
+      "Elevar al cuadrado supone que los dos pasos tienen la misma cantidad de opciones, pero los tamaños son siempre 2.",
     ],
     explanation:
-      "Cada tiro tiene 2 resultados y las posibilidades se multiplican, así que hay $2 \\times 2 = 4$ resultados igual de probables:\n$$\\text{cara-cara}, \\quad \\text{cara-cruz}, \\quad \\text{cruz-cara}, \\quad \\text{cruz-cruz}$$\nEn 3 de los 4 aparece al menos una cara: la probabilidad es $3/4$.\n\nEl atajo: el único caso sin ninguna cara es cruz-cruz, con probabilidad $1/4$, y \"al menos una cara\" es exactamente lo contrario, así que $1 - 1/4 = 3/4$. Más alto que el $1/2$ de un tiro solo — cada tiro extra es una chance más.",
+      "La **regla del producto** multiplica las opciones de cada decisión cuando el resultado necesita todas.\n\nUn helado necesita un gusto entre $n$ y un tamaño entre 2:\n$$n \\times 2 = 2n$$\nPor eso cada gusto que se suma agrega 2 helados, y con 6 gustos habría 12.\n\nLos tamaños no crecen con los gustos: el 2 se queda fijo como factor y no aparece como exponente.",
+    table: {
+      columns: [
+        { icon: "🍦", label: "Gustos" },
+        { icon: "🍨", label: "Helados" },
+      ],
+      // Las tres filas concretas van reveladas y solo queda en blanco la de $n$:
+      // es el ejercicio de bienvenida, así que el patrón tiene que estar a la
+      // vista. Con 1, 2 y 3 visibles, una opción incorrecta se contradice con la
+      // tabla en dos filas y no en una — $n+2$ daría 3 donde dice 2 y 5 donde
+      // dice 6.
+      rows: [
+        ["$1$", "$2$"],
+        ["$2$", "$4$"],
+        ["$3$", "$6$"],
+        ["$n$", null],
+      ],
+      reveal: {
+        mode: "column",
+        col: 1,
+        by_option: [
+          { header: "$2n$", cells: ["$2$", "$4$", "$6$", "$2n$"] },
+          { header: "$n+2$", cells: ["$3$", "$4$", "$5$", "$n+2$"] },
+          { header: "$n^{2}$", cells: ["$1$", "$4$", "$9$", "$n^{2}$"] },
+        ],
+      },
+    },
   },
 }
 
@@ -132,6 +183,19 @@ function courseUnits(
       name: u.name,
       textColor: BELT_HEX[b.key as BeltKey].onDark,
       gridColor: BELT_ONDARK_VIVID[b.key as BeltKey],
+    })),
+  )
+}
+
+// Igual que courseUnits pero conservando lo que la slide de "¿cuáles ya viste?"
+// necesita y courseUnits descarta: la clave y la descripción.
+function courseUnitsFull(course: CourseId) {
+  return CATALOGS[course].belts.flatMap((b) =>
+    b.units.map((u) => ({
+      key: u.key,
+      name: u.name,
+      description: u.description,
+      textColor: BELT_HEX[b.key as BeltKey].onDark,
     })),
   )
 }
@@ -606,7 +670,9 @@ const STEP_NAMES: Record<number, string> = {
   [-1]: "intro",
   0: "nombre",
   1: "bienvenida",
-  2: "motivacion",
+  // 2 ("motivacion") quedó retirada: la respuesta no predecía nada de
+  // comportamiento y la pregunta costaba ~11% del embudo en esa posición. El
+  // índice queda reservado para que nadie lo reutilice y rompa el histórico.
   3: "curso",
   4: "unidades",
   5: "ejercicio",
@@ -616,23 +682,25 @@ const STEP_NAMES: Record<number, string> = {
   9: "carrera",
   10: "universidad",
   11: "registro",
+  12: "unidades-conozco",
 }
 
-const ONBOARDING_FLAG = "onboarding-orden-apodo"
+const ONBOARDING_FLAG = "onboarding-copy-bienvenida"
 
-// Orden de visita de las slides. Los índices siguen significando siempre la misma
-// slide (0 es el apodo en las dos variantes): lo único que cambia es en qué
-// posición se visitan. Así los `{step === N}`, el switch de PinnedCTA y STEP_NAMES
-// quedan intactos, y el embudo histórico de PostHog sigue siendo comparable.
-const ORDER_CONTROL = [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-// En test el apodo (0) cae justo antes de carrera (9): las tres preguntas
-// personales quedan juntas al final y las primeras ocho slides son puro valor.
-const ORDER_TEST = [-1, 1, 2, 3, 4, 5, 6, 7, 8, 0, 9, 10, 11]
+// Orden de visita de las slides. Los índices significan siempre la misma slide:
+// reordenar es cambiar este array, nunca renumerar. Así los `{step === N}`, el
+// switch de PinnedCTA y STEP_NAMES quedan intactos, y el embudo histórico de
+// PostHog sigue siendo comparable.
+//
+// El apodo (0) va sobre el final, junto a carrera y universidad: el A/B
+// anterior mostró que la misma pregunta cuesta 35% en la posición 2 y 0,6% en
+// la 10. Las preguntas personales van todas después del valor.
+const ORDER = [-1, 1, 3, 12, 4, 5, 6, 7, 8, 0, 9, 10, 11]
 
 type Variant = "control" | "test" | "unavailable"
 
-// `unavailable` = los flags no resolvieron (adblock, red caída). Esa gente corre
-// el orden de control, pero se marca distinto para poder sacarla del análisis en
+// `unavailable` = los flags no resolvieron (adblock, red caída). Esa gente ve el
+// copy de control, pero se marca distinto para poder sacarla del análisis en
 // vez de contaminar el brazo de control con gente que nunca fue sorteada.
 // Atajo para probar las dos variantes en local con `?variant=test`. Fuera de
 // desarrollo no existe, así que no hay forma de forzarse un brazo en producción
@@ -763,16 +831,12 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
   const [prevStep, setPrevStep] = useState(-1)
   const [direction, setDirection] = useState<1 | -1>(1)
   const variant = useOnboardingVariant()
-  const order = variant === "test" ? ORDER_TEST : ORDER_CONTROL
+  const order = ORDER
   const position = positionOf(step, order)
-  // Posición 0 es el intro, así que la 1 es la primera slide con la que el usuario
-  // interactúa: el apodo en control, la bienvenida en test. Es la que se lleva el
-  // botón de Google y la que no muestra la barra de progreso.
-  const isFirstContentSlide = position === 1
   const [introDone, setIntroDone] = useState(false)
   const [name, setName] = useState("")
-  const [motivation, setMotivation] = useState("")
   const [course, setCourse] = useState<CourseId | "">("")
+  const [knownUnits, setKnownUnits] = useState<string[]>([])
   const [exerciseSelection, setExerciseSelection] = useState<number | null>(null)
   const [exerciseCorrect, setExerciseCorrect] = useState<boolean | null>(null)
   const [wrongOptions, setWrongOptions] = useState<number[]>([])
@@ -783,6 +847,7 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
   const [showWhy, setShowWhy] = useState(false)
   const [authPending, setAuthPending] = useState(false)
   const [authError, setAuthError] = useState<string | null>(null)
+  const [legalOpen, setLegalOpen] = useState(false)
   const wrongResetRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [career, setCareer] = useState("")
   const [university, setUniversity] = useState("")
@@ -795,6 +860,7 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
   // uno; antes de elegir cae a analisis, pero esas slides van gateadas por course).
   const courseKey: CourseId = course || "analisis"
   const currentUnits = courseUnits(courseKey)
+  const currentUnitsFull = courseUnitsFull(courseKey)
   const exercise = ONBOARDING_EXERCISES[courseKey]
   const exerciseUseGrid = useGridLayout(exercise.options)
 
@@ -886,13 +952,18 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
     setStep(order[Math.max(position - 1, 1)])
   }
 
-  function handleMotivation(value: string) {
+  function toggleKnownUnit(key: string) {
     sfx.select()
-    setMotivation(value)
+    setKnownUnits((prev) =>
+      prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key],
+    )
   }
 
   function handleCourse(value: CourseId) {
     sfx.select()
+    // Las claves de unidad son propias de cada curso, así que lo marcado en el
+    // anterior no significa nada acá.
+    if (value !== course) setKnownUnits([])
     setCourse(value)
   }
 
@@ -1017,7 +1088,7 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
       career,
       university,
       course: courseKey,
-      motivation,
+      knownUnits,
       introItemCorrect: firstTryCorrect,
       // Intentos hasta acertar (el wizard exige acertar para avanzar, así que
       // siempre está definido cuando llegamos acá) y tiempo de respuesta.
@@ -1096,60 +1167,35 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
 
               {/* ── SLIDE 0: Nombre ── */}
               {step === 0 && (
-                <Slide0
-                  name={name}
-                  setName={setName}
-                  sfx={sfx}
-                  onNext={() => goNext()}
-                  onSignIn={signInFromShortcut}
-                  authReady={signIn !== null}
-                  authPending={authPending}
-                  authError={authError}
-                  hideSignIn={alreadySignedIn || !isFirstContentSlide}
-                  isFirstContentSlide={isFirstContentSlide}
-                />
+                <Slide0 name={name} setName={setName} sfx={sfx} onNext={() => goNext()} />
               )}
 
-              {/* ── SLIDE 1: Bienvenida ── */}
+              {/* ── SLIDE 1: Bienvenida (variable del A/B onboarding-copy-bienvenida) ── */}
               {step === 1 && (
                 <div className="flex flex-col gap-5">
-                  {/* En test esta slide va primera, así que todavía no hay nombre. */}
-                  <h2 className="text-2xl font-bold">{name ? `Hola, ${name}` : "¡Bienvenido!"}</h2>
+                  {/* Siempre es la primera slide, así que todavía no hay nombre. */}
+                  <h2 className="text-2xl font-bold">¡Bienvenido!</h2>
                   <div className="flex flex-col gap-3 leading-relaxed text-foreground/85">
                     <p>
                       <strong className="text-foreground">Intervalo</strong> está pensado para
                       acompañarte a repasar los contenidos{" "}
                       <strong className="text-foreground">durante y después</strong> de tu cursada.
                     </p>
-                    <p>
-                      Su propósito principal es <strong className="text-foreground">incentivarte</strong>{" "}
-                      a repasar todos los días los conceptos que{" "}
-                      <strong className="text-foreground">más necesitás reforzar</strong>.
-                    </p>
+                    {variant === "test" ? (
+                      <p>
+                        Su propósito principal es{" "}
+                        <strong className="text-foreground">incentivarte</strong> a repasar en vez
+                        de <strong className="text-foreground">scrolear</strong>.
+                      </p>
+                    ) : (
+                      <p>
+                        Su propósito principal es{" "}
+                        <strong className="text-foreground">incentivarte</strong> a repasar todos
+                        los días los conceptos que{" "}
+                        <strong className="text-foreground">más necesitás reforzar</strong>.
+                      </p>
+                    )}
                     <p>¿Arrancamos?</p>
-                  </div>
-                </div>
-              )}
-
-              {/* ── SLIDE 2: Motivación ── */}
-              {step === 2 && (
-                <div className="flex flex-col gap-5">
-                  <div className="flex flex-col gap-2 text-center">
-                    <h2 className="text-2xl font-bold">¿Qué te motiva?</h2>
-                    <p className="text-foreground/85">
-                      Marcá la que más te identifique.
-                    </p>
-                  </div>
-                  <div className="flex flex-col gap-2.5">
-                    {MOTIVATIONS.map((m) => (
-                      <ChoiceRow
-                        key={m.value}
-                        emoji={m.emoji}
-                        label={m.label}
-                        selected={motivation === m.value}
-                        onClick={() => handleMotivation(m.value)}
-                      />
-                    ))}
                   </div>
                 </div>
               )}
@@ -1158,9 +1204,9 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
               {step === 3 && (
                 <div className="flex flex-col gap-5">
                   <div className="flex flex-col gap-2 text-center">
-                    <h2 className="text-2xl font-bold">¿Por dónde empezamos?</h2>
+                    <h2 className="text-2xl font-bold">¿Por dónde arrancamos?</h2>
                     <p className="text-foreground/85">
-                      Podés probar los otros después.
+                      Podés probar los otros cursos después.
                     </p>
                   </div>
                   <div className="flex flex-col gap-2.5">
@@ -1177,14 +1223,39 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
                 </div>
               )}
 
-              {/* ── SLIDE 4: Curso + unidades ── */}
+              {/* ── SLIDE 12: Unidades conocidas ── */}
+              {step === 12 && (
+                <div className="flex flex-col gap-5">
+                  <div className="flex flex-col gap-2">
+                    <p className="leading-relaxed text-foreground/85">
+                      Este curso se divide en las siguientes{" "}
+                      <strong className="text-foreground">unidades</strong>. Marcá las que conozcas.
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-2.5">
+                    {currentUnitsFull.map((u) => (
+                      <KnownUnitRow
+                        key={u.key}
+                        unit={u}
+                        selected={knownUnits.includes(u.key)}
+                        onToggle={() => toggleKnownUnit(u.key)}
+                      />
+                    ))}
+                  </div>
+                  <p className="text-sm leading-snug text-foreground/60">
+                    Si recién arrancás, seguí de largo.
+                  </p>
+                </div>
+              )}
+
+              {/* ── SLIDE 4: Cómo se organiza el contenido ── */}
               {step === 4 && (
                 <div className="flex flex-col gap-6 pt-6">
-                  <h2 className="text-left text-2xl font-bold">{COURSE_LABEL[courseKey]}</h2>
                   <div className="flex flex-col gap-3 leading-relaxed text-foreground/85">
                     <p>
-                      Los contenidos de este curso se dividen en las siguientes{" "}
-                      <strong className="text-foreground">unidades correlativas</strong>:
+                      Las unidades son{" "}
+                      <strong className="text-foreground">correlativas</strong>. Cada una arranca
+                      donde termina la anterior.
                     </p>
                   </div>
                   <UnitSegmentedBar units={currentUnits} />
@@ -1206,6 +1277,25 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
                   <div className="text-base leading-snug">
                     <MathText text={exercise.question} />
                   </div>
+                  {exercise.table && (
+                    <ExerciseTable
+                      table={exercise.table}
+                      revealIndex={
+                        exerciseCorrect === true
+                          ? exercise.correctIndex
+                          : wrongOptions.length > 0
+                            ? wrongOptions[wrongOptions.length - 1]
+                            : null
+                      }
+                      tone={
+                        exerciseCorrect !== true
+                          ? "wrong"
+                          : wrongOptions.length > 0
+                            ? "retry"
+                            : "correct"
+                      }
+                    />
+                  )}
                   <div className={exerciseUseGrid ? "grid grid-cols-2 gap-2" : "flex flex-col gap-2"}>
                     {exercise.options.map((opt, i) => {
                       const isSelected = exerciseSelection === i
@@ -1474,6 +1564,18 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
                     </Button>
                   )}
                   {authError && <p className="text-sm text-red-500">{authError}</p>}
+                  {/* Sin checkbox ni letra chica: crear la cuenta ES aceptar el
+                      trato (los términos lo dicen). La pregunta abre el panel
+                      con la política sin sacar al usuario del wizard. */}
+                  {!alreadySignedIn && (
+                    <button
+                      type="button"
+                      onClick={() => setLegalOpen(true)}
+                      className="text-xs leading-relaxed text-foreground/45 underline underline-offset-2 transition-colors hover:text-foreground/70"
+                    >
+                      ¿Qué pasa con mis datos?
+                    </button>
+                  )}
                 </div>
               )}
               </>
@@ -1486,7 +1588,6 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
         step={step}
         showOther={showOther}
         universityOther={universityOther}
-        motivation={motivation}
         course={course}
         career={career}
         university={university}
@@ -1500,7 +1601,6 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
         goNext={goNext}
         confirmOther={confirmOther}
         onRevisar={onRevisar}
-        isFirstContentSlide={isFirstContentSlide}
         direction={direction}
         name={name}
         onSignIn={signInFromShortcut}
@@ -1509,6 +1609,7 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
         authError={authError}
         hideSignIn={alreadySignedIn}
       />
+      <LegalSheet open={legalOpen} onOpenChange={setLegalOpen} />
     </main>
   )
 }
@@ -1517,7 +1618,6 @@ function PinnedCTA({
   step,
   showOther,
   universityOther,
-  motivation,
   course,
   career,
   university,
@@ -1531,7 +1631,6 @@ function PinnedCTA({
   goNext,
   confirmOther,
   onRevisar,
-  isFirstContentSlide,
   direction,
   name,
   onSignIn,
@@ -1543,7 +1642,6 @@ function PinnedCTA({
   step: number
   showOther: boolean
   universityOther: string
-  motivation: string
   course: CourseId | ""
   career: string
   university: string
@@ -1557,7 +1655,6 @@ function PinnedCTA({
   goNext: () => void
   confirmOther: () => void
   onRevisar: () => void
-  isFirstContentSlide: boolean
   direction: 1 | -1
   name: string
   onSignIn: () => void
@@ -1583,10 +1680,7 @@ function PinnedCTA({
   let content: React.ReactNode = null
 
   switch (step) {
-    // Solo cuando el apodo cae en el medio del wizard (test). Abriendo el wizard
-    // (control) los botones van dentro de la slide, centrados, y acá no va nada.
     case 0:
-      if (isFirstContentSlide) return null
       content = (
         <Button
           size="lg"
@@ -1598,12 +1692,12 @@ function PinnedCTA({
         </Button>
       )
       break
-    // En test la bienvenida abre el wizard, así que se lleva la salida para
-    // quien ya tiene cuenta (en control vive en la slide del apodo).
+    // La bienvenida abre el wizard, así que se lleva la salida para quien ya
+    // tiene cuenta.
     case 1:
       content = (
         <div className="flex flex-col gap-2">
-          {isFirstContentSlide && !hideSignIn && (
+          {!hideSignIn && (
             <Button
               variant="outline"
               size="lg"
@@ -1618,7 +1712,7 @@ function PinnedCTA({
           <Button size="lg" className={ctaCls} onClick={() => { sfx.continue(); goNext() }}>
             Continuar
           </Button>
-          {isFirstContentSlide && authError && (
+          {authError && (
             <p className="text-center text-sm text-red-500">{authError}</p>
           )}
         </div>
@@ -1640,9 +1734,10 @@ function PinnedCTA({
         </Button>
       )
       break
-    case 2:
+    // Marcar unidades conocidas es opcional: el CTA nunca se deshabilita.
+    case 12:
       content = (
-        <Button size="lg" className={ctaCls} disabled={!motivation} onClick={() => { sfx.continue(); goNext() }}>
+        <Button size="lg" className={ctaCls} onClick={() => { sfx.continue(); goNext() }}>
           Continuar
         </Button>
       )
@@ -1687,14 +1782,27 @@ function PinnedCTA({
   if (step === 5) {
     return (
       <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center pointer-events-none">
-        <div className={cn(
-          "w-full max-w-md pointer-events-auto px-4 pb-[var(--cta-pb)] transition-colors duration-300",
-          exerciseCorrect === true
-            ? "border-t border-green-500/40 bg-green-500/10 pt-0"
-            : exerciseCorrect === false
-            ? "border-t border-orange-500/40 bg-orange-500/10 pt-0"
-            : "bg-gradient-to-t from-background via-background/90 to-transparent pt-[var(--cta-pt)]",
-        )}>
+        <div
+          className={cn(
+            "w-full max-w-md pointer-events-auto px-4 pb-[var(--cta-pb)] transition-colors duration-300",
+            exerciseCorrect === true
+              ? "border-t border-green-500/40 bg-background pt-0"
+              : exerciseCorrect === false
+              ? "border-t border-orange-500/40 bg-background pt-0"
+              : "bg-gradient-to-t from-background via-background/90 to-transparent pt-[var(--cta-pt)]",
+          )}
+          // El tinte va apilado sobre la base opaca de arriba, o las opciones de
+          // atrás se leen a través del panel. La base va por clase y el tinte por
+          // style a propósito: si los dos fueran clases, tailwind-merge los ve
+          // como el mismo grupo `bg-*` y descarta uno.
+          style={
+            exerciseCorrect === null
+              ? undefined
+              : {
+                  backgroundImage: `linear-gradient(${TINTE_FEEDBACK[exerciseCorrect ? "ok" : "mal"]}, ${TINTE_FEEDBACK[exerciseCorrect ? "ok" : "mal"]})`,
+                }
+          }
+        >
           <AnimatePresence>
             {exerciseCorrect === true && (
               <motion.div
@@ -1756,11 +1864,11 @@ function PinnedCTA({
   }
 
   // La barra fija vive fuera del AnimatePresence de las slides, así que su
-  // contenido aparece de golpe. En la slide que abre el wizard se nota, porque el
-  // texto entra deslizándose y los botones no: ahí los acompañamos con la misma
-  // curva y duración que usa slideVariants. En el resto del wizard queda como
-  // estaba — el CTA ya está en pantalla y no tiene que volver a entrar.
-  if (isFirstContentSlide) {
+  // contenido aparece de golpe. En la bienvenida, que abre el wizard, se nota
+  // porque el texto entra deslizándose y los botones no: ahí los acompañamos con
+  // la misma curva y duración que usa slideVariants. En el resto del wizard queda
+  // como estaba — el CTA ya está en pantalla y no tiene que volver a entrar.
+  if (step === 1) {
     return (
       <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center px-4 pt-[var(--cta-pt)] pb-[var(--cta-pb)] bg-gradient-to-t from-background via-background/90 to-transparent pointer-events-none">
         <div className="w-full max-w-md pointer-events-auto overflow-hidden">
@@ -1790,23 +1898,11 @@ function Slide0({
   setName,
   sfx,
   onNext,
-  onSignIn,
-  authReady,
-  authPending,
-  authError,
-  hideSignIn,
-  isFirstContentSlide,
 }: {
   name: string
   setName: (v: string) => void
   sfx: ReturnType<typeof useSfx>
   onNext: () => void
-  onSignIn: () => void
-  authReady: boolean
-  authPending: boolean
-  authError: string | null
-  hideSignIn: boolean
-  isFirstContentSlide: boolean
 }) {
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -1833,57 +1929,16 @@ function Slide0({
     />
   )
 
-  // Cuando el apodo cae en el medio del wizard (test) es una pregunta más: mismo
-  // formato de título y bajada que carrera o motivación, y el Continuar en la
-  // barra de abajo como el resto — lo pone PinnedCTA.
-  if (!isFirstContentSlide) {
-    return (
-      <div className="flex flex-col gap-5">
-        <div className="flex flex-col gap-2 text-center">
-          <h2 className="text-2xl font-bold">¿Cómo te llamás?</h2>
-          <p className="text-foreground/85">Puede ser tu nombre o el apodo que prefieras.</p>
-        </div>
-        {input}
-      </div>
-    )
-  }
-
-  // Abriendo el wizard, en cambio, es una pantalla de bienvenida: saludo grande,
-  // todo centrado en el alto y los botones ahí mismo.
+  // El apodo es una pregunta más, sobre el final: mismo formato de título y
+  // bajada que carrera o universidad, y el Continuar en la barra de abajo como el
+  // resto — lo pone PinnedCTA.
   return (
-    <div className="flex-1 w-full flex flex-col">
-      <motion.div
-        className="flex flex-1 flex-col justify-center gap-7 pt-[16vh]"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-      >
-        <div className="flex flex-col gap-2 text-center">
-          <h2 className="text-3xl font-bold">¡Hola!</h2>
-          <p className="text-lg text-foreground/70">¿Cómo te llamás?</p>
-        </div>
-
-        {input}
-
-        <div className="flex flex-col gap-2">
-          <Button size="lg" className="h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black" disabled={!name.trim()} onClick={handleContinue}>
-            Continuar
-          </Button>
-          {!hideSignIn && (
-            <Button
-              variant="outline"
-              size="lg"
-              className="h-12 w-full rounded-md gap-2"
-              disabled={!authReady || authPending}
-              onClick={onSignIn}
-            >
-              <GoogleIcon className="size-5" />
-              {authPending ? "Conectando..." : "Ya tengo una cuenta"}
-            </Button>
-          )}
-          {authError && <p className="text-center text-sm text-red-500">{authError}</p>}
-        </div>
-      </motion.div>
+    <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-2 text-center">
+        <h2 className="text-2xl font-bold">¿Cómo te llamás?</h2>
+        <p className="text-foreground/85">Puede ser tu nombre o el apodo que prefieras.</p>
+      </div>
+      {input}
     </div>
   )
 }
@@ -1962,6 +2017,66 @@ export function OptionButton({
 
 // Fila de selección con emoji + label (+ bajada opcional). Usada por las slides de
 // motivación y curso.
+// Fila de la slide "¿cuáles ya viste?". No reusa ChoiceRow porque necesita dos
+// zonas táctiles independientes (marcar y abrir el detalle), y ChoiceRow es un
+// solo <button> — un botón adentro de otro no es HTML válido.
+function KnownUnitRow({
+  unit,
+  selected,
+  onToggle,
+}: {
+  unit: ReturnType<typeof courseUnitsFull>[number]
+  selected: boolean
+  onToggle: () => void
+}) {
+  return (
+    <div
+      className={cn(
+        "flex items-center rounded-md border bg-white/5 transition-colors",
+        selected ? "border-[#7e80f7]" : "border-white/10",
+      )}
+    >
+      <button
+        onClick={onToggle}
+        aria-pressed={selected}
+        className="flex flex-1 items-center gap-3 px-4 py-3.5 text-left"
+      >
+        <span
+          className={cn(
+            "flex size-5 shrink-0 items-center justify-center rounded-sm border transition-colors",
+            selected ? "border-[#7e80f7] bg-[#7e80f7]" : "border-white/25",
+          )}
+        >
+          {selected && <CheckIcon className="size-3.5 text-black" />}
+        </span>
+        <span className="font-medium" style={{ color: unit.textColor }}>
+          {unit.name}
+        </span>
+      </button>
+      <Dialog>
+        <DialogTrigger
+          aria-label={`Qué hay en ${unit.name}`}
+          className="px-4 py-3.5 text-foreground/40 outline-none transition-colors hover:text-foreground/70"
+        >
+          <Info className="size-4" />
+        </DialogTrigger>
+        <DialogContent className="max-h-[80vh] overflow-y-auto">
+          <DialogHeader className="gap-2">
+            <DialogTitle className="font-sans text-base font-semibold" style={{ color: unit.textColor }}>
+              {unit.name}
+            </DialogTitle>
+            {unit.description && (
+              <DialogDescription className="whitespace-pre-line text-left text-sm leading-relaxed text-foreground/80">
+                <MathText text={unit.description} />
+              </DialogDescription>
+            )}
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+    </div>
+  )
+}
+
 function ChoiceRow({
   emoji,
   label,

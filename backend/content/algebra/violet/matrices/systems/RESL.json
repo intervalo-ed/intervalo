@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_systems_RESL_01",
     "question": "Entre dos cajas hay $12$ tornillos, y la primera tiene el doble que la segunda.\n\n¿Cuántos tornillos hay en cada caja?",
     "options": [
       "$(8, 4)$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "violet_systems_RESL_02",
     "question": "Entre dos cajas hay $15$ tornillos, y la primera tiene $3$ más que la segunda.\n\n¿Cuántos tornillos hay en cada caja?",
     "options": [
       "$(7{,}5, 7{,}5)$",
@@ -52,6 +54,7 @@
     ]
   },
   {
+    "id": "violet_systems_RESL_03",
     "question": "Dos productos cuestan $40$ pesos en total, y el primero cuesta el triple que el segundo.\n\n¿Cuánto cuesta cada uno?",
     "options": [
       "$(10, 30)$",
@@ -79,6 +82,7 @@
     ]
   },
   {
+    "id": "violet_systems_RESL_04",
     "question": "Una mezcla de $24$ litros combina dos líquidos, y del primero hay el doble que del segundo.\n\n¿Cuántos litros hay de cada uno?",
     "options": [
       "$(16, 8)$",
@@ -106,6 +110,7 @@
     ]
   },
   {
+    "id": "violet_systems_RESL_05",
     "question": "Dos turnos producen $50$ unidades en total, y el segundo produce $10$ menos que el primero.\n\n¿Cuántas unidades produce cada uno?",
     "options": [
       "$(25, 15)$",
@@ -133,6 +138,7 @@
     ]
   },
   {
+    "id": "violet_systems_RESL_06",
     "question": "Un sistema de dos ecuaciones con dos incógnitas tiene esta matriz de coeficientes:\n$$\\begin{pmatrix} 1 & 2 \\\\ 3 & k \\end{pmatrix}$$\n¿Para qué valor de $k$ el sistema deja de tener solución única?",
     "options": [
       "$6$",
@@ -158,6 +164,7 @@
     ]
   },
   {
+    "id": "violet_systems_RESL_07",
     "question": "Un sistema de dos ecuaciones con dos incógnitas tiene esta matriz de coeficientes.\n$$\\begin{pmatrix} 2 & 3 \\\\ 4 & k \\end{pmatrix}$$\n¿Para qué valor del parámetro deja de tener solución única?",
     "options": [
       "$3$",
@@ -185,6 +192,7 @@
     ]
   },
   {
+    "id": "violet_systems_RESL_08",
     "question": "Los coeficientes de un sistema de ecuaciones dependen de un parámetro.\n$$\\begin{pmatrix} k & 5 \\\\ 3 & 6 \\end{pmatrix}$$\n¿Para qué valor del parámetro deja de tener solución única?",
     "options": [
       "$\\tfrac{2}{5}$",
@@ -212,6 +220,7 @@
     ]
   },
   {
+    "id": "violet_systems_RESL_09",
     "question": "Un parámetro aparece dos veces entre los coeficientes de un sistema de ecuaciones.\n$$\\begin{pmatrix} 1 & k \\\\ k & 4 \\end{pmatrix}$$\n¿Para qué valores del parámetro deja de tener solución única?",
     "options": [
       "$2$ y $-2$",
@@ -239,6 +248,7 @@
     ]
   },
   {
+    "id": "violet_systems_RESL_10",
     "question": "Los coeficientes de un sistema de ecuaciones incluyen un parámetro sin fijar.\n$$\\begin{pmatrix} 3 & k \\\\ 1 & 2 \\end{pmatrix}$$\n¿Para qué valores del parámetro **sí** tiene solución única?",
     "options": [
       "Todos los reales salvo $0$",
@@ -266,6 +276,7 @@
     ]
   },
   {
+    "id": "violet_systems_RESL_11",
     "question": "Toda solución de un sistema de ecuaciones se obtiene sumándole algo a una solución ya conocida.\n\nEse algo tiene que resolver el mismo sistema, pero con los términos independientes en cero.\n\nDos ternas distintas verifican un sistema:\n$$(1, 3, -1), \\quad (0, 1, 2)$$\n¿Cuál de estas otras ternas también lo verifica?",
     "options": [
       "$(2, 5, -4)$",
@@ -291,6 +302,7 @@
     ]
   },
   {
+    "id": "violet_systems_RESL_12",
     "question": "Toda solución de un sistema de ecuaciones se obtiene sumándole a una conocida algo que resuelva el sistema homogéneo asociado.\n$$X = X_{p} + X_{h}$$\nUna solución conocida es $(3,1)$ y el homogéneo admite $(2,-2)$.\n\n¿Cuál es otra solución del sistema?",
     "options": [
       "$(2, -2)$",
@@ -318,6 +330,7 @@
     ]
   },
   {
+    "id": "violet_systems_RESL_13",
     "question": "Toda solución de un sistema de ecuaciones se obtiene sumándole a una conocida algo que resuelva el sistema homogéneo asociado.\n$$X = X_{p} + X_{h}$$\nUna solución conocida es $(1,4)$ y el homogéneo admite $(3,-1)$.\n\n¿Cuál de estos también es solución del sistema?",
     "options": [
       "$(4, 4)$",
@@ -345,6 +358,7 @@
     ]
   },
   {
+    "id": "violet_systems_RESL_14",
     "question": "Un sistema de ecuaciones homogéneo admite la solución $(2,-3)$ además de la trivial.\n$$AX = 0$$\n¿Cuál de estos también resuelve ese sistema homogéneo?",
     "options": [
       "$(-4, 6)$",
@@ -372,6 +386,7 @@
     ]
   },
   {
+    "id": "violet_systems_RESL_15",
     "question": "Dos soluciones distintas de un mismo sistema de ecuaciones se conocen de antemano.\n$$X_{1} = (5,2), \\quad X_{2} = (8,0)$$\n¿Qué resuelve la diferencia entre las dos?",
     "options": [
       "Un sistema con el lado derecho duplicado",

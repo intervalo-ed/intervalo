@@ -76,6 +76,38 @@ class User(Base):
     email_unsubscribed = Column(Boolean, nullable=False, default=False, server_default="false")
     bounce_email_sent_at = Column(DateTime, nullable=True)
     winback_email_sent_at = Column(DateTime, nullable=True)
+    # Último hito de multiplicador ya felicitado por email (3/9/18/30/45 días).
+    # Se compara contra el tier derivado de streak_days: mayor ⇒ hay mail
+    # pendiente. Se limpia al resetear la racha, así quien la pierde y vuelve a
+    # llegar recibe la felicitación de nuevo. `sent_at` es observabilidad.
+    streak_email_sent_tier = Column(Integer, nullable=True)
+    streak_email_sent_at = Column(DateTime, nullable=True)
+
+    # ¿Llegó alguna vez al home? Lo marca `/user/progress`, que es el endpoint
+    # que el home llama en cada carga. Es el escalón del embudo entre "completó
+    # el onboarding" y "arrancó una sesión": separa a quien se quedó trabado en
+    # la autenticación de quien llegó a la app y no tocó «empezar» — dos
+    # problemas con soluciones distintas.
+    #
+    # Booleano y no timestamp a propósito. La columna se creó el 24/08 y hubo
+    # que rellenar el pasado; un `first_home_at` con fechas inventadas para los
+    # usuarios viejos sería una bomba para cualquier análisis temporal futuro.
+    # El hecho se puede reconstruir, el momento no.
+    reached_home = Column(Boolean, nullable=False, default=False, server_default="false")
+
+    # Atribución de primer contacto: por qué grupo de WhatsApp llegó la persona
+    # ("uba042") y su prefijo de universidad ("uba"). Lo manda el cliente al
+    # completar el onboarding, desde lo que capturó al aterrizar (ver
+    # web/src/lib/analytics/attribution.ts).
+    #
+    # Se escriben UNA sola vez, solo si están en NULL (ver enroll_user): gana el
+    # primer contacto, igual que el register_once del cliente. Si alguien vuelve
+    # a entrar por otro link, no se le pisa el origen real.
+    #
+    # NULL es esperable en dos casos: usuarios anteriores a la columna, y quien
+    # llegó sin `?g=` (link directo, boca a boca).
+    first_group_id = Column(String(20), nullable=True, index=True)
+    first_utm_source = Column(String(20), nullable=True)
 
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -114,7 +146,13 @@ class Enrollment(Base):
     course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
     university = Column(String(100), nullable=True)
     career = Column(String(200), nullable=True)
+    # Retirada del onboarding (la respuesta no predecía comportamiento). Se
+    # conserva por los valores históricos; en altas nuevas queda NULL.
     motivation = Column(String(50), nullable=True)
+    # Unidades que la persona declaró conocer en el onboarding, claves del
+    # catálogo separadas por coma ("functions,limits"). Declarativo: no altera
+    # el plan de estudio ni el estado inicial de SM-2.
+    known_units = Column(String(100), nullable=True)
     enrolled_at = Column(DateTime, default=datetime.utcnow)
 
     __table_args__ = (UniqueConstraint("user_id", "course_id", name="unique_user_course"),)
@@ -137,7 +175,7 @@ class CourseProgress(Base):
     iteration = Column(Integer, nullable=False, default=1, server_default="1")
     active_cap = Column(Integer, nullable=False, default=18, server_default="18")
     # Máximo de ejercicios por sesión de repaso (config del editor).
-    session_size = Column(Integer, nullable=False, default=8, server_default="8")
+    session_size = Column(Integer, nullable=False, default=5, server_default="5")
 
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -374,6 +412,11 @@ class Exercise(Base):
     # authoring-context.md sección Gráficos); ausente/false = comportamiento
     # actual sin cambios.
     graph_free_aspect = Column(Boolean, nullable=True)
+    # Tabla de datos embebida en el enunciado, serializada como JSON (columnas,
+    # filas y la columna que pinta cada opción). Ver authoring-context.md,
+    # sección Tablas. Se llama table_data y no table para no confundirse con el
+    # __table__ de SQLAlchemy; en el JSON de autoría y en la API es "table".
+    table_data = Column(Text, nullable=True)
     explanation = Column(Text, nullable=True)
     tags = Column(Text, nullable=True)
     # Estado editorial del contenido (viene del JSON de autoría, ver
@@ -420,8 +463,8 @@ class Feedback(Base):
 
 
 class ExerciseFeedback(Base):
-    """Micro-encuesta post-ejercicio (dificultad/explicación) y reporte de
-    problemas de contenido. `exercise_external_id` es la clave real del
+    """Micro-encuesta post-ejercicio (dificultad/explicación/interés) y reporte
+    de problemas de contenido. `exercise_external_id` es la clave real del
     ejercicio (Exercise.external_id), no el slot de sesión (Answer.exercise_id),
     para poder agregar respuestas del mismo ítem entre sesiones/usuarios.
     `answered_at` NULL = impression mostrada pero no respondida (skip),
@@ -434,17 +477,32 @@ class ExerciseFeedback(Base):
     course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
     exercise_external_id = Column(String(100), nullable=False)
 
-    question_type = Column(String(1), nullable=False)  # "A" | "B" | "C"
-    value = Column(String(30), nullable=True)  # muy_facil|justo|muy_dificil / util|no_util / categoría de reporte
+    question_type = Column(String(1), nullable=False)  # "A" | "B" | "C" | "D"
+    # A: muy_facil|justo|muy_dificil — B: util|no_util — C: categoría de reporte
+    # D: aburrido|justo|interesante
+    # OJO: "justo" existe en A (la dificultad estuvo bien) y en D (ni aburrido ni
+    # interesante). Son cosas distintas: agrupar por `value` sin filtrar
+    # `question_type` da un número plausible y falso.
+    value = Column(String(30), nullable=True)
     free_text = Column(Text, nullable=True)
+    # Canal D: chip de razón, solo en los extremos. Lista cerrada en
+    # feedback_survey.D_REASONS, validada en el endpoint.
+    reason = Column(String(30), nullable=True)
 
     shown_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     answered_at = Column(DateTime, nullable=True)
+
+    # Mail de agradecimiento por reportar (question_type="C"), ver
+    # lifecycle_emails.due_report_thanks_emails. NULL = todavía no se mandó.
+    thanks_sent_at = Column(DateTime, nullable=True)
 
     __table_args__ = (
         Index("idx_exfb_user_course", "user_id", "course_id"),
         Index("idx_exfb_session", "session_id"),
         Index("idx_exfb_user_item", "user_id", "exercise_external_id"),
+        # Targeting por canal en feedback_survey: cuenta impresiones por
+        # (ítem, canal). idx_exfb_user_item no sirve porque arranca por user_id.
+        Index("idx_exfb_item_type", "exercise_external_id", "question_type"),
     )
 
     user = relationship("User")

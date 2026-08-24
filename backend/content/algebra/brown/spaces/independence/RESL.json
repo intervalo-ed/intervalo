@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_independence_RESL_01",
     "question": "Un conjunto de dos vectores del plano tiene una coordenada sin determinar.\n$$\\{(2, 3), (4, k)\\}$$\n¿Para qué valor de $k$ el conjunto pasa a ser linealmente dependiente?",
     "options": [
       "$6$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "brown_independence_RESL_02",
     "question": "Un conjunto de dos vectores del plano tiene la segunda coordenada del primero sin determinar.\n$$\\{(1, k), (3, 12)\\}$$\n¿Para qué valor de $k$ el conjunto es linealmente dependiente?",
     "options": [
       "$9$",
@@ -52,6 +54,7 @@
     ]
   },
   {
+    "id": "brown_independence_RESL_03",
     "question": "El parámetro sin determinar está en la primera coordenada de uno de los vectores.\n$$\\{(k, 2), (6, 4)\\}$$\n¿Para qué valor de $k$ el conjunto es linealmente dependiente?",
     "options": [
       "$2$",
@@ -79,6 +82,7 @@
     ]
   },
   {
+    "id": "brown_independence_RESL_04",
     "question": "Uno de los dos vectores tiene una coordenada negativa y el otro un parámetro sin fijar.\n$$\\{(3, -2), (k, 4)\\}$$\n¿Para qué valor de $k$ el conjunto es linealmente dependiente?",
     "options": [
       "$-6$",
@@ -106,6 +110,7 @@
     ]
   },
   {
+    "id": "brown_independence_RESL_05",
     "question": "El mismo parámetro aparece en los dos vectores del conjunto.\n$$\\{(k, 1), (4, k)\\}$$\n¿Para qué valores de $k$ el conjunto es linealmente dependiente?",
     "options": [
       "$4$ y $-4$",
@@ -133,6 +138,7 @@
     ]
   },
   {
+    "id": "brown_independence_RESL_06",
     "question": "Tres vectores del plano forman un conjunto dependiente, y el tercero se puede armar con los otros dos.\n$$\\vec{v}_1 = (1,2), \\quad \\vec{v}_2 = (2,1)$$\n$$\\vec{v}_3 = (4,5)$$\n¿Qué combinación de los dos primeros da el tercero?",
     "options": [
       "$2\\vec{v}_1 + \\vec{v}_2$",
@@ -158,6 +164,7 @@
     ]
   },
   {
+    "id": "brown_independence_RESL_07",
     "question": "Tres vectores del plano forman un conjunto dependiente y el tercero se arma con los otros.\n$$\\vec{v}_1 = (1,3), \\quad \\vec{v}_2 = (2,1)$$\n$$\\vec{v}_3 = (5,5)$$\n¿Qué combinación de los dos primeros da el tercero?",
     "options": [
       "$\\vec{v}_1 + \\vec{v}_2$",
@@ -185,6 +192,7 @@
     ]
   },
   {
+    "id": "brown_independence_RESL_08",
     "question": "Uno de los coeficientes que arman el vector redundante resulta ser negativo.\n$$\\vec{v}_1 = (2,1), \\quad \\vec{v}_2 = (1,3)$$\n$$\\vec{v}_3 = (3,-1)$$\n¿Qué combinación de los dos primeros da el tercero?",
     "options": [
       "$\\vec{v}_1 + \\vec{v}_2$",
@@ -212,6 +220,7 @@
     ]
   },
   {
+    "id": "brown_independence_RESL_09",
     "question": "El conjunto dependiente vive en $\\mathbb{R}^3$.\n$$\\vec{v}_1 = (1,0,1), \\quad \\vec{v}_2 = (0,1,2)$$\n$$\\vec{v}_3 = (3,2,7)$$\n¿Qué combinación de los dos primeros da el tercero?",
     "options": [
       "$3\\vec{v}_1 + 2\\vec{v}_2$",
@@ -239,6 +248,7 @@
     ]
   },
   {
+    "id": "brown_independence_RESL_10",
     "question": "Un conjunto de dos vectores del plano resulta dependiente por una razón evidente.\n$$\\vec{v}_1 = (2,-3), \\quad \\vec{v}_2 = (6,-9)$$\n¿Qué combinación del primero da el segundo?",
     "options": [
       "$2\\vec{v}_1$",
@@ -266,6 +276,7 @@
     ]
   },
   {
+    "id": "brown_independence_RESL_11",
     "question": "Los vectores de un conjunto se acomodaron como filas de una matriz, que después se llevó a forma escalonada.\n$$\\begin{pmatrix} 1 & 2 & 1 \\\\ 0 & 1 & 3 \\\\ 0 & 0 & 0 \\end{pmatrix}$$\nEl conjunto de partida tenía tres vectores.\n\n¿Cuántos de ellos son independientes entre sí?",
     "options": [
       "$2$",
@@ -291,6 +302,7 @@
     ]
   },
   {
+    "id": "brown_independence_RESL_12",
     "question": "Tres vectores se acomodaron como filas de una matriz que después se escalonó.\n$$\\begin{pmatrix} 1 & 3 & 2 \\\\ 0 & 1 & 5 \\\\ 0 & 0 & 4 \\end{pmatrix}$$\n¿Cuántos de ellos son independientes entre sí?",
     "options": [
       "$0$",
@@ -318,6 +330,7 @@
     ]
   },
   {
+    "id": "brown_independence_RESL_13",
     "question": "Dos vectores se acomodaron como filas de una matriz y al escalonarla una fila se anuló.\n$$\\begin{pmatrix} 1 & 2 \\\\ 0 & 0 \\end{pmatrix}$$\n¿Cuántos de ellos son independientes entre sí?",
     "options": [
       "$2$",
@@ -345,6 +358,7 @@
     ]
   },
   {
+    "id": "brown_independence_RESL_14",
     "question": "Cuatro vectores de $\\mathbb{R}^3$ se escalonaron como filas de una matriz.\n$$\\begin{pmatrix} 1 & 0 & 2 \\\\ 0 & 1 & 1 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\end{pmatrix}$$\n¿Cuántos de ellos son independientes entre sí?",
     "options": [
       "$2$",
@@ -372,6 +386,7 @@
     ]
   },
   {
+    "id": "brown_independence_RESL_15",
     "question": "Un conjunto de tres vectores se escalonó para decidir si alguno sobra.\n$$\\begin{pmatrix} 1 & 4 & 0 \\\\ 0 & 2 & 3 \\\\ 0 & 0 & 0 \\end{pmatrix}$$\n¿Qué se concluye sobre el conjunto?",
     "options": [
       "Que hace falta escalonar de nuevo, porque quedó una fila en cero",

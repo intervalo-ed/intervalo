@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_conjunta_FORM_01",
     "question": "Sea $(X, Y)$ un vector aleatorio continuo con densidad conjunta $f(x, y)$.\n\n¿Cuál de las siguientes debe cumplir $f(x, y)$?",
     "options": [
       "$\\displaystyle \\int_{-\\infty}^{\\infty}\\int_{-\\infty}^{\\infty} f(x, y)\\,dx\\,dy = 1$",

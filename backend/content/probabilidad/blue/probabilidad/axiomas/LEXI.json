@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_axiomas_LEXI_01",
     "question": "En un control de calidad, la probabilidad de que una pieza elegida al azar esté defectuosa es $0{,}05$.\n\n¿Qué expresión da la probabilidad de que la pieza elegida esté en buen estado?",
     "options": [
       "$1-0{,}05$",
@@ -21,6 +22,7 @@
     "tags": ["definicion-complemento-prob"]
   },
   {
+    "id": "blue_axiomas_LEXI_02",
     "question": "En una encuesta se sabe que $P(A) = 0{,}4$ y $P(B) = 0{,}3$, y ambos eventos comparten algunos resultados.\n\n¿Qué expresión corresponde a la regla general de la unión $P(A \\cup B)$?",
     "options": [
       "$P(A)+P(B)+P(A\\cap B)$",
@@ -42,6 +44,7 @@
     "tags": ["definicion-regla-union"]
   },
   {
+    "id": "blue_axiomas_LEXI_03",
     "question": "Un estudio calcula la probabilidad de que un equipo gane su próximo partido.\n\nPara eso, suma dos estimaciones de distintos analistas: $0{,}7$ y $0{,}5$.\n\n¿Por qué ese resultado no puede ser correcto?",
     "options": [
       "Porque las probabilidades de partidos deportivos siempre son menores a 0,5.",
@@ -63,6 +66,7 @@
     "tags": ["definicion-rango-probabilidad"]
   },
   {
+    "id": "blue_axiomas_LEXI_04",
     "question": "En una encuesta, la probabilidad de que una persona elegida al azar prefiera café es $0{,}62$.\n\n¿Qué expresión da la probabilidad de que la persona no prefiera café?",
     "options": [
       "$0{,}62$",
@@ -84,6 +88,7 @@
     "tags": ["definicion-complemento-prob"]
   },
   {
+    "id": "blue_axiomas_LEXI_05",
     "question": "Un estudio previo determinó que la probabilidad de que un paciente responda a cierto tratamiento es $0{,}8$.\n\n¿Qué expresión da la probabilidad de que el paciente no responda al tratamiento?",
     "options": [
       "$1+0{,}8$",
@@ -105,6 +110,7 @@
     "tags": ["definicion-complemento-prob"]
   },
   {
+    "id": "blue_axiomas_LEXI_06",
     "question": "En un mazo de cartas de truco, la probabilidad de sacar una carta de espada es $0{,}25$.\n\n¿Qué expresión da la probabilidad de sacar una carta que no sea de espada?",
     "options": [
       "$1-0{,}25$",
@@ -126,6 +132,7 @@
     "tags": ["definicion-complemento-prob"]
   },
   {
+    "id": "blue_axiomas_LEXI_07",
     "question": "En una urna con bolitas de colores, la probabilidad de sacar una bolita roja es $0{,}45$.\n\n¿Qué expresión da la probabilidad de sacar una bolita que no sea roja?",
     "options": [
       "$0{,}45$",
@@ -147,6 +154,7 @@
     "tags": ["definicion-complemento-prob"]
   },
   {
+    "id": "blue_axiomas_LEXI_08",
     "question": "En un control de calidad, se sabe que $P(A) = 0{,}5$ y $P(B) = 0{,}35$, y algunas piezas presentan ambos defectos a la vez.\n\n¿Qué expresión corresponde a la regla general de la unión $P(A \\cup B)$?",
     "options": [
       "$P(A)+P(B)-P(A\\cap B)$",
@@ -168,6 +176,7 @@
     "tags": ["definicion-regla-union"]
   },
   {
+    "id": "blue_axiomas_LEXI_09",
     "question": "Un estudio previo determina que $P(A) = 0{,}55$ y $P(B) = 0{,}4$ para dos síntomas que algunos pacientes presentan a la vez.\n\n¿Qué expresión corresponde a la regla general de la unión $P(A \\cup B)$?",
     "options": [
       "$P(A)-P(B)-P(A\\cap B)$",
@@ -189,6 +198,7 @@
     "tags": ["definicion-regla-union"]
   },
   {
+    "id": "blue_axiomas_LEXI_10",
     "question": "Con un mazo de cartas de truco, $P(A) = 0{,}3$ y $P(B) = 0{,}25$, y algunas cartas cumplen ambas condiciones a la vez.\n\n¿Qué expresión corresponde a la regla general de la unión $P(A \\cup B)$?",
     "options": [
       "$P(A)+P(B)+P(A\\cap B)$",
@@ -210,6 +220,7 @@
     "tags": ["definicion-regla-union"]
   },
   {
+    "id": "blue_axiomas_LEXI_11",
     "question": "En una urna, $P(A) = 0{,}6$ y $P(B) = 0{,}35$, y algunas bolitas cumplen ambas condiciones a la vez.\n\n¿Qué expresión corresponde a la regla general de la unión $P(A \\cup B)$?",
     "options": [
       "$P(A)+P(B)-P(A\\cap B)$",
@@ -231,6 +242,7 @@
     "tags": ["definicion-regla-union"]
   },
   {
+    "id": "blue_axiomas_LEXI_12",
     "question": "Una encuesta estima la probabilidad de que un cliente recomiende el servicio.\n\nPara eso, suma dos resultados parciales de distintas sucursales: $0{,}55$ y $0{,}6$.\n\n¿Por qué ese resultado no puede ser correcto?",
     "options": [
       "Porque todo valor de probabilidad debe estar entre 0 y 1.",
@@ -252,6 +264,7 @@
     "tags": ["definicion-rango-probabilidad"]
   },
   {
+    "id": "blue_axiomas_LEXI_13",
     "question": "En un control de calidad, se estima la probabilidad de rechazo de un lote sumando dos muestras distintas: $0{,}68$ y $0{,}5$.\n\n¿Por qué ese resultado no puede ser correcto?",
     "options": [
       "Porque 1,18 no es un número entero.",
@@ -273,6 +286,7 @@
     "tags": ["definicion-rango-probabilidad"]
   },
   {
+    "id": "blue_axiomas_LEXI_14",
     "question": "Con un mazo de cartas de truco, se estima la probabilidad de ganar la mano.\n\nPara eso, se suman dos probabilidades parciales de distintas rondas: $0{,}8$ y $0{,}45$.\n\n¿Por qué ese resultado no puede ser correcto?",
     "options": [
       "Porque las probabilidades de ganar siempre son menores a 0,5.",
@@ -294,6 +308,7 @@
     "tags": ["definicion-rango-probabilidad"]
   },
   {
+    "id": "blue_axiomas_LEXI_15",
     "question": "En una urna, se estima la probabilidad de sacar una bolita clara sumando dos proporciones de distintos lotes: $0{,}66$ y $0{,}6$.\n\n¿Por qué ese resultado no puede ser correcto?",
     "options": [
       "Porque 1,26 no es un número entero.",

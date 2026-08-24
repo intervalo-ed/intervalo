@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_logarithmic_GRAF_01",
     "question": "Para leer un valor puntual en un gráfico se entra por el eje horizontal y se sale por el vertical.\n\n¿Cuánto vale $f(4)$ según el gráfico?",
     "options": [
       "$2$",
@@ -30,6 +31,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_02",
     "question": "La curva del gráfico baja sin freno cerca del eje vertical y sigue subiendo hacia la derecha.\n\n¿Cuál es la **imagen** de esa función?",
     "options": [
       "Positivos",
@@ -60,6 +62,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_03",
     "question": "El sentido en que se recorre una curva se mira siempre avanzando hacia la derecha.\n\n¿La función del gráfico es creciente o decreciente?",
     "options": [
       "Creciente",
@@ -90,6 +93,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_04",
     "question": "Un logaritmo se pega a una recta vertical sin llegar a cruzarla nunca.\n\n¿Cuál es la asíntota vertical de la función del gráfico?",
     "options": [
       "$x = 0$",
@@ -120,6 +124,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_05",
     "question": "La gráfica de una función logarítmica pasa por $x=1$.\n\n¿Cuánto vale $f(1)$ según el gráfico?",
     "options": [
       "$1$",
@@ -150,6 +155,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_06",
     "question": "El cruce con el eje horizontal no siempre cae en $x=1$, aunque en el logaritmo básico sí.\n\n¿En qué valor de $x$ la función del gráfico cruza el eje $X$?",
     "options": [
       "$x = 1$",
@@ -180,6 +186,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_07",
     "question": "Desplazar un logaritmo en horizontal arrastra también su asíntota.\n\n¿Cuál es la asíntota vertical de la función del gráfico?",
     "options": [
       "$x = 1$",
@@ -210,6 +217,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_08",
     "question": "El dominio de un logaritmo se lee en el gráfico como el tramo del eje horizontal donde hay curva.\n\n¿Cuál es el dominio de la función representada?",
     "options": [
       "$x > 0$",
@@ -240,6 +248,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_09",
     "question": "El punto donde la curva toca el eje horizontal tiene siempre segunda coordenada cero.\n\n¿En qué punto la curva del gráfico cruza el eje $X$?",
     "options": [
       "$(2,\\, 0)$",
@@ -270,6 +279,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_10",
     "question": "Un logaritmo puede subir o bajar según cómo esté escrito, y el gráfico lo muestra de una.\n\n¿La función representada es creciente o decreciente?",
     "options": [
       "Decreciente",
@@ -286,7 +296,7 @@
       null,
       "Una curva constante sería una recta horizontal, acá la altura cambia todo el tiempo."
     ],
-    "graph_fn": "ln(x)",
+    "graph_fn": "log(x)",
     "graph_view": [
       -0.5,
       8.5,
@@ -300,6 +310,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_11",
     "question": "En el gráfico, la altura de la curva sobre un valor del eje horizontal es el valor de la función.\n\n¿Cuánto vale $f(3)$ según el gráfico?",
     "options": [
       "$1$",
@@ -330,6 +341,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_12",
     "question": "Un extremo local se ve en el gráfico como un punto donde la curva cambia de dirección.\n\n¿La función del gráfico tiene algún extremo local, un máximo o un mínimo?",
     "options": [
       "Sí, tiene un mínimo",
@@ -360,6 +372,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_13",
     "question": "El comportamiento de una función lejos del origen se lee siguiendo la curva hacia la derecha del gráfico.\n\n¿Hacia dónde tiende la función cuando $x \\to +\\infty$?",
     "options": [
       "Tiende a $0$",
@@ -390,6 +403,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_14",
     "question": "La **imagen** de una función se lee proyectando toda la curva sobre el eje vertical.\n\n¿Cuál es la imagen de la función del gráfico?",
     "options": [
       "$(0,\\, +\\infty)$",
@@ -420,6 +434,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_15",
     "question": "En un logaritmo desplazado, el valor leído en $x=3$ no coincide con el del logaritmo sin desplazar.\n\n¿Cuánto vale $f(3)$ según el gráfico?",
     "options": [
       "$3$",
@@ -450,6 +465,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_16",
     "question": "Sumar una constante a un logaritmo levanta la curva entera sin tocar su asíntota.\n\n¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
     "options": [
       "$f(x) = \\log_2(x) - 1$",
@@ -480,6 +496,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_17",
     "question": "Todos los logaritmos crecientes se parecen bastante, y la diferencia está en cuánto suben.\n\n¿Qué fórmula corresponde a la curva del gráfico?",
     "options": [
       "$f(x) = e^x$",
@@ -496,7 +513,7 @@
       "El punto que identifica la base $2$ está en $x=2$, fijate si la curva vale $1$ ahí o en otro valor de $x$.",
       "El punto que identifica la base $3$ está en $x=3$, fijate si la curva vale $1$ ahí o en otro valor de $x$."
     ],
-    "graph_fn": "ln(x)",
+    "graph_fn": "log(x)",
     "graph_view": [
       -0.5,
       8.5,
@@ -510,6 +527,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_18",
     "question": "La gráfica de una función logarítmica pasa por un punto conocido.\n\n¿Qué fórmula corresponde a la curva del gráfico?",
     "options": [
       "$f(x) = \\ln(x)$",
@@ -540,6 +558,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_19",
     "question": "Un mismo número puede aparecer multiplicando por fuera, sumando por fuera o adentro del logaritmo.\n\n¿Qué fórmula corresponde a la curva del gráfico?",
     "options": [
       "$f(x) = \\log_2(x)$",
@@ -570,6 +589,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_20",
     "question": "Un desplazamiento horizontal se detecta mirando dónde queda la asíntota vertical.\n\n¿Qué fórmula corresponde a la curva del gráfico?",
     "options": [
       "$f(x) = \\log_2(x - 1)$",
@@ -600,6 +620,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_21",
     "question": "Cuanto mayor es la base de un logaritmo, más lento crece su gráfico.\n\n¿Qué fórmula corresponde a la curva del gráfico?",
     "options": [
       "$f(x) = \\ln(x)$",
@@ -630,6 +651,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_22",
     "question": "La asíntota y la base son dos datos independientes, y hay que leer los dos.\n\n¿Qué fórmula corresponde a la curva del gráfico?",
     "options": [
       "$f(x) = \\ln(x + 1)$",
@@ -646,7 +668,7 @@
       "Fijate si la asíntota vertical sigue en $x=0$ o si un corrimiento horizontal la movió a otro valor.",
       null
     ],
-    "graph_fn": "ln(x-1)",
+    "graph_fn": "log(x-1)",
     "graph_view": [
       0.5,
       9.5,
@@ -660,6 +682,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_23",
     "question": "Una misma curva puede venir desplazada en horizontal y en vertical a la vez.\n\n¿Qué fórmula corresponde a la curva del gráfico?",
     "options": [
       "$f(x) = \\log_2(x - 1)$",
@@ -690,6 +713,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_24",
     "question": "Dos fórmulas distintas pueden producir curvas que bajan, y no siempre son la misma curva.\n\n¿Qué fórmula corresponde a la curva del gráfico?",
     "options": [
       "$f(x) = \\log_3(x)$",
@@ -720,6 +744,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_25",
     "question": "El gráfico muestra las horas $h(x) = \\log_2(x)$ necesarias para que una colonia de bacterias se multiplique por un factor $x$.\n\n¿Cuántas horas son necesarias para que la colonia se multiplique por $8$?",
     "options": [
       "$2$",
@@ -750,6 +775,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_26",
     "question": "El gráfico muestra la función $p(x) = -\\log_2(x)$, donde $x$ es la fracción del valor original que conserva un bien.\n\nPor ejemplo, $x = 0{,}5$ significa que quedó la mitad del valor.\n\n¿Cuántos períodos tardó en quedar a la mitad del valor original?",
     "options": [
       "$-1$",
@@ -780,6 +806,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_27",
     "question": "El gráfico muestra las horas $h(x) = \\log_3(x)$ necesarias para que una bacteria se multiplique por $x$.\n\n¿Cuántas horas son necesarias para multiplicarse por $9$?",
     "options": [
       "$1$",
@@ -810,6 +837,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_28",
     "question": "El gráfico muestra los años $t(x) = \\log_2(x)$ para que una deuda crezca un factor $x$.\n\n¿En qué factor $x$ se cumplen exactamente $3$ años?",
     "options": [
       "$x = 4$",
@@ -840,6 +868,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_29",
     "question": "El gráfico muestra los años $t(x) = \\log_2(x)$ para que una inversión crezca un factor $x$.\n\n¿Cuántos años adicionales se necesitan para pasar del factor $x = 2$ al factor $x = 4$?",
     "options": [
       "$4$",
@@ -870,6 +899,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_GRAF_30",
     "question": "El gráfico muestra los años $t(x) = \\log_2(x)$ para que una inversión crezca un factor $x$.\n\n¿Cuántos años se necesitan para un factor $x = 16$?",
     "options": [
       "$2$",

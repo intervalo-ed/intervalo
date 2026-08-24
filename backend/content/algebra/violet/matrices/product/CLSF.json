@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_product_CLSF_01",
     "question": "Se quiere multiplicar una matriz de orden $3 \\times 2$ por otra de orden $2 \\times 4$, en ese mismo orden.\n\n¿Está definido ese producto y de qué orden es el resultado?",
     "options": [
       "Sí, y el resultado es de $3 \\times 4$",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "violet_product_CLSF_02",
     "question": "Se quiere multiplicar una matriz de orden $2 \\times 5$ por otra de orden $5 \\times 3$, en ese orden.\n$$AB$$\n¿Está definido ese producto y de qué orden es el resultado?",
     "options": [
       "No, porque las dos matrices no comparten el mismo orden",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "violet_product_CLSF_03",
     "question": "Se quiere multiplicar una matriz de orden $4 \\times 2$ por otra de orden $3 \\times 4$, en ese orden.\n$$AB$$\n¿Está definido ese producto?",
     "options": [
       "Sí, y el resultado que da es de orden $4 \\times 4$",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "violet_product_CLSF_04",
     "question": "Se quiere multiplicar una matriz de orden $3 \\times 3$ por otra del mismo orden.\n$$AB$$\n¿Qué se puede afirmar sobre ese producto?",
     "options": [
       "Que está definido en los dos órdenes, y los dos resultados son de $3 \\times 3$",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "violet_product_CLSF_05",
     "question": "Se quiere multiplicar una matriz de orden $1 \\times 4$ por otra de orden $4 \\times 1$, en ese orden.\n$$AB$$\n¿De qué orden es el resultado?",
     "options": [
       "De $4 \\times 1$, conservando el orden del segundo factor",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "violet_product_CLSF_06",
     "question": "Entre matrices cuadradas del mismo orden, no todas las identidades del álgebra de números siguen valiendo.\n$$A, B \\in \\mathbb{R}^{n \\times n}$$\n¿Cuál de estas igualdades vale siempre?",
     "options": [
       "$A^2 - I = (A+I)(A-I)$",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "violet_product_CLSF_07",
     "question": "Entre matrices cuadradas del mismo orden, no todo desarrollo del álgebra de números sigue valiendo.\n$$A, B \\in \\mathbb{R}^{n \\times n}$$\n¿Cuál de estas igualdades vale siempre?",
     "options": [
       "$(AB)^{2} = A^{2}B^{2}$",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "violet_product_CLSF_08",
     "question": "Un desarrollo del álgebra de números se intenta trasladar a matrices.\n$$(A+B)^{2}$$\n¿Cuál es su desarrollo correcto?",
     "options": [
       "$A^{2}+AB+AB+B^{2}$",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "violet_product_CLSF_09",
     "question": "Un desarrollo válido entre números se traslada a matrices que además conmutan.\n$$AB = BA$$\n¿Cuál de estas igualdades vale en ese caso?",
     "options": [
       "$(A+B)^{2} = A^{2}+2AB+B^{2}$",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "violet_product_CLSF_10",
     "question": "Un desarrollo se propone para el cubo de un producto.\n$$(AB)^{3}$$\n¿Cuál es su desarrollo correcto?",
     "options": [
       "$A^{3}+B^{3}$",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "violet_product_CLSF_11",
     "question": "En general el producto de matrices no conmuta, pero existen pares donde el orden de los factores no cambia nada.\n$$AB = BA$$\n¿Cuál de estos pares conmuta siempre?",
     "options": [
       "Una matriz cuadrada y una potencia de sí misma",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "violet_product_CLSF_12",
     "question": "Algunos pares de matrices conmutan aunque la regla general no lo garantice.\n$$AB = BA$$\n¿Cuál de estos pares conmuta siempre?",
     "options": [
       "Dos matrices triangulares superiores del mismo orden",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "violet_product_CLSF_13",
     "question": "Algunas matrices conmutan con todas las demás de su mismo orden.\n$$AB = BA$$\n¿Cuál de estas matrices tiene esa propiedad?",
     "options": [
       "Cualquier matriz diagonal con entradas distintas",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "violet_product_CLSF_14",
     "question": "Una matriz y sus potencias siempre conmutan entre sí.\n$$A \\cdot A^{2} = A^{2} \\cdot A$$\n¿Por qué?",
     "options": [
       "Porque los dos lados son la misma cantidad de copias del factor",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "violet_product_CLSF_15",
     "question": "Dos matrices que conmutan recuperan varias propiedades del álgebra de números.\n$$AB = BA$$\n¿Cuál de estas igualdades pasa a valer en ese caso?",
     "options": [
       "$A^{2}+B^{2} = (A+B)^{2}$",

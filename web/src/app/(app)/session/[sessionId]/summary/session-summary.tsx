@@ -31,6 +31,7 @@ import {
 } from "@/lib/platform/detect"
 import { useNotificationSettingsQuery } from "@/app/(app)/profile/UseNotificationSettings"
 import { useSfx, useTick } from "@/lib/audio/useSfx"
+import { usePostOnboardingRankingVariant } from "@/lib/experiments/UsePostOnboardingRanking"
 import type { components } from "@/lib/api/schema"
 import {
   NOTIFY_CTA_COOLDOWN_MS,
@@ -114,6 +115,9 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   const api = useApi()
   const router = useRouter()
   const sfx = useSfx()
+  // Resuelve en <2.5s; las animaciones del resumen tardan más que eso, así que
+  // para cuando Continuar es tocable el brazo ya está. Si no, control.
+  const abVariant = usePostOnboardingRankingVariant()
   const tick = useTick() // reloj — conteo de XP y de ejercicios (mismo sonido)
   // Si no se respondió ningún ejercicio bien, los conteos no hacen tick (sí
   // suena el `end`).
@@ -309,10 +313,33 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
 
   function goHome() {
     sfx.continue()
+    // Experimento post-onboarding-ranking: el brazo test vuelve SIEMPRE al
+    // ranking después del resumen (repaso y práctica por igual), para ver su
+    // posición recién movida. El modo test de QA queda afuera, y si el flag
+    // todavía no resolvió (null) se cae al flujo de control. La rama que va a
+    // /profile tras activar notificaciones no pasa por acá a propósito:
+    // interrumpir la elección del horario romperia el setup de push.
+    if (abVariant === "test" && data && data.mode !== "test") {
+      posthog.capture("summary_exit", {
+        variant: abVariant,
+        destination: "/leaderboard",
+        mode: data.mode,
+      })
+      router.push("/leaderboard")
+      router.refresh()
+      return
+    }
     // La sesión de práctica vuelve a Practicar; el resto (repaso, test)
     // vuelve a Repasar. En ambos casos, al curso en el que se estaba.
     const base = data?.mode === "practice" ? "/practice" : "/"
     const dest = data?.course ? `${base}?course=${data.course}` : base
+    if (data && data.mode !== "test") {
+      posthog.capture("summary_exit", {
+        variant: abVariant ?? "unresolved",
+        destination: base,
+        mode: data.mode,
+      })
+    }
     router.push(dest)
     // Bust the App Router segment cache so the destination RSC re-runs on arrival.
     router.refresh()

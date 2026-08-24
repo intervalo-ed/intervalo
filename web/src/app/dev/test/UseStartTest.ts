@@ -14,6 +14,7 @@ export type TestItem = {
 export type TestFilters = {
   has_math: boolean
   has_graph: boolean
+  has_table: boolean
 }
 
 export function useStartTest() {

@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_substitution_CLSF_01",
     "question": "El coseno de acá se aplica a la variable sola, sin nada más adentro:\n$$\\int \\cos x\\,dx$$\n¿Qué camino conviene tomar?",
     "options": [
       "Regla directa",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "brown_substitution_CLSF_02",
     "question": "En este integrando, un factor es, salvo una constante, la derivada de lo que hay dentro del coseno:\n$$\\int x\\cos(x^2)\\,dx$$\n¿Qué camino abre esta integral?",
     "options": [
       "Sustitución",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "brown_substitution_CLSF_03",
     "question": "El exponente de esta exponencial no es la variable sola, sino un múltiplo de ella:\n$$\\int e^{5x}\\,dx$$\n¿Cómo conviene abordarla?",
     "options": [
       "Sustitución",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "brown_substitution_CLSF_04",
     "question": "En la siguiente integral el denominador es la variable sola, sin ninguna otra cosa alrededor:\n$$\\int \\frac{1}{x}\\,dx$$\n¿Qué camino corresponde?",
     "options": [
       "Regla directa",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "brown_substitution_CLSF_05",
     "question": "En esta fracción, el numerador es, salvo una constante, la derivada del denominador:\n$$\\int \\frac{4x}{x^2+3}\\,dx$$\n¿Qué camino abre esta integral?",
     "options": [
       "Reescribir antes",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "brown_substitution_CLSF_06",
     "question": "Del otro lado del cálculo este integrando ya apareció, como resultado de derivar la tangente:\n$$\\int \\sec^2 x\\,dx$$\n¿Qué camino conviene tomar?",
     "options": [
       "Regla directa",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "brown_substitution_CLSF_07",
     "question": "Adentro del seno no está la variable sola, sino multiplicada por un número y desplazada:\n$$\\int \\sin(2x-1)\\,dx$$\n¿Cómo conviene abordarla?",
     "options": [
       "Regla directa",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "brown_substitution_CLSF_08",
     "question": "Este integrando es un número fijo, sin ninguna variable involucrada:\n$$\\int 3\\,dx$$\n¿Qué camino corresponde?",
     "options": [
       "Regla directa",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "brown_substitution_CLSF_09",
     "question": "Este cociente se puede repartir término a término antes de integrar nada:\n$$\\int \\frac{x^3+5x}{x}\\,dx$$\n¿Qué camino conviene tomar?",
     "options": [
       "Reescribir antes",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "brown_substitution_CLSF_10",
     "question": "Una raíz es una potencia escrita de otra manera:\n$$\\int \\frac{1}{\\sqrt{x}}\\,dx$$\n¿Qué camino corresponde?",
     "options": [
       "Sustitución",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "brown_substitution_CLSF_11",
     "question": "En este cociente, tanto el numerador como el $2x$ del denominador comparten un factor común:\n$$\\int \\frac{6x^2+2x}{2x}\\,dx$$\n¿Cómo conviene abordarla?",
     "options": [
       "Sustitución",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "brown_substitution_CLSF_12",
     "question": "Debajo de esta raíz hay una potencia, y las dos juntas se pueden escribir como una sola:\n$$\\int \\sqrt[3]{x^2}\\,dx$$\n¿Qué camino corresponde?",
     "options": [
       "Regla directa",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "brown_substitution_CLSF_13",
     "question": "En este integrando, un factor es exactamente la derivada de lo que hay dentro de la exponencial:\n$$\\int 2xe^{x^2}\\,dx$$\n¿Qué camino abre esta integral?",
     "options": [
       "Reescribir antes",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "brown_substitution_CLSF_14",
     "question": "En esta fracción, el numerador es exactamente la derivada del denominador:\n$$\\int \\frac{2x}{x^2+4}\\,dx$$\n¿Qué camino corresponde?",
     "options": [
       "Regla directa",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "brown_substitution_CLSF_15",
     "question": "En este integrando, un factor cúbico es, salvo una constante, la derivada de lo que hay dentro del seno:\n$$\\int 4x^3\\sin(x^4)\\,dx$$\n¿Cómo conviene abordarla?",
     "options": [
       "Reescribir antes",

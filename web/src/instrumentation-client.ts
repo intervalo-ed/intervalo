@@ -4,6 +4,7 @@ import {
   FIRST_PWA_USE_STORAGE_KEY,
   FIRST_UTM_SOURCE,
   GROUP_ID_PATTERN,
+  rememberAttribution,
 } from "@/lib/analytics/attribution"
 import { getPlatform, isStandalone } from "@/lib/platform/detect"
 
@@ -35,6 +36,12 @@ if (groupMatch) {
 if (utmSource) {
   posthog.register_once({ [FIRST_UTM_SOURCE]: utmSource })
 }
+
+// Además de PostHog, una copia propia en localStorage: el alta la manda al
+// backend y el origen queda como columna de `users`, que es lo que permite
+// cruzarlo con retención sin depender de un sistema que subcuenta por
+// bloqueadores (ver lib/analytics/attribution).
+rememberAttribution({ groupId: groupMatch ? groupId : null, utmSource })
 
 // La instalación de la PWA es manual: el resumen de sesión muestra los pasos y
 // el usuario los hace en el menú del navegador (ver notify-hint-pane.tsx). No hay

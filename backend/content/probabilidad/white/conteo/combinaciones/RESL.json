@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_combinaciones_RESL_01",
     "question": "En una reunión de 6 personas, todas se saludan estrechando la mano una única vez con cada una.\n\n¿Cuántos apretones de manos se dan en total?",
     "options": ["$12$", "$15$", "$30$", "$36$"],
     "correct_index": 1,
@@ -18,6 +19,7 @@
     "tags": ["resl-directo"]
   },
   {
+    "id": "white_combinaciones_RESL_02",
     "question": "Con 8 elementos tomados de a 3, se quiere comparar el resultado de la combinación contra el de la variación.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
     "options": ["$V_{8,3}$ es 6 veces mayor que $\\dbinom{8}{3}$.", "Ambas dan el mismo resultado.", "$\\dbinom{8}{3}$ es mayor que $V_{8,3}$.", "$V_{8,3}$ es el doble de $\\dbinom{8}{3}$."],
     "correct_index": 0,
@@ -36,6 +38,7 @@
     "tags": ["resl-comparacion-variacion"]
   },
   {
+    "id": "white_combinaciones_RESL_03",
     "question": "Sabiendo que $\\binom{12}{9}=220$, se quiere calcular $\\binom{12}{3}$ aplicando la propiedad de simetría.\n\n¿Cuál es el valor de $\\binom{12}{3}$?",
     "options": ["$220$", "$1320$", "$66$", "$495$"],
     "correct_index": 0,
@@ -54,6 +57,7 @@
     "tags": ["resl-simetria"]
   },
   {
+    "id": "white_combinaciones_RESL_04",
     "question": "De un grupo de 9 amigos se arma un equipo de 4 integrantes que debe incluir obligatoriamente a uno de ellos en particular.\n\n¿Cuántos equipos distintos se pueden formar?",
     "options": ["$56$", "$126$", "$70$", "$84$"],
     "correct_index": 0,
@@ -72,6 +76,7 @@
     "tags": ["resl-con-condicion"]
   },
   {
+    "id": "white_combinaciones_RESL_05",
     "question": "Un mazo especial tiene 8 cartas y se eligen 3 para armar una mano, sin importar el orden.\n\n¿Cuántas manos distintas se pueden formar?",
     "options": ["$336$", "$24$", "$56$", "$512$"],
     "correct_index": 2,
@@ -90,6 +95,7 @@
     "tags": ["resl-directo"]
   },
   {
+    "id": "white_combinaciones_RESL_06",
     "question": "De un grupo de 9 personas se arma un comité de 4 integrantes, sin roles distintos entre ellos.\n\n¿Cuántos comités distintos se pueden formar?",
     "options": ["$3024$", "$126$", "$36$", "$6561$"],
     "correct_index": 1,
@@ -108,6 +114,7 @@
     "tags": ["resl-directo"]
   },
   {
+    "id": "white_combinaciones_RESL_07",
     "question": "De un sorteo con 10 números se extraen 2 números ganadores, sin importar el orden en que salen.\n\n¿Cuántos pares de números ganadores son posibles?",
     "options": ["$90$", "$20$", "$100$", "$45$"],
     "correct_index": 3,
@@ -126,6 +133,7 @@
     "tags": ["resl-directo"]
   },
   {
+    "id": "white_combinaciones_RESL_08",
     "question": "Una heladería ofrece 7 sabores y un cliente elige 3 para armar un pote, sin que el orden de elección altere el pote.\n\n¿Cuántos potes distintos se pueden armar?",
     "options": ["$210$", "$21$", "$35$", "$343$"],
     "correct_index": 2,
@@ -144,6 +152,7 @@
     "tags": ["resl-directo"]
   },
   {
+    "id": "white_combinaciones_RESL_09",
     "question": "De un curso de 11 estudiantes se elige una delegación de 5, sin roles distintos entre ellos.\n\n¿Cuántas delegaciones distintas se pueden formar?",
     "options": ["$55440$", "$462$", "$66$", "$161051$"],
     "correct_index": 1,
@@ -162,6 +171,7 @@
     "tags": ["resl-directo"]
   },
   {
+    "id": "white_combinaciones_RESL_10",
     "question": "En una reunión de 9 personas, todas se saludan estrechando la mano una única vez con cada una.\n\n¿Cuántos apretones de manos se dan en total?",
     "options": ["$36$", "$72$", "$81$", "$45$"],
     "correct_index": 0,
@@ -180,6 +190,7 @@
     "tags": ["resl-directo"]
   },
   {
+    "id": "white_combinaciones_RESL_11",
     "question": "Con 7 elementos tomados de a 2, se quiere comparar el resultado de la combinación contra el de la variación.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
     "options": ["Ambas dan el mismo resultado.", "$\\dbinom{7}{2}$ es mayor que $V_{7,2}$.", "$V_{7,2}$ es el doble de $\\dbinom{7}{2}$.", "$V_{7,2}$ es 6 veces mayor que $\\dbinom{7}{2}$."],
     "correct_index": 2,
@@ -198,6 +209,7 @@
     "tags": ["resl-comparacion-variacion"]
   },
   {
+    "id": "white_combinaciones_RESL_12",
     "question": "Con 10 elementos tomados de a 4, se quiere comparar el resultado de la combinación contra el de la variación.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
     "options": ["Ambas dan el mismo resultado.", "$\\dbinom{10}{4}$ es mayor que $V_{10,4}$.", "$V_{10,4}$ es el doble de $\\dbinom{10}{4}$.", "$V_{10,4}$ es 24 veces mayor que $\\dbinom{10}{4}$."],
     "correct_index": 3,
@@ -216,6 +228,7 @@
     "tags": ["resl-comparacion-variacion"]
   },
   {
+    "id": "white_combinaciones_RESL_13",
     "question": "Sabiendo que $\\binom{9}{2}=36$, se quiere calcular $\\binom{9}{7}$ aplicando la propiedad de simetría.\n\n¿Cuál es el valor de $\\binom{9}{7}$?",
     "options": ["$252$", "$36$", "$84$", "$9$"],
     "correct_index": 1,
@@ -234,6 +247,7 @@
     "tags": ["resl-simetria"]
   },
   {
+    "id": "white_combinaciones_RESL_14",
     "question": "De un grupo de 11 amigos se arma un equipo de 5 integrantes que debe incluir obligatoriamente a uno de ellos en particular.\n\n¿Cuántos equipos distintos se pueden formar?",
     "options": ["$462$", "$330$", "$210$", "$126$"],
     "correct_index": 2,
@@ -252,6 +266,7 @@
     "tags": ["resl-con-condicion"]
   },
   {
+    "id": "white_combinaciones_RESL_15",
     "question": "De un grupo de 10 amigos se arma un equipo de 4 integrantes que debe excluir obligatoriamente a uno de ellos en particular.\n\n¿Cuántos equipos distintos se pueden formar?",
     "options": ["$210$", "$70$", "$84$", "$126$"],
     "correct_index": 3,

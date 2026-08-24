@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_orthogonality_RESL_01",
     "question": "Un vector $\\vec{u}=(5,3)$ representa una dirección.\n\n¿Cuál de estos vectores es perpendicular a $\\vec{u}$?",
     "options": [
       "$(-3,5)$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_RESL_02",
     "question": "Un vector $\\vec{u}=(2,7)$ representa una dirección.\n\n¿Cuál de estos vectores es perpendicular a él?",
     "options": [
       "$(-2,-7)$",
@@ -52,6 +54,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_RESL_03",
     "question": "Un vector $\\vec{u}=(-3,6)$ representa una dirección.\n\n¿Cuál de estos vectores es perpendicular a él?",
     "options": [
       "$(6,-3)$",
@@ -79,6 +82,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_RESL_04",
     "question": "Un vector $\\vec{u}=(5,0)$ representa una dirección.\n\n¿Cuál de estos vectores es perpendicular a él?",
     "options": [
       "$(0,4)$",
@@ -106,6 +110,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_RESL_05",
     "question": "Un vector $\\vec{u}=(4,-6)$ representa una dirección.\n\n¿Cuál de estos vectores es perpendicular a él?",
     "options": [
       "$(-3,2)$",
@@ -133,6 +138,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_RESL_06",
     "question": "Dados $\\vec{u}=(6,-2)$ y $\\vec{v}=(1,3)$.\n\n¿Son ortogonales?",
     "options": [
       "Sí, porque $\\vec{u}\\cdot\\vec{v}=0$",
@@ -158,6 +164,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_RESL_07",
     "question": "Se conocen las componentes de dos vectores.\n$$\\vec{u}=(3,9) \\qquad \\vec{v}=(6,-2)$$\n¿Son ortogonales?",
     "options": [
       "Sí, porque los dos tienen componentes de distinto signo",
@@ -185,6 +192,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_RESL_08",
     "question": "Se conocen las componentes de dos vectores.\n$$\\vec{u}=(5,4) \\qquad \\vec{v}=(2,3)$$\n¿Son ortogonales?",
     "options": [
       "Sí, porque su producto escalar da $0$",
@@ -212,6 +220,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_RESL_09",
     "question": "Se conocen las componentes de dos vectores.\n$$\\vec{u}=(8,-1) \\qquad \\vec{v}=(1,8)$$\n¿Son ortogonales?",
     "options": [
       "Sí, porque su producto escalar da $0$",
@@ -239,6 +248,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_RESL_10",
     "question": "Se conocen las componentes de dos vectores del espacio.\n$$\\vec{u}=(2,3,1) \\qquad \\vec{v}=(1,-1,1)$$\n¿Son ortogonales?",
     "options": [
       "No, porque su producto escalar da $-2$",
@@ -266,6 +276,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_RESL_11",
     "question": "$\\vec{u}=(3,4)$ y $\\vec{v}=(k,6)$ son ortogonales.\n\n¿Cuánto vale $k$?",
     "options": [
       "$-8$",
@@ -291,6 +302,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_RESL_12",
     "question": "Dos vectores son ortogonales entre sí.\n$$\\vec{u}=(2,5) \\qquad \\vec{v}=(k,4)$$\n¿Cuánto vale $k$?",
     "options": [
       "$-2$",
@@ -318,6 +330,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_RESL_13",
     "question": "Dos vectores son ortogonales entre sí.\n$$\\vec{u}=(6,-3) \\qquad \\vec{v}=(2,k)$$\n¿Cuánto vale $k$?",
     "options": [
       "$-4$",
@@ -345,6 +358,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_RESL_14",
     "question": "Dos vectores son ortogonales entre sí.\n$$\\vec{u}=(k,7) \\qquad \\vec{v}=(3,-6)$$\n¿Cuánto vale $k$?",
     "options": [
       "$14$",
@@ -372,6 +386,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_RESL_15",
     "question": "Dos vectores del espacio son ortogonales entre sí.\n$$\\vec{u}=(1,2,k) \\qquad \\vec{v}=(4,-1,2)$$\n¿Cuánto vale $k$?",
     "options": [
       "$-2$",

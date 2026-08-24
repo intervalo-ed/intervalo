@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_quadratic_LEXI_01",
     "question": "La **imagen** de una función depende de qué valores puede llegar a devolver:\n$$f(x) = x^2$$\n¿Por qué su imagen no incluye números negativos?",
     "options": [
       "Porque $f$ solo está definida para $x \\geq 0$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_02",
     "question": "La forma desarrollada de una cuadrática tiene tres coeficientes con nombre propio:\n$$f(x) = ax^2 + bx + c$$\n¿Cómo se llama el coeficiente $a$?",
     "options": [
       "Coeficiente principal",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_03",
     "question": "En una cuadrática desarrollada, uno de los tres números no viene multiplicado por la variable:\n$$f(x) = ax^2 + bx + c$$\n¿Cómo se llama el número $c$?",
     "options": [
       "Término independiente",
@@ -75,6 +78,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_04",
     "question": "Una cuadrática admite varias escrituras, y cada una tiene su nombre:\n$$f(x) = a(x - r_1)(x - r_2)$$\n¿Cómo se llama esta forma?",
     "options": [
       "Forma factorizada",
@@ -100,6 +104,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_05",
     "question": "Los valores donde una cuadrática se anula tienen más de un nombre.\n\n¿Cómo se conocen también las **raíces** de una función cuadrática?",
     "options": [
       "Ceros",
@@ -125,6 +130,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_06",
     "question": "Tomá la función cuadrática general:\n$$f(x) = ax^2 + bx + c$$\n¿Cuál es su **dominio**?",
     "options": [
       "$[0, +\\infty)$",
@@ -150,6 +156,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_07",
     "question": "Dos parábolas pueden compartir vértice y diferenciarse solo en el coeficiente que las encabeza:\n$$f(x) = 3x^2 + 1$$\n$$g(x) = 0{,}5x^2 + 1$$\n¿Qué le pasa a la que tiene $|a|$ más grande?",
     "options": [
       "Es más angosta o cerrada",
@@ -175,6 +182,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_08",
     "question": "El punto extremo de una parábola no aparece en cualquier lado.\n\n¿Sobre qué recta se encuentra siempre el **vértice** de una **parábola**?",
     "options": [
       "Sobre el eje $Y$",
@@ -200,6 +208,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_09",
     "question": "Una **parábola** apenas roza el eje $X$ en un solo punto.\n\n¿Cuántas **raíces** reales tiene?",
     "options": [
       "Ninguna",
@@ -225,6 +234,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_10",
     "question": "Las parábolas se describen con vocabulario propio, y una de esas palabras habla de su forma.\n\n¿A qué se refiere la **concavidad** de una **parábola**?",
     "options": [
       "A dónde corta el eje $Y$",
@@ -250,6 +260,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_11",
     "question": "Toda cuadrática alcanza un valor extremo en un único punto de su recorrido.\n\n¿Con qué coincide ese valor máximo o mínimo?",
     "options": [
       "La coordenada $x$ del vértice",
@@ -275,6 +286,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_12",
     "question": "El vocabulario de las parábolas toma prestadas palabras de otros ámbitos.\n\n¿Cómo se llaman las dos mitades de la **parábola** que salen del **vértice**?",
     "options": [
       "Ejes",
@@ -300,6 +312,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_13",
     "question": "Escrita de esta forma, la cuadrática expone sus dos parámetros más útiles:\n$$f(x) = a(x - h)^2 + k$$\n¿Qué representa $k$?",
     "options": [
       "La coordenada $x$ del vértice",
@@ -325,6 +338,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_14",
     "question": "Cada coeficiente de una cuadrática desarrollada tiene nombre según a qué potencia acompaña:\n$$f(x) = ax^2 + bx + c$$\n¿Cómo se llama el coeficiente $b$?",
     "options": [
       "Coeficiente principal",
@@ -350,6 +364,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_15",
     "question": "Las familias de funciones se ordenan por el mayor exponente que aparece en su fórmula.\n\n¿Cuál es el grado de una función cuadrática?",
     "options": [
       "Grado 1",
@@ -375,6 +390,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_16",
     "question": "Una pelota se patea hacia arriba y su altura en el tiempo dibuja una curva que sube y luego baja.\n\n¿Qué nombre recibe esa curva?",
     "options": [
       "Recta",
@@ -400,6 +416,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_17",
     "question": "El recorrido de una pelota lanzada al aire dibuja una parábola.\n\n¿Con qué elemento de esa parábola coincide el punto más alto del tiro?",
     "options": [
       "Una raíz de la parábola",
@@ -425,6 +442,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_18",
     "question": "Una pelota lanzada al aire empieza y termina su recorrido a la altura del suelo.\n\n¿Con qué elemento de la parábola coincide el momento en que vuelve a tocarlo?",
     "options": [
       "El vértice",
@@ -450,6 +468,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_19",
     "question": "Partiendo de la forma estándar:\n$$f(x) = ax^2 + bx + c$$\n¿Qué valor de $x$ conviene usar para hallar su **ordenada al origen**?",
     "options": [
       "$x = 1$",
@@ -475,6 +494,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_20",
     "question": "Raíz y vértice son dos puntos destacados de una parábola, y se confunden seguido.\n\n¿Qué diferencia hay entre una **raíz** y el **vértice**?",
     "options": [
       "Son lo mismo con distinto nombre",
@@ -500,6 +520,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_21",
     "question": "Una función monótona mantiene siempre el mismo sentido a lo largo de su dominio.\n\n¿Por qué una función cuadrática no es monótona en todo su **dominio**?",
     "options": [
       "Porque su gráfica es una recta",
@@ -525,6 +546,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_22",
     "question": "Ubicar rápido el **vértice** de una **parábola** depende de tener la fórmula en una forma particular.\n\n¿Qué forma conviene tener?",
     "options": [
       "Forma estándar",
@@ -550,6 +572,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_23",
     "question": "Encontrar rápido las **raíces** de una **parábola** depende de tener la fórmula en una forma particular.\n\n¿Qué forma conviene tener?",
     "options": [
       "Forma de vértice",
@@ -575,6 +598,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_24",
     "question": "Una función cuadrática está dibujada en el gráfico.\n\n¿Hacia dónde abre la **parábola** del gráfico?",
     "options": [
       "Arriba",
@@ -605,6 +629,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_25",
     "question": "Los cortes con el eje horizontal de una parábola son sus raíces, y pueden ser dos, una o ninguna.\n\n¿Cuántas veces corta al eje $X$ la **parábola** del gráfico?",
     "options": [
       "Dos veces",
@@ -635,6 +660,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_26",
     "question": "En el gráfico, la parábola baja hasta cierto punto y desde ahí vuelve a subir.\n\n¿Cómo se llama ese punto más bajo?",
     "options": [
       "Raíz",
@@ -665,6 +691,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_27",
     "question": "El área de un cuadrado depende de la longitud de su lado:\n$$A(L) = L^2$$\n¿A qué familia de funciones pertenece?",
     "options": [
       "Lineal",
@@ -690,6 +717,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_28",
     "question": "Cambiar el signo del coeficiente principal da vuelta la parábola entera.\n\n¿Ese cambio afecta al **dominio** de una función cuadrática?",
     "options": [
       "Sí, si $a < 0$ el dominio se achica",
@@ -715,6 +743,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_29",
     "question": "Una parábola es simétrica respecto de una recta vertical que pasa por su vértice.\n\n¿Qué cumplen dos puntos de la parábola que están a la misma altura?",
     "options": [
       "Tienen la misma coordenada $x$",
@@ -740,6 +769,7 @@
     ]
   },
   {
+    "id": "white_quadratic_LEXI_30",
     "question": "Cada familia de funciones tiene un rasgo que la separa de las demás.\n\n¿Qué caracteriza a una función cuadrática?",
     "options": [
       "Su gráfica es una recta",

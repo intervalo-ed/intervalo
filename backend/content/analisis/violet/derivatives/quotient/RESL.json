@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_quotient_RESL_01",
     "question": "El numerador de esta fracción tiene una raíz que coincide con el punto de evaluación:\n$$f(x) = \\frac{x^2-4}{e^x}$$\n¿Cuánto vale $f'(2)$?",
     "options": [
       "$4/e^2$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "violet_quotient_RESL_02",
     "question": "Esta función combina un binomio simple con la exponencial en el denominador:\n$$f(x) = \\frac{x-1}{e^x}$$\n¿Cuánto vale $f'(1)$?",
     "options": [
       "$0$",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "violet_quotient_RESL_03",
     "question": "El numerador de esta fracción se anula justo en el punto que interesa:\n$$f(x) = \\frac{x^2-9}{x}$$\n¿Cuánto vale $f'(3)$?",
     "options": [
       "$6$",
@@ -75,6 +78,7 @@
     ]
   },
   {
+    "id": "violet_quotient_RESL_04",
     "question": "Esta fracción tiene un binomio arriba y una potencia cuadrática abajo:\n$$f(x) = \\frac{x+5}{x^2}$$\n¿Cuánto vale $f'(-5)$?",
     "options": [
       "$-1/25$",
@@ -100,6 +104,7 @@
     ]
   },
   {
+    "id": "violet_quotient_RESL_05",
     "question": "El punto de evaluación de esta función coincide con la raíz del numerador:\n$$f(x) = \\frac{x-4}{\\ln x}$$\n¿Cuánto vale $f'(4)$?",
     "options": [
       "$1/\\ln 4$",
@@ -125,6 +130,7 @@
     ]
   },
   {
+    "id": "violet_quotient_RESL_06",
     "question": "El seno ocupa el numerador de esta fracción, y $x$ el denominador:\n$$f(x) = \\frac{\\sin x}{x}$$\n¿Cuánto vale $f'(\\pi/2)$?",
     "options": [
       "$0$",
@@ -150,6 +156,7 @@
     ]
   },
   {
+    "id": "violet_quotient_RESL_07",
     "question": "Esta fracción tiene el coseno arriba y un polinomio cuadrático abajo:\n$$f(x) = \\frac{\\cos x}{x^2+x+1}$$\n¿Cuánto vale $f'(0)$?",
     "options": [
       "$0$",
@@ -175,6 +182,7 @@
     ]
   },
   {
+    "id": "violet_quotient_RESL_08",
     "question": "Un polinomio cuadrático ocupa el numerador de esta fracción, con la exponencial abajo:\n$$f(x) = \\frac{x^2+4}{e^x}$$\n¿Cuánto vale $f'(0)$?",
     "options": [
       "$4$",
@@ -200,6 +208,7 @@
     ]
   },
   {
+    "id": "violet_quotient_RESL_09",
     "question": "Esta fracción tiene un binomio arriba y el coseno desplazado abajo:\n$$f(x) = \\frac{x+1}{\\cos x+3}$$\n¿Cuánto vale $f'(0)$?",
     "options": [
       "$1/4$",
@@ -225,6 +234,7 @@
     ]
   },
   {
+    "id": "violet_quotient_RESL_10",
     "question": "Esta fracción tiene una potencia cuadrática arriba y un binomio abajo:\n$$f(x) = \\frac{x^2}{x+1}$$\nSu derivada se anula en más de un punto.\n\n¿Cuáles son todos los valores de $x$ donde la recta tangente a $f$ es horizontal?",
     "options": [
       "$x=1$ y $x=-2$",
@@ -250,6 +260,7 @@
     ]
   },
   {
+    "id": "violet_quotient_RESL_11",
     "question": "El denominador de esta fracción nunca se anula, para ningún valor de $x$:\n$$f(x) = \\frac{x}{x^2+1}$$\n¿Cuáles son todos los valores de $x$ donde la recta tangente a $f$ es horizontal?",
     "options": [
       "$x=-1$",
@@ -275,6 +286,7 @@
     ]
   },
   {
+    "id": "violet_quotient_RESL_12",
     "question": "Esta fracción tiene un valor de $x$ excluido de su dominio:\n$$f(x) = \\frac{x^2}{x-3}$$\n¿Cuáles son todos los valores de $x$ donde la recta tangente a $f$ es horizontal?",
     "options": [
       "$x=0$",
@@ -300,6 +312,7 @@
     ]
   },
   {
+    "id": "violet_quotient_RESL_13",
     "question": "De este cociente solo se conocen los valores de sus piezas en un punto:\n$$\\begin{aligned} f(2)&=0,\\quad f'(2)=3 \\\\ g(2)&=4,\\quad g'(2)=-1 \\end{aligned}$$\n¿Cuánto vale $(f/g)'(2)$?",
     "options": [
       "$3/4$",
@@ -325,6 +338,7 @@
     ]
   },
   {
+    "id": "violet_quotient_RESL_14",
     "question": "Cuatro datos puntuales alcanzan para derivar esta división:\n$$\\begin{aligned} f(1)&=5,\\quad f'(1)=0 \\\\ g(1)&=2,\\quad g'(1)=3 \\end{aligned}$$\n¿Cuánto vale $(f/g)'(1)$?",
     "options": [
       "$0$",
@@ -350,6 +364,7 @@
     ]
   },
   {
+    "id": "violet_quotient_RESL_15",
     "question": "Sin fórmulas a la vista, el cociente se deriva con estos valores:\n$$\\begin{aligned} f(0)&=2,\\quad f'(0)=1 \\\\ g(0)&=3,\\quad g'(0)=0 \\end{aligned}$$\n¿Cuánto vale $(f/g)'(0)$?",
     "options": [
       "$3$",

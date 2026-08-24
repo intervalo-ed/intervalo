@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_total_ESTR_01",
     "question": "En una fábrica, el 60% de las piezas viene de la línea 1 y el 40% de la línea 2.\n\nLa línea 1 produce un 5% de piezas defectuosas y la línea 2 un 8%.\n\nSe quiere calcular la probabilidad de que una pieza tomada al azar sea defectuosa.\n\n¿Qué estrategia conviene?",
     "options": [
       "Regla de Laplace directa sobre las piezas defectuosas.",
@@ -21,6 +22,7 @@
     "tags": ["reconocer-probabilidad-total"]
   },
   {
+    "id": "blue_total_ESTR_02",
     "question": "En una encuesta, se sabe que $P(A\\mid B)=0{,}4$ donde $B$ es un único evento conocido, sin partición de escenarios.\n\nSe pregunta directamente por $P(A\\mid B)$.\n\n¿Qué estrategia corresponde?",
     "options": [
       "Aplicar probabilidad total, sumando sobre una partición de $\\Omega$.",
@@ -42,6 +44,7 @@
     "tags": ["distractor-condicional-simple"]
   },
   {
+    "id": "blue_total_ESTR_03",
     "question": "En un problema se proponen los escenarios $A_1, A_2, A_3$ como partición del espacio muestral.\n\nSus pesos son 35%, 40% y 20% respectivamente.\n\n¿Esta partición es válida para aplicar probabilidad total?",
     "options": [
       "No, porque $0{,}35+0{,}40+0{,}20=0{,}95\\neq 1$: falta cubrir el 5% restante.",
@@ -63,6 +66,7 @@
     "tags": ["verificar-particion"]
   },
   {
+    "id": "blue_total_ESTR_04",
     "question": "Una empresa de logística despacha paquetes por dos canales: el 55% por el canal aéreo y el 45% por el canal terrestre.\n\nEl canal aéreo demora más del plazo prometido en el 3% de los envíos y el terrestre en el 12%.\n\nSe quiere calcular la probabilidad de que un paquete cualquiera llegue demorado.\n\n¿Qué estrategia conviene?",
     "options": [
       "Probabilidad condicional simple, tomando solo el canal aéreo.",
@@ -84,6 +88,7 @@
     "tags": ["reconocer-probabilidad-total"]
   },
   {
+    "id": "blue_total_ESTR_05",
     "question": "Un taller mecánico compra insumos a dos distribuidores: 70% al distribuidor M y 30% al N.\n\nLa probabilidad de que un insumo llegue vencido es 0,01 con M y 0,06 con N.\n\nSe quiere calcular la probabilidad de que un insumo cualquiera llegue vencido.\n\n¿Qué estrategia conviene?",
     "options": [
       "Probabilidad condicional simple sobre el distribuidor N.",
@@ -105,6 +110,7 @@
     "tags": ["reconocer-probabilidad-total"]
   },
   {
+    "id": "blue_total_ESTR_06",
     "question": "Hay dos cajas con bolitas: la caja 1 se elige con probabilidad 0,4 y la caja 2 con 0,6.\n\nLa caja 1 tiene un 20% de bolitas rojas y la caja 2 un 50%.\n\nSe elige una caja al azar y después una bolita.\n\n¿Qué estrategia conviene para calcular la probabilidad de sacar una bolita roja?",
     "options": [
       "Teorema de la probabilidad total ponderando por caja.",
@@ -126,6 +132,7 @@
     "tags": ["reconocer-probabilidad-total"]
   },
   {
+    "id": "blue_total_ESTR_07",
     "question": "En una planta, el 40% de las piezas viene de la línea A, el 35% de la línea B y el 25% de la línea C.\n\nLas tasas de piezas falladas son 0,02 en A, 0,06 en B y 0,09 en C.\n\nSe quiere calcular la probabilidad de que una pieza cualquiera esté fallada.\n\n¿Qué estrategia conviene?",
     "options": [
       "Probabilidad condicional simple sobre la línea C únicamente.",
@@ -147,6 +154,7 @@
     "tags": ["reconocer-probabilidad-total"]
   },
   {
+    "id": "blue_total_ESTR_08",
     "question": "Una tienda de repuestos compra a tres proveedores: el 50% a P1, el 30% a P2 y el 20% a P3.\n\nLa probabilidad de que una pieza llegue rota es 0,04 para P1, 0,07 para P2 y 0,10 para P3.\n\nSe quiere calcular la probabilidad de que una pieza cualquiera llegue rota.\n\n¿Qué estrategia conviene?",
     "options": [
       "Regla del complemento sobre las piezas en buen estado.",
@@ -168,6 +176,7 @@
     "tags": ["reconocer-probabilidad-total"]
   },
   {
+    "id": "blue_total_ESTR_09",
     "question": "Un depósito recibe insumos de un único proveedor certificado $C$.\n\nSe sabe que $P(F\\mid C)=0{,}03$, y se pregunta directamente por $P(F\\mid C)$.\n\n¿Qué estrategia corresponde?",
     "options": [
       "Aplicar probabilidad total, sumando sobre una partición de $\\Omega$.",
@@ -189,6 +198,7 @@
     "tags": ["distractor-condicional-simple"]
   },
   {
+    "id": "blue_total_ESTR_10",
     "question": "Un depósito despacha todos sus pedidos urgentes por un único courier expreso $U$.\n\nSe sabe que $P(D\\mid U)=0{,}02$, y se pregunta directamente por $P(D\\mid U)$.\n\n¿Qué estrategia corresponde?",
     "options": [
       "Usar la fórmula condicional directamente, sin descomponer en escenarios.",
@@ -210,6 +220,7 @@
     "tags": ["distractor-condicional-simple"]
   },
   {
+    "id": "blue_total_ESTR_11",
     "question": "En una fábrica con una sola línea de ensamblaje activa, se sabe que $P(F\\mid L)=0{,}05$, donde $L$ es esa línea.\n\nSe pregunta directamente por $P(F\\mid L)$.\n\n¿Qué estrategia corresponde?",
     "options": [
       "Calcular primero $P(L)$ con probabilidad total antes de responder.",
@@ -231,6 +242,7 @@
     "tags": ["distractor-condicional-simple"]
   },
   {
+    "id": "blue_total_ESTR_12",
     "question": "En un problema se proponen tres cajas $A_1, A_2, A_3$ como partición del espacio muestral.\n\nSe eligen con probabilidades 30%, 45% y 25%.\n\n¿Esta partición es válida para aplicar probabilidad total?",
     "options": [
       "Sí, porque los pesos suman $0{,}30+0{,}45+0{,}25=1$.",
@@ -252,6 +264,7 @@
     "tags": ["verificar-particion"]
   },
   {
+    "id": "blue_total_ESTR_13",
     "question": "En un problema se proponen los canales $A_1, A_2$ como partición del espacio muestral, con pesos 55% y 40%.\n\n¿Esta partición es válida para aplicar probabilidad total?",
     "options": [
       "Sí, porque los dos canales son mutuamente excluyentes.",
@@ -273,6 +286,7 @@
     "tags": ["verificar-particion"]
   },
   {
+    "id": "blue_total_ESTR_14",
     "question": "En un problema se proponen cuatro proveedores $A_1, A_2, A_3, A_4$ como partición del espacio muestral.\n\nSus pesos son 20%, 30%, 15% y 35%.\n\n¿Esta partición es válida para aplicar probabilidad total?",
     "options": [
       "No, porque hacen falta pesos iguales entre los cuatro proveedores.",
@@ -294,6 +308,7 @@
     "tags": ["verificar-particion"]
   },
   {
+    "id": "blue_total_ESTR_15",
     "question": "Una plataforma de comercio electrónico envía por dos transportistas: 60% por el transportista T1 y 40% por T2.\n\nT1 entrega tarde el 4% de las veces y T2 el 9%.\n\nSe quiere calcular la probabilidad de que un envío cualquiera llegue tarde.\n\n¿Qué estrategia conviene?",
     "options": [
       "Teorema de la probabilidad total ponderando por transportista.",

@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_independencia_CLSF_01",
     "question": "Se lanzan dos dados balanceados. Definimos:\n\n$A$ = el primer dado sale 6\n$B$ = el segundo dado sale 6\n\n¿Cuál es la relación entre $A$ y $B$?",
     "options": [
       "Son mutuamente excluyentes: no pueden ocurrir a la vez.",
@@ -21,6 +22,7 @@
     "tags": ["reconocer-independencia"]
   },
   {
+    "id": "blue_independencia_CLSF_02",
     "question": "De una urna con 10 bolas, 4 rojas y 6 azules, se extraen 2 bolas sin reposición. Definimos:\n\n$A$ = la primera bola es roja\n$B$ = la segunda bola es roja\n\n¿Cuál es la relación entre $A$ y $B$?",
     "options": [
       "Son independientes: cada extracción es un evento separado.",
@@ -42,6 +44,7 @@
     "tags": ["reconocer-dependencia"]
   },
   {
+    "id": "blue_independencia_CLSF_03",
     "question": "Se lanzan dos dados balanceados. Definimos $A$ = el primer dado sale par y $B$ = el segundo dado sale impar.\n\n¿Cuál es la relación correcta entre $A$ y $B$?",
     "options": [
       "Son independientes, aunque no son mutuamente excluyentes.",
@@ -63,6 +66,7 @@
     "tags": ["distractor-mutuamente-excluyentes"]
   },
   {
+    "id": "blue_independencia_CLSF_04",
     "question": "Se lanzan al mismo tiempo una moneda roja y una moneda azul, ambas balanceadas.\n\nDefinimos $A$ = la moneda roja sale cara y $B$ = la moneda azul sale cara.\n\n¿Cuál es la relación entre $A$ y $B$?",
     "options": [
       "Son dependientes, porque ambas monedas se lanzan a la vez.",
@@ -84,6 +88,7 @@
     "tags": ["reconocer-independencia"]
   },
   {
+    "id": "blue_independencia_CLSF_05",
     "question": "De una urna con 8 bolas, 3 verdes y 5 blancas, se extrae una bola, se anota el color y se la devuelve a la urna.\n\nLuego se extrae una segunda bola. Definimos $A$ = la primera bola es verde y $B$ = la segunda bola es verde.\n\n¿Cuál es la relación entre $A$ y $B$?",
     "options": [
       "Son independientes, porque la reposición repone la composición de la urna.",
@@ -105,6 +110,7 @@
     "tags": ["reconocer-independencia"]
   },
   {
+    "id": "blue_independencia_CLSF_06",
     "question": "Una fábrica produce piezas en dos líneas de producción separadas, cada una con su propia maquinaria.\n\nDefinimos $A$ = una pieza de la línea 1 sale defectuosa y $B$ = una pieza de la línea 2 sale defectuosa.\n\n¿Cuál es la relación entre $A$ y $B$?",
     "options": [
       "Son dependientes, porque pertenecen a la misma fábrica.",
@@ -126,6 +132,7 @@
     "tags": ["reconocer-independencia"]
   },
   {
+    "id": "blue_independencia_CLSF_07",
     "question": "Dos clientes compran en dos locales distintos de una misma cadena, sin ningún contacto entre ellos.\n\nDefinimos $A$ = el cliente del local 1 compra un producto en oferta y $B$ = el cliente del local 2 compra un producto en oferta.\n\n¿Cuál es la relación entre $A$ y $B$?",
     "options": [
       "Son independientes, porque las decisiones de cada cliente no se afectan entre sí.",
@@ -147,6 +154,7 @@
     "tags": ["reconocer-independencia"]
   },
   {
+    "id": "blue_independencia_CLSF_08",
     "question": "Se lanzan a la vez un dado balanceado y una moneda balanceada.\n\nDefinimos $A$ = el dado sale un número par y $B$ = la moneda sale cara.\n\n¿Cuál es la relación entre $A$ y $B$?",
     "options": [
       "Son mutuamente excluyentes, porque son resultados de objetos distintos.",
@@ -168,6 +176,7 @@
     "tags": ["reconocer-independencia"]
   },
   {
+    "id": "blue_independencia_CLSF_09",
     "question": "De un mazo de 40 cartas se extraen 2 cartas, una después de la otra, sin devolver la primera al mazo.\n\nDefinimos $A$ = la primera carta es de espadas y $B$ = la segunda carta es de espadas.\n\n¿Cuál es la relación entre $A$ y $B$?",
     "options": [
       "Son independientes, porque cada extracción del mazo ocurre al azar.",
@@ -189,6 +198,7 @@
     "tags": ["reconocer-dependencia"]
   },
   {
+    "id": "blue_independencia_CLSF_10",
     "question": "Un lote tiene 20 piezas, 3 defectuosas. Se inspeccionan 2 piezas, una tras otra, sin devolver la primera al lote.\n\nDefinimos $A$ = la primera pieza inspeccionada es defectuosa y $B$ = la segunda pieza inspeccionada es defectuosa.\n\n¿Cuál es la relación entre $A$ y $B$?",
     "options": [
       "Son dependientes, porque la primera inspección cambia el lote restante.",
@@ -210,6 +220,7 @@
     "tags": ["reconocer-dependencia"]
   },
   {
+    "id": "blue_independencia_CLSF_11",
     "question": "Una bolsa tiene 12 caramelos, 5 de menta. Se sacan 2 caramelos, uno después del otro, sin devolver el primero a la bolsa.\n\nDefinimos $A$ = el primer caramelo es de menta y $B$ = el segundo caramelo es de menta.\n\n¿Cuál es la relación entre $A$ y $B$?",
     "options": [
       "Son independientes, porque cada caramelo se elige al azar de la bolsa.",
@@ -231,6 +242,7 @@
     "tags": ["reconocer-dependencia"]
   },
   {
+    "id": "blue_independencia_CLSF_12",
     "question": "En una rifa con 50 números, se sortean 2 números ganadores, uno después del otro, sin devolver el primero al bolillero.\n\nDefinimos $A$ = el primer número sorteado es par y $B$ = el segundo número sorteado es par.\n\n¿Cuál es la relación entre $A$ y $B$?",
     "options": [
       "Son mutuamente excluyentes, porque los dos números no podrían ser pares.",
@@ -252,6 +264,7 @@
     "tags": ["reconocer-dependencia"]
   },
   {
+    "id": "blue_independencia_CLSF_13",
     "question": "Se lanzan a la vez una moneda roja y una moneda azul, ambas balanceadas.\n\nDefinimos $A$ = la moneda roja sale cara y $B$ = la moneda azul sale seca.\n\n¿Cuál es la relación correcta entre $A$ y $B$?",
     "options": [
       "Son mutuamente excluyentes, porque piden resultados opuestos.",
@@ -273,6 +286,7 @@
     "tags": ["distractor-mutuamente-excluyentes"]
   },
   {
+    "id": "blue_independencia_CLSF_14",
     "question": "Dos estudiantes rinden el mismo examen en aulas separadas, sin ningún contacto entre ellos.\n\nDefinimos $A$ = el estudiante 1 aprueba y $B$ = el estudiante 2 desaprueba.\n\n¿Cuál es la relación correcta entre $A$ y $B$?",
     "options": [
       "No pueden ser independientes porque describen resultados opuestos.",
@@ -294,6 +308,7 @@
     "tags": ["distractor-mutuamente-excluyentes"]
   },
   {
+    "id": "blue_independencia_CLSF_15",
     "question": "Se encuesta a una persona en una ciudad y a otra persona en una ciudad distinta, sin ningún contacto entre ellas.\n\nDefinimos $A$ = la primera persona responde que sí y $B$ = la segunda persona responde que no.\n\n¿Cuál es la relación correcta entre $A$ y $B$?",
     "options": [
       "Son independientes, aunque no son mutuamente excluyentes.",

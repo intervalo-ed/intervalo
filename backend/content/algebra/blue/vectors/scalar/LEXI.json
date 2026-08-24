@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_scalar_LEXI_01",
     "question": "El producto escalar se calcula sumando los productos de las componentes.\n$$\\vec{u} \\cdot \\vec{v} = u_1v_1 + u_2v_2$$\n¿Por qué ese número termina relacionado con el ángulo entre los dos vectores?",
     "options": [
       "Porque su fórmula geométrica es $\\|\\vec{u}\\|\\|\\vec{v}\\|\\cos(\\theta)$, donde $\\theta$ es el ángulo entre ambos",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "blue_scalar_LEXI_02",
     "question": "El producto escalar se puede calcular sin conocer ningún ángulo.\n$$\\vec{u} \\cdot \\vec{v} = u_1v_1 + u_2v_2$$\n¿Qué hace que ese número dependa igual de la dirección relativa?",
     "options": [
       "Que el resultado siempre coincide con el ángulo medido en grados",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "blue_scalar_LEXI_03",
     "question": "Dos vectores mantienen su longitud y solo cambia el ángulo entre ellos.\n$$\\vec{u} \\cdot \\vec{v}$$\n¿Qué le pasa al producto escalar a medida que ese ángulo crece de cero a $180°$?",
     "options": [
       "Aumenta de forma continua, porque el ángulo también aumenta",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "blue_scalar_LEXI_04",
     "question": "El producto escalar puede dar negativo.\n$$\\vec{u} \\cdot \\vec{v} < 0$$\n¿Qué información sobre las dos direcciones aporta ese signo?",
     "options": [
       "Que el ángulo que forman los dos vectores supera al recto",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "blue_scalar_LEXI_05",
     "question": "Dos vectores tienen producto escalar muy grande.\n$$\\vec{u} \\cdot \\vec{v} \\gg 0$$\n¿Qué se puede afirmar a partir de ese dato?",
     "options": [
       "Que los dos vectores tienen exactamente la misma longitud",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "blue_scalar_LEXI_06",
     "question": "Dos vectores perpendiculares tienen su producto escalar fijado de antemano.\n$$\\vec{u} \\perp \\vec{v} \\implies \\vec{u} \\cdot \\vec{v} = 0$$\n¿Por qué ese producto da siempre cero?",
     "options": [
       "Porque en la fórmula geométrica, el coseno de un ángulo de $90°$ es cero",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "blue_scalar_LEXI_07",
     "question": "La fórmula geométrica del producto escalar es un producto de tres factores.\n$$\\vec{u} \\cdot \\vec{v} = \\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\theta)$$\n¿Cuál de los tres se anula cuando el ángulo es recto?",
     "options": [
       "Los tres a la vez, y por eso el producto se anula",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "blue_scalar_LEXI_08",
     "question": "Dos vectores perpendiculares dan producto escalar nulo, midan lo que midan.\n$$\\vec{u} \\perp \\vec{v} \\implies \\vec{u} \\cdot \\vec{v} = 0$$\n¿Por qué las longitudes no cambian ese resultado?",
     "options": [
       "Porque las longitudes se cancelan entre sí en la fórmula",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "blue_scalar_LEXI_09",
     "question": "El coseno recorre todos los valores entre $1$ y $-1$ según el ángulo.\n$$\\cos(0°)=1 \\qquad \\cos(180°)=-1$$\n¿Qué tiene de particular el valor que toma en el ángulo recto?",
     "options": [
       "Que es el único cero, y separa los positivos de los negativos",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "blue_scalar_LEXI_10",
     "question": "Una fuerza empuja un objeto que se mueve en dirección perpendicular a ella.\n$$\\vec{F} \\perp \\vec{d}$$\n¿Qué significa que su producto escalar sea nulo?",
     "options": [
       "Que el objeto no se está moviendo en ninguna dirección",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "blue_scalar_LEXI_11",
     "question": "El producto escalar tiene dos fórmulas que no se parecen en nada.\n$$u_1v_1 + u_2v_2 = \\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\theta)$$\n¿Por qué dan siempre el mismo resultado?",
     "options": [
       "Porque ambas describen la misma operación, solo que con datos distintos",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "blue_scalar_LEXI_12",
     "question": "Las dos fórmulas del producto escalar usan datos completamente distintos.\n$$u_1v_1+u_2v_2 = \\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\theta)$$\n¿Cuándo conviene usar cada una?",
     "options": [
       "La geométrica siempre, porque la de componentes solo vale en el plano",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "blue_scalar_LEXI_13",
     "question": "Igualar las dos fórmulas del producto escalar permite despejar algo que no estaba a la vista.\n$$u_1v_1+u_2v_2 = \\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\theta)$$\n¿Qué se puede obtener así?",
     "options": [
       "Las coordenadas de los vectores, a partir del ángulo entre ellos",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "blue_scalar_LEXI_14",
     "question": "La fórmula por componentes no menciona ningún ángulo y la geométrica no menciona coordenadas.\n$$u_1v_1+u_2v_2 = \\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\theta)$$\n¿Por qué las dos dan siempre el mismo número?",
     "options": [
       "Porque describen la misma operación desde dos puntos de vista",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "blue_scalar_LEXI_15",
     "question": "Un mismo par de vectores se puede describir con coordenadas o con longitudes y ángulo.\n$$\\vec{u} \\cdot \\vec{v}$$\n¿Qué pasaría si las dos fórmulas dieran resultados distintos?",
     "options": [
       "Habría que quedarse con el resultado de la fórmula por componentes",

@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_dimension_CLSF_01",
     "question": "Un subespacio del espacio de tres dimensiones queda definido por una sola ecuación.\n$$S = \\{(x,y,z) : x + 2y - z = 0\\}$$\n¿Cuál es su dimensión?",
     "options": [
       "$2$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "brown_dimension_CLSF_02",
     "question": "Un subespacio del espacio de tres dimensiones viene dado por un único generador.\n$$S = \\text{gen}\\{(1,2,3)\\}$$\n¿Cuál es su dimensión?",
     "options": [
       "$0$",
@@ -52,6 +54,7 @@
     ]
   },
   {
+    "id": "brown_dimension_CLSF_03",
     "question": "Un subespacio del plano contiene un solo elemento.\n$$S = \\{(0,0)\\}$$\n¿Cuál es su dimensión?",
     "options": [
       "$1$",
@@ -79,6 +82,7 @@
     ]
   },
   {
+    "id": "brown_dimension_CLSF_04",
     "question": "Un subespacio del espacio de tres dimensiones queda definido por dos ecuaciones.\n$$x = 0, \\quad y = 0$$\n¿Cuál es la dimensión del subespacio que definen?",
     "options": [
       "$1$",
@@ -106,6 +110,7 @@
     ]
   },
   {
+    "id": "brown_dimension_CLSF_05",
     "question": "Un subespacio del espacio de tres dimensiones viene dado por tres generadores.\n$$S = \\text{gen}\\{(1,0,0), (1,1,0), (1,1,1)\\}$$\n¿Cuál es su dimensión?",
     "options": [
       "$1$",
@@ -133,6 +138,7 @@
     ]
   },
   {
+    "id": "brown_dimension_CLSF_06",
     "question": "Las matrices de dos filas y dos columnas forman un espacio vectorial con la suma y el producto por escalar habituales.\n$$\\mathbb{R}^{2 \\times 2}$$\n¿Cuál es su dimensión?",
     "options": [
       "$4$",
@@ -158,6 +164,7 @@
     ]
   },
   {
+    "id": "brown_dimension_CLSF_07",
     "question": "Los polinomios de grado a lo sumo dos forman un espacio vectorial.\n$$P_2$$\n¿Cuál es su dimensión?",
     "options": [
       "$4$",
@@ -185,6 +192,7 @@
     ]
   },
   {
+    "id": "brown_dimension_CLSF_08",
     "question": "Los polinomios de grado a lo sumo tres forman un espacio vectorial.\n$$P_3$$\n¿Cuál es su dimensión?",
     "options": [
       "$3$",
@@ -212,6 +220,7 @@
     ]
   },
   {
+    "id": "brown_dimension_CLSF_09",
     "question": "El subíndice del nombre de un espacio de polinomios y su dimensión no coinciden.\n$$\\dim(P_2) = 3$$\n¿Por qué hay una unidad de diferencia?",
     "options": [
       "Porque el término independiente también es un coeficiente libre",
@@ -237,6 +246,7 @@
     ]
   },
   {
+    "id": "brown_dimension_CLSF_10",
     "question": "Un espacio de polinomios contiene un único elemento.\n$$V = \\{p : p(x) = 0\\}$$\n¿Cuál es su dimensión?",
     "options": [
       "$2$",
@@ -264,6 +274,7 @@
     ]
   },
   {
+    "id": "brown_dimension_CLSF_11",
     "question": "De un subespacio del espacio de tres dimensiones se sabe únicamente que está generado por cuatro vectores.\n$$S = \\text{gen}\\{\\vec{v}_1, \\dots, \\vec{v}_4\\}$$\n¿Alcanza ese dato para dar su dimensión?",
     "options": [
       "No, porque algunos de esos cuatro pueden ser redundantes",
@@ -287,6 +298,7 @@
     ]
   },
   {
+    "id": "brown_dimension_CLSF_12",
     "question": "De un conjunto de tres vectores del espacio de tres dimensiones se sabe que ninguno se arma con los otros.\n$$S = \\text{gen}\\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\}$$\n¿Alcanza ese dato para dar la dimensión de lo que generan?",
     "options": [
       "No, porque hay que conocer los vectores concretos para contarlos",
@@ -312,6 +324,7 @@
     ]
   },
   {
+    "id": "brown_dimension_CLSF_13",
     "question": "De un subespacio del espacio de tres dimensiones se sabe que está generado por dos vectores.\n$$S = \\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\}$$\n¿Qué se puede afirmar sobre su dimensión?",
     "options": [
       "Que vale exactamente dos, una por cada generador",
@@ -337,6 +350,7 @@
     ]
   },
   {
+    "id": "brown_dimension_CLSF_14",
     "question": "De un subespacio se sabe que cierto conjunto de tres vectores es una base suya.\n$$B = \\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\}$$\n¿Alcanza ese dato para dar su dimensión?",
     "options": [
       "Sí, la dimensión es tres, porque se cuentan los vectores de una base",
@@ -362,6 +376,7 @@
     ]
   },
   {
+    "id": "brown_dimension_CLSF_15",
     "question": "De un subespacio del plano se sabe únicamente que contiene cinco vectores distintos entre sí.\n$$\\vec{v}_1, \\dots, \\vec{v}_5 \\in S$$\n¿Alcanza ese dato para dar su dimensión?",
     "options": [
       "Sí, la dimensión es dos, porque el subespacio vive en el plano",

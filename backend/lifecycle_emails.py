@@ -1,7 +1,7 @@
 """
 lifecycle_emails.py — Emails automáticos de retención (Resend).
 
-Dos disparadores, resueltos íntegramente en el backend (a diferencia del push,
+Disparadores, resueltos íntegramente en el backend (a diferencia del push,
 el envío no necesita un worker separado — Resend se llama directo desde acá):
 
 - "bounce": el usuario se registró pero nunca terminó una sesión. Se manda una
@@ -11,6 +11,20 @@ el envío no necesita un worker separado — Resend se llama directo desde acá)
   terminar una sesión y cae inactivo de nuevo (`winback_email_sent_at` se
   compara contra el último `finished_at`, no solo contra "ya se mandó alguna
   vez").
+- "streak tier": el usuario alcanzó un hito del multiplicador de XP (3/9/18/
+  30/45 días de racha). Se felicita A LA MAÑANA SIGUIENTE (ventana 8-12 hora
+  local): el multiplicador se disfruta en la próxima sesión, así el mail
+  felicita y a la vez ofrece algo para hacer ahora. Si a esa altura el usuario
+  ya repasó hoy por su cuenta, el hito se marca como avisado SIN mandar nada —
+  volvió solo, el mail no tiene trabajo que hacer.
+- "report thanks": el usuario reportó un problema en un ejercicio (botón de
+  bandera, question_type="C"). Se agradece A LA MAÑANA SIGUIENTE (misma
+  ventana 8-12), nunca el mismo día — un mail casi instantáneo se leería a
+  respuesta automática, justo lo que el copy evita prometer. No dice que ya
+  esté arreglado: solo que alguien lo va a revisar. Idempotencia por REPORTE
+  (`exercise_feedback.thanks_sent_at`), no por usuario, porque un usuario
+  puede reportar más de una vez; si tiene varios pendientes el día que le
+  toca, se agrupan en un solo mail.
 
 Un worker externo (notifier/) pollea `/internal/emails/run` por hora; ver
 `due_bounce_emails` / `due_winback_emails` + `send_bounce_email` /
@@ -24,16 +38,85 @@ import hashlib
 import hmac
 import logging
 import os
+import sys
+import uuid
 from datetime import datetime, timedelta
 from pathlib import Path
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-from sqlalchemy import func
+from sqlalchemy import func, or_
 from sqlalchemy.orm import Session as DBSession
 
-from models import Session as SessionModel, User
+# `algorithm` vive en la raíz del repo; mismo patrón que session_store para
+# que el módulo también se pueda importar suelto (scripts, previews).
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from algorithm import STREAK_TIERS
+from models import ExerciseFeedback, Session as SessionModel, User
 
 BOUNCE_MIN_ACCOUNT_AGE = timedelta(hours=24)
 WINBACK_INACTIVITY = timedelta(days=5)
+
+# Ventana local del mail de hito: entre las 8 y las 12. El worker corre cada
+# hora en el minuto :00, así que en la práctica llega entre las 8 y las 9.
+STREAK_EMAIL_HOUR_FROM = 8
+STREAK_EMAIL_HOUR_TO = 12
+
+# Mismo criterio y mismos valores que el de arriba: al día siguiente del
+# reporte, nunca el mismo día (se leería a auto-respuesta). Constante propia
+# (no se reusa STREAK_EMAIL_HOUR_*) porque cada mail es dueño de su ventana,
+# aunque hoy coincidan.
+REPORT_THANKS_HOUR_FROM = 8
+REPORT_THANKS_HOUR_TO = 12
+
+# Misma política que session_store: la tz la reporta el navegador y puede venir
+# rota; fallback Argentina, donde vive casi toda la base.
+_DEFAULT_TZ = "America/Argentina/Buenos_Aires"
+
+
+def _user_zone(user: User) -> ZoneInfo:
+    try:
+        return ZoneInfo(user.timezone or _DEFAULT_TZ)
+    except ZoneInfoNotFoundError:
+        return ZoneInfo(_DEFAULT_TZ)
+
+
+def _reached_tier(streak_days: int) -> int:
+    """El mayor umbral de STREAK_TIERS alcanzado por `streak_days`, 0 si
+    ninguno. Derivar el hito de los días (en vez de usar `tier_reached`, que
+    solo es True el día exacto) hace que el mail sobreviva a cualquier retraso
+    del worker."""
+    reached = 0
+    for threshold, _mult in STREAK_TIERS:
+        if threshold > 0 and streak_days >= threshold:
+            reached = threshold
+    return reached
+
+
+def _tier_multiplier(threshold: int) -> float:
+    return dict(STREAK_TIERS)[threshold]
+
+
+# El emoji del asunto escala con el hito: el fueguito del arranque, el moai de
+# quien ya se planta serio, el cerebro entrenado, el brazo bionico (el mismo
+# de las push) y el GOAT en la cima.
+STREAK_TIER_EMOJI = {
+    3: "🔥",
+    9: "🗿",
+    18: "🧠",
+    30: "🦾",
+    45: "🐐",
+}
+
+
+def _next_tier(threshold: int) -> tuple[int, float] | None:
+    """(umbral, multiplicador) del escalón siguiente, None en el máximo."""
+    thresholds = [t for t, _ in STREAK_TIERS if t > 0]
+    i = thresholds.index(threshold)
+    if i + 1 >= len(thresholds):
+        return None
+    nxt = thresholds[i + 1]
+    return nxt, _tier_multiplier(nxt)
 
 
 # ── Apodo ────────────────────────────────────────────────────────────────────
@@ -100,6 +183,95 @@ def due_winback_emails(db: DBSession) -> list[tuple[User, datetime]]:
     ]
 
 
+def due_streak_tier_emails(db: DBSession) -> tuple[list[tuple[User, int]], list[tuple[User, int]]]:
+    """Candidatos del mail de hito de multiplicador.
+
+    Devuelve dos listas de pares (user, tier): `to_send` (mandar ahora) y
+    `to_mark` (marcar como avisado sin mandar: el hito fue un día anterior y
+    el usuario ya volvió hoy por su cuenta — la felicitación no tiene trabajo
+    que hacer).
+
+    El filtro SQL es grueso a propósito (tier exacto y hora local se resuelven
+    en Python, son un puñado de filas): streak_days en zona de hitos y marcador
+    por detrás de los días — como el tier nunca supera los días, si el marcador
+    ya está en streak_days o más, no puede haber hito pendiente.
+    """
+    candidates = (
+        db.query(User)
+        .filter(
+            User.email_unsubscribed.is_(False),
+            User.streak_days >= 3,
+            or_(
+                User.streak_email_sent_tier.is_(None),
+                User.streak_email_sent_tier < User.streak_days,
+            ),
+        )
+        .all()
+    )
+
+    to_send: list[tuple[User, int]] = []
+    to_mark: list[tuple[User, int]] = []
+    for user in candidates:
+        tier = _reached_tier(user.streak_days)
+        if tier <= (user.streak_email_sent_tier or 0):
+            continue
+        # Sin fecha de racha no hay forma de saber si "hoy ya repasó"; no
+        # debería pasar con streak_days > 0, pero ante datos raros, silencio.
+        if user.streak_last_date is None:
+            continue
+        local_now = datetime.now(_user_zone(user))
+        if user.streak_last_date >= local_now.date():
+            # Repaso hoy. Si streak_days == tier el hito es de HOY y el mail va
+            # recien manana: ni mandar ni marcar todavia. Si es mayor, el hito
+            # fue un dia anterior y hoy volvio solo: marcar sin mandar.
+            if user.streak_days > tier:
+                to_mark.append((user, tier))
+            continue
+        # Recién a la mañana siguiente, en la ventana.
+        if not (STREAK_EMAIL_HOUR_FROM <= local_now.hour < STREAK_EMAIL_HOUR_TO):
+            continue
+        to_send.append((user, tier))
+    return to_send, to_mark
+
+
+def due_report_thanks_emails(db: DBSession) -> list[tuple[User, list[int]]]:
+    """Reportes de contenido (question_type="C", ver main.py acción "report")
+    con agradecimiento pendiente, agrupados por usuario.
+
+    Mismo criterio de ventana que due_streak_tier_emails, reusado a propósito
+    (ver REPORT_THANKS_HOUR_FROM/TO): recién al día siguiente del reporte
+    (fecha local), entre las 8 y las 12. El mismo día se leería a
+    auto-respuesta, justo lo que el copy evita prometer.
+
+    Si un usuario reportó más de una vez antes de que le toque el mail, todos
+    esos reportes se agrupan en UN solo envío — nunca dos agradecimientos la
+    misma mañana por la misma persona. `answered_at` es NOT NULL para
+    question_type="C" (main.py lo setea siempre al crear la fila)."""
+    rows = (
+        db.query(ExerciseFeedback, User)
+        .join(User, User.id == ExerciseFeedback.user_id)
+        .filter(
+            ExerciseFeedback.question_type == "C",
+            ExerciseFeedback.thanks_sent_at.is_(None),
+            User.email_unsubscribed.is_(False),
+        )
+        .all()
+    )
+
+    by_user: dict[int, tuple[User, list[int]]] = {}
+    for feedback, user in rows:
+        tz = _user_zone(user)
+        local_now = datetime.now(tz)
+        reported_local_date = feedback.answered_at.replace(tzinfo=ZoneInfo("UTC")).astimezone(tz).date()
+        if reported_local_date >= local_now.date():
+            continue  # todavía no pasó ni un día local completo
+        if not (REPORT_THANKS_HOUR_FROM <= local_now.hour < REPORT_THANKS_HOUR_TO):
+            continue
+        entry = by_user.setdefault(user.id, (user, []))
+        entry[1].append(feedback.id)
+    return list(by_user.values())
+
+
 # ── Desuscripción (token sin login) ──────────────────────────────────────────
 
 def _unsub_secret() -> str:
@@ -153,14 +325,31 @@ def _logo_html() -> str:
     )
 
 
-def render_email(*, greeting: str, question: str, cta_label: str, cta_url: str, unsubscribe_url: str) -> str:
+def render_email(*, greeting: str, highlight: str, cta_label: str, cta_url: str, unsubscribe_url: str, preview: str | None = None) -> str:
     # La app usa DM Sans para el cuerpo; Gmail no carga webfonts, así que se
     # aproxima con un stack sans-serif web-safe (antes no se declaraba nada y
     # el cuerpo caía en Times).
     sans = "font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;"
+    # Misma forma que el CTA de la app y de la landing: esquinas de 4px,
+    # mayúsculas y tracking de 0.1em (1.3px sobre 13px). Antes era una píldora
+    # de 8px en minúsculas, que no se parecía a ningún botón del producto. El
+    # texto va en caja normal y las mayúsculas las pone el CSS: si un cliente
+    # ignora text-transform, la etiqueta se sigue leyendo bien.
     btn = (
-        f"display:inline-block;background:#5457e5;color:#ffffff;{sans}font-size:14px;"
-        "font-weight:700;padding:12px 28px;border-radius:8px;text-decoration:none"
+        f"display:inline-block;background:#5457e5;color:#ffffff;{sans}font-size:13px;"
+        "font-weight:600;letter-spacing:1.3px;text-transform:uppercase;"
+        "padding:15px 30px;border-radius:4px;text-decoration:none"
+    )
+    # Preheader: lo que Gmail y Apple Mail muestran como preview en la bandeja
+    # y en la notificación. Sin esto el snippet se arma con TODO el texto del
+    # mail en orden — botón, URL y pie incluidos. Va invisible al principio del
+    # body, y el relleno de &nbsp;&zwnj; empuja lo que sigue fuera del recorte.
+    # `preview` permite recortarlo (ej: el mail de hito deja la negrita solo
+    # adentro del mail); por defecto es saludo + negrita.
+    preview = preview if preview is not None else f"{greeting} {highlight}"
+    preheader = (
+        '<div style="display:none;font-size:1px;line-height:1px;max-height:0;'
+        f'max-width:0;opacity:0;overflow:hidden;">{preview}{"&nbsp;&zwnj;" * 40}</div>'
     )
     return f"""<!DOCTYPE html>
 <html>
@@ -174,14 +363,15 @@ def render_email(*, greeting: str, question: str, cta_label: str, cta_url: str, 
 </style>
 </head>
 <body>
+{preheader}
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:48px 16px;">
 <table role="presentation" width="420" cellpadding="0" cellspacing="0" style="max-width:420px;">
 <tr><td align="center" style="padding:0 24px;">
 {_logo_html()}
 <p style="{sans}font-size:15px;line-height:1.6;margin:0 0 8px;max-width:22rem;color:#131324;">{greeting}</p>
-<p style="{sans}font-size:15px;line-height:1.6;margin:0 0 24px;font-weight:700;color:#131324;">{question}</p>
+<p style="{sans}font-size:15px;line-height:1.6;margin:0 0 24px;font-weight:700;color:#131324;">{highlight}</p>
 <a href="{cta_url}" style="{btn}">{cta_label}</a>
-<p style="{sans}font-size:11px;color:#768899;margin:32px 0 0">Intervalo 2026. Desarrollado por y para estudiantes. <a href="{unsubscribe_url}" style="color:#768899">Desuscribirse</a>.</p>
+<p style="{sans}font-size:11px;line-height:1.7;color:#768899;margin:32px 0 0">Intervalo 2026. Desarrollado por y para estudiantes.<br><a href="{_app_base_url()}/terminos" style="color:#768899">Términos y condiciones</a> &middot; <a href="{_app_base_url()}/privacidad" style="color:#768899">Política de privacidad</a> &middot; <a href="{unsubscribe_url}" style="color:#768899">Desuscribirse</a></p>
 </td></tr>
 </table>
 </td></tr></table>
@@ -195,11 +385,26 @@ def _app_base_url() -> str:
     return os.environ.get("APP_BASE_URL", "https://www.intervalo.xyz")
 
 
+def _cta_url(campaign: str) -> str:
+    """URL del botón, etiquetada con el tipo de mail que la generó.
+
+    Sin esto los cuatro mails apuntan al mismo link pelado y un click es
+    indistinguible de una visita cualquiera: no hay forma de saber cuál copy
+    trae gente de vuelta. PostHog levanta los `utm_*` solo, así que alcanza con
+    ponerlos.
+
+    No contamina la atribución de origen: `first_utm_source` se registra con
+    `register_once` (ver web/src/lib/analytics/attribution.ts) y estos mails van
+    únicamente a usuarios que ya existen, o sea que ya lo tienen fijado.
+    """
+    return f"{_app_base_url()}/?utm_source=email&utm_campaign={campaign}"
+
+
 def _api_base_url() -> str:
     return os.environ.get("API_BASE_URL", "https://api.intervalo.xyz")
 
 
-def _send(to_email: str, subject: str, html: str, unsubscribe_url: str) -> bool:
+def _send(to_email: str, subject: str, html: str, unsubscribe_url: str, text: str | None = None) -> bool:
     """Best-effort send via Resend. Returns True on success, logs and swallows
     any failure so one bad address never blocks the rest of the batch."""
     api_key = os.environ.get("RESEND_API_KEY")
@@ -218,6 +423,10 @@ def _send(to_email: str, subject: str, html: str, unsubscribe_url: str) -> bool:
             "to": to_email,
             "subject": subject,
             "html": html,
+            # Sin esto Resend autogenera el texto plano convirtiendo el HTML
+            # entero (botón, URL y pie incluidos), y es lo que Gmail muestra en
+            # la notificación. La versión propia lleva solo el copy.
+            **({"text": text} if text else {}),
             # Gmail y Yahoo ponen su propio botón de "Cancelar suscripción" arriba
             # de todo cuando existe este par de headers, y cuentan su ausencia como
             # señal negativa de reputación aunque el link esté en el pie. El POST
@@ -226,6 +435,13 @@ def _send(to_email: str, subject: str, html: str, unsubscribe_url: str) -> bool:
             "headers": {
                 "List-Unsubscribe": f"<{unsubscribe_url}>",
                 "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+                # Los mails de ciclo de vida comparten asunto ("¡Volvé X!"):
+                # sin esto Gmail los encadena en un hilo y recorta el contenido
+                # repetido entre mensajes — el botón y el pie, idénticos de un
+                # mail al otro, quedan escondidos detrás de los "···". Un id
+                # único por envío le dice a Gmail que no son la misma
+                # conversación.
+                "X-Entity-Ref-ID": uuid.uuid4().hex,
             },
         }
         if LOGO_PATH.exists():
@@ -247,14 +463,16 @@ def _send(to_email: str, subject: str, html: str, unsubscribe_url: str) -> bool:
 def send_bounce_email(db: DBSession, user: User) -> bool:
     name = greeting_name(user)
     unsubscribe_url = f"{_api_base_url()}/email/unsubscribe?token={unsubscribe_token(user.id)}"
+    greeting = "Tu cuenta ya está lista y los ejercicios te esperan."
+    highlight = "Solo falta tu primera sesión."
     html = render_email(
-        greeting=f"Hola {name}, empezaste a explorar Intervalo pero todavía no terminaste tu primera sesión de repaso.",
-        question="¿Arrancamos?",
-        cta_label="Continuar",
-        cta_url=_app_base_url(),
+        greeting=greeting,
+        highlight=highlight,
+        cta_label="Volver",
+        cta_url=_cta_url("bounce"),
         unsubscribe_url=unsubscribe_url,
     )
-    sent = _send(user.email, f"¡Volvé {name}!", html, unsubscribe_url)
+    sent = _send(user.email, f"¡Todo listo {name}! 🏁", html, unsubscribe_url, text=f"{greeting} {highlight}")
     if sent:
         user.bounce_email_sent_at = datetime.utcnow()
         db.commit()
@@ -264,16 +482,82 @@ def send_bounce_email(db: DBSession, user: User) -> bool:
 def send_winback_email(db: DBSession, user: User) -> bool:
     name = greeting_name(user)
     unsubscribe_url = f"{_api_base_url()}/email/unsubscribe?token={unsubscribe_token(user.id)}"
+    greeting = "Tus temas te extrañan y te están sacando puestos en el ranking."
+    highlight = "Recuperalos hoy mismo."
     html = render_email(
-        greeting=f"Hola {name}, no te vemos hace algunos días. Nada urgente, pero tus repasos pendientes van a seguir ahí hasta que vuelvas.",
-        question="¿Volvemos?",
-        cta_label="Continuar",
-        cta_url=_app_base_url(),
+        greeting=greeting,
+        highlight=highlight,
+        cta_label="Volver",
+        cta_url=_cta_url("winback"),
         unsubscribe_url=unsubscribe_url,
     )
-    sent = _send(user.email, f"¡Volvé {name}!", html, unsubscribe_url)
+    sent = _send(user.email, f"¡Volvé {name}! 👀", html, unsubscribe_url, text=f"{greeting} {highlight}")
     if sent:
         user.winback_email_sent_at = datetime.utcnow()
+        db.commit()
+    return sent
+
+
+def send_streak_tier_email(db: DBSession, user: User, tier: int) -> bool:
+    name = greeting_name(user)
+    mult = _tier_multiplier(tier)
+    unsubscribe_url = f"{_api_base_url()}/email/unsubscribe?token={unsubscribe_token(user.id)}"
+
+    if mult == 2.0:
+        gain = "vale el doble de XP"
+    else:
+        gain = f"suma un {round((mult - 1) * 100)}% más de XP"
+    nxt = _next_tier(tier)
+    if nxt is None:
+        highlight = "Es el multiplicador más alto que hay. Ahora se trata de no perderlo."
+    else:
+        nxt_days, nxt_mult = nxt
+        highlight = f"El próximo escalón es ×{nxt_mult:.1f}, a los {nxt_days} días."
+
+    greeting = f"Llegaste a {tier} días seguidos repasando, cada ejercicio que resolvés ahora {gain} para el ranking."
+    html = render_email(
+        greeting=greeting,
+        highlight=highlight,
+        # "Continuar" y no "Volver": este mail no le habla a alguien que se fue,
+        # sino a alguien que viene bien y tiene que seguir.
+        cta_label="Continuar",
+        cta_url=_cta_url("streak"),
+        unsubscribe_url=unsubscribe_url,
+        # La preview corta en el saludo: el próximo escalón (la negrita) se
+        # descubre recién adentro del mail.
+        preview=greeting,
+    )
+    emoji = STREAK_TIER_EMOJI.get(tier, "🔥")
+    sent = _send(user.email, f"¡Llegaste a ×{mult:.1f} {name}! {emoji}", html, unsubscribe_url, text=greeting)
+    if sent:
+        user.streak_email_sent_tier = tier
+        user.streak_email_sent_at = datetime.utcnow()
+        db.commit()
+    return sent
+
+
+def send_report_thanks_email(db: DBSession, user: User, feedback_ids: list[int]) -> bool:
+    """Agradece haber reportado un problema en un ejercicio. No promete que ya
+    esté arreglado (no lo sabemos en el momento de mandar el mail) — solo
+    confirma que alguien lo va a mirar."""
+    name = greeting_name(user)
+    unsubscribe_url = f"{_api_base_url()}/email/unsubscribe?token={unsubscribe_token(user.id)}"
+    greeting = "Nos avisaste de un problema en un ejercicio."
+    highlight = "Gracias por hacerlo."
+    html = render_email(
+        greeting=greeting,
+        highlight=highlight,
+        cta_label="Volver",
+        cta_url=_cta_url("report_thanks"),
+        unsubscribe_url=unsubscribe_url,
+    )
+    sent = _send(user.email, f"¡Gracias {name}! 🙏", html, unsubscribe_url, text=f"{greeting} {highlight}")
+    if sent:
+        (
+            db.query(ExerciseFeedback)
+            .filter(ExerciseFeedback.id.in_(feedback_ids))
+            .update({"thanks_sent_at": datetime.utcnow()}, synchronize_session=False)
+        )
         db.commit()
     return sent
 
@@ -289,4 +573,24 @@ def run_lifecycle_emails(db: DBSession) -> dict:
         if send_winback_email(db, user):
             winback_sent += 1
 
-    return {"bounce_sent": bounce_sent, "winback_sent": winback_sent}
+    streak_tier_sent = 0
+    to_send, to_mark = due_streak_tier_emails(db)
+    for user, tier in to_mark:
+        user.streak_email_sent_tier = tier
+    if to_mark:
+        db.commit()
+    for user, tier in to_send:
+        if send_streak_tier_email(db, user, tier):
+            streak_tier_sent += 1
+
+    report_thanks_sent = 0
+    for user, feedback_ids in due_report_thanks_emails(db):
+        if send_report_thanks_email(db, user, feedback_ids):
+            report_thanks_sent += 1
+
+    return {
+        "bounce_sent": bounce_sent,
+        "winback_sent": winback_sent,
+        "streak_tier_sent": streak_tier_sent,
+        "report_thanks_sent": report_thanks_sent,
+    }

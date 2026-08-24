@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_logarithms_RESL_01",
     "question": "La magnitud de un sismo en la escala de Richter se calcula como:\n$$M = \\log_{10}(I/I_0)$$\nAcá $I$ es la intensidad del sismo e $I_0$ es una intensidad de referencia.\n\nUn sismo tiene una intensidad $1000$ veces mayor que la de referencia.\n\n¿Cuál es su magnitud?",
     "options": [
       "$3$",
@@ -27,6 +28,7 @@
     ]
   },
   {
+    "id": "white_logarithms_RESL_02",
     "question": "La magnitud de un sismo se calcula con el logaritmo de la razón entre su intensidad y una de referencia.\n$$M = \\log_{10}(I/I_{0})$$\nUn sismo tiene una intensidad $100000$ veces mayor que la de referencia.\n\n¿Cuál es su magnitud?",
     "options": [
       "$50$",
@@ -54,6 +56,7 @@
     ]
   },
   {
+    "id": "white_logarithms_RESL_03",
     "question": "La magnitud de un sismo se calcula con el logaritmo de la razón entre su intensidad y una de referencia.\n$$M = \\log_{10}(I/I_{0})$$\nUn sismo alcanza magnitud $6$.\n\n¿Cuántas veces más intenso es que la referencia?",
     "options": [
       "$60$",
@@ -81,6 +84,7 @@
     ]
   },
   {
+    "id": "white_logarithms_RESL_04",
     "question": "La magnitud de un sismo se calcula con el logaritmo de la razón entre su intensidad y una de referencia.\n$$M = \\log_{10}(I/I_{0})$$\nUn sismo tiene magnitud $4$ y otro tiene magnitud $7$.\n\n¿Cuántas veces más intenso es el segundo que el primero?",
     "options": [
       "$1000$",
@@ -108,6 +112,7 @@
     ]
   },
   {
+    "id": "white_logarithms_RESL_05",
     "question": "Un sismo alcanza magnitud $2$ según la fórmula de Richter, el logaritmo de la razón entre su intensidad y una de referencia.\n$$M = \\log_{10}(I/I_{0})$$\n¿Cuántas veces más intenso es que la referencia?",
     "options": [
       "$100$",
@@ -135,6 +140,7 @@
     ]
   },
   {
+    "id": "white_logarithms_RESL_06",
     "question": "Un sonido pasa por dos etapas de amplificación seguidas.\n\nLa primera multiplica su intensidad por $100$, y la segunda la multiplica por $1000$ más.\n\nEl nivel del sonido, en la escala de decibeles, usa $\\log_{10}$ del factor total de amplificación.\n\n¿Cuál es $\\log_{10}$ del factor total?",
     "options": [
       "$5$",
@@ -162,6 +168,7 @@
     ]
   },
   {
+    "id": "white_logarithms_RESL_07",
     "question": "Una señal pasa por dos amplificadores seguidos.\n\nEl primero multiplica su intensidad por $10$ y el segundo la multiplica por $10000$.\n\n¿Cuánto vale el $\\log_{10}$ del factor total de amplificación?",
     "options": [
       "$40$",
@@ -189,6 +196,7 @@
     ]
   },
   {
+    "id": "white_logarithms_RESL_08",
     "question": "Una señal pasa por dos etapas de amplificación seguidas.\n\nLa primera multiplica la intensidad por $1000$, y la segunda la multiplica por $100000$.\n\n¿Cuánto vale el $\\log_{10}$ del factor total de amplificación?",
     "options": [
       "$8$",
@@ -216,6 +224,7 @@
     ]
   },
   {
+    "id": "white_logarithms_RESL_09",
     "question": "Un proceso amplifica una señal en dos etapas seguidas.\n\nLa primera etapa la multiplica por $10$ y la segunda la multiplica por $100$.\n\n¿Cuánto vale el $\\log_{10}$ del factor total?",
     "options": [
       "$1$",
@@ -243,6 +252,7 @@
     ]
   },
   {
+    "id": "white_logarithms_RESL_10",
     "question": "Dos fuentes de sonido actúan una después de la otra sobre la misma señal.\n\nLa primera multiplica su intensidad por $1000$ y la segunda por $10$.\n\n¿Cuál es el nivel total en decibeles, sabiendo que se calcula como $10\\log_{10}$ del factor total?",
     "options": [
       "$10100$",
@@ -270,6 +280,7 @@
     ]
   },
   {
+    "id": "white_logarithms_RESL_11",
     "question": "Un repetidor de señal amplifica la intensidad por un factor de $10$ en cada una de $4$ etapas idénticas seguidas.\n\nEl factor total de amplificación es $10^{4}$, y el nivel en decibeles usa $\\log_{10}$ de ese factor.\n\n¿Cuál es $\\log_{10}(10^{4})$?",
     "options": [
       "$4$",
@@ -297,6 +308,7 @@
     ]
   },
   {
+    "id": "white_logarithms_RESL_12",
     "question": "Un repetidor amplifica una señal por un factor de $100$ en cada una de $3$ etapas idénticas.\n\nEl factor total es $100^{3}$, y el nivel de la escala usa su logaritmo.\n\n¿Cuánto vale $\\log_{10}(100^{3})$?",
     "options": [
       "$5$",
@@ -324,6 +336,7 @@
     ]
   },
   {
+    "id": "white_logarithms_RESL_13",
     "question": "Una señal se atenúa quedando en $1/10$ de su intensidad en cada uno de $4$ tramos.\n\nEl factor total es $10^{-4}$, y el nivel de la escala usa su logaritmo.\n\n¿Cuánto vale $\\log_{10}(10^{-4})$?",
     "options": [
       "$4$",
@@ -351,6 +364,7 @@
     ]
   },
   {
+    "id": "white_logarithms_RESL_14",
     "question": "Un proceso multiplica una magnitud por un factor de $1000$ en cada una de $2$ etapas idénticas.\n\nEl factor total es $1000^{2}$, y la escala usa su logaritmo.\n\n¿Cuánto vale $\\log_{10}(1000^{2})$?",
     "options": [
       "$6$",
@@ -378,6 +392,7 @@
     ]
   },
   {
+    "id": "white_logarithms_RESL_15",
     "question": "Una escala de intensidad usa base $2$ en vez de base $10$.\n\nUna señal se duplica en cada uno de $5$ pasos, así que el factor total es $2^{5}$.\n\n¿Cuánto vale $\\log_{2}(2^{5})$?",
     "options": [
       "$10$",
@@ -402,6 +417,148 @@
     "reviewed": false,
     "tags": [
       "resl-propiedad-potencia"
+    ]
+  },
+  {
+    "id": "white_logarithms_RESL_16",
+    "question": "Una señal pasa por tres etapas de amplificación, una después de la otra.\n\nLa tabla desglosa por cuánto multiplica la intensidad cada etapa.\n\n¿Cuánto vale el $\\log_{10}$ del factor total de amplificación?",
+    "options": [
+      "$1110$",
+      "$6$",
+      "$3$",
+      "$60$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los logaritmos de las tres etapas se suman: uno más dos más tres.",
+    "feedback_incorrect": [
+      "Ahí se sumaron los factores en vez de multiplicarlos, y sin tomar ningún logaritmo.",
+      null,
+      "Esa es la cantidad de etapas, no el exponente que resulta de combinarlas.",
+      "Ahí se aplicó el coeficiente diez de la escala de decibeles, que este enunciado no pide."
+    ],
+    "explanation": "Etapas sucesivas **multiplican** sus factores, y el logaritmo de un producto es la suma de los logaritmos de cada factor.\n$$\\log_{10}(x \\cdot y) = \\log_{10}(x) + \\log_{10}(y)$$\nEso vale porque un logaritmo es un exponente, y multiplicar potencias de igual base suma los exponentes.\n\nCada etapa aporta el suyo: uno, dos y tres.\n$$1 + 2 + 3 = 6$$\nEl factor total es un millón, que es diez elevado a la sexta.\n\nSumar los factores en vez de multiplicarlos trata a las etapas como si actuaran por separado sobre la señal original, cuando cada una trabaja sobre la salida de la anterior.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": "📡",
+          "label": "Etapa"
+        },
+        {
+          "icon": null,
+          "label": "Multiplica por"
+        }
+      ],
+      "rows": [
+        [
+          "Etapa 1",
+          "$10$"
+        ],
+        [
+          "Etapa 2",
+          "$100$"
+        ],
+        [
+          "Etapa 3",
+          "$1000$"
+        ],
+        [
+          "**$\\log_{10}(\\text{señal})$**",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "cell",
+        "at": [
+          3,
+          1
+        ],
+        "by_option": [
+          "$1110$",
+          "$6$",
+          "$3$",
+          "$60$"
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "etapas-desde-tabla"
+    ]
+  },
+  {
+    "id": "white_logarithms_RESL_17",
+    "question": "Una señal pasa por dos amplificadores y después por un atenuador.\n\nLa tabla desglosa por cuánto queda multiplicada la intensidad en cada paso.\n\n¿Cuánto vale el $\\log_{10}$ del factor total?",
+    "options": [
+      "$5$",
+      "$4$",
+      "$6$",
+      "$1100$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los dos amplificadores suman sus logaritmos y el atenuador resta el suyo.",
+    "feedback_incorrect": [
+      "Ahí quedó afuera el atenuador, que también forma parte del factor total.",
+      null,
+      "Ahí el atenuador sumó en vez de restar, pero divide la intensidad en lugar de multiplicarla.",
+      "Ahí se sumaron los factores en vez de multiplicarlos, y sin tomar ningún logaritmo."
+    ],
+    "explanation": "Los tres pasos actúan uno sobre la salida del anterior, así que sus factores se multiplican, y el logaritmo de un producto es la suma de los logaritmos.\n$$\\log_{10}(x \\cdot y) = \\log_{10}(x) + \\log_{10}(y)$$\nEso vale porque un logaritmo es un exponente, y multiplicar potencias de igual base suma los exponentes.\n\nEl atenuador no es la excepción: su factor es menor que uno, así que su logaritmo es negativo y entra restando.\n$$3 + 2 + (-1) = 4$$\nDejar el atenuador afuera cuenta solo la parte que agranda la señal, y devuelve un factor diez veces mayor que el real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": "📡",
+          "label": "Paso"
+        },
+        {
+          "icon": null,
+          "label": "Multiplica por"
+        }
+      ],
+      "rows": [
+        [
+          "Amplificador 1",
+          "$1000$"
+        ],
+        [
+          "Amplificador 2",
+          "$100$"
+        ],
+        [
+          "Atenuador",
+          "$1/10$"
+        ],
+        [
+          "**$\\log_{10}(\\text{señal})$**",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "cell",
+        "at": [
+          3,
+          1
+        ],
+        "by_option": [
+          "$5$",
+          "$4$",
+          "$6$",
+          "$1100$"
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "etapas-desde-tabla"
     ]
   }
 ]

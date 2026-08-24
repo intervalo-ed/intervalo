@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_correlacion_FORM_01",
     "question": "Sean $X$ e $Y$ dos variables aleatorias con desvíos $\\sigma_X, \\sigma_Y > 0$.\n\n¿Cuál es la fórmula del coeficiente de **correlación** de Pearson $\\rho_{X,Y}$?",
     "options": [
       "$Cov(X, Y) \\cdot \\sigma_X \\sigma_Y$",

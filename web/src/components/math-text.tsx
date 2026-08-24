@@ -115,7 +115,17 @@ export default function MathText({ text }: { text: string }) {
           return (
             <span
               key={i}
-              className="my-3 block [&_.katex-display]:my-0"
+              // El display math de KaTeX no corta línea: una fórmula más ancha
+              // que el contenedor se desborda y, dentro de un slide con overflow
+              // oculto, se lleva puesto el recorte del texto de al lado.
+              //
+              // `w-0 min-w-full` y no `max-w-full`: con max-width los flex de
+              // arriba igual se estiran hasta el ancho de la fórmula (min-width
+              // auto) y el bloque crece en vez de scrollear. Con width 0 no
+              // aporta ancho intrínseco —los ancestros no se enteran de que el
+              // contenido es más ancho— y min-width lo hace ocupar todo lo
+              // disponible.
+              className="my-3 block w-0 min-w-full overflow-x-auto [&_.katex-display]:my-0"
               dangerouslySetInnerHTML={{
                 __html: render({ value: s.value, displayMode: true }),
               }}

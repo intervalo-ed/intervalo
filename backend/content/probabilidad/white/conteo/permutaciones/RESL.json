@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_permutaciones_RESL_01",
     "question": "¿De cuántas maneras distintas se pueden ordenar los 4 finalistas de una carrera, asignando el 1º, 2º, 3º y 4º puesto del podio?",
     "options": ["$4$", "$16$", "$24$", "$256$"],
     "correct_index": 2,
@@ -18,6 +19,7 @@
     "tags": ["resl-simple"]
   },
   {
+    "id": "white_permutaciones_RESL_02",
     "question": "Se quiere contar los anagramas distintos de la palabra **NANA**, donde la N se repite 2 veces y la A se repite 2 veces.\n\n¿Cuántos anagramas distintos hay?",
     "options": ["$4$", "$6$", "$12$", "$24$"],
     "correct_index": 1,
@@ -36,29 +38,33 @@
     "tags": ["resl-con-repeticion"]
   },
   {
-    "question": "Se comparan dos formas de ordenar letras.\n\n**ROMA** tiene sus 4 letras todas distintas; **ANANA** tiene letras repetidas.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
+    "id": "white_permutaciones_RESL_03",
+    "question": "Se comparan dos formas de ordenar letras.\n\n**ROMA** tiene sus 4 letras todas distintas; **ANA** tiene letras repetidas.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
     "options": [
-      "ROMA tiene más ordenamientos distintos que ANANA.",
+      "ROMA tiene más ordenamientos distintos que ANA.",
       "Ambas tienen la misma cantidad de ordenamientos distintos.",
-      "ANANA tiene más ordenamientos distintos que ROMA.",
+      "ANA tiene más ordenamientos distintos que ROMA.",
       "No se pueden comparar porque tienen distinta cantidad de letras."
     ],
     "correct_index": 0,
-    "feedback_correct": "ROMA tiene $4!=24$ ordenamientos, mientras que ANANA, con 5 letras con repetición, tiene $\\dfrac{5!}{3!\\,2!}=10$.",
+    "feedback_correct": "ROMA tiene $4!=24$ ordenamientos, mientras que ANA, con la A repetida, tiene $\\dfrac{3!}{2!}=3$.",
     "feedback_incorrect": [
       null,
-      "Aunque ambas palabras cuentan reordenamientos, las repeticiones de ANANA reducen su cantidad de anagramas distintos por debajo de los de ROMA.",
-      "Las repeticiones en ANANA reducen la cantidad de anagramas distintos, no la aumentan por encima de una palabra sin repeticiones.",
+      "Aunque ambas palabras cuentan reordenamientos, la repetición de ANA reduce su cantidad de anagramas distintos por debajo de los de ROMA.",
+      "La repetición en ANA reduce la cantidad de anagramas distintos, no la aumenta por encima de una palabra sin repeticiones.",
       "Sí se pueden comparar: cada palabra tiene su propio conteo de anagramas, sin importar que difieran en la cantidad de letras."
     ],
-    "explanation": "Cuando una palabra tiene letras repetidas, su cantidad de anagramas distintos se reduce, porque se divide por el factorial de cada grupo idéntico.\n\nROMA tiene 4 letras distintas: $4!=24$ anagramas.\n\nANANA tiene 5 letras con la A repetida 3 veces y la N repetida 2 veces:\n$$\\frac{5!}{3!\\,2!} = \\frac{120}{12} = 10$$\nTiene 10 anagramas distintos.\n\nAsumir que más letras siempre implica más anagramas ignora que las repeticiones bajan el conteo real.",
+    "explanation": "Cuando una palabra tiene letras repetidas, su cantidad de anagramas distintos se reduce, porque se divide por el factorial de cada grupo idéntico.\n\nROMA tiene 4 letras distintas: $4!=24$ anagramas.\n\nANA tiene 3 letras con la A repetida 2 veces:\n$$\\frac{3!}{2!} = \\frac{6}{2} = 3$$\nTiene 3 anagramas distintos.\n\nAsumir que más letras siempre implica más anagramas ignora que las repeticiones bajan el conteo real.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
     "reviewed": false,
-    "tags": ["resl-comparacion"]
+    "tags": [
+      "resl-comparacion"
+    ]
   },
   {
+    "id": "white_permutaciones_RESL_04",
     "question": "¿De cuántas maneras distintas se pueden ordenar 2 candidatos para asignarles horario de entrevista, uno primero y otro segundo?",
     "options": ["$1$", "$2$", "$4$", "$6$"],
     "correct_index": 1,
@@ -77,6 +83,7 @@
     "tags": ["resl-simple"]
   },
   {
+    "id": "white_permutaciones_RESL_05",
     "question": "¿De cuántas maneras distintas se pueden ordenar los 3 finalistas de un concurso, asignando 1º, 2º y 3º puesto?",
     "options": ["$3$", "$6$", "$9$", "$27$"],
     "correct_index": 1,
@@ -95,6 +102,7 @@
     "tags": ["resl-simple"]
   },
   {
+    "id": "white_permutaciones_RESL_06",
     "question": "¿De cuántas maneras distintas se pueden ordenar los 5 corredores de una carrera, asignando el orden completo de llegada?",
     "options": ["$5$", "$25$", "$120$", "$3125$"],
     "correct_index": 2,
@@ -113,6 +121,7 @@
     "tags": ["resl-simple"]
   },
   {
+    "id": "white_permutaciones_RESL_07",
     "question": "¿De cuántas maneras distintas se pueden ordenar las 6 canciones de una playlist, usando el orden completo de reproducción?",
     "options": ["$6$", "$36$", "$720$", "$46656$"],
     "correct_index": 2,
@@ -131,6 +140,7 @@
     "tags": ["resl-simple"]
   },
   {
+    "id": "white_permutaciones_RESL_08",
     "question": "¿De cuántas maneras distintas se pueden ordenar los 7 alumnos de una fila para una foto grupal, usando a todos?",
     "options": ["$7$", "$49$", "$5040$", "$823543$"],
     "correct_index": 2,
@@ -149,6 +159,7 @@
     "tags": ["resl-simple"]
   },
   {
+    "id": "white_permutaciones_RESL_09",
     "question": "¿De cuántas maneras distintas se puede definir el orden de reparto de 4 paquetes distintos, entregando uno a uno?",
     "options": ["$4$", "$12$", "$24$", "$48$"],
     "correct_index": 2,
@@ -167,6 +178,7 @@
     "tags": ["resl-simple"]
   },
   {
+    "id": "white_permutaciones_RESL_10",
     "question": "Se quiere contar los anagramas distintos de la palabra **ALAS**, donde la A se repite 2 veces.\n\n¿Cuántos anagramas distintos hay?",
     "options": ["$4$", "$12$", "$24$", "$48$"],
     "correct_index": 1,
@@ -185,6 +197,7 @@
     "tags": ["resl-con-repeticion"]
   },
   {
+    "id": "white_permutaciones_RESL_11",
     "question": "Se quiere contar los anagramas distintos de la palabra **CARRO**, donde la R se repite 2 veces.\n\n¿Cuántos anagramas distintos hay?",
     "options": ["$5$", "$60$", "$120$", "$240$"],
     "correct_index": 1,
@@ -203,6 +216,7 @@
     "tags": ["resl-con-repeticion"]
   },
   {
+    "id": "white_permutaciones_RESL_12",
     "question": "Se quiere contar los anagramas distintos de la palabra **AZADA**, donde la A se repite 3 veces.\n\n¿Cuántos anagramas distintos hay?",
     "options": ["$5$", "$20$", "$40$", "$120$"],
     "correct_index": 1,
@@ -221,6 +235,7 @@
     "tags": ["resl-con-repeticion"]
   },
   {
+    "id": "white_permutaciones_RESL_13",
     "question": "Se quiere contar los anagramas distintos de la palabra **CUELLO**, donde la L se repite 2 veces.\n\n¿Cuántos anagramas distintos hay?",
     "options": ["$6$", "$180$", "$360$", "$720$"],
     "correct_index": 2,
@@ -239,6 +254,7 @@
     "tags": ["resl-con-repeticion"]
   },
   {
+    "id": "white_permutaciones_RESL_14",
     "question": "Se quiere contar los anagramas distintos de la palabra **TERROR**, donde la R se repite 3 veces.\n\n¿Cuántos anagramas distintos hay?",
     "options": ["$6$", "$120$", "$240$", "$720$"],
     "correct_index": 1,
@@ -257,6 +273,7 @@
     "tags": ["resl-con-repeticion"]
   },
   {
+    "id": "white_permutaciones_RESL_15",
     "question": "Se comparan dos carreras con distinta cantidad de corredores.\n\nLa carrera A tiene 4 corredores; la carrera B tiene 6 corredores.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
     "options": [
       "La carrera A tiene más órdenes de llegada posibles que la B.",

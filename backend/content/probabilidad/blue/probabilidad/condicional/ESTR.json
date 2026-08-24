@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_condicional_ESTR_01",
     "question": "En una encuesta, el 30% de los encuestados usa transporte público. Entre quienes usan transporte público, el 65% llega a horario.\n\nSe quiere calcular la probabilidad de que un encuestado llegue a horario, sabiendo que usa transporte público.\n\n¿Qué tipo de cálculo corresponde?",
     "options": [
       "Probabilidad simple de llegar a horario, sin usar el dato de transporte público.",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "blue_condicional_ESTR_02",
     "question": "En un curso, el 45% de los estudiantes aprobó el parcial.\n\nSe quiere calcular la probabilidad de que un estudiante elegido al azar haya aprobado el parcial.\n\n¿Qué tipo de cálculo corresponde?",
     "options": [
       "Probabilidad condicional, porque hace falta dividir por la probabilidad de otro evento.",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "blue_condicional_ESTR_03",
     "question": "En una empresa, el 60% del personal trabaja en el turno mañana. De quienes trabajan en el turno mañana, el 25% usa el comedor.\n\nSe quiere calcular la probabilidad de que un empleado use el comedor, sabiendo que trabaja en el turno mañana.\n\n¿Cuál es el planteo correcto?",
     "options": [
       "$P(\\text{comedor} \\mid \\text{mañana})$",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "blue_condicional_ESTR_04",
     "question": "En una encuesta a usuarios de una plataforma de streaming, el 55% mira series los fines de semana.\n\nEntre quienes miran series los fines de semana, el 40% también deja reseñas.\n\nSe quiere calcular la probabilidad de que un usuario deje reseñas, sabiendo que mira series los fines de semana.\n\n¿Qué tipo de cálculo corresponde?",
     "options": [
       "Probabilidad simple de dejar reseñas, sin usar el dato de mirar series los fines de semana.",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "blue_condicional_ESTR_05",
     "question": "Se lanza un dado equilibrado de 6 caras y se sabe que el resultado fue un número par.\n\nSe quiere calcular la probabilidad de que el resultado haya sido mayor a 4, sabiendo que fue par.\n\n¿Qué tipo de cálculo corresponde?",
     "options": [
       "Probabilidad condicional, porque el evento mayor a 4 se calcula ya sabiendo que el resultado fue par.",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "blue_condicional_ESTR_06",
     "question": "Se lanzan dos monedas equilibradas y se sabe que al menos una tirada salió cara.\n\nSe quiere calcular la probabilidad de que las dos tiradas hayan salido cara, sabiendo que al menos una salió cara.\n\n¿Qué tipo de cálculo corresponde?",
     "options": [
       "Probabilidad de la intersección entre las dos tiradas, sobre los cuatro resultados posibles del experimento.",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "blue_condicional_ESTR_07",
     "question": "De un mazo reducido de 12 cartas, 4 son figuras, y entre las figuras, 2 son de espadas.\n\nSe quiere calcular la probabilidad de que una carta sea de espadas, sabiendo que es figura.\n\n¿Qué tipo de cálculo corresponde?",
     "options": [
       "Probabilidad condicional, porque el dato de ser espadas ya está restringido a las cartas que son figura.",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "blue_condicional_ESTR_08",
     "question": "En una tabla de 200 clientas, 120 son mujeres, y entre las mujeres, 45 usan la versión premium de una aplicación.\n\nSe quiere calcular la probabilidad de que una clienta use la versión premium, sabiendo que es mujer.\n\n¿Qué tipo de cálculo corresponde?",
     "options": [
       "Probabilidad de la intersección entre ser mujer y usar la versión premium, sobre las 200 clientas.",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "blue_condicional_ESTR_09",
     "question": "Se lanza un dado equilibrado de 6 caras.\n\nSe quiere calcular la probabilidad de que el resultado sea un número par.\n\n¿Qué tipo de cálculo corresponde?",
     "options": [
       "Probabilidad condicional, porque hay que dividir por la probabilidad de otro evento previo.",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "blue_condicional_ESTR_10",
     "question": "De un mazo reducido de 10 cartas, 3 son ases.\n\nSe quiere calcular la probabilidad de que la carta extraída sea un as.\n\n¿Qué tipo de cálculo corresponde?",
     "options": [
       "Probabilidad simple, porque la pregunta no restringe a ningún subgrupo de cartas ya extraídas.",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "blue_condicional_ESTR_11",
     "question": "En una tabla de 150 empleados, 80 trabajan en producción.\n\nSe quiere calcular la probabilidad de que un empleado elegido al azar trabaje en producción.\n\n¿Qué tipo de cálculo corresponde?",
     "options": [
       "Probabilidad de la intersección entre trabajar en producción y otro evento no mencionado en el enunciado.",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "blue_condicional_ESTR_12",
     "question": "De un mazo reducido, el 40% de las cartas son rojas, y entre las rojas, el 25% son figuras.\n\nSe quiere calcular la probabilidad de que una carta sea figura, sabiendo que es roja.\n\n¿Cuál es el planteo correcto?",
     "options": [
       "$P(\\text{roja} \\mid \\text{figura})$",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "blue_condicional_ESTR_13",
     "question": "Se lanza un dado equilibrado de 6 caras. El 50% de los resultados son pares, y entre los pares, un tercio es mayor a 4.\n\nSe quiere calcular la probabilidad de que el resultado sea mayor a 4, sabiendo que es par.\n\n¿Cuál es el planteo correcto?",
     "options": [
       "$P(X>4 \\mid \\text{par})$",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "blue_condicional_ESTR_14",
     "question": "En una encuesta, el 70% de los encuestados practica algún deporte.\n\nEntre quienes practican algún deporte, el 35% también sigue una dieta especial.\n\nSe quiere calcular la probabilidad de que un encuestado siga una dieta especial, sabiendo que practica algún deporte.\n\n¿Cuál es el planteo correcto?",
     "options": [
       "$P(\\text{dieta} \\mid \\text{deporte})$",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "blue_condicional_ESTR_15",
     "question": "En una tabla de 300 pacientes, 180 son fumadores, y entre los fumadores, 90 presentan tos crónica.\n\nSe quiere calcular la probabilidad de que un paciente presente tos crónica, sabiendo que es fumador.\n\n¿Cuál es el planteo correcto?",
     "options": [
       "$P(\\text{fumador} \\mid \\text{tos})$",

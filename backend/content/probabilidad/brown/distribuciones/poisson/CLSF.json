@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_poisson_CLSF_01",
     "question": "Una caja de supermercado recibe en promedio 3 clientes por minuto, llegando de forma independiente entre sí.\n\nSea $X$ la cantidad de clientes que llegan en un minuto.\n\n¿Qué distribución sigue $X$?",
     "options": [
       "$Poisson(3)$",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "brown_poisson_CLSF_02",
     "question": "Se inspecciona un lote de 50 tornillos y se cuenta cuántos están mal roscados.\n\nCada tornillo tiene, en forma independiente, un $4\\%$ de probabilidad de estar mal roscado.\n\n¿Qué distribución modela exactamente la cantidad de tornillos mal roscados?",
     "options": [
       "$Bin(50,\\, 0{,}04)$",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "brown_poisson_CLSF_03",
     "question": "Una máquina falla en promedio 2 veces por hora en el turno día y 5 veces por hora en el turno noche.\n\nSe quiere modelar la cantidad de fallas en un intervalo de 16 horas que combina ambos turnos.\n\n¿Se puede modelar esa cantidad de fallas con una única distribución de Poisson de tasa constante?",
     "options": [
       "No, la tasa de fallas no es la misma a lo largo de esas 16 horas.",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "brown_poisson_CLSF_04",
     "question": "Un call center recibe llamadas a una tasa promedio de 5 por hora, en forma independiente entre sí.\n\nSea $X$ la cantidad de llamadas que llegan en una hora.\n\n¿Qué distribución sigue $X$?",
     "options": [
       "$Poisson(5)$",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "brown_poisson_CLSF_05",
     "question": "Un corrector revisa un documento extenso.\n\nEncuentra en promedio 2 errores tipográficos por página, de forma independiente entre sí.\n\nSea $X$ la cantidad de errores en una página.\n\n¿Qué distribución sigue $X$?",
     "options": [
       "$Bin(2,\\,0{,}5)$",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "brown_poisson_CLSF_06",
     "question": "En hora pico, un semáforo ve pasar autos a una tasa promedio de 6 por minuto, en forma independiente entre sí.\n\nSea $X$ la cantidad de autos que pasan en un minuto.\n\n¿Qué distribución sigue $X$?",
     "options": [
       "$Geom(1/6)$",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "brown_poisson_CLSF_07",
     "question": "Un canal de soporte recibe mensajes a una tasa promedio de 7 por minuto, en forma independiente entre sí.\n\nSea $X$ la cantidad de mensajes que llegan en un minuto.\n\n¿Qué distribución sigue $X$?",
     "options": [
       "$Poisson(7)$",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "brown_poisson_CLSF_08",
     "question": "Una máquina de una línea de producción falla en promedio 1 vez por mes, de forma independiente entre una falla y la siguiente.\n\nSea $X$ la cantidad de fallas en un mes.\n\n¿Qué distribución sigue $X$?",
     "options": [
       "$Bin(30,\\,0{,}03)$",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "brown_poisson_CLSF_09",
     "question": "Un corrector necesita saber cuántas páginas debe leer hasta encontrar la primera con error tipográfico.\n\nLa probabilidad de que cualquier página dada tenga al menos un error es $0{,}2$, de forma independiente entre páginas.\n\n¿Qué distribución modela exactamente la cantidad de páginas revisadas hasta encontrar la primera con error?",
     "options": [
       "$Bin(5,\\,0{,}2)$",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "brown_poisson_CLSF_10",
     "question": "Se observan los próximos 20 autos que pasan por un semáforo.\n\nCada auto, en forma independiente, tiene un $10\\%$ de probabilidad de superar el límite de velocidad.\n\n¿Qué distribución modela exactamente la cantidad de autos que superan el límite entre esos 20?",
     "options": [
       "$Bin(20,\\,0{,}1)$",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "brown_poisson_CLSF_11",
     "question": "Un canal de soporte quiere saber cuántos mensajes recibe hasta que llega el primero marcado como urgente.\n\nLa probabilidad de que un mensaje sea urgente es $0{,}15$, de forma independiente entre mensajes.\n\n¿Qué distribución modela exactamente la cantidad de mensajes hasta el primero urgente?",
     "options": [
       "$Poisson(0{,}15)$",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "brown_poisson_CLSF_12",
     "question": "Se inspeccionan las próximas 25 piezas producidas por una máquina.\n\nCada pieza, en forma independiente, tiene un $8\\%$ de probabilidad de salir defectuosa.\n\n¿Qué distribución modela exactamente la cantidad de piezas defectuosas entre esas 25?",
     "options": [
       "$Geom(0{,}08)$",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "brown_poisson_CLSF_13",
     "question": "Un call center recibe llamadas en promedio 3 por hora durante la madrugada y 12 por hora durante el horario laboral.\n\nSe quiere modelar la cantidad de llamadas en un intervalo de 10 horas que combina ambos tramos.\n\n¿Se puede modelar esa cantidad de llamadas con una única distribución de Poisson de tasa constante?",
     "options": [
       "No, la tasa de llamadas no es la misma a lo largo de esas 10 horas.",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "brown_poisson_CLSF_14",
     "question": "Un semáforo ve pasar en promedio 4 autos por minuto fuera de hora pico y 20 autos por minuto durante la hora pico.\n\nSe quiere modelar la cantidad de autos en un intervalo de 3 horas que incluye ambos tramos del día.\n\n¿Se puede modelar esa cantidad de autos con una única distribución de Poisson de tasa constante?",
     "options": [
       "Sí, alcanza con promediar las dos tasas en una sola $\\lambda$.",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "brown_poisson_CLSF_15",
     "question": "Una caja de supermercado recibe en promedio 2 clientes por minuto los días de semana y 9 clientes por minuto los fines de semana.\n\nSe quiere modelar la cantidad de clientes en un intervalo que abarca un día de semana y un sábado.\n\n¿Se puede modelar esa cantidad de clientes con una única distribución de Poisson de tasa constante?",
     "options": [
       "Sí, porque cada cliente llega de forma independiente de los demás.",

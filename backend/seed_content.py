@@ -22,6 +22,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import time
 from pathlib import Path
 from typing import Any
 
@@ -74,6 +75,34 @@ def _validate_exercise(entry: dict, source: Path, idx: int) -> None:
         )
 
 
+def _external_id(
+    entry: dict, source: Path, idx: int,
+    belt: str, topic: str, skill: str,
+) -> str:
+    """Identidad estable del ejercicio, para la clave (course_id, external_id).
+
+    Si el JSON de autoría trae `id`, manda ese y nada más lo cambia. Si no,
+    se deriva de la posición en el array, que es como funcionaba hasta ago-2026.
+
+    El id posicional tiene un problema serio: borrar o insertar un ejercicio en
+    el medio del archivo renumera todos los que siguen, y las respuestas viejas
+    de `answers.exercise_external_id` pasan a describir otro contenido. En prod
+    ya quedaron 123 ids apuntando a ejercicios que no existen. Por eso el `id`
+    explícito, que `content/stamp_ids.py` estampa y nunca reasigna.
+
+    El id es un identificador, no una ruta: si el topic se renombra, el id
+    conserva el nombre viejo a propósito, para no cortar la serie histórica.
+    """
+    raw = entry.get("id")
+    if raw is None:
+        return f"{belt}_{topic}_{skill}_{idx+1:02d}"
+    if not isinstance(raw, str) or not raw.strip():
+        raise ValueError(f"{source}[{idx}]: 'id' debe ser un string no vacío")
+    if len(raw) > 100:  # Exercise.external_id es String(100)
+        raise ValueError(f"{source}[{idx}]: 'id' supera los 100 caracteres: {raw!r}")
+    return raw
+
+
 def _serialize_graph_view(gv: Any) -> str | None:
     if gv is None:
         return None
@@ -98,6 +127,13 @@ def _serialize_tags(tags: Any) -> str | None:
     """Store list as JSON string; absent/invalid tags stay None (legacy, untagged)."""
     if isinstance(tags, list):
         return json.dumps(tags, ensure_ascii=False)
+    return None
+
+
+def _serialize_table(table: Any) -> str | None:
+    """Store the table object as a JSON string; absent/invalid stays None."""
+    if isinstance(table, dict):
+        return json.dumps(table, ensure_ascii=False)
     return None
 
 
@@ -239,7 +275,7 @@ def seed_exercises(
 
         for idx, entry in enumerate(entries):
             _validate_exercise(entry, skill_file, idx)
-            external_id = f"{belt}_{topic}_{skill}_{idx+1:02d}"
+            external_id = _external_id(entry, skill_file, idx, belt, topic, skill)
 
             if external_id in seen_external_ids:
                 raise ValueError(
@@ -277,6 +313,7 @@ def seed_exercises(
                     graph_view=_serialize_graph_view(entry.get("graph_view")),
                     graph_shade=_serialize_graph_view(entry.get("graph_shade")),
                     graph_free_aspect=bool(entry.get("graph_free_aspect", False)),
+                    table_data=_serialize_table(entry.get("table")),
                     explanation=entry.get("explanation"),
                     tags=_serialize_tags(entry.get("tags")),
                     reviewed=entry.get("reviewed"),
@@ -300,6 +337,7 @@ def seed_exercises(
                     "graph_view":         _serialize_graph_view(entry.get("graph_view")),
                     "graph_shade":        _serialize_graph_view(entry.get("graph_shade")),
                     "graph_free_aspect":  bool(entry.get("graph_free_aspect", False)),
+                    "table_data":         _serialize_table(entry.get("table")),
                     "explanation":        entry.get("explanation"),
                     "tags":               _serialize_tags(entry.get("tags")),
                     "reviewed":           entry.get("reviewed"),
@@ -400,11 +438,26 @@ def seed_one_course(slug: str, db: DBSession, prune: bool = False) -> None:
     print(f"[seed] {slug}")
     # course.json es la fuente única de estructura y lo consumían cuatro pasos
     # distintos; se parsea una vez y se pasa hacia abajo.
+    #
+    # Los tiempos por fase van al log porque este seed corre en cada arranque
+    # y define cuánto tarda el proceso en atender: sin separar carga, upsert y
+    # commit no se sabe cuál de los tres hay que optimizar.
+    t0 = time.perf_counter()
     data = _load_json(course_dir / "course.json")
+    t_load = time.perf_counter()
     course = seed_course(db, data)
     seed_belt_info(db, course, data)
     seed_exercises(db, course, course_dir, data, prune=prune)
+    t_upsert = time.perf_counter()
+    # Un solo commit por curso, prune incluido: mantiene la lectura atómica
+    # para las conexiones que estén sirviendo mientras esto corre en segundo
+    # plano (ver el docstring de `lifespan` en main.py). No partirlo.
     db.commit()
+    print(
+        f"[seed] {slug} load {t_load - t0:.2f}s "
+        f"upsert {t_upsert - t_load:.2f}s commit {time.perf_counter() - t_upsert:.2f}s",
+        flush=True,
+    )
 
 
 def seed_all(db: DBSession, prune: bool = False) -> None:

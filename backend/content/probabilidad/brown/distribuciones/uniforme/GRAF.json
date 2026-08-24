@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_uniforme_GRAF_01",
     "question": "Un colectivo puede llegar en cualquier momento dentro de los 20 minutos siguientes a las 8:00.\n\nNingún instante dentro de esa franja es más probable que otro.\n\nSea $X$ el tiempo en minutos hasta que llega.\n\n¿Qué forma tiene la densidad de $X$?",
     "options": [
       "Un rectángulo de altura constante entre 0 y 20.",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_GRAF_02",
     "question": "Dos sensores miden el tiempo de respuesta de un sistema, en segundos.\n\nEl sensor A tiene tiempos uniformes entre 0 y 4.\n$$f_A(x) = \\frac{1}{4} \\text{ para } 0\\leq x\\leq 4$$\nEl sensor B entre 0 y 10.\n$$f_B(x) = \\frac{1}{10} \\text{ para } 0\\leq x\\leq 10$$\n¿Cuál de las dos densidades tiene mayor altura?",
     "options": [
       "$f_A$, porque su intervalo es más angosto.",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_GRAF_03",
     "question": "Un sensor detecta la posición de una partícula en un canal de 4 mm de largo, con la misma densidad en cualquier punto del canal.\n\nSea $X$ la posición donde se detecta, en milímetros desde el extremo izquierdo.\n\nEl gráfico muestra el área sombreada bajo la densidad.\n\n¿Qué probabilidad representa esa área sombreada?",
     "options": [
       "$1/2$",
@@ -85,6 +88,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_GRAF_04",
     "question": "El tiempo que un cliente espera en la fila de un banco se modela como uniforme entre 0 y 7 minutos.\n\nNingún instante dentro de ese rango es más probable que otro.\n\nSea $X$ ese tiempo de espera.\n\n¿Qué forma tiene la densidad de $X$?",
     "options": [
       "Un rectángulo de altura constante entre 0 y 7.",
@@ -110,6 +114,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_GRAF_05",
     "question": "Un puntero gira libremente y se detiene en cualquier posición de una escala de 5 cm de largo.\n\nNinguna posición de la escala es más probable que otra.\n\nSea $X$ la posición donde se detiene, en centímetros.\n\n¿Qué forma tiene la densidad de $X$?",
     "options": [
       "Una campana simétrica centrada en 2,5.",
@@ -135,6 +140,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_GRAF_06",
     "question": "Un dardo cae en cualquier punto de una franja de 6 mm de ancho, con la misma densidad en toda la franja.\n\nSea $X$ la posición donde cae, en milímetros desde el borde izquierdo.\n\n¿Qué forma tiene la densidad de $X$?",
     "options": [
       "Una curva que decae desde un valor alto en 0.",
@@ -160,6 +166,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_GRAF_07",
     "question": "El nivel de líquido restante en un dispensador antes de la próxima recarga se modela como uniforme entre 0 y 5 litros.\n\nNingún nivel dentro de ese rango es más probable que otro.\n\nSea $X$ ese nivel restante.\n\n¿Qué forma tiene la densidad de $X$?",
     "options": [
       "Una curva que decae desde un valor alto en 0.",
@@ -185,6 +192,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_GRAF_08",
     "question": "Dos sucursales bancarias miden el tiempo de espera en fila, en minutos.\n\nLa sucursal X tiene tiempos uniformes entre 0 y 5.\n$$f_X(x) = \\frac{1}{5} \\text{ para } 0\\leq x\\leq 5$$\nLa sucursal Y entre 0 y 8.\n$$f_Y(x) = \\frac{1}{8} \\text{ para } 0\\leq x\\leq 8$$\n¿Cuál de las dos densidades tiene mayor altura?",
     "options": [
       "$f_X$, porque su intervalo es más angosto.",
@@ -210,6 +218,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_GRAF_09",
     "question": "Un termómetro digital registra la temperatura uniforme entre 0 y 4 grados dentro de un proceso.\n$$f(x) = \\frac{1}{4} \\text{ para } 0\\leq x\\leq 4$$\nSi el rango se ampliara al doble, entre 0 y 8 grados, sin cambiar el resto del proceso.\n\n¿Qué pasa con la altura de la densidad?",
     "options": [
       "Aumenta al doble.",
@@ -235,6 +244,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_GRAF_10",
     "question": "Dos detectores registran dónde impacta una partícula dentro de un canal, en milímetros.\n\nEl detector A cubre un canal de 0 a 3.\n$$f_A(x) = \\frac{1}{3} \\text{ para } 0\\leq x\\leq 3$$\nEl detector B cubre uno de 0 a 6.\n$$f_B(x) = \\frac{1}{6} \\text{ para } 0\\leq x\\leq 6$$\n¿Cuál de las dos densidades tiene mayor altura?",
     "options": [
       "$f_B$, porque su intervalo es más ancho.",
@@ -260,6 +270,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_GRAF_11",
     "question": "Un dispensador tenía un nivel de líquido uniforme entre 0 y 8 litros, con densidad $f(x)=1/8$.\n\nSe reemplaza por un modelo nuevo, uniforme entre 0 y 4 litros.\n\n¿Cuánto vale la nueva altura de la densidad?",
     "options": [
       "$1/16$",
@@ -287,6 +298,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_GRAF_12",
     "question": "El tiempo que un cliente espera en la fila de un banco se modela como uniforme entre 0 y 6 minutos.\n\nSea $X$ ese tiempo de espera, en minutos.\n\nEl gráfico muestra el área sombreada bajo la densidad.\n\n¿Qué probabilidad representa esa área sombreada?",
     "options": [
       "$1/6$",
@@ -322,6 +334,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_GRAF_13",
     "question": "Un puntero gira libremente y se detiene en cualquier posición de una escala de 5 cm, con la misma densidad en toda la escala.\n\nSea $X$ la posición donde se detiene, en centímetros.\n\nEl gráfico muestra el área sombreada bajo la densidad.\n\n¿Qué probabilidad representa esa área sombreada?",
     "options": [
       "$1/5$",
@@ -357,6 +370,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_GRAF_14",
     "question": "Un dispensador tiene un nivel de líquido restante uniforme entre 0 y 3 litros antes de la próxima recarga.\n\nSea $X$ ese nivel restante, en litros.\n\nEl gráfico muestra el área sombreada bajo la densidad.\n\n¿Qué probabilidad representa esa área sombreada?",
     "options": [
       "$2/3$",
@@ -392,6 +406,7 @@
     ]
   },
   {
+    "id": "brown_uniforme_GRAF_15",
     "question": "El tiempo que tarda en descargarse un archivo chico se modela como uniforme entre 2 y 7 segundos.\n\nSea $X$ ese tiempo de descarga, en segundos.\n\nEl gráfico muestra el área sombreada bajo la densidad.\n\n¿Qué probabilidad representa esa área sombreada?",
     "options": [
       "$3/5$",

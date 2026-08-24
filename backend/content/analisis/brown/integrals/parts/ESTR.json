@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_parts_ESTR_01",
     "question": "En este producto conviven dos familias que se comportan de manera muy distinta al derivarse:\n$$\\int x^2\\ln x\\,dx$$\nPara repartir los roles se usa la prioridad ILATE, la jerarquía que ordena qué familia conviene derivar primero.\n\n¿Cuál es la elección de $u$ y $dv$ que deja la integral remanente más simple?",
     "options": [
       "$u=\\ln x, dv=x^2\\,dx$",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "brown_parts_ESTR_02",
     "question": "Uno de los dos factores no cambia nada al derivarse ni al integrarse:\n$$\\int xe^x\\,dx$$\nEl reparto lo decide la prioridad ILATE, la jerarquía que ordena qué familia conviene derivar primero.\n\n¿Cuál es la elección correcta de $u$ y $dv$?",
     "options": [
       "$u=xe^x, dv=dx$",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "brown_parts_ESTR_03",
     "question": "Uno de los dos factores baja de grado al derivarse hasta desaparecer:\n$$\\int x\\sin x\\,dx$$\nSiguiendo la prioridad ILATE, la jerarquía que decide qué familia se deriva primero, corresponde una elección concreta.\n\n¿Cuál es la elección correcta de $u$ y $dv$?",
     "options": [
       "$u=\\sin x, dv=x\\,dx$",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "brown_parts_ESTR_04",
     "question": "Un reparto mal elegido en este producto deja una integral peor que la original:\n$$\\int x^3\\ln x\\,dx$$\nLa prioridad ILATE, el orden que indica qué familia conviene derivar antes, es la que decide el reparto.\n\n¿Cuál es la elección adecuada de $u$ y $dv$?",
     "options": [
       "$u=\\ln x, dv=x^3\\,dx$",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "brown_parts_ESTR_05",
     "question": "El coeficiente del exponente va a acompañar todo el desarrollo, sin decidir el reparto:\n$$\\int xe^{3x}\\,dx$$\nPara repartir los roles se sigue la prioridad ILATE, la jerarquía que ordena qué familia se deriva primero.\n\n¿Cuál es la elección correcta de $u$ y $dv$?",
     "options": [
       "$u=xe^{3x}, dv=dx$",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "brown_parts_ESTR_06",
     "question": "Las dos partes de este producto pertenecen a familias distintas de la tabla:\n$$\\int x\\cos x\\,dx$$\nLa prioridad ILATE, el orden que decide cuál de las dos conviene derivar, es la que se aplica en este caso.\n\n¿Cuál es la elección que simplifica la integral remanente?",
     "options": [
       "$u=\\cos x, dv=x\\,dx$",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "brown_parts_ESTR_07",
     "question": "El coeficiente que multiplica afuera no interviene en el reparto de roles:\n$$\\int 2x\\ln x\\,dx$$\nEl criterio es la prioridad ILATE, la jerarquía que decide qué familia conviene derivar primero.\n\n¿Cuál es la elección correcta de $u$ y $dv$?",
     "options": [
       "$u=\\ln x, dv=2x\\,dx$",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "brown_parts_ESTR_08",
     "question": "El signo del exponente se arrastra hasta el resultado, pero no cambia quién va en cada rol:\n$$\\int xe^{-x}\\,dx$$\nEl reparto lo fija la prioridad ILATE, el orden que indica qué familia se deriva antes.\n\n¿Cuál es la elección correcta de $u$ y $dv$?",
     "options": [
       "$u=xe^{-x}, dv=dx$",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "brown_parts_ESTR_09",
     "question": "El seno de este producto se aplica a la variable sola, sin nada más adentro:\n$$\\int x\\sin x\\,dx$$\n¿Qué camino abre esta integral?",
     "options": [
       "Por partes",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "brown_parts_ESTR_10",
     "question": "En este integrando, un factor es, salvo una constante, la derivada de lo que hay dentro del seno:\n$$\\int x\\sin(x^2)\\,dx$$\n¿Qué camino abre esta integral?",
     "options": [
       "Sustitución",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "brown_parts_ESTR_11",
     "question": "Este integrando es una única función que no parece, a primera vista, un producto:\n$$\\int \\ln x\\,dx$$\n¿Cómo conviene abordarla?",
     "options": [
       "Sustitución",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "brown_parts_ESTR_12",
     "question": "Este integrando combina una potencia con un logaritmo, pero el logaritmo aparece dividiendo, no multiplicando:\n$$\\int \\frac{\\ln x}{x}\\,dx$$\n¿Cómo conviene abordarla?",
     "options": [
       "Por partes",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "brown_parts_ESTR_13",
     "question": "El exponente de esta exponencial lleva un coeficiente que hay que compensar, sin ningún factor extra multiplicando afuera:\n$$\\int xe^{2x}\\,dx$$\n¿Qué camino abre esta integral?",
     "options": [
       "Sustitución",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "brown_parts_ESTR_14",
     "question": "En este integrando, un factor es exactamente la derivada de lo que hay dentro de la exponencial:\n$$\\int xe^{x^2}\\,dx$$\n¿Qué camino abre esta integral?",
     "options": [
       "Regla directa",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "brown_parts_ESTR_15",
     "question": "Adentro del coseno está la variable sola, y afuera vuelve a aparecer multiplicando:\n$$\\int x\\cos x\\,dx$$\n¿Cómo conviene abordarla?",
     "options": [
       "Sustitución",

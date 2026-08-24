@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_linear_GRAF_01",
     "question": "El gráfico muestra una recta sin ningún contexto asociado, solo la relación entre $x$ y $f(x)$.\n\n¿Cuál es el valor de $f(3)$?",
     "options": [
       "3",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_02",
     "question": "Un tanque se vacía a **ritmo constante**. El gráfico muestra los litros según las horas transcurridas.\n\n¿Cuántos litros quedan a las 3 horas?",
     "options": [
       "4 litros",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_03",
     "question": "Para leer la inclinación de una recta alcanza con ver cuánto baja o sube al avanzar una unidad.\n\n¿Cuál es la **pendiente** de la recta graficada?",
     "options": [
       "1",
@@ -75,6 +78,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_04",
     "question": "El gráfico muestra el costo de alquilar una bicicleta según las horas de uso.\n\n¿Cuál es la tarifa por hora?",
     "options": [
       "3 pesos por hora",
@@ -100,6 +104,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_05",
     "question": "La ordenada al origen se lee directo en el gráfico, sin necesidad de conocer la fórmula.\n\n¿Cuál es la **ordenada al origen** de la recta graficada?",
     "options": [
       "3",
@@ -125,6 +130,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_06",
     "question": "Un tanque se llena a **ritmo constante**. El gráfico muestra los litros según los minutos.\n\n¿Cuántos litros tenía al empezar, en el minuto 0?",
     "options": [
       "1 litro",
@@ -150,6 +156,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_07",
     "question": "Leer un gráfico en sentido inverso, entrando por la altura y saliendo por la variable, es tan válido como el sentido directo.\n\n¿Para qué valor de $x$ se cumple $f(x) = 2$?",
     "options": [
       "1",
@@ -175,6 +182,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_08",
     "question": "Un tanque se vacía a **ritmo constante**. El gráfico muestra los litros según las horas.\n\n¿A las cuántas horas quedan 8 litros?",
     "options": [
       "8 horas",
@@ -200,6 +208,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_09",
     "question": "Un tanque se vacía a **ritmo constante**, sin volver a llenarse. El gráfico muestra los litros según las horas.\n\n¿A las cuántas horas se vacía completamente?",
     "options": [
       "6 horas",
@@ -225,6 +234,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_10",
     "question": "El gráfico marca dos puntos de la recta: $(1, 3)$ y $(4, 9)$.\n\n¿Cuál es la **pendiente** que se calcula entre esos dos puntos?",
     "options": [
       "6",
@@ -250,6 +260,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_11",
     "question": "La recta del gráfico también está definida a la izquierda del eje vertical.\n\n¿Cuál es el valor de $f(-1)$?",
     "options": [
       "1",
@@ -275,6 +286,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_12",
     "question": "El gráfico muestra el costo de estacionar un auto según las horas.\n\n¿Cuánto cuesta estacionar durante 4 horas?",
     "options": [
       "8 pesos",
@@ -300,6 +312,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_13",
     "question": "El gráfico muestra la tinta que queda en un cartucho de impresora según los días de uso.\n\n¿Cuánta tinta queda a los 6 días?",
     "options": [
       "9 mL",
@@ -325,6 +338,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_14",
     "question": "El gráfico muestra los kilómetros recorridos por un tren a **velocidad constante**, según los minutos de viaje.\n\n¿Cuántos kilómetros recorrió a los 8 minutos?",
     "options": [
       "8 km",
@@ -350,6 +364,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_15",
     "question": "Dos rectas pueden cruzar el eje vertical en el mismo punto y aun así tener inclinaciones muy distintas.\n\n¿Cuál es la **pendiente** de la recta graficada?",
     "options": [
       "1",
@@ -375,6 +390,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_16",
     "question": "El gráfico muestra la temperatura de una olla de agua puesta a calentar, según los minutos.\n\n¿A qué ritmo sube la temperatura, en grados por minuto?",
     "options": [
       "2 grados por minuto",
@@ -400,6 +416,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_17",
     "question": "El gráfico muestra el saldo de una tarjeta prepaga de transporte según los días, si se gasta siempre lo mismo.\n\n¿Cuál es el gasto diario que refleja la pendiente de la recta?",
     "options": [
       "20 pesos por día",
@@ -425,6 +442,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_18",
     "question": "El gráfico muestra el costo de sacar fotocopias en un local según la cantidad de copias.\n\n¿Cuál es el costo por copia que indica la pendiente?",
     "options": [
       "3 pesos por copia",
@@ -450,6 +468,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_19",
     "question": "El gráfico cruza los dos ejes, y solo uno de esos cruces da la ordenada al origen.\n\n¿Cuál es la **ordenada al origen** de la recta graficada?",
     "options": [
       "2",
@@ -475,6 +494,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_20",
     "question": "El gráfico muestra el costo total de una suscripción de música según los meses, con un cargo único de activación.\n\n¿Cuál fue el cargo de activación en el mes 0?",
     "options": [
       "2 pesos",
@@ -500,6 +520,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_21",
     "question": "El gráfico muestra la altura de una planta, en centímetros, creciendo a **ritmo constante** según las semanas.\n\n¿Cuál era la altura de la planta en la semana 0, recién plantada?",
     "options": [
       "4 cm",
@@ -525,6 +546,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_22",
     "question": "En el gráfico, subir hasta una altura fija y de ahí bajar al eje horizontal responde la pregunta inversa.\n\n¿Para qué valor de $x$ se cumple $f(x)=1$?",
     "options": [
       "1",
@@ -550,6 +572,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_23",
     "question": "El gráfico muestra los kilómetros que le faltan a un colectivo para llegar a destino, según los minutos de viaje.\n\n¿A los cuántos minutos le faltan 10 km para llegar?",
     "options": [
       "10 minutos",
@@ -575,6 +598,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_24",
     "question": "El gráfico muestra el ahorro acumulado de una persona, en pesos, ahorrando siempre el mismo monto según las semanas.\n\n¿A las cuántas semanas el ahorro llega a 50 pesos?",
     "options": [
       "25 semanas",
@@ -600,6 +624,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_25",
     "question": "Un auto consume combustible a **ritmo constante**, sin volver a cargar. El gráfico muestra los litros según los kilómetros.\n\n¿A los cuántos kilómetros se queda sin combustible?",
     "options": [
       "20 km",
@@ -625,6 +650,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_26",
     "question": "Una vela se enciende y se quema a **ritmo constante**, sin volver a crecer. El gráfico muestra su altura según los minutos.\n\n¿A los cuántos minutos se termina de consumir la vela?",
     "options": [
       "10 minutos",
@@ -650,6 +676,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_27",
     "question": "Un dispositivo se descarga a **ritmo constante** sin cargarse. El gráfico muestra el porcentaje de batería según las horas.\n\n¿A las cuántas horas se queda sin batería?",
     "options": [
       "16 horas",
@@ -675,6 +702,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_28",
     "question": "El gráfico marca dos puntos de la recta: $(2, 5)$ y $(5, -1)$.\n\n¿Cuál es la **pendiente** que se calcula entre esos dos puntos?",
     "options": [
       "2",
@@ -700,6 +728,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_29",
     "question": "El gráfico marca dos puntos de la recta: $(0, 4)$ y $(3, 1)$.\n\n¿Cuál es la **pendiente** que se calcula entre esos dos puntos?",
     "options": [
       "-3",
@@ -725,6 +754,7 @@
     ]
   },
   {
+    "id": "white_linear_GRAF_30",
     "question": "El gráfico marca dos puntos de la recta: $(-3, -2)$ y $(0, 1)$.\n\n¿Cuál es la **pendiente** que se calcula entre esos dos puntos?",
     "options": [
       "3",

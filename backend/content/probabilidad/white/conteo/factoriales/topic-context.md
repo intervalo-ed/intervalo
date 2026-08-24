@@ -29,7 +29,7 @@ Identificar o armar la **expresión** equivalente (no calcular el valor numéric
 
 ---
 
-## RESL, 15 ejercicios
+## RESL, 18 ejercicios
 
 Calcular el **valor numérico**.
 
@@ -42,9 +42,10 @@ Calcular el **valor numérico**.
 | Expresión con suma o resta de factoriales ya expandidos (ej. $4! + 3!$, $5! - 4!$) | 3 | `suma-resta-evaluada` |
 | Comparación entre dos factoriales (cuál es mayor, o la razón entre ambos) | 2 | `comparacion-factoriales` |
 | Factorial dentro de una fracción con producto simple en el denominador (ej. $\dfrac{6!}{2! \cdot 3!}$, preparación directa para `combinaciones`, sin nombrar todavía el binomial) | 2 | `fraccion-producto-denominador` |
-| **Total** | **15** | |
+| **Con tabla** (`table`, modo `cell`): la tabla evalúa $n!$ sobre la grilla fija $n=3,4,5,6$ y deja **una celda vacía**, distinta en cada ejercicio | 3 | `valor-desde-tabla` |
+| **Total** | **18** | |
 
-**Cardinalidad**: numérica corta → 4 opciones (grilla 2×2).
+**Cardinalidad**: numérica corta → 4 opciones (grilla 2×2). **Los ejercicios con `table` de este topic también van con 4 opciones** (ver *Reglas específicas*).
 
 ---
 
@@ -69,6 +70,41 @@ Calcular el **valor numérico**.
 - **Reintroducir la definición** (regla crítica 31): cada ejercicio que usa $n!$ reintroduce brevemente qué es (aunque sea en una subordinada corta), no asume que el alumno la vio en otro ejercicio de la sesión.
 - **En `fraccion-producto-denominador`, la división final tiene que ser mental**: el objetivo del ítem es practicar expandir cada factorial y multiplicar el denominador, no hacer una cuenta larga al final. Elegir $n$/denominador de forma que el cociente salga limpio y chico (ej. $\dfrac{5!}{2!\cdot3!}=\dfrac{120}{12}=10$, no $\dfrac{6!}{2!\cdot3!}=\dfrac{720}{12}=60$, que ya obliga a dividir un número de 3 cifras a mano).
 
+### Ejercicios con tabla (`valor-desde-tabla`)
+
+Reglas 68-75 de `authoring-context.md` más lo específico de este topic:
+
+- **Grilla fija $n = 3, 4, 5, 6$** en los tres ejercicios, o sea la columna $6, 24, 120, 720$. Lo
+  que cambia entre ellos es **cuál celda queda vacía**, no la tabla. Es deliberado: el alumno
+  reconoce la misma tabla y lo que varía es desde dónde tiene que llegar al valor que falta.
+- **4 opciones**, igual que el resto del topic.
+- **A1 y A2 (regla 71) no aplican**, por dos motivos que se refuerzan. El operativo: estos ítems son
+  modo `cell`, y ahí no hay columnas rivales que compitan fila por fila, solo un valor contra otro.
+  El de fondo: nada se parece a un factorial en dos puntos seguidos, así que aunque fueran modo
+  `column` serían insatisfacibles. Lo único que el validador exige acá es que los cuatro valores
+  sean distintos entre sí.
+- **La celda vacía va entre filas dadas siempre que se pueda**, para que se pueda llegar desde
+  arriba ($5 	imes 24$) y verificar desde abajo ($720 / 6$). Eso convierte a la tabla en un
+  mecanismo de autoverificación y no en decoración. En el ejercicio que deja vacío el $6!$ solo se
+  puede subir, y ahí el distractor bueno es el que usa el índice equivocado como factor.
+- **El trabajo de la tabla acá es perceptual, no discriminativo.** El crecimiento factorial se
+  subestima de forma masiva y la instrucción verbal no lo corrige. Ver $6, 24, 120, 720$ de un
+  vistazo entrega la explosión por el canal que las palabras no alcanzan. Ése es el motivo de
+  existir de estos ítems.
+- **Los distractores salen del índice equivocado**, no de fórmulas rivales: multiplicar por el
+  índice de la fila de arriba, por el de la de abajo, o dividir por el que no corresponde. La
+  potencia ($5^{3}$, $4^{3}$, $6^{3}$) es el único distractor de otra naturaleza y aparece una vez
+  por ejercicio.
+- **La tabla es contexto visual, no narrativo**, así que no viola la regla de "sin contexto
+  narrativo" de este topic: sigue sin haber personas ni objetos que ordenar. Es justamente por eso
+  que el formato encaja acá.
+
+> **Sin tablas en `FORM` (ago-2026).** Hubo 4 ítems con tabla en `FORM` (`recursiva-tabla` y
+> `cociente-tabla`, modo `column`) y se sacaron después del testeo. En este topic la tabla rinde
+> cuando el alumno **completa un valor**, no cuando elige entre expresiones: para eso ya están los
+> ítems simbólicos de `FORM`, que muestran la expresión directamente y no necesitan la tabla como
+> intermediaria. El cupo no se redistribuye. No volver a proponer tablas para `FORM` en este topic.
+
 ## Checklist del topic
 
 - [ ] Ningún ejercicio tiene contexto narrativo de personas/objetos a ordenar o elegir
@@ -76,3 +112,4 @@ Calcular el **valor numérico**.
 - [ ] $0!$ tratado como $1$ en todos los ejercicios que lo usan
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
 - [ ] Cardinalidad numérica → 4 opciones ≤35 caracteres
+- [ ] Ejercicios con `table`: solo en `RESL`, grilla fija $n=3,4,5,6$, una celda vacía distinta en cada uno

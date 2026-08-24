@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_definition_LEXI_01",
     "question": "Un local anota sus ventas en una matriz: cada fila es un día y cada columna un producto.\n\nUn mismo valor aparece en dos posiciones distintas:\n$$a_{23}, \\quad a_{32}$$\n¿Por qué esos dos números no dicen lo mismo?",
     "options": [
       "Uno es el día 2 del producto 3, y el otro el día 3 del producto 2",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "violet_definition_LEXI_02",
     "question": "En la notación de una entrada, los dos subíndices cumplen papeles distintos.\n$$a_{ij}$$\n¿Qué indica el primero de los dos?",
     "options": [
       "El valor numérico que guarda esa entrada",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "violet_definition_LEXI_03",
     "question": "Una matriz de orden $2 \\times 4$ guarda datos de dos sucursales y cuatro productos.\n$$a_{31}$$\n¿Por qué esa entrada no existe?",
     "options": [
       "Porque la matriz llega hasta la segunda columna, y se pide la primera",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "violet_definition_LEXI_04",
     "question": "Dos matrices guardan los mismos cuatro números en posiciones distintas.\n$$\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix} \\qquad \\begin{pmatrix} 4 & 3 \\\\ 2 & 1 \\end{pmatrix}$$\n¿Son la misma matriz?",
     "options": [
       "No, porque cada posición guarda un dato distinto en cada matriz",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "violet_definition_LEXI_05",
     "question": "El orden de una matriz se escribe siempre con las filas primero.\n$$m \\times n$$\n¿Qué pasaría si esa convención no estuviera fijada?",
     "options": [
       "Las entradas perderían el valor numérico que tienen guardado",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "violet_definition_LEXI_06",
     "question": "Las dos direcciones básicas del plano son:\n$$\\vec{e}_1=(1,0), \\quad \\vec{e}_2=(0,1)$$\nTodo vector se arma multiplicando cada una por un número y sumando los resultados.\n\n¿Qué representan entonces las coordenadas de un vector como $(4,-3)$?",
     "options": [
       "Cuánto se toma de cada dirección básica para armar el vector",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "violet_definition_LEXI_07",
     "question": "Una combinación lineal multiplica cada vector por un número y suma los resultados.\n$$3\\vec{u} - 2\\vec{v}$$\n¿Qué la distingue de una suma común de vectores?",
     "options": [
       "Que el resultado siempre es más largo que los dos originales",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "violet_definition_LEXI_08",
     "question": "En el espacio hacen falta tres direcciones básicas en vez de dos.\n$$\\vec{e}_1, \\quad \\vec{e}_2, \\quad \\vec{e}_3$$\n¿Por qué no alcanza con dos?",
     "options": [
       "Porque las dos primeras direcciones resultan paralelas entre sí",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "violet_definition_LEXI_09",
     "question": "Los factores de una combinación lineal pueden ser negativos.\n$$2\\vec{e}_1 - 3\\vec{e}_2$$\n¿Qué significa ese factor negativo?",
     "options": [
       "Que se avanza en el sentido contrario de esa dirección básica",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "violet_definition_LEXI_10",
     "question": "Las dos direcciones básicas llevan un uno y un cero en posiciones distintas.\n$$(5,2) = 5\\vec{e}_1 + 2\\vec{e}_2$$\n¿Qué ventaja tiene esa elección?",
     "options": [
       "Que cualquier otra elección daría vectores de longitud distinta",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "violet_definition_LEXI_11",
     "question": "Una transformación estira, rota o inclina todo el plano, y respeta las combinaciones lineales.\n\nDe ella se anota únicamente en qué se convierten las dos direcciones básicas.\n$$\\vec{e}_1 = (1,0), \\qquad \\vec{e}_2 = (0,1)$$\n¿Por qué alcanza con esos dos datos para saber adónde va cualquier vector?",
     "options": [
       "Porque todo vector combina esos dos, y la combinación se conserva",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "violet_definition_LEXI_12",
     "question": "Una transformación del espacio de tres dimensiones se registra en una matriz.\n$$\\vec{e}_1, \\quad \\vec{e}_2, \\quad \\vec{e}_3$$\n¿Cuántas columnas necesita esa matriz?",
     "options": [
       "Nueve, una por cada par de direcciones básicas",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "violet_definition_LEXI_13",
     "question": "En la matriz de una transformación del plano, cada columna guarda un dato concreto.\n$$A = \\begin{pmatrix} 3 & -1 \\\\ 2 & 4 \\end{pmatrix}$$\n¿Qué representa su primera columna?",
     "options": [
       "El destino del primer vector que se transforme con ella",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "violet_definition_LEXI_14",
     "question": "Una transformación respeta las combinaciones lineales: transformar una combinación da la misma combinación de los transformados.\n$$\\vec{v} = v_1\\vec{e}_1 + v_2\\vec{e}_2$$\n¿Por qué eso hace que alcance con los destinos de las direcciones básicas?",
     "options": [
       "Porque el destino de un vector se arma combinando los destinos de las básicas",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "violet_definition_LEXI_15",
     "question": "Una transformación puede llevar vectores del plano al espacio de tres dimensiones.\n$$\\mathbb{R}^{2} \\to \\mathbb{R}^{3}$$\n¿Qué orden tiene la matriz que la registra?",
     "options": [
       "Tres filas y tres columnas, por ser el espacio de llegada",

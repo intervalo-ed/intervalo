@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_inverse_LEXI_01",
     "question": "Una transformación con determinante nulo aplasta todo el plano sobre una recta.\n$$A A^{-1} = I$$\n¿Por qué eso vuelve imposible que exista una matriz capaz de deshacerla?",
     "options": [
       "Porque muchos puntos distintos terminaron en el mismo lugar",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "violet_inverse_LEXI_02",
     "question": "Una matriz tiene inversa cuando existe otra que deshace su efecto.\n$$A A^{-1} = I$$\n¿Qué le exige esa igualdad a la transformación original?",
     "options": [
       "Que la transformación conserve el tamaño de las áreas",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "violet_inverse_LEXI_03",
     "question": "Una matriz con determinante nulo no tiene inversa.\n$$\\det(A) = 0$$\n¿Qué pasaría con el determinante de esa supuesta inversa?",
     "options": [
       "Tendría que ser negativo para compensar el determinante nulo",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "violet_inverse_LEXI_04",
     "question": "Una matriz con determinante distinto de cero siempre tiene inversa.\n$$\\det(A) \\neq 0$$\n¿Qué garantiza esa condición?",
     "options": [
       "Que la transformación no aplasta el plano y se puede deshacer",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "violet_inverse_LEXI_05",
     "question": "Una matriz no cuadrada nunca tiene inversa.\n$$A \\in \\mathbb{R}^{2 \\times 3}$$\n¿Cuál es la razón?",
     "options": [
       "Que sus filas siempre resultan proporcionales entre sí",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "violet_inverse_LEXI_06",
     "question": "Para deshacer un producto de dos matrices, la inversa no es $A^{-1}B^{-1}$ sino $B^{-1}A^{-1}$.\n\n¿Por qué el orden de los factores se invierte?",
     "options": [
       "Porque hay que deshacer primero lo último que se hizo",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "violet_inverse_LEXI_07",
     "question": "Deshacer una cadena de pasos exige recorrerla al revés.\n$$(AB)^{-1} = B^{-1}A^{-1}$$\n¿Qué situación cotidiana sigue la misma lógica?",
     "options": [
       "Guardar dos objetos en una caja y sacarlos juntos",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "violet_inverse_LEXI_08",
     "question": "Se verifica que el orden invertido es el correcto multiplicando y cancelando.\n$$(AB)(B^{-1}A^{-1}) = I$$\n¿Qué permite esa cancelación?",
     "options": [
       "Que el producto de matrices conmuta cuando aparecen inversas",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "violet_inverse_LEXI_09",
     "question": "La traspuesta de un producto también invierte el orden.\n$$(AB)^{T} = B^{T}A^{T}$$\n¿Qué tienen en común las dos propiedades?",
     "options": [
       "Que las dos revierten algo, y revertir invierte la secuencia",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "violet_inverse_LEXI_10",
     "question": "La inversa de una inversa devuelve la matriz original.\n$$(A^{-1})^{-1} = A$$\n¿Por qué?",
     "options": [
       "Porque el determinante de la inversa es el recíproco del original",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "violet_inverse_LEXI_11",
     "question": "En el álgebra de matrices no existe ninguna operación de división.\n$$AX = B$$\n¿Por qué se multiplica por la inversa en lugar de dividir?",
     "options": [
       "Porque hace falta decidir de qué lado se multiplica cada vez",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "violet_inverse_LEXI_12",
     "question": "Al despejar una incógnita matricial, el lado por el que se multiplica importa.\n$$AX = B$$\n¿Por qué no se puede escribir el resultado como un cociente?",
     "options": [
       "Porque el cociente entre matrices da siempre la matriz nula",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "violet_inverse_LEXI_13",
     "question": "Para despejar $X$ de esta ecuación, alguien multiplicó los dos lados por $A^{-1}$ por la izquierda.\n$$XA = B$$\n¿Por qué ese camino no despeja la incógnita?",
     "options": [
       "Porque $A^{-1}$ no existe para ninguna matriz que multiplique por la derecha",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "violet_inverse_LEXI_14",
     "question": "Entre números, dividir por un número es multiplicar por su recíproco.\n$$\\dfrac{a}{b} = a \\cdot b^{-1}$$\n¿Por qué esa traducción no alcanza entre matrices?",
     "options": [
       "Porque el producto no conmuta y el recíproco puede entrar por dos lados",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "violet_inverse_LEXI_15",
     "question": "Para despejar $X$ de esta ecuación, alguien multiplicó los dos lados por las dos inversas, las dos por la izquierda.\n$$AXB = C$$\n¿Por qué ese camino no despeja la incógnita?",
     "options": [
       "Porque no se puede multiplicar una ecuación por dos matrices distintas",

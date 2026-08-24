@@ -14,36 +14,45 @@ Concepto: una **fracción** $\frac{a}{b}$ representa una parte de un todo, una r
 
 ---
 
-## LEXI, 15 ejercicios
+## LEXI, 17 ejercicios
 
 | Sub-familia | Cantidad | Slug | Objetivo pedagógico | Conceptos que toca |
 |---|---:|---|---|---|
 | Identificar una fracción compuesta (numerador y/o denominador es a su vez una fracción) | 5 | `identificar-fraccion-compuesta` | Reconocer visualmente cuándo una expresión es una fracción de fracción, distinta de una fracción simple | Estructura $\dfrac{a/b}{c/d}$, distinguir de $\dfrac{a}{b}$ simple |
 | Reconocer las formas equivalentes del signo en una fracción | 5 | `signo-equivalente` | Identificar que $-\frac{a}{b}$, $\frac{a}{-b}$ y $\frac{-a}{b}$ son la misma cantidad | Regla de signos del cociente, dónde puede "vivir" el signo negativo |
-| Distinguir si una fracción está simplificada (MCD entre numerador y denominador) | 5 | `fraccion-simplificada` | Reconocer si numerador y denominador comparten un factor común, sin necesariamente calcularlo | MCD, factor común, noción de "fracción irreducible" |
-| **Total** | **15** | | | |
+| Distinguir si una fracción está simplificada (MCD entre numerador y denominador) | 7 | `fraccion-simplificada` | Reconocer si numerador y denominador comparten un factor común, sin necesariamente calcularlo. **Los 2 últimos ítems atacan otro eje: distinguir un factor de un sumando** | MCD, factor común, noción de "fracción irreducible"; y la estructura del numerador/denominador (suma vs. producto) |
+| **Total** | **17** | | | |
+
+**Los 2 ítems de `fraccion-simplificada` con letra son deliberados y no hay que "normalizarlos" a puros números.** Modelan dos errores documentados en fuente primaria (UBA CBC, Matemática 51, Práctica 0, Ejercicio 4, incisos c y e): tomar $(5+a)/5$ como equivalente a $a$, y simplificar $4/(2+2a)$ a $2/(1+2a)$ cancelando un solo sumando. Los otros cinco ítems de la sub-familia giran todos alrededor de *"¿existe un factor común entre dos enteros?"*, con criterios espurios (tamaño, paridad, primalidad); **ninguno pone en juego la estructura del numerador o del denominador**, que es justo lo que estos dos agregan.
+
+**Por qué llevan letra y no números.** En versión numérica ($(5+7)/5$ contra $7$) el ejercicio se resuelve calculando y el error desaparece; con la letra el estudiante no puede calcular y tiene que mirar la estructura, que es lo que se está evaluando. La letra no es ajena a la unidad: `Potenciación`, el topic inmediatamente siguiente, usa $a$ y $b$ como bases genéricas en la mayoría de sus ítems.
 
 ---
 
-## ESTR, 15 ejercicios
+## ESTR, 16 ejercicios
 
 | Sub-familia | Cantidad | Slug | Objetivo pedagógico | Conceptos que toca |
 |---|---:|---|---|---|
-| Elegir si simplificar antes o después de operar | 5 | `elegir-simplificar-antes-despues` | Decidir la estrategia que evita arrastrar números grandes en una cadena de operaciones con fracciones | Factor común entre términos no adyacentes, anticipar el costo de cada camino |
+| Elegir si simplificar antes o después de operar | 6 | `elegir-simplificar-antes-despues` | Decidir la estrategia que evita arrastrar números grandes en una cadena de operaciones con fracciones. **El último ítem decide si un reparto término a término es válido** | Factor común entre términos no adyacentes, anticipar el costo de cada camino; el reparto de una división sobre una suma solo vale en el numerador |
 | Elegir método de comparación entre dos fracciones sin pasar a decimal | 5 | `elegir-metodo-comparacion` | Elegir entre producto cruzado, común denominador o comparación directa según la estructura de las fracciones dadas | Producto cruzado, denominador común, cuándo cada método es más directo |
 | Elegir el orden de resolución en una fracción compuesta con varios niveles | 5 | `elegir-orden-fraccion-compuesta` | Decidir qué nivel de una fracción compuesta resolver primero para minimizar pasos | Jerarquía de resolución interna, identificar el nivel más profundo |
-| **Total** | **15** | | | |
+| **Total** | **16** | | | |
 
 ---
 
-## RESL, 15 ejercicios
+## RESL, 18 ejercicios
 
 | Sub-familia | Cantidad | Slug | Objetivo pedagógico | Conceptos que toca |
 |---|---:|---|---|---|
 | Resolver una fracción compuesta hasta el resultado final | 5 | `resl-fraccion-compuesta` | Calcular completamente una fracción de fracción, simplificando al final | División de fracciones ("invertir y multiplicar" aplicado a nivel compuesto) |
 | Resolver una operación combinada con fracciones de distinto signo | 5 | `resl-signos-combinados` | Operar una cadena corta de fracciones con signos mixtos sin perder ninguno en el camino | Regla de signos en suma/resta/producto de fracciones encadenadas |
 | Calcular la potencia de una fracción, incluido exponente negativo | 5 | `resl-potencia-fraccion` | Calcular $\left(\frac{a}{b}\right)^n$ y, con exponente negativo, invertir la fracción antes de elevarla | $\left(\frac{a}{b}\right)^{-n} = \left(\frac{b}{a}\right)^n$, reintroducida en cada ejercicio que la usa (regla crítica 31) |
-| **Total** | **15** | | | |
+| **Con tabla** (`table`, modo `cell`): la tabla desglosa qué fracción se lleva cada etapa y deja vacía la fila del sobrante | 3 | `etapas-desde-tabla` | Calcular qué queda después de dos apartados sucesivos, cuando el segundo se aplica sobre el resto del primero | Fracción de fracción en versión aplicada; distinguir "una fracción del resto" de "una fracción del total" |
+| **Total** | **18** | | | |
+
+**Sobre `etapas-desde-tabla`, y por qué la tabla no regala el ejercicio.** La contraindicación principal del formato es que **cuando la dificultad real es el modelado, la tabla regala los números**. Acá no pasa: la tabla lista las dos fracciones que el enunciado ya daba en prosa, pero **no dice sobre qué se calcula cada una**, que es exactamente la decisión que el ítem evalúa. El desglose acorta el enunciado y deja las dos etapas enfrentadas visualmente; el trabajo de componerlas sigue entero.
+
+El distractor obligatorio de esta sub-familia es **restar las dos fracciones del total** (tratar la segunda como si fuera sobre el entero). Es el error que la sub-familia existe para diagnosticar, y va en los tres ítems.
 
 **Cardinalidad**: preferencia editorial de este topic, **4 opciones para prácticamente todo** (`LEXI`, `ESTR` y `RESL`), no el default de 3 para conceptual/textual del resto del curso. Cuando las 4 opciones de un ítem son fracciones cortas entre sí (`LEXI`/clasificación), usar `\dfrac{x}{y}` apilada en las 4 por altura uniforme (regla 20); cuando son textos/estrategias (`ESTR`) no aplica la restricción de ancho, van como lista. `RESL` sigue siendo numérico corto → 4 opciones de barra `x/y`, ancho ≤12 en grilla 2×2.
 
@@ -81,7 +90,7 @@ Ningún experimento supera ~30% de los ítems de una misma sub-familia (misma re
 
 ## Reglas específicas del topic
 
-- **Numeradores y denominadores enteros chicos** (2 a 12 en valor absoluto) para que el cálculo sea manejable a mano y de cabeza.
+- **Numeradores y denominadores enteros chicos** (2 a 12 en valor absoluto) para que el cálculo sea manejable a mano y de cabeza. **Excepción acotada**: los ítems de `fraccion-simplificada` y `elegir-simplificar-antes-despues` que modelan los errores del CBC llevan una letra ($a$) en el numerador o el denominador, porque el error que evalúan desaparece si el estudiante puede calcular (ver la nota bajo la tabla de `LEXI`). Fuera de esos ítems, todo sigue siendo entero.
 - **Todo resultado final va simplificado**, salvo que el ejercicio pida explícitamente identificar si algo está simplificado (sub-familia `fraccion-simplificada`, donde mostrar una fracción sin simplificar es el punto del ejercicio).
 - **`RESL` siempre en contexto concreto** (ver tabla de arriba); `LEXI` y `ESTR` pueden quedar en abstracto por diseño (excepción intencional de la regla 43), salvo que un contexto aporte claridad sin alargar el enunciado.
 - **Cada ejercicio reintroduce la fórmula o regla que usa** (regla crítica 31): especialmente crítico en `resl-potencia-fraccion` por la nota de orden de arriba.

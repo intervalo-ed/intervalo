@@ -1,5 +1,6 @@
 [
   {
+    "id": "black_theorem_RESL_01",
     "question": "Si $\\dim(V)=5$ y $\\dim(\\ker(T))=2$, ¿cuánto vale $\\dim(\\text{Im}(T))$?",
     "options": [
       "$3$",

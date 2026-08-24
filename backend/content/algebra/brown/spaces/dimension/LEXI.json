@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_dimension_LEXI_01",
     "question": "Un mismo espacio admite infinitas bases distintas, y todas resultan tener la misma cantidad de vectores.\n$$\\dim(V) = n$$\n¿Por qué no puede haber una base con más elementos que otra?",
     "options": [
       "Porque los elementos de más quedarían alcanzados por los otros, y eso rompe la independencia",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "brown_dimension_LEXI_02",
     "question": "Dos personas eligen bases distintas del mismo espacio y cuentan sus elementos.\n$$\\dim(V) = n$$\n¿Qué obtiene cada una?",
     "options": [
       "El mismo número solo si eligieron bases parecidas entre sí",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "brown_dimension_LEXI_03",
     "question": "La dimensión de un espacio se escribe sin aclarar respecto de qué base se contó.\n$$\\dim(V) = n$$\n¿Por qué está permitido omitir ese dato?",
     "options": [
       "Porque siempre se sobreentiende que se usó la base canónica",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "brown_dimension_LEXI_04",
     "question": "Se imagina por un momento que la cantidad de elementos dependiera de la base elegida.\n$$\\dim(V) = n$$\n¿Qué se perdería en ese caso?",
     "options": [
       "La posibilidad de comparar dos espacios por ese número",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "brown_dimension_LEXI_05",
     "question": "El plano admite infinitas bases distintas entre sí.\n$$B \\subset \\mathbb{R}^2$$\n¿Qué tienen todas en común?",
     "options": [
       "Que todas están formadas por vectores de la misma longitud",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "brown_dimension_LEXI_06",
     "question": "La dimensión de un espacio se define contando los vectores de cualquiera de sus bases.\n$$\\dim(\\mathbb{R}^3) = 3$$\n¿Qué es lo que ese número está midiendo?",
     "options": [
       "La cantidad de direcciones independientes que hacen falta",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "brown_dimension_LEXI_07",
     "question": "Una recta que pasa por el origen dentro del espacio de tres dimensiones tiene dimensión uno.\n$$\\dim(S) = 1$$\n¿Por qué ese número es uno y no tres?",
     "options": [
       "Porque contiene una sola dirección de las tres del espacio",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "brown_dimension_LEXI_08",
     "question": "El subespacio formado únicamente por el vector nulo tiene dimensión cero.\n$$\\dim(\\{\\vec{0}\\}) = 0$$\n¿Por qué ese número es cero y no uno?",
     "options": [
       "Porque el vector nulo no cuenta como un vector del espacio",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "brown_dimension_LEXI_09",
     "question": "La dimensión se puede leer como la cantidad de grados de libertad de un espacio.\n$$\\dim(V) = n$$\n¿Qué significa esa lectura?",
     "options": [
       "Cuántos números hay que elegir para determinar un elemento",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "brown_dimension_LEXI_10",
     "question": "Un subespacio vive adentro del espacio de tres dimensiones.\n$$S \\subset \\mathbb{R}^3$$\n¿Puede su dimensión valer cuatro?",
     "options": [
       "Sí, si sus vectores tienen más de tres componentes",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "brown_dimension_LEXI_11",
     "question": "El espacio de los polinomios de grado menor o igual a dos tiene dimensión tres, igual que el espacio de las ternas.\n$$\\dim(P_2) = \\dim(\\mathbb{R}^3) = 3$$\n¿Qué consecuencia tiene esa coincidencia?",
     "options": [
       "Que fijando una base, todo lo que vale para uno vale para el otro leyendo coordenadas",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "brown_dimension_LEXI_12",
     "question": "Dos espacios muy distintos entre sí resultan tener la misma dimensión.\n$$\\dim(P_3) = \\dim(\\mathbb{R}^{2 \\times 2}) = 4$$\n¿Qué consecuencia tiene esa coincidencia?",
     "options": [
       "Que se puede sumar un polinomio con una matriz sin problema",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "brown_dimension_LEXI_13",
     "question": "Se afirma que los polinomios de grado a lo sumo dos se comportan como las ternas.\n$$\\dim(P_2) = \\dim(\\mathbb{R}^3) = 3$$\n¿Significa eso que un polinomio es una terna?",
     "options": [
       "Sí, porque los dos quedan descriptos por tres números",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "brown_dimension_LEXI_14",
     "question": "Para traducir entre dos espacios de la misma dimensión hace falta un paso previo.\n$$\\dim(V) = \\dim(W)$$\n¿Cuál es ese paso?",
     "options": [
       "Elegir una base en cada uno de los dos espacios",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "brown_dimension_LEXI_15",
     "question": "Dos espacios tienen dimensiones distintas entre sí.\n$$\\dim(V) = 2, \\quad \\dim(W) = 3$$\n¿Pueden comportarse igual bajo las dos operaciones?",
     "options": [
       "Sí, siempre que uno de los dos esté contenido en el otro",

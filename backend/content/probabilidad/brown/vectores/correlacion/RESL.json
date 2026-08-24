@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_correlacion_RESL_01",
     "question": "Se sabe que $Cov(X, Y) = 6$, $\\sigma_X = 3$ y $\\sigma_Y = 4$.\n\n¿Cuánto vale el coeficiente de correlación $\\rho_{X, Y}$?",
     "options": ["$0{,}25$", "$0{,}5$", "$0{,}75$", "$1$"],
     "correct_index": 1,

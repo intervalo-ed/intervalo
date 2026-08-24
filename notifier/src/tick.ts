@@ -181,6 +181,7 @@ export const runTick = (
 interface EmailRunResult {
   bounce_sent: number
   winback_sent: number
+  streak_tier_sent: number
 }
 
 /** One scheduler tick for lifecycle emails: the backend resolves recipients
@@ -200,7 +201,7 @@ export const runEmailTick = (
       .pipe(Effect.flatMap(HttpClientResponse.filterStatusOk))
     const result = (yield* res.json) as unknown as EmailRunResult
     yield* Console.log(
-      `email tick: ${result.bounce_sent} bounce, ${result.winback_sent} win-back sent`,
+      `email tick: ${result.bounce_sent} bounce, ${result.winback_sent} win-back, ${result.streak_tier_sent} streak-tier sent`,
     )
   }).pipe(Effect.mapError((e) => (e instanceof Error ? e : new Error(String(e)))))
 

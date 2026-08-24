@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_generators_CLSF_01",
     "question": "Tres conjuntos de vectores del plano se proponen como generadores de todo el plano.\n$$A = \\{(1,2), (2,4)\\}$$\n$$B = \\{(1,2), (3,1)\\}$$\n$$C = \\{(2,4)\\}$$\n¿Cuál de los tres genera todo el plano?",
     "options": [
       "$B$",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "brown_generators_CLSF_02",
     "question": "Tres conjuntos de vectores de $\\mathbb{R}^3$ se proponen como generadores.\n$$A = \\{(1,0,0), (0,1,0)\\}$$\n$$B = \\{(1,0,0), (0,1,0), (2,3,0)\\}$$\n$$C = \\{(1,0,0), (0,1,0), (1,1,1)\\}$$\n¿Cuál de los tres genera todo el espacio?",
     "options": [
       "$B$",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "brown_generators_CLSF_03",
     "question": "Un conjunto del plano incluye al vector nulo entre sus dos elementos.\n$$A = \\{(3,1), (0,0)\\}$$\n¿Genera todo el plano?",
     "options": [
       "Sí, porque el conjunto tiene dos vectores distintos entre sí",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "brown_generators_CLSF_04",
     "question": "Se quiere saber cuántos vectores se necesitan como mínimo para generar todo el espacio.\n$$\\text{gen}\\{\\vec{v}_1, \\dots, \\vec{v}_k\\} = \\mathbb{R}^3$$\n¿Cuál es la respuesta?",
     "options": [
       "Tres, y además tienen que aportar direcciones distintas",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "brown_generators_CLSF_05",
     "question": "Un conjunto de cuatro vectores del plano se propone como generador.\n$$A = \\{(1,0), (0,1), (2,3), (5,1)\\}$$\n¿Genera todo el plano?",
     "options": [
       "No, porque hay más vectores escritos que coordenadas",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "brown_generators_CLSF_06",
     "question": "Dos vectores de $\\mathbb{R}^3$ no son múltiplos entre sí.\n$$\\vec{u} = (1,0,2), \\quad \\vec{v} = (0,1,1)$$\n¿Qué subespacio es $\\text{gen}\\{\\vec{u}, \\vec{v}\\}$?",
     "options": [
       "Un plano que pasa por el origen",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "brown_generators_CLSF_07",
     "question": "Un único vector de $\\mathbb{R}^3$ arma un conjunto generado.\n$$\\vec{u} = (2, -1, 3)$$\n¿Qué subespacio es $\\text{gen}\\{\\vec{u}\\}$?",
     "options": [
       "El conjunto formado únicamente por el origen",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "brown_generators_CLSF_08",
     "question": "Dos vectores de $\\mathbb{R}^3$ son uno múltiplo del otro.\n$$\\vec{u} = (1,2,3), \\quad \\vec{v} = (2,4,6)$$\n¿Qué subespacio es $\\text{gen}\\{\\vec{u}, \\vec{v}\\}$?",
     "options": [
       "Un plano que pasa por el origen",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "brown_generators_CLSF_09",
     "question": "Tres vectores de $\\mathbb{R}^3$ tienen la última coordenada nula.\n$$A = \\{(1,0,0), (0,1,0), (2,5,0)\\}$$\n¿Qué subespacio genera ese conjunto?",
     "options": [
       "Un plano que pasa por el origen",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "brown_generators_CLSF_10",
     "question": "Un conjunto generador tiene un solo elemento, y ese elemento es el vector nulo.\n$$A = \\{(0,0)\\}$$\n¿Qué subespacio genera?",
     "options": [
       "Todo el plano, porque el origen pertenece a cualquier parte",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "brown_generators_CLSF_11",
     "question": "Dos conjuntos distintos de vectores del plano se comparan por lo que generan.\n$$A = \\{(1,1), (2,2)\\}$$\n$$B = \\{(3,3)\\}$$\n¿Cómo se relacionan sus generados?",
     "options": [
       "Generan exactamente el mismo subespacio",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "brown_generators_CLSF_12",
     "question": "Dos conjuntos del plano no comparten ningún vector entre sí.\n$$A = \\{(1,0), (0,1)\\}$$\n$$B = \\{(1,1), (1,-1)\\}$$\n¿Cómo se relacionan sus generados?",
     "options": [
       "Generan subespacios distintos que solo comparten el origen",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "brown_generators_CLSF_13",
     "question": "Dos conjuntos de $\\mathbb{R}^3$ tienen distinta cantidad de vectores.\n$$A = \\{(1,2,0)\\}$$\n$$B = \\{(2,4,0), (3,6,0)\\}$$\n¿Cómo se relacionan sus generados?",
     "options": [
       "El de $B$ es un plano y contiene al de $A$",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "brown_generators_CLSF_14",
     "question": "Se quiere agregar un vector a un conjunto sin que su generado cambie.\n$$A = \\{(1,0,0)\\}$$\n¿Cuál de estos vectores se puede agregar?",
     "options": [
       "$(3,0,0)$",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "brown_generators_CLSF_15",
     "question": "Dos conjuntos del plano se comparan por lo que alcanzan.\n$$A = \\{(1,0), (0,1)\\}$$\n$$B = \\{(2,0)\\}$$\n¿Cómo se relacionan sus generados?",
     "options": [
       "Generan subespacios distintos que solo comparten el origen",

@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_independencia_vec_FORM_01",
     "question": "Sean $X$ e $Y$ dos variables aleatorias.\n\n¿Cuál de las siguientes es una condición **necesaria** para que sean independientes?",
     "options": [
       "$Cov(X, Y) = 0$",

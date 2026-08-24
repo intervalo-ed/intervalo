@@ -1,5 +1,6 @@
 [
   {
+    "id": "black_image_LEXI_01",
     "question": "¿Qué es la **imagen** $\\text{Im}(T)$ de una transformación lineal?",
     "options": [
       "El conjunto de todos los vectores alcanzables en el codominio",

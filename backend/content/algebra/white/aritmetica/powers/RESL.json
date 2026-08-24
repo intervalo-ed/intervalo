@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_powers_RESL_01",
     "question": "Un depósito tiene $2^{8}$ bolsas de arroz para donar.\n\nEsas bolsas se reparten en partes iguales entre $2^{3}$ pueblos.\n\nLo que recibe cada pueblo se vuelve a repartir en partes iguales entre $2^{2}$ familias.\n\nLa cantidad de bolsas que recibe cada familia es:\n$$\\dfrac{2^{8}}{2^{3} \\cdot 2^{2}}$$\n¿Cuál es el resultado como potencia de $2$?",
     "options": [
       "$2^{3}$",
@@ -27,6 +28,7 @@
     ]
   },
   {
+    "id": "white_powers_RESL_02",
     "question": "Un centro de logística tiene $3^{7}$ cajas para distribuir.\n\nSe reparten en partes iguales entre $3^{2}$ depósitos, y lo de cada depósito se vuelve a repartir entre $3^{3}$ sucursales.\n$$\\dfrac{3^{7}}{3^{2} \\cdot 3^{3}}$$\n¿Cuántas cajas recibe cada sucursal, como potencia de $3$?",
     "options": [
       "$3^{-2}$",
@@ -54,6 +56,7 @@
     ]
   },
   {
+    "id": "white_powers_RESL_03",
     "question": "Una señal se mide a dos distancias: cerca vale $2^{9}$ unidades y lejos vale $2^{4}$.\n$$\\dfrac{2^{9}}{2^{4}}$$\n¿Cuántas veces más intensa es la medición cercana?",
     "options": [
       "$2$",
@@ -81,6 +84,7 @@
     ]
   },
   {
+    "id": "white_powers_RESL_04",
     "question": "Un cultivo se multiplica por $5^{2}$ durante el primer día y por $5^{3}$ durante el segundo.\n$$5^{2} \\cdot 5^{3}$$\n¿Por cuánto se multiplicó en total, como potencia de $5$?",
     "options": [
       "$5^{5}$",
@@ -108,6 +112,7 @@
     ]
   },
   {
+    "id": "white_powers_RESL_05",
     "question": "Una producción se multiplica por $2^{5}$ en la primera etapa y por $2^{3}$ en la segunda.\n\nLo producido se reparte después entre $2^{4}$ puestos de control.\n$$\\dfrac{2^{5} \\cdot 2^{3}}{2^{4}}$$\n¿Cuál es el factor final por puesto, como potencia de $2$?",
     "options": [
       "$2^{6}$",
@@ -135,6 +140,7 @@
     ]
   },
   {
+    "id": "white_powers_RESL_06",
     "question": "Un cultivo de bacterias duplica su cantidad cada hora. En este momento hay $2^{6}$ bacterias.\n\nLa cantidad que había hace $4$ horas se calcula como:\n$$2^{6} \\cdot 2^{-4}$$\n¿Cuántas bacterias había hace $4$ horas?",
     "options": [
       "$4$",
@@ -162,6 +168,7 @@
     ]
   },
   {
+    "id": "white_powers_RESL_07",
     "question": "Una señal conserva la mitad de su intensidad por cada kilómetro recorrido, y ahora mide $2^{8}$ unidades.\n\nLa intensidad dentro de $4$ kilómetros se calcula así:\n$$2^{8} \\cdot 2^{-4}$$\n¿Cuánto vale?",
     "options": [
       "$1/16$",
@@ -189,6 +196,7 @@
     ]
   },
   {
+    "id": "white_powers_RESL_08",
     "question": "El grosor de una hoja se reduce a la mitad en cada corte, partiendo de una unidad.\n\nDespués de $4$ cortes el grosor es:\n$$2^{-4}$$\n¿Cuánto vale?",
     "options": [
       "$-16$",
@@ -216,6 +224,7 @@
     ]
   },
   {
+    "id": "white_powers_RESL_09",
     "question": "Dos mediciones de una misma magnitud dan $3^{2}$ y $3^{-1}$.\n$$\\dfrac{3^{2}}{3^{-1}}$$\n¿Cuántas veces mayor es la primera?",
     "options": [
       "$27$",
@@ -243,6 +252,7 @@
     ]
   },
   {
+    "id": "white_powers_RESL_10",
     "question": "Una población se reduce a la quinta parte en cada ciclo, y ahora tiene $5^{3}$ individuos.\n\nLa cantidad dentro de $4$ ciclos se calcula así:\n$$5^{3} \\cdot 5^{-4}$$\n¿Cuánto vale?",
     "options": [
       "$5$",
@@ -270,6 +280,7 @@
     ]
   },
   {
+    "id": "white_powers_RESL_11",
     "question": "Un rumor duplica su alcance con cada comentario que lo reenvía.\n\nUna tanda son $2$ reenvíos seguidos, así que en una tanda el alcance queda multiplicado por $2^{2}$.\n\nSi pasan $3$ tandas seguidas, el factor total de crecimiento es:\n$$(2^{2})^{3}$$\n¿Por qué factor total queda multiplicado el alcance del rumor?",
     "options": [
       "$64$",
@@ -297,6 +308,7 @@
     ]
   },
   {
+    "id": "white_powers_RESL_12",
     "question": "Una máquina triplica su producción en cada ciclo, y un turno son $2$ ciclos seguidos.\n\nSi pasan $3$ turnos, el factor total de crecimiento es:\n$$(3^{2})^{3}$$\n¿Por cuánto queda multiplicada la producción?",
     "options": [
       "$27$",
@@ -324,6 +336,7 @@
     ]
   },
   {
+    "id": "white_powers_RESL_13",
     "question": "Un cultivo se multiplica por $2^{4}$ en cada etapa del proceso.\n\nEl proceso completo tiene $2$ etapas, así que el factor total es:\n$$(2^{4})^{2}$$\n¿Por cuánto queda multiplicado el cultivo?",
     "options": [
       "$64$",
@@ -351,6 +364,7 @@
     ]
   },
   {
+    "id": "white_powers_RESL_14",
     "question": "Una inversión se multiplica por $2^{2}$ en cada trimestre, y un año son $4$ trimestres.\n\nEl factor de un año, comparado con el de un solo trimestre, es:\n$$\\dfrac{(2^{2})^{4}}{2^{2}}$$\n¿Cuál es el resultado como potencia de $2$?",
     "options": [
       "$2^{6}$",
@@ -378,6 +392,7 @@
     ]
   },
   {
+    "id": "white_powers_RESL_15",
     "question": "Una red de contactos multiplica su alcance por $5$ con cada reenvío, y una ronda son $2$ reenvíos.\n\nDespués de $2$ rondas el factor total es:\n$$(5^{2})^{2}$$\n¿Por cuánto queda multiplicado el alcance?",
     "options": [
       "$50$",
@@ -402,6 +417,286 @@
     "reviewed": false,
     "tags": [
       "resl-potencia-de-potencia"
+    ]
+  },
+  {
+    "id": "white_powers_RESL_16",
+    "question": "Un vivero multiplica sus plantines en dos etapas seguidas y después reparte todo lo obtenido entre sus sucursales.\n\nLa tabla desglosa por cuánto multiplica o divide cada paso.\n\n¿Cuántos plantines le tocan a cada sucursal?",
+    "options": [
+      "$2^{12}$",
+      "$2^{2}$",
+      "$2^{4}$",
+      "$2^{15}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Los exponentes de las dos etapas se suman y el del reparto se resta: $5+3-4$.",
+    "feedback_incorrect": [
+      "Ahí se sumaron los tres exponentes, pero el reparto divide y por lo tanto resta.",
+      "Ahí se restó el exponente de la segunda etapa en vez de sumarlo: las dos etapas multiplican.",
+      null,
+      "Ahí se multiplicaron los exponentes de las dos etapas en vez de sumarlos."
+    ],
+    "explanation": "Multiplicar potencias de igual base **junta los factores** de las dos, así que los exponentes se suman; dividir saca factores, así que se restan.\n$$\\frac{2^{5} \\cdot 2^{3}}{2^{4}} = 2^{5+3-4}$$\nEse $5+3$ cuenta los factores que aportan las dos etapas juntas, y el $-4$ los que se van al repartir.\n\nLa cuenta de exponentes queda en $4$, así que a cada sucursal le tocan $2^{4}$ plantines.\n\nSumar el exponente del reparto en vez de restarlo agranda el resultado en lugar de achicarlo, que es lo contrario de lo que hace repartir.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": "🌱",
+          "label": "Paso"
+        },
+        {
+          "icon": null,
+          "label": "Efecto"
+        }
+      ],
+      "rows": [
+        [
+          "Etapa 1",
+          "$\\times 2^{5}$"
+        ],
+        [
+          "Etapa 2",
+          "$\\times 2^{3}$"
+        ],
+        [
+          "Reparto",
+          "$\\div 2^{4}$"
+        ],
+        [
+          "**Por sucursal**",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "cell",
+        "at": [
+          3,
+          1
+        ],
+        "by_option": [
+          "$2^{12}$",
+          "$2^{2}$",
+          "$2^{4}$",
+          "$2^{15}$"
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "cadena-desde-tabla"
+    ]
+  },
+  {
+    "id": "white_powers_RESL_17",
+    "question": "Un archivo pasa por dos compresiones seguidas y después se replica varias veces para distribuirlo.\n\nLa tabla desglosa por cuánto queda multiplicado el tamaño en cada paso.\n\n¿Por cuánto queda multiplicado el tamaño original?",
+    "options": [
+      "$3^{1}$",
+      "$3^{-7}$",
+      "$3^{7}$",
+      "$3^{-1}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Los tres exponentes se suman, y dos de ellos son negativos: $-2-1+4$.",
+    "feedback_incorrect": [
+      null,
+      "Ahí también se restó el exponente de las réplicas, pero replicar multiplica y por eso suma.",
+      "Ahí los dos exponentes negativos se tomaron como positivos, y comprimir achica el tamaño.",
+      "Ahí quedó una compresión sin contar: la tabla desglosa dos, no una."
+    ],
+    "explanation": "Un exponente negativo no cambia la regla, solo el signo de lo que se suma. Al multiplicar potencias de igual base los exponentes se suman siempre, sean del signo que sean.\n$$3^{-2} \\cdot 3^{-1} \\cdot 3^{4} = 3^{-2-1+4}$$\nCada compresión aporta un exponente negativo porque divide, y las réplicas aportan uno positivo porque multiplican.\n\nLa suma da $1$, así que el archivo termina ocupando el triple del original: las réplicas pesan más que las dos compresiones juntas.\n\nTomar los exponentes negativos como si fueran positivos invierte el efecto de las compresiones y da un tamaño enormemente mayor al real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": "🗂️",
+          "label": "Paso"
+        },
+        {
+          "icon": null,
+          "label": "Factor"
+        }
+      ],
+      "rows": [
+        [
+          "Compresión 1",
+          "$3^{-2}$"
+        ],
+        [
+          "Compresión 2",
+          "$3^{-1}$"
+        ],
+        [
+          "Réplicas",
+          "$3^{4}$"
+        ],
+        [
+          "**Tamaño final**",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "cell",
+        "at": [
+          3,
+          1
+        ],
+        "by_option": [
+          "$3^{1}$",
+          "$3^{-7}$",
+          "$3^{7}$",
+          "$3^{-1}$"
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "cadena-desde-tabla"
+    ]
+  },
+  {
+    "id": "white_powers_RESL_18",
+    "question": "Un laboratorio divide cada muestra en porciones iguales, y después vuelve a dividir cada porción de la misma manera.\n\nLa tabla desglosa en cuántas partes se divide en cada nivel.\n\n¿En cuántas porciones queda la muestra?",
+    "options": [
+      "$5^{2}$",
+      "$5^{3}$",
+      "$25^{2}$",
+      "$5^{4}$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Repetir dos veces una división en $5^{2}$ partes multiplica los exponentes: $2 \\times 2$.",
+    "feedback_incorrect": [
+      "Ahí quedó contado un solo nivel, y la tabla desglosa dos.",
+      "Ahí se sumó $1$ por el segundo nivel, pero ese nivel no agrega una parte: subdivide cada una.",
+      "Ahí se elevó al cuadrado la cantidad de cada nivel sin dejarla escrita como potencia de $5$.",
+      null
+    ],
+    "explanation": "Cuando una división se repite sobre cada parte que ya se obtuvo, lo que se repite es **todo el grupo de partes**, no una parte suelta. Por eso los exponentes se multiplican.\n$$(5^{2})^{2} = 5^{2 \\times 2}$$\nEl primer nivel deja $5^{2}$ porciones y el segundo parte cada una de ellas en $5^{2}$ más.\n\nEl resultado es $5^{4}$, o sea $625$ porciones.\n\nSumar los exponentes en vez de multiplicarlos trata al segundo nivel como si agregara una sola porción, cuando multiplica todas las que había.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": "🧪",
+          "label": "Nivel"
+        },
+        {
+          "icon": null,
+          "label": "Partes"
+        }
+      ],
+      "rows": [
+        [
+          "Por división",
+          "$5^{2}$"
+        ],
+        [
+          "Divisiones",
+          "$2$"
+        ],
+        [
+          "**Porciones finales**",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "cell",
+        "at": [
+          2,
+          1
+        ],
+        "by_option": [
+          "$5^{2}$",
+          "$5^{3}$",
+          "$25^{2}$",
+          "$5^{4}$"
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "cadena-desde-tabla"
+    ]
+  },
+  {
+    "id": "white_powers_RESL_19",
+    "question": "Una cooperativa reparte su producción primero entre zonas y después, dentro de cada zona, entre los socios.\n\nLa tabla desglosa la producción y en cuántas partes se divide en cada nivel.\n\n¿Cuánto le toca a cada socio?",
+    "options": [
+      "$3^{4}$",
+      "$3^{2}$",
+      "$3^{8}$",
+      "$3^{5}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Los dos repartos restan sus exponentes al de la producción: $5-2-1$.",
+    "feedback_incorrect": [
+      "Ahí quedó contado un solo nivel de reparto, y la tabla desglosa dos.",
+      null,
+      "Ahí el segundo reparto se sumó en vez de restarse, y repartir siempre achica.",
+      "Ahí los dos repartos se cancelaron entre sí, pero los dos dividen y por eso los dos restan."
+    ],
+    "explanation": "Repartir dos veces seguidas es dividir dos veces, y cada división saca factores de la base. Por eso los dos exponentes se restan del que trae la producción.\n$$\\frac{3^{5}}{3^{2} \\cdot 3^{1}} = 3^{5-2-1}$$\nEl denominador junta los dos repartos en una sola potencia, y recién ahí se resta su exponente.\n\nQuedan $3^{2}$, o sea $9$ unidades por socio.\n\nRestar solo uno de los dos niveles deja el resultado tres veces más grande, porque olvida un reparto entero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": "🌾",
+          "label": "Nivel"
+        },
+        {
+          "icon": null,
+          "label": "Cantidad"
+        }
+      ],
+      "rows": [
+        [
+          "Producción",
+          "$3^{5}$"
+        ],
+        [
+          "Zonas",
+          "$3^{2}$"
+        ],
+        [
+          "Socios por zona",
+          "$3^{1}$"
+        ],
+        [
+          "**Por socio**",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "cell",
+        "at": [
+          3,
+          1
+        ],
+        "by_option": [
+          "$3^{4}$",
+          "$3^{2}$",
+          "$3^{8}$",
+          "$3^{5}$"
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "cadena-desde-tabla"
     ]
   }
 ]

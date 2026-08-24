@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_norm_LEXI_01",
     "question": "La norma de un vector se calcula a partir de sus componentes, que pueden ser negativas.\n$$\\|\\vec{v}\\| \\geq 0$$\n¿Por qué el resultado nunca puede ser negativo?",
     "options": [
       "Porque se calcula como la raíz cuadrada de una suma de cuadrados",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "blue_norm_LEXI_02",
     "question": "Un vector con las dos componentes negativas tiene la misma norma que su opuesto.\n$$\\|\\vec{v}\\| = \\|-\\vec{v}\\|$$\n¿Por qué el signo de las componentes no cambia el resultado?",
     "options": [
       "Porque un vector con componentes negativas apunta hacia el mismo lado que su opuesto",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "blue_norm_LEXI_03",
     "question": "La norma de un vector se compara con la longitud de un segmento.\n$$\\|\\vec{v}\\| \\geq 0$$\n¿Qué pasaría si una norma pudiera dar negativa?",
     "options": [
       "El vector correspondiente tendría sus componentes negativas",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "blue_norm_LEXI_04",
     "question": "La raíz cuadrada que aparece en la norma se toma siempre en su valor positivo.\n$$\\|\\vec{v}\\| = \\sqrt{v_1^{2}+v_2^{2}}$$\n¿Por qué se descarta la raíz negativa?",
     "options": [
       "Porque el resultado tiene que ser una longitud, y no las hay negativas",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "blue_norm_LEXI_05",
     "question": "El único caso en que una suma de cuadrados no es positiva es cuando todos los términos se anulan.\n$$\\|\\vec{v}\\|^{2} \\geq 0$$\n¿Qué garantiza esa desigualdad sobre la norma?",
     "options": [
       "Que la norma es siempre un número entero",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "blue_norm_LEXI_06",
     "question": "Entre todos los vectores del plano hay uno solo cuya norma da cero.\n$$\\|\\vec{v}\\| = 0 \\iff \\vec{v} = \\vec{0}$$\n¿Por qué ningún otro vector puede lograrlo?",
     "options": [
       "Porque la suma de cuadrados solo da cero si todas las componentes son cero",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "blue_norm_LEXI_07",
     "question": "Una suma de cuadrados se anula solo si cada término se anula por separado.\n$$v_1^{2}+v_2^{2} = 0$$\n¿Qué obliga esa igualdad?",
     "options": [
       "Que una de las dos componentes valga cero",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "blue_norm_LEXI_08",
     "question": "En una suma común, un término positivo puede cancelar a uno negativo, pero acá no hay ningún término negativo.\n$$v_1^{2}+v_2^{2}+v_3^{2} = 0$$\n¿Por qué ningún término puede compensar a otro?",
     "options": [
       "Porque una componente negativa aporta un cuadrado negativo que cancela al positivo",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "blue_norm_LEXI_09",
     "question": "Un vector con una sola componente distinta de cero ya tiene norma positiva.\n$$(0,3)$$\n¿Por qué su norma no es cero?",
     "options": [
       "Porque una de las dos componentes aporta un cuadrado positivo a la suma",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "blue_norm_LEXI_10",
     "question": "En un espacio de tres dimensiones la condición no cambia.\n$$\\|(v_1,v_2,v_3)\\| = 0$$\n¿Cuántas componentes tienen que anularse?",
     "options": [
       "Una sola, porque un factor nulo anula toda la suma",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "blue_norm_LEXI_11",
     "question": "La norma de un vector se interpreta geométricamente como una distancia.\n$$\\vec{v} = (v_1, v_2)$$\n¿Qué distancia mide?",
     "options": [
       "La distancia entre el origen y el punto que marca el vector",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "blue_norm_LEXI_12",
     "question": "La fórmula de la norma repite la estructura de un resultado conocido de geometría.\n$$\\|\\vec{v}\\| = \\sqrt{v_1^{2}+v_2^{2}}$$\n¿De qué resultado se trata?",
     "options": [
       "De la fórmula del perímetro de un triángulo rectángulo cualquiera",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "blue_norm_LEXI_13",
     "question": "La norma de un vector se puede leer como la distancia entre dos puntos.\n$$\\vec{v} = B - A$$\n¿Entre qué dos puntos mide esa distancia?",
     "options": [
       "Entre el origen y el punto medio del vector diferencia",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "blue_norm_LEXI_14",
     "question": "Dos vectores distintos pueden tener exactamente la misma norma.\n$$\\|\\vec{u}\\| = \\|\\vec{v}\\|$$\n¿Qué significa eso geométricamente?",
     "options": [
       "Que los dos puntos están a la misma distancia del origen",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "blue_norm_LEXI_15",
     "question": "Un vector arranca en el origen y termina en el punto que marcan sus componentes.\n$$\\vec{v} = (6,8), \\qquad \\|\\vec{v}\\| = 10$$\n¿Qué representa ese resultado, $10$?",
     "options": [
       "La diferencia entre las dos coordenadas del punto",

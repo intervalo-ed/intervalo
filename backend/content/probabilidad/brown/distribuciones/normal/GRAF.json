@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_normal_GRAF_01",
     "question": "Las estaturas de una población adulta se modelan con una normal de media $\\mu=170$ cm y desviación $\\sigma=8$ cm.\n\n¿Qué forma tiene esa densidad?",
     "options": [
       "Una campana simétrica con máximo en 170.",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "brown_normal_GRAF_02",
     "question": "El error de un instrumento de medición de precisión, en milímetros, sigue una distribución normal.\n\nEl gráfico muestra su densidad.\n\n¿Cuál es la media $\\mu$ de ese error, según el gráfico?",
     "options": [
       "$1{,}5$",
@@ -57,6 +59,7 @@
     ]
   },
   {
+    "id": "brown_normal_GRAF_03",
     "question": "Dos máquinas de envasado llenan bolsas con el mismo peso promedio, pero distinta variabilidad.\n\nLa máquina A tiene $\\sigma_A=2$ gramos.\n$$X_A \\sim N(500,\\, 2^{2})$$\nLa máquina B tiene $\\sigma_B=10$ gramos.\n$$X_B \\sim N(500,\\, 10^{2})$$\n¿Cuál de las dos curvas se ve más achatada y ancha?",
     "options": [
       "$X_B$, porque su $\\sigma$ es mayor.",
@@ -82,6 +85,7 @@
     ]
   },
   {
+    "id": "brown_normal_GRAF_04",
     "question": "El tiempo que tarda un corredor en completar una carrera de una población entrenada sigue una distribución normal.\n\nSu media es $\\mu=50$ minutos y su desviación $\\sigma=6$ minutos.\n\n¿Qué forma tiene esa densidad?",
     "options": [
       "Una campana simétrica con máximo en 50.",
@@ -107,6 +111,7 @@
     ]
   },
   {
+    "id": "brown_normal_GRAF_05",
     "question": "El peso de los paquetes despachados por una fábrica sigue una distribución normal, con media y desviación de proceso conocidas.\n\nSu media es $\\mu=25$ kg y su desviación $\\sigma=2$ kg.\n\n¿Qué forma tiene esa densidad?",
     "options": [
       "Un rectángulo de altura constante entre 21 y 29.",
@@ -132,6 +137,7 @@
     ]
   },
   {
+    "id": "brown_normal_GRAF_06",
     "question": "El puntaje de un examen estandarizado, en una población de rendidores, sigue una distribución normal.\n\nSu media es $\\mu=500$ puntos y su desviación $\\sigma=80$ puntos.\n\n¿Qué forma tiene esa densidad?",
     "options": [
       "Un rectángulo de altura constante entre 420 y 580.",
@@ -157,6 +163,7 @@
     ]
   },
   {
+    "id": "brown_normal_GRAF_07",
     "question": "La temperatura corporal medida en un consultorio a lo largo de un día sigue una distribución normal.\n\nSu media es $\\mu=36{,}5$°C y su desviación $\\sigma=0{,}3$°C.\n\n¿Qué forma tiene esa densidad?",
     "options": [
       "Una curva que decae monótonamente desde 36,5.",
@@ -182,6 +189,7 @@
     ]
   },
   {
+    "id": "brown_normal_GRAF_08",
     "question": "La diferencia entre la hora real y la hora programada de salida de un colectivo urbano, en minutos, sigue una distribución normal.\n\nEl gráfico muestra su densidad.\n\n¿Cuál es la media $\\mu$ de esa diferencia, según el gráfico?",
     "options": [
       "$2$",
@@ -214,6 +222,7 @@
     ]
   },
   {
+    "id": "brown_normal_GRAF_09",
     "question": "La desviación de una pieza fabricada respecto de la medida de referencia, en milímetros, sigue una distribución normal.\n\nEl gráfico muestra su densidad.\n\n¿Cuál es la media $\\mu$ de esa desviación, según el gráfico?",
     "options": [
       "$-2{,}8$",
@@ -246,6 +255,7 @@
     ]
   },
   {
+    "id": "brown_normal_GRAF_10",
     "question": "El error de lectura de un termómetro digital, en grados Celsius, sigue una distribución normal.\n\nEl gráfico muestra su densidad.\n\n¿Cuál es la media $\\mu$ de ese error, según el gráfico?",
     "options": [
       "$0{,}3$",
@@ -278,6 +288,7 @@
     ]
   },
   {
+    "id": "brown_normal_GRAF_11",
     "question": "La diferencia entre el peso real y el peso declarado de un paquete pequeño, en gramos, sigue una distribución normal.\n\nEl gráfico muestra su densidad.\n\n¿Cuál es la media $\\mu$ de esa diferencia, según el gráfico?",
     "options": [
       "$-2{,}7$",
@@ -310,6 +321,7 @@
     ]
   },
   {
+    "id": "brown_normal_GRAF_12",
     "question": "Dos versiones de un examen estandarizado producen puntajes con la misma media, pero distinta variabilidad.\n\nLa versión A tiene $\\sigma_A=15$ puntos.\n$$X_A \\sim N(500,\\, 15^{2})$$\nLa versión B tiene $\\sigma_B=60$ puntos.\n$$X_B \\sim N(500,\\, 60^{2})$$\n¿Cuál de las dos curvas se ve más achatada y ancha?",
     "options": [
       "$X_B$, porque su $\\sigma$ es mayor.",
@@ -335,6 +347,7 @@
     ]
   },
   {
+    "id": "brown_normal_GRAF_13",
     "question": "Dos equipos deportivos tienen la misma estatura promedio entre sus jugadores, pero distinta variabilidad.\n\nEl equipo A tiene $\\sigma_A=3$ cm.\n$$X_A \\sim N(180,\\, 3^{2})$$\nEl equipo B tiene $\\sigma_B=12$ cm.\n$$X_B \\sim N(180,\\, 12^{2})$$\n¿Cuál de las dos curvas se ve más achatada y ancha?",
     "options": [
       "$X_A$, porque su $\\sigma$ es menor.",
@@ -360,6 +373,7 @@
     ]
   },
   {
+    "id": "brown_normal_GRAF_14",
     "question": "Dos modelos de dispositivo tienen la misma duración de batería promedio, pero distinta variabilidad de fabricación.\n\nEl modelo A tiene $\\sigma_A=1$ hora.\n$$X_A \\sim N(20,\\, 1^{2})$$\nEl modelo B tiene $\\sigma_B=5$ horas.\n$$X_B \\sim N(20,\\, 5^{2})$$\n¿Cuál de las dos curvas se ve más achatada y ancha?",
     "options": [
       "Ambas tienen la misma forma, porque comparten la misma media.",
@@ -385,6 +399,7 @@
     ]
   },
   {
+    "id": "brown_normal_GRAF_15",
     "question": "Dos grupos etarios tienen la misma temperatura corporal promedio, pero distinta variabilidad de medición.\n\nEl grupo de adultos tiene $\\sigma_1=0{,}2$°C.\n$$X_1 \\sim N(36{,}5,\\, 0{,}2^{2})$$\nEl grupo de niños tiene $\\sigma_2=0{,}6$°C.\n$$X_2 \\sim N(36{,}5,\\, 0{,}6^{2})$$\n¿Cuál de las dos curvas se ve más achatada y ancha?",
     "options": [
       "$X_2$, porque su $\\sigma$ es mayor.",

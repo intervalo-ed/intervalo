@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_acumulada_RESL_01",
     "question": "Un colectivo llega en un instante aleatorio dentro de una franja horaria de $4$ minutos, con densidad:\n$$f(x) = \\frac{1}{4} \\quad \\text{para } 0 \\leq x \\leq 4$$\nFuera de ese intervalo, $f(x)=0$.\n\n¿Cuánto vale $F(3) = P(X \\leq 3)$?",
     "options": [
       "$\\dfrac{1}{4}$",
@@ -26,6 +27,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_RESL_02",
     "question": "El tiempo que un cliente espera en la fila de un supermercado tiene función de distribución acumulada $F(x)$.\n\nSe sabe que $F(2)=0{,}3$ y $F(6)=0{,}9$.\n\nCalculá $P(2 < X \\leq 6)$, la probabilidad de esperar entre 2 y 6 minutos.",
     "options": [
       "$0{,}3$",
@@ -52,6 +54,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_RESL_03",
     "question": "La cantidad de clientes que llegan a una caja durante un minuto tiene función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 0{,}2 \\\\ p(1) &= 0{,}5 \\\\ p(2) &= 0{,}3 \\end{aligned}$$\n¿Cuánto vale $F(1) = P(X \\leq 1)$?",
     "options": [
       "$0{,}2$",
@@ -78,6 +81,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_RESL_04",
     "question": "El tiempo que un cliente espera en la fila de un supermercado se modela con densidad uniforme sobre $[0,6]$ minutos.\n$$f(x) = \\frac{1}{6} \\quad \\text{para } 0 \\leq x \\leq 6$$\nFuera de ese intervalo, $f(x)=0$.\n\n¿Cuánto vale $F(2) = P(X \\leq 2)$?",
     "options": [
       "$\\dfrac{1}{6}$",
@@ -104,6 +108,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_RESL_05",
     "question": "La posición donde cae un dardo lanzado sobre una regla de $8$ cm se modela con densidad uniforme sobre $[0,8]$.\n$$f(x) = \\frac{1}{8} \\quad \\text{para } 0 \\leq x \\leq 8$$\nFuera de ese intervalo, $f(x)=0$.\n\n¿Cuánto vale $F(6) = P(X \\leq 6)$?",
     "options": [
       "$\\dfrac{1}{4}$",
@@ -130,6 +135,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_RESL_06",
     "question": "La hora a la que llega un correo dentro de una franja horaria de $10$ minutos se modela con densidad uniforme sobre $[0,10]$.\n$$f(x) = \\frac{1}{10} \\quad \\text{para } 0 \\leq x \\leq 10$$\nFuera de ese intervalo, $f(x)=0$.\n\n¿Cuánto vale $F(4) = P(X \\leq 4)$?",
     "options": [
       "$\\dfrac{1}{5}$",
@@ -156,6 +162,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_RESL_07",
     "question": "El tiempo que tarda en cargar una página web se modela con densidad uniforme sobre $[0,5]$ segundos.\n$$f(x) = \\frac{1}{5} \\quad \\text{para } 0 \\leq x \\leq 5$$\nFuera de ese intervalo, $f(x)=0$.\n\n¿Cuánto vale $F(4) = P(X \\leq 4)$?",
     "options": [
       "$\\dfrac{1}{5}$",
@@ -182,6 +189,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_RESL_08",
     "question": "La posición de una partícula dentro de un tubo de $12$ cm de longitud se modela con densidad uniforme sobre $[0,12]$.\n$$f(x) = \\frac{1}{12} \\quad \\text{para } 0 \\leq x \\leq 12$$\nFuera de ese intervalo, $f(x)=0$.\n\n¿Cuánto vale $F(9) = P(X \\leq 9)$?",
     "options": [
       "$\\dfrac{1}{4}$",
@@ -208,6 +216,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_RESL_09",
     "question": "El tiempo que tarda un cajero de banco en atender a un cliente tiene función de distribución acumulada $F(x)$.\n\nSe sabe que $F(1)=0{,}2$ y $F(5)=0{,}7$.\n\nCalculá $P(1 < X \\leq 5)$, la probabilidad de que la atención dure entre 1 y 5 minutos.",
     "options": [
       "$0{,}2$",
@@ -234,6 +243,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_RESL_10",
     "question": "La cantidad de defectos detectados en un lote de producción tiene función de distribución acumulada $F(x)$.\n\nSe sabe que $F(0)=0{,}3$ y $F(1)=0{,}7$.\n\nCalculá $P(0 < X \\leq 1)$, la probabilidad de que el lote tenga exactamente 1 defecto.",
     "options": [
       "$0{,}3$",
@@ -260,6 +270,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_RESL_11",
     "question": "La hora de llegada de un tren dentro de una franja horaria de $10$ minutos tiene función de distribución acumulada $F(x)$.\n\nSe sabe que $F(2)=0{,}2$ y $F(9)=0{,}9$.\n\nCalculá $P(2 < X \\leq 9)$, la probabilidad de que el tren llegue entre los minutos 2 y 9.",
     "options": [
       "$0{,}2$",
@@ -286,6 +297,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_RESL_12",
     "question": "El resultado de tirar un dado de $6$ caras tiene función de distribución acumulada $F(x)$.\n\nSe sabe que $F(1)=0{,}5$ y $F(4)=0{,}8$.\n\nCalculá $P(1 < X \\leq 4)$, la probabilidad de que el dado muestre entre 2 y 4.",
     "options": [
       "$0{,}3$",
@@ -312,6 +324,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_RESL_13",
     "question": "La cantidad de caras al lanzar $3$ monedas tiene función de distribución acumulada $F(x)$.\n\nSe sabe que $F(0)=0{,}4$ y $F(1)=0{,}6$.\n\nCalculá $P(0 < X \\leq 1)$, la probabilidad de obtener exactamente 1 cara.",
     "options": [
       "$0{,}2$",
@@ -338,6 +351,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_RESL_14",
     "question": "El resultado de tirar un dado especial de 3 caras, numeradas $\\{1,2,3\\}$, tiene función de probabilidad puntual:\n$$\\begin{aligned} p(1) &= 0{,}3 \\\\ p(2) &= 0{,}4 \\\\ p(3) &= 0{,}3 \\end{aligned}$$\n¿Cuánto vale $F(2) = P(X \\leq 2)$?",
     "options": [
       "$0{,}3$",
@@ -364,6 +378,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_RESL_15",
     "question": "La cantidad de caras al lanzar $2$ monedas tiene función de probabilidad puntual:\n$$\\begin{aligned} p(0) &= 0{,}25 \\\\ p(1) &= 0{,}5 \\\\ p(2) &= 0{,}25 \\end{aligned}$$\n¿Cuánto vale $F(1) = P(X \\leq 1)$?",
     "options": [
       "$0{,}25$",

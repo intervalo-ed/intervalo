@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_densidad_FORM_01",
     "question": "Sea $X$ una variable aleatoria continua con función de **densidad** $f(x)$.\n\n¿Qué expresión da $P(a \\leq X \\leq b)$?",
     "options": [
       "$\\displaystyle \\sum_{x=a}^{b} f(x)$",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "violet_densidad_FORM_02",
     "question": "Sea $X$ una variable aleatoria continua con función de **densidad** $f(x)$.\n\n¿Qué condición debe cumplir $f(x)$ sobre todo el dominio de $X$?",
     "options": [
       "$\\displaystyle \\int_{-\\infty}^{\\infty} f(x)\\,dx = 1$",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "violet_densidad_FORM_03",
     "question": "Sea $X$ una variable aleatoria continua con función de **densidad** $f(x)$.\n\n¿Cuánto vale $P(X=3)$?",
     "options": [
       "$0$",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "violet_densidad_FORM_04",
     "question": "Sea $Y$ una variable aleatoria continua con función de **densidad** $g(y)$.\n\n¿Qué expresión permite calcular $P(c \\leq Y \\leq d)$?",
     "options": [
       "$g(d) - g(c)$",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "violet_densidad_FORM_05",
     "question": "Sea $X$ una variable aleatoria continua con función de **densidad** $f(x)$.\n\n¿Cómo se expresa $P(X \\leq b)$ en términos de $f$?",
     "options": [
       "$f(b)$",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "violet_densidad_FORM_06",
     "question": "Sea $T$ una variable aleatoria continua con función de **densidad** $h(t)$.\n\n¿Qué representa geométricamente $P(m \\leq T \\leq n)$?",
     "options": [
       "El área bajo $h(t)$ entre $m$ y $n$.",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "violet_densidad_FORM_07",
     "question": "Sea $Z$ una variable aleatoria continua con función de **densidad** $p(z)$.\n\nUna de las siguientes expresiones corresponde a $P(r \\leq Z \\leq s)$.\n\n¿Cuál es esa expresión?",
     "options": [
       "$p(s) \\cdot p(r)$",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "violet_densidad_FORM_08",
     "question": "Sea $W$ una variable aleatoria continua con función de **densidad** $f(w)$.\n\n¿Cuál de las siguientes opciones **no** representa una probabilidad válida para $W$?",
     "options": [
       "$\\displaystyle \\int_2^5 f(w)\\,dw$",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "violet_densidad_FORM_09",
     "question": "Sea $Y$ una variable aleatoria continua con función de **densidad** $g(y)$.\n\nSu dominio es todo $\\mathbb{R}$.\n\n¿Qué igualdad expresa que $g$ es una densidad válida?",
     "options": [
       "$g(0) = 1$",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "violet_densidad_FORM_10",
     "question": "Sea $X$ una variable aleatoria continua con función de **densidad** $f(x)$.\n\nEsa densidad está definida solo en el intervalo $[a,b]$, y vale 0 fuera de él.\n\n¿Qué condición sobre $[a,b]$ hace que $f$ sea una densidad válida?",
     "options": [
       "$\\displaystyle \\int_a^b f(x)\\,dx = b - a$",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "violet_densidad_FORM_11",
     "question": "Sea $X$ una variable aleatoria continua con función de **densidad** $f(x)$, que cumple la condición de normalización:\n$$\\int_{-\\infty}^{\\infty} f(x)\\,dx = 1$$\n¿Qué significa esa igualdad en términos de probabilidad?",
     "options": [
       "Que $X$ toma algún valor real con probabilidad 1.",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "violet_densidad_FORM_12",
     "question": "Sea $T$ una variable aleatoria continua con función de **densidad** $h(t)$.\n\nEstá definida en el intervalo $[0,c]$, y vale 0 fuera de él.\n\n¿Cuál es la condición de normalización de $h$ en ese dominio?",
     "options": [
       "$\\displaystyle \\int_0^c h(t)\\,dt = 1$",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "violet_densidad_FORM_13",
     "question": "Sea $Y$ una variable aleatoria continua con función de **densidad** $g(y)$.\n\n¿Cuánto vale $P(Y=7)$?",
     "options": [
       "$g(7)$",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "violet_densidad_FORM_14",
     "question": "Sea $X$ una variable aleatoria continua con función de **densidad** $f(x)$.\n\nPara esta variable, cualquier valor puntual tiene probabilidad 0:\n$$P(X=a) = 0$$\n$$P(X=b) = 0$$\n¿Cómo se relacionan $P(a < X < b)$ y $P(a \\leq X \\leq b)$?",
     "options": [
       "Son iguales entre sí, sin ninguna diferencia.",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "violet_densidad_FORM_15",
     "question": "Sea $T$ una variable aleatoria continua con función de **densidad** $h(t)$.\n\n¿Cuánto vale $P(T=0)$?",
     "options": [
       "$0$",

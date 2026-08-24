@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_reglas_ESTR_01",
     "question": "La integral plantea un símbolo con apariencia matemática particular:\n$$\\int \\pi\\,dx$$\n¿Qué regla corresponde aplicar?",
     "options": [
       "Regla de la constante",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "brown_reglas_ESTR_02",
     "question": "El integrando combina el número $e$ con un exponente fijo:\n$$\\int e^2\\,dx$$\n¿Qué regla corresponde aplicar?",
     "options": [
       "Regla de la potencia",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "brown_reglas_ESTR_03",
     "question": "El integrando es un logaritmo evaluado en un número concreto:\n$$\\int \\ln 5\\,dx$$\n¿Qué regla corresponde aplicar?",
     "options": [
       "Regla del logaritmo",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "brown_reglas_ESTR_04",
     "question": "El integrando lleva una raíz cuadrada sin ninguna variable visible:\n$$\\int \\sqrt{2}\\,dx$$\n¿Qué regla corresponde aplicar?",
     "options": [
       "Regla de la constante",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "brown_reglas_ESTR_05",
     "question": "El integrando es una potencia con base y exponente numéricos:\n$$\\int 3^2\\,dx$$\n¿Cuál es la regla que corresponde aplicar?",
     "options": [
       "Regla de la potencia",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "brown_reglas_ESTR_06",
     "question": "El integrando es un coseno evaluado en un ángulo fijo:\n$$\\int \\cos(\\pi/3)\\,dx$$\n¿Qué regla corresponde aplicar?",
     "options": [
       "Regla trigonométrica",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "brown_reglas_ESTR_07",
     "question": "El integrando combina una exponencial con un logaritmo en el mismo exponente:\n$$\\int e^{\\ln 4}\\,dx$$\n¿Qué regla corresponde aplicar?",
     "options": [
       "Regla de la constante",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "brown_reglas_ESTR_08",
     "question": "El integrando es un número negativo, sin ninguna variable a la vista:\n$$\\int (-7)\\,dx$$\n¿Qué regla corresponde aplicar?",
     "options": [
       "Regla exponencial",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "brown_reglas_ESTR_09",
     "question": "El integrando tiene la variable en la base y el número $e$ en el exponente:\n$$\\int x^e\\,dx$$\n¿Qué regla hay que aplicar en este caso?",
     "options": [
       "Regla exponencial",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "brown_reglas_ESTR_10",
     "question": "El integrando tiene la variable en el exponente y el número $e$ en la base:\n$$\\int e^x\\,dx$$\n¿Qué regla corresponde aplicar?",
     "options": [
       "Regla exponencial",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "brown_reglas_ESTR_11",
     "question": "El integrando tiene la variable en la base y un número fijo en el exponente:\n$$\\int x^2\\,dx$$\n¿Qué regla corresponde aplicar?",
     "options": [
       "Regla trigonométrica",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "brown_reglas_ESTR_12",
     "question": "El integrando tiene un número fijo en la base y la variable en el exponente:\n$$\\int 2^x\\,dx$$\n¿Cuál regla corresponde usar acá?",
     "options": [
       "Regla de la potencia",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "brown_reglas_ESTR_13",
     "question": "Este integrando es uno dividido la variable:\n$$\\int \\frac{1}{x}\\,dx$$\n¿Qué regla corresponde aplicar?",
     "options": [
       "Regla del logaritmo",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "brown_reglas_ESTR_14",
     "question": "Este integrando es uno dividido el cuadrado de la variable:\n$$\\int \\frac{1}{x^2}\\,dx$$\n¿Qué regla corresponde aplicar?",
     "options": [
       "Regla exponencial",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "brown_reglas_ESTR_15",
     "question": "El integrando es una función trigonométrica de la variable:\n$$\\int \\cos x\\,dx$$\n¿Qué regla corresponde aplicar?",
     "options": [
       "Regla de la potencia",

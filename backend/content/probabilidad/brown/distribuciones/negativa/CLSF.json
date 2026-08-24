@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_negativa_CLSF_01",
     "question": "Un arquero de handball patea penales hasta convertir su tercer gol.\n\nCada penal lo convierte con probabilidad $0{,}6$, en forma independiente.\n\n¿Qué distribución sigue la cantidad total de penales pateados hasta convertir el tercero?",
     "options": [
       "$BinNeg(3,\\, 0{,}6)$",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "brown_negativa_CLSF_02",
     "question": "Un inspector de calidad revisa piezas de una línea de producción, una por una, hasta detectar la segunda pieza defectuosa.\n\nCada pieza sale defectuosa con probabilidad $0{,}1$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de piezas revisadas hasta detectar la segunda defectuosa?",
     "options": [
       "$BinNeg(2,\\, 0{,}1)$",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "brown_negativa_CLSF_03",
     "question": "Un vendedor busca cerrar 2 ventas en el día.\n\nGana confianza con cada venta cerrada: su probabilidad de cerrar la siguiente sube después de cada éxito.\n\n¿Se puede modelar la cantidad de intentos hasta cerrar la segunda venta como una binomial negativa?",
     "options": [
       "No, la probabilidad de éxito no es la misma en cada intento.",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "brown_negativa_CLSF_04",
     "question": "Una persona envía currículums a distintas empresas hasta recibir 4 respuestas positivas.\n\nCada envío recibe respuesta positiva con probabilidad $0{,}2$, en forma independiente.\n\n¿Qué distribución sigue la cantidad total de currículums enviados hasta la cuarta respuesta positiva?",
     "options": [
       "$Geom(0{,}2)$",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "brown_negativa_CLSF_05",
     "question": "En un sorteo se extrae una bolilla con reposición hasta que el número 7 salga por tercera vez.\n\nEn cada extracción, el 7 sale con probabilidad $0{,}1$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de extracciones hasta que el 7 salga la tercera vez?",
     "options": [
       "$BinNeg(3,\\, 0{,}1)$",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "brown_negativa_CLSF_06",
     "question": "Un inspector revisa piezas de una línea de producción hasta detectar la quinta pieza defectuosa.\n\nCada pieza sale defectuosa con probabilidad $0{,}05$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de piezas revisadas hasta detectar la quinta defectuosa?",
     "options": [
       "$Bin(100,\\, 0{,}05)$",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "brown_negativa_CLSF_07",
     "question": "Un community manager publica posts hasta lograr que 2 de ellos superen las mil interacciones.\n\nCada post supera las mil interacciones con probabilidad $0{,}3$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de posts publicados hasta el segundo que supera las mil interacciones?",
     "options": [
       "$Geom(0{,}3)$",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "brown_negativa_CLSF_08",
     "question": "Un vendedor llama a clientes potenciales hasta cerrar 4 pólizas de seguro.\n\nCada llamado cierra una póliza con probabilidad $0{,}25$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de llamados hasta cerrar la cuarta póliza?",
     "options": [
       "$BinNeg(4,\\, 0{,}25)$",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "brown_negativa_CLSF_09",
     "question": "Un vendedor llama a clientes hasta lograr su primera venta del día.\n\nCada llamado termina en venta con probabilidad $0{,}3$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de llamados hasta esa primera venta?",
     "options": [
       "$BinNeg(1,\\, 0{,}3)$",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "brown_negativa_CLSF_10",
     "question": "Un arquero pica 8 penales durante un entrenamiento.\n\nCada penal lo convierte con probabilidad $0{,}5$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de penales convertidos entre esos 8?",
     "options": [
       "$BinNeg(8,\\, 0{,}5)$",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "brown_negativa_CLSF_11",
     "question": "En un sorteo se extrae una bolilla con reposición hasta que salga el número 7 por primera vez.\n\nEn cada extracción, el 7 sale con probabilidad $0{,}1$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de extracciones hasta esa primera aparición del 7?",
     "options": [
       "$BinNeg(1,\\, 0{,}1)$",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "brown_negativa_CLSF_12",
     "question": "Un community manager publica 6 posts durante la semana.\n\nCada post supera las mil interacciones con probabilidad $0{,}25$, en forma independiente.\n\n¿Qué distribución sigue la cantidad de posts, entre esos 6, que superan las mil interacciones?",
     "options": [
       "$BinNeg(6,\\, 0{,}25)$",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "brown_negativa_CLSF_13",
     "question": "Un arquero pica penales buscando convertir 3.\n\nSe cansa con cada intento: su probabilidad de convertir baja después de cada penal pateado.\n\n¿Se puede modelar la cantidad de penales hasta convertir el tercero como una binomial negativa?",
     "options": [
       "Sí, porque busca un número fijo de 3 éxitos.",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "brown_negativa_CLSF_14",
     "question": "Una máquina inspecciona piezas hasta detectar 3 defectuosas.\n\nSe recalibra después de cada pieza revisada, y eso cambia la probabilidad de detectar un defecto en la siguiente.\n\n¿Se puede modelar la cantidad de piezas revisadas hasta detectar la tercera defectuosa como una binomial negativa?",
     "options": [
       "Sí, porque cada pieza es un ensayo con dos resultados posibles.",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "brown_negativa_CLSF_15",
     "question": "Un influencer publica posts buscando que 4 de ellos superen cierto nivel de interacción.\n\nSuma seguidores con cada post exitoso, y eso hace que la probabilidad de que el siguiente post también triunfe aumente.\n\n¿Se puede modelar la cantidad de posts hasta el cuarto exitoso como una binomial negativa?",
     "options": [
       "No, la probabilidad de éxito no es la misma en cada post.",

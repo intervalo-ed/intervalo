@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_subspaces_LEXI_01",
     "question": "Para decidir si un subconjunto es un subespacio alcanza con verificar que sea cerrado para las dos operaciones.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$\n¿Por qué no hace falta verificar el resto de las condiciones?",
     "options": [
       "Porque ya valen en el espacio grande, y los del subconjunto son elementos suyos",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_LEXI_02",
     "question": "De las condiciones que definen un espacio vectorial, casi todas se heredan del espacio grande.\n$$S \\subset V$$\n¿Cuál es la que no se hereda?",
     "options": [
       "Que multiplicar por uno devuelva el mismo elemento",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_LEXI_03",
     "question": "Las dos condiciones de subespacio se pueden juntar en una sola verificación.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$\n¿Por qué esa única expresión cubre las dos?",
     "options": [
       "Porque la suma y el producto por un escalar son en realidad la misma operación",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_LEXI_04",
     "question": "Un subconjunto de un espacio vectorial resulta ser cerrado para las dos operaciones.\n$$S \\subset V$$\n¿Qué se puede afirmar de él?",
     "options": [
       "Que es un espacio vectorial en sí mismo, con las mismas operaciones",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_LEXI_05",
     "question": "El atajo de verificar solo dos condiciones se apoya en que el conjunto viva adentro de otro.\n$$S \\subset V$$\n¿Qué pasa con un conjunto suelto que es cerrado para dos operaciones?",
     "options": [
       "Que tampoco alcanza, porque un conjunto suelto no puede tener operaciones",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_LEXI_06",
     "question": "Todo subespacio contiene necesariamente al vector nulo.\n$$S \\subset V \\implies \\vec{0} \\in S$$\n¿De dónde sale esa obligación?",
     "options": [
       "De multiplicar cualquiera de sus elementos por el escalar cero",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_LEXI_07",
     "question": "Un subconjunto contiene al vector nulo, y alguien concluye que ya es un subespacio.\n$$\\vec{0} \\in S$$\n¿Qué tiene de malo esa conclusión?",
     "options": [
       "Que además hay que verificar que el subconjunto sea infinito",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_LEXI_08",
     "question": "Una recta del plano no pasa por el origen, y se quiere saber si es un subespacio.\n$$y = 2x + 3$$\n¿Qué se puede afirmar sin hacer ninguna cuenta más?",
     "options": [
       "Que no lo es, porque una recta nunca alcanza a cubrir todo el plano",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_LEXI_09",
     "question": "Un subespacio del plano tiene un elemento distinto del vector nulo.\n$$\\vec{v} \\in S, \\quad \\vec{v} \\neq \\vec{0}$$\n¿Puede tener exactamente dos elementos?",
     "options": [
       "No, porque todos los múltiplos de ese elemento tienen que pertenecer también",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_LEXI_10",
     "question": "Dos subespacios distintos se comparan entre sí.\n$$S_1 \\subset \\mathbb{R}^3, \\quad S_2 \\subset \\mathbb{R}^3$$\n¿Pueden no tener ningún elemento en común?",
     "options": [
       "Sí, siempre que estén definidos por condiciones distintas",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_LEXI_11",
     "question": "Entre todos los subconjuntos del espacio, solo algunas figuras llegan a ser subespacios.\n$$S \\subset \\mathbb{R}^3$$\n¿Qué tienen en común las que sí lo son?",
     "options": [
       "Todas contienen al origen y ninguna está desplazada de él",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_LEXI_12",
     "question": "En el plano, la lista de subconjuntos que llegan a ser subespacios es muy corta.\n$$S \\subset \\mathbb{R}^2$$\n¿Cuál es esa lista completa?",
     "options": [
       "Cualquier recta, cualquier semiplano y el plano entero",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_LEXI_13",
     "question": "Un segmento del plano arranca en el origen y termina en un punto a distancia finita.\n$$\\{\\alpha(1,2) : 0 \\leq \\alpha \\leq 1\\}$$\n¿Por qué no es un subespacio?",
     "options": [
       "Porque el vector nulo no figura entre los elementos del segmento",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_LEXI_14",
     "question": "Una circunferencia del plano tiene su centro exactamente en el origen.\n$$\\{(x,y) : x^2 + y^2 = 4\\}$$\n¿Es un subespacio?",
     "options": [
       "No, porque el origen es el centro pero no pertenece a la circunferencia",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_LEXI_15",
     "question": "El conjunto más chico posible dentro de un espacio vectorial tiene un solo elemento.\n$$S = \\{\\vec{0}\\}$$\n¿Es un subespacio?",
     "options": [
       "No, porque con un solo elemento no se puede plantear ninguna suma",

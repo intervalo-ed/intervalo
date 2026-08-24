@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_operations_LEXI_01",
     "question": "Se intenta sumar una matriz de orden $2 \\times 3$ con otra de orden $3 \\times 2$, y la operación queda sin definir.\n\n¿Cuál es la razón?",
     "options": [
       "Que hay posiciones que no tienen con qué sumarse",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "violet_operations_LEXI_02",
     "question": "Dos matrices del mismo orden se suman entrada por entrada.\n$$c_{ij} = a_{ij} + b_{ij}$$\n¿Qué exige esa definición sobre las dos matrices?",
     "options": [
       "Que las dos sean cuadradas para que la diagonal coincida",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "violet_operations_LEXI_03",
     "question": "Se intenta sumar una matriz de orden $2 \\times 2$ con otra de orden $2 \\times 3$.\n$$A + B$$\n¿Qué impide esa operación?",
     "options": [
       "Que la primera resulta cuadrada y la segunda no lo resulta",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "violet_operations_LEXI_04",
     "question": "La resta de matrices tiene la misma restricción de orden que la suma.\n$$A - B = A + (-B)$$\n¿Por qué comparten esa condición?",
     "options": [
       "Porque restar es sumar la opuesta, y la opuesta conserva el orden",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "violet_operations_LEXI_05",
     "question": "La suma de matrices no impone ninguna condición sobre los valores de las entradas.\n$$c_{ij} = a_{ij} + b_{ij}$$\n¿Qué se puede afirmar sobre el orden del resultado?",
     "options": [
       "Que depende de cuántas entradas nulas tenga la suma",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "violet_operations_LEXI_06",
     "question": "Al multiplicar una matriz por $3$, una resolución aplica el factor únicamente a la diagonal principal.\n\n¿Qué deja de cumplirse con esa versión?",
     "options": [
       "Que multiplicar por tres coincida con sumarla tres veces",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "violet_operations_LEXI_07",
     "question": "Multiplicar una matriz por un número afecta a todas sus entradas.\n$$\\alpha A$$\n¿Por qué el factor no puede aplicarse solo a algunas?",
     "options": [
       "Porque las entradas de una matriz tienen que ser todas iguales entre sí",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "violet_operations_LEXI_08",
     "question": "Al multiplicar una matriz por un escalar negativo, todas sus entradas cambian de signo.\n$$(-1)A$$\n¿Qué matriz se obtiene?",
     "options": [
       "La traspuesta, con las filas y las columnas intercambiadas",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "violet_operations_LEXI_09",
     "question": "Multiplicar una matriz por cero produce siempre el mismo resultado.\n$$0 \\cdot A$$\n¿Cuál es?",
     "options": [
       "La matriz nula del mismo orden que la original",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "violet_operations_LEXI_10",
     "question": "Multiplicar una matriz por un escalar conserva su forma.\n$$\\alpha A$$\n¿Qué orden tiene el resultado?",
     "options": [
       "Siempre un orden cuadrado, porque el escalar iguala las dimensiones",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "violet_operations_LEXI_11",
     "question": "La suma de matrices cumple que $A+B$ y $B+A$ dan siempre el mismo resultado, igual que ocurre entre números.\n\n¿De dónde sale esa propiedad?",
     "options": [
       "De que cada posición se suma por separado, y ahí ya conmuta",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "violet_operations_LEXI_12",
     "question": "La suma de matrices cumple que agrupar de una forma u otra da el mismo resultado.\n$$(A+B)+C = A+(B+C)$$\n¿De dónde sale esa propiedad?",
     "options": [
       "De que la matriz nula funciona como elemento neutro de la suma",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "violet_operations_LEXI_13",
     "question": "La matriz nula cumple un papel especial en la suma.\n$$A + O = A$$\n¿Por qué esa igualdad vale siempre?",
     "options": [
       "Porque la matriz nula tiene el mismo orden que cualquier otra",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "violet_operations_LEXI_14",
     "question": "El producto por un escalar se reparte sobre una suma de matrices.\n$$\\alpha(A+B) = \\alpha A + \\alpha B$$\n¿De dónde sale esa propiedad?",
     "options": [
       "De que en cada posición vale la distributiva entre números",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "violet_operations_LEXI_15",
     "question": "El producto por un escalar también se reparte cuando lo que se suma son dos escalares sobre una misma matriz.\n$$(\\alpha+\\beta)A = \\alpha A + \\beta A$$\n¿De dónde sale esa propiedad?",
     "options": [
       "De que en cada posición vale la distributiva entre números",

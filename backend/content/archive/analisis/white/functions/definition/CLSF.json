@@ -1,0 +1,426 @@
+[
+  {
+    "id": "white_definition_CLSF_01",
+    "question": "Un catálogo carga el precio de cada producto según su código.\n\nLa tabla muestra un fragmento del registro.\n\n¿Esta asignación define una función?",
+    "options": [
+      "No, el código 88 queda con dos precios distintos",
+      "Sí, porque los dos precios son válidos",
+      "No, porque hay productos sin precio cargado"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El código 88 queda con dos precios distintos, así que no puede ser función.",
+    "feedback_incorrect": [
+      null,
+      "Que los dos importes existan es justo el problema: una entrada no puede llevar a dos salidas.",
+      "Que falte el precio de otros productos no es lo que falla; el problema es el 88 con dos salidas."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **función** asigna a cada entrada una **única** salida.\n\nEn la tabla, el código $88$ aparece en dos filas con precios distintos.\n\nComo una misma entrada tiene dos salidas, la asignación no es función.\n\nAsí entonces, no alcanza con que los dos importes existan como datos válidos; la definición formal de función exige una sola salida por entrada.",
+    "reviewed": false,
+    "tags": [
+      "unicidad-rota-disfrazada"
+    ],
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Código"
+        },
+        {
+          "icon": "💵",
+          "label": "Precio (pesos)"
+        }
+      ],
+      "rows": [
+        [
+          "$34$",
+          "$2300$"
+        ],
+        [
+          "$88$",
+          "$1500$"
+        ],
+        [
+          "$88$",
+          "$1800$"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "white_definition_CLSF_02",
+    "question": "Un registro guarda la posición de un móvil según el instante en que se midió.\n\nLa tabla muestra un fragmento del registro, tras un error de señal.\n\n¿Esta asignación define una función?",
+    "options": [
+      "Sí, el registro puede dar varias posiciones",
+      "No, el instante 10 tiene dos posiciones",
+      "No, porque faltan instantes sin registrar"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El instante 10 quedó con dos posiciones, así que no es función.",
+    "feedback_incorrect": [
+      "Justo eso es lo que rompe la función: un instante no puede llevar a dos posiciones.",
+      null,
+      "Que falten instantes no invalida la función; el problema es el instante con dos salidas."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **función** asigna a cada entrada una **única** salida.\n\nEn la tabla, el instante $10$ aparece con dos posiciones distintas por un error de señal.\n\nComo una misma entrada tiene dos salidas, el registro no define una función de instante a posición.\n\nQue haya instantes sin registrar no afecta esta definición; lo que la rompe es que una entrada quede con más de una salida.",
+    "reviewed": false,
+    "tags": [
+      "unicidad-rota-disfrazada"
+    ],
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Instante (s)"
+        },
+        {
+          "icon": "📍",
+          "label": "Posición (m)"
+        }
+      ],
+      "rows": [
+        [
+          "$3$",
+          "$12$"
+        ],
+        [
+          "$10$",
+          "$40$"
+        ],
+        [
+          "$10$",
+          "$55$"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "white_definition_CLSF_03",
+    "question": "Un registro municipal asigna a cada número de padrón el barrio donde vive esa persona.\n\nLa tabla muestra un fragmento del registro, tras una mudanza que no se actualizó.\n\n¿Esta asignación define una función?",
+    "options": [
+      "No, el padrón $204$ queda con dos barrios",
+      "Sí, mientras los dos barrios existan",
+      "No, porque hay barrios sin ningún padrón asociado"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El padrón $204$ queda con dos barrios distintos, así que no puede ser función.",
+    "feedback_incorrect": [
+      null,
+      "Que los dos barrios existan como lugares reales no alcanza: el problema es que una misma entrada tenga dos salidas.",
+      "Que haya barrios sin ningún padrón asociado no es lo que falla; el problema es el padrón $204$ con dos salidas."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **función** asigna a cada entrada una **única** salida.\n\nEn la tabla, el padrón $204$ aparece con dos barrios distintos porque la mudanza no se actualizó.\n\nComo una misma entrada tiene dos salidas, la asignación no es función.\n\nQue existan barrios sin ningún padrón asociado no afecta esta definición: eso hablaría de la imagen, no de la unicidad.",
+    "reviewed": false,
+    "tags": [
+      "unicidad-rota-disfrazada"
+    ],
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Padrón"
+        },
+        {
+          "icon": "🏘️",
+          "label": "Barrio"
+        }
+      ],
+      "rows": [
+        [
+          "$118$",
+          "Once"
+        ],
+        [
+          "$204$",
+          "Flores"
+        ],
+        [
+          "$204$",
+          "Boedo"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "white_definition_CLSF_04",
+    "question": "Una carta asigna un precio a cada plato.\n\nLa tabla muestra un fragmento de la carta, cargada por error dos veces.\n\n¿Esta asignación define una función?",
+    "options": [
+      "Sí, los dos precios son razonables",
+      "No, porque faltan precios de otros platos",
+      "No, el mismo plato queda con dos precios"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El mismo plato queda con dos precios, así que no es función.",
+    "feedback_incorrect": [
+      "Que los precios sean razonables no alcanza; el problema es que haya dos para el mismo plato.",
+      "Que falten otros precios no es lo que falla; el problema es un plato con dos salidas.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **función** asigna a cada entrada una **única** salida.\n\nEn la tabla, «Plato del día» aparece dos veces con precios distintos.\n\nComo una misma entrada tiene dos salidas, la asignación no es función.\n\nQue falten precios de otros platos no afecta esta definición; lo que la rompe es que una entrada quede con más de una salida.",
+    "reviewed": false,
+    "tags": [
+      "unicidad-rota-disfrazada"
+    ],
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Plato"
+        },
+        {
+          "icon": "🍽️",
+          "label": "Precio (pesos)"
+        }
+      ],
+      "rows": [
+        [
+          "Milanesa",
+          "$3200$"
+        ],
+        [
+          "Plato del día",
+          "$2000$"
+        ],
+        [
+          "Plato del día",
+          "$2500$"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "white_definition_CLSF_05",
+    "question": "La tabla muestra algunos valores de $f(x) = x^{2}$.\n\n¿Esta asignación define una función?",
+    "options": [
+      "No, el $-4$ y el $4$ dan lo mismo",
+      "Sí, cada número tiene un único cuadrado",
+      "No, el $-4$ al cuadrado debería dar $-16$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Cada número tiene un único cuadrado, así que la regla es función aunque dos entradas compartan salida.",
+    "feedback_incorrect": [
+      "Que dos entradas compartan la salida 16 no rompe la función; la unicidad se fija en cada entrada por separado.",
+      null,
+      "El cuadrado de un negativo es positivo; y el signo del resultado no decide si es función."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **función** pide que cada entrada tenga una **única** salida, no que cada salida venga de una sola entrada.\n\nEn la tabla, $-4$ y $4$ comparten la misma salida, pero cada uno tiene una sola.\n\nLa condición se cumple, así que es función.\n\nLa confusión central es leer la **unicidad** al revés: mira las salidas por entrada, no las entradas por salida.",
+    "reviewed": false,
+    "tags": [
+      "trampa-inyectividad"
+    ],
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "$x$"
+        },
+        {
+          "icon": null,
+          "label": "$f(x)$"
+        }
+      ],
+      "rows": [
+        [
+          "$0$",
+          "$0$"
+        ],
+        [
+          "$-4$",
+          "$16$"
+        ],
+        [
+          "$4$",
+          "$16$"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "white_definition_CLSF_06",
+    "question": "Un sistema impositivo asigna a cada ingreso mensual una categoría.\n\nLa tabla muestra un fragmento del sistema.\n\n¿Esta asignación define una función?",
+    "options": [
+      "Sí, cada ingreso tiene una sola categoría",
+      "No, dos ingresos comparten la categoría 3",
+      "No, falta que cada categoría tenga un solo ingreso"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada ingreso tiene una única categoría, así que la regla es función aunque dos compartan la misma.",
+    "feedback_incorrect": [
+      null,
+      "Que dos ingresos caigan en la misma categoría no rompe la función; cada ingreso tiene una sola categoría.",
+      "La definición no pide eso: mira que cada entrada tenga una salida, no al revés."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **función** pide que cada entrada tenga una **única** salida.\n\nEn la tabla, cada ingreso cae en una sola categoría.\n\nQue $80000$ y $90000$ compartan la misma categoría no rompe la **unicidad**, así que es función.\n\nEl requisito mira cada entrada por separado: una sola salida por ingreso, sin importar si otros ingresos coinciden.",
+    "reviewed": false,
+    "tags": [
+      "trampa-inyectividad"
+    ],
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Ingreso (pesos)"
+        },
+        {
+          "icon": "🏷️",
+          "label": "Categoría"
+        }
+      ],
+      "rows": [
+        [
+          "$50000$",
+          "$2$"
+        ],
+        [
+          "$80000$",
+          "$3$"
+        ],
+        [
+          "$90000$",
+          "$3$"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "white_definition_CLSF_07",
+    "question": "Una función asigna el valor 0 a todos los números enteros del 1 al 100. $$f(x) = 0, \\qquad x \\in \\{1, \\dots, 100\\}$$ ¿Esta función define una función?",
+    "options": [
+      "Sí, cada número tiene una sola salida",
+      "No, todos comparten la misma salida",
+      "No, el conjunto imagen está vacío"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada número tiene una única salida, el 0, así que la regla es función.",
+    "feedback_incorrect": [
+      null,
+      "Que todas las entradas den 0 no rompe nada; cada una tiene una sola salida.",
+      "La imagen es $\\{0\\}$, no está vacía; y una imagen chica no invalida la función."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **función** asigna a cada entrada una **única** salida.\n\nAcá todas las entradas dan el mismo valor, el $0$, pero cada una tiene exactamente una salida.\n\nQue compartan el resultado no rompe nada, así que es función.\n\nLa unicidad no exige salidas variadas: una función constante es válida y su **imagen** es $\\{0\\}$.",
+    "reviewed": false,
+    "tags": [
+      "trampa-inyectividad"
+    ]
+  },
+  {
+    "id": "white_definition_CLSF_08",
+    "question": "Un comercio aplica un descuento según el monto de compra.\n\nLa tabla muestra un fragmento del sistema de descuentos.\n\n¿Esta asignación define una función?",
+    "options": [
+      "No, dos montos distintos reciben el mismo cupón",
+      "Sí es función, cada monto tiene un único cupón",
+      "No, falta que cada cupón tenga un solo monto"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Cada monto recibe un único cupón, así que la asignación es función.",
+    "feedback_incorrect": [
+      "Que dos montos compartan el cupón no rompe la función; cada monto recibe uno solo.",
+      null,
+      "La definición mira cada entrada, no exige que cada cupón venga de un único monto."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **función** pide que cada entrada tenga una **única** salida.\n\nEn la tabla, cada monto recibe un solo cupón; que $1000$ y $1200$ coincidan en el mismo descuento no rompe nada.\n\nLa asignación es función.\n\nLa confusión central es creer que compartir salida invalida la función: la **unicidad** mira cada entrada, no exige un monto distinto por cupón.",
+    "reviewed": false,
+    "tags": [
+      "trampa-inyectividad"
+    ],
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Monto (pesos)"
+        },
+        {
+          "icon": "🎫",
+          "label": "Descuento"
+        }
+      ],
+      "rows": [
+        [
+          "$500$",
+          "5%"
+        ],
+        [
+          "$1000$",
+          "10%"
+        ],
+        [
+          "$1200$",
+          "10%"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "white_definition_CLSF_09",
+    "question": "Un parte meteorológico asigna a cada ciudad la temperatura que midió hoy al mediodía.\n\nLa tabla muestra un fragmento del parte.\n\n¿Esta asignación define una función?",
+    "options": [
+      "No, dos ciudades comparten la misma temperatura",
+      "Sí, cada ciudad tiene una sola temperatura",
+      "No, falta que cada temperatura tenga una sola ciudad"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Cada ciudad tiene una única temperatura, así que la asignación es función.",
+    "feedback_incorrect": [
+      "Que dos ciudades coincidan en 18 no rompe la función; cada ciudad tiene una sola temperatura.",
+      null,
+      "La definición no pide eso: mira que cada entrada tenga una salida, no al revés."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **función** pide que cada entrada tenga una **única** salida.\n\nEn la tabla, cada ciudad tiene una sola temperatura; que Ciudad A y Ciudad B coincidan en $18$ no rompe nada.\n\nLa asignación es función.\n\nEl error central es leer la **unicidad** al revés: no se exige una temperatura distinta por ciudad, solo una temperatura por ciudad.",
+    "reviewed": false,
+    "tags": [
+      "trampa-inyectividad"
+    ],
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Ciudad"
+        },
+        {
+          "icon": "🌡️",
+          "label": "Temperatura (°C)"
+        }
+      ],
+      "rows": [
+        [
+          "Rosario",
+          "$24$"
+        ],
+        [
+          "Ciudad A",
+          "$18$"
+        ],
+        [
+          "Ciudad B",
+          "$18$"
+        ]
+      ]
+    }
+  }
+]

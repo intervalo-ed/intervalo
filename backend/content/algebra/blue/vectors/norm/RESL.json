@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_norm_RESL_01",
     "question": "Un ciclista se desplaza según el vector $\\vec{v}=(3,4)$, en km.\n\n¿Qué distancia recorrió en línea recta?",
     "options": [
       "$5$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "blue_norm_RESL_02",
     "question": "Un dron se desplaza según el vector $\\vec{v}=(5,12)$, en kilómetros.\n\n¿Qué distancia recorrió en línea recta?",
     "options": [
       "$\\sqrt{17}$",
@@ -52,6 +54,7 @@
     ]
   },
   {
+    "id": "blue_norm_RESL_03",
     "question": "Un excursionista se desplaza según el vector $\\vec{v}=(9,12)$, en kilómetros.\n\n¿Qué distancia recorrió en línea recta?",
     "options": [
       "$21$",
@@ -79,6 +82,7 @@
     ]
   },
   {
+    "id": "blue_norm_RESL_04",
     "question": "Un vehículo se desplaza según el vector $\\vec{v}=(-6,8)$, en kilómetros.\n\n¿Qué distancia recorrió en línea recta?",
     "options": [
       "$10$",
@@ -106,6 +110,7 @@
     ]
   },
   {
+    "id": "blue_norm_RESL_05",
     "question": "Una lancha se desplaza según el vector $\\vec{v}=(8,15)$, en kilómetros.\n\n¿Qué distancia recorrió en línea recta?",
     "options": [
       "$289$",
@@ -133,6 +138,7 @@
     ]
   },
   {
+    "id": "blue_norm_RESL_06",
     "question": "Un repartidor va desde el punto $(1,2)$ hasta el punto $(4,6)$, en cuadras.\n\n¿Qué distancia recorrió en línea recta?",
     "options": [
       "$5$",
@@ -158,6 +164,7 @@
     ]
   },
   {
+    "id": "blue_norm_RESL_07",
     "question": "Un ciclista va desde el punto $(2,1)$ hasta el punto $(7,13)$, en cuadras.\n\n¿Qué distancia recorrió en línea recta?",
     "options": [
       "$\\sqrt{17}$",
@@ -185,6 +192,7 @@
     ]
   },
   {
+    "id": "blue_norm_RESL_08",
     "question": "Un dron vuela desde el punto $(3,5)$ hasta el punto $(11,20)$, en kilómetros.\n\n¿Qué distancia recorrió en línea recta?",
     "options": [
       "$23$",
@@ -212,6 +220,7 @@
     ]
   },
   {
+    "id": "blue_norm_RESL_09",
     "question": "Un vehículo va desde el punto $(-1,2)$ hasta el punto $(5,10)$, en kilómetros.\n\n¿Qué distancia recorrió en línea recta?",
     "options": [
       "$10$",
@@ -239,6 +248,7 @@
     ]
   },
   {
+    "id": "blue_norm_RESL_10",
     "question": "Un excursionista va desde el punto $(4,4)$ hasta el punto $(13,16)$, en kilómetros.\n\n¿Qué distancia recorrió en línea recta?",
     "options": [
       "$37$",
@@ -266,6 +276,7 @@
     ]
   },
   {
+    "id": "blue_norm_RESL_11",
     "question": "Dos drones parten del origen: uno llega al punto $(6,8)$ y el otro al punto $(5,12)$, en km.\n\n¿Cuál de los dos recorrió más distancia en línea recta?",
     "options": [
       "El segundo dron, aunque tenga menor componente en $x$",
@@ -291,6 +302,7 @@
     ]
   },
   {
+    "id": "blue_norm_RESL_12",
     "question": "Dos ciclistas parten del origen: uno llega al punto $(9,12)$ y el otro al punto $(8,15)$, en km.\n\n¿Cuál de los dos recorrió más distancia en línea recta?",
     "options": [
       "El primero, porque la suma de sus componentes es mayor",
@@ -318,6 +330,7 @@
     ]
   },
   {
+    "id": "blue_norm_RESL_13",
     "question": "Dos vehículos parten del origen: uno llega al punto $(5,12)$ y el otro al punto $(12,5)$, en km.\n\n¿Cuál de los dos recorrió más distancia en línea recta?",
     "options": [
       "El primero, porque su segunda componente es la más grande",
@@ -345,6 +358,7 @@
     ]
   },
   {
+    "id": "blue_norm_RESL_14",
     "question": "Dos excursionistas parten del origen: uno llega al punto $(7,24)$ y el otro al punto $(20,15)$, en km.\n\n¿Cuál de los dos recorrió más distancia en línea recta?",
     "options": [
       "Los dos recorrieron la misma distancia en línea recta",
@@ -372,6 +386,7 @@
     ]
   },
   {
+    "id": "blue_norm_RESL_15",
     "question": "Dos botes parten del origen: uno llega al punto $(3,4)$ y el otro al punto $(0,6)$, en km.\n\n¿Cuál de los dos recorrió más distancia en línea recta?",
     "options": [
       "Los dos recorrieron la misma distancia en línea recta",

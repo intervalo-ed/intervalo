@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_puntual_FORM_01",
     "question": "Sea $X$ una variable aleatoria discreta con función de probabilidad puntual $p(x)$.\n\n¿Qué condición debe cumplir $p(x)$ sobre todo el dominio de $X$?",
     "options": [
       "$\\sum p(x) = 1$",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "violet_puntual_FORM_02",
     "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{x_1,x_2,x_3\\}$.\n\nSe conocen $p(x_1)$ y $p(x_2)$ de su función de probabilidad puntual.\n\n¿Cómo se calcula $p(x_3)$?",
     "options": [
       "$p(x_3) = 1 - p(x_1) - p(x_2)$",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "violet_puntual_FORM_03",
     "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{0,1,2,3\\}$.\n\nSu función de probabilidad puntual es $p(x)$.\n\n¿Cómo se expresa $P(X\\leq 2)$ en términos de $p(x)$?",
     "options": [
       "$P(X\\leq 2) = p(0)+p(1)+p(2)$",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "violet_puntual_FORM_04",
     "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{x_1,x_2,x_3\\}$.\n\nSu función de probabilidad puntual es $p(x)$.\n\n¿Cuál de los siguientes conjuntos de valores podría corresponder a $\\{p(x_1),p(x_2),p(x_3)\\}$?",
     "options": [
       "$\\{0{,}2,\\,0{,}3,\\,0{,}5\\}$",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "violet_puntual_FORM_05",
     "question": "Sea $X$ una variable aleatoria discreta con función de probabilidad puntual $p(x)$.\n\nSe sabe que la suma de $p(x)$ sobre todo el dominio da 1.\n\n¿Qué otra condición debe cumplir $p(x)$ en cada valor del dominio?",
     "options": [
       "$p(x) = 1$",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "violet_puntual_FORM_06",
     "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{x_1,x_2,\\dots,x_n\\}$.\n\nSu función de probabilidad puntual es $p(x)$.\n\n¿Cuál de las siguientes expresiones formula correctamente la condición de normalización?",
     "options": [
       "$\\sum_{i=1}^{n} p(x_i) = n$",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "violet_puntual_FORM_07",
     "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{x_1,x_2,x_3,x_4\\}$.\n\nSe sabe que $\\sum_x p(x) = 1$.\n\n¿Puede alguno de los cuatro valores $p(x_i)$ ser negativo?",
     "options": [
       "Sí, siempre que los demás compensen la suma",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "violet_puntual_FORM_08",
     "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{x_1,x_2,x_3,x_4\\}$.\n\nSe conocen los tres primeros valores de su función de probabilidad puntual $p(x)$.\n\n¿Cómo se calcula $p(x_4)$?",
     "options": [
       "$p(x_4) = p(x_1) + p(x_2) + p(x_3)$",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "violet_puntual_FORM_09",
     "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{x_1,x_2\\}$.\n\nSu función de probabilidad puntual cumple $p(x_1) = 0{,}35$.\n\n¿Cuánto vale $p(x_2)$?",
     "options": [
       "$0{,}65$",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "violet_puntual_FORM_10",
     "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{x_1,\\dots,x_5\\}$.\n\nSe conocen los cuatro primeros valores de su función de probabilidad puntual.\n\n¿Cuál expresión da $p(x_5)$?",
     "options": [
       "$p(x_5) = \\sum_{i=1}^{4} p(x_i)$",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "violet_puntual_FORM_11",
     "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{x_1,\\dots,x_n\\}$.\n\nSe conocen todos los valores de su función de probabilidad puntual salvo $p(x_k)$.\n\n¿Cómo se expresa $p(x_k)$?",
     "options": [
       "$p(x_k) = \\sum_{i \\neq k} p(x_i)$",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "violet_puntual_FORM_12",
     "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{0,1,2,3,4\\}$.\n\nSu función de probabilidad puntual es $p(x)$.\n\n¿Cómo se expresa $P(X\\geq 3)$ en términos de $p(x)$?",
     "options": [
       "$P(X\\geq 3) = p(3)$",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "violet_puntual_FORM_13",
     "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{0,1,2,3\\}$.\n\nSu función de probabilidad puntual es $p(x)$.\n\n¿Cómo se expresa $P(1\\leq X\\leq 2)$ en términos de $p(x)$?",
     "options": [
       "$P(1\\leq X\\leq 2) = p(1)$",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "violet_puntual_FORM_14",
     "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{0,1,2,3,4\\}$.\n\nSu función de probabilidad puntual es $p(x)$.\n\n¿Cómo se expresa $P(X=0 \\text{ o } X=4)$ en términos de $p(x)$?",
     "options": [
       "$p(0)\\cdot p(4)$",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "violet_puntual_FORM_15",
     "question": "Sea $X$ una variable aleatoria discreta con dominio $\\{a,b,c,d\\}$.\n\nSu función de probabilidad puntual es $p(x)$.\n\n¿Cómo se expresa $P(X\\in\\{a,c\\})$ en términos de $p(x)$?",
     "options": [
       "$p(a)\\cdot p(c)$",

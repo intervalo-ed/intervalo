@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_exponential_FORM_01",
     "question": "El nombre de esta familia viene del lugar donde está la variable, arriba en el exponente:\n$$f(x) = 3 \\cdot (0{,}5)^x$$\n¿Cuál es la base de la exponencial?",
     "options": [
       "$0{,}5$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_02",
     "question": "La curva del gráfico se acerca al eje horizontal sin llegar a tocarlo nunca.\n\n¿Cuál de estas expresiones le corresponde?",
     "options": [
       "$f(x) = 2^x$",
@@ -55,6 +57,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_03",
     "question": "En el gráfico, la curva corta al eje vertical en $y=1$, algo que comparten todas las exponenciales sin factor delante.\n\n¿Qué expresión le corresponde?",
     "options": [
       "$f(x) = (1{,}7)^x$",
@@ -85,6 +88,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_04",
     "question": "Hay una exponencial que aparece más que ninguna otra en matemática y se escribe con una letra en lugar de un número:\n$$f(x) = e^x$$\n¿Qué número es esa base?",
     "options": [
       "$\\pi \\approx 3{,}14$",
@@ -110,6 +114,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_05",
     "question": "En esta función el exponente no es la variable sola, y además hay un término sumado al final:\n$$f(x) = 3^{x-2} + 1$$\n¿Cuál es su **dominio**?",
     "options": [
       "$(2, +\\infty)$",
@@ -135,6 +140,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_06",
     "question": "Una colonia de bacterias parte de 300 unidades y **se duplica cada hora**.\n\n¿Cuál es la fórmula que modela la cantidad $B(t)$ en función de las horas $t$?",
     "options": [
       "$B(t) = 300 + 2t$",
@@ -160,6 +166,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_07",
     "question": "Se invierte \\$2000 en una cuenta con **interés compuesto del 10% anual**.\n\n¿Cuál es la fórmula para el monto $M(t)$ después de $t$ años?",
     "options": [
       "$M(t) = 2000 + 200t$",
@@ -185,6 +192,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_08",
     "question": "Un auto vale \\$40000 y **pierde el 20% de su valor cada año**.\n\n¿Cuál es la fórmula para el valor $V(t)$ después de $t$ años?",
     "options": [
       "$V(t) = 40000 - 8000t$",
@@ -210,6 +218,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_09",
     "question": "Una app tenía 5000 usuarios activos y **crece un 25% mensual**.\n\n¿Cuál es la fórmula para la cantidad de usuarios $U(t)$ después de $t$ meses?",
     "options": [
       "$U(t) = 5000 + 1250t$",
@@ -235,6 +244,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_10",
     "question": "Sea $f(x) = 4 \\cdot 3^x$.\n\n¿Cuánto vale $f(-1)$?",
     "options": [
       "$-12$",
@@ -260,6 +270,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_11",
     "question": "Sea $g(x) = 5 \\cdot (0{,}5)^x$.\n\n¿Cuánto vale $g(3)$?",
     "options": [
       "$0{,}625$",
@@ -285,6 +296,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_12",
     "question": "Una exponencial se apoya siempre sobre una recta horizontal a la que se acerca sin llegar a tocarla:\n$$f(x) = 3^x - 2$$\n¿Cuál es esa asíntota?",
     "options": [
       "$y = 3$",
@@ -310,6 +322,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_13",
     "question": "Esta exponencial tiene un término constante que la acompaña en todo su recorrido:\n$$f(x) = 2^x + 7$$\n¿Cuánto vale $f(0)$?",
     "options": [
       "$7$",
@@ -335,6 +348,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_14",
     "question": "Dos exponenciales pueden verse distintas y valer lo mismo para todo $x$:\n$$2^{x+3}$$\n¿Qué expresión equivale a esta?",
     "options": [
       "$2^x + 3$",
@@ -360,6 +374,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_15",
     "question": "Una misma exponencial se puede escribir con distintas bases si se ajusta el exponente:\n$$4^x$$\n¿Cuál de estas expresiones es equivalente?",
     "options": [
       "$2 \\cdot 2^x$",
@@ -385,6 +400,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_16",
     "question": "Al comparar modelos exponenciales aparece seguido una potencia elevada a otra:\n$$(3^x)^2$$\n¿A qué expresión equivale?",
     "options": [
       "$9^x$",
@@ -410,6 +426,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_17",
     "question": "Tomá en cuenta la función:\n$$\\dfrac{2^x}{2^3}$$\n¿Cuál de estas expresiones equivale a?",
     "options": [
       "$2^{x-3}$",
@@ -435,6 +452,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_18",
     "question": "Para reconocer una exponencial en un gráfico alcanza con mirar dos cosas, dónde arranca y cómo cambia.\n\n¿Qué expresión corresponde a la curva?",
     "options": [
       "$f(x) = 2 \\cdot (1{,}5)^x$",
@@ -465,6 +483,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_19",
     "question": "La curva del gráfico tiene la forma típica de una exponencial, con su asíntota horizontal sobre el eje $x$.\n\n¿Qué expresión la describe?",
     "options": [
       "$f(x) = 3 \\cdot 2^x$",
@@ -495,6 +514,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_20",
     "question": "En el gráfico hay una única curva, y sus valores en $x=0$ y en $x=1$ alcanzan para distinguirla del resto.\n\n¿Qué expresión le corresponde?",
     "options": [
       "$f(x) = e^x$",
@@ -525,6 +545,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_21",
     "question": "Un emprendedor invierte \\$3000 a una tasa del 15% anual compuesto.\n\n¿Cuánto tendrá después de $2$ años?",
     "options": [
       "\\$3600",
@@ -550,6 +571,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_22",
     "question": "Un auto cuesta \\$25000 y pierde el 18% de su valor anual.\n\n¿Cuánto vale después de $1$ año?",
     "options": [
       "\\$4500",
@@ -575,6 +597,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_23",
     "question": "Una población que aumenta un 20% por período se modela así, con el conteo desplazado:\n$$f(x) = 7 \\cdot (1{,}2)^{x-3}$$\n¿Cuánto vale $f(3)$?",
     "options": [
       "$7$",
@@ -600,6 +623,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_24",
     "question": "Una función exponencial usa el número $e$ como base:\n$$f(x) = 2 \\cdot e^{x+1}$$\n¿Cuánto vale $f(0)$?",
     "options": [
       "$2$",
@@ -625,6 +649,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_25",
     "question": "Una colonia de bacterias parte de 100 unidades y se duplica cada hora.\n\n¿Cuántas bacterias hay después de $4$ horas?",
     "options": [
       "$400$",
@@ -650,6 +675,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_26",
     "question": "Una función exponencial pasa por $(0, 4)$ y tiene base $b = 3$.\n\n¿Cuál es la fórmula completa?",
     "options": [
       "$f(x) = 3 \\cdot 4^x$",
@@ -675,6 +701,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_27",
     "question": "Una exponencial nunca llega a valer cero, y eso limita el conjunto de valores que la función alcanza:\n$$h(x) = 2 \\cdot e^x - 1$$\n¿Cuál es su **imagen**?",
     "options": [
       "$(0, +\\infty)$",
@@ -700,6 +727,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_28",
     "question": "En un producto de potencias conviene mirar primero si las bases coinciden:\n$$3^x \\cdot 3^{-x+2}$$\n¿Cuál es su forma más simple?",
     "options": [
       "$3^{2x^2}$",
@@ -725,6 +753,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_29",
     "question": "Un cociente de potencias de la misma base se puede reducir antes de reemplazar ningún valor:\n$$\\dfrac{5^{x+2}}{5^x}$$\n¿A cuánto equivale esta expresión?",
     "options": [
       "$5^2 = 25$",
@@ -750,6 +779,7 @@
     ]
   },
   {
+    "id": "white_exponential_FORM_30",
     "question": "Sea $f(x) = (1{,}5)^x$.\n\n¿Cuánto vale $f(-1)$?",
     "options": [
       "$-1{,}5$",

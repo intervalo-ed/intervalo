@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_definition_CLSF_01",
     "question": "Los tres jueces de un concurso le ponen puntaje a un mismo participante, y los puntajes se guardan en un único arreglo:\n$$\\begin{pmatrix} 8 \\\\ 7 \\\\ 9 \\end{pmatrix}$$\n¿Qué forma tiene esa matriz?",
     "options": [
       "Matriz columna, de orden $3 \\times 1$",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "violet_definition_CLSF_02",
     "question": "Las ventas diarias de un único producto durante cuatro días se guardan en un solo arreglo.\n$$\\begin{pmatrix} 6 & 2 & 9 & 4 \\end{pmatrix}$$\n¿Qué tipo de matriz es?",
     "options": [
       "Matriz cuadrada, de orden $4 \\times 4$",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "violet_definition_CLSF_03",
     "question": "Los puntajes de dos jurados sobre dos participantes se guardan en un arreglo.\n$$\\begin{pmatrix} 7 & 9 \\\\ 8 & 6 \\end{pmatrix}$$\n¿Qué tipo de matriz es?",
     "options": [
       "Matriz fila, de orden $1 \\times 4$",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "violet_definition_CLSF_04",
     "question": "El stock de tres depósitos para dos productos se guarda en un arreglo.\n$$\\begin{pmatrix} 5 & 1 \\\\ 0 & 8 \\\\ 3 & 6 \\end{pmatrix}$$\n¿Qué tipo de matriz es?",
     "options": [
       "Matriz rectangular, de orden $3 \\times 2$",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "violet_definition_CLSF_05",
     "question": "Una única medición se guarda igual en formato de matriz.\n$$\\begin{pmatrix} 7 \\end{pmatrix}$$\n¿Qué tipo de matriz es?",
     "options": [
       "No es una matriz, porque tiene un solo dato",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "violet_definition_CLSF_06",
     "question": "Los costos acumulados de un proceso de tres etapas se registran en este arreglo cuadrado:\n$$\\begin{pmatrix} 2 & 5 & 1 \\\\ 0 & 3 & 4 \\\\ 0 & 0 & 7 \\end{pmatrix}$$\n¿Qué tipo de matriz es?",
     "options": [
       "Triangular superior",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "violet_definition_CLSF_07",
     "question": "Los aportes acumulados de un proceso se registran en este arreglo cuadrado.\n$$\\begin{pmatrix} 3 & 0 & 0 \\\\ 6 & 2 & 0 \\\\ 1 & 4 & 5 \\end{pmatrix}$$\n¿Qué tipo especial de matriz es?",
     "options": [
       "Diagonal, con ceros a los dos lados de la diagonal",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "violet_definition_CLSF_08",
     "question": "Cada etapa de un proceso afecta únicamente a su propia variable.\n$$\\begin{pmatrix} 4 & 0 & 0 \\\\ 0 & 7 & 0 \\\\ 0 & 0 & 2 \\end{pmatrix}$$\n¿Qué tipo especial de matriz es?",
     "options": [
       "Triangular superior, con ceros por debajo de la diagonal",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "violet_definition_CLSF_09",
     "question": "Una operación deja cada dato exactamente como estaba.\n$$\\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$$\n¿Qué tipo especial de matriz es?",
     "options": [
       "Identidad, con unos en su diagonal principal",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "violet_definition_CLSF_10",
     "question": "Un registro de tres etapas permite que la primera afecte directamente a la última, sin pasar por la del medio.\n$$\\begin{pmatrix} 5 & 0 & 3 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 6 \\end{pmatrix}$$\n¿Qué tipo especial de matriz es?",
     "options": [
       "Triangular superior, con ceros por debajo de la diagonal",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "violet_definition_CLSF_11",
     "question": "Una tabla guarda la distancia en kilómetros entre Rosario, Córdoba y Mendoza, con las mismas ciudades en filas y en columnas.\n$$\\begin{pmatrix} 0 & 40 & 90 \\\\ 40 & 0 & 60 \\\\ 90 & 60 & 0 \\end{pmatrix}$$\n¿Por qué una tabla así es necesariamente simétrica?",
     "options": [
       "Porque la distancia entre dos ciudades no depende del orden",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "violet_definition_CLSF_12",
     "question": "Una tabla guarda cuántos viajes hay entre tres estaciones, en los dos sentidos.\n$$\\begin{pmatrix} 0 & 7 & 3 \\\\ 7 & 0 & 5 \\\\ 3 & 5 & 0 \\end{pmatrix}$$\n¿Qué propiedad tiene esa matriz?",
     "options": [
       "Es diagonal, porque los datos se reparten a los costados",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "violet_definition_CLSF_13",
     "question": "Una tabla guarda la diferencia de puntaje entre tres equipos, tomada en cada sentido.\n$$\\begin{pmatrix} 0 & 2 & -5 \\\\ -2 & 0 & 4 \\\\ 5 & -4 & 0 \\end{pmatrix}$$\n¿Qué propiedad tiene esa matriz?",
     "options": [
       "Es simétrica, porque cada par espejado tiene el mismo valor",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "violet_definition_CLSF_14",
     "question": "Una tabla guarda cuántas unidades envía cada depósito a cada otro.\n$$\\begin{pmatrix} 0 & 6 & 1 \\\\ 2 & 0 & 8 \\\\ 4 & 3 & 0 \\end{pmatrix}$$\n¿Qué propiedad tiene esa matriz?",
     "options": [
       "Ninguna de las dos: no es simétrica ni antisimétrica",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "violet_definition_CLSF_15",
     "question": "En una matriz antisimétrica, las entradas de la diagonal principal están obligadas a un valor.\n$$a_{ii} = -a_{ii}$$\n¿Qué valor es ese?",
     "options": [
       "Cualquiera, porque la condición no alcanza a la diagonal",

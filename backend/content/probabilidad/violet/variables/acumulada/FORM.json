@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_acumulada_FORM_01",
     "question": "Sea $X$ una variable aleatoria y $F(x)$ su función de distribución acumulada.\n\n¿Qué representa $F(x)$?",
     "options": [
       "$P(X = x)$",
@@ -26,6 +27,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_FORM_02",
     "question": "Sea $X$ una variable aleatoria con función de distribución acumulada $F(x)$.\n\n¿Cómo se expresa $P(a < X \\leq b)$ en términos de $F$?",
     "options": [
       "$F(b) - F(a)$",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_FORM_03",
     "question": "Sea $F(x)$ la función de distribución acumulada de una variable aleatoria $X$.\n\n¿Cuál de las siguientes afirmaciones es siempre verdadera?",
     "options": [
       "$F$ es no decreciente y $F(x) \\in [0,1]$ para todo $x$",
@@ -74,6 +77,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_FORM_04",
     "question": "En variables discretas, $F(x)$ se relaciona con la **función puntual** $p(x)$.\n\n¿Cuál de estas fórmulas expresa esa relación?",
     "options": [
       "$F(x) = p(x)$",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_FORM_05",
     "question": "En variables continuas, $F(x)$ se relaciona con la **densidad** $f(x)$.\n\n¿Cuál de estas afirmaciones describe esa relación?",
     "options": [
       "$F(x) = f(x)$",
@@ -122,6 +127,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_FORM_06",
     "question": "La función de distribución acumulada cumple $F(x) = P(X \\leq x)$.\n\n¿Qué representa la expresión $1 - F(x)$?",
     "options": [
       "$P(X > x)$",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_FORM_07",
     "question": "La función de distribución acumulada $F$ toma como entrada un número real y devuelve una probabilidad.\n\n¿Qué representa ese número real que recibe $F$?",
     "options": [
       "Una probabilidad ya calculada de antemano",
@@ -170,6 +177,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_FORM_08",
     "question": "La función de distribución acumulada permite calcular la probabilidad de un intervalo con esta fórmula:\n$$P(a < X \\leq b) = F(b) - F(a)$$\n¿A qué evento corresponde exactamente esa resta?",
     "options": [
       "$P(a \\leq X \\leq b)$",
@@ -194,6 +202,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_FORM_09",
     "question": "La probabilidad de un intervalo se calcula como diferencia de acumuladas.\n\n¿Cómo se expresa $P(X > b)$ usando esa misma idea?",
     "options": [
       "$F(b) - 1$",
@@ -220,6 +229,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_FORM_10",
     "question": "Dos alumnos calculan $P(a < X \\leq b)$.\n\nUno resta $F(b) - F(a)$, el otro suma $F(b) + F(a)$.\n\n¿Cuál de los dos procedimientos es correcto?",
     "options": [
       "Sumar, porque hay que acumular ambos tramos por separado",
@@ -244,6 +254,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_FORM_11",
     "question": "Al calcular $P(a < X \\leq b)$, alguien resta en el orden incorrecto y obtiene $F(a) - F(b)$.\n\n¿Qué signo tiene necesariamente ese resultado?",
     "options": [
       "Siempre positivo",
@@ -268,6 +279,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_FORM_12",
     "question": "La función de distribución acumulada $F(x)$ tiene un comportamiento fijo en los extremos del dominio.\n\n¿A qué valor tiende $F(x)$ cuando $x \\to -\\infty$?",
     "options": [
       "$0$",
@@ -292,6 +304,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_FORM_13",
     "question": "La función de distribución acumulada $F(x)$ también tiene un comportamiento fijo cuando $x$ crece mucho.\n\n¿A qué valor tiende $F(x)$ cuando $x \\to +\\infty$?",
     "options": [
       "$0$",
@@ -316,6 +329,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_FORM_14",
     "question": "Alguien propone que para cierta variable $X$, $F(-3) = -0{,}2$.\n\n¿Es posible ese valor para una función de distribución acumulada?",
     "options": [
       "Sí, si $X$ toma valores negativos",
@@ -340,6 +354,7 @@
     ]
   },
   {
+    "id": "violet_acumulada_FORM_15",
     "question": "Para cierta variable $X$ se reporta $F(2) = 0{,}6$.\n\nTambién se reporta $F(5) = 0{,}4$.\n\n¿Es válida esta situación para una función de distribución acumulada?",
     "options": [
       "No, porque $F$ nunca puede decrecer al aumentar $x$",
