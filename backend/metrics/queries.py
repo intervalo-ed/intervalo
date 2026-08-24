@@ -125,7 +125,7 @@ def load(db: DBSession) -> dict:
     data = {
         "users": _rows(db, """
             SELECT id, created_at, first_group_id, first_utm_source, total_xp,
-                   notify_enabled, email_unsubscribed,
+                   notify_enabled, email_unsubscribed, reached_home,
                    bounce_email_sent_at, winback_email_sent_at,
                    streak_email_sent_at, streak_email_sent_tier
             FROM users"""),
@@ -169,10 +169,16 @@ def _real_sessions(sessions: list[dict]) -> list[dict]:
 def funnel(data: dict, week: date) -> dict:
     """Embudo de la cohorte que se dio de alta en `week`, observada hasta hoy.
 
-    Arranca en "llegó a la app" y no en "creó cuenta": las cuentas las crea
-    Clerk y no están en esta base, así que el escalón Clerk → app (que en la
-    semana del 18/08 fue de 273 a 233) no es medible acá. Decirlo es mejor que
-    inventar un techo.
+    «Altas» son las cuentas que vio ESTA base. Las crea Clerk y el escalón
+    Clerk -> backend (273 -> 233 en la semana del 18/08) no es medible desde
+    acá, así que el embudo arranca un paso más adelante y lo dice.
+
+    «Llegó al home» es el escalón que separa dos fallas distintas: trabarse en
+    la autenticación, y llegar a la app y no tocar «empezar». Para las cohortes
+    anteriores al 24/08 es una cota inferior (ver la migración 0038).
+
+    Los dos últimos pasos miden volver, y van del más ancho al más angosto:
+    volver otro día cualquiera contiene a volver justo al día siguiente.
 
     Ojo al comparar con el PDF semanal: ahí las sesiones se cortaban al domingo
     de la semana; acá la cohorte se sigue hasta hoy, así que los escalones de
@@ -180,21 +186,31 @@ def funnel(data: dict, week: date) -> dict:
     """
     uw = _user_week(data["users"])
     cohort = {u["id"] for u in data["users"] if uw[u["id"]] == week}
+    home = {u["id"] for u in data["users"] if u["reached_home"]} & cohort
 
     enrolled = {e["user_id"] for e in data["enrollments"]} & cohort
-    opened, finished = set(), Counter()
+    opened, dias = set(), defaultdict(set)
     for s in _real_sessions(data["sessions"]):
         if s["user_id"] in cohort:
             opened.add(s["user_id"])
             if s["finished_at"] is not None:
-                finished[s["user_id"]] += 1
+                dias[s["user_id"]].add(local_date(s["finished_at"]))
+
+    # "Volvió" se mide contra el PRIMER día que estudió, no contra el alta:
+    # alguien que se registra el lunes y recién arranca el miércoles vuelve el
+    # jueves, y ese jueves es su D+1 (mismo criterio que la curva de retención).
+    otro_dia = sum(1 for d in dias.values() if len(d) >= 2)
+    dia_siguiente = sum(1 for d in dias.values()
+                        if min(d) + timedelta(days=1) in d)
 
     steps = [
-        ("Llegó a la app", len(cohort)),
-        ("Completó el onboarding", len(enrolled)),
-        ("Abrió una sesión", len(opened)),
-        ("Terminó una sesión", sum(1 for v in finished.values() if v >= 1)),
-        ("Terminó más de una", sum(1 for v in finished.values() if v > 1)),
+        ("Altas", len(cohort)),
+        ("Terminó el onboarding", len(enrolled)),
+        ("Llegó al home", len(home)),
+        ("Arrancó una sesión", len(opened)),
+        ("Terminó una sesión", sum(1 for d in dias.values() if d)),
+        ("Volvió otro día", otro_dia),
+        ("Volvió al día siguiente", dia_siguiente),
     ]
     top = steps[0][1]
     out = []
@@ -209,28 +225,45 @@ def funnel(data: dict, week: date) -> dict:
 
 def headline(data: dict, weeks: list[date]) -> list[dict]:
     """Tarjetas de titulares: una fila por semana para el sparkline, y el delta
-    contra la semana anterior."""
-    uw = _user_week(data["users"])
-    by_week: dict[date, dict] = {w: {"altas": 0, "termino1": 0, "termino2": 0, "d1": 0} for w in weeks}
+    contra la semana anterior.
 
-    finished_by_user = defaultdict(list)
+    Las tres responden preguntas distintas a propósito: cuánta gente entra
+    (altas), cuánta de la que ya estaba sigue viva (reactivados) y qué tan bien
+    engancha la que entra (D+1). Adquisición, base instalada y calidad del
+    enganche — subir una sin las otras no sirve de nada.
+    """
+    uw = _user_week(data["users"])
+    by_week: dict[date, dict] = {
+        w: {"altas": 0, "reactivados": 0, "d1": 0, "activados": 0} for w in weeks}
+
+    dias_por_user = defaultdict(set)
     for s in _real_sessions(data["sessions"]):
         if s["finished_at"] is not None:
-            finished_by_user[s["user_id"]].append(local_date(s["finished_at"]))
+            dias_por_user[s["user_id"]].add(local_date(s["finished_at"]))
 
-    alta_date = {u["id"]: local_date(u["created_at"]) for u in data["users"]}
     for uid, w in uw.items():
         if w not in by_week:
             continue
         b = by_week[w]
         b["altas"] += 1
-        days = finished_by_user.get(uid, [])
-        if len(days) >= 1:
-            b["termino1"] += 1
-        if len(days) > 1:
-            b["termino2"] += 1
-        if alta_date[uid] + timedelta(days=1) in days:
-            b["d1"] += 1
+        dias = dias_por_user.get(uid)
+        if dias:
+            b["activados"] += 1
+            # D+1 contra su primer día de estudio, no contra el alta: es el
+            # mismo criterio que la curva de retención.
+            if min(dias) + timedelta(days=1) in dias:
+                b["d1"] += 1
+
+    # Reactivados: gente de cohortes ANTERIORES que estuvo activa en la semana.
+    # Es la única métrica del panel que no mira a la cohorte de esa semana, y
+    # la que dice si la base instalada sigue viva o si cada semana se sostiene
+    # sola con usuarios nuevos.
+    for w in weeks:
+        lo, hi = w, w + timedelta(days=7)
+        by_week[w]["reactivados"] = sum(
+            1 for uid, dias in dias_por_user.items()
+            if uw.get(uid) is not None and uw[uid] < w
+            and any(lo <= d < hi for d in dias))
 
     def card(key: str, label: str, hint: str, pct_of: str | None = None) -> dict:
         series = [by_week[w][key] for w in weeks]
@@ -245,10 +278,12 @@ def headline(data: dict, weeks: list[date]) -> list[dict]:
         }
 
     return [
-        card("altas", "Altas", "usuarios nuevos que llegaron a la app"),
-        card("termino1", "Terminaron ≥1 sesión", "de la cohorte de esa semana"),
-        card("termino2", "Terminaron >1", "la vara de «volvió»"),
-        card("d1", "Vuelven a D+1", "% de la cohorte con sesión al día siguiente", pct_of="altas"),
+        card("altas", "Altas", "cuentas nuevas de esa semana"),
+        card("reactivados", "Reactivados",
+             "gente de semanas anteriores que volvió a estudiar en esta"),
+        card("d1", "Vuelven al día siguiente",
+             "de los que llegaron a estudiar, cuántos volvieron al otro día",
+             pct_of="activados"),
     ]
 
 

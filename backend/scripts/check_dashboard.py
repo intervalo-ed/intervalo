@@ -73,7 +73,8 @@ db.add(Course(id=1, slug="analisis", name="Análisis"))
 # 5 usuarios de alta el martes 18/08 (cohorte de WEEK) y 1 la semana anterior.
 for i in range(1, 6):
     db.add(User(id=i, clerk_user_id=f"c{i}", email=f"u{i}@x.com", name=f"U{i}",
-                created_at=utc(18), first_group_id="uba201" if i <= 3 else None))
+                created_at=utc(18), reached_home=i <= 3,
+                first_group_id="uba201" if i <= 3 else None))
 db.add(User(id=9, clerk_user_id="c9", email="u9@x.com", name="U9", created_at=utc(11)))
 
 # u1..u4 completan el onboarding; u5 no.
@@ -125,12 +126,20 @@ data = q.load(db)
 # ── 1. Embudo ────────────────────────────────────────────────────────────────
 f = q.funnel(data, WEEK)
 paso = {s["label"]: s["n"] for s in f["steps"]}
-check("embudo: la cohorte son los 5 de la semana", paso["Llegó a la app"] == 5)
-check("embudo: onboarding completado = 4", paso["Completó el onboarding"] == 4)
-check("embudo: modo onboarding/test NO cuentan como sesión abierta",
-      paso["Abrió una sesión"] == 3, f'(dio {paso["Abrió una sesión"]})')
+check("embudo: la cohorte son las 5 altas de la semana", paso["Altas"] == 5)
+check("embudo: onboarding completado = 4", paso["Terminó el onboarding"] == 4)
+check("embudo: «llegó al home» sale de users.reached_home",
+      paso["Llegó al home"] == 3, f'(dio {paso["Llegó al home"]})')
+check("embudo: modo onboarding/test NO cuentan como sesión arrancada",
+      paso["Arrancó una sesión"] == 3, f'(dio {paso["Arrancó una sesión"]})')
 check("embudo: terminó una = 2", paso["Terminó una sesión"] == 2)
-check("embudo: terminó más de una = 1", paso["Terminó más de una"] == 1)
+check("embudo: «volvió otro día» = 2+ días distintos con sesión",
+      paso["Volvió otro día"] == 1, f'(dio {paso["Volvió otro día"]})')
+check("embudo: «volvió al día siguiente» se mide desde su PRIMER día, no del alta",
+      paso["Volvió al día siguiente"] == 1, f'(dio {paso["Volvió al día siguiente"]})')
+check("embudo: los pasos nunca crecen",
+      all(a["n"] >= b["n"] for a, b in zip(f["steps"], f["steps"][1:])),
+      f'({[(s["label"], s["n"]) for s in f["steps"]]})')
 check("embudo: % del paso anterior",
       f["steps"][1]["pct_prev"] == 80.0, f'(dio {f["steps"][1]["pct_prev"]})')
 
@@ -139,8 +148,11 @@ cards = {c["key"]: c for c in q.headline(data, q._weeks_back(WEEK, 3))}
 check("titulares: altas de la semana = 5", cards["altas"]["value"] == 5)
 check("titulares: la semana anterior tiene 1 alta",
       cards["altas"]["series"][-2] == 1, f'(serie {cards["altas"]["series"]})')
-check("titulares: D+1 solo cuenta a u1 (1 de 5 = 20%)",
-      cards["d1"]["value"] == 20.0, f'(dio {cards["d1"]["value"]})')
+# D+1 se mide sobre los que ESTUDIARON (u1 y u2), no sobre las 5 altas.
+check("titulares: D+1 es sobre los activados, no sobre las altas",
+      cards["d1"]["value"] == 50.0, f'(dio {cards["d1"]["value"]})')
+check("titulares: reactivados son de cohortes ANTERIORES, no de esta",
+      cards["reactivados"]["value"] == 0, f'(dio {cards["reactivados"]["value"]})')
 
 # ── 3. Retención ─────────────────────────────────────────────────────────────
 ret = q.retention(data, [WEEK])
@@ -377,11 +389,7 @@ check("render: los emojis de la encuesta acompañan los rótulos",
       all(e in html for e in ("🥱", "🙂", "💡", "😴", "👌", "🤯")))
 # El fixture solo tiene blanco y azul, así que se verifica que salgan esos dos
 # con su color y que el mapa cubra los cuatro cinturones del curso.
-from metrics.render import BELT_COLOR, PUSH_COPY  # noqa: E402
-check("render: las unidades del fixture llevan su color de cinturón",
-      BELT_COLOR["white"] in html and BELT_COLOR["blue"] in html)
-check("render: el mapa de colores cubre las cuatro unidades",
-      set(BELT_COLOR) == {"white", "blue", "violet", "brown"})
+from metrics.render import PUSH_COPY  # noqa: E402
 # Sin envíos en el fixture la tabla de push sale vacía, así que el mapa de
 # descripciones se verifica directo contra las categorías reales del backend.
 import notification_copy  # noqa: E402

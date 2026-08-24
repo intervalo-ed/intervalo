@@ -616,6 +616,14 @@ def get_user_progress(
     `course` (opcional) es el slug del curso a filtrar. Si no viene, se usa el
     curso por defecto (id=1, "analisis").
     """
+    # Este endpoint es el que llama el home en cada carga, así que llegar acá
+    # ES haber llegado al home. Es el escalón del embudo que separa "se trabó
+    # en la autenticación" de "llegó a la app y no tocó empezar" (ver
+    # User.reached_home). Se escribe una sola vez, no en cada carga.
+    if not current_user.reached_home:
+        current_user.reached_home = True
+        db.commit()
+
     if tz and tz != current_user.timezone:
         try:
             ZoneInfo(tz)
