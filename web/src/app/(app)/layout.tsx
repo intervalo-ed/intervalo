@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
 import { Suspense } from "react"
+import { fetchUserStatus } from "@/lib/api/user-status"
 import { ServiceWorkerUpdater } from "@/lib/push/service-worker-updater"
 
 // El chequeo de enrollment/progress pega al backend sin cache (`no-store`):
@@ -11,21 +12,12 @@ import { ServiceWorkerUpdater } from "@/lib/push/service-worker-updater"
 // que quedan libres de mostrar su propio loading.tsx mientras tanto.
 async function EnrollmentGate() {
   const { getToken } = await auth()
-  try {
-    const token = await getToken()
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000"}/user/status`, {
-      headers: { Authorization: `Bearer ${token}` },
-      cache: "no-store",
-    })
-    if (res.ok) {
-      const status = await res.json()
-      // Ver comentario equivalente en app/page.tsx: no alcanza con "sin
-      // progreso", hay cuentas con progreso real pero sin Enrollment.
-      if (!status.enrolled) redirect("/onboarding/complete")
-    }
-  } catch {
-    // Si el backend no responde, deja pasar
-  }
+  // Ver comentario equivalente en app/page.tsx: no alcanza con "sin
+  // progreso", hay cuentas con progreso real pero sin Enrollment. Y el
+  // redirect() va FUERA de cualquier try: tira NEXT_REDIRECT, así que un
+  // catch se lo traga y el gate queda apagado — que es lo que pasaba acá.
+  const status = await fetchUserStatus(getToken)
+  if (status && !status.enrolled) redirect("/onboarding/complete")
   return null
 }
 

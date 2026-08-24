@@ -80,7 +80,15 @@ def generate_candidates(full_name: str, max_len: int = USERNAME_MAX) -> list[str
 
 
 def assign_unique_username(db: Session, full_name: str) -> str:
-    """Elige el primer candidato libre; si todos están tomados, agrega sufijo numérico."""
+    """Elige el primer candidato libre; si todos están tomados, agrega sufijo numérico.
+
+    Ojo: el chequeo de disponibilidad es un SELECT y el INSERT ocurre después,
+    así que dos altas simultáneas con el mismo nombre pueden elegir el mismo
+    handle y la segunda rebota contra el UNIQUE. Llamala solo desde adentro de
+    un loop que capture IntegrityError y la vuelva a invocar (ver
+    `get_or_create_user_from_clerk` en auth.py): al reintentar, el candidato
+    del ganador ya figura tomado y esta función devuelve el siguiente.
+    """
 
     def _taken(u: str) -> bool:
         return db.query(User.id).filter(User.username == u).first() is not None
