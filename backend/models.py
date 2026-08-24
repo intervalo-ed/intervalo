@@ -447,6 +447,10 @@ class ExerciseFeedback(Base):
     shown_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     answered_at = Column(DateTime, nullable=True)
 
+    # Mail de agradecimiento por reportar (question_type="C"), ver
+    # lifecycle_emails.due_report_thanks_emails. NULL = todavía no se mandó.
+    thanks_sent_at = Column(DateTime, nullable=True)
+
     __table_args__ = (
         Index("idx_exfb_user_course", "user_id", "course_id"),
         Index("idx_exfb_session", "session_id"),
