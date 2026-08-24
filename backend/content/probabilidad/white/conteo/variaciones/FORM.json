@@ -13,7 +13,7 @@
     "feedback_incorrect": [
       "Estás dividiendo por $k! = 3!$ en vez de $(n-k)! = 4!$; el cociente de variación cancela los factores que no se usan.",
       null,
-      "Esa expresión es la combinación $\\dbinom{7}{3}$, que ignora el orden; acá el orden de las franjas sí importa.",
+      "Esa expresión es la combinación $\\dfrac{7!}{3!\\,4!}$, que ignora el orden; acá el orden de las franjas sí importa.",
       "Ese es el arreglo con repetición: acá los colores no se repiten en la misma bandera."
     ],
     "explanation": "Las **variaciones** cuentan cuántas formas hay de elegir y ordenar elementos de un total, cuando el orden importa y no hay repetición.\n\nEn este caso hay 7 colores y se eligen 3 franjas:\n$$V_{7,3} = \\frac{7!}{4!}$$\n$$= 7 \\times 6 \\times 5 = 210$$\nHay 210 banderas distintas.\n\nDividir por $k!$, la fórmula de combinación, en vez de $(n-k)!$ mezcla dos técnicas distintas: verificá siempre que el denominador represente los elementos no seleccionados.",
@@ -31,7 +31,7 @@
     "options": [
       "$\\dfrac{n!}{(n-k)!}$",
       "$n!$",
-      "$\\dbinom{n}{k}$",
+      "$\\dfrac{n!}{k!\\,(n-k)!}$",
       "$\\dfrac{n!}{k!}$"
     ],
     "correct_index": 0,
@@ -42,7 +42,7 @@
       "Esa es la combinación, que además divide por $k!$ para ignorar el orden entre los elegidos.",
       "Esa expresión divide por el factorial de los elementos elegidos en vez de por el de los no elegidos, un cociente distinto al de variación."
     ],
-    "explanation": "Elegir y ordenar algunos elementos multiplica opciones decrecientes: la primera posición tiene todas las opciones, la segunda una menos, y así sucesivamente:\n$$V_{n,k} = \\dfrac{n!}{(n-k)!} = n(n-1)\\cdots(n-k+1)$$\nAsí queda la variación.\n\nEl numerador ordena todos los elementos, y el denominador cancela las órdenes internas de los que no se eligieron.\n\nSi se usaran todos los elementos, el denominador desaparece y queda la permutación simple.\n\nSi además no importara el orden entre los elegidos, hace falta dividir también por las formas de reordenarlos entre sí:\n$$\\binom{n}{k} = \\dfrac{n!}{k!\\,(n-k)!}$$\nEse factor extra distingue al binomial de la variación.\n\nConfundir el cociente, dividiendo por $k!$ en vez de por $(n-k)!$, cancela los elementos equivocados; conviene recordar que el denominador de la variación cancela los que no se usan.",
+    "explanation": "Elegir y ordenar algunos elementos multiplica opciones decrecientes: la primera posición tiene todas las opciones, la segunda una menos, y así sucesivamente:\n$$V_{n,k} = \\dfrac{n!}{(n-k)!} = n(n-1)\\cdots(n-k+1)$$\nAsí queda la variación.\n\nEl numerador ordena todos los elementos, y el denominador cancela las órdenes internas de los que no se eligieron.\n\nSi se usaran todos los elementos, el denominador desaparece y queda la permutación simple.\n\nSi además no importara el orden entre los elegidos, hace falta dividir también por las formas de reordenarlos entre sí:\n$$\\dfrac{n!}{k!\\,(n-k)!}$$\nEse $k!$ de más es lo que distingue a esa cuenta de la variación.\n\nConfundir el cociente, dividiendo por $k!$ en vez de por $(n-k)!$, cancela los elementos equivocados; conviene recordar que el denominador de la variación cancela los que no se usan.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -91,7 +91,7 @@
     "feedback_incorrect": [
       "Estás dividiendo por $k!=3!$ en vez de $(n-k)!=7!$; el cociente de variación cancela los factores que no se usan.",
       null,
-      "Esa expresión es la combinación $\\dbinom{10}{3}$, que ignora el orden; acá el orden de las medallas sí importa.",
+      "Esa expresión es la combinación $\\dfrac{10!}{3!\\,7!}$, que ignora el orden; acá el orden de las medallas sí importa.",
       "Ese es el arreglo con repetición: acá los corredores premiados no se repiten."
     ],
     "explanation": "Las **variaciones** cuentan cuántas formas hay de elegir y ordenar elementos de un total, cuando el orden importa y no hay repetición.\n\nEn este caso hay 10 corredores y se eligen 3 para el podio:\n$$V_{10,3} = \\frac{10!}{7!}$$\n$$= 10 \\times 9 \\times 8 = 720$$\nHay 720 podios distintos.\n\nDividir por $k!$, la fórmula de combinación, en vez de $(n-k)!$ mezcla dos técnicas distintas: verificá siempre que el denominador represente los elementos no seleccionados.",
@@ -116,7 +116,7 @@
     "feedback_correct": "Variación: $V_{9,4} = \\dfrac{9!}{5!}$.",
     "feedback_incorrect": [
       "Estás dividiendo por $k!=4!$ en vez de $(n-k)!=5!$; el cociente de variación cancela los factores que no se usan.",
-      "Esa expresión es la combinación $\\dbinom{9}{4}$, que ignora el orden; acá el orden de los dígitos sí importa.",
+      "Esa expresión es la combinación $\\dfrac{9!}{4!\\,5!}$, que ignora el orden; acá el orden de los dígitos sí importa.",
       null,
       "Ese es el arreglo con repetición: acá los dígitos no se repiten en la misma clave."
     ],
@@ -143,7 +143,7 @@
     "feedback_incorrect": [
       "Estás dividiendo por $k!=2!$ en vez de $(n-k)!=10!$; el cociente de variación cancela los factores que no se usan.",
       null,
-      "Esa expresión es la combinación $\\dbinom{12}{2}$, que ignora el orden; acá presidente y secretario son cargos distintos.",
+      "Esa expresión es la combinación $\\dfrac{12!}{2!\\,10!}$, que ignora el orden; acá presidente y secretario son cargos distintos.",
       "Ese es el arreglo con repetición: acá la misma persona no puede ocupar los dos cargos."
     ],
     "explanation": "Las **variaciones** cuentan cuántas formas hay de elegir y ordenar elementos de un total, cuando el orden importa y no hay repetición.\n\nEn este caso hay 12 integrantes y se eligen 2 para los cargos:\n$$V_{12,2} = \\frac{12!}{10!}$$\n$$= 12 \\times 11 = 132$$\nHay 132 asignaciones distintas.\n\nDividir por $k!$, la fórmula de combinación, en vez de $(n-k)!$ mezcla dos técnicas distintas: verificá siempre que el denominador represente los elementos no seleccionados.",
@@ -168,7 +168,7 @@
     "feedback_correct": "Variación: $V_{8,6} = \\dfrac{8!}{2!}$.",
     "feedback_incorrect": [
       "Estás dividiendo por $k!=6!$ en vez de $(n-k)!=2!$; el cociente de variación cancela los factores que no se usan.",
-      "Esa expresión es la combinación $\\dbinom{8}{6}$, que ignora el orden; acá el orden de las franjas sí importa.",
+      "Esa expresión es la combinación $\\dfrac{8!}{6!\\,2!}$, que ignora el orden; acá el orden de las franjas sí importa.",
       null,
       "Ese es el arreglo con repetición: acá los colores no se repiten en la misma bandera."
     ],
@@ -195,7 +195,7 @@
     "feedback_incorrect": [
       "Estás dividiendo por $k!=3!$ en vez de $(n-k)!=8!$; el cociente de variación cancela los factores que no se usan.",
       null,
-      "Esa expresión es la combinación $\\dbinom{11}{3}$, que ignora el orden; acá el orden de los caracteres sí importa.",
+      "Esa expresión es la combinación $\\dfrac{11!}{3!\\,8!}$, que ignora el orden; acá el orden de los caracteres sí importa.",
       "Ese es el arreglo con repetición: acá los caracteres no se repiten en la misma contraseña."
     ],
     "explanation": "Las **variaciones** cuentan cuántas formas hay de elegir y ordenar elementos de un total, cuando el orden importa y no hay repetición.\n\nEn este caso hay 11 caracteres y se eligen 3 para la contraseña:\n$$V_{11,3} = \\frac{11!}{8!}$$\n$$= 11 \\times 10 \\times 9 = 990$$\nHay 990 contraseñas distintas.\n\nDividir por $k!$, la fórmula de combinación, en vez de $(n-k)!$ mezcla dos técnicas distintas: verificá siempre que el denominador represente los elementos no seleccionados.",
@@ -220,7 +220,7 @@
     "feedback_correct": "Variación: $V_{10,2} = \\dfrac{10!}{8!}$.",
     "feedback_incorrect": [
       "Estás dividiendo por $k!=2!$ en vez de $(n-k)!=8!$; el cociente de variación cancela los factores que no se usan.",
-      "Esa expresión es la combinación $\\dbinom{10}{2}$, que ignora el orden; acá capitán y vicecapitán son cargos distintos.",
+      "Esa expresión es la combinación $\\dfrac{10!}{2!\\,8!}$, que ignora el orden; acá capitán y vicecapitán son cargos distintos.",
       null,
       "Ese es el arreglo con repetición: acá la misma persona no puede ocupar los dos cargos."
     ],
@@ -239,7 +239,7 @@
     "options": [
       "$8!$",
       "$\\dfrac{8!}{5!}$",
-      "$\\dbinom{8}{3}$",
+      "$\\dfrac{8!}{3!\\,5!}$",
       "$\\dfrac{8!}{3!}$"
     ],
     "correct_index": 1,
@@ -250,7 +250,7 @@
       "Esa es la combinación, que además divide por $3!$ para ignorar el orden entre los elegidos.",
       "Esa expresión divide por el factorial de los elementos elegidos en vez de por el de los no elegidos, un cociente distinto al de variación."
     ],
-    "explanation": "Elegir y ordenar algunos elementos de un total multiplica opciones decrecientes: la primera posición tiene todas las opciones, la siguiente una menos, y así sucesivamente.\n\nCon 8 equipos y 3 puestos:\n$$V_{8,3} = \\dfrac{8!}{5!}$$\n$$= 8\\times7\\times6 = 336$$\nEl denominador $5!$ cancela las órdenes internas de los 5 equipos que quedan fuera del podio.\n\nSi además no importara el orden entre los 3 elegidos, habría que dividir también por $3!$, y ahí se llega a la combinación $\\dbinom{8}{3}$.\n\nConfundir el cociente, dividiendo por $k!$ en vez de por $(n-k)!$, cancela los elementos equivocados.",
+    "explanation": "Elegir y ordenar algunos elementos de un total multiplica opciones decrecientes: la primera posición tiene todas las opciones, la siguiente una menos, y así sucesivamente.\n\nCon 8 equipos y 3 puestos:\n$$V_{8,3} = \\dfrac{8!}{5!}$$\n$$= 8\\times7\\times6 = 336$$\nEl denominador $5!$ cancela las órdenes internas de los 5 equipos que quedan fuera del podio.\n\nSi además no importara el orden entre los 3 elegidos, habría que dividir también por $3!$, y ahí se llega a la combinación $8!/(3!\\,5!)$.\n\nConfundir el cociente, dividiendo por $k!$ en vez de por $(n-k)!$, cancela los elementos equivocados.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -263,7 +263,7 @@
     "id": "white_variaciones_FORM_11",
     "question": "Se arma una clave de acceso eligiendo y ordenando 4 dígitos distintos entre 10 disponibles.\n\nEntre las siguientes expresiones, se busca identificar cuál corresponde a esta variación.\n\n¿Cuál es la expresión correcta?",
     "options": [
-      "$\\dbinom{10}{4}$",
+      "$\\dfrac{10!}{4!\\,6!}$",
       "$10!$",
       "$\\dfrac{10!}{4!}$",
       "$\\dfrac{10!}{6!}$"
@@ -276,7 +276,7 @@
       "Esa expresión divide por el factorial de los elementos elegidos en vez de por el de los no elegidos, un cociente distinto al de variación.",
       null
     ],
-    "explanation": "Elegir y ordenar algunos elementos de un total multiplica opciones decrecientes: la primera posición tiene todas las opciones, la siguiente una menos, y así sucesivamente.\n\nCon 10 dígitos y 4 posiciones:\n$$V_{10,4} = \\dfrac{10!}{6!}$$\n$$= 10\\times9\\times8\\times7 = 5040$$\nEl denominador $6!$ cancela las órdenes internas de los 6 dígitos que no entraron en la clave.\n\nSi además no importara el orden entre los 4 elegidos, habría que dividir también por $4!$, y ahí se llega a la combinación $\\dbinom{10}{4}$.\n\nConfundir el cociente, dividiendo por $k!$ en vez de por $(n-k)!$, cancela los elementos equivocados.",
+    "explanation": "Elegir y ordenar algunos elementos de un total multiplica opciones decrecientes: la primera posición tiene todas las opciones, la siguiente una menos, y así sucesivamente.\n\nCon 10 dígitos y 4 posiciones:\n$$V_{10,4} = \\dfrac{10!}{6!}$$\n$$= 10\\times9\\times8\\times7 = 5040$$\nEl denominador $6!$ cancela las órdenes internas de los 6 dígitos que no entraron en la clave.\n\nSi además no importara el orden entre los 4 elegidos, habría que dividir también por $4!$, y ahí se llega a la combinación $10!/(4!\\,6!)$.\n\nConfundir el cociente, dividiendo por $k!$ en vez de por $(n-k)!$, cancela los elementos equivocados.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -292,7 +292,7 @@
       "$\\dfrac{7!}{5!}$",
       "$\\dfrac{7!}{2!}$",
       "$7!$",
-      "$\\dbinom{7}{2}$"
+      "$\\dfrac{7!}{2!\\,5!}$"
     ],
     "correct_index": 0,
     "feedback_correct": "La variación de 7 tomados de 2 es $\\dfrac{7!}{5!}$, que cancela los elementos no elegidos.",
@@ -302,7 +302,7 @@
       "Esa es la permutación completa, que usa los 7 integrantes enteros, no solo los 2 de los cargos.",
       "Esa es la combinación, que además divide por $2!$ para ignorar el orden entre los elegidos."
     ],
-    "explanation": "Elegir y ordenar algunos elementos de un total multiplica opciones decrecientes: la primera posición tiene todas las opciones, la siguiente una menos, y así sucesivamente.\n\nCon 7 integrantes y 2 cargos:\n$$V_{7,2} = \\dfrac{7!}{5!}$$\n$$= 7\\times6 = 42$$\nEl denominador $5!$ cancela las órdenes internas de los 5 integrantes que no ocupan ningún cargo.\n\nSi además no importara el orden entre los 2 elegidos, habría que dividir también por $2!$, y ahí se llega a la combinación $\\dbinom{7}{2}$.\n\nConfundir el cociente, dividiendo por $k!$ en vez de por $(n-k)!$, cancela los elementos equivocados.",
+    "explanation": "Elegir y ordenar algunos elementos de un total multiplica opciones decrecientes: la primera posición tiene todas las opciones, la siguiente una menos, y así sucesivamente.\n\nCon 7 integrantes y 2 cargos:\n$$V_{7,2} = \\dfrac{7!}{5!}$$\n$$= 7\\times6 = 42$$\nEl denominador $5!$ cancela las órdenes internas de los 5 integrantes que no ocupan ningún cargo.\n\nSi además no importara el orden entre los 2 elegidos, habría que dividir también por $2!$, y ahí se llega a la combinación $7!/(2!\\,5!)$.\n\nConfundir el cociente, dividiendo por $k!$ en vez de por $(n-k)!$, cancela los elementos equivocados.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
