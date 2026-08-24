@@ -8,7 +8,7 @@ generó contenido entienda la estructura antes de escribir el primero.
 - **Este documento es el resumen legible.** Da la forma y los números clave.
 - **`authoring-context.md` es la fuente de verdad exhaustiva.** Cada regla acá cita
   su número (`R4`, `R18`, …) para que puedas ir al detalle fino, los ejemplos
-  ❌/✅ y las excepciones. La numeración llega hoy hasta **R75**; ojo que `R23`
+  ❌/✅ y las excepciones. La numeración llega hoy hasta **R80**; ojo que `R23`
   no existe, que hay `R17b` y `R44b`, y que dos párrafos sueltos titulados
   "Regla 43/44 (no automatizable)" no son las R43/R44 de la lista numerada. Si algo de acá y de allá parecen chocar, gana
   `authoring-context.md`; avisá para actualizar este resumen.
@@ -323,7 +323,7 @@ python content/validate_content.py --course analisis --topic <belt/unit/topic>
   párrafo largo, 2+ inline, feedback acusatorio, plantilla de apertura).
 
 Lo que el validador **no** puede chequear es la dificultad real: para eso hace falta
-`content/report_difficulty.py` contra la base de producción (ver regla 78 de
+`content/report_difficulty.py` contra la base de producción (ver regla 80 de
 `authoring-context.md`), porque la señal solo existe una vez que el ítem tuvo
 exposición real.
 

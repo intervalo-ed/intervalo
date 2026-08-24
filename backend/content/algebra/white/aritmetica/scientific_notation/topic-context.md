@@ -12,25 +12,35 @@ Concepto: la **notación científica** expresa cualquier número como el product
 
 ---
 
-## FORM, 15 ejercicios
+## FORM, 19 ejercicios
 
 | Sub-familia | Cantidad | Slug | Objetivo pedagógico | Conceptos que toca |
 |---|---:|---|---|---|
 | Elegir la expresión en notación científica correcta para un número dado | 5 | `elegir-expresion-correcta` | Decidir qué opción cumple $1 \leq \lvert a \rvert < 10$ y tiene el exponente correcto, entre varias que "casi" cumplen | Condición $1 \leq \lvert a \rvert < 10$, contar correctamente los lugares que se mueve la coma |
 | Elegir qué corresponde hacer primero al multiplicar o dividir dos números en notación científica | 5 | `elegir-orden-operacion` | Decidir que coeficientes y exponentes se operan por separado (coeficientes entre sí, exponentes entre sí), no mezclados | Multiplicar/dividir coeficientes, sumar/restar exponentes, $10^a \cdot 10^b = 10^{a+b}$ |
 | Elegir qué corresponde hacer cuando el resultado de operar dos números en notación científica queda con un coeficiente fuera del rango $[1, 10)$ | 5 | `elegir-reajuste-coeficiente` | Decidir cómo renormalizar un resultado intermedio (ej. coeficiente $12$ o $0{,}5$) de vuelta a la forma válida, ajustando el exponente en consecuencia | Renormalización tras operar, mover la coma en el coeficiente resultante y compensar el exponente |
-| **Total** | **15** | | | |
+| **Con tabla** (`table`, modo `cell`): la tabla registra números y su orden de magnitud, y deja una celda vacía | 4 | `orden-desde-tabla` | Inferir qué es el orden de magnitud a partir de dos ejemplos de la tabla y calcular el que falta | Orden de magnitud como exponente de la notación científica; signo del orden según el número sea mayor o menor que $1$ |
+| **Total** | **19** | | | |
+
+**Las dos sub-familias con tabla van en modo `cell`, no `column`, y es una decisión de diseño.** El modo `column` necesita una familia parametrizada por un entero: la columna de entrada es un $n$ y las opciones son expresiones candidatas que generan la de salida. Notación científica **no tiene esa forma**: sus objetos son números sueltos de escalas distintas, no términos de una familia. Forzarlo habría dado una tabla decorativa.
+
+**`orden-desde-tabla` existe para tapar un agujero medido del topic:** *"orden de magnitud"* aparece 4 veces en el corpus (en `FORM` #7 y #14, y en dos `explanation` de `RESL`) y **nunca se define**, lo que contradice la regla crítica 31 que este mismo documento invoca. Acá el término es el encabezado de una columna, y las dos filas ya completas alcanzan para inferir qué significa antes de tener que calcularlo.
+
+**`comparar-desde-tabla` tapa el otro:** `FORM` #2 declara que la notación científica *"sirve para comparar dos números de un vistazo mirando solo el exponente"*, y no había **ni un solo ejercicio** que lo ejercitara. Uno de los dos ítems tiene dos medidas con el mismo exponente, para que el desempate por coeficiente también quede cubierto.
+
+**Excepción de cardinalidad**: el ítem de "cuál es la mayor" va con **3 opciones**, porque las opciones son las tres medidas de la tabla y no hay una cuarta posible.
 
 ---
 
-## RESL, 15 ejercicios
+## RESL, 17 ejercicios
 
 | Sub-familia | Cantidad | Slug | Objetivo pedagógico | Conceptos que toca |
 |---|---:|---|---|---|
 | Convertir un número decimal (grande o chico) a notación científica hasta el resultado final | 5 | `resl-convertir-a-notacion` | Calcular la forma $a \times 10^n$ de un número dado en escritura decimal completa | Contar lugares que se mueve la coma, signo del exponente según el número sea grande o chico |
 | Multiplicar o dividir dos números en notación científica hasta el resultado final, ya renormalizado | 5 | `resl-multiplicar-dividir` | Calcular el producto o cociente combinando coeficientes y exponentes, dejando el resultado en forma válida | Operar coeficientes y exponentes por separado, renormalizar si el coeficiente queda fuera de $[1,10)$ |
 | Sumar o restar dos números en notación científica hasta el resultado final | 5 | `resl-sumar-restar` | Calcular la suma o resta igualando primero los exponentes de ambos números, y renormalizar si hace falta | Igualar exponentes antes de sumar/restar coeficientes (a diferencia de multiplicar/dividir, que no lo requiere), renormalización final |
-| **Total** | **15** | | | |
+| **Con tabla** (`table`, modo `cell`): la tabla registra dos o tres medidas y deja vacía la fila de la comparación | 2 | `comparar-desde-tabla` | Comparar cantidades en notación científica: cuántas veces mayor es una que otra, y cuál es la mayor de varias | División por partes (coeficientes y exponentes); comparar primero por exponente y solo después por coeficiente |
+| **Total** | **17** | | | |
 
 **Cardinalidad**: preferencia editorial de esta unidad (igual que `Fracciones`/`Potenciación`/`Radicales`/`Logaritmos`), **4 opciones para prácticamente todo** (`FORM` y `RESL`), no el default de 3.
 

@@ -21,14 +21,19 @@ Concepto: las dos operaciones básicas entre vectores son la **suma** componente
 | Decidir la expresión que combina suma y escalar en un mismo escenario | 5 | `decidir-combinacion-suma-escalar` | Reconocer un escenario que requiere escalar un vector y después sumarle otro | Combinación lineal simple, $\alpha\vec{u}+\vec{v}$ |
 | **Total** | **15** | | | |
 
-## RESL, 15 ejercicios
+## RESL, 17 ejercicios
 
 | Sub-familia | Cantidad | Slug | Objetivo pedagógico | Conceptos que toca |
 |---|---:|---|---|---|
 | Calcular la suma de vectores en contexto | 5 | `resl-suma-vectores` | Calcular el resultado de combinar dos o tres desplazamientos sucesivos | Suma componente a componente |
 | Calcular el producto por un escalar en contexto | 5 | `resl-escalar-vector` | Calcular el resultado de redimensionar o invertir un vector | Producto por escalar, incluido escalar negativo |
 | Calcular una combinación de escalar y suma en contexto | 5 | `resl-combinacion-suma-escalar` | Calcular el resultado de escalar un vector y sumarle otro | Combinación lineal simple, orden de operaciones |
-| **Total** | **15** | | | |
+| **Con tabla** (`table`, modo `column`): la tabla registra la norma de $k\vec{v}$ según el escalar $k$, y las opciones son expresiones candidatas | 2 | `resl-norma-vector-escalado` | Reconocer que la norma escala por $|k|$, no por $k$, incluso con $k$ fraccionario o negativo | $\lVert k\vec{v}\rVert = |k|\lVert \vec{v}\rVert$; una norma nunca puede ser negativa |
+| **Total** | **17** | | | |
+
+**`resl-norma-vector-escalado` es una adición puntual, no una sub-familia de 3-5 ítems como las de `white/aritmetica`.** Tapa un hueco específico y acotado, verificado en una auditoría completa de `blue/vectors` (6 topics, 210 ejercicios): en toda la unidad nadie enseña que la norma de un vector escalado crece por $|k|$ y no por $k$ — `norm` nunca trabaja vectores escalados, y `resl-escalar-vector` calcula el vector resultante, nunca su norma. La auditoría completa (por qué el resto de la unidad no admite tablas, y por qué esta sí) está en `backend/content/table-format-context.md` §3.3.
+
+Excepción de cardinalidad: van con **3 opciones**, no las 4 de `RESL`, porque las condiciones anti-descarte de la regla 71 aprietan más con cuatro candidatos.
 
 **Cardinalidad**: 3 opciones para `FORM` (decide la operación, sin calcular; conceptual). 4 opciones para `RESL` (cálculo numérico, sigue el default de la guía de `authoring-context.md`).
 

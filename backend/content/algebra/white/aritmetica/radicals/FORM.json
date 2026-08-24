@@ -200,19 +200,19 @@
     "question": "Se quiere simplificar una raíz de radicando grande en un solo paso.\n$$\\sqrt{200}$$\n¿Cuál es el mayor factor cuadrado perfecto que se puede extraer?",
     "options": [
       "$25$",
-      "$4$",
-      "$20$",
-      "$100$"
+      "$8$",
+      "$100$",
+      "$50$"
     ],
-    "correct_index": 3,
-    "feedback_correct": "Doscientos es cien por dos, y el cien sale de la raíz como un diez.",
+    "correct_index": 2,
+    "feedback_correct": "Doscientos es cien por dos, y el cien es el mayor cuadrado que lo divide.",
     "feedback_incorrect": [
       "Ese cuadrado divide al radicando, pero hay uno mayor que también lo hace.",
-      "Ese cuadrado divide al radicando, pero hay uno mayor que también lo hace.",
       "Ese número divide al radicando, pero no es un cuadrado perfecto.",
-      null
+      null,
+      "Ese número divide al radicando, pero no es un cuadrado perfecto."
     ],
-    "explanation": "Cuando el radicando admite varios cuadrados, conviene extraer el mayor para terminar en un solo paso.\n$$\\sqrt{200} = \\sqrt{100 \\cdot 2} = 10\\sqrt{2}$$\nEmpezar por un cuadrado más chico también llega al mismo resultado, pero obliga a revisar de nuevo lo que quedó adentro.\n\nEl chequeo final es siempre el mismo: lo que queda adentro del radical no puede tener ningún cuadrado perfecto entre sus factores.\n\nAcá queda un dos, que es primo, así que la simplificación está terminada.",
+    "explanation": "Cuando el radicando admite varios cuadrados, conviene extraer el mayor para terminar en un solo paso.\n$$\\sqrt{200} = \\sqrt{100 \\cdot 2} = 10\\sqrt{2}$$\nDoscientos también se puede dividir por veinticinco, pero ese cuadrado deja adentro un ocho, que todavía contiene otro cuadrado y obliga a repetir el paso.\n\nOcho y cincuenta dividen al radicando, pero ninguno de los dos es un cuadrado perfecto.\n\nEl chequeo final es siempre el mismo: lo que queda adentro del radical no puede tener ningún cuadrado perfecto entre sus factores.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

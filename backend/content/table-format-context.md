@@ -366,18 +366,83 @@ un modo de tabla puramente ilustrativo sin opción que la resuelva, esta puerta 
 
 ### 3.3 `algebra`: encaje más acotado
 
+> **Actualizado (ago-2026) con la ronda de `white/aritmetica`.** Se escribieron **30 ejercicios
+> con tabla** en cinco de los seis topics de la unidad. Lo que la ronda corrigió de este análisis
+> está marcado abajo; el detalle completo, con el relevamiento curricular de 12 fuentes primarias
+> que lo respalda, está en `algebra/table-injection-report.md`.
+
 | Topic | Skills | Encaje | Notas |
 |---|---|---|---|
-| `aritmetica/powers` | LEXI/RESL/FORM | **muy fuerte** | $n \to 2^{n}$. Familia de explosión (§2.4) con toda su evidencia. |
-| `aritmetica/logarithms` | LEXI/RESL/FORM | fuerte | La tabla inversa. Buen par con `powers`. |
-| `aritmetica/scientific_notation` | RESL/FORM | fuerte | Tabla de órdenes de magnitud: es calibración, que es justo lo que el sesgo de §2.4 predice que falta. |
-| `aritmetica/radicals` | LEXI/RESL/FORM | medio | Salidas irracionales salvo que se elijan cuadrados perfectos. |
+| `aritmetica/powers` | LEXI/RESL/FORM | **muy fuerte** ✅ | Confirmado. $n \to 2^{n}$, familia de explosión (§2.4). **6 ítems en `FORM` (modo `column`) y 4 en `RESL` (modo `cell`)**. Es el único topic de la unidad donde `column` funciona sin forzar nada. |
+| `aritmetica/logarithms` | LEXI/RESL/FORM | fuerte ✅ | Confirmado, pero **no por la tabla inversa**: lo que rinde es la **tabla de traducción** forma logarítmica ↔ forma exponencial, que tiene precedente verificado en el cuadernillo de UTN FRRQ. 4 ítems en `FORM` + 2 en `RESL`, todos `cell`. |
+| `aritmetica/scientific_notation` | RESL/FORM | fuerte ⚠️ | Confirmado el encaje, **corregido el modo**: no admite `column`, porque sus objetos son números sueltos de escalas distintas y no términos de una familia parametrizada por un entero. Van 4 + 2, todos `cell`. La tabla de órdenes de magnitud además **define un término que el topic usaba 4 veces sin definir nunca**. |
+| `aritmetica/fracciones` | LEXI/ESTR/RESL | medio ➕ | **No figuraba en este análisis** y entró: no tiene `FORM`, que es el host natural, pero el modo `cell` (desglose de repartos sucesivos) le calza en `RESL`. 3 ítems. `ESTR` quedó afuera a propósito: es la skill de modelado, o sea la contraindicación principal del formato. |
+| `aritmetica/absolute_value` | RESL/FORM | medio ➕ | **Tampoco figuraba.** Entró por una razón que no es la del formato: la tabla `x → distancia a un valor` es el único lugar del topic donde aparece la lectura geométrica que usa el CBC. 3 ítems `column` + 2 `cell`. |
+| `aritmetica/radicals` | LEXI/RESL/FORM | medio ❌ | Descartado por decisión, no por análisis. Sus sub-familias son manipulación simbólica de una expresión, no familias parametrizadas por un entero, y competía mal contra `powers` por el mismo cupo. |
 | `matrices/determinants` | LEXI/CLSF/RESL | medio | Familia de matrices parametrizada por $n$ → su determinante. Nicho pero legítimo. |
 | `spaces/dimension` | LEXI/CLSF/RESL | medio | Familia de subespacios parametrizada → dimensión. |
-| `vectors/*` | — | **débil** | Norma y operaciones no son familias de un solo parámetro. |
+| `vectors/*` | ver nota | **casi nulo, auditado** 🔍 | Ver §3.5. Un único ítem sobrevivió a la auditoría completa de los 6 topics. |
 | `black/transformations` | — | fuera de alcance | Declarado en `course.json` pero no cableado en el catálogo del front. |
 
-### 3.4 La trampa nº1 de `algebra`: confundir "mostrar una matriz" con "usar el campo `table`"
+### 3.4 `blue/vectors`: auditoría completa, veredicto casi negativo
+
+> **Actualizado (ago-2026).** La fila de arriba ("débil") venía de una línea sin auditar que solo
+> cubría `norm` y `operations`. Se auditaron los 6 topics completos (210 ejercicios, leídos
+> `question`/`options`/`feedback_incorrect`, no las descripciones de los `topic-context.md`).
+> Resultado: de más de una docena de candidatos que parecían fuertes en una lectura superficial,
+> **todos menos uno cayeron al leer el contenido real.**
+
+**El único ítem que sobrevivió**: `operations/RESL`, sub-familia `resl-norma-vector-escalado` (2
+ítems, modo `column`). Tapa un hueco real y acotado — nadie en la unidad enseña que
+$\lVert k\vec v\rVert = |k|\lVert\vec v\rVert$ y no $k\lVert\vec v\rVert$. `norm` nunca trabaja
+vectores escalados, y la sub-familia hermana `resl-escalar-vector` calcula el vector resultante,
+nunca su norma.
+
+**Por qué el resto no entra, con evidencia, no solo criterio:**
+
+- **`norm/RESL` → `resl-comparacion-normas`** (comparar la distancia de 2 drones): parecía el
+  candidato más fuerte de toda la unidad — la `explanation` ya usa `\begin{aligned}` con 2 renglones
+  paralelos. Cae igual: las 5 `options` reales son prosa de razonamiento (*"el segundo, **aunque**
+  tenga menor componente en $x$"*), y el error que se evalúa es no poder combinar las dos
+  componentes de un vistazo. Una tabla con $x^2$, $y^2$ y la suma precalculados **regala
+  exactamente ese paso** — la contraindicación más importante del formato (§2.6).
+- **`norm/RESL` → `resl-distancia-entre-puntos`**: el error de signo que parecía el hueco a tapar
+  **ya está cubierto** por los 5 `feedback_incorrect` existentes.
+- **`operations/RESL` → `resl-combinacion-suma-escalar`**: puro cálculo, sin decisión que la tabla
+  agregue — decorativo.
+- **`orthogonality/CLSF` → "¿cuál de estos 3 pares es ortogonal?"**: cae en un anti-patrón nuevo,
+  distinto al de las matrices — **una tabla que solo repite lo que ya está en las `options`**. Los
+  3 pares candidatos ya están ahí; `authoring-context.md` ya documenta esto para el ancla del
+  enunciado (*"si ya está escrito en las opciones… duplica las opciones o regala el ejercicio"*),
+  y el mismo argumento aplica a una tabla.
+- **`orthogonality/CLSF` → "¿cruza en ángulo recto?" y `orthogonality/RESL` → "¿cuál es
+  perpendicular?"**: más limpios (el vector de referencia está en el enunciado, no repetido), pero
+  no hay diseño honesto: mostrar los productos escalares de los candidatos regala la respuesta;
+  dejarlos en blanco no agrega nada que la skill no haga ya.
+- **`orthogonality/CLSF` → "chico ≠ cero"**: el objetivo es intrínsecamente comparativo, pero ya
+  está exhaustivamente cubierto por 15 `feedback_incorrect` distintos.
+- **`product/LEXI` → `por-que-exclusivo-r3`**: la **única** familia $n \to f(n)$ auténtica de toda
+  la unidad ($n=2,3,4 \to$ cantidad de perpendiculares comunes). Descartada de todos modos: la
+  skill es `LEXI` = justificación, y §2.6 cita evidencia directa (Lockwood, Swinyard & Caughman
+  2015) de que reinventar la fórmula correcta no implica poder justificarla.
+- **`product/CLSF` → `predecir-direccion-vector-escalado`** ($\alpha \to$ sentido): parámetro
+  entero real, pero el patrón es $\operatorname{signo}(\alpha)$ y se deduce del parámetro de un
+  vistazo — exactamente lo que la regla 76 prohíbe.
+- **`scalar/RESL` → `resl-producto-escalar-vector-unitario`** ($k \to$ posición del $1$ en $e_k$):
+  correspondencia real, pero con solo 3 posiciones posibles y un mecanismo trivial, los 5 ítems ya
+  cubren el patrón sin tabla.
+
+**Dos razones estructurales que pesan contra la unidad entera**, para que la próxima ronda no
+vuelva a auditar desde cero:
+
+1. **8 de las 24 sub-familias son `LEXI`** (justificación pura), la contraindicación más citada del
+   formato — incluye el único parámetro entero real de la unidad.
+2. **El alumno en `blue` todavía no tiene matrices** (`course-context.md`, estado por cinturón).
+   Una tabla de 2 columnas con vectores como filas se parece visualmente a una matriz, el mismo
+   riesgo de confusión que §3.4 (abajo) documenta para `violet/matrices`, pero acá llega antes de
+   que el alumno tenga el concepto para distinguirlos.
+
+### 3.5 La trampa nº1 de `algebra`: confundir "mostrar una matriz" con "usar el campo `table`"
 
 **R62 nació en `algebra/violet/matrices`**, del feedback *"acá pondría a la matriz como ejemplo"*.
 Es tentador leer eso como "usemos el campo `table` para las matrices". **No.**
@@ -390,7 +455,11 @@ Es tentador leer eso como "usemos el campo `table` para las matrices". **No.**
 Usar `table` para renderizar una matriz rompe R68 en espíritu y agrega una interacción que el
 objeto no pide. Son dos necesidades distintas que se parecen en pantalla.
 
-### 3.5 Protocolo para repetir la investigación
+**La misma trampa, en versión aritmética (encontrada en la ronda de `white/aritmetica`):** el material de UNLP tiene un cuadro teórico *"propiedades de las operaciones con potencias"*, con filas `Producto de igual base | $a^{m}\cdot a^{n} = a^{m+n}$`. Es lo más cerca que llega el corpus argentino a tabular `powers`, y por eso es tentador convertirlo en un ítem a completar. **No.** Sería memorización tabulada: la tabla no revela nada que la fórmula no diga ya. Quedó escrito como anti-patrón en la regla 76.
+
+**Y una tercera trampa, específica de las sub-familias grandes:** cuando una sub-familia con tabla pasa de 2 ítems a 4, aparece un riesgo que con 2 no existía — si la correcta es siempre del mismo tipo (siempre la exponencial), el formato enseña una meta-estrategia en vez de un concepto. La mitigación está en la regla 77: rotar cuál es la correcta y rotar la posición de la fila trampa. En `powers/FORM` eso significó que **en dos de los cuatro ítems la exponencial es distractora**, que además es el ítem que ataca de frente el sesgo de §2.4.
+
+### 3.6 Protocolo para repetir la investigación
 
 Lo que funcionó en esta sesión, en orden:
 
@@ -418,7 +487,7 @@ usa la columna D con `Análisis` y `Álgebra`, y la misma consulta gviz sirve. O
 aprendió ahí: **las filas mixtas** (`Análisis, Probabilidad`) quedan fuera de un filtro por igualdad
 exacta, y en esta sesión eso escondía al grupo más grande de toda la base.
 
-### 3.6 Lo que la implementación enseñó, para quien extienda el formato
+### 3.7 Lo que la implementación enseñó, para quien extienda el formato
 
 Cinco trampas técnicas, todas verificadas en el código:
 

@@ -3,7 +3,7 @@
 
 La banda sale de cruzar la micro-encuesta de dificultad (`exercise_feedback`,
 pregunta A) con el P1 medido de los ítems votados: "muy fácil" promedia 77 %,
-"justo" 61 %, "muy difícil" 55 %. Ver regla 78 de `authoring-context.md`.
+"justo" 61 %, "muy difícil" 55 %. Ver regla 80 de `authoring-context.md`.
 
 P1 = % de respuestas con `quality_score = 5` (acierto al primer intento). NO
 usar `Answer.is_correct`: es `attempts <= 3` y por eso da 90-100 % en cualquier

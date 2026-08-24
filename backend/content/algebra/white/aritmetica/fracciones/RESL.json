@@ -14,7 +14,7 @@
       "Ahí se multiplicaron las dos fracciones tal como estaban escritas, sin invertir la del denominador primero.",
       null,
       "Ahí se invirtió la fracción de arriba en vez de la de abajo: en una división siempre se invierte el divisor.",
-      "Ahí se sumaron los numeradores entre sí y los denominadores entre sí, en vez de invertir y multiplicar."
+      "Ahí se sumaron numeradores por un lado y denominadores por el otro: esa cuenta da $6/12$, no la división pedida."
     ],
     "explanation": "Una **fracción compuesta** con una fracción arriba y otra abajo es, en el fondo, una división entre las dos: la de arriba dividida por la de abajo.\n$$\\dfrac{3/4}{3/8} = \\dfrac{3}{4}\\div\\dfrac{3}{8}$$\nPara dividir fracciones se invierte la de abajo y se multiplica.\n$$\\dfrac{3}{4}\\times\\dfrac{8}{3} = 2$$\nLa caja mide exactamente la mitad de lo apartado para control, así que hacen falta dos cajas para guardarlo entero.\n\nSi el resultado hubiese dado menor que $1$, sería señal de haber multiplicado las fracciones tal como estaban, sin invertir ninguna.",
     "has_math": true,
@@ -42,7 +42,7 @@
       null,
       "Ahí se multiplicaron las dos fracciones tal como estaban escritas, sin invertir la del denominador primero.",
       "Ahí se invirtió la fracción de arriba en vez de la de abajo: en una división siempre se invierte el divisor.",
-      "Ahí se sumaron los numeradores entre sí y los denominadores entre sí, en vez de invertir y multiplicar."
+      "Sumar los dos numeradores y los dos denominadores por separado da $4/12$; dividir fracciones es invertir y multiplicar."
     ],
     "explanation": "Una fracción compuesta con una fracción arriba y otra abajo es una división entre las dos: la de arriba dividida por la de abajo.\n$$\\dfrac{2/3}{2/9} = \\dfrac{2}{3}\\div\\dfrac{2}{9}$$\nPara dividir fracciones se invierte la de abajo y se multiplica.\n$$\\dfrac{2}{3}\\times\\dfrac{9}{2} = 3$$\nCada balde guarda un tercio del agua destinada a riego, así que hacen falta tres baldes para juntarla entera.\n\nSi el resultado hubiese dado menor que $1$, sería señal de haber multiplicado las fracciones tal como estaban, sin invertir ninguna.",
     "has_math": true,
@@ -70,7 +70,7 @@
       "Ahí se multiplicaron las dos fracciones tal como estaban escritas, sin invertir la segunda primero.",
       "Ahí se invirtió la primera fracción en vez de la segunda: en una división siempre se invierte el divisor.",
       null,
-      "Ahí se sumaron los numeradores entre sí y los denominadores entre sí, en vez de invertir y multiplicar."
+      "Esa cuenta suma numeradores y denominadores por separado, pero comparar dos fracciones es dividir una por la otra."
     ],
     "explanation": "Comparar dos fracciones preguntando cuántas veces mayor es una respecto de la otra es una división entre las dos.\n$$\\dfrac{2/3}{4/9} = \\dfrac{2}{3}\\div\\dfrac{4}{9}$$\nPara dividir fracciones se invierte la segunda y se multiplica.\n$$\\dfrac{2}{3}\\times\\dfrac{9}{4} = \\dfrac{3}{2}$$\nEl resultado mayor que $1$ confirma que el primer lote reserva más que el segundo, ya que su fracción de partida era la mayor de las dos.\n\nSi el resultado hubiese dado menor que $1$, la relación estaría invertida: el primer lote reservaría menos que el segundo.",
     "has_math": true,
@@ -126,7 +126,7 @@
       null,
       "Ahí se multiplicaron las dos fracciones tal como estaban escritas, sin invertir la segunda primero.",
       "Ahí se invirtió la primera fracción en vez de la segunda: en una división siempre se invierte el divisor.",
-      "Ahí se sumaron los numeradores entre sí y los denominadores entre sí, en vez de invertir y multiplicar."
+      "Sumar arriba con arriba y abajo con abajo da $6/10$, y eso no responde cuántas veces entra un rendimiento en el otro."
     ],
     "explanation": "Preguntar qué fracción es un rendimiento respecto de otro es una división: el rendimiento de la lata chica dividido por el de la lata grande.\n$$\\dfrac{2/5}{4/5} = \\dfrac{2}{5}\\div\\dfrac{4}{5}$$\nPara dividir fracciones se invierte la segunda y se multiplica.\n$$\\dfrac{2}{5}\\times\\dfrac{5}{4} = \\dfrac{1}{2}$$\nEl resultado menor que $1$ tiene sentido, porque la lata chica cubre menos pared que la grande.\n\nSi el resultado hubiese dado mayor que $1$, estaría diciendo que la lata chica rinde más que la grande, al revés de lo esperable.",
     "has_math": true,
@@ -417,6 +417,207 @@
     "reviewed": false,
     "tags": [
       "resl-potencia-fraccion"
+    ]
+  },
+  {
+    "id": "white_fracciones_RESL_16",
+    "question": "De una cosecha se aparta una parte para semilla y, de lo que queda, otra parte para consumo propio.\n\nLa tabla desglosa qué fracción se lleva cada paso.\n\n¿Qué fracción de la cosecha total queda para vender?",
+    "options": [
+      "$5/12$",
+      "$1/2$",
+      "$1/12$",
+      "$3/4$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El consumo se calcula sobre lo que sobró de la semilla, no sobre la cosecha entera.",
+    "feedback_incorrect": [
+      "Ahí las dos fracciones se restaron del total, pero la segunda se aplica sobre lo que quedó.",
+      null,
+      "Ese es lo que se lleva el consumo propio, no lo que queda después de los dos apartados.",
+      "Ese es lo que queda después de apartar la semilla, sin descontar todavía el consumo."
+    ],
+    "explanation": "La clave está en sobre qué se calcula cada fracción. La semilla se lleva $1/4$ de la cosecha, así que después de ese paso quedan tres cuartos.\n$$1 - \\frac{1}{4} = \\frac{3}{4}$$\nEl consumo se lleva un tercio **de esos tres cuartos**, no un tercio de la cosecha entera:\n$$\\frac{1}{3} \\cdot \\frac{3}{4} = \\frac{1}{4}$$\nDescontando ese cuarto de lo que había quedado, sobra la mitad de la cosecha original.\n\nRestar las dos fracciones directamente del total trata al segundo apartado como si fuera sobre la cosecha entera, y deja menos de lo que realmente queda.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": "🌾",
+          "label": "Paso"
+        },
+        {
+          "icon": null,
+          "label": "Se lleva"
+        }
+      ],
+      "rows": [
+        [
+          "Semilla",
+          "$1/4$"
+        ],
+        [
+          "Consumo",
+          "$1/3$"
+        ],
+        [
+          "**Queda**",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "cell",
+        "at": [
+          2,
+          1
+        ],
+        "by_option": [
+          "$5/12$",
+          "$1/2$",
+          "$1/12$",
+          "$3/4$"
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "etapas-desde-tabla"
+    ]
+  },
+  {
+    "id": "white_fracciones_RESL_17",
+    "question": "Un rollo de tela se usa en dos etapas: primero una parte del rollo y después una parte de lo que sobró.\n\nLa tabla desglosa qué fracción se usa en cada etapa.\n\n¿Qué fracción del rollo sobra al final?",
+    "options": [
+      "$3/10$",
+      "$1/10$",
+      "$1/5$",
+      "$3/5$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La segunda etapa usa la mitad de lo que había sobrado, no la mitad del rollo.",
+    "feedback_incorrect": [
+      null,
+      "Ahí las dos fracciones se restaron del rollo entero, pero la segunda se aplica sobre el sobrante.",
+      "Ese es lo que usa la segunda etapa, no lo que sobra después de las dos.",
+      "Ese es lo que sobra después de la primera etapa, sin descontar todavía la segunda."
+    ],
+    "explanation": "Después de la primera etapa el rollo no está entero, así que la segunda fracción se calcula sobre un total más chico.\n$$1 - \\frac{2}{5} = \\frac{3}{5}$$\nLa segunda etapa usa la mitad de ese sobrante, y esa mitad vale tres décimos del rollo original:\n$$\\frac{1}{2} \\cdot \\frac{3}{5} = \\frac{3}{10}$$\nComo usa exactamente la mitad de lo que había, lo que sobra al final es esa misma cantidad.\n\nAplicar la segunda fracción al rollo entero descuenta más tela de la que realmente se cortó, porque en ese momento ya no quedaba el rollo completo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": "🧵",
+          "label": "Etapa"
+        },
+        {
+          "icon": null,
+          "label": "Se usa"
+        }
+      ],
+      "rows": [
+        [
+          "Primera",
+          "$2/5$"
+        ],
+        [
+          "Segunda",
+          "$1/2$"
+        ],
+        [
+          "**Final**",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "cell",
+        "at": [
+          2,
+          1
+        ],
+        "by_option": [
+          "$3/10$",
+          "$1/10$",
+          "$1/5$",
+          "$3/5$"
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "etapas-desde-tabla"
+    ]
+  },
+  {
+    "id": "white_fracciones_RESL_18",
+    "question": "Un cargamento se descarga en dos turnos: el primero descarga una parte del total y el segundo una parte de lo que quedó.\n\nLa tabla desglosa qué fracción descarga cada turno.\n\n¿Qué fracción del cargamento queda sin descargar?",
+    "options": [
+      "$3/10$",
+      "$1/10$",
+      "$4/5$",
+      "$2/5$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El segundo turno descarga la mitad de lo que había quedado, no la mitad del cargamento.",
+    "feedback_incorrect": [
+      "Ahí las dos fracciones se restaron del total, pero la segunda se aplica sobre el resto.",
+      "Ese es lo que descarga el segundo turno, no lo que queda después de los dos.",
+      "Ese es lo que queda después del primer turno, sin descontar todavía el segundo.",
+      null
+    ],
+    "explanation": "El primer turno se lleva un quinto, así que arranca el segundo turno con cuatro quintos del cargamento sobre la plataforma.\n$$1 - \\frac{1}{5} = \\frac{4}{5}$$\nEl segundo turno descarga la mitad **de esos cuatro quintos**:\n$$\\frac{1}{2} \\cdot \\frac{4}{5} = \\frac{2}{5}$$\nY como descarga justo la mitad de lo que había, lo que queda sin descargar es esa misma fracción.\n\nSumar las dos fracciones y restarlas del total da un resultado más chico del real, porque cuenta el segundo turno como si hubiera trabajado sobre el cargamento completo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "graph_shade": null,
+    "graph_free_aspect": null,
+    "table": {
+      "columns": [
+        {
+          "icon": "🚛",
+          "label": "Turno"
+        },
+        {
+          "icon": null,
+          "label": "Descarga"
+        }
+      ],
+      "rows": [
+        [
+          "Primero",
+          "$1/5$"
+        ],
+        [
+          "Segundo",
+          "$1/2$"
+        ],
+        [
+          "**Queda**",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "cell",
+        "at": [
+          2,
+          1
+        ],
+        "by_option": [
+          "$3/10$",
+          "$1/10$",
+          "$4/5$",
+          "$2/5$"
+        ]
+      }
+    },
+    "reviewed": false,
+    "tags": [
+      "etapas-desde-tabla"
     ]
   }
 ]
