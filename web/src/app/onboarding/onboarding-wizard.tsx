@@ -1181,9 +1181,8 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
                   <div className="flex flex-col gap-2">
                     <h2 className="text-2xl font-bold">{COURSE_LABEL[courseKey]}</h2>
                     <p className="leading-relaxed text-foreground/85">
-                      El curso se divide en estas{" "}
-                      <strong className="text-foreground">unidades correlativas</strong>. ¿Cuáles ya
-                      viste? Tocá la ⓘ para ver qué hay en cada una.
+                      Este curso se divide en las siguientes{" "}
+                      <strong className="text-foreground">unidades</strong>. ¿Ya conocés alguna?
                     </p>
                   </div>
                   <div className="flex flex-col gap-2.5">
