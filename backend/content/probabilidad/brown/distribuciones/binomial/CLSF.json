@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_binomial_CLSF_01",
     "question": "Un call center llama a 10 clientes para ofrecerles un plan nuevo.\n\nCada cliente acepta la oferta con probabilidad $0{,}3$, en forma independiente del resto.\n\n¿Qué distribución sigue la cantidad total de clientes que aceptan la oferta?",
     "options": [
       "$Bin(10,\\, 0{,}3)$",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "brown_binomial_CLSF_02",
     "question": "Un mazo de 8 cartas tiene 3 cartas rojas.\n\nSe extraen 4 cartas del mazo sin devolverlas, y se cuenta cuántas de esas 4 son rojas.\n\n¿Qué distribución sigue esa cantidad de cartas rojas?",
     "options": [
       "$Hip(8,3,4)$",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "brown_binomial_CLSF_03",
     "question": "Un arquero pierde confianza con cada penal errado, y patea 5 penales en total.\n\nSi convierte el anterior, la probabilidad de convertir el siguiente es $0{,}7$; si lo erra, baja a $0{,}4$.\n\n¿Se puede modelar la cantidad de penales convertidos como una distribución binomial?",
     "options": [
       "No, la probabilidad de éxito cambia según el resultado anterior.",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "brown_binomial_CLSF_04",
     "question": "Una línea de producción fabrica 20 piezas en un turno.\n\nCada pieza sale defectuosa con probabilidad $0{,}05$, en forma independiente de las demás.\n\n¿Qué distribución sigue la cantidad total de piezas defectuosas del turno?",
     "options": [
       "$Poisson(20)$",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "brown_binomial_CLSF_05",
     "question": "Una encuestadora consulta a 15 personas si piensan votar en las próximas elecciones.\n\nCada persona responde que sí con probabilidad $0{,}5$, en forma independiente del resto.\n\n¿Qué distribución sigue la cantidad de personas que responden que sí?",
     "options": [
       "$Geom(0{,}5)$",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "brown_binomial_CLSF_06",
     "question": "Un jugador de básquet con 75% de acierto en tiros libres tira 12 veces en un entrenamiento.\n\nCada tiro es independiente del resto, con la misma probabilidad de acierto.\n\n¿Qué distribución sigue la cantidad total de tiros convertidos?",
     "options": [
       "$Poisson(12)$",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "brown_binomial_CLSF_07",
     "question": "Un jugador de casino apuesta siempre al mismo color en 8 tiradas de la ruleta.\n\nCada tirada tiene probabilidad $0{,}45$ de salir ese color, en forma independiente de las anteriores.\n\n¿Qué distribución sigue la cantidad de tiradas ganadoras?",
     "options": [
       "$Bin(8,\\, 0{,}45)$",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "brown_binomial_CLSF_08",
     "question": "Un centro de salud vacuna a 18 pacientes contra la gripe.\n\nCada paciente presenta una reacción leve con probabilidad $0{,}02$, en forma independiente del resto.\n\n¿Qué distribución sigue la cantidad de pacientes con reacción leve?",
     "options": [
       "$Geom(0{,}02)$",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "brown_binomial_CLSF_09",
     "question": "Un correo despacha paquetes uno por uno, cada uno con probabilidad $0{,}1$ de llegar tarde, en forma independiente.\n\nSe cuenta cuántos paquetes hay que despachar hasta que aparece el primero que llega tarde.\n\n¿Qué distribución sigue esa cantidad de paquetes?",
     "options": [
       "$Geom(0{,}1)$",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "brown_binomial_CLSF_10",
     "question": "Un lote de 12 piezas contiene 4 defectuosas.\n\nSe eligen 5 piezas al azar sin reposición para inspeccionarlas, y se cuenta cuántas de esas 5 son defectuosas.\n\n¿Qué distribución sigue esa cantidad de piezas defectuosas?",
     "options": [
       "$Bin(5,\\, 4/12)$",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "brown_binomial_CLSF_11",
     "question": "Un jugador de básquet tira libres hasta convertir el primero.\n\nCada tiro es independiente, con probabilidad $0{,}6$ de acierto.\n\nSe cuenta cuántos tiros hace falta hasta ese primer acierto.\n\n¿Qué distribución sigue esa cantidad de tiros?",
     "options": [
       "$Geom(0{,}6)$",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "brown_binomial_CLSF_12",
     "question": "De un grupo de 10 pacientes ya vacunados, 3 tuvieron una reacción leve.\n\nSe eligen 4 pacientes al azar sin reposición para una revisión, y se cuenta cuántos de esos 4 tuvieron reacción.\n\n¿Qué distribución sigue esa cantidad de pacientes con reacción?",
     "options": [
       "$Bin(4,\\, 3/10)$",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "brown_binomial_CLSF_13",
     "question": "Un vendedor hace 6 llamadas en total, y gana confianza con cada venta lograda.\n\nSi la llamada anterior terminó en venta, la probabilidad de vender en la siguiente es $0{,}6$; si no vendió, baja a $0{,}3$.\n\n¿Se puede modelar la cantidad de ventas como una distribución binomial?",
     "options": [
       "No, la probabilidad de éxito cambia según el resultado anterior.",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "brown_binomial_CLSF_14",
     "question": "Un jugador de básquet tira 10 libres seguidos, y se cansa con cada tiro adicional.\n\nSu probabilidad de acierto arranca en $0{,}8$ y baja $0{,}05$ por cada tiro ya lanzado, sin importar si acertó o no.\n\n¿Se puede modelar la cantidad de tiros convertidos como una distribución binomial?",
     "options": [
       "Sí, el número de tiros ya está fijado en 10 de antemano.",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "brown_binomial_CLSF_15",
     "question": "Una máquina fabrica 15 piezas en una tanda, y se desgasta con el uso.\n\nLa probabilidad de que una pieza salga defectuosa arranca en $0{,}02$ y sube $0{,}01$ por cada pieza ya fabricada en la tanda.\n\n¿Se puede modelar la cantidad de piezas defectuosas como una distribución binomial?",
     "options": [
       "Sí, el número de piezas ya está fijado en 15 de antemano.",

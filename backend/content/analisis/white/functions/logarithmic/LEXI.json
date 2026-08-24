@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_logarithmic_LEXI_01",
     "question": "Una exponencial y un logaritmo de la misma base guardan una relación bien definida:\n$$f(x) = 2^x, \\quad g(x) = \\log_2(x)$$\n¿Cuál es esa relación?",
     "options": [
       "Una es el cuadrado de la otra",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_02",
     "question": "Tres de estas expresiones comparten familia y la cuarta pertenece a otra.\n\n¿Cuál de estas **no** es una **función logarítmica**?",
     "options": [
       "$f(x) = 2^x$",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_03",
     "question": "La base de un logaritmo decide en qué sentido se recorre su curva.\n\n¿La **función logarítmica** con **base** mayor que $1$ es creciente o decreciente?",
     "options": [
       "Creciente",
@@ -80,6 +83,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_04",
     "question": "Una asíntota vertical aparece cuando la función se dispara cerca de un valor prohibido del dominio.\n\n¿Cuál de estas funciones tiene **asíntota vertical**?",
     "options": [
       "$f(x) = x^2$",
@@ -105,6 +109,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_05",
     "question": "El logaritmo natural devuelve el exponente al que hay que elevar $e$ para obtener el número de adentro.\n\n¿Por qué $\\ln(x)$ no está definido para $x \\leq 0$?",
     "options": [
       "Porque la función logarítmica siempre toma valores negativos",
@@ -130,6 +135,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_06",
     "question": "El conjunto de salidas de un logaritmo no coincide con el de sus entradas:\n$$f(x) = \\log_2(x)$$\n¿Cuál es su **imagen**?",
     "options": [
       "$\\mathbb{R}$",
@@ -155,6 +161,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_07",
     "question": "Los logaritmos también aceptan argumentos entre 0 y 1:\n$$\\log_2\\!\\left(\\dfrac{1}{2}\\right)$$\n¿Cuánto vale esta expresión?",
     "options": [
       "$2$",
@@ -180,6 +187,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_08",
     "question": "Un logaritmo trae su interior elevado a una potencia:\n$$\\log_2(x^3)$$\n¿A qué expresión equivale?",
     "options": [
       "$3 \\cdot \\log_2(x)$",
@@ -205,6 +213,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_09",
     "question": "Los logaritmos con valores redondos se responden sin hacer ninguna cuenta escrita:\n$$\\log_3(3)$$\n¿Cuánto vale esta expresión?",
     "options": [
       "$1$",
@@ -230,6 +239,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_10",
     "question": "La base de este logaritmo es menor que 1, algo poco frecuente pero perfectamente válido:\n$$\\log_{0{,}5}(2)$$\n¿Cuánto vale esta expresión?",
     "options": [
       "$-1$",
@@ -255,6 +265,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_11",
     "question": "Se sabe que $\\log_2(a) = \\log_2(c)$.\n\n¿Qué puede concluirse?",
     "options": [
       "$a = 2c$",
@@ -280,6 +291,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_12",
     "question": "Se define $f(x) = 3^x$.\n\n¿Cuál es su función inversa $f^{-1}(x)$?",
     "options": [
       "$f^{-1}(x) = \\frac{1}{3^x}$",
@@ -305,6 +317,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_13",
     "question": "Una función logarítmica suma un número por fuera del logaritmo:\n$$f(x) = \\log_2(x) + 5$$\n¿Dónde está la **asíntota vertical**?",
     "options": [
       "$x = 5$",
@@ -330,6 +343,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_14",
     "question": "Anteponer un signo menos a un logaritmo cambia algo de su comportamiento y deja el resto igual:\n$$f(x) = -\\log_2(x), \\quad g(x) = \\log_2(x)$$\n¿En qué se diferencian?",
     "options": [
       "Es la misma función",
@@ -355,6 +369,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_15",
     "question": "Un logaritmo se estudia cerca del borde de su dominio.\n\n¿Qué ocurre con $\\log_2(x)$ cuando el argumento se acerca a cero por la derecha?",
     "options": [
       "Tiende a $0$",
@@ -380,6 +395,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_16",
     "question": "Un logaritmo crece cada vez más despacio, y eso hace dudar de si llega a estabilizarse.\n\n¿Tiene $f(x) = \\ln(x)$ una **asíntota horizontal** cuando $x \\to +\\infty$?",
     "options": [
       "Sí, en $y = 1$",
@@ -405,6 +421,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_17",
     "question": "Algunas magnitudes se miden mejor por su orden de crecimiento que por su valor directo.\n\n¿En qué situación cotidiana aparece de forma natural una función logarítmica?",
     "options": [
       "Calcular la distancia recorrida a velocidad constante",
@@ -430,6 +447,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_18",
     "question": "Escribir el número de adentro como potencia de la base vuelve directo el cálculo:\n$$\\log_3(27)$$\n¿Cuánto vale esta expresión?",
     "options": [
       "$9$",
@@ -455,6 +473,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_19",
     "question": "Hay un valor de entrada que da el mismo resultado en todos los logaritmos, sin importar la base:\n$$\\ln(1)$$\n¿Cuánto vale esta expresión?",
     "options": [
       "$1$",
@@ -480,6 +499,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_20",
     "question": "Un logaritmo de base 2 pregunta cuántas veces hay que duplicar para llegar al número de adentro:\n$$\\log_2(8)$$\n¿Cuánto vale esta expresión?",
     "options": [
       "$4$",
@@ -505,6 +525,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_21",
     "question": "El desplazamiento dentro del logaritmo corre también el borde de su **dominio**:\n$$f(x) = \\ln(x + 3)$$\n¿Cuál es ese dominio?",
     "options": [
       "$x > 3$",
@@ -530,6 +551,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_22",
     "question": "Para $x = 8$, cada base produce un resultado distinto.\n\n¿Qué relación hay entre $\\log_2(8)$ y $\\log_4(8)$?",
     "options": [
       "$\\log_2(8) < \\log_4(8)$",
@@ -555,6 +577,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_23",
     "question": "Este logaritmo tiene como argumento el neutro de la multiplicación:\n$$\\log_5(1)$$\n¿Cuánto vale esta expresión?",
     "options": [
       "$5$",
@@ -580,6 +603,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_24",
     "question": "El argumento de este logaritmo es una potencia de la base escrita como fracción:\n$$\\log_2\\!\\left(\\dfrac{1}{4}\\right)$$\n¿Cuánto vale esta expresión?",
     "options": [
       "$-2$",
@@ -605,6 +629,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_25",
     "question": "Un mismo valor se puede escribir con el número por fuera o reacomodado adentro del logaritmo:\n$$2 \\cdot \\log_2(x)$$\n¿A qué expresión es equivalente?",
     "options": [
       "$\\log_2(2x)$",
@@ -630,6 +655,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_26",
     "question": "Preguntar dónde un logaritmo alcanza cierta altura es leerlo en sentido inverso:\n$$f(x) = \\ln(x)$$\n¿En qué punto pasa su gráfico a altura $y = 1$?",
     "options": [
       "$(1,\\, 1)$",
@@ -655,6 +681,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_27",
     "question": "Se sabe que $\\log_2(x) = 3$.\n\n¿Cuánto vale $x$?",
     "options": [
       "$6$",
@@ -680,6 +707,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_28",
     "question": "El argumento de este logaritmo es una potencia de su propia base:\n$$\\log_6(6^5)$$\n¿Cuánto vale esta expresión?",
     "options": [
       "$6^5$",
@@ -705,6 +733,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_29",
     "question": "Cada familia de funciones trae su propia restricción de entradas, y algunas no traen ninguna.\n\n¿Cuál de estas funciones tiene **dominio** exactamente $(0, +\\infty)$?",
     "options": [
       "$f(x) = 2^x$",
@@ -730,6 +759,7 @@
     ]
   },
   {
+    "id": "white_logarithmic_LEXI_30",
     "question": "Estos dos logaritmos comparten base, así que se pueden combinar antes o después de evaluarlos:\n$$\\log_3(9) - \\log_3(3)$$\n¿Cuánto vale esta expresión?",
     "options": [
       "$3$",

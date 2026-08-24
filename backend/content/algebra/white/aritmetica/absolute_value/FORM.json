@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_absolute_value_FORM_01",
     "question": "Se quiere resolver la ecuación $|2x+1|=9$.\n\n¿Qué corresponde plantear antes de despejar $x$?",
     "options": [
       "$2x+1=9$ o $2x+1=-9$",
@@ -27,6 +28,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_FORM_02",
     "question": "Una ecuación con valor absoluto tiene siempre dos casos posibles.\n$$|x-7|=4$$\n¿Qué corresponde plantear antes de despejar?",
     "options": [
       "$x-7=4$ y $x-7=-4$",
@@ -54,6 +56,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_FORM_03",
     "question": "Una ecuación con valor absoluto puede no tener ninguna solución.\n$$|x+2|=-5$$\n¿Qué corresponde concluir?",
     "options": [
       "Que hay que plantear los dos casos, igual que con una cota positiva",
@@ -81,6 +84,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_FORM_04",
     "question": "Una ecuación con valor absoluto puede tener una sola solución.\n$$|3x-6|=0$$\n¿Qué corresponde plantear?",
     "options": [
       "$3x-6=0$, un único caso",
@@ -108,6 +112,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_FORM_05",
     "question": "Un coeficiente afuera del valor absoluto tiene que despejarse antes de plantear los casos.\n$$3|x-1|=12$$\n¿Qué corresponde hacer primero?",
     "options": [
       "Entrar el $3$ adentro del valor absoluto como un sumando",
@@ -135,6 +140,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_FORM_06",
     "question": "Se quiere resolver una inecuación con valor absoluto.\n$$|x-3|<5$$\n¿Qué expresión equivalente corresponde plantear antes de despejar $x$?",
     "options": [
       "$-5<x-3<5$",
@@ -162,6 +168,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_FORM_07",
     "question": "Una desigualdad de menor con valor absoluto describe una franja alrededor de un centro.\n$$|x+2|<7$$\n¿Qué expresión equivalente corresponde plantear?",
     "options": [
       "$-7<x-2<7$",
@@ -189,6 +196,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_FORM_08",
     "question": "Una desigualdad de menor o igual admite también los extremos de la franja.\n$$|x-5| \\leq 3$$\n¿Qué expresión equivalente corresponde plantear?",
     "options": [
       "$-3 < x-5 < 3$",
@@ -216,6 +224,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_FORM_09",
     "question": "Un coeficiente adentro del valor absoluto no cambia la forma de la equivalencia.\n$$|2x-1|<9$$\n¿Qué expresión equivalente corresponde plantear?",
     "options": [
       "$-9<2x-1<9$",
@@ -243,6 +252,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_FORM_10",
     "question": "Una desigualdad de menor puede no tener ninguna solución.\n$$|x+6|<-2$$\n¿Qué corresponde concluir?",
     "options": [
       "Que la solución es todo el conjunto de los números reales",
@@ -270,6 +280,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_FORM_11",
     "question": "Se quiere resolver la inecuación $|x+4|>6$.\n\n¿Qué expresión equivalente corresponde plantear antes de despejar $x$?",
     "options": [
       "$x+4<-6$ o $x+4>6$",
@@ -297,6 +308,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_FORM_12",
     "question": "Una desigualdad de mayor con valor absoluto describe estar lejos de un centro.\n$$|x-3|>5$$\n¿Qué expresión equivalente corresponde plantear?",
     "options": [
       "$x-3>5$",
@@ -324,6 +336,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_FORM_13",
     "question": "Una desigualdad de mayor o igual incluye los dos puntos frontera.\n$$|x+1| \\geq 4$$\n¿Qué expresión equivalente corresponde plantear?",
     "options": [
       "$x+1 < -4$ o $x+1 > 4$",
@@ -351,6 +364,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_FORM_14",
     "question": "Una desigualdad de mayor puede cumplirse para todos los números reales.\n$$|x-8|>-1$$\n¿Qué corresponde concluir?",
     "options": [
       "Que se cumple para todos los reales, porque el valor absoluto nunca es negativo",
@@ -378,6 +392,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_FORM_15",
     "question": "Un coeficiente afuera del valor absoluto se despeja antes de plantear los tramos.\n$$2|x-4|>10$$\n¿Qué corresponde hacer primero?",
     "options": [
       "Entrar el $2$ adentro del valor absoluto como un sumando",

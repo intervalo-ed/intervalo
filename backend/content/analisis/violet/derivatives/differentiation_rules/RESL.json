@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_differentiation_rules_RESL_01",
     "question": "Esta función es una potencia pura, el caso más directo de la tabla de derivadas:\n$$f(x) = x^6$$\n¿Cuál es su derivada?",
     "options": [
       "$6x^5$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_RESL_02",
     "question": "El logaritmo natural se deriva con una única fórmula de la tabla:\n$$f(x) = \\ln x$$\n¿Cuál es su derivada?",
     "options": [
       "$-1/x$",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_RESL_03",
     "question": "El coseno es una de las funciones elementales de la tabla:\n$$f(x) = \\cos x$$\n¿Cuál es su derivada?",
     "options": [
       "$\\cos x$",
@@ -75,6 +78,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_RESL_04",
     "question": "La exponencial natural aparece sola en esta función:\n$$f(x) = e^x$$\n¿Cuál es su derivada?",
     "options": [
       "$xe^{x-1}$",
@@ -100,6 +104,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_RESL_05",
     "question": "Esta función combina tres términos, cada uno con su propia regla elemental:\n$$f(x) = 4x^3 - 2\\sin x + \\ln x$$\n¿Cuál es su derivada?",
     "options": [
       "$12x^2-2\\cos x+1/x$",
@@ -125,6 +130,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_RESL_06",
     "question": "En esta suma conviven una potencia, un coseno y una constante:\n$$f(x) = 5x^2 + 3\\cos x - 4$$\n¿Cuál es su derivada?",
     "options": [
       "$10x-3\\sin x-4$",
@@ -150,6 +156,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_RESL_07",
     "question": "Una potencia y una tangente forman esta resta:\n$$f(x) = x^4 - 6\\tan x$$\n¿Cuál es su derivada?",
     "options": [
       "$x^3-6\\sec^2x$",
@@ -175,6 +182,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_RESL_08",
     "question": "Esta función suma un término exponencial y uno lineal:\n$$f(x) = 2e^x + 5x$$\n¿Cuál es su derivada?",
     "options": [
       "$2e^x+5x$",
@@ -200,6 +208,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_RESL_09",
     "question": "La constante encabeza esta suma de tres términos:\n$$f(x) = 7 - 3x^2 + \\sin x$$\n¿Cuál es su derivada?",
     "options": [
       "$-6x+\\cos x$",
@@ -225,6 +234,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_RESL_10",
     "question": "Un logaritmo y un coseno, cada uno con su fórmula propia, arman esta función:\n$$f(x) = \\ln x + 4\\cos x$$\n¿Cuál es su derivada?",
     "options": [
       "$1/x-4\\cos x$",
@@ -250,6 +260,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_RESL_11",
     "question": "La pendiente de esta curva cambia punto a punto:\n$$f(x) = x^3$$\n¿Cuánto vale $f'(2)$?",
     "options": [
       "$8$",
@@ -275,6 +286,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_RESL_12",
     "question": "Interesa conocer la pendiente del seno justo al pasar por el origen:\n$$f(x) = \\sin x$$\n¿Cuánto vale $f'(0)$?",
     "options": [
       "$0$",
@@ -300,6 +312,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_RESL_13",
     "question": "Esta función suma una exponencial y un término lineal:\n$$f(x) = e^x + x$$\nSu recta tangente en $x=0$ se arma con dos datos, la pendiente y la altura ahí.\n\n¿Cuál es su ecuación en la forma $y=mx+b$?",
     "options": [
       "$y=2x+1$",
@@ -325,6 +338,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_RESL_14",
     "question": "Una partícula se mueve con posición dada por:\n$$s(t) = t^3 - 2t$$\nSu velocidad en cada instante es la derivada de la posición.\n\n¿Cuál es $v(t) = s'(t)$?",
     "options": [
       "$v(t)=3t^2-2t$",
@@ -350,6 +364,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_RESL_15",
     "question": "Sobre esta parábola se busca un punto con una inclinación muy concreta:\n$$f(x) = x^2$$\nAhí la tangente debe quedar paralela a la recta $y=4x+1$.\n\n¿En qué valor de $x$ ocurre?",
     "options": [
       "$x=4$",

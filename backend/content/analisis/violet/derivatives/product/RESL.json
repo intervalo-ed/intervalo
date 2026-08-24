@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_product_RESL_01",
     "question": "El numerador de esta función tiene una raíz que coincide con el punto de evaluación:\n$$f(x) = (x^2-4)e^x$$\n¿Cuánto vale $f'(2)$?",
     "options": [
       "$4e^2$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "violet_product_RESL_02",
     "question": "Esta función combina un binomio simple con la exponencial:\n$$f(x) = (x-1)e^x$$\n¿Cuánto vale $f'(1)$?",
     "options": [
       "$-e$",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "violet_product_RESL_03",
     "question": "Un factor de esta función se anula justo en el punto que interesa:\n$$f(x) = (x^2-9)\\ln x$$\n¿Cuánto vale $f'(3)$?",
     "options": [
       "$6\\ln 9$",
@@ -75,6 +78,7 @@
     ]
   },
   {
+    "id": "violet_product_RESL_04",
     "question": "Esta función multiplica un binomio por una potencia:\n$$f(x) = (x+5)x^2$$\n¿Cuánto vale $f'(-5)$?",
     "options": [
       "$-25$",
@@ -100,6 +104,7 @@
     ]
   },
   {
+    "id": "violet_product_RESL_05",
     "question": "El punto de evaluación de esta función coincide con la raíz de uno de sus factores:\n$$f(x) = (x-4)e^x$$\n¿Cuánto vale $f'(4)$?",
     "options": [
       "$e^4$",
@@ -125,6 +130,7 @@
     ]
   },
   {
+    "id": "violet_product_RESL_06",
     "question": "El coseno y la exponencial se multiplican en esta función:\n$$f(x) = \\cos x \\cdot e^x$$\n¿Cuánto vale $f'(0)$?",
     "options": [
       "$e$",
@@ -150,6 +156,7 @@
     ]
   },
   {
+    "id": "violet_product_RESL_07",
     "question": "Esta función combina una potencia cuadrática con la exponencial:\n$$f(x) = (x^2+3)e^x$$\n¿Cuánto vale $f'(0)$?",
     "options": [
       "$-3$",
@@ -175,6 +182,7 @@
     ]
   },
   {
+    "id": "violet_product_RESL_08",
     "question": "El coseno multiplica a un polinomio cuadrático en esta función:\n$$f(x) = \\cos x \\cdot (x^2+2)$$\n¿Cuánto vale $f'(\\pi)$?",
     "options": [
       "$2\\pi$",
@@ -200,6 +208,7 @@
     ]
   },
   {
+    "id": "violet_product_RESL_09",
     "question": "Esta función multiplica la exponencial por un polinomio con vértice propio:\n$$f(x) = \\big((x-1)^2+5\\big)e^x$$\n¿Cuánto vale $f'(1)$?",
     "options": [
       "$5e$",
@@ -225,6 +234,7 @@
     ]
   },
   {
+    "id": "violet_product_RESL_10",
     "question": "En esta función, el punto de evaluación anula un factor completo y su derivada a la vez:\n$$f(x) = x^2 \\cdot e^x$$\n¿Cuánto vale $f'(0)$?",
     "options": [
       "$e$",
@@ -250,6 +260,7 @@
     ]
   },
   {
+    "id": "violet_product_RESL_11",
     "question": "Esta función tiene un binomio elevado al cuadrado multiplicando a la exponencial:\n$$f(x) = (x-1)^2 \\cdot e^x$$\n¿Cuánto vale $f'(1)$?",
     "options": [
       "$2e$",
@@ -275,6 +286,7 @@
     ]
   },
   {
+    "id": "violet_product_RESL_12",
     "question": "Un binomio al cuadrado se multiplica por el coseno en esta función:\n$$f(x) = (x+2)^2 \\cdot \\cos x$$\n¿Cuánto vale $f'(-2)$?",
     "options": [
       "$4$",
@@ -300,6 +312,7 @@
     ]
   },
   {
+    "id": "violet_product_RESL_13",
     "question": "De estas dos funciones solo se conocen sus valores en un punto:\n$$\\begin{aligned} f(2)&=0,\\quad f'(2)=5 \\\\ g(2)&=4,\\quad g'(2)=-1 \\end{aligned}$$\n¿Cuánto vale $(f\\cdot g)'(2)$?",
     "options": [
       "$20$",
@@ -325,6 +338,7 @@
     ]
   },
   {
+    "id": "violet_product_RESL_14",
     "question": "Cuatro datos puntuales bastan para derivar este producto:\n$$\\begin{aligned} f(1)&=3,\\quad f'(1)=0 \\\\ g(1)&=-2,\\quad g'(1)=6 \\end{aligned}$$\n¿Cuánto vale $(f\\cdot g)'(1)$?",
     "options": [
       "$-18$",
@@ -350,6 +364,7 @@
     ]
   },
   {
+    "id": "violet_product_RESL_15",
     "question": "Sin ninguna fórmula a la vista, el producto se deriva con estos valores:\n$$\\begin{aligned} f(0)&=5,\\quad f'(0)=-2 \\\\ g(0)&=0,\\quad g'(0)=3 \\end{aligned}$$\n¿Cuánto vale $(f\\cdot g)'(0)$?",
     "options": [
       "$0$",

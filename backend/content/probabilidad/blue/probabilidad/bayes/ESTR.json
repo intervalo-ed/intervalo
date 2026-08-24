@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_bayes_ESTR_01",
     "question": "En un test diagnóstico se sabe que el 2% de la población tiene cierta enfermedad.\n\nEntre quienes tienen la enfermedad, el test da positivo el 90% de las veces.\n\nSe quiere calcular la probabilidad de tener la enfermedad sabiendo que el test dio positivo.\n\n¿Qué rol cumple el dato de que el test da positivo el 90% de las veces entre los enfermos?",
     "options": [
       "La probabilidad a priori.",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "blue_bayes_ESTR_02",
     "question": "En un test diagnóstico se sabe que, entre los enfermos, el test da positivo el 90% de las veces.\n\nEntre los sanos, en cambio, da positivo el 5% de las veces.\n\nSe quiere calcular la probabilidad de tener la enfermedad sabiendo que el test dio positivo.\n\n¿Qué dato falta para poder aplicar el teorema de Bayes?",
     "options": [
       "La probabilidad a priori de la enfermedad.",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "blue_bayes_ESTR_03",
     "question": "En un análisis de laboratorio se sabe que el 4% de una población tiene una infección determinada.\n\nEntre quienes tienen la infección, el análisis da positivo el 85% de las veces.\n\nSe quiere calcular la probabilidad de tener la infección sabiendo que el análisis dio positivo.\n\n¿Qué rol cumple el dato de que el 4% de la población tiene la infección?",
     "options": [
       "La probabilidad a priori.",
@@ -69,6 +72,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_ESTR_04",
     "question": "En una línea de producción, una máquina puede estar bien calibrada o descalibrada.\n\nSe sabe que el 5% de las corridas arranca con la máquina descalibrada.\n\nUna máquina descalibrada produce piezas defectuosas el 70% de las veces, y apareció una pieza defectuosa en la corrida actual.\n\n¿Qué rol cumple la probabilidad de que la máquina esté descalibrada, calculada después de observar la pieza defectuosa?",
     "options": [
       "La probabilidad a priori.",
@@ -92,6 +96,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_ESTR_05",
     "question": "Hay dos cajas con bolitas, la caja $A$ y la caja $B$, y se elige una caja al azar antes de sacar una bolita.\n\nSe sabe que la caja $A$ tiene un 60% de bolitas rojas, y la caja $B$ tiene un 20% de bolitas rojas.\n\nSe sacó una bolita roja y se quiere calcular la probabilidad de que haya salido de la caja $A$.\n\n¿Qué rol cumple el dato de que la caja $A$ tiene un 60% de bolitas rojas?",
     "options": [
       "La probabilidad a priori.",
@@ -115,6 +120,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_ESTR_06",
     "question": "En un juego hay dos cajas, la caja $X$ y la caja $Y$.\n\nLa caja $X$ se elige con una probabilidad del 70% y la caja $Y$ con un 30%.\n\nCada caja tiene una proporción distinta de fichas negras, y se sacó una ficha negra.\n\n¿Qué rol cumple el dato de que la caja $X$ se elige con un 70% de probabilidad?",
     "options": [
       "La probabilidad a priori.",
@@ -138,6 +144,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_ESTR_07",
     "question": "Un filtro de spam analiza si un correo contiene cierta palabra clave.\n\nSe sabe que el 15% de los correos recibidos son spam, y que entre los correos spam, un 80% contiene esa palabra clave.\n\nUn correo llegó con esa palabra clave, y se calculó la probabilidad de que sea spam a partir de ese dato.\n\n¿Qué rol cumple esa probabilidad calculada después de observar la palabra clave?",
     "options": [
       "La probabilidad a priori.",
@@ -161,6 +168,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_ESTR_08",
     "question": "Un filtro de spam revisa si un correo contiene un enlace acortado.\n\nEntre los correos spam, un 65% contiene un enlace acortado. Entre los correos legítimos, solo un 5% lo contiene.\n\nSe quiere calcular la probabilidad de que un correo sea spam sabiendo que contiene un enlace acortado.\n\n¿Qué rol cumple el dato de que el 65% de los correos spam contiene un enlace acortado?",
     "options": [
       "La probabilidad a priori.",
@@ -184,6 +192,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_ESTR_09",
     "question": "En una fábrica, un lote de piezas puede provenir de dos proveedores, el proveedor $P$ y el proveedor $Q$.\n\nEl 80% de las piezas recibidas viene del proveedor $P$ y el 20% del proveedor $Q$.\n\nCada proveedor tiene su propia tasa de piezas defectuosas, y se encontró una pieza defectuosa en el lote.\n\n¿Qué rol cumple el dato de que el 80% de las piezas viene del proveedor $P$?",
     "options": [
       "La probabilidad a priori del proveedor.",
@@ -207,6 +216,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_ESTR_10",
     "question": "Un análisis de sangre detecta cierta deficiencia mediante un resultado positivo.\n\nEntre quienes tienen la deficiencia, el análisis da positivo el 92% de las veces.\n\nEntre quienes no la tienen, da positivo el 8% de las veces.\n\nSe quiere calcular la probabilidad de tener la deficiencia sabiendo que el análisis dio positivo.\n\n¿Qué dato falta para poder aplicar el teorema de Bayes?",
     "options": [
       "La probabilidad de que el análisis dé negativo en alguien sano.",
@@ -230,6 +240,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_ESTR_11",
     "question": "Una fábrica arma un producto con piezas que pueden venir de dos líneas de ensamblaje, la línea $M$ y la línea $N$.\n\nSe sabe que entre las piezas de la línea $M$, un 6% resulta defectuosa, y entre las de la línea $N$, un 3% resulta defectuosa.\n\nSe encontró una pieza defectuosa y se quiere calcular la probabilidad de que provenga de la línea $M$.\n\n¿Qué dato falta para poder aplicar el teorema de Bayes?",
     "options": [
       "La probabilidad de que una pieza de la línea $N$ no sea defectuosa.",
@@ -253,6 +264,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_ESTR_12",
     "question": "Una máquina puede estar bien calibrada o descalibrada, y eso afecta la tasa de piezas defectuosas que produce.\n\nUna máquina descalibrada produce piezas defectuosas el 40% de las veces, y una bien calibrada las produce el 2% de las veces.\n\nSe quiere calcular la probabilidad de que la máquina esté descalibrada sabiendo que salió una pieza defectuosa.\n\n¿Qué dato falta para poder aplicar el teorema de Bayes?",
     "options": [
       "La probabilidad a priori de que la máquina esté descalibrada.",
@@ -276,6 +288,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_ESTR_13",
     "question": "Hay dos urnas, la urna $C$ y la urna $D$, cada una con una proporción distinta de bolitas blancas.\n\nSe sabe que la urna $C$ tiene un 70% de bolitas blancas y la urna $D$ tiene un 25% de bolitas blancas.\n\nSe sacó una bolita blanca y se quiere calcular la probabilidad de que haya salido de la urna $C$.\n\n¿Qué dato falta para poder aplicar el teorema de Bayes?",
     "options": [
       "La probabilidad de sacar una bolita negra de la urna $D$.",
@@ -299,6 +312,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_ESTR_14",
     "question": "Hay tres cajas idénticas en apariencia, y cada una tiene una proporción distinta de fichas rojas.\n\nLa caja $1$ tiene un 50% de fichas rojas.\n\nLa caja $2$ tiene un 30%, y la caja $3$ un 10%. Se sacó una ficha roja y se quiere calcular de qué caja probablemente salió.\n\n¿Qué dato falta para poder aplicar el teorema de Bayes?",
     "options": [
       "La probabilidad de sacar una ficha no roja de la caja $2$.",
@@ -322,6 +336,7 @@
     "reviewed": false
   },
   {
+    "id": "blue_bayes_ESTR_15",
     "question": "Un filtro de spam usa la presencia de mayúsculas excesivas en el asunto como señal.\n\nEntre los correos spam, un 55% tiene mayúsculas excesivas en el asunto, y entre los correos legítimos, un 4% las tiene.\n\nSe quiere calcular la probabilidad de que un correo sea spam sabiendo que su asunto tiene mayúsculas excesivas.\n\n¿Qué dato falta para poder aplicar el teorema de Bayes?",
     "options": [
       "La probabilidad a priori de que un correo sea spam.",

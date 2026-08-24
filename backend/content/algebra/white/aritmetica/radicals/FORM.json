@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_radicals_FORM_01",
     "question": "Se quiere racionalizar la fracción:\n$$\\dfrac{5}{\\sqrt{3}}$$\n¿Qué expresión corresponde al factor por el que hay que multiplicar numerador y denominador?",
     "options": [
       "$\\dfrac{\\sqrt{3}}{\\sqrt{3}}$",
@@ -27,6 +28,7 @@
     ]
   },
   {
+    "id": "white_radicals_FORM_02",
     "question": "Se quiere racionalizar una fracción con una raíz acompañada de un coeficiente.\n$$\\dfrac{4}{3\\sqrt{2}}$$\n¿Por qué factor hay que multiplicar el numerador y el denominador?",
     "options": [
       "$\\dfrac{\\sqrt{2}}{2}$",
@@ -54,6 +56,7 @@
     ]
   },
   {
+    "id": "white_radicals_FORM_03",
     "question": "Racionalizar una raíz cúbica exige completar el cubo del radicando, no solo repetir la raíz.\n$$\\dfrac{1}{\\sqrt[3]{5}}$$\n¿Por qué factor hay que multiplicar el numerador y el denominador?",
     "options": [
       "$\\dfrac{\\sqrt[3]{5}}{\\sqrt[3]{5}}$",
@@ -81,6 +84,7 @@
     ]
   },
   {
+    "id": "white_radicals_FORM_04",
     "question": "No toda fracción que contiene una raíz necesita racionalizarse.\n$$\\dfrac{\\sqrt{7}}{4}$$\n¿Qué corresponde hacer?",
     "options": [
       "Nada, porque el denominador ya es un número entero",
@@ -108,6 +112,7 @@
     ]
   },
   {
+    "id": "white_radicals_FORM_05",
     "question": "Racionalizar se apoya en que multiplicar una raíz por sí misma deshace el radical.\n$$(\\sqrt{a})^{2} = a$$\n¿Por qué eso limpia el denominador?",
     "options": [
       "Porque el denominador termina cancelándose contra el numerador",
@@ -135,6 +140,7 @@
     ]
   },
   {
+    "id": "white_radicals_FORM_06",
     "question": "Se quiere simplificar $\\sqrt{72}$ extrayendo el mayor factor que sea un cuadrado perfecto.\n\n¿Cuál es ese factor?",
     "options": [
       "$36$",
@@ -162,6 +168,7 @@
     ]
   },
   {
+    "id": "white_radicals_FORM_07",
     "question": "Se quiere simplificar una raíz extrayendo el mayor factor que sea un cuadrado perfecto.\n$$\\sqrt{50}$$\n¿Cuál es ese factor?",
     "options": [
       "$2$",
@@ -189,6 +196,7 @@
     ]
   },
   {
+    "id": "white_radicals_FORM_08",
     "question": "Se quiere simplificar una raíz de radicando grande en un solo paso.\n$$\\sqrt{200}$$\n¿Cuál es el mayor factor cuadrado perfecto que se puede extraer?",
     "options": [
       "$25$",
@@ -216,6 +224,7 @@
     ]
   },
   {
+    "id": "white_radicals_FORM_09",
     "question": "Con índice tres, lo que hay que buscar adentro del radicando ya no son cuadrados.\n$$\\sqrt[3]{54}$$\n¿Cuál es el factor que corresponde extraer?",
     "options": [
       "$27$",
@@ -243,6 +252,7 @@
     ]
   },
   {
+    "id": "white_radicals_FORM_10",
     "question": "Un radicando puede tener varios cuadrados perfectos entre sus divisores.\n$$\\sqrt{48}$$\n¿Cuál conviene extraer?",
     "options": [
       "$12$",
@@ -270,6 +280,7 @@
     ]
   },
   {
+    "id": "white_radicals_FORM_11",
     "question": "Se quiere sumar:\n$$\\sqrt{20} + \\sqrt{45}$$\n¿Qué corresponde hacer primero, antes de sumar?",
     "options": [
       "Simplificar cada radical y ver si son semejantes",
@@ -297,6 +308,7 @@
     ]
   },
   {
+    "id": "white_radicals_FORM_12",
     "question": "Dos radicales solo se pueden sumar si son semejantes, o sea si comparten índice y radicando.\n$$\\sqrt{12} + \\sqrt{27}$$\n¿Qué corresponde hacer primero?",
     "options": [
       "Sumar los índices de las dos raíces y conservar el radicando",
@@ -324,6 +336,7 @@
     ]
   },
   {
+    "id": "white_radicals_FORM_13",
     "question": "Dos radicales pueden seguir siendo distintos después de simplificarlos.\n$$\\sqrt{8} + \\sqrt{12}$$\n¿Qué se puede afirmar sobre esa suma?",
     "options": [
       "Que se combina en una sola raíz sumando los dos radicandos",
@@ -351,6 +364,7 @@
     ]
   },
   {
+    "id": "white_radicals_FORM_14",
     "question": "Dos radicales semejantes se suman igual que dos términos con la misma letra.\n$$2x + 3x = 5x$$\n¿Qué condición tienen que cumplir dos radicales para sumarse así?",
     "options": [
       "Tener el mismo índice y el mismo radicando",
@@ -378,6 +392,7 @@
     ]
   },
   {
+    "id": "white_radicals_FORM_15",
     "question": "Dos radicales de índice distinto no se combinan aunque el radicando coincida.\n$$\\sqrt{5} + \\sqrt[3]{5}$$\n¿Qué corresponde hacer?",
     "options": [
       "Promediar los dos índices y escribir un único radical",

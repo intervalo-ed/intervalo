@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_bases_ESTR_01",
     "question": "Se tienen exactamente tres vectores y se quiere saber si forman una base.\n$$\\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\} \\subset \\mathbb{R}^3$$\n¿Qué alcanza con verificar?",
     "options": [
       "Que los tres sean linealmente independientes entre sí",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "brown_bases_ESTR_02",
     "question": "Se comprobó que tres vectores alcanzan cualquier punto.\n$$\\text{gen}\\{\\vec{u}, \\vec{v}, \\vec{w}\\} = \\mathbb{R}^3$$\n¿Hace falta verificar algo más para saber si forman una base?",
     "options": [
       "Sí, hay que verificar además que ninguno se arme con los otros dos",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "brown_bases_ESTR_03",
     "question": "Se comprobó que dos vectores no son múltiplos entre sí.\n$$\\{\\vec{v}_1, \\vec{v}_2\\} \\subset \\mathbb{R}^3$$\n¿Alcanza eso para afirmar que forman una base del espacio?",
     "options": [
       "Sí, porque no ser múltiplos ya garantiza las dos condiciones",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "brown_bases_ESTR_04",
     "question": "Dos vectores del plano se proponen como base y se quiere hacer la verificación más corta.\n$$\\{(4,1), (1,3)\\} \\subset \\mathbb{R}^2$$\n¿Qué alcanza con verificar?",
     "options": [
       "Que ninguno de los dos sea múltiplo del otro",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "brown_bases_ESTR_05",
     "question": "Tres vectores de $\\mathbb{R}^3$ se proponen como base.\n$$B = \\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\}$$\n¿Cuál de las dos condiciones conviene verificar?",
     "options": [
       "Las dos, porque con tres vectores el atajo deja de valer",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "brown_bases_ESTR_06",
     "question": "Un conjunto de cuatro vectores se propone como base.\n$$\\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3, \\vec{v}_4\\} \\subset \\mathbb{R}^3$$\n¿Qué se puede afirmar antes de mirar cuáles son?",
     "options": [
       "Que no es base, porque le sobra al menos un vector",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "brown_bases_ESTR_07",
     "question": "Un conjunto de dos vectores se propone como base.\n$$\\{\\vec{v}_1, \\vec{v}_2\\} \\subset \\mathbb{R}^3$$\n¿Qué se puede afirmar antes de mirar cuáles son?",
     "options": [
       "Que hace falta calcular para poder decidirlo bien",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "brown_bases_ESTR_08",
     "question": "Un conjunto de tres vectores del plano se propone como base.\n$$B = \\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\}$$\n¿Qué se puede afirmar antes de mirar cuáles son?",
     "options": [
       "Que no es base, porque no llega a alcanzar todo el plano",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "brown_bases_ESTR_09",
     "question": "Contar los vectores de un conjunto alcanza para descartarlo en algunos casos.\n$$B = \\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\}$$\n¿Puede la cantidad confirmar que un conjunto sí es base?",
     "options": [
       "No, con la cantidad justa todavía hay que mirar los vectores",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "brown_bases_ESTR_10",
     "question": "Se quiere saber cuántos vectores tiene que tener cualquier base del plano.\n$$B \\subset \\mathbb{R}^2$$\n¿Cuál es esa cantidad?",
     "options": [
       "Cualquier cantidad, mientras generen el plano",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "brown_bases_ESTR_11",
     "question": "Un conjunto de cuatro vectores genera un subespacio, pero no es base porque tiene vectores de más.\n$$\\text{gen}\\{\\vec{v}_1, \\dots, \\vec{v}_4\\} = S$$\n¿Qué conviene hacer para obtener una base de ese mismo subespacio?",
     "options": [
       "Descartar los vectores que se arman con los otros, hasta que no sobre ninguno",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "brown_bases_ESTR_12",
     "question": "Un conjunto no tiene ningún vector de más, pero no alcanza a cubrir todo el espacio.\n$$\\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\} \\neq \\mathbb{R}^3$$\n¿Qué conviene hacer para obtener una base del espacio?",
     "options": [
       "Reemplazar los dos por un único vector más largo",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "brown_bases_ESTR_13",
     "question": "Se quiere agregar un vector a un conjunto para acercarlo a ser una base.\n$$\\{\\vec{v}_1, \\vec{v}_2\\} \\subset \\mathbb{R}^3$$\n¿Cómo tiene que ser el vector que se agrega?",
     "options": [
       "Tiene que ser múltiplo de alguno de los dos que ya están",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "brown_bases_ESTR_14",
     "question": "Se quiere sacar un vector de un conjunto generador sin perder alcance.\n$$\\text{gen}\\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\} = S$$\n¿Cuál conviene sacar?",
     "options": [
       "Uno que se arme combinando los otros dos",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "brown_bases_ESTR_15",
     "question": "Un conjunto de $\\mathbb{R}^3$ no alcanza a generarlo y además tiene un vector repetido.\n$$\\{\\vec{v}_1, \\vec{v}_1, \\vec{v}_2\\}$$\n¿Qué conviene hacer para obtener una base del espacio?",
     "options": [
       "Sacar los tres y empezar de nuevo con otros vectores",

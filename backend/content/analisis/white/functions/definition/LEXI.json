@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_definition_LEXI_01",
     "question": "Un cajero automático asigna a cada cuenta bancaria su saldo disponible.\n\n¿Qué pasaría en este sistema si no se cumpliera la **unicidad**?",
     "options": [
       "Una misma cuenta mostraría distintos saldos al mismo tiempo",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_02",
     "question": "Un termómetro digital asigna a cada instante de tiempo la temperatura del ambiente.\n\n¿Qué garantía te da la **unicidad** en esta medición?",
     "options": [
       "El termómetro no puede repetir la misma temperatura en distintos instantes",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_03",
     "question": "Una heladería cobra \\$600 por bocha y arma conos de hasta 4 bochas. El precio de $n$ bochas es:$$f(n) = 600n, \\qquad n \\in \\{1,2,3,4\\}$$ ¿Cuál es el **dominio** de esta función?",
     "options": [
       "$\\{600, 1200, 1800, 2400\\}$",
@@ -71,6 +74,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_04",
     "question": "Un municipio asigna un número de expediente a cada uno de sus 40000 vecinos, numerados del 1 al 40000. $$E : \\{1,\\dots,40000\\} \\to \\mathbb{N}$$ ¿Cuál es el **dominio**?",
     "options": [
       "Los números de expediente asignados a cada vecino",
@@ -94,6 +98,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_05",
     "question": "La velocidad promedio de un viaje de 120 km que dura $t$ horas es:$$v(t) = \\frac{120}{t}$$ ¿Cuál es el **dominio** natural de esta función?",
     "options": [
       "$t \\geq 120$",
@@ -119,6 +124,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_06",
     "question": "El costo por asistente para un alquiler de \\$4800 dividido entre $n$ personas es:$$c(n) = \\frac{4800}{n}$$ ¿Cuál es el **dominio** natural de esta función?",
     "options": [
       "$\\mathbb{R}$",
@@ -144,6 +150,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_07",
     "question": "Una función transforma cada número en la raíz de su diferencia con 10. $$g(x) = \\sqrt{10 - x}$$ ¿Cuál es el **dominio** natural de esta función?",
     "options": [
       "$x \\geq 10$",
@@ -169,6 +176,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_08",
     "question": "Una función transforma cada valor según:\n$$r(x) = \\frac{1}{x - 3}$$\n¿Cuál es el **dominio** natural de esta función?",
     "options": [
       "$x > 3$",
@@ -194,6 +202,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_09",
     "question": "El radio de una circunferencia en función de su área $A$ es:$$r(A) = \\sqrt{\\frac{A}{\\pi}}$$ ¿Cuál es el **dominio** natural?",
     "options": [
       "$A \\geq 0$",
@@ -219,6 +228,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_10",
     "question": "Tu sueldo base son \\$15000 más \\$3000 por cada hora extra $h$. $$S(h) = 15000 + 3000h$$ ¿Qué tipo de magnitud es el sueldo $S$?",
     "options": [
       "Variable dependiente",
@@ -242,6 +252,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_11",
     "question": "Una heladera consume 0,4 kWh por hora de uso. El consumo total tras $h$ horas es:$$C(h) = 0{,}4h$$ ¿Cuál es la variable **independiente**?",
     "options": [
       "Las horas de uso $h$",
@@ -265,6 +276,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_12",
     "question": "El total a pagar por $v$ litros de nafta a \\$700 el litro se calcula con:$$P(v) = 700v$$ ¿Qué sería el total $P$ en este caso?",
     "options": [
       "Es un parámetro constante",
@@ -288,6 +300,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_13",
     "question": "Una caja de madera pesa 2 kg. Cada bloque que se guarda adentro pesa 0,3 kg. El peso total con $m$ bloques es:$$W(m) = 2 + 0{,}3m$$ ¿Cuál es la variable **dependiente**?",
     "options": [
       "La cantidad de bloques $m$",
@@ -311,6 +324,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_14",
     "question": "La temperatura en grados Fahrenheit a partir de los Celsius $c$ es:$$F(c) = \\frac{9}{5}c + 32$$ ¿Cuál es la variable **independiente**?",
     "options": [
       "Los grados Fahrenheit $F$",
@@ -334,6 +348,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_15",
     "question": "Una cuenta de banco otorga interés sobre un capital. El dinero extra acumulado tras $a$ años es:$$I(a) = 300a$$ ¿Cuál es la variable **dependiente**?",
     "options": [
       "El tiempo en años $a$",
@@ -357,6 +372,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_16",
     "question": "Un cine tiene 8 salas. La función asigna a cada sala su capacidad en butacas. $$C : \\{1,\\dots,8\\} \\to \\{1,\\dots,500\\}$$ ¿Qué conjunto cumple el rol del **codominio**?",
     "options": [
       "Las capacidades que realmente poseen las 8 salas",
@@ -380,6 +396,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_17",
     "question": "Un taller cobra un servicio fijo según el modelo de auto, variando entre \\$5000 y \\$50000. $$S : \\{\\text{modelos}\\} \\to \\{5000,\\dots,50000\\}$$ ¿Cuál es el **codominio** de la asignación?",
     "options": [
       "El intervalo $\\{5000, \\dots, 50000\\}$",
@@ -403,6 +420,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_18",
     "question": "Un profesor carga en el sistema si un alumno aprobó con un 1 o desaprobó con un 0.\n$$A : \\{\\text{alumnos}\\} \\to \\{0, 1\\}$$\n¿Qué conjunto representa al **codominio** de la función?",
     "options": [
       "El grupo de notas obtenidas al final",
@@ -426,6 +444,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_19",
     "question": "Una máquina de café prepara vasos que contienen entre 50 ml y 200 ml según el botón. $$V : \\{\\text{botones}\\} \\to [50, 200]$$ ¿Qué elemento conforma el **codominio**?",
     "options": [
       "El intervalo continuo $[50, 200]$",
@@ -449,6 +468,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_20",
     "question": "Se toma un conjunto de números y se los eleva al cuadrado, según:\n$$f(x) = x^2, \\qquad x \\in \\{-3, -1, 0, 1, 3\\}$$\n¿Cuál es el conjunto **imagen** de esta operación?",
     "options": [
       "$\\{-9, -1, 0, 1, 9\\}$",
@@ -474,6 +494,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_21",
     "question": "Un ascensor tiene botonera del 1 al 20, pero los pisos 13 y 17 están rotos y jamás se alcanzan. $$A : \\{\\text{viajes}\\} \\to \\{1,\\dots,20\\}$$ ¿Cuál es el conjunto **imagen** del ascensor?",
     "options": [
       "Todos los pisos del 1 al 20",
@@ -497,6 +518,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_22",
     "question": "Un kiosco vende 5 productos numerados del 1 al 5. La función $P$ asigna a cada producto su precio en pesos. $$\\begin{aligned} P(1) &= 100 \\\\ P(2) &= 150 \\\\ P(3) &= 100 \\\\ P(4) &= 200 \\\\ P(5) &= 150 \\end{aligned}$$ ¿Cuál es el conjunto **imagen** de $P$?",
     "options": [
       "$\\{100, 150, 100, 200, 150\\}$",
@@ -522,6 +544,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_23",
     "question": "Una función constante asocia el número 5 a cualquier entrada del **dominio**. $$f(x) = 5, \\qquad x \\in \\mathbb{R}$$ ¿Cuál es el conjunto **imagen** de esta función?",
     "options": [
       "$\\{5\\}$",
@@ -547,6 +570,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_24",
     "question": "Una empresa de envíos cobra \\$1000 por paquetes de hasta 1 kg y \\$2000 si supera ese límite, usando pesos positivos. $$C(p) = \\begin{cases} 1000 & p \\leq 1 \\\\ 2000 & p > 1 \\end{cases}$$ ¿Cuál es el conjunto **imagen**?",
     "options": [
       "$[1000, 2000]$",
@@ -572,6 +596,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_25",
     "question": "Una función transforma cada número en su cubo. Al evaluar el 3 se obtiene 27. $$f(3) = 27$$ ¿Qué sería el 27 respecto del 3 en este caso?",
     "options": [
       "El dominio puntual",
@@ -595,6 +620,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_26",
     "question": "Una función eleva cada número al cuadrado y le suma 1. Al evaluar en $-2$, se llega a 5.\n$$f(-2) = 5$$\n¿Qué sería el 5 respecto del $-2$ en este caso?",
     "options": [
       "Una preimagen de $-2$",
@@ -618,6 +644,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_27",
     "question": "Se usa una regla del valor absoluto para procesar datos numéricos. $$f(x) = |x|$$ ¿Cuántas **preimágenes** tiene el 1 bajo esta función?",
     "options": [
       "Solo el $1$",
@@ -643,6 +670,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_28",
     "question": "Una función constante asocia el número 8 a cualquier valor real de entrada. $$g(x) = 8$$ ¿Qué ocurre si querés encontrar la **preimagen** del 10?",
     "options": [
       "No tiene ninguna preimagen",
@@ -666,6 +694,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_29",
     "question": "Una función lineal modela el costo total en función de los artículos comprados. $$C(a) = 5a + 10$$ ¿Cuál es la **preimagen** del costo 35?",
     "options": [
       "$a = 4$",
@@ -691,6 +720,7 @@
     ]
   },
   {
+    "id": "white_definition_LEXI_30",
     "question": "Una aplicación asigna el cubo a las entradas. Al ingresar el 4, la pantalla muestra 64. $$V(4) = 64$$ ¿Qué sería el 4 respecto del 64 en este caso?",
     "options": [
       "Es el dominio puntual",

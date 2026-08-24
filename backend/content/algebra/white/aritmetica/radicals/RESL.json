@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_radicals_RESL_01",
     "question": "Un terreno cuadrado tiene un área de $72$ m².\n\nLa medida del lado es:\n$$\\sqrt{72}$$\n¿Cómo se simplifica esa expresión?",
     "options": [
       "$6\\sqrt{2}$",
@@ -27,6 +28,7 @@
     ]
   },
   {
+    "id": "white_radicals_RESL_02",
     "question": "Una habitación cuadrada tiene una superficie de $108$ metros cuadrados.\n\nLa medida de su lado es:\n$$\\sqrt{108}$$\n¿Cómo queda esa expresión simplificada?",
     "options": [
       "$36\\sqrt{3}$",
@@ -54,6 +56,7 @@
     ]
   },
   {
+    "id": "white_radicals_RESL_03",
     "question": "Un recipiente cúbico tiene un volumen de $54$ litros.\n\nLa medida de su arista es:\n$$\\sqrt[3]{54}$$\n¿Cómo queda esa expresión simplificada?",
     "options": [
       "$2\\sqrt[3]{3}$",
@@ -81,6 +84,7 @@
     ]
   },
   {
+    "id": "white_radicals_RESL_04",
     "question": "Una cinta métrica marca una longitud que sale de una diagonal, y ese valor es:\n$$\\sqrt{200}$$\n¿Cómo queda esa expresión simplificada?",
     "options": [
       "$10\\sqrt{2}$",
@@ -108,6 +112,7 @@
     ]
   },
   {
+    "id": "white_radicals_RESL_05",
     "question": "Una maqueta usa una escala cuyo factor de reducción es:\n$$\\sqrt{147}$$\n¿Cómo queda esa expresión simplificada?",
     "options": [
       "$21\\sqrt{3}$",
@@ -135,6 +140,7 @@
     ]
   },
   {
+    "id": "white_radicals_RESL_06",
     "question": "Un terreno cuadrado tiene área $3$ m², y otro terreno cuadrado tiene área $5$ m².\n\nLa relación entre el lado del primer terreno y el lado del segundo es:\n$$\\dfrac{\\sqrt{3}}{\\sqrt{5}}$$\n¿Cuál es el resultado racionalizado, sin raíz en el denominador?",
     "options": [
       "$\\dfrac{\\sqrt{15}}{5}$",
@@ -162,6 +168,7 @@
     ]
   },
   {
+    "id": "white_radicals_RESL_07",
     "question": "Un reparto deja una cantidad por persona que se expresa así:\n$$\\dfrac{6}{\\sqrt{3}}$$\n¿Cuál es el resultado racionalizado, sin raíz en el denominador?",
     "options": [
       "$2\\sqrt{9}$",
@@ -189,6 +196,7 @@
     ]
   },
   {
+    "id": "white_radicals_RESL_08",
     "question": "La razón entre dos escalas de un plano queda expresada así:\n$$\\dfrac{\\sqrt{2}}{\\sqrt{7}}$$\n¿Cuál es el resultado racionalizado, sin raíz en el denominador?",
     "options": [
       "$\\dfrac{\\sqrt{2}}{7}$",
@@ -216,6 +224,7 @@
     ]
   },
   {
+    "id": "white_radicals_RESL_09",
     "question": "La intensidad de una señal, a cierta distancia de una antena, es una constante dividida por la raíz de esa distancia.\n$$\\dfrac{10}{\\sqrt{5}}$$\n¿Cuál es esa intensidad, racionalizada y sin raíz en el denominador?",
     "options": [
       "$2\\sqrt{5}$",
@@ -243,6 +252,7 @@
     ]
   },
   {
+    "id": "white_radicals_RESL_10",
     "question": "Un depósito cúbico se reduce a un modelo a escala, y el factor de reducción de cada arista es:\n$$\\dfrac{1}{\\sqrt[3]{2}}$$\n¿Cuál es ese factor, racionalizado?",
     "options": [
       "$\\dfrac{\\sqrt[3]{4}}{4}$",
@@ -270,6 +280,7 @@
     ]
   },
   {
+    "id": "white_radicals_RESL_11",
     "question": "Para cercar un terreno se necesitan dos tramos de alambre de distinta longitud.\n\nLa longitud total, simplificada y sumada, es:\n$$\\sqrt{8} + \\sqrt{18}$$\n¿Cuál es el resultado, en metros?",
     "options": [
       "$5\\sqrt{2}$",
@@ -297,6 +308,7 @@
     ]
   },
   {
+    "id": "white_radicals_RESL_12",
     "question": "Dos cortes de una misma cinta miden longitudes distintas, y el total es:\n$$\\sqrt{12} + \\sqrt{27}$$\n¿Cuál es la longitud total simplificada?",
     "options": [
       "$5\\sqrt{39}$",
@@ -324,6 +336,7 @@
     ]
   },
   {
+    "id": "white_radicals_RESL_13",
     "question": "De un tramo de alambre se descuenta otro tramo más corto, y la diferencia es:\n$$\\sqrt{50} - \\sqrt{8}$$\n¿Cuál es el resultado simplificado?",
     "options": [
       "$\\sqrt{42}$",
@@ -351,6 +364,7 @@
     ]
   },
   {
+    "id": "white_radicals_RESL_14",
     "question": "Dos tramos de una misma cuerda se suman, y uno de ellos aparece duplicado:\n$$2\\sqrt{45} + \\sqrt{20}$$\n¿Cuál es la longitud total simplificada?",
     "options": [
       "$8\\sqrt{5}$",
@@ -378,6 +392,7 @@
     ]
   },
   {
+    "id": "white_radicals_RESL_15",
     "question": "Una receta pide descontar una medida de otra, y la diferencia queda expresada así:\n$$\\sqrt{75} - \\sqrt{12}$$\n¿Cuál es el resultado simplificado?",
     "options": [
       "$7\\sqrt{3}$",

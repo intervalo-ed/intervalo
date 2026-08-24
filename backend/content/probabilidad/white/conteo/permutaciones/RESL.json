@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_permutaciones_RESL_01",
     "question": "¿De cuántas maneras distintas se pueden ordenar los 4 finalistas de una carrera, asignando el 1º, 2º, 3º y 4º puesto del podio?",
     "options": ["$4$", "$16$", "$24$", "$256$"],
     "correct_index": 2,
@@ -18,6 +19,7 @@
     "tags": ["resl-simple"]
   },
   {
+    "id": "white_permutaciones_RESL_02",
     "question": "Se quiere contar los anagramas distintos de la palabra **NANA**, donde la N se repite 2 veces y la A se repite 2 veces.\n\n¿Cuántos anagramas distintos hay?",
     "options": ["$4$", "$6$", "$12$", "$24$"],
     "correct_index": 1,
@@ -36,6 +38,7 @@
     "tags": ["resl-con-repeticion"]
   },
   {
+    "id": "white_permutaciones_RESL_03",
     "question": "Se comparan dos formas de ordenar letras.\n\n**ROMA** tiene sus 4 letras todas distintas; **ANANA** tiene letras repetidas.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
     "options": [
       "ROMA tiene más ordenamientos distintos que ANANA.",
@@ -59,6 +62,7 @@
     "tags": ["resl-comparacion"]
   },
   {
+    "id": "white_permutaciones_RESL_04",
     "question": "¿De cuántas maneras distintas se pueden ordenar 2 candidatos para asignarles horario de entrevista, uno primero y otro segundo?",
     "options": ["$1$", "$2$", "$4$", "$6$"],
     "correct_index": 1,
@@ -77,6 +81,7 @@
     "tags": ["resl-simple"]
   },
   {
+    "id": "white_permutaciones_RESL_05",
     "question": "¿De cuántas maneras distintas se pueden ordenar los 3 finalistas de un concurso, asignando 1º, 2º y 3º puesto?",
     "options": ["$3$", "$6$", "$9$", "$27$"],
     "correct_index": 1,
@@ -95,6 +100,7 @@
     "tags": ["resl-simple"]
   },
   {
+    "id": "white_permutaciones_RESL_06",
     "question": "¿De cuántas maneras distintas se pueden ordenar los 5 corredores de una carrera, asignando el orden completo de llegada?",
     "options": ["$5$", "$25$", "$120$", "$3125$"],
     "correct_index": 2,
@@ -113,6 +119,7 @@
     "tags": ["resl-simple"]
   },
   {
+    "id": "white_permutaciones_RESL_07",
     "question": "¿De cuántas maneras distintas se pueden ordenar las 6 canciones de una playlist, usando el orden completo de reproducción?",
     "options": ["$6$", "$36$", "$720$", "$46656$"],
     "correct_index": 2,
@@ -131,6 +138,7 @@
     "tags": ["resl-simple"]
   },
   {
+    "id": "white_permutaciones_RESL_08",
     "question": "¿De cuántas maneras distintas se pueden ordenar los 7 alumnos de una fila para una foto grupal, usando a todos?",
     "options": ["$7$", "$49$", "$5040$", "$823543$"],
     "correct_index": 2,
@@ -149,6 +157,7 @@
     "tags": ["resl-simple"]
   },
   {
+    "id": "white_permutaciones_RESL_09",
     "question": "¿De cuántas maneras distintas se puede definir el orden de reparto de 4 paquetes distintos, entregando uno a uno?",
     "options": ["$4$", "$12$", "$24$", "$48$"],
     "correct_index": 2,
@@ -167,6 +176,7 @@
     "tags": ["resl-simple"]
   },
   {
+    "id": "white_permutaciones_RESL_10",
     "question": "Se quiere contar los anagramas distintos de la palabra **ALAS**, donde la A se repite 2 veces.\n\n¿Cuántos anagramas distintos hay?",
     "options": ["$4$", "$12$", "$24$", "$48$"],
     "correct_index": 1,
@@ -185,6 +195,7 @@
     "tags": ["resl-con-repeticion"]
   },
   {
+    "id": "white_permutaciones_RESL_11",
     "question": "Se quiere contar los anagramas distintos de la palabra **CARRO**, donde la R se repite 2 veces.\n\n¿Cuántos anagramas distintos hay?",
     "options": ["$5$", "$60$", "$120$", "$240$"],
     "correct_index": 1,
@@ -203,6 +214,7 @@
     "tags": ["resl-con-repeticion"]
   },
   {
+    "id": "white_permutaciones_RESL_12",
     "question": "Se quiere contar los anagramas distintos de la palabra **AZADA**, donde la A se repite 3 veces.\n\n¿Cuántos anagramas distintos hay?",
     "options": ["$5$", "$20$", "$40$", "$120$"],
     "correct_index": 1,
@@ -221,6 +233,7 @@
     "tags": ["resl-con-repeticion"]
   },
   {
+    "id": "white_permutaciones_RESL_13",
     "question": "Se quiere contar los anagramas distintos de la palabra **CUELLO**, donde la L se repite 2 veces.\n\n¿Cuántos anagramas distintos hay?",
     "options": ["$6$", "$180$", "$360$", "$720$"],
     "correct_index": 2,
@@ -239,6 +252,7 @@
     "tags": ["resl-con-repeticion"]
   },
   {
+    "id": "white_permutaciones_RESL_14",
     "question": "Se quiere contar los anagramas distintos de la palabra **TERROR**, donde la R se repite 3 veces.\n\n¿Cuántos anagramas distintos hay?",
     "options": ["$6$", "$120$", "$240$", "$720$"],
     "correct_index": 1,
@@ -257,6 +271,7 @@
     "tags": ["resl-con-repeticion"]
   },
   {
+    "id": "white_permutaciones_RESL_15",
     "question": "Se comparan dos carreras con distinta cantidad de corredores.\n\nLa carrera A tiene 4 corredores; la carrera B tiene 6 corredores.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
     "options": [
       "La carrera A tiene más órdenes de llegada posibles que la B.",

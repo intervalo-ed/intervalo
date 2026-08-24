@@ -40,7 +40,7 @@ for _stream in (sys.stdout, sys.stderr):
     if hasattr(_stream, "reconfigure"):
         _stream.reconfigure(encoding="utf-8", errors="replace")
 
-ALL_CHECKS = ["options", "explanations", "questions", "feedbacks", "structure", "tables", "duplicates"]
+ALL_CHECKS = ["options", "explanations", "questions", "feedbacks", "structure", "tables", "ids", "duplicates"]
 
 # --- Umbrales calibrables -----------------------------------------------------
 
@@ -970,6 +970,36 @@ def _cells_for_option(reveal: dict, i: int) -> list | None:
     return None
 
 
+def check_ids(items, file, F: Findings) -> None:
+    """Regla 76: todo ejercicio lleva un `id` estable y propio.
+
+    Sin `id`, `seed_content.py` cae al id posicional, y ahí basta con borrar un
+    ejercicio del medio para que todos los que siguen se renumeren y las
+    respuestas ya guardadas pasen a describir otro contenido. El arreglo no es
+    escribir el id a mano: es correr `content/stamp_ids.py`, que lo asigna sin
+    reusar nunca uno dado de baja.
+    """
+    vistos: dict[str, int] = {}
+    for idx, it in enumerate(items):
+        label = f"#{idx}"
+        raw = it.get("id")
+        if raw is None:
+            F.add("ERROR", "ids", "76", file, label,
+                  "sin `id` estable — correr `python content/stamp_ids.py`")
+            continue
+        if not isinstance(raw, str) or not raw.strip():
+            F.add("ERROR", "ids", "76", file, label, "`id` vacío o no es un string")
+            continue
+        if len(raw) > 100:
+            F.add("ERROR", "ids", "76", file, label,
+                  f"`id` de {len(raw)} caracteres, la columna admite 100")
+        if raw in vistos:
+            F.add("ERROR", "ids", "76", file, label,
+                  f"`id` {raw!r} repetido (ya está en #{vistos[raw]})")
+        else:
+            vistos[raw] = idx
+
+
 def check_tables(items, file, F: Findings) -> None:
     """Reglas 68-75: forma de la tabla, coherencia con la correcta y distractores.
 
@@ -1248,6 +1278,8 @@ def main() -> int:
                 check_structure(items, rel, F, skill_targets, known_slugs)
             if "tables" in checks:
                 check_tables(items, rel, F)
+            if "ids" in checks:
+                check_ids(items, rel, F)
             if "duplicates" in checks:
                 unit = "/".join(rel.split("/")[:2])
                 unit_entries.setdefault(unit, []).extend(

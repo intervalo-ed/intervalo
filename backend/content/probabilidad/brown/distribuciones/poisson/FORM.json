@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_poisson_FORM_01",
     "question": "Un canal de soporte recibe mensajes con una tasa promedio de 4 por cuarto de hora, en forma independiente entre sí.\n\n¿Cuál es el parámetro $\\lambda$ de la Poisson que modela la cantidad de mensajes en un cuarto de hora?",
     "options": [
       "$\\lambda=4$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "brown_poisson_FORM_02",
     "question": "Un sismógrafo registra en promedio 2 sismos leves por semana, de forma independiente entre sí.\n\nSea $X$ la cantidad de sismos leves en una semana. Calculá $P(X=3)$.",
     "options": [
       "$\\dfrac{8e^{-2}}{6}$",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "brown_poisson_FORM_03",
     "question": "Un local de fotocopias recibe en promedio 6 pedidos por hora.\n\nSe quiere estudiar la cantidad de pedidos en un turno de 3 horas.\n\n¿Cuánto valen, en ese orden, $\\lambda, E[X], \\mathrm{Var}(X)$ para ese turno?",
     "options": [
       "$(18,\\,18,\\,18)$",
@@ -75,6 +78,7 @@
     ]
   },
   {
+    "id": "brown_poisson_FORM_04",
     "question": "Un call center recibe llamadas con una tasa promedio de 9 por hora, en forma independiente entre sí.\n\n¿Cuál es el parámetro $\\lambda$ de la Poisson que modela la cantidad de llamadas en una hora?",
     "options": [
       "$\\lambda=27$",
@@ -100,6 +104,7 @@
     ]
   },
   {
+    "id": "brown_poisson_FORM_05",
     "question": "Un corrector encuentra en promedio 3 errores tipográficos por página, de forma independiente entre sí.\n\n¿Cuál es el parámetro $\\lambda$ de la Poisson que modela la cantidad de errores en una página?",
     "options": [
       "$\\lambda=3$",
@@ -125,6 +130,7 @@
     ]
   },
   {
+    "id": "brown_poisson_FORM_06",
     "question": "En hora pico, un semáforo ve pasar autos con una tasa promedio de 10 por minuto, en forma independiente entre sí.\n\n¿Cuál es el parámetro $\\lambda$ de la Poisson que modela la cantidad de autos que pasan en 30 segundos?",
     "options": [
       "$\\lambda=10$",
@@ -150,6 +156,7 @@
     ]
   },
   {
+    "id": "brown_poisson_FORM_07",
     "question": "Un call center recibe llamadas con una tasa promedio de 7 por hora, de forma independiente entre sí.\n\nSea $X$ la cantidad de llamadas en una hora. Calculá $P(X=2)$.",
     "options": [
       "$\\dfrac{49e^{-7}}{7}$",
@@ -175,6 +182,7 @@
     ]
   },
   {
+    "id": "brown_poisson_FORM_08",
     "question": "Una caja de supermercado recibe clientes con una tasa promedio de 5 por minuto, de forma independiente entre sí.\n\nSea $X$ la cantidad de clientes en un minuto. Calculá $P(X=2)$.",
     "options": [
       "$\\dfrac{5e^{-5}}{2}$",
@@ -200,6 +208,7 @@
     ]
   },
   {
+    "id": "brown_poisson_FORM_09",
     "question": "Un corrector encuentra errores tipográficos con una tasa promedio de 4 por página, de forma independiente entre sí.\n\nSea $X$ la cantidad de errores en una página. Calculá $P(X=1)$.",
     "options": [
       "$4e^{-4}$",
@@ -225,6 +234,7 @@
     ]
   },
   {
+    "id": "brown_poisson_FORM_10",
     "question": "Un semáforo ve pasar autos con una tasa promedio de 6 por minuto, de forma independiente entre sí.\n\nSea $X$ la cantidad de autos que pasan en un minuto. Calculá $P(X=0)$.",
     "options": [
       "$6e^{-6}$",
@@ -250,6 +260,7 @@
     ]
   },
   {
+    "id": "brown_poisson_FORM_11",
     "question": "Una máquina de una línea de producción falla con una tasa promedio de 2 veces por mes, de forma independiente entre fallas.\n\nSea $X$ la cantidad de fallas en un mes. Calculá $P(X=2)$.",
     "options": [
       "$\\dfrac{4e^{-2}}{4}$",
@@ -275,6 +286,7 @@
     ]
   },
   {
+    "id": "brown_poisson_FORM_12",
     "question": "Un canal de soporte recibe mensajes con una tasa promedio de 5 por minuto.\n\nSe quiere estudiar la cantidad de mensajes en un intervalo de 4 minutos.\n\n¿Cuánto valen, en ese orden, $\\lambda, E[X], \\mathrm{Var}(X)$ para ese intervalo?",
     "options": [
       "$(9,\\,9,\\,9)$",
@@ -300,6 +312,7 @@
     ]
   },
   {
+    "id": "brown_poisson_FORM_13",
     "question": "Un semáforo ve pasar autos con una tasa promedio de 4 por minuto.\n\nSe quiere estudiar la cantidad de autos en un intervalo de 30 segundos.\n\n¿Cuánto valen, en ese orden, $\\lambda, E[X], \\mathrm{Var}(X)$ para ese intervalo?",
     "options": [
       "$(2,\\,2,\\,2)$",
@@ -325,6 +338,7 @@
     ]
   },
   {
+    "id": "brown_poisson_FORM_14",
     "question": "Una máquina de una línea de producción falla con una tasa promedio de 3 veces por mes.\n\nSe quiere estudiar la cantidad de fallas en un intervalo de 2 meses.\n\n¿Cuánto valen, en ese orden, $\\lambda, E[X], \\mathrm{Var}(X)$ para ese intervalo?",
     "options": [
       "$(3,\\,3,\\,3)$",
@@ -350,6 +364,7 @@
     ]
   },
   {
+    "id": "brown_poisson_FORM_15",
     "question": "Un corrector encuentra errores tipográficos con una tasa promedio de 2 por página.\n\nSe quiere estudiar la cantidad de errores en un capítulo de 5 páginas.\n\n¿Cuánto valen, en ese orden, $\\lambda, E[X], \\mathrm{Var}(X)$ para ese capítulo?",
     "options": [
       "$(10,\\,10,\\,\\sqrt{10})$",

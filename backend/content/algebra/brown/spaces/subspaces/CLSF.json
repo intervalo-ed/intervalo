@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_subspaces_CLSF_01",
     "question": "Tres subconjuntos del plano quedan definidos por una condición sobre sus coordenadas.\n$$S_1 = \\{(x,y) : y = 3x\\}$$\n$$S_2 = \\{(x,y) : y = 3x + 2\\}$$\n$$S_3 = \\{(x,y) : x \\geq 0\\}$$\n¿Cuál de los tres es un subespacio?",
     "options": [
       "$S_1$",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_CLSF_02",
     "question": "Tres subconjuntos de $\\mathbb{R}^3$ quedan definidos por una condición.\n$$S_1 = \\{(x,y,z) : x + y + z = 0\\}$$\n$$S_2 = \\{(x,y,z) : x = 1\\}$$\n$$S_3 = \\{(x,y,z) : y = z^2\\}$$\n¿Cuál de los tres es un subespacio?",
     "options": [
       "$S_3$",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_CLSF_03",
     "question": "Tres subconjuntos del plano se comparan por su condición sobre las coordenadas.\n$$S_1 = \\{(x,y) : x = 0\\}$$\n$$S_2 = \\{(x,y) : xy = 1\\}$$\n$$S_3 = \\{(x,y) : x + y = 4\\}$$\n¿Cuál de los tres es un subespacio?",
     "options": [
       "$S_2$",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_CLSF_04",
     "question": "Tres subconjuntos del plano se describen con condiciones de distinto tipo.\n$$S_1 = \\{(x,y) : y = -x\\}$$\n$$S_2 = \\{(x,y) : |x| = |y|\\}$$\n$$S_3 = \\{(x,y) : y \\geq x\\}$$\n¿Cuál de los tres es un subespacio?",
     "options": [
       "$S_1$",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_CLSF_05",
     "question": "Tres subconjuntos de $\\mathbb{R}^3$ se proponen como subespacios.\n$$S_1 = \\{(x,y,z) : z = 0\\}$$\n$$S_2 = \\{(x,y,z) : x + y = z + 2\\}$$\n$$S_3 = \\{(x,y,z) : xyz = 0\\}$$\n¿Cuál de los tres es un subespacio?",
     "options": [
       "$S_3$",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_CLSF_06",
     "question": "Un subconjunto del plano reúne los pares cuyo producto de coordenadas es cero.\n$$S = \\{(x,y) : xy = 0\\}$$\n¿Cuál de las condiciones de subespacio le falla?",
     "options": [
       "La suma de dos elementos puede caer fuera del conjunto",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_CLSF_07",
     "question": "Un subconjunto del plano reúne los pares cuya segunda coordenada no es negativa.\n$$S = \\{(x,y) : y \\geq 0\\}$$\n¿Cuál de las condiciones de subespacio le falla?",
     "options": [
       "La suma de dos elementos puede caer fuera del conjunto",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_CLSF_08",
     "question": "Un subconjunto del plano reúne los pares cuyas coordenadas suman tres.\n$$S = \\{(x,y) : x + y = 3\\}$$\n¿Cuál de las condiciones de subespacio le falla?",
     "options": [
       "Multiplicar un elemento por un escalar nunca lo saca",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_CLSF_09",
     "question": "Un subconjunto del plano reúne los pares que están sobre una parábola.\n$$S = \\{(x,y) : y = x^2\\}$$\n¿Cuál de las condiciones de subespacio le falla?",
     "options": [
       "La suma de dos elementos puede caer fuera del conjunto",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_CLSF_10",
     "question": "Un subconjunto de $\\mathbb{R}^3$ reúne las ternas de coordenadas enteras.\n$$S = \\{(x,y,z) : x,\\ y,\\ z \\text{ enteros}\\}$$\n¿Cuál de las condiciones de subespacio le falla?",
     "options": [
       "El vector nulo del espacio no pertenece a este conjunto",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_CLSF_11",
     "question": "Dos ecuaciones lineales en tres incógnitas se diferencian solo en su término independiente.\n$$2x - y + z = 0$$\n$$2x - y + z = 5$$\n¿Cuál de los dos conjuntos de soluciones es un subespacio?",
     "options": [
       "Solo el de la ecuación igualada a cero",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_CLSF_12",
     "question": "Un sistema de dos ecuaciones con tres incógnitas tiene todos sus términos independientes en cero.\n$$x - y + 2z = 0$$\n$$3x + z = 0$$\n¿Qué se puede afirmar de su conjunto de soluciones?",
     "options": [
       "Que no es un subespacio, porque hay dos condiciones y no una sola",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_CLSF_13",
     "question": "El conjunto de soluciones de un sistema de ecuaciones resultó ser un subespacio.\n$$A\\vec{x} = \\vec{b}$$\n¿Qué se puede afirmar del término independiente?",
     "options": [
       "Que tiene todas sus componentes distintas de cero, sin excepción",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_CLSF_14",
     "question": "El conjunto de soluciones de un sistema homogéneo nunca resulta ser un conjunto vacío.\n$$A\\vec{x} = \\vec{0}$$\n¿De dónde sale esa garantía?",
     "options": [
       "De que el vector nulo siempre lo resuelve, sin importar cómo sea la matriz",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "brown_subspaces_CLSF_15",
     "question": "Un sistema homogéneo tiene dos ecuaciones y tres incógnitas.\n$$2x + y - z = 0$$\n$$x - 4z = 0$$\n¿De qué espacio es subespacio su conjunto de soluciones?",
     "options": [
       "Del espacio de las ternas cuando hay tres ecuaciones y del plano cuando hay dos",

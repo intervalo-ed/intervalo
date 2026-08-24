@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_espacios_CLSF_01",
     "question": "De una urna con 6 bolitas numeradas del 1 al 6 se extrae una al azar.\n\n¿Cuál de los siguientes conjuntos es un evento válido para este experimento?",
     "options": [
       "$\\{2,4,7\\}$",
@@ -21,6 +22,7 @@
     "tags": ["validar-subconjunto"]
   },
   {
+    "id": "blue_espacios_CLSF_02",
     "question": "Se lanzan dos monedas equilibradas y se registra la cara de cada una, usando C para cara y X para ceca.\n\nSe considera el siguiente evento:\n$$B = \\{CX, XC\\}$$\n¿Cómo se clasifica este evento?",
     "options": [
       "Compuesto, porque agrupa más de un resultado posible.",
@@ -42,6 +44,7 @@
     "tags": ["clasificar-tipo-evento"]
   },
   {
+    "id": "blue_espacios_CLSF_03",
     "question": "De un mazo de 40 cartas españolas se extrae una al azar.\n\nSean $A$ el evento de que sea una carta de oro y $B$ el evento de que sea un 7 de cualquier palo.\n\n¿$A$ y $B$ son mutuamente excluyentes?",
     "options": [
       "Sí, porque son dos eventos definidos de forma distinta.",
@@ -63,6 +66,7 @@
     "tags": ["reconocer-mutuamente-excluyentes"]
   },
   {
+    "id": "blue_espacios_CLSF_04",
     "question": "Un experimento tiene espacio muestral $\\Omega=\\{1,2,3,4\\}$.\n\nSe definen los eventos $A=\\{1,2,3\\}$ y $B=\\{2,3,4\\}$.\n\n¿Cuál es el resultado de $A \\cap B$?",
     "options": [
       "$\\{1,2,3,4\\}$",
@@ -84,6 +88,7 @@
     "tags": ["operar-entre-eventos"]
   },
   {
+    "id": "blue_espacios_CLSF_05",
     "question": "Se lanza un dado equilibrado de 6 caras y se anota el número que sale.\n\n¿Cuál de los siguientes conjuntos es un evento válido para este experimento?",
     "options": [
       "$\\{2,4,6\\}$",
@@ -105,6 +110,7 @@
     "tags": ["validar-subconjunto"]
   },
   {
+    "id": "blue_espacios_CLSF_06",
     "question": "De un mazo de 40 cartas españolas se extrae una carta y se anota su palo, entre oro, copa, espada y basto.\n\n¿Cuál de los siguientes conjuntos es un evento válido para este experimento?",
     "options": [
       "$\\{oro,trébol\\}$",
@@ -126,6 +132,7 @@
     "tags": ["validar-subconjunto"]
   },
   {
+    "id": "blue_espacios_CLSF_07",
     "question": "Se lanza un dado equilibrado de 6 caras y se registra el número obtenido.\n\nSe considera el evento $A=\\{4\\}$.\n\n¿Cómo se clasifica este evento?",
     "options": [
       "Compuesto, porque agrupa más de un resultado posible.",
@@ -147,6 +154,7 @@
     "tags": ["clasificar-tipo-evento"]
   },
   {
+    "id": "blue_espacios_CLSF_08",
     "question": "Una urna contiene 7 bolitas numeradas del 1 al 7. Se extrae una al azar y se anota el número obtenido.\n\nSe considera el evento $C=\\{2,5,7\\}$.\n\n¿Cómo se clasifica este evento?",
     "options": [
       "Compuesto, porque agrupa más de un resultado posible.",
@@ -168,6 +176,7 @@
     "tags": ["clasificar-tipo-evento"]
   },
   {
+    "id": "blue_espacios_CLSF_09",
     "question": "En una encuesta, un cliente elige un único método de pago entre efectivo, tarjeta o transferencia.\n\nSe considera el evento $D=\\{transferencia\\}$.\n\n¿Cómo se clasifica este evento?",
     "options": [
       "Compuesto, porque agrupa más de un resultado posible.",
@@ -189,6 +198,7 @@
     "tags": ["clasificar-tipo-evento"]
   },
   {
+    "id": "blue_espacios_CLSF_10",
     "question": "Se lanza un dado equilibrado de 6 caras.\n\nSean $A$ el evento de obtener un número par y $B$ el evento de obtener un número mayor a 4.\n\n¿$A$ y $B$ son mutuamente excluyentes?",
     "options": [
       "Sí, porque son dos eventos definidos de forma distinta.",
@@ -210,6 +220,7 @@
     "tags": ["reconocer-mutuamente-excluyentes"]
   },
   {
+    "id": "blue_espacios_CLSF_11",
     "question": "Una urna contiene bolitas rojas, azules y verdes, de las cuales se extrae una al azar.\n\nSean $A$ el evento de que la bolita sea roja y $B$ el evento de que sea azul.\n\n¿$A$ y $B$ son mutuamente excluyentes?",
     "options": [
       "Sí, porque una misma bolita tiene un único color.",
@@ -231,6 +242,7 @@
     "tags": ["reconocer-mutuamente-excluyentes"]
   },
   {
+    "id": "blue_espacios_CLSF_12",
     "question": "En una encuesta, cada estudiante responde si aprobó el examen o no lo aprobó.\n\nSean $A$ el evento de que haya aprobado y $B$ el evento de que no haya aprobado.\n\n¿$A$ y $B$ son mutuamente excluyentes?",
     "options": [
       "No, porque un estudiante podría aprobar y no aprobar a la vez.",
@@ -252,6 +264,7 @@
     "tags": ["reconocer-mutuamente-excluyentes"]
   },
   {
+    "id": "blue_espacios_CLSF_13",
     "question": "Se lanza un dado equilibrado de 6 caras, con espacio muestral $\\Omega=\\{1,2,3,4,5,6\\}$.\n\nSe definen los eventos $A=\\{1,2\\}$ y $B=\\{2,3,4\\}$.\n\n¿Cuál es el resultado de $A \\cup B$?",
     "options": [
       "$\\{2\\}$",
@@ -273,6 +286,7 @@
     "tags": ["operar-entre-eventos"]
   },
   {
+    "id": "blue_espacios_CLSF_14",
     "question": "Una urna contiene 5 bolitas numeradas del 1 al 5, de las cuales se extrae una al azar.\n\nSe define el evento $A=\\{1,3,5\\}$.\n\n¿Cuál es el resultado del complemento $A^c$?",
     "options": [
       "$\\{2,4\\}$",
@@ -294,6 +308,7 @@
     "tags": ["operar-entre-eventos"]
   },
   {
+    "id": "blue_espacios_CLSF_15",
     "question": "En una encuesta, cada cliente puede elegir más de un método de pago entre los disponibles.\n\nEl espacio muestral de métodos es:\n$$\\Omega=\\{efectivo,tarjeta,transferencia,cheque\\}$$\nSe definen los eventos:\n$$A=\\{efectivo,tarjeta\\}$$\n$$B=\\{tarjeta,transferencia\\}$$\n¿Cuál es el resultado de $A \\cap B$?",
     "options": [
       "$\\{efectivo\\}$",

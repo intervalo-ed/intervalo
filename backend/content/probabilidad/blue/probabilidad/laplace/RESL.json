@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_laplace_RESL_01",
     "question": "De una urna con 4 bolas rojas y 6 azules se extraen 2 bolas al azar sin reposición.\n\n¿Cuál es la probabilidad de que ambas sean rojas?",
     "options": ["$6/45$", "$4/10$", "$2/45$", "$12/45$"],
     "correct_index": 0,
@@ -18,6 +19,7 @@
     "tags": ["resl-con-combinaciones"]
   },
   {
+    "id": "blue_laplace_RESL_02",
     "question": "En una caja hay 12 piezas, de las cuales 3 están defectuosas. Se eligen 2 piezas al azar.\n\n¿Cuál es la probabilidad de que al menos una esté defectuosa?",
     "options": ["$36/66$", "$1-36/66$", "$3/12$", "$1-3/12$"],
     "correct_index": 1,
@@ -36,6 +38,7 @@
     "tags": ["resl-con-complemento"]
   },
   {
+    "id": "blue_laplace_RESL_03",
     "question": "Se lanzan dos dados de 6 caras y se observa la suma de los valores.\n\n¿Cuál es la probabilidad de obtener una suma igual a 8?",
     "options": ["$1/6$", "$4/36$", "$5/36$", "$8/36$"],
     "correct_index": 2,
@@ -54,6 +57,7 @@
     "tags": ["resl-suma-valores"]
   },
   {
+    "id": "blue_laplace_RESL_04",
     "question": "Se extrae una carta de un mazo español de 40 cartas.\n\n¿Cuál es la probabilidad de que sea un as de cualquier palo?",
     "options": ["$1/40$", "$10/40$", "$4/10$", "$4/40$"],
     "correct_index": 3,
@@ -72,6 +76,7 @@
     "tags": ["resl-conteo-simple"]
   },
   {
+    "id": "blue_laplace_RESL_05",
     "question": "Se lanzan dos dados equilibrados de 6 caras.\n\n¿Cuál es la probabilidad de que ambos muestren el mismo número?",
     "options": ["$1/36$", "$1/6$", "$6/12$", "$2/36$"],
     "correct_index": 1,
@@ -90,6 +95,7 @@
     "tags": ["resl-conteo-simple"]
   },
   {
+    "id": "blue_laplace_RESL_06",
     "question": "Una ruleta tiene 8 sectores iguales numerados del 1 al 8, y se hace girar una vez.\n\n¿Cuál es la probabilidad de que caiga en un número mayor a 5?",
     "options": ["$5/8$", "$1/8$", "$3/8$", "$6/8$"],
     "correct_index": 2,
@@ -108,6 +114,7 @@
     "tags": ["resl-conteo-simple"]
   },
   {
+    "id": "blue_laplace_RESL_07",
     "question": "Una urna tiene 15 bolitas: 5 rojas, 5 azules y 5 verdes, indistinguibles al tacto.\n\n¿Cuál es la probabilidad de extraer una bolita roja?",
     "options": ["$1/5$", "$5/10$", "$2/15$", "$1/3$"],
     "correct_index": 3,
@@ -126,6 +133,7 @@
     "tags": ["resl-conteo-simple"]
   },
   {
+    "id": "blue_laplace_RESL_08",
     "question": "En una rifa hay 100 números, del 1 al 100, y se sortea uno al azar.\n\n¿Cuál es la probabilidad de que el número sorteado sea múltiplo de 25?",
     "options": ["$1/25$", "$1/4$", "$4/25$", "$1/100$"],
     "correct_index": 0,
@@ -144,6 +152,7 @@
     "tags": ["resl-conteo-simple"]
   },
   {
+    "id": "blue_laplace_RESL_09",
     "question": "Se extraen 2 cartas de un mazo español de 40 sin reposición.\n\n¿Cuál es la probabilidad de que ambas sean del palo de basto?",
     "options": ["$10/40$", "$45/780$", "$20/780$", "$90/780$"],
     "correct_index": 1,
@@ -162,6 +171,7 @@
     "tags": ["resl-con-combinaciones"]
   },
   {
+    "id": "blue_laplace_RESL_10",
     "question": "Un curso tiene 10 estudiantes, 6 varones y 4 mujeres. Se elige un comité de 3 al azar.\n\n¿Cuál es la probabilidad de que el comité esté formado solo por mujeres?",
     "options": ["$4/10$", "$6/120$", "$4/120$", "$12/120$"],
     "correct_index": 2,
@@ -180,6 +190,7 @@
     "tags": ["resl-con-combinaciones"]
   },
   {
+    "id": "blue_laplace_RESL_11",
     "question": "Una caja tiene 15 lamparitas, de las cuales 4 están defectuosas. Se eligen 3 al azar.\n\n¿Cuál es la probabilidad de que ninguna esté defectuosa?",
     "options": ["$11/15$", "$4/455$", "$44/455$", "$165/455$"],
     "correct_index": 3,
@@ -198,6 +209,7 @@
     "tags": ["resl-con-combinaciones"]
   },
   {
+    "id": "blue_laplace_RESL_12",
     "question": "Se lanza una moneda equilibrada 5 veces.\n\n¿Cuál es la probabilidad de obtener al menos una cara?",
     "options": ["$31/32$", "$1/32$", "$5/32$", "$16/32$"],
     "correct_index": 0,
@@ -216,6 +228,7 @@
     "tags": ["resl-con-complemento"]
   },
   {
+    "id": "blue_laplace_RESL_13",
     "question": "Se extraen 2 cartas de un mazo español de 40 sin reposición.\n\n¿Cuál es la probabilidad de que al menos una sea rey?",
     "options": ["$630/780$", "$150/780$", "$4/40$", "$1-4/40$"],
     "correct_index": 1,
@@ -234,6 +247,7 @@
     "tags": ["resl-con-complemento"]
   },
   {
+    "id": "blue_laplace_RESL_14",
     "question": "Se lanza un dado equilibrado de 6 caras 4 veces.\n\n¿Cuál es la probabilidad de obtener al menos un 6?",
     "options": ["$625/1296$", "$4/6$", "$671/1296$", "$1-4/6$"],
     "correct_index": 2,
@@ -252,6 +266,7 @@
     "tags": ["resl-con-complemento"]
   },
   {
+    "id": "blue_laplace_RESL_15",
     "question": "Se lanzan dos dados de 6 caras y se observa la suma de los valores.\n\n¿Cuál es la probabilidad de obtener una suma igual a 10?",
     "options": ["$1/6$", "$2/36$", "$4/36$", "$3/36$"],
     "correct_index": 3,

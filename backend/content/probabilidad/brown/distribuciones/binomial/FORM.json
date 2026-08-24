@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_binomial_FORM_01",
     "question": "Una fábrica de bombitas de luz produce en tandas de 25 unidades.\n\nCada bombita tiene una probabilidad de $0{,}04$ de salir defectuosa, en forma independiente de las demás.\n\n¿Cuáles son los parámetros $n$ y $p$ de la binomial que modela la cantidad de bombitas defectuosas por tanda?",
     "options": [
       "$n=25$, $p=0{,}04$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "brown_binomial_FORM_02",
     "question": "Un estudiante responde al azar 5 preguntas de verdadero o falso de un examen.\n\nCada una tiene probabilidad $0{,}5$ de acertar, en forma independiente.\n\nSea $X$ la cantidad de respuestas correctas. Calculá $P(X=3)$.",
     "options": [
       "$\\dfrac{5}{16}$",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "brown_binomial_FORM_03",
     "question": "Una plataforma de streaming falla al cargar un video con probabilidad $0{,}1$, en forma independiente cada vez.\n\nUn usuario mira 40 videos en una semana.\n\nSea $X$ la cantidad de fallas de carga en esa semana.\n\n¿Cuánto valen su esperanza y su varianza?",
     "options": [
       "$E[X]=4$, $\\mathrm{Var}(X)=3{,}6$",
@@ -75,6 +78,7 @@
     ]
   },
   {
+    "id": "brown_binomial_FORM_04",
     "question": "Una encuestadora consulta a 30 personas sobre un tema puntual.\n\nCada persona responde que sí con probabilidad $0{,}6$, en forma independiente del resto.\n\n¿Cuáles son los parámetros $n$ y $p$ de la binomial que modela la cantidad total de respuestas afirmativas?",
     "options": [
       "$n=30$, $p=0{,}4$",
@@ -100,6 +104,7 @@
     ]
   },
   {
+    "id": "brown_binomial_FORM_05",
     "question": "Un jugador de básquet tiene un 85% de acierto en tiros libres, y tira 15 veces en un entrenamiento.\n\nCada tiro es independiente, con la misma probabilidad de acierto.\n\n¿Cuáles son los parámetros $n$ y $p$ de la binomial que modela la cantidad de tiros convertidos?",
     "options": [
       "$n=15$, $p=0{,}15$",
@@ -125,6 +130,7 @@
     ]
   },
   {
+    "id": "brown_binomial_FORM_06",
     "question": "Un correo despacha 20 paquetes en un día.\n\nCada paquete llega a tiempo con probabilidad $0{,}9$, en forma independiente de los demás.\n\n¿Cuáles son los parámetros $n$ y $p$ de la binomial que modela la cantidad de paquetes que llegan a tiempo?",
     "options": [
       "$n=20$, $p=0{,}1$",
@@ -150,6 +156,7 @@
     ]
   },
   {
+    "id": "brown_binomial_FORM_07",
     "question": "Una encuestadora consulta a 6 personas, y cada una responde que sí con probabilidad $0{,}5$, en forma independiente.\n\nSea $X$ la cantidad de respuestas afirmativas. Calculá $P(X=4)$.",
     "options": [
       "$\\dfrac{15}{64}$",
@@ -175,6 +182,7 @@
     ]
   },
   {
+    "id": "brown_binomial_FORM_08",
     "question": "Un jugador de básquet acierta cada tiro libre con probabilidad $0{,}4$, en forma independiente, y tira 5 veces.\n\nSea $X$ la cantidad de tiros convertidos. Calculá $P(X=2)$.",
     "options": [
       "$0{,}2304$",
@@ -200,6 +208,7 @@
     ]
   },
   {
+    "id": "brown_binomial_FORM_09",
     "question": "Una línea de producción fabrica 6 piezas, y cada una sale defectuosa con probabilidad $0{,}5$, en forma independiente.\n\nSea $X$ la cantidad de piezas defectuosas. Calculá $P(X=1)$.",
     "options": [
       "$\\dfrac{3}{32}$",
@@ -225,6 +234,7 @@
     ]
   },
   {
+    "id": "brown_binomial_FORM_10",
     "question": "Un jugador de casino apuesta siempre al mismo color en 6 tiradas de la ruleta.\n\nCada tirada sale ese color con probabilidad $0{,}6$, en forma independiente.\n\nSea $X$ la cantidad de tiradas ganadoras. Calculá $P(X=4)$.",
     "options": [
       "$0{,}1382$",
@@ -250,6 +260,7 @@
     ]
   },
   {
+    "id": "brown_binomial_FORM_11",
     "question": "Un centro de salud vacuna a 5 pacientes, y cada uno presenta una reacción leve con probabilidad $0{,}2$, en forma independiente.\n\nSea $X$ la cantidad de pacientes con reacción leve. Calculá $P(X=2)$.",
     "options": [
       "$0{,}2048$",
@@ -275,6 +286,7 @@
     ]
   },
   {
+    "id": "brown_binomial_FORM_12",
     "question": "Una línea de producción fabrica 50 piezas por tanda, y cada una sale defectuosa con probabilidad $0{,}02$, en forma independiente.\n\nSea $X$ la cantidad de piezas defectuosas por tanda.\n\n¿Cuánto valen su esperanza y su varianza?",
     "options": [
       "$E[X]=1$, $\\mathrm{Var}(X)=1$",
@@ -300,6 +312,7 @@
     ]
   },
   {
+    "id": "brown_binomial_FORM_13",
     "question": "Un jugador de básquet con 75% de acierto tira 20 libres, en forma independiente cada uno.\n\nSea $X$ la cantidad de tiros convertidos, con $E[X]=15$.\n\n¿Qué significa ese valor de $E[X]$ en este contexto?",
     "options": [
       "El promedio de tiros convertidos si se repitiera esta tanda de 20 tiros muchísimas veces.",
@@ -323,6 +336,7 @@
     ]
   },
   {
+    "id": "brown_binomial_FORM_14",
     "question": "Un correo despacha 60 paquetes por día, y cada uno llega a tiempo con probabilidad $0{,}95$, en forma independiente.\n\nSea $X$ la cantidad de paquetes que llegan a tiempo.\n\n¿Cuánto valen su esperanza y su varianza?",
     "options": [
       "$E[X]=57$, $\\mathrm{Var}(X)=3$",
@@ -348,6 +362,7 @@
     ]
   },
   {
+    "id": "brown_binomial_FORM_15",
     "question": "Un hospital vacuna a 200 pacientes contra la gripe, cada uno con probabilidad $0{,}03$ de reacción leve, en forma independiente.\n\nSea $X$ la cantidad de pacientes con reacción, con $\\mathrm{Var}(X)=5{,}82$.\n\nSi el hospital usara una vacuna con mayor $\\mathrm{Var}(X)$ pero el mismo $E[X]=6$.\n\n¿Qué indicaría eso?",
     "options": [
       "Que en promedio se esperan más reacciones que con la vacuna anterior.",

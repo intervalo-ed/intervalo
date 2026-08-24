@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_linear_FORM_01",
     "question": "En una función lineal, uno de los dos números fija la inclinación y el otro el punto de arranque:\n$$f(x) = -3x + 8$$\n¿Cuál es la pendiente?",
     "options": [
       "$8$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_02",
     "question": "Escrita en esta forma, una recta muestra de una sus dos parámetros característicos:\n$$f(x) = 4x - 7$$\n¿Cuál es la ordenada al origen?",
     "options": [
       "$4$",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_03",
     "question": "Los términos de esta recta están escritos en el orden inverso al habitual:\n$$f(x) = 6 - 2x$$\n¿Cuál es la pendiente?",
     "options": [
       "$6$",
@@ -75,6 +78,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_04",
     "question": "Una recta queda determinada por dos números, su pendiente y su ordenada al origen:\n$$m = 3, \\quad b = -2$$\n¿Cuál es la ecuación de esa recta?",
     "options": [
       "$f(x) = -2x + 3$",
@@ -100,6 +104,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_05",
     "question": "Una recta pasa por $(0, 5)$ con pendiente $2$.\n\n¿Cuál es su ecuación?",
     "options": [
       "$f(x) = 5x + 2$",
@@ -125,6 +130,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_06",
     "question": "La raíz de una función es el valor de $x$ donde su gráfico cruza el eje horizontal:\n$$f(x) = -x + 5$$\n¿Cuál es la raíz de esta recta?",
     "options": [
       "$x = -5$",
@@ -150,6 +156,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_07",
     "question": "Dos datos alcanzan para escribir la ecuación de una recta, dónde cruza el eje vertical y cuánto sube por cada paso.\n\n¿Cuál es la ecuación de la recta del gráfico?",
     "options": [
       "$y = 2x + 1$",
@@ -180,6 +187,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_08",
     "question": "El gráfico muestra una recta, y su inclinación se lee contando cuánto cambia $y$ al avanzar una unidad en $x$.\n\n¿Cuál es su ecuación?",
     "options": [
       "$y = 2x + 3$",
@@ -210,6 +218,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_09",
     "question": "Cambiar el signo de la pendiente da vuelta la recta como un espejo, sin mover su cruce con el eje vertical.\n\n¿Cuál es la ecuación de la recta del gráfico?",
     "options": [
       "$y = x + 4$",
@@ -240,6 +249,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_10",
     "question": "Una recta pasa por el origen y sube 3 unidades por cada unidad que avanza $x$.\n\n¿Cuál es su ecuación?",
     "options": [
       "$y = 3x$",
@@ -265,6 +275,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_11",
     "question": "La pendiente compara cuánto sube la recta con cuánto avanza, y no siempre avanza de a una unidad.\n\n¿Cuál es la pendiente de una recta que sube 4 unidades cada 2 de avance?",
     "options": [
       "$\\dfrac{1}{2}$",
@@ -290,6 +301,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_12",
     "question": "Un taxi cobra \\$600 al subir y \\$250 por cada kilómetro recorrido.\n\n¿Cuál es la ecuación del costo total $C$ según los kilómetros $k$?",
     "options": [
       "$C(k) = 250 + 600k$",
@@ -315,6 +327,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_13",
     "question": "Un empleado cobra \\$15000 fijos por mes más \\$200 por cada pieza producida.\n\n¿Cuál es la ecuación del sueldo mensual $S$ según las piezas $p$?",
     "options": [
       "$S(p) = 200 + 15000p$",
@@ -340,6 +353,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_14",
     "question": "La factura de luz tiene un cargo fijo de \\$400 más \\$12 por cada kWh consumido.\n\n¿Cuál es la ecuación de la factura $F$ según los kWh consumidos $k$?",
     "options": [
       "$F(k) = 400k + 12$",
@@ -365,6 +379,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_15",
     "question": "El alquiler de una bicicleta cuesta \\$300 más \\$150 por hora de uso.\n\n¿Cuál es la ecuación del costo $C$ según las horas $h$?",
     "options": [
       "$C(h) = 300 + 150h$",
@@ -390,6 +405,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_16",
     "question": "La temperatura al inicio de la noche es 22°C y baja 3°C por hora.\n\n¿Cuál es la ecuación de la temperatura $T$ según las horas $h$ transcurridas?",
     "options": [
       "$T(h) = 22 + 3h$",
@@ -415,6 +431,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_17",
     "question": "Una tarjeta de transporte tiene \\$800 de saldo inicial. Cada viaje cuesta \\$60.\n\n¿Cuál es la ecuación del saldo $S$ según la cantidad de viajes $v$?",
     "options": [
       "$S(v) = 60v - 800$",
@@ -440,6 +457,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_18",
     "question": "Un abono de internet tiene un costo fijo de \\$1800 más \\$90 por cada GB adicional consumido.\n\n¿Cuál es la ecuación del costo mensual $P$ según los GB adicionales $g$?",
     "options": [
       "$P(g) = 1800 + 90g$",
@@ -465,6 +483,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_19",
     "question": "Una persona sale desde un punto a 3 km del origen y camina hacia adelante a 5 km por hora.\n\n¿Cuál es la ecuación de la distancia al origen $d$ según las horas $h$?",
     "options": [
       "$d(h) = 5 + 3h$",
@@ -490,6 +509,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_20",
     "question": "Una planta mide 6 cm y crece 2 cm por semana de forma constante.\n\n¿Cuál es la ecuación de la altura $h$ según las semanas $s$?",
     "options": [
       "$h(s) = 2 - 6s$",
@@ -515,6 +535,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_21",
     "question": "El tanque de una moto tiene 45 litros. Cada viaje largo consume 9 litros.\n\n¿Cuál es la ecuación de la nafta restante $Q$ según la cantidad de viajes $v$?",
     "options": [
       "$Q(v) = 9v$",
@@ -540,6 +561,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_22",
     "question": "Un producto cuesta \\$3000, pero la tienda ofrece un descuento de \\$200 por cada unidad adicional que comprés.\n\n¿Cuál es la ecuación del precio por unidad $P$ según las unidades $u$ compradas?",
     "options": [
       "$P(u) = 3000 + 200u$",
@@ -565,6 +587,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_23",
     "question": "El costo de un remis es $C(k) = 700 + 180k$, donde $k$ son los kilómetros.\n\n¿Cuánto cobra el remis por cada kilómetro adicional?",
     "options": [
       "\\$700",
@@ -590,6 +613,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_24",
     "question": "La función es $f(x) = 2x - 8$.\n\n¿Cuál es la raíz de la función?",
     "options": [
       "$x = 2$",
@@ -615,6 +639,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_25",
     "question": "La función es $f(x) = 5 - x$.\n\n¿Cuánto vale $f(3)$?",
     "options": [
       "$8$",
@@ -640,6 +665,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_26",
     "question": "Cuatro rectas distintas pueden compartir forma y diferenciarse solo en hacia dónde apuntan.\n\n¿Cuál de estas funciones lineales es decreciente?",
     "options": [
       "$f(x) = 3x + 1$",
@@ -665,6 +691,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_27",
     "question": "La función es $f(x) = -4x + 12$.\n\n¿Cuánto vale $f(-1)$?",
     "options": [
       "$8$",
@@ -690,6 +717,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_28",
     "question": "Una función lineal pasa por los puntos $(0, 4)$ y $(3, 10)$.\n\n¿Cuál es su ecuación?",
     "options": [
       "$f(x) = 4x + 2$",
@@ -715,6 +743,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_29",
     "question": "La función es $f(x) = 3x - 6$.\n\n¿Para qué valor de $x$ se cumple que $f(x) = 9$?",
     "options": [
       "$x = 1$",
@@ -740,6 +769,7 @@
     ]
   },
   {
+    "id": "white_linear_FORM_30",
     "question": "Un tanque empieza con 100 litros y pierde 5 litros por hora.\n\n¿Cuál de estas ecuaciones describe correctamente el volumen $V$ según las horas $h$?",
     "options": [
       "$V(h) = 100h - 5$",

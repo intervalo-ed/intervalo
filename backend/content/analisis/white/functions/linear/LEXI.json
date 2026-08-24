@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_linear_LEXI_01",
     "question": "Distintas familias de funciones se reconocen por cómo aparece la variable en la fórmula.\n\n¿Cuál de estas expresiones representa una función lineal?",
     "options": [
       "$f(x) = x^2$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_02",
     "question": "Tres de estas cuatro expresiones comparten familia y una se escapa.\n\n¿Cuál de estas **no** es una función lineal?",
     "options": [
       "$f(x) = 3x + 4$",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_03",
     "question": "Escrita en su forma general, una función lineal tiene dos coeficientes con nombre propio:\n$$f(x) = mx + b$$\n¿Cómo se llama el coeficiente $m$?",
     "options": [
       "Raíz",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_04",
     "question": "Una función tiene que ubicarse dentro de su familia:\n$$f(x) = 4 - x$$\n¿A qué familia pertenece?",
     "options": [
       "Cuadrática sin validar el contexto",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_05",
     "question": "Los casos particulares de función lineal tienen nombres propios según qué valores toman sus coeficientes.\n\n¿Cómo se llama una función lineal cuya **pendiente** es cero?",
     "options": [
       "Función identidad",
@@ -121,6 +126,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_06",
     "question": "Cada familia de funciones deja una marca reconocible en su gráfico.\n\n¿Cuál es la característica visual distintiva de una función lineal?",
     "options": [
       "Es periódica",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_07",
     "question": "El cruce con el eje horizontal es lo que ubica las raíces de una función.\n\n¿Cuántas veces corta el eje $X$ una función lineal con **pendiente** no nula?",
     "options": [
       "Una vez",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_08",
     "question": "En esta recta el término independiente aparece antes que el término con $x$:\n$$f(x) = 7 - 3x$$\n¿Cuál es la **ordenada al origen**?",
     "options": [
       "$7$",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_09",
     "question": "Una recta queda definida por dos números con papeles distintos:\n$$f(x) = 2x + 5$$\n¿Cuál es la **pendiente**?",
     "options": [
       "$5$",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_10",
     "question": "El dominio natural es el conjunto de entradas para las que la fórmula tiene sentido:\n$$f(x) = ax + b$$\n¿Cuál es el **dominio natural** de una función lineal?",
     "options": [
       "$(0, +\\infty)$",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_11",
     "question": "Una función que devuelve siempre lo mismo también entra en la familia lineal:\n$$f(x) = 5$$\n¿Cuál es su **imagen**?",
     "options": [
       "$\\mathbb{R}$",
@@ -271,6 +282,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_12",
     "question": "La **pendiente** se puede describir con palabras, sin escribir ninguna fórmula.\n\n¿Qué significado tiene en términos de variación?",
     "options": [
       "Es el valor de $f(0)$",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_13",
     "question": "Una función lineal deja su coeficiente sin escribir:\n$$f(x) = -x$$\n¿Cuál es la **pendiente**?",
     "options": [
       "$0$",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_14",
     "question": "**Dominio** e **imagen** nombran los dos extremos de lo que hace una función:\n$$f(x) = 2x + 3$$\n¿Qué diferencia hay entre uno y otro?",
     "options": [
       "No hay diferencia",
@@ -342,6 +356,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_15",
     "question": "El crecimiento de una función se analiza mirando qué pasa a lo largo de todo su dominio:\n$$f(x) = 3x - 7$$\n¿En qué intervalo crece?",
     "options": [
       "$(0, +\\infty)$",
@@ -367,6 +382,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_16",
     "question": "Una función lineal trae un coeficiente con signo propio:\n$$f(x) = -2x + 5$$\n¿En qué intervalo decrece?",
     "options": [
       "$(0, +\\infty)$",
@@ -392,6 +408,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_17",
     "question": "La raíz de una función es el valor de entrada que la anula:\n$$f(x) = 3x - 9$$\n¿Cuál es la raíz de esta recta?",
     "options": [
       "$x = 3$",
@@ -417,6 +434,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_18",
     "question": "Igualar la fórmula a cero ubica dónde la recta cruza el eje horizontal:\n$$f(x) = -2x + 8$$\n¿Cuál es su raíz?",
     "options": [
       "$x = -4$",
@@ -442,6 +460,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_19",
     "question": "Un abono de celular es $P(g) = 1200 + 80g$ pesos, donde $g$ son los GB extra contratados.\n\n¿Cuál es la tarifa por GB?",
     "options": [
       "$1200$",
@@ -467,6 +486,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_20",
     "question": "Un tanque de agua arranca con $60$ litros y pierde $4$ litros por hora.\n\nEl volumen que le queda se modela con una función lineal.\n$$V(t) = mt + b$$\n¿Qué valor toma $m$?",
     "options": [
       "$60$",
@@ -492,6 +512,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_21",
     "question": "Un sueldo es $S(v) = 3000 + 50v$ pesos, donde $v$ es la cantidad de ventas.\n\n¿Cuál es el sueldo base cuando no hay ninguna venta?",
     "options": [
       "$3000$",
@@ -517,6 +538,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_22",
     "question": "Reconocer la familia de una función es el primer paso antes de usar cualquier propiedad:\n$$f(x) = \\log(x)$$\n¿A qué familia pertenece?",
     "options": [
       "Lineal",
@@ -542,6 +564,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_23",
     "question": "Una función viene escrita como un producto sin desarrollar:\n$$f(x) = (x-1)(x+1)$$\n¿Es una función lineal?",
     "options": [
       "Sí",
@@ -565,6 +588,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_24",
     "question": "Los paréntesis pueden cambiar la familia de una función o dejarla igual:\n$$f(x) = 3(x + 2)$$\n¿Es una función lineal?",
     "options": [
       "Sí, es una función lineal",
@@ -588,6 +612,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_25",
     "question": "Una función lineal trae un coeficiente acompañando a la variable:\n$$f(x) = mx + b, \\quad m > 0$$\n¿Por qué esta función nunca decrece?",
     "options": [
       "Porque la ordenada al origen es positiva",
@@ -611,6 +636,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_26",
     "question": "Los extremos de una función dependen de cómo se comporta en todo su recorrido:\n$$f(x) = mx + b, \\quad m \\neq 0$$\n¿Por qué esta función no tiene máximo ni mínimo?",
     "options": [
       "Porque sube o baja sin límite",
@@ -634,6 +660,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_27",
     "question": "Comparar dos rectas escritas una al lado de la otra es la forma más rápida de ver qué las separa:\n$$y = 2x, \\quad y = 2x + 3$$\n¿Qué diferencia hay entre ellas?",
     "options": [
       "La primera no es una función lineal",
@@ -657,6 +684,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_28",
     "question": "La cantidad de rectas que cumplen una condición dada depende de cuántos datos se fijen de antemano.\n\n¿Cuántas rectas pasan por dos puntos distintos dados?",
     "options": [
       "Una en el contexto",
@@ -680,6 +708,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_29",
     "question": "Restringir el **dominio** de una función también recorta el conjunto de valores que devuelve:\n$$f(x) = 3x + 2$$\n¿Cuál es su **imagen** si el dominio se limita a $[0, 5]$?",
     "options": [
       "$[0, 5]$",
@@ -705,6 +734,7 @@
     ]
   },
   {
+    "id": "white_linear_LEXI_30",
     "question": "Con **pendiente** negativa, el orden de los valores de salida no sigue al de los de entrada:\n$$f(x) = -2x + 5$$\n¿Cuál es su **imagen** en el dominio $[1, 3]$?",
     "options": [
       "$[1, 3]$",

@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_rationalization_LEXI_01",
     "question": "Racionalizar un límite empieza por reconocer el **conjugado** de la expresión con raíz.\n\n¿Cuál es el conjugado de $\\sqrt{x+4} - 2$?",
     "options": [
       "$\\sqrt{x+4}+2$",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "blue_rationalization_LEXI_02",
     "question": "Para racionalizar un límite hay que armar primero el **conjugado** de la expresión con raíz.\n$$\\sqrt{x+9} + 5$$\n¿Cuál es ese conjugado?",
     "options": [
       "$\\sqrt{x-9}+5$",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "blue_rationalization_LEXI_03",
     "question": "En un límite con raíz, una expresión de este tipo tiene su propio **conjugado**.\n$$\\sqrt{2x+1} - 3$$\n¿Cuál es su conjugado?",
     "options": [
       "$(2x+1)+3$",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "blue_rationalization_LEXI_04",
     "question": "En el denominador de un límite aparece una raíz acompañada de un número, y eso admite **conjugado**.\n$$\\sqrt{x-5} - 4$$\n¿Cuál es su conjugado?",
     "options": [
       "$\\sqrt{x-5}+4$",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "blue_rationalization_LEXI_05",
     "question": "Racionalizar un límite es multiplicar por el **conjugado**, y para eso primero hay que saber cuál es.\n$$\\sqrt{3x+2} + 1$$\n¿Cuál es el conjugado de esta expresión?",
     "options": [
       "$\\sqrt{3x-2}-1$",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "blue_rationalization_LEXI_06",
     "question": "La **identidad fundamental** de la **racionalización** dice que, al multiplicar una raíz por su **conjugado**, la raíz desaparece.\n\n¿A qué es igual $(\\sqrt{u} - c)(\\sqrt{u} + c)$?",
     "options": [
       "$u - c^2$",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "blue_rationalization_LEXI_07",
     "question": "Una expresión con raíz aparece en un límite.\n$$\\sqrt{x+9} - 3$$\nPara racionalizar se la multiplica por su **conjugado**.\n$$(\\sqrt{x+9} - 3)(\\sqrt{x+9} + 3)$$\n¿Cuánto vale ese producto?",
     "options": [
       "$x+6$",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "blue_rationalization_LEXI_08",
     "question": "Este producto repite el esquema de una expresión con raíz multiplicada por su **conjugado**:\n$$(\\sqrt{x+16} - 4)(\\sqrt{x+16} + 4)$$\n¿Cuál es su resultado?",
     "options": [
       "$x+32$",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "blue_rationalization_LEXI_09",
     "question": "Al racionalizar un límite quedó esta expresión, ya sin raíces.\n$$x - 25$$\n¿Qué producto de conjugados la produjo?",
     "options": [
       "$(\\sqrt{x}-5)(\\sqrt{x}+5)$",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "blue_rationalization_LEXI_10",
     "question": "En este límite hay que decidir el camino antes de hacer cualquier cuenta.\n$$\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$$\n¿Qué técnica corresponde aplicar?",
     "options": [
       "Racionalizar y cancelar",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "blue_rationalization_LEXI_11",
     "question": "Este límite necesita que se elija el camino antes de hacer cualquier cuenta.\n$$\\lim_{x \\to 0} \\dfrac{\\sqrt{x+1}-1}{x}$$\n¿Qué técnica corresponde aplicar?",
     "options": [
       "Sustituir directamente",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "blue_rationalization_LEXI_12",
     "question": "Este límite se resuelve con una de las técnicas del tema, y hay que elegir cuál.\n$$\\lim_{x \\to 2} \\dfrac{\\sqrt{x+7}}{x+1}$$\n¿Qué técnica corresponde aplicar?",
     "options": [
       "Racionalizar y cancelar",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "blue_rationalization_LEXI_13",
     "question": "Al racionalizar el numerador de un límite, la raíz no se evapora, cambia de lugar.\n\n¿Adónde va a parar?",
     "options": [
       "Se va al denominador, donde ya no estorba",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "blue_rationalization_LEXI_14",
     "question": "Un límite con raíz da **indeterminación** al sustituir, y se ataca multiplicando por el **conjugado**.\n$$\\lim_{x \\to 4} \\frac{\\sqrt{x}-2}{x-4}$$\n¿Cuál es el objetivo de esa multiplicación?",
     "options": [
       "Cambiar el valor al que tiende $x$",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "blue_rationalization_LEXI_15",
     "question": "Al racionalizar un límite, un estudiante multiplica solo el numerador por el **conjugado** y deja el denominador sin tocar.\n\n¿Qué consecuencia tiene esa maniobra?",
     "options": [
       "El límite da siempre $0$",

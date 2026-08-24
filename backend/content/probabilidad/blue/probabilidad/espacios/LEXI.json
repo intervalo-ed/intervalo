@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_espacios_LEXI_01",
     "question": "Se lanza un dado equilibrado de 6 caras y se anota el número que sale.\n\n¿Cuál de las siguientes opciones nombra el espacio muestral de este experimento?",
     "options": [
       "$\\{1,2,3,4,5,6\\}$",
@@ -21,6 +22,7 @@
     "tags": ["definicion-espacio-muestral"]
   },
   {
+    "id": "blue_espacios_LEXI_02",
     "question": "Se lanzan dos monedas equilibradas y se registra la cara de cada una, en orden, usando C para cara y X para ceca.\n\nSe considera el siguiente conjunto:\n$$A = \\{CC, CX, XC\\}$$\n¿Qué es $A$ respecto del espacio muestral de este experimento?",
     "options": [
       "El espacio muestral completo, porque incluye todos los resultados posibles.",
@@ -42,6 +44,7 @@
     "tags": ["definicion-evento"]
   },
   {
+    "id": "blue_espacios_LEXI_03",
     "question": "De una urna con 5 bolitas numeradas del 1 al 5 se extrae una al azar.\n\nSe considera el resultado $\\{3\\}$, la bolita número 3.\n\n¿Qué es $\\{3\\}$ dentro del espacio muestral de este experimento?",
     "options": [
       "Un evento compuesto, porque agrupa varios resultados posibles.",
@@ -63,6 +66,7 @@
     "tags": ["definicion-suceso-elemental"]
   },
   {
+    "id": "blue_espacios_LEXI_04",
     "question": "De un mazo de 40 cartas españolas se extrae una al azar.\n\nSea $A$ el evento de que la carta sea de oro.\n\n¿Qué representa el complemento $A^c$?",
     "options": [
       "Que la carta extraída sea de un palo distinto al oro.",
@@ -84,6 +88,7 @@
     "tags": ["definicion-complemento"]
   },
   {
+    "id": "blue_espacios_LEXI_05",
     "question": "En una encuesta, un cliente elige un único método de pago entre efectivo, tarjeta o transferencia.\n\nSean $A$ el evento de que elija efectivo y $B$ el evento de que elija tarjeta.\n\n¿Qué relación tienen $A$ y $B$?",
     "options": [
       "No son mutuamente excluyentes, porque el cliente podría elegir ambos métodos.",
@@ -105,6 +110,7 @@
     "tags": ["definicion-mutuamente-excluyentes"]
   },
   {
+    "id": "blue_espacios_LEXI_06",
     "question": "Se lanza una moneda equilibrada dos veces seguidas y se anota cada lanzamiento como C si sale cara o X si sale ceca, en orden.\n\n¿Cuál de las siguientes opciones nombra el espacio muestral de este experimento?",
     "options": [
       "$\\{C,X\\}$",
@@ -126,6 +132,7 @@
     "tags": ["definicion-espacio-muestral"]
   },
   {
+    "id": "blue_espacios_LEXI_07",
     "question": "Una urna contiene 4 bolitas: 2 rojas y 2 azules, todas del mismo tamaño. Se extrae una bolita al azar y se anota su color.\n\n¿Cuál de las siguientes opciones nombra el espacio muestral de este experimento?",
     "options": [
       "$\\{rojo,rojo,azul,azul\\}$",
@@ -147,6 +154,7 @@
     "tags": ["definicion-espacio-muestral"]
   },
   {
+    "id": "blue_espacios_LEXI_08",
     "question": "Se lanza un dado equilibrado de 6 caras y se registra el número obtenido.\n\nSe considera el conjunto $A=\\{2,4,6\\}$, los resultados pares.\n\n¿Qué es $A$ respecto del espacio muestral de este experimento?",
     "options": [
       "Un evento, porque es un subconjunto del espacio muestral.",
@@ -168,6 +176,7 @@
     "tags": ["definicion-evento"]
   },
   {
+    "id": "blue_espacios_LEXI_09",
     "question": "En una encuesta, cada estudiante responde si aprobó el examen o no lo aprobó.\n\nSe considera el conjunto $B=\\{aprobó\\}$.\n\n¿Qué es $B$ respecto del espacio muestral de este experimento?",
     "options": [
       "El espacio muestral completo del experimento.",
@@ -189,6 +198,7 @@
     "tags": ["definicion-evento"]
   },
   {
+    "id": "blue_espacios_LEXI_10",
     "question": "De un mazo de 40 cartas españolas se extrae una carta al azar.\n\nSe considera el resultado de que la carta extraída sea el as de espada.\n\n¿Qué es este resultado dentro del espacio muestral de este experimento?",
     "options": [
       "Un evento compuesto, porque agrupa varios resultados posibles.",
@@ -210,6 +220,7 @@
     "tags": ["definicion-suceso-elemental"]
   },
   {
+    "id": "blue_espacios_LEXI_11",
     "question": "Se lanza una moneda equilibrada una sola vez y se anota si sale cara o ceca.\n\nSe considera el resultado $\\{cara\\}$.\n\n¿Qué es $\\{cara\\}$ dentro del espacio muestral de este experimento?",
     "options": [
       "Un suceso elemental, por tener un único resultado.",
@@ -231,6 +242,7 @@
     "tags": ["definicion-suceso-elemental"]
   },
   {
+    "id": "blue_espacios_LEXI_12",
     "question": "Se lanza un dado equilibrado de 6 caras.\n\nSea $A=\\{5,6\\}$ el evento de obtener un número mayor a 4.\n\n¿Qué representa el complemento $A^c$?",
     "options": [
       "Que el resultado sea mayor a 4 y par a la vez.",
@@ -252,6 +264,7 @@
     "tags": ["definicion-complemento"]
   },
   {
+    "id": "blue_espacios_LEXI_13",
     "question": "Una urna contiene 8 bolitas numeradas del 1 al 8, de las cuales se extrae una al azar.\n\nSea $A=\\{2,4,6,8\\}$ el evento de obtener un número par.\n\n¿Qué representa el complemento $A^c$?",
     "options": [
       "Que el número obtenido sea par y mayor a 6 a la vez.",
@@ -273,6 +286,7 @@
     "tags": ["definicion-complemento"]
   },
   {
+    "id": "blue_espacios_LEXI_14",
     "question": "Se lanzan dos monedas equilibradas y se registra la cara de cada una, en orden.\n\nSean $A$ el evento de que las dos monedas coincidan y $B$ el evento de que salgan distintas.\n\n¿Qué relación tienen $A$ y $B$?",
     "options": [
       "Son mutuamente excluyentes, porque no pueden ocurrir los dos a la vez.",
@@ -294,6 +308,7 @@
     "tags": ["definicion-mutuamente-excluyentes"]
   },
   {
+    "id": "blue_espacios_LEXI_15",
     "question": "De un mazo de 40 cartas españolas se extrae una carta al azar.\n\nSean $A$ el evento de que la carta sea de espada y $B$ el evento de que la carta sea de basto.\n\n¿Qué relación tienen $A$ y $B$?",
     "options": [
       "No son mutuamente excluyentes, porque algunas cartas son de espada y de basto a la vez.",

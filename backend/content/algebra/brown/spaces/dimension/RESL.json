@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_dimension_RESL_01",
     "question": "Un subespacio del espacio de tres dimensiones viene dado por tres generadores.\n$$S = \\text{gen}\\{(1,2,0), (2,4,0), (0,1,1)\\}$$\n¿Cuál es la dimensión de $S$?",
     "options": [
       "$2$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "brown_dimension_RESL_02",
     "question": "Un subespacio del plano viene dado por tres generadores.\n$$S = \\text{gen}\\{(1,0), (0,1), (3,5)\\}$$\n¿Cuál es la dimensión de $S$?",
     "options": [
       "$0$",
@@ -52,6 +54,7 @@
     ]
   },
   {
+    "id": "brown_dimension_RESL_03",
     "question": "Los dos generadores de un subespacio del espacio de tres dimensiones guardan una proporción.\n$$S = \\text{gen}\\{(2,4,6), (1,2,3)\\}$$\n¿Cuál es la dimensión de $S$?",
     "options": [
       "$2$",
@@ -79,6 +82,7 @@
     ]
   },
   {
+    "id": "brown_dimension_RESL_04",
     "question": "Tres generadores del espacio de tres dimensiones no guardan ninguna relación evidente.\n$$S = \\text{gen}\\{(1,1,0), (0,1,1), (1,0,1)\\}$$\n¿Cuál es la dimensión de $S$?",
     "options": [
       "$3$",
@@ -106,6 +110,7 @@
     ]
   },
   {
+    "id": "brown_dimension_RESL_05",
     "question": "Los dos generadores de un subespacio resultan ser el vector nulo.\n$$S = \\text{gen}\\{(0,0,0), (0,0,0)\\}$$\n¿Cuál es la dimensión de $S$?",
     "options": [
       "$2$",
@@ -133,6 +138,7 @@
     ]
   },
   {
+    "id": "brown_dimension_RESL_06",
     "question": "Una matriz escalonada de tres columnas tiene su última fila nula.\n$$\\begin{pmatrix} 1 & 2 & 3 \\\\ 0 & 1 & 4 \\\\ 0 & 0 & 0 \\end{pmatrix}$$\n¿Cuál es la dimensión del subespacio generado por sus columnas?",
     "options": [
       "$2$",
@@ -158,6 +164,7 @@
     ]
   },
   {
+    "id": "brown_dimension_RESL_07",
     "question": "Una matriz escalonada de tres columnas no tiene ninguna fila nula.\n$$\\begin{pmatrix} 1 & 2 & 5 \\\\ 0 & 3 & 1 \\\\ 0 & 0 & 2 \\end{pmatrix}$$\n¿Cuál es la dimensión del subespacio generado por sus columnas?",
     "options": [
       "$0$",
@@ -185,6 +192,7 @@
     ]
   },
   {
+    "id": "brown_dimension_RESL_08",
     "question": "Una matriz escalonada tiene dos filas y tres columnas.\n$$\\begin{pmatrix} 1 & 5 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$$\n¿Cuál es la dimensión del subespacio generado por sus columnas?",
     "options": [
       "$3$",
@@ -212,6 +220,7 @@
     ]
   },
   {
+    "id": "brown_dimension_RESL_09",
     "question": "Una matriz escalonada de tres filas tiene dos de ellas completamente nulas.\n$$\\begin{pmatrix} 2 & 6 & 4 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\end{pmatrix}$$\n¿Cuál es la dimensión del subespacio generado por sus columnas?",
     "options": [
       "$1$",
@@ -239,6 +248,7 @@
     ]
   },
   {
+    "id": "brown_dimension_RESL_10",
     "question": "De una matriz se sabe únicamente cuánto vale su rango.\n$$\\text{rg}(A) = 2$$\n¿Cuál es la dimensión del subespacio generado por sus columnas?",
     "options": [
       "$1$",
@@ -266,6 +276,7 @@
     ]
   },
   {
+    "id": "brown_dimension_RESL_11",
     "question": "Un subespacio del plano está generado por dos vectores y uno tiene una coordenada sin determinar.\n$$S = \\text{gen}\\{(1,4), (3,k)\\}$$\nEl parámetro toma el valor $12$.\n\n¿Cuál es la dimensión de $S$?",
     "options": [
       "$1$",
@@ -293,6 +304,7 @@
     ]
   },
   {
+    "id": "brown_dimension_RESL_12",
     "question": "Un subespacio del plano está generado por dos vectores y uno tiene un parámetro sin fijar.\n$$S = \\text{gen}\\{(1,3), (2,k)\\}$$\n¿Qué dimensión tiene $S$ según el valor de $k$?",
     "options": [
       "Dos para cualquier valor de $k$, sin excepciones",
@@ -320,6 +332,7 @@
     ]
   },
   {
+    "id": "brown_dimension_RESL_13",
     "question": "Un subespacio del plano tiene un parámetro en el segundo de sus generadores.\n$$S = \\text{gen}\\{(1,2), (k,8)\\}$$\n¿Para qué valores de $k$ la dimensión de $S$ vale dos?",
     "options": [
       "Únicamente $4$",
@@ -347,6 +360,7 @@
     ]
   },
   {
+    "id": "brown_dimension_RESL_14",
     "question": "Un subespacio del espacio de tres dimensiones tiene tres generadores y un parámetro sin fijar.\n$$S = \\text{gen}\\{(1,0,1), (0,1,0), (2,k,2)\\}$$\n¿Cuál es la dimensión de $S$ cuando $k$ vale cero?",
     "options": [
       "$2$",
@@ -374,6 +388,7 @@
     ]
   },
   {
+    "id": "brown_dimension_RESL_15",
     "question": "El mismo parámetro aparece en los dos generadores de un subespacio del plano.\n$$S = \\text{gen}\\{(1,k), (k,4)\\}$$\n¿Cuál es la dimensión de $S$ cuando $k$ vale dos?",
     "options": [
       "$3$",

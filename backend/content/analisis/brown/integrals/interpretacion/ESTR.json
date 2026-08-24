@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_interpretacion_ESTR_01",
     "question": "Un auto viaja durante $3$ horas y su velocidad cambia todo el tiempo.\n\nLlamamos $v(t)$ a esa velocidad, en kilómetros por hora, con $t$ en horas.\n\n¿Qué expresión da los kilómetros recorridos?",
     "options": [
       "$\\int_0^3 v(t)\\,dt$",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_ESTR_02",
     "question": "A un tanque le entra agua con un caudal que varía.\n\nLlamamos $c(t)$ a ese caudal, en litros por minuto, con $t$ en minutos.\n\n¿Qué expresión da los litros que entraron entre el minuto $2$ y el $7$?",
     "options": [
       "$\\int_0^7 c(t)\\,dt$",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_ESTR_03",
     "question": "Una fábrica conoce su costo marginal, que dice cuánto cuesta producir una unidad más.\n\nLlamamos $m(q)$ a ese costo, en pesos por unidad, con $q$ el número de unidades.\n\n¿Qué expresión da el costo de producir de la unidad $10$ a la $20$?",
     "options": [
       "$m(20)-m(10)$",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_ESTR_04",
     "question": "Una aplicación descarga datos a una velocidad que varía segundo a segundo.\n\nLlamamos $r(t)$ a esa velocidad, en megabytes por segundo, con $t$ en segundos.\n\n¿Qué expresión da los megabytes bajados durante el primer minuto?",
     "options": [
       "$\\int_0^{60} r(t)\\,dt$",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_ESTR_05",
     "question": "Una población crece a un ritmo que cambia año a año.\n\nLlamamos $p(t)$ a ese ritmo, en personas por año, con $t$ en años desde hoy.\n\n¿Qué expresión da las personas que se suman en los próximos $5$ años?",
     "options": [
       "$p(5)-p(0)$",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_ESTR_06",
     "question": "Un dron arranca a $10$ metros de altura y sube durante $5$ segundos.\n\nLlamamos $v(t)$ a su velocidad de ascenso, en metros por segundo, con $t$ en segundos.\n\n¿Qué expresión da la altura a la que termina?",
     "options": [
       "$\\int_0^5 v(t)\\,dt$",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_ESTR_07",
     "question": "Una casa consume electricidad a una potencia que varía durante el día.\n\nLlamamos $p(t)$ a esa potencia, en kilovatios, con $t$ en horas.\n\n¿Qué expresión da la energía consumida entre la hora $1$ y la $4$?",
     "options": [
       "$\\int_1^4 p(t)\\,dt$",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_ESTR_08",
     "question": "Un cohete despega y su altura cambia durante los primeros $10$ segundos.\n\nLlamamos $h(t)$ a esa altura, en metros, con $t$ en segundos.\n\n¿Qué expresión da los metros que subió en ese lapso?",
     "options": [
       "$\\int_0^{10} h(t)\\,dt$",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_ESTR_09",
     "question": "La velocidad de un auto se mide en kilómetros por hora y el tiempo en horas.\n\nAl acumular esa velocidad durante $5$ horas, el resultado da $120$.\n\n¿Qué afirma ese número?",
     "options": [
       "Que su velocidad promedio fue de $120$ por hora",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_ESTR_10",
     "question": "Un tanque tiene entrada y salida de agua a la vez, y se mide el caudal neto en litros por minuto.\n\nAl acumularlo durante $3$ minutos, el resultado da $-15$.\n\n¿Qué afirma ese número?",
     "options": [
       "Que el tanque tiene $15$ litros menos que al empezar",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_ESTR_11",
     "question": "Un ascensor se mueve durante $8$ segundos y su velocidad se mide en metros por segundo, positiva al subir.\n\nAl acumular esa velocidad en los $8$ segundos, el resultado da $0$.\n\n¿Qué afirma ese número?",
     "options": [
       "Que el ascensor estuvo detenido todo el tiempo",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_ESTR_12",
     "question": "Una descarga se mide en megabytes por segundo y el tiempo en segundos.\n\nSe acumula esa velocidad a lo largo de $10$ segundos.\n\n¿En qué unidad queda el resultado?",
     "options": [
       "En segundos, que es lo que dura el tramo",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_ESTR_13",
     "question": "El costo marginal de una fábrica se mide en pesos por unidad producida.\n\nAcumulado sobre las primeras $40$ unidades, el resultado da $3200$.\n\n¿Qué afirma ese número?",
     "options": [
       "Que producir esas $40$ unidades cuesta \\$3200",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_ESTR_14",
     "question": "Un medicamento entra a la sangre a un ritmo que se mide en miligramos por hora.\n\nAl acumular ese ritmo durante $6$ horas, el resultado da $90$.\n\n¿Qué afirma ese número?",
     "options": [
       "Que el ritmo promedio fue de $90$ por hora",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_ESTR_15",
     "question": "Una planta crece a un ritmo que se mide en centímetros por día.\n\nSe acumula ese ritmo entre el día $10$ y el día $20$.\n\n¿Qué representa el número que resulta?",
     "options": [
       "La altura que la planta tiene el día $20$",
@@ -345,6 +360,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_ESTR_16",
     "question": "Una pileta se llena con un caudal $c(t)$ que varía, en litros por minuto, con $t$ en minutos.\n\nLos litros del primer cuarto de hora se escriben así:\n$$\\int_0^{15} c(t)\\,dt$$\n¿Qué representa el bloque de adentro, el caudal multiplicado por el $dt$?",
     "options": [
       "El aporte de un ratito: caudal por duración",
@@ -368,6 +384,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_ESTR_17",
     "question": "Un tren viaja con velocidad $v(t)$ en kilómetros por hora, con $t$ en horas.\n\nParte de su recorrido se escribe así:\n$$\\int_2^5 v(t)\\,dt$$\n¿Qué papel juegan el $2$ y el $5$?",
     "options": [
       "Son las velocidades mínima y máxima del tren",
@@ -391,6 +408,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_ESTR_18",
     "question": "La lluvia cae sobre un pluviómetro a un ritmo $f(t)$ en milímetros por hora, con $t$ en horas.\n\nEl agua de la madrugada se escribe así:\n$$\\int_0^6 f(t)\\,dt$$\nEl símbolo que envuelve todo tiene una forma particular.\n\n¿De dónde viene esa forma?",
     "options": [
       "Es la inicial estilizada de la palabra integral",
@@ -414,6 +432,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_ESTR_19",
     "question": "Una impresora deposita tinta a un ritmo $r(t)$ en mililitros por segundo, con $t$ en segundos.\n\nLa tinta de una pasada se escribe así:\n$$\\int_0^{30} r(t)\\,dt$$\n¿Por qué el resultado queda en mililitros y no en mililitros por segundo?",
     "options": [
       "Porque cada aporte multiplica ritmo por ratito",
@@ -437,6 +456,7 @@
     ]
   },
   {
+    "id": "brown_interpretacion_ESTR_20",
     "question": "Un dique suelta agua a un ritmo $q(t)$ en metros cúbicos por segundo, con $t$ en segundos.\n\nEl agua del primer minuto se escribe así:\n$$\\int_0^{60} q(t)\\,dt$$\nAdentro de la escritura aparece la letra $t$.\n\n¿El resultado depende de esa letra?",
     "options": [
       "Sí, el resultado es una función de $t$",

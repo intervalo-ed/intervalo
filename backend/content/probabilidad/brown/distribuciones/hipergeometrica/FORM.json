@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_hipergeometrica_FORM_01",
     "question": "Un estanque cerrado tiene 30 peces, de los cuales 8 fueron marcados en una campaña anterior.\n\nSe pescan 6 peces al azar, sin reposición.\n\n¿Cuáles son los parámetros $N, K, n$ de la hipergeométrica que modela la cantidad de peces marcados entre los 6 pescados?",
     "options": [
       "$N=30$, $K=8$, $n=6$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_FORM_02",
     "question": "Un mazo especial de 10 cartas tiene 4 cartas con figura.\n\nSe reparten 3 cartas sin reponer al mazo.\n\nSea $X$ la cantidad de cartas con figura repartidas. Calculá $P(X=2)$.",
     "options": [
       "$3/10$",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_FORM_03",
     "question": "Un lote de 40 componentes electrónicos tiene 10 fallados.\n\nSe seleccionan 5 al azar sin reposición para una prueba.\n\nSea $X$ la cantidad de componentes fallados entre los 5 seleccionados.\n\n¿Cuánto vale $E[X]$?",
     "options": [
       "$1{,}25$",
@@ -75,6 +78,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_FORM_04",
     "question": "Un mazo de 18 cartas tiene 7 cartas con figura.\n\nSe reparten 5 cartas sin reponer al mazo.\n\n¿Cuáles son los parámetros $N, K, n$ de la hipergeométrica que modela la cantidad de cartas con figura entre las 5 repartidas?",
     "options": [
       "$N=18$, $K=5$, $n=7$",
@@ -100,6 +104,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_FORM_05",
     "question": "Una urna contiene 16 bochas, de las cuales 6 son rojas y el resto azules.\n\nSe extraen 5 bochas al azar sin reposición.\n\n¿Cuáles son los parámetros $N, K, n$ de la hipergeométrica que modela la cantidad de bochas rojas entre las 5 extraídas?",
     "options": [
       "$N=16$, $K=6$, $n=5$",
@@ -125,6 +130,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_FORM_06",
     "question": "Una empresa sortea nombres de una lista fija de 20 empleados, de los cuales 7 pertenecen a un mismo equipo.\n\nSe sortean 4 nombres sin repetir.\n\n¿Cuáles son los parámetros $N, K, n$ de la hipergeométrica que modela la cantidad de empleados del equipo entre los 4 sorteados?",
     "options": [
       "$N=20$, $K=4$, $n=7$",
@@ -150,6 +156,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_FORM_07",
     "question": "Una urna contiene 12 bochas, de las cuales 5 son rojas y el resto azules.\n\nSe extraen 4 bochas al azar sin reposición.\n\nSea $X$ la cantidad de bochas rojas extraídas. Calculá $P(X=2)$.",
     "options": [
       "$35/99$",
@@ -175,6 +182,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_FORM_08",
     "question": "Un lote de 14 componentes tiene 5 fallados.\n\nSe seleccionan 4 al azar sin reposición para una prueba.\n\nSea $X$ la cantidad de componentes fallados seleccionados. Calculá $P(X=1)$.",
     "options": [
       "$18/143$",
@@ -200,6 +208,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_FORM_09",
     "question": "Una empresa sortea 3 nombres de una lista de 15 empleados, de los cuales 6 pertenecen a un mismo equipo.\n\nSea $X$ la cantidad de empleados de ese equipo entre los 3 sorteados. Calculá $P(X=2)$.",
     "options": [
       "$27/91$",
@@ -225,6 +234,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_FORM_10",
     "question": "Un panel de 16 candidatos tiene 6 con experiencia previa.\n\nSe eligen 5 jurados al azar sin reposición.\n\nSea $X$ la cantidad de jurados con experiencia entre los 5 elegidos. Calculá $P(X=3)$.",
     "options": [
       "$3/52$",
@@ -250,6 +260,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_FORM_11",
     "question": "Un estanque cerrado tiene 18 peces, de los cuales 7 están marcados.\n\nSe pescan 4 peces al azar sin reposición.\n\nSea $X$ la cantidad de peces marcados pescados. Calculá $P(X=2)$.",
     "options": [
       "$77/612$",
@@ -275,6 +286,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_FORM_12",
     "question": "Una urna contiene 15 bochas, de las cuales 6 son rojas y el resto azules.\n\nSe extraen 5 bochas al azar sin reposición.\n\nSea $X$ la cantidad de bochas rojas extraídas.\n\n¿Cuánto vale $E[X]$?",
     "options": [
       "$0{,}4$",
@@ -300,6 +312,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_FORM_13",
     "question": "Un mazo de 16 cartas tiene 4 cartas con figura.\n\nSe reparten 6 cartas sin reponer al mazo.\n\nSea $X$ la cantidad de cartas con figura repartidas.\n\n¿Cuánto vale $E[X]$?",
     "options": [
       "$1{,}5$",
@@ -325,6 +338,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_FORM_14",
     "question": "Una empresa sortea nombres de una lista de 20 empleados, de los cuales 5 pertenecen a un mismo equipo.\n\nSe sortean 4 nombres sin repetir.\n\nSea $X$ la cantidad de empleados de ese equipo entre los 4 sorteados.\n\n¿Cuánto vale $E[X]$?",
     "options": [
       "$0{,}25$",
@@ -350,6 +364,7 @@
     ]
   },
   {
+    "id": "brown_hipergeometrica_FORM_15",
     "question": "Un panel de 14 candidatos tiene 7 con experiencia previa.\n\nSe eligen 6 jurados al azar sin reposición.\n\nSea $X$ la cantidad de jurados con experiencia entre los 6 elegidos.\n\n¿Cuánto vale $E[X]$?",
     "options": [
       "$6$",

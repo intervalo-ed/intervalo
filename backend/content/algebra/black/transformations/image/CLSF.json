@@ -1,5 +1,6 @@
 [
   {
+    "id": "black_image_CLSF_01",
     "question": "Si $T(x,y)=(x,0)$, ¿cuál de estos vectores pertenece a la **imagen** de $T$?",
     "options": [
       "$(3,0)$",

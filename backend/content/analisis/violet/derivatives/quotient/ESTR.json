@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_quotient_ESTR_01",
     "question": "Una constante ocupa el numerador de esta fracción, con una potencia de $x$ en el denominador:\n$$f(x) = \\frac{5}{x^3}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Pasar a potencia negativa",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "violet_quotient_ESTR_02",
     "question": "Esta fracción tiene una constante arriba y una potencia de $x$ abajo:\n$$f(x) = \\frac{7}{x^2}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Múltiplo por constante",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "violet_quotient_ESTR_03",
     "question": "El numerador de esta fracción es una constante negativa:\n$$f(x) = \\frac{-4}{x^5}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del cociente",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "violet_quotient_ESTR_04",
     "question": "Acá el denominador es una constante, no una función de $x$:\n$$f(x) = \\frac{x^2+1}{4}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Múltiplo por constante",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "violet_quotient_ESTR_05",
     "question": "El denominador de esta fracción también es un número fijo:\n$$f(x) = \\frac{2x^2-6}{2}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del producto",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "violet_quotient_ESTR_06",
     "question": "Esta fracción tiene un polinomio cúbico arriba y una constante abajo:\n$$f(x) = \\frac{x^3+5}{10}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del cociente",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "violet_quotient_ESTR_07",
     "question": "El numerador y el denominador de esta fracción comparten una raíz:\n$$f(x) = \\frac{x^2-1}{x-1}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Simplificar la fracción",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "violet_quotient_ESTR_08",
     "question": "Numerador y denominador de esta fracción tienen un factor en común:\n$$f(x) = \\frac{x^3-8}{x-2}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Múltiplo por constante",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "violet_quotient_ESTR_09",
     "question": "Dada la expresión:\n$$\\left(\\frac{u}{v}\\right)'$$\n¿Cuál es la fórmula correcta de la **regla del cociente**?",
     "options": [
       "$(uv'-u'v)/v^2$",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "violet_quotient_ESTR_10",
     "question": "En la regla del cociente hay un orden estricto para restar los dos términos del numerador.\n\n¿Qué término va primero dentro de esa resta?",
     "options": [
       "$u'v$, el término con la derivada de $u$",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "violet_quotient_ESTR_11",
     "question": "La fórmula de la regla del cociente eleva el denominador a una potencia fija.\n\n¿Qué exponente lleva el **denominador** en la regla del cociente?",
     "options": [
       "Depende del exponente que tenga $v$ en la expresión original",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "violet_quotient_ESTR_12",
     "question": "Sea la función:\n$$f(x)=\\frac{u(x)}{v(x)}$$\n¿De qué depende el signo de $f'(x)$?",
     "options": [
       "Únicamente del denominador $v^2$",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "violet_quotient_ESTR_13",
     "question": "Para derivar:\n$$f(x) = \\frac{x^2+1}{x+\\frac{1}{x}}$$\nSe va a aplicar la regla del cociente.\n\n¿Cuál es el denominador $v$?",
     "options": [
       "$v=x+\\frac{1}{x}$, la expresión completa del denominador",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "violet_quotient_ESTR_14",
     "question": "Para derivar:\n$$f(x) = \\frac{\\sin x}{x^2}$$\nSe va a aplicar la regla del cociente.\n\n¿Cómo se identifican $u$ y $v$?",
     "options": [
       "$u=\\sin x \\cdot x^2, v=1$",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "violet_quotient_ESTR_15",
     "question": "La fórmula de la regla del cociente combina un orden estricto en la resta con un exponente en el denominador.\n\n¿Cuál de las siguientes expresiones corresponde correctamente a la **regla del cociente**?",
     "options": [
       "$(u'v-uv')/v$",

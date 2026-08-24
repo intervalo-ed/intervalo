@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_scientific_notation_RESL_01",
     "question": "Una bacteria mide aproximadamente $0{,}0000025$ metros de diámetro.\n\n¿Cuál es esa medida expresada en notación científica?",
     "options": [
       "$2{,}5 \\times 10^{-6}$ metros",
@@ -27,6 +28,7 @@
     ]
   },
   {
+    "id": "white_scientific_notation_RESL_02",
     "question": "La distancia entre dos ciudades es de $284\\,000$ metros.\n\n¿Cuál es esa distancia expresada en notación científica?",
     "options": [
       "$2{,}84 \\times 10^{4}$ metros",
@@ -54,6 +56,7 @@
     ]
   },
   {
+    "id": "white_scientific_notation_RESL_03",
     "question": "Una lámina metálica tiene un espesor de $0{,}00058$ metros.\n\n¿Cuál es ese espesor expresado en notación científica?",
     "options": [
       "$5{,}8 \\times 10^{4}$ metros",
@@ -81,6 +84,7 @@
     ]
   },
   {
+    "id": "white_scientific_notation_RESL_04",
     "question": "Una población es de $73\\,500\\,000$ habitantes.\n\n¿Cuál es esa cantidad expresada en notación científica?",
     "options": [
       "$7{,}35 \\times 10^{7}$",
@@ -108,6 +112,7 @@
     ]
   },
   {
+    "id": "white_scientific_notation_RESL_05",
     "question": "Una medición de masa da $0{,}00000091$ gramos.\n\n¿Cuál es esa masa expresada en notación científica?",
     "options": [
       "$91 \\times 10^{-8}$ gramos",
@@ -135,6 +140,7 @@
     ]
   },
   {
+    "id": "white_scientific_notation_RESL_06",
     "question": "Un centro de datos guarda $8\\times10^{6}$ archivos, y cada archivo ocupa en promedio $5\\times10^{3}$ bytes.\n\n¿Cuántos bytes ocupan todos los archivos juntos, en notación científica?",
     "options": [
       "$4\\times10^{10}$ bytes",
@@ -162,6 +168,7 @@
     ]
   },
   {
+    "id": "white_scientific_notation_RESL_07",
     "question": "Una fábrica produce $4\\times10^{5}$ piezas por mes.\n\nCada pieza pesa $3\\times10^{-2}$ kilogramos.\n\n¿Cuánto pesa la producción mensual completa, en notación científica?",
     "options": [
       "$7 \\times 10^{3}$ kg",
@@ -189,6 +196,7 @@
     ]
   },
   {
+    "id": "white_scientific_notation_RESL_08",
     "question": "Un depósito almacena $9\\times10^{7}$ litros de agua.\n\nSe reparte en bidones de $3\\times10^{2}$ litros cada uno.\n\n¿Cuántos bidones se llenan, en notación científica?",
     "options": [
       "$3 \\times 10^{9}$",
@@ -216,6 +224,7 @@
     ]
   },
   {
+    "id": "white_scientific_notation_RESL_09",
     "question": "Una señal recorre $2\\times10^{8}$ metros por segundo durante $4\\times10^{-3}$ segundos.\n\n¿Qué distancia recorre, en notación científica?",
     "options": [
       "$8 \\times 10^{5}$ metros",
@@ -243,6 +252,7 @@
     ]
   },
   {
+    "id": "white_scientific_notation_RESL_10",
     "question": "Un archivo de $6\\times10^{9}$ bytes se transfiere a $4\\times10^{6}$ bytes por segundo.\n\n¿Cuántos segundos tarda la transferencia, en notación científica?",
     "options": [
       "$0{,}15 \\times 10^{4}$ segundos",
@@ -270,6 +280,7 @@
     ]
   },
   {
+    "id": "white_scientific_notation_RESL_11",
     "question": "El PBI de un país fue $3{,}2\\times10^{11}$ dólares un año, y al año siguiente aumentó en $5\\times10^{9}$ dólares.\n\n¿Cuál fue el PBI del segundo año, en notación científica?",
     "options": [
       "$3{,}25\\times10^{11}$ dólares",
@@ -297,6 +308,7 @@
     ]
   },
   {
+    "id": "white_scientific_notation_RESL_12",
     "question": "Un depósito tiene $7\\times10^{5}$ litros y recibe otros $2\\times10^{4}$ litros.\n\n¿Cuántos litros hay en total, en notación científica?",
     "options": [
       "$7{,}2 \\times 10^{4}$",
@@ -324,6 +336,7 @@
     ]
   },
   {
+    "id": "white_scientific_notation_RESL_13",
     "question": "Una cuenta registra $5{,}4\\times10^{8}$ pesos y se descuentan $4\\times10^{7}$ pesos.\n\n¿Cuánto queda, en notación científica?",
     "options": [
       "$1{,}4 \\times 10^{1}$",
@@ -351,6 +364,7 @@
     ]
   },
   {
+    "id": "white_scientific_notation_RESL_14",
     "question": "Dos mediciones dan $8{,}1\\times10^{-3}$ y $9\\times10^{-4}$ metros.\n\n¿Cuál es la suma de las dos, en notación científica?",
     "options": [
       "$9 \\times 10^{-3}$ metros",
@@ -378,6 +392,7 @@
     ]
   },
   {
+    "id": "white_scientific_notation_RESL_15",
     "question": "Un stock inicial de $2{,}5\\times10^{6}$ unidades se reduce en $3\\times10^{5}$ unidades.\n\n¿Cuántas unidades quedan, en notación científica?",
     "options": [
       "$2{,}47 \\times 10^{6}$",

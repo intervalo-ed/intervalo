@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_infinite_limits_GRAF_01",
     "question": "La gráfica de una función se estabiliza en una altura fija a medida que $x$ crece y decrece sin cota.\n\n¿Cuál es la ecuación de la **asíntota horizontal**?",
     "options": [
       "$y = 2$",
@@ -30,6 +31,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_GRAF_02",
     "question": "La gráfica de una función tiene un pico en el centro y desciende hacia ambos lados hasta una altura constante.\n\n¿Cuál es la ecuación de la **asíntota horizontal**?",
     "options": [
       "$y = 4$",
@@ -60,6 +62,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_GRAF_03",
     "question": "La gráfica de una función pasa por un punto marcado en $x=1$, y además se estabiliza hacia los extremos.\n\n¿Cuál es la ecuación de la **asíntota horizontal**?",
     "options": [
       "$y = 1$",
@@ -90,6 +93,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_GRAF_04",
     "question": "La gráfica de una función se estabiliza en una altura negativa cuando $x$ crece y decrece sin cota.\n\n¿Cuál es la ecuación de la **asíntota horizontal**?",
     "options": [
       "$y = -1$",
@@ -120,6 +124,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_GRAF_05",
     "question": "La gráfica de una función se estabiliza en una altura fija a medida que $x \\to \\pm\\infty$.\n\n¿Tiene esta función una **asíntota horizontal**?",
     "options": [
       "Sí",
@@ -148,6 +153,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_GRAF_06",
     "question": "La gráfica de una función cruza la altura $y=2$ en el centro y después se estabiliza en esa misma altura.\n\n¿Sigue siendo $y=2$ la **asíntota horizontal** de esta función, a pesar de que la curva la cruza en el medio?",
     "options": [
       "No",
@@ -176,6 +182,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_GRAF_07",
     "question": "La gráfica de una función se rompe y diverge a $\\pm\\infty$ en un valor puntual de $x$.\n\n¿Cuál es la ecuación de la **asíntota vertical**?",
     "options": [
       "$x = 1$",
@@ -206,6 +213,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_GRAF_08",
     "question": "La gráfica de una función cruza el eje horizontal en un punto y se rompe divergiendo en otro.\n\n¿Cuál es la ecuación de la **asíntota vertical**?",
     "options": [
       "$x = -2$",
@@ -236,6 +244,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_GRAF_09",
     "question": "La gráfica de una función muestra una rama que sube sin cota justo antes de un valor de $x$.\n\nOtra rama baja sin cota justo después de ese mismo valor.\n\n¿Tiene esta función una **asíntota vertical** en ese punto?",
     "options": [
       "No",
@@ -264,6 +273,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_GRAF_10",
     "question": "En la gráfica, la función se rompe en un valor negativo de $x$ y además pasa por el origen.\n\n¿Cuál es la ecuación de la **asíntota vertical**?",
     "options": [
       "$x = 0$",
@@ -294,6 +304,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_GRAF_11",
     "question": "La gráfica de una función es una parábola completa, sin ninguna ruptura visible en su dominio.\n\n¿Tiene esta función una **asíntota vertical**?",
     "options": [
       "Sí",
@@ -322,6 +333,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_GRAF_12",
     "question": "La gráfica de una función exponencial se aplana hacia un lado y se dispara sin cota hacia el otro.\n\n¿Cuánto vale $\\lim_{x \\to -\\infty} f(x)$ en esta gráfica?",
     "options": [
       "$0$",
@@ -352,6 +364,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_GRAF_13",
     "question": "La gráfica de una función exponencial creciente se aplana a la izquierda y sube sin cota hacia la derecha.\n\n¿Cuánto vale $\\lim_{x \\to +\\infty} f(x)$ en esta gráfica?",
     "options": [
       "$0$",
@@ -382,6 +395,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_GRAF_14",
     "question": "La gráfica de una función racional de grado impar diverge hacia direcciones opuestas en sus dos extremos.\n\n¿Cuánto vale $\\lim_{x \\to -\\infty} f(x)$ en esta gráfica?",
     "options": [
       "$+\\infty$",
@@ -412,6 +426,7 @@
     ]
   },
   {
+    "id": "blue_infinite_limits_GRAF_15",
     "question": "La gráfica de una función racional de grado impar en el numerador diverge hacia $-\\infty$ en su lado izquierdo.\n\n¿Cuánto vale $\\lim_{x \\to +\\infty} f(x)$ en esta gráfica?",
     "options": [
       "$-\\infty$",

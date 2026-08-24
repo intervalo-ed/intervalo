@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_variaciones_FORM_01",
     "question": "Se quiere calcular la cantidad de banderas distintas que se pueden armar eligiendo y ordenando 3 franjas de colores.\n\nHay un total de 7 colores disponibles, y no se repiten dentro de una misma bandera.\n\n¿Qué expresión corresponde?",
     "options": [
       "$\\dfrac{7!}{3!}$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "white_variaciones_FORM_02",
     "question": "Entre las siguientes expresiones, se busca identificar cuál corresponde a la variación de $n$ elementos tomados de a $k$.\n\n¿Cuál es la expresión correcta?",
     "options": [
       "$\\dfrac{n!}{(n-k)!}$",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "white_variaciones_FORM_03",
     "question": "Se quiere armar la expresión de la variación de 9 elementos tomados de a 3 como un producto directo de factores decrecientes.\n\nEsto es, sin pasar por el cociente de factoriales.\n\n¿Cuál es la expresión correcta?",
     "options": [
       "$9\\times 8\\times 7$",
@@ -75,6 +78,7 @@
     ]
   },
   {
+    "id": "white_variaciones_FORM_04",
     "question": "Se quiere calcular la cantidad de podios distintos, eligiendo y ordenando 3 corredores para el 1°, 2° y 3° puesto.\n\nHay un total de 10 corredores en la carrera, y ninguno puede ocupar dos puestos.\n\n¿Qué expresión corresponde?",
     "options": [
       "$\\dfrac{10!}{3!}$",
@@ -100,6 +104,7 @@
     ]
   },
   {
+    "id": "white_variaciones_FORM_05",
     "question": "Se quiere calcular la cantidad de claves distintas que se pueden armar eligiendo y ordenando 4 dígitos.\n\nHay un total de 9 dígitos disponibles, y ninguno se repite dentro de la misma clave.\n\n¿Qué expresión corresponde?",
     "options": [
       "$\\dfrac{9!}{4!}$",
@@ -125,6 +130,7 @@
     ]
   },
   {
+    "id": "white_variaciones_FORM_06",
     "question": "Se quiere calcular la cantidad de formas distintas de asignar presidente y secretario de un comité.\n\nHay un total de 12 integrantes disponibles, y ninguno puede ocupar los dos cargos.\n\n¿Qué expresión corresponde?",
     "options": [
       "$\\dfrac{12!}{2!}$",
@@ -150,6 +156,7 @@
     ]
   },
   {
+    "id": "white_variaciones_FORM_07",
     "question": "Se quiere calcular la cantidad de banderas distintas que se pueden armar eligiendo y ordenando 6 franjas de colores.\n\nHay un total de 8 colores disponibles, y no se repiten dentro de una misma bandera.\n\n¿Qué expresión corresponde?",
     "options": [
       "$\\dfrac{8!}{6!}$",
@@ -175,6 +182,7 @@
     ]
   },
   {
+    "id": "white_variaciones_FORM_08",
     "question": "Se quiere calcular la cantidad de contraseñas distintas que se pueden armar eligiendo y ordenando 3 caracteres.\n\nHay un total de 11 caracteres disponibles, y ninguno se repite dentro de la misma contraseña.\n\n¿Qué expresión corresponde?",
     "options": [
       "$\\dfrac{11!}{3!}$",
@@ -200,6 +208,7 @@
     ]
   },
   {
+    "id": "white_variaciones_FORM_09",
     "question": "Se quiere calcular la cantidad de formas distintas de asignar capitán y vicecapitán de un equipo.\n\nHay un total de 10 integrantes disponibles, y ninguno puede ocupar los dos cargos.\n\n¿Qué expresión corresponde?",
     "options": [
       "$\\dfrac{10!}{2!}$",
@@ -225,6 +234,7 @@
     ]
   },
   {
+    "id": "white_variaciones_FORM_10",
     "question": "En un torneo de 8 equipos se van a asignar los 3 primeros puestos del podio, cada uno distinto.\n\nEntre las siguientes expresiones, se busca identificar cuál corresponde a esta variación.\n\n¿Cuál es la expresión correcta?",
     "options": [
       "$8!$",
@@ -250,6 +260,7 @@
     ]
   },
   {
+    "id": "white_variaciones_FORM_11",
     "question": "Se arma una clave de acceso eligiendo y ordenando 4 dígitos distintos entre 10 disponibles.\n\nEntre las siguientes expresiones, se busca identificar cuál corresponde a esta variación.\n\n¿Cuál es la expresión correcta?",
     "options": [
       "$\\dbinom{10}{4}$",
@@ -275,6 +286,7 @@
     ]
   },
   {
+    "id": "white_variaciones_FORM_12",
     "question": "Un comité de 7 integrantes va a asignar dos cargos distintos, presidente y tesorero.\n\nEntre las siguientes expresiones, se busca identificar cuál corresponde a esta variación.\n\n¿Cuál es la expresión correcta?",
     "options": [
       "$\\dfrac{7!}{5!}$",
@@ -300,6 +312,7 @@
     ]
   },
   {
+    "id": "white_variaciones_FORM_13",
     "question": "Se quiere armar la expresión de la variación de 10 elementos tomados de a 4 como un producto directo de factores decrecientes.\n\nEsto es, sin pasar por el cociente de factoriales.\n\n¿Cuál es la expresión correcta?",
     "options": [
       "$10\\times 9\\times 8\\times 7$",
@@ -325,6 +338,7 @@
     ]
   },
   {
+    "id": "white_variaciones_FORM_14",
     "question": "Se quiere armar la expresión de la variación de 7 elementos tomados de a 2 como un producto directo de factores decrecientes.\n\nEsto es, sin pasar por el cociente de factoriales.\n\n¿Cuál es la expresión correcta?",
     "options": [
       "$7$",
@@ -350,6 +364,7 @@
     ]
   },
   {
+    "id": "white_variaciones_FORM_15",
     "question": "Se quiere armar la expresión de la variación de 12 elementos tomados de a 3 como un producto directo de factores decrecientes.\n\nEsto es, sin pasar por el cociente de factoriales.\n\n¿Cuál es la expresión correcta?",
     "options": [
       "$12\\times 11$",

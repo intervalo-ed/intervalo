@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_powers_FORM_01",
     "question": "Se quiere simplificar la expresión:\n$$\\dfrac{a^5 \\cdot a^{-2}}{a^3}$$\n¿Qué propiedad de la potenciación corresponde aplicar primero?",
     "options": [
       "$a^m \\cdot a^n = a^{m+n}$ en el numerador",
@@ -27,6 +28,7 @@
     ]
   },
   {
+    "id": "white_powers_FORM_02",
     "question": "Se quiere simplificar una cadena de potencias de la misma base.\n$$a^{4} \\cdot a^{3} \\cdot a^{-4}$$\n¿Qué propiedad corresponde aplicar?",
     "options": [
       "$a^m / a^n = a^{m-n}$, porque uno de los exponentes es negativo",
@@ -54,6 +56,7 @@
     ]
   },
   {
+    "id": "white_powers_FORM_03",
     "question": "Se quiere simplificar una expresión con un producto en el denominador.\n$$\\dfrac{a^{5}}{a^{1} \\cdot a^{2}}$$\n¿Qué propiedad corresponde aplicar primero?",
     "options": [
       "$a^m / a^n = a^{m-n}$ entre el numerador y el primer factor de abajo",
@@ -81,6 +84,7 @@
     ]
   },
   {
+    "id": "white_powers_FORM_04",
     "question": "Se quiere simplificar un cociente con el exponente negativo en el denominador.\n$$\\dfrac{a^{3}}{a^{-2}}$$\n¿Qué propiedad deja la cuenta en un solo paso?",
     "options": [
       "$a^m / a^n = a^{m-n}$, restando el exponente negativo del de arriba",
@@ -108,6 +112,7 @@
     ]
   },
   {
+    "id": "white_powers_FORM_05",
     "question": "Se quiere simplificar una expresión con un producto arriba y otro abajo.\n$$\\dfrac{a^{5} \\cdot a^{2}}{a^{4} \\cdot a^{3}}$$\n¿Qué conviene hacer primero?",
     "options": [
       "Restar cada exponente de arriba del que tiene enfrente abajo, factor por factor",
@@ -135,6 +140,7 @@
     ]
   },
   {
+    "id": "white_powers_FORM_06",
     "question": "Antes de seguir operando, se quiere reescribir la potencia $a^{-3}$ sin exponente negativo.\n\n¿Cuál es la reescritura correcta?",
     "options": [
       "$1/a^{3}$",
@@ -162,6 +168,7 @@
     ]
   },
   {
+    "id": "white_powers_FORM_07",
     "question": "Un exponente negativo en el denominador se puede subir al numerador cambiándole el signo.\n$$\\dfrac{1}{a^{-2}}$$\n¿Cuál es la reescritura correcta?",
     "options": [
       "$a^{-2}$",
@@ -189,6 +196,7 @@
     ]
   },
   {
+    "id": "white_powers_FORM_08",
     "question": "Antes de operar conviene sacar el exponente negativo de la expresión.\n$$3 \\cdot a^{-4}$$\n¿Cuál es la reescritura correcta?",
     "options": [
       "$1/(3a)^{4}$",
@@ -216,6 +224,7 @@
     ]
   },
   {
+    "id": "white_powers_FORM_09",
     "question": "Cuando la base es una fracción, el exponente negativo la da vuelta entera.\n$$\\left(\\dfrac{2}{7}\\right)^{-3}$$\n¿Cuál es la reescritura correcta?",
     "options": [
       "$(7/2)^{3}$",
@@ -243,6 +252,7 @@
     ]
   },
   {
+    "id": "white_powers_FORM_10",
     "question": "Los exponentes negativos de arriba y de abajo cruzan la barra en sentidos opuestos.\n$$\\dfrac{a^{-3}}{b^{-2}}$$\n¿Cuál es la reescritura sin exponentes negativos?",
     "options": [
       "$-\\dfrac{a^{3}}{b^{2}}$",
@@ -270,6 +280,7 @@
     ]
   },
   {
+    "id": "white_powers_FORM_11",
     "question": "Se quiere resolver la expresión:\n$$(a^{2})^{3} \\cdot a^{4}$$\n¿Qué corresponde hacer primero?",
     "options": [
       "Aplicar $(a^m)^n = a^{m \\cdot n}$ a $(a^2)^3$",
@@ -297,6 +308,7 @@
     ]
   },
   {
+    "id": "white_powers_FORM_12",
     "question": "Se quiere simplificar un producto de dos potencias de potencia.\n$$(a^{3})^{2} \\cdot (a^{2})^{4}$$\n¿Qué corresponde hacer primero?",
     "options": [
       "Aplicar el exponente de afuera de un paréntesis al contenido del otro",
@@ -324,6 +336,7 @@
     ]
   },
   {
+    "id": "white_powers_FORM_13",
     "question": "Una potencia de potencia puede estar anidada más de una vez.\n$$\\left((a^{2})^{3}\\right)^{2}$$\n¿Qué corresponde hacer?",
     "options": [
       "Sumar los tres exponentes, porque todos pertenecen a la misma base",
@@ -351,6 +364,7 @@
     ]
   },
   {
+    "id": "white_powers_FORM_14",
     "question": "Se quiere simplificar un cociente entre dos potencias de potencia.\n$$\\dfrac{(a^{4})^{2}}{(a^{3})^{2}}$$\n¿Qué conviene hacer primero?",
     "options": [
       "Resolver los dos paréntesis, y después restar los exponentes que queden",
@@ -378,6 +392,7 @@
     ]
   },
   {
+    "id": "white_powers_FORM_15",
     "question": "Una potencia de potencia puede tener el exponente negativo adentro del paréntesis.\n$$(a^{-2})^{3}$$\n¿Qué corresponde hacer?",
     "options": [
       "Sumar los dos exponentes, porque uno de ellos es negativo",

@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_systems_CLSF_01",
     "question": "Un sistema de dos ecuaciones con dos incógnitas quedó escalonado así:\n$$\\begin{pmatrix} 1 & 2 & 5 \\\\ 0 & 0 & 3 \\end{pmatrix}$$\n¿Cómo se clasifica?",
     "options": [
       "Incompatible, no admite ninguna solución posible",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "violet_systems_CLSF_02",
     "question": "Un sistema de dos ecuaciones con dos incógnitas quedó escalonado así.\n$$\\begin{pmatrix} 1 & 3 & 4 \\\\ 0 & 2 & 6 \\end{pmatrix}$$\n¿Cómo se clasifica?",
     "options": [
       "Incompatible, no admite ninguna solución posible",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "violet_systems_CLSF_03",
     "question": "Un sistema de dos ecuaciones con dos incógnitas quedó escalonado así.\n$$\\begin{pmatrix} 1 & 4 & 3 \\\\ 0 & 0 & 0 \\end{pmatrix}$$\n¿Cómo se clasifica?",
     "options": [
       "Compatible determinado, tiene una única solución",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "violet_systems_CLSF_04",
     "question": "Un sistema de tres ecuaciones con tres incógnitas quedó escalonado así.\n$$\\begin{pmatrix} 1 & 2 & 1 & 5 \\\\ 0 & 1 & 3 & 2 \\\\ 0 & 0 & 0 & 7 \\end{pmatrix}$$\n¿Cómo se clasifica?",
     "options": [
       "Incompatible, no admite ninguna solución posible",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "violet_systems_CLSF_05",
     "question": "Un sistema de tres ecuaciones con tres incógnitas quedó escalonado así.\n$$\\begin{pmatrix} 1 & 1 & 2 & 4 \\\\ 0 & 3 & 1 & 5 \\\\ 0 & 0 & 0 & 0 \\end{pmatrix}$$\n¿Cómo se clasifica?",
     "options": [
       "Incompatible, no admite ninguna solución posible",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "violet_systems_CLSF_06",
     "question": "Un sistema de tres ecuaciones con tres incógnitas tiene todos sus términos independientes iguales a cero.\n$$AX = 0$$\n¿Qué se puede afirmar sin resolverlo?",
     "options": [
       "Que tiene solución, porque todas las incógnitas en cero la cumplen",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "violet_systems_CLSF_07",
     "question": "Un sistema de ecuaciones tiene más incógnitas que ecuaciones, y todas sus ecuaciones son distintas.\n$$AX = B$$\n¿Qué se puede afirmar sin resolverlo?",
     "options": [
       "Que necesariamente tiene infinitas soluciones",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "violet_systems_CLSF_08",
     "question": "Un sistema de ecuaciones homogéneo tiene más incógnitas que ecuaciones.\n$$AX = 0$$\n¿Qué se puede afirmar sin resolverlo?",
     "options": [
       "Que tiene una única solución, que es la trivial",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "violet_systems_CLSF_09",
     "question": "En un sistema de ecuaciones, dos de las ecuaciones resultan ser una múltiplo de la otra.\n$$\\begin{aligned} 2x + 4y &= 6 \\\\ x + 2y &= 3 \\end{aligned}$$\n¿Qué se puede afirmar sin resolverlo?",
     "options": [
       "Que tiene infinitas soluciones, porque una ecuación se repite",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "violet_systems_CLSF_10",
     "question": "En un sistema de ecuaciones, dos de las ecuaciones tienen los mismos coeficientes y distinto término independiente.\n$$\\begin{aligned} x + 3y &= 5 \\\\ x + 3y &= 9 \\end{aligned}$$\n¿Qué se puede afirmar sin resolverlo?",
     "options": [
       "Que tiene una única solución, porque hay dos ecuaciones",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "violet_systems_CLSF_11",
     "question": "Un sistema de dos ecuaciones con dos incógnitas tiene una matriz de coeficientes cuyo determinante no se anula.\n$$\\det(A) \\neq 0$$\n¿Cómo se clasifica, sin importar cuáles sean los términos independientes?",
     "options": [
       "Compatible determinado, con una única solución",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "violet_systems_CLSF_12",
     "question": "Un sistema de dos ecuaciones con dos incógnitas tiene esta matriz de coeficientes.\n$$A = \\begin{pmatrix} 4 & 10 \\\\ 2 & 5 \\end{pmatrix}$$\n¿Qué se puede afirmar sobre su cantidad de soluciones?",
     "options": [
       "Que no tiene ninguna solución, cualesquiera sean los términos independientes",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "violet_systems_CLSF_13",
     "question": "Un sistema de dos ecuaciones con dos incógnitas tiene esta matriz de coeficientes.\n$$A = \\begin{pmatrix} 4 & 1 \\\\ 2 & 3 \\end{pmatrix}$$\n¿Qué se puede afirmar sobre su cantidad de soluciones?",
     "options": [
       "Que tiene infinitas soluciones, cualesquiera sean los términos independientes",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "violet_systems_CLSF_14",
     "question": "Un sistema homogéneo de dos ecuaciones tiene matriz de coeficientes con determinante no nulo.\n$$AX = 0$$\n¿Cuál es su conjunto solución?",
     "options": [
       "Solo la trivial, con todas las incógnitas en cero",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "violet_systems_CLSF_15",
     "question": "Un sistema de dos ecuaciones con dos incógnitas se resuelve despejando con la inversa.\n$$X = A^{-1}B$$\n¿Qué garantiza ese despeje?",
     "options": [
       "Que hay tantas soluciones como entradas tenga la inversa",

@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_definition_CLSF_01",
     "question": "Un catálogo carga el precio de cada producto por su código.\n\nAl revisar, el producto con código 88 aparece en dos filas, una a \\$1500 y otra a \\$1800.\n\n¿La asignación de códigos a precios define una función?",
     "options": [
       "No, el código 88 queda con dos precios distintos",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_02",
     "question": "Un registro guarda la posición de un móvil en cada instante.\n\nPor un error de señal, para el instante 10 quedaron anotadas dos posiciones distintas.\n\n¿La asignación de instantes a posiciones define una función?",
     "options": [
       "Sí, el registro puede dar varias posiciones",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_03",
     "question": "Un padrón asocia a cada documento un domicilio.\n\nUna persona que se mudó figura con su documento en dos domicilios activos al mismo tiempo.\n\n¿La asignación de documentos a domicilios define una función?",
     "options": [
       "No, ese documento queda con dos domicilios",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_04",
     "question": "Una carta asigna un precio a cada plato.\n\nEl plato del día, con el mismo nombre, figura a \\$2000 en la versión de mediodía y a \\$2500 en la de la noche.\n\n¿La asignación de platos a precios define una función?",
     "options": [
       "Sí, los dos precios son razonables",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_05",
     "question": "La función que eleva al cuadrado da $f(-4) = 16$ y $f(4) = 16$, el mismo resultado para dos entradas distintas. $$\\begin{aligned} f(-4) &= 16 \\\\ f(4) &= 16 \\end{aligned}$$ ¿Esta función define una función?",
     "options": [
       "No, el $-4$ y el $4$ dan lo mismo",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_06",
     "question": "Un sistema impositivo asigna a cada ingreso mensual una categoría.\n\nLos ingresos de 80000 y 90000 pesos caen los dos en la categoría 3. $$\\begin{aligned} f(80000) &= 3 \\\\ f(90000) &= 3 \\end{aligned}$$ ¿Esta función define una función?",
     "options": [
       "Sí, cada ingreso tiene una sola categoría",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_07",
     "question": "Una función asigna el valor 0 a todos los números enteros del 1 al 100. $$f(x) = 0, \\qquad x \\in \\{1, \\dots, 100\\}$$ ¿Esta función define una función?",
     "options": [
       "Sí, cada número tiene una sola",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_08",
     "question": "Un comercio aplica un descuento según el monto de compra.\n\nLas compras de \\$1000 y de \\$1200 reciben las dos el mismo cupón del 10%. $$\\begin{aligned} 1000 &\\mapsto 10\\% \\\\ 1200 &\\mapsto 10\\% \\end{aligned}$$ ¿Esta asignación define una función?",
     "options": [
       "No, dos montos distintos reciben el mismo cupón",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_09",
     "question": "Un parte del clima asigna a cada ciudad su temperatura de hoy. Dos ciudades distintas marcan las dos 18°C. $$\\begin{aligned} \\text{ciudad A} &\\mapsto 18 \\\\ \\text{ciudad B} &\\mapsto 18 \\end{aligned}$$ ¿Esta asignación define una función?",
     "options": [
       "No, dos ciudades comparten la misma temperatura",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_10",
     "question": "Una función convierte temperaturas en Celsius, de 0 a 100, en grados Fahrenheit, de 32 a 212. $$F : \\{0, \\dots, 100\\} \\to \\{32, \\dots, 212\\}$$ ¿Cuál es el **dominio** de $F$?",
     "options": [
       "$\\{32, \\dots, 212\\}$",
@@ -232,6 +242,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_11",
     "question": "Una empresa registra cuántas unidades vendió cada uno de sus 12 vendedores. Las ventas posibles van de 0 a 500 unidades. $$V : \\{1, \\dots, 12\\} \\to \\{0, \\dots, 500\\}$$ ¿Cuál de estos conjuntos es el **dominio**?",
     "options": [
       "$\\{0, \\dots, 500\\}$",
@@ -257,6 +268,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_12",
     "question": "Una encuesta corta hace 3 preguntas y cada respuesta se registra como sí o no. $$E : \\{1, 2, 3\\} \\to \\{S, N\\}$$ ¿Cuál es el **dominio** de $E$?",
     "options": [
       "Las respuestas $S$ y $N$",
@@ -282,6 +294,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_13",
     "question": "Un cine numera sus 6 salas y a cada una le asigna la película que proyecta. $$S : \\{1, \\dots, 6\\} \\to \\{\\text{películas}\\}$$ ¿Cuál es el **dominio** de $S$?",
     "options": [
       "El conjunto de las 6 salas",
@@ -307,6 +320,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_14",
     "question": "Una función transforma $x$ según:$$m(x) = \\frac{1}{\\sqrt{x}}$$ ¿Cuál es el **dominio natural** de esta función?",
     "options": [
       "$x > 0$",
@@ -332,6 +346,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_15",
     "question": "Para recorrer 60 km, el tiempo a $v$ km/h es:$$t(v) = \\frac{60}{v}$$ ¿Qué condición define el **dominio natural**?",
     "options": [
       "$v \\geq 60$",
@@ -357,6 +372,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_16",
     "question": "Una función transforma $x$ según:$$f(x) = \\sqrt{16 - x^2}$$ ¿Cuál es el **dominio natural**?",
     "options": [
       "$-4 \\leq x \\leq 4$",
@@ -382,6 +398,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_17",
     "question": "Una función transforma $x$ según:$$g(x) = \\sqrt{5 - x}$$ ¿Cuál es la restricción del **dominio natural**?",
     "options": [
       "$x \\geq 5$",
@@ -407,6 +424,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_18",
     "question": "Una función transforma $x$ según:$$f(x) = \\frac{x + 1}{x - 5}$$ ¿Qué valor no está en el **dominio natural**?",
     "options": [
       "$x = 1$",
@@ -432,6 +450,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_19",
     "question": "El costo de $k$ kg de fruta a \\$350 el kilo es:$$C(k) = 350\\,k$$ ¿Cuál es el **dominio natural** de esta función?",
     "options": [
       "$k \\geq 0$",
@@ -457,6 +476,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_20",
     "question": "Un examen puede dar notas enteras del 0 al 100. En un curso, las únicas notas que aparecieron fueron 60, 75 y 90. $$N : \\{\\text{alumnos}\\} \\to \\{0, \\dots, 100\\}$$ ¿Cuál es el conjunto **imagen** de $N$?",
     "options": [
       "$\\{60, 75, 90\\}$",
@@ -482,6 +502,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_21",
     "question": "La función $f$ tiene **dominio** los enteros y **codominio** los reales, y transforma cada entero en su cubo. $$\\begin{aligned} f : \\mathbb{Z} &\\to \\mathbb{R} \\\\ f(x) &= x^3 \\end{aligned}$$ ¿El conjunto **imagen** de $f$ es igual al codominio?",
     "options": [
       "No, solo los cubos de enteros",
@@ -507,6 +528,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_22",
     "question": "Una función asigna el valor 7 a todos los números del 1 al 20. $$f(x) = 7, \\qquad x \\in \\{1, \\dots, 20\\}$$ ¿Cuál es el conjunto **imagen** de $f$?",
     "options": [
       "$\\{1, \\dots, 20\\}$",
@@ -532,6 +554,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_23",
     "question": "Una función $f$ tiene **dominio** $\\{1, 2, 3\\}$.\n\nSu **codominio** es $\\{1, \\dots, 100\\}$. $$\\begin{aligned} f(1) &= 10 \\\\ f(2) &= 20 \\\\ f(3) &= 30 \\end{aligned}$$ ¿Cuál es el conjunto **imagen** de $f$?",
     "options": [
       "$\\{10, 20, 30\\}$",
@@ -557,6 +580,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_24",
     "question": "Una función asigna a cada uno de 3 sabores su color de envase.\n\nLos colores disponibles son rojo, verde y azul, pero los sabores usan solo rojo y azul. $$C : \\{\\text{sabores}\\} \\to \\{r, v, a\\}$$ ¿Cuál es el conjunto **imagen** de $C$?",
     "options": [
       "$\\{$rojo, verde, azul$\\}$",
@@ -582,6 +606,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_25",
     "question": "Un semáforo asigna a cada una de sus 3 posiciones un color. $$S : \\{1, 2, 3\\} \\to \\{r, a, v\\}$$ Los colores posibles son rojo, amarillo y verde.\n\n¿Qué representa ese conjunto de colores?",
     "options": [
       "El dominio de la función",
@@ -607,6 +632,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_26",
     "question": "Un test devuelve a cada alumno un nivel entre A, B, C y D. En este grupo solo aparecieron B y C. $$N : \\{\\text{alumnos}\\} \\to \\{A, B, C, D\\}$$ ¿Cuál es el **codominio** de $N$?",
     "options": [
       "$\\{A, B, C, D\\}$",
@@ -632,6 +658,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_27",
     "question": "Un juego asigna puntos por nivel. Los niveles 3 y 5 dan los dos 100 puntos. $$\\begin{aligned} p(3) &= 100 \\\\ p(5) &= 100 \\end{aligned}$$ ¿Qué son el 3 y el 5 respecto del 100?",
     "options": [
       "Dos preimágenes de $100$",
@@ -657,6 +684,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_28",
     "question": "Una función transforma cada número según:$$f(x) = x^2 + 1$$ ¿Tiene **preimagen** el valor 0?",
     "options": [
       "No, porque $x^2 + 1 \\geq 1$ siempre",
@@ -682,6 +710,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_29",
     "question": "La función $f(x) = x^2$ da los siguientes resultados: $$\\begin{aligned} f(4) &= 16 \\\\ f(-4) &= 16 \\end{aligned}$$ ¿Cuántas **preimágenes** tiene el 16 bajo esta función?",
     "options": [
       "Una sola, el $4$",
@@ -707,6 +736,7 @@
     ]
   },
   {
+    "id": "white_definition_CLSF_30",
     "question": "Una función transforma el número 6 en 18. $$g(6) = 18$$ ¿Cuál de estas afirmaciones es **incorrecta**?",
     "options": [
       "$6$ es la imagen de $18$",

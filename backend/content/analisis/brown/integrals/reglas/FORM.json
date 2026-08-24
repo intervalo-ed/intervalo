@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_reglas_FORM_01",
     "question": "La función a integrar pertenece a la familia trigonométrica más simple de la tabla:\n$$\\int \\cos x\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$\\sin x + C$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "brown_reglas_FORM_02",
     "question": "La función a integrar es la exponencial de base $e$, un caso particular dentro de la tabla:\n$$\\int e^x\\,dx$$\n¿A qué función es igual esta integral?",
     "options": [
       "$\\frac{e^{x+1}}{x+1} + C$",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "brown_reglas_FORM_03",
     "question": "La función a integrar es el cuadrado de la secante:\n$$\\int \\sec^2 x\\,dx$$\n¿Qué función resulta de integrarla?",
     "options": [
       "$\\tan x$",
@@ -75,6 +78,7 @@
     ]
   },
   {
+    "id": "brown_reglas_FORM_04",
     "question": "La función a integrar es el seno, otro caso directo de la tabla trigonométrica:\n$$\\int \\sin x\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$\\cos x + C$",
@@ -100,6 +104,7 @@
     ]
   },
   {
+    "id": "brown_reglas_FORM_05",
     "question": "La función a integrar es uno dividido la variable:\n$$\\int \\frac{1}{x}\\,dx$$\n¿A qué función es igual esta integral?",
     "options": [
       "$\\ln|x| + C$",
@@ -125,6 +130,7 @@
     ]
   },
   {
+    "id": "brown_reglas_FORM_06",
     "question": "La función a integrar es una potencia simple de la variable:\n$$\\int x^3\\,dx$$\n¿Qué función resulta de integrarla?",
     "options": [
       "$4x^2 + C$",
@@ -150,6 +156,7 @@
     ]
   },
   {
+    "id": "brown_reglas_FORM_07",
     "question": "La función a integrar es una constante, sin ninguna dependencia de $x$:\n$$\\int 5\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$0 + C$",
@@ -175,6 +182,7 @@
     ]
   },
   {
+    "id": "brown_reglas_FORM_08",
     "question": "La función a integrar es una exponencial de base distinta de $e$:\n$$\\int 2^x\\,dx$$\n¿A qué función es igual esta integral?",
     "options": [
       "$2^x + C$",
@@ -200,6 +208,7 @@
     ]
   },
   {
+    "id": "brown_reglas_FORM_09",
     "question": "Pensando en sentido inverso, hay una función cuya derivada da exactamente:\n$$\\frac{1}{x}$$\n¿Cuál es esa función?",
     "options": [
       "$\\ln x + C$",
@@ -223,6 +232,7 @@
     ]
   },
   {
+    "id": "brown_reglas_FORM_10",
     "question": "Alguna función, al derivarse, reproduce exactamente:\n$$e^x$$\n¿Cuál es esa función?",
     "options": [
       "$e^x + C$",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "brown_reglas_FORM_11",
     "question": "Hay una función que, al derivarse, da como resultado exacto:\n$$\\cos x$$\n¿Cuál es esa función?",
     "options": [
       "$-\\cos x + C$",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "brown_reglas_FORM_12",
     "question": "Invirtiendo el proceso de derivar, se busca una función que reproduzca:\n$$\\sin x$$\n¿Cuál es esa función?",
     "options": [
       "$\\cos x + C$",
@@ -292,6 +304,7 @@
     ]
   },
   {
+    "id": "brown_reglas_FORM_13",
     "question": "Una función, al derivarse, produce exactamente:\n$$\\sec^2 x$$\n¿Cuál es esa función?",
     "options": [
       "$\\tan x + C$",
@@ -315,6 +328,7 @@
     ]
   },
   {
+    "id": "brown_reglas_FORM_14",
     "question": "Pensando en sentido inverso, alguna función se deriva exactamente a:\n$$x^4$$\n¿Cuál es esa función?",
     "options": [
       "$5x^3 + C$",
@@ -338,6 +352,7 @@
     ]
   },
   {
+    "id": "brown_reglas_FORM_15",
     "question": "Una función, al derivarse, da como resultado la constante:\n$$7$$\n¿Cuál es esa función?",
     "options": [
       "$7 + C$",

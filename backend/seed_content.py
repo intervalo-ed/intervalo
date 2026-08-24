@@ -74,6 +74,34 @@ def _validate_exercise(entry: dict, source: Path, idx: int) -> None:
         )
 
 
+def _external_id(
+    entry: dict, source: Path, idx: int,
+    belt: str, topic: str, skill: str,
+) -> str:
+    """Identidad estable del ejercicio, para la clave (course_id, external_id).
+
+    Si el JSON de autoría trae `id`, manda ese y nada más lo cambia. Si no,
+    se deriva de la posición en el array, que es como funcionaba hasta ago-2026.
+
+    El id posicional tiene un problema serio: borrar o insertar un ejercicio en
+    el medio del archivo renumera todos los que siguen, y las respuestas viejas
+    de `answers.exercise_external_id` pasan a describir otro contenido. En prod
+    ya quedaron 123 ids apuntando a ejercicios que no existen. Por eso el `id`
+    explícito, que `content/stamp_ids.py` estampa y nunca reasigna.
+
+    El id es un identificador, no una ruta: si el topic se renombra, el id
+    conserva el nombre viejo a propósito, para no cortar la serie histórica.
+    """
+    raw = entry.get("id")
+    if raw is None:
+        return f"{belt}_{topic}_{skill}_{idx+1:02d}"
+    if not isinstance(raw, str) or not raw.strip():
+        raise ValueError(f"{source}[{idx}]: 'id' debe ser un string no vacío")
+    if len(raw) > 100:  # Exercise.external_id es String(100)
+        raise ValueError(f"{source}[{idx}]: 'id' supera los 100 caracteres: {raw!r}")
+    return raw
+
+
 def _serialize_graph_view(gv: Any) -> str | None:
     if gv is None:
         return None
@@ -246,7 +274,7 @@ def seed_exercises(
 
         for idx, entry in enumerate(entries):
             _validate_exercise(entry, skill_file, idx)
-            external_id = f"{belt}_{topic}_{skill}_{idx+1:02d}"
+            external_id = _external_id(entry, skill_file, idx, belt, topic, skill)
 
             if external_id in seen_external_ids:
                 raise ValueError(

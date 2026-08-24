@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_powers_LEXI_01",
     "question": "En la expresión $a^n$, la base $a$ se multiplica por sí misma una cierta cantidad de veces.\n\n¿Qué nombre recibe $n$ en esa expresión?",
     "options": [
       "Exponente",
@@ -27,6 +28,7 @@
     ]
   },
   {
+    "id": "white_powers_LEXI_02",
     "question": "En una expresión pueden convivir un factor que multiplica desde afuera y una potencia.\n$$3 \\cdot 2^{4}$$\n¿Cuál es la base de esa potencia?",
     "options": [
       "$6$",
@@ -54,6 +56,7 @@
     ]
   },
   {
+    "id": "white_powers_LEXI_03",
     "question": "El paréntesis decide si el signo menos forma parte de la base o queda afuera de la potencia.\n$$(-2)^{4}$$\n¿Cuál es la base?",
     "options": [
       "$2$",
@@ -81,6 +84,7 @@
     ]
   },
   {
+    "id": "white_powers_LEXI_04",
     "question": "El exponente cuenta cuántas veces aparece la base como factor de la multiplicación.\n$$5 \\times 5 \\times 5 \\times 5$$\n¿Cómo se escribe ese producto como potencia?",
     "options": [
       "$5^{4}$",
@@ -108,6 +112,7 @@
     ]
   },
   {
+    "id": "white_powers_LEXI_05",
     "question": "Una potencia puede tener exponente negativo sin que eso cambie cuál es la base.\n$$4^{-3}$$\n¿Cuál es el exponente?",
     "options": [
       "$4$",
@@ -135,6 +140,7 @@
     ]
   },
   {
+    "id": "white_powers_LEXI_06",
     "question": "Una potencia con exponente negativo, como $a^{-n}$, tiene una forma equivalente sin exponente negativo.\n\n¿Cuál es esa forma equivalente?",
     "options": [
       "$1/a^n$",
@@ -162,6 +168,7 @@
     ]
   },
   {
+    "id": "white_powers_LEXI_07",
     "question": "Un exponente negativo indica invertir la base, no cambiar el signo del resultado.\n$$2^{-3}$$\n¿Cuál de estas expresiones **no** vale lo mismo?",
     "options": [
       "$(1/2)^{3}$",
@@ -189,6 +196,7 @@
     ]
   },
   {
+    "id": "white_powers_LEXI_08",
     "question": "El exponente negativo da vuelta la base entera, y eso vale también cuando la base ya es una fracción.\n$$\\left(\\dfrac{2}{5}\\right)^{-2}$$\n¿Cuál es su forma equivalente?",
     "options": [
       "$-(2/5)^{2}$",
@@ -216,6 +224,7 @@
     ]
   },
   {
+    "id": "white_powers_LEXI_09",
     "question": "Multiplicar una potencia por la misma potencia de exponente opuesto tiene que dar $1$.\n$$a^{n} \\cdot a^{-n} = 1$$\n¿Qué dice esa igualdad sobre la potencia de exponente negativo?",
     "options": [
       "Que es el recíproco de la otra, o sea $1/a^{n}$",
@@ -243,6 +252,7 @@
     ]
   },
   {
+    "id": "white_powers_LEXI_10",
     "question": "El signo de la base y el signo del exponente son dos cosas distintas.\n$$(-3)^{-2}$$\n¿Cuál es su forma equivalente sin exponente negativo?",
     "options": [
       "$(-1/3)^{-2}$",
@@ -270,6 +280,7 @@
     ]
   },
   {
+    "id": "white_powers_LEXI_11",
     "question": "En un desarrollo se muestra este paso ya resuelto:\n$$a^{5} \\cdot a^{2} = a^{7}$$\n¿Por qué es correcto este paso?",
     "options": [
       "Porque $a^5$ aporta 5 factores de $a$ y $a^2$ aporta 2 más, y multiplicarlas junta esos factores en un total de 7",
@@ -297,6 +308,7 @@
     ]
   },
   {
+    "id": "white_powers_LEXI_12",
     "question": "Un apunte resuelve un cociente de potencias en un solo renglón:\n$$\\dfrac{a^{5}}{a^{2}} = a^{3}$$\n¿Por qué es correcto ese paso?",
     "options": [
       "Porque en este caso puntual la resta coincide, sin ninguna regla general detrás",
@@ -324,6 +336,7 @@
     ]
   },
   {
+    "id": "white_powers_LEXI_13",
     "question": "Al desarrollar una expresión aparece este paso:\n$$(a^{3})^{2} = a^{6}$$\n¿Por qué es correcto ese paso?",
     "options": [
       "Porque los exponentes se suman, y esa suma se anota como un producto",
@@ -351,6 +364,7 @@
     ]
   },
   {
+    "id": "white_powers_LEXI_14",
     "question": "Una cuenta incluye un factor que parece no hacer nada:\n$$a^{4} \\cdot a^{0} = a^{4}$$\n¿Por qué la potencia de exponente cero no cambia nada?",
     "options": [
       "Porque no agrega ningún factor, y multiplicar por ella deja el producto igual",
@@ -378,6 +392,7 @@
     ]
   },
   {
+    "id": "white_powers_LEXI_15",
     "question": "En una simplificación aparece esta igualdad:\n$$a^{5} \\cdot a^{-3} = a^{2}$$\n¿Por qué es correcto ese paso?",
     "options": [
       "Porque el signo negativo del exponente vuelve negativo el resultado antes de simplificar",

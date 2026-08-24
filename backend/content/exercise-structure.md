@@ -27,6 +27,7 @@ campos:
 
 | Campo | Tipo | Rol |
 |-------|------|-----|
+| `id` | `string` | **Identidad estable del ejercicio.** Va primero y no se escribe a mano: lo estampa `python content/stamp_ids.py`. Ver abajo. |
 | `question` | `string` | **El enunciado.** Contexto + fórmula + pregunta. |
 | `options` | `array<string>` | **Las respuestas.** 2 a 4. Una correcta, el resto distractores. |
 | `correct_index` | `int` | Índice (0-based) de la opción correcta. |
@@ -39,10 +40,37 @@ campos:
 | `graph_shade` | `array`/`null` | `[xMin, xMax]` opcional: sombrea el área bajo `graph_fn` en ese tramo. |
 | `graph_free_aspect` | `boolean`/`null` | `true` desactiva el aspecto 1:1 forzado de Mafs (solo `probabilidad`; nunca en `analisis`). Ver sección Gráficos de `authoring-context.md`. |
 | `table` | `object`/`null` | **Tabla embebida** (tercer formato, junto a texto plano y gráfico). `columns` + `rows` + `reveal`, con una columna precalculada por opción. Ver sección Tablas de `authoring-context.md`. |
-| `correct_index`, `reviewed` | | metadata. `external_id` **no va en el JSON** (lo infiere el seeder de la ruta). |
+| `reviewed` | `bool` | metadata editorial. |
 
 Los **cuatro componentes que redactás** son `question`, `options`, `feedback_*` y
 `explanation`. Una sección para cada uno abajo.
+
+### El campo `id`
+
+`seed_content.py` usa `(course_id, external_id)` como clave del upsert, y ese
+`external_id` sale de `entry["id"]`. Si el campo falta, cae al id posicional
+(`{belt}_{topic}_{skill}_{idx+1:02d}`), que es como funcionaba hasta ago-2026 y que
+tiene un problema serio: **borrar o insertar un ejercicio en el medio del archivo
+renumera a todos los que siguen**, y las respuestas ya guardadas en
+`answers.exercise_external_id` pasan a describir otro contenido. En producción quedaron
+123 ids apuntando a ejercicios que no existen y varias unidades con más ids en el
+histórico que ejercicios en el catálogo.
+
+Reglas de uso:
+
+- **No lo escribas a mano.** Después de generar, corré `python content/stamp_ids.py`.
+  Es idempotente y sella sólo lo que no tiene id.
+- **Un id nunca se reasigna ni se reusa.** El script asigna `max(sufijos) + 1`, no el
+  primer hueco libre: si el `_05` se archivó, ese id queda quemado. Reusarlo mezclaría
+  las respuestas del ejercicio viejo con las del nuevo.
+- **No lo edites cuando renombrás un topic.** El id es un identificador, no una ruta: si
+  la carpeta pasa de `factorizacion` a `factorization`, los ids se quedan con el nombre
+  viejo a propósito. Cortar la serie histórica es peor que un id que no matchea la
+  carpeta — ese renombre exacto ya nos costó 129 respuestas partidas en dos slugs.
+- Reordenar el array es libre y no cambia nada.
+
+El validador lo chequea (`--check ids`): falta de `id`, `id` vacío y duplicados son
+ERROR.
 
 ---
 

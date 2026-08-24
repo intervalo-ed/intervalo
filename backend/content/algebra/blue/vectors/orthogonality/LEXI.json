@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_orthogonality_LEXI_01",
     "question": "El producto escalar se usa como test para decidir si dos vectores no nulos son perpendiculares.\n$$\\vec{u} \\cdot \\vec{v} = 0$$\n¿Por qué alcanza con que dé cero para asegurar el ángulo recto?",
     "options": [
       "Porque con las dos normas distintas de cero, el único factor que puede anularse es el coseno, y solo se anula en $90°$",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_LEXI_02",
     "question": "El producto escalar sirve como test de perpendicularidad entre vectores no nulos.\n$$\\vec{u} \\cdot \\vec{v} = 0$$\n¿Por qué hace falta pedir que ninguno de los dos sea nulo?",
     "options": [
       "Porque el vector nulo es perpendicular a todos los demás vectores",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_LEXI_03",
     "question": "Un producto escalar nulo entre vectores no nulos obliga a que el coseno se anule.\n$$\\cos(\\theta) = 0$$\n¿Por qué eso deja un único ángulo posible?",
     "options": [
       "Porque el coseno se anula en todos los ángulos mayores que el recto",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_LEXI_04",
     "question": "El criterio de ortogonalidad funciona en los dos sentidos.\n$$\\vec{u} \\perp \\vec{v} \\iff \\vec{u} \\cdot \\vec{v} = 0$$\n¿Qué aporta la dirección que va del cero al ángulo recto?",
     "options": [
       "Que un cálculo sin ninguna referencia geométrica alcanza para concluir perpendicularidad",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_LEXI_05",
     "question": "Un par de vectores da producto escalar nulo.\n$$\\vec{u} \\cdot \\vec{v} = 0$$\n¿Qué se puede concluir si además se sabe que ninguno de los dos es nulo?",
     "options": [
       "Que sus longitudes son iguales entre sí",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_LEXI_06",
     "question": "Los ejes horizontal y vertical del plano quedan marcados por dos vectores.\n$$\\vec{u} = (1,0), \\qquad \\vec{v} = (0,1)$$\n¿Por qué son ortogonales entre sí?",
     "options": [
       "Porque su producto escalar es $1\\cdot 0+0\\cdot 1=0$",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_LEXI_07",
     "question": "Dos de los vectores que marcan los ejes del espacio dan producto escalar nulo entre sí.\n$$(1,0,0) \\cdot (0,1,0) = 0$$\n¿Qué garantiza ese resultado sobre esos dos vectores?",
     "options": [
       "Que los dos vectores tienen la misma norma",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_LEXI_08",
     "question": "En el producto escalar entre dos vectores distintos de los ejes canónicos, cada término se multiplica por un cero.\n$$(1,0,0) \\cdot (0,0,1) = 0$$\n¿Qué asegura esa estructura sobre cualquier par de esos vectores?",
     "options": [
       "Que dos vectores cualesquiera del espacio dan siempre producto escalar cero",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_LEXI_09",
     "question": "Los ejes de referencia se eligen perpendiculares entre sí por una razón práctica.\n$$(1,0) \\perp (0,1)$$\n¿Qué facilita esa elección?",
     "options": [
       "Que cada componente mide un avance que las otras no registran",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_LEXI_10",
     "question": "Dos vectores están apoyados sobre los ejes del plano, pero uno de ellos apunta en sentido contrario al semieje positivo.\n$$(-1,0) \\qquad (0,1)$$\n¿Su producto escalar sigue siendo cero?",
     "options": [
       "No, porque el signo negativo hace que el producto dé un valor negativo",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_LEXI_11",
     "question": "Dos vectores ortogonales cumplen que su producto escalar da cero.\n$$\\vec{u} \\cdot \\vec{v} = 0$$\n¿Eso obliga a que tengan la misma norma?",
     "options": [
       "No, depende solo de que el ángulo entre ellos sea de $90°$, no de sus tamaños",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_LEXI_12",
     "question": "Dos vectores perpendiculares pueden tener longitudes muy distintas.\n$$(10,0) \\qquad (0,1)$$\n¿Por qué la diferencia de longitudes no rompe la perpendicularidad?",
     "options": [
       "Porque las longitudes se cancelan entre sí en la fórmula",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_LEXI_13",
     "question": "Dos vectores tienen exactamente la misma longitud.\n$$\\|\\vec{u}\\| = \\|\\vec{v}\\|$$\n¿Qué se puede afirmar sobre el ángulo entre ellos?",
     "options": [
       "Que necesariamente son perpendiculares entre sí",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_LEXI_14",
     "question": "Escalar uno de dos vectores perpendiculares no rompe la perpendicularidad.\n$$\\vec{u} \\cdot \\vec{v} = 0 \\implies (\\alpha\\vec{u}) \\cdot \\vec{v} = 0$$\n¿Por qué?",
     "options": [
       "Porque el escalar multiplica a algo que ya vale cero",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "blue_orthogonality_LEXI_15",
     "question": "Un vector tiene infinitos perpendiculares en el plano.\n$$\\vec{u} \\perp \\vec{v}$$\n¿Qué tienen en común todos ellos?",
     "options": [
       "Que apuntan todos hacia el mismo lado del plano",

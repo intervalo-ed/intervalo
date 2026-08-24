@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_definite_RESL_01",
     "question": "Una bomba impulsa agua a un ritmo que crece con el tiempo, en litros por minuto.\n\nLos litros que entran en los dos primeros minutos se acumulan así:\n$$\\int_0^2 (x^2+1)\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$14/3$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "brown_definite_RESL_02",
     "question": "El integrando es la función exponencial más simple, evaluada entre $0$ y $1$:\n$$\\int_0^1 e^x\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$1-e$",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "brown_definite_RESL_03",
     "question": "Un brazo mecánico se mueve con una velocidad que sube y vuelve a bajar, siguiendo medio período del seno.\n\nSu desplazamiento total se acumula así:\n$$\\int_0^{\\pi} \\sin x\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$-2$",
@@ -75,6 +78,7 @@
     ]
   },
   {
+    "id": "brown_definite_RESL_04",
     "question": "El integrando de esta definida es una potencia pura, sin términos adicionales:\n$$\\int_0^1 x^3\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$1$",
@@ -100,6 +104,7 @@
     ]
   },
   {
+    "id": "brown_definite_RESL_05",
     "question": "Una compuerta se abre rápido al principio y va frenando hasta detenerse, siguiendo un cuarto de período del coseno.\n\nSu apertura total se acumula así:\n$$\\int_0^{\\pi/2} \\cos x\\,dx$$\n¿Cuál es el resultado?",
     "options": [
       "$1$",
@@ -125,6 +130,7 @@
     ]
   },
   {
+    "id": "brown_definite_RESL_06",
     "question": "Este integrando es uno dividido la variable, en un tramo que se mantiene lejos del cero:\n$$\\int_1^2 \\frac{1}{x}\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$-\\ln 2$",
@@ -150,6 +156,7 @@
     ]
   },
   {
+    "id": "brown_definite_RESL_07",
     "question": "Esta potencia cuadrática llega con un coeficiente $3$ multiplicándola:\n$$\\int_0^2 3x^2\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$24$",
@@ -175,6 +182,7 @@
     ]
   },
   {
+    "id": "brown_definite_RESL_08",
     "question": "El exponente de esta exponencial no es $x$ solo, sino $2x$:\n$$\\int_0^1 2e^{2x}\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$e^2$",
@@ -200,6 +208,7 @@
     ]
   },
   {
+    "id": "brown_definite_RESL_09",
     "question": "Este integrando multiplica una variable lineal por una función exponencial:\n$$\\int_0^1 xe^x\\,dx$$\n¿Cuál es el resultado?",
     "options": [
       "$1$",
@@ -225,6 +234,7 @@
     ]
   },
   {
+    "id": "brown_definite_RESL_10",
     "question": "Esta integral combina una potencia cuadrática compuesta con el factor lineal que arma el diferencial:\n$$\\int_0^1 x(x^2+1)^2\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$7/6$",
@@ -250,6 +260,7 @@
     ]
   },
   {
+    "id": "brown_definite_RESL_11",
     "question": "Este integrando multiplica una variable lineal por una función coseno:\n$$\\int_0^{\\pi/2} x\\cos x\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$\\pi/2$",
@@ -275,6 +286,7 @@
     ]
   },
   {
+    "id": "brown_definite_RESL_12",
     "question": "En este integrando, el factor $2x$ que multiplica a la exponencial coincide exactamente con la derivada del exponente:\n$$\\int_1^2 2xe^{x^2}\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$e^4-e+C$",
@@ -300,6 +312,7 @@
     ]
   },
   {
+    "id": "brown_definite_RESL_13",
     "question": "Derivando esta expresión se recupera el integrando de una integral entre $0$ y $1$:\n$$F(x)=(x+1)\\ln(x+1)-x$$\n¿Cuál es esa integral?",
     "options": [
       "$\\int_0^1 \\ln(x+1)\\,dx$",
@@ -325,6 +338,7 @@
     ]
   },
   {
+    "id": "brown_definite_RESL_14",
     "question": "Este integrando multiplica el seno y el coseno del mismo ángulo:\n$$\\int_0^{\\pi/2} \\sin x\\cos x\\,dx$$\n¿Cuál es su resultado?",
     "options": [
       "$1$",
@@ -350,6 +364,7 @@
     ]
   },
   {
+    "id": "brown_definite_RESL_15",
     "question": "El exponente de esta exponencial lleva signo negativo, multiplicada por una variable lineal:\n$$\\int_0^1 xe^{-x}\\,dx$$\n¿Cuál es el resultado de esta integral?",
     "options": [
       "$2/e-1$",

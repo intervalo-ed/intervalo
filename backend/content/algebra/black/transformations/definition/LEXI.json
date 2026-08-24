@@ -1,5 +1,6 @@
 [
   {
+    "id": "black_definition_LEXI_01",
     "question": "¿Qué propiedad debe cumplir una **transformación lineal** $T$?",
     "options": [
       "$T(\\alpha\\vec{u}+\\vec{v}) = \\alpha T(\\vec{u}) + T(\\vec{v})$",

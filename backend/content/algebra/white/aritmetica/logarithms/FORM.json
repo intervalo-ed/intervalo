@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_logarithms_FORM_01",
     "question": "Se quiere calcular:\n$$\\log_2\\left(\\dfrac{8\\cdot4}{2}\\right)$$\n¿Qué propiedad corresponde aplicar primero?",
     "options": [
       "Propiedad del producto, en el numerador",
@@ -27,6 +28,7 @@
     ]
   },
   {
+    "id": "white_logarithms_FORM_02",
     "question": "Se quiere calcular un logaritmo cuyo argumento combina un producto y un cociente.\n$$\\log_{2}\\left(\\dfrac{32}{4\\cdot2}\\right)$$\n¿Qué propiedad corresponde aplicar primero?",
     "options": [
       "Propiedad del producto, en el denominador",
@@ -54,6 +56,7 @@
     ]
   },
   {
+    "id": "white_logarithms_FORM_03",
     "question": "Se quiere calcular un logaritmo con un producto y una potencia en el mismo argumento.\n$$\\log_{2}(4 \\cdot 8^{2})$$\n¿Qué propiedad corresponde aplicar primero?",
     "options": [
       "Propiedad de la potencia, bajando el exponente de todo el argumento",
@@ -81,6 +84,7 @@
     ]
   },
   {
+    "id": "white_logarithms_FORM_04",
     "question": "Se quiere calcular un logaritmo cuyo argumento es una fracción con potencias.\n$$\\log_{5}\\left(\\dfrac{125}{5^{2}}\\right)$$\n¿Qué propiedad corresponde aplicar primero?",
     "options": [
       "Propiedad del cociente, para separar el numerador del denominador",
@@ -108,6 +112,7 @@
     ]
   },
   {
+    "id": "white_logarithms_FORM_05",
     "question": "Se quiere calcular un logaritmo cuyo argumento combina productos arriba y abajo de un cociente.\n$$\\log_{3}\\left(\\dfrac{9\\cdot27}{3\\cdot3}\\right)$$\n¿Qué corresponde hacer primero?",
     "options": [
       "Propiedad de la potencia, sobre los cuatro factores",
@@ -135,6 +140,7 @@
     ]
   },
   {
+    "id": "white_logarithms_FORM_06",
     "question": "La magnitud de un sismo cumple $\\log_{10}(x)=4$, donde $x$ es la razón entre su intensidad y una de referencia.\n\n¿Qué corresponde hacer para despejar $x$?",
     "options": [
       "Reescribir la ecuación como $x=10^{4}$",
@@ -162,6 +168,7 @@
     ]
   },
   {
+    "id": "white_logarithms_FORM_07",
     "question": "Una ecuación deja la incógnita adentro de un logaritmo.\n$$\\log_{2}(x) = 5$$\n¿Qué corresponde hacer para despejarla?",
     "options": [
       "Restar $5$ a los dos lados",
@@ -189,6 +196,7 @@
     ]
   },
   {
+    "id": "white_logarithms_FORM_08",
     "question": "Una ecuación deja la incógnita en el lugar de la base.\n$$\\log_{b}(64) = 3$$\n¿Qué corresponde hacer para despejarla?",
     "options": [
       "Reescribir la ecuación como $3^{b} = 64$",
@@ -216,6 +224,7 @@
     ]
   },
   {
+    "id": "white_logarithms_FORM_09",
     "question": "El nivel de un sonido en decibeles cumple una ecuación logarítmica.\n$$\\log_{10}(x) = 6$$\n¿Qué corresponde hacer para despejar el factor de amplificación?",
     "options": [
       "Reescribir la ecuación como $x = 10^{6}$",
@@ -243,6 +252,7 @@
     ]
   },
   {
+    "id": "white_logarithms_FORM_10",
     "question": "Una ecuación logarítmica tiene un coeficiente delante del logaritmo.\n$$2\\log_{3}(x) = 4$$\n¿Qué corresponde hacer primero?",
     "options": [
       "Bajar el $2$ adentro del logaritmo como un factor del argumento",
@@ -270,6 +280,7 @@
     ]
   },
   {
+    "id": "white_logarithms_FORM_11",
     "question": "Se quiere calcular $\\log_{10}(1000^{2})$ de la forma más simple posible.\n\n¿Qué corresponde hacer primero?",
     "options": [
       "Aplicar $\\log_b(x^n)=n\\log_b(x)$",
@@ -297,6 +308,7 @@
     ]
   },
   {
+    "id": "white_logarithms_FORM_12",
     "question": "Se quiere calcular un logaritmo cuyo argumento viene elevado a una potencia.\n$$\\log_{2}(8^{5})$$\n¿Qué conviene hacer primero?",
     "options": [
       "Aplicar la propiedad del cociente sobre el argumento",
@@ -324,6 +336,7 @@
     ]
   },
   {
+    "id": "white_logarithms_FORM_13",
     "question": "Una raíz adentro del argumento también es una potencia, aunque no lo parezca.\n$$\\log_{3}\\left(\\sqrt{81}\\right)$$\n¿Qué conviene hacer primero?",
     "options": [
       "Aplicar la propiedad del producto sobre los dos factores del argumento",
@@ -351,6 +364,7 @@
     ]
   },
   {
+    "id": "white_logarithms_FORM_14",
     "question": "Un exponente negativo adentro del argumento no cambia qué propiedad corresponde.\n$$\\log_{5}(25^{-2})$$\n¿Qué conviene hacer primero?",
     "options": [
       "Bajar el exponente al frente, con su signo incluido",
@@ -378,6 +392,7 @@
     ]
   },
   {
+    "id": "white_logarithms_FORM_15",
     "question": "Cuando la base y el argumento coinciden, la propiedad de la potencia deja la cuenta lista.\n$$\\log_{7}(7^{9})$$\n¿Qué conviene hacer?",
     "options": [
       "Aplicar la propiedad del producto entre la base y el argumento",

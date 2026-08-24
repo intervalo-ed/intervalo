@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_trigonometric_GRAF_01",
     "question": "Contar máximos en un gráfico es contar cuántas veces la curva llega a su punto más alto.\n\n¿Cuántos máximos tiene $f(x) = \\operatorname{sen}(x)$ en el intervalo $[0,\\, 2\\pi]$?",
     "options": [
       "1",
@@ -30,6 +31,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_02",
     "question": "El período se lee en el gráfico como la distancia entre dos puntos equivalentes de la onda.\n\n¿Cuál es el período de esta función trigonométrica según la gráfica?",
     "options": [
       "$\\pi$",
@@ -60,6 +62,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_03",
     "question": "Una función par se ve simétrica respecto del eje vertical, y una impar respecto del origen.\n\n¿La función $\\cos(x)$ es par o impar según su gráfica?",
     "options": [
       "No tiene simetría",
@@ -90,6 +93,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_04",
     "question": "Los ceros de una función son los puntos donde su gráfico toca el eje horizontal.\n\n¿Cuántos ceros tiene $f(x) = \\cos(x)$ en el intervalo $[0,\\, 2\\pi]$?",
     "options": [
       "2",
@@ -120,6 +124,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_05",
     "question": "Un período completo es el tramo mínimo tras el cual la onda se repite igual.\n\n¿Cuántos períodos completos tiene $f(x) = \\operatorname{sen}(x)$ en el intervalo $[0,\\, 4\\pi]$?",
     "options": [
       "2",
@@ -150,6 +155,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_06",
     "question": "En el gráfico, un tramo creciente se ve como una subida ininterrumpida de izquierda a derecha.\n\n¿En cuál de estos intervalos la función $f(x) = \\operatorname{sen}(x)$ es creciente?",
     "options": [
       "$[-\\pi,\\ 0]$",
@@ -180,6 +186,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_07",
     "question": "La gráfica muestra $f(x) = 2\\,\\operatorname{sen}(x)$.\n\n¿Cuál es el valor máximo de $f$?",
     "options": [
       "$1$",
@@ -210,6 +217,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_08",
     "question": "La gráfica muestra $f(x) = \\operatorname{sen}(x) + 1$.\n\n¿Cuál es la imagen de $f$?",
     "options": [
       "$[0, 2]$",
@@ -240,6 +248,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_09",
     "question": "La gráfica muestra una onda con amplitud $3$.\n\nEn $x=0$ alcanza su valor máximo, y no tiene desplazamiento vertical.\n\n¿Cuál es su fórmula?",
     "options": [
       "$3\\,\\operatorname{sen}(x)$",
@@ -270,6 +279,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_10",
     "question": "La gráfica muestra $f(x) = -\\operatorname{sen}(x)$.\n\n¿En qué intervalo $f$ es creciente?",
     "options": [
       "$\\left[0, \\dfrac{\\pi}{2}\\right]$",
@@ -300,6 +310,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_11",
     "question": "La gráfica muestra $f(x) = 2\\,\\operatorname{sen}(x)$.\n\n¿En qué valores de $x \\in [0, 2\\pi]$ la función se anula?",
     "options": [
       "$x = 0$, $x = \\pi$ y $x = 2\\pi$",
@@ -330,6 +341,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_12",
     "question": "La gráfica muestra una onda periódica con máximo $2$ y mínimo $0$.\n\nSu período es $2\\pi$ y está centrada en $y = 1$.\n\n¿Cuál es su fórmula?",
     "options": [
       "$f(x) = 2\\,\\operatorname{sen}(x)$",
@@ -360,6 +372,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_13",
     "question": "La gráfica muestra $f(x) = \\cos(2x)$.\n\n¿Cuántos ciclos completos se ven en el intervalo $[0, 2\\pi]$?",
     "options": [
       "$1$",
@@ -390,6 +403,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_14",
     "question": "En una ciudad, la cantidad de horas de luz solar por día varía a lo largo del año según el mes.\n\nLa gráfica muestra ese modelo, con $x$ el número de mes.\n\n¿Cuál es la mayor cantidad de horas de luz solar que alcanza el modelo?",
     "options": [
       "$18$",
@@ -420,6 +434,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_15",
     "question": "La gráfica muestra $f(x) = 3\\,\\operatorname{sen}(x)$.\n\n¿Cuál es la imagen de $f$?",
     "options": [
       "$[-1, 1]$",
@@ -450,6 +465,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_16",
     "question": "Un modelo climático estima la temperatura a lo largo del día según la función:\n$$T(h) = 10\\,\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{12}(h - 6)\\right) + 20$$\nEl resultado se expresa en grados centígrados, con $h$ la hora del día.\n\n¿Cuál es la temperatura que indica el modelo a las $6$ de la mañana?",
     "options": [
       "$30\\,°C$",
@@ -480,6 +496,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_17",
     "question": "La gráfica muestra $f(x) = \\operatorname{sen}(x)$.\n\n¿La función tiene máximos locales? ¿En qué valores de $x$?",
     "options": [
       "No, el seno no tiene máximos",
@@ -510,6 +527,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_18",
     "question": "La gráfica muestra una onda que completa exactamente un ciclo en el intervalo $[0, 4\\pi]$.\n\n¿Cuál es la fórmula más probable?",
     "options": [
       "$f(x) = \\operatorname{sen}(2x)$",
@@ -540,6 +558,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_19",
     "question": "La gráfica muestra $f(x) = 2\\,\\operatorname{sen}(x) + 1$.\n\n¿Cuál es la amplitud de $f$?",
     "options": [
       "$3$",
@@ -570,6 +589,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_20",
     "question": "La gráfica muestra $f(x) = \\cos(x) - 2$.\n\n¿Cuál es el valor de $D$, el eje de oscilación de $f$?",
     "options": [
       "$D = -2$",
@@ -600,6 +620,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_21",
     "question": "La gráfica muestra una onda con máximo $2$ y período $\\pi$.\n\n¿Cuál es su fórmula?",
     "options": [
       "$f(x) = 2\\,\\operatorname{sen}(x)$",
@@ -630,6 +651,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_22",
     "question": "La gráfica muestra $f(x) = \\cos(x)$.\n\n¿En qué valores de $x$ el coseno alcanza su mínimo $-1$?",
     "options": [
       "$x = k\\pi$",
@@ -660,6 +682,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_23",
     "question": "La gráfica muestra una función trigonométrica que en $x=0$ alcanza su valor máximo.\n\n¿Cuál de las siguientes funciones es?",
     "options": [
       "$-\\operatorname{sen}(x)$",
@@ -690,6 +713,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_24",
     "question": "En una bahía de mareas muy pronunciadas, el nivel del agua sube y baja de forma periódica a lo largo del día.\n\nLa gráfica muestra ese nivel, en metros, según la hora $x$.\n\n¿Cuántas horas separan dos mareas altas consecutivas?",
     "options": [
       "$6$",
@@ -720,6 +744,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_25",
     "question": "Dividir la variable por 2 dentro del seno estira la onda en horizontal:\n$$f(x) = \\operatorname{sen}\\!\\left(\\dfrac{x}{2}\\right)$$\n¿Cuánto vale $f(\\pi)$?",
     "options": [
       "$0$",
@@ -750,6 +775,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_26",
     "question": "La gráfica muestra $f(x) = -\\cos(x)$.\n\n¿Cuál es la primera raíz positiva de $f$?",
     "options": [
       "$\\pi$",
@@ -780,6 +806,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_27",
     "question": "La gráfica muestra una onda con máximo $0$ y mínimo $-2$.\n\nSu período es $2\\pi$.\n\n¿Cuál es su fórmula?",
     "options": [
       "$f(x) = \\operatorname{sen}(x) + 1$",
@@ -810,6 +837,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_28",
     "question": "La gráfica muestra $f(x) = \\operatorname{sen}(2x)$.\n\n¿Cuántos máximos locales tiene $f$ en el intervalo $[0, 4\\pi]$?",
     "options": [
       "$2$",
@@ -840,6 +868,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_29",
     "question": "La gráfica muestra una onda con amplitud $1$ y período $\\pi$.\n\nEstá desplazada una unidad hacia arriba, y arranca en el eje de oscilación subiendo.\n\n¿Cuál es su fórmula?",
     "options": [
       "$\\operatorname{sen}(x)+1$",
@@ -870,6 +899,7 @@
     ]
   },
   {
+    "id": "white_trigonometric_GRAF_30",
     "question": "La gráfica muestra $f(x) = 2\\cos(x)$.\n\n¿Cuál es el dominio de $f$?",
     "options": [
       "$[-2, 2]$",

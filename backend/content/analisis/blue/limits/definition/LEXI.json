@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_definition_LEXI_01",
     "question": "En la notación de un límite, cada símbolo cumple un papel distinto:\n$$\\lim_{x \\to 3} f(x)$$\n¿Qué describe mejor la flecha $\\to$ en esta notación?",
     "options": [
       "Que $x$ es igual a $3$ en ese instante",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_02",
     "question": "En la definición de límite aparece una igualdad con tres piezas, y cada una cumple su propio papel.\n$$\\lim_{x \\to a} f(x) = L$$\n¿Qué papel cumple la letra $L$?",
     "options": [
       "El valor de $x$ en el punto de partida",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_03",
     "question": "Una afirmación dice que para calcular $\\lim_{x \\to 2} f(x)$ hay que mirar qué pasa exactamente en $x=2$.\n\n¿Qué corrección le harías?",
     "options": [
       "Hay que mirar el comportamiento de $f$ cerca de $2$, no necesariamente en $2$",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_04",
     "question": "Una respuesta da como resultado de $\\lim_{x \\to 5} f(x)$ el valor $x = 5$.\n\n¿Qué error contiene esa respuesta?",
     "options": [
       "Ningún error, esa es la forma correcta de expresar el resultado",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_05",
     "question": "Una tabla evalúa $f(x)$ para valores cada vez más próximos a $2$, por ambos lados.\n\nEn los cuatro casos, $f(x)$ se acerca a $6$.\n\n¿Qué se puede afirmar a partir de esta tabla?",
     "options": [
       "Que $f(2) = 6$",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_06",
     "question": "Una función $f$ no está definida en $x=4$.\n\nCerca de ese punto, $f$ se comporta como $x+1$.\n\n¿Qué puede decirse de $\\lim_{x \\to 4} f(x)$?",
     "options": [
       "Existe y vale $5$, aunque $f(4)$ no esté definida",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_07",
     "question": "Una función cumple $f(x) = 2x$ para todo $x \\neq 1$.\n\nEn el punto $x=1$ se define aparte $f(1) = 100$, como un valor aislado.\n\n¿Qué relación hay entre $\\lim_{x \\to 1} f(x)$ y $f(1)$?",
     "options": [
       "El límite vale $100$, igual que $f(1)$",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_08",
     "question": "Para $f(x) = x^2$, se cumple $\\lim_{x \\to 3} f(x) = 9$.\n\nAdemás, $f(3) = 9$ coincide con ese resultado.\n\n¿Por qué coinciden el **límite** y la evaluación en este caso?",
     "options": [
       "Porque en toda función siempre coinciden, sin excepción",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_09",
     "question": "Una función tiene un hueco en $x=6$, pero cerca de ese punto se comporta como $x-2$.\n\nUna respuesta afirma que $\\lim_{x \\to 6} f(x)$ no se puede calcular sin evaluar $f(6)$ primero.\n\n¿Qué confunde esa idea?",
     "options": [
       "Confunde evaluar la función con calcular su tendencia",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_10",
     "question": "Al sustituir $x=2$ en un límite, el numerador y el denominador dan $0$ los dos.\n\n¿Qué significa ese resultado?",
     "options": [
       "Que el límite no existe",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_11",
     "question": "Al sustituir $x=1$ en un límite, el numerador da $3$.\n\nEl denominador, en cambio, da $0$.\n\n¿Qué tipo de resultado es este?",
     "options": [
       "Una indeterminación igual que $\\tfrac{0}{0}$",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_12",
     "question": "Dos límites distintos piden sustituir $x=5$.\n\nEn el primero, numerador y denominador dan ambos $0$.\n\nEn el segundo, el numerador da $0$ y el denominador da $2$.\n\n¿Qué diferencia hay entre ambos resultados?",
     "options": [
       "El primero es una indeterminación que exige otra técnica",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_13",
     "question": "La **sustitución directa** solo sirve para calcular un **límite** si se cumple una condición en el punto.\n\n¿Cuál es esa condición?",
     "options": [
       "Que la función sea un polinomio de grado mayor a dos",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_14",
     "question": "Se quiere resolver este límite por **sustitución directa**.\n$$\\lim_{x \\to 3} \\log(x-1)$$\n¿Qué condición hay que verificar?",
     "options": [
       "Que la base del logaritmo sea mayor a $10$",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "blue_definition_LEXI_15",
     "question": "Una función tiene un hueco justo en $x=7$, aunque para valores cercanos se comporta como una expresión conocida.\n\n¿Es válido calcular $\\lim_{x \\to 7} f(x)$ por **sustitución directa** evaluando $f(7)$?",
     "options": [
       "No, porque $f(7)$ no existe, hay un hueco en ese punto",

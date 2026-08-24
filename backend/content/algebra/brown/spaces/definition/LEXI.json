@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_definition_LEXI_01",
     "question": "La definición de espacio vectorial pide solamente que se pueda sumar dos elementos y multiplicar uno por un número.\n$$\\vec{u}+\\vec{v} \\in V, \\quad \\alpha\\vec{v} \\in V$$\n¿Por qué no exige además poder medir la longitud de sus elementos?",
     "options": [
       "Porque exigir más dejaría afuera conjuntos donde igual valen todas las conclusiones",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "brown_definition_LEXI_02",
     "question": "La definición permite sumar dos elementos y escalar uno, pero nunca multiplicar dos entre sí.\n$$\\vec{u}+\\vec{v} \\in V, \\quad \\alpha\\vec{v} \\in V$$\n¿Por qué esa tercera operación queda afuera?",
     "options": [
       "Porque ese producto se obtiene sumando varias veces uno de los dos",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "brown_definition_LEXI_03",
     "question": "Entre las operaciones de la definición no figura la resta, y sin embargo se resta todo el tiempo.\n$$\\vec{u} - \\vec{v}$$\n¿Cómo se explica que esté permitida?",
     "options": [
       "Restar es una tercera operación que cada espacio agrega por su cuenta",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "brown_definition_LEXI_04",
     "question": "En un espacio vectorial no hay ninguna manera de decidir si un elemento es mayor que otro.\n$$\\vec{u}, \\vec{v} \\in V$$\n¿Por qué la definición no incluye esa comparación?",
     "options": [
       "Porque ningún resultado del tema la necesita, y exigirla dejaría espacios afuera",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "brown_definition_LEXI_05",
     "question": "Tres conjuntos muy distintos entre sí califican como espacios vectoriales.\n$$\\mathbb{R}^2, \\quad P_2, \\quad \\mathbb{R}^{2 \\times 2}$$\n¿Qué es lo único que los tres comparten?",
     "options": [
       "Que los tres se pueden dibujar como flechas apoyadas en un origen",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "brown_definition_LEXI_06",
     "question": "Un conjunto es cerrado para una operación cuando el resultado nunca se sale de él.\n$$\\vec{u},\\vec{v} \\in S \\implies \\vec{u}+\\vec{v} \\in S$$\n¿Qué problema trae que la suma de dos elementos caiga fuera del conjunto?",
     "options": [
       "Que las reglas del conjunto dejan de aplicarse justo al resultado de una cuenta válida",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "brown_definition_LEXI_07",
     "question": "Alguien prueba con dos elementos de un conjunto, ve que la suma cae adentro, y lo da por cerrado.\n$$\\vec{u}+\\vec{v} \\in S$$\n¿Qué falla en ese razonamiento?",
     "options": [
       "Que la suma de dos elementos no decide nada sobre un conjunto",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "brown_definition_LEXI_08",
     "question": "Los números naturales se pueden sumar entre sí sin salirse nunca del conjunto.\n$$3 + 5 = 8$$\n¿Alcanza eso para que sean un espacio vectorial?",
     "options": [
       "Sí, porque la suma es la operación principal de toda la definición",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "brown_definition_LEXI_09",
     "question": "Cuando la suma de dos elementos cae fuera del conjunto, el problema no queda en esa cuenta suelta.\n$$\\vec{u}+\\vec{v} \\notin S$$\n¿Qué más deja de tener sentido?",
     "options": [
       "Las demás condiciones, porque todas hablan del resultado de operar",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "brown_definition_LEXI_10",
     "question": "Ser cerrado para el producto por un escalar es una exigencia más fuerte de lo que suena.\n$$\\alpha\\vec{v} \\in S$$\n¿Para qué escalares tiene que valer?",
     "options": [
       "Para los escalares que dejan el resultado con el mismo tamaño",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "brown_definition_LEXI_11",
     "question": "Verificar que un conjunto cumple los axiomas de espacio vectorial es un trabajo que se hace una sola vez.\n$$\\alpha(\\vec{u}+\\vec{v}) = \\alpha\\vec{u} + \\alpha\\vec{v}$$\n¿Qué se gana con esa verificación?",
     "options": [
       "Todo lo demostrado para espacios vectoriales vale ahí sin volver a probarse",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "brown_definition_LEXI_12",
     "question": "Al resolver un ejercicio en un espacio vectorial se usa la distributividad sin demostrarla.\n$$\\alpha(\\vec{u}+\\vec{v}) = \\alpha\\vec{u} + \\alpha\\vec{v}$$\n¿Por qué está permitido usarla así?",
     "options": [
       "Porque es una propiedad de los números reales y no de los elementos",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "brown_definition_LEXI_13",
     "question": "Un conjunto con dos operaciones cumple siete de las ocho condiciones y falla en la restante.\n$$1 \\cdot \\vec{v} \\neq \\vec{v}$$\n¿Qué se puede usar sobre él?",
     "options": [
       "Casi todo, porque siete condiciones de ocho ya son una mayoría amplia",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "brown_definition_LEXI_14",
     "question": "Entre las condiciones hay una que parece no decir nada, porque multiplicar por uno no cambiaría nada.\n$$1 \\cdot \\vec{v} = \\vec{v}$$\n¿Por qué se la incluye igual?",
     "options": [
       "Porque no se deduce de las otras y sin ella el escalar queda suelto",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "brown_definition_LEXI_15",
     "question": "Los polinomios y las matrices se suman de maneras distintas y los dos conjuntos son espacios.\n$$p(x)+q(x), \\quad A+B$$\n¿Qué exigen entonces las condiciones?",
     "options": [
       "Que las dos operaciones sean exactamente las mismas en todos los espacios",

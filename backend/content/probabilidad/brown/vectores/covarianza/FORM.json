@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_covarianza_FORM_01",
     "question": "Sean $X$ e $Y$ dos variables aleatorias con esperanzas $\\mu_X$ y $\\mu_Y$.\n\n¿Cuál es la fórmula de la **covarianza** $Cov(X, Y)$?",
     "options": [
       "$E[XY] - E[X]E[Y]$",

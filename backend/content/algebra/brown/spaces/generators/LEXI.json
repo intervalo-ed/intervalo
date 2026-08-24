@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_generators_LEXI_01",
     "question": "Dos notaciones parecidas nombran cosas muy distintas cuando se parte de los mismos dos vectores.\n$$\\{\\vec{v}_1, \\vec{v}_2\\}$$\n$$\\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\}$$\n¿En qué se diferencian?",
     "options": [
       "La primera tiene dos elementos y la segunda tiene infinitos",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "brown_generators_LEXI_02",
     "question": "Un solo vector no nulo alcanza para armar un conjunto generado.\n$$\\text{gen}\\{\\vec{v}\\}$$\n¿Cuántos elementos tiene ese conjunto?",
     "options": [
       "Dos, que son el vector dado y el vector nulo",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "brown_generators_LEXI_03",
     "question": "Los vectores con los que se arma un generado guardan una relación con él.\n$$\\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\}$$\n¿Pertenecen esos dos vectores al conjunto que generan?",
     "options": [
       "No, porque el generado reúne combinaciones y no vectores sueltos",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "brown_generators_LEXI_04",
     "question": "Un conjunto de vectores se amplía agregándole un vector más.\n$$\\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\} \\quad \\text{y} \\quad \\text{gen}\\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\}$$\n¿Cómo se comparan los dos generados?",
     "options": [
       "El segundo contiene al primero, y puede llegar a ser igual",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "brown_generators_LEXI_05",
     "question": "Se afirma que un vector pertenece a un conjunto generado.\n$$\\vec{w} \\in \\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\}$$\n¿Qué está diciendo exactamente esa afirmación?",
     "options": [
       "Que ese vector tiene la misma dirección que alguno de los dos",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "brown_generators_LEXI_06",
     "question": "El conjunto generado por unos vectores cualesquiera siempre resulta ser un subespacio.\n$$\\text{gen}\\{\\vec{v}_1, \\dots, \\vec{v}_k\\}$$\n¿Por qué se cumple sin importar qué vectores se elijan?",
     "options": [
       "Porque sumar dos combinaciones de ellos vuelve a dar una combinación de ellos",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "brown_generators_LEXI_07",
     "question": "El vector nulo pertenece a cualquier conjunto generado, sin importar con qué vectores se lo armó.\n$$\\vec{0} \\in \\text{gen}\\{\\vec{v}_1, \\dots, \\vec{v}_k\\}$$\n¿De dónde sale esa garantía?",
     "options": [
       "De que alguno de los vectores dados tiene que ser el nulo",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "brown_generators_LEXI_08",
     "question": "Un elemento cualquiera de un conjunto generado se multiplica por un número.\n$$\\beta\\,(\\alpha_1\\vec{v}_1 + \\alpha_2\\vec{v}_2)$$\n¿Qué se obtiene?",
     "options": [
       "Un vector que ya no pertenece al conjunto generado por ellos",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "brown_generators_LEXI_09",
     "question": "Dos vectores de un conjunto resultan ser uno múltiplo del otro.\n$$\\vec{v}_2 = 3\\vec{v}_1$$\n¿Sigue siendo un subespacio lo que generan?",
     "options": [
       "Sí, y resulta ser la recta que pasa por el origen en esa dirección",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "brown_generators_LEXI_10",
     "question": "Entre todos los conjuntos generados posibles hay uno que es el más chico de todos.\n$$\\text{gen}\\{\\vec{0}\\}$$\n¿Cuál es ese conjunto?",
     "options": [
       "Una recta cualquiera que pase por el origen",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "brown_generators_LEXI_11",
     "question": "Un conjunto generador cubre todo el espacio, pero eso no lo convierte automáticamente en la mejor descripción posible.\n$$\\text{gen}\\{\\vec{v}_1, \\dots, \\vec{v}_k\\} = V$$\n¿Qué le puede seguir faltando?",
     "options": [
       "Puede tener vectores de más que no agregan ningún alcance nuevo",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "brown_generators_LEXI_12",
     "question": "Un conjunto de vectores tiene uno que ya estaba alcanzado por los demás.\n$$\\vec{v}_3 \\in \\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\}$$\n¿Qué pasa si se lo saca del conjunto?",
     "options": [
       "El generado se agranda, porque los otros dos quedan más libres",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "brown_generators_LEXI_13",
     "question": "A un conjunto que ya genera todo el plano se le agrega un vector cualquiera.\n$$\\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\} = \\mathbb{R}^2$$\n¿Qué le pasa al generado?",
     "options": [
       "Se agranda, porque ahora hay tres direcciones en juego",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "brown_generators_LEXI_14",
     "question": "Entre dos descripciones del mismo subespacio, una tiene más vectores que la otra.\n$$\\text{gen}\\{\\vec{v}_1, \\vec{v}_2, \\vec{v}_3\\} = \\text{gen}\\{\\vec{v}_1, \\vec{v}_2\\}$$\n¿Qué se gana quedándose con la más corta?",
     "options": [
       "Una descripción más corta del mismo subespacio",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "brown_generators_LEXI_15",
     "question": "Un conjunto generador incluye al vector nulo entre sus elementos.\n$$\\text{gen}\\{\\vec{v}_1, \\vec{0}, \\vec{v}_2\\}$$\n¿Qué efecto tiene sobre el alcance?",
     "options": [
       "Lo anula, porque cualquier combinación termina dando cero",

@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_absolute_value_RESL_01",
     "question": "Una pieza tiene una medida nominal de $50$ mm. Su medida real $x$, en mm, cumple:\n$$|x-50|=3$$\n¿Cuáles son los dos valores posibles de $x$?",
     "options": [
       "$53$ y $47$",
@@ -27,6 +28,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_02",
     "question": "Una barra tiene una longitud nominal de $120$ cm.\n\nSu longitud real $x$, en centímetros, cumple:\n$$|x-120|=5$$\n¿Cuáles son los dos valores posibles?",
     "options": [
       "$130$ y $110$",
@@ -54,6 +56,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_03",
     "question": "Una temperatura de referencia es de $18$ grados.\n\nUna medición $x$, en grados, cumple:\n$$|x-18|=7$$\n¿Cuáles son los dos valores posibles?",
     "options": [
       "$25$",
@@ -81,6 +84,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_04",
     "question": "Un coeficiente acompaña al valor absoluto en la condición de una pieza.\n$$2|x-30|=16$$\n¿Cuáles son los dos valores posibles de $x$?",
     "options": [
       "$38$ y $22$",
@@ -108,6 +112,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_05",
     "question": "Una condición de calidad se plantea con una cota negativa.\n$$|x-45|=-2$$\n¿Cuál es el conjunto solución?",
     "options": [
       "El valor $45$, que es el único que anula el interior",
@@ -135,6 +140,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_06",
     "question": "Un termostato acepta como válida cualquier temperatura $x$, en grados, cuyo error respecto de los $20°$ de referencia cumpla:\n$$|x-20|<2$$\n¿Cuál es el rango de temperaturas aceptadas?",
     "options": [
       "$(18, 22)$",
@@ -162,6 +168,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_07",
     "question": "Una máquina acepta piezas cuya medida $x$, en milímetros, se aparte poco de los $60$ mm nominales.\n$$|x-60|<4$$\n¿Cuál es el rango de medidas aceptadas?",
     "options": [
       "$(56, 60)$",
@@ -189,6 +196,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_08",
     "question": "Un proceso acepta tiempos $x$, en segundos, que se aparten poco de los $15$ segundos previstos.\n$$|x-15| \\leq 3$$\n¿Cuál es el rango de tiempos aceptados?",
     "options": [
       "$(12, 18)$",
@@ -216,6 +224,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_09",
     "question": "Una tolerancia se expresa con un coeficiente delante del valor absoluto.\n$$3|x-10|<12$$\n¿Cuál es el conjunto solución?",
     "options": [
       "$(6, 14)$",
@@ -243,6 +252,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_10",
     "question": "Una condición de menor se plantea con una cota negativa.\n$$|x-25|<-1$$\n¿Cuál es el conjunto solución?",
     "options": [
       "El intervalo $(-1, 1)$, que va de la cota a su opuesto",
@@ -270,6 +280,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_11",
     "question": "Un control de calidad descarta piezas cuya medida $x$, en mm, se aleje del valor nominal de $80$ mm según:\n$$|x-80|>4$$\n¿Cuál es el conjunto de medidas descartadas?",
     "options": [
       "$(-\\infty,76)\\cup(84,\\infty)$",
@@ -297,6 +308,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_12",
     "question": "Una alarma se activa cuando la presión $x$, en unidades, se aleja de las $90$ de referencia.\n$$|x-90|>6$$\n¿Cuál es el conjunto de presiones que activan la alarma?",
     "options": [
       "$(-\\infty,96)\\cup(84,\\infty)$",
@@ -324,6 +336,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_13",
     "question": "Un control descarta lotes cuyo peso $x$, en kilogramos, se aparte de los $50$ nominales.\n$$|x-50| \\geq 8$$\n¿Cuál es el conjunto de pesos descartados?",
     "options": [
       "$(-\\infty,42)\\cup(58,\\infty)$",
@@ -351,6 +364,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_14",
     "question": "Una condición de mayor viene con un coeficiente delante del valor absoluto.\n$$2|x-20|>14$$\n¿Cuál es el conjunto solución?",
     "options": [
       "$(-\\infty,13)\\cup(27,\\infty)$",
@@ -378,6 +392,7 @@
     ]
   },
   {
+    "id": "white_absolute_value_RESL_15",
     "question": "Una condición de mayor se plantea con una cota negativa.\n$$|x-40|>-3$$\n¿Cuál es el conjunto solución?",
     "options": [
       "Vacío, porque la cota es negativa",

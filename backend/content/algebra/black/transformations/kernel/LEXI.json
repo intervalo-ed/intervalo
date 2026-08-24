@@ -1,5 +1,6 @@
 [
   {
+    "id": "black_kernel_LEXI_01",
     "question": "¿Qué es el **núcleo** $\\ker(T)$ de una transformación lineal?",
     "options": [
       "El conjunto de vectores del dominio que se mapean al vector nulo",

@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_definition_CLSF_01",
     "question": "Con la suma y el producto por escalar habituales, algunos conjuntos califican como espacio vectorial y otros no.\n$$\\vec{u}+\\vec{v} \\in V, \\quad \\alpha\\vec{v} \\in V$$\n¿Cuál de estos califica?",
     "options": [
       "Los polinomios de grado menor o igual a $2$",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "brown_definition_CLSF_02",
     "question": "Tres conjuntos de matrices de dos por dos se comparan con las operaciones habituales.\n$$S_1 = \\{A : a_{21} = 0\\}$$\n$$S_2 = \\{A : \\det(A) = 1\\}$$\n$$S_3 = \\{A : a_{11} = 1\\}$$\n¿Cuál de los tres es un espacio vectorial?",
     "options": [
       "$S_3$",
@@ -48,6 +50,7 @@
     ]
   },
   {
+    "id": "brown_definition_CLSF_03",
     "question": "Tres conjuntos de polinomios quedan descriptos por condiciones sobre sus coeficientes.\n$$p(x) = ax^2 + bx + c$$\n$$S_1: c = 0 \\qquad S_2: c = 1$$\n$$S_3: a \\neq 0$$\n¿Cuál de los tres es un espacio vectorial?",
     "options": [
       "$S_2$",
@@ -73,6 +76,7 @@
     ]
   },
   {
+    "id": "brown_definition_CLSF_04",
     "question": "Tres conjuntos de números se consideran con la suma y el producto por un número real cualquiera.\n$$\\mathbb{R}, \\quad \\mathbb{Z}, \\quad \\{x : x > 0\\}$$\n¿Cuál de los tres es un espacio vectorial?",
     "options": [
       "El conjunto de todos los números reales",
@@ -98,6 +102,7 @@
     ]
   },
   {
+    "id": "brown_definition_CLSF_05",
     "question": "Un conjunto puede tener un solo elemento y cumplir la definición sin ningún problema.\n$$S = \\{\\begin{pmatrix} 0 & 0 \\\\ 0 & 0 \\end{pmatrix}\\}$$\n¿Es un espacio vectorial?",
     "options": [
       "No, porque no hay ningún elemento que funcione como neutro",
@@ -123,6 +128,7 @@
     ]
   },
   {
+    "id": "brown_definition_CLSF_06",
     "question": "Los números enteros positivos, con las operaciones habituales, no llegan a ser un espacio vectorial.\n$$\\{1, 2, 3, 4, \\dots\\}$$\n¿Cuál de estas condiciones es una de las que les falla?",
     "options": [
       "Ningún elemento tiene un opuesto dentro del conjunto",
@@ -146,6 +152,7 @@
     ]
   },
   {
+    "id": "brown_definition_CLSF_07",
     "question": "Los polinomios de grado exactamente dos no llegan a formar un espacio vectorial.\n$$\\{p : p(x) = ax^2+bx+c,\\ a \\neq 0\\}$$\n¿Cuál es la condición que les falla?",
     "options": [
       "La suma entre ellos deja de ser una operación conmutativa",
@@ -171,6 +178,7 @@
     ]
   },
   {
+    "id": "brown_definition_CLSF_08",
     "question": "Las matrices inversibles de dos por dos se quedan a mitad de camino de ser un espacio vectorial.\n$$\\{A : \\det(A) \\neq 0\\}$$\n¿Cuál de estas condiciones les falla?",
     "options": [
       "El producto entre dos de ellas puede caer fuera del conjunto",
@@ -196,6 +204,7 @@
     ]
   },
   {
+    "id": "brown_definition_CLSF_09",
     "question": "El conjunto de los vectores del plano que miden exactamente uno tampoco califica.\n$$\\{\\vec{v} : \\|\\vec{v}\\| = 1\\}$$\n¿Cuál es la condición que se rompe?",
     "options": [
       "Multiplicar uno de ellos por dos lo saca del conjunto",
@@ -221,6 +230,7 @@
     ]
   },
   {
+    "id": "brown_definition_CLSF_10",
     "question": "Los pares de coordenadas enteras se pueden sumar entre sí sin salirse nunca del conjunto.\n$$\\{(x,y) : x,\\ y \\text{ enteros}\\}$$\n¿Cuál es la condición que les falla?",
     "options": [
       "Ninguno de ellos tiene su opuesto dentro del conjunto",
@@ -246,6 +256,7 @@
     ]
   },
   {
+    "id": "brown_definition_CLSF_11",
     "question": "En cada espacio vectorial hay un elemento que sumado a cualquier otro lo deja igual.\n$$\\vec{v} + \\vec{0} = \\vec{v}$$\n¿Cuál es ese elemento en el espacio de las matrices de $2 \\times 2$?",
     "options": [
       "La matriz con sus cuatro entradas en cero",
@@ -269,6 +280,7 @@
     ]
   },
   {
+    "id": "brown_definition_CLSF_12",
     "question": "El elemento neutro de la suma toma una forma distinta en cada espacio.\n$$p(x) + \\vec{0} = p(x)$$\n¿Cuál es el vector nulo del espacio de los polinomios de grado a lo sumo dos?",
     "options": [
       "La terna formada por tres ceros",
@@ -294,6 +306,7 @@
     ]
   },
   {
+    "id": "brown_definition_CLSF_13",
     "question": "En un espacio vectorial el vector nulo es el que sumado a cualquier otro lo deja igual.\n$$\\vec{v} + \\vec{0} = \\vec{v}$$\n¿Puede haber dos elementos distintos con esa propiedad?",
     "options": [
       "Sí, uno para la suma y otro para el producto por un escalar",
@@ -319,6 +332,7 @@
     ]
   },
   {
+    "id": "brown_definition_CLSF_14",
     "question": "Multiplicar un elemento cualquiera por el escalar cero da siempre el mismo resultado.\n$$p(x) = 4x^3 - x + 2$$\n¿Qué se obtiene al multiplicarlo por cero?",
     "options": [
       "El polinomio con todos sus coeficientes en cero",
@@ -344,6 +358,7 @@
     ]
   },
   {
+    "id": "brown_definition_CLSF_15",
     "question": "El opuesto de un elemento es el que sumado a él devuelve el vector nulo del espacio.\n$$\\vec{v} + (-\\vec{v}) = \\vec{0}$$\n¿Qué elemento resulta ser su propio opuesto?",
     "options": [
       "El que se obtiene multiplicando a cualquier otro por uno",

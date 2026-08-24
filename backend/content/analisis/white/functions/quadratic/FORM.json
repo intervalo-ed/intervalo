@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_quadratic_FORM_01",
     "question": "En la forma desarrollada de una parábola, cada término tiene su propio coeficiente:\n$$f(x) = 3x^2 - 6x + 2$$\n¿Cuál es el coeficiente del término cuadrático?",
     "options": [
       "$3$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_02",
     "question": "Esta parábola viene escrita con un binomio elevado al cuadrado, no desarrollada:\n$$f(x) = -(x-3)^2 + 2$$\n¿Cuáles son las coordenadas del vértice?",
     "options": [
       "$(-3, -2)$",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_03",
     "question": "Para reconocer una parábola en un gráfico se miran su vértice y hacia dónde abre.\n\n¿Qué expresión corresponde a la parábola del gráfico?",
     "options": [
       "$f(x) = -x^2 + 4$",
@@ -80,6 +83,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_04",
     "question": "Una función trae un signo adelante y un número sumado al final:\n$$f(x) = -3(x+1)^2 + 5$$\n¿Cuál es el vértice?",
     "options": [
       "$(1, 5)$",
@@ -105,6 +109,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_05",
     "question": "Esta parábola está desarrollada, así que el eje de simetría no se lee de un vistazo:\n$$f(x) = 4x^2 - 8x + 1$$\n¿Cuál es el eje de simetría?",
     "options": [
       "$x = 1$",
@@ -130,6 +135,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_06",
     "question": "La función es $f(x) = x^2 - 2x - 3$.\n\n¿Cuánto vale $f(0)$?",
     "options": [
       "$2$",
@@ -155,6 +161,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_07",
     "question": "En una parábola desarrollada, el coeficiente lineal es el que acompaña a la variable sin elevar:\n$$f(x) = 3x^2 - 6x + 2$$\n¿Cuál es el coeficiente lineal $b$?",
     "options": [
       "$3$",
@@ -180,6 +187,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_08",
     "question": "Una parábola puede cortar el eje horizontal dos veces, una sola o ninguna:\n$$f(x) = -x^2 + 4x - 4$$\n¿Cuántas raíces reales distintas tiene?",
     "options": [
       "Ninguna",
@@ -205,6 +213,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_09",
     "question": "Una parábola tiene vértice en $(-2, 5)$ y coeficiente $a = 1$.\n\n¿Cuál es su ecuación en forma de vértice?",
     "options": [
       "$f(x) = (x - 2)^2 + 5$",
@@ -230,6 +239,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_10",
     "question": "Una parábola tiene vértice en $(3, -4)$ y coeficiente $a = -2$.\n\n¿Cuál es su ecuación en forma de vértice?",
     "options": [
       "$f(x) = -2(x + 3)^2 - 4$",
@@ -255,6 +265,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_11",
     "question": "Tomá la función:\n$$f(x) = 2(x + 1)^2 - 8$$\n¿Cuáles son las raíces?",
     "options": [
       "$x = 3$ y $x = -1$",
@@ -280,6 +291,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_12",
     "question": "El vértice de esta parábola se lee directo, pero la pregunta apunta a otro punto:\n$$f(x) = -3(x - 1)^2 + 12$$\n¿Cuánto vale $f(3)$?",
     "options": [
       "$0$",
@@ -305,6 +317,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_13",
     "question": "Una parábola tiene vértice en $(5, 8)$ y coeficiente $a = -0{,}5$.\n\n¿Cuál es su ecuación en forma de vértice?",
     "options": [
       "$f(x) = 0{,}5(x - 5)^2 + 8$",
@@ -330,6 +343,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_14",
     "question": "Igualar a cero una parábola escrita así lleva a despejar un cuadrado:\n$$f(x) = -(x - 2)^2 + 16$$\n¿Cuáles son las raíces?",
     "options": [
       "$x = 2$ y $x = 16$",
@@ -355,6 +369,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_15",
     "question": "Esta parábola viene dada como producto de dos factores:\n$$f(x) = -2(x - 4)(x + 2)$$\n¿Cuáles son las raíces?",
     "options": [
       "$x = -4$ y $x = 2$",
@@ -380,6 +395,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_16",
     "question": "La función es $f(x) = (x - 5)^2$.\n\n¿Cuántas raíces reales distintas tiene?",
     "options": [
       "Ninguna",
@@ -405,6 +421,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_17",
     "question": "Partí de la función:\n$$f(x) = -(x + 3)(x - 7)$$\n¿Cuál es la suma de las raíces?",
     "options": [
       "$4$",
@@ -430,6 +447,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_18",
     "question": "La función es $f(x) = 3(x - 2)^2$.\n\n¿Cuáles son las coordenadas del vértice?",
     "options": [
       "$(2, 3)$",
@@ -455,6 +473,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_19",
     "question": "El área de un cuadrado con lado $x$ metros es $A = x \\cdot x$.\n\n¿Cuál es la ecuación de la función área?",
     "options": [
       "$A(x) = x^2$",
@@ -480,6 +499,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_20",
     "question": "Una pelota se lanza hacia arriba desde el suelo con velocidad inicial de 20 m/s.\n\nCon $g = 10$ m/s², la altura en metros al tiempo $t$ es:\n$$h(t) = v_0 t - \\dfrac{1}{2}g t^2$$\n¿Cuál es la ecuación concreta de $h(t)$?",
     "options": [
       "$h(t) = 20 - 10t^2$",
@@ -505,6 +525,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_21",
     "question": "Se lanza una pelota desde un balcón a 5 metros de altura, con velocidad inicial de 10 m/s hacia arriba y $g = 10$ m/s².\n\n¿Cuál es la ecuación de la altura $h(t)$?",
     "options": [
       "$h(t) = 5 + 10t + 5t^2$",
@@ -530,6 +551,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_22",
     "question": "Un puesto vende entradas. Si cobra $p$ pesos, vende $100 - 2p$ entradas.\n\nLa recaudación total es el producto del precio por la cantidad vendida.\n\n¿Cuál es la ecuación de la recaudación $R$ en función del precio $p$?",
     "options": [
       "$R(p) = 100p - 2$",
@@ -555,6 +577,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_23",
     "question": "Se tiene una cuerda de 16 metros para cercar un cantero rectangular. Si el ancho es $x$ metros, el largo es $8 - x$ metros.\n\n¿Cuál es la ecuación del área $A$ en función del ancho?",
     "options": [
       "$A(x) = 8x - x^2$",
@@ -580,6 +603,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_24",
     "question": "Dada la función:\n$$h(t) = h_0 - \\frac{1}{2}g t^2$$\n¿Cuál es la ecuación concreta de $h(t)$?",
     "options": [
       "$h(t) = 45t - 5t^2$",
@@ -605,6 +629,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_25",
     "question": "Una pelota se lanza desde el suelo con velocidad inicial de 15 m/s y $g = 10$ m/s². La altura es $h(t) = 15t - 5t^2$.\n\n¿A cuántos segundos toca el suelo de nuevo?",
     "options": [
       "$t = 1{,}5$ s",
@@ -630,6 +655,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_26",
     "question": "La altura de un chorro de agua sobre el suelo, en metros, a distancia horizontal $d$ metros del caño es:\n$$h(d) = -0{,}25d^2 + 2d$$\n¿A qué distancia horizontal el chorro está más alto?",
     "options": [
       "$d = 2$ m",
@@ -655,6 +681,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_27",
     "question": "La función es $f(x) = x^2 - 3x + 2$.\n\n¿Cuánto vale $f(4)$?",
     "options": [
       "$2$",
@@ -680,6 +707,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_28",
     "question": "La altura de una pelota es $h(t) = -5t^2 + 20t$.\n\n¿En qué instantes toca el suelo?",
     "options": [
       "$t = 0$ s únicamente",
@@ -705,6 +733,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_29",
     "question": "Los coeficientes de esta parábola comparten un factor común que conviene sacar primero:\n$$f(x) = 2x^2 - 8x + 6$$\n¿Cuáles son las raíces?",
     "options": [
       "$x = 1$ y $x = 3$",
@@ -730,6 +759,7 @@
     ]
   },
   {
+    "id": "white_quadratic_FORM_30",
     "question": "El área de un corral rectangular es $A(x) = x(10 - x)$, donde $x$ es el ancho en metros.\n\n¿Para qué valores de $x$ el área es exactamente 21 m²?",
     "options": [
       "$x = 3$ m únicamente",

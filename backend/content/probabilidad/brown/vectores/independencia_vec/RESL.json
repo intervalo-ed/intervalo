@@ -1,5 +1,6 @@
 [
   {
+    "id": "brown_independencia_vec_RESL_01",
     "question": "Sean $X$ e $Y$ dos variables aleatorias independientes con $Var(X) = 3$ y $Var(Y) = 5$.\n\n¿Cuánto vale $Var(X + Y)$?",
     "options": ["$2$", "$4$", "$8$", "$15$"],
     "correct_index": 2,

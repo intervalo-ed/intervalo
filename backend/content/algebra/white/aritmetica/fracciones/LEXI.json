@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_fracciones_LEXI_01",
     "question": "Una **fracción compuesta** es aquella cuyo numerador o denominador es, a su vez, una fracción.\n\n¿Cuál de las siguientes expresiones es una fracción compuesta?",
     "options": [
       "$\\dfrac{7}{9}$",
@@ -27,6 +28,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_02",
     "question": "Una fracción compuesta tiene otra fracción adentro, y esa fracción interna puede estar arriba o abajo.\n\n¿Cuál de estas expresiones la tiene en el **denominador**?",
     "options": [
       "$\\dfrac{7}{5}$",
@@ -54,6 +56,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_03",
     "question": "En una fracción compuesta el numerador y el denominador pueden ser fracciones los dos a la vez.\n\n¿Cuál de estas expresiones es compuesta en los dos niveles?",
     "options": [
       "$\\dfrac{2/5}{4}$",
@@ -81,6 +84,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_04",
     "question": "Tres de estas cuatro expresiones tienen una fracción adentro de otra.\n\n¿Cuál **no** es una fracción compuesta?",
     "options": [
       "$\\dfrac{9}{4}$",
@@ -108,6 +112,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_05",
     "question": "Lo que vuelve compuesta a una expresión es que aparezca una barra de fracción adentro de otra, no que haya operaciones.\n\n¿Cuál de estas expresiones es compuesta?",
     "options": [
       "$\\dfrac{5}{6\\times4}$",
@@ -135,6 +140,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_06",
     "question": "Una fracción negativa se puede escribir con el signo en distintos lugares sin que cambie su valor:\n$$-\\dfrac{a}{b} = \\dfrac{-a}{b} = \\dfrac{a}{-b}$$\n¿Cuál de las siguientes expresiones **no** es igual a $-3/4$?",
     "options": [
       "$\\dfrac{-3}{4}$",
@@ -162,6 +168,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_07",
     "question": "Una fracción negativa admite el signo adelante, en el numerador o en el denominador, siempre que aparezca una sola vez.\n$$-\\dfrac{4}{9}$$\n¿Cuál de estas expresiones vale lo mismo?",
     "options": [
       "$\\dfrac{4}{9}$",
@@ -189,6 +196,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_08",
     "question": "El signo de una fracción lo decide cuántos signos negativos intervienen en el cociente.\n$$\\dfrac{-2}{-5}$$\n¿Qué signo tiene esa fracción?",
     "options": [
       "Negativa, porque el numerador es un número negativo",
@@ -216,6 +224,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_09",
     "question": "Multiplicar el numerador y el denominador por un mismo número no cambia el valor de una fracción, y eso vale también para el $-1$.\n$$\\dfrac{2}{7} = \\dfrac{-2}{-7}$$\n¿Por qué el valor no cambia?",
     "options": [
       "Porque el cociente de dos cantidades del mismo signo es positivo",
@@ -243,6 +252,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_10",
     "question": "Restar una fracción negativa equivale a sumar su opuesta, porque los dos signos que se juntan se compensan.\n$$\\dfrac{2}{9} - \\left(-\\dfrac{4}{9}\\right)$$\n¿Con qué suma equivale esa resta?",
     "options": [
       "$-\\dfrac{2}{9} + \\dfrac{4}{9}$",
@@ -270,6 +280,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_11",
     "question": "Una fracción está **simplificada** cuando su numerador y su denominador no comparten ningún factor común mayor que $1$.\n\n¿Cuál de las siguientes fracciones ya está simplificada?",
     "options": [
       "$\\dfrac{8}{12}$",
@@ -297,6 +308,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_12",
     "question": "Una fracción deja de estar simplificada apenas su numerador y su denominador comparten un factor mayor que $1$.\n\n¿Cuál de estas fracciones todavía se puede reducir?",
     "options": [
       "$\\dfrac{11}{6}$",
@@ -324,6 +336,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_13",
     "question": "Dos números son **coprimos** cuando no comparten ningún factor mayor que $1$.\n$$\\dfrac{7}{10}$$\n¿Por qué esa fracción no se puede reducir?",
     "options": [
       "Porque el numerador es más chico que el denominador",
@@ -351,6 +364,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_14",
     "question": "Que el numerador sea impar y el denominador par no alcanza para asegurar que una fracción esté simplificada.\n$$\\dfrac{9}{12}$$\n¿Qué factor mayor que $1$ comparten esos dos números?",
     "options": [
       "$3$",
@@ -378,6 +392,7 @@
     ]
   },
   {
+    "id": "white_fracciones_LEXI_15",
     "question": "Entre varias fracciones, algunas ya están simplificadas y otras todavía comparten un factor.\n$$\\dfrac{4}{9} \\quad \\dfrac{6}{8} \\quad \\dfrac{5}{11} \\quad \\dfrac{10}{12}$$\n¿Cuántas de esas cuatro ya están simplificadas?",
     "options": [
       "$3$",

@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_factoriales_RESL_01",
     "question": "¿Cuál es el valor de $6!$?",
     "options": [
       "$36$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "white_factoriales_RESL_02",
     "question": "Calculá el valor de la siguiente expresión:\n$$\\frac{7!}{5!}$$\n¿Cuál es el resultado?",
     "options": [
       "$2$",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "white_factoriales_RESL_03",
     "question": "Resolvé la siguiente resta de factoriales:\n$$5! - 4!$$\n¿Cuál es el resultado?",
     "options": [
       "$1$",
@@ -75,6 +78,7 @@
     ]
   },
   {
+    "id": "white_factoriales_RESL_04",
     "question": "Se quiere comparar $5!$ y $6!$ sin calcular ambos valores completos.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
     "options": [
       "$6! = 6 \\times 5!$, así que $6!$ es 6 veces mayor que $5!$.",
@@ -100,6 +104,7 @@
     ]
   },
   {
+    "id": "white_factoriales_RESL_05",
     "question": "Encontrá el resultado de la siguiente fracción de factoriales:\n$$\\frac{6!}{2!\\,3!}$$\n¿Cuál es el resultado?",
     "options": [
       "$120$",
@@ -125,6 +130,7 @@
     ]
   },
   {
+    "id": "white_factoriales_RESL_06",
     "question": "¿Cuál es el valor de $5!$?",
     "options": [
       "$25$",
@@ -150,6 +156,7 @@
     ]
   },
   {
+    "id": "white_factoriales_RESL_07",
     "question": "¿Cuál es el valor de $4!$?",
     "options": [
       "$16$",
@@ -175,6 +182,7 @@
     ]
   },
   {
+    "id": "white_factoriales_RESL_08",
     "question": "Calculá el valor de la siguiente expresión:\n$$\\frac{6!}{4!}$$\n¿Cuál es el resultado?",
     "options": [
       "$2$",
@@ -200,6 +208,7 @@
     ]
   },
   {
+    "id": "white_factoriales_RESL_09",
     "question": "Determiná el valor de la siguiente expresión:\n$$\\frac{8!}{6!}$$\n¿Cuál es el resultado?",
     "options": [
       "$56$",
@@ -225,6 +234,7 @@
     ]
   },
   {
+    "id": "white_factoriales_RESL_10",
     "question": "Resolvé la siguiente expresión de factoriales:\n$$\\frac{5!}{2!}$$\n¿Cuál es el resultado?",
     "options": [
       "$3$",
@@ -250,6 +260,7 @@
     ]
   },
   {
+    "id": "white_factoriales_RESL_11",
     "question": "Encontrá el valor de la siguiente expresión:\n$$\\frac{8!}{7!}$$\n¿Cuál es el resultado?",
     "options": [
       "$1$",
@@ -275,6 +286,7 @@
     ]
   },
   {
+    "id": "white_factoriales_RESL_12",
     "question": "Resolvé la siguiente suma de factoriales:\n$$4! + 3!$$\n¿Cuál es el resultado?",
     "options": [
       "$7$",
@@ -300,6 +312,7 @@
     ]
   },
   {
+    "id": "white_factoriales_RESL_13",
     "question": "Resolvé la siguiente resta de factoriales:\n$$6! - 5!$$\n¿Cuál es el resultado?",
     "options": [
       "$600$",
@@ -325,6 +338,7 @@
     ]
   },
   {
+    "id": "white_factoriales_RESL_14",
     "question": "Se quiere comparar $7!$ y $8!$ sin calcular ambos valores completos.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
     "options": [
       "$7!$ es mayor, porque $7<8$ aporta menos factores.",
@@ -350,6 +364,7 @@
     ]
   },
   {
+    "id": "white_factoriales_RESL_15",
     "question": "Encontrá el resultado de la siguiente fracción de factoriales:\n$$\\frac{5!}{2!\\,3!}$$\n¿Cuál es el resultado?",
     "options": [
       "$20$",
@@ -375,6 +390,7 @@
     ]
   },
   {
+    "id": "white_factoriales_RESL_16",
     "question": "El **factorial** de un número natural es el producto de todos los enteros positivos desde $1$ hasta ese número.\n\nLa tabla evalúa $n!$ y deja una celda sin completar.\n\n¿Qué valor va en esa celda?",
     "options": [
       "$96$",
@@ -443,6 +459,7 @@
     ]
   },
   {
+    "id": "white_factoriales_RESL_17",
     "question": "El **factorial** de un número natural multiplica todos los enteros positivos hasta ese número.\n\nEn la tabla falta el valor de una de las filas.\n\n¿Cuánto vale $4!$?",
     "options": [
       "$18$",
@@ -511,6 +528,7 @@
     ]
   },
   {
+    "id": "white_factoriales_RESL_18",
     "question": "El **factorial** de un número natural multiplica todos los enteros desde $1$ hasta ese número, y crece muy rápido.\n\nLa tabla deja sin completar el valor de $6!$.\n\n¿Qué valor le corresponde?",
     "options": [
       "$216$",

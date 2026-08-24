@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_fracciones_ESTR_01",
     "question": "Un premio se reparte primero en la fracción $3/10$ de lo recaudado.\n\nDe esa parte, un socio se queda con la fracción $4/9$.\n\nHay que calcular la siguiente multiplicación sin manejar números grandes:\n$$\\dfrac{3}{10}\\times\\dfrac{4}{9}$$\n¿Cuál es la estrategia más conveniente?",
     "options": [
       "Sumar los numeradores entre sí y los denominadores entre sí antes de simplificar.",
@@ -27,6 +28,7 @@
     ]
   },
   {
+    "id": "white_fracciones_ESTR_02",
     "question": "Un presupuesto se reparte en tres etapas sucesivas, y hay que saber qué fracción del total queda al final.\n$$\\dfrac{3}{10}\\times\\dfrac{5}{9}\\times\\dfrac{2}{7}$$\n¿Qué conviene hacer antes de multiplicar?",
     "options": [
       "Buscar un denominador común entre las tres antes de multiplicar.",
@@ -54,6 +56,7 @@
     ]
   },
   {
+    "id": "white_fracciones_ESTR_03",
     "question": "Dos etapas de un reparto llevan fracciones cuyos números no comparten nada entre sí.\n$$\\dfrac{2}{7}\\times\\dfrac{3}{5}$$\n¿Qué conviene hacer?",
     "options": [
       "Cancelar el $2$ contra el $7$, que son los dos números de la primera fracción.",
@@ -81,6 +84,7 @@
     ]
   },
   {
+    "id": "white_fracciones_ESTR_04",
     "question": "Dos aportes a un fondo se anotan como fracciones del mismo total.\n$$\\dfrac{4}{9}+\\dfrac{5}{6}$$\n¿Por qué acá no sirve cancelar factores cruzados antes de operar?",
     "options": [
       "Porque la cancelación cruzada vale en un producto, y esto es una suma.",
@@ -108,6 +112,7 @@
     ]
   },
   {
+    "id": "white_fracciones_ESTR_05",
     "question": "Una división entre fracciones se convierte en un producto al invertir la segunda.\n$$\\dfrac{9}{8}\\div\\dfrac{3}{4}$$\n¿Cuándo conviene buscar los factores comunes?",
     "options": [
       "Nunca, porque en una división entre fracciones no se pueden cancelar factores.",
@@ -135,6 +140,7 @@
     ]
   },
   {
+    "id": "white_fracciones_ESTR_06",
     "question": "Dos ofertas para un mismo producto anuncian un descuento de $3/8$ y de $2/5$ sobre el precio de lista.\n\nSe quiere saber cuál descuento es mayor, sin pasar ninguna fracción a decimal.\n\n¿Qué conviene hacer?",
     "options": [
       "Multiplicar en cruz: comparar $3\\times5$ contra $2\\times8$, y el producto mayor indica la fracción mayor.",
@@ -162,6 +168,7 @@
     ]
   },
   {
+    "id": "white_fracciones_ESTR_07",
     "question": "Dos mezclas se preparan con estas fracciones de un mismo componente.\n$$\\dfrac{5}{12} \\qquad \\dfrac{7}{12}$$\n¿Cuál es el camino más corto para decidir cuál lleva más?",
     "options": [
       "Buscar un denominador común nuevo para las dos fracciones.",
@@ -189,6 +196,7 @@
     ]
   },
   {
+    "id": "white_fracciones_ESTR_08",
     "question": "Dos descuentos sobre un mismo precio se anuncian con el mismo numerador.\n$$\\dfrac{3}{7} \\qquad \\dfrac{3}{11}$$\n¿Cuál es el camino más corto para decidir cuál descuenta más?",
     "options": [
       "Comparar los numeradores, que son iguales, y concluir que los dos descuentos son iguales.",
@@ -216,6 +224,7 @@
     ]
   },
   {
+    "id": "white_fracciones_ESTR_09",
     "question": "Dos porciones de un mismo lote quedan una a cada lado de la mitad.\n$$\\dfrac{5}{11} \\qquad \\dfrac{7}{12}$$\n¿Qué conviene hacer para ordenarlas?",
     "options": [
       "Comparar cada una con $1/2$: la que la supera es la mayor, sin más cuentas.",
@@ -243,6 +252,7 @@
     ]
   },
   {
+    "id": "white_fracciones_ESTR_10",
     "question": "Dos recetas de una misma salsa llevan estas fracciones de aceite, con denominadores donde uno es múltiplo del otro.\n$$\\dfrac{5}{6} \\qquad \\dfrac{9}{12}$$\n¿Qué método deja la comparación en un solo paso?",
     "options": [
       "Usar el producto de los dos denominadores, $72$, como denominador común.",
@@ -270,6 +280,7 @@
     ]
   },
   {
+    "id": "white_fracciones_ESTR_11",
     "question": "Un presupuesto se reparte según la siguiente fracción compuesta:\n$$\\dfrac{3/4}{2/5}$$\n¿Qué conviene hacer primero para resolverla en el menor número de pasos?",
     "options": [
       "Sumar los numeradores y sumar los denominadores de ambos niveles.",
@@ -297,6 +308,7 @@
     ]
   },
   {
+    "id": "white_fracciones_ESTR_12",
     "question": "Una fracción compuesta puede tener más de dos niveles encajados.\n$$\\dfrac{2}{3/(4/5)}$$\n¿Por dónde conviene empezar?",
     "options": [
       "Buscando un denominador común entre los tres números que aparecen abajo.",
@@ -324,6 +336,7 @@
     ]
   },
   {
+    "id": "white_fracciones_ESTR_13",
     "question": "Cuando el numerador de una fracción compuesta es un entero, sigue valiendo la misma regla.\n$$\\dfrac{6}{2/7}$$\n¿Qué conviene hacer?",
     "options": [
       "Invertir el numerador, que es el nivel más simple de los dos.",
@@ -351,6 +364,7 @@
     ]
   },
   {
+    "id": "white_fracciones_ESTR_14",
     "question": "En una fracción compuesta se puede simplificar adentro de cada nivel antes de invertir.\n$$\\dfrac{4/6}{8/9}$$\n¿Qué conviene hacer primero?",
     "options": [
       "Simplificar el numerador, para invertir y multiplicar con números chicos.",
@@ -378,6 +392,7 @@
     ]
   },
   {
+    "id": "white_fracciones_ESTR_15",
     "question": "Cuando el denominador de una fracción compuesta es un entero, invertirlo deja una fracción de numerador $1$.\n$$\\dfrac{5/8}{3}$$\n¿Qué operación resuelve esa expresión?",
     "options": [
       "$\\dfrac{8}{5}\\times\\dfrac{1}{3}$",

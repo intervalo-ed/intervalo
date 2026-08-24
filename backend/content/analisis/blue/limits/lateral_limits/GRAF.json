@@ -1,5 +1,6 @@
 [
   {
+    "id": "blue_lateral_limits_GRAF_01",
     "question": "La gráfica de una **función a trozos** tiene un quiebre en $x=1$.\n\n¿Cuánto vale $\\lim_{x \\to 1^-} f(x)$?",
     "options": [
       "$2$",
@@ -30,6 +31,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_GRAF_02",
     "question": "Una **función a trozos** tiene su quiebre en $x=1$, como muestra la gráfica.\n\n¿Cuánto vale $\\lim_{x \\to 1^+} f(x)$?",
     "options": [
       "$2$",
@@ -60,6 +62,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_GRAF_03",
     "question": "La gráfica de una función muestra un **salto** en $x=2$.\n\n¿Cuánto vale $\\lim_{x \\to 2^-} f(x)$?",
     "options": [
       "$7$",
@@ -90,6 +93,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_GRAF_04",
     "question": "La gráfica de una función marca un **hueco** en $x=3$, y un punto cerrado a otra altura en ese mismo $x$.\n\n¿Cuánto vale $\\lim_{x \\to 3^+} f(x)$?",
     "options": [
       "$9$",
@@ -120,6 +124,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_GRAF_05",
     "question": "La gráfica de una función tiene forma de V, típica del **valor absoluto**, con el vértice en $x=2$.\n\n¿Cuánto vale $\\lim_{x \\to 2^-} f(x)$?",
     "options": [
       "$0$",
@@ -150,6 +155,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_GRAF_06",
     "question": "Una tarifa de transporte cobra un monto según el tramo recorrido, con un **salto** justo en el kilómetro $2$.\n\nLa gráfica muestra el costo, en cientos de pesos, según los kilómetros recorridos.\n\n¿Cuánto vale $\\lim_{x \\to 2^+} f(x)$?",
     "options": [
       "$3$",
@@ -180,6 +186,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_GRAF_07",
     "question": "La gráfica de una función muestra un **salto** en $x=0$.\n\n¿Existe $\\lim_{x \\to 0} f(x)$?",
     "options": [
       "Sí",
@@ -208,6 +215,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_GRAF_08",
     "question": "La gráfica de una función es una parábola continua, sin ningún quiebre visible.\n\n¿Existe $\\lim_{x \\to 1} f(x)$?",
     "options": [
       "Sí",
@@ -236,6 +244,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_GRAF_09",
     "question": "La gráfica de una función muestra un **hueco** en $x=1$, con las dos ramas llegando a la misma altura.\n\n¿Existe $\\lim_{x \\to 1} f(x)$?",
     "options": [
       "No",
@@ -264,6 +273,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_GRAF_10",
     "question": "La gráfica de una función combina un **hueco** en $x=2$ con un **salto** entre sus dos ramas.\n\n¿Existe $\\lim_{x \\to 2} f(x)$?",
     "options": [
       "No se puede determinar",
@@ -292,6 +302,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_GRAF_11",
     "question": "La gráfica de una función marca dos puntos, uno en $x=-1$, en un tramo liso, y otro en $x=2$, donde salta.\n\n¿En cuál de los dos puntos existe el límite bilateral?",
     "options": [
       "Solo en $x=-1$",
@@ -320,6 +331,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_GRAF_12",
     "question": "La gráfica de una función es una recta con un punto cerrado en $x=2$, marcado a una altura distinta.\n\n¿Cuánto vale $f(2)$?",
     "options": [
       "$3$",
@@ -350,6 +362,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_GRAF_13",
     "question": "En la gráfica de una función, el punto cerrado en $x=1$ no cae sobre la recta.\n\n¿Cuánto vale $\\lim_{x \\to 1} f(x)$?",
     "options": [
       "$2$",
@@ -380,6 +393,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_GRAF_14",
     "question": "La gráfica de una función marca un punto cerrado en $x=3$, separado de la recta.\n\n¿Coinciden el límite en $x=3$ y el valor $f(3)$?",
     "options": [
       "Sí, el límite y el valor coinciden en $6$",
@@ -408,6 +422,7 @@
     ]
   },
   {
+    "id": "blue_lateral_limits_GRAF_15",
     "question": "La gráfica de una función es una recta sin huecos ni puntos sueltos.\n\n¿Coinciden el límite en $x=1$ y el valor $f(1)$?",
     "options": [
       "No, el límite da $3$ y el valor da $1$",

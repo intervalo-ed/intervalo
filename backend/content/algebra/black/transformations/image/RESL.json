@@ -1,5 +1,6 @@
 [
   {
+    "id": "black_image_RESL_01",
     "question": "Si $T(x,y)=(x+y,\\,x-y)$, ¿cuánto vale $T(2,1)$?",
     "options": [
       "$(3,1)$",

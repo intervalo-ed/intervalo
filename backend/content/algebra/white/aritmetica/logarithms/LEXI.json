@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_logarithms_LEXI_01",
     "question": "En la expresión $\\log_b(x)$, el número $x$ es al que se le calcula el logaritmo.\n\n¿Qué nombre recibe $x$ en esa expresión?",
     "options": [
       "Argumento",
@@ -27,6 +28,7 @@
     ]
   },
   {
+    "id": "white_logarithms_LEXI_02",
     "question": "En un logaritmo, el número del subíndice y el de adentro del paréntesis cumplen papeles distintos.\n$$\\log_{3}(81)$$\n¿Cuál es la base?",
     "options": [
       "$27$",
@@ -54,6 +56,7 @@
     ]
   },
   {
+    "id": "white_logarithms_LEXI_03",
     "question": "El resultado de un logaritmo no es ninguno de los dos números que aparecen escritos.\n$$\\log_{5}(125)$$\n¿Qué representa el resultado de esa expresión?",
     "options": [
       "El producto entre la base y el argumento de la expresión",
@@ -81,6 +84,7 @@
     ]
   },
   {
+    "id": "white_logarithms_LEXI_04",
     "question": "Un logaritmo y una potencia dicen lo mismo con los datos ordenados de otra manera.\n$$2^{6} = 64$$\n¿Cómo se escribe esa igualdad en forma de logaritmo?",
     "options": [
       "$\\log_{2}(64) = 6$",
@@ -108,6 +112,7 @@
     ]
   },
   {
+    "id": "white_logarithms_LEXI_05",
     "question": "El argumento de un logaritmo puede ser una fracción sin que eso cambie los roles.\n$$\\log_{2}\\left(\\dfrac{1}{8}\\right)$$\n¿Cuál es el argumento?",
     "options": [
       "$8$",
@@ -135,6 +140,7 @@
     ]
   },
   {
+    "id": "white_logarithms_LEXI_06",
     "question": "El logaritmo $\\log_b(x)$ no está definido para cualquier valor de $x$.\n\n¿Qué condición tiene que cumplir el argumento $x$ para que el logaritmo exista?",
     "options": [
       "Ser un número mayor a $0$",
@@ -162,6 +168,7 @@
     ]
   },
   {
+    "id": "white_logarithms_LEXI_07",
     "question": "Un logaritmo devuelve el exponente que conecta la base con el argumento.\n$$\\log_{2}(x)$$\n¿Cuál de estos argumentos deja el logaritmo sin definir?",
     "options": [
       "$\\dfrac{1}{4}$",
@@ -189,6 +196,7 @@
     ]
   },
   {
+    "id": "white_logarithms_LEXI_08",
     "question": "El argumento cero es un caso aparte dentro de los argumentos no válidos.\n$$\\log_{10}(0)$$\n¿Por qué esa expresión no está definida?",
     "options": [
       "Porque el cero no es un número positivo ni negativo",
@@ -216,6 +224,7 @@
     ]
   },
   {
+    "id": "white_logarithms_LEXI_09",
     "question": "El argumento de un logaritmo puede ser menor que la base sin ningún problema.\n$$\\log_{5}(x)$$\n¿Cuál de estos argumentos **sí** deja el logaritmo definido?",
     "options": [
       "$\\dfrac{1}{25}$",
@@ -243,6 +252,7 @@
     ]
   },
   {
+    "id": "white_logarithms_LEXI_10",
     "question": "El argumento negativo es, junto con el cero, el otro caso que deja un logaritmo sin definir.\n$$\\log_{2}(-8)$$\n¿Por qué esa expresión no está definida?",
     "options": [
       "Porque el número negativo no tiene ninguna raíz cuadrada real",
@@ -270,6 +280,7 @@
     ]
   },
   {
+    "id": "white_logarithms_LEXI_11",
     "question": "La propiedad del producto de logaritmos dice que:\n$$\\log_2(8\\cdot4) = \\log_2(8) + \\log_2(4)$$\n¿Por qué es correcta esa propiedad?",
     "options": [
       "Porque $8$ y $4$ son potencias de la misma base, y multiplicar potencias de igual base suma los exponentes",
@@ -297,6 +308,7 @@
     ]
   },
   {
+    "id": "white_logarithms_LEXI_12",
     "question": "Un apunte resuelve un cociente adentro de un logaritmo en un solo renglón:\n$$\\log_{3}\\left(\\dfrac{27}{9}\\right) = \\log_{3}(27) - \\log_{3}(9)$$\n¿Por qué es correcto ese paso?",
     "options": [
       "Porque el logaritmo de un cociente siempre es menor que el cociente de los logaritmos",
@@ -324,6 +336,7 @@
     ]
   },
   {
+    "id": "white_logarithms_LEXI_13",
     "question": "En un desarrollo aparece este paso:\n$$\\log_{2}(8^{3}) = 3\\log_{2}(8)$$\n¿Por qué es correcto ese paso?",
     "options": [
       "Porque el exponente del argumento siempre se puede mover afuera, cualquiera sea la operación",
@@ -351,6 +364,7 @@
     ]
   },
   {
+    "id": "white_logarithms_LEXI_14",
     "question": "En una simplificación aparece esta igualdad:\n$$\\log_{7}(1) = 0$$\n¿Por qué el logaritmo de $1$ vale cero en cualquier base?",
     "options": [
       "Porque toda base elevada a la potencia cero devuelve exactamente $1$",
@@ -378,6 +392,7 @@
     ]
   },
   {
+    "id": "white_logarithms_LEXI_15",
     "question": "Un desarrollo separa un argumento compuesto en dos términos:\n$$\\log_{2}(4 \\cdot 8) = \\log_{2}(4) + \\log_{2}(8)$$\n¿Qué pasa si los dos argumentos **no** son potencias de la base?",
     "options": [
       "La propiedad vale solo si el producto de los argumentos es potencia de la base",

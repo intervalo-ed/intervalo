@@ -1,5 +1,6 @@
 [
   {
+    "id": "white_factoriales_FORM_01",
     "question": "Se define el **factorial** de un número natural $n$ como el producto de todos los enteros positivos desde 1 hasta ese número.\n\n¿Cuál es la expresión correcta de $5!$?",
     "options": [
       "$5 \\times 4 \\times 3 \\times 2 \\times 1$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "white_factoriales_FORM_02",
     "question": "Se quiere simplificar el siguiente cociente, dejando el producto de los factores que no se cancelan:\n$$\\frac{8!}{6!}$$\n¿Cuál es la expresión simplificada?",
     "options": [
       "$8\\times7$",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "white_factoriales_FORM_03",
     "question": "Sabiendo que $6! = 720$, se quiere reescribir $7!$ usando la relación recursiva del factorial.\n\n¿Cuál es la expresión correcta?",
     "options": [
       "$7\\times 6!$",
@@ -75,6 +78,7 @@
     ]
   },
   {
+    "id": "white_factoriales_FORM_04",
     "question": "Se quiere evaluar la siguiente expresión:\n$$0! + 1!$$\n¿Cuál es su valor?",
     "options": [
       "$0$",
@@ -100,6 +104,7 @@
     ]
   },
   {
+    "id": "white_factoriales_FORM_05",
     "question": "Se quiere identificar si la siguiente igualdad es correcta, sin necesariamente calcular $7!$:\n$$4! + 3! = 7!$$\n¿Cuál es la conclusión correcta?",
     "options": [
       "Es falsa: los factoriales no se suman igual que sus índices.",
@@ -125,6 +130,7 @@
     ]
   },
   {
+    "id": "white_factoriales_FORM_06",
     "question": "El **factorial** de un número natural $n$ se define como el producto de todos los enteros positivos desde 1 hasta ese número.\n\n¿Cuál es la expresión correcta de $4!$?",
     "options": [
       "$4 \\times 3 \\times 2 \\times 1$",
@@ -150,6 +156,7 @@
     ]
   },
   {
+    "id": "white_factoriales_FORM_07",
     "question": "El **factorial** de un número natural es, por definición, el producto de todos los enteros positivos desde 1 hasta ese número.\n\n¿Cuál es la expresión correcta de $6!$?",
     "options": [
       "$6 + 5 + 4 + 3 + 2 + 1$",
@@ -175,6 +182,7 @@
     ]
   },
   {
+    "id": "white_factoriales_FORM_08",
     "question": "Por definición, el **factorial** de un número natural es el producto de todos los enteros positivos desde 1 hasta ese número.\n\n¿Cuál es la expresión correcta de $7!$?",
     "options": [
       "$7 + 6 + 5 + 4 + 3 + 2 + 1$",
@@ -200,6 +208,7 @@
     ]
   },
   {
+    "id": "white_factoriales_FORM_09",
     "question": "Se busca simplificar el siguiente cociente de factoriales, dejando el producto de los factores que no se cancelan:\n$$\\frac{6!}{4!}$$\n¿Cuál es la expresión simplificada?",
     "options": [
       "$6\\times5$",
@@ -225,6 +234,7 @@
     ]
   },
   {
+    "id": "white_factoriales_FORM_10",
     "question": "El siguiente cociente de factoriales se puede simplificar dejando el producto de los factores que no se cancelan:\n$$\\frac{7!}{4!}$$\n¿Cuál es la expresión simplificada?",
     "options": [
       "$7\\times6\\times5\\times4$",
@@ -250,6 +260,7 @@
     ]
   },
   {
+    "id": "white_factoriales_FORM_11",
     "question": "Se quiere reducir el siguiente cociente de factoriales al producto de los factores que no se cancelan:\n$$\\frac{5!}{3!}$$\n¿Cuál es la expresión simplificada?",
     "options": [
       "$5\\times4\\times3$",
@@ -275,6 +286,7 @@
     ]
   },
   {
+    "id": "white_factoriales_FORM_12",
     "question": "Sabiendo que $4! = 24$, se quiere reescribir $5!$ usando la relación recursiva del factorial.\n\n¿Cuál es la expresión correcta?",
     "options": [
       "$5\\times 4!$",
@@ -300,6 +312,7 @@
     ]
   },
   {
+    "id": "white_factoriales_FORM_13",
     "question": "Sabiendo que $7! = 5040$, se quiere reescribir $8!$ usando la relación recursiva del factorial.\n\n¿Cuál es la expresión correcta?",
     "options": [
       "$8+7!$",
@@ -325,6 +338,7 @@
     ]
   },
   {
+    "id": "white_factoriales_FORM_14",
     "question": "Se quiere evaluar la siguiente expresión:\n$$1! - 0!$$\n¿Cuál es su valor?",
     "options": [
       "$-1$",
@@ -350,6 +364,7 @@
     ]
   },
   {
+    "id": "white_factoriales_FORM_15",
     "question": "Se quiere identificar si la siguiente igualdad es correcta, sin necesariamente calcular $8!$:\n$$6! + 2! = 8!$$\n¿Cuál es la conclusión correcta?",
     "options": [
       "Es verdadera, por la relación recursiva del factorial.",

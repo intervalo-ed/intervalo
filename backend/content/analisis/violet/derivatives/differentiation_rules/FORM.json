@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_differentiation_rules_FORM_01",
     "question": "Toda la familia de potencias de $x$ se deriva con una única fórmula, la **regla de la potencia**.\n\n¿Cuál es la derivada de $x^n$ según esa regla?",
     "options": [
       "$n x^{n-1}$",
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_FORM_02",
     "question": "Una potencia concreta pone a prueba la fórmula general:\n$$f(x) = x^5$$\n¿Cuál es su derivada?",
     "options": [
       "$5x^5$",
@@ -46,6 +48,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_FORM_03",
     "question": "La función constante es la más simple de toda la tabla de derivadas:\n$$f(x) = c$$\n¿Cuál es su derivada?",
     "options": [
       "$c$",
@@ -69,6 +72,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_FORM_04",
     "question": "Esta potencia viene acompañada por un coeficiente:\n$$f(x) = 7x^3$$\n¿Cuál es su derivada?",
     "options": [
       "$21x^2$",
@@ -92,6 +96,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_FORM_05",
     "question": "Entre las funciones elementales está la exponencial de base $e$:\n$$f(x) = e^x$$\n¿Cuál es su derivada?",
     "options": [
       "$e^{x-1}$",
@@ -115,6 +120,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_FORM_06",
     "question": "La base de esta exponencial es una constante positiva $a$, distinta de uno:\n$$f(x) = a^x$$\n¿Cuál es su derivada?",
     "options": [
       "$a^x$",
@@ -138,6 +144,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_FORM_07",
     "question": "El logaritmo natural tiene su propia entrada en la tabla de derivadas:\n$$f(x) = \\ln x$$\n¿Cuál es su derivada?",
     "options": [
       "$\\frac{1}{x}$",
@@ -161,6 +168,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_FORM_08",
     "question": "La primera de las derivadas trigonométricas es la del seno:\n$$f(x) = \\sin x$$\n¿Cuál es su derivada?",
     "options": [
       "$\\sin x$",
@@ -184,6 +192,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_FORM_09",
     "question": "El coseno también tiene su fórmula elemental de derivación:\n$$f(x) = \\cos x$$\n¿Cuál es su derivada?",
     "options": [
       "$\\sin x$",
@@ -207,6 +216,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_FORM_10",
     "question": "La tangente completa el trío de derivadas trigonométricas elementales:\n$$f(x) = \\tan x$$\n¿Cuál es su derivada?",
     "options": [
       "$\\sec^2 x$",
@@ -230,6 +240,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_FORM_11",
     "question": "El exponente de esta potencia es negativo:\n$$f(x) = x^{-2}$$\n¿Cuál es su derivada?",
     "options": [
       "$-2x^{-1}$",
@@ -253,6 +264,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_FORM_12",
     "question": "Existe una función $y = f(x)$.\n\n¿Cuál de las siguientes notaciones es equivalente a $f'(x)$?",
     "options": [
       "$\\frac{\\Delta y}{\\Delta x}$",
@@ -276,6 +288,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_FORM_13",
     "question": "Este símbolo funciona como un operador:\n$$\\frac{d}{dx}[\\cdot]$$\n¿Qué representa?",
     "options": [
       "Regla de aplicación más directa sin combinar",
@@ -299,6 +312,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_FORM_14",
     "question": "La derivada de $f$ se puede anotar de más de una manera, pero no cualquier escritura vale.\n\n¿Cuál de las siguientes es una notación válida para la derivada de $f$?",
     "options": [
       "$\\Delta f$",
@@ -322,6 +336,7 @@
     ]
   },
   {
+    "id": "violet_differentiation_rules_FORM_15",
     "question": "La notación de Leibniz se escribe igual que una fracción:\n$$\\frac{dy}{dx}$$\n¿Se puede cancelar $dy$ con $dx$, tratándola como una fracción algebraica común?",
     "options": [
       "Sí, siempre se puede cancelar como cualquier fracción",

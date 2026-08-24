@@ -1,5 +1,6 @@
 [
   {
+    "id": "violet_densidad_RESL_01",
     "question": "El tiempo que un cliente espera en la fila de un banco se modela con una densidad uniforme sobre $0\\leq x\\leq 3$ minutos.\n\nSu densidad es $f(x)=1/3$.\n\nCalculá $P(1\\leq X\\leq 3)$, la probabilidad de esperar entre 1 y 3 minutos.",
     "options": [
       "$\\dfrac{1}{3}$",
@@ -25,6 +26,7 @@
     ]
   },
   {
+    "id": "violet_densidad_RESL_02",
     "question": "La probabilidad de que un cliente abandone la fila crece cuanto más tiempo espera, en la ventana $0\\leq x\\leq 2$.\n\nEsa densidad es $f(x)=kx$.\n\nCalculá el valor de $k$ que hace válida esta densidad.",
     "options": [
       "$\\dfrac{1}{2}$",
@@ -50,6 +52,7 @@
     ]
   },
   {
+    "id": "violet_densidad_RESL_03",
     "question": "El tiempo de reacción ante una alarma es más probable cerca del final de la ventana de $1$ minuto, con densidad:\n$$f(x) = 2x \\quad \\text{para } 0 \\leq x \\leq 1$$\nY vale $0$ fuera de ese intervalo.\n\nCalculá $P(0 \\leq X \\leq 1/2)$.",
     "options": [
       "$\\dfrac{1}{2}$",
@@ -75,6 +78,7 @@
     ]
   },
   {
+    "id": "violet_densidad_RESL_04",
     "question": "Un tren llega en un instante aleatorio dentro de una franja horaria de $5$ minutos.\n\nSu densidad es $f(x)=1/5$.\n\nCalculá $P(2\\leq X\\leq 5)$, la probabilidad de que llegue entre el minuto 2 y el minuto 5.",
     "options": [
       "$\\dfrac{1}{5}$",
@@ -100,6 +104,7 @@
     ]
   },
   {
+    "id": "violet_densidad_RESL_05",
     "question": "Un punto cae al azar sobre un segmento de $8$ metros, con la misma chance en cualquier posición.\n\nSu densidad es $f(x)=1/8$.\n\nCalculá $P(1\\leq X\\leq 5)$, la probabilidad de que caiga entre esas dos marcas.",
     "options": [
       "$\\dfrac{1}{8}$",
@@ -125,6 +130,7 @@
     ]
   },
   {
+    "id": "violet_densidad_RESL_06",
     "question": "El tiempo entre dos clics de un usuario se modela con densidad uniforme sobre $0\\leq x\\leq 4$ segundos.\n\nSu densidad es $f(x)=1/4$.\n\nCalculá $P(0\\leq X\\leq 1)$, la probabilidad de que pasen menos de 1 segundo.",
     "options": [
       "$\\dfrac{1}{4}$",
@@ -150,6 +156,7 @@
     ]
   },
   {
+    "id": "violet_densidad_RESL_07",
     "question": "Un avión aterriza en un instante aleatorio dentro de una franja horaria de $9$ minutos.\n\nSu densidad es $f(x)=1/9$.\n\nCalculá $P(3\\leq X\\leq 6)$, la probabilidad de que aterrice en ese tramo.",
     "options": [
       "$\\dfrac{1}{9}$",
@@ -175,6 +182,7 @@
     ]
   },
   {
+    "id": "violet_densidad_RESL_08",
     "question": "Un punto cae al azar sobre una cuerda de $7$ metros, con la misma chance en cualquier posición.\n\nSu densidad es $f(x)=1/7$.\n\nCalculá $P(1\\leq X\\leq 4)$, la probabilidad de que caiga entre esas dos marcas.",
     "options": [
       "$\\dfrac{1}{7}$",
@@ -200,6 +208,7 @@
     ]
   },
   {
+    "id": "violet_densidad_RESL_09",
     "question": "La probabilidad de que un sensor detecte un movimiento crece cuanto más tiempo pasa, en la ventana $0\\leq x\\leq 3$ segundos.\n\nEsa densidad es $f(x)=kx$.\n\nCalculá el valor de $k$ que hace válida esta densidad.",
     "options": [
       "$\\dfrac{2}{9}$",
@@ -225,6 +234,7 @@
     ]
   },
   {
+    "id": "violet_densidad_RESL_10",
     "question": "El interés de los usuarios por un video crece a medida que avanza, en la ventana $0\\leq x\\leq 4$ minutos.\n\nEsa densidad es $f(x)=kx$.\n\nCalculá el valor de $k$ que hace válida esta densidad.",
     "options": [
       "$\\dfrac{1}{8}$",
@@ -250,6 +260,7 @@
     ]
   },
   {
+    "id": "violet_densidad_RESL_11",
     "question": "La demanda de entradas para un recital crece a medida que se acerca la fecha del evento, en la ventana $0\\leq x\\leq 5$ días antes.\n\nEsa densidad es $f(x)=kx$.\n\nCalculá el valor de $k$ que hace válida esta densidad.",
     "options": [
       "$\\dfrac{2}{25}$",
@@ -275,6 +286,7 @@
     ]
   },
   {
+    "id": "violet_densidad_RESL_12",
     "question": "La intensidad de una señal crece a medida que pasa el tiempo, en la ventana $0\\leq x\\leq 6$ segundos.\n\nEsa densidad es $f(x)=kx$.\n\nCalculá el valor de $k$ que hace válida esta densidad.",
     "options": [
       "$\\dfrac{1}{18}$",
@@ -300,6 +312,7 @@
     ]
   },
   {
+    "id": "violet_densidad_RESL_13",
     "question": "La probabilidad de que una pieza falle crece con el tiempo en uso, en la ventana $0\\leq x\\leq 2$ años, con densidad:\n$$f(x) = \\frac{x}{2}$$\nY vale $0$ fuera de ese intervalo.\n\nCalculá $P(0 \\leq X \\leq 1)$.",
     "options": [
       "$\\dfrac{1}{4}$",
@@ -325,6 +338,7 @@
     ]
   },
   {
+    "id": "violet_densidad_RESL_14",
     "question": "La probabilidad de entregar un examen crece con el tiempo usado, en la ventana $0\\leq x\\leq 3$ horas, con densidad:\n$$f(x) = \\frac{2x}{9}$$\nY vale $0$ fuera de ese intervalo.\n\nCalculá $P(0 \\leq X \\leq 2)$.",
     "options": [
       "$\\dfrac{2}{9}$",
@@ -350,6 +364,7 @@
     ]
   },
   {
+    "id": "violet_densidad_RESL_15",
     "question": "La probabilidad de que se solicite un viaje crece a medida que avanza la noche, en la ventana $0\\leq x\\leq 4$ horas, con densidad:\n$$f(x) = \\frac{x}{8}$$\nY vale $0$ fuera de ese intervalo.\n\nCalculá $P(0 \\leq X \\leq 3)$.",
     "options": [
       "$\\dfrac{3}{4}$",
