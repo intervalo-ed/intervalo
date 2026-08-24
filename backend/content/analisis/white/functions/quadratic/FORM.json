@@ -604,7 +604,7 @@
   },
   {
     "id": "white_quadratic_FORM_24",
-    "question": "Dada la función:\n$$h(t) = h_0 - \\frac{1}{2}g t^2$$\n¿Cuál es la ecuación concreta de $h(t)$?",
+    "question": "Un objeto se suelta, sin impulso, desde una azotea de $45$ metros de altura. La gravedad es $g = 10\\ m/s^2$.\n\nLa altura en función del tiempo sigue esta forma general:$$h(t) = h_0 - \\frac{1}{2}g t^2$$¿Cuál es la ecuación concreta de $h(t)$?",
     "options": [
       "$h(t) = 45t - 5t^2$",
       "$h(t) = 45 - 5t^2$",
@@ -619,7 +619,7 @@
       "El signo del término cuadrático quedó positivo: la gravedad hace bajar la altura, así que ese término debe restar.",
       "Esta expresión da valores negativos crecientes desde el inicio, lo opuesto a una altura que decrece desde $45$."
     ],
-    "explanation": "En una caída libre, el objeto parte con velocidad inicial nula, $v_0=0$, así que la fórmula general:\n$$h(t) = h_0 + v_0 t - \\dfrac{1}{2}g t^2$$\nPierde su término lineal por completo.\n\nCon $h_0=45$ y $g=10$ en la función del enunciado, sustituir da:\n$$h(t) = 45 - 5t^2$$\nEsa es la ecuación concreta pedida.\n\nUn término lineal como $45t$ correspondería a lanzar el objeto hacia arriba con velocidad inicial, algo que contradice la idea de simplemente soltarlo desde la azotea.",
+    "explanation": "En una caída libre, el objeto parte con velocidad inicial nula, $v_0=0$.\n\nLa fórmula general de la posición pierde su término lineal por completo:$$h(t) = h_0 - \\frac{1}{2}g t^2$$Con $h_0=45$ y $g=10$, ya dados en el enunciado, sustituir da:$$h(t) = 45 - 5t^2$$\nUn término lineal como $45t$ correspondería a lanzar el objeto hacia arriba con velocidad inicial, algo que contradice la idea de soltarlo desde la azotea sin impulso.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

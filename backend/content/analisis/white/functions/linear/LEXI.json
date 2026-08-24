@@ -79,10 +79,10 @@
     "id": "white_linear_LEXI_04",
     "question": "Una función tiene que ubicarse dentro de su familia:\n$$f(x) = 4 - x$$\n¿A qué familia pertenece?",
     "options": [
-      "Cuadrática sin validar el contexto",
+      "Cuadrática",
       "Exponencial",
       "Logarítmica",
-      "Lineal en el contexto"
+      "Función lineal"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -487,7 +487,7 @@
   },
   {
     "id": "white_linear_LEXI_20",
-    "question": "Un tanque de agua arranca con $60$ litros y pierde $4$ litros por hora.\n\nEl volumen que le queda se modela con una función lineal.\n$$V(t) = mt + b$$\n¿Qué valor toma $m$?",
+    "question": "Un tanque de agua arranca con $60$ litros y pierde $4$ litros por hora.\n\nEl volumen que le queda se modela con una función lineal, donde $m$ es la **pendiente**, la tasa de cambio por hora.$$V(t) = mt + b$$¿Qué valor toma $m$?",
     "options": [
       "$60$",
       "$4$",

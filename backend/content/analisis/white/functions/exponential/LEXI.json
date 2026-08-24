@@ -601,7 +601,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dos funciones son **inversas** si una deshace lo que hace la otra:\n\nEntonces $f^{-1}(x) = \\log_2(x)$.\n\nEn términos de gráfica, la inversa se obtiene reflejando la curva en la recta $y = x$.\n\nLa exponencial tiene **dominio** $\\mathbb{R}$ e **imagen** $(0, +\\infty)$.\n\nSu inversa, el logaritmo, tiene dominio $(0, +\\infty)$ e imagen $\\mathbb{R}$: exactamente al revés.",
+    "explanation": "Dos funciones son **inversas** si una deshace lo que hace la otra.\n\nEl **logaritmo en base 2** se define como la operación que responde a qué exponente hay que elevar el $2$ para obtener un número:\n$$\\log_2(x) = y \\iff 2^y = x$$\nPor eso aplicar $\\log_2$ después de $2^x$ devuelve el exponente original:\n$$\\log_2(2^x) = x$$\nEse deshacer mutuo es lo que define a $f^{-1}(x) = \\log_2(x)$ como la inversa.\n\nLa exponencial tiene **dominio** $\\mathbb{R}$ e **imagen** $(0, +\\infty)$; su inversa tiene esos dos conjuntos invertidos.",
     "reviewed": false,
     "tags": [
       "valor-inicial-f0"

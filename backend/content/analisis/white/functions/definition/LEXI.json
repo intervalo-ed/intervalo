@@ -245,7 +245,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La variable **dependiente** es aquella que resulta como salida al aplicar la función.\n\nAcá ingresás las horas extra $h$, y el total se obtiene multiplicando esas horas por el valor de cada una y sumando el sueldo base.\n\nComo $S$ está sujeta a cuántas horas decidas trabajar, asume el rol dependiente.\n\nReconocés la dependiente porque es la salida de la función: $S$ se calcula a partir de $h$, no al revés.",
+    "explanation": "La variable **dependiente** es la que resulta como salida al aplicar la función; la **independiente** es la que se elige libremente como entrada.\n\nAcá elegís cuántas horas extra vas a trabajar, y el sueldo sale de aplicar la fórmula a ese valor: depende de las horas, nunca al revés.\n\nQue $S$ aparezca del lado izquierdo de la igualdad no la vuelve independiente: el orden en que se escribe la fórmula no dice nada sobre qué varía libremente y qué se calcula a partir de eso.",
     "reviewed": false,
     "tags": [
       "variable-indep-dep"
