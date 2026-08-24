@@ -1,7 +1,7 @@
 """
 lifecycle_emails.py — Emails automáticos de retención (Resend).
 
-Dos disparadores, resueltos íntegramente en el backend (a diferencia del push,
+Disparadores, resueltos íntegramente en el backend (a diferencia del push,
 el envío no necesita un worker separado — Resend se llama directo desde acá):
 
 - "bounce": el usuario se registró pero nunca terminó una sesión. Se manda una
@@ -17,6 +17,14 @@ el envío no necesita un worker separado — Resend se llama directo desde acá)
   felicita y a la vez ofrece algo para hacer ahora. Si a esa altura el usuario
   ya repasó hoy por su cuenta, el hito se marca como avisado SIN mandar nada —
   volvió solo, el mail no tiene trabajo que hacer.
+- "report thanks": el usuario reportó un problema en un ejercicio (botón de
+  bandera, question_type="C"). Se agradece A LA MAÑANA SIGUIENTE (misma
+  ventana 8-12), nunca el mismo día — un mail casi instantáneo se leería a
+  respuesta automática, justo lo que el copy evita prometer. No dice que ya
+  esté arreglado: solo que alguien lo va a revisar. Idempotencia por REPORTE
+  (`exercise_feedback.thanks_sent_at`), no por usuario, porque un usuario
+  puede reportar más de una vez; si tiene varios pendientes el día que le
+  toca, se agrupan en un solo mail.
 
 Un worker externo (notifier/) pollea `/internal/emails/run` por hora; ver
 `due_bounce_emails` / `due_winback_emails` + `send_bounce_email` /
@@ -44,7 +52,7 @@ from sqlalchemy.orm import Session as DBSession
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from algorithm import STREAK_TIERS
-from models import Session as SessionModel, User
+from models import ExerciseFeedback, Session as SessionModel, User
 
 BOUNCE_MIN_ACCOUNT_AGE = timedelta(hours=24)
 WINBACK_INACTIVITY = timedelta(days=5)
@@ -53,6 +61,13 @@ WINBACK_INACTIVITY = timedelta(days=5)
 # hora en el minuto :00, así que en la práctica llega entre las 8 y las 9.
 STREAK_EMAIL_HOUR_FROM = 8
 STREAK_EMAIL_HOUR_TO = 12
+
+# Mismo criterio y mismos valores que el de arriba: al día siguiente del
+# reporte, nunca el mismo día (se leería a auto-respuesta). Constante propia
+# (no se reusa STREAK_EMAIL_HOUR_*) porque cada mail es dueño de su ventana,
+# aunque hoy coincidan.
+REPORT_THANKS_HOUR_FROM = 8
+REPORT_THANKS_HOUR_TO = 12
 
 # Misma política que session_store: la tz la reporta el navegador y puede venir
 # rota; fallback Argentina, donde vive casi toda la base.
@@ -217,6 +232,44 @@ def due_streak_tier_emails(db: DBSession) -> tuple[list[tuple[User, int]], list[
             continue
         to_send.append((user, tier))
     return to_send, to_mark
+
+
+def due_report_thanks_emails(db: DBSession) -> list[tuple[User, list[int]]]:
+    """Reportes de contenido (question_type="C", ver main.py acción "report")
+    con agradecimiento pendiente, agrupados por usuario.
+
+    Mismo criterio de ventana que due_streak_tier_emails, reusado a propósito
+    (ver REPORT_THANKS_HOUR_FROM/TO): recién al día siguiente del reporte
+    (fecha local), entre las 8 y las 12. El mismo día se leería a
+    auto-respuesta, justo lo que el copy evita prometer.
+
+    Si un usuario reportó más de una vez antes de que le toque el mail, todos
+    esos reportes se agrupan en UN solo envío — nunca dos agradecimientos la
+    misma mañana por la misma persona. `answered_at` es NOT NULL para
+    question_type="C" (main.py lo setea siempre al crear la fila)."""
+    rows = (
+        db.query(ExerciseFeedback, User)
+        .join(User, User.id == ExerciseFeedback.user_id)
+        .filter(
+            ExerciseFeedback.question_type == "C",
+            ExerciseFeedback.thanks_sent_at.is_(None),
+            User.email_unsubscribed.is_(False),
+        )
+        .all()
+    )
+
+    by_user: dict[int, tuple[User, list[int]]] = {}
+    for feedback, user in rows:
+        tz = _user_zone(user)
+        local_now = datetime.now(tz)
+        reported_local_date = feedback.answered_at.replace(tzinfo=ZoneInfo("UTC")).astimezone(tz).date()
+        if reported_local_date >= local_now.date():
+            continue  # todavía no pasó ni un día local completo
+        if not (REPORT_THANKS_HOUR_FROM <= local_now.hour < REPORT_THANKS_HOUR_TO):
+            continue
+        entry = by_user.setdefault(user.id, (user, []))
+        entry[1].append(feedback.id)
+    return list(by_user.values())
 
 
 # ── Desuscripción (token sin login) ──────────────────────────────────────────
@@ -468,6 +521,32 @@ def send_streak_tier_email(db: DBSession, user: User, tier: int) -> bool:
     return sent
 
 
+def send_report_thanks_email(db: DBSession, user: User, feedback_ids: list[int]) -> bool:
+    """Agradece haber reportado un problema en un ejercicio. No promete que ya
+    esté arreglado (no lo sabemos en el momento de mandar el mail) — solo
+    confirma que alguien lo va a mirar."""
+    name = greeting_name(user)
+    unsubscribe_url = f"{_api_base_url()}/email/unsubscribe?token={unsubscribe_token(user.id)}"
+    greeting = "Nos avisaste de un problema en un ejercicio."
+    highlight = "Gracias por hacerlo."
+    html = render_email(
+        greeting=greeting,
+        highlight=highlight,
+        cta_label="Volver",
+        cta_url=_app_base_url(),
+        unsubscribe_url=unsubscribe_url,
+    )
+    sent = _send(user.email, f"¡Gracias {name}! 🙏", html, unsubscribe_url, text=f"{greeting} {highlight}")
+    if sent:
+        (
+            db.query(ExerciseFeedback)
+            .filter(ExerciseFeedback.id.in_(feedback_ids))
+            .update({"thanks_sent_at": datetime.utcnow()}, synchronize_session=False)
+        )
+        db.commit()
+    return sent
+
+
 def run_lifecycle_emails(db: DBSession) -> dict:
     bounce_sent = 0
     for user in due_bounce_emails(db):
@@ -489,8 +568,14 @@ def run_lifecycle_emails(db: DBSession) -> dict:
         if send_streak_tier_email(db, user, tier):
             streak_tier_sent += 1
 
+    report_thanks_sent = 0
+    for user, feedback_ids in due_report_thanks_emails(db):
+        if send_report_thanks_email(db, user, feedback_ids):
+            report_thanks_sent += 1
+
     return {
         "bounce_sent": bounce_sent,
         "winback_sent": winback_sent,
         "streak_tier_sent": streak_tier_sent,
+        "report_thanks_sent": report_thanks_sent,
     }
