@@ -1210,8 +1210,8 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
                   <div className="flex flex-col gap-3 leading-relaxed text-foreground/85">
                     <p>
                       Las unidades son{" "}
-                      <strong className="text-foreground">correlativas</strong>: cada una se apoya
-                      en la anterior.
+                      <strong className="text-foreground">correlativas</strong>. Cada una arranca
+                      donde termina la anterior.
                     </p>
                   </div>
                   <UnitSegmentedBar units={currentUnits} />
