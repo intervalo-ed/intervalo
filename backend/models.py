@@ -83,6 +83,18 @@ class User(Base):
     streak_email_sent_tier = Column(Integer, nullable=True)
     streak_email_sent_at = Column(DateTime, nullable=True)
 
+    # ¿Llegó alguna vez al home? Lo marca `/user/progress`, que es el endpoint
+    # que el home llama en cada carga. Es el escalón del embudo entre "completó
+    # el onboarding" y "arrancó una sesión": separa a quien se quedó trabado en
+    # la autenticación de quien llegó a la app y no tocó «empezar» — dos
+    # problemas con soluciones distintas.
+    #
+    # Booleano y no timestamp a propósito. La columna se creó el 24/08 y hubo
+    # que rellenar el pasado; un `first_home_at` con fechas inventadas para los
+    # usuarios viejos sería una bomba para cualquier análisis temporal futuro.
+    # El hecho se puede reconstruir, el momento no.
+    reached_home = Column(Boolean, nullable=False, default=False, server_default="false")
+
     # Atribución de primer contacto: por qué grupo de WhatsApp llegó la persona
     # ("uba042") y su prefijo de universidad ("uba"). Lo manda el cliente al
     # completar el onboarding, desde lo que capturó al aterrizar (ver

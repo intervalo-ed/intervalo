@@ -15,7 +15,7 @@ from .charts import esc, num
 
 CSS = """
 :root{
-  --bg:#0f0f1e; --surface:#171730; --surface-2:#1f1f3a; --border:#2b2b46;
+  --bg:#131324; --surface:#1b1b34; --surface-2:#24243f; --border:#2f2f4c;
   --fg:#eef1f7; --muted:#8b97ad; --grid:#26263f;
   --indigo:#5457e5; --indigo-soft:#7e80f7; --violet:#9b2fc9; --blue:#1b63d6;
   --brown:#b4652a;
@@ -30,12 +30,14 @@ a{color:var(--indigo-soft);text-decoration:none}
 a:hover{text-decoration:underline}
 :focus-visible{outline:2px solid var(--indigo-soft);outline-offset:2px;border-radius:4px}
 
-header.top{position:sticky;top:0;z-index:5;background:rgba(15,15,30,.94);
+header.top{position:sticky;top:0;z-index:5;background:rgba(19,19,36,.94);
   backdrop-filter:blur(8px);border-bottom:1px solid var(--border);margin-bottom:26px}
 .top .wrap{padding-top:14px;padding-bottom:12px;display:flex;flex-wrap:wrap;
   gap:12px;align-items:baseline;justify-content:space-between}
-.brand{font-weight:800;font-size:17px;letter-spacing:-.02em}
-.brand span{color:var(--muted);font-weight:500;margin-left:8px;font-size:13px}
+/* El PNG del wordmark ya trae el fondo #131324 y sus bordes redondeados, que
+   es justo el fondo de esta página: por eso el recorte queda invisible y no
+   hace falta ningún tratamiento extra. */
+.brand img{display:block;height:26px;width:auto}
 .weeknav{display:flex;gap:6px;align-items:center;font-size:13px}
 .weeknav a,.weeknav .cur{padding:4px 10px;border-radius:999px;border:1px solid var(--border)}
 .weeknav .cur{background:var(--indigo);color:#fff;border-color:var(--indigo);font-weight:600}
@@ -90,10 +92,6 @@ table.big th,table.big td{padding:11px 10px}
 table.big td{border-radius:4px}
 table.big td.ent{font-size:14px;color:var(--fg)}
 .emo{margin-right:7px;font-size:15px}
-/* Cuadradito de color de la unidad, mismo lenguaje que la grilla de cinturones
-   del onboarding. El borde tenue es para que el blanco no flote sobre el fondo. */
-.belt{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:8px;
-  vertical-align:-1px;border:1px solid rgba(0,0,0,.35)}
 
 /* Chip de universidad: el mismo del ranking (ver web/src/components/university-tag.tsx),
    color de marca sobre su propio fondo translúcido. */
@@ -194,16 +192,6 @@ A_ORDER = ["muy_facil", "justo", "muy_dificil"]
 # del medio se resuelve por canal: 🙂 en D (ni aburrido ni interesante) y 👌 en A
 # (la dificultad estuvo bien). Ver el comentario de models.ExerciseFeedback.
 SURVEY_EMOJI_A = dict(SURVEY_EMOJI, justo="👌")
-
-# Colores de unidad = cinturón, espejo de BELT_ONDARK_VIVID del catálogo del
-# front (web/src/lib/catalog/index.ts).
-BELT_COLOR = {
-    "white": "#FFFFFF", "blue": "#1B63D6", "violet": "#9B2FC9", "brown": "#8B4A1F",
-}
-BELT_LABEL = {
-    "white": ("", "Blanco"), "blue": ("", "Azul"),
-    "violet": ("", "Violeta"), "brown": ("", "Marrón"),
-}
 
 # Qué dice cada copy de push. Los nombres de categoría son internos
 # ("personal_best", "podium") y no significan nada de un vistazo, así que la
@@ -353,7 +341,8 @@ def page(p: dict, *, token: str) -> str:
 
     out = [
         "<header class='top'><div class='wrap'>",
-        f"<div class='brand'>intervalo <span>panel de métricas</span></div>",
+        "<div class='brand'><img src='/email/logo.png' alt='intervalo' "
+        "width='163' height='61'></div>",
         f"<div class='weeknav'>{''.join(nav)}</div>",
         "</div></header><div class='wrap'>",
         f"<nav class='jump'>{jump}</nav>",
@@ -373,22 +362,54 @@ def page(p: dict, *, token: str) -> str:
             for s in f["steps"]]
     out.append(_section(
         1, "Embudo de la cohorte", ch.hbars(rows, colors=["var(--indigo)"] * 5) +
-        '<p class="note">Arranca en <b>llegó a la app</b>: las cuentas las crea Clerk y no están '
-        'en esta base, así que el escalón Clerk → app (273 → 233 en la semana del 18/08) no es '
-        'medible desde acá. A diferencia del PDF, que cortaba las sesiones al domingo, la cohorte '
-        'se sigue <b>hasta hoy</b>, así que los últimos escalones dan un poco más altos.</p>',
+        '<p class="note"><b>Altas</b> son las cuentas que vio esta base. Las crea Clerk, y el '
+        'escalón Clerk → backend (273 → 233 en la semana del 18/08) no es medible desde acá, así '
+        'que el embudo arranca un paso más adelante.</p>'
+        '<p class="note"><b>Llegó al home</b> es el escalón que separa dos fallas distintas: '
+        'trabarse en la autenticación, y llegar a la app y no tocar «empezar». Lo marca el '
+        'endpoint que el home llama en cada carga. Para las cohortes anteriores al 24/08 es una '
+        '<b>cota inferior</b>: se reconstruyó de quien tiene sesiones o zona horaria guardada, y '
+        'el resto no dejó rastro.</p>'
+        '<p class="note">Los dos últimos van del más ancho al más angosto —volver otro día '
+        'cualquiera contiene a volver justo al día siguiente— y se miden contra el <b>primer día '
+        'que estudió</b> cada uno, no contra su alta.  A diferencia del PDF, que cortaba las '
+        'sesiones al domingo, la cohorte se sigue <b>hasta hoy</b>.</p>',
         anchor="embudo"))
 
     # 2 · Cohortes
     r = p["retencion"]
+    def tip(label: str, pt: dict) -> str:
+        """Tooltip de un punto, escrito como frase.
+
+        El eje dice «D+3» y eso no significa nada solo, así que cada tooltip
+        traduce el k, da el numerador y el denominador con nombre, y aclara por
+        qué el denominador no es toda la cohorte."""
+        k, n, obs = pt["k"], pt["n"], pt["obs"]
+        cuando = ("el mismo día que arrancaron" if k == 0 else
+                  "un día después de su primera sesión" if k == 1 else
+                  f"{k} días después de su primera sesión")
+        cab = f'Cohorte del {label}  ·  D+{k}'
+        if k == 0:
+            return (
+                f'{cab}\n\n'
+                f'Las {obs} personas de esta cohorte que llegaron a estudiar lo hicieron, '
+                f'por definición, su primer día.\n'
+                f'Por eso D+0 siempre da 100%: es el día en que arrancaron.')
+        if pt["pct"] is None:
+            return (
+                f'{cab}\n\n'
+                f'Todavía no hay a quién medir: nadie de esta cohorte llegó a cumplir '
+                f'{k} días desde su primera sesión.')
+        return (
+            f'{cab}\n\n'
+            f'{n} de {obs} personas volvieron a estudiar {cuando}  ({num(pt["pct"], "%")}).\n\n'
+            f'El denominador son las {obs} que ya llegaron a ese día, no toda la cohorte: '
+            f'quien arrancó anteayer todavía no puede tener un D+{k}.')
+
     ret_series = [{
         "label": f'{c["label"]} (n={c["n"]})',
         "values": [pt["pct"] for pt in c["points"]],
-        "tips": [f'Cohorte {c["label"]} · D+{pt["k"]}: {num(pt["pct"], "%")} '
-                 f'({pt["n"]} de {pt["obs"]} que ya vivieron ese día)'
-                 if pt["pct"] is not None else
-                 f'Cohorte {c["label"]} · D+{pt["k"]}: todavía sin observables'
-                 for pt in c["points"]],
+        "tips": [tip(c["label"], pt) for pt in c["points"]],
     } for c in r["cohortes"]]
     co = p["cohortes"]
     atr = co["atribucion"]
@@ -506,16 +527,6 @@ def page(p: dict, *, token: str) -> str:
                    "values": [r["valores"][v] for r in rows]} for v in order]
         return ch.vbars(grupos, series, height=230, width=900)
 
-    unidad_rows = []
-    for u in e["unidades"]:
-        emo, name = BELT_LABEL[u["belt"]]
-        celdas = [f'<span class="belt" style="background:{BELT_COLOR[u["belt"]]}"></span>{esc(name)}']
-        celdas += [u["D"]["valores"][v] for v in D_ORDER] + [u["D"]["total"]]
-        celdas += [u["A"]["valores"][v] for v in A_ORDER] + [u["A"]["total"]]
-        unidad_rows.append(celdas)
-    unidad_cols = (["Unidad"] + [SURVEY_EMOJI[v] for v in D_ORDER] + ["D"]
-                   + [SURVEY_EMOJI_A[v] for v in A_ORDER] + ["A"])
-
     out.append(_section(
         4, "Micro-encuestas",
         f'<div class="card"><h3>Mezcla de canales</h3>'
@@ -524,7 +535,6 @@ def page(p: dict, *, token: str) -> str:
         '(explicación) es el más chico. La mezcla real va a estar siempre más cargada a D/A: B '
         'solo loguea impresión si la persona abre «¿Por qué?». <b>No compensar subiendo el peso '
         'de B.</b></p></div>'
-        '<div class="grid g2">'
         f'<div class="card"><h3>💡 Interés (canal D) por curso</h3>'
         + encuesta_chart(e["d_por_curso"], D_ORDER, SURVEY_EMOJI,
                          "Todavía sin respuestas: el canal D se desplegó el 24/08 y las reglas "
@@ -537,13 +547,6 @@ def page(p: dict, *, token: str) -> str:
         + '<p class="note">Ojo: «justo» existe en los dos canales y significa cosas distintas —acá '
           'la dificultad estuvo bien, en D ni aburrido ni interesante—. Cualquier corte por valor '
           'tiene que filtrar el canal.</p></div>'
-        '</div>'
-        f'<div class="card"><h3>Desglose por unidad</h3>'
-        f'{_table(unidad_cols, unidad_rows, empty="sin respuestas en la ventana")}'
-        f'<p class="note">Unidad = cinturón. Sale del prefijo del <code>external_id</code> del '
-        f'ejercicio, que por convención es <code>{{cinturón}}_{{tema}}_{{SKILL}}_{{nn}}</code>: '
-        f'<code>exercise_feedback</code> no guarda el cinturón aparte. Las columnas <b>D</b> y '
-        f'<b>A</b> son el total de cada canal.</p></div>'
         + f'<p class="note">{e["reportes"]} reporte(s) de contenido (canal C) en la ventana.</p>',
         anchor="encuestas"))
 
@@ -569,9 +572,12 @@ def page(p: dict, *, token: str) -> str:
                                ("Abiertas", rg["abiertas"])])
         + '</div>'
         f'<div class="card"><h3>Por categoría de copy</h3>'
-        f'{_table(["Categoría", "Enviadas", "Abiertas", "CTR"], cat_rows, empty="sin envíos en la ventana")}'
-        f'<p class="note">CTR global {num(rg["ctr"], "%")}. Si «con notificación activa» queda muy '
-        f'por debajo de «suscripciones push», volvió el bug de persistencia de '
+        f'{_table(["Copy", "Enviadas", "Real", "Nominal", "Abiertas", "CTR"], cat_rows, empty="sin envíos en la ventana")}'
+        f'<p class="note">CTR global {num(rg["ctr"], "%")}. <b>Real</b> es qué porción de los '
+        f'envíos se llevó cada copy y <b>nominal</b> el peso que tiene asignado en '
+        f'<code>notification_copy.py</code>: si se separan mucho, hay variantes que casi nunca '
+        f'aplican y el reparto efectivo no es el que se configuró. Si «con notificación activa» '
+        f'queda muy por debajo de «suscripciones push», volvió el bug de persistencia de '
         f'<code>notify_enabled</code>.</p></div>',
         anchor="push"))
 
