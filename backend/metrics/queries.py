@@ -310,7 +310,7 @@ def headline(data: dict, weeks: list[date]) -> list[dict]:
 
     return [
         card("altas", "Altas", "cuentas nuevas de esa semana"),
-        card("reactivados", "Reactivados",
+        card("reactivados", "Retenidos",
              "gente de semanas anteriores que volvió a estudiar en esta"),
         card("otro_dia", "Vuelven otro día",
              "de los que llegaron a estudiar, cuántos volvieron algún otro día",
@@ -318,7 +318,7 @@ def headline(data: dict, weeks: list[date]) -> list[dict]:
     ]
 
 
-def retention(data: dict, weeks: list[date], horizon: int = 13) -> dict:
+def retention(data: dict, weeks: list[date], horizon: int = 14) -> dict:
     """Curva D+k por cohorte semanal, anclada en la ACTIVACIÓN.
 
     Dos decisiones que definen qué mide esta curva:
