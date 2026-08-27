@@ -37,7 +37,42 @@ type Mathfield = HTMLElement & {
 // El cartel lo dibujamos nosotros y no MathLive: su propiedad `placeholder`
 // existe en la 0.110 pero no renderiza nada (probado con LaTeX pelado, con
 // \text{} y con y sin foco: `.ML__placeholder` nunca aparece en el shadow DOM).
-export const HINT_DESKTOP = "Tip: Usá tu teclado, es mucho más rápido 🏃"
+// Los tips de escritorio rotan por ejercicio. Todos salen de las tablas que
+// MathLive expone en la instancia viva —`keybindings` e `inlineShortcuts`— y no
+// de la documentación:
+//
+//   ^          exponente (LaTeX puro: "x^2" parsea a Power)
+//   /          keybinding en modo math -> \frac{#@}{#?}, el token de antes
+//              queda de numerador
+//   Tab        keybinding -> moveToNextGroup, salta al hueco siguiente
+//   sqrt       inline shortcut -> \sqrt{#?}
+//   sen tg     inline shortcuts nuestros (ver más abajo) -> \operatorname{...}
+//   cos ln pi  inline shortcuts que ya trae MathLive
+//
+// Si alguna vez se cambia `inlineShortcuts` o el teclado del juego, revisar que
+// estos textos sigan siendo ciertos: un tip que miente es peor que ninguno.
+export const DESKTOP_TIPS = [
+  "Tip: Usá tu teclado, es mucho más rápido 🏃",
+  "Tip: Para el exponente, escribí x^2 ⬆️",
+  "Tip: La barra / te arma la fracción ➗",
+  "Tip: Escribí sqrt y brota la raíz 🌱",
+  "Tip: sen, cos y tg se escriben tal cual 📐",
+  "Tip: Tab te lleva al próximo hueco ⏭️",
+  "Tip: Enter revisa, Shift+Enter saltea ↩️",
+] as const
+
+// Cuántos ejercicios se sostiene el primer tip antes de empezar a rotar: el que
+// invita a soltar el mouse es el único que hay que ver sí o sí, y quien recién
+// llega no sabe todavía que puede tipear.
+const PRIMER_TIPS = 3
+
+export function tipFor({ seed, attempted }: { seed: number; attempted: number }): string {
+  if (attempted < PRIMER_TIPS) return DESKTOP_TIPS[0]
+  // El id del ejercicio como semilla: cambia en cada servida —también al
+  // saltear— y no hace falta llevar la cuenta en ningún lado.
+  return DESKTOP_TIPS[Math.abs(seed) % DESKTOP_TIPS.length]
+}
+
 export const HINT_MOBILE = "Tocá el teclado de abajo 👇"
 
 // Borde del campo según el feedback. Los hex son los mismos que usa el resto

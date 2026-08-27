@@ -38,7 +38,7 @@ import {
 } from "./exercise-card"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { GameRanking } from "./game-ranking"
-import { HINT_DESKTOP, MathInput, type MathInputHandle } from "./math-input"
+import { MathInput, tipFor, type MathInputHandle } from "./math-input"
 import { MathKeyboard } from "./math-keyboard"
 import { parseAnswerToMathJson, warmupComputeEngine } from "./parse-answer"
 import { ProfileSlides, RegisterSlide } from "./register-slides"
@@ -442,7 +442,10 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                             <MathInput
                               handleRef={inputRef}
                               tone={tone}
-                              hint={HINT_DESKTOP}
+                              hint={tipFor({
+                                seed: exercise.exercise_id,
+                                attempted: player?.exercises_attempted ?? 0,
+                              })}
                               onEnter={onEnterKey}
                               // En cuanto empieza a corregir, el rebote se va:
                               // el naranja es sobre la respuesta que mandó, no
