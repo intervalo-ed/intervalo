@@ -167,6 +167,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Minijuego de derivadas: bounded context completo en backend/game/ (primer
+# APIRouter del repo; el resto de main.py sigue con @app.* directo).
+from game.router import router as game_router  # noqa: E402
+
+app.include_router(game_router)
+
 
 # ── Dependency functions ──────────────────────────────────────────────────────
 

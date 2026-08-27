@@ -12,3 +12,6 @@ resend
 # paquete tzdata como respaldo: la imagen trae una base IANA sin los alias
 # viejos ("America/Buenos_Aires") que mandan los navegadores.
 tzdata
+# Minijuego de derivadas (backend/game/): deriva con sympy.diff y valida por
+# equivalencia numérica con lambdify. Sin numpy ni antlr4 a propósito.
+sympy

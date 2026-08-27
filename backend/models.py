@@ -569,3 +569,129 @@ class NotificationSend(Base):
         Index("idx_notification_sends_user_id", "user_id"),
         Index("idx_notification_sends_sent_at", "sent_at"),
     )
+
+
+# ── Minijuego de derivadas (backend/game/) ───────────────────────────────────
+# Bounded context aparte del motor SM-2: jugadores (guests o linkeados a users),
+# Elo por plantilla generadora, ejercicios servidos con la derivada esperada
+# del lado del server, e intentos. El XP del juego vive en game_players.xp y
+# NUNCA suma a users.total_xp (eso desbloquearía emojis y dispararía
+# notificaciones del ranking de Intervalo).
+
+
+class GamePlayer(Base):
+    __tablename__ = "game_players"
+
+    id = Column(Integer, primary_key=True, index=True)
+    # NULL en jugadores registrados creados directo con Clerk; se conserva tras
+    # el link para que un cliente viejo con el token guardado siga resolviendo
+    # al mismo jugador.
+    guest_token = Column(String(64), unique=True, index=True, nullable=True)
+    # NULL = guest. UNIQUE: un usuario tiene a lo sumo un jugador.
+    user_id = Column(Integer, ForeignKey("users.id"), unique=True, index=True, nullable=True)
+    # Namespace propio, separado de users.username. Mismas reglas de formato
+    # (usernames.validate_username). El guest recibe uno autogenerado y NO lo
+    # edita: elegir el @ es el gancho del registro.
+    alias = Column(String(30), unique=True, index=True, nullable=False)
+    university = Column(String(120), nullable=True)
+    career = Column(String(1), nullable=True)
+
+    # Elo del jugador (ver game/elo.py). n_updates = respuestas de primer
+    # intento que ya lo ajustaron; también gobierna la rampa inicial.
+    theta = Column(Float, nullable=False, default=0.0, server_default="0")
+    n_updates = Column(Integer, nullable=False, default=0, server_default="0")
+
+    # Orden del ranking del juego: (xp DESC, id ASC).
+    xp = Column(Integer, nullable=False, default=0, index=True, server_default="0")
+    current_combo = Column(Integer, nullable=False, default=0, server_default="0")
+    best_combo = Column(Integer, nullable=False, default=0, server_default="0")
+    # Mejor puesto histórico (1 = primero). Detecta récords del lado del server.
+    best_rank = Column(Integer, nullable=True)
+    exercises_correct = Column(Integer, nullable=False, default=0, server_default="0")
+    exercises_attempted = Column(Integer, nullable=False, default=0, server_default="0")
+
+    # Atribución de primer contacto, espejo de users.first_group_id (mismas
+    # regex al persistir, solo si están en NULL).
+    first_group_id = Column(String(20), nullable=True, index=True)
+    first_utm_source = Column(String(20), nullable=True)
+
+    # Jugador sembrado (ver scripts/seed_game_bots.py): puebla el ranking para
+    # que el primero en llegar tenga a quién escalar. No lo controla nadie —
+    # tiene user_id y guest_token en NULL, así que ninguna request lo resuelve.
+    # La columna existe para poder EXCLUIRLOS de cualquier métrica de uso: sin
+    # ella, 100 filas sembradas serían indistinguibles de usuarios reales al
+    # analizar el juego.
+    is_bot = Column(Boolean, nullable=False, default=False, server_default="false")
+
+    created_at = Column(DateTime, default=datetime.utcnow)
+    last_seen_at = Column(DateTime, nullable=True)
+
+    user = relationship("User")
+
+
+class GameTemplateStat(Base):
+    """Dificultad Elo por plantilla generadora. Filas creadas lazy al servir
+    por primera vez, con beta seed por tier (game/elo.py) — sin migración de
+    datos al agregar plantillas nuevas."""
+    __tablename__ = "game_template_stats"
+
+    id = Column(Integer, primary_key=True, index=True)
+    template_key = Column(String(80), unique=True, index=True, nullable=False)
+    tier = Column(Integer, nullable=False)
+    beta = Column(Float, nullable=False, default=0.0)
+    n_observations = Column(Integer, nullable=False, default=0, server_default="0")
+    n_correct = Column(Integer, nullable=False, default=0, server_default="0")
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+class GameExercise(Base):
+    """Ejercicio servido a un jugador. Server-authoritative: la derivada
+    esperada y los errores predecibles se guardan acá y la validación es
+    numérica contra esto — el cliente nunca ve la respuesta."""
+    __tablename__ = "game_exercises"
+
+    id = Column(Integer, primary_key=True, index=True)
+    player_id = Column(Integer, ForeignKey("game_players.id"), nullable=False, index=True)
+    template_key = Column(String(80), nullable=False, index=True)
+    params_json = Column(Text, nullable=True)
+    prompt_latex = Column(Text, nullable=False)
+    # str(sympy_expr), ej. "3*x**2 + cos(x)". Se re-parsea con sympify (string
+    # propio del server, no input del cliente).
+    expected_derivative = Column(Text, nullable=False)
+    # JSON [{expr, feedback}] con las derivadas erróneas predecibles del template.
+    common_errors_json = Column(Text, nullable=True)
+
+    theta_at_serve = Column(Float, nullable=False)
+    beta_at_serve = Column(Float, nullable=False)
+    p_hat = Column(Float, nullable=False)
+
+    status = Column(String(10), nullable=False, default="served", server_default="served")
+    created_at = Column(DateTime, default=datetime.utcnow)
+    answered_at = Column(DateTime, nullable=True)
+
+    __table_args__ = (
+        Index("idx_game_exercises_player_status", "player_id", "status"),
+    )
+
+
+class GameAttempt(Base):
+    __tablename__ = "game_attempts"
+
+    id = Column(Integer, primary_key=True, index=True)
+    exercise_id = Column(Integer, ForeignKey("game_exercises.id"), nullable=False, index=True)
+    # Denormalizado para contar respuestas por jugador sin join.
+    player_id = Column(Integer, ForeignKey("game_players.id"), nullable=False, index=True)
+
+    attempt_number = Column(Integer, nullable=False)
+    answer_latex = Column(Text, nullable=True)
+    # str(expr) de lo que se logró parsear del MathJSON; NULL si no parseó.
+    answer_parsed = Column(Text, nullable=True)
+    parse_ok = Column(Boolean, nullable=False, default=True)
+    is_correct = Column(Boolean, nullable=False)
+    response_ms = Column(Integer, nullable=True)
+    xp_awarded = Column(Integer, nullable=False, default=0)
+    # Solo en el intento 1 (el único que mueve el Elo).
+    theta_before = Column(Float, nullable=True)
+    theta_after = Column(Float, nullable=True)
+
+    created_at = Column(DateTime, default=datetime.utcnow)
