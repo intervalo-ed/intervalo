@@ -306,9 +306,13 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     transition: "opacity 0.5s ease-in-out",
   }
 
-  // El ranking baja de 400 a 360 junto con el resto: si quedara fijo, achicar la
-  // caja le daría cada vez más proporción y se comería la columna del ejercicio.
-  const columns = "grid-cols-[minmax(0,1fr)_360px]"
+  // Ancho fijo para la derecha; la izquierda se queda con lo que sobra. Una fila
+  // del ranking tiene mucho que meter en el renglón —puesto, alias, emoji,
+  // flecha, sigla y XP— así que cada píxel acá se nota; el ejercicio, en cambio,
+  // ya centra su contenido en un canal de 28rem y lo que le saquemos sale del
+  // margen, no de la fórmula. La cabecera del alias comparte esta misma grilla,
+  // así que crece con el ranking.
+  const columns = "grid-cols-[minmax(0,1fr)_400px]"
 
   return (
     <div className="h-dvh overflow-hidden" style={GRID_BG_STYLE}>
