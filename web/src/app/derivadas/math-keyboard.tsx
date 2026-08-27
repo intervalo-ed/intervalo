@@ -146,10 +146,6 @@ const DYNAMIC: Record<string, Key> = {
   tg: { tex: "\\operatorname{tg}", insert: "\\operatorname{tg}\\left(#?\\right)" },
 }
 
-// Ancho de la fila dinámica, en columnas. Tiene que coincidir con MAX_KEYS de
-// backend/game/keyboard.py.
-const DYNAMIC_COLS = 7
-
 // Alto de fila del bloque fijo, en una variable CSS porque cambia por tamaño de
 // pantalla. En escritorio baja a 2.05rem: con teclas de doble alto a la
 // izquierda y al centro, el bloque medía cuatro filas de blanco de más. En el
@@ -158,14 +154,23 @@ const DYNAMIC_COLS = 7
 const ROW_MIN = "var(--kb-row)"
 const ROW_VARS = "[--kb-row:2.5rem] md:[--kb-row:2.05rem]"
 
-// La fila dinámica, en cambio, engorda: es la que cambia entre ejercicios y la
-// que tiene los glifos más altos (fracciones, raíces, potencias).
-const DYNAMIC_ROW = "2.75rem"
+// En escritorio las tres filas comparten una grilla de ocho columnas: la
+// dinámica y las dos fijas caen en las mismas verticales, que es lo que hace
+// que se lean como un teclado y no como tres tiras sueltas. Ocho es lo que
+// entra en el canal de 28rem sin que la tecla se vuelva un botoncito.
+const GRID_COLS = 8
 
-// Alto de fila de las tiras que reemplazan al bloque fijo cuando no hay
-// numérico. Igual que la dinámica: las tres son hermanas, no un pad.
-const STRIP_ROW = "2.75rem"
-const STRIP_COLS = 6
+// Ancho de la fila dinámica en el teléfono, donde el canal es más angosto y la
+// tecla se toca con el pulgar. Tiene que aguantar MAX_KEYS de
+// backend/game/keyboard.py.
+const DYNAMIC_COLS_MOBILE = 7
+
+// La dinámica es la fila alta: es la que cambia entre ejercicios, la que hay
+// que mirar, y la única con glifos compuestos (potencias, raíces, e^□) que
+// necesitan aire vertical. Las fijas son las de siempre y pueden ser más chicas.
+const DYNAMIC_ROW = "2.75rem"
+const DYNAMIC_ROW_DESKTOP = "3.1rem"
+const STRIP_ROW = "2.3rem"
 
 // Las dos filas fijas de escritorio, agrupadas por lo que hacen: arriba lo que
 // se escribe, abajo lo que se mueve y se borra. La de arriba llena la fila; la
@@ -246,6 +251,10 @@ export function MathKeyboard({
     </button>
   )
 
+  // En escritorio la fila dinámica es la protagonista y va a cuerpo entero; en
+  // el teléfono la tecla es más angosta y los glifos compuestos (potencias,
+  // raíces, e^□) se pasan de alto si van al mismo cuerpo que un dígito.
+  const dynamicSize: Key["size"] = numpad ? "sm" : "md"
   const dynamic = useMemo(
     () =>
       keys
@@ -254,14 +263,22 @@ export function MathKeyboard({
         // quedarían corridas a partir de ahí.
         .map((id) => ({ id, key: DYNAMIC[id] }))
         .filter((entry) => entry.key !== undefined)
-        // Los glifos compuestos (fracciones, raíces, potencias) se pasan de
-        // alto contra la fila si van al mismo cuerpo que un dígito.
-        .map((entry) => ({ id: entry.id, key: { ...entry.key, size: "sm" as const } })),
-    [keys],
+        .map((entry) => ({ id: entry.id, key: { ...entry.key, size: dynamicSize } })),
+    [keys, dynamicSize],
   )
+  const cols = numpad ? DYNAMIC_COLS_MOBILE : GRID_COLS
   // Centradas dentro de la fila: así el tamaño de tecla no depende de cuántas
   // haya, que es lo que las haría cambiar de forma entre ejercicios.
-  const firstCol = Math.floor((DYNAMIC_COLS - dynamic.length) / 2) + 1
+  const firstCol = Math.floor((cols - dynamic.length) / 2) + 1
+
+  // Las teclas fijas de escritorio bajan de cuerpo: contra una fila dinámica
+  // más alta, el `lg` de antes las hacía competir con lo que sí cambia. En el
+  // teléfono siguen a `lg`, donde la tecla es de doble alto y hay lugar.
+  const strip = (key: Key): Key => ({ ...key, size: "md" })
+  const stripGrid = {
+    height: STRIP_ROW,
+    gridTemplateColumns: `repeat(${GRID_COLS}, minmax(0, 1fr))`,
+  }
 
   // `minmax(ROW_MIN, 1fr)` y no `1fr` pelado: en el teléfono el teclado va en
   // flujo natural (sin alto que repartir) y con 1fr las filas colapsarían a
@@ -289,8 +306,8 @@ export function MathKeyboard({
       <div
         className="grid shrink-0 gap-1.5"
         style={{
-          height: DYNAMIC_ROW,
-          gridTemplateColumns: `repeat(${DYNAMIC_COLS}, minmax(0, 1fr))`,
+          height: numpad ? DYNAMIC_ROW : DYNAMIC_ROW_DESKTOP,
+          gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
         }}
       >
         {dynamic.map((entry, i) =>
@@ -320,31 +337,19 @@ export function MathKeyboard({
         // cursor, borrar). La de abajo va centrada dentro de las mismas seis
         // columnas, igual que la dinámica.
         <>
-          <div
-            className="grid shrink-0 gap-1.5"
-            style={{
-              height: STRIP_ROW,
-              gridTemplateColumns: `repeat(${STRIP_COLS}, minmax(0, 1fr))`,
-            }}
-          >
-            {STRIP_TOP.map((key, i) => button(key, `top-${i}`))}
-          </div>
-          <div
-            className="grid shrink-0 gap-1.5"
-            style={{
-              height: STRIP_ROW,
-              gridTemplateColumns: `repeat(${STRIP_COLS}, minmax(0, 1fr))`,
-            }}
-          >
-            {STRIP_BOTTOM.map((key, i) =>
-              button(key, `bot-${i}`, {
-                style: {
-                  gridColumnStart:
-                    Math.floor((STRIP_COLS - STRIP_BOTTOM.length) / 2) + 1 + i,
-                },
-              }),
-            )}
-          </div>
+          {[STRIP_TOP, STRIP_BOTTOM].map((fila, f) => (
+            <div key={f} className="grid shrink-0 gap-1.5" style={stripGrid}>
+              {fila.map((key, i) =>
+                button(strip(key), `strip-${f}-${i}`, {
+                  // Centradas en las mismas ocho columnas que la dinámica: es lo
+                  // que alinea las tres filas entre sí.
+                  style: {
+                    gridColumnStart: Math.floor((GRID_COLS - fila.length) / 2) + 1 + i,
+                  },
+                }),
+              )}
+            </div>
+          ))}
         </>
       )}
       </div>
