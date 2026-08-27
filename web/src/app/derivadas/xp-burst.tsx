@@ -1,9 +1,15 @@
 "use client"
 
-// El festejo de acertar: la derivada estalla en círculos de colores y, un
-// instante después, un imán en el ranking los va juntando de a uno sobre la XP
-// de la fila propia. Cada círculo que llega vale 1 XP y suena el mismo tick que
-// cuenta la experiencia en el resumen de sesión de Intervalo.
+// El festejo de acertar: el ranking recentra la fila propia y un puñado de
+// círculos sale desde la respuesta derecho al contador de XP, de a uno. Cada
+// llegada suma su parte y suena el mismo tick que cuenta la experiencia en el
+// resumen de sesión de Intervalo.
+//
+// Sin estallido. La explosión ocupaba la pantalla entera durante medio segundo
+// para después juntar todo en un punto: mucho ruido para un acierto que puede
+// repetirse cada quince segundos. El viaje directo cuenta lo mismo —la
+// respuesta se convirtió en XP— y no tapa el ranking, que es adonde hay que
+// mirar. El modo con explosión sigue existiendo para el resumen de sesión.
 //
 // El orden importa: primero llega toda la XP, y recién ahí el ranking estrena
 // orden y la fila sube. Por eso `onComplete` es quien dispara la invalidación
@@ -14,13 +20,19 @@ import { Confetti } from "@/components/confetti"
 import { useTick } from "@/lib/audio/useSfx"
 import type { GameAnswer } from "./UseGameExercise"
 
-// Tope de partículas. Más allá el conteo se hace largo, así que cada círculo
-// pasa a valer varios XP en vez de sumar círculos.
-const MAX_PARTICLES = 40
+// Cuánta XP representa cada círculo. Antes era 1 a 1 y un acierto normal
+// mandaba veinticinco: con el viaje directo eso es una fila de bolitas
+// entrando al contador durante segundos. Repartida de a tres, la misma XP entra
+// en un puñado que se lee de un vistazo y el conteo dura lo que tiene que
+// durar. El total no cambia — `splitXp` reparte hasta el último punto.
+const XP_PER_PARTICLE = 3
+const MIN_PARTICLES = 4
+const MAX_PARTICLES = 14
 
 // La recolección arranca después de que el ranking terminó de recentrar la fila
-// propia: si empezara antes, el imán apuntaría a donde la fila ya no está.
-const COLLECT_DELAY_MS = 550
+// propia: si empezara antes, el imán apuntaría a donde la fila ya no está. Es
+// más corta que con estallido porque acá no hay nada que mirar mientras tanto.
+const COLLECT_DELAY_MS = 320
 
 type Burst = {
   seq: number
@@ -66,7 +78,13 @@ export function useXpBurst({ onComplete }: { onComplete?: () => void } = {}) {
   const fire = useCallback((answer: GameAnswer) => {
     const xp = answer.xp_awarded
     if (xp <= 0) return
-    const count = Math.min(xp, MAX_PARTICLES)
+    // El tope de arriba es por duración y el de abajo para que un acierto de
+    // segundo intento igual se sienta; el `min` contra la XP evita repartos con
+    // círculos de cero, que llegarían sin sumar nada.
+    const count = Math.min(
+      xp,
+      Math.max(MIN_PARTICLES, Math.min(MAX_PARTICLES, Math.round(xp / XP_PER_PARTICLE))),
+    )
     const chunks = splitXp(xp, count)
     chunksRef.current = chunks
     seqRef.current += 1
@@ -163,6 +181,7 @@ export function XpBurstConfetti({
         target: () => targetRef.current(),
         startDelayMs: COLLECT_DELAY_MS,
         onArrive: (i, p) => arriveRef.current(i, p),
+        direct: true,
       }}
     />
   )

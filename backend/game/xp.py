@@ -8,10 +8,11 @@ dispararía notificaciones del ranking de Intervalo).
 
 from __future__ import annotations
 
-# La XP por acierto es también la cantidad de confeti del festejo: cada círculo
-# que llega al contador vale 1 XP y suena un tick (ver xp-confetti en el front).
-# Con ~10 el estallido era un puñado triste; con ~25 se ve un festejo y el
-# conteo dura menos de dos segundos.
+# La XP por acierto también fija el largo del festejo: el front reparte este
+# número en un puñado de círculos que viajan al contador, uno por cada ~3 XP
+# (ver XP_PER_PARTICLE en web/src/app/derivadas/xp-burst.tsx). Con ~10 el
+# festejo era un puñado triste; con ~25 se ve, y el conteo dura menos de dos
+# segundos.
 XP_BY_ATTEMPT = {1: 25, 2: 8}
 
 # Combo: cada COMBO_INTERVAL correctas al primer intento seguidas, bonus plano.
