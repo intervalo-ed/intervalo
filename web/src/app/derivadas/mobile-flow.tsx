@@ -28,7 +28,6 @@ import {
   AnswerButton,
   AnswerField,
   ExerciseCard,
-  FeedbackLine,
   SkipButton,
   answerTone,
 } from "./exercise-card"
@@ -386,8 +385,6 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   }}
                 />
               </AnswerField>
-              {/* Debajo del campo, igual que en escritorio. */}
-              {lastAnswer && <FeedbackLine answer={lastAnswer} />}
               <div className="min-h-0 flex-1" />
               {/* Sigue montado con el ejercicio cerrado: sacarlo empujaría todo
                   lo de arriba justo cuando la persona va a tocar Continuar. */}

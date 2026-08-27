@@ -15,7 +15,6 @@ import { motion, useReducedMotion } from "motion/react"
 import { CornerDownLeft } from "lucide-react"
 import MathText from "@/components/math-text"
 import { Button } from "@/components/ui/button"
-import { XpDots } from "@/components/xp-dots"
 import { cn } from "@/lib/utils"
 import type { GameAnswer } from "./UseGameExercise"
 
@@ -93,7 +92,13 @@ function RollingDigit({ d, instant }: { d: number; instant: boolean }) {
         transition={instant ? { duration: 0 } : { type: "spring", stiffness: 300, damping: 32 }}
       >
         {DIGITS.map((n) => (
-          <span key={n} style={{ height: LINE, lineHeight: LINE }}>
+          // `text-center` y no la alineación por defecto: la columna mide lo que
+          // el dígito MÁS ANCHO, y esta fuente ignora `tabular-nums` (medido: un
+          // "1" son 5.25 px de tinta contra 11.05 de un "0"). Alineado al
+          // inicio, el 1 dejaba medio glifo de hueco a su derecha y un "102" se
+          // leía "1 02". Centrado, el aire sobrante se reparte y pasa por
+          // espaciado normal.
+          <span key={n} className="text-center" style={{ height: LINE, lineHeight: LINE }}>
             {n}
           </span>
         ))}
@@ -136,7 +141,7 @@ function Counter({
     // pregunta hacia abajo.
     <span
       className={cn(
-        "flex items-center gap-1.5 text-base font-medium leading-none",
+        "flex items-center gap-1 text-base font-medium leading-none",
         dim ? "text-muted-foreground" : "text-foreground",
       )}
       aria-label={label}
@@ -177,9 +182,9 @@ export function ExerciseCard({
           rótulo sobraba.
           La pregunta puede achicarse (`min-w-0`) y los marcadores no: en el
           teléfono lo que cede es el texto, que envuelve, y no los números. */}
-      <div className="flex shrink-0 items-center justify-between gap-3">
+      <div className="flex shrink-0 items-center justify-between gap-3 pt-1.5">
         <p className="min-w-0 text-sm text-muted-foreground md:text-base">{PROMPT_QUESTION}</p>
-        <span className="flex shrink-0 items-center gap-4">
+        <span className="flex shrink-0 items-center gap-2.5">
           <Counter value={attempted} emoji="🧮" label={`${attempted} ejercicios`} />
           <Counter value={streak} emoji="🔥" label={`racha de ${streak}`} dim={streak === 0} />
         </span>
@@ -202,66 +207,14 @@ export function ExerciseCard({
   )
 }
 
-// El feedback, debajo del campo: es donde queda el ojo después de escribir. Va
-// centrado y con el mismo ancho que el campo, así aparece y desaparece sin
-// correr nada de lugar a los costados.
-export function FeedbackLine({ answer }: { answer: GameAnswer }) {
-  if (!answer.parse_ok) {
-    return (
-      <div className="text-center text-sm" style={{ color: WRONG }}>
-        <p className="font-medium">{answer.parse_error ?? "No pudimos leer tu respuesta."}</p>
-        <p className="mt-0.5 text-muted-foreground">No cuenta como intento.</p>
-      </div>
-    )
-  }
-  if (answer.correct) {
-    return (
-      <div className="text-center">
-        <p
-          className="flex items-center justify-center gap-2 font-medium"
-          style={{ color: RIGHT }}
-        >
-          ¡Correcto!
-          <span className="inline-flex items-center gap-1 text-sm">
-            +{answer.xp_awarded}
-            <XpDots className="h-3.5 w-auto" />
-          </span>
-        </p>
-        {answer.combo_bonus > 0 && (
-          <p className="mt-0.5 text-sm text-muted-foreground">
-            Combo ×{answer.combo}: +{answer.combo_bonus} extra
-          </p>
-        )}
-      </div>
-    )
-  }
-  if (answer.attempts_left > 0) {
-    return (
-      <div className="text-center text-sm">
-        <p className="font-medium" style={{ color: WRONG }}>
-          ¿Seguro?
-        </p>
-        {answer.feedback_incorrect && (
-          <div className="mt-0.5 text-muted-foreground">
-            <MathText text={answer.feedback_incorrect} />
-          </div>
-        )}
-      </div>
-    )
-  }
-  return (
-    <div className="text-center text-sm">
-      <p className="font-medium" style={{ color: WRONG }}>
-        Era así
-      </p>
-      {answer.correct_answer_latex && (
-        <div className="mt-0.5 text-[1.05rem] text-foreground">
-          <MathText text={`$f'(x) = ${answer.correct_answer_latex}$`} />
-        </div>
-      )}
-    </div>
-  )
-}
+// Sin línea de feedback. Lo dice todo la respuesta misma: la barra late en
+// verde o se sacude en naranja y el botón toma ese color y pasa a "Continuar".
+// Un cartel que además lo escribiera sería decir dos veces lo mismo, y en un
+// juego donde se acierta cada quince segundos ese cartel aparece y desaparece
+// todo el tiempo.
+//
+// Cuesta algo: al quemar los dos intentos ya no se ve la derivada correcta. Es
+// una decisión de producto, no un olvido.
 
 // La caja de la respuesta: late al confirmar y se sacude si está mal. El pulso
 // va montado por `seq` y no por tono, así dos erradas seguidas laten dos veces.

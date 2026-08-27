@@ -32,7 +32,6 @@ import {
   AnswerButton,
   AnswerField,
   ExerciseCard,
-  FeedbackLine,
   PANEL_CONTENT,
   SkipButton,
   answerTone,
@@ -453,10 +452,6 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                               }}
                             />
                           </AnswerField>
-                          {/* Debajo del campo: es donde queda el ojo después de
-                              escribir, y donde hay lugar para decir algo más
-                              que una línea. */}
-                          {lastAnswer && <FeedbackLine answer={lastAnswer} />}
                         </div>
                       </ExerciseCard>
                       {/* El teclado no se desmonta al cerrar el ejercicio: con
