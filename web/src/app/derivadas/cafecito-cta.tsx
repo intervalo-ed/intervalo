@@ -39,9 +39,18 @@ export function markCafecitoShown(solvedCount: number, trigger: CafecitoTrigger)
 
 export function CafecitoButton({
   placement,
+  compact = false,
   className,
 }: {
   placement: string
+  // Solo el ícono. En escritorio la cabecera ya lleva el botón de la tabla con
+  // su rótulo y su tecla, y tres botones con texto se pisaban entre sí.
+  //
+  // Fuera de escritorio no se usa: ahí la palabra ya la esconde el `sm` de
+  // abajo en un teléfono, y en una tablet —que entra por MobileFlow, porque el
+  // layout se elige por user agent y no por ancho— sobra lugar para mostrarla.
+  // Y mostrarla es lo que se quiere: es el propósito del juego, no un adorno.
+  compact?: boolean
   className?: string
 }) {
   return (
@@ -57,7 +66,7 @@ export function CafecitoButton({
       )}
     >
       <Coffee size={15} />
-      <span className="hidden sm:inline">cafecito</span>
+      {!compact && <span className="hidden sm:inline">cafecito</span>}
     </a>
   )
 }
