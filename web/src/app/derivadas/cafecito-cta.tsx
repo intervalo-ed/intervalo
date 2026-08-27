@@ -12,7 +12,10 @@ import {
   saveCafecitoLastShownAt,
 } from "./game-storage"
 
-export const CAFECITO_URL = "https://cafecito.app/intervalo"
+// Perfil propio del juego, separado del de Intervalo. `/intervalo` no existe
+// más —devuelve "esta página no está disponible"—, así que mientras apuntó ahí
+// todo el que quiso donar cayó en un 404.
+export const CAFECITO_URL = "https://cafecito.app/derivadas"
 
 // Hitos: cada cuántas resueltas se considera mostrar la card, y cuántas
 // resueltas tienen que pasar entre dos cards (cooldown).

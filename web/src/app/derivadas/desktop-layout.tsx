@@ -501,9 +501,12 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                   )}
                   {panel === "exercise" && exercise ? (
                     <>
-                      {/* La card es el frente y la tabla el dorso: el botón del
-                          header (o Ctrl sostenido) da vuelta esta caja y nada
-                          más — el teclado y el botón siguen en su lugar. */}
+                      {/* El volteo se lleva la card Y el teclado, no solo la
+                          card: la tabla tiene catorce renglones y en el alto de
+                          la card sola entraban siete. Con los dos, el dorso
+                          hereda card + teclado y entra completa. El botón de
+                          abajo queda afuera a propósito — es lo único que sigue
+                          sirviendo con la tabla a la vista. */}
                       <FlipCard
                         className="min-h-0 flex-1"
                         flipped={tableOpen}
@@ -513,42 +516,44 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                           </div>
                         }
                         front={
-                          <ExerciseCard
-                            className="flex-1"
-                            streak={player?.combo ?? 0}
-                            attempted={player?.exercises_attempted ?? 0}
-                            promptLatex={exercise.prompt_latex}
-                          >
-                            <div className={`flex flex-col gap-2 ${PANEL_CONTENT}`}>
-                              <AnswerField tone={tone} seq={answerSeq}>
-                                <MathInput
-                                  handleRef={inputRef}
-                                  tone={tone}
-                                  hint={tipFor({
-                                    seed: exercise.exercise_id,
-                                    attempted: player?.exercises_attempted ?? 0,
-                                    keys: exercise.keys,
-                                  })}
-                                  onEnter={onEnterKey}
-                                  // En cuanto empieza a corregir, el rebote se
-                                  // va: el naranja es sobre la respuesta que
-                                  // mandó, no sobre la que está escribiendo.
-                                  onChange={() => {
-                                    if (!closed && lastAnswer) setLastAnswer(null)
-                                  }}
-                                />
-                              </AnswerField>
-                            </div>
-                          </ExerciseCard>
+                          <div className="flex min-h-0 flex-1 flex-col gap-3">
+                            <ExerciseCard
+                              className="flex-1"
+                              streak={player?.combo ?? 0}
+                              attempted={player?.exercises_attempted ?? 0}
+                              promptLatex={exercise.prompt_latex}
+                            >
+                              <div className={`flex flex-col gap-2 ${PANEL_CONTENT}`}>
+                                <AnswerField tone={tone} seq={answerSeq}>
+                                  <MathInput
+                                    handleRef={inputRef}
+                                    tone={tone}
+                                    hint={tipFor({
+                                      seed: exercise.exercise_id,
+                                      attempted: player?.exercises_attempted ?? 0,
+                                      keys: exercise.keys,
+                                    })}
+                                    onEnter={onEnterKey}
+                                    // En cuanto empieza a corregir, el rebote
+                                    // se va: el naranja es sobre la respuesta
+                                    // que mandó, no sobre la que escribe.
+                                    onChange={() => {
+                                      if (!closed && lastAnswer) setLastAnswer(null)
+                                    }}
+                                  />
+                                </AnswerField>
+                              </div>
+                            </ExerciseCard>
+                            {/* No se desmonta al cerrar el ejercicio: con la
+                                página a alto fijo, sacarlo haría saltar todo. */}
+                            <MathKeyboard
+                              input={inputRef}
+                              keys={exercise.keys}
+                              numpad={false}
+                              className={closed ? "pointer-events-none opacity-45" : undefined}
+                            />
+                          </div>
                         }
-                      />
-                      {/* El teclado no se desmonta al cerrar el ejercicio: con
-                          la página a alto fijo, sacarlo haría saltar todo. */}
-                      <MathKeyboard
-                        input={inputRef}
-                        keys={exercise.keys}
-                        numpad={false}
-                        className={closed ? "pointer-events-none opacity-45" : undefined}
                       />
                       {/* El confeti brota de esta fila y no del botón: al
                           acertar, "Saltear" desaparece y el botón se ensancha

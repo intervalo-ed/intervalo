@@ -12,6 +12,7 @@
 // Las dos reglas de abajo no son decoración: los tiers 4 y 5 son productos y
 // cocientes, y sin ellas la tabla no sirve justo donde más se la necesita.
 
+import { Fragment } from "react"
 import { motion } from "motion/react"
 import { cn } from "@/lib/utils"
 import MathText from "@/components/math-text"
@@ -38,26 +39,72 @@ const REGLAS: Fila[] = [
   { f: "\\frac{u}{v}", d: "\\frac{u'v - uv'}{v^{2}}" },
 ]
 
-function Tabla({ filas, titulo }: { filas: Fila[]; titulo: string }) {
+// `columnas` es cuántos pares función/derivada entran por renglón. Con dos, la
+// tabla de funciones mide la mitad de alto y usa el ancho de la card, que si no
+// queda desperdiciado: en una columna sola las doce filas no entraban ni
+// volteando el teclado, y las últimas se perdían.
+//
+// El reparto es por mitades y no alternado: leyendo la columna izquierda de
+// arriba abajo y después la derecha, el orden de la tabla se mantiene.
+function Tabla({
+  filas,
+  titulo,
+  columnas = 1,
+}: {
+  filas: Fila[]
+  titulo: string
+  columnas?: number
+}) {
+  const porColumna = Math.ceil(filas.length / columnas)
+  const renglones = Array.from({ length: porColumna }, (_, i) =>
+    Array.from({ length: columnas }, (_, c) => filas[c * porColumna + i]),
+  )
+  const grid = { gridTemplateColumns: `repeat(${columnas * 2}, minmax(0, 1fr))` }
+
   return (
-    <div className="overflow-hidden rounded-md border border-white/10">
-      <div className="grid grid-cols-2 bg-white/[0.07] text-center text-[0.7rem] font-medium uppercase tracking-wide text-muted-foreground">
-        <div className="border-r border-white/10 py-1">{titulo}</div>
-        <div className="py-1">derivada</div>
+    // `shrink-0` no es cosmético: como ítem flex del scroller, la tabla se
+    // dejaba comprimir y, con `overflow-hidden`, se recortaba sus propias filas
+    // en silencio — el scroller ni se enteraba de que había contenido de más, y
+    // los últimos renglones simplemente no existían.
+    <div className="shrink-0 overflow-hidden rounded-md border border-white/10">
+      <div
+        className="grid bg-white/[0.07] text-center text-[0.7rem] font-medium uppercase tracking-wide text-muted-foreground"
+        style={grid}
+      >
+        {Array.from({ length: columnas }, (_, c) => (
+          <Fragment key={c}>
+            <div className="border-r border-white/10 py-1">{titulo}</div>
+            <div className={c < columnas - 1 ? "border-r border-white/10 py-1" : "py-1"}>
+              derivada
+            </div>
+          </Fragment>
+        ))}
       </div>
-      {filas.map((fila) => (
+      {renglones.map((renglon, i) => (
         <div
-          key={fila.f}
-          className="grid grid-cols-2 border-t border-white/10 text-center leading-none"
+          key={i}
+          className="grid border-t border-white/10 text-center leading-none"
+          style={grid}
         >
-          {/* `py` chico y `leading-none`: con doce renglones, el aire por
-              defecto de KaTeX estira la tabla hasta no entrar en la card. */}
-          <div className="border-r border-white/10 px-2 py-[7px] text-foreground/80">
-            <MathText text={`$${fila.f}$`} />
-          </div>
-          <div className="px-2 py-[7px]">
-            <MathText text={`$${fila.d}$`} />
-          </div>
+          {renglon.map((fila, c) => (
+            // `leading-none` y el `py` a mano: el interlineado por defecto de
+            // KaTeX está pensado para texto corrido y acá infla cada renglón.
+            // Con el alto bajo control, este padding es lo que decide cuánto
+            // respira la tabla.
+            <Fragment key={c}>
+              <div className="border-r border-white/10 px-2 py-[11px] text-foreground/80">
+                {fila && <MathText text={`$${fila.f}$`} />}
+              </div>
+              <div
+                className={cn(
+                  "px-2 py-[11px]",
+                  c < columnas - 1 && "border-r border-white/10",
+                )}
+              >
+                {fila && <MathText text={`$${fila.d}$`} />}
+              </div>
+            </Fragment>
+          ))}
         </div>
       ))}
     </div>
@@ -69,8 +116,8 @@ export function DerivativesTable() {
     // Scrollea adentro: en una ventana baja la tabla no tiene que empujar la
     // card ni salirse por abajo.
     <div className="no-scrollbar flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto text-[0.9rem]">
-      <Tabla filas={FILAS} titulo="función" />
-      <Tabla filas={REGLAS} titulo="regla" />
+      <Tabla filas={FILAS} titulo="función" columnas={2} />
+      <Tabla filas={REGLAS} titulo="regla" columnas={2} />
     </div>
   )
 }
