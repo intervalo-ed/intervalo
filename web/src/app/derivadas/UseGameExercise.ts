@@ -42,7 +42,10 @@ export function useAnswerExercise() {
       answer_latex: string
       answer_mathjson: unknown
       response_ms?: number
-    }) => unwrap(await api.POST("/game/derivadas/answer", { body })),
+      peeked?: boolean
+      // El schema lo pide siempre (tiene default en Pydantic, no en OpenAPI);
+      // el teléfono no tiene tabla y nunca lo manda.
+    }) => unwrap(await api.POST("/game/derivadas/answer", { body: { peeked: false, ...body } })),
     onSuccess: (data) => {
       // Solo el jugador. El ranking lo invalida el layout cuando TERMINA de
       // caer el confeti (ver xp-burst.tsx): si se refrescara acá, la fila

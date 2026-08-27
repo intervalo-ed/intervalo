@@ -31,7 +31,7 @@ from fastapi.testclient import TestClient  # noqa: E402
 
 import database  # noqa: E402
 from game import xp as game_xp  # noqa: E402
-from models import Base, GameExercise, GamePlayer, User  # noqa: E402
+from models import Base, GameExercise, GamePlayer, GameTemplateStat, User  # noqa: E402
 
 Base.metadata.create_all(bind=database.engine)
 
@@ -266,7 +266,86 @@ db.close()
 r = client.post("/game/derivadas/skip", headers=H, json={"exercise_id": ex["exercise_id"]})
 check(r.status_code == 409, f"saltear dos veces el mismo da 409 (dio {r.status_code})")
 
-print("7. merge guest→user (nivel función)")
+print("7. responder con la tabla abierta")
+db = database.SessionLocal()
+p = db.query(GamePlayer).filter(GamePlayer.id == player_id).first()
+p.theta = 1.2
+p.n_updates = 20
+p.current_combo = 3
+db.commit()
+antes = {
+    "theta": p.theta,
+    "n_updates": p.n_updates,
+    "combo": p.current_combo,
+    "attempted": p.exercises_attempted,
+    "xp": p.xp,
+}
+db.close()
+
+# Otro ejercicio forzado de derivada conocida: acá lo que se mide es qué se
+# mueve y qué no, así que conviene una respuesta correcta sin ambigüedad.
+db = database.SessionLocal()
+db.query(GameExercise).filter(GameExercise.player_id == player_id).update(
+    {"status": "expired"}, synchronize_session=False
+)
+espiado = GameExercise(
+    player_id=player_id,
+    template_key="t1_kpow",
+    prompt_latex="5x^{2}",
+    expected_derivative="10*x",
+    common_errors_json="[]",
+    theta_at_serve=1.2,
+    beta_at_serve=-1.6,
+    p_hat=0.78,
+    status="served",
+)
+db.add(espiado)
+db.commit()
+espiado_id = espiado.id
+stat_antes = (
+    db.query(GameTemplateStat).filter(GameTemplateStat.template_key == "t1_kpow").first()
+)
+beta_antes, obs_antes = stat_antes.beta, stat_antes.n_observations
+db.close()
+
+r = client.post(
+    "/game/derivadas/answer",
+    headers=H,
+    json={
+        "exercise_id": espiado_id,
+        "answer_latex": "10x",
+        "answer_mathjson": ["Multiply", 10, "x"],
+        "peeked": True,
+    },
+)
+j = r.json()
+check(j["correct"] is True, f"la respuesta correcta sigue siendo correcta (dio {j['correct']})")
+check(
+    j["xp_awarded"] == game_xp.XP_PEEKED,
+    f"paga XP_PEEKED y no la XP normal (dio {j['xp_awarded']})",
+)
+check(j["combo_bonus"] == 0, "no paga bonus de combo")
+
+db = database.SessionLocal()
+p = db.query(GamePlayer).filter(GamePlayer.id == player_id).first()
+check(p.theta == antes["theta"], f"θ no se mueve (dio {p.theta})")
+check(p.n_updates == antes["n_updates"], "no cuenta para la rampa (n_updates)")
+check(p.current_combo == antes["combo"] + 1, f"la racha sigue subiendo (dio {p.current_combo})")
+check(
+    p.exercises_attempted == antes["attempted"] + 1,
+    "sí cuenta como ejercicio intentado",
+)
+check(p.xp == antes["xp"] + game_xp.XP_PEEKED, "suma la XP chica")
+stat_desp = (
+    db.query(GameTemplateStat).filter(GameTemplateStat.template_key == "t1_kpow").first()
+)
+check(
+    stat_desp.beta == beta_antes and stat_desp.n_observations == obs_antes,
+    "tampoco mueve la calibración de la plantilla (beta/observaciones)",
+)
+db.close()
+
+print("8. merge guest→user (nivel función)")
 from game.deps import link_guest_to_user  # noqa: E402
 
 db = database.SessionLocal()

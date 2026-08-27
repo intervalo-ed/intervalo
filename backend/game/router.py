@@ -365,27 +365,36 @@ def answer_exercise(
 
     rank_before = _rank_of(db, player)
 
-    # Elo: solo el primer intento.
+    # Elo: solo el primer intento, y solo si la tabla no estuvo abierta. Con la
+    # tabla a la vista el resultado no dice nada sobre el jugador NI sobre la
+    # plantilla, así que no mueve θ ni β: meterlo al Elo ensuciaría la
+    # calibración con observaciones que no son de nadie. Tampoco cuenta para la
+    # rampa (n_updates), por lo mismo.
     theta_before = theta_after = None
     if attempt_number == 1:
-        stat = get_or_create_stat(db, template_for(exercise))
-        theta_before = player.theta
-        theta_after, beta_after = elo.update(
-            player.theta, player.n_updates, stat.beta, stat.n_observations, correct
-        )
-        player.theta = theta_after
-        player.n_updates += 1
-        stat.beta = beta_after
-        stat.n_observations += 1
-        if correct:
-            stat.n_correct += 1
+        if not body.peeked:
+            stat = get_or_create_stat(db, template_for(exercise))
+            theta_before = player.theta
+            theta_after, beta_after = elo.update(
+                player.theta, player.n_updates, stat.beta, stat.n_observations, correct
+            )
+            player.theta = theta_after
+            player.n_updates += 1
+            stat.beta = beta_after
+            stat.n_observations += 1
+            if correct:
+                stat.n_correct += 1
         player.exercises_attempted += 1
+        # La racha no distingue: mirar la tabla no la corta, errar sí.
         player.current_combo = player.current_combo + 1 if correct else 0
         player.best_combo = max(player.best_combo, player.current_combo)
 
-    xp_awarded, combo_bonus = game_xp.xp_for_answer(
-        attempt_number, correct, exercise.p_hat, player.current_combo
-    )
+    if body.peeked:
+        xp_awarded, combo_bonus = game_xp.xp_for_peeked(correct)
+    else:
+        xp_awarded, combo_bonus = game_xp.xp_for_answer(
+            attempt_number, correct, exercise.p_hat, player.current_combo
+        )
     if correct:
         player.xp += xp_awarded
         player.exercises_correct += 1

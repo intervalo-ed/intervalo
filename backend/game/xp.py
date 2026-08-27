@@ -19,6 +19,12 @@ XP_BY_ATTEMPT = {1: 25, 2: 8}
 COMBO_INTERVAL = 5
 COMBO_BONUS = 15
 
+# Con la tabla a la vista la derivada deja de ser una pregunta, así que la XP es
+# simbólica: alcanza para que el festejo exista —unas pocas bolitas— y no para
+# escalar mirando. Plana a propósito: sin multiplicador de dificultad, porque la
+# dificultad la resolvió la tabla y no la persona.
+XP_PEEKED = 5
+
 # Multiplicador de dificultad desde el p̂ al servir: [0.75, 1.6].
 _MULT_FLOOR = 0.75
 _MULT_SPAN = 0.85
@@ -44,3 +50,13 @@ def xp_for_answer(attempt_number: int, correct: bool, p_hat: float, combo_after:
     if attempt_number == 1 and combo_after > 0 and combo_after % COMBO_INTERVAL == 0:
         bonus = COMBO_BONUS
     return base + bonus, bonus
+
+
+def xp_for_peeked(correct: bool) -> tuple[int, int]:
+    """XP de una respuesta dada con la tabla abierta.
+
+    Sin bonus de combo: la racha SE MANTIENE (mirar la tabla no la corta) pero
+    no se cobra, que es lo que evita que la ventana de combo se complete a
+    fuerza de mirar.
+    """
+    return (XP_PEEKED if correct else 0), 0

@@ -64,6 +64,11 @@ class GameAnswerRequest(BaseModel):
     # Árbol MathJSON de @cortex-js/compute-engine (ce.parse(latex).json).
     answer_mathjson: Any = None
     response_ms: Optional[int] = None
+    # La tabla de derivadas estuvo abierta en este ejercicio. Lo reporta el
+    # cliente porque es el único que lo sabe; no hay nada que validar del lado
+    # del server. Mentir acá solo sirve para PERDER (θ y XP), así que no hace
+    # falta defenderlo.
+    peeked: bool = False
 
 
 class GameAnswerResponse(BaseModel):

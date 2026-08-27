@@ -23,6 +23,7 @@ import {
   CafecitoButton,
   CafecitoCard,
   ShareButton,
+  TableButton,
   markCafecitoShown,
   shouldShowCafecito,
   CAFECITO_EVERY,
@@ -36,6 +37,7 @@ import {
   SkipButton,
   answerTone,
 } from "./exercise-card"
+import { DerivativesTable, FlipCard } from "./derivatives-table"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { GameRanking } from "./game-ranking"
 import { MathInput, tipFor, type MathInputHandle } from "./math-input"
@@ -56,6 +58,10 @@ import { useXpBurst, XpBurstConfetti } from "./xp-burst"
 
 type Panel = "exercise" | "profile" | "register"
 
+// Cuánto tiene que estar Ctrl abajo para que cuente como consulta. Ver el
+// listener de Ctrl más abajo.
+const PEEK_GRACE_MS = 350
+
 export function DesktopLayout({ intro }: { intro: GameIntro }) {
   const { player, refetch: refetchPlayer } = useGamePlayer()
   const queryClient = useQueryClient()
@@ -74,6 +80,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   const [centerKey, setCenterKey] = useState(0)
   const [cafecito, setCafecito] = useState<CafecitoTrigger | null>(null)
   const [settingsOpen, setSettingsOpen] = useState(false)
+  // La tabla está a la vista ahora mismo.
+  const [tableOpen, setTableOpen] = useState(false)
+  // La tabla se consultó en ESTE ejercicio. Va en un ref y no en estado porque
+  // solo se lee al responder: que cambie no tiene por qué redibujar nada.
+  const peekedRef = useRef(false)
   // Los hitos (carrera/universidad, registro) ocurren EN el panel izquierdo,
   // reemplazando al ejercicio: todo pasa en la misma vista (pedido de producto).
   const [panel, setPanel] = useState<Panel>("exercise")
@@ -122,6 +133,9 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
         setLastAnswer(null)
         setClimbFrom(null)
         setCafecito(null)
+        // Ejercicio nuevo, cuenta limpia: la consulta anterior no lo penaliza.
+        peekedRef.current = false
+        setTableOpen(false)
         servedAtRef.current = Date.now()
         inputRef.current?.clear()
         inputRef.current?.focus()
@@ -149,6 +163,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
         answer_latex: latex,
         answer_mathjson: mathjson,
         response_ms: Date.now() - servedAtRef.current,
+        peeked: peekedRef.current,
       },
       {
         onSuccess: (data) => {
@@ -253,6 +268,8 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           setExercise(data)
           setLastAnswer(null)
           setCafecito(null)
+          peekedRef.current = false
+          setTableOpen(false)
           servedAtRef.current = Date.now()
           inputRef.current?.clear()
           inputRef.current?.focus()
@@ -265,6 +282,62 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       },
     )
   }, [exercise, closed, skipMutation, answerMutation.isPending])
+
+  // Abrir la tabla marca el ejercicio: la respuesta que venga después no mueve
+  // el Elo y paga XP simbólica (el server lo aplica, ver game/router.py).
+  const openTable = useCallback(() => {
+    if (peekedRef.current) return
+    peekedRef.current = true
+    posthog.capture("game_peek", {
+      exercise_id: exercise?.exercise_id ?? null,
+      tier: exercise?.tier ?? null,
+    })
+  }, [exercise])
+
+  const toggleTable = useCallback(() => {
+    sfx.select()
+    setTableOpen((open) => {
+      if (!open) openTable()
+      return !open
+    })
+  }, [sfx, openTable])
+
+  // Ctrl sostenido: la tabla mientras la tecla está abajo. El castigo NO se
+  // aplica al instante sino después de PEEK_GRACE_MS: si no, un Ctrl+C o un
+  // Ctrl+R —que en el camino abren y cierran la tabla en un parpadeo— costarían
+  // el ejercicio, y perder el Elo por copiar algo sería incomprensible.
+  const gameFocused = panel === "exercise" && !settingsOpen && exercise !== null
+  useEffect(() => {
+    if (!gameFocused) return
+    let grace: ReturnType<typeof setTimeout> | null = null
+    const down = (e: KeyboardEvent) => {
+      if (e.key !== "Control" || e.repeat) return
+      setTableOpen(true)
+      grace = setTimeout(openTable, PEEK_GRACE_MS)
+    }
+    const up = (e: KeyboardEvent) => {
+      if (e.key !== "Control") return
+      if (grace) clearTimeout(grace)
+      grace = null
+      setTableOpen(false)
+    }
+    // `blur`: si la ventana pierde el foco con Ctrl apretado (un Alt+Tab), el
+    // keyup nunca llega y la tabla quedaría abierta para siempre.
+    const blur = () => {
+      if (grace) clearTimeout(grace)
+      grace = null
+      setTableOpen(false)
+    }
+    window.addEventListener("keydown", down)
+    window.addEventListener("keyup", up)
+    window.addEventListener("blur", blur)
+    return () => {
+      if (grace) clearTimeout(grace)
+      window.removeEventListener("keydown", down)
+      window.removeEventListener("keyup", up)
+      window.removeEventListener("blur", blur)
+    }
+  }, [gameFocused, openTable])
 
   const onEnterKey = useCallback(
     ({ shift }: { shift: boolean }) => {
@@ -281,7 +354,6 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // el caso en que el foco NO está en el campo (después de responder, o tras
   // tocar una tecla del teclado en pantalla); cuando sí lo está, MathLive corta
   // la propagación y dispara el mismo handler desde su propio keydown.
-  const gameFocused = panel === "exercise" && !settingsOpen && exercise !== null
   useEffect(() => {
     if (!gameFocused) return
     const onKeyDown = (e: KeyboardEvent) => {
@@ -332,6 +404,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                 bajó lo mismo, ver INTRO_FONT_PX en game-intro.tsx. */}
             <GameIntroLogo intro={intro} fontSize="1.0625rem" />
             <div className="flex items-center gap-2" style={chromeStyle}>
+              <TableButton open={tableOpen} onToggle={toggleTable} />
               <ShareButton placement="header_desktop" />
               <CafecitoButton placement="header_desktop" />
             </div>
@@ -428,33 +501,47 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                   )}
                   {panel === "exercise" && exercise ? (
                     <>
-                      <ExerciseCard
-                        className="flex-1"
-                        streak={player?.combo ?? 0}
-                        attempted={player?.exercises_attempted ?? 0}
-                        promptLatex={exercise.prompt_latex}
-                      >
-                        <div className={`flex flex-col gap-2 ${PANEL_CONTENT}`}>
-                          <AnswerField tone={tone} seq={answerSeq}>
-                            <MathInput
-                              handleRef={inputRef}
-                              tone={tone}
-                              hint={tipFor({
-                                seed: exercise.exercise_id,
-                                attempted: player?.exercises_attempted ?? 0,
-                                keys: exercise.keys,
-                              })}
-                              onEnter={onEnterKey}
-                              // En cuanto empieza a corregir, el rebote se va:
-                              // el naranja es sobre la respuesta que mandó, no
-                              // sobre la que está escribiendo.
-                              onChange={() => {
-                                if (!closed && lastAnswer) setLastAnswer(null)
-                              }}
-                            />
-                          </AnswerField>
-                        </div>
-                      </ExerciseCard>
+                      {/* La card es el frente y la tabla el dorso: el botón del
+                          header (o Ctrl sostenido) da vuelta esta caja y nada
+                          más — el teclado y el botón siguen en su lugar. */}
+                      <FlipCard
+                        className="min-h-0 flex-1"
+                        flipped={tableOpen}
+                        back={
+                          <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-4">
+                            <DerivativesTable />
+                          </div>
+                        }
+                        front={
+                          <ExerciseCard
+                            className="flex-1"
+                            streak={player?.combo ?? 0}
+                            attempted={player?.exercises_attempted ?? 0}
+                            promptLatex={exercise.prompt_latex}
+                          >
+                            <div className={`flex flex-col gap-2 ${PANEL_CONTENT}`}>
+                              <AnswerField tone={tone} seq={answerSeq}>
+                                <MathInput
+                                  handleRef={inputRef}
+                                  tone={tone}
+                                  hint={tipFor({
+                                    seed: exercise.exercise_id,
+                                    attempted: player?.exercises_attempted ?? 0,
+                                    keys: exercise.keys,
+                                  })}
+                                  onEnter={onEnterKey}
+                                  // En cuanto empieza a corregir, el rebote se
+                                  // va: el naranja es sobre la respuesta que
+                                  // mandó, no sobre la que está escribiendo.
+                                  onChange={() => {
+                                    if (!closed && lastAnswer) setLastAnswer(null)
+                                  }}
+                                />
+                              </AnswerField>
+                            </div>
+                          </ExerciseCard>
+                        }
+                      />
                       {/* El teclado no se desmonta al cerrar el ejercicio: con
                           la página a alto fijo, sacarlo haría saltar todo. */}
                       <MathKeyboard

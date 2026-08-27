@@ -1241,6 +1241,11 @@ export interface components {
             answer_mathjson?: unknown;
             /** Response Ms */
             response_ms?: number | null;
+            /**
+             * Peeked
+             * @default false
+             */
+            peeked: boolean;
         };
         /** GameAnswerResponse */
         GameAnswerResponse: {

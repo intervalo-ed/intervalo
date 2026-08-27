@@ -3294,6 +3294,11 @@
               }
             ],
             "title": "Response Ms"
+          },
+          "peeked": {
+            "type": "boolean",
+            "title": "Peeked",
+            "default": false
           }
         },
         "type": "object",
