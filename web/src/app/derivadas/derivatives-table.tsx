@@ -14,8 +14,10 @@
 
 import { Fragment } from "react"
 import { motion } from "motion/react"
+import { Table2 as TableIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import MathText from "@/components/math-text"
+import { KeyCap } from "./exercise-card"
 
 type Fila = { f: string; d: string }
 
@@ -119,6 +121,40 @@ export function DerivativesTable() {
       <Tabla filas={FILAS} titulo="función" columnas={2} />
       <Tabla filas={REGLAS} titulo="regla" columnas={2} />
     </div>
+  )
+}
+
+// El botón de la cabecera. Con rótulo y no solo ícono —a diferencia de
+// compartir— porque es el único de esa esquina que hace algo dentro del juego y
+// que además cuesta: conviene que se entienda antes de tocarlo. El chip de la
+// tecla es el mismo que el de Enter en el botón grande.
+export function TableButton({
+  open,
+  onToggle,
+  className,
+}: {
+  open: boolean
+  onToggle: () => void
+  className?: string
+}) {
+  return (
+    <button
+      type="button"
+      aria-label={open ? "Volver al ejercicio" : "Ver la tabla de derivadas"}
+      aria-pressed={open}
+      onClick={onToggle}
+      className={cn(
+        "inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-sm transition-colors",
+        open
+          ? "border-foreground/40 bg-accent text-foreground"
+          : "border-border text-muted-foreground hover:bg-accent",
+        className,
+      )}
+    >
+      <TableIcon size={15} />
+      Tabla
+      <KeyCap>ctrl</KeyCap>
+    </button>
   )
 }
 

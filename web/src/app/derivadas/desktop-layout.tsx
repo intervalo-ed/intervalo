@@ -23,7 +23,6 @@ import {
   CafecitoButton,
   CafecitoCard,
   ShareButton,
-  TableButton,
   markCafecitoShown,
   shouldShowCafecito,
   CAFECITO_EVERY,
@@ -37,7 +36,7 @@ import {
   SkipButton,
   answerTone,
 } from "./exercise-card"
-import { DerivativesTable, FlipCard } from "./derivatives-table"
+import { DerivativesTable, FlipCard, TableButton } from "./derivatives-table"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { GameRanking } from "./game-ranking"
 import { MathInput, tipFor, type MathInputHandle } from "./math-input"
@@ -294,48 +293,69 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     })
   }, [exercise])
 
+  // Espejo del estado para los handlers de teclado: si `tableOpen` entrara en
+  // las dependencias del efecto, cada volteo volvería a registrar los
+  // listeners, y esa limpieza a mitad de camino se comería el temporizador de
+  // gracia de Ctrl y el flag de "estoy sosteniendo".
+  const tableOpenRef = useRef(false)
+  useEffect(() => {
+    tableOpenRef.current = tableOpen
+  })
+
+  const flipTable = useCallback(() => {
+    if (!tableOpenRef.current) openTable()
+    setTableOpen(!tableOpenRef.current)
+  }, [openTable])
+
   const toggleTable = useCallback(() => {
     sfx.select()
-    setTableOpen((open) => {
-      if (!open) openTable()
-      return !open
-    })
-  }, [sfx, openTable])
+    flipTable()
+  }, [sfx, flipTable])
 
-  // Ctrl sostenido: la tabla mientras la tecla está abajo. El castigo NO se
-  // aplica al instante sino después de PEEK_GRACE_MS: si no, un Ctrl+C o un
-  // Ctrl+R —que en el camino abren y cierran la tabla en un parpadeo— costarían
-  // el ejercicio, y perder el Elo por copiar algo sería incomprensible.
+  // Ctrl sostenido: la tabla mientras la tecla está abajo, y al soltarla vuelve
+  // el ejercicio. Se descartó hacerlo con Tab justamente porque MathLive ya usa
+  // Tab para saltar entre los huecos de la fórmula (√□, e^□), que es algo que
+  // hace falta mientras se escribe la respuesta.
+  //
+  // Solo toma el gesto si la tabla está cerrada, y solo cierra si fue él quien
+  // la abrió: si no, tocar Ctrl con la tabla ya abierta desde el botón la
+  // cerraría de rebote.
+  //
+  // El castigo NO se aplica al instante sino después de PEEK_GRACE_MS: si no,
+  // un Ctrl+C o un Ctrl+R —que en el camino abren y cierran la tabla en un
+  // parpadeo— costarían el ejercicio, y perder el Elo por copiar algo sería
+  // incomprensible.
   const gameFocused = panel === "exercise" && !settingsOpen && exercise !== null
   useEffect(() => {
     if (!gameFocused) return
     let grace: ReturnType<typeof setTimeout> | null = null
+    let sosteniendo = false
+    const soltar = () => {
+      if (!sosteniendo) return
+      sosteniendo = false
+      if (grace) clearTimeout(grace)
+      grace = null
+      setTableOpen(false)
+    }
     const down = (e: KeyboardEvent) => {
-      if (e.key !== "Control" || e.repeat) return
+      if (e.key !== "Control" || e.repeat || tableOpenRef.current) return
+      sosteniendo = true
       setTableOpen(true)
       grace = setTimeout(openTable, PEEK_GRACE_MS)
     }
     const up = (e: KeyboardEvent) => {
-      if (e.key !== "Control") return
-      if (grace) clearTimeout(grace)
-      grace = null
-      setTableOpen(false)
+      if (e.key === "Control") soltar()
     }
     // `blur`: si la ventana pierde el foco con Ctrl apretado (un Alt+Tab), el
     // keyup nunca llega y la tabla quedaría abierta para siempre.
-    const blur = () => {
-      if (grace) clearTimeout(grace)
-      grace = null
-      setTableOpen(false)
-    }
     window.addEventListener("keydown", down)
     window.addEventListener("keyup", up)
-    window.addEventListener("blur", blur)
+    window.addEventListener("blur", soltar)
     return () => {
       if (grace) clearTimeout(grace)
       window.removeEventListener("keydown", down)
       window.removeEventListener("keyup", up)
-      window.removeEventListener("blur", blur)
+      window.removeEventListener("blur", soltar)
     }
   }, [gameFocused, openTable])
 

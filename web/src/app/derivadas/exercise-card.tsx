@@ -12,7 +12,6 @@
 
 import { useEffect, useState } from "react"
 import { motion, useReducedMotion } from "motion/react"
-import { CornerDownLeft } from "lucide-react"
 import MathText from "@/components/math-text"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -287,8 +286,9 @@ export function AnswerField({
 // Chip de tecla, con el aire y el redondeo de los que muestran los CLI. Solo en
 // escritorio: en el teléfono no hay tecla que mostrar.
 // Los colores salen de `currentColor`: el mismo chip va sobre el botón blanco
-// (texto negro) y sobre el "saltear" apagado (texto claro).
-function KeyCap({ children }: { children: React.ReactNode }) {
+// (texto negro), sobre el "saltear" apagado (texto claro) y sobre el de la
+// tabla en la cabecera.
+export function KeyCap({ children }: { children: React.ReactNode }) {
   return (
     <kbd className="ml-2 inline-flex items-center gap-0.5 rounded border border-current/25 bg-current/10 px-1.5 py-[3px] font-mono text-[0.7rem] font-normal leading-none">
       {children}
@@ -353,9 +353,7 @@ export function AnswerButton({
       >
         {closed ? "Continuar" : "Revisar"}
         {showKeyHint && (
-          <KeyCap>
-            <CornerDownLeft size={11} strokeWidth={2.5} />
-          </KeyCap>
+          <KeyCap>enter</KeyCap>
         )}
       </Button>
     </motion.div>
@@ -387,12 +385,7 @@ export function SkipButton({
       className="h-[var(--cta-h)] shrink-0 rounded-md bg-background px-5 font-normal dark:bg-background"
     >
       Saltear
-      {showKeyHint && (
-        <KeyCap>
-          ⇧
-          <CornerDownLeft size={11} strokeWidth={2.5} />
-        </KeyCap>
-      )}
+      {showKeyHint && <KeyCap>shift + enter</KeyCap>}
     </Button>
   )
 }

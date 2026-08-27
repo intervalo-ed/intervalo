@@ -5,7 +5,7 @@
 // cada tantas resueltas) con cooldown para no espantar.
 
 import posthog from "posthog-js"
-import { Coffee, Share2, Table2 as TableIcon } from "lucide-react"
+import { Coffee, Share2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import {
   readCafecitoLastShownAt,
@@ -87,37 +87,6 @@ export function ShareButton({
     >
       <Share2 size={15} />
     </a>
-  )
-}
-
-// Abre la tabla de derivadas (da vuelta la card del ejercicio). Vive con los
-// otros dos del header por forma, no por familia: es el tercer botón de esa
-// esquina y tiene que pesar lo mismo que compartir.
-export function TableButton({
-  open,
-  onToggle,
-  className,
-}: {
-  open: boolean
-  onToggle: () => void
-  className?: string
-}) {
-  return (
-    <button
-      type="button"
-      aria-label={open ? "Volver al ejercicio" : "Ver la tabla de derivadas"}
-      aria-pressed={open}
-      onClick={onToggle}
-      className={cn(
-        "inline-flex items-center rounded-md border px-2.5 py-1.5 text-sm transition-colors",
-        open
-          ? "border-foreground/40 bg-accent text-foreground"
-          : "border-border text-muted-foreground hover:bg-accent",
-        className,
-      )}
-    >
-      <TableIcon size={15} />
-    </button>
   )
 }
 
