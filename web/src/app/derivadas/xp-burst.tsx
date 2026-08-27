@@ -32,8 +32,9 @@ const MAX_PARTICLES = 14
 
 // Fuerza del estallido (ver Confetti :: power). Con el frenado del aire, a este
 // valor la nube se abre y frena dentro de un radio chico alrededor del campo en
-// vez de irse a los bordes de la pantalla.
-const BURST_POWER = 0.14
+// vez de irse a los bordes de la pantalla. El alcance escala casi lineal con
+// este número: el frenado fija CUÁNDO deja de abrirse, no cuánto.
+const BURST_POWER = 0.07
 
 // La recolección arranca después de que el ranking terminó de recentrar la fila
 // propia: si empezara antes, el imán apuntaría a donde la fila ya no está. Y
