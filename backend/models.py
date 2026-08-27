@@ -623,10 +623,39 @@ class GamePlayer(Base):
     # analizar el juego.
     is_bot = Column(Boolean, nullable=False, default=False, server_default="false")
 
+    # Dos fotos del puesto, en registro de desplazamiento (ver game/simulation.py).
+    # La diferencia entre `rank_snapshot` y el puesto actual es la flechita de
+    # "se movió recién" de cada fila. Son DOS y no una porque con una sola, al
+    # refrescarla, todas las flechas del ranking se apagarían de golpe a la vez;
+    # con dos, la referencia se desliza y siempre queda entre media ventana y
+    # una ventana de antigüedad.
+    rank_snapshot = Column(Integer, nullable=True)
+    rank_snapshot_at = Column(DateTime, nullable=True)
+    rank_recent = Column(Integer, nullable=True)
+    rank_recent_at = Column(DateTime, nullable=True)
+
     created_at = Column(DateTime, default=datetime.utcnow)
     last_seen_at = Column(DateTime, nullable=True)
 
     user = relationship("User")
+
+
+class GameSimState(Base):
+    """Estado de la simulación de actividad del ranking — una sola fila.
+
+    Los jugadores sembrados no juegan solos: los adelanta un tick perezoso que
+    dispara el propio tráfico (game/simulation.py). Acá vive cuándo fue el
+    último avance, para no adelantarlos dos veces, y un `version` que se
+    incrementa con cada cambio del ranking: el cliente lo consulta cada 10 s y
+    solo refresca la lista si cambió.
+    """
+    __tablename__ = "game_sim_state"
+
+    id = Column(Integer, primary_key=True)
+    last_tick_at = Column(DateTime, nullable=True)
+    # Última vez que se refrescaron las fotos de puesto de todos los jugadores.
+    last_snapshot_at = Column(DateTime, nullable=True)
+    version = Column(Integer, nullable=False, default=0, server_default="0")
 
 
 class GameTemplateStat(Base):

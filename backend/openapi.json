@@ -341,6 +341,58 @@
         }
       }
     },
+    "/game/derivadas/leaderboard/pulse": {
+      "get": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Game Pulse",
+        "description": "Latido del ranking: un n\u00famero que cambia cuando cambia la tabla.\n\nEste pedido es adem\u00e1s lo que hace avanzar la actividad simulada. No hay\nworker ni cron: el ranking se mueve mientras haya alguien mir\u00e1ndolo, que es\njusto cuando importa que se mueva.",
+        "operationId": "game_pulse_game_derivadas_leaderboard_pulse_get",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-game-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Game-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GamePulse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/game/derivadas/leaderboard/summary": {
       "get": {
         "tags": [
@@ -3405,6 +3457,11 @@
             "type": "integer",
             "title": "Level",
             "default": 0
+          },
+          "rank_delta": {
+            "type": "integer",
+            "title": "Rank Delta",
+            "default": 0
           }
         },
         "type": "object",
@@ -3686,6 +3743,20 @@
         },
         "type": "object",
         "title": "GameProfilePatchRequest"
+      },
+      "GamePulse": {
+        "properties": {
+          "version": {
+            "type": "integer",
+            "title": "Version"
+          }
+        },
+        "type": "object",
+        "required": [
+          "version"
+        ],
+        "title": "GamePulse",
+        "description": "Latido del ranking. El cliente lo consulta cada 10 s y solo refresca la\nlista si `version` cambi\u00f3 \u2014 y de paso ese mismo pedido es lo que hace\navanzar la actividad simulada (ver game/simulation.py)."
       },
       "GameUniversityLeaderboardResponse": {
         "properties": {

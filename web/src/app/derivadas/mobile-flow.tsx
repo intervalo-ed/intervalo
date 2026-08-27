@@ -33,6 +33,7 @@ import { parseAnswerToMathJson, warmupComputeEngine } from "./parse-answer"
 import { ProfileSlides, RegisterSlide } from "./register-slides"
 import { SettingsPanel } from "./settings-panel"
 import { useAnswerExercise, useNextExercise, type GameAnswer, type GameExercise } from "./UseGameExercise"
+import { useGamePulse } from "./UseGameLeaderboard"
 import { gameKeys, useGamePlayer } from "./UseGamePlayer"
 import { useXpBurst, XpBurstConfetti } from "./xp-burst"
 
@@ -105,6 +106,10 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
     attachTarget,
     magnetTarget,
   } = useXpBurst({ onComplete: onBurstComplete })
+
+  // Late cada 10 s y refresca el ranking solo si alguien respondió algo. Se
+  // pausa mientras cae el confeti: ahí el orden viejo tiene que quedarse quieto.
+  useGamePulse({ enabled: player !== null, paused: counting })
 
   useEffect(() => {
     posthog.capture("game_start", { is_guest: player?.is_guest ?? true, platform: "mobile" })

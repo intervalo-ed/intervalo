@@ -21,6 +21,7 @@ from usernames import normalize_username, validate_username
 
 from . import elo
 from . import keyboard as game_keyboard
+from . import simulation
 from . import xp as game_xp
 from .aliases import alias_taken
 from .deps import (
@@ -42,6 +43,7 @@ from .schemas import (
     GameLeaderboardMe,
     GameLeaderboardResponse,
     GameLeaderboardSummary,
+    GamePulse,
     GamePlayerCreateRequest,
     GamePlayerCreateResponse,
     GamePlayerOut,
@@ -237,6 +239,8 @@ def reset_player(
     db.query(GameExercise).filter(
         GameExercise.player_id == player.id, GameExercise.status == "served"
     ).update({"status": "expired"}, synchronize_session=False)
+    # Volver al fondo también mueve el ranking de los demás.
+    simulation.bump_version(db)
     db.commit()
     db.refresh(player)
     return _player_out(db, player)
@@ -370,6 +374,9 @@ def answer_exercise(
     player.last_seen_at = datetime.utcnow()
 
     rank_after = _rank_of(db, player)
+    if correct:
+        # El ranking cambió: el pulso lo va a notar y los demás refrescan.
+        simulation.bump_version(db)
     is_record = False
     if correct and (player.best_rank is None or rank_after < player.best_rank):
         is_record = player.best_rank is not None
@@ -393,6 +400,21 @@ def answer_exercise(
         best_rank=player.best_rank,
         is_record=is_record,
     )
+
+
+@router.get("/leaderboard/pulse", response_model=GamePulse)
+def game_pulse(
+    player: GamePlayer = Depends(get_current_player),
+    db: Session = Depends(get_db),
+):
+    """Latido del ranking: un número que cambia cuando cambia la tabla.
+
+    Este pedido es además lo que hace avanzar la actividad simulada. No hay
+    worker ni cron: el ranking se mueve mientras haya alguien mirándolo, que es
+    justo cuando importa que se mueva.
+    """
+    simulation.maybe_tick(db)
+    return GamePulse(version=simulation.get_state(db).version or 0)
 
 
 @router.get("/leaderboard/summary", response_model=GameLeaderboardSummary)
@@ -523,6 +545,7 @@ def game_leaderboard(
         .all()
     )
 
+    now = datetime.utcnow()
     entries = [
         GameLeaderboardEntry(
             rank=page_offset + index + 1,
@@ -537,6 +560,7 @@ def game_leaderboard(
             university=row.university,
             career=row.career,
             level=elo.level_of(row.theta),
+            rank_delta=simulation.rank_delta(row, page_offset + index + 1, now),
         )
         for index, row in enumerate(page)
     ]

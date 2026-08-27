@@ -93,6 +93,9 @@ class GameLeaderboardEntry(BaseModel):
     university: Optional[str] = None
     career: Optional[str] = None
     level: int = 0
+    # Puestos ganados (+) o perdidos (−) en los últimos minutos. 0 = sin
+    # movimiento reciente, y el front no dibuja flecha.
+    rank_delta: int = 0
 
 
 class GameLeaderboardMe(BaseModel):
@@ -117,6 +120,14 @@ class GameLeaderboardSummary(BaseModel):
     players: int
     exercises: int
     universities: list[str]
+
+
+class GamePulse(BaseModel):
+    """Latido del ranking. El cliente lo consulta cada 10 s y solo refresca la
+    lista si `version` cambió — y de paso ese mismo pedido es lo que hace
+    avanzar la actividad simulada (ver game/simulation.py)."""
+
+    version: int
 
 
 class GameUniversityRow(BaseModel):

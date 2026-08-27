@@ -14,6 +14,10 @@ export type GamePlayer = components["schemas"]["GamePlayerOut"]
 export const gameKeys = {
   me: ["game", "me"] as const,
   leaderboard: ["game", "leaderboard"] as const,
+  // Raíz aparte a propósito: invalidar el ranking hace match por prefijo, y si
+  // el pulso colgara de esa misma raíz se invalidaría a sí mismo en cada
+  // refresco.
+  pulse: ["game", "pulse"] as const,
 }
 
 // Alta/bootstrap del jugador. POST /player es idempotente: sin credenciales

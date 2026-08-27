@@ -16,7 +16,7 @@
 
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import { motion } from "motion/react"
-import { ArrowUp, LayersIcon, UsersIcon } from "lucide-react"
+import { ArrowDown, ArrowUp, LayersIcon, UsersIcon } from "lucide-react"
 import { CountUp } from "@/components/count-up"
 import { ALL_SCOPE, Metric, ScopeFilters, fmtCount } from "@/components/leaderboard-chrome"
 import { Spinner } from "@/components/ui/spinner"
@@ -33,7 +33,17 @@ import {
   type Scope,
 } from "./UseGameLeaderboard"
 
-const CLIMB_DELAY_MS = 650
+// Ritmo de la escalada: cada paso pasa a un jugador. El total está acotado para
+// que una escalada larga no se eternice.
+const CLIMB_TOTAL_MS = 1600
+const CLIMB_STEP_MIN_MS = 80
+const CLIMB_STEP_MAX_MS = 220
+
+// Cuánto se acerca el scroll a dejar centrada la fila propia en cada paso de la
+// escalada. Menos de 1 a propósito: el scroll acompaña con retraso, así se ve
+// que la fila trepa por la pantalla en vez de quedarse clavada en el centro.
+const CLIMB_SCROLL_FOLLOW = 0.4
+
 // Sin tocar la rueda por este tiempo, la lista vuelve sola a la fila propia:
 // mirar el ranking ajeno está bien, perderse en él no.
 const IDLE_RECENTER_MS = 10_000
@@ -177,32 +187,38 @@ function IndividualRanking({
   const myRank = meIndex >= 0 ? entries[meIndex].rank : null
   const climbing = climbFrom !== null && myRank !== null && climbFrom > myRank
 
-  // Orden inicial de la animación: la fila propia colocada donde estaba antes.
-  const staged = useMemo(() => {
-    if (!climbing || meIndex < 0) return entries
-    const rows = [...entries]
-    const [mine] = rows.splice(meIndex, 1)
-    // climbFrom es un rank absoluto: convertirlo a índice dentro de lo cargado,
-    // saturando al fondo de lo visible.
-    const targetIndex = Math.min(rows.length, meIndex + (climbFrom - (myRank as number)))
-    rows.splice(targetIndex, 0, mine)
-    return rows
-  }, [entries, climbing, meIndex, climbFrom, myRank])
+  // ── Escalada puesto por puesto ─────────────────────────────────────────────
+  // No es un salto del puesto viejo al nuevo: la fila propia va pasando a uno
+  // por vez, y en cada paso las dos tarjetas permutan con el FLIP de motion. Es
+  // lo que hace que se vea a quién superaste, en vez de aparecer más arriba.
+  const distance = climbing ? climbFrom - (myRank as number) : 0
 
-  // Identidad de la escalada en curso: cuando el timer la marca como asentada,
-  // el orden real reemplaza al sintetizado y el FLIP hace el resto. Derivar
-  // `settled` (en vez de setearlo sincrónico en un effect) evita el render en
+  // Identidad de la escalada en curso. Derivar el paso de esta clave (en vez de
+  // resetearlo con un setState sincrónico en un efecto) evita el render en
   // cascada que marca el linter.
   const climbKey = climbing
     ? `${climbFrom}:${entries.map((e) => e.player_id).join(",")}`
     : null
-  const [settledKey, setSettledKey] = useState<string | null>(null)
-  const settled = !climbing || settledKey === climbKey
+  const [climbState, setClimbState] = useState<{ key: string | null; step: number }>({
+    key: null,
+    step: 0,
+  })
+  const step = climbState.key === climbKey ? climbState.step : 0
+  const remaining = Math.max(0, distance - step)
+  const settled = !climbing || remaining === 0
+
+  // Duración de cada paso, con el total acotado: una escalada de tres puestos se
+  // saborea, una de treinta no puede durar diez segundos.
+  const stepMs =
+    distance > 0
+      ? Math.max(CLIMB_STEP_MIN_MS, Math.min(CLIMB_STEP_MAX_MS, Math.round(CLIMB_TOTAL_MS / distance)))
+      : 0
+
   useEffect(() => {
-    if (!climbing || settledKey === climbKey) return
-    const t = setTimeout(() => setSettledKey(climbKey), CLIMB_DELAY_MS)
+    if (!climbing || remaining === 0) return
+    const t = setTimeout(() => setClimbState({ key: climbKey, step: step + 1 }), stepMs)
     return () => clearTimeout(t)
-  }, [climbing, climbKey, settledKey])
+  }, [climbing, climbKey, remaining, step, stepMs])
 
   // ── Scroll: centrado, anclaje al prepend y carga por baches ────────────────
   const scrollRef = useRef<HTMLDivElement | null>(null)
@@ -245,6 +261,39 @@ function IndividualRanking({
     prevTopRankRef.current = firstRank
     prevHeightRef.current = el.scrollHeight
   })
+
+  // El scroll acompaña la escalada, con retraso. Se acerca solo una fracción del
+  // camino en cada paso, así se ve que la fila trepa por la pantalla en vez de
+  // quedar clavada en el centro mientras el resto desfila. Lo único que no se
+  // negocia es que la tarjeta propia nunca se salga de la vista: por eso el
+  // resultado se acota a la franja donde sigue entera en pantalla.
+  useLayoutEffect(() => {
+    if (!climbing) return
+    const el = scrollRef.current
+    const mine = el?.querySelector<HTMLElement>("[data-current='true']")
+    if (!el || !mine) return
+    const centered = mine.offsetTop - el.clientHeight / 2 + mine.offsetHeight / 2
+    const margin = mine.offsetHeight
+    const lowest = mine.offsetTop + mine.offsetHeight + margin - el.clientHeight
+    const highest = mine.offsetTop - margin
+    const followed = el.scrollTop + (centered - el.scrollTop) * CLIMB_SCROLL_FOLLOW
+    el.scrollTop = Math.max(Math.min(followed, highest), lowest)
+  }, [step, climbing])
+
+  // Al terminar de escalar, el retraso acumulado se salda: la fila vuelve al
+  // centro con un scroll suave.
+  useEffect(() => {
+    if (!climbing || !settled) return
+    centerOnMe(true)
+  }, [climbing, settled, climbKey, centerOnMe])
+
+  // Cambiar de puesto siempre recentra, escales vos o te pasen los demás:
+  // mientras resolvés el ranking sigue moviéndose, y sin esto la fila propia se
+  // iría yendo de la vista sola.
+  useEffect(() => {
+    if (myRank === null || !settled) return
+    centerOnMe(true)
+  }, [myRank, settled, centerOnMe])
 
   // Recentrado a pedido del layout (al resolver) — con animación.
   const firstCenterKey = useRef(centerKey)
@@ -311,7 +360,16 @@ function IndividualRanking({
     return <p className="text-sm text-muted-foreground">Todavía no hay ranking.</p>
   }
 
-  const ordered = settled ? entries : staged
+  // Orden de este paso: la fila propia todavía a `remaining` puestos de su lugar.
+  const ordered =
+    remaining === 0 || meIndex < 0
+      ? entries
+      : (() => {
+          const rows = [...entries]
+          const [mine] = rows.splice(meIndex, 1)
+          rows.splice(Math.min(rows.length, meIndex + remaining), 0, mine)
+          return rows
+        })()
 
   return (
     // `relative` no es decorativo: hace que el scroller sea el `offsetParent` de
@@ -333,11 +391,10 @@ function IndividualRanking({
           <Row
             key={entry.player_id}
             entry={entry}
-            // Durante la escalada la fila propia muestra el puesto viejo.
+            // Durante la escalada el puesto propio va bajando de a uno, igual
+            // que la fila.
             shownRank={
-              entry.is_current_player && !settled && climbFrom !== null
-                ? climbFrom
-                : entry.rank
+              entry.is_current_player ? entry.rank + remaining : entry.rank
             }
             // Mientras cae el confeti manda el conteo (aunque la lista ya
             // tenga el total); una vez que terminó, el mayor de los dos, para
@@ -349,7 +406,9 @@ function IndividualRanking({
                   : Math.max(liveXp, entry.xp)
                 : entry.xp
             }
-            climbed={entry.is_current_player && climbing && settled}
+            // También la fila propia: si mientras resolvías te pasaron, la
+            // flecha tiene que bajar o darse vuelta como la de cualquiera.
+            delta={entry.rank_delta}
             attachXpTarget={entry.is_current_player ? attachXpTarget : undefined}
           />
         ))}
@@ -368,13 +427,14 @@ function Row({
   entry,
   shownRank,
   xp,
-  climbed,
+  delta,
   attachXpTarget,
 }: {
   entry: GameLeaderboardEntry
   shownRank: number
   xp: number
-  climbed: boolean
+  // Puestos que ganó (+) o perdió (−) en los últimos minutos. 0 = sin flecha.
+  delta: number
   attachXpTarget?: (node: HTMLElement | null) => void
 }) {
   const mine = entry.is_current_player
@@ -405,6 +465,18 @@ function Row({
         </span>
         {emoji && <span className="shrink-0 text-sm leading-none">{emoji}</span>}
       </span>
+      {delta !== 0 && (
+        <span
+          className={cn(
+            "inline-flex shrink-0 items-center gap-0.5 text-xs font-medium tabular-nums",
+            delta > 0 ? "text-green-400" : "text-orange-400",
+          )}
+          aria-label={`${delta > 0 ? "subió" : "bajó"} ${Math.abs(delta)} puestos`}
+        >
+          {delta > 0 ? <ArrowUp size={12} /> : <ArrowDown size={12} />}
+          {Math.abs(delta)}
+        </span>
+      )}
       {entry.university && <UniTag university={entry.university} />}
       <span
         ref={attachXpTarget}
@@ -412,7 +484,6 @@ function Row({
       >
         {fmtCount(xp)}
         <XpDots className="size-[0.85em] text-white" />
-        {climbed && <ArrowUp size={14} className="text-green-400" />}
       </span>
     </motion.li>
   )

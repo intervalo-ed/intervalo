@@ -104,6 +104,30 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/game/derivadas/leaderboard/pulse": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Game Pulse
+         * @description Latido del ranking: un número que cambia cuando cambia la tabla.
+         *
+         *     Este pedido es además lo que hace avanzar la actividad simulada. No hay
+         *     worker ni cron: el ranking se mueve mientras haya alguien mirándolo, que es
+         *     justo cuando importa que se mueva.
+         */
+        get: operations["game_pulse_game_derivadas_leaderboard_pulse_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/game/derivadas/leaderboard/summary": {
         parameters: {
             query?: never;
@@ -1269,6 +1293,11 @@ export interface components {
              * @default 0
              */
             level: number;
+            /**
+             * Rank Delta
+             * @default 0
+             */
+            rank_delta: number;
         };
         /** GameLeaderboardMe */
         GameLeaderboardMe: {
@@ -1355,6 +1384,16 @@ export interface components {
             university?: string | null;
             /** Career */
             career?: string | null;
+        };
+        /**
+         * GamePulse
+         * @description Latido del ranking. El cliente lo consulta cada 10 s y solo refresca la
+         *     lista si `version` cambió — y de paso ese mismo pedido es lo que hace
+         *     avanzar la actividad simulada (ver game/simulation.py).
+         */
+        GamePulse: {
+            /** Version */
+            version: number;
         };
         /** GameUniversityLeaderboardResponse */
         GameUniversityLeaderboardResponse: {
@@ -2136,6 +2175,38 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["GameAnswerResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    game_pulse_game_derivadas_leaderboard_pulse_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GamePulse"];
                 };
             };
             /** @description Validation Error */
