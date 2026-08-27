@@ -33,6 +33,7 @@ import {
   AnswerField,
   ExerciseCard,
   FeedbackLine,
+  PANEL_CONTENT,
   SkipButton,
   answerTone,
 } from "./exercise-card"
@@ -433,8 +434,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                         {/* El estallido del confeti nace acá. Va en el div de
                             afuera y no en el que se sacude: el origen del imán
                             se mide al disparar y no tiene por qué temblar. */}
-                        <div ref={attachOrigin} className="flex flex-col gap-2">
-                          {lastAnswer && <FeedbackLine answer={lastAnswer} />}
+                        <div ref={attachOrigin} className={`flex flex-col gap-2 ${PANEL_CONTENT}`}>
                           <AnswerField tone={tone} seq={answerSeq}>
                             <MathInput
                               handleRef={inputRef}
@@ -449,6 +449,10 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                               }}
                             />
                           </AnswerField>
+                          {/* Debajo del campo: es donde queda el ojo después de
+                              escribir, y donde hay lugar para decir algo más
+                              que una línea. */}
+                          {lastAnswer && <FeedbackLine answer={lastAnswer} />}
                         </div>
                       </ExerciseCard>
                       {/* El teclado no se desmonta al cerrar el ejercicio: con

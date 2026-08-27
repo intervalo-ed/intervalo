@@ -23,6 +23,13 @@ import type { GameAnswer } from "./UseGameExercise"
 // pantalla es una fórmula suelta sin consigna.
 export const PROMPT_QUESTION = "¿Cuál es la derivada de la siguiente función?"
 
+// Ancho del canal central del panel. Lo comparten el campo de la respuesta, su
+// feedback y las teclas (math-keyboard.tsx :: CONTENT_WIDTH): con todo alineado
+// al mismo ancho, el panel se lee como una columna en vez de como tres cajas de
+// bordes distintos. La fórmula queda afuera a propósito — una derivada larga
+// necesita todo el ancho de la card antes de ponerse a scrollear.
+export const PANEL_CONTENT = "mx-auto w-full max-w-[28rem]"
+
 // Los mismos hex que usa el session-runner para las opciones: naranja al errar,
 // verde al acertar. Que el juego y las sesiones hablen distinto sería gratis y
 // no aportaría nada.
@@ -195,47 +202,62 @@ export function ExerciseCard({
   )
 }
 
-// La línea de feedback, arriba de la barra. Corta a propósito: lo que hay que
-// mirar es la respuesta, no el cartel que la comenta.
+// El feedback, debajo del campo: es donde queda el ojo después de escribir. Va
+// centrado y con el mismo ancho que el campo, así aparece y desaparece sin
+// correr nada de lugar a los costados.
 export function FeedbackLine({ answer }: { answer: GameAnswer }) {
   if (!answer.parse_ok) {
     return (
-      <p className="text-sm" style={{ color: WRONG }}>
-        {answer.parse_error ?? "No pudimos leer tu respuesta."} No cuenta como intento.
-      </p>
+      <div className="text-center text-sm" style={{ color: WRONG }}>
+        <p className="font-medium">{answer.parse_error ?? "No pudimos leer tu respuesta."}</p>
+        <p className="mt-0.5 text-muted-foreground">No cuenta como intento.</p>
+      </div>
     )
   }
   if (answer.correct) {
     return (
-      <p className="flex items-center gap-1.5 text-sm font-medium" style={{ color: RIGHT }}>
-        +{answer.xp_awarded}
-        <XpDots className="h-3.5 w-auto" />
-        {answer.combo_bonus > 0 && (
-          <span className="font-normal text-muted-foreground">
-            · combo ×{answer.combo}: +{answer.combo_bonus}
+      <div className="text-center">
+        <p
+          className="flex items-center justify-center gap-2 font-medium"
+          style={{ color: RIGHT }}
+        >
+          ¡Correcto!
+          <span className="inline-flex items-center gap-1 text-sm">
+            +{answer.xp_awarded}
+            <XpDots className="h-3.5 w-auto" />
           </span>
+        </p>
+        {answer.combo_bonus > 0 && (
+          <p className="mt-0.5 text-sm text-muted-foreground">
+            Combo ×{answer.combo}: +{answer.combo_bonus} extra
+          </p>
         )}
-      </p>
+      </div>
     )
   }
   if (answer.attempts_left > 0) {
     return (
-      <div className="text-sm" style={{ color: WRONG }}>
-        {answer.feedback_incorrect ? (
-          <MathText text={answer.feedback_incorrect} />
-        ) : (
-          "¿Seguro? Fijate de nuevo."
+      <div className="text-center text-sm">
+        <p className="font-medium" style={{ color: WRONG }}>
+          ¿Seguro?
+        </p>
+        {answer.feedback_incorrect && (
+          <div className="mt-0.5 text-muted-foreground">
+            <MathText text={answer.feedback_incorrect} />
+          </div>
         )}
       </div>
     )
   }
   return (
-    <div className="text-sm" style={{ color: WRONG }}>
-      Era así:
+    <div className="text-center text-sm">
+      <p className="font-medium" style={{ color: WRONG }}>
+        Era así
+      </p>
       {answer.correct_answer_latex && (
-        <span className="ml-1.5 text-foreground">
+        <div className="mt-0.5 text-[1.05rem] text-foreground">
           <MathText text={`$f'(x) = ${answer.correct_answer_latex}$`} />
-        </span>
+        </div>
       )}
     </div>
   )

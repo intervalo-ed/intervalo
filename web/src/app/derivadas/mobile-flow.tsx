@@ -371,7 +371,6 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                 attempted={player?.exercises_attempted ?? 0}
                 promptLatex={exercise.prompt_latex}
               />
-              {lastAnswer && <FeedbackLine answer={lastAnswer} />}
               <AnswerField tone={tone} seq={answerSeq}>
                 <MathInput
                   handleRef={inputRef}
@@ -387,6 +386,8 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   }}
                 />
               </AnswerField>
+              {/* Debajo del campo, igual que en escritorio. */}
+              {lastAnswer && <FeedbackLine answer={lastAnswer} />}
               <div className="min-h-0 flex-1" />
               {/* Sigue montado con el ejercicio cerrado: sacarlo empujaría todo
                   lo de arriba justo cuando la persona va a tocar Continuar. */}

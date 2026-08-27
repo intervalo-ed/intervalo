@@ -119,6 +119,7 @@ const CENTER: Key[] = [
 const NUM = (d: string): Key => ({ tex: d, insert: d, size: "num" })
 
 const CLEAR_KEY: Key = { tex: "\\mathrm{C}", action: "clear", tone: "clear" }
+const ERASE_KEY: Key = { node: <Delete size={19} />, cmd: "deleteBackward", tone: "erase" }
 
 const NUMPAD: Key[] = [
   NUM("7"), NUM("8"), NUM("9"),
@@ -126,7 +127,7 @@ const NUMPAD: Key[] = [
   NUM("1"), NUM("2"), NUM("3"),
   { ...CLEAR_KEY, size: "num" },
   NUM("0"),
-  { node: <Delete size={19} />, cmd: "deleteBackward", tone: "erase" },
+  ERASE_KEY,
 ]
 
 // Vocabulario dinámico. Las claves son los ids que manda el backend; cualquier
@@ -161,14 +162,22 @@ const ROW_VARS = "[--kb-row:2.5rem] md:[--kb-row:2.05rem]"
 // que tiene los glifos más altos (fracciones, raíces, potencias).
 const DYNAMIC_ROW = "2.75rem"
 
-// Alto de la regleta que reemplaza al bloque fijo cuando no hay numérico. Igual
-// que la fila dinámica: son dos tiras hermanas, no un pad.
+// Alto de fila de las tiras que reemplazan al bloque fijo cuando no hay
+// numérico. Igual que la dinámica: las tres son hermanas, no un pad.
 const STRIP_ROW = "2.75rem"
+const STRIP_COLS = 6
 
-// La regleta de escritorio: lo que queda del bloque fijo sin los dígitos. `C`
-// sobrevive al numérico porque borrar todo de un saque no tiene equivalente en
-// el teclado físico; el retroceso sí (la tecla Backspace), así que no está.
-const STRIP: Key[] = [...CENTER, ...LEFT, CLEAR_KEY]
+// Las dos filas fijas de escritorio, agrupadas por lo que hacen: arriba lo que
+// se escribe, abajo lo que se mueve y se borra. La de arriba llena la fila; la
+// de abajo va centrada, como la dinámica.
+const STRIP_TOP: Key[] = [...CENTER, ...LEFT.slice(0, 2)]
+const STRIP_BOTTOM: Key[] = [...LEFT.slice(2), CLEAR_KEY, ERASE_KEY]
+
+// Ancho del contenido, tanto acá como en la card del ejercicio: las teclas y el
+// campo donde se escribe la respuesta comparten el mismo canal centrado, así el
+// panel entero se lee como una columna y no como tres cajas de anchos
+// distintos. Ver ExerciseCard :: PANEL_CONTENT.
+const CONTENT_WIDTH = "mx-auto w-full max-w-[28rem]"
 
 const KEY_CLASS =
   "flex select-none items-center justify-center rounded-md bg-background leading-none transition-colors active:bg-accent"
@@ -268,6 +277,15 @@ export function MathKeyboard({
         className,
       )}
     >
+      {/* En escritorio el contenido va en un canal centrado y no de borde a
+          borde: alineado con el campo de la respuesta, el panel se lee como una
+          columna. En el teléfono no hay ancho que regalar y ocupa todo. */}
+      <div
+        className={cn(
+          "flex min-h-0 flex-1 flex-col gap-1.5",
+          !numpad && CONTENT_WIDTH,
+        )}
+      >
       <div
         className="grid shrink-0 gap-1.5"
         style={{
@@ -297,19 +315,39 @@ export function MathKeyboard({
           </div>
         </div>
       ) : (
-        // Sin numérico queda una regleta de una sola fila, no un pad. El orden
-        // es por frecuencia: primero la incógnita y las operaciones, después los
-        // paréntesis, y al final mover el cursor y borrar todo.
-        <div
-          className="grid shrink-0 gap-1.5"
-          style={{
-            height: STRIP_ROW,
-            gridTemplateColumns: `repeat(${STRIP.length}, minmax(0, 1fr))`,
-          }}
-        >
-          {STRIP.map((key, i) => button(key, `strip-${i}`))}
-        </div>
+        // Sin numérico quedan dos tiras, no un pad: arriba lo que se escribe
+        // (incógnita, operaciones, paréntesis) y abajo lo que se edita (mover el
+        // cursor, borrar). La de abajo va centrada dentro de las mismas seis
+        // columnas, igual que la dinámica.
+        <>
+          <div
+            className="grid shrink-0 gap-1.5"
+            style={{
+              height: STRIP_ROW,
+              gridTemplateColumns: `repeat(${STRIP_COLS}, minmax(0, 1fr))`,
+            }}
+          >
+            {STRIP_TOP.map((key, i) => button(key, `top-${i}`))}
+          </div>
+          <div
+            className="grid shrink-0 gap-1.5"
+            style={{
+              height: STRIP_ROW,
+              gridTemplateColumns: `repeat(${STRIP_COLS}, minmax(0, 1fr))`,
+            }}
+          >
+            {STRIP_BOTTOM.map((key, i) =>
+              button(key, `bot-${i}`, {
+                style: {
+                  gridColumnStart:
+                    Math.floor((STRIP_COLS - STRIP_BOTTOM.length) / 2) + 1 + i,
+                },
+              }),
+            )}
+          </div>
+        </>
       )}
+      </div>
     </div>
   )
 }
