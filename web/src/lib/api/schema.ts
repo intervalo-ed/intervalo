@@ -87,6 +87,34 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/game/derivadas/skip": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Skip Exercise
+         * @description Saltear: cierra el ejercicio sin responderlo y sirve uno más fácil.
+         *
+         *     Saltear NO es responder, así que no mueve la beta de la plantilla ni suma a
+         *     los ejercicios intentados: pedir algo más fácil es información sobre el
+         *     jugador, no sobre la plantilla, y contarlo como intento inflaría el
+         *     denominador de la tasa de acierto. Sí baja un poco el θ y corta la racha —
+         *     si no, saltear todo lo difícil sería la forma óptima de sostener un combo.
+         *     Tampoco da XP, y como la XP escala con la dificultad, encadenar salteos
+         *     hasta el piso rinde cada vez menos: la mecánica se autolimita.
+         */
+        post: operations["skip_exercise_game_derivadas_skip_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/game/derivadas/answer": {
         parameters: {
             query?: never;
@@ -1395,6 +1423,11 @@ export interface components {
             /** Version */
             version: number;
         };
+        /** GameSkipRequest */
+        GameSkipRequest: {
+            /** Exercise Id */
+            exercise_id: number;
+        };
         /** GameUniversityLeaderboardResponse */
         GameUniversityLeaderboardResponse: {
             /** Rows */
@@ -2131,6 +2164,42 @@ export interface operations {
             cookie?: never;
         };
         requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GameExerciseOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    skip_exercise_game_derivadas_skip_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["GameSkipRequest"];
+            };
+        };
         responses: {
             /** @description Successful Response */
             200: {

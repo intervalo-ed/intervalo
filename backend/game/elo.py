@@ -34,6 +34,13 @@ RAMP_UPDATES = 5
 # Al sumar cadena en v2, reservar {6: 1.4, 7: 2.0, 8: 2.6}.
 BETA_SEED: dict[int, float] = {0: -2.2, 1: -1.6, 2: -1.0, 3: -0.4, 4: 0.3, 5: 0.9}
 
+# Castigo de θ al saltear un ejercicio. Plano a propósito: el lr de `update`
+# decae con la experiencia, y con ese decaimiento un jugador veterano podría
+# saltear sin que el juego le bajara nunca la dificultad — justo lo contrario de
+# lo que promete el botón. La escala se lee contra BETA_SEED, que separa tiers de
+# a ~0.6: cada salteo cuesta un cuarto de tier, cuatro seguidos bajan uno entero.
+SKIP_THETA_PENALTY = 0.15
+
 # Hiperparámetros del update (grid del reporte: a_u=0.8 b_u=0.15 a_x=1.2 b_x=0.05).
 _A_USER = 0.8
 _B_USER = 0.15

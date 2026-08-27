@@ -14,24 +14,44 @@
 // La fila conserva su alto aunque venga vacía: si el teclado cambiara de tamaño
 // entre ejercicios, todo lo de abajo saltaría.
 //
+// Las teclas se dibujan con KaTeX, el mismo motor que compone el enunciado (ver
+// components/math-text.tsx). No es un capricho tipográfico: con glifos de la
+// fuente de interfaz, la `x` del teclado y la `x` de la fórmula son dos letras
+// distintas, y el `·` y el `−` ni siquiera son los mismos caracteres que usa
+// LaTeX. Escritas en KaTeX, la tecla y lo que aparece en el campo son la misma
+// cosa, que es lo único que hace que el teclado se lea como matemática.
+//
 // El color va por rol y no de adorno: la misma operación tiene siempre el mismo
-// color, así la vista la encuentra sin leer.
+// color, así la vista la encuentra sin leer. La fila dinámica va en blanco —
+// teñirla la separaba del resto sin que ese corte significara nada.
 //
 // El teclado físico sigue funcionando en paralelo (lo maneja MathLive).
 
+import { useMemo } from "react"
+import katex from "katex"
+// Lo importa también math-text.tsx, y el bundler lo deduplica; va acá igual
+// porque este módulo no debería depender de que otro haya cargado la hoja.
+import "katex/dist/katex.min.css"
 import { ArrowLeft, ArrowRight, Delete } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useSfx } from "@/lib/audio/useSfx"
 import type { MathInputHandle } from "./math-input"
 
 type Key = {
-  label: React.ReactNode
+  // LaTeX del glifo, o un nodo suelto para las teclas que no son matemática
+  // (las flechas de navegación y el retroceso, que son acciones del editor).
+  tex?: string
+  node?: React.ReactNode
   insert?: string
   cmd?: string
   action?: "clear"
   // Color del glifo. El fondo es siempre el mismo: teñir la tecla entera
   // convertiría el teclado en un semáforo.
   tone?: keyof typeof TONES
+  // Tamaño relativo del glifo. Los símbolos necesitan más cuerpo que los
+  // dígitos para leerse igual de bien: en KaTeX un `+` ocupa mucho menos alto
+  // que un `7`.
+  size?: "sm" | "md" | "lg"
 }
 
 const TONES = {
@@ -44,83 +64,95 @@ const TONES = {
   nav: "text-[#94A3B8]",
   clear: "text-[#FBBF24]",
   erase: "text-[#F87171]",
-  dynamic: "text-[#7DD3FC]",
 } as const
 
-const K = (label: React.ReactNode, insert: string): Key => ({ label, insert })
+const SIZES = {
+  sm: "text-[1.05rem]",
+  md: "text-[1.25rem]",
+  lg: "text-[1.5rem]",
+} as const
 
-// Cajita punteada de los labels, como los placeholders de GeoGebra.
-function Box() {
-  return (
-    <span
-      aria-hidden
-      className="inline-block h-[0.55em] w-[0.55em] rounded-[2px] border border-dotted border-current opacity-70"
-    />
-  )
+// El HTML de KaTeX para un glifo depende solo del LaTeX, y el teclado repite
+// las mismas teclas ejercicio tras ejercicio: se cachea a nivel módulo para no
+// re-renderizar veinte fórmulas en cada cambio de ejercicio.
+const GLYPH_CACHE = new Map<string, string>()
+
+function glyph(tex: string): string {
+  const cached = GLYPH_CACHE.get(tex)
+  if (cached !== undefined) return cached
+  const html = katex.renderToString(tex, { throwOnError: false, displayMode: false })
+  GLYPH_CACHE.set(tex, html)
+  return html
 }
+
+// Hueco de los argumentos que faltan. `\square` es el mismo cuadrado hueco que
+// usa la notación de libro para un lugar a completar.
+const BOX = "\\square"
 
 // Izquierda: lo que estructura la expresión y lo que mueve el cursor.
 const LEFT: Key[] = [
-  { label: "(", insert: "(", tone: "paren" },
-  { label: ")", insert: ")", tone: "paren" },
-  { label: <ArrowLeft size={18} />, cmd: "moveToPreviousChar", tone: "nav" },
-  { label: <ArrowRight size={18} />, cmd: "moveToNextChar", tone: "nav" },
+  { tex: "(", insert: "(", tone: "paren", size: "lg" },
+  { tex: ")", insert: ")", tone: "paren", size: "lg" },
+  { node: <ArrowLeft size={19} />, cmd: "moveToPreviousChar", tone: "nav" },
+  { node: <ArrowRight size={19} />, cmd: "moveToNextChar", tone: "nav" },
 ]
 
 // Centro: la incógnita y las cuatro operaciones.
 const CENTER: Key[] = [
-  { label: <i>x</i>, insert: "x", tone: "unknown" },
-  { label: "+", insert: "+", tone: "add" },
-  { label: "−", insert: "-", tone: "sub" },
-  { label: "·", insert: "\\cdot", tone: "mul" },
+  { tex: "x", insert: "x", tone: "unknown", size: "lg" },
+  { tex: "+", insert: "+", tone: "add", size: "lg" },
+  { tex: "-", insert: "-", tone: "sub", size: "lg" },
+  { tex: "\\cdot", insert: "\\cdot", tone: "mul", size: "lg" },
 ]
 
 const NUMPAD: Key[] = [
-  K("7", "7"), K("8", "8"), K("9", "9"),
-  K("4", "4"), K("5", "5"), K("6", "6"),
-  K("1", "1"), K("2", "2"), K("3", "3"),
-  { label: "C", action: "clear", tone: "clear" },
-  K("0", "0"),
-  { label: <Delete size={19} />, cmd: "deleteBackward", tone: "erase" },
+  { tex: "7", insert: "7" }, { tex: "8", insert: "8" }, { tex: "9", insert: "9" },
+  { tex: "4", insert: "4" }, { tex: "5", insert: "5" }, { tex: "6", insert: "6" },
+  { tex: "1", insert: "1" }, { tex: "2", insert: "2" }, { tex: "3", insert: "3" },
+  { tex: "\\mathrm{C}", action: "clear", tone: "clear" },
+  { tex: "0", insert: "0" },
+  { node: <Delete size={20} />, cmd: "deleteBackward", tone: "erase" },
 ]
 
 // Vocabulario dinámico. Las claves son los ids que manda el backend; cualquier
 // id desconocido se ignora, así agregar teclas en v2 no rompe clientes viejos.
 const DYNAMIC: Record<string, Key> = {
-  pow: {
-    label: <span className="inline-flex items-baseline"><Box /><sup className="text-[0.6em]"><Box /></sup></span>,
-    insert: "#@^{#?}",
-  },
-  sq: {
-    label: <span className="inline-flex items-baseline"><Box /><sup className="text-[0.6em]">2</sup></span>,
-    insert: "#@^{2}",
-  },
-  sqrt: { label: <span>√<Box /></span>, insert: "\\sqrt{#?}" },
-  frac: { label: "÷", insert: "\\frac{#?}{#?}" },
-  e: { label: <i>e</i>, insert: "e" },
-  expx: {
-    label: <span className="inline-flex items-baseline"><i>e</i><sup className="text-[0.6em]"><Box /></sup></span>,
-    insert: "e^{#?}",
-  },
-  ln: { label: "ln", insert: "\\ln\\left(#?\\right)" },
-  log: {
-    label: <span>log<sub className="text-[0.6em]"><Box /></sub></span>,
-    insert: "\\log_{#?}\\left(#?\\right)",
-  },
-  sen: { label: "sen", insert: "\\operatorname{sen}\\left(#?\\right)" },
-  cos: { label: "cos", insert: "\\cos\\left(#?\\right)" },
-  tg: { label: "tg", insert: "\\operatorname{tg}\\left(#?\\right)" },
+  pow: { tex: `${BOX}^{${BOX}}`, insert: "#@^{#?}" },
+  sq: { tex: `${BOX}^{2}`, insert: "#@^{2}" },
+  sqrt: { tex: `\\sqrt{${BOX}}`, insert: "\\sqrt{#?}" },
+  frac: { tex: `\\frac{${BOX}}{${BOX}}`, insert: "\\frac{#?}{#?}" },
+  e: { tex: "e", insert: "e" },
+  expx: { tex: `e^{${BOX}}`, insert: "e^{#?}" },
+  ln: { tex: "\\ln", insert: "\\ln\\left(#?\\right)" },
+  log: { tex: `\\log_{${BOX}}`, insert: "\\log_{#?}\\left(#?\\right)" },
+  sen: { tex: "\\operatorname{sen}", insert: "\\operatorname{sen}\\left(#?\\right)" },
+  cos: { tex: "\\cos", insert: "\\cos\\left(#?\\right)" },
+  tg: { tex: "\\operatorname{tg}", insert: "\\operatorname{tg}\\left(#?\\right)" },
 }
 
 // Ancho de la fila dinámica, en columnas. Tiene que coincidir con MAX_KEYS de
 // backend/game/keyboard.py.
 const DYNAMIC_COLS = 7
 
-// Alto mínimo de fila del bloque fijo: blanco cómodo para el pulgar.
-const ROW_MIN = "2.5rem"
+// Alto de fila del bloque fijo, en una variable CSS porque cambia por tamaño de
+// pantalla. En escritorio baja a 2.05rem: con teclas de doble alto a la
+// izquierda y al centro, el bloque medía cuatro filas de blanco de más. En el
+// teléfono se queda en 2.5rem — ahí no sobra alto, pero la tecla se toca con el
+// pulgar y achicarla la vuelve imposible de acertar.
+const ROW_MIN = "var(--kb-row)"
+const ROW_VARS = "[--kb-row:2.5rem] md:[--kb-row:2.05rem]"
+
+// La fila dinámica, en cambio, engorda: es la que cambia entre ejercicios y la
+// que tiene los glifos más altos (fracciones, raíces, potencias).
+const DYNAMIC_ROW = "2.75rem"
 
 const KEY_CLASS =
-  "flex select-none items-center justify-center rounded-md bg-background text-[1.15rem] leading-none transition-colors active:bg-accent"
+  "flex select-none items-center justify-center rounded-md bg-background leading-none transition-colors active:bg-accent"
+
+// KaTeX mete su propio tamaño (`.katex { font-size: 1.21em }`) y un poco de
+// aire vertical pensado para texto corrido; acá el glifo tiene que ocupar la
+// tecla y nada más.
+const GLYPH_CLASS = "[&_.katex]:text-[1em] [&_.katex]:leading-none"
 
 export function MathKeyboard({
   input,
@@ -157,13 +189,37 @@ export function MathKeyboard({
       onMouseDown={(e) => e.preventDefault()}
       onClick={() => press(key)}
       style={opts?.style}
-      className={cn(KEY_CLASS, TONES[key.tone ?? "plain"], opts?.className)}
+      className={cn(
+        KEY_CLASS,
+        SIZES[key.size ?? "md"],
+        TONES[key.tone ?? "plain"],
+        opts?.className,
+      )}
     >
-      {key.label}
+      {key.tex !== undefined ? (
+        <span
+          className={GLYPH_CLASS}
+          dangerouslySetInnerHTML={{ __html: glyph(key.tex) }}
+        />
+      ) : (
+        key.node
+      )}
     </button>
   )
 
-  const dynamic = keys.map((id) => DYNAMIC[id]).filter(Boolean)
+  const dynamic = useMemo(
+    () =>
+      keys
+        // El id viaja junto a la tecla: un id desconocido se descarta, y si el
+        // índice se leyera después contra `keys` la columna y la React key
+        // quedarían corridas a partir de ahí.
+        .map((id) => ({ id, key: DYNAMIC[id] }))
+        .filter((entry) => entry.key !== undefined)
+        // Los glifos compuestos (fracciones, raíces, potencias) se pasan de
+        // alto contra la fila si van al mismo cuerpo que un dígito.
+        .map((entry) => ({ id: entry.id, key: { ...entry.key, size: "sm" as const } })),
+    [keys],
+  )
   // Centradas dentro de la fila: así el tamaño de tecla no depende de cuántas
   // haya, que es lo que las haría cambiar de forma entre ejercicios.
   const firstCol = Math.floor((DYNAMIC_COLS - dynamic.length) / 2) + 1
@@ -175,13 +231,22 @@ export function MathKeyboard({
   const numRows = { gridTemplateRows: `repeat(4, minmax(${ROW_MIN}, 1fr))` }
 
   return (
-    <div className={cn("flex flex-col gap-1.5 rounded-lg border border-border bg-card p-2", className)}>
+    <div
+      className={cn(
+        "flex flex-col gap-1.5 rounded-lg border border-border bg-card p-2",
+        ROW_VARS,
+        className,
+      )}
+    >
       <div
-        className="grid h-10 shrink-0 gap-1.5"
-        style={{ gridTemplateColumns: `repeat(${DYNAMIC_COLS}, minmax(0, 1fr))` }}
+        className="grid shrink-0 gap-1.5"
+        style={{
+          height: DYNAMIC_ROW,
+          gridTemplateColumns: `repeat(${DYNAMIC_COLS}, minmax(0, 1fr))`,
+        }}
       >
-        {dynamic.map((key, i) =>
-          button({ ...key, tone: "dynamic" }, `dyn-${keys[i]}`, {
+        {dynamic.map((entry, i) =>
+          button(entry.key, `dyn-${entry.id}`, {
             style: { gridColumnStart: firstCol + i },
           }),
         )}
@@ -197,7 +262,7 @@ export function MathKeyboard({
           {CENTER.map((key, i) => button(key, `center-${i}`))}
         </div>
         <div className="grid flex-[3] grid-cols-3 gap-1.5" style={numRows}>
-          {NUMPAD.map((key, i) => button(key, `num-${i}`, { className: "text-[1.25rem]" }))}
+          {NUMPAD.map((key, i) => button(key, `num-${i}`))}
         </div>
       </div>
     </div>

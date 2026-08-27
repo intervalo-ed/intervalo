@@ -17,7 +17,6 @@ import posthog from "posthog-js"
 import { AnimatePresence, motion } from "motion/react"
 import { useQueryClient } from "@tanstack/react-query"
 import { Settings } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import { GRID_BG_STYLE } from "@/components/grid-bg"
 import { useSfx } from "@/lib/audio/useSfx"
 import {
@@ -29,7 +28,14 @@ import {
   CAFECITO_EVERY,
   type CafecitoTrigger,
 } from "./cafecito-cta"
-import { ExerciseCard, FeedbackBanner } from "./exercise-card"
+import {
+  AnswerButton,
+  AnswerField,
+  ExerciseCard,
+  FeedbackLine,
+  SkipButton,
+  answerTone,
+} from "./exercise-card"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { GameRanking } from "./game-ranking"
 import { MathInput, type MathInputHandle } from "./math-input"
@@ -37,7 +43,13 @@ import { MathKeyboard } from "./math-keyboard"
 import { parseAnswerToMathJson, warmupComputeEngine } from "./parse-answer"
 import { ProfileSlides, RegisterSlide } from "./register-slides"
 import { SettingsPanel } from "./settings-panel"
-import { useAnswerExercise, useNextExercise, type GameAnswer, type GameExercise } from "./UseGameExercise"
+import {
+  useAnswerExercise,
+  useNextExercise,
+  useSkipExercise,
+  type GameAnswer,
+  type GameExercise,
+} from "./UseGameExercise"
 import { useGamePulse } from "./UseGameLeaderboard"
 import { gameKeys, useGamePlayer } from "./UseGamePlayer"
 import { useXpBurst, XpBurstConfetti } from "./xp-burst"
@@ -49,10 +61,14 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   const queryClient = useQueryClient()
   const next = useNextExercise()
   const answerMutation = useAnswerExercise()
+  const skipMutation = useSkipExercise()
   const sfx = useSfx()
 
   const [exercise, setExercise] = useState<GameExercise | null>(null)
   const [lastAnswer, setLastAnswer] = useState<GameAnswer | null>(null)
+  // Contador de respuestas, no de aciertos: es lo que hace que el latido y el
+  // sacudón vuelvan a correr cuando dos respuestas seguidas comparten tono.
+  const [answerSeq, setAnswerSeq] = useState(0)
   const [solvedCount, setSolvedCount] = useState(0)
   const [climbFrom, setClimbFrom] = useState<number | null>(null)
   const [centerKey, setCenterKey] = useState(0)
@@ -137,6 +153,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       {
         onSuccess: (data) => {
           setLastAnswer(data)
+          setAnswerSeq((n) => n + 1)
           posthog.capture("game_answer", {
             correct: data.correct,
             parse_ok: data.parse_ok,
@@ -203,6 +220,83 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
 
   const closed =
     lastAnswer?.parse_ok === true && (lastAnswer.correct || lastAnswer.attempts_left === 0)
+  const tone = answerTone(lastAnswer)
+
+  // Lo que hace el botón grande. Vive suelto porque lo comparten el click y el
+  // Enter, y tienen que hacer exactamente lo mismo.
+  const onPrimary = useCallback(() => {
+    if (!closed) {
+      void onRevisar()
+      return
+    }
+    const milestone = pendingMilestoneRef.current
+    if (milestone) {
+      pendingMilestoneRef.current = null
+      posthog.capture("game_register_slide_shown", {
+        slide: milestone === "profile" ? "career" : "register",
+      })
+      setPanel(milestone)
+      return
+    }
+    loadNext()
+  }, [closed, onRevisar, loadNext])
+
+  const onSkip = useCallback(() => {
+    if (!exercise || closed || skipMutation.isPending || answerMutation.isPending) return
+    posthog.capture("game_skip", { tier: exercise.tier, exercise_id: exercise.exercise_id })
+    skipMutation.mutate(
+      { exercise_id: exercise.exercise_id },
+      {
+        onSuccess: (data) => {
+          // El endpoint devuelve el reemplazo, así que no hay un /next detrás:
+          // el ejercicio nuevo entra en el mismo viaje.
+          setExercise(data)
+          setLastAnswer(null)
+          setCafecito(null)
+          servedAtRef.current = Date.now()
+          inputRef.current?.clear()
+          inputRef.current?.focus()
+          posthog.capture("game_exercise_served", {
+            tier: data.tier,
+            exercise_id: data.exercise_id,
+            after_skip: true,
+          })
+        },
+      },
+    )
+  }, [exercise, closed, skipMutation, answerMutation.isPending])
+
+  const onEnterKey = useCallback(
+    ({ shift }: { shift: boolean }) => {
+      if (shift) {
+        onSkip()
+        return
+      }
+      onPrimary()
+    },
+    [onSkip, onPrimary],
+  )
+
+  // El juego se maneja entero desde el teclado. Este listener es el que cubre
+  // el caso en que el foco NO está en el campo (después de responder, o tras
+  // tocar una tecla del teclado en pantalla); cuando sí lo está, MathLive corta
+  // la propagación y dispara el mismo handler desde su propio keydown.
+  const gameFocused = panel === "exercise" && !settingsOpen && exercise !== null
+  useEffect(() => {
+    if (!gameFocused) return
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Enter" || e.metaKey || e.ctrlKey || e.altKey) return
+      // Los campos de texto (el @ del registro, los selectores) son dueños de
+      // su propio Enter.
+      const el = e.target as HTMLElement | null
+      const tag = el?.tagName
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || el?.isContentEditable) return
+      e.preventDefault()
+      onEnterKey({ shift: e.shiftKey })
+    }
+    document.addEventListener("keydown", onKeyDown)
+    return () => document.removeEventListener("keydown", onKeyDown)
+  }, [gameFocused, onEnterKey])
 
   // Todo menos el logo entra recién cuando la presentación lo devuelve a su
   // lugar; el fundido acompaña al del fondo (ver game-intro.tsx).
@@ -230,7 +324,9 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           <div className="flex items-center justify-between rounded-lg border border-border bg-card px-4 py-2.5">
             {/* El logo de la presentación es este mismo: se despega de acá, se
                 escribe en el centro y vuelve (ver game-intro.tsx). */}
-            <GameIntroLogo intro={intro} fontSize="1.25rem" />
+            {/* 15% menos que antes (era 1.25rem); el tamaño de la presentación
+                bajó lo mismo, ver INTRO_FONT_PX en game-intro.tsx. */}
+            <GameIntroLogo intro={intro} fontSize="1.0625rem" />
             <div className="flex items-center gap-2" style={chromeStyle}>
               <ShareButton placement="header_desktop" />
               <CafecitoButton placement="header_desktop" />
@@ -333,19 +429,27 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                         streak={player?.combo ?? 0}
                         attempted={player?.exercises_attempted ?? 0}
                         promptLatex={exercise.prompt_latex}
-                        stars={exercise.difficulty_stars}
                       >
-                        {/* El estallido del confeti nace acá. */}
-                        <div ref={attachOrigin}>
-                          <MathInput
-                            handleRef={inputRef}
-                            onEnter={() => {
-                              if (!closed) void onRevisar()
-                            }}
-                          />
+                        {/* El estallido del confeti nace acá. Va en el div de
+                            afuera y no en el que se sacude: el origen del imán
+                            se mide al disparar y no tiene por qué temblar. */}
+                        <div ref={attachOrigin} className="flex flex-col gap-2">
+                          {lastAnswer && <FeedbackLine answer={lastAnswer} />}
+                          <AnswerField tone={tone} seq={answerSeq}>
+                            <MathInput
+                              handleRef={inputRef}
+                              tone={tone}
+                              onEnter={onEnterKey}
+                              // En cuanto empieza a corregir, el rebote se va:
+                              // el naranja es sobre la respuesta que mandó, no
+                              // sobre la que está escribiendo.
+                              onChange={() => {
+                                if (!closed && lastAnswer) setLastAnswer(null)
+                              }}
+                            />
+                          </AnswerField>
                         </div>
                       </ExerciseCard>
-                      {lastAnswer && <FeedbackBanner answer={lastAnswer} />}
                       {/* El teclado no se desmonta al cerrar el ejercicio: con
                           la página a alto fijo, sacarlo haría saltar todo. */}
                       <MathKeyboard
@@ -353,29 +457,24 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                         keys={exercise.keys}
                         className={closed ? "pointer-events-none opacity-45" : undefined}
                       />
-                      <Button
-                        size="lg"
-                        className="h-[var(--cta-h)] w-full shrink-0 rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
-                        disabled={answerMutation.isPending || (closed && next.isPending)}
-                        onClick={() => {
-                          if (!closed) {
-                            void onRevisar()
-                            return
-                          }
-                          const milestone = pendingMilestoneRef.current
-                          if (milestone) {
-                            pendingMilestoneRef.current = null
-                            posthog.capture("game_register_slide_shown", {
-                              slide: milestone === "profile" ? "career" : "register",
-                            })
-                            setPanel(milestone)
-                            return
-                          }
-                          loadNext()
-                        }}
-                      >
-                        {closed ? "Continuar" : "Revisar"}
-                      </Button>
+                      <div className="flex shrink-0 items-stretch gap-2">
+                        <AnswerButton
+                          className="flex-1"
+                          tone={tone}
+                          seq={answerSeq}
+                          closed={closed}
+                          showKeyHint
+                          disabled={answerMutation.isPending || (closed && next.isPending)}
+                          onClick={onPrimary}
+                        />
+                        {!closed && (
+                          <SkipButton
+                            showKeyHint
+                            disabled={skipMutation.isPending || answerMutation.isPending}
+                            onClick={onSkip}
+                          />
+                        )}
+                      </div>
                     </>
                   ) : panel === "exercise" ? (
                     <div className="flex flex-1 items-center justify-center rounded-lg border border-border bg-card text-sm text-muted-foreground">

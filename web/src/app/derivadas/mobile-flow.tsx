@@ -24,7 +24,14 @@ import {
   CAFECITO_EVERY,
   type CafecitoTrigger,
 } from "./cafecito-cta"
-import { ExerciseCard, FeedbackBanner } from "./exercise-card"
+import {
+  AnswerButton,
+  AnswerField,
+  ExerciseCard,
+  FeedbackLine,
+  SkipButton,
+  answerTone,
+} from "./exercise-card"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { GameRanking } from "./game-ranking"
 import { MathInput, type MathInputHandle } from "./math-input"
@@ -32,7 +39,13 @@ import { MathKeyboard } from "./math-keyboard"
 import { parseAnswerToMathJson, warmupComputeEngine } from "./parse-answer"
 import { ProfileSlides, RegisterSlide } from "./register-slides"
 import { SettingsPanel } from "./settings-panel"
-import { useAnswerExercise, useNextExercise, type GameAnswer, type GameExercise } from "./UseGameExercise"
+import {
+  useAnswerExercise,
+  useNextExercise,
+  useSkipExercise,
+  type GameAnswer,
+  type GameExercise,
+} from "./UseGameExercise"
 import { useGamePulse } from "./UseGameLeaderboard"
 import { gameKeys, useGamePlayer } from "./UseGamePlayer"
 import { useXpBurst, XpBurstConfetti } from "./xp-burst"
@@ -72,12 +85,16 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   const queryClient = useQueryClient()
   const next = useNextExercise()
   const answerMutation = useAnswerExercise()
+  const skipMutation = useSkipExercise()
   const sfx = useSfx()
 
   const [slide, setSlide] = useState<Slide>({ kind: "intro" })
   const [slideSeq, setSlideSeq] = useState(0)
   const [exercise, setExercise] = useState<GameExercise | null>(null)
   const [lastAnswer, setLastAnswer] = useState<GameAnswer | null>(null)
+  // Contador de respuestas, no de aciertos: es lo que hace que el latido y el
+  // sacudón vuelvan a correr cuando dos respuestas seguidas comparten tono.
+  const [answerSeq, setAnswerSeq] = useState(0)
   const [solvedCount, setSolvedCount] = useState(0)
   const [climbFrom, setClimbFrom] = useState<number | null>(null)
   const inputRef = useRef<MathInputHandle | null>(null)
@@ -229,6 +246,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       {
         onSuccess: (data) => {
           setLastAnswer(data)
+          setAnswerSeq((n) => n + 1)
           posthog.capture("game_answer", {
             correct: data.correct,
             parse_ok: data.parse_ok,
@@ -252,6 +270,31 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   }, [exercise, answerMutation, sfx])
 
   const closed = lastAnswer?.parse_ok === true && (lastAnswer.correct || lastAnswer.attempts_left === 0)
+  const tone = answerTone(lastAnswer)
+
+  // Saltear también en el teléfono: no hay Shift+Enter, pero el botón sí está.
+  const onSkip = useCallback(() => {
+    if (!exercise || closed || skipMutation.isPending || answerMutation.isPending) return
+    posthog.capture("game_skip", { tier: exercise.tier, exercise_id: exercise.exercise_id })
+    skipMutation.mutate(
+      { exercise_id: exercise.exercise_id },
+      {
+        onSuccess: (data) => {
+          // El endpoint ya devuelve el reemplazo: no hay slide intermedia ni un
+          // /next detrás, el ejercicio nuevo entra en el mismo lugar.
+          setExercise(data)
+          setLastAnswer(null)
+          servedAtRef.current = Date.now()
+          inputRef.current?.clear()
+          posthog.capture("game_exercise_served", {
+            tier: data.tier,
+            exercise_id: data.exercise_id,
+            after_skip: true,
+          })
+        },
+      },
+    )
+  }, [exercise, closed, skipMutation, answerMutation.isPending])
 
   // Todo menos el logo espera a que la presentación lo devuelva a su lugar.
   const chromeStyle: React.CSSProperties = {
@@ -281,7 +324,9 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
               <div className="flex flex-1 flex-col items-center justify-center gap-4 text-center">
                 {/* El logo de la presentación es este mismo: se despega de
                     acá, se escribe en el centro y vuelve (ver game-intro.tsx). */}
-                <GameIntroLogo intro={intro} fontSize="2.25rem" />
+                {/* 15% menos que antes (era 2.25rem), igual que el header de
+                    escritorio y que la presentación (INTRO_FONT_PX). */}
+                <GameIntroLogo intro={intro} fontSize="1.9125rem" />
                 <div style={chromeStyle}>
                   <p className="mt-2 text-lg">¿Cuántas aguantás?</p>
                   <p className="mt-4 text-sm text-muted-foreground">
@@ -325,15 +370,22 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                 streak={player?.combo ?? 0}
                 attempted={player?.exercises_attempted ?? 0}
                 promptLatex={exercise.prompt_latex}
-                stars={exercise.difficulty_stars}
               />
-              <MathInput
-                handleRef={inputRef}
-                onEnter={() => {
-                  if (!closed) void onRevisar()
-                }}
-              />
-              {lastAnswer && <FeedbackBanner answer={lastAnswer} />}
+              {lastAnswer && <FeedbackLine answer={lastAnswer} />}
+              <AnswerField tone={tone} seq={answerSeq}>
+                <MathInput
+                  handleRef={inputRef}
+                  tone={tone}
+                  onEnter={({ shift }) => {
+                    if (shift) onSkip()
+                    else if (closed) advanceAfterAnswer(null)
+                    else void onRevisar()
+                  }}
+                  onChange={() => {
+                    if (!closed && lastAnswer) setLastAnswer(null)
+                  }}
+                />
+              </AnswerField>
               <div className="min-h-0 flex-1" />
               {/* Sigue montado con el ejercicio cerrado: sacarlo empujaría todo
                   lo de arriba justo cuando la persona va a tocar Continuar. */}
@@ -342,17 +394,25 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                 keys={exercise.keys}
                 className={closed ? "pointer-events-none opacity-45" : undefined}
               />
-              <Button
-                size="lg"
-                className={ctaCls}
-                disabled={answerMutation.isPending || (closed && next.isPending)}
-                onClick={() => {
-                  if (closed) advanceAfterAnswer(null)
-                  else void onRevisar()
-                }}
-              >
-                {closed ? "Continuar" : "Revisar"}
-              </Button>
+              <div className="flex items-stretch gap-2">
+                <AnswerButton
+                  className="flex-1"
+                  tone={tone}
+                  seq={answerSeq}
+                  closed={closed}
+                  disabled={answerMutation.isPending || (closed && next.isPending)}
+                  onClick={() => {
+                    if (closed) advanceAfterAnswer(null)
+                    else void onRevisar()
+                  }}
+                />
+                {!closed && (
+                  <SkipButton
+                    disabled={skipMutation.isPending || answerMutation.isPending}
+                    onClick={onSkip}
+                  />
+                )}
+              </div>
             </div>
           )}
 

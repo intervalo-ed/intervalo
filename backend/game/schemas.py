@@ -54,6 +54,10 @@ class GameExerciseOut(BaseModel):
     keys: list[str] = []
 
 
+class GameSkipRequest(BaseModel):
+    exercise_id: int
+
+
 class GameAnswerRequest(BaseModel):
     exercise_id: int
     answer_latex: str

@@ -28,22 +28,46 @@ type Mathfield = HTMLElement & {
   focus: () => void
 }
 
+// Borde del campo según el feedback. Los hex son los mismos que usa el resto
+// del juego (exercise-card.tsx) y que las opciones del session-runner.
+const TONE_BORDER = {
+  correct: "#22C55E",
+  wrong: "#E3690B",
+} as const
+
+// El campo lo crea MathLive de forma imperativa y su borde vive en un estilo
+// inline, así que el tono se aplica sobre el elemento en vez de con una clase.
+// Se llama desde los dos lados —cuando cambia el tono y cuando el campo recién
+// se termina de crear— porque el import es asíncrono y cualquiera de los dos
+// puede llegar primero.
+function applyTone(mf: Mathfield | null, tone: "correct" | "wrong" | null) {
+  if (!mf) return
+  mf.style.borderColor = tone ? TONE_BORDER[tone] : "var(--ring)"
+}
+
 export function MathInput({
   handleRef,
   onChange,
   onEnter,
+  tone = null,
 }: {
   handleRef?: Ref<MathInputHandle>
   onChange?: (latex: string) => void
-  onEnter?: () => void
+  // `shift` distingue revisar de saltear: los dos atajos entran por la misma
+  // tecla y MathLive es dueño del keydown mientras el campo tiene el foco.
+  onEnter?: (opts: { shift: boolean }) => void
+  tone?: "correct" | "wrong" | null
 }) {
   const hostRef = useRef<HTMLDivElement | null>(null)
   const fieldRef = useRef<Mathfield | null>(null)
   const onChangeRef = useRef(onChange)
   const onEnterRef = useRef(onEnter)
+  const toneRef = useRef(tone)
   useEffect(() => {
     onChangeRef.current = onChange
     onEnterRef.current = onEnter
+    toneRef.current = tone
+    applyTone(fieldRef.current, tone)
   })
 
   useImperativeHandle(handleRef, () => ({
@@ -103,13 +127,19 @@ export function MathInput({
         onChangeRef.current?.(mf.getValue("latex"))
       })
       mf.addEventListener("keydown", (ev) => {
-        if ((ev as KeyboardEvent).key === "Enter") {
-          ev.preventDefault()
-          onEnterRef.current?.()
-        }
+        const e = ev as KeyboardEvent
+        if (e.key !== "Enter") return
+        // Sin preventDefault, MathLive mete un salto de línea en el campo.
+        // stopPropagation evita el doble disparo: el layout escucha el mismo
+        // atajo en `document` para que Enter funcione aunque el foco se haya
+        // ido del campo (después de responder, por ejemplo).
+        e.preventDefault()
+        e.stopPropagation()
+        onEnterRef.current?.({ shift: e.shiftKey })
       })
 
       host.replaceChildren(mf)
+      applyTone(mf, toneRef.current)
       // menuItems e inlineShortcuts exigen el elemento ya montado.
       mf.menuItems = []
       mf.inlineShortcuts = {

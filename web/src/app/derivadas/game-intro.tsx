@@ -29,8 +29,11 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { motion, useReducedMotion } from "motion/react"
 import { DERIVADAS_WORD, DerivadasLogo } from "./derivadas-logo"
 
-// Tamaño del logo mientras se presenta, en px.
-const INTRO_FONT_PX = 44
+// Tamaño del logo mientras se presenta, en px. Va atado a los tamaños de
+// llegada (1.0625rem en el header de escritorio, 1.9125rem en la portada del
+// teléfono): si se toca uno solo, el vuelo cambia de recorrido — con la
+// presentación más chica que el destino, el logo aterrizaría agrandándose.
+const INTRO_FONT_PX = 37
 
 // Ritmo, tomado del splash de Intervalo (components/splash-gate.tsx) para que
 // la marca se sienta igual.

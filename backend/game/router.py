@@ -48,6 +48,7 @@ from .schemas import (
     GamePlayerCreateResponse,
     GamePlayerOut,
     GameProfilePatchRequest,
+    GameSkipRequest,
     GameUniversityLeaderboardResponse,
     GameUniversityRow,
 )
@@ -246,14 +247,8 @@ def reset_player(
     return _player_out(db, player)
 
 
-@router.post("/next", response_model=GameExerciseOut)
-def next_exercise(
-    player: GamePlayer = Depends(get_current_player),
-    db: Session = Depends(get_db),
-):
-    exercise = serve_exercise(db, player)
+def _exercise_out(exercise: GameExercise, player: GamePlayer) -> GameExerciseOut:
     template = template_for(exercise)
-    db.commit()
     return GameExerciseOut(
         exercise_id=exercise.id,
         prompt_latex=exercise.prompt_latex,
@@ -266,6 +261,58 @@ def next_exercise(
             expr_from_stored(exercise.expected_derivative), exercise.id
         ),
     )
+
+
+@router.post("/next", response_model=GameExerciseOut)
+def next_exercise(
+    player: GamePlayer = Depends(get_current_player),
+    db: Session = Depends(get_db),
+):
+    exercise = serve_exercise(db, player)
+    db.commit()
+    return _exercise_out(exercise, player)
+
+
+@router.post("/skip", response_model=GameExerciseOut)
+def skip_exercise(
+    body: GameSkipRequest,
+    player: GamePlayer = Depends(get_current_player),
+    db: Session = Depends(get_db),
+):
+    """Saltear: cierra el ejercicio sin responderlo y sirve uno más fácil.
+
+    Saltear NO es responder, así que no mueve la beta de la plantilla ni suma a
+    los ejercicios intentados: pedir algo más fácil es información sobre el
+    jugador, no sobre la plantilla, y contarlo como intento inflaría el
+    denominador de la tasa de acierto. Sí baja un poco el θ y corta la racha —
+    si no, saltear todo lo difícil sería la forma óptima de sostener un combo.
+    Tampoco da XP, y como la XP escala con la dificultad, encadenar salteos
+    hasta el piso rinde cada vez menos: la mecánica se autolimita.
+    """
+    exercise = (
+        db.query(GameExercise)
+        .filter(GameExercise.id == body.exercise_id, GameExercise.player_id == player.id)
+        .first()
+    )
+    if exercise is None:
+        raise HTTPException(status_code=404, detail="Ejercicio no encontrado")
+    if exercise.status != "served":
+        raise HTTPException(status_code=409, detail="Ese ejercicio ya se cerró")
+
+    template = template_for(exercise)
+    exercise.status = "skipped"
+    exercise.answered_at = datetime.utcnow()
+    # Antes de servir: serve_exercise expira en bloque lo que siga en "served",
+    # y con el cambio todavía pendiente en la sesión este ejercicio entraría en
+    # esa barrida y terminaría marcado "expired" en vez de "skipped".
+    db.flush()
+
+    player.theta -= elo.SKIP_THETA_PENALTY
+    player.current_combo = 0
+
+    nxt = serve_exercise(db, player, max_tier=(template.tier - 1) if template else None)
+    db.commit()
+    return _exercise_out(nxt, player)
 
 
 @router.post("/answer", response_model=GameAnswerResponse)

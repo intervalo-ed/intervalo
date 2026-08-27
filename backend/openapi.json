@@ -280,6 +280,68 @@
         }
       }
     },
+    "/game/derivadas/skip": {
+      "post": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Skip Exercise",
+        "description": "Saltear: cierra el ejercicio sin responderlo y sirve uno m\u00e1s f\u00e1cil.\n\nSaltear NO es responder, as\u00ed que no mueve la beta de la plantilla ni suma a\nlos ejercicios intentados: pedir algo m\u00e1s f\u00e1cil es informaci\u00f3n sobre el\njugador, no sobre la plantilla, y contarlo como intento inflar\u00eda el\ndenominador de la tasa de acierto. S\u00ed baja un poco el \u03b8 y corta la racha \u2014\nsi no, saltear todo lo dif\u00edcil ser\u00eda la forma \u00f3ptima de sostener un combo.\nTampoco da XP, y como la XP escala con la dificultad, encadenar salteos\nhasta el piso rinde cada vez menos: la mec\u00e1nica se autolimita.",
+        "operationId": "skip_exercise_game_derivadas_skip_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-game-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Game-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameSkipRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameExerciseOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/game/derivadas/answer": {
       "post": {
         "tags": [
@@ -3757,6 +3819,19 @@
         ],
         "title": "GamePulse",
         "description": "Latido del ranking. El cliente lo consulta cada 10 s y solo refresca la\nlista si `version` cambi\u00f3 \u2014 y de paso ese mismo pedido es lo que hace\navanzar la actividad simulada (ver game/simulation.py)."
+      },
+      "GameSkipRequest": {
+        "properties": {
+          "exercise_id": {
+            "type": "integer",
+            "title": "Exercise Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "exercise_id"
+        ],
+        "title": "GameSkipRequest"
       },
       "GameUniversityLeaderboardResponse": {
         "properties": {

@@ -229,7 +229,44 @@ db.close()
 r = client.post("/game/derivadas/next", headers=H)
 check(r.json()["tier"] == 0, f"tras reiniciar vuelve a tier 0 (dio {r.json()['tier']})")
 
-print("6. merge guest→user (nivel función)")
+print("6. saltear")
+# Se lo empuja fuera de la rampa y a un θ medio para que la servida no sea T0:
+# saltear desde el piso no tendría nada más fácil que ofrecer.
+db = database.SessionLocal()
+p = db.query(GamePlayer).filter(GamePlayer.id == player_id).first()
+p.theta = 1.6
+p.n_updates = 20
+p.current_combo = 4
+db.commit()
+theta_before = p.theta
+attempted_before = p.exercises_attempted
+db.close()
+
+ex = client.post("/game/derivadas/next", headers=H).json()
+check(ex["tier"] > 0, f"el ejercicio a saltear no es del piso (tier {ex['tier']})")
+
+r = client.post("/game/derivadas/skip", headers=H, json={"exercise_id": ex["exercise_id"]})
+check(r.status_code == 200, f"POST /skip responde 200 (dio {r.status_code})")
+nxt = r.json()
+check(nxt["exercise_id"] != ex["exercise_id"], "devuelve un ejercicio nuevo")
+check(nxt["tier"] < ex["tier"], f"el nuevo es más fácil ({ex['tier']} -> {nxt['tier']})")
+
+db = database.SessionLocal()
+after = db.query(GamePlayer).filter(GamePlayer.id == player_id).first()
+drop = theta_before - after.theta
+check(abs(drop - 0.15) < 1e-9, f"θ baja 0.15 exactas (dio {drop:.4f})")
+check(after.current_combo == 0, "corta la racha")
+check(after.exercises_attempted == attempted_before, "no suma a los ejercicios intentados")
+check(
+    db.query(GameExercise).filter(GameExercise.id == ex["exercise_id"]).first().status == "skipped",
+    "el salteado queda en 'skipped', no 'expired'",
+)
+db.close()
+
+r = client.post("/game/derivadas/skip", headers=H, json={"exercise_id": ex["exercise_id"]})
+check(r.status_code == 409, f"saltear dos veces el mismo da 409 (dio {r.status_code})")
+
+print("7. merge guest→user (nivel función)")
 from game.deps import link_guest_to_user  # noqa: E402
 
 db = database.SessionLocal()

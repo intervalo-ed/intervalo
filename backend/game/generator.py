@@ -51,8 +51,14 @@ def _recent_template_keys(db: Session, player: GamePlayer) -> set[str]:
 
 
 def pick_template(
-    db: Session, player: GamePlayer, rng: random.Random | None = None
+    db: Session,
+    player: GamePlayer,
+    rng: random.Random | None = None,
+    max_tier: int | None = None,
 ) -> tuple[GameTemplate, GameTemplateStat, float]:
+    """`max_tier` es el tope duro que usa el salteo: bajar el θ solo inclina la
+    banda objetivo, y con el castigo chico el jugador podría recibir otra vez
+    algo del mismo tier. El botón promete una más fácil, así que se garantiza."""
     rng = rng or random.Random()
     recent = _recent_template_keys(db, player)
 
@@ -64,6 +70,15 @@ def pick_template(
         if not ramped:
             ramped = [t for t in TEMPLATES if t.tier <= player.n_updates]
         candidates = ramped
+    if max_tier is not None:
+        easier = [t for t in candidates if t.tier <= max_tier]
+        # Mismo criterio que la rampa: si el tope deja el set vacío, se prefiere
+        # repetir una plantilla reciente antes que faltar a la promesa. Si ni
+        # así hay nada (se salteó desde T0), el tope se ignora.
+        if not easier:
+            easier = [t for t in TEMPLATES if t.tier <= max_tier]
+        if easier:
+            candidates = easier
     if not candidates:
         candidates = list(TEMPLATES)
 
@@ -85,7 +100,10 @@ def pick_template(
 
 
 def serve_exercise(
-    db: Session, player: GamePlayer, rng: random.Random | None = None
+    db: Session,
+    player: GamePlayer,
+    rng: random.Random | None = None,
+    max_tier: int | None = None,
 ) -> GameExercise:
     """Expira lo servido pendiente, genera un ejercicio nuevo y lo persiste.
     No commitea: el endpoint es dueño de la transacción."""
@@ -96,7 +114,7 @@ def serve_exercise(
         GameExercise.status == "served",
     ).update({"status": "expired"}, synchronize_session=False)
 
-    template, stat, p_hat = pick_template(db, player, rng)
+    template, stat, p_hat = pick_template(db, player, rng, max_tier=max_tier)
     generated = template.build(rng)
     derivative = sympy.diff(generated.f, x)
 

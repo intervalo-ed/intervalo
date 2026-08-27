@@ -17,6 +17,22 @@ export function useNextExercise() {
   })
 }
 
+// Saltear cierra el ejercicio sin responderlo y devuelve DIRECTAMENTE el
+// siguiente, ya más fácil: un solo viaje, así el reemplazo se siente inmediato.
+// Baja un poco el Elo y corta la racha, y las dos cosas se ven en la card, así
+// que hay que refrescar al jugador.
+export function useSkipExercise() {
+  const api = useGameApi()
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (body: { exercise_id: number }) =>
+      unwrap(await api.POST("/game/derivadas/skip", { body })),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: gameKeys.me })
+    },
+  })
+}
+
 export function useAnswerExercise() {
   const api = useGameApi()
   const queryClient = useQueryClient()
