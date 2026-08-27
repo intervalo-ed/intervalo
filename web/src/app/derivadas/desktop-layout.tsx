@@ -206,13 +206,19 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     transition: "opacity 0.5s ease-in-out",
   }
 
-  const columns = "grid-cols-[minmax(0,1fr)_400px]"
+  // El ranking baja de 400 a 360 junto con el resto: si quedara fijo, achicar la
+  // caja le daría cada vez más proporción y se comería la columna del ejercicio.
+  const columns = "grid-cols-[minmax(0,1fr)_360px]"
 
   return (
     <div className="h-dvh overflow-hidden" style={GRID_BG_STYLE}>
-      {/* Más aire abajo que arriba, y tope de alto para que en una pantalla muy
-          alta el bloque no se estire hasta perder la forma. */}
-      <div className="mx-auto flex h-full max-h-[880px] w-full max-w-6xl flex-col gap-3 px-6 pb-12 pt-5">
+      {/* La caja mide un 10% menos que antes en las dos dimensiones: el juego
+          ocupa menos pantalla y queda más fondo libre a los costados y, sobre
+          todo, abajo. El alto va atado al 90% de la ventana y no solo a un tope
+          en píxeles, porque en las pantallas más comunes el que mandaba era el
+          viewport y el tope no llegaba a aplicarse. El bloque se ancla arriba,
+          así que todo lo que sobra se va al pie. */}
+      <div className="mx-auto flex h-full max-h-[min(90%,792px)] w-full max-w-[64.8rem] flex-col gap-3 px-6 pb-12 pt-5">
         <XpBurstConfetti burst={burst} target={magnetTarget} onArrive={onXpArrive} />
 
         <header className={`grid shrink-0 gap-3 ${columns}`}>
