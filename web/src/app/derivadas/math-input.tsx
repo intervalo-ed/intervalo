@@ -51,26 +51,57 @@ type Mathfield = HTMLElement & {
 //
 // Si alguna vez se cambia `inlineShortcuts` o el teclado del juego, revisar que
 // estos textos sigan siendo ciertos: un tip que miente es peor que ninguno.
-export const DESKTOP_TIPS = [
-  "Tip: Usá tu teclado, es mucho más rápido 🏃",
-  "Tip: Para el exponente, escribí x^2 ⬆️",
-  "Tip: La barra / te arma la fracción ➗",
-  "Tip: Escribí sqrt y brota la raíz 🌱",
-  "Tip: sen, cos y tg se escriben tal cual 📐",
-  "Tip: Tab te lleva al próximo hueco ⏭️",
-  "Tip: Enter revisa, Shift+Enter saltea ↩️",
-] as const
+// Los que enseñan a escribir algo se sirven solo cuando ese algo está en juego:
+// el de la raíz no aparece en f(x)=4x³, donde no significa nada y encima gasta
+// el turno de uno que sí serviría.
+//
+// La condición se mide contra las teclas que el ejercicio muestra
+// (`exercise.keys`) y NO contra las que la derivada realmente exige. Es a
+// propósito: el backend arma esa fila con lo necesario MÁS un par de
+// distractores plausibles, justamente para que no sea la respuesta servida (ver
+// game/keyboard.py). Pedirle al server las teclas exigidas volvería exacto el
+// filtro, pero el tip pasaría a delatar cuáles de las que se ven son de verdad
+// —"escribí sqrt" sobre una fila con √ y ÷ dice que la raíz va— y eso tira abajo
+// la razón de ser de los distractores. Atado a lo visible, el tip nunca dice más
+// de lo que el teclado ya muestra: enseña a escribir una tecla que está ahí.
+type Tip = { text: string; needs?: readonly string[] }
+
+// Todas las teclas dinámicas cuyo LaTeX abre por lo menos un hueco `#?`, que es
+// lo que hace útil a Tab. `sq` no está: inserta □² sin dejar nada que completar.
+const CON_HUECOS = ["pow", "sqrt", "frac", "log", "expx", "ln", "sen", "cos", "tg"] as const
+
+export const DESKTOP_TIPS: readonly Tip[] = [
+  { text: "Tip: Usá tu teclado, es mucho más rápido 🏃" },
+  { text: "Tip: Enter revisa, Shift+Enter saltea ↩️" },
+  { text: "Tip: Para el exponente, escribí x^2 ⬆️", needs: ["pow", "sq"] },
+  { text: "Tip: La barra / te arma la fracción ➗", needs: ["frac"] },
+  { text: "Tip: Escribí sqrt y brota la raíz 🌱", needs: ["sqrt"] },
+  { text: "Tip: sen, cos y tg se escriben tal cual 📐", needs: ["sen", "cos", "tg"] },
+  { text: "Tip: Tab te lleva al próximo hueco ⏭️", needs: CON_HUECOS },
+]
 
 // Cuántos ejercicios se sostiene el primer tip antes de empezar a rotar: el que
 // invita a soltar el mouse es el único que hay que ver sí o sí, y quien recién
 // llega no sabe todavía que puede tipear.
 const PRIMER_TIPS = 3
 
-export function tipFor({ seed, attempted }: { seed: number; attempted: number }): string {
-  if (attempted < PRIMER_TIPS) return DESKTOP_TIPS[0]
+export function tipFor({
+  seed,
+  attempted,
+  keys,
+}: {
+  seed: number
+  attempted: number
+  keys: readonly string[]
+}): string {
+  if (attempted < PRIMER_TIPS) return DESKTOP_TIPS[0].text
+  const elegibles = DESKTOP_TIPS.filter(
+    (t) => !t.needs || t.needs.some((k) => keys.includes(k)),
+  )
+  // Nunca queda vacío: los dos primeros no piden nada.
   // El id del ejercicio como semilla: cambia en cada servida —también al
   // saltear— y no hace falta llevar la cuenta en ningún lado.
-  return DESKTOP_TIPS[Math.abs(seed) % DESKTOP_TIPS.length]
+  return elegibles[Math.abs(seed) % elegibles.length].text
 }
 
 export const HINT_MOBILE = "Tocá el teclado de abajo 👇"

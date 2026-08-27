@@ -445,6 +445,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                               hint={tipFor({
                                 seed: exercise.exercise_id,
                                 attempted: player?.exercises_attempted ?? 0,
+                                keys: exercise.keys,
                               })}
                               onEnter={onEnterKey}
                               // En cuanto empieza a corregir, el rebote se va:
