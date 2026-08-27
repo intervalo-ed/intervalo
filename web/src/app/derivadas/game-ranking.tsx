@@ -314,7 +314,14 @@ function IndividualRanking({
   const ordered = settled ? entries : staged
 
   return (
-    <div ref={scrollRef} className="no-scrollbar -mx-1 min-h-0 flex-1 overflow-y-auto px-1">
+    // `relative` no es decorativo: hace que el scroller sea el `offsetParent` de
+    // las filas. Sin él, `offsetTop` se mide contra el ancestro posicionado de
+    // más arriba y arrastra el alto de los indicadores y los filtros, así que el
+    // centrado se pasaba de largo y la fila propia quedaba pegada al techo.
+    <div
+      ref={scrollRef}
+      className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-y-auto px-1"
+    >
       {hasPreviousPage && <div ref={topSentinelRef} aria-hidden className="h-px" />}
       {isFetchingPreviousPage && (
         <div className="flex justify-center py-2">
@@ -424,7 +431,7 @@ function UniversityRanking({ scope, enabled }: { scope: Scope; enabled: boolean 
   }
 
   return (
-    <div className="no-scrollbar -mx-1 min-h-0 flex-1 overflow-y-auto px-1">
+    <div className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-y-auto px-1">
       <ol className="flex flex-col gap-2 py-1">
         {data.rows.map((row, index) => (
           <li
