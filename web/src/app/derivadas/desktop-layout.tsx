@@ -392,6 +392,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       enabled={player !== null}
                       liveXp={liveXp}
                       counting={counting}
+                      myUniversity={player?.university ?? null}
                       attachXpTarget={attachTarget}
                       centerKey={centerKey}
                       className="flex-1"

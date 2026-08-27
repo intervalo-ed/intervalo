@@ -362,6 +362,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
               climbFrom={climbFrom}
               liveXp={liveXp}
               counting={counting}
+              myUniversity={player?.university ?? null}
               attachXpTarget={attachTarget}
               enabled={player !== null}
               onFire={fireXp}
@@ -438,6 +439,7 @@ function RankingSlide({
   climbFrom,
   liveXp,
   counting,
+  myUniversity,
   attachXpTarget,
   enabled,
   onFire,
@@ -448,6 +450,7 @@ function RankingSlide({
   climbFrom: number | null
   liveXp: number | null
   counting: boolean
+  myUniversity: string | null
   attachXpTarget: (node: HTMLElement | null) => void
   enabled: boolean
   onFire: (answer: GameAnswer) => void
@@ -481,6 +484,7 @@ function RankingSlide({
         enabled={enabled}
         liveXp={liveXp}
         counting={counting}
+        myUniversity={myUniversity}
         attachXpTarget={attachXpTarget}
         className="min-h-0 flex-1"
       />

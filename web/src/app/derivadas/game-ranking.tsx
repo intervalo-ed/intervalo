@@ -9,8 +9,8 @@
 //
 //   · Scroll infinito por baches hacia arriba y hacia abajo, anclando la
 //     posición al cargar hacia arriba para que la lista no pegue saltos.
-//   · Vuelve a centrar la fila propia sola: a los 10 s sin tocar la rueda, o
-//     cuando el layout lo pide (al resolver un ejercicio).
+//   · Vuelve a acomodar la fila propia sola —a cuatro filas del techo, no en el
+//     centro— a los 10 s sin tocar la rueda, o cuando el layout lo pide.
 //   · Muestra el XP en vuelo mientras el confeti se recolecta (`liveXp`), y
 //     recién cuando termina llega el orden nuevo y sube con un FLIP de motion.
 
@@ -39,10 +39,17 @@ const CLIMB_TOTAL_MS = 1600
 const CLIMB_STEP_MIN_MS = 80
 const CLIMB_STEP_MAX_MS = 220
 
-// Cuánto se acerca el scroll a dejar centrada la fila propia en cada paso de la
+// Cuánto se acerca el scroll a la posición de descanso en cada paso de la
 // escalada. Menos de 1 a propósito: el scroll acompaña con retraso, así se ve
-// que la fila trepa por la pantalla en vez de quedarse clavada en el centro.
+// que la fila trepa por la pantalla en vez de quedarse clavada en su lugar.
 const CLIMB_SCROLL_FOLLOW = 0.4
+
+// Filas que quedan por encima de la propia cuando la lista descansa. No es el
+// centro: se mira hacia arriba, a quién falta pasar, más que hacia abajo.
+const ROWS_ABOVE = 4
+
+// El `py-1` de la lista, que no forma parte de ninguna fila.
+const LIST_TOP_PADDING = 4
 
 // Sin tocar la rueda por este tiempo, la lista vuelve sola a la fila propia:
 // mirar el ranking ajeno está bien, perderse en él no.
@@ -56,6 +63,23 @@ function levelColor(level: number): string {
   return BELT_UNIT_TEXT_COLORS[belt] ?? BELT_UNIT_TEXT_COLORS.white
 }
 
+// Dónde tiene que quedar el scroll para que la fila marcada como propia
+// descanse a ROWS_ABOVE del techo. Lo usan las dos vistas —la individual con la
+// fila del jugador, la universitaria con la de su universidad— así que la lista
+// se comporta igual en las dos.
+function restingScrollTopFor(el: HTMLElement | null): number | null {
+  const mine = el?.querySelector<HTMLElement>("[data-current='true']")
+  if (!el || !mine) return null
+  const rows = Array.from(el.querySelectorAll<HTMLElement>("li"))
+  const index = rows.indexOf(mine)
+  if (index < 0) return null
+  const anchor = rows[Math.max(0, index - ROWS_ABOVE)]
+  return Math.max(0, anchor.offsetTop - LIST_TOP_PADDING)
+}
+
+// Resaltado de "esta fila sos vos": el mismo en las dos vistas.
+const MINE_ROW_CLASS = "bg-primary/10 ring-primary/30"
+
 export type GameRankingProps = {
   // Puesto anterior: si viene y es peor que el actual, se anima la escalada.
   climbFrom?: number | null
@@ -68,6 +92,9 @@ export type GameRankingProps = {
   attachXpTarget?: (node: HTMLElement | null) => void
   // Cambiar este número vuelve a centrar la fila propia con animación.
   centerKey?: number
+  // Universidad del jugador: se resalta en la vista universitaria igual que su
+  // fila en la individual.
+  myUniversity?: string | null
   className?: string
 }
 
@@ -78,6 +105,7 @@ export function GameRanking({
   counting = false,
   attachXpTarget,
   centerKey = 0,
+  myUniversity = null,
   className,
 }: GameRankingProps) {
   const [view, setView] = useState<"individual" | "university">("individual")
@@ -95,7 +123,7 @@ export function GameRanking({
       <div className="flex shrink-0 flex-col gap-2">
         <div className="grid grid-cols-2 gap-2">
           <Metric
-            label="Jugadores"
+            label="Estudiantes"
             value={
               <span className="inline-flex items-center gap-1.5">
                 <CountUp value={summary.data?.players ?? 0} format={fmtCount} />
@@ -104,7 +132,7 @@ export function GameRanking({
             }
           />
           <Metric
-            label="Derivadas resueltas"
+            label="Derivadas"
             value={
               <span className="inline-flex items-center gap-1.5">
                 <CountUp value={summary.data?.exercises ?? 0} format={fmtCount} />
@@ -135,7 +163,7 @@ export function GameRanking({
           centerKey={centerKey}
         />
       ) : (
-        <UniversityRanking scope={scope} enabled={enabled} />
+        <UniversityRanking scope={scope} enabled={enabled} myUniversity={myUniversity} />
       )}
     </div>
   )
@@ -226,16 +254,24 @@ function IndividualRanking({
   const prevTopRankRef = useRef<number | null>(null)
   const prevHeightRef = useRef(0)
 
-  const centerOnMe = useCallback((smooth: boolean) => {
-    const el = scrollRef.current
-    const mine = el?.querySelector<HTMLElement>("[data-current='true']")
-    if (!el || !mine) return
-    const top = mine.offsetTop - el.clientHeight / 2 + mine.offsetHeight / 2
-    if (Math.abs(el.scrollTop - top) < 4) return
-    el.scrollTo({ top, behavior: smooth ? "smooth" : "auto" })
-  }, [])
+  // Posición de descanso de la fila propia: a ROWS_ABOVE filas del techo, no en
+  // el centro exacto. Se ancla contando filas y no con aritmética de píxeles
+  // para que no dependa del alto de la caja: la fila propia queda siempre la
+  // quinta, entren ocho filas o quince.
+  const restingScrollTop = useCallback(() => restingScrollTopFor(scrollRef.current), [])
 
-  // Cambiar de scope reinicia la query: hay que volver a centrar.
+  const snapToMe = useCallback(
+    (smooth: boolean) => {
+      const el = scrollRef.current
+      const top = restingScrollTop()
+      if (!el || top === null) return
+      if (Math.abs(el.scrollTop - top) < 4) return
+      el.scrollTo({ top, behavior: smooth ? "smooth" : "auto" })
+    },
+    [restingScrollTop],
+  )
+
+  // Cambiar de scope reinicia la query: hay que volver a acomodar la lista.
   useEffect(() => {
     centeredRef.current = false
     prevTopRankRef.current = null
@@ -247,7 +283,7 @@ function IndividualRanking({
     if (!el || entries.length === 0) return
     const firstRank = entries[0]?.rank ?? null
     if (!centeredRef.current) {
-      centerOnMe(false)
+      snapToMe(false)
       centeredRef.current = true
     } else if (
       prevTopRankRef.current !== null &&
@@ -272,35 +308,36 @@ function IndividualRanking({
     const el = scrollRef.current
     const mine = el?.querySelector<HTMLElement>("[data-current='true']")
     if (!el || !mine) return
-    const centered = mine.offsetTop - el.clientHeight / 2 + mine.offsetHeight / 2
+    const resting = restingScrollTop()
+    if (resting === null) return
     const margin = mine.offsetHeight
     const lowest = mine.offsetTop + mine.offsetHeight + margin - el.clientHeight
     const highest = mine.offsetTop - margin
-    const followed = el.scrollTop + (centered - el.scrollTop) * CLIMB_SCROLL_FOLLOW
+    const followed = el.scrollTop + (resting - el.scrollTop) * CLIMB_SCROLL_FOLLOW
     el.scrollTop = Math.max(Math.min(followed, highest), lowest)
-  }, [step, climbing])
+  }, [step, climbing, restingScrollTop])
 
-  // Al terminar de escalar, el retraso acumulado se salda: la fila vuelve al
-  // centro con un scroll suave.
+  // Al terminar de escalar, el retraso acumulado se salda: la fila vuelve a su
+  // posición de descanso con un scroll suave.
   useEffect(() => {
     if (!climbing || !settled) return
-    centerOnMe(true)
-  }, [climbing, settled, climbKey, centerOnMe])
+    snapToMe(true)
+  }, [climbing, settled, climbKey, snapToMe])
 
-  // Cambiar de puesto siempre recentra, escales vos o te pasen los demás:
+  // Cambiar de puesto siempre reacomoda, escales vos o te pasen los demás:
   // mientras resolvés el ranking sigue moviéndose, y sin esto la fila propia se
   // iría yendo de la vista sola.
   useEffect(() => {
     if (myRank === null || !settled) return
-    centerOnMe(true)
-  }, [myRank, settled, centerOnMe])
+    snapToMe(true)
+  }, [myRank, settled, snapToMe])
 
   // Recentrado a pedido del layout (al resolver) — con animación.
   const firstCenterKey = useRef(centerKey)
   useEffect(() => {
     if (centerKey === firstCenterKey.current) return
-    centerOnMe(true)
-  }, [centerKey, centerOnMe])
+    snapToMe(true)
+  }, [centerKey, snapToMe])
 
   // Recentrado por inactividad: el timer se reinicia con cada rueda.
   // `entries.length` en las dependencias no es decorativo: en el primer render
@@ -313,7 +350,7 @@ function IndividualRanking({
     let timer: ReturnType<typeof setTimeout>
     const arm = () => {
       clearTimeout(timer)
-      timer = setTimeout(() => centerOnMe(true), IDLE_RECENTER_MS)
+      timer = setTimeout(() => snapToMe(true), IDLE_RECENTER_MS)
     }
     el.addEventListener("scroll", arm, { passive: true })
     arm()
@@ -321,7 +358,7 @@ function IndividualRanking({
       clearTimeout(timer)
       el.removeEventListener("scroll", arm)
     }
-  }, [centerOnMe, entries.length])
+  }, [snapToMe, entries.length])
 
   const topSentinelRef = useRef<HTMLDivElement | null>(null)
   const bottomSentinelRef = useRef<HTMLDivElement | null>(null)
@@ -450,7 +487,7 @@ function Row({
       data-current={mine ? "true" : undefined}
       className={cn(
         "flex items-center gap-3 rounded-lg px-4 py-3 ring-1 ring-foreground/10",
-        mine && "bg-primary/10 ring-primary/30",
+        mine && MINE_ROW_CLASS,
       )}
     >
       <span className="w-4 shrink-0 text-center text-sm font-semibold tabular-nums text-muted-foreground">
@@ -489,8 +526,33 @@ function Row({
   )
 }
 
-function UniversityRanking({ scope, enabled }: { scope: Scope; enabled: boolean }) {
+function UniversityRanking({
+  scope,
+  enabled,
+  myUniversity,
+}: {
+  scope: Scope
+  enabled: boolean
+  myUniversity: string | null
+}) {
   const { data, isLoading } = useGameUniversityLeaderboard(scope, enabled)
+  const scrollRef = useRef<HTMLDivElement | null>(null)
+  const placedRef = useRef(false)
+
+  // La universidad propia se acomoda igual que la fila propia de la vista
+  // individual: a cuatro filas del techo. Sin esto, entrar a "Universitario"
+  // dejaba la tuya fuera de pantalla y había que buscarla scrolleando.
+  useEffect(() => {
+    placedRef.current = false
+  }, [scope.university, scope.career, myUniversity])
+
+  useLayoutEffect(() => {
+    if (placedRef.current || !data || data.rows.length === 0) return
+    const top = restingScrollTopFor(scrollRef.current)
+    if (top === null) return
+    scrollRef.current?.scrollTo({ top, behavior: "auto" })
+    placedRef.current = true
+  })
 
   if (isLoading) return <ListSkeleton />
   if (!data || data.rows.length === 0) {
@@ -502,12 +564,21 @@ function UniversityRanking({ scope, enabled }: { scope: Scope; enabled: boolean 
   }
 
   return (
-    <div className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-y-auto px-1">
+    <div
+      ref={scrollRef}
+      className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-y-auto px-1"
+    >
       <ol className="flex flex-col gap-2 py-1">
-        {data.rows.map((row, index) => (
+        {data.rows.map((row, index) => {
+          const mine = myUniversity !== null && row.university === myUniversity
+          return (
           <li
             key={row.university}
-            className="flex items-center gap-2 rounded-lg px-4 py-3 ring-1 ring-foreground/10"
+            data-current={mine ? "true" : undefined}
+            className={cn(
+              "flex items-center gap-2 rounded-lg px-4 py-3 ring-1 ring-foreground/10",
+              mine && MINE_ROW_CLASS,
+            )}
           >
             <span className="w-4 shrink-0 text-center text-sm font-semibold tabular-nums text-muted-foreground">
               {index + 1}
@@ -524,7 +595,8 @@ function UniversityRanking({ scope, enabled }: { scope: Scope; enabled: boolean 
               <XpDots className="size-[0.85em] text-white" />
             </span>
           </li>
-        ))}
+          )
+        })}
       </ol>
     </div>
   )
