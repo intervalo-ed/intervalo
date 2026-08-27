@@ -36,7 +36,7 @@ import {
   SkipButton,
   answerTone,
 } from "./exercise-card"
-import { DerivativesTable, FlipCard, TableButton } from "./derivatives-table"
+import { DerivativesTable, PeekSheet, TableButton } from "./derivatives-table"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { GameRanking } from "./game-ranking"
 import { MathInput, tipFor, type MathInputHandle } from "./math-input"
@@ -532,15 +532,15 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                           hereda card + teclado y entra completa. El botón de
                           abajo queda afuera a propósito — es lo único que sigue
                           sirviendo con la tabla a la vista. */}
-                      <FlipCard
+                      <PeekSheet
                         className="min-h-0 flex-1"
-                        flipped={tableOpen}
-                        back={
+                        open={tableOpen}
+                        sheet={
                           <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-4">
                             <DerivativesTable />
                           </div>
                         }
-                        front={
+                        under={
                           // Enunciado y teclado en UNA card, separados por una
                           // línea: son un solo objeto —la derivada y con qué
                           // escribirla— y dos cajas con su propio borde los

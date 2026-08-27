@@ -13,7 +13,7 @@
 // cocientes, y sin ellas la tabla no sirve justo donde más se la necesita.
 
 import { Fragment } from "react"
-import { motion } from "motion/react"
+import { motion, useReducedMotion } from "motion/react"
 import { Table2 as TableIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import MathText from "@/components/math-text"
@@ -158,51 +158,52 @@ export function TableButton({
   )
 }
 
-// El volteo. Las dos caras viven superpuestas dentro de un contenedor que gira
-// en 3D: la de atrás nace ya girada 180°, así que al girar el contenedor queda
-// derecha y la de adelante se va.
+// La tabla baja desde el borde de arriba y tapa el ejercicio, como una persiana
+// o una hoja de consulta que se despliega; al cerrarse sube y se va.
 //
-// `backfaceVisibility: hidden` en las dos es lo que evita ver la cara de atrás
-// espejada durante el giro. Y el `perspective` va en un contenedor APARTE del
-// que rota: si van juntos, el navegador aplica la perspectiva antes de la
-// rotación y el giro se ve plano.
-const FLIP_S = 0.5
+// Antes esto era un volteo 3D y se cambió por robustez, no por gusto:
+// `preserve-3d` es de lo más frágil que hay en CSS —cualquier ancestro con
+// overflow, filter u opacity aplana el contexto y el giro se ve plano o
+// espejado— y esta card justamente tiene `overflow-hidden`. Acá lo único que se
+// anima es un `translateY`, que es 2D, lo compone la GPU y no depende de ningún
+// contexto de apilamiento.
+//
+// El recorte no lo pone este componente: lo hace el `overflow-hidden` que la
+// card ya tenía, que es lo que esconde la tabla mientras está arriba.
+const SLIDE_S = 0.42
 
-export function FlipCard({
-  flipped,
-  front,
-  back,
+export function PeekSheet({
+  open,
+  under,
+  sheet,
   className,
 }: {
-  flipped: boolean
-  front: React.ReactNode
-  back: React.ReactNode
+  open: boolean
+  // Lo que queda debajo (el ejercicio) y lo que baja encima (la tabla).
+  under: React.ReactNode
+  sheet: React.ReactNode
   className?: string
 }) {
+  const reduceMotion = useReducedMotion()
   return (
-    <div className={cn("relative", className)} style={{ perspective: 1600 }}>
+    <div className={cn("relative overflow-hidden rounded-lg", className)}>
+      {/* El ejercicio se queda quieto abajo: la persiana lo tapa, no lo empuja.
+          `inert` mientras está tapado, si no se puede tabular hasta el campo de
+          respuesta que quedó debajo de la tabla. */}
+      <div className="flex h-full w-full flex-col" inert={open}>
+        {under}
+      </div>
       <motion.div
-        className="relative h-full w-full"
-        style={{ transformStyle: "preserve-3d" }}
-        animate={{ rotateY: flipped ? 180 : 0 }}
-        transition={{ duration: FLIP_S, ease: [0.32, 0.72, 0.24, 1] }}
+        className="absolute inset-0 flex flex-col"
+        // `initial={false}`: al montar tiene que ESTAR arriba, no bajar sola.
+        initial={false}
+        animate={{ y: open ? "0%" : "-100%" }}
+        transition={
+          reduceMotion ? { duration: 0 } : { duration: SLIDE_S, ease: [0.32, 0.72, 0.24, 1] }
+        }
+        inert={!open}
       >
-        {/* `inert` en la cara que no se ve: si no, se puede tabular hasta el
-            campo de respuesta que está del otro lado de la card. */}
-        <div
-          className="flex h-full w-full flex-col"
-          style={{ backfaceVisibility: "hidden" }}
-          inert={flipped}
-        >
-          {front}
-        </div>
-        <div
-          className="absolute inset-0 flex flex-col"
-          style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
-          inert={!flipped}
-        >
-          {back}
-        </div>
+        {sheet}
       </motion.div>
     </div>
   )
