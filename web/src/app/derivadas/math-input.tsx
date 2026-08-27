@@ -37,7 +37,7 @@ type Mathfield = HTMLElement & {
 // El cartel lo dibujamos nosotros y no MathLive: su propiedad `placeholder`
 // existe en la 0.110 pero no renderiza nada (probado con LaTeX pelado, con
 // \text{} y con y sin foco: `.ML__placeholder` nunca aparece en el shadow DOM).
-export const HINT_DESKTOP = "Tip: Usá tu teclado, es mucho más rápido 💨"
+export const HINT_DESKTOP = "Tip: Usá tu teclado, es mucho más rápido 🏃"
 export const HINT_MOBILE = "Tocá el teclado de abajo 👇"
 
 // Borde del campo según el feedback. Los hex son los mismos que usa el resto
