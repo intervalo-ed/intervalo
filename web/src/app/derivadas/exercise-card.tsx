@@ -64,6 +64,89 @@ function useShake(wrong: boolean, seq: number) {
   return shaking
 }
 
+const DIGITS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+// Un dígito como rodillo: la tira completa de 0 a 9, desplazada hasta dejar a
+// la vista el que toca. La dirección del giro no se calcula ni se recuerda —
+// sale sola de interpolar el `y` entre el valor viejo y el nuevo, así que subir
+// de 4 a 5 rueda hacia arriba y caer de 7 a 0 rueda hacia abajo, sin comparar
+// nada contra un valor anterior guardado.
+//
+// La tira mide diez líneas, así que un 10% de su alto es exactamente una línea:
+// por eso el desplazamiento va en porcentaje y no en `em`, y el rodillo sigue
+// cuadrando si cambia el tamaño de letra.
+const LINE = "1.1em"
+
+function RollingDigit({ d, instant }: { d: number; instant: boolean }) {
+  return (
+    <span className="inline-block overflow-hidden" style={{ height: LINE }}>
+      <motion.span
+        className="flex flex-col"
+        animate={{ y: `${-d * 10}%` }}
+        transition={instant ? { duration: 0 } : { type: "spring", stiffness: 300, damping: 32 }}
+      >
+        {DIGITS.map((n) => (
+          <span key={n} style={{ height: LINE, lineHeight: LINE }}>
+            {n}
+          </span>
+        ))}
+      </motion.span>
+    </span>
+  )
+}
+
+function RollingNumber({ value }: { value: number }) {
+  const reduceMotion = useReducedMotion()
+  const digits = Math.max(0, Math.trunc(value)).toString().split("")
+  return (
+    // aria-hidden: diez dígitos por columna son ruido para un lector de
+    // pantalla. El número lo anuncia el aria-label del contador.
+    <span aria-hidden className="flex tabular-nums">
+      {digits.map((d, i) => (
+        // La key cuenta desde la DERECHA: al pasar de 9 a 10 la columna de las
+        // unidades tiene que seguir siendo la misma y rodar de 9 a 0, no
+        // remontarse y aparecer de golpe.
+        <RollingDigit key={digits.length - i} d={Number(d)} instant={!!reduceMotion} />
+      ))}
+    </span>
+  )
+}
+
+function Counter({
+  value,
+  emoji,
+  label,
+  dim = false,
+}: {
+  value: number
+  emoji: string
+  label: string
+  dim?: boolean
+}) {
+  return (
+    // `leading-none` en los dos: el emoji trae una caja de línea más alta que
+    // la del rodillo y, sin achicarla, estiraba la fila entera y empujaba la
+    // pregunta hacia abajo.
+    <span
+      className={cn(
+        "flex items-center gap-1.5 text-base font-medium leading-none",
+        dim ? "text-muted-foreground" : "text-foreground",
+      )}
+      aria-label={label}
+    >
+      <RollingNumber value={value} />
+      {/* Sin corrección de posición a propósito. Medido en pantalla: la tinta
+          del dígito y la del emoji tienen su centro a la misma altura sobre la
+          línea base, y con `leading-none` en los dos el centrado del flex deja
+          las dos líneas base en el mismo píxel. Cualquier empujón acá los
+          desalinea en vez de arreglarlos. */}
+      <span aria-hidden className={cn("leading-none", dim && "opacity-40 grayscale")}>
+        {emoji}
+      </span>
+    </span>
+  )
+}
+
 export function ExerciseCard({
   streak,
   attempted,
@@ -80,30 +163,32 @@ export function ExerciseCard({
 }) {
   return (
     <div className={cn("flex flex-col rounded-lg border border-border bg-card p-4", className)}>
-      <div className="flex shrink-0 items-center justify-between gap-3 text-sm tabular-nums">
-        <span className="text-muted-foreground" aria-label={`${attempted} ejercicios`}>
-          {attempted} ejercicios
-        </span>
-        <span
-          className={cn(
-            "flex items-center gap-1",
-            streak > 0 ? "text-foreground" : "text-muted-foreground",
-          )}
-          aria-label={`racha de ${streak}`}
-        >
-          {streak}
-          <span aria-hidden className={streak > 0 ? undefined : "opacity-40 grayscale"}>
-            🔥
-          </span>
+      {/* La pregunta y los marcadores comparten renglón. Los dos marcadores van
+          juntos porque son la misma clase de dato —cuánto llevás—; separados a
+          los extremos se leían como si midieran cosas distintas. La palabra
+          "ejercicios" se fue con ellos: al lado de un número con emoji, el
+          rótulo sobraba.
+          La pregunta puede achicarse (`min-w-0`) y los marcadores no: en el
+          teléfono lo que cede es el texto, que envuelve, y no los números. */}
+      <div className="flex shrink-0 items-center justify-between gap-3">
+        <p className="min-w-0 text-sm text-muted-foreground md:text-base">{PROMPT_QUESTION}</p>
+        <span className="flex shrink-0 items-center gap-4">
+          <Counter value={attempted} emoji="🧮" label={`${attempted} ejercicios`} />
+          <Counter value={streak} emoji="🔥" label={`racha de ${streak}`} dim={streak === 0} />
         </span>
       </div>
-      <p className="mt-1 shrink-0 text-sm text-muted-foreground">{PROMPT_QUESTION}</p>
       {/* En escritorio la card crece hasta llenar la columna: el enunciado y el
           campo quedan centrados en vez de apretados arriba con un hueco abajo.
           Sin `min-h-0` a propósito — con él, en una ventana baja la card se
           encoge por debajo de su contenido y el enunciado se sale por arriba. */}
       <div className="flex flex-1 flex-col justify-center gap-3">
-        <MathText text={`$$f(x) = ${promptLatex}$$`} />
+        {/* La función es el foco de la pantalla y hasta acá se leía al mismo
+            cuerpo que el resto del texto. El tamaño va en el contenedor y no en
+            KaTeX: MathText ya escala su propio `.katex` en `em`, así que basta
+            con moverle la base. */}
+        <div className="text-[1.45rem]">
+          <MathText text={`$$f(x) = ${promptLatex}$$`} />
+        </div>
         {children}
       </div>
     </div>
@@ -256,9 +341,13 @@ export function AnswerButton({
   )
 }
 
-// Saltear. Vive al lado del botón principal y no debajo: el pedido fue que el
-// bloque ocupara menos alto, y una fila más para un atajo secundario iba justo
-// en contra.
+// Saltear. Mismo formato que el botón "Opciones" de las sesiones de Intervalo
+// (session-runner.tsx :: OptionsArea): contorno fino sobre el fondo, sin
+// relleno. Es la forma que el proyecto ya usa para "la acción secundaria de
+// este paso", y acá cumple ese mismo papel al lado del botón principal.
+//
+// Va al lado y no debajo porque el pedido fue que el bloque ocupara menos alto,
+// y una fila más para un atajo secundario iba justo en contra.
 export function SkipButton({
   disabled,
   onClick,
@@ -271,12 +360,12 @@ export function SkipButton({
   return (
     <Button
       size="lg"
-      variant="ghost"
+      variant="outline"
       disabled={disabled}
       onClick={onClick}
-      className="h-[var(--cta-h)] shrink-0 rounded-md px-3 text-sm font-normal text-muted-foreground hover:text-foreground"
+      className="h-[var(--cta-h)] shrink-0 rounded-md bg-background px-5 font-normal dark:bg-background"
     >
-      saltear
+      Saltear
       {showKeyHint && (
         <KeyCap>
           ⇧

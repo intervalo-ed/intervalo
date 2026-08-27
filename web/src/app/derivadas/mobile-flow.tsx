@@ -34,7 +34,7 @@ import {
 } from "./exercise-card"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { GameRanking } from "./game-ranking"
-import { MathInput, type MathInputHandle } from "./math-input"
+import { HINT_MOBILE, MathInput, type MathInputHandle } from "./math-input"
 import { MathKeyboard } from "./math-keyboard"
 import { parseAnswerToMathJson, warmupComputeEngine } from "./parse-answer"
 import { ProfileSlides, RegisterSlide } from "./register-slides"
@@ -376,6 +376,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                 <MathInput
                   handleRef={inputRef}
                   tone={tone}
+                  hint={HINT_MOBILE}
                   onEnter={({ shift }) => {
                     if (shift) onSkip()
                     else if (closed) advanceAfterAnswer(null)

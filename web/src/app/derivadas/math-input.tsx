@@ -6,7 +6,7 @@
 // campo. MathLive se importa dinámicamente para que su bundle (~700KB) no
 // entre en ninguna otra ruta.
 
-import { useEffect, useImperativeHandle, useRef, type Ref } from "react"
+import { useEffect, useImperativeHandle, useRef, useState, type Ref } from "react"
 
 export type MathInputHandle = {
   insert: (latex: string) => void
@@ -27,6 +27,18 @@ type Mathfield = HTMLElement & {
   executeCommand: (cmd: string | [string, ...unknown[]]) => boolean
   focus: () => void
 }
+
+// Cartel del campo vacío. El texto lo pone cada layout porque la respuesta
+// correcta depende del aparato: en escritorio lo natural es tipear —la botonera
+// queda para lo que no se sabe escribir, como x²— y en el teléfono no hay
+// teclado físico, y encima el campo tiene `inputmode="none"`, así que tocarlo no
+// abre el del sistema y sin el cartel parece que no hiciera nada.
+//
+// El cartel lo dibujamos nosotros y no MathLive: su propiedad `placeholder`
+// existe en la 0.110 pero no renderiza nada (probado con LaTeX pelado, con
+// \text{} y con y sin foco: `.ML__placeholder` nunca aparece en el shadow DOM).
+export const HINT_DESKTOP = "escribí tu respuesta con el teclado"
+export const HINT_MOBILE = "usá el teclado de abajo"
 
 // Borde del campo según el feedback. Los hex son los mismos que usa el resto
 // del juego (exercise-card.tsx) y que las opciones del session-runner.
@@ -50,9 +62,12 @@ export function MathInput({
   onChange,
   onEnter,
   tone = null,
+  hint,
 }: {
   handleRef?: Ref<MathInputHandle>
   onChange?: (latex: string) => void
+  // Qué decir cuando el campo está vacío (ver HINT_DESKTOP / HINT_MOBILE).
+  hint?: string
   // `shift` distingue revisar de saltear: los dos atajos entran por la misma
   // tecla y MathLive es dueño del keydown mientras el campo tiene el foco.
   onEnter?: (opts: { shift: boolean }) => void
@@ -70,18 +85,27 @@ export function MathInput({
     applyTone(fieldRef.current, tone)
   })
 
+  // Si el campo está vacío, para saber si va el cartel. Se recalcula también
+  // después de cada comando imperativo: `deleteBackward` puede dejarlo vacío y
+  // `clear()` asigna `.value` directo, que no siempre dispara `input`.
+  const [empty, setEmpty] = useState(true)
+  const syncEmpty = () => setEmpty((fieldRef.current?.getValue("latex") ?? "").trim() === "")
+
   useImperativeHandle(handleRef, () => ({
     insert: (latex: string) => {
       fieldRef.current?.executeCommand(["insert", latex])
       fieldRef.current?.focus()
+      syncEmpty()
     },
     command: (cmd: string) => {
       fieldRef.current?.executeCommand(cmd)
       fieldRef.current?.focus()
+      syncEmpty()
     },
     getLatex: () => fieldRef.current?.getValue("latex") ?? "",
     clear: () => {
       if (fieldRef.current) fieldRef.current.value = ""
+      setEmpty(true)
     },
     focus: () => fieldRef.current?.focus(),
   }))
@@ -114,6 +138,11 @@ export function MathInput({
       mf.style.background = "var(--background)"
       mf.style.color = "var(--foreground)"
       mf.style.setProperty("--caret-color", "var(--ring)")
+      // Los huecos `#?` de las teclas dinámicas (√□, □², ln(□)) se dibujan como
+      // \placeholder: el default de MathLive es un azul propio al 40% que no es
+      // de ninguna paleta de acá.
+      mf.style.setProperty("--placeholder-color", "var(--muted-foreground)")
+      mf.style.setProperty("--placeholder-opacity", "0.75")
       mf.style.setProperty("--selection-background-color", "color-mix(in oklab, var(--primary) 35%, transparent)")
       mf.style.setProperty("--contains-highlight-background-color", "transparent")
       // Los dos botones que MathLive dibuja adentro del campo (abrir su teclado
@@ -124,7 +153,9 @@ export function MathInput({
       mf.classList.add("game-mathfield")
 
       mf.addEventListener("input", () => {
-        onChangeRef.current?.(mf.getValue("latex"))
+        const latex = mf.getValue("latex")
+        setEmpty(latex.trim() === "")
+        onChangeRef.current?.(latex)
       })
       mf.addEventListener("keydown", (ev) => {
         const e = ev as KeyboardEvent
@@ -164,7 +195,22 @@ export function MathInput({
         .game-mathfield::part(virtual-keyboard-toggle),
         .game-mathfield::part(menu-toggle) { display: none; }
       `}</style>
-      <div ref={hostRef} className="min-h-[3.4rem]" aria-label="Tu derivada" />
+      {/* El cartel va FUERA del div del campo: ese nodo lo maneja MathLive con
+          `replaceChildren`, así que cualquier hijo que ponga React ahí lo
+          borraría al montar. */}
+      <div className="relative">
+        <div ref={hostRef} className="min-h-[3.4rem]" aria-label="Tu derivada" />
+        {empty && hint && (
+          <span
+            aria-hidden
+            // `left-5` y no el padding del campo (0.75rem): así el cartel
+            // arranca después del cursor en vez de abajo de él.
+            className="pointer-events-none absolute inset-y-0 left-5 flex items-center text-sm text-muted-foreground/70"
+          >
+            {hint}
+          </span>
+        )}
+      </div>
     </>
   )
 }

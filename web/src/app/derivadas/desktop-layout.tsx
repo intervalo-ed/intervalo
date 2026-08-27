@@ -38,7 +38,7 @@ import {
 } from "./exercise-card"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { GameRanking } from "./game-ranking"
-import { MathInput, type MathInputHandle } from "./math-input"
+import { HINT_DESKTOP, MathInput, type MathInputHandle } from "./math-input"
 import { MathKeyboard } from "./math-keyboard"
 import { parseAnswerToMathJson, warmupComputeEngine } from "./parse-answer"
 import { ProfileSlides, RegisterSlide } from "./register-slides"
@@ -439,6 +439,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                             <MathInput
                               handleRef={inputRef}
                               tone={tone}
+                              hint={HINT_DESKTOP}
                               onEnter={onEnterKey}
                               // En cuanto empieza a corregir, el rebote se va:
                               // el naranja es sobre la respuesta que mandó, no
@@ -455,6 +456,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       <MathKeyboard
                         input={inputRef}
                         keys={exercise.keys}
+                        numpad={false}
                         className={closed ? "pointer-events-none opacity-45" : undefined}
                       />
                       <div className="flex shrink-0 items-stretch gap-2">

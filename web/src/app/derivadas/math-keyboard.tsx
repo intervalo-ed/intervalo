@@ -51,25 +51,36 @@ type Key = {
   // Tamaño relativo del glifo. Los símbolos necesitan más cuerpo que los
   // dígitos para leerse igual de bien: en KaTeX un `+` ocupa mucho menos alto
   // que un `7`.
-  size?: "sm" | "md" | "lg"
+  size?: keyof typeof SIZES
 }
 
+// Color a media asta. Los tonos originales (#4ADE80, #F87171, #C084FC…) eran
+// puros de paleta y al lado de un enunciado en KaTeX el teclado parecía de otra
+// aplicación; bajarlos hasta el tinte casi blanco fue pasarse de largo y el rol
+// de cada tecla dejaba de leerse. Esta franja —claridad ~68%, saturación ~55%—
+// es la que conserva el color sin gritar.
 const TONES = {
   plain: "text-foreground",
-  add: "text-[#4ADE80]",
-  sub: "text-[#F87171]",
-  unknown: "text-[#C084FC]",
-  mul: "text-[#60A5FA]",
-  paren: "text-[#FBBF24]",
-  nav: "text-[#94A3B8]",
-  clear: "text-[#FBBF24]",
-  erase: "text-[#F87171]",
+  add: "text-[#7ECE9F]",
+  sub: "text-[#E08E85]",
+  unknown: "text-[#B99CE2]",
+  mul: "text-[#81AADA]",
+  paren: "text-[#DCBA74]",
+  // Las flechas no son matemática sino navegación: van con el tono que el tema
+  // ya usa para todo lo secundario.
+  nav: "text-muted-foreground",
+  clear: "text-[#DCBA74]",
+  erase: "text-[#E08E85]",
 } as const
 
 const SIZES = {
   sm: "text-[1.05rem]",
   md: "text-[1.25rem]",
   lg: "text-[1.5rem]",
+  // Los dígitos, un punto más chicos en escritorio. En el teléfono se quedan
+  // como estaban: ahí la tecla ya es chica y el número es lo único que la hace
+  // legible de un vistazo.
+  num: "text-[1.25rem] md:text-[1.1rem]",
 } as const
 
 // El HTML de KaTeX para un glifo depende solo del LaTeX, y el teclado repite
@@ -105,13 +116,17 @@ const CENTER: Key[] = [
   { tex: "\\cdot", insert: "\\cdot", tone: "mul", size: "lg" },
 ]
 
+const NUM = (d: string): Key => ({ tex: d, insert: d, size: "num" })
+
+const CLEAR_KEY: Key = { tex: "\\mathrm{C}", action: "clear", tone: "clear" }
+
 const NUMPAD: Key[] = [
-  { tex: "7", insert: "7" }, { tex: "8", insert: "8" }, { tex: "9", insert: "9" },
-  { tex: "4", insert: "4" }, { tex: "5", insert: "5" }, { tex: "6", insert: "6" },
-  { tex: "1", insert: "1" }, { tex: "2", insert: "2" }, { tex: "3", insert: "3" },
-  { tex: "\\mathrm{C}", action: "clear", tone: "clear" },
-  { tex: "0", insert: "0" },
-  { node: <Delete size={20} />, cmd: "deleteBackward", tone: "erase" },
+  NUM("7"), NUM("8"), NUM("9"),
+  NUM("4"), NUM("5"), NUM("6"),
+  NUM("1"), NUM("2"), NUM("3"),
+  { ...CLEAR_KEY, size: "num" },
+  NUM("0"),
+  { node: <Delete size={19} />, cmd: "deleteBackward", tone: "erase" },
 ]
 
 // Vocabulario dinámico. Las claves son los ids que manda el backend; cualquier
@@ -146,6 +161,15 @@ const ROW_VARS = "[--kb-row:2.5rem] md:[--kb-row:2.05rem]"
 // que tiene los glifos más altos (fracciones, raíces, potencias).
 const DYNAMIC_ROW = "2.75rem"
 
+// Alto de la regleta que reemplaza al bloque fijo cuando no hay numérico. Igual
+// que la fila dinámica: son dos tiras hermanas, no un pad.
+const STRIP_ROW = "2.75rem"
+
+// La regleta de escritorio: lo que queda del bloque fijo sin los dígitos. `C`
+// sobrevive al numérico porque borrar todo de un saque no tiene equivalente en
+// el teclado físico; el retroceso sí (la tecla Backspace), así que no está.
+const STRIP: Key[] = [...CENTER, ...LEFT, CLEAR_KEY]
+
 const KEY_CLASS =
   "flex select-none items-center justify-center rounded-md bg-background leading-none transition-colors active:bg-accent"
 
@@ -157,10 +181,16 @@ const GLYPH_CLASS = "[&_.katex]:text-[1em] [&_.katex]:leading-none"
 export function MathKeyboard({
   input,
   keys = [],
+  numpad = true,
   className,
 }: {
   input: React.RefObject<MathInputHandle | null>
   keys?: string[]
+  // El numérico solo hace falta donde no hay teclado físico. En escritorio los
+  // dígitos se tipean, y un pad de doce teclas para eso era la mitad del alto
+  // del panel ocupada por lo más fácil de escribir. Lo que queda es lo que la
+  // botonera aporta de verdad: lo que uno no sabe cómo escribir.
+  numpad?: boolean
   className?: string
 }) {
   const sfx = useSfx()
@@ -251,20 +281,35 @@ export function MathKeyboard({
           }),
         )}
       </div>
-      <div className="flex min-h-0 flex-1 gap-1.5">
-        {/* Los bloques laterales van a doble alto contra las cuatro filas del
-            numérico: así los tres miden lo mismo y las teclas más usadas tienen
-            el blanco más grande. */}
-        <div className="grid flex-[2] grid-cols-2 gap-1.5" style={tallRows}>
-          {LEFT.map((key, i) => button(key, `left-${i}`))}
+      {numpad ? (
+        <div className="flex min-h-0 flex-1 gap-1.5">
+          {/* Los bloques laterales van a doble alto contra las cuatro filas del
+              numérico: así los tres miden lo mismo y las teclas más usadas
+              tienen el blanco más grande. */}
+          <div className="grid flex-[2] grid-cols-2 gap-1.5" style={tallRows}>
+            {LEFT.map((key, i) => button(key, `left-${i}`))}
+          </div>
+          <div className="grid flex-[2] grid-cols-2 gap-1.5" style={tallRows}>
+            {CENTER.map((key, i) => button(key, `center-${i}`))}
+          </div>
+          <div className="grid flex-[3] grid-cols-3 gap-1.5" style={numRows}>
+            {NUMPAD.map((key, i) => button(key, `num-${i}`))}
+          </div>
         </div>
-        <div className="grid flex-[2] grid-cols-2 gap-1.5" style={tallRows}>
-          {CENTER.map((key, i) => button(key, `center-${i}`))}
+      ) : (
+        // Sin numérico queda una regleta de una sola fila, no un pad. El orden
+        // es por frecuencia: primero la incógnita y las operaciones, después los
+        // paréntesis, y al final mover el cursor y borrar todo.
+        <div
+          className="grid shrink-0 gap-1.5"
+          style={{
+            height: STRIP_ROW,
+            gridTemplateColumns: `repeat(${STRIP.length}, minmax(0, 1fr))`,
+          }}
+        >
+          {STRIP.map((key, i) => button(key, `strip-${i}`))}
         </div>
-        <div className="grid flex-[3] grid-cols-3 gap-1.5" style={numRows}>
-          {NUMPAD.map((key, i) => button(key, `num-${i}`))}
-        </div>
-      </div>
+      )}
     </div>
   )
 }
