@@ -54,20 +54,27 @@ const SHAKE = [0, -8, 8, -6, 6, -3, 0]
 const SHAKE_S = 0.4
 const PULSE_S = 0.45
 
-// El sacudón tiene que volver a correr en cada respuesta errada, incluso si la
-// anterior también lo estaba: si `animate` se quedara en el mismo valor, motion
-// no reanimaría. En vez de resetear el estado desde el efecto (que sería un
-// setState síncrono dentro de un effect), se DERIVA: se sacude mientras la
-// última respuesta asentada no sea esta.
-function useShake(wrong: boolean, seq: number) {
+// Cuánto dura el destello del botón, y con qué velocidad entra y sale el color.
+// La ida es un golpe y la vuelta es lenta: eso es lo que lo hace leer como un
+// pulso y no como un cambio de estado.
+const FLASH_MS = 480
+const FLASH_IN = "90ms"
+const FLASH_OUT = "420ms"
+
+// Un momento que dura `ms` y que tiene que volver a correr en cada respuesta,
+// incluso si la anterior fue del mismo tipo: si el valor animado se quedara
+// igual, ni motion ni una transición CSS reanimarían. En vez de resetear el
+// estado desde el efecto (que sería un setState síncrono dentro de un effect),
+// se DERIVA: está activo mientras la última respuesta asentada no sea esta.
+function useMoment(active: boolean, seq: number, ms: number) {
   const [settled, setSettled] = useState<number | null>(null)
-  const shaking = wrong && settled !== seq
+  const on = active && settled !== seq
   useEffect(() => {
-    if (!shaking) return
-    const t = setTimeout(() => setSettled(seq), SHAKE_S * 1000 + 60)
+    if (!on) return
+    const t = setTimeout(() => setSettled(seq), ms)
     return () => clearTimeout(t)
-  }, [shaking, seq])
-  return shaking
+  }, [on, seq, ms])
+  return on
 }
 
 const DIGITS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -228,7 +235,7 @@ export function AnswerField({
   children?: React.ReactNode
 }) {
   const reduceMotion = useReducedMotion()
-  const shaking = useShake(tone === "wrong", seq) && !reduceMotion
+  const shaking = useMoment(tone === "wrong", seq, SHAKE_S * 1000 + 60) && !reduceMotion
 
   return (
     <motion.div
@@ -265,9 +272,15 @@ function KeyCap({ children }: { children: React.ReactNode }) {
   )
 }
 
-// El botón ES el feedback: verde y "Continuar" al acertar, naranja y un
-// sacudón al errar. Vuelve a blanco solo cuando el layout limpia la respuesta,
-// que es en cuanto la persona empieza a corregir.
+// El botón ES el feedback, pero de paso y no de estado: destella verde al
+// acertar o naranja al errar y vuelve enseguida a blanco. Antes se quedaba
+// pintado hasta que la persona empezaba a corregir, y un botón verde fijo se
+// lee como "este botón es verde" en vez de como "acertaste".
+//
+// El destello se hace con la transición CSS que el botón ya tiene, cambiando su
+// duración entre la ida y la vuelta: entra en 90 ms y sale en 420. Con una sola
+// duración el color se apagaría tan rápido como se prendió y el pulso no se
+// leería.
 export function AnswerButton({
   tone,
   seq,
@@ -275,6 +288,7 @@ export function AnswerButton({
   disabled,
   onClick,
   showKeyHint = false,
+  originRef,
   className,
 }: {
   tone: AnswerTone
@@ -283,15 +297,19 @@ export function AnswerButton({
   disabled?: boolean
   onClick: () => void
   showKeyHint?: boolean
+  // De acá brota el confeti al acertar (ver xp-burst.tsx).
+  originRef?: (node: HTMLDivElement | null) => void
   className?: string
 }) {
   const reduceMotion = useReducedMotion()
-  const shaking = useShake(tone === "wrong", seq) && !reduceMotion
+  const shaking = useMoment(tone === "wrong", seq, SHAKE_S * 1000 + 60) && !reduceMotion
+  const flashing = useMoment(tone !== null, seq, FLASH_MS)
 
-  const bg = tone === "correct" ? RIGHT : tone === "wrong" ? WRONG : "#FFFFFF"
+  const bg = flashing && tone ? (tone === "correct" ? RIGHT : WRONG) : "#FFFFFF"
 
   return (
     <motion.div
+      ref={originRef}
       className={cn("shrink-0", className)}
       animate={shaking ? { x: SHAKE } : { x: 0 }}
       transition={shaking ? { duration: SHAKE_S, ease: "easeInOut" } : { duration: 0 }}
@@ -300,7 +318,11 @@ export function AnswerButton({
         size="lg"
         // El color va inline y no por clase: son los mismos hex que el resto
         // del feedback, y Tailwind no genera clases interpoladas.
-        style={{ backgroundColor: bg, color: "#000" }}
+        style={{
+          backgroundColor: bg,
+          color: "#000",
+          transitionDuration: flashing ? FLASH_IN : FLASH_OUT,
+        }}
         className="h-[var(--cta-h)] w-full rounded-md transition-colors hover:opacity-90"
         disabled={disabled}
         onClick={onClick}

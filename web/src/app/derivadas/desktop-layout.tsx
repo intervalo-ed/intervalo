@@ -434,10 +434,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                         attempted={player?.exercises_attempted ?? 0}
                         promptLatex={exercise.prompt_latex}
                       >
-                        {/* El estallido del confeti nace acá. Va en el div de
-                            afuera y no en el que se sacude: el origen del imán
-                            se mide al disparar y no tiene por qué temblar. */}
-                        <div ref={attachOrigin} className={`flex flex-col gap-2 ${PANEL_CONTENT}`}>
+                        <div className={`flex flex-col gap-2 ${PANEL_CONTENT}`}>
                           <AnswerField tone={tone} seq={answerSeq}>
                             <MathInput
                               handleRef={inputRef}
@@ -466,7 +463,15 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                         numpad={false}
                         className={closed ? "pointer-events-none opacity-45" : undefined}
                       />
-                      <div className="flex shrink-0 items-stretch gap-2">
+                      {/* El confeti brota de esta fila y no del botón: al
+                          acertar, "Saltear" desaparece y el botón se ensancha
+                          hasta ocuparla entera. El origen se mide en el mismo
+                          tick de la respuesta, o sea ANTES de ese
+                          reacomodamiento, así que medir el botón daría un
+                          centro corrido medio "Saltear" a la izquierda. El
+                          centro de la fila no se mueve, y es exactamente donde
+                          va a quedar el botón. */}
+                      <div ref={attachOrigin} className="flex shrink-0 items-stretch gap-2">
                         <AnswerButton
                           className="flex-1"
                           tone={tone}
