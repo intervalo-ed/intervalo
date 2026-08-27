@@ -393,7 +393,12 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           en píxeles, porque en las pantallas más comunes el que mandaba era el
           viewport y el tope no llegaba a aplicarse. El bloque se ancla arriba,
           así que todo lo que sobra se va al pie. */}
-      <div className="mx-auto flex h-full max-h-[min(90%,792px)] w-full max-w-[64.8rem] flex-col gap-3 px-6 pb-12 pt-5">
+      {/* El ancho del bloque es lo que decide el de la columna izquierda: la
+          derecha está clavada en 400 px, así que todo lo que se saque de acá
+          sale del ejercicio. Bajó de 64.8rem para que esa columna deje de
+          ocupar más de lo que su contenido necesita — adentro el enunciado y
+          las teclas ya viven en un canal de 28rem. */}
+      <div className="mx-auto flex h-full max-h-[min(90%,792px)] w-full max-w-[61.8rem] flex-col gap-3 px-6 pb-12 pt-5">
         <XpBurstConfetti burst={burst} target={magnetTarget} onArrive={onXpArrive} />
 
         <header className={`grid shrink-0 gap-3 ${columns}`}>
@@ -413,7 +418,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             className="flex items-center justify-between rounded-lg border border-border bg-card px-4 py-2.5 text-sm"
             style={chromeStyle}
           >
-            <span className="truncate">
+            <span className="min-w-0 truncate">
               {player ? (player.is_guest ? player.alias : `@${player.alias}`) : "…"}
             </span>
             <button
@@ -423,7 +428,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                 sfx.select()
                 setSettingsOpen(true)
               }}
-              className="rounded-md p-1 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+              className="shrink-0 rounded-md p-1 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
             >
               <Settings size={17} />
             </button>
@@ -516,8 +521,14 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                           </div>
                         }
                         front={
-                          <div className="flex min-h-0 flex-1 flex-col gap-3">
+                          // Enunciado y teclado en UNA card, separados por una
+                          // línea: son un solo objeto —la derivada y con qué
+                          // escribirla— y dos cajas con su propio borde los
+                          // hacían leer como dos cosas que hay que mirar por
+                          // separado.
+                          <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-border bg-card">
                             <ExerciseCard
+                              bare
                               className="flex-1"
                               streak={player?.combo ?? 0}
                               attempted={player?.exercises_attempted ?? 0}
@@ -547,6 +558,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                             {/* No se desmonta al cerrar el ejercicio: con la
                                 página a alto fijo, sacarlo haría saltar todo. */}
                             <MathKeyboard
+                              bare
                               input={inputRef}
                               keys={exercise.keys}
                               numpad={false}

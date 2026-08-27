@@ -166,10 +166,33 @@ function Counter({
   )
 }
 
+// Los dos marcadores, uno debajo del otro. Apilados y alineados a la derecha:
+// los emojis quedan en la misma vertical y hacen de rótulo de cada renglón, que
+// es lo que permite leer "cuántas llevo" y "cuánto llevo seguido" sin
+// confundirlos. En fila y con números de largo distinto (120 y 0) parecían un
+// solo número partido.
+function Counters({
+  attempted,
+  streak,
+  className,
+}: {
+  attempted: number
+  streak: number
+  className?: string
+}) {
+  return (
+    <span className={cn("flex shrink-0 flex-col items-end gap-1", className)}>
+      <Counter value={attempted} emoji="🧮" label={`${attempted} ejercicios`} />
+      <Counter value={streak} emoji="🔥" label={`racha de ${streak}`} dim={streak === 0} />
+    </span>
+  )
+}
+
 export function ExerciseCard({
   streak,
   attempted,
   promptLatex,
+  bare = false,
   children,
   className,
 }: {
@@ -177,24 +200,25 @@ export function ExerciseCard({
   streak: number
   attempted: number
   promptLatex: string
+  // Sin caja propia: en escritorio el enunciado y el teclado comparten UNA
+  // sola card, así que el borde y el fondo los pone el contenedor de afuera.
+  bare?: boolean
   children?: React.ReactNode
   className?: string
 }) {
   return (
-    <div className={cn("flex flex-col rounded-lg border border-border bg-card p-4", className)}>
-      {/* La pregunta y los marcadores comparten renglón. Los dos marcadores van
-          juntos porque son la misma clase de dato —cuánto llevás—; separados a
-          los extremos se leían como si midieran cosas distintas. La palabra
-          "ejercicios" se fue con ellos: al lado de un número con emoji, el
-          rótulo sobraba.
-          La pregunta puede achicarse (`min-w-0`) y los marcadores no: en el
-          teléfono lo que cede es el texto, que envuelve, y no los números. */}
+    <div
+      className={cn(
+        "flex flex-col p-4",
+        !bare && "rounded-lg border border-border bg-card",
+        className,
+      )}
+    >
+      {/* La pregunta puede achicarse (`min-w-0`) y los marcadores no: donde
+          conviven, lo que cede es el texto —que envuelve— y no los números. */}
       <div className="flex shrink-0 items-center justify-between gap-3 pt-1.5">
         <p className="min-w-0 text-sm text-muted-foreground md:text-base">{PROMPT_QUESTION}</p>
-        <span className="flex shrink-0 items-center gap-2.5">
-          <Counter value={attempted} emoji="🧮" label={`${attempted} ejercicios`} />
-          <Counter value={streak} emoji="🔥" label={`racha de ${streak}`} dim={streak === 0} />
-        </span>
+        <Counters attempted={attempted} streak={streak} />
       </div>
       {/* En escritorio la card crece hasta llenar la columna: el enunciado y el
           campo quedan centrados en vez de apretados arriba con un hueco abajo.

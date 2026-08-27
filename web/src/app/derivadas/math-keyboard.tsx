@@ -196,10 +196,14 @@ export function MathKeyboard({
   input,
   keys = [],
   numpad = true,
+  bare = false,
   className,
 }: {
   input: React.RefObject<MathInputHandle | null>
   keys?: string[]
+  // Sin caja propia: en escritorio el teclado va dentro de la misma card que el
+  // enunciado, separado apenas por una línea.
+  bare?: boolean
   // El numérico solo hace falta donde no hay teclado físico. En escritorio los
   // dígitos se tipean, y un pad de doce teclas para eso era la mitad del alto
   // del panel ocupada por lo más fácil de escribir. Lo que queda es lo que la
@@ -289,7 +293,8 @@ export function MathKeyboard({
   return (
     <div
       className={cn(
-        "flex flex-col gap-1.5 rounded-lg border border-border bg-card p-2",
+        "flex flex-col gap-1.5 p-2",
+        bare ? "border-t border-border" : "rounded-lg border border-border bg-card",
         ROW_VARS,
         className,
       )}
