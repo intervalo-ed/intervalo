@@ -13,8 +13,11 @@ import { Spinner } from "@/components/ui/spinner"
 // Por eso los botones de Google no necesitan saber si el usuario ya tenía
 // cuenta: siempre caen acá.
 //
-// Destino único: /onboarding/complete, que consulta /user/status y manda al
-// home si el usuario ya estaba inscripto, o corre el onboarding si es nuevo.
+// Destino por defecto: /onboarding/complete, que consulta /user/status y manda
+// al home si el usuario ya estaba inscripto, o corre el onboarding si es nuevo.
+// El minijuego de derivadas registra sin pasar por el onboarding: manda
+// `?next=/derivadas` y vuelve al juego. Solo se aceptan paths propios (empiezan
+// con "/") para que el parámetro no sirva como open redirect.
 export default function SSOCallbackPage() {
   const router = useRouter()
 
@@ -28,10 +31,16 @@ export default function SSOCallbackPage() {
     router.replace(url)
   }
 
+  const appDestination = () => {
+    const next = new URLSearchParams(window.location.search).get("next")
+    if (next && next.startsWith("/") && !next.startsWith("//")) return next
+    return "/onboarding/complete"
+  }
+
   return (
     <main className="flex min-h-dvh items-center justify-center bg-background">
       <HandleSSOCallback
-        navigateToApp={({ decorateUrl }) => navigate(decorateUrl("/onboarding/complete"))}
+        navigateToApp={({ decorateUrl }) => navigate(decorateUrl(appDestination()))}
         navigateToSignIn={() => router.replace("/sign-in")}
         navigateToSignUp={() => router.replace("/sign-in")}
       />

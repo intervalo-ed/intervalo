@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "motion/react"
 import { Button } from "@/components/ui/button"
 import { useSfx } from "@/lib/audio/useSfx"
-import { saveOnboarding } from "@/lib/onboarding/storage"
+import { readOnboarding, saveOnboarding } from "@/lib/onboarding/storage"
 import { cn } from "@/lib/utils"
 import ExerciseTable from "@/components/exercise-table"
 import MathText from "@/components/math-text"
@@ -16,7 +16,8 @@ import {
   type CourseId,
 } from "@/lib/catalog"
 import { useGridLayout } from "@/lib/latex-visual-length"
-import { ONBOARDING_UNIVERSITIES, UNIVERSITY_TAG_BY_KEY, canonicalUniversity, matchUniversities } from "@/lib/university-tags"
+import { canonicalUniversity } from "@/lib/university-tags"
+import { CareerSelect, UniversityGrid } from "@/components/onboarding-fields"
 import {
   Dialog,
   DialogContent,
@@ -32,12 +33,10 @@ import posthog from "posthog-js"
 import { useEffect, useRef, useState } from "react"
 import { LegalSheet } from "./legal-sheet"
 
-export const CAREERS = [
-  { value: "E", label: "Ingeniería", emoji: "⚙️" },
-  { value: "S", label: "Ciencia", emoji: "🔬" },
-  { value: "T", label: "Tecnología", emoji: "🤖" },
-  { value: "M", label: "Matemática", emoji: "📐" },
-]
+// Carrera/universidad viven en components/onboarding-fields.tsx: el minijuego
+// de derivadas muestra las mismas slides. Los re-exports mantienen el contrato
+// con recover-profile-form.
+export { CAREERS, UNIVERSITY_LOGOS, OptionButton, CareerCard } from "@/components/onboarding-fields"
 
 // Selección de curso (slide 3). El value es el slug/CourseId; define el tutorial
 // y el curso default al registrarse.
@@ -47,16 +46,6 @@ const COURSES: { value: CourseId; emoji: string; label: string }[] = [
   { value: "probabilidad", emoji: "🎲", label: "Probabilidad y Estadística" },
 ]
 
-// Logos monocromos (gris) de universidades para los botones del step de universidad.
-// El gris se atenúa sin seleccionar y se lleva a blanco (brightness) al seleccionar.
-export const UNIVERSITY_LOGOS: Partial<Record<string, string>> = {
-  UBA: "/universities/uba.png",
-  UTN: "/universities/utn.png",
-  UNLP: "/universities/unlp.png",
-  UNSAM: "/universities/unsam.png",
-  UNC: "/universities/unc.png",
-  UNL: "/universities/unl.png",
-}
 
 // Tinte del panel de feedback del ejercicio de prueba. Va apilado sobre una base
 // opaca, ver el `style` de PinnedCTA: verde al acertar, naranja al errar. Mismos
@@ -831,7 +820,15 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
   const [prevStep, setPrevStep] = useState(-1)
   const [direction, setDirection] = useState<1 | -1>(1)
   const variant = useOnboardingVariant()
-  const order = ORDER
+  // Prefill del minijuego de derivadas (o de una pasada anterior que no llegó
+  // a inscribirse): si la persona ya dio carrera y universidad, esas dos
+  // slides se saltean. Saltear = filtrar ORDER; los índices nunca se renumeran
+  // (ver el comentario de ORDER), así que el embudo de PostHog no se altera.
+  // useState perezoso y no una lectura en render: localStorage solo existe en
+  // el cliente y el valor tiene que quedar congelado para toda la pasada.
+  const [prefill] = useState(() => readOnboarding())
+  const order =
+    prefill !== null ? ORDER.filter((s) => s !== 9 && s !== 10) : ORDER
   const position = positionOf(step, order)
   const [introDone, setIntroDone] = useState(false)
   const [name, setName] = useState("")
@@ -849,12 +846,11 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
   const [authError, setAuthError] = useState<string | null>(null)
   const [legalOpen, setLegalOpen] = useState(false)
   const wrongResetRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const [career, setCareer] = useState("")
-  const [university, setUniversity] = useState("")
+  const [career, setCareer] = useState(prefill?.career ?? "")
+  const [university, setUniversity] = useState(prefill?.university ?? "")
   const [universityOther, setUniversityOther] = useState("")
   const [showOther, setShowOther] = useState(false)
   const universityInputRef = useRef<HTMLInputElement>(null)
-  const universitySuggestions = universityOther.trim() ? matchUniversities(universityOther) : []
 
   // Curso resuelto para el render (el ejercicio y las unidades siempre necesitan
   // uno; antes de elegir cae a analisis, pero esas slides van gateadas por course).
@@ -1425,114 +1421,22 @@ export default function OnboardingWizard({ alreadySignedIn = false }: { alreadyS
                 </div>
               )}
 
-              {/* ── SLIDE 9: Carrera ── */}
-              {step === 9 && (
-                <div className="flex flex-col gap-5">
-                  <div className="flex flex-col gap-2 text-center">
-                    <h2 className="text-2xl font-bold">¿Qué estudiás?</h2>
-                    <p className="text-foreground/85">
-                      Marcá la que más se aproxime a tu carrera.
-                    </p>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2.5">
-                    {CAREERS.map((c) => (
-                      <CareerCard
-                        key={c.value}
-                        emoji={c.emoji}
-                        label={c.label}
-                        selected={career === c.value}
-                        onClick={() => handleCareer(c.value)}
-                      />
-                    ))}
-                    <CareerCard
-                      className="col-span-2"
-                      emoji="✦"
-                      label="Otra"
-                      selected={career === "Otra"}
-                      onClick={() => handleCareer("Otra")}
-                    />
-                  </div>
-                </div>
-              )}
+              {/* ── SLIDE 9: Carrera (compartida con /derivadas) ── */}
+              {step === 9 && <CareerSelect value={career} onSelect={handleCareer} />}
 
-              {/* ── SLIDE 10: Universidad ── */}
+              {/* ── SLIDE 10: Universidad (compartida con /derivadas) ── */}
               {step === 10 && (
-                <div className="flex flex-col gap-5 text-center">
-                  <h2 className="text-2xl font-bold">¿Dónde?</h2>
-                  <div className="flex flex-col gap-2.5">
-                    <div className="grid grid-cols-3 gap-2.5">
-                      {ONBOARDING_UNIVERSITIES.map((u) => {
-                        const logo = UNIVERSITY_LOGOS[u]
-                        const isSel = university === u && !showOther
-                        return (
-                          <OptionButton
-                            key={u}
-                            className={cn(
-                              "flex h-[52px] items-center justify-center text-base",
-                              logo && "px-2 py-2",
-                            )}
-                            style={logo ? undefined : UNIVERSITY_TAG_BY_KEY[u]?.font}
-                            selected={isSel}
-                            onClick={() => handleUniversity(u)}
-                          >
-                            {logo ? (
-                              // eslint-disable-next-line @next/next/no-img-element
-                              <img
-                                src={logo}
-                                alt={u}
-                                className={cn(
-                                  "w-auto max-w-full object-contain transition-[filter,opacity]",
-                                  u === "UNSAM" || u === "UNC" ? "h-[20px]" : "h-[23px]",
-                                  isSel ? "opacity-100 brightness-150" : "opacity-90",
-                                )}
-                              />
-                            ) : (
-                              u
-                            )}
-                          </OptionButton>
-                        )
-                      })}
-                    </div>
-                    {showOther ? (
-                      <div className="flex flex-col gap-3">
-                        <input
-                          ref={universityInputRef}
-                          type="text"
-                          value={universityOther}
-                          onChange={(e) => setUniversityOther(e.target.value)}
-                          onKeyDown={(e) => e.key === "Enter" && confirmOther()}
-                          placeholder="Ej: UNQ, UNLa, UNGS…"
-                          autoFocus
-                          className="h-[52px] rounded-md border border-[#7e80f7] bg-white/5 px-4 text-foreground outline-none transition-colors"
-                        />
-                        {universitySuggestions.length > 0 && (
-                          <div className="flex flex-wrap gap-2">
-                            {universitySuggestions.map((s) => (
-                              <button
-                                key={s.key}
-                                type="button"
-                                onClick={() => selectUniversitySuggestion(s.key)}
-                                className="inline-flex items-center justify-center rounded-md border px-2.5 py-1.5 text-xs transition-opacity hover:opacity-80"
-                                style={{
-                                  color: s.color,
-                                  borderColor: `${s.color}99`,
-                                  backgroundColor: `${s.color}33`,
-                                  ...s.font,
-                                }}
-                              >
-                                {s.key}
-                              </button>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ) : (
-                      <OptionButton selected={false} onClick={selectOther}>
-                        Otra
-                      </OptionButton>
-                    )}
-                  </div>
-                </div>
+                <UniversityGrid
+                  university={university}
+                  showOther={showOther}
+                  otherValue={universityOther}
+                  onOtherChange={setUniversityOther}
+                  onPick={handleUniversity}
+                  onSelectOther={selectOther}
+                  onConfirmOther={confirmOther}
+                  onPickSuggestion={selectUniversitySuggestion}
+                  inputRef={universityInputRef}
+                />
               )}
 
               {/* ── SLIDE 11: Registro ── */}
@@ -1985,36 +1889,6 @@ function ProgressBar({ position, total, onBack }: { position: number; total: num
   )
 }
 
-export function OptionButton({
-  children,
-  selected,
-  onClick,
-  className,
-  style,
-}: {
-  children: React.ReactNode
-  selected?: boolean
-  onClick: () => void
-  className?: string
-  style?: React.CSSProperties
-}) {
-  return (
-    <button
-      onClick={onClick}
-      style={style}
-      className={cn(
-        "rounded-md border bg-white/5 px-4 py-3.5 font-medium transition-colors",
-        selected
-          ? "border-[#7e80f7] text-[#c4c6ff]"
-          : "border-white/10 text-foreground/80 hover:border-white/20",
-        className,
-      )}
-    >
-      {children}
-    </button>
-  )
-}
-
 // Fila de selección con emoji + label (+ bajada opcional). Usada por las slides de
 // motivación y curso.
 // Fila de la slide "¿cuáles ya viste?". No reusa ChoiceRow porque necesita dos
@@ -2113,32 +1987,3 @@ function ChoiceRow({
   )
 }
 
-export function CareerCard({
-  emoji,
-  label,
-  selected,
-  onClick,
-  className,
-}: {
-  emoji: string
-  label: string
-  selected?: boolean
-  onClick: () => void
-  className?: string
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className={cn(
-        "flex flex-col items-center justify-center gap-2 rounded-md border bg-white/5 py-6 font-medium transition-colors",
-        selected
-          ? "border-[#7e80f7] text-[#c4c6ff]"
-          : "border-white/10 text-foreground/80 hover:border-white/20",
-        className,
-      )}
-    >
-      <span className="text-2xl leading-none">{emoji}</span>
-      <span className="text-sm">{label}</span>
-    </button>
-  )
-}

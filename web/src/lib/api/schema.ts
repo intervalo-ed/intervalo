@@ -4,6 +4,192 @@
  */
 
 export interface paths {
+    "/game/derivadas/player": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Create Player
+         * @description Alta de jugador. Sin auth crea un guest (devuelve el token); con Clerk
+         *     crea/devuelve el jugador del usuario. Idempotente: si ya hay jugador para
+         *     el token/user, se devuelve ese.
+         */
+        post: operations["create_player_game_derivadas_player_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/game/derivadas/me": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Me */
+        get: operations["get_me_game_derivadas_me_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Patch Me */
+        patch: operations["patch_me_game_derivadas_me_patch"];
+        trace?: never;
+    };
+    "/game/derivadas/reset": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Reset Player
+         * @description Reinicia el PROGRESO del jugador desde el panel de configuración.
+         *
+         *     Vuelve a cero XP, racha, ejercicios y el Elo — así que el juego arranca otra
+         *     vez por la rampa inicial, con las derivadas más fáciles. Conserva identidad
+         *     (alias, carrera, universidad, cuenta) y atribución, y no borra los intentos
+         *     ya registrados: el historial sigue sirviendo para analítica y el Elo de las
+         *     plantillas (game_template_stats) es global, no del jugador.
+         */
+        post: operations["reset_player_game_derivadas_reset_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/game/derivadas/next": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Next Exercise */
+        post: operations["next_exercise_game_derivadas_next_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/game/derivadas/answer": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Answer Exercise */
+        post: operations["answer_exercise_game_derivadas_answer_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/game/derivadas/leaderboard/summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Game Leaderboard Summary
+         * @description Los dos números de la cabecera del ranking, más las universidades para
+         *     poblar el filtro (esas van siempre sin scope).
+         */
+        get: operations["game_leaderboard_summary_game_derivadas_leaderboard_summary_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/game/derivadas/leaderboard/universities": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Game University Leaderboard
+         * @description Ranking por universidad: agrega XP y jugadores. Espejo de
+         *     /leaderboard/universities, sobre game_players y con la agregación en la BD.
+         */
+        get: operations["game_university_leaderboard_game_derivadas_leaderboard_universities_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/game/derivadas/leaderboard": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Game Leaderboard
+         * @description Espejo del /leaderboard principal sobre game_players: orden canónico
+         *     (xp DESC, id ASC), solo jugadores con xp > 0 más el propio jugador.
+         *
+         *     `university` y `career` acotan el scope igual que en el principal: el rank,
+         *     los totales y la página se calculan todos dentro del scope elegido.
+         */
+        get: operations["game_leaderboard_game_derivadas_leaderboard_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/game/derivadas/link": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Link Player
+         * @description Merge explícito guest→user tras el registro. Idempotente.
+         */
+        post: operations["link_player_game_derivadas_link_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -993,6 +1179,205 @@ export interface components {
             /** Mensaje */
             mensaje: string;
         };
+        /** GameAnswerRequest */
+        GameAnswerRequest: {
+            /** Exercise Id */
+            exercise_id: number;
+            /** Answer Latex */
+            answer_latex: string;
+            /** Answer Mathjson */
+            answer_mathjson?: unknown;
+            /** Response Ms */
+            response_ms?: number | null;
+        };
+        /** GameAnswerResponse */
+        GameAnswerResponse: {
+            /** Correct */
+            correct: boolean;
+            /** Parse Ok */
+            parse_ok: boolean;
+            /** Parse Error */
+            parse_error?: string | null;
+            /** Attempt Number */
+            attempt_number: number;
+            /** Attempts Left */
+            attempts_left: number;
+            /** Feedback Incorrect */
+            feedback_incorrect?: string | null;
+            /** Xp Awarded */
+            xp_awarded: number;
+            /** Xp Total */
+            xp_total: number;
+            /** Combo */
+            combo: number;
+            /** Combo Bonus */
+            combo_bonus: number;
+            /** Correct Answer Latex */
+            correct_answer_latex?: string | null;
+            /** Rank Before */
+            rank_before?: number | null;
+            /** Rank After */
+            rank_after?: number | null;
+            /** Best Rank */
+            best_rank?: number | null;
+            /**
+             * Is Record
+             * @default false
+             */
+            is_record: boolean;
+        };
+        /** GameExerciseOut */
+        GameExerciseOut: {
+            /** Exercise Id */
+            exercise_id: number;
+            /** Prompt Latex */
+            prompt_latex: string;
+            /** Tier */
+            tier: number;
+            /** Difficulty Stars */
+            difficulty_stars: number;
+            /** Combo */
+            combo: number;
+            /**
+             * Keys
+             * @default []
+             */
+            keys: string[];
+        };
+        /** GameLeaderboardEntry */
+        GameLeaderboardEntry: {
+            /** Rank */
+            rank: number;
+            /** Player Id */
+            player_id: number;
+            /** Alias */
+            alias: string;
+            /** Xp */
+            xp: number;
+            /** Exercises Correct */
+            exercises_correct: number;
+            /** Is Current Player */
+            is_current_player: boolean;
+            /** Is Guest */
+            is_guest: boolean;
+            /** University */
+            university?: string | null;
+            /** Career */
+            career?: string | null;
+            /**
+             * Level
+             * @default 0
+             */
+            level: number;
+        };
+        /** GameLeaderboardMe */
+        GameLeaderboardMe: {
+            /** Rank */
+            rank?: number | null;
+            /** Xp */
+            xp: number;
+        };
+        /** GameLeaderboardResponse */
+        GameLeaderboardResponse: {
+            /** Entries */
+            entries: components["schemas"]["GameLeaderboardEntry"][];
+            /** Total Count */
+            total_count: number;
+            /** Has More */
+            has_more: boolean;
+            me: components["schemas"]["GameLeaderboardMe"];
+        };
+        /**
+         * GameLeaderboardSummary
+         * @description Los dos números de la cabecera + las universidades para poblar el filtro.
+         *
+         *     Cuenta la misma población que muestra la lista de abajo (sembrados
+         *     incluidos): un contador que dijera otra cosa contradiría al ranking.
+         */
+        GameLeaderboardSummary: {
+            /** Players */
+            players: number;
+            /** Exercises */
+            exercises: number;
+            /** Universities */
+            universities: string[];
+        };
+        /** GamePlayerCreateRequest */
+        GamePlayerCreateRequest: {
+            /** Group Id */
+            group_id?: string | null;
+            /** Utm Source */
+            utm_source?: string | null;
+        };
+        /** GamePlayerCreateResponse */
+        GamePlayerCreateResponse: {
+            player: components["schemas"]["GamePlayerOut"];
+            /** Guest Token */
+            guest_token?: string | null;
+        };
+        /** GamePlayerOut */
+        GamePlayerOut: {
+            /** Player Id */
+            player_id: number;
+            /** Alias */
+            alias: string;
+            /** Xp */
+            xp: number;
+            /** Rank */
+            rank?: number | null;
+            /** Combo */
+            combo: number;
+            /** Best Combo */
+            best_combo: number;
+            /** Best Rank */
+            best_rank?: number | null;
+            /** Exercises Correct */
+            exercises_correct: number;
+            /** Exercises Attempted */
+            exercises_attempted: number;
+            /** University */
+            university?: string | null;
+            /** Career */
+            career?: string | null;
+            /** Is Guest */
+            is_guest: boolean;
+            /**
+             * Level
+             * @default 0
+             */
+            level: number;
+        };
+        /** GameProfilePatchRequest */
+        GameProfilePatchRequest: {
+            /** Alias */
+            alias?: string | null;
+            /** University */
+            university?: string | null;
+            /** Career */
+            career?: string | null;
+        };
+        /** GameUniversityLeaderboardResponse */
+        GameUniversityLeaderboardResponse: {
+            /** Rows */
+            rows: components["schemas"]["GameUniversityRow"][];
+            /** Total Players */
+            total_players: number;
+            /** Total Universities */
+            total_universities: number;
+        };
+        /** GameUniversityRow */
+        GameUniversityRow: {
+            /** University */
+            university: string;
+            /** Xp */
+            xp: number;
+            /** Players */
+            players: number;
+            /** Careers */
+            careers: {
+                [key: string]: number;
+            };
+        };
         /** HTTPValidationError */
         HTTPValidationError: {
             /** Detail */
@@ -1560,6 +1945,350 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    create_player_game_derivadas_player_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["GamePlayerCreateRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GamePlayerCreateResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_me_game_derivadas_me_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GamePlayerOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    patch_me_game_derivadas_me_patch: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["GameProfilePatchRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GamePlayerOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    reset_player_game_derivadas_reset_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GamePlayerOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    next_exercise_game_derivadas_next_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GameExerciseOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    answer_exercise_game_derivadas_answer_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["GameAnswerRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GameAnswerResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    game_leaderboard_summary_game_derivadas_leaderboard_summary_get: {
+        parameters: {
+            query?: {
+                university?: string | null;
+                career?: string | null;
+            };
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GameLeaderboardSummary"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    game_university_leaderboard_game_derivadas_leaderboard_universities_get: {
+        parameters: {
+            query?: {
+                university?: string | null;
+                career?: string | null;
+            };
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GameUniversityLeaderboardResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    game_leaderboard_game_derivadas_leaderboard_get: {
+        parameters: {
+            query?: {
+                university?: string | null;
+                career?: string | null;
+                limit?: number;
+                offset?: number;
+                around_me?: boolean;
+            };
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GameLeaderboardResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    link_player_game_derivadas_link_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GamePlayerOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     health_check_health_get: {
         parameters: {
             query?: never;

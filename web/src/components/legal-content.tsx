@@ -1,20 +1,15 @@
 "use client"
 
+import { GRID_BG_STYLE } from "@/components/grid-bg"
 import { LegalIndex } from "@/components/legal-index"
 import Link from "next/link"
-import type { CSSProperties, ReactNode } from "react"
+import type { ReactNode } from "react"
 
 // El cuerpo de /privacidad y /terminos, extraído de las páginas para poder
 // renderizarlo también dentro del panel del onboarding (legal-sheet.tsx).
 // `compact` achica el respiro vertical de cada sección para la lectura en
 // panel; `onCrossLink` reemplaza la navegación de la referencia cruzada entre
 // documentos por un intercambio de contenido sin cerrar el panel.
-
-const GRID_BG_STYLE: CSSProperties = {
-  backgroundImage:
-    "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)",
-  backgroundSize: "40px 40px",
-}
 
 const H2_CLASS =
   "font-sans text-[clamp(1.6rem,4vw,2.25rem)] font-semibold text-[#F6F8FC]"

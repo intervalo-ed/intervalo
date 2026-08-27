@@ -6,18 +6,12 @@ import { XpDots } from "@/components/xp-dots"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Spinner } from "@/components/ui/spinner"
 import { LeaderboardSkeleton } from "@/components/tab-skeletons"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import { Metric, ScopeFilters, fmtCount } from "@/components/leaderboard-chrome"
 import { cn } from "@/lib/utils"
 import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
 import { BELT_UNIT_TEXT_COLORS } from "@/lib/catalog"
 import { UniTag } from "@/components/university-tag"
-import { ChevronDownIcon, LayersIcon, UsersIcon } from "lucide-react"
+import { LayersIcon, UsersIcon } from "lucide-react"
 import { ALL, useLeaderboard } from "./UseLeaderboard"
 import { useLeaderboardSummary } from "./UseLeaderboardSummary"
 import { useUniversityLeaderboard } from "./UseUniversityLeaderboard"
@@ -26,19 +20,6 @@ import { useUniversityLeaderboard } from "./UseUniversityLeaderboard"
 // los títulos de unidad en practicar/repasar). Blanco para sin cinturón.
 const BELT_TEXT: Record<string, string> = BELT_UNIT_TEXT_COLORS
 
-// Carreras en orden fijo + catch-all "Otra". Nombre completo, sin abreviar y
-// sin emoji, tanto en el valor colapsado del filtro como en el desplegable.
-const CAREER_META: { key: string; name: string }[] = [
-  { key: "S", name: "Ciencia" },
-  { key: "T", name: "Tecnología" },
-  { key: "E", name: "Ingeniería" },
-  { key: "M", name: "Matemática" },
-  { key: "Otra", name: "Otra" },
-]
-const CAREER_NAME: Record<string, string> = Object.fromEntries(
-  CAREER_META.map((c) => [c.key, c.name]),
-)
-
 // Tag por universidad (rivalidad): color de tinte único + la misma tipografía,
 // peso y espaciado que usa cada una en el onboarding. Fuente única de verdad en
 // @/lib/university-tags. El formato es el de los items del inicio: texto en
@@ -46,7 +27,7 @@ const CAREER_NAME: Record<string, string> = Object.fromEntries(
 
 type RankingView = "individual" | "university"
 
-const fmt = (n: number) => n.toLocaleString("es")
+const fmt = fmtCount
 
 export function LeaderboardContent() {
   const [view, setView] = useState<RankingView>("individual")
@@ -88,45 +69,15 @@ export function LeaderboardContent() {
       </div>
 
       {/* Fila 2: selector de ranking + filtros de carrera y universidad. */}
-      <div className="grid grid-cols-3 gap-2">
-        <FilterBox
-          label="Ranking"
-          value={view}
-          onChange={(v) => setView(v as RankingView)}
-          display={(v) => (v === "individual" ? "Individual" : "Universitario")}
-        >
-          <SelectItem value="individual">Individual</SelectItem>
-          <SelectItem value="university">Universitario</SelectItem>
-        </FilterBox>
-
-        <FilterBox
-          label="Carrera"
-          value={career}
-          onChange={setCareer}
-          display={(v) => (v === ALL ? "Todas" : (CAREER_NAME[v] ?? v))}
-        >
-          <SelectItem value={ALL}>Todas</SelectItem>
-          {CAREER_META.map((c) => (
-            <SelectItem key={c.key} value={c.key}>
-              {c.name}
-            </SelectItem>
-          ))}
-        </FilterBox>
-
-        <FilterBox
-          label="Universidad"
-          value={uni}
-          onChange={setUni}
-          display={(v) => (v === ALL ? "Todas" : v)}
-        >
-          <SelectItem value={ALL}>Todas</SelectItem>
-          {universities.map((u) => (
-            <SelectItem key={u} value={u}>
-              {u}
-            </SelectItem>
-          ))}
-        </FilterBox>
-      </div>
+      <ScopeFilters
+        view={view}
+        onViewChange={setView}
+        career={career}
+        onCareerChange={setCareer}
+        university={uni}
+        onUniversityChange={setUni}
+        universities={universities}
+      />
       </div>
 
       {view === "individual" ? (
@@ -135,38 +86,6 @@ export function LeaderboardContent() {
         <UniversityRanking university={uni} career={career} />
       )}
     </div>
-  )
-}
-
-function FilterBox({
-  label,
-  value,
-  onChange,
-  display,
-  children,
-}: {
-  label: string
-  value: string
-  onChange: (v: string) => void
-  display: (v: string) => React.ReactNode
-  children: React.ReactNode
-}) {
-  return (
-    <Select value={value} onValueChange={(v) => v && onChange(v)}>
-      <SelectTrigger
-        aria-label={label}
-        className="flex h-auto! w-full flex-col items-stretch justify-center gap-1 rounded-md border border-white/10 bg-white/5 px-3 py-[10px] text-foreground shadow-none [&>svg]:hidden"
-      >
-        <SelectValue className="truncate text-left text-[0.75rem] font-semibold leading-none tabular-nums">
-          {display}
-        </SelectValue>
-        <span className="flex items-center justify-between gap-1 text-[0.65rem] leading-tight text-foreground/60">
-          <span className="truncate whitespace-nowrap">{label}</span>
-          <ChevronDownIcon className="size-3 shrink-0" />
-        </span>
-      </SelectTrigger>
-      <SelectContent>{children}</SelectContent>
-    </Select>
   )
 }
 
@@ -416,25 +335,6 @@ function UniversityRanking({
           </li>
         ))}
       </ol>
-    </div>
-  )
-}
-
-function Metric({
-  label,
-  value,
-}: {
-  label: React.ReactNode
-  value: React.ReactNode
-}) {
-  return (
-    <div className="flex flex-col justify-center gap-1 rounded-md border border-white/10 bg-white/5 px-3 py-[14px]">
-      <span className="text-lg font-semibold leading-none tabular-nums">
-        {value}
-      </span>
-      <span className="whitespace-nowrap text-[0.7rem] leading-tight text-foreground/60">
-        {label}
-      </span>
     </div>
   )
 }
