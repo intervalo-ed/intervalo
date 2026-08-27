@@ -91,11 +91,6 @@ export type Collect = {
   startDelayMs?: number
   // Una por partícula, en orden de llegada.
   onArrive?: (index: number, progress: number) => void
-  // Sin estallido: las partículas nacen quietas en un puñado alrededor del
-  // origen y de ahí salen derecho al imán. El resumen de sesión de Intervalo
-  // sigue usando el modo con explosión, así que esto es una opción y no un
-  // cambio de comportamiento.
-  direct?: boolean
 }
 
 const SEEK_MS = 420
@@ -135,11 +130,6 @@ const BURST_SPEED_BIAS = 1.8
 const RAIN_FALL_MIN = 8
 const RAIN_FALL_SPAN = 14
 
-// Radio del puñado inicial en modo directo, en % de viewport. No es decorativo:
-// sin nada de dispersión las partículas nacen una encima de otra y, con
-// `mixBlendMode: screen`, el puñado se ve como un solo punto quemado.
-const DIRECT_SPREAD = 2.5
-
 // Explosión radial: todas las partículas (cuadraditos) nacen en `origin` (por
 // defecto el centro de la pantalla, en % de viewport) y salen disparadas
 // mayormente hacia arriba y a los costados (unas pocas también hacia abajo) a
@@ -150,57 +140,60 @@ export function Confetti({
   colors = BELT_COLORS,
   origin = { x: 50, y: 50 },
   shape = "square",
+  power = 1,
   collect,
 }: {
   count: number
   colors?: readonly string[]
   origin?: { x: number; y: number }
   shape?: "square" | "circle"
+  // Fuerza del estallido, 0-1. En 1 es el de siempre: ocupa la pantalla entera
+  // y las partículas terminan cayendo. Por debajo, la misma explosión pero
+  // contenida — se despliega alrededor del origen y se queda ahí. Escala el
+  // envión inicial, la gravedad, la caída y el trompo todos juntos, porque
+  // bajar solo la velocidad deja partículas lentas lloviendo, que se lee como
+  // otra cosa.
+  power?: number
   collect?: Collect
 }) {
   // `useState` perezoso y no `useRef(Array.from(...))`: el array se arma una
   // sola vez (con useRef se regeneraba entero en cada render para tirarlo) y,
   // al ser un valor y no un ref, se puede leer en el render para montar los
   // nodos.
-  const direct = collect?.direct ?? false
   const [particles] = useState<Particle[]>(() =>
     Array.from({ length: count }, (_, i) => {
       // Radial puro: cualquier dirección con la misma probabilidad, sin sesgo
-      // hacia arriba ni hacia abajo. En modo directo el ángulo ya no es una
-      // dirección de disparo sino dónde cae la partícula dentro del puñado.
+      // hacia arriba ni hacia abajo.
       const angle = Math.random() * Math.PI * 2
       // Curva de potencia en vez de uniforme: la mayoría sale con fuerza
       // media y unas pocas se van muy lejos, que es lo que da la sensación de
       // estallido despatarrado. El piso igual es alto para que ninguna se
       // quede pegada al origen.
-      const speed = direct
-        ? 0
-        : BURST_SPEED_MIN + Math.pow(Math.random(), BURST_SPEED_BIAS) * BURST_SPEED_SPAN
-      const spread = direct ? Math.random() * DIRECT_SPREAD : 0
+      const speed =
+        (BURST_SPEED_MIN + Math.pow(Math.random(), BURST_SPEED_BIAS) * BURST_SPEED_SPAN) *
+        power
       return {
         id: i,
-        x: origin.x + Math.cos(angle) * spread,
-        y: origin.y + Math.sin(angle) * spread,
+        x: origin.x,
+        y: origin.y,
         vx: Math.cos(angle) * speed,
         vy: Math.sin(angle) * speed,
         color: colors[i % colors.length],
         size: 6 + Math.random() * 9,
         rot: Math.random() * 360,
-        // Sin estallido tampoco hay trompo: apenas un giro suave en el viaje.
-        vrot: (Math.random() - 0.5) * (direct ? 220 : 900),
+        vrot: (Math.random() - 0.5) * 900 * power,
         // Gravedad propia de cada partícula, con mucha varianza: unas caen
-        // como piedra, otras casi flotan. En modo directo no hay caída: las
-        // partículas esperan quietas su turno de salir hacia el imán.
-        grav: direct ? 0 : 30 + Math.random() * 180,
+        // como piedra, otras casi flotan.
+        grav: (30 + Math.random() * 180) * power,
         // Al apagarse el envión inicial, la partícula deja de acelerar y pasa
         // a caer como las de la lluvia: velocidad final propia + vaivén.
-        fall: direct ? 0 : RAIN_FALL_MIN + Math.random() * RAIN_FALL_SPAN,
+        fall: (RAIN_FALL_MIN + Math.random() * RAIN_FALL_SPAN) * power,
         // Frenado del aire propio de cada una (fracción de velocidad que
         // conserva por segundo). Es lo que hace que no todas pasen a planear
         // al mismo tiempo: con 0.03 el envión se apaga casi enseguida, con
         // 0.45 la partícula sigue de largo un buen rato.
         drag: 0.03 + Math.random() * 0.42,
-        sway: direct ? 0 : 1.5 + Math.random() * 4,
+        sway: (1.5 + Math.random() * 4) * power,
         phase: Math.random() * Math.PI * 2,
         alive: true,
         seekAt: null,

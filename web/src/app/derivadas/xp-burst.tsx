@@ -5,11 +5,12 @@
 // llegada suma su parte y suena el mismo tick que cuenta la experiencia en el
 // resumen de sesión de Intervalo.
 //
-// Sin estallido. La explosión ocupaba la pantalla entera durante medio segundo
-// para después juntar todo en un punto: mucho ruido para un acierto que puede
-// repetirse cada quince segundos. El viaje directo cuenta lo mismo —la
-// respuesta se convirtió en XP— y no tapa el ranking, que es adonde hay que
-// mirar. El modo con explosión sigue existiendo para el resumen de sesión.
+// El estallido es suave y compacto: se abre alrededor de la respuesta y se
+// queda ahí. A fuerza plena ocupaba la pantalla entera durante medio segundo
+// para después juntar todo en un punto — mucho ruido para un acierto que puede
+// repetirse cada quince segundos, y encima tapaba el ranking, que es adonde hay
+// que mirar. El resumen de sesión de Intervalo sí usa la fuerza plena: ahí el
+// festejo es el final de algo, no un paso más.
 //
 // El orden importa: primero llega toda la XP, y recién ahí el ranking estrena
 // orden y la fila sube. Por eso `onComplete` es quien dispara la invalidación
@@ -29,10 +30,16 @@ const XP_PER_PARTICLE = 3
 const MIN_PARTICLES = 4
 const MAX_PARTICLES = 14
 
+// Fuerza del estallido (ver Confetti :: power). Con el frenado del aire, a este
+// valor la nube se abre y frena dentro de un radio chico alrededor del campo en
+// vez de irse a los bordes de la pantalla.
+const BURST_POWER = 0.14
+
 // La recolección arranca después de que el ranking terminó de recentrar la fila
-// propia: si empezara antes, el imán apuntaría a donde la fila ya no está. Es
-// más corta que con estallido porque acá no hay nada que mirar mientras tanto.
-const COLLECT_DELAY_MS = 320
+// propia: si empezara antes, el imán apuntaría a donde la fila ya no está. Y
+// tiene que darle tiempo al estallido a abrirse, si no se lo lleva a medio
+// desplegar.
+const COLLECT_DELAY_MS = 420
 
 type Burst = {
   seq: number
@@ -177,11 +184,11 @@ export function XpBurstConfetti({
       count={burst.chunks.length}
       shape="circle"
       origin={burst.origin}
+      power={BURST_POWER}
       collect={{
         target: () => targetRef.current(),
         startDelayMs: COLLECT_DELAY_MS,
         onArrive: (i, p) => arriveRef.current(i, p),
-        direct: true,
       }}
     />
   )
