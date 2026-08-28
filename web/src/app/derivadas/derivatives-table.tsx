@@ -25,6 +25,7 @@ import { Table2 as TableIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import MathText from "@/components/math-text"
 import { KeyCap } from "./exercise-card"
+import { useTeclas } from "./teclas"
 
 // Todas las fórmulas se dibujan en `\displaystyle`, y no es cosmético: en
 // modo texto —el de `$...$`— KaTeX arma las fracciones con numerador y
@@ -142,6 +143,7 @@ export function TableButton({
   keyboard?: boolean
   className?: string
 }) {
+  const teclas = useTeclas()
   return (
     <button
       type="button"
@@ -157,9 +159,7 @@ export function TableButton({
       )}
     >
       <TableIcon size={15} />
-      {/* "alt" y no "option": la tecla de Mac lleva las dos palabras impresas,
-          y "alt" es además la que entiende quien está en Windows. */}
-      {keyboard && <KeyCap className="ml-0">alt</KeyCap>}
+      {keyboard && <KeyCap className="ml-0">{teclas.alt}</KeyCap>}
     </button>
   )
 }
