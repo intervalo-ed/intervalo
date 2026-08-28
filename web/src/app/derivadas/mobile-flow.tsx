@@ -46,6 +46,7 @@ import {
 } from "./exercise-card"
 import { CafecitoPanel } from "./cafecito-panel"
 import { ReclutasPanel, type ReclutasTrigger } from "./reclutas-panel"
+import { ConSalidaAbajo } from "./slide-salida"
 import { marcarReclutasMostrado, tocaReclutar } from "./reclutas-trigger"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { INTRO_CLOSE, IntroParagraphs } from "./intro-panel"
@@ -974,24 +975,32 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
               {/* Sin `keyboard`: el botón de seguir igual espera sus diez
                   segundos —la espera es para leer, no para el teclado— pero acá
                   no hay tecla que mostrar ni atajo que ofrecer. */}
-              <CafecitoPanel
-                trigger={slide.trigger}
-                correctToday={slide.correctToday}
-                university={player?.university ?? null}
-                solved={solvedCount}
-                onPickUniversity={() => goTo({ kind: "settings", back: slide })}
-                onContinue={() => {
-                  // La diapo que abrió la persona interrumpió lo que estaba
-                  // haciendo y hay que devolvérselo; la que dispara un hito
-                  // llega DESPUÉS de responder, y ahí sí toca seguir.
-                  // Y va "atras", que es lo que hace que salir se vea como
-                  // salir: la diapo se corre para el otro lado y devuelve la
-                  // pantalla de donde vino, en vez de entrar como una nueva.
-                  if (slide.trigger !== "pedido") advanceAfterAnswer("cafecito")
-                  else goTo(slide.back ?? { kind: "exercise" }, "atras")
-                }}
-                className="flex-none"
-              />
+              <ConSalidaAbajo>
+                {(slotSalida) => (
+                  <CafecitoPanel
+                    trigger={slide.trigger}
+                    correctToday={slide.correctToday}
+                    university={player?.university ?? null}
+                    solved={solvedCount}
+                    slotSalida={slotSalida}
+                    onPickUniversity={() =>
+                      goTo({ kind: "settings", back: slide })
+                    }
+                    onContinue={() => {
+                      // La diapo que abrió la persona interrumpió lo que estaba
+                      // haciendo y hay que devolvérselo; la que dispara un hito
+                      // llega DESPUÉS de responder, y ahí sí toca seguir.
+                      // Y va "atras", que es lo que hace que salir se vea como
+                      // salir: la diapo se corre para el otro lado y devuelve la
+                      // pantalla de donde vino, en vez de entrar como una nueva.
+                      if (slide.trigger !== "pedido")
+                        advanceAfterAnswer("cafecito")
+                      else goTo(slide.back ?? { kind: "exercise" }, "atras")
+                    }}
+                    className="flex-none"
+                  />
+                )}
+              </ConSalidaAbajo>
             </div>
           )}
 
@@ -1001,18 +1010,24 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   ranking de al lado se conmuta a "Reclutas" y la muestra; acá el
                   ranking es otra diapo, así que si la lista no viajara con esta
                   el "10% de lo que sumen" sería una frase sin nada que mirar. */}
-              <ReclutasPanel
-                trigger={slide.trigger}
-                conLista
-                onContinue={() => {
-                  // Igual que la del café: la que abrió la persona interrumpió
-                  // algo y hay que devolvérselo; la que salió por hito llega
-                  // después de responder, y ahí lo que toca es seguir.
-                  if (slide.trigger !== "pedido") advanceAfterAnswer("reclutas")
-                  else goTo(slide.back ?? { kind: "exercise" }, "atras")
-                }}
-                className="flex-none"
-              />
+              <ConSalidaAbajo>
+                {(slotSalida) => (
+                  <ReclutasPanel
+                    trigger={slide.trigger}
+                    conLista
+                    slotSalida={slotSalida}
+                    onContinue={() => {
+                      // Igual que la del café: la que abrió la persona
+                      // interrumpió algo y hay que devolvérselo; la que salió por
+                      // hito llega después de responder, y ahí toca seguir.
+                      if (slide.trigger !== "pedido")
+                        advanceAfterAnswer("reclutas")
+                      else goTo(slide.back ?? { kind: "exercise" }, "atras")
+                    }}
+                    className="flex-none"
+                  />
+                )}
+              </ConSalidaAbajo>
             </div>
           )}
         </motion.div>

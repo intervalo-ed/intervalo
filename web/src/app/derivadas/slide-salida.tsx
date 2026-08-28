@@ -2,14 +2,16 @@
 
 // Dónde se dibuja el botón con el que se sale de una diapo de pedido.
 //
-// En el teléfono va adentro de la diapo, debajo del botón de color: cada diapo
-// es una pantalla entera y ahí abajo no hay nada más.
+// Fuera de la caja de color, en los dos aparatos, y siempre en el lugar donde
+// vive el botón con el que se sigue en el resto del juego: en escritorio, el pie
+// de la columna, donde están Revisar y Saltear; en el teléfono, abajo de todo,
+// donde está el Continuar del ranking y el Volver de la tabla.
 //
-// En escritorio va en el PIE de la columna, en el mismo lugar donde están
-// Revisar y Saltear mientras se juega. Esa es la diferencia que hace que pedir
-// algo se lea como una pausa adentro del juego y no como cambiar de pantalla: la
-// caja del ejercicio se da vuelta y muestra el pedido, pero el botón de seguir
-// no se movió de donde estaba y el historial de al lado no parpadeó.
+// Esa es la idea entera. Adentro de la caja queda lo que hay que LEER y el botón
+// de color, que es lo que se ofrece; el botón con el que se sale no se movió de
+// donde siempre estuvo. Con todo adentro, pedir algo se leía como cambiar de
+// pantalla — y en escritorio además se llevaba puesto el historial de novedades,
+// que se desmontaba y volvía a montarse en cada ida y vuelta.
 //
 // Y se dibuja con un PORTAL en vez de subir el botón al layout. La etiqueta y la
 // cuenta regresiva dependen de estado que vive adentro de cada panel —el
@@ -18,6 +20,7 @@
 // docena de piezas de estado mudadas de lugar y duplicadas en el flujo del
 // teléfono, para mover un botón cuarenta píxeles.
 
+import { useState } from "react"
 import { createPortal } from "react-dom"
 
 /** El botón de salida, puesto donde corresponda.
@@ -38,6 +41,30 @@ export function Salida({
   children: React.ReactNode
 }) {
   return slot ? createPortal(children, slot) : <>{children}</>
+}
+
+/** El hueco de abajo donde la diapo deja su botón de salir, en el teléfono.
+ *
+ * Acá no hay pie fijo como en escritorio, así que el hueco lo pone la propia
+ * pantalla: el cuerpo va arriba y esto queda debajo, fuera de la caja de color.
+ * Es el mismo lugar donde está el Continuar de las otras pantallas del teléfono
+ * —el ranking, la tabla, las novedades— y esa es la idea: el botón con el que se
+ * sigue está siempre abajo y no adentro de lo que se está leyendo.
+ *
+ * Cada diapo monta el SUYO. Si compartieran uno, durante el pase de pantalla la
+ * diapo que se va dibujaría su botón en el hueco de la que entra. */
+export function ConSalidaAbajo({
+  children,
+}: {
+  children: (slot: HTMLElement | null) => React.ReactNode
+}) {
+  const [slot, setSlot] = useState<HTMLDivElement | null>(null)
+  return (
+    <>
+      {children(slot)}
+      <div ref={setSlot} className="mt-3 shrink-0" />
+    </>
+  )
 }
 
 /** Cómo se ve el botón según dónde termine.

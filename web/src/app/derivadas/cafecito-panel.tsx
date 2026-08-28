@@ -420,12 +420,14 @@ function PanelDeVuelta({
         </>
       )}
 
-      {/* En escritorio este botón baja al pie con el resto, y ahí es gris como
-          Saltear. Pierde el marrón de marca —esta es la única pantalla del juego
-          que llega después de que alguien pagó, y el color hacía de festejo— a
-          cambio de que el botón de seguir esté SIEMPRE en el mismo lugar, que es
-          lo que hace que la diapo se lea como una pausa y no como otra pantalla.
-          En el teléfono se queda adentro y sigue siendo marrón. */}
+      {/* Este botón sale de la caja de color: al pie de la columna en escritorio,
+          debajo de la diapo en el teléfono. En los dos casos queda gris.
+
+          Pierde el marrón de marca, y es una pérdida real: esta es la única
+          pantalla del juego que llega después de que alguien pagó, y ahí el color
+          hacía de festejo. Se paga a cambio de que el botón con el que se sigue
+          esté SIEMPRE en el mismo lugar, que es lo que hace que la diapo se lea
+          como una pausa adentro del juego y no como otra pantalla. */}
       <Salida slot={slotSalida}>
         <button
           type="button"
