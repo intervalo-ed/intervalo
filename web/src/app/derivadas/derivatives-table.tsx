@@ -85,14 +85,24 @@ const CELDA = "flex items-center justify-center px-3 py-2 text-center leading-no
 
 function Renglon({ fila }: { fila: Fila }) {
   return (
-    // `flex-auto` —o sea `flex: 1 1 auto`— es lo que reparte el sobrante de la
-    // columna entre los catorce renglones en vez de dejarlo todo junto al pie.
-    // El reparto es proporcional a lo que cada uno mide, así que el que tiene
-    // una raíz sigue siendo un poco más alto que el que tiene un 0: se gana
-    // aire sin aplanar las diferencias. Y como el reparto se recalcula con el
-    // alto disponible, el margen de abajo iguala al de arriba en cualquier
-    // ventana, sin ningún número escrito a mano.
-    <div className="grid flex-auto grid-cols-2 border-t border-white/10">
+    // `grow shrink-0 basis-auto` —o sea `flex: 1 0 auto`—, y ese cero del medio
+    // es un arreglo, no un detalle.
+    //
+    // Crece: reparte el sobrante de la columna entre los catorce renglones en vez
+    // de dejarlo todo junto al pie, y proporcional a lo que cada uno mide, así
+    // que el que tiene una raíz sigue siendo un poco más alto que el que tiene un
+    // 0. Se gana aire sin aplanar las diferencias.
+    //
+    // Pero NO encoge, y antes sí lo hacía (`flex-auto`, con el 1 en la posición
+    // de encoger). Cuando la tabla no entraba —en el teléfono, donde ocupa una
+    // pantalla y no media card— los renglones se comprimían hasta que el último
+    // quedaba recortado por el `overflow-hidden` del marco, y el scroll no se
+    // activaba nunca: el contenido nunca llegaba a ser más alto que su caja.
+    // Medido: scrollHeight y clientHeight daban los dos 691.
+    //
+    // Con shrink en cero el contenido desborda de verdad y el `overflow-y-auto`
+    // de arriba hace lo que dice que hace.
+    <div className="grid shrink-0 grow basis-auto grid-cols-2 border-t border-white/10">
       <div className={cn(CELDA, "border-r border-white/10")}>
         <MathText text={mate(fila.f)} />
       </div>
@@ -110,8 +120,15 @@ export function DerivativesTable() {
     <div className="no-scrollbar flex min-h-0 flex-1 flex-col overflow-y-auto text-[0.95rem]">
       {/* `min-h-full`: cuando sobra alto, la tabla se estira hasta el fondo del
           contenedor y son los renglones los que se lo reparten (ver `Renglon`).
-          Cuando falta, no encoge — scrollea, que es lo que corresponde. */}
-      <div className="flex min-h-full flex-col overflow-hidden rounded-md border border-white/10">
+          Cuando falta, no encoge — scrollea, que es lo que corresponde.
+
+          Y para que eso último sea cierto hace falta `shrink-0` acá también. Es
+          hijo de un flex column, o sea que por defecto encoge: los renglones ya
+          no cedían, pero este marco sí, y su `overflow-hidden` los recortaba
+          antes de que el scroller llegara a enterarse de que algo desbordaba.
+          Medido con la tabla sin lugar: scrollHeight y clientHeight daban los dos
+          439, o sea nada que scrollear, con la última fila cortada igual. */}
+      <div className="flex min-h-full shrink-0 flex-col overflow-hidden rounded-md border border-white/10">
         <div className="grid shrink-0 grid-cols-2 bg-white/[0.07] text-center text-[0.7rem] font-medium uppercase tracking-wide text-muted-foreground">
           <div className="border-r border-white/10 py-1">función</div>
           <div className="py-1">derivada</div>
