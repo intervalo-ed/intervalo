@@ -971,7 +971,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
           )}
 
           {slide.kind === "cafecito" && (
-            <div className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-5 pb-[var(--cta-pb)] pt-4">
+            <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col px-5 pb-[var(--cta-pb)] pt-4">
               {/* Sin `keyboard`: el botón de seguir igual espera sus diez
                   segundos —la espera es para leer, no para el teclado— pero acá
                   no hay tecla que mostrar ni atajo que ofrecer. */}
@@ -1005,7 +1005,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
           )}
 
           {slide.kind === "reclutas" && (
-            <div className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-5 pb-[var(--cta-pb)] pt-4">
+            <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col px-5 pb-[var(--cta-pb)] pt-4">
               {/* Con la lista adentro, al revés que en escritorio. Allá el
                   ranking de al lado se conmuta a "Reclutas" y la muestra; acá el
                   ranking es otra diapo, así que si la lista no viajara con esta

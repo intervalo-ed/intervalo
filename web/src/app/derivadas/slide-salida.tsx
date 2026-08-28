@@ -46,10 +46,14 @@ export function Salida({
 /** El hueco de abajo donde la diapo deja su botón de salir, en el teléfono.
  *
  * Acá no hay pie fijo como en escritorio, así que el hueco lo pone la propia
- * pantalla: el cuerpo va arriba y esto queda debajo, fuera de la caja de color.
- * Es el mismo lugar donde está el Continuar de las otras pantallas del teléfono
- * —el ranking, la tabla, las novedades— y esa es la idea: el botón con el que se
- * sigue está siempre abajo y no adentro de lo que se está leyendo.
+ * pantalla, y con la MISMA geometría que el resto: el cuerpo se queda con todo
+ * el alto que sobra (`flex-1`) y el botón va último y sin encoger, así que
+ * termina exactamente donde termina el Continuar del ranking y el Volver de la
+ * tabla — a `--cta-pb` del piso, midiendo `--cta-h`.
+ *
+ * Que el botón caiga siempre en el mismo píxel es la mitad del asunto; la otra
+ * es que el cuerpo se centre en lo que queda arriba, y no que quede colgando de
+ * un botón que flota a media pantalla.
  *
  * Cada diapo monta el SUYO. Si compartieran uno, durante el pase de pantalla la
  * diapo que se va dibujaría su botón en el hueco de la que entra. */
@@ -61,7 +65,9 @@ export function ConSalidaAbajo({
   const [slot, setSlot] = useState<HTMLDivElement | null>(null)
   return (
     <>
-      {children(slot)}
+      <div className="flex min-h-0 flex-1 flex-col justify-center">
+        {children(slot)}
+      </div>
       <div ref={setSlot} className="mt-3 shrink-0" />
     </>
   )
