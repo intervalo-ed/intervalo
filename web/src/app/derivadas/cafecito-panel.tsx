@@ -36,6 +36,7 @@ import {
   type GameCafecitoStatus,
 } from "./UseGameLeaderboard"
 import { KeyCap } from "./exercise-card"
+import { claseDeSalida, Salida } from "./slide-salida"
 import { useCta } from "./game-telemetry"
 import { useTeclas } from "./teclas"
 
@@ -331,6 +332,7 @@ function PanelDeVuelta({
   estado,
   pedidos,
   keyboard,
+  slotSalida,
   onContinue,
 }: {
   estado: GameCafecitoStatus
@@ -339,6 +341,7 @@ function PanelDeVuelta({
   // en singular a quien pidió cinco.
   pedidos: number
   keyboard: boolean
+  slotSalida?: HTMLElement | null
   onContinue: () => void
 }) {
   const sfx = useSfx()
@@ -417,18 +420,30 @@ function PanelDeVuelta({
         </>
       )}
 
-      <button
-        type="button"
-        onClick={() => {
-          sfx.select()
-          onContinue()
-        }}
-        className="mt-6 flex w-full items-center justify-center rounded-md px-4 py-3 text-base font-semibold text-white transition-opacity hover:opacity-90"
-        style={{ backgroundColor: CAFE }}
-      >
-        Continuar
-        {keyboard && <KeyCap>{teclas.enter}</KeyCap>}
-      </button>
+      {/* En escritorio este botón baja al pie con el resto, y ahí es gris como
+          Saltear. Pierde el marrón de marca —esta es la única pantalla del juego
+          que llega después de que alguien pagó, y el color hacía de festejo— a
+          cambio de que el botón de seguir esté SIEMPRE en el mismo lugar, que es
+          lo que hace que la diapo se lea como una pausa y no como otra pantalla.
+          En el teléfono se queda adentro y sigue siendo marrón. */}
+      <Salida slot={slotSalida}>
+        <button
+          type="button"
+          onClick={() => {
+            sfx.select()
+            onContinue()
+          }}
+          className={
+            slotSalida
+              ? claseDeSalida(true)
+              : "mt-6 flex w-full items-center justify-center rounded-md px-4 py-3 text-base font-semibold text-white transition-opacity hover:opacity-90"
+          }
+          style={slotSalida ? undefined : { backgroundColor: CAFE }}
+        >
+          Continuar
+          {keyboard && <KeyCap>{teclas.enter}</KeyCap>}
+        </button>
+      </Salida>
     </div>
   )
 }
@@ -440,6 +455,10 @@ export function CafecitoPanel({
   correctToday = 0,
   onContinue,
   onPickUniversity,
+  // Dónde dibujar el botón de salir. En escritorio es el pie de la columna, para
+  // que quede en el mismo lugar donde estaba Revisar; en el teléfono no viene y
+  // el botón se queda adentro de la diapo. Ver slide-salida.tsx.
+  slotSalida,
   // En escritorio el juego se maneja con el teclado y la diapo lo respeta: los
   // dos botones muestran su tecla y hay atajos de verdad detrás. En el teléfono
   // no hay tecla que mostrar.
@@ -455,6 +474,7 @@ export function CafecitoPanel({
   correctToday?: number
   onContinue: () => void
   onPickUniversity?: () => void
+  slotSalida?: HTMLElement | null
   keyboard?: boolean
   className?: string
 }) {
@@ -601,6 +621,7 @@ export function CafecitoPanel({
           estado={estado}
           pedidos={n}
           keyboard={keyboard}
+          slotSalida={slotSalida}
           onContinue={onContinue}
         />
       ) : (
@@ -728,25 +749,27 @@ export function CafecitoPanel({
             Deshabilitado mientras corre la cuenta, y con los segundos a la
             vista: un botón apagado sin explicación se lee como que algo se
             rompió. */}
-        <button
-          type="button"
-          disabled={!listo}
-          onClick={() => {
-            sfx.select()
-            onContinue()
-          }}
-          className="mt-3 flex w-full items-center justify-center rounded-md border border-border px-4 py-3 text-base text-muted-foreground transition-colors hover:bg-accent hover:text-foreground disabled:pointer-events-none disabled:opacity-45"
-        >
-          {/* «Ahora no» nombra la decisión de rechazar, y eso solo aplica cuando
-              el juego ofreció. Si la persona abrió la diapo ella misma no está
-              diciendo que no a nada: está volviendo. */}
-          {LO_PIDIO(trigger)
-            ? "Volver"
-            : listo
-              ? "Ahora no"
-              : `Ahora no (${restante})`}
-          {keyboard && listo && <KeyCap>{teclas.enter}</KeyCap>}
-        </button>
+        <Salida slot={slotSalida}>
+          <button
+            type="button"
+            disabled={!listo}
+            onClick={() => {
+              sfx.select()
+              onContinue()
+            }}
+            className={claseDeSalida(!!slotSalida)}
+          >
+            {/* «Ahora no» nombra la decisión de rechazar, y eso solo aplica
+                cuando el juego ofreció. Si la persona abrió la diapo ella misma
+                no está diciendo que no a nada: está volviendo. */}
+            {LO_PIDIO(trigger)
+              ? "Volver"
+              : listo
+                ? "Ahora no"
+                : `Ahora no (${restante})`}
+            {keyboard && listo && <KeyCap>{teclas.enter}</KeyCap>}
+          </button>
+        </Salida>
       </div>
       )}
     </div>

@@ -879,10 +879,23 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // veinte píxeles de más en el ranking solo estiran los nombres.
   const columns = "grid-cols-[minmax(0,1fr)_420px]"
 
-  // Las dos pantallas que llevan botón e historial abajo, fuera del volteo. Las
-  // de trámite —perfil, registro, cafecito— ocupan la columna entera y no llevan
-  // ninguno de los dos.
-  const pieDelPanel = panel === "intro" || panel === "exercise"
+  // Las pantallas que llevan pie —botón e historial— abajo, fuera del volteo.
+  //
+  // Las dos diapos de pedido están adentro, y ese es el cambio que hace que
+  // pedir algo se lea como una pausa y no como cambiar de pantalla: la caja del
+  // ejercicio se da vuelta y muestra el pedido, pero el botón de seguir no se
+  // movió de su lugar —ahí abajo, donde estaba Revisar— y el historial de al
+  // lado ni se entera, porque no se desmonta.
+  //
+  // Las de trámite (perfil, registro) sí se quedan con la columna entera: son
+  // formularios, no una pausa, y su botón es parte de lo que hay que completar.
+  const esDiapoDePedido = panel === "cafecito" || panel === "reclutas"
+  const pieDelPanel = panel === "intro" || panel === "exercise" || esDiapoDePedido
+
+  // El nodo del pie donde las diapos dibujan su botón de salir (ver
+  // slide-salida.tsx). Va en estado y no en un ref porque un ref no vuelve a
+  // renderizar, y la diapo tiene que enterarse de que el destino ya existe.
+  const [slotSalida, setSlotSalida] = useState<HTMLDivElement | null>(null)
 
   return (
     <div className="h-dvh overflow-hidden" style={GRID_BG_STYLE}>
@@ -1056,6 +1069,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                     university={player?.university ?? null}
                     solved={solvedCount}
                     onPickUniversity={() => setSettingsOpen(true)}
+                    slotSalida={slotSalida}
                     onContinue={() => {
                       const volverA = cafecito.volverA
                       setCafecito(null)
@@ -1077,6 +1091,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                     trigger={reclutas.trigger}
                     // Sin lista adentro: acá al lado el ranking ya se conmutó a
                     // "Reclutas" y la muestra entera. Ver `viewOverride`.
+                    slotSalida={slotSalida}
                     onContinue={() => {
                       const { trigger, volverA } = reclutas
                       setReclutas(null)
@@ -1221,6 +1236,15 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                         onStart={startFromIntro}
                         disabled={player === null || next.isPending}
                       />
+                    ) : esDiapoDePedido ? (
+                      // La caja vacía donde la diapo dibuja su botón. Se monta y
+                      // se desmonta con `panel`, y eso resuelve el único caso
+                      // molesto: durante los ~380 ms del volteo de salida la
+                      // diapo que se va sigue montada (ver slide-flip.tsx) e
+                      // intentaría dibujar su botón al lado del Revisar que ya
+                      // volvió. Como el destino desaparece en el mismo instante
+                      // en que cambia `panel`, no dibuja nada.
+                      <div ref={setSlotSalida} className="flex w-full" />
                     ) : exercise ? (
                       <>
                         <AnswerButton

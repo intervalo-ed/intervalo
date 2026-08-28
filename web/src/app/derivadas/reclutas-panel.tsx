@@ -27,6 +27,7 @@ import { shareUrl, VERDE, VERDE_TINTA_OSCURA, WhatsappGlyph } from "./cafecito-c
 import { KeyCap } from "./exercise-card"
 import { useCta } from "./game-telemetry"
 import { ListaDeReclutas } from "./reclutas-list"
+import { claseDeSalida, Salida } from "./slide-salida"
 import { useTeclas } from "./teclas"
 import { useCachedPlayer } from "./UseGamePlayer"
 import { useGameRecruits } from "./UseGameLeaderboard"
@@ -73,6 +74,10 @@ export function ReclutasPanel({
   // la misma pantalla.
   conLista = false,
   onContinue,
+  // Dónde dibujar el botón de salir. En escritorio es el pie de la columna, para
+  // que quede en el mismo lugar donde estaba Revisar; en el teléfono no viene y
+  // el botón se queda adentro de la diapo. Ver slide-salida.tsx.
+  slotSalida,
   // En escritorio el juego se maneja con el teclado y la diapo lo respeta. En el
   // teléfono no hay tecla que mostrar.
   keyboard = false,
@@ -81,6 +86,7 @@ export function ReclutasPanel({
   trigger: ReclutasTrigger
   conLista?: boolean
   onContinue: () => void
+  slotSalida?: HTMLElement | null
   keyboard?: boolean
   className?: string
 }) {
@@ -185,18 +191,20 @@ export function ReclutasPanel({
           {keyboard && <KeyCap>{teclas.shiftEnter}</KeyCap>}
         </button>
 
-        <button
-          type="button"
-          disabled={!listo}
-          onClick={() => {
-            sfx.select()
-            onContinue()
-          }}
-          className="mt-3 flex w-full items-center justify-center rounded-md border border-border px-4 py-3 text-base text-muted-foreground transition-colors hover:bg-accent hover:text-foreground disabled:pointer-events-none disabled:opacity-45"
-        >
-          {LO_PIDIO(trigger) ? "Volver" : listo ? "Ahora no" : `Ahora no (${restante})`}
-          {keyboard && listo && <KeyCap>{teclas.enter}</KeyCap>}
-        </button>
+        <Salida slot={slotSalida}>
+          <button
+            type="button"
+            disabled={!listo}
+            onClick={() => {
+              sfx.select()
+              onContinue()
+            }}
+            className={claseDeSalida(!!slotSalida)}
+          >
+            {LO_PIDIO(trigger) ? "Volver" : listo ? "Ahora no" : `Ahora no (${restante})`}
+            {keyboard && listo && <KeyCap>{teclas.enter}</KeyCap>}
+          </button>
+        </Salida>
       </div>
     </div>
   )
