@@ -707,7 +707,63 @@ check(
     "y la consulta a la tabla queda marcada en el ejercicio",
 )
 
-print("13. dispositivo")
+print("13. muestra por personas")
+# `n_players` es el tamaño de muestra con el que se decide cuánto creerle a una β
+# aprendida (elo.effective_beta). Lo que se prueba acá es lo único que puede
+# salir mal: que cuente RESPUESTAS en vez de PERSONAS. Sin esto, un estudiante
+# solo empujaría la dificultad de una plantilla tan lejos como quisiera.
+from models import GameTemplateStat as _GTS  # noqa: E402
+
+CLAVE = "t2_sum2"
+
+
+def _resolver(pid: int, headers: dict) -> None:
+    """Sirve un ejercicio forzado de CLAVE a `pid` y lo responde bien."""
+    db.query(GameExercise).filter(GameExercise.player_id == pid).update(
+        {"status": "expired"}, synchronize_session=False
+    )
+    ej = GameExercise(
+        player_id=pid, template_key=CLAVE, prompt_latex="x^{2}+x",
+        expected_derivative="2*x + 1", common_errors_json="[]",
+        theta_at_serve=0.0, beta_at_serve=-1.0, p_hat=0.75, status="served",
+    )
+    db.add(ej)
+    db.commit()
+    client.post("/game/derivemos/answer", headers=headers, json={
+        "exercise_id": ej.id, "answer_latex": "2x+1",
+        "answer_mathjson": ["Add", ["Multiply", 2, "x"], 1],
+    })
+
+
+def _muestra() -> tuple[int, int]:
+    db.expire_all()
+    fila = db.query(_GTS).filter(_GTS.template_key == CLAVE).first()
+    return (0, 0) if fila is None else (fila.n_observations, fila.n_players)
+
+
+db = database.SessionLocal()
+_resolver(player_id, H)
+obs1, gente1 = _muestra()
+_resolver(player_id, H)
+obs2, gente2 = _muestra()
+check(obs2 == obs1 + 1, f"la segunda respuesta suma una observación ({obs1} → {obs2})")
+check(gente2 == gente1,
+      f"pero NO suma una persona: es el mismo estudiante ({gente1} → {gente2})")
+
+otro = client.post("/game/derivemos/player", json={}).json()
+H_otro = {"X-Game-Token": otro["guest_token"]}
+# El id no viaja en la respuesta (el front nunca lo necesita), así que se
+# resuelve por el token, que es la identidad del invitado.
+otro_id = (
+    db.query(GamePlayer).filter(GamePlayer.guest_token == otro["guest_token"]).first().id
+)
+_resolver(otro_id, H_otro)
+obs3, gente3 = _muestra()
+check(obs3 == obs2 + 1 and gente3 == gente2 + 1,
+      f"y un estudiante distinto sí suma persona ({gente2} → {gente3})")
+db.close()
+
+print("14. dispositivo")
 # El header lo manda el cliente y el server lo cree, pero solo dentro del
 # vocabulario cerrado: sin esa guarda, un typo del front crearía una categoría
 # fantasma en el panel y nadie se enteraría hasta leer una tabla con dos filas

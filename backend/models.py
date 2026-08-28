@@ -641,6 +641,26 @@ class GamePlayer(Base):
     first_group_id = Column(String(20), nullable=True, index=True)
     first_utm_source = Column(String(20), nullable=True)
 
+    # Quién lo trajo: el jugador cuyo @ venía en el `?r=` del link (ver
+    # game/referrals.py). Se escribe UNA vez, al crear la fila, y no se toca más
+    # — poder reasignarlo después sería poder elegirse un reclutador cuando ya
+    # se sabe quién conviene.
+    #
+    # Indexada porque es la consulta entera de la vista "Reclutas" del ranking:
+    # todos los jugadores cuyo `referred_by` soy yo.
+    referred_by = Column(Integer, ForeignKey("game_players.id"), nullable=True, index=True)
+    # Cuánta XP le dio ESTE jugador a quien lo trajo. Vive en la fila del
+    # recluta y no en la del reclutador porque es lo que muestra cada renglón de
+    # esa vista: no el total, sino cuánto puso cada uno.
+    referral_xp_given = Column(Integer, nullable=False, default=0, server_default="0")
+    # El resto de la división, en centésimas de XP (0-99).
+    #
+    # El 10% de una derivada de 25 XP son 2,5. Redondeando cada pago hacia abajo
+    # se pagan 2, y el 10% escrito en la diapo pasa a ser un 8% — una quinta
+    # parte de lo prometido evaporada en el redondeo. Guardando el resto, lo que
+    # sobra de una respuesta se cobra en la siguiente y la cuenta cierra exacta.
+    referral_pending = Column(Integer, nullable=False, default=0, server_default="0")
+
     # Jugador sembrado (ver scripts/seed_game_bots.py): puebla el ranking para
     # que el primero en llegar tenga a quién escalar. No lo controla nadie —
     # tiene user_id y guest_token en NULL, así que ninguna request lo resuelve.
@@ -700,6 +720,12 @@ class GameTemplateStat(Base):
     beta = Column(Float, nullable=False, default=0.0)
     n_observations = Column(Integer, nullable=False, default=0, server_default="0")
     n_correct = Column(Integer, nullable=False, default=0, server_default="0")
+    # Estudiantes DISTINTOS que aportaron una observación a esta plantilla. Es el
+    # tamaño de muestra que cuenta para el ancla de β (game/elo.py): veinte
+    # respuestas de una sola persona no son veinte datos sobre la plantilla, son
+    # veinte datos sobre esa persona. Cuánto se le cree a una β aprendida se
+    # decide con este número y no con `n_observations`.
+    n_players = Column(Integer, nullable=False, default=0, server_default="0")
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
 
