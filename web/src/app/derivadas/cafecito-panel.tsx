@@ -36,7 +36,7 @@ import {
   type GameCafecitoStatus,
 } from "./UseGameLeaderboard"
 import { KeyCap } from "./exercise-card"
-import { claseDeSalida, Salida } from "./slide-salida"
+import { CLASE_ACCION_EN_EL_PIE, claseDeSalida, Salida } from "./slide-salida"
 import { useCta } from "./game-telemetry"
 import { useTeclas } from "./teclas"
 
@@ -332,7 +332,7 @@ function PanelDeVuelta({
   estado,
   pedidos,
   keyboard,
-  slotSalida,
+  slotAccion,
   onContinue,
 }: {
   estado: GameCafecitoStatus
@@ -341,7 +341,7 @@ function PanelDeVuelta({
   // en singular a quien pidió cinco.
   pedidos: number
   keyboard: boolean
-  slotSalida?: HTMLElement | null
+  slotAccion?: HTMLElement | null
   onContinue: () => void
 }) {
   const sfx = useSfx()
@@ -428,7 +428,7 @@ function PanelDeVuelta({
           hacía de festejo. Se paga a cambio de que el botón con el que se sigue
           esté SIEMPRE en el mismo lugar, que es lo que hace que la diapo se lea
           como una pausa adentro del juego y no como otra pantalla. */}
-      <Salida slot={slotSalida}>
+      <Salida slot={slotAccion}>
         <button
           type="button"
           onClick={() => {
@@ -436,11 +436,11 @@ function PanelDeVuelta({
             onContinue()
           }}
           className={
-            slotSalida
+            slotAccion
               ? claseDeSalida(true)
               : "mt-6 flex w-full items-center justify-center rounded-md px-4 py-3 text-base font-semibold text-white transition-opacity hover:opacity-90"
           }
-          style={slotSalida ? undefined : { backgroundColor: CAFE }}
+          style={slotAccion ? undefined : { backgroundColor: CAFE }}
         >
           Continuar
           {keyboard && <KeyCap>{teclas.enter}</KeyCap>}
@@ -461,6 +461,9 @@ export function CafecitoPanel({
   // que quede en el mismo lugar donde estaba Revisar; en el teléfono no viene y
   // el botón se queda adentro de la diapo. Ver slide-salida.tsx.
   slotSalida,
+  // Ídem para el botón de color. Solo lo manda el teléfono: en escritorio se
+  // queda adentro de la caja, que es donde se lo diseñó.
+  slotAccion,
   // En escritorio el juego se maneja con el teclado y la diapo lo respeta: los
   // dos botones muestran su tecla y hay atajos de verdad detrás. En el teléfono
   // no hay tecla que mostrar.
@@ -477,6 +480,7 @@ export function CafecitoPanel({
   onContinue: () => void
   onPickUniversity?: () => void
   slotSalida?: HTMLElement | null
+  slotAccion?: HTMLElement | null
   keyboard?: boolean
   className?: string
 }) {
@@ -623,7 +627,7 @@ export function CafecitoPanel({
           estado={estado}
           pedidos={n}
           keyboard={keyboard}
-          slotSalida={slotSalida}
+          slotAccion={slotAccion}
           onContinue={onContinue}
         />
       ) : (
@@ -682,39 +686,45 @@ export function CafecitoPanel({
               aria-label="Cantidad de cafecitos"
             />
 
-            <motion.button
-              type="button"
-              onClick={invitar}
-              className="mt-5 flex w-full items-center justify-center gap-2 rounded-md px-4 py-3 text-base font-semibold text-white transition-opacity hover:opacity-90"
-              animate={quieto ? { boxShadow: auraBoton(t, 1) } : { boxShadow: ciclo((k) => auraBoton(t, k)) }}
-              transition={quieto ? { duration: 0 } : RESPIRO_TRANSICION}
-              // EXACTAMENTE el color de la barra, sin bajarlo: el botón es lo
-              // que la barra está eligiendo, así que se enciende con ella.
-              //
-              // Lo que cambia es la TINTA, no el fondo. El dorado del extremo
-              // derecho es un color claro y contra texto blanco da 1,77:1 —
-              // ilegible— así que a partir de la mitad del recorrido la letra
-              // pasa a ser oscura. El cruce está puesto donde las dos opciones
-              // sirven (medido: 4,2 con blanco y 4,3 con tinta oscura), así que
-              // no hay un punto del slider en el que el botón se lea mal.
-              //
-              // El aura crece con la posición: es lo que hace que llevar el
-              // slider a la derecha se sienta como subir la potencia y no como
-              // mover un número.
-              style={{
-                backgroundColor: colorPara(t),
-                color: t < 0.5 ? "#FFFFFF" : TINTA_OSCURA,
-                transition: "color 150ms ease-out",
-              }}
-            >
-              {/* La taza va DESPUÉS de la palabra: el botón se lee "invitar
-                  cinco cafecitos" y el ícono cierra la frase en vez de
-                  anunciarla. Adelante empujaba el texto a la derecha y el botón
-                  quedaba descentrado con la tecla del otro lado. */}
-              Invitar {n === 1 ? "un cafecito" : `${n} cafecitos`}
-              <Coffee size={18} />
-              {keyboard && <KeyCap>{teclas.shiftEnter}</KeyCap>}
-            </motion.button>
+            <Salida slot={slotAccion}>
+              <motion.button
+                type="button"
+                onClick={invitar}
+                className={
+                  slotAccion
+                    ? CLASE_ACCION_EN_EL_PIE
+                    : "mt-5 flex w-full items-center justify-center gap-2 rounded-md px-4 py-3 text-base font-semibold text-white transition-opacity hover:opacity-90"
+                }
+                animate={quieto ? { boxShadow: auraBoton(t, 1) } : { boxShadow: ciclo((k) => auraBoton(t, k)) }}
+                transition={quieto ? { duration: 0 } : RESPIRO_TRANSICION}
+                // EXACTAMENTE el color de la barra, sin bajarlo: el botón es lo
+                // que la barra está eligiendo, así que se enciende con ella.
+                //
+                // Lo que cambia es la TINTA, no el fondo. El dorado del extremo
+                // derecho es un color claro y contra texto blanco da 1,77:1 —
+                // ilegible— así que a partir de la mitad del recorrido la letra
+                // pasa a ser oscura. El cruce está puesto donde las dos opciones
+                // sirven (medido: 4,2 con blanco y 4,3 con tinta oscura), así que
+                // no hay un punto del slider en el que el botón se lea mal.
+                //
+                // El aura crece con la posición: es lo que hace que llevar el
+                // slider a la derecha se sienta como subir la potencia y no como
+                // mover un número.
+                style={{
+                  backgroundColor: colorPara(t),
+                  color: t < 0.5 ? "#FFFFFF" : TINTA_OSCURA,
+                  transition: "color 150ms ease-out",
+                }}
+              >
+                {/* La taza va DESPUÉS de la palabra: el botón se lee "invitar
+                    cinco cafecitos" y el ícono cierra la frase en vez de
+                    anunciarla. Adelante empujaba el texto a la derecha y el botón
+                    quedaba descentrado con la tecla del otro lado. */}
+                Invitar {n === 1 ? "un cafecito" : `${n} cafecitos`}
+                <Coffee size={18} />
+                {keyboard && <KeyCap>{teclas.shiftEnter}</KeyCap>}
+              </motion.button>
+            </Salida>
           </>
         ) : (
           <>
@@ -723,21 +733,27 @@ export function CafecitoPanel({
               Elegí dónde estudiás y el próximo se lo llevás vos.
             </p>
             {onPickUniversity && (
-              <button
-                type="button"
-                onClick={() => {
-                  cta("boost_offer", "click", {
-                    placement: trigger,
-                    solved,
-                    props: { action: "pick_university" },
-                  })
-                  onPickUniversity()
-                }}
-                className="mt-5 flex w-full items-center justify-center rounded-md px-4 py-3 text-base font-semibold text-white transition-opacity hover:opacity-90"
-                style={{ backgroundColor: CAFE }}
-              >
-                Elegir mi universidad
-              </button>
+              <Salida slot={slotAccion}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    cta("boost_offer", "click", {
+                      placement: trigger,
+                      solved,
+                      props: { action: "pick_university" },
+                    })
+                    onPickUniversity()
+                  }}
+                  className={
+                    slotAccion
+                      ? CLASE_ACCION_EN_EL_PIE
+                      : "mt-5 flex w-full items-center justify-center rounded-md px-4 py-3 text-base font-semibold text-white transition-opacity hover:opacity-90"
+                  }
+                  style={{ backgroundColor: CAFE, color: "#FFFFFF" }}
+                >
+                  Elegir mi universidad
+                </button>
+              </Salida>
             )}
           </>
         )}

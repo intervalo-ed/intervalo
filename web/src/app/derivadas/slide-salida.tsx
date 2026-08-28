@@ -60,18 +60,41 @@ export function Salida({
 export function ConSalidaAbajo({
   children,
 }: {
-  children: (slot: HTMLElement | null) => React.ReactNode
+  children: (slots: {
+    salida: HTMLElement | null
+    accion: HTMLElement | null
+  }) => React.ReactNode
 }) {
-  const [slot, setSlot] = useState<HTMLDivElement | null>(null)
+  const [salida, setSalida] = useState<HTMLDivElement | null>(null)
+  const [accion, setAccion] = useState<HTMLDivElement | null>(null)
   return (
     <>
       <div className="flex min-h-0 flex-1 flex-col justify-center">
-        {children(slot)}
+        {children({ salida, accion })}
       </div>
-      <div ref={setSlot} className="mt-3 shrink-0" />
+      {/* El de color va ABAJO de todo y el de salir arriba suyo, al revés de
+          como estaban adentro de la caja.
+
+          Es el orden del pulgar y no el de la lectura: el lugar de más abajo es
+          el más fácil de alcanzar con una mano, y ahí tiene que estar lo que la
+          pantalla ofrece —invitar, reclutar—, no la puerta de salida. Leyendo
+          queda al revés que en escritorio, donde el mouse llega igual a todos
+          lados y manda el orden de la frase.
+
+          `empty:hidden` porque no todas las diapos llenan los dos: la cara de
+          vuelta del café tiene un solo botón, y sin esto el hueco vacío del otro
+          dejaría su margen suelto. */}
+      <div ref={setSalida} className="mt-3 shrink-0 empty:hidden" />
+      <div ref={setAccion} className="mt-2 shrink-0 empty:hidden" />
     </>
   )
 }
+
+/** Cómo se ve el botón de color cuando sale de la caja: alto de CTA y sin margen
+ *  propio, porque el hueco ya lo posiciona. El relleno y la tinta los sigue
+ *  poniendo cada diapo, que son lo suyo. */
+export const CLASE_ACCION_EN_EL_PIE =
+  "flex h-[var(--cta-h)] w-full items-center justify-center gap-2 rounded-md text-base font-semibold transition-opacity hover:opacity-90"
 
 /** Cómo se ve el botón según dónde termine.
  *

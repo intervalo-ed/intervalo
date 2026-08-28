@@ -976,13 +976,14 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   segundos —la espera es para leer, no para el teclado— pero acá
                   no hay tecla que mostrar ni atajo que ofrecer. */}
               <ConSalidaAbajo>
-                {(slotSalida) => (
+                {({ salida, accion }) => (
                   <CafecitoPanel
                     trigger={slide.trigger}
                     correctToday={slide.correctToday}
                     university={player?.university ?? null}
                     solved={solvedCount}
-                    slotSalida={slotSalida}
+                    slotSalida={salida}
+                    slotAccion={accion}
                     onPickUniversity={() =>
                       goTo({ kind: "settings", back: slide })
                     }
@@ -1011,11 +1012,12 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   ranking es otra diapo, así que si la lista no viajara con esta
                   el "10% de lo que sumen" sería una frase sin nada que mirar. */}
               <ConSalidaAbajo>
-                {(slotSalida) => (
+                {({ salida, accion }) => (
                   <ReclutasPanel
                     trigger={slide.trigger}
                     conLista
-                    slotSalida={slotSalida}
+                    slotSalida={salida}
+                    slotAccion={accion}
                     onContinue={() => {
                       // Igual que la del café: la que abrió la persona
                       // interrumpió algo y hay que devolvérselo; la que salió por

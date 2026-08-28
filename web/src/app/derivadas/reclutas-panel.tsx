@@ -27,7 +27,7 @@ import { shareUrl, VERDE, VERDE_TINTA_OSCURA, WhatsappGlyph } from "./cafecito-c
 import { KeyCap } from "./exercise-card"
 import { useCta } from "./game-telemetry"
 import { ListaDeReclutas } from "./reclutas-list"
-import { claseDeSalida, Salida } from "./slide-salida"
+import { CLASE_ACCION_EN_EL_PIE, claseDeSalida, Salida } from "./slide-salida"
 import { useTeclas } from "./teclas"
 import { useCachedPlayer } from "./UseGamePlayer"
 import { useGameRecruits } from "./UseGameLeaderboard"
@@ -78,6 +78,9 @@ export function ReclutasPanel({
   // que quede en el mismo lugar donde estaba Revisar; en el teléfono no viene y
   // el botón se queda adentro de la diapo. Ver slide-salida.tsx.
   slotSalida,
+  // Ídem para el botón de color. Solo lo manda el teléfono: en escritorio se
+  // queda adentro de la caja, que es donde se lo diseñó.
+  slotAccion,
   // En escritorio el juego se maneja con el teclado y la diapo lo respeta. En el
   // teléfono no hay tecla que mostrar.
   keyboard = false,
@@ -87,6 +90,7 @@ export function ReclutasPanel({
   conLista?: boolean
   onContinue: () => void
   slotSalida?: HTMLElement | null
+  slotAccion?: HTMLElement | null
   keyboard?: boolean
   className?: string
 }) {
@@ -180,19 +184,25 @@ export function ReclutasPanel({
           />
         )}
 
-        <button
-          type="button"
-          onClick={reclutar}
-          className="mt-5 flex w-full items-center justify-center gap-2 rounded-md px-4 py-3 text-base font-semibold transition-opacity hover:opacity-90"
-          style={{ backgroundColor: VERDE, color: VERDE_TINTA_OSCURA }}
-        >
-          {/* El logo va DESPUÉS de la palabra, como la taza del cafecito: el
-              botón se lee "reclutar" y el ícono cierra la frase diciendo por
-              dónde, en vez de anunciarla. */}
-          Reclutar
-          <WhatsappGlyph size={18} />
-          {keyboard && <KeyCap>{teclas.shiftEnter}</KeyCap>}
-        </button>
+        <Salida slot={slotAccion}>
+          <button
+            type="button"
+            onClick={reclutar}
+            className={
+              slotAccion
+                ? CLASE_ACCION_EN_EL_PIE
+                : "mt-5 flex w-full items-center justify-center gap-2 rounded-md px-4 py-3 text-base font-semibold transition-opacity hover:opacity-90"
+            }
+            style={{ backgroundColor: VERDE, color: VERDE_TINTA_OSCURA }}
+          >
+            {/* El logo va DESPUÉS de la palabra, como la taza del cafecito: el
+                botón se lee "reclutar" y el ícono cierra la frase diciendo por
+                dónde, en vez de anunciarla. */}
+            Reclutar
+            <WhatsappGlyph size={18} />
+            {keyboard && <KeyCap>{teclas.shiftEnter}</KeyCap>}
+          </button>
+        </Salida>
 
         <Salida slot={slotSalida}>
           <button
