@@ -141,12 +141,22 @@ check(
 )
 check(j["attempts_left"] == 0, "ejercicio cerrado")
 
+# Reintento sobre un ejercicio ya cerrado. Antes daba un 409 pelado; ahora repite
+# el resultado que ese ejercicio ya había dado. Es el caso de la conexión que se
+# corta después de que el server respondió: el cliente reintenta y no puede
+# llevarse un error por una respuesta que estuvo bien y que ya le fue contada.
+# Se manda una respuesta DISTINTA y equivocada a propósito: lo que vuelve tiene
+# que ser el resultado guardado, no una evaluación nueva.
 r = client.post(
     "/game/derivemos/answer",
     headers=H,
     json={"exercise_id": forced_id, "answer_latex": "x", "answer_mathjson": "x"},
 )
-check(r.status_code == 409, "responder un ejercicio cerrado -> 409")
+check(r.status_code == 200, f"reintentar un ejercicio cerrado responde 200 (dio {r.status_code})")
+j = r.json()
+check(j["correct"] is True, "y repite que estuvo bien, no re-evalua lo que se mando")
+check(j["xp_awarded"] == expected_second, f"con la XP que se habia ganado (dio {j['xp_awarded']})")
+check(j["attempts_left"] == 0, "y sigue cerrado")
 
 print("3. perfil")
 r = client.patch("/game/derivemos/me", headers=H, json={"alias": "pirata123"})
@@ -236,6 +246,22 @@ db.close()
 r = client.post("/game/derivemos/next", headers=H)
 check(r.json()["tier"] == 0, f"tras reiniciar vuelve a tier 0 (dio {r.json()['tier']})")
 
+def cerrar_abiertos(player_id: int) -> None:
+    """Cierra los ejercicios que hayan quedado servidos.
+
+    Hace falta desde que /next devuelve el ejercicio abierto en vez de servir uno
+    nuevo (era un salteo gratis, sin el castigo de /skip). El cliente real nunca
+    pide uno con otro abierto —responde o saltea primero— pero el armado de estos
+    chequeos sí lo hacia.
+    """
+    db = database.SessionLocal()
+    db.query(GameExercise).filter(
+        GameExercise.player_id == player_id, GameExercise.status == "served"
+    ).update({"status": "expired"}, synchronize_session=False)
+    db.commit()
+    db.close()
+
+
 print("6. saltear")
 # Se lo empuja fuera de la rampa y a un θ medio para que la servida no sea T0:
 # saltear desde el piso no tendría nada más fácil que ofrecer.
@@ -249,6 +275,7 @@ theta_before = p.theta
 attempted_before = p.exercises_attempted
 db.close()
 
+cerrar_abiertos(player_id)
 ex = client.post("/game/derivemos/next", headers=H).json()
 check(ex["tier"] > 0, f"el ejercicio a saltear no es del piso (tier {ex['tier']})")
 
@@ -688,6 +715,7 @@ from models import GameExercise as _GEx, GamePlayer as _GP  # noqa: E402
 
 HP = dict(H)
 HP["X-Game-Platform"] = "android"
+cerrar_abiertos(player_id)
 ex_id = client.post("/game/derivemos/next", headers=HP).json()["exercise_id"]
 db.expire_all()
 check(
@@ -697,6 +725,7 @@ check(
 
 HB = dict(H)
 HB["X-Game-Platform"] = "commodore64"
+cerrar_abiertos(player_id)
 ex_id = client.post("/game/derivemos/next", headers=HB).json()["exercise_id"]
 db.expire_all()
 check(
@@ -819,6 +848,67 @@ check(mins(b3) == game_boosts.BOOST_MINUTES,
       f"y uno menos que el tope tambien: {mins(b3)} min")
 check(mins(b2) == game_boosts.BOOST_MINUTES_MAX,
       f"solo el tope llega a la hora ({mins(b2)} min)")
+db.close()
+
+print("12b. pedir otro con uno abierto no es un salteo gratis")
+# Antes /next vencia lo que hubiera abierto y servia otro SIN el castigo de
+# /skip, que baja el theta y corta la racha. Con la consola abierta eso permitia
+# re-tirar hasta que saliera una facil conservando la racha, inflando resueltas,
+# XP y puesto. Ahora devuelve el que ya estaba.
+cerrar_abiertos(player_id)
+db = database.SessionLocal()
+p = db.query(GamePlayer).filter(GamePlayer.id == player_id).first()
+p.current_combo = 7
+db.commit()
+db.close()
+
+primero = client.post("/game/derivemos/next", headers=H).json()
+segundo = client.post("/game/derivemos/next", headers=H).json()
+check(
+    segundo["exercise_id"] == primero["exercise_id"],
+    "pedir otro con uno abierto devuelve el MISMO, no uno nuevo",
+)
+
+db = database.SessionLocal()
+p = db.query(GamePlayer).filter(GamePlayer.id == player_id).first()
+check(p.current_combo == 7, f"y no toca la racha (dio {p.current_combo})")
+db.close()
+
+# Saltear sigue siendo el camino para cambiar de ejercicio, y ese sí cuesta.
+r = client.post(
+    "/game/derivemos/skip", headers=H, json={"exercise_id": primero["exercise_id"]}
+)
+check(r.status_code == 200, "saltear sigue dando uno nuevo")
+check(r.json()["exercise_id"] != primero["exercise_id"], "y es otro ejercicio")
+db = database.SessionLocal()
+p = db.query(GamePlayer).filter(GamePlayer.id == player_id).first()
+check(p.current_combo == 0, "y ese si corta la racha")
+db.close()
+
+print("12c. el teclado sobrevive al registro")
+# El merge invitado -> usuario reparentaba ejercicios e intentos pero se olvidaba
+# unlocked_keys, asi que registrarse borraba toda la progresion del teclado.
+from game import keyboard as _kb  # noqa: E402
+from game.deps import link_guest_to_user as _link  # noqa: E402
+
+db = database.SessionLocal()
+invitado = GamePlayer(guest_token="tok-teclado", alias="tecladito",
+                      unlocked_keys="sen,cos", created_at=datetime.utcnow(),
+                      last_seen_at=datetime.utcnow())
+db.add(invitado)
+db.flush()
+usuario = User(clerk_user_id="clerk-teclado", email="teclado@test.dev", name="Teclado")
+db.add(usuario)
+db.flush()
+ya_tenia = GamePlayer(user_id=usuario.id, alias="conCuenta", unlocked_keys="ln,pow",
+                      created_at=datetime.utcnow(), last_seen_at=datetime.utcnow())
+db.add(ya_tenia)
+db.commit()
+fusionado = _link(db, invitado, usuario)
+check(
+    _kb.parse_unlocked(fusionado.unlocked_keys) == {"sen", "cos", "ln", "pow"},
+    f"el teclado se une, no se pisa (dio {fusionado.unlocked_keys})",
+)
 db.close()
 
 print()

@@ -9,7 +9,7 @@ la reporta el cliente.
 from __future__ import annotations
 
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Query, Response
@@ -33,6 +33,7 @@ from .deps import (
     get_current_player,
     get_db,
     link_guest_to_user,
+    lock_player,
     player_for_guest_token,
     _clerk_user,
 )
@@ -331,12 +332,45 @@ def _exercise_out(exercise: GameExercise, player: GamePlayer) -> GameExerciseOut
     )
 
 
+# Cuánto vale un ejercicio servido antes de que pedir otro sea empezar de nuevo
+# en vez de reintentar. Diez minutos: más que cualquier derivada de la tabla y
+# menos que volver al día siguiente.
+_REINTENTO_NEXT_MINUTOS = 10
+
+
 @router.post("/next", response_model=GameExerciseOut)
 def next_exercise(
     player: GamePlayer = Depends(get_current_player),
     x_game_platform: str = Header(None),
     db: Session = Depends(get_db),
 ):
+    # Si ya hay uno abierto y recién servido, se devuelve ESE.
+    #
+    # Sin esto, /next era un salteo gratis: `serve_exercise` vence en bloque lo
+    # que siguiera abierto y sirve otro, sin nada del castigo de /skip —que baja
+    # el θ y corta la racha justamente para que saltear lo difícil no sea la
+    # forma óptima de sostener un combo—. Con la consola abierta se podía
+    # re-tirar hasta que saliera una de una estrella, conservando la racha e
+    # inflando resueltas, XP y puesto.
+    #
+    # De paso lo vuelve idempotente, que es lo que hace falta cuando la respuesta
+    # se pierde en el camino y el teléfono reintenta.
+    abierto = (
+        db.query(GameExercise)
+        .filter(
+            GameExercise.player_id == player.id,
+            GameExercise.status == "served",
+            GameExercise.created_at
+            >= datetime.utcnow() - timedelta(minutes=_REINTENTO_NEXT_MINUTOS),
+        )
+        .order_by(GameExercise.id.desc())
+        .first()
+    )
+    if abierto is not None:
+        out = _exercise_out(abierto, player)
+        db.commit()
+        return out
+
     exercise = serve_exercise(db, player)
     _stamp_platform(player, exercise, _platform(x_game_platform))
     # El armado va ANTES del commit: `_exercise_out` desbloquea teclas sobre el
@@ -384,6 +418,9 @@ def skip_exercise(
     Tampoco da XP, y como la XP escala con la dificultad, encadenar salteos
     hasta el piso rinde cada vez menos: la mecánica se autolimita.
     """
+    # Ídem /answer: saltear baja el θ y corta la racha.
+    player = lock_player(db, player)
+
     exercise = (
         db.query(GameExercise)
         .filter(GameExercise.id == body.exercise_id, GameExercise.player_id == player.id)
@@ -446,12 +483,61 @@ def _correctas_de_hoy(db: Session, player_id: int) -> int:
     )
 
 
+def _repetir_ultima_respuesta(
+    db: Session, exercise: GameExercise, player: GamePlayer
+) -> GameAnswerResponse | None:
+    """La respuesta que este ejercicio ya dio, para poder repetirla en un
+    reintento. None si nunca se respondió (ahí sí corresponde el 409).
+
+    Existe por la conexión del público objetivo. El teléfono manda la respuesta,
+    el servidor la procesa y la contesta, y la contestación se pierde en el
+    camino; el cliente reintenta. Con el ejercicio ya cerrado, el reintento se
+    llevaba un 409 pelado: sin XP, sin color, sin la derivada correcta — o sea,
+    la persona ve un error por una respuesta que estuvo bien y que ya le fue
+    contada.
+
+    No se repite todo: los puestos y el récord eran de aquel instante y no se
+    guardan por intento. Lo que se repite es lo que la persona necesita ver —si
+    estuvo bien, cuánta XP ganó y cuál era la respuesta—, sin el festejo de la
+    escalada, que ya ocurrió.
+    """
+    ultimo = (
+        db.query(GameAttempt)
+        .filter(GameAttempt.exercise_id == exercise.id, GameAttempt.parse_ok.is_(True))
+        .order_by(GameAttempt.attempt_number.desc(), GameAttempt.id.desc())
+        .first()
+    )
+    if ultimo is None:
+        return None
+    correcto = bool(ultimo.is_correct)
+    return GameAnswerResponse(
+        correct=correcto,
+        parse_ok=True,
+        attempt_number=ultimo.attempt_number,
+        attempts_left=0,
+        xp_awarded=ultimo.xp_awarded,
+        xp_total=player.xp,
+        combo=player.current_combo,
+        combo_bonus=0,
+        exercises_correct=player.exercises_correct,
+        correct_today=_correctas_de_hoy(db, player.id),
+        correct_answer_latex=(
+            latex_es(expr_from_stored(exercise.expected_derivative)) if not correcto else None
+        ),
+        best_rank=player.best_rank,
+    )
+
+
 @router.post("/answer", response_model=GameAnswerResponse)
 def answer_exercise(
     body: GameAnswerRequest,
     player: GamePlayer = Depends(get_current_player),
     db: Session = Depends(get_db),
 ):
+    # Candado del jugador antes de leer nada suyo: esta respuesta va a sumarle XP,
+    # ejercicios y racha, y dos en vuelo se pisan (ver deps.lock_player).
+    player = lock_player(db, player)
+
     exercise = (
         db.query(GameExercise)
         .filter(GameExercise.id == body.exercise_id, GameExercise.player_id == player.id)
@@ -460,6 +546,11 @@ def answer_exercise(
     if exercise is None:
         raise HTTPException(status_code=404, detail="Ejercicio no encontrado")
     if exercise.status != "served":
+        # Reintento sobre algo ya cerrado: se repite el resultado en vez de tirar
+        # un error por una respuesta que quizás estuvo bien.
+        repetida = _repetir_ultima_respuesta(db, exercise, player)
+        if repetida is not None:
+            return repetida
         raise HTTPException(status_code=409, detail="Ese ejercicio ya se cerró")
 
     # Solo cuentan los intentos que PARSEARON: los que no se registran igual

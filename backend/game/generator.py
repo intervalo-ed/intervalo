@@ -39,6 +39,39 @@ def get_or_create_stat(db: Session, template: GameTemplate) -> GameTemplateStat:
     return stat
 
 
+def stats_for(db: Session, templates: list[GameTemplate]) -> dict[str, GameTemplateStat]:
+    """Las estadísticas de varias plantillas, en UNA consulta.
+
+    `get_or_create_stat` una por una era el N+1 más caro del juego: hay 26
+    plantillas, así que servir un ejercicio disparaba hasta 26 SELECT contra una
+    tabla que como mucho tiene 26 filas — y servir un ejercicio es lo que pasa
+    después de cada respuesta. Se traen todas juntas y solo se crean las que
+    falten, que después de las primeras partidas no es ninguna.
+    """
+    faltan = {t.key: t for t in templates}
+    encontradas = {
+        stat.template_key: stat
+        for stat in db.query(GameTemplateStat).filter(
+            GameTemplateStat.template_key.in_(list(faltan))
+        )
+    }
+    nuevas = False
+    for key, template in faltan.items():
+        if key in encontradas:
+            continue
+        stat = GameTemplateStat(
+            template_key=key,
+            tier=template.tier,
+            beta=elo.BETA_SEED.get(template.tier, 0.0),
+        )
+        db.add(stat)
+        encontradas[key] = stat
+        nuevas = True
+    if nuevas:
+        db.flush()
+    return encontradas
+
+
 def _recent_template_keys(db: Session, player: GamePlayer) -> set[str]:
     rows = (
         db.query(GameExercise.template_key)
@@ -82,10 +115,11 @@ def pick_template(
     if not candidates:
         candidates = list(TEMPLATES)
 
-    scored: list[tuple[GameTemplate, GameTemplateStat, float]] = []
-    for template in candidates:
-        stat = get_or_create_stat(db, template)
-        scored.append((template, stat, elo.predict(player.theta, stat.beta)))
+    stats = stats_for(db, candidates)
+    scored: list[tuple[GameTemplate, GameTemplateStat, float]] = [
+        (template, stats[template.key], elo.predict(player.theta, stats[template.key].beta))
+        for template in candidates
+    ]
 
     in_band = [s for s in scored if elo.TARGET_LOW <= s[2] <= elo.TARGET_HIGH]
 

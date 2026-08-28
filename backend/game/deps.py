@@ -18,6 +18,7 @@ from auth import get_or_create_user_from_clerk, verify_clerk_token
 from database import SessionLocal
 from models import GamePlayer, User
 
+from . import keyboard
 from .aliases import alias_for_user, generate_guest_alias
 
 _CREATE_ATTEMPTS = 3
@@ -125,7 +126,13 @@ def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer
 
     # El user ya tenía jugador (jugó registrado en otro dispositivo): sobrevive
     # esa fila; se suman contadores y gana el Elo con más evidencia.
-    from models import GameAttempt, GameExercise  # import local, evita ciclo
+    from models import (  # import local, evita ciclo
+        GameAttempt,
+        GameBoostIntent,
+        GameCtaEvent,
+        GameEvent,
+        GameExercise,
+    )
 
     existing.xp += guest.xp
     existing.exercises_correct += guest.exercises_correct
@@ -148,17 +155,57 @@ def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer
         existing.first_group_id = guest.first_group_id
     if existing.first_utm_source is None:
         existing.first_utm_source = guest.first_utm_source
+    # El teclado se UNE, no se elige uno de los dos. Es progresión ganada
+    # resolviendo derivadas —cada tecla apareció porque una la exigía— y perderla
+    # justo al registrarse castiga exactamente el paso que se quiere fomentar.
+    existing.unlocked_keys = keyboard.serialize(
+        keyboard.parse_unlocked(existing.unlocked_keys)
+        | keyboard.parse_unlocked(guest.unlocked_keys)
+    )
 
-    db.query(GameExercise).filter(GameExercise.player_id == guest.id).update(
-        {"player_id": existing.id}, synchronize_session=False
-    )
-    db.query(GameAttempt).filter(GameAttempt.player_id == guest.id).update(
-        {"player_id": existing.id}, synchronize_session=False
-    )
+    # TODAS las tablas que apuntan al invitado, no solo las dos del progreso.
+    #
+    # El feed, las métricas de CTA y las intenciones de donación también lo
+    # referencian, y quedaban colgadas apuntando a una fila borrada. En la base
+    # de producción eso pasaba en silencio —las migraciones que crearon esas tres
+    # tablas se olvidaron la clave foránea que models.py sí declara— pero en una
+    # base armada con create_all, que es la que usan los scripts de chequeo, el
+    # borrado levanta IntegrityError desde adentro de get_current_player, o sea
+    # en CUALQUIER endpoint y en bucle.
+    for tabla in (GameExercise, GameAttempt, GameEvent, GameCtaEvent, GameBoostIntent):
+        db.query(tabla).filter(tabla.player_id == guest.id).update(
+            {"player_id": existing.id}, synchronize_session=False
+        )
     db.delete(guest)
     db.commit()
     db.refresh(existing)
     return existing
+
+
+def lock_player(db: Session, player: GamePlayer) -> GamePlayer:
+    """Vuelve a leer la fila del jugador tomando su candado, para los endpoints
+    que le suman cosas.
+
+    Sin esto, `/answer` y `/skip` leen los contadores en Python y los escriben de
+    vuelta con el valor ya calculado (`SET xp = 125`, no `SET xp = xp + 25`). Con
+    dos respuestas en vuelo —un doble toque, o el reintento que dispara el
+    teléfono cuando la primera tardó demasiado— las dos leen 100, las dos
+    escriben 125, y una recompensa entera desaparece. Lo mismo con los ejercicios
+    resueltos, los intentos y la racha, que además puede ir para atrás.
+
+    Es un candado de FILA: solo se serializan las respuestas de un mismo jugador,
+    que es algo que igual pasa de a una. En SQLite el dialecto lo ignora, así que
+    los scripts de chequeo siguen andando igual.
+
+    La simulación ya lo hacía bien para los bots (simulation.py, con incrementos
+    del lado de SQL); el camino humano no.
+    """
+    return (
+        db.query(GamePlayer)
+        .filter(GamePlayer.id == player.id)
+        .with_for_update()
+        .one()
+    )
 
 
 def get_current_player(
