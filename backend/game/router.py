@@ -45,6 +45,7 @@ from .schemas import (
     GameAnswerRequest,
     GameAnswerResponse,
     GameBoostOut,
+    GameCafecitoStatus,
     GameCtaRequest,
     GameEventOut,
     GameEventsResponse,
@@ -487,6 +488,27 @@ def cafecito_intent(
     boosts.record_intent(db, player)
     db.commit()
     return Response(status_code=204)
+
+
+@router.get("/cafecito-status", response_model=GameCafecitoStatus)
+def cafecito_status(
+    player: GamePlayer = Depends(get_current_player),
+    db: Session = Depends(get_db),
+):
+    """Qué pasó con el cafecito de quien acaba de volver de Cafecito.
+
+    Lo consulta la diapo cuando la pestaña vuelve a estar a la vista. Es de
+    lectura y barato —una intención y, si está cumplida, los empujes de ese
+    instante— así que no necesita nada especial.
+    """
+    e = boosts.estado_de_donacion(db, player)
+    return GameCafecitoStatus(
+        state=e.state,
+        university=e.university,
+        cafecitos=e.cafecitos,
+        multiplier=e.multiplier,
+        expires_in_seconds=e.expires_in_seconds,
+    )
 
 
 @router.post(

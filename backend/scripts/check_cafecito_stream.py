@@ -155,6 +155,58 @@ parar = threading.Event()
 cs.escuchar(parar)  # tiene que volver enseguida, sin conectarse a nada
 check(True, "vuelve sin intentar conectarse")
 
+print("11. que ve quien vuelve de Cafecito")
+# El agujero que esto tapa: la persona tocaba invitar, pagaba en otra pestaña,
+# volvia, y encontraba la misma pantalla que habia dejado.
+limpiar()
+db = database.SessionLocal()
+juan = GamePlayer(guest_token="tok-vuelve", alias="vuelve", university="UBA")
+db.add(juan); db.commit()
+
+e = boosts.estado_de_donacion(db, juan)
+check(e.state == "none", f"sin tocar el boton, no hay nada que decir ({e.state})")
+
+boosts.record_intent(db, juan); db.commit()
+e = boosts.estado_de_donacion(db, juan)
+check(e.state == "pending", f"toco el boton y todavia no llego ({e.state})")
+
+cs.aplicar({"name": "", "count": 3, "message": ""})
+e = boosts.estado_de_donacion(db, juan)
+check(e.state == "credited", f"llego la donacion ({e.state})")
+check(e.university == "UBA", f"y fue a su universidad ({e.university})")
+check(e.cafecitos == 3, f"con sus tres cafecitos ({e.cafecitos})")
+check(abs(e.multiplier - 1.3) < 1e-6, f"multiplicador x{e.multiplier:.1f} (esperado x1,3)")
+check(e.expires_in_seconds > 0, "y con tiempo restante para mostrar")
+db.close()
+
+print("12. quien dona SIN universidad tambien se entera")
+# Su donacion cae en el escalon global. Antes su intencion no se marcaba nunca
+# —solo se marcaban las que tenian universidad— asi que se le quedaba mostrando
+# "estamos esperando" para siempre, justo a alguien que acaba de pagar.
+limpiar()
+db = database.SessionLocal()
+solo = GamePlayer(guest_token="tok-solo", alias="solo")
+db.add(solo); db.commit()
+boosts.record_intent(db, solo); db.commit()
+check(boosts.estado_de_donacion(db, solo).state == "pending", "arranca en pending")
+cs.aplicar({"name": "", "count": 2, "message": ""})
+e = boosts.estado_de_donacion(db, solo)
+check(e.state == "credited", f"su cafecito tambien se le acredita ({e.state})")
+check(e.university is None, f"y fue al empuje global ({e.university})")
+check(abs(e.multiplier - 1.2) < 1e-6, f"que igual le llega a el: x{e.multiplier:.1f}")
+db.close()
+
+print("13. una intencion vieja no se muestra como recien vuelta")
+limpiar()
+db = database.SessionLocal()
+viejo = GamePlayer(guest_token="tok-viejo", alias="viejo", university="UTN")
+db.add(viejo); db.commit()
+hace_mucho = datetime.utcnow() - timedelta(hours=boosts.MEMORIA_INTENCION_HORAS + 1)
+boosts.record_intent(db, viejo, now=hace_mucho); db.commit()
+check(boosts.estado_de_donacion(db, viejo).state == "none",
+      "una intencion de ayer no dispara ninguna pantalla")
+db.close()
+
 print()
 if FAILURES:
     print(f"{len(FAILURES)} fallo(s):")

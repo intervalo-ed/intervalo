@@ -114,6 +114,30 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/game/derivemos/cafecito-status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Cafecito Status
+         * @description Qué pasó con el cafecito de quien acaba de volver de Cafecito.
+         *
+         *     Lo consulta la diapo cuando la pestaña vuelve a estar a la vista. Es de
+         *     lectura y barato —una intención y, si está cumplida, los empujes de ese
+         *     instante— así que no necesita nada especial.
+         */
+        get: operations["cafecito_status_game_derivemos_cafecito_status_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/game/derivemos/skip": {
         parameters: {
             query?: never;
@@ -1411,6 +1435,41 @@ export interface components {
             expires_in_seconds: number;
         };
         /**
+         * GameCafecitoStatus
+         * @description Qué pasó con la donación de quien acaba de volver de Cafecito.
+         *
+         *     Existe por un agujero del embudo: la persona tocaba «invitar», se iba a
+         *     Cafecito en otra pestaña, pagaba, volvía — y encontraba la misma pantalla que
+         *     había dejado, como si no hubiera hecho nada. Es el peor momento posible para
+         *     no decir nada, porque acaba de pagar.
+         *
+         *     El estado sale de `game_boost_intents.consumed_at`, que es exacto y no una
+         *     adivinanza: la donación que llega marca como cumplidas las intenciones
+         *     abiertas (ver boosts.resolve_donation), así que si la de esta persona está
+         *     marcada, su cafecito llegó.
+         */
+        GameCafecitoStatus: {
+            /** State */
+            state: string;
+            /** University */
+            university?: string | null;
+            /**
+             * Cafecitos
+             * @default 0
+             */
+            cafecitos: number;
+            /**
+             * Multiplier
+             * @default 1
+             */
+            multiplier: number;
+            /**
+             * Expires In Seconds
+             * @default 0
+             */
+            expires_in_seconds: number;
+        };
+        /**
          * GameCtaRequest
          * @description Telemetría de un llamado a la acción. Todo opcional salvo qué y qué pasó:
          *     el cliente manda lo que sabe y el server no discute.
@@ -2424,6 +2483,38 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    cafecito_status_game_derivemos_cafecito_status_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GameCafecitoStatus"];
+                };
             };
             /** @description Validation Error */
             422: {
