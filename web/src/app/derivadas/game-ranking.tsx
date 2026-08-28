@@ -1165,13 +1165,13 @@ function RecruitsRanking({ enabled }: { enabled: boolean }) {
     // El MISMO contenedor que la vista individual, incluido el par `-mx-1 px-1`
     // que le da aire lateral al anillo de cada fila sin correr la lista.
     //
-    // Sin relleno vertical, y ahí está la única diferencia que hay que pensar:
-    // la vista individual arranca SCROLLEADA —se acomoda sola para dejar la fila
-    // propia a cuatro del techo— así que su `py-1` queda por encima del borde y
-    // no se ve nunca. Esta no scrollea (son los reclutas de una persona, y son
-    // pocos), así que los mismos cuatro píxeles sí se verían: la lista arrancaría
-    // más abajo que la del ranking sin que nada lo justifique.
-    <div className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-y-auto overscroll-contain px-1">
+    // Lo único distinto es el relleno de arriba, y no se hereda: la vista
+    // individual arranca SCROLLEADA —se acomoda sola para dejar la fila propia a
+    // cuatro del techo— así que su `py-1` queda por encima del borde y no se ve
+    // nunca. Esta no scrollea (son los reclutas de una persona, y son pocos), así
+    // que acá el número se elige mirando, no copiando: cinco píxeles, para que la
+    // lista respire contra los filtros sin quedar despegada de ellos.
+    <div className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-y-auto overscroll-contain px-1 pt-[5px]">
       <ListaDeReclutas entries={data?.entries ?? []} />
     </div>
   )
