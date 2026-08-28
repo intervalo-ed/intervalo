@@ -382,6 +382,28 @@ def estado_de_donacion(
     if intent.consumed_at is None:
         return EstadoDonacion(state="pending")
 
+    # ¿Se puede afirmar que esta donación fue de ESTA persona?
+    #
+    # Cafecito no dice quién donó, así que la intención es una apuesta: la
+    # donación que llega marca como cumplidas TODAS las abiertas, y si había
+    # varias, cualquiera de ellas pudo haber sido. Repartir el empuje entre todas
+    # está bien —equivocarse ahí es barato, en el peor caso una universidad
+    # recibe un regalo— pero decirle «llegó tu cafecito» a alguien que no pagó es
+    # caro: es la única frase del juego que puede hacer sentir estafado a quien
+    # la lee.
+    #
+    # Las intenciones que consumió una misma donación comparten el instante
+    # exacto, así que contarlas alcanza para saber si hay ambigüedad. Con más de
+    # una, se muestra «todavía no llegó», que es lo honesto: no lo sabemos. Quien
+    # sí pagó igual va a ver su empuje en las novedades.
+    hermanas = (
+        db.query(GameBoostIntent)
+        .filter(GameBoostIntent.consumed_at == intent.consumed_at)
+        .count()
+    )
+    if hermanas > 1:
+        return EstadoDonacion(state="pending")
+
     # El empuje que nació con esa marca. `grant` y el consumo comparten el mismo
     # instante, pero se busca con un margen por si alguna vez dejan de hacerlo.
     margen = timedelta(seconds=5)
@@ -451,23 +473,41 @@ def pending_intents(db: Session, now: datetime | None = None) -> list[GameBoostI
     return [i for i in _intents_abiertas(db, now or _now()) if i.university]
 
 
-def universities_in_message(message: str | None) -> list[str]:
-    """Las siglas que alguien haya escrito en el mensaje de la donación.
+def universities_in_text(*textos: str | None) -> list[str]:
+    """Las siglas del catálogo que aparezcan en cualquiera de estos textos.
 
     Se parte en palabras y cada una se pasa por el catálogo, en vez de buscar
     siglas con una regex: "UNT" también aparece adentro de otras palabras, y
     `canonical_university` ya acepta mayúsculas, minúsculas y el nombre completo.
+
+    Se mira el NOMBRE y no solo el mensaje, y esto no es una mejora teórica: lo
+    enseñó una donación real. Alguien puso «Santi ITBA» de nombre, «Muy bueno!»
+    de mensaje, y donó diez cafecitos —el tope que aporta una persona—. Como la
+    sigla no estaba en el mensaje, el empuje se fue al escalón siguiente y lo
+    cobró otra universidad. El parser habría encontrado el ITBA; nadie le
+    preguntó por el nombre.
+
+    El supuesto que se había colado era que quien quiere dirigir su cafecito lo
+    escribe en el mensaje. Pero el nombre es el primer campo del formulario y es
+    donde uno pone quién es — y para un estudiante, parte de quién es, es dónde
+    estudia.
     """
-    if not message:
-        return []
     encontradas: list[str] = []
-    for palabra in re.findall(r"[0-9A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+", message):
-        uni = canonical_university(palabra)
-        # `canonical_university` devuelve el texto tal cual cuando no lo conoce,
-        # así que solo vale si lo que salió es una sigla DEL CATÁLOGO.
-        if uni and uni in _KNOWN_SIGLAS and uni not in encontradas:
-            encontradas.append(uni)
+    for texto in textos:
+        if not texto:
+            continue
+        for palabra in re.findall(r"[0-9A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+", texto):
+            uni = canonical_university(palabra)
+            # `canonical_university` devuelve el texto tal cual cuando no lo
+            # conoce, así que solo vale si lo que salió es una sigla DEL catálogo.
+            if uni and uni in _KNOWN_SIGLAS and uni not in encontradas:
+                encontradas.append(uni)
     return encontradas
+
+
+def universities_in_message(message: str | None) -> list[str]:
+    """Compatibilidad: solo el mensaje. Ver `universities_in_text`."""
+    return universities_in_text(message)
 
 
 def resolve_donation(
@@ -500,7 +540,8 @@ def resolve_donation(
             return []
 
     abiertas = _intents_abiertas(db, now)
-    destinos: list[str] = list(universities_in_message(message))
+    # El nombre cuenta igual que el mensaje: ver `universities_in_text`.
+    destinos: list[str] = list(universities_in_text(message, donor_name))
     for i in abiertas:
         if i.university and i.university not in destinos:
             destinos.append(i.university)
