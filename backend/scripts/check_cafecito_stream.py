@@ -207,6 +207,65 @@ check(boosts.estado_de_donacion(db, viejo).state == "none",
       "una intencion de ayer no dispara ninguna pantalla")
 db.close()
 
+print("14. la sigla tambien se lee del NOMBRE de quien dona")
+# Lo enseño una donacion real: alguien puso "Santi ITBA" de nombre, "Muy bueno!"
+# de mensaje y dono diez cafecitos —el tope que aporta una persona—. Como la
+# sigla no estaba en el mensaje, el empuje se lo llevo otra universidad.
+limpiar()
+santi = cs.aplicar({"name": "Santi ITBA", "count": 10, "message": "Muy bueno!"})
+check(santi == ["ITBA"], f"el cafecito de Santi va al ITBA (fue a {santi})")
+
+print("15. y el nombre no le gana a las intenciones, se suman")
+# La regla de la escalera no cambia: ante la duda cobran las dos.
+limpiar()
+db = database.SessionLocal()
+j = GamePlayer(guest_token="tok-uba2", alias="deuba", university="UBA")
+db.add(j); db.commit()
+db.add(GameBoostIntent(player_id=j.id, university="UBA", created_at=datetime.utcnow()))
+db.commit(); db.close()
+ambas = cs.aplicar({"name": "Santi ITBA", "count": 4, "message": "grande"})
+check(sorted(ambas) == ["ITBA", "UBA"], f"cobran las dos ({ambas})")
+
+print("16. un nombre sin sigla no inventa destinos")
+limpiar()
+comun = cs.aplicar({"name": "Juan Carlos", "count": 1, "message": "gracias"})
+check(comun == ["TODOS"], f"sin sigla en ningun lado, sigue siendo global ({comun})")
+
+print("17. con varias intenciones abiertas, a nadie se le dice que llego lo suyo")
+# Cafecito no dice quien dono. Si habia varias intenciones abiertas, cualquiera
+# pudo haber sido: el empuje se reparte igual —equivocarse ahi es barato— pero la
+# frase "llego tu cafecito" no se dice, porque decirsela a quien no pago es lo
+# unico que puede hacer sentir estafado a quien la lee.
+#
+# Lo enseño un caso real: alguien dono ANTES de jugar, y su donacion la cobraron
+# las intenciones abiertas de tres desconocidos.
+limpiar()
+db = database.SessionLocal()
+ana = GamePlayer(guest_token="tok-ana", alias="ana", university="UBA")
+beto = GamePlayer(guest_token="tok-beto", alias="beto", university="UBA")
+db.add_all([ana, beto]); db.commit()
+boosts.record_intent(db, ana); boosts.record_intent(db, beto); db.commit()
+cs.aplicar({"name": "", "count": 5, "message": ""})
+ea, eb = boosts.estado_de_donacion(db, ana), boosts.estado_de_donacion(db, beto)
+check(ea.state == "pending", f"a Ana no se le afirma nada ({ea.state})")
+check(eb.state == "pending", f"ni a Beto ({eb.state})")
+# Pero el empuje SI se reparte: quien pago ve su multiplicador igual.
+check(abs(boosts.multiplier_for(db, "UBA") - 1.5) < 1e-6,
+      f"y la UBA igual recibe el empuje (x{boosts.multiplier_for(db, 'UBA'):.1f})")
+db.close()
+
+print("18. con UNA sola intencion abierta, si se le dice")
+limpiar()
+db = database.SessionLocal()
+sola = GamePlayer(guest_token="tok-sola", alias="sola", university="UTN")
+db.add(sola); db.commit()
+boosts.record_intent(db, sola); db.commit()
+cs.aplicar({"name": "", "count": 4, "message": ""})
+e = boosts.estado_de_donacion(db, sola)
+check(e.state == "credited", f"sin ambiguedad, se le confirma ({e.state})")
+check(e.university == "UTN", f"y a su universidad ({e.university})")
+db.close()
+
 print()
 if FAILURES:
     print(f"{len(FAILURES)} fallo(s):")
