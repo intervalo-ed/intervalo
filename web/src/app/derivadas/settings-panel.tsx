@@ -32,6 +32,7 @@ import { canonicalUniversity } from "@/lib/university-tags"
 import { cn } from "@/lib/utils"
 import { shareUrl } from "./cafecito-cta"
 import { SlideFlip } from "./slide-flip"
+import { SlideHorizontal, type Direccion } from "./slide-horizontal"
 import { useGameApi } from "./UseGameApi"
 import { useCta } from "./game-telemetry"
 import { gameKeys, type GamePlayer } from "./UseGamePlayer"
@@ -64,6 +65,25 @@ function mailtoCafecito(alias?: string | null): string {
   return `mailto:${RECLAMO_MAIL}?subject=${encodeURIComponent(
     "Mi cafecito no apareció",
   )}&body=${encodeURIComponent(cuerpo)}`
+}
+
+/** El botón de guardar de las subpantallas. Ancho completo y abajo de todo: la
+ *  pantalla se lee de arriba hacia abajo y termina en la única acción que tiene,
+ *  que además queda donde está el pulgar.
+ *
+ *  `mt-auto` lo empuja al piso cuando sobra alto, así no queda flotando pegado a
+ *  la última opción con un hueco debajo. */
+function Guardar({ disabled, onClick }: { disabled?: boolean; onClick: () => void }) {
+  return (
+    <Button
+      size="lg"
+      disabled={disabled}
+      onClick={onClick}
+      className="mt-auto h-[var(--cta-h)] w-full shrink-0 rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+    >
+      Guardar
+    </Button>
+  )
 }
 
 const rowCls =
@@ -159,7 +179,16 @@ export function SettingsPanel({
   const [aliasSaved, setAliasSaved] = useState(false)
   const [confirmReset, setConfirmReset] = useState(false)
   const [busy, setBusy] = useState(false)
+  const [career, setCareer] = useState(player?.career ?? "")
   const [university, setUniversity] = useState(player?.university ?? "")
+  // Para dónde va el próximo pase entre secciones. Entrar avanza, Guardar y la
+  // flecha vuelven.
+  const [direccion, setDireccion] = useState<Direccion>("adelante")
+
+  const irA = (s: Section, hacia: Direccion = "adelante") => {
+    setDireccion(hacia)
+    setSection(s)
+  }
   const [otherUniversity, setOtherUniversity] = useState("")
   const [showOther, setShowOther] = useState(false)
   const otherRef = useRef<HTMLInputElement>(null)
@@ -181,6 +210,7 @@ export function SettingsPanel({
     if (player.university !== perfilSincronizado?.university) {
       setUniversity(player.university ?? "")
     }
+    if (player.career !== perfilSincronizado?.career) setCareer(player.career ?? "")
   }
 
   // Todo cambio de perfil toca la fila propia del ranking (tag, badge, scope).
@@ -199,7 +229,7 @@ export function SettingsPanel({
       // Sin drama: el juego sigue y la próxima vuelta lo reintenta.
     }
     setBusy(false)
-    setSection("root")
+    irA("root", "atras")
   }
 
   const saveAlias = async () => {
@@ -238,22 +268,36 @@ export function SettingsPanel({
     void saveProfile({ university: value })
   }
 
-  // Las tres secciones son tres pantallas y se cambian con el mismo volteo que
-  // todo lo demás del juego (slide-flip.tsx).
-  return (
-    <SlideFlip slide={section} className="flex min-h-0 flex-1 flex-col">
+  // Las secciones son pantallas, y cómo se cambian depende del aparato: en
+  // escritorio giran con el mismo volteo que el resto (slide-flip.tsx), y en el
+  // teléfono se corren de costado como todo lo demás de mobile. Un volteo 3D
+  // suelto en medio de una tira que se desliza se lee como otro idioma.
+  const pantalla = (
+    <>
       {section === "career" ? (
-        <PanelShell title="Carrera" onBack={() => setSection("root")}>
+        // Sin título: la pantalla es una sola pregunta y la lista de opciones la
+        // hace obvia. Arriba a la izquierda queda solo la flecha.
+        <PanelShell onBack={() => irA("root", "atras")}>
           <CareerSelect
-            value={player?.career ?? ""}
+            value={career}
             onSelect={(value) => {
               sfx.select()
-              void saveProfile({ career: value })
+              // Elegir NO guarda. Antes sí, y salía disparado a la pantalla
+              // anterior en el mismo toque: no había forma de mirar las opciones
+              // sin comprometerse, ni de cambiar de idea sin volver a entrar.
+              setCareer(value)
+            }}
+          />
+          <Guardar
+            disabled={!career || busy}
+            onClick={() => {
+              sfx.select()
+              void saveProfile({ career })
             }}
           />
         </PanelShell>
       ) : section === "alias" ? (
-        <PanelShell title="Usuario" onBack={() => setSection("root")}>
+        <PanelShell title="Usuario" onBack={() => irA("root", "atras")}>
           <form
             className="flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-3"
             onSubmit={(e) => {
@@ -287,42 +331,44 @@ export function SettingsPanel({
         // Sin título: `UniversityGrid` ya entra con su propio "¿Dónde?", y dos
         // encabezados seguidos diciendo lo mismo es uno de más. La flecha de
         // volver no depende del título, así que sigue estando.
-        <PanelShell onBack={() => setSection("root")}>
-        <UniversityGrid
-          university={university}
-          showOther={showOther}
-          otherValue={otherUniversity}
-          onOtherChange={setOtherUniversity}
-          onPick={(u) => {
-            sfx.select()
-            setUniversity(u)
-            setShowOther(false)
-            void saveProfile({ university: u })
-          }}
-          onSelectOther={() => {
-            sfx.select()
-            setUniversity("")
-            setShowOther(true)
-          }}
-          onConfirmOther={confirmOther}
-          onPickSuggestion={(key) => {
-            sfx.select()
-            setOtherUniversity(key)
-            otherRef.current?.focus()
-          }}
-          inputRef={otherRef}
-        />
-        {showOther && (
-          <Button
-            size="lg"
-            className="mt-4 h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
-            disabled={!otherUniversity.trim() || busy}
-            onClick={confirmOther}
-          >
-            Guardar
-          </Button>
-        )}
-      </PanelShell>
+        <PanelShell onBack={() => irA("root", "atras")}>
+          <UniversityGrid
+            university={university}
+            showOther={showOther}
+            otherValue={otherUniversity}
+            onOtherChange={setOtherUniversity}
+            // Igual que carrera: elegir marca, no guarda. Lo que guarda es el
+            // botón de abajo, que es el único.
+            onPick={(u) => {
+              sfx.select()
+              setUniversity(u)
+              setShowOther(false)
+            }}
+            onSelectOther={() => {
+              sfx.select()
+              setUniversity("")
+              setShowOther(true)
+            }}
+            onConfirmOther={confirmOther}
+            onPickSuggestion={(key) => {
+              sfx.select()
+              setOtherUniversity(key)
+              otherRef.current?.focus()
+            }}
+            inputRef={otherRef}
+          />
+          {/* Un solo botón para los dos caminos —la grilla y el campo libre—
+              porque para quien mira son la misma pregunta. Cuál de los dos vale
+              lo decide `showOther`, no otro botón. */}
+          <Guardar
+            disabled={showOther ? !otherUniversity.trim() || busy : !university || busy}
+            onClick={() => {
+              sfx.select()
+              if (showOther) confirmOther()
+              else void saveProfile({ university })
+            }}
+          />
+        </PanelShell>
       ) : (
     <PanelShell onBack={onClose}>
       <div className="flex flex-col gap-2">
@@ -334,7 +380,7 @@ export function SettingsPanel({
         <button
           type="button"
           className={rowCls}
-          onClick={() => (player?.is_guest ? onNeedsRegister() : setSection("alias"))}
+          onClick={() => (player?.is_guest ? onNeedsRegister() : irA("alias"))}
         >
           <span className="text-muted-foreground">Usuario</span>
           <span className={player?.is_guest ? "text-ring" : undefined}>
@@ -359,7 +405,7 @@ export function SettingsPanel({
             ))}
           </RowSelect>
         ) : (
-          <button type="button" className={rowCls} onClick={() => setSection("career")}>
+          <button type="button" className={rowCls} onClick={() => irA("career")}>
             <span className="text-muted-foreground">Carrera</span>
             <span>{careerLabel(player?.career)}</span>
           </button>
@@ -375,7 +421,7 @@ export function SettingsPanel({
               // "Otra" no es una universidad: manda a la pantalla que sí tiene
               // el campo libre. Meter un input adentro del desplegable habría
               // sido pelear con el foco del componente para nada.
-              if (v === OTRA) setSection("university")
+              if (v === OTRA) irA("university")
               else void saveProfile({ university: v })
             }}
           >
@@ -387,7 +433,7 @@ export function SettingsPanel({
             <SelectItem value={OTRA}>Otra…</SelectItem>
           </RowSelect>
         ) : (
-          <button type="button" className={rowCls} onClick={() => setSection("university")}>
+          <button type="button" className={rowCls} onClick={() => irA("university")}>
             <span className="text-muted-foreground">Universidad</span>
             <span>{player?.university ?? "Elegir"}</span>
           </button>
@@ -503,7 +549,18 @@ export function SettingsPanel({
       </div>
     </PanelShell>
       )}
+    </>
+  )
+
+  const clase = "flex min-h-0 flex-1 flex-col"
+  return variant === "desktop" ? (
+    <SlideFlip slide={section} className={clase}>
+      {pantalla}
     </SlideFlip>
+  ) : (
+    <SlideHorizontal llave={section} direccion={direccion} className={clase}>
+      {pantalla}
+    </SlideHorizontal>
   )
 }
 
