@@ -25,6 +25,7 @@ import { useQueryClient } from "@tanstack/react-query"
 import { Settings } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { ApiError } from "@/lib/api/client"
 import { useSfx } from "@/lib/audio/useSfx"
 import {
   CafecitoButton,
@@ -412,9 +413,23 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             if (data.attempts_left === 0) pendingRef.current = { answer: data }
           }
         },
+        // Red de seguridad para cualquier desincronización con el server.
+        //
+        // Un 409 acá significa que este ejercicio ya no está servido: lo venció
+        // un reinicio de progreso, lo cerró otra pestaña, o la sesión quedó vieja.
+        // Sin esto el juego se traba —el botón responde y no pasa nada— y la
+        // única salida es recargar la página. Pidiendo otro, se destraba solo.
+        onError: (err) => {
+          if (err instanceof ApiError && err.status === 409) {
+            setExercise(null)
+            setLastAnswer(null)
+            setTonoLocal(null)
+            loadNext()
+          }
+        },
       },
     )
-  }, [exercise, answerMutation, sfx, solvedCount, fireXp, evaluarLocal])
+  }, [exercise, answerMutation, sfx, solvedCount, fireXp, evaluarLocal, loadNext])
 
   const closed = lastAnswer?.parse_ok === true && (lastAnswer.correct || lastAnswer.attempts_left === 0)
   // La respuesta del servidor manda; el tono local solo cubre el hueco entre el
@@ -447,9 +462,20 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             after_skip: true,
           })
         },
+        onError: (err) => {
+          // Ídem responder: si este ejercicio ya no está servido —lo venció un
+          // reinicio, lo cerró otra pestaña— saltear también devolvía 409 y
+          // dejaba el juego trabado. Se pide otro y sigue.
+          if (err instanceof ApiError && err.status === 409) {
+            setExercise(null)
+            setLastAnswer(null)
+            setTonoLocal(null)
+            loadNext()
+          }
+        },
       },
     )
-  }, [exercise, closed, skipMutation, answerMutation.isPending, solvedCount])
+  }, [exercise, closed, skipMutation, answerMutation.isPending, solvedCount, loadNext])
 
   // Todo menos el logo espera a que la presentación lo devuelva a su lugar.
   const chromeStyle: React.CSSProperties = {
@@ -650,6 +676,19 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   if (back.kind !== "exercise") goTo(back)
                   else if (exercise) goTo(back)
                   else loadNext()
+                }}
+                onReset={() => {
+                  refetchPlayer()
+                  // Reiniciar VENCE el ejercicio servido del lado del server, así
+                  // que el que hay acá ya no existe para nadie: se suelta y se
+                  // pide otro. Sin esto quedaba en pantalla una derivada vencida
+                  // y tanto Revisar como Saltear respondían 409 para siempre.
+                  setExercise(null)
+                  setLastAnswer(null)
+                  setTonoLocal(null)
+                  setClimbFrom(null)
+                  pendingRef.current = null
+                  loadNext()
                 }}
                 onNeedsRegister={() => goTo({ kind: "register" })}
               />

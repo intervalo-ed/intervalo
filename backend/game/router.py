@@ -744,6 +744,13 @@ def _repetir_ultima_respuesta(
     estuvo bien, cuánta XP ganó y cuál era la respuesta—, sin el festejo de la
     escalada, que ya ocurrió.
     """
+    # Solo los RESPONDIDOS. Un ejercicio "expired" —el que vence un reinicio de
+    # progreso, o el que quedó abierto de una partida anterior— puede tener
+    # intentos viejos, y repetir aquella respuesta sería contarle a la persona
+    # algo de una partida que ya no existe. Ahí corresponde el 409, que el
+    # cliente convierte en "pedime otro" (ver el onError de las dos vistas).
+    if exercise.status != "answered":
+        return None
     ultimo = (
         db.query(GameAttempt)
         .filter(GameAttempt.exercise_id == exercise.id, GameAttempt.parse_ok.is_(True))

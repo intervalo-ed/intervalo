@@ -106,11 +106,17 @@ export function SettingsPanel({
   // teléfono se va a una slide y se vuelve.
   variant = "mobile",
   onClose,
+  onReset,
   onNeedsRegister,
 }: {
   player: GamePlayer | null
   variant?: "desktop" | "mobile"
   onClose: () => void
+  // Reiniciar el progreso NO es cerrar el panel: el server vence el ejercicio
+  // que estaba servido, así que quien monte esto tiene que tirar el suyo y pedir
+  // otro. Sale por su propio callback en vez de por `onClose` porque quien lo
+  // recibe necesita saber que pasó ESTO y no cualquier cierre.
+  onReset: () => void
   // El guest no elige su @: ese es el gancho del registro.
   onNeedsRegister: () => void
 }) {
@@ -191,7 +197,7 @@ export function SettingsPanel({
       unwrap(await api.POST("/game/derivemos/reset"))
       posthog.capture("game_reset")
       refreshAll()
-      onClose()
+      onReset()
     } catch {
       setBusy(false)
       setConfirmReset(false)

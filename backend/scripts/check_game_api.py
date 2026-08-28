@@ -1018,6 +1018,32 @@ check(
     "y un latex de cinco mil caracteres no se procesa entero para despues recortarlo",
 )
 
+print("18. reiniciar el progreso no puede dejar el juego trabado")
+# Bug encontrado en produccion: al reiniciar, el server vence el ejercicio
+# servido, pero el cliente seguia mostrandolo. Revisar y Saltear respondian 409
+# para siempre y la unica salida era recargar la pagina.
+#
+# Del lado del server esto esta bien y tiene que seguir estandolo: el ejercicio
+# es de la partida anterior. Lo que se fija acá es el contrato del que depende el
+# arreglo del cliente — que las dos acciones fallen de forma RECONOCIBLE (409, no
+# un 500 ni un 200 mentiroso) y que pedir otro siempre funcione.
+_lim.olvidar_todo()
+ex_viejo = client.post("/game/derivemos/next", headers=H).json()["exercise_id"]
+check(client.post("/game/derivemos/reset", headers=H).status_code == 200, "el reset responde 200")
+
+r = client.post("/game/derivemos/answer", headers=H,
+                json={"exercise_id": ex_viejo, "answer_latex": "0", "answer_mathjson": 0})
+check(r.status_code == 409, f"responder el ejercicio vencido da 409 (dio {r.status_code})")
+r = client.post("/game/derivemos/skip", headers=H, json={"exercise_id": ex_viejo})
+check(r.status_code == 409, f"saltearlo tambien da 409 (dio {r.status_code})")
+
+# Y no repite una respuesta vieja: los intentos que quedaron son de la partida
+# anterior, y contarlos seria hablarle de un juego que ya no existe.
+r = client.post("/game/derivemos/next", headers=H)
+check(r.status_code == 200, "pedir otro siempre funciona: es la salida del cliente")
+check(r.json()["exercise_id"] != ex_viejo, "y es uno nuevo, no el vencido")
+check(r.json()["combo"] == 0, "que arranca con la racha en cero, como corresponde")
+
 print()
 if FAILURES:
     print(f"{len(FAILURES)} chequeos fallaron:")

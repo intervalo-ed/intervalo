@@ -17,6 +17,7 @@ import posthog from "posthog-js"
 import { useQueryClient } from "@tanstack/react-query"
 import { Settings } from "lucide-react"
 import { GRID_BG_STYLE } from "@/components/grid-bg"
+import { ApiError } from "@/lib/api/client"
 import { useSfx } from "@/lib/audio/useSfx"
 import {
   CafecitoButton,
@@ -451,9 +452,23 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             pendingMilestoneRef.current = "register"
           }
         },
+        // Red de seguridad para cualquier desincronización con el server.
+        //
+        // Un 409 acá significa que este ejercicio ya no está servido: lo venció
+        // un reinicio de progreso, lo cerró otra pestaña, o la sesión quedó vieja.
+        // Sin esto el juego se traba —el botón responde y no pasa nada— y la
+        // única salida es recargar la página. Pidiendo otro, se destraba solo.
+        onError: (err) => {
+          if (err instanceof ApiError && err.status === 409) {
+            setExercise(null)
+            setLastAnswer(null)
+            setTonoLocal(null)
+            loadNext()
+          }
+        },
       },
     )
-  }, [exercise, answerMutation, sfx, solvedCount, player, fireXp, evaluarLocal])
+  }, [exercise, answerMutation, sfx, solvedCount, player, fireXp, evaluarLocal, loadNext])
 
   const closed =
     lastAnswer?.parse_ok === true &&
@@ -528,9 +543,20 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             after_skip: true,
           })
         },
+        onError: (err) => {
+          // Ídem responder: si este ejercicio ya no está servido —lo venció un
+          // reinicio, lo cerró otra pestaña— saltear también devolvía 409 y
+          // dejaba el juego trabado. Se pide otro y sigue.
+          if (err instanceof ApiError && err.status === 409) {
+            setExercise(null)
+            setLastAnswer(null)
+            setTonoLocal(null)
+            loadNext()
+          }
+        },
       },
     )
-  }, [exercise, closed, skipMutation, answerMutation.isPending, solvedCount])
+  }, [exercise, closed, skipMutation, answerMutation.isPending, solvedCount, loadNext])
 
   // Abrir la tabla marca el ejercicio: la respuesta que venga después no mueve
   // el Elo y paga XP simbólica (el server lo aplica, ver game/router.py).
@@ -1108,10 +1134,29 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                         onClose={() => {
                           setSettingsOpen(false)
                           refetchPlayer()
-                          // Reiniciar el progreso borra el ejercicio servido:
-                          // si no se pide otro, la card de la izquierda queda
-                          // en "Preparando…" para siempre.
+                          // Por si se cerró sin ejercicio servido.
                           if (!exercise) loadNext()
+                        }}
+                        onReset={() => {
+                          setSettingsOpen(false)
+                          refetchPlayer()
+                          // Reiniciar VENCE el ejercicio servido del lado del
+                          // server, así que el que hay acá ya no existe para
+                          // nadie: hay que soltarlo y pedir otro.
+                          //
+                          // Antes esto colgaba de `onClose` con un `if
+                          // (!exercise)`, y esa guarda no se cumplía nunca —
+                          // nadie limpiaba `exercise`—, así que después de
+                          // reiniciar quedaba en pantalla una derivada que el
+                          // server ya había vencido: Revisar y Saltear
+                          // respondían 409 y no había forma de salir salvo
+                          // recargando la página.
+                          setExercise(null)
+                          setLastAnswer(null)
+                          setTonoLocal(null)
+                          setClimbFrom(null)
+                          setCafecito(null)
+                          loadNext()
                         }}
                         onNeedsRegister={() => {
                           setSettingsOpen(false)
