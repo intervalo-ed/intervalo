@@ -211,8 +211,13 @@ s.add(GameCtaEvent(player_id=1, cta="share", action="click", created_at=T(0, 15,
 # Un CTA del bot, que tampoco puede contar.
 s.add(GameCtaEvent(player_id=9, cta="cafecito", action="click", created_at=T(0, 15)))
 
-s.add(GameBoost(university="UBA", cafecitos=3, donor_name="Nico", source="manual",
+# Dos empujes con el MISMO tamaño y distinto origen: uno donado de verdad y uno
+# que insertamos nosotros para probar. Es el par que fija la definición — el
+# titular de ingresos tiene que contar el primero y no el segundo.
+s.add(GameBoost(university="UBA", cafecitos=3, donor_name="Nico", source="cafecito",
                 created_at=T(0, 14), expires_at=T(0, 14, 30)))
+s.add(GameBoost(university="UTN", cafecitos=3, donor_name=None, source="manual",
+                created_at=T(0, 18), expires_at=T(0, 18, 30)))
 s.add(GameEvent(kind="boost", text="alguien invitó un cafecito", emoji="☕",
                 university="UBA", created_at=T(0, 14)))
 s.add(GameEvent(kind="climb", text="subió 4 puestos", emoji="🚀", created_at=T(0, 15)))
@@ -268,7 +273,8 @@ check("el acierto al primer intento excluye la tabla",
 # Solo p1 pasa las 10 derivadas → 1 de 4.
 check("llegan a 10", h["Llegan a 10"]["value"] == 25.0)
 check("se registran", h["Se registran"]["value"] == 50.0)
-check("cafecitos de la semana", h["Cafecitos"]["value"] == 3)
+check("el titular de cafecitos no cuenta los grants a mano",
+      h["Cafecitos"]["value"] == 3, f'({h["Cafecitos"]["value"]}, no 6)')
 
 # ── 4 · Embudo ───────────────────────────────────────────────────────────────
 print("\n— embudo —")
@@ -347,13 +353,25 @@ ca = q.cafecito(data, weeks)
 fila = ca["filas"][-1]
 check("impresiones de la semana", fila["impresiones"] == 4, f'({fila["impresiones"]})')
 check("el CTR se cuenta sobre personas", fila["ctr"] == 50.0, f'({fila["ctr"]}%)')
-check("cafecitos de la semana", fila["cafecitos"] == 3)
-check("cafecitos por click", fila["por_click"] == 3.0)
+check("los cafecitos del titular son solo los donados", fila["cafecitos"] == 3,
+      f'({fila["cafecitos"]}, y {fila["manuales"]} a mano aparte)')
+check("los grants a mano se cuentan pero no se mezclan",
+      fila["manuales"] == 3 and fila["empujes"] == 1 and fila["empujes_manuales"] == 1)
+check("cafecitos por click ignora los grants a mano", fila["por_click"] == 3.0,
+      "(con los 3 a mano adentro daría 6,0)")
+check("el total tampoco los mezcla",
+      ca["total_cafecitos"] == 3 and ca["total_manuales"] == 3)
 trig = {t["trigger"]: t for t in ca["por_trigger"]}
 check("el disparador milestone convierte", trig["milestone"]["ctr"] == 50.0)
 check("el disparador record no", trig["record"]["ctr"] == 0.0)
 check("compartir se mide aparte", ca["share"]["ctr"] == 100.0)
-v = ca["ventanas"][0]
+check("cada ventana dice de dónde salió",
+      {(x["source"], x["university"]) for x in ca["ventanas"]}
+      == {("cafecito", "UBA"), ("manual", "UTN")},
+      f'({[(x["source"], x["university"]) for x in ca["ventanas"]]})')
+check("y quién donó, que es lo único que delata la alerta de prueba",
+      any(x["donante"] == "Nico" for x in ca["ventanas"]))
+v = [x for x in ca["ventanas"] if x["university"] == "UBA"][0]
 check("la ventana del empuje mide su propia universidad", v["university"] == "UBA")
 check("y cuenta las respuestas de adentro", v["respuestas"] > 0, f'({v["respuestas"]})')
 check("con un ritmo basal de la misma universidad", v["basal"] is not None)

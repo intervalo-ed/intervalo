@@ -233,7 +233,8 @@ def headline(data: dict, weeks: list[date]) -> list[dict]:
         return _pct(sum(1 for p in nuevos_w if p["user_id"]), len(nuevos_w))
 
     def cafecitos(w: date) -> int:
-        return sum(b["cafecitos"] for b in data["boosts"] if _in_week(b["created_at"], w))
+        return sum(b["cafecitos"] for b in data["boosts"]
+                   if _in_week(b["created_at"], w) and b["source"] == DONADO)
 
     def card(label: str, series: list, suffix: str, hint: str) -> dict:
         value = series[-1]
@@ -259,7 +260,7 @@ def headline(data: dict, weeks: list[date]) -> list[dict]:
         card("Se registran", per_week(registrados), "%",
              "De los nuevos de la semana, cuántos dejaron de ser invitados."),
         card("Cafecitos", per_week(cafecitos), "",
-             "Los que entraron esa semana, sumando los de cada empuje."),
+             "Solo los donados de verdad. Los grants a mano van aparte."),
     ]
 
 
@@ -635,15 +636,40 @@ def plantillas(data: dict, weeks: list[date]) -> dict:
 
 # ── 6 · Cafecito ─────────────────────────────────────────────────────────────
 
+# Los dos orígenes de un empuje, espejo de `game_boosts.source`. La distinción
+# no es un detalle contable: un `manual` es una fila que insertamos NOSOTROS con
+# scripts/grant_game_boost.py para probar la mecánica, y sumarlo al titular de
+# ingresos es contar nuestras propias pruebas como plata. Pasó: en el primer día
+# de producción, 20 de 35 cafecitos eran grants a mano y el panel los mostraba
+# mezclados, con un «cafecitos por click» de 1,67 que no puede existir.
+DONADO = "cafecito"   # llegó por el oyente del stream de Cafecito
+A_MANO = "manual"     # lo insertamos nosotros
+
+
+def _donados(boosts: list[dict]) -> list[dict]:
+    return [b for b in boosts if b["source"] == DONADO]
+
+
 def cafecito(data: dict, weeks: list[date]) -> dict:
     """El embudo de la donación, de punta a punta.
 
-    El último escalón es una fila en `game_boosts` que hoy inserta un script a
-    mano (scripts/grant_game_boost.py), porque Cafecito no tiene webhook ni API
-    pública. O sea que la conversión medida es una **cota inferior** mientras la
-    carga sea manual: si alguien dona y nadie corre el script, el cafecito
-    existió y el panel no lo ve. Es la primera cosa a mirar cuando el número dé
-    raro.
+    **Todo lo que dice «cafecitos» cuenta solo los donados de verdad**
+    (`source = "cafecito"`, los que entraron por game/cafecito_stream.py). Los
+    grants a mano se cuentan aparte y nunca se mezclan con el embudo: son
+    intervenciones nuestras, y meterlos adentro de un CTR o de un «por click»
+    produce números imposibles.
+
+    Donde SÍ conviven es en las ventanas de empuje, y a propósito: ahí la
+    pregunta es «¿la universidad impulsada juega más?», y para eso un grant a
+    mano es un experimento perfectamente válido — de hecho es el único que
+    podemos provocar cuando queremos. Por eso cada ventana viene con su origen
+    al lado, para que nadie lea un lift de una prueba como si fuera de una
+    donación.
+
+    **Lo que esto NO puede separar:** la alerta de prueba de Cafecito llega por
+    el mismo canal que una donación real y con `source = "cafecito"`. Se
+    reconoce por el nombre —la plataforma la manda como «Juan Carlos»— así que
+    la columna de donante viaja hasta la tabla en vez de quedarse en la base.
     """
     cta = data["cta"]
     boosts = data["boosts"]
@@ -655,7 +681,8 @@ def cafecito(data: dict, weeks: list[date]) -> dict:
         clicks = [c for c in cta
                   if c["cta"] == "cafecito" and c["action"] == "click" and _in_week(c["created_at"], w)]
         bw = [b for b in boosts if _in_week(b["created_at"], w)]
-        cafes = sum(b["cafecitos"] for b in bw)
+        donados = _donados(bw)
+        cafes = sum(b["cafecitos"] for b in donados)
         filas.append({
             "semana": w,
             "impresiones": len(imp),
@@ -664,9 +691,13 @@ def cafecito(data: dict, weeks: list[date]) -> dict:
             "clickearon": len({c["player_id"] for c in clicks}),
             "ctr": _pct(len({c["player_id"] for c in clicks}), len({c["player_id"] for c in imp})),
             "cafecitos": cafes,
-            "empujes": len(bw),
-            # Cierre del embudo. Puede pasar de 1 (una persona invita varios) y
-            # por eso se llama «cafecitos por click» y no «conversión».
+            "empujes": len(donados),
+            "manuales": sum(b["cafecitos"] for b in bw if b["source"] == A_MANO),
+            "empujes_manuales": sum(1 for b in bw if b["source"] == A_MANO),
+            # Cierre del embudo, y solo sobre lo donado. Puede pasar de 1 (una
+            # persona invita varios) y por eso se llama «cafecitos por click» y
+            # no «conversión» — pero con los grants adentro pasaba de 1 sin que
+            # nadie hubiera donado nada, que es otra cosa.
             "por_click": round(cafes / len(clicks), 2) if clicks else None,
         })
 
@@ -723,6 +754,14 @@ def cafecito(data: dict, weeks: list[date]) -> dict:
         base_uni = basal.get(b["university"])
         ventanas.append({
             "university": b["university"], "cafecitos": b["cafecitos"], "inicio": ini,
+            # El origen viaja con la ventana porque el lift de un grant a mano y
+            # el de una donación se leen distinto: el primero es un experimento
+            # que provocamos, el segundo es el producto funcionando.
+            "source": b["source"],
+            # El nombre del donante es lo ÚNICO que distingue una donación real
+            # de la alerta de prueba de Cafecito, que llega por el mismo canal
+            # con el mismo source. La plataforma la manda como «Juan Carlos».
+            "donante": b["donor_name"],
             "respuestas": len(dentro), "estudiantes": estudiantes, "ritmo": ritmo,
             "basal": base_uni,
             "lift": round(100 * (ritmo / base_uni - 1), 1) if (ritmo and base_uni) else None,
@@ -738,8 +777,10 @@ def cafecito(data: dict, weeks: list[date]) -> dict:
         "ventanas": ventanas[:12],
         "share": {"impresiones": share_imp, "clicks": share_click,
                   "ctr": _pct(share_click, share_imp)},
-        "total_cafecitos": sum(b["cafecitos"] for b in boosts),
-        "empujes": len(boosts),
+        "total_cafecitos": sum(b["cafecitos"] for b in _donados(boosts)),
+        "empujes": len(_donados(boosts)),
+        "total_manuales": sum(b["cafecitos"] for b in boosts if b["source"] == A_MANO),
+        "empujes_manuales": sum(1 for b in boosts if b["source"] == A_MANO),
     }
 
 
