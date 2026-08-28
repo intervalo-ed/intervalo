@@ -1151,8 +1151,16 @@ function EloDeUniversidad({ row }: { row: GameUniversityRow }) {
  * Sin scroll infinito ni paginado: son los reclutas de una persona, no el juego
  * entero, y el endpoint corta en cincuenta. */
 function RecruitsRanking({ enabled }: { enabled: boolean }) {
-  const { data, isLoading } = useGameRecruits(enabled)
-  if (isLoading) return <ListSkeleton />
+  // Sin esqueleto de carga, a propósito. Los renglones de ejemplo son datos
+  // FIJOS del cliente: esperar a que conteste el servidor para dibujarlos es
+  // cobrarle un viaje de red a algo que ya está en el bundle, y lo único que se
+  // veía mientras tanto era una caja gris.
+  //
+  // El costo es que quien YA tiene reclutas ve los de ejemplo un instante antes
+  // de que lleguen los suyos, la primera vez de la sesión. Es un cambio de
+  // relleno a contenido en la misma forma —se lee como que se completó, no como
+  // que decía otra cosa— y de ahí en más el caché lo tiene resuelto.
+  const { data } = useGameRecruits(enabled)
   return (
     <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain py-1">
       <ListaDeReclutas entries={data?.entries ?? []} />
